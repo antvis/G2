@@ -13,3 +13,9 @@
 * fix: tooltip corsshair遮盖点的问题；
 * fix: treemap 字段写死的问题。
 
+## 1.2.2
+* fix: 修复Safari浏览器下，时间戳含‘Z’出错问题；
+* fix: 修复仪表盘白边；
+* fix: 修复饼图文本重叠的问题；
+* fix: 饼图选中动画bug；
+* refactor: 优化 tooltip 出现的效果。
