@@ -1,0 +1,31 @@
+{
+  "name": "g2",
+  "version": "1.2.0",
+  "description": "An implementation of the Grammar of Graphics in javascript",
+  "keywords": [
+    "g2",
+    "chart",
+    "grammar"
+  ],
+  "homepage": "https://github.com/antvis/g2",
+  "author": "dxq613 <dxq613@gmail.com>",
+  "contributors": [
+    "simaQ <sima.zhang1990@gmail.com>",
+    "dori <418466938@qq.com>",
+    "kaiailu <hankaiai@126.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antvis/g2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/antvis/g2/issues"
+  },
+  "licenses": "GPL",
+  "files": [
+    "LICENSE",
+    "HISTORY.md",
+    "index.js",
+    "README.md"
+  ]
+}
