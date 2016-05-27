@@ -10,7 +10,7 @@ Want to learn more? See the [tutorial](https://g2.alipay.com/tutorial/).
 
 For examples, see the [demo gallery](https://g2.alipay.com/demo/).
 
-Special thanks to Leland Wilkinson, the anthor of 《The Grammar Of Graphics》,  this book served as the foundation for G2. 
+Special thanks to Leland Wilkinson, the author of 《The Grammar Of Graphics》,  whose book served as the foundation for G2. 
 
 ## Install
 
