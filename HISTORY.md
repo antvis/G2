@@ -28,3 +28,12 @@
 * fix: 修复 treemap 部分分层边框无法绘制的问题；
 * fix: 修复 tooltip 辅助线首次出现的位置问题。
 * fix: 修复 axis label 旋转text-anchor失效问题。
+
+## 1.2.4
+* feat: 支持图表宽度自适应配置属性 forceFit；
+* feat: 支持不同图例单独设置显示位置，详见 [demo](https://g2.alipay.com/demo/01-point/cat-linear.html)；
+* feat: 为 Linear、Time 类型度量添加 tickInterval 属性，用于指定坐标轴各个标度点的间距，详见 [tickInterval](https://g2.alipay.com/demo/14-other/waterfall.html)；
+* fix: 修复区域图不支持连续的null值的问题；
+* fix: 修复字体大小无法设置；
+* fix: 修复创建 chart 对象时使用 container 属性导致原容器DOM id 属性被覆盖的问题；
+* fix: 修复极坐标下动画的旋转中心；
