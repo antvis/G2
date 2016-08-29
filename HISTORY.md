@@ -2,6 +2,24 @@
 
 ---
 
+## 2.0.0
+- feat: 自定义 shape；
+- feat: 多视图 View 功能，支持图表组合和异构数据的绘制；
+- feat: 新增 edge 几何标记，用于支持关系图的绘制；
+
+**移除的功能**
+- delete: chart.legendVisible() 废除，不再支持；
+- delete: chart.legend('left|top|right|bottom') （即原先直接传入位置字符串来设定图例位置 ） 废除，不再支持；
+- delete: 移除了部分 G2 默认提供的 shape:
+
+对应的 GEOM  |  废弃的 shape
+--- | ---
+point |  pointerArrow
+point | pointerLine
+point  | pointerRect
+interval | stroke 
+polygon | stroke
+
 ## 1.2.7
 * fix： 修复点图和区域图第一个值为 null 时报错。
 * fix： 修复极坐标 Dodge。
