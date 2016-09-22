@@ -2,6 +2,16 @@
 
 ---
 
+## 2.0.2
+
+* feat: 多视图（view）图例支持，[demo](https://g2.alipay.com/demo/01-point/scatter-matrix.html)；
+* feat: 支持数据源中记录包含不同属性值的场景，此时 chart.source() 的时候需要传入 names 数组，例如 chart.source(data,defs,names)；
+* feat: 地理投影坐标系坐标轴平滑处理， [demo](https://g2.alipay.com/demo/10-map/world-albers.html)；
+* feat: 图例取消选择时字体置灰；
+* optimize: 优化图表动画性能；
+* fix: 修复图例列定义的别名不生效的问题，详见 [issue](https://github.com/antvis/feedback/issues/80)；
+* fix: 修复数据源为空的报错问题。
+
 ## 2.0.1
 
 * fix： 修复分面绘制时包含统计语法未进行度量训练的问题；
