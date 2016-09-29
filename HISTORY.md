@@ -2,6 +2,14 @@
 
 ---
 
+## 2.0.3
+
+* feat: 新增螺旋坐标系，详见 [api](https://g2.alipay.com/api/index.html#coord)；
+* feat: 根据边距自动计算自定义 html tooltip 位置；
+* fix: 修复线图 tooltip 部分不展示的问题；
+* fix: 修复饼图只有一项数据时 label 不展示的问题；
+* fix: 修复折线图在极坐标系下转曲绘制错误问题。
+
 ## 2.0.2
 
 * feat: 多视图（view）图例支持，[demo](https://g2.alipay.com/demo/01-point/scatter-matrix.html)；
