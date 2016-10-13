@@ -2,6 +2,13 @@
 
 ---
 
+## 2.0.4
+
+* refactor: 优化 G2 映射后的数据结构，解决原始数据中属性名同 G2 关键字（x y color size 等）冲突问题；
+* refactor: 优化 Stat.map.center() 方法，空值不执行统计；
+* fix: 修复区域图首条数据鼠标 hover 时绘图区域蒙白问题；
+* fix: 修复分面 Facet 度量未统一的问题，各个分面的坐标轴范围如果不统一在可视化上没有意义的。
+
 ## 2.0.3
 
 * feat: 新增螺旋坐标系，详见 [api](https://g2.alipay.com/api/index.html#coord)；
