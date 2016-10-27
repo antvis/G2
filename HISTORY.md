@@ -2,6 +2,19 @@
 
 ---
 
+## 2.0.5
+
+* feat: 新添加 chart.guide().html() 方法，支持自定义 html，[详见](https://g2.alipay.com/tutorial/guide.html#辅助html)。
+* feat: 优化右侧边缘 tooltip 显示，当宽大于 plot 宽两倍的时候，顶左边；
+* feat: tooltip 增加自定义html边距自动检测；
+* fix: 双轴图例显示问题；
+* fix: 修复连续图例两端文本显示错误问题；
+* fix: 修复连续类型数据 tooltip 生效问题；
+* fix: 修复饼图相同占比不同类别 tooltip 显示结果相同的问题。
+* fix: 修复坐标轴 tickCount 设置为 1 时导致坐标轴文本渲染错误；
+* fix: 修复图例取消选中项不受 word 参数控制问题；
+* fix: 修复分类类型数据图表化后顺序错乱问题。
+
 ## 2.0.4
 
 * refactor: 优化 G2 映射后的数据结构，解决原始数据中属性名同 G2 关键字（x y color size 等）冲突问题；
