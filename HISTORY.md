@@ -2,6 +2,10 @@
 
 ---
 
+## 2.0.6
+
+* fix: 修复 chart.guide().html() 无法清除的问题；
+
 ## 2.0.5
 
 * feat: 新添加 chart.guide().html() 方法，支持自定义 html，[详见](https://g2.alipay.com/tutorial/guide.html#辅助html)。
