@@ -2,6 +2,14 @@
 
 ---
 
+## 2.1.0
+
+* feat: 新增 高交互动画
+* feat: 新增 连续数据过滤 chart.filter()
+* feat: 新增 快照功能 snapshot
+* fix: 连续图例在bottom、top时应交换宽高
+
+
 ## 2.0.6
 
 * fix: 修复 chart.guide().html() 无法清除的问题；
