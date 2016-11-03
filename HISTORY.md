@@ -2,6 +2,12 @@
 
 ---
 
+## 2.1.1
+
+* fix: Aniamte labelLine id 识别错误
+* fix: Animate label 显示错误
+* fix: Animate fanIn 入场动画改进
+
 ## 2.1.0
 
 * feat: 新增高交互动画；
