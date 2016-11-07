@@ -2,6 +2,10 @@
 
 ---
 
+## 2.1.2
+
+* fix: Aniamte CPU 问题
+
 ## 2.1.1
 
 * fix: Aniamte labelLine id 识别错误
@@ -79,7 +83,7 @@
 point |  pointerArrow
 point | pointerLine
 point  | pointerRect
-interval | stroke 
+interval | stroke
 polygon | stroke
 
 ## 1.2.7
