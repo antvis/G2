@@ -2,21 +2,30 @@
 
 ---
 
+## 2.1.3
+
+* refactor: 优化 tooltip 查找性能；
+* fix: 修复 changSize 的时候 guide html 反复绘制的问题。
+
 ## 2.1.2
 
-* fix: Aniamte CPU 问题
+* fix: Aniamte CPU 问题。
 
 ## 2.1.1
 
-* fix: Aniamte labelLine id 识别错误
-* fix: Animate label 显示错误
-* fix: Animate fanIn 入场动画改进
+* fix: Aniamte labelLine id 识别错误；
+* fix: Animate label 显示错误；
+* fix: Animate fanIn 入场动画改进。
 
 ## 2.1.0
 
 * feat: 新增高交互动画；
 * feat: 新增连续数据过滤 chart.filter()；
 * fix: 连续图例在bottom、top时应交换宽高。
+
+## 2.0.7
+
+* fix: Aniamte CPU 问题。
 
 ## 2.0.6
 
