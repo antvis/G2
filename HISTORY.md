@@ -2,6 +2,15 @@
 
 ---
 
+## 2.1.4
+
+* feat: 添加打点监控开关 `G2.track(boolean)`，默认打开，用户通过设置 `G2.track(false)` 关闭；
+* feat: 鼠标移动事件 `plotmove` 返回 `shape` 属性，表示当前鼠标所在的 shape；
+* feat: 列定义中支持分类类型声明 range 属性（数组类型，[min, max]，min 和 max 均为 0~1 范围的数据），用于指定图形在坐标轴上收尾位置；
+* refactor: 优化 `chart.source(data, cfgObj, nameArr)`  方法，`nameArr` 参数作为附加字段，而不是全部字段；
+* refactor: 优化生成图例的顺序，与用户声明的图形属性（size、shape、color）顺序相同；
+* fix: 修复二维情况下点图 dodge 发生 stack 的问题。
+
 ## 2.1.3
 
 * refactor: 优化 tooltip 查找性能；
