@@ -6,7 +6,7 @@
 
 [G2](https://g2.alipay.com) is a JavaScript library for visualizing data based on the Grammar of Graphics. G2 helps you bring data to life using Canvas and HTML. It provides a set of grammars, takes users beyond a limited set of charts to an almost unlimited world of graphical forms.
 
-Want to learn more? See the [tutorial](https://g2.alipay.com/tutorial/).
+Want to learn more? See the [guide](../../wiki/How-to-create-a--chart),[API](../../wiki/API),[tutorial](https://g2.alipay.com/tutorial/).
 
 For examples, see the [demo gallery](https://g2.alipay.com/demo/).
 
