@@ -2,6 +2,11 @@
 
 ---
 
+## 2.1.5
+
+* fix: 修复 2.1.4 版本 **Cannot read property 'maxY' of undefined** 问题；
+* fix: 修复坐标轴中使用自定义 html 显示 label 无法销毁的问题。
+
 ## 2.1.4
 
 * feat: 添加打点监控开关 `G2.track(boolean)`，默认打开，用户通过设置 `G2.track(false)` 关闭；
