@@ -2,6 +2,19 @@
 
 ---
 
+## 2.2.0
+* feat: 丰富图例交互，详见教程[图例筛选模式设置](https://g2.alipay.com/tutorial/legend-selectedmode.html)：
+  1. 支持鼠标 hover 高亮相关图形；
+  2. 支持单选多选模式；
+  3. 支持混合图表的图例筛选；
+  4. 支持连续图例的筛选。
+* feat: 支持鼠标框选交互，详见教程[图表框选交互 ](https://g2.alipay.com/tutorial/rangeselect-event.html)；
+* feat: 支持 geom 几何标记的选中交互，详见教程[geom 选择交互](https://g2.alipay.com/tutorial/geom-select.html)；
+* feat: 新增关系类图表：[弧长链接图](https://g2.alipay.com/demo/13-link/arcDiagram.html)、[和弦图](https://g2.alipay.com/demo/13-link/chordDiagram.html)、[桑基图](https://g2.alipay.com/demo/13-link/sankey.html);
+* feat: 新增 `chart.downloadImage()` 方法，提供图表下载功能。
+* fix: 修复 getPosition 当原始数据 y 为零时失效的问题；
+* fix: 修复 time 度量设置 min 和 max 不生效的问题；
+
 ## 2.1.5
 
 * fix: 修复 2.1.4 版本 **Cannot read property 'maxY' of undefined** 问题；
