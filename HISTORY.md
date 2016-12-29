@@ -2,6 +2,13 @@
 
 ---
 
+## 2.2.1
+* refactor: 优化鼠标当前位置所在图形的查找；
+* refactor: 优化几何标记 Geom 选中交互，增加 `animate` 和 `cancelable` 配置项，详见 [api](https://g2.alipay.com/api/geom.html#selected)；
+* refactor: 支持图表数据源中字段名包含空格的情况，如 "an apple"；
+* fix: 修复极坐标旋转圆心变化的问题；
+* fix: 修复开启框选时鼠标点击以及高精屏下框选报错的问题；
+
 ## 2.2.0
 * feat: 丰富图例交互，详见教程[图例筛选模式设置](https://g2.alipay.com/tutorial/legend-selectedmode.html)：
   1. 支持鼠标 hover 高亮相关图形；
