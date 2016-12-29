@@ -4,6 +4,7 @@
 
 [G2](https://g2.alipay.com) 是一个由纯 javascript 编写基于 Canvas 的强大的语义化图表生成工具，它提供了一整套图形语法，可以让用户通过简单的语法搭建出无数种图表，并且集成了大量的统计工具，支持多种坐标系绘制，可以让用户自由得定制图表，是为大数据时代而准备的强大的可视化工具。
 
+
 [G2](https://g2.alipay.com) is a JavaScript library for visualizing data based on the Grammar of Graphics. G2 helps you bring data to life using Canvas and HTML. It provides a set of grammars, takes users beyond a limited set of charts to an almost unlimited world of graphical forms.
 
 Want to learn more? See the [guide](../../wiki/How-to-create-a--chart),[API](../../wiki/API),[tutorial](https://g2.alipay.com/tutorial/).
@@ -48,3 +49,19 @@ chart.render();
 ```
 
 More details at [G2 site](https://g2.alipay.com).
+
+
+### 体验改进计划说明
+
+为了更好服务用户，G2在 2.1.4 版本后第一次加载时，会将 URL 等信息发送回 G2 服务器：
+
+```
+https://kcart.alipay.com/web/bi.do
+```
+除了 URL 与 G2 版本信息外，不会收集任何其他信息，一切为了能对G2的运行情况有更多了解，以更好服务于用户。如有担心，可以通过下面的代码关闭：
+
+```js
+// 关闭 G2 的体验改进计划打点请求
+G2.track(false)
+
+```
