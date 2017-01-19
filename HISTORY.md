@@ -2,22 +2,31 @@
 
 ---
 
+## 2.2.2
+feat: 新增功能：chart 下创建的 view 默认共享[列定义](https://antv.alipay.com/g2/doc/tutorial/start/col-defs.html)、坐标轴 axis 配置、坐标系 coord 配置，即如果 view 不自己定义则默认同 chart 的配置相同；（所以这里对于地理投影坐标来说，直接在 chart 上声明坐标系类型就可以全部统一了），如果 view 自己定义了相应的配置，则以自己的为准，详见 [view](https://antv.alipay.com/g2/api/view.html)。
+feat: 新增 `syncXYScales` 属性，由用户选择是否需要统一所有视图的度量，使用详见 [chart API](https://antv.alipay.com/g2/api/chart.html#syncxyscales)；
+refactor: 优化坐标轴刻度线个数计算；
+fix: 修复 tooltipmarker 覆盖 tooltip 的问题；
+fix: 修复线图层叠颜色的问题；
+fix: 修复时间格式在 firefox 下的问题；
+fix: 修复层叠直方图 active 的问题。
+
 ## 2.2.1
 * refactor: 优化鼠标当前位置所在图形的查找；
-* refactor: 优化几何标记 Geom 选中交互，增加 `animate` 和 `cancelable` 配置项，详见 [api](https://g2.alipay.com/api/geom.html#selected)；
+* refactor: 优化几何标记 Geom 选中交互，增加 `animate` 和 `cancelable` 配置项，详见 [api](https://antv.alipay.com/g2/api/geom.html#selected)；
 * refactor: 支持图表数据源中字段名包含空格的情况，如 "an apple"；
 * fix: 修复极坐标旋转圆心变化的问题；
 * fix: 修复开启框选时鼠标点击以及高精屏下框选报错的问题；
 
 ## 2.2.0
-* feat: 丰富图例交互，详见教程[图例筛选模式设置](https://g2.alipay.com/tutorial/legend-selectedmode.html)：
+* feat: 丰富图例交互，详见教程[图例筛选模式设置](https://antv.alipay.com/g2/doc/tutorial/start/legend.html#图例的选择模式设置)：
   1. 支持鼠标 hover 高亮相关图形；
   2. 支持单选多选模式；
   3. 支持混合图表的图例筛选；
   4. 支持连续图例的筛选。
-* feat: 支持鼠标框选交互，详见教程[图表框选交互 ](https://g2.alipay.com/tutorial/rangeselect-event.html)；
-* feat: 支持 geom 几何标记的选中交互，详见教程[geom 选择交互](https://g2.alipay.com/tutorial/geom-select.html)；
-* feat: 新增关系类图表：[弧长链接图](https://g2.alipay.com/demo/13-link/arcDiagram.html)、[和弦图](https://g2.alipay.com/demo/13-link/chordDiagram.html)、[桑基图](https://g2.alipay.com/demo/13-link/sankey.html);
+* feat: 支持鼠标框选交互，详见教程[图表框选交互 ](https://antv.alipay.com/g2/doc/tutorial/start/action.html#图表框选交互)；
+* feat: 支持 geom 几何标记的选中交互，详见教程[geom 选择交互](https://antv.alipay.com/g2/doc/tutorial/start/action.html#几何标记-geom-的选中)；
+* feat: 新增关系类图表：[弧长链接图](https://antv.alipay.com/g2/demo/13-link/arcDiagram.html)、[和弦图](https://antv.alipay.com/g2/demo/13-link/chordDiagram.html)、[桑基图](https://antv.alipay.com/g2/demo/13-link/sankey.html);
 * feat: 新增 `chart.downloadImage()` 方法，提供图表下载功能。
 * fix: 修复 getPosition 当原始数据 y 为零时失效的问题；
 * fix: 修复 time 度量设置 min 和 max 不生效的问题；
@@ -38,28 +47,24 @@
 
 ## 2.1.3
 
-* refactor: 优化 tooltip 查找性能；
+* refactor: 优化 tooltip 查找性能;
 * fix: 修复 changSize 的时候 guide html 反复绘制的问题。
 
 ## 2.1.2
 
-* fix: Aniamte CPU 问题。
+* fix: Aniamte CPU 问题
 
 ## 2.1.1
 
-* fix: Aniamte labelLine id 识别错误；
-* fix: Animate label 显示错误；
-* fix: Animate fanIn 入场动画改进。
+* fix: Aniamte labelLine id 识别错误
+* fix: Animate label 显示错误
+* fix: Animate fanIn 入场动画改进
 
 ## 2.1.0
 
 * feat: 新增高交互动画；
 * feat: 新增连续数据过滤 chart.filter()；
 * fix: 连续图例在bottom、top时应交换宽高。
-
-## 2.0.7
-
-* fix: Aniamte CPU 问题。
 
 ## 2.0.6
 
@@ -70,7 +75,7 @@
 
 ## 2.0.5
 
-* feat: 新添加 chart.guide().html() 方法，支持自定义 html，[详见](https://g2.alipay.com/tutorial/guide.html#辅助html)。
+* feat: 新添加 chart.guide().html() 方法，支持自定义 html，[详见](https://antv.alipay.com/g2/doc/tutorial/start/guide.html#辅助html)。
 * feat: 优化右侧边缘 tooltip 显示，当宽大于 plot 宽两倍的时候，顶左边；
 * feat: tooltip 增加自定义html边距自动检测；
 * fix: 双轴图例显示问题；
@@ -90,7 +95,7 @@
 
 ## 2.0.3
 
-* feat: 新增螺旋坐标系，详见 [api](https://g2.alipay.com/api/index.html#coord)；
+* feat: 新增螺旋坐标系，详见 [api](https://antv.alipay.com/g2/api/chart.html#coord)；
 * feat: 根据边距自动计算自定义 html tooltip 位置；
 * fix: 修复线图 tooltip 部分不展示的问题；
 * fix: 修复饼图只有一项数据时 label 不展示的问题；
@@ -98,9 +103,9 @@
 
 ## 2.0.2
 
-* feat: 多视图（view）图例支持，[demo](https://g2.alipay.com/demo/01-point/scatter-matrix.html)；
+* feat: 多视图（view）图例支持，[demo](https://antv.alipay.com/g2/demo/01-point/scatter-matrix.html)；
 * feat: 支持数据源中记录包含不同属性值的场景，此时 chart.source() 的时候需要传入 names 数组，例如 chart.source(data,defs,names)；
-* feat: 地理投影坐标系坐标轴平滑处理， [demo](https://g2.alipay.com/demo/10-map/world-albers.html)；
+* feat: 地理投影坐标系坐标轴平滑处理， [demo](https://antv.alipay.com/g2/demo/10-map/world-albers.html)；
 * feat: 图例取消选择时字体置灰；
 * optimize: 优化图表动画性能；
 * fix: 修复图例列定义的别名不生效的问题，详见 [issue](https://github.com/antvis/feedback/issues/80)；
@@ -112,6 +117,7 @@
 * fix： 修复分面动画卡顿的问题。
 
 ## 2.0.0
+
 - feat: 自定义 shape；
 - feat: 多视图 View 功能，支持图表组合和异构数据的绘制；
 - feat: 新增 edge 几何标记，用于支持关系图的绘制；
@@ -130,9 +136,10 @@ interval | stroke
 polygon | stroke
 
 ## 1.2.7
-* fix： 修复点图和区域图第一个值为 null 时报错。
-* fix： 修复极坐标 Dodge。
-* fix： time 类型下，只有一个数据时min、max报错。
+
+* fix： 修复第一个值为null时报错；
+* fix： 修复极坐标Dodge；
+* fix： time类型下，只有一个数据时min、max报错。
 
 ## 1.2.6
 * fix： 修复 tooltip 去重中颜色的判断。
@@ -144,12 +151,12 @@ polygon | stroke
 
 ## 1.2.4
 * feat: 支持图表宽度自适应配置属性 forceFit；
-* feat: 支持不同图例单独设置显示位置，详见 [demo](https://g2.alipay.com/demo/01-point/cat-linear.html)；
-* feat: 为 Linear、Time 类型度量添加 tickInterval 属性，用于指定坐标轴各个标度点的间距，详见 [tickInterval](https://g2.alipay.com/demo/14-other/waterfall.html)；
+* feat: 支持不同图例单独设置显示位置；
+* feat: 为 Linear、Time 类型度量添加 tickInterval 属性，用于指定坐标轴各个标度点的间距；
 * fix: 修复区域图不支持连续的null值的问题；
 * fix: 修复字体大小无法设置；
 * fix: 修复创建 chart 对象时使用 container 属性导致原容器DOM id 属性被覆盖的问题；
-* fix: 修复极坐标下动画的旋转中心；
+* fix: 修复极坐标下动画的旋转中心。
 
 ## 1.2.3
 * refactor: 图例自动换行
@@ -157,7 +164,7 @@ polygon | stroke
   * fix: theme 中 spacingX 及 spacingY，概念为每个图例之间的左右间距及上下间距。在默认theme中根据视觉进行了优化。
 * feat: chart.guide() 新添加 min 和 max 关键字，用于快速定位坐标轴起点和终点；
 * fix: 修复 treemap 部分分层边框无法绘制的问题；
-* fix: 修复 tooltip 辅助线首次出现的位置问题。
+* fix: 修复 tooltip 辅助线首次出现的位置问题；
 * fix: 修复 axis label 旋转text-anchor失效问题。
 
 ## 1.2.2
@@ -177,3 +184,4 @@ polygon | stroke
 * feat: 支持简单的加法运算符，简化了区间数据图表的绘制；
 * feat: 增加 map 坐标系，用于地图投影的绘制；
 * feat: 新增两套主题，并修改默认主题。
+
