@@ -2,19 +2,28 @@
 
 ---
 
+## 2.2.3
+
+* feat：`chart.legend()` 方法添加 `marker` 属性，支持指定 `point` 几何标记支持的所有 shape（除去 'rect'），详见 [api](https://antv.alipay.com/g2/api/chart.html#legend)，默认值为 `circle`；
+* feat：`chart.guide()` 增加回调函数支持动态更新，[实例](https://antv.alipay.com/g2/demo/18-other/dynamic-guide.html)；
+* improve：完善功能，使绘制的柱状图的 y 轴刻度从 0 开始；
+* improve：完善 log 度量，使其支持 `min: 0` 的设置；
+* fix：修复某些场景（如线图、面积图等） `geom.getData()` 返回结果为空的错误；
+* fix：修复饼图中数值为 0 的类别不能显示文本的问题。
+
 ## 2.2.2
-feat: 新增功能：chart 下创建的 view 默认共享[列定义](https://antv.alipay.com/g2/doc/tutorial/start/col-defs.html)、坐标轴 axis 配置、坐标系 coord 配置，即如果 view 不自己定义则默认同 chart 的配置相同；（所以这里对于地理投影坐标来说，直接在 chart 上声明坐标系类型就可以全部统一了），如果 view 自己定义了相应的配置，则以自己的为准，详见 [view](https://antv.alipay.com/g2/api/view.html)。
-feat: 新增 `syncXYScales` 属性，由用户选择是否需要统一所有视图的度量，使用详见 [chart API](https://antv.alipay.com/g2/api/chart.html#syncxyscales)；
-refactor: 优化坐标轴刻度线个数计算；
-fix: 修复 tooltipmarker 覆盖 tooltip 的问题；
-fix: 修复线图层叠颜色的问题；
-fix: 修复时间格式在 firefox 下的问题；
-fix: 修复层叠直方图 active 的问题。
+* feat: 新增功能：chart 下创建的 view 默认共享[列定义](https://antv.alipay.com/g2/doc/tutorial/start/col-defs.html)、坐标轴 axis 配置、坐标系 coord 配置，即如果 view 不自己定义则默认同 chart 的配置相同；（所以这里对于地理投影坐标来说，直接在 chart 上声明坐标系类型就可以全部统一了），如果 view 自己定义了相应的配置，则以自己的为准，详见 [view](https://antv.alipay.com/g2/api/view.html)。
+* feat: 新增 `syncXYScales` 属性，由用户选择是否需要统一所有视图的度量，使用详见 [chart API](https://antv.alipay.com/g2/api/chart.html#syncxyscales)；
+* improve: 优化坐标轴刻度线个数计算；
+* fix: 修复 tooltipmarker 覆盖 tooltip 的问题；
+* fix: 修复线图层叠颜色的问题；
+* fix: 修复时间格式在 firefox 下的问题；
+* fix: 修复层叠直方图 active 的问题。
 
 ## 2.2.1
-* refactor: 优化鼠标当前位置所在图形的查找；
-* refactor: 优化几何标记 Geom 选中交互，增加 `animate` 和 `cancelable` 配置项，详见 [api](https://antv.alipay.com/g2/api/geom.html#selected)；
-* refactor: 支持图表数据源中字段名包含空格的情况，如 "an apple"；
+* improve: 优化鼠标当前位置所在图形的查找；
+* improve: 优化几何标记 Geom 选中交互，增加 `animate` 和 `cancelable` 配置项，详见 [api](https://antv.alipay.com/g2/api/geom.html#selected)；
+* improve: 支持图表数据源中字段名包含空格的情况，如 "an apple"；
 * fix: 修复极坐标旋转圆心变化的问题；
 * fix: 修复开启框选时鼠标点击以及高精屏下框选报错的问题；
 
@@ -41,13 +50,13 @@ fix: 修复层叠直方图 active 的问题。
 * feat: 添加打点监控开关 `G2.track(boolean)`，默认打开，用户通过设置 `G2.track(false)` 关闭；
 * feat: 鼠标移动事件 `plotmove` 返回 `shape` 属性，表示当前鼠标所在的 shape；
 * feat: 列定义中支持分类类型声明 range 属性（数组类型，[min, max]，min 和 max 均为 0~1 范围的数据），用于指定图形在坐标轴上收尾位置；
-* refactor: 优化 `chart.source(data, cfgObj, nameArr)`  方法，`nameArr` 参数作为附加字段，而不是全部字段；
-* refactor: 优化生成图例的顺序，与用户声明的图形属性（size、shape、color）顺序相同；
+* improve: 优化 `chart.source(data, cfgObj, nameArr)`  方法，`nameArr` 参数作为附加字段，而不是全部字段；
+* improve: 优化生成图例的顺序，与用户声明的图形属性（size、shape、color）顺序相同；
 * fix: 修复二维情况下点图 dodge 发生 stack 的问题。
 
 ## 2.1.3
 
-* refactor: 优化 tooltip 查找性能;
+* improve: 优化 tooltip 查找性能;
 * fix: 修复 changSize 的时候 guide html 反复绘制的问题。
 
 ## 2.1.2
@@ -88,8 +97,8 @@ fix: 修复层叠直方图 active 的问题。
 
 ## 2.0.4
 
-* refactor: 优化 G2 映射后的数据结构，解决原始数据中属性名同 G2 关键字（x y color size 等）冲突问题；
-* refactor: 优化 Stat.map.center() 方法，空值不执行统计；
+* improve: 优化 G2 映射后的数据结构，解决原始数据中属性名同 G2 关键字（x y color size 等）冲突问题；
+* improve: 优化 Stat.map.center() 方法，空值不执行统计；
 * fix: 修复区域图首条数据鼠标 hover 时绘图区域蒙白问题；
 * fix: 修复分面 Facet 度量未统一的问题，各个分面的坐标轴范围如果不统一在可视化上没有意义的。
 
@@ -159,7 +168,7 @@ polygon | stroke
 * fix: 修复极坐标下动画的旋转中心。
 
 ## 1.2.3
-* refactor: 图例自动换行
+* improve: 图例自动换行
   * 废弃 lineHeight 概念，使用 bbox.height 代替。对于大小连续图例，会使其不重叠，同时文本竖直分布不均；
   * fix: theme 中 spacingX 及 spacingY，概念为每个图例之间的左右间距及上下间距。在默认theme中根据视觉进行了优化。
 * feat: chart.guide() 新添加 min 和 max 关键字，用于快速定位坐标轴起点和终点；
@@ -172,15 +181,15 @@ polygon | stroke
 * fix: 修复仪表盘白边；
 * fix: 修复饼图文本重叠的问题；
 * fix: 饼图选中动画bug；
-* refactor: 优化 tooltip 出现的效果。
+* improve: 优化 tooltip 出现的效果。
 
 ## 1.2.1
-* refactor: guide/Arc 算法优化；
+* improve: guide/Arc 算法优化；
 * fix: tooltip corsshair遮盖点的问题；
 * fix: treemap 字段写死的问题。
 
 ## 1.2.0
-* refactor: 精度性能优化，图表的性能是原来的 4+ 倍；
+* improve: 精度性能优化，图表的性能是原来的 4+ 倍；
 * feat: 支持简单的加法运算符，简化了区间数据图表的绘制；
 * feat: 增加 map 坐标系，用于地图投影的绘制；
 * feat: 新增两套主题，并修改默认主题。
