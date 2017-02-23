@@ -2,6 +2,12 @@
 
 ---
 
+## 2.2.4
+
+* fix: 修复 tooltip 不更新的问题；
+* fix: 修复线图绘制使用渐变色，当仅有一条数据时报错的问题（`Failed to execute 'createLinearGradient' on 'CanvasRenderingContext2D': The provided double value is non-finite.`）；
+* feat: 为视图 view 添加 `id` 属性用于唯一标识视图对象，同时添加 `chart.getView(id)` 方法，用于获取对应 id 的视图对象。
+
 ## 2.2.3
 
 * feat：`chart.legend()` 方法添加 `marker` 属性，支持指定 `point` 几何标记支持的所有 shape（除去 'rect'），详见 [api](https://antv.alipay.com/g2/api/chart.html#legend)，默认值为 `circle`；
