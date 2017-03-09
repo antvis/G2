@@ -2,6 +2,16 @@
 
 ---
 
+## 2.2.5 
+
+* feat：`chart.legend()` 方法为**分类类型图例**新增 `formatter` 回调函数，用于图例文本的格式化，详见 [API](https://antv.alipay.com/g2/api/chart.html#legend)，[使用实例](https://antv.alipay.com/g2/demo/05-pie/pie.html)；
+* feat：新增 `chart.cols()` 方法，用于一次性定义多个列定义操作，[API](https://antv.alipay.com/g2/api/chart.html#cols)；
+* improve：优化 interval、schema 两种 geom 生成图形的默认宽度计算策略；
+* fix：修复地理坐标系 tooltip 报错问题；
+* fix：修复参与加法运算的数据字段无法通过列定义指定度量类型的问题；
+* fix：修复数据源只有一条记录时 tooltipmarker 无法展示的问题。
+
+
 ## 2.2.4
 
 * fix: 修复 tooltip 不更新的问题；
