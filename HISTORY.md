@@ -2,6 +2,12 @@
 
 ---
 
+## 2.2.6
+
+* fix: 修复绘制 intervalDodge 时，当 x 轴数据类型为 timeCat 且仅有一个分类时显示不正确的问题；
+* fix: 修复区间柱状图，相同 x 不同 y 区间下鼠标移动 tooltip 不改变的问题；
+* fix: 修复 tooltip 中展示 undefined 的问题。
+
 ## 2.2.5 
 
 * feat：`chart.legend()` 方法为**分类类型图例**新增 `formatter` 回调函数，用于图例文本的格式化，详见 [API](https://antv.alipay.com/g2/api/chart.html#legend)，[使用实例](https://antv.alipay.com/g2/demo/05-pie/pie.html)；
