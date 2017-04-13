@@ -2,6 +2,15 @@
 
 ---
 
+## 2.2.7
+
+* fix: 修复饼图标签线（labelLine）有交叉的问题；
+* fix: 不绘制点图中纵轴的数据值为 null 的点；
+* fix: 修复层叠柱状图（intervaDodge）分组间距计算错误的问题；
+* fix: 修复多 view 下同步度量下，当个 view changeData 后同步度量失效的情况；
+* improve: 当线图（line）、区域图（area）只有一条数据时，以点的形式绘制；
+* improve: tooltip 的辅助线调整至 tooltipmarker（圆点）后部。
+
 ## 2.2.6
 
 * fix: 修复绘制 intervalDodge 时，当 x 轴数据类型为 timeCat 且仅有一个分类时显示不正确的问题；
