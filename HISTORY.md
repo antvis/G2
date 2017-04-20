@@ -2,6 +2,13 @@
 
 ---
 
+## 2.3.0
+
+- feat: 添加动画自定义接口，详见 [api](https://antv.alipay.com/g2/api/animate.html)；
+- feat: 支持配置项式声明，详见 [api](https://antv.alipay.com/g2/api/chart-options.html)；
+- improve: 动画效果优化；
+- improve: 绘图底层性能优化。
+
 ## 2.2.7
 
 * fix: 修复饼图标签线（labelLine）有交叉的问题；
