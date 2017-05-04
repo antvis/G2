@@ -2,6 +2,16 @@
 
 ---
 
+## 2.3.1
+
+- feat：坐标轴网格线支持奇偶背景设置，[demo](https://antv.alipay.com/g2/demo/14-radar/radar-line.html)；
+- feat：支持全局字体设置 `G2.Global.fontFamily`；
+- feat: 统一层叠柱状图，层叠区域图的图形、tooltip 以及图例的顺序，[demo](https://antv.alipay.com/g2/demo/03-area/area-percent.html)；
+- fix: 修复饼图文本层叠、文本连接线交叉的问题；
+- fix: 饼图文本线在动画时不显示，暂时停止动画；
+- improve: 设置 labels 的属性 custom 为 true 时生成的 html 不再自动换行；
+- improve: 设置 `G2.Global.showSinglePoint` 控制区域图、折线图仅有一个点时是否显示成点，默认为 false。
+
 ## 2.3.0
 
 - feat: 添加动画自定义接口，详见 [api](https://antv.alipay.com/g2/api/animate.html)；
