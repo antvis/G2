@@ -2,6 +2,16 @@
 
 ---
 
+## 2.3.2 
+
+- feat: 自定义 shape 场景下，支持覆写 `getActiveCfg` 方法；
+- feat: chart 支持设置 pixelRatio 属性；
+- fix: 修复时间类型（time 或者 timeCat）数据为 0 时被转换成当前时间的问题；
+- fix: 修复坐标轴第一条网格线未绘制的问题；
+- fix: 修复全局关闭坐标轴标题的显示（如 `G2.Global.axis.left.title = null`）无法生效的问题；
+- fix: 修复窗口改变时 chart 报错的问题；
+- improve: 优化 `Stat.link.sankey` 变换函数，提升桑基图数据处理性能；
+
 ## 2.3.1
 
 - feat：坐标轴网格线支持奇偶背景设置，[demo](https://antv.alipay.com/g2/demo/14-radar/radar-line.html)；
