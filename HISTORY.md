@@ -2,7 +2,11 @@
 
 ---
 
-## 2.3.2 
+## 2.3.3
+- fix: 自定义的列定义设置属性值无法覆盖 global 上的定义
+- improve: 优化 toFixed 位数小于 20，防止报错
+
+## 2.3.2
 
 - feat: 自定义 shape 场景下，支持覆写 `getActiveCfg` 方法；
 - feat: chart 支持设置 pixelRatio 属性；
@@ -44,7 +48,9 @@
 * fix: 修复区间柱状图，相同 x 不同 y 区间下鼠标移动 tooltip 不改变的问题；
 * fix: 修复 tooltip 中展示 undefined 的问题。
 
-## 2.2.5 
+## 2.2.5
+
+`2017-03-09`
 
 * feat：`chart.legend()` 方法为**分类类型图例**新增 `formatter` 回调函数，用于图例文本的格式化，详见 [API](https://antv.alipay.com/g2/api/chart.html#legend)，[使用实例](https://antv.alipay.com/g2/demo/05-pie/pie.html)；
 * feat：新增 `chart.cols()` 方法，用于一次性定义多个列定义操作，[API](https://antv.alipay.com/g2/api/chart.html#cols)；
@@ -53,14 +59,19 @@
 * fix：修复参与加法运算的数据字段无法通过列定义指定度量类型的问题；
 * fix：修复数据源只有一条记录时 tooltipmarker 无法展示的问题。
 
-
 ## 2.2.4
+
+`2017-02-23`
 
 * fix: 修复 tooltip 不更新的问题；
 * fix: 修复线图绘制使用渐变色，当仅有一条数据时报错的问题（`Failed to execute 'createLinearGradient' on 'CanvasRenderingContext2D': The provided double value is non-finite.`）；
 * feat: 为视图 view 添加 `id` 属性用于唯一标识视图对象，同时添加 `chart.getView(id)` 方法，用于获取对应 id 的视图对象。
 
+
+
 ## 2.2.3
+
+`2017-02-16`
 
 * feat：`chart.legend()` 方法添加 `marker` 属性，支持指定 `point` 几何标记支持的所有 shape（除去 'rect'），详见 [api](https://antv.alipay.com/g2/api/chart.html#legend)，默认值为 `circle`；
 * feat：`chart.guide()` 增加回调函数支持动态更新，[实例](https://antv.alipay.com/g2/demo/18-other/dynamic-guide.html)；
@@ -70,6 +81,7 @@
 * fix：修复饼图中数值为 0 的类别不能显示文本的问题。
 
 ## 2.2.2
+
 * feat: 新增功能：chart 下创建的 view 默认共享[列定义](https://antv.alipay.com/g2/doc/tutorial/start/col-defs.html)、坐标轴 axis 配置、坐标系 coord 配置，即如果 view 不自己定义则默认同 chart 的配置相同；（所以这里对于地理投影坐标来说，直接在 chart 上声明坐标系类型就可以全部统一了），如果 view 自己定义了相应的配置，则以自己的为准，详见 [view](https://antv.alipay.com/g2/api/view.html)。
 * feat: 新增 `syncXYScales` 属性，由用户选择是否需要统一所有视图的度量，使用详见 [chart API](https://antv.alipay.com/g2/api/chart.html#syncxyscales)；
 * improve: 优化坐标轴刻度线个数计算；
@@ -252,3 +264,172 @@ polygon | stroke
 * feat: 增加 map 坐标系，用于地图投影的绘制；
 * feat: 新增两套主题，并修改默认主题。
 
+## 1.1.5
+
+* fix: 修复全局设置plotCfg facetCfg 无法生效的问题；
+* fix: 修复饼图文本重叠的问题，#146。
+
+## 1.1.4
+
+* improve: 优化 polygon 图形的文本颜色，默认使用内部文本的样式；
+* feat: 新增 chart.getPosition({xDim: value, yDim: value})接口，用于原始数据到对应画布坐标的转换。
+
+## 1.1.3
+
+* fix: 混合图例的 marker 颜色未渲染出来；
+* fix: intervalDodge 当数组只有一个分组时，绘制有问题；
+* fix: chart.showTooltip() 调用无效；
+* fix: 半圆饼图动画问题: g-canvas 升级 1.3.21， g-animate 升级 1.2.3。
+
+## 1.1.2
+
+* fix: 饼图中数据占比很小的时导致文本重叠并且展示不正确；
+* fix: 当数据中都一个记录值为 undefined 的时候，图例绘制出错；
+* fix: 热力图中使用 log 度量时，透明度没有参与 log 度量。
+
+## 1.1.1
+
+* 调整多边形(polygon)在极坐标下的文本展示；
+* 支持颜色渐变方式的连续图例；
+* 一些 BUG 修复：
+  1. 饼图 label 展示的问题；
+  2. 相同图形同类别的 tooltip 取值问题；
+  3. 饼图选中动画问题；
+  4. treemap 文本问题。
+
+## 1.1.0
+
+* 替换了底层的绘图库，优化渲染性能和tooltip性能；
+* 更改了生成shape的机制，简化接口；
+* 补充单元测试，代码覆盖 98%，分支90%以上；
+* 接口优化。
+
+## 1.0.5
+
+* 修复饼图bug。
+
+## 1.0.4
+
+* 所有图表的文本调整，不在跟随坐标系的旋转而变化。
+
+## 1.0.3
+
+* 如果tooltip的title指定的文本不是数据的字段，则直接显示；
+* 初始化代码存在问题；
+* 调整文本位置和角度；
+* 坐标系tranpose后label 的offset的方向错误；
+* 等高线 tooltip报错。
+
+## 1.0.2
+
+* 修复tooltip优化带来的部分bug
+  * 选中饼图时残存白线
+  * change data 导致 tooltip不可用
+
+## 1.0.1
+
+* 优化tooltip性能
+
+## 1.0
+
+* 正式发布
+
+## 0.9.18
+
+* 多个y轴的图表，各自生成对应的图例
+* 统计函数在外部执行
+* tooltip的信息获取
+* 需要把分类数据从通过度量把索引值改成对应的数据，而不是原始数据。
+* 时间数据转换成为时间戳
+* 数据将分类类型、时间类型转换成数字的时间点需要调整
+* changeData时，分类类别发生改变时，scale未更新
+* scale 的ticks覆盖问题
+* chart.line().label() 的 label 多个 chart 共享
+* 一维的箱型图，tooltip存在问题
+* G2.Global.shape 设置 point 配置不生效
+
+## 0.9.15
+
+* 代码放到页头header内部报错,原因是计算颜色时，需要添加一个临时元素，未考虑 document.body为空的情形
+* 图例标题和文本太近
+* 添加蜡烛图
+* 自动计算time类型的scale，而不需要用户指定，仅能计算字符串日期格式，时间戳无法判断
+* 时间坐标系，interval无法计算宽度，均匀的时间类型已经处理，非均匀的暂时不作处理
+* 计算值是数组的字段对应的类型
+* 如果x坐标轴上的文本比较长时，会遮住图例，所以图例的位置需要向上调整
+* 图例的一系列问题：
+  * 图例顶部和底部位置的默认位置
+  * 多个图例时的对齐问题和位置调整
+* summary.percent('time*value') 统计函数，仅返回了占比，没有将原始的value 进行累加
+* 自定义tooltip移动时的闪烁问题，tooltip的格式化
+* 控制不显示tooltip
+* area图spline的支持,限定范围,统一smooth和spline ，支持smooth形式下的断点
+* 添加漏斗图
+* point.dodge 点的位置存在问题
+* 增加time category 类型的度量，处理股票图不连续的问题
+* 纵向坐标轴title不存在的时候，文本不需要自动旋转
+* 度量改造，统一数据类型
+* 柱状图的transpose 功能，其他图形的transpose功能未实现
+* 从左向右的动画错误
+* 坐标轴标题不居中
+* scale 在处理跟预期数据格式不相符时，translate和scale会发生问题
+
+## 0.9.14
+
+* 图表颜色渐变
+* 多图tooltip信息的去重
+* 支持多图联动，在一个图表上移动，显示所有的tooltip
+* 图表事件支持
+  + 增加了plotmove,plotenter,plotleave的支持
+  + 增加了tooltipshow和tooltiphide事件
+  + 增加了itemselected,itemunselected,itemselectedchange事件
+* 增加chart开放的的接口
+  + chart.getScale(dim)
+  + chart.getTooltipItems()
+  + chart.getGeoms()
+  + chart.getFacets()
+* 饼图样式的自定义选项，连接线的bug修复
+* 将所有chart对应的3个canvas包入指定的容器，并设置relative
+
+## 0.9.13
+
+* fixed bug of toolitp，隐藏tooltip时，tooltip已经被destroy
+* fixed bug of legend, 连续数据的图例，不可勾选
+* 等高线
+* 支持统计函数的马赛克图
+* 连续调用changeData时报错(tooltip 引起的bug)
+* polygon 支持 desity 、smooth 函数
+* 连续数据的图例，过滤数据时错误(连续数据不再支持数据过滤）
+* 分类scale对应的字段是数字时，过滤出现问题（解决）
+* 统一处理热力图、等高线等多个维度的tooltip的统一实现
+* region 统计函数 range、sd、se实现，confidence interval暂时未实现
+* 镜像分面坐标轴文本显示问题
+* 当分类类型只有一个时，绘图失败
+* 分类interval 自动计算宽度时错误
+
+## 0.9.12
+
+* 二维 kernel 密度函数的支持
+* 三维 kernel 平滑函数的支持
+* 热力图的支持
+* mirror 分面的支持
+* color 渐变色支持
+
+## 0.9.11
+
+* 热力图六边形的支持
+* 辅助线、辅助图片、辅助框等辅助元素的支持
+
+## 0.9.10
+
+* 修复没有gemo，调用clear报错的bug
+* 一维 kernel 密度函数的支持
+* 二维 smooth 的支持
+* smooth 在数据不对称、无法会超出最小值、最大值范围
+
+## 0.9.9
+
+* 添加filter功能，图例控制显示隐藏
+* 添加changeData功能
+* 添加changeSize功能
+* 增加kernel 统计函数的支持，包括 density和smooth类型的统计函数
