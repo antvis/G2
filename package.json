@@ -1,0 +1,38 @@
+{
+  "name": "@antv/g2",
+  "version": "3.0.0",
+  "description": "the Grammar of Graphics in Javascript",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.alibaba-inc.com:datavis/g2.git"
+  },
+  "keywords": [
+    "g2",
+    "chart"
+  ],
+  "author": "https://github.com/orgs/antvis/people",
+  "license": "MIT",
+  "devDependencies": {
+    "atool-build": "^0.11.1",
+    "atool-test": "^0.5.3",
+    "chai": "^4.0.1",
+    "pre-commit": "^1.2.2",
+    "standard": "^10.0.2",
+    "standard-version": "^4.0.0"
+  },
+  "scripts": {
+    "lint": "standard",
+    "lint-fix": "standard --fix",
+    "pre-commit": "npm run lint && npm run test",
+    "pre-release": "standard-version",
+    "test": "atool-test --no-chai --config atool-test.config.js",
+    "test-live": "atool-test --no-chai --keep --no-coverage --config atool-test.config.js"
+  },
+  "pre-commit": {
+    "run": [
+      "test"
+    ],
+    "silent": false
+  }
+}
