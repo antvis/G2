@@ -19,20 +19,22 @@
     "electron-mocha": "^3.4.0",
     "pre-commit": "^1.2.2",
     "rollup": "^0.42.0",
-    "standard": "^10.0.2",
-    "standard-version": "^4.0.0",
-    "uglify-js": "^3.0.15"
+    "babel-eslint": "^7.2.3",
+    "eslint": "^3.19.0",
+    "uglify-js": "^3.0.15",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-config-egg": "^3.2.0"
   },
   "scripts": {
-    "lint": "standard",
-    "lint-fix": "standard --fix",
-    "dump-version": "standard-version",
+    "lint": "eslint ./src",
+    "lint-fix": "eslint ./src --fix",
     "build": "rollup --format umd --name G2 --output build/g2.js -- index.js",
+    "pre-commit": "npm run lint && npm run test",
+    "prepublish": "npm run test && npm run dist",
     "pretest": "rm -rf build && mkdir build && npm run build",
     "test": "npm run lint && electron-mocha ./test",
     "test-live": "npm run pretest && npm run lint && electron-mocha interactive ./test",
-    "dist": "rm -rf dist && mkdir dist && uglifyjs --compress --mangle --output dist/g2.min.js -- build/g2.js",
-    "prepublish": "npm run test && npm run dist"
+    "dist": "rm -rf dist && mkdir dist && uglifyjs --compress --mangle --output dist/g2.min.js -- build/g2.js"
   },
   "pre-commit": {
     "run": [

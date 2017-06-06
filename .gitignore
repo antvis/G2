@@ -60,5 +60,9 @@ typings/
 # dotenv environment variables file
 .env
 
+<<<<<<< 02acbc953eff8a65368d17958b9b5ef1a7fea69a
 build
 dist
+=======
+.DS_Store
+>>>>>>> eslint
