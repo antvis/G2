@@ -1,4 +1,3 @@
-/* global describe, it */
 const expect = require('chai').expect
 const G2 = require('../build/g2')
 

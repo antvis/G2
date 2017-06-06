@@ -1,15 +1,15 @@
 
 const expect = require('chai').expect
-const Util = require('../build/g2').Util;
+const util = require('../build/g2').util;
 
 describe('util test', () => {
   it('mix', () => {
     const a = {a: 1};
     const b = {a: 2, b: 2};
-    let rst = Util.mix({}, a, b);
+    let rst = util.mix({}, a, b);
     expect(rst).eqls(b);
 
-    expect(Util.mix({}, a)).eqls(a);
-    expect(Util.mix({}, a, b, rst)).eqls(rst);
+    expect(util.mix({}, a)).eqls(a);
+    expect(util.mix({}, a, b, rst)).eqls(rst);
   });
 })

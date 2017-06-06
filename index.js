@@ -1,5 +1,5 @@
-import Util from './src/util';
+import util from './src/util';
 
-module.exports = {
-  Util: Util
+export default {
+  util
 };

@@ -3,7 +3,7 @@
  * @author dxq613@gmail.com
  */
 
-const Util = require('../util');
+const util = require('../util');
 
 /**
  * 度量的构造函数
@@ -36,7 +36,7 @@ class Scale {
   values = [];
 
   constructor(cfg) {
-    Util.mix(this, cfg);
+    util.mix(this, cfg);
     this.init();
   }
 
@@ -69,9 +69,9 @@ class Scale {
     const self = this;
     const ticks = self.ticks;
     const rst = [];
-    Util.each(ticks, function(tick) {
+    util.each(ticks, function(tick) {
       let obj;
-      if (Util.isObject(tick)) {
+      if (util.isObject(tick)) {
         obj = tick;
       } else {
         obj = {
@@ -93,7 +93,7 @@ class Scale {
   getText(value) {
     const formatter = this.formatter;
     value = formatter ? formatter(value) : value;
-    if (Util.isNull(value) || !value.toString) {
+    if (util.isNull(value) || !value.toString) {
       value = '';
     }
     return value.toString();
@@ -148,7 +148,7 @@ class Scale {
     const self = this;
     const constr = self.constructor;
     const cfg = {};
-    Util.each(self, function(v, k) {
+    util.each(self, function(v, k) {
       cfg[k] = self[k];
     });
     return new constr(cfg);
@@ -161,10 +161,10 @@ class Scale {
    */
   change(info) {
     this.ticks = null;
-    Util.mix(this, info);
+    util.mix(this, info);
     this.init();
     return this;
   }
 }
 
-module.exports = Scale;
+export default Scale;

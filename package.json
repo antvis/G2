@@ -14,28 +14,30 @@
   "author": "https://github.com/orgs/antvis/people",
   "license": "MIT",
   "devDependencies": {
+    "babel-eslint": "^7.2.3",
     "chai": "^4.0.1",
     "electron": "^1.6.10",
     "electron-mocha": "^3.4.0",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-config-egg": "^3.2.0",
     "pre-commit": "^1.2.2",
     "rollup": "^0.42.0",
-    "babel-eslint": "^7.2.3",
-    "eslint": "^3.19.0",
-    "uglify-js": "^3.0.15",
-    "eslint-config-airbnb": "^9.0.1",
-    "eslint-config-egg": "^3.2.0"
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "uglify-js": "^3.0.15"
   },
   "scripts": {
     "lint": "eslint ./src",
     "lint-fix": "eslint ./src --fix",
-    "build": "rollup --format umd --name G2 --output build/g2.js -- index.js",
-    "pre-commit": "npm run lint && npm run test",
+    "build": "rollup -c -- index.js",
+    "pre-commit": "npm run test",
     "prepublish": "npm run test && npm run dist",
     "pretest": "rm -rf build && mkdir build && npm run build",
-    "test": "npm run lint &&electron-mocha ./test",
-    "test-live": "npm run pretest && npm run lint && electron-mocha interactive ./test",
+    "test": "npm run lint && electron-mocha ./test",
+    "test-live": "npm run pretest && npm run lint && electron-mocha --interactive ./test",
     "dist": "rm -rf dist && mkdir dist && uglifyjs --compress --mangle --output dist/g2.min.js -- build/g2.js",
-    "ci": "tnpm run lint && tnpm run test"
+    "ci": "npm run test"
   },
   "pre-commit": {
     "run": [
