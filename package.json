@@ -31,16 +31,16 @@
     "lint": "eslint ./src",
     "lint-fix": "eslint ./src --fix",
     "build": "rollup -c -- index.js",
-    "pre-commit": "npm run test",
     "prepublish": "npm run test && npm run dist",
     "pretest": "rm -rf build && mkdir build && npm run build",
-    "test": "npm run lint && electron-mocha ./test",
-    "test-live": "npm run pretest && npm run lint && electron-mocha --interactive ./test",
+    "test": "electron-mocha ./test",
+    "test-live": "npm run pretest && electron-mocha --interactive ./test",
     "dist": "rm -rf dist && mkdir dist && uglifyjs --compress --mangle --output dist/g2.min.js -- build/g2.js",
-    "ci": "npm run test"
+    "ci": "npm run lint && npm run test"
   },
   "pre-commit": {
     "run": [
+      "lint",
       "test"
     ],
     "silent": false
