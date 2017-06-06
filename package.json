@@ -32,9 +32,10 @@
     "pre-commit": "npm run lint && npm run test",
     "prepublish": "npm run test && npm run dist",
     "pretest": "rm -rf build && mkdir build && npm run build",
-    "test": "npm run lint && electron-mocha ./test",
+    "test": "npm run lint &&electron-mocha ./test",
     "test-live": "npm run pretest && npm run lint && electron-mocha interactive ./test",
-    "dist": "rm -rf dist && mkdir dist && uglifyjs --compress --mangle --output dist/g2.min.js -- build/g2.js"
+    "dist": "rm -rf dist && mkdir dist && uglifyjs --compress --mangle --output dist/g2.min.js -- build/g2.js",
+    "ci": "tnpm run lint && tnpm run test"
   },
   "pre-commit": {
     "run": [

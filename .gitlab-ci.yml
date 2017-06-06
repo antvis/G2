@@ -1,0 +1,12 @@
+before_script:
+  - '[ ! -d $HOME/.nvm ] && git clone http://gitlab.alibaba-inc.com/node/nvm.git $HOME/.nvm'
+  - 'cd $HOME/.nvm && git pull -p && cd -'
+  - 'source $HOME/.nvm/nvm.sh'
+
+node-4:
+  script:
+    - 'NODE_VERSION=4'
+    - 'nvm install $NODE_VERSION'
+    - 'nvm use $NODE_VERSION && npm install tnpm@release-4 --registry=http://registry.npm.alibaba-inc.com'
+    - 'nvm use $NODE_VERSION && node_modules/.bin/tnpm install'
+    - 'nvm use $NODE_VERSION && node_modules/.bin/tnpm run ci'
