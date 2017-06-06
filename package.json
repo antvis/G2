@@ -16,7 +16,7 @@
   "devDependencies": {
     "babel-eslint": "^7.2.3",
     "chai": "^4.0.1",
-    "electron": "^1.6.10",
+    "electron": "^1.7.2",
     "electron-mocha": "^3.4.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^9.0.1",
