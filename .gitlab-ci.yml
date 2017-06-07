@@ -3,7 +3,7 @@ before_script:
 test:
   image: reg.docker.alibaba-inc.com/dockerlab/macaca-electron:0.2.0
   script:
-    - time tnpm i --no-cache
+    - time tnpm i
     - time tnpm run ci
   tags:
     - swarm
