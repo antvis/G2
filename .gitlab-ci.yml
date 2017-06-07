@@ -1,10 +1,4 @@
 before_script:
-  - BIN_DIR=$HOME/bin
-  - mkdir -p $BIN_DIR
-  - OS=`uname | tr '[:upper:]' '[:lower:]'` && echo "Current OS is $OS"
-  - time curl -v -L http://enclose.alibaba-inc.com/packages/tnpm/4/tnpm/${OS}-x64 | gunzip > $BIN_DIR/tnpm
-  - chmod +x $BIN_DIR/tnpm && ls -al $BIN_DIR
-  - export PATH=$PWD/node_modules/.bin:$BIN_DIR:$PATH
   - echo $PATH
 test:
   image: reg.docker.alibaba-inc.com/dockerlab/macaca-electron:0.2.0
