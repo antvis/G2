@@ -1,12 +1,11 @@
 before_script:
-  - '[ ! -d $HOME/.nvm ] && git clone http://gitlab.alibaba-inc.com/node/nvm.git $HOME/.nvm'
-  - 'cd $HOME/.nvm && git pull -p && cd -'
-  - 'source $HOME/.nvm/nvm.sh'
+  - echo $PATH
+  - enclose install tnpm
 
 node-4:
+  image: reg.docker.alibaba-inc.com/dockerlab/macaca-electron:0.2.0
   script:
-    - 'NODE_VERSION=4'
-    - 'nvm install $NODE_VERSION'
-    - 'nvm use $NODE_VERSION && npm install tnpm@release-4 --registry=http://registry.npm.alibaba-inc.com'
-    - 'nvm use $NODE_VERSION && node_modules/.bin/tnpm install'
-    - 'nvm use $NODE_VERSION && node_modules/.bin/tnpm run ci'
+    - time tnpm i --install-node=4 --no-cache
+    - time tnpm run test
+  tags:
+    - swarm
