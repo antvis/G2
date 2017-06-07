@@ -3,13 +3,19 @@
  * @author dxq613@gmail.com
  */
 
-const util = require('../util');
+import util from '../util';
 
 /**
  * 度量的构造函数
- * @class  Scale
+ * @class Scale.Base
  */
 class Scale {
+
+  /**
+   * type of the scale
+   * @type {String}
+   */
+  type = 'base';
 
   /**
    * 格式化函数,输出文本或者tick时的格式化函数

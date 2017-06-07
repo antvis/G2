@@ -36,8 +36,8 @@
     "lint-fix": "eslint ./src --fix",
     "build": "rollup -c -- index.js",
     "pretest": "rm -rf build && mkdir build && npm run build",
-    "test": "electron-mocha ./test",
-    "test-live": "npm run pretest && electron-mocha --interactive ./test",
+    "test": "electron-mocha ./test/**/*",
+    "test-live": "npm run pretest && electron-mocha --interactive ./test/**/*",
     "dist": "rm -rf dist && mkdir dist && uglifyjs --compress --mangle --output dist/g2.min.js -- build/g2.js",
     "ci": "rm -rf build && mkdir build && tnpm run build && tnpm run test"
   },
@@ -49,6 +49,7 @@
     "silent": false
   },
   "dependencies": {
+    "fecha": "^2.3.1",
     "lodash": "^4.17.4"
   }
 }
