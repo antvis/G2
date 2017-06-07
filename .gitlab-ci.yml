@@ -6,10 +6,11 @@ before_script:
   - chmod +x $BIN_DIR/tnpm && ls -al $BIN_DIR
   - export PATH=$PWD/node_modules/.bin:$BIN_DIR:$PATH
   - echo $PATH
-node-4:
+test:
   image: reg.docker.alibaba-inc.com/dockerlab/macaca-electron:0.2.0
   script:
-    - time tnpm i --install-node=4 --no-cache
+    - time tnpm i --no-cache
+    - time tnpm i --no-cache electron
     - time tnpm run ci
   tags:
-    - swarm
+    - docker
