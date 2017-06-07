@@ -39,7 +39,7 @@
     "test": "electron-mocha ./test/**/*",
     "test-live": "npm run pretest && electron-mocha --interactive ./test/**/*",
     "dist": "rm -rf dist && mkdir dist && uglifyjs --compress --mangle --output dist/g2.min.js -- build/g2.js",
-    "ci": "rm -rf build && mkdir build && tnpm run build && tnpm run test"
+    "ci": "rm -rf build && mkdir build && tnpm run build && electron-mocha ./test/**/*"
   },
   "pre-commit": {
     "run": [
