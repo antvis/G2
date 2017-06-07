@@ -13,4 +13,4 @@ test:
     - time tnpm i --no-cache electron
     - time tnpm run ci
   tags:
-    - docker
+    - swarm
