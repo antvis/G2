@@ -34,7 +34,6 @@
     "lint": "eslint ./src",
     "lint-fix": "eslint ./src --fix",
     "build": "rollup -c -- index.js",
-    "prepublish": "npm run test && npm run dist",
     "pretest": "rm -rf build && mkdir build && npm run build",
     "test": "electron-mocha ./test",
     "test-live": "npm run pretest && electron-mocha --interactive ./test",
