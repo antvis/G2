@@ -10,7 +10,7 @@ describe('scale base test', () => {
     expect(scale.ticks.length).to.be(4);
   });
   it('init', function() {
-
+    
   });
   it('translate', function() {
 
