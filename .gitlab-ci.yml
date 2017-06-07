@@ -10,6 +10,6 @@ node-4:
   image: reg.docker.alibaba-inc.com/dockerlab/macaca-electron:0.2.0
   script:
     - time tnpm i --install-node=4 --no-cache
-    - time tnpm run test
+    - time tnpm run ci
   tags:
     - swarm
