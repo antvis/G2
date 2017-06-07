@@ -15,8 +15,9 @@
   "license": "MIT",
   "devDependencies": {
     "babel-eslint": "^7.2.3",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-latest": "^6.24.1",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-es2015-loose-rollup": "^7.0.0",
+    "babel-preset-stage-0": "^6.24.1",
     "chai": "^4.0.1",
     "electron": "^1.7.2",
     "electron-mocha": "^3.4.0",

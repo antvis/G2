@@ -10,9 +10,9 @@ module.exports = {
   format: 'umd',
   plugins: [
     resolve(),
-    commonjs(),
     babel({
       exclude: 'node_modules/**' // only transpile our source code
-    })
+    }),
+    commonjs(),
   ]
 };
