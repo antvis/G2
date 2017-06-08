@@ -10,24 +10,19 @@ describe('scale base test', () => {
     expect(scale.ticks.length).to.be.equal(4);
   });
   it('init', function() {
-
   });
   it('translate', function() {
-
   });
   it('invert', function() {
-
   });
   it('scale', function() {
-
   });
   it('getTicks', function() {
-
+    const scale = new Scale({});
+    expect(scale.getTicks()).to.be.an('array');
   });
   it('clone', function() {
-
   });
   it('change', function() {
-
   });
 });
