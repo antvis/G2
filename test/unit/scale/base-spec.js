@@ -1,6 +1,6 @@
 
 const expect = require('chai').expect
-const Scale = require('../../build/g2').Scale;
+const Scale = require('../../../build/g2').Scale;
 
 describe('scale base test', () => {
   it('cfg', function () {
@@ -10,7 +10,7 @@ describe('scale base test', () => {
     expect(scale.ticks.length).to.be.equal(4);
   });
   it('init', function() {
-    
+
   });
   it('translate', function() {
 

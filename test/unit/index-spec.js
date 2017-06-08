@@ -1,5 +1,5 @@
 const expect = require('chai').expect
-const G2 = require('../build/g2')
+const G2 = require('../../build/g2')
 
 describe('sample', () => {
   it('G2 3.0', () => {
