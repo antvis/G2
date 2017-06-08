@@ -32,12 +32,12 @@
     "uglify-js": "^3.0.15"
   },
   "scripts": {
-    "lint": "eslint ./src",
-    "lint-fix": "eslint ./src --fix",
+    "lint": "eslint ./",
+    "lint-fix": "eslint --fix ./",
     "build": "rollup -c -- index.js",
     "pretest": "rm -rf build && mkdir build && npm run build",
-    "test": "electron-mocha ./test/**/*",
-    "test-live": "npm run pretest && electron-mocha --interactive ./test/**/*",
+    "test": "electron-mocha --recursive ./test/unit",
+    "test-live": "npm run pretest && electron-mocha --opts ./test/support/mocha.opts --renderer --interactive --recursive ./test/unit",
     "dist": "rm -rf dist && mkdir dist && uglifyjs --compress --mangle --output dist/g2.min.js -- build/g2.js",
     "ci": "tnpm run test"
   },

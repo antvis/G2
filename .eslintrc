@@ -7,8 +7,15 @@
     "sourceType": "module"
   },
   "rules": {
-    "no-bitwise": [0],
-    "experimentalDecorators": [0],
-    "comma-dangle": ["error", "never"]
+    "no-bitwise": [
+      0
+    ],
+    "experimentalDecorators": [
+      0
+    ],
+    "comma-dangle": [
+      "error",
+      "never"
+    ]
   }
 }
