@@ -32,8 +32,8 @@
     "uglify-js": "^3.0.15"
   },
   "scripts": {
-    "lint": "eslint ./src",
-    "lint-fix": "eslint ./src --fix",
+    "lint": "eslint ./",
+    "lint-fix": "eslint --fix ./",
     "build": "rollup -c -- index.js",
     "pretest": "rm -rf build && mkdir build && npm run build",
     "test": "electron-mocha --recursive ./test/unit",

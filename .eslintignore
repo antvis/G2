@@ -1,3 +1,4 @@
-node_modules/
+build/
 dist/
 mocks/
+node_modules/
