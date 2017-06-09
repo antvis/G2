@@ -1,5 +1,6 @@
 const expect = require('chai').expect;
 const Scale = require('../../../src/scale/');
+const fecha = require('fecha');
 
 describe('scale cat', function() {
 
@@ -142,9 +143,10 @@ describe('scale cat with tick count', function() {
 
 // 时间分类 time-category
 describe('scale time cat', function() {
+  const mask = 'YYYY/MM/DD';
   const scale = Scale.timeCat({
     values: [ 1442937600000, 1441296000000, 1449849600000 ],
-    mask: 'YYYY/MM/DD'
+    mask
   });
 
   it('is category', function() {
@@ -179,21 +181,26 @@ describe('scale time cat', function() {
 
   it('getText', function() {
     const text = scale.getText(1441296000000);
-    expect(text).to.be.equal('2015/09/04'); // 原始值
-    expect(scale.getText(1)).to.be.equal('2015/09/23'); // 索引
+    const date = new Date(1441296000000);
+    expect(text).to.be.equal(fecha.format(date, mask)); // 原始值
+    expect(scale.getText(1)).to.be.equal(fecha.format(1442937600000, mask)); // 索引
   });
 
   it('this.ticks', function() {
     // 按照 mask 格式化后的 ticks
     expect(scale.ticks.length).to.be.equal(3);
-    expect(scale.ticks.join()).to.be.equal('2015/09/04,2015/09/23,2015/12/12');
+    expect(scale.ticks).eqls([
+      fecha.format(1441296000000, mask),
+      fecha.format(1442937600000, mask),
+      fecha.format(1449849600000, mask)
+    ]);
   });
 
   it('getTicks()', function() {
     const ticks = scale.getTicks();
     expect(typeof ticks[0]).to.be.equal('object');
     expect(ticks[1].value).to.be.equal(0.5);
-    expect(ticks[1].text).to.be.equal('2015/09/23');
+    expect(ticks[1].text).to.be.equal(fecha.format(1442937600000, mask));
   });
 
   it('change', function() {

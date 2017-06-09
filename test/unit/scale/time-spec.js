@@ -1,5 +1,6 @@
 const expect = require('chai').expect;
 const Scale = require('../../../src/scale/');
+const fecha = require('fecha');
 
 describe('scale time', function() {
 
@@ -38,7 +39,7 @@ describe('scale time', function() {
 
   it('get text has T && Z', function() {
     const text = scale.getText('2016-05-04T00:00:00.000Z');
-    expect(text).to.be.equal('2016-05-04 08:00:00');
+    expect(text).to.be.equal(fecha.format(new Date('2016-05-04T00:00:00.000Z'), 'YYYY-MM-DD HH:mm:ss'));
   });
 });
 

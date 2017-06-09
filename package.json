@@ -37,7 +37,6 @@
     "lint": "eslint ./",
     "lint-fix": "eslint --fix ./",
     "build": "rollup -c -- index.js",
-    "pretest": "rm -rf build && mkdir build && npm run build",
     "test": "electron-mocha --renderer --recursive ./test/unit",
     "pre-coverage": "npm run pretest && rm -rf test/coverage && mkdir test/coverage",
     "instrument": "mv build _build && istanbul instrument --output ./build ./_build",
