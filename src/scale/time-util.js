@@ -3,9 +3,9 @@
  * @author dxq613@gmail.com
  */
 
-import Util from '../util';
+const Util = require('../util');
 
-export default {
+module.exports = {
   toTimeStamp(value) {
     if (Util.isString(value)) {
       if (value.indexOf('T') > 0) {

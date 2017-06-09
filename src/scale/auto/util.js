@@ -154,4 +154,4 @@ const Util = {
   }
 };
 
-export default Util;
+module.exports = Util;

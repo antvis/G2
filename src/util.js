@@ -3,11 +3,6 @@
  * @author dxq613@gmail.com
  * @see https://github.com/lodash/lodash
  */
-import each from 'lodash/each';
-import isNull from 'lodash/isNull';
-import isObject from 'lodash/isObject';
-import isNumber from 'lodash/isNumber';
-import isString from 'lodash/isString';
 
 function _mix(dist, obj) {
   for (const k in obj) {
@@ -18,11 +13,28 @@ function _mix(dist, obj) {
 }
 
 const util = {
-  each,
-  isNull,
-  isObject,
-  isNumber,
-  isString,
+  each: require('lodash/each'),
+  isNull: require('lodash/isNull'),
+  isObject: require('lodash/isObject'),
+  isNumber: require('lodash/isNumber'),
+  isString: require('lodash/isString'),
+  lowerFirst: require('lodash/lowerFirst'),
+  upperFirst: require('lodash/upperFirst'),
+  isNil: require('lodash/isNil'),
+  isArray: require('lodash/isArray'),
+  isDate: require('lodash/isDate'),
+  fixedBase(v, base) {
+    const str = base.toString();
+    const index = str.indexOf('.');
+    if (index === -1) {
+      return Math.round(v);
+    }
+    let length = str.substr(index + 1).length;
+    if (length > 20) {
+      length = 20;
+    }
+    return parseFloat(v.toFixed(length));
+  },
   mix(dist, obj1, obj2, obj3) {
     if (obj1) {
       _mix(dist, obj1);
@@ -39,4 +51,4 @@ const util = {
   }
 };
 
-export default util;
+module.exports = util;

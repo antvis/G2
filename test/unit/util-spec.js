@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const util = require('../../build/g2').util;
+const util = require('../../src/util');
 
 describe('util test', () => {
   it('mix', () => {
