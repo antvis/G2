@@ -4,7 +4,8 @@
  */
 
 
-import Linear from './linear';
+const Linear = require('./linear');
+const Util = require('../util');
 
 // 求以a为次幂，结果为b的基数，如 x^^a = b;求x
 function calBase(a, b) {
@@ -22,20 +23,28 @@ class Pow extends Linear {
   /**
    * @override
    */
-  type = 'pow';
+  getDefaultCfg() {
+    const cfg = super.getDefaultCfg();
+    return Util.mix({}, cfg, {
+      /**
+       * @override
+       */
+      type: 'pow',
 
-  /**
-   * 进行pow计算的基数
-   * @type {Number}
-   */
-  exponent = 2;
+      /**
+       * 进行pow计算的基数
+       * @type {Number}
+       */
+      exponent: 2,
 
-  /**
-   * @override
-   * pow 的坐标点的个数控制在10个以下
-   * @type {Number}
-   */
-  tickCount = 10;
+      /**
+       * @override
+       * pow 的坐标点的个数控制在10个以下
+       * @type {Number}
+       */
+      tickCount: 10
+    });
+  }
 
   /**
    * @override
@@ -102,4 +111,4 @@ class Pow extends Linear {
   }
 }
 
-export default Pow;
+module.exports = Pow;

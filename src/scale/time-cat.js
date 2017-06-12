@@ -3,11 +3,11 @@
  * @author dxq613@gmail.com
  */
 
-import Category from './category';
-import Util from '../util';
-import fecha from 'fecha';
-import catAuto from './auto/cat';
-import TimeUtil from './time-util';
+const Category = require('./category');
+const Util = require('../util');
+const fecha = require('fecha');
+const catAuto = require('./auto/cat');
+const TimeUtil = require('./time-util');
 
 /**
  * 度量的构造函数
@@ -18,18 +18,26 @@ class TimeCategory extends Category {
   /**
    * @override
    */
-  type = 'timeCat';
+  getDefaultCfg() {
+    const cfg = super.getDefaultCfg();
+    return Util.mix({}, cfg, {
+      /**
+       * @override
+       */
+      type: 'timeCat',
 
-  /**
-   * 格式化符
-   * @type {String}
-   */
-  mask = 'YYYY-MM-DD';
+      /**
+       * 格式化符
+       * @type {String}
+       */
+      mask: 'YYYY-MM-DD',
 
-  /**
-   * @override
-   */
-  tickCount = 5;
+      /**
+       * @override
+       */
+      tickCount: 5
+    });
+  }
 
   init() {
     const self = this;
@@ -149,4 +157,4 @@ class TimeCategory extends Category {
   }
 }
 
-export default TimeCategory;
+module.exports = TimeCategory;

@@ -3,8 +3,8 @@
  * @author dxq613@gmail.com
  */
 
-import Util from '@ali/g-util';
-import AutoUtil from './util';
+const Util = require('../../util');
+const AutoUtil = require('./util');
 
 const MAX_COUNT = 6;
 const SNAP_ARRAY = [ 1, 2, 4, 6, 8, 12 ];
@@ -48,7 +48,7 @@ function diffMinus(min, max) {
   return Math.ceil((max - min) / (60 * 1000));
 }
 
-export default function(info) {
+module.exports = function(info) {
   const minInterval = info.minInterval;
   const ticks = [];
   let min = info.min;
@@ -62,7 +62,7 @@ export default function(info) {
   }
 
   // 计算间距
-  if (Util.isNull(interval)) {
+  if (Util.isNil(interval)) {
     const innerTime = max - min;
     const dms = DAY_MS; // 天代表的秒
     const yms = 365 * dms; // 年代表的秒
@@ -158,4 +158,4 @@ export default function(info) {
     ticks,
     count: ticks.length
   };
-}
+};

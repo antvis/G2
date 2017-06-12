@@ -3,7 +3,7 @@
  * @author dxq613@gmail.com
  */
 
-import Util from '../../util';
+const Util = require('../../util');
 const MAX_COUNT = 8;
 
 function getSimpleArray(data) {
@@ -18,7 +18,7 @@ function getSimpleArray(data) {
   return arr;
 }
 
-export default function(info) {
+module.exports = function(info) {
   const rst = {};
   let ticks = [];
   const tickCount = info.maxCount || MAX_COUNT;
@@ -47,4 +47,4 @@ export default function(info) {
   rst.categories = categories;
   rst.ticks = ticks;
   return rst;
-}
+};

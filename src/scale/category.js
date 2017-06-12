@@ -4,9 +4,9 @@
  */
 
 
-import Base from './base';
-import Util from '../util';
-import catAuto from './auto/cat';
+const Base = require('./base');
+const Util = require('../util');
+const catAuto = require('./auto/cat');
 
 /**
  * 度量的构造函数
@@ -15,23 +15,31 @@ import catAuto from './auto/cat';
 class Category extends Base {
 
   /**
-   * type of the scale
-   * @type {String}
+   * @override
    */
-  type = 'cat';
+  getDefaultCfg() {
+    const cfg = super.getDefaultCfg();
+    return Util.mix({}, cfg, {
+      /**
+       * type of the scale
+       * @type {String}
+       */
+      type: 'cat',
 
-  /**
-   * 自动生成标记时的个数
-   * @type {Number}
-   * @default null
-   */
-  tickCount = null;
+      /**
+       * 自动生成标记时的个数
+       * @type {Number}
+       * @default null
+       */
+      tickCount: null,
 
-  /**
-   * 是否分类度量
-   * @type {Boolean}
-   */
-  isCategory = true;
+      /**
+       * 是否分类度量
+       * @type {Boolean}
+       */
+      isCategory: true
+    });
+  }
 
   /**
    * @override
@@ -61,11 +69,12 @@ class Category extends Base {
    * @override
    */
   getText(value) {
+
     if (this.values.indexOf(value) === -1 && Util.isNumber(value)) {
       value = this.values[Math.round(value)];
     }
 
-    return Category.superclass.getText.call(this, value);
+    return super.getText.call(this, value);
   }
 
   /**
@@ -123,4 +132,4 @@ class Category extends Base {
   }
 }
 
-export default Category;
+module.exports = Category;

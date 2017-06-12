@@ -3,14 +3,13 @@
  * @author dxq613@gmail.com
  */
 
-import Util from '../../util';
-import AutoUtil from './util';
+const Util = require('../../util');
+const AutoUtil = require('./util');
 const MIN_COUNT = 5;
 const MAX_COUNT = 7;
 const INTERVAL_ARRAY = [ 0, 1, 2, 3, 4, 5, 10 ];
-const isNull = Util.isNull;
 
-export default function(info) {
+module.exports = function(info) {
   let min = info.min;
   let max = info.max;
   let interval = info.interval;
@@ -20,10 +19,10 @@ export default function(info) {
   let avgCount = (minCount + maxCount) / 2;
   let count;
 
-  if (Util.isNull(min)) {
+  if (Util.isNil(min)) {
     min = 0;
   }
-  if (Util.isNull(max)) {
+  if (Util.isNil(max)) {
     max = 0;
   }
   if (max === min) {
@@ -41,7 +40,7 @@ export default function(info) {
     }
   }
 
-  if (isNull(interval)) {
+  if (Util.isNil(interval)) {
     // 计算间距
     const temp = (max - min) / (avgCount - 1);
     interval = AutoUtil.snapFactorTo(temp, INTERVAL_ARRAY, 'ceil');
@@ -102,4 +101,4 @@ export default function(info) {
     count,
     ticks
   };
-}
+};

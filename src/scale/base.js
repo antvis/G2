@@ -3,7 +3,7 @@
  * @author dxq613@gmail.com
  */
 
-import util from '../util';
+const util = require('../util');
 
 /**
  * 度量的构造函数
@@ -12,37 +12,47 @@ import util from '../util';
 class Scale {
 
   /**
-   * type of the scale
-   * @type {String}
+   * 获取默认的配置属性
+   * @protected
+   * @return {Object} 默认属性
    */
-  type = 'base';
+  getDefaultCfg() {
+    return {
+      /**
+       * type of the scale
+       * @type {String}
+       */
+      type: 'base',
 
-  /**
-   * 格式化函数,输出文本或者tick时的格式化函数
-   * @type {Function}
-   */
-  formatter = null;
+      /**
+       * 格式化函数,输出文本或者tick时的格式化函数
+       * @type {Function}
+       */
+      formatter: null,
 
-  /**
-   * 输出的值域
-   * @type {Array}
-   */
-  range = [ 0, 1 ];
+      /**
+       * 输出的值域
+       * @type {Array}
+       */
+      range: [ 0, 1 ],
 
-  /**
-   * 度量的标记
-   * @type {Array}
-   */
-  ticks = null;
+      /**
+       * 度量的标记
+       * @type {Array}
+       */
+      ticks: null,
 
-  /**
-   * 参与度量计算的值，可选项
-   * @type {Array}
-   */
-  values = [];
+      /**
+       * 参与度量计算的值，可选项
+       * @type {Array}
+       */
+      values: []
+    };
+  }
 
   constructor(cfg) {
-    util.mix(this, cfg);
+    const defaultCfg = this.getDefaultCfg();
+    util.mix(this, defaultCfg, cfg);
     this.init();
   }
 
@@ -173,4 +183,4 @@ class Scale {
   }
 }
 
-export default Scale;
+module.exports = Scale;

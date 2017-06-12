@@ -3,11 +3,11 @@
  * @author dxq613@gmail.com
  */
 
-import Linear from './linear';
-import Util from '../util';
-import timeAuto from './auto/time';
-import fecha from 'fecha';
-import TimeUtil from './time-util';
+const Linear = require('./linear');
+const Util = require('../util');
+const timeAuto = require('./auto/time');
+const fecha = require('fecha');
+const TimeUtil = require('./time-util');
 
 /**
  * 时间度量的构造函数
@@ -18,13 +18,21 @@ class Time extends Linear {
   /**
    * @override
    */
-  type = 'time';
+  getDefaultCfg() {
+    const cfg = super.getDefaultCfg();
+    return Util.mix({}, cfg, {
+      /**
+       * @override
+       */
+      type: 'time',
 
-  /**
-   * 格式化符
-   * @type {String}
-   */
-  mask = 'YYYY-MM-DD';
+      /**
+       * 格式化符
+       * @type {String}
+       */
+      mask: 'YYYY-MM-DD'
+    });
+  }
 
   /**
    * @override
@@ -62,7 +70,7 @@ class Time extends Linear {
         self.max = max;
       }
     }
-    Time.superclass.init.call(self);
+    super.init();
   }
 
   calculateTicks() {
@@ -99,7 +107,7 @@ class Time extends Linear {
     if (Util.isString(value)) {
       value = this.translate(value);
     }
-    return Time.superclass.scale.call(this, value);
+    return super.scale(value);
   }
 
   /**
@@ -115,4 +123,4 @@ class Time extends Linear {
   }
 }
 
-export default Time;
+module.exports = Time;

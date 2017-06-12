@@ -1,7 +1,7 @@
-import util from './src/util';
-import Scale from './src/scale/index';
+const util = require('./src/util');
+const Scale = require('./src/scale/index');
 
-export default {
+module.exports = {
   util,
   Scale
 };

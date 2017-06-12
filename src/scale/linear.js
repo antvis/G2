@@ -4,9 +4,9 @@
  */
 
 
-import Base from './base';
-import Util from '../util';
-import numberAuto from './auto/number';
+const Base = require('./base');
+const Util = require('../util');
+const numberAuto = require('./auto/number');
 
 /**
  * 线性度量
@@ -15,54 +15,61 @@ import numberAuto from './auto/number';
 class Linear extends Base {
 
   /**
-   * type of the scale
-   * @type {String}
+   * @override
    */
-  type = 'linear';
+  getDefaultCfg() {
+    const cfg = super.getDefaultCfg();
+    return Util.mix({}, cfg, {
+      /**
+       * type of the scale
+       * @type {String}
+       */
+      type: 'linear',
 
-  /**
-   * 是否线性
-   * @type {Boolean}
-   * @readOnly
-   * @default true
-   */
-  isLinear = true;
+      /**
+       * 是否线性
+       * @type {Boolean}
+       * @readOnly
+       * @default true
+       */
+      isLinear: true,
 
-  /**
-   * min value of the scale
-   * @type {Number}
-   * @default null
-   */
-  min = null;
+      /**
+       * min value of the scale
+       * @type {Number}
+       * @default null
+       */
+      min: null,
 
-  /**
-   * max value of the scale
-   * @type {Number}
-   * @default null
-   */
-  max = null;
+      /**
+       * max value of the scale
+       * @type {Number}
+       * @default null
+       */
+      max: null,
 
-  /**
-   * 是否为了用户习惯，优化min,max和ticks，如果进行优化，则会根据生成的ticks调整min,max，否则舍弃(min,max)范围之外的ticks
-   * @type {Boolean}
-   * @default false
-   */
-  nice = false;
+      /**
+       * 是否为了用户习惯，优化min,max和ticks，如果进行优化，则会根据生成的ticks调整min,max，否则舍弃(min,max)范围之外的ticks
+       * @type {Boolean}
+       * @default false
+       */
+      nice: false,
 
-  /**
-   * 自动生成标记时的个数
-   * @type {Number}
-   * @default null
-   */
-  tickCount = null;
+      /**
+       * 自动生成标记时的个数
+       * @type {Number}
+       * @default null
+       */
+      tickCount: null,
 
-  /**
-   * 坐标轴点之间的间距，指的是真实数据的差值
-   * @type {Number}
-   * @default null
-   */
-  tickInterval = null;
-
+      /**
+       * 坐标轴点之间的间距，指的是真实数据的差值
+       * @type {Number}
+       * @default null
+       */
+      tickInterval: null
+    });
+  }
   /**
    * @protected
    * @override
@@ -77,10 +84,10 @@ class Linear extends Base {
       const ticks = self.ticks;
       const firstValue = self.translate(ticks[0]);
       const lastValue = self.translate(ticks[ticks.length - 1]);
-      if (Util.isNull(self.min) || self.min > firstValue) {
+      if (Util.isNil(self.min) || self.min > firstValue) {
         self.min = firstValue;
       }
-      if (Util.isNull(self.max) || self.max < lastValue) {
+      if (Util.isNil(self.max) || self.max < lastValue) {
         self.max = lastValue;
       }
     }
@@ -154,4 +161,4 @@ class Linear extends Base {
   }
 }
 
-export default Linear;
+module.exports = Linear;

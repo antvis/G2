@@ -3,8 +3,8 @@
  * @author dxq613@gmail.com
  */
 
-import Linear from './linear';
-import Util from '../util';
+const Linear = require('./linear');
+const Util = require('../util');
 
 // 计算log
 function log(a, b) {
@@ -23,24 +23,31 @@ class Log extends Linear {
   /**
    * @override
    */
-  type = 'log';
+  getDefaultCfg() {
+    const cfg = super.getDefaultCfg();
+    return Util.mix({}, cfg, {
+      /**
+       * @override
+       */
+      type: 'log',
 
-  /**
-   * 进行log计算的基数
-   * @type {Number}
-   */
-  base = 2;
+      /**
+       * 进行log计算的基数
+       * @type {Number}
+       */
+      base: 2,
 
-  /**
-   * @override
-   * log 的坐标点的个数控制在10个以下
-   * @type {Number}
-   */
-  tickCount = 10;
+      /**
+       * @override
+       * log 的坐标点的个数控制在10个以下
+       * @type {Number}
+       */
+      tickCount: 10,
 
-  // 最小的tick，仅内部使用
-  _minTick = null;
-
+      // 最小的tick，仅内部使用
+      _minTick: null
+    });
+  }
   /**
    * @override
    */
@@ -150,4 +157,4 @@ class Log extends Linear {
   }
 }
 
-export default Log;
+module.exports = Log;

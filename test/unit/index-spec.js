@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const isRenderer = require('is-electron-renderer');
-const G2 = require('../../build/g2');
+const G2 = require('../../index');
 
 describe('sample', () => {
   it('G2 3.0', () => {
