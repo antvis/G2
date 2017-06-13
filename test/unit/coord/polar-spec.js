@@ -1,0 +1,122 @@
+const expect = require('chai').expect;
+const Polar = require('../../../src/coord/polar');
+
+describe('Polar', function() {
+  const coord = new Polar({
+    start: {
+      x: 0,
+      y: 300
+    },
+    end: {
+      x: 200,
+      y: 0
+    }
+  });
+
+  it('construction', function() {
+    const center = coord.getCenter();
+    expect(center.x).to.equal(100);
+    expect(center.y).to.equal(150);
+    expect(coord.radius).to.equal(100);
+  });
+
+  it('convert', function() {
+    let point = {
+      x: 0,
+      y: 1
+    };
+    point = coord.convert(point);
+    expect(point.x).to.equal(100);
+    expect(point.y).to.equal(50);
+    point = {
+      x: 0.25,
+      y: 1
+    };
+    point = coord.convert(point);
+    expect(point.x).to.equal(200);
+    expect(point.y).to.equal(150);
+
+    point = {
+      x: 0.5,
+      y: 0.5
+    };
+    point = coord.convert(point);
+    expect(point.x).to.equal(100);
+    expect(point.y).to.equal(200);
+  });
+
+  it('invert', function() {
+    let point = {
+      x: 100,
+      y: 200
+    };
+    point = coord.invert(point);
+    expect(point.x).to.equal(0.5);
+    expect(point.y).to.equal(0.5);
+  });
+
+  it('getWidth and getHeight', function() {
+    expect(coord.getWidth()).to.equal(200);
+    expect(coord.getHeight()).to.equal(300);
+  });
+
+  it('translate', function() {
+    let point = {
+      x: 0.25,
+      y: 1
+    };
+    coord.translate(100, 20);
+    point = coord.convert(point);
+    expect(point.x).to.equal(300);
+    expect(point.y).to.equal(170);
+    coord.translate(-100, -20);
+  });
+
+  it('rotate', function() {
+    let point = {
+      x: 0.5,
+      y: 0.5
+    };
+    coord.rotate(Math.PI / 2);
+    point = coord.convert(point);
+    expect(point.x).to.equal(50);
+    expect(point.y).to.equal(150);
+    coord.rotate(-Math.PI / 2);
+  });
+
+  it('scale', function() {
+    let point = {
+      x: 0.5,
+      y: 0.5
+    };
+    coord.scale(2, 2);
+    point = coord.convert(point);
+    expect(point.x).to.equal(100);
+    expect(point.y).to.equal(250);
+    coord.scale(0.5, 0.5);
+  });
+
+  it('reflect x', function() {
+    let point = {
+      x: 0.25,
+      y: 0.5
+    };
+    coord.reflect('x');
+    point = coord.convert(point);
+    expect(point.x).to.equal(50);
+    expect(point.y).to.equal(150);
+    coord.reflect('x');
+  });
+
+  it('reflect y', function() {
+    let point = {
+      x: 0.75,
+      y: 0.5
+    };
+    coord.reflect('y');
+    point = coord.convert(point);
+    expect(point.x).to.equal(50);
+    expect(point.y).to.equal(150);
+    coord.reflect('y');
+  });
+});
