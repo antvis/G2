@@ -11,7 +11,8 @@ class Helix extends Base {
       startAngle: 1.25 * Math.PI,
       endAngle: 7.25 * Math.PI,
       innerRadius: 0,
-      type: 'helix'
+      type: 'helix',
+      isHelix: true
     });
   }
 
