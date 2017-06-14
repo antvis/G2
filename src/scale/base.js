@@ -7,7 +7,7 @@ const util = require('../util');
 
 /**
  * 度量的构造函数
- * @class Scale.Base
+ * @class Scale
  */
 class Scale {
 
