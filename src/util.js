@@ -23,6 +23,7 @@ const util = {
   isNil: require('lodash/isNil'),
   isArray: require('lodash/isArray'),
   isDate: require('lodash/isDate'),
+  toArray: require('lodash/toArray'),
   fixedBase(v, base) {
     const str = base.toString();
     const index = str.indexOf('.');
