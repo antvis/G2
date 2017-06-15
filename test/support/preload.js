@@ -1,6 +1,5 @@
 const {
   remote
-  // ipcRenderer: ipc
 } = require('electron');
 const path = remote.require('path');
 const fs = remote.require('fs');
@@ -12,3 +11,4 @@ if (!document.getElementById('mocha-style')) {
   style.innerHTML = fs.readFileSync(path.resolve(process.cwd(), './test/support/mocha.css'), 'utf8');
   document.head.appendChild(style);
 }
+

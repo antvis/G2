@@ -62,4 +62,5 @@ typings/
 
 build
 dist
+temp
 .DS_Store
