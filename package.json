@@ -48,7 +48,6 @@
   "pre-commit": {
     "run": [
       "lint",
-      "build",
       "test"
     ],
     "silent": false

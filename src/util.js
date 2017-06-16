@@ -26,6 +26,9 @@ const util = {
   isArray: require('lodash/isArray'),
   isDate: require('lodash/isDate'),
   toArray: require('lodash/toArray'),
+  template: require('lodash/template'),
+  indexOf: require('lodash/indexOf'),
+  isFunction: require('lodash/isFunction'),
   fixedBase(v, base) {
     const str = base.toString();
     const index = str.indexOf('.');
