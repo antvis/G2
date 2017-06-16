@@ -12,6 +12,8 @@ function _mix(dist, obj) {
   }
 }
 
+const PRECISION = 0.00001; // 常量，据的精度，小于这个精度认为是0
+
 const util = {
   each: require('lodash/each'),
   isNull: require('lodash/isNull'),
@@ -49,6 +51,9 @@ const util = {
       _mix(dist, obj3);
     }
     return dist;
+  },
+  equal(a, b) {
+    return Math.abs((a - b)) < PRECISION;
   }
 };
 
