@@ -29,6 +29,7 @@ const util = {
   template: require('lodash/template'),
   indexOf: require('lodash/indexOf'),
   isFunction: require('lodash/isFunction'),
+  assign: require('lodash/assign'),
   fixedBase(v, base) {
     const str = base.toString();
     const index = str.indexOf('.');

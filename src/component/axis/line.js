@@ -1,155 +1,151 @@
 const Base = require('./base');
 const Util = require('../../util');
-const
-var Matrix = require('@ali/g-matrix');
-var Vector2 = Matrix.Vector2;
-var MMath = require('@ali/g-math');
+const { MatrixUtil } = require('@ali/g');
+const vec2 = MatrixUtil.vec2;
 
-function Axis(cfg) {
-  Axis.superclass.constructor.call(this, cfg);
-}
+class Line extends Base {
+  getDefaultCfg() {
+    const cfg = super.getDefaultCfg();
+    // TODO: 这里可能还要对象和对象之间的复制
+    return Util.mix({}, cfg, {
+      x: null, // @type {Number} 距离初始位置的x轴偏移量,仅对于左侧、右侧的纵向坐标有效
+      y: null, // @type {Number} 距离初始位置的y轴偏移量，仅对顶部、底部的横向坐标轴有效
+      line: { // @type {Attrs} 坐标轴线的图形属性,如果设置成null，则不显示轴线
+        lineWidth: 1,
+        stroke: '#C0D0E0'
+      },
+      tickLine: { // @type {Attrs} 标注坐标线的图形属性
+        lineWidth: 1,
+        stroke: '#C0D0E0',
+        length: 5
+      },
+      isVertical: false,
+      start: null, // @type {Object} 起点
+      end: null // @type {Object} 终点
+    });
+  }
 
-Axis.CFG = {
-  zIndex: 4, // @type {Number} Z 轴位置
-  x: null, // @type {Number} 距离初始位置的x轴偏移量,仅对于左侧、右侧的纵向坐标有效
-  y: null, // @type {Number} 距离初始位置的y轴偏移量，仅对顶部、底部的横向坐标轴有效
-  elCls: CLS_AXIS, // @type {String} 附加的样式
-  line: { // @type {Attrs} 坐标轴线的图形属性,如果设置成null，则不显示轴线
-    lineWidth: 1,
-    stroke: '#C0D0E0'
-  },
-  tickLine: { // @type {Attrs} 标注坐标线的图形属性
-    lineWidth: 1,
-    stroke: '#C0D0E0',
-    value: 5
-  },
-  isVertical: false,
-  start: null, // @type {Object} 起点
-  end: null // @type {Object} 终点
-};
-
-Util.extend(Axis, Abstract);
-
-Util.augment(Axis, {
-  _getAvgLabelLength: function(labelsGroup) {
-    var labels = labelsGroup.get('children');
+  _getAvgLabelLength(labelsGroup) {
+    const labels = labelsGroup.get('children');
     return labels[1].attr('x') - labels[0].attr('x');
-  },
-  // 获取偏移位置的向量
-  getSideVector: function(offset) {
-    var self = this;
-    var factor = self.get('factor');
-    var isVertical = self.get('isVertical');
-    var start = self.get('start');
-    var end = self.get('end');
-    var axisVector = self.getAxisVector();
-    var normal = axisVector.normalize(); // 转换成单位向量
-    var direction = false;
+  }
+
+  /**
+   * 获取距离坐标轴的向量
+   * @override
+   * @param  {Number} offset 偏移值
+   * @return {Array}        返回二维向量
+   */
+  getSideVector(offset) {
+    const self = this;
+    const factor = self.get('factor');
+    const isVertical = self.get('isVertical');
+    const start = self.get('start');
+    const end = self.get('end');
+    const axisVector = self.getAxisVector();
+    const normal = vec2.normalize([], axisVector);
+    let direction = false;
     if ((isVertical && (start.y < end.y)) || (!isVertical && (start.x > end.x))) {
       direction = true;
     }
-    var verticalVector = normal.vertical(direction);
-    return verticalVector.multiplyScaler(offset * factor);
-  },
-  getAxisVector: function() {
-    var start = this.get('start');
-    var end = this.get('end');
-    return new Vector2(end.x - start.x, end.y - start.y);
-  },
-  /**
-   * @protected
-   * 获取坐标轴的path
-   * @return {String|Array} path
-   */
-  getLinePath: function() {
-    var self = this;
-    var start = self.get('start');
-    var end = self.get('end');
-    var path = [];
-    path.push(['M', start.x, start.y]);
-    path.push(['L', end.x, end.y]);
+    const verticalVector = vec2.vertical([], normal, direction);
+    return vec2.scale([], verticalVector, offset * factor);
+  }
+
+  getAxisVector() {
+    const start = this.get('start');
+    const end = this.get('end');
+    return [ end.x - start.x, end.y - start.y ];
+  }
+
+  getLinePath() {
+    const self = this;
+    const start = self.get('start');
+    const end = self.get('end');
+    const path = [];
+    path.push([ 'M', start.x, start.y ]);
+    path.push([ 'L', end.x, end.y ]);
     return path;
-  },
-  getTickEnd: function(start, value) {
-    var self = this;
-    var lineAttrs = self.get('tickLine');
-    var offsetVector;
-    value = value ? value : lineAttrs.value;
-    offsetVector = self.getSideVector(value);
+  }
+
+  getTickEnd(start, value) {
+    const self = this;
+    const offsetVector = self.getSideVector(value);
     return {
-      x: start.x + offsetVector.x,
-      y: start.y + offsetVector.y
+      x: start.x + offsetVector[0],
+      y: start.y + offsetVector[1]
     };
-  },
-  // 获取坐标轴上的节点位置
-  getTickPoint: function(tickValue) {
-    var self = this;
-    var start = self.get('start');
-    var end = self.get('end');
-    var rangeX = end.x - start.x;
-    var rangeY = end.y - start.y;
+  }
+
+  getTickPoint(tickValue) {
+    const self = this;
+    const start = self.get('start');
+    const end = self.get('end');
+    const rangeX = end.x - start.x;
+    const rangeY = end.y - start.y;
     return {
       x: start.x + rangeX * tickValue,
       y: start.y + rangeY * tickValue
     };
-  },
-  // 渲染标题
-  renderTitle: function() {
-    var self = this;
-    var title = self.get('title');
-    var offsetPoint = self.getTickPoint(0.5);
-    var titleOffset = self.get('titleOffset');
-    var labelsGroup = self.get('labelsGroup');
+  }
+
+  renderTitle() {
+    const self = this;
+    const title = self.get('title');
+    const offsetPoint = self.getTickPoint(0.5);
+    let titleOffset = title.offset || self.get('_titleOffset');
+    const labelsGroup = self.get('labelsGroup');
     if (labelsGroup) {
-      var labelLength = self.getMaxLabelWidth(labelsGroup);
-      var labelOffset = self.get('labelOffset') || 10;
+      const labelLength = self.getMaxLabelWidth(labelsGroup);
+      const labelOffset = self.get('label').offset || self.get('_labelOffset');
       if ((labelLength + labelOffset + 20) < titleOffset) {
         titleOffset = (labelLength + labelOffset + 20);
       }
     }
-    var cfg = Util.mix({}, title);
+    const cfg = Util.mix({}, title);
     if (title.text) {
-      var sideVector = self.getSideVector(titleOffset);
-      var point = {
-        x: offsetPoint.x + sideVector.x,
-        y: offsetPoint.y + sideVector.y
+      const sideVector = self.getSideVector(titleOffset);
+      const point = {
+        x: offsetPoint.x + sideVector[0],
+        y: offsetPoint.y + sideVector[1]
       };
 
-      var vector = self.getAxisVector(); // 坐标轴方向的向量
-      var angle = 0;
-      if (!MMath.equal(vector.y, 0)) { // 所有水平坐标轴，文本不转置
-        var v1 = new Vector2(1, 0);
-        var v2 = new Vector2(vector.x, vector.y);
-        angle = v2.angleTo(v1, true);
+      const vector = self.getAxisVector(); // 坐标轴方向的向量
+      let angle = 0;
+      if (!Util.equal(vector[1], 0)) { // 所有水平坐标轴，文本不转置
+        const v1 = [ 1, 0 ];
+        const v2 = [ vector[0], vector[1] ];
+        angle = vec2.angleTo(v2, v1, true);
       }
 
-      cfg.rotate = angle * (180 / Math.PI); //* -1;
-      cfg.x = point.x; // + (title.x || 0);
-      cfg.y = point.y; // + (title.y || 0);
-      self.addShape('Text', {
-        elCls: CLS_AXIS + '-title',
+      cfg.rotate = angle * (180 / Math.PI);
+      cfg.x = point.x;
+      cfg.y = point.y;
+      const title = self.addShape('Text', {
         attrs: cfg
       });
+      title.name = 'axis-title';
     }
-  },
-  autoRotateLabels: function() {
-    var self = this;
-    var labelsGroup = self.get('labelsGroup');
-    var title = self.get('title');
+  }
+
+  autoRotateLabels() {
+    const self = this;
+    const labelsGroup = self.get('labelsGroup');
+    const title = self.get('title');
     if (labelsGroup) {
-      var offset = self.get('labelOffset') || 10;
-      var append = offset;
-      var titleOffset = self.get('titleOffset');
-      var vector = self.getAxisVector(); // 坐标轴的向量，仅处理水平或者垂直的场景
-      var angle;
-      var maxWidth;
-      if (MMath.equal(vector.x, 0) && title && title.text) { // 坐标轴垂直，由于不知道边距，只能防止跟title重合，如果title不存在，则不自动旋转
+      const offset = self.get('label').offset || self.get('_labelOffset');
+      const append = offset;
+      const titleOffset = title.offset || self.get('_titleOffset');
+      const vector = self.getAxisVector(); // 坐标轴的向量，仅处理水平或者垂直的场景
+      let angle;
+      let maxWidth;
+      if (Util.equal(vector[0], 0) && title && title.text) { // 坐标轴垂直，由于不知道边距，只能防止跟title重合，如果title不存在，则不自动旋转
         maxWidth = self.getMaxLabelWidth(labelsGroup);
         if ((maxWidth + offset) > (titleOffset - append)) {
           angle = Math.acos((titleOffset - append) / (maxWidth + offset)) * -1;
         }
-      } else if (MMath.equal(vector.y, 0) && labelsGroup.getCount() > 1) { // 坐标轴水平，不考虑边距，根据最长的和平均值进行翻转
-        var avgWidth = Math.abs(self._getAvgLabelLength(labelsGroup)); // Math.abs(vector.x) / (self.get('ticks').length - 1);,平均计算存在问题，分类坐标轴的点前后有空白
+      } else if (Util.equal(vector[1], 0) && labelsGroup.getCount() > 1) { // 坐标轴水平，不考虑边距，根据最长的和平均值进行翻转
+        const avgWidth = Math.abs(self._getAvgLabelLength(labelsGroup)); // Math.abs(vector.x) / (self.get('ticks').length - 1);,平均计算存在问题，分类坐标轴的点前后有空白
         maxWidth = self.getMaxLabelWidth(labelsGroup);
         if (maxWidth > avgWidth) {
           angle = Math.atan2(offset * 1.5, avgWidth);
@@ -157,10 +153,10 @@ Util.augment(Axis, {
       }
 
       if (angle) {
-        var factor = self.get('factor');
+        const factor = self.get('factor');
         Util.each(labelsGroup.get('children'), function(label) {
           label.rotateAtStart(angle);
-          if (MMath.equal(vector.y, 0)) {
+          if (Util.equal(vector[1], 0)) {
             if (factor > 0) {
               label.attr('textAlign', 'left');
             } else {
@@ -171,6 +167,6 @@ Util.augment(Axis, {
       }
     }
   }
-});
+}
 
-module.exports = Axis;
+module.exports = Line;

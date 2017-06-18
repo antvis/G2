@@ -3,32 +3,32 @@ const Labels = require('./labels');
 
 module.exports = {
   renderLabels() {
-    const labels = this.get('labels');
+    const labelCfg = this.get('label');
 
-    if (Util.isNil(labels)) {
+    if (Util.isNil(labelCfg)) {
       return;
     }
 
-    if (Util.isNil(labels.items)) {
-      labels.items = [];
+    if (Util.isNil(labelCfg.items)) {
+      labelCfg.items = [];
     }
 
-    const labelsGroup = this.addGroup(Labels, labels);
+    const labelsGroup = this.addGroup(Labels, labelCfg);
     this.set('labelsGroup', labelsGroup);
   },
 
   resetLabels(items) {
     const self = this;
-    const labels = self.get('labels');
+    const labelCfg = self.get('label');
 
-    if (!labels) {
+    if (!labelCfg) {
       return;
     }
 
     const labelsGroup = self.get('labelsGroup');
     const children = labelsGroup.getLabels();
     const count = children.length;
-    items = items || labels.items;
+    items = items || labelCfg.items;
     Util.each(items, function(item, index) {
       if (index < count) {
         const label = children[index];
@@ -53,7 +53,7 @@ module.exports = {
       label.y = offsetPoint.y;
       label.point = offsetPoint;
       label.textAlign = offsetPoint.textAlign;
-      label.name = offsetPoint.name; // 用于事件的标注
+      // label.name = offsetPoint.name; // 用于事件的标注
       if (offsetPoint.rotate) {
         label.rotate = offsetPoint.rotate;
       }

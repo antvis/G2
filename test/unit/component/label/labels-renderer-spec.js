@@ -12,7 +12,7 @@ describe('LabelsRenderer mixin', function() {
   class A extends Group {
     getDefaultCfg() {
       return {
-        labels: null
+        label: null
       };
     }
   }
@@ -36,7 +36,7 @@ describe('LabelsRenderer mixin', function() {
   ];
 
   const a = canvas.addGroup(A, {
-    labels: {
+    label: {
       items,
       textStyle: {
         font: '20px/1.5 "Helvetica Neue",Helvetica,Arial,sans-serif',
@@ -56,7 +56,7 @@ describe('LabelsRenderer mixin', function() {
 
   it('测试防御分支', function() {
     const a1 = canvas.addGroup(A, {
-      labels: null
+      label: null
     });
     a1.renderLabels();
     a1.resetLabels();

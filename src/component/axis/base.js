@@ -8,58 +8,58 @@ class Base extends Group {
     return {
       zIndex: 4,
       /**
-       * åæ ‡è½´ä¸Šçš„åæ ‡ç‚¹
+       * ×ø±êÖáÉÏµÄ×ø±êµã
        * @type {Array}
        */
       ticks: null,
       /**
-       * åæ ‡è½´çº¿çš„å›¾å½¢å±æ€§é…ç½®ï¼Œå¦‚æœè®¾ç½®æˆnullï¼Œåˆ™ä¸æ˜¾ç¤º
+       * ×ø±êÖáÏßµÄÍ¼ĞÎÊôĞÔÅäÖÃ£¬Èç¹ûÉèÖÃ³Énull£¬Ôò²»ÏÔÊ¾
        * @type {Object}
        */
       line: null,
       /**
-       * åˆ»åº¦çº¿çš„æ ·å¼é…ç½®ï¼Œå¦‚æœè®¾ç½®æˆnullï¼Œåˆ™ä¸æ˜¾ç¤º
+       * ¿Ì¶ÈÏßµÄÑùÊ½ÅäÖÃ£¬Èç¹ûÉèÖÃ³Énull£¬Ôò²»ÏÔÊ¾
        * @type {Object}
        */
       tickLine: null,
       /**
-       * æ¬¡åˆ»åº¦çº¿ä¸ªæ•°ï¼Œå¦‚æœæœªè®¾ç½®è¯¥å±æ€§ï¼Œåˆ™ä¸æ˜¾ç¤º
+       * ´Î¿Ì¶ÈÏß¸öÊı£¬Èç¹ûÎ´ÉèÖÃ¸ÃÊôĞÔ£¬Ôò²»ÏÔÊ¾
        * @type {Number}
        */
       subTickCount: 0,
       /**
-       * æ¬¡åˆ»åº¦çº¿æ ·å¼é…ç½®
+       * ´Î¿Ì¶ÈÏßÑùÊ½ÅäÖÃ
        * @type {Object}
        */
       subTickLine: null,
       /**
-       * åæ ‡è½´æ …æ ¼çº¿æ ·å¼é…ç½®ï¼Œå¦‚æœè®¾ç½®ä¸º nullï¼Œåˆ™ä¸æ˜¾ç¤º
+       * ×ø±êÖáÕ¤¸ñÏßÑùÊ½ÅäÖÃ£¬Èç¹ûÉèÖÃÎª null£¬Ôò²»ÏÔÊ¾
        * @type {Object}
        */
       grid: null,
       /**
-       * åæ ‡è½´ä¸Šçš„æ–‡æœ¬ç›¸å…³é…ç½®
+       * ×ø±êÖáÉÏµÄÎÄ±¾Ïà¹ØÅäÖÃ
        * @type {Object}
        */
       label: {
-        textStyle: {}, // æ–‡æœ¬æ ·å¼é…ç½®
+        textStyle: {}, // ÎÄ±¾ÑùÊ½ÅäÖÃ
         autoRotate: true,
-        formatter: null, //  æ ¼å¼åŒ–åæ ‡è½´æ–‡æœ¬æ˜¾ç¤º
-        offset: 10 // æ–‡æœ¬è·ç¦»åæ ‡è½´çº¿çš„è·ç¦»ï¼Œå¯¹åº”åŸå±æ€§ labelOffset
+        formatter: null//  ¸ñÊ½»¯×ø±êÖáÎÄ±¾ÏÔÊ¾
+        // offset: 10 // ÎÄ±¾¾àÀë×ø±êÖáÏßµÄ¾àÀë£¬¶ÔÓ¦Ô­ÊôĞÔ labelOffset
       },
       /**
-       * åæ ‡è½´æ ‡é¢˜æ ·å¼é…ç½®
+       * ×ø±êÖá±êÌâÑùÊ½ÅäÖÃ
        * @type {Object}
        */
       title: {
-        textStyle: {}, // æ ‡é¢˜æ–‡æœ¬æ ·å¼é…ç½®
-        offset: 20 // æ ‡é¢˜ç¦»åæ ‡è½´çº¿çš„è·ç¦»
+        textStyle: {} // ±êÌâÎÄ±¾ÑùÊ½ÅäÖÃ
+        // offset: 20 // ±êÌâÀë×ø±êÖáÏßµÄ¾àÀë
       },
-      autoPaint: true, // @type {Boolean} æ˜¯å¦è‡ªåŠ¨ç»˜åˆ¶
-      // labelOffset: 10, // @type {Number} è·ç¦»åæ ‡è½´çš„è·ç¦»
-      // titleOffset: 20, // @type {Number} æ ‡é¢˜è·ç¦»åæ ‡è½´çš„ä½ç½®
-      // formatter: null, // @type {Function} æ ¼å¼åŒ–åæ ‡è½´ä¸Šçš„èŠ‚ç‚¹
-      // firstTick: true // @type {Boolean} æ˜¯å¦æ˜¾ç¤ºç¬¬ä¸€ä¸ªæ ‡æ³¨
+      autoPaint: true, // @type {Boolean} ÊÇ·ñ×Ô¶¯»æÖÆ
+      _labelOffset: 10, // @type {Number} ¾àÀë×ø±êÖáµÄ¾àÀë
+      _titleOffset: 20 // @type {Number} ±êÌâ¾àÀë×ø±êÖáµÄÎ»ÖÃ
+      // formatter: null, // @type {Function} ¸ñÊ½»¯×ø±êÖáÉÏµÄ½Úµã
+      // firstTick: true // @type {Boolean} ÊÇ·ñÏÔÊ¾µÚÒ»¸ö±ê×¢
     };
   }
 
@@ -77,10 +77,11 @@ class Base extends Group {
     this.sort();
   }
 
-  _parseTicks(ticks = []) {
+  _parseTicks(ticks) {
+    ticks = ticks || [];
     const ticksLength = ticks.length;
     for (let i = 0; i < ticksLength; i++) {
-      let item = ticks[i];
+      const item = ticks[i];
       if (!Util.isObject(item)) {
         ticks[i] = this.parseTick(item, i, ticksLength);
       }
@@ -89,8 +90,9 @@ class Base extends Group {
     return ticks;
   }
 
-  _addTickItem(index, point, length) {
-    const tickItems = this.get('tickItems');
+  _addTickItem(index, point, length, type = '') {
+    let tickItems = this.get('tickItems');
+    let subTickItems = this.get('subTickItems');
     const end = this.getTickEnd(point, length, index);
 
     const cfg = {
@@ -104,8 +106,18 @@ class Base extends Group {
       tickItems = [];
     }
 
-    tickItems.push(cfg);
+    if (!subTickItems) {
+      subTickItems = [];
+    }
+
+    if (type === 'sub') {
+      subTickItems.push(cfg);
+    } else {
+      tickItems.push(cfg);
+    }
+
     this.set('tickItems', tickItems);
+    this.set('subTickItems', subTickItems);
   }
 
   // TODO: rename
@@ -125,10 +137,10 @@ class Base extends Group {
     if (lineCfg) {
       path = this.getLinePath();
       lineCfg = Util.mix({
-        path: path
+        path
       }, lineCfg);
       const lineShape = this.addShape('path', {
-        attrs: lineAttrs
+        attrs: lineCfg
       });
       lineShape.name = 'axis-line';
       this.set('lineShape', lineShape);
@@ -146,17 +158,18 @@ class Base extends Group {
     Util.each(ticks, function(tick, index) {
       const tickPoint = self.getTickPoint(tick.value, index);
       if (tickLineCfg) {
-        self._addTickItem(index, tickPoint);
+        self._addTickItem(index, tickPoint, tickLineCfg.length);
       }
       if (labelCfg) {
         self.addLabel(self._formatPoint(tick.text), tickPoint, index, tick.value);
       }
     });
 
-    if (subTickCount) { // å¦‚æœæœ‰è®¾ç½®æ¬¡çº§åˆ†ç‚¹ï¼Œæ·»åŠ æ¬¡çº§tick
+    if (subTickCount) { // Èç¹ûÓĞÉèÖÃ´Î¼¶·Öµã£¬Ìí¼Ó´Î¼¶tick
+      const subTickLineCfg = self.get('subTickLine');
       Util.each(ticks, function(tick, index) {
         let diff = index ? tick.value - ticks[index - 1].value : tick.value;
-        diff = diff / self.get('subTick');
+        diff = diff / self.get('subTickCount');
 
         for (let i = 1; i < subTickCount; i++) {
           const subTick = {
@@ -165,39 +178,48 @@ class Base extends Group {
           };
 
           const tickPoint = self.getTickPoint(subTick.value);
-          const subTickCfg = self.get('subTickCfg');
           let subTickLength;
-          if (subTickCfg && subTickCfg.length) {
-            subTickLength = subTickCfg.length;
+          if (subTickLineCfg && subTickLineCfg.length) {
+            subTickLength = subTickLineCfg.length;
           } else {
             subTickLength = parseInt(tickLineCfg.length * (3 / 5), 10);
           }
-          self._addTickItem(i - 1, tickPoint, subTickLength);
+          self._addTickItem(i - 1, tickPoint, subTickLength, 'sub');
         }
       });
     }
   }
 
+  _addTickLine(ticks, lineCfg) {
+    const self = this;
+    const cfg = Util.mix({}, lineCfg);
+    const stringCompiler = Util.template('M${ x1 } ${ y1 }L${ x2 } ${ y2 }');
+    let path = '';
+    Util.each(ticks, function(item) {
+      const subPath = stringCompiler({ x1: item.x1, y1: item.y1, x2: item.x2, y2: item.y2 });
+      path += subPath;
+    });
+    delete cfg.length;
+    cfg.path = path;
+    const tickShape = self.addShape('path', {
+      attrs: cfg
+    });
+    tickShape.name = 'axis-ticks';
+  }
+
   _renderTicks() {
     const self = this;
     const tickItems = self.get('tickItems');
-    const tickLineCfg = self.get('tickLine');
-    let path = '';
-    const cfg = Util.mix({}, tickLineCfg);
+    const subTickItems = self.get('subTickItems');
 
     if (tickItems) {
-      const stringCompiler = Util.template('M${ x1 } ${ y1 }L${ x2 } ${ y2 }');
-      Util.each(tickItems, function(item) {
-        const subPath = stringCompiler({x1: item.x1, y1: item.y1, x2: item.x2, y2: item.y2})
-        path += subPath;
-      });
-      delete cfg.value;
-      cfg.path = path;
-      const tickShape = self.addShape('path', {
-        attrs: cfg
-      });
-      tickShape.name = 'axis-ticks';
-      self.set('tickShape', tickShape);
+      const tickLineCfg = self.get('tickLine');
+      self._addTickLine(tickItems, tickLineCfg);
+    }
+
+    if (subTickItems) {
+      const subTickLineCfg = self.get('subTickLine') || self.get('tickLine');
+      self._addTickLine(subTickItems, subTickLineCfg);
     }
   }
 
@@ -235,38 +257,16 @@ class Base extends Group {
   getTextAnchor(vector) {
     const ratio = Math.abs(vector.y / vector.x);
     let align;
-    if (ratio >= 1) { // ä¸Šé¢æˆ–è€…ä¸‹é¢
+    if (ratio >= 1) { // ÉÏÃæ»òÕßÏÂÃæ
       align = 'center';
     } else {
-      if (vector.x > 0) { // å³ä¾§
+      if (vector.x > 0) { // ÓÒ²à
         align = 'left';
-      } else { // å·¦ä¾§
+      } else { // ×ó²à
         align = 'right';
       }
     }
     return align;
-  }
-
-  addLabel(value, point, index) {
-    const labelsGroup = this.get('labelsGroup');
-    const label = {};
-    let rst;
-
-    if (labelsGroup) {
-      const offset = this.get('label').offset;
-      const vector = this.getSideVector(offset, point, index);
-      point = {
-        x: point.x + vector.x,
-        y: point.y + vector.y
-      };
-
-      label.text = value;
-      label.x = point.x;
-      label.y = point.y;
-      label.textAlign = this.getTextAnchor(vector);
-      rst = labelsGroup.addLabel(label);
-    }
-    return rst;
   }
 
   getMaxLabelWidth(labelsGroup) {
@@ -290,48 +290,70 @@ class Base extends Group {
   }
 
   /**
-   * æ—‹è½¬æ–‡æœ¬
+   * Ğı×ªÎÄ±¾
    * @abstract
    * @return {[type]} [description]
    */
   autoRotateLabels() {}
 
   /**
-   * æ¸²æŸ“åæ ‡è½´æ ‡é¢˜
+   * äÖÈ¾×ø±êÖá±êÌâ
    * @abstract
    * @return {[type]} [description]
    */
   renderTitle() {}
 
   /**
-   * è·å–åæ ‡è½´çº¿çš„ path
+   * »ñÈ¡×ø±êÖáÏßµÄ path
    * @abstract
    * @return {[type]} [description]
    */
   getLinePath() {}
 
   /**
-   * è·å–tickåœ¨ç”»å¸ƒä¸Šçš„ä½ç½®
+   * »ñÈ¡tickÔÚ»­²¼ÉÏµÄÎ»ÖÃ
    * @abstract
    * @return {[type]} [description]
    */
   getTickPoint() {}
 
   /**
-   * è·å–æ ‡ç¤ºåæ ‡ç‚¹çš„çº¿çš„ç»ˆç‚¹
+   * »ñÈ¡±êÊ¾×ø±êµãµÄÏßµÄÖÕµã
    * @abstract
    * @return {[type]} [description]
    */
   getTickEnd() {}
 
   /**
-   * è·å–è·ç¦»åæ ‡è½´çš„å‘é‡
+   * »ñÈ¡¾àÀë×ø±êÖáµÄÏòÁ¿
    * @abstract
    * @return {[type]} [description]
    */
   getSideVector() {}
 }
 
-Util.assign(Base.prototype, LabelsRenderer);
+Util.assign(Base.prototype, LabelsRenderer, {
+  addLabel(value, point, index) {
+    const labelsGroup = this.get('labelsGroup');
+    const label = {};
+    let rst;
+
+    if (labelsGroup) {
+      const offset = this.get('label').offset || this.get('_labelOffset');
+      const vector = this.getSideVector(offset, point, index);
+      point = {
+        x: point.x + vector[0],
+        y: point.y + vector[1]
+      };
+
+      label.text = value;
+      label.x = point.x;
+      label.y = point.y;
+      label.textAlign = this.getTextAnchor(vector);
+      rst = labelsGroup.addLabel(label);
+    }
+    return rst;
+  }
+});
 
 module.exports = Base;
