@@ -1,5 +1,4 @@
 const Cartesian = require('./cartesian');
-
 const Coord = require('./base');
 Coord.Cartesian = Cartesian;
 Coord.Rect = Cartesian;
