@@ -47,10 +47,14 @@ describe('测试底部坐标轴生成', function() {
       { text: '10', value: 1 }
     ],
     title: {
-      text: 'x 轴坐标',
-      fontSize: 18,
-      // offset: 30,
-      fill: '#000'
+      textStyle: {
+        text: 'x 轴',
+        fontSize: 18,
+        fill: '#000',
+        rotate: 0,
+        textAlign: 'end'
+      },
+      position: 'start' // 标题文本位置位于坐标轴前端
     },
     grid: {
       lineStyle: {
@@ -154,12 +158,16 @@ describe('测试顶部坐标轴', function() {
     },
     ticks: [ 1000000, 2000000, 3000000, '4000000', '5000000', 6000000, 7000000, 8000000, 9000000, 10000000 ],
     title: {
-      text: 'top axis',
-      fontSize: 12,
-      fill: 'red',
-      textBaseline: 'bottom',
-      fontWeight: 700,
-      offset: 25
+      textStyle: {
+        text: 'top axis',
+        fontSize: 12,
+        fill: 'red',
+        textBaseline: 'bottom',
+        fontWeight: 700,
+        textAlign: 'center'
+      },
+      position: 'end',
+      offset: 30
     },
     label: {
       autoRotate: true,
@@ -167,7 +175,6 @@ describe('测试顶部坐标轴', function() {
         fill: '#444',
         textAlign: 'center'
       }
-      // offset: 10
     }
   });
 
@@ -192,7 +199,7 @@ describe('测试顶部坐标轴', function() {
   it('测试 tite 位置', function() {
     const title = findByName(axis, 'axis-title');
     expect(title).not.to.be.null;
-    expect(title.attr('y')).to.equal(35);
+    expect(title.attr('y')).to.equal(30);
   });
 });
 
@@ -210,9 +217,13 @@ describe('测试左侧坐标轴', function() {
     },
     ticks: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ],
     title: {
-      text: 'axis left',
-      fill: 'red',
-      rotate: -90,
+      textStyle: {
+        text: '左侧 Y 轴',
+        fill: 'red',
+        textAlign: 'center'
+      },
+      autoRotate: false,
+      position: 'start',
       offset: 40
     },
     grid: {
@@ -279,9 +290,12 @@ describe('测试右侧坐标轴', function() {
     },
     ticks: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ],
     title: {
-      text: 'axis right',
+      textStyle: {
+        text: 'axis right',
+        fill: '#000'
+      },
       offset: 40,
-      fill: '#000'
+      autoRotate: true
     },
     label: null
   });
@@ -313,127 +327,3 @@ describe('测试右侧坐标轴', function() {
     expect(text.attr('x')).to.equal(500);
   });
 });
-
-// describe('测试公有方法', function() {
-//   var axis = canvas.addGroup(Axis, {
-//     isVertical: true,
-//     factor: 1,
-//     start: {
-//       x: 460,
-//       y: 60
-//     },
-//     end: {
-//       x: 460,
-//       y: 460
-//     },
-//     ticks: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-//     title: {
-//       text: 'axis right'
-//     },
-//     labels: {
-//       label: {}
-//     },
-//     attrs: {
-//       fill: '#333'
-//     }
-//   });
-
-//   canvas.draw();
-//   it('获取文本的最大宽度', function() {
-//     var labelsGroup = axis.get('labelsGroup');
-//     expect(axis.getMaxLabelWidth(labelsGroup)).above(0);
-//   });
-// });
-
-// describe('Transposed', function() {
-//   var coord = new Coord.Cartesian({
-//     start: {
-//       x: 60,
-//       y: 460
-//     },
-//     end: {
-//       x: 460,
-//       y: 60
-//     },
-//   });
-//   coord.transpose();
-//   var axis = canvas.addGroup(Axis, {
-//     isVertical: true,
-//     factor: 1,
-//     start: {
-//       x: 460,
-//       y: 60
-//     },
-//     end: {
-//       x: 460,
-//       y: 460
-//     },
-//     ticks: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-//     title: {
-//       text: 'axis right'
-//     },
-//     labels: {
-//       label: {}
-//     },
-//     attrs: {
-//       fill: '#333'
-//     }
-//   });
-
-//   canvas.draw();
-//   it('获取文本的最大宽度', function() {
-//     var labelsGroup = axis.get('labelsGroup');
-//     expect(axis.getMaxLabelWidth(labelsGroup)).above(0);
-//   });
-// });
-
-// describe('文本自动旋转', function() {
-//   var simpleCfg = {
-//     isVertical: true,
-//     factor: -1,
-//     start: {
-//       x: 60,
-//       y: 60
-//     },
-//     end: {
-//       x: 60,
-//       y: 460
-//     },
-//     ticks: [0, 233211, 2, 3, 4, 5, 6, 7, 8, 9, 123132, 1, 2, 3, 4, 999205, 6, 7, 8, 9],
-//     title: {
-//       text: 'axis right'
-//     },
-//     attrs: {
-//       fill: '#333'
-//     },
-//     grid: {
-//       line: {
-//         stroke: '#c0c0c0'
-//       },
-//       minorLine: {
-//         stroke: '#e0e0e0'
-//       },
-//       minorCount: 2
-//     }
-//   };
-//   it('左边自动旋转', function() {
-//     simpleCfg.position = 'left';
-//     var axis = canvas.addGroup(Axis, simpleCfg);
-//     canvas.draw();
-//   });
-//   it('上边边自动旋转', function() {
-//     simpleCfg.position = 'top';
-//     var axis = canvas.addGroup(Axis, simpleCfg);
-//     canvas.draw();
-//   });
-//   it('右边自动旋转', function() {
-//     simpleCfg.position = 'right';
-//     var axis = canvas.addGroup(Axis, simpleCfg);
-//     canvas.draw();
-//   });
-//   it('下边自动旋转', function() {
-//     simpleCfg.position = 'bottom';
-//     var axis = canvas.addGroup(Axis, simpleCfg);
-//     canvas.draw();
-//   });
-// });

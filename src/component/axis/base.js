@@ -52,6 +52,7 @@ class Base extends Group {
        * @type {Object}
        */
       title: {
+        autoRotate: true, // 自动旋转
         textStyle: {} // 标题文本样式配置
         // offset: 20 // 标题离坐标轴线的距离
       },

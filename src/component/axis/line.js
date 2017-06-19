@@ -102,29 +102,54 @@ class Line extends Base {
         titleOffset = (labelLength + labelOffset + 20);
       }
     }
-    const cfg = Util.mix({}, title);
-    if (title.text) {
-      const sideVector = self.getSideVector(titleOffset);
-      const point = {
-        x: offsetPoint.x + sideVector[0],
-        y: offsetPoint.y + sideVector[1]
-      };
 
+    const textStyle = title.textStyle;
+    const cfg = Util.mix({}, textStyle);
+    if (textStyle.text) {
       const vector = self.getAxisVector(); // 坐标轴方向的向量
-      let angle = 0;
-      if (!Util.equal(vector[1], 0)) { // 所有水平坐标轴，文本不转置
-        const v1 = [ 1, 0 ];
-        const v2 = [ vector[0], vector[1] ];
-        angle = vec2.angleTo(v2, v1, true);
+
+      if (title.autoRotate && !textStyle.rotate) { // 自动旋转并且用户没有指定标题的旋转角度
+        let angle = 0;
+        if (!Util.equal(vector[1], 0)) { // 所有水平坐标轴，文本不转置
+          const v1 = [ 1, 0 ];
+          const v2 = [ vector[0], vector[1] ];
+          angle = vec2.angleTo(v2, v1, true);
+        }
+
+        cfg.rotate = angle * (180 / Math.PI);
+      } else if (textStyle.rotate) { // 用户设置了旋转角度就以用户设置的为准
+        cfg.rotate = (textStyle.rotate / 180) * Math.PI; // 将角度转换为弧度
       }
 
-      cfg.rotate = angle * (180 / Math.PI);
+      const sideVector = self.getSideVector(titleOffset);
+      let point;
+      if (title.position) {
+        const position = title.position;
+        if (position === 'start') {
+          point = {
+            x: this.get('start').x + sideVector[0],
+            y: this.get('start').y + sideVector[1]
+          };
+        } else if (position === 'end') {
+          point = {
+            x: this.get('end').x + sideVector[0],
+            y: this.get('end').y + sideVector[1]
+          };
+        }
+      } else {
+        point = {
+          x: offsetPoint.x + sideVector[0],
+          y: offsetPoint.y + sideVector[1]
+        };
+      }
+
       cfg.x = point.x;
       cfg.y = point.y;
-      const title = self.addShape('Text', {
+
+      const titleShape = self.addShape('Text', {
         attrs: cfg
       });
-      title.name = 'axis-title';
+      titleShape.name = 'axis-title';
     }
   }
 
