@@ -21,7 +21,8 @@ describe('Labels', function() {
   const canvas = new Canvas({
     containerId: 'c1',
     width: 500,
-    height: 500
+    height: 500,
+    pixelRatio: 2
   });
   const labels = canvas.addGroup(Labels, {
     items: [
@@ -142,7 +143,8 @@ describe('格式化文本信息', function() {
   const canvas = new Canvas({
     containerId: 'c1',
     width: 500,
-    height: 500
+    height: 500,
+    pixelRatio: 2
   });
 
   it('格式化文本信息', function() {
@@ -206,18 +208,19 @@ describe('HTML 自定义 Labels', function() {
     const canvas = new Canvas({
       containerId: 'c1',
       width: 500,
-      height: 500
+      height: 500,
+      pixelRatio: 2
     });
     const labels = canvas.addGroup(Labels, {
       items: [
-        { x: 10, y: 20, text: '1' },
-        { x: 10, y: 40, text: '2' }
+        { x: 80, y: 20, text: '1' },
+        { x: 80, y: 40, text: '2' }
       ],
       textStyle: {
         fill: '#f80',
         textAlign: 'right'
       },
-      htmlTemplate: '<span style="color: red;font-weight: 700">${text}</span>',
+      htmlTemplate: '<p style="color: red;font-weight: 700;font: 12px arial;text-align: center;width: 50px;">${text}</p>',
       formatter(value) {
         return 'text--' + value;
       }
@@ -228,9 +231,9 @@ describe('HTML 自定义 Labels', function() {
     const lastNode = childNodes[childNodes.length - 1];
     expect(labels.get('children')).to.be.empty;
     expect(customDiv).not.to.be.undefined;
-    expect(lastNode.innerHTML).to.equal('<span style="color: red;font-weight: 700">text--2</span>');
+    expect(lastNode.innerHTML).to.equal('<p style="color: red;font-weight: 700;font: 12px arial;text-align: center;width: 50px;">text--2</p>');
     expect(lastNode.style.right).to.equal('');
-    expect(lastNode.style.left).to.equal('-21px');
+    expect(lastNode.style.left).to.equal('30px');
     canvas.destroy();
   });
   describe('自定义 Labels，回调', function() {
@@ -238,7 +241,8 @@ describe('HTML 自定义 Labels', function() {
     const canvas = new Canvas({
       containerId: 'c1',
       width: 500,
-      height: 500
+      height: 500,
+      pixelRatio: 2
     });
 
     const labels = canvas.addGroup(Labels, {
