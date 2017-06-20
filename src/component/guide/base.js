@@ -4,6 +4,7 @@ const KEYWORDS = [ 'min', 'max', 'median' ];
 class Base {
   getDefaultCfg() {
     return {
+      zIndex: 1,
       xScales: null,
       yScales: null
     };

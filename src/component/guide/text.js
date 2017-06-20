@@ -10,6 +10,8 @@ class Text extends Base {
        * @type {String}
        */
       type: 'text',
+      // TODO 需要调整
+      zIndex: 15,
       /**
        * 辅助文本的位置
        * @type {Object | Function}
@@ -63,6 +65,7 @@ class Text extends Base {
     }
 
     const guideText = group.addShape('Text', {
+      zIndex: self.zIndex,
       attrs: Util.mix({
         text: self.content
       }, textStyle, point)

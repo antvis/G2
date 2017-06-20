@@ -11,6 +11,8 @@ class Line extends Base {
        * @type {String}
        */
       type: 'line',
+      // TODO 需要调整
+      zIndex: 15,
       /**
        * 辅助线的起点位置
        * @type {Object | Function}
@@ -57,7 +59,7 @@ class Line extends Base {
     if (this.text && this.text.content) {
       self._drawText(start, end, guideLineGroup);
     }
-
+    guideLineGroup.set('zIndex', 15); // TODO: 需要确定数值
     guideLineGroup.name = 'guide-line';
   }
 
@@ -118,7 +120,6 @@ class Line extends Base {
     }
 
     group.addShape('Text', {
-      zIndex: 1,
       attrs: cfg
     });
   }
