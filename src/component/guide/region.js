@@ -1,63 +1,49 @@
-/**
- * @fileOverview guide rect
- * @author dxq613@gmail.com
- */
+const Util = require('../../util');
+const Base = require('./base');
 
-'use strict';
+class Region extends Base {
+  getDefaultCfg() {
+    const cfg = super.getDefaultCfg();
 
-var Util = require('@ali/g-util');
-var Guide = require('./guide');
-
-/**
- * @class Guide.Rect
- * 矩形辅助框
- */
-var Rect = function(cfg) {
-  Rect.superclass.constructor.call(this, cfg);
-};
-
-Util.extend(Rect, Guide);
-
-Util.augment(Rect, {
-  /**
-   * 起点
-   * @type {Array}
-   */
-  start: [],
-  /**
-   * 终点
-   * @type {Array}
-   */
-  end: [],
-
-  cfg: {
-    stroke: '#000'
-  },
-  // 获取矩形的path
-  getPath: function(coord) {
-    var self = this;
-    var start = self.parsePoint(coord, self.start);
-    var end = self.parsePoint(coord, self.end);
-    var path = [];
-    path.push(['M', start.x, start.y]);
-    path.push(['L', end.x, start.y]);
-    path.push(['L', end.x, end.y]);
-    path.push(['L', start.x, end.y]);
-    path.push(['z']);
-    return path;
-  },
-  // Override
-  paint: function(coord, group) {
-    var self = this;
-    var cfg = self.cfg;
-    var path = self.getPath(coord);
-    cfg = Util.mix({
-      path: path
-    }, cfg);
-    group.addShape('Path', {
-      attrs: cfg
+    return Util.mix({}, cfg, {
+      type: 'region',
+      zIndex: 1,
+      start: null,
+      end: null,
+      style: {
+        lineWidth: 0,
+        fill: '#CCD7EB',
+        opacity: 0.4
+      }
     });
   }
-});
 
-module.exports = Rect;
+  paint(coord, group) {
+    const self = this;
+    const rectStyle = self.style;
+    const path = self._getPath(coord);
+
+    const regionGroup = group.addShape('path', {
+      zIndex: self.zIndex,
+      attrs: Util.mix({
+        path
+      }, rectStyle)
+    });
+    regionGroup.name = 'guide-region';
+  }
+
+  _getPath(coord) {
+    const self = this;
+    const start = self.parsePoint(coord, self.start);
+    const end = self.parsePoint(coord, self.end);
+    const path = [];
+    path.push([ 'M', start.x, start.y ]);
+    path.push([ 'L', end.x, start.y ]);
+    path.push([ 'L', end.x, end.y ]);
+    path.push([ 'L', start.x, end.y ]);
+    path.push([ 'z' ]);
+    return path;
+  }
+}
+
+module.exports = Region;
