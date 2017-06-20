@@ -43,7 +43,7 @@ describe('Guide: 辅助文本', function() {
       content: '(一月，200)',
       start: {
         month: '三月',
-        temp: 600
+        temp: 'min'
       }
     });
     text.paint(coord, group);
@@ -52,7 +52,7 @@ describe('Guide: 辅助文本', function() {
     expect(children.length).to.equal(1);
     expect(children[0].name).to.equal('guide-text');
     expect(children[0].attr('x')).to.equal(260);
-    expect(children[0].attr('y')).to.equal(260);
+    expect(children[0].attr('y')).to.equal(460);
   });
 
   it('guide text has some offset', function() {
@@ -67,7 +67,7 @@ describe('Guide: 辅助文本', function() {
       content: '(一月，200)',
       start: {
         month: '三月',
-        temp: 600
+        temp: 'max'
       },
       style: {
         fill: 'rgb(251, 192, 45)',
@@ -89,7 +89,39 @@ describe('Guide: 辅助文本', function() {
     expect(children.length).to.equal(1);
     expect(children[0].name).to.equal('guide-text');
     expect(children[0].attr('x')).to.equal(360);
-    expect(children[0].attr('y')).to.equal(360);
+    expect(children[0].attr('y')).to.equal(160);
     expect(children[0].attr('rotate')).to.equal(Math.PI);
+  });
+
+  it('guide text with the start is a function', function() {
+    group.clear();
+    const text = new Text({
+      xScales: {
+        month: xScale
+      },
+      yScales: {
+        temp: yScale
+      },
+      content: '(一月，200)',
+      start(xScales) {
+        return {
+          month: xScales.month.values[3],
+          temp: 'median'
+        };
+      },
+      style: {
+        fill: 'rgb(251, 192, 45)',
+        fontSize: 24,
+        fontWeight: 600,
+        textAlign: 'center'
+      }
+    });
+    text.paint(coord, group);
+    canvas.draw();
+    const children = group.get('children');
+    expect(children.length).to.equal(1);
+    expect(children[0].name).to.equal('guide-text');
+    expect(children[0].attr('x')).to.equal(360);
+    expect(children[0].attr('y')).to.equal(260);
   });
 });

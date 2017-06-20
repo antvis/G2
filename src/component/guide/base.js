@@ -65,10 +65,12 @@ class Base {
       }
     }
 
-    return coord.convert({
-      x,
-      y
-    });
+    if (!Util.isNil(x) && !Util.isNil(y)) {
+      return coord.convert({
+        x,
+        y
+      });
+    }
   }
 
   /**
