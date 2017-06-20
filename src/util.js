@@ -33,6 +33,7 @@ const Util = {
   groupBy: require('lodash/groupBy'),
   cloneDeep: require('lodash/cloneDeep'),
   maxBy: require('lodash/maxBy'),
+  has: require('lodash/has'),
   fixedBase(v, base) {
     const str = base.toString();
     const index = str.indexOf('.');
