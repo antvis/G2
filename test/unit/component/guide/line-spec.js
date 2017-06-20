@@ -62,222 +62,222 @@ describe('Guide: 辅助线', function() {
     expect(children[0].getCount()).to.equal(1);
   });
 
-  // it('guide line with text, and autoRotate is true', function() {
-  //   group.clear();
+  it('guide line with text, and autoRotate is true', function() {
+    group.clear();
 
-  //   const line = new Line({
-  //     xScales: {
-  //       month: xScale
-  //     },
-  //     yScales: {
-  //       temp: yScale
-  //     },
-  //     start: {
-  //       month: '一月',
-  //       temp: 200
-  //     },
-  //     end: {
-  //       month: '五月',
-  //       temp: 1000
-  //     },
-  //     lineStyle: {
-  //       stroke: '#999',
-  //       lineWidth: 1
-  //     },
-  //     text: {
-  //       position: 'center',
-  //       content: '我是条辅助线哦',
-  //       autoRotate: true,
-  //       style: {
-  //         fontSize: 16,
-  //         fill: 'red'
-  //       }
-  //     }
-  //   });
-  //   line.paint(coord, group);
-  //   canvas.draw();
+    const line = new Line({
+      xScales: {
+        month: xScale
+      },
+      yScales: {
+        temp: yScale
+      },
+      start: {
+        month: '一月',
+        temp: 200
+      },
+      end: {
+        month: '五月',
+        temp: 1000
+      },
+      lineStyle: {
+        stroke: '#999',
+        lineWidth: 1
+      },
+      text: {
+        position: 'center',
+        content: '我是条辅助线哦',
+        autoRotate: true,
+        style: {
+          fontSize: 16,
+          fill: 'red'
+        }
+      }
+    });
+    line.paint(coord, group);
+    canvas.draw();
 
-  //   const children = group.get('children');
-  //   expect(children.length).to.equal(1);
-  //   expect(children[0]).to.an.instanceof(Group);
-  //   expect(children[0].getCount()).to.equal(2);
-  //   const textShape = children[0].get('children')[1];
-  //   expect(textShape.attr('rotate')).not.to.be.undefined;
-  //   expect(textShape.attr('x')).to.equal(260);
-  //   expect(textShape.attr('y')).to.equal(260);
-  // });
+    const children = group.get('children');
+    expect(children.length).to.equal(1);
+    expect(children[0]).to.an.instanceof(Group);
+    expect(children[0].getCount()).to.equal(2);
+    const textShape = children[0].get('children')[1];
+    expect(textShape.attr('rotate')).not.to.be.undefined;
+    expect(textShape.attr('x')).to.equal(260);
+    expect(textShape.attr('y')).to.equal(260);
+  });
 
-  // it('guide line with text, the text has offset', function() {
-  //   group.clear();
+  it('guide line with text, the text has offset', function() {
+    group.clear();
 
-  //   const line = new Line({
-  //     xScales: {
-  //       month: xScale
-  //     },
-  //     yScales: {
-  //       temp: yScale
-  //     },
-  //     start: {
-  //       month: '一月',
-  //       temp: 200
-  //     },
-  //     end: {
-  //       month: '五月',
-  //       temp: 1000
-  //     },
-  //     lineStyle: {
-  //       stroke: '#999',
-  //       lineWidth: 1
-  //     },
-  //     text: {
-  //       position: 'center',
-  //       content: '我是条辅助线哦',
-  //       autoRotate: true,
-  //       style: {
-  //         fontSize: 16,
-  //         fill: 'red',
-  //         textAlign: 'start'
-  //       },
-  //       offsetX: 5,
-  //       offsetY: 10
-  //     }
-  //   });
-  //   line.paint(coord, group);
-  //   canvas.draw();
+    const line = new Line({
+      xScales: {
+        month: xScale
+      },
+      yScales: {
+        temp: yScale
+      },
+      start: {
+        month: '一月',
+        temp: 200
+      },
+      end: {
+        month: '五月',
+        temp: 1000
+      },
+      lineStyle: {
+        stroke: '#999',
+        lineWidth: 1
+      },
+      text: {
+        position: 'center',
+        content: '我是条辅助线哦',
+        autoRotate: true,
+        style: {
+          fontSize: 16,
+          fill: 'red',
+          textAlign: 'start'
+        },
+        offsetX: 5,
+        offsetY: 10
+      }
+    });
+    line.paint(coord, group);
+    canvas.draw();
 
-  //   const children = group.get('children');
-  //   const textShape = children[0].get('children')[1];
-  //   expect(textShape.attr('rotate')).not.to.be.undefined;
-  //   expect(textShape.attr('x')).to.equal(265);
-  //   expect(textShape.attr('y')).to.equal(270);
-  // });
+    const children = group.get('children');
+    const textShape = children[0].get('children')[1];
+    expect(textShape.attr('rotate')).not.to.be.undefined;
+    expect(textShape.attr('x')).to.equal(265);
+    expect(textShape.attr('y')).to.equal(270);
+  });
 
-  // it('guide line with text but not rotate with line.', function() {
-  //   group.clear();
+  it('guide line with text but not rotate with line.', function() {
+    group.clear();
 
-  //   const line = new Line({
-  //     xScales: {
-  //       month: xScale
-  //     },
-  //     yScales: {
-  //       temp: yScale
-  //     },
-  //     start: {
-  //       month: '二月',
-  //       temp: 200
-  //     },
-  //     end: {
-  //       month: '四月',
-  //       temp: 800
-  //     },
-  //     lineStyle: {
-  //       stroke: '#999',
-  //       lineWidth: 1
-  //     },
-  //     text: {
-  //       position: 'start',
-  //       content: '我是条辅助线哦',
-  //       autoRotate: false,
-  //       style: {
-  //         fontSize: 16,
-  //         fill: 'red'
-  //       }
-  //     }
-  //   });
-  //   line.paint(coord, group);
-  //   canvas.draw();
+    const line = new Line({
+      xScales: {
+        month: xScale
+      },
+      yScales: {
+        temp: yScale
+      },
+      start: {
+        month: '二月',
+        temp: 200
+      },
+      end: {
+        month: '四月',
+        temp: 800
+      },
+      lineStyle: {
+        stroke: '#999',
+        lineWidth: 1
+      },
+      text: {
+        position: 'start',
+        content: '我是条辅助线哦',
+        autoRotate: false,
+        style: {
+          fontSize: 16,
+          fill: 'red'
+        }
+      }
+    });
+    line.paint(coord, group);
+    canvas.draw();
 
-  //   const children = group.get('children');
-  //   const textShape = children[0].get('children')[1];
-  //   expect(textShape.get('type')).to.equal('Text');
-  //   expect(textShape.attr('x')).to.equal(160);
-  //   expect(textShape.attr('rotate')).to.be.undefined;
-  // });
+    const children = group.get('children');
+    const textShape = children[0].get('children')[1];
+    expect(textShape.get('type')).to.equal('Text');
+    expect(textShape.attr('x')).to.equal(160);
+    expect(textShape.attr('rotate')).to.be.undefined;
+  });
 
-  // it('guide line with text, and text has own angle.', function() {
-  //   group.clear();
+  it('guide line with text, and text has own angle.', function() {
+    group.clear();
 
-  //   const line = new Line({
-  //     xScales: {
-  //       month: xScale
-  //     },
-  //     yScales: {
-  //       temp: yScale
-  //     },
-  //     start: {
-  //       month: '二月',
-  //       temp: 200
-  //     },
-  //     end: {
-  //       month: '二月',
-  //       temp: 1000
-  //     },
-  //     lineStyle: {
-  //       stroke: '#999',
-  //       lineWidth: 1
-  //     },
-  //     text: {
-  //       position: 'end',
-  //       content: '我是条辅助线哦',
-  //       autoRotate: false,
-  //       style: {
-  //         fontSize: 14,
-  //         fill: 'red',
-  //         textAlign: 'end',
-  //         rotate: 60
-  //       }
-  //     }
-  //   });
-  //   line.paint(coord, group);
-  //   canvas.draw();
+    const line = new Line({
+      xScales: {
+        month: xScale
+      },
+      yScales: {
+        temp: yScale
+      },
+      start: {
+        month: '二月',
+        temp: 200
+      },
+      end: {
+        month: '二月',
+        temp: 1000
+      },
+      lineStyle: {
+        stroke: '#999',
+        lineWidth: 1
+      },
+      text: {
+        position: 'end',
+        content: '我是条辅助线哦',
+        autoRotate: false,
+        style: {
+          fontSize: 14,
+          fill: 'red',
+          textAlign: 'end',
+          rotate: 60
+        }
+      }
+    });
+    line.paint(coord, group);
+    canvas.draw();
 
-  //   const children = group.get('children');
-  //   const textShape = children[0].get('children')[1];
-  //   expect(textShape.get('type')).to.equal('Text');
-  //   expect(textShape.attr('x')).to.equal(160);
-  //   expect(textShape.attr('rotate')).to.equal(Math.PI / 3);
-  // });
+    const children = group.get('children');
+    const textShape = children[0].get('children')[1];
+    expect(textShape.get('type')).to.equal('Text');
+    expect(textShape.attr('x')).to.equal(160);
+    expect(textShape.attr('rotate')).to.equal(Math.PI / 3);
+  });
 
-  // it('guide line with text, the position is value like "40%"', function() {
-  //   group.clear();
+  it('guide line with text, the position is value like "40%"', function() {
+    group.clear();
 
-  //   const line = new Line({
-  //     xScales: {
-  //       month: xScale
-  //     },
-  //     yScales: {
-  //       temp: yScale
-  //     },
-  //     start: {
-  //       month: '一月',
-  //       temp: 200
-  //     },
-  //     end: {
-  //       month: '五月',
-  //       temp: 200
-  //     },
-  //     lineStyle: {
-  //       stroke: '#999',
-  //       lineWidth: 1
-  //     },
-  //     text: {
-  //       position: '80%',
-  //       content: '我是条辅助线哦',
-  //       autoRotate: false,
-  //       style: {
-  //         fontSize: 16,
-  //         fill: 'red',
-  //         textAlign: 'start'
-  //       }
-  //     }
-  //   });
-  //   line.paint(coord, group);
-  //   canvas.draw();
+    const line = new Line({
+      xScales: {
+        month: xScale
+      },
+      yScales: {
+        temp: yScale
+      },
+      start: {
+        month: '一月',
+        temp: 200
+      },
+      end: {
+        month: '五月',
+        temp: 200
+      },
+      lineStyle: {
+        stroke: '#999',
+        lineWidth: 1
+      },
+      text: {
+        position: '80%',
+        content: '我是条辅助线哦',
+        autoRotate: false,
+        style: {
+          fontSize: 16,
+          fill: 'red',
+          textAlign: 'start'
+        }
+      }
+    });
+    line.paint(coord, group);
+    canvas.draw();
 
-  //   const children = group.get('children');
-  //   const textShape = children[0].get('children')[1];
-  //   expect(textShape.attr('x')).to.equal(380);
-  // });
+    const children = group.get('children');
+    const textShape = children[0].get('children')[1];
+    expect(textShape.attr('x')).to.equal(380);
+  });
 
   it('guide line with text, the position is value like 0.5', function() {
     group.clear();
