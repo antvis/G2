@@ -2,6 +2,12 @@
 
 ---
 
+## 2.3.5
+
+- fix: 修复框选部分区域不生效的问题
+- fix: 修复 `G2.Stat.summary.percent` 统计函数问题
+- feat: area line point schema 四种 geom 支持选中交互
+
 ## 2.3.4
 
 - fix: 修复折线图查找逼近值时又很小一段区域无法找到值的bug
