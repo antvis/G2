@@ -11,9 +11,41 @@ const DEFAULT_Y = 0; // 默认的y的值
  * @class Adjust
  */
 class Adjust {
+  /**
+   * 获取默认的配置属性
+   * @protected
+   * @return {Object} 默认属性
+   */
+  getDefaultCfg() {
+    return {
+      /**
+       * 调整对应的x方向对应的字段名称
+       * @type {Scale}
+       */
+      xDim: null,
+      /**
+       * 调整对应的y方向对应的字段名称
+       * @type {Scale}
+       */
+      yDim: null,
+
+      /**
+       * 调整的维度，默认,x,y都做调整
+       * @type {Array}
+       */
+      adjustNames: [ 'x', 'y' ], // 指x,y
+
+      /**
+       * 参与分组的数据维度
+       * @type {Array}
+       */
+      groupDims: null
+    };
+  }
 
   constructor(cfg) {
-    Util.assign(this, cfg);
+    const defaultCfg = this.getDefaultCfg();
+    Util.assign(this, defaultCfg, cfg);
   }
 
   /**
@@ -144,31 +176,5 @@ class Adjust {
     return groups;
   }
 }
-
-// 属性
-Util.assign(Adjust.prototype, {
-  /**
-   * 调整对应的x方向对应的字段名称
-   * @type {Scale}
-   */
-  xDim: null,
-  /**
-   * 调整对应的y方向对应的字段名称
-   * @type {Scale}
-   */
-  yDim: null,
-
-  /**
-   * 调整的维度，默认,x,y都做调整
-   * @type {Array}
-   */
-  adjustNames: [ 'x', 'y' ], // 指x,y
-
-  /**
-   * 参与分组的数据维度
-   * @type {Array}
-   */
-  groupDims: null
-});
 
 module.exports = Adjust;

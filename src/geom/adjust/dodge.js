@@ -6,7 +6,28 @@
 const Util = require('../../util');
 const Adjust = require('./adjust');
 
+/**
+ * 数据调整的基类
+ * @class Adjust.Dodge
+ */
 class Dodge extends Adjust {
+  getDefaultCfg() {
+    const cfg = super.getDefaultCfg();
+    return Util.assign(cfg, {
+      /**
+       * 调整过程中,2个数据的间距
+       * @type {Number}
+       */
+      marginRatio: 1 / 2,
+
+      /**
+       * 调整占单位宽度的比例,例如：占2个分类间距的 1/2
+       * @type {Number}
+       */
+      dodgeRatio: 1 / 2
+    });
+  }
+
   _getDodgeDim(dims) {
     const self = this;
     let rst = null;
@@ -104,21 +125,5 @@ class Dodge extends Adjust {
     return (pre + next) / 2 + offset;
   }
 }
-
-Util.assign(Dodge.prototype, {
-
-  /**
-   * 调整过程中,2个数据的间距
-   * @type {Number}
-   */
-  marginRatio: 1 / 2,
-
-  /**
-   * 调整占单位宽度的比例,例如：占2个分类间距的 1/2
-   * @type {Number}
-   */
-  dodgeRatio: 1 / 2
-
-});
 
 module.exports = Dodge;

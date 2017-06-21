@@ -7,6 +7,10 @@
 const Util = require('../../util');
 const Adjust = require('./adjust');
 
+/**
+ * 数据调整的基类
+ * @class Adjust.Jitter
+ */
 class Jitter extends Adjust {
 
   getAdjustOffset(pre, next) {

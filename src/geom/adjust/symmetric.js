@@ -6,8 +6,26 @@
 const Util = require('../../util');
 const Adjust = require('./adjust');
 
+/**
+ * 数据调整的基类
+ * @class Adjust.Symmetric
+ */
 class Symmetric extends Adjust {
 
+  /**
+   * @override
+   */
+  getDefaultCfg() {
+    const cfg = super.getDefaultCfg();
+    return Util.assign(cfg, {
+      // 缓存的最大值
+      cacheMax: null,
+      /**
+       * @override
+       */
+      adjustNames: [ 'y' ] // Only support stack y
+    });
+  }
   // 获取最大的y值
   _getMax(dim) {
     const self = this;
@@ -81,10 +99,5 @@ class Symmetric extends Adjust {
     });
   }
 }
-
-Util.assign(Symmetric.prototype, {
-  cacheMax: null,
-  adjustNames: [ 'y' ] // Only support stack y
-});
 
 module.exports = Symmetric;

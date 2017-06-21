@@ -7,7 +7,39 @@
 const Util = require('../../util');
 const Adjust = require('./adjust');
 
+/**
+ * 数据调整的基类
+ * @class Adjust.Stack
+ */
 class Stack extends Adjust {
+  /**
+   * @override
+   */
+  getDefaultCfg() {
+    const cfg = super.getDefaultCfg();
+    return Util.assign(cfg, {
+      /**
+       * 仅有一个维度调整时，总的高度
+       * @type {Number}
+       */
+      height: null,
+      /**
+       * 单个点的大小
+       * @type {Number}
+       */
+      size: 10,
+      /**
+       * 是否反序进行层叠
+       * @type {Boolean}
+       */
+      reverseOrder: false,
+
+      /**
+       * @override
+       */
+      adjustNames: [ 'y' ] // Only support stack y
+    });
+  }
 
   processOneDimStack(dataArray) {
     const self = this;
@@ -79,12 +111,5 @@ class Stack extends Adjust {
     }
   }
 }
-
-Util.assign(Stack.prototype, {
-  height: null,
-  size: 10,
-  reverseOrder: false,
-  adjustNames: [ 'y' ] // Only support stack y
-});
 
 module.exports = Stack;
