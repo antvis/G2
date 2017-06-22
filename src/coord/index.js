@@ -1,3 +1,7 @@
+/**
+ * @fileOverview the coordinate of G2
+ * @author sima.zhang1990@gmail.com
+ */
 const Cartesian = require('./cartesian');
 const Coord = require('./base');
 Coord.Cartesian = Cartesian;
