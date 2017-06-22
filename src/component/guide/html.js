@@ -45,7 +45,7 @@ class Html extends Base {
     });
   }
 
-  paint(coord, group) {
+  render(coord, group) {
     const self = this;
     const position = self.parsePoint(coord, self.position);
 

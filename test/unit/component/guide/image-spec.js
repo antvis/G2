@@ -46,7 +46,7 @@ describe('Guide: 辅助图片', function() {
       },
       src: 'https://zos.alipayobjects.com/rmsportal/YZsqDCAvphpUzpNHMqvv.png'
     });
-    img.paint(coord, group);
+    img.render(coord, group);
     canvas.draw();
     const children = group.get('children');
     expect(children.length).to.equal(1);
@@ -74,7 +74,7 @@ describe('Guide: 辅助图片', function() {
       src: 'https://zos.alipayobjects.com/rmsportal/YZsqDCAvphpUzpNHMqvv.png',
       width: 32
     });
-    img.paint(coord, group);
+    img.render(coord, group);
     canvas.draw();
     const children = group.get('children');
 
@@ -102,7 +102,7 @@ describe('Guide: 辅助图片', function() {
       src: 'https://zos.alipayobjects.com/rmsportal/YZsqDCAvphpUzpNHMqvv.png',
       height: 32
     });
-    img.paint(coord, group);
+    img.render(coord, group);
     canvas.draw();
     const children = group.get('children');
 
@@ -131,7 +131,7 @@ describe('Guide: 辅助图片', function() {
       width: 32,
       height: 32
     });
-    img.paint(coord, group);
+    img.render(coord, group);
     canvas.draw();
     const children = group.get('children');
 
@@ -164,7 +164,7 @@ describe('Guide: 辅助图片', function() {
       offsetX: 100,
       offsetY: 100
     });
-    img.paint(coord, group);
+    img.render(coord, group);
     canvas.draw();
 
     const children = group.get('children');

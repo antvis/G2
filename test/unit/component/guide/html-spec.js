@@ -46,7 +46,7 @@ describe('Guide: 辅助 html', function() {
       },
       html: '<div style="border: 1px solid #f04134;width: 54.2px;height: 54.2px;"></div>'
     });
-    html.paint(coord, group);
+    html.render(coord, group);
     canvas.draw();
     const children = group.get('children');
     const dom = document.getElementsByClassName('g-guide');
@@ -72,7 +72,7 @@ describe('Guide: 辅助 html', function() {
       offsetY: 5,
       zIndex: 2
     });
-    html.paint(coord, group);
+    html.render(coord, group);
     canvas.draw();
     const dom = document.getElementsByClassName('g-guide');
     expect(dom[1].style.left).to.equal('330px');
@@ -95,7 +95,7 @@ describe('Guide: 辅助 html', function() {
       html: '<div style="border: 1px solid #108ee9;width: 60px;height: 60px;"</div>',
       offsetY: -5
     });
-    html.paint(coord, group);
+    html.render(coord, group);
     canvas.draw();
     const dom = document.getElementsByClassName('g-guide');
     expect(dom[2].style.left).to.equal('330px');
@@ -118,7 +118,7 @@ describe('Guide: 辅助 html', function() {
       offsetX: 5,
       html: '<div style="border: 1px solid #ffce3d;width: 60px;height: 60px;"></div>'
     });
-    html.paint(coord, group);
+    html.render(coord, group);
     canvas.draw();
     const dom = document.getElementsByClassName('g-guide');
     expect(dom[3].style.left).to.equal('365px');
@@ -141,7 +141,7 @@ describe('Guide: 辅助 html', function() {
       offsetX: -5,
       html: '<div style="border: 1px solid #ffce3d;width: 60px;height: 60px;"></div>'
     });
-    html.paint(coord, group);
+    html.render(coord, group);
     canvas.draw();
     const dom = document.getElementsByClassName('g-guide');
     expect(dom[4].style.left).to.equal('295px');
@@ -164,7 +164,7 @@ describe('Guide: 辅助 html', function() {
       alignY: 'top',
       html: '<div style="border: 1px solid #fa90ba;width: 55px;height: 55px;"></div>'
     });
-    html.paint(coord, group);
+    html.render(coord, group);
     canvas.draw();
     const dom = document.getElementsByClassName('g-guide');
     expect(dom[5].style.left).to.equal('360px');
@@ -187,7 +187,7 @@ describe('Guide: 辅助 html', function() {
       alignY: 'top',
       html: '<div style="border: 1px solid #fa90ba;width: 55px;height: 55px;"></div>'
     });
-    html.paint(coord, group);
+    html.render(coord, group);
     canvas.draw();
     const dom = document.getElementsByClassName('g-guide');
     expect(dom[6].style.left).to.equal('305px');
@@ -211,7 +211,7 @@ describe('Guide: 辅助 html', function() {
       offsetY: -5,
       html: '<div style="border: 1px solid #321580;width: 55px;height: 55px;"></div>'
     });
-    html.paint(coord, group);
+    html.render(coord, group);
     canvas.draw();
     const dom = document.getElementsByClassName('g-guide');
     expect(dom[7].style.left).to.equal('360px');
@@ -235,7 +235,7 @@ describe('Guide: 辅助 html', function() {
       offsetY: -5,
       html: '<div style="border: 1px solid #321580;width: 55px;height: 55px;"></div>'
     });
-    html.paint(coord, group);
+    html.render(coord, group);
     canvas.draw();
     const dom = document.getElementsByClassName('g-guide');
     expect(dom[8].style.left).to.equal('305px');
@@ -258,7 +258,7 @@ describe('Guide: 辅助 html', function() {
         return '<div style="border: 1px solid #321580;width: 60px;height: 60px;">' + yScales.temp.max + '</div>';
       }
     });
-    html.paint(coord, group);
+    html.render(coord, group);
     canvas.draw();
     const dom = document.getElementsByClassName('g-guide');
     expect(dom[9].style.left).to.equal('130px');

@@ -55,7 +55,7 @@ describe('Guide: 辅助背景框', function() {
         stroke: 'blue'
       }
     });
-    region.paint(coord, group);
+    region.render(coord, group);
     canvas.draw();
     const children = group.get('children');
     const path = children[0].attr('path');

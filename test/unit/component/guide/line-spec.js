@@ -54,7 +54,7 @@ describe('Guide: 辅助线', function() {
         lineDash: [ 2, 2 ]
       }
     });
-    line.paint(coord, group);
+    line.render(coord, group);
     canvas.draw();
     const children = group.get('children');
     expect(children.length).to.equal(1);
@@ -94,7 +94,7 @@ describe('Guide: 辅助线', function() {
         }
       }
     });
-    line.paint(coord, group);
+    line.render(coord, group);
     canvas.draw();
 
     const children = group.get('children');
@@ -142,7 +142,7 @@ describe('Guide: 辅助线', function() {
         offsetY: 10
       }
     });
-    line.paint(coord, group);
+    line.render(coord, group);
     canvas.draw();
 
     const children = group.get('children');
@@ -184,7 +184,7 @@ describe('Guide: 辅助线', function() {
         }
       }
     });
-    line.paint(coord, group);
+    line.render(coord, group);
     canvas.draw();
 
     const children = group.get('children');
@@ -228,7 +228,7 @@ describe('Guide: 辅助线', function() {
         }
       }
     });
-    line.paint(coord, group);
+    line.render(coord, group);
     canvas.draw();
 
     const children = group.get('children');
@@ -271,7 +271,7 @@ describe('Guide: 辅助线', function() {
         }
       }
     });
-    line.paint(coord, group);
+    line.render(coord, group);
     canvas.draw();
 
     const children = group.get('children');
@@ -313,7 +313,7 @@ describe('Guide: 辅助线', function() {
         offsetY: 20
       }
     });
-    line.paint(coord, group);
+    line.render(coord, group);
     canvas.draw();
 
     const children = group.get('children');
@@ -354,7 +354,7 @@ describe('Guide: 辅助线', function() {
         }
       }
     });
-    line.paint(coord, group);
+    line.render(coord, group);
     canvas.draw();
 
     const children = group.get('children');

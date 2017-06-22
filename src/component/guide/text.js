@@ -46,7 +46,7 @@ class Text extends Base {
     });
   }
 
-  paint(coord, group) {
+  render(coord, group) {
     const self = this;
     const start = self.start;
     const point = self.parsePoint(coord, start);

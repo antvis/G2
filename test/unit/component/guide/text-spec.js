@@ -46,7 +46,7 @@ describe('Guide: 辅助文本', function() {
         temp: 'min'
       }
     });
-    text.paint(coord, group);
+    text.render(coord, group);
     canvas.draw();
     const children = group.get('children');
     expect(children.length).to.equal(1);
@@ -83,7 +83,7 @@ describe('Guide: 辅助文本', function() {
       offsetX: 100,
       offsetY: 100
     });
-    text.paint(coord, group);
+    text.render(coord, group);
     canvas.draw();
     const children = group.get('children');
     expect(children.length).to.equal(1);
@@ -116,7 +116,7 @@ describe('Guide: 辅助文本', function() {
         textAlign: 'center'
       }
     });
-    text.paint(coord, group);
+    text.render(coord, group);
     canvas.draw();
     const children = group.get('children');
     expect(children.length).to.equal(1);

@@ -18,7 +18,7 @@ class Region extends Base {
     });
   }
 
-  paint(coord, group) {
+  render(coord, group) {
     const self = this;
     const rectStyle = self.style;
     const path = self._getPath(coord);

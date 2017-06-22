@@ -39,7 +39,7 @@ class Image extends Base {
     });
   }
 
-  paint(coord, group) {
+  render(coord, group) {
     const self = this;
     const start = self.parsePoint(coord, self.start);
 

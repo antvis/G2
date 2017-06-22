@@ -31,9 +31,9 @@ describe('Guide 基类异常情况测试', function() {
     expect(result).to.be.undefined;
   });
 
-  it('Base class method: paint()', function() {
+  it('Base class method: render()', function() {
     const guide = new Guide();
-    expect(guide.paint).be.an.instanceof(Function);
-    expect(guide.paint()).to.be.undefined;
+    expect(guide.render).be.an.instanceof(Function);
+    expect(guide.render()).to.be.undefined;
   });
 });

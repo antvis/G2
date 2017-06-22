@@ -49,7 +49,7 @@ class Line extends Base {
     });
   }
 
-  paint(coord, group) {
+  render(coord, group) {
     const self = this;
     const start = self.parsePoint(coord, self.start);
     const end = self.parsePoint(coord, self.end);

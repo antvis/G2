@@ -74,10 +74,10 @@ class Base {
   }
 
   /**
-   * 绘制辅助元素
+   * 渲染辅助元素
    * @override
    */
-  paint() {}
+  render() {}
 }
 
 module.exports = Base;
