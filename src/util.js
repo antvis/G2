@@ -36,6 +36,7 @@ const Util = {
   has: require('lodash/has'),
   round: require('lodash/round'),
   merge: require('lodash/merge'),
+  filter: require('lodash/filter'),
   fixedBase(v, base) {
     const str = base.toString();
     const index = str.indexOf('.');
