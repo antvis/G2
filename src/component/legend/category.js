@@ -220,7 +220,7 @@ class Category extends Base {
     const textAttrs = Util.mix({}, textStyle, {
       x: startX + x,
       y,
-      text: this._formatItemValue(item.value)
+      text: this._formatItemValue(item.name)
     });
     if (!item.checked) {
       Util.mix(textAttrs, unCheckStyle);
