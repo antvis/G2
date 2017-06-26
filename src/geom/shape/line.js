@@ -1,0 +1,389 @@
+/**
+ * @fileOverview line shapes
+ * @author dxq613@gmail.com
+ * @author huangtonger@aliyun.com
+ */
+
+const Util = require('../../util');
+const PathUtil = require('./util/path-util');
+const ShapeUtil = require('./util/shape-util');
+const Shape = require('./shape');
+const Global = require('../../global');
+const DOT_ARR = [ 2, 1 ];
+const DASH_ARR = [ 10, 5 ];
+
+function getAttrs(cfg) {
+  const defaultCfg = Global.shape.line;
+  const shapeCfg = Util.merge({}, defaultCfg, {
+    stroke: cfg.color,
+    lineWidth: cfg.size,
+    strokeOpacity: cfg.opacity,
+    opacity: cfg.opacity
+  }, cfg.style);
+  return shapeCfg;
+}
+
+// get line path
+function getPath(cfg, smooth) {
+  let path;
+  const points = cfg.points;
+  const isInCircle = cfg.isInCircle;
+  if (!smooth) {
+    path = PathUtil.getLinePath(points, false);
+  } else {
+    path = PathUtil.getSplinePath(points, false);
+  }
+  if (isInCircle) {
+    path.push([ 'Z' ]);
+  }
+  return path;
+}
+
+function _interpPoints(points, fn) {
+  let tmpPoints = [];
+  Util.each(points, function(point, index) {
+    const nextPoint = points[index + 1];
+    tmpPoints.push(point);
+    if (nextPoint) {
+      tmpPoints = tmpPoints.concat(fn(point, nextPoint));
+    }
+  });
+  return tmpPoints;
+}
+// 插值的图形path，不考虑null
+function _getInterPath(points) {
+  const path = [];
+  Util.each(points, function(point, index) {
+    const subPath = index === 0 ? [ 'M', point.x, point.y ] : [ 'L', point.x, point.y ];
+    path.push(subPath);
+  });
+  return path;
+}
+// 插值的图形
+function _getInterPointShapeCfg(cfg, fn) {
+  const points = _interpPoints(cfg.points, fn);
+  return _getInterPath(points);
+}
+
+function _markerFn(x, y, r) {
+  return [
+    [ 'M', x - r, y ],
+    [ 'L', x + r, y ]
+  ];
+}
+
+function _smoothMarkerFn(x, y, r) {
+  return [
+    [ 'M', x - r, y ],
+    [ 'R', x - r / 2, y - r / 2, x, y, x + r / 2, y + r / 2, x + r, y ]
+  ];
+}
+// get marker cfg
+function _getMarkerCfg(cfg, smooth) {
+  return Util.mix({
+    symbol: smooth ? _smoothMarkerFn : _markerFn
+  }, getAttrs(cfg));
+}
+
+function _getInterMarkerCfg(cfg, fn) {
+  return Util.mix({
+    symbol: fn
+  }, getAttrs(cfg));
+}
+
+// 当只有一个数据时绘制点
+function drawPointShape(shapeObj, cfg, container) {
+  const coord = shapeObj._coord;
+  const point = coord.convertPoint(cfg.points[0]);
+  return container.addShape('circle', {
+    attrs: Util.mix({
+      x: point.x,
+      y: point.y,
+      r: 2,
+      fill: cfg.color
+    }, cfg.style)
+  });
+}
+
+// regist line geom
+const Line = Shape.registerFactory('line', {
+  // 默认的shape
+  defaultShapeType: 'line',
+  getMarkerCfg(type, cfg) {
+    const lineObj = Line[type] || Line.line;
+    return lineObj.getMarkerCfg(cfg);
+  },
+  getActiveCfg(/* type */) {
+    return Global.activeShape.line;
+  },
+  // 计算点 如果存在多个点，分割成单个的点, 不考虑多个x对应一个y的情况
+  getShapePoints(type, pointInfo) {
+    return ShapeUtil.splitPoints(pointInfo);
+  },
+  drawShape(type, cfg, container) {
+    const shape = this.getShape(type);
+    let gShape;
+    if (cfg.points.length === 1 && Global.showSinglePoint) {
+      gShape = drawPointShape(this, cfg, container);
+    } else {
+      gShape = shape.draw(cfg, container);
+    }
+    if (gShape) {
+      gShape.set('origin', cfg.origin);
+    }
+    return gShape;
+  }
+});
+
+// draw line shape
+Shape.registerShape('line', 'line', {
+  draw(cfg, container) {
+    const attrs = getAttrs(cfg);
+    let path = getPath(cfg, false);
+    path = this.parsePath(path, false);
+    return container.addShape('path', {
+      attrs: Util.mix(attrs, {
+        path
+      })
+    });
+  },
+  getMarkerCfg(cfg) {
+    return _getMarkerCfg(cfg);
+  }
+});
+
+// 点线
+Shape.registerShape('line', 'dot', {
+  draw(cfg, container) {
+    const attrs = getAttrs(cfg);
+    let path = getPath(cfg, false);
+    path = this.parsePath(path, false);
+    return container.addShape('path', {
+      attrs: Util.mix(attrs, {
+        path,
+        lineDash: DOT_ARR
+      })
+    });
+  },
+  getMarkerCfg(cfg) {
+    const tmp = _getMarkerCfg(cfg, false);
+    tmp.lineDash = DOT_ARR;
+    return tmp;
+  }
+});
+
+// 填充线
+Shape.registerShape('line', 'fill', {
+  draw(cfg, container) {
+    const attrs = getAttrs(cfg);
+    let path = getPath(cfg, false);
+    path = this.parsePath(path, false);
+    path.push([ 'Z' ]);
+    return container.addShape('path', {
+      attrs: Util.mix(attrs, {
+        path,
+        fill: attrs.stroke
+      })
+    });
+  },
+  getMarkerCfg(cfg) {
+    const tmp = _getMarkerCfg(cfg, false);
+    tmp.fill = tmp.stroke;
+    return tmp;
+  }
+});
+
+// 断线 - - - -
+Shape.registerShape('line', 'dash', {
+  draw(cfg, container) {
+    const attrs = getAttrs(cfg);
+    let path = getPath(cfg, false);
+    path = this.parsePath(path, false);
+    return container.addShape('path', {
+      attrs: Util.mix(attrs, {
+        path,
+        lineDash: DASH_ARR
+      })
+    });
+  },
+  getMarkerCfg(cfg) {
+    const tmp = _getMarkerCfg(cfg, false);
+    tmp.lineDash = DASH_ARR;
+    return tmp;
+  }
+});
+
+// draw smooth line shape
+Shape.registerShape('line', 'smooth', {
+  draw(cfg, container) {
+    const attrs = getAttrs(cfg);
+    let path = getPath(cfg, true);
+    path = this.parsePath(path, false);
+    return container.addShape('path', {
+      attrs: Util.mix(attrs, {
+        path
+      })
+    });
+  },
+  getMarkerCfg(cfg) {
+    return _getMarkerCfg(cfg, true);
+  }
+});
+
+// 点线曲线
+Shape.registerShape('line', 'dotSmooth', {
+  draw(cfg, container) {
+    const attrs = getAttrs(cfg);
+    let path = getPath(cfg, true);
+    path = this.parsePath(path, false);
+    return container.addShape('path', {
+      attrs: Util.mix(attrs, {
+        path,
+        lineDash: DOT_ARR
+      })
+    });
+  },
+  getMarkerCfg(cfg) {
+    const tmp = _getMarkerCfg(cfg, true);
+    tmp.lineDash = DOT_ARR;
+    return tmp;
+  }
+});
+
+Shape.registerShape('line', 'hv', {
+  draw(cfg, container) {
+    const attrs = getAttrs(cfg);
+    let path = _getInterPointShapeCfg(cfg, function(point, nextPoint) {
+      const tmp = [];
+      tmp.push({
+        x: nextPoint.x,
+        y: point.y
+      });
+      return tmp;
+    });
+    path = this.parsePath(path, false);
+    return container.addShape('path', {
+      attrs: Util.mix(attrs, {
+        path
+      })
+    });
+  },
+  getMarkerCfg(cfg) {
+    return _getInterMarkerCfg(cfg, function(x, y, r) {
+      return [
+        [ 'M', x - r, y - r ],
+        [ 'L', x, y - r ],
+        [ 'L', x, y ],
+        [ 'L', x + r, y ]
+      ];
+    });
+  }
+});
+
+Shape.registerShape('line', 'vh', {
+  draw(cfg, container) {
+    const attrs = getAttrs(cfg);
+    let path = _getInterPointShapeCfg(cfg, function(point, nextPoint) {
+      const tmp = [];
+      tmp.push({
+        x: point.x,
+        y: nextPoint.y
+      });
+      return tmp;
+    });
+    path = this.parsePath(path, false);
+    return container.addShape('path', {
+      attrs: Util.mix(attrs, {
+        path
+      })
+    });
+  },
+  getMarkerCfg(cfg) {
+    return _getInterMarkerCfg(cfg, function(x, y, r) {
+      return [
+        [ 'M', x - r, y ],
+        [ 'L', x, y ],
+        [ 'L', x, y - r ],
+        [ 'L', x + r, y - r ]
+      ];
+    });
+  }
+});
+
+Shape.registerShape('line', 'hvh', {
+  draw(cfg, container) {
+    const attrs = getAttrs(cfg);
+    let path = _getInterPointShapeCfg(cfg, function(point, nextPoint) {
+      const tmp = [];
+      const middlex = (nextPoint.x - point.x) / 2 + point.x;
+      tmp.push({
+        x: middlex,
+        y: point.y
+      });
+      tmp.push({
+        x: middlex,
+        y: nextPoint.y
+      });
+      return tmp;
+    });
+    path = this.parsePath(path, false);
+    return container.addShape('path', {
+      attrs: Util.mix(attrs, {
+        path
+      })
+    });
+  },
+  getMarkerCfg(cfg) {
+    return _getInterMarkerCfg(cfg, function(x, y, r) {
+      return [
+        [ 'M', x - r * 3 / 2, y ],
+        [ 'L', x - r / 2, y ],
+        [ 'L', x - r / 2, y - r / 2 ],
+        [ 'L', x + r / 2, y - r / 2 ],
+        [ 'L', x + r / 2, y ],
+        [ 'L', x + r * 3 / 2, y ]
+      ];
+    });
+  }
+});
+
+Shape.registerShape('line', 'vhv', {
+  draw(cfg, container) {
+    const attrs = getAttrs(cfg);
+    let path = _getInterPointShapeCfg(cfg, function(point, nextPoint) {
+      const tmp = [];
+      const middley = (nextPoint.y - point.y) / 2 + point.y;
+      tmp.push({
+        x: point.x,
+        y: middley
+      });
+      tmp.push({
+        x: nextPoint.x,
+        y: middley
+      });
+      return tmp;
+    });
+    path = this.parsePath(path, false);
+    return container.addShape('path', {
+      attrs: Util.mix(attrs, {
+        path
+      })
+    });
+  },
+  getMarkerCfg(cfg) {
+    return _getInterMarkerCfg(cfg, function(x, y, r) {
+      return [
+        [ 'M', x - r, y ],
+        [ 'L', x - r, y - r / 2 ],
+        [ 'L', x, y - r / 2 ],
+        [ 'L', x, y - r ],
+        [ 'L', x, y + r / 2 ],
+        [ 'L', x + r, y + r / 2 ]
+      ];
+    });
+  }
+});
+
+Line.spline = Line.smooth;
+
+module.exports = Line;
