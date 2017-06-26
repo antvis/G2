@@ -64,10 +64,10 @@ class Line extends Base {
   }
 
   _drawLines(start, end, group) {
-    const startCompiler = Util.template('M ${ x } ${ y }');
-    const endCompiler = Util.template('L ${ x } ${ y }');
-    const path = startCompiler({ x: start.x, y: start.y }) + endCompiler({ x: end.x, y: end.y });
-
+    const path = [
+      [ 'M', start.x, start.y ],
+      [ 'L', end.x, end.y ]
+    ];
     group.addShape('Path', {
       attrs: Util.mix({
         path

@@ -131,8 +131,7 @@ class Base extends Group {
     return value;
   }
 
-  // TODO: rename
-  _renderLines() {
+  _renderLine() {
     let lineCfg = this.get('line');
     let path;
     if (lineCfg) {
@@ -194,11 +193,10 @@ class Base extends Group {
   _addTickLine(ticks, lineCfg) {
     const self = this;
     const cfg = Util.mix({}, lineCfg);
-    const stringCompiler = Util.template('M${ x1 } ${ y1 }L${ x2 } ${ y2 }');
-    let path = '';
+    const path = [];
     Util.each(ticks, function(item) {
-      const subPath = stringCompiler({ x1: item.x1, y1: item.y1, x2: item.x2, y2: item.y2 });
-      path += subPath;
+      path.push([ 'M', item.x1, item.y1 ]);
+      path.push([ 'L', item.x2, item.y2 ]);
     });
     delete cfg.length;
     cfg.path = path;
@@ -238,7 +236,7 @@ class Base extends Group {
   }
 
   paint() {
-    this._renderLines();
+    this._renderLine();
     this._processTicks();
     this._renderTicks();
     this._renderGrid();

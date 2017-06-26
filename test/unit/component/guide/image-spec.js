@@ -55,7 +55,7 @@ describe('Guide: 辅助图片', function() {
       expect(children[0].__attrs.width).to.equal(64);
       expect(children[0].__attrs.height).to.equal(64);
       done();
-    }, 200);
+    }, 400);
   });
 
   it('image, set start, width', function(done) {
