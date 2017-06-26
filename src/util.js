@@ -21,6 +21,8 @@ const Util = {
   isNumber: require('lodash/isNumber'),
   isString: require('lodash/isString'),
   isFunction: require('lodash/isFunction'),
+  isBoolean: require('lodash/isBoolean'),
+  isEmpty: require('lodash/isEmpty'),
   lowerFirst: require('lodash/lowerFirst'),
   upperFirst: require('lodash/upperFirst'),
   isNil: require('lodash/isNil'),

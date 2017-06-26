@@ -25,6 +25,7 @@ describe('Map', function() {
     const project = coord.project;
     expect(projection).to.equal('mercator');
     expect(project).to.be.an.instanceof(GMapProjection.mercator);
+    expect(coord.isRect).to.be.true;
   });
 
   it('convert', function() {
