@@ -1,13 +1,10 @@
 const expect = require('chai').expect;
-const PlotBack = require('../../../../src/component/plot/back');
-const {
-  Canvas
-} = require('@ali/g');
+const PlotBack = require('../../../src/component/plot');
+const { Canvas } = require('@ali/g');
 
 const div = document.createElement('div');
 div.id = 'c1';
 document.body.appendChild(div);
-
 
 const canvas = new Canvas({
   containerId: 'c1',
@@ -16,8 +13,7 @@ const canvas = new Canvas({
   pixelRatio: 1
 });
 
-
-describe('绘制区域 plotrange', function() {
+describe('绘制区域 plotRange', function() {
   const plotback = canvas.addGroup(PlotBack, {
     padding: 30,
     background: {
