@@ -39,6 +39,7 @@ const Util = {
   round: require('lodash/round'),
   merge: require('lodash/merge'),
   filter: require('lodash/filter'),
+  defaultsDeep: require('lodash/defaultsDeep'),
   fixedBase(v, base) {
     const str = base.toString();
     const index = str.indexOf('.');
