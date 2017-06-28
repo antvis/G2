@@ -1,5 +1,10 @@
 const Util = require('../../util');
 const Base = require('./base');
+const { DomUtil } = require('@ali/g');
+
+function findNodeByClass(node, className) {
+  return node.getElementsByClassName(className)[0];
+}
 
 class Category extends Base {
   getDefaultCfg() {
@@ -90,7 +95,32 @@ class Category extends Base {
        * 是否使用 html 进行渲染，默认为 false
        * @type {Boolean}
        */
-      useHTML: false
+      useHtml: false,
+      /**
+       * 使用html时的外层模板
+       * @type {String}
+       */
+      containerTpl: '<div class="g-legend" style="position:absolute;top:0;left:0;">' +
+        '<h4 class="g-legend-title"></h4>' +
+        '<ul class="g-legend-itemlist" style="list-style-type:none;margin:0;padding:0;"></ul>' +
+        '</div>',
+      /**
+       * 默认的图例项 html 模板
+       * @type {String}
+       */
+      _defaultItemTpl: '<li class="g-legend-item item-${ index } ${ checked }">' +
+        '<i style="width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:10px;background-color: ${ color };"></i>' +
+        '<span class="g-legend-text">${ value }</span></li>',
+      /**
+       * 用户设置的图例项 html 模板
+       * @type {String|Function}
+       */
+      itemTpl: null,
+      /**
+       * 当用户使用 html 的时候，超出高度或者宽度会自动换行
+       * @type {Boolean}
+       */
+      scroll: true
     });
   }
 
@@ -99,10 +129,70 @@ class Category extends Base {
   }
 
   _renderUI() {
-    super._renderUI();
-    this._renderItems();
-    this._adjustItems();
-    this._renderBack();
+    if (!this.get('useHtml')) {
+      super._renderUI();
+      this._renderItems();
+      this._adjustItems();
+      this._renderBack();
+    } else { // 使用 html 渲染图例
+      this._renderHTML();
+    }
+  }
+
+  _renderHTML() {
+    const self = this;
+    const canvas = self.get('canvas');
+    const outterNode = canvas.get('el').parentNode;
+    const title = this.get('title');
+    const containerTpl = self.get('containerTpl');
+    const legendWrapper = DomUtil.createDom(containerTpl);
+    const titleDom = findNodeByClass(legendWrapper, 'g-legend-title');
+    const itemListDom = findNodeByClass(legendWrapper, 'g-legend-itemlist');
+
+    if (titleDom && title && title.text) { // 渲染标题
+      titleDom.innerHTML = title.text;
+    }
+
+    // 开始渲染图例项
+    const items = self.get('items');
+    let itemTpl = self.get('_defaultItemTpl');
+    const userItemTpl = self.get('itemTpl');
+    if (userItemTpl && userItemTpl !== itemTpl) {
+      itemTpl = userItemTpl;
+    }
+
+    Util.each(items, function(item, index) {
+      const checked = item.checked;
+      const value = item.value;
+      const color = checked ? item.color : self.get('unCheckStyle').fill;
+      let domStr;
+      if (Util.isFunction(itemTpl)) {
+        domStr = itemTpl(value, color, checked, index);
+      } else {
+        domStr = itemTpl;
+      }
+      const stringCompiler = Util.template(domStr);
+      const itemDiv = stringCompiler({ index, checked: checked ? 'checked' : 'unChecked', value, color });
+      const itemDom = DomUtil.createDom(itemDiv);
+      const textDom = findNodeByClass(itemDom, 'g-legend-text');
+      if (!checked) {
+        textDom.style.color = self.get('unCheckStyle').fill;
+      }
+      itemListDom.appendChild(itemDom);
+    });
+
+    if (self.get('scroll')) {
+      const width = self.get('width') || canvas.get('width');
+      const height = self.get('height') || canvas.get('height');
+      DomUtil.modiCSS(legendWrapper, {
+        width: width + 'px',
+        height: height + 'px',
+        overflow: 'scroll'
+      });
+    }
+
+
+    outterNode.appendChild(legendWrapper);
   }
 
   _renderItems() {
@@ -220,7 +310,7 @@ class Category extends Base {
     const textAttrs = Util.mix({}, textStyle, {
       x: startX + x,
       y,
-      text: this._formatItemValue(item.name)
+      text: this._formatItemValue(item.value)
     });
     if (!item.checked) {
       Util.mix(textAttrs, unCheckStyle);
