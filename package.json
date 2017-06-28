@@ -43,7 +43,7 @@
     "lint": "eslint ./",
     "lint-fix": "eslint --fix ./",
     "test": "electron-mocha --renderer --recursive ./test/unit",
-    "test-live": "electron-mocha --opts ./test/support/mocha.opts --renderer --interactive --recursive ./test/unit/"
+    "test-live": "electron-mocha --opts ./test/support/mocha.opts --renderer --interactive --recursive ./test/unit/component/legend/category-spec.js"
   },
   "pre-commit": {
     "run": [
