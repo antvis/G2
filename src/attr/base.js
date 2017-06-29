@@ -125,11 +125,11 @@ class AttributeBase {
    * 根据度量获取维度名
    * @return {Array} dims of this Attribute
    */
-  getDims() {
+  getFields() {
     const scales = this.scales;
     const rst = [];
     Util.each(scales, function(scale) {
-      rst.push(scale.dim);
+      rst.push(scale.field);
     });
     return rst;
   }
@@ -160,6 +160,9 @@ class AttributeBase {
         params[i] = this._toOriginParam(params[i], scales[i]);
       }
       values = callback.apply(this, params);
+    }
+    if (!Util.isArray(values)) {
+      values = [ values ];
     }
     return values;
   }

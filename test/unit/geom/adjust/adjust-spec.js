@@ -30,8 +30,8 @@ describe('adjust', function() {
 
   describe('default adjust', function() {
     const adjust = new Adjust({
-      xDim: 'a',
-      yDim: 'b'
+      xField: 'a',
+      yField: 'b'
     });
 
     it('is adjust', function() {
@@ -68,7 +68,7 @@ describe('adjust', function() {
 
   describe('only adjust x', function() {
     const adjust = new Adjust({
-      xDim: 'a',
+      xField: 'a',
       adjustNames: [ 'x' ]
     });
 
@@ -86,7 +86,7 @@ describe('adjust', function() {
 
   describe('only x adjust x,y', function() {
     const adjust = new Adjust({
-      xDim: 'a',
+      xField: 'a',
       adjustNames: [ 'x', 'y' ]
     });
 
@@ -113,7 +113,7 @@ describe('adjust', function() {
       b: 2
     }];
     const adjust = new Adjust({
-      yDim: 'a',
+      yField: 'a',
       adjustNames: [ 'y' ]
     });
 
@@ -139,7 +139,7 @@ describe('adjust', function() {
       b: 2
     }];
     const adjust = new Adjust({
-      xDim: 'a',
+      xField: 'a',
       adjustNames: [ 'y' ]
     });
 

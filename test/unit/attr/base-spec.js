@@ -4,12 +4,12 @@ const Scale = require('../../../src/scale/');
 
 describe('attr base test', function() {
   const scale1 = Scale.linear({
-    dim: 'dim1',
+    field: 'dim1',
     min: 0,
     max: 100
   });
   const scale2 = Scale.cat({
-    dim2: 'dim2',
+    field: 'dim2',
     values: [ 'a', 'b', 'c', 'd' ]
   });
   it('test init', function() {
@@ -32,7 +32,7 @@ describe('attr base test', function() {
     });
 
     const rst = attr.mapping(10, 'a');
-    expect(rst).equal('10a');
+    expect(rst[0]).equal('10a');
   });
 
   it('test linear scale with two values', function() {
@@ -43,7 +43,7 @@ describe('attr base test', function() {
       scales: [ scale1, scale2 ]
     });
     const rst = attr.mapping(10, 'a');
-    expect(rst).equal(1);
+    expect(rst[0]).equal(1);
   });
 
   it('test linear scale with three values', function() {
@@ -54,9 +54,9 @@ describe('attr base test', function() {
       scales: [ scale1, scale2 ]
     });
     let rst = attr.mapping(40);
-    expect(rst).equal(8);
+    expect(rst[0]).equal(8);
     rst = attr.mapping(60);
-    expect(Math.round(rst)).equal(16);
+    expect(Math.round(rst[0])).equal(16);
   });
 
   it('test cat scale with values', function() {
@@ -67,9 +67,9 @@ describe('attr base test', function() {
       scales: [ scale2, scale1 ]
     });
     let rst = attr.mapping('a');
-    expect(rst).equal('red');
+    expect(rst[0]).equal('red');
     rst = attr.mapping('b');
-    expect(rst).equal('blue');
+    expect(rst[0]).equal('blue');
   });
 
 });

@@ -14,10 +14,11 @@ class Base extends EventEmitter {
 
   constructor(cfg) {
     super();
-    const attrs = {};
+    const attrs = {
+      visible: true
+    };
     const defaultCfg = this.getDefaultCfg();
     this._attrs = attrs;
-
     Util.assign(attrs, defaultCfg, cfg);
   }
 
@@ -29,6 +30,35 @@ class Base extends EventEmitter {
     this._attrs[name] = value;
   }
 
+  show() {
+    const visible = this.get('visible');
+    if (!visible) {
+      this.set('visible', true);
+      this.changeVisible(true);
+    }
+  }
+
+  hide() {
+    const visible = this.get('visible');
+    if (visible) {
+      this.set('visible', false);
+    }
+  }
+
+  /**
+   * @protected
+   * @param {Boolean} visible 是否可见
+   * 显示、隐藏
+   */
+  changeVisible(visible) {
+    this.changeVisible(visible);
+  }
+
+  destroy() {
+    this._attrs = {};
+    this.removeAllListeners();
+    this.destroyed = true;
+  }
 }
 
 module.exports = Base;

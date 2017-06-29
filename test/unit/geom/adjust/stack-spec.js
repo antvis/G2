@@ -37,8 +37,8 @@ describe('stack adjust', function() {
     ];
 
     const adjust = new Adjust.Stack({
-      xDim: 'a',
-      yDim: 'b'
+      xField: 'a',
+      yField: 'b'
     });
 
     it('is adjust', function() {
@@ -110,8 +110,8 @@ describe('stack adjust', function() {
     ];
 
     const adjust = new Adjust.Stack({
-      xDim: 'a',
-      yDim: 'b'
+      xField: 'a',
+      yField: 'b'
     });
 
     it('is adjust', function() {
@@ -172,8 +172,8 @@ describe('stack adjust', function() {
 
     it('adjust result', function() {
       const adjust = new Adjust.Stack({
-        xDim: 'a',
-        yDim: 'b'
+        xField: 'a',
+        yField: 'b'
       });
 
       adjust.processAdjust([ data ]);
@@ -221,7 +221,7 @@ describe('stack adjust', function() {
     ];
 
     const adjust = new Adjust.Stack({
-      xDim: 'a',
+      xField: 'a',
       height: 100
     });
 
@@ -280,7 +280,7 @@ describe('stack adjust', function() {
     ];
 
     const adjust = new Adjust.Stack({
-      xDim: 'a',
+      xField: 'a',
       height: 100,
       reverseOrder: true
     });

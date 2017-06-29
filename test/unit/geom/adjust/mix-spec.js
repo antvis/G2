@@ -45,8 +45,8 @@ describe('first dodge next stack', function() {
 
   it('dodge adjust', function() {
     const adjust = new Adjust.Dodge({
-      xDim: 'a',
-      groupDims: [ 'a', 'b' ],
+      xField: 'a',
+      dodgeBy: 'b',
       adjustNames: [ 'x' ]
     });
     adjust.processAdjust([ data ]);
@@ -55,9 +55,9 @@ describe('first dodge next stack', function() {
 
   it('stack adjust', function() {
     const adjust = new Adjust.Stack({
-      xDim: 'a',
-      groupDims: [ 'a', 'b' ],
-      yDim: 'c'
+      xField: 'a',
+      dodgeBy: 'b',
+      yField: 'c'
     });
     adjust.processAdjust([ data ]);
     expect(data[0].c[1]).eql(data[1].c[0]);
@@ -98,15 +98,15 @@ describe('first stack next symmetric', function() {
   ];
 
   const adjust = new Adjust.Stack({
-    xDim: 'a',
-    yDim: 'b'
+    xField: 'a',
+    yField: 'b'
   });
 
   adjust.processAdjust([ data ]);
   it('symmetric', function() {
     const sAdjust = new Adjust.Symmetric({
-      xDim: 'a',
-      yDim: 'b'
+      xField: 'a',
+      yField: 'b'
     });
     sAdjust.processAdjust([ data ]);
     expect(data[0].b).eql([ 0.5, 2.5 ]);

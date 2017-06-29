@@ -108,7 +108,7 @@ describe('Point shapes', function() {
     });
   });
   describe('rect', function() {
-    it('getShapePoints && drawShape', function() {
+    xit('getShapePoints && drawShape', function() {
       const type = 'rect';
       const point = Point.getShapePoints(type, {
         x: 0.4,

@@ -10,55 +10,16 @@ const Theme = {
   plotCfg: {
     margin: [ 20, 80, 60, 80 ]
   },
-  facetCfg: {
-    type: 'rect',
-    margin: 10,
-    facetTitle: {
-      titleOffset: 16,
-      colDimTitle: {
-        title: {
-          fontSize: 14,
-          textAlign: 'center',
-          fill: '#999'
-        }
-      },
-      colTitle: {
-        title: {
-          fontSize: 12,
-          textAlign: 'center',
-          fill: '#999'
-        }
-      },
-      rowTitle: {
-        title: {
-          fontSize: 12,
-          textAlign: 'center',
-          rotate: 90,
-          fill: '#999'
-        }
-      },
-      rowDimTitle: {
-        title: {
-          fontSize: 12,
-          textAlign: 'center',
-          rotate: 90,
-          fill: '#999'
-        }
-      }
-    }
-  },
-  binWidth: 0.03, // bin 统计的默认值
   fontFamily: FONT_FAMILY,
-  colors: {
-    default: [ '#4E7CCC', '#36B3C3', '#4ECDA5', '#94E08A', '#E2F194', '#EDCC72', '#F8AB60', '#F9815C', '#EB4456', '#C82B3D' ]
-  },
+  colors: [ '#4E7CCC', '#36B3C3', '#4ECDA5', '#94E08A', '#E2F194', '#EDCC72', '#F8AB60', '#F9815C', '#EB4456', '#C82B3D' ],
   shapes: {
     point: [ 'hollowCircle', 'hollowSquare', 'hollowDiamond', 'hollowBowtie', 'hollowTriangle',
       'hollowHexagon', 'cross', 'tick', 'plus', 'hyphen', 'line' ],
     line: [ 'line', 'dash', 'dot' ],
     area: [ 'area' ]
   },
-  hues: [ 'red', 'yellow', 'green', 'blue', 'orange', 'purple', 'pink', 'brown', 'white', 'gray', 'black' ],
+  sizes: [ 1, 10 ],
+  opacities: [ 0.1, 0.9 ],
   axis: {
     top: {
       position: 'top',

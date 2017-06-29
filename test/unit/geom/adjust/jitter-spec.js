@@ -16,8 +16,8 @@ describe('adjust jitter', function() {
     ];
 
     const adjust = new Adjust.Jitter({
-      xDim: 'a',
-      yDim: 'c',
+      xField: 'a',
+      yField: 'c',
       adjustNames: [ 'x', 'y' ]
     });
 
@@ -57,8 +57,8 @@ describe('adjust jitter', function() {
     ];
 
     const adjust = new Adjust.Jitter({
-      xDim: 'a',
-      yDim: 'y'
+      xField: 'a',
+      yField: 'y'
     });
 
     it('is adjust', function() {

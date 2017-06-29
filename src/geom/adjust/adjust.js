@@ -22,12 +22,12 @@ class Adjust {
        * 调整对应的x方向对应的字段名称
        * @type {Scale}
        */
-      xDim: null,
+      xField: null,
       /**
        * 调整对应的y方向对应的字段名称
        * @type {Scale}
        */
-      yDim: null,
+      yField: null,
 
       /**
        * 调整的维度，默认,x,y都做调整
@@ -39,7 +39,7 @@ class Adjust {
        * 参与分组的数据维度
        * @type {Array}
        */
-      groupDims: null
+      groupFields: null
     };
   }
 
@@ -84,11 +84,11 @@ class Adjust {
     const self = this;
     const valuesMap = {};
     const dims = [];
-    if (self.xDim && self.isAdjust('x')) {
-      dims.push(self.xDim);
+    if (self.xField && self.isAdjust('x')) {
+      dims.push(self.xField);
     }
-    if (self.yDim && self.isAdjust('y')) {
-      dims.push(self.yDim);
+    if (self.yField && self.isAdjust('y')) {
+      dims.push(self.yField);
     }
     Util.each(dims, function(dim) {
       const values = Util.Array.values(mergeData, dim);
@@ -97,7 +97,7 @@ class Adjust {
       });
       valuesMap[dim] = values;
     });
-    if (!self.yDim && self.isAdjust('y')) { // 只有一维的情况下,同时调整y
+    if (!self.yField && self.isAdjust('y')) { // 只有一维的情况下,同时调整y
       const dim = 'y';
       const values = [ DEFAULT_Y, 1 ]; // 默认分布在y轴的 0.1 与 0.2 之间
       valuesMap[dim] = values;
@@ -125,7 +125,7 @@ class Adjust {
     const length = values.length;
     let pre;
     let next;
-    if (!self.yDim && self.isAdjust('y')) {
+    if (!self.yField && self.isAdjust('y')) {
       pre = 0;
       next = 1;
     } else if (length > 1) {

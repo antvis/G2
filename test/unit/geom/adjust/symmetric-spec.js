@@ -18,8 +18,8 @@ describe('symmetric adjust', function() {
     }];
 
     const adjust = new Adjust.Symmetric({
-      xDim: 'a',
-      yDim: 'b'
+      xField: 'a',
+      yField: 'b'
     });
 
     it('process adjust', function() {
@@ -57,8 +57,8 @@ describe('symmetric adjust', function() {
     }];
 
     const adjust = new Adjust.Symmetric({
-      xDim: 'a',
-      yDim: 'b'
+      xField: 'a',
+      yField: 'b'
     });
 
     it('process adjust', function() {
