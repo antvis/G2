@@ -39,13 +39,13 @@ class Symmetric extends Adjust {
   // 获取每个字段最大的值
   _getXValuesMax() {
     const self = this;
-    const yDim = self.yDim;
-    const xDim = self.xDim;
+    const yField = self.yField;
+    const xField = self.xField;
     const cache = {};
     const mergeData = self.mergeData;
     Util.each(mergeData, function(obj) {
-      const xValue = obj[xDim];
-      const yValue = obj[yDim];
+      const xValue = obj[xField];
+      const yValue = obj[yField];
       const max = Util.isArray(yValue) ? Math.max.apply(null, yValue) : yValue;
       cache[xValue] = cache[xValue] || 0;
       if (cache[xValue] < max) {
@@ -67,21 +67,21 @@ class Symmetric extends Adjust {
   // 处理对称
   _processSymmetric(dataArray) {
     const self = this;
-    const xDim = self.xDim;
-    const yDim = self.yDim;
-    const max = self._getMax(yDim);
+    const xField = self.xField;
+    const yField = self.yField;
+    const max = self._getMax(yField);
     const first = dataArray[0][0];
 
     let cache;
-    if (first && Util.isArray(first[yDim])) {
+    if (first && Util.isArray(first[yField])) {
       cache = self._getXValuesMax();
     }
     Util.each(dataArray, function(data) {
       Util.each(data, function(obj) {
-        const value = obj[yDim];
+        const value = obj[yField];
         let offset;
         if (Util.isArray(value)) {
-          const xValue = obj[xDim];
+          const xValue = obj[xField];
           const valueMax = cache[xValue];
           offset = (max - valueMax) / 2;
           const tmp = [];
@@ -90,10 +90,10 @@ class Symmetric extends Adjust {
             tmp.push(offset + subVal);
           });
           /* eslint-enable no-loop-func */
-          obj[yDim] = tmp;
+          obj[yField] = tmp;
         } else {
           offset = (max - value) / 2;
-          obj[yDim] = [ offset, value + offset ];
+          obj[yField] = [ offset, value + offset ];
         }
       });
     });

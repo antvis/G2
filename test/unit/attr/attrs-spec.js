@@ -4,17 +4,17 @@ const Scale = require('../../../src/scale/');
 
 describe('attr test color', () => {
   const scaleIdentity = Scale.identity({
-    dim: 'type',
+    field: 'type',
     value: 'red'
   });
 
   const scaleCat = Scale.cat({
-    dim: 'type',
+    field: 'type',
     values: [ 'a', 'b', 'c', 'd' ]
   });
 
   const scaleLinear = Scale.linear({
-    dim: 'age',
+    field: 'age',
     min: 0,
     max: 10
   });
@@ -31,10 +31,10 @@ describe('attr test color', () => {
     });
 
     it('mapping', () => {
-      expect(color.mapping('a')).equal('c1');
-      expect(color.mapping('b')).equal('c2');
-      expect(color.mapping('c')).equal('c3');
-      expect(color.mapping('d')).equal('c1');
+      expect(color.mapping('a')[0]).equal('c1');
+      expect(color.mapping('b')[0]).equal('c2');
+      expect(color.mapping('c')[0]).equal('c3');
+      expect(color.mapping('d')[0]).equal('c1');
     });
   });
 
@@ -45,11 +45,11 @@ describe('attr test color', () => {
     });
 
     it('mapping', () => {
-      expect(color.mapping(0)).equal('#000000');
-      expect(color.mapping(2.5)).equal('#0000ff');
-      expect(color.mapping(5)).equal('#00ff00');
-      expect(color.mapping(10)).equal('#ffffff');
-      expect(color.mapping(4)).equal('#009966');
+      expect(color.mapping(0)[0]).equal('#000000');
+      expect(color.mapping(2.5)[0]).equal('#0000ff');
+      expect(color.mapping(5)[0]).equal('#00ff00');
+      expect(color.mapping(10)[0]).equal('#ffffff');
+      expect(color.mapping(4)[0]).equal('#009966');
     });
   });
 
@@ -59,7 +59,7 @@ describe('attr test color', () => {
       values: [ '#000000', '#0000ff', '#00ff00', '#ff0000', '#ffffff' ]
     });
     it('mapping', () => {
-      expect(color.mapping(0)).equal('red');
+      expect(color.mapping(0)[0]).equal('red');
     });
   });
 
@@ -67,12 +67,12 @@ describe('attr test color', () => {
 
 describe('attr test size & opacity', () => {
   const scaleCat = Scale.cat({
-    dim: 'type',
+    field: 'type',
     values: [ 'a', 'b', 'c', 'd' ]
   });
 
   const scaleLinear = Scale.linear({
-    dim: 'age',
+    field: 'age',
     min: 0,
     max: 10
   });
@@ -82,9 +82,9 @@ describe('attr test size & opacity', () => {
       values: [ 0, 100 ]
     });
     expect(size.type).equal('size');
-    expect(size.mapping(0)).equal(0);
-    expect(size.mapping(10)).equal(100);
-    expect(size.mapping(5)).equal(50);
+    expect(size.mapping(0)[0]).equal(0);
+    expect(size.mapping(10)[0]).equal(100);
+    expect(size.mapping(5)[0]).equal(50);
   });
 
   it('mapping size three size', () => {
@@ -92,10 +92,10 @@ describe('attr test size & opacity', () => {
       scales: [ scaleLinear ],
       values: [ 0, 10, 100 ]
     });
-    expect(size.mapping(0)).equal(0);
-    expect(size.mapping(10)).equal(100);
-    expect(size.mapping(4)).equal(8);
-    expect(size.mapping(8)).equal(64);
+    expect(size.mapping(0)[0]).equal(0);
+    expect(size.mapping(10)[0]).equal(100);
+    expect(size.mapping(4)[0]).equal(8);
+    expect(size.mapping(8)[0]).equal(64);
   });
 
   it('mapping size category', () => {
@@ -104,9 +104,9 @@ describe('attr test size & opacity', () => {
       values: [ 0, 10, 100 ]
     });
 
-    expect(size.mapping('a')).equal(0);
-    expect(size.mapping('b')).equal(10);
-    expect(size.mapping('c')).equal(100);
+    expect(size.mapping('a')[0]).equal(0);
+    expect(size.mapping('b')[0]).equal(10);
+    expect(size.mapping('c')[0]).equal(100);
   });
 
   it('mapping opacity', () => {
@@ -115,20 +115,20 @@ describe('attr test size & opacity', () => {
       values: [ 0, 1 ]
     });
     expect(opactiy.type).equal('opacity');
-    expect(opactiy.mapping(0)).equal(0);
-    expect(opactiy.mapping(10)).equal(1);
-    expect(opactiy.mapping(5)).equal(0.5);
+    expect(opactiy.mapping(0)[0]).equal(0);
+    expect(opactiy.mapping(10)[0]).equal(1);
+    expect(opactiy.mapping(5)[0]).equal(0.5);
   });
 });
 
 describe('attr test shape', () => {
   const scaleCat = Scale.cat({
-    dim: 'type',
+    field: 'type',
     values: [ 'a', 'b', 'c', 'd' ]
   });
 
   const scaleLinear = Scale.linear({
-    dim: 'age',
+    field: 'age',
     min: 0,
     max: 10
   });
@@ -146,10 +146,10 @@ describe('attr test shape', () => {
       scales: [ scaleCat ],
       values: [ 's1', 's2' ]
     });
-    expect(shape.mapping('a')).equal('s1');
-    expect(shape.mapping('b')).equal('s2');
-    expect(shape.mapping('c')).equal('s1');
-    expect(shape.mapping('d')).equal('s2');
+    expect(shape.mapping('a')[0]).equal('s1');
+    expect(shape.mapping('b')[0]).equal('s2');
+    expect(shape.mapping('c')[0]).equal('s1');
+    expect(shape.mapping('d')[0]).equal('s2');
   });
 
   it('test linear mapping', function() {
@@ -157,21 +157,21 @@ describe('attr test shape', () => {
       scales: [ scaleLinear ],
       values: [ 's1', 's2' ]
     });
-    expect(shape.mapping(0)).equal('s1');
-    expect(shape.mapping(4)).equal('s1');
-    expect(shape.mapping(9)).equal('s2');
-    expect(shape.mapping(10)).equal('s2');
+    expect(shape.mapping(0)[0]).equal('s1');
+    expect(shape.mapping(4)[0]).equal('s1');
+    expect(shape.mapping(9)[0]).equal('s2');
+    expect(shape.mapping(10)[0]).equal('s2');
   });
 });
 
 describe('attr test position', () => {
   const scaleCat = Scale.cat({
-    dim: 'type',
+    field: 'type',
     values: [ 'a', 'b', 'c', 'd', 'e' ]
   });
 
   const scaleLinear = Scale.linear({
-    dim: 'age',
+    field: 'age',
     min: 0,
     max: 10
   });

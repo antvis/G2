@@ -43,7 +43,7 @@
     "lint": "eslint ./",
     "lint-fix": "eslint --fix ./",
     "test": "electron-mocha --renderer --recursive ./test/unit",
-    "test-live": "electron-mocha --opts ./test/support/mocha.opts --renderer --interactive --recursive ./test/unit"
+    "test-live": "electron-mocha --opts ./test/support/mocha.opts --renderer --interactive --recursive ./test/unit/"
   },
   "pre-commit": {
     "run": [
@@ -53,9 +53,10 @@
     "silent": false
   },
   "dependencies": {
+    "@ali/g": "~2.0.0-beta",
+    "@ali/g-map-projection": "^1.0.0",
     "fecha": "^2.3.1",
     "lodash": "^4.17.4",
-    "@ali/g": "~2.0.0-beta",
-    "@ali/g-map-projection": "^1.0.0"
+    "wolfy87-eventemitter": "^5.2.0"
   }
 }

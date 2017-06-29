@@ -15,7 +15,7 @@ class Position extends Base {
     this.type = 'position';
   }
 
-  callback(x, y) {
+  mapping(x, y) {
     const scales = this.scales;
     const coord = this.coord;
     const scaleX = scales[0];

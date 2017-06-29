@@ -42,7 +42,7 @@ describe('adjust dodge', function() {
 
     const groupData = Util.Array.group(data, 'c');
     const adjust = new Adjust.Dodge({
-      xDim: 'a',
+      xField: 'a',
       adjustNames: [ 'x' ]
     });
 
@@ -111,7 +111,7 @@ describe('adjust dodge', function() {
 
     const groupData = Util.Array.group(data, 'c');
     const adjust = new Adjust.Dodge({
-      xDim: 'a',
+      xField: 'a',
       adjustNames: [ 'x' ]
     });
 
@@ -157,7 +157,7 @@ describe('adjust dodge', function() {
       c: 1
     }];
     const adjust = new Adjust.Dodge({
-      xDim: 'a',
+      xField: 'a',
       adjustNames: [ 'y' ]
     });
     const groupData = Util.Array.group(data, 'a');
@@ -204,7 +204,7 @@ describe('adjust dodge', function() {
       c: 1
     }];
     const adjust = new Adjust.Dodge({
-      xDim: 'a',
+      xField: 'a',
       adjustNames: [ 'x' ]
     });
     const groupData = Util.Array.group(data, 'b');
@@ -266,16 +266,12 @@ describe('adjust dodge', function() {
     ];
 
     const adjust = new Adjust.Dodge({
-      xDim: 'a',
-      groupDims: [ 'a', 'b' ],
+      xField: 'a',
+      dodgeBy: 'b',
       adjustNames: [ 'x' ]
     });
 
     const groupData = Util.Array.group(data, 'a');
-    it('getDodgeDim', function() {
-      const dim = adjust._getDodgeDim([ 'a', 'b' ]);
-      expect(dim).to.be.equal('b');
-    });
     it('adjust', function() {
       adjust.processAdjust(groupData);
       const d1 = groupData[0];

@@ -24,20 +24,10 @@ class Dodge extends Adjust {
        * 调整占单位宽度的比例,例如：占2个分类间距的 1/2
        * @type {Number}
        */
-      dodgeRatio: 1 / 2
-    });
-  }
+      dodgeRatio: 1 / 2,
 
-  _getDodgeDim(dims) {
-    const self = this;
-    let rst = null;
-    Util.each(dims, function(dim) {
-      if (dim !== self.xDim) {
-        rst = dim;
-        return false;
-      }
+      dodgeBy: null
     });
-    return rst;
   }
 
   /**
@@ -47,8 +37,7 @@ class Dodge extends Adjust {
   processAdjust(dataArray) {
     const self = this;
     const mergeData = Util.Array.merge(dataArray);
-    const groupDims = self.groupDims;
-    const dodgeDim = self._getDodgeDim(groupDims);
+    const dodgeDim = self.dodgeBy;
     let adjDataArray = dataArray;
     if (dodgeDim) { // 如果指定了分组dim的字段
       adjDataArray = Util.Array.group(mergeData, dodgeDim);
