@@ -1,9 +1,21 @@
 const Util = require('../../util');
 const Base = require('./base');
-const { DomUtil } = require('@ali/g');
+const { DomUtil, Event } = require('@ali/g');
 
 function findNodeByClass(node, className) {
   return node.getElementsByClassName(className)[0];
+}
+
+function findItem(items, itemGroup) {
+  let rst = null;
+  Util.each(items, function(item) {
+    if (item.value === itemGroup.get('value')) {
+      rst = item;
+      return false;
+    }
+  });
+
+  return rst;
 }
 
 class Category extends Base {
@@ -52,7 +64,7 @@ class Category extends Base {
        * 是否允许全部取消，默认 false，即必须保留一个被选中
        * @type {Boolean}
        */
-      allowAllCanceled: true,
+      allowAllCanceled: false,
       /**
        * 边框内边距
        * @type {Array}
@@ -120,7 +132,17 @@ class Category extends Base {
        * 当用户使用 html 的时候，超出高度或者宽度会自动换行
        * @type {Boolean}
        */
-      scroll: true
+      scroll: true,
+      /**
+       * 图例项是否可点击，默认为 true
+       * @type {Boolean}
+       */
+      clickable: true,
+      /**
+       * 图例项的选择模式，多选和单选 multiple、single
+       * @type {String}
+       */
+      mode: 'multiple'
     });
   }
 
@@ -137,6 +159,87 @@ class Category extends Base {
     } else { // 使用 html 渲染图例
       this._renderHTML();
     }
+  }
+
+  _bindUI() {
+    const canvas = this.get('canvas');
+    canvas.on('mousemove', Util.wrapBehavior(this, '_onMousemove'));
+    if (this.get('clickable')) {
+      canvas.on('click', Util.wrapBehavior(this, '_onClick'));
+    }
+  }
+
+  _getLegendItem(target) {
+    const item = target.get('parent');
+    if (item && (item.name === 'legend-item')) {
+      return item;
+    }
+    return null;
+  }
+
+  _onMousemove(ev) {
+    const canvas = this.get('canvas');
+    const item = this._getLegendItem(ev.currentTarget);
+    const canvasNode = canvas.get('el');
+
+    if (item) {
+      DomUtil.modiCSS(canvasNode, {
+        cursor: 'pointer'
+      });
+
+      const itemhover = new Event('legend:hover', ev);
+      itemhover.item = item;
+      itemhover.checked = item.get('checked');
+      this.trigger('legend:hover', [ itemhover ]);
+    } else {
+      DomUtil.modiCSS(canvasNode, {
+        cursor: 'default'
+      });
+    }
+
+    return;
+  }
+
+  _onClick(ev) {
+    const clickedItem = this._getLegendItem(ev.currentTarget);
+    const items = this.get('items');
+    if (clickedItem) {
+      const checked = clickedItem.get('checked');
+      if (!this.get('allowAllCanceled') && checked && this.getCheckedCount() === 1) {
+        return;
+      }
+      const mode = this.get('mode');
+      const item = findItem(items, clickedItem);
+      const itemclick = new Event('legend:click', ev);
+      itemclick.item = item;
+      itemclick.currentTarget = clickedItem;
+      itemclick.checked = (mode === 'single') ? true : !checked;
+      this.trigger('legend:click', [ itemclick ]);
+
+      const unCheckColor = this.get('unCheckStyle').fill;
+      if (mode === 'single') {
+        const itemsGroup = this.get('itemsGroup');
+        const children = itemsGroup.get('children');
+        Util.each(children, child => {
+          if (child !== clickedItem) {
+            child.set('checked', false);
+            child.get('children')[0].attr('fill', unCheckColor);
+            child.get('children')[1].attr('fill', unCheckColor);
+          } else {
+            clickedItem.get('children')[0].attr('fill', item.color);
+            clickedItem.get('children')[1].attr('fill', item.textStyle.fill);
+            clickedItem.set('checked', true);
+          }
+        });
+      } else {
+        clickedItem.get('children')[0].attr('fill', checked ? unCheckColor : item.color);
+        clickedItem.get('children')[1].attr('fill', checked ? unCheckColor : item.textStyle.fill);
+        clickedItem.set('checked', !checked);
+      }
+
+      this.get('canvas').draw();
+    }
+    return;
   }
 
   _renderHTML() {
@@ -203,34 +306,12 @@ class Category extends Base {
     });
   }
 
-  _adjustHorizontal() {
-    const itemsGroup = this.get('itemsGroup');
-    const children = itemsGroup.get('children');
-    const maxLength = this.get('maxLength');
-    const itemGap = this.get('itemGap');
-    const itemMarginBottom = this.get('itemMarginBottom');
-    const titleGap = this.get('titleShape') ? this.get('titleGap') : 0;
-    let row = 1;
-    let rowLength = 0;
-    let width;
-    let height;
-    let box;
-    const itemWidth = this.get('itemWidth');
-    if (itemsGroup.getBBox().width > maxLength) {
-      Util.each(children, function(child) {
-        box = child.getBBox();
-        width = itemWidth || box.width;
-        height = box.height + itemMarginBottom;
-
-        if (maxLength - rowLength < width) {
-          row++;
-          rowLength = 0;
-        }
-        child.move(rowLength, row * height + titleGap);
-        rowLength += width + itemGap;
-      });
+  _formatItemValue(value) {
+    const formatter = this.get('itemFormatter');
+    if (formatter) {
+      value = formatter.call(this, value);
     }
-    return;
+    return value;
   }
 
   _getNextX() {
@@ -269,14 +350,6 @@ class Category extends Base {
     return nextY;
   }
 
-  _formatItemValue(value) {
-    const formatter = this.get('itemFormatter');
-    if (formatter) {
-      value = formatter.call(this, value);
-    }
-    return value;
-  }
-
   _addItem(item) {
     const itemsGroup = this.get('itemsGroup');
     const x = this._getNextX();
@@ -284,7 +357,9 @@ class Category extends Base {
     const unCheckStyle = this.get('unCheckStyle');
     const itemGroup = itemsGroup.addGroup({
       x,
-      y
+      y,
+      value: item.value,
+      checked: item.checked
     });
     const textStyle = Util.mix(this.get('_defaultTextStyle'), item.textStyle);
     const wordSpace = this.get('_wordSpaceing');
@@ -315,23 +390,55 @@ class Category extends Base {
     if (!item.checked) {
       Util.mix(textAttrs, unCheckStyle);
     }
-
-    const textShape = itemGroup.addShape('text', {
+    itemGroup.addShape('text', {
       attrs: textAttrs
     });
 
-    startX += wordSpace + textShape.getBBox().width;
+    // 添加一个包围矩形，用于事件支持
+    const bbox = itemGroup.getBBox();
+    const itemWidth = this.get('itemWidth');
+    itemGroup.addShape('rect', {
+      attrs: {
+        x,
+        y: y - bbox.height / 2,
+        fill: '#fff',
+        fillOpacity: 0,
+        width: itemWidth || bbox.width,
+        height: bbox.height
+      }
+    });
     itemGroup.name = 'legend-item';
     return itemGroup;
   }
 
-  _adjustItems() {
-    const layout = this.get('layout');
-    if (layout === 'horizontal') {
-      this._adjustHorizontal();
-    } else {
-      this._adjustVertical();
+  _adjustHorizontal() {
+    const itemsGroup = this.get('itemsGroup');
+    const children = itemsGroup.get('children');
+    const maxLength = this.get('maxLength');
+    const itemGap = this.get('itemGap');
+    const itemMarginBottom = this.get('itemMarginBottom');
+    const titleGap = this.get('titleShape') ? this.get('titleGap') : 0;
+    let row = 1;
+    let rowLength = 0;
+    let width;
+    let height;
+    let box;
+    const itemWidth = this.get('itemWidth');
+    if (itemsGroup.getBBox().width > maxLength) {
+      Util.each(children, function(child) {
+        box = child.getBBox();
+        width = itemWidth || box.width;
+        height = box.height + itemMarginBottom;
+
+        if (maxLength - rowLength < width) {
+          row++;
+          rowLength = 0;
+        }
+        child.move(rowLength, row * height + titleGap);
+        rowLength += width + itemGap;
+      });
     }
+    return;
   }
 
   _adjustVertical() {
@@ -377,8 +484,13 @@ class Category extends Base {
     return;
   }
 
-  _bindUI() {
-    // 绑定组件事件
+  _adjustItems() {
+    const layout = this.get('layout');
+    if (layout === 'horizontal') {
+      this._adjustHorizontal();
+    } else {
+      this._adjustVertical();
+    }
   }
 
   _renderBack() {

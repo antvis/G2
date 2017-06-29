@@ -71,7 +71,7 @@ class Base extends Group {
     }
   }
 
-  getCheckedCount() { // getLeaveCount
+  getCheckedCount() {
     const itemsGroup = this.get('itemsGroup');
     const items = itemsGroup.get('children');
     const checkedArr = Util.filter(items, function(item) {
