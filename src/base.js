@@ -42,6 +42,7 @@ class Base extends EventEmitter {
     const visible = this.get('visible');
     if (visible) {
       this.set('visible', false);
+      this.changeVisible(false);
     }
   }
 
@@ -50,8 +51,8 @@ class Base extends EventEmitter {
    * @param {Boolean} visible 是否可见
    * 显示、隐藏
    */
-  changeVisible(visible) {
-    this.changeVisible(visible);
+  changeVisible(/* visible */) {
+
   }
 
   destroy() {

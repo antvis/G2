@@ -91,7 +91,7 @@ class GeomBase extends Base {
 
       },
       styleOptions: null,
-      selectedOpations: null,
+      selectedOptions: null,
       adjusts: null,
 
       shapeType: 'point',
