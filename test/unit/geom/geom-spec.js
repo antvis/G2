@@ -1,7 +1,6 @@
 const expect = require('chai').expect;
 const { Canvas } = require('@ali/g');
-const GeomBase = require('../../../src/geom/base');
-const Point = require('../../../src/geom/point');
+const Geom = require('../../../src/geom/index');
 const Global = require('../../../src/global');
 const Scale = require('../../../src/scale/index');
 const Coord = require('../../../src/coord/index');
@@ -80,7 +79,7 @@ describe('test geom base', function() {
   ];
 
   describe('test create', function() {
-    const geom = new GeomBase({
+    const geom = new Geom({
       type: 'test'
     });
 
@@ -122,7 +121,7 @@ describe('test geom base', function() {
 
   describe('test init data', function() {
     const newData = data.slice(0);
-    const geom = new GeomBase({
+    const geom = new Geom({
       type: 'test',
       coord,
       data: newData,
@@ -198,7 +197,7 @@ describe('test geom base', function() {
   describe('test paint', function() {
     const newData = data.slice(0);
     const group = canvas.addGroup();
-    const geom = new GeomBase({
+    const geom = new Geom({
       shapeType: 'point',
       coord,
       data: newData,
@@ -268,7 +267,7 @@ describe('test geom base', function() {
       expect(shape.attr('fill')).equal('blue');
       canvas.draw();
     });
-    it('test style width fields', function() {
+    it('test style with fields', function() {
       geom.clear();
       geom.position('a*b').color('c').style('a', {
         fill: 'blue',
@@ -291,7 +290,7 @@ describe('test geom base', function() {
 describe('test geom point', function() {
   let data = [{ a: 4, b: 3, c: '1' }, { a: 5, b: 2, c: '2' }];
   const group = canvas.addGroup();
-  const geom = new Point({
+  const geom = new Geom.Point({
     data,
     coord,
     container: group,
@@ -311,6 +310,52 @@ describe('test geom point', function() {
     geom.init();
     geom.paint();
     expect(group.getCount()).equal(4);
+    canvas.draw();
+  });
+});
+
+describe('test geom path', function() {
+  let data = [{ a: 4, b: 3, c: '1' }, { a: 5, b: 2, c: '2' }];
+  const group = canvas.addGroup();
+  const geom = new Geom.Path({
+    data,
+    coord,
+    container: group,
+    scales: { a: scaleA, b: scaleB, c: scaleC, red: ScaleRed }
+  });
+  it('draw path', function() {
+    geom.position('a*b');
+    geom.init();
+    geom.paint();
+    expect(group.getCount()).equal(1);
+    const path = group.getFirst();
+    expect(path.attr('path').length).eql(2);
+    canvas.draw();
+  });
+
+  it('draw multiple path', function() {
+    data = [{ a: 4, b: [ 3, 5 ], c: '1' }, { a: 5, b: [ 2, 4 ], c: '2' }];
+    geom.clear();
+    geom.set('data', data);
+    geom.position('a*b');
+    geom.init();
+    geom.paint();
+    expect(group.getCount()).equal(1);
+    const path = group.getFirst();
+    expect(path.attr('path').length).eql(4);
+    canvas.draw();
+  });
+
+  it('draw path with color', function() {
+    const data = [{ a: 1, b: 3, c: '1' }, { a: 2, b: 3.5, c: '1' }, { a: 1, b: 2, c: '2' }, { a: 2, b: 1.5, c: '2' }];
+    geom.clear();
+    geom.set('data', data);
+    geom.position('a*b').color('c');
+    geom.init();
+    geom.paint();
+    expect(group.getCount()).equal(2);
+    const path = group.getFirst();
+    expect(path.attr('path').length).eql(2);
     canvas.draw();
   });
 });
