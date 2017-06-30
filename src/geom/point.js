@@ -4,6 +4,7 @@
  */
 
 const GeomBase = require('./base');
+const Util = require('../util');
 
 class Point extends GeomBase {
   /**
@@ -16,6 +17,20 @@ class Point extends GeomBase {
     cfg.type = 'point';
     cfg.shapeType = 'point';
     return cfg;
+  }
+
+  drawPoint(obj, container, shapeFactory) {
+    const shape = obj.shape;
+    const cfg = this.getDrawCfg(obj);
+    if (Util.isArray(obj.y)) {
+      Util.each(obj.y, function(y, index) {
+        cfg.y = y;
+        cfg.yIndex = index;
+        shapeFactory.drawShape(shape, cfg, container);
+      });
+    } else {
+      shapeFactory.drawShape(shape, cfg, container);
+    }
   }
 }
 

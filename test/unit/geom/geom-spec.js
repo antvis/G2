@@ -1,6 +1,7 @@
 const expect = require('chai').expect;
 const { Canvas } = require('@ali/g');
 const GeomBase = require('../../../src/geom/base');
+const Point = require('../../../src/geom/point');
 const Global = require('../../../src/global');
 const Scale = require('../../../src/scale/index');
 const Coord = require('../../../src/coord/index');
@@ -13,6 +14,38 @@ const canvas = new Canvas({
   containerId: 'cgbase',
   width: 500,
   height: 500
+});
+
+const scaleA = Scale.linear({
+  field: 'a',
+  min: 0,
+  max: 10
+});
+
+const scaleB = Scale.linear({
+  field: 'b',
+  min: 0,
+  max: 5
+});
+
+const scaleC = Scale.cat({
+  field: 'c',
+  values: [ '1', '2' ]
+});
+
+const ScaleRed = Scale.identity({
+  field: 'red',
+  value: 'red'
+});
+const coord = new Coord.Rect({
+  start: {
+    x: 0,
+    y: 0
+  },
+  end: {
+    x: 500,
+    y: 500
+  }
 });
 
 describe('test geom base', function() {
@@ -45,37 +78,7 @@ describe('test geom base', function() {
     c: '2'
   }
   ];
-  const scaleA = Scale.linear({
-    field: 'a',
-    min: 0,
-    max: 10
-  });
 
-  const scaleB = Scale.linear({
-    field: 'b',
-    min: 0,
-    max: 5
-  });
-
-  const scaleC = Scale.cat({
-    field: 'c',
-    values: [ '1', '2' ]
-  });
-
-  const ScaleRed = Scale.identity({
-    field: 'red',
-    value: 'red'
-  });
-  const coord = new Coord.Rect({
-    start: {
-      x: 0,
-      y: 0
-    },
-    end: {
-      x: 500,
-      y: 500
-    }
-  });
   describe('test create', function() {
     const geom = new GeomBase({
       type: 'test'
@@ -283,4 +286,31 @@ describe('test geom base', function() {
     });
   });
 
+});
+
+describe('test geom point', function() {
+  let data = [{ a: 4, b: 3, c: '1' }, { a: 5, b: 2, c: '2' }];
+  const group = canvas.addGroup();
+  const geom = new Point({
+    data,
+    coord,
+    container: group,
+    scales: { a: scaleA, b: scaleB, c: scaleC, red: ScaleRed }
+  });
+  it('draw points', function() {
+    geom.position('a*b').color('c');
+    geom.init();
+    geom.paint();
+    expect(group.getCount()).equal(2);
+  });
+  it('draw points y is array', function() {
+    data = [{ a: 4, b: [ 3, 5 ], c: '1' }, { a: 5, b: [ 2, 4 ], c: '2' }];
+    geom.clear();
+    geom.set('data', data);
+    geom.position('a*b').color('red');
+    geom.init();
+    geom.paint();
+    expect(group.getCount()).equal(4);
+    canvas.draw();
+  });
 });

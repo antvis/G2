@@ -546,7 +546,7 @@ class GeomBase extends Base {
    */
   draw(data) {
     const self = this;
-    const shapeFactory = self.get('shapeFactory');
+    const shapeFactory = self.getShapeFactory();
     shapeFactory.setCoord(self.get('coord'));
     const container = self.get('container');
     Util.each(data, function(obj) {
@@ -574,7 +574,15 @@ class GeomBase extends Base {
 
   getDrawCfg(obj) {
     const self = this;
-    const cfg = Util.mix({}, obj);
+    const cfg = {
+      origin: obj,
+      x: obj.x,
+      y: obj.y,
+      color: obj.color,
+      size: obj.size,
+      shape: obj.shape,
+      opacity: obj.opacity
+    };
     const styleOptions = self.get('styleOptions');
     if (styleOptions && styleOptions.style) {
       cfg.style = self.getCallbackCfg(styleOptions.fields, styleOptions.style, obj[FIELD_ORIGIN]);
