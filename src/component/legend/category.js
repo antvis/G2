@@ -1,15 +1,16 @@
 const Util = require('../../util');
 const Base = require('./base');
-const { DomUtil, Event } = require('@ali/g');
+const { DomUtil, Event, Group } = require('@ali/g');
 
 function findNodeByClass(node, className) {
   return node.getElementsByClassName(className)[0];
 }
 
-function findItem(items, itemGroup) {
+function findItem(items, refer) {
   let rst = null;
+  const value = (refer instanceof Group) ? refer.get('value') : refer;
   Util.each(items, function(item) {
-    if (item.value === itemGroup.get('value')) {
+    if (item.value === value) {
       rst = item;
       return false;
     }
@@ -120,8 +121,8 @@ class Category extends Base {
        * 默认的图例项 html 模板
        * @type {String}
        */
-      _defaultItemTpl: '<li class="g-legend-item item-${ index } ${ checked }">' +
-        '<i style="width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:10px;background-color: ${ color };"></i>' +
+      _defaultItemTpl: '<li class="g-legend-item item-${ index } ${ checked }" data-color="${ originColor }" data-value="${ originValue }" style="cursor: pointer;">' +
+        '<i class="g-legend-marker" style="width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:10px;background-color: ${ color };"></i>' +
         '<span class="g-legend-text">${ value }</span></li>',
       /**
        * 用户设置的图例项 html 模板
@@ -139,6 +140,7 @@ class Category extends Base {
        */
       clickable: true,
       /**
+       * TODO: rename
        * 图例项的选择模式，多选和单选 multiple、single
        * @type {String}
        */
@@ -190,7 +192,7 @@ class Category extends Base {
       const itemhover = new Event('legend:hover', ev);
       itemhover.item = item;
       itemhover.checked = item.get('checked');
-      this.trigger('legend:hover', [ itemhover ]);
+      this.trigger('legend:hover', [ itemhover ]); // TODO: 到底是 canvas 还是 legend 对象抛出事件?
     } else {
       DomUtil.modiCSS(canvasNode, {
         cursor: 'default'
@@ -214,13 +216,14 @@ class Category extends Base {
       itemclick.item = item;
       itemclick.currentTarget = clickedItem;
       itemclick.checked = (mode === 'single') ? true : !checked;
-      this.trigger('legend:click', [ itemclick ]);
+      this.trigger('legend:click', [ itemclick ]); // TODO: 到底是 canvas 还是 legend 对象抛出事件?
 
       const unCheckColor = this.get('unCheckStyle').fill;
       if (mode === 'single') {
         const itemsGroup = this.get('itemsGroup');
         const children = itemsGroup.get('children');
         Util.each(children, child => {
+          // TODO：如果外部传入初始状态，则不需要此操作
           if (child !== clickedItem) {
             child.set('checked', false);
             child.get('children')[0].attr('fill', unCheckColor);
@@ -251,6 +254,8 @@ class Category extends Base {
     const legendWrapper = DomUtil.createDom(containerTpl);
     const titleDom = findNodeByClass(legendWrapper, 'g-legend-title');
     const itemListDom = findNodeByClass(legendWrapper, 'g-legend-itemlist');
+    const unCheckedColor = self.get('unCheckStyle').fill;
+    const mode = self.get('mode');
 
     if (titleDom && title && title.text) { // 渲染标题
       titleDom.innerHTML = title.text;
@@ -266,8 +271,8 @@ class Category extends Base {
 
     Util.each(items, function(item, index) {
       const checked = item.checked;
-      const value = item.value;
-      const color = checked ? item.color : self.get('unCheckStyle').fill;
+      const value = self._formatItemValue(item.value);
+      const color = checked ? item.color : unCheckedColor;
       let domStr;
       if (Util.isFunction(itemTpl)) {
         domStr = itemTpl(value, color, checked, index);
@@ -275,11 +280,18 @@ class Category extends Base {
         domStr = itemTpl;
       }
       const stringCompiler = Util.template(domStr);
-      const itemDiv = stringCompiler({ index, checked: checked ? 'checked' : 'unChecked', value, color });
+      const itemDiv = stringCompiler({
+        index,
+        checked: checked ? 'checked' : 'unChecked',
+        value,
+        color,
+        originColor: item.color,
+        originValue: item.value
+      });
       const itemDom = DomUtil.createDom(itemDiv);
       const textDom = findNodeByClass(itemDom, 'g-legend-text');
       if (!checked) {
-        textDom.style.color = self.get('unCheckStyle').fill;
+        textDom.style.color = unCheckedColor;
       }
       itemListDom.appendChild(itemDom);
     });
@@ -294,6 +306,87 @@ class Category extends Base {
       });
     }
 
+    if (self.get('clickable')) {
+      const childNodes = itemListDom.childNodes;
+      // 注册事件
+      legendWrapper.onclick = ev => {
+        const target = ev.target;
+        let parentDom;
+        if (Util.upperCase(target.nodeName) === 'LI') {
+          parentDom = target;
+        } else {
+          parentDom = target.parentNode;
+        }
+        const textDom = findNodeByClass(parentDom, 'g-legend-text');
+        const markerDom = findNodeByClass(parentDom, 'g-legend-marker');
+        const clickedItem = findItem(items, parentDom.getAttribute('data-value'));
+        const domClass = parentDom.className;
+        const originColor = parentDom.getAttribute('data-color');
+
+        if (mode === 'single') { // 单选模式
+          // 其他图例项全部置灰
+          // TODO：如果外部传入初始状态，则不需要此操作
+          Util.each(childNodes, child => {
+            if (child !== parentDom) {
+              const childTextDom = findNodeByClass(child, 'g-legend-text');
+              const childMarkerDom = findNodeByClass(child, 'g-legend-marker');
+              childTextDom.style.color = unCheckedColor;
+              childMarkerDom.style.backgroundColor = unCheckedColor;
+              child.className = Util.replace(child.className, 'checked', 'unCheckColor');
+            } else {
+              textDom.style.color = originColor;
+              markerDom.style.backgroundColor = originColor;
+              parentDom.className = Util.replace(domClass, 'unChecked', 'checked');
+            }
+          });
+        } else { // 混合模式
+          const clickedItemChecked = domClass.includes('checked');
+          let count = 0;
+          Util.each(childNodes, child => {
+            if (child.className.includes('checked')) {
+              count++;
+            }
+          });
+
+          if (!this.get('allowAllCanceled') && clickedItemChecked && count === 1) {
+            return;
+          }
+          if (clickedItemChecked) {
+            textDom.style.color = unCheckedColor;
+            markerDom.style.backgroundColor = unCheckedColor;
+            parentDom.className = Util.replace(domClass, 'checked', 'unChecked');
+          } else if (domClass.includes('unChecked')) {
+            textDom.style.color = originColor;
+            markerDom.style.backgroundColor = originColor;
+            parentDom.className = Util.replace(domClass, 'unChecked', 'checked');
+          }
+        }
+
+        self.trigger('legend:click', [{
+          item: clickedItem,
+          currentTarget: parentDom,
+          checked: (mode === 'single') ? true : !clickedItem.checked
+        }]);
+      };
+    }
+
+    legendWrapper.onmousemove = ev => {
+      const target = ev.target;
+      let parentDom;
+      if (Util.upperCase(target.nodeName) === 'LI') {
+        parentDom = target;
+      } else {
+        parentDom = target.parentNode;
+      }
+      const hoveredItem = findItem(items, parentDom.getAttribute('data-value'));
+      if (hoveredItem) {
+        self.trigger('legend:hover', [{
+          item: hoveredItem,
+          currentTarget: parentDom,
+          checked: hoveredItem.checked
+        }]); // TODO: 到底是 canvas 还是 legend 对象抛出事件?
+      }
+    };
 
     outterNode.appendChild(legendWrapper);
   }

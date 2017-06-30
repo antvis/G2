@@ -25,6 +25,7 @@ const Util = {
   isEmpty: require('lodash/isEmpty'),
   lowerFirst: require('lodash/lowerFirst'),
   upperFirst: require('lodash/upperFirst'),
+  upperCase: require('lodash/upperCase'),
   isNil: require('lodash/isNil'),
   isArray: require('lodash/isArray'),
   isDate: require('lodash/isDate'),
@@ -40,6 +41,7 @@ const Util = {
   merge: require('lodash/merge'),
   filter: require('lodash/filter'),
   defaultsDeep: require('lodash/defaultsDeep'),
+  replace: require('lodash/replace'),
   fixedBase(v, base) {
     const str = base.toString();
     const index = str.indexOf('.');
