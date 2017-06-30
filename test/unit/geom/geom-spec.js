@@ -242,11 +242,45 @@ describe('test geom base', function() {
       geom.draw(mappedData);
       expect(group.getCount()).to.be.equal(2);
       canvas.draw();
+
     });
 
     it('test paint', function() {
-
+      geom.clear();
+      geom.position('a*b').color('c');
+      geom.init();
+      geom.paint();
+      expect(group.getCount()).to.be.equal(6);
+      canvas.draw();
     });
 
+    it('test style no fields', function() {
+      geom.clear();
+      geom.position('a*b').color('c').style({
+        fill: 'blue'
+      });
+      geom.init();
+      geom.paint();
+      const shape = group.getFirst();
+      expect(shape.attr('fill')).equal('blue');
+      canvas.draw();
+    });
+    it('test style width fields', function() {
+      geom.clear();
+      geom.position('a*b').color('c').style('a', {
+        fill: 'blue',
+        lineWidth(a) {
+          return a * 2;
+        }
+      });
+
+      geom.init();
+      geom.paint();
+      const shape = group.getFirst();
+      expect(shape.attr('fill')).equal('blue');
+      expect(shape.attr('lineWidth')).equal(data[0].a * 2);
+      canvas.draw();
+    });
   });
+
 });
