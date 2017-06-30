@@ -1,5 +1,5 @@
 /**
- * @fileOverview 线图
+ * @fileOverview 路径图，无序的线图
  * @author dxq613@gmail.com
  */
 

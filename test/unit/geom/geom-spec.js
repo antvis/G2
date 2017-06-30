@@ -359,3 +359,53 @@ describe('test geom path', function() {
     canvas.draw();
   });
 });
+
+
+describe('test geom line', function() {
+  let data = [{ a: 4, b: 3, c: '1' }, { a: 2, b: 2, c: '2' }];
+  const group = canvas.addGroup();
+  const geom = new Geom.Line({
+    data,
+    coord,
+    container: group,
+    scales: { a: scaleA, b: scaleB, c: scaleC, red: ScaleRed }
+  });
+  it('draw path', function() {
+    expect(geom.get('type')).eql('line');
+    geom.position('a*b');
+    geom.init();
+    geom.paint();
+    expect(group.getCount()).equal(1);
+    const path = group.getFirst();
+    expect(path.attr('path').length).eql(2);
+    expect(path.attr('path')[0]).eqls([ 'M', 100, 200 ]);
+    expect(path.attr('path')[1]).eqls([ 'L', 200, 300 ]);
+    canvas.draw();
+  });
+
+  it('draw multiple path', function() {
+    data = [{ a: 4, b: [ 3, 5 ], c: '1' }, { a: 5, b: [ 2, 4 ], c: '2' }];
+    geom.clear();
+    geom.set('data', data);
+    geom.position('a*b');
+    geom.init();
+    geom.paint();
+    expect(group.getCount()).equal(1);
+    const path = group.getFirst();
+    expect(path.attr('path').length).eql(4);
+    canvas.draw();
+  });
+
+  it('draw path with color', function() {
+    const data = [{ a: 1, b: 3, c: '1' }, { a: 2, b: 3.5, c: '1' }, { a: 1, b: 2, c: '2' }, { a: 2, b: 1.5, c: '2' }];
+    geom.clear();
+    geom.set('data', data);
+    geom.position('a*b').color('c');
+    geom.init();
+    geom.paint();
+    expect(group.getCount()).equal(2);
+    const path = group.getFirst();
+    expect(path.attr('path').length).eql(2);
+    canvas.draw();
+  });
+});
