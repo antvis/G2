@@ -10,7 +10,7 @@ function findItem(items, refer) {
   let rst = null;
   const value = (refer instanceof Group) ? refer.get('value') : refer;
   Util.each(items, function(item) {
-    if (item.value === value) {
+    if (item.name === value) {
       rst = item;
       return false;
     }
@@ -271,7 +271,7 @@ class Category extends Base {
 
     Util.each(items, function(item, index) {
       const checked = item.checked;
-      const value = self._formatItemValue(item.value);
+      const value = self._formatItemValue(item.name);
       const color = checked ? item.color : unCheckedColor;
       let domStr;
       if (Util.isFunction(itemTpl)) {
@@ -286,7 +286,7 @@ class Category extends Base {
         value,
         color,
         originColor: item.color,
-        originValue: item.value
+        originValue: item.name
       });
       const itemDom = DomUtil.createDom(itemDiv);
       const textDom = findNodeByClass(itemDom, 'g-legend-text');
@@ -451,7 +451,7 @@ class Category extends Base {
     const itemGroup = itemsGroup.addGroup({
       x,
       y,
-      value: item.value,
+      value: item.name,
       checked: item.checked
     });
     const textStyle = Util.mix(this.get('_defaultTextStyle'), item.textStyle);
@@ -478,7 +478,7 @@ class Category extends Base {
     const textAttrs = Util.mix({}, textStyle, {
       x: startX + x,
       y,
-      text: this._formatItemValue(item.value)
+      text: this._formatItemValue(item.name)
     });
     if (!item.checked) {
       Util.mix(textAttrs, unCheckStyle);

@@ -1,9 +1,8 @@
 const Util = require('../../util');
 const Base = require('./base');
-const ColorUtil = require('../../attr/color-util'); // TODO： 这个 Util 是否可换个位置
-// const { Event, Group } = require('@ali/g');
-// var Range = require('../range/range');
-// var TRIGGER_WIDTH = 16;
+const { Event, Group } = require('@ali/g');
+const Slider = require('./slider');
+const TRIGGER_WIDTH = 16;
 
 class Continuous extends Base {
   getDefaultCfg() {
@@ -62,13 +61,35 @@ class Continuous extends Base {
       inRange: {
         fill: '#4E7CCC'
       },
+      _range: [ 0, 100 ],
+      /**
+       * 中滑块属性
+       * @type {ATTRS}
+       */
+      middleAttr: {
+        fill: '#fff',
+        fillOpacity: 0
+      },
+      outRangeStyle: {
+        fill: '#ccc'
+      },
       labelOffset: 10 // ToDO: 文本同渐变背景的距离
     });
   }
 
+  _calStartPoint() {
+    const titleShape = this.get('titleShape');
+    const titleBox = titleShape.getBBox();
+    const titleGap = this.get('titleGap');
+    return {
+      x: 0,
+      y: titleBox.height + titleGap
+    };
+  }
+
   _beforeRenderUI() {
     const items = this.get('items');
-    if (!Util.isArray(items) || !Util.isEmpty(items)) {
+    if (!Util.isArray(items) || Util.isEmpty(items)) {
       return;
     }
 
@@ -87,108 +108,170 @@ class Continuous extends Base {
 
   _renderUI() {
     super._renderUI();
-    this._renderBackground();
-    // this._renderTrigger();
-  }
 
-  _renderBackground() {
-    const type = this.get('attrType');
-    if (type === 'color') {
-      this._renderGradient();
-    } else if (type === 'size') {
-      this._renderTriangle();
-    }
-  }
-
-  _renderGradient() {
-    const self = this;
-    const titleShape = this.get('titleShape');
-    let titleGap = this.get('titleGap');
-    titleGap = titleShape ? titleShape.getBBox().height + titleGap : titleGap;
-    const width = this.get('width');
-    const height = this.get('height');
-    const layout = this.get('layout');
-    const items = this.get('items');
-    let fill = '';
-    let rgbColor;
-
-    const path = [];
-    const bgGroup = this.addGroup();
-
-    if (layout === 'vertical') {
-      fill += 'l (270) ';
-      Util.each(items, v => {
-        path.push([ 'M', 0, v.value * height ]);
-        path.push([ 'L', width, v.value * height ]);
-        rgbColor = ColorUtil.toRGB(v.color);
-        fill += (1 - v.value) + ':' + rgbColor + ' ';
-        bgGroup.addShape('text', {
-          attrs: Util.mix({}, {
-            x: width + self.get('labelOffset'),
-            y: v.value * height,
-            text: self._formatItemValue(v.name)
-          }, self.get('textStyle'))
-        });
-      });
+    if (this.get('slidable')) {
+      this._renderSlider();
     } else {
-      fill += 'l (0) ';
-      Util.each(items, v => {
-        path.push([ 'M', v.value * width, 0 ]);
-        path.push([ 'L', v.value * width, height ]);
-        rgbColor = ColorUtil.toRGB(v.color);
-        fill += v.value + ':' + rgbColor + ' ';
-        bgGroup.addShape('text', {
-          attrs: Util.mix({}, {
-            x: v.value * width,
-            y: height + self.get('labelOffset'),
-            text: self._formatItemValue(v.name)
-          }, self.get('textStyle'))
-        });
-      });
+      this._renderBackground();
     }
-    bgGroup.addShape('rect', {
-      attrs: {
-        x: 0,
-        y: 0,
-        width,
-        height,
-        fill,
-        strokeOpacity: 0
-      }
-    });
-
-    bgGroup.addShape('path', {
-      attrs: {
-        path,
-        lineWidth: 1,
-        stroke: '#fff'
-      }
-    });
-    bgGroup.move(0, titleGap);
-    // bgGroup.name = 'legend';
   }
 
-  // 绘制三角大小背景
-  _renderTriangle() {
-    const self = this;
-    const width = this.get('width');
-    const height = this.get('height');
-    const layout = this.get('layout');
-    const points = (layout === 'vertical') ? [
-      [ 0, 0 ],
-      [ width, 0 ],
-      [ width, height ]
-    ] : [
-      [ 0, height ],
-      [ width, 0 ],
-      [ width, height ]
-    ];
-
-    return this.addShape('polygon', {
-      attrs: Util.mix({
-        points
-      }, self.get('inRange'))
+  _renderSlider() {
+    const minHandleElement = new Group();
+    const maxHandleElement = new Group();
+    const backgroundElement = new Group();
+    const start = this._calStartPoint();
+    const rangeElement = this.addGroup(Slider, {
+      minHandleElement,
+      maxHandleElement,
+      backgroundElement,
+      middleAttr: this.get('middleAttr'),
+      layout: this.get('layout'),
+      range: this.get('_range'),
+      width: this.get('width'),
+      height: this.get('height')
     });
+    rangeElement.translate(start.x, start.y);
+    this.set('rangeElement', rangeElement);
+
+    const shape = this._renderSliderShape();
+    shape.attr('clip', rangeElement.get('middleHandleElement'));
+    this._renderTrigger();
+  }
+
+  _addBackground(parent, name, attrs) {
+    parent.addShape(name, {
+      attrs: Util.mix({}, attrs, this.get('outRangeStyle'))
+    });
+    return parent.addShape(name, {
+      attrs
+    });
+  }
+
+  _renderTrigger() {
+    const min = this.get('firstItem');
+    const max = this.get('lastItem');
+    const layout = this.get('layout');
+    const textStyle = this.get('textStyle');
+    const inRange = this.get('inRange');
+    const attrType = this.get('type');
+    let minBlockAttr;
+    let maxBlockAttr;
+
+    if (attrType === 'color-legend') {
+      minBlockAttr = {
+        fill: min.color
+      };
+      maxBlockAttr = {
+        fill: max.color
+      };
+    } else {
+      minBlockAttr = Util.mix({}, inRange);
+      maxBlockAttr = Util.mix({}, inRange);
+    }
+    const minTextAttr = Util.mix({
+      text: min.name + ''
+    }, textStyle);
+    const maxTextAttr = Util.mix({
+      text: max.name + ''
+    }, textStyle);
+    if (layout === 'vertical') {
+      this._addVerticalTrigger('min', minBlockAttr, minTextAttr);
+      this._addVerticalTrigger('max', maxBlockAttr, maxTextAttr);
+    } else {
+      this._addHorizontalTrigger('min', minBlockAttr, minTextAttr);
+      this._addHorizontalTrigger('max', maxBlockAttr, maxTextAttr);
+    }
+  }
+
+  _addVerticalTrigger(type, blockAttr, textAttr) {
+    const rangeElement = this.get('rangeElement');
+    const trigger = rangeElement.get(type + 'HandleElement');
+    const width = this.get('width');
+    const button = trigger.addShape('polygon', {
+      attrs: Util.mix({
+        points: [
+          [ (width / 2 + TRIGGER_WIDTH), 0 ],
+          [ (width / 2 + 1), 0 ],
+          [ (width / 2 + TRIGGER_WIDTH), type === 'min' ? TRIGGER_WIDTH : -TRIGGER_WIDTH ]
+        ]
+      }, blockAttr)
+    });
+    const text = trigger.addShape('text', {
+      attrs: Util.mix(textAttr, {
+        x: width + 8,
+        y: type === 'max' ? -8 : 8,
+        textAlign: 'start',
+        textBaseline: 'middle'
+      })
+    });
+    const layout = this.get('layout');
+    const trigerCursor = layout === 'vertical' ? 'ns-resize' : 'ew-resize';
+    button.set('cursor', trigerCursor);
+    text.set('cursor', trigerCursor);
+    this.set(type + 'ButtonElement', button);
+    this.set(type + 'TextElement', text);
+  }
+
+  _addHorizontalTrigger(type, blockAttr, textAttr) {
+    const rangeElement = this.get('rangeElement');
+    const trigger = rangeElement.get(type + 'HandleElement');
+    const button = trigger.addShape('polygon', {
+      attrs: Util.mix({
+        points: [
+          [ 0, 0 ],
+          [ 0, -1 * TRIGGER_WIDTH ],
+          [ type === 'min' ? -TRIGGER_WIDTH : TRIGGER_WIDTH, -1 * TRIGGER_WIDTH ]
+        ]
+      }, blockAttr)
+    });
+    const text = trigger.addShape('text', {
+      attrs: Util.mix(textAttr, {
+        x: type === 'min' ? -TRIGGER_WIDTH / 2 : TRIGGER_WIDTH / 2,
+        y: -1 * (8 + TRIGGER_WIDTH),
+        textAlign: type === 'min' ? 'end' : 'start',
+        textBaseline: 'middle'
+      })
+    });
+    const layout = this.get('layout');
+    const trigerCursor = layout === 'vertical' ? 'ns-resize' : 'ew-resize';
+    button.set('cursor', trigerCursor);
+    text.set('cursor', trigerCursor);
+    this.set(type + 'ButtonElement', button);
+    this.set(type + 'TextElement', text);
+  }
+
+  _bindUI() {
+    if (this.get('slidable')) {
+      const self = this;
+      const canvas = self.get('canvas');
+      const rangeElement = self.get('rangeElement');
+      rangeElement.on('rangeChange', function(ev) {
+        const range = ev.range;
+        const firstItemValue = self.get('firstItem').name * 1;
+        const lastItemValue = self.get('lastItem').name * 1;
+        const minValue = firstItemValue + (range[0] / 100) * (lastItemValue - firstItemValue) + '';
+        const maxValue = firstItemValue + (range[1] / 100) * (lastItemValue - firstItemValue) + '';
+        self._updateElement(minValue, maxValue);
+        const itemFiltered = new Event('legend:filter', ev);
+        itemFiltered.range = [ minValue, maxValue ];
+        canvas.trigger('legend:filter', [ itemFiltered ]);
+      });
+    }
+  }
+
+  _updateElement(min, max) {
+    const minTextElement = this.get('minTextElement');
+    const maxTextElement = this.get('maxTextElement');
+    minTextElement.attr('text', min);
+    maxTextElement.attr('text', max);
+    /* if (this.get('type') === 'color-legend') {
+      const attr = this.get('attr'); // 图形属性，为了更新滑块颜色
+      const minButtonElement = this.get('minButtonElement');
+      const maxButtonElement = this.get('maxButtonElement');
+      minButtonElement.attr('fill', attr.mappingValues(min).join(''));
+      maxButtonElement.attr('fill', attr.mappingValues(max).join(''));
+    } */
   }
 }
 
