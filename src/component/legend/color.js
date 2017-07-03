@@ -23,8 +23,8 @@ class Color extends Continuous {
   }
 
   _renderSliderShape() {
-    const rangeElement = this.get('rangeElement');
-    const backgroundElement = rangeElement.get('backgroundElement');
+    const slider = this.get('slider');
+    const backgroundElement = slider.get('backgroundElement');
     const width = this.get('width');
     const height = this.get('height');
     const layout = this.get('layout');
@@ -71,16 +71,16 @@ class Color extends Continuous {
     const bgGroup = this.addGroup();
 
     if (layout === 'vertical') {
-      fill += 'l (270) ';
+      fill += 'l (90) ';
       Util.each(items, v => {
-        path.push([ 'M', 0, v.value * height ]);
-        path.push([ 'L', width, v.value * height ]);
+        path.push([ 'M', 0, height - v.value * height ]);
+        path.push([ 'L', width, height - v.value * height ]);
         rgbColor = ColorUtil.toRGB(v.color);
         fill += (1 - v.value) + ':' + rgbColor + ' ';
         bgGroup.addShape('text', {
           attrs: Util.mix({}, {
             x: width + self.get('_labelOffset'),
-            y: v.value * height,
+            y: height - v.value * height,
             text: self._formatItemValue(v.name)
           }, self.get('textStyle'))
         });

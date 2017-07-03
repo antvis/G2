@@ -5,14 +5,14 @@ class CoordController {
   constructor(cfg) {
     this.type = 'rect';
     this.actions = null;
-    this.chart = null;
+    this.view = null;
 
     Util.mix(this, cfg);
     this.resetActions();
   }
 
   resetActions() {
-    const options = this.chart.get('options');
+    const options = this.view.get('options');
     if (options.coord && options.coord.actions) {
       this.actions = options.coord.actions;
     } else {
@@ -22,7 +22,7 @@ class CoordController {
   }
 
   _getCoordOptions() {
-    const chart = this.chart;
+    const chart = this.view;
     if (!chart.get('options').coord) {
       chart._setOptions('coord', {});
     }
@@ -57,7 +57,7 @@ class CoordController {
    */
   createCoord(start, end) {
     const self = this;
-    const options = this.chart.get('options');
+    const options = this.view.get('options');
     const coordOption = options.coord;
     const type = coordOption && coordOption.type ? coordOption.type : self.type;
     let C; // 构造函数

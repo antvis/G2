@@ -118,8 +118,8 @@ class Slider extends Group {
         width: (maxRatio - minRatio) * width,
         height
       });
-      minHandleElement.translate(minRatio * width, 0);
-      maxHandleElement.translate(maxRatio * width, 0);
+      minHandleElement.translate(minRatio * width, height);
+      maxHandleElement.translate(maxRatio * width, height);
     } else {
       middleHandleElement.attr({
         x: 0,
@@ -141,10 +141,9 @@ class Slider extends Group {
   }
 
   _bindUI() {
-    const canvas = this.get('canvas');
-    canvas.on('mousedown', Util.wrapBehavior(this, '_onMouseDown'));
-    canvas.on('mousemove', Util.wrapBehavior(this, '_onMouseMove'));
-    canvas.on('mouseleave', Util.wrapBehavior(this, '_onMouseLeave'));
+    this.on('mousedown', Util.wrapBehavior(this, '_onMouseDown'));
+    // this.on('mousemove', Util.wrapBehavior(this, '_onMouseMove'));
+    // this.on('mouseleave', Util.wrapBehavior(this, '_onMouseLeave'));
   }
 
   _isElement(target, name) { // 判断是否是该元素
@@ -204,7 +203,7 @@ class Slider extends Group {
       }
     }
 
-    this.trigger('rangeChange', [{
+    this.trigger('sliderchange', [{
       range
     }]);
 
@@ -245,8 +244,9 @@ class Slider extends Group {
   }
 
   _bindCanvasEvents() {
-    this.onMouseMoveListener = DomUtil.addEventListener(document, 'mousemove', Util.wrapBehavior(this, '_onCanvasMouseMove'));
-    this.onMouseUpListener = DomUtil.addEventListener(document, 'mouseup', Util.wrapBehavior(this, '_onCanvasMouseUp'));
+    const containerDOM = this.get('canvas').get('containerDOM');
+    this.onMouseMoveListener = DomUtil.addEventListener(containerDOM, 'mousemove', Util.wrapBehavior(this, '_onCanvasMouseMove'));
+    this.onMouseUpListener = DomUtil.addEventListener(containerDOM, 'mouseup', Util.wrapBehavior(this, '_onCanvasMouseUp'));
   }
 
   _onCanvasMouseMove(ev) {

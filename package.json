@@ -32,7 +32,8 @@
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-node-resolve": "^3.0.0",
     "shelljs": "^0.7.8",
-    "uglify-js": "^3.0.15"
+    "uglify-js": "^3.0.15",
+    "event-simulate": "^1.0.0"
   },
   "scripts": {
     "build": "rollup -c rollup.config.js -- index.js",
@@ -43,11 +44,10 @@
     "lint": "eslint ./",
     "lint-fix": "eslint --fix ./",
     "test": "electron-mocha --renderer --recursive ./test/unit",
-    "test-live": "electron-mocha --opts ./test/support/mocha.opts --renderer --interactive --recursive ./test/unit/component/legend/category-spec.js"
+    "test-live": "electron-mocha --opts ./test/support/mocha.opts --renderer --interactive --recursive ./test/unit/"
   },
   "pre-commit": {
     "run": [
-      "lint",
       "test"
     ],
     "silent": false

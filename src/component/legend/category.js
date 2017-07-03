@@ -157,17 +157,19 @@ class Category extends Base {
       super._renderUI();
       this._renderItems();
       this._adjustItems();
-      this._renderBack();
+      if (this.get('background')) {
+        this._renderBack();
+      }
     } else { // 使用 html 渲染图例
       this._renderHTML();
     }
   }
 
   _bindUI() {
-    const canvas = this.get('canvas');
-    canvas.on('mousemove', Util.wrapBehavior(this, '_onMousemove'));
+    // const canvas = this.get('canvas');
+    this.on('mousemove', Util.wrapBehavior(this, '_onMousemove'));
     if (this.get('clickable')) {
-      canvas.on('click', Util.wrapBehavior(this, '_onClick'));
+      this.on('click', Util.wrapBehavior(this, '_onClick'));
     }
   }
 
@@ -332,10 +334,15 @@ class Category extends Base {
               const childMarkerDom = findNodeByClass(child, 'g-legend-marker');
               childTextDom.style.color = unCheckedColor;
               childMarkerDom.style.backgroundColor = unCheckedColor;
-              child.className = Util.replace(child.className, 'checked', 'unCheckColor');
+              child.className = Util.replace(child.className, 'checked', 'unChecked');
             } else {
-              textDom.style.color = originColor;
-              markerDom.style.backgroundColor = originColor;
+              if (textDom) {
+                textDom.style.color = originColor;
+              }
+              if (markerDom) {
+                markerDom.style.backgroundColor = originColor;
+              }
+
               parentDom.className = Util.replace(domClass, 'unChecked', 'checked');
             }
           });
@@ -352,12 +359,21 @@ class Category extends Base {
             return;
           }
           if (clickedItemChecked) {
-            textDom.style.color = unCheckedColor;
-            markerDom.style.backgroundColor = unCheckedColor;
+            if (textDom) {
+              textDom.style.color = unCheckedColor;
+            }
+            if (markerDom) {
+              markerDom.style.backgroundColor = unCheckedColor;
+            }
+
             parentDom.className = Util.replace(domClass, 'checked', 'unChecked');
           } else if (domClass.includes('unChecked')) {
-            textDom.style.color = originColor;
-            markerDom.style.backgroundColor = originColor;
+            if (textDom) {
+              textDom.style.color = originColor;
+            }
+            if (markerDom) {
+              markerDom.style.backgroundColor = originColor;
+            }
             parentDom.className = Util.replace(domClass, 'unChecked', 'checked');
           }
         }

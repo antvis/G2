@@ -30,7 +30,6 @@ class AxisController {
     this.axisCfg = {};
     this.visible = true;
     this.container = null;
-    this.chart = null;
     Util.mix(this, cfg);
   }
 

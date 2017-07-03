@@ -2,7 +2,7 @@ const Util = require('../../util');
 const Base = require('./base');
 const { Event, Group } = require('@ali/g');
 const Slider = require('./slider');
-const TRIGGER_WIDTH = 16;
+const TRIGGER_WIDTH = 10;
 
 class Continuous extends Base {
   getDefaultCfg() {
@@ -78,13 +78,17 @@ class Continuous extends Base {
   }
 
   _calStartPoint() {
-    const titleShape = this.get('titleShape');
-    const titleBox = titleShape.getBBox();
-    const titleGap = this.get('titleGap');
-    return {
+    const start = {
       x: 0,
-      y: titleBox.height + titleGap
+      y: this.get('titleGap')
     };
+    const titleShape = this.get('titleShape');
+    if (titleShape) {
+      const titleBox = titleShape.getBBox();
+      start.y += titleBox.height;
+    }
+
+    return start;
   }
 
   _beforeRenderUI() {
@@ -121,7 +125,7 @@ class Continuous extends Base {
     const maxHandleElement = new Group();
     const backgroundElement = new Group();
     const start = this._calStartPoint();
-    const rangeElement = this.addGroup(Slider, {
+    const slider = this.addGroup(Slider, {
       minHandleElement,
       maxHandleElement,
       backgroundElement,
@@ -131,11 +135,11 @@ class Continuous extends Base {
       width: this.get('width'),
       height: this.get('height')
     });
-    rangeElement.translate(start.x, start.y);
-    this.set('rangeElement', rangeElement);
+    slider.translate(start.x, start.y);
+    this.set('slider', slider);
 
     const shape = this._renderSliderShape();
-    shape.attr('clip', rangeElement.get('middleHandleElement'));
+    shape.attr('clip', slider.get('middleHandleElement'));
     this._renderTrigger();
   }
 
@@ -185,8 +189,8 @@ class Continuous extends Base {
   }
 
   _addVerticalTrigger(type, blockAttr, textAttr) {
-    const rangeElement = this.get('rangeElement');
-    const trigger = rangeElement.get(type + 'HandleElement');
+    const slider = this.get('slider');
+    const trigger = slider.get(type + 'HandleElement');
     const width = this.get('width');
     const button = trigger.addShape('polygon', {
       attrs: Util.mix({
@@ -214,21 +218,22 @@ class Continuous extends Base {
   }
 
   _addHorizontalTrigger(type, blockAttr, textAttr) {
-    const rangeElement = this.get('rangeElement');
-    const trigger = rangeElement.get(type + 'HandleElement');
+    const slider = this.get('slider');
+    const trigger = slider.get(type + 'HandleElement');
+    const height = this.get('height');
     const button = trigger.addShape('polygon', {
       attrs: Util.mix({
         points: [
           [ 0, 0 ],
-          [ 0, -1 * TRIGGER_WIDTH ],
-          [ type === 'min' ? -TRIGGER_WIDTH : TRIGGER_WIDTH, -1 * TRIGGER_WIDTH ]
+          [ 0, TRIGGER_WIDTH ],
+          [ type === 'min' ? -TRIGGER_WIDTH : TRIGGER_WIDTH, TRIGGER_WIDTH ]
         ]
       }, blockAttr)
     });
     const text = trigger.addShape('text', {
       attrs: Util.mix(textAttr, {
         x: type === 'min' ? -TRIGGER_WIDTH / 2 : TRIGGER_WIDTH / 2,
-        y: -1 * (8 + TRIGGER_WIDTH),
+        y: height + TRIGGER_WIDTH / 2,
         textAlign: type === 'min' ? 'end' : 'start',
         textBaseline: 'middle'
       })
@@ -245,8 +250,8 @@ class Continuous extends Base {
     if (this.get('slidable')) {
       const self = this;
       const canvas = self.get('canvas');
-      const rangeElement = self.get('rangeElement');
-      rangeElement.on('rangeChange', function(ev) {
+      const slider = self.get('slider');
+      slider.on('sliderchange', function(ev) {
         const range = ev.range;
         const firstItemValue = self.get('firstItem').name * 1;
         const lastItemValue = self.get('lastItem').name * 1;

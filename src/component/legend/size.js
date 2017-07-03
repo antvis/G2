@@ -26,8 +26,8 @@ class Size extends Continuous {
   }
 
   _renderSliderShape() {
-    const rangeElement = this.get('rangeElement');
-    const backgroundElement = rangeElement.get('backgroundElement');
+    const slider = this.get('slider');
+    const backgroundElement = slider.get('backgroundElement');
     const width = this.get('width');
     const height = this.get('height');
     const inRange = this.get('inRange');
@@ -51,18 +51,23 @@ class Size extends Continuous {
     const group = this.addGroup();
     const circleStyle = this.get('_circleStyle');
     const textStyle = this.get('textStyle');
+    const titleShape = this.get('titleShape');
+    let titleGap = this.get('titleGap');
+    if (titleShape) {
+      titleGap += titleShape.getBBox().height;
+    }
 
     group.addShape('circle', {
       attrs: Util.mix({
         x,
-        y,
+        y: y + titleGap,
         r: r === 0 ? 1 : r
       }, circleStyle)
     });
     group.addShape('text', {
       attrs: Util.mix({
         x: maxWidth + 5,
-        y,
+        y: y + titleGap,
         text: text === 0 ? '0' : text
       }, textStyle)
     });
