@@ -96,10 +96,11 @@ describe('test geom base', function() {
       expect(geom.get('attrOptions').position).eqls({ field: 'a*b' });
       geom.position([ 'a', 'b' ], 'stack');
       expect(geom.get('attrOptions').position).eqls({ field: [ 'a', 'b' ] });
-      expect(geom.get('adjusts')).equal('stack');
+      expect(geom.get('adjusts')).eqls([{ type: 'stack' }]);
 
       geom.position([ 'a', 'b' ], { adjusts: [ 'stack', 'dodge' ] });
-      expect(geom.get('adjusts')).eqls([ 'stack', 'dodge' ]);
+      expect(geom.get('adjusts')).eqls([{ type: 'stack' }, { type: 'dodge' }]);
+      expect(geom.hasAdjust('stack')).equal(true);
     });
     it('other attrs', function() {
       geom.color('red')
@@ -407,5 +408,11 @@ describe('test geom line', function() {
     const path = group.getFirst();
     expect(path.attr('path').length).eql(2);
     canvas.draw();
+  });
+
+  it('destroy & clear', function() {
+    geom.clear();
+    canvas.destroy();
+    document.body.removeChild(div);
   });
 });

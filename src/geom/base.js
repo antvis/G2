@@ -22,6 +22,19 @@ function parseFields(field) {
   return [ field ];
 }
 
+// 转换成对象的数组 [{type: 'adjust'}]
+function parseAdjusts(adjusts) {
+  if (Util.isString(adjusts)) {
+    adjusts = [ adjusts ];
+  }
+  Util.each(adjusts, function(adjust, index) {
+    if (!Util.isObject(adjust)) {
+      adjusts[index] = { type: adjust };
+    }
+  });
+  return adjusts;
+}
+
 /**
  * 几何标记
  * @class Geom
@@ -119,6 +132,7 @@ class GeomBase extends Base {
     let scale = scales[field];
     if (!scale) {
       scale = this.get('view').createScale(field);
+      scales[field] = scale;
     }
     return scale;
   }
@@ -151,10 +165,10 @@ class GeomBase extends Base {
    */
   position(field, cfg) {
     if (Util.isString(cfg) || Util.isArray(cfg)) {
-      this.set('adjusts', cfg);
+      this.set('adjusts', parseAdjusts(cfg));
     }
     if (Util.isObject(cfg) && cfg.adjusts) {
-      this.set('adjusts', cfg.adjusts);
+      this.set('adjusts', parseAdjusts(cfg.adjusts));
     }
     this._setAttrOptions('position', {
       field
@@ -212,6 +226,7 @@ class GeomBase extends Base {
     return this;
   }
 
+
   style(field, cfg) {
     let styleOptions = this.get('styleOptions');
     if (!styleOptions) {
@@ -232,6 +247,22 @@ class GeomBase extends Base {
 
   label(/* field, cfg */) {
 
+  }
+
+  hasAdjust(adjustType) {
+    const self = this;
+    const adjusts = self.get('adjusts');
+    if (!adjustType) {
+      return !!adjusts;
+    }
+    let rst = false;
+    Util.each(adjusts, function(adjust) {
+      if (adjust.type === adjustType) {
+        rst = true;
+        return false;
+      }
+    });
+    return rst;
   }
 
   init() {
@@ -336,29 +367,44 @@ class GeomBase extends Base {
     return scales;
   }
 
+  _updateStackRange(field, scale, dataArray) {
+    const mergeArray = Util.Array.merge(dataArray);
+    let min = scale.min;
+    let max = scale.max;
+    for (let i = 0; i < mergeArray.length; i++) {
+      const obj = mergeArray[i];
+      const tmpMin = Math.min.apply(obj[field]);
+      const tmpMax = Math.max.apply(obj[field]);
+      if (tmpMin < min) {
+        min = tmpMin;
+      }
+      if (tmpMax > max) {
+        max = tmpMax;
+      }
+    }
+    if (min < scale.min || max > scale.max) {
+      scale.change({
+        min,
+        max
+      });
+    }
+  }
+
   // step 2.2 调整数据
   _adjust(dataArray) {
     const self = this;
-    let adjusts = self.get('adjusts');
-    if (Util.isString(adjusts)) {
-      adjusts = [ adjusts ];
-    }
+    const adjusts = self.get('adjusts');
+
     const yScale = self.getYScale();
     const xScale = self.getXScale();
     const xField = xScale.field;
     const yField = yScale ? yScale.field : null;
-
     Util.each(adjusts, function(adjust) {
-      const adjustCfg = {
+      const adjustCfg = Util.mix({
         xField,
         yField
-      };
-      let adjustType = adjust;
-      if (Util.isObject(adjust)) {
-        Util.mix(adjustCfg, adjust);
-        adjustType = adjust.type;
-      }
-      adjustType = Util.upperFirst(adjustType);
+      }, adjust);
+      const adjustType = Util.upperFirst(adjust.type);
       if (adjustType === 'Dodge') {
         const adjustNames = [];
         if (xScale.isCategory) {
@@ -387,7 +433,22 @@ class GeomBase extends Base {
       }
       const adjustElement = new Adjust[adjustType](adjustCfg);
       adjustElement.processAdjust(dataArray);
+      if (adjustType === 'Stack' && yScale) {
+        self._updateStackRange(yField, yScale, dataArray);
+      }
     });
+  }
+
+  /**
+   * @internal 设置coord，通常外部容器变化时，coord 会发生变化
+   * @param {Object} coord 坐标系
+   */
+  setCoord(coord) {
+    this.set('coord', coord);
+    const position = this.getAttr('position');
+    if (position) {
+      position.coord = coord;
+    }
   }
 
   // step 3 绘制
