@@ -80,6 +80,9 @@ const ShapeFactoryBase = {
   },
   getShape(type) {
     const self = this;
+    if (Util.isArray(type)) {
+      type = type[0];
+    }
     const shape = self[type] || self[self.defaultShapeType];
     shape._coord = self._coord;
     return shape;

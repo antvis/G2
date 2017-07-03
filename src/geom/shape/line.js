@@ -23,11 +23,24 @@ function getAttrs(cfg) {
   return shapeCfg;
 }
 
-// get line path
-function getPath(cfg, smooth) {
+// 获取带有上下区间的 path
+function getRangePath(points, smooth, isInCircle) {
+  const topPoints = [];
+  const bottomPoints = [];
+  for (let i = 0; i < points.length; i++) {
+    const point = points[i];
+    const tmp = ShapeUtil.splitPoints(point);
+    bottomPoints.push(tmp[0]);
+    topPoints.push(tmp[1]);
+  }
+  const topPath = getSinglePath(topPoints, smooth, isInCircle);
+  const bottomPath = getSinglePath(bottomPoints, smooth, isInCircle);
+  return topPath.concat(bottomPath);
+}
+
+// 单条 path
+function getSinglePath(points, smooth, isInCircle) {
   let path;
-  const points = cfg.points;
-  const isInCircle = cfg.isInCircle;
   if (!smooth) {
     path = PathUtil.getLinePath(points, false);
   } else {
@@ -35,6 +48,19 @@ function getPath(cfg, smooth) {
   }
   if (isInCircle) {
     path.push([ 'Z' ]);
+  }
+  return path;
+}
+// get line path
+function getPath(cfg, smooth) {
+  let path;
+  const points = cfg.points;
+  const isInCircle = cfg.isInCircle;
+  const first = points[0];
+  if (Util.isArray(first.y)) {
+    path = getRangePath(points, smooth, isInCircle);
+  } else {
+    path = getSinglePath(points, smooth, isInCircle);
   }
   return path;
 }
@@ -93,8 +119,9 @@ function _getInterMarkerCfg(cfg, fn) {
 
 // 当只有一个数据时绘制点
 function drawPointShape(shapeObj, cfg, container) {
-  const coord = shapeObj._coord;
-  const point = coord.convertPoint(cfg.points[0]);
+  // const coord = shapeObj._coord;
+  // const point = coord.convertPoint(cfg.points[0]);
+  const point = cfg.points[0];
   return container.addShape('circle', {
     attrs: Util.mix({
       x: point.x,
@@ -139,8 +166,7 @@ const Line = Shape.registerFactory('line', {
 Shape.registerShape('line', 'line', {
   draw(cfg, container) {
     const attrs = getAttrs(cfg);
-    let path = getPath(cfg, false);
-    path = this.parsePath(path, false);
+    const path = getPath(cfg, false);
     return container.addShape('path', {
       attrs: Util.mix(attrs, {
         path
@@ -156,8 +182,7 @@ Shape.registerShape('line', 'line', {
 Shape.registerShape('line', 'dot', {
   draw(cfg, container) {
     const attrs = getAttrs(cfg);
-    let path = getPath(cfg, false);
-    path = this.parsePath(path, false);
+    const path = getPath(cfg, false);
     return container.addShape('path', {
       attrs: Util.mix(attrs, {
         path,
@@ -172,33 +197,11 @@ Shape.registerShape('line', 'dot', {
   }
 });
 
-// 填充线
-Shape.registerShape('line', 'fill', {
-  draw(cfg, container) {
-    const attrs = getAttrs(cfg);
-    let path = getPath(cfg, false);
-    path = this.parsePath(path, false);
-    path.push([ 'Z' ]);
-    return container.addShape('path', {
-      attrs: Util.mix(attrs, {
-        path,
-        fill: attrs.stroke
-      })
-    });
-  },
-  getMarkerCfg(cfg) {
-    const tmp = _getMarkerCfg(cfg, false);
-    tmp.fill = tmp.stroke;
-    return tmp;
-  }
-});
-
 // 断线 - - - -
 Shape.registerShape('line', 'dash', {
   draw(cfg, container) {
     const attrs = getAttrs(cfg);
-    let path = getPath(cfg, false);
-    path = this.parsePath(path, false);
+    const path = getPath(cfg, false);
     return container.addShape('path', {
       attrs: Util.mix(attrs, {
         path,
@@ -217,8 +220,7 @@ Shape.registerShape('line', 'dash', {
 Shape.registerShape('line', 'smooth', {
   draw(cfg, container) {
     const attrs = getAttrs(cfg);
-    let path = getPath(cfg, true);
-    path = this.parsePath(path, false);
+    const path = getPath(cfg, true);
     return container.addShape('path', {
       attrs: Util.mix(attrs, {
         path
@@ -230,30 +232,10 @@ Shape.registerShape('line', 'smooth', {
   }
 });
 
-// 点线曲线
-Shape.registerShape('line', 'dotSmooth', {
-  draw(cfg, container) {
-    const attrs = getAttrs(cfg);
-    let path = getPath(cfg, true);
-    path = this.parsePath(path, false);
-    return container.addShape('path', {
-      attrs: Util.mix(attrs, {
-        path,
-        lineDash: DOT_ARR
-      })
-    });
-  },
-  getMarkerCfg(cfg) {
-    const tmp = _getMarkerCfg(cfg, true);
-    tmp.lineDash = DOT_ARR;
-    return tmp;
-  }
-});
-
 Shape.registerShape('line', 'hv', {
   draw(cfg, container) {
     const attrs = getAttrs(cfg);
-    let path = _getInterPointShapeCfg(cfg, function(point, nextPoint) {
+    const path = _getInterPointShapeCfg(cfg, function(point, nextPoint) {
       const tmp = [];
       tmp.push({
         x: nextPoint.x,
@@ -261,7 +243,6 @@ Shape.registerShape('line', 'hv', {
       });
       return tmp;
     });
-    path = this.parsePath(path, false);
     return container.addShape('path', {
       attrs: Util.mix(attrs, {
         path
@@ -283,7 +264,7 @@ Shape.registerShape('line', 'hv', {
 Shape.registerShape('line', 'vh', {
   draw(cfg, container) {
     const attrs = getAttrs(cfg);
-    let path = _getInterPointShapeCfg(cfg, function(point, nextPoint) {
+    const path = _getInterPointShapeCfg(cfg, function(point, nextPoint) {
       const tmp = [];
       tmp.push({
         x: point.x,
@@ -291,7 +272,6 @@ Shape.registerShape('line', 'vh', {
       });
       return tmp;
     });
-    path = this.parsePath(path, false);
     return container.addShape('path', {
       attrs: Util.mix(attrs, {
         path
@@ -313,7 +293,7 @@ Shape.registerShape('line', 'vh', {
 Shape.registerShape('line', 'hvh', {
   draw(cfg, container) {
     const attrs = getAttrs(cfg);
-    let path = _getInterPointShapeCfg(cfg, function(point, nextPoint) {
+    const path = _getInterPointShapeCfg(cfg, function(point, nextPoint) {
       const tmp = [];
       const middlex = (nextPoint.x - point.x) / 2 + point.x;
       tmp.push({
@@ -326,7 +306,6 @@ Shape.registerShape('line', 'hvh', {
       });
       return tmp;
     });
-    path = this.parsePath(path, false);
     return container.addShape('path', {
       attrs: Util.mix(attrs, {
         path
@@ -350,7 +329,7 @@ Shape.registerShape('line', 'hvh', {
 Shape.registerShape('line', 'vhv', {
   draw(cfg, container) {
     const attrs = getAttrs(cfg);
-    let path = _getInterPointShapeCfg(cfg, function(point, nextPoint) {
+    const path = _getInterPointShapeCfg(cfg, function(point, nextPoint) {
       const tmp = [];
       const middley = (nextPoint.y - point.y) / 2 + point.y;
       tmp.push({
@@ -363,7 +342,6 @@ Shape.registerShape('line', 'vhv', {
       });
       return tmp;
     });
-    path = this.parsePath(path, false);
     return container.addShape('path', {
       attrs: Util.mix(attrs, {
         path

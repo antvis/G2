@@ -93,8 +93,12 @@ class GeomBase extends Base {
       styleOptions: null,
       selectedOptions: null,
       adjusts: null,
-
-      shapeType: 'point',
+      /**
+       * 使用形状的类型
+       * @protected
+       * @type {String}
+       */
+      shapeType: null,
       /**
        * 是否生成多个点来绘制图形
        * @protected
@@ -208,8 +212,22 @@ class GeomBase extends Base {
     return this;
   }
 
-  style(/* field, cfg */) {
-
+  style(field, cfg) {
+    let styleOptions = this.get('styleOptions');
+    if (!styleOptions) {
+      styleOptions = {};
+      this.set('styleOptions', styleOptions);
+    }
+    if (Util.isObject(field)) {
+      cfg = field;
+      field = null;
+    }
+    let fields;
+    if (field) {
+      fields = parseFields(field);
+    }
+    styleOptions.fields = fields;
+    styleOptions.style = cfg;
   }
 
   label(/* field, cfg */) {
@@ -528,13 +546,54 @@ class GeomBase extends Base {
    */
   draw(data) {
     const self = this;
-    const shapeFactory = self.get('shapeFactory');
+    const shapeFactory = self.getShapeFactory();
     shapeFactory.setCoord(self.get('coord'));
     const container = self.get('container');
     Util.each(data, function(obj) {
-      const shape = obj.shape;
-      shapeFactory.drawShape(shape, obj, container);
+      self.drawPoint(obj, container, shapeFactory);
     });
+  }
+
+  getCallbackCfg(fields, cfg, origin) {
+    if (!fields) {
+      return cfg;
+    }
+    const tmpCfg = {};
+    const params = fields.map(function(field) {
+      return origin[field];
+    });
+    Util.each(cfg, function(v, k) {
+      if (Util.isFunction(v)) {
+        tmpCfg[k] = v.apply(null, params);
+      } else {
+        tmpCfg[k] = v;
+      }
+    });
+    return tmpCfg;
+  }
+
+  getDrawCfg(obj) {
+    const self = this;
+    const cfg = {
+      origin: obj,
+      x: obj.x,
+      y: obj.y,
+      color: obj.color,
+      size: obj.size,
+      shape: obj.shape,
+      opacity: obj.opacity
+    };
+    const styleOptions = self.get('styleOptions');
+    if (styleOptions && styleOptions.style) {
+      cfg.style = self.getCallbackCfg(styleOptions.fields, styleOptions.style, obj[FIELD_ORIGIN]);
+    }
+    return cfg;
+  }
+
+  drawPoint(obj, container, shapeFactory) {
+    const shape = obj.shape;
+    const cfg = this.getDrawCfg(obj);
+    shapeFactory.drawShape(shape, cfg, container);
   }
 
   /**
@@ -570,6 +629,7 @@ class GeomBase extends Base {
     this.set('attrs', {});
     this.set('groupScales', null);
     this.set('adjusts', null);
+    this.set('styleOptions', null);
   }
 
   destroy() {
