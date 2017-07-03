@@ -23,7 +23,8 @@ function getAttrs(cfg) {
   return shapeCfg;
 }
 
-function getDobulePath(points, smooth, isInCircle) {
+// 获取带有上下区间的 path
+function getRangePath(points, smooth, isInCircle) {
   const topPoints = [];
   const bottomPoints = [];
   for (let i = 0; i < points.length; i++) {
@@ -37,6 +38,7 @@ function getDobulePath(points, smooth, isInCircle) {
   return topPath.concat(bottomPath);
 }
 
+// 单条 path
 function getSinglePath(points, smooth, isInCircle) {
   let path;
   if (!smooth) {
@@ -56,7 +58,7 @@ function getPath(cfg, smooth) {
   const isInCircle = cfg.isInCircle;
   const first = points[0];
   if (Util.isArray(first.y)) {
-    path = getDobulePath(points, smooth, isInCircle);
+    path = getRangePath(points, smooth, isInCircle);
   } else {
     path = getSinglePath(points, smooth, isInCircle);
   }
