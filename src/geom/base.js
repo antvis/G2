@@ -683,14 +683,23 @@ class GeomBase extends Base {
     return this.getAttr('position').scales[1];
   }
 
-  clear() {
+  reset() {
+    this.set('attrOptions', {});
+    this._clearInner();
+  }
+
+  _clearInner() {
     const container = this.get('container');
     container && container.clear();
-    this.set('attrOptions', {});
     this.set('attrs', {});
     this.set('groupScales', null);
     this.set('adjusts', null);
     this.set('styleOptions', null);
+  }
+
+  clear() {
+    this._clearInner();
+    this.set('scales', {});
   }
 
   destroy() {

@@ -8,6 +8,17 @@ const Geom = require('../geom/');
 const Util = require('../util');
 const Controller = require('./controller/index');
 
+const ViewGeoms = {};
+Util.each(Geom, function(geomConstructor, className) {
+  const methodName = Util.lowerFirst(className);
+  ViewGeoms[methodName] = function(cfg) {
+    const geom = new geomConstructor(cfg);
+    this.addGeom(geom);
+    return geom;
+  };
+
+});
+
 class View extends Base {
 
   /**
@@ -30,6 +41,7 @@ class View extends Base {
 
   constructor(cfg) {
     super(cfg);
+    Util.mix(this, ViewGeoms);
     this._initOptions();
     this._initControllers();
   }
@@ -57,7 +69,9 @@ class View extends Base {
 
   _initGeoms() {
     const geoms = this.get('geoms');
+    const data = this.get('data');
     Util.each(geoms, function(geom) {
+      geom.set('data', data);
       geom.init();
     });
   }
@@ -65,7 +79,7 @@ class View extends Base {
   _clearGeoms() {
     const self = this;
     const geoms = self.get('geoms');
-    while (geoms.length > 1) {
+    while (geoms.length > 0) {
       const geom = geoms.shift();
       geom.destroy();
     }
@@ -147,15 +161,26 @@ class View extends Base {
     this.set('data', data);
   }
 
-  changeData() {
+  changeData(data) {
+    this.set('data', data);
+    this._clearInner();
+    const geoms = this.get('geoms');
+    Util.each(geoms, function(geom) {
+      geom.clear();
+    });
+    this.render();
+  }
 
+  _clearInner() {
+    this.set('scales', {});
+    // clear guide
+    // clear axis
   }
 
   clear() {
     this._clearGeoms();
     const container = this.get('viewContainer');
     container.clear();
-    this.set('scales', {});
   }
 
   /**
@@ -167,7 +192,7 @@ class View extends Base {
   }
 
   render() {
-    this._initGeom();
+    this._initGeoms();
     this.beforeDraw();
     this._drawGemos();
     this._rendeGuide();
@@ -179,16 +204,5 @@ class View extends Base {
     super.destroy();
   }
 }
-
-const ViewGeoms = {};
-Util.each(Geom, function(geomClass, geomConstructor) {
-  const methodName = Util.lowerFirst(geomClass);
-  ViewGeoms[methodName] = function(cfg) {
-    const geom = new geomConstructor(cfg);
-    this.addGeom(geom);
-    return geom;
-  };
-
-});
 
 module.exports = View;
