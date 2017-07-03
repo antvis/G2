@@ -21,8 +21,11 @@ const Util = {
   isNumber: require('lodash/isNumber'),
   isString: require('lodash/isString'),
   isFunction: require('lodash/isFunction'),
+  isBoolean: require('lodash/isBoolean'),
+  isEmpty: require('lodash/isEmpty'),
   lowerFirst: require('lodash/lowerFirst'),
   upperFirst: require('lodash/upperFirst'),
+  upperCase: require('lodash/upperCase'),
   isNil: require('lodash/isNil'),
   isArray: require('lodash/isArray'),
   isDate: require('lodash/isDate'),
@@ -36,6 +39,9 @@ const Util = {
   has: require('lodash/has'),
   round: require('lodash/round'),
   merge: require('lodash/merge'),
+  filter: require('lodash/filter'),
+  defaultsDeep: require('lodash/defaultsDeep'),
+  replace: require('lodash/replace'),
   fixedBase(v, base) {
     const str = base.toString();
     const index = str.indexOf('.');
@@ -67,6 +73,30 @@ const Util = {
   },
   inArray(arr, value) {
     return arr.indexOf(value) >= 0;
+  },
+  /**
+   * 封装事件，便于使用上下文this,和便于解除事件时使用
+   * @protected
+   * @param  {Object} obj   对象
+   * @param  {String} action 事件名称
+   * @return {Function}        返回事件处理函数
+   */
+  wrapBehavior(obj, action) {
+    const method = e => {
+      obj[action](e);
+    };
+    obj['_wrap_' + action] = method;
+    return method;
+  },
+  /**
+   * 获取封装的事件
+   * @protected
+   * @param  {Object} obj   对象
+   * @param  {String} action 事件名称
+   * @return {Function}        返回事件处理函数
+   */
+  getWrapBehavior(obj, action) {
+    return obj['_wrap_' + action];
   }
 };
 
