@@ -1,6 +1,7 @@
 const expect = require('chai').expect;
 const { Canvas } = require('@ali/g');
 const View = require('../../../src/chart/view');
+const Coord = require('../../../src/coord/index');
 
 const div = document.createElement('div');
 div.id = 'cview';
@@ -12,23 +13,51 @@ const canvas = new Canvas({
   height: 500
 });
 
+const coord = new Coord.Rect({
+  start: {
+    x: 80,
+    y: 420
+  },
+  end: {
+    x: 420,
+    y: 80
+  }
+});
+
 describe('test view', function() {
   const group = canvas.addGroup();
   const view = new View({
     viewContainer: group,
-    start: {
-      x: 0,
-      y: 500
-    },
-    end: {
-      x: 500,
-      y: 0
-    },
+    canvas,
+    coord,
     options: {
       scales: {
         e: {
           type: 'cat',
           values: [ 'a', 'b', 'c' ]
+        }
+      },
+      axes: {
+        a: {
+          title: null
+        },
+        b: {
+          label: {
+            autoRotate: false
+          },
+          grid: {
+            align: 'center'
+          },
+          title: {
+            offset: -1,
+            position: 'end',
+            autoRotate: false,
+            textStyle: {
+              fontSize: 16,
+              fill: 'red',
+              textBaseline: 'bottom'
+            }
+          }
         }
       }
     }
@@ -36,10 +65,13 @@ describe('test view', function() {
 
   it('init', function() {
     expect(view.get('scaleController')).not.equal(null);
+    expect(view.get('axisController')).not.equal(null);
+    expect(view.get('guideController')).not.equal(null);
   });
 
   it('options', function() {
     expect(view.get('options').scales).not.equal(undefined);
+    expect(view.get('options').axes).not.equal(undefined);
   });
 
   it('geom method', function() {
@@ -53,6 +85,37 @@ describe('test view', function() {
       min: 0
     });
     expect(view.get('options').scales.a.min).equal(0);
+  });
+
+  it('axis', function() {
+    view.axis('a', {
+      title: {
+        textStyle: {
+          fill: 'red'
+        }
+      }
+    });
+    expect(view.get('options').axes.a.title).not.to.be.null;
+  });
+
+  it('guide', function() {
+    view.guide().line({
+      start: {
+        a: 1,
+        b: 2
+      },
+      end: {
+        a: 3,
+        b: 4
+      },
+      text: {
+        content: '辅助线的辅助文本',
+        position: 0.3
+      }
+    });
+    const guideController = view.get('guideController');
+    expect(guideController.options).not.to.be.empty;
+    expect(guideController.options.line).not.to.be.null;
   });
 
   it('source', function() {
@@ -127,13 +190,14 @@ describe('test view all options', function() {
   ];
   const view = new View({
     viewContainer: group,
+    canvas,
     start: {
-      x: 0,
-      y: 500
+      x: 80,
+      y: 420
     },
     end: {
-      x: 500,
-      y: 0
+      x: 420,
+      y: 80
     },
     data,
     options: {

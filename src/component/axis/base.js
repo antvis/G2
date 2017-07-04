@@ -168,23 +168,25 @@ class Base extends Group {
     if (subTickCount) { // 如果有设置次级分点，添加次级tick
       const subTickLineCfg = self.get('subTickLine');
       Util.each(ticks, function(tick, index) {
-        let diff = index ? tick.value - ticks[index - 1].value : tick.value;
-        diff = diff / self.get('subTickCount');
+        if (index > 0) {
+          let diff = tick.value - ticks[index - 1].value;
+          diff = diff / self.get('subTickCount');
 
-        for (let i = 1; i < subTickCount; i++) {
-          const subTick = {
-            text: '',
-            value: index ? ticks[index - 1].value + i * diff : i * diff
-          };
+          for (let i = 1; i < subTickCount; i++) {
+            const subTick = {
+              text: '',
+              value: index ? ticks[index - 1].value + i * diff : i * diff
+            };
 
-          const tickPoint = self.getTickPoint(subTick.value);
-          let subTickLength;
-          if (subTickLineCfg && subTickLineCfg.length) {
-            subTickLength = subTickLineCfg.length;
-          } else {
-            subTickLength = parseInt(tickLineCfg.length * (3 / 5), 10);
+            const tickPoint = self.getTickPoint(subTick.value);
+            let subTickLength;
+            if (subTickLineCfg && subTickLineCfg.length) {
+              subTickLength = subTickLineCfg.length;
+            } else {
+              subTickLength = parseInt(tickLineCfg.length * (3 / 5), 10);
+            }
+            self._addTickItem(i - 1, tickPoint, subTickLength, 'sub');
           }
-          self._addTickItem(i - 1, tickPoint, subTickLength, 'sub');
         }
       });
     }

@@ -48,12 +48,12 @@ describe('测试底部坐标轴生成', function() {
     ],
     title: {
       textStyle: {
-        text: 'x 轴',
         fontSize: 18,
         fill: '#000',
         rotate: 0,
         textAlign: 'end'
       },
+      text: 'x 轴',
       position: 'start' // 标题文本位置位于坐标轴前端
     },
     grid: {
@@ -128,7 +128,7 @@ describe('测试底部坐标轴生成', function() {
   });
 
   it('subTicks 生成', function() {
-    expect(axis.get('subTickItems').length).to.equal(axis.get('ticks').length * (axis.get('subTickCount') - 1));
+    expect(axis.get('subTickItems').length).to.equal((axis.get('ticks').length - 1) * (axis.get('subTickCount') - 1));
   });
 
   it('测试网格线生成', function() {
@@ -159,13 +159,13 @@ describe('测试顶部坐标轴', function() {
     ticks: [ 1000000, 2000000, 3000000, '4000000', '5000000', 6000000, 7000000, 8000000, 9000000, 10000000 ],
     title: {
       textStyle: {
-        text: 'top axis',
         fontSize: 12,
         fill: 'red',
         textBaseline: 'bottom',
         fontWeight: 700,
         textAlign: 'center'
       },
+      text: 'top axis',
       position: 'end',
       offset: 30
     },
@@ -218,10 +218,10 @@ describe('测试左侧坐标轴', function() {
     ticks: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ],
     title: {
       textStyle: {
-        text: '左侧 Y 轴',
         fill: 'red',
         textAlign: 'center'
       },
+      text: '左侧 Y 轴',
       autoRotate: false,
       position: 'start',
       offset: 40
@@ -291,9 +291,9 @@ describe('测试右侧坐标轴', function() {
     ticks: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ],
     title: {
       textStyle: {
-        text: 'axis right',
         fill: '#000'
       },
+      text: 'axis right',
       offset: 40,
       autoRotate: true
     },

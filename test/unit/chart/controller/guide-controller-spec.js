@@ -1,8 +1,8 @@
 const expect = require('chai').expect;
 const { Canvas } = require('@ali/g');
-const Scale = require('../../../src/scale/index');
-const Coord = require('../../../src/coord/index');
-const GuideController = require('../../../src/chart/controller/guide-controller');
+const Scale = require('../../../../src/scale/index');
+const Coord = require('../../../../src/coord/index');
+const GuideController = require('../../../../src/chart/controller/guide-controller');
 
 const div = document.createElement('div');
 div.id = 'guideTest';
@@ -220,8 +220,7 @@ describe('GuideController', function() {
   });
 
   it('绘制.', function() {
-    guideController.creatGuide();
-    guideController.paint(coord);
+    guideController.render(coord);
     canvas.draw();
 
     const dom = div.getElementsByClassName('g-guide');
@@ -249,5 +248,6 @@ describe('GuideController', function() {
     guideController.container = canvas.addGroup();
     guideController.reset();
     expect(guideController.guides).to.be.empty;
+    canvas.destroy();
   });
 });
