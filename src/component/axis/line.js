@@ -102,10 +102,9 @@ class Line extends Base {
         titleOffset = (labelLength + labelOffset + 20);
       }
     }
-
     const textStyle = title.textStyle;
     const cfg = Util.mix({}, textStyle);
-    if (textStyle.text) {
+    if (title.text) {
       const vector = self.getAxisVector(); // 坐标轴方向的向量
 
       if (title.autoRotate && !textStyle.rotate) { // 自动旋转并且用户没有指定标题的旋转角度
@@ -123,19 +122,17 @@ class Line extends Base {
 
       const sideVector = self.getSideVector(titleOffset);
       let point;
-      if (title.position) {
-        const position = title.position;
-        if (position === 'start') {
-          point = {
-            x: this.get('start').x + sideVector[0],
-            y: this.get('start').y + sideVector[1]
-          };
-        } else if (position === 'end') {
-          point = {
-            x: this.get('end').x + sideVector[0],
-            y: this.get('end').y + sideVector[1]
-          };
-        }
+      const position = title.position;
+      if (position === 'start') {
+        point = {
+          x: this.get('start').x + sideVector[0],
+          y: this.get('start').y + sideVector[1]
+        };
+      } else if (position === 'end') {
+        point = {
+          x: this.get('end').x + sideVector[0],
+          y: this.get('end').y + sideVector[1]
+        };
       } else {
         point = {
           x: offsetPoint.x + sideVector[0],
@@ -145,6 +142,7 @@ class Line extends Base {
 
       cfg.x = point.x;
       cfg.y = point.y;
+      cfg.text = title.text;
 
       const titleShape = self.addShape('Text', {
         attrs: cfg
@@ -157,7 +155,7 @@ class Line extends Base {
     const self = this;
     const labelsGroup = self.get('labelsGroup');
     const title = self.get('title');
-    if (labelsGroup) {
+    if (title && labelsGroup) {
       const offset = self.get('label').offset || self.get('_labelOffset');
       const append = offset;
       const titleOffset = title.offset || self.get('_titleOffset');
