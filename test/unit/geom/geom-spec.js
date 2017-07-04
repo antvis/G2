@@ -96,10 +96,11 @@ describe('test geom base', function() {
       expect(geom.get('attrOptions').position).eqls({ field: 'a*b' });
       geom.position([ 'a', 'b' ], 'stack');
       expect(geom.get('attrOptions').position).eqls({ field: [ 'a', 'b' ] });
-      expect(geom.get('adjusts')).equal('stack');
+      expect(geom.get('adjusts')).eqls([{ type: 'stack' }]);
 
       geom.position([ 'a', 'b' ], { adjusts: [ 'stack', 'dodge' ] });
-      expect(geom.get('adjusts')).eqls([ 'stack', 'dodge' ]);
+      expect(geom.get('adjusts')).eqls([{ type: 'stack' }, { type: 'dodge' }]);
+      expect(geom.hasAdjust('stack')).equal(true);
     });
     it('other attrs', function() {
       geom.color('red')
@@ -175,8 +176,8 @@ describe('test geom base', function() {
       expect(arr[1][0].b).eqls([ 2, 5 ]);
     });
 
-    it('clear', function() {
-      geom.clear();
+    it('reset', function() {
+      geom.reset();
       expect(geom.get('attrs')).eqls({});
       expect(geom.get('adjusts')).eqls(null);
     });
@@ -232,7 +233,7 @@ describe('test geom base', function() {
     });
 
     it('test draw', function() {
-      geom.clear();
+      geom.reset();
       geom.position('a*b').color('red');
       geom.init();
       const data = [
@@ -248,7 +249,7 @@ describe('test geom base', function() {
     });
 
     it('test paint', function() {
-      geom.clear();
+      geom.reset();
       geom.position('a*b').color('c');
       geom.init();
       geom.paint();
@@ -257,7 +258,7 @@ describe('test geom base', function() {
     });
 
     it('test style no fields', function() {
-      geom.clear();
+      geom.reset();
       geom.position('a*b').color('c').style({
         fill: 'blue'
       });
@@ -268,7 +269,7 @@ describe('test geom base', function() {
       canvas.draw();
     });
     it('test style with fields', function() {
-      geom.clear();
+      geom.reset();
       geom.position('a*b').color('c').style('a', {
         fill: 'blue',
         lineWidth(a) {
@@ -304,7 +305,7 @@ describe('test geom point', function() {
   });
   it('draw points y is array', function() {
     data = [{ a: 4, b: [ 3, 5 ], c: '1' }, { a: 5, b: [ 2, 4 ], c: '2' }];
-    geom.clear();
+    geom.reset();
     geom.set('data', data);
     geom.position('a*b').color('red');
     geom.init();
@@ -335,7 +336,7 @@ describe('test geom path', function() {
 
   it('draw multiple path', function() {
     data = [{ a: 4, b: [ 3, 5 ], c: '1' }, { a: 5, b: [ 2, 4 ], c: '2' }];
-    geom.clear();
+    geom.reset();
     geom.set('data', data);
     geom.position('a*b');
     geom.init();
@@ -348,7 +349,7 @@ describe('test geom path', function() {
 
   it('draw path with color', function() {
     const data = [{ a: 1, b: 3, c: '1' }, { a: 2, b: 3.5, c: '1' }, { a: 1, b: 2, c: '2' }, { a: 2, b: 1.5, c: '2' }];
-    geom.clear();
+    geom.reset();
     geom.set('data', data);
     geom.position('a*b').color('c');
     geom.init();
@@ -385,7 +386,7 @@ describe('test geom line', function() {
 
   it('draw multiple path', function() {
     data = [{ a: 4, b: [ 3, 5 ], c: '1' }, { a: 5, b: [ 2, 4 ], c: '2' }];
-    geom.clear();
+    geom.reset();
     geom.set('data', data);
     geom.position('a*b');
     geom.init();
@@ -398,7 +399,7 @@ describe('test geom line', function() {
 
   it('draw path with color', function() {
     const data = [{ a: 1, b: 3, c: '1' }, { a: 2, b: 3.5, c: '1' }, { a: 1, b: 2, c: '2' }, { a: 2, b: 1.5, c: '2' }];
-    geom.clear();
+    geom.reset();
     geom.set('data', data);
     geom.position('a*b').color('c');
     geom.init();
@@ -407,5 +408,11 @@ describe('test geom line', function() {
     const path = group.getFirst();
     expect(path.attr('path').length).eql(2);
     canvas.draw();
+  });
+
+  it('destroy & reset', function() {
+    geom.reset();
+    canvas.destroy();
+    document.body.removeChild(div);
   });
 });

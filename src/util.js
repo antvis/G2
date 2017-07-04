@@ -36,6 +36,7 @@ const Util = {
   groupBy: require('lodash/groupBy'),
   cloneDeep: require('lodash/cloneDeep'),
   maxBy: require('lodash/maxBy'),
+  minBy: require('lodash/minBy'),
   has: require('lodash/has'),
   round: require('lodash/round'),
   merge: require('lodash/merge'),
@@ -119,6 +120,22 @@ Util.Array = {
     }
     return rst;
   },
+  firstValue(data, name) {
+    let rst = null;
+    for (let i = 0; i < data.length; i++) {
+      const obj = data[i];
+      const value = obj[name];
+      if (!Util.isNil(value)) {
+        if (Util.isArray(value)) {
+          rst = value[0];
+        } else {
+          rst = value;
+        }
+        break;
+      }
+    }
+    return rst;
+  },
   group(data, condition) {
     if (!condition) {
       return [ data ];
@@ -148,6 +165,12 @@ Util.Array = {
     }
     const groups = Util.groupBy(data, condition);
     return groups;
+  },
+  remove(arr, obj) {
+    const index = Util.indexOf(arr, obj);
+    if (index !== -1) {
+      arr.splice(index, 1);
+    }
   }
 };
 

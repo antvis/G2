@@ -39,7 +39,10 @@ Default = {
   },
   // 折线图、区域图、path 当只有一个数据时，是否显示成点
   showSinglePoint: false,
-  connectNulls: false
+  connectNulls: false,
+  scales: {
+
+  }
 };
 
 setTheme('default');
