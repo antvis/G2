@@ -12,23 +12,48 @@ const canvas = new Canvas({
   height: 500
 });
 
+const coord = new Coord.Rect({
+  start: {
+    x: 80,
+    y: 420
+  },
+  end: {
+    x: 420,
+    y: 80
+  }
+});
+
 describe('test view', function() {
   const group = canvas.addGroup();
   const view = new View({
     viewContainer: group,
-    start: {
-      x: 0,
-      y: 500
-    },
-    end: {
-      x: 500,
-      y: 0
-    },
+    canvas: canvas,
+    coord,
     options: {
       scales: {
         e: {
           type: 'cat',
           values: [ 'a', 'b', 'c' ]
+        }
+      },
+      axes: {
+        a: {
+          title: null
+        },
+        b: {
+          label: {
+            autoRotate: false
+          },
+          title: {
+            offset: -1,
+            position: 'end',
+            autoRotate: false,
+            textStyle: {
+              fontSize: 16,
+              fill: 'red',
+              textBaseline: 'bottom'
+            }
+          }
         }
       }
     }
@@ -36,10 +61,12 @@ describe('test view', function() {
 
   it('init', function() {
     expect(view.get('scaleController')).not.equal(null);
+    expect(view.get('axisController')).not.equal(null);
   });
 
   it('options', function() {
     expect(view.get('options').scales).not.equal(undefined);
+    expect(view.get('options').axes).not.equal(undefined);
   });
 
   it('geom method', function() {
@@ -54,6 +81,18 @@ describe('test view', function() {
     });
     expect(view.get('options').scales.a.min).equal(0);
   });
+
+  it('axis', function() {
+    view.axis('a', {
+      title: {
+        textStyle: {
+          fill: 'red'
+        }
+      }
+    });
+    expect(view.get('options').axes.a.title).not.to.be.null;
+  });
+
 
   it('source', function() {
     const data = [
