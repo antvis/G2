@@ -27,7 +27,7 @@ describe('test view', function() {
   const group = canvas.addGroup();
   const view = new View({
     viewContainer: group,
-    canvas: canvas,
+    canvas,
     coord,
     options: {
       scales: {
@@ -43,6 +43,9 @@ describe('test view', function() {
         b: {
           label: {
             autoRotate: false
+          },
+          grid: {
+            position: 'center'
           },
           title: {
             offset: -1,
@@ -62,6 +65,7 @@ describe('test view', function() {
   it('init', function() {
     expect(view.get('scaleController')).not.equal(null);
     expect(view.get('axisController')).not.equal(null);
+    expect(view.get('guideController')).not.equal(null);
   });
 
   it('options', function() {
@@ -93,6 +97,25 @@ describe('test view', function() {
     expect(view.get('options').axes.a.title).not.to.be.null;
   });
 
+  it('guide', function() {
+    view.guide().line({
+      start: {
+        a: 1,
+        b: 2
+      },
+      end: {
+        a: 3,
+        b: 4
+      },
+      text: {
+        content: '辅助线的辅助文本',
+        position: 0.3
+      }
+    });
+    const guideController = view.get('guideController');
+    expect(guideController.options).not.to.be.empty;
+    expect(guideController.options.line).not.to.be.null;
+  });
 
   it('source', function() {
     const data = [
