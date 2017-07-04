@@ -30,8 +30,8 @@ class View extends Base {
     return {
       viewContainer: null,
       coord: null,
-      start: { x: 0, y: 0 },
-      end: { x: 1, y: 1 },
+      start: { x: 0, y: 1 },
+      end: { x: 1, y: 0 },
       geoms: [],
       scales: {},
       options: {},
@@ -48,12 +48,26 @@ class View extends Base {
 
   // 初始化配置项
   _initOptions() {
-    const options = this.get('options');
+    const self = this;
+    const options = self.get('options');
     if (!options.scales) {
       options.scales = {};
     }
     if (!options.coord) {
       options.coord = {};
+    }
+    if (options.geoms && options.geoms.length) {
+      Util.each(options.geoms, function(geomOption) {
+        self._createGeom(geomOption);
+      });
+    }
+    const scaleController = self.get('scaleController');
+    if (scaleController) {
+      scaleController.defs = options.scales;
+    }
+    const coordController = self.get('coordController');
+    if (coordController) {
+      coordController.reset(options.coord);
     }
   }
 
@@ -63,8 +77,22 @@ class View extends Base {
     const scaleController = new Controller.Scale({
       defs: options.scales
     });
-
+    const coordController = new Controller.Coord(options.coord);
     this.set('scaleController', scaleController);
+    this.set('coordController', coordController);
+  }
+
+  _createGeom(cfg) {
+    const type = cfg.type;
+    let geom;
+    if (this[type]) {
+      geom = this[type]();
+      Util.each(cfg, function(v, k) {
+        if (geom[k]) {
+          geom[k](v);
+        }
+      });
+    }
   }
 
   _initGeoms() {
@@ -92,6 +120,14 @@ class View extends Base {
       geom.setCoord(coord);
       geom.paint();
     });
+  }
+
+  _createCoord() {
+    const coordController = this.get('coordController');
+    const start = this.get('start');
+    const end = this.get('end');
+    const coord = coordController.createCoord(start, end);
+    this.set('coord', coord);
   }
 
   _renderAxis() {
@@ -171,8 +207,15 @@ class View extends Base {
     this.render();
   }
 
+  changeOptions(options) {
+    this.set('options', options);
+    this._initOptions(options);
+  }
+
   _clearInner() {
     this.set('scales', {});
+    const options = this.get('options');
+    options.geoms = null;
     // clear guide
     // clear axis
   }
@@ -181,6 +224,22 @@ class View extends Base {
     this._clearGeoms();
     const container = this.get('viewContainer');
     container.clear();
+    this._clearInner();
+  }
+
+  /**
+   * 设置坐标系信息
+   * @param  {String} type 类型
+   * @param  {Object} cfg  配置项
+   * @return {Object} coordController 坐标系的管理器
+   */
+  coord(type, cfg) {
+    const coordController = this.get('coordController');
+    coordController.reset({
+      type,
+      cfg
+    });
+    return coordController;
   }
 
   /**
@@ -194,6 +253,7 @@ class View extends Base {
   render() {
     this._initGeoms();
     this.beforeDraw();
+    this._createCoord(); // draw geometry 前绘制区域可能会发生改变
     this._drawGemos();
     this._rendeGuide();
     this._renderAxis();

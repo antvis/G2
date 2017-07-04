@@ -1,7 +1,6 @@
 const expect = require('chai').expect;
 const { Canvas } = require('@ali/g');
 const View = require('../../../src/chart/view');
-const Coord = require('../../../src/coord/index');
 
 const div = document.createElement('div');
 div.id = 'cview';
@@ -13,22 +12,18 @@ const canvas = new Canvas({
   height: 500
 });
 
-const coord = new Coord.Rect({
-  start: {
-    x: 0,
-    y: 500
-  },
-  end: {
-    x: 500,
-    y: 0
-  }
-});
-
 describe('test view', function() {
   const group = canvas.addGroup();
   const view = new View({
     viewContainer: group,
-    coord,
+    start: {
+      x: 0,
+      y: 500
+    },
+    end: {
+      x: 500,
+      y: 0
+    },
     options: {
       scales: {
         e: {
@@ -105,10 +100,81 @@ describe('test view', function() {
     canvas.draw();
   });
 
-  xit('clear', function() {
+  it('clear', function() {
     view.clear();
     expect(view.get('geoms').length).equal(0);
     expect(group.getCount()).equal(0);
+  });
+
+  it('destroy', function() {
+    view.destroy();
+    expect(view.destroyed).equal(true);
+    group.remove();
+    canvas.draw();
+  });
+});
+
+describe('test view all options', function() {
+  const group = canvas.addGroup();
+  const data = [
+      { a: 1, b: 2, c: '1' },
+      { a: 2, b: 5, c: '1' },
+      { a: 3, b: 4, c: '1' },
+
+      { a: 1, b: 3, c: '2' },
+      { a: 2, b: 1, c: '2' },
+      { a: 3, b: 2, c: '2' }
+  ];
+  const view = new View({
+    viewContainer: group,
+    start: {
+      x: 0,
+      y: 500
+    },
+    end: {
+      x: 500,
+      y: 0
+    },
+    data,
+    options: {
+      coord: {
+        type: 'rect',
+        actions: [
+          [ 'transpose' ]
+        ]
+      },
+      geoms: [
+        { type: 'line', position: 'a*b', color: 'c' },
+        { type: 'point', position: 'a*b', color: 'c' }
+      ]
+    }
+  });
+  it('init', function() {
+    expect(view.get('coordController').actions.length).equal(1);
+  });
+  it('render', function() {
+    view.render();
+    expect(view.get('geoms').length).equal(2);
+    const line = view.get('geoms')[0];
+    expect(line.get('attrOptions').position.field).eqls('a*b');
+    canvas.draw();
+  });
+  it('clear', function() {
+    view.clear();
+    expect(view.get('geoms').length).equal(0);
+  });
+  it('change', function() {
+    view.changeOptions({
+      coord: {
+        type: 'rect'
+      },
+      geoms: [
+        { type: 'line', position: 'a*b', color: 'c' }
+      ]
+    });
+    expect(view.get('geoms').length).equal(1);
+    view.render();
+    canvas.draw();
   });
 
 });
