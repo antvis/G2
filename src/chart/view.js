@@ -283,6 +283,7 @@ class View extends Base {
     options.geoms = null;
     // clear guide
     // clear axis
+    this.get('backPlot') && this.get('backPlot').clear();
   }
 
   clear() {
