@@ -144,7 +144,7 @@ class View extends Base {
     }
   }
 
-  _drawGemos() {
+  _drawGeoms() {
     const geoms = this.get('geoms');
     const coord = this.get('coord');
     Util.each(geoms, function(geom) {
@@ -350,7 +350,7 @@ class View extends Base {
     this._initGeoms();
     this.beforeDraw();
     this._createCoord(); // draw geometry 前绘制区域可能会发生改变
-    this._drawGemos();
+    this._drawGeoms();
     this._renderGuides();
     this._renderAxes();
   }
