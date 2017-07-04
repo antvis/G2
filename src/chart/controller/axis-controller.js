@@ -1,7 +1,7 @@
 const Util = require('../../util');
 const { Axis } = require('../../component/index');
 const { vec2 } = require('@ali/g').MatrixUtil;
-const Global = require('../../global'); // TODO: 确定配置项的位置
+const Global = require('../../global');
 const HIDE_DIMS = [ '..x', '..y', '..long', '..lant', '..pieX' ]; // TODO: 常量可以统一放在某个地方
 
 function formatTicks(ticks) {
@@ -25,20 +25,24 @@ function formatTicks(ticks) {
 }
 
 class AxisController {
-
   constructor(cfg) {
-    this.axisCfg = {};
     this.visible = true;
     this.container = null;
+    this.coord = null;
+    this.options = null;
     Util.mix(this, cfg);
   }
 
   _isHide(field) { // 对应的坐标轴是否隐藏
-    const axisCfg = this.axisCfg;
-    if (Util.inArray(HIDE_DIMS, field) && Util.isNil(axisCfg[field])) {
+    const options = this.options;
+    if (Util.inArray(HIDE_DIMS, field) && Util.isNil(options[field])) {
       return true; // 默认不展示带 .. 的 dim
     }
-    return axisCfg && axisCfg[field] === false;
+
+    if (options && options[field] === false) {
+      return true;
+    }
+    return false;
   }
 
   _getMiddleValue(curValue, ticks, index) {
@@ -54,11 +58,11 @@ class AxisController {
     let start;
     let end;
     let isVertical;
-    const field = scale.dim;
-    const axisCfg = this.axisCfg;
+    const field = scale.field;
+    const options = this.options;
     let position = '';
-    if (axisCfg[field] && axisCfg[field].position) {
-      position = axisCfg[field].position;
+    if (options[field] && options[field].position) {
+      position = options[field].position;
     }
 
     if (dimType === 'x') { // x轴的坐标轴,底部的横坐标
@@ -250,15 +254,15 @@ class AxisController {
   _getAxisDefaultCfg(coord, scale, type, position) {
     const self = this;
     let cfg = {};
-    const axisCfg = self.axisCfg;
+    const options = self.options;
     const isShowTitle = !!(Global.axis[position] && Global.axis[position].title); // 用户全局禁用 title
 
     if (isShowTitle) {
       cfg.title = {
-        text: scale.alias || scale.dim
+        text: scale.alias || scale.field
       };
     }
-    cfg = Util.merge(true, {}, Global.axis[position], cfg, axisCfg[scale.dim]);
+    cfg = Util.merge(true, {}, Global.axis[position], cfg, options[scale.field]);
     cfg.ticks = scale.getTicks();
 
     if (coord.isPolar && !scale.isCategory) {
@@ -269,7 +273,7 @@ class AxisController {
 
     cfg.coord = coord;
     if (cfg.label && Util.isNil(cfg.label.autoRotate)) {
-      cfg.labels.autoRotate = true; // 允许自动旋转，避免重叠
+      cfg.label.autoRotate = true; // 允许自动旋转，避免重叠
     }
     return cfg;
   }
@@ -288,7 +292,7 @@ class AxisController {
         Util.each(ticks, (tick, idx) => {
           const subPoints = [];
           let value = tick.value;
-          if (cfg.gridAlign === 'middle') {
+          if (cfg.grid.position === 'center') {
             value = self._getMiddleValue(value, ticks, idx);
           }
           if (!Util.isNil(value)) {
@@ -361,7 +365,7 @@ class AxisController {
       C = Axis.PolyLine;
       appendCfg = this._getPolyLineCfg(coord, scale, dimType);
     } else if (coord.type === 'cartesian') {
-      C = Axis;
+      C = Axis.Line;
       appendCfg = this._getLineCfg(coord, scale, dimType, index);
     } else if (coord.type === 'helix' && dimType === 'x') {
       C = Axis.Helix;
@@ -370,12 +374,12 @@ class AxisController {
       C = Axis.Circle;
       appendCfg = this._getCircleCfg(coord);
     } else {
-      C = Axis;
+      C = Axis.Line;
       appendCfg = this._getRadiusCfg(coord);
     }
 
     let cfg = this._getAxisCfg(coord, scale, verticalScale, dimType, index);
-    cfg = Util.mix(true, cfg, appendCfg);
+    cfg = Util.mix({}, cfg, appendCfg);
 
     if (dimType === 'y' && xAxis && xAxis.get('type') === 'circle') {
       cfg.circle = xAxis;
@@ -383,19 +387,9 @@ class AxisController {
     return container.addGroup(C, cfg);
   }
 
-  createAxis(view, xScale, yScales, axisOptions) {
+  createAxis(xScale, yScales) {
     const self = this;
-    const axisCfg = {};
-    if (axisOptions) {
-      Util.each(axisOptions, (option, field) => {
-        if (!Util.isBoolean(field)) {
-          axisCfg[field] = option;
-        }
-      });
-    }
-
-    self.axisCfg = axisCfg;
-    const coord = view.get('coord');
+    const coord = this.coord;
     const coordType = coord.type;
 
     // theta坐标系默认不绘制坐标轴

@@ -71,17 +71,6 @@ class View extends Base {
     }
   }
 
-  // 初始化所有的控制器
-  _initControllers() {
-    const options = this.get('options');
-    const scaleController = new Controller.Scale({
-      defs: options.scales
-    });
-    const coordController = new Controller.Coord(options.coord);
-    this.set('scaleController', scaleController);
-    this.set('coordController', coordController);
-  }
-
   _createGeom(cfg) {
     const type = cfg.type;
     let geom;
@@ -92,6 +81,42 @@ class View extends Base {
           geom[k](v);
         }
       });
+    }
+  }
+
+  // 初始化所有的控制器
+  _initControllers() {
+    const options = this.get('options');
+    const scaleController = new Controller.Scale({
+      defs: options.scales
+    });
+    const coordController = new Controller.Coord(options.coord);
+    this.set('scaleController', scaleController);
+    this.set('coordController', coordController);
+
+    const axisController = new Controller.Axis();
+    this.set('axisController', axisController);
+  }
+
+  _initPlot() {
+    const canvas = this.get('canvas');
+
+    // if (!this.get('viewContainer')) { // 用于 geom 的绘制
+    //   this.set('viewContainer', canvas.addGroup({
+    //     zIndex: 2
+    //   }));
+    // }
+
+    if (!this.get('backPlot')) { // 用于坐标轴以及部分 guide 绘制
+      this.set('backPlot', canvas.addGroup({
+        zIndex: 1
+      }));
+    }
+
+    if (!this.get('frontPlot')) {  // 用于图例以及部分 guide 绘制
+      this.set('frontPlot', canvas.addGroup({
+        zIndex: 3
+      }));
     }
   }
 
@@ -130,16 +155,45 @@ class View extends Base {
     this.set('coord', coord);
   }
 
-  _renderAxis() {
-
+  _renderAxes() {
+    const options = this.get('options');
+    const axesOptions = options.axes;
+    if (axesOptions === false) { // 不渲染坐标轴
+      return;
+    }
+    const axisController = this.get('axisController');
+    axisController.container = this.get('backPlot');
+    axisController.coord = this.get('coord');
+    axisController.options = axesOptions;
+    const xScale = this.getXScale();
+    const yScales = this.getYScales();
+    axisController.createAxis(xScale, yScales);
   }
 
   _rendeGuide() {
 
   }
 
-  getYScales() {
+  getXScale() {
+    const geoms = this.get('geoms');
+    let xScale = null;
+    if (!Util.isEmpty(geoms)) {
+      xScale = geoms[0].getXScale();
+    }
+    return xScale;
+  }
 
+  getYScales() {
+    const geoms = this.get('geoms');
+    const rst = [];
+
+    Util.each(geoms, geom => {
+      const yScale = geom.getYScale();
+      if (yScale && Util.indexOf(rst, yScale) === -1) {
+        rst.push(yScale);
+      }
+    });
+    return rst;
   }
 
   /**
@@ -179,8 +233,19 @@ class View extends Base {
     return scale;
   }
 
-  axis() {
+  axis(field, cfg) {
+    const options = this.get('options');
+    if (field === false) {
+      options.axes = false;
+    } else {
+      if (Util.isNil(options.axes)) {
+        options.axes = {};
+      }
+      const axisOptions = options.axes;
+      axisOptions[field] = cfg;
+    }
 
+    return this;
   }
 
   scale(field, cfg) {
@@ -251,12 +316,13 @@ class View extends Base {
   }
 
   render() {
+    this._initPlot();
     this._initGeoms();
     this.beforeDraw();
     this._createCoord(); // draw geometry 前绘制区域可能会发生改变
     this._drawGemos();
     this._rendeGuide();
-    this._renderAxis();
+    this._renderAxes();
   }
 
   destroy() {
