@@ -170,7 +170,7 @@ class View extends Base {
     const axisController = this.get('axisController');
     axisController.container = this.get('backPlot');
     axisController.coord = this.get('coord');
-    axisController.options = axesOptions;
+    axisController.options = axesOptions || {};
     const xScale = this.getXScale();
     const yScales = this.getYScales();
     axisController.createAxis(xScale, yScales);

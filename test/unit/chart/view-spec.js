@@ -1,6 +1,7 @@
 const expect = require('chai').expect;
 const { Canvas } = require('@ali/g');
 const View = require('../../../src/chart/view');
+const Coord = require('../../../src/coord/index');
 
 const div = document.createElement('div');
 div.id = 'cview';
@@ -189,13 +190,14 @@ describe('test view all options', function() {
   ];
   const view = new View({
     viewContainer: group,
+    canvas,
     start: {
-      x: 0,
-      y: 500
+      x: 80,
+      y: 420
     },
     end: {
-      x: 500,
-      y: 0
+      x: 420,
+      y: 80
     },
     data,
     options: {
