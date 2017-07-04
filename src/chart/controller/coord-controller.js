@@ -2,36 +2,22 @@ const Util = require('../../util');
 const Coord = require('../../coord/index');
 
 class CoordController {
-  constructor(cfg) {
+  constructor(option) {
     this.type = 'rect';
-    this.actions = null;
-    this.view = null;
-
-    Util.mix(this, cfg);
-    this.resetActions();
+    this.actions = [];
+    this.cfg = {};
+    Util.mix(this, option);
   }
 
-  resetActions() {
-    const options = this.view.get('options');
-    if (options.coord && options.coord.actions) {
-      this.actions = options.coord.actions;
-    } else {
-      this.actions = [];
-    }
+  reset(coordOption) {
+    this.actions = coordOption.actions || [];
+    this.type = coordOption.type;
+    this.cfg = coordOption.cfg;
     return this;
   }
 
-  _getCoordOptions() {
-    const chart = this.view;
-    if (!chart.get('options').coord) {
-      chart._setOptions('coord', {});
-    }
-    return chart.get('options').coord;
-  }
-
   _execActions(coord) {
-    const coordOption = this._getCoordOptions();
-    const actions = coordOption.actions;
+    const actions = this.actions;
     Util.each(actions, function(action) {
       const m = action[0];
       coord[m](action[1], action[2]);
@@ -57,16 +43,15 @@ class CoordController {
    */
   createCoord(start, end) {
     const self = this;
-    const options = this.view.get('options');
-    const coordOption = options.coord;
-    const type = coordOption && coordOption.type ? coordOption.type : self.type;
+    const type = self.type;
+    const cfg = self.cfg;
     let C; // 构造函数
     let coord;
 
     const coordCfg = Util.mix({
       start,
       end
-    }, coordOption && coordOption.cfg);
+    }, cfg);
 
     if (type === 'theta') {
       C = Coord.Polar;
@@ -74,11 +59,10 @@ class CoordController {
       if (!self.hasAction('transpose')) {
         self.transpose(); // 极坐标，同时transpose
       }
-
       coord = new C(coordCfg);
       coord.type = type;
     } else {
-      C = Coord[Util.ucfirst(type)] || Coord.Rect;
+      C = Coord[Util.upperFirst(type)] || Coord.Rect;
       coord = new C(coordCfg);
     }
 
@@ -89,29 +73,21 @@ class CoordController {
   rotate(angle) {
     angle = angle * Math.PI / 180;
     this.actions.push([ 'rotate', angle ]);
-    const coordOption = this._getCoordOptions();
-    coordOption.actions = this.actions;
     return this;
   }
 
   reflect(dim) {
     this.actions.push([ 'reflect', dim ]);
-    const coordOption = this._getCoordOptions();
-    coordOption.actions = this.actions;
     return this;
   }
 
   scale(sx, sy) {
     this.actions.push([ 'scale', sx, sy ]);
-    const coordOption = this._getCoordOptions();
-    coordOption.actions = this.actions;
     return this;
   }
 
   transpose() {
     this.actions.push([ 'transpose' ]);
-    const coordOption = this._getCoordOptions();
-    coordOption.actions = this.actions;
     return this;
   }
 }
