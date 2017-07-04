@@ -317,7 +317,7 @@ describe('AxisController', function() {
       as.options = {
         b: {
           grid: {
-            position: 'center'
+            align: 'center'
           }
         }
       };

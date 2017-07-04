@@ -46,7 +46,7 @@ describe('test view', function() {
             autoRotate: false
           },
           grid: {
-            position: 'center'
+            align: 'center'
           },
           title: {
             offset: -1,

@@ -292,7 +292,7 @@ class AxisController {
         Util.each(ticks, (tick, idx) => {
           const subPoints = [];
           let value = tick.value;
-          if (cfg.grid.position === 'center') {
+          if (cfg.grid.align === 'center') {
             value = self._getMiddleValue(value, ticks, idx);
           }
           if (!Util.isNil(value)) {
