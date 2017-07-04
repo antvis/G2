@@ -23,40 +23,54 @@ const Theme = {
   axis: {
     top: {
       position: 'top',
-      titleOffset: 30,
       title: {
-        fontSize: 12,
-        fill: '#999',
-        textBaseline: 'middle'
+        offset: 30,
+        position: 'center',
+        autoRotate: true,
+        textStyle: {
+          fontSize: 12,
+          fill: '#999',
+          textBaseline: 'middle',
+          textAlign: 'center'
+        }
       },
-      labels: {
-        label: {
+      label: {
+        offset: 15,
+        textStyle: {
           fill: '#404040',
           fontSize: 12,
-          textBaseline: 'middle'
-        }
+          textBaseline: 'middle',
+          textAlign: 'center'
+        },
+        autoRotate: true
       },
       tickLine: {
         lineWidth: 1,
         stroke: '#ccc',
-        value: 5
+        length: 5
       }
     },
     bottom: {
       position: 'bottom',
-      titleOffset: 45,
-      labelOffset: 20,
       title: {
-        fontSize: 12,
-        textAlign: 'center',
-        fill: '#999',
-        textBaseline: 'middle'
+        offset: 40,
+        autoRotate: true,
+        position: 'center',
+        textStyle: {
+          fontSize: 12,
+          textAlign: 'center',
+          fill: '#999',
+          textBaseline: 'middle'
+        }
       },
-      labels: {
-        label: {
+      label: {
+        offset: 20,
+        autoRotate: true,
+        textStyle: {
           fill: '#404040',
           fontSize: 12,
-          textBaseline: 'middle'
+          textBaseline: 'middle',
+          textAlign: 'center'
         }
       },
       line: {
@@ -66,23 +80,30 @@ const Theme = {
       tickLine: {
         lineWidth: 1,
         stroke: '#ccc',
-        value: 5
+        length: 5
       }
     },
     left: {
       position: 'left',
-      titleOffset: 60,
-      labelOffset: 13,
       title: {
-        fontSize: 12,
-        fill: '#999',
-        textBaseline: 'middle'
+        offset: 40,
+        autoRotate: true,
+        point: 'center',
+        textStyle: {
+          fontSize: 12,
+          fill: '#999',
+          textBaseline: 'middle',
+          textAlign: 'center'
+        }
       },
-      labels: {
-        label: {
+      label: {
+        offset: 15,
+        autoRotate: true,
+        textStyle: {
           fill: '#404040',
           fontSize: 12,
-          textBaseline: 'middle'
+          textBaseline: 'middle',
+          textAlign: 'center'
         }
       },
       line: {
@@ -92,10 +113,10 @@ const Theme = {
       tickLine: {
         lineWidth: 1,
         stroke: '#ccc',
-        value: 5
+        length: 5
       },
       grid: {
-        line: {
+        lineStyle: {
           stroke: '#d9d9d9',
           lineWidth: 1,
           lineDash: [ 2, 2 ]
@@ -104,18 +125,25 @@ const Theme = {
     },
     right: {
       position: 'right',
-      titleOffset: 60,
-      labelOffset: 13,
       title: {
-        fontSize: 12,
-        fill: '#999',
-        textBaseline: 'middle'
+        offset: 60,
+        autoRotate: true,
+        position: 'center',
+        textStyle: {
+          fontSize: 12,
+          fill: '#999',
+          textBaseline: 'middle',
+          textAlign: 'center'
+        }
       },
-      labels: {
-        label: {
+      label: {
+        offset: 13,
+        autoRotate: true,
+        textStyle: {
           fill: '#404040',
           fontSize: 12,
-          textBaseline: 'middle'
+          textBaseline: 'middle',
+          textAlign: 'center'
         }
       },
       line: {
@@ -125,71 +153,40 @@ const Theme = {
       tickLine: {
         lineWidth: 1,
         stroke: '#ccc',
-        value: 5
+        length: 5
       }
     },
     circle: {
       labelOffset: 5,
+      title: null,
       line: {
         lineWidth: 1,
         stroke: '#ccc'
       },
       grid: {
-        line: {
+        lineStyle: {
           stroke: '#d9d9d9',
           lineWidth: 1,
           lineDash: [ 1, 3 ]
         }
       },
-      labels: {
-        label: {
+      label: {
+        offset: 5,
+        textStyle: {
           fill: '#404040',
           fontSize: 12,
-          textBaseline: 'middle'
-        }
-      }
-    },
-    gauge: {
-      grid: null,
-      labelOffset: 5,
-      tickLine: {
-        lineWidth: 1,
-        value: -20,
-        stroke: '#ccc'
-      },
-      subTick: 5,
-      labels: {
-        label: {
-          fill: '#404040',
-          fontSize: 12,
-          textBaseline: 'middle'
-        }
-      }
-    },
-    clock: {
-      grid: null,
-      labelOffset: 5,
-      tickLine: {
-        lineWidth: 1,
-        value: -20,
-        stroke: '#C0D0E0'
-      },
-      subTick: 5,
-      labels: {
-        label: {
-          fill: '#404040',
-          fontSize: 12,
-          textBaseline: 'middle'
+          textBaseline: 'middle',
+          textAlign: 'center'
         }
       }
     },
     radius: {
-      titleOffset: 45,
-      labels: {
-        label: {
+      label: {
+        textStyle: {
           fill: '#404040',
           fontSize: 12,
-          textBaseline: 'middle'
+          textBaseline: 'middle',
+          textAlign: 'center'
         }
       },
       line: {
@@ -197,7 +194,7 @@ const Theme = {
         stroke: '#ccc'
       },
       grid: {
-        line: {
+        lineStyle: {
           stroke: '#d9d9d9',
           lineWidth: 1,
           lineDash: [ 2, 2 ]
@@ -207,18 +204,17 @@ const Theme = {
     },
     helix: {
       grid: null,
-      labels: {
-        label: null
-      },
+      label: null,
       line: {
         lineWidth: 1,
         stroke: '#ccc'
       },
       tickLine: {
         lineWidth: 1,
-        value: 5,
+        length: 5,
         stroke: '#ccc'
-      }
+      },
+      title: null
     }
   },
   labels: {
