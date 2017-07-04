@@ -392,37 +392,40 @@ const Theme = {
     }
   },
   guide: {
-    text: {
-      fill: '#666',
-      fontSize: 12
-    },
     line: {
-      stroke: DEFAULT_COLOR,
-      lineDash: [ 0, 2, 2 ]
-    },
-    rect: {
-      lineWidth: 0,
-      fill: DEFAULT_COLOR,
-      fillOpacity: 0.1
-    },
-    tag: {
-      line: {
+      lineStyle: {
         stroke: DEFAULT_COLOR,
-        lineDash: [ 0, 2, 2 ]
+        lineDash: [ 0, 2, 2 ],
+        lineWidth: 1
       },
       text: {
-        fill: '#666',
-        fontSize: 12,
-        textAlign: 'center'
-      },
-      rect: {
-        lineWidth: 0,
-        fill: DEFAULT_COLOR,
-        fillOpacity: 0.1
+        position: 'end',
+        autoRotate: true,
+        style: {
+          fill: '#999',
+          fontSize: 12,
+          fontWeight: 500,
+          textAlign: 'center'
+        }
       }
     },
+    text: {
+      style: {
+        fill: '#666',
+        fontSize: 12,
+        fontWeight: 'bold'
+      }
+    },
+    region: {
+      style: {
+        lineWidth: 0, // 辅助框的边框宽度
+        fill: DEFAULT_COLOR, // 辅助框填充的颜色
+        fillOpacity: 0.1 // 辅助框的背景透明度
+      } // 辅助框的图形样式属性
+    },
     html: {
-      align: 'cc'
+      alignX: 'middle',
+      alignY: 'middle'
     }
   },
   tooltipMarker: {

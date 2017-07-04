@@ -87,6 +87,7 @@ class View extends Base {
   // 初始化所有的控制器
   _initControllers() {
     const options = this.get('options');
+
     const scaleController = new Controller.Scale({
       defs: options.scales
     });
@@ -96,6 +97,11 @@ class View extends Base {
 
     const axisController = new Controller.Axis();
     this.set('axisController', axisController);
+
+    const guideController = new Controller.Guide({
+      options: options.guides || []
+    });
+    this.set('guideController', guideController);
   }
 
   _initPlot() {
@@ -170,8 +176,15 @@ class View extends Base {
     axisController.createAxis(xScale, yScales);
   }
 
-  _rendeGuide() {
-
+  _renderGuides() {
+    const guideController = this.get('guideController');
+    if (!Util.isEmpty(guideController.options)) {
+      const coord = this.get('coord');
+      guideController.container = this.get('backPlot');
+      guideController.xScales = this._getScales('x');
+      guideController.yScales = this._getScales('y');
+      guideController.render(coord);
+    }
   }
 
   getXScale() {
@@ -181,6 +194,18 @@ class View extends Base {
       xScale = geoms[0].getXScale();
     }
     return xScale;
+  }
+
+  _getScales(dimType) {
+    const geoms = this.get('geoms');
+    const result = {};
+    Util.each(geoms, geom => {
+      const scale = (dimType === 'x') ? geom.getXScale() : geom.getYScale();
+      if (scale && !Util.has(result, scale.field)) {
+        result[scale.field] = scale;
+      }
+    });
+    return result;
   }
 
   getYScales() {
@@ -246,6 +271,10 @@ class View extends Base {
     }
 
     return this;
+  }
+
+  guide() {
+    return this.get('guideController');
   }
 
   scale(field, cfg) {
@@ -322,7 +351,7 @@ class View extends Base {
     this.beforeDraw();
     this._createCoord(); // draw geometry 前绘制区域可能会发生改变
     this._drawGemos();
-    this._rendeGuide();
+    this._renderGuides();
     this._renderAxes();
   }
 
