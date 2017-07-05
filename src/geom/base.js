@@ -683,6 +683,19 @@ class GeomBase extends Base {
     return this.getAttr('position').scales[1];
   }
 
+  getAttrsForLegend() {
+    const attrs = this.get('attrs');
+    const rst = [];
+
+    Util.each(attrs, attr => {
+      if (GROUP_ATTRS.indexOf(attr.type) !== -1) {
+        rst.push(attr);
+      }
+    });
+
+    return rst;
+  }
+
   reset() {
     this.set('attrOptions', {});
     this._clearInner();
