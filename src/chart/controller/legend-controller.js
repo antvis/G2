@@ -232,13 +232,13 @@ class LegendController {
     if (legendOptions[field] === false) { // 如果不显示此图例
       return null;
     }
+
+    let position = legendOptions.position || 'right';
     const fieldOption = legendOptions[field];
-    let position;
     if (fieldOption && fieldOption.position) { // 如果对某个图例单独设置 position，则对 position 重新赋值
       position = fieldOption.position;
-    } else {
-      position = 'right';
     }
+
     if (scale.isLinear) {
       return self._addContinuousLegend(scale, attr, position);
     }

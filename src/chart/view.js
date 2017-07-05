@@ -8,20 +8,6 @@ const Geom = require('../geom/');
 const Util = require('../util');
 const Controller = require('./controller/index');
 
-function _isScaleExist(scales, compareScale) {
-  let flag = false;
-  Util.each(scales, scale => {
-    const scaleValues = [].concat(scale.values);
-    const compareScaleValues = [].concat(compareScale.values);
-    if (scale.type === compareScale.type && scale.field === compareScale.field && scaleValues.sort().toString() === compareScaleValues.sort().toString()) {
-      flag = true;
-      return;
-    }
-  });
-
-  return flag;
-}
-
 const ViewGeoms = {};
 Util.each(Geom, function(geomConstructor, className) {
   const methodName = Util.lowerFirst(className);
@@ -71,6 +57,10 @@ class View extends Base {
     if (!options.coord) {
       options.coord = {};
     }
+    if (!options.legends) {
+      options.legends = {};
+    }
+
     if (options.geoms && options.geoms.length) {
       Util.each(options.geoms, function(geomOption) {
         self._createGeom(geomOption);
@@ -117,22 +107,16 @@ class View extends Base {
       options: options.guides || []
     });
     this.set('guideController', guideController);
-
-    // TODO: 将来移至 chart 中
-    const legendController = new Controller.Legend({
-      chart: this
-    });
-    this.set('legendController', legendController);
   }
 
   _initViewPlot() {
     const canvas = this.get('canvas');
 
-    // if (!this.get('viewContainer')) { // 用于 geom 的绘制
-    //   this.set('viewContainer', canvas.addGroup({
-    //     zIndex: 2
-    //   }));
-    // }
+    if (!this.get('viewContainer')) { // 用于 geom 的绘制
+      this.set('viewContainer', canvas.addGroup({
+        zIndex: 2
+      }));
+    }
 
     if (!this.get('backPlot')) { // 用于坐标轴以及部分 guide 绘制
       this.set('backPlot', canvas.addGroup({
@@ -252,48 +236,11 @@ class View extends Base {
     }
   }
 
-  _renderLegends() {
-    const options = this.get('options');
-
-    if (Util.isNil(options.legends) || (options.legends !== false)) {
-      const legendController = this.get('legendController');
-      legendController.options = options.legends || {};
-      legendController.plotRange = this.get('plotRange');
-
-      // const geoms = this.getAllGeoms(); // TODO
-      const geoms = this.get('geoms');
-      const scales = [];
-      Util.each(geoms, geom => {
-        const attrs = geom.getAttrsForLegend();
-        Util.each(attrs, attr => {
-          const type = attr.type;
-          const scale = attr.getScale(type);
-          if (scale.type !== 'identity' && !_isScaleExist(scales, scale)) {
-            scales.push(scale);
-            let filterVals;
-            const field = scale.field;
-            const geomView = geom.get('view');
-            const filters = geomView.get('options').filters;
-            if (filters && filters[field]) {
-              filterVals = filters[field];
-            }
-            legendController.addLegend(scale, attr, geom, filterVals);
-          }
-        });
-      });
-
-      legendController.alignLegends();
-    }
-  }
-
-  getXScale() {
-    const geoms = this.get('geoms');
-    let xScale = null;
-    if (!Util.isEmpty(geoms)) {
-      xScale = geoms[0].getXScale();
-    }
-    return xScale;
-  }
+  /**
+   * @override
+   * 渲染图例
+   */
+  _renderLegends() {}
 
   _getScales(dimType) {
     const geoms = this.get('geoms');
@@ -305,6 +252,15 @@ class View extends Base {
       }
     });
     return result;
+  }
+
+  getXScale() {
+    const geoms = this.get('geoms');
+    let xScale = null;
+    if (!Util.isEmpty(geoms)) {
+      xScale = geoms[0].getXScale();
+    }
+    return xScale;
   }
 
   getYScales() {
@@ -447,7 +403,7 @@ class View extends Base {
 
   render() {
     const data = this.get('data');
-    if (data.length) {
+    if (!Util.isEmpty(data)) {
       this._initViewPlot();
       this._initGeoms();
       this.beforeDraw();
@@ -455,6 +411,7 @@ class View extends Base {
       this._drawGeoms();
       this._renderGuides();
       this._renderAxes();
+      this._renderLegends();
     }
     return this;
   }

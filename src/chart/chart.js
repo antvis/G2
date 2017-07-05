@@ -9,6 +9,21 @@ const G = require('@ali/g');
 const Canvas = G.Canvas;
 const DomUtil = G.DomUtil;
 const Component = require('../component/index');
+const Controller = require('./controller/index');
+
+function _isScaleExist(scales, compareScale) {
+  let flag = false;
+  Util.each(scales, scale => {
+    const scaleValues = [].concat(scale.values);
+    const compareScaleValues = [].concat(compareScale.values);
+    if (scale.type === compareScale.type && scale.field === compareScale.field && scaleValues.sort().toString() === compareScaleValues.sort().toString()) {
+      flag = true;
+      return;
+    }
+  });
+
+  return flag;
+}
 
 class Chart extends View {
   /**
@@ -86,6 +101,53 @@ class Chart extends View {
     this.set('plotRange', plotBack.get('plotRange'));
   }
 
+  _renderLegends() {
+    const options = this.get('options');
+    if (Util.isNil(options.legends) || (options.legends !== false)) { // 没有关闭图例
+      const legendController = new Controller.Legend({
+        chart: this,
+        options: options.legends || {},
+        plotRange: this.get('plotRange')
+      });
+      this.set('legendController', legendController);
+
+      const geoms = this.getAllGeoms();
+      const scales = [];
+      Util.each(geoms, geom => {
+        const attrs = geom.getAttrsForLegend();
+        Util.each(attrs, attr => {
+          const type = attr.type;
+          const scale = attr.getScale(type);
+          if (scale.type !== 'identity' && !_isScaleExist(scales, scale)) {
+            scales.push(scale);
+            let filterVals;
+            const field = scale.field;
+            const geomView = geom.get('view');
+            const filters = geomView.get('options').filters;
+            if (filters && filters[field]) {
+              filterVals = filters[field];
+            }
+            legendController.addLegend(scale, attr, geom, filterVals);
+          }
+        });
+      });
+
+      legendController.alignLegends();
+    }
+  }
+
+  getAllGeoms() {
+    let geoms = [];
+    geoms = geoms.concat(this.get('geoms'));
+
+    const views = this.get('views');
+    Util.each(views, view => {
+      geoms = geoms.concat(view.get('geoms'));
+    });
+
+    return geoms;
+  }
+
   forceFit() {
 
   }
@@ -113,6 +175,22 @@ class Chart extends View {
     };
   }
 
+  legend(field, cfg) {
+    const options = this.get('options');
+    let legends;
+
+    if (Util.isBoolean(field)) {
+      legends = (field === false) ? false : cfg;
+    } else if (Util.isObject(field)) {
+      legends = field;
+    } else {
+      legends[field] = cfg;
+    }
+    Util.mix(options.legends, legends);
+
+    return this;
+  }
+
   clear() {
     const views = this.get('views');
     while (views.length > 0) {
@@ -131,9 +209,9 @@ class Chart extends View {
       Util.each(views, function(view) {
         view.render();
       });
-    } else {
-      super.render();
     }
+
+    super.render();
     const canvas = this.get('canvas');
     canvas.draw();
     return this;
