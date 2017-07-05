@@ -52,7 +52,7 @@ class Chart extends View {
     container.appendChild(wrapperEl);
     this.set('wrapperEl', wrapperEl);
     if (this.get('forceFit')) {
-      width = Util.getWidth(container);
+      width = DomUtil.getWidth(container);
     }
     const canvas = new Canvas({
       containerDOM: wrapperEl,
@@ -91,12 +91,14 @@ class Chart extends View {
   }
 
   view(cfg) {
+    cfg = cfg || {};
     const viewContainer = this.get('viewContainer');
     cfg.parent = this;
     cfg.viewContainer = viewContainer.addGroup();
     cfg.backPlot = this.get('backPlot');
     cfg.frontPlot = this.get('frontPlot');
     const view = new View(cfg);
+    this.get('views').push(view);
     return view;
   }
   /**
@@ -120,6 +122,7 @@ class Chart extends View {
     super.clear();
     const canvas = this.get('canvas');
     canvas.draw();
+    return this;
   }
 
   render() {
@@ -133,6 +136,7 @@ class Chart extends View {
     }
     const canvas = this.get('canvas');
     canvas.draw();
+    return this;
   }
 
   destroy() {

@@ -166,7 +166,7 @@ class View extends Base {
     let end;
     if (parent) {
       const region = parent.getViewRegion();
-      const viewRegion = self._getViewRegion(start, end, region.start, region.end);
+      const viewRegion = self._getViewRegion(region.start, region.end);
       start = viewRegion.start;
       end = viewRegion.end;
     } else {
@@ -180,7 +180,9 @@ class View extends Base {
   }
 
   // 获取 range 所在的范围
-  _getViewRegion(start, end, plotStart, plotEnd) {
+  _getViewRegion(plotStart, plotEnd) {
+    const start = this.get('start');
+    const end = this.get('end');
     const startPoint = {
       x: start.x * (plotEnd.x - plotStart.x) + plotStart.x,
       y: end.y * (plotEnd.y - plotStart.y) + plotStart.y
@@ -363,6 +365,7 @@ class View extends Base {
     const container = this.get('viewContainer');
     container.clear();
     this._clearInner();
+    return this;
   }
 
   /**
@@ -389,13 +392,17 @@ class View extends Base {
   }
 
   render() {
-    this._initViewPlot();
-    this._initGeoms();
-    this.beforeDraw();
-    this._createCoord(); // draw geometry 前绘制区域可能会发生改变
-    this._drawGeoms();
-    this._renderGuides();
-    this._renderAxes();
+    const data = this.get('data');
+    if (data.length) {
+      this._initViewPlot();
+      this._initGeoms();
+      this.beforeDraw();
+      this._createCoord(); // draw geometry 前绘制区域可能会发生改变
+      this._drawGeoms();
+      this._renderGuides();
+      this._renderAxes();
+    }
+    return this;
   }
 
   destroy() {
