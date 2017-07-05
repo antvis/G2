@@ -105,7 +105,7 @@ class View extends Base {
     this.set('guideController', guideController);
   }
 
-  _initPlot() {
+  _initViewPlot() {
     const canvas = this.get('canvas');
 
     // if (!this.get('viewContainer')) { // 用于 geom 的绘制
@@ -389,7 +389,7 @@ class View extends Base {
   }
 
   render() {
-    this._initPlot();
+    this._initViewPlot();
     this._initGeoms();
     this.beforeDraw();
     this._createCoord(); // draw geometry 前绘制区域可能会发生改变

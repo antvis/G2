@@ -94,6 +94,8 @@ class Chart extends View {
     const viewContainer = this.get('viewContainer');
     cfg.parent = this;
     cfg.viewContainer = viewContainer.addGroup();
+    cfg.backPlot = this.get('backPlot');
+    cfg.frontPlot = this.get('frontPlot');
     const view = new View(cfg);
     return view;
   }

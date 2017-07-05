@@ -12,6 +12,12 @@ describe('test chart', function() {
     height: 500,
     padding: [ 0, 50, 20, 50 ]
   });
+  chart.scale({
+    b: {
+      min: 0,
+      max: 10
+    }
+  });
   const data = [
       { a: 1, b: 2, c: '1' },
       { a: 2, b: 5, c: '1' },
