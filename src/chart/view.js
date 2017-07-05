@@ -35,7 +35,8 @@ class View extends Base {
       geoms: [],
       scales: {},
       options: {},
-      scaleController: null
+      scaleController: null,
+      parent: null
     };
   }
 
@@ -153,11 +154,53 @@ class View extends Base {
     });
   }
 
+  /**
+   * View 所在的范围
+   * @protected
+   * @return {Object} View 所在的范围
+   */
+  getViewRegion() {
+    const self = this;
+    const parent = self.get('parent');
+    let start;
+    let end;
+    if (parent) {
+      const region = parent.getViewRegion();
+      const viewRegion = self._getViewRegion(start, end, region.start, region.end);
+      start = viewRegion.start;
+      end = viewRegion.end;
+    } else {
+      start = self.get('start');
+      end = self.get('end');
+    }
+    return {
+      start,
+      end
+    };
+  }
+
+  // 获取 range 所在的范围
+  _getViewRegion(start, end, plotStart, plotEnd) {
+    const startPoint = {
+      x: start.x * (plotEnd.x - plotStart.x) + plotStart.x,
+      y: end.y * (plotEnd.y - plotStart.y) + plotStart.y
+
+    };
+    const endPoint = {
+      x: end.x * (plotEnd.x - plotStart.x) + plotStart.x,
+      y: start.y * (plotEnd.y - plotStart.y) + plotStart.y
+    };
+
+    return {
+      start: startPoint,
+      end: endPoint
+    };
+  }
+
   _createCoord() {
     const coordController = this.get('coordController');
-    const start = this.get('start');
-    const end = this.get('end');
-    const coord = coordController.createCoord(start, end);
+    const region = this.getViewRegion();
+    const coord = coordController.createCoord(region.start, region.end);
     this.set('coord', coord);
   }
 
