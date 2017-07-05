@@ -23,17 +23,13 @@ describe('分类图例', function() {
     for (let i = 0; i < 5; i++) {
       items.push({
         name: 'test ' + i,
-        color: colors[i],
+        attrValue: colors[i],
         marker: i !== 2 ? {
           symbol: symbols[i],
           radius: 5,
           fill: colors[i]
         } : null,
-        checked: i === 2, // 选中状态
-        textStyle: {
-          fill: '#000',
-          fontSize: 12
-        }
+        checked: i === 2// 选中状态
       });
     }
 
@@ -93,17 +89,13 @@ describe('分类图例', function() {
     for (let i = 0; i < 5; i++) {
       items.push({
         name: 'test ' + i,
-        color: colors[i],
+        attrValue: colors[i],
         marker: {
           symbol: symbols[i],
           radius: 5,
           fill: colors[i]
         },
-        checked: true, // 选中状态
-        textStyle: {
-          fill: '#000',
-          fontSize: 12
-        }
+        checked: true
       });
     }
 
@@ -149,17 +141,13 @@ describe('分类图例', function() {
     for (let i = 0; i < 5; i++) {
       items.push({
         name: 'test ' + i,
-        color: colors[i],
+        attrValue: colors[i],
         marker: {
           symbol: symbols[i],
           radius: 5,
           fill: colors[i]
         },
-        checked: i === 2, // 选中状态
-        textStyle: {
-          fill: '#000',
-          fontSize: 12
-        }
+        checked: i === 2
       });
     }
 
@@ -174,7 +162,7 @@ describe('分类图例', function() {
         textBaseline: 'top',
         text: '水平图例'
       },
-      mode: 'single'
+      selectedMode: 'single'
     });
     legend.id = '3';
 
@@ -220,16 +208,13 @@ describe('分类图例', function() {
     for (let i = 0; i < 5; i++) {
       items.push({
         name: 'test ' + i,
-        color: colors[i],
+        attrValue: colors[i],
         marker: {
           symbol: symbols[i],
           radius: 5,
           fill: colors[i]
         },
-        checked: !(i === 3), // 选中状态
-        textStyle: {
-          fill: '#000'
-        }
+        checked: !(i === 3)
       });
     }
 
@@ -252,6 +237,9 @@ describe('分类图例', function() {
       background: {
         fill: '#ccc',
         fillOpacity: 0.2
+      },
+      textStyle: {
+        fill: '#000'
       }
     });
     legend.move(0, 150);
@@ -283,16 +271,13 @@ describe('分类图例', function() {
     for (let i = 0; i < 25; i++) {
       items.push({
         name: 'test ' + i,
-        color: colors[i % 10],
+        attrValue: colors[i % 10],
         marker: {
           symbol: symbols[i % 5],
           radius: 5,
           fill: colors[i % 10]
         },
-        checked: !(i >= 20), // 选中状态
-        textStyle: {
-          fill: '#000'
-        }
+        checked: !(i >= 20)
       });
     }
 
@@ -324,16 +309,13 @@ describe('分类图例', function() {
     for (let i = 0; i < 25; i++) {
       items.push({
         name: 'test ' + i,
-        color: colors[i % 10],
+        attrValue: colors[i % 10],
         marker: {
           symbol: symbols[i % 5],
           radius: 5,
           fill: colors[i % 10]
         },
-        checked: true, // 选中状态
-        textStyle: {
-          fill: '#000'
-        }
+        checked: true
       });
     }
 
@@ -371,16 +353,13 @@ describe('分类图例', function() {
     for (let i = 0; i < 25; i++) {
       items.push({
         name: 'test ' + i,
-        color: colors[i % 10],
+        attrValue: colors[i % 10],
         marker: {
           symbol: symbols[i % 5],
           radius: 5,
           fill: colors[i % 10]
         },
-        checked: true, // 选中状态
-        textStyle: {
-          fill: '#000'
-        }
+        checked: true
       });
     }
 
@@ -414,16 +393,13 @@ describe('分类图例', function() {
     for (let i = 0; i < 15; i++) {
       items.push({
         name: i + '',
-        color: colors[ i % 10 ],
+        attrValue: colors[ i % 10 ],
         marker: {
           symbol: symbols[ i % 5 ],
           radius: 5,
           fill: colors[ i % 10 ]
         },
-        checked: true, // 选中状态
-        textStyle: {
-          fill: '#000'
-        }
+        checked: true
       });
     }
 
@@ -456,16 +432,13 @@ describe('分类图例', function() {
     for (let i = 0; i < 5; i++) {
       items.push({
         name: 'test ' + i,
-        color: colors[i % 10],
+        attrValue: colors[i % 10],
         marker: {
           symbol: symbols[i % 5],
           radius: 5,
           fill: colors[i % 10]
         },
-        checked: !(i > 2), // 选中状态
-        textStyle: {
-          fill: '#000'
-        }
+        checked: !(i > 2)
       });
     }
 
@@ -518,16 +491,13 @@ describe('分类图例', function() {
     for (let i = 0; i < 20; i++) {
       items.push({
         name: 'test ' + i,
-        color: colors[i % 10],
+        attrValue: colors[i % 10],
         marker: {
           symbol: symbols[i % 5],
           radius: 5,
           fill: colors[i % 10]
         },
-        checked: (i === 10), // 选中状态
-        textStyle: {
-          fill: '#000'
-        }
+        checked: (i === 10)
       });
     }
 
@@ -543,7 +513,7 @@ describe('分类图例', function() {
       width: 500,
       height: 80,
       scroll: false,
-      mode: 'single'
+      selectedMode: 'single'
     });
 
     canvas.draw();
@@ -586,10 +556,7 @@ describe('分类图例', function() {
           radius: 5,
           fill: colors[i % 10]
         },
-        checked: i === 1, // 选中状态
-        textStyle: {
-          fill: '#000'
-        }
+        checked: i === 1
       });
     }
 

@@ -18,7 +18,7 @@ class Color extends Continuous {
        * @type {String}
        */
       layout: 'vertical',
-      _labelOffset: 10 // TODO: 文本同渐变背景的距离
+      labelOffset: 5 // TODO: 文本同渐变背景的距离
     });
   }
 
@@ -35,13 +35,13 @@ class Color extends Continuous {
     if (layout === 'vertical') {
       fill += 'l (90) ';
       Util.each(items, function(v) {
-        rgbColor = ColorUtil.toRGB(v.color);
+        rgbColor = ColorUtil.toRGB(v.attrValue);
         fill += (1 - v.value) + ':' + rgbColor + ' ';
       });
     } else {
       fill += 'l (0) ';
       Util.each(items, function(v) {
-        rgbColor = ColorUtil.toRGB(v.color);
+        rgbColor = ColorUtil.toRGB(v.attrValue);
         fill += v.value + ':' + rgbColor + ' ';
       });
     }
@@ -75,14 +75,16 @@ class Color extends Continuous {
       Util.each(items, v => {
         path.push([ 'M', 0, height - v.value * height ]);
         path.push([ 'L', width, height - v.value * height ]);
-        rgbColor = ColorUtil.toRGB(v.color);
+        rgbColor = ColorUtil.toRGB(v.attrValue);
         fill += (1 - v.value) + ':' + rgbColor + ' ';
         bgGroup.addShape('text', {
           attrs: Util.mix({}, {
-            x: width + self.get('_labelOffset'),
+            x: width + self.get('labelOffset'),
             y: height - v.value * height,
             text: self._formatItemValue(v.name)
-          }, self.get('textStyle'))
+          }, self.get('textStyle'), {
+            textAlign: 'start'
+          })
         });
       });
     } else {
@@ -90,12 +92,12 @@ class Color extends Continuous {
       Util.each(items, v => {
         path.push([ 'M', v.value * width, 0 ]);
         path.push([ 'L', v.value * width, height ]);
-        rgbColor = ColorUtil.toRGB(v.color);
+        rgbColor = ColorUtil.toRGB(v.attrValue);
         fill += v.value + ':' + rgbColor + ' ';
         bgGroup.addShape('text', {
           attrs: Util.mix({}, {
             x: v.value * width,
-            y: height + self.get('_labelOffset'),
+            y: height + self.get('labelOffset'),
             text: self._formatItemValue(v.name)
           }, self.get('textStyle'))
         });

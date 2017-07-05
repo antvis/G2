@@ -93,17 +93,23 @@ class Category extends Base {
        * @type {Number}
        */
       itemWidth: null,
-      /**
-       * marker 和文字的距离
-       * @type {Number}
-       */
-      _wordSpaceing: 6,
-      _defaultTextStyle: {
+      textStyle: {
         fill: '#333',
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle'
       },
+      /**
+       * marker 和文字的距离
+       * @type {Number}
+       */
+      _wordSpaceing: 6,
+      // _defaultTextStyle: {
+      //   fill: '#333',
+      //   fontSize: 12,
+      //   textAlign: 'start',
+      //   textBaseline: 'middle'
+      // },
       /**
        * 是否使用 html 进行渲染，默认为 false
        * @type {Boolean}
@@ -113,7 +119,7 @@ class Category extends Base {
        * 使用html时的外层模板
        * @type {String}
        */
-      containerTpl: '<div class="g-legend" style="position:absolute;top:0;left:0;">' +
+      containerTpl: '<div class="g-legend" style="position:absolute;top:20px;right:60px;">' +
         '<h4 class="g-legend-title"></h4>' +
         '<ul class="g-legend-itemlist" style="list-style-type:none;margin:0;padding:0;"></ul>' +
         '</div>',
@@ -144,7 +150,7 @@ class Category extends Base {
        * 图例项的选择模式，多选和单选 multiple、single
        * @type {String}
        */
-      mode: 'multiple'
+      selectedMode: 'multiple'
     });
   }
 
@@ -212,7 +218,7 @@ class Category extends Base {
       if (!this.get('allowAllCanceled') && checked && this.getCheckedCount() === 1) {
         return;
       }
-      const mode = this.get('mode');
+      const mode = this.get('selectedMode');
       const item = findItem(items, clickedItem);
       const itemclick = new Event('legend:click', ev);
       itemclick.item = item;
@@ -221,6 +227,7 @@ class Category extends Base {
       this.trigger('legend:click', [ itemclick ]); // TODO: 到底是 canvas 还是 legend 对象抛出事件?
 
       const unCheckColor = this.get('unCheckStyle').fill;
+      const checkColor = this.get('textStyle').fill;
       if (mode === 'single') {
         const itemsGroup = this.get('itemsGroup');
         const children = itemsGroup.get('children');
@@ -231,14 +238,14 @@ class Category extends Base {
             child.get('children')[0].attr('fill', unCheckColor);
             child.get('children')[1].attr('fill', unCheckColor);
           } else {
-            clickedItem.get('children')[0].attr('fill', item.color);
-            clickedItem.get('children')[1].attr('fill', item.textStyle.fill);
+            clickedItem.get('children')[0].attr('fill', item.marker.fill);
+            clickedItem.get('children')[1].attr('fill', checkColor);
             clickedItem.set('checked', true);
           }
         });
       } else {
-        clickedItem.get('children')[0].attr('fill', checked ? unCheckColor : item.color);
-        clickedItem.get('children')[1].attr('fill', checked ? unCheckColor : item.textStyle.fill);
+        clickedItem.get('children')[0].attr('fill', checked ? unCheckColor : item.marker.fill);
+        clickedItem.get('children')[1].attr('fill', checked ? unCheckColor : checkColor);
         clickedItem.set('checked', !checked);
       }
 
@@ -257,7 +264,7 @@ class Category extends Base {
     const titleDom = findNodeByClass(legendWrapper, 'g-legend-title');
     const itemListDom = findNodeByClass(legendWrapper, 'g-legend-itemlist');
     const unCheckedColor = self.get('unCheckStyle').fill;
-    const mode = self.get('mode');
+    const mode = self.get('selectedMode');
 
     if (titleDom && title && title.text) { // 渲染标题
       titleDom.innerHTML = title.text;
@@ -274,7 +281,7 @@ class Category extends Base {
     Util.each(items, function(item, index) {
       const checked = item.checked;
       const value = self._formatItemValue(item.name);
-      const color = checked ? item.color : unCheckedColor;
+      const color = checked ? item.marker.fill : unCheckedColor;
       let domStr;
       if (Util.isFunction(itemTpl)) {
         domStr = itemTpl(value, color, checked, index);
@@ -287,7 +294,7 @@ class Category extends Base {
         checked: checked ? 'checked' : 'unChecked',
         value,
         color,
-        originColor: item.color,
+        originColor: item.marker.fill,
         originValue: item.name
       });
       const itemDom = DomUtil.createDom(itemDiv);
@@ -337,7 +344,7 @@ class Category extends Base {
               child.className = Util.replace(child.className, 'checked', 'unChecked');
             } else {
               if (textDom) {
-                textDom.style.color = originColor;
+                textDom.style.color = self.get('textStyle').fill;
               }
               if (markerDom) {
                 markerDom.style.backgroundColor = originColor;
@@ -369,7 +376,7 @@ class Category extends Base {
             parentDom.className = Util.replace(domClass, 'checked', 'unChecked');
           } else if (domClass.includes('unChecked')) {
             if (textDom) {
-              textDom.style.color = originColor;
+              textDom.style.color = self.get('textStyle').fill;
             }
             if (markerDom) {
               markerDom.style.backgroundColor = originColor;
@@ -440,7 +447,7 @@ class Category extends Base {
   }
 
   _getNextY() {
-    const itemGap = this.get('itemGap');
+    const itemMarginBottom = this.get('itemMarginBottom');
     const titleGap = this.get('titleShape') ? this.get('titleGap') : 0;
     const layout = this.get('layout');
     const itemsGroup = this.get('itemsGroup');
@@ -453,7 +460,7 @@ class Category extends Base {
 
     if (layout === 'vertical') { // 竖直布局
       Util.each(children, function(v) {
-        nextY += v.getBBox().height + itemGap;
+        nextY += v.getBBox().height + itemMarginBottom;
       });
     }
     return nextY;
@@ -470,7 +477,8 @@ class Category extends Base {
       value: item.name,
       checked: item.checked
     });
-    const textStyle = Util.mix(this.get('_defaultTextStyle'), item.textStyle);
+    // const textStyle = Util.mix(this.get('_defaultTextStyle'), item.textStyle);
+    const textStyle = this.get('textStyle');
     const wordSpace = this.get('_wordSpaceing');
     let startX = 0;
 
