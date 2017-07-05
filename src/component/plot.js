@@ -108,7 +108,6 @@ class PlotBack extends Group {
 
   _calculateRange() {
     const self = this;
-
     let plotRange = self.get('plotRange');
     if (Util.isNil(plotRange)) {
       plotRange = {};

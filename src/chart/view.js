@@ -35,7 +35,8 @@ class View extends Base {
       geoms: [],
       scales: {},
       options: {},
-      scaleController: null
+      scaleController: null,
+      parent: null
     };
   }
 
@@ -104,7 +105,7 @@ class View extends Base {
     this.set('guideController', guideController);
   }
 
-  _initPlot() {
+  _initViewPlot() {
     const canvas = this.get('canvas');
 
     // if (!this.get('viewContainer')) { // 用于 geom 的绘制
@@ -153,11 +154,55 @@ class View extends Base {
     });
   }
 
-  _createCoord() {
-    const coordController = this.get('coordController');
+  /**
+   * View 所在的范围
+   * @protected
+   * @return {Object} View 所在的范围
+   */
+  getViewRegion() {
+    const self = this;
+    const parent = self.get('parent');
+    let start;
+    let end;
+    if (parent) {
+      const region = parent.getViewRegion();
+      const viewRegion = self._getViewRegion(region.start, region.end);
+      start = viewRegion.start;
+      end = viewRegion.end;
+    } else {
+      start = self.get('start');
+      end = self.get('end');
+    }
+    return {
+      start,
+      end
+    };
+  }
+
+  // 获取 range 所在的范围
+  _getViewRegion(plotStart, plotEnd) {
     const start = this.get('start');
     const end = this.get('end');
-    const coord = coordController.createCoord(start, end);
+    const startPoint = {
+      x: start.x * (plotEnd.x - plotStart.x) + plotStart.x,
+      y: end.y * (plotEnd.y - plotStart.y) + plotStart.y
+
+    };
+    const endPoint = {
+      x: end.x * (plotEnd.x - plotStart.x) + plotStart.x,
+      y: start.y * (plotEnd.y - plotStart.y) + plotStart.y
+    };
+
+    return {
+      start: startPoint,
+      end: endPoint
+    };
+  }
+
+  _createCoord() {
+    const coordController = this.get('coordController');
+    const region = this.getViewRegion();
+    const coord = coordController.createCoord(region.start, region.end);
     this.set('coord', coord);
   }
 
@@ -320,6 +365,7 @@ class View extends Base {
     const container = this.get('viewContainer');
     container.clear();
     this._clearInner();
+    return this;
   }
 
   /**
@@ -346,13 +392,17 @@ class View extends Base {
   }
 
   render() {
-    this._initPlot();
-    this._initGeoms();
-    this.beforeDraw();
-    this._createCoord(); // draw geometry 前绘制区域可能会发生改变
-    this._drawGeoms();
-    this._renderGuides();
-    this._renderAxes();
+    const data = this.get('data');
+    if (data.length) {
+      this._initViewPlot();
+      this._initGeoms();
+      this.beforeDraw();
+      this._createCoord(); // draw geometry 前绘制区域可能会发生改变
+      this._drawGeoms();
+      this._renderGuides();
+      this._renderAxes();
+    }
+    return this;
   }
 
   destroy() {
