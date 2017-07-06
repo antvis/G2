@@ -251,51 +251,73 @@ const Theme = {
   legend: {
     right: {
       position: 'right',
-      back: null,
-      spacingX: 10,
-      spacingY: 12,
-      markerAlign: 'center',
-      width: 20,
-      height: 156,
+      layout: 'vertical',
+      background: null,
+      itemMarginBottom: 5, // layout 为 vertical 时各个图例项的间距
+      width: 16,
+      height: 100,
       title: {
         text: ' ',
         fill: '#333',
+        textBaseline: 'middle',
+        textAlign: 'start'
+      },
+      textStyle: {
+        fill: '#333',
+        fontSize: 12,
+        textAlign: 'start',
         textBaseline: 'middle'
-      }
+      } // 图例项文本的样式
     },
     left: {
       position: 'left',
-      back: null,
-      spacingX: 10,
-      spacingY: 12,
-      markerAlign: 'center',
-      width: 20,
-      height: 156,
+      layout: 'vertical',
+      background: null,
+      itemMarginBottom: 5,
+      width: 16,
+      height: 100,
       title: {
         text: ' ',
         fill: '#333',
+        textBaseline: 'middle',
+        textAlign: 'start'
+      },
+      textStyle: {
+        fill: '#333',
+        fontSize: 12,
+        textAlign: 'start',
         textBaseline: 'middle'
-      }
+      } // 图例项文本的样式
     },
     top: {
       position: 'top',
+      layout: 'horizontal',
       title: null,
-      back: null,
-      spacingX: 16,
-      spacingY: 10,
-      markerAlign: 'center',
-      width: 156,
-      height: 20
+      background: null,
+      itemGap: 10,
+      width: 100,
+      height: 16,
+      textStyle: {
+        fill: '#333',
+        fontSize: 12,
+        textAlign: 'start',
+        textBaseline: 'middle'
+      } // 图例项文本的样式
     },
     bottom: {
       position: 'bottom',
+      layout: 'horizontal',
       title: null,
-      back: null,
-      spacingX: 16,
-      spacingY: 10,
-      markerAlign: 'center',
-      width: 156,
-      height: 20
+      background: null,
+      itemGap: 10,
+      width: 100,
+      height: 16,
+      textStyle: {
+        fill: '#333',
+        fontSize: 12,
+        textAlign: 'start',
+        textBaseline: 'middle'
+      } // 图例项文本的样式
     }
   },
   tooltip: {

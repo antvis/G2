@@ -1,5 +1,6 @@
 const Util = require('../../util');
 const Continuous = require('./continuous');
+const CIRCLE_GAP = 8;
 
 class Size extends Continuous {
   getDefaultCfg() {
@@ -75,38 +76,14 @@ class Size extends Continuous {
 
   _renderBackground() {
     const self = this;
-    const width = this.get('width');
-    const height = this.get('height');
-    const min = this.get('firstItem').name * 1;
-    const max = this.get('lastItem').name * 1;
-    let GAP = 10; // 默认的圆之间的距离
-    let ratio = (3 * max + 3 * min + 2 * GAP) / height; // 实际高度和限制高度比
-
-    let maxRadius;
-    let medianRadius;
-    let minRadius;
-    GAP = ratio > 1 ? GAP / ratio : GAP * ratio;
-    if (ratio > 1) {
-      maxRadius = max / ratio;
-      medianRadius = (max + min) / (2 * ratio);
-      minRadius = min / ratio;
-    } else {
-      maxRadius = max * ratio;
-      medianRadius = ((max + min) / 2) * ratio;
-      minRadius = min * ratio;
-    }
-
-    if (2 * maxRadius > width) {
-      ratio = width / (2 * maxRadius);
-      maxRadius *= ratio;
-      medianRadius *= ratio;
-      minRadius *= ratio;
-      GAP *= ratio;
-    }
-
-    self._addCircle(maxRadius, maxRadius, maxRadius, max, 2 * maxRadius);
-    self._addCircle(maxRadius, maxRadius * 2 + GAP + medianRadius, medianRadius, (min + max) / 2, 2 * maxRadius);
-    self._addCircle(maxRadius, (maxRadius + GAP + medianRadius) * 2 + minRadius, minRadius, min, 2 * maxRadius);
+    // const width = this.get('width');
+    // const height = this.get('height');
+    const minRadius = this.get('firstItem').attrValue * 1;
+    const maxRadius = this.get('lastItem').attrValue * 1;
+    const medianRadius = (minRadius + maxRadius) / 2;
+    self._addCircle(maxRadius, maxRadius, maxRadius, medianRadius, 2 * maxRadius);
+    self._addCircle(maxRadius, maxRadius * 2 + CIRCLE_GAP + medianRadius, medianRadius, (minRadius + medianRadius) / 2, 2 * maxRadius);
+    self._addCircle(maxRadius, (maxRadius + CIRCLE_GAP + medianRadius) * 2 + minRadius, minRadius, minRadius, 2 * maxRadius);
   }
 }
 

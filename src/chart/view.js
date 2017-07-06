@@ -57,6 +57,10 @@ class View extends Base {
     if (!options.coord) {
       options.coord = {};
     }
+    if (!options.legends) {
+      options.legends = {};
+    }
+
     if (options.geoms && options.geoms.length) {
       Util.each(options.geoms, function(geomOption) {
         self._createGeom(geomOption);
@@ -108,11 +112,11 @@ class View extends Base {
   _initViewPlot() {
     const canvas = this.get('canvas');
 
-    // if (!this.get('viewContainer')) { // 用于 geom 的绘制
-    //   this.set('viewContainer', canvas.addGroup({
-    //     zIndex: 2
-    //   }));
-    // }
+    if (!this.get('viewContainer')) { // 用于 geom 的绘制
+      this.set('viewContainer', canvas.addGroup({
+        zIndex: 2
+      }));
+    }
 
     if (!this.get('backPlot')) { // 用于坐标轴以及部分 guide 绘制
       this.set('backPlot', canvas.addGroup({
@@ -232,14 +236,11 @@ class View extends Base {
     }
   }
 
-  getXScale() {
-    const geoms = this.get('geoms');
-    let xScale = null;
-    if (!Util.isEmpty(geoms)) {
-      xScale = geoms[0].getXScale();
-    }
-    return xScale;
-  }
+  /**
+   * @override
+   * 渲染图例
+   */
+  _renderLegends() {}
 
   _getScales(dimType) {
     const geoms = this.get('geoms');
@@ -251,6 +252,15 @@ class View extends Base {
       }
     });
     return result;
+  }
+
+  getXScale() {
+    const geoms = this.get('geoms');
+    let xScale = null;
+    if (!Util.isEmpty(geoms)) {
+      xScale = geoms[0].getXScale();
+    }
+    return xScale;
   }
 
   getYScales() {
@@ -393,7 +403,7 @@ class View extends Base {
 
   render() {
     const data = this.get('data');
-    if (data.length) {
+    if (!Util.isEmpty(data)) {
       this._initViewPlot();
       this._initGeoms();
       this.beforeDraw();
@@ -401,6 +411,7 @@ class View extends Base {
       this._drawGeoms();
       this._renderGuides();
       this._renderAxes();
+      this._renderLegends();
     }
     return this;
   }

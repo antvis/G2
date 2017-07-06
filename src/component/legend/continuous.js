@@ -47,7 +47,7 @@ class Continuous extends Base {
       textStyle: {
         fill: '#333',
         textAlign: 'center',
-        textBaseline: 'top'
+        textBaseline: 'middle'
       },
       /**
        * 连续图例是否可滑动
