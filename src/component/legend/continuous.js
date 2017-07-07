@@ -270,7 +270,7 @@ class Continuous extends Base {
     const maxTextElement = this.get('maxTextElement');
     minTextElement.attr('text', min);
     maxTextElement.attr('text', max);
-     if (this.get('type') === 'color-legend' && this.get('attr')) {
+    if (this.get('type') === 'color-legend' && this.get('attr')) {
       const attr = this.get('attr'); // 图形属性，为了更新滑块颜色
       const minButtonElement = this.get('minButtonElement');
       const maxButtonElement = this.get('maxButtonElement');

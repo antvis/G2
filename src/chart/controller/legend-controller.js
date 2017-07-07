@@ -26,6 +26,48 @@ class LegendController {
     this.legends = {};
   }
 
+  _getFilterVals(field, view, isSingeSelected) {
+    const filters = view.get('options').filters || {};
+    if (isSingeSelected) {
+      filters[field] = [];
+    }
+    return filters[field];
+  }
+
+  _bindEvent(legend, scale) {
+    const self = this;
+    const chart = self.chart;
+    const field = scale.field;
+    const views = chart.get('views');
+
+    const values = [];
+    const items = legend.get('items');
+    Util.each(items, item => {
+      values.push(item.value);
+    });
+
+    legend.on('legend:click', ev => {
+      /*const name = ev.item.value;
+      const isSingeSelected = self.selectedMode === 'single';
+      const filterVals = self._getFilterVals(field, chart, isSingeSelected);
+      filterVals.push(name);
+      // Util.each(views, function(view) {
+      //   self._addFilterVals(dim, dimValue, view, isSingeSelected);
+      // });
+      chart.repaint();*/
+
+      // TODO
+      // 选中和取消选中的逻辑都在这里
+      // const item = ev.item;
+      // const checked = item.checked;
+
+    });
+
+    legend.on('legend:hover', ev => {
+      // TODO
+    });
+  }
+
   _isFiltered(scale, values, value) {
     if (!scale.isCategory) {
       return true;
@@ -77,7 +119,7 @@ class LegendController {
       y = position === 'top' ? MARGIN : height - bbox.height - MARGIN;
 
       if (pre) {
-        x = pre.get('x') + pre.getBBBox().width + MARGIN_LEGEND;
+        x = pre.get('x') + pre.getBBox().width + MARGIN_LEGEND;
       }
     }
     legend.move(x + offsetX, y + offsetY);
@@ -157,6 +199,7 @@ class LegendController {
     }, legendOptions[field] || legendOptions, Global.legend[position]);
 
     const legend = container.addGroup(Legend.Category, legendCfg);
+    self._bindEvent(legend, scale);
     legends[position].push(legend);
     return legend;
   }

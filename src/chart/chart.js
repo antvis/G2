@@ -178,7 +178,7 @@ class Chart extends View {
 
   legend(field, cfg) {
     const options = this.get('options');
-    let legends;
+    let legends = {};
 
     if (Util.isBoolean(field)) {
       legends = (field === false) ? false : cfg;

@@ -111,7 +111,6 @@ describe('连续图例 - Color', function() {
   });
 
   it('垂直渐变图例，可筛选，不带标题', function() {
-
     const legend = canvas.addGroup(Color, {
       items,
       layout: 'vertical',

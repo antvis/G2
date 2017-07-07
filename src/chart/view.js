@@ -525,6 +525,16 @@ class View extends Base {
     return this;
   }
 
+  filter(field, remained) {
+    const options = this.get('options');
+    if (!options.filters) {
+      options.filters = {};
+    }
+    const filters = options.filters;
+    filters[field] = remained; // remained 保留的字段
+    return this;
+  }
+
   changeData(data) {
     this.set('data', data);
     this.repaint();
