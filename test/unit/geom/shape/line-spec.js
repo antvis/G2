@@ -349,5 +349,5 @@ describe('line shapes', function() {
       document.body.removeChild(div);
     });
   });
-  
+
 });
