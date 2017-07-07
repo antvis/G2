@@ -164,10 +164,10 @@ class Continuous extends Base {
 
     if (attrType === 'color-legend') {
       minBlockAttr = {
-        fill: min.color
+        fill: min.attrValue
       };
       maxBlockAttr = {
-        fill: max.color
+        fill: max.attrValue
       };
     } else {
       minBlockAttr = Util.mix({}, inRange);
@@ -270,13 +270,13 @@ class Continuous extends Base {
     const maxTextElement = this.get('maxTextElement');
     minTextElement.attr('text', min);
     maxTextElement.attr('text', max);
-    /* if (this.get('type') === 'color-legend') {
+     if (this.get('type') === 'color-legend' && this.get('attr')) {
       const attr = this.get('attr'); // 图形属性，为了更新滑块颜色
       const minButtonElement = this.get('minButtonElement');
       const maxButtonElement = this.get('maxButtonElement');
-      minButtonElement.attr('fill', attr.mappingValues(min).join(''));
-      maxButtonElement.attr('fill', attr.mappingValues(max).join(''));
-    } */
+      minButtonElement.attr('fill', attr.mapping(min).join(''));
+      maxButtonElement.attr('fill', attr.mapping(max).join(''));
+    }
   }
 }
 
