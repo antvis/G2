@@ -15,7 +15,7 @@ const canvas = new Canvas({
   height: 500
 });
 
-const scaleA = Scale.linear({
+let scaleA = Scale.linear({
   field: 'a',
   min: 0,
   max: 10
@@ -35,6 +35,11 @@ const scaleC = Scale.cat({
 const ScaleRed = Scale.identity({
   field: 'red',
   value: 'red'
+});
+
+const ScaleTen = Scale.identity({
+  field: '10',
+  value: 10
 });
 const coord = new Coord.Rect({
   start: {
@@ -411,7 +416,144 @@ describe('test geom line', function() {
   });
 
   it('destroy & reset', function() {
+    geom.destroy();
+    expect(geom.destroyed).equal(true);
+    canvas.draw();
+  });
+});
+/**/
+
+function equal(v1, v2) {
+  return Math.abs(v1 - v2) < 0.001;
+}
+describe('test geom interval', function() {
+  const data = [
+      { a: '1', b: 2, c: '1' },
+      { a: '2', b: 5, c: '1' },
+      { a: '3', b: 4, c: '1' },
+
+      { a: '1', b: 3, c: '2' },
+      { a: '2', b: 1, c: '2' },
+      { a: '3', b: 2, c: '2' }
+  ];
+
+  scaleA = Scale.cat({
+    field: 'a',
+    values: [ '1', '2', '3' ],
+    range: [ 0.2, 0.8 ]
+  });
+
+  const group = canvas.addGroup();
+  const geom = new Geom.Interval({
+    data,
+    coord,
+    container: group,
+    scales: { a: scaleA, b: scaleB, c: scaleC, red: ScaleRed, 10: ScaleTen }
+  });
+
+  it('draw interval', function() {
+    expect(geom.get('type')).eql('interval');
+    geom.position('a*b', 'dodge').color('c');
+
+    geom.init();
+    geom.paint();
+    expect(group.getCount()).equal(data.length);
+
+  });
+
+  it('size test dodge', function() {
+    const path = group.getFirst();
+    const arr = path.attr('path');
+    expect(arr.length).eql(6);
+    expect(equal(arr[2][1] - arr[0][1], (500 * 0.6) / 3 * 1 / 4)).equal(true);
+  });
+
+  it('size test no dodge', function() {
     geom.reset();
+    geom.position('a*b').color('c');
+    geom.set('data', [
+      { a: '1', b: 2, c: '1' },
+      { a: '2', b: 5, c: '1' },
+      { a: '3', b: 4, c: '1' }
+    ]);
+    geom.init();
+    geom.paint();
+
+    const path = group.getFirst();
+    const arr = path.attr('path');
+    expect(arr.length).eql(6);
+    // expect(arr[2][1] - arr[0][1]).equal(0);
+    expect(equal((arr[2][1] - arr[0][1]), (500 * 0.6) / 3 / 2)).equal(true);
+
+  });
+
+  it('custom size', function() {
+
+    geom.reset();
+    geom.position('a*b').color('c').size(10);
+    geom.set('data', [
+      { a: '1', b: 2, c: '1' },
+      { a: '2', b: 5, c: '1' },
+      { a: '3', b: 4, c: '1' }
+    ]);
+    geom.init();
+    geom.paint();
+
+    const path = group.getFirst();
+    const arr = path.attr('path');
+    expect(arr.length).eql(6);
+    expect(equal((arr[2][1] - arr[0][1]), 10)).equal(true);
+  });
+
+  it('polar coord, draw interval', function() {
+    const coord1 = new Coord.Polar({
+      start: {
+        x: 0,
+        y: 0
+      },
+      end: {
+        x: 500,
+        y: 500
+      }
+    });
+    scaleA.range = [ 1 / 6, 1 - 1 / 6 ];
+    geom.set('coord', coord1);
+    geom.reset();
+    geom.position('a*b');
+
+    geom.init();
+    geom.paint();
+
+    const path = group.getFirst();
+    const points = path.get('origin').points;
+    expect(path.attr('path').length).eql(5);
+    expect(points[2].x - points[0].x).equal(1 / 3);
+
+
+  });
+
+  it('polar coord dodge size', function() {
+    scaleA.range = [ 0, 1 - 1 / 3 ];
+    geom.reset();
+    geom.set('data', data);
+    geom.position('a*b', 'dodge').color('c');
+    geom.init();
+    geom.paint();
+    expect(group.getCount()).equal(6);
+    canvas.draw();
+  });
+
+  it('ploar transpose', function() {
+    scaleA.range = [ 0, 1 - 1 / 6 ];
+    geom.get('coord').isTransposed = true;
+    geom.reset();
+    geom.position('a*b', 'dodge').color('c');
+    geom.init();
+    geom.paint();
+    canvas.draw();
+  });
+
+  it('destroy', function() {
     canvas.destroy();
     document.body.removeChild(div);
   });
