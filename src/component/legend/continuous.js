@@ -247,20 +247,20 @@ class Continuous extends Base {
   }
 
   _bindUI() {
-    if (this.get('slidable')) {
-      const self = this;
+    const self = this;
+    if (self.get('slidable')) {
       const canvas = self.get('canvas');
       const slider = self.get('slider');
       slider.on('sliderchange', function(ev) {
         const range = ev.range;
         const firstItemValue = self.get('firstItem').name * 1;
         const lastItemValue = self.get('lastItem').name * 1;
-        const minValue = firstItemValue + (range[0] / 100) * (lastItemValue - firstItemValue) + '';
-        const maxValue = firstItemValue + (range[1] / 100) * (lastItemValue - firstItemValue) + '';
+        const minValue = firstItemValue + (range[0] / 100) * (lastItemValue - firstItemValue);
+        const maxValue = firstItemValue + (range[1] / 100) * (lastItemValue - firstItemValue);
         self._updateElement(minValue, maxValue);
         const itemFiltered = new Event('legend:filter', ev);
         itemFiltered.range = [ minValue, maxValue ];
-        canvas.trigger('legend:filter', [ itemFiltered ]);
+        self.trigger('legend:filter', [ itemFiltered ]);
       });
     }
   }
@@ -268,8 +268,8 @@ class Continuous extends Base {
   _updateElement(min, max) {
     const minTextElement = this.get('minTextElement');
     const maxTextElement = this.get('maxTextElement');
-    minTextElement.attr('text', min);
-    maxTextElement.attr('text', max);
+    minTextElement.attr('text', min + '');
+    maxTextElement.attr('text', max + '');
     if (this.get('type') === 'color-legend' && this.get('attr')) {
       const attr = this.get('attr'); // 图形属性，为了更新滑块颜色
       const minButtonElement = this.get('minButtonElement');

@@ -223,7 +223,6 @@ class Category extends Base {
         const itemsGroup = this.get('itemsGroup');
         const children = itemsGroup.get('children');
         Util.each(children, child => {
-          // TODO：如果外部传入初始状态，则不需要此操作
           if (child !== clickedItem) {
             child.set('checked', false);
             child.get('children')[0].attr('fill', unCheckColor);
@@ -325,7 +324,6 @@ class Category extends Base {
 
         if (mode === 'single') { // 单选模式
           // 其他图例项全部置灰
-          // TODO：如果外部传入初始状态，则不需要此操作
           Util.each(childNodes, child => {
             if (child !== parentDom) {
               const childTextDom = findNodeByClass(child, 'g-legend-text');

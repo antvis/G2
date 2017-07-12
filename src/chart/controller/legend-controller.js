@@ -47,24 +47,33 @@ class LegendController {
     });
 
     legend.on('legend:click', ev => {
-      /*const name = ev.item.value;
-      const isSingeSelected = self.selectedMode === 'single';
-      const filterVals = self._getFilterVals(field, chart, isSingeSelected);
-      filterVals.push(name);
-      // Util.each(views, function(view) {
-      //   self._addFilterVals(dim, dimValue, view, isSingeSelected);
-      // });
-      chart.repaint();*/
+      const item = ev.item;
+      const isSingeSelected = legend.get('selectedMode') === 'single';
+      let filterVals = self._getFilterVals(field, chart, isSingeSelected);
 
+      if (!filterVals) {
+        filterVals = scale.values.slice(0);
+      }
+
+      if (ev.checked) {
+        filterVals.push(item.value);
+      } else {
+        Util.Array.remove(filterVals, item.value);
+      }
+
+      chart.filter(scale.field, filterVals);
       // TODO
-      // 选中和取消选中的逻辑都在这里
-      // const item = ev.item;
-      // const checked = item.checked;
-
+      // chart.repaint();
     });
 
     legend.on('legend:hover', ev => {
       // TODO
+    });
+  }
+
+  _bindFilterEvent(legend, scale) {
+    legend.on('legend:filter', ev => {
+      console.log(ev.range);
     });
   }
 
@@ -263,7 +272,7 @@ class LegendController {
     } else if (attr.type === 'size') {
       legend = container.addGroup(Legend.Size, legendCfg);
     }
-
+    self._bindFilterEvent(legend, scale);
     legends[position].push(legend);
     return legend;
   }
