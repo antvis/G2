@@ -51,7 +51,7 @@ describe.skip('分类图例', function() {
     expect(legend.getCount()).to.equal(2);
     expect(legendItemsGroup.getCount()).to.equal(5);
     expect(legend._wrap__onClick).to.be.an.instanceof(Function);
-    expect(legend._wrap__onMousemove).to.be.an.instanceof(Function);
+    // expect(legend._wrap__onMousemove).to.be.an.instanceof(Function);
 
     // 点击事件测试1：不允许全部取消选中并且当前只有一个图例项被选中
     const targetItem = legendItemsGroup.get('children')[2];
@@ -115,25 +115,6 @@ describe.skip('分类图例', function() {
     canvas.draw();
     expect(legend._wrap__onClick).to.be.undefined;
     expect(legend._wrap__onMousemove).to.be.an.instanceof(Function);
-
-    const legendItemsGroup = legend.get('children')[0];
-    const targetItem = legendItemsGroup.get('children')[2];
-    const event1 = new Event('mousemove', {
-      clientX: 224,
-      clientY: 239
-    }, true, true);
-    event1.currentTarget = targetItem.get('children')[0];
-    legend.trigger('mousemove', [ event1 ]);
-    const node = canvas.get('el');
-    expect(node.style.cursor).to.equal('pointer');
-
-    const event2 = new Event('mousemove', {
-      clientX: 0,
-      clientY: 0
-    }, true, true);
-    event2.currentTarget = targetItem;
-    legend.trigger('mousemove', [ event2 ]);
-    expect(node.style.cursor).to.equal('default');
   });
 
   it('默认，只可单次点击。', function() {

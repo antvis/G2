@@ -172,7 +172,6 @@ class Category extends Base {
   }
 
   _bindUI() {
-    // const canvas = this.get('canvas');
     this.on('mousemove', Util.wrapBehavior(this, '_onMousemove'));
     if (this.get('clickable')) {
       this.on('click', Util.wrapBehavior(this, '_onClick'));
@@ -193,18 +192,10 @@ class Category extends Base {
     const canvasNode = canvas.get('el');
 
     if (item) {
-      DomUtil.modiCSS(canvasNode, {
-        cursor: 'pointer'
-      });
-
       const itemhover = new Event('legend:hover', ev);
       itemhover.item = item;
       itemhover.checked = item.get('checked');
-      this.trigger('legend:hover', [ itemhover ]); // TODO: 到底是 canvas 还是 legend 对象抛出事件?
-    } else {
-      DomUtil.modiCSS(canvasNode, {
-        cursor: 'default'
-      });
+      this.trigger('legend:hover', [ itemhover ]);
     }
 
     return;
@@ -477,7 +468,7 @@ class Category extends Base {
       value: item.name,
       checked: item.checked
     });
-    // const textStyle = Util.mix(this.get('_defaultTextStyle'), item.textStyle);
+
     const textStyle = this.get('textStyle');
     const wordSpace = this.get('_wordSpaceing');
     let startX = 0;
@@ -496,6 +487,7 @@ class Category extends Base {
         type: 'marker',
         attrs: markerAttrs
       });
+      markerShape.set('cursor', 'pointer');
       startX += markerShape.getBBox().width + wordSpace;
     }
 
@@ -507,14 +499,16 @@ class Category extends Base {
     if (!item.checked) {
       Util.mix(textAttrs, unCheckStyle);
     }
-    itemGroup.addShape('text', {
+
+    const textShape = itemGroup.addShape('text', {
       attrs: textAttrs
     });
+    textShape.set('cursor', 'pointer');
 
     // 添加一个包围矩形，用于事件支持
     const bbox = itemGroup.getBBox();
     const itemWidth = this.get('itemWidth');
-    itemGroup.addShape('rect', {
+    const wrapperShape = itemGroup.addShape('rect', {
       attrs: {
         x,
         y: y - bbox.height / 2,
@@ -524,6 +518,8 @@ class Category extends Base {
         height: bbox.height
       }
     });
+    wrapperShape.set('cursor', 'pointer');
+
     itemGroup.name = 'legend-item';
     return itemGroup;
   }
