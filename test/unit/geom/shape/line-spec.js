@@ -302,46 +302,52 @@ describe('line shapes', function() {
       expect(shape.attr('path')[2].length).eql(3);
       expect(shape.attr('path')[3].length).eql(3);
     });
-  });
-  it('hv vh hvh vhv getMarkerCfg', function() {
-    const point = {
-      size: 30,
-      yDim: 'berlin',
-      coord
-    };
+    it('hv vh hvh vhv getMarkerCfg', function() {
+      const point = {
+        size: 30,
+        yDim: 'berlin',
+        coord
+      };
 
-    const pointCfg = Line.getMarkerCfg('hv', point);
-    const vhPointCfg = Line.getMarkerCfg('vh', point);
-    const hvhPointCfg = Line.getMarkerCfg('hvh', point);
-    const vhvPointCfg = Line.getMarkerCfg('vhv', point);
+      const pointCfg = Line.getMarkerCfg('hv', point);
+      const vhPointCfg = Line.getMarkerCfg('vh', point);
+      const hvhPointCfg = Line.getMarkerCfg('hvh', point);
+      const vhvPointCfg = Line.getMarkerCfg('vhv', point);
 
-    expect(pointCfg.symbol(2, 2, 2)).eql([
-      [ 'M', 0, 0 ],
-      [ 'L', 2, 0 ],
-      [ 'L', 2, 2 ],
-      [ 'L', 4, 2 ]
-    ]);
-    expect(vhPointCfg.symbol(2, 2, 2)).eql([
-      [ 'M', 0, 2 ],
-      [ 'L', 2, 2 ],
-      [ 'L', 2, 0 ],
-      [ 'L', 4, 0 ]
-    ]);
-    expect(hvhPointCfg.symbol(2, 2, 2)).eql([
-      [ 'M', -1, 2 ],
-      [ 'L', 1, 2 ],
-      [ 'L', 1, 1 ],
-      [ 'L', 3, 1 ],
-      [ 'L', 3, 2 ],
-      [ 'L', 5, 2 ]
-    ]);
-    expect(vhvPointCfg.symbol(2, 2, 2)).eql([
-      [ 'M', 0, 2 ],
-      [ 'L', 0, 1 ],
-      [ 'L', 2, 1 ],
-      [ 'L', 2, 0 ],
-      [ 'L', 2, 3 ],
-      [ 'L', 4, 3 ]
-    ]);
+      expect(pointCfg.symbol(2, 2, 2)).eql([
+        [ 'M', 0, 0 ],
+        [ 'L', 2, 0 ],
+        [ 'L', 2, 2 ],
+        [ 'L', 4, 2 ]
+      ]);
+      expect(vhPointCfg.symbol(2, 2, 2)).eql([
+        [ 'M', 0, 2 ],
+        [ 'L', 2, 2 ],
+        [ 'L', 2, 0 ],
+        [ 'L', 4, 0 ]
+      ]);
+      expect(hvhPointCfg.symbol(2, 2, 2)).eql([
+        [ 'M', -1, 2 ],
+        [ 'L', 1, 2 ],
+        [ 'L', 1, 1 ],
+        [ 'L', 3, 1 ],
+        [ 'L', 3, 2 ],
+        [ 'L', 5, 2 ]
+      ]);
+      expect(vhvPointCfg.symbol(2, 2, 2)).eql([
+        [ 'M', 0, 2 ],
+        [ 'L', 0, 1 ],
+        [ 'L', 2, 1 ],
+        [ 'L', 2, 0 ],
+        [ 'L', 2, 3 ],
+        [ 'L', 4, 3 ]
+      ]);
+    });
+
+    it('clear', function() {
+      canvas.destroy();
+      document.body.removeChild(div);
+    });
   });
+
 });

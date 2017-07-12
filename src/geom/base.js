@@ -265,6 +265,11 @@ class GeomBase extends Base {
     return rst;
   }
 
+  isInCircle() {
+    const coord = this.get('coord');
+    return coord && coord.isPolar;
+  }
+
   init() {
     this._initAttrs();
     const dataArray = this._processData();
@@ -600,6 +605,16 @@ class GeomBase extends Base {
     return values;
   }
 
+  getAttrValue(attrName, record) {
+    const attr = this.getAttr(attrName);
+    let rst = null;
+    if (attr) {
+      const values = this._getAttrValues(attr, record);
+      rst = values[0];
+    }
+    return rst;
+  }
+
   /**
    * step 3.3 draw
    * @protected
@@ -642,6 +657,7 @@ class GeomBase extends Base {
       color: obj.color,
       size: obj.size,
       shape: obj.shape,
+      isInCircle: self.isInCircle(),
       opacity: obj.opacity
     };
     const styleOptions = self.get('styleOptions');

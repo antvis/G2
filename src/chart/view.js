@@ -340,10 +340,12 @@ class View extends Base {
     } else {
       scaleDefs[field] = cfg;
     }
+    return this;
   }
 
   source(data) {
     this.set('data', data);
+    return this;
   }
 
   changeData(data) {
@@ -354,11 +356,13 @@ class View extends Base {
       geom.clear();
     });
     this.render();
+    return this;
   }
 
   changeOptions(options) {
     this.set('options', options);
     this._initOptions(options);
+    return this;
   }
 
   _clearInner() {
