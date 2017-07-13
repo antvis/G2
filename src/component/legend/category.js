@@ -119,17 +119,17 @@ class Category extends Base {
        * 使用html时的外层模板
        * @type {String}
        */
-      containerTpl: '<div class="g-legend" style="position:absolute;top:20px;right:60px;">' +
-        '<h4 class="g-legend-title"></h4>' +
-        '<ul class="g-legend-itemlist" style="list-style-type:none;margin:0;padding:0;"></ul>' +
+      containerTpl: '<div class="g2-legend" style="position:absolute;top:20px;right:60px;">' +
+        '<h4 class="g2-legend-title"></h4>' +
+        '<ul class="g2-legend-itemlist" style="list-style-type:none;margin:0;padding:0;"></ul>' +
         '</div>',
       /**
        * 默认的图例项 html 模板
        * @type {String}
        */
-      _defaultItemTpl: '<li class="g-legend-item item-${ index } ${ checked }" data-color="${ originColor }" data-value="${ originValue }" style="cursor: pointer;">' +
-        '<i class="g-legend-marker" style="width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:10px;background-color: ${ color };"></i>' +
-        '<span class="g-legend-text">${ value }</span></li>',
+      _defaultItemTpl: '<li class="g2-legend-item item-${ index } ${ checked }" data-color="${ originColor }" data-value="${ originValue }" style="cursor: pointer;">' +
+        '<i class="g2-legend-marker" style="width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:10px;background-color: ${ color };"></i>' +
+        '<span class="g2-legend-text">${ value }</span></li>',
       /**
        * 用户设置的图例项 html 模板
        * @type {String|Function}
@@ -187,9 +187,8 @@ class Category extends Base {
   }
 
   _onMousemove(ev) {
-    const canvas = this.get('canvas');
+    // const canvas = this.get('canvas');
     const item = this._getLegendItem(ev.currentTarget);
-    const canvasNode = canvas.get('el');
 
     if (item) {
       const itemhover = new Event('legend:hover', ev);
@@ -251,8 +250,8 @@ class Category extends Base {
     const title = this.get('title');
     const containerTpl = self.get('containerTpl');
     const legendWrapper = DomUtil.createDom(containerTpl);
-    const titleDom = findNodeByClass(legendWrapper, 'g-legend-title');
-    const itemListDom = findNodeByClass(legendWrapper, 'g-legend-itemlist');
+    const titleDom = findNodeByClass(legendWrapper, 'g2-legend-title');
+    const itemListDom = findNodeByClass(legendWrapper, 'g2-legend-itemlist');
     const unCheckedColor = self.get('unCheckStyle').fill;
     const mode = self.get('selectedMode');
 
@@ -288,7 +287,7 @@ class Category extends Base {
         originValue: item.name
       });
       const itemDom = DomUtil.createDom(itemDiv);
-      const textDom = findNodeByClass(itemDom, 'g-legend-text');
+      const textDom = findNodeByClass(itemDom, 'g2-legend-text');
       if (!checked) {
         textDom.style.color = unCheckedColor;
       }
@@ -316,8 +315,8 @@ class Category extends Base {
         } else {
           parentDom = target.parentNode;
         }
-        const textDom = findNodeByClass(parentDom, 'g-legend-text');
-        const markerDom = findNodeByClass(parentDom, 'g-legend-marker');
+        const textDom = findNodeByClass(parentDom, 'g2-legend-text');
+        const markerDom = findNodeByClass(parentDom, 'g2-legend-marker');
         const clickedItem = findItem(items, parentDom.getAttribute('data-value'));
         const domClass = parentDom.className;
         const originColor = parentDom.getAttribute('data-color');
@@ -326,8 +325,8 @@ class Category extends Base {
           // 其他图例项全部置灰
           Util.each(childNodes, child => {
             if (child !== parentDom) {
-              const childTextDom = findNodeByClass(child, 'g-legend-text');
-              const childMarkerDom = findNodeByClass(child, 'g-legend-marker');
+              const childTextDom = findNodeByClass(child, 'g2-legend-text');
+              const childMarkerDom = findNodeByClass(child, 'g2-legend-marker');
               childTextDom.style.color = unCheckedColor;
               childMarkerDom.style.backgroundColor = unCheckedColor;
               child.className = Util.replace(child.className, 'checked', 'unChecked');

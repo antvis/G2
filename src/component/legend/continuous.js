@@ -249,7 +249,7 @@ class Continuous extends Base {
   _bindUI() {
     const self = this;
     if (self.get('slidable')) {
-      const canvas = self.get('canvas');
+      // const canvas = self.get('canvas');
       const slider = self.get('slider');
       slider.on('sliderchange', function(ev) {
         const range = ev.range;
