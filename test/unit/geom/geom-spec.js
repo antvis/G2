@@ -638,7 +638,7 @@ describe('test geom area', function() {
   it('geom destroy', function() {
     geom.destroy();
     expect(geom.destroyed).equal(true);
-  })
+  });
 
   it('final destroy', function() {
     canvas.destroy();
