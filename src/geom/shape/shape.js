@@ -18,11 +18,11 @@ const ShapeBase = {
 
   },
   /**
-   * 获取绘制图形需要的点
-   */
-  getPoints(/* cfg */) {
+   获取绘制图形需要的点, 可以不定义，则使用默认的
+  getPoints() {
 
   },
+  */
   getMarkerCfg(/* cfg */) {
 
   },
@@ -89,7 +89,16 @@ const ShapeFactoryBase = {
   },
   getShapePoints(type, cfg) {
     const shape = this.getShape(type);
-    return shape.getPoints(cfg);
+    let points;
+    if (shape.getPoints) {
+      points = shape.getPoints(cfg);
+    } else {
+      points = this.getDefaultPoints(cfg);
+    }
+    return points;
+  },
+  getDefaultPoints(/* cfg */) {
+    return [];
   },
   getMarkerCfg(type, cfg) {
     const shape = this.getShape(type);

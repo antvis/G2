@@ -100,7 +100,7 @@ const Point = Shape.registerFactory('point', {
     }
     return activeCfg;
   },
-  getShapePoints(type, pointInfo) {
+  getDefaultPoints(pointInfo) {
     return ShapeUtil.splitPoints(pointInfo);
   }
 });

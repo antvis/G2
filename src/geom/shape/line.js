@@ -144,7 +144,7 @@ const Line = Shape.registerFactory('line', {
     return Global.activeShape.line;
   },
   // 计算点 如果存在多个点，分割成单个的点, 不考虑多个x对应一个y的情况
-  getShapePoints(type, pointInfo) {
+  getDefaultPoints(pointInfo) {
     return ShapeUtil.splitPoints(pointInfo);
   },
   drawShape(type, cfg, container) {

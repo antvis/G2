@@ -42,6 +42,7 @@ const Util = {
   merge: require('lodash/merge'),
   filter: require('lodash/filter'),
   defaultsDeep: require('lodash/defaultsDeep'),
+  isEqualWith: require('lodash/isEqualWith'),
   replace: require('lodash/replace'),
   fixedBase(v, base) {
     const str = base.toString();

@@ -639,10 +639,53 @@ describe('test geom area', function() {
     geom.destroy();
     expect(geom.destroyed).equal(true);
   });
+});
+
+describe('test polygon', function() {
+
+  const data = [
+      { x: [ 1, 2, 2, 1 ], y: [ 0, 0, 2, 1 ] },
+      { x: [ 4, 3, 4, 2 ], y: [ 0, 0, 2, 4 ] }
+  ];
+  const scaleX = Scale.linear({
+    field: 'x',
+    min: 0,
+    max: 5
+  });
+  const scaleY = Scale.linear({
+    field: 'y',
+    min: 0,
+    max: 5
+  });
+  const group = canvas.addGroup();
+
+  const geom = new Geom.Polygon({
+    data,
+    coord,
+    container: group,
+    scales: { x: scaleX, y: scaleY }
+  });
+
+  it('test init', () => {
+    expect(geom.get('type')).equal('polygon');
+    expect(geom.get('generatePoints')).equal(true);
+  });
+
+  it('draw', function() {
+    geom.position('x*y');
+    geom.init();
+    geom.paint();
+    expect(group.getCount()).equal(2);
+    canvas.draw();
+  });
+
+  it('destroy', function() {
+    geom.destroy();
+    expect(geom.destroyed).equal(true);
+  });
 
   it('final destroy', function() {
     canvas.destroy();
     document.body.removeChild(div);
   });
-
 });
