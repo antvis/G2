@@ -1,6 +1,6 @@
 {
   "name": "g2",
-  "version": "2.3.5",
+  "version": "2.3.6",
   "description": "An implementation of the Grammar of Graphics in javascript",
   "keywords": [
     "g2",

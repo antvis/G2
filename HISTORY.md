@@ -2,6 +2,13 @@
 
 ---
 
+## 2.3.6
+
+- fix: 修复混合图例筛选问题
+- fix: 修复连续型数据，设置了 min max 导致 size 运算不准确的问题
+- feat: `chart.downloadImage(name)` 支持仅返回文件对象不触发浏览器的下载动作
+- feat: 分面 Facet 支持 Guide 辅助元素的绘制
+
 ## 2.3.5
 
 - fix: 修复框选部分区域不生效的问题
