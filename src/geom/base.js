@@ -664,6 +664,9 @@ class GeomBase extends Base {
     if (styleOptions && styleOptions.style) {
       cfg.style = self.getCallbackCfg(styleOptions.fields, styleOptions.style, obj[FIELD_ORIGIN]);
     }
+    if (this.get('generatePoints')) {
+      cfg.points = obj.points;
+    }
     return cfg;
   }
 

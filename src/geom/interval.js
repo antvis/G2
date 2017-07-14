@@ -32,11 +32,6 @@ class Interval extends GeomBase {
     return cfg;
   }
 
-  getDrawCfg(obj) {
-    const cfg = super.getDrawCfg(obj);
-    cfg.points = obj.points;
-    return cfg;
-  }
   reset() {
     super.reset();
     this.set('defaultSize', null);
