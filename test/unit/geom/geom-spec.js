@@ -683,9 +683,104 @@ describe('test polygon', function() {
     geom.destroy();
     expect(geom.destroyed).equal(true);
   });
+});
 
-  it('final destroy', function() {
-    canvas.destroy();
-    document.body.removeChild(div);
+describe('test schema', function() {
+  const scaleX = Scale.linear({
+    field: 'x',
+    min: 0,
+    values: [ 0, 1, 2, 3, 4, 5 ],
+    max: 10
+  });
+  const scaleY = Scale.linear({
+    field: 'y',
+    min: 0,
+    max: 5
+  });
+
+  const scaleBox = Scale.identity({
+    field: 'box',
+    value: 'box'
+  });
+
+  const scaleCandle = Scale.identity({
+    field: 'candle',
+    value: 'candle'
+  });
+
+  const group = canvas.addGroup();
+
+  describe('test box', function() {
+    const data = [
+      { x: 1, y: [ 0, 1, 2, 3, 4 ] },
+      { x: 2, y: [ 1, 2, 3, 4 ] },
+      { x: 3, y: [ 0, 4 ] }
+    ];
+
+    const geom = new Geom.Schema({
+      data,
+      coord,
+      container: group,
+      scales: { x: scaleX, y: scaleY, box: scaleBox }
+    });
+
+    it('init', function() {
+      geom.position('x*y').shape('box');
+      expect(geom.get('type')).equal('schema');
+    });
+
+    it('draw', function() {
+      geom.init();
+      expect(geom.getSize()).equal(1 / 10 / 2);
+      geom.paint();
+
+      expect(group.getCount()).equal(3);
+      canvas.draw();
+    });
+
+    it('destroy', function() {
+      geom.destroy();
+      expect(geom.destroyed).equal(true);
+    });
+
+  });
+
+  describe('test candle', function() {
+    const data = [
+      { x: 1, y: [ 0, 1, 2, 3 ] },
+      { x: 2, y: [ 1, 2, 3, 4 ] },
+      { x: 3, y: [ 0, 4 ] }
+    ];
+
+    const geom = new Geom.Schema({
+      data,
+      coord,
+      container: group,
+      scales: { x: scaleX, y: scaleY, candle: scaleCandle }
+    });
+
+    it('init', function() {
+      geom.position('x*y').shape('candle');
+      expect(geom.get('type')).equal('schema');
+    });
+
+    it('draw', function() {
+      geom.init();
+      expect(geom.getSize()).equal(1 / 10 / 2);
+      geom.paint();
+
+      expect(group.getCount()).equal(3);
+      canvas.draw();
+    });
+
+    it('destroy', function() {
+      geom.destroy();
+      expect(geom.destroyed).equal(true);
+    });
+
+    it('final destroy', function() {
+      canvas.destroy();
+      document.body.removeChild(div);
+    });
   });
 });
