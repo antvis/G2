@@ -553,8 +553,96 @@ describe('test geom interval', function() {
     canvas.draw();
   });
 
-  it('destroy', function() {
+  it('geom destroy', () => {
+    geom.destroy();
+    canvas.draw();
+    expect(geom.destroyed).equal(true);
+  });
+
+});
+
+describe('test geom area', function() {
+  const data = [
+      { a: '1', b: 2, c: '1' },
+      { a: '2', b: 5, c: '1' },
+      { a: '3', b: 4, c: '1' },
+
+      { a: '1', b: 3, c: '2' },
+      { a: '2', b: 1, c: '2' },
+      { a: '3', b: 2, c: '2' }
+  ];
+  const group = canvas.addGroup();
+  let geom;
+  it('create area', function() {
+    scaleA = Scale.cat({
+      field: 'a',
+      values: [ '1', '2', '3' ],
+      range: [ 0.2, 0.8 ]
+    });
+    geom = new Geom.Area({
+      data,
+      coord,
+      container: group,
+      scales: { a: scaleA, b: scaleB, c: scaleC, red: ScaleRed, 10: ScaleTen }
+    });
+
+    expect(geom.get('type')).equal('area');
+    expect(geom.get('shapeType')).equal('area');
+  });
+
+  it('draw area', function() {
+    geom.position('a*b').color('c');
+    geom.init();
+    geom.paint();
+    expect(group.getCount()).equal(2);
+    canvas.draw();
+  });
+
+  it('draw range area', function() {
+    const data = [
+      { a: '1', b: [ 2, 3 ], c: '1' },
+      { a: '2', b: [ 3, 5 ], c: '1' },
+      { a: '3', b: [ 0, 4 ], c: '1' }
+    ];
+    geom.reset();
+    geom.set('data', data);
+    geom.position('a*b').color('c');
+    geom.init();
+    geom.paint();
+    expect(group.getCount()).equal(1);
+    expect(group.getFirst().attr('path').length).equal(7);
+    canvas.draw();
+  });
+
+  it('draw area in polar', function() {
+    const coord1 = new Coord.Polar({
+      start: {
+        x: 0,
+        y: 0
+      },
+      end: {
+        x: 500,
+        y: 500
+      }
+    });
+    geom.reset();
+    geom.set('coord', coord1);
+    geom.position('a*b').color('c');
+    geom.init();
+    geom.paint();
+    expect(group.getCount()).equal(1);
+    expect(group.getFirst().attr('path').length).equal(9);
+    canvas.draw();
+  });
+
+  it('geom destroy', function() {
+    geom.destroy();
+    expect(geom.destroyed).equal(true);
+  });
+
+  it('final destroy', function() {
     canvas.destroy();
     document.body.removeChild(div);
   });
+
 });
