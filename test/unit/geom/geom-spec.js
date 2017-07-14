@@ -778,9 +778,66 @@ describe('test schema', function() {
       expect(geom.destroyed).equal(true);
     });
 
-    it('final destroy', function() {
-      canvas.destroy();
-      document.body.removeChild(div);
-    });
+
   });
+});
+
+describe('test edge', function() {
+  const scaleX = Scale.linear({
+    field: 'x',
+    min: 0,
+    max: 5
+  });
+  const scaleY = Scale.linear({
+    field: 'y',
+    min: 0,
+    max: 5
+  });
+  const scaleVh = Scale.identity({
+    field: 'vhv',
+    value: 'vhv'
+  });
+
+  const data = [
+    { x: [ 1, 2 ], y: [ 3, 4 ] },
+    { x: [ 2, 3 ], y: [ 1, 5 ] }
+  ];
+
+  const group = canvas.addGroup();
+  const geom = new Geom.Edge({
+    data,
+    coord,
+    container: group,
+    scales: { x: scaleX, y: scaleY, vhv: scaleVh, red: ScaleRed }
+  });
+
+  it('init', function() {
+    expect(geom.get('type')).equal('edge');
+  });
+
+  it('draw  two point', function() {
+    geom.position('x*y').color('red');
+    geom.init();
+    geom.paint();
+    expect(group.getCount()).equal(2);
+    expect(group.getFirst().attr('path').length).equal(2);
+    canvas.draw();
+  });
+
+  it('draw vhv', function() {
+    geom.reset();
+    geom.position('x*y').shape('vhv');
+    geom.init();
+    geom.paint();
+    expect(group.getCount()).equal(2);
+    console.log(group.getFirst().attr('path'));
+    expect(group.getFirst().attr('path').length).equal(4);
+    canvas.draw();
+  });
+
+  xit('final destroy', function() {
+    canvas.destroy();
+    document.body.removeChild(div);
+  });
+
 });

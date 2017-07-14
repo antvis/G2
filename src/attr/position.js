@@ -30,11 +30,9 @@ class Position extends Base {
       rstX = [];
       rstY = [];
       for (let i = 0, j = 0; i < x.length && j < y.length; i++, j++) {
-        x[i] = scaleX.scale(x[i]);
-        y[j] = scaleY.scale(y[j]);
         obj = coord.convertPoint({
-          x: x[i],
-          y: y[j]
+          x: scaleX.scale(x[i]),
+          y: scaleY.scale(y[j])
         });
         rstX.push(obj.x);
         rstY.push(obj.y);
