@@ -77,7 +77,7 @@ describe('edge shape test', function() {
         color: 'red'
       }, canvas);
       expect(shape.attr('path').length).equal(4);
-      
+
     });
 
     it('draw shape arc rect', function() {
@@ -110,7 +110,7 @@ describe('edge shape test', function() {
         color: 'green'
       }, canvas);
       expect(shape.attr('path').length).equal(7);
-      
+
       canvas.draw();
     });
 
