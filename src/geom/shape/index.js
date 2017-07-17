@@ -4,5 +4,7 @@ require('./line');
 require('./interval');
 require('./area');
 require('./polygon');
+require('./edge');
+require('./schema');
 
 module.exports = Shape;
