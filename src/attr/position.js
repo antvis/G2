@@ -23,7 +23,7 @@ class Position extends Base {
     let rstX;
     let rstY;
     let obj;
-    if (!x || !y) {
+    if (Util.isNil(x) || Util.isNil(y)) {
       return null;
     }
     if (Util.isArray(y) && Util.isArray(x)) {
