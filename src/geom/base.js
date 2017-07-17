@@ -460,11 +460,14 @@ class GeomBase extends Base {
   paint() {
     const self = this;
     const dataArray = self.get('dataArray');
+    const mappedArray = [];
     Util.each(dataArray, function(data) {
       self._beforeMapping(data);
       data = self._mapping(data);
+      mappedArray.push(data);
       self.draw(data);
     });
+    self.set('dataArray', mappedArray);
   }
 
   // step 3.1 before mapping
