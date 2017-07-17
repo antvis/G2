@@ -208,5 +208,8 @@ describe('attr test position', () => {
     const rst = position.mapping([ 'b', 'c', 'd' ], [ 4, 6, 10 ]);
     expect(rst).eqls([[ 25, 50, 75 ], [ 80, 120, 200 ]]);
   });
-
+  it('mapping x, y 0', function() {
+    const rst = position.mapping('a', 0);
+    expect(rst).eqls([ 0, 0 ]);
+  });
 });

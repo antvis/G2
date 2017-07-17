@@ -350,13 +350,17 @@ class View extends Base {
 
   changeData(data) {
     this.set('data', data);
+    this.repaint();
+    return this;
+  }
+
+  repaint() {
     this._clearInner();
     const geoms = this.get('geoms');
     Util.each(geoms, function(geom) {
       geom.clear();
     });
     this.render();
-    return this;
   }
 
   changeOptions(options) {
