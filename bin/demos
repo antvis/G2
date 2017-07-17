@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+$(npm bin)/electron ./demos/app.js
