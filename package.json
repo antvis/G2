@@ -14,24 +14,21 @@
   "author": "https://github.com/orgs/antvis/people",
   "license": "MIT",
   "devDependencies": {
+    "@lite-js/torch": "^0.1.5",
     "babel-eslint": "^7.2.3",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-preset-es2015-loose-rollup": "^7.0.0",
     "babel-preset-stage-0": "^6.24.1",
     "chai": "^4.0.1",
     "electron": "^1.7.2",
-    "electron-mocha": "^3.4.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",
     "eslint-config-egg": "^4.2.0",
-    "is-electron-renderer": "^2.0.1",
-    "istanbul": "^0.4.5",
     "pre-commit": "^1.2.2",
     "rollup": "^0.42.0",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-node-resolve": "^3.0.0",
-    "shelljs": "^0.7.8",
     "uglify-js": "^3.0.15",
     "event-simulate": "^1.0.0"
   },
@@ -39,12 +36,14 @@
     "build": "rollup -c rollup.config.js -- index.js",
     "ci": "tnpm run lint && tnpm run test",
     "compress": "uglifyjs --compress --mangle --output dist/data-set.min.js -- build/data-set.js",
-    "coverage": "./bin/coverage.js",
+    "coverage": "npm run coverage-generator && npm run coverage-viewer",
+    "coverage-viewer": "torch-coverage",
+    "coverage-generator": "torch --coverage --renderer --recursive test/unit",
     "dist": "rm -rf dist && mkdir dist && npm run build && npm run compress",
     "lint": "eslint ./",
     "lint-fix": "eslint --fix ./",
-    "test": "electron-mocha --renderer --recursive ./test/unit",
-    "test-live": "electron-mocha --opts ./test/support/mocha.opts --renderer --interactive --recursive ./test/unit/"
+    "test": "torch --renderer --recursive ./test/unit",
+    "test-live": "torch --interactive --watch --recursive ./test/unit"
   },
   "pre-commit": {
     "run": [

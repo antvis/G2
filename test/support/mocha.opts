@@ -1,3 +1,0 @@
---preload test/support/preload.js
---require-main test/support/requireMain.js
---reporter HTML
