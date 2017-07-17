@@ -24,7 +24,8 @@ let scaleA = Scale.linear({
 const scaleB = Scale.linear({
   field: 'b',
   min: 0,
-  max: 5
+  max: 5,
+  nice: false
 });
 
 const scaleC = Scale.cat({
@@ -52,7 +53,7 @@ const coord = new Coord.Rect({
   }
 });
 
-describe('test geom base', function() {
+describe('test geoms', function() {
   const data = [{
     a: 1,
     b: 2,
@@ -127,14 +128,14 @@ describe('test geom base', function() {
 
   describe('test init data', function() {
     const newData = data.slice(0);
-    const geom = new Geom({
-      type: 'test',
-      coord,
-      data: newData,
-      scales: { a: scaleA, b: scaleB, c: scaleC }
-    });
-
+    let geom;
     it('init attrs', function() {
+      geom = new Geom({
+        type: 'test',
+        coord,
+        data: newData,
+        scales: { a: scaleA, b: scaleB, c: scaleC }
+      });
       geom.position('a*b').color('c');
       geom._initAttrs();
       const attrs = geom.get('attrs');
@@ -203,18 +204,29 @@ describe('test geom base', function() {
   describe('test paint', function() {
     const newData = data.slice(0);
     const group = canvas.addGroup();
-    const geom = new Geom({
-      shapeType: 'point',
-      coord,
-      data: newData,
-      container: group,
-      generatePoints: true,
-      scales: { a: scaleA, b: scaleB, c: scaleC, red: ScaleRed }
+    let geom;
+    const scaleA = Scale.linear({
+      field: 'a',
+      min: 0,
+      max: 10
     });
-    geom.position('a*b', 'stack').color('red');
-    geom.init();
-
+    const scaleB = Scale.linear({
+      field: 'b',
+      min: 0,
+      max: 5,
+      nice: false
+    });
     it('test generate points and ', function() {
+      geom = new Geom({
+        shapeType: 'point',
+        coord,
+        data: newData,
+        container: group,
+        generatePoints: true,
+        scales: { a: scaleA, b: scaleB, c: scaleC, red: ScaleRed }
+      });
+      geom.position('a*b').color('red');
+      geom.init();
       const data = [
         { a: 1, b: [ 1, 2 ], c: '1' },
         { a: 2, b: [ 2, 3 ], c: '2' }
@@ -369,6 +381,17 @@ describe('test geom path', function() {
 
 describe('test geom line', function() {
   let data = [{ a: 4, b: 3, c: '1' }, { a: 2, b: 2, c: '2' }];
+  const scaleA = Scale.linear({
+    field: 'a',
+    min: 0,
+    max: 10
+  });
+  const scaleB = Scale.linear({
+    field: 'b',
+    min: 0,
+    max: 5,
+    nice: false
+  });
   const group = canvas.addGroup();
   const geom = new Geom.Line({
     data,
@@ -527,9 +550,7 @@ describe('test geom interval', function() {
     const path = group.getFirst();
     const points = path.get('origin').points;
     expect(path.attr('path').length).eql(5);
-    expect(points[2].x - points[0].x).equal(1 / 3);
-
-
+    expect(Math.abs(points[2].x - points[0].x - 1 / 3) < 0.001).equal(true);
   });
 
   it('polar coord dodge size', function() {

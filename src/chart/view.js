@@ -10,8 +10,8 @@ const Controller = require('./controller/index');
 const Global = require('../global');
 
 function isFullCircle(coord) {
-  const startAngle = coord.get('startAngle');
-  const endAngle = coord.get('endAngle');
+  const startAngle = coord.startAngle;
+  const endAngle = coord.endAngle;
   if (!Util.isNil(startAngle) && !Util.isNil(endAngle) && (endAngle - startAngle) < Math.PI * 2) {
     return false;
   }
@@ -420,7 +420,7 @@ class View extends Base {
     return this;
   }
 
-  _clearInner() {
+  clearInner() {
     this.set('scales', {});
     const options = this.get('options');
     options.geoms = null;
@@ -433,7 +433,7 @@ class View extends Base {
     this._clearGeoms();
     const container = this.get('viewContainer');
     container.clear();
-    this._clearInner();
+    this.clearInner();
     return this;
   }
 
@@ -504,7 +504,7 @@ class View extends Base {
   }
 
   repaint() {
-    this._clearInner();
+    this.clearInner();
     const geoms = this.get('geoms');
     Util.each(geoms, function(geom) {
       geom.clear();

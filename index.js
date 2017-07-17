@@ -1,7 +1,9 @@
 const util = require('./src/util');
 const Scale = require('./src/scale/index');
+const Chart = require('./src/chart');
 
 module.exports = {
   util,
-  Scale
+  Scale,
+  Chart
 };

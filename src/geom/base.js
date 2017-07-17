@@ -378,8 +378,8 @@ class GeomBase extends Base {
     let max = scale.max;
     for (let i = 0; i < mergeArray.length; i++) {
       const obj = mergeArray[i];
-      const tmpMin = Math.min.apply(obj[field]);
-      const tmpMax = Math.max.apply(obj[field]);
+      const tmpMin = Math.min.apply(null, obj[field]);
+      const tmpMax = Math.max.apply(null, obj[field]);
       if (tmpMin < min) {
         min = tmpMin;
       }
@@ -722,10 +722,10 @@ class GeomBase extends Base {
 
   reset() {
     this.set('attrOptions', {});
-    this._clearInner();
+    this.clearInner();
   }
 
-  _clearInner() {
+  clearInner() {
     const container = this.get('container');
     container && container.clear();
     this.set('attrs', {});
@@ -735,7 +735,7 @@ class GeomBase extends Base {
   }
 
   clear() {
-    this._clearInner();
+    this.clearInner();
     this.set('scales', {});
   }
 

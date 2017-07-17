@@ -17,7 +17,7 @@ describe('test chart', function() {
   const chart = new Chart({
     container: div,
     height: 300,
-    forceFit: true
+    width: 500
   });
 
   chart.source(data, {
@@ -52,4 +52,14 @@ describe('test chart', function() {
     expect(path[0]).eqls(tmpPath[0]);
     expect(group.__m).not.eqls([ 1, 0, 0, 0, 1, 0, 0, 0, 1 ]);
   });
+
+  it('line with null values', function() {
+
+  });
+
+  xit('destroy', function() {
+    chart.destroy();
+    document.body.removeChild(div);
+  });
+
 });

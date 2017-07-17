@@ -46,10 +46,12 @@ const SizeMixin = {
       if (this.isInCircle()) {
         if (coord.isTransposed && count > 1) { // 极坐标下多层环图
           widthRatio = Global.widthRatio.multiplePie;
+        } else {
+          widthRatio = Global.widthRatio.rose;
         }
-        if (dataArray.length > 1) {
+        /* if (dataArray.length > 1) {
           normalizeSize *= (range[1] - range[0]);
-        }
+        } */
       } else {
         normalizeSize *= (range[1] - range[0]);
         widthRatio = Global.widthRatio.column; // 柱状图要除以2
