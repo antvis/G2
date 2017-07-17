@@ -61,6 +61,9 @@ class Chart extends View {
     const height = this.get('height');
     if (Util.isString(container)) {
       container = document.getElementById(container);
+      if (!container) {
+        throw new Error('Please specify the container for the chart!');
+      }
       this.set('container', container);
     }
     const wrapperEl = DomUtil.createDom('<div style="position:relative;"></div>');
