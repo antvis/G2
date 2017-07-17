@@ -7,6 +7,16 @@ const Base = require('../base');
 const Geom = require('../geom/');
 const Util = require('../util');
 const Controller = require('./controller/index');
+const Global = require('../global');
+
+function isFullCircle(coord) {
+  const startAngle = coord.get('startAngle');
+  const endAngle = coord.get('endAngle');
+  if (!Util.isNil(startAngle) && !Util.isNil(endAngle) && (endAngle - startAngle) < Math.PI * 2) {
+    return false;
+  }
+  return true;
+}
 
 const ViewGeoms = {};
 Util.each(Geom, function(geomConstructor, className) {
@@ -134,8 +144,10 @@ class View extends Base {
   _initGeoms() {
     const geoms = this.get('geoms');
     const data = this.get('data');
+    const coord = this.get('coord');
     Util.each(geoms, function(geom) {
       geom.set('data', data);
+      geom.set('coord', coord);
       geom.init();
     });
   }
@@ -254,6 +266,65 @@ class View extends Base {
     return result;
   }
 
+  _adjustScale() {
+    this._setCatScalesRange();
+    const geoms = this.get('geoms');
+    const scaleController = this.get('scaleController');
+    const colDefs = scaleController.defs;
+
+    Util.each(geoms, function(geom) {
+      if (geom.get('type') === 'interval') {
+        const yScale = geom.getYScale();
+        const field = yScale.field;
+        if (!(colDefs[field] && colDefs[field].min) && yScale.min > 0) {
+          yScale.change({
+            min: 0
+          });
+        }
+      }
+    });
+  }
+
+  _setCatScalesRange() {
+    const self = this;
+    const coord = self.get('coord');
+    const xScale = self.getXScale();
+    const yScales = self.getYScales();
+    let scales = [];
+
+    xScale && scales.push(xScale);
+    scales = scales.concat(yScales);
+    const inFullCircle = coord.isPolar && isFullCircle(coord);
+    const scaleController = self.get('scaleController');
+    const colDefs = scaleController.defs;
+    Util.each(scales, function(scale) {
+      if (scale.isCategory && scale.values && !(colDefs[scale.dim] && colDefs[scale.dim].range)) {
+        const count = scale.values.length;
+        let range;
+        if (count === 1) {
+          range = [ 0.5, 1 ]; // 只有一个分类时,防止计算出现 [0.5,0.5]的状态
+        } else {
+          let widthRatio = 1;
+          let offset = 0;
+          if (inFullCircle) {
+            if (!coord.isTransposed) {
+              range = [ 0, 1 - 1 / count ];
+            } else {
+              widthRatio = Global.widthRatio.multiplePie;
+              offset = 1 / count * widthRatio;
+              range = [ offset / 2, 1 - offset / 2 ];
+            }
+          } else {
+            widthRatio = Global.widthRatio.column;
+            offset = 1 / count * widthRatio;
+            range = [ offset, 1 - offset ]; // 坐标轴最前面和最后面留下空白防止绘制柱状图时
+          }
+        }
+        scale.range = range;
+      }
+    });
+  }
+
   getXScale() {
     const geoms = this.get('geoms');
     let xScale = null;
@@ -343,26 +414,6 @@ class View extends Base {
     return this;
   }
 
-  source(data) {
-    this.set('data', data);
-    return this;
-  }
-
-  changeData(data) {
-    this.set('data', data);
-    this.repaint();
-    return this;
-  }
-
-  repaint() {
-    this._clearInner();
-    const geoms = this.get('geoms');
-    Util.each(geoms, function(geom) {
-      geom.clear();
-    });
-    this.render();
-  }
-
   changeOptions(options) {
     this.set('options', options);
     this._initOptions(options);
@@ -402,6 +453,14 @@ class View extends Base {
   }
 
   /**
+   * 当父元素边框发生改变时坐标系需要重新调整
+   * @protected
+   */
+  resetCoord() {
+    this._createCoord();
+  }
+
+  /**
    * 绘制 geometry 前处理一些度量统一
    * @protected
    */
@@ -409,19 +468,48 @@ class View extends Base {
 
   }
 
+  source(data) {
+    this.set('data', data);
+    return this;
+  }
+
+  changeData(data) {
+    this.set('data', data);
+    this.repaint();
+    return this;
+  }
+
   render() {
     const data = this.get('data');
     if (!Util.isEmpty(data)) {
-      this._initViewPlot();
-      this._initGeoms();
-      this.beforeDraw();
-      this._createCoord(); // draw geometry 前绘制区域可能会发生改变
-      this._drawGeoms();
-      this._renderGuides();
-      this._renderAxes();
-      this._renderLegends();
+      this.initView();
+      this.paint();
     }
     return this;
+  }
+
+  initView() {
+    this._initViewPlot();
+    this._createCoord(); // draw geometry 前绘制区域可能会发生改变
+    this._initGeoms();
+    this._adjustScale();
+  }
+
+  paint() {
+    this.beforeDraw();
+    this._drawGeoms();
+    this._renderGuides();
+    this._renderAxes();
+    this._renderLegends();
+  }
+
+  repaint() {
+    this._clearInner();
+    const geoms = this.get('geoms');
+    Util.each(geoms, function(geom) {
+      geom.clear();
+    });
+    this.render();
   }
 
   destroy() {
