@@ -11,6 +11,7 @@ const Shape = require('./shape/index');
 const Util = require('../util');
 const Adjust = require('./adjust/index');
 const Global = require('../global');
+const TooltipMixin = require('./mixin/tooltip');
 
 function parseFields(field) {
   if (Util.isArray(field)) {
@@ -123,8 +124,21 @@ class GeomBase extends Base {
        * 数据是否进行排序
        * @type {Boolean}
        */
-      sortable: false
+      sortable: false,
+
+      /**
+       * 是否共享 tooltip
+       * @type {Boolean}
+       */
+      shareTooltip: true,
+      // tooltipMap: {},
+      tooltipDims: null
     };
+  }
+
+  constructor(cfg) {
+    super(cfg);
+    Util.assign(this, TooltipMixin);
   }
 
   _createScale(field) {

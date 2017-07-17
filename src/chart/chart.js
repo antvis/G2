@@ -137,6 +137,17 @@ class Chart extends View {
     }
   }
 
+  _renderTooltips() {
+    const options = this.get('options');
+    if (Util.isNil(options.tooltip) || options.tooltip !== false) { // 用户没有关闭 tooltip
+      const tooltipController = new Controller.Tooltip({
+        chart: this,
+        options: options.tooltip || {}
+      });
+      tooltipController.renderTooltip();
+    }
+  }
+
   getAllGeoms() {
     let geoms = [];
     geoms = geoms.concat(this.get('geoms'));
@@ -160,6 +171,7 @@ class Chart extends View {
     cfg.viewContainer = viewContainer.addGroup();
     cfg.backPlot = this.get('backPlot');
     cfg.frontPlot = this.get('frontPlot');
+    cfg.canvas = this.get('canvas');
     const view = new View(cfg);
     this.get('views').push(view);
     return view;
@@ -192,6 +204,23 @@ class Chart extends View {
     return this;
   }
 
+  tooltip(visible, cfg) {
+    const options = this.get('options');
+    if (Util.isNil(options.tooltip)) {
+      options.tooltip = {};
+    }
+
+    if (visible === false) {
+      options.tooltip = false;
+    } else if (Util.isObject(visible)) {
+      Util.mix(options.tooltip, visible);
+    } else {
+      Util.mix(options.tooltip, cfg);
+    }
+
+    return this;
+  }
+
   clear() {
     const views = this.get('views');
     while (views.length > 0) {
@@ -219,7 +248,10 @@ class Chart extends View {
     }
 
     super.render();
-    this._renderLegends();
+
+    this._renderLegends(); // 渲染图例
+    this._renderTooltips(); // 渲染 tooltip
+
     const canvas = this.get('canvas');
     canvas.draw();
     return this;

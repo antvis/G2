@@ -322,15 +322,7 @@ const Theme = {
   },
   tooltip: {
     crosshairs: false,
-    offset: 15,
-    crossLine: {
-      stroke: '#666'
-    },
-    wordSpaceing: 6,
-    markerCfg: {
-      symbol: 'circle',
-      radius: 3
-    }
+    offset: 15
   },
   activeShape: {
     point: {

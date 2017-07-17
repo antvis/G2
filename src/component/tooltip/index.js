@@ -50,9 +50,27 @@ class Tooltip extends Group {
   }
 
   _beforeRenderUI() {
-    const { lineStyle } = this.get('crosshairs'); // tooltip 十字准线样式
+    // const { style } = this.get('crosshairs'); // tooltip 十字准线样式
+    const crosshairs = this.get('crosshairs');
+    if (crosshairs && crosshairs.type === 'rect') {
+      Util.defaultsDeep(this.get('crosshairs'), {
+        style: {
+          fill: '#CCD7EB',
+          opacity: 0.4,
+          lineWidth: 0
+        }
+      });
+    } else {
+      Util.defaultsDeep(this.get('crosshairs'), {
+        style: {
+          stroke: '#666',
+          lineWidth: 1
+        }
+      });
+    }
+
     const crosshairsGroup = this.addGroup({
-      attrs: lineStyle
+      zIndex: 0
     });
 
     this.set('crosshairsGroup', crosshairsGroup);
@@ -141,6 +159,9 @@ class Tooltip extends Group {
           this._renderHorizontalLine(canvas, plotRange);
           this._renderVerticalLine(canvas, plotRange);
           break;
+        case 'rect':
+          this._renderBackground(canvas, plotRange);
+          break;
         default:
           this._renderVerticalLine(canvas, plotRange);
       }
@@ -157,27 +178,45 @@ class Tooltip extends Group {
   }
 
   _renderVerticalLine(canvas, plotRange) {
-    const { lineStyle } = this.get('crosshairs');
+    const { style } = this.get('crosshairs');
     const attrs = Util.mix({
       x1: 0,
       y1: plotRange ? plotRange.bl.y : canvas.get('height'),
       x2: 0,
       y2: plotRange ? plotRange.tl.y : 0
-    }, lineStyle);
+    }, style);
 
     this._addCrossLineShape(attrs, 'Y');
   }
 
   _renderHorizontalLine(canvas, plotRange) {
-    const { lineStyle } = this.get('crosshairs');
+    const { style } = this.get('crosshairs');
     const attrs = Util.mix({
       x1: plotRange ? plotRange.bl.x : canvas.get('width'),
       y1: 0,
       x2: plotRange ? plotRange.br.x : 0,
       y2: 0
-    }, lineStyle);
+    }, style);
 
     this._addCrossLineShape(attrs, 'X');
+  }
+
+  _renderBackground(canvas, plotRange) {
+    const { style } = this.get('crosshairs');
+    const attrs = Util.mix({
+      x: plotRange ? plotRange.tl.x : 0,
+      y: plotRange ? plotRange.tl.y : canvas.get('height'),
+      width: plotRange ? plotRange.br.x - plotRange.bl.x : canvas.get('width'),
+      height: plotRange ? Math.abs(plotRange.tl.y - plotRange.bl.y) : canvas.get('height')
+    }, style);
+
+    const plotBack = this.get('plotBack');
+    const shape = plotBack.addShape('rect', {
+      attrs
+    });
+    shape.hide();
+    this.set('crosshairsRectShape', shape);
+    return shape;
   }
 
   _isContentChange(title, items) {
@@ -209,57 +248,51 @@ class Tooltip extends Group {
     return this;
   }
 
-  moveCustom(x, y) {
-    const container = this.get('container');
-    container.style.left = x + 'px';
-    container.style.top = y + 'px';
+  setMarkers(markerItems, markerCfg) {
+    const self = this;
+    let markerGroup = self.get('markerGroup');
+    if (!markerGroup) {
+      markerGroup = self.addGroup({
+        zIndex: 1
+      });
+      self.set('markerGroup', markerGroup);
+    } else {
+      markerGroup.clear();
+    }
+
+    Util.each(markerItems, item => {
+      markerGroup.addShape('marker', {
+        attrs: Util.mix({}, markerCfg, {
+          stroke: item.color,
+          x: item.x,
+          y: item.y
+        })
+      });
+    });
   }
 
-  /**
-   * TODO: tooltip 位置调整
-   * 将tooltip的右下角移动到指定的位置，假设这个点已经在坐标轴内
-   *  - 默认移动到右下角
-   *  - 如果左边到了坐标轴外，则将tooltip向右移动，按照右下角对齐
-   *  - 如果右边到了坐标轴外，则左移,将右下边放到坐标轴边界上
-   *  - 下面，上面出了坐标轴，做类似处理
-   * @param {Number} x x坐标
-   * @param {Number} y y坐标
-   */
-  setPosition(x, y) {
-    // const canvas = this.get('canvas');
+  setPosition(x, y, isFixed) {
     const container = this.get('container');
-    // const plotRange = this.get('plotRange');
-    const offset = this.get('offset');
+    let offset = this.get('offset');
     const crossLineShapeX = this.get('crossLineShapeX');
     const crossLineShapeY = this.get('crossLineShapeY');
+    const crosshairsRectShape = this.get('crosshairsRectShape');
     // const animate = this.get('animate');
     const after = true;
     const endx = x;
     const endy = y;
+    const containerWidth = DomUtil.getWidth(container);
+    const containerHeight = DomUtil.getHeight(container);
     // let width;
-
-    const width = DomUtil.getWidth(container) + 2 * offset;
-    x = x - width;
-    y = y - DomUtil.getHeight(container) - 2 * offset;
-/*
-    if (plotRange) {
-      if (!plotRange.isInRange(x, y)) {
-        if (!plotRange.isInHorizontal(x)) {
-          if ((plotRange.tr.x - plotRange.tl.x) >= 2 * width) {
-            x = Math.max(plotRange.tl.x, endx) + offset;
-            after = false;
-          } else {
-            x = plotRange.tl.x;
-            y -= offset;
-          }
-        }
-
-        if (!plotRange.isInVertical(y)) {
-          y = plotRange.tl.y;
-        }
-      }
+    if (isFixed) {
+      x = x - containerWidth / 2;
+      y = y - containerHeight - offset;
+    } else {
+      const width = containerWidth + 2 * offset;
+      x = x - width;
+      y = y - containerHeight - 2 * offset;
     }
-*/
+
     if (this.get('x') !== x || this.get('y') !== y) {
       if (crossLineShapeY) { // 第一次进入时，画布需要单独绘制，所以需要先设定corss的位置
         if (after) {
@@ -272,23 +305,45 @@ class Tooltip extends Group {
         crossLineShapeX.move(0, endy);
       }
 
-      this.moveCustom(x, y, after);
+      if (crosshairsRectShape) {
+        const items = this.get('items');
+        const firstItem = items[0];
+        offset = firstItem.point.size || 10;
+        crosshairsRectShape.attr('x', firstItem.point.x - offset);
+
+        if (items.length === 1) {
+          // const width = firstItem.point.points;
+          crosshairsRectShape.attr('width', firstItem.point.size + offset); // TODO: 获取柱子的宽度
+        } else {
+          const lastItem = items[items.length - 1];
+          crosshairsRectShape.attr('width', lastItem.point.x - firstItem.point.x + 2 * offset);
+        }
+      }
+
+      container.style.left = x + 'px';
+      container.style.top = y + 'px';
     }
   }
 
   show() {
     const crossLineShapeX = this.get('crossLineShapeX');
     const crossLineShapeY = this.get('crossLineShapeY');
+    const crosshairsRectShape = this.get('crosshairsRectShape');
+    const markerGroup = this.get('markerGroup');
     const container = this.get('container');
     const hideHandler = this.get('hideHandler');
+    const canvas = this.get('canvas');
     if (hideHandler) {
       clearTimeout(hideHandler);
     }
     crossLineShapeX && crossLineShapeX.show();
     crossLineShapeY && crossLineShapeY.show();
+    crosshairsRectShape && crosshairsRectShape.show();
+    markerGroup && markerGroup.show();
     super.show();
     container.style.visibility = 'visible';
-    this.get('canvas').draw();
+    this.sort();
+    canvas.draw();
   }
 
   hide() {
@@ -296,6 +351,8 @@ class Tooltip extends Group {
     const container = self.get('container');
     const crossLineShapeX = self.get('crossLineShapeX');
     const crossLineShapeY = self.get('crossLineShapeY');
+    const crosshairsRectShape = this.get('crosshairsRectShape');
+    const markerGroup = self.get('markerGroup');
     const canvas = self.get('canvas');
     const hideHandler = setTimeout(function() {
       container.style.visibility = 'hidden';
@@ -308,18 +365,25 @@ class Tooltip extends Group {
     self.set('hideHandler', hideHandler);
     crossLineShapeX && crossLineShapeX.hide();
     crossLineShapeY && crossLineShapeY.hide();
+    crosshairsRectShape && crosshairsRectShape.hide();
+    markerGroup && markerGroup.hide();
   }
 
   remove() {
     const self = this;
     const crossLineShapeX = self.get('crossLineShapeX');
     const crossLineShapeY = self.get('crossLineShapeY');
+    const markerGroup = self.get('markerGroup');
+    const crosshairsRectShape = self.get('crosshairsRectShape');
     const container = self.get('container');
     const html = self.get('html');
 
     crossLineShapeX && crossLineShapeX.remove();
     crossLineShapeY && crossLineShapeY.remove();
+    markerGroup && markerGroup.remove();
+    crosshairsRectShape && crosshairsRectShape.remove();
     super.remove();
+
     if (container && !(/^\#/.test(html))) {
       container.parentNode.removeChild(container);
     }

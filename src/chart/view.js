@@ -18,6 +18,27 @@ function isFullCircle(coord) {
   return true;
 }
 
+function isBetween(value, start, end) {
+  const tmp = (value - start) / (end - start);
+  return tmp >= 0 && tmp <= 1;
+}
+
+function isPointInCoord(coord, point) {
+  let result = false;
+  if (coord) {
+    const type = coord.type;
+    if (type === 'theta') {
+      const start = coord.get('start');
+      const end = coord.get('end');
+      result = isBetween(point.x, start.x, end.x) && isBetween(point.y, start.y, end.y);
+    } else {
+      const invertPoint = coord.invert(point);
+      result = invertPoint.x >= 0 && invertPoint.y >= 0 && invertPoint.x <= 1 && invertPoint.y <= 1;
+    }
+  }
+  return result;
+}
+
 const ViewGeoms = {};
 Util.each(Geom, function(geomConstructor, className) {
   const methodName = Util.lowerFirst(className);
@@ -30,7 +51,6 @@ Util.each(Geom, function(geomConstructor, className) {
 });
 
 class View extends Base {
-
   /**
    * 获取默认的配置属性
    * @protected
@@ -46,7 +66,8 @@ class View extends Base {
       scales: {},
       options: {},
       scaleController: null,
-      parent: null
+      parent: null,
+      tooltipEnable: true // 是否展示 tooltip
     };
   }
 
@@ -248,6 +269,15 @@ class View extends Base {
     }
   }
 
+  _bindEvents() {
+    const eventController = new Controller.Event({
+      view: this,
+      canvas: this.get('canvas')
+    });
+    eventController.bindEvents();
+    this.set('eventController', eventController);
+  }
+
   _getScales(dimType) {
     const geoms = this.get('geoms');
     const result = {};
@@ -351,7 +381,10 @@ class View extends Base {
     geoms.push(geom);
     geom.set('view', this);
     const container = this.get('viewContainer');
-    const group = container.addGroup();
+    const group = container.addGroup({
+      zIndex: 1,
+      name: 'geom'
+    });
     geom.set('container', group);
   }
 
@@ -462,6 +495,11 @@ class View extends Base {
     return this;
   }
 
+  tooltip(visible) {
+    this.set('tooltipEnable', visible); // TODO：该方法只用于开启关闭 tooltip
+    return this;
+  }
+
   changeOptions(options) {
     this.set('options', options);
     this._initOptions(options);
@@ -542,6 +580,7 @@ class View extends Base {
   }
 
   render() {
+    this._bindEvents();
     const data = this.get('data');
     const filteredData = this.execFilter(data);
     if (!Util.isEmpty(filteredData)) {
@@ -578,6 +617,40 @@ class View extends Base {
   destroy() {
     this.clear();
     super.destroy();
+  }
+
+  /**
+   * 获取当前激活的图形
+   * @return {Shape} 图形对象
+   */
+  getActiveShape() {
+    const self = this;
+    const geoms = self.get('geoms');
+    let rst = null;
+    Util.each(geoms, geom => {
+      const shapes = geom.get('activeShapes');
+      if (!Util.isEmpty(shapes)) {
+        rst = shapes[0];
+        return false;
+      }
+    });
+    return rst;
+  }
+
+  getViewsByPoint(point) {
+    const rst = [];
+    const views = this.get('views');
+
+    if (isPointInCoord(this.get('coord'), point)) {
+      rst.push(this);
+    }
+
+    Util.each(views, view => {
+      if (isPointInCoord(view.get('coord'), point)) {
+        rst.push(view);
+      }
+    });
+    return rst;
   }
 }
 
