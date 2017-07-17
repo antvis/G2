@@ -28,17 +28,28 @@ describe('test chart', function() {
       alias: '销售量'
     }
   });
-
   chart.line().position('genre*sold').color('#f80')
     .style({
       lineDash: [ 2, 2 ]
     });
   chart.render();
+  let tmpPath;
 
   it('line points', function() {
     const group = chart.get('viewContainer').getFirst();
     expect(group.getCount()).equal(1);
     const path = group.getFirst().attr('path');
+    tmpPath = path;
     expect(path.length).equal(5);
+    expect(group.__m).eqls([ 1, 0, 0, 0, 1, 0, 0, 0, 1 ]);
+  });
+  it('change coord', function() {
+    chart.coord().scale(1, -0.5);
+    chart.repaint();
+    const group = chart.get('viewContainer').getFirst();
+    expect(group.getCount()).equal(1);
+    const path = group.getFirst().attr('path');
+    expect(path[0]).eqls(tmpPath[0]);
+    expect(group.__m).not.eqls([ 1, 0, 0, 0, 1, 0, 0, 0, 1 ]);
   });
 });
