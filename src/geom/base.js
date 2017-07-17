@@ -451,6 +451,8 @@ class GeomBase extends Base {
   setCoord(coord) {
     this.set('coord', coord);
     const position = this.getAttr('position');
+    const container = this.get('container');
+    container.setMatrix(coord.matrix);
     if (position) {
       position.coord = coord;
     }
