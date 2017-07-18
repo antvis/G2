@@ -1,0 +1,30 @@
+/**
+ * @fileOverview 分割数据用于处理存在 null 值的折线图、区域图
+ * @author dxq613@gmail.com
+ */
+
+
+const Util = require('../../util');
+
+module.exports = {
+  splitData(data) {
+    if (!data.length) return [];
+    const arr = [];
+    let tmp = [];
+    const yScale = this.getYScale();
+    const yDim = yScale.field;
+    let yValue;
+    Util.each(data, function(obj) {
+      yValue = obj._origin ? obj._origin[yDim] : obj[yDim];
+      if ((Util.isArray(yValue) && Util.isNil(yValue[0])) || Util.isNil(yValue)) {
+        arr.push(tmp);
+        tmp = [];
+      } else {
+        tmp.push(obj);
+      }
+    });
+    arr.push(tmp);
+
+    return arr;
+  }
+};

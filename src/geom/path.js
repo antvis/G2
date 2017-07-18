@@ -4,6 +4,8 @@
  */
 
 const GeomBase = require('./base');
+const SplitMixin = require('./mixin/split');
+const Util = require('../util');
 
 class Path extends GeomBase {
   /**
@@ -18,11 +20,22 @@ class Path extends GeomBase {
     return cfg;
   }
 
+  constructor(cfg) {
+    super(cfg);
+    Util.assign(this, SplitMixin);
+  }
+
   draw(data, container, shapeFactory) {
+    const splitArray = this.splitData(data);
+
     const cfg = this.getDrawCfg(data[0]);
     cfg.origin = data; // path,line 等图的origin 是整个序列
-    cfg.points = data;
-    shapeFactory.drawShape(cfg.shape, cfg, container);
+    // cfg.points = data;
+    Util.each(splitArray, function(subData, splitedIndex) {
+      cfg.splitedIndex = splitedIndex; // 传入分割片段索引 用于生成id
+      cfg.points = subData;
+      shapeFactory.drawShape(cfg.shape, cfg, container);
+    });
   }
 }
 
