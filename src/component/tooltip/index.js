@@ -308,12 +308,11 @@ class Tooltip extends Group {
       if (crosshairsRectShape) {
         const items = this.get('items');
         const firstItem = items[0];
-        offset = firstItem.point.size || 10;
+        offset = (firstItem.size / 2 + firstItem.size / 4) || 10;
         crosshairsRectShape.attr('x', firstItem.point.x - offset);
 
         if (items.length === 1) {
-          // const width = firstItem.point.points;
-          crosshairsRectShape.attr('width', firstItem.point.size + offset); // TODO: 获取柱子的宽度
+          crosshairsRectShape.attr('width', firstItem.size + firstItem.size / 2); // TODO: 获取柱子的宽度
         } else {
           const lastItem = items[items.length - 1];
           crosshairsRectShape.attr('width', lastItem.point.x - firstItem.point.x + 2 * offset);

@@ -335,7 +335,8 @@ const TooltipMixin = {
           name: itemName || tipTitle,
           value: itemValue,
           color: point.color || defaultColor,
-          marker: true
+          marker: true,
+          size: self.getSize()
         });
       }
     }
