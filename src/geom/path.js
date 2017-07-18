@@ -18,11 +18,7 @@ class Path extends GeomBase {
     return cfg;
   }
 
-  draw(data) {
-    const self = this;
-    const shapeFactory = self.getShapeFactory();
-    shapeFactory.setCoord(self.get('coord'));
-    const container = self.get('container');
+  draw(data, container, shapeFactory) {
     const cfg = this.getDrawCfg(data[0]);
     cfg.origin = data; // path,line 等图的origin 是整个序列
     cfg.points = data;

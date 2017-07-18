@@ -249,22 +249,6 @@ describe('test geoms', function() {
       expect(obj1.color).equal('red');
     });
 
-    it('test draw', function() {
-      geom.reset();
-      geom.position('a*b').color('red');
-      geom.init();
-      const data = [
-        { a: 1, b: 2, c: '1' },
-        { a: 2, b: 3, c: '2' }
-      ];
-      geom._beforeMapping(data);
-      const mappedData = geom._mapping(data);
-      geom.draw(mappedData);
-      expect(group.getCount()).to.be.equal(2);
-      canvas.draw();
-
-    });
-
     it('test paint', function() {
       geom.reset();
       geom.position('a*b').color('c');

@@ -463,11 +463,15 @@ class GeomBase extends Base {
     const self = this;
     const dataArray = self.get('dataArray');
     const mappedArray = [];
+    const shapeFactory = self.getShapeFactory();
+    shapeFactory.setCoord(self.get('coord'));
+    const container = self.get('container');
+
     Util.each(dataArray, function(data) {
       self._beforeMapping(data);
       data = self._mapping(data);
       mappedArray.push(data);
-      self.draw(data);
+      self.draw(data, container, shapeFactory);
     });
     self.set('dataArray', mappedArray);
   }
@@ -624,12 +628,11 @@ class GeomBase extends Base {
    * step 3.3 draw
    * @protected
    * @param  {Array} data 绘制图形
+   * @param {Object} container 绘图容器
+   * @param {Object} shapeFactory 绘制图形的工厂类
    */
-  draw(data) {
+  draw(data, container, shapeFactory) {
     const self = this;
-    const shapeFactory = self.getShapeFactory();
-    shapeFactory.setCoord(self.get('coord'));
-    const container = self.get('container');
     Util.each(data, function(obj) {
       self.drawPoint(obj, container, shapeFactory);
     });

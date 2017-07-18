@@ -20,11 +20,7 @@ class Area extends GeomBase {
     return cfg;
   }
 
-  draw(data) {
-    const self = this;
-    const shapeFactory = self.getShapeFactory();
-    shapeFactory.setCoord(self.get('coord'));
-    const container = self.get('container');
+  draw(data, container, shapeFactory) {
     const cfg = this.getDrawCfg(data[0]);
     const points = data.map(obj => {
       return obj.points;
