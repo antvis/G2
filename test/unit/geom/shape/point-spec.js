@@ -84,6 +84,7 @@ describe('Point shapes', function() {
       const activeCfg = Point.getActiveCfg('circle', point);
 
       expect(activeCfg).eql({
+        fill: '#fff',
         fillOpacity: 0.7
       });
     });

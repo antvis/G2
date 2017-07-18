@@ -68,6 +68,7 @@ describe('polygon shapes', function() {
       const activeCfg = Polygon.getActiveCfg('polygon');
 
       expect(activeCfg).eql({
+        fill: '#fff',
         fillOpacity: 0.75
       });
     });
