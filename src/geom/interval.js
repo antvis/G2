@@ -32,8 +32,8 @@ class Interval extends GeomBase {
     return cfg;
   }
 
-  reset() {
-    super.reset();
+  clearInner() {
+    super.clearInner();
     this.set('defaultSize', null);
   }
 }

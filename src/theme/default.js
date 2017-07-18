@@ -8,7 +8,7 @@ const FONT_FAMILY = '"Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans 
 const Theme = {
   defaultColor: DEFAULT_COLOR, // 默认主题色
   plotCfg: {
-    margin: [ 20, 80, 60, 80 ]
+    padding: [ 20, 80, 60, 80 ]
   },
   fontFamily: FONT_FAMILY,
   colors: [ '#4E7CCC', '#36B3C3', '#4ECDA5', '#94E08A', '#E2F194', '#EDCC72', '#F8AB60', '#F9815C', '#EB4456', '#C82B3D' ],
@@ -86,7 +86,7 @@ const Theme = {
     left: {
       position: 'left',
       title: {
-        offset: 40,
+        offset: 50,
         autoRotate: true,
         point: 'center',
         textStyle: {

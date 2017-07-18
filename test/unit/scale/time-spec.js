@@ -34,7 +34,7 @@ describe('scale time', function() {
 
   it('get text has T', function() {
     const text = scale.getText('2011-01-02T00:00:00');
-    expect(text).to.be.equal('2011-01-02 00:00:00');
+    expect(text).to.be.equal(fecha.format(new Date('2011-01-02T00:00:00'), 'YYYY-MM-DD HH:mm:ss'));
   });
 
   it('get text has T && Z', function() {

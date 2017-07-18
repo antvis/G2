@@ -10,6 +10,7 @@ const Canvas = G.Canvas;
 const DomUtil = G.DomUtil;
 const Component = require('../component/index');
 const Controller = require('./controller/index');
+const Global = require('../global');
 
 function _isScaleExist(scales, compareScale) {
   let flag = false;
@@ -41,7 +42,8 @@ class Chart extends View {
       canvas: null,
       width: 500,
       height: 500,
-      padding: 50,
+      pixelRatio: null,
+      padding: Global.plotCfg.padding,
       backPlot: null,
       frontPlot: null,
       plotBackground: null,
@@ -75,7 +77,8 @@ class Chart extends View {
     const canvas = new Canvas({
       containerDOM: wrapperEl,
       width,
-      height
+      height,
+      pixelRatio: this.get('pixelRatio')
     });
     this.set('canvas', canvas);
   }
@@ -206,6 +209,12 @@ class Chart extends View {
     return this;
   }
 
+  clearInner() {
+    const legendController = this.get('legendController');
+    legendController && legendController.clear();
+    super.clearInner();
+  }
+
   render() {
     const views = this.get('views');
     if (views.length) {
@@ -215,6 +224,7 @@ class Chart extends View {
     }
 
     super.render();
+    this._renderLegends();
     const canvas = this.get('canvas');
     canvas.draw();
     return this;
