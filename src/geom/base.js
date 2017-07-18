@@ -12,6 +12,7 @@ const Util = require('../util');
 const Adjust = require('./adjust/index');
 const Global = require('../global');
 const TooltipMixin = require('./mixin/tooltip');
+const ActiveMixin = require('./mixin/active');
 
 function parseFields(field) {
   if (Util.isArray(field)) {
@@ -138,7 +139,7 @@ class GeomBase extends Base {
 
   constructor(cfg) {
     super(cfg);
-    Util.assign(this, TooltipMixin);
+    Util.assign(this, TooltipMixin, ActiveMixin);
   }
 
   _createScale(field) {
@@ -658,6 +659,18 @@ class GeomBase extends Base {
       rst = values[0];
     }
     return rst;
+  }
+
+  getDefaultValue(attrName) {
+    let value = this.get(attrName);
+    const attr = this.getAttr(attrName);
+    if (attr) {
+      const scale = attr.getScale(attrName);
+      if (scale.type === 'identity') {
+        value = scale.value;
+      }
+    }
+    return value;
   }
 
   /**

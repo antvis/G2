@@ -85,7 +85,7 @@ function getLineAttrs(cfg) {
 
 // 鼠标悬浮触发active状态
 function _getActiveCfg(type) {
-  if (type && (type.indexOf('hollow') === 0 || Util.indexOf(HOLLOW_SHAPES, type) !== -1)) {
+  if (type && (type.indexOf('hollow') === 0 || Util.indexOf(HOLLOW_SHAPES, type) !== -1) || !type) {
     return Global.activeShape.hollowPoint;
   }
   return Global.activeShape.point;

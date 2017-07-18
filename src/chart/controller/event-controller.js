@@ -1,5 +1,14 @@
 const Util = require('../../util');
 
+function isSameShape(shape1, shape2) {
+  if (Util.isNil(shape1) || Util.isNil(shape2)) {
+    return false;
+  }
+  const shape1Origin = shape1.get('origin');
+  const shape2Origin = shape2.get('origin');
+  return Util.isEqual(shape1Origin, shape2Origin);
+}
+
 class EventController {
   constructor(cfg) {
     this.view = null;
@@ -18,13 +27,9 @@ class EventController {
       x: ev.x / this.pixelRatio,
       y: ev.y / this.pixelRatio,
       target: ev.target, // canvas 元素
-      toElement: ev.event.toElement
+      toElement: ev.event.toElement,
+      shape: ev.shape
     };
-  }
-
-  _getShape(x, y) {
-    const canvas = this.canvas;
-    return canvas.getShape(x, y);
   }
 
   _getPointInfo(ev) {
@@ -48,18 +53,6 @@ class EventController {
     };
   }
 
-  _getActiveShape(views) {
-    let rst = null;
-    Util.each(views, view => {
-      const shape = view.getActiveShape();
-      if (shape) {
-        rst = shape;
-        return false;
-      }
-    });
-    return rst;
-  }
-
   bindEvents() {
     const canvas = this.canvas;
     canvas.on('mousedown', Util.wrapBehavior(this, 'onDown'));
@@ -73,7 +66,6 @@ class EventController {
   onDown(ev) {
     const view = this.view;
     const eventObj = this._getShapeEventObj(ev);
-    eventObj.shape = this.currentShape;
     view.emit('mousedown', eventObj);
   }
 
@@ -81,24 +73,23 @@ class EventController {
     const self = this;
     const view = self.view;
     const currentShape = self.currentShape;
-    let shape = self._getShape(ev.x, ev.y);
     let eventObj = self._getShapeEventObj(ev);
-    eventObj.shape = shape;
     view.emit('mousemove', eventObj);
 
+    const shape = ev.shape;
     // 移动时判定是否还在原先的图形中
-    if (currentShape !== shape) {
+    if (!isSameShape(currentShape, shape)) {
       if (currentShape) {
         const leaveObj = self._getShapeEventObj(ev);
         leaveObj.shape = currentShape;
         leaveObj.toShape = shape;
-        view.emit('mouseleave', leaveObj);
+        view.emit(currentShape.get('geom') + ':mouseleave', leaveObj);
       }
       if (shape) {
         const enterObj = self._getShapeEventObj(ev);
         enterObj.shape = shape;
         enterObj.fromShape = currentShape;
-        view.emit('mouseenter', enterObj);
+        view.emit(shape.get('geom') + ':mouseenter', enterObj);
       }
       self.currentShape = shape;
     }
@@ -115,7 +106,6 @@ class EventController {
 
     if (point.views.length) {
       eventObj = self._getEventObj(ev, point, point.views);
-      shape = self._getActiveShape(point.views);
       eventObj.shape = shape;
       view.emit('plotmove', eventObj);
     }
@@ -133,7 +123,6 @@ class EventController {
   onUp(ev) {
     const view = this.view;
     const eventObj = this._getShapeEventObj(ev);
-    eventObj.shape = this.currentShape;
     view.emit('mouseup', eventObj);
   }
 
@@ -141,7 +130,7 @@ class EventController {
     const self = this;
     const view = self.view;
     const shapeEventObj = this._getShapeEventObj(ev);
-    shapeEventObj.shape = this.currentShape;
+    // shapeEventObj.shape = this.currentShape;
     view.emit('click', shapeEventObj);
 
     const point = self._getPointInfo(ev);

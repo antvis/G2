@@ -39,6 +39,22 @@ const TooltipMixin = {
     return result;
   },
 
+  _getOriginByPoint(point) {
+    const xScale = this.getXScale();
+    const yScale = this.getYScale();
+    const xField = xScale.field;
+    const yField = yScale.field;
+    const coord = this.get('coord');
+    const invertPoint = coord.invert(point);
+    const xValue = xScale.invert(invertPoint.x);
+    const yValue = yScale.invert(invertPoint.y);
+
+    const result = {};
+    result[xField] = xValue;
+    result[yField] = yValue;
+    return result;
+  },
+
   _getScale(field) {
     const self = this;
     const scales = self.get('scales');
@@ -129,46 +145,47 @@ const TooltipMixin = {
     const yScale = self.getYScale();
     const xField = xScale.field;
     const yField = yScale.field;
-    const type = self.get('type');
-    // var frameArr = frame.toJSON();
     const frameArr = frame;
     let rst = null;
 
-    if (Util.indexOf([ 'heatmap', 'contour', 'point' ], type) > -1) { // 点的计算使用逼近算法
-      const coord = self.get('coord');
-      const invertPoint = coord.invert(point);
-      const xValue = xScale.invert(invertPoint.x);
-      const yValue = yScale.invert(invertPoint.y);
-      let min;
-      let minObj = {};
+    const first = frameArr[0];
+    let last = frameArr[frameArr.length - 1];
 
-      Util.each(frameArr, function(obj) {
-        const distance = (obj._origin[xField] - xValue) * (obj._origin[xField] - xValue) + (obj._origin[yField] - yValue) * (obj._origin[yField] - yValue);
-        if (Util.isNil(min) || distance < min) {
-          min = distance;
-          minObj = obj;
+    if (!first) {
+      return rst;
+    }
+
+    const value = self._getScaleValueByPoint(point); // 根据该点获得对应度量后数据的值
+    const firstXValue = first[FIELD_ORIGIN][xField];
+    const firstYValue = first[FIELD_ORIGIN][yField];
+    const lastXValue = last[FIELD_ORIGIN][xField];
+    const isYRange = yScale.isLinear && Util.isArray(firstYValue); // 考虑 x 维度相同，y 是数组区间的情况
+
+    // 如果x的值是数组
+    if (Util.isArray(firstXValue)) {
+      Util.each(frameArr, function(record) {
+        const origin = record[FIELD_ORIGIN];
+        if (xScale.translate(origin[xField][0]) <= value && xScale.translate(origin[xField][1]) >= value) {
+          if (isYRange) {
+            if (!Util.isArray(rst)) {
+              rst = [];
+            }
+            rst.push(record);
+          } else {
+            rst = record;
+            return false;
+          }
         }
       });
-      rst = minObj;
-    } else {
-      const first = frameArr[0];
-      let last = frameArr[frameArr.length - 1];
-
-      if (!first) {
-        return rst;
+      if (Util.isArray(rst)) {
+        rst = this._filterValue(rst, point);
       }
-
-      const value = self._getScaleValueByPoint(point); // 根据该点获得对应度量后数据的值
-      const firstXValue = first[FIELD_ORIGIN][xField];
-      const firstYValue = first[FIELD_ORIGIN][yField];
-      const lastXValue = last[FIELD_ORIGIN][xField];
-      const isYRange = yScale.isLinear && Util.isArray(firstYValue); // 考虑 x 维度相同，y 是数组区间的情况
-
-      // 如果x的值是数组
-      if (Util.isArray(firstXValue)) {
-        Util.each(frameArr, function(record) {
+    } else {
+      let next;
+      if (!xScale.isLinear && xScale.type !== 'timeCat') {
+        Util.each(frameArr, function(record, index) {
           const origin = record[FIELD_ORIGIN];
-          if (xScale.translate(origin[xField][0]) <= value && xScale.translate(origin[xField][1]) >= value) {
+          if (self._snapEqual(origin[xField], value, xScale)) {
             if (isYRange) {
               if (!Util.isArray(rst)) {
                 rst = [];
@@ -178,74 +195,53 @@ const TooltipMixin = {
               rst = record;
               return false;
             }
+          } else if (xScale.translate(origin[xField]) <= value) {
+            last = record;
+            next = frameArr[index + 1];
           }
         });
+
         if (Util.isArray(rst)) {
           rst = this._filterValue(rst, point);
         }
       } else {
-        let next;
-        if (!xScale.isLinear && xScale.type !== 'timeCat') {
-          Util.each(frameArr, function(record, index) {
-            const origin = record[FIELD_ORIGIN];
-            if (self._snapEqual(origin[xField], value, xScale)) {
-              if (isYRange) {
-                if (!Util.isArray(rst)) {
-                  rst = [];
-                }
-                rst.push(record);
-              } else {
-                rst = record;
-                return false;
-              }
-            } else if (xScale.translate(origin[xField]) <= value) {
-              last = record;
-              next = frameArr[index + 1];
-            }
-          });
-
-          if (Util.isArray(rst)) {
-            rst = this._filterValue(rst, point);
-          }
-        } else {
-          if ((value > xScale.translate(lastXValue) || value < xScale.translate(firstXValue)) && (value > xScale.max || value < xScale.min)) {
-            return null;
-          }
-
-          let firstIdx = 0;
-          let lastIdx = frameArr.length - 1;
-          let middleIdx;
-          while (firstIdx <= lastIdx) {
-            middleIdx = Math.floor((firstIdx + lastIdx) / 2);
-            const item = frameArr[middleIdx][FIELD_ORIGIN][xField];
-            if (self._snapEqual(item, value, xScale)) {
-              return frameArr[middleIdx];
-            }
-
-            if (xScale.translate(item) <= xScale.translate(value)) {
-              firstIdx = middleIdx + 1;
-              last = frameArr[middleIdx];
-              next = frameArr[middleIdx + 1];
-            } else {
-              if (lastIdx === 0) {
-                last = frameArr[0];
-              }
-              lastIdx = middleIdx - 1;
-            }
-          }
+        if ((value > xScale.translate(lastXValue) || value < xScale.translate(firstXValue)) && (value > xScale.max || value < xScale.min)) {
+          return null;
         }
 
-        if (last && next) { // 计算最逼近的
-          if (Math.abs(xScale.translate(last[FIELD_ORIGIN][xField]) - value) > Math.abs(xScale.translate(next[FIELD_ORIGIN][xField]) - value)) {
-            last = next;
+        let firstIdx = 0;
+        let lastIdx = frameArr.length - 1;
+        let middleIdx;
+        while (firstIdx <= lastIdx) {
+          middleIdx = Math.floor((firstIdx + lastIdx) / 2);
+          const item = frameArr[middleIdx][FIELD_ORIGIN][xField];
+          if (self._snapEqual(item, value, xScale)) {
+            return frameArr[middleIdx];
+          }
+
+          if (xScale.translate(item) <= xScale.translate(value)) {
+            firstIdx = middleIdx + 1;
+            last = frameArr[middleIdx];
+            next = frameArr[middleIdx + 1];
+          } else {
+            if (lastIdx === 0) {
+              last = frameArr[0];
+            }
+            lastIdx = middleIdx - 1;
           }
         }
       }
 
-      const distance = self.getXDistance(); // 每个分类间的平均间距
-      if (!rst && Math.abs(xScale.translate(last[FIELD_ORIGIN][xField]) - value) <= distance / 2) {
-        rst = last;
+      if (last && next) { // 计算最逼近的
+        if (Math.abs(xScale.translate(last[FIELD_ORIGIN][xField]) - value) > Math.abs(xScale.translate(next[FIELD_ORIGIN][xField]) - value)) {
+          last = next;
+        }
       }
+    }
+
+    const distance = self.getXDistance(); // 每个分类间的平均间距
+    if (!rst && Math.abs(xScale.translate(last[FIELD_ORIGIN][xField]) - value) <= distance / 2) {
+      rst = last;
     }
 
     return rst;
@@ -367,6 +363,16 @@ const TooltipMixin = {
   isShareTooltip() {
     let shareTooltip = this.get('shareTooltip');
     const type = this.get('type');
+    const view = this.get('view');
+    let options;
+    if (view.get('parent')) {
+      options = view.get('parent').get('options');
+    } else {
+      options = view.get('options');
+    }
+    if (options.tooltip && options.tooltip.split) {
+      shareTooltip = false;
+    }
 
     if (type === 'interval') {
       const coord = this.get('coord');

@@ -157,6 +157,7 @@ const Line = Shape.registerFactory('line', {
     }
     if (gShape) {
       gShape.set('origin', cfg.origin);
+      gShape.set('geom', Util.lowerFirst(this.className));
     }
     return gShape;
   }

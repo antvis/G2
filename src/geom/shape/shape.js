@@ -109,6 +109,7 @@ const ShapeFactoryBase = {
     const gShape = shape.draw(cfg, container);
     if (gShape) {
       gShape.set('origin', cfg.origin);
+      gShape.set('geom', Util.lowerFirst(this.className));
     }
     return gShape;
   }

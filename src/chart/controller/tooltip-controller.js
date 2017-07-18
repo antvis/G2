@@ -3,7 +3,6 @@ const Global = require('../../global');
 const { Tooltip } = require('../../component/index');
 const TYPE_SHOW_MARKERS = [ 'line', 'area', 'path', 'areaStack' ]; // 默认展示 tooltip marker 的几何图形
 const TYPE_SHOW_CROSSHAIRS = [ 'line', 'area', 'interval' ]; // 默认展示十字瞄准线的几何图形
-// const SHARE_TOOLTIP_GEOMS = ['interval', 'line', 'area', 'path', 'schema'];
 
 function _indexOfArray(items, item) {
   let rst = -1;
@@ -114,6 +113,12 @@ class TooltipController {
     chart.on('plotleave', Util.wrapBehavior(this, 'onMouseOut'));
   }
 
+  _offEvent() {
+    const chart = this.chart;
+    chart.off('plotmove', Util.getWrapBehavior(this, 'onMouseMove'));
+    chart.off('plotleave', Util.getWrapBehavior(this, 'onMouseOut'));
+  }
+
   _setTooltip(title, point, items, markersItems) {
     const self = this;
     const options = self.options;
@@ -144,7 +149,10 @@ class TooltipController {
         tooltip.setMarkers(markersItems, Global.tooltipMarker);
       }
       if (options.split) {
-        tooltip.setPosition(items[0].point.x, items[0].point.y, true);
+        const positionX = Util.isArray(items[0].point.x) ? items[0].point.x[0] : items[0].point.x;
+        const positionY = Util.isArray(items[0].point.y) ? items[0].point.y[1] : items[0].point.y;
+
+        tooltip.setPosition(positionX, positionY, true);
       } else {
         tooltip.setPosition(x, y);
       }
@@ -241,7 +249,7 @@ class TooltipController {
 
         if (geomContainer.get('visible')) {
           const dataArray = geom.get('dataArray');
-          if ((!options.split && geom.isShareTooltip()) || (options.split && Util.inArray([ 'area', 'line', 'path' ], type))) {
+          if (geom.isShareTooltip() || (options.split && Util.inArray([ 'area', 'line', 'path' ], type))) {
             const points = [];
             Util.each(dataArray, function(obj) {
               const tmpPoint = geom.findPoint(point, obj);
@@ -263,7 +271,8 @@ class TooltipController {
                 items = items.concat(subItems);
               }
             });
-          } else if ((options.split && Util.inArray([ 'interval', 'schema' ], type)) || !geom.isShareTooltip()) {
+          // } else if ((options.split && Util.inArray([ 'interval', 'schema' ], type)) || !geom.isShareTooltip()) {
+          } else {
             const canvas = geomContainer.get('canvas');
             const pixelRatio = canvas.get('pixelRatio');
             const shape = geomContainer.getShape(point.x * pixelRatio, point.y * pixelRatio);
@@ -295,6 +304,14 @@ class TooltipController {
       const title = first.title || first.name;
       self._setTooltip(title, point, items, markersItems);
     }
+  }
+
+  clear() {
+    const tooltip = this.tooltip;
+    tooltip && tooltip.remove();
+    this.tooltip = null;
+    this.prePoint = null;
+    this._offEvent();
   }
 }
 

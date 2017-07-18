@@ -34,7 +34,7 @@ class LegendController {
     return filters[field];
   }
 
-  _bindEvent(legend, scale) {
+/*  _bindEvent(legend, scale) {
     const self = this;
     const chart = self.chart;
     const field = scale.field;
@@ -69,13 +69,13 @@ class LegendController {
     legend.on('legend:hover', ev => {
       // TODO
     });
-  }
+  }*/
 
-  _bindFilterEvent(legend, scale) {
+/*  _bindFilterEvent(legend, scale) {
     legend.on('legend:filter', ev => {
       console.log(ev.range);
     });
-  }
+  }*/
 
   _isFiltered(scale, values, value) {
     if (!scale.isCategory) {
@@ -208,7 +208,7 @@ class LegendController {
     }, legendOptions[field] || legendOptions, Global.legend[position]);
 
     const legend = container.addGroup(Legend.Category, legendCfg);
-    self._bindEvent(legend, scale);
+    // self._bindEvent(legend, scale);
     legends[position].push(legend);
     return legend;
   }
@@ -272,7 +272,7 @@ class LegendController {
     } else if (attr.type === 'size') {
       legend = container.addGroup(Legend.Size, legendCfg);
     }
-    self._bindFilterEvent(legend, scale);
+    // self._bindFilterEvent(legend, scale);
     legends[position].push(legend);
     return legend;
   }

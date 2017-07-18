@@ -149,6 +149,7 @@ const Area = Shape.registerFactory('area', {
     }
     if (gShape) {
       gShape.set('origin', cfg.origin);
+      gShape.set('geom', Util.lowerFirst(this.className));
     }
     return gShape;
   },

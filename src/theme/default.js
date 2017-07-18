@@ -326,19 +326,22 @@ const Theme = {
   },
   activeShape: {
     point: {
-      fillOpacity: 0.7
+      fillOpacity: 0.7,
+      fill: '#fff'
     },
     hollowPoint: {
       lineWidth: 2
     },
     interval: {
-      fillOpacity: 0.7
+      fillOpacity: 0.7,
+      fill: '#fff'
     },
     hollowInterval: {
       lineWidth: 2
     },
     area: {
-      fillOpacity: 0.85
+      fillOpacity: 0.85,
+      fill: '#fff'
     },
     hollowArea: {
       lineWidth: 2
@@ -347,7 +350,8 @@ const Theme = {
       lineWidth: 2
     },
     polygon: {
-      fillOpacity: 0.75
+      fillOpacity: 0.75,
+      fill: '#fff'
     }
   }, // 图形激活时，鼠标移动到上面
   shape: {
@@ -365,7 +369,7 @@ const Theme = {
     interval: {
       lineWidth: 0,
       fill: DEFAULT_COLOR,
-      fillOpacity: 0.85
+      fillOpacity: 0.9
     },
     pie: {
       lineWidth: 1,

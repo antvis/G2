@@ -166,6 +166,7 @@ class View extends Base {
     const geoms = this.get('geoms');
     const filteredData = this.get('filteredData');
     const coord = this.get('coord');
+
     Util.each(geoms, function(geom) {
       geom.set('data', filteredData);
       geom.set('coord', coord);
@@ -377,15 +378,41 @@ class View extends Base {
    * @param {Geom} geom 几何标记
    */
   addGeom(geom) {
-    const geoms = this.get('geoms');
+    const self = this;
+    const geoms = self.get('geoms');
     geoms.push(geom);
-    geom.set('view', this);
-    const container = this.get('viewContainer');
+    geom.set('view', self);
+    const container = self.get('viewContainer');
     const group = container.addGroup({
       zIndex: 1,
       name: 'geom'
     });
     geom.set('container', group);
+
+    const type = Util.lowerFirst(geom.get('type'));
+    self.on('plotmove', ev => {
+      let shapes;
+      if (Util.inArray([ 'line', 'path' ], type) || !geom.isShareTooltip()) {
+        const shape = ev.shape;
+        if (shape && shape.get('geom') === type) {
+          shapes = shape;
+        }
+      } else if (type !== 'area') {
+        shapes = geom.getActiveShapesByPoint({
+          x: ev.x,
+          y: ev.y
+        });
+      }
+
+      if (shapes) {
+        geom.setShapesActived(shapes);
+        self.emit(type + ':active', ev);
+      }
+    });
+
+    self.on('plotleave', () => {
+      geom.clearActivedShapes();
+    });
   }
 
   /**
@@ -617,24 +644,6 @@ class View extends Base {
   destroy() {
     this.clear();
     super.destroy();
-  }
-
-  /**
-   * 获取当前激活的图形
-   * @return {Shape} 图形对象
-   */
-  getActiveShape() {
-    const self = this;
-    const geoms = self.get('geoms');
-    let rst = null;
-    Util.each(geoms, geom => {
-      const shapes = geom.get('activeShapes');
-      if (!Util.isEmpty(shapes)) {
-        rst = shapes[0];
-        return false;
-      }
-    });
-    return rst;
   }
 
   getViewsByPoint(point) {
