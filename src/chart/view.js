@@ -292,7 +292,7 @@ class View extends Base {
     const scaleController = self.get('scaleController');
     const colDefs = scaleController.defs;
     Util.each(scales, function(scale) {
-      if (scale.isCategory && scale.values && !(colDefs[scale.dim] && colDefs[scale.dim].range)) {
+      if (scale.isCategory && scale.values && !(colDefs[scale.field] && colDefs[scale.field].range)) {
         const count = scale.values.length;
         let range;
         if (count === 1) {

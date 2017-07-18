@@ -28,7 +28,7 @@ class Interval extends GeomBase {
 
   createShapePointsCfg(obj) {
     const cfg = super.createShapePointsCfg(obj);
-    cfg.size = this.getSize(obj);
+    cfg.size = this.getNormalizedSize(obj);
     return cfg;
   }
 

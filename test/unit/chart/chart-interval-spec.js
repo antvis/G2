@@ -5,7 +5,7 @@ const div = document.createElement('div');
 div.id = 'ccharti';
 document.body.appendChild(div);
 
-describe('interval', function() {
+describe('interval chart', function() {
   const data = [
     { genre: 'Sports', sold: 475 },
     { genre: 'Strategy', sold: 115 },
