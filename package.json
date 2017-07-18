@@ -14,6 +14,7 @@
   "author": "https://github.com/orgs/antvis/people",
   "license": "MIT",
   "devDependencies": {
+    "@antv/data-set": "^0.1.0",
     "@lite-js/torch": "^0.1.5",
     "babel-eslint": "^7.2.3",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -24,13 +25,13 @@
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",
     "eslint-config-egg": "^4.2.0",
+    "event-simulate": "^1.0.0",
     "pre-commit": "^1.2.2",
     "rollup": "^0.42.0",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-node-resolve": "^3.0.0",
-    "uglify-js": "^3.0.15",
-    "event-simulate": "^1.0.0"
+    "uglify-js": "^3.0.15"
   },
   "scripts": {
     "build": "rollup -c rollup.config.js -- index.js",

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="classification" content="Point Plot">
+  <title>Scatter Plot</title>
+</head>
+<body>
+  <div id="canvas"></div>
+  <script>
+    const DataSet = require('@antv/data-set')
+    const Chart = require('../src/chart/chart')
+    const data = require('./data/scatter.json')
+
+    const ds = new DataSet()
+    const dv = ds.createView('test').source(data)
+    const avgH = dv.mean('height')
+    const avgW = dv.mean('weight')
+
+    const chart = new Chart({
+      container: 'canvas',
+      forceFit: true,
+      height: 450
+    })
+    chart.source(dv.rows)
+    chart.point() // scatter plot
+      .position('height*weight')
+      .color('gender', ['rgba(223, 83, 83, 0.7)', 'rgba(119, 152, 191, 0.7)'])
+      .shape('gender', ['circle', 'diamond'])
+      .size(6)
+    // const line = {
+    //   stroke: '#94E08A'
+    // }
+    // chart.guide().tag([avgH, 'min'], [avgH, 'max'], '身高平均值: ' + avgH.toFixed(2), {line})
+    // chart.guide().tag(['min', avgW], ['max', avgW], '体重平均值: ' + avgW.toFixed(2), {line})
+    chart.render()
+  </script>
+</body>
+</html>
