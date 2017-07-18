@@ -1,0 +1,67 @@
+#!/usr/bin/env node
+const connect = require('connect');
+const http = require('http');
+const serveStatic = require('serve-static');
+const commander = require('commander');
+const glob = require('glob');
+const screenshot = require('electron-screenshot-service');
+const {
+  writeFileSync
+} = require('fs');
+const {
+  each
+} = require('lodash');
+const {
+  basename,
+  resolve
+} = require('path');
+const {
+  mkdir
+} = require('shelljs');
+const pkg = require('../package.json');
+
+const port = 1338;
+const server = connect();
+server.use(serveStatic(process.cwd()));
+http.createServer(server).listen(port);
+
+commander
+  .version(pkg.version)
+  .option('-w, --width <width>', 'width', 800)
+  .option('-h, --height <height>', 'height', 600)
+  .parse(process.argv);
+
+const { width, height } = commander;
+
+const demosRoot = resolve(__dirname, '../demos');
+const screenshotsPath = resolve(demosRoot, `./assets/screenshots/${width}x${height}`);
+mkdir('-p', screenshotsPath);
+glob('./**/*.html', {
+  cwd: demosRoot,
+  root: demosRoot
+}, (err, files) => {
+  if (err) throw err;
+  const tasks = [];
+  each(files, file => {
+    console.log(file);
+    const fileBasename = basename(file, '.html');
+    const outputPathname = resolve(screenshotsPath, `${fileBasename}.png`);
+    if (fileBasename !== 'index') {
+      tasks.push(
+        screenshot({
+          url: `http://localhost:${port}/demos/${file}`,
+          width,
+          height
+        }).then(img => {
+          writeFileSync(outputPathname, img.data);
+          console.log(`screenshot written: ${outputPathname}`);
+        })
+      );
+    }
+  });
+  Promise.all(tasks).then(() => {
+    console.log('screenshots are all token!');
+    screenshot.close();
+    process.exit();
+  });
+});

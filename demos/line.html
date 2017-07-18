@@ -11,8 +11,8 @@
 
 <body>
   <div id="canvas"></div>
+  <script src="../build/g2.js"></script>
   <script>
-    const G2 = require('../index')
     const data = [
       { month: 'Jan', temperature: 7.0 },
       { month: 'Feb', temperature: 6.9 },
@@ -31,7 +31,7 @@
     const chart = new G2.Chart({
       container: 'canvas',
       forceFit: true,
-      height: 450
+      height: window.innerHeight
     })
     chart.source(data)
     chart.scale({

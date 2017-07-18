@@ -11,6 +11,7 @@
 
 <body>
   <div id="canvas"></div>
+  <script src="../build/g2.js"></script>
   <script>
     const DataSet = require('@antv/data-set')
     const G2 = require('../index')
@@ -28,7 +29,7 @@
     const chart = new G2.Chart({
       container: 'canvas',
       forceFit: true,
-      height: 450
+      height: window.innerHeight
     })
     console.log(dv.rows)
     chart.source(dv.rows) // TODO
