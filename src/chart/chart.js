@@ -224,6 +224,7 @@ class Chart extends View {
     }
 
     super.render();
+    this._renderLegends();
     const canvas = this.get('canvas');
     canvas.draw();
     return this;

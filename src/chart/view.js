@@ -248,12 +248,6 @@ class View extends Base {
     }
   }
 
-  /**
-   * @override
-   * 渲染图例
-   */
-  _renderLegends() {}
-
   _getScales(dimType) {
     const geoms = this.get('geoms');
     const result = {};
@@ -500,7 +494,6 @@ class View extends Base {
     this._drawGeoms();
     this._renderGuides();
     this._renderAxes();
-    this._renderLegends();
   }
 
   repaint() {
