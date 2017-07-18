@@ -1,5 +1,5 @@
-const expect = require('chai').expect;
-const { Canvas, Event } = require('@ali/g');
+// const expect = require('chai').expect;
+const { Canvas } = require('@ali/g');
 const Tooltip = require('../../../../src/component/tooltip/index');
 
 const div = document.createElement('div');
@@ -18,7 +18,7 @@ const plotRange = {
   tr: { x: 425, y: 50 },
   bl: { x: 25, y: 440 },
   br: { x: 425, y: 440 },
-  cc: { x: 225, y: 245}
+  cc: { x: 225, y: 245 }
 };
 
 describe('Tooltip', function() {
@@ -26,7 +26,7 @@ describe('Tooltip', function() {
     const tooltip = canvas.addGroup(Tooltip, {
       x: 10,
       y: 10,
-      plotRange: plotRange,
+      plotRange,
       titleContent: '这是测试title',
       showTitle: true,
       visible: true,
@@ -34,13 +34,13 @@ describe('Tooltip', function() {
         type: 'cross',
         lineStyle: {
           stroke: '#f80',
-          lineStash: [2, 2]
+          lineStash: [ 2, 2 ]
         }
       },
       items: [
-        {color: 'red', name: 'name1', value: '1222333'},
-        {color: 'blue', name: 'n2', value: '1233'},
-        {color: 'yellow', name: 'name3', value: 'swww - afas'}
+        { color: 'red', name: 'name1', value: '1222333' },
+        { color: 'blue', name: 'n2', value: '1233' },
+        { color: 'yellow', name: 'name3', value: 'swww - afas' }
       ],
       offset: 50
     });
