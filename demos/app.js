@@ -1,59 +1,77 @@
+const commander = require('commander');
 const connect = require('connect');
+const getPort = require('get-port');
 const http = require('http');
+const open = require('open');
 const serveStatic = require('serve-static');
 const {
   assign
 } = require('lodash');
 const {
-  app,
-  BrowserWindow
-} = require('electron');
-const {
   resolve
 } = require('path');
-const watcher = require('@lite-js/torch/lib/watcher');
-const windowBoundsConfig = require('@lite-js/torch/lib/windowBoundsConfig')(
-  resolve(app.getPath('userData'), './g2-config.json')
-);
+const pkg = require('../package.json');
 
-const port = 1337;
-const server = connect();
-server.use(serveStatic(process.cwd()));
-http.createServer(server).listen(port);
+commander
+  .version(pkg.version)
+  .option('-w, --web')
+  .parse(process.argv);
 
-let win;
+getPort().then(port => {
+  const server = connect();
+  server.use(serveStatic(process.cwd()));
+  http.createServer(server).listen(port);
 
-function serveAndCreateWindow() {
-  win = new BrowserWindow(assign({
-    // transparent: true
-    webPreferences: {
-      nodeIntegration: false
-    }
-  }, windowBoundsConfig.get('demos')));
+  const url = `http://localhost:${port}/demos/index.html`;
+  console.log(`server started, demos available! ${url}`);
 
-  win.loadURL(`http://localhost:${port}/demos/index.html`);
+  if (commander.web) {
+    open(url);
+  } else {
+    const {
+      app,
+      BrowserWindow
+    } = require('electron');
+    const watcher = require('@lite-js/torch/lib/watcher');
+    const windowBoundsConfig = require('@lite-js/torch/lib/windowBoundsConfig')(
+      resolve(app.getPath('userData'), './g2-config.json')
+    );
 
-  win.openDevTools();
+    let win;
 
-  win.on('close', () => {
-    windowBoundsConfig.set('demos', win.getBounds());
-  });
-  win.on('closed', () => {
-    win = null;
-  });
-  watcher([
-    'demos/**/*.*'
-  ], () => {
-    win.webContents.reloadIgnoringCache();
-  });
-}
+    app.once('ready', () => {
+      win = new BrowserWindow(assign({
+        // transparent: true
+        webPreferences: {
+          nodeIntegration: false
+        }
+      }, windowBoundsConfig.get('demos')));
 
-app.once('ready', serveAndCreateWindow);
+      win.loadURL(url);
 
-app.on('window-all-closed', () => {
-  server.stop();
-  if (process.platform !== 'darwin') {
-    app.quit();
+      win.openDevTools();
+
+      win.on('close', () => {
+        windowBoundsConfig.set('demos', win.getBounds());
+      });
+
+      win.on('closed', () => {
+        win = null;
+      });
+
+      watcher([
+        'demos/**/*.*'
+      ], () => {
+        win.webContents.reloadIgnoringCache();
+      });
+    });
+
+    app.on('window-all-closed', () => {
+      server.stop();
+      if (process.platform !== 'darwin') {
+        app.quit();
+      }
+      app.exit();
+    });
   }
-  app.exit();
 });
