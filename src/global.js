@@ -41,7 +41,6 @@ Default = {
   showSinglePoint: false,
   connectNulls: false,
   scales: {
-
   }
 };
 

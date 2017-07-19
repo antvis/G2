@@ -14,7 +14,7 @@ class Identity extends Base {
   getDefaultCfg() {
     const cfg = super.getDefaultCfg();
     return Util.mix({}, cfg, {
-
+      isIdentity: true,
       /**
        * @override
        * @type {String}
@@ -40,7 +40,7 @@ class Identity extends Base {
    * @override
    */
   scale() {
-    return 1;
+    return this.range[0];
   }
 
   /**

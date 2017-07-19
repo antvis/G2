@@ -231,7 +231,7 @@ describe('test geoms', function() {
         { a: 1, b: [ 1, 2 ], c: '1' },
         { a: 2, b: [ 2, 3 ], c: '2' }
       ];
-      geom._beforeMapping(data);
+      geom._beforeMapping([ data ]);
       expect(data[0].points).eqls([{ x: 0.1, y: 0.2 }, { x: 0.1, y: 0.4 }]);
     });
 
@@ -241,7 +241,7 @@ describe('test geoms', function() {
         { a: 2, b: [ 2, 3 ], c: '2' }
       ];
       coord.isTransposed = false;
-      geom._beforeMapping(data);
+      geom._beforeMapping([ data ]);
       const mappedData = geom._mapping(data);
       const obj1 = mappedData[0];
       expect(obj1.x).equal(50);

@@ -57,7 +57,7 @@ describe('scale identity', function() {
   });
 
   it('scale', function() {
-    expect(scale.scale('test')).to.be.equal(1);
+    expect(scale.scale('test')).to.be.equal(0);
   });
 
   it('invert', function() {
