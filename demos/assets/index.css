@@ -19,28 +19,80 @@ html, body {
 }
 
 .toc-container {
-  -ms-flex: 3 3 0px;
-  -webkit-box-flex: 3;
-  -webkit-flex: 3 3 0;
   -webkit-overflow-scrolling: touch;
   -webkit-transform: translateZ(0);
   background-color: #fff;
-  box-shadow: 0 0 0.5rem #9da5ab;
   display: block;
-  flex: 3 3 0;
-  min-width: 200px;
+  width: 200px;
   overflow-y: auto;
   padding: 1rem 0 1rem 1rem;
   position: relative;
   right: 0;
   top: 0;
+  border-right: 0.1rem solid #e8e8e8;
   transform: translateZ(0);
   white-space: nowrap;
   will-change: scroll-position;
   z-index: 1;
 }
 
+.thumbnails {
+  -webkit-box-flex: 14;
+  -webkit-flex: 14 14 0;
+  -ms-flex: 14 14 0px;
+  flex: 14 14 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 1rem;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: scroll-position;
+  -webkit-overflow-scrolling: touch;
+}
+
+.thumbnail {
+  height: 150px;
+}
+
 .doc-container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  position: absolute;
+  height: 100%;
+  width: calc(100% - 200px - 1.1rem);
+  left: calc(200px + 1.1rem);
+  background: white;
+}
+
+.code-panel {
+  -webkit-overflow-scrolling: touch;
+  -webkit-transform: translateZ(0);
+  background-color: #fff;
+  display: block;
+  width: 400px;
+  overflow-y: auto;
+  padding: 1rem;
+  position: relative;
+  right: 0;
+  top: 0;
+  border-right: 0.1rem solid #e8e8e8;
+  transform: translateZ(0);
+  white-space: nowrap;
+  will-change: scroll-position;
+  z-index: 1;
+}
+
+.code-panel, .code-editor, .code-editor .CodeMirror {
+  height: 100%;
+}
+
+.chart-panel {
   -webkit-box-flex: 14;
   -webkit-flex: 14 14 0;
   -ms-flex: 14 14 0px;
@@ -67,6 +119,7 @@ html, body {
   width: calc(100% - 1rem);
 }
 
-.thumbnail {
-  height: 150px;
+.chart-frame {
+  height: 100%;
+  width: 100%;
 }

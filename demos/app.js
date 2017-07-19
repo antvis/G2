@@ -2,6 +2,9 @@ const connect = require('connect');
 const http = require('http');
 const serveStatic = require('serve-static');
 const {
+  assign
+} = require('lodash');
+const {
   app,
   BrowserWindow
 } = require('electron');
@@ -21,9 +24,16 @@ http.createServer(server).listen(port);
 let win;
 
 function serveAndCreateWindow() {
-  win = new BrowserWindow(windowBoundsConfig.get('demos'));
+  win = new BrowserWindow(assign({
+    // transparent: true
+    webPreferences: {
+      nodeIntegration: false
+    }
+  }, windowBoundsConfig.get('demos')));
 
   win.loadURL(`http://localhost:${port}/demos/index.html`);
+
+  win.openDevTools();
 
   win.on('close', () => {
     windowBoundsConfig.set('demos', win.getBounds());

@@ -86,11 +86,25 @@ glob('./**/*.html', {
     }
   });
 
+  const plotById = {};
   forIn(plotsByGeometry, (plots, geometry) => {
     // generate menus and thumbnails
     $homepage('.menus').append(generateMenuItem(plots, geometry));
     $homepage('.thumbnails').append(generateThumbnailsSection(plots, geometry));
+    // prepare global data
+    each(plots, plot => {
+      plotById[plot.id] = plot;
+    });
   });
+
+  // prepare global data
+  $homepage('body').prepend(`<script>
+  const GLOBAL_DATA = {
+    plotById: ${JSON.stringify(plotById)},
+    plotsByGeometry: ${JSON.stringify(plotsByGeometry)}
+  };
+</script>`);
+
 
   // write demos homepage
   writeFileSync(homepageFilename, $homepage.html(), 'utf8');
