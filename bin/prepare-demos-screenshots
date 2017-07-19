@@ -1,10 +1,11 @@
 #!/usr/bin/env node
-const connect = require('connect');
-const http = require('http');
-const serveStatic = require('serve-static');
+const PQueue = require('p-queue');
 const commander = require('commander');
+const connect = require('connect');
 const glob = require('glob');
+const http = require('http');
 const screenshot = require('electron-screenshot-service');
+const serveStatic = require('serve-static');
 const {
   writeFileSync
 } = require('fs');
@@ -12,7 +13,8 @@ const {
   each
 } = require('lodash');
 const {
-  basename,
+  // basename,
+  dirname,
   resolve
 } = require('path');
 const {
@@ -31,35 +33,46 @@ commander
   .option('-h, --height <height>', 'height', 600)
   .parse(process.argv);
 
-const { width, height } = commander;
+const {
+  width,
+  height
+} = commander;
 
 const demosRoot = resolve(__dirname, '../demos');
 const screenshotsPath = resolve(demosRoot, `./assets/screenshots/${width}x${height}`);
+
 mkdir('-p', screenshotsPath);
+
+const delay = 50;
+const queue = new PQueue({
+  concurrency: 1
+});
+
 glob('./**/*.html', {
   cwd: demosRoot,
   root: demosRoot
 }, (err, files) => {
   if (err) throw err;
-  const tasks = [];
   each(files, file => {
-    console.log(file);
-    const fileBasename = basename(file, '.html');
-    const outputPathname = resolve(screenshotsPath, `${fileBasename}.png`);
+    const fileBasename = file
+      .replace(/\.html$/, '')
+      .replace(/^./, '')
+      .replace(/\//, '');
     if (fileBasename !== 'index') {
-      tasks.push(
-        screenshot({
-          url: `http://localhost:${port}/demos/${file}`,
-          width,
-          height
-        }).then(img => {
-          writeFileSync(outputPathname, img.data);
-          console.log(`screenshot written: ${outputPathname}`);
-        })
-      );
+      const outputFilename = resolve(screenshotsPath, `./${fileBasename}.png`);
+      queue.add(() => screenshot({
+        delay,
+        url: `http://localhost:${port}/demos/${file}`,
+        width,
+        height
+      }).then(img => {
+        mkdir('-p', dirname(outputFilename));
+        writeFileSync(outputFilename, img.data);
+        console.log(`screenshot written: ${outputFilename}`);
+      }));
     }
   });
-  Promise.all(tasks).then(() => {
+  queue.onEmpty().then(() => {
     console.log('screenshots are all token!');
     screenshot.close();
     process.exit();
