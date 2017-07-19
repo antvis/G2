@@ -1,5 +1,6 @@
 const expect = require('chai').expect;
 const Chart = require('../../../src/chart/chart');
+const Util = require('../../../src/util');
 
 const div = document.createElement('div');
 div.id = 'ccharti';
@@ -7,18 +8,17 @@ document.body.appendChild(div);
 
 describe('interval chart', function() {
   const data = [
-    { genre: 'Sports', sold: 475 },
-    { genre: 'Strategy', sold: 115 },
-    { genre: 'Action', sold: 120 },
-    { genre: 'Shooter', sold: 350 },
-    { genre: 'Other', sold: 150 }
+    { genre: 'Sports', sold: 475, type: '1' },
+    { genre: 'Strategy', sold: 115, type: '1' },
+    { genre: 'Action', sold: 120, type: '1' },
+    { genre: 'Shooter', sold: 350, type: '1' },
+    { genre: 'Other', sold: 150, type: '1' }
   ];
 
   const chart = new Chart({
     container: div,
     height: 300,
     width: 500
-
   });
 
   it('init', function() {
@@ -95,6 +95,42 @@ describe('interval chart', function() {
     expect(group.getCount()).equal(10);
     const first = group.getFirst();
     expect(first.attr('path')[0]).eqls([ 'M', 94.45, 240 ]);
+  });
+
+  it('pie', function() {
+    chart.clear();
+    chart.coord('theta');
+    chart.source(data, {
+      sold: {
+        nice: false
+      }
+    });
+
+    chart.interval().position('sold', 'stack').color('genre');
+    chart.render();
+    const group = chart.get('viewContainer').getFirst();
+    expect(group.getCount()).equal(data.length);
+    const first = group.getFirst();
+    expect(first.attr('path')[0][1]).equal(250);
+    expect(Util.snapEqual(first.attr('path')[0][2], 130)).equal(true);
+  });
+
+  it('ring', function() {
+    chart.clear();
+    chart.coord('theta', { innerRadius: 0.5 });
+    chart.source(data, {
+      sold: {
+        nice: false
+      }
+    });
+
+    chart.interval().position('sold', 'stack').color('genre');
+    chart.render();
+    const group = chart.get('viewContainer').getFirst();
+    expect(group.getCount()).equal(data.length);
+    const first = group.getFirst();
+    expect(first.attr('path')[0][1]).equal(250);
+    expect(Util.snapEqual(first.attr('path')[0][2], 75)).equal(true);
   });
 
   it('stack and dodge', function() {

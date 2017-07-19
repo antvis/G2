@@ -292,7 +292,7 @@ class View extends Base {
     const scaleController = self.get('scaleController');
     const colDefs = scaleController.defs;
     Util.each(scales, function(scale) {
-      if (scale.isCategory && scale.values && !(colDefs[scale.field] && colDefs[scale.field].range)) {
+      if ((scale.isCategory || scale.isIdentity) && scale.values && !(colDefs[scale.field] && colDefs[scale.field].range)) {
         const count = scale.values.length;
         let range;
         if (count === 1) {
@@ -462,8 +462,11 @@ class View extends Base {
 
   }
 
-  source(data) {
+  source(data, scales) {
     this.set('data', data);
+    if (scales) {
+      this.scale(scales);
+    }
     return this;
   }
 

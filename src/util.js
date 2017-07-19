@@ -44,6 +44,9 @@ const Util = {
   defaultsDeep: require('lodash/defaultsDeep'),
   isEqualWith: require('lodash/isEqualWith'),
   replace: require('lodash/replace'),
+  snapEqual(v1, v2) {
+    return Math.abs(v1 - v2) < 0.001;
+  },
   fixedBase(v, base) {
     const str = base.toString();
     const index = str.indexOf('.');

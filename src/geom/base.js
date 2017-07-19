@@ -283,18 +283,29 @@ class GeomBase extends Base {
     const self = this;
     const attrs = this.get('attrs');
     const attrOptions = this.get('attrOptions');
+    const coord = self.get('coord');
     Util.each(attrOptions, function(option, type) {
       const className = Util.upperFirst(type);
       const fields = parseFields(option.field);
+      if (type === 'position') {
+        option.coord = coord;
+        // 饼图坐标系下，填充一维
+        if (fields.length === 1 && coord.type === 'theta') {
+          fields.unshift('1');
+        }
+      }
       const scales = [];
       Util.each(fields, function(field) {
         const scale = self._createScale(field);
         scales.push(scale);
       });
-      option.scales = scales;
-      if (type === 'position') {
-        option.coord = self.get('coord');
+      // 饼图需要填充满整个空间
+      if (coord.type === 'theta' && type === 'position' && scales.length > 1) {
+        scales[1].change({
+          nice: false
+        });
       }
+      option.scales = scales;
       const attr = new Attr[className](option);
       attrs[type] = attr;
     });
@@ -412,7 +423,7 @@ class GeomBase extends Base {
       const adjustType = Util.upperFirst(adjust.type);
       if (adjustType === 'Dodge') {
         const adjustNames = [];
-        if (xScale.isCategory) {
+        if (xScale.isCategory || xScale.isIdentity) {
           adjustNames.push('x');
         } else if (!yScale) {
           adjustNames.push('y');

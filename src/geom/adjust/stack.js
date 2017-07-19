@@ -97,7 +97,7 @@ class Stack extends Adjust {
       const data = dataArray[i];
       for (let j = 0; j < data.length; j++) {
         const item = data[j];
-        const x = item[xField];
+        const x = item[xField] || 0;
         let y = item[yField] || 0;
         const xkey = x.toString();
         y = Util.isArray(y) ? y[1] : y;
