@@ -478,8 +478,8 @@ class GeomBase extends Base {
     shapeFactory.setCoord(self.get('coord'));
     const container = self.get('container');
 
+    self._beforeMapping(dataArray);
     Util.each(dataArray, function(data) {
-      self._beforeMapping(data);
       data = self._mapping(data);
       mappedArray.push(data);
       self.draw(data, container, shapeFactory);
@@ -488,17 +488,27 @@ class GeomBase extends Base {
   }
 
   // step 3.1 before mapping
-  _beforeMapping(data) {
-    if (this.get('sortable')) {
-      const xScale = this.getXScale();
+  _beforeMapping(dataArray) {
+    const self = this;
+    if (self.get('sortable')) {
+      const xScale = self.getXScale();
       const field = xScale.field;
-      data.sort(function(v1, v2) {
-        return v1[field] - v2[field];
+      Util.each(dataArray, function(data) {
+        data.sort(function(v1, v2) {
+          return v1[field] - v2[field];
+        });
       });
     }
-
-    if (this.get('generatePoints')) {
-      this._generatePoints(data);
+    if (self.get('generatePoints')) {
+      Util.each(dataArray, function(data) {
+        self._generatePoints(data);
+      });
+      Util.each(dataArray, function(data, index) {
+        const nextData = dataArray[index + 1];
+        if (nextData) {
+          data[0].nextPoints = nextData[0].points;
+        }
+      });
     }
   }
 
@@ -595,6 +605,7 @@ class GeomBase extends Base {
       const newRecord = {};
       newRecord[FIELD_ORIGIN] = record[FIELD_ORIGIN];
       newRecord.points = record.points;
+      newRecord.nextPoints = record.nextPoints;
       Util.each(attrs, function(attr) {
         const names = attr.names;
         const values = self._getAttrValues(attr, record);
@@ -685,6 +696,7 @@ class GeomBase extends Base {
     }
     if (this.get('generatePoints')) {
       cfg.points = obj.points;
+      cfg.nextPoints = obj.nextPoints;
     }
     return cfg;
   }

@@ -97,6 +97,59 @@ describe('interval chart', function() {
     expect(first.attr('path')[0]).eqls([ 'M', 94.45, 240 ]);
   });
 
+  it('symmetric', function() {
+    chart.clear();
+    chart.source(data, {
+      sold: {
+        nice: false
+      }
+    });
+    chart.coord();
+    chart.interval().position('genre*sold', 'symmetric').color('genre');
+    chart.render();
+
+    const group = chart.get('viewContainer').getFirst();
+    expect(group.getCount()).equal(data.length);
+    const first = group.getFirst();
+    const second = group.get('children')[1];
+    expect(first.get('origin').y[0] - second.get('origin').y[0]).not.eqls(0);
+    expect(first.get('origin').y[0] - second.get('origin').y[0]).equal(second.get('origin').y[1] - first.get('origin').y[1]);
+  });
+
+  it('funnel', function() {
+    chart.clear();
+    chart.source(data, {
+      sold: {
+        nice: false
+      }
+    });
+    chart.interval().position('genre*sold', 'symmetric').color('genre')
+      .shape('funnel');
+    chart.render();
+    const group = chart.get('viewContainer').getFirst();
+    expect(group.getCount()).equal(data.length);
+    const first = group.getFirst();
+    const second = group.get('children')[1];
+    expect(first.get('origin').y[0] - second.get('origin').y[0]).equal(second.get('origin').y[1] - first.get('origin').y[1]);
+  });
+
+  it('pyramid', function() {
+    chart.clear();
+    chart.source(data, {
+      sold: {
+        nice: false
+      }
+    });
+    chart.interval().position('genre*sold', 'symmetric').color('genre')
+      .shape('pyramid');
+    chart.render();
+    const group = chart.get('viewContainer').getFirst();
+    expect(group.getCount()).equal(data.length);
+    const first = group.getFirst();
+    const second = group.get('children')[1];
+    expect(first.get('origin').y[0] - second.get('origin').y[0]).equal(second.get('origin').y[1] - first.get('origin').y[1]);
+  });
+
   it('pie', function() {
     chart.clear();
     chart.coord('theta');
