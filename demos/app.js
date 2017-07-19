@@ -8,6 +8,7 @@ const {
 const {
   resolve
 } = require('path');
+const watcher = require('@lite-js/torch/lib/watcher');
 const windowBoundsConfig = require('@lite-js/torch/lib/windowBoundsConfig')(
   resolve(app.getPath('userData'), './g2-config.json')
 );
@@ -22,15 +23,18 @@ let win;
 function serveAndCreateWindow() {
   win = new BrowserWindow(windowBoundsConfig.get('demos'));
 
-  win.loadURL(`http://localhost:${port}/demos`);
-
-  win.webContents.openDevTools();
+  win.loadURL(`http://localhost:${port}/demos/index.html`);
 
   win.on('close', () => {
     windowBoundsConfig.set('demos', win.getBounds());
   });
   win.on('closed', () => {
     win = null;
+  });
+  watcher([
+    'demos/**/*.*'
+  ], () => {
+    win.webContents.reloadIgnoringCache();
   });
 }
 

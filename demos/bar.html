@@ -12,38 +12,36 @@
 <body>
   <div id="canvas"></div>
   <script src="../build/g2.js"></script>
+  <script src="./assets/data-set.js"></script>
   <script>
-    const DataSet = require('@antv/data-set')
-    const G2 = require('../index')
-    const data = require('./data/top2000.json')
+    fetch('./data/top2000.json').then(resp => resp.json()).then(data => {
+      const ds = new DataSet()
+      const dv = ds.createView('test').source(data)
+      dv.transform({
+        as: ['count'],
+        groupBy: ['release'],
+        operations: ['count'],
+        type: 'aggregate',
+      })
 
-    const ds = new DataSet()
-    const dv = ds.createView('test').source(data)
-    dv.transform({
-      as: ['count'],
-      groupBy: ['release'],
-      operations: ['count'],
-      type: 'aggregate',
+      const chart = new G2.Chart({
+        container: 'canvas',
+        forceFit: true,
+        height: window.innerHeight
+      })
+      chart.source(dv.rows) // TODO
+      chart.scale({
+        count: {
+          alias: 'top2000 唱片总量'
+        },
+        release: {
+          tickInterval: 5,
+          alias: '唱片发行年份'
+        }
+      })
+      chart.interval().position('release*count').color('#e50000')
+      chart.render()
     })
-
-    const chart = new G2.Chart({
-      container: 'canvas',
-      forceFit: true,
-      height: window.innerHeight
-    })
-    console.log(dv.rows)
-    chart.source(dv.rows) // TODO
-    chart.scale({
-      count: {
-        alias: 'top2000 唱片总量'
-      },
-      release: {
-        tickInterval: 5,
-        alias: '唱片发行年份'
-      }
-    })
-    chart.interval().position('release*count').color('#e50000')
-    chart.render()
   </script>
 </body>
 
