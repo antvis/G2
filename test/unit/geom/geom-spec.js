@@ -249,22 +249,6 @@ describe('test geoms', function() {
       expect(obj1.color).equal('red');
     });
 
-    it('test draw', function() {
-      geom.reset();
-      geom.position('a*b').color('red');
-      geom.init();
-      const data = [
-        { a: 1, b: 2, c: '1' },
-        { a: 2, b: 3, c: '2' }
-      ];
-      geom._beforeMapping(data);
-      const mappedData = geom._mapping(data);
-      geom.draw(mappedData);
-      expect(group.getCount()).to.be.equal(2);
-      canvas.draw();
-
-    });
-
     it('test paint', function() {
       geom.reset();
       geom.position('a*b').color('c');
@@ -507,6 +491,7 @@ describe('test geom interval', function() {
     expect(arr.length).eql(6);
     // expect(arr[2][1] - arr[0][1]).equal(0);
     expect(equal((arr[2][1] - arr[0][1]), (500 * 0.6) / 3 / 2)).equal(true);
+    expect(geom.getSize()).equal((500 * 0.6) / 3 / 2);
 
   });
 
@@ -526,6 +511,7 @@ describe('test geom interval', function() {
     const arr = path.attr('path');
     expect(arr.length).eql(6);
     expect(equal((arr[2][1] - arr[0][1]), 10)).equal(true);
+    expect(geom.getSize()).equal(10);
   });
 
   it('polar coord, draw interval', function() {
@@ -752,7 +738,7 @@ describe('test schema', function() {
 
     it('draw', function() {
       geom.init();
-      expect(geom.getSize()).equal(1 / 10 / 2);
+      expect(geom.getNormalizedSize()).equal(1 / 10 / 2);
       geom.paint();
 
       expect(group.getCount()).equal(3);
@@ -787,7 +773,7 @@ describe('test schema', function() {
 
     it('draw', function() {
       geom.init();
-      expect(geom.getSize()).equal(1 / 10 / 2);
+      expect(geom.getNormalizedSize()).equal(1 / 10 / 2);
       geom.paint();
 
       expect(group.getCount()).equal(3);

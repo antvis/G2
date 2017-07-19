@@ -81,7 +81,7 @@ const SizeMixin = {
     }
     return width;
   },
-  _getSize(size) {
+  _getWidth() {
     const coord = this.get('coord');
     let width; // x轴的长度
     if (this.isInCircle() && !coord.isTransposed) { // 极坐标下 width 为弧长
@@ -89,14 +89,30 @@ const SizeMixin = {
     } else {
       width = this.getDimWidth('x'); // 不需要判断transpose
     }
+    return width;
+  },
+  _toNormalizedSize(size) {
+    const width = this._getWidth();
     return size / width;
   },
-  getSize(obj) {
+  _toCoordSize(normalizeSize) {
+    const width = this._getWidth();
+    return width * normalizeSize;
+  },
+  getNormalizedSize(obj) {
     let size = this.getAttrValue('size', obj);
     if (Util.isNull(size)) {
       size = this.getDefalutSize();
     } else {
-      size = this._getSize(size);
+      size = this._toNormalizedSize(size);
+    }
+    return size;
+  },
+  getSize(obj) {
+    let size = this.getAttrValue('size', obj);
+    if (Util.isNull(size)) {
+      const normalizeSize = this.getDefalutSize();
+      size = this._toCoordSize(normalizeSize);
     }
     return size;
   }
