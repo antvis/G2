@@ -10,9 +10,11 @@
 </head>
 
 <body><script>
+  /* global GLOBAL_DATA */
+  /* eslint-disable no-unused-vars */
   const GLOBAL_DATA = {
-    plotById: {"area-plot":{"id":"area-plot","name":"Area Plot","path":"./area.html","thumbnail":"./assets/screenshots/800x600/area.png"},"bar-plot":{"id":"bar-plot","name":"Bar Plot","path":"./bar.html","thumbnail":"./assets/screenshots/800x600/bar.png"},"line-plot":{"id":"line-plot","name":"Line Plot","path":"./line.html","thumbnail":"./assets/screenshots/800x600/line.png"},"scatter-plot":{"id":"scatter-plot","name":"Scatter Plot","path":"./scatter.html","thumbnail":"./assets/screenshots/800x600/scatter.png"}},
-    plotsByGeometry: {"area":[{"id":"area-plot","name":"Area Plot","path":"./area.html","thumbnail":"./assets/screenshots/800x600/area.png"}],"interval":[{"id":"bar-plot","name":"Bar Plot","path":"./bar.html","thumbnail":"./assets/screenshots/800x600/bar.png"}],"line":[{"id":"line-plot","name":"Line Plot","path":"./line.html","thumbnail":"./assets/screenshots/800x600/line.png"}],"point":[{"id":"scatter-plot","name":"Scatter Plot","path":"./scatter.html","thumbnail":"./assets/screenshots/800x600/scatter.png"}]}
+    plotById: { 'area-plot': { id: 'area-plot', name: 'Area Plot', path: './area.html', thumbnail: './assets/screenshots/800x600/area.png' }, 'bar-plot': { id: 'bar-plot', name: 'Bar Plot', path: './treemap-layouts.html', thumbnail: './assets/screenshots/800x600/treemap-layouts.png' }, 'line-plot': { id: 'line-plot', name: 'Line Plot', path: './line.html', thumbnail: './assets/screenshots/800x600/line.png' }, 'scatter-plot': { id: 'scatter-plot', name: 'Scatter Plot', path: './scatter.html', thumbnail: './assets/screenshots/800x600/scatter.png' } },
+    plotsByGeometry: { area: [{ id: 'area-plot', name: 'Area Plot', path: './area.html', thumbnail: './assets/screenshots/800x600/area.png' }], interval: [{ id: 'bar-plot', name: 'Bar Plot', path: './bar.html', thumbnail: './assets/screenshots/800x600/bar.png' }, { id: 'bar-plot', name: 'Bar Plot', path: './treemap-layouts.html', thumbnail: './assets/screenshots/800x600/treemap-layouts.png' }], line: [{ id: 'line-plot', name: 'Line Plot', path: './line.html', thumbnail: './assets/screenshots/800x600/line.png' }], point: [{ id: 'scatter-plot', name: 'Scatter Plot', path: './scatter.html', thumbnail: './assets/screenshots/800x600/scatter.png' }] }
   };
 </script>
   <div class="main">
@@ -36,6 +38,8 @@
     </h3>
     <ul class="sub-menus">
       <li class="sub-menu-item">
+            <a href="#/bar-plot">Bar Plot</a>
+          </li><li class="sub-menu-item">
             <a href="#/bar-plot">Bar Plot</a>
           </li>
     </ul>
@@ -79,6 +83,11 @@
       <li class="thumbnail-item">
             <a href="#/bar-plot">
               <img class="thumbnail" src="./assets/screenshots/800x600/bar.png">
+              <div class="description">Bar Plot</div>
+            </a>
+          </li><li class="thumbnail-item">
+            <a href="#/bar-plot">
+              <img class="thumbnail" src="./assets/screenshots/800x600/treemap-layouts.png">
               <div class="description">Bar Plot</div>
             </a>
           </li>

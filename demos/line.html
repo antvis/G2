@@ -26,25 +26,25 @@
       { month: 'Oct', temperature: 18.3 },
       { month: 'Nov', temperature: 13.9 },
       { month: 'Dec', temperature: 9.6 }
-    ]
+    ];
 
     const chart = new G2.Chart({
       container: 'canvas',
       forceFit: true,
       height: window.innerHeight
-    })
-    chart.source(data)
+    });
+    chart.source(data);
     chart.scale({
       month: {
         alias: '月份',
-        range: [0, 1]
+        range: [ 0, 1 ]
       },
       temperature: {
         alias: '平均温度(°C)'
       }
-    })
-    chart.line().position('month*temperature').size(2)
-    chart.render()
+    });
+    chart.line().position('month*temperature').size(2);
+    chart.render();
   </script>
 </body>
 

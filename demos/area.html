@@ -11,15 +11,16 @@
 
 <body>
   <div id="canvas"></div>
+  <script src="./assets/jquery-3.2.1.min.js"></script>
   <script src="../build/g2.js"></script>
   <script>
-    fetch('./data/rain-flow.json').then(resp => resp.json()).then(data => {
+    $.getJSON('./data/rain-flow.json', data => {
       const chart = new G2.Chart({
         container: 'canvas',
         forceFit: true,
         height: window.innerHeight
-      })
-      chart.source(data) // TODO
+      });
+      chart.source(data); // TODO
       chart.scale({
         time: {
           type: 'time',
@@ -33,14 +34,20 @@
         rain: {
           alias: '降雨量(mm)'
         }
-      })
+      });
       chart.legend({
         position: 'top'
       });
-      chart.area().position('time*flow').color('l(100) 0:#a50f15 1:#fee5d9').opacity(0.85);
-      chart.area().position('time*rain').color('l(100) 0:#293c55 1:#f7f7f7').opacity(0.85);
-      chart.render()
-    })
+      chart.area()
+        .position('time*flow')
+        .color('l(100) 0:#a50f15 1:#fee5d9')
+        .opacity(0.85);
+      chart.area()
+        .position('time*rain')
+        .color('l(100) 0:#293c55 1:#f7f7f7')
+        .opacity(0.85);
+      chart.render();
+    });
   </script>
 </body>
 

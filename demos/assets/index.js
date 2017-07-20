@@ -20,7 +20,7 @@
       'CodeMirror-foldgutter'
     ],
     lineNumbers: true,
-    lineWrapping: true
+    lineWrapping: false
   })
 
   const $docContainer = $('.doc-container')

@@ -15,7 +15,17 @@
   <script src="./assets/data-set-0.1.1.min.js"></script>
   <script src="../build/g2.js"></script>
   <script>
-    $.getJSON('./data/top2000.json', data => {
+    $.getJSON('./data/mobile.json', data => {
+      // process data
+      for (let i = 0; i < data.length; i++) {
+        const node = data[i];
+        if (node.children) {
+          for (let j = 0; j < node.children.length; j++) {
+            node.children[j].brand = node.brand;
+          }
+        }
+      }
+
       const ds = new DataSet();
       const dv = ds.createView('test').source(data);
       dv.transform({

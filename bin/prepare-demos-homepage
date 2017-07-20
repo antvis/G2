@@ -99,6 +99,8 @@ glob('./**/*.html', {
 
   // prepare global data
   $homepage('body').prepend(`<script>
+  /* global GLOBAL_DATA */
+  /* eslint-disable no-unused-vars */
   const GLOBAL_DATA = {
     plotById: ${JSON.stringify(plotById)},
     plotsByGeometry: ${JSON.stringify(plotsByGeometry)}

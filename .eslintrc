@@ -2,10 +2,18 @@
   "extends": [
     "egg"
   ],
+  "globals": {
+    "$": true,
+    "DataSet": true,
+    "G2": true
+  },
   "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module"
   },
+  "plugins": [
+    "html"
+  ],
   "rules": {
     "no-bitwise": [
       0

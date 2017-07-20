@@ -29,6 +29,7 @@
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",
     "eslint-config-egg": "^4.2.0",
+    "eslint-plugin-html": "^3.1.1",
     "event-simulate": "^1.0.0",
     "get-port": "^3.1.0",
     "glob": "^7.1.2",
@@ -53,8 +54,8 @@
     "demos": "$(npm bin)/electron ./demos/app.js",
     "demos-web": "node ./demos/app.js --web",
     "dist": "rm -rf dist && mkdir dist && npm run build && npm run compress",
-    "lint": "eslint ./",
-    "lint-fix": "eslint --fix ./",
+    "lint": "eslint --ext .html,.js ./",
+    "lint-fix": "eslint --ext .html,.js --fix ./",
     "prepare-demos": "./bin/prepare-demos-homepage && ./bin/prepare-demos-screenshots",
     "test": "torch --renderer --recursive ./test/unit",
     "test-live": "torch --interactive --watch --recursive ./test/unit"
