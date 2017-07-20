@@ -160,7 +160,8 @@ class LegendController {
     const plotRange = self.plotRange;
     const offsetX = legend.get('offsetX') || 0;
     const offsetY = legend.get('offsetY') || 0;
-    const bbox = legend.getBBox();
+    const legendHeight = legend.getHeight();
+
     let x = 0;
     let y = 0;
 
@@ -173,9 +174,9 @@ class LegendController {
         x = position === 'left' ? MARGIN : width - legendWidth + MARGIN;
       }
 
-      y = height - bbox.height;
+      y = height - legendHeight;
       if (pre) {
-        y = pre.get('y') - bbox.height - MARGIN_LEGEND;
+        y = pre.get('y') - legendHeight - MARGIN_LEGEND;
       }
     } else {
       let statrX = 0;
@@ -184,12 +185,14 @@ class LegendController {
         statrX = plotRange.bl.x + ((plotRange.br.x - plotRange.bl.x) - region.totalWidth) / 2;
       }
       x = statrX;
-      y = position === 'top' ? MARGIN : height - bbox.height - MARGIN;
+      y = position === 'top' ? MARGIN : height - legendHeight - MARGIN;
 
       if (pre) {
-        x = pre.get('x') + pre.getBBox().width + MARGIN_LEGEND;
+        const preWidth = pre.getWidth();
+        x = pre.get('x') + preWidth + MARGIN_LEGEND;
       }
     }
+
     legend.move(x + offsetX, y + offsetY);
   }
 
@@ -197,11 +200,11 @@ class LegendController {
     let maxWidth = 0;
     let totalWidth = 0;
     Util.each(legends, function(legend) {
-      const bbox = legend.getBBox();
-      if (maxWidth < bbox.width) {
-        maxWidth = bbox.width;
+      const width = legend.getWidth();
+      if (maxWidth < width) {
+        maxWidth = width;
       }
-      totalWidth += bbox.width;
+      totalWidth += width;
     });
     return {
       maxWidth,

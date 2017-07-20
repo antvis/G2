@@ -297,11 +297,11 @@ class Category extends Base {
     });
 
     if (self.get('scroll')) {
-      const width = self.get('width') || canvas.get('width');
-      const height = self.get('height') || canvas.get('height');
+      const width = canvas.get('width');
+      const height = canvas.get('height');
       DomUtil.modiCSS(legendWrapper, {
-        width: width + 'px',
-        height: height + 'px',
+        maxWidth: width + 'px',
+        maxHeight: height + 'px',
         overflow: 'scroll'
       });
     }
@@ -398,10 +398,17 @@ class Category extends Base {
           currentTarget: parentDom,
           checked: hoveredItem.checked
         });
+      } else {
+        self.emit('legend:unhover', ev);
       }
     };
 
+    legendWrapper.onmouseout = ev => {
+      self.emit('legend:unhover', ev);
+    };
+
     outterNode.appendChild(legendWrapper);
+    self.set('legendWrapper', legendWrapper);
   }
 
   _renderItems() {
@@ -410,6 +417,12 @@ class Category extends Base {
     Util.each(items, function(item, index) {
       self._addItem(item, index);
     });
+  }
+
+  _renderBack() {
+    const padding = this.get('backPadding');
+    const backAttrs = this.get('background');
+    this.renderBack(padding, backAttrs);
   }
 
   _formatItemValue(value) {
@@ -605,10 +618,33 @@ class Category extends Base {
     }
   }
 
-  _renderBack() {
-    const padding = this.get('backPadding');
-    const backAttrs = this.get('background');
-    this.renderBack(padding, backAttrs);
+  getWidth() {
+    if (this.get('useHtml')) {
+      return DomUtil.getWidth(this.get('legendWrapper'));
+    }
+    super.getWidth();
+  }
+
+  getHeight() {
+    if (this.get('useHtml')) {
+      return DomUtil.getHeight(this.get('legendWrapper'));
+    }
+
+    super.getHeight();
+  }
+
+  /**
+   * @override
+   */
+  move(x, y) {
+    if (this.get('useHtml')) {
+      DomUtil.modiCSS(this.get('legendWrapper'), {
+        left: x + 'px',
+        top: y + 'px'
+      });
+    } else {
+      super.move(x, y);
+    }
   }
 }
 
