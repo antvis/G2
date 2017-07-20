@@ -191,12 +191,14 @@ class Chart extends View {
     const options = this.get('options');
     let legends = {};
 
-    if (Util.isBoolean(field)) {
-      legends = (field === false) ? false : cfg;
+    if (field === false) {
+      options.legends = false;
     } else if (Util.isObject(field)) {
       legends = field;
-    } else {
+    } else if (Util.isString(field)) {
       legends[field] = cfg;
+    } else {
+      legends = cfg;
     }
     Util.mix(options.legends, legends);
 
