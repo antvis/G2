@@ -27,9 +27,14 @@ class EventController {
       x: ev.x / this.pixelRatio,
       y: ev.y / this.pixelRatio,
       target: ev.target, // canvas 元素
-      toElement: ev.event.toElement,
-      shape: ev.shape
+      toElement: ev.event.toElement
     };
+  }
+
+  _getShape(x, y) {
+    const view = this.view;
+    const container = view.get('viewContainer');
+    return container.getShape(x, y);
   }
 
   _getPointInfo(ev) {
@@ -66,6 +71,7 @@ class EventController {
   onDown(ev) {
     const view = this.view;
     const eventObj = this._getShapeEventObj(ev);
+    eventObj.shape = this.currentShape;
     view.emit('mousedown', eventObj);
   }
 
@@ -73,10 +79,11 @@ class EventController {
     const self = this;
     const view = self.view;
     const currentShape = self.currentShape;
+    const shape = self._getShape(ev.x, ev.y);
     let eventObj = self._getShapeEventObj(ev);
+    eventObj.shape = shape;
     view.emit('mousemove', eventObj);
 
-    const shape = ev.shape;
     // 移动时判定是否还在原先的图形中
     if (!isSameShape(currentShape, shape)) {
       if (currentShape) {
@@ -123,6 +130,7 @@ class EventController {
   onUp(ev) {
     const view = this.view;
     const eventObj = this._getShapeEventObj(ev);
+    eventObj.shape = this.currentShape;
     view.emit('mouseup', eventObj);
   }
 
@@ -130,7 +138,7 @@ class EventController {
     const self = this;
     const view = self.view;
     const shapeEventObj = this._getShapeEventObj(ev);
-    // shapeEventObj.shape = this.currentShape;
+    shapeEventObj.shape = this.currentShape;
     view.emit('click', shapeEventObj);
 
     const point = self._getPointInfo(ev);
@@ -158,10 +166,11 @@ class EventController {
       //     break;
       //   }
       // }
-      // if (shape) {
-      //   eventObj.shape = shape;
-      //   eventObj.data = shape.get('origin');
-      // }
+      if (this.currentShape) {
+        const shape = this.currentShape;
+        eventObj.shape = shape;
+        eventObj.data = shape.get('origin');
+      }
       view.emit('plotclick', eventObj);
       if (ev.type === 'dblclick') {
         view.emit('plotdblclick', eventObj);

@@ -144,21 +144,15 @@ class View extends Base {
     const canvas = this.get('canvas');
 
     if (!this.get('viewContainer')) { // 用于 geom 的绘制
-      this.set('viewContainer', canvas.addGroup({
-        zIndex: 2
-      }));
+      this.set('viewContainer', canvas.addGroup());
     }
 
     if (!this.get('backPlot')) { // 用于坐标轴以及部分 guide 绘制
-      this.set('backPlot', canvas.addGroup({
-        zIndex: 1
-      }));
+      this.set('backPlot', canvas.addGroup());
     }
 
     if (!this.get('frontPlot')) {  // 用于图例以及部分 guide 绘制
-      this.set('frontPlot', canvas.addGroup({
-        zIndex: 3
-      }));
+      this.set('frontPlot', canvas.addGroup());
     }
   }
 
@@ -171,6 +165,8 @@ class View extends Base {
       geom.set('data', filteredData);
       geom.set('coord', coord);
       geom.init();
+      geom._bindActiveAction();
+      geom._bindSelectedAction();
     });
   }
 
@@ -388,31 +384,6 @@ class View extends Base {
       name: 'geom'
     });
     geom.set('container', group);
-
-    const type = Util.lowerFirst(geom.get('type'));
-    self.on('plotmove', ev => {
-      let shapes;
-      if (Util.inArray([ 'line', 'path' ], type) || !geom.isShareTooltip()) {
-        const shape = ev.shape;
-        if (shape && shape.get('geom') === type) {
-          shapes = shape;
-        }
-      } else if (type !== 'area') {
-        shapes = geom.getActiveShapesByPoint({
-          x: ev.x,
-          y: ev.y
-        });
-      }
-
-      if (shapes) {
-        geom.setShapesActived(shapes);
-        self.emit(type + ':active', ev);
-      }
-    });
-
-    self.on('plotleave', () => {
-      geom.clearActivedShapes();
-    });
   }
 
   /**

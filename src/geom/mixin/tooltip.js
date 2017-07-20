@@ -329,15 +329,18 @@ const TooltipMixin = {
 
     function addItem(itemName, itemValue) {
       if (!Util.isNil(itemValue) && itemValue !== '') { // 值为null的时候，忽视
-        items.push({
+        const item = {
           title: tipTitle,
           point,
           name: itemName || tipTitle,
           value: itemValue,
           color: point.color || defaultColor,
-          marker: true,
-          size: self.getSize()
-        });
+          marker: true
+        };
+        if (self.get('type') === 'interval' || self.get('type') === 'schema') {
+          item.size = self.getSize();
+        }
+        items.push(item);
       }
     }
 

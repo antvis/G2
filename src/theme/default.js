@@ -86,7 +86,7 @@ const Theme = {
     left: {
       position: 'left',
       title: {
-        offset: 50,
+        offset: 60,
         autoRotate: true,
         point: 'center',
         textStyle: {
@@ -97,13 +97,13 @@ const Theme = {
         }
       },
       label: {
-        offset: 15,
+        offset: 13,
         autoRotate: true,
         textStyle: {
           fill: '#404040',
           fontSize: 12,
           textBaseline: 'middle',
-          textAlign: 'center'
+          textAlign: 'end'
         }
       },
       line: {
@@ -143,7 +143,7 @@ const Theme = {
           fill: '#404040',
           fontSize: 12,
           textBaseline: 'middle',
-          textAlign: 'center'
+          textAlign: 'start'
         }
       },
       line: {
@@ -252,7 +252,6 @@ const Theme = {
     right: {
       position: 'right',
       layout: 'vertical',
-      background: null,
       itemMarginBottom: 5, // layout 为 vertical 时各个图例项的间距
       width: 16,
       height: 100,
@@ -272,7 +271,6 @@ const Theme = {
     left: {
       position: 'left',
       layout: 'vertical',
-      background: null,
       itemMarginBottom: 5,
       width: 16,
       height: 100,
@@ -293,7 +291,6 @@ const Theme = {
       position: 'top',
       layout: 'horizontal',
       title: null,
-      background: null,
       itemGap: 10,
       width: 100,
       height: 16,
@@ -308,7 +305,6 @@ const Theme = {
       position: 'bottom',
       layout: 'horizontal',
       title: null,
-      background: null,
       itemGap: 10,
       width: 100,
       height: 16,
@@ -333,7 +329,7 @@ const Theme = {
       lineWidth: 2
     },
     interval: {
-      fillOpacity: 0.7,
+      fillOpacity: 0.3,
       fill: '#fff'
     },
     hollowInterval: {

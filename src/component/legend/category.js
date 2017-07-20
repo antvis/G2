@@ -70,7 +70,7 @@ class Category extends Base {
        * 边框内边距
        * @type {Array}
        */
-      backPadding: [ 0, 0, 0, 0 ],
+      backPadding: [ 1, 1, 1, 1 ],
       /**
        * 是否能被点击
        * @type {Boolean}
@@ -87,7 +87,10 @@ class Category extends Base {
        * 图例背景层属性设置
        * @type {Obejct}
        */
-      background: null,
+      background: {
+        fill: '#fff',
+        fillOpacity: 0
+      },
       /**
        * 图例项的宽度，当图例有很多图例项，并且用户想要这些图例项在同一平面内垂直对齐，此时这个属性可帮用户实现此效果
        * @type {Number}
@@ -163,9 +166,7 @@ class Category extends Base {
       super._renderUI();
       this._renderItems();
       this._adjustItems();
-      if (this.get('background')) {
-        this._renderBack();
-      }
+      this._renderBack();
     } else { // 使用 html 渲染图例
       this._renderHTML();
     }
@@ -187,14 +188,15 @@ class Category extends Base {
   }
 
   _onMousemove(ev) {
-    // const canvas = this.get('canvas');
     const item = this._getLegendItem(ev.currentTarget);
-
     if (item) {
+      const items = this.get('items');
       const itemhover = new Event('legend:hover', ev);
-      itemhover.item = item;
+      itemhover.item = findItem(items, item);
       itemhover.checked = item.get('checked');
-      this.trigger('legend:hover', [ itemhover ]);
+      this.emit('legend:hover', itemhover);
+    } else {
+      this.emit('legend:unhover', ev);
     }
 
     return;
@@ -214,7 +216,7 @@ class Category extends Base {
       itemclick.item = item;
       itemclick.currentTarget = clickedItem;
       itemclick.checked = (mode === 'single') ? true : !checked;
-      this.trigger('legend:click', [ itemclick ]); // TODO: 到底是 canvas 还是 legend 对象抛出事件?
+      this.emit('legend:click', itemclick);
 
       const unCheckColor = this.get('unCheckStyle').fill;
       const checkColor = this.get('textStyle').fill;
@@ -373,11 +375,11 @@ class Category extends Base {
           }
         }
 
-        self.trigger('legend:click', [{
+        self.emit('legend:click', {
           item: clickedItem,
           currentTarget: parentDom,
           checked: (mode === 'single') ? true : !clickedItem.checked
-        }]);
+        });
       };
     }
 
@@ -391,11 +393,11 @@ class Category extends Base {
       }
       const hoveredItem = findItem(items, parentDom.getAttribute('data-value'));
       if (hoveredItem) {
-        self.trigger('legend:hover', [{
+        self.emit('legend:hover', {
           item: hoveredItem,
           currentTarget: parentDom,
           checked: hoveredItem.checked
-        }]); // TODO: 到底是 canvas 还是 legend 对象抛出事件?
+        });
       }
     };
 
@@ -604,10 +606,9 @@ class Category extends Base {
   }
 
   _renderBack() {
-    const itemsGroup = this.get('itemsGroup');
     const padding = this.get('backPadding');
     const backAttrs = this.get('background');
-    itemsGroup.renderBack(padding, backAttrs);
+    this.renderBack(padding, backAttrs);
   }
 }
 

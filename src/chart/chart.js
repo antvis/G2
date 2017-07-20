@@ -91,7 +91,6 @@ class Chart extends View {
     const frontPlot = canvas.addGroup(); // 图表前面的容器
 
     this.set('backPlot', backPlot);
-    this.set('plotContainer', plotContainer);
     this.set('viewContainer', plotContainer);
     this.set('frontPlot', frontPlot);
   }

@@ -46,15 +46,15 @@ describe.skip('分类图例', function() {
     });
 
     canvas.draw();
-    const legendItemsGroup = legend.get('children')[0];
-    expect(legend.get('children')[1].get('type')).to.equal('text');
-    expect(legend.getCount()).to.equal(2);
-    expect(legendItemsGroup.getCount()).to.equal(5);
+    const itemsGroup = legend.get('itemsGroup');
+    expect(legend.get('children')[0].get('type')).to.equal('rect');
+    expect(legend.getCount()).to.equal(3);
+    expect(itemsGroup.getCount()).to.equal(5);
     expect(legend._wrap__onClick).to.be.an.instanceof(Function);
     // expect(legend._wrap__onMousemove).to.be.an.instanceof(Function);
 
     // 点击事件测试1：不允许全部取消选中并且当前只有一个图例项被选中
-    const targetItem = legendItemsGroup.get('children')[2];
+    const targetItem = itemsGroup.get('children')[2];
     const event1 = new Event('click', {
       clientX: 100,
       clientY: 316
@@ -62,25 +62,25 @@ describe.skip('分类图例', function() {
     event1.currentTarget = targetItem.get('children')[0];
     expect(targetItem.get('checked')).to.be.true;
     legend.trigger('click', [ event1 ]);
-    expect(legendItemsGroup.get('children')[0].get('checked')).to.be.false;
-    expect(legendItemsGroup.get('children')[1].get('checked')).to.be.false;
-    expect(legendItemsGroup.get('children')[2].get('checked')).to.be.true;
-    expect(legendItemsGroup.get('children')[3].get('checked')).to.be.false;
-    expect(legendItemsGroup.get('children')[4].get('checked')).to.be.false;
+    expect(itemsGroup.get('children')[0].get('checked')).to.be.false;
+    expect(itemsGroup.get('children')[1].get('checked')).to.be.false;
+    expect(itemsGroup.get('children')[2].get('checked')).to.be.true;
+    expect(itemsGroup.get('children')[3].get('checked')).to.be.false;
+    expect(itemsGroup.get('children')[4].get('checked')).to.be.false;
 
     // 点击事件测试2：不允许全部取消选中并且当前只有一个图例项被选中
     const event2 = new Event('click', {
       clientX: 100,
       clientY: 316
     }, true, true);
-    event2.currentTarget = legendItemsGroup.get('children')[0].get('children')[2];
+    event2.currentTarget = itemsGroup.get('children')[0].get('children')[2];
     expect(targetItem.get('checked')).to.be.true;
     legend.trigger('click', [ event2 ]);
-    expect(legendItemsGroup.get('children')[0].get('checked')).to.be.true;
-    expect(legendItemsGroup.get('children')[1].get('checked')).to.be.false;
-    expect(legendItemsGroup.get('children')[2].get('checked')).to.be.true;
-    expect(legendItemsGroup.get('children')[3].get('checked')).to.be.false;
-    expect(legendItemsGroup.get('children')[4].get('checked')).to.be.false;
+    expect(itemsGroup.get('children')[0].get('checked')).to.be.true;
+    expect(itemsGroup.get('children')[1].get('checked')).to.be.false;
+    expect(itemsGroup.get('children')[2].get('checked')).to.be.true;
+    expect(itemsGroup.get('children')[3].get('checked')).to.be.false;
+    expect(itemsGroup.get('children')[4].get('checked')).to.be.false;
   });
 
   it('默认，不可点击', function() {
@@ -150,7 +150,7 @@ describe.skip('分类图例', function() {
     legend.move(0, 100);
 
     canvas.draw();
-    const itemGroups = legend.get('children')[0].get('children');
+    const itemGroups = legend.get('itemsGroup').get('children');
     expect(itemGroups[0].get('checked')).to.be.false;
     expect(itemGroups[1].get('checked')).to.be.false;
     expect(itemGroups[2].get('checked')).to.be.true;
@@ -226,7 +226,7 @@ describe.skip('分类图例', function() {
     legend.move(0, 150);
     canvas.draw();
     expect(legend.getCount()).to.equal(3);
-    const itemsGroup = legend.get('children')[1];
+    const itemsGroup = legend.get('itemsGroup');
     // expect(Util.equal(itemsGroup.getBBox().width, 50.34765625)).to.be.true;
     expect(itemsGroup.getCount()).to.equal(5);
     const children = itemsGroup.get('children');
@@ -278,7 +278,7 @@ describe.skip('分类图例', function() {
     });
     canvas.draw();
     const legendBBox = legend.getBBox();
-    const legendItems = legend.get('children')[0];
+    const legendItems = legend.get('itemsGroup');
     expect(legendBBox.width).to.be.below(500);
     expect(legendItems.getCount()).to.equal(25);
   });
@@ -322,7 +322,7 @@ describe.skip('分类图例', function() {
     });
     canvas.draw();
     // const legendBBox = legend.getBBox();
-    const legendItems = legend.get('children')[1];
+    const legendItems = legend.get('itemsGroup');
     // expect(legendBBox.width).to.be.equal(482);
     expect(legendItems.getCount()).to.equal(25);
   });
@@ -364,7 +364,7 @@ describe.skip('分类图例', function() {
     legend.move(50, 0);
     canvas.draw();
     const legendBBox = legend.getBBox();
-    expect(legendBBox.height).to.be.equal(176.5);
+    expect(legendBBox.height).to.be.equal(179.5);
   });
 
   it('垂直布局图例，设置了 itemWidth, 超出容器高度，自动生列', function() {
@@ -402,7 +402,7 @@ describe.skip('分类图例', function() {
     // legend.move(50, 0);
     canvas.draw();
     const legendBBox = legend.getBBox();
-    expect(legendBBox.height).to.be.equal(83);
+    expect(legendBBox.height).to.be.equal(85);
     // expect(legendBBox.width).to.equal(192.34765625);
   });
 

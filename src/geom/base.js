@@ -13,6 +13,7 @@ const Adjust = require('./adjust/index');
 const Global = require('../global');
 const TooltipMixin = require('./mixin/tooltip');
 const ActiveMixin = require('./mixin/active');
+const SelectMixin = require('./mixin/select');
 
 function parseFields(field) {
   if (Util.isArray(field)) {
@@ -132,6 +133,11 @@ class GeomBase extends Base {
        * @type {Boolean}
        */
       shareTooltip: true,
+      /**
+       * 是否允许选中图形
+       * @type {Boolean}
+       */
+      selectable: false,
       // tooltipMap: {},
       tooltipDims: null
     };
@@ -139,7 +145,7 @@ class GeomBase extends Base {
 
   constructor(cfg) {
     super(cfg);
-    Util.assign(this, TooltipMixin, ActiveMixin);
+    Util.assign(this, TooltipMixin, ActiveMixin, SelectMixin);
   }
 
   _createScale(field) {

@@ -303,6 +303,8 @@ class TooltipController {
       }
       const title = first.title || first.name;
       self._setTooltip(title, point, items, markersItems);
+    } else {
+      self.hideTooltip();
     }
   }
 

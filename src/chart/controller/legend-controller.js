@@ -3,8 +3,24 @@ const Global = require('../../global');
 const { Legend } = require('../../component/index');
 const Shape = require('../../geom/shape/index');
 
+const FIELD_ORIGIN = '_origin';
 const MARGIN = 16;
 const MARGIN_LEGEND = 25;
+
+function _snapEqual(v1, v2, scale) {
+  let isEqual;
+  if (Util.isNil(scale)) {
+    return false;
+  }
+  v1 = scale.translate(v1);
+  v2 = scale.translate(v2);
+  if (scale.isCategory) {
+    isEqual = (v1 === v2);
+  } else {
+    isEqual = Math.abs(v1 - v2) <= 1;
+  }
+  return isEqual;
+}
 
 class LegendController {
   constructor(cfg) {
@@ -76,6 +92,49 @@ class LegendController {
       console.log(ev.range);
     });
   }*/
+
+  _getShapeData(shape) {
+    let originData = shape.get('origin');
+    if (Util.isArray(originData)) {
+      originData = originData[0];
+    }
+    return originData[FIELD_ORIGIN];
+  }
+
+  _bindHoverEvent(legend, field) {
+    const self = this;
+    const chart = self.chart;
+    const geoms = chart.getAllGeoms();
+    legend.on('legend:hover', ev => {
+      const value = ev.item.value;
+      Util.each(geoms, geom => {
+        const container = geom.get('container');
+        const shapes = container.get('children');
+        const scale = geom.get('scales')[field];
+        const highlightShapes = [];
+        const filteredShapes = [];
+        Util.each(shapes, shape => {
+          const origin = self._getShapeData(shape);
+          if (_snapEqual(origin[field], value, scale)) {
+            highlightShapes.push(shape);
+          } else {
+            filteredShapes.push(shape);
+          }
+        });
+        geom.highlightShapes(highlightShapes, filteredShapes);
+      });
+    });
+
+    legend.on('legend:unhover', function() {
+      Util.each(geoms, function(geom) {
+        const activeGroup = geom.get('activeGroup');
+        if (activeGroup && activeGroup.get('children').length) {
+          geom.clearActivedShapes();
+          chart.get('canvas').draw();
+        }
+      });
+    });
+  }
 
   _isFiltered(scale, values, value) {
     if (!scale.isCategory) {
@@ -291,11 +350,15 @@ class LegendController {
       position = fieldOption.position;
     }
 
+    let legend;
     if (scale.isLinear) {
-      return self._addContinuousLegend(scale, attr, position);
+      legend = self._addContinuousLegend(scale, attr, position);
+    } else {
+      legend = self._addCategroyLegend(scale, attr, geom, filterVals, position);
     }
+    self._bindHoverEvent(legend, field);
 
-    return self._addCategroyLegend(scale, attr, geom, filterVals, position);
+    return legend;
   }
 
   alignLegends() {
