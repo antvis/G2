@@ -150,7 +150,7 @@ const ActiveMixin = {
   },
   highlightShapes(highlightShapes, filteredShapes) {
     const self = this;
-    // const type = self.get('type');
+    const type = self.get('type');
     const preHighlightShapes = self.get('preHighlightShapes'); // 获取上次被激活的 shapes
     if (!isChange(preHighlightShapes, highlightShapes)) {
       return;
@@ -168,24 +168,54 @@ const ActiveMixin = {
     }
     activeGroup.setMatrix(Util.cloneDeep(coord.matrix));
 
-    Util.each(highlightShapes, highlightShape => {
-      const newShape = Util.cloneDeep(highlightShape);
-      newShape.set('zIndex', 1);
-      activeGroup.add(newShape);
-    });
-
-    Util.each(filteredShapes, filteredShape => {
-      const newShape = activeGroup.addShape(filteredShape.get('type'), {
-        attrs: Util.mix({}, filteredShape.__attrs, {
-          fill: '#fff',
-          fillOpacity: 0.85,
-          strokeOpacity: 0.85,
-          stroke: '#fff'
-        }),
-        zIndex: 0
+    if (type === 'area' || type === 'line' || type === 'path') {
+      Util.each(highlightShapes, highlightShape => {
+        let newShape;
+        if (type === 'line' || type === 'path') {
+          newShape = Util.cloneDeep(highlightShape);
+          newShape.attr('lineWidth', highlightShape.attr('lineWidth') + 1);
+          // activeGroup.add(newShape);
+        } else {
+          const origin = highlightShape.get('origin');
+          const path = [];
+          Util.each(origin, (obj, index) => {
+            if (index === 0) {
+              path.push([ 'M', obj.x, Util.isArray(obj.y) ? obj.y[1] : obj.y ]);
+            } else {
+              path.push([ 'L', obj.x, Util.isArray(obj.y) ? obj.y[1] : obj.y ]);
+            }
+          });
+          newShape = activeGroup.addShape('path', {
+            attrs: {
+              path,
+              lineWidth: 2,
+              stroke: highlightShape.attr('fill')
+            }
+          });
+        }
+        activeGroup.add(newShape);
       });
-      activeGroup.add(newShape);
-    });
+    } else {
+      Util.each(highlightShapes, highlightShape => {
+        const newShape = Util.cloneDeep(highlightShape);
+        newShape.set('zIndex', 1);
+        newShape.attr('fillOpacity', 1);
+        activeGroup.add(newShape);
+      });
+
+      Util.each(filteredShapes, filteredShape => {
+        const newShape = activeGroup.addShape(filteredShape.get('type'), {
+          attrs: Util.mix({}, filteredShape.__attrs, {
+            fill: '#fff',
+            fillOpacity: 0.85,
+            strokeOpacity: 0.85,
+            stroke: '#fff'
+          }),
+          zIndex: 0
+        });
+        activeGroup.add(newShape);
+      });
+    }
 
     activeGroup.sort();
     self.set('preHighlightShapes', highlightShapes);
