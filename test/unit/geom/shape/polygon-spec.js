@@ -69,7 +69,7 @@ describe('polygon shapes', function() {
 
       expect(activeCfg).eql({
         fill: '#fff',
-        fillOpacity: 0.75
+        fillOpacity: 0.3
       });
     });
   });

@@ -322,7 +322,7 @@ const Theme = {
   },
   activeShape: {
     point: {
-      fillOpacity: 0.7,
+      fillOpacity: 0.3,
       fill: '#fff'
     },
     hollowPoint: {
@@ -336,7 +336,7 @@ const Theme = {
       lineWidth: 2
     },
     area: {
-      fillOpacity: 0.85,
+      fillOpacity: 0.3,
       fill: '#fff'
     },
     hollowArea: {
@@ -346,7 +346,7 @@ const Theme = {
       lineWidth: 2
     },
     polygon: {
-      fillOpacity: 0.75,
+      fillOpacity: 0.3,
       fill: '#fff'
     }
   }, // 图形激活时，鼠标移动到上面

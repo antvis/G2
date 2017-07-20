@@ -85,7 +85,7 @@ describe('Point shapes', function() {
 
       expect(activeCfg).eql({
         fill: '#fff',
-        fillOpacity: 0.7
+        fillOpacity: 0.3
       });
     });
 
