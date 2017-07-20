@@ -7,6 +7,17 @@ function find(dom, cls) {
   return dom.getElementsByClassName(cls)[0];
 }
 
+function isInPlot(range, point) {
+  const { tl, br } = range;
+  const { x, y } = point;
+  const result = {};
+  result.inPlot = (x >= tl.x && x <= br.x && y >= tl.y && y <= br.y);
+  result.inHorizontal = (x >= tl.x && x <= br.x);
+  result.inVertical = (y >= tl.y && y <= br.y);
+
+  return result;
+}
+
 class Tooltip extends Group {
   getDefaultCfg() {
     return {
@@ -29,7 +40,8 @@ class Tooltip extends Group {
       html: '<div class="g2-tooltip" style="position:absolute;visibility:hidden;border-style:solid;white-space:nowrap;z-index:9999999;transition:left 0.4s cubic-bezier(0.23, 1, 0.32, 1), top 0.4s cubic-bezier(0.23, 1, 0.32, 1);background-color:rgba(50, 50, 50, 0.7);border-width:0px;border-color:rgb(51, 51, 51);border-radius:4px;color:rgb(255, 255, 255);font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14px;font-family:sans-serif;line-height:21px;padding:5px 10px;"><div class="' + TITLE_CLASS + '" style="margin:10px 0;"></div>'
        + '<ul class="' + LIST_CLASS + '" style="margin:10px 0;list-style-type:none;padding:0;"></ul></div>',
       // @type {String} 使用html时，单个选项的模板
-      itemTpl: '<li data-index=${ index }><span style="background-color:${color};width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:8px;"></span>${ name }: ${ value }</li>'
+      itemTpl: '<li data-index=${ index }><span style="background-color:${color};width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:8px;"></span>${ name }: ${ value }</li>',
+      inPlot: true
     };
   }
 
@@ -278,12 +290,12 @@ class Tooltip extends Group {
     const crossLineShapeY = this.get('crossLineShapeY');
     const crosshairsRectShape = this.get('crosshairsRectShape');
     // const animate = this.get('animate');
-    const after = true;
+    let after = true;
     const endx = x;
     const endy = y;
     const containerWidth = DomUtil.getWidth(container);
     const containerHeight = DomUtil.getHeight(container);
-    // let width;
+
     if (isFixed) {
       x = x - containerWidth / 2;
       y = y - containerHeight - offset;
@@ -291,6 +303,31 @@ class Tooltip extends Group {
       const width = containerWidth + 2 * offset;
       x = x - width;
       y = y - containerHeight - 2 * offset;
+    }
+
+    if (this.get('inPlot')) { // 限定必须展示在图表绘图区域内
+      const plotRange = this.get('plotRange');
+      const point = {
+        x,
+        y
+      };
+      const inPlot = isInPlot(plotRange, point);
+
+      if (!inPlot.inPlot) {
+        if (!inPlot.inHorizontal) {
+          if ((plotRange.tr.x - plotRange.tl.x) >= 2 * containerWidth) {
+            x = Math.max(plotRange.tl.x, endx) + offset;
+            after = false;
+          } else {
+            x = plotRange.tl.x;
+            y -= offset;
+          }
+        }
+
+        if (!inPlot.inVertical) {
+          y = plotRange.tl.y;
+        }
+      }
     }
 
     if (this.get('x') !== x || this.get('y') !== y) {
