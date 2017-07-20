@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const CoordController = require('../../../../src/chart/controller/coord-controller.js');
+const CoordController = require('../../../../src/chart/controller/coord.js');
 
 describe('test coord controller', function() {
 
