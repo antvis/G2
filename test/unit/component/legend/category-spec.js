@@ -364,7 +364,7 @@ describe.skip('分类图例', function() {
     legend.move(50, 0);
     canvas.draw();
     const legendBBox = legend.getBBox();
-    expect(legendBBox.height).to.be.equal(179.5);
+    expect(legendBBox.height).to.be.equal(177.5);
   });
 
   it('垂直布局图例，设置了 itemWidth, 超出容器高度，自动生列', function() {
@@ -402,7 +402,7 @@ describe.skip('分类图例', function() {
     // legend.move(50, 0);
     canvas.draw();
     const legendBBox = legend.getBBox();
-    expect(legendBBox.height).to.be.equal(85);
+    expect(legendBBox.height).to.be.equal(83);
     // expect(legendBBox.width).to.equal(192.34765625);
   });
 
@@ -462,6 +462,10 @@ describe.skip('分类图例', function() {
       cancelable: true
     });
     legendItem.dispatchEvent(hoverEvent);
+    expect(count).to.equal(0);
+
+    const hoveredLegendItem = div.getElementsByClassName('g2-legend-item')[2];
+    hoveredLegendItem.dispatchEvent(hoverEvent);
     expect(count).to.equal(1);
 
     div.removeChild(legendDom);
@@ -552,7 +556,8 @@ describe.skip('分类图例', function() {
     const legendDom = div.getElementsByClassName('g2-legend')[0];
     expect(legendDom).not.to.be.undefined;
     expect(legendDom.style.position).to.equal('absolute');
-    expect(legendDom.style.width).to.equal('500px');
+    console.log(legendDom.style);
+    expect(legendDom.style.maxWidth).to.equal('500px');
 
     const legendItem01 = div.getElementsByClassName('g2-legend-item')[1];
     expect(legendItem01.className).to.equal('g2-legend-item item-1 checked');

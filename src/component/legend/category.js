@@ -70,7 +70,7 @@ class Category extends Base {
        * 边框内边距
        * @type {Array}
        */
-      backPadding: [ 1, 1, 1, 1 ],
+      backPadding: [ 0, 0, 0, 0 ],
       /**
        * 是否能被点击
        * @type {Boolean}
@@ -122,7 +122,7 @@ class Category extends Base {
        * 使用html时的外层模板
        * @type {String}
        */
-      containerTpl: '<div class="g2-legend" style="position:absolute;top:20px;right:60px;">' +
+      containerTpl: '<div class="g2-legend" style="position:absolute;top:20px;right:60px;width:100%;">' +
         '<h4 class="g2-legend-title"></h4>' +
         '<ul class="g2-legend-itemlist" style="list-style-type:none;margin:0;padding:0;"></ul>' +
         '</div>',
@@ -174,6 +174,8 @@ class Category extends Base {
 
   _bindUI() {
     this.on('mousemove', Util.wrapBehavior(this, '_onMousemove'));
+    this.on('mouseleave', Util.wrapBehavior(this, '_onMouseleave'));
+
     if (this.get('clickable')) {
       this.on('click', Util.wrapBehavior(this, '_onClick'));
     }
@@ -189,15 +191,21 @@ class Category extends Base {
 
   _onMousemove(ev) {
     const item = this._getLegendItem(ev.currentTarget);
-    if (item) {
+    if (item && item.get('checked')) {
       const items = this.get('items');
       const itemhover = new Event('legend:hover', ev);
       itemhover.item = findItem(items, item);
       itemhover.checked = item.get('checked');
       this.emit('legend:hover', itemhover);
-    } else {
+    } else if (!item) {
       this.emit('legend:unhover', ev);
     }
+
+    return;
+  }
+
+  _onMouseleave(ev) {
+    this.emit('legend:unhover', ev);
 
     return;
   }
@@ -391,14 +399,16 @@ class Category extends Base {
       } else {
         parentDom = target.parentNode;
       }
+
+      const domClass = parentDom.className;
       const hoveredItem = findItem(items, parentDom.getAttribute('data-value'));
-      if (hoveredItem) {
+      if (hoveredItem && domClass.includes('checked')) {
         self.emit('legend:hover', {
           item: hoveredItem,
           currentTarget: parentDom,
           checked: hoveredItem.checked
         });
-      } else {
+      } else if (!hoveredItem) {
         self.emit('legend:unhover', ev);
       }
     };
@@ -622,7 +632,7 @@ class Category extends Base {
     if (this.get('useHtml')) {
       return DomUtil.getWidth(this.get('legendWrapper'));
     }
-    super.getWidth();
+    return super.getWidth();
   }
 
   getHeight() {
@@ -630,12 +640,9 @@ class Category extends Base {
       return DomUtil.getHeight(this.get('legendWrapper'));
     }
 
-    super.getHeight();
+    return super.getHeight();
   }
 
-  /**
-   * @override
-   */
   move(x, y) {
     if (this.get('useHtml')) {
       DomUtil.modiCSS(this.get('legendWrapper'), {
