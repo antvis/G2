@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="geometry" content="polygon">
+  <title>Treemap Tiles</title>
+</head>
+
+<body>
+  <div class="toolbar" style="text-align: center;">
+    <label for="tile">Select Tile: </label>
+    <select name="tile" id="tile">
+      <option value="treemapBinary" selected>treemapBinary</option>
+      <option value="treemapDice">treemapDice</option>
+      <option value="treemapSlice">treemapSlice</option>
+      <option value="treemapSliceDice">treemapSliceDice</option>
+      <option value="treemapSquarify">treemapSquarify</option>
+      <option value="treemapResquarify">treemapResquarify</option>
+    </select>
+  </div>
+  <div id="canvas"></div>
+  <script src="./assets/lodash-4.17.4.min.js"></script>
+  <script src="./assets/jquery-3.2.1.min.js"></script>
+  <script src="./assets/data-set-0.1.1.min.js"></script>
+  <script src="../build/g2.js"></script>
+  <script>
+    $.getJSON('./data/mobile.json', data => {
+      const $tile = $('#tile');
+
+      // process data
+      for (let i = 0; i < data.length; i++) {
+        const node = data[i];
+        if (node.children) {
+          for (let j = 0; j < node.children.length; j++) {
+            node.children[j].brand = node.brand;
+          }
+        }
+      }
+      const phones = { // root
+        children: data
+      };
+
+      const ds = new DataSet();
+      ds.state.treemapTile = $tile.val();
+      const dv = ds.createView('dv').source(phones, {
+        type: 'hierarchy'
+      });
+      dv.transform({
+        type: 'hierarchy.treemap',
+        tile: '$state.treemapTile',
+        as: [ 'x', 'y' ]
+      });
+
+      const chart = new G2.Chart({
+        container: 'canvas',
+        forceFit: true,
+        height: window.innerHeight,
+        plotCfg: {
+          margin: 0
+        }
+      });
+
+      function rerender() {
+        chart.clear();
+        chart.source(
+          _.filter(
+            _.map(dv.getAllNodes(), node => {
+              node.name = node.data.name;
+              node.brand = node.data.brand;
+              return node;
+            }),
+            node => !!node.brand
+          )
+        );
+        chart.axis(false);
+        chart.legend(false);
+        chart.polygon()
+          .position('x*y')
+          .color('brand')
+          .label('brand');
+        chart.render();
+      }
+
+      ds.on('statechange', rerender);
+      $tile.on('change', () => {
+        ds.setState('treemapTile', $tile.val());
+      });
+
+      rerender();
+    });
+  </script>
+</body>
+
+</html>

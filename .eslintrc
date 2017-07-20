@@ -5,7 +5,8 @@
   "globals": {
     "$": true,
     "DataSet": true,
-    "G2": true
+    "G2": true,
+    "_": true
   },
   "parser": "babel-eslint",
   "parserOptions": {

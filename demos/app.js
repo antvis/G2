@@ -67,11 +67,7 @@ getPort().then(port => {
     });
 
     app.on('window-all-closed', () => {
-      server.stop();
-      if (process.platform !== 'darwin') {
-        app.quit();
-      }
-      app.exit();
+      app.quit();
     });
   }
 });
