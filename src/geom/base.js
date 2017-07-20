@@ -283,18 +283,29 @@ class GeomBase extends Base {
     const self = this;
     const attrs = this.get('attrs');
     const attrOptions = this.get('attrOptions');
+    const coord = self.get('coord');
     Util.each(attrOptions, function(option, type) {
       const className = Util.upperFirst(type);
       const fields = parseFields(option.field);
+      if (type === 'position') {
+        option.coord = coord;
+        // 饼图坐标系下，填充一维
+        if (fields.length === 1 && coord.type === 'theta') {
+          fields.unshift('1');
+        }
+      }
       const scales = [];
       Util.each(fields, function(field) {
         const scale = self._createScale(field);
         scales.push(scale);
       });
-      option.scales = scales;
-      if (type === 'position') {
-        option.coord = self.get('coord');
+      // 饼图需要填充满整个空间
+      if (coord.type === 'theta' && type === 'position' && scales.length > 1) {
+        scales[1].change({
+          nice: false
+        });
       }
+      option.scales = scales;
       const attr = new Attr[className](option);
       attrs[type] = attr;
     });
@@ -412,7 +423,7 @@ class GeomBase extends Base {
       const adjustType = Util.upperFirst(adjust.type);
       if (adjustType === 'Dodge') {
         const adjustNames = [];
-        if (xScale.isCategory) {
+        if (xScale.isCategory || xScale.isIdentity) {
           adjustNames.push('x');
         } else if (!yScale) {
           adjustNames.push('y');
@@ -467,8 +478,8 @@ class GeomBase extends Base {
     shapeFactory.setCoord(self.get('coord'));
     const container = self.get('container');
 
+    self._beforeMapping(dataArray);
     Util.each(dataArray, function(data) {
-      self._beforeMapping(data);
       data = self._mapping(data);
       mappedArray.push(data);
       self.draw(data, container, shapeFactory);
@@ -477,17 +488,27 @@ class GeomBase extends Base {
   }
 
   // step 3.1 before mapping
-  _beforeMapping(data) {
-    if (this.get('sortable')) {
-      const xScale = this.getXScale();
+  _beforeMapping(dataArray) {
+    const self = this;
+    if (self.get('sortable')) {
+      const xScale = self.getXScale();
       const field = xScale.field;
-      data.sort(function(v1, v2) {
-        return v1[field] - v2[field];
+      Util.each(dataArray, function(data) {
+        data.sort(function(v1, v2) {
+          return v1[field] - v2[field];
+        });
       });
     }
-
-    if (this.get('generatePoints')) {
-      this._generatePoints(data);
+    if (self.get('generatePoints')) {
+      Util.each(dataArray, function(data) {
+        self._generatePoints(data);
+      });
+      Util.each(dataArray, function(data, index) {
+        const nextData = dataArray[index + 1];
+        if (nextData) {
+          data[0].nextPoints = nextData[0].points;
+        }
+      });
     }
   }
 
@@ -584,6 +605,7 @@ class GeomBase extends Base {
       const newRecord = {};
       newRecord[FIELD_ORIGIN] = record[FIELD_ORIGIN];
       newRecord.points = record.points;
+      newRecord.nextPoints = record.nextPoints;
       Util.each(attrs, function(attr) {
         const names = attr.names;
         const values = self._getAttrValues(attr, record);
@@ -674,6 +696,7 @@ class GeomBase extends Base {
     }
     if (this.get('generatePoints')) {
       cfg.points = obj.points;
+      cfg.nextPoints = obj.nextPoints;
     }
     return cfg;
   }

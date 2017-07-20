@@ -103,10 +103,11 @@ class ScaleController {
       return null;
     }
     let scale;
-    if (Util.isNumber(field) || Util.isNil(firstObj[field])) {
+    if (Util.isNumber(field) || (Util.isNil(firstObj[field])) && !def) {
       scale = Scale.identity({
         value: field,
-        field: field.toString()
+        field: field.toString(),
+        values: [ field ]
       });
     } else { // 如果已经定义过这个度量
       let type;
