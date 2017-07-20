@@ -86,9 +86,7 @@
       container: 'canvas',
       forceFit: true,
       height: window.innerHeight,
-      plotCfg: {
-        margin: 0
-      }
+      padding: 0
     });
 
     function rerender() {
@@ -100,6 +98,11 @@
           return node;
         })
       );
+      chart.scale({
+        size: {
+          nice: false
+        }
+      });
       chart.axis(false);
       chart.legend(false);
       chart.polygon()

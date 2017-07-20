@@ -25,26 +25,21 @@
         .transform({
           type: 'map',
           callback(row) {
-            row.day = parseInt(row.day, 10);
-            row.hour = parseInt(row.hour, 10);
+            row.day = [ 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' ][parseInt(row.day, 10)];
+            // row.hour = parseInt(row.hour, 10); // keep row.hour as a string
             row.value = parseInt(row.value, 10);
             return row;
           }
         });
-      console.log(dv);
       const chart = new G2.Chart({
         container: 'canvas',
         forceFit: true,
-        height: window.innerHeight,
-        plotCfg: {
-          margin: 0
-        }
+        height: window.innerHeight
       });
       chart.source(dv.rows);
       chart.scale({
         day: {
-          type: 'cat',
-          values: [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday' ]
+          type: 'cat'
         },
         hour: {
           type: 'cat'
