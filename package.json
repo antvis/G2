@@ -47,7 +47,7 @@
   "scripts": {
     "build": "rollup -c rollup.config.js -- index.js",
     "ci": "tnpm run lint && tnpm run test",
-    "compress": "uglifyjs --compress --mangle --output dist/data-set.min.js -- build/data-set.js",
+    "compress": "uglifyjs --compress --mangle --output dist/g2.min.js -- build/g2.js",
     "coverage": "npm run coverage-generator && npm run coverage-viewer",
     "coverage-viewer": "torch-coverage",
     "coverage-generator": "torch --coverage --renderer --recursive test/unit",
