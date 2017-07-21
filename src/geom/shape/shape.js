@@ -8,7 +8,6 @@ const PathUtil = require('../util/path');
 const GPath = require('@ali/g').PathUtil;
 const Shape = {};
 
-
 const ShapeBase = {
   _coord: null,
   /**

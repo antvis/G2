@@ -10,7 +10,6 @@ const Global = require('../../global');
 const PathUtil = require('../util/path');
 const CORNER_PERCENT = 1 / 3;
 
-
 function getAttrs(cfg) {
   const defaultCfg = Global.shape.line;
   const shapeCfg = Util.mix({}, defaultCfg, {

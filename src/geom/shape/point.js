@@ -4,7 +4,6 @@
  * @author huangtonger@aliyun.com
  */
 
-
 const Util = require('../../util');
 const ShapeUtil = require('../util/shape');
 const Marker = require('@ali/g').Marker;
