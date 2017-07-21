@@ -418,16 +418,10 @@ class View extends Base {
     const self = this;
     const filters = self._getFilters();
     if (filters) {
-      const filterFunctions = [];
-      Util.each(filters, function(v) {
-        if (v) {
-          filterFunctions.push(v);
-        }
-      });
       data = data.filter(function(obj) {
         let rst = true;
-        Util.each(filterFunctions, function(fn) {
-          rst = fn(obj);
+        Util.each(filters, function(fn, k) {
+          rst = fn(obj[k], obj);
           if (!rst) {
             return false;
           }

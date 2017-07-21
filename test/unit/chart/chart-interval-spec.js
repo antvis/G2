@@ -193,8 +193,8 @@ describe('interval chart', function() {
   it('filter', function() {
     chart.clear();
     chart.coord();
-    chart.filter('sold', function(obj) {
-      return obj.sold > 200;
+    chart.filter('sold', function(sold) {
+      return sold > 200;
     });
     chart.interval().position('genre*sold').color('genre');
     chart.source(data);

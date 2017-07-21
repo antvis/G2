@@ -138,24 +138,24 @@ describe('test chart width filter', function() {
       container: 'cchart'
     });
 
-    chart.filter('genre', function(obj) {
-      return obj.genre === 'Sports';
+    chart.filter('genre', function(genre) {
+      return genre === 'Sports';
     });
 
     const rst = chart.execFilter(data);
     expect(rst.length).equal(1);
   });
   it('change fitler', function() {
-    chart.filter('genre', function(obj) {
-      return obj.genre !== 'Sports';
+    chart.filter('genre', function(genre) {
+      return genre !== 'Sports';
     });
     const rst = chart.execFilter(data);
     expect(rst.length).equal(data.length - 1);
   });
 
   it('combine', function() {
-    chart.filter('sold', function(obj) {
-      return obj.sold > 200;
+    chart.filter('sold', function(sold) {
+      return sold > 200;
     });
     const rst = chart.execFilter(data);
     expect(rst.length).equal(1);
