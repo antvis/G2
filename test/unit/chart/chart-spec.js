@@ -117,5 +117,54 @@ describe('test chart with views', function() {
     chart.clear();
     expect(chart.get('views').length).equal(0);
     expect(chart.get('viewContainer').getCount()).equal(0);
+    chart.destroy();
+    expect(chart.destroyed).equal(true);
   });
+});
+
+describe('test chart width filter', function() {
+  const data = [
+    { genre: 'Sports', sold: 475, type: '1' },
+    { genre: 'Strategy', sold: 115, type: '1' },
+    { genre: 'Action', sold: 120, type: '1' },
+    { genre: 'Shooter', sold: 350, type: '1' },
+    { genre: 'Other', sold: 150, type: '1' }
+  ];
+  let chart;
+  it('init filter', function() {
+    chart = new Chart({
+      height: 500,
+      forceFit: true,
+      container: 'cchart'
+    });
+
+    chart.filter('genre', function(obj) {
+      return obj.genre === 'Sports';
+    });
+
+    const rst = chart.execFilter(data);
+    expect(rst.length).equal(1);
+  });
+  it('change fitler', function() {
+    chart.filter('genre', function(obj) {
+      return obj.genre !== 'Sports';
+    });
+    const rst = chart.execFilter(data);
+    expect(rst.length).equal(data.length - 1);
+  });
+
+  it('combine', function() {
+    chart.filter('sold', function(obj) {
+      return obj.sold > 200;
+    });
+    const rst = chart.execFilter(data);
+    expect(rst.length).equal(1);
+  });
+
+  it('clear', function() {
+    chart.clear();
+    const rst = chart.execFilter(data);
+    expect(rst.length).equal(data.length);
+  });
+
 });

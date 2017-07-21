@@ -7,7 +7,7 @@ const Util = require('../../util');
 const AutoUtil = require('./util');
 const MIN_COUNT = 5;
 const MAX_COUNT = 7;
-const INTERVAL_ARRAY = [ 0, 1, 2, 3, 4, 5, 10 ];
+const INTERVAL_ARRAY = [ 0, 1, 2, 4, 5, 10 ];
 
 module.exports = function(info) {
   let min = info.min;

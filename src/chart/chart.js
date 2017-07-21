@@ -120,20 +120,15 @@ class Chart extends View {
       const geoms = this.getAllGeoms();
       const scales = [];
       Util.each(geoms, geom => {
+        const view = geom.get('view');
         const attrs = geom.getAttrsForLegend();
         Util.each(attrs, attr => {
           const type = attr.type;
           const scale = attr.getScale(type);
           if (scale.type !== 'identity' && !_isScaleExist(scales, scale)) {
             scales.push(scale);
-            let filterVals;
-            const field = scale.field;
-            const geomView = geom.get('view');
-            const filters = geomView.get('options').filters;
-            if (filters && filters[field]) {
-              filterVals = filters[field];
-            }
-            legendController.addLegend(scale, attr, geom, filterVals);
+            const filteredScale = view.getFilteredScale(scale.field);
+            legendController.addLegend(scale, attr, geom, filteredScale.values);
           }
         });
       });
