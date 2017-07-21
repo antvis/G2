@@ -6,7 +6,7 @@
 
 
 const Util = require('../../util');
-const ShapeUtil = require('./util/shape-util');
+const ShapeUtil = require('../util/shape');
 const Marker = require('@ali/g').Marker;
 const Global = require('../../global');
 const Shape = require('./shape');

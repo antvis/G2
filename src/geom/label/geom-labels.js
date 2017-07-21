@@ -1,0 +1,299 @@
+const { Group } = require('@ali/g');
+const Labels = require('../../component/label/index');
+const Global = require('../../global');
+const Util = require('../../util');
+const IGNORE_ARR = [ 'line', 'point', 'path' ];
+const ORIGIN = '_origin';
+
+function avg(arr) {
+  let sum = 0;
+  Util.each(arr, function(value) {
+    sum += value;
+  });
+  return sum / arr.length;
+}
+
+class GeomLabels extends Group {
+  getDefaultCfg() {
+    return {
+      labels: Global.labels,
+      /**
+       * 用户传入的文本配置信息
+       * @type {Object}
+       */
+      labelsCfg: null,
+      /**
+       * 所在的坐标系
+       * @type {Object}
+       */
+      coord: null,
+      /**
+       * 图表的类型
+       * @type {String}
+       */
+      geomType: null,
+      zIndex: 6
+
+    };
+  }
+
+  _renderUI() {
+    GeomLabels.superclass._renderUI.call(this);
+    this.initLabelsCfg();
+    this.renderLabels(); // 调用入口文件
+  }
+
+  // 获取显示的 label 文本值
+  _getLabelValue(record) {
+    const self = this;
+    const originRecord = record[ORIGIN];
+    const labelsCfg = self.get('labelsCfg');
+    const scales = labelsCfg.scales;
+    const callback = labelsCfg.callback;
+    let value;
+    if (callback) {
+      const params = [];
+      Util.each(scales, function(scale) {
+        params.push(originRecord[scale.dim]);
+      });
+      value = callback.apply(null, params);
+    } else {
+      const scale = scales[0];
+      value = originRecord[scale.dim];
+      if (Util.isArray(value)) {
+        const tmp = [];
+        Util.each(value, function(subVal) {
+          tmp.push(scale.getText(subVal));
+        });
+        value = tmp;
+      } else {
+        value = scale.getText(value);
+      }
+    }
+    return value;
+  }
+
+  // 初始化labels的配置项
+  initLabelsCfg() {
+    const self = this;
+    const labels = self.getDefaultLabelCfg();
+    const labelsCfg = self.get('labelsCfg');
+    Util.mix(true, labels, labelsCfg.cfg);
+    self.set('labels', labels);
+  }
+
+  /**
+   * @protected
+   * 默认的文本样式
+   * @return {Object} default label config
+   */
+  getDefaultLabelCfg() {
+    const self = this;
+    const labelsCfg = self.get('labelsCfg').cfg;
+    const geomType = self.get('geomType');
+    if (geomType === 'polygon' || (labelsCfg && labelsCfg.offset < 0 && Util.indexOf(IGNORE_ARR, geomType) === -1)) {
+      return Util.mix(true, {}, Global.innerLabels);
+    }
+    return this.get('labels');
+  }
+
+  /**
+   * @protected
+   * 获取labels
+   * @param {Array} points points
+   * @return {Array} label items
+   */
+  getLabelsItems(points) {
+    const self = this;
+    const items = [];
+    const labels = self.get('labels');
+    const geom = self.get('geom');
+    const xDim = geom ? geom.getXDim() : 'x';
+    const yDim = geom ? geom.getYDim() : 'y';
+    let origin;
+
+    // 获取label相关的x，y的值，获取具体的x,y,防止存在数组
+    Util.each(points, function(point) {
+      origin = point._origin;
+      let label = self._getLabelValue(point);
+      if (!Util.isArray(label)) {
+        label = [ label ];
+      }
+      const total = label.length;
+
+      Util.each(label, function(sub, index) {
+        let obj = self.getLabelPoint(label, point, index);
+        if (obj) {
+          obj = Util.mix({}, origin, obj); // 为了格式化输出
+          let align;
+          if (labels && labels.label && labels.label.textAlign) {
+            align = labels.label.textAlign;
+          } else {
+            align = self.getLabelAlign(obj, index, total);
+          }
+          obj.textAlign = align;
+          obj.id = self.get('id') + 'LabelText' + origin[xDim] + ' ' + origin[yDim] + obj.text;
+          items.push(obj);
+        }
+      });
+    });
+    return items;
+  }
+
+  /**
+   * @protected
+   * 如果发生冲突则会调整文本的位置
+   * @param {Array} items 文本的集合
+   * @return {Array} adjusted items
+   */
+  adjustItems(items) {
+    return items;
+  }
+
+  /**
+   * 绘制连接到
+   * @param {Array} items 文本项
+   * @param {Object} labelLine 连接文本的线的配置项
+   */
+  drawLines() { /* items,labelLine */
+  }
+
+  /**
+   * @protected
+   * 获取文本的位置信息
+   * @param {Array} labels labels
+   * @param {Object} point point
+   * @param {Number} index index
+   * @return {Object} point
+   */
+  getLabelPoint(labels, point, index) {
+    const self = this;
+
+    function getDimValue(value, idx) {
+      if (Util.isArray(value)) {
+        if (labels.length === 1) { // 如果仅一个label,多个y,取最后一个y
+          if (value.length <= 2) {
+            value = value[value.length - 1];
+          } else {
+            value = avg(value);
+          }
+        } else {
+          value = value[idx];
+        }
+      }
+      return value;
+    }
+    const labelPoint = {
+      x: getDimValue(point.x, index),
+      y: getDimValue(point.y, index),
+      text: labels[index]
+    };
+    const offsetPoint = self.getLabelOffset(labelPoint, index, labels.length);
+    self.transLabelPoint(labelPoint);
+    labelPoint.x += offsetPoint.x;
+    labelPoint.y += offsetPoint.y;
+    return labelPoint;
+  }
+
+  transLabelPoint(point) {
+    const self = this;
+    const coord = self.get('coord');
+    const tmpPoint = coord.trans(point.x, point.y, 1);
+    point.x = tmpPoint.x;
+    point.y = tmpPoint.y;
+  }
+
+  getOffsetVector() {
+    const self = this;
+    const labelCfg = self.get('labels');
+    const offset = labelCfg.offset || 0;
+    const coord = self.get('coord');
+    let vector;
+    if (coord.isTransposed) { // 如果x,y翻转，则偏移x
+      vector = coord.trans(offset, 0);
+    } else { // 否则，偏转y
+      vector = coord.trans(0, offset);
+    }
+    return vector;
+  }
+
+  // 获取默认的偏移量
+  getDefaultOffset() {
+    const self = this;
+    let offset = 0; // Global.labels.offset;
+
+    const coord = self.get('coord');
+    const vector = self.getOffsetVector();
+    if (coord.isTransposed) { // 如果x,y翻转，则偏移x
+      offset = vector.x;
+    } else { // 否则，偏转y
+      offset = vector.y;
+    }
+    return offset;
+  }
+
+  // 获取文本的偏移位置，x,y
+  getLabelOffset(point, index, total) {
+    const self = this;
+    const offset = self.getDefaultOffset();
+    const coord = self.get('coord');
+    const transposed = coord.isTransposed;
+    const yDim = transposed ? 'x' : 'y';
+    const factor = transposed ? 1 : -1; // y 方向上越大，像素的坐标越小，所以transposed时将系数变成
+    const offsetPoint = {
+      x: 0,
+      y: 0
+    };
+    if (index > 0 || total === 1) { // 判断是否小于0
+      offsetPoint[yDim] = offset * factor;
+    } else {
+      offsetPoint[yDim] = offset * factor * -1;
+    }
+    return offsetPoint;
+  }
+
+  getLabelAlign(point, index, total) {
+    const self = this;
+    let align = 'center';
+    const coord = self.get('coord');
+    if (coord.isTransposed) {
+      const offset = self.getDefaultOffset();
+      // var vector = coord.trans(offset,0);
+      if (offset < 0) {
+        align = 'right';
+      } else if (offset === 0) {
+        align = 'center';
+      } else {
+        align = 'left';
+      }
+      if (total > 1 && index === 0) {
+        if (align === 'right') {
+          align = 'left';
+        } else if (align === 'left') {
+          align = 'right';
+        }
+      }
+    }
+    return align;
+  }
+
+  showLabels(points) {
+    const self = this;
+    let items = self.getLabelsItems(points);
+    const labels = self.get('labels');
+    items = self.adjustItems(items);
+    self.resetLabels(items);
+    if (labels.labelLine) {
+      self.drawLines(items, labels.labelLine);
+    }
+  }
+
+  destroy() {
+    this.removeLabels(); // 清理文本
+    GeomLabels.superclass.destroy.call(this);
+  }
+}
+
+Util.mix(GeomLabels, Labels.ShowLabels);
+
+module.exports = GeomLabels;

@@ -5,9 +5,9 @@
 
 const Util = require('../../util');
 const Shape = require('./shape');
-const ShapeUtil = require('./util/shape-util');
+const ShapeUtil = require('../util/shape');
 const Global = require('../../global');
-const PathUtil = require('./util/path-util');
+const PathUtil = require('../util/path');
 const CORNER_PERCENT = 1 / 3;
 
 

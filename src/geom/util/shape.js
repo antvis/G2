@@ -2,7 +2,7 @@
  * @fileOverview shape 的辅助方法
  * @author dxq613@gmail.com
  */
-const Util = require('../../../util');
+const Util = require('../../util');
 
 const ShapeUtil = {
   splitPoints(obj) {

@@ -6,7 +6,7 @@
 
 const Util = require('../../util');
 const Shape = require('./shape');
-const PathUtil = require('./util/path-util');
+const PathUtil = require('../util/path');
 const Global = require('../../global');
 
 // 获取柱状图的几个点
