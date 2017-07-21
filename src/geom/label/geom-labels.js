@@ -16,12 +16,12 @@ function avg(arr) {
 class GeomLabels extends Group {
   getDefaultCfg() {
     return {
-      labels: Global.labels,
+      label: Global.label,
       /**
        * 用户传入的文本配置信息
        * @type {Object}
        */
-      labelsCfg: null,
+      labelCfg: null,
       /**
        * 所在的坐标系
        * @type {Object}
@@ -33,12 +33,11 @@ class GeomLabels extends Group {
        */
       geomType: null,
       zIndex: 6
-
     };
   }
 
   _renderUI() {
-    GeomLabels.superclass._renderUI.call(this);
+    super._renderUI.call(this);
     this.initLabelsCfg();
     this.renderLabels(); // 调用入口文件
   }
@@ -47,9 +46,9 @@ class GeomLabels extends Group {
   _getLabelValue(record) {
     const self = this;
     const originRecord = record[ORIGIN];
-    const labelsCfg = self.get('labelsCfg');
-    const scales = labelsCfg.scales;
-    const callback = labelsCfg.callback;
+    const labelCfg = self.get('labelCfg');
+    const scales = labelCfg.scales;
+    const callback = labelCfg.callback;
     let value;
     if (callback) {
       const params = [];
@@ -77,9 +76,9 @@ class GeomLabels extends Group {
   initLabelsCfg() {
     const self = this;
     const labels = self.getDefaultLabelCfg();
-    const labelsCfg = self.get('labelsCfg');
-    Util.mix(true, labels, labelsCfg.cfg);
-    self.set('labels', labels);
+    const labelCfg = self.get('labelCfg');
+    Util.mix(true, labels, labelCfg.cfg);
+    self.set('label', labels);
   }
 
   /**
@@ -89,12 +88,12 @@ class GeomLabels extends Group {
    */
   getDefaultLabelCfg() {
     const self = this;
-    const labelsCfg = self.get('labelsCfg').cfg;
+    const labelCfg = self.get('labelCfg').cfg;
     const geomType = self.get('geomType');
-    if (geomType === 'polygon' || (labelsCfg && labelsCfg.offset < 0 && Util.indexOf(IGNORE_ARR, geomType) === -1)) {
-      return Util.mix(true, {}, Global.innerLabels);
+    if (geomType === 'polygon' || (labelCfg && labelCfg.offset < 0 && Util.indexOf(IGNORE_ARR, geomType) === -1)) {
+      return Util.assign({}, labelCfg, Global.innerLabels);
     }
-    return this.get('labels');
+    return Util.assign({}, this.get('label'), labelCfg);
   }
 
   /**
@@ -106,7 +105,7 @@ class GeomLabels extends Group {
   getLabelsItems(points) {
     const self = this;
     const items = [];
-    const labels = self.get('labels');
+    const labels = self.get('label');
     const geom = self.get('geom');
     const xDim = geom ? geom.getXDim() : 'x';
     const yDim = geom ? geom.getYDim() : 'y';
@@ -198,21 +197,21 @@ class GeomLabels extends Group {
   transLabelPoint(point) {
     const self = this;
     const coord = self.get('coord');
-    const tmpPoint = coord.trans(point.x, point.y, 1);
-    point.x = tmpPoint.x;
-    point.y = tmpPoint.y;
+    const tmpPoint = coord.applyMatrix(point.x, point.y, 1);
+    point.x = tmpPoint[0];
+    point.y = tmpPoint[1];
   }
 
   getOffsetVector() {
     const self = this;
-    const labelCfg = self.get('labels');
+    const labelCfg = self.get('label');
     const offset = labelCfg.offset || 0;
     const coord = self.get('coord');
     let vector;
     if (coord.isTransposed) { // 如果x,y翻转，则偏移x
-      vector = coord.trans(offset, 0);
+      vector = coord.applyMatrix(offset, 0);
     } else { // 否则，偏转y
-      vector = coord.trans(0, offset);
+      vector = coord.applyMatrix(0, offset);
     }
     return vector;
   }
@@ -225,9 +224,9 @@ class GeomLabels extends Group {
     const coord = self.get('coord');
     const vector = self.getOffsetVector();
     if (coord.isTransposed) { // 如果x,y翻转，则偏移x
-      offset = vector.x;
+      offset = vector[0];
     } else { // 否则，偏转y
-      offset = vector.y;
+      offset = vector[1];
     }
     return offset;
   }
@@ -258,7 +257,7 @@ class GeomLabels extends Group {
     const coord = self.get('coord');
     if (coord.isTransposed) {
       const offset = self.getDefaultOffset();
-      // var vector = coord.trans(offset,0);
+      // var vector = coord.applyMatrix(offset,0);
       if (offset < 0) {
         align = 'right';
       } else if (offset === 0) {
@@ -280,7 +279,7 @@ class GeomLabels extends Group {
   showLabels(points) {
     const self = this;
     let items = self.getLabelsItems(points);
-    const labels = self.get('labels');
+    const labels = self.get('label');
     items = self.adjustItems(items);
     self.resetLabels(items);
     if (labels.labelLine) {
@@ -290,10 +289,10 @@ class GeomLabels extends Group {
 
   destroy() {
     this.removeLabels(); // 清理文本
-    GeomLabels.superclass.destroy.call(this);
+    super.destroy.call(this);
   }
 }
 
-Util.mix(GeomLabels, Labels.ShowLabels);
+Util.assign(GeomLabels.prototype, Labels.LabelsRenderer);
 
 module.exports = GeomLabels;

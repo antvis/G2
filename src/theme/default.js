@@ -217,7 +217,7 @@ const Theme = {
       title: null
     }
   },
-  labels: {
+  label: {
     offset: 14,
     label: {
       fill: '#666',
