@@ -2,6 +2,26 @@ html, body {
   margin: 0;
   height: 100%;
 }
+
+ol, ul, li {
+  list-style-type: none;
+}
+ol, ul {
+  padding: 0 1rem;
+}
+li {
+  padding-left: 0;
+  display: inline-block;
+}
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a, ol a, ul a, li a {
+  color: rgba(0,0,0,0.87);
+  font-weight: 500;
+  text-decoration: none;
+}
+h3, li.active {
+  background-color: rgba(0,0,0,0.05);
+}
+
 .main {
   background-color: #fff;
   display: -webkit-box;
