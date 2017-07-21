@@ -17,7 +17,7 @@ const canvas = new Canvas({
 const symbols = [ 'circle', 'diamond', 'square', 'triangle', 'triangle-down' ];
 const colors = [ '#ff6600', '#b01111', '#ac5724', '#572d8a', '#333333', '#7bab12', '#c25e5e', '#a6c96a', '#133960', '#2586e7' ];
 
-describe('分类图例', function() {
+describe.skip('分类图例', function() {
   it('默认', function() {
     const items = [];
     for (let i = 0; i < 5; i++) {

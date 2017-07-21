@@ -1,0 +1,82 @@
+#!/usr/bin/env node
+const PQueue = require('p-queue');
+const commander = require('commander');
+const connect = require('connect');
+const getPort = require('get-port');
+const glob = require('glob');
+const http = require('http');
+const screenshot = require('electron-screenshot-service');
+const serveStatic = require('serve-static');
+const {
+  writeFileSync
+} = require('fs');
+const {
+  each
+} = require('lodash');
+const {
+  // basename,
+  dirname,
+  resolve
+} = require('path');
+const {
+  mkdir
+} = require('shelljs');
+const pkg = require('../package.json');
+
+commander
+  .version(pkg.version)
+  .option('-w, --width <width>', 'width', 800)
+  .option('-h, --height <height>', 'height', 600)
+  .parse(process.argv);
+
+const {
+  width,
+  height
+} = commander;
+
+const demosRoot = resolve(__dirname, '../demos');
+const screenshotsPath = resolve(demosRoot, `./assets/screenshots/${width}x${height}`);
+
+mkdir('-p', screenshotsPath);
+
+getPort().then(port => {
+  const server = connect();
+  server.use(serveStatic(process.cwd()));
+  http.createServer(server).listen(port);
+
+  const delay = 50;
+  const queue = new PQueue({
+    concurrency: 1
+  });
+
+  glob('./**/*.html', {
+    cwd: demosRoot,
+    root: demosRoot
+  }, (err, files) => {
+    if (err) throw err;
+    each(files, file => {
+      const fileBasename = file
+        .replace(/\.html$/, '')
+        .replace(/^./, '')
+        .replace(/\//, '');
+      if (fileBasename !== 'index' && !/^assets/.test(fileBasename)) {
+        const outputFilename = resolve(screenshotsPath, `./${fileBasename}.png`);
+        queue.add(() => screenshot({
+          delay,
+          url: `http://localhost:${port}/demos/${file}`,
+          width,
+          height
+        }).then(img => {
+          mkdir('-p', dirname(outputFilename));
+          writeFileSync(outputFilename, img.data);
+          console.log(`screenshot written: ${outputFilename}`);
+        }));
+      }
+    });
+    queue.onEmpty().then(() => {
+      console.log('screenshots are all token!');
+      screenshot.close();
+      process.exit();
+    });
+  });
+});

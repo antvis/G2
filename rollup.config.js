@@ -9,10 +9,10 @@ module.exports = {
   moduleName: 'G2',
   format: 'umd',
   plugins: [
+    commonjs(),
     resolve(),
     babel({
-      exclude: 'node_modules/**' // only transpile our source code
-    }),
-    commonjs()
+      // exclude: 'node_modules/**' // only transpile our source code
+    })
   ]
 };

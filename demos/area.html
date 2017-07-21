@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="geometry" content="area">
+  <title>Area Plot</title>
+</head>
+
+<body>
+  <div id="canvas"></div>
+  <script src="./assets/jquery-3.2.1.min.js"></script>
+  <script src="../build/g2.js"></script>
+  <script>
+    $.getJSON('./data/rain-flow.json', data => {
+      const chart = new G2.Chart({
+        container: 'canvas',
+        forceFit: true,
+        height: window.innerHeight
+      });
+      chart.source(data); // TODO
+      chart.scale({
+        time: {
+          type: 'time',
+          tickCount: 8,
+          alias: '时间',
+          mask: 'm/dd hh:MM'
+        },
+        flow: {
+          alias: '流量(m^3/s)'
+        },
+        rain: {
+          alias: '降雨量(mm)'
+        }
+      });
+      chart.legend({
+        position: 'top'
+      });
+      chart.area()
+        .position('time*flow')
+        .color('l(100) 0:#a50f15 1:#fee5d9')
+        .opacity(0.85);
+      chart.area()
+        .position('time*rain')
+        .color('l(100) 0:#293c55 1:#f7f7f7')
+        .opacity(0.85);
+      chart.render();
+    });
+  </script>
+</body>
+
+</html>
