@@ -322,7 +322,7 @@ const TooltipMixin = {
     const self = this;
     const origin = point[FIELD_ORIGIN];
     const tipTitle = self.getTipTitle(origin);
-    const tooltipDims = self.get('tooltipDims');
+    const tooltipFields = self.get('tooltipFields');
     const items = [];
     let name;
     let value;
@@ -344,12 +344,12 @@ const TooltipMixin = {
       }
     }
 
-    if (tooltipDims) {
-      Util.each(tooltipDims, function(dim) {
-        if (!Util.isNil(origin[dim])) { // 字段数据为null ,undefined时不显示
-          const scale = self._getScale(dim);
+    if (tooltipFields) {
+      Util.each(tooltipFields, function(field) {
+        if (!Util.isNil(origin[field])) { // 字段数据为null ,undefined时不显示
+          const scale = self._getScale(field);
           name = getScaleName(scale);
-          value = scale.getText(origin[dim]);
+          value = scale.getText(origin[field]);
           addItem(name, value);
         }
       });
@@ -384,7 +384,7 @@ const TooltipMixin = {
       if (coordType === 'theta' || (coordType === 'polar' && coord.isTransposed)) {
         shareTooltip = false;
       }
-    } else if (!this.getYScale() || Util.inArray([ 'contour', 'point', 'polygon', 'edge' ], type)) {
+    } else if (!this.getYScale() || Util.inArray([ 'contour', 'point', 'polygon', 'edge', 'schema' ], type)) {
       shareTooltip = false;
     }
     return shareTooltip;

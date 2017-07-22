@@ -139,7 +139,7 @@ class GeomBase extends Base {
        */
       selectable: false,
       // tooltipMap: {},
-      tooltipDims: null
+      tooltipFields: null
     };
   }
 
@@ -247,7 +247,6 @@ class GeomBase extends Base {
     return this;
   }
 
-
   style(field, cfg) {
     let styleOptions = this.get('styleOptions');
     if (!styleOptions) {
@@ -268,6 +267,13 @@ class GeomBase extends Base {
 
   label(/* field, cfg */) {
 
+  }
+
+  tooltip(field/* , cfg */) {
+    // TODO: 还需要支持回调
+    if (Util.isString(field)) {
+      this.set('tooltipFields', parseFields(field));
+    }
   }
 
   hasAdjust(adjustType) {
@@ -292,13 +298,21 @@ class GeomBase extends Base {
   }
 
   init() {
-    this._initAttrs();
-    const dataArray = this._processData();
-    if (this.get('adjusts')) {
-      this._adjust(dataArray);
+    const self = this;
+    self._initAttrs();
+
+    if (self.get('tooltipFields')) { // 创建 tooltip 对应的 scale
+      Util.each(self.get('tooltipFields'), field => {
+        self._createScale(field);
+      });
     }
-    this.set('dataArray', dataArray);
+    const dataArray = self._processData();
+    if (self.get('adjusts')) {
+      self._adjust(dataArray);
+    }
+    self.set('dataArray', dataArray);
   }
+
   // step 1: init attrs
   _initAttrs() {
     const self = this;
@@ -688,7 +702,7 @@ class GeomBase extends Base {
    */
   draw(data, container, shapeFactory) {
     const self = this;
-    Util.each(data, function(obj) {
+    Util.each(data, obj => {
       self.drawPoint(obj, container, shapeFactory);
     });
   }

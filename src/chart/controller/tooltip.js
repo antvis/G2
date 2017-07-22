@@ -2,7 +2,7 @@ const Util = require('../../util');
 const Global = require('../../global');
 const { Tooltip } = require('../../component/index');
 const TYPE_SHOW_MARKERS = [ 'line', 'area', 'path', 'areaStack' ]; // 默认展示 tooltip marker 的几何图形
-const TYPE_SHOW_CROSSHAIRS = [ 'line', 'area', 'interval' ]; // 默认展示十字瞄准线的几何图形
+const TYPE_SHOW_CROSSHAIRS = [ 'line', 'area' ]; // 默认展示十字瞄准线的几何图形
 
 function _indexOfArray(items, item) {
   let rst = -1;
@@ -69,6 +69,7 @@ class TooltipController {
 
   _getDefaultTooltipCfg() {
     const self = this;
+    const options = self.options;
     const defaultCfg = Util.mix({}, Global.tooltip);
     const chart = self.chart;
     const geoms = chart.getAllGeoms();
@@ -80,7 +81,7 @@ class TooltipController {
       }
     });
     if (geoms.length && geoms[0].get('coord').type === 'cartesian') {
-      if (Util.inArray(shapes, 'interval')) { // interval 的 crosshair 为矩形背景框
+      if (Util.inArray(shapes, 'interval') && !options.split) { // interval 的 crosshair 为矩形背景框
         Util.mix(defaultCfg, {
           plotBack: chart.get('plotBack'),
           crosshairs: {

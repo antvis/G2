@@ -28,8 +28,8 @@ function isPointInCoord(coord, point) {
   if (coord) {
     const type = coord.type;
     if (type === 'theta') {
-      const start = coord.get('start');
-      const end = coord.get('end');
+      const start = coord.start;
+      const end = coord.end;
       result = isBetween(point.x, start.x, end.x) && isBetween(point.y, start.y, end.y);
     } else {
       const invertPoint = coord.invert(point);
