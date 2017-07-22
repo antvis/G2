@@ -143,10 +143,10 @@ class View extends Base {
 
   _initGeoms() {
     const geoms = this.get('geoms');
-    const data = this.get('data');
+    const filteredData = this.get('filteredData');
     const coord = this.get('coord');
     Util.each(geoms, function(geom) {
-      geom.set('data', data);
+      geom.set('data', filteredData);
       geom.set('coord', coord);
       geom.init();
     });
@@ -369,13 +369,67 @@ class View extends Base {
   createScale(field) {
     const scales = this.get('scales');
     let scale = scales[field];
-    const data = this.get('data');
+    const filters = this._getFilters();
+    let data = this.get('filteredData');
     if (!scale) {
       const scaleController = this.get('scaleController');
+      if (filters && filters[field]) {
+        data = this.get('data');
+      }
       scale = scaleController.createScale(field, data);
       scales[field] = scale;
     }
     return scale;
+  }
+
+  getFilteredScale(field) {
+    const data = this.get('filteredData');
+    const scaleController = this.get('scaleController');
+    const scale = scaleController.createScale(field, data);
+    return scale;
+  }
+
+  filter(field, condition) {
+    const options = this.get('options');
+    if (!options.filters) {
+      options.filters = {};
+    }
+    options.filters[field] = condition;
+  }
+
+  // 获取 filters
+  _getFilters() {
+    const self = this;
+    const parent = self.get('parent');
+    const options = self.get('options');
+    let filters = options.filters;
+    let parentFilters = null;
+    if (parent) {
+      parentFilters = parent._getFilters();
+    }
+    if (filters) {
+      filters = Util.mix({}, parentFilters, filters);
+    }
+    return filters;
+  }
+
+  // 执行 filter 数据
+  execFilter(data) {
+    const self = this;
+    const filters = self._getFilters();
+    if (filters) {
+      data = data.filter(function(obj) {
+        let rst = true;
+        Util.each(filters, function(fn, k) {
+          rst = fn(obj[k], obj);
+          if (!rst) {
+            return false;
+          }
+        });
+        return rst;
+      });
+    }
+    return data;
   }
 
   axis(field, cfg) {
@@ -418,6 +472,7 @@ class View extends Base {
     this.set('scales', {});
     const options = this.get('options');
     options.geoms = null;
+    options.filters = null;
     // clear guide
     // clear axis
     this.get('backPlot') && this.get('backPlot').clear();
@@ -478,7 +533,9 @@ class View extends Base {
 
   render() {
     const data = this.get('data');
-    if (!Util.isEmpty(data)) {
+    const filteredData = this.execFilter(data);
+    if (!Util.isEmpty(filteredData)) {
+      this.set('filteredData', filteredData);
       this.initView();
       this.paint();
     }
