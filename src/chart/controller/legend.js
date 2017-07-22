@@ -105,32 +105,45 @@ class LegendController {
     const self = this;
     const chart = self.chart;
     const geoms = chart.getAllGeoms();
+    const options = self.options;
+    const canvas = chart.get('canvas');
     legend.on('legend:hover', ev => {
       const value = ev.item.value;
-      Util.each(geoms, geom => {
-        const container = geom.get('container');
-        const shapes = container.get('children');
-        const scale = geom.get('scales')[field];
-        const highlightShapes = [];
-        const filteredShapes = [];
-        Util.each(shapes, shape => {
-          const origin = self._getShapeData(shape);
-          if (_snapEqual(origin[field], value, scale)) {
-            highlightShapes.push(shape);
+      const pre = self.pre;
+      if (!pre) {
+        Util.each(geoms, geom => {
+          const container = geom.get('container');
+          const shapes = container.get('children');
+          const scale = geom.get('scales')[field];
+          const activeShapes = [];
+          Util.each(shapes, shape => {
+            const origin = self._getShapeData(shape);
+            if (_snapEqual(origin[field], value, scale)) {
+              activeShapes.push(shape);
+            }
+          });
+          ev.shapes = activeShapes;
+          ev.geom = geom;
+          if (options.onHover) {
+            options.onHover(ev);
+            container.sort();
+            canvas.draw();
           } else {
-            filteredShapes.push(shape);
+            geom.setShapesActived(activeShapes);
           }
         });
-        geom.highlightShapes(highlightShapes, filteredShapes);
-      });
+        self.pre = value;
+      } else if (pre === value) {
+        return;
+      }
     });
 
     legend.on('legend:unhover', function() {
+      self.pre = null;
       Util.each(geoms, function(geom) {
-        const activeGroup = geom.get('activeGroup');
-        if (activeGroup && activeGroup.get('children').length) {
+        if (geom.get('activeShapes')) {
           geom.clearActivedShapes();
-          chart.get('canvas').draw();
+          canvas.draw();
         }
       });
     });
