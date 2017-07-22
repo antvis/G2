@@ -20,6 +20,7 @@ function isChange(preShapes, shapes) {
   return rst;
 }
 
+
 const ActiveMixin = {
   _bindActiveAction() {
     const self = this;
@@ -40,42 +41,38 @@ const ActiveMixin = {
 
       if (shapes) {
         ev.activeShape = shapes;
+        ev.geom = self;
         self.setShapesActived(shapes);
-        view.emit(type + ':active', ev);
+        // view.emit(type + ':active', ev);
       } else {
-        const activeGroup = self.get('activeGroup');
-        if (activeGroup && activeGroup.get('children').length) { // 防止多次绘制
+        if (self.get('activeShapes')) {
           self.clearActivedShapes();
           canvas.draw();
         }
       }
     });
   },
-  _setActiveShape(shape, activeCfg) {
+  _setActiveShape(shape) {
     const self = this;
-    const type = shape.get('type');
-    const origin = shape.get('origin');
-    const activeGroup = self.get('activeGroup');
-    let shapeName = origin.shape || self.getDefaultValue('shape');
+    const shapeData = shape.get('origin');
+    let shapeName = shapeData.shape || self.getDefaultValue('shape');
     if (Util.isArray(shapeName)) {
       shapeName = shapeName[0];
     }
-
     const shapeFactory = self.get('shapeFactory');
-    if (Util.isNil(activeCfg)) {
-      activeCfg = shapeFactory.getActiveCfg(shapeName);
-    }
-    activeCfg.clip = null;
-
-    const newShape = activeGroup.addShape(type, {
-      attrs: Util.mix({}, shape.__attrs, activeCfg)
+    const shapeCfg = Util.mix({}, shape.__attrs, {
+      origin: shapeData
     });
-    newShape.setMatrix(shape.getMatrix());
-    newShape.set('origin', origin);
-    newShape.set('geom', shape.get('geom'));
+    const activeCfg = shapeFactory.getActiveCfg(shapeName, shapeCfg);
+    if (!shape.get('_originAttrs')) {
+      shape.set('_originAttrs', Util.mix({}, shape.__attrs)); // 缓存原来的属性
+    }
+    Util.mix(shape.__attrs, activeCfg);
+    shape.set('zIndex', 1, false); // 提前
   },
-  setShapesActived(shapes, activeCfg) {
+  setShapesActived(shapes) {
     const self = this;
+    const type = self.get('type');
     if (!Util.isArray(shapes)) {
       shapes = [ shapes ];
     }
@@ -84,35 +81,51 @@ const ActiveMixin = {
     if (!isChange(preShapes, shapes)) {
       return;
     }
-
-    const coord = self.get('coord');
-    let activeGroup = self.get('activeGroup');
-    const view = self.get('view');
-    const canvas = view.get('canvas'); // 避免全局刷新,在刷新层叠放一个复制的图形
-    if (!activeGroup) {
-      activeGroup = canvas.addGroup();
-      self.set('activeGroup', activeGroup);
-    } else {
-      activeGroup.clear();
+    if (preShapes) {
+      self.clearActivedShapes(); // 先清除激活元素
     }
-    activeGroup.setMatrix(Util.cloneDeep(coord.matrix));
-
+    const view = self.get('view');
+    const canvas = view.get('canvas');
+    const container = self.get('container');
     Util.each(shapes, shape => {
       if (shape.get('visible')) {
-        self._setActiveShape(shape, activeCfg);
+        self._setActiveShape(shape);
       }
     });
-
+       // 抛出事件
+    view.emit(type + ':active', {
+      geom: self,
+      shapes
+    });
     self.set('activeShapes', shapes);
     self.set('preShapes', shapes);
-    // activeGroup.sort();
-    canvas.sort();
+    container.sort();
     canvas.draw();
   },
   clearActivedShapes() {
     const self = this;
-    const activeGroup = self.get('activeGroup');
-    activeGroup && activeGroup.clear();
+    const container = self.get('container');
+    const activeShapes = self.get('activeShapes');
+    Util.each(activeShapes, activeShape => {
+      const originAttrs = activeShape.get('_originAttrs');
+      activeShape.__attrs = Util.mix({}, originAttrs);
+      activeShape.set('zIndex', 0, false);
+    });
+    const preHighlightShapes = self.get('preHighlightShapes');
+    if (preHighlightShapes) {
+      const shapes = container.get('children');
+      Util.each(shapes, shape => {
+        const originAttrs = shape.get('_originAttrs');
+        shape.__attrs = Util.mix({}, originAttrs);
+        shape.set('zIndex', 0, false);
+      });
+    }
+    // 恢复原来排序
+    const children = container.get('children');
+    children.sort((obj1, obj2) => {
+      return obj1._INDEX - obj2._INDEX;
+    });
+
     self.set('activeShapes', null);
     self.set('preShapes', null);
     self.set('preHighlightShapes', null);
@@ -148,78 +161,43 @@ const ActiveMixin = {
     }
     return result;
   },
-  highlightShapes(highlightShapes, filteredShapes) {
+  highlightShapes(highlightShapes, highlightCfg) {
     const self = this;
-    const type = self.get('type');
+    if (!Util.isArray(highlightShapes)) {
+      highlightShapes = [ highlightShapes ];
+    }
+
     const preHighlightShapes = self.get('preHighlightShapes'); // 获取上次被激活的 shapes
     if (!isChange(preHighlightShapes, highlightShapes)) {
       return;
     }
 
-    const coord = self.get('coord');
-    let activeGroup = self.get('activeGroup');
-    const view = self.get('view');
-    const canvas = view.get('canvas'); // 避免全局刷新,在刷新层叠放一个复制的图形
-    if (!activeGroup) {
-      activeGroup = canvas.addGroup();
-      self.set('activeGroup', activeGroup);
-    } else {
-      activeGroup.clear();
+    if (preHighlightShapes) {
+      self.clearActivedShapes();
     }
-    activeGroup.setMatrix(Util.cloneDeep(coord.matrix));
 
-    if (type === 'area' || type === 'line' || type === 'path') {
-      Util.each(highlightShapes, highlightShape => {
-        let newShape;
-        if (type === 'line' || type === 'path') {
-          newShape = Util.cloneDeep(highlightShape);
-          newShape.attr('lineWidth', highlightShape.attr('lineWidth') + 1);
-          // activeGroup.add(newShape);
-        } else {
-          const origin = highlightShape.get('origin');
-          const path = [];
-          Util.each(origin, (obj, index) => {
-            if (index === 0) {
-              path.push([ 'M', obj.x, Util.isArray(obj.y) ? obj.y[1] : obj.y ]);
-            } else {
-              path.push([ 'L', obj.x, Util.isArray(obj.y) ? obj.y[1] : obj.y ]);
-            }
-          });
-          newShape = activeGroup.addShape('path', {
-            attrs: {
-              path,
-              lineWidth: 2,
-              stroke: highlightShape.attr('fill')
-            }
-          });
-        }
-        activeGroup.add(newShape);
-      });
-    } else {
-      Util.each(highlightShapes, highlightShape => {
-        const newShape = Util.cloneDeep(highlightShape);
-        newShape.set('zIndex', 1);
-        newShape.attr('fillOpacity', 1);
-        activeGroup.add(newShape);
-      });
+    const container = self.get('container');
+    const shapes = container.get('children');
 
-      Util.each(filteredShapes, filteredShape => {
-        const newShape = activeGroup.addShape(filteredShape.get('type'), {
-          attrs: Util.mix({}, filteredShape.__attrs, {
-            fill: '#fff',
-            fillOpacity: 0.85,
-            strokeOpacity: 0.85,
-            stroke: '#fff'
-          }),
-          zIndex: 0
+    Util.each(shapes, shape => {
+      if (!shape.get('_originAttrs')) {
+        shape.set('_originAttrs', Util.mix({}, shape.__attrs)); // 缓存原来的属性
+      }
+      if (Util.indexOf(highlightShapes, shape) !== -1) {
+        shape.__attrs = Util.mix({}, shape.get('_originAttrs'), highlightCfg);
+        shape.set('zIndex', 1, false); // 提前
+      } else {
+        Util.mix(shape.__attrs, {
+          fill: '#fff',
+          fillOpacity: 0.3,
+          strokeOpacity: 0.3,
+          stroke: '#fff'
         });
-        activeGroup.add(newShape);
-      });
-    }
-
-    activeGroup.sort();
+        shape.set('zIndex', 0, false);
+      }
+    });
     self.set('preHighlightShapes', highlightShapes);
-    canvas.draw();
+    self.set('activeShapes', highlightShapes);
   }
 };
 

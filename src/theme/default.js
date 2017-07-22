@@ -320,36 +320,6 @@ const Theme = {
     crosshairs: false,
     offset: 15
   },
-  activeShape: {
-    point: {
-      fillOpacity: 0.3,
-      fill: '#fff'
-    },
-    hollowPoint: {
-      lineWidth: 2
-    },
-    interval: {
-      fillOpacity: 0.3,
-      fill: '#fff'
-    },
-    hollowInterval: {
-      lineWidth: 2
-    },
-    area: {
-      fillOpacity: 0.3,
-      fill: '#fff'
-    },
-    hollowArea: {
-      lineWidth: 2
-    },
-    line: {
-      lineWidth: 2
-    },
-    polygon: {
-      fillOpacity: 0.3,
-      fill: '#fff'
-    }
-  }, // 图形激活时，鼠标移动到上面
   shape: {
     point: {
       lineWidth: 1,

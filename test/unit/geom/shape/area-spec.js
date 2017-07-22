@@ -114,7 +114,7 @@ describe('area shapes', function() {
       ]);
     });
 
-    it('getActiveCfg', function() {
+    xit('getActiveCfg', function() {
       let activeCfg = Area.getActiveCfg('area');
       expect(activeCfg).eql({
         fill: '#fff',

@@ -39,8 +39,6 @@ function getAttrs(cfg) {
   const defaultAttrs = Global.shape.line;
   const attrs = Util.mix({}, defaultAttrs, {
     stroke: cfg.color,
-    fill: '#fff',
-    fillOpacity: 0,
     strokeOpacity: cfg.opacity
   });
   return attrs;
@@ -189,8 +187,17 @@ function getMarkerCfg(cfg, fn) {
 
 const Schema = Shape.registerFactory('schema', {
   defaultShapeType: '',
-  getActiveCfg(/* type */) {
-    return Global.activeShape.line;
+  getActiveCfg(type, cfg) {
+    if (type === 'box') {
+      return {
+        lineWidth: cfg.lineWidth + 1
+      };
+    }
+    return {
+      fill: '#fff',
+      fillOpacity: 0.7,
+      strokeOpacity: 0.7
+    };
   },
   getSelectedCfg(type, cfg) {
     if (cfg && cfg.style) {
@@ -211,7 +218,9 @@ Shape.registShape('schema', 'box', {
     path = this.parsePath(path);
     return container.addShape('path', {
       attrs: Util.mix(attrs, {
-        path
+        path,
+        fill: '#fff',
+        fillOpacity: 0
       })
     });
   },
