@@ -143,16 +143,22 @@ class View extends Base {
   _initViewPlot() {
     const canvas = this.get('canvas');
 
-    if (!this.get('viewContainer')) { // 用于 geom 的绘制
-      this.set('viewContainer', canvas.addGroup());
+    if (!this.get('backPlot')) { // 用于坐标轴以及部分 guide 绘制
+      this.set('backPlot', canvas.addGroup({
+        zIndex: 1
+      }));
     }
 
-    if (!this.get('backPlot')) { // 用于坐标轴以及部分 guide 绘制
-      this.set('backPlot', canvas.addGroup());
+    if (!this.get('viewContainer')) { // 用于 geom 的绘制
+      this.set('viewContainer', canvas.addGroup({
+        zIndex: 2
+      }));
     }
 
     if (!this.get('frontPlot')) {  // 用于图例以及部分 guide 绘制
-      this.set('frontPlot', canvas.addGroup());
+      this.set('frontPlot', canvas.addGroup({
+        zIndex: 3
+      }));
     }
   }
 

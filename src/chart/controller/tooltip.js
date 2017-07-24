@@ -83,7 +83,7 @@ class TooltipController {
     if (geoms.length && geoms[0].get('coord').type === 'cartesian') {
       if (Util.inArray(shapes, 'interval') && !options.split) { // interval 的 crosshair 为矩形背景框
         Util.mix(defaultCfg, {
-          plotBack: chart.get('plotBack'),
+          zIndex: 0, // 矩形背景框不可覆盖 geom
           crosshairs: {
             type: 'rect',
             style: {
@@ -217,6 +217,11 @@ class TooltipController {
       plotRange: chart.get('plotRange'),
       capture: false
     });
+
+    if (options.crosshairs && options.crosshairs.type === 'rect') {
+      options.zIndex = 0; // toolip 背景框不可遮盖住 geom，防止用户配置了 crosshairs
+    }
+
     options.visible = false;
     const canvas = self._getCanvas();
     const tooltip = canvas.addGroup(Tooltip, options);

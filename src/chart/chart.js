@@ -86,9 +86,15 @@ class Chart extends View {
   _initPlot() {
     this._initPlotBack(); // 最底层的是背景相关的 group
     const canvas = this.get('canvas');
-    const backPlot = canvas.addGroup(); // 图表最后面的容器
-    const plotContainer = canvas.addGroup(); // 图表所在的容器
-    const frontPlot = canvas.addGroup(); // 图表前面的容器
+    const backPlot = canvas.addGroup({
+      zIndex: 1
+    }); // 图表最后面的容器
+    const plotContainer = canvas.addGroup({
+      zIndex: 2
+    }); // 图表所在的容器
+    const frontPlot = canvas.addGroup({
+      zIndex: 3
+    }); // 图表前面的容器
 
     this.set('backPlot', backPlot);
     this.set('viewContainer', plotContainer);

@@ -62,7 +62,6 @@ class Tooltip extends Group {
   }
 
   _beforeRenderUI() {
-    // const { style } = this.get('crosshairs'); // tooltip 十字准线样式
     const crosshairs = this.get('crosshairs');
     if (crosshairs && crosshairs.type === 'rect') {
       Util.defaultsDeep(this.get('crosshairs'), {
@@ -222,8 +221,7 @@ class Tooltip extends Group {
       height: plotRange ? Math.abs(plotRange.tl.y - plotRange.bl.y) : canvas.get('height')
     }, style);
 
-    const plotBack = this.get('plotBack');
-    const shape = plotBack.addShape('rect', {
+    const shape = this.addShape('rect', {
       attrs
     });
     shape.hide();
