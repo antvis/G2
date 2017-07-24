@@ -97,6 +97,16 @@ class Base extends Group {
     const itemsGroup = this.get('itemsGroup');
     itemsGroup.clear();
   }
+
+  getWidth() {
+    const bbox = this.getBBox();
+    return bbox.width;
+  }
+
+  getHeight() {
+    const bbox = this.getBBox();
+    return bbox.height;
+  }
 }
 
 module.exports = Base;

@@ -114,7 +114,7 @@ describe('edge shape test', function() {
       canvas.draw();
     });
 
-    it('getActiveCfg', function() {
+    xit('getActiveCfg', function() {
       const activeCfg = shapeObj.getActiveCfg();
       expect(activeCfg).eql({
         strokeOpacity: 0.7

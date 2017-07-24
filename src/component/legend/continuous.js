@@ -164,10 +164,10 @@ class Continuous extends Base {
 
     if (attrType === 'color-legend') {
       minBlockAttr = {
-        fill: min.color
+        fill: min.attrValue
       };
       maxBlockAttr = {
-        fill: max.color
+        fill: max.attrValue
       };
     } else {
       minBlockAttr = Util.mix({}, inRange);
@@ -247,20 +247,20 @@ class Continuous extends Base {
   }
 
   _bindUI() {
-    if (this.get('slidable')) {
-      const self = this;
-      const canvas = self.get('canvas');
+    const self = this;
+    if (self.get('slidable')) {
+      // const canvas = self.get('canvas');
       const slider = self.get('slider');
-      slider.on('sliderchange', function(ev) {
+      slider.on('sliderchange', ev => {
         const range = ev.range;
         const firstItemValue = self.get('firstItem').name * 1;
         const lastItemValue = self.get('lastItem').name * 1;
-        const minValue = firstItemValue + (range[0] / 100) * (lastItemValue - firstItemValue) + '';
-        const maxValue = firstItemValue + (range[1] / 100) * (lastItemValue - firstItemValue) + '';
+        const minValue = firstItemValue + (range[0] / 100) * (lastItemValue - firstItemValue);
+        const maxValue = firstItemValue + (range[1] / 100) * (lastItemValue - firstItemValue);
         self._updateElement(minValue, maxValue);
-        const itemFiltered = new Event('legend:filter', ev);
+        const itemFiltered = new Event('itemfilter', ev, true, true);
         itemFiltered.range = [ minValue, maxValue ];
-        canvas.trigger('legend:filter', [ itemFiltered ]);
+        self.emit('itemfilter', itemFiltered);
       });
     }
   }
@@ -268,15 +268,15 @@ class Continuous extends Base {
   _updateElement(min, max) {
     const minTextElement = this.get('minTextElement');
     const maxTextElement = this.get('maxTextElement');
-    minTextElement.attr('text', min);
-    maxTextElement.attr('text', max);
-    /* if (this.get('type') === 'color-legend') {
+    minTextElement.attr('text', min + '');
+    maxTextElement.attr('text', max + '');
+    if (this.get('type') === 'color-legend' && this.get('attr')) {
       const attr = this.get('attr'); // 图形属性，为了更新滑块颜色
       const minButtonElement = this.get('minButtonElement');
       const maxButtonElement = this.get('maxButtonElement');
-      minButtonElement.attr('fill', attr.mappingValues(min).join(''));
-      maxButtonElement.attr('fill', attr.mappingValues(max).join(''));
-    } */
+      minButtonElement.attr('fill', attr.mapping(min).join(''));
+      maxButtonElement.attr('fill', attr.mapping(max).join(''));
+    }
   }
 }
 

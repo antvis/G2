@@ -91,11 +91,25 @@ function _getMarkerCfg(cfg, smooth, hollow) {
 }
 
 // 鼠标悬浮触发active状态
-function getActiveCfg(type) {
-  if (!type || type.indexOf('line') === -1) {
-    return Global.activeShape.area;
-  }
-  return Global.activeShape.hollowArea;
+function getActiveCfg(/* type, cfg */) {
+  /* const activeCfg = {};
+  const origin = cfg.origin;
+  const points = [];
+  Util.each(origin, obj => {
+    points.push({
+      x: obj.x,
+      y: Util.isArray(obj.y) ? obj.y[1] : obj.y
+    });
+  });
+  const path = PathUtil.getSplinePath(points, false); // 考虑极坐标
+  activeCfg.path = path;
+  activeCfg.lineWidth = cfg.lineWidth ? cfg.lineWidth + 1 : 2;*/
+
+  return {
+    fill: '#000',
+    fillOpacity: 0.7,
+    strokeOpacity: 0.7
+  };
 }
 
 // 当只有一个数据时绘制点
@@ -136,8 +150,8 @@ const Area = Shape.registerFactory('area', {
     return points;
   },
   // 获取激活的图形属性
-  getActiveCfg(type) {
-    return getActiveCfg(type);
+  getActiveCfg(type, cfg) {
+    return getActiveCfg(type, cfg);
   },
   drawShape(type, cfg, container) {
     const shape = this.getShape(type);
@@ -149,6 +163,7 @@ const Area = Shape.registerFactory('area', {
     }
     if (gShape) {
       gShape.set('origin', cfg.origin);
+      gShape.set('geom', Util.lowerFirst(this.className));
     }
     return gShape;
   },
@@ -156,7 +171,7 @@ const Area = Shape.registerFactory('area', {
     if (cfg && cfg.style) {
       return cfg.style;
     }
-    return this.getActiveCfg(type);
+    return this.getActiveCfg(type, cfg);
   }
 });
 

@@ -86,12 +86,17 @@ class Chart extends View {
   _initPlot() {
     this._initPlotBack(); // 最底层的是背景相关的 group
     const canvas = this.get('canvas');
-    const backPlot = canvas.addGroup(); // 图表最后面的容器
-    const plotContainer = canvas.addGroup(); // 图表所在的容器
-    const frontPlot = canvas.addGroup(); // 图表前面的容器
+    const backPlot = canvas.addGroup({
+      zIndex: 1
+    }); // 图表最后面的容器
+    const plotContainer = canvas.addGroup({
+      zIndex: 2
+    }); // 图表所在的容器
+    const frontPlot = canvas.addGroup({
+      zIndex: 3
+    }); // 图表前面的容器
 
     this.set('backPlot', backPlot);
-    this.set('plotContainer', plotContainer);
     this.set('viewContainer', plotContainer);
     this.set('frontPlot', frontPlot);
   }
@@ -120,25 +125,32 @@ class Chart extends View {
       const geoms = this.getAllGeoms();
       const scales = [];
       Util.each(geoms, geom => {
+        const view = geom.get('view');
         const attrs = geom.getAttrsForLegend();
         Util.each(attrs, attr => {
           const type = attr.type;
           const scale = attr.getScale(type);
           if (scale.type !== 'identity' && !_isScaleExist(scales, scale)) {
             scales.push(scale);
-            let filterVals;
-            const field = scale.field;
-            const geomView = geom.get('view');
-            const filters = geomView.get('options').filters;
-            if (filters && filters[field]) {
-              filterVals = filters[field];
-            }
-            legendController.addLegend(scale, attr, geom, filterVals);
+            const filteredScale = view.getFilteredScale(scale.field);
+            legendController.addLegend(scale, attr, geom, filteredScale.values);
           }
         });
       });
 
       legendController.alignLegends();
+    }
+  }
+
+  _renderTooltips() {
+    const options = this.get('options');
+    if (Util.isNil(options.tooltip) || options.tooltip !== false) { // 用户没有关闭 tooltip
+      const tooltipController = new Controller.Tooltip({
+        chart: this,
+        options: options.tooltip || {}
+      });
+      tooltipController.renderTooltip();
+      this.set('tooltipController', tooltipController);
     }
   }
 
@@ -165,6 +177,7 @@ class Chart extends View {
     cfg.viewContainer = viewContainer.addGroup();
     cfg.backPlot = this.get('backPlot');
     cfg.frontPlot = this.get('frontPlot');
+    cfg.canvas = this.get('canvas');
     const view = new View(cfg);
     this.get('views').push(view);
     return view;
@@ -183,16 +196,35 @@ class Chart extends View {
 
   legend(field, cfg) {
     const options = this.get('options');
-    let legends;
+    let legends = {};
 
-    if (Util.isBoolean(field)) {
-      legends = (field === false) ? false : cfg;
+    if (field === false) {
+      options.legends = false;
     } else if (Util.isObject(field)) {
       legends = field;
-    } else {
+    } else if (Util.isString(field)) {
       legends[field] = cfg;
+    } else {
+      legends = cfg;
     }
     Util.mix(options.legends, legends);
+
+    return this;
+  }
+
+  tooltip(visible, cfg) {
+    const options = this.get('options');
+    if (Util.isNil(options.tooltip)) {
+      options.tooltip = {};
+    }
+
+    if (visible === false) {
+      options.tooltip = false;
+    } else if (Util.isObject(visible)) {
+      Util.mix(options.tooltip, visible);
+    } else {
+      Util.mix(options.tooltip, cfg);
+    }
 
     return this;
   }
@@ -211,7 +243,10 @@ class Chart extends View {
 
   clearInner() {
     const legendController = this.get('legendController');
+    const tooltipController = this.get('tooltipController');
+
     legendController && legendController.clear();
+    tooltipController && tooltipController.clear();
     super.clearInner();
   }
 
@@ -224,7 +259,10 @@ class Chart extends View {
     }
 
     super.render();
-    this._renderLegends();
+
+    this._renderLegends(); // 渲染图例
+    this._renderTooltips(); // 渲染 tooltip
+
     const canvas = this.get('canvas');
     canvas.draw();
     return this;

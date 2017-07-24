@@ -140,8 +140,10 @@ const Line = Shape.registerFactory('line', {
     const lineObj = Line[type] || Line.line;
     return lineObj.getMarkerCfg(cfg);
   },
-  getActiveCfg(/* type */) {
-    return Global.activeShape.line;
+  getActiveCfg(type, cfg) {
+    return {
+      lineWidth: cfg.lineWidth + 1
+    };
   },
   // 计算点 如果存在多个点，分割成单个的点, 不考虑多个x对应一个y的情况
   getDefaultPoints(pointInfo) {
@@ -157,6 +159,7 @@ const Line = Shape.registerFactory('line', {
     }
     if (gShape) {
       gShape.set('origin', cfg.origin);
+      gShape.set('geom', Util.lowerFirst(this.className));
     }
     return gShape;
   }

@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const AxisController = require('../../../../src/chart/controller/axis-controller');
+const AxisController = require('../../../../src/chart/controller/axis');
 const Coord = require('../../../../src/coord/index');
 
 

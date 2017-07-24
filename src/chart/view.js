@@ -18,6 +18,27 @@ function isFullCircle(coord) {
   return true;
 }
 
+function isBetween(value, start, end) {
+  const tmp = (value - start) / (end - start);
+  return tmp >= 0 && tmp <= 1;
+}
+
+function isPointInCoord(coord, point) {
+  let result = false;
+  if (coord) {
+    const type = coord.type;
+    if (type === 'theta') {
+      const start = coord.start;
+      const end = coord.end;
+      result = isBetween(point.x, start.x, end.x) && isBetween(point.y, start.y, end.y);
+    } else {
+      const invertPoint = coord.invert(point);
+      result = invertPoint.x >= 0 && invertPoint.y >= 0 && invertPoint.x <= 1 && invertPoint.y <= 1;
+    }
+  }
+  return result;
+}
+
 const ViewGeoms = {};
 Util.each(Geom, function(geomConstructor, className) {
   const methodName = Util.lowerFirst(className);
@@ -29,7 +50,6 @@ Util.each(Geom, function(geomConstructor, className) {
 });
 
 class View extends Base {
-
   /**
    * 获取默认的配置属性
    * @protected
@@ -45,7 +65,8 @@ class View extends Base {
       scales: {},
       options: {},
       scaleController: null,
-      parent: null
+      parent: null,
+      tooltipEnable: true // 是否展示 tooltip
     };
   }
 
@@ -121,15 +142,15 @@ class View extends Base {
   _initViewPlot() {
     const canvas = this.get('canvas');
 
-    if (!this.get('viewContainer')) { // 用于 geom 的绘制
-      this.set('viewContainer', canvas.addGroup({
-        zIndex: 2
-      }));
-    }
-
     if (!this.get('backPlot')) { // 用于坐标轴以及部分 guide 绘制
       this.set('backPlot', canvas.addGroup({
         zIndex: 1
+      }));
+    }
+
+    if (!this.get('viewContainer')) { // 用于 geom 的绘制
+      this.set('viewContainer', canvas.addGroup({
+        zIndex: 2
       }));
     }
 
@@ -142,10 +163,11 @@ class View extends Base {
 
   _initGeoms() {
     const geoms = this.get('geoms');
-    const data = this.get('data');
+    const filteredData = this.get('filteredData');
     const coord = this.get('coord');
+
     Util.each(geoms, function(geom) {
-      geom.set('data', data);
+      geom.set('data', filteredData);
       geom.set('coord', coord);
       geom.init();
     });
@@ -247,6 +269,15 @@ class View extends Base {
     }
   }
 
+  _bindEvents() {
+    const eventController = new Controller.Event({
+      view: this,
+      canvas: this.get('canvas')
+    });
+    eventController.bindEvents();
+    this.set('eventController', eventController);
+  }
+
   _getScales(dimType) {
     const geoms = this.get('geoms');
     const result = {};
@@ -346,12 +377,18 @@ class View extends Base {
    * @param {Geom} geom 几何标记
    */
   addGeom(geom) {
-    const geoms = this.get('geoms');
+    const self = this;
+    const geoms = self.get('geoms');
     geoms.push(geom);
-    geom.set('view', this);
-    const container = this.get('viewContainer');
-    const group = container.addGroup();
+    geom.set('view', self);
+    const container = self.get('viewContainer');
+    const group = container.addGroup({
+      zIndex: 1,
+      name: 'geom'
+    });
     geom.set('container', group);
+    geom._bindActiveAction();
+    geom._bindSelectedAction();
   }
 
   /**
@@ -368,13 +405,67 @@ class View extends Base {
   createScale(field) {
     const scales = this.get('scales');
     let scale = scales[field];
-    const data = this.get('data');
+    const filters = this._getFilters();
+    let data = this.get('filteredData');
     if (!scale) {
       const scaleController = this.get('scaleController');
+      if (filters && filters[field]) {
+        data = this.get('data');
+      }
       scale = scaleController.createScale(field, data);
       scales[field] = scale;
     }
     return scale;
+  }
+
+  getFilteredScale(field) {
+    const data = this.get('filteredData');
+    const scaleController = this.get('scaleController');
+    const scale = scaleController.createScale(field, data);
+    return scale;
+  }
+
+  filter(field, condition) {
+    const options = this.get('options');
+    if (!options.filters) {
+      options.filters = {};
+    }
+    options.filters[field] = condition;
+  }
+
+  // 获取 filters
+  _getFilters() {
+    const self = this;
+    const parent = self.get('parent');
+    const options = self.get('options');
+    let filters = options.filters;
+    let parentFilters = null;
+    if (parent) {
+      parentFilters = parent._getFilters();
+    }
+    if (filters) {
+      filters = Util.mix({}, parentFilters, filters);
+    }
+    return filters;
+  }
+
+  // 执行 filter 数据
+  execFilter(data) {
+    const self = this;
+    const filters = self._getFilters();
+    if (filters) {
+      data = data.filter(function(obj) {
+        let rst = true;
+        Util.each(filters, function(fn, k) {
+          rst = fn(obj[k], obj);
+          if (!rst) {
+            return false;
+          }
+        });
+        return rst;
+      });
+    }
+    return data;
   }
 
   axis(field, cfg) {
@@ -407,6 +498,11 @@ class View extends Base {
     return this;
   }
 
+  tooltip(visible) {
+    this.set('tooltipEnable', visible); // TODO：该方法只用于开启关闭 tooltip
+    return this;
+  }
+
   changeOptions(options) {
     this.set('options', options);
     this._initOptions(options);
@@ -423,6 +519,8 @@ class View extends Base {
   }
 
   clear() {
+    const options = this.get('options');
+    options.filters = null;
     this._clearGeoms();
     const container = this.get('viewContainer');
     container.clear();
@@ -475,8 +573,11 @@ class View extends Base {
   }
 
   render() {
+    this._bindEvents();
     const data = this.get('data');
-    if (!Util.isEmpty(data)) {
+    const filteredData = this.execFilter(data);
+    if (!Util.isEmpty(filteredData)) {
+      this.set('filteredData', filteredData);
       this.initView();
       this.paint();
     }
@@ -527,6 +628,22 @@ class View extends Base {
   destroy() {
     this.clear();
     super.destroy();
+  }
+
+  getViewsByPoint(point) {
+    const rst = [];
+    const views = this.get('views');
+
+    if (isPointInCoord(this.get('coord'), point)) {
+      rst.push(this);
+    }
+
+    Util.each(views, view => {
+      if (isPointInCoord(view.get('coord'), point)) {
+        rst.push(view);
+      }
+    });
+    return rst;
   }
 }
 

@@ -7,6 +7,6 @@ module.exports = {
   Guide: require('./guide/index'),
   Label: require('./label/index'),
   Legend: require('./legend/index'),
-  Plot: require('./plot')
-  // Tooltip: require('./tooltip/index')
+  Plot: require('./plot'),
+  Tooltip: require('./tooltip/index')
 };

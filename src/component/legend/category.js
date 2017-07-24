@@ -87,7 +87,10 @@ class Category extends Base {
        * 图例背景层属性设置
        * @type {Obejct}
        */
-      background: null,
+      background: {
+        fill: '#fff',
+        fillOpacity: 0
+      },
       /**
        * 图例项的宽度，当图例有很多图例项，并且用户想要这些图例项在同一平面内垂直对齐，此时这个属性可帮用户实现此效果
        * @type {Number}
@@ -119,17 +122,17 @@ class Category extends Base {
        * 使用html时的外层模板
        * @type {String}
        */
-      containerTpl: '<div class="g-legend" style="position:absolute;top:20px;right:60px;">' +
-        '<h4 class="g-legend-title"></h4>' +
-        '<ul class="g-legend-itemlist" style="list-style-type:none;margin:0;padding:0;"></ul>' +
+      containerTpl: '<div class="g2-legend" style="position:absolute;top:20px;right:60px;width:100%;">' +
+        '<h4 class="g2-legend-title"></h4>' +
+        '<ul class="g2-legend-itemlist" style="list-style-type:none;margin:0;padding:0;"></ul>' +
         '</div>',
       /**
        * 默认的图例项 html 模板
        * @type {String}
        */
-      _defaultItemTpl: '<li class="g-legend-item item-${ index } ${ checked }" data-color="${ originColor }" data-value="${ originValue }" style="cursor: pointer;">' +
-        '<i class="g-legend-marker" style="width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:10px;background-color: ${ color };"></i>' +
-        '<span class="g-legend-text">${ value }</span></li>',
+      _defaultItemTpl: '<li class="g2-legend-item item-${ index } ${ checked }" data-color="${ originColor }" data-value="${ originValue }" style="cursor: pointer;">' +
+        '<i class="g2-legend-marker" style="width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:10px;background-color: ${ color };"></i>' +
+        '<span class="g2-legend-text">${ value }</span></li>',
       /**
        * 用户设置的图例项 html 模板
        * @type {String|Function}
@@ -163,17 +166,16 @@ class Category extends Base {
       super._renderUI();
       this._renderItems();
       this._adjustItems();
-      if (this.get('background')) {
-        this._renderBack();
-      }
+      this._renderBack();
     } else { // 使用 html 渲染图例
       this._renderHTML();
     }
   }
 
   _bindUI() {
-    // const canvas = this.get('canvas');
     this.on('mousemove', Util.wrapBehavior(this, '_onMousemove'));
+    this.on('mouseleave', Util.wrapBehavior(this, '_onMouseleave'));
+
     if (this.get('clickable')) {
       this.on('click', Util.wrapBehavior(this, '_onClick'));
     }
@@ -188,24 +190,22 @@ class Category extends Base {
   }
 
   _onMousemove(ev) {
-    const canvas = this.get('canvas');
     const item = this._getLegendItem(ev.currentTarget);
-    const canvasNode = canvas.get('el');
-
-    if (item) {
-      DomUtil.modiCSS(canvasNode, {
-        cursor: 'pointer'
-      });
-
-      const itemhover = new Event('legend:hover', ev);
-      itemhover.item = item;
+    if (item && item.get('checked')) {
+      const items = this.get('items');
+      const itemhover = new Event('itemhover', ev, true, true);
+      itemhover.item = findItem(items, item);
       itemhover.checked = item.get('checked');
-      this.trigger('legend:hover', [ itemhover ]); // TODO: 到底是 canvas 还是 legend 对象抛出事件?
-    } else {
-      DomUtil.modiCSS(canvasNode, {
-        cursor: 'default'
-      });
+      this.emit('itemhover', itemhover);
+    } else if (!item) {
+      this.emit('itemunhover', ev);
     }
+
+    return;
+  }
+
+  _onMouseleave(ev) {
+    this.emit('itemunhover', ev);
 
     return;
   }
@@ -213,18 +213,17 @@ class Category extends Base {
   _onClick(ev) {
     const clickedItem = this._getLegendItem(ev.currentTarget);
     const items = this.get('items');
-    if (clickedItem) {
+    if (clickedItem && !clickedItem.get('destroyed')) {
       const checked = clickedItem.get('checked');
       if (!this.get('allowAllCanceled') && checked && this.getCheckedCount() === 1) {
         return;
       }
       const mode = this.get('selectedMode');
       const item = findItem(items, clickedItem);
-      const itemclick = new Event('legend:click', ev);
+      const itemclick = new Event('itemclick', ev, true, true);
       itemclick.item = item;
       itemclick.currentTarget = clickedItem;
       itemclick.checked = (mode === 'single') ? true : !checked;
-      this.trigger('legend:click', [ itemclick ]); // TODO: 到底是 canvas 还是 legend 对象抛出事件?
 
       const unCheckColor = this.get('unCheckStyle').fill;
       const checkColor = this.get('textStyle').fill;
@@ -232,7 +231,6 @@ class Category extends Base {
         const itemsGroup = this.get('itemsGroup');
         const children = itemsGroup.get('children');
         Util.each(children, child => {
-          // TODO：如果外部传入初始状态，则不需要此操作
           if (child !== clickedItem) {
             child.set('checked', false);
             child.get('children')[0].attr('fill', unCheckColor);
@@ -250,6 +248,7 @@ class Category extends Base {
       }
 
       this.get('canvas').draw();
+      this.emit('itemclick', itemclick);
     }
     return;
   }
@@ -261,8 +260,8 @@ class Category extends Base {
     const title = this.get('title');
     const containerTpl = self.get('containerTpl');
     const legendWrapper = DomUtil.createDom(containerTpl);
-    const titleDom = findNodeByClass(legendWrapper, 'g-legend-title');
-    const itemListDom = findNodeByClass(legendWrapper, 'g-legend-itemlist');
+    const titleDom = findNodeByClass(legendWrapper, 'g2-legend-title');
+    const itemListDom = findNodeByClass(legendWrapper, 'g2-legend-itemlist');
     const unCheckedColor = self.get('unCheckStyle').fill;
     const mode = self.get('selectedMode');
 
@@ -298,7 +297,7 @@ class Category extends Base {
         originValue: item.name
       });
       const itemDom = DomUtil.createDom(itemDiv);
-      const textDom = findNodeByClass(itemDom, 'g-legend-text');
+      const textDom = findNodeByClass(itemDom, 'g2-legend-text');
       if (!checked) {
         textDom.style.color = unCheckedColor;
       }
@@ -306,11 +305,11 @@ class Category extends Base {
     });
 
     if (self.get('scroll')) {
-      const width = self.get('width') || canvas.get('width');
-      const height = self.get('height') || canvas.get('height');
+      const width = canvas.get('width');
+      const height = canvas.get('height');
       DomUtil.modiCSS(legendWrapper, {
-        width: width + 'px',
-        height: height + 'px',
+        maxWidth: width + 'px',
+        maxHeight: height + 'px',
         overflow: 'scroll'
       });
     }
@@ -326,19 +325,18 @@ class Category extends Base {
         } else {
           parentDom = target.parentNode;
         }
-        const textDom = findNodeByClass(parentDom, 'g-legend-text');
-        const markerDom = findNodeByClass(parentDom, 'g-legend-marker');
+        const textDom = findNodeByClass(parentDom, 'g2-legend-text');
+        const markerDom = findNodeByClass(parentDom, 'g2-legend-marker');
         const clickedItem = findItem(items, parentDom.getAttribute('data-value'));
         const domClass = parentDom.className;
         const originColor = parentDom.getAttribute('data-color');
 
         if (mode === 'single') { // 单选模式
           // 其他图例项全部置灰
-          // TODO：如果外部传入初始状态，则不需要此操作
           Util.each(childNodes, child => {
             if (child !== parentDom) {
-              const childTextDom = findNodeByClass(child, 'g-legend-text');
-              const childMarkerDom = findNodeByClass(child, 'g-legend-marker');
+              const childTextDom = findNodeByClass(child, 'g2-legend-text');
+              const childMarkerDom = findNodeByClass(child, 'g2-legend-marker');
               childTextDom.style.color = unCheckedColor;
               childMarkerDom.style.backgroundColor = unCheckedColor;
               child.className = Util.replace(child.className, 'checked', 'unChecked');
@@ -385,11 +383,11 @@ class Category extends Base {
           }
         }
 
-        self.trigger('legend:click', [{
+        self.emit('itemclick', {
           item: clickedItem,
           currentTarget: parentDom,
           checked: (mode === 'single') ? true : !clickedItem.checked
-        }]);
+        });
       };
     }
 
@@ -401,17 +399,26 @@ class Category extends Base {
       } else {
         parentDom = target.parentNode;
       }
+
+      const domClass = parentDom.className;
       const hoveredItem = findItem(items, parentDom.getAttribute('data-value'));
-      if (hoveredItem) {
-        self.trigger('legend:hover', [{
+      if (hoveredItem && domClass.includes('checked')) {
+        self.emit('itemhover', {
           item: hoveredItem,
           currentTarget: parentDom,
           checked: hoveredItem.checked
-        }]); // TODO: 到底是 canvas 还是 legend 对象抛出事件?
+        });
+      } else if (!hoveredItem) {
+        self.emit('itemunhover', ev);
       }
     };
 
+    legendWrapper.onmouseout = ev => {
+      self.emit('itemunhover', ev);
+    };
+
     outterNode.appendChild(legendWrapper);
+    self.set('legendWrapper', legendWrapper);
   }
 
   _renderItems() {
@@ -420,6 +427,12 @@ class Category extends Base {
     Util.each(items, function(item, index) {
       self._addItem(item, index);
     });
+  }
+
+  _renderBack() {
+    const padding = this.get('backPadding');
+    const backAttrs = this.get('background');
+    this.renderBack(padding, backAttrs);
   }
 
   _formatItemValue(value) {
@@ -477,7 +490,7 @@ class Category extends Base {
       value: item.name,
       checked: item.checked
     });
-    // const textStyle = Util.mix(this.get('_defaultTextStyle'), item.textStyle);
+
     const textStyle = this.get('textStyle');
     const wordSpace = this.get('_wordSpaceing');
     let startX = 0;
@@ -496,6 +509,7 @@ class Category extends Base {
         type: 'marker',
         attrs: markerAttrs
       });
+      markerShape.set('cursor', 'pointer');
       startX += markerShape.getBBox().width + wordSpace;
     }
 
@@ -507,14 +521,16 @@ class Category extends Base {
     if (!item.checked) {
       Util.mix(textAttrs, unCheckStyle);
     }
-    itemGroup.addShape('text', {
+
+    const textShape = itemGroup.addShape('text', {
       attrs: textAttrs
     });
+    textShape.set('cursor', 'pointer');
 
     // 添加一个包围矩形，用于事件支持
     const bbox = itemGroup.getBBox();
     const itemWidth = this.get('itemWidth');
-    itemGroup.addShape('rect', {
+    const wrapperShape = itemGroup.addShape('rect', {
       attrs: {
         x,
         y: y - bbox.height / 2,
@@ -524,6 +540,8 @@ class Category extends Base {
         height: bbox.height
       }
     });
+    wrapperShape.set('cursor', 'pointer');
+
     itemGroup.name = 'legend-item';
     return itemGroup;
   }
@@ -610,11 +628,30 @@ class Category extends Base {
     }
   }
 
-  _renderBack() {
-    const itemsGroup = this.get('itemsGroup');
-    const padding = this.get('backPadding');
-    const backAttrs = this.get('background');
-    itemsGroup.renderBack(padding, backAttrs);
+  getWidth() {
+    if (this.get('useHtml')) {
+      return DomUtil.getWidth(this.get('legendWrapper'));
+    }
+    return super.getWidth();
+  }
+
+  getHeight() {
+    if (this.get('useHtml')) {
+      return DomUtil.getHeight(this.get('legendWrapper'));
+    }
+
+    return super.getHeight();
+  }
+
+  move(x, y) {
+    if (this.get('useHtml')) {
+      DomUtil.modiCSS(this.get('legendWrapper'), {
+        left: x + 'px',
+        top: y + 'px'
+      });
+    } else {
+      super.move(x, y);
+    }
   }
 }
 

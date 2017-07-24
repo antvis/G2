@@ -187,7 +187,7 @@ describe('interval shapes', function() {
       expect(shape.attr('stroke')).eql('red');
       expect(shape.attr('path').length).eql(6);
     });
-    it('get active config', function() {
+    xit('get active config', function() {
       const shapeCfg = Interval.getActiveCfg('hollowRect');
       expect(shapeCfg.lineWidth).not.equal(Global.shape.hollowInterval.lineWidth);
     });

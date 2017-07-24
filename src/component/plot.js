@@ -2,7 +2,6 @@ const Util = require('../util');
 const { Group } = require('@ali/g');
 
 class PlotBack extends Group {
-
   getDefaultCfg() {
     return {
       /**
@@ -106,6 +105,18 @@ class PlotBack extends Group {
     }
   }
 
+  _convert(val, isHorizontal) {
+    if (Util.isString(val) && val.indexOf('%') !== -1) {
+      const canvas = this.get('canvas');
+      const width = this.get('width') || canvas.get('width');
+      const height = this.get('height') || canvas.get('height');
+      val = parseInt(val, 10) / 100;
+      val = isHorizontal ? val * width : val * height;
+    }
+
+    return val;
+  }
+
   _calculateRange() {
     const self = this;
     let plotRange = self.get('plotRange');
@@ -122,6 +133,7 @@ class PlotBack extends Group {
     let left = 0;
     let right = 0;
     let bottom = 0;
+
     if (Util.isNumber(padding)) {
       top = left = right = bottom = padding;
     } else if (Util.isArray(padding)) {
@@ -135,6 +147,11 @@ class PlotBack extends Group {
       bottom = padding.bottom || 0;
       left = padding.left || 0;
     }
+
+    top = self._convert(top, false);
+    right = self._convert(right, true);
+    bottom = self._convert(bottom, false);
+    left = self._convert(left, true);
 
     const minX = Math.min(left, width - right);
     const maxX = Math.max(left, width - right);

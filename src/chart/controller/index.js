@@ -1,9 +1,11 @@
 
 
 module.exports = {
-  Scale: require('./scale-controller'),
-  Coord: require('./coord-controller'),
-  Axis: require('./axis-controller'),
-  Guide: require('./guide-controller'),
-  Legend: require('./legend-controller')
+  Scale: require('./scale'),
+  Coord: require('./coord'),
+  Axis: require('./axis'),
+  Guide: require('./guide'),
+  Legend: require('./legend'),
+  Tooltip: require('./tooltip'),
+  Event: require('./event')
 };

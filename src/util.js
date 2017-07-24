@@ -44,6 +44,7 @@ const Util = {
   filter: require('lodash/filter'),
   defaultsDeep: require('lodash/defaultsDeep'),
   isEqualWith: require('lodash/isEqualWith'),
+  isEqual: require('lodash/isEqual'),
   replace: require('lodash/replace'),
   union: require('lodash/union'),
   snapEqual(v1, v2) {

@@ -78,8 +78,12 @@ const Polygon = Shape.registerFactory('polygon', {
       symbol: 'rect'
     };
   },
-  getActiveCfg(type) {
-    return _getActiveCfg(type);
+  getActiveCfg(type, cfg) {
+    return {
+      lineWidth: cfg.lineWidth ? cfg.lineWidth + 1 : 1,
+      fill: '#fff',
+      fillOpacity: 0.7
+    };
   },
   getSelectedCfg(type, cfg) {
     if (cfg && cfg.style) {

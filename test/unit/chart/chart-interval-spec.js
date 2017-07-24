@@ -190,4 +190,22 @@ describe('interval chart', function() {
 
   });
 
+  it('filter', function() {
+    chart.clear();
+    chart.coord();
+    chart.filter('sold', function(sold) {
+      return sold > 200;
+    });
+    chart.interval().position('genre*sold').color('genre');
+    chart.source(data);
+    chart.render();
+    const group = chart.get('viewContainer').getFirst();
+    expect(group.getCount()).equal(2);
+  });
+
+  it('destroy', function() {
+    chart.destroy();
+    expect(chart.destroyed).equal(true);
+  });
+
 });

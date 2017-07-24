@@ -46,15 +46,15 @@ describe.skip('分类图例', function() {
     });
 
     canvas.draw();
-    const legendItemsGroup = legend.get('children')[0];
-    expect(legend.get('children')[1].get('type')).to.equal('text');
-    expect(legend.getCount()).to.equal(2);
-    expect(legendItemsGroup.getCount()).to.equal(5);
+    const itemsGroup = legend.get('itemsGroup');
+    expect(legend.get('children')[0].get('type')).to.equal('rect');
+    expect(legend.getCount()).to.equal(3);
+    expect(itemsGroup.getCount()).to.equal(5);
     expect(legend._wrap__onClick).to.be.an.instanceof(Function);
-    expect(legend._wrap__onMousemove).to.be.an.instanceof(Function);
+    // expect(legend._wrap__onMousemove).to.be.an.instanceof(Function);
 
     // 点击事件测试1：不允许全部取消选中并且当前只有一个图例项被选中
-    const targetItem = legendItemsGroup.get('children')[2];
+    const targetItem = itemsGroup.get('children')[2];
     const event1 = new Event('click', {
       clientX: 100,
       clientY: 316
@@ -62,25 +62,25 @@ describe.skip('分类图例', function() {
     event1.currentTarget = targetItem.get('children')[0];
     expect(targetItem.get('checked')).to.be.true;
     legend.trigger('click', [ event1 ]);
-    expect(legendItemsGroup.get('children')[0].get('checked')).to.be.false;
-    expect(legendItemsGroup.get('children')[1].get('checked')).to.be.false;
-    expect(legendItemsGroup.get('children')[2].get('checked')).to.be.true;
-    expect(legendItemsGroup.get('children')[3].get('checked')).to.be.false;
-    expect(legendItemsGroup.get('children')[4].get('checked')).to.be.false;
+    expect(itemsGroup.get('children')[0].get('checked')).to.be.false;
+    expect(itemsGroup.get('children')[1].get('checked')).to.be.false;
+    expect(itemsGroup.get('children')[2].get('checked')).to.be.true;
+    expect(itemsGroup.get('children')[3].get('checked')).to.be.false;
+    expect(itemsGroup.get('children')[4].get('checked')).to.be.false;
 
     // 点击事件测试2：不允许全部取消选中并且当前只有一个图例项被选中
     const event2 = new Event('click', {
       clientX: 100,
       clientY: 316
     }, true, true);
-    event2.currentTarget = legendItemsGroup.get('children')[0].get('children')[2];
+    event2.currentTarget = itemsGroup.get('children')[0].get('children')[2];
     expect(targetItem.get('checked')).to.be.true;
     legend.trigger('click', [ event2 ]);
-    expect(legendItemsGroup.get('children')[0].get('checked')).to.be.true;
-    expect(legendItemsGroup.get('children')[1].get('checked')).to.be.false;
-    expect(legendItemsGroup.get('children')[2].get('checked')).to.be.true;
-    expect(legendItemsGroup.get('children')[3].get('checked')).to.be.false;
-    expect(legendItemsGroup.get('children')[4].get('checked')).to.be.false;
+    expect(itemsGroup.get('children')[0].get('checked')).to.be.true;
+    expect(itemsGroup.get('children')[1].get('checked')).to.be.false;
+    expect(itemsGroup.get('children')[2].get('checked')).to.be.true;
+    expect(itemsGroup.get('children')[3].get('checked')).to.be.false;
+    expect(itemsGroup.get('children')[4].get('checked')).to.be.false;
   });
 
   it('默认，不可点击', function() {
@@ -115,25 +115,6 @@ describe.skip('分类图例', function() {
     canvas.draw();
     expect(legend._wrap__onClick).to.be.undefined;
     expect(legend._wrap__onMousemove).to.be.an.instanceof(Function);
-
-    const legendItemsGroup = legend.get('children')[0];
-    const targetItem = legendItemsGroup.get('children')[2];
-    const event1 = new Event('mousemove', {
-      clientX: 224,
-      clientY: 239
-    }, true, true);
-    event1.currentTarget = targetItem.get('children')[0];
-    legend.trigger('mousemove', [ event1 ]);
-    const node = canvas.get('el');
-    expect(node.style.cursor).to.equal('pointer');
-
-    const event2 = new Event('mousemove', {
-      clientX: 0,
-      clientY: 0
-    }, true, true);
-    event2.currentTarget = targetItem;
-    legend.trigger('mousemove', [ event2 ]);
-    expect(node.style.cursor).to.equal('default');
   });
 
   it('默认，只可单次点击。', function() {
@@ -169,7 +150,7 @@ describe.skip('分类图例', function() {
     legend.move(0, 100);
 
     canvas.draw();
-    const itemGroups = legend.get('children')[0].get('children');
+    const itemGroups = legend.get('itemsGroup').get('children');
     expect(itemGroups[0].get('checked')).to.be.false;
     expect(itemGroups[1].get('checked')).to.be.false;
     expect(itemGroups[2].get('checked')).to.be.true;
@@ -245,7 +226,7 @@ describe.skip('分类图例', function() {
     legend.move(0, 150);
     canvas.draw();
     expect(legend.getCount()).to.equal(3);
-    const itemsGroup = legend.get('children')[1];
+    const itemsGroup = legend.get('itemsGroup');
     // expect(Util.equal(itemsGroup.getBBox().width, 50.34765625)).to.be.true;
     expect(itemsGroup.getCount()).to.equal(5);
     const children = itemsGroup.get('children');
@@ -297,7 +278,7 @@ describe.skip('分类图例', function() {
     });
     canvas.draw();
     const legendBBox = legend.getBBox();
-    const legendItems = legend.get('children')[0];
+    const legendItems = legend.get('itemsGroup');
     expect(legendBBox.width).to.be.below(500);
     expect(legendItems.getCount()).to.equal(25);
   });
@@ -341,7 +322,7 @@ describe.skip('分类图例', function() {
     });
     canvas.draw();
     // const legendBBox = legend.getBBox();
-    const legendItems = legend.get('children')[1];
+    const legendItems = legend.get('itemsGroup');
     // expect(legendBBox.width).to.be.equal(482);
     expect(legendItems.getCount()).to.equal(25);
   });
@@ -383,7 +364,7 @@ describe.skip('分类图例', function() {
     legend.move(50, 0);
     canvas.draw();
     const legendBBox = legend.getBBox();
-    expect(legendBBox.height).to.be.equal(176.5);
+    expect(legendBBox.height).to.be.equal(177.5);
   });
 
   it('垂直布局图例，设置了 itemWidth, 超出容器高度，自动生列', function() {
@@ -453,12 +434,12 @@ describe.skip('分类图例', function() {
 
     canvas.draw();
 
-    const legendDom = div.getElementsByClassName('g-legend')[0];
+    const legendDom = div.getElementsByClassName('g2-legend')[0];
     expect(legendDom).not.to.be.undefined;
     expect(legendDom.style.position).to.equal('absolute');
 
-    const legendItem = div.getElementsByClassName('g-legend-item')[1];
-    expect(legendItem.className).to.equal('g-legend-item item-1 checked');
+    const legendItem = div.getElementsByClassName('g2-legend-item')[1];
+    expect(legendItem.className).to.equal('g2-legend-item item-1 checked');
 
     // 模拟点击事件
     const event = new MouseEvent('click', {
@@ -467,7 +448,7 @@ describe.skip('分类图例', function() {
       cancelable: true
     });
     legendItem.dispatchEvent(event);
-    expect(legendItem.className).to.equal('g-legend-item item-1 unChecked');
+    expect(legendItem.className).to.equal('g2-legend-item item-1 unChecked');
 
     let count = 0;
     legend.on('legend:hover', function() {
@@ -481,6 +462,10 @@ describe.skip('分类图例', function() {
       cancelable: true
     });
     legendItem.dispatchEvent(hoverEvent);
+    expect(count).to.equal(0);
+
+    const hoveredLegendItem = div.getElementsByClassName('g2-legend-item')[2];
+    hoveredLegendItem.dispatchEvent(hoverEvent);
     expect(count).to.equal(1);
 
     div.removeChild(legendDom);
@@ -505,9 +490,9 @@ describe.skip('分类图例', function() {
       items,
       useHtml: true,
       itemTpl(value, color) {
-        const tpl = '<li class="g-legend-item item-${ index } ${ checked }" data-color="${ originColor }" data-value="${ originValue }" style="cursor:pointer;display: inline-block;width: 85px">' +
-        '<i class="g-legend-marker" style="width:16px;height:16px;border-radius:4px;display:inline-block;margin-right:10px;background-color: ${ color };"></i>' +
-        '<span class="g-legend-text" style="color:' + color + '">' + value + '</span></li>';
+        const tpl = '<li class="g2-legend-item item-${ index } ${ checked }" data-color="${ originColor }" data-value="${ originValue }" style="cursor:pointer;display: inline-block;width: 85px">' +
+        '<i class="g2-legend-marker" style="width:16px;height:16px;border-radius:4px;display:inline-block;margin-right:10px;background-color: ${ color };"></i>' +
+        '<span class="g2-legend-text" style="color:' + color + '">' + value + '</span></li>';
         return tpl;
       },
       width: 500,
@@ -518,14 +503,14 @@ describe.skip('分类图例', function() {
 
     canvas.draw();
 
-    const legendDom = div.getElementsByClassName('g-legend')[0];
+    const legendDom = div.getElementsByClassName('g2-legend')[0];
     expect(legendDom).not.to.be.undefined;
     expect(legendDom.style.position).to.equal('absolute');
 
-    const legendItem10 = div.getElementsByClassName('g-legend-item')[10];
-    const legendItem11 = div.getElementsByClassName('g-legend-item')[11];
-    expect(legendItem10.className).to.equal('g-legend-item item-10 checked');
-    expect(legendItem11.className).to.equal('g-legend-item item-11 unChecked');
+    const legendItem10 = div.getElementsByClassName('g2-legend-item')[10];
+    const legendItem11 = div.getElementsByClassName('g2-legend-item')[11];
+    expect(legendItem10.className).to.equal('g2-legend-item item-10 checked');
+    expect(legendItem11.className).to.equal('g2-legend-item item-11 unChecked');
     // 模拟点击事件
     const event = new MouseEvent('click', {
       view: window,
@@ -533,13 +518,13 @@ describe.skip('分类图例', function() {
       cancelable: true
     });
     legendItem10.dispatchEvent(event);
-    expect(legendItem10.className).to.equal('g-legend-item item-10 checked');
-    expect(legendItem11.className).to.equal('g-legend-item item-11 unChecked');
+    expect(legendItem10.className).to.equal('g2-legend-item item-10 checked');
+    expect(legendItem11.className).to.equal('g2-legend-item item-11 unChecked');
 
 
     legendItem11.dispatchEvent(event);
-    expect(legendItem10.className).to.equal('g-legend-item item-10 unChecked');
-    expect(legendItem11.className).to.equal('g-legend-item item-11 checked');
+    expect(legendItem10.className).to.equal('g2-legend-item item-10 unChecked');
+    expect(legendItem11.className).to.equal('g2-legend-item item-11 checked');
     div.removeChild(legendDom);
   });
 
@@ -563,18 +548,19 @@ describe.skip('分类图例', function() {
     canvas.addGroup(Legend, {
       items,
       useHtml: true,
-      itemTpl: '<li class="g-legend-item item-${ index } ${ checked }" data-color="${ originColor }" data-value="${ originValue }" style="cursor:pointer;width: 85px"><span class="g-legend-text" style="color: ${ color };cursor: pointer;">${ value }</span></li>'
+      itemTpl: '<li class="g2-legend-item item-${ index } ${ checked }" data-color="${ originColor }" data-value="${ originValue }" style="cursor:pointer;width: 85px"><span class="g2-legend-text" style="color: ${ color };cursor: pointer;">${ value }</span></li>'
     });
 
     canvas.draw();
 
-    const legendDom = div.getElementsByClassName('g-legend')[0];
+    const legendDom = div.getElementsByClassName('g2-legend')[0];
     expect(legendDom).not.to.be.undefined;
     expect(legendDom.style.position).to.equal('absolute');
-    expect(legendDom.style.width).to.equal('500px');
+    console.log(legendDom.style);
+    expect(legendDom.style.maxWidth).to.equal('500px');
 
-    const legendItem01 = div.getElementsByClassName('g-legend-item')[1];
-    expect(legendItem01.className).to.equal('g-legend-item item-1 checked');
+    const legendItem01 = div.getElementsByClassName('g2-legend-item')[1];
+    expect(legendItem01.className).to.equal('g2-legend-item item-1 checked');
 
     // 模拟点击事件1
     const event1 = new MouseEvent('click', {
@@ -583,10 +569,10 @@ describe.skip('分类图例', function() {
       cancelable: true
     });
     legendItem01.dispatchEvent(event1);
-    expect(legendItem01.className).to.equal('g-legend-item item-1 checked');
+    expect(legendItem01.className).to.equal('g2-legend-item item-1 checked');
 
-    const legendItem00 = div.getElementsByClassName('g-legend-item')[0];
-    expect(legendItem00.className).to.equal('g-legend-item item-0 unChecked');
+    const legendItem00 = div.getElementsByClassName('g2-legend-item')[0];
+    expect(legendItem00.className).to.equal('g2-legend-item item-0 unChecked');
     // 模拟点击事件2
     const event2 = new MouseEvent('click', {
       view: window,
@@ -594,6 +580,6 @@ describe.skip('分类图例', function() {
       cancelable: true
     });
     legendItem00.dispatchEvent(event2);
-    expect(legendItem00.className).to.equal('g-legend-item item-0 checked');
+    expect(legendItem00.className).to.equal('g2-legend-item item-0 checked');
   });
 });
