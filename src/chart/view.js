@@ -171,8 +171,6 @@ class View extends Base {
       geom.set('data', filteredData);
       geom.set('coord', coord);
       geom.init();
-      geom._bindActiveAction();
-      geom._bindSelectedAction();
     });
   }
 
@@ -390,6 +388,8 @@ class View extends Base {
       name: 'geom'
     });
     geom.set('container', group);
+    geom._bindActiveAction();
+    geom._bindSelectedAction();
   }
 
   /**
