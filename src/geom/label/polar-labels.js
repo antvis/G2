@@ -115,7 +115,7 @@ class PolarLabels extends Labels {
   }
 
   _isEmitLabels() {
-    const labels = this.get('labels');
+    const labels = this.get('label');
     return labels.labelEmit;
   }
 

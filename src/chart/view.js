@@ -26,7 +26,6 @@ Util.each(Geom, function(geomConstructor, className) {
     this.addGeom(geom);
     return geom;
   };
-
 });
 
 class View extends Base {
@@ -459,7 +458,6 @@ class View extends Base {
    * @protected
    */
   beforeDraw() {
-
   }
 
   source(data, scales) {
@@ -506,6 +504,24 @@ class View extends Base {
       geom.clear();
     });
     this.render();
+  }
+
+  label(field, callback, cfg) {
+    const self = this;
+    const labelCfg = {};
+    labelCfg.field = field;
+
+    if (Util.isObject(callback)) {
+      cfg = callback;
+      callback = null;
+    }
+
+    labelCfg.callback = callback;
+    labelCfg.cfg = cfg;
+
+    const options = self.get('options');
+    options.label = labelCfg;
+    return self;
   }
 
   destroy() {

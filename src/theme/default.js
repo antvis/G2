@@ -240,14 +240,16 @@ const Theme = {
       fontSize: 12,
       textBaseline: 'middle'
     }
-  }, // 在theta坐标系下的饼图文本内部的样式
+  },
+  // 在theta坐标系下的饼图文本内部的样式
   thetaLabels: {
     labelLine: {
       lineWidth: 1
     },
     labelHeight: 14,
     offset: 30
-  }, // 在theta坐标系下的饼图文本的样式
+    // 在theta坐标系下的饼图文本的样式
+  },
   legend: {
     right: {
       position: 'right',

@@ -58,7 +58,7 @@ class GeomLabels extends Group {
       value = callback.apply(null, params);
     } else {
       const scale = scales[0];
-      value = originRecord[scale.dim];
+      value = originRecord[scale.field];
       if (Util.isArray(value)) {
         const tmp = [];
         Util.each(value, function(subVal) {
@@ -77,7 +77,7 @@ class GeomLabels extends Group {
     const self = this;
     const labels = self.getDefaultLabelCfg();
     const labelCfg = self.get('labelCfg');
-    Util.mix(true, labels, labelCfg.cfg);
+    Util.merge(labels, labelCfg.cfg);
     self.set('label', labels);
   }
 
@@ -91,9 +91,10 @@ class GeomLabels extends Group {
     const labelCfg = self.get('labelCfg').cfg;
     const geomType = self.get('geomType');
     if (geomType === 'polygon' || (labelCfg && labelCfg.offset < 0 && Util.indexOf(IGNORE_ARR, geomType) === -1)) {
-      return Util.assign({}, labelCfg, Global.innerLabels);
+      return Util.merge({}, /* self.get('label'), */labelCfg, Global.innerLabels);
     }
-    return Util.assign({}, this.get('label'), labelCfg);
+    // console.log(self.get('label'), labelCfg, Global.innerLabels);
+    return Util.merge({}, Global.innerLabels, self.get('label'), labelCfg);
   }
 
   /**
@@ -123,7 +124,7 @@ class GeomLabels extends Group {
       Util.each(label, function(sub, index) {
         let obj = self.getLabelPoint(label, point, index);
         if (obj) {
-          obj = Util.mix({}, origin, obj); // 为了格式化输出
+          obj = Util.merge({}, origin, obj); // 为了格式化输出
           let align;
           if (labels && labels.label && labels.label.textAlign) {
             align = labels.label.textAlign;

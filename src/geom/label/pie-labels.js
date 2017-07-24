@@ -100,7 +100,7 @@ function antiCollision(labels, lineHeight, plotRange, center, isRight) {
 class PieLabels extends PolarLabels {
   getDefaultCfg() {
     return {
-      labels: Global.thetaLabels
+      label: Global.thetaLabels
     };
   }
 
@@ -129,14 +129,15 @@ class PieLabels extends PolarLabels {
   _distribute(labels, offset) {
     const self = this;
     const coord = self.get('coord');
+    // console.log(coord);
     const radius = coord.getRadius();
-    const lineHeight = self.get('labels').labelHeight;
+    const lineHeight = self.get('label').labelHeight;
     const center = coord.getCenter();
     const totalR = radius + offset;
     const totalHeight = totalR * 2 + lineHeight * 2;
     let plotRange = {
-      start: coord.get('start'),
-      end: coord.get('end')
+      start: coord.start,
+      end: coord.end
     };
     const geom = self.get('geom');
     if (geom) {
