@@ -167,7 +167,27 @@ class Chart extends View {
   }
 
   forceFit() {
+    const self = this;
+    const container = self.get('container');
+    const width = DomUtil.getWidth(container);
+    if (width !== this.get('width')) {
+      const height = this.get('height');
+      this.changeSize(width, height);
+    }
+  }
 
+  changeSize(width, height) {
+    const self = this;
+    const canvas = self.get('canvas');
+    canvas.changeSize(width, height);
+
+    self.set('width', width);
+    self.set('height', height);
+    const plotBack = self.get('plotBack');
+    plotBack.repaint();
+
+    self.repaint();
+    return self;
   }
 
   view(cfg) {

@@ -1,5 +1,6 @@
 const expect = require('chai').expect;
 const Chart = require('../../../src/chart/chart');
+const { DomUtil } = require('@ali/g');
 
 const div = document.createElement('div');
 div.id = 'cchart';
@@ -61,18 +62,22 @@ describe('test chart', function() {
     expect(chart.get('viewContainer').getFirst().getCount()).equal(2);
   });
 
+  it('changeSize', function() {
+    chart.changeSize(500, 500);
+    expect(chart.get('plotRange').tl).eqls({ x: 50, y: 0 });
+    expect(chart.get('plotRange').br).eqls({ x: 450, y: 480 });
+    expect(chart.get('canvas').get('width')).equal(500);
+  });
+
+  it('forceFit', function() {
+    chart.forceFit();
+    expect(chart.get('canvas').get('width')).equal(DomUtil.getWidth(div));
+  });
+
   it('clear', function() {
     chart.clear();
     expect(chart.get('geoms').length).equal(0);
     expect(chart.get('viewContainer').getCount()).equal(0);
-  });
-
-  it('forceFit', function() {
-
-  });
-
-  it('changeSize', function() {
-
   });
 
   it('destroy', function() {
@@ -96,6 +101,7 @@ describe('test chart with views', function() {
     chart = new Chart({
       height: 500,
       forceFit: true,
+      padding: 50,
       container: 'cchart'
     });
     expect(div.childNodes.length).equal(1);
@@ -111,6 +117,17 @@ describe('test chart with views', function() {
     chart.render();
     const v1 = chart.get('views')[0];
     expect(v1.get('viewContainer').getFirst().getCount()).equal(2);
+  });
+
+  it('change size', function() {
+    const v1 = chart.get('views')[0];
+    let viewRange = v1.getViewRegion();
+    expect(viewRange.start).eqls({ x: 50, y: 450 });
+    expect(viewRange.end).eqls({ x: DomUtil.getWidth(div) - 50, y: 50 });
+
+    chart.changeSize(500, 500);
+    viewRange = v1.getViewRegion();
+    expect(viewRange.end).eqls({ x: 450, y: 50 });
   });
 
   it('clear', function() {
