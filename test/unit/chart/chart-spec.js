@@ -185,3 +185,72 @@ describe('test chart width filter', function() {
   });
 
 });
+
+describe('chart forceFit', function() {
+  let chart;
+  const data = [
+      { a: 1, b: 2, c: '1' },
+      { a: 2, b: 5, c: '1' },
+      { a: 3, b: 4, c: '1' },
+
+      { a: 1, b: 3, c: '2' },
+      { a: 2, b: 1, c: '2' },
+      { a: 3, b: 2, c: '2' }
+  ];
+
+  it('init filter', function() {
+    chart = new Chart({
+      height: 500,
+      forceFit: true,
+      container: 'cchart'
+    });
+    expect(chart.get('canvas').get('width')).equal(DomUtil.getWidth(div));
+    chart.source(data);
+    chart.line().position('a*b').color('c');
+    chart.render();
+  });
+
+  it('window resize', function(done) {
+    div.style.width = '500px';
+    const resizeEvent = new Event('resize');
+    window.dispatchEvent(resizeEvent);
+    setTimeout(function() {
+      expect(chart.get('canvas').get('width')).equal(500);
+      done();
+    }, 300);
+  });
+
+  it('multiple views', function() {
+    div.style.width = 'auto';
+    chart.clear();
+    const v1 = chart.view({
+      start: {
+        x: 0,
+        y: 0
+      },
+      end: {
+        x: 0.5,
+        y: 0.5
+      }
+    });
+    v1.source(data);
+    v1.line().position('a*b').color('c');
+
+    const v2 = chart.view({
+      start: {
+        x: 0.5,
+        y: 0.5
+      },
+      end: {
+        x: 1,
+        y: 1
+      }
+    });
+    v2.source(data);
+    v2.line().position('a*b').color('c');
+    chart.render();
+    const viewRange1 = v1.getViewRegion();
+    expect(viewRange1.end).eqls({ x: 250, y: 20 });
+
+  });
+});

@@ -26,6 +26,10 @@ function _isScaleExist(scales, compareScale) {
   return flag;
 }
 
+/**
+ * 图表的入口
+ * @class Chart
+ */
 class Chart extends View {
   /**
    * 获取默认的配置属性
@@ -51,12 +55,13 @@ class Chart extends View {
     }, viewCfg);
   }
 
-  constructor(cfg) {
-    super(cfg);
+  init() {
     this._initCanvas();
     this._initPlot();
+    this._initEvents();
+    super.init();
   }
-
+  // 初始化画布
   _initCanvas() {
     let container = this.get('container');
     let width = this.get('width');
@@ -73,6 +78,7 @@ class Chart extends View {
     this.set('wrapperEl', wrapperEl);
     if (this.get('forceFit')) {
       width = DomUtil.getWidth(container);
+      this.set('width', width);
     }
     const canvas = new Canvas({
       containerDOM: wrapperEl,
@@ -83,6 +89,7 @@ class Chart extends View {
     this.set('canvas', canvas);
   }
 
+  // 初始化绘图区间
   _initPlot() {
     this._initPlotBack(); // 最底层的是背景相关的 group
     const canvas = this.get('canvas');
@@ -101,6 +108,7 @@ class Chart extends View {
     this.set('frontPlot', frontPlot);
   }
 
+  // 初始化背景
   _initPlotBack() {
     const canvas = this.get('canvas');
     const plotBack = canvas.addGroup(Component.Plot, {
@@ -112,6 +120,19 @@ class Chart extends View {
     this.set('plotRange', plotBack.get('plotRange'));
   }
 
+  _initEvents() {
+    if (this.get('forceFit')) {
+      window.addEventListener('resize', Util.wrapBehavior(this, '_initForceFitEvent'));
+    }
+  }
+
+  _initForceFitEvent() {
+    const timer = setTimeout(Util.wrapBehavior(this, 'forceFit'), 200);
+    clearTimeout(this.get('resizeTimer'));
+    this.set('resizeTimer', timer);
+  }
+
+  // 绘制图例
   _renderLegends() {
     const options = this.get('options');
     if (Util.isNil(options.legends) || (options.legends !== false)) { // 没有关闭图例
@@ -142,6 +163,7 @@ class Chart extends View {
     }
   }
 
+  // 绘制 tooltip
   _renderTooltips() {
     const options = this.get('options');
     if (Util.isNil(options.tooltip) || options.tooltip !== false) { // 用户没有关闭 tooltip
@@ -154,6 +176,10 @@ class Chart extends View {
     }
   }
 
+  /**
+   * 获取所有的几何标记
+   * @return {Array} 所有的几何标记
+   */
   getAllGeoms() {
     let geoms = [];
     geoms = geoms.concat(this.get('geoms'));
@@ -166,6 +192,11 @@ class Chart extends View {
     return geoms;
   }
 
+  /**
+   * 自适应宽度
+   * @chainable
+   * @return {Chart} 图表对象
+   */
   forceFit() {
     const self = this;
     const container = self.get('container');
@@ -174,8 +205,15 @@ class Chart extends View {
       const height = this.get('height');
       this.changeSize(width, height);
     }
+    return self;
   }
 
+  /**
+   * 改变大小
+   * @param  {Number} width  图表宽度
+   * @param  {Number} height 图表高度
+   * @return {Chart} 图表对象
+   */
   changeSize(width, height) {
     const self = this;
     const canvas = self.get('canvas');
@@ -190,6 +228,11 @@ class Chart extends View {
     return self;
   }
 
+  /**
+   * 创建一个视图
+   * @param  {Object} cfg 视图的配置项
+   * @return {View} 视图对象
+   */
   view(cfg) {
     cfg = cfg || {};
     const viewContainer = this.get('viewContainer');
@@ -214,6 +257,12 @@ class Chart extends View {
     };
   }
 
+  /**
+   * 设置图例配置信息
+   * @param  {String|Object} field 字段名
+   * @param  {Object} [cfg] 图例的配置项
+   * @return {Chart} 当前的图表对象
+   */
   legend(field, cfg) {
     const options = this.get('options');
     let legends = {};
@@ -232,6 +281,12 @@ class Chart extends View {
     return this;
   }
 
+  /**
+   * 设置提示信息
+   * @param  {String|Object} visible 是否可见
+   * @param  {Object} [cfg] 提示信息的配置项
+   * @return {Chart} 当前的图表对象
+   */
   tooltip(visible, cfg) {
     const options = this.get('options');
     if (Util.isNil(options.tooltip)) {
@@ -249,6 +304,10 @@ class Chart extends View {
     return this;
   }
 
+  /**
+   * 清空图表
+   * @return {Chart} 当前的图表对象
+   */
   clear() {
     const views = this.get('views');
     while (views.length > 0) {
@@ -262,6 +321,10 @@ class Chart extends View {
   }
 
   clearInner() {
+    const views = this.get('views');
+    Util.each(views, function(view) {
+      view.clearInner();
+    });
     const legendController = this.get('legendController');
     const tooltipController = this.get('tooltipController');
 
@@ -270,6 +333,10 @@ class Chart extends View {
     super.clearInner();
   }
 
+  /**
+   * 绘制图表
+   * @return {Chart} 当前的图表对象
+   */
   render() {
     const views = this.get('views');
     if (views.length) {
@@ -288,12 +355,17 @@ class Chart extends View {
     return this;
   }
 
+  /**
+   * @override
+   * 销毁图表
+   */
   destroy() {
     const canvas = this.get('canvas');
     const wrapperEl = this.get('wrapperEl');
     wrapperEl.parentNode.removeChild(wrapperEl);
     super.destroy();
     canvas.destroy();
+    window.removeEventListener('resize', Util.getWrapBehavior(this, '_initForceFitEvent'));
   }
 }
 
