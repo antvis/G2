@@ -68,7 +68,7 @@ const ActiveMixin = {
       shape.set('_originAttrs', Util.mix({}, shape.__attrs)); // 缓存原来的属性
     }
     Util.mix(shape.__attrs, activeCfg);
-    shape.set('zIndex', 1, false); // 提前
+    shape.setZIndex(1); // 提前
   },
   setShapesActived(shapes) {
     const self = this;
@@ -109,7 +109,7 @@ const ActiveMixin = {
     Util.each(activeShapes, activeShape => {
       const originAttrs = activeShape.get('_originAttrs');
       activeShape.__attrs = Util.mix({}, originAttrs);
-      activeShape.set('zIndex', 0, false);
+      activeShape.setZIndex(0);
     });
     const preHighlightShapes = self.get('preHighlightShapes');
     if (preHighlightShapes) {
@@ -117,7 +117,7 @@ const ActiveMixin = {
       Util.each(shapes, shape => {
         const originAttrs = shape.get('_originAttrs');
         shape.__attrs = Util.mix({}, originAttrs);
-        shape.set('zIndex', 0, false);
+        shape.setZIndex(0);
       });
     }
     // 恢复原来排序
@@ -185,7 +185,7 @@ const ActiveMixin = {
       }
       if (Util.indexOf(highlightShapes, shape) !== -1) {
         shape.__attrs = Util.mix({}, shape.get('_originAttrs'), highlightCfg);
-        shape.set('zIndex', 1, false); // 提前
+        shape.setZIndex(1); // 提前
       } else {
         Util.mix(shape.__attrs, {
           fill: '#fff',
@@ -193,7 +193,7 @@ const ActiveMixin = {
           strokeOpacity: 0.3,
           stroke: '#fff'
         });
-        shape.set('zIndex', 0, false);
+        shape.setZIndex(0);
       }
     });
     self.set('preHighlightShapes', highlightShapes);

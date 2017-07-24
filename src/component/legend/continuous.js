@@ -251,16 +251,16 @@ class Continuous extends Base {
     if (self.get('slidable')) {
       // const canvas = self.get('canvas');
       const slider = self.get('slider');
-      slider.on('sliderchange', function(ev) {
+      slider.on('sliderchange', ev => {
         const range = ev.range;
         const firstItemValue = self.get('firstItem').name * 1;
         const lastItemValue = self.get('lastItem').name * 1;
         const minValue = firstItemValue + (range[0] / 100) * (lastItemValue - firstItemValue);
         const maxValue = firstItemValue + (range[1] / 100) * (lastItemValue - firstItemValue);
         self._updateElement(minValue, maxValue);
-        const itemFiltered = new Event('legend:filter', ev);
+        const itemFiltered = new Event('legend:filter', ev, true, true);
         itemFiltered.range = [ minValue, maxValue ];
-        self.trigger('legend:filter', [ itemFiltered ]);
+        self.emit('legend:filter', itemFiltered);
       });
     }
   }

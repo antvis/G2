@@ -185,14 +185,18 @@ class GeomBase extends Base {
    * @return {Geom} geom 当前几何标记
    */
   position(field, cfg) {
+    let adjusts;
     if (Util.isString(cfg) || Util.isArray(cfg)) {
-      this.set('adjusts', parseAdjusts(cfg));
+      adjusts = parseAdjusts(cfg);
     }
     if (Util.isObject(cfg) && cfg.adjusts) {
-      this.set('adjusts', parseAdjusts(cfg.adjusts));
+      adjusts = parseAdjusts(cfg.adjusts);
     }
+    this.set('adjusts', adjusts);
+
     this._setAttrOptions('position', {
-      field
+      field,
+      adjusts
     });
     return this;
   }
@@ -327,6 +331,9 @@ class GeomBase extends Base {
         // 饼图坐标系下，填充一维
         if (fields.length === 1 && coord.type === 'theta') {
           fields.unshift('1');
+        }
+        if (!self.get('adjusts')) {
+          self.set('adjusts', option.adjusts);
         }
       }
       const scales = [];

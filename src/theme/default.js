@@ -266,7 +266,10 @@ const Theme = {
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle'
-      } // 图例项文本的样式
+      }, // 图例项文本的样式
+      unCheckStyle: {
+        fill: '#ccc'
+      }
     },
     left: {
       position: 'left',
@@ -285,7 +288,10 @@ const Theme = {
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle'
-      } // 图例项文本的样式
+      }, // 图例项文本的样式
+      unCheckStyle: {
+        fill: '#ccc'
+      }
     },
     top: {
       position: 'top',
@@ -299,7 +305,10 @@ const Theme = {
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle'
-      } // 图例项文本的样式
+      }, // 图例项文本的样式
+      unCheckStyle: {
+        fill: '#ccc'
+      }
     },
     bottom: {
       position: 'bottom',
@@ -313,7 +322,10 @@ const Theme = {
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle'
-      } // 图例项文本的样式
+      }, // 图例项文本的样式
+      unCheckStyle: {
+        fill: '#ccc'
+      }
     }
   },
   tooltip: {

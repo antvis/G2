@@ -193,7 +193,7 @@ class Category extends Base {
     const item = this._getLegendItem(ev.currentTarget);
     if (item && item.get('checked')) {
       const items = this.get('items');
-      const itemhover = new Event('legend:hover', ev);
+      const itemhover = new Event('legend:hover', ev, true, true);
       itemhover.item = findItem(items, item);
       itemhover.checked = item.get('checked');
       this.emit('legend:hover', itemhover);
@@ -213,18 +213,17 @@ class Category extends Base {
   _onClick(ev) {
     const clickedItem = this._getLegendItem(ev.currentTarget);
     const items = this.get('items');
-    if (clickedItem) {
+    if (clickedItem && !clickedItem.get('destroyed')) {
       const checked = clickedItem.get('checked');
       if (!this.get('allowAllCanceled') && checked && this.getCheckedCount() === 1) {
         return;
       }
       const mode = this.get('selectedMode');
       const item = findItem(items, clickedItem);
-      const itemclick = new Event('legend:click', ev);
+      const itemclick = new Event('legend:click', ev, true, true);
       itemclick.item = item;
       itemclick.currentTarget = clickedItem;
       itemclick.checked = (mode === 'single') ? true : !checked;
-      this.emit('legend:click', itemclick);
 
       const unCheckColor = this.get('unCheckStyle').fill;
       const checkColor = this.get('textStyle').fill;
@@ -249,6 +248,7 @@ class Category extends Base {
       }
 
       this.get('canvas').draw();
+      this.emit('legend:click', itemclick);
     }
     return;
   }

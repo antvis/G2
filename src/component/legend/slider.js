@@ -200,9 +200,9 @@ class Slider extends Group {
       }
     }
 
-    this.trigger('sliderchange', [{
+    this.emit('sliderchange', {
       range
-    }]);
+    });
 
     this.set('page' + dim, currentPage);
     this._renderUI();

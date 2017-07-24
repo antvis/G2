@@ -508,13 +508,14 @@ class View extends Base {
     this.set('scales', {});
     const options = this.get('options');
     options.geoms = null;
-    options.filters = null;
     // clear guide
     // clear axis
     this.get('backPlot') && this.get('backPlot').clear();
   }
 
   clear() {
+    const options = this.get('options');
+    options.filters = null;
     this._clearGeoms();
     const container = this.get('viewContainer');
     container.clear();
@@ -558,16 +559,6 @@ class View extends Base {
     if (scales) {
       this.scale(scales);
     }
-    return this;
-  }
-
-  filter(field, remained) {
-    const options = this.get('options');
-    if (!options.filters) {
-      options.filters = {};
-    }
-    const filters = options.filters;
-    filters[field] = remained; // remained 保留的字段
     return this;
   }
 

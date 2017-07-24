@@ -144,6 +144,7 @@ class Chart extends View {
         options: options.tooltip || {}
       });
       tooltipController.renderTooltip();
+      this.set('tooltipController', tooltipController);
     }
   }
 
@@ -236,7 +237,10 @@ class Chart extends View {
 
   clearInner() {
     const legendController = this.get('legendController');
+    const tooltipController = this.get('tooltipController');
+
     legendController && legendController.clear();
+    tooltipController && tooltipController.clear();
     super.clearInner();
   }
 

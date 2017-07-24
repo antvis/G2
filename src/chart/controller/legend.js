@@ -42,56 +42,47 @@ class LegendController {
     this.legends = {};
   }
 
-  _getFilterVals(field, view, isSingeSelected) {
-    const filters = view.get('options').filters || {};
-    if (isSingeSelected) {
-      filters[field] = [];
-    }
-    return filters[field];
-  }
-
-/*  _bindEvent(legend, scale) {
+  _bindEvent(legend, scale, filterVals) {
     const self = this;
     const chart = self.chart;
     const field = scale.field;
-    const views = chart.get('views');
-
-    const values = [];
-    const items = legend.get('items');
-    Util.each(items, item => {
-      values.push(item.value);
-    });
+    const options = self.options;
 
     legend.on('legend:click', ev => {
-      const item = ev.item;
-      const isSingeSelected = legend.get('selectedMode') === 'single';
-      let filterVals = self._getFilterVals(field, chart, isSingeSelected);
-
-      if (!filterVals) {
-        filterVals = scale.values.slice(0);
-      }
-
-      if (ev.checked) {
-        filterVals.push(item.value);
+      if (options.onClick) { // 用户自定义了图例点击事件
+        options.onClick(ev);
       } else {
-        Util.Array.remove(filterVals, item.value);
+        const item = ev.item;
+        const checked = ev.checked;
+        const isSingeSelected = legend.get('selectedMode') === 'single'; // 图例的选中模式
+
+        if (checked) {
+          filterVals.push(item.value);
+          chart.filter(field, field => {
+            return isSingeSelected ? field === item.value : Util.inArray(filterVals, field);
+          });
+        } else if (!isSingeSelected) {
+          Util.Array.remove(filterVals, item.value);
+          chart.filter(field, field => {
+            return Util.inArray(filterVals, field);
+          });
+        }
+        chart.repaint(); // TODO: legend 是否重绘
       }
-
-      chart.filter(scale.field, filterVals);
-      // TODO
-      // chart.repaint();
     });
+  }
 
-    legend.on('legend:hover', ev => {
-      // TODO
-    });
-  }*/
-
-/*  _bindFilterEvent(legend, scale) {
+  _bindFilterEvent(legend, scale) {
+    const chart = this.chart;
+    const field = scale.field;
     legend.on('legend:filter', ev => {
-      console.log(ev.range);
+      const range = ev.range;
+      chart.filter(field, field => {
+        return field >= range[0] && field <= range[1];
+      });
+      // TODO fitlterShape
     });
-  }*/
+  }
 
   _getShapeData(shape) {
     let originData = shape.get('origin');
@@ -122,14 +113,16 @@ class LegendController {
               activeShapes.push(shape);
             }
           });
-          ev.shapes = activeShapes;
-          ev.geom = geom;
-          if (options.onHover) {
-            options.onHover(ev);
-            container.sort();
-            canvas.draw();
-          } else {
-            geom.setShapesActived(activeShapes);
+          if (!Util.isEmpty(activeShapes)) {
+            ev.shapes = activeShapes;
+            ev.geom = geom;
+            if (options.onHover) {
+              options.onHover(ev);
+              container.sort();
+              canvas.draw();
+            } else {
+              geom.setShapesActived(activeShapes);
+            }
           }
         });
         self.pre = value;
@@ -283,7 +276,7 @@ class LegendController {
     }, legendOptions[field] || legendOptions, Global.legend[position]);
 
     const legend = container.addGroup(Legend.Category, legendCfg);
-    // self._bindEvent(legend, scale);
+    self._bindEvent(legend, scale, filterVals);
     legends[position].push(legend);
     return legend;
   }
@@ -347,7 +340,7 @@ class LegendController {
     } else if (attr.type === 'size') {
       legend = container.addGroup(Legend.Size, legendCfg);
     }
-    // self._bindFilterEvent(legend, scale);
+    self._bindFilterEvent(legend, scale);
     legends[position].push(legend);
     return legend;
   }

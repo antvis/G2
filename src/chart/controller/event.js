@@ -145,27 +145,6 @@ class EventController {
     const views = point.views;
     if (!Util.isEmpty(views)) {
       const eventObj = self._getEventObj(ev, point, views);
-      // let shape = null;
-
-      // for (let i = views.length - 1; i >= 0; i--) {
-      //   const view = views[i];
-      //   const geoms = view.get('geoms');
-      //   let geom;
-      //   for (let j = geoms.length - 1; j >= 0; j--) {
-      //     geom = geoms[j];
-      //     shape = geom.getSingleShape(point);
-      //     if (shape) {
-      //       break;
-      //     }
-      //   }
-      //   if (shape) {
-      //     if (geom && shape && geom.allowSelected()) {
-      //       geom.setSelected(shape.get('origin'), view);
-      //     }
-      //     eventObj.geom = geom;
-      //     break;
-      //   }
-      // }
       if (this.currentShape) {
         const shape = this.currentShape;
         eventObj.shape = shape;
