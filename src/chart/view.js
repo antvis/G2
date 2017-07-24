@@ -18,6 +18,27 @@ function isFullCircle(coord) {
   return true;
 }
 
+function isBetween(value, start, end) {
+  const tmp = (value - start) / (end - start);
+  return tmp >= 0 && tmp <= 1;
+}
+
+function isPointInCoord(coord, point) {
+  let result = false;
+  if (coord) {
+    const type = coord.type;
+    if (type === 'theta') {
+      const start = coord.start;
+      const end = coord.end;
+      result = isBetween(point.x, start.x, end.x) && isBetween(point.y, start.y, end.y);
+    } else {
+      const invertPoint = coord.invert(point);
+      result = invertPoint.x >= 0 && invertPoint.y >= 0 && invertPoint.x <= 1 && invertPoint.y <= 1;
+    }
+  }
+  return result;
+}
+
 const ViewGeoms = {};
 Util.each(Geom, function(geomConstructor, className) {
   const methodName = Util.lowerFirst(className);
@@ -30,7 +51,6 @@ Util.each(Geom, function(geomConstructor, className) {
 });
 
 class View extends Base {
-
   /**
    * 获取默认的配置属性
    * @protected
@@ -46,7 +66,8 @@ class View extends Base {
       scales: {},
       options: {},
       scaleController: null,
-      parent: null
+      parent: null,
+      tooltipEnable: true // 是否展示 tooltip
     };
   }
 
@@ -122,15 +143,15 @@ class View extends Base {
   _initViewPlot() {
     const canvas = this.get('canvas');
 
-    if (!this.get('viewContainer')) { // 用于 geom 的绘制
-      this.set('viewContainer', canvas.addGroup({
-        zIndex: 2
-      }));
-    }
-
     if (!this.get('backPlot')) { // 用于坐标轴以及部分 guide 绘制
       this.set('backPlot', canvas.addGroup({
         zIndex: 1
+      }));
+    }
+
+    if (!this.get('viewContainer')) { // 用于 geom 的绘制
+      this.set('viewContainer', canvas.addGroup({
+        zIndex: 2
       }));
     }
 
@@ -145,6 +166,7 @@ class View extends Base {
     const geoms = this.get('geoms');
     const filteredData = this.get('filteredData');
     const coord = this.get('coord');
+
     Util.each(geoms, function(geom) {
       geom.set('data', filteredData);
       geom.set('coord', coord);
@@ -248,6 +270,15 @@ class View extends Base {
     }
   }
 
+  _bindEvents() {
+    const eventController = new Controller.Event({
+      view: this,
+      canvas: this.get('canvas')
+    });
+    eventController.bindEvents();
+    this.set('eventController', eventController);
+  }
+
   _getScales(dimType) {
     const geoms = this.get('geoms');
     const result = {};
@@ -347,12 +378,18 @@ class View extends Base {
    * @param {Geom} geom 几何标记
    */
   addGeom(geom) {
-    const geoms = this.get('geoms');
+    const self = this;
+    const geoms = self.get('geoms');
     geoms.push(geom);
-    geom.set('view', this);
-    const container = this.get('viewContainer');
-    const group = container.addGroup();
+    geom.set('view', self);
+    const container = self.get('viewContainer');
+    const group = container.addGroup({
+      zIndex: 1,
+      name: 'geom'
+    });
     geom.set('container', group);
+    geom._bindActiveAction();
+    geom._bindSelectedAction();
   }
 
   /**
@@ -462,6 +499,11 @@ class View extends Base {
     return this;
   }
 
+  tooltip(visible) {
+    this.set('tooltipEnable', visible); // TODO：该方法只用于开启关闭 tooltip
+    return this;
+  }
+
   changeOptions(options) {
     this.set('options', options);
     this._initOptions(options);
@@ -472,13 +514,14 @@ class View extends Base {
     this.set('scales', {});
     const options = this.get('options');
     options.geoms = null;
-    options.filters = null;
     // clear guide
     // clear axis
     this.get('backPlot') && this.get('backPlot').clear();
   }
 
   clear() {
+    const options = this.get('options');
+    options.filters = null;
     this._clearGeoms();
     const container = this.get('viewContainer');
     container.clear();
@@ -532,6 +575,7 @@ class View extends Base {
   }
 
   render() {
+    this._bindEvents();
     const data = this.get('data');
     const filteredData = this.execFilter(data);
     if (!Util.isEmpty(filteredData)) {
@@ -568,6 +612,22 @@ class View extends Base {
   destroy() {
     this.clear();
     super.destroy();
+  }
+
+  getViewsByPoint(point) {
+    const rst = [];
+    const views = this.get('views');
+
+    if (isPointInCoord(this.get('coord'), point)) {
+      rst.push(this);
+    }
+
+    Util.each(views, view => {
+      if (isPointInCoord(view.get('coord'), point)) {
+        rst.push(view);
+      }
+    });
+    return rst;
   }
 }
 

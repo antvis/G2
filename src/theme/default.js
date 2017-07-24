@@ -86,7 +86,7 @@ const Theme = {
     left: {
       position: 'left',
       title: {
-        offset: 50,
+        offset: 60,
         autoRotate: true,
         point: 'center',
         textStyle: {
@@ -97,13 +97,13 @@ const Theme = {
         }
       },
       label: {
-        offset: 15,
+        offset: 13,
         autoRotate: true,
         textStyle: {
           fill: '#404040',
           fontSize: 12,
           textBaseline: 'middle',
-          textAlign: 'center'
+          textAlign: 'end'
         }
       },
       line: {
@@ -143,7 +143,7 @@ const Theme = {
           fill: '#404040',
           fontSize: 12,
           textBaseline: 'middle',
-          textAlign: 'center'
+          textAlign: 'start'
         }
       },
       line: {
@@ -252,7 +252,6 @@ const Theme = {
     right: {
       position: 'right',
       layout: 'vertical',
-      background: null,
       itemMarginBottom: 5, // layout 为 vertical 时各个图例项的间距
       width: 16,
       height: 100,
@@ -267,12 +266,14 @@ const Theme = {
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle'
-      } // 图例项文本的样式
+      }, // 图例项文本的样式
+      unCheckStyle: {
+        fill: '#ccc'
+      }
     },
     left: {
       position: 'left',
       layout: 'vertical',
-      background: null,
       itemMarginBottom: 5,
       width: 16,
       height: 100,
@@ -287,13 +288,15 @@ const Theme = {
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle'
-      } // 图例项文本的样式
+      }, // 图例项文本的样式
+      unCheckStyle: {
+        fill: '#ccc'
+      }
     },
     top: {
       position: 'top',
       layout: 'horizontal',
       title: null,
-      background: null,
       itemGap: 10,
       width: 100,
       height: 16,
@@ -302,13 +305,15 @@ const Theme = {
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle'
-      } // 图例项文本的样式
+      }, // 图例项文本的样式
+      unCheckStyle: {
+        fill: '#ccc'
+      }
     },
     bottom: {
       position: 'bottom',
       layout: 'horizontal',
       title: null,
-      background: null,
       itemGap: 10,
       width: 100,
       height: 16,
@@ -317,47 +322,16 @@ const Theme = {
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle'
-      } // 图例项文本的样式
+      }, // 图例项文本的样式
+      unCheckStyle: {
+        fill: '#ccc'
+      }
     }
   },
   tooltip: {
     crosshairs: false,
-    offset: 15,
-    crossLine: {
-      stroke: '#666'
-    },
-    wordSpaceing: 6,
-    markerCfg: {
-      symbol: 'circle',
-      radius: 3
-    }
+    offset: 15
   },
-  activeShape: {
-    point: {
-      fillOpacity: 0.7
-    },
-    hollowPoint: {
-      lineWidth: 2
-    },
-    interval: {
-      fillOpacity: 0.7
-    },
-    hollowInterval: {
-      lineWidth: 2
-    },
-    area: {
-      fillOpacity: 0.85
-    },
-    hollowArea: {
-      lineWidth: 2
-    },
-    line: {
-      lineWidth: 2
-    },
-    polygon: {
-      fillOpacity: 0.75
-    }
-  }, // 图形激活时，鼠标移动到上面
   shape: {
     point: {
       lineWidth: 1,
@@ -373,7 +347,7 @@ const Theme = {
     interval: {
       lineWidth: 0,
       fill: DEFAULT_COLOR,
-      fillOpacity: 0.85
+      fillOpacity: 0.9
     },
     pie: {
       lineWidth: 1,

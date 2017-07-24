@@ -3,7 +3,6 @@ const { Group, DomUtil } = require('@ali/g');
 
 class Slider extends Group {
   getDefaultCfg() {
-    // const cfg = super.getDefaultCfg();
     return {
       /**
        * 范围
@@ -142,8 +141,6 @@ class Slider extends Group {
 
   _bindUI() {
     this.on('mousedown', Util.wrapBehavior(this, '_onMouseDown'));
-    // this.on('mousemove', Util.wrapBehavior(this, '_onMouseMove'));
-    // this.on('mouseleave', Util.wrapBehavior(this, '_onMouseLeave'));
   }
 
   _isElement(target, name) { // 判断是否是该元素
@@ -203,31 +200,14 @@ class Slider extends Group {
       }
     }
 
-    this.trigger('sliderchange', [{
+    this.emit('sliderchange', {
       range
-    }]);
+    });
 
     this.set('page' + dim, currentPage);
     this._renderUI();
     this.get('canvas').draw(); // need delete
     return;
-  }
-
-  _onMouseLeave() {
-    const containerDOM = this.get('canvas').get('containerDOM');
-    containerDOM.style.cursor = 'default';
-  }
-
-  _onMouseMove(ev) {
-    const cursor = ev.currentTarget.get('cursor');
-    const containerDOM = this.get('canvas').get('containerDOM');
-    if (containerDOM) {
-      if (cursor) {
-        containerDOM.style.cursor = cursor;
-      } else {
-        containerDOM.style.cursor = 'default';
-      }
-    }
   }
 
   _onMouseDown(ev) {

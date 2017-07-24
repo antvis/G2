@@ -95,7 +95,7 @@ describe('schema shapes', function() {
       expect(marker.stroke).equal('red');
     });
 
-    it('getActiveCfg', function() {
+    xit('getActiveCfg', function() {
       const activeCfg = Schema.getActiveCfg();
 
       expect(activeCfg).eql({

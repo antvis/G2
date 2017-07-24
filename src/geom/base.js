@@ -11,6 +11,9 @@ const Shape = require('./shape/index');
 const Util = require('../util');
 const Adjust = require('./adjust/index');
 const Global = require('../global');
+const TooltipMixin = require('./mixin/tooltip');
+const ActiveMixin = require('./mixin/active');
+const SelectMixin = require('./mixin/select');
 
 function parseFields(field) {
   if (Util.isArray(field)) {
@@ -123,8 +126,26 @@ class GeomBase extends Base {
        * 数据是否进行排序
        * @type {Boolean}
        */
-      sortable: false
+      sortable: false,
+
+      /**
+       * 是否共享 tooltip
+       * @type {Boolean}
+       */
+      shareTooltip: true,
+      /**
+       * 是否允许选中图形
+       * @type {Boolean}
+       */
+      selectable: false,
+      // tooltipMap: {},
+      tooltipFields: null
     };
+  }
+
+  constructor(cfg) {
+    super(cfg);
+    Util.assign(this, TooltipMixin, ActiveMixin, SelectMixin);
   }
 
   _createScale(field) {
@@ -164,14 +185,18 @@ class GeomBase extends Base {
    * @return {Geom} geom 当前几何标记
    */
   position(field, cfg) {
+    let adjusts;
     if (Util.isString(cfg) || Util.isArray(cfg)) {
-      this.set('adjusts', parseAdjusts(cfg));
+      adjusts = parseAdjusts(cfg);
     }
     if (Util.isObject(cfg) && cfg.adjusts) {
-      this.set('adjusts', parseAdjusts(cfg.adjusts));
+      adjusts = parseAdjusts(cfg.adjusts);
     }
+    this.set('adjusts', adjusts);
+
     this._setAttrOptions('position', {
-      field
+      field,
+      adjusts
     });
     return this;
   }
@@ -226,7 +251,6 @@ class GeomBase extends Base {
     return this;
   }
 
-
   style(field, cfg) {
     let styleOptions = this.get('styleOptions');
     if (!styleOptions) {
@@ -247,6 +271,13 @@ class GeomBase extends Base {
 
   label(/* field, cfg */) {
 
+  }
+
+  tooltip(field/* , cfg */) {
+    // TODO: 还需要支持回调
+    if (Util.isString(field)) {
+      this.set('tooltipFields', parseFields(field));
+    }
   }
 
   hasAdjust(adjustType) {
@@ -271,13 +302,21 @@ class GeomBase extends Base {
   }
 
   init() {
-    this._initAttrs();
-    const dataArray = this._processData();
-    if (this.get('adjusts')) {
-      this._adjust(dataArray);
+    const self = this;
+    self._initAttrs();
+
+    if (self.get('tooltipFields')) { // 创建 tooltip 对应的 scale
+      Util.each(self.get('tooltipFields'), field => {
+        self._createScale(field);
+      });
     }
-    this.set('dataArray', dataArray);
+    const dataArray = self._processData();
+    if (self.get('adjusts')) {
+      self._adjust(dataArray);
+    }
+    self.set('dataArray', dataArray);
   }
+
   // step 1: init attrs
   _initAttrs() {
     const self = this;
@@ -292,6 +331,9 @@ class GeomBase extends Base {
         // 饼图坐标系下，填充一维
         if (fields.length === 1 && coord.type === 'theta') {
           fields.unshift('1');
+        }
+        if (!self.get('adjusts')) {
+          self.set('adjusts', option.adjusts);
         }
       }
       const scales = [];
@@ -646,6 +688,18 @@ class GeomBase extends Base {
     return rst;
   }
 
+  getDefaultValue(attrName) {
+    let value = this.get(attrName);
+    const attr = this.getAttr(attrName);
+    if (attr) {
+      const scale = attr.getScale(attrName);
+      if (scale.type === 'identity') {
+        value = scale.value;
+      }
+    }
+    return value;
+  }
+
   /**
    * step 3.3 draw
    * @protected
@@ -655,7 +709,7 @@ class GeomBase extends Base {
    */
   draw(data, container, shapeFactory) {
     const self = this;
-    Util.each(data, function(obj) {
+    Util.each(data, obj => {
       self.drawPoint(obj, container, shapeFactory);
     });
   }

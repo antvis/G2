@@ -83,21 +83,24 @@ function getLineAttrs(cfg) {
   return pointAttrs;
 }
 
-// 鼠标悬浮触发active状态
-function _getActiveCfg(type) {
-  if (type && (type.indexOf('hollow') === 0 || Util.indexOf(HOLLOW_SHAPES, type) !== -1)) {
-    return Global.activeShape.hollowPoint;
-  }
-  return Global.activeShape.point;
-}
-
 const Point = Shape.registerFactory('point', {
   defaultShapeType: 'hollowCircle',
   getActiveCfg(type, cfg) {
-    const activeCfg = _getActiveCfg(type);
-    if (cfg && cfg.size) {
-      delete activeCfg.radius;
+    // point：放大 + 颜色加亮
+    const radius = cfg.radius;
+    const activeCfg = {
+      radius: radius + 1,
+      shadowBlur: radius,
+      stroke: '#000',
+      lineWidth: 1
+    };
+
+    if (type && (type.indexOf('hollow') === 0 || Util.indexOf(HOLLOW_SHAPES, type) !== -1) || !type) {
+      activeCfg.shadowColor = cfg.stroke; // TODO：可以加深点颜色 或者纯色？？？
+    } else {
+      activeCfg.shadowColor = cfg.fill; // 可以加深点颜色
     }
+
     return activeCfg;
   },
   getDefaultPoints(pointInfo) {

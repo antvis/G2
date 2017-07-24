@@ -183,14 +183,6 @@ function getFunnelPath(cfg, isFunnel) {
   return path;
 }
 
-// 鼠标悬浮触发active状态
-function getActiveCfg(type) {
-  if (!type || type === 'rect') {
-    return Global.activeShape.interval;
-  }
-  return Global.activeShape.hollowInterval;
-}
-
 function getThetaCfg(point, coord) {
   const r = coord.getRadius();
   const inner = coord.get('inner');
@@ -252,8 +244,16 @@ function getSelectedCfg(type, cfg) {
 
 const Interval = Shape.registerFactory('interval', {
   defaultShapeType: 'rect',
-  getActiveCfg(type) {
-    return getActiveCfg(type);
+  getActiveCfg(type, cfg) {
+    if (!type || Util.inArray([ 'rect', 'funnel', 'pyramid' ], type)) {
+      return {
+        fill: '#fff',
+        fillOpacity: 0.6
+      };
+    }
+    return {
+      lineWidth: cfg.lineWidth + 1
+    };
   },
   getSelectedCfg(type, cfg) {
     return getSelectedCfg(type, cfg);

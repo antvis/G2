@@ -154,6 +154,29 @@ describe('绘制区域 plotRange', function() {
     expect(plotRange.br.y).to.equal(480);
   });
 
+  it('padding value is like 1%', function() {
+    canvas.clear();
+
+    const plotback = canvas.addGroup(PlotBack, {
+      padding: [ '2%', '8%', '2%' ],
+      background: {
+        stroke: '#ededed'
+      },
+      plotBackground: {
+        fill: '#eee',
+        stroke: '#fff'
+      }
+    });
+
+    canvas.draw();
+
+    const plotRange = plotback.get('plotRange');
+    expect(plotRange.tl.x).to.equal(40);
+    expect(plotRange.tl.y).to.equal(10);
+    expect(plotRange.br.x).to.equal(460);
+    expect(plotRange.br.y).to.equal(490);
+  });
+
   it('padding is object', function() {
     canvas.clear();
 

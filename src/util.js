@@ -43,6 +43,7 @@ const Util = {
   filter: require('lodash/filter'),
   defaultsDeep: require('lodash/defaultsDeep'),
   isEqualWith: require('lodash/isEqualWith'),
+  isEqual: require('lodash/isEqual'),
   replace: require('lodash/replace'),
   snapEqual(v1, v2) {
     return Math.abs(v1 - v2) < 0.001;

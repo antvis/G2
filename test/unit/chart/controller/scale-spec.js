@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const ScaleController = require('../../../../src/chart/controller/scale-controller.js');
+const ScaleController = require('../../../../src/chart/controller/scale.js');
 
 describe('test scale controller', function() {
   const data = [

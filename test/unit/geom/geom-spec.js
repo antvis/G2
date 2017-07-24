@@ -99,13 +99,13 @@ describe('test geoms', function() {
 
     it('test attr method position', function() {
       geom.position('a*b');
-      expect(geom.get('attrOptions').position).eqls({ field: 'a*b' });
+      expect(geom.get('attrOptions').position).eqls({ field: 'a*b', adjusts: undefined });
       geom.position([ 'a', 'b' ], 'stack');
-      expect(geom.get('attrOptions').position).eqls({ field: [ 'a', 'b' ] });
-      expect(geom.get('adjusts')).eqls([{ type: 'stack' }]);
+      expect(geom.get('attrOptions').position).eqls({ field: [ 'a', 'b' ], adjusts: [{ type: 'stack' }] });
+      // expect(geom.get('adjusts')).eqls([{ type: 'stack' }]);
 
       geom.position([ 'a', 'b' ], { adjusts: [ 'stack', 'dodge' ] });
-      expect(geom.get('adjusts')).eqls([{ type: 'stack' }, { type: 'dodge' }]);
+      // expect(geom.get('adjusts')).eqls([{ type: 'stack' }, { type: 'dodge' }]);
       expect(geom.hasAdjust('stack')).equal(true);
     });
     it('other attrs', function() {
