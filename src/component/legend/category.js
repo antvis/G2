@@ -193,19 +193,19 @@ class Category extends Base {
     const item = this._getLegendItem(ev.currentTarget);
     if (item && item.get('checked')) {
       const items = this.get('items');
-      const itemhover = new Event('legend:hover', ev, true, true);
+      const itemhover = new Event('itemhover', ev, true, true);
       itemhover.item = findItem(items, item);
       itemhover.checked = item.get('checked');
-      this.emit('legend:hover', itemhover);
+      this.emit('itemhover', itemhover);
     } else if (!item) {
-      this.emit('legend:unhover', ev);
+      this.emit('itemunhover', ev);
     }
 
     return;
   }
 
   _onMouseleave(ev) {
-    this.emit('legend:unhover', ev);
+    this.emit('itemunhover', ev);
 
     return;
   }
@@ -220,7 +220,7 @@ class Category extends Base {
       }
       const mode = this.get('selectedMode');
       const item = findItem(items, clickedItem);
-      const itemclick = new Event('legend:click', ev, true, true);
+      const itemclick = new Event('itemclick', ev, true, true);
       itemclick.item = item;
       itemclick.currentTarget = clickedItem;
       itemclick.checked = (mode === 'single') ? true : !checked;
@@ -248,7 +248,7 @@ class Category extends Base {
       }
 
       this.get('canvas').draw();
-      this.emit('legend:click', itemclick);
+      this.emit('itemclick', itemclick);
     }
     return;
   }
@@ -383,7 +383,7 @@ class Category extends Base {
           }
         }
 
-        self.emit('legend:click', {
+        self.emit('itemclick', {
           item: clickedItem,
           currentTarget: parentDom,
           checked: (mode === 'single') ? true : !clickedItem.checked
@@ -403,18 +403,18 @@ class Category extends Base {
       const domClass = parentDom.className;
       const hoveredItem = findItem(items, parentDom.getAttribute('data-value'));
       if (hoveredItem && domClass.includes('checked')) {
-        self.emit('legend:hover', {
+        self.emit('itemhover', {
           item: hoveredItem,
           currentTarget: parentDom,
           checked: hoveredItem.checked
         });
       } else if (!hoveredItem) {
-        self.emit('legend:unhover', ev);
+        self.emit('itemunhover', ev);
       }
     };
 
     legendWrapper.onmouseout = ev => {
-      self.emit('legend:unhover', ev);
+      self.emit('itemunhover', ev);
     };
 
     outterNode.appendChild(legendWrapper);

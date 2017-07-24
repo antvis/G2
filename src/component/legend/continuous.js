@@ -258,9 +258,9 @@ class Continuous extends Base {
         const minValue = firstItemValue + (range[0] / 100) * (lastItemValue - firstItemValue);
         const maxValue = firstItemValue + (range[1] / 100) * (lastItemValue - firstItemValue);
         self._updateElement(minValue, maxValue);
-        const itemFiltered = new Event('legend:filter', ev, true, true);
+        const itemFiltered = new Event('itemfilter', ev, true, true);
         itemFiltered.range = [ minValue, maxValue ];
-        self.emit('legend:filter', itemFiltered);
+        self.emit('itemfilter', itemFiltered);
       });
     }
   }

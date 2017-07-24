@@ -48,7 +48,7 @@ class LegendController {
     const field = scale.field;
     const options = self.options;
 
-    legend.on('legend:click', ev => {
+    legend.on('itemclick', ev => {
       if (options.onClick) { // 用户自定义了图例点击事件
         options.onClick(ev);
       } else {
@@ -75,7 +75,7 @@ class LegendController {
   _bindFilterEvent(legend, scale) {
     const chart = this.chart;
     const field = scale.field;
-    legend.on('legend:filter', ev => {
+    legend.on('itemfilter', ev => {
       const range = ev.range;
       chart.filter(field, field => {
         return field >= range[0] && field <= range[1];
@@ -98,7 +98,7 @@ class LegendController {
     const geoms = chart.getAllGeoms();
     const options = self.options;
     const canvas = chart.get('canvas');
-    legend.on('legend:hover', ev => {
+    legend.on('itemhover', ev => {
       const value = ev.item.value;
       const pre = self.pre;
       if (!pre) {
@@ -131,7 +131,7 @@ class LegendController {
       }
     });
 
-    legend.on('legend:unhover', function() {
+    legend.on('itemunhover', function() {
       self.pre = null;
       Util.each(geoms, function(geom) {
         if (geom.get('activeShapes')) {
