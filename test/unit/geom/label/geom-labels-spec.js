@@ -7,32 +7,33 @@ const PolarLabels = require('../../../../src/geom/label/polar-labels');
 const PieLabels = require('../../../../src/geom/label/pie-labels');
 const Coord = require('../../../../src/coord/');
 
-const div = document.createElement('div');
-div.id = 'gl1';
-document.body.appendChild(div);
-
-const canvas = new Canvas({
-  containerId: 'gl1',
-  width: 500,
-  height: 500
-});
-describe('labels constructor', function() {
-  it('test default', function() {
-    expect(Labels.getLabelsClass()).to.equal(GeomLabels);
-    expect(Labels.getLabelsClass('rect')).to.equal(GeomLabels);
-    expect(Labels.getLabelsClass('rect', 'line')).to.equal(GeomLabels);
-  });
-
-  it('test polar', function() {
-    expect(Labels.getLabelsClass('polar')).to.equal(PolarLabels);
-  });
-
-  it('test pie', function() {
-    expect(Labels.getLabelsClass('theta')).to.equal(PieLabels);
-  });
-});
-
 describe('geom labels', function() {
+  describe('labels constructor', function() {
+    it('test default', function() {
+      expect(Labels.getLabelsClass()).to.equal(GeomLabels);
+      expect(Labels.getLabelsClass('rect')).to.equal(GeomLabels);
+      expect(Labels.getLabelsClass('rect', 'line')).to.equal(GeomLabels);
+    });
+
+    it('test polar', function() {
+      expect(Labels.getLabelsClass('polar')).to.equal(PolarLabels);
+    });
+
+    it('test pie', function() {
+      expect(Labels.getLabelsClass('theta')).to.equal(PieLabels);
+    });
+  });
+
+  const div = document.createElement('div');
+  div.id = 'gl1';
+  document.body.appendChild(div);
+
+  const canvas = new Canvas({
+    containerId: 'gl1',
+    width: 500,
+    height: 500
+  });
+
   const coord = new Coord.Cartesian({
     start: {
       x: 0,

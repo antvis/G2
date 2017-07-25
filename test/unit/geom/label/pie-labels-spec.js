@@ -1,22 +1,25 @@
 const expect = require('chai').expect;
 const { Canvas } = require('@ali/g');
+const DataSet = require('@antv/data-set');
 const PieLabels = require('../../../../src/geom/label/pie-labels');
 const Coord = require('../../../../src/coord/');
 const G2 = require('../../../../index');
 const Util = require('../../../../src/util');
 const Scale = require('../../../../src/scale/index');
 
-const div = document.createElement('div');
-div.id = 'gl3';
-document.body.appendChild(div);
+describe('pie labels', function() {
+  const ds = new DataSet();
 
-const canvas = new Canvas({
-  containerId: 'gl3',
-  width: 500,
-  height: 500
-});
+  const div = document.createElement('div');
+  div.id = 'gl3';
+  document.body.appendChild(div);
 
-describe.skip('pie labels', function() {
+  const canvas = new Canvas({
+    containerId: 'gl3',
+    width: 500,
+    height: 500
+  });
+
   describe('pie text inner', function() {
     const coord = new Coord.Polar({
       start: {
@@ -60,6 +63,7 @@ describe.skip('pie labels', function() {
       values
     });
     let gLabels;
+
     it('init', function() {
       gLabels = canvas.addGroup(PieLabels, {
         coord,
@@ -76,7 +80,9 @@ describe.skip('pie labels', function() {
       expect(cfg.offset).to.equal(-10);
       expect(cfg.label).not.to.equal(undefined);
     });
+
     let items;
+
     it('get items', function() {
       items = gLabels.getLabelsItems(points);
       expect(items.length).to.equal(points.length);
@@ -351,26 +357,27 @@ describe.skip('pie labels', function() {
   });
 
   describe('pie,polar text position', function() {
-    const Stat = G2.Stat;
-
     const chart = new G2.Chart({
       container: 'gl3',
       width: 400,
       height: 300,
       animate: false,
-      margin: [ 20, 10, 50, 60 ]
+      padding: [ 20, 10, 50, 60 ]
     });
     const defs = {
       visiter: { min: 0 }
     };
+    let data;
 
-    const data = [
-      { action: '访问', visiter: 500, text: 'xxdadsfsadfasdfadsf' },
-      { action: '浏览', visiter: 400, text: 'sfsadfasdfadsf' },
-      { action: '交互', visiter: 300, text: 'xxdadsfs' },
-      { action: '下单', visiter: 200, text: 'fsadfasdfadsf' },
-      { action: '付款', visiter: 100, text: 'xxd' }
-    ];
+    beforeEach(() => {
+      data = [
+        { action: '访问', visiter: 500, text: 'xxdadsfsadfasdfadsf' },
+        { action: '浏览', visiter: 400, text: 'sfsadfasdfadsf' },
+        { action: '交互', visiter: 300, text: 'xxdadsfs' },
+        { action: '下单', visiter: 200, text: 'fsadfasdfadsf' },
+        { action: '付款', visiter: 100, text: 'xxd' }
+      ];
+    });
 
     it('radar outer', function() {
       chart.clear();
@@ -385,13 +392,10 @@ describe.skip('pie labels', function() {
 
       const geom = chart.get('geoms')[0];
       const container = geom.get('container');
-      console.log(geom, container, container.get('children'));
       const labelsGroup = container.getChildByIndex(5).get('labelsGroup');
 
       const first = labelsGroup.getFirst();
       const last = labelsGroup.getLast();
-
-      // console.log(labelsGroup.getLabels()[0]);
 
       expect(first.attr('x')).to.equal(450 / 2);
       expect(first.attr('y')).to.equal(20 / 2);
@@ -401,7 +405,6 @@ describe.skip('pie labels', function() {
     });
 
     it('radar inner', function() {
-
       chart.clear();
 
       chart.coord('polar');
@@ -414,7 +417,7 @@ describe.skip('pie labels', function() {
 
       const geom = chart.get('geoms')[0];
       const container = geom.get('container');
-      const labelsGroup = container.get('children')[1].get('labelsGroup');
+      const labelsGroup = container.get('children')[5].get('labelsGroup');
 
       const first = labelsGroup.getFirst();
       const last = labelsGroup.getLast();
@@ -426,41 +429,55 @@ describe.skip('pie labels', function() {
     });
 
     it('pie outer text', function() {
-      chart.coord('theta');
+      const dv = ds.createView('pie-outer-text').source(data);
+      dv.transform({
+        type: 'percent',
+        field: 'visiter',
+        dimension: 'action',
+        as: 'percent'
+      });
       chart.clear();
-      chart.source(data);
-      chart.intervalStack()
-        .position(Stat.summary.percent('visiter'))
+      chart.coord('theta');
+      chart.source(dv.rows);
+      chart.interval()
+        .position('percent', 'stack')
         .color('action')
         .label('visiter', { offset: 15 });
       chart.render();
+
       const geom = chart.get('geoms')[0];
       const container = geom.get('container');
-      const labelsGroup = container.get('children')[1].get('labelsGroup');
+      const labelsGroup = container.get('children')[5].get('labelsGroup');
 
       const first = labelsGroup.getFirst();
       const last = labelsGroup.getLast();
-      console.log(first.attr('x'), first.attr('y'));
-      console.log(last.attr('x'), last.attr('y'));
+
       expect(first.attr('x')).to.equal(197.97148019369132);
       expect(first.attr('y')).to.equal(7.8408119046052605);
       expect(last.attr('x')).to.equal(274.6162223093975);
       expect(last.attr('y')).to.equal(255.1591880953947);
-
     });
 
     it('pie inner text', function() {
+      const dv = ds.createView('pie-inner-text').source(data);
+      dv.transform({
+        type: 'percent',
+        field: 'visiter',
+        dimension: 'action',
+        as: 'percent'
+      });
       chart.clear();
-
-      chart.intervalStack()
-        .position(Stat.summary.percent('visiter'))
+      chart.coord('theta');
+      chart.source(dv.rows);
+      chart.interval()
+        .position('percent', 'stack')
         .color('action')
         .label('visiter', { offset: -5 });
       chart.render();
 
       const geom = chart.get('geoms')[0];
       const container = geom.get('container');
-      const labelsGroup = container.get('children')[1].get('labelsGroup');
+      const labelsGroup = container.get('children')[5].get('labelsGroup');
 
       const first = labelsGroup.getFirst();
       const last = labelsGroup.getLast();
@@ -474,8 +491,6 @@ describe.skip('pie labels', function() {
   });
 
   describe('unusual pie labeling', function() {
-    const Stat = G2.Stat;
-
     const chart = new G2.Chart({
       container: 'gl3',
       width: 600,
@@ -485,62 +500,72 @@ describe.skip('pie labels', function() {
       //   margin: [80, 120]
       // }
     });
+    let data;
 
-    const data = [
-      { type: '1E', value: 0 },
-      { type: '1F', value: 0 },
-      { type: '1g', value: 0 },
-      { type: '1H', value: 0 },
-      { type: '1I', value: 0 },
-      { type: '1J', value: 0 },
-      { type: 'A', value: 2 },
-      { type: 'B', value: 2 },
-      { type: '2E', value: 0 },
-      { type: '2F', value: 0 },
-      { type: '2g', value: 0 },
-      { type: '2H', value: 0 },
-      { type: '2I', value: 0 },
-      { type: '2J', value: 0 },
-      { type: 'C', value: 2 },
-      { type: 'D', value: 2 },
-      { type: 'E', value: 0 },
-      { type: 'F', value: 0 },
-      { type: 'g', value: 0 },
-      { type: 'H', value: 0 },
-      { type: 'I', value: 0 },
-      { type: 'J', value: 0 },
-      { type: 'K', value: 4 },
-      { type: '3E', value: 0 },
-      { type: '3F', value: 0 },
-      { type: '3g', value: 0 },
-      { type: '3H', value: 0 },
-      { type: '3I', value: 0 },
-      { type: '3J', value: 0 },
-      { type: 'L', value: 4 }
-    ];
+    beforeEach(() => {
+      data = [
+        { type: '1E', value: 0 },
+        { type: '1F', value: 0 },
+        { type: '1g', value: 0 },
+        { type: '1H', value: 0 },
+        { type: '1I', value: 0 },
+        { type: '1J', value: 0 },
+        { type: 'A', value: 2 },
+        { type: 'B', value: 2 },
+        { type: '2E', value: 0 },
+        { type: '2F', value: 0 },
+        { type: '2g', value: 0 },
+        { type: '2H', value: 0 },
+        { type: '2I', value: 0 },
+        { type: '2J', value: 0 },
+        { type: 'C', value: 2 },
+        { type: 'D', value: 2 },
+        { type: 'E', value: 0 },
+        { type: 'F', value: 0 },
+        { type: 'g', value: 0 },
+        { type: 'H', value: 0 },
+        { type: 'I', value: 0 },
+        { type: 'J', value: 0 },
+        { type: 'K', value: 4 },
+        { type: '3E', value: 0 },
+        { type: '3F', value: 0 },
+        { type: '3g', value: 0 },
+        { type: '3H', value: 0 },
+        { type: '3I', value: 0 },
+        { type: '3J', value: 0 },
+        { type: 'L', value: 4 }
+      ];
+    });
 
     it('pie labeling overlap', function() {
+      const dv = ds.createView('pie-labeling-overlap').source(data);
+      dv.transform({
+        type: 'percent',
+        field: 'value',
+        dimension: 'type',
+        as: 'percent'
+      });
+
+      chart.clear();
       chart.coord('theta', {
         radius: 0.8
       });
       chart.legend(false);
-      chart.clear();
-      chart.source(data);
-      chart.intervalStack()
-        .position(Stat.summary.percent('value'))
+      chart.source(dv.rows);
+      chart.interval()
+        .position('percent', 'stack')
         .color('type')
-        .label('type*..percent', function(type, percent) {
+        .label('type*percent', function(type, percent) {
           return type + ': ' + percent * 100 + '%';
         });
       chart.render();
       const geom = chart.get('geoms')[0];
       const container = geom.get('container');
-      const labelsGroup = container.get('children')[1].get('labelsGroup');
+      const labelsGroup = container.get('children')[30].get('labelsGroup');
 
       const first = labelsGroup.getFirst();
       const last = labelsGroup.getLast();
-      console.log(first.attr('x'), first.attr('y'));
-      console.log(last.attr('x'), last.attr('y'));
+
       expect(first.attr('x')).to.equal(300);
       expect(first.attr('y')).to.equal(18.996428662531798);
       expect(last.attr('x')).to.equal(375.7713196082878);
@@ -625,18 +650,27 @@ describe.skip('pie labels', function() {
 
   describe('Just one label.', function() {
     it('Even though source data just has one item, the label must be shown.', function() {
-      const data = [{ name: 'Singapore', count: 28 }];
+      const dv = ds.createView('pie-labeling-overlap').source([
+        { name: 'Singapore', count: 28 }
+      ]);
+      dv.transform({
+        type: 'percent',
+        field: 'count',
+        dimension: 'name',
+        as: 'percent'
+      });
+
       const chart = new G2.Chart({
         container: 'gl3',
         width: 400,
         height: 300
       });
-      chart.source(data);
+      chart.source(dv.rows);
       chart.coord('theta');
-      chart.intervalStack()
-        .position(G2.Stat.summary.percent('count'))
+      chart.interval()
+        .position('percent', 'stack')
         .color('name')
-        .label('name*..percent', function(name, percent) {
+        .label('name*percent', function(name, percent) {
           percent = (percent * 100).toFixed(2) + '%';
           return name + ' ' + percent;
         });

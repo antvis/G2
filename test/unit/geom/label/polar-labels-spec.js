@@ -18,7 +18,7 @@ const canvas = new Canvas({
   height: 500
 });
 
-describe.skip('polar labels', function() {
+describe('polar labels', function() {
   const coord = new Coord.Polar({
     start: {
       x: 0,

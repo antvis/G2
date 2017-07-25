@@ -410,7 +410,7 @@ class GeomBase extends Base {
     const positionAttr = this.getAttr('position');
     const scales = positionAttr.scales;
     Util.each(data, function(obj) {
-      for (let i = 0; i < 2; i++) {
+      for (let i = 0; i < Math.min(2, scales.length); i++) {
         const scale = scales[i];
         if (scale.isCategory) {
           const field = scale.field;

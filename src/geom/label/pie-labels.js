@@ -141,11 +141,8 @@ class PieLabels extends PolarLabels {
     };
     const geom = self.get('geom');
     if (geom) {
-      const chart = geom.get('chart');
-      plotRange = chart.get('plotRange');
-      if (!plotRange) {
-        plotRange = chart.get('region');
-      }
+      const view = geom.get('view');
+      plotRange = view.getViewRegion();
     }
 
     // step 1: separate labels

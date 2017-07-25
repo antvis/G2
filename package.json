@@ -14,7 +14,7 @@
   "author": "https://github.com/orgs/antvis/people",
   "license": "MIT",
   "devDependencies": {
-    "@antv/data-set": "^0.1.1",
+    "@antv/data-set": "^0.1.2",
     "@lite-js/torch": "^0.1.6",
     "babel-eslint": "^7.2.3",
     "babel-plugin-external-helpers": "^6.22.0",

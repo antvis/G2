@@ -91,9 +91,9 @@ class GeomLabels extends Group {
     const labelCfg = self.get('labelCfg').cfg;
     const geomType = self.get('geomType');
     if (geomType === 'polygon' || (labelCfg && labelCfg.offset < 0 && Util.indexOf(IGNORE_ARR, geomType) === -1)) {
-      return Util.merge({}, /* self.get('label'), labelCfg, */Global.innerLabels);
+      return Util.merge({}, self.get('label'), labelCfg, Global.innerLabels);
     }
-    return Util.merge({}, /* Global.innerLabels, */self.get('label'), labelCfg);
+    return Util.merge({}, Global.label, self.get('label'), labelCfg);
   }
 
   /**
