@@ -838,6 +838,7 @@ class GeomBase extends Base {
 
   destroy() {
     this.clear();
+    this.offEvents();
     super.destroy();
   }
 
