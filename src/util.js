@@ -16,6 +16,7 @@ const PRECISION = 0.00001; // 常量，据的精度，小于这个精度认为�
 
 const Util = {
   each: require('lodash/each'),
+  map: require('lodash/map'),
   isNull: require('lodash/isNull'),
   isObject: require('lodash/isObject'),
   isNumber: require('lodash/isNumber'),
@@ -45,6 +46,7 @@ const Util = {
   isEqualWith: require('lodash/isEqualWith'),
   isEqual: require('lodash/isEqual'),
   replace: require('lodash/replace'),
+  union: require('lodash/union'),
   snapEqual(v1, v2) {
     return Math.abs(v1 - v2) < 0.001;
   },

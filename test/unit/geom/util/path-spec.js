@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const PathUtil = require('../../../../src/geom/shape/util/path-util');
+const PathUtil = require('../../../../src/geom/util/path');
 const Coord = require('../../../../src/coord/');
 
 describe('shape path test', () => {

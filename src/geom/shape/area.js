@@ -5,7 +5,7 @@
 
 const Util = require('../../util');
 const Shape = require('./shape');
-const PathUtil = require('./util/path-util');
+const PathUtil = require('../util/path');
 const Global = require('../../global');
 
 function getLineAttrs(cfg) {

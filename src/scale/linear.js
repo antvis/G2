@@ -104,6 +104,9 @@ class Linear extends Base {
     const max = self.max;
     const count = self.tickCount;
     const interval = self.tickInterval;
+    if (max < min) {
+      throw new Error(`max: ${max} should not be less than min: ${min}`);
+    }
     const tmp = numberAuto({
       min,
       max,

@@ -5,8 +5,8 @@
  */
 
 const Util = require('../../util');
-const PathUtil = require('./util/path-util');
-const ShapeUtil = require('./util/shape-util');
+const PathUtil = require('../util/path');
+const ShapeUtil = require('../util/shape');
 const Shape = require('./shape');
 const Global = require('../../global');
 const DOT_ARR = [ 2, 1 ];

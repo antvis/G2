@@ -4,16 +4,18 @@
  */
 
 const Base = require('../base');
-const GROUP_ATTRS = [ 'size', 'shape', 'color' ];
-const FIELD_ORIGIN = '_origin';
 const Attr = require('../attr/index');
-const Shape = require('./shape/index');
 const Util = require('../util');
-const Adjust = require('./adjust/index');
 const Global = require('../global');
+const Adjust = require('./adjust/index');
+const Labels = require('./label/index');
+const Shape = require('./shape/index');
 const TooltipMixin = require('./mixin/tooltip');
 const ActiveMixin = require('./mixin/active');
 const SelectMixin = require('./mixin/select');
+
+const GROUP_ATTRS = [ 'size', 'shape', 'color' ];
+const FIELD_ORIGIN = '_origin';
 
 function parseFields(field) {
   if (Util.isArray(field)) {
@@ -127,6 +129,8 @@ class GeomBase extends Base {
        * @type {Boolean}
        */
       sortable: false,
+
+      labelCfg: null,
 
       /**
        * 是否共享 tooltip
@@ -269,8 +273,20 @@ class GeomBase extends Base {
     styleOptions.style = cfg;
   }
 
-  label(/* field, cfg */) {
-
+  label(field, cfg) {
+    const self = this;
+    let labelCfg = self.get('labelCfg');
+    // const scales = Util.map(self.get('labelCfg').fields, field => self._createScale(field));
+    if (!labelCfg) {
+      labelCfg = {};
+      self.set('labelCfg', labelCfg);
+    }
+    let fields;
+    if (field) {
+      fields = parseFields(field);
+    }
+    labelCfg.fields = fields;
+    labelCfg.cfg = cfg;
   }
 
   tooltip(field/* , cfg */) {
@@ -394,7 +410,7 @@ class GeomBase extends Base {
     const positionAttr = this.getAttr('position');
     const scales = positionAttr.scales;
     Util.each(data, function(obj) {
-      for (let i = 0; i < 2; i++) {
+      for (let i = 0; i < Math.min(2, scales.length); i++) {
         const scale = scales[i];
         if (scale.isCategory) {
           const field = scale.field;
@@ -526,6 +542,9 @@ class GeomBase extends Base {
       mappedArray.push(data);
       self.draw(data, container, shapeFactory);
     });
+    if (self.get('labelCfg')) {
+      self._addLabels(Util.union.apply(null, mappedArray));
+    }
     self.set('dataArray', mappedArray);
   }
 
@@ -552,6 +571,29 @@ class GeomBase extends Base {
         }
       });
     }
+  }
+
+  // step 3.2 add labels
+  _addLabels(points) {
+    const self = this;
+    const type = self.get('type');
+    const coord = self.get('coord');
+    const C = Labels.getLabelsClass(coord.type, type);
+    const id = this.get('id');
+    const container = self.get('container');
+    const scales = Util.map(self.get('labelCfg').fields, field => self._createScale(field));
+    const labelGroup = container.addGroup(C, {
+      id,
+      labelCfg: Util.mix({
+        scales
+      }, self.get('labelCfg')),
+      coord,
+      geom: self,
+      geomType: type
+    });
+
+    labelGroup.showLabels(points);
+    self.set('labelGroup', labelGroup);
   }
 
   /**
@@ -769,6 +811,16 @@ class GeomBase extends Base {
    */
   getAttr(name) {
     return this.get('attrs')[name];
+  }
+
+  getXDim() {
+    const xScale = this.getXScale();
+    return xScale.dim;
+  }
+
+  getYDim() {
+    const yScale = this.getYScale();
+    return yScale ? yScale.dim : 'y';
   }
 
   /**

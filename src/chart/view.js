@@ -48,7 +48,6 @@ Util.each(Geom, function(geomConstructor, className) {
     this.addGeom(geom);
     return geom;
   };
-
 });
 
 /**
@@ -661,7 +660,6 @@ class View extends Base {
    * @protected
    */
   beforeDraw() {
-
   }
 
   source(data, scales) {
