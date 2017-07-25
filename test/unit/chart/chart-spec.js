@@ -184,6 +184,10 @@ describe('test chart width filter', function() {
     expect(rst.length).equal(data.length);
   });
 
+  it('destroy', function() {
+    chart.destroy();
+  });
+
 });
 
 describe('chart forceFit', function() {
@@ -252,5 +256,68 @@ describe('chart forceFit', function() {
     const viewRange1 = v1.getViewRegion();
     expect(viewRange1.end).eqls({ x: 250, y: 20 });
 
+  });
+
+  it('destroy', function() {
+    chart.destroy();
+  });
+});
+
+describe('filter shape', function() {
+  let chart;
+  const data = [
+      { a: 1, b: 2, c: '1' },
+      { a: 2, b: 5, c: '1' },
+      { a: 3, b: 4, c: '1' },
+
+      { a: 1, b: 3, c: '2' },
+      { a: 2, b: 1, c: '2' },
+      { a: 3, b: 2, c: '2' }
+  ];
+
+  it('init chart', function() {
+    chart = new Chart({
+      height: 500,
+      forceFit: true,
+      container: 'cchart'
+    });
+    const viewContainer = chart.get('viewContainer');
+    expect(viewContainer.getCount()).equal(0);
+  });
+
+  it('filter point', function() {
+    chart.source(data);
+    chart.point().position('a*b').color('c');
+    chart.render();
+    const container = chart.get('viewContainer').getFirst();
+    expect(container.getCount()).equal(data.length);
+
+    chart.filterShape(function(record) {
+      return record.a !== 1;
+    });
+
+    expect(container.getCount()).equal(data.length);
+    expect(container.getFirst().get('visible')).equal(false);
+    expect(container.get('children')[3].get('visible')).equal(false);
+  });
+
+  it('filter line', function() {
+    chart.clear();
+    chart.line().position('a*b').color('c');
+    chart.render();
+    const container = chart.get('viewContainer').getFirst();
+    expect(container.getCount()).equal(2);
+    chart.filterShape(function(arr) {
+      console.log(arr);
+      return arr[0].c !== '1';
+    });
+    expect(container.getCount()).equal(2);
+    expect(container.getFirst().get('visible')).equal(false);
+    expect(container.getLast().get('visible')).equal(true);
+  });
+
+  it('destroy', function() {
+    chart.destroy();
+    expect(chart.destroyed).equal(true);
   });
 });
