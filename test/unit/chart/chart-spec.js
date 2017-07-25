@@ -11,7 +11,8 @@ describe('test chart', function() {
     container: div,
     width: 800,
     height: 500,
-    padding: [ 0, 50, 20, 50 ]
+    padding: [ 0, 50, 20, 50 ],
+    animate: false
   });
   chart.scale({
     b: {
@@ -102,7 +103,8 @@ describe('test chart with views', function() {
       height: 500,
       forceFit: true,
       padding: 50,
-      container: 'cchart'
+      container: 'cchart',
+      animate: false
     });
     expect(div.childNodes.length).equal(1);
   });
@@ -152,7 +154,8 @@ describe('test chart width filter', function() {
     chart = new Chart({
       height: 500,
       forceFit: true,
-      container: 'cchart'
+      container: 'cchart',
+      animate: false
     });
 
     chart.filter('genre', function(genre) {
@@ -202,7 +205,8 @@ describe('chart forceFit', function() {
     chart = new Chart({
       height: 500,
       forceFit: true,
-      container: 'cchart'
+      container: 'cchart',
+      animate: false
     });
     expect(chart.get('canvas').get('width')).equal(DomUtil.getWidth(div));
     chart.source(data);

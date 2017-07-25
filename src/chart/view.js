@@ -71,7 +71,8 @@ class View extends Base {
       options: {},
       scaleController: null,
       parent: null,
-      tooltipEnable: true // 是否展示 tooltip
+      tooltipEnable: true, // 是否展示 tooltip
+      animate: true
     };
   }
 
@@ -103,6 +104,10 @@ class View extends Base {
     }
     if (!options.legends) {
       options.legends = {};
+    }
+
+    if (options.animate === false) {
+      this.set('animate', false);
     }
 
     if (options.geoms && options.geoms.length) {
@@ -414,8 +419,8 @@ class View extends Base {
       name: 'geom'
     });
     geom.set('container', group);
-    geom._bindActiveAction();
-    geom._bindSelectedAction();
+    geom.set('animate', self.get('animate'));
+    geom.bindEvents();
   }
 
   /**
@@ -526,7 +531,14 @@ class View extends Base {
   }
 
   tooltip(visible) {
-    this.set('tooltipEnable', visible); // TODO：该方法只用于开启关闭 tooltip
+    this.set('tooltipEnable', visible);
+    return this;
+  }
+
+  animate(enable) {
+    const options = this.get('options');
+    options.animate = enable;
+    this.set('animate', enable);
     return this;
   }
 

@@ -10,7 +10,8 @@ describe('test polygon chart', function() {
     container: div,
     height: 300,
     width: 500,
-    padding: 50
+    padding: 50,
+    animate: false
   });
 
   it('cat to cat', function() {

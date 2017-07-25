@@ -18,7 +18,8 @@ describe('interval chart', function() {
   const chart = new Chart({
     container: div,
     height: 300,
-    width: 500
+    width: 500,
+    animate: false
   });
 
   it('init', function() {

@@ -14,6 +14,7 @@ const Global = require('../global');
 const TooltipMixin = require('./mixin/tooltip');
 const ActiveMixin = require('./mixin/active');
 const SelectMixin = require('./mixin/select');
+const Animate = require('./animate/index');
 
 function parseFields(field) {
   if (Util.isArray(field)) {
@@ -139,7 +140,8 @@ class GeomBase extends Base {
        */
       selectable: false,
       // tooltipMap: {},
-      tooltipFields: null
+      tooltipFields: null,
+      animate: false
     };
   }
 
@@ -511,15 +513,13 @@ class GeomBase extends Base {
     }
   }
 
-  // step 3 绘制
-  paint() {
+  _draw() {
     const self = this;
     const dataArray = self.get('dataArray');
     const mappedArray = [];
     const shapeFactory = self.getShapeFactory();
     shapeFactory.setCoord(self.get('coord'));
     const container = self.get('container');
-
     self._beforeMapping(dataArray);
     Util.each(dataArray, function(data) {
       data = self._mapping(data);
@@ -527,6 +527,23 @@ class GeomBase extends Base {
       self.draw(data, container, shapeFactory);
     });
     self.set('dataArray', mappedArray);
+  }
+
+  // step 3 绘制
+  paint() {
+    const self = this;
+    const animate = this.get('animate');
+    if (animate) {
+      const anim = Animate.getDefault({
+        geom: self,
+        fn() {
+          self._draw();
+        }
+      });
+      anim.start();
+    } else {
+      self._draw();
+    }
   }
 
   // step 3.1 before mapping
@@ -822,6 +839,20 @@ class GeomBase extends Base {
   destroy() {
     this.clear();
     super.destroy();
+  }
+
+  bindEvents() {
+    if (this.get('view')) {
+      this._bindActiveAction();
+      this._bindSelectedAction();
+    }
+  }
+
+  offEvents() {
+    if (this.get('view')) {
+      this._offActiveAction();
+      this._offSelectedAction();
+    }
   }
 }
 
