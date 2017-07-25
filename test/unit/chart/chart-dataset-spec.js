@@ -20,6 +20,7 @@ describe('use dataset in chart', function() {
   const chart = new Chart({
     height: 500,
     forceFit: true,
+    animate: false,
     container: 'cdataset'
   });
 
