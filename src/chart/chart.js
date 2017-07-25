@@ -241,6 +241,9 @@ class Chart extends View {
     cfg.backPlot = this.get('backPlot');
     cfg.frontPlot = this.get('frontPlot');
     cfg.canvas = this.get('canvas');
+    if (Util.isNil(cfg.animate)) {
+      cfg.animate = this.get('animate');
+    }
     const view = new View(cfg);
     this.get('views').push(view);
     return view;

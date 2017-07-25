@@ -59,7 +59,8 @@ describe('test view', function() {
             }
           }
         }
-      }
+      },
+      animate: false
     }
   });
 

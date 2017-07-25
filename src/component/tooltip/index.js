@@ -341,16 +341,20 @@ class Tooltip extends Group {
       }
 
       if (crosshairsRectShape) {
-        const items = this.get('items');
+        const isTransposed = this.get('isTransposed');
+        const items = isTransposed ? this.get('items').reverse() : this.get('items');
         const firstItem = items[0];
         offset = (firstItem.size / 2 + firstItem.size / 4) || 10;
-        crosshairsRectShape.attr('x', firstItem.point.x - offset);
+        const dim = isTransposed ? 'y' : 'x';
+        const attr = isTransposed ? 'height' : 'width';
+
+        crosshairsRectShape.attr(dim, firstItem.point[dim] - offset);
 
         if (items.length === 1) {
-          crosshairsRectShape.attr('width', firstItem.size + firstItem.size / 2); // TODO: 获取柱子的宽度
+          crosshairsRectShape.attr(attr, firstItem.size + firstItem.size / 2);
         } else {
           const lastItem = items[items.length - 1];
-          crosshairsRectShape.attr('width', lastItem.point.x - firstItem.point.x + 2 * offset);
+          crosshairsRectShape.attr(attr, lastItem.point[dim] - firstItem.point[dim] + 2 * offset);
         }
       }
 

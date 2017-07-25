@@ -185,7 +185,7 @@ function getFunnelPath(cfg, isFunnel) {
 
 function getThetaCfg(point, coord) {
   const r = coord.getRadius();
-  const inner = coord.get('inner');
+  const inner = coord.innerRadius;
   let startAngle;
   let endAngle;
   const ir = r * inner;
@@ -211,7 +211,7 @@ function getThetaCfg(point, coord) {
     }
   } else {
     endPoint = point;
-    startAngle = coord.get('startAngle');
+    startAngle = coord.startAngle;
     endAngle = PathUtil.getPointAngle(coord, endPoint);
   }
   return {
@@ -224,7 +224,8 @@ function getThetaCfg(point, coord) {
 
 // 获取选中时的样式，当前仅支持饼图
 function getSelectedCfg(type, cfg) {
-  const coord = cfg.coord;
+  const geom = cfg.geom;
+  const coord = geom.get('coord');
   const point = cfg.point;
   const r = 7.5;
   let selectedCfg;

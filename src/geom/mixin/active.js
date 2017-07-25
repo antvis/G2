@@ -22,35 +22,42 @@ function isChange(preShapes, shapes) {
 
 
 const ActiveMixin = {
-  _bindActiveAction() {
+  _onPlotmove(ev) {
     const self = this;
     const view = self.get('view');
     const canvas = view.get('canvas');
     const type = Util.lowerFirst(self.get('type'));
-    view.on('plotmove', ev => {
-      const point = {
-        x: ev.x,
-        y: ev.y
-      };
-      let shapes;
-      if (Util.inArray([ 'line', 'path' ], type) || !self.isShareTooltip()) {
-        shapes = self.getSingleShapeByPoint(point);
-      } else if (type !== 'area') {
-        shapes = self.getGroupShapesByPoint(point);
-      }
+    const point = {
+      x: ev.x,
+      y: ev.y
+    };
+    let shapes;
+    if (Util.inArray([ 'line', 'path' ], type) || !self.isShareTooltip()) {
+      shapes = self.getSingleShapeByPoint(point);
+    } else if (type !== 'area') {
+      shapes = self.getGroupShapesByPoint(point);
+    }
 
-      if (shapes) {
-        ev.activeShape = shapes;
-        ev.geom = self;
-        self.setShapesActived(shapes);
-        // view.emit(type + ':active', ev);
-      } else {
-        if (self.get('activeShapes')) {
-          self.clearActivedShapes();
-          canvas.draw();
-        }
+    if (shapes) {
+      ev.activeShape = shapes;
+      ev.geom = self;
+      self.setShapesActived(shapes);
+    } else {
+      if (self.get('activeShapes')) {
+        self.clearActivedShapes();
+        canvas.draw();
       }
-    });
+    }
+  },
+  _bindActiveAction() {
+    const self = this;
+    const view = self.get('view');
+    view.on('plotmove', Util.wrapBehavior(self, '_onPlotmove'));
+  },
+  _offActiveAction() {
+    const self = this;
+    const view = self.get('view');
+    view.off('plotmove', Util.getWrapBehavior(self, '_onPlotmove'));
   },
   _setActiveShape(shape) {
     const self = this;
