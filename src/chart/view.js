@@ -675,7 +675,7 @@ class View extends Base {
   }
 
   source(data, scales) {
-    this.set('data', data);
+    this._initData(data);
     if (scales) {
       this.scale(scales);
     }
@@ -683,9 +683,30 @@ class View extends Base {
   }
 
   changeData(data) {
-    this.set('data', data);
+    this._initData(data);
     this.repaint();
     return this;
+  }
+
+  _initData(data) {
+    const preData = this.get('data');
+    if (preData && preData.isDataView) {
+      preData.off('change', Util.getWrapBehavior(this, '_onViewChange'));
+      this.set('dataView', null);
+    }
+    if (data && data.isDataView) {
+      data.on('change', Util.wrapBehavior(this, '_onViewChange'));
+      this.set('dataView', data);
+      data = data.rows;
+    }
+    this.set('data', data);
+  }
+
+  _onViewChange() {
+    const dataView = this.get('dataView');
+    const rows = dataView.rows;
+    this.set('data', rows);
+    this.repaint();
   }
 
   render() {
