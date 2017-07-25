@@ -1,9 +1,0 @@
-{
-  "presets": [
-    "es2015-loose-rollup",
-    "stage-0"
-  ],
-  "plugins": [
-    "external-helpers"
-  ]
-}
