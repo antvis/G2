@@ -710,24 +710,6 @@ class View extends Base {
     this.render();
   }
 
-  label(field, callback, cfg) {
-    const self = this;
-    const labelCfg = {};
-    labelCfg.field = field;
-
-    if (Util.isObject(callback)) {
-      cfg = callback;
-      callback = null;
-    }
-
-    labelCfg.callback = callback;
-    labelCfg.cfg = cfg;
-
-    const options = self.get('options');
-    options.label = labelCfg;
-    return self;
-  }
-
   destroy() {
     this.clear();
     super.destroy();
