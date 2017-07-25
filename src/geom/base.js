@@ -839,6 +839,10 @@ class GeomBase extends Base {
     return this.getAttr('position').scales[1];
   }
 
+  getShapes() {
+    return this.get('container').get('children');
+  }
+
   getAttrsForLegend() {
     const attrs = this.get('attrs');
     const rst = [];

@@ -8,6 +8,7 @@ const Geom = require('../geom/');
 const Util = require('../util');
 const Controller = require('./controller/index');
 const Global = require('../global');
+const FIELD_ORIGIN = '_origin';
 
 function isFullCircle(coord) {
   const startAngle = coord.startAngle;
@@ -535,6 +536,78 @@ class View extends Base {
     return this;
   }
 
+  /**
+   * @internal 查找包含指定点的视图
+   * @param  {Object} point 点的位置
+   * @return {Array} 多个视图
+   */
+  getViewsByPoint(point) {
+    const rst = [];
+    const views = this.get('views');
+
+    if (isPointInCoord(this.get('coord'), point)) {
+      rst.push(this);
+    }
+
+    Util.each(views, view => {
+      if (isPointInCoord(view.get('coord'), point)) {
+        rst.push(view);
+      }
+    });
+    return rst;
+  }
+
+  /**
+   * 遍历所有的 shape ，用户更改 shape 后进行刷新
+   * @param  {Function} fn 回调函数包含参数：record,shape,geom,view
+   * @return {View} 当前视图
+   */
+  eachShape(fn) {
+    const self = this;
+    const views = self.get('views');
+    const canvas = self.get('canvas');
+    Util.each(views, function(view) {
+      view.eachShape(fn);
+    });
+    const geoms = this.get('geoms');
+    Util.each(geoms, function(geom) {
+      const shapes = geom.getShapes();
+      Util.each(shapes, shape => {
+        const origin = shape.get('origin');
+        if (origin) {
+          if (Util.isArray(origin)) {
+            const arr = origin.map(function(subOrigin) {
+              return subOrigin[FIELD_ORIGIN];
+            });
+            fn(arr, shape, geom, self);
+          } else {
+            const obj = origin[FIELD_ORIGIN];
+            fn(obj, shape, geom, self);
+          }
+        }
+      });
+    });
+    canvas.draw();
+    return this;
+  }
+
+  /**
+   * 遍历所有的 shape ，回调函数中 true / false 控制图形是否显示
+   * @param  {Function} fn 回调函数包含参数：record,shape,geom,view
+   * @return {View} 当前视图
+   */
+  filterShape(fn) {
+    const callback = function(record, shape, geom, view) {
+      if (!fn(record, shape, geom, view)) {
+        shape.set('visible', false);
+      } else {
+        shape.set('visible', true);
+      }
+    };
+    this.eachShape(callback);
+    return this;
+  }
+
   clearInner() {
     this.set('scales', {});
     const options = this.get('options');
@@ -545,6 +618,10 @@ class View extends Base {
     this.get('backPlot') && this.get('backPlot').clear();
   }
 
+  /**
+   * 清除视图内容，包括 geoms
+   * @return {View} 当前视图
+   */
   clear() {
     const options = this.get('options');
     options.filters = null;
@@ -656,21 +733,7 @@ class View extends Base {
     super.destroy();
   }
 
-  getViewsByPoint(point) {
-    const rst = [];
-    const views = this.get('views');
 
-    if (isPointInCoord(this.get('coord'), point)) {
-      rst.push(this);
-    }
-
-    Util.each(views, view => {
-      if (isPointInCoord(view.get('coord'), point)) {
-        rst.push(view);
-      }
-    });
-    return rst;
-  }
 }
 
 module.exports = View;
