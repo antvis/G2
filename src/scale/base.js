@@ -109,7 +109,7 @@ class Scale {
   getText(value) {
     const formatter = this.formatter;
     value = formatter ? formatter(value) : value;
-    if (Util.isNull(value) || !value.toString) {
+    if (Util.isNil(value) || !value.toString) {
       value = '';
     }
     return value.toString();

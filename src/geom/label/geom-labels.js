@@ -58,7 +58,7 @@ class GeomLabels extends Group {
       value = callback.apply(null, params);
     } else {
       const scale = scales[0];
-      value = originRecord[scale.field];
+      value = originRecord[scale.dim];
       if (Util.isArray(value)) {
         const tmp = [];
         Util.each(value, function(subVal) {
@@ -91,10 +91,9 @@ class GeomLabels extends Group {
     const labelCfg = self.get('labelCfg').cfg;
     const geomType = self.get('geomType');
     if (geomType === 'polygon' || (labelCfg && labelCfg.offset < 0 && Util.indexOf(IGNORE_ARR, geomType) === -1)) {
-      return Util.merge({}, /* self.get('label'), */labelCfg, Global.innerLabels);
+      return Util.merge({}, /* self.get('label'), labelCfg, */Global.innerLabels);
     }
-    // console.log(self.get('label'), labelCfg, Global.innerLabels);
-    return Util.merge({}, Global.innerLabels, self.get('label'), labelCfg);
+    return Util.merge({}, /* Global.innerLabels, */self.get('label'), labelCfg);
   }
 
   /**

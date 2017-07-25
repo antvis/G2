@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
-const Scale = require('../../../../src/scale/index');
 const { Canvas } = require('@ali/g');
+const Scale = require('../../../../src/scale/index');
 const Labels = require('../../../../src/geom/label/');
 const GeomLabels = require('../../../../src/geom/label/geom-labels');
 const PolarLabels = require('../../../../src/geom/label/polar-labels');
@@ -16,7 +16,7 @@ const canvas = new Canvas({
   width: 500,
   height: 500
 });
-describe.skip('labels constructor', function() {
+describe('labels constructor', function() {
   it('test default', function() {
     expect(Labels.getLabelsClass()).to.equal(GeomLabels);
     expect(Labels.getLabelsClass('rect')).to.equal(GeomLabels);
@@ -32,7 +32,7 @@ describe.skip('labels constructor', function() {
   });
 });
 
-describe.skip('geom labels', function() {
+describe('geom labels', function() {
   const coord = new Coord.Cartesian({
     start: {
       x: 0,

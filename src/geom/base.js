@@ -276,6 +276,7 @@ class GeomBase extends Base {
   label(field, cfg) {
     const self = this;
     let labelCfg = self.get('labelCfg');
+    // const scales = Util.map(self.get('labelCfg').fields, field => self._createScale(field));
     if (!labelCfg) {
       labelCfg = {};
       self.set('labelCfg', labelCfg);
