@@ -49,6 +49,10 @@ Util.each(Geom, function(geomConstructor, className) {
   };
 });
 
+/**
+ * 图表中的视图
+ * @class View
+ */
 class View extends Base {
   /**
    * 获取默认的配置属性
@@ -59,8 +63,8 @@ class View extends Base {
     return {
       viewContainer: null,
       coord: null,
-      start: { x: 0, y: 1 },
-      end: { x: 1, y: 0 },
+      start: { x: 0, y: 0 },
+      end: { x: 1, y: 1 },
       geoms: [],
       scales: {},
       options: {},
@@ -73,8 +77,17 @@ class View extends Base {
   constructor(cfg) {
     super(cfg);
     Util.mix(this, ViewGeoms);
+    this.init();
+  }
+
+  /**
+   * @protected
+   * 初始化
+   */
+  init() {
     this._initOptions();
     this._initControllers();
+    this._bindEvents();
   }
 
   // 初始化配置项
@@ -176,6 +189,14 @@ class View extends Base {
   _clearGeoms() {
     const self = this;
     const geoms = self.get('geoms');
+    Util.each(geoms, function(geom) {
+      geom.clear();
+    });
+  }
+
+  _removeGeoms() {
+    const self = this;
+    const geoms = self.get('geoms');
     while (geoms.length > 0) {
       const geom = geoms.shift();
       geom.destroy();
@@ -220,14 +241,19 @@ class View extends Base {
   _getViewRegion(plotStart, plotEnd) {
     const start = this.get('start');
     const end = this.get('end');
+    const startX = start.x;
+    const startY = 1 - end.y;
+    const endX = end.x;
+    const endY = 1 - start.y;
+
     const startPoint = {
-      x: start.x * (plotEnd.x - plotStart.x) + plotStart.x,
-      y: end.y * (plotEnd.y - plotStart.y) + plotStart.y
+      x: startX * (plotEnd.x - plotStart.x) + plotStart.x,
+      y: startY * (plotEnd.y - plotStart.y) + plotStart.y
 
     };
     const endPoint = {
-      x: end.x * (plotEnd.x - plotStart.x) + plotStart.x,
-      y: start.y * (plotEnd.y - plotStart.y) + plotStart.y
+      x: endX * (plotEnd.x - plotStart.x) + plotStart.x,
+      y: endY * (plotEnd.y - plotStart.y) + plotStart.y
     };
 
     return {
@@ -513,6 +539,7 @@ class View extends Base {
     this.set('scales', {});
     const options = this.get('options');
     options.geoms = null;
+    this._clearGeoms();
     // clear guide
     // clear axis
     this.get('backPlot') && this.get('backPlot').clear();
@@ -521,7 +548,7 @@ class View extends Base {
   clear() {
     const options = this.get('options');
     options.filters = null;
-    this._clearGeoms();
+    this._removeGeoms();
     const container = this.get('viewContainer');
     container.clear();
     this.clearInner();
@@ -573,7 +600,6 @@ class View extends Base {
   }
 
   render() {
-    this._bindEvents();
     const data = this.get('data');
     const filteredData = this.execFilter(data);
     if (!Util.isEmpty(filteredData)) {
