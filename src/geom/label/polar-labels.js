@@ -1,6 +1,6 @@
-const Util = require('@ali/g-util');
 const Labels = require('./geom-labels');
 const PathUtil = require('../util/path');
+const Util = require('../../util');
 
 class PolarLabels extends Labels {
   getPointRauis(coord, point) {
