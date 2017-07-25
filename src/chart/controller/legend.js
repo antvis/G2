@@ -77,10 +77,9 @@ class LegendController {
     const field = scale.field;
     legend.on('itemfilter', ev => {
       const range = ev.range;
-      chart.filter(field, field => {
-        return field >= range[0] && field <= range[1];
+      chart.filterShape(function(obj) {
+        return obj[field] >= range[0] && obj[field] <= range[1];
       });
-      // TODO fitlterShape
     });
   }
 

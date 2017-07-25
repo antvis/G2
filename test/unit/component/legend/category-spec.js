@@ -17,7 +17,7 @@ const canvas = new Canvas({
 const symbols = [ 'circle', 'diamond', 'square', 'triangle', 'triangle-down' ];
 const colors = [ '#ff6600', '#b01111', '#ac5724', '#572d8a', '#333333', '#7bab12', '#c25e5e', '#a6c96a', '#133960', '#2586e7' ];
 
-describe.skip('分类图例', function() {
+describe('分类图例', function() {
   it('默认', function() {
     const items = [];
     for (let i = 0; i < 5; i++) {
@@ -451,7 +451,7 @@ describe.skip('分类图例', function() {
     expect(legendItem.className).to.equal('g2-legend-item item-1 unChecked');
 
     let count = 0;
-    legend.on('legend:hover', function() {
+    legend.on('itemhover', function() {
       count = 1;
     });
 
