@@ -60,9 +60,10 @@ describe('polygon shapes', function() {
       expect(shape.attr('path')[5].length).eql(1);
     });
     it('getMarkerCfg', function() {
-      const markerCfg = Polygon.getMarkerCfg();
-
-      expect(markerCfg.symbol).equal('rect');
+      const markerCfg = Polygon.getMarkerCfg('polygon', {
+        color: '#f80'
+      });
+      expect(markerCfg.symbol).eql('square');
     });
     xit('getActiveCfg', function() {
       const activeCfg = Polygon.getActiveCfg('polygon');

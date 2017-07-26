@@ -60,6 +60,16 @@ class Chart extends View {
     this._initPlot();
     this._initEvents();
     super.init();
+
+    const tooltipController = new Controller.Tooltip({
+      chart: this
+    });
+    this.set('tooltipController', tooltipController);
+
+    const legendController = new Controller.Legend({
+      chart: this
+    });
+    this.set('legendController', legendController);
   }
   // 初始化画布
   _initCanvas() {
@@ -135,13 +145,15 @@ class Chart extends View {
   // 绘制图例
   _renderLegends() {
     const options = this.get('options');
-    if (Util.isNil(options.legends) || (options.legends !== false)) { // 没有关闭图例
-      const legendController = new Controller.Legend({
-        chart: this,
-        options: options.legends || {},
-        plotRange: this.get('plotRange')
-      });
-      this.set('legendController', legendController);
+    const legendOptions = options.legends;
+    if (Util.isNil(legendOptions) || (legendOptions !== false)) { // 没有关闭图例
+      const legendController = this.get('legendController');
+      legendController.options = legendOptions || {};
+      legendController.plotRange = this.get('plotRange');
+
+      if (legendOptions && legendOptions.custom) { // 用户自定义图例
+        legendController.addCustomLegend();
+      }
 
       const geoms = this.getAllGeoms();
       const scales = [];
@@ -167,12 +179,9 @@ class Chart extends View {
   _renderTooltips() {
     const options = this.get('options');
     if (Util.isNil(options.tooltip) || options.tooltip !== false) { // 用户没有关闭 tooltip
-      const tooltipController = new Controller.Tooltip({
-        chart: this,
-        options: options.tooltip || {}
-      });
+      const tooltipController = this.get('tooltipController');
+      tooltipController.options = options.tooltip || {};
       tooltipController.renderTooltip();
-      this.set('tooltipController', tooltipController);
     }
   }
 

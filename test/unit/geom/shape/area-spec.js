@@ -104,14 +104,7 @@ describe('area shapes', function() {
       expect(pointCfg.stroke).equal('#ff8800');
       expect(pointCfg.fillOpacity).equal(0.8);
       expect(pointCfg.lineWidth).equal(30);
-      expect(pointCfg.symbol(1, 1, 2)).eql([
-        [ 'M', -1, 3 ],
-        [ 'L', -1, -1 ],
-        [ 'L', 1, 1 ],
-        [ 'L', 3, -1 ],
-        [ 'L', 3, 3 ],
-        [ 'z' ]
-      ]);
+      expect(pointCfg.symbol).to.be.an.instanceof(Function);
     });
 
     xit('getActiveCfg', function() {
@@ -188,7 +181,7 @@ describe('area shapes', function() {
       expect(splinePointCfg).eql(pointCfg);
       expect(pointCfg.fill).equal(Global.defaultColor);
       expect(pointCfg.fillOpacity).equal(0.6);
-      expect(pointCfg.symbol(1, 1, 2).length).equal(5);
+      expect(pointCfg.symbol).to.be.an.instanceof(Function);
     });
   });
 
@@ -256,14 +249,7 @@ describe('area shapes', function() {
 
       expect(pointCfg.fill).equal('#fff');
       expect(pointCfg.fillOpacity).equal(0);
-      expect(pointCfg.symbol(1, 1, 2)).eql([
-        [ 'M', -1, 3 ],
-        [ 'L', -1, -1 ],
-        [ 'L', 1, 1 ],
-        [ 'L', 3, -1 ],
-        [ 'L', 3, 3 ],
-        [ 'z' ]
-      ]);
+      expect(pointCfg.symbol).to.be.an.instanceof(Function);
     });
   });
 

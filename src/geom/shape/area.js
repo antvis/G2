@@ -1,6 +1,7 @@
 /**
  * @fileOverview area shape
  * @author dxq613@gmail.com
+ * @author sima.zhang1990@gmail.com
  */
 
 const Util = require('../../util');
@@ -60,25 +61,22 @@ function getPath(cfg, smooth) {
   return path;
 }
 
-function _markerFn(x, y, r) {
-  return [
-    [ 'M', x - r, y + r ],
-    [ 'L', x - r, y - r ],
-    [ 'L', x, y ],
-    [ 'L', x + r, y - r ],
-    [ 'L', x + r, y + r ],
-    [ 'z' ]
-  ];
+function _markerFn(x, y, r, ctx) {
+  ctx.moveTo(x - r, y + r);
+  ctx.lineTo(x - r, y - r);
+  ctx.lineTo(x, y);
+  ctx.lineTo(x + r, y - r);
+  ctx.lineTo(x + r, y + r);
+  ctx.closePath();
 }
 
-function _smoothMarkerFn(x, y, r) {
-  return [
-    [ 'M', x - r, y + r ],
-    [ 'L', x - r, y ],
-    [ 'R', x - r / 2, y - r / 2, x, y, x + r / 2, y + r / 2, x + r, y ],
-    [ 'L', x + r, y + r ],
-    [ 'Z' ]
-  ];
+function _smoothMarkerFn(x, y, r, ctx) {
+  ctx.moveTo(x - r, y + r);
+  ctx.lineTo(x - r, y);
+  ctx.arcTo(x - r / 2, y - r / 2, x, y, r);
+  ctx.arcTo(x + r / 2, y + r / 2, x + r, y, r);
+  ctx.lineTo(x + r, y + r);
+  ctx.closePath();
 }
 
 // get marker cfg
@@ -86,25 +84,13 @@ function _getMarkerCfg(cfg, smooth, hollow) {
   const areaCfg = hollow ? getLineAttrs(cfg) : getFillAttrs(cfg);
 
   return Util.mix({
-    symbol: smooth ? _smoothMarkerFn : _markerFn
+    symbol: smooth ? _smoothMarkerFn : _markerFn,
+    radius: 5
   }, areaCfg);
 }
 
 // 鼠标悬浮触发active状态
 function getActiveCfg(/* type, cfg */) {
-  /* const activeCfg = {};
-  const origin = cfg.origin;
-  const points = [];
-  Util.each(origin, obj => {
-    points.push({
-      x: obj.x,
-      y: Util.isArray(obj.y) ? obj.y[1] : obj.y
-    });
-  });
-  const path = PathUtil.getSplinePath(points, false); // 考虑极坐标
-  activeCfg.path = path;
-  activeCfg.lineWidth = cfg.lineWidth ? cfg.lineWidth + 1 : 2;*/
-
   return {
     fill: '#000',
     fillOpacity: 0.7,

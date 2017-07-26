@@ -57,10 +57,7 @@ describe('line shapes', function() {
       const pointCfg = Line.getMarkerCfg(undefined, point);
       expect(pointCfg.opacity).to.be.equal(0.8);
       expect(pointCfg.lineWidth).to.be.equal(30);
-      expect(pointCfg.symbol(10, 10, 5)).eql([
-        [ 'M', 5, 10 ],
-        [ 'L', 15, 10 ]
-      ]);
+      expect(pointCfg.symbol).to.be.an.instanceof(Function);
     });
 
     xit('getActiveCfg', function() {
@@ -151,10 +148,7 @@ describe('line shapes', function() {
       const pointCfg = Line.getMarkerCfg('dot', point);
 
       expect(pointCfg.lineDash).eql([ 2, 1 ]);
-      expect(pointCfg.symbol(10, 10, 5)).eql([
-        [ 'M', 5, 10 ],
-        [ 'L', 15, 10 ]
-      ]);
+      expect(pointCfg.symbol).to.be.an.instanceof(Function);
     });
   });
 
@@ -181,10 +175,7 @@ describe('line shapes', function() {
       const pointCfg = Line.getMarkerCfg('dash', point);
 
       expect(pointCfg.lineDash).eql([ 10, 5 ]);
-      expect(pointCfg.symbol(10, 10, 5)).eql([
-        [ 'M', 5, 10 ],
-        [ 'L', 15, 10 ]
-      ]);
+      expect(pointCfg.symbol).to.be.an.instanceof(Function);
     });
   });
 
@@ -314,34 +305,10 @@ describe('line shapes', function() {
       const hvhPointCfg = Line.getMarkerCfg('hvh', point);
       const vhvPointCfg = Line.getMarkerCfg('vhv', point);
 
-      expect(pointCfg.symbol(2, 2, 2)).eql([
-        [ 'M', 0, 0 ],
-        [ 'L', 2, 0 ],
-        [ 'L', 2, 2 ],
-        [ 'L', 4, 2 ]
-      ]);
-      expect(vhPointCfg.symbol(2, 2, 2)).eql([
-        [ 'M', 0, 2 ],
-        [ 'L', 2, 2 ],
-        [ 'L', 2, 0 ],
-        [ 'L', 4, 0 ]
-      ]);
-      expect(hvhPointCfg.symbol(2, 2, 2)).eql([
-        [ 'M', -1, 2 ],
-        [ 'L', 1, 2 ],
-        [ 'L', 1, 1 ],
-        [ 'L', 3, 1 ],
-        [ 'L', 3, 2 ],
-        [ 'L', 5, 2 ]
-      ]);
-      expect(vhvPointCfg.symbol(2, 2, 2)).eql([
-        [ 'M', 0, 2 ],
-        [ 'L', 0, 1 ],
-        [ 'L', 2, 1 ],
-        [ 'L', 2, 0 ],
-        [ 'L', 2, 3 ],
-        [ 'L', 4, 3 ]
-      ]);
+      expect(pointCfg.symbol).to.be.an.instanceof(Function);
+      expect(vhPointCfg.symbol).to.be.an.instanceof(Function);
+      expect(hvhPointCfg.symbol).to.be.an.instanceof(Function);
+      expect(vhvPointCfg.symbol).to.be.an.instanceof(Function);
     });
 
     it('clear', function() {

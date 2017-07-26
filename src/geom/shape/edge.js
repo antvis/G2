@@ -135,6 +135,12 @@ Shape.registShape('edge', 'line', {
       })
     });
     return line;
+  },
+  getMarkerCfg(cfg) {
+    return Util.mix({
+      symbol: 'circle',
+      radius: 4
+    }, getAttrs(cfg));
   }
 });
 
@@ -150,6 +156,12 @@ Shape.registShape('edge', 'vhv', {
       })
     });
     return line;
+  },
+  getMarkerCfg(cfg) {
+    return Util.mix({
+      symbol: 'circle',
+      radius: 4
+    }, getAttrs(cfg));
   }
 });
 
@@ -166,6 +178,12 @@ Shape.registShape('edge', 'smooth', {
       })
     });
     return line;
+  },
+  getMarkerCfg(cfg) {
+    return Util.mix({
+      symbol: 'circle',
+      radius: 4
+    }, getAttrs(cfg));
   }
 });
 
@@ -228,6 +246,12 @@ Shape.registShape('edge', 'arc', {
       }
     }
     return line;
+  },
+  getMarkerCfg(cfg) {
+    return Util.mix({
+      symbol: 'circle',
+      radius: 4
+    }, getAttrs(cfg));
   }
 });
 
