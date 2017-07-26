@@ -1,6 +1,7 @@
 /**
  * @fileOverview interval shapes
  * @author dxq613@gmail.com
+ * @author sima.zhang1990@gmail.com
  * @author huangtonger@aliyun.com
  */
 
@@ -281,7 +282,8 @@ Shape.registShape('interval', 'rect', {
     const isInCircle = cfg.isInCircle;
     const symbol = isInCircle ? 'circle' : 'square';
     return Util.mix({
-      symbol
+      symbol,
+      radius: 4
     }, rectCfg);
   }
 });
@@ -306,7 +308,8 @@ Shape.registShape('interval', 'hollowRect', {
     const isInCircle = cfg.isInCircle;
     const symbol = isInCircle ? 'circle' : 'square';
     return Util.mix({
-      symbol
+      symbol,
+      radius: 4
     }, rectCfg);
   }
 });
@@ -330,7 +333,8 @@ Shape.registShape('interval', 'line', {
   getMarkerCfg(cfg) {
     const lineCfg = getLineAttrs(cfg);
     return Util.mix({
-      symbol: 'line'
+      symbol: 'line',
+      radius: 4
     }, lineCfg);
   }
 });
@@ -353,7 +357,8 @@ Shape.registShape('interval', 'tick', {
   getMarkerCfg(cfg) {
     const lineCfg = getLineAttrs(cfg);
     return Util.mix({
-      symbol: 'tick'
+      symbol: 'tick',
+      radius: 4
     }, lineCfg);
   }
 });
@@ -377,7 +382,8 @@ Shape.registShape('interval', 'funnel', {
   getMarkerCfg(cfg) {
     const funnelCfg = getFillAttrs(cfg);
     return Util.mix({
-      symbol: 'square'
+      symbol: 'square',
+      radius: 4
     }, funnelCfg);
   }
 });
@@ -401,7 +407,8 @@ Shape.registShape('interval', 'pyramid', {
   getMarkerCfg(cfg) {
     const funnelCfg = getFillAttrs(cfg);
     return Util.mix({
-      symbol: 'square'
+      symbol: 'square',
+      radius: 4
     }, funnelCfg);
   }
 });

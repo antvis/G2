@@ -1,6 +1,7 @@
 /**
  * @fileOverview line shapes
  * @author dxq613@gmail.com
+ * @author sima.zhang1990@gmail.com
  * @author huangtonger@aliyun.com
  */
 
@@ -67,17 +68,6 @@ const Polygon = Shape.registerFactory('polygon', {
     });
     return points;
   },
-  /**
-   * 获取图形对应的marker
-   * @param  {String} type 类型
-   * @param  {Object} cfg  配置项
-   * @return {Object} 线的配置信息
-   */
-  getMarkerCfg(/* type,cfg */) {
-    return {
-      symbol: 'rect'
-    };
-  },
   getActiveCfg(type, cfg) {
     return {
       lineWidth: cfg.lineWidth ? cfg.lineWidth + 1 : 1,
@@ -103,6 +93,12 @@ Shape.registShape('polygon', 'polygon', {
         path
       })
     });
+  },
+  getMarkerCfg(cfg) {
+    return Util.mix({
+      symbol: 'square',
+      radius: 4
+    }, getAttrs(cfg));
   }
 });
 
@@ -117,6 +113,12 @@ Shape.registShape('polygon', 'hollow', {
         path
       })
     });
+  },
+  getMarkerCfg(cfg) {
+    return Util.mix({
+      symbol: 'square',
+      radius: 4
+    }, getAttrs(cfg));
   }
 });
 

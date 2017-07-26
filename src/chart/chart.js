@@ -135,13 +135,18 @@ class Chart extends View {
   // 绘制图例
   _renderLegends() {
     const options = this.get('options');
-    if (Util.isNil(options.legends) || (options.legends !== false)) { // 没有关闭图例
+    const legendOptions = options.legends;
+    if (Util.isNil(legendOptions) || (legendOptions !== false)) { // 没有关闭图例
       const legendController = new Controller.Legend({
         chart: this,
-        options: options.legends || {},
+        options: legendOptions || {},
         plotRange: this.get('plotRange')
       });
       this.set('legendController', legendController);
+
+      if (legendOptions && legendOptions.custom) { // 用户自定义图例
+        legendController.addCustomLegend();
+      }
 
       const geoms = this.getAllGeoms();
       const scales = [];

@@ -1,6 +1,7 @@
 /**
  * @fileOverview line shapes
  * @author dxq613@gmail.com
+ * @author sima.zhang1990@gmail.com
  * @author huangtonger@aliyun.com
  */
 
@@ -91,36 +92,33 @@ function _getInterPointShapeCfg(cfg, fn) {
   return _getInterPath(points);
 }
 
-function _markerFn(x, y, r) {
-  return [
-    [ 'M', x - r, y ],
-    [ 'L', x + r, y ]
-  ];
+function _markerFn(x, y, r, ctx) {
+  ctx.moveTo(x - r, y);
+  ctx.lineTo(x + r, y);
 }
 
-function _smoothMarkerFn(x, y, r) {
-  return [
-    [ 'M', x - r, y ],
-    [ 'R', x - r / 2, y - r / 2, x, y, x + r / 2, y + r / 2, x + r, y ]
-  ];
+function _smoothMarkerFn(x, y, r, ctx) {
+  ctx.moveTo(x - r, y);
+  ctx.arcTo(x - r / 2, y - r / 2, x, y, r);
+  ctx.arcTo(x + r / 2, y + r / 2, x + r, y, r);
 }
 // get marker cfg
 function _getMarkerCfg(cfg, smooth) {
   return Util.mix({
-    symbol: smooth ? _smoothMarkerFn : _markerFn
+    symbol: smooth ? _smoothMarkerFn : _markerFn,
+    radius: 5
   }, getAttrs(cfg));
 }
 
 function _getInterMarkerCfg(cfg, fn) {
   return Util.mix({
-    symbol: fn
+    symbol: fn,
+    radius: 5
   }, getAttrs(cfg));
 }
 
 // 当只有一个数据时绘制点
 function drawPointShape(shapeObj, cfg, container) {
-  // const coord = shapeObj._coord;
-  // const point = coord.convertPoint(cfg.points[0]);
   const point = cfg.points[0];
   return container.addShape('circle', {
     attrs: Util.mix({
@@ -253,13 +251,11 @@ Shape.registerShape('line', 'hv', {
     });
   },
   getMarkerCfg(cfg) {
-    return _getInterMarkerCfg(cfg, function(x, y, r) {
-      return [
-        [ 'M', x - r, y - r ],
-        [ 'L', x, y - r ],
-        [ 'L', x, y ],
-        [ 'L', x + r, y ]
-      ];
+    return _getInterMarkerCfg(cfg, function(x, y, r, ctx) {
+      ctx.moveTo(x - r, y - r);
+      ctx.lineTo(x, y - r);
+      ctx.lineTo(x, y);
+      ctx.lineTo(x + r, y);
     });
   }
 });
@@ -282,13 +278,11 @@ Shape.registerShape('line', 'vh', {
     });
   },
   getMarkerCfg(cfg) {
-    return _getInterMarkerCfg(cfg, function(x, y, r) {
-      return [
-        [ 'M', x - r, y ],
-        [ 'L', x, y ],
-        [ 'L', x, y - r ],
-        [ 'L', x + r, y - r ]
-      ];
+    return _getInterMarkerCfg(cfg, function(x, y, r, ctx) {
+      ctx.moveTo(x - r, y);
+      ctx.lineTo(x, y);
+      ctx.lineTo(x, y - r);
+      ctx.lineTo(x + r, y - r);
     });
   }
 });
@@ -316,15 +310,13 @@ Shape.registerShape('line', 'hvh', {
     });
   },
   getMarkerCfg(cfg) {
-    return _getInterMarkerCfg(cfg, function(x, y, r) {
-      return [
-        [ 'M', x - r * 3 / 2, y ],
-        [ 'L', x - r / 2, y ],
-        [ 'L', x - r / 2, y - r / 2 ],
-        [ 'L', x + r / 2, y - r / 2 ],
-        [ 'L', x + r / 2, y ],
-        [ 'L', x + r * 3 / 2, y ]
-      ];
+    return _getInterMarkerCfg(cfg, function(x, y, r, ctx) {
+      ctx.moveTo(x - r * 3 / 2, y);
+      ctx.lineTo(x - r / 2, y);
+      ctx.lineTo(x - r / 2, y - r / 2);
+      ctx.lineTo(x + r / 2, y - r / 2);
+      ctx.lineTo(x + r / 2, y);
+      ctx.lineTo(x + r * 3 / 2, y);
     });
   }
 });
@@ -352,15 +344,13 @@ Shape.registerShape('line', 'vhv', {
     });
   },
   getMarkerCfg(cfg) {
-    return _getInterMarkerCfg(cfg, function(x, y, r) {
-      return [
-        [ 'M', x - r, y ],
-        [ 'L', x - r, y - r / 2 ],
-        [ 'L', x, y - r / 2 ],
-        [ 'L', x, y - r ],
-        [ 'L', x, y + r / 2 ],
-        [ 'L', x + r, y + r / 2 ]
-      ];
+    return _getInterMarkerCfg(cfg, function(x, y, r, ctx) {
+      ctx.moveTo(x - r, y);
+      ctx.lineTo(x - r, y - r / 2);
+      ctx.lineTo(x, y - r / 2);
+      ctx.lineTo(x, y - r);
+      ctx.lineTo(x, y + r / 2);
+      ctx.lineTo(x + r, y + r / 2);
     });
   }
 });
