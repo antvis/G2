@@ -58,7 +58,6 @@ describe('AxisController', function() {
     };
     expect(as._isHide('a')).to.equal(true);
     expect(as._isHide('b')).to.equal(false);
-    expect(as._isHide('..y')).to.equal(true);
   });
 
   describe('_getAxisPosition 确定坐标轴的位置', function() {

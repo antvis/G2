@@ -2,7 +2,6 @@ const Util = require('../../util');
 const { Axis } = require('../../component/index');
 const { vec2 } = require('@ali/g').MatrixUtil;
 const Global = require('../../global');
-const HIDE_FIELDS = [ '..x', '..y', '..long', '..lant', '..pieX' ]; // TODO: more名字可能变了
 
 function formatTicks(ticks) {
   let tmp = [];
@@ -35,9 +34,6 @@ class AxisController {
 
   _isHide(field) { // 对应的坐标轴是否隐藏
     const options = this.options;
-    if (Util.inArray(HIDE_FIELDS, field) && Util.isNil(options[field])) {
-      return true; // 默认不展示带 .. 的 dim
-    }
 
     if (options && options[field] === false) {
       return true;
