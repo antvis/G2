@@ -186,9 +186,11 @@ class View extends Base {
     const coord = this.get('coord');
 
     Util.each(geoms, function(geom) {
-      geom.set('data', filteredData);
-      geom.set('coord', coord);
-      geom.init();
+      if (geom.get('visible')) {
+        geom.set('data', filteredData);
+        geom.set('coord', coord);
+        geom.init();
+      }
     });
   }
 
@@ -213,8 +215,10 @@ class View extends Base {
     const geoms = this.get('geoms');
     const coord = this.get('coord');
     Util.each(geoms, function(geom) {
-      geom.setCoord(coord);
-      geom.paint();
+      if (geom.get('visible')) {
+        geom.setCoord(coord);
+        geom.paint();
+      }
     });
   }
 
@@ -709,13 +713,31 @@ class View extends Base {
     this.repaint();
   }
 
-  render() {
+  /**
+   * 绘制 view 的内容
+   * @protected
+   */
+  renderView() {
     const data = this.get('data');
     const filteredData = this.execFilter(data);
     if (!Util.isEmpty(filteredData)) {
       this.set('filteredData', filteredData);
       this.initView();
       this.paint();
+    }
+  }
+
+  render(stopDraw) {
+    const views = this.get('views');
+    Util.each(views, function(view) {
+      if (view.get('visible')) {
+        view.render(true);
+      }
+    });
+    this.renderView();
+    if (!stopDraw) {
+      const canvas = this.get('canvas');
+      canvas.draw();
     }
     return this;
   }
@@ -734,12 +756,15 @@ class View extends Base {
     this._renderAxes();
   }
 
+  changeVisible(visible) {
+    const parent = this.get('parent') || this;
+    parent.repaint();
+    const viewContainer = this.get('viewContainer');
+    viewContainer.set('visible', visible);
+  }
+
   repaint() {
     this.clearInner();
-    const geoms = this.get('geoms');
-    Util.each(geoms, function(geom) {
-      geom.clear();
-    });
     this.render();
   }
 
@@ -747,8 +772,6 @@ class View extends Base {
     this.clear();
     super.destroy();
   }
-
-
 }
 
 module.exports = View;

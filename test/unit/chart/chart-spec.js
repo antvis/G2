@@ -136,6 +136,9 @@ describe('test chart with views', function() {
     chart.clear();
     expect(chart.get('views').length).equal(0);
     expect(chart.get('viewContainer').getCount()).equal(0);
+  });
+
+  it('destroy', function() {
     chart.destroy();
     expect(chart.destroyed).equal(true);
   });
@@ -323,5 +326,53 @@ describe('filter shape', function() {
   it('destroy', function() {
     chart.destroy();
     expect(chart.destroyed).equal(true);
+  });
+});
+
+describe('visible', function() {
+  let chart;
+  const data = [
+      { a: 1, b: 2, c: '1' },
+      { a: 2, b: 5, c: '1' },
+      { a: 3, b: 4, c: '1' },
+
+      { a: 1, b: 3, c: '2' },
+      { a: 2, b: 1, c: '2' },
+      { a: 3, b: 2, c: '2' }
+  ];
+
+  it('chart show hide', function() {
+    chart = new Chart({
+      height: 500,
+      forceFit: true,
+      container: 'cchart',
+      animate: false
+    });
+    chart.hide();
+    expect(chart.get('wrapperEl').style.display).equal('none');
+    chart.show();
+    expect(chart.get('wrapperEl').style.display).equal('');
+  });
+
+  it('view show hide', function() {
+    const v1 = chart.view();
+    v1.source(data);
+    v1.line().position('a*b').color('c');
+    chart.render();
+
+    const viewContainer = chart.get('viewContainer');
+    expect(viewContainer.getCount()).equal(1);
+    expect(viewContainer.getFirst().get('visible')).equal(true);
+    v1.hide();
+    expect(viewContainer.getFirst().get('visible')).equal(false);
+
+  });
+
+  it('multiple views show hide', function() {
+    // body...
+  });
+
+  it('geom show hide', function() {
+    // body...
   });
 });

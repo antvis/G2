@@ -873,6 +873,15 @@ class GeomBase extends Base {
     return rst;
   }
 
+  changeVisible(visible) {
+    const view = this.get('view');
+    if (view) {
+      view.repaint();
+    }
+    const container = this.get('container');
+    container.set('visible', visible);
+  }
+
   reset() {
     this.set('attrOptions', {});
     this.clearInner();
