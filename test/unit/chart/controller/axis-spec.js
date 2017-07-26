@@ -275,25 +275,6 @@ describe('AxisController', function() {
     });
   });
 
-  describe('_getPolyLineCfg 获取由多个点组成的坐标轴。', function() {
-    it('_getPolyLineCfg', function() {
-      const coord = new Coord.Rect({
-        start,
-        end
-      });
-      const polyLineCfg = as._getPolyLineCfg(coord, scaleX, 'x');
-      expect(polyLineCfg.start).to.eql({
-        x: 0,
-        y: 500
-      });
-      expect(polyLineCfg.end).to.eql({
-        x: 500,
-        y: 500
-      });
-      expect(polyLineCfg.tickPoints.length).to.equal(10);
-    });
-  });
-
   describe('_getHelixCfg ', function() {
     it('_getHelixCfg', function() {
       const coord = new Coord.Helix({

@@ -1,4 +1,4 @@
-const { Group, PathUtil } = require('@ali/g');
+const { Group } = require('@ali/g');
 const Util = require('../../util');
 
 class Grid extends Group {
@@ -27,12 +27,7 @@ class Grid extends Group {
        * @type {String | Array}
        */
       alternateColor: null,
-      matrix: null,
-      /**
-       * 是否绘制平滑线，用于地理坐标轴
-       * @type {[type]}
-       */
-      smooth: null
+      matrix: null
     };
   }
 
@@ -66,9 +61,7 @@ class Grid extends Group {
   _drawGridLines(items, lineStyle) {
     const self = this;
     const type = this.get('type');
-    const smooth = this.get('smooth'); // 用于绘制地理投影的坐标轴网格线
     let gridLine;
-    let points;
     let path;
     let cfg;
     const start = this.get('start');
@@ -79,24 +72,16 @@ class Grid extends Group {
         if (start && start.x === item[0].x && item[0].y === start.y) {
           return;
         }
-        if (smooth) { // 平缓处理
-          points = [];
-          Util.each(item, function(subItem) {
-            points.push(subItem.x);
-            points.push(subItem.y);
-          });
-          path = PathUtil.catmullRomToBezier(points);
-          path.unshift([ 'M', item[0].x, item[0].y ]);
-        } else {
-          path = [];
-          Util.each(item, function(subItem, index) {
-            if (index === 0) {
-              path.push([ 'M', subItem.x, subItem.y ]);
-            } else {
-              path.push([ 'L', subItem.x, subItem.y ]);
-            }
-          });
-        }
+
+        path = [];
+        Util.each(item, function(subItem, index) {
+          if (index === 0) {
+            path.push([ 'M', subItem.x, subItem.y ]);
+          } else {
+            path.push([ 'L', subItem.x, subItem.y ]);
+          }
+        });
+
         cfg = Util.mix({}, lineStyle, {
           path
         });

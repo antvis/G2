@@ -2,7 +2,7 @@ const Util = require('../../util');
 const { Axis } = require('../../component/index');
 const { vec2 } = require('@ali/g').MatrixUtil;
 const Global = require('../../global');
-const HIDE_DIMS = [ '..x', '..y', '..long', '..lant', '..pieX' ]; // TODO: 常量可以统一放在某个地方
+const HIDE_FIELDS = [ '..x', '..y', '..long', '..lant', '..pieX' ]; // TODO: more名字可能变了
 
 function formatTicks(ticks) {
   let tmp = [];
@@ -35,7 +35,7 @@ class AxisController {
 
   _isHide(field) { // 对应的坐标轴是否隐藏
     const options = this.options;
-    if (Util.inArray(HIDE_DIMS, field) && Util.isNil(options[field])) {
+    if (Util.inArray(HIDE_FIELDS, field) && Util.isNil(options[field])) {
       return true; // 默认不展示带 .. 的 dim
     }
 
@@ -204,27 +204,6 @@ class AxisController {
     };
   }
 
-  _getPolyLineCfg(coord, scale, dimType) {
-    const ticks = scale.getTicks();
-    const tickPoints = [];
-    const range = this._getLineRange(coord, scale, dimType);
-    const isVertical = range.isVertical; // 标识该坐标轴是否是纵坐标
-
-    Util.each(ticks, tick => {
-      const point = coord.convert({
-        x: isVertical ? 0 : tick.value,
-        y: isVertical ? tick.value : 0
-      });
-      tickPoints.push(point);
-    });
-
-    return {
-      start: range.start,
-      end: range.end,
-      tickPoints
-    };
-  }
-
   // 确定坐标轴的位置
   _getAxisPosition(coord, dimType, index) {
     const coordType = coord.type;
@@ -320,9 +299,6 @@ class AxisController {
         });
       }
       cfg.grid.items = gridPoints;
-      if (cfg.coord.type === 'map') {
-        cfg.grid.smooth = true;
-      }
     }
     return cfg;
   }
@@ -361,10 +337,7 @@ class AxisController {
     let C; // 坐标轴类
     let appendCfg; // 每个坐标轴 start end 等绘制边界的信息
 
-    if (coord.type === 'map' && dimType === 'x') {
-      C = Axis.PolyLine;
-      appendCfg = this._getPolyLineCfg(coord, scale, dimType);
-    } else if (coord.type === 'cartesian') {
+    if (coord.type === 'cartesian') {
       C = Axis.Line;
       appendCfg = this._getLineCfg(coord, scale, dimType, index);
     } else if (coord.type === 'helix' && dimType === 'x') {
