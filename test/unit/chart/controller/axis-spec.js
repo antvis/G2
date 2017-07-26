@@ -194,7 +194,7 @@ describe('AxisController', function() {
       expect(circleCfg.startAngle).to.equal(-1.5707963267948966);
       expect(circleCfg.endAngle).to.equal(4.71238898038469);
       expect(circleCfg.radius).to.equal(250);
-      expect(circleCfg.innerRadius).to.equal(0);
+      expect(circleCfg.inner).to.equal(0);
       expect(circleCfg.center).to.eql({ x: 250, y: 250 });
     });
 
@@ -228,7 +228,7 @@ describe('AxisController', function() {
       expect(circleCfg.startAngle).to.equal(-1.5707963267948966);
       expect(circleCfg.endAngle).to.equal(4.71238898038469);
       expect(circleCfg.radius).to.equal(250);
-      expect(circleCfg.innerRadius).to.equal(0.5);
+      expect(circleCfg.inner).to.equal(0.5);
       expect(circleCfg.center).to.eql({
         x: 250,
         y: 250

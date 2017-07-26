@@ -59,7 +59,7 @@ class Helix extends Base {
     const self = this;
     const center = self.get('center');
     const a = self.get('a'); // 螺线系数
-    const radius = a * angle; // 螺线方程
+    const radius = a * angle + self.get('inner'); // 螺线方程
     return {
       x: center.x + Math.cos(angle) * radius,
       y: center.y + Math.sin(angle) * radius

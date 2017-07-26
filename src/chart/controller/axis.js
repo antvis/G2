@@ -169,7 +169,7 @@ class AxisController {
     circleCfg.endAngle = endAngle;
     circleCfg.center = center;
     circleCfg.radius = Math.sqrt(Math.pow(start.x - center.x, 2) + Math.pow(start.y - center.y, 2));
-    circleCfg.innerRadius = coord.innerRadius || 0;
+    circleCfg.inner = coord.innerRadius || 0;
     return circleCfg;
   }
 
@@ -328,7 +328,7 @@ class AxisController {
     helixCfg.crp = crp;
     helixCfg.axisStart = axisStart;
     helixCfg.center = coord.center;
-    helixCfg.innerRadius = coord.y.start; // 内半径
+    helixCfg.inner = coord.y.start; // 内半径
     return helixCfg;
   }
 
