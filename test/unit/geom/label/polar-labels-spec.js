@@ -31,7 +31,7 @@ describe('polar labels', function() {
   });
 
   const labelScale = Scale.cat({
-    dim: 'z',
+    field: 'z',
     values: [ '1', '2', '3', '4' ]
   });
   const points = [
@@ -60,7 +60,7 @@ describe('polar labels', function() {
     _origin: { x: [ 60, 80 ], y: [ 50, 50 ], z: [ '3', '4' ] }
   }];
   const labelScale1 = Scale.cat({
-    dim: 'z',
+    field: 'z',
     values: [[ '1', '2' ], [ '3', '4' ]]
   });
   describe('one point one label', function() {

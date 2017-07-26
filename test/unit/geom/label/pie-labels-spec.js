@@ -59,7 +59,7 @@ describe('pie labels', function() {
     }
 
     const scale = Scale.cat({
-      dim: 'label',
+      field: 'label',
       values
     });
     let gLabels;
@@ -161,7 +161,7 @@ describe('pie labels', function() {
       points.push(point);
     }
     const scale = Scale.cat({
-      dim: 'label',
+      field: 'label',
       values
     });
     let gLabels;
@@ -250,7 +250,7 @@ describe('pie labels', function() {
       points.push(point);
     }
     const scale = Scale.cat({
-      dim: 'label',
+      field: 'label',
       values
     });
     let gLabels;
@@ -321,7 +321,7 @@ describe('pie labels', function() {
       points.push(point);
     }
     const scale = Scale.cat({
-      dim: 'label',
+      field: 'label',
       values
     });
 
@@ -612,7 +612,7 @@ describe('pie labels', function() {
       points.push(point);
     }
     const scale = Scale.cat({
-      dim: 'label',
+      field: 'label',
       values
     });
     let gLabels;

@@ -26,6 +26,7 @@
       });
 
       const chart = new G2.Chart({
+        animate: false,
         container: 'canvas',
         forceFit: true,
         height: window.innerHeight
@@ -40,7 +41,9 @@
           alias: '唱片发行年份'
         }
       });
-      chart.interval().position('release*count').color('#e50000');
+      chart.interval()
+        .position('release*count')
+        .color('#e50000');
       chart.render();
     });
   </script>

@@ -46,7 +46,7 @@ describe('geom labels', function() {
   });
 
   const labelScale = Scale.cat({
-    dim: 'z',
+    field: 'z',
     values: [ '1', '2' ]
   });
   const points = [
@@ -55,7 +55,7 @@ describe('geom labels', function() {
   ];
 
   const labelScale1 = Scale.cat({
-    dim: 'z',
+    field: 'z',
     values: [[ '1', '2' ], [ '3', '4' ]]
   });
   const points1 = [
@@ -195,7 +195,7 @@ describe('geom labels', function() {
 
   describe('stack points', function() {
     const scale = Scale.cat({
-      dim: 'text',
+      field: 'text',
       values: [ 'a', 'b' ]
     });
     const points = [

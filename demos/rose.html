@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="geometry" content="interval">
-  <title>Bar Plot</title>
+  <title>Rose Plot</title>
 </head>
 
 <body>
@@ -23,9 +23,11 @@
       { value: 400, name: '搜索引擎' }
     ];
     const chart = new G2.Chart({
+      animate: false,
       container: 'canvas',
       forceFit: true,
-      height: 450
+      height: window.innerHeight,
+      padding: 0
     });
     const ds = new DataSet();
     const dv = ds.createView('test').source(data);
