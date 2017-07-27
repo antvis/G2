@@ -186,9 +186,11 @@ class View extends Base {
     const coord = this.get('coord');
 
     Util.each(geoms, function(geom) {
-      geom.set('data', filteredData);
-      geom.set('coord', coord);
-      geom.init();
+      if (geom.get('visible')) {
+        geom.set('data', filteredData);
+        geom.set('coord', coord);
+        geom.init();
+      }
     });
   }
 
@@ -213,8 +215,10 @@ class View extends Base {
     const geoms = this.get('geoms');
     const coord = this.get('coord');
     Util.each(geoms, function(geom) {
-      geom.setCoord(coord);
-      geom.paint();
+      if (geom.get('visible')) {
+        geom.setCoord(coord);
+        geom.paint();
+      }
     });
   }
 
@@ -300,7 +304,7 @@ class View extends Base {
       guideController.render(coord);
     }
   }
-
+  // 注册事件
   _bindEvents() {
     const eventController = new Controller.Event({
       view: this,
@@ -308,6 +312,11 @@ class View extends Base {
     });
     eventController.bindEvents();
     this.set('eventController', eventController);
+  }
+  // 清理时间
+  _clearEvents() {
+    const eventController = this.get('eventController');
+    eventController && eventController.clearEvents();
   }
 
   _getScales(dimType) {
@@ -382,7 +391,9 @@ class View extends Base {
   }
 
   getXScale() {
-    const geoms = this.get('geoms');
+    const geoms = this.get('geoms').filter(function(geom) {
+      return geom.get('visible');
+    });
     let xScale = null;
     if (!Util.isEmpty(geoms)) {
       xScale = geoms[0].getXScale();
@@ -391,7 +402,9 @@ class View extends Base {
   }
 
   getYScales() {
-    const geoms = this.get('geoms');
+    const geoms = this.get('geoms').filter(function(geom) {
+      return geom.get('visible');
+    });
     const rst = [];
 
     Util.each(geoms, geom => {
@@ -475,8 +488,9 @@ class View extends Base {
     if (parent) {
       parentFilters = parent._getFilters();
     }
-    if (filters) {
-      filters = Util.mix({}, parentFilters, filters);
+    // 过滤器以chart 上的为准，图例会引起chart上的过滤变化
+    if (filters || parentFilters) {
+      filters = Util.mix({}, filters, parentFilters);
     }
     return filters;
   }
@@ -562,7 +576,7 @@ class View extends Base {
     }
 
     Util.each(views, view => {
-      if (isPointInCoord(view.get('coord'), point)) {
+      if (view.get('visible') && isPointInCoord(view.get('coord'), point)) {
         rst.push(view);
       }
     });
@@ -709,13 +723,33 @@ class View extends Base {
     this.repaint();
   }
 
-  render() {
+  /**
+   * 绘制 view 的内容
+   * @protected
+   */
+  renderView() {
     const data = this.get('data');
-    const filteredData = this.execFilter(data);
-    if (!Util.isEmpty(filteredData)) {
-      this.set('filteredData', filteredData);
-      this.initView();
-      this.paint();
+    if (data) {
+      const filteredData = this.execFilter(data);
+      if (!Util.isEmpty(filteredData)) {
+        this.set('filteredData', filteredData);
+        this.initView();
+        this.paint();
+      }
+    }
+  }
+
+  render(stopDraw) {
+    const views = this.get('views');
+    Util.each(views, function(view) {
+      if (view.get('visible')) {
+        view.render(true);
+      }
+    });
+    this.renderView();
+    if (!stopDraw) {
+      const canvas = this.get('canvas');
+      canvas.draw();
     }
     return this;
   }
@@ -734,21 +768,23 @@ class View extends Base {
     this._renderAxes();
   }
 
+  changeVisible(visible) {
+    const viewContainer = this.get('viewContainer');
+    viewContainer.set('visible', visible);
+    const parent = this.get('parent') || this;
+    parent.repaint();
+  }
+
   repaint() {
     this.clearInner();
-    const geoms = this.get('geoms');
-    Util.each(geoms, function(geom) {
-      geom.clear();
-    });
     this.render();
   }
 
   destroy() {
+    this._clearEvents();
     this.clear();
     super.destroy();
   }
-
-
 }
 
 module.exports = View;

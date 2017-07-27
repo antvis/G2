@@ -347,24 +347,22 @@ class Chart extends View {
 
   /**
    * 绘制图表
-   * @return {Chart} 当前的图表对象
+   * @override
    */
-  render() {
-    const views = this.get('views');
-    if (views.length) {
-      Util.each(views, function(view) {
-        view.render();
-      });
-    }
-
-    super.render();
-
+  renderView() {
+    super.renderView();
     this._renderLegends(); // 渲染图例
     this._renderTooltips(); // 渲染 tooltip
+  }
 
-    const canvas = this.get('canvas');
-    canvas.draw();
-    return this;
+  /**
+   * @override
+   * 显示或者隐藏
+   */
+  changeVisible(visible) {
+    const wrapperEl = this.get('wrapperEl');
+    const visibleStr = visible ? '' : 'none';
+    wrapperEl.style.display = visibleStr;
   }
 
   /**
