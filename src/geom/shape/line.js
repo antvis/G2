@@ -139,8 +139,9 @@ const Line = Shape.registerFactory('line', {
     return lineObj.getMarkerCfg(cfg);
   },
   getActiveCfg(type, cfg) {
+    const lineWidth = cfg.lineWidth || 0;
     return {
-      lineWidth: cfg.lineWidth + 1
+      lineWidth: lineWidth + 1
     };
   },
   // 计算点 如果存在多个点，分割成单个的点, 不考虑多个x对应一个y的情况

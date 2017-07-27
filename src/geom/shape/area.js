@@ -90,11 +90,17 @@ function _getMarkerCfg(cfg, smooth, hollow) {
 }
 
 // 鼠标悬浮触发active状态
-function getActiveCfg(/* type, cfg */) {
+function getActiveCfg(type, cfg) {
+  if (type === 'line' || type === 'smoothLine') { // 线加粗
+    const lineWidth = cfg.lineWidth || 0;
+    return {
+      lineWidth: lineWidth + 1
+    };
+  }
+  const opacity = cfg.fillOpacity || cfg.opacity || 1;
   return {
-    fill: '#000',
-    fillOpacity: 0.7,
-    strokeOpacity: 0.7
+    fillOpacity: opacity - 0.15,
+    strokeOpacity: opacity - 0.15
   };
 }
 
