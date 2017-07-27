@@ -90,8 +90,7 @@ describe('schema shapes', function() {
       const marker = Schema.getMarkerCfg('box', {
         color: 'red'
       });
-      const path = marker.symbol(1, 1, 2);
-      expect(path.length).equal(16);
+      expect(marker.symbol).to.be.an.instanceof(Function);
       expect(marker.stroke).equal('red');
     });
 
@@ -125,8 +124,7 @@ describe('schema shapes', function() {
       const marker = Schema.getMarkerCfg('candle', {
         color: 'red'
       });
-      const path = marker.symbol(1, 1, 2);
-      expect(path.length).equal(9);
+      expect(marker.symbol).to.be.an.instanceof(Function);
       expect(marker.stroke).equal('red');
     });
   });

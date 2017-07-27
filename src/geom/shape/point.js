@@ -1,6 +1,7 @@
 /**
  * @fileOverview point shapes
  * @author dxq613@gmail.com
+ * @author sima.zhang1990@gmail.com
  * @author huangtonger@aliyun.com
  */
 

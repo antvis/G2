@@ -2,7 +2,6 @@ const Util = require('../../util');
 const { Axis } = require('../../component/index');
 const { vec2 } = require('@ali/g').MatrixUtil;
 const Global = require('../../global');
-const HIDE_DIMS = [ '..x', '..y', '..long', '..lant', '..pieX' ]; // TODO: 常量可以统一放在某个地方
 
 function formatTicks(ticks) {
   let tmp = [];
@@ -35,9 +34,6 @@ class AxisController {
 
   _isHide(field) { // 对应的坐标轴是否隐藏
     const options = this.options;
-    if (Util.inArray(HIDE_DIMS, field) && Util.isNil(options[field])) {
-      return true; // 默认不展示带 .. 的 dim
-    }
 
     if (options && options[field] === false) {
       return true;
@@ -169,7 +165,7 @@ class AxisController {
     circleCfg.endAngle = endAngle;
     circleCfg.center = center;
     circleCfg.radius = Math.sqrt(Math.pow(start.x - center.x, 2) + Math.pow(start.y - center.y, 2));
-    circleCfg.innerRadius = coord.innerRadius || 0;
+    circleCfg.inner = coord.innerRadius || 0;
     return circleCfg;
   }
 
@@ -201,27 +197,6 @@ class AxisController {
       factor,
       start: coord.convert(start),
       end: coord.convert(end)
-    };
-  }
-
-  _getPolyLineCfg(coord, scale, dimType) {
-    const ticks = scale.getTicks();
-    const tickPoints = [];
-    const range = this._getLineRange(coord, scale, dimType);
-    const isVertical = range.isVertical; // 标识该坐标轴是否是纵坐标
-
-    Util.each(ticks, tick => {
-      const point = coord.convert({
-        x: isVertical ? 0 : tick.value,
-        y: isVertical ? tick.value : 0
-      });
-      tickPoints.push(point);
-    });
-
-    return {
-      start: range.start,
-      end: range.end,
-      tickPoints
     };
   }
 
@@ -320,9 +295,6 @@ class AxisController {
         });
       }
       cfg.grid.items = gridPoints;
-      if (cfg.coord.type === 'map') {
-        cfg.grid.smooth = true;
-      }
     }
     return cfg;
   }
@@ -352,7 +324,7 @@ class AxisController {
     helixCfg.crp = crp;
     helixCfg.axisStart = axisStart;
     helixCfg.center = coord.center;
-    helixCfg.innerRadius = coord.y.start; // 内半径
+    helixCfg.inner = coord.y.start; // 内半径
     return helixCfg;
   }
 
@@ -361,10 +333,7 @@ class AxisController {
     let C; // 坐标轴类
     let appendCfg; // 每个坐标轴 start end 等绘制边界的信息
 
-    if (coord.type === 'map' && dimType === 'x') {
-      C = Axis.PolyLine;
-      appendCfg = this._getPolyLineCfg(coord, scale, dimType);
-    } else if (coord.type === 'cartesian') {
+    if (coord.type === 'cartesian') {
       C = Axis.Line;
       appendCfg = this._getLineCfg(coord, scale, dimType, index);
     } else if (coord.type === 'helix' && dimType === 'x') {

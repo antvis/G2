@@ -58,7 +58,6 @@ describe('AxisController', function() {
     };
     expect(as._isHide('a')).to.equal(true);
     expect(as._isHide('b')).to.equal(false);
-    expect(as._isHide('..y')).to.equal(true);
   });
 
   describe('_getAxisPosition 确定坐标轴的位置', function() {
@@ -194,7 +193,7 @@ describe('AxisController', function() {
       expect(circleCfg.startAngle).to.equal(-1.5707963267948966);
       expect(circleCfg.endAngle).to.equal(4.71238898038469);
       expect(circleCfg.radius).to.equal(250);
-      expect(circleCfg.innerRadius).to.equal(0);
+      expect(circleCfg.inner).to.equal(0);
       expect(circleCfg.center).to.eql({ x: 250, y: 250 });
     });
 
@@ -228,7 +227,7 @@ describe('AxisController', function() {
       expect(circleCfg.startAngle).to.equal(-1.5707963267948966);
       expect(circleCfg.endAngle).to.equal(4.71238898038469);
       expect(circleCfg.radius).to.equal(250);
-      expect(circleCfg.innerRadius).to.equal(0.5);
+      expect(circleCfg.inner).to.equal(0.5);
       expect(circleCfg.center).to.eql({
         x: 250,
         y: 250
@@ -272,25 +271,6 @@ describe('AxisController', function() {
         x: 500.00000000000006,
         y: 151.1982665130035
       });
-    });
-  });
-
-  describe('_getPolyLineCfg 获取由多个点组成的坐标轴。', function() {
-    it('_getPolyLineCfg', function() {
-      const coord = new Coord.Rect({
-        start,
-        end
-      });
-      const polyLineCfg = as._getPolyLineCfg(coord, scaleX, 'x');
-      expect(polyLineCfg.start).to.eql({
-        x: 0,
-        y: 500
-      });
-      expect(polyLineCfg.end).to.eql({
-        x: 500,
-        y: 500
-      });
-      expect(polyLineCfg.tickPoints.length).to.equal(10);
     });
   });
 

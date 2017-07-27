@@ -225,10 +225,21 @@ class LegendController {
     legends[position] = legends[position] || [];
     const container = self.container;
     const items = [];
-    let size;
     const ticks = scale.getTicks();
-    let shapeType = 'point';
-    let shape = legendOptions.marker || (legendOptions[field] && legendOptions[field].marker) || 'circle';
+
+    let isByAttr = true;
+    let shapeType = geom.get('shapeType') || 'point';
+    let shape = geom.getDefaultValue('shape') || 'circle';
+    if ((legendOptions[field] && legendOptions[field].marker)) { // 用户为 field 对应的图例定义了 marker
+      shape = legendOptions[field].marker;
+      shapeType = 'point';
+      isByAttr = false;
+    } else if (legendOptions.marker) {
+      shape = legendOptions.marker;
+      shapeType = 'point';
+      isByAttr = false;
+    }
+
     const plotRange = self.plotRange;
     const maxLength = (position === 'right' || position === 'left') ? plotRange.bl.y - plotRange.tr.y : plotRange.tr.x - plotRange.bl.x;
 
@@ -238,25 +249,20 @@ class LegendController {
       const scaleValue = tick.value;
       const value = scale.invert(scaleValue);
       const cfg = {
-        // isInCircle: geom.isInCircle()
+        isInCircle: geom.isInCircle()
       };
-      const attrValue = attr.mapping(value).join('');
       const checked = filterVals ? self._isFiltered(scale, filterVals, scaleValue) : true;
 
-      if (attr.type === 'color') {
-        cfg.color = attrValue;
-      } else if (attr.type === 'shape') {
-        shapeType = geom.get('shapeType'); // || 'point';
-        shape = attrValue;
-      } else if (attr.type === 'size') {
-        size = attrValue;
+      if (geom.getAttr('color')) { // 存在颜色映射
+        cfg.color = geom.getAttr('color').mapping(value).join('');
       }
-      // 暂时先不开放自定义shape，仅允许更改现有的样式
+      if (isByAttr && geom.getAttr('shape')) { // 存在形状映射
+        shape = geom.getAttr('shape').mapping(value).join('');
+      }
+
       const shapeObject = Shape.getShapeFactory(shapeType);
       const marker = shapeObject.getMarkerCfg(shape, cfg);
-      if (!Util.isNil(size)) {
-        marker.radius = size;
-      }
+
       items.push({
         name,
         checked,
@@ -367,6 +373,13 @@ class LegendController {
     self._bindHoverEvent(legend, field);
 
     return legend;
+  }
+
+  /**
+   * 自定义图例
+   */
+  addCustomLegend() {
+
   }
 
   alignLegends() {
