@@ -85,14 +85,16 @@ const Polygon = Shape.registerFactory('polygon', {
 
 Shape.registShape('polygon', 'polygon', {
   draw(cfg, container) {
-    const attrs = getAttrs(cfg);
-    let path = getPath(cfg.points);
-    path = this.parsePath(path);
-    return container.addShape('path', {
-      attrs: Util.mix(attrs, {
-        path
-      })
-    });
+    if (!Util.isEmpty(cfg.points)) {
+      const attrs = getAttrs(cfg);
+      let path = getPath(cfg.points);
+      path = this.parsePath(path);
+      return container.addShape('path', {
+        attrs: Util.mix(attrs, {
+          path
+        })
+      });
+    }
   },
   getMarkerCfg(cfg) {
     return Util.mix({
@@ -104,15 +106,17 @@ Shape.registShape('polygon', 'polygon', {
 
 Shape.registShape('polygon', 'hollow', {
   draw(cfg, container) {
-    const attrs = getHollowAttrs(cfg);
-    let path = getPath(cfg.points);
-    path = this.parsePath(path);
+    if (!Util.isEmpty(cfg.points)) {
+      const attrs = getHollowAttrs(cfg);
+      let path = getPath(cfg.points);
+      path = this.parsePath(path);
 
-    return container.addShape('path', {
-      attrs: Util.mix(attrs, {
-        path
-      })
-    });
+      return container.addShape('path', {
+        attrs: Util.mix(attrs, {
+          path
+        })
+      });
+    }
   },
   getMarkerCfg(cfg) {
     return Util.mix({
