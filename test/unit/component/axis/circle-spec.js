@@ -338,8 +338,8 @@ describe('测试圆轴', function() {
     const children = axis.get('children');
     const textChildren = children[children.length - 1];
 
-    expect(textChildren.get('children')[0].__m).not.eql([ 1, 0, 0, 0, 1, 0, 0, 0, 1 ]);
-    expect(textChildren.get('children')[1].__m).to.eql([ 1, 0, 0, 0, 1, 0, 0, 0, 1 ]);
+    expect(textChildren.get('children')[0].attr('matrix')).not.eql([ 1, 0, 0, 0, 1, 0, 0, 0, 1 ]);
+    expect(textChildren.get('children')[1].attr('matrix')).to.eql([ 1, 0, 0, 0, 1, 0, 0, 0, 1 ]);
   });
   it('测试文本自动旋转－情况2', function() {
     const cfg = Util.mix({}, simpleAxisCfg, {
@@ -385,8 +385,8 @@ describe('测试圆轴', function() {
     canvas.draw();
     const children = axis.get('children');
     const textChildren = children[children.length - 1];
-    expect(textChildren.get('children')[0].__m).not.eql([ 1, 0, 0, 0, 1, 0, 0, 0, 1 ]);
-    expect(textChildren.get('children')[6].__m).to.eql([ 1, 0, 0, 0, 1, 0, 0, 0, 1 ]);
-    expect(textChildren.get('children')[16].__m).to.eql([ 1, 0, 0, 0, 1, 0, 0, 0, 1 ]);
+    expect(textChildren.get('children')[0].attr('matrix')).not.eql([ 1, 0, 0, 0, 1, 0, 0, 0, 1 ]);
+    expect(textChildren.get('children')[6].attr('matrix')).to.eql([ 1, 0, 0, 0, 1, 0, 0, 0, 1 ]);
+    expect(textChildren.get('children')[16].attr('matrix')).to.eql([ 1, 0, 0, 0, 1, 0, 0, 0, 1 ]);
   });
 });

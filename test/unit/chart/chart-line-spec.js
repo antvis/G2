@@ -44,7 +44,7 @@ describe('test line chart', function() {
     const path = group.getFirst().attr('path');
     tmpPath = path;
     expect(path.length).equal(5);
-    expect(group.__m).eqls([ 1, 0, 0, 0, 1, 0, 0, 0, 1 ]);
+    expect(group.attr('matrix')).eqls([ 1, 0, 0, 0, 1, 0, 0, 0, 1 ]);
 
   });
 
@@ -68,7 +68,7 @@ describe('test line chart', function() {
     expect(group.getCount()).equal(1);
     const path = group.getFirst().attr('path');
     expect(path[0]).eqls(tmpPath[0]);
-    expect(group.__m).not.eqls([ 1, 0, 0, 0, 1, 0, 0, 0, 1 ]);
+    expect(group.attr('matrix')).not.eqls([ 1, 0, 0, 0, 1, 0, 0, 0, 1 ]);
   });
 
   it('in polar', function() {
