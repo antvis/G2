@@ -73,7 +73,9 @@ class TooltipController {
     const defaultCfg = Util.mix({}, Global.tooltip);
     const chart = self.chart;
     const coord = chart.get('coord');
-    const geoms = chart.getAllGeoms();
+    const geoms = chart.getAllGeoms().filter(function(geom) {
+      return geom.get('visible');
+    });
     const shapes = [];
     Util.each(geoms, function(geom) {
       const type = geom.get('type');
@@ -252,10 +254,8 @@ class TooltipController {
       const geoms = view.get('geoms');
       const coord = view.get('coord');
       Util.each(geoms, geom => {
-        const geomContainer = geom.get('container');
         const type = geom.get('type');
-
-        if (geomContainer.get('visible')) {
+        if (geom.get('visible')) {
           const dataArray = geom.get('dataArray');
           if (geom.isShareTooltip() || (options.split && Util.inArray([ 'area', 'line', 'path' ], type))) {
             const points = [];
@@ -281,6 +281,7 @@ class TooltipController {
             });
           // } else if ((options.split && Util.inArray([ 'interval', 'schema' ], type)) || !geom.isShareTooltip()) {
           } else {
+            const geomContainer = geom.get('container');
             const canvas = geomContainer.get('canvas');
             const pixelRatio = canvas.get('pixelRatio');
             const shape = geomContainer.getShape(point.x * pixelRatio, point.y * pixelRatio);
