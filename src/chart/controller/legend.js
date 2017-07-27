@@ -67,7 +67,7 @@ class LegendController {
             return Util.inArray(filterVals, field);
           });
         }
-        chart.repaint(); // TODO: legend 是否重绘
+        chart.repaint();
       }
     });
   }
