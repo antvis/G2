@@ -22,6 +22,21 @@ function _snapEqual(v1, v2, scale) {
   return isEqual;
 }
 
+function findGeom(geoms, value) {
+  let rst;
+  Util.each(geoms, geom => {
+    if (geom.get('visible')) {
+      const yScale = geom.getYScale();
+      if (yScale.field === value) {
+        rst = geom;
+        return;
+      }
+    }
+  });
+
+  return rst;
+}
+
 class LegendController {
   constructor(cfg) {
     this.options = {};
@@ -104,14 +119,19 @@ class LegendController {
         Util.each(geoms, geom => {
           const container = geom.get('container');
           const shapes = container.get('children');
-          const scale = geom.get('scales')[field];
-          const activeShapes = [];
-          Util.each(shapes, shape => {
-            const origin = self._getShapeData(shape);
-            if (_snapEqual(origin[field], value, scale)) {
-              activeShapes.push(shape);
-            }
-          });
+          let activeShapes = [];
+          if (field) {
+            const scale = geom.get('scales')[field];
+            Util.each(shapes, shape => {
+              const origin = self._getShapeData(shape);
+              if (_snapEqual(origin[field], value, scale)) {
+                activeShapes.push(shape);
+              }
+            });
+          } else if (geom.getYScale().field === value) {
+            activeShapes = shapes;
+          }
+
           if (!Util.isEmpty(activeShapes)) {
             ev.shapes = activeShapes;
             ev.geom = geom;
@@ -377,6 +397,104 @@ class LegendController {
    * 自定义图例
    */
   addCustomLegend() {
+    const self = this;
+    const chart = self.chart;
+    const container = self.container;
+    const legendOptions = self.options;
+    const position = legendOptions.position || 'right';
+    const legends = self.legends;
+    legends[position] = legends[position] || [];
+    const items = legendOptions.items;
+    if (!items) {
+      return;
+    }
+
+    const geoms = chart.getAllGeoms();
+    let shapeType = 'point';
+    let shape = 'circle';
+    const legendItems = [];
+    Util.each(items, item => {
+      if (!Util.isObject(item)) {
+        item = {
+          value: item
+        };
+      }
+      const geom = findGeom(geoms, item.value);
+      if (geom) {
+        if (!item.marker) {
+          shapeType = geom.get('shapeType') || 'point';
+          shape = geom.getDefaultValue('shape') || 'circle';
+        }
+        item.checked = Util.isNil(item.checked) ? true : item.checked;
+
+        const cfg = {
+          isInCircle: geom.isInCircle()
+        };
+
+        if (geom.getAttr('color')) { // 存在颜色映射
+          cfg.color = geom.getAttr('color').mapping(item.value).join('');
+        }
+        if (geom.getAttr('shape')) { // 存在形状映射
+          shape = geom.getAttr('shape').mapping(item.value).join('');
+        }
+
+        const shapeObject = Shape.getShapeFactory(shapeType);
+        const marker = shapeObject.getMarkerCfg(shape, cfg);
+        item.marker = marker;
+        item.geom = geom;
+        legendItems.push(item);
+      }
+    });
+
+    const plotRange = self.plotRange;
+    const maxLength = (position === 'right' || position === 'left') ? plotRange.bl.y - plotRange.tr.y : plotRange.tr.x - plotRange.bl.x;
+
+    const legendCfg = Util.defaultsDeep({
+      maxLength,
+      items: legendItems
+    }, legendOptions, Global.legend[position]);
+
+    const legend = container.addGroup(Legend.Category, legendCfg);
+    legends[position].push(legend);
+
+    legend.on('itemclick', ev => {
+      if (legendOptions.onClick) { // 用户自定义了图例点击事件
+        legendOptions.onClick(ev);
+      } else {
+        const curGeom = ev.item.geom;
+        const checked = ev.checked;
+        const isSingeSelected = legend.get('selectedMode') === 'single'; // 图例的选中模式
+        if (checked) { // 取消变为选中
+          if (isSingeSelected) {
+            chart.eachShape((obj, shape, geom) => {
+              if (!Util.isEqual(geom, curGeom)) {
+                shape.set('visible', false);
+                geom.set('visible', false);
+              } else {
+                shape.set('visible', true);
+                geom.set('visible', true);
+              }
+            });
+          } else {
+            chart.eachShape((obj, shape, geom) => {
+              if (Util.isEqual(geom, curGeom)) {
+                shape.set('visible', true);
+                geom.set('visible', true);
+              }
+            });
+          }
+        } else if (!isSingeSelected) { // 选中变未选中
+          chart.eachShape((obj, shape, geom) => {
+            if (Util.isEqual(geom, curGeom)) {
+              shape.set('visible', false);
+              geom.set('visible', false);
+            }
+          });
+        }
+      }
+    });
+
+    self._bindHoverEvent(legend);
   }
 
   alignLegends() {

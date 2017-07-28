@@ -151,6 +151,8 @@ class TooltipController {
       tooltip.setContent(title, items);
       if (!Util.isEmpty(markersItems)) {
         tooltip.setMarkers(markersItems, Global.tooltipMarker);
+      } else {
+        tooltip.clearMarkers();
       }
       if (options.split) {
         const positionX = Util.isArray(items[0].point.x) ? items[0].point.x[0] : items[0].point.x;
