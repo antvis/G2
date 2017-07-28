@@ -42,10 +42,5 @@ module.exports = {
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.AggressiveMergingPlugin()
-  ],
-  watch: true,
-  watchOptions: {
-    aggregateTimeout: 300,
-    poll: 1000
-  }
+  ]
 };
