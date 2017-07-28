@@ -357,8 +357,8 @@ class Chart extends View {
    * 绘制图表
    * @override
    */
-  renderView() {
-    super.renderView();
+  paint() {
+    super.paint();
     this._renderLegends(); // 渲染图例
     this._renderTooltips(); // 渲染 tooltip
   }
