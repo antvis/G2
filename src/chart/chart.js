@@ -253,10 +253,18 @@ class Chart extends View {
     if (Util.isNil(cfg.animate)) {
       cfg.animate = this.get('animate');
     }
+    cfg.options = Util.mix({}, this._getSharedOptions(), cfg.options);
     const view = new View(cfg);
     this.get('views').push(view);
     return view;
   }
+
+  _getSharedOptions() {
+    const options = this.get('options');
+    const sharedOptions = Util.pick(options, [ 'scales', 'coord', 'axes' ]);
+    return sharedOptions;
+  }
+
   /**
    * @override
    * 当前chart 的范围

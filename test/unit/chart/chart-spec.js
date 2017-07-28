@@ -106,10 +106,26 @@ describe('test chart with views', function() {
       container: 'cchart',
       animate: false
     });
+
+    chart.scale({
+      a: {
+        formatter(a) {
+          return a.toFixed(2);
+        }
+      }
+    });
+    chart.axis('b', {
+      title: null
+    });
+
     expect(div.childNodes.length).equal(1);
   });
   it('add view', function() {
     const v1 = chart.view();
+    expect(v1.get('options').scales.a).not.equal(undefined);
+    expect(v1.get('options').axes.b).eqls({
+      title: null
+    });
     v1.source(data);
     v1.line().position('a*b').color('c');
     expect(chart.get('views').length).equal(1);
@@ -373,6 +389,14 @@ describe('visible', function() {
   });
 
   it('multiple views show hide', function() {
+    chart.scale('b', {
+      alias: '别名'
+    });
+    chart.axis('b', {
+      title: {
+        offset: 5
+      }
+    });
     const v1 = chart.view({
       start: { x: 0, y: 0 },
       end: { x: 0.5, y: 0.5 }
@@ -396,7 +420,7 @@ describe('visible', function() {
     expect(viewContainer.getCount()).equal(2);
     v1.hide();
     expect(viewContainer.getFirst().get('visible')).equal(false);
-
+    v1.show();
   });
 
   it('geom show hide', function() {
