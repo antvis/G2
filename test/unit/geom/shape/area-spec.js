@@ -180,7 +180,7 @@ describe('area shapes', function() {
       const splinePointCfg = Area.getMarkerCfg('spline', point);
       expect(splinePointCfg).eql(pointCfg);
       expect(pointCfg.fill).equal(Global.defaultColor);
-      expect(pointCfg.fillOpacity).equal(0.6);
+      expect(pointCfg.fillOpacity).equal(0.8);
       expect(pointCfg.symbol).to.be.an.instanceof(Function);
     });
   });

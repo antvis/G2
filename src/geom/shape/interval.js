@@ -247,14 +247,15 @@ function getSelectedCfg(type, cfg) {
 const Interval = Shape.registerFactory('interval', {
   defaultShapeType: 'rect',
   getActiveCfg(type, cfg) {
-    if (!type || Util.inArray([ 'rect', 'funnel', 'pyramid' ], type)) {
+    if (!type || Util.inArray([ 'rect', 'funnel', 'pyramid' ], type)) { // 透明度降低 0.15
+      const fillOpacity = cfg.fillOpacity || cfg.opacity || 1;
       return {
-        fill: '#fff',
-        fillOpacity: 0.6
+        fillOpacity: fillOpacity - 0.15
       };
     }
+    const lineWidth = cfg.lineWidth || 0;
     return {
-      lineWidth: cfg.lineWidth + 1
+      lineWidth: lineWidth + 1
     };
   },
   getSelectedCfg(type, cfg) {

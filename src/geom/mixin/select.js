@@ -154,10 +154,13 @@ const SelectMixin = {
   },
   clearSelected() {
     const self = this;
-    const selectedShapes = self._getSelectedShapes();
-    Util.each(selectedShapes, function(shape) {
-      self._setShapeStatus(shape, false);
-    });
+    const container = self.get('container');
+    if (container && !container.get('destroyed')) {
+      const selectedShapes = self._getSelectedShapes();
+      Util.each(selectedShapes, function(shape) {
+        self._setShapeStatus(shape, false);
+      });
+    }
   }
 };
 

@@ -77,12 +77,10 @@ class Category extends Base {
        */
       checkable: true,
       /**
-       * 图例项取消选中属性
-       * @type {Object}
+       * 图例项取消选中的颜色
+       * @type {String}
        */
-      unCheckStyle: {
-        fill: '#ccc'
-      },
+      unCheckColor: '#ccc',
       /**
        * 图例背景层属性设置
        * @type {Obejct}
@@ -107,12 +105,6 @@ class Category extends Base {
        * @type {Number}
        */
       _wordSpaceing: 6,
-      // _defaultTextStyle: {
-      //   fill: '#333',
-      //   fontSize: 12,
-      //   textAlign: 'start',
-      //   textBaseline: 'middle'
-      // },
       /**
        * 是否使用 html 进行渲染，默认为 false
        * @type {Boolean}
@@ -225,7 +217,7 @@ class Category extends Base {
       itemclick.currentTarget = clickedItem;
       itemclick.checked = (mode === 'single') ? true : !checked;
 
-      const unCheckColor = this.get('unCheckStyle').fill;
+      const unCheckColor = this.get('unCheckColor');
       const checkColor = this.get('textStyle').fill;
       if (mode === 'single') {
         const itemsGroup = this.get('itemsGroup');
@@ -234,15 +226,18 @@ class Category extends Base {
           if (child !== clickedItem) {
             child.set('checked', false);
             child.get('children')[0].attr('fill', unCheckColor);
+            child.get('children')[0].attr('stroke', unCheckColor);
             child.get('children')[1].attr('fill', unCheckColor);
           } else {
             clickedItem.get('children')[0].attr('fill', item.marker.fill);
+            clickedItem.get('children')[0].attr('stroke', item.marker.stroke);
             clickedItem.get('children')[1].attr('fill', checkColor);
             clickedItem.set('checked', true);
           }
         });
       } else {
         clickedItem.get('children')[0].attr('fill', checked ? unCheckColor : item.marker.fill);
+        clickedItem.get('children')[0].attr('stroke', checked ? unCheckColor : item.marker.stroke);
         clickedItem.get('children')[1].attr('fill', checked ? unCheckColor : checkColor);
         clickedItem.set('checked', !checked);
       }
@@ -262,7 +257,7 @@ class Category extends Base {
     const legendWrapper = DomUtil.createDom(containerTpl);
     const titleDom = findNodeByClass(legendWrapper, 'g2-legend-title');
     const itemListDom = findNodeByClass(legendWrapper, 'g2-legend-itemlist');
-    const unCheckedColor = self.get('unCheckStyle').fill;
+    const unCheckedColor = self.get('unCheckColor');
     const mode = self.get('selectedMode');
 
     if (titleDom && title && title.text) { // 渲染标题
@@ -483,7 +478,7 @@ class Category extends Base {
     const itemsGroup = this.get('itemsGroup');
     const x = this._getNextX();
     const y = this._getNextY();
-    const unCheckStyle = this.get('unCheckStyle');
+    const unCheckColor = this.get('unCheckColor');
     const itemGroup = itemsGroup.addGroup({
       x,
       y,
@@ -502,7 +497,10 @@ class Category extends Base {
       });
 
       if (!item.checked) {
-        Util.mix(markerAttrs, unCheckStyle);
+        Util.mix(markerAttrs, {
+          fill: unCheckColor,
+          stroke: unCheckColor
+        });
       }
 
       const markerShape = itemGroup.addShape('marker', {
@@ -510,6 +508,7 @@ class Category extends Base {
         attrs: markerAttrs
       });
       markerShape.set('cursor', 'pointer');
+      markerShape.name = 'legend-marker';
       startX += markerShape.getBBox().width + wordSpace;
     }
 
@@ -519,14 +518,16 @@ class Category extends Base {
       text: this._formatItemValue(item.name)
     });
     if (!item.checked) {
-      Util.mix(textAttrs, unCheckStyle);
+      Util.mix(textAttrs, {
+        fill: unCheckColor
+      });
     }
 
     const textShape = itemGroup.addShape('text', {
       attrs: textAttrs
     });
     textShape.set('cursor', 'pointer');
-
+    textShape.name = 'legend-text';
     // 添加一个包围矩形，用于事件支持
     const bbox = itemGroup.getBBox();
     const itemWidth = this.get('itemWidth');

@@ -888,6 +888,8 @@ class GeomBase extends Base {
   }
 
   clearInner() {
+    this.clearActivedShapes();
+    this.clearSelected();
     const container = this.get('container');
     container && container.clear();
     this.set('attrs', {});

@@ -98,7 +98,7 @@ describe('interval shapes', function() {
     });
 
     it('get active config', function() {
-      const shapeCfg = Interval.getActiveCfg();
+      const shapeCfg = Interval.getActiveCfg('rect', {});
       expect(shapeCfg).not.equal(undefined);
     });
   });
@@ -132,7 +132,7 @@ describe('interval shapes', function() {
       canvas.draw();
     });
     it('get active config', function() {
-      const shapeCfg = Interval.getActiveCfg('rect');
+      const shapeCfg = Interval.getActiveCfg('rect', {});
       expect(shapeCfg).not.equal(undefined);
     });
 
@@ -188,7 +188,7 @@ describe('interval shapes', function() {
       expect(shape.attr('path').length).eql(6);
     });
     xit('get active config', function() {
-      const shapeCfg = Interval.getActiveCfg('hollowRect');
+      const shapeCfg = Interval.getActiveCfg('hollowRect', {});
       expect(shapeCfg.lineWidth).not.equal(Global.shape.hollowInterval.lineWidth);
     });
 
