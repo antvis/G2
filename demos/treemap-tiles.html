@@ -71,18 +71,20 @@
 
     const ds = new DataSet();
     ds.state.treemapTile = $tile.val();
-    const dv = ds.createView('dv').source(data, {
-      type: 'hierarchy'
-    });
-    dv.transform({
-      field: 'size',
-      type: 'hierarchy.treemap',
-      tile: '$state.treemapTile',
-      padding: 16,
-      as: [ 'x', 'y' ]
-    });
+    const dv = ds.createView('demo')
+      .source(data, {
+        type: 'hierarchy'
+      })
+      .transform({
+        field: 'size',
+        type: 'hierarchy.treemap',
+        tile: '$state.treemapTile',
+        padding: 16,
+        as: [ 'x', 'y' ]
+      });
 
     const chart = new G2.Chart({
+      animate: false,
       container: 'canvas',
       forceFit: true,
       height: window.innerHeight,

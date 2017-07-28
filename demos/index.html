@@ -13,8 +13,8 @@
   /* global GLOBAL_DATA */
   /* eslint-disable no-unused-vars */
   const GLOBAL_DATA = {
-    plotById: { 'area-plot': { id: 'area-plot', name: 'Area Plot', path: './area.html', thumbnail: './assets/screenshots/800x600/area.png' }, 'bar-plot': { id: 'bar-plot', name: 'Bar Plot', path: './bar.html', thumbnail: './assets/screenshots/800x600/bar.png' }, 'day-hour-heatmap': { id: 'day-hour-heatmap', name: 'Day/Hour Heatmap', path: './day-hour-heatmap.html', thumbnail: './assets/screenshots/800x600/day-hour-heatmap.png' }, 'treemap-tiles': { id: 'treemap-tiles', name: 'Treemap Tiles', path: './treemap-tiles.html', thumbnail: './assets/screenshots/800x600/treemap-tiles.png' }, 'line-plot': { id: 'line-plot', name: 'Line Plot', path: './line.html', thumbnail: './assets/screenshots/800x600/line.png' }, 'scatter-plot': { id: 'scatter-plot', name: 'Scatter Plot', path: './scatter.html', thumbnail: './assets/screenshots/800x600/scatter.png' } },
-    plotsByGeometry: { area: [{ id: 'area-plot', name: 'Area Plot', path: './area.html', thumbnail: './assets/screenshots/800x600/area.png' }], interval: [{ id: 'bar-plot', name: 'Bar Plot', path: './bar.html', thumbnail: './assets/screenshots/800x600/bar.png' }], polygon: [{ id: 'day-hour-heatmap', name: 'Day/Hour Heatmap', path: './day-hour-heatmap.html', thumbnail: './assets/screenshots/800x600/day-hour-heatmap.png' }, { id: 'treemap-tiles', name: 'Treemap Tiles', path: './treemap-tiles.html', thumbnail: './assets/screenshots/800x600/treemap-tiles.png' }], line: [{ id: 'line-plot', name: 'Line Plot', path: './line.html', thumbnail: './assets/screenshots/800x600/line.png' }], point: [{ id: 'scatter-plot', name: 'Scatter Plot', path: './scatter.html', thumbnail: './assets/screenshots/800x600/scatter.png' }] }
+    plotById: { 'area-plot': { id: 'area-plot', name: 'Area Plot', path: './area.html', thumbnail: './assets/screenshots/800x600/area.png' }, 'bar-plot': { id: 'bar-plot', name: 'Bar Plot', path: './bar.html', thumbnail: './assets/screenshots/800x600/bar.png' }, 'rose-plot': { id: 'rose-plot', name: 'Rose Plot', path: './rose.html', thumbnail: './assets/screenshots/800x600/rose.png' }, 'day-hour-heatmap': { id: 'day-hour-heatmap', name: 'Day/Hour Heatmap', path: './day-hour-heatmap.html', thumbnail: './assets/screenshots/800x600/day-hour-heatmap.png' }, 'geo-projections': { id: 'geo-projections', name: 'Geo Projections', path: './geo-projections.html', thumbnail: './assets/screenshots/800x600/geo-projections.png' }, 'treemap-tiles': { id: 'treemap-tiles', name: 'Treemap Tiles', path: './treemap-tiles.html', thumbnail: './assets/screenshots/800x600/treemap-tiles.png' }, 'line-plot': { id: 'line-plot', name: 'Line Plot', path: './line.html', thumbnail: './assets/screenshots/800x600/line.png' }, 'scatter-plot': { id: 'scatter-plot', name: 'Scatter Plot', path: './scatter.html', thumbnail: './assets/screenshots/800x600/scatter.png' } },
+    plotsByGeometry: { area: [{ id: 'area-plot', name: 'Area Plot', path: './area.html', thumbnail: './assets/screenshots/800x600/area.png' }], interval: [{ id: 'bar-plot', name: 'Bar Plot', path: './bar.html', thumbnail: './assets/screenshots/800x600/bar.png' }, { id: 'rose-plot', name: 'Rose Plot', path: './rose.html', thumbnail: './assets/screenshots/800x600/rose.png' }], polygon: [{ id: 'day-hour-heatmap', name: 'Day/Hour Heatmap', path: './day-hour-heatmap.html', thumbnail: './assets/screenshots/800x600/day-hour-heatmap.png' }, { id: 'geo-projections', name: 'Geo Projections', path: './geo-projections.html', thumbnail: './assets/screenshots/800x600/geo-projections.png' }, { id: 'treemap-tiles', name: 'Treemap Tiles', path: './treemap-tiles.html', thumbnail: './assets/screenshots/800x600/treemap-tiles.png' }], line: [{ id: 'line-plot', name: 'Line Plot', path: './line.html', thumbnail: './assets/screenshots/800x600/line.png' }], point: [{ id: 'scatter-plot', name: 'Scatter Plot', path: './scatter.html', thumbnail: './assets/screenshots/800x600/scatter.png' }] }
   };
 </script>
   <div class="main">
@@ -39,6 +39,8 @@
     <ul class="sub-menus">
       <li class="sub-menu-item">
             <a href="#/bar-plot">Bar Plot</a>
+          </li><li class="sub-menu-item">
+            <a href="#/rose-plot">Rose Plot</a>
           </li>
     </ul>
   </div><div class="menu-item">
@@ -48,6 +50,8 @@
     <ul class="sub-menus">
       <li class="sub-menu-item">
             <a href="#/day-hour-heatmap">Day/Hour Heatmap</a>
+          </li><li class="sub-menu-item">
+            <a href="#/geo-projections">Geo Projections</a>
           </li><li class="sub-menu-item">
             <a href="#/treemap-tiles">Treemap Tiles</a>
           </li>
@@ -94,6 +98,11 @@
               <img class="thumbnail" src="./assets/screenshots/800x600/bar.png">
               <div class="description">Bar Plot</div>
             </a>
+          </li><li class="thumbnail-item">
+            <a href="#/rose-plot">
+              <img class="thumbnail" src="./assets/screenshots/800x600/rose.png">
+              <div class="description">Rose Plot</div>
+            </a>
           </li>
     </ul>
   </div><div class="thumbnails-section">
@@ -105,6 +114,11 @@
             <a href="#/day-hour-heatmap">
               <img class="thumbnail" src="./assets/screenshots/800x600/day-hour-heatmap.png">
               <div class="description">Day/Hour Heatmap</div>
+            </a>
+          </li><li class="thumbnail-item">
+            <a href="#/geo-projections">
+              <img class="thumbnail" src="./assets/screenshots/800x600/geo-projections.png">
+              <div class="description">Geo Projections</div>
             </a>
           </li><li class="thumbnail-item">
             <a href="#/treemap-tiles">

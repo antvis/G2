@@ -17,11 +17,10 @@
   <script>
     $.getJSON('./data/scatter.json', data => {
       const ds = new DataSet();
-      const dv = ds.createView('test').source(data);
-      // const avgH = dv.mean('height');
-      // const avgW = dv.mean('weight');
+      const dv = ds.createView('demo').source(data);
 
       const chart = new G2.Chart({
+        animate: false,
         container: 'canvas',
         forceFit: true,
         height: window.innerHeight

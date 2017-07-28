@@ -49,6 +49,7 @@ module.exports = {
     let rst;
     if (labelsGroup) {
       label.text = value;
+      // label.fill = '#666';
       label.x = offsetPoint.x;
       label.y = offsetPoint.y;
       label.point = offsetPoint;

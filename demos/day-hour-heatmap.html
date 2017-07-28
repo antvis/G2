@@ -18,7 +18,7 @@
   <script>
     $.get('./data/day-hour-heatmap.tsv', data => {
       const ds = new DataSet();
-      const dv = ds.createView('test')
+      const dv = ds.createView('demo')
         .source(data, {
           type: 'tsv'
         })
@@ -32,6 +32,7 @@
           }
         });
       const chart = new G2.Chart({
+        animate: false,
         container: 'canvas',
         forceFit: true,
         height: window.innerHeight

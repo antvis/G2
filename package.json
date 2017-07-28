@@ -15,7 +15,7 @@
   "license": "MIT",
   "devDependencies": {
     "@antv/data-set": "^0.1.2",
-    "@lite-js/torch": "^0.1.6",
+    "@lite-js/torch": "^0.2.0-beta1",
     "babel-core": "^6.25.0",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.1",
@@ -49,15 +49,16 @@
     "compress": "uglifyjs -c -m -o dist/g2-$npm_package_version.min.js -- build/g2.js",
     "coverage": "npm run coverage-generator && npm run coverage-viewer",
     "coverage-viewer": "torch-coverage",
-    "coverage-generator": "torch --coverage --renderer --recursive test/unit",
+    "coverage-generator": "torch --compile --coverage --renderer --recursive test/unit",
     "demos": "$(npm bin)/electron ./demos/app.js",
     "demos-web": "node ./demos/app.js --web",
+    "dev": "webpack --config webpack-dev.config.js",
     "dist": "rm -rf dist && mkdir dist && npm run build && npm run compress",
     "lint": "eslint --ext .html,.js ./",
     "lint-fix": "eslint --ext .html,.js --fix ./",
     "prepare-demos": "./bin/prepare-demos-homepage && ./bin/prepare-demos-screenshots",
-    "test": "torch --renderer --recursive ./test/unit",
-    "test-live": "torch --interactive --watch --recursive ./test/unit"
+    "test": "torch --compile --renderer --recursive ./test/unit",
+    "test-live": "torch --compile --interactive --watch --recursive ./test/unit"
   },
   "pre-commit": {
     "run": [
@@ -67,7 +68,7 @@
     "silent": false
   },
   "dependencies": {
-    "@ali/g": "~2.0.0-beta",
+    "@ali/g": "^2.0.0-beta.14",
     "fecha": "^2.3.1",
     "gl-matrix": "^2.4.0",
     "lodash": "^4.17.4",

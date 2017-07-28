@@ -53,12 +53,12 @@ class GeomLabels extends Group {
     if (callback) {
       const params = [];
       Util.each(scales, function(scale) {
-        params.push(originRecord[scale.dim]);
+        params.push(originRecord[scale.field]);
       });
       value = callback.apply(null, params);
     } else {
       const scale = scales[0];
-      value = originRecord[scale.dim];
+      value = originRecord[scale.field];
       if (Util.isArray(value)) {
         const tmp = [];
         Util.each(value, function(subVal) {

@@ -46,6 +46,7 @@ function getPath(points) {
   });
   path.push([ 'L', lastStartPoint.x, lastStartPoint.y ]);
   path.push([ 'Z' ]);
+  // console.log(Util.map(path, points => points.join('')).join(''));
   return path;
 }
 
