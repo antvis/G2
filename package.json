@@ -68,7 +68,7 @@
     "silent": false
   },
   "dependencies": {
-    "@ali/g": "~2.0.0-beta",
+    "@ali/g": "^2.0.0-beta.14",
     "fecha": "^2.3.1",
     "gl-matrix": "^2.4.0",
     "lodash": "^4.17.4",

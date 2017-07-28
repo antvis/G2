@@ -138,7 +138,8 @@
   <script src="./assets/data-set-0.1.1.min.js"></script>
   <script src="../build/g2.js"></script>
   <script>
-    $.getJSON('./data/world-50m.json', data => {
+    $.getJSON('./data/south-america.geo.json', data => {
+    // $.getJSON('./data/world-50m.json', data => {
       console.log(data);
       const $projection = $('#projection');
 
@@ -146,8 +147,9 @@
       ds.state.projection = $projection.val();
       const dv = ds.createView('demo')
         .source(data, {
-          type: 'TopoJSON',
-          object: 'countries'
+          // type: 'TopoJSON',
+          // object: 'countries'
+          type: 'GeoJSON'
         })
         .transform({
           type: 'geo.projection',
