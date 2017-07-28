@@ -410,40 +410,15 @@ class LegendController {
     }
 
     const geoms = chart.getAllGeoms();
-    let shapeType = 'point';
-    let shape = 'circle';
-    const legendItems = [];
     Util.each(items, item => {
-      if (!Util.isObject(item)) {
-        item = {
-          value: item
-        };
-      }
       const geom = findGeom(geoms, item.value);
-      if (geom) {
-        if (!item.marker) {
-          shapeType = geom.get('shapeType') || 'point';
-          shape = geom.getDefaultValue('shape') || 'circle';
-        }
-        item.checked = Util.isNil(item.checked) ? true : item.checked;
-
-        const cfg = {
-          isInCircle: geom.isInCircle()
-        };
-
-        if (geom.getAttr('color')) { // 存在颜色映射
-          cfg.color = geom.getAttr('color').mapping(item.value).join('');
-        }
-        if (geom.getAttr('shape')) { // 存在形状映射
-          shape = geom.getAttr('shape').mapping(item.value).join('');
-        }
-
-        const shapeObject = Shape.getShapeFactory(shapeType);
-        const marker = shapeObject.getMarkerCfg(shape, cfg);
-        item.marker = marker;
-        item.geom = geom;
-        legendItems.push(item);
-      }
+      item.marker = {
+        symbol: item.marker ? item.marker : 'circle',
+        fill: item.fill,
+        radius: 5
+      };
+      item.checked = Util.isNil(item.checked) ? true : item.checked;
+      item.geom = geom;
     });
 
     const plotRange = self.plotRange;
@@ -451,7 +426,7 @@ class LegendController {
 
     const legendCfg = Util.defaultsDeep({
       maxLength,
-      items: legendItems
+      items
     }, legendOptions, Global.legend[position]);
 
     const legend = container.addGroup(Legend.Category, legendCfg);
@@ -460,37 +435,6 @@ class LegendController {
     legend.on('itemclick', ev => {
       if (legendOptions.onClick) { // 用户自定义了图例点击事件
         legendOptions.onClick(ev);
-      } else {
-        const curGeom = ev.item.geom;
-        const checked = ev.checked;
-        const isSingeSelected = legend.get('selectedMode') === 'single'; // 图例的选中模式
-        if (checked) { // 取消变为选中
-          if (isSingeSelected) {
-            chart.eachShape((obj, shape, geom) => {
-              if (!Util.isEqual(geom, curGeom)) {
-                shape.set('visible', false);
-                geom.set('visible', false);
-              } else {
-                shape.set('visible', true);
-                geom.set('visible', true);
-              }
-            });
-          } else {
-            chart.eachShape((obj, shape, geom) => {
-              if (Util.isEqual(geom, curGeom)) {
-                shape.set('visible', true);
-                geom.set('visible', true);
-              }
-            });
-          }
-        } else if (!isSingeSelected) { // 选中变未选中
-          chart.eachShape((obj, shape, geom) => {
-            if (Util.isEqual(geom, curGeom)) {
-              shape.set('visible', false);
-              geom.set('visible', false);
-            }
-          });
-        }
       }
     });
 

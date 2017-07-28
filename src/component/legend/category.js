@@ -493,8 +493,7 @@ class Category extends Base {
     if (item.marker) { // 如果有marker添加marker
       const markerAttrs = Util.mix({}, item.marker, {
         x: item.marker.radius + x,
-        y,
-        stroke: item.marker.fill || item.marker.stroke
+        y
       });
 
       if (!item.checked) {
