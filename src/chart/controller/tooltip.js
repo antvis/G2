@@ -83,8 +83,8 @@ class TooltipController {
         shapes.push(type);
       }
     });
-    if (geoms.length && geoms[0].get('coord').type === 'cartesian') {
-      if (Util.inArray(shapes, 'interval') && !options.split && coord.type === 'cartesian') { // 直角坐标系下 interval 的 crosshair 为矩形背景框
+    if (geoms.length && geoms[0].get('coord').type === 'cartesian' && shapes.length === 1) {
+      if (shapes[0] === 'interval' && !options.split && coord.type === 'cartesian') { // 直角坐标系下 interval 的 crosshair 为矩形背景框
         Util.mix(defaultCfg, {
           zIndex: 0, // 矩形背景框不可覆盖 geom
           crosshairs: {
@@ -95,7 +95,7 @@ class TooltipController {
             }
           }
         });
-      } else if (shapes.length === 1 && Util.indexOf(TYPE_SHOW_CROSSHAIRS, shapes[0]) > -1) {
+      } else if (Util.indexOf(TYPE_SHOW_CROSSHAIRS, shapes[0]) > -1) {
         Util.mix(defaultCfg, {
           crosshairs: {
             type: 'y',

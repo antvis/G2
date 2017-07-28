@@ -264,11 +264,9 @@ class LegendController {
       const marker = shapeObject.getMarkerCfg(shape, cfg);
 
       items.push({
-        name,
+        value: name,
         checked,
-        type: null,
-        marker,
-        value
+        marker
       });
     });
 
@@ -304,9 +302,9 @@ class LegendController {
       const attrValue = attr.mapping(invertValue).join('');
 
       items.push({
-        name: tick.text,
+        value: tick.text,
         attrValue,
-        value: scaleValue
+        scaleValue
       });
       if (scaleValue === 0) {
         minValue = true;
@@ -318,16 +316,16 @@ class LegendController {
 
     if (!minValue) {
       items.push({
-        name: scale.getText(scale.invert(0)),
+        value: scale.getText(scale.invert(0)),
         attrValue: attr.mapping(0).join(''),
-        value: 0
+        scaleValue: 0
       });
     }
     if (!maxValue) {
       items.push({
-        name: scale.getText(scale.invert(1)),
+        value: scale.getText(scale.invert(1)),
         attrValue: attr.mapping(1).join(''),
-        value: 1
+        scaleValue: 1
       });
     }
 
@@ -379,7 +377,6 @@ class LegendController {
    * 自定义图例
    */
   addCustomLegend() {
-
   }
 
   alignLegends() {
