@@ -85,23 +85,24 @@ function getLineAttrs(cfg) {
 
 const Point = Shape.registerFactory('point', {
   defaultShapeType: 'hollowCircle',
-  getActiveCfg(type, cfg) {
-    // point：放大 + 颜色加亮
+  getActiveCfg(type, cfg) { // 点放大 + 颜色加亮
     const radius = cfg.radius;
-    const activeCfg = {
-      radius: radius + 1,
-      shadowBlur: radius,
-      stroke: '#000',
-      lineWidth: 1
-    };
-
+    let color;
     if (type && (type.indexOf('hollow') === 0 || Util.indexOf(HOLLOW_SHAPES, type) !== -1) || !type) {
-      activeCfg.shadowColor = cfg.stroke; // TODO：可以加深点颜色 或者纯色？？？
+      color = cfg.stroke || cfg.strokeStyle;
     } else {
-      activeCfg.shadowColor = cfg.fill; // 可以加深点颜色
+      color = cfg.fill || cfg.fillStyle;
     }
 
-    return activeCfg;
+    return {
+      radius: radius + 1,
+      shadowBlur: radius,
+      shadowColor: color,
+      stroke: color,
+      strokeStyle: color,
+      strokeOpacity: 1,
+      lineWidth: 1
+    };
   },
   getDefaultPoints(pointInfo) {
     return ShapeUtil.splitPoints(pointInfo);

@@ -269,9 +269,7 @@ const Theme = {
         textAlign: 'start',
         textBaseline: 'middle'
       }, // 图例项文本的样式
-      unCheckStyle: {
-        fill: '#ccc'
-      }
+      unCheckColor: '#ccc'
     },
     left: {
       position: 'left',
@@ -291,9 +289,7 @@ const Theme = {
         textAlign: 'start',
         textBaseline: 'middle'
       }, // 图例项文本的样式
-      unCheckStyle: {
-        fill: '#ccc'
-      }
+      unCheckColor: '#ccc'
     },
     top: {
       position: 'top',
@@ -308,9 +304,7 @@ const Theme = {
         textAlign: 'start',
         textBaseline: 'middle'
       }, // 图例项文本的样式
-      unCheckStyle: {
-        fill: '#ccc'
-      }
+      unCheckColor: '#ccc'
     },
     bottom: {
       position: 'bottom',
@@ -325,9 +319,7 @@ const Theme = {
         textAlign: 'start',
         textBaseline: 'middle'
       }, // 图例项文本的样式
-      unCheckStyle: {
-        fill: '#ccc'
-      }
+      unCheckColor: '#ccc'
     }
   },
   tooltip: {
@@ -364,7 +356,7 @@ const Theme = {
     area: {
       lineWidth: 0,
       fill: DEFAULT_COLOR,
-      fillOpacity: 0.6
+      fillOpacity: 0.8
     },
     polygon: {
       lineWidth: 0,

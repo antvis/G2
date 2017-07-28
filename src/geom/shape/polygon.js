@@ -9,11 +9,6 @@ const Util = require('../../util');
 const Shape = require('./shape');
 const Global = require('../../global');
 
-// 鼠标悬浮触发active状态
-function _getActiveCfg(/* type */) {
-  return Global.activeShape.polygon;
-}
-
 function getAttrs(cfg) {
   const defaultCfg = Global.shape.polygon;
   const shapeCfg = Util.mix({}, defaultCfg, {
@@ -69,30 +64,39 @@ const Polygon = Shape.registerFactory('polygon', {
     return points;
   },
   getActiveCfg(type, cfg) {
+    const lineWidth = cfg.lineWidth || 1;
+    if (type === 'hollow') {
+      return {
+        lineWidth: lineWidth + 1
+      };
+    }
+
+    const opacity = cfg.fillOpacity || cfg.opacity || 1;
     return {
-      lineWidth: cfg.lineWidth ? cfg.lineWidth + 1 : 1,
-      fill: '#fff',
-      fillOpacity: 0.7
+      lineWidth,
+      fillOpacity: opacity - 0.15
     };
   },
   getSelectedCfg(type, cfg) {
     if (cfg && cfg.style) {
       return cfg.style;
     }
-    return _getActiveCfg(type);
+    return this.getActiveCfg(type, cfg);
   }
 });
 
 Shape.registShape('polygon', 'polygon', {
   draw(cfg, container) {
-    const attrs = getAttrs(cfg);
-    let path = getPath(cfg.points);
-    path = this.parsePath(path);
-    return container.addShape('path', {
-      attrs: Util.mix(attrs, {
-        path
-      })
-    });
+    if (!Util.isEmpty(cfg.points)) {
+      const attrs = getAttrs(cfg);
+      let path = getPath(cfg.points);
+      path = this.parsePath(path);
+      return container.addShape('path', {
+        attrs: Util.mix(attrs, {
+          path
+        })
+      });
+    }
   },
   getMarkerCfg(cfg) {
     return Util.mix({
@@ -104,15 +108,17 @@ Shape.registShape('polygon', 'polygon', {
 
 Shape.registShape('polygon', 'hollow', {
   draw(cfg, container) {
-    const attrs = getHollowAttrs(cfg);
-    let path = getPath(cfg.points);
-    path = this.parsePath(path);
+    if (!Util.isEmpty(cfg.points)) {
+      const attrs = getHollowAttrs(cfg);
+      let path = getPath(cfg.points);
+      path = this.parsePath(path);
 
-    return container.addShape('path', {
-      attrs: Util.mix(attrs, {
-        path
-      })
-    });
+      return container.addShape('path', {
+        attrs: Util.mix(attrs, {
+          path
+        })
+      });
+    }
   },
   getMarkerCfg(cfg) {
     return Util.mix({

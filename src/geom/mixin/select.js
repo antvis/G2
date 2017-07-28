@@ -88,14 +88,10 @@ const SelectMixin = {
 
       if (!shape.get('_originAttrs')) { // 缓存原有属性
         originAttrs = Util.mix({}, shape.get('_originAttrs'));
+        shape.set('_originAttrs', originAttrs);
       } else {
         originAttrs = shape.get('_originAttrs');
       }
-      // 缓存原先矩阵
-      if (Util.has(selectedStyle, 'transform') || Util.has(selectedStyle, 'matrix')) {
-        originAttrs.matrix = Util.cloneDeep(shape.getMatrix());
-      }
-      shape.set('_originAttrs', originAttrs);
 
       if (animate) {
         shape.animate(selectedStyle, 300);
@@ -158,10 +154,13 @@ const SelectMixin = {
   },
   clearSelected() {
     const self = this;
-    const selectedShapes = self._getSelectedShapes();
-    Util.each(selectedShapes, function(shape) {
-      self._setShapeStatus(shape, false);
-    });
+    const container = self.get('container');
+    if (container && !container.get('destroyed')) {
+      const selectedShapes = self._getSelectedShapes();
+      Util.each(selectedShapes, function(shape) {
+        self._setShapeStatus(shape, false);
+      });
+    }
   }
 };
 

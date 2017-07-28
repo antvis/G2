@@ -190,21 +190,22 @@ const Schema = Shape.registerFactory('schema', {
   defaultShapeType: '',
   getActiveCfg(type, cfg) {
     if (type === 'box') {
+      const lineWidth = cfg.lineWidth || 1;
       return {
-        lineWidth: cfg.lineWidth + 1
+        lineWidth: lineWidth + 1
       };
     }
+    const opacity = cfg.fillOpacity || cfg.opacity || 1;
     return {
-      fill: '#fff',
-      fillOpacity: 0.7,
-      strokeOpacity: 0.7
+      fillOpacity: opacity - 0.15,
+      strokeOpacity: opacity - 0.15
     };
   },
   getSelectedCfg(type, cfg) {
     if (cfg && cfg.style) {
       return cfg.style;
     }
-    return this.getActiveCfg();
+    return this.getActiveCfg(type, cfg);
   }
 });
 

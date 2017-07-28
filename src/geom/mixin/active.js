@@ -39,8 +39,6 @@ const ActiveMixin = {
     }
 
     if (shapes) {
-      ev.activeShape = shapes;
-      ev.geom = self;
       self.setShapesActived(shapes);
     } else {
       if (self.get('activeShapes')) {
@@ -95,7 +93,7 @@ const ActiveMixin = {
     const canvas = view.get('canvas');
     const container = self.get('container');
     Util.each(shapes, shape => {
-      if (shape.get('visible')) {
+      if (shape.get('visible') && !shape.get('selected')) {
         self._setActiveShape(shape);
       }
     });
@@ -112,30 +110,36 @@ const ActiveMixin = {
   clearActivedShapes() {
     const self = this;
     const container = self.get('container');
-    const activeShapes = self.get('activeShapes');
-    Util.each(activeShapes, activeShape => {
-      const originAttrs = activeShape.get('_originAttrs');
-      activeShape.__attrs = Util.mix({}, originAttrs);
-      activeShape.setZIndex(0);
-    });
-    const preHighlightShapes = self.get('preHighlightShapes');
-    if (preHighlightShapes) {
-      const shapes = container.get('children');
-      Util.each(shapes, shape => {
-        const originAttrs = shape.get('_originAttrs');
-        shape.__attrs = Util.mix({}, originAttrs);
-        shape.setZIndex(0);
+    if (container && !container.get('destroyed')) {
+      const activeShapes = self.get('activeShapes');
+      Util.each(activeShapes, activeShape => {
+        if (!activeShape.get('selected')) {
+          const originAttrs = activeShape.get('_originAttrs');
+          activeShape.__attrs = Util.mix({}, originAttrs);
+          activeShape.setZIndex(0);
+        }
       });
-    }
-    // 恢复原来排序
-    const children = container.get('children');
-    children.sort((obj1, obj2) => {
-      return obj1._INDEX - obj2._INDEX;
-    });
+      const preHighlightShapes = self.get('preHighlightShapes');
+      if (preHighlightShapes) {
+        const shapes = container.get('children');
+        Util.each(shapes, shape => {
+          if (!shape.get('selected')) {
+            const originAttrs = shape.get('_originAttrs');
+            shape.__attrs = Util.mix({}, originAttrs);
+            shape.setZIndex(0);
+          }
+        });
+      }
+      // 恢复原来排序
+      const children = container.get('children');
+      children.sort((obj1, obj2) => {
+        return obj1._INDEX - obj2._INDEX;
+      });
 
-    self.set('activeShapes', null);
-    self.set('preShapes', null);
-    self.set('preHighlightShapes', null);
+      self.set('activeShapes', null);
+      self.set('preShapes', null);
+      self.set('preHighlightShapes', null);
+    }
   },
   getGroupShapesByPoint(point) {
     const self = this;

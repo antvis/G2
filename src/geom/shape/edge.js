@@ -26,9 +26,10 @@ const Edge = Shape.registerFactory('edge', {
   getDefaultPoints(pointInfo) {
     return ShapeUtil.splitPoints(pointInfo);
   },
-  getActiveCfg(/* type */) {
+  getActiveCfg(type, cfg) {
+    const lineWidth = cfg.lineWidth || 0;
     return {
-      strokeOpacity: 0.7
+      lineWidth: lineWidth + 1
     };
   }
 });
