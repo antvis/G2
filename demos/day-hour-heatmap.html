@@ -18,7 +18,7 @@
   <script>
     $.get('./data/day-hour-heatmap.tsv', data => {
       const ds = new DataSet();
-      const dv = ds.createView('test')
+      const dv = ds.createView('demo')
         .source(data, {
           type: 'tsv'
         })

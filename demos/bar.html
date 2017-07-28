@@ -17,13 +17,14 @@
   <script>
     $.getJSON('./data/top2000.json', data => {
       const ds = new DataSet();
-      const dv = ds.createView('test').source(data);
-      dv.transform({
-        as: [ 'count' ],
-        groupBy: [ 'release' ],
-        operations: [ 'count' ],
-        type: 'aggregate'
-      });
+      const dv = ds.createView('test')
+        .source(data)
+        .transform({
+          as: [ 'count' ],
+          groupBy: [ 'release' ],
+          operations: [ 'count' ],
+          type: 'aggregate'
+        });
 
       const chart = new G2.Chart({
         animate: false,

@@ -4,7 +4,6 @@ const {
 } = require('path');
 
 module.exports = {
-  devtool: 'cheap-source-map',
   entry: {
     g2: './index.js'
   },
@@ -43,5 +42,10 @@ module.exports = {
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.AggressiveMergingPlugin()
-  ]
+  ],
+  watch: true,
+  watchOptions: {
+    aggregateTimeout: 300,
+    poll: 1000
+  }
 };

@@ -17,7 +17,7 @@
   <script>
     $.getJSON('./data/scatter.json', data => {
       const ds = new DataSet();
-      const dv = ds.createView('test').source(data);
+      const dv = ds.createView('demo').source(data);
 
       const chart = new G2.Chart({
         animate: false,

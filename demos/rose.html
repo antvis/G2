@@ -30,11 +30,12 @@
       padding: 0
     });
     const ds = new DataSet();
-    const dv = ds.createView('test').source(data);
-    dv.transform({
-      field: 'value',
-      type: 'sort'
-    });
+    const dv = ds.createView('demo')
+      .source(data)
+      .transform({
+        field: 'value',
+        type: 'sort'
+      });
     chart.source(dv.rows);
     chart.coord('polar');
     chart.axis(false);
