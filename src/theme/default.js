@@ -394,7 +394,6 @@ const Theme = {
         style: {
           fill: '#999',
           fontSize: 12,
-          fontWeight: 500,
           textAlign: 'center'
         }
       }
@@ -403,7 +402,8 @@ const Theme = {
       style: {
         fill: '#666',
         fontSize: 12,
-        fontWeight: 'bold'
+        textBaseline: 'middle',
+        textAlign: 'start'
       }
     },
     region: {
