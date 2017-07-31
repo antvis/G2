@@ -145,7 +145,7 @@
 
       const ds = new DataSet();
       ds.state.projection = $projection.val();
-      const dv = ds.createView('demo')
+      const dv = ds.createView('back')
         .source(data, {
           // type: 'TopoJSON',
           // object: 'countries'
@@ -157,12 +157,42 @@
           as: [ 'x', 'y', 'centroid' ]
         });
 
+      const data1 = [
+        { name: 'Chile', value: 100 },
+        { name: 'Colombia', value: 80 }
+      ];
+
+      const dv1 = ds.createView()
+            .source(data1)
+            .transform({
+              geoDataView: 'back',
+              field: 'name',
+              type: 'geo.centroid',
+              as: 'centroid'
+            })
+            .transform({
+              type: 'map',
+              callback(obj) {
+                obj.x = obj.centroid[0];
+                obj.y = obj.centroid[1];
+                return obj;
+              }
+            });
+
       const chart = new G2.Chart({
         animate: false,
         container: 'canvas',
         forceFit: true,
         height: window.innerHeight,
         padding: 0
+      });
+      chart.scale({
+        x: {
+          sync: true
+        },
+        y: {
+          sync: true
+        }
       });
 
       function rerender() {
@@ -173,7 +203,11 @@
         chart.tooltip(false);
         chart.polygon()
           .position('x*y');
+        const view = chart.view();
+        view.source(dv1);
+        view.point().position('x*y');
         chart.render();
+        console.log(chart.get('scales'));
       }
 
       $projection.on('change', () => {

@@ -458,14 +458,17 @@ class View extends Base {
         data = this.get('data');
       }
     }
+    const scaleController = this.get('scaleController');
     if (!scale) {
-      const scaleController = this.get('scaleController');
       scale = scaleController.createScale(field, data);
       if (scale.sync && parent) {
         const parentScale = parent.createScale(field, data);
         scale = this._getSyncScale(parentScale, scale);
       }
       scales[field] = scale;
+    } else if (scale.sync) { // 防止 view 内部创建的scale，Chart 上的scale 范围更大
+      const newScale = scaleController.createScale(field, data);
+      this._syncScale(scale, newScale);
     }
     return scale;
   }
@@ -475,12 +478,16 @@ class View extends Base {
     if (parentScale.type !== scale.type) {
       return scale;
     }
-    const mergeValues = Util.union(parentScale.values, scale.values);
-    if (scale.isLinear) {
-      const max = Math.max(parentScale.max, scale.max);
-      const min = Math.min(parentScale.min, scale.min);
-      if (parentScale.max !== max || parentScale.min !== min) {
-        parentScale.change({
+    this._syncScale(parentScale, scale);
+    return parentScale;
+  }
+  _syncScale(distScale, sourceScale) {
+    const mergeValues = Util.union(distScale.values, sourceScale.values);
+    if (sourceScale.isLinear) {
+      const max = Math.max(distScale.max, sourceScale.max);
+      const min = Math.min(distScale.min, sourceScale.min);
+      if (distScale.max !== max || distScale.min !== min) {
+        distScale.change({
           min,
           max,
           values: mergeValues
@@ -488,12 +495,11 @@ class View extends Base {
       }
     }
 
-    if (mergeValues.length !== parentScale.values.length) {
-      parentScale.change({
+    if (mergeValues.length !== distScale.values.length) {
+      distScale.change({
         values: mergeValues
       });
     }
-    return parentScale;
   }
 
   getFilteredScale(field) {
@@ -820,6 +826,8 @@ class View extends Base {
 
   destroy() {
     this._clearEvents();
+    const dataView = this.get('dataView');
+    dataView && dataView.off('change', Util.getWrapBehavior(this, '_onViewChange'));
     this.clear();
     super.destroy();
   }
