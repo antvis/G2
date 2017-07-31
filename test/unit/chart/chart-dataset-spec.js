@@ -25,18 +25,17 @@ describe('use dataset in chart', function() {
   });
 
   const ds = new DataSet({
-
+    state: {
+      value: 0
+    }
   });
-
-  ds.state.value = 0;
-  const view = ds.createView('1')
-                 .source(data)
-                 .transform({
-                   type: 'filter',
-                   callback(row) {
-                     return row.a > ds.state.value; // origin data range: [2002, 2015]
-                   }
-                 });
+  const view = ds.createView('1').source(data)
+    .transform({
+      type: 'filter',
+      callback(row) {
+        return row.a > ds.state.value; // origin data range: [2002, 2015]
+      }
+    });
 
   it('init with view', function() {
     chart.source(view);
