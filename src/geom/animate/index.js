@@ -3,7 +3,7 @@ const Angle = require('./angle');
 const Circle = require('./circle');
 const ScaleX = require('./scale-x');
 const ScaleY = require('./scale-y');
-const Scale = require('./scale');
+// const Scale = require('./scale');
 const WaveV = require('./wave-v');
 
 function getAdjusts(adjusts) {
@@ -49,22 +49,7 @@ module.exports = {
         }
         break;
       case 'polar':
-        switch (geomType) {
-          case 'area':
-          case 'areaStack':
-          case 'interval':
-          case 'intervalStack':
-          case 'intervalDodge':
-            C = Scale;
-            break;
-          default:
-            C = Angle;
-            break;
-        }
-        break;
       case 'theta':
-        C = Angle;
-        break;
       case 'map':
         C = Angle; // angle;
         break;
