@@ -45,6 +45,7 @@
     });
     chart.legend({
       custom: true,
+      allowAllCanceled: true,
       items: [
         { value: 'waiting', fill: '#3182bd' },
         { value: 'call', fill: '#99d8c9' },
@@ -54,14 +55,17 @@
         const item = ev.item;
         const value = item.value;
         const checked = ev.checked;
-        chart.eachShape((arr, shape, geom) => {
-          const yScale = geom.getYScale();
-          const container = geom.get('container');
-          if (yScale.field === value) {
-            container.set('visible', checked);
-            geom.set('visible', false);
+        const geoms = chart.getAllGeoms();
+        for (let i = 0; i < geoms.length; i++) {
+          const geom = geoms[i];
+          if (geom.getYScale().field === value) {
+            if (checked) {
+              geom.show();
+            } else {
+              geom.hide();
+            }
           }
-        });
+        }
       }
     });
     chart.tooltip(false);

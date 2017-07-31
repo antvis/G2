@@ -874,12 +874,10 @@ class GeomBase extends Base {
   }
 
   changeVisible(visible) {
-    const view = this.get('view');
-    if (view) {
-      view.repaint();
-    }
     const container = this.get('container');
     container.set('visible', visible);
+    const canvas = container.get('canvas');
+    canvas.draw();
   }
 
   reset() {

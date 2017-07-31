@@ -186,11 +186,9 @@ class View extends Base {
     const coord = this.get('coord');
 
     Util.each(geoms, function(geom) {
-      if (geom.get('visible')) {
-        geom.set('data', filteredData);
-        geom.set('coord', coord);
-        geom.init();
-      }
+      geom.set('data', filteredData);
+      geom.set('coord', coord);
+      geom.init();
     });
   }
 
@@ -215,10 +213,8 @@ class View extends Base {
     const geoms = this.get('geoms');
     const coord = this.get('coord');
     Util.each(geoms, function(geom) {
-      if (geom.get('visible')) {
-        geom.setCoord(coord);
-        geom.paint();
-      }
+      geom.setCoord(coord);
+      geom.paint();
     });
   }
 
@@ -453,8 +449,12 @@ class View extends Base {
     let scale = scales[field];
     const filters = this._getFilters();
     if (!data) {
-      data = this.get('filteredData');
-      if (filters && filters[field]) {
+      const filteredData = this.get('filteredData');
+      // 过滤导致数据为空时，需要使用全局数据
+      // 参与过滤的字段的度量也根据全局数据来生成
+      if (filteredData.length && !(filters && filters[field])) {
+        data = filteredData;
+      } else {
         data = this.get('data');
       }
     }
@@ -505,7 +505,13 @@ class View extends Base {
   getFilteredScale(field) {
     const data = this.get('filteredData');
     const scaleController = this.get('scaleController');
-    const scale = scaleController.createScale(field, data);
+    let scale;
+    if (data.length) {
+      scale = scaleController.createScale(field, data);
+    } else { // 如果过滤掉所有的数据，度量需要使用全部数据来生成，然后设置 values 为空
+      scale = scaleController.createScale(field, this.get('data'));
+      scale.values = [];
+    }
     return scale;
   }
 
@@ -769,16 +775,12 @@ class View extends Base {
     const views = this.get('views');
     // 初始化 View 的数据
     Util.each(views, function(view) {
-      if (view.get('visible')) {
-        view.initView();
-      }
+      view.initView();
     });
     this.initView();
     // 绘制
     Util.each(views, function(view) {
-      if (view.get('visible')) {
-        view.paint();
-      }
+      view.paint();
     });
     this.paint();
     if (!stopDraw) {
@@ -792,8 +794,8 @@ class View extends Base {
     const data = this.get('data');
     if (data) {
       const filteredData = this.execFilter(data);
-      if (!Util.isEmpty(filteredData)) {
-        this.set('filteredData', filteredData);
+      this.set('filteredData', filteredData);
+      if (!Util.isEmpty(data)) {
         this._initViewPlot();
         this._createCoord(); // draw geometry 前绘制区域可能会发生改变
         this._initGeoms();
@@ -803,8 +805,8 @@ class View extends Base {
   }
 
   paint() {
-    const filteredData = this.get('filteredData');
-    if (!Util.isEmpty(filteredData)) {
+    const data = this.get('data');
+    if (!Util.isEmpty(data)) {
       this.beforeDraw();
       this._drawGeoms();
       this._renderGuides();
@@ -815,8 +817,8 @@ class View extends Base {
   changeVisible(visible) {
     const viewContainer = this.get('viewContainer');
     viewContainer.set('visible', visible);
-    const parent = this.get('parent') || this;
-    parent.repaint();
+    const canvas = viewContainer.get('canvas');
+    canvas.draw();
   }
 
   repaint() {
