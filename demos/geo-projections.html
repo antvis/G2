@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="geometry" content="polygon">
+  <link rel="stylesheet" href="./assets/common.css">
   <title>Geo Projections</title>
 </head>
 
@@ -135,26 +136,22 @@
   <div id="canvas"></div>
   <script src="./assets/lodash-4.17.4.min.js"></script>
   <script src="./assets/jquery-3.2.1.min.js"></script>
-  <script src="./assets/data-set-0.1.1.min.js"></script>
+  <script src="./assets/data-set-0.1.3.min.js"></script>
   <script src="../build/g2.js"></script>
   <script>
     $.getJSON('./data/south-america.geo.json', data => {
-    // $.getJSON('./data/world-50m.json', data => {
-      console.log(data);
       const $projection = $('#projection');
 
       const ds = new DataSet();
       ds.state.projection = $projection.val();
       const dv = ds.createView('back')
         .source(data, {
-          // type: 'TopoJSON',
-          // object: 'countries'
           type: 'GeoJSON'
         })
         .transform({
           type: 'geo.projection',
           projection: '$state.projection',
-          as: [ 'x', 'y', 'centroid' ]
+          as: [ 'x', 'y', 'centroidX', 'centroidY' ]
         });
 
       const data1 = [
@@ -163,21 +160,13 @@
       ];
 
       const dv1 = ds.createView()
-            .source(data1)
-            .transform({
-              geoDataView: 'back',
-              field: 'name',
-              type: 'geo.centroid',
-              as: 'centroid'
-            })
-            .transform({
-              type: 'map',
-              callback(obj) {
-                obj.x = obj.centroid[0];
-                obj.y = obj.centroid[1];
-                return obj;
-              }
-            });
+        .source(data1)
+        .transform({
+          geoDataView: 'back',
+          field: 'name',
+          type: 'geo.centroid',
+          as: [ 'x', 'y' ]
+        });
 
       const chart = new G2.Chart({
         animate: false,
@@ -205,9 +194,9 @@
           .position('x*y');
         const view = chart.view();
         view.source(dv1);
-        view.point().position('x*y');
+        view.point()
+          .position('x*y');
         chart.render();
-        console.log(chart.get('scales'));
       }
 
       $projection.on('change', () => {

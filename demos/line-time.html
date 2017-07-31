@@ -6,7 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="geometry" content="line">
-  <title>Line Plot</title>
+  <link rel="stylesheet" href="./assets/common.css">
+  <title>Line Plot with Time</title>
 </head>
 
 <body>
@@ -22,7 +23,8 @@
       height: window.innerHeight
     });
     chart.source(data);
-    chart.line().position('date*Austin');
+    chart.line()
+      .position('date*Austin');
     chart.render();
   });
   </script>
