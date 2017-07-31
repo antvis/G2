@@ -121,7 +121,7 @@ const ActiveMixin = {
       });
       const preHighlightShapes = self.get('preHighlightShapes');
       if (preHighlightShapes) {
-        const shapes = container.get('children');
+        const shapes = self.getShapes();
         Util.each(shapes, shape => {
           if (!shape.get('selected')) {
             const originAttrs = shape.get('_originAttrs');
@@ -131,7 +131,7 @@ const ActiveMixin = {
         });
       }
       // 恢复原来排序
-      const children = container.get('children');
+      const children = self.getShapes();
       children.sort((obj1, obj2) => {
         return obj1._INDEX - obj2._INDEX;
       });
@@ -147,7 +147,7 @@ const ActiveMixin = {
     const activeShapes = [];
     if (container) {
       const xField = self.getXScale().field;
-      const shapes = container.get('children');
+      const shapes = self.getShapes();
       const originObj = self._getOriginByPoint(point);
       Util.each(shapes, shape => {
         const origin = shape.get('origin');
@@ -170,7 +170,11 @@ const ActiveMixin = {
     if (container) {
       result = container.getShape(point.x * pixelRatio, point.y * pixelRatio);
     }
-    return result;
+
+    if (result && result.get('origin')) {
+      return result;
+    }
+
   },
   highlightShapes(highlightShapes, highlightCfg) {
     const self = this;
@@ -187,8 +191,7 @@ const ActiveMixin = {
       self.clearActivedShapes();
     }
 
-    const container = self.get('container');
-    const shapes = container.get('children');
+    const shapes = self.getShapes();
 
     Util.each(shapes, shape => {
       if (!shape.get('_originAttrs')) {

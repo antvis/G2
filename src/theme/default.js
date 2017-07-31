@@ -219,7 +219,7 @@ const Theme = {
   },
   label: {
     offset: 14,
-    label: {
+    textStyle: {
       fill: '#666',
       fontSize: 12,
       textBaseline: 'middle'
@@ -227,7 +227,7 @@ const Theme = {
   },
   treemapLabels: {
     offset: 10,
-    label: {
+    textStyle: {
       fill: '#fff',
       fontSize: 14,
       textBaseline: 'top',
@@ -235,7 +235,7 @@ const Theme = {
     }
   },
   innerLabels: {
-    label: {
+    textStyle: {
       fill: '#fff',
       fontSize: 12,
       textBaseline: 'middle'
@@ -394,7 +394,6 @@ const Theme = {
         style: {
           fill: '#999',
           fontSize: 12,
-          fontWeight: 500,
           textAlign: 'center'
         }
       }
@@ -403,7 +402,8 @@ const Theme = {
       style: {
         fill: '#666',
         fontSize: 12,
-        fontWeight: 'bold'
+        textBaseline: 'middle',
+        textAlign: 'start'
       }
     },
     region: {

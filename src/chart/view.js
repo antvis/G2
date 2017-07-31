@@ -645,16 +645,14 @@ class View extends Base {
       const shapes = geom.getShapes();
       Util.each(shapes, shape => {
         const origin = shape.get('origin');
-        if (origin) {
-          if (Util.isArray(origin)) {
-            const arr = origin.map(function(subOrigin) {
-              return subOrigin[FIELD_ORIGIN];
-            });
-            fn(arr, shape, geom, self);
-          } else {
-            const obj = origin[FIELD_ORIGIN];
-            fn(obj, shape, geom, self);
-          }
+        if (Util.isArray(origin)) {
+          const arr = origin.map(function(subOrigin) {
+            return subOrigin[FIELD_ORIGIN];
+          });
+          fn(arr, shape, geom, self);
+        } else {
+          const obj = origin[FIELD_ORIGIN];
+          fn(obj, shape, geom, self);
         }
       });
     });

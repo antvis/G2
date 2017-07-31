@@ -78,7 +78,7 @@ describe('geom labels', function() {
     it('get default label cfg', function() {
       const cfg = gLabels.get('label');
       expect(cfg.offset).to.equal(10);
-      expect(cfg.label).not.to.equal(undefined);
+      expect(cfg.textStyle).not.to.equal(undefined);
     });
 
     it('get label items', function() {
@@ -142,7 +142,7 @@ describe('geom labels', function() {
       const cfg = gLabels.get('label');
       // console.log(gLabels, cfg);
       expect(cfg.offset).to.equal(-10);
-      expect(cfg.label.fill).to.equal('#fff');
+      expect(cfg.textStyle.fill).to.equal('#fff');
     });
     it('get labels', function() {
       const items = gLabels.getLabelsItems(points);
@@ -173,7 +173,7 @@ describe('geom labels', function() {
 
       const cfg = gLabels.get('label');
       expect(cfg.offset).to.equal(-10);
-      expect(cfg.label.fill).to.equal('#fff');
+      expect(cfg.textStyle.fill).to.equal('#fff');
     });
 
     it('get labels', function() {

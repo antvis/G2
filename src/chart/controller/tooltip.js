@@ -228,6 +228,10 @@ class TooltipController {
       options.zIndex = 0; // toolip 背景框不可遮盖住 geom，防止用户配置了 crosshairs
     }
 
+    if (options.title === null) {
+      options.showTitle = false;
+    }
+
     options.visible = false;
     const canvas = self._getCanvas();
     const tooltip = canvas.addGroup(Tooltip, options);
@@ -287,7 +291,7 @@ class TooltipController {
             const canvas = geomContainer.get('canvas');
             const pixelRatio = canvas.get('pixelRatio');
             const shape = geomContainer.getShape(point.x * pixelRatio, point.y * pixelRatio);
-            if (shape && shape.get('visible')) {
+            if (shape && shape.get('visible') && shape.get('origin')) {
               items = geom.getTipItems(shape.get('origin'));
             }
           }

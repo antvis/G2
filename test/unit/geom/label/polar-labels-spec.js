@@ -79,7 +79,7 @@ describe('polar labels', function() {
 
       const cfg = gLabels.get('label');
       expect(cfg.offset).to.equal(10);
-      expect(cfg.label).not.to.equal(undefined);
+      expect(cfg.textStyle).not.to.equal(undefined);
     });
     let items;
     it('get items', function() {
@@ -137,7 +137,7 @@ describe('polar labels', function() {
 
       const cfg = gLabels.get('label');
       expect(cfg.offset).to.equal(-10);
-      expect(cfg.label).not.to.equal(undefined);
+      expect(cfg.textStyle).not.to.equal(undefined);
     });
 
     let items;
@@ -196,7 +196,7 @@ describe('polar labels', function() {
 
       const cfg = gLabels.get('label');
       expect(cfg.offset).to.equal(10);
-      expect(cfg.label).not.to.equal(undefined);
+      expect(cfg.textStyle).not.to.equal(undefined);
     });
 
     let items;
@@ -247,8 +247,8 @@ describe('polar labels', function() {
 
       const cfg = gLabels.get('label');
       expect(cfg.offset).to.equal(-10);
-      expect(cfg.label).not.to.equal(undefined);
-      expect(cfg.label.fill).to.equal('#fff');
+      expect(cfg.textStyle).not.to.equal(undefined);
+      expect(cfg.textStyle.fill).to.equal('#fff');
 
     });
 
@@ -313,8 +313,8 @@ describe('polar labels', function() {
 
         const cfg = gLabels.get('label');
         expect(cfg.offset).to.equal(-10);
-        expect(cfg.label).not.to.equal(undefined);
-        expect(cfg.label.fill).not.to.equal('#fff');
+        expect(cfg.textStyle).not.to.equal(undefined);
+        expect(cfg.textStyle.fill).not.to.equal('#fff');
       });
 
       let items;
@@ -364,7 +364,7 @@ describe('polar labels', function() {
 
         const cfg = gLabels.get('label');
         expect(cfg.offset).to.equal(10);
-        expect(cfg.label).not.to.equal(undefined);
+        expect(cfg.textStyle).not.to.equal(undefined);
       });
 
       let items;

@@ -15,7 +15,7 @@ const TooltipMixin = {
     if (scale.isCategory) {
       equals = v1 === v2;
     } else {
-      equals = Util.equal(v1, v2);
+      equals = Util.snapEqual(v1, v2);
     }
     return equals;
   },
@@ -134,22 +134,21 @@ const TooltipMixin = {
       const values = xScale.values;
       const length = values.length;
       // 应该是除以 length - 1
-      distance = Math.abs(values[length - 1] - values[0]) / (length - 1);
+      distance = Math.abs(xScale.translate(values[length - 1]) - xScale.translate(values[0])) / (length - 1);
     }
     return distance;
   },
 
-  findPoint(point, frame) {
+  findPoint(point, dataArray) {
     const self = this;
     const xScale = self.getXScale();
     const yScale = self.getYScale();
     const xField = xScale.field;
     const yField = yScale.field;
-    const frameArr = frame;
     let rst = null;
 
-    const first = frameArr[0];
-    let last = frameArr[frameArr.length - 1];
+    const first = dataArray[0];
+    let last = dataArray[dataArray.length - 1];
 
     if (!first) {
       return rst;
@@ -163,7 +162,7 @@ const TooltipMixin = {
 
     // 如果x的值是数组
     if (Util.isArray(firstXValue)) {
-      Util.each(frameArr, function(record) {
+      Util.each(dataArray, function(record) {
         const origin = record[FIELD_ORIGIN];
         if (xScale.translate(origin[xField][0]) <= value && xScale.translate(origin[xField][1]) >= value) {
           if (isYRange) {
@@ -183,7 +182,7 @@ const TooltipMixin = {
     } else {
       let next;
       if (!xScale.isLinear && xScale.type !== 'timeCat') {
-        Util.each(frameArr, function(record, index) {
+        Util.each(dataArray, function(record, index) {
           const origin = record[FIELD_ORIGIN];
           if (self._snapEqual(origin[xField], value, xScale)) {
             if (isYRange) {
@@ -197,7 +196,7 @@ const TooltipMixin = {
             }
           } else if (xScale.translate(origin[xField]) <= value) {
             last = record;
-            next = frameArr[index + 1];
+            next = dataArray[index + 1];
           }
         });
 
@@ -210,22 +209,22 @@ const TooltipMixin = {
         }
 
         let firstIdx = 0;
-        let lastIdx = frameArr.length - 1;
+        let lastIdx = dataArray.length - 1;
         let middleIdx;
         while (firstIdx <= lastIdx) {
           middleIdx = Math.floor((firstIdx + lastIdx) / 2);
-          const item = frameArr[middleIdx][FIELD_ORIGIN][xField];
+          const item = dataArray[middleIdx][FIELD_ORIGIN][xField];
           if (self._snapEqual(item, value, xScale)) {
-            return frameArr[middleIdx];
+            return dataArray[middleIdx];
           }
 
           if (xScale.translate(item) <= xScale.translate(value)) {
             firstIdx = middleIdx + 1;
-            last = frameArr[middleIdx];
-            next = frameArr[middleIdx + 1];
+            last = dataArray[middleIdx];
+            next = dataArray[middleIdx + 1];
           } else {
             if (lastIdx === 0) {
-              last = frameArr[0];
+              last = dataArray[0];
             }
             lastIdx = middleIdx - 1;
           }

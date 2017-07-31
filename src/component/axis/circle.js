@@ -109,7 +109,7 @@ class Circle extends Base {
 
   getTextAnchor(vector) {
     let align;
-    if (Util.equal(vector[0], 0)) {
+    if (Util.snapEqual(vector[0], 0)) {
       align = 'center';
     } else if (vector[0] > 0) {
       align = 'left';

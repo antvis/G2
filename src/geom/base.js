@@ -289,6 +289,8 @@ class GeomBase extends Base {
     }
     labelCfg.fields = fields;
     labelCfg.cfg = cfg;
+
+    return this;
   }
 
   tooltip(field/* , cfg */) {
@@ -830,16 +832,6 @@ class GeomBase extends Base {
     return this.get('attrs')[name];
   }
 
-  getXDim() {
-    const xScale = this.getXScale();
-    return xScale.dim;
-  }
-
-  getYDim() {
-    const yScale = this.getYScale();
-    return yScale ? yScale.dim : 'y';
-  }
-
   /**
    * 获取 x 对应的度量
    * @return {Scale} x 对应的度量
@@ -857,7 +849,14 @@ class GeomBase extends Base {
   }
 
   getShapes() {
-    return this.get('container').get('children');
+    const children = this.get('container').get('children');
+    const result = [];
+    Util.each(children, child => {
+      if (child.get('origin')) { // 过滤 label
+        result.push(child);
+      }
+    });
+    return result;
   }
 
   getAttrsForLegend() {

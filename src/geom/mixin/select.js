@@ -49,8 +49,7 @@ const SelectMixin = {
   },
   _getSelectedShapes() {
     const self = this;
-    const container = self.get('container');
-    const shapes = container.get('children');
+    const shapes = self.getShapes();
     const selectedShapes = [];
 
     Util.each(shapes, shape => {

@@ -78,7 +78,7 @@ describe('pie labels', function() {
 
       const cfg = gLabels.get('label');
       expect(cfg.offset).to.equal(-10);
-      expect(cfg.label).not.to.equal(undefined);
+      expect(cfg.textStyle).not.to.equal(undefined);
     });
 
     let items;
@@ -179,7 +179,7 @@ describe('pie labels', function() {
 
       const cfg = gLabels.get('label');
       expect(cfg.offset).to.equal(10);
-      expect(cfg.label).not.to.equal(undefined);
+      expect(cfg.textStyle).not.to.equal(undefined);
       expect(cfg.labelLine).not.to.equal(undefined);
       // expect(cfg.label.fill).to.equal('#fff');
     });
@@ -269,7 +269,7 @@ describe('pie labels', function() {
 
       const cfg = gLabels.get('label');
       expect(cfg.offset).to.equal(20);
-      expect(cfg.label).not.to.equal(undefined);
+      expect(cfg.textStyle).not.to.equal(undefined);
       expect(cfg.labelLine).not.to.equal(undefined);
     });
     let items;
@@ -341,7 +341,7 @@ describe('pie labels', function() {
 
       const cfg = gLabels.get('label');
       expect(cfg.offset).to.equal(20);
-      expect(cfg.label).not.to.equal(undefined);
+      expect(cfg.textStyle).not.to.equal(undefined);
       expect(cfg.labelLine).not.to.equal(undefined);
     });
     let items;
@@ -631,7 +631,7 @@ describe('pie labels', function() {
 
       const cfg = gLabels.get('label');
       expect(cfg.offset).to.equal(30);
-      expect(cfg.label).not.to.equal(undefined);
+      expect(cfg.textStyle).not.to.equal(undefined);
       expect(cfg.labelLine).not.to.equal(undefined);
     });
     it('get items', function() {

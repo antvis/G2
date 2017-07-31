@@ -107,12 +107,12 @@ class Helix extends Base {
     thi = 2 * index * Math.PI + thi;
     const r = a * thi;
     let newY = vec2.length(v) - r;
-    newY = Util.equal(newY, 0) ? 0 : newY;
+    newY = Util.snapEqual(newY, 0) ? 0 : newY;
 
     let x = this.invertDim(thi, 'x');
     let y = this.invertDim(newY, 'y');
-    x = Util.equal(x, 0) ? 0 : x;
-    y = Util.equal(y, 0) ? 0 : y;
+    x = Util.snapEqual(x, 0) ? 0 : x;
+    y = Util.snapEqual(y, 0) ? 0 : y;
 
     const rst = {};
     rst.x = this.isTransposed ? y : x;
