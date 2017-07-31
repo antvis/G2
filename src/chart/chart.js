@@ -121,13 +121,13 @@ class Chart extends View {
   // 初始化背景
   _initPlotBack() {
     const canvas = this.get('canvas');
-    const plotBack = canvas.addGroup(Component.Plot, {
+    const plot = canvas.addGroup(Component.Plot, {
       padding: this.get('padding'),
       plotBackground: this.get('plotBackground'),
       background: this.get('background')
     });
-    this.set('plotBack', plotBack);
-    this.set('plotRange', plotBack.get('plotRange'));
+    this.set('plot', plot);
+    this.set('plotRange', plot.get('plotRange'));
   }
 
   _initEvents() {
@@ -230,8 +230,8 @@ class Chart extends View {
 
     self.set('width', width);
     self.set('height', height);
-    const plotBack = self.get('plotBack');
-    plotBack.repaint();
+    const plot = self.get('plot');
+    plot.repaint();
 
     self.repaint();
     return self;

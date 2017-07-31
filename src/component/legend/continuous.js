@@ -174,10 +174,10 @@ class Continuous extends Base {
       maxBlockAttr = Util.mix({}, inRange);
     }
     const minTextAttr = Util.mix({
-      text: min.name + ''
+      text: min.value + ''
     }, textStyle);
     const maxTextAttr = Util.mix({
-      text: max.name + ''
+      text: max.value + ''
     }, textStyle);
     if (layout === 'vertical') {
       this._addVerticalTrigger('min', minBlockAttr, minTextAttr);
@@ -253,8 +253,8 @@ class Continuous extends Base {
       const slider = self.get('slider');
       slider.on('sliderchange', ev => {
         const range = ev.range;
-        const firstItemValue = self.get('firstItem').name * 1;
-        const lastItemValue = self.get('lastItem').name * 1;
+        const firstItemValue = self.get('firstItem').value * 1;
+        const lastItemValue = self.get('lastItem').value * 1;
         const minValue = firstItemValue + (range[0] / 100) * (lastItemValue - firstItemValue);
         const maxValue = firstItemValue + (range[1] / 100) * (lastItemValue - firstItemValue);
         self._updateElement(minValue, maxValue);

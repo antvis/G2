@@ -85,7 +85,7 @@ const SizeMixin = {
     const coord = this.get('coord');
     let width; // x轴的长度
     if (this.isInCircle() && !coord.isTransposed) { // 极坐标下 width 为弧长
-      width = (coord.get('endAngle') - coord.get('startAngle')) * coord.get('radius');
+      width = (coord.endAngle - coord.startAngle) * coord.radius;
     } else {
       width = this.getDimWidth('x'); // 不需要判断transpose
     }

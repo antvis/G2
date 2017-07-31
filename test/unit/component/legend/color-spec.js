@@ -14,12 +14,12 @@ const canvas = new Canvas({
 });
 
 const items = [
-  { name: '0', value: 0, attrValue: 'blue' },
-  { name: '20', value: 0.2, attrValue: '#4D4DB2' },
-  { name: '40', value: 0.4, attrValue: 'green' },
-  { name: '60', value: 0.6, attrValue: 'orange' },
-  { name: '80', value: 0.8, attrValue: '#FF00FE' },
-  { name: '100', value: 1, attrValue: 'red' }
+  { value: '0', attrValue: 'blue' },
+  { value: '20', attrValue: '#4D4DB2' },
+  { value: '40', attrValue: 'green' },
+  { value: '60', attrValue: 'orange' },
+  { value: '80', attrValue: '#FF00FE' },
+  { value: '100', attrValue: 'red' }
 ];
 
 describe('连续图例 - Color', function() {

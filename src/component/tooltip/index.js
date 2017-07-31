@@ -281,6 +281,11 @@ class Tooltip extends Group {
     });
   }
 
+  clearMarkers() {
+    const markerGroup = this.get('markerGroup');
+    markerGroup && markerGroup.clear();
+  }
+
   setPosition(x, y, isFixed) {
     const container = this.get('container');
     let offset = this.get('offset');

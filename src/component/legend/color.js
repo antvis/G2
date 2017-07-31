@@ -36,13 +36,13 @@ class Color extends Continuous {
       fill += 'l (90) ';
       Util.each(items, function(v) {
         rgbColor = ColorUtil.toRGB(v.attrValue);
-        fill += (1 - v.value) + ':' + rgbColor + ' ';
+        fill += (1 - v.scaleValue) + ':' + rgbColor + ' ';
       });
     } else {
       fill += 'l (0) ';
       Util.each(items, function(v) {
         rgbColor = ColorUtil.toRGB(v.attrValue);
-        fill += v.value + ':' + rgbColor + ' ';
+        fill += v.scaleValue + ':' + rgbColor + ' ';
       });
     }
     return this._addBackground(backgroundElement, 'Rect', {
@@ -73,15 +73,15 @@ class Color extends Continuous {
     if (layout === 'vertical') {
       fill += 'l (90) ';
       Util.each(items, v => {
-        path.push([ 'M', 0, height - v.value * height ]);
-        path.push([ 'L', width, height - v.value * height ]);
+        path.push([ 'M', 0, height - v.scaleValue * height ]);
+        path.push([ 'L', width, height - v.scaleValue * height ]);
         rgbColor = ColorUtil.toRGB(v.attrValue);
-        fill += (1 - v.value) + ':' + rgbColor + ' ';
+        fill += (1 - v.scaleValue) + ':' + rgbColor + ' ';
         bgGroup.addShape('text', {
           attrs: Util.mix({}, {
             x: width + self.get('labelOffset'),
-            y: height - v.value * height,
-            text: self._formatItemValue(v.name)
+            y: height - v.scaleValue * height,
+            text: self._formatItemValue(v.value)
           }, self.get('textStyle'), {
             textAlign: 'start'
           })
@@ -90,15 +90,15 @@ class Color extends Continuous {
     } else {
       fill += 'l (0) ';
       Util.each(items, v => {
-        path.push([ 'M', v.value * width, 0 ]);
-        path.push([ 'L', v.value * width, height ]);
+        path.push([ 'M', v.scaleValue * width, 0 ]);
+        path.push([ 'L', v.scaleValue * width, height ]);
         rgbColor = ColorUtil.toRGB(v.attrValue);
-        fill += v.value + ':' + rgbColor + ' ';
+        fill += v.scaleValue + ':' + rgbColor + ' ';
         bgGroup.addShape('text', {
           attrs: Util.mix({}, {
-            x: v.value * width,
+            x: v.scaleValue * width,
             y: height + self.get('labelOffset'),
-            text: self._formatItemValue(v.name)
+            text: self._formatItemValue(v.value)
           }, self.get('textStyle'))
         });
       });

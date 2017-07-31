@@ -14,10 +14,10 @@ const canvas = new Canvas({
 });
 
 const items = [
-  { name: '10', value: 10 },
-  { name: '20', value: 20 },
-  { name: '40', value: 30 },
-  { name: '50', value: 100 }
+  { value: '10' },
+  { value: '20' },
+  { value: '40' },
+  { value: '50' }
 ];
 
 describe('连续图例 - Size', function() {

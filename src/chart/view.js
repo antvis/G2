@@ -639,7 +639,8 @@ class View extends Base {
     const options = this.get('options');
     options.geoms = null;
     this._clearGeoms();
-    // clear guide
+    // reset guide
+    this.get('guideController') && this.get('guideController').reset();
     // clear axis
     this.get('backPlot') && this.get('backPlot').clear();
   }
@@ -655,6 +656,8 @@ class View extends Base {
     const container = this.get('viewContainer');
     container.clear();
     this.clearInner();
+    this.get('guideController') && this.get('guideController').clear();
+
     return this;
   }
 

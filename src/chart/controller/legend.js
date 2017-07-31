@@ -22,6 +22,21 @@ function _snapEqual(v1, v2, scale) {
   return isEqual;
 }
 
+function findGeom(geoms, value) {
+  let rst;
+  Util.each(geoms, geom => {
+    if (geom.get('visible')) {
+      const yScale = geom.getYScale();
+      if (yScale.field === value) {
+        rst = geom;
+        return;
+      }
+    }
+  });
+
+  return rst;
+}
+
 class LegendController {
   constructor(cfg) {
     this.options = {};
@@ -104,14 +119,19 @@ class LegendController {
         Util.each(geoms, geom => {
           const container = geom.get('container');
           const shapes = container.get('children');
-          const scale = geom.get('scales')[field];
-          const activeShapes = [];
-          Util.each(shapes, shape => {
-            const origin = self._getShapeData(shape);
-            if (_snapEqual(origin[field], value, scale)) {
-              activeShapes.push(shape);
-            }
-          });
+          let activeShapes = [];
+          if (field) {
+            const scale = geom.get('scales')[field];
+            Util.each(shapes, shape => {
+              const origin = self._getShapeData(shape);
+              if (_snapEqual(origin[field], value, scale)) {
+                activeShapes.push(shape);
+              }
+            });
+          } else if (geom.getYScale().field === value) {
+            activeShapes = shapes;
+          }
+
           if (!Util.isEmpty(activeShapes)) {
             ev.shapes = activeShapes;
             ev.geom = geom;
@@ -264,11 +284,9 @@ class LegendController {
       const marker = shapeObject.getMarkerCfg(shape, cfg);
 
       items.push({
-        name,
+        value: name,
         checked,
-        type: null,
-        marker,
-        value
+        marker
       });
     });
 
@@ -304,9 +322,9 @@ class LegendController {
       const attrValue = attr.mapping(invertValue).join('');
 
       items.push({
-        name: tick.text,
+        value: tick.text,
         attrValue,
-        value: scaleValue
+        scaleValue
       });
       if (scaleValue === 0) {
         minValue = true;
@@ -318,16 +336,16 @@ class LegendController {
 
     if (!minValue) {
       items.push({
-        name: scale.getText(scale.invert(0)),
+        value: scale.getText(scale.invert(0)),
         attrValue: attr.mapping(0).join(''),
-        value: 0
+        scaleValue: 0
       });
     }
     if (!maxValue) {
       items.push({
-        name: scale.getText(scale.invert(1)),
+        value: scale.getText(scale.invert(1)),
         attrValue: attr.mapping(1).join(''),
-        value: 1
+        scaleValue: 1
       });
     }
 
@@ -379,7 +397,48 @@ class LegendController {
    * 自定义图例
    */
   addCustomLegend() {
+    const self = this;
+    const chart = self.chart;
+    const container = self.container;
+    const legendOptions = self.options;
+    const position = legendOptions.position || 'right';
+    const legends = self.legends;
+    legends[position] = legends[position] || [];
+    const items = legendOptions.items;
+    if (!items) {
+      return;
+    }
 
+    const geoms = chart.getAllGeoms();
+    Util.each(items, item => {
+      const geom = findGeom(geoms, item.value);
+      item.marker = {
+        symbol: item.marker ? item.marker : 'circle',
+        fill: item.fill,
+        radius: 5
+      };
+      item.checked = Util.isNil(item.checked) ? true : item.checked;
+      item.geom = geom;
+    });
+
+    const plotRange = self.plotRange;
+    const maxLength = (position === 'right' || position === 'left') ? plotRange.bl.y - plotRange.tr.y : plotRange.tr.x - plotRange.bl.x;
+
+    const legendCfg = Util.defaultsDeep({
+      maxLength,
+      items
+    }, legendOptions, Global.legend[position]);
+
+    const legend = container.addGroup(Legend.Category, legendCfg);
+    legends[position].push(legend);
+
+    legend.on('itemclick', ev => {
+      if (legendOptions.onClick) { // 用户自定义了图例点击事件
+        legendOptions.onClick(ev);
+      }
+    });
+
+    self._bindHoverEvent(legend);
   }
 
   alignLegends() {

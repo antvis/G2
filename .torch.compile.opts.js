@@ -8,7 +8,7 @@ module.exports = {
   },
   extensions: ['.js'],
   include: [
-    'node_modules/gl-matrix/src/**/*.js'
+    'node_modules/**/src/gl-matrix/**/*.js '
   ],
   exclude: [
     'bower_components/**/*.js',

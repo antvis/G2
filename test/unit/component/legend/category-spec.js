@@ -22,7 +22,7 @@ describe('分类图例', function() {
     const items = [];
     for (let i = 0; i < 5; i++) {
       items.push({
-        name: 'test ' + i,
+        value: 'test ' + i,
         attrValue: colors[i],
         marker: i !== 2 ? {
           symbol: symbols[i],
@@ -88,7 +88,7 @@ describe('分类图例', function() {
     const items = [];
     for (let i = 0; i < 5; i++) {
       items.push({
-        name: 'test ' + i,
+        value: 'test ' + i,
         attrValue: colors[i],
         marker: {
           symbol: symbols[i],
@@ -121,7 +121,7 @@ describe('分类图例', function() {
     const items = [];
     for (let i = 0; i < 5; i++) {
       items.push({
-        name: 'test ' + i,
+        value: 'test ' + i,
         attrValue: colors[i],
         marker: {
           symbol: symbols[i],
@@ -188,7 +188,7 @@ describe('分类图例', function() {
     const items = [];
     for (let i = 0; i < 5; i++) {
       items.push({
-        name: 'test ' + i,
+        value: 'test ' + i,
         attrValue: colors[i],
         marker: {
           symbol: symbols[i],
@@ -251,7 +251,7 @@ describe('分类图例', function() {
     const items = [];
     for (let i = 0; i < 25; i++) {
       items.push({
-        name: 'test ' + i,
+        value: 'test ' + i,
         attrValue: colors[i % 10],
         marker: {
           symbol: symbols[i % 5],
@@ -289,7 +289,7 @@ describe('分类图例', function() {
     const items = [];
     for (let i = 0; i < 25; i++) {
       items.push({
-        name: 'test ' + i,
+        value: 'test ' + i,
         attrValue: colors[i % 10],
         marker: {
           symbol: symbols[i % 5],
@@ -333,7 +333,7 @@ describe('分类图例', function() {
     const items = [];
     for (let i = 0; i < 25; i++) {
       items.push({
-        name: 'test ' + i,
+        value: 'test ' + i,
         attrValue: colors[i % 10],
         marker: {
           symbol: symbols[i % 5],
@@ -373,7 +373,7 @@ describe('分类图例', function() {
     const items = [];
     for (let i = 0; i < 15; i++) {
       items.push({
-        name: i + '',
+        value: i + '',
         attrValue: colors[ i % 10 ],
         marker: {
           symbol: symbols[ i % 5 ],
@@ -412,7 +412,7 @@ describe('分类图例', function() {
     const items = [];
     for (let i = 0; i < 5; i++) {
       items.push({
-        name: 'test ' + i,
+        value: 'test ' + i,
         attrValue: colors[i % 10],
         marker: {
           symbol: symbols[i % 5],
@@ -475,7 +475,7 @@ describe('分类图例', function() {
     const items = [];
     for (let i = 0; i < 20; i++) {
       items.push({
-        name: 'test ' + i,
+        value: 'test ' + i,
         attrValue: colors[i % 10],
         marker: {
           symbol: symbols[i % 5],
@@ -534,7 +534,7 @@ describe('分类图例', function() {
     const items = [];
     for (let i = 0; i < 35; i++) {
       items.push({
-        name: 'test ' + i,
+        value: 'test ' + i,
         color: colors[i % 10],
         marker: {
           symbol: symbols[i % 5],
