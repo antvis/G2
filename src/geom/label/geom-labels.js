@@ -91,9 +91,9 @@ class GeomLabels extends Group {
     const labelCfg = self.get('labelCfg').cfg;
     const geomType = self.get('geomType');
     if (geomType === 'polygon' || (labelCfg && labelCfg.offset < 0 && Util.indexOf(IGNORE_ARR, geomType) === -1)) {
-      return Util.merge({}, self.get('label'), labelCfg, Global.innerLabels);
+      return Util.merge({}, self.get('label'), Global.innerLabels);
     }
-    return Util.merge({}, Global.label, self.get('label'), labelCfg);
+    return Util.merge({}, Global.label, self.get('label'));
   }
 
   /**
@@ -107,8 +107,9 @@ class GeomLabels extends Group {
     const items = [];
     const labels = self.get('label');
     const geom = self.get('geom');
-    const xDim = geom ? geom.getXDim() : 'x';
-    const yDim = geom ? geom.getYDim() : 'y';
+    const xField = geom ? geom.getXScale().field : 'x';
+    const yField = geom ? geom.getYScale().field : 'y';
+
     let origin;
 
     // 获取label相关的x，y的值，获取具体的x,y,防止存在数组
@@ -131,7 +132,7 @@ class GeomLabels extends Group {
             align = self.getLabelAlign(obj, index, total);
           }
           obj.textAlign = align;
-          obj.id = self.get('id') + 'LabelText' + origin[xDim] + ' ' + origin[yDim] + obj.text;
+          obj.id = self.get('id') + 'LabelText' + origin[xField] + ' ' + origin[yField] + obj.text;
           items.push(obj);
         }
       });
@@ -187,6 +188,7 @@ class GeomLabels extends Group {
       y: getDimValue(point.y, index),
       text: labels[index]
     };
+
     const offsetPoint = self.getLabelOffset(labelPoint, index, labels.length);
     self.transLabelPoint(labelPoint);
     labelPoint.x += offsetPoint.x;
@@ -237,16 +239,16 @@ class GeomLabels extends Group {
     const offset = self.getDefaultOffset();
     const coord = self.get('coord');
     const transposed = coord.isTransposed;
-    const yDim = transposed ? 'x' : 'y';
+    const yField = transposed ? 'x' : 'y';
     const factor = transposed ? 1 : -1; // y 方向上越大，像素的坐标越小，所以transposed时将系数变成
     const offsetPoint = {
       x: 0,
       y: 0
     };
     if (index > 0 || total === 1) { // 判断是否小于0
-      offsetPoint[yDim] = offset * factor;
+      offsetPoint[yField] = offset * factor;
     } else {
-      offsetPoint[yDim] = offset * factor * -1;
+      offsetPoint[yField] = offset * factor * -1;
     }
     return offsetPoint;
   }

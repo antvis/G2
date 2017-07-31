@@ -529,7 +529,6 @@ describe('分类图例', function() {
   });
 
   it('html 渲染图例，使用字符串自定义模板', function() {
-    canvas.clear();
 
     const items = [];
     for (let i = 0; i < 35; i++) {

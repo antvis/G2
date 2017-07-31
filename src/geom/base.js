@@ -289,6 +289,8 @@ class GeomBase extends Base {
     }
     labelCfg.fields = fields;
     labelCfg.cfg = cfg;
+
+    return this;
   }
 
   tooltip(field/* , cfg */) {
@@ -828,16 +830,6 @@ class GeomBase extends Base {
    */
   getAttr(name) {
     return this.get('attrs')[name];
-  }
-
-  getXDim() {
-    const xScale = this.getXScale();
-    return xScale.dim;
-  }
-
-  getYDim() {
-    const yScale = this.getYScale();
-    return yScale ? yScale.dim : 'y';
   }
 
   /**
