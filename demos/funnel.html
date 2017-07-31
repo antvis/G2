@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="geometry" content="funnel">
+  <title>Funnel Plot</title>
+</head>
+
+<body>
+  <div id="canvas"></div>
+  <script src="./assets/jquery-3.2.1.min.js"></script>
+  <script src="../build/g2.js"></script>
+  <script>
+    const data = [
+      { action: 'Website visits', value: 5654 },
+      { action: 'Downloads', value: 4064 },
+      { action: 'Requested price list', value: 1987 },
+      { action: 'Invoice sent', value: 976 },
+      { action: 'Finalized', value: 484 }
+    ];
+const chart = new G2.Chart({
+      animate: false,
+      container: 'canvas',
+      forceFit: true,
+      height: window.innerHeight
+    });
+    chart.source(data);
+    chart.coord('rect').transpose().scale(1, -1);
+    chart.axis(false);
+    chart.legend('action', {
+      position: 'bottom'
+    });
+    chart.interval()
+        .position('action*value', 'symmetric')
+        .color('action', [ '#C82B3D', '#EB4456', '#F9815C', '#F8AB60', '#EDCC72' ])
+        .shape('funnel');
+    chart.render();
+  </script>
+</body>
+
+</html>
