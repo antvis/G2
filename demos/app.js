@@ -12,9 +12,10 @@ const pkg = require('../package.json');
 commander
   .version(pkg.version)
   .option('-w, --web')
+  .option('-p, --port <port>', 'specify a port number to run on', parseInt)
   .parse(process.argv);
 
-getPort().then(port => {
+function startService(port) {
   const server = connect();
   server.use(serveStatic(process.cwd()));
   http.createServer(server).listen(port);
@@ -27,7 +28,7 @@ getPort().then(port => {
   } else {
     const app = require('electron').app;
     const BrowserWindow = require('electron').BrowserWindow;
-    const watcher = require('@lite-js/torch/lib/watcher');
+    const watch = require('@lite-js/torch/lib/watch');
     const windowBoundsConfig = require('@lite-js/torch/lib/windowBoundsConfig')(
       resolve(app.getPath('userData'), './g2-config.json')
     );
@@ -54,7 +55,7 @@ getPort().then(port => {
         win = null;
       });
 
-      watcher([
+      watch([
         'demos/**/*.*'
       ], () => {
         win.webContents.reloadIgnoringCache();
@@ -65,4 +66,12 @@ getPort().then(port => {
       app.quit();
     });
   }
-});
+}
+
+if (commander.port) {
+  startService(commander.port);
+} else {
+  getPort().then(port => {
+    startService(port);
+  });
+}

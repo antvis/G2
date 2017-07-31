@@ -13,8 +13,8 @@
   /* global GLOBAL_DATA */
   /* eslint-disable no-unused-vars */
   const GLOBAL_DATA = {
-    plotById: { 'area-plot': { id: 'area-plot', name: 'Area Plot', path: './area.html', thumbnail: './assets/screenshots/800x600/area.png' }, 'bar-plot': { id: 'bar-plot', name: 'Bar Plot', path: './bar.html', thumbnail: './assets/screenshots/800x600/bar.png' }, 'rose-plot': { id: 'rose-plot', name: 'Rose Plot', path: './rose.html', thumbnail: './assets/screenshots/800x600/rose.png' }, 'day-hour-heatmap': { id: 'day-hour-heatmap', name: 'Day/Hour Heatmap', path: './day-hour-heatmap.html', thumbnail: './assets/screenshots/800x600/day-hour-heatmap.png' }, 'geo-projections': { id: 'geo-projections', name: 'Geo Projections', path: './geo-projections.html', thumbnail: './assets/screenshots/800x600/geo-projections.png' }, 'treemap-tiles': { id: 'treemap-tiles', name: 'Treemap Tiles', path: './treemap-tiles.html', thumbnail: './assets/screenshots/800x600/treemap-tiles.png' }, 'line-plot': { id: 'line-plot', name: 'Line Plot', path: './line.html', thumbnail: './assets/screenshots/800x600/line.png' }, 'multiple-plot': { id: 'multiple-plot', name: 'Multiple Plot', path: './multiple-chart.html', thumbnail: './assets/screenshots/800x600/multiple-chart.png' }, 'scatter-plot': { id: 'scatter-plot', name: 'Scatter Plot', path: './scatter.html', thumbnail: './assets/screenshots/800x600/scatter.png' } },
-    plotsByGeometry: { area: [{ id: 'area-plot', name: 'Area Plot', path: './area.html', thumbnail: './assets/screenshots/800x600/area.png' }], interval: [{ id: 'bar-plot', name: 'Bar Plot', path: './bar.html', thumbnail: './assets/screenshots/800x600/bar.png' }, { id: 'rose-plot', name: 'Rose Plot', path: './rose.html', thumbnail: './assets/screenshots/800x600/rose.png' }], polygon: [{ id: 'day-hour-heatmap', name: 'Day/Hour Heatmap', path: './day-hour-heatmap.html', thumbnail: './assets/screenshots/800x600/day-hour-heatmap.png' }, { id: 'geo-projections', name: 'Geo Projections', path: './geo-projections.html', thumbnail: './assets/screenshots/800x600/geo-projections.png' }, { id: 'treemap-tiles', name: 'Treemap Tiles', path: './treemap-tiles.html', thumbnail: './assets/screenshots/800x600/treemap-tiles.png' }], line: [{ id: 'line-plot', name: 'Line Plot', path: './line.html', thumbnail: './assets/screenshots/800x600/line.png' }], multiple: [{ id: 'multiple-plot', name: 'Multiple Plot', path: './multiple-chart.html', thumbnail: './assets/screenshots/800x600/multiple-chart.png' }], point: [{ id: 'scatter-plot', name: 'Scatter Plot', path: './scatter.html', thumbnail: './assets/screenshots/800x600/scatter.png' }] }
+    plotById: { 'area-plot': { id: 'area-plot', name: 'Area Plot', path: './area.html', thumbnail: './assets/screenshots/800x600/area.png' }, 'bar-plot': { id: 'bar-plot', name: 'Bar Plot', path: './bar.html', thumbnail: './assets/screenshots/800x600/bar.png' }, 'rose-plot': { id: 'rose-plot', name: 'Rose Plot', path: './rose.html', thumbnail: './assets/screenshots/800x600/rose.png' }, 'day-hour-heatmap': { id: 'day-hour-heatmap', name: 'Day/Hour Heatmap', path: './day-hour-heatmap.html', thumbnail: './assets/screenshots/800x600/day-hour-heatmap.png' }, 'geo-projections': { id: 'geo-projections', name: 'Geo Projections', path: './geo-projections.html', thumbnail: './assets/screenshots/800x600/geo-projections.png' }, 'treemap-tiles': { id: 'treemap-tiles', name: 'Treemap Tiles', path: './treemap-tiles.html', thumbnail: './assets/screenshots/800x600/treemap-tiles.png' }, 'line-plot-with-time': { id: 'line-plot-with-time', name: 'Line Plot with Time', path: './line-time.html', thumbnail: './assets/screenshots/800x600/line-time.png' }, 'line-plot': { id: 'line-plot', name: 'Line Plot', path: './line.html', thumbnail: './assets/screenshots/800x600/line.png' }, 'multiple-plot': { id: 'multiple-plot', name: 'Multiple Plot', path: './multiple-chart.html', thumbnail: './assets/screenshots/800x600/multiple-chart.png' }, 'scatter-plot': { id: 'scatter-plot', name: 'Scatter Plot', path: './scatter.html', thumbnail: './assets/screenshots/800x600/scatter.png' } },
+    plotsByGeometry: { area: [{ id: 'area-plot', name: 'Area Plot', path: './area.html', thumbnail: './assets/screenshots/800x600/area.png' }], interval: [{ id: 'bar-plot', name: 'Bar Plot', path: './bar.html', thumbnail: './assets/screenshots/800x600/bar.png' }, { id: 'rose-plot', name: 'Rose Plot', path: './rose.html', thumbnail: './assets/screenshots/800x600/rose.png' }], polygon: [{ id: 'day-hour-heatmap', name: 'Day/Hour Heatmap', path: './day-hour-heatmap.html', thumbnail: './assets/screenshots/800x600/day-hour-heatmap.png' }, { id: 'geo-projections', name: 'Geo Projections', path: './geo-projections.html', thumbnail: './assets/screenshots/800x600/geo-projections.png' }, { id: 'treemap-tiles', name: 'Treemap Tiles', path: './treemap-tiles.html', thumbnail: './assets/screenshots/800x600/treemap-tiles.png' }], line: [{ id: 'line-plot-with-time', name: 'Line Plot with Time', path: './line-time.html', thumbnail: './assets/screenshots/800x600/line-time.png' }, { id: 'line-plot', name: 'Line Plot', path: './line.html', thumbnail: './assets/screenshots/800x600/line.png' }], multiple: [{ id: 'multiple-plot', name: 'Multiple Plot', path: './multiple-chart.html', thumbnail: './assets/screenshots/800x600/multiple-chart.png' }], point: [{ id: 'scatter-plot', name: 'Scatter Plot', path: './scatter.html', thumbnail: './assets/screenshots/800x600/scatter.png' }] }
   };
 </script>
   <div class="main">
@@ -62,6 +62,8 @@
     </h3>
     <ul class="sub-menus">
       <li class="sub-menu-item">
+            <a href="#/line-plot-with-time">Line Plot with Time</a>
+          </li><li class="sub-menu-item">
             <a href="#/line-plot">Line Plot</a>
           </li>
     </ul>
@@ -142,6 +144,11 @@
     </h3>
     <ul class="thumbnails-container">
       <li class="thumbnail-item">
+            <a href="#/line-plot-with-time">
+              <img class="thumbnail" src="./assets/screenshots/800x600/line-time.png">
+              <div class="description">Line Plot with Time</div>
+            </a>
+          </li><li class="thumbnail-item">
             <a href="#/line-plot">
               <img class="thumbnail" src="./assets/screenshots/800x600/line.png">
               <div class="description">Line Plot</div>

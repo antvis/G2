@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="geometry" content="multiple">
+  <link rel="stylesheet" href="./assets/common.css">
   <title>Multiple Plot</title>
 </head>
 
@@ -25,10 +26,11 @@
     ];
 
     const chart = new G2.Chart({
+      animate: false,
       container: 'canvas',
-      width: 600,
-      height: 300,
-      padding: [ 30, 60, 100, 60 ]
+      forceFit: true,
+      // height: 400,
+      height: window.innerHeight
     });
     chart.source(data, {
       call: {
@@ -62,18 +64,27 @@
         });
       }
     });
+    chart.tooltip(false);
 
     chart.axis('waiting', false);
     chart.axis('call', false);
     chart.axis('people', false);
-    chart.interval().position('time*waiting').color('#3182bd');
-    chart.line().position('time*call').color('#99d8c9')
+    chart.interval()
+      .position('time*waiting')
+      .color('#3182bd');
+    chart.line()
+      .position('time*call')
+      .color('#99d8c9')
       .size(3)
       .shape('smooth');
-    chart.line().position('time*people').color('#fdae6b')
+    chart.line()
+      .position('time*people')
+      .color('#fdae6b')
       .size(3)
       .shape('smooth');
-    chart.point().position('time*people').color('#fdae6b')
+    chart.point()
+      .position('time*people')
+      .color('#fdae6b')
       .size(3)
       .shape('circle');
     chart.render();

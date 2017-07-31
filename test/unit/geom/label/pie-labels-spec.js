@@ -538,7 +538,7 @@ describe('pie labels', function() {
     });
 
     it('pie labeling overlap', function() {
-      const dv = ds.createView('pie-labeling-overlap').source(data);
+      const dv = ds.createView().source(data);
       dv.transform({
         type: 'percent',
         field: 'value',
@@ -650,7 +650,7 @@ describe('pie labels', function() {
 
   describe('Just one label.', function() {
     it('Even though source data just has one item, the label must be shown.', function() {
-      const dv = ds.createView('pie-labeling-overlap').source([
+      const dv = ds.createView().source([
         { name: 'Singapore', count: 28 }
       ]);
       dv.transform({
