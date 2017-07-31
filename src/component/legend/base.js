@@ -18,26 +18,6 @@ class Base extends Group {
        */
       itemFormatter: null,
       /**
-       * 水平方向布局，可取值 left middle right
-       * @type {String}
-       */
-      alignX: 'right',
-      /**
-       * 垂直方向布局，可取值 top middle bottom
-       * @type {String}
-       */
-      alignY: 'bottom',
-      /**
-       * 水平方向偏移
-       * @type {Number}
-       */
-      offsetX: 0,
-      /**
-       * 垂直方向偏移
-       * @type {Number}
-       */
-      offsetY: 0,
-      /**
        * 是否使用 html 进行渲染
        * @type {Boolean}
        */

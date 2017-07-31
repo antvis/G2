@@ -114,7 +114,7 @@ class Category extends Base {
        * 使用html时的外层模板
        * @type {String}
        */
-      containerTpl: '<div class="g2-legend" style="position:absolute;top:20px;right:60px;width:100%;">' +
+      containerTpl: '<div class="g2-legend" style="position:absolute;top:20px;right:60px;width:auto;">' +
         '<h4 class="g2-legend-title"></h4>' +
         '<ul class="g2-legend-itemlist" style="list-style-type:none;margin:0;padding:0;"></ul>' +
         '</div>',
@@ -122,7 +122,7 @@ class Category extends Base {
        * 默认的图例项 html 模板
        * @type {String}
        */
-      _defaultItemTpl: '<li class="g2-legend-item item-${ index } ${ checked }" data-color="${ originColor }" data-value="${ originValue }" style="cursor: pointer;">' +
+      _defaultItemTpl: '<li class="g2-legend-item item-${ index } ${ checked }" data-color="${ originColor }" data-value="${ originValue }" style="cursor: pointer;font-size: 14px;">' +
         '<i class="g2-legend-marker" style="width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:10px;background-color: ${ color };"></i>' +
         '<span class="g2-legend-text">${ value }</span></li>',
       /**
@@ -323,6 +323,11 @@ class Category extends Base {
         const textDom = findNodeByClass(parentDom, 'g2-legend-text');
         const markerDom = findNodeByClass(parentDom, 'g2-legend-marker');
         const clickedItem = findItem(items, parentDom.getAttribute('data-value'));
+
+        if (!clickedItem) {
+          return;
+        }
+
         const domClass = parentDom.className;
         const originColor = parentDom.getAttribute('data-color');
 
@@ -652,6 +657,17 @@ class Category extends Base {
       });
     } else {
       super.move(x, y);
+    }
+  }
+
+  remove() {
+    if (this.get('useHtml')) {
+      const legendWrapper = this.get('legendWrapper');
+      if (legendWrapper && legendWrapper.parentNode) {
+        legendWrapper.parentNode.removeChild(legendWrapper);
+      }
+    } else {
+      super.remove();
     }
   }
 }
