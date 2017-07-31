@@ -849,7 +849,14 @@ class GeomBase extends Base {
   }
 
   getShapes() {
-    return this.get('container').get('children');
+    const children = this.get('container').get('children');
+    const result = [];
+    Util.each(children, child => {
+      if (child.get('origin')) { // 过滤 label
+        result.push(child);
+      }
+    });
+    return result;
   }
 
   getAttrsForLegend() {

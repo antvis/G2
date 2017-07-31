@@ -101,10 +101,6 @@ class LegendController {
   _getShapeData(shape) {
     let originData = shape.get('origin');
 
-    if (!originData) {
-      return null;
-    }
-
     if (Util.isArray(originData)) {
       originData = originData[0];
     }
@@ -123,7 +119,7 @@ class LegendController {
       if (!pre) {
         Util.each(geoms, geom => {
           const container = geom.get('container');
-          const shapes = container.get('children');
+          const shapes = geom.getShapes();
           let activeShapes = [];
           if (field) {
             const scale = geom.get('scales')[field];

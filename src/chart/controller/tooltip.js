@@ -291,7 +291,7 @@ class TooltipController {
             const canvas = geomContainer.get('canvas');
             const pixelRatio = canvas.get('pixelRatio');
             const shape = geomContainer.getShape(point.x * pixelRatio, point.y * pixelRatio);
-            if (shape && shape.get('visible')) {
+            if (shape && shape.get('visible') && shape.get('origin')) {
               items = geom.getTipItems(shape.get('origin'));
             }
           }
