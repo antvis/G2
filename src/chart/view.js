@@ -447,20 +447,59 @@ class View extends Base {
     geom.destroy();
   }
 
-  createScale(field) {
+  createScale(field, data) {
     const scales = this.get('scales');
+    const parent = this.get('parent');
     let scale = scales[field];
     const filters = this._getFilters();
-    let data = this.get('filteredData');
-    if (!scale) {
-      const scaleController = this.get('scaleController');
+    if (!data) {
+      data = this.get('filteredData');
       if (filters && filters[field]) {
         data = this.get('data');
       }
+    }
+    const scaleController = this.get('scaleController');
+    if (!scale) {
       scale = scaleController.createScale(field, data);
+      if (scale.sync && parent) {
+        const parentScale = parent.createScale(field, data);
+        scale = this._getSyncScale(parentScale, scale);
+      }
       scales[field] = scale;
+    } else if (scale.sync) { // 防止 view 内部创建的scale，Chart 上的scale 范围更大
+      const newScale = scaleController.createScale(field, data);
+      this._syncScale(scale, newScale);
     }
     return scale;
+  }
+
+  // 如果需要同步度量，则使得 values,min,max的范围最大
+  _getSyncScale(parentScale, scale) {
+    if (parentScale.type !== scale.type) {
+      return scale;
+    }
+    this._syncScale(parentScale, scale);
+    return parentScale;
+  }
+  _syncScale(distScale, sourceScale) {
+    const mergeValues = Util.union(distScale.values, sourceScale.values);
+    if (sourceScale.isLinear) {
+      const max = Math.max(distScale.max, sourceScale.max);
+      const min = Math.min(distScale.min, sourceScale.min);
+      if (distScale.max !== max || distScale.min !== min) {
+        distScale.change({
+          min,
+          max,
+          values: mergeValues
+        });
+      }
+    }
+
+    if (mergeValues.length !== distScale.values.length) {
+      distScale.change({
+        values: mergeValues
+      });
+    }
   }
 
   getFilteredScale(field) {
@@ -726,30 +765,22 @@ class View extends Base {
     this.repaint();
   }
 
-  /**
-   * 绘制 view 的内容
-   * @protected
-   */
-  renderView() {
-    const data = this.get('data');
-    if (data) {
-      const filteredData = this.execFilter(data);
-      if (!Util.isEmpty(filteredData)) {
-        this.set('filteredData', filteredData);
-        this.initView();
-        this.paint();
-      }
-    }
-  }
-
   render(stopDraw) {
     const views = this.get('views');
+    // 初始化 View 的数据
     Util.each(views, function(view) {
       if (view.get('visible')) {
-        view.render(true);
+        view.initView();
       }
     });
-    this.renderView();
+    this.initView();
+    // 绘制
+    Util.each(views, function(view) {
+      if (view.get('visible')) {
+        view.paint();
+      }
+    });
+    this.paint();
     if (!stopDraw) {
       const canvas = this.get('canvas');
       canvas.draw();
@@ -758,17 +789,27 @@ class View extends Base {
   }
 
   initView() {
-    this._initViewPlot();
-    this._createCoord(); // draw geometry 前绘制区域可能会发生改变
-    this._initGeoms();
-    this._adjustScale();
+    const data = this.get('data');
+    if (data) {
+      const filteredData = this.execFilter(data);
+      if (!Util.isEmpty(filteredData)) {
+        this.set('filteredData', filteredData);
+        this._initViewPlot();
+        this._createCoord(); // draw geometry 前绘制区域可能会发生改变
+        this._initGeoms();
+        this._adjustScale();
+      }
+    }
   }
 
   paint() {
-    this.beforeDraw();
-    this._drawGeoms();
-    this._renderGuides();
-    this._renderAxes();
+    const filteredData = this.get('filteredData');
+    if (!Util.isEmpty(filteredData)) {
+      this.beforeDraw();
+      this._drawGeoms();
+      this._renderGuides();
+      this._renderAxes();
+    }
   }
 
   changeVisible(visible) {
@@ -785,6 +826,8 @@ class View extends Base {
 
   destroy() {
     this._clearEvents();
+    const dataView = this.get('dataView');
+    dataView && dataView.off('change', Util.getWrapBehavior(this, '_onViewChange'));
     this.clear();
     super.destroy();
   }

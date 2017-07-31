@@ -106,10 +106,26 @@ describe('test chart with views', function() {
       container: 'cchart',
       animate: false
     });
+
+    chart.scale({
+      a: {
+        formatter(a) {
+          return a.toFixed(2);
+        }
+      }
+    });
+    chart.axis('b', {
+      title: null
+    });
+
     expect(div.childNodes.length).equal(1);
   });
   it('add view', function() {
     const v1 = chart.view();
+    expect(v1.get('options').scales.a).not.equal(undefined);
+    expect(v1.get('options').axes.b).eqls({
+      title: null
+    });
     v1.source(data);
     v1.line().position('a*b').color('c');
     expect(chart.get('views').length).equal(1);
@@ -329,7 +345,7 @@ describe('filter shape', function() {
   });
 });
 
-describe('visible', function() {
+describe('chart, view, geom visible', function() {
   let chart;
   const data = [
       { a: 1, b: 2, c: '1' },
@@ -373,6 +389,14 @@ describe('visible', function() {
   });
 
   it('multiple views show hide', function() {
+    chart.scale('b', {
+      alias: '别名'
+    });
+    chart.axis('b', {
+      title: {
+        offset: 5
+      }
+    });
     const v1 = chart.view({
       start: { x: 0, y: 0 },
       end: { x: 0.5, y: 0.5 }
@@ -396,7 +420,7 @@ describe('visible', function() {
     expect(viewContainer.getCount()).equal(2);
     v1.hide();
     expect(viewContainer.getFirst().get('visible')).equal(false);
-
+    v1.show();
   });
 
   it('geom show hide', function() {
@@ -413,5 +437,100 @@ describe('visible', function() {
     l1.show();
     expect(viewContainer.getFirst().get('visible')).equal(true);
   });
+  it('destroy', function() {
+    chart.destroy();
+    expect(chart.destroyed).equal(true);
+  });
+});
 
+describe('chart sync scales', function() {
+  let chart;
+  const data = [
+      { a: 1, b: 2, c: '1' },
+      { a: 2, b: 5, c: '1' },
+      { a: 3, b: 4, c: '1' },
+
+      { a: 1, b: 3, c: '2' },
+      { a: 2, b: 1, c: '2' },
+      { a: 3, b: 2, c: '2' }
+  ];
+
+  const data1 = [
+    { a: 1, b: 6, d: '1' },
+    { a: 2, b: 9, d: '2' }
+  ];
+
+  it('only chart', function() {
+    chart = new Chart({
+      height: 500,
+      forceFit: true,
+      container: 'cchart',
+      animate: false
+    });
+
+    chart.scale('b', {
+      sync: true,
+      min: 0
+    });
+
+    chart.source(data);
+    chart.line().position('a*b').color('c');
+    chart.render();
+
+    expect(chart.get('scales').b.min).equal(0);
+
+  });
+
+  it('one view', function() {
+    chart.clear();
+    const v1 = chart.view();
+    v1.source(data1);
+    v1.line().position('a*b').color('c');
+    chart.render();
+    expect(v1.get('scales').b.min).equal(0);
+  });
+
+  it('chart with view', function() {
+    chart.clear();
+    chart.interval().position('a*b', 'stack').color('c');
+    chart.scale('a', {
+      sync: true
+    });
+    const v1 = chart.view();
+    v1.source(data1);
+    v1.line().position('a*b').color('c');
+    chart.render();
+    expect(v1.get('scales').b).equal(chart.get('scales').b);
+  });
+
+  it('multiple views', function() {
+    chart.clear();
+    chart.scale('a', {
+      sync: true
+    });
+
+    const v1 = chart.view({
+      start: { x: 0, y: 0 },
+      end: { x: 0.5, y: 0.5 }
+    });
+    v1.source(data1);
+    v1.line().position('a*b').color('c');
+
+    const v2 = chart.view({
+      end: { x: 1, y: 1 },
+      start: { x: 0.5, y: 0.5 }
+    });
+    v2.source(data);
+    v2.interval().position('a*b', 'stack').color('c');
+    chart.render();
+    expect(v1.get('scales').b).equal(chart.get('scales').b);
+    expect(v1.get('scales').a).equal(chart.get('scales').a);
+    expect(v1.get('scales').c).not.equal(chart.get('scales').c);
+    expect(v1.get('scales').b.max).equal(10);
+  });
+
+  it('destroy', function() {
+    chart.destroy();
+    expect(chart.destroyed).equal(true);
+  });
 });

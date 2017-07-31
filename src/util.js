@@ -47,6 +47,7 @@ const Util = {
   isEqual: require('lodash/isEqual'),
   replace: require('lodash/replace'),
   union: require('lodash/union'),
+  pick: require('lodash/pick'),
   snapEqual(v1, v2) {
     return Math.abs(v1 - v2) < 0.001;
   },

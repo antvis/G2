@@ -4,12 +4,9 @@ const getPort = require('get-port');
 const http = require('http');
 const open = require('open');
 const serveStatic = require('serve-static');
-const {
-  assign
-} = require('lodash');
-const {
-  resolve
-} = require('path');
+const assign = require('lodash').assign;
+const resolve = require('path').resolve;
+
 const pkg = require('../package.json');
 
 commander
@@ -28,10 +25,8 @@ getPort().then(port => {
   if (commander.web) {
     open(url);
   } else {
-    const {
-      app,
-      BrowserWindow
-    } = require('electron');
+    const app = require('electron').app;
+    const BrowserWindow = require('electron').BrowserWindow;
     const watcher = require('@lite-js/torch/lib/watcher');
     const windowBoundsConfig = require('@lite-js/torch/lib/windowBoundsConfig')(
       resolve(app.getPath('userData'), './g2-config.json')
