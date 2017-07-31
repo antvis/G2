@@ -50,7 +50,6 @@ module.exports = {
         break;
       case 'polar':
       case 'theta':
-      case 'map':
         C = Angle; // angle;
         break;
       case 'helix':
