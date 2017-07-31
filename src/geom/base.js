@@ -573,7 +573,7 @@ class GeomBase extends Base {
       const field = xScale.field;
       Util.each(dataArray, function(data) {
         data.sort(function(v1, v2) {
-          return v1[field] - v2[field];
+          return xScale.translate(v1[field]) - xScale.translate(v2[field]);
         });
       });
     }

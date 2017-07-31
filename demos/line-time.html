@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="geometry" content="line">
+  <title>Line Plot</title>
+</head>
+
+<body>
+  <div id="canvas"></div>
+  <script src="./assets/jquery-3.2.1.min.js"></script>
+  <script src="../build/g2.js"></script>
+  <script>
+  $.getJSON('./data/tem.json', data => {
+    const chart = new G2.Chart({
+      animate: false,
+      container: 'canvas',
+      forceFit: true,
+      height: window.innerHeight
+    });
+    chart.source(data);
+    chart.line().position('date*Austin');
+    chart.render();
+  });
+  </script>
+</body>
+
+</html>
