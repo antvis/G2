@@ -22,6 +22,10 @@ describe('interval chart', function() {
     animate: false
   });
 
+  chart.legend({
+    allowAllCanceled: true
+  });
+
   it('init', function() {
     chart.interval().position('genre*sold').color('genre');
     chart.source(data);
