@@ -140,7 +140,7 @@ class Polar extends Base {
     vec3.transformMat3(vStart, vStart, m);
     vStart = [ vStart[0], vStart[1] ];
     let angle = vec2.angleTo(vStart, vPoint, x.end < x.start);
-    if (Util.equal(angle, Math.PI * 2)) {
+    if (Util.snapEqual(angle, Math.PI * 2)) {
       angle = 0;
     }
     const radius = vec2.length(vPoint);

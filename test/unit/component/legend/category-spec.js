@@ -227,7 +227,7 @@ describe('分类图例', function() {
     canvas.draw();
     expect(legend.getCount()).to.equal(3);
     const itemsGroup = legend.get('itemsGroup');
-    // expect(Util.equal(itemsGroup.getBBox().width, 50.34765625)).to.be.true;
+    // expect(Util.snapEqual(itemsGroup.getBBox().width, 50.34765625)).to.be.true;
     expect(itemsGroup.getCount()).to.equal(5);
     const children = itemsGroup.get('children');
     expect(children[0].get('children')[0].attr('fill')).to.equal('#ff6600');

@@ -111,13 +111,13 @@ describe('Cartesian', function() {
   it('trans', function() {
     coord.rotate(Math.PI / 2);
     const vector = coord.applyMatrix(1, 0);
-    expect(Util.equal(vector[0], 0)).to.be.true;
-    expect(Util.equal(vector[1], 1)).to.be.true;
+    expect(Util.snapEqual(vector[0], 0)).to.be.true;
+    expect(Util.snapEqual(vector[1], 1)).to.be.true;
   });
 
   it('reverse', function() {
     const vector = coord.invertMatrix(0, 1);
-    expect(Util.equal(vector[0], 1)).to.be.true;
-    expect(Util.equal(vector[1], 0)).to.be.true;
+    expect(Util.snapEqual(vector[0], 1)).to.be.true;
+    expect(Util.snapEqual(vector[1], 0)).to.be.true;
   });
 });

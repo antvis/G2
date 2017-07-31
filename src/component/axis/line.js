@@ -109,7 +109,7 @@ class Line extends Base {
 
       if (title.autoRotate && !textStyle.rotate) { // 自动旋转并且用户没有指定标题的旋转角度
         let angle = 0;
-        if (!Util.equal(vector[1], 0)) { // 所有水平坐标轴，文本不转置
+        if (!Util.snapEqual(vector[1], 0)) { // 所有水平坐标轴，文本不转置
           const v1 = [ 1, 0 ];
           const v2 = [ vector[0], vector[1] ];
           angle = vec2.angleTo(v2, v1, true);
@@ -162,12 +162,12 @@ class Line extends Base {
       const vector = self.getAxisVector(); // 坐标轴的向量，仅处理水平或者垂直的场景
       let angle;
       let maxWidth;
-      if (Util.equal(vector[0], 0) && title && title.text) { // 坐标轴垂直，由于不知道边距，只能防止跟title重合，如果title不存在，则不自动旋转
+      if (Util.snapEqual(vector[0], 0) && title && title.text) { // 坐标轴垂直，由于不知道边距，只能防止跟title重合，如果title不存在，则不自动旋转
         maxWidth = self.getMaxLabelWidth(labelsGroup);
         if ((maxWidth + offset) > (titleOffset - append)) {
           angle = Math.acos((titleOffset - append) / (maxWidth + offset)) * -1;
         }
-      } else if (Util.equal(vector[1], 0) && labelsGroup.getCount() > 1) { // 坐标轴水平，不考虑边距，根据最长的和平均值进行翻转
+      } else if (Util.snapEqual(vector[1], 0) && labelsGroup.getCount() > 1) { // 坐标轴水平，不考虑边距，根据最长的和平均值进行翻转
         const avgWidth = Math.abs(self._getAvgLabelLength(labelsGroup)); // Math.abs(vector.x) / (self.get('ticks').length - 1);,平均计算存在问题，分类坐标轴的点前后有空白
         maxWidth = self.getMaxLabelWidth(labelsGroup);
         if (maxWidth > avgWidth) {
@@ -179,7 +179,7 @@ class Line extends Base {
         const factor = self.get('factor');
         Util.each(labelsGroup.get('children'), function(label) {
           label.rotateAtStart(angle);
-          if (Util.equal(vector[1], 0)) {
+          if (Util.snapEqual(vector[1], 0)) {
             if (factor > 0) {
               label.attr('textAlign', 'left');
             } else {
