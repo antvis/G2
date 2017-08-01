@@ -1,3 +1,5 @@
 before_deploy:
+  - tnpm install
+  - tnpm run build
 options:
   dist: './'
