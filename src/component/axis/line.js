@@ -145,6 +145,7 @@ class Line extends Base {
       cfg.text = title.text;
 
       const titleShape = self.addShape('Text', {
+        zIndex: 2,
         attrs: cfg
       });
       titleShape.name = 'axis-title';
@@ -159,6 +160,9 @@ class Line extends Base {
       const offset = self.get('label').offset || self.get('_labelOffset');
       const append = offset;
       const titleOffset = title.offset || self.get('_titleOffset');
+      if (titleOffset < 0) { // 如果是负的的话就不旋转
+        return;
+      }
       const vector = self.getAxisVector(); // 坐标轴的向量，仅处理水平或者垂直的场景
       let angle;
       let maxWidth;
