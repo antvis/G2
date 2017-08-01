@@ -126,9 +126,11 @@
       split: true
     });
     chart.coord().transpose();
-    chart.interval().position('type*value', 'stack').color('opinion', function(opinion) {
-      return colorMap[opinion];
-    });
+    chart.interval()
+      .position('type*value', 'stack')
+      .color('opinion', function(opinion) {
+        return colorMap[opinion];
+      });
     chart.render();
   </script>
 </body>
