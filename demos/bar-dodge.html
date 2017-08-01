@@ -72,12 +72,27 @@
       forceFit: true,
       height: window.innerHeight
     });
-    chart.source(data);
+    chart.source(data, {
+      月均降雨量: {
+        alias: '月均降雨量（ml）'
+      }
+    });
     chart.legend({
       onHover(ev) {
         const shapes = ev.shapes;
         const geom = ev.geom;
         geom.highlightShapes(shapes);
+      }
+    });
+    chart.axis('月均降雨量', {
+      title: {
+        position: 'end',
+        autoRotate: false,
+        textStyle: {
+          textAlign: 'start',
+          fill: '#000'
+        },
+        offset: -10
       }
     });
 
