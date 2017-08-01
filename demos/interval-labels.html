@@ -30,9 +30,13 @@
       height: window.innerHeight
     });
     chart.source(data);
+    chart.coord().scale(1, -1);
     chart.interval()
       .position('genre*sold')
-      .label('sold');
+      .label('sold', {
+        offset: -15,
+        textStyle: { fill: 'red' }
+      });
     
     chart.render();
 
