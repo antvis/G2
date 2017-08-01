@@ -1,5 +1,5 @@
 {
-  "name": "@antv/g2",
+  "name": "@alipay/g2",
   "version": "3.0.0-beta0",
   "description": "the Grammar of Graphics in Javascript",
   "main": "dist/g2.js",
