@@ -59,7 +59,6 @@
     "lint": "eslint --ext .html,.js ./",
     "lint-fix": "eslint --ext .html,.js --fix ./",
     "prepare-demos": "./bin/prepare-demos-homepage && ./bin/prepare-demos-screenshots",
-    "prepublish": "npm run build && npm run compress",
     "test": "torch --compile --renderer --recursive ./test/unit",
     "test-live": "torch --compile --interactive --watch --recursive ./test/unit"
   },
