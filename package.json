@@ -1,8 +1,10 @@
 {
-  "name": "@antv/g2",
-  "version": "3.0.0",
+  "name": "@alipay/g2",
+  "version": "3.0.0-rc0",
   "description": "the Grammar of Graphics in Javascript",
-  "main": "index.js",
+  "main": "dist/g2.js",
+  "browser": "dist/g2.js",
+  "module": "index.js",
   "repository": {
     "type": "git",
     "url": "git@gitlab.alibaba-inc.com:datavis/g2.git"
@@ -57,6 +59,7 @@
     "lint": "eslint --ext .html,.js ./",
     "lint-fix": "eslint --ext .html,.js --fix ./",
     "prepare-demos": "./bin/prepare-demos-homepage && ./bin/prepare-demos-screenshots",
+    "prepublish": "npm run build && npm run compress",
     "test": "torch --compile --renderer --recursive ./test/unit",
     "test-live": "torch --compile --interactive --watch --recursive ./test/unit"
   },
@@ -66,6 +69,9 @@
       "test"
     ],
     "silent": false
+  },
+  "publishConfig": {
+    "registry": "http://registry.npm.alibaba-inc.com"
   },
   "dependencies": {
     "@ali/g": "^2.0.0-beta.14",
