@@ -5,9 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="geometry" content="pie">
+  <meta name="geometry" content="interval">
   <link rel="stylesheet" href="./assets/common.css">
-  <title>Pie Plot</title>
+  <title>Interval with labels</title>
 </head>
 
 <body>
@@ -16,13 +16,13 @@
   <script src="../build/g2.js"></script>
   <script>
     const data = [
-      { name: 'Microsoft Internet Explorer', value: 30 },
-      { name: 'Chrome', value: 20 },
-      { name: 'Firefox', value: 10 },
-      { name: 'Safari', value: 10 },
-      { name: 'Opera', value: 15 },
-      { name: 'Others', value: 15 }
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 1150 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 }
     ];
+
     const chart = new G2.Chart({
       animate: false,
       container: 'canvas',
@@ -30,14 +30,16 @@
       height: window.innerHeight
     });
     chart.source(data);
-    chart.coord('theta');
-    chart.tooltip({
-      showTitle: false // 不展示 tooltip
-    });
+    chart.coord().scale(1, -1);
     chart.interval()
-      .position('value', 'stack')
-      .color('name');
+      .position('genre*sold')
+      .label('sold', {
+        offset: -15,
+        textStyle: { fill: 'red' }
+      });
+    
     chart.render();
+
   </script>
 </body>
 
