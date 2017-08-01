@@ -60,7 +60,6 @@ typings/
 # dotenv environment variables file
 .env
 
-build
 .DS_Store
 
 # npmignore - content above this line is automatically generated and modifications may be omitted
