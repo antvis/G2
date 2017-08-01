@@ -228,10 +228,6 @@ class TooltipController {
       options.zIndex = 0; // toolip 背景框不可遮盖住 geom，防止用户配置了 crosshairs
     }
 
-    if (options.title === null) {
-      options.showTitle = false;
-    }
-
     options.visible = false;
     const canvas = self._getCanvas();
     const tooltip = canvas.addGroup(Tooltip, options);

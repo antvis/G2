@@ -357,7 +357,7 @@ class LegendController {
       },
       items,
       attr
-    }, options[field], Global.legend[position], options);
+    }, options[field] || options, Global.legend[position]);
 
     if (attr.type === 'color') {
       legend = container.addGroup(Legend.Color, legendCfg);
