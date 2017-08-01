@@ -12,6 +12,7 @@
 
 <body>
   <div id="canvas"></div>
+  <script src="./assets/lodash-4.17.4.min.js"></script>
   <script src="./assets/jquery-3.2.1.min.js"></script>
   <script src="./assets/data-set-0.1.3.min.js"></script>
   <script src="../build/g2.js"></script>
@@ -20,6 +21,17 @@
       const ds = new DataSet();
       const dv = ds.createView('demo').source(data)
         .transform({
+          type: 'fill-rows',
+          groupBy: [ 'name' ],
+          orderBy: [ 'year' ]
+        })
+        .transform({
+          type: 'impute',
+          field: 'n',
+          method: 'value',
+          value: 0
+        })
+        .transform({
           type: 'aggregate',
           fields: [ 'n' ],
           operations: [ 'sum' ],
@@ -27,6 +39,8 @@
           orderBy: [ 'year' ],
           as: [ 'count' ]
         });
+
+      console.log(_.filter(dv.rows, row => !row.count));
 
       const chart = new G2.Chart({
         animate: false,
