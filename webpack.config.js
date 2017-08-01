@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const resolve = require('path').resolve;
 
 module.exports = {
+  devtool: 'cheap-source-map',
   entry: {
     g2: './index.js'
   },
