@@ -8,6 +8,15 @@
   <meta name="geometry" content="area">
   <link rel="stylesheet" href="./assets/common.css">
   <title>Stream Graph</title>
+  <style type="text/css">
+    #canvas .g2-legend {
+      top: 50px!important;
+      height: 700px!important;
+    }
+    #canvas .g2-legend-title {
+      margin: 0 0 8px 0;
+    }
+  </style>
 </head>
 
 <body>
@@ -44,17 +53,36 @@
         animate: false,
         container: 'canvas',
         forceFit: true,
-        height: window.innerHeight
+        height: window.innerHeight,
+        padding: [ 50, 180, 60, 90 ],
+        plotBackground: {
+          stroke: '#ccc'
+        }
       });
       chart.source(dv, {
         year: {
-          tickInterval: 10
+          tickInterval: 10,
+          nice: false
         },
         count: {
           nice: false
         }
       });
-      chart.legend(false);
+      chart.legend({
+        useHtml: true,
+        itemTpl: '<li class="g2-legend-item item-${ index } ${ checked }" data-color="${ originColor }" data-value="${ originValue }" style="cursor: pointer;font-size: 12px;">' +
+        '<i class="g2-legend-marker" style="width:8px;height:8px;display:inline-block;margin-right:8px;background-color: ${ color };"></i>' +
+        '<span class="g2-legend-text">${ value }</span></li>',
+        onHover: ev => {
+          const shapes = ev.shapes;
+          const geom = ev.geom;
+          geom.highlightShapes(shapes);
+        }
+      });
+      chart.tooltip({
+        split: true,
+        crosshairs: false
+      });
       chart.axis('year', {
         title: null,
         line: null,
@@ -63,7 +91,15 @@
       chart.axis('count', {
         title: null,
         line: null,
-        tickLine: null,
+        tickLine: {
+          length: 8
+        },
+        subTickCount: 10,
+        subTickLine: {
+          lineWidth: 1, // 子刻度线宽
+          stroke: '#ddd', // 子刻度线颜色
+          length: 5
+        },
         grid: null
       });
       chart.area()

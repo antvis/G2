@@ -111,7 +111,6 @@ class Tooltip extends Group {
     const container = this.get('container');
     const listDom = find(container, LIST_CLASS);
     const itemTpl = this.get('itemTpl'); // TODO: 有可能是个回调函数
-    // item.index = index;
 
     const itemTplCompiler = Util.template(itemTpl);
     const itemDiv = itemTplCompiler({
