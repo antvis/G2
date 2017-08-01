@@ -2,6 +2,15 @@
 
 ---
 
+## 2.3.7
+
+- feat: chart.off  支持仅传入事件名，所有同名的事件都会被清理
+- feat: tooltipchange 中更改第一个items项的title，会影响 tooltip 的title
+- feat: legend 在bottom 时增加一个 alignPlot 的选项，使得图例跟绘制区域对齐
+- feat: tooltip 增加 background 的配置项
+- fix: 多边形在极坐标下 hit 的问题
+- fix: 切换皮肤时图例、labels 样式不生效的问题
+
 ## 2.3.6
 
 - fix: 修复混合图例筛选问题
