@@ -30,7 +30,13 @@ class Symmetric extends Adjust {
   _getMax(dim) {
     const self = this;
     const mergeData = self.mergeData;
-    const maxRecord = Util.maxBy(mergeData, obj => obj[dim]);
+    const maxRecord = Util.maxBy(mergeData, obj => {
+      const value = obj[dim];
+      if (Util.isArray(value)) {
+        return Math.max.apply(null, value);
+      }
+      return value;
+    });
     const maxValue = maxRecord[dim];
     const max = Util.isArray(maxValue) ? Math.max.apply(null, maxValue) : maxValue;
     return max;
