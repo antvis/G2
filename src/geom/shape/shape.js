@@ -12,16 +12,24 @@ const ShapeBase = {
   _coord: null,
   /**
    * 绘制图形
+   * @param {Object} cfg 配置项
+   * @param {Object} container 容器
+   * @return {Object} shape 创建的 shape
    */
-  draw(/* cfg, container*/) {
-
+  draw(cfg, container) {
+    if (this.drawShape) {
+      return this.drawShape(cfg, container);
+    }
+    return null;
   },
   /**
-   获取绘制图形需要的点, 可以不定义，则使用默认的
-  getPoints() {
-
-  },
-  */
+   * 获取绘制图形需要的点, 可以不定义，则使用默认的
+  getPoints(cfg) {
+    if (this.getShapePoints) {
+      return this.getShapePoints(cfg);
+    }
+    return null;
+  },*/
   getMarkerCfg(/* cfg */) {
 
   },
@@ -88,12 +96,8 @@ const ShapeFactoryBase = {
   },
   getShapePoints(type, cfg) {
     const shape = this.getShape(type);
-    let points;
-    if (shape.getPoints) {
-      points = shape.getPoints(cfg);
-    } else {
-      points = this.getDefaultPoints(cfg);
-    }
+    const fn = shape.getPoints || shape.getShapePoints || this.getDefaultPoints;
+    const points = fn(cfg);
     return points;
   },
   getDefaultPoints(/* cfg */) {

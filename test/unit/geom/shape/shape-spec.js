@@ -97,4 +97,23 @@ describe('shape register', () => {
     expect(toPath[1]).eqls([ 'M', 100, 0 ]);
     expect(toPath[2]).eqls([ 'A', 100, 100, 0, 0, 1, 100, 200 ]);
   });
+
+  it('compatibility 2.x', function() {
+    let called = false;
+    Shape.registerFactory('test1', {
+      defaultShapeType: 'test1'
+    });
+    expect(Shape.registShape).equal(Shape.registerShape);
+    Shape.registShape('test1', 'test1', {
+      getShapePoints() { return [ 1, 2 ]; },
+      drawShape() {
+        called = true;
+      }
+    });
+    const testFactory = Shape.getShapeFactory('test1');
+    const points = testFactory.getShapePoints('test1', { x: 2, y: 4 });
+    expect(points).eqls([ 1, 2 ]);
+    testFactory.drawShape('test1', {});
+    expect(called).equal(true);
+  });
 });
