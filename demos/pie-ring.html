@@ -30,11 +30,12 @@
     });
     chart.source(data);
     chart.coord('theta', { innerRadius: 0.6 });
-    chart.interval().position('value', 'stack').color('name').label('name*value', {
-      content(name, value) {
-        return name + ':' + value + '%';
-      }
-    });
+    chart.interval().position('value', 'stack').color('name')
+      .label('name*value', {
+        content(name, value) {
+          return name + ':' + value + '%';
+        }
+      });
     chart.render();
   </script>
 </body>
