@@ -48,7 +48,7 @@ class GeomLabels extends Group {
     const originRecord = record[ORIGIN];
     const labelCfg = self.get('labelCfg');
     const scales = labelCfg.scales;
-    const callback = labelCfg.callback;
+    const callback = labelCfg.cfg && labelCfg.cfg.content;
     let value;
     if (callback) {
       const params = [];

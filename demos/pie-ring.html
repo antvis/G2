@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="geometry" content="pie">
+  <link rel="stylesheet" href="./assets/common.css">
+  <title>Pie Ring Plot</title>
+</head>
+
+<body>
+  <div id="canvas"></div>
+  <script src="../build/g2.js"></script>
+  <script>
+    const data = [
+      { name: 'Microsoft Internet Explorer', value: 30 },
+      { name: 'Chrome', value: 20 },
+      { name: 'Firefox', value: 10 },
+      { name: 'Safari', value: 10 },
+      { name: 'Opera', value: 15 },
+      { name: 'Others', value: 15 }
+    ];
+    const chart = new G2.Chart({
+      animate: false,
+      container: 'canvas',
+      forceFit: true,
+      height: window.innerHeight
+    });
+    chart.source(data);
+    chart.coord('theta', { innerRadius: 0.6 });
+    chart.interval().position('value', 'stack').color('name').label('name*value', {
+      content(name, value) {
+        return name + ':' + value + '%';
+      }
+    });
+    chart.render();
+  </script>
+</body>
+
+</html>
