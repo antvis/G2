@@ -413,11 +413,13 @@ class LegendController {
     const geoms = chart.getAllGeoms();
     Util.each(items, item => {
       const geom = findGeom(geoms, item.value);
-      item.marker = {
-        symbol: item.marker ? item.marker : 'circle',
-        fill: item.fill,
-        radius: 5
-      };
+      if (!Util.isObject(item.marker)) {
+        item.marker = {
+          symbol: item.marker ? item.marker : 'circle',
+          fill: item.fill,
+          radius: 5
+        };
+      }
       item.checked = Util.isNil(item.checked) ? true : item.checked;
       item.geom = geom;
     });
