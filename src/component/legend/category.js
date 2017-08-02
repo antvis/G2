@@ -19,6 +19,13 @@ function findItem(items, refer) {
   return rst;
 }
 
+function findShapeByName(group, name) {
+  return group.findBy(node => {
+    return node.name === name;
+  });
+}
+
+
 class Category extends Base {
   getDefaultCfg() {
     const cfg = super.getDefaultCfg();
@@ -219,26 +226,43 @@ class Category extends Base {
 
       const unCheckColor = this.get('unCheckColor');
       const checkColor = this.get('textStyle').fill;
+
+      let markerItem = findShapeByName(clickedItem, 'legend-marker');
+      let textItem = findShapeByName(clickedItem, 'legend-text');
       if (mode === 'single') {
         const itemsGroup = this.get('itemsGroup');
         const children = itemsGroup.get('children');
         Util.each(children, child => {
           if (child !== clickedItem) {
             child.set('checked', false);
-            child.get('children')[0].attr('fill', unCheckColor);
-            child.get('children')[0].attr('stroke', unCheckColor);
-            child.get('children')[1].attr('fill', unCheckColor);
+            markerItem = findShapeByName(child, 'legend-marker');
+            textItem = findShapeByName(child, 'legend-text');
+            if (markerItem.attr('fill')) {
+              markerItem.attr('fill', unCheckColor);
+            }
+            if (markerItem.attr('stroke')) {
+              markerItem.attr('stroke', unCheckColor);
+            }
+            textItem.attr('fill', unCheckColor);
           } else {
-            clickedItem.get('children')[0].attr('fill', item.marker.fill);
-            clickedItem.get('children')[0].attr('stroke', item.marker.stroke);
-            clickedItem.get('children')[1].attr('fill', checkColor);
+            if (markerItem.attr('fill')) {
+              markerItem.attr('fill', item.marker.fill);
+            }
+            if (markerItem.attr('stroke')) {
+              markerItem.attr('stroke', item.marker.stroke);
+            }
+            textItem.attr('fill', checkColor);
             clickedItem.set('checked', true);
           }
         });
       } else {
-        clickedItem.get('children')[0].attr('fill', checked ? unCheckColor : item.marker.fill);
-        clickedItem.get('children')[0].attr('stroke', checked ? unCheckColor : item.marker.stroke);
-        clickedItem.get('children')[1].attr('fill', checked ? unCheckColor : checkColor);
+        if (markerItem.attr('fill')) {
+          markerItem.attr('fill', checked ? unCheckColor : item.marker.fill);
+        }
+        if (markerItem.attr('stroke')) {
+          markerItem.attr('stroke', checked ? unCheckColor : item.marker.stroke);
+        }
+        textItem.attr('fill', checked ? unCheckColor : checkColor);
         clickedItem.set('checked', !checked);
       }
 
@@ -502,10 +526,12 @@ class Category extends Base {
       });
 
       if (!item.checked) {
-        Util.mix(markerAttrs, {
-          fill: unCheckColor,
-          stroke: unCheckColor
-        });
+        if (markerAttrs.fill) {
+          markerAttrs.fill = unCheckColor;
+        }
+        if (markerAttrs.stroke) {
+          markerAttrs.stroke = unCheckColor;
+        }
       }
 
       const markerShape = itemGroup.addShape('marker', {
