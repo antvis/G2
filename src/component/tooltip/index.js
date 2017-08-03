@@ -1,7 +1,7 @@
 const Util = require('../../util');
 const { Group, DomUtil } = require('@ali/g');
 
-const CONTAINER_CLASS = 'g2-legend';
+const CONTAINER_CLASS = 'g2-tooltip';
 const TITLE_CLASS = 'g2-tooltip-title';
 const LIST_CLASS = 'g2-tooltip-list';
 
@@ -24,27 +24,78 @@ class Tooltip extends Group {
   getDefaultCfg() {
     return {
       zIndex: 10,
-      x: 0, // @type {Number} x 右下角坐标
-      y: 0, // @type {Number} y 右下角坐标
-      items: null, // @type {Array} tooltip 子项
-      showTitle: true, // 是否展示 title
-      titleContent: undefined, // @type {String} 默认标题文本
-      crosshairs: null, // @type {Boolean} 是否贯穿整个坐标轴
-      crossLineShapeX: null, // @type {Shape} X标记线图形
-      crossLineShapeY: null, // @type {Shape} Y标记线图形
-      plotRange: null, // @type {Object} 视图范围
-      offset: 10, // @type {Number} x轴上，移动到位置的偏移量
-      animate: true, // @type {Boolean} 是否开启动画
-      duration: 50, // @type {Number} 移动的动画时间
-      container: null, // @type {Boolean} 是否自定义HTML
-      timeStamp: 0, // @type {Nmuber} 时间戳
-      // @type {String} 使用html时的外层模板
+      /**
+       * 右下角坐标
+       * @type {Number}
+       */
+      x: 0,
+      /**
+       * y 右下角坐标
+       * @type {Number}
+       */
+      y: 0,
+      /**
+       * tooltip 记录项
+       * @type {Array}
+       */
+      items: null,
+      /**
+       * 是否展示 title
+       * @type {Boolean}
+       */
+      showTitle: true,
+      /**
+       * tooltip 辅助线配置
+       * @type {Object}
+       */
+      crosshairs: null,
+      /**
+       * 视图范围
+       * @type {Object}
+       */
+      plotRange: null,
+      /**
+       * x轴上，移动到位置的偏移量
+       * @type {Number}
+       */
+      offset: 10,
+      /**
+       * 是否开启动画
+       * @type {Boolean}
+       */
+      animate: true,
+      /**
+       * 移动的动画时间
+       * @type {Number}
+       */
+      duration: 50,
+      /**
+       * 时间戳
+       * @type {Number}
+       */
+      timeStamp: 0,
+      /**
+       * tooltip 容器模板
+       * @type {String}
+       */
       containerTpl: '<div class="' + CONTAINER_CLASS + '" style="position:absolute;visibility:hidden;border-style:solid;white-space:nowrap;z-index:9999999;transition:left 0.4s cubic-bezier(0.23, 1, 0.32, 1), top 0.4s cubic-bezier(0.23, 1, 0.32, 1);background-color:rgba(50, 50, 50, 0.7);border-width:0px;border-color:rgb(51, 51, 51);border-radius:4px;color:rgb(255, 255, 255);font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14px;font-family:sans-serif;line-height:21px;padding:5px 10px;">'
        + '<div class="' + TITLE_CLASS + '" style="margin:10px 0;"></div>'
        + '<ul class="' + LIST_CLASS + '" style="margin:10px 0;list-style-type:none;padding:0;"></ul></div>',
-      // @type {String} 使用html时，单个选项的模板
+      /**
+       * tooltip 列表项模板
+       * @type {String}
+       */
       itemTpl: '<li data-index=${ index }><span style="background-color:${color};width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:8px;"></span>${ name }: ${ value }</li>',
-      inPlot: true
+      /**
+       * 将 tooltip 展示在指定区域内
+       * @type {Boolean}
+       */
+      inPlot: true,
+      /**
+       * tooltip 内容跟随鼠标移动
+       * @type {Boolean}
+       */
+      follow: true
     };
   }
 
@@ -290,16 +341,15 @@ class Tooltip extends Group {
 
   setPosition(x, y, isFixed) {
     const container = this.get('container');
-    let offset = this.get('offset');
     const crossLineShapeX = this.get('crossLineShapeX');
     const crossLineShapeY = this.get('crossLineShapeY');
     const crosshairsRectShape = this.get('crosshairsRectShape');
-    // const animate = this.get('animate');
-    let after = true;
     const endx = x;
     const endy = y;
     const containerWidth = DomUtil.getWidth(container);
     const containerHeight = DomUtil.getHeight(container);
+    let offset = this.get('offset');
+    let after = true;
 
     if (isFixed) {
       x = x - containerWidth / 2;
@@ -351,22 +401,28 @@ class Tooltip extends Group {
         const isTransposed = this.get('isTransposed');
         const items = isTransposed ? this.get('items').reverse() : this.get('items');
         const firstItem = items[0];
-        offset = (firstItem.size / 2 + firstItem.size / 4) || 10;
         const dim = isTransposed ? 'y' : 'x';
         const attr = isTransposed ? 'height' : 'width';
 
-        crosshairsRectShape.attr(dim, firstItem.point[dim] - offset);
-
-        if (items.length === 1) {
-          crosshairsRectShape.attr(attr, firstItem.size + firstItem.size / 2);
+        if (this.get('crosshairs').width) { // 用户定义了 width
+          crosshairsRectShape.attr(dim, firstItem.point[dim] - this.get('crosshairs').width / 2);
+          crosshairsRectShape.attr(attr, this.get('crosshairs').width);
         } else {
-          const lastItem = items[items.length - 1];
-          crosshairsRectShape.attr(attr, lastItem.point[dim] - firstItem.point[dim] + 2 * offset);
+          offset = (firstItem.size / 2 + firstItem.size / 4) || 10;
+          crosshairsRectShape.attr(dim, firstItem.point[dim] - offset);
+
+          if (items.length === 1) {
+            crosshairsRectShape.attr(attr, firstItem.size + firstItem.size / 2);
+          } else {
+            const lastItem = items[items.length - 1];
+            crosshairsRectShape.attr(attr, lastItem.point[dim] - firstItem.point[dim] + 2 * offset);
+          }
         }
       }
 
-      container.style.left = x + 'px';
-      container.style.top = y + 'px';
+      const follow = this.get('follow');
+      container.style.left = follow ? (x + 'px') : 0;
+      container.style.top = follow ? (y + 'px') : 0;
     }
   }
 
