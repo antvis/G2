@@ -2,8 +2,29 @@ const Util = require('../../util');
 const Base = require('./base');
 const { DomUtil, Event, Group } = require('@ali/g');
 
+const CONTAINER_CLASS = 'g2-legend';
+const TITLE_CLASS = 'g2-legend-title';
+const LIST_CLASS = 'g2-legend-itemlist';
+const ITEM_CLASS = 'g2-legend-item';
+const TEXT_CLASS = 'g2-legend-text';
+const MARKER_CLASS = 'g2-legend-marker';
+
 function findNodeByClass(node, className) {
   return node.getElementsByClassName(className)[0];
+}
+
+function getParentNode(node, className) {
+  let nodeClass = node.className;
+  nodeClass = nodeClass.split(' ');
+  if (nodeClass.indexOf(className) > -1) {
+    return node;
+  }
+
+  if (node.parentNode) {
+    return getParentNode(node.parentNode, className);
+  }
+
+  return null;
 }
 
 function findItem(items, refer) {
@@ -121,17 +142,17 @@ class Category extends Base {
        * 使用html时的外层模板
        * @type {String}
        */
-      containerTpl: '<div class="g2-legend" style="position:absolute;top:20px;right:60px;width:auto;">' +
-        '<h4 class="g2-legend-title"></h4>' +
-        '<ul class="g2-legend-itemlist" style="list-style-type:none;margin:0;padding:0;"></ul>' +
+      containerTpl: '<div class="' + CONTAINER_CLASS + '" style="position:absolute;top:20px;right:60px;width:auto;">' +
+        '<h4 class="' + TITLE_CLASS + '"></h4>' +
+        '<ul class="' + LIST_CLASS + '" style="list-style-type:none;margin:0;padding:0;"></ul>' +
         '</div>',
       /**
        * 默认的图例项 html 模板
        * @type {String}
        */
-      _defaultItemTpl: '<li class="g2-legend-item item-${ index } ${ checked }" data-color="${ originColor }" data-value="${ originValue }" style="cursor: pointer;font-size: 14px;">' +
-        '<i class="g2-legend-marker" style="width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:10px;background-color: ${ color };"></i>' +
-        '<span class="g2-legend-text">${ value }</span></li>',
+      _defaultItemTpl: '<li class="' + ITEM_CLASS + ' item-${ index } ${ checked }" data-color="${ originColor }" data-value="${ originValue }" style="cursor: pointer;font-size: 14px;">' +
+        '<i class="' + MARKER_CLASS + '" style="width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:10px;background-color: ${ color };"></i>' +
+        '<span class="' + TEXT_CLASS + '">${ value }</span></li>',
       /**
        * 用户设置的图例项 html 模板
        * @type {String|Function}
@@ -279,8 +300,8 @@ class Category extends Base {
     const title = this.get('title');
     const containerTpl = self.get('containerTpl');
     const legendWrapper = DomUtil.createDom(containerTpl);
-    const titleDom = findNodeByClass(legendWrapper, 'g2-legend-title');
-    const itemListDom = findNodeByClass(legendWrapper, 'g2-legend-itemlist');
+    const titleDom = findNodeByClass(legendWrapper, TITLE_CLASS);
+    const itemListDom = findNodeByClass(legendWrapper, LIST_CLASS);
     const unCheckedColor = self.get('unCheckColor');
     const mode = self.get('selectedMode');
 
@@ -316,9 +337,8 @@ class Category extends Base {
         originValue: item.value
       });
       const itemDom = DomUtil.createDom(itemDiv);
-      const textDom = findNodeByClass(itemDom, 'g2-legend-text');
       if (!checked) {
-        textDom.style.color = unCheckedColor;
+        itemDom.style.color = unCheckedColor;
       }
       itemListDom.appendChild(itemDom);
     });
@@ -338,14 +358,14 @@ class Category extends Base {
       // 注册事件
       legendWrapper.onclick = ev => {
         const target = ev.target;
-        let parentDom;
-        if (Util.upperCase(target.nodeName) === 'LI') {
-          parentDom = target;
-        } else {
-          parentDom = target.parentNode;
+        let targetClass = target.className;
+        targetClass = targetClass.split(' ');
+        if (targetClass.indexOf(CONTAINER_CLASS) > -1 || targetClass.indexOf(LIST_CLASS) > -1) {
+          return;
         }
-        const textDom = findNodeByClass(parentDom, 'g2-legend-text');
-        const markerDom = findNodeByClass(parentDom, 'g2-legend-marker');
+        const parentDom = getParentNode(target, ITEM_CLASS);
+        const textDom = findNodeByClass(parentDom, TEXT_CLASS);
+        const markerDom = findNodeByClass(parentDom, MARKER_CLASS);
         const clickedItem = findItem(items, parentDom.getAttribute('data-value'));
 
         if (!clickedItem) {
@@ -359,11 +379,10 @@ class Category extends Base {
           // 其他图例项全部置灰
           Util.each(childNodes, child => {
             if (child !== parentDom) {
-              const childTextDom = findNodeByClass(child, 'g2-legend-text');
-              const childMarkerDom = findNodeByClass(child, 'g2-legend-marker');
-              childTextDom.style.color = unCheckedColor;
+              const childMarkerDom = findNodeByClass(child, MARKER_CLASS);
               childMarkerDom.style.backgroundColor = unCheckedColor;
               child.className = Util.replace(child.className, 'checked', 'unChecked');
+              child.style.color = unCheckedColor;
             } else {
               if (textDom) {
                 textDom.style.color = self.get('textStyle').fill;
@@ -388,22 +407,18 @@ class Category extends Base {
             return;
           }
           if (clickedItemChecked) {
-            if (textDom) {
-              textDom.style.color = unCheckedColor;
-            }
             if (markerDom) {
               markerDom.style.backgroundColor = unCheckedColor;
             }
 
             parentDom.className = Util.replace(domClass, 'checked', 'unChecked');
-          } else if (domClass.includes('unChecked')) {
-            if (textDom) {
-              textDom.style.color = self.get('textStyle').fill;
-            }
+            parentDom.style.color = unCheckedColor;
+          } else {
             if (markerDom) {
               markerDom.style.backgroundColor = originColor;
             }
             parentDom.className = Util.replace(domClass, 'unChecked', 'checked');
+            parentDom.style.color = self.get('textStyle').fill;
           }
         }
 
@@ -417,13 +432,12 @@ class Category extends Base {
 
     legendWrapper.onmousemove = ev => {
       const target = ev.target;
-      let parentDom;
-      if (Util.upperCase(target.nodeName) === 'LI') {
-        parentDom = target;
-      } else {
-        parentDom = target.parentNode;
+      let targetClass = target.className;
+      targetClass = targetClass.split(' ');
+      if (targetClass.indexOf(CONTAINER_CLASS) > -1 || targetClass.indexOf(LIST_CLASS) > -1) {
+        return;
       }
-
+      const parentDom = getParentNode(target, ITEM_CLASS);
       const domClass = parentDom.className;
       const hoveredItem = findItem(items, parentDom.getAttribute('data-value'));
       if (hoveredItem && domClass.includes('checked')) {

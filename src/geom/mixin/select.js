@@ -86,7 +86,7 @@ const SelectMixin = {
       Util.mix(selectedStyle, cfg.style); // 用户设置的优先级更高
 
       if (!shape.get('_originAttrs')) { // 缓存原有属性
-        originAttrs = Util.mix({}, shape.get('_originAttrs'));
+        originAttrs = Util.cloneDeep(shape.get('_originAttrs'));
         shape.set('_originAttrs', originAttrs);
       } else {
         originAttrs = shape.get('_originAttrs');

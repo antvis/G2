@@ -1,5 +1,7 @@
 const Util = require('../../util');
 const { Group, DomUtil } = require('@ali/g');
+
+const CONTAINER_CLASS = 'g2-legend';
 const TITLE_CLASS = 'g2-tooltip-title';
 const LIST_CLASS = 'g2-tooltip-list';
 
@@ -37,7 +39,8 @@ class Tooltip extends Group {
       container: null, // @type {Boolean} 是否自定义HTML
       timeStamp: 0, // @type {Nmuber} 时间戳
       // @type {String} 使用html时的外层模板
-      html: '<div class="g2-tooltip" style="position:absolute;visibility:hidden;border-style:solid;white-space:nowrap;z-index:9999999;transition:left 0.4s cubic-bezier(0.23, 1, 0.32, 1), top 0.4s cubic-bezier(0.23, 1, 0.32, 1);background-color:rgba(50, 50, 50, 0.7);border-width:0px;border-color:rgb(51, 51, 51);border-radius:4px;color:rgb(255, 255, 255);font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14px;font-family:sans-serif;line-height:21px;padding:5px 10px;"><div class="' + TITLE_CLASS + '" style="margin:10px 0;"></div>'
+      containerTpl: '<div class="' + CONTAINER_CLASS + '" style="position:absolute;visibility:hidden;border-style:solid;white-space:nowrap;z-index:9999999;transition:left 0.4s cubic-bezier(0.23, 1, 0.32, 1), top 0.4s cubic-bezier(0.23, 1, 0.32, 1);background-color:rgba(50, 50, 50, 0.7);border-width:0px;border-color:rgb(51, 51, 51);border-radius:4px;color:rgb(255, 255, 255);font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14px;font-family:sans-serif;line-height:21px;padding:5px 10px;">'
+       + '<div class="' + TITLE_CLASS + '" style="margin:10px 0;"></div>'
        + '<ul class="' + LIST_CLASS + '" style="margin:10px 0;list-style-type:none;padding:0;"></ul></div>',
       // @type {String} 使用html时，单个选项的模板
       itemTpl: '<li data-index=${ index }><span style="background-color:${color};width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:8px;"></span>${ name }: ${ value }</li>',
@@ -47,14 +50,14 @@ class Tooltip extends Group {
 
   _setTooltipWrapper() {
     const self = this;
-    const html = self.get('html');
+    const containerTpl = self.get('containerTpl');
     const outterNode = self.get('canvas').get('el').parentNode;
     let container;
-    if (/^\#/.test(html)) { // 如果传入 dom 节点的 id
-      const id = html.replace('#', '');
+    if (/^\#/.test(containerTpl)) { // 如果传入 dom 节点的 id
+      const id = containerTpl.replace('#', '');
       container = document.getElementById(id);
     } else {
-      container = DomUtil.createDom(html);
+      container = DomUtil.createDom(containerTpl);
     }
     self.set('container', container);
     outterNode.appendChild(container);
@@ -418,7 +421,7 @@ class Tooltip extends Group {
     const markerGroup = self.get('markerGroup');
     const crosshairsRectShape = self.get('crosshairsRectShape');
     const container = self.get('container');
-    const html = self.get('html');
+    const containerTpl = self.get('containerTpl');
 
     crossLineShapeX && crossLineShapeX.remove();
     crossLineShapeY && crossLineShapeY.remove();
@@ -426,7 +429,7 @@ class Tooltip extends Group {
     crosshairsRectShape && crosshairsRectShape.remove();
     super.remove();
 
-    if (container && !(/^\#/.test(html))) {
+    if (container && !(/^\#/.test(containerTpl))) {
       container.parentNode.removeChild(container);
     }
   }
