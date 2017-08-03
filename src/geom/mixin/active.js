@@ -69,9 +69,6 @@ const ActiveMixin = {
       origin: shapeData
     });
     const activeCfg = shapeFactory.getActiveCfg(shapeName, shapeCfg);
-    if (!shape.get('_originAttrs')) {
-      shape.set('_originAttrs', Util.mix({}, shape.__attrs)); // 缓存原来的属性
-    }
     Util.mix(shape.__attrs, activeCfg);
     shape.setZIndex(1); // 提前
   },
@@ -93,11 +90,14 @@ const ActiveMixin = {
     const canvas = view.get('canvas');
     const container = self.get('container');
     Util.each(shapes, shape => {
+      if (!shape.get('_originAttrs')) {
+        shape.set('_originAttrs', Util.cloneDeep(shape.__attrs)); // 缓存原来的属性，由于 __attrs.matrix 是数组，所以此处需要深度复制
+      }
       if (shape.get('visible') && !shape.get('selected')) {
         self._setActiveShape(shape);
       }
     });
-       // 抛出事件
+    // 抛出事件
     view.emit(type + ':active', {
       geom: self,
       shapes
@@ -115,7 +115,7 @@ const ActiveMixin = {
       Util.each(activeShapes, activeShape => {
         if (!activeShape.get('selected')) {
           const originAttrs = activeShape.get('_originAttrs');
-          activeShape.__attrs = Util.mix({}, originAttrs);
+          activeShape.__attrs = Util.cloneDeep(originAttrs);
           activeShape.setZIndex(0);
         }
       });
@@ -125,7 +125,7 @@ const ActiveMixin = {
         Util.each(shapes, shape => {
           if (!shape.get('selected')) {
             const originAttrs = shape.get('_originAttrs');
-            shape.__attrs = Util.mix({}, originAttrs);
+            shape.__attrs = Util.cloneDeep(originAttrs);
             shape.setZIndex(0);
           }
         });
@@ -195,7 +195,7 @@ const ActiveMixin = {
 
     Util.each(shapes, shape => {
       if (!shape.get('_originAttrs')) {
-        shape.set('_originAttrs', Util.mix({}, shape.__attrs)); // 缓存原来的属性
+        shape.set('_originAttrs', Util.cloneDeep(shape.__attrs)); // 缓存原来的属性
       }
       if (Util.indexOf(highlightShapes, shape) !== -1) {
         shape.__attrs = Util.mix({}, shape.get('_originAttrs'), highlightCfg);
