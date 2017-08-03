@@ -8,44 +8,97 @@
   <meta name="geometry" content="line">
   <link rel="stylesheet" href="./assets/common.css">
   <title>Line Plot</title>
+   <style type="text/css">
+    #canvas .g2-tooltip {
+      background: none!important;
+      padding: 0!important;
+    }
+  </style>
 </head>
 
 <body>
   <div id="canvas"></div>
   <script src="../build/g2.js"></script>
   <script>
-    const data = [
-      { month: 'Jan', temperature: 7.0 },
-      { month: 'Feb', temperature: 6.9 },
-      { month: 'Mar', temperature: 9.5 },
-      { month: 'Apr', temperature: 14.5 },
-      { month: 'May', temperature: 18.2 },
-      { month: 'Jun', temperature: 21.5 },
-      { month: 'Jul', temperature: 25.2 },
-      { month: 'Aug', temperature: 26.5 },
-      { month: 'Sep', temperature: 23.3 },
-      { month: 'Oct', temperature: 18.3 },
-      { month: 'Nov', temperature: 13.9 },
-      { month: 'Dec', temperature: 9.6 }
+    const chartData = [
+      { year: '2001', cars: 1098, motorcycles: 680, bicycles: 910 },
+      { year: '2002', cars: 975, motorcycles: 664, bicycles: 670 },
+      { year: '2003', cars: 1246, motorcycles: 648, bicycles: 930 },
+      { year: '2004', cars: 1218, motorcycles: 637, bicycles: 1010 },
+      { year: '2005', cars: 1913, motorcycles: 133, bicycles: 1770 },
+      { year: '2006', cars: 1299, motorcycles: 621, bicycles: 820 },
+      { year: '2007', cars: 1110, motorcycles: 10, bicycles: 1050 },
+      { year: '2008', cars: 765, motorcycles: 232, bicycles: 650 },
+      { year: '2009', cars: 1145, motorcycles: 219, bicycles: 780 },
+      { year: '2010', cars: 1163, motorcycles: 201, bicycles: 700 },
+      { year: '2011', cars: 1780, motorcycles: 85, bicycles: 1470 }
     ];
 
     const chart = new G2.Chart({
       animate: false,
       container: 'canvas',
-      forceFit: true,
-      height: window.innerHeight
-    });
-    chart.source(data);
-    chart.scale({
-      month: {
-        alias: '月份',
-        range: [ 0, 1 ]
+      height: window.innerHeight,
+      plotBackground: {
+        stroke: '#ccc'
       },
-      temperature: {
-        alias: '平均温度(°C)'
+      width: 760,
+      padding: [ 50, 50, 100, 50 ]
+    });
+    chart.source(chartData, {
+      bicycles: {
+        min: 0,
+        max: 3000
       }
     });
-    chart.line().position('month*temperature').size(2);
+    chart.axis('year', {
+      title: null,
+      tickLine: null,
+      grid: {
+        align: 'center',
+        lineStyle: {
+          lineWidth: 1,
+          lineDash: null,
+          stroke: '#ccc'
+        }
+      }
+    });
+    chart.axis('bicycles', {
+      title: null,
+      label: {
+        formatter: val => {
+          if (+val !== 3000) {
+            return val;
+          }
+        }
+      },
+      grid: null
+    });
+
+    chart.tooltip({
+      crosshairs: {
+        type: 'rect',
+        style: {
+          fill: '#0066e3',
+          lineWidth: 1,
+          stroke: '#ccc',
+          shadowBlur: 10,
+          shadowColor: '#ccc',
+          fillOpacity: 0.05
+        },
+        width: 60
+      },
+      split: true,
+      showTitle: false,
+      itemTpl: '<span style="color:#0066e3;font-size: 18px;font-weight: bold;">${ value }</span>'
+    });
+    chart.line().position('year*bicycles').shape('dot')
+      .color('#0066e3');
+    chart.point().position('year*bicycles').size(6)
+      .shape('circle')
+      .style({
+        lineWidth: 2,
+        stroke: '#fff'
+      });
     chart.render();
   </script>
 </body>
