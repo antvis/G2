@@ -208,7 +208,22 @@ describe('interval chart', function() {
     expect(group.getCount()).equal(2);
   });
 
-  it('destroy', function() {
+  it('filter pie', function() {
+    chart.clear();
+    chart.coord('theta');
+    chart.filter('genre', genre => {
+      return genre === 'Shooter';
+    });
+    chart.source(data);
+    chart.interval().position('sold', 'stack').color('genre');
+    chart.render();
+    const scale = chart.get('scales').sold;
+    expect(scale.nice).equal(false);
+    expect(scale.min).equal(0);
+    expect(scale.max).equal(350);
+  });
+
+  xit('destroy', function() {
     chart.destroy();
     expect(chart.destroyed).equal(true);
   });
