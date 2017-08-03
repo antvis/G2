@@ -66,7 +66,6 @@ const SelectMixin = {
     const view = self.get('view');
     const type = self.get('type');
     const selectedOptions = self.get('selectedOptions') || {};
-    const animate = view.get('animate'); // 由 view 控制是否执行动画
     let originAttrs;
 
     shape.set('selected', status);
@@ -92,12 +91,7 @@ const SelectMixin = {
         originAttrs = shape.get('_originAttrs');
       }
 
-      if (animate) {
-        shape.animate(selectedStyle, 300);
-      } else {
-        shape.attr(selectedStyle);
-        shape.get('canvas').draw();
-      }
+      shape.animate(selectedStyle, 300);
 
       view.emit(type + ':selected', {
         geom: self,
@@ -107,13 +101,7 @@ const SelectMixin = {
       });
     } else {
       originAttrs = shape.get('_originAttrs');
-
-      if (animate) {
-        shape.animate(originAttrs, 300);
-      } else {
-        shape.attr(originAttrs);
-        shape.get('canvas').draw();
-      }
+      shape.animate(originAttrs, 300);
 
       view.emit(type + ':unselected', {
         geom: self,
