@@ -892,7 +892,6 @@ class GeomBase extends Base {
     this.set('attrs', {});
     this.set('groupScales', null);
     this.set('adjusts', null);
-    this.set('styleOptions', null);
   }
 
   clear() {
