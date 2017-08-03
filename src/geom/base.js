@@ -363,8 +363,11 @@ class GeomBase extends Base {
       });
       // 饼图需要填充满整个空间
       if (coord.type === 'theta' && type === 'position' && scales.length > 1) {
-        scales[1].change({
-          nice: false
+        const yScale = scales[1];
+        yScale.change({
+          nice: false,
+          min: 0,
+          max: Math.max.apply(null, yScale.values)
         });
       }
       option.scales = scales;
