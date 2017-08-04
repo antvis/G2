@@ -20,7 +20,7 @@ function startService(port) {
   server.use(serveStatic(process.cwd()));
   http.createServer(server).listen(port);
 
-  const url = `http://localhost:${port}/demos/index.html`;
+  const url = `http://127.0.0.1:${port}/demos/index.html`;
   console.log(`server started, demos available! ${url}`);
 
   if (commander.web) {
