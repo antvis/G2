@@ -184,20 +184,17 @@
         }
       });
 
-      function rerender() {
-        chart.clear();
-        chart.source(dv);
-        chart.axis(false);
-        chart.legend(false);
-        chart.tooltip(false);
-        chart.polygon()
-          .position('x*y');
-        const view = chart.view();
-        view.source(dv1);
-        view.point()
-          .position('x*y');
-        chart.render();
-      }
+      chart.source(dv);
+      chart.axis(false);
+      chart.legend(false);
+      chart.tooltip(false);
+      chart.polygon()
+        .position('x*y');
+      const view = chart.view();
+      view.source(dv1);
+      view.point()
+        .position('x*y');
+      chart.render();
 
       $projection.on('change', () => {
         ds.setState('projection', $projection.val());
@@ -206,7 +203,6 @@
         }, 50);
       });
 
-      rerender();
     });
   </script>
 </body>
