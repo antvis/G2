@@ -13,7 +13,7 @@
 <body>
   <div id="canvas"></div>
   <script src="./assets/jquery-3.2.1.min.js"></script>
-  <script src="./assets/data-set-0.1.3.min.js"></script>
+  <script src="./assets/data-set.min.js"></script>
   <script src="../build/g2.js"></script>
   <script>
   $.getJSON('./data/diamond.json', data => {
@@ -31,7 +31,7 @@
       forceFit: true,
       height: window.innerHeight
     });
-  
+
     chart.source(dv);
 
     chart.polygon().position('x*y')
@@ -43,7 +43,7 @@
 
     chart.render();
   });
-  
+
   </script>
 </body>
 
