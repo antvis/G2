@@ -63,7 +63,7 @@ getPort().then(port => {
         const outputFilename = resolve(screenshotsPath, `./${fileBasename}.png`);
         queue.add(() => screenshot({
           delay,
-          url: `http://localhost:${port}/demos/${file}`,
+          url: `http://127.0.0.1:${port}/demos/${file}`,
           width,
           height
         }).then(img => {
