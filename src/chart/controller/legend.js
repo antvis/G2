@@ -43,7 +43,7 @@ class LegendController {
     Util.mix(this, cfg);
     this.clear();
     const chart = this.chart;
-    this.container = chart.get('canvas');
+    this.container = chart.get('frontPlot');
     this.plotRange = chart.get('plotRange');
   }
 

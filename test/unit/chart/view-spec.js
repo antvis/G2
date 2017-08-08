@@ -25,11 +25,13 @@ const coord = new Coord.Rect({
 });
 
 describe('test view', function() {
+  const backPlot = canvas.addGroup();
   const group = canvas.addGroup();
   const view = new View({
     viewContainer: group,
     canvas,
     coord,
+    backPlot,
     options: {
       scales: {
         e: {
@@ -179,7 +181,9 @@ describe('test view', function() {
 });
 
 describe('test view all options', function() {
+  const backPlot = canvas.addGroup();
   const group = canvas.addGroup();
+
   const data = [
       { a: 1, b: 2, c: '1' },
       { a: 2, b: 5, c: '1' },
@@ -192,6 +196,7 @@ describe('test view all options', function() {
   const view = new View({
     viewContainer: group,
     canvas,
+    backPlot,
     start: {
       x: 80,
       y: 420

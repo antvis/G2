@@ -62,5 +62,8 @@ describe('test polygon chart', function() {
     const path = group.getFirst().attr('path');
     expect(path.length).equal(6);
   });
-
+  it('destroy', function() {
+    chart.destroy();
+    expect(chart.destroyed).equal(true);
+  });
 });

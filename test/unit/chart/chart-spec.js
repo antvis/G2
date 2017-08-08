@@ -120,6 +120,7 @@ describe('test chart with views', function() {
 
     expect(div.childNodes.length).equal(1);
   });
+
   it('add view', function() {
     const v1 = chart.view();
     expect(v1.get('options').scales.a).not.equal(undefined);
@@ -129,7 +130,7 @@ describe('test chart with views', function() {
     v1.source(data);
     v1.line().position('a*b').color('c');
     expect(chart.get('views').length).equal(1);
-    expect(chart.get('viewContainer').getCount()).equal(1);
+    expect(chart.get('viewContainer').getCount()).equal(0);
   });
   it('render', function() {
     chart.render();
@@ -374,6 +375,7 @@ describe('chart, view, geom visible', function() {
     const v1 = chart.view();
     v1.source(data);
     v1.line().position('a*b').color('c');
+
     chart.render();
     const viewContainer = chart.get('viewContainer');
     expect(viewContainer.getCount()).equal(1);
@@ -403,7 +405,14 @@ describe('chart, view, geom visible', function() {
     });
     v1.source(data);
     v1.line().position('a*b').color('c');
-
+    v1.guide().text({
+      start: { a: 1, b: 5 },
+      zIndex: 5,
+      content: '测试文本',
+      style: {
+        fill: 'red'
+      }
+    });
     const v2 = chart.view({
       start: { x: 0.5, y: 0.5 },
       end: { x: 1, y: 1 }

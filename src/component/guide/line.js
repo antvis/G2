@@ -61,6 +61,7 @@ class Line extends Base {
     }
     guideLineGroup.set('zIndex', 15); // TODO: 需要确定数值
     guideLineGroup.name = 'guide-line';
+    self.el = guideLineGroup;
   }
 
   _drawLines(start, end, group) {

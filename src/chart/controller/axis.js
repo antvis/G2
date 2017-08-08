@@ -29,6 +29,7 @@ class AxisController {
     this.container = null;
     this.coord = null;
     this.options = null;
+    this.axes = [];
     Util.mix(this, cfg);
   }
 
@@ -353,7 +354,10 @@ class AxisController {
     if (dimType === 'y' && xAxis && xAxis.get('type') === 'circle') {
       cfg.circle = xAxis;
     }
-    return container.addGroup(C, cfg);
+
+    const axis = container.addGroup(C, cfg);
+    this.axes.push(axis);
+    return axis;
   }
 
   createAxis(xScale, yScales) {
@@ -375,6 +379,21 @@ class AxisController {
         });
       }
     }
+  }
+
+  changeVisible(visible) {
+    const axes = this.axes;
+    Util.each(axes, function(axis) {
+      axis.set('visible', visible);
+    });
+  }
+
+  clear() {
+    const axes = this.axes;
+    Util.each(axes, function(axis) {
+      axis.remove();
+    });
+    this.axes = [];
   }
 }
 

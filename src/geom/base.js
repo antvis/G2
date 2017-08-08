@@ -103,6 +103,18 @@ class GeomBase extends Base {
       container: null,
 
       /**
+       * 文本容器
+       * @type {Object}
+       */
+      labelContainer: null,
+
+      /**
+       * 图形容器
+       * @type {Object}
+       */
+      shapeContainer: null,
+
+      /**
        * 几何标记的一些配置项，用于延迟生成图表
        * @type {Object}
        */
@@ -152,6 +164,9 @@ class GeomBase extends Base {
   constructor(cfg) {
     super(cfg);
     Util.assign(this, TooltipMixin, ActiveMixin, SelectMixin);
+    if (this.get('container')) {
+      this._initContainer();
+    }
   }
 
   _createScale(field) {
@@ -321,10 +336,19 @@ class GeomBase extends Base {
     return coord && coord.isPolar;
   }
 
+  _initContainer() {
+    const self = this;
+    const shapeContainer = self.get('shapeContainer');
+    if (!shapeContainer) {
+      const container = self.get('container');
+      self.set('shapeContainer', container.addGroup());
+    }
+  }
+
   init() {
     const self = this;
+    self._initContainer();
     self._initAttrs();
-
     if (self.get('tooltipFields')) { // 创建 tooltip 对应的 scale
       Util.each(self.get('tooltipFields'), field => {
         self._createScale(field);
@@ -527,8 +551,8 @@ class GeomBase extends Base {
   setCoord(coord) {
     this.set('coord', coord);
     const position = this.getAttr('position');
-    const container = this.get('container');
-    container.setMatrix(coord.matrix);
+    const shapeContainer = this.get('shapeContainer');
+    shapeContainer.setMatrix(coord.matrix);
     if (position) {
       position.coord = coord;
     }
@@ -540,12 +564,12 @@ class GeomBase extends Base {
     const mappedArray = [];
     const shapeFactory = self.getShapeFactory();
     shapeFactory.setCoord(self.get('coord'));
-    const container = self.get('container');
+    const shapeContainer = self.get('shapeContainer');
     self._beforeMapping(dataArray);
     Util.each(dataArray, function(data) {
       data = self._mapping(data);
       mappedArray.push(data);
-      self.draw(data, container, shapeFactory);
+      self.draw(data, shapeContainer, shapeFactory);
     });
     if (self.get('labelCfg')) {
       self._addLabels(Util.union.apply(null, mappedArray));
@@ -604,7 +628,7 @@ class GeomBase extends Base {
     const id = this.get('id');
     const container = self.get('container');
     const scales = Util.map(self.get('labelCfg').fields, field => self._createScale(field));
-    const labelGroup = container.addGroup(C, {
+    const labelContainer = container.addGroup(C, {
       id,
       labelCfg: Util.mix({
         scales
@@ -614,8 +638,8 @@ class GeomBase extends Base {
       geomType: type
     });
 
-    labelGroup.showLabels(points);
-    self.set('labelGroup', labelGroup);
+    labelContainer.showLabels(points);
+    self.set('labelContainer', labelContainer);
   }
 
   /**
@@ -852,8 +876,9 @@ class GeomBase extends Base {
   }
 
   getShapes() {
-    const children = this.get('container').get('children');
     const result = [];
+    const shapeContainer = this.get('shapeContainer');
+    const children = shapeContainer.get('children');
     Util.each(children, child => {
       if (child.get('origin')) { // 过滤 label
         result.push(child);
@@ -865,21 +890,25 @@ class GeomBase extends Base {
   getAttrsForLegend() {
     const attrs = this.get('attrs');
     const rst = [];
-
     Util.each(attrs, attr => {
       if (GROUP_ATTRS.indexOf(attr.type) !== -1) {
         rst.push(attr);
       }
     });
-
     return rst;
   }
 
-  changeVisible(visible) {
-    const container = this.get('container');
-    container.set('visible', visible);
-    const canvas = container.get('canvas');
-    canvas.draw();
+  changeVisible(visible, stopDraw) {
+    const shapeContainer = this.get('shapeContainer');
+    shapeContainer.set('visible', visible);
+    const labelContainer = this.get('labelContainer');
+    if (labelContainer) {
+      labelContainer.set('visible', visible);
+    }
+    if (!stopDraw) {
+      const canvas = shapeContainer.get('canvas');
+      canvas.draw();
+    }
   }
 
   reset() {
@@ -890,11 +919,16 @@ class GeomBase extends Base {
   clearInner() {
     this.clearActivedShapes();
     this.clearSelected();
-    const container = this.get('container');
-    container && container.clear();
+    const shapeContainer = this.get('shapeContainer');
+    shapeContainer && shapeContainer.clear();
+
+    // 由于 Labels 对应的模块需要生成group，所以这个地方需要删除
+    const labelContainer = this.get('labelContainer');
+    labelContainer && labelContainer.remove();
     this.set('attrs', {});
     this.set('groupScales', null);
     this.set('adjusts', null);
+    this.set('labelContainer', null);
   }
 
   clear() {
@@ -904,6 +938,8 @@ class GeomBase extends Base {
 
   destroy() {
     this.clear();
+    const shapeContainer = this.get('shapeContainer');
+    shapeContainer && shapeContainer.remove();
     this.offEvents();
     super.destroy();
   }

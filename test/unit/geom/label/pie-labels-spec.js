@@ -4,7 +4,6 @@ const DataSet = require('@antv/data-set');
 const PieLabels = require('../../../../src/geom/label/pie-labels');
 const Coord = require('../../../../src/coord/');
 const G2 = require('../../../../index');
-const Util = require('../../../../src/util');
 const Scale = require('../../../../src/scale/index');
 
 describe('pie labels', function() {
@@ -391,8 +390,7 @@ describe('pie labels', function() {
       chart.render();
 
       const geom = chart.get('geoms')[0];
-      const container = geom.get('container');
-      const labelsGroup = container.getChildByIndex(5).get('labelsGroup');
+      const labelsGroup = geom.get('labelContainer').get('labelsGroup');
 
       const first = labelsGroup.getFirst();
       const last = labelsGroup.getLast();
@@ -416,8 +414,7 @@ describe('pie labels', function() {
       chart.render();
 
       const geom = chart.get('geoms')[0];
-      const container = geom.get('container');
-      const labelsGroup = container.get('children')[5].get('labelsGroup');
+      const labelsGroup = geom.get('labelContainer').get('labelsGroup');
 
       const first = labelsGroup.getFirst();
       const last = labelsGroup.getLast();
@@ -446,8 +443,7 @@ describe('pie labels', function() {
       chart.render();
 
       const geom = chart.get('geoms')[0];
-      const container = geom.get('container');
-      const labelsGroup = container.get('children')[5].get('labelsGroup');
+      const labelsGroup = geom.get('labelContainer').get('labelsGroup');
 
       const first = labelsGroup.getFirst();
       const last = labelsGroup.getLast();
@@ -476,8 +472,7 @@ describe('pie labels', function() {
       chart.render();
 
       const geom = chart.get('geoms')[0];
-      const container = geom.get('container');
-      const labelsGroup = container.get('children')[5].get('labelsGroup');
+      const labelsGroup = geom.get('labelContainer').get('labelsGroup');
 
       const first = labelsGroup.getFirst();
       const last = labelsGroup.getLast();
@@ -560,8 +555,7 @@ describe('pie labels', function() {
         });
       chart.render();
       const geom = chart.get('geoms')[0];
-      const container = geom.get('container');
-      const labelsGroup = container.get('children')[30].get('labelsGroup');
+      const labelsGroup = geom.get('labelContainer').get('labelsGroup');
 
       const first = labelsGroup.getFirst();
       const last = labelsGroup.getLast();
@@ -677,14 +671,7 @@ describe('pie labels', function() {
       chart.render();
 
       const geom = chart.get('geoms')[0];
-      const container = geom.get('container');
-      let labelGroup;
-      Util.each(container.get('children'), function(object) {
-        if (object instanceof PieLabels) {
-          labelGroup = object;
-          return false;
-        }
-      });
+      const labelGroup = geom.get('labelContainer');
       const labelsGroup = labelGroup.get('labelsGroup');
       const cText = labelsGroup.get('children')[0];
       console.log(cText.get('attrs').x, cText.get('attrs').y);

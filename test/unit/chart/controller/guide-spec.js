@@ -235,19 +235,10 @@ describe('GuideController', function() {
 
     expect(guideController.options.length).to.equal(0);
     expect(dom).to.be.empty;
+    expect(canvas.get('children').length).to.equal(0);
   });
 
-  it('reset 异常情况测试', function() {
-    const guideController = new GuideController({
-      container: null,
-      guides: 'test'
-    });
-    guideController.reset();
-    expect(guideController.guides).to.be.empty;
-
-    guideController.container = canvas.addGroup();
-    guideController.reset();
-    expect(guideController.guides).to.be.empty;
+  it('destroy', function() {
     canvas.destroy();
   });
 });

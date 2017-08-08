@@ -30,6 +30,7 @@ class Region extends Base {
       }, rectStyle)
     });
     regionGroup.name = 'guide-region';
+    self.el = regionGroup;
   }
 
   _getPath(coord) {

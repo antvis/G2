@@ -72,16 +72,19 @@ class GuideController {
     this.reset();
   }
 
+  changeVisible(visible) {
+    const guides = this.guides;
+    Util.each(guides, function(guide) {
+      guide.setVisible(visible);
+    });
+  }
+
   reset() {
+    const guides = this.guides;
+    Util.each(guides, function(guide) {
+      guide.remove();
+    });
     this.guides = [];
-    const container = this.container;
-    if (container && !container.get('destroyed')) {
-      const parent = container.get('parent') ? container.get('parent').get('el').parentNode : container.get('el').parentNode;
-      const guideWrappers = parent.getElementsByClassName('g-guide');
-      Util.each(guideWrappers, function(item) {
-        parent.removeChild(item);
-      });
-    }
   }
 }
 
