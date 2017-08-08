@@ -90,3 +90,15 @@ describe('scale pow: min is equal to max.', () => {
     expect(Math.ceil(scale.invert(scale.scale(90)))).to.be.equal(90);
   });
 });
+
+
+describe('scale pow: random values', function() {
+  const scale = Scale.pow({
+    min: 199579,
+    max: 1318683096,
+    nice: true
+  });
+  it('nice = true', function() {
+    expect(scale.min <= 199579).equal(true);
+  });
+});

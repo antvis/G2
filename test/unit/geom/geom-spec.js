@@ -478,7 +478,7 @@ describe('test geom interval', function() {
     const path = shapeContainer.getFirst();
     const arr = path.attr('path');
     expect(arr.length).eql(6);
-    expect(equal(arr[2][1] - arr[0][1], (500 * 0.6) / 3 * 1 / 4)).equal(true);
+    expect(arr[2][1] - arr[0][1]).equal((500) / 3 * 1 / 4);
   });
 
   it('size test no dodge', function() {
@@ -496,8 +496,8 @@ describe('test geom interval', function() {
     const arr = path.attr('path');
     expect(arr.length).eql(6);
     // expect(arr[2][1] - arr[0][1]).equal(0);
-    expect(equal((arr[2][1] - arr[0][1]), (500 * 0.6) / 3 / 2)).equal(true);
-    expect(geom.getSize()).equal((500 * 0.6) / 3 / 2);
+    expect(equal((arr[2][1] - arr[0][1]), (500) / 3 / 2)).equal(true);
+    expect(geom.getSize()).equal((500) / 3 / 2);
 
   });
 
