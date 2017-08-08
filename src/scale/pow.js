@@ -56,7 +56,7 @@ class Pow extends Linear {
     let max = Math.ceil(calBase(exponent, self.max));
 
     if (self.min >= 0) {
-      min = Math.round(calBase(exponent, self.min));
+      min = Math.floor(calBase(exponent, self.min));
     } else {
       min = 0;
     }

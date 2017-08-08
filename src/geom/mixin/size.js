@@ -8,8 +8,14 @@ const Global = require('../../global');
 const Util = require('../../util');
 
 // 已经排序后的数据查找距离最小的
-function findMinDistance(arr) {
+function findMinDistance(arr, scale) {
   const count = arr.length;
+  // 日期类型的 values 经常上文本类型，所以需要转换一下
+  if (Util.isString(arr[0])) {
+    arr = arr.map(function(v) {
+      return scale.translate(v);
+    });
+  }
   let distance = arr[1] - arr[0];
   for (let i = 2; i < count; i++) {
     const tmp = arr[i] - arr[i - 1];
@@ -31,7 +37,7 @@ const SizeMixin = {
       let count;
       if (xScale.isLinear && xValues.length > 1) {
         xValues.sort();
-        const interval = findMinDistance(xValues);
+        const interval = findMinDistance(xValues, xScale);
         count = (xScale.max - xScale.min) / interval;
         if (xValues.length > count) {
           count = xValues.length;
@@ -53,7 +59,9 @@ const SizeMixin = {
           normalizeSize *= (range[1] - range[0]);
         } */
       } else {
-        normalizeSize *= (range[1] - range[0]);
+        if (xScale.isLinear) {
+          normalizeSize *= (range[1] - range[0]);
+        }
         widthRatio = Global.widthRatio.column; // 柱状图要除以2
       }
       normalizeSize *= widthRatio;

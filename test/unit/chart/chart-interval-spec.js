@@ -25,15 +25,14 @@ describe('interval chart', function() {
   chart.legend({
     allowAllCanceled: true
   });
-
+  chart.interval().position('genre*sold').color('genre');
+  chart.source(data);
+  chart.render();
   it('init', function() {
-    chart.interval().position('genre*sold').color('genre');
-    chart.source(data);
-    chart.render();
     const group = chart.get('viewContainer').getFirst();
     expect(group.getCount()).equal(data.length);
     const first = group.getFirst();
-    expect(first.attr('path')[0]).eqls([ 'M', 100.4, 240 ]);
+    expect(first.attr('path')[0]).eqls([ 'M', 97, 240 ]);
   });
 
   it('transpose', function() {
@@ -42,7 +41,7 @@ describe('interval chart', function() {
     const group = chart.get('viewContainer').getFirst();
     expect(group.getCount()).equal(data.length);
     const first = group.getFirst();
-    expect(first.attr('path')[0]).eqls([ 'M', 80, 226.8 ]);
+    expect(first.attr('path')[0]).eqls([ 'M', 80, 229 ]);
   });
 
   it('polar', function() {
@@ -99,7 +98,7 @@ describe('interval chart', function() {
     const group = chart.get('viewContainer').getFirst();
     expect(group.getCount()).equal(10);
     const first = group.getFirst();
-    expect(first.attr('path')[0]).eqls([ 'M', 94.45, 240 ]);
+    expect(first.attr('path')[0]).eqls([ 'M', 92.75, 240 ]);
   });
 
   it('symmetric', function() {
@@ -228,4 +227,37 @@ describe('interval chart', function() {
     expect(chart.destroyed).equal(true);
   });
 
+});
+
+describe('interval chart with time', function() {
+  const data = [
+    { date: '2014-08-01', value: 10 },
+    { date: '2014-08-02', value: 100 }
+  ];
+  const chart = new Chart({
+    container: div,
+    height: 300,
+    width: 500,
+    animate: false
+  });
+
+  chart.source(data);
+  const interval = chart.interval().position('date*value');
+  chart.render();
+  it('test width', function() {
+    const width = interval.getSize();
+    expect(width).equal(85);
+  });
+  it('test time cat', function() {
+    chart.clear();
+    chart.source(data, {
+      date: {
+        type: 'cat'
+      }
+    });
+    const interval = chart.interval().position('date*value');
+    chart.render();
+    const width = interval.getSize();
+    expect(width).equal(85);
+  });
 });
