@@ -5,7 +5,7 @@
 
 const Util = require('../../util');
 const Adjust = require('./adjust');
-
+const Global = require('../../global');
 /**
  * 数据调整的基类
  * @class Adjust.Dodge
@@ -24,7 +24,7 @@ class Dodge extends Adjust {
        * 调整占单位宽度的比例,例如：占2个分类间距的 1/2
        * @type {Number}
        */
-      dodgeRatio: 1 / 2,
+      dodgeRatio: Global.widthRatio.column,
 
       dodgeBy: null
     });
@@ -106,7 +106,8 @@ class Dodge extends Adjust {
     const pre = range.pre;
     const next = range.next;
     const tickLength = next - pre;
-    const width = (tickLength * self.dodgeRatio) / count;
+    const dodgeRatio = self.dodgeRatio;
+    const width = (tickLength * dodgeRatio) / count;
     const margin = self.marginRatio * width;
     const offset = 1 / 2 * (tickLength - (count) * width - (count - 1) * margin) +
       ((index + 1) * width + index * margin) -
