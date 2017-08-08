@@ -133,6 +133,7 @@ describe('test geoms', function() {
       geom = new Geom({
         type: 'test',
         coord,
+        container: canvas.addGroup(),
         data: newData,
         scales: { a: scaleA, b: scaleB, c: scaleC }
       });
@@ -254,7 +255,7 @@ describe('test geoms', function() {
       geom.position('a*b').color('c');
       geom.init();
       geom.paint();
-      expect(group.getCount()).to.be.equal(6);
+      expect(geom.get('shapeContainer').getCount()).to.be.equal(6);
       canvas.draw();
     });
 
@@ -265,7 +266,7 @@ describe('test geoms', function() {
       });
       geom.init();
       geom.paint();
-      const shape = group.getFirst();
+      const shape = geom.get('shapeContainer').getFirst();
       expect(shape.attr('fill')).equal('blue');
       canvas.draw();
     });
@@ -280,7 +281,7 @@ describe('test geoms', function() {
 
       geom.init();
       geom.paint();
-      const shape = group.getFirst();
+      const shape = geom.get('shapeContainer').getFirst();
       expect(shape.attr('fill')).equal('blue');
       expect(shape.attr('lineWidth')).equal(data[0].a * 2);
       canvas.draw();
@@ -298,11 +299,12 @@ describe('test geom point', function() {
     container: group,
     scales: { a: scaleA, b: scaleB, c: scaleC, red: ScaleRed }
   });
+  let shapeContainer = geom.get('shapeContainer');
   it('draw points', function() {
     geom.position('a*b').color('c');
     geom.init();
     geom.paint();
-    expect(group.getCount()).equal(2);
+    expect(shapeContainer.getCount()).equal(2);
   });
   it('draw points y is array', function() {
     data = [{ a: 4, b: [ 3, 5 ], c: '1' }, { a: 5, b: [ 2, 4 ], c: '2' }];
@@ -311,7 +313,8 @@ describe('test geom point', function() {
     geom.position('a*b').color('red');
     geom.init();
     geom.paint();
-    expect(group.getCount()).equal(4);
+    shapeContainer = geom.get('shapeContainer');
+    expect(shapeContainer.getCount()).equal(4);
     canvas.draw();
   });
 });
@@ -325,12 +328,13 @@ describe('test geom path', function() {
     container: group,
     scales: { a: scaleA, b: scaleB, c: scaleC, red: ScaleRed }
   });
+  const shapeContainer = geom.get('shapeContainer');
   it('draw path', function() {
     geom.position('a*b');
     geom.init();
     geom.paint();
-    expect(group.getCount()).equal(1);
-    const path = group.getFirst();
+    expect(shapeContainer.getCount()).equal(1);
+    const path = shapeContainer.getFirst();
     expect(path.attr('path').length).eql(2);
     canvas.draw();
   });
@@ -342,8 +346,8 @@ describe('test geom path', function() {
     geom.position('a*b');
     geom.init();
     geom.paint();
-    expect(group.getCount()).equal(1);
-    const path = group.getFirst();
+    expect(shapeContainer.getCount()).equal(1);
+    const path = shapeContainer.getFirst();
     expect(path.attr('path').length).eql(4);
     canvas.draw();
   });
@@ -355,8 +359,8 @@ describe('test geom path', function() {
     geom.position('a*b').color('c');
     geom.init();
     geom.paint();
-    expect(group.getCount()).equal(2);
-    const path = group.getFirst();
+    expect(shapeContainer.getCount()).equal(2);
+    const path = shapeContainer.getFirst();
     expect(path.attr('path').length).eql(2);
     canvas.draw();
   });
@@ -383,13 +387,15 @@ describe('test geom line', function() {
     container: group,
     scales: { a: scaleA, b: scaleB, c: scaleC, red: ScaleRed }
   });
+  const shapeContainer = geom.get('shapeContainer');
+
   it('draw path', function() {
     expect(geom.get('type')).eql('line');
     geom.position('a*b');
     geom.init();
     geom.paint();
-    expect(group.getCount()).equal(1);
-    const path = group.getFirst();
+    expect(shapeContainer.getCount()).equal(1);
+    const path = shapeContainer.getFirst();
     expect(path.attr('path').length).eql(2);
     expect(path.attr('path')[0]).eqls([ 'M', 100, 200 ]);
     expect(path.attr('path')[1]).eqls([ 'L', 200, 300 ]);
@@ -403,8 +409,8 @@ describe('test geom line', function() {
     geom.position('a*b');
     geom.init();
     geom.paint();
-    expect(group.getCount()).equal(1);
-    const path = group.getFirst();
+    expect(shapeContainer.getCount()).equal(1);
+    const path = shapeContainer.getFirst();
     expect(path.attr('path').length).eql(4);
     canvas.draw();
   });
@@ -416,8 +422,8 @@ describe('test geom line', function() {
     geom.position('a*b').color('c');
     geom.init();
     geom.paint();
-    expect(group.getCount()).equal(2);
-    const path = group.getFirst();
+    expect(shapeContainer.getCount()).equal(2);
+    const path = shapeContainer.getFirst();
     expect(path.attr('path').length).eql(2);
     canvas.draw();
   });
@@ -457,19 +463,19 @@ describe('test geom interval', function() {
     container: group,
     scales: { a: scaleA, b: scaleB, c: scaleC, red: ScaleRed, 10: ScaleTen }
   });
-
+  const shapeContainer = geom.get('shapeContainer');
   it('draw interval', function() {
     expect(geom.get('type')).eql('interval');
     geom.position('a*b', 'dodge').color('c');
 
     geom.init();
     geom.paint();
-    expect(group.getCount()).equal(data.length);
+    expect(shapeContainer.getCount()).equal(data.length);
 
   });
 
   it('size test dodge', function() {
-    const path = group.getFirst();
+    const path = shapeContainer.getFirst();
     const arr = path.attr('path');
     expect(arr.length).eql(6);
     expect(equal(arr[2][1] - arr[0][1], (500 * 0.6) / 3 * 1 / 4)).equal(true);
@@ -486,7 +492,7 @@ describe('test geom interval', function() {
     geom.init();
     geom.paint();
 
-    const path = group.getFirst();
+    const path = shapeContainer.getFirst();
     const arr = path.attr('path');
     expect(arr.length).eql(6);
     // expect(arr[2][1] - arr[0][1]).equal(0);
@@ -507,7 +513,7 @@ describe('test geom interval', function() {
     geom.init();
     geom.paint();
 
-    const path = group.getFirst();
+    const path = shapeContainer.getFirst();
     const arr = path.attr('path');
     expect(arr.length).eql(6);
     expect(equal((arr[2][1] - arr[0][1]), 10)).equal(true);
@@ -533,7 +539,7 @@ describe('test geom interval', function() {
     geom.init();
     geom.paint();
 
-    const path = group.getFirst();
+    const path = shapeContainer.getFirst();
     const points = path.get('origin').points;
     expect(path.attr('path').length).eql(5);
     expect(Math.abs(points[2].x - points[0].x - 1 / 3) < 0.001).equal(true);
@@ -546,7 +552,7 @@ describe('test geom interval', function() {
     geom.position('a*b', 'dodge').color('c');
     geom.init();
     geom.paint();
-    expect(group.getCount()).equal(6);
+    expect(shapeContainer.getCount()).equal(6);
     canvas.draw();
   });
 
@@ -580,6 +586,7 @@ describe('test geom area', function() {
   ];
   const group = canvas.addGroup();
   let geom;
+  let shapeContainer;
   it('create area', function() {
     scaleA = Scale.cat({
       field: 'a',
@@ -592,7 +599,7 @@ describe('test geom area', function() {
       container: group,
       scales: { a: scaleA, b: scaleB, c: scaleC, red: ScaleRed, 10: ScaleTen }
     });
-
+    shapeContainer = geom.get('shapeContainer');
     expect(geom.get('type')).equal('area');
     expect(geom.get('shapeType')).equal('area');
   });
@@ -601,7 +608,7 @@ describe('test geom area', function() {
     geom.position('a*b').color('c');
     geom.init();
     geom.paint();
-    expect(group.getCount()).equal(2);
+    expect(shapeContainer.getCount()).equal(2);
     canvas.draw();
   });
 
@@ -616,8 +623,8 @@ describe('test geom area', function() {
     geom.position('a*b').color('c');
     geom.init();
     geom.paint();
-    expect(group.getCount()).equal(1);
-    expect(group.getFirst().attr('path').length).equal(7);
+    expect(shapeContainer.getCount()).equal(1);
+    expect(shapeContainer.getFirst().attr('path').length).equal(7);
     canvas.draw();
   });
 
@@ -637,13 +644,14 @@ describe('test geom area', function() {
     geom.position('a*b').color('c');
     geom.init();
     geom.paint();
-    expect(group.getCount()).equal(1);
-    expect(group.getFirst().attr('path').length).equal(9);
+    expect(shapeContainer.getCount()).equal(1);
+    expect(shapeContainer.getFirst().attr('path').length).equal(9);
     canvas.draw();
   });
 
   it('geom destroy', function() {
     geom.destroy();
+    expect(group.getCount()).equal(0);
     expect(geom.destroyed).equal(true);
   });
 });
@@ -672,7 +680,7 @@ describe('test polygon', function() {
     container: group,
     scales: { x: scaleX, y: scaleY }
   });
-
+  const shapeContainer = geom.get('shapeContainer');
   it('test init', () => {
     expect(geom.get('type')).equal('polygon');
     expect(geom.get('generatePoints')).equal(true);
@@ -682,7 +690,7 @@ describe('test polygon', function() {
     geom.position('x*y');
     geom.init();
     geom.paint();
-    expect(group.getCount()).equal(2);
+    expect(shapeContainer.getCount()).equal(2);
     canvas.draw();
   });
 
@@ -731,6 +739,8 @@ describe('test schema', function() {
       scales: { x: scaleX, y: scaleY, box: scaleBox }
     });
 
+    const shapeContainer = geom.get('shapeContainer');
+
     it('init', function() {
       geom.position('x*y').shape('box');
       expect(geom.get('type')).equal('schema');
@@ -741,7 +751,7 @@ describe('test schema', function() {
       expect(geom.getNormalizedSize()).equal(1 / 10 / 2);
       geom.paint();
 
-      expect(group.getCount()).equal(3);
+      expect(shapeContainer.getCount()).equal(3);
       canvas.draw();
     });
 
@@ -766,6 +776,7 @@ describe('test schema', function() {
       scales: { x: scaleX, y: scaleY, candle: scaleCandle }
     });
 
+    const shapeContainer = geom.get('shapeContainer');
     it('init', function() {
       geom.position('x*y').shape('candle');
       expect(geom.get('type')).equal('schema');
@@ -776,7 +787,7 @@ describe('test schema', function() {
       expect(geom.getNormalizedSize()).equal(1 / 10 / 2);
       geom.paint();
 
-      expect(group.getCount()).equal(3);
+      expect(shapeContainer.getCount()).equal(3);
       canvas.draw();
     });
 
@@ -818,6 +829,8 @@ describe('test edge', function() {
     scales: { x: scaleX, y: scaleY, vhv: scaleVh, red: ScaleRed }
   });
 
+  const shapeContainer = geom.get('shapeContainer');
+
   it('init', function() {
     expect(geom.get('type')).equal('edge');
   });
@@ -826,8 +839,8 @@ describe('test edge', function() {
     geom.position('x*y').color('red');
     geom.init();
     geom.paint();
-    expect(group.getCount()).equal(2);
-    expect(group.getFirst().attr('path').length).equal(2);
+    expect(shapeContainer.getCount()).equal(2);
+    expect(shapeContainer.getFirst().attr('path').length).equal(2);
     canvas.draw();
   });
 
@@ -836,13 +849,12 @@ describe('test edge', function() {
     geom.position('x*y').shape('vhv');
     geom.init();
     geom.paint();
-    expect(group.getCount()).equal(2);
-    console.log(group.getFirst().attr('path'));
-    expect(group.getFirst().attr('path').length).equal(4);
+    expect(shapeContainer.getCount()).equal(2);
+    expect(shapeContainer.getFirst().attr('path').length).equal(4);
     canvas.draw();
   });
 
-  xit('final destroy', function() {
+  it('final destroy', function() {
     canvas.destroy();
     document.body.removeChild(div);
   });

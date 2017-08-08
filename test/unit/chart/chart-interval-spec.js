@@ -223,7 +223,7 @@ describe('interval chart', function() {
     expect(scale.max).equal(350);
   });
 
-  xit('destroy', function() {
+  it('destroy', function() {
     chart.destroy();
     expect(chart.destroyed).equal(true);
   });

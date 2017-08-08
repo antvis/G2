@@ -60,7 +60,7 @@ class Html extends Base {
     const htmlNode = DomUtil.createDom(html);
     wrapperNode.appendChild(htmlNode);
     self._setDomPosition(wrapperNode, htmlNode, position);
-
+    self.el = wrapperNode;
   }
 
   _setDomPosition(parentDom, childDom, point) {
@@ -115,6 +115,14 @@ class Html extends Base {
       visibility: 'visible',
       zIndex: self.zIndex
     });
+  }
+
+  remove() {
+    const self = this;
+    const el = self.el;
+    if (el) {
+      el.parentNode.removeChild(el);
+    }
   }
 
 }

@@ -76,6 +76,7 @@ class Image extends Base {
       attrs: cfg
     });
     imgGuide.name = 'guide-image';
+    self.el = imgGuide;
   }
 }
 

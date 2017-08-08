@@ -6,7 +6,8 @@ class Base {
     return {
       zIndex: 1,
       xScales: null,
-      yScales: null
+      yScales: null,
+      el: null
     };
   }
 
@@ -74,10 +75,36 @@ class Base {
   }
 
   /**
+   * 设置显示、隐藏
+   * @param {Boolean} visible 是否可见
+   */
+  setVisible(visible) {
+    const el = this.el;
+    if (el) {
+      if (el.set) {
+        el.set('visible', visible);
+      } else {
+        el.style.display = visible ? '' : 'none';
+      }
+    }
+  }
+
+  /**
    * 渲染辅助元素
    * @override
    */
   render() {}
+
+  /**
+   * 清理图形、元素
+   */
+  remove() {
+    const self = this;
+    const el = self.el;
+    if (el) {
+      el.remove();
+    }
+  }
 }
 
 module.exports = Base;

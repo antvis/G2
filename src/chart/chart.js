@@ -114,7 +114,7 @@ class Chart extends View {
     }); // 图表前面的容器
 
     this.set('backPlot', backPlot);
-    this.set('viewContainer', plotContainer);
+    this.set('middlePlot', plotContainer);
     this.set('frontPlot', frontPlot);
   }
 
@@ -244,10 +244,9 @@ class Chart extends View {
    */
   view(cfg) {
     cfg = cfg || {};
-    const viewContainer = this.get('viewContainer');
     cfg.parent = this;
-    cfg.viewContainer = viewContainer.addGroup();
     cfg.backPlot = this.get('backPlot');
+    cfg.middlePlot = this.get('middlePlot');
     cfg.frontPlot = this.get('frontPlot');
     cfg.canvas = this.get('canvas');
     if (Util.isNil(cfg.animate)) {

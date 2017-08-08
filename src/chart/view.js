@@ -88,6 +88,7 @@ class View extends Base {
    */
   init() {
     this._initOptions();
+    this._initViewPlot();
     this._initControllers();
     this._bindEvents();
   }
@@ -159,24 +160,8 @@ class View extends Base {
   }
 
   _initViewPlot() {
-    const canvas = this.get('canvas');
-
-    if (!this.get('backPlot')) { // 用于坐标轴以及部分 guide 绘制
-      this.set('backPlot', canvas.addGroup({
-        zIndex: 1
-      }));
-    }
-
     if (!this.get('viewContainer')) { // 用于 geom 的绘制
-      this.set('viewContainer', canvas.addGroup({
-        zIndex: 2
-      }));
-    }
-
-    if (!this.get('frontPlot')) {  // 用于图例以及部分 guide 绘制
-      this.set('frontPlot', canvas.addGroup({
-        zIndex: 3
-      }));
+      this.set('viewContainer', this.get('middlePlot'));
     }
   }
 
@@ -423,11 +408,7 @@ class View extends Base {
     geoms.push(geom);
     geom.set('view', self);
     const container = self.get('viewContainer');
-    const group = container.addGroup({
-      zIndex: 1,
-      name: 'geom'
-    });
-    geom.set('container', group);
+    geom.set('container', container);
     geom.set('animate', self.get('animate'));
     geom.bindEvents();
   }
@@ -685,7 +666,7 @@ class View extends Base {
     // reset guide
     this.get('guideController') && this.get('guideController').reset();
     // clear axis
-    this.get('backPlot') && this.get('backPlot').clear();
+    this.get('axisController') && this.get('axisController').clear();
   }
 
   /**
@@ -696,8 +677,8 @@ class View extends Base {
     const options = this.get('options');
     options.filters = null;
     this._removeGeoms();
-    const container = this.get('viewContainer');
-    container.clear();
+    // const container = this.get('viewContainer');
+    // container.clear();
     this.clearInner();
     this.get('guideController') && this.get('guideController').clear();
 
@@ -782,6 +763,8 @@ class View extends Base {
     });
     this.paint();
     if (!stopDraw) {
+      const backPlot = this.get('backPlot');
+      backPlot.sort();
       const canvas = this.get('canvas');
       canvas.draw();
     }
@@ -794,7 +777,6 @@ class View extends Base {
       const filteredData = this.execFilter(data);
       this.set('filteredData', filteredData);
       if (!Util.isEmpty(data)) {
-        this._initViewPlot();
         this._createCoord(); // draw geometry 前绘制区域可能会发生改变
         this._initGeoms();
         this._adjustScale();
@@ -813,9 +795,16 @@ class View extends Base {
   }
 
   changeVisible(visible) {
-    const viewContainer = this.get('viewContainer');
-    viewContainer.set('visible', visible);
-    const canvas = viewContainer.get('canvas');
+    const geoms = this.get('geoms');
+    Util.each(geoms, function(geom) {
+      if (geom.get('visible')) { // geom 隐藏时不受
+        geom.changeVisible(visible, true);
+      }
+    });
+    this.get('axisController') && this.get('axisController').changeVisible(visible);
+    this.get('guideController') && this.get('guideController').changeVisible(visible);
+    const canvas = this.get('canvas');
+
     canvas.draw();
   }
 
