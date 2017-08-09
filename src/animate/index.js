@@ -20,16 +20,16 @@ function getShapes(container) {
 }
 
 function cache(shapes) {
-  const rst = [];
+  const rst = {};
   Util.each(shapes, shape => {
     if (!shape._id || shape.isClip) return;
-    rst.push({
-      _id: shape._id, // 标识 id
-      type: shape.get('type'), // shape 的形状
+    const id = shape._id;
+    rst[id] = {
+      _id: id,
+      type: shape.get('type'),
       attrs: Util.cloneDeep(shape.__attrs), // 原始属性
-      name: shape.name, // TODO 删除
-      points: shape.get('origin').points
-    });
+      name: shape.name
+    };
   });
   return rst;
 }
@@ -89,11 +89,6 @@ function getDiffAttrs(newAttrs, oldAttrs) {
 function addAnimate(cache, shapes, canvas, coord, isUpdate) {
   let animate;
   let animateCfg;
-  const combineArr = cache.concat(shapes); // 合并缓存shapes和当前shapes
-  if (combineArr.length > 1500) { // 粗略的元素限制策略
-    // canvas.draw();
-    return;
-  }
 
   if (isUpdate) {
     // Step: leave -> update -> enter
@@ -111,7 +106,7 @@ function addAnimate(cache, shapes, canvas, coord, isUpdate) {
     });
 
     Util.each(shapes, shape => {
-      const result = _findById(shape._id, cache);
+      const result = cache[shape._id];
       if (!result) {
         newShapes.push(shape);
       }
