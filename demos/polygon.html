@@ -65,19 +65,22 @@
     });
     chart.axis('from', false);
     chart.source(data, defs);
-    chart.polygon().position('from*to')
-        .color('price')
+    // chart.filter('from', function(value) {
+    //   return value == '湘湖';
+    // });
+    const ploygon = chart.polygon().position('from*to')
+        .color('from')
         .style({
           lineWidth: 1,
           stroke: '#fff'
         });
 
     chart.render();
-    chart.on('polygon:active', ev => {
-      const shapes = ev.shapes;
-      const geom = ev.geom;
-      geom.highlightShapes(shapes, { strokeStyle: '#000', lineWidth: 1 });
+    chart.on('polygon:mouseenter', ev => {
+      const shape = ev.shape;
+      ploygon.highlightShapes([ shape ], { strokeStyle: '#000', lineWidth: 1 });
     });
+
   </script>
 </body>
 
