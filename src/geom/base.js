@@ -288,6 +288,7 @@ class GeomBase extends Base {
     }
     styleOptions.fields = fields;
     styleOptions.style = cfg;
+    return this;
   }
 
   label(field, cfg) {
