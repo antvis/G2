@@ -361,8 +361,7 @@ class View extends Base {
               range = [ offset / 2, 1 - offset / 2 ];
             }
           } else {
-            widthRatio = Global.widthRatio.column;
-            offset = 1 / count * widthRatio;
+            offset = 1 / count * 1 / 2; // 两边留下分类空间的一半
             range = [ offset, 1 - offset ]; // 坐标轴最前面和最后面留下空白防止绘制柱状图时
           }
         }

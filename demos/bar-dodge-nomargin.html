@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="geometry" content="interval">
   <link rel="stylesheet" href="./assets/common.css">
-  <title>Bar Dodge Plot</title>
+  <title>Bar Dodge No Margin</title>
 </head>
 
 <body>
@@ -16,6 +16,8 @@
   <script src="./assets/data-set.min.js"></script>
   <script src="../build/g2.js"></script>
   <script>
+    // 更改柱状图所占的空间
+    G2.Global.widthRatio.column = 3 / 4;
     const data = [
       { 月均降雨量: 49.9, 月份: 'Jan.', name: 'Tokyo' },
       { 月均降雨量: 71.5, 月份: 'Feb.', name: 'Tokyo' },
@@ -86,7 +88,7 @@
     });
     chart.axis('月均降雨量', {
       title: {
-        position: 'end',
+        position: 'middle',
         autoRotate: false,
         textStyle: {
           textAlign: 'start',
@@ -95,11 +97,15 @@
         offset: -10
       }
     });
-
+    chart.coord().transpose();
     chart.scale('name', { alias: '城市' });
     chart.interval()
-      .position('月份*月均降雨量', 'dodge')
+      .position('月份*月均降雨量', [{
+        type: 'dodge',
+        marginRatio: 0
+      }])
       .color('name', [ '#FF6A84', '#30A4EB', '#45BFC0', '#FFCC55' ]);
+
     chart.render();
   </script>
 </body>
