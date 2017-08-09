@@ -165,8 +165,8 @@ class Chart extends View {
           const scale = attr.getScale(type);
           if (scale.type !== 'identity' && !_isScaleExist(scales, scale)) {
             scales.push(scale);
-            const filteredScale = view.getFilteredScale(scale.field);
-            legendController.addLegend(scale, attr, geom, filteredScale.values);
+            const filteredValues = view.getFilteredValues(scale.field);
+            legendController.addLegend(scale, attr, geom, filteredValues);
           }
         });
       });

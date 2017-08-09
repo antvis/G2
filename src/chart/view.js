@@ -482,17 +482,13 @@ class View extends Base {
     }
   }
 
-  getFilteredScale(field) {
-    const data = this.get('filteredData');
-    const scaleController = this.get('scaleController');
-    let scale;
-    if (data.length) {
-      scale = scaleController.createScale(field, data);
-    } else { // 如果过滤掉所有的数据，度量需要使用全部数据来生成，然后设置 values 为空
-      scale = scaleController.createScale(field, this.get('data'));
-      scale.values = [];
+  getFilteredValues(field) {
+    let data = this.get('filteredData');
+    if (!data.length) {
+      data = this.get('data');
     }
-    return scale;
+    const values = Util.Array.values(data, field);
+    return values;
   }
 
   filter(field, condition) {
