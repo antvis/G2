@@ -13,8 +13,6 @@ const Shape = require('./shape/index');
 const TooltipMixin = require('./mixin/tooltip');
 const ActiveMixin = require('./mixin/active');
 const SelectMixin = require('./mixin/select');
-const Animate = require('./animate/index');
-
 const GROUP_ATTRS = [ 'size', 'shape', 'color' ];
 const FIELD_ORIGIN = '_origin';
 
@@ -559,7 +557,8 @@ class GeomBase extends Base {
     }
   }
 
-  _draw() {
+  // step 3 绘制
+  paint() {
     const self = this;
     const dataArray = self.get('dataArray');
     const mappedArray = [];
@@ -576,23 +575,6 @@ class GeomBase extends Base {
       self._addLabels(Util.union.apply(null, mappedArray));
     }
     self.set('dataArray', mappedArray);
-  }
-
-  // step 3 绘制
-  paint() {
-    const self = this;
-    const animate = this.get('animate');
-    if (animate) {
-      const anim = Animate.getDefault({
-        geom: self,
-        fn() {
-          self._draw();
-        }
-      });
-      anim.start();
-    } else {
-      self._draw();
-    }
   }
 
   // step 3.1 before mapping
@@ -821,6 +803,33 @@ class GeomBase extends Base {
     return tmpCfg;
   }
 
+  _getShapeId(dataObj) {
+    let id = this.get('_id');
+    const type = this.get('type');
+    const xField = this.getXScale().field;
+    const yField = this.getYScale().field;
+
+    if (type === 'interval' || type === 'schema') {
+      id += '-' + dataObj[xField];
+    } else if (type === 'line' || type === 'area' || type === 'path') {
+      id += '-' + type; // TODO 需要加上 type 吗？
+    } else {
+      id += '-' + dataObj[xField] + '-' + dataObj[yField]; // TODO 需要加上 type 吗？
+    }
+
+    const groupScales = this._getGroupScales();
+    if (!Util.isEmpty(groupScales)) {
+      Util.each(groupScales, groupScale => {
+        const field = groupScale.field;
+        if (groupScale.type !== 'identity') {
+          id += '-' + dataObj[field];
+        }
+      });
+    }
+
+    return id;
+  }
+
   getDrawCfg(obj) {
     const self = this;
     const cfg = {
@@ -831,7 +840,8 @@ class GeomBase extends Base {
       size: obj.size,
       shape: obj.shape,
       isInCircle: self.isInCircle(),
-      opacity: obj.opacity
+      opacity: obj.opacity,
+      _id: self._getShapeId(obj[FIELD_ORIGIN])
     };
     const styleOptions = self.get('styleOptions');
     if (styleOptions && styleOptions.style) {

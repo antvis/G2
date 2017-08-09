@@ -1,0 +1,368 @@
+const Util = require('../util');
+const G = require('@ali/g');
+const PathUtil = G.PathUtil;
+
+function getClip(coord) {
+  const start = coord.start;
+  const end = coord.end;
+  const width = coord.getWidth();
+  const height = coord.getHeight();
+  const margin = 200;
+  let startAngle;
+  let endAngle;
+  let center;
+  let radius;
+  let clip;
+
+  if (coord.isPolar) {
+    radius = coord.getRadius();
+    center = coord.getCenter();
+    startAngle = coord.startAngle;
+    endAngle = coord.endAngle;
+    clip = new G.Fan({
+      attrs: {
+        x: center.x,
+        y: center.y,
+        rs: 0,
+        re: radius + margin,
+        startAngle,
+        endAngle: startAngle
+      }
+    });
+    clip.endState = {
+      endAngle
+    };
+  } else {
+    clip = new G.Rect({
+      attrs: {
+        x: start.x - margin,
+        y: end.y - margin,
+        width: coord.isTransposed ? width + margin * 2 : 0,
+        height: coord.isTransposed ? 0 : height + margin * 2
+      }
+    });
+
+    if (coord.isTransposed) {
+      clip.endState = {
+        height: height + margin * 2
+      };
+    } else {
+      clip.endState = {
+        width: width + margin * 2
+      };
+    }
+  }
+  clip.isClip = true;
+  return clip;
+}
+
+// 获取图形的包围盒
+function getPointsBox(points) {
+  if (Util.isEmpty(points)) {
+    return null;
+  }
+
+  let minX = points[0].x;
+  let maxX = points[0].x;
+  let minY = points[0].y;
+  let maxY = points[0].y;
+  Util.each(points, point => {
+    minX = minX > point.x ? point.x : minX;
+    maxX = maxX < point.x ? point.x : maxX;
+    minY = minY > point.y ? point.y : minY;
+    maxY = maxY < point.y ? point.y : maxY;
+  });
+  return {
+    minX,
+    maxX,
+    minY,
+    maxY,
+    centerX: (minX + maxX) / 2,
+    centerY: (minY + maxY) / 2
+  };
+}
+
+function getAngle(shape, coord) {
+  const points = shape.points || shape.get('origin').points;
+  const box = getPointsBox(points);
+  let endAngle;
+  let startAngle;
+  const coordStartAngle = coord.startAngle;
+  const coordEndAngle = coord.endAngle;
+  const diffAngle = coordEndAngle - coordStartAngle;
+
+  if (coord.isTransposed) {
+    endAngle = box.maxY * diffAngle;
+    startAngle = box.minY * diffAngle;
+  } else {
+    endAngle = box.maxX * diffAngle;
+    startAngle = box.minX * diffAngle;
+  }
+  endAngle += coordStartAngle;
+  startAngle += coordStartAngle;
+  return {
+    startAngle,
+    endAngle
+  };
+}
+
+function getAnimateParam(animateCfg, index, id, endState) {
+  const result = {};
+  if (animateCfg.delay) {
+    endState.delay = Util.isFunction(animateCfg.delay) ? animateCfg.delay(index, id) : animateCfg.delay;
+  }
+  result.easing = Util.isFunction(animateCfg.easing) ? animateCfg.easing(index, id) : animateCfg.easing;
+  result.duration = Util.isFunction(animateCfg.duration) ? animateCfg.duration(index, id) : animateCfg.duration;
+  return result;
+}
+
+function scaleInY(shape, animateCfg) {
+  const box = shape.getBBox();
+  const points = shape.get('origin').points;
+  const x = (box.minX + box.maxX) / 2;
+  let y;
+  const id = shape._id;
+  const index = (shape.get('origin') && shape.get('origin').index) || 0;
+
+  if (points[0].y - points[1].y <= 0) { // 当顶点在零点之下
+    y = box.maxY;
+  } else {
+    y = box.minY;
+  }
+  const v = [ x, y, 1 ];
+  shape.apply(v);
+  shape.transform([
+    [ 't', -x, -y ],
+    [ 's', 1, 0.01 ],
+    [ 't', x, y ]
+  ]);
+  const endState = {
+    transform: [
+      [ 't', -x, -y ],
+      [ 's', 1, 100 ],
+      [ 't', x, y ]
+    ]
+  };
+  const aniamteParam = getAnimateParam(animateCfg, index, id, endState);
+  shape.animate(endState, aniamteParam.duration, aniamteParam.easing);
+}
+
+function scaleInX(shape, animateCfg) {
+  const box = shape.getBBox();
+  const points = shape.get('origin').points;
+  let x;
+  const y = (box.minY + box.maxY) / 2;
+  const id = shape._id;
+  const index = (shape.get('origin') && shape.get('origin').index) || 0;
+  if (points[0].y - points[1].y > 0) { // 当顶点在零点之下
+    x = box.maxX;
+  } else {
+    x = box.minX;
+  }
+  const v = [ x, y, 1 ];
+  shape.apply(v);
+  shape.transform([
+    [ 't', -x, -y ],
+    [ 's', 0.01, 1 ],
+    [ 't', x, y ]
+  ]);
+  const endState = {
+    transform: [
+      [ 't', -x, -y ],
+      [ 's', 100, 1 ],
+      [ 't', x, y ]
+    ]
+  };
+  const aniamteParam = getAnimateParam(animateCfg, index, id, endState);
+  shape.animate(endState, aniamteParam.duration, aniamteParam.easing);
+}
+
+function lineWidthOut(shape, animateCfg) {
+  const endState = {
+    lineWidth: 0,
+    opacity: 0
+  };
+  const id = shape._id;
+  const index = shape.get('index') || (shape.get('origin') && shape.get('origin').index) || 0;
+  const aniamteParam = getAnimateParam(animateCfg, index, id, endState);
+  shape.animate(endState, aniamteParam.duration, aniamteParam.easing, function() {
+    shape.destroy();
+  });
+}
+
+function zoomIn(shape, animateCfg, coord) {
+  let x;
+  let y;
+  if (coord.isPolar && shape.name !== 'point') {
+    x = coord.getCenter().x;
+    y = coord.getCenter().y;
+  } else {
+    const box = shape.getBBox();
+    x = (box.minX + box.maxX) / 2;
+    y = (box.minY + box.maxY) / 2;
+  }
+  const v = [ x, y, 1 ];
+  const id = shape._id;
+  const index = (shape.get('origin') && shape.get('origin').index) || 0;
+  shape.apply(v);
+  shape.transform([
+    [ 't', -x, -y ],
+    [ 's', 0.01, 0.01 ],
+    [ 't', x, y ]
+  ]);
+  const endState = {
+    transform: [
+      [ 't', -x, -y ],
+      [ 's', 100, 100 ],
+      [ 't', x, y ]
+    ]
+  };
+  const aniamteParam = getAnimateParam(animateCfg, index, id, endState);
+  shape.animate(endState, aniamteParam.duration, aniamteParam.easing);
+}
+
+function zoomOut(shape, animateCfg, coord) {
+  let x;
+  let y;
+  if (coord.isPolar && shape.name !== 'point') {
+    x = coord.getCenter().x;
+    y = coord.getCenter().y;
+  } else {
+    const box = shape.getBBox();
+    x = (box.minX + box.maxX) / 2;
+    y = (box.minY + box.maxY) / 2;
+  }
+  const v = [ x, y, 1 ];
+  const id = shape._id;
+  const index = shape.get('index') || (shape.get('origin') && shape.get('origin').index) || 0;
+  shape.apply(v);
+  const endState = {
+    transform: [
+      [ 't', -x, -y ],
+      [ 's', 0.01, 0.01 ],
+      [ 't', x, y ]
+    ]
+  };
+  const aniamteParam = getAnimateParam(animateCfg, index, id, endState);
+  shape.animate(endState, aniamteParam.duration, aniamteParam.easing, function() {
+    shape.destroy();
+  });
+}
+
+function pathIn(shape, animateCfg) {
+  if (shape.get('type') !== 'path') return;
+  const id = shape._id;
+  const index = (shape.get('origin') && shape.get('origin').index) || 0;
+  const path = PathUtil.pathToAbsolute(shape.attr('path'));
+  shape.attr('path', [ path[0] ]);
+  const endState = {
+    path
+  };
+  const aniamteParam = getAnimateParam(animateCfg, index, id, endState);
+  shape.animate(endState, aniamteParam.duration, aniamteParam.easing);
+}
+
+function pathOut(shape, animateCfg) {
+  if (shape.get('type') !== 'path') return;
+  const id = shape._id;
+  const index = shape.get('index') || (shape.get('origin') && shape.get('origin').index) || 0;
+  const path = PathUtil.pathToAbsolute(shape.attr('path'));
+  const endState = {
+    path: [ path[0] ]
+  };
+  const aniamteParam = getAnimateParam(animateCfg, index, id, endState);
+  shape.animate(endState, aniamteParam.duration, aniamteParam.easing, function() {
+    shape.destroy();
+  });
+}
+
+function clipIn(shape, animateCfg, coord, startAngle, endAngle) {
+  const clip = getClip(coord);
+  const canvas = shape.get('canvas');
+  const id = shape._id;
+  const index = (shape.get('origin') && shape.get('origin').index) || 0;
+  let endState;
+  if (startAngle) {
+    clip.attr('startAngle', startAngle);
+    clip.attr('endAngle', startAngle);
+    endState = {
+      endAngle
+    };
+  } else {
+    endState = clip.endState;
+  }
+  clip.set('canvas', canvas);
+  shape.attr('clip', clip);
+  const aniamteParam = getAnimateParam(animateCfg, index, id, endState);
+  clip.animate(endState, aniamteParam.duration, aniamteParam.easing,
+    function() {
+      shape && !shape.get('destroyed') && shape.attr('clip', null) && clip.destroy();
+    });
+}
+
+function fadeIn(shape, animateCfg) {
+  const id = shape._id;
+  const index = (shape.get('origin') && shape.get('origin').index) || 0;
+  const fillOpacity = Util.isNil(shape.attr('fillOpacity')) ? 1 : shape.attr('fillOpacity');
+  const strokeOpacity = Util.isNil(shape.attr('strokeOpacity')) ? 1 : shape.attr('strokeOpacity');
+  shape.attr('fillOpacity', 0);
+  shape.attr('strokeOpacity', 0);
+  const endState = {
+    fillOpacity,
+    strokeOpacity
+  };
+  const aniamteParam = getAnimateParam(animateCfg, index, id, endState);
+  shape.animate(endState, aniamteParam.duration, aniamteParam.easing);
+}
+
+function fadeOut(shape, animateCfg) {
+  const id = shape._id;
+  const index = shape.get('index') || (shape.get('origin') && shape.get('origin').index) || 0;
+  const endState = {
+    fillOpacity: 0,
+    strokeOpacity: 0
+  };
+  const aniamteParam = getAnimateParam(animateCfg, index, id, endState);
+  shape.animate(endState, aniamteParam.duration, aniamteParam.easing, function() {
+    shape.destroy();
+  });
+}
+
+function fanIn(shape, animateCfg, coord) {
+  const angle = getAngle(shape, coord);
+  const endAngle = angle.endAngle;
+  const startAngle = 0;
+  clipIn(shape, animateCfg, coord, startAngle, endAngle);
+}
+
+// 默认动画库
+module.exports = {
+  enter: {
+    clipIn,
+    zoomIn,
+    pathIn,
+    scaleInY,
+    scaleInX,
+    fanIn,
+    fadeIn
+  },
+  leave: {
+    lineWidthOut,
+    zoomOut,
+    pathOut,
+    fadeOut
+  },
+  appear: {
+    clipIn,
+    zoomIn,
+    pathIn,
+    scaleInY,
+    scaleInX,
+    fanIn,
+    fadeIn
+  },
+  update: {
+    fadeIn,
+    fanIn
+  }
+};

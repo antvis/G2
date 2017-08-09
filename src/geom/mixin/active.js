@@ -88,7 +88,7 @@ const ActiveMixin = {
     }
     const view = self.get('view');
     const canvas = view.get('canvas');
-    const container = self.get('container');
+    const shapeContainer = self.get('shapeContainer');
     Util.each(shapes, shape => {
       if (!shape.get('_originAttrs')) {
         shape.set('_originAttrs', Util.cloneDeep(shape.__attrs)); // 缓存原来的属性，由于 __attrs.matrix 是数组，所以此处需要深度复制
@@ -104,19 +104,20 @@ const ActiveMixin = {
     });
     self.set('activeShapes', shapes);
     self.set('preShapes', shapes);
-    container.sort();
+    shapeContainer.sort();
     canvas.draw();
   },
   clearActivedShapes() {
     const self = this;
-    const container = self.get('container');
-    if (container && !container.get('destroyed')) {
+    const shapeContainer = self.get('shapeContainer');
+    if (shapeContainer && !shapeContainer.get('destroyed')) {
       const activeShapes = self.get('activeShapes');
       Util.each(activeShapes, activeShape => {
         if (!activeShape.get('selected')) {
           const originAttrs = activeShape.get('_originAttrs');
           activeShape.__attrs = Util.cloneDeep(originAttrs);
           activeShape.setZIndex(0);
+          activeShape.set('_originAttrs', null);
         }
       });
       const preHighlightShapes = self.get('preHighlightShapes');
@@ -127,6 +128,7 @@ const ActiveMixin = {
             const originAttrs = shape.get('_originAttrs');
             shape.__attrs = Util.cloneDeep(originAttrs);
             shape.setZIndex(0);
+            shape.set('_originAttrs', null);
           }
         });
       }
@@ -143,9 +145,9 @@ const ActiveMixin = {
   },
   getGroupShapesByPoint(point) {
     const self = this;
-    const container = self.get('container');
+    const shapeContainer = self.get('shapeContainer');
     const activeShapes = [];
-    if (container) {
+    if (shapeContainer) {
       const xField = self.getXScale().field;
       const shapes = self.getShapes();
       const originObj = self._getOriginByPoint(point);
@@ -163,12 +165,12 @@ const ActiveMixin = {
   },
   getSingleShapeByPoint(point) {
     const self = this;
-    const container = self.get('container');
-    const canvas = container.get('canvas');
+    const shapeContainer = self.get('shapeContainer');
+    const canvas = shapeContainer.get('canvas');
     const pixelRatio = canvas.get('pixelRatio');
     let result;
-    if (container) {
-      result = container.getShape(point.x * pixelRatio, point.y * pixelRatio);
+    if (shapeContainer) {
+      result = shapeContainer.getShape(point.x * pixelRatio, point.y * pixelRatio);
     }
 
     if (result && result.get('origin')) {

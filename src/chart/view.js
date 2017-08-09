@@ -9,6 +9,7 @@ const Util = require('../util');
 const Controller = require('./controller/index');
 const Global = require('../global');
 const FIELD_ORIGIN = '_origin';
+const Animate = require('../animate/index');
 
 function isFullCircle(coord) {
   const startAngle = coord.startAngle;
@@ -169,10 +170,12 @@ class View extends Base {
     const geoms = this.get('geoms');
     const filteredData = this.get('filteredData');
     const coord = this.get('coord');
+    const viewId = this.get('_id');
 
-    Util.each(geoms, function(geom) {
+    Util.each(geoms, (geom, index) => {
       geom.set('data', filteredData);
       geom.set('coord', coord);
+      geom.set('_id', viewId + '-geom' + index);
       geom.init();
     });
   }
@@ -747,6 +750,7 @@ class View extends Base {
 
   render(stopDraw) {
     const views = this.get('views');
+    const animate = this.get('animate');
     // 初始化 View 的数据
     Util.each(views, function(view) {
       view.initView();
@@ -761,7 +765,15 @@ class View extends Base {
       const backPlot = this.get('backPlot');
       backPlot.sort();
       const canvas = this.get('canvas');
-      canvas.draw();
+      const coord = this.get('coord');
+      const middlePlot = this.get('middlePlot');
+      const isUpdate = this.get('isUpdate');
+
+      if (animate) {
+        Animate.shapeAnimation(canvas, middlePlot, coord, isUpdate); // TODO
+      } else {
+        canvas.draw();
+      }
     }
     return this;
   }
@@ -804,6 +816,7 @@ class View extends Base {
   }
 
   repaint() {
+    this.set('isUpdate', true);
     this.clearInner();
     this.render();
   }

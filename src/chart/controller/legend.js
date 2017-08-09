@@ -118,7 +118,7 @@ class LegendController {
       const pre = self.pre;
       if (!pre) {
         Util.each(geoms, geom => {
-          const container = geom.get('container');
+          const shapeContainer = geom.get('shapeContainer');
           const shapes = geom.getShapes();
           let activeShapes = [];
           if (field) {
@@ -138,7 +138,7 @@ class LegendController {
             ev.geom = geom;
             if (options.onHover) {
               options.onHover(ev);
-              container.sort();
+              shapeContainer.sort();
               canvas.draw();
             } else {
               geom.setShapesActived(activeShapes);

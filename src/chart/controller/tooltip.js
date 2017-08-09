@@ -283,7 +283,7 @@ class TooltipController {
             });
           // } else if ((options.split && Util.inArray([ 'interval', 'schema' ], type)) || !geom.isShareTooltip()) {
           } else {
-            const geomContainer = geom.get('container');
+            const geomContainer = geom.get('shapeContainer');
             const canvas = geomContainer.get('canvas');
             const pixelRatio = canvas.get('pixelRatio');
             const shape = geomContainer.getShape(point.x * pixelRatio, point.y * pixelRatio);

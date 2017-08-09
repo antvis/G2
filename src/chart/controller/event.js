@@ -90,13 +90,13 @@ class EventController {
         const leaveObj = self._getShapeEventObj(ev);
         leaveObj.shape = currentShape;
         leaveObj.toShape = shape;
-        view.emit(currentShape.get('geom') + ':mouseleave', leaveObj);
+        view.emit(currentShape.name + ':mouseleave', leaveObj);
       }
       if (shape) {
         const enterObj = self._getShapeEventObj(ev);
         enterObj.shape = shape;
         enterObj.fromShape = currentShape;
-        view.emit(shape.get('geom') + ':mouseenter', enterObj);
+        view.emit(shape.name + ':mouseenter', enterObj);
       }
       self.currentShape = shape;
     }

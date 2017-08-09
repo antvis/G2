@@ -158,7 +158,8 @@ const Line = Shape.registerFactory('line', {
     }
     if (gShape) {
       gShape.set('origin', cfg.origin);
-      gShape.set('geom', Util.lowerFirst(this.className));
+      gShape._id = cfg.splitedIndex ? cfg._id + cfg.splitedIndex : cfg._id;
+      gShape.name = Util.lowerFirst(this.className);
     }
     return gShape;
   }
