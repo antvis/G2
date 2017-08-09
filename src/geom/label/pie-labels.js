@@ -207,8 +207,7 @@ class PieLabels extends PolarLabels {
     // var lineShape;
     if (!lineGroup) {
       lineGroup = self.addGroup({
-        elCls: 'x-line-group',
-        animate: false
+        elCls: 'x-line-group'
       });
       self.set('lineGroup', lineGroup);
     }

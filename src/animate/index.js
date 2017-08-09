@@ -1,11 +1,10 @@
 const Util = require('../util');
 const Animate = require('./animate');
-
 // 获取图组内所有的shapes
 function getShapes(container) {
   let shapes = [];
   if (container.get('animate') === false) {
-    return;
+    return [];
   }
   const children = container.get('children');
   Util.each(children, child => {
