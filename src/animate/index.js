@@ -1,5 +1,8 @@
 const Util = require('../util');
 const Animate = require('./animate');
+const { MatrixUtil } = require('@ali/g');
+const { mat3 } = MatrixUtil;
+
 // 获取图组内所有的shapes
 function getShapes(container) {
   let shapes = [];
@@ -27,13 +30,15 @@ function cache(shapes) {
       _id: id,
       type: shape.get('type'),
       attrs: Util.cloneDeep(shape.__attrs), // 原始属性
-      name: shape.name
+      name: shape.name,
+      index: shape.get('index'),
+      animateCfg: shape.get('animateCfg'),
+      coord: shape.get('coord')
     };
   });
   return rst;
 }
 
-// TODO rename 获取动画的方法
 function getAnimate(geomType, coord, animationType, animationName) {
   let result;
   if (animationName) {
@@ -44,22 +49,12 @@ function getAnimate(geomType, coord, animationType, animationName) {
   return result;
 }
 
-function getAnimateCfg(geomType, animationType, shape) {
+function getAnimateCfg(geomType, animationType, animateCfg) {
   const defaultCfg = Animate.getAnimateCfg(geomType, animationType);
-  let cfg = {};
-  let animateCfg = shape.animateCfg;
-  if (!animateCfg && Util.isFunction(shape.getParent)) {
-    const geom = shape.getParent().get('geom'); // ??? 在哪里设置的
-    if (geom) {
-      animateCfg = geom.get('animateCfg');
-    }
+  if (animateCfg && animateCfg[animationType]) {
+    return Util.defaultsDeep(animateCfg[animationType], defaultCfg);
   }
-  if (animateCfg) {
-    cfg = Util.mix({}, defaultCfg, animateCfg[animationType]);
-  } else {
-    cfg = defaultCfg;
-  }
-  return cfg;
+  return defaultCfg;
 }
 
 function _findById(id, shapes) {
@@ -85,7 +80,7 @@ function getDiffAttrs(newAttrs, oldAttrs) {
   return result;
 }
 
-function addAnimate(cache, shapes, canvas, coord, isUpdate) {
+function addAnimate(cache, shapes, canvas, isUpdate) {
   let animate;
   let animateCfg;
 
@@ -97,7 +92,7 @@ function addAnimate(cache, shapes, canvas, coord, isUpdate) {
     Util.each(cache, cacheShape => {
       const result = _findById(cacheShape._id, shapes);
       if (result) {
-        result.set('cacheAttrs', cacheShape);
+        result.set('cacheShape', cacheShape);
         updateShapes.push(result);
       } else {
         deletedShapes.push(cacheShape);
@@ -112,43 +107,56 @@ function addAnimate(cache, shapes, canvas, coord, isUpdate) {
     });
 
     Util.each(deletedShapes, deletedShape => {
-      animateCfg = getAnimateCfg(deletedShape.name, 'leave', deletedShape);
-      animate = getAnimate(deletedShape.name, coord, 'leave', animateCfg.animation);
+      const { name, coord, _id, attrs, index, type } = deletedShape;
+      animateCfg = getAnimateCfg(name, 'leave', deletedShape.animateCfg);
+      animate = getAnimate(name, coord, 'leave', animateCfg.animation);
       if (Util.isFunction(animate)) {
-        const tempShape = canvas.addShape(deletedShape.type, {
-          attrs: deletedShape.attrs
+        const tempShape = canvas.addShape(type, {
+          attrs,
+          index
         });
-        tempShape._id = deletedShape._id;
-        tempShape.name = deletedShape.name;
+        tempShape._id = _id;
+        tempShape.name = name;
+        const tempShapeMatrix = tempShape.getMatrix();
+        const finalMatrix = mat3.multiply([], tempShapeMatrix, coord.matrix);
+        tempShape.setMatrix(finalMatrix);
         animate(tempShape, animateCfg, coord);
       }
     });
 
     Util.each(updateShapes, updateShape => {
-      animateCfg = getAnimateCfg(updateShape.name, 'update', updateShape);
-      animate = getAnimate(updateShape.name, coord, 'update', animateCfg.animation);
+      const name = updateShape.name;
+      const coord = updateShape.get('coord');
+      animateCfg = getAnimateCfg(name, 'update', updateShape.get('animateCfg'));
+      animate = getAnimate(name, coord, 'update', animateCfg.animation);
       if (Util.isFunction(animate)) {
         animate(updateShape, animateCfg, coord);
       } else {
-        const cacheAttrs = updateShape.get('cacheAttrs').attrs;
+        const cacheAttrs = updateShape.get('cacheShape').attrs;
         const diffAttrs = getDiffAttrs(updateShape.__attrs, cacheAttrs);
         updateShape.animate(diffAttrs, animateCfg.duration, animateCfg.easing, function() {
-          updateShape.set('cacheAttrs', null);
+          updateShape.set('cacheShape', null);
         });
       }
     });
 
     Util.each(newShapes, newShape => {
-      animateCfg = getAnimateCfg(newShape.name, 'enter', newShape);
-      animate = getAnimate(newShape.name, coord, 'enter', animateCfg.animation);
+      const name = newShape.name;
+      const coord = newShape.get('coord');
+
+      animateCfg = getAnimateCfg(name, 'enter', newShape.get('animateCfg'));
+      animate = getAnimate(name, coord, 'enter', animateCfg.animation);
       if (Util.isFunction(animate)) {
         animate(newShape, animateCfg, coord);
       }
     });
   } else {
     Util.each(shapes, shape => {
-      animateCfg = getAnimateCfg(shape.name, 'appear', shape);
-      animate = getAnimate(shape.name, coord, 'appear', animateCfg.animation);
+      const name = shape.name;
+      const coord = shape.get('coord');
+
+      animateCfg = getAnimateCfg(name, 'appear', shape.get('animateCfg'));
+      animate = getAnimate(name, coord, 'appear', animateCfg.animation);
       if (Util.isFunction(animate)) {
         animate(shape, animateCfg, coord);
       }
@@ -158,11 +166,11 @@ function addAnimate(cache, shapes, canvas, coord, isUpdate) {
 
 
 module.exports = {
-  shapeAnimation(canvas, container, coord, isUpdate) {
+  shapeAnimation(canvas, container, isUpdate) {
     const caches = canvas.get('caches') || [];
     const shapes = getShapes(container);
     canvas.set('caches', cache(shapes));
-    addAnimate(caches, shapes, canvas, coord, isUpdate);
+    addAnimate(caches, shapes, canvas, isUpdate);
     // 无论是否执行动画，都调用一次 draw()
     canvas.draw();
   }

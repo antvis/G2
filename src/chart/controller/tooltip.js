@@ -72,7 +72,6 @@ class TooltipController {
     const options = self.options;
     const defaultCfg = Util.mix({}, Global.tooltip);
     const chart = self.chart;
-    const coord = chart.get('coord');
     const geoms = chart.getAllGeoms().filter(function(geom) {
       return geom.get('visible');
     });
@@ -84,7 +83,7 @@ class TooltipController {
       }
     });
     if (geoms.length && geoms[0].get('coord') && geoms[0].get('coord').type === 'cartesian' && shapes.length === 1) {
-      if (shapes[0] === 'interval' && !options.split && coord.type === 'cartesian') { // 直角坐标系下 interval 的 crosshair 为矩形背景框
+      if (shapes[0] === 'interval' && !options.split) { // 直角坐标系下 interval 的 crosshair 为矩形背景框
         Util.mix(defaultCfg, {
           zIndex: 0, // 矩形背景框不可覆盖 geom
           crosshairs: {
@@ -93,7 +92,8 @@ class TooltipController {
               fill: '#CCD7EB',
               opacity: 0.4
             }
-          }
+          },
+          isTransposed: geoms[0].get('coord').isTransposed
         });
       } else if (Util.indexOf(TYPE_SHOW_CROSSHAIRS, shapes[0]) > -1) {
         Util.mix(defaultCfg, {
@@ -224,7 +224,7 @@ class TooltipController {
     });
 
     if (options.crosshairs && options.crosshairs.type === 'rect') {
-      options.isTransposed = chart.get('coord').isTransposed; // 是否旋转
+      // options.isTransposed = chart.get('coord').isTransposed; // 是否旋转
       options.zIndex = 0; // toolip 背景框不可遮盖住 geom，防止用户配置了 crosshairs
     }
 

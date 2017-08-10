@@ -679,7 +679,7 @@ class View extends Base {
     // container.clear();
     this.clearInner();
     this.get('guideController') && this.get('guideController').clear();
-
+    this.set('isUpdate', false);
     return this;
   }
 
@@ -765,12 +765,11 @@ class View extends Base {
       const backPlot = this.get('backPlot');
       backPlot.sort();
       const canvas = this.get('canvas');
-      const coord = this.get('coord');
       const middlePlot = this.get('middlePlot');
       const isUpdate = this.get('isUpdate');
 
       if (animate) {
-        Animate.shapeAnimation(canvas, middlePlot, coord, isUpdate); // TODO
+        Animate.shapeAnimation(canvas, middlePlot, isUpdate); // TODO
       } else {
         canvas.draw();
       }

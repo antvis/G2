@@ -183,6 +183,7 @@ const Animate = {
 };
 
 Animate.Action = Action;
+Animate.defaultCfg = defaultAnimationCfg;
 
 // 获取动画
 Animate.getAnimation = function(geomType, coord, animationType) {
@@ -196,21 +197,21 @@ Animate.getAnimation = function(geomType, coord, animationType) {
   return false;
 };
 
-
 // 获取动画配置
 Animate.getAnimateCfg = function(geomType, animationType) {
-  let animateCfg = {};
   const defaultCfg = defaultAnimationCfg[animationType];
-  animateCfg = Util.mix({}, defaultCfg, this[geomType] && this[geomType].cfg && this[geomType].cfg[animationType]);
-  return animateCfg;
+  if (this[geomType] && this[geomType].cfg && this[geomType].cfg[animationType]) {
+    return Util.defaultsDeep(this[geomType].cfg[animationType], defaultCfg);
+  }
+  return defaultCfg;
 };
 
 // 注册动画
 Animate.registerAnimation = function(animationType, animationName, animationFun) {
-  if (!this.animation[animationType]) {
-    this.animation[animationType] = {};
+  if (!this.Action[animationType]) {
+    this.Action[animationType] = {};
   }
-  this.animation[animationType][animationName] = animationFun;
+  this.Action[animationType][animationName] = animationFun;
 };
 
 module.exports = Animate;

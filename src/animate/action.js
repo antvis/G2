@@ -108,6 +108,7 @@ function getAngle(shape, coord) {
 
 function getAnimateParam(animateCfg, index, id, endState) {
   const result = {};
+  // TODO: support delay
   if (animateCfg.delay) {
     endState.delay = Util.isFunction(animateCfg.delay) ? animateCfg.delay(index, id) : animateCfg.delay;
   }
@@ -117,12 +118,12 @@ function getAnimateParam(animateCfg, index, id, endState) {
 }
 
 function scaleInY(shape, animateCfg) {
+  const id = shape._id;
+  const index = shape.get('index');
   const box = shape.getBBox();
   const points = shape.get('origin').points;
   const x = (box.minX + box.maxX) / 2;
   let y;
-  const id = shape._id;
-  const index = (shape.get('origin') && shape.get('origin').index) || 0;
 
   if (points[0].y - points[1].y <= 0) { // 当顶点在零点之下
     y = box.maxY;
@@ -148,12 +149,13 @@ function scaleInY(shape, animateCfg) {
 }
 
 function scaleInX(shape, animateCfg) {
+  const id = shape._id;
+  const index = shape.get('index');
   const box = shape.getBBox();
   const points = shape.get('origin').points;
   let x;
   const y = (box.minY + box.maxY) / 2;
-  const id = shape._id;
-  const index = (shape.get('origin') && shape.get('origin').index) || 0;
+
   if (points[0].y - points[1].y > 0) { // 当顶点在零点之下
     x = box.maxX;
   } else {
@@ -183,7 +185,7 @@ function lineWidthOut(shape, animateCfg) {
     opacity: 0
   };
   const id = shape._id;
-  const index = shape.get('index') || (shape.get('origin') && shape.get('origin').index) || 0;
+  const index = shape.get('index');
   const aniamteParam = getAnimateParam(animateCfg, index, id, endState);
   shape.animate(endState, aniamteParam.duration, aniamteParam.easing, function() {
     shape.destroy();
@@ -191,6 +193,8 @@ function lineWidthOut(shape, animateCfg) {
 }
 
 function zoomIn(shape, animateCfg, coord) {
+  const id = shape._id;
+  const index = shape.get('index');
   let x;
   let y;
   if (coord.isPolar && shape.name !== 'point') {
@@ -202,8 +206,6 @@ function zoomIn(shape, animateCfg, coord) {
     y = (box.minY + box.maxY) / 2;
   }
   const v = [ x, y, 1 ];
-  const id = shape._id;
-  const index = (shape.get('origin') && shape.get('origin').index) || 0;
   shape.apply(v);
   shape.transform([
     [ 't', -x, -y ],
@@ -222,6 +224,8 @@ function zoomIn(shape, animateCfg, coord) {
 }
 
 function zoomOut(shape, animateCfg, coord) {
+  const id = shape._id;
+  const index = shape.get('index');
   let x;
   let y;
   if (coord.isPolar && shape.name !== 'point') {
@@ -233,8 +237,6 @@ function zoomOut(shape, animateCfg, coord) {
     y = (box.minY + box.maxY) / 2;
   }
   const v = [ x, y, 1 ];
-  const id = shape._id;
-  const index = shape.get('index') || (shape.get('origin') && shape.get('origin').index) || 0;
   shape.apply(v);
   const endState = {
     transform: [
@@ -252,7 +254,7 @@ function zoomOut(shape, animateCfg, coord) {
 function pathIn(shape, animateCfg) {
   if (shape.get('type') !== 'path') return;
   const id = shape._id;
-  const index = (shape.get('origin') && shape.get('origin').index) || 0;
+  const index = shape.get('index');
   const path = PathUtil.pathToAbsolute(shape.attr('path'));
   shape.attr('path', [ path[0] ]);
   const endState = {
@@ -265,7 +267,7 @@ function pathIn(shape, animateCfg) {
 function pathOut(shape, animateCfg) {
   if (shape.get('type') !== 'path') return;
   const id = shape._id;
-  const index = shape.get('index') || (shape.get('origin') && shape.get('origin').index) || 0;
+  const index = shape.get('index');
   const path = PathUtil.pathToAbsolute(shape.attr('path'));
   const endState = {
     path: [ path[0] ]
@@ -280,7 +282,7 @@ function clipIn(shape, animateCfg, coord, startAngle, endAngle) {
   const clip = getClip(coord);
   const canvas = shape.get('canvas');
   const id = shape._id;
-  const index = (shape.get('origin') && shape.get('origin').index) || 0;
+  const index = shape.get('index');
   let endState;
   if (startAngle) {
     clip.attr('startAngle', startAngle);
@@ -302,7 +304,7 @@ function clipIn(shape, animateCfg, coord, startAngle, endAngle) {
 
 function fadeIn(shape, animateCfg) {
   const id = shape._id;
-  const index = (shape.get('origin') && shape.get('origin').index) || 0;
+  const index = shape.get('index');
   const fillOpacity = Util.isNil(shape.attr('fillOpacity')) ? 1 : shape.attr('fillOpacity');
   const strokeOpacity = Util.isNil(shape.attr('strokeOpacity')) ? 1 : shape.attr('strokeOpacity');
   shape.attr('fillOpacity', 0);
@@ -317,7 +319,7 @@ function fadeIn(shape, animateCfg) {
 
 function fadeOut(shape, animateCfg) {
   const id = shape._id;
-  const index = shape.get('index') || (shape.get('origin') && shape.get('origin').index) || 0;
+  const index = shape.get('index');
   const endState = {
     fillOpacity: 0,
     strokeOpacity: 0

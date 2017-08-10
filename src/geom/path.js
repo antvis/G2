@@ -25,16 +25,22 @@ class Path extends GeomBase {
     Util.assign(this, SplitMixin);
   }
 
-  draw(data, container, shapeFactory) {
+  draw(data, container, shapeFactory, index) {
+    const self = this;
     const splitArray = this.splitData(data);
 
     const cfg = this.getDrawCfg(data[0]);
     cfg.origin = data; // path,line 等图的origin 是整个序列
-    // cfg.points = data;
     Util.each(splitArray, function(subData, splitedIndex) {
       cfg.splitedIndex = splitedIndex; // 传入分割片段索引 用于生成id
       cfg.points = subData;
-      shapeFactory.drawShape(cfg.shape, cfg, container);
+      const geomShape = shapeFactory.drawShape(cfg.shape, cfg, container);
+      geomShape.set('index', index + splitedIndex);
+      geomShape.set('coord', self.get('coord'));
+
+      if (self.get('animate') && self.get('animateCfg')) {
+        geomShape.set('animateCfg', self.get('animateCfg'));
+      }
     });
   }
 }

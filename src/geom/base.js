@@ -155,7 +155,16 @@ class GeomBase extends Base {
       selectable: false,
       // tooltipMap: {},
       tooltipFields: null,
-      animate: false
+      /**
+       * 是否执行动画，默认执行
+       * @type {Boolean}
+       */
+      animate: true,
+      /**
+       * 动画配置
+       * @type {[type]}
+       */
+      animateCfg: null
     };
   }
 
@@ -312,6 +321,13 @@ class GeomBase extends Base {
     if (Util.isString(field)) {
       this.set('tooltipFields', parseFields(field));
     }
+
+    return this;
+  }
+
+  animate(cfg) {
+    this.set('animateCfg', cfg);
+    return this;
   }
 
   hasAdjust(adjustType) {
@@ -566,10 +582,10 @@ class GeomBase extends Base {
     shapeFactory.setCoord(self.get('coord'));
     const shapeContainer = self.get('shapeContainer');
     self._beforeMapping(dataArray);
-    Util.each(dataArray, function(data) {
+    Util.each(dataArray, (data, index) => {
       data = self._mapping(data);
       mappedArray.push(data);
-      self.draw(data, shapeContainer, shapeFactory);
+      self.draw(data, shapeContainer, shapeFactory, index);
     });
     if (self.get('labelCfg')) {
       self._addLabels(Util.union.apply(null, mappedArray));
@@ -777,11 +793,13 @@ class GeomBase extends Base {
    * @param  {Array} data 绘制图形
    * @param {Object} container 绘图容器
    * @param {Object} shapeFactory 绘制图形的工厂类
+   * @param {Number} index 每个 shape 的索引值
    */
-  draw(data, container, shapeFactory) {
+  draw(data, container, shapeFactory, index) {
     const self = this;
-    Util.each(data, obj => {
-      self.drawPoint(obj, container, shapeFactory);
+    Util.each(data, (obj, subIndex) => {
+      index = index + subIndex;
+      self.drawPoint(obj, container, shapeFactory, index);
     });
   }
 
@@ -854,10 +872,16 @@ class GeomBase extends Base {
     return cfg;
   }
 
-  drawPoint(obj, container, shapeFactory) {
+  drawPoint(obj, container, shapeFactory, index) {
     const shape = obj.shape;
     const cfg = this.getDrawCfg(obj);
-    shapeFactory.drawShape(shape, cfg, container);
+    const geomShape = shapeFactory.drawShape(shape, cfg, container);
+    geomShape.set('index', index);
+    geomShape.set('coord', this.get('coord'));
+
+    if (this.get('animate') && this.get('animateCfg')) {
+      geomShape.set('animateCfg', this.get('animateCfg'));
+    }
   }
 
   /**
