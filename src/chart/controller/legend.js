@@ -280,7 +280,6 @@ class LegendController {
       if (isByAttr && geom.getAttr('shape')) { // 存在形状映射
         shape = geom.getAttr('shape').mapping(value).join('');
       }
-
       const shapeObject = Shape.getShapeFactory(shapeType);
       const marker = shapeObject.getMarkerCfg(shape, cfg);
 
@@ -292,12 +291,13 @@ class LegendController {
     });
 
     const legendCfg = Util.defaultsDeep({
-      title: {
-        text: scale.alias || scale.field
-      },
       maxLength,
       items
-    }, legendOptions[field] || legendOptions, Global.legend[position]);
+    }, legendOptions[field] || legendOptions, {
+      title: {
+        text: scale.alias || scale.field
+      }
+    }, Global.legend[position]);
 
     const legend = container.addGroup(Legend.Category, legendCfg);
     self._bindEvent(legend, scale, filterVals);
@@ -352,12 +352,13 @@ class LegendController {
 
     const options = self.options;
     const legendCfg = Util.defaultsDeep({
-      title: {
-        text: scale.alias || scale.field
-      },
       items,
       attr
-    }, options[field] || options, Global.legend[position]);
+    }, options[field] || options, {
+      title: {
+        text: scale.alias || scale.field
+      }
+    }, Global.legend[position]);
 
     if (attr.type === 'color') {
       legend = container.addGroup(Legend.Color, legendCfg);

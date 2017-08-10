@@ -128,7 +128,7 @@ describe('测试底部坐标轴生成', function() {
   });
 
   it('subTicks 生成', function() {
-    expect(axis.get('subTickItems').length).to.equal((axis.get('ticks').length - 1) * (axis.get('subTickCount') - 1));
+    expect(axis.get('subTickItems').length).to.equal((axis.get('ticks').length - 1) * (axis.get('subTickCount')));
   });
 
   it('测试网格线生成', function() {

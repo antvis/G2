@@ -114,7 +114,7 @@ class Labels extends Group {
       labelShape = this.addShape('text', {
         attrs: cfg
       });
-      labelShape.name = 'axis-label'; // 用于事件标注
+      labelShape.name = 'label'; // 用于事件标注
       return labelShape;
     }
   }

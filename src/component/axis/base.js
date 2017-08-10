@@ -121,16 +121,6 @@ class Base extends Group {
     this.set('subTickItems', subTickItems);
   }
 
-  // TODO: rename
-  _formatPoint(value) {
-    const label = this.get('label');
-    if (label && label.formatter) {
-      value = label.formatter.call(this, value);
-    }
-
-    return value;
-  }
-
   _renderLine() {
     let lineCfg = this.get('line');
     let path;
@@ -161,7 +151,7 @@ class Base extends Group {
         self._addTickItem(index, tickPoint, tickLineCfg.length);
       }
       if (labelCfg) {
-        self.addLabel(self._formatPoint(tick.text), tickPoint, index, tick.value);
+        self.addLabel(tick.text, tickPoint, index, tick.value);
       }
     });
 
@@ -170,9 +160,9 @@ class Base extends Group {
       Util.each(ticks, function(tick, index) {
         if (index > 0) {
           let diff = tick.value - ticks[index - 1].value;
-          diff = diff / self.get('subTickCount');
+          diff = diff / (self.get('subTickCount') + 1);
 
-          for (let i = 1; i < subTickCount; i++) {
+          for (let i = 1; i <= subTickCount; i++) {
             const subTick = {
               text: '',
               value: index ? ticks[index - 1].value + i * diff : i * diff
@@ -352,6 +342,7 @@ Util.assign(Base.prototype, LabelsRenderer, {
       label.y = point.y;
       label.textAlign = this.getTextAnchor(vector);
       rst = labelsGroup.addLabel(label);
+      rst.name = 'axis-label';
     }
     return rst;
   }

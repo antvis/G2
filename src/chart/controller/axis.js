@@ -294,6 +294,14 @@ class AxisController {
             gridPoints.push(subPoints);
           }
         });
+
+        // TODO: 临时解决，需要添加一条以满足最后一格能颜色交替
+        if ((ticks.length % 2 === 0) && (cfg.grid.align === 'center')) {
+          gridPoints.push([
+            { x: coord.end.x, y: coord.start.y },
+            { x: coord.end.x, y: coord.end.y }
+          ]);
+        }
       }
       cfg.grid.items = gridPoints;
     }
