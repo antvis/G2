@@ -167,8 +167,22 @@ const Animate = {
       }
     }
   },
-  axisLine: {},
-  gridLine: {},
+  'axis-label': {
+    enter() {
+      return Action.appear.fadeIn;
+    },
+    leave() {
+      return Action.leave.fadeOut;
+    }
+  },
+  'axis-ticks': {
+    enter() {
+      return Action.appear.fadeIn;
+    },
+    leave() {
+      return Action.leave.fadeOut;
+    }
+  },
   labelLine: {
     appear() {
       return Action.appear.pathIn;

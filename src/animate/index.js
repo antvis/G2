@@ -69,17 +69,6 @@ function _findById(id, shapes) {
   return result;
 }
 
-function getDiffAttrs(newAttrs, oldAttrs) {
-  const result = {};
-
-  for (const k in newAttrs) {
-    if (!Util.isEqual(newAttrs[k], oldAttrs[k])) {
-      result[k] = oldAttrs[k];
-    }
-  }
-  return result;
-}
-
 function addAnimate(cache, shapes, canvas, isUpdate) {
   let animate;
   let animateCfg;
@@ -133,8 +122,10 @@ function addAnimate(cache, shapes, canvas, isUpdate) {
         animate(updateShape, animateCfg, coord);
       } else {
         const cacheAttrs = updateShape.get('cacheShape').attrs;
-        const diffAttrs = getDiffAttrs(updateShape.__attrs, cacheAttrs);
-        updateShape.animate(diffAttrs, animateCfg.duration, animateCfg.easing, function() {
+        const endState = Util.cloneDeep(updateShape.__attrs);
+        updateShape.__attrs = cacheAttrs;
+
+        updateShape.animate(endState, animateCfg.duration, animateCfg.easing, function() {
           updateShape.set('cacheShape', null);
         });
       }
