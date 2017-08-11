@@ -13,7 +13,7 @@ function getShapes(container) {
   Util.each(children, child => {
     if (child.isGroup) {
       shapes = shapes.concat(getShapes(child));
-    } else if (child.isShape) {
+    } else if (child.isShape && child._id) {
       shapes.push(child);
     }
   });
@@ -116,18 +116,20 @@ function addAnimate(cache, shapes, canvas, isUpdate) {
     Util.each(updateShapes, updateShape => {
       const name = updateShape.name;
       const coord = updateShape.get('coord');
-      animateCfg = getAnimateCfg(name, 'update', updateShape.get('animateCfg'));
-      animate = getAnimate(name, coord, 'update', animateCfg.animation);
-      if (Util.isFunction(animate)) {
-        animate(updateShape, animateCfg, coord);
-      } else {
-        const cacheAttrs = updateShape.get('cacheShape').attrs;
-        const endState = Util.cloneDeep(updateShape.__attrs);
-        updateShape.__attrs = cacheAttrs;
-
-        updateShape.animate(endState, animateCfg.duration, animateCfg.easing, function() {
-          updateShape.set('cacheShape', null);
-        });
+      const cacheAttrs = updateShape.get('cacheShape').attrs;
+      // 判断如果属性相同的话就不进行变换
+      if (!Util.isEqual(cacheAttrs, updateShape.__attrs)) {
+        animateCfg = getAnimateCfg(name, 'update', updateShape.get('animateCfg'));
+        animate = getAnimate(name, coord, 'update', animateCfg.animation);
+        if (Util.isFunction(animate)) {
+          animate(updateShape, animateCfg, coord);
+        } else {
+          const endState = Util.cloneDeep(updateShape.__attrs);
+          updateShape.__attrs = cacheAttrs;
+          updateShape.animate(endState, animateCfg.duration, animateCfg.easing, function() {
+            updateShape.set('cacheShape', null);
+          });
+        }
       }
     });
 
@@ -157,11 +159,17 @@ function addAnimate(cache, shapes, canvas, isUpdate) {
 
 
 module.exports = {
-  shapeAnimation(canvas, container, isUpdate) {
+  shapeAnimation(canvas, viewContainer, axisContainer, isUpdate) {
     const caches = canvas.get('caches') || [];
-    const shapes = getShapes(container);
-    canvas.set('caches', cache(shapes));
-    addAnimate(caches, shapes, canvas, isUpdate);
+    const shapes = getShapes(viewContainer);
+    const axisShapes = getShapes(axisContainer);
+    const cacheShapes = shapes.concat(axisShapes);
+    canvas.set('caches', cache(cacheShapes));
+    if (isUpdate) {
+      addAnimate(caches, cacheShapes, canvas, true);
+    } else {
+      addAnimate(caches, shapes, canvas, isUpdate);
+    }
     // 无论是否执行动画，都调用一次 draw()
     canvas.draw();
   }

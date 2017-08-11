@@ -6,6 +6,11 @@ const Grid = require('./grid');
 class Base extends Group {
   getDefaultCfg() {
     return {
+      /**
+       * 唯一标识，用于动画
+       * @type {[type]}
+       */
+      _id: null,
       zIndex: 4,
       /**
        * 坐标轴上的坐标点
@@ -151,7 +156,7 @@ class Base extends Group {
         self._addTickItem(index, tickPoint, tickLineCfg.length);
       }
       if (labelCfg) {
-        self.addLabel(tick.text, tickPoint, index, tick.value);
+        self.addLabel(tick, tickPoint, index);
       }
     });
 
@@ -196,6 +201,8 @@ class Base extends Group {
       attrs: cfg
     });
     tickShape.name = 'axis-ticks';
+    tickShape._id = this.get('_id') + '-ticks'; // 每个 label 用 _id 唯一标识
+    tickShape.set('coord', this.get('coord'));
   }
 
   _renderTicks() {
@@ -203,12 +210,12 @@ class Base extends Group {
     const tickItems = self.get('tickItems');
     const subTickItems = self.get('subTickItems');
 
-    if (tickItems) {
+    if (!Util.isEmpty(tickItems)) {
       const tickLineCfg = self.get('tickLine');
       self._addTickLine(tickItems, tickLineCfg);
     }
 
-    if (subTickItems) {
+    if (!Util.isEmpty(subTickItems)) {
       const subTickLineCfg = self.get('subTickLine') || self.get('tickLine');
       self._addTickLine(subTickItems, subTickLineCfg);
     }
@@ -223,7 +230,7 @@ class Base extends Group {
     if (this.get('start')) {
       grid.start = this.get('start');
     }
-
+    grid.coord = this.get('coord');
     this.set('gridGroup', this.addGroup(Grid, grid));
   }
 
@@ -324,7 +331,7 @@ class Base extends Group {
 }
 
 Util.assign(Base.prototype, LabelsRenderer, {
-  addLabel(value, point, index) {
+  addLabel(tick, point, index) {
     const labelsGroup = this.get('labelsGroup');
     const label = {};
     let rst;
@@ -337,12 +344,14 @@ Util.assign(Base.prototype, LabelsRenderer, {
         y: point.y + vector[1]
       };
 
-      label.text = value;
+      label.text = tick.text;
       label.x = point.x;
       label.y = point.y;
       label.textAlign = this.getTextAnchor(vector);
       rst = labelsGroup.addLabel(label);
       rst.name = 'axis-label';
+      rst._id = this.get('_id') + '-' + tick.tickValue; // 每个 label 用 _id 唯一标识
+      rst.set('coord', this.get('coord'));
     }
     return rst;
   }

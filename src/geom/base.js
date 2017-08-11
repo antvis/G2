@@ -53,10 +53,10 @@ class GeomBase extends Base {
   getDefaultCfg() {
     return {
       /**
-       * 标记 Id 用于区分执行动画
+       * 标记 _id 用于区分执行动画
        * @type {String}
        */
-      id: '',
+      _id: null,
       /**
        * 类型
        * @type {String}
@@ -624,11 +624,10 @@ class GeomBase extends Base {
     const type = self.get('type');
     const coord = self.get('coord');
     const C = Labels.getLabelsClass(coord.type, type);
-    const id = this.get('id');
     const container = self.get('container');
     const scales = Util.map(self.get('labelCfg').fields, field => self._createScale(field));
     const labelContainer = container.addGroup(C, {
-      id,
+      _id: this.get('_id'),
       labelCfg: Util.mix({
         scales
       }, self.get('labelCfg')),
@@ -636,7 +635,6 @@ class GeomBase extends Base {
       geom: self,
       geomType: type
     });
-
     labelContainer.showLabels(points);
     self.set('labelContainer', labelContainer);
   }

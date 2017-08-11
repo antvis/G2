@@ -51,10 +51,10 @@ describe('测试中轴坐标系', function() {
         stroke: '#C0D0E0'
       },
       items: [
-        [{ x: 260, y: 260 }, { x: 260, y: 60 }],
-        [{ x: 260, y: 260 }, { x: 460, y: 260 }],
-        [{ x: 260, y: 260 }, { x: 260, y: 460 }],
-        [{ x: 260, y: 260 }, { x: 60, y: 260 }]
+        { _id: 'test1', points: [{ x: 260, y: 260 }, { x: 260, y: 60 }] },
+        { _id: 'test2', points: [{ x: 260, y: 260 }, { x: 460, y: 260 }] },
+        { _id: 'test3', points: [{ x: 260, y: 260 }, { x: 260, y: 460 }] },
+        { _id: 'test4', points: [{ x: 260, y: 260 }, { x: 60, y: 260 }] }
       ]
     }
   });
@@ -80,12 +80,15 @@ describe('测试中轴坐标系', function() {
         stroke: '#C0D0E0'
       },
       items: [
-        [
-          { x: 260, y: 200, radius: 60, flag: 1 },
-          { x: 320, y: 260, radius: 60, flag: 1 },
-          { x: 260, y: 320, radius: 60, flag: 1 },
-          { x: 200, y: 260, radius: 60, flag: 1 }
-        ]
+        {
+          _id: 'grid',
+          points: [
+            { x: 260, y: 200, radius: 60, flag: 1 },
+            { x: 320, y: 260, radius: 60, flag: 1 },
+            { x: 260, y: 320, radius: 60, flag: 1 },
+            { x: 200, y: 260, radius: 60, flag: 1 }
+          ]
+        }
       ]
     },
     label: {
@@ -173,7 +176,10 @@ describe('测试中轴坐标系2', function() {
         stroke: '#C0D0E0'
       },
       items: [
-        [{ x: 260, y: 260 }, { x: 260, y: 60 }]
+        {
+          _id: 'grid',
+          points: [{ x: 260, y: 260 }, { x: 260, y: 60 }]
+        }
       ]
     },
     subTickCount: 5

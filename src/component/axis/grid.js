@@ -64,21 +64,23 @@ class Grid extends Group {
     let gridLine;
     let path;
     let cfg;
+    let points;
     const start = this.get('start');
 
     if (type === 'line' || type === 'polygon') {
       Util.each(items, function(item) {
+        points = item.points;
         // TODO: 是否可以通过设置标识符规避这个判断
-        if (start && start.x === item[0].x && item[0].y === start.y) {
+        if (start && start.x === points[0].x && points[0].y === start.y) {
           return;
         }
 
         path = [];
-        Util.each(item, function(subItem, index) {
+        Util.each(points, function(point, index) {
           if (index === 0) {
-            path.push([ 'M', subItem.x, subItem.y ]);
+            path.push([ 'M', point.x, point.y ]);
           } else {
-            path.push([ 'L', subItem.x, subItem.y ]);
+            path.push([ 'L', point.x, point.y ]);
           }
         });
 
@@ -89,21 +91,24 @@ class Grid extends Group {
           attrs: cfg
         });
         gridLine.name = 'axis-grid';
-        self.set('gridLine', gridLine);
+        gridLine._id = item._id;
+        gridLine.set('coord', self.get('coord'));
       });
     } else {
       Util.each(items, function(item) {
+        points = item.points;
+
         // TODO: 是否可以通过设置标识符规避这个判断
-        if (start && start.x === item[0].x && item[0].y === start.y) {
+        if (start && start.x === points[0].x && points[0].y === start.y) {
           return;
         }
         path = [];
-        Util.each(item, function(subItem, index) {
-          const radius = subItem.radius;
+        Util.each(points, function(point, index) {
+          const radius = point.radius;
           if (index === 0) {
-            path.push([ 'M', subItem.x, subItem.y ]);
+            path.push([ 'M', point.x, point.y ]);
           } else {
-            path.push([ 'A', radius, radius, 0, 0, subItem.flag, subItem.x, subItem.y ]);
+            path.push([ 'A', radius, radius, 0, 0, point.flag, point.x, point.y ]);
           }
         });
         cfg = Util.mix({}, lineStyle, {
@@ -113,7 +118,8 @@ class Grid extends Group {
           attrs: cfg
         });
         gridLine.name = 'axis-grid';
-        self.set('gridLine', gridLine);
+        gridLine._id = item._id;
+        gridLine.set('coord', self.get('coord'));
       });
     }
   }
@@ -134,15 +140,18 @@ class Grid extends Group {
 
     if (index % 2 === 0) {
       if (evenColor) {
-        attrs = self._getBackItem(preItem, item, evenColor);
+        attrs = self._getBackItem(preItem.points, item.points, evenColor);
       }
     } else if (oddColor) {
-      attrs = self._getBackItem(preItem, item, oddColor);
+      attrs = self._getBackItem(preItem.points, item.points, oddColor);
     }
 
-    self.addShape('Path', {
+    const shape = self.addShape('Path', {
       attrs
     });
+    shape.name = 'axis-grid-rect';
+    shape._id = item._id;
+    shape.set('coord', self.get('coord'));
   }
 
   _getBackItem(start, end, bgColor) {

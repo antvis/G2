@@ -173,6 +173,11 @@ const Animate = {
     },
     leave() {
       return Action.leave.fadeOut;
+    },
+    update(coord) {
+      if (coord.isPolar) {
+        return Action.appear.fadeIn;
+      }
     }
   },
   'axis-ticks': {
@@ -181,6 +186,35 @@ const Animate = {
     },
     leave() {
       return Action.leave.fadeOut;
+    },
+    update(coord) {
+      if (coord.isPolar) {
+        return Action.appear.fadeIn;
+      }
+    }
+  },
+  'axis-grid': {
+    enter() {
+      return Action.appear.fadeIn;
+    },
+    leave() {
+      return Action.leave.fadeOut;
+    },
+    update(coord) {
+      if (coord.isPolar) {
+        return Action.appear.fadeIn;
+      }
+    }
+  },
+  'axis-grid-rect': {
+    enter() {
+      return Action.appear.fadeIn;
+    },
+    leave() {
+      return Action.leave.fadeOut;
+    },
+    update() {
+      return Action.leave.fadeIn;
     }
   },
   labelLine: {

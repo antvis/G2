@@ -275,7 +275,8 @@ class View extends Base {
     axisController.options = axesOptions || {};
     const xScale = this.getXScale();
     const yScales = this.getYScales();
-    axisController.createAxis(xScale, yScales);
+    const viewId = this.get('_id');
+    axisController.createAxis(xScale, yScales, viewId);
   }
 
   _renderGuides() {
@@ -765,11 +766,11 @@ class View extends Base {
       const backPlot = this.get('backPlot');
       backPlot.sort();
       const canvas = this.get('canvas');
-      const middlePlot = this.get('middlePlot');
-      const isUpdate = this.get('isUpdate');
 
       if (animate) {
-        Animate.shapeAnimation(canvas, middlePlot, isUpdate); // TODO
+        const middlePlot = this.get('middlePlot');
+        const isUpdate = this.get('isUpdate');
+        Animate.shapeAnimation(canvas, middlePlot, backPlot, isUpdate); // TODO
       } else {
         canvas.draw();
       }

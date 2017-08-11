@@ -212,7 +212,7 @@ class PieLabels extends PolarLabels {
       self.set('lineGroup', lineGroup);
     }
     // lineShape =
-    lineGroup.addShape('path', {
+    const lineShape = lineGroup.addShape('path', {
       attrs: Util.mix({
         path: [ 'M' + start.x, start.y + ' Q' + inner.x, inner.y + ' ' + label.x, label.y ].join(','),
         fill: null,
@@ -220,8 +220,9 @@ class PieLabels extends PolarLabels {
       }, labelLine)
     });
     // label 对应线的动画关闭
-    // lineShape.animateType = 'labelLine';
-    // lineShape.id = label.id.replace('LabelText', 'LabelLine'); // generate labelLine id according to label id
+    lineShape.name = 'labelLine';
+    lineShape._id = label._id.replace('geomlabel', 'geomlabelline'); // generate labelLine id according to label id
+    lineShape.set('coord', coord);
   }
 
   /**

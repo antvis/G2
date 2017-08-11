@@ -255,11 +255,11 @@ class AxisController {
   }
 
   // 确定坐标轴的配置信息
-  _getAxisCfg(coord, scale, verticalScale, dimType, index = '') {
+  _getAxisCfg(coord, scale, verticalScale, dimType, index = '', viewId) {
     const self = this;
     const position = self._getAxisPosition(coord, dimType, index);
     const cfg = self._getAxisDefaultCfg(coord, scale, dimType, position);
-    if (cfg.grid && verticalScale) { // 生成 gridPoints
+    if (!Util.isEmpty(cfg.grid) && verticalScale) { // 生成 gridPoints
       const gridPoints = [];
       const verticalTicks = formatTicks(verticalScale.getTicks());
       // 没有垂直的坐标点时不会只栅格
@@ -291,16 +291,21 @@ class AxisController {
               }
               subPoints.push(point);
             });
-            gridPoints.push(subPoints);
+            gridPoints.push({
+              _id: viewId + '-' + dimType + index + '-grid-' + tick.tickValue,
+              points: subPoints
+            });
           }
         });
 
         // TODO: 临时解决，需要添加一条以满足最后一格能颜色交替
-        if ((ticks.length % 2 === 0) && (cfg.grid.align === 'center')) {
-          gridPoints.push([
-            { x: coord.end.x, y: coord.start.y },
-            { x: coord.end.x, y: coord.end.y }
-          ]);
+        if ((ticks.length % 2 === 0) && (cfg.grid.align === 'center') && cfg.grid.alternateColor) {
+          gridPoints.push({
+            points: [
+              { x: coord.end.x, y: coord.start.y },
+              { x: coord.end.x, y: coord.end.y }
+            ]
+          });
         }
       }
       cfg.grid.items = gridPoints;
@@ -337,7 +342,7 @@ class AxisController {
     return helixCfg;
   }
 
-  _drawAxis(coord, scale, verticalScale, dimType, xAxis, index) {
+  _drawAxis(coord, scale, verticalScale, dimType, viewId, xAxis, index) {
     const container = this.container;
     let C; // 坐标轴类
     let appendCfg; // 每个坐标轴 start end 等绘制边界的信息
@@ -355,12 +360,15 @@ class AxisController {
       C = Axis.Line;
       appendCfg = this._getRadiusCfg(coord);
     }
-
-    let cfg = this._getAxisCfg(coord, scale, verticalScale, dimType, index);
+    let cfg = this._getAxisCfg(coord, scale, verticalScale, dimType, index, viewId);
     cfg = Util.mix({}, cfg, appendCfg);
 
     if (dimType === 'y' && xAxis && xAxis.get('type') === 'circle') {
       cfg.circle = xAxis;
+    }
+    cfg._id = viewId + '-' + dimType;
+    if (!Util.isNil(index)) {
+      cfg._id = viewId + '-' + dimType + index;
     }
 
     const axis = container.addGroup(C, cfg);
@@ -368,7 +376,7 @@ class AxisController {
     return axis;
   }
 
-  createAxis(xScale, yScales) {
+  createAxis(xScale, yScales, viewId) {
     const self = this;
     const coord = this.coord;
     const coordType = coord.type;
@@ -377,12 +385,12 @@ class AxisController {
     if (coordType !== 'theta' && !(coordType === 'polar' && coord.isTransposed)) {
       let xAxis;
       if (xScale && !self._isHide(xScale.field)) {
-        xAxis = self._drawAxis(coord, xScale, yScales[0], 'x'); // 绘制 x 轴
+        xAxis = self._drawAxis(coord, xScale, yScales[0], 'x', viewId); // 绘制 x 轴
       }
       if (!Util.isEmpty(yScales) && coordType !== 'helix') {
         Util.each(yScales, (yScale, index) => {
           if (!self._isHide(yScale.field)) {
-            self._drawAxis(coord, yScale, xScale, 'y', xAxis, index);
+            self._drawAxis(coord, yScale, xScale, 'y', viewId, xAxis, index);
           }
         });
       }

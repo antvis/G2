@@ -180,6 +180,7 @@ class Labels extends Group {
       oldLabel.innerHTML = node.innerHTML;
       this._setCustomPosition(cfg, oldLabel);
     } else {
+      oldLabel._id = newLabel._id;
       oldLabel.attr('text', cfg.text);
       if (oldLabel.attr('x') !== cfg.x || oldLabel.attr('y') !== cfg.y) {
         const rotate = oldLabel.get('attrs').rotate;
