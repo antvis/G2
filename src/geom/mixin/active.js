@@ -133,7 +133,7 @@ const ActiveMixin = {
         });
       }
       // 恢复原来排序
-      const children = self.getShapes();
+      const children = shapeContainer.get('children');
       children.sort((obj1, obj2) => {
         return obj1._INDEX - obj2._INDEX;
       });
