@@ -106,9 +106,11 @@ function addAnimate(cache, shapes, canvas, isUpdate) {
         });
         tempShape._id = _id;
         tempShape.name = name;
-        const tempShapeMatrix = tempShape.getMatrix();
-        const finalMatrix = mat3.multiply([], tempShapeMatrix, coord.matrix);
-        tempShape.setMatrix(finalMatrix);
+        if (coord) {
+          const tempShapeMatrix = tempShape.getMatrix();
+          const finalMatrix = mat3.multiply([], tempShapeMatrix, coord.matrix);
+          tempShape.setMatrix(finalMatrix);
+        }
         animate(tempShape, animateCfg, coord);
       }
     });
@@ -159,7 +161,7 @@ function addAnimate(cache, shapes, canvas, isUpdate) {
 
 
 module.exports = {
-  shapeAnimation(canvas, viewContainer, axisContainer, isUpdate) {
+  execAnimation(canvas, viewContainer, axisContainer, isUpdate) {
     const caches = canvas.get('caches') || [];
     const shapes = getShapes(viewContainer);
     const axisShapes = getShapes(axisContainer);
