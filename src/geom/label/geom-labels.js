@@ -106,10 +106,11 @@ class GeomLabels extends Group {
     const self = this;
     const items = [];
     const labels = self.get('label');
+    const geom = self.get('geom');
     let origin;
 
     // 获取label相关的x，y的值，获取具体的x,y,防止存在数组
-    Util.each(points, function(point, idx) {
+    Util.each(points, point => {
       origin = point._origin;
       let label = self._getLabelValue(point);
       if (!Util.isArray(label)) {
@@ -128,7 +129,9 @@ class GeomLabels extends Group {
             align = self.getLabelAlign(obj, subIdx, total);
           }
           obj.textAlign = align;
-          obj._id = self.get('_id') + '-geomlabel-' + (idx + subIdx) + '-' + obj.text;
+          if (geom) {
+            obj._id = geom._getShapeId(origin) + '-glabel-' + subIdx + '-' + obj.text;
+          }
           obj.coord = self.get('coord');
           items.push(obj);
         }

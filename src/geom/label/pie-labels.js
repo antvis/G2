@@ -221,7 +221,7 @@ class PieLabels extends PolarLabels {
     });
     // label 对应线的动画关闭
     lineShape.name = 'labelLine';
-    lineShape._id = label._id.replace('geomlabel', 'geomlabelline'); // generate labelLine id according to label id
+    lineShape._id = label._id && label._id.replace('glabel', 'glabelline'); // generate labelLine id according to label id
     lineShape.set('coord', coord);
   }
 

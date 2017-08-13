@@ -822,15 +822,24 @@ class GeomBase extends Base {
   _getShapeId(dataObj) {
     let id = this.get('_id');
     const type = this.get('type');
-    const xField = this.getXScale().field;
-    const yField = this.getYScale().field;
+    const xScale = this.getXScale();
+    const yScale = this.getYScale();
+    const xField = xScale.field || 'x';
+    const yField = yScale.field || 'y';
+    const yVal = dataObj[yField];
+    let xVal;
+    if (xScale.isIdentity) {
+      xVal = xScale.value;
+    } else {
+      xVal = dataObj[xField];
+    }
 
     if (type === 'interval' || type === 'schema') {
-      id += '-' + dataObj[xField];
+      id += '-' + xVal;
     } else if (type === 'line' || type === 'area' || type === 'path') {
-      id += '-' + type; // TODO 需要加上 type 吗？
+      id += '-' + type;
     } else {
-      id += '-' + dataObj[xField] + '-' + dataObj[yField]; // TODO 需要加上 type 吗？
+      id += '-' + xVal + '-' + yVal;
     }
 
     const groupScales = this._getGroupScales();

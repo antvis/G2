@@ -770,7 +770,7 @@ class View extends Base {
       if (animate) {
         const middlePlot = this.get('middlePlot');
         const isUpdate = this.get('isUpdate');
-        Animate.execAnimation(canvas, middlePlot, backPlot, isUpdate); // TODO
+        Animate.execAnimation(canvas, middlePlot, backPlot, isUpdate);
       } else {
         canvas.draw();
       }
