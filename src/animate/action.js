@@ -132,7 +132,7 @@ function scaleInY(shape, animateCfg) {
   }
   const v = [ x, y, 1 ];
   shape.apply(v);
-  shape.transform([
+  shape.attr('transform', [
     [ 't', -x, -y ],
     [ 's', 1, 0.01 ],
     [ 't', x, y ]
@@ -163,11 +163,13 @@ function scaleInX(shape, animateCfg) {
   }
   const v = [ x, y, 1 ];
   shape.apply(v);
-  shape.transform([
-    [ 't', -x, -y ],
-    [ 's', 0.01, 1 ],
-    [ 't', x, y ]
-  ]);
+  shape.attr({
+    transform: [
+      [ 't', -x, -y ],
+      [ 's', 0.01, 1 ],
+      [ 't', x, y ]
+    ]
+  });
   const endState = {
     transform: [
       [ 't', -x, -y ],
@@ -207,11 +209,13 @@ function zoomIn(shape, animateCfg, coord) {
   }
   const v = [ x, y, 1 ];
   shape.apply(v);
-  shape.transform([
-    [ 't', -x, -y ],
-    [ 's', 0.01, 0.01 ],
-    [ 't', x, y ]
-  ]);
+  shape.attr({
+    transform: [
+      [ 't', -x, -y ],
+      [ 's', 0.01, 0.01 ],
+      [ 't', x, y ]
+    ]
+  });
   const endState = {
     transform: [
       [ 't', -x, -y ],
