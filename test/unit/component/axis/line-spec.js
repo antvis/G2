@@ -47,11 +47,13 @@ describe('测试底部坐标轴生成', function() {
       { text: '10', value: 1 }
     ],
     title: {
+      offset: 20,
       textStyle: {
         fontSize: 18,
         fill: '#000',
         rotate: 0,
-        textAlign: 'end'
+        textAlign: 'end',
+        textBaseline: 'top'
       },
       text: 'x 轴',
       position: 'start' // 标题文本位置位于坐标轴前端

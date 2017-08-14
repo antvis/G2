@@ -63,9 +63,7 @@ class Base extends Group {
       },
       autoPaint: true, // @type {Boolean} 是否自动绘制
       _labelOffset: 10, // @type {Number} 距离坐标轴的距离
-      _titleOffset: 20 // @type {Number} 标题距离坐标轴的位置
-      // formatter: null, // @type {Function} 格式化坐标轴上的节点
-      // firstTick: true // @type {Boolean} 是否显示第一个标注
+      _titleOffset: 40 // @type {Number} 标题距离坐标轴的位置
     };
   }
 
