@@ -175,11 +175,11 @@ class Circle extends Base {
     return path;
   }
 
-  addLabel(text, point, index, unFormatterValue) {
+  addLabel(tick, point, index) {
     const self = this;
     const offset = self.get('label').offset || self.get('_labelOffset') || 0.001;
     point = self.getSidePoint(point, offset);
-    super.addLabel(text, point, index, unFormatterValue);
+    super.addLabel(tick, point, index);
   }
 
   autoRotateLabels() {

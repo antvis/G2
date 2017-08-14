@@ -107,13 +107,10 @@ class GeomLabels extends Group {
     const items = [];
     const labels = self.get('label');
     const geom = self.get('geom');
-    const xField = geom ? geom.getXScale().field : 'x';
-    const yField = geom ? geom.getYScale().field : 'y';
-
     let origin;
 
     // 获取label相关的x，y的值，获取具体的x,y,防止存在数组
-    Util.each(points, function(point) {
+    Util.each(points, point => {
       origin = point._origin;
       let label = self._getLabelValue(point);
       if (!Util.isArray(label)) {
@@ -121,18 +118,21 @@ class GeomLabels extends Group {
       }
       const total = label.length;
 
-      Util.each(label, function(sub, index) {
-        let obj = self.getLabelPoint(label, point, index);
+      Util.each(label, function(sub, subIdx) {
+        let obj = self.getLabelPoint(label, point, subIdx);
         if (obj) {
           obj = Util.merge({}, origin, obj); // 为了格式化输出
           let align;
           if (labels && labels.label && labels.label.textAlign) {
             align = labels.label.textAlign;
           } else {
-            align = self.getLabelAlign(obj, index, total);
+            align = self.getLabelAlign(obj, subIdx, total);
           }
           obj.textAlign = align;
-          obj.id = self.get('id') + 'LabelText' + origin[xField] + ' ' + origin[yField] + obj.text;
+          if (geom) {
+            obj._id = geom._getShapeId(origin) + '-glabel-' + subIdx + '-' + obj.text;
+          }
+          obj.coord = self.get('coord');
           items.push(obj);
         }
       });

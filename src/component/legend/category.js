@@ -21,6 +21,9 @@ function getParentNode(node, className) {
   }
 
   if (node.parentNode) {
+    if (node.parentNode.className === CONTAINER_CLASS) {
+      return node.parentNode;
+    }
     return getParentNode(node.parentNode, className);
   }
 

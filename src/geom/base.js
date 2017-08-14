@@ -13,8 +13,6 @@ const Shape = require('./shape/index');
 const TooltipMixin = require('./mixin/tooltip');
 const ActiveMixin = require('./mixin/active');
 const SelectMixin = require('./mixin/select');
-const Animate = require('./animate/index');
-
 const GROUP_ATTRS = [ 'size', 'shape', 'color' ];
 const FIELD_ORIGIN = '_origin';
 
@@ -55,10 +53,10 @@ class GeomBase extends Base {
   getDefaultCfg() {
     return {
       /**
-       * 标记 Id 用于区分执行动画
+       * 标记 _id 用于区分执行动画
        * @type {String}
        */
-      id: '',
+      _id: null,
       /**
        * 类型
        * @type {String}
@@ -157,7 +155,16 @@ class GeomBase extends Base {
       selectable: false,
       // tooltipMap: {},
       tooltipFields: null,
-      animate: false
+      /**
+       * 是否执行动画，默认执行
+       * @type {Boolean}
+       */
+      animate: true,
+      /**
+       * 动画配置
+       * @type {[type]}
+       */
+      animateCfg: null
     };
   }
 
@@ -314,6 +321,13 @@ class GeomBase extends Base {
     if (Util.isString(field)) {
       this.set('tooltipFields', parseFields(field));
     }
+
+    return this;
+  }
+
+  animate(cfg) {
+    this.set('animateCfg', cfg);
+    return this;
   }
 
   hasAdjust(adjustType) {
@@ -559,7 +573,8 @@ class GeomBase extends Base {
     }
   }
 
-  _draw() {
+  // step 3 绘制
+  paint() {
     const self = this;
     const dataArray = self.get('dataArray');
     const mappedArray = [];
@@ -567,32 +582,15 @@ class GeomBase extends Base {
     shapeFactory.setCoord(self.get('coord'));
     const shapeContainer = self.get('shapeContainer');
     self._beforeMapping(dataArray);
-    Util.each(dataArray, function(data) {
+    Util.each(dataArray, (data, index) => {
       data = self._mapping(data);
       mappedArray.push(data);
-      self.draw(data, shapeContainer, shapeFactory);
+      self.draw(data, shapeContainer, shapeFactory, index);
     });
     if (self.get('labelCfg')) {
       self._addLabels(Util.union.apply(null, mappedArray));
     }
     self.set('dataArray', mappedArray);
-  }
-
-  // step 3 绘制
-  paint() {
-    const self = this;
-    const animate = this.get('animate');
-    if (animate) {
-      const anim = Animate.getDefault({
-        geom: self,
-        fn() {
-          self._draw();
-        }
-      });
-      anim.start();
-    } else {
-      self._draw();
-    }
   }
 
   // step 3.1 before mapping
@@ -626,11 +624,10 @@ class GeomBase extends Base {
     const type = self.get('type');
     const coord = self.get('coord');
     const C = Labels.getLabelsClass(coord.type, type);
-    const id = this.get('id');
     const container = self.get('container');
     const scales = Util.map(self.get('labelCfg').fields, field => self._createScale(field));
     const labelContainer = container.addGroup(C, {
-      id,
+      _id: this.get('_id'),
       labelCfg: Util.mix({
         scales
       }, self.get('labelCfg')),
@@ -638,7 +635,6 @@ class GeomBase extends Base {
       geom: self,
       geomType: type
     });
-
     labelContainer.showLabels(points);
     self.set('labelContainer', labelContainer);
   }
@@ -795,11 +791,13 @@ class GeomBase extends Base {
    * @param  {Array} data 绘制图形
    * @param {Object} container 绘图容器
    * @param {Object} shapeFactory 绘制图形的工厂类
+   * @param {Number} index 每个 shape 的索引值
    */
-  draw(data, container, shapeFactory) {
+  draw(data, container, shapeFactory, index) {
     const self = this;
-    Util.each(data, obj => {
-      self.drawPoint(obj, container, shapeFactory);
+    Util.each(data, (obj, subIndex) => {
+      index = index + subIndex;
+      self.drawPoint(obj, container, shapeFactory, index);
     });
   }
 
@@ -819,6 +817,42 @@ class GeomBase extends Base {
       }
     });
     return tmpCfg;
+  }
+
+  _getShapeId(dataObj) {
+    let id = this.get('_id');
+    const type = this.get('type');
+    const xScale = this.getXScale();
+    const yScale = this.getYScale();
+    const xField = xScale.field || 'x';
+    const yField = yScale.field || 'y';
+    const yVal = dataObj[yField];
+    let xVal;
+    if (xScale.isIdentity) {
+      xVal = xScale.value;
+    } else {
+      xVal = dataObj[xField];
+    }
+
+    if (type === 'interval' || type === 'schema') {
+      id += '-' + xVal;
+    } else if (type === 'line' || type === 'area' || type === 'path') {
+      id += '-' + type;
+    } else {
+      id += '-' + xVal + '-' + yVal;
+    }
+
+    const groupScales = this._getGroupScales();
+    if (!Util.isEmpty(groupScales)) {
+      Util.each(groupScales, groupScale => {
+        const field = groupScale.field;
+        if (groupScale.type !== 'identity') {
+          id += '-' + dataObj[field];
+        }
+      });
+    }
+
+    return id;
   }
 
   getDrawCfg(obj) {
@@ -841,13 +875,22 @@ class GeomBase extends Base {
       cfg.points = obj.points;
       cfg.nextPoints = obj.nextPoints;
     }
+    if (this.get('animate')) { // _id 字段仅用于动画
+      cfg._id = self._getShapeId(obj[FIELD_ORIGIN]);
+    }
     return cfg;
   }
 
-  drawPoint(obj, container, shapeFactory) {
+  drawPoint(obj, container, shapeFactory, index) {
     const shape = obj.shape;
     const cfg = this.getDrawCfg(obj);
-    shapeFactory.drawShape(shape, cfg, container);
+    const geomShape = shapeFactory.drawShape(shape, cfg, container);
+    geomShape.set('index', index);
+    geomShape.set('coord', this.get('coord'));
+
+    if (this.get('animate') && this.get('animateCfg')) {
+      geomShape.set('animateCfg', this.get('animateCfg'));
+    }
   }
 
   /**

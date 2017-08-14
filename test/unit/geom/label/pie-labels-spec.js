@@ -657,7 +657,8 @@ describe('pie labels', function() {
       const chart = new G2.Chart({
         container: 'gl3',
         width: 400,
-        height: 300
+        height: 300,
+        animate: false
       });
       chart.source(dv.rows);
       chart.coord('theta');

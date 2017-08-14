@@ -32,6 +32,7 @@ describe('test chart', function() {
   it('init', function() {
     expect(chart.get('width')).equal(800);
     expect(chart.get('height')).equal(500);
+    expect(chart.get('_id')).equal('chart');
   });
 
   it('plot test', function() {
@@ -123,6 +124,7 @@ describe('test chart with views', function() {
 
   it('add view', function() {
     const v1 = chart.view();
+    expect(v1.get('_id')).equal('view0');
     expect(v1.get('options').scales.a).not.equal(undefined);
     expect(v1.get('options').axes.b).eqls({
       title: null
