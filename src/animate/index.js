@@ -130,7 +130,6 @@ function addAnimate(cache, shapes, canvas, isUpdate) {
     Util.each(shapes, shape => {
       const name = shape.name;
       const coord = shape.get('coord');
-
       animateCfg = getAnimateCfg(name, 'appear', shape.get('animateCfg'));
       animate = getAnimate(name, coord, 'appear', animateCfg.animation);
       if (Util.isFunction(animate)) {

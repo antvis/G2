@@ -865,8 +865,7 @@ class GeomBase extends Base {
       size: obj.size,
       shape: obj.shape,
       isInCircle: self.isInCircle(),
-      opacity: obj.opacity,
-      _id: self._getShapeId(obj[FIELD_ORIGIN])
+      opacity: obj.opacity
     };
     const styleOptions = self.get('styleOptions');
     if (styleOptions && styleOptions.style) {
@@ -875,6 +874,9 @@ class GeomBase extends Base {
     if (this.get('generatePoints')) {
       cfg.points = obj.points;
       cfg.nextPoints = obj.nextPoints;
+    }
+    if (this.get('animate')) { // _id 字段仅用于动画
+      cfg._id = self._getShapeId(obj[FIELD_ORIGIN]);
     }
     return cfg;
   }
