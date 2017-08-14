@@ -58,7 +58,7 @@
     "dist": "rm -rf dist && mkdir dist && npm run build && npm run compress",
     "lint": "eslint --ext .html,.js ./",
     "lint-fix": "eslint --ext .html,.js --fix ./",
-    "prepare-demos": "./bin/prepare-demos-homepage && ./bin/prepare-demos-screenshots",
+    "prepare-demos": "./bin/prepare-demos-homepage && ./bin/prepare-demos-screenshots && npm run lint-fix",
     "test": "torch --compile --renderer --recursive ./test/unit",
     "test-live": "torch --compile --interactive --watch --recursive ./test/unit"
   },
