@@ -122,13 +122,15 @@ const ActiveMixin = {
       });
       const preHighlightShapes = self.get('preHighlightShapes');
       if (preHighlightShapes) {
-        const shapes = self.getShapes();
+        const shapes = shapeContainer.get('children');
         Util.each(shapes, shape => {
           if (!shape.get('selected')) {
             const originAttrs = shape.get('_originAttrs');
-            shape.__attrs = Util.cloneDeep(originAttrs);
-            shape.setZIndex(0);
-            shape.set('_originAttrs', null);
+            if (originAttrs) {
+              shape.__attrs = Util.cloneDeep(originAttrs);
+              shape.setZIndex(0);
+              shape.set('_originAttrs', null);
+            }
           }
         });
       }
