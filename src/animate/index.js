@@ -57,45 +57,26 @@ function getAnimateCfg(geomType, animationType, animateCfg) {
   return defaultCfg;
 }
 
-function _findById(id, shapes) {
-  let result;
-  Util.each(shapes, shape => {
-    if (shape._id === id) {
-      result = shape;
-      return;
-    }
-  });
-
-  return result;
-}
-
 function addAnimate(cache, shapes, canvas, isUpdate) {
   let animate;
   let animateCfg;
 
   if (isUpdate) {
     // Step: leave -> update -> enter
-    const deletedShapes = []; // 存储的是 cache 中的配置
     const updateShapes = []; // 存储的是 shapes
     const newShapes = []; // 存储的是 shapes
-    Util.each(cache, cacheShape => {
-      const result = _findById(cacheShape._id, shapes);
-      if (result) {
-        result.set('cacheShape', cacheShape);
-        updateShapes.push(result);
-      } else {
-        deletedShapes.push(cacheShape);
-      }
-    });
-
     Util.each(shapes, shape => {
       const result = cache[shape._id];
       if (!result) {
         newShapes.push(shape);
+      } else {
+        shape.set('cacheShape', result);
+        updateShapes.push(shape);
+        delete cache[shape._id];
       }
     });
 
-    Util.each(deletedShapes, deletedShape => {
+    Util.each(cache, deletedShape => {
       const { name, coord, _id, attrs, index, type } = deletedShape;
       animateCfg = getAnimateCfg(name, 'leave', deletedShape.animateCfg);
       animate = getAnimate(name, coord, 'leave', animateCfg.animation);
@@ -168,7 +149,7 @@ module.exports = {
     const cacheShapes = shapes.concat(axisShapes);
     canvas.set('caches', cache(cacheShapes));
     if (isUpdate) {
-      addAnimate(caches, cacheShapes, canvas, true);
+      addAnimate(caches, cacheShapes, canvas, isUpdate);
     } else {
       addAnimate(caches, shapes, canvas, isUpdate);
     }

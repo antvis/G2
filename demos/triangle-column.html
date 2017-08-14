@@ -18,7 +18,7 @@
   <script>
     const Shape = G2.Shape;
     Shape.registerShape('interval', 'triangle', {
-      getShapePoints(cfg) {
+      getPoints(cfg) {
         const { x, y, y0, size } = cfg;
         return [
           { x: x - size / 2, y: y0 },
@@ -26,7 +26,7 @@
           { x: x + size / 2, y: y0 }
         ];
       },
-      drawShape(cfg, group) { // 自定义最终绘制
+      draw(cfg, group) { // 自定义最终绘制
         const points = this.parsePoints(cfg.points); // 将0-1空间的坐标转换为画布坐标
         const polygon = group.addShape('polygon', {
           attrs: {

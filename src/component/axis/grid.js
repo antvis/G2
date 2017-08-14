@@ -150,7 +150,7 @@ class Grid extends Group {
       attrs
     });
     shape.name = 'axis-grid-rect';
-    shape._id = item._id;
+    shape._id = item._id && item._id.replace('grid', 'grid-rect');
     shape.set('coord', self.get('coord'));
   }
 
@@ -159,16 +159,10 @@ class Grid extends Group {
     const type = this.get('type');
 
     if (type === 'line' || type === 'polygon') {
-      Util.each(start, function(subItem, index) {
-        if (index === 0) {
-          path.push([ 'M', subItem.x, subItem.y ]);
-        } else {
-          path.push([ 'L', subItem.x, subItem.y ]);
-        }
-      });
-      for (let i = end.length - 1; i >= 0; i--) {
-        path.push([ 'L', end[i].x, end[i].y ]);
-      }
+      path.push([ 'M', start[0].x, start[0].y ]);
+      path.push([ 'L', start[start.length - 1].x, start[start.length - 1].y ]);
+      path.push([ 'L', end[end.length - 1].x, end[end.length - 1].y ]);
+      path.push([ 'L', end[0].x, end[0].y ]);
       path.push([ 'Z' ]);
     } else {
       const flag = start[0].flag;
