@@ -66,13 +66,21 @@ class EventController {
     canvas.on('mouseup', Util.wrapBehavior(this, 'onUp'));
     canvas.on('click', Util.wrapBehavior(this, 'onClick'));
     canvas.on('dblclick', Util.wrapBehavior(this, 'onClick'));
+    canvas.on('touchstart', Util.wrapBehavior(this, 'onTouchstart'));
+    canvas.on('touchmove', Util.wrapBehavior(this, 'onTouchmove'));
+    canvas.on('touchend', Util.wrapBehavior(this, 'onTouchend'));
   }
 
   _triggerShapeEvent(shape, eventName, eventObj) {
     if (shape && shape.name) {
       const view = this.view;
       const name = shape.name + ':' + eventName;
+      eventObj.view = view;
       view.emit(name, eventObj);
+      // const parent = view.get('parent');
+      // if (parent) { // chart 上也需要抛出该事件，本期先不抛出
+      //   parent.emit(name, eventObj);
+      // }
     }
   }
 
@@ -147,18 +155,18 @@ class EventController {
     const self = this;
     const view = self.view;
     const shape = self._getShape(ev.x, ev.y);
-    const shapeEventObj = this._getShapeEventObj(ev);
+    const shapeEventObj = self._getShapeEventObj(ev);
     shapeEventObj.shape = shape;
     view.emit('click', shapeEventObj);
     self._triggerShapeEvent(shape, ev.type, shapeEventObj);
-    this.currentShape = shape;
+    self.currentShape = shape;
 
     const point = self._getPointInfo(ev);
     const views = point.views;
     if (!Util.isEmpty(views)) {
       const eventObj = self._getEventObj(ev, point, views);
-      if (this.currentShape) {
-        const shape = this.currentShape;
+      if (self.currentShape) {
+        const shape = self.currentShape;
         eventObj.shape = shape;
         eventObj.data = shape.get('origin');
       }
@@ -170,6 +178,34 @@ class EventController {
     }
   }
 
+  onTouchstart(ev) {
+    const view = this.view;
+    const shape = this._getShape(ev.x, ev.y);
+    const eventObj = this._getShapeEventObj(ev);
+    eventObj.shape = shape;
+    view.emit('touchstart', eventObj);
+    this._triggerShapeEvent(shape, 'touchstart', eventObj);
+    this.currentShape = shape;
+  }
+
+  onTouchmove(ev) {
+    const view = this.view;
+    const shape = this._getShape(ev.x, ev.y);
+    const eventObj = this._getShapeEventObj(ev);
+    eventObj.shape = shape;
+    view.emit('touchmove', eventObj);
+    this._triggerShapeEvent(shape, 'touchmove', eventObj);
+    this.currentShape = shape;
+  }
+
+  onTouchend(ev) {
+    const view = this.view;
+    const eventObj = this._getShapeEventObj(ev);
+    eventObj.shape = this.currentShape;
+    view.emit('touchend', eventObj);
+    this._triggerShapeEvent(this.currentShape, 'touchend', eventObj);
+  }
+
   clearEvents() {
     const canvas = this.canvas;
     canvas.off('mousemove', Util.getWrapBehavior(this, 'onMove'));
@@ -178,6 +214,9 @@ class EventController {
     canvas.off('mouseup', Util.getWrapBehavior(this, 'onUp'));
     canvas.off('click', Util.getWrapBehavior(this, 'onClick'));
     canvas.off('dblclick', Util.getWrapBehavior(this, 'onClick'));
+    canvas.off('touchstart', Util.getWrapBehavior(this, 'onTouchstart'));
+    canvas.off('touchmove', Util.getWrapBehavior(this, 'onTouchmove'));
+    canvas.off('touchend', Util.getWrapBehavior(this, 'onTouchend'));
   }
 }
 
