@@ -382,37 +382,41 @@ class GeomBase extends Base {
     const attrs = this.get('attrs');
     const attrOptions = this.get('attrOptions');
     const coord = self.get('coord');
-    Util.each(attrOptions, function(option, type) {
-      const className = Util.upperFirst(type);
-      const fields = parseFields(option.field);
-      if (type === 'position') {
-        option.coord = coord;
-        // 饼图坐标系下，填充一维
-        if (fields.length === 1 && coord.type === 'theta') {
-          fields.unshift('1');
+    for (const type in attrOptions) {
+      if (attrOptions.hasOwnProperty(type)) {
+        const option = attrOptions[type];
+        const className = Util.upperFirst(type);
+        const fields = parseFields(option.field);
+        if (type === 'position') {
+          option.coord = coord;
+          // 饼图坐标系下，填充一维
+          if (fields.length === 1 && coord.type === 'theta') {
+            fields.unshift('1');
+          }
+          if (!self.get('adjusts')) {
+            self.set('adjusts', option.adjusts);
+          }
         }
-        if (!self.get('adjusts')) {
-          self.set('adjusts', option.adjusts);
+        const scales = [];
+        for (let i = 0; i < fields.length; i++) {
+          const field = fields[i];
+          const scale = self._createScale(field);
+          scales.push(scale);
         }
+        // 饼图需要填充满整个空间
+        if (coord.type === 'theta' && type === 'position' && scales.length > 1) {
+          const yScale = scales[1];
+          yScale.change({
+            nice: false,
+            min: 0,
+            max: Math.max.apply(null, yScale.values)
+          });
+        }
+        option.scales = scales;
+        const attr = new Attr[className](option);
+        attrs[type] = attr;
       }
-      const scales = [];
-      Util.each(fields, function(field) {
-        const scale = self._createScale(field);
-        scales.push(scale);
-      });
-      // 饼图需要填充满整个空间
-      if (coord.type === 'theta' && type === 'position' && scales.length > 1) {
-        const yScale = scales[1];
-        yScale.change({
-          nice: false,
-          min: 0,
-          max: Math.max.apply(null, yScale.values)
-        });
-      }
-      option.scales = scales;
-      const attr = new Attr[className](option);
-      attrs[type] = attr;
-    });
+    }
   }
   // step 2: 处理数据
   _processData() {
@@ -420,12 +424,12 @@ class GeomBase extends Base {
     const data = this.get('data');
     const dataArray = [];
     const groupedArray = this._groupData(data);
-    Util.each(groupedArray, function(subData) {
+    for (let i = 0; i < groupedArray.length; i++) {
+      const subData = groupedArray[i];
       const tempData = self._saveOrigin(subData);
       self._numberic(tempData);
       dataArray.push(tempData);
-    });
-
+    }
     return dataArray;
   }
 
@@ -444,7 +448,11 @@ class GeomBase extends Base {
     const rst = [];
     for (let i = 0; i < data.length; i++) {
       const origin = data[i];
-      const obj = Util.mix({}, origin);
+      const obj = {};
+      for (const k in origin) {
+        obj[k] = origin[k];
+      }
+      // const obj = Util.mix({}, origin);
       obj[FIELD_ORIGIN] = origin;
       rst.push(obj);
     }
@@ -455,7 +463,8 @@ class GeomBase extends Base {
   _numberic(data) {
     const positionAttr = this.getAttr('position');
     const scales = positionAttr.scales;
-    Util.each(data, function(obj) {
+    for (let j = 0; j < data.length; j++) {
+      const obj = data[j];
       for (let i = 0; i < Math.min(2, scales.length); i++) {
         const scale = scales[i];
         if (scale.isCategory) {
@@ -463,7 +472,7 @@ class GeomBase extends Base {
           obj[field] = scale.translate(obj[field]);
         }
       }
-    });
+    }
   }
 
   _getGroupScales() {
@@ -582,11 +591,13 @@ class GeomBase extends Base {
     shapeFactory.setCoord(self.get('coord'));
     const shapeContainer = self.get('shapeContainer');
     self._beforeMapping(dataArray);
-    Util.each(dataArray, (data, index) => {
+    for (let i = 0; i < dataArray.length; i++) {
+      let data = dataArray[i];
+      const index = i;
       data = self._mapping(data);
       mappedArray.push(data);
       self.draw(data, shapeContainer, shapeFactory, index);
-    });
+    }
     if (self.get('labelCfg')) {
       self._addLabels(Util.union.apply(null, mappedArray));
     }
@@ -659,12 +670,13 @@ class GeomBase extends Base {
     const self = this;
     const shapeFactory = self.getShapeFactory();
     const shapeAttr = self.getAttr('shape');
-    Util.each(data, function(obj) {
+    for (let i = 0; i < data.length; i++) {
+      const obj = data[i];
       const cfg = self.createShapePointsCfg(obj);
       const shape = shapeAttr ? self._getAttrValues(shapeAttr, obj) : null;
       const points = shapeFactory.getShapePoints(shape, cfg);
       obj.points = points;
-    });
+    }
   }
 
   /**
@@ -713,9 +725,10 @@ class GeomBase extends Base {
   _normalizeValues(values, scale) {
     let rst = [];
     if (Util.isArray(values)) {
-      Util.each(values, function(v) {
+      for (let i = 0; i < values.length; i++) {
+        const v = values[i];
         rst.push(scale.scale(v));
-      });
+      }
     } else {
       rst = scale.scale(values);
     }
@@ -727,22 +740,26 @@ class GeomBase extends Base {
     const self = this;
     const attrs = self.get('attrs');
     const mappedData = [];
-
-    Util.each(data, function(record) {
+    for (let i = 0; i < data.length; i++) {
+      const record = data[i];
       const newRecord = {};
       newRecord[FIELD_ORIGIN] = record[FIELD_ORIGIN];
       newRecord.points = record.points;
       newRecord.nextPoints = record.nextPoints;
-      Util.each(attrs, function(attr) {
-        const names = attr.names;
-        const values = self._getAttrValues(attr, record);
-        Util.each(values, function(val, index) {
-          const name = names[index];
-          newRecord[name] = (Util.isArray(val) && val.length === 1) ? val[0] : val; // 只有一个值时返回第一个属性值
-        });
-      });
+      for (const k in attrs) {
+        if (attrs.hasOwnProperty(k)) {
+          const attr = attrs[k];
+          const names = attr.names;
+          const values = self._getAttrValues(attr, record);
+          for (let j = 0; j < values.length; j++) {
+            const val = values[j];
+            const name = names[j];
+            newRecord[name] = (Util.isArray(val) && val.length === 1) ? val[0] : val; // 只有一个值时返回第一个属性值
+          }
+        }
+      }
       mappedData.push(newRecord);
-    });
+    }
 
     return mappedData;
   }
@@ -751,14 +768,15 @@ class GeomBase extends Base {
   _getAttrValues(attr, record) {
     const scales = attr.scales;
     const params = [];
-    Util.each(scales, function(scale) {
+    for (let i = 0; i < scales.length; i++) {
+      const scale = scales[i];
       const field = scale.field;
       if (scale.type === 'identity') {
         params.push(scale.value);
       } else {
         params.push(record[field]);
       }
-    });
+    }
     const values = attr.mapping(...params);
     return values;
   }
@@ -795,10 +813,11 @@ class GeomBase extends Base {
    */
   draw(data, container, shapeFactory, index) {
     const self = this;
-    Util.each(data, (obj, subIndex) => {
-      index = index + subIndex;
+    for (let i = 0; i < data.length; i++) {
+      const obj = data[i];
+      index = index + i;
       self.drawPoint(obj, container, shapeFactory, index);
-    });
+    }
   }
 
   getCallbackCfg(fields, cfg, origin) {
@@ -885,11 +904,11 @@ class GeomBase extends Base {
     const shape = obj.shape;
     const cfg = this.getDrawCfg(obj);
     const geomShape = shapeFactory.drawShape(shape, cfg, container);
-    geomShape.set('index', index);
-    geomShape.set('coord', this.get('coord'));
+    geomShape.setSilent('index', index);
+    geomShape.setSilent('coord', this.get('coord'));
 
     if (this.get('animate') && this.get('animateCfg')) {
-      geomShape.set('animateCfg', this.get('animateCfg'));
+      geomShape.setSilent('animateCfg', this.get('animateCfg'));
     }
   }
 

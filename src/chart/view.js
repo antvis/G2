@@ -171,21 +171,22 @@ class View extends Base {
     const filteredData = this.get('filteredData');
     const coord = this.get('coord');
     const viewId = this.get('_id');
-
-    Util.each(geoms, (geom, index) => {
+    for (let i = 0; i < geoms.length; i++) {
+      const geom = geoms[i];
       geom.set('data', filteredData);
       geom.set('coord', coord);
-      geom.set('_id', viewId + '-geom' + index);
+      geom.set('_id', viewId + '-geom' + i);
       geom.init();
-    });
+    }
   }
 
   _clearGeoms() {
     const self = this;
     const geoms = self.get('geoms');
-    Util.each(geoms, function(geom) {
+    for (let i = 0; i < geoms.length; i++) {
+      const geom = geoms[i];
       geom.clear();
-    });
+    }
   }
 
   _removeGeoms() {
@@ -200,10 +201,11 @@ class View extends Base {
   _drawGeoms() {
     const geoms = this.get('geoms');
     const coord = this.get('coord');
-    Util.each(geoms, function(geom) {
+    for (let i = 0; i < geoms.length; i++) {
+      const geom = geoms[i];
       geom.setCoord(coord);
       geom.paint();
-    });
+    }
   }
 
   /**
@@ -307,12 +309,13 @@ class View extends Base {
   _getScales(dimType) {
     const geoms = this.get('geoms');
     const result = {};
-    Util.each(geoms, geom => {
+    for (let i = 0; i < geoms.length; i++) {
+      const geom = geoms[i];
       const scale = (dimType === 'x') ? geom.getXScale() : geom.getYScale();
       if (scale && !Util.has(result, scale.field)) {
         result[scale.field] = scale;
       }
-    });
+    }
     return result;
   }
 
@@ -322,7 +325,8 @@ class View extends Base {
     const scaleController = this.get('scaleController');
     const colDefs = scaleController.defs;
 
-    Util.each(geoms, function(geom) {
+    for (let i = 0; i < geoms.length; i++) {
+      const geom = geoms[i];
       if (geom.get('type') === 'interval') {
         const yScale = geom.getYScale();
         const field = yScale.field;
@@ -332,7 +336,7 @@ class View extends Base {
           });
         }
       }
-    });
+    }
   }
 
   _setCatScalesRange() {
@@ -391,12 +395,13 @@ class View extends Base {
     });
     const rst = [];
 
-    Util.each(geoms, geom => {
+    for (let i = 0; i < geoms.length; i++) {
+      const geom = geoms[i];
       const yScale = geom.getYScale();
       if (yScale && Util.indexOf(rst, yScale) === -1) {
         rst.push(yScale);
       }
-    });
+    }
     return rst;
   }
 
