@@ -133,20 +133,33 @@
         stroke: '#fff'
       });
     chart.render();
-    chart.on('interval:active', ev => {
-      const shape = ev.shapes[0];
-      const geom = ev.geom;
-      const coord = geom.get('coord');
+    const canvas = chart.get('canvas');
+    chart.on('interval:mouseenter', ev => {
+      const shape = ev.shape;
+      const coord = chart.get('coord');
       if (!shape.get('selected')) {
-        shape.transform([
+        if (!shape.get('_originAttrs')) {
+          shape.set('_originAttrs', G2.Util.cloneDeep(shape.__attrs));
+        }
+        shape.attr('shadowBlur', 40);
+        shape.attr('shadowColor', 'rgba(0, 0, 0, 0.3)');
+        shape.attr('transform', [
           [ 't', -coord.getCenter().x, -coord.getCenter().y ],
           [ 's', 1.1, 1.1 ],
           [ 't', coord.getCenter().x, coord.getCenter().y ]
         ]);
-        shape.attr('shadowBlur', 40);
-        shape.attr('shadowColor', 'rgba(0, 0, 0, 0.3)');
+        canvas.draw();
       }
     });
+    chart.on('interval:mouseleave', ev => {
+      const shape = ev.shape;
+      if (!shape.get('selected') && shape.get('_originAttrs')) {
+        shape.__attrs = shape.get('_originAttrs');
+        shape.set('_originAttrs', null);
+        canvas.draw();
+      }
+    });
+
   </script>
 </body>
 
