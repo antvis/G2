@@ -77,8 +77,7 @@
       animate: false,
       container: 'canvas',
       forceFit: true,
-      height: window.innerHeight,
-      padding: [ 50, 200, 50, 50 ]
+      height: window.innerHeight
     });
     chart.source(dv, {
       percent: {
@@ -91,7 +90,7 @@
     });
     chart.coord('theta', {
       innerRadius: 0.3,
-      radius: 0.68
+      radius: 0.95
     });
     chart.tooltip({
       showTitle: false, // 不展示 tooltip

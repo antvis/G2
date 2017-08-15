@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="geometry" content="interval">
   <link rel="stylesheet" href="./assets/common.css">
-  <title>Daily temperatures in Boston</title>
+  <title>Daily Temperatures in Boston</title>
   <style type="text/css">
     #canvas {
       position: relative;
@@ -21,17 +21,17 @@
       text-align: left;
       font-family: "Open Sans", sans-serif;
     }
-    ##canvas .title h1, ##canvas .title .subtitle {
+    #canvas .title h1, #canvas .title .subtitle {
       margin: 0;
       font-weight: lighter;
       text-anchor: start;
       text-transform: none;
     }
-    ##canvas .title h1 {
+    #canvas .title h1 {
       font-size: 24px;
       color: #4F4F4F;
     }
-    ##canvas .title .subtitle {
+    #canvas .title .subtitle {
       font-size: 12px;
       color: #AAAAAA;
     }
@@ -66,7 +66,7 @@
         container: 'canvas',
         forceFit: true,
         height: window.innerHeight,
-        padding: [ 80, 10, 120, 10 ]
+        padding: [ 50, 0, 120 ]
       });
 
       chart.source(dv, {
