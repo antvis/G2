@@ -210,14 +210,23 @@ class Tooltip extends Group {
     const crosshairs = this.get('crosshairs');
     const canvas = this.get('canvas');
     const plotRange = this.get('plotRange');
+    const isTransposed = this.get('isTransposed');
     if (crosshairs) {
       this._clearCrosshairsGroup();
       switch (crosshairs.type) {
         case 'x':
-          this._renderHorizontalLine(canvas, plotRange);
+          if (isTransposed) {
+            this._renderVerticalLine(canvas, plotRange);
+          } else {
+            this._renderHorizontalLine(canvas, plotRange);
+          }
           break;
         case 'y':
-          this._renderVerticalLine(canvas, plotRange);
+          if (isTransposed) {
+            this._renderHorizontalLine(canvas, plotRange);
+          } else {
+            this._renderVerticalLine(canvas, plotRange);
+          }
           break;
         case 'cross':
           this._renderHorizontalLine(canvas, plotRange);

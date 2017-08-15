@@ -94,22 +94,20 @@ class EventController {
     view.emit('mousemove', eventObj);
     self._triggerShapeEvent(shape, 'mousemove', eventObj);
 
-    // 移动时判定是否还在原先的图形中
-    if (!isSameShape(currentShape, shape)) {
-      if (currentShape) {
-        const leaveObj = self._getShapeEventObj(ev);
-        leaveObj.shape = currentShape;
-        leaveObj.toShape = shape;
-        self._triggerShapeEvent(currentShape, 'mouseleave', leaveObj);
-      }
-      if (shape) {
-        const enterObj = self._getShapeEventObj(ev);
-        enterObj.shape = shape;
-        enterObj.fromShape = currentShape;
-        self._triggerShapeEvent(shape, 'mouseenter', enterObj);
-      }
-      self.currentShape = shape;
+    if (currentShape && !isSameShape(currentShape, shape)) {
+      const leaveObj = self._getShapeEventObj(ev);
+      leaveObj.shape = currentShape;
+      leaveObj.toShape = shape;
+      self._triggerShapeEvent(currentShape, 'mouseleave', leaveObj);
     }
+
+    if (shape && !isSameShape(currentShape, shape)) {
+      const enterObj = self._getShapeEventObj(ev);
+      enterObj.shape = shape;
+      enterObj.fromShape = currentShape;
+      self._triggerShapeEvent(shape, 'mouseenter', enterObj);
+    }
+    self.currentShape = shape;
 
     const point = self._getPointInfo(ev);
     const preViews = self.curViews || [];
