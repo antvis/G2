@@ -27,7 +27,8 @@ class Area extends GeomBase {
     Util.assign(this, SplitMixin);
   }
 
-  draw(data, container, shapeFactory) {
+  draw(data, container, shapeFactory, index) {
+    const self = this;
     const cfg = this.getDrawCfg(data[0]);
     const splitArray = this.splitData(data);
 
@@ -38,7 +39,13 @@ class Area extends GeomBase {
         return obj.points;
       });
       cfg.points = points;
-      shapeFactory.drawShape(cfg.shape, cfg, container);
+      const geomShape = shapeFactory.drawShape(cfg.shape, cfg, container);
+      geomShape.set('index', index + splitedIndex);
+      geomShape.set('coord', self.get('coord'));
+
+      if (self.get('animate') && self.get('animateCfg')) {
+        geomShape.set('animateCfg', self.get('animateCfg'));
+      }
     });
   }
 }

@@ -19,17 +19,30 @@ class Point extends GeomBase {
     return cfg;
   }
 
-  drawPoint(obj, container, shapeFactory) {
+  drawPoint(obj, container, shapeFactory, index) {
+    const self = this;
     const shape = obj.shape;
-    const cfg = this.getDrawCfg(obj);
+    const cfg = self.getDrawCfg(obj);
+    let geomShape;
     if (Util.isArray(obj.y)) {
-      Util.each(obj.y, function(y, index) {
+      Util.each(obj.y, (y, idx) => {
         cfg.y = y;
-        cfg.yIndex = index;
-        shapeFactory.drawShape(shape, cfg, container);
+        cfg.yIndex = idx;
+        geomShape = shapeFactory.drawShape(shape, cfg, container);
+        geomShape.set('index', index + idx);
+        geomShape.set('coord', self.get('coord'));
+        if (self.get('animate') && self.get('animateCfg')) {
+          geomShape.set('animateCfg', self.get('animateCfg'));
+        }
       });
     } else {
-      shapeFactory.drawShape(shape, cfg, container);
+      geomShape = shapeFactory.drawShape(shape, cfg, container);
+      geomShape.set('index', index);
+      geomShape.set('coord', self.get('coord'));
+
+      if (self.get('animate') && self.get('animateCfg')) {
+        geomShape.set('animateCfg', self.get('animateCfg'));
+      }
     }
   }
 }

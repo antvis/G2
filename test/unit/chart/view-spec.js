@@ -206,6 +206,7 @@ describe('test view all options', function() {
       y: 80
     },
     data,
+    animate: false,
     options: {
       coord: {
         type: 'rect',

@@ -312,7 +312,8 @@ describe('AxisController', function() {
       expect(axisCfg.grid).not.to.be.empty;
       expect(axisCfg.grid.type).to.equal('circle');
       expect(axisCfg.grid.items.length).to.equal(9);
-      expect(axisCfg.grid.items[0].length).to.equal(12);
+      expect(axisCfg.grid.items[0]._id).not.to.be.undefined;
+      expect(axisCfg.grid.items[0].points.length).to.equal(12);
     });
   });
 });

@@ -70,6 +70,7 @@ class Chart extends View {
       chart: this
     });
     this.set('legendController', legendController);
+    this.set('_id', 'chart'); // 防止同用户设定的 id 同名
   }
   // 初始化画布
   _initCanvas() {
@@ -254,6 +255,7 @@ class Chart extends View {
     }
     cfg.options = Util.mix({}, this._getSharedOptions(), cfg.options);
     const view = new View(cfg);
+    view.set('_id', 'view' + this.get('views').length); // 标识 ID，防止同用户设定的 id 重名
     this.get('views').push(view);
     return view;
   }

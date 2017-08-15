@@ -6,6 +6,11 @@ const Grid = require('./grid');
 class Base extends Group {
   getDefaultCfg() {
     return {
+      /**
+       * 唯一标识，用于动画
+       * @type {[type]}
+       */
+      _id: null,
       zIndex: 4,
       /**
        * 坐标轴上的坐标点
@@ -58,9 +63,7 @@ class Base extends Group {
       },
       autoPaint: true, // @type {Boolean} 是否自动绘制
       _labelOffset: 10, // @type {Number} 距离坐标轴的距离
-      _titleOffset: 20 // @type {Number} 标题距离坐标轴的位置
-      // formatter: null, // @type {Function} 格式化坐标轴上的节点
-      // firstTick: true // @type {Boolean} 是否显示第一个标注
+      _titleOffset: 40 // @type {Number} 标题距离坐标轴的位置
     };
   }
 
@@ -121,16 +124,6 @@ class Base extends Group {
     this.set('subTickItems', subTickItems);
   }
 
-  // TODO: rename
-  _formatPoint(value) {
-    const label = this.get('label');
-    if (label && label.formatter) {
-      value = label.formatter.call(this, value);
-    }
-
-    return value;
-  }
-
   _renderLine() {
     let lineCfg = this.get('line');
     let path;
@@ -161,7 +154,7 @@ class Base extends Group {
         self._addTickItem(index, tickPoint, tickLineCfg.length);
       }
       if (labelCfg) {
-        self.addLabel(self._formatPoint(tick.text), tickPoint, index, tick.value);
+        self.addLabel(tick, tickPoint, index);
       }
     });
 
@@ -170,9 +163,9 @@ class Base extends Group {
       Util.each(ticks, function(tick, index) {
         if (index > 0) {
           let diff = tick.value - ticks[index - 1].value;
-          diff = diff / self.get('subTickCount');
+          diff = diff / (self.get('subTickCount') + 1);
 
-          for (let i = 1; i < subTickCount; i++) {
+          for (let i = 1; i <= subTickCount; i++) {
             const subTick = {
               text: '',
               value: index ? ticks[index - 1].value + i * diff : i * diff
@@ -206,6 +199,8 @@ class Base extends Group {
       attrs: cfg
     });
     tickShape.name = 'axis-ticks';
+    tickShape._id = this.get('_id') + '-ticks'; // 每个 label 用 _id 唯一标识
+    tickShape.set('coord', this.get('coord'));
   }
 
   _renderTicks() {
@@ -213,12 +208,12 @@ class Base extends Group {
     const tickItems = self.get('tickItems');
     const subTickItems = self.get('subTickItems');
 
-    if (tickItems) {
+    if (!Util.isEmpty(tickItems)) {
       const tickLineCfg = self.get('tickLine');
       self._addTickLine(tickItems, tickLineCfg);
     }
 
-    if (subTickItems) {
+    if (!Util.isEmpty(subTickItems)) {
       const subTickLineCfg = self.get('subTickLine') || self.get('tickLine');
       self._addTickLine(subTickItems, subTickLineCfg);
     }
@@ -233,7 +228,7 @@ class Base extends Group {
     if (this.get('start')) {
       grid.start = this.get('start');
     }
-
+    grid.coord = this.get('coord');
     this.set('gridGroup', this.addGroup(Grid, grid));
   }
 
@@ -334,7 +329,7 @@ class Base extends Group {
 }
 
 Util.assign(Base.prototype, LabelsRenderer, {
-  addLabel(value, point, index) {
+  addLabel(tick, point, index) {
     const labelsGroup = this.get('labelsGroup');
     const label = {};
     let rst;
@@ -347,11 +342,14 @@ Util.assign(Base.prototype, LabelsRenderer, {
         y: point.y + vector[1]
       };
 
-      label.text = value;
+      label.text = tick.text;
       label.x = point.x;
       label.y = point.y;
       label.textAlign = this.getTextAnchor(vector);
       rst = labelsGroup.addLabel(label);
+      rst.name = 'axis-label';
+      rst._id = this.get('_id') + '-' + tick.tickValue; // 每个 label 用 _id 唯一标识
+      rst.set('coord', this.get('coord'));
     }
     return rst;
   }

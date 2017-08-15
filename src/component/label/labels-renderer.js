@@ -34,7 +34,9 @@ module.exports = {
         const label = children[index];
         labelsGroup.changeLabel(label, item);
       } else {
-        self.addLabel(item.text, item);
+        const labelShape = self.addLabel(item.text, item);
+        labelShape._id = item._id;
+        labelShape.set('coord', item.coord);
       }
     });
     for (let i = count - 1; i >= items.length; i--) {
@@ -49,12 +51,10 @@ module.exports = {
     let rst;
     if (labelsGroup) {
       label.text = value;
-      // label.fill = '#666';
       label.x = offsetPoint.x;
       label.y = offsetPoint.y;
       label.point = offsetPoint;
       label.textAlign = offsetPoint.textAlign;
-      // label.name = offsetPoint.name; // 用于事件的标注
       if (offsetPoint.rotate) {
         label.rotate = offsetPoint.rotate;
       }

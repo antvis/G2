@@ -9,6 +9,7 @@ const Util = require('../util');
 const Controller = require('./controller/index');
 const Global = require('../global');
 const FIELD_ORIGIN = '_origin';
+const Animate = require('../animate/index');
 
 function isFullCircle(coord) {
   const startAngle = coord.startAngle;
@@ -169,10 +170,12 @@ class View extends Base {
     const geoms = this.get('geoms');
     const filteredData = this.get('filteredData');
     const coord = this.get('coord');
+    const viewId = this.get('_id');
 
-    Util.each(geoms, function(geom) {
+    Util.each(geoms, (geom, index) => {
       geom.set('data', filteredData);
       geom.set('coord', coord);
+      geom.set('_id', viewId + '-geom' + index);
       geom.init();
     });
   }
@@ -272,7 +275,8 @@ class View extends Base {
     axisController.options = axesOptions || {};
     const xScale = this.getXScale();
     const yScales = this.getYScales();
-    axisController.createAxis(xScale, yScales);
+    const viewId = this.get('_id');
+    axisController.createAxis(xScale, yScales, viewId);
   }
 
   _renderGuides() {
@@ -676,7 +680,7 @@ class View extends Base {
     // container.clear();
     this.clearInner();
     this.get('guideController') && this.get('guideController').clear();
-
+    this.set('isUpdate', false);
     return this;
   }
 
@@ -747,6 +751,7 @@ class View extends Base {
 
   render(stopDraw) {
     const views = this.get('views');
+    const animate = this.get('animate');
     // 初始化 View 的数据
     Util.each(views, function(view) {
       view.initView();
@@ -761,7 +766,14 @@ class View extends Base {
       const backPlot = this.get('backPlot');
       backPlot.sort();
       const canvas = this.get('canvas');
-      canvas.draw();
+
+      if (animate) {
+        const middlePlot = this.get('middlePlot');
+        const isUpdate = this.get('isUpdate');
+        Animate.execAnimation(canvas, middlePlot, backPlot, isUpdate);
+      } else {
+        canvas.draw();
+      }
     }
     return this;
   }
@@ -804,6 +816,7 @@ class View extends Base {
   }
 
   repaint() {
+    this.set('isUpdate', true);
     this.clearInner();
     this.render();
   }

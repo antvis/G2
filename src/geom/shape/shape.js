@@ -30,9 +30,6 @@ const ShapeBase = {
     }
     return null;
   },*/
-  getMarkerCfg(/* cfg */) {
-
-  },
   /**
    * 设置坐标系
    * @param {Coord} coord 坐标系
@@ -104,7 +101,12 @@ const ShapeFactoryBase = {
     return [];
   },
   getMarkerCfg(type, cfg) {
-    const shape = this.getShape(type);
+    let shape = this.getShape(type);
+    if (!shape.getMarkerCfg) {
+      const defaultShapeType = this.defaultShapeType;
+      shape = this.getShape(defaultShapeType);
+    }
+
     return shape.getMarkerCfg(cfg);
   },
   drawShape(type, cfg, container) {
@@ -112,7 +114,8 @@ const ShapeFactoryBase = {
     const gShape = shape.draw(cfg, container);
     if (gShape) {
       gShape.set('origin', cfg.origin);
-      gShape.set('geom', Util.lowerFirst(this.className));
+      gShape._id = cfg.yIndex ? cfg._id + cfg.yIndex : cfg._id;
+      gShape.name = Util.lowerFirst(this.className);
     }
     return gShape;
   }

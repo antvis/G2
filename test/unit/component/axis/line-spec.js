@@ -47,11 +47,13 @@ describe('测试底部坐标轴生成', function() {
       { text: '10', value: 1 }
     ],
     title: {
+      offset: 20,
       textStyle: {
         fontSize: 18,
         fill: '#000',
         rotate: 0,
-        textAlign: 'end'
+        textAlign: 'end',
+        textBaseline: 'top'
       },
       text: 'x 轴',
       position: 'start' // 标题文本位置位于坐标轴前端
@@ -63,17 +65,17 @@ describe('测试底部坐标轴生成', function() {
       },
       alternateColor: 'rgba(0, 0, 255, 0.1)',
       items: [
-        [{ x: 60, y: 460 }, { x: 60, y: 450 }, { x: 60, y: 440 }, { x: 60, y: 430 }],
-        [{ x: 100, y: 460 }, { x: 100, y: 450 }, { x: 100, y: 440 }, { x: 100, y: 430 }],
-        [{ x: 140, y: 460 }, { x: 140, y: 450 }, { x: 140, y: 440 }, { x: 140, y: 430 }],
-        [{ x: 180, y: 460 }, { x: 180, y: 450 }, { x: 180, y: 440 }, { x: 180, y: 430 }],
-        [{ x: 220, y: 460 }, { x: 220, y: 450 }, { x: 220, y: 440 }, { x: 220, y: 430 }],
-        [{ x: 260, y: 460 }, { x: 260, y: 450 }, { x: 260, y: 440 }, { x: 260, y: 430 }],
-        [{ x: 300, y: 460 }, { x: 300, y: 450 }, { x: 300, y: 440 }, { x: 300, y: 430 }],
-        [{ x: 340, y: 460 }, { x: 340, y: 450 }, { x: 340, y: 440 }, { x: 340, y: 430 }],
-        [{ x: 380, y: 460 }, { x: 380, y: 450 }, { x: 380, y: 440 }, { x: 380, y: 430 }],
-        [{ x: 420, y: 460 }, { x: 420, y: 450 }, { x: 420, y: 440 }, { x: 420, y: 430 }],
-        [{ x: 460, y: 460 }, { x: 460, y: 450 }, { x: 460, y: 440 }, { x: 460, y: 430 }]
+        { _id: 'test1', points: [{ x: 60, y: 460 }, { x: 60, y: 450 }, { x: 60, y: 440 }, { x: 60, y: 430 }] },
+        { _id: 'test2', points: [{ x: 100, y: 460 }, { x: 100, y: 450 }, { x: 100, y: 440 }, { x: 100, y: 430 }] },
+        { _id: 'test3', points: [{ x: 140, y: 460 }, { x: 140, y: 450 }, { x: 140, y: 440 }, { x: 140, y: 430 }] },
+        { _id: 'test4', points: [{ x: 180, y: 460 }, { x: 180, y: 450 }, { x: 180, y: 440 }, { x: 180, y: 430 }] },
+        { _id: 'test5', points: [{ x: 220, y: 460 }, { x: 220, y: 450 }, { x: 220, y: 440 }, { x: 220, y: 430 }] },
+        { _id: 'test6', points: [{ x: 260, y: 460 }, { x: 260, y: 450 }, { x: 260, y: 440 }, { x: 260, y: 430 }] },
+        { _id: 'test7', points: [{ x: 300, y: 460 }, { x: 300, y: 450 }, { x: 300, y: 440 }, { x: 300, y: 430 }] },
+        { _id: 'test8', points: [{ x: 340, y: 460 }, { x: 340, y: 450 }, { x: 340, y: 440 }, { x: 340, y: 430 }] },
+        { _id: 'test9', points: [{ x: 380, y: 460 }, { x: 380, y: 450 }, { x: 380, y: 440 }, { x: 380, y: 430 }] },
+        { _id: 'test10', points: [{ x: 420, y: 460 }, { x: 420, y: 450 }, { x: 420, y: 440 }, { x: 420, y: 430 }] },
+        { _id: 'test11', points: [{ x: 460, y: 460 }, { x: 460, y: 450 }, { x: 460, y: 440 }, { x: 460, y: 430 }] }
       ]
     },
     label: {
@@ -128,7 +130,7 @@ describe('测试底部坐标轴生成', function() {
   });
 
   it('subTicks 生成', function() {
-    expect(axis.get('subTickItems').length).to.equal((axis.get('ticks').length - 1) * (axis.get('subTickCount') - 1));
+    expect(axis.get('subTickItems').length).to.equal((axis.get('ticks').length - 1) * (axis.get('subTickCount')));
   });
 
   it('测试网格线生成', function() {
@@ -231,7 +233,7 @@ describe('测试左侧坐标轴', function() {
         stroke: '#c0c0c0'
       },
       items: [
-        [{ x: 120, y: 200 }, { x: 180, y: 200 }, { x: 240, y: 200 }, { x: 300, y: 200 }]
+        { _id: 'test', points: [{ x: 120, y: 200 }, { x: 180, y: 200 }, { x: 240, y: 200 }, { x: 300, y: 200 }] }
       ]
     },
     label: {

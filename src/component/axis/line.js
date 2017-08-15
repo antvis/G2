@@ -93,15 +93,17 @@ class Line extends Base {
     const self = this;
     const title = self.get('title');
     const offsetPoint = self.getTickPoint(0.5);
-    let titleOffset = title.offset || self.get('_titleOffset');
-    const labelsGroup = self.get('labelsGroup');
-    if (labelsGroup) {
-      const labelLength = self.getMaxLabelWidth(labelsGroup);
-      const labelOffset = self.get('label').offset || self.get('_labelOffset');
-      if ((labelLength + labelOffset + 20) < titleOffset) {
-        titleOffset = (labelLength + labelOffset + 20);
+    let titleOffset = title.offset;
+    if (!titleOffset) { // 没有指定 offset 则自动计算
+      titleOffset = 20;
+      const labelsGroup = self.get('labelsGroup');
+      if (labelsGroup) {
+        const labelLength = self.getMaxLabelWidth(labelsGroup);
+        const labelOffset = self.get('label').offset || self.get('_labelOffset');
+        titleOffset += labelLength + labelOffset;
       }
     }
+
     const textStyle = title.textStyle;
     const cfg = Util.mix({}, textStyle);
     if (title.text) {
