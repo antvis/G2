@@ -147,12 +147,6 @@ class GeomBase extends Base {
        * @type {Boolean}
        */
       shareTooltip: true,
-      /**
-       * 是否允许选中图形
-       * @type {Boolean}
-       */
-      selectable: false,
-      // tooltipMap: {},
       tooltipFields: null,
       /**
        * 是否执行动画，默认执行
@@ -331,11 +325,31 @@ class GeomBase extends Base {
 
   /**
    * 是否允许使用默认的图形激活交互
-   * @param  {Boolean} bool 是否允许激活开关
+   * @param  {Boolean} enable 是否允许激活开关
    * @return {Geom}    返回 geom 自身
    */
-  active(bool) {
-    this.set('allowActiveShape', bool);
+  active(enable) {
+    this.set('allowActive', enable);
+    return this;
+  }
+
+  /**
+   * 设置图形的选中模式
+   * @param  {Boolean|Object} enable 布尔类型用于模式开关，对象类型用于配置
+   * @param  {Object} cfg    选中配置项
+   * @return {Geom}          返回 geom 自身
+   */
+  select(enable, cfg) {
+    if (enable === false) {
+      this.set('allowSelect', false);
+    } else if (Util.isObject(enable)) {
+      this.set('allowSelect', true);
+      this.set('selectedOptions', enable);
+    } else {
+      this.set('allowSelect', true);
+      this.set('selectedOptions', cfg);
+    }
+
     return this;
   }
 
