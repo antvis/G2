@@ -24,7 +24,7 @@ class Position extends Base {
     let rstY;
     let obj;
     if (Util.isNil(x) || Util.isNil(y)) {
-      return null;
+      return [];
     }
     if (Util.isArray(y) && Util.isArray(x)) {
       rstX = [];

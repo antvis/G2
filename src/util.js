@@ -114,11 +114,13 @@ Util.Array = {
   },
   values(data, name) {
     const rst = [];
+    const tmpMap = {};
     for (let i = 0; i < data.length; i++) {
       const obj = data[i];
       const value = obj[name];
-      if (!Util.isNil(value) && !Util.inArray(rst, value)) {
+      if (!Util.isNil(value) && !tmpMap[value]) {
         rst.push(value);
+        tmpMap[value] = true;
       }
     }
     return rst;

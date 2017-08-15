@@ -113,9 +113,9 @@ const ShapeFactoryBase = {
     const shape = this.getShape(type);
     const gShape = shape.draw(cfg, container);
     if (gShape) {
-      gShape.set('origin', cfg.origin);
+      gShape.setSilent('origin', cfg.origin);
       gShape._id = cfg.yIndex ? cfg._id + cfg.yIndex : cfg._id;
-      gShape.name = Util.lowerFirst(this.className);
+      gShape.name = this.name;
     }
     return gShape;
   }
@@ -126,7 +126,7 @@ Shape.registerFactory = function(factoryName, cfg) {
   const className = Util.upperFirst(factoryName);
   const geomObj = Util.assign({}, ShapeFactoryBase, cfg);
   Shape[className] = geomObj;
-  geomObj.className = className;
+  geomObj.name = factoryName;
   return geomObj;
 };
 

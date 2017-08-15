@@ -146,7 +146,7 @@ Shape.registerShape('point', 'rect', {
 Util.each(SHAPES, function(shape) {
   Shape.registerShape('point', shape, {
     draw(cfg, container) {
-      cfg.points = this.parsePoints(cfg.points);
+      // cfg.points = this.parsePoints(cfg.points);
       const attrs = getFillAttrs(cfg);
       return container.addShape('Marker', {
         attrs: Util.mix(attrs, {
@@ -165,7 +165,7 @@ Util.each(SHAPES, function(shape) {
   // 添加该 shape 对应的 hollowShape
   Shape.registerShape('point', 'hollow' + Util.upperFirst(shape), {
     draw(cfg, container) {
-      cfg.points = this.parsePoints(cfg.points);
+      // cfg.points = this.parsePoints(cfg.points);
       const attrs = getLineAttrs(cfg);
       return container.addShape('Marker', {
         attrs: Util.mix(attrs, {
@@ -187,7 +187,7 @@ Util.each(SHAPES, function(shape) {
 Util.each(HOLLOW_SHAPES, function(shape) {
   Shape.registerShape('point', shape, {
     draw(cfg, container) {
-      cfg.points = this.parsePoints(cfg.points);
+      // cfg.points = this.parsePoints(cfg.points);
       const attrs = getLineAttrs(cfg);
       return container.addShape('Marker', {
         attrs: Util.mix(attrs, {

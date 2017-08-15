@@ -29,19 +29,19 @@ class Point extends GeomBase {
         cfg.y = y;
         cfg.yIndex = idx;
         geomShape = shapeFactory.drawShape(shape, cfg, container);
-        geomShape.set('index', index + idx);
-        geomShape.set('coord', self.get('coord'));
+        geomShape.setSilent('index', index + idx);
+        geomShape.setSilent('coord', self.get('coord'));
         if (self.get('animate') && self.get('animateCfg')) {
-          geomShape.set('animateCfg', self.get('animateCfg'));
+          geomShape.setSilent('animateCfg', self.get('animateCfg'));
         }
       });
     } else {
       geomShape = shapeFactory.drawShape(shape, cfg, container);
-      geomShape.set('index', index);
-      geomShape.set('coord', self.get('coord'));
+      geomShape.setSilent('index', index);
+      geomShape.setSilent('coord', self.get('coord'));
 
       if (self.get('animate') && self.get('animateCfg')) {
-        geomShape.set('animateCfg', self.get('animateCfg'));
+        geomShape.setSilent('animateCfg', self.get('animateCfg'));
       }
     }
   }
