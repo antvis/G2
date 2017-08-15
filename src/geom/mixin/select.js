@@ -1,19 +1,38 @@
 const Util = require('../../util');
 
-const SelectMixin = {
-  _onPlotclick(ev) {
-    const self = this;
-    let shape = ev.shape;
-    self.clearActivedShapes(); // 清除hover效果
+function isSameShape(shape1, shape2) {
+  if (Util.isNil(shape1) || Util.isNil(shape2)) {
+    return false;
+  }
+  const shape1Origin = shape1.get('origin');
+  const shape2Origin = shape2.get('origin');
+  return Util.isEqual(shape1Origin, shape2Origin);
+}
 
-    if (!shape) {
-      const point = { x: ev.x, y: ev.y };
-      shape = self.getSingleShapeByPoint(point);
+const SelectMixin = {
+  _isAllowSelect() {
+    const isAllowSelect = this.get('allowSelect');
+    if (Util.isNil(isAllowSelect)) {
+      const type = this.get('type');
+      const coord = this.get('coord');
+      const coordType = coord && coord.type;
+
+      if (type === 'interval' && coordType === 'theta') { // 饼图默认可以进行选中
+        return true;
+      }
+    } else { // 用户设置了 select 配置
+      return isAllowSelect;
     }
-    if (shape) {
-      ev.shape = shape;
-      ev.data = shape.get('origin');
-      if (self.isSelectable()) { // 允许选中
+
+    return false;
+  },
+  _onClick(ev) {
+    const self = this;
+    if (self._isAllowSelect()) { // 允许选中下才执行
+      self.clearActivedShapes(); // 清除hover效果
+      const shape = ev.shape;
+      const shapeContainer = self.get('shapeContainer');
+      if (shape && shapeContainer.contain(shape)) {
         self.setShapeSelected(shape);
       }
     }
@@ -21,57 +40,26 @@ const SelectMixin = {
   _bindSelectedAction() {
     const self = this;
     const view = self.get('view');
-    view.on('plotclick', Util.wrapBehavior(self, '_onPlotclick'));
+    const type = self.get('type');
+    view.on(type + ':click', Util.wrapBehavior(self, '_onClick'));
   },
   _offSelectedAction() {
     const self = this;
     const view = self.get('view');
-    view.off('plotclick', Util.getWrapBehavior(self, '_onPlotclick'));
-  },
-  isSelectable() {
-    const type = this.get('type');
-    const coord = this.get('coord');
-    const coordType = coord && coord.type;
-    let selectable = this.get('selectable');
-
-    if (this.get('selectedOptions') && this.get('selectedOptions').mode !== false) {
-      selectable = true;
-    }
-
-    if (type === 'interval' && coordType === 'theta') { // 饼图默认可以进行选中
-      selectable = true;
-      if (this.get('selectedOptions') && this.get('selectedOptions').mode === false) {
-        selectable = false;
-      }
-    }
-
-    return selectable;
-  },
-  _getSelectedShapes() {
-    const self = this;
-    const shapes = self.getShapes();
-    const selectedShapes = [];
-
-    Util.each(shapes, shape => {
-      if (shape.get('selected')) {
-        selectedShapes.push(shape);
-      }
-    });
-    self.set('selectedShapes', selectedShapes);
-
-    return selectedShapes;
+    const type = self.get('type');
+    view.off(type + ':click', Util.getWrapBehavior(self, '_onClick'));
   },
   _setShapeStatus(shape, status) {
     const self = this;
     const view = self.get('view');
-    const type = self.get('type');
     const selectedOptions = self.get('selectedOptions') || {};
-    let originAttrs;
+    const animate = selectedOptions.animate !== false; // 默认允许动画
+    const canvas = view.get('canvas');
 
     shape.set('selected', status);
     const shapeData = shape.get('origin');
 
-    if (status) {
+    if (status) { // 选中状态
       let shapeName = shapeData.shape || self.getDefaultValue('shape');
       if (Util.isArray(shapeName)) {
         shapeName = shapeName[0];
@@ -85,51 +73,44 @@ const SelectMixin = {
       Util.mix(selectedStyle, cfg.style); // 用户设置的优先级更高
 
       if (!shape.get('_originAttrs')) { // 缓存原有属性
-        originAttrs = Util.cloneDeep(shape.__attrs);
-        shape.set('_originAttrs', originAttrs);
-      } else {
-        originAttrs = shape.get('_originAttrs');
+        shape.set('_originAttrs', Util.cloneDeep(shape.__attrs));
       }
 
-      shape.animate(selectedStyle, 300);
-
-      view.emit(type + ':selected', {
-        geom: self,
-        shape,
-        data: shapeData,
-        view
-      });
+      if (animate) {
+        shape.animate(selectedStyle, 300);
+      } else {
+        shape.attr(selectedStyle);
+        canvas.draw();
+      }
     } else {
-      originAttrs = shape.get('_originAttrs');
-      shape.animate(originAttrs, 300);
-
-      view.emit(type + ':unselected', {
-        geom: self,
-        shape,
-        data: shapeData,
-        view
-      });
+      const originAttrs = shape.get('_originAttrs');
+      if (animate) {
+        shape.animate(originAttrs, 300);
+      } else {
+        shape.attr(originAttrs);
+        canvas.draw();
+      }
     }
   },
   setShapeSelected(shape) {
     const self = this;
     const selectedShapes = self._getSelectedShapes();
     const selectedOptions = self.get('selectedOptions') || {};
-    if (selectedOptions.mode === 'multiple') {
+    const cancelable = selectedOptions.cancelable !== false; // 选中状态是否允许取消，默认允许
+    if (selectedOptions.mode === 'multiple') { // 支持多选
       if (Util.indexOf(selectedShapes, shape) === -1) {
         selectedShapes.push(shape);
         self._setShapeStatus(shape, true);
-      } else {
+      } else if (cancelable) { // 图形已经被选中并且选中状态允许取消选中
         Util.Array.remove(selectedShapes, shape);
         self._setShapeStatus(shape, false);
       }
     } else {
-      const cancelable = selectedOptions.cancelable !== false;
       const selectedShape = selectedShapes[0];
       if (cancelable) { // 如果允许取消，则选中null
-        shape = selectedShape === shape ? null : shape;
+        shape = isSameShape(selectedShape, shape) ? null : shape;
       }
-      if (selectedShape !== shape) {
+      if (!isSameShape(selectedShape, shape)) {
         if (selectedShape) {
           self._setShapeStatus(selectedShape, false);
         }
@@ -144,10 +125,24 @@ const SelectMixin = {
     const shapeContainer = self.get('shapeContainer');
     if (shapeContainer && !shapeContainer.get('destroyed')) {
       const selectedShapes = self._getSelectedShapes();
-      Util.each(selectedShapes, function(shape) {
+      Util.each(selectedShapes, shape => {
         self._setShapeStatus(shape, false);
+        shape.set('_originAttrs', null);
       });
     }
+  },
+  _getSelectedShapes() {
+    const self = this;
+    const shapes = self.getShapes();
+    const selectedShapes = [];
+
+    Util.each(shapes, shape => {
+      if (shape.get('selected')) {
+        selectedShapes.push(shape);
+      }
+    });
+    self.set('selectedShapes', selectedShapes);
+    return selectedShapes;
   }
 };
 

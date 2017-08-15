@@ -1,6 +1,15 @@
 const Util = require('../../util');
 const FIELD_ORIGIN = '_origin';
 
+function isSameShape(shape1, shape2) {
+  if (Util.isNil(shape1) || Util.isNil(shape2)) {
+    return false;
+  }
+  const shape1Origin = shape1.get('origin');
+  const shape2Origin = shape2.get('origin');
+  return Util.isEqual(shape1Origin, shape2Origin);
+}
+
 function isChange(preShapes, shapes) {
   if (!preShapes) {
     return true;
@@ -12,7 +21,7 @@ function isChange(preShapes, shapes) {
 
   let rst = false;
   Util.each(shapes, (shape, index) => {
-    if (!Util.isEqual(shape, preShapes[index])) {
+    if (!isSameShape(shape, preShapes[index])) {
       rst = true;
       return false;
     }
@@ -23,21 +32,17 @@ function isChange(preShapes, shapes) {
 
 const ActiveMixin = {
   _isAllowActive() {
-    const allowActiveShape = this.get('allowActiveShape');
-    if (allowActiveShape) { // 用户手动设置表示需要 active
-      return true;
-    }
-
-    if (allowActiveShape === false) {
-      return false; // 用户手动设置关闭默认 active
-    }
-
-    const view = this.get('view');
-    const isShareTooltip = this.isShareTooltip();
-    const options = view.get('options');
-    // 默认情况下，tooltip 关闭或者 tooltip 模式为 split 的时候允许 active
-    if (options.tooltip === false || !isShareTooltip) {
-      return true;
+    const allowActive = this.get('allowActive');
+    if (Util.isNil(allowActive)) { // 用户未设置，使用默认的策略
+      const view = this.get('view');
+      const isShareTooltip = this.isShareTooltip();
+      const options = view.get('options');
+      // 默认情况下，tooltip 关闭或者 tooltip 模式为 split 的时候允许 active
+      if (options.tooltip === false || !isShareTooltip) {
+        return true;
+      }
+    } else {
+      return allowActive;
     }
 
     return false;
