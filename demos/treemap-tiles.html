@@ -80,7 +80,6 @@
         field: 'size',
         type: 'hierarchy.treemap',
         tile: '$state.treemapTile',
-        padding: 16,
         as: [ 'x', 'y' ]
       });
 
@@ -116,6 +115,7 @@
     }
 
     ds.on('statechange', rerender);
+
     $tile.on('change', () => {
       ds.setState('treemapTile', $tile.val());
     });
