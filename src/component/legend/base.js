@@ -42,12 +42,14 @@ class Base extends Group {
   _renderTitle() {
     const title = this.get('title');
     if (title && title.text) {
-      this.set('titleShape', this.addShape('text', {
+      const titleShape = this.addShape('text', {
         attrs: Util.mix({
           x: 0,
           y: 0
         }, title)
-      }));
+      });
+      titleShape.name = 'legend-title';
+      this.set('titleShape', titleShape);
     }
   }
 

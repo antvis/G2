@@ -206,7 +206,7 @@ class Category extends Base {
 
   _getLegendItem(target) {
     const item = target.get('parent');
-    if (item && (item.name === 'legend-item')) {
+    if (item && (item.name === 'legendGroup')) {
       return item;
     }
     return null;
@@ -590,8 +590,8 @@ class Category extends Base {
       }
     });
     wrapperShape.set('cursor', 'pointer');
-
-    itemGroup.name = 'legend-item';
+    wrapperShape.name = 'legend-item';
+    itemGroup.name = 'legendGroup';
     return itemGroup;
   }
 

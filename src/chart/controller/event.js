@@ -33,7 +33,7 @@ class EventController {
 
   _getShape(x, y) {
     const view = this.view;
-    const container = view.get('viewContainer');
+    const container = view.get('canvas');
     return container.getShape(x, y);
   }
 
@@ -68,11 +68,20 @@ class EventController {
     canvas.on('dblclick', Util.wrapBehavior(this, 'onClick'));
   }
 
+  _triggerShapeEvent(shape, eventName, eventObj) {
+    if (shape && shape.name) {
+      const view = this.view;
+      const name = shape.name + ':' + eventName;
+      view.emit(name, eventObj);
+    }
+  }
+
   onDown(ev) {
     const view = this.view;
     const eventObj = this._getShapeEventObj(ev);
     eventObj.shape = this.currentShape;
     view.emit('mousedown', eventObj);
+    this._triggerShapeEvent(this.currentShape, 'mousedown', eventObj);
   }
 
   onMove(ev) {
@@ -83,6 +92,7 @@ class EventController {
     let eventObj = self._getShapeEventObj(ev);
     eventObj.shape = shape;
     view.emit('mousemove', eventObj);
+    self._triggerShapeEvent(shape, 'mousemove', eventObj);
 
     // 移动时判定是否还在原先的图形中
     if (!isSameShape(currentShape, shape)) {
@@ -90,13 +100,13 @@ class EventController {
         const leaveObj = self._getShapeEventObj(ev);
         leaveObj.shape = currentShape;
         leaveObj.toShape = shape;
-        view.emit(currentShape.name + ':mouseleave', leaveObj);
+        self._triggerShapeEvent(currentShape, 'mouseleave', leaveObj);
       }
       if (shape) {
         const enterObj = self._getShapeEventObj(ev);
         enterObj.shape = shape;
         enterObj.fromShape = currentShape;
-        view.emit(shape.name + ':mouseenter', enterObj);
+        self._triggerShapeEvent(shape, 'mouseenter', enterObj);
       }
       self.currentShape = shape;
     }
@@ -132,14 +142,18 @@ class EventController {
     const eventObj = this._getShapeEventObj(ev);
     eventObj.shape = this.currentShape;
     view.emit('mouseup', eventObj);
+    this._triggerShapeEvent(this.currentShape, 'mouseup', eventObj);
   }
 
   onClick(ev) {
     const self = this;
     const view = self.view;
+    const shape = self._getShape(ev.x, ev.y);
     const shapeEventObj = this._getShapeEventObj(ev);
-    shapeEventObj.shape = this.currentShape;
+    shapeEventObj.shape = shape;
     view.emit('click', shapeEventObj);
+    self._triggerShapeEvent(shape, ev.type, shapeEventObj);
+    this.currentShape = shape;
 
     const point = self._getPointInfo(ev);
     const views = point.views;
