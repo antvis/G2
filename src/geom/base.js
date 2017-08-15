@@ -142,7 +142,6 @@ class GeomBase extends Base {
       sortable: false,
 
       labelCfg: null,
-
       /**
        * 是否共享 tooltip
        * @type {Boolean}
@@ -327,6 +326,16 @@ class GeomBase extends Base {
 
   animate(cfg) {
     this.set('animateCfg', cfg);
+    return this;
+  }
+
+  /**
+   * 是否允许使用默认的图形激活交互
+   * @param  {Boolean} bool 是否允许激活开关
+   * @return {Geom}    返回 geom 自身
+   */
+  active(bool) {
+    this.set('allowActiveShape', bool);
     return this;
   }
 
