@@ -35,11 +35,11 @@ class Path extends GeomBase {
       cfg.splitedIndex = splitedIndex; // 传入分割片段索引 用于生成id
       cfg.points = subData;
       const geomShape = shapeFactory.drawShape(cfg.shape, cfg, container);
-      geomShape.set('index', index + splitedIndex);
-      geomShape.set('coord', self.get('coord'));
+      geomShape.setSilent('index', index + splitedIndex);
+      geomShape.setSilent('coord', self.get('coord'));
 
       if (self.get('animate') && self.get('animateCfg')) {
-        geomShape.set('animateCfg', self.get('animateCfg'));
+        geomShape.setSilent('animateCfg', self.get('animateCfg'));
       }
     });
   }
