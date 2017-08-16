@@ -11,5 +11,6 @@ module.exports = {
   Chart,
   Shape,
   Global,
-  Animate
+  Animate,
+  version: '3.0.0-rc2'
 };
