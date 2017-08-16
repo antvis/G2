@@ -26,6 +26,7 @@
   <script src="./assets/data-set.min.js"></script>
   <script src="../build/g2.js"></script>
   <script>
+    // const t0 = Date.now();
     $.getJSON('./data/baby-names.json', data => {
       const ds = new DataSet();
       const dv = ds.createView('demo').source(data)
@@ -50,7 +51,6 @@
         });
 
       const chart = new G2.Chart({
-        animate: false,
         container: 'canvas',
         forceFit: true,
         height: window.innerHeight,
@@ -108,6 +108,7 @@
         .shape('smooth')
         .opacity(1);
       chart.render();
+      // console.log(Date.now() - t0);
     });
   </script>
 </body>

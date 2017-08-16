@@ -22,8 +22,7 @@
       { action: 'Invoice sent', value: 976 },
       { action: 'Finalized', value: 484 }
     ];
-const chart = new G2.Chart({
-      animate: false,
+    const chart = new G2.Chart({
       container: 'canvas',
       forceFit: true,
       height: window.innerHeight
@@ -35,9 +34,9 @@ const chart = new G2.Chart({
       position: 'bottom'
     });
     chart.interval()
-        .position('action*value', 'symmetric')
-        .color('action', [ '#C82B3D', '#EB4456', '#F9815C', '#F8AB60', '#EDCC72' ])
-        .shape('funnel');
+      .position('action*value', 'symmetric')
+      .color('action', [ '#C82B3D', '#EB4456', '#F9815C', '#F8AB60', '#EDCC72' ])
+      .shape('funnel');
     chart.render();
   </script>
 </body>

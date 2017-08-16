@@ -38,14 +38,13 @@
         });
 
       const chart = new G2.Chart({
-        animate: false,
         container: 'canvas',
         forceFit: true,
         height: window.innerHeight
       });
       chart.source(dv);
       chart.tooltip({
-        title: null
+        showTitle: false
       });
       chart.polygon().position('x*y')
         .color('count', [ 'rgb(200, 200, 255)', 'rgb(0, 0, 255)' ])
