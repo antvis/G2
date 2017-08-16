@@ -1,21 +1,20 @@
 #!/usr/bin/env node
-const PQueue = require('p-queue');
+const MAX_POOL_SIZE = require('os').cpus().length;
+const Nightmare = require('nightmare');
 const commander = require('commander');
 const connect = require('connect');
 const getPort = require('get-port');
 const glob = require('glob');
 const http = require('http');
-const screenshot = require('electron-screenshot-service');
 const serveStatic = require('serve-static');
 const {
-  writeFileSync
-} = require('fs');
+  queue
+} = require('d3-queue');
 const {
   each
 } = require('lodash');
 const {
   // basename,
-  dirname,
   resolve
 } = require('path');
 const {
@@ -44,16 +43,15 @@ getPort().then(port => {
   server.use(serveStatic(process.cwd()));
   http.createServer(server).listen(port);
 
-  const delay = 50;
-  const queue = new PQueue({
-    concurrency: 1
-  });
+  const DELAY = 5000;
+  const q = queue(MAX_POOL_SIZE);
 
   glob('./**/*.html', {
     cwd: demosRoot,
     root: demosRoot
   }, (err, files) => {
     if (err) throw err;
+    console.log('start capturing...');
     each(files, file => {
       const fileBasename = file
         .replace(/\.html$/, '')
@@ -61,22 +59,36 @@ getPort().then(port => {
         .replace(/\//, '');
       if (fileBasename !== 'index' && !/^assets/.test(fileBasename)) {
         const outputFilename = resolve(screenshotsPath, `./${fileBasename}.png`);
-        queue.add(() => screenshot({
-          delay,
-          url: `http://127.0.0.1:${port}/demos/${file}`,
-          width,
-          height
-        }).then(img => {
-          mkdir('-p', dirname(outputFilename));
-          writeFileSync(outputFilename, img.data);
-          console.log(`screenshot written: ${outputFilename}`);
-        }));
+        q.defer(callback => {
+          // const t0 = Date.now();
+          const nightmare = Nightmare({
+            show: false
+          });
+          nightmare
+            .viewport(width, height)
+            .goto(`http://127.0.0.1:${port}/demos/${file}`)
+            .wait('#canvas canvas')
+            .wait(DELAY)
+            .screenshot(outputFilename, () => {
+              console.log(`sreenshot token: ${outputFilename}`);
+              // console.log(`${fileBasename} toke ${Date.now() - t0} to take a screenshot.`);
+              callback(null);
+            })
+            .end()
+            .catch(e => {
+              callback(e);
+            });
+        });
       }
     });
-    queue.onEmpty().then(() => {
-      console.log('screenshots are all token!');
-      screenshot.close();
-      process.exit();
+    q.awaitAll(error => {
+      if (error) {
+        console.error(error);
+        process.exit(1);
+      } else {
+        console.log('screenshots are all captured!');
+        process.exit();
+      }
     });
   });
 });
