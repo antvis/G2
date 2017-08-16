@@ -838,8 +838,7 @@ class GeomBase extends Base {
     const self = this;
     for (let i = 0; i < data.length; i++) {
       const obj = data[i];
-      index = index + i;
-      self.drawPoint(obj, container, shapeFactory, index);
+      self.drawPoint(obj, container, shapeFactory, index + i);
     }
   }
 
