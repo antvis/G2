@@ -2,8 +2,8 @@
   "name": "@alipay/g2",
   "version": "3.0.0-rc2",
   "description": "the Grammar of Graphics in Javascript",
-  "main": "dist/g2.js",
-  "browser": "dist/g2.js",
+  "main": "build/g2.js",
+  "browser": "build/g2.js",
   "module": "index.js",
   "repository": {
     "type": "git",
