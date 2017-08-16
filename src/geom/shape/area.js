@@ -156,7 +156,7 @@ const Area = Shape.registerFactory('area', {
     if (gShape) {
       gShape.set('origin', cfg.origin);
       gShape._id = cfg.splitedIndex ? cfg._id + cfg.splitedIndex : cfg._id;
-      gShape.name = Util.lowerFirst(this.className);
+      gShape.name = this.name;
     }
     return gShape;
   },

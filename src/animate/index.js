@@ -109,7 +109,7 @@ function addAnimate(cache, shapes, canvas, isUpdate) {
         } else {
           const endState = Util.cloneDeep(updateShape.__attrs);
           updateShape.__attrs = cacheAttrs;
-          updateShape.animate(endState, animateCfg.duration, animateCfg.easing, function() {
+          updateShape.animate(endState, animateCfg.duration, 0, animateCfg.easing, function() {
             updateShape.set('cacheShape', null);
           });
         }

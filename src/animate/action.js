@@ -106,11 +106,10 @@ function getAngle(shape, coord) {
   };
 }
 
-function getAnimateParam(animateCfg, index, id, endState) {
+function getAnimateParam(animateCfg, index, id) {
   const result = {};
-  // TODO: support delay
   if (animateCfg.delay) {
-    endState.delay = Util.isFunction(animateCfg.delay) ? animateCfg.delay(index, id) : animateCfg.delay;
+    result.delay = Util.isFunction(animateCfg.delay) ? animateCfg.delay(index, id) : animateCfg.delay;
   }
   result.easing = Util.isFunction(animateCfg.easing) ? animateCfg.easing(index, id) : animateCfg.easing;
   result.duration = Util.isFunction(animateCfg.duration) ? animateCfg.duration(index, id) : animateCfg.duration;
@@ -144,8 +143,8 @@ function scaleInY(shape, animateCfg) {
       [ 't', x, y ]
     ]
   };
-  const aniamteParam = getAnimateParam(animateCfg, index, id, endState);
-  shape.animate(endState, aniamteParam.duration, aniamteParam.easing);
+  const animateParam = getAnimateParam(animateCfg, index, id, endState);
+  shape.animate(endState, animateParam.duration, animateParam.delay, animateParam.easing);
 }
 
 function scaleInX(shape, animateCfg) {
@@ -177,8 +176,8 @@ function scaleInX(shape, animateCfg) {
       [ 't', x, y ]
     ]
   };
-  const aniamteParam = getAnimateParam(animateCfg, index, id, endState);
-  shape.animate(endState, aniamteParam.duration, aniamteParam.easing);
+  const animateParam = getAnimateParam(animateCfg, index, id, endState);
+  shape.animate(endState, animateParam.duration, animateParam.delay, animateParam.easing);
 }
 
 function lineWidthOut(shape, animateCfg) {
@@ -188,8 +187,8 @@ function lineWidthOut(shape, animateCfg) {
   };
   const id = shape._id;
   const index = shape.get('index');
-  const aniamteParam = getAnimateParam(animateCfg, index, id, endState);
-  shape.animate(endState, aniamteParam.duration, aniamteParam.easing, function() {
+  const animateParam = getAnimateParam(animateCfg, index, id, endState);
+  shape.animate(endState, animateParam.duration, animateParam.delay, animateParam.easing, function() {
     shape.destroy();
   });
 }
@@ -223,8 +222,8 @@ function zoomIn(shape, animateCfg, coord) {
       [ 't', x, y ]
     ]
   };
-  const aniamteParam = getAnimateParam(animateCfg, index, id, endState);
-  shape.animate(endState, aniamteParam.duration, aniamteParam.easing);
+  const animateParam = getAnimateParam(animateCfg, index, id, endState);
+  shape.animate(endState, animateParam.duration, animateParam.delay, animateParam.easing);
 }
 
 function zoomOut(shape, animateCfg, coord) {
@@ -249,8 +248,8 @@ function zoomOut(shape, animateCfg, coord) {
       [ 't', x, y ]
     ]
   };
-  const aniamteParam = getAnimateParam(animateCfg, index, id, endState);
-  shape.animate(endState, aniamteParam.duration, aniamteParam.easing, function() {
+  const animateParam = getAnimateParam(animateCfg, index, id, endState);
+  shape.animate(endState, animateParam.duration, animateParam.delay, animateParam.easing, function() {
     shape.destroy();
   });
 }
@@ -264,8 +263,8 @@ function pathIn(shape, animateCfg) {
   const endState = {
     path
   };
-  const aniamteParam = getAnimateParam(animateCfg, index, id, endState);
-  shape.animate(endState, aniamteParam.duration, aniamteParam.easing);
+  const animateParam = getAnimateParam(animateCfg, index, id, endState);
+  shape.animate(endState, animateParam.duration, animateParam.delay, animateParam.easing);
 }
 
 function pathOut(shape, animateCfg) {
@@ -276,8 +275,8 @@ function pathOut(shape, animateCfg) {
   const endState = {
     path: [ path[0] ]
   };
-  const aniamteParam = getAnimateParam(animateCfg, index, id, endState);
-  shape.animate(endState, aniamteParam.duration, aniamteParam.easing, function() {
+  const animateParam = getAnimateParam(animateCfg, index, id, endState);
+  shape.animate(endState, animateParam.duration, animateParam.delay, animateParam.easing, function() {
     shape.destroy();
   });
 }
@@ -299,8 +298,8 @@ function clipIn(shape, animateCfg, coord, startAngle, endAngle) {
   }
   clip.set('canvas', canvas);
   shape.attr('clip', clip);
-  const aniamteParam = getAnimateParam(animateCfg, index, id, endState);
-  clip.animate(endState, aniamteParam.duration, aniamteParam.easing,
+  const animateParam = getAnimateParam(animateCfg, index, id, endState);
+  clip.animate(endState, animateParam.duration, animateParam.delay, animateParam.easing,
     function() {
       shape && !shape.get('destroyed') && shape.attr('clip', null) && clip.destroy();
     });
@@ -317,8 +316,8 @@ function fadeIn(shape, animateCfg) {
     fillOpacity,
     strokeOpacity
   };
-  const aniamteParam = getAnimateParam(animateCfg, index, id, endState);
-  shape.animate(endState, aniamteParam.duration, aniamteParam.easing);
+  const animateParam = getAnimateParam(animateCfg, index, id, endState);
+  shape.animate(endState, animateParam.duration, animateParam.delay, animateParam.easing);
 }
 
 function fadeOut(shape, animateCfg) {
@@ -328,8 +327,8 @@ function fadeOut(shape, animateCfg) {
     fillOpacity: 0,
     strokeOpacity: 0
   };
-  const aniamteParam = getAnimateParam(animateCfg, index, id, endState);
-  shape.animate(endState, aniamteParam.duration, aniamteParam.easing, function() {
+  const animateParam = getAnimateParam(animateCfg, index, id, endState);
+  shape.animate(endState, animateParam.duration, animateParam.delay, animateParam.easing, function() {
     shape.destroy();
   });
 }

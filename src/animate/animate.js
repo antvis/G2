@@ -14,8 +14,9 @@ const defaultAnimationCfg = {
     easing: 'easeQuadInOut'
   }, // 更新时发生变更的动画配置
   enter: {
-    duration: 620,
-    easing: 'easeQuadInOut'
+    duration: 600,
+    easing: 'easeQuadInOut',
+    delay: 100
   }, // 更新时新增元素的入场动画配置
   leave: {
     duration: 300,
@@ -63,13 +64,12 @@ const Animate = {
       },
       update: {
         duration: 600,
-        delay: 300,
         easing: 'easeQuadInOut'
       },
       enter: {
         duration: 640,
-        delay: 500,
-        easing: 'easeQuadIn'
+        delay: 150,
+        easing: 'easeQuadInOut'
       },
       leave: {
         easing: 'easeQuadOut',
