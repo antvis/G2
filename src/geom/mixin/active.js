@@ -1,6 +1,15 @@
 const Util = require('../../util');
 const FIELD_ORIGIN = '_origin';
 
+function isSameShape(shape1, shape2) {
+  if (Util.isNil(shape1) || Util.isNil(shape2)) {
+    return false;
+  }
+  const shape1Origin = shape1.get('origin');
+  const shape2Origin = shape2.get('origin');
+  return Util.isEqual(shape1Origin, shape2Origin);
+}
+
 function isChange(preShapes, shapes) {
   if (!preShapes) {
     return true;
@@ -12,7 +21,7 @@ function isChange(preShapes, shapes) {
 
   let rst = false;
   Util.each(shapes, (shape, index) => {
-    if (!Util.isEqual(shape, preShapes[index])) {
+    if (!isSameShape(shape, preShapes[index])) {
       rst = true;
       return false;
     }
@@ -22,40 +31,52 @@ function isChange(preShapes, shapes) {
 
 
 const ActiveMixin = {
-  _onPlotmove(ev) {
+  _isAllowActive() {
+    const allowActive = this.get('allowActive');
+    if (Util.isNil(allowActive)) { // 用户未设置，使用默认的策略
+      const view = this.get('view');
+      const isShareTooltip = this.isShareTooltip();
+      const options = view.get('options');
+      // 默认情况下，tooltip 关闭或者 tooltip 模式为 split 的时候允许 active
+      if (options.tooltip === false || !isShareTooltip) {
+        return true;
+      }
+    } else {
+      return allowActive;
+    }
+
+    return false;
+  },
+  _onMouseenter(ev) {
+    const self = this;
+    const shape = ev.shape;
+    const shapeContainer = self.get('shapeContainer');
+    if (shape && shapeContainer.contain(shape) && self._isAllowActive()) {
+      self.setShapesActived(shape);
+    }
+  },
+  _onMouseleave() {
     const self = this;
     const view = self.get('view');
     const canvas = view.get('canvas');
-    const type = Util.lowerFirst(self.get('type'));
-    const point = {
-      x: ev.x,
-      y: ev.y
-    };
-    let shapes;
-    if (Util.inArray([ 'line', 'path' ], type) || !self.isShareTooltip()) {
-      shapes = self.getSingleShapeByPoint(point);
-    } else if (type !== 'area') {
-      shapes = self.getGroupShapesByPoint(point);
-    }
-
-    if (shapes) {
-      self.setShapesActived(shapes);
-    } else {
-      if (self.get('activeShapes')) {
-        self.clearActivedShapes();
-        canvas.draw();
-      }
+    if (self.get('activeShapes')) {
+      self.clearActivedShapes();
+      canvas.draw();
     }
   },
   _bindActiveAction() {
     const self = this;
     const view = self.get('view');
-    view.on('plotmove', Util.wrapBehavior(self, '_onPlotmove'));
+    const type = self.get('type');
+    view.on(type + ':mouseenter', Util.wrapBehavior(self, '_onMouseenter'));
+    view.on(type + ':mouseleave', Util.wrapBehavior(self, '_onMouseleave'));
   },
   _offActiveAction() {
     const self = this;
     const view = self.get('view');
-    view.off('plotmove', Util.getWrapBehavior(self, '_onPlotmove'));
+    const type = self.get('type');
+    view.off(type + ':mouseenter', Util.getWrapBehavior(self, '_onMouseenter'));
+    view.off(type + ':mouseleave', Util.getWrapBehavior(self, '_onMouseleave'));
   },
   _setActiveShape(shape) {
     const self = this;
@@ -74,7 +95,6 @@ const ActiveMixin = {
   },
   setShapesActived(shapes) {
     const self = this;
-    const type = self.get('type');
     if (!Util.isArray(shapes)) {
       shapes = [ shapes ];
     }
@@ -97,11 +117,7 @@ const ActiveMixin = {
         self._setActiveShape(shape);
       }
     });
-    // 抛出事件
-    view.emit(type + ':active', {
-      geom: self,
-      shapes
-    });
+
     self.set('activeShapes', shapes);
     self.set('preShapes', shapes);
     shapeContainer.sort();
@@ -178,7 +194,6 @@ const ActiveMixin = {
     if (result && result.get('origin')) {
       return result;
     }
-
   },
   highlightShapes(highlightShapes, highlightCfg) {
     const self = this;

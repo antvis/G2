@@ -124,6 +124,24 @@ describe('test geoms', function() {
       expect(attrOptions.size.callback).to.be.a('function');
       expect(attrOptions.opacity.field).equal(0.8);
     });
+    it('geom.active', function() {
+      expect(geom.get('allowActive')).to.be.undefined;
+      geom.active(true);
+      expect(geom.get('allowActive')).equal(true);
+      geom.active(false);
+      expect(geom.get('allowActive')).equal(false);
+    });
+    it('geom.select', function() {
+      expect(geom.get('allowSelect')).to.be.undefined;
+      geom.select(true);
+      expect(geom.get('allowSelect')).equal(true);
+      geom.select(false);
+      expect(geom.get('allowSelect')).equal(false);
+      geom.select({
+        mode: 'single'
+      });
+      expect(geom.get('allowSelect')).equal(true);
+    });
   });
 
   describe('test init data', function() {

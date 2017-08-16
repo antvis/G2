@@ -103,7 +103,8 @@ class TooltipController {
               stroke: '#666',
               lineWidth: 1
             }
-          }
+          },
+          isTransposed: geoms[0].get('coord').isTransposed
         });
       }
     }
