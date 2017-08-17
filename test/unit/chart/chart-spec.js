@@ -540,6 +540,16 @@ describe('chart sync scales', function() {
     expect(v1.get('scales').b.max).equal(10);
   });
 
+  it('toDataURL', function() {
+    const str = chart.toDataURL();
+    expect(str.length).not.equal(0);
+  });
+
+  xit('download', function() {
+    const str = chart.downloadImage('xx');
+    expect(str.length).not.equal(0);
+  });
+
   it('destroy', function() {
     chart.destroy();
     expect(chart.destroyed).equal(true);

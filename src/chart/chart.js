@@ -375,6 +375,31 @@ class Chart extends View {
   }
 
   /**
+   * 返回图表的 dataUrl 用于生成图片
+   * @return {String} dataUrl 路径
+   */
+  toDataURL() {
+    const canvas = this.get('canvas');
+    const canvasDom = canvas.get('el');
+    const dataURL = canvasDom.toDataURL('image/png');
+    return dataURL;
+  }
+
+  /**
+   * 图表导出功能
+   * @param  {String} [name] 图片的名称，默认为 chart.png
+   * @return {String} 返回生成图片的 dataUrl 路径
+   */
+  downloadImage(name) {
+    const dataURL = this.toDataURL();
+    const link = document.createElement('a');
+    link.download = (name || 'chart') + '.png';
+    link.href = dataURL.replace('image/png', 'image/octet-stream');
+    link.click();
+    return dataURL;
+  }
+
+  /**
    * @override
    * 销毁图表
    */
