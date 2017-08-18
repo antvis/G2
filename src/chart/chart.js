@@ -75,6 +75,12 @@ class Chart extends View {
   // 初始化画布
   _initCanvas() {
     let container = this.get('container');
+    const id = this.get('id');
+    // 如果未设置 container 使用 ID, 兼容 2.x 版本
+    if (!container && id) {
+      container = id;
+      this.set('container', id);
+    }
     let width = this.get('width');
     const height = this.get('height');
     if (Util.isString(container)) {
