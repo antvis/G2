@@ -2,6 +2,12 @@
 
 ---
 
+
+## 2.3.9
+
+* fix: 回滚off 仅带有 eventType 不带有callback 清理所有同名事件
+* fix: 修复饼图文本在临界值（正下方）offset < 0 时的对齐问题
+
 ## 2.3.8
 
 - fix: 2.3.7 导致tooltip 默认的 title 不可见
