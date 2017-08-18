@@ -14,9 +14,12 @@
   <div id="canvas"></div>
   <script src="./assets/jquery-3.2.1.min.js"></script>
   <script src="./assets/data-set.min.js"></script>
+  <script src="https://gw.alipayobjects.com/as/g/datavis/g2/2.3.8/index.js"></script>
   <script src="../build/g2.js"></script>
+
   <script>
     $.getJSON('./data/top2000.json', data => {
+      const G2 = window.G2_3 || window.G2;
       const ds = new DataSet();
       const dv = ds.createView('test')
         .source(data)
