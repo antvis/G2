@@ -211,8 +211,8 @@ class Continuous extends Base {
     });
     const layout = this.get('layout');
     const trigerCursor = layout === 'vertical' ? 'ns-resize' : 'ew-resize';
-    button.set('cursor', trigerCursor);
-    text.set('cursor', trigerCursor);
+    button.attr('cursor', trigerCursor);
+    text.attr('cursor', trigerCursor);
     this.set(type + 'ButtonElement', button);
     this.set(type + 'TextElement', text);
   }
@@ -240,8 +240,8 @@ class Continuous extends Base {
     });
     const layout = this.get('layout');
     const trigerCursor = layout === 'vertical' ? 'ns-resize' : 'ew-resize';
-    button.set('cursor', trigerCursor);
-    text.set('cursor', trigerCursor);
+    button.attr('cursor', trigerCursor);
+    text.attr('cursor', trigerCursor);
     this.set(type + 'ButtonElement', button);
     this.set(type + 'TextElement', text);
   }

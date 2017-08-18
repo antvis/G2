@@ -83,9 +83,9 @@ class Slider extends Group {
     middleHandleElement.set('zIndex', 1);
     minHandleElement.set('zIndex', 2);
     maxHandleElement.set('zIndex', 2);
-    middleHandleElement.set('cursor', 'move');
-    minHandleElement.set('cursor', trigerCursor);
-    maxHandleElement.set('cursor', trigerCursor);
+    middleHandleElement.attr('cursor', 'move');
+    minHandleElement.attr('cursor', trigerCursor);
+    maxHandleElement.attr('cursor', trigerCursor);
     this.sort();
   }
 
