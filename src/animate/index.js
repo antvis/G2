@@ -109,7 +109,7 @@ function addAnimate(cache, shapes, canvas, isUpdate) {
         } else {
           const endState = Util.cloneDeep(updateShape.__attrs);
           updateShape.__attrs = cacheAttrs;
-          updateShape.animate(endState, animateCfg.duration, 0, animateCfg.easing, function() {
+          updateShape.animate(endState, animateCfg.duration, animateCfg.easing, function() {
             updateShape.set('cacheShape', null);
           });
         }
@@ -152,7 +152,5 @@ module.exports = {
     } else {
       addAnimate(caches, shapes, canvas, isUpdate);
     }
-    // 无论是否执行动画，都调用一次 draw()
-    canvas.draw();
   }
 };

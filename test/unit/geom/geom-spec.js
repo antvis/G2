@@ -280,12 +280,14 @@ describe('test geoms', function() {
     it('test style no fields', function() {
       geom.reset();
       geom.position('a*b').color('c').style({
-        fill: 'blue'
+        fill: 'blue',
+        cursor: 'pointer'
       });
       geom.init();
       geom.paint();
       const shape = geom.get('shapeContainer').getFirst();
       expect(shape.attr('fill')).equal('blue');
+      expect(shape.attr('cursor')).equal('pointer');
       canvas.draw();
     });
     it('test style with fields', function() {

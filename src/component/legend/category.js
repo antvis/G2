@@ -555,7 +555,7 @@ class Category extends Base {
         type: 'marker',
         attrs: markerAttrs
       });
-      markerShape.set('cursor', 'pointer');
+      markerShape.attr('cursor', 'pointer');
       markerShape.name = 'legend-marker';
       startX += markerShape.getBBox().width + wordSpace;
     }
@@ -574,7 +574,7 @@ class Category extends Base {
     const textShape = itemGroup.addShape('text', {
       attrs: textAttrs
     });
-    textShape.set('cursor', 'pointer');
+    textShape.attr('cursor', 'pointer');
     textShape.name = 'legend-text';
     // 添加一个包围矩形，用于事件支持
     const bbox = itemGroup.getBBox();
@@ -589,7 +589,7 @@ class Category extends Base {
         height: bbox.height
       }
     });
-    wrapperShape.set('cursor', 'pointer');
+    wrapperShape.attr('cursor', 'pointer');
     wrapperShape.name = 'legend-item';
     itemGroup.name = 'legendGroup';
     return itemGroup;
