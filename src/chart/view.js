@@ -773,9 +773,11 @@ class View extends Base {
       const canvas = this.get('canvas');
 
       if (animate) {
-        const middlePlot = this.get('middlePlot');
         const isUpdate = this.get('isUpdate');
-        Animate.execAnimation(canvas, middlePlot, backPlot, isUpdate);
+        Util.each(views, function(view) {
+          Animate.execAnimation(view, isUpdate);
+        });
+        Animate.execAnimation(this, isUpdate);
       } else {
         canvas.draw();
       }

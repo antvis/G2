@@ -60,7 +60,7 @@
     "lint-fix": "eslint --ext .html,.js --fix ./",
     "prepare-demos": "./bin/prepare-demos-homepage && ./bin/prepare-demos-screenshots && npm run lint-fix",
     "test": "torch --compile --renderer --recursive ./test/unit",
-    "test-live": "torch --compile --interactive --watch --recursive ./test/unit"
+    "test-live": "torch --compile --interactive --watch --recursive ./test/unit/animate/index-spec.js"
   },
   "pre-commit": {
     "run": [
