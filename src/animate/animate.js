@@ -10,16 +10,16 @@ const defaultAnimationCfg = {
     easing: 'easeQuadOut'
   }, // 初始入场动画配置
   update: {
-    duration: 600,
+    duration: 450,
     easing: 'easeQuadInOut'
   }, // 更新时发生变更的动画配置
   enter: {
-    duration: 600,
+    duration: 400,
     easing: 'easeQuadInOut',
     delay: 100
   }, // 更新时新增元素的入场动画配置
   leave: {
-    duration: 300,
+    duration: 350,
     easing: 'easeQuadIn'
   } // 更新时销毁动画配置
 };
@@ -59,15 +59,15 @@ const Animate = {
     },
     cfg: {
       appear: {
-        duration: 600,
+        duration: 500,
         easing: 'easeQuadInOut'
       },
       update: {
-        duration: 600,
+        duration: 450,
         easing: 'easeQuadInOut'
       },
       enter: {
-        duration: 640,
+        duration: 600,
         delay: 150,
         easing: 'easeQuadInOut'
       },
