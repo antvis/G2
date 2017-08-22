@@ -734,9 +734,9 @@ class View extends Base {
   }
 
   _initData(data) {
-    const preData = this.get('data');
-    if (preData && preData.isDataView) {
-      preData.off('change', Util.getWrapBehavior(this, '_onViewChange'));
+    const dataView = this.get('dataView');
+    if (dataView) {
+      dataView.off('change', Util.getWrapBehavior(this, '_onViewChange'));
       this.set('dataView', null);
     }
     if (data && data.isDataView) {
