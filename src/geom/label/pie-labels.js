@@ -257,7 +257,7 @@ class PieLabels extends PolarLabels {
     const coord = self.get('coord');
     const center = coord.getCenter();
     let align;
-    if (point.angle <= Math.PI / 2 && point.x > center.x) {
+    if (point.angle <= Math.PI / 2 && point.x >= center.x) {
       align = 'left';
     } else {
       align = 'right';
