@@ -1,6 +1,7 @@
 const expect = require('chai').expect;
 const Animate = require('../../../src/animate/index');
 const Coord = require('../../../src/coord/index');
+const View = require('../../../src/chart/view');
 const { Canvas } = require('@ali/g');
 
 const div = document.createElement('div');
@@ -29,7 +30,7 @@ function addElements(count, container, backContainer) {
       }
     });
 
-    shape._id = 'circle' + i;
+    shape._id = 'view1-circle' + i;
     shape.name = 'point';
     shape.set('coord', coord);
   }
@@ -44,7 +45,7 @@ function addElements(count, container, backContainer) {
         fill: 'red'
       }
     });
-    shape._id = 'path' + j;
+    shape._id = 'view1-path' + j;
     shape.name = 'axis-label';
     shape.set('coord', coord);
   }
@@ -58,18 +59,27 @@ describe('Aniamte', function() {
   });
   let container = canvas.addGroup();
   let backContainer = canvas.addGroup();
+  const view = new View({
+    middlePlot: container,
+    canvas,
+    backPlot: backContainer,
+    _id: 'view1'
+  });
+
   it('count', function() {
     addElements(10, container, backContainer);
     expect(canvas.get('children').length).eql(2);
-    Animate.execAnimation(canvas, container, backContainer);
-    expect(Object.keys(canvas.get('caches')).length).eql(20);
+    Animate.execAnimation(view);
+    expect(Object.keys(view.get('caches')).length).eql(20);
     canvas.clear();
     expect(canvas.get('children').length).eql(0);
     container = canvas.addGroup();
     backContainer = canvas.addGroup();
     addElements(5, container, backContainer);
+    view.set('middlePlot', container);
+    view.set('backPlot', backContainer);
     expect(canvas.get('children').length).eql(2);
-    Animate.execAnimation(canvas, container, backContainer, true);
-    expect(Object.keys(canvas.get('caches')).length).eql(10);
+    Animate.execAnimation(view, true);
+    expect(Object.keys(view.get('caches')).length).eql(10);
   });
 });

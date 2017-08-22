@@ -290,7 +290,7 @@ class Category extends Base {
         clickedItem.set('checked', !checked);
       }
 
-      this.get('canvas').draw();
+      // this.get('canvas').draw();
       this.emit('itemclick', itemclick);
     }
     return;

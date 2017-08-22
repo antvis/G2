@@ -4,7 +4,7 @@ const { MatrixUtil } = require('@ali/g');
 const { mat3 } = MatrixUtil;
 
 // 获取图组内所有的shapes
-function getShapes(container) {
+function getShapes(container, viewId) {
   let shapes = [];
   if (container.get('animate') === false) {
     return [];
@@ -12,9 +12,13 @@ function getShapes(container) {
   const children = container.get('children');
   Util.each(children, child => {
     if (child.isGroup) {
-      shapes = shapes.concat(getShapes(child));
+      shapes = shapes.concat(getShapes(child, viewId));
     } else if (child.isShape && child._id) {
-      shapes.push(child);
+      let id = child._id;
+      id = id.split('-')[0];
+      if (id === viewId) {
+        shapes.push(child);
+      }
     }
   });
 
@@ -141,12 +145,16 @@ function addAnimate(cache, shapes, canvas, isUpdate) {
 
 
 module.exports = {
-  execAnimation(canvas, viewContainer, axisContainer, isUpdate) {
-    const caches = canvas.get('caches') || [];
-    const shapes = getShapes(viewContainer);
-    const axisShapes = getShapes(axisContainer);
+  execAnimation(view, isUpdate) {
+    const viewContainer = view.get('middlePlot');
+    const axisContainer = view.get('backPlot');
+    const viewId = view.get('_id');
+    const caches = view.get('caches') || [];
+    const shapes = getShapes(viewContainer, viewId);
+    const axisShapes = getShapes(axisContainer, viewId);
     const cacheShapes = shapes.concat(axisShapes);
-    canvas.set('caches', cache(cacheShapes));
+    const canvas = view.get('canvas');
+    view.set('caches', cache(cacheShapes));
     if (isUpdate) {
       addAnimate(caches, cacheShapes, canvas, isUpdate);
     } else {

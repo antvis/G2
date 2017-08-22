@@ -27,7 +27,7 @@ class EventController {
       x: ev.x / this.pixelRatio,
       y: ev.y / this.pixelRatio,
       target: ev.target, // canvas 元素
-      toElement: ev.event.toElement
+      toElement: ev.event.toElement || ev.event.relatedTarget
     };
   }
 
@@ -53,7 +53,7 @@ class EventController {
       x: point.x,
       y: point.y,
       target: ev.target, // canvas 元素
-      toElement: ev.event.toElement, // 目标元素
+      toElement: ev.event.toElement || ev.event.relatedTarget, // 目标元素
       views
     };
   }

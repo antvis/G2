@@ -214,16 +214,14 @@ function zoomIn(shape, animateCfg, coord) {
       [ 't', -x, -y ],
       [ 's', 0.01, 0.01 ],
       [ 't', x, y ]
-    ],
-    opacity: 0
+    ]
   });
   const endState = {
     transform: [
       [ 't', -x, -y ],
       [ 's', 100, 100 ],
       [ 't', x, y ]
-    ],
-    opacity: 1
+    ]
   };
   const animateParam = getAnimateParam(animateCfg, index, id, endState);
   shape.animate(endState, animateParam.duration, animateParam.easing, animateParam.callback, animateParam.delay);
@@ -249,8 +247,7 @@ function zoomOut(shape, animateCfg, coord) {
       [ 't', -x, -y ],
       [ 's', 0.01, 0.01 ],
       [ 't', x, y ]
-    ],
-    opacity: 0
+    ]
   };
   const animateParam = getAnimateParam(animateCfg, index, id, endState);
   shape.animate(endState, animateParam.duration, animateParam.easing, function() {
