@@ -302,7 +302,11 @@ function clipIn(shape, animateCfg, coord, startAngle, endAngle) {
   const animateParam = getAnimateParam(animateCfg, index, id, endState);
   clip.animate(endState, animateParam.duration, animateParam.easing,
     function() {
-      shape && !shape.get('destroyed') && shape.attr('clip', null) && clip.destroy();
+      if (shape && !shape.get('destroyed')) {
+        shape.attr('clip', null);
+        shape.setSilent('cacheShape', null);
+        clip.destroy();
+      }
     }, animateParam.delay);
 }
 
@@ -337,7 +341,7 @@ function fadeOut(shape, animateCfg) {
 function fanIn(shape, animateCfg, coord) {
   const angle = getAngle(shape, coord);
   const endAngle = angle.endAngle;
-  const startAngle = 0;
+  const startAngle = angle.startAngle;
   clipIn(shape, animateCfg, coord, startAngle, endAngle);
 }
 

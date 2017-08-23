@@ -74,7 +74,7 @@ function addAnimate(cache, shapes, canvas, isUpdate) {
       if (!result) {
         newShapes.push(shape);
       } else {
-        shape.set('cacheShape', result);
+        shape.setSilent('cacheShape', result);
         updateShapes.push(shape);
         delete cache[shape._id];
       }
@@ -112,9 +112,10 @@ function addAnimate(cache, shapes, canvas, isUpdate) {
           animate(updateShape, animateCfg, coord);
         } else {
           const endState = Util.cloneDeep(updateShape.__attrs);
-          updateShape.__attrs = cacheAttrs;
+          // updateShape.__attrs = cacheAttrs;
+          updateShape.attr(cacheAttrs);
           updateShape.animate(endState, animateCfg.duration, animateCfg.easing, function() {
-            updateShape.set('cacheShape', null);
+            updateShape.setSilent('cacheShape', null);
           });
         }
       }
