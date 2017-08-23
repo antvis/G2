@@ -210,7 +210,7 @@ const Schema = Shape.registerFactory('schema', {
 });
 
 // 箱线图
-Shape.registShape('schema', 'box', {
+Shape.registerShape('schema', 'box', {
   getPoints(pointInfo) {
     return getBoxPoints(pointInfo.x, pointInfo.y, pointInfo.size);
   },
@@ -251,7 +251,7 @@ Shape.registShape('schema', 'box', {
 });
 
 // K线
-Shape.registShape('schema', 'candle', {
+Shape.registerShape('schema', 'candle', {
   getPoints(pointInfo) {
     return getCandlePoints(pointInfo.x, pointInfo.y, pointInfo.size);
   },
