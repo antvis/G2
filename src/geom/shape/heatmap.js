@@ -3,10 +3,16 @@
  * @author leungwensen@gmail.com
  */
 const Shape = require('./shape');
+const Util = require('../../util');
 
 const Heatmap = Shape.registerFactory('heatmap', {
   defaultShapeType: 'circle'
 });
+
+const DEFAULT_SIZE = {
+  blur: 10,
+  radius: 30
+};
 
 function drawGrayScaleBlurred(x, y, r, blur, alpha, ctx) {
   const grad = ctx.createRadialGradient(x, y, blur, x, y, r);
@@ -19,11 +25,13 @@ function drawGrayScaleBlurred(x, y, r, blur, alpha, ctx) {
 
 Shape.registerShape('heatmap', 'circle', {
   draw(cfg, container) {
-    const style = cfg.style || {
-      radius: 30,
-      blur: 10
-    };
-    const { radius, blur } = style;
+    let size = cfg.size || DEFAULT_SIZE;
+    if (Util.isNumber(size)) {
+      size = Util.assign({}, DEFAULT_SIZE, {
+        radius: size
+      });
+    }
+    const { radius, blur } = size;
     drawGrayScaleBlurred(cfg.x, cfg.y, radius, blur, cfg.alpha, cfg.ctx);
     const shape = container.addShape('Circle', {
       attrs: {
