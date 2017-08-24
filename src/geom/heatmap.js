@@ -4,8 +4,20 @@
  */
 const GeomBase = require('./base');
 const colorUtil = require('../attr/color-util');
+const Util = require('../util');
 
 const ORIGIN_FIELD = '_origin';
+const SHADOW_CANVAS_CTX = 'shadowCanvasCtx';
+const VALUE_RANGE = 'valueRange';
+const IMAGE_SHAPE = 'imageShape';
+const MAPPED_DATA = 'mappedData';
+const GRAY_SCALE_BLURRED_CANVAS = 'grayScaleBlurredCanvas';
+const HEATMAP_SIZE = 'heatmapSize';
+const DEFAULT_SIZE = {
+  blur: 10,
+  radius: 30
+};
+
 
 class Heatmap extends GeomBase {
   /**
@@ -16,24 +28,11 @@ class Heatmap extends GeomBase {
   getDefaultCfg() {
     const cfg = super.getDefaultCfg();
     cfg.type = 'heatmap';
-    cfg.shapeType = 'heatmap';
+    // cfg.shapeType = 'heatmap';
     return cfg;
   }
 
-  getDrawCfg(obj) {
-    const self = this;
-    const cfg = super.getDrawCfg(obj);
-    const valueField = self.get('value-field');
-    const [ min, max ] = self.get('value-range');
-
-    cfg.alpha = Math.min((obj[ORIGIN_FIELD][valueField] - min) / (max - min), 1);
-    cfg.ctx = self.get('heatmap-ctx');
-    cfg.radius = self.get('default-radius');
-
-    return cfg;
-  }
-
-  _getRadius() {
+  _getSize() {
     const self = this;
     const position = self.getAttr('position');
     const coord = self.get('coord');
@@ -41,58 +40,11 @@ class Heatmap extends GeomBase {
       coord.width / (position.scales[0].ticks.length * 4),
       coord.height / (position.scales[1].ticks.length * 4)
     );
-    return radius;
-  }
-
-  draw(data, container, shapeFactory, index) {
-    const self = this;
-    const colorAttr = self.getAttr('color');
-    const colorField = colorAttr.field;
-    self.set('value-field', colorField);
-    let min = Infinity;
-    let max = -Infinity;
-    data.forEach(row => {
-      const value = row[ORIGIN_FIELD][colorField];
-      if (value > max) {
-        max = value;
-      }
-      if (value < min) {
-        min = value;
-      }
-    });
-    if (min === max) {
-      min = max - 1;
-    }
-    const coord = self.get('coord');
-    const width = coord.x.end;
-    const height = coord.y.start;
-    const heatmapCanvas = document.createElement('canvas');
-    heatmapCanvas.width = width;
-    heatmapCanvas.height = height;
-    const ctx = heatmapCanvas.getContext('2d');
-
-    self.set('default-radius', self._getRadius());
-    self.set('heatmap-ctx', ctx);
-    self.set('value-range', [ min, max ]);
-
-    // step1. draw points with shadow
-    super.draw(data, container, shapeFactory, index);
-
-    // step2. convert pixels
-    const colored = ctx.getImageData(coord.start.x, coord.end.y, width, height);
-    self._colorize(colored);
-    ctx.putImageData(colored, 0, 0);
-    const image = container.addShape('Image', {
-      attrs: {
-        // x: 0,
-        // y: 0,
-        x: coord.start.x,
-        y: coord.end.y,
-        width,
-        height
-      }
-    });
-    image.attr('img', heatmapCanvas);
+    const blur = radius / 2;
+    return {
+      blur,
+      radius
+    };
   }
 
   _colorize(img) {
@@ -110,6 +62,160 @@ class Heatmap extends GeomBase {
       }
     }
   }
+
+  _prepareGreyScaleBlurredCircle(r, blur) {
+    const self = this;
+    let circleCanvas = self.get(GRAY_SCALE_BLURRED_CANVAS);
+    if (!circleCanvas) {
+      circleCanvas = document.createElement('canvas');
+      self.set(GRAY_SCALE_BLURRED_CANVAS, circleCanvas);
+    }
+    const r2 = r + blur;
+    const ctx = circleCanvas.getContext('2d');
+    circleCanvas.width = circleCanvas.height = r2 * 2;
+    ctx.clearRect(0, 0, circleCanvas.width, circleCanvas.height);
+    ctx.shadowOffsetX = ctx.shadowOffsetY = r2 * 2;
+    ctx.shadowBlur = blur;
+    ctx.shadowColor = 'black';
+
+    ctx.beginPath();
+    ctx.arc(-r2, -r2, r, 0, Math.PI * 2, true);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  _drawGrayScaleBlurredCircle(x, y, r, alpha, ctx) {
+    const circleCanvas = this.get(GRAY_SCALE_BLURRED_CANVAS);
+    ctx.globalAlpha = alpha;
+    ctx.drawImage(circleCanvas, x - r, y - r);
+  }
+
+  _getShadowCanvasCtx() {
+    const self = this;
+    let ctx = self.get(SHADOW_CANVAS_CTX);
+    if (ctx) {
+      return ctx;
+    }
+    const coord = self.get('coord');
+    const width = coord.x.end;
+    const height = coord.y.start;
+    const heatmapCanvas = document.createElement('canvas');
+    heatmapCanvas.width = width;
+    heatmapCanvas.height = height;
+    ctx = heatmapCanvas.getContext('2d');
+    self.set(SHADOW_CANVAS_CTX, ctx);
+    return ctx;
+  }
+
+  _clearShadowCanvasCtx() {
+    const ctx = this.get(SHADOW_CANVAS_CTX);
+    if (ctx) {
+      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    }
+  }
+
+  _getImageShape() {
+    const self = this;
+    let imageShape = self.get(IMAGE_SHAPE);
+    if (imageShape) {
+      return imageShape;
+    }
+    const container = self.get('container');
+    imageShape = container.addShape('Image', {
+    });
+    self.set(IMAGE_SHAPE, imageShape);
+    return imageShape;
+  }
+
+  drawWithRange(range) {
+    const self = this;
+    // const t0 = Date.now();
+    // console.log('drawing...........');
+
+    // canvas size
+    const coord = self.get('coord');
+    const width = coord.width;
+    const height = coord.height;
+
+    // value, range, etc
+    const valueField = self.getAttr('color').field;
+    const [ min, max ] = self.get(VALUE_RANGE);
+
+    const size = self.get(HEATMAP_SIZE);
+
+    // prepare shadow canvas context
+    self._clearShadowCanvasCtx();
+    const ctx = self._getShadowCanvasCtx();
+
+    // filter data
+    let data = self.get(MAPPED_DATA);
+    if (range) {
+      data = data.filter(row => {
+        return row[ORIGIN_FIELD][valueField] <= range[1] && row[ORIGIN_FIELD][valueField] >= range[0];
+      });
+    }
+
+    // step1. draw points with shadow
+    for (let i = 0; i < data.length; i++) {
+      const obj = data[i];
+      const cfg = self.getDrawCfg(obj);
+      const alpha = Math.min((obj[ORIGIN_FIELD][valueField] - min) / (max - min), 1);
+      self._drawGrayScaleBlurredCircle(cfg.x, cfg.y, size.radius, alpha, ctx);
+    }
+
+    // step2. convert pixels
+    const colored = ctx.getImageData(coord.start.x, coord.end.y, width + coord.start.x, height + coord.end.y);
+    self._clearShadowCanvasCtx();
+    self._colorize(colored);
+    ctx.putImageData(colored, 0, 0);
+    const imageShape = self._getImageShape();
+    imageShape.attr('x', coord.start.x);
+    imageShape.attr('y', coord.end.y);
+    imageShape.attr('width', width + coord.start.x);
+    imageShape.attr('height', height + coord.end.y);
+    imageShape.attr('img', ctx.canvas);
+
+    // console.log(`finished drawing, ${Date.now() - t0}ms token`);
+  }
+
+  draw(data, container, shapeFactory, index) {
+    const self = this;
+    const colorAttr = self.getAttr('color');
+    self.set(MAPPED_DATA, data);
+    const colorField = colorAttr.field;
+
+    let min = Infinity;
+    let max = -Infinity;
+    data.forEach(row => {
+      const value = row[ORIGIN_FIELD][colorField];
+      if (value > max) {
+        max = value;
+      }
+      if (value < min) {
+        min = value;
+      }
+    });
+    if (min === max) {
+      min = max - 1;
+    }
+
+    const sizeAttr = self.getAttr('size');
+    let size = sizeAttr && sizeAttr.field ? sizeAttr.field : self._getSize() || DEFAULT_SIZE;
+    if (Util.isNumber(size)) {
+      size = Util.assign({}, DEFAULT_SIZE, {
+        blur: size / 2,
+        radius: size
+      });
+    }
+    self.set(HEATMAP_SIZE, size);
+
+    const range = [ min, max ];
+    self.set(VALUE_RANGE, range);
+    self._prepareGreyScaleBlurredCircle(size.radius, size.blur);
+    self.drawWithRange(range);
+    super.draw(data, container, shapeFactory, index);
+  }
+
 }
 
 module.exports = Heatmap;

@@ -6,6 +6,8 @@ const Shape = require('../../geom/shape/index');
 const FIELD_ORIGIN = '_origin';
 const MARGIN = 16;
 const MARGIN_LEGEND = 25;
+const requireAnimationFrameFn = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+  window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
 function _snapEqual(v1, v2, scale) {
   let isEqual;
@@ -95,6 +97,15 @@ class LegendController {
       chart.filterShape(function(obj) {
         return obj[field] >= range[0] && obj[field] <= range[1];
       });
+      const geoms = chart.get('geoms') || [];
+      for (let i = 0; i < geoms.length; i++) {
+        const geom = geoms[i];
+        if (geom.get('type') === 'heatmap') {
+          requireAnimationFrameFn(() => {
+            geom.drawWithRange(range);
+          });
+        }
+      }
     });
   }
 

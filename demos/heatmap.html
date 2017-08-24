@@ -19,11 +19,10 @@
     return (1 / (2 * Math.PI)) * Math.exp((-1 / 2) * (x * x + y * y));
   }
   const data = [];
-  for (let i = 0; i < 1000; i++) {
-    const x = (Math.random() * 950) >> 0;
-    const y = (Math.random() * 460) >> 0;
+  for (let i = 0; i < 500; i++) {
+    const x = (Math.random() * 1000) >> 0;
+    const y = (Math.random() * 500) >> 0;
     const c = normal((x - 500) / 80, (y - 250) / 40) * 10000 >> 0;
-    // const c = Math.random() * 10000;
     data.push({
       g: x,
       l: y,
@@ -42,10 +41,6 @@
   chart.heatmap()
     .position('g*l')
     .color('tmp', 'blue-cyan-lime-yellow-red');
-    // .size({
-    //   blur: 2,
-    //   radius: 30,
-    // });
   chart.render();
 </script>
 </body>
