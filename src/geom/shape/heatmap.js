@@ -10,7 +10,7 @@ const Heatmap = Shape.registerFactory('heatmap', {
 });
 
 const DEFAULT_SIZE = {
-  blur: 10,
+  blur: 1,
   radius: 30
 };
 
@@ -25,7 +25,7 @@ function drawGrayScaleBlurred(x, y, r, blur, alpha, ctx) {
 
 Shape.registerShape('heatmap', 'circle', {
   draw(cfg, container) {
-    let size = cfg.size || DEFAULT_SIZE;
+    let size = cfg.size || cfg.radius || DEFAULT_SIZE;
     if (Util.isNumber(size)) {
       size = Util.assign({}, DEFAULT_SIZE, {
         radius: size

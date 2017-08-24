@@ -25,9 +25,23 @@ class Heatmap extends GeomBase {
     const cfg = super.getDrawCfg(obj);
     const valueField = self.get('value-field');
     const [ min, max ] = self.get('value-range');
+
     cfg.alpha = Math.min((obj[ORIGIN_FIELD][valueField] - min) / (max - min), 1);
     cfg.ctx = self.get('heatmap-ctx');
+    cfg.radius = self.get('default-radius');
+
     return cfg;
+  }
+
+  _getRadius() {
+    const self = this;
+    const position = self.getAttr('position');
+    const coord = self.get('coord');
+    const radius = Math.min(
+      coord.width / (position.scales[0].ticks.length * 4),
+      coord.height / (position.scales[1].ticks.length * 4)
+    );
+    return radius;
   }
 
   draw(data, container, shapeFactory, index) {
@@ -50,10 +64,14 @@ class Heatmap extends GeomBase {
       min = max - 1;
     }
     const coord = self.get('coord');
+    const width = coord.x.end;
+    const height = coord.y.start;
     const heatmapCanvas = document.createElement('canvas');
-    heatmapCanvas.width = coord.width;
-    heatmapCanvas.height = coord.height;
+    heatmapCanvas.width = width;
+    heatmapCanvas.height = height;
     const ctx = heatmapCanvas.getContext('2d');
+
+    self.set('default-radius', self._getRadius());
     self.set('heatmap-ctx', ctx);
     self.set('value-range', [ min, max ]);
 
@@ -61,7 +79,7 @@ class Heatmap extends GeomBase {
     super.draw(data, container, shapeFactory, index);
 
     // step2. convert pixels
-    const colored = ctx.getImageData(0, 0, coord.width, coord.height);
+    const colored = ctx.getImageData(coord.start.x, coord.end.y, width, height);
     self._colorize(colored);
     ctx.putImageData(colored, 0, 0);
     const image = container.addShape('Image', {
@@ -70,8 +88,8 @@ class Heatmap extends GeomBase {
         // y: 0,
         x: coord.start.x,
         y: coord.end.y,
-        width: coord.width,
-        height: coord.height
+        width,
+        height
       }
     });
     image.attr('img', heatmapCanvas);
