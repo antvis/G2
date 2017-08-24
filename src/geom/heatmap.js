@@ -56,8 +56,10 @@ class Heatmap extends GeomBase {
     const ctx = heatmapCanvas.getContext('2d');
     self.set('heatmap-ctx', ctx);
     self.set('value-range', [ min, max ]);
+
     // step1. draw points with shadow
     super.draw(data, container, shapeFactory, index);
+
     // step2. convert pixels
     const colored = ctx.getImageData(0, 0, coord.width, coord.height);
     self._colorize(colored);
