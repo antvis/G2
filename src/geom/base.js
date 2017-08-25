@@ -121,6 +121,11 @@ class GeomBase extends Base {
       },
       styleOptions: null,
       selectedOptions: null,
+      /**
+       * 某些类存在默认的adjust，不能更改 adjust
+       * @type {Boolean}
+       */
+      hasDefaultAdjust: false,
       adjusts: null,
       /**
        * 使用形状的类型
@@ -206,18 +211,19 @@ class GeomBase extends Base {
    * @return {Geom} geom 当前几何标记
    */
   position(field, cfg) {
-    let adjusts;
-    if (Util.isString(cfg) || Util.isArray(cfg)) {
-      adjusts = parseAdjusts(cfg);
+    // 如果设置了 hasDefaultAdjust 后不能再更改 adjust，主要用于 intervalStack 等固定的类型
+    if (!this.get('hasDefaultAdjust')) {
+      let adjusts;
+      if (Util.isString(cfg) || Util.isArray(cfg)) {
+        adjusts = parseAdjusts(cfg);
+      }
+      if (Util.isObject(cfg) && cfg.adjusts) {
+        adjusts = parseAdjusts(cfg.adjusts);
+      }
+      this.set('adjusts', adjusts);
     }
-    if (Util.isObject(cfg) && cfg.adjusts) {
-      adjusts = parseAdjusts(cfg.adjusts);
-    }
-    this.set('adjusts', adjusts);
-
     this._setAttrOptions('position', {
-      field,
-      adjusts
+      field
     });
     return this;
   }
@@ -416,7 +422,9 @@ class GeomBase extends Base {
           if (fields.length === 1 && coord.type === 'theta') {
             fields.unshift('1');
           }
-          if (!self.get('adjusts')) {
+          // adjusts 在position 时设置，不需要清理或者重生成
+          // 此处是为了防止在options 内部设置 adjust
+          if (!self.get('adjusts') && option.adjusts) {
             self.set('adjusts', option.adjusts);
           }
         }
@@ -1012,7 +1020,9 @@ class GeomBase extends Base {
     labelContainer && labelContainer.remove();
     this.set('attrs', {});
     this.set('groupScales', null);
-    this.set('adjusts', null);
+    // if (!this.get('hasDefaultAdjust')) {
+    //   this.set('adjusts', null);
+    // }
     this.set('labelContainer', null);
   }
 

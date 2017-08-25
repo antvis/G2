@@ -78,9 +78,38 @@ describe('test line chart', function() {
     expect(group.getCount()).equal(1);
   });
 
+  it('stack', function() {
+    const data = [
+      { genre: 'Sports', sold: 145, type: '2' },
+      { genre: 'Strategy', sold: 415, type: '2' },
+      { genre: 'Action', sold: 180, type: '2' },
+      { genre: 'Shooter', sold: 50, type: '2' },
+      { genre: 'Other', sold: 120, type: '2' },
+      { genre: 'Sports', sold: 475, type: '1' },
+      { genre: 'Strategy', sold: 115, type: '1' },
+      { genre: 'Action', sold: 120, type: '1' },
+      { genre: 'Shooter', sold: 350, type: '1' },
+      { genre: 'Other', sold: 150, type: '1' }
+    ];
+    chart.clear();
+    chart.source(data);
+    chart.coord('rect');
+    chart.lineStack().position('genre*sold').color('type');
+    chart.render();
+
+    const firstPath = chart.get('viewContainer').getFirst()
+      .getFirst()
+      .attr('path');
+    const lastPath = chart.get('viewContainer').getFirst()
+      .getLast()
+      .attr('path');
+    // 层叠
+    expect(firstPath[0][1]).equal(lastPath[5][1]);
+    expect(firstPath[1][1]).equal(lastPath[6][1]);
+  });
+
   it('destroy', function() {
     chart.destroy();
     document.body.removeChild(div);
   });
-
 });

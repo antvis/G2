@@ -1,14 +1,21 @@
 
 const Geom = require('./base');
+Geom.Point = require('./point');
+Geom.PointJitter = Geom.Point.Jitter;
+Geom.Path = require('./path');
+Geom.Line = require('./line');
+Geom.LineStack = Geom.Line.Stack;
+Geom.Interval = require('./interval');
+Geom.IntervalStack = Geom.Interval.Stack;
+Geom.IntervalDodge = Geom.Interval.Dodge;
+Geom.IntervalSymmetric = Geom.Interval.Symmetric;
 
 Geom.Area = require('./area');
-Geom.Edge = require('./edge');
-Geom.Heatmap = require('./heatmap');
-Geom.Interval = require('./interval');
-Geom.Line = require('./line');
-Geom.Path = require('./path');
-Geom.Point = require('./point');
+Geom.AreaStack = Geom.Area.Stack;
 Geom.Polygon = require('./polygon');
 Geom.Schema = require('./schema');
+Geom.SchemaDodge = Geom.Schema.Dodge;
+Geom.Edge = require('./edge');
+Geom.Heatmap = require('./heatmap');
 
 module.exports = Geom;
