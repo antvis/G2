@@ -86,12 +86,12 @@ describe('Guide: 辅助线', function() {
       },
       text: {
         position: 'center',
-        content: '我是条辅助线哦',
-        autoRotate: true,
-        style: {
-          fontSize: 16,
-          fill: 'red'
-        }
+        content: '我是条辅助线哦'
+        // autoRotate: true,
+        // style: {
+        //   fontSize: 16,
+        //   fill: 'red'
+        // }
       }
     });
     line.render(coord, group);
@@ -360,5 +360,6 @@ describe('Guide: 辅助线', function() {
     const children = group.get('children');
     const textShape = children[0].get('children')[1];
     expect(textShape.attr('x')).to.equal(460);
+    canvas.destroy();
   });
 });

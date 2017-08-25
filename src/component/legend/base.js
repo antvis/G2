@@ -45,7 +45,9 @@ class Base extends Group {
       const titleShape = this.addShape('text', {
         attrs: Util.mix({
           x: 0,
-          y: 0
+          y: 0,
+          fill: '#333', // 默认样式
+          textBaseline: 'middle'
         }, title)
       });
       titleShape.name = 'legend-title';

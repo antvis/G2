@@ -13,7 +13,8 @@ class Base {
 
   constructor(cfg) {
     const defaultCfg = this.getDefaultCfg();
-    Util.mix(this, defaultCfg, cfg);
+    Util.defaultsDeep(cfg, defaultCfg);
+    Util.mix(this, cfg);
   }
 
   /**

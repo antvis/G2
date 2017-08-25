@@ -182,7 +182,8 @@ function getCandlePath(points) {
 // 获取图形的marker
 function getMarkerCfg(cfg, fn) {
   return Util.mix({
-    symbol: fn
+    symbol: fn,
+    radius: 4
   }, getAttrs(cfg));
 }
 
@@ -229,7 +230,7 @@ Shape.registerShape('schema', 'box', {
   getMarkerCfg(cfg) {
     return getMarkerCfg(cfg, function(x, y, r, ctx) {
       const yValues = [ y - r, y - r / 2, y, y + r / 2, y + r ];
-      const points = getBoxPoints(x, yValues, 2 * r);
+      const points = getBoxPoints(x, yValues, 1.2 * r);
       ctx.moveTo(points[0].x, points[0].y);
       ctx.lineTo(points[1].x, points[1].y);
       ctx.moveTo(points[2].x, points[2].y);

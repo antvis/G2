@@ -88,8 +88,8 @@ class View extends Base {
    * 初始化
    */
   init() {
+    this._initViewPlot(); // 先创建容器
     this._initOptions();
-    this._initViewPlot();
     this._initControllers();
     this._bindEvents();
   }
@@ -97,7 +97,7 @@ class View extends Base {
   // 初始化配置项
   _initOptions() {
     const self = this;
-    const options = self.get('options');
+    const options = Util.mix({}, self.get('options')); // 防止修改原始值
     if (!options.scales) {
       options.scales = {};
     }
@@ -125,6 +125,7 @@ class View extends Base {
     if (coordController) {
       coordController.reset(options.coord);
     }
+    this.set('options', options);
   }
 
   _createGeom(cfg) {
@@ -549,7 +550,7 @@ class View extends Base {
     if (field === false) {
       options.axes = false;
     } else {
-      if (Util.isNil(options.axes)) {
+      if (!options.axes) {
         options.axes = {};
       }
       const axisOptions = options.axes;

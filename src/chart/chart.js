@@ -292,8 +292,11 @@ class Chart extends View {
    */
   legend(field, cfg) {
     const options = this.get('options');
-    let legends = {};
+    if (!options.legends) {
+      options.legends = {};
+    }
 
+    let legends = {};
     if (field === false) {
       options.legends = false;
     } else if (Util.isObject(field)) {
@@ -316,7 +319,7 @@ class Chart extends View {
    */
   tooltip(visible, cfg) {
     const options = this.get('options');
-    if (Util.isNil(options.tooltip)) {
+    if (!options.tooltip) {
       options.tooltip = {};
     }
 
