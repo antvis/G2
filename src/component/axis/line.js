@@ -6,7 +6,6 @@ const vec2 = MatrixUtil.vec2;
 class Line extends Base {
   getDefaultCfg() {
     const cfg = super.getDefaultCfg();
-    // TODO: 这里可能还要对象和对象之间的复制
     return Util.mix({}, cfg, {
       x: null, // @type {Number} 距离初始位置的x轴偏移量,仅对于左侧、右侧的纵向坐标有效
       y: null, // @type {Number} 距离初始位置的y轴偏移量，仅对顶部、底部的横向坐标轴有效
@@ -159,9 +158,9 @@ class Line extends Base {
     const labelsGroup = self.get('labelsGroup');
     const title = self.get('title');
     if (title && labelsGroup) {
-      const offset = self.get('label').offset || self.get('_labelOffset');
+      const offset = self.get('label').offset;
       const append = offset;
-      const titleOffset = title.offset || self.get('_titleOffset');
+      const titleOffset = title.offset;
       if (titleOffset < 0) { // 如果是负的的话就不旋转
         return;
       }

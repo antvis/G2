@@ -27,16 +27,6 @@ class Circle extends Base {
        * @type {Number}
        */
       endAngle: Math.PI * 3 / 2,
-      /**
-       * 网格线配置
-       * @type {Object}
-       */
-      grid: {
-        lineStyle: {
-          lineWidth: 1,
-          stroke: '#C0D0E0'
-        }
-      },
       line: { // @type {Attrs} 坐标轴线的图形属性,如果设置成null，则不显示轴线
         lineWidth: 1,
         stroke: '#C0D0E0'

@@ -9,12 +9,6 @@ class Helix extends Base {
 
     return Util.mix({}, cfg, {
       type: 'helix',
-      grid: {
-        line: {
-          lineWidth: 1,
-          stroke: '#C0D0E0'
-        }
-      },
       line: { // @type {Attrs} 坐标轴线的图形属性,如果设置成null，则不显示轴线
         lineWidth: 1,
         stroke: '#C0D0E0'
@@ -24,7 +18,6 @@ class Helix extends Base {
         stroke: '#C0D0E0',
         length: 5
       },
-      _labelOffset: 5,
       startAngle: 1.25 * Math.PI,
       endAngle: 7.25 * Math.PI,
       // 螺旋系数

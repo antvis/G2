@@ -50,7 +50,6 @@ class Base extends Group {
         textStyle: {}, // 文本样式配置
         autoRotate: true,
         formatter: null//  格式化坐标轴文本显示
-        // offset: 10 // 文本距离坐标轴线的距离，对应原属性 labelOffset
       },
       /**
        * 坐标轴标题样式配置
@@ -59,12 +58,47 @@ class Base extends Group {
       title: {
         autoRotate: true, // 自动旋转
         textStyle: {} // 标题文本样式配置
-        // offset: 20 // 标题离坐标轴线的距离
       },
-      autoPaint: true, // @type {Boolean} 是否自动绘制
-      _labelOffset: 10, // @type {Number} 距离坐标轴的距离
-      _titleOffset: 40 // @type {Number} 标题距离坐标轴的位置
+      autoPaint: true // @type {Boolean} 是否自动绘制
     };
+  }
+
+  _beforeRenderUI() {
+    // 添加默认样式
+    const title = this.get('title');
+    const label = this.get('label');
+    const grid = this.get('grid');
+    const textStyle = {
+      fontSize: 12,
+      fill: '#ccc',
+      textAlign: 'center',
+      textBaseline: 'middle'
+    };
+    if (title) {
+      Util.defaultsDeep(title, {
+        autoRotate: true,
+        textStyle,
+        offset: 40
+      });
+      this.setSilent('title', title);
+    }
+    if (label) {
+      Util.defaultsDeep(label, {
+        autoRotate: true,
+        textStyle,
+        offset: 10
+      });
+      this.setSilent('label', label);
+    }
+    if (grid) {
+      Util.defaultsDeep(grid, {
+        lineStyle: {
+          lineWidth: 1,
+          stroke: '#C0D0E0'
+        }
+      });
+      this.setSilent('grid', grid);
+    }
   }
 
   _renderUI() {

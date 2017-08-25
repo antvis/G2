@@ -47,14 +47,7 @@ describe('测试底部坐标轴生成', function() {
       { text: '10', value: 1 }
     ],
     title: {
-      offset: 20,
-      textStyle: {
-        fontSize: 18,
-        fill: '#000',
-        rotate: 0,
-        textAlign: 'end',
-        textBaseline: 'top'
-      },
+      offset: 50,
       text: 'x 轴',
       position: 'start' // 标题文本位置位于坐标轴前端
     },
@@ -122,7 +115,7 @@ describe('测试底部坐标轴生成', function() {
   it('测试title', function() {
     const title = findByName(axis, 'axis-title');
     expect(title).not.to.be.null;
-    expect(title.attr('y')).to.equal(480);
+    expect(title.attr('y')).to.equal(510);
   });
 
   it('ticks 生成', function() {
@@ -161,7 +154,7 @@ describe('测试顶部坐标轴', function() {
     ticks: [ 1000000, 2000000, 3000000, '4000000', '5000000', 6000000, 7000000, 8000000, 9000000, 10000000 ],
     title: {
       textStyle: {
-        fontSize: 12,
+        fontSize: 24,
         fill: 'red',
         textBaseline: 'bottom',
         fontWeight: 700,
