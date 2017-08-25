@@ -28,7 +28,7 @@ describe('test view', function() {
   const backPlot = canvas.addGroup();
   const group = canvas.addGroup();
   const view = new View({
-    viewContainer: group,
+    middlePlot: group,
     canvas,
     coord,
     backPlot,
