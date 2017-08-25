@@ -72,7 +72,6 @@ describe('test geoms', function() {
     b: 4,
     c: '2'
   },
-
   {
     a: 3,
     b: 5,
