@@ -71,6 +71,47 @@ describe('use dataset in chart', function() {
     expect(path.attr('path').length).equal(3);
   });
 
+  it('multiple views', function(done) {
+    chart.clear();
+    chart.source([]);
+    chart.scale('b', {
+      sync: true
+    });
+    ds.setState('value', 0);
+
+    setTimeout(function() {
+      const v1 = chart.view().source(view);
+      v1.line().position('a*b').color('c');
+
+      const v2 = chart.view().source(view);
+      v2.point().position('a*b').color('c');
+      chart.render(0);
+
+      const viewContainer = chart.get('viewContainer');
+      expect(viewContainer.getCount()).equal(2);
+      expect(viewContainer.getFirst().getCount()).equal(2);
+      expect(viewContainer.getLast().getCount()).equal(data.length);
+      done();
+    }, 40);
+  });
+
+  it('state change with multiple views', function(done) {
+    ds.setState('value', 1);
+
+    setTimeout(function() {
+      const viewContainer = chart.get('viewContainer');
+      expect(viewContainer.getCount()).equal(2);
+      const group = viewContainer.getFirst();
+      const path = group.getFirst();
+      expect(group.getCount()).equal(2);
+      expect(path.attr('path').length).equal(2);
+
+      const intervalGroup = viewContainer.getLast();
+      expect(intervalGroup.getCount()).equal(4);
+      done();
+    }, 40);
+  });
+
   it('destroy', function() {
     chart.destroy();
     expect(chart.destroyed).equal(true);
