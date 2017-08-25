@@ -23,6 +23,7 @@
     const x = (Math.random() * 1000) >> 0;
     const y = (Math.random() * 500) >> 0;
     const c = normal((x - 500) / 80, (y - 250) / 40) * 10000 >> 0;
+    // const c = Math.random() * 1000 >> 0;
     data.push({
       g: x,
       l: y,
@@ -32,12 +33,14 @@
   const chart = new G2.Chart({
     container: 'canvas',
     forceFit: true,
-    height: window.innerHeight
+    height: window.innerHeight,
+    padding: [ 10, 80, 30, 10 ]
   });
   chart.source(data);
   chart.tooltip({
     showTitle: false
   });
+  chart.axis(false);
   chart.heatmap()
     .position('g*l')
     .color('tmp', 'blue-cyan-lime-yellow-red');

@@ -20,6 +20,7 @@ const Util = {
   isNumber: require('lodash/isNumber'),
   isString: require('lodash/isString'),
   isFunction: require('lodash/isFunction'),
+  isFinite: require('lodash/isFinite'),
   isBoolean: require('lodash/isBoolean'),
   isEmpty: require('lodash/isEmpty'),
   lowerFirst: require('lodash/lowerFirst'),

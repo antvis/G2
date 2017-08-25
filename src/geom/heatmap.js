@@ -13,10 +13,6 @@ const IMAGE_SHAPE = 'imageShape';
 const MAPPED_DATA = 'mappedData';
 const GRAY_SCALE_BLURRED_CANVAS = 'grayScaleBlurredCanvas';
 const HEATMAP_SIZE = 'heatmapSize';
-const DEFAULT_SIZE = {
-  blur: 10,
-  radius: 30
-};
 
 const paletteCache = {};
 
@@ -61,15 +57,19 @@ class Heatmap extends GeomBase {
 
   _prepareSize() {
     const self = this;
-    const sizeAttr = self.getAttr('size');
-    let size = sizeAttr && sizeAttr.field ? sizeAttr.field : self._getDefaultSize() || DEFAULT_SIZE;
-    if (Util.isNumber(size)) {
-      size = Util.assign({}, DEFAULT_SIZE, {
-        blur: size / 2,
-        radius: size
-      });
+    let radius = self.getDefaultValue('size');
+    if (!Util.isNumber(radius)) {
+      radius = self._getDefaultSize();
     }
-    self.set(HEATMAP_SIZE, size);
+    const styleOptions = self.get('styleOptions');
+    let blur = styleOptions && Util.isObject(styleOptions.style) ? styleOptions.style.blur : null;
+    if (!Util.isFinite(blur)) {
+      blur = radius / 2;
+    }
+    self.set(HEATMAP_SIZE, {
+      blur,
+      radius
+    });
   }
 
   _getDefaultSize() {
@@ -80,11 +80,7 @@ class Heatmap extends GeomBase {
       coord.width / (position.scales[0].ticks.length * 4),
       coord.height / (position.scales[1].ticks.length * 4)
     );
-    const blur = radius / 2;
-    return {
-      blur,
-      radius
-    };
+    return radius;
   }
 
   _colorize(img) {
