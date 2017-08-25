@@ -139,9 +139,6 @@ Shape.registerShape = function(factoryName, shapeType, cfg) {
   return shapeObj;
 };
 
-// alias
-Shape.registShape = Shape.registerShape;
-
 // 获得Geom 对应的 shapeFactory
 Shape.getShapeFactory = function(factoryName) {
   const self = this;

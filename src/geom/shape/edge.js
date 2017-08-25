@@ -125,7 +125,7 @@ function createRectPath(from, to) {
   return path;
 }
 
-Shape.registShape('edge', 'line', {
+Shape.registerShape('edge', 'line', {
   draw(cfg, container) {
     const points = this.parsePoints(cfg.points);
     const attrCfg = getAttrs(cfg);
@@ -145,7 +145,7 @@ Shape.registShape('edge', 'line', {
   }
 });
 
-Shape.registShape('edge', 'vhv', {
+Shape.registerShape('edge', 'vhv', {
   draw(cfg, container) {
     const points = cfg.points;
     const attrCfg = getAttrs(cfg);
@@ -166,7 +166,7 @@ Shape.registShape('edge', 'vhv', {
   }
 });
 
-Shape.registShape('edge', 'smooth', {
+Shape.registerShape('edge', 'smooth', {
   draw(cfg, container) {
     const points = cfg.points;
     const attrCfg = getAttrs(cfg);
@@ -189,7 +189,7 @@ Shape.registShape('edge', 'smooth', {
 });
 
 //  弧线包括笛卡尔坐标系下的半圆弧线、极坐标系下以圆心为控制点的二阶曲线、笛卡尔坐标系下带权重的三阶曲线、极坐标系下带权重的以圆心为控制点的二阶曲线
-Shape.registShape('edge', 'arc', {
+Shape.registerShape('edge', 'arc', {
   draw(cfg, container) {
     let points = cfg.points;
     const type = points.length > 2 ? 'weight' : 'normal';

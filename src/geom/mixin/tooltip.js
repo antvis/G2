@@ -141,11 +141,29 @@ const TooltipMixin = {
 
   findPoint(point, dataArray) {
     const self = this;
+    const type = self.get('type');
     const xScale = self.getXScale();
     const yScale = self.getYScale();
     const xField = xScale.field;
     const yField = yScale.field;
     let rst = null;
+
+    if (Util.indexOf([ 'heatmap' ], type) > -1) {
+      const coord = self.get('coord');
+      const invertPoint = coord.invert(point);
+      const xValue = xScale.invert(invertPoint.x);
+      const yValue = yScale.invert(invertPoint.y);
+      let min = Infinity;
+      Util.each(dataArray, obj => {
+        const distance = Math.pow((obj[FIELD_ORIGIN][xField] - xValue), 2) +
+          Math.pow((obj[FIELD_ORIGIN][yField] - yValue), 2);
+        if (distance < min) {
+          min = distance;
+          rst = obj;
+        }
+      });
+      return rst;
+    }
 
     const first = dataArray[0];
     let last = dataArray[dataArray.length - 1];

@@ -103,8 +103,7 @@ describe('shape register', () => {
     Shape.registerFactory('test1', {
       defaultShapeType: 'test1'
     });
-    expect(Shape.registShape).equal(Shape.registerShape);
-    Shape.registShape('test1', 'test1', {
+    Shape.registerShape('test1', 'test1', {
       getShapePoints() { return [ 1, 2 ]; },
       drawShape() {
         called = true;

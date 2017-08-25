@@ -86,7 +86,7 @@ const Polygon = Shape.registerFactory('polygon', {
   }
 });
 
-Shape.registShape('polygon', 'polygon', {
+Shape.registerShape('polygon', 'polygon', {
   draw(cfg, container) {
     if (!Util.isEmpty(cfg.points)) {
       const attrs = getAttrs(cfg);
@@ -107,7 +107,7 @@ Shape.registShape('polygon', 'polygon', {
   }
 });
 
-Shape.registShape('polygon', 'hollow', {
+Shape.registerShape('polygon', 'hollow', {
   draw(cfg, container) {
     if (!Util.isEmpty(cfg.points)) {
       const attrs = getHollowAttrs(cfg);

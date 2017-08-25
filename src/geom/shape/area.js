@@ -169,7 +169,7 @@ const Area = Shape.registerFactory('area', {
 });
 
 // 默认：填充区域图
-Shape.registShape('area', 'area', {
+Shape.registerShape('area', 'area', {
   draw(cfg, container) {
     const attrs = getFillAttrs(cfg);
     let path = getPath(cfg, false);
@@ -186,7 +186,7 @@ Shape.registShape('area', 'area', {
 });
 
 // 填充平滑区域图
-Shape.registShape('area', 'smooth', {
+Shape.registerShape('area', 'smooth', {
   draw(cfg, container) {
     const attrs = getFillAttrs(cfg);
     let path = getPath(cfg, true);
@@ -203,7 +203,7 @@ Shape.registShape('area', 'smooth', {
 });
 
 // 封闭的折线
-Shape.registShape('area', 'line', {
+Shape.registerShape('area', 'line', {
   draw(cfg, container) {
     const attrs = getLineAttrs(cfg);
     let path = getPath(cfg, false);
@@ -221,7 +221,7 @@ Shape.registShape('area', 'line', {
 
 
 // 封闭的平滑线
-Shape.registShape('area', 'smoothLine', {
+Shape.registerShape('area', 'smoothLine', {
   draw(cfg, container) {
     const attrs = getLineAttrs(cfg);
     let path = getPath(cfg, true);

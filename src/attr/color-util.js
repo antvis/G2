@@ -89,6 +89,8 @@ const ColorUtil = {
     return rst;
   },
 
+  rgb2arr,
+
   /**
    * 获取渐变函数
    * @param  {Array} colors 多个颜色

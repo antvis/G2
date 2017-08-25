@@ -264,7 +264,7 @@ const Interval = Shape.registerFactory('interval', {
 });
 
 // 默认柱状图
-Shape.registShape('interval', 'rect', {
+Shape.registerShape('interval', 'rect', {
   getPoints(pointInfo) {
     return getRectPoints(pointInfo);
   },
@@ -290,7 +290,7 @@ Shape.registShape('interval', 'rect', {
 });
 
 // 空心柱状图
-Shape.registShape('interval', 'hollowRect', {
+Shape.registerShape('interval', 'hollowRect', {
   getPoints(pointInfo) {
     return getRectPoints(pointInfo);
   },
@@ -316,7 +316,7 @@ Shape.registShape('interval', 'hollowRect', {
 });
 
 // 线形柱状图
-Shape.registShape('interval', 'line', {
+Shape.registerShape('interval', 'line', {
   getPoints(pointInfo) {
     return getLinePoints(pointInfo);
   },
@@ -341,7 +341,7 @@ Shape.registShape('interval', 'line', {
 });
 
 // 钉子形的柱状图
-Shape.registShape('interval', 'tick', {
+Shape.registerShape('interval', 'tick', {
   getPoints(pointInfo) {
     return getTickPoints(pointInfo);
   },
@@ -365,7 +365,7 @@ Shape.registShape('interval', 'tick', {
 });
 
 // 漏斗图
-Shape.registShape('interval', 'funnel', {
+Shape.registerShape('interval', 'funnel', {
   getPoints(pointInfo) {
     pointInfo.size = pointInfo.size * 2; // 漏斗图的 size 是柱状图的两倍
     return getRectPoints(pointInfo);
@@ -390,7 +390,7 @@ Shape.registShape('interval', 'funnel', {
 });
 
 // 金字塔图
-Shape.registShape('interval', 'pyramid', {
+Shape.registerShape('interval', 'pyramid', {
   getPoints(pointInfo) {
     pointInfo.size = pointInfo.size * 2; // 漏斗图的 size 是柱状图的两倍
     return getRectPoints(pointInfo, true);
