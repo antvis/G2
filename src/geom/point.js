@@ -47,4 +47,15 @@ class Point extends GeomBase {
   }
 }
 
+class PointJitter extends Point {
+  getDefaultCfg() {
+    const cfg = super.getDefaultCfg();
+    cfg.hasDefaultAdjust = true;
+    cfg.adjusts = [{ type: 'jitter' }];
+    return cfg;
+  }
+}
+
+Point.Jitter = PointJitter;
+
 module.exports = Point;

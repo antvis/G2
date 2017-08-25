@@ -25,10 +25,11 @@ describe('interval chart', function() {
   chart.legend({
     allowAllCanceled: true
   });
-  chart.interval().position('genre*sold').color('genre');
-  chart.source(data);
-  chart.render();
+
   it('init', function() {
+    chart.interval().position('genre*sold').color('genre');
+    chart.source(data);
+    chart.render();
     const group = chart.get('viewContainer').getFirst();
     expect(group.getCount()).equal(data.length);
     const first = group.getFirst();
@@ -242,9 +243,10 @@ describe('interval chart with time', function() {
   });
 
   chart.source(data);
-  const interval = chart.interval().position('date*value');
-  chart.render();
+
   it('test width', function() {
+    const interval = chart.interval().position('date*value');
+    chart.render();
     const width = interval.getSize();
     expect(width).equal(85);
   });
@@ -259,5 +261,91 @@ describe('interval chart with time', function() {
     chart.render();
     const width = interval.getSize();
     expect(width).equal(85);
+  });
+  it('destroy', function() {
+    chart.destroy();
+    expect(chart.destroyed).equal(true);
+  });
+});
+
+describe('interval hasDefaultAdjust', function() {
+  const data = [
+    { genre: 'Sports', sold: 475, type: '1' },
+    { genre: 'Strategy', sold: 115, type: '1' },
+    { genre: 'Action', sold: 120, type: '1' },
+    { genre: 'Shooter', sold: 350, type: '1' },
+    { genre: 'Other', sold: 150, type: '1' },
+
+    { genre: 'Sports', sold: 145, type: '2' },
+    { genre: 'Strategy', sold: 415, type: '2' },
+    { genre: 'Action', sold: 180, type: '2' },
+    { genre: 'Shooter', sold: 50, type: '2' },
+    { genre: 'Other', sold: 120, type: '2' }
+  ];
+  const chart = new Chart({
+    container: div,
+    height: 300,
+    width: 500,
+    animate: false
+  });
+  chart.source(data);
+  it('stack', function() {
+    const geom = chart.intervalStack().position('genre*sold').color('type');
+    chart.render();
+    expect(geom.get('hasDefaultAdjust')).equal(true);
+    expect(geom.get('adjusts').length).equal(1);
+    expect(geom.get('adjusts')[0].type).equal('stack');
+    const group = chart.get('viewContainer').getFirst();
+    expect(group.getCount()).equal(data.length);
+    const firstPath = group.getFirst().attr('path');
+    const nextPath = group.get('children')[5].attr('path');
+    expect(nextPath[1][1]).eqls(firstPath[0][1]);
+    expect(nextPath[1][2]).eqls(firstPath[0][2]);
+  });
+
+  it('dodge', function() {
+    chart.clear();
+    const geom = chart.intervalDodge().position('genre*sold').color('type');
+    chart.render();
+    expect(geom.get('hasDefaultAdjust')).equal(true);
+    expect(geom.get('adjusts').length).equal(1);
+    expect(geom.get('adjusts')[0].type).equal('dodge');
+    const group = chart.get('viewContainer').getFirst();
+    expect(group.getCount()).equal(10);
+    const first = group.getFirst();
+    expect(first.attr('path')[0]).eqls([ 'M', 92.75, 240 ]);
+  });
+
+  it('symmetric', function() {
+    const data = [
+      { genre: 'Sports', sold: 475, type: '1' },
+      { genre: 'Strategy', sold: 115, type: '1' },
+      { genre: 'Action', sold: 120, type: '1' },
+      { genre: 'Shooter', sold: 350, type: '1' },
+      { genre: 'Other', sold: 150, type: '1' }
+    ];
+    chart.clear();
+    chart.source(data, {
+      sold: {
+        nice: false
+      }
+    });
+    chart.coord();
+    const geom = chart.intervalSymmetric().position('genre*sold').color('genre');
+    chart.render();
+    expect(geom.get('hasDefaultAdjust')).equal(true);
+    expect(geom.get('adjusts').length).equal(1);
+    expect(geom.get('adjusts')[0].type).equal('symmetric');
+
+    const group = chart.get('viewContainer').getFirst();
+    expect(group.getCount()).equal(data.length);
+    const first = group.getFirst();
+    const second = group.get('children')[1];
+    expect(first.get('origin').y[0] - second.get('origin').y[0]).not.eqls(0);
+    expect(first.get('origin').y[0] - second.get('origin').y[0]).equal(second.get('origin').y[1] - first.get('origin').y[1]);
+  });
+  it('destroy', function() {
+    chart.destroy();
+    expect(chart.destroyed).equal(true);
   });
 });

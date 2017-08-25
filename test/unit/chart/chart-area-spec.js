@@ -85,3 +85,49 @@ describe('test area chart', function() {
     document.body.removeChild(div);
   });
 });
+
+describe('test area adjusted', function() {
+  const data = [
+    { genre: 'Sports', sold: 475, type: '1' },
+    { genre: 'Strategy', sold: 115, type: '1' },
+    { genre: 'Action', sold: 120, type: '1' },
+    { genre: 'Shooter', sold: 350, type: '1' },
+    { genre: 'Other', sold: 150, type: '1' },
+
+    { genre: 'Sports', sold: 145, type: '2' },
+    { genre: 'Strategy', sold: 415, type: '2' },
+    { genre: 'Action', sold: 180, type: '2' },
+    { genre: 'Shooter', sold: 50, type: '2' },
+    { genre: 'Other', sold: 120, type: '2' }
+  ];
+
+  const chart = new Chart({
+    container: div,
+    height: 300,
+    width: 500,
+    animate: false
+  });
+
+  chart.source(data);
+
+  it('stack', function() {
+    chart.areaStack().position('genre*sold').color('type');
+    chart.render();
+
+    const firstPath = chart.get('viewContainer').getFirst()
+                           .getFirst()
+                           .attr('path');
+    const lastPath = chart.get('viewContainer').getFirst()
+                          .getLast()
+                          .attr('path');
+    // 层叠
+    expect(firstPath[0][1]).equal(lastPath[lastPath.length - 2][1]);
+    expect(firstPath[1][1]).equal(lastPath[lastPath.length - 3][1]);
+  });
+
+  it('destroy', function() {
+    chart.destroy();
+    expect(chart.destroyed).equal(true);
+  });
+
+});

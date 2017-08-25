@@ -99,10 +99,10 @@ describe('test geoms', function() {
 
     it('test attr method position', function() {
       geom.position('a*b');
-      expect(geom.get('attrOptions').position).eqls({ field: 'a*b', adjusts: undefined });
+      expect(geom.get('attrOptions').position).eqls({ field: 'a*b' });
       geom.position([ 'a', 'b' ], 'stack');
-      expect(geom.get('attrOptions').position).eqls({ field: [ 'a', 'b' ], adjusts: [{ type: 'stack' }] });
-      // expect(geom.get('adjusts')).eqls([{ type: 'stack' }]);
+      expect(geom.get('attrOptions').position).eqls({ field: [ 'a', 'b' ] });
+      expect(geom.get('adjusts')).eqls([{ type: 'stack' }]);
 
       geom.position([ 'a', 'b' ], { adjusts: [ 'stack', 'dodge' ] });
       // expect(geom.get('adjusts')).eqls([{ type: 'stack' }, { type: 'dodge' }]);
@@ -204,11 +204,12 @@ describe('test geoms', function() {
     it('reset', function() {
       geom.reset();
       expect(geom.get('attrs')).eqls({});
-      expect(geom.get('adjusts')).eqls(null);
+      // expect(geom.get('adjusts')).eqls(null);
     });
     it('test total init', function() {
       geom.position('a*b', 'stack').color('c');
       geom.init();
+      expect(geom.get('adjusts')).eqls([{ type: 'stack' }]);
       const dataArray = geom.get('dataArray');
       expect(dataArray[0][0].b).eqls([ 0, 2 ]);
       expect(dataArray[1][0].b).eqls([ 2, 5 ]);

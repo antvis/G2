@@ -38,4 +38,35 @@ class Interval extends GeomBase {
   }
 }
 
+class IntervalStack extends Interval {
+  getDefaultCfg() {
+    const cfg = super.getDefaultCfg();
+    cfg.hasDefaultAdjust = true;
+    cfg.adjusts = [{ type: 'stack' }];
+    return cfg;
+  }
+}
+
+class IntervalDodge extends Interval {
+  getDefaultCfg() {
+    const cfg = super.getDefaultCfg();
+    cfg.hasDefaultAdjust = true;
+    cfg.adjusts = [{ type: 'dodge' }];
+    return cfg;
+  }
+}
+
+class IntervalSymmetric extends Interval {
+  getDefaultCfg() {
+    const cfg = super.getDefaultCfg();
+    cfg.hasDefaultAdjust = true;
+    cfg.adjusts = [{ type: 'symmetric' }];
+    return cfg;
+  }
+}
+
+Interval.Stack = IntervalStack;
+Interval.Dodge = IntervalDodge;
+Interval.Symmetric = IntervalSymmetric;
+
 module.exports = Interval;

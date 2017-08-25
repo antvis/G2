@@ -50,4 +50,14 @@ class Area extends GeomBase {
   }
 }
 
+class AreaStack extends Area {
+  getDefaultCfg() {
+    const cfg = super.getDefaultCfg();
+    cfg.hasDefaultAdjust = true;
+    cfg.adjusts = [{ type: 'stack' }];
+    return cfg;
+  }
+}
+
+Area.Stack = AreaStack;
 module.exports = Area;

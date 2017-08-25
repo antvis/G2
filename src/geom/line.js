@@ -19,4 +19,14 @@ class Line extends Path {
   }
 }
 
+class LineStack extends Line {
+  getDefaultCfg() {
+    const cfg = super.getDefaultCfg();
+    cfg.hasDefaultAdjust = true;
+    cfg.adjusts = [{ type: 'stack' }];
+    return cfg;
+  }
+}
+
+Line.Stack = LineStack;
 module.exports = Line;

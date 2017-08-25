@@ -33,4 +33,14 @@ class Schema extends GeomBase {
   }
 }
 
+class SchemaDodge extends Schema {
+  getDefaultCfg() {
+    const cfg = super.getDefaultCfg();
+    cfg.hasDefaultAdjust = true;
+    cfg.adjusts = [{ type: 'dodge' }];
+    return cfg;
+  }
+}
+
+Schema.Dodge = SchemaDodge;
 module.exports = Schema;
