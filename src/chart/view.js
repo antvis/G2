@@ -89,6 +89,9 @@ class View extends Base {
    */
   init() {
     this._initViewPlot(); // 先创建容器
+    if (this.get('data')) {
+      this._initData(this.get('data'));
+    }
     this._initOptions();
     this._initControllers();
     this._bindEvents();
