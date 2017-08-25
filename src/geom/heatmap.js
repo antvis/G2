@@ -33,7 +33,46 @@ class Heatmap extends GeomBase {
     return cfg;
   }
 
-  _getSize() {
+  _prepareRange() {
+    const self = this;
+
+    const data = self.get(MAPPED_DATA);
+    const colorAttr = self.getAttr('color');
+    const colorField = colorAttr.field;
+
+    let min = Infinity;
+    let max = -Infinity;
+    data.forEach(row => {
+      const value = row[ORIGIN_FIELD][colorField];
+      if (value > max) {
+        max = value;
+      }
+      if (value < min) {
+        min = value;
+      }
+    });
+    if (min === max) {
+      min = max - 1;
+    }
+
+    const range = [ min, max ];
+    self.set(VALUE_RANGE, range);
+  }
+
+  _prepareSize() {
+    const self = this;
+    const sizeAttr = self.getAttr('size');
+    let size = sizeAttr && sizeAttr.field ? sizeAttr.field : self._getDefaultSize() || DEFAULT_SIZE;
+    if (Util.isNumber(size)) {
+      size = Util.assign({}, DEFAULT_SIZE, {
+        blur: size / 2,
+        radius: size
+      });
+    }
+    self.set(HEATMAP_SIZE, size);
+  }
+
+  _getDefaultSize() {
     const self = this;
     const position = self.getAttr('position');
     const coord = self.get('coord');
@@ -52,7 +91,6 @@ class Heatmap extends GeomBase {
     const self = this;
     const colorAttr = self.getAttr('color');
     const pixels = img.data;
-    // const t0 = Date.now();
     for (let i = 3; i < pixels.length; i += 4) {
       const alpha = pixels[i]; // get gradient color from opacity value
       if (alpha) {
@@ -70,7 +108,6 @@ class Heatmap extends GeomBase {
         pixels[i] = alpha;
       }
     }
-    // console.log(`colorize toke ${Date.now() - t0}ms.`);
   }
 
   _prepareGreyScaleBlurredCircle(r, blur) {
@@ -139,8 +176,6 @@ class Heatmap extends GeomBase {
 
   drawWithRange(range) {
     const self = this;
-    // const t0 = Date.now();
-    // console.log('drawing...........');
 
     // canvas size
     const coord = self.get('coord');
@@ -149,8 +184,6 @@ class Heatmap extends GeomBase {
 
     // value, range, etc
     const valueField = self.getAttr('color').field;
-    const [ min, max ] = self.get(VALUE_RANGE);
-
     const size = self.get(HEATMAP_SIZE);
 
     // prepare shadow canvas context
@@ -166,10 +199,11 @@ class Heatmap extends GeomBase {
     }
 
     // step1. draw points with shadow
+    const scale = self._getScale(valueField);
     for (let i = 0; i < data.length; i++) {
       const obj = data[i];
       const cfg = self.getDrawCfg(obj);
-      const alpha = Math.min((obj[ORIGIN_FIELD][valueField] - min) / (max - min), 1);
+      const alpha = scale.scale(obj[ORIGIN_FIELD][valueField]);
       self._drawGrayScaleBlurredCircle(cfg.x, cfg.y, size.radius, alpha, ctx);
     }
 
@@ -184,45 +218,21 @@ class Heatmap extends GeomBase {
     imageShape.attr('width', width + coord.start.x);
     imageShape.attr('height', height + coord.end.y);
     imageShape.attr('img', ctx.canvas);
-    // console.log(`finished drawing, ${Date.now() - t0}ms token`);
   }
 
-  draw(data, container, shapeFactory, index) {
+  draw(data /* , container, shapeFactory, index */) {
     const self = this;
-    const colorAttr = self.getAttr('color');
     self.set(MAPPED_DATA, data);
-    const colorField = colorAttr.field;
 
-    let min = Infinity;
-    let max = -Infinity;
-    data.forEach(row => {
-      const value = row[ORIGIN_FIELD][colorField];
-      if (value > max) {
-        max = value;
-      }
-      if (value < min) {
-        min = value;
-      }
-    });
-    if (min === max) {
-      min = max - 1;
-    }
+    self._prepareRange();
+    self._prepareSize();
 
-    const sizeAttr = self.getAttr('size');
-    let size = sizeAttr && sizeAttr.field ? sizeAttr.field : self._getSize() || DEFAULT_SIZE;
-    if (Util.isNumber(size)) {
-      size = Util.assign({}, DEFAULT_SIZE, {
-        blur: size / 2,
-        radius: size
-      });
-    }
-    self.set(HEATMAP_SIZE, size);
-
-    const range = [ min, max ];
-    self.set(VALUE_RANGE, range);
+    const size = self.get(HEATMAP_SIZE);
     self._prepareGreyScaleBlurredCircle(size.radius, size.blur);
+
+    const range = self.get(VALUE_RANGE);
     self.drawWithRange(range);
-    super.draw(data, container, shapeFactory, index);
+    // super.draw(data, container, shapeFactory, index);
   }
 
 }
