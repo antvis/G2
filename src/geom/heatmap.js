@@ -18,6 +18,7 @@ const DEFAULT_SIZE = {
   radius: 30
 };
 
+const paletteCache = {};
 
 class Heatmap extends GeomBase {
   /**
@@ -51,16 +52,25 @@ class Heatmap extends GeomBase {
     const self = this;
     const colorAttr = self.getAttr('color');
     const pixels = img.data;
+    // const t0 = Date.now();
     for (let i = 3; i < pixels.length; i += 4) {
       const alpha = pixels[i]; // get gradient color from opacity value
       if (alpha) {
-        const palette = colorUtil.rgb2arr(colorAttr.gradient(alpha / 256));
+        let palette;
+        if (paletteCache[alpha]) {
+          palette = paletteCache[alpha];
+        } else {
+          palette = colorUtil.rgb2arr(colorAttr.gradient(alpha / 256));
+          paletteCache[alpha] = palette;
+        }
+        // const palette = colorUtil.rgb2arr(colorAttr.gradient(alpha / 256));
         pixels[i - 3] = palette[0];
         pixels[i - 2] = palette[1];
         pixels[i - 1] = palette[2];
         pixels[i] = alpha;
       }
     }
+    // console.log(`colorize toke ${Date.now() - t0}ms.`);
   }
 
   _prepareGreyScaleBlurredCircle(r, blur) {
