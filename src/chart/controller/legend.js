@@ -97,7 +97,7 @@ class LegendController {
       chart.filterShape(function(obj) {
         return obj[field] >= range[0] && obj[field] <= range[1];
       });
-      const geoms = chart.get('geoms') || [];
+      const geoms = chart.getAllGeoms() || [];
       for (let i = 0; i < geoms.length; i++) {
         const geom = geoms[i];
         if (geom.get('type') === 'heatmap') {

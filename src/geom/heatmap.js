@@ -184,7 +184,6 @@ class Heatmap extends GeomBase {
     imageShape.attr('width', width + coord.start.x);
     imageShape.attr('height', height + coord.end.y);
     imageShape.attr('img', ctx.canvas);
-
     // console.log(`finished drawing, ${Date.now() - t0}ms token`);
   }
 
