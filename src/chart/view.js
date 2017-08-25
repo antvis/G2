@@ -550,7 +550,7 @@ class View extends Base {
     if (field === false) {
       options.axes = false;
     } else {
-      if (Util.isNil(options.axes)) {
+      if (!options.axes) {
         options.axes = {};
       }
       const axisOptions = options.axes;

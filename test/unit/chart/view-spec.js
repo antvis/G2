@@ -91,6 +91,11 @@ describe('test view', function() {
   });
 
   it('axis', function() {
+    view.axis(false);
+    expect(view.get('options').axes).to.be.false;
+    view.axis(true);
+    expect(view.get('options').axes).not.to.be.false;
+
     view.axis('a', {
       title: {
         textStyle: {
