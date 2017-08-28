@@ -207,21 +207,9 @@ class GeomBase extends Base {
    * 位置属性映射
    * @chainable
    * @param  {String} field 字段名
-   * @param  {String|Array|Object} cfg 配置项
    * @return {Geom} geom 当前几何标记
    */
-  position(field, cfg) {
-    // 如果设置了 hasDefaultAdjust 后不能再更改 adjust，主要用于 intervalStack 等固定的类型
-    if (!this.get('hasDefaultAdjust')) {
-      let adjusts;
-      if (Util.isString(cfg) || Util.isArray(cfg)) {
-        adjusts = parseAdjusts(cfg);
-      }
-      if (Util.isObject(cfg) && cfg.adjusts) {
-        adjusts = parseAdjusts(cfg.adjusts);
-      }
-      this.set('adjusts', adjusts);
-    }
+  position(field) {
     this._setAttrOptions('position', {
       field
     });
@@ -340,6 +328,22 @@ class GeomBase extends Base {
   }
 
   /**
+   * 对 geometry 进行数据调整
+   * @chainable
+   * @param  {String|Array|null} adjusts 数据调整的类型
+   * @return {Object} geometry 对象
+   */
+  adjust(adjusts) {
+    if (!this.get('hasDefaultAdjust')) {
+      if (adjusts) {
+        adjusts = parseAdjusts(adjusts);
+      }
+      this.set('adjusts', adjusts);
+    }
+    return this;
+  }
+
+  /**
    * 设置图形的选中模式
    * @param  {Boolean|Object} enable 布尔类型用于模式开关，对象类型用于配置
    * @param  {Object} cfg    选中配置项
@@ -421,11 +425,6 @@ class GeomBase extends Base {
           // 饼图坐标系下，填充一维
           if (fields.length === 1 && coord.type === 'theta') {
             fields.unshift('1');
-          }
-          // adjusts 在position 时设置，不需要清理或者重生成
-          // 此处是为了防止在options 内部设置 adjust
-          if (!self.get('adjusts') && option.adjusts) {
-            self.set('adjusts', option.adjusts);
           }
         }
         const scales = [];

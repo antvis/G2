@@ -96,8 +96,8 @@
     });
 
     chart.scale('name', { alias: '城市' });
-    chart.interval()
-      .position('月份*月均降雨量', 'dodge')
+    chart.intervalDodge()
+      .position('月份*月均降雨量')
       .color('name', [ '#FF6A84', '#30A4EB', '#45BFC0', '#FFCC55' ]);
     chart.render();
   </script>

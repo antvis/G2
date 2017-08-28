@@ -81,7 +81,9 @@ describe('interval chart', function() {
     chart.clear();
     chart.coord();
     chart.source(newData);
-    chart.interval().position('genre*sold', 'stack').color('type');
+    chart.interval().position('genre*sold')
+      .color('type')
+      .adjust('stack');
     chart.render();
 
     const group = chart.get('viewContainer').getFirst();
@@ -94,7 +96,9 @@ describe('interval chart', function() {
 
   it('dodge', function() {
     chart.clear();
-    chart.interval().position('genre*sold', 'dodge').color('type');
+    chart.interval().position('genre*sold')
+      .adjust('dodge')
+      .color('type');
     chart.render();
     const group = chart.get('viewContainer').getFirst();
     expect(group.getCount()).equal(10);
@@ -110,7 +114,9 @@ describe('interval chart', function() {
       }
     });
     chart.coord();
-    chart.interval().position('genre*sold', 'symmetric').color('genre');
+    chart.interval().position('genre*sold')
+      .color('genre')
+      .adjust('symmetric');
     chart.render();
 
     const group = chart.get('viewContainer').getFirst();
@@ -128,7 +134,9 @@ describe('interval chart', function() {
         nice: false
       }
     });
-    chart.interval().position('genre*sold', 'symmetric').color('genre')
+    chart.interval().position('genre*sold')
+      .adjust('symmetric')
+      .color('genre')
       .shape('funnel');
     chart.render();
     const group = chart.get('viewContainer').getFirst();
@@ -145,7 +153,8 @@ describe('interval chart', function() {
         nice: false
       }
     });
-    chart.interval().position('genre*sold', 'symmetric').color('genre')
+    chart.interval().position('genre*sold').color('genre')
+      .adjust('symmetric')
       .shape('pyramid');
     chart.render();
     const group = chart.get('viewContainer').getFirst();
@@ -164,7 +173,9 @@ describe('interval chart', function() {
       }
     });
 
-    chart.interval().position('sold', 'stack').color('genre');
+    chart.interval().position('sold')
+      .color('genre')
+      .adjust('stack');
     chart.render();
     const group = chart.get('viewContainer').getFirst();
     expect(group.getCount()).equal(data.length);
@@ -182,7 +193,9 @@ describe('interval chart', function() {
       }
     });
 
-    chart.interval().position('sold', 'stack').color('genre');
+    chart.interval().position('sold')
+      .color('genre')
+      .adjust('stack');
     chart.render();
     const group = chart.get('viewContainer').getFirst();
     expect(group.getCount()).equal(data.length);
@@ -215,7 +228,9 @@ describe('interval chart', function() {
       return genre === 'Shooter';
     });
     chart.source(data);
-    chart.interval().position('sold', 'stack').color('genre');
+    chart.interval().position('sold')
+      .color('genre')
+      .adjust('stack');
     chart.render();
     const scale = chart.get('scales').sold;
     expect(scale.nice).equal(false);

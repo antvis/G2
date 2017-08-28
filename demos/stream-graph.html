@@ -103,7 +103,8 @@
         grid: null
       });
       chart.area()
-        .position('year*count', [ 'stack', 'symmetric' ])
+        .position('year*count')
+        .adjust([ 'stack', 'symmetric' ])
         .color('name')
         .shape('smooth')
         .opacity(1);

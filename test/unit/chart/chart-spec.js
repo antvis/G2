@@ -503,7 +503,9 @@ describe('chart sync scales', function() {
 
   it('chart with view', function() {
     chart.clear();
-    chart.interval().position('a*b', 'stack').color('c');
+    chart.interval().position('a*b')
+      .color('c')
+      .adjust('stack');
     chart.scale('a', {
       sync: true
     });
@@ -532,7 +534,9 @@ describe('chart sync scales', function() {
       start: { x: 0.5, y: 0.5 }
     });
     v2.source(data);
-    v2.interval().position('a*b', 'stack').color('c');
+    v2.interval().position('a*b')
+      .color('c')
+      .adjust('stack');
     chart.render();
     expect(v1.get('scales').b).equal(chart.get('scales').b);
     expect(v1.get('scales').a).equal(chart.get('scales').a);
