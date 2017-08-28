@@ -190,7 +190,7 @@ function lineWidthOut(shape, animateCfg) {
   const index = shape.get('index');
   const animateParam = getAnimateParam(animateCfg, index, id, endState);
   shape.animate(endState, animateParam.duration, animateParam.easing, function() {
-    shape.destroy();
+    shape.remove();
   }, animateParam.delay);
 }
 
@@ -251,7 +251,7 @@ function zoomOut(shape, animateCfg, coord) {
   };
   const animateParam = getAnimateParam(animateCfg, index, id, endState);
   shape.animate(endState, animateParam.duration, animateParam.easing, function() {
-    shape.destroy();
+    shape.remove();
   }, animateParam.delay);
 }
 
@@ -278,7 +278,7 @@ function pathOut(shape, animateCfg) {
   };
   const animateParam = getAnimateParam(animateCfg, index, id, endState);
   shape.animate(endState, animateParam.duration, animateParam.easing, function() {
-    shape.destroy();
+    shape.remove();
   }, animateParam.delay);
 }
 
@@ -305,7 +305,7 @@ function clipIn(shape, animateCfg, coord, startAngle, endAngle) {
       if (shape && !shape.get('destroyed')) {
         shape.attr('clip', null);
         shape.setSilent('cacheShape', null);
-        clip.destroy();
+        clip.remove();
       }
     }, animateParam.delay);
 }
@@ -334,7 +334,7 @@ function fadeOut(shape, animateCfg) {
   };
   const animateParam = getAnimateParam(animateCfg, index, id, endState);
   shape.animate(endState, animateParam.duration, animateParam.easing, function() {
-    shape.destroy();
+    shape.remove();
   }, animateParam.delay);
 }
 

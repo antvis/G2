@@ -164,7 +164,7 @@ Util.Array = {
       condition = function(row) {
         let unique = '';
         for (let i = 0, l = paramsCondition.length; i < l; i++) {
-          unique += row[paramsCondition[i]].toString();
+          unique += row[paramsCondition[i]] && row[paramsCondition[i]].toString();
         }
         return unique;
       };
