@@ -1,4 +1,5 @@
 const G = require('@ali/g');
+const Monitor = require('@ali/g2-monitor');
 const Animate = require('./src/animate/animate');
 const Chart = require('./src/chart/chart');
 const Global = require('./src/global');
@@ -8,7 +9,7 @@ const Util = require('./src/util');
 
 let G2 = {
   // version
-  version: '3.0.0-rc2',
+  version: Global.version,
   // visual encoding
   Animate,
   Chart,
@@ -22,6 +23,12 @@ let G2 = {
   MatrixUtil: G.MatrixUtil,
   PathUtil: G.PathUtil
 };
+
+Monitor.tracking = true;
+G2.track = function(enable) {
+  Monitor.tracking = enable;
+};
+require('./src/track');
 
 // 保证两个版本共存
 if (window && window.G2) {
