@@ -44,7 +44,7 @@ getPort().then(port => {
   http.createServer(server).listen(port);
 
   const DELAY = 6000;
-  const q = queue(MAX_POOL_SIZE);
+  const q = queue(MAX_POOL_SIZE > 2 ? MAX_POOL_SIZE - 1 : MAX_POOL_SIZE);
 
   glob('./**/*.html', {
     cwd: demosRoot,
@@ -60,18 +60,19 @@ getPort().then(port => {
       if (fileBasename !== 'index' && !/^assets/.test(fileBasename)) {
         const outputFilename = resolve(screenshotsPath, `./${fileBasename}.png`);
         q.defer(callback => {
-          // const t0 = Date.now();
+          const t0 = Date.now();
           const nightmare = Nightmare({
-            show: false
+            show: true
           });
           nightmare
             .viewport(width, height)
             .goto(`http://127.0.0.1:${port}/demos/${file}`)
             .wait('#canvas canvas')
             .wait(DELAY)
+            .click('#canvas')
             .screenshot(outputFilename, () => {
-              console.log(`sreenshot token: ${outputFilename}`);
-              // console.log(`${fileBasename} toke ${Date.now() - t0} to take a screenshot.`);
+              // console.log(`sreenshot token: ${outputFilename}`);
+              console.log(`${fileBasename} toke ${Date.now() - t0} to take a screenshot.`);
               callback(null);
             })
             .end()

@@ -15,36 +15,27 @@
 <script src="./assets/jquery-3.2.1.min.js"></script>
 <script src="../build/g2.js"></script>
 <script>
-  function normal(x, y) {
-    return (1 / (2 * Math.PI)) * Math.exp((-1 / 2) * (x * x + y * y));
-  }
-  const data = [];
-  for (let i = 0; i < 500; i++) {
-    const x = (Math.random() * 1000) >> 0;
-    const y = (Math.random() * 500) >> 0;
-    const c = normal((x - 500) / 80, (y - 250) / 40) * 10000 >> 0;
-    // const c = Math.random() * 1000 >> 0;
-    data.push({
-      g: x,
-      l: y,
-      tmp: c
+  $.getJSON('./data/heatmap.json', data => {
+    const chart = new G2.Chart({
+      container: 'canvas',
+      forceFit: true,
+      height: window.innerHeight,
+      padding: [ 0, 50, 0, 0 ]
     });
-  }
-  const chart = new G2.Chart({
-    container: 'canvas',
-    forceFit: true,
-    height: window.innerHeight,
-    padding: [ 10, 80, 30, 10 ]
+    chart.source(data);
+    chart.tooltip({
+      showTitle: false
+    });
+    chart.axis(false);
+    chart.legend({
+      position: 'right',
+      layout: 'vertical'
+    });
+    chart.heatmap()
+      .position('g*l')
+      .color('tmp', 'blue-cyan-lime-yellow-red');
+    chart.render();
   });
-  chart.source(data);
-  chart.tooltip({
-    showTitle: false
-  });
-  chart.axis(false);
-  chart.heatmap()
-    .position('g*l')
-    .color('tmp', 'blue-cyan-lime-yellow-red');
-  chart.render();
 </script>
 </body>
 
