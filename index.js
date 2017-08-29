@@ -1,17 +1,26 @@
-const Util = require('./src/util');
-const Scale = require('./src/scale/index');
-const Chart = require('./src/chart/chart');
-const Shape = require('./src/geom/shape/');
-const Global = require('./src/global');
+const G = require('@ali/g');
 const Animate = require('./src/animate/animate');
+const Chart = require('./src/chart/chart');
+const Global = require('./src/global');
+const Scale = require('./src/scale/index');
+const Shape = require('./src/geom/shape/');
+const Util = require('./src/util');
+
 let G2 = {
-  Util,
-  Scale,
-  Chart,
-  Shape,
-  Global,
+  // version
+  version: '3.0.0-rc2',
+  // visual encoding
   Animate,
-  version: '3.0.0-rc2'
+  Chart,
+  Global,
+  Scale,
+  Shape,
+  Util,
+  // render engine
+  G,
+  DomUtil: G.DomUtil,
+  MatrixUtil: G.MatrixUtil,
+  PathUtil: G.PathUtil
 };
 
 // 保证两个版本共存
