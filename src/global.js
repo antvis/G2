@@ -9,28 +9,7 @@ const Theme = require('./theme/index');
 const THEME_TYPES = [ 'default' ];
 
 const Global = {};
-let Default;
-
-function setTheme(theme) {
-  for (const k in Global) {
-    if (Global.hasOwnProperty(k)) {
-      delete Global[k];
-    }
-  }
-
-  let newTheme;
-  if (Util.isObject(theme)) {
-    newTheme = theme;
-  } else if (Util.indexOf(THEME_TYPES, theme) !== -1) {
-    newTheme = Theme[theme];
-  } else {
-    newTheme = Theme.default;
-  }
-  Util.merge(Global, Default, newTheme);
-  Global.setTheme = setTheme;
-}
-
-Default = {
+const Default = {
   animate: true,
   widthRatio: { // 宽度所占的分类的比例
     column: 1 / 2, // 一般的柱状图占比 1/2
@@ -43,6 +22,23 @@ Default = {
   scales: {
   }
 };
+
+function setTheme(theme) {
+  for (const k in Global) {
+    if (Global.hasOwnProperty(k)) {
+      delete Global[k];
+    }
+  }
+
+  let newTheme = {};
+  if (Util.isObject(theme)) {
+    newTheme = theme;
+  } else if (Util.indexOf(THEME_TYPES, theme) !== -1) {
+    newTheme = Theme[theme];
+  }
+  Util.merge(Global, Default, Theme.default, newTheme);
+  Global.setTheme = setTheme;
+}
 
 setTheme('default');
 
