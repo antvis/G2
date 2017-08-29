@@ -13,14 +13,12 @@
 <body>
 <div id="canvas"></div>
 <script src="./assets/jquery-3.2.1.min.js"></script>
-<script src="./assets/lodash-4.17.4.min.js"></script>
 <script src="./assets/data-set.min.js"></script>
-<script src="./assets/d3-4.10.0.min.js"></script>
 <script src="../build/g2.js"></script>
 <script>
   $.getJSON('./data/voronoi.json', data => {
     const ds = new DataSet();
-    const dv = ds.createView().source(_.clone(data));
+    const dv = ds.createView().source(data);
     dv.transform({
       type: 'diagram.voronoi',
       fields: [ 'x', 'y' ],
