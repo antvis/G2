@@ -6,16 +6,24 @@
 // 获取系数
 function getFactor(v) {
   let factor = 1;
-
-  while (v > 10) {
-    factor = factor * 10;
-    v = v / 10;
+  if (v < 1) {
+    let count = 0;
+    while (v < 1) {
+      factor = factor / 10;
+      v = v * 10;
+      count++;
+    }
+    // 浮点数计算出现问题
+    if (factor.toString().length > 20) {
+      factor = parseFloat(factor.toFixed(count));
+    }
+  } else {
+    while (v > 10) {
+      factor = factor * 10;
+      v = v / 10;
+    }
   }
 
-  while (v < 1) {
-    factor = factor / 10;
-    v = v * 10;
-  }
   return factor;
 }
 

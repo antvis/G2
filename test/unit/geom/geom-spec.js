@@ -141,6 +141,12 @@ describe('test geoms', function() {
       });
       expect(geom.get('allowSelect')).equal(true);
     });
+    it('init adjusts', function() {
+      const newGeom = new Geom({
+        adjusts: 'stack'
+      });
+      expect(newGeom.get('adjusts')).eqls([{ type: 'stack' }]);
+    });
   });
 
   describe('test init data', function() {
@@ -206,7 +212,7 @@ describe('test geoms', function() {
       // expect(geom.get('adjusts')).eqls(null);
     });
     it('test total init', function() {
-      geom.position('a*b', 'stack').color('c');
+      geom.position('a*b').color('c').adjust('stack');
       geom.init();
       expect(geom.get('adjusts')).eqls([{ type: 'stack' }]);
       const dataArray = geom.get('dataArray');

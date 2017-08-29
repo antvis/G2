@@ -172,6 +172,16 @@ class GeomBase extends Base {
     if (this.get('container')) {
       this._initContainer();
     }
+    this._initOptions();
+  }
+
+  // 初始化时对配置项的格式化
+  _initOptions() {
+    let adjusts = this.get('adjusts');
+    if (adjusts) {
+      adjusts = parseAdjusts(adjusts);
+      this.set('adjusts', adjusts);
+    }
   }
 
   _createScale(field) {
