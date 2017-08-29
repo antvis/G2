@@ -10,6 +10,7 @@ const THEME_TYPES = [ 'default' ];
 
 const Global = {};
 const Default = {
+  version: '3.0.0-rc3',
   animate: true,
   widthRatio: { // 宽度所占的分类的比例
     column: 1 / 2, // 一般的柱状图占比 1/2
