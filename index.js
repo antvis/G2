@@ -1,20 +1,29 @@
-const Util = require('./src/util');
-const Scale = require('./src/scale/index');
-const Chart = require('./src/chart/chart');
-const Shape = require('./src/geom/shape/');
-const Global = require('./src/global');
+const G = require('@ali/g');
+const Monitor = require('@ali/g2-monitor');
 const Animate = require('./src/animate/animate');
+const Chart = require('./src/chart/chart');
+const Global = require('./src/global');
+const Scale = require('./src/scale/index');
+const Shape = require('./src/geom/shape/');
+const Util = require('./src/util');
+
 let G2 = {
-  Util,
-  Scale,
-  Chart,
-  Shape,
-  Global,
+  // version
+  version: Global.version,
+  // visual encoding
   Animate,
-  version: Global.version
+  Chart,
+  Global,
+  Scale,
+  Shape,
+  Util,
+  // render engine
+  G,
+  DomUtil: G.DomUtil,
+  MatrixUtil: G.MatrixUtil,
+  PathUtil: G.PathUtil
 };
 
-const Monitor = require('@ali/g2-monitor');
 Monitor.tracking = true;
 G2.track = function(enable) {
   Monitor.tracking = enable;

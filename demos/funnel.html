@@ -33,8 +33,8 @@
     chart.legend('action', {
       position: 'bottom'
     });
-    chart.interval()
-      .position('action*value', 'symmetric')
+    chart.intervalSymmetric()
+      .position('action*value')
       .color('action', [ '#C82B3D', '#EB4456', '#F9815C', '#F8AB60', '#EDCC72' ])
       .shape('funnel');
     chart.render();
