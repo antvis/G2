@@ -109,6 +109,8 @@ const Animate = {
         }
       } else if (coord.isRect) {
         result = coord.isTransposed ? Action.appear.scaleInX : Action.appear.scaleInY;
+      } else {
+        result = Action.appear.zoomIn;
       }
       return result;
     },

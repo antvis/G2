@@ -190,6 +190,8 @@ class Tooltip extends Group {
 
     if (titleDom && showTitle) {
       titleDom.innerHTML = titleContent;
+    } else {
+      titleDom.style.margin = 0;
     }
 
     if (listDom) {

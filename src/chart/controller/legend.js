@@ -5,7 +5,7 @@ const Shape = require('../../geom/shape/index');
 
 const FIELD_ORIGIN = '_origin';
 const MARGIN = 16;
-const MARGIN_LEGEND = 25;
+const MARGIN_LEGEND = 24;
 const requireAnimationFrameFn = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
   window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
@@ -201,6 +201,9 @@ class LegendController {
 
     let x = 0;
     let y = 0;
+    if (legend.get('useHtml')) {
+      position = 'right';
+    }
 
     if (position === 'left' || position === 'right') { // 垂直
       const legendWidth = region.maxWidth;
