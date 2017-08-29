@@ -11,8 +11,15 @@ let G2 = {
   Shape,
   Global,
   Animate,
-  version: '3.0.0-rc2'
+  version: Global.version
 };
+
+const Monitor = require('@ali/g2-monitor');
+Monitor.tracking = true;
+G2.track = function(enable) {
+  Monitor.tracking = enable;
+};
+require('./src/track');
 
 // 保证两个版本共存
 if (window && window.G2) {
