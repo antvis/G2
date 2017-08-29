@@ -6,7 +6,7 @@
 
 const Util = require('./util');
 const Theme = require('./theme/index');
-const THEME_TYPES = [ 'default', 'dark', 'cheery' ];
+const THEME_TYPES = [ 'default' ];
 
 const Global = {};
 let Default;

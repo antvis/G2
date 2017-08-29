@@ -135,7 +135,7 @@ class Category extends Base {
        * marker 和文字的距离
        * @type {Number}
        */
-      _wordSpaceing: 6,
+      _wordSpaceing: 8,
       /**
        * 是否使用 html 进行渲染，默认为 false
        * @type {Boolean}

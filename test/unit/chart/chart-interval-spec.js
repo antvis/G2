@@ -19,7 +19,8 @@ describe('interval chart', function() {
     container: div,
     height: 300,
     width: 500,
-    animate: false
+    animate: false,
+    padding: [ 20, 80, 60, 80 ]
   });
 
   chart.legend({
@@ -239,7 +240,8 @@ describe('interval chart with time', function() {
     container: div,
     height: 300,
     width: 500,
-    animate: false
+    animate: false,
+    padding: [ 20, 80, 60, 80 ]
   });
 
   chart.source(data);
@@ -286,7 +288,8 @@ describe('interval hasDefaultAdjust', function() {
     container: div,
     height: 300,
     width: 500,
-    animate: false
+    animate: false,
+    padding: [ 20, 80, 60, 80 ]
   });
   chart.source(data);
   it('stack', function() {

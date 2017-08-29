@@ -85,17 +85,17 @@
         geom.highlightShapes(shapes);
       }
     });
-    chart.axis('月均降雨量', {
-      title: {
-        position: 'middle',
-        autoRotate: false,
-        textStyle: {
-          textAlign: 'start',
-          fill: '#000'
-        },
-        offset: -10
-      }
-    });
+    // chart.axis('月均降雨量', {
+    //   title: {
+    //     position: 'middle',
+    //     autoRotate: false,
+    //     textStyle: {
+    //       textAlign: 'start',
+    //       fill: '#000'
+    //     },
+    //     // offset: -10
+    //   }
+    // });
     chart.coord().transpose();
     chart.scale('name', { alias: '城市' });
     chart.interval()

@@ -47,7 +47,7 @@
       container: 'canvas',
       forceFit: true,
       height: window.innerHeight,
-      padding: [ 30, 120, 50, 100 ]
+      padding: [ 30, 10, 90, 100 ]
     });
     const defs = {
       from: {
@@ -64,9 +64,10 @@
     });
     chart.axis('from', false);
     chart.source(data, defs);
-    // chart.filter('from', function(value) {
-    //   return value == '湘湖';
-    // });
+    chart.legend({
+      itemWidth: 50
+    });
+
     const ploygon = chart.polygon().position('from*to')
         .color('from')
         .style({

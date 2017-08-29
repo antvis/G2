@@ -1,16 +1,16 @@
 /**
- * @fileOverview G2 1.2.0 开始使用的默认主题
+ * @fileOverview G2 3.0 最新主题
  */
-
 const DEFAULT_COLOR = '#4E7CCC';
 const FONT_FAMILY = '"Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", SimSun, "sans-serif"';
 
 const Theme = {
   defaultColor: DEFAULT_COLOR, // 默认主题色
   plotCfg: {
-    padding: [ 20, 80, 60, 80 ]
+    padding: [ 20, 20, 63, 69 ]
   },
   fontFamily: FONT_FAMILY,
+  defaultLegendPosition: 'bottom', // 默认图例的展示位置
   colors: [ '#4E7CCC', '#36B3C3', '#4ECDA5', '#94E08A', '#E2F194', '#EDCC72', '#F8AB60', '#F9815C', '#EB4456', '#C82B3D' ],
   shapes: {
     point: [ 'hollowCircle', 'hollowSquare', 'hollowDiamond', 'hollowBowtie', 'hollowTriangle',
@@ -24,83 +24,167 @@ const Theme = {
     top: {
       position: 'top',
       title: {
-        offset: 30,
+        offset: 31,
         position: 'center',
         autoRotate: true,
         textStyle: {
           fontSize: 12,
           fill: '#999',
+          lineHeight: 1,
           textBaseline: 'middle',
           textAlign: 'center'
         }
       },
       label: {
-        offset: 15,
+        offset: 14,
         textStyle: {
-          fill: '#404040',
+          fill: '#666',
           fontSize: 12,
+          lineHeight: 1,
           textBaseline: 'middle',
           textAlign: 'center'
         },
         autoRotate: true
       },
+      line: {
+        lineWidth: 1,
+        stroke: '#CCD6EC'
+      },
       tickLine: {
         lineWidth: 1,
-        stroke: '#ccc',
-        length: 5
+        stroke: '#CCD6EC',
+        length: 4
       }
     },
     bottom: {
       position: 'bottom',
       title: {
-        offset: 40,
+        offset: 31,
         autoRotate: true,
         position: 'center',
         textStyle: {
           fontSize: 12,
+          lineHeight: 1,
           textAlign: 'center',
           fill: '#999',
           textBaseline: 'middle'
         }
       },
       label: {
-        offset: 20,
+        offset: 14,
         autoRotate: true,
         textStyle: {
-          fill: '#404040',
+          fill: '#666',
           fontSize: 12,
+          lineHeight: 1,
           textBaseline: 'middle',
           textAlign: 'center'
         }
       },
       line: {
         lineWidth: 1,
-        stroke: '#ccc'
+        stroke: '#CCD6EC'
       },
       tickLine: {
         lineWidth: 1,
-        stroke: '#ccc',
-        length: 5
+        stroke: '#CCD6EC',
+        length: 4
       }
     },
     left: {
       position: 'left',
       title: {
-        offset: 60,
+        offset: 54,
         autoRotate: true,
         point: 'center',
         textStyle: {
           fontSize: 12,
           fill: '#999',
+          lineHeight: 1,
           textBaseline: 'middle',
           textAlign: 'center'
         }
       },
       label: {
-        offset: 13,
+        offset: 14,
         autoRotate: true,
         textStyle: {
-          fill: '#404040',
+          fill: '#666',
+          fontSize: 12,
+          lineHeight: 1,
+          textBaseline: 'middle',
+          textAlign: 'end'
+        }
+      },
+      line: null,
+      tickLine: null,
+      grid: {
+        lineStyle: {
+          stroke: '#E9E9E9',
+          lineWidth: 1,
+          lineDash: [ 3, 3 ]
+        }
+      }
+    },
+    right: {
+      position: 'right',
+      title: {
+        offset: 54,
+        autoRotate: true,
+        position: 'center',
+        textStyle: {
+          fontSize: 12,
+          fill: '#999',
+          lineHeight: 1,
+          textBaseline: 'middle',
+          textAlign: 'center'
+        }
+      },
+      label: {
+        offset: 14,
+        autoRotate: true,
+        textStyle: {
+          fill: '#666',
+          fontSize: 12,
+          lineHeight: 1,
+          textBaseline: 'middle',
+          textAlign: 'start'
+        }
+      },
+      line: null,
+      tickLine: null
+    },
+    circle: {
+      title: null,
+      label: {
+        offset: 8,
+        textStyle: {
+          fill: '#666',
+          fontSize: 12
+        }
+      },
+      line: {
+        lineWidth: 1,
+        stroke: '#CCD6EC'
+      },
+      tickLine: {
+        lineWidth: 1,
+        stroke: '#CCD6EC',
+        length: 4
+      },
+      grid: {
+        lineStyle: {
+          stroke: '#E9E9E9',
+          lineWidth: 1,
+          lineDash: [ 3, 3 ]
+        }
+      }
+    },
+    radius: {
+      label: {
+        offset: 8,
+        textStyle: {
+          fill: '#666',
           fontSize: 12,
           textBaseline: 'middle',
           textAlign: 'end'
@@ -108,96 +192,18 @@ const Theme = {
       },
       line: {
         lineWidth: 1,
-        stroke: '#ccc'
+        stroke: '#CCD6EC'
       },
       tickLine: {
         lineWidth: 1,
-        stroke: '#ccc',
-        length: 5
+        stroke: '#CCD6EC',
+        length: 4
       },
       grid: {
         lineStyle: {
-          stroke: '#d9d9d9',
+          stroke: '#E9E9E9',
           lineWidth: 1,
-          lineDash: [ 2, 2 ]
-        }
-      }
-    },
-    right: {
-      position: 'right',
-      title: {
-        offset: 60,
-        autoRotate: true,
-        position: 'center',
-        textStyle: {
-          fontSize: 12,
-          fill: '#999',
-          textBaseline: 'middle',
-          textAlign: 'center'
-        }
-      },
-      label: {
-        offset: 13,
-        autoRotate: true,
-        textStyle: {
-          fill: '#404040',
-          fontSize: 12,
-          textBaseline: 'middle',
-          textAlign: 'start'
-        }
-      },
-      line: {
-        lineWidth: 1,
-        stroke: '#ccc'
-      },
-      tickLine: {
-        lineWidth: 1,
-        stroke: '#ccc',
-        length: 5
-      }
-    },
-    circle: {
-      labelOffset: 5,
-      title: null,
-      line: {
-        lineWidth: 1,
-        stroke: '#ccc'
-      },
-      grid: {
-        lineStyle: {
-          stroke: '#d9d9d9',
-          lineWidth: 1,
-          lineDash: [ 1, 3 ]
-        }
-      },
-      label: {
-        offset: 5,
-        textStyle: {
-          fill: '#404040',
-          fontSize: 12,
-          textBaseline: 'middle',
-          textAlign: 'center'
-        }
-      }
-    },
-    radius: {
-      label: {
-        textStyle: {
-          fill: '#404040',
-          fontSize: 12,
-          textBaseline: 'middle',
-          textAlign: 'center'
-        }
-      },
-      line: {
-        lineWidth: 1,
-        stroke: '#ccc'
-      },
-      grid: {
-        lineStyle: {
-          stroke: '#d9d9d9',
-          lineWidth: 1,
-          lineDash: [ 2, 2 ]
+          lineDash: [ 3, 3 ]
         },
         type: 'circle'
       }
@@ -205,20 +211,20 @@ const Theme = {
     helix: {
       grid: null,
       label: null,
+      title: null,
       line: {
         lineWidth: 1,
-        stroke: '#ccc'
+        stroke: '#CCD6EC'
       },
       tickLine: {
         lineWidth: 1,
-        length: 5,
-        stroke: '#ccc'
-      },
-      title: null
+        length: 4,
+        stroke: '#CCD6EC'
+      }
     }
   },
   label: {
-    offset: 14,
+    offset: 20,
     textStyle: {
       fill: '#666',
       fontSize: 12,
@@ -229,7 +235,7 @@ const Theme = {
     offset: 10,
     textStyle: {
       fill: '#fff',
-      fontSize: 14,
+      fontSize: 12,
       textBaseline: 'top',
       fontStyle: 'bold'
     }
@@ -255,16 +261,11 @@ const Theme = {
       position: 'right',
       layout: 'vertical',
       itemMarginBottom: 5, // layout 为 vertical 时各个图例项的间距
-      width: 16,
-      height: 100,
-      title: {
-        text: ' ',
-        fill: '#333',
-        textBaseline: 'middle',
-        textAlign: 'start'
-      },
+      width: 20,
+      height: 156,
+      title: null,
       textStyle: {
-        fill: '#333',
+        fill: '#666',
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle'
@@ -275,16 +276,11 @@ const Theme = {
       position: 'left',
       layout: 'vertical',
       itemMarginBottom: 5,
-      width: 16,
-      height: 100,
-      title: {
-        text: ' ',
-        fill: '#333',
-        textBaseline: 'middle',
-        textAlign: 'start'
-      },
+      width: 20,
+      height: 156,
+      title: null,
       textStyle: {
-        fill: '#333',
+        fill: '#666',
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle'
@@ -296,10 +292,10 @@ const Theme = {
       layout: 'horizontal',
       title: null,
       itemGap: 10,
-      width: 100,
-      height: 16,
+      width: 156,
+      height: 20,
       textStyle: {
-        fill: '#333',
+        fill: '#666',
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle'
@@ -310,11 +306,11 @@ const Theme = {
       position: 'bottom',
       layout: 'horizontal',
       title: null,
-      itemGap: 10,
-      width: 100,
-      height: 16,
+      itemGap: 24,
+      width: 156,
+      height: 20,
       textStyle: {
-        fill: '#333',
+        fill: '#666',
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle'
@@ -325,6 +321,26 @@ const Theme = {
   tooltip: {
     crosshairs: false,
     offset: 15
+  },
+  tooltipMarker: {
+    fill: '#fff',
+    symbol: 'circle',
+    lineWidth: 2,
+    stroke: DEFAULT_COLOR,
+    radius: 4
+  }, // 提示信息在折线图、区域图上形成点的样式
+  tooltipCrosshairsRect: {
+    type: 'rect',
+    style: {
+      fill: '#CCD6EC',
+      opacity: 0.3
+    }
+  }, // tooltip 辅助背景框样式
+  tooltipCrosshairsLine: {
+    style: {
+      stroke: 'rgba(0, 0, 0, 0.4)',
+      lineWidth: 1
+    }
   },
   shape: {
     point: {
@@ -418,13 +434,6 @@ const Theme = {
       alignY: 'middle'
     }
   },
-  tooltipMarker: {
-    fill: '#fff',
-    symbol: 'circle',
-    lineWidth: 2,
-    stroke: DEFAULT_COLOR,
-    radius: 4
-  }, // 提示信息在折线图、区域图上形成点的样式
   pixelRatio: null
 };
 

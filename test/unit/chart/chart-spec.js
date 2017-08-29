@@ -232,7 +232,8 @@ describe('chart forceFit', function() {
       height: 500,
       forceFit: true,
       container: 'cchart',
-      animate: false
+      animate: false,
+      padding: [ 20, 80, 60, 80 ]
     });
     expect(chart.get('canvas').get('width')).equal(DomUtil.getWidth(div));
     chart.source(data);

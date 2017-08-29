@@ -26,7 +26,7 @@
         .transform({
           type: 'map',
           callback(row) {
-            row.day = [ 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' ][parseInt(row.day, 10)];
+            row.day = [ 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' ][parseInt(row.day - 1, 10)];
             // row.hour = parseInt(row.hour, 10); // keep row.hour as a string
             row.value = parseInt(row.value, 10);
             return row;

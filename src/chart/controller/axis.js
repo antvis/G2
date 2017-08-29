@@ -207,12 +207,12 @@ class AxisController {
     let position = '';
     if (coord.isRect) {
       if (dimType === 'x') {
-        position = 'bottom';
+        position = coord.isTransposed ? 'left' : 'bottom';
       } else if (dimType === 'y') {
         if (index) {
-          position = 'right';
+          position = coord.isTransposed ? 'bottom' : 'right';
         } else {
-          position = 'left';
+          position = coord.isTransposed ? 'bottom' : 'left';
         }
       }
     } else if (coordType === 'helix') {

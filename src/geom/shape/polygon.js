@@ -102,7 +102,7 @@ Shape.registerShape('polygon', 'polygon', {
   getMarkerCfg(cfg) {
     return Util.mix({
       symbol: 'square',
-      radius: 4
+      radius: 5
     }, getAttrs(cfg));
   }
 });
@@ -124,7 +124,7 @@ Shape.registerShape('polygon', 'hollow', {
   getMarkerCfg(cfg) {
     return Util.mix({
       symbol: 'square',
-      radius: 4
+      radius: 5
     }, getAttrs(cfg));
   }
 });
