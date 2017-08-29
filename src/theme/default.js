@@ -263,7 +263,12 @@ const Theme = {
       itemMarginBottom: 5, // layout 为 vertical 时各个图例项的间距
       width: 20,
       height: 156,
-      title: null,
+      title: {
+        fill: '#666',
+        fontSize: 12,
+        textAlign: 'start',
+        textBaseline: 'middle'
+      },
       textStyle: {
         fill: '#666',
         fontSize: 12,
@@ -278,7 +283,12 @@ const Theme = {
       itemMarginBottom: 5,
       width: 20,
       height: 156,
-      title: null,
+      title: {
+        fill: '#666',
+        fontSize: 12,
+        textAlign: 'start',
+        textBaseline: 'middle'
+      },
       textStyle: {
         fill: '#666',
         fontSize: 12,
