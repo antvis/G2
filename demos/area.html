@@ -36,9 +36,8 @@
           alias: '降雨量(mm)'
         }
       });
-      chart.legend({
-        position: 'top'
-      });
+      chart.axis('rain', false);
+
       chart.area()
         .position('time*flow')
         .color('l(100) 0:#a50f15 1:#fee5d9')

@@ -5,7 +5,7 @@ const Shape = require('../../geom/shape/index');
 
 const FIELD_ORIGIN = '_origin';
 const MARGIN = 16;
-const MARGIN_LEGEND = 25;
+const MARGIN_LEGEND = 24;
 const requireAnimationFrameFn = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
   window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
@@ -201,6 +201,9 @@ class LegendController {
 
     let x = 0;
     let y = 0;
+    if (legend.get('useHtml')) {
+      position = 'right';
+    }
 
     if (position === 'left' || position === 'right') { // 垂直
       const legendWidth = region.maxWidth;
@@ -222,7 +225,7 @@ class LegendController {
         statrX = plotRange.bl.x + ((plotRange.br.x - plotRange.bl.x) - region.totalWidth) / 2;
       }
       x = statrX;
-      y = position === 'top' ? MARGIN : height - legendHeight - MARGIN;
+      y = position === 'top' ? 10 : (height - legendHeight);
 
       if (pre) {
         const preWidth = pre.getWidth();
@@ -304,11 +307,11 @@ class LegendController {
     const legendCfg = Util.defaultsDeep({
       maxLength,
       items
-    }, legendOptions[field] || legendOptions, {
+    }, legendOptions[field] || legendOptions, Global.legend[position], {
       title: {
         text: scale.alias || scale.field
       }
-    }, Global.legend[position]);
+    });
 
     const legend = container.addGroup(Legend.Category, legendCfg);
     self._bindEvent(legend, scale, filterVals);
@@ -365,11 +368,11 @@ class LegendController {
     const legendCfg = Util.defaultsDeep({
       items,
       attr
-    }, options[field] || options, {
+    }, options[field] || options, Global.legend[position], {
       title: {
         text: scale.alias || scale.field
       }
-    }, Global.legend[position]);
+    });
 
     if (attr.type === 'color') {
       legend = container.addGroup(Legend.Color, legendCfg);
@@ -389,7 +392,7 @@ class LegendController {
       return null;
     }
 
-    let position = legendOptions.position || 'right';
+    let position = legendOptions.position || Global.defaultLegendPosition;
     const fieldOption = legendOptions[field];
     if (fieldOption && fieldOption.position) { // 如果对某个图例单独设置 position，则对 position 重新赋值
       position = fieldOption.position;
@@ -414,7 +417,7 @@ class LegendController {
     const chart = self.chart;
     const container = self.container;
     const legendOptions = self.options;
-    const position = legendOptions.position || 'right';
+    const position = legendOptions.position || Global.defaultLegendPosition;
     const legends = self.legends;
     legends[position] = legends[position] || [];
     const items = legendOptions.items;

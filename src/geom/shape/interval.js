@@ -284,7 +284,7 @@ Shape.registerShape('interval', 'rect', {
     const symbol = isInCircle ? 'circle' : 'square';
     return Util.mix({
       symbol,
-      radius: 4
+      radius: 5
     }, rectCfg);
   }
 });
@@ -310,7 +310,7 @@ Shape.registerShape('interval', 'hollowRect', {
     const symbol = isInCircle ? 'circle' : 'square';
     return Util.mix({
       symbol,
-      radius: 4
+      radius: 5
     }, rectCfg);
   }
 });
@@ -335,7 +335,7 @@ Shape.registerShape('interval', 'line', {
     const lineCfg = getLineAttrs(cfg);
     return Util.mix({
       symbol: 'line',
-      radius: 4
+      radius: 5
     }, lineCfg);
   }
 });
@@ -359,7 +359,7 @@ Shape.registerShape('interval', 'tick', {
     const lineCfg = getLineAttrs(cfg);
     return Util.mix({
       symbol: 'tick',
-      radius: 4
+      radius: 5
     }, lineCfg);
   }
 });
@@ -384,7 +384,7 @@ Shape.registerShape('interval', 'funnel', {
     const funnelCfg = getFillAttrs(cfg);
     return Util.mix({
       symbol: 'square',
-      radius: 4
+      radius: 5
     }, funnelCfg);
   }
 });
@@ -409,7 +409,7 @@ Shape.registerShape('interval', 'pyramid', {
     const funnelCfg = getFillAttrs(cfg);
     return Util.mix({
       symbol: 'square',
-      radius: 4
+      radius: 5
     }, funnelCfg);
   }
 });

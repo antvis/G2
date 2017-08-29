@@ -107,9 +107,6 @@ class View extends Base {
     if (!options.coord) {
       options.coord = {};
     }
-    if (!options.legends) {
-      options.legends = {};
-    }
 
     if (options.animate === false) {
       this.set('animate', false);

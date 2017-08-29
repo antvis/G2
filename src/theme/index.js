@@ -1,8 +1,6 @@
 
 const Theme = {
-  default: require('./default'),
-  dark: require('./dark'),
-  cheery: require('./cheery')
+  default: require('./default')
 };
 
 module.exports = Theme;

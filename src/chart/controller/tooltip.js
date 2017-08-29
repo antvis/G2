@@ -86,24 +86,12 @@ class TooltipController {
       if (shapes[0] === 'interval' && !options.split) { // 直角坐标系下 interval 的 crosshair 为矩形背景框
         Util.mix(defaultCfg, {
           zIndex: 0, // 矩形背景框不可覆盖 geom
-          crosshairs: {
-            type: 'rect',
-            style: {
-              fill: '#CCD7EB',
-              opacity: 0.4
-            }
-          },
+          crosshairs: Global.tooltipCrosshairsRect,
           isTransposed: geoms[0].get('coord').isTransposed
         });
       } else if (Util.indexOf(TYPE_SHOW_CROSSHAIRS, shapes[0]) > -1) {
         Util.mix(defaultCfg, {
-          crosshairs: {
-            type: 'y',
-            style: {
-              stroke: '#666',
-              lineWidth: 1
-            }
-          },
+          crosshairs: Global.tooltipCrosshairsLine,
           isTransposed: geoms[0].get('coord').isTransposed
         });
       }

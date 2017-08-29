@@ -2,7 +2,7 @@ const Util = require('../../util');
 const Base = require('./base');
 const { Event, Group } = require('@ali/g');
 const Slider = require('./slider');
-const TRIGGER_WIDTH = 10;
+const TRIGGER_WIDTH = 12;
 
 class Continuous extends Base {
   getDefaultCfg() {
@@ -29,7 +29,7 @@ class Continuous extends Base {
        * 宽度
        * @type {Number}
        */
-      width: 200,
+      width: 156,
       /**
        * 高度
        * @type {Number}
@@ -80,7 +80,7 @@ class Continuous extends Base {
   _calStartPoint() {
     const start = {
       x: 0,
-      y: this.get('titleGap')
+      y: this.get('titleGap') - TRIGGER_WIDTH
     };
     const titleShape = this.get('titleShape');
     if (titleShape) {
@@ -203,9 +203,10 @@ class Continuous extends Base {
     });
     const text = trigger.addShape('text', {
       attrs: Util.mix(textAttr, {
-        x: width + 8,
-        y: type === 'max' ? -8 : 8,
+        x: width + 4,
+        y: type === 'max' ? -4 : 4,
         textAlign: 'start',
+        lineHeight: 1,
         textBaseline: 'middle'
       })
     });
@@ -220,7 +221,6 @@ class Continuous extends Base {
   _addHorizontalTrigger(type, blockAttr, textAttr) {
     const slider = this.get('slider');
     const trigger = slider.get(type + 'HandleElement');
-    const height = this.get('height');
     const button = trigger.addShape('polygon', {
       attrs: Util.mix({
         points: [
@@ -232,8 +232,8 @@ class Continuous extends Base {
     });
     const text = trigger.addShape('text', {
       attrs: Util.mix(textAttr, {
-        x: type === 'min' ? -TRIGGER_WIDTH / 2 : TRIGGER_WIDTH / 2,
-        y: height + TRIGGER_WIDTH / 2,
+        x: type === 'min' ? -TRIGGER_WIDTH - 4 : TRIGGER_WIDTH + 4,
+        y: TRIGGER_WIDTH / 2,
         textAlign: type === 'min' ? 'end' : 'start',
         textBaseline: 'middle'
       })

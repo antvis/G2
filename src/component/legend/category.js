@@ -135,7 +135,7 @@ class Category extends Base {
        * marker 和文字的距离
        * @type {Number}
        */
-      _wordSpaceing: 6,
+      _wordSpaceing: 8,
       /**
        * 是否使用 html 进行渲染，默认为 false
        * @type {Boolean}
@@ -153,8 +153,8 @@ class Category extends Base {
        * 默认的图例项 html 模板
        * @type {String}
        */
-      _defaultItemTpl: '<li class="' + ITEM_CLASS + ' item-${ index } ${ checked }" data-color="${ originColor }" data-value="${ originValue }" style="cursor: pointer;font-size: 14px;">' +
-        '<i class="' + MARKER_CLASS + '" style="width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:10px;background-color: ${ color };"></i>' +
+      _defaultItemTpl: '<li class="' + ITEM_CLASS + ' item-${ index } ${ checked }" data-color="${ originColor }" data-value="${ originValue }" style="cursor: pointer;font-size: 12px;margin-bottom:5px;">' +
+        '<i class="' + MARKER_CLASS + '" style="width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:8px;background-color:${ color };vertical-align:middle"></i>' +
         '<span class="' + TEXT_CLASS + '">${ value }</span></li>',
       /**
        * 用户设置的图例项 html 模板

@@ -9,7 +9,8 @@ describe('test schema', function() {
     container: div,
     height: 300,
     width: 500,
-    animate: false
+    animate: false,
+    padding: [ 20, 80, 60, 80 ]
   });
 
   it('test candle', function() {
