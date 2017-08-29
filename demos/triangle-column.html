@@ -144,7 +144,7 @@
         }
       }
     });
-    chart.interval().position('month*value', 'dodge').color('type*value', (type, value) => {
+    chart.intervalDodge().position('month*value').color('type*value', (type, value) => {
       if (value < 0) {
         return 'l(90) 0:#ccc 1:#00baf0';
       } else if (type === '1929-2008') {

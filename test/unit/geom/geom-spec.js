@@ -99,11 +99,11 @@ describe('test geoms', function() {
     it('test attr method position', function() {
       geom.position('a*b');
       expect(geom.get('attrOptions').position).eqls({ field: 'a*b' });
-      geom.position([ 'a', 'b' ], 'stack');
+      geom.position([ 'a', 'b' ]).adjust('stack');
       expect(geom.get('attrOptions').position).eqls({ field: [ 'a', 'b' ] });
       expect(geom.get('adjusts')).eqls([{ type: 'stack' }]);
 
-      geom.position([ 'a', 'b' ], { adjusts: [ 'stack', 'dodge' ] });
+      geom.position([ 'a', 'b' ]).adjust([ 'stack', 'dodge' ]);
       // expect(geom.get('adjusts')).eqls([{ type: 'stack' }, { type: 'dodge' }]);
       expect(geom.hasAdjust('stack')).equal(true);
     });
@@ -140,6 +140,12 @@ describe('test geoms', function() {
         mode: 'single'
       });
       expect(geom.get('allowSelect')).equal(true);
+    });
+    it('init adjusts', function() {
+      const newGeom = new Geom({
+        adjusts: 'stack'
+      });
+      expect(newGeom.get('adjusts')).eqls([{ type: 'stack' }]);
     });
   });
 
@@ -186,7 +192,7 @@ describe('test geoms', function() {
     });
 
     it('test adjust', function() {
-      geom.position('a*b', 'stack');
+      geom.position('a*b').adjust('stack');
       geom._initAttrs();
       let arr = geom._groupData(Util.cloneDeep(newData));
       geom._adjust(arr);
@@ -206,7 +212,7 @@ describe('test geoms', function() {
       // expect(geom.get('adjusts')).eqls(null);
     });
     it('test total init', function() {
-      geom.position('a*b', 'stack').color('c');
+      geom.position('a*b').color('c').adjust('stack');
       geom.init();
       expect(geom.get('adjusts')).eqls([{ type: 'stack' }]);
       const dataArray = geom.get('dataArray');
@@ -486,7 +492,7 @@ describe('test geom interval', function() {
   const shapeContainer = geom.get('shapeContainer');
   it('draw interval', function() {
     expect(geom.get('type')).eql('interval');
-    geom.position('a*b', 'dodge').color('c');
+    geom.position('a*b').color('c').adjust('dodge');
 
     geom.init();
     geom.paint();
@@ -503,7 +509,7 @@ describe('test geom interval', function() {
 
   it('size test no dodge', function() {
     geom.reset();
-    geom.position('a*b').color('c');
+    geom.position('a*b').color('c').adjust(null);
     geom.set('data', [
       { a: '1', b: 2, c: '1' },
       { a: '2', b: 5, c: '1' },
@@ -569,7 +575,7 @@ describe('test geom interval', function() {
     scaleA.range = [ 0, 1 - 1 / 3 ];
     geom.reset();
     geom.set('data', data);
-    geom.position('a*b', 'dodge').color('c');
+    geom.position('a*b').adjust('dodge').color('c');
     geom.init();
     geom.paint();
     expect(shapeContainer.getCount()).equal(6);
@@ -580,7 +586,7 @@ describe('test geom interval', function() {
     scaleA.range = [ 0, 1 - 1 / 6 ];
     geom.get('coord').isTransposed = true;
     geom.reset();
-    geom.position('a*b', 'dodge').color('c');
+    geom.position('a*b').color('c').adjust('dodge');
     geom.init();
     geom.paint();
     canvas.draw();

@@ -437,7 +437,8 @@ describe('pie labels', function() {
       chart.coord('theta');
       chart.source(dv.rows);
       chart.interval()
-        .position('percent', 'stack')
+        .position('percent')
+        .adjust('stack')
         .color('action')
         .label('visiter', { offset: 15 });
       chart.render();
@@ -466,7 +467,8 @@ describe('pie labels', function() {
       chart.coord('theta');
       chart.source(dv.rows);
       chart.interval()
-        .position('percent', 'stack')
+        .position('percent')
+        .adjust('stack')
         .color('action')
         .label('visiter', { offset: -5 });
       chart.render();
@@ -548,7 +550,8 @@ describe('pie labels', function() {
       chart.legend(false);
       chart.source(dv.rows);
       chart.interval()
-        .position('percent', 'stack')
+        .position('percent')
+        .adjust('stack')
         .color('type')
         .label('type*percent', function(type, percent) {
           return type + ': ' + percent * 100 + '%';
@@ -663,7 +666,8 @@ describe('pie labels', function() {
       chart.source(dv.rows);
       chart.coord('theta');
       chart.interval()
-        .position('percent', 'stack')
+        .position('percent')
+        .adjust('stack')
         .color('name')
         .label('name*percent', function(name, percent) {
           percent = (percent * 100).toFixed(2) + '%';

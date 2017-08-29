@@ -120,8 +120,8 @@
       split: true
     });
     chart.coord().transpose();
-    chart.interval()
-      .position('type*value', 'stack')
+    chart.intervalStack()
+      .position('type*value')
       .color('opinion', function(opinion) {
         return colorMap[opinion];
       });

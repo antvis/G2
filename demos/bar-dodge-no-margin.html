@@ -99,7 +99,8 @@
     chart.coord().transpose();
     chart.scale('name', { alias: '城市' });
     chart.interval()
-      .position('月份*月均降雨量', [{
+      .position('月份*月均降雨量')
+      .adjust([{
         type: 'dodge',
         marginRatio: 0
       }])

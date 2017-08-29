@@ -57,8 +57,8 @@
         tickInterval: 25
       }
     });
-    chart.area()
-      .position('year*value', 'stack')
+    chart.areaStack()
+      .position('year*value')
       .color('country', [ '#FF6A84', '#30A4EB', '#45BFC0', '#FFCC55' ]);
     chart.render();
   </script>
