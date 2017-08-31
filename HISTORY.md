@@ -2,6 +2,11 @@
 
 ---
 
+## 2.3.10
+
+* fix: 修复 dodge 情况下 filter 掉所有选项的问题
+* fix: 修复 interval 和 line 同时存在是 tooltip 的 crosshair 线跟 marker 不对齐的问题
+* fix: 修复 在极小的数值下坐标轴上出现长浮点数的问题
 
 ## 2.3.9
 
