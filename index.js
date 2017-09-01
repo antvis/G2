@@ -7,7 +7,7 @@ const Scale = require('./src/scale/index');
 const Shape = require('./src/geom/shape/');
 const Util = require('./src/util');
 
-let G2 = {
+const G2 = {
   // version
   version: Global.version,
   // visual encoding
@@ -31,9 +31,8 @@ G2.track = function(enable) {
 require('./src/track');
 
 // 保证两个版本共存
-if (window && window.G2) {
-  window.G2_3 = G2;
-  G2 = window.G2;
+if (typeof window !== 'undefined' && !window.G2) {
+  window.G2 = G2;
 }
 
 module.exports = G2;
