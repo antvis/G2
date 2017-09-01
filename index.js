@@ -31,8 +31,12 @@ G2.track = function(enable) {
 require('./src/track');
 
 // 保证两个版本共存
-if (typeof window !== 'undefined' && !window.G2) {
-  window.G2 = G2;
+if (typeof window !== 'undefined') {
+  if (window.G2) {
+    console.warn(`There are multiple versions of G2. Version ${G2.version}'s reference is 'window.G2_3'`);
+  } else {
+    window.G2 = G2;
+  }
 }
 
 module.exports = G2;
