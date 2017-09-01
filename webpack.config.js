@@ -8,7 +8,7 @@ module.exports = {
   },
   output: {
     filename: '[name].js',
-    library: 'G2',
+    library: 'G2_3',
     libraryTarget: 'umd',
     path: resolve(__dirname, 'build/')
   },
