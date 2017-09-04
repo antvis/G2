@@ -9,6 +9,12 @@ function isSameShape(shape1, shape2) {
   return Util.isEqual(shape1Origin, shape2Origin);
 }
 
+function registerData(eventObj) {
+  if (eventObj.shape && eventObj.shape.get('origin')) {
+    eventObj.data = eventObj.shape.get('origin');
+  }
+}
+
 class EventController {
   constructor(cfg) {
     this.view = null;
@@ -88,6 +94,7 @@ class EventController {
     const view = this.view;
     const eventObj = this._getShapeEventObj(ev);
     eventObj.shape = this.currentShape;
+    registerData(eventObj);
     view.emit('mousedown', eventObj);
     this._triggerShapeEvent(this.currentShape, 'mousedown', eventObj);
   }
@@ -99,6 +106,7 @@ class EventController {
     const shape = self._getShape(ev.x, ev.y);
     let eventObj = self._getShapeEventObj(ev);
     eventObj.shape = shape;
+    registerData(eventObj);
     view.emit('mousemove', eventObj);
     self._triggerShapeEvent(shape, 'mousemove', eventObj);
 
@@ -106,6 +114,7 @@ class EventController {
       const leaveObj = self._getShapeEventObj(ev);
       leaveObj.shape = currentShape;
       leaveObj.toShape = shape;
+      registerData(leaveObj);
       self._triggerShapeEvent(currentShape, 'mouseleave', leaveObj);
     }
 
@@ -113,6 +122,7 @@ class EventController {
       const enterObj = self._getShapeEventObj(ev);
       enterObj.shape = shape;
       enterObj.fromShape = currentShape;
+      registerData(enterObj);
       self._triggerShapeEvent(shape, 'mouseenter', enterObj);
     }
     self.currentShape = shape;
@@ -130,6 +140,7 @@ class EventController {
     if (point.views.length) {
       eventObj = self._getEventObj(ev, point, point.views);
       eventObj.shape = shape;
+      registerData(eventObj);
       view.emit('plotmove', eventObj);
     }
 
@@ -157,6 +168,7 @@ class EventController {
     const shape = self._getShape(ev.x, ev.y);
     const shapeEventObj = self._getShapeEventObj(ev);
     shapeEventObj.shape = shape;
+    registerData(shapeEventObj);
     view.emit('click', shapeEventObj);
     self._triggerShapeEvent(shape, ev.type, shapeEventObj);
     self.currentShape = shape;
@@ -168,7 +180,8 @@ class EventController {
       if (self.currentShape) {
         const shape = self.currentShape;
         eventObj.shape = shape;
-        eventObj.data = shape.get('origin');
+        registerData(eventObj);
+        // eventObj.data = shape.get('origin');
       }
       view.emit('plotclick', eventObj);
       if (ev.type === 'dblclick') {
@@ -183,6 +196,7 @@ class EventController {
     const shape = this._getShape(ev.x, ev.y);
     const eventObj = this._getShapeEventObj(ev);
     eventObj.shape = shape;
+    registerData(eventObj);
     view.emit('touchstart', eventObj);
     this._triggerShapeEvent(shape, 'touchstart', eventObj);
     this.currentShape = shape;
@@ -193,6 +207,7 @@ class EventController {
     const shape = this._getShape(ev.x, ev.y);
     const eventObj = this._getShapeEventObj(ev);
     eventObj.shape = shape;
+    registerData(eventObj);
     view.emit('touchmove', eventObj);
     this._triggerShapeEvent(shape, 'touchmove', eventObj);
     this.currentShape = shape;
@@ -202,6 +217,7 @@ class EventController {
     const view = this.view;
     const eventObj = this._getShapeEventObj(ev);
     eventObj.shape = this.currentShape;
+    registerData(eventObj);
     view.emit('touchend', eventObj);
     this._triggerShapeEvent(this.currentShape, 'touchend', eventObj);
   }
