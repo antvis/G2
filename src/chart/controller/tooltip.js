@@ -289,7 +289,7 @@ class TooltipController {
     if (items.length) {
       const first = items[0];
 
-      // bugfix:
+      // bugfix: multiple tooltip items with different titles
       if (!items.every(item => item.title === first.title)) {
         let nearestItem = first;
         let nearestDistance = Infinity;
