@@ -23,7 +23,7 @@
     { shape: 'left', offsetX: -20 },
     { shape: 'bottom', offsetY: +20 },
     { shape: 'top', offsetY: -20 }
-  ].forEach((item) => {
+  ].forEach(item => {
     Shape.registerShape('interval', item.shape, {
 //      getPoints: function(cfg) {
 //        var x = cfg.x;
@@ -41,22 +41,22 @@
       draw(cfg, group) { // 自定义最终绘制
         console.log(cfg);
         const points = this.parsePoints(cfg.points); // 将0-1空间的坐标转换为画布坐标
-        points.forEach((obj) => { // 关键：就是把 bar 错位一下
+        points.forEach(obj => { // 关键：就是把 bar 错位一下
           obj.y += item.offsetY ? item.offsetY : 0;
           obj.x += item.offsetX ? item.offsetX : 0;
         });
         return group.addShape('polygon', { // 将自定义Shape返回
           attrs: {
             points: [
-              [points[0].x, points[0].y],
-              [points[1].x, points[1].y],
-              [points[2].x, points[2].y],
-              [points[3].x, points[3].y],
+              [ points[0].x, points[0].y ],
+              [ points[1].x, points[1].y ],
+              [ points[2].x, points[2].y ],
+              [ points[3].x, points[3].y ]
             ],
-            fill: cfg.color,
-          },
+            fill: cfg.color
+          }
         });
-      },
+      }
     });
   });
 
