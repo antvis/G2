@@ -258,6 +258,9 @@ const Interval = Shape.registerFactory('interval', {
       lineWidth: lineWidth + 1
     };
   },
+  getDefaultPoints(pointInfo) {
+    return getRectPoints(pointInfo);
+  },
   getSelectedCfg(type, cfg) {
     return getSelectedCfg(type, cfg);
   }
@@ -265,9 +268,6 @@ const Interval = Shape.registerFactory('interval', {
 
 // 默认柱状图
 Shape.registerShape('interval', 'rect', {
-  getPoints(pointInfo) {
-    return getRectPoints(pointInfo);
-  },
   draw(cfg, container) {
     const attrs = getFillAttrs(cfg);
     let path = getRectPath(cfg.points);
@@ -291,9 +291,6 @@ Shape.registerShape('interval', 'rect', {
 
 // 空心柱状图
 Shape.registerShape('interval', 'hollowRect', {
-  getPoints(pointInfo) {
-    return getRectPoints(pointInfo);
-  },
   draw(cfg, container) {
     const attrs = getLineAttrs(cfg);
     let path = getRectPath(cfg.points);
