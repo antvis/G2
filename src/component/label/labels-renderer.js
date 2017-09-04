@@ -35,8 +35,10 @@ module.exports = {
         labelsGroup.changeLabel(label, item);
       } else {
         const labelShape = self.addLabel(item.text, item);
-        labelShape._id = item._id;
-        labelShape.set('coord', item.coord);
+        if (labelShape) {
+          labelShape._id = item._id;
+          labelShape.set('coord', item.coord);
+        }
       }
     });
     for (let i = count - 1; i >= items.length; i--) {
