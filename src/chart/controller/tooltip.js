@@ -3,6 +3,8 @@ const Global = require('../../global');
 const { Tooltip } = require('../../component/index');
 const TYPE_SHOW_MARKERS = [ 'line', 'area', 'path', 'areaStack' ]; // 默认展示 tooltip marker 的几何图形
 const TYPE_SHOW_CROSSHAIRS = [ 'line', 'area' ]; // 默认展示十字瞄准线的几何图形
+const MatrixUtil = require('@ali/g').MatrixUtil;
+const Vector2 = MatrixUtil.vec2;
 
 function _indexOfArray(items, item) {
   let rst = -1;
@@ -285,6 +287,23 @@ class TooltipController {
     });
 
     if (items.length) {
+      const first = items[0];
+
+      // bugfix: multiple tooltip items with different titles
+      if (!items.every(item => item.title === first.title)) {
+        let nearestItem = first;
+        let nearestDistance = Infinity;
+        items.forEach(item => {
+          const distance = Vector2.distance([ point.x, point.y ], [ item.x, item.y ]);
+          if (distance < nearestDistance) {
+            nearestDistance = distance;
+            nearestItem = item;
+          }
+        });
+        items = items.filter(item => item.title === nearestItem.title);
+        markersItems = markersItems.filter(item => item.title === nearestItem.title);
+      }
+
       if (options.split && items.length > 1) {
         let snapItem = items[0];
         let min = Math.abs(point.y - snapItem.y);
@@ -297,11 +316,11 @@ class TooltipController {
         markersItems = [ snapItem ];
         items = [ snapItem ];
       }
-      const first = items[0];
       if (!Util.isEmpty(markersItems)) {
         point = markersItems[0];
       }
       const title = first.title || first.name;
+
       self._setTooltip(title, point, items, markersItems);
     } else {
       self.hideTooltip();
