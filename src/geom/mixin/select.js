@@ -32,7 +32,7 @@ const SelectMixin = {
       self.clearActivedShapes(); // 清除hover效果
       const shape = ev.shape;
       const shapeContainer = self.get('shapeContainer');
-      if (shape && shapeContainer.contain(shape)) {
+      if (shape && !shape.get('animating') && shapeContainer.contain(shape)) {
         self.setShapeSelected(shape);
       }
     }

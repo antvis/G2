@@ -299,12 +299,14 @@ function clipIn(shape, animateCfg, coord, startAngle, endAngle) {
   }
   clip.set('canvas', canvas);
   shape.attr('clip', clip);
+  shape.setSilent('animating', true);
   const animateParam = getAnimateParam(animateCfg, index, id, endState);
   clip.animate(endState, animateParam.duration, animateParam.easing,
     function() {
       if (shape && !shape.get('destroyed')) {
         shape.attr('clip', null);
         shape.setSilent('cacheShape', null);
+        shape.setSilent('animating', false);
         clip.remove();
       }
     }, animateParam.delay);
