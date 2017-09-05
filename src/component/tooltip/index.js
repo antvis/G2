@@ -60,11 +60,6 @@ class Tooltip extends Group {
        */
       offset: 10,
       /**
-       * 是否开启动画
-       * @type {Boolean}
-       */
-      animate: true,
-      /**
        * 移动的动画时间
        * @type {Number}
        */
@@ -78,7 +73,7 @@ class Tooltip extends Group {
        * tooltip 容器模板
        * @type {String}
        */
-      containerTpl: '<div class="' + CONTAINER_CLASS + '" style="position:absolute;visibility:hidden;border-style:solid;white-space:nowrap;z-index:9999999;transition:left 0.4s cubic-bezier(0.23, 1, 0.32, 1), top 0.4s cubic-bezier(0.23, 1, 0.32, 1);background-color:rgba(0, 0, 0, 0.6);border-width:0px;border-radius:2px;color:rgb(255, 255, 255);font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:sans-serif;line-height:12px;padding: 8px 8px 0 8px;">'
+      containerTpl: '<div class="' + CONTAINER_CLASS + '" style="position:absolute;visibility:hidden;border-style:solid;white-space:nowrap;z-index:999;transition:left 0.4s cubic-bezier(0.23, 1, 0.32, 1), top 0.4s cubic-bezier(0.23, 1, 0.32, 1);background-color:rgba(0, 0, 0, 0.6);border-width:0px;border-radius:2px;color:rgb(255, 255, 255);font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:sans-serif;line-height:12px;padding: 8px 8px 0 8px;">'
        + '<div class="' + TITLE_CLASS + '" style="margin-bottom:8px;"></div>'
        + '<ul class="' + LIST_CLASS + '" style="margin:0;list-style-type:none;padding:0;"></ul></div>',
       /**

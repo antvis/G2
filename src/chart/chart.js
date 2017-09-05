@@ -409,6 +409,57 @@ class Chart extends View {
   }
 
   /**
+   * 根据坐标点显示对应的 tooltip
+   * @param  {Object} point 画布上的点
+   * @return {Chart}       返回 chart 实例
+   */
+  showTooltip(point) {
+    const views = this.getViewsByPoint(point);
+    if (views.length) {
+      const tooltipController = this.get('tooltipController');
+      tooltipController.showTooltip(point, views);
+    }
+    return this;
+  }
+
+  /**
+   * 隐藏 tooltip
+  * @return {Chart}       返回 chart 实例
+   */
+  hideTooltip() {
+    const tooltipController = this.get('tooltipController');
+    tooltipController.hideTooltip();
+    return this;
+  }
+
+  /**
+   * 根据传入的画布坐标，获取该处的 tooltip 上的记录信息
+   * @param  {Object} point 画布坐标点
+   * @return {Array}       返回结果
+   */
+  getTooltipItems(point) {
+    const self = this;
+    const views = self.getViewsByPoint(point);
+    let rst = [];
+    Util.each(views, view => {
+      const geoms = view.get('geoms');
+      Util.each(geoms, geom => {
+        const dataArray = geom.get('dataArray');
+        let items = [];
+        Util.each(dataArray, data => {
+          const tmpPoint = geom.findPoint(point, data);
+          if (tmpPoint) {
+            const subItems = geom.getTipItems(tmpPoint);
+            items = items.concat(subItems);
+          }
+        });
+        rst = rst.concat(items);
+      });
+    });
+    return rst;
+  }
+
+  /**
    * @override
    * 销毁图表
    */

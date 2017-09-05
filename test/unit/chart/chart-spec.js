@@ -71,6 +71,15 @@ describe('test chart', function() {
     expect(chart.get('canvas').get('width')).equal(500);
   });
 
+  it('showTooltip', function() {
+    const point = chart.getXY({ a: 1, b: 2 });
+    chart.showTooltip(point);
+    const tooltipController = chart.get('tooltipController');
+    const { tooltip } = tooltipController;
+    const tooltipItems = chart.getTooltipItems(point);
+    expect(tooltip.get('items')).eql(tooltipItems);
+  });
+
   it('forceFit', function() {
     chart.forceFit();
     expect(chart.get('canvas').get('width')).equal(DomUtil.getWidth(div));
@@ -560,3 +569,4 @@ describe('chart sync scales', function() {
     expect(chart.destroyed).equal(true);
   });
 });
+
