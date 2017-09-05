@@ -221,7 +221,7 @@ describe('test view all options', function() {
       },
       geoms: [
         { type: 'line', position: 'a*b', color: 'c' },
-        { type: 'point', position: 'a*b', color: 'c' }
+        { type: 'point', position: 'c*b', color: 'a' }
       ]
     }
   });
@@ -234,6 +234,27 @@ describe('test view all options', function() {
     const line = view.get('geoms')[0];
     expect(line.get('attrOptions').position.field).eqls('a*b');
     canvas.draw();
+  });
+  it('getXY', function() {
+    let data = {
+      a: 1.5,
+      c: '1'
+    };
+    let coord = view.getXY(data);
+    expect(coord).to.be.null;
+    data = {
+      a: 1.5,
+      b: 2
+    };
+    coord = view.getXY(data);
+    expect(coord).eql({ x: 165, y: 335 });
+
+    data = {
+      c: '1',
+      b: 2
+    };
+    coord = view.getXY(data);
+    expect(coord).eql({ x: 165, y: 420 });
   });
   it('clear', function() {
     view.clear();

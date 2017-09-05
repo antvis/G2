@@ -51,7 +51,7 @@ const ActiveMixin = {
     const self = this;
     const shape = ev.shape;
     const shapeContainer = self.get('shapeContainer');
-    if (shape && shapeContainer.contain(shape) && self._isAllowActive()) {
+    if (shape && !shape.get('animating') && shapeContainer.contain(shape) && self._isAllowActive()) {
       self.setShapesActived(shape);
     }
   },

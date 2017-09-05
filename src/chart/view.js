@@ -407,6 +407,38 @@ class View extends Base {
   }
 
   /**
+   * 获取数据对应在画布空间的坐标
+   * @param  {Object} item 原始数据
+   * @return {Object}      返回对应的画布上的坐标点
+   */
+  getXY(item) {
+    const self = this;
+    const coord = self.get('coord');
+    const xScales = self._getScales('x');
+    const yScales = self._getScales('y');
+    let x;
+    let y;
+
+    Util.each(Object.keys(item), field => {
+      if (xScales[field]) {
+        x = xScales[field].scale(item[field]);
+      }
+      if (yScales[field]) {
+        y = yScales[field].scale(item[field]);
+      }
+    });
+
+    if (!Util.isNil(x) && !Util.isNil(y)) {
+      return coord.convert({
+        x,
+        y
+      });
+    }
+
+    return null;
+  }
+
+  /**
    * @protected
    * 添加几何标记
    * @param {Geom} geom 几何标记
@@ -471,6 +503,7 @@ class View extends Base {
     this._syncScale(parentScale, scale);
     return parentScale;
   }
+
   _syncScale(distScale, sourceScale) {
     const mergeValues = Util.union(distScale.values, sourceScale.values);
     if (sourceScale.isLinear) {
