@@ -527,7 +527,7 @@ class View extends Base {
 
   getFilteredValues(field) {
     let data = this.get('filteredData');
-    if (!data.length) {
+    if (Util.isNil(data)) {
       data = this.get('data');
     }
     const values = Util.Array.values(data, field);
