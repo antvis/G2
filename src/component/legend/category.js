@@ -43,13 +43,6 @@ function findItem(items, refer) {
   return rst;
 }
 
-function findShapeByName(group, name) {
-  return group.findBy(node => {
-    return node.name === name;
-  });
-}
-
-
 class Category extends Base {
   getDefaultCfg() {
     const cfg = super.getDefaultCfg();
@@ -229,7 +222,6 @@ class Category extends Base {
 
   _onMouseleave(ev) {
     this.emit('itemunhover', ev);
-
     return;
   }
 
@@ -247,50 +239,6 @@ class Category extends Base {
       itemclick.item = item;
       itemclick.currentTarget = clickedItem;
       itemclick.checked = (mode === 'single') ? true : !checked;
-
-      const unCheckColor = this.get('unCheckColor');
-      const checkColor = this.get('textStyle').fill;
-
-      let markerItem = findShapeByName(clickedItem, 'legend-marker');
-      let textItem = findShapeByName(clickedItem, 'legend-text');
-      if (mode === 'single') {
-        const itemsGroup = this.get('itemsGroup');
-        const children = itemsGroup.get('children');
-        Util.each(children, child => {
-          if (child !== clickedItem) {
-            child.set('checked', false);
-            markerItem = findShapeByName(child, 'legend-marker');
-            textItem = findShapeByName(child, 'legend-text');
-            if (markerItem.attr('fill')) {
-              markerItem.attr('fill', unCheckColor);
-            }
-            if (markerItem.attr('stroke')) {
-              markerItem.attr('stroke', unCheckColor);
-            }
-            textItem.attr('fill', unCheckColor);
-          } else {
-            if (markerItem.attr('fill')) {
-              markerItem.attr('fill', item.marker.fill);
-            }
-            if (markerItem.attr('stroke')) {
-              markerItem.attr('stroke', item.marker.stroke);
-            }
-            textItem.attr('fill', checkColor);
-            clickedItem.set('checked', true);
-          }
-        });
-      } else {
-        if (markerItem.attr('fill')) {
-          markerItem.attr('fill', checked ? unCheckColor : item.marker.fill);
-        }
-        if (markerItem.attr('stroke')) {
-          markerItem.attr('stroke', checked ? unCheckColor : item.marker.stroke);
-        }
-        textItem.attr('fill', checked ? unCheckColor : checkColor);
-        clickedItem.set('checked', !checked);
-      }
-
-      // this.get('canvas').draw();
       this.emit('itemclick', itemclick);
     }
     return;
@@ -367,8 +315,6 @@ class Category extends Base {
           return;
         }
         const parentDom = getParentNode(target, ITEM_CLASS);
-        const textDom = findNodeByClass(parentDom, TEXT_CLASS);
-        const markerDom = findNodeByClass(parentDom, MARKER_CLASS);
         const clickedItem = findItem(items, parentDom.getAttribute('data-value'));
 
         if (!clickedItem) {
@@ -376,53 +322,16 @@ class Category extends Base {
         }
 
         const domClass = parentDom.className;
-        const originColor = parentDom.getAttribute('data-color');
-
-        if (mode === 'single') { // 单选模式
-          // 其他图例项全部置灰
-          Util.each(childNodes, child => {
-            if (child !== parentDom) {
-              const childMarkerDom = findNodeByClass(child, MARKER_CLASS);
-              childMarkerDom.style.backgroundColor = unCheckedColor;
-              child.className = Util.replace(child.className, 'checked', 'unChecked');
-              child.style.color = unCheckedColor;
-            } else {
-              if (textDom) {
-                textDom.style.color = self.get('textStyle').fill;
-              }
-              if (markerDom) {
-                markerDom.style.backgroundColor = originColor;
-              }
-
-              parentDom.className = Util.replace(domClass, 'unChecked', 'checked');
-            }
-          });
-        } else { // 混合模式
-          const clickedItemChecked = domClass.includes('checked');
-          let count = 0;
-          Util.each(childNodes, child => {
-            if (child.className.includes('checked')) {
-              count++;
-            }
-          });
-
-          if (!this.get('allowAllCanceled') && clickedItemChecked && count === 1) {
-            return;
+        const clickedItemChecked = domClass.includes('checked');
+        let count = 0;
+        Util.each(childNodes, child => {
+          if (child.className.includes('checked')) {
+            count++;
           }
-          if (clickedItemChecked) {
-            if (markerDom) {
-              markerDom.style.backgroundColor = unCheckedColor;
-            }
+        });
 
-            parentDom.className = Util.replace(domClass, 'checked', 'unChecked');
-            parentDom.style.color = unCheckedColor;
-          } else {
-            if (markerDom) {
-              markerDom.style.backgroundColor = originColor;
-            }
-            parentDom.className = Util.replace(domClass, 'unChecked', 'checked');
-            parentDom.style.color = self.get('textStyle').fill;
-          }
+        if (!this.get('allowAllCanceled') && clickedItemChecked && count === 1) {
+          return;
         }
 
         self.emit('itemclick', {
