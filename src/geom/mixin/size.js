@@ -109,7 +109,7 @@ const SizeMixin = {
   },
   getNormalizedSize(obj) {
     let size = this.getAttrValue('size', obj);
-    if (Util.isNull(size)) {
+    if (Util.isNil(size)) {
       size = this.getDefalutSize();
     } else {
       size = this._toNormalizedSize(size);
@@ -118,7 +118,7 @@ const SizeMixin = {
   },
   getSize(obj) {
     let size = this.getAttrValue('size', obj);
-    if (Util.isNull(size)) {
+    if (Util.isNil(size)) {
       const normalizeSize = this.getDefalutSize();
       size = this._toCoordSize(normalizeSize);
     }

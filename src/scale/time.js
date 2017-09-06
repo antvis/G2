@@ -63,10 +63,10 @@ class Time extends Linear {
       if (values.length > 1) {
         self.minTickInterval = secondMin - min;
       }
-      if (Util.isNull(self.min) || self._toTimeStamp(self.min) > min) {
+      if (Util.isNil(self.min) || self._toTimeStamp(self.min) > min) {
         self.min = min;
       }
-      if (Util.isNull(self.max) || self._toTimeStamp(self.max) < max) {
+      if (Util.isNil(self.max) || self._toTimeStamp(self.max) < max) {
         self.max = max;
       }
     }
