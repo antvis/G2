@@ -37,7 +37,6 @@ const Util = {
   cloneDeep: require('lodash/cloneDeep'),
   maxBy: require('lodash/maxBy'),
   minBy: require('lodash/minBy'),
-  has: require('lodash/has'),
   round: require('lodash/round'),
   merge: require('lodash/merge'),
   filter: require('lodash/filter'),

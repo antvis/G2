@@ -313,7 +313,7 @@ class View extends Base {
     for (let i = 0; i < geoms.length; i++) {
       const geom = geoms[i];
       const scale = (dimType === 'x') ? geom.getXScale() : geom.getYScale();
-      if (scale && !Util.has(result, scale.field)) {
+      if (scale && !result[scale.field]) {
         result[scale.field] = scale;
       }
     }
