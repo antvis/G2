@@ -4,6 +4,7 @@ const { Group, DomUtil } = require('@ali/g');
 const CONTAINER_CLASS = 'g2-tooltip';
 const TITLE_CLASS = 'g2-tooltip-title';
 const LIST_CLASS = 'g2-tooltip-list';
+const MARKER_CLASS = 'g2-tooltip-marker';
 
 function find(dom, cls) {
   return dom.getElementsByClassName(cls)[0];
@@ -73,14 +74,16 @@ class Tooltip extends Group {
        * tooltip 容器模板
        * @type {String}
        */
-      containerTpl: '<div class="' + CONTAINER_CLASS + '" style="position:absolute;visibility:hidden;border-style:solid;white-space:nowrap;z-index:999;transition:left 0.4s cubic-bezier(0.23, 1, 0.32, 1), top 0.4s cubic-bezier(0.23, 1, 0.32, 1);background-color:rgba(0, 0, 0, 0.6);border-width:0px;border-radius:2px;color:rgb(255, 255, 255);font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:sans-serif;line-height:12px;padding: 8px 8px 0 8px;">'
-       + '<div class="' + TITLE_CLASS + '" style="margin-bottom:8px;"></div>'
-       + '<ul class="' + LIST_CLASS + '" style="margin:0;list-style-type:none;padding:0;"></ul></div>',
+      containerTpl: '<div class="' + CONTAINER_CLASS + '">'
+       + '<div class="' + TITLE_CLASS + '"></div>'
+       + '<ul class="' + LIST_CLASS + '"></ul></div>',
       /**
        * tooltip 列表项模板
        * @type {String}
        */
-      itemTpl: '<li data-index=${ index } style="margin-bottom:8px;"><span style="background-color:${color};width:6px;height:6px;border-radius:50%;display:inline-block;margin-right:6px;"></span>${ name }: ${ value }</li>',
+      itemTpl: '<li data-index=${ index } style="margin-bottom:8px;">'
+       + '<span style="background-color:${color};" class=' + MARKER_CLASS + '></span>'
+       + '${ name }: ${ value }</li>',
       /**
        * 将 tooltip 展示在指定区域内
        * @type {Boolean}
@@ -105,6 +108,7 @@ class Tooltip extends Group {
     } else {
       container = DomUtil.createDom(containerTpl);
     }
+    DomUtil.modifyCSS(container, self.get(CONTAINER_CLASS));
     self.set('container', container);
     outterNode.appendChild(container);
     outterNode.style.position = 'relative';
@@ -170,6 +174,10 @@ class Tooltip extends Group {
     });
 
     const itemDOM = DomUtil.createDom(itemDiv);
+    const markerDom = find(itemDOM, MARKER_CLASS);
+    if (markerDom) {
+      DomUtil.modifyCSS(markerDom, this.get(MARKER_CLASS));
+    }
     listDom.appendChild(itemDOM);
   }
 
@@ -184,12 +192,12 @@ class Tooltip extends Group {
     self._clearDom();
 
     if (titleDom && showTitle) {
+      DomUtil.modifyCSS(titleDom, self.get(TITLE_CLASS));
       titleDom.innerHTML = titleContent;
-    } else {
-      titleDom.style.margin = 0;
     }
 
     if (listDom) {
+      DomUtil.modifyCSS(listDom, self.get(LIST_CLASS));
       Util.each(items, (item, index) => {
         self._addItem(item, index);
       });

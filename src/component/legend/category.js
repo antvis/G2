@@ -349,7 +349,7 @@ class Category extends Base {
     if (self.get('scroll')) {
       const width = canvas.get('width');
       const height = canvas.get('height');
-      DomUtil.modiCSS(legendWrapper, {
+      DomUtil.modifyCSS(legendWrapper, {
         maxWidth: width + 'px',
         maxHeight: height + 'px',
         overflow: 'scroll'
@@ -694,7 +694,7 @@ class Category extends Base {
 
   move(x, y) {
     if (this.get('useHtml')) {
-      DomUtil.modiCSS(this.get('legendWrapper'), {
+      DomUtil.modifyCSS(this.get('legendWrapper'), {
         left: x + 'px',
         top: y + 'px'
       });
