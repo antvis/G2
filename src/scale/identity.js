@@ -39,7 +39,10 @@ class Identity extends Base {
   /**
    * @override
    */
-  scale() {
+  scale(value) {
+    if (this.value !== value && Util.isNumber(value)) {
+      return value;
+    }
     return this.range[0];
   }
 
