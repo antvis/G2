@@ -68,4 +68,9 @@ describe('scale identity', function() {
   it('get text', function() {
     expect(scale.getText()).to.be.equal('test');
   });
+
+  it('scale number', function() {
+    expect(scale.scale(1)).to.be.equal(1);
+    expect(scale.scale(0)).to.be.equal(0);
+  });
 });

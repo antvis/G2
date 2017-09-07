@@ -35,6 +35,14 @@
           return name + ':' + value + '%';
         }
       });
+    chart.guide().text({
+      start: { 1: -0.5, value: 0 },
+      content: '测试文本',
+      style: {
+        fill: 'red',
+        textAlign: 'center'
+      }
+    });
     chart.render();
   </script>
 </body>
