@@ -13,12 +13,12 @@ class Image extends Base {
       zIndex: 1,
       /**
        * 辅助图片的起点位置
-       * @type {Object | Function}
+       * @type {Object | Function | Array}
        */
       start: null,
       /**
        * 辅助图片的终点位置
-       * @type {Object | Function}
+       * @type {Object | Function | Array}
        */
       end: null,
       /**

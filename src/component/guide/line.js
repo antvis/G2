@@ -15,12 +15,12 @@ class Line extends Base {
       zIndex: 15,
       /**
        * 辅助线的起点位置
-       * @type {Object | Function}
+       * @type {Object | Function | Array}
        */
       start: null,
       /**
        * 辅助线的终点位置
-       * @type {Object | Function}
+       * @type {Object | Function | Array}
        */
       end: null,
       /**

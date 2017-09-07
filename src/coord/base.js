@@ -52,6 +52,10 @@ class Coord {
     }
   }
 
+  getCenter() {
+    return this.center;
+  }
+
   getWidth() {
     return this.width;
   }
