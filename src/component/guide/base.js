@@ -60,7 +60,7 @@ class Base {
    * 将原始数值转换成坐标系上的点
    * @protected
    * @param  {Coord} coord  坐标系
-   * @param  {Object | Array | Function } position 点的数组 {xField: 'a', yField: 'b'}
+   * @param  {Object | Array | Function} position 位置点
    * @return {Object} 转换成坐标系上的点
    */
   parsePoint(coord, position) {

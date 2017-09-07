@@ -41,7 +41,7 @@ describe('Guide: 辅助文本', function() {
         temp: yScale
       },
       content: '(一月，200)',
-      start: {
+      position: {
         month: '三月',
         temp: 'min'
       }
@@ -65,7 +65,7 @@ describe('Guide: 辅助文本', function() {
         temp: yScale
       },
       content: '(一月，200)',
-      start: {
+      position: {
         month: '三月',
         temp: 'max'
       },
@@ -103,7 +103,7 @@ describe('Guide: 辅助文本', function() {
         temp: yScale
       },
       content: '(一月，200)',
-      start(xScales) {
+      position(xScales) {
         return {
           month: xScales.month.values[3],
           temp: 'median'

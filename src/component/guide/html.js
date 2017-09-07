@@ -14,7 +14,7 @@ class Html extends Base {
       zIndex: 15,
       /**
        * dom 显示位置点
-       * @type {Object}
+       * @type {Object | Array}
        */
       position: null,
       /**

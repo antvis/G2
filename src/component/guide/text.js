@@ -14,9 +14,9 @@ class Text extends Base {
       zIndex: 15,
       /**
        * 辅助文本的位置
-       * @type {Object | Function}
+       * @type {Object | Function | Array}
        */
-      start: null,
+      position: null,
       /**
        * 辅助文本的显示文字
        * @type {String}
@@ -48,8 +48,8 @@ class Text extends Base {
 
   render(coord, group) {
     const self = this;
-    const start = self.start;
-    const point = self.parsePoint(coord, start);
+    const position = self.position;
+    const point = self.parsePoint(coord, position);
     const textStyle = this.style;
 
     if (self.offsetX) {
