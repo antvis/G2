@@ -71,6 +71,7 @@ class Chart extends View {
     });
     this.set('legendController', legendController);
     this.set('_id', 'chart'); // 防止同用户设定的 id 同名
+    this.emit('afterinit'); // 初始化完毕
   }
   // 初始化画布
   _initCanvas() {
@@ -241,6 +242,7 @@ class Chart extends View {
     plot.repaint();
 
     self.repaint();
+    this.emit('afterchangesize');
     return self;
   }
 
@@ -263,6 +265,7 @@ class Chart extends View {
     const view = new View(cfg);
     view.set('_id', 'view' + this.get('views').length); // 标识 ID，防止同用户设定的 id 重名
     this.get('views').push(view);
+    this.emit('addview', { view });
     return view;
   }
 
@@ -339,6 +342,7 @@ class Chart extends View {
    * @return {Chart} 当前的图表对象
    */
   clear() {
+    this.emit('beforeclear');
     const views = this.get('views');
     while (views.length > 0) {
       const view = views.shift();
@@ -347,6 +351,7 @@ class Chart extends View {
     super.clear();
     const canvas = this.get('canvas');
     canvas.draw();
+    this.emit('afterclear');
     return this;
   }
 
@@ -368,9 +373,11 @@ class Chart extends View {
    * @override
    */
   paint() {
+    this.emit('beforepaint');
     super.paint();
     this._renderLegends(); // 渲染图例
     this._renderTooltips(); // 渲染 tooltip
+    this.emit('afterpaint');
   }
 
   /**
@@ -413,12 +420,14 @@ class Chart extends View {
    * 销毁图表
    */
   destroy() {
+    this.emit('beforedestroy');
     const canvas = this.get('canvas');
     const wrapperEl = this.get('wrapperEl');
     wrapperEl.parentNode.removeChild(wrapperEl);
     super.destroy();
     canvas.destroy();
     window.removeEventListener('resize', Util.getWrapBehavior(this, '_initForceFitEvent'));
+    this.emit('afterdestroy');
   }
 }
 

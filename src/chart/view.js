@@ -729,7 +729,9 @@ class View extends Base {
   }
 
   changeData(data) {
+    this.emit('beforechangedata');
     this._initData(data);
+    this.emit('afterchangedata');
     this.repaint();
     return this;
   }
@@ -749,13 +751,16 @@ class View extends Base {
   }
 
   _onViewChange() {
+    this.emit('beforechangedata');
     const dataView = this.get('dataView');
     const rows = dataView.rows;
     this.set('data', rows);
+    this.emit('afterchangedata');
     this.repaint();
   }
 
   render(stopDraw) {
+    this.emit('beforerender');
     const views = this.get('views');
     const animate = this.get('animate');
     // 初始化 View 的数据
@@ -783,6 +788,7 @@ class View extends Base {
         canvas.draw();
       }
     }
+    this.emit('afterrender');
     return this;
   }
 
