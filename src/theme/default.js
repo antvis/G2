@@ -3,6 +3,10 @@
  */
 const DEFAULT_COLOR = '#4E7CCC';
 const FONT_FAMILY = '"Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", SimSun, "sans-serif"';
+const TOOLTIP_CONTAINER_CLASS = 'g2-tooltip';
+const TOOLTIP_TITLE_CLASS = 'g2-tooltip-title';
+const TOOLTIP_LIST_CLASS = 'g2-tooltip-list';
+const TOOLTIP_MARKER_CLASS = 'g2-tooltip-marker';
 
 const Theme = {
   defaultColor: DEFAULT_COLOR, // 默认主题色
@@ -330,7 +334,37 @@ const Theme = {
   },
   tooltip: {
     crosshairs: false,
-    offset: 15
+    offset: 15,
+    // css style for tooltip
+    [`${TOOLTIP_CONTAINER_CLASS}`]: {
+      position: 'absolute',
+      visibility: 'hidden',
+      whiteSpace: 'nowrap',
+      zIndex: 999,
+      transition: 'left 0.4s cubic-bezier(0.23, 1, 0.32, 1), top 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
+      backgroundColor: 'rgba(0, 0, 0, 0.6)',
+      borderRadius: '2px',
+      color: 'rgb(255, 255, 255)',
+      fontSize: '12px',
+      fontFamily: FONT_FAMILY,
+      lineHeight: '12px',
+      padding: '8px 8px 0 8px'
+    },
+    [`${TOOLTIP_TITLE_CLASS}`]: {
+      marginBottom: '8px'
+    },
+    [`${TOOLTIP_LIST_CLASS}`]: {
+      margin: 0,
+      listStyleType: 'none',
+      padding: 0
+    },
+    [`${TOOLTIP_MARKER_CLASS}`]: {
+      width: '6px',
+      height: '6px',
+      borderRadius: '50%',
+      display: 'inline-block',
+      marginRight: '6px'
+    }
   },
   tooltipMarker: {
     fill: '#fff',

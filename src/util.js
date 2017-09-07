@@ -15,7 +15,6 @@ function _mix(dist, obj) {
 const Util = {
   each: require('lodash/each'),
   map: require('lodash/map'),
-  isNull: require('lodash/isNull'),
   isObject: require('lodash/isObject'),
   isNumber: require('lodash/isNumber'),
   isString: require('lodash/isString'),
@@ -37,7 +36,6 @@ const Util = {
   cloneDeep: require('lodash/cloneDeep'),
   maxBy: require('lodash/maxBy'),
   minBy: require('lodash/minBy'),
-  has: require('lodash/has'),
   round: require('lodash/round'),
   merge: require('lodash/merge'),
   filter: require('lodash/filter'),

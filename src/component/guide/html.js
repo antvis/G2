@@ -108,7 +108,7 @@ class Html extends Base {
       position.y += self.offsetY;
     }
 
-    DomUtil.modiCSS(parentDom, {
+    DomUtil.modifyCSS(parentDom, {
       position: 'absolute',
       top: Math.round(position.y) + 'px',
       left: Math.round(position.x) + 'px',

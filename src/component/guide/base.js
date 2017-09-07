@@ -25,11 +25,18 @@ class Base {
    */
   _getNormalizedValue(val, scale) {
     let result;
-    if (Util.indexOf(KEYWORDS, val) !== -1) {
+    if (Util.indexOf(KEYWORDS, val) !== -1) { // 分类则对应索引值
+      let scaleValue;
       if (val === 'median') {
-        result = scale.scale((scale.min + scale.max) / 2);
+        scaleValue = scale.isCategory ? (scale.values.length - 1) / 2 : (scale.min + scale.max) / 2;
+        result = scale.scale(scaleValue);
       } else {
-        result = scale.scale(scale[val]);
+        if (scale.isCategory) {
+          scaleValue = (val === 'min') ? 0 : (scale.values.length - 1);
+        } else {
+          scaleValue = scale[val];
+        }
+        result = scale.scale(scaleValue);
       }
     } else {
       result = scale.scale(val);
@@ -49,7 +56,6 @@ class Base {
     const self = this;
     const xScales = self.xScales;
     const yScales = self.yScales;
-
     if (Util.isFunction(position)) {
       position = position(xScales, yScales); // position 必须是对象
     }
@@ -58,11 +64,11 @@ class Base {
     let y;
     for (const field in position) {
       const value = position[field];
-      if (Util.has(xScales, field)) {
+      if (xScales[field]) {
         x = self._getNormalizedValue(value, xScales[field]);
       }
 
-      if (Util.has(yScales, field)) {
+      if (yScales[field]) {
         y = self._getNormalizedValue(value, yScales[field]);
       }
     }

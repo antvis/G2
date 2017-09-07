@@ -43,7 +43,7 @@ class ScaleController {
       def = Util.mix({}, Global.scales[field]);
       // 处理覆盖属性的问题
       Util.each(defs[field], function(v, k) {
-        if (Util.isNull(v)) {
+        if (Util.isNil(v)) {
           delete def[k];
         } else {
           def[k] = v;
