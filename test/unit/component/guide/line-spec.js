@@ -62,6 +62,36 @@ describe('Guide: 辅助线', function() {
     expect(children[0].getCount()).to.equal(1);
   });
 
+  it('guide line, the point is array', function() {
+    group.clear();
+
+    const line = new Line({
+      xScales: {
+        month: xScale
+      },
+      yScales: {
+        temp: yScale
+      },
+      start: [ '一月', 200 ],
+      end: {
+        month: '五月',
+        temp: 200
+      },
+      lineStyle: {
+        stroke: '#999',
+        lineWidth: 2,
+        lineDash: [ 2, 2 ]
+      }
+    });
+    line.render(coord, group);
+    canvas.draw();
+    const children = group.get('children');
+    expect(children.length).to.equal(1);
+    expect(children[0]).to.an.instanceof(Group);
+    expect(children[0].getCount()).to.equal(1);
+  });
+
+
   it('guide line with text, and autoRotate is true', function() {
     group.clear();
 

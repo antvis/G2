@@ -419,14 +419,14 @@ class View extends Base {
     let x;
     let y;
 
-    Util.each(Object.keys(item), field => {
+    for (const field in item) {
       if (xScales[field]) {
         x = xScales[field].scale(item[field]);
       }
       if (yScales[field]) {
         y = yScales[field].scale(item[field]);
       }
-    });
+    }
 
     if (!Util.isNil(x) && !Util.isNil(y)) {
       return coord.convert({

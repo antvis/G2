@@ -1,6 +1,17 @@
 const Util = require('../../util');
 const KEYWORDS = [ 'min', 'max', 'median' ];
 
+function getFirstScale(scales) {
+  let firstScale;
+  Util.each(scales, scale => {
+    if (scale) {
+      firstScale = scale;
+      return false;
+    }
+  });
+  return firstScale;
+}
+
 class Base {
   getDefaultCfg() {
     return {
@@ -49,7 +60,7 @@ class Base {
    * 将原始数值转换成坐标系上的点
    * @protected
    * @param  {Coord} coord  坐标系
-   * @param  {Object} position 点的数组 {xField: 'a', yField: 'b'}
+   * @param  {Object | Array | Function } position 点的数组 {xField: 'a', yField: 'b'}
    * @return {Object} 转换成坐标系上的点
    */
   parsePoint(coord, position) {
@@ -62,14 +73,19 @@ class Base {
 
     let x;
     let y;
-    for (const field in position) {
-      const value = position[field];
-      if (xScales[field]) {
-        x = self._getNormalizedValue(value, xScales[field]);
-      }
+    if (Util.isArray(position)) { // 数组  [2, 1]
+      x = self._getNormalizedValue(position[0], getFirstScale(xScales));
+      y = self._getNormalizedValue(position[1], getFirstScale(yScales));
+    } else {
+      for (const field in position) {
+        const value = position[field];
+        if (xScales[field]) {
+          x = self._getNormalizedValue(value, xScales[field]);
+        }
 
-      if (yScales[field]) {
-        y = self._getNormalizedValue(value, yScales[field]);
+        if (yScales[field]) {
+          y = self._getNormalizedValue(value, yScales[field]);
+        }
       }
     }
 
