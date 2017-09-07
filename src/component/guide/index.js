@@ -3,5 +3,6 @@ module.exports = {
   Text: require('./text'),
   Image: require('./image'),
   Region: require('./region'),
-  Html: require('./html')
+  Html: require('./html'),
+  Arc: require('./arc')
 };
