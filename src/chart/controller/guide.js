@@ -58,11 +58,15 @@ class GuideController {
     this.options.push(cfg);
   }
 
-  render(coord, container) {
-    const guides = this._creatGuides();
-    container = container || this.container;
+  render(coord) {
+    const self = this;
+    const guides = self._creatGuides();
+    let container = self.backContainer;
 
-    Util.each(guides, function(guide) {
+    Util.each(guides, guide => {
+      if (guide.top) { // 默认 guide 绘制到 backPlot，用户也可以声明 top: true，显示在最上层
+        container = self.frontContainer;
+      }
       guide.render(coord, container);
     });
   }

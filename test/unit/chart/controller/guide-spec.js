@@ -14,6 +14,8 @@ describe('GuideController', function() {
     width: 200,
     height: 200
   });
+  const frontContainer = canvas.addGroup();
+  const backContainer = canvas.addGroup();
 
   const xScale = Scale.cat({
     range: [ 0.1, 0.9 ],
@@ -57,7 +59,8 @@ describe('GuideController', function() {
 
   it('Initialization.', function() {
     guideController = new GuideController({
-      container: canvas,
+      backContainer,
+      frontContainer,
       xScales,
       yScales
     });
@@ -196,7 +199,8 @@ describe('GuideController', function() {
           x: xScales.x.values[0],
           y1: yScales.y1.min
         };
-      }
+      },
+      top: true // 展示在最上层
     });
 
     const guidesOptions = guideController.options;
@@ -226,7 +230,8 @@ describe('GuideController', function() {
     const dom = div.getElementsByClassName('g-guide');
     expect(dom).not.to.be.empty;
     expect(dom.length).to.equal(1);
-    expect(canvas.get('children').length).to.equal(9);
+    expect(frontContainer.get('children').length).to.equal(1);
+    expect(backContainer.get('children').length).to.equal(8);
   });
 
   it('clear', function() {
@@ -235,7 +240,9 @@ describe('GuideController', function() {
 
     expect(guideController.options.length).to.equal(0);
     expect(dom).to.be.empty;
-    expect(canvas.get('children').length).to.equal(0);
+    expect(canvas.get('children').length).to.equal(2);
+    expect(frontContainer.get('children').length).to.equal(0);
+    expect(backContainer.get('children').length).to.equal(0);
   });
 
   it('destroy', function() {

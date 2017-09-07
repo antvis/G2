@@ -286,7 +286,8 @@ class View extends Base {
     const guideController = this.get('guideController');
     if (!Util.isEmpty(guideController.options)) {
       const coord = this.get('coord');
-      guideController.container = this.get('backPlot');
+      guideController.backContainer = this.get('backPlot');
+      guideController.frontContainer = this.get('frontPlot');
       guideController.xScales = this._getScales('x');
       guideController.yScales = this._getScales('y');
       guideController.render(coord);
