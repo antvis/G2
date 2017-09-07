@@ -38,7 +38,7 @@ class Chart extends View {
    */
   getDefaultCfg() {
     const viewCfg = super.getDefaultCfg();
-    return Util.mix({
+    return Util.mix(viewCfg, {
       id: null,
       forceFit: false,
       container: null,
@@ -52,7 +52,7 @@ class Chart extends View {
       frontPlot: null,
       plotBackground: null,
       views: []
-    }, viewCfg);
+    });
   }
 
   init() {

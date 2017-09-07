@@ -129,29 +129,12 @@ class PlotBack extends Group {
     const width = self.get('width') || canvas.get('width');
     const height = self.get('height') || canvas.get('height');
 
-    let top = 0;
-    let left = 0;
-    let right = 0;
-    let bottom = 0;
+    const allPadding = Util.toAllPadding(padding);
 
-    if (Util.isNumber(padding)) {
-      top = left = right = bottom = padding;
-    } else if (Util.isArray(padding)) {
-      top = padding[0];
-      right = !Util.isNil(padding[1]) ? padding[1] : padding[0];
-      bottom = !Util.isNil(padding[2]) ? padding[2] : padding[0];
-      left = !Util.isNil(padding[3]) ? padding[3] : right;
-    } else if (Util.isObject(padding)) {
-      top = padding.top || 0;
-      right = padding.right || 0;
-      bottom = padding.bottom || 0;
-      left = padding.left || 0;
-    }
-
-    top = self._convert(top, false);
-    right = self._convert(right, true);
-    bottom = self._convert(bottom, false);
-    left = self._convert(left, true);
+    const top = self._convert(allPadding[0], false);
+    const right = self._convert(allPadding[1], true);
+    const bottom = self._convert(allPadding[2], false);
+    const left = self._convert(allPadding[3], true);
 
     const minX = Math.min(left, width - right);
     const maxX = Math.max(left, width - right);
