@@ -131,10 +131,12 @@ const TooltipMixin = {
     if (xScale.isCategory) {
       distance = 1;
     } else {
-      const values = xScale.values;
+      const values = xScale.values; // values 是无序的
       const length = values.length;
+      const min = Math.min.apply(null, values);
+      const max = Math.max.apply(null, values);
       // 应该是除以 length - 1
-      distance = Math.abs(xScale.translate(values[length - 1]) - xScale.translate(values[0])) / (length - 1);
+      distance = (xScale.translate(max) - xScale.translate(min)) / (length - 1);
     }
     return distance;
   },
