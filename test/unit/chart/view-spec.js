@@ -1,6 +1,7 @@
 const expect = require('chai').expect;
 const { Canvas } = require('@ali/g');
 const View = require('../../../src/chart/view');
+const Chart = require('../../../src/chart/chart');
 const Coord = require('../../../src/coord/index');
 
 const div = document.createElement('div');
@@ -273,5 +274,112 @@ describe('test view all options', function() {
     view.render();
     canvas.draw();
   });
+});
 
+describe('view get shape and records', function() {
+  // canvas.destroy();
+  const data = [
+    { month: 0, tokyo: 7, newYork: -0.2, berlin: -0.9 },
+    { month: 1, tokyo: 6.9, newYork: 0.8, berlin: 0.6 },
+    { month: 7, tokyo: 26.5, newYork: 24.1, berlin: 17.9 },
+    { month: 11, tokyo: 9.6, newYork: 2.5, berlin: 1 },
+    { month: 2, tokyo: 9.5, newYork: 5.7, berlin: 3.5 },
+    { month: 3, tokyo: 14.5, newYork: 11.3, berlin: 8.4 },
+    { month: 8, tokyo: 23.3, newYork: 20.1, berlin: 14.3 },
+    { month: 10, tokyo: 13.9, newYork: 8.6, berlin: 3.9 },
+    { month: 9, tokyo: 18.3, newYork: 14.1, berlin: 9 },
+    { month: 4, tokyo: 18.2, newYork: 17, berlin: 13.5 },
+    { month: 5, tokyo: 21.5, newYork: 22, berlin: 17 },
+    { month: 6, tokyo: 25.2, newYork: 24.8, berlin: 18.6 }
+  ];
+  const chart = new Chart({
+    id: 'cview',
+    width: 500,
+    height: 500,
+    animate: false
+  });
+
+  chart.source(data);
+  chart.point().position('month*tokyo');
+  chart.render();
+
+  it('getSnapRecords point', function() {
+    let point = {
+      x: 173,
+      y: 253
+    };
+    let records = chart.getSnapRecords(point);
+    expect(records.length).equal(1);
+    expect(records[0]._origin.month).equal(3);
+
+    point = {
+      x: 291,
+      y: 59
+    };
+
+    records = chart.getSnapRecords(point);
+    expect(records[0]._origin.month).equal(6);
+  });
+
+  it('getSnapRecords line，已排序', function() {
+    chart.clear();
+    chart.source([
+      { month: 0, tem: 7, city: 'tokyo' },
+      { month: 1, tem: 6.9, city: 'tokyo' },
+      { month: 3, tem: 14.5, city: 'tokyo' },
+      { month: 4, tem: 18.2, city: 'tokyo' },
+      { month: 2, tem: 9.5, city: 'tokyo' },
+      { month: 5, tem: 21.5, city: 'tokyo' },
+      { month: 6, tem: 25.2, city: 'tokyo' },
+      { month: 7, tem: 26.5, city: 'tokyo' },
+      { month: 8, tem: 23.3, city: 'tokyo' },
+      { month: 9, tem: 18.3, city: 'tokyo' },
+      { month: 11, tem: 9.6, city: 'tokyo' },
+      { month: 10, tem: 13.9, city: 'tokyo' },
+      { month: 3, tem: 11.3, city: 'newYork' },
+      { month: 4, tem: 17, city: 'newYork' },
+      { month: 0, tem: -0.2, city: 'newYork' },
+      { month: 1, tem: 0.8, city: 'newYork' },
+      { month: 2, tem: 5.7, city: 'newYork' },
+      { month: 5, tem: 22, city: 'newYork' },
+      { month: 9, tem: 14.1, city: 'newYork' },
+      { month: 10, tem: 8.6, city: 'newYork' },
+      { month: 6, tem: 24.8, city: 'newYork' },
+      { month: 7, tem: 24.1, city: 'newYork' },
+      { month: 8, tem: 20.1, city: 'newYork' },
+      { month: 11, tem: 2.5, city: 'newYork' },
+      { month: 0, tem: -0.9, city: 'berlin' },
+      { month: 2, tem: 3.5, city: 'berlin' },
+      { month: 3, tem: 8.4, city: 'berlin' },
+      { month: 4, tem: 13.5, city: 'berlin' },
+      { month: 5, tem: 17, city: 'berlin' },
+      { month: 8, tem: 14.3, city: 'berlin' },
+      { month: 9, tem: 9, city: 'berlin' },
+      { month: 10, tem: 3.9, city: 'berlin' },
+      { month: 6, tem: 18.6, city: 'berlin' },
+      { month: 7, tem: 17.9, city: 'berlin' },
+      { month: 1, tem: 0.6, city: 'berlin' },
+      { month: 11, tem: 1, city: 'berlin' }
+    ]);
+    chart.line().position('month*tem').color('city');
+    chart.render();
+
+    expect(chart.get('geoms')[0].get('sortable')).to.be.true;
+    let point = {
+      x: 333,
+      y: 192
+    };
+    let records = chart.getSnapRecords(point);
+    expect(records.length).equal(3);
+    expect(records[0]._origin.month).equal(8);
+
+    point = {
+      x: 137,
+      y: 440
+    };
+
+    records = chart.getSnapRecords(point);
+    expect(records[0]._origin.month).equal(2);
+    chart.destroy();
+  });
 });

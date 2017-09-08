@@ -641,6 +641,24 @@ class GeomBase extends Base {
     if (self.get('labelCfg')) {
       self._addLabels(Util.union.apply(null, mappedArray));
     }
+
+    if (!self.get('sortable')) {
+      self._sort(mappedArray); // 便于数据的查找，需要对数据进行排序，用于 geom.findPoint()
+    } else {
+      self.set('dataArray', mappedArray);
+    }
+  }
+
+  _sort(mappedArray) {
+    const self = this;
+    const xScale = self.getXScale();
+    const xField = xScale.field;
+    Util.each(mappedArray, itemArr => {
+      itemArr.sort((obj1, obj2) => {
+        return obj1[FIELD_ORIGIN][xField] - obj2[FIELD_ORIGIN][xField];
+      });
+    });
+
     self.set('dataArray', mappedArray);
   }
 
