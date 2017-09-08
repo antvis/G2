@@ -271,7 +271,10 @@ class Chart extends View {
 
   _getSharedOptions() {
     const options = this.get('options');
-    const sharedOptions = Util.pick(options, [ 'scales', 'coord', 'axes' ]);
+    const sharedOptions = {};
+    Util.each([ 'scales', 'coord', 'axes' ], function(name) {
+      sharedOptions[name] = Util.cloneDeep(options[name]);
+    });
     return sharedOptions;
   }
 
