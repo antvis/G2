@@ -440,6 +440,26 @@ class View extends Base {
   }
 
   /**
+   * 获取逼近的点的数据集合
+   * @param  {Object} point 画布上的像素点
+   * @return {Array} 数据
+   */
+  getSnapRecords(point) {
+    const self = this;
+    const geoms = self.get('geoms');
+    const rst = [];
+    Util.each(geoms, geom => {
+      const dataArray = geom.get('dataArray');
+      let record;
+      Util.each(dataArray, function(data) {
+        record = geom.findPoint(point, data);
+        record && rst.push(record);
+      });
+    });
+    return rst;
+  }
+
+  /**
    * @protected
    * 添加几何标记
    * @param {Geom} geom 几何标记
