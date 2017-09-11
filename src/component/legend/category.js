@@ -189,8 +189,10 @@ class Category extends Base {
   }
 
   _bindUI() {
-    this.on('mousemove', Util.wrapBehavior(this, '_onMousemove'));
-    this.on('mouseleave', Util.wrapBehavior(this, '_onMouseleave'));
+    if (this.get('hoverable')) {
+      this.on('mousemove', Util.wrapBehavior(this, '_onMousemove'));
+      this.on('mouseleave', Util.wrapBehavior(this, '_onMouseleave'));
+    }
 
     if (this.get('clickable')) {
       this.on('click', Util.wrapBehavior(this, '_onClick'));

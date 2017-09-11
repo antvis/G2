@@ -27,6 +27,11 @@ class Base extends Group {
        * @type {Boolean}
        */
       inPlot: false,
+      /**
+       * 鼠标 hover 到图例上的默认交互是否开启
+       * @type {Boolean}
+       */
+      hoverable: true,
       zIndex: 1
     };
   }
