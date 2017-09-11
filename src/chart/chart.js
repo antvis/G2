@@ -269,6 +269,12 @@ class Chart extends View {
     return view;
   }
 
+  removeView(view) {
+    const views = this.get('views');
+    Util.Array.remove(views, view);
+    view.destroy();
+  }
+
   _getSharedOptions() {
     const options = this.get('options');
     const sharedOptions = {};

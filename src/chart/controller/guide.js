@@ -37,6 +37,12 @@ class GuideController {
     return this;
   }
 
+  arc(cfg = {}) {
+    cfg.type = 'arc';
+    this.options.push(cfg);
+    return this;
+  }
+
   text(cfg = {}) {
     cfg.type = 'text';
     this.options.push(cfg);
