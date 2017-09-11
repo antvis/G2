@@ -174,10 +174,10 @@ class Continuous extends Base {
       maxBlockAttr = Util.mix({}, inRange);
     }
     const minTextAttr = Util.mix({
-      text: min.value + ''
+      text: this._formatItemValue(min.value * 1) + ''
     }, textStyle);
     const maxTextAttr = Util.mix({
-      text: max.value + ''
+      text: this._formatItemValue(max.value * 1) + ''
     }, textStyle);
     if (layout === 'vertical') {
       this._addVerticalTrigger('min', minBlockAttr, minTextAttr);
@@ -268,8 +268,12 @@ class Continuous extends Base {
   _updateElement(min, max) {
     const minTextElement = this.get('minTextElement');
     const maxTextElement = this.get('maxTextElement');
-    minTextElement.attr('text', min + '');
-    maxTextElement.attr('text', max + '');
+    if (max > 1) { // 对于大于 1 的值，默认显示为整数
+      min = parseInt(min, 10);
+      max = parseInt(max, 10);
+    }
+    minTextElement.attr('text', this._formatItemValue(min) + '');
+    maxTextElement.attr('text', this._formatItemValue(max) + '');
     if (this.get('type') === 'color-legend' && this.get('attr')) {
       const attr = this.get('attr'); // 图形属性，为了更新滑块颜色
       const minButtonElement = this.get('minButtonElement');

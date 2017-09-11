@@ -81,7 +81,7 @@ class Color extends Continuous {
           attrs: Util.mix({}, {
             x: width + self.get('labelOffset'),
             y: height - v.scaleValue * height,
-            text: self._formatItemValue(v.value)
+            text: self._formatItemValue(v.value * 1)
           }, self.get('textStyle'), {
             textAlign: 'start'
           })
@@ -98,7 +98,7 @@ class Color extends Continuous {
           attrs: Util.mix({}, {
             x: v.scaleValue * width,
             y: height + self.get('labelOffset'),
-            text: self._formatItemValue(v.value)
+            text: self._formatItemValue(v.value * 1)
           }, self.get('textStyle'))
         });
       });
