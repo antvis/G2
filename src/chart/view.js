@@ -71,6 +71,7 @@ class View extends Base {
       scales: {},
       options: {},
       scaleController: null,
+      padding: 0,
       parent: null,
       tooltipEnable: true, // 是否展示 tooltip
       animate: true
@@ -242,15 +243,22 @@ class View extends Base {
     const startY = 1 - end.y;
     const endX = end.x;
     const endY = 1 - start.y;
+    const padding = this.get('padding');
+    // 转换成 上、右、下、左的模式
+    const allPadding = Util.toAllPadding(padding);
+    const top = allPadding[0];
+    const right = allPadding[1];
+    const bottom = allPadding[2];
+    const left = allPadding[3];
 
     const startPoint = {
-      x: startX * (plotEnd.x - plotStart.x) + plotStart.x,
-      y: startY * (plotEnd.y - plotStart.y) + plotStart.y
+      x: startX * (plotEnd.x - plotStart.x) + plotStart.x + left,
+      y: startY * (plotEnd.y - plotStart.y) + plotStart.y - bottom
 
     };
     const endPoint = {
-      x: endX * (plotEnd.x - plotStart.x) + plotStart.x,
-      y: endY * (plotEnd.y - plotStart.y) + plotStart.y
+      x: endX * (plotEnd.x - plotStart.x) + plotStart.x - right,
+      y: endY * (plotEnd.y - plotStart.y) + plotStart.y + top
     };
 
     return {

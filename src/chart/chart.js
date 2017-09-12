@@ -38,7 +38,7 @@ class Chart extends View {
    */
   getDefaultCfg() {
     const viewCfg = super.getDefaultCfg();
-    return Util.mix({
+    return Util.mix(viewCfg, {
       id: null,
       forceFit: false,
       container: null,
@@ -52,7 +52,7 @@ class Chart extends View {
       frontPlot: null,
       plotBackground: null,
       views: []
-    }, viewCfg);
+    });
   }
 
   init() {
@@ -269,9 +269,18 @@ class Chart extends View {
     return view;
   }
 
+  removeView(view) {
+    const views = this.get('views');
+    Util.Array.remove(views, view);
+    view.destroy();
+  }
+
   _getSharedOptions() {
     const options = this.get('options');
-    const sharedOptions = Util.pick(options, [ 'scales', 'coord', 'axes' ]);
+    const sharedOptions = {};
+    Util.each([ 'scales', 'coord', 'axes' ], function(name) {
+      sharedOptions[name] = Util.cloneDeep(options[name]);
+    });
     return sharedOptions;
   }
 

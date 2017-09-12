@@ -375,7 +375,8 @@ describe('chart, view, geom visible', function() {
       height: 500,
       forceFit: true,
       container: 'cchart',
-      animate: false
+      animate: false,
+      padding: 0
     });
     chart.hide();
     expect(chart.get('wrapperEl').style.display).equal('none');
@@ -413,7 +414,8 @@ describe('chart, view, geom visible', function() {
     });
     const v1 = chart.view({
       start: { x: 0, y: 0 },
-      end: { x: 0.5, y: 0.5 }
+      end: { x: 0.5, y: 0.5 },
+      padding: 20
     });
     v1.source(data);
     v1.line().position('a*b').color('c');
@@ -427,7 +429,8 @@ describe('chart, view, geom visible', function() {
     });
     const v2 = chart.view({
       start: { x: 0.5, y: 0.5 },
-      end: { x: 1, y: 1 }
+      end: { x: 1, y: 1 },
+      padding: [ 0, 0, 40, 0 ]
     });
     v2.source(data);
     v2.line().position('a*b').color('c');
@@ -442,6 +445,9 @@ describe('chart, view, geom visible', function() {
     v1.hide();
     expect(viewContainer.getFirst().get('visible')).equal(false);
     v1.show();
+
+    expect(v1.getViewRegion().start).eqls({ x: 20, y: 230 });
+    expect(v2.getViewRegion().end.y).eqls(250);
   });
 
   it('geom show hide', function() {

@@ -11,4 +11,11 @@ describe('util test', () => {
     expect(util.mix({}, a)).eqls(a);
     expect(util.mix({}, a, b, rst)).eqls(rst);
   });
+  it('to all padding', () => {
+    expect(util.toAllPadding(0)).eqls([ 0, 0, 0, 0 ]);
+    expect(util.toAllPadding([ 0, 0 ])).eqls([ 0, 0, 0, 0 ]);
+    expect(util.toAllPadding([ 20, 10 ])).eqls([ 20, 10, 20, 10 ]);
+    expect(util.toAllPadding([ 20, 30, 10 ])).eqls([ 20, 30, 10, 30 ]);
+    expect(util.toAllPadding('20%')).eqls([ '20%', '20%', '20%', '20%' ]);
+  });
 });
