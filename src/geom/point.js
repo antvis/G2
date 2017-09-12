@@ -16,6 +16,7 @@ class Point extends GeomBase {
     const cfg = super.getDefaultCfg();
     cfg.type = 'point';
     cfg.shapeType = 'point';
+    cfg.generatePoints = true;
     return cfg;
   }
 
