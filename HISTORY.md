@@ -2,6 +2,13 @@
 
 ---
 
+## 2.3.12
+
+- feature: `chart.tooltip()` 方法添加 `inPlot` 属性，用于控制是否在绘图区域内展示，默认为 true
+- fix: 修复 `chart.getSnapPoints()` 查找不精准的问题
+- fix: 修复 tooltip 层级问题
+- fix: 修复连续图例无法过滤 [0, 1] 的问题
+
 ## 2.3.10
 
 * fix: 修复 dodge 情况下 filter 掉所有选项的问题
