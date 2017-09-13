@@ -202,25 +202,31 @@ class AxisController {
   }
 
   // 确定坐标轴的位置
-  _getAxisPosition(coord, dimType, index) {
-    const coordType = coord.type;
+  _getAxisPosition(coord, dimType, index, field) {
     let position = '';
-    if (coord.isRect) {
-      if (dimType === 'x') {
-        position = coord.isTransposed ? 'left' : 'bottom';
-      } else if (dimType === 'y') {
-        if (index) {
-          position = coord.isTransposed ? 'bottom' : 'right';
-        } else {
-          position = coord.isTransposed ? 'bottom' : 'left';
-        }
-      }
-    } else if (coordType === 'helix') {
-      position = 'helix';
-    } else if (dimType === 'x') {
-      position = coord.isTransposed ? 'radius' : 'circle';
+    // 用户自己定义了 position
+    const options = this.options;
+    if (options[field] && options[field].position) {
+      position = options[field].position;
     } else {
-      position = coord.isTransposed ? 'circle' : 'radius';
+      const coordType = coord.type;
+      if (coord.isRect) {
+        if (dimType === 'x') {
+          position = coord.isTransposed ? 'left' : 'bottom';
+        } else if (dimType === 'y') {
+          if (index) {
+            position = coord.isTransposed ? 'bottom' : 'right';
+          } else {
+            position = coord.isTransposed ? 'bottom' : 'left';
+          }
+        }
+      } else if (coordType === 'helix') {
+        position = 'helix';
+      } else if (dimType === 'x') {
+        position = coord.isTransposed ? 'radius' : 'circle';
+      } else {
+        position = coord.isTransposed ? 'circle' : 'radius';
+      }
     }
 
     return position;
@@ -257,7 +263,7 @@ class AxisController {
   // 确定坐标轴的配置信息
   _getAxisCfg(coord, scale, verticalScale, dimType, index = '', viewId) {
     const self = this;
-    const position = self._getAxisPosition(coord, dimType, index);
+    const position = self._getAxisPosition(coord, dimType, index, scale.field);
     const cfg = self._getAxisDefaultCfg(coord, scale, dimType, position);
     if (!Util.isEmpty(cfg.grid) && verticalScale) { // 生成 gridPoints
       const gridPoints = [];
