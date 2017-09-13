@@ -50,7 +50,7 @@ class Text extends Base {
     const self = this;
     const position = self.position;
     const point = self.parsePoint(coord, position);
-    const textStyle = this.style;
+    const textStyle = Util.mix({}, this.style);
 
     if (self.offsetX) {
       point.x += self.offsetX;
