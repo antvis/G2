@@ -170,7 +170,12 @@ class Category extends Base {
        * 图例项的选择模式，多选和单选 multiple、single
        * @type {String}
        */
-      selectedMode: 'multiple'
+      selectedMode: 'multiple',
+      /**
+       * 图例项的顺序是否要逆序，默认为 false
+       * @type {Boolean}
+       */
+      reversed: false
     });
   }
 
@@ -269,6 +274,10 @@ class Category extends Base {
     const userItemTpl = self.get('itemTpl');
     if (userItemTpl && userItemTpl !== itemTpl) {
       itemTpl = userItemTpl;
+    }
+
+    if (self.get('reversed')) {
+      items.reverse();
     }
 
     Util.each(items, function(item, index) {
@@ -385,6 +394,9 @@ class Category extends Base {
   _renderItems() {
     const self = this;
     const items = self.get('items');
+    if (self.get('reversed')) {
+      items.reverse();
+    }
     Util.each(items, function(item, index) {
       self._addItem(item, index);
     });
