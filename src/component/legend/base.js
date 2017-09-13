@@ -31,8 +31,7 @@ class Base extends Group {
        * 鼠标 hover 到图例上的默认交互是否开启
        * @type {Boolean}
        */
-      hoverable: true,
-      zIndex: 1
+      hoverable: true
     };
   }
 

@@ -513,7 +513,7 @@ class Category extends Base {
     const itemGap = this.get('itemGap');
     const itemMarginBottom = this.get('itemMarginBottom');
     const titleGap = this.get('titleShape') ? this.get('titleGap') : 0;
-    let row = 1;
+    let row = 0;
     let rowLength = 0;
     let width;
     let height;

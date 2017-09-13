@@ -197,6 +197,7 @@ class LegendController {
     const plotRange = self.plotRange;
     const offsetX = legend.get('offsetX') || 0;
     const offsetY = legend.get('offsetY') || 0;
+    const offset = Util.isNil(legend.get('offset')) ? MARGIN : legend.get('offset');
     const legendHeight = legend.getHeight();
 
     let x = 0;
@@ -206,26 +207,15 @@ class LegendController {
     }
 
     if (position === 'left' || position === 'right') { // 垂直
-      const legendWidth = region.maxWidth;
-      if (plotRange) {
-        height = plotRange.br.y;
-        x = position === 'left' ? MARGIN : plotRange.br.x + MARGIN;
-      } else {
-        x = position === 'left' ? MARGIN : width - legendWidth + MARGIN;
-      }
-
+      height = plotRange.br.y;
+      x = position === 'left' ? offset : plotRange.br.x + offset;
       y = height - legendHeight;
       if (pre) {
         y = pre.get('y') - legendHeight - MARGIN_LEGEND;
       }
     } else {
-      let statrX = 0;
-
-      if (plotRange) {
-        statrX = plotRange.bl.x + ((plotRange.br.x - plotRange.bl.x) - region.totalWidth) / 2;
-      }
-      x = statrX;
-      y = position === 'top' ? 10 : (height - legendHeight);
+      x = (width - region.totalWidth) / 2;
+      y = (position === 'top') ? offset : (plotRange.bl.y + offset);
 
       if (pre) {
         const preWidth = pre.getWidth();
