@@ -134,11 +134,12 @@ class Category extends Base {
        * @type {Boolean}
        */
       useHtml: false,
+      container: null,
       /**
        * 使用html时的外层模板
        * @type {String}
        */
-      containerTpl: '<div class="' + CONTAINER_CLASS + '" style="position:absolute;top:20px;right:60px;width:auto;">' +
+      containerTpl: '<div class="' + CONTAINER_CLASS + '">' +
         '<h4 class="' + TITLE_CLASS + '"></h4>' +
         '<ul class="' + LIST_CLASS + '" style="list-style-type:none;margin:0;padding:0;"></ul>' +
         '</div>',
@@ -296,16 +297,6 @@ class Category extends Base {
       itemListDom.appendChild(itemDom);
     });
 
-    if (self.get('scroll')) {
-      const width = canvas.get('width');
-      const height = canvas.get('height');
-      DomUtil.modifyCSS(legendWrapper, {
-        maxWidth: width + 'px',
-        maxHeight: height + 'px',
-        overflow: 'scroll'
-      });
-    }
-
     if (self.get('clickable')) {
       const childNodes = itemListDom.childNodes;
       // 注册事件
@@ -343,33 +334,51 @@ class Category extends Base {
         });
       };
     }
+    if (self.get('hoverable')) {
+      legendWrapper.onmousemove = ev => {
+        const target = ev.target;
+        let targetClass = target.className;
+        targetClass = targetClass.split(' ');
+        if (targetClass.indexOf(CONTAINER_CLASS) > -1 || targetClass.indexOf(LIST_CLASS) > -1) {
+          return;
+        }
+        const parentDom = getParentNode(target, ITEM_CLASS);
+        const domClass = parentDom.className;
+        const hoveredItem = findItem(items, parentDom.getAttribute('data-value'));
+        if (hoveredItem && domClass.includes('checked')) {
+          self.emit('itemhover', {
+            item: hoveredItem,
+            currentTarget: parentDom,
+            checked: hoveredItem.checked
+          });
+        } else if (!hoveredItem) {
+          self.emit('itemunhover', ev);
+        }
+      };
 
-    legendWrapper.onmousemove = ev => {
-      const target = ev.target;
-      let targetClass = target.className;
-      targetClass = targetClass.split(' ');
-      if (targetClass.indexOf(CONTAINER_CLASS) > -1 || targetClass.indexOf(LIST_CLASS) > -1) {
-        return;
-      }
-      const parentDom = getParentNode(target, ITEM_CLASS);
-      const domClass = parentDom.className;
-      const hoveredItem = findItem(items, parentDom.getAttribute('data-value'));
-      if (hoveredItem && domClass.includes('checked')) {
-        self.emit('itemhover', {
-          item: hoveredItem,
-          currentTarget: parentDom,
-          checked: hoveredItem.checked
-        });
-      } else if (!hoveredItem) {
+      legendWrapper.onmouseout = ev => {
         self.emit('itemunhover', ev);
+      };
+    }
+
+    let container = self.get('container');
+    if (/^\#/.test(container)) { // 如果传入 dom 节点的 id
+      const id = container.replace('#', '');
+      container = document.getElementById(id);
+      // container.style.position = 'relative';
+      container.appendChild(legendWrapper);
+    } else {
+      if (self.get('scroll')) {
+        const width = canvas.get('width');
+        const height = canvas.get('height');
+        DomUtil.modifyCSS(legendWrapper, {
+          maxWidth: width + 'px',
+          maxHeight: height + 'px',
+          overflow: 'scroll'
+        });
       }
-    };
-
-    legendWrapper.onmouseout = ev => {
-      self.emit('itemunhover', ev);
-    };
-
-    outterNode.appendChild(legendWrapper);
+      outterNode.appendChild(legendWrapper);
+    }
     self.set('legendWrapper', legendWrapper);
   }
 
@@ -604,10 +613,11 @@ class Category extends Base {
   }
 
   move(x, y) {
-    if (this.get('useHtml')) {
+    if (this.get('useHtml') && !(/^\#/.test(this.get('container')))) {
       DomUtil.modifyCSS(this.get('legendWrapper'), {
         left: x + 'px',
-        top: y + 'px'
+        top: y + 'px',
+        position: 'absolute'
       });
     } else {
       super.move(x, y);

@@ -431,7 +431,7 @@ describe('分类图例', function() {
       useHtml: true,
       scroll: false
     });
-
+    legend.move(0, 0);
     canvas.draw();
 
     const legendDom = div.getElementsByClassName('g2-legend')[0];
@@ -486,7 +486,7 @@ describe('分类图例', function() {
       });
     }
 
-    canvas.addGroup(Legend, {
+    const legend = canvas.addGroup(Legend, {
       items,
       useHtml: true,
       itemTpl(value, color) {
@@ -500,7 +500,7 @@ describe('分类图例', function() {
       scroll: false,
       selectedMode: 'single'
     });
-
+    legend.move(0, 0);
     canvas.draw();
 
     const legendDom = div.getElementsByClassName('g2-legend')[0];
@@ -544,12 +544,12 @@ describe('分类图例', function() {
       });
     }
 
-    canvas.addGroup(Legend, {
+    const legend = canvas.addGroup(Legend, {
       items,
       useHtml: true,
       itemTpl: '<li class="g2-legend-item item-${ index } ${ checked }" data-color="${ originColor }" data-value="${ originValue }" style="cursor:pointer;width: 85px"><span class="g2-legend-text" style="color: ${ color };cursor: pointer;">${ value }</span></li>'
     });
-
+    legend.move(0, 0);
     canvas.draw();
 
     const legendDom = div.getElementsByClassName('g2-legend')[0];
