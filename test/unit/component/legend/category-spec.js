@@ -62,11 +62,11 @@ describe('分类图例', function() {
     event1.currentTarget = targetItem.get('children')[0];
     expect(targetItem.get('checked')).to.be.true;
     legend.trigger('click', [ event1 ]);
-    // expect(itemsGroup.get('children')[0].get('checked')).to.be.false;
-    // expect(itemsGroup.get('children')[1].get('checked')).to.be.false;
+    expect(itemsGroup.get('children')[0].get('checked')).to.be.false;
+    expect(itemsGroup.get('children')[1].get('checked')).to.be.false;
     expect(itemsGroup.get('children')[2].get('checked')).to.be.true;
-    // expect(itemsGroup.get('children')[3].get('checked')).to.be.false;
-    // expect(itemsGroup.get('children')[4].get('checked')).to.be.false;
+    expect(itemsGroup.get('children')[3].get('checked')).to.be.false;
+    expect(itemsGroup.get('children')[4].get('checked')).to.be.false;
 
     // 点击事件测试2：不允许全部取消选中并且当前只有一个图例项被选中
     const event2 = new Event('click', {
@@ -76,11 +76,11 @@ describe('分类图例', function() {
     event2.currentTarget = itemsGroup.get('children')[0].get('children')[2];
     expect(targetItem.get('checked')).to.be.true;
     legend.trigger('click', [ event2 ]);
-    // expect(itemsGroup.get('children')[0].get('checked')).to.be.true;
-    // expect(itemsGroup.get('children')[1].get('checked')).to.be.false;
+    expect(itemsGroup.get('children')[0].get('checked')).to.be.true;
+    expect(itemsGroup.get('children')[1].get('checked')).to.be.false;
     expect(itemsGroup.get('children')[2].get('checked')).to.be.true;
-    // expect(itemsGroup.get('children')[3].get('checked')).to.be.false;
-    // expect(itemsGroup.get('children')[4].get('checked')).to.be.false;
+    expect(itemsGroup.get('children')[3].get('checked')).to.be.false;
+    expect(itemsGroup.get('children')[4].get('checked')).to.be.false;
   });
 
   it('默认，不可点击', function() {
@@ -178,10 +178,10 @@ describe('分类图例', function() {
     event.currentTarget = itemGroups[1].get('children')[0];
     legend.trigger('click', [ event ]);
     expect(itemGroups[0].get('checked')).to.be.false;
-    // expect(itemGroups[1].get('checked')).to.be.true;
-    // expect(itemGroups[2].get('checked')).to.be.false;
-    // expect(itemGroups[3].get('checked')).to.be.false;
-    // expect(itemGroups[4].get('checked')).to.be.false;
+    expect(itemGroups[1].get('checked')).to.be.true;
+    expect(itemGroups[2].get('checked')).to.be.false;
+    expect(itemGroups[3].get('checked')).to.be.false;
+    expect(itemGroups[4].get('checked')).to.be.false;
   });
 
   it('垂直布局图例', function() {
@@ -242,8 +242,8 @@ describe('分类图例', function() {
     }, true, true);
     event.currentTarget = children[0].get('children')[0];
     legend.trigger('click', [ event ]);
-    // expect(children[0].get('children')[0].attr('fill')).to.equal('#ccc');
-    // expect(children[0].get('checked')).to.be.false;
+    expect(children[0].get('children')[0].attr('fill')).to.equal('#ccc');
+    expect(children[0].get('checked')).to.be.false;
   });
 
   it('水平布局，但是总长度超出了容器宽度，自动换行', function() {
@@ -448,7 +448,7 @@ describe('分类图例', function() {
       cancelable: true
     });
     legendItem.dispatchEvent(event);
-    // expect(legendItem.className).to.equal('g2-legend-item item-1 unChecked');
+    expect(legendItem.className).to.equal('g2-legend-item item-1 unChecked');
 
     let count = 0;
     legend.on('itemhover', function() {
@@ -462,7 +462,7 @@ describe('分类图例', function() {
       cancelable: true
     });
     legendItem.dispatchEvent(hoverEvent);
-    expect(count).to.equal(1);
+    expect(count).to.equal(0);
 
     const hoveredLegendItem = div.getElementsByClassName('g2-legend-item')[2];
     hoveredLegendItem.dispatchEvent(hoverEvent);
@@ -509,8 +509,8 @@ describe('分类图例', function() {
 
     const legendItem10 = div.getElementsByClassName('g2-legend-item')[10];
     const legendItem11 = div.getElementsByClassName('g2-legend-item')[11];
-    // expect(legendItem10.className).to.equal('g2-legend-item item-10 checked');
-    // expect(legendItem11.className).to.equal('g2-legend-item item-11 unChecked');
+    expect(legendItem10.className).to.equal('g2-legend-item item-10 checked');
+    expect(legendItem11.className).to.equal('g2-legend-item item-11 unChecked');
     // 模拟点击事件
     const event = new MouseEvent('click', {
       view: window,
@@ -518,13 +518,13 @@ describe('分类图例', function() {
       cancelable: true
     });
     legendItem10.dispatchEvent(event);
-    // expect(legendItem10.className).to.equal('g2-legend-item item-10 checked');
-    // expect(legendItem11.className).to.equal('g2-legend-item item-11 unChecked');
+    expect(legendItem10.className).to.equal('g2-legend-item item-10 checked');
+    expect(legendItem11.className).to.equal('g2-legend-item item-11 unChecked');
 
 
     legendItem11.dispatchEvent(event);
-    // expect(legendItem10.className).to.equal('g2-legend-item item-10 unChecked');
-    // expect(legendItem11.className).to.equal('g2-legend-item item-11 checked');
+    expect(legendItem10.className).to.equal('g2-legend-item item-10 unChecked');
+    expect(legendItem11.className).to.equal('g2-legend-item item-11 checked');
     div.removeChild(legendDom);
   });
 
@@ -578,6 +578,6 @@ describe('分类图例', function() {
       cancelable: true
     });
     legendItem00.dispatchEvent(event2);
-    // expect(legendItem00.className).to.equal('g2-legend-item item-0 checked');
+    expect(legendItem00.className).to.equal('g2-legend-item item-0 checked');
   });
 });
