@@ -787,6 +787,7 @@ class View extends Base {
     if (scales) {
       this.scale(scales);
     }
+    this.emit('setdata');
     return this;
   }
 

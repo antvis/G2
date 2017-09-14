@@ -809,10 +809,14 @@ class GeomBase extends Base {
           const attr = attrs[k];
           const names = attr.names;
           const values = self._getAttrValues(attr, record);
-          for (let j = 0; j < values.length; j++) {
-            const val = values[j];
-            const name = names[j];
-            newRecord[name] = (Util.isArray(val) && val.length === 1) ? val[0] : val; // 只有一个值时返回第一个属性值
+          if (names.length > 1) { // position 之类的生成多个字段的属性
+            for (let j = 0; j < values.length; j++) {
+              const val = values[j];
+              const name = names[j];
+              newRecord[name] = (Util.isArray(val) && val.length === 1) ? val[0] : val; // 只有一个值时返回第一个属性值
+            }
+          } else {
+            newRecord[names[0]] = values.length === 1 ? values[0] : values;
           }
         }
       }

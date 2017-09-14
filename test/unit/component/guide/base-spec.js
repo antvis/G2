@@ -29,6 +29,9 @@ describe('Guide 基类异常情况测试', function() {
     });
     const result = guide.parsePoint(coord, point);
     expect(result).to.be.undefined;
+
+    const rst1 = guide.parsePoint(coord, [ '50%', '50%' ]);
+    expect(rst1).eql(coord.center);
   });
 
   it('Base class method: render()', function() {

@@ -73,6 +73,12 @@ class Base {
 
     let x;
     let y;
+
+    // 如果数据格式是 ['50%', '50%'] 的格式
+    if (Util.isArray(position) && Util.isString(position[0]) && position[0].indexOf('%') !== -1) {
+      return this.parsePercentPoint(coord, position);
+    }
+
     if (Util.isArray(position)) { // 数组  [2, 1]
       x = self._getNormalizedValue(position[0], getFirstScale(xScales));
       y = self._getNormalizedValue(position[1], getFirstScale(yScales));
@@ -95,6 +101,23 @@ class Base {
         y
       });
     }
+  }
+  // 如果传入的值是百分比的格式，根据坐标系的起始点和宽高计算
+  parsePercentPoint(coord, position) {
+    const xPercent = parseFloat(position[0]) / 100;
+    const yPercent = parseFloat(position[1]) / 100;
+    const start = coord.start;
+    const end = coord.end;
+    const topLeft = {
+      x: Math.min(start.x, end.x),
+      y: Math.min(start.y, end.y)
+    };
+    const x = coord.width * xPercent + topLeft.x;
+    const y = coord.height * yPercent + topLeft.y;
+    return {
+      x,
+      y
+    };
   }
 
   /**
