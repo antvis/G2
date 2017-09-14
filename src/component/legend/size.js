@@ -76,8 +76,6 @@ class Size extends Continuous {
 
   _renderBackground() {
     const self = this;
-    // const width = this.get('width');
-    // const height = this.get('height');
     const minRadius = this.get('firstItem').attrValue * 1;
     const maxRadius = this.get('lastItem').attrValue * 1;
     const medianRadius = (minRadius + maxRadius) / 2;

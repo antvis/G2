@@ -159,7 +159,7 @@ class Line extends Base {
     const title = self.get('title');
     if (title && labelsGroup) {
       const offset = self.get('label').offset;
-      const append = offset;
+      const append = 12;
       const titleOffset = title.offset;
       if (titleOffset < 0) { // 如果是负的的话就不旋转
         return;
@@ -169,14 +169,14 @@ class Line extends Base {
       let maxWidth;
       if (Util.snapEqual(vector[0], 0) && title && title.text) { // 坐标轴垂直，由于不知道边距，只能防止跟title重合，如果title不存在，则不自动旋转
         maxWidth = self.getMaxLabelWidth(labelsGroup);
-        if ((maxWidth + offset) > (titleOffset - append)) {
-          angle = Math.acos((titleOffset - append) / (maxWidth + offset)) * -1;
+        if ((maxWidth) > (titleOffset - offset - append)) {
+          angle = Math.acos((titleOffset - offset - append) / (maxWidth)) * -1;
         }
       } else if (Util.snapEqual(vector[1], 0) && labelsGroup.getCount() > 1) { // 坐标轴水平，不考虑边距，根据最长的和平均值进行翻转
-        const avgWidth = Math.abs(self._getAvgLabelLength(labelsGroup)); // Math.abs(vector.x) / (self.get('ticks').length - 1);,平均计算存在问题，分类坐标轴的点前后有空白
+        const avgWidth = Math.abs(self._getAvgLabelLength(labelsGroup));
         maxWidth = self.getMaxLabelWidth(labelsGroup);
         if (maxWidth > avgWidth) {
-          angle = Math.atan2(offset * 1.5, avgWidth);
+          angle = Math.asin((titleOffset - offset - append) * 1.25 / (maxWidth));
         }
       }
 

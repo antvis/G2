@@ -43,6 +43,12 @@ function findItem(items, refer) {
   return rst;
 }
 
+function findShapeByName(group, name) {
+  return group.findBy(node => {
+    return node.name === name;
+  });
+}
+
 class Category extends Base {
   getDefaultCfg() {
     const cfg = super.getDefaultCfg();
@@ -134,11 +140,12 @@ class Category extends Base {
        * @type {Boolean}
        */
       useHtml: false,
+      container: null,
       /**
        * 使用html时的外层模板
        * @type {String}
        */
-      containerTpl: '<div class="' + CONTAINER_CLASS + '" style="position:absolute;top:20px;right:60px;width:auto;">' +
+      containerTpl: '<div class="' + CONTAINER_CLASS + '">' +
         '<h4 class="' + TITLE_CLASS + '"></h4>' +
         '<ul class="' + LIST_CLASS + '" style="list-style-type:none;margin:0;padding:0;"></ul>' +
         '</div>',
@@ -169,7 +176,12 @@ class Category extends Base {
        * 图例项的选择模式，多选和单选 multiple、single
        * @type {String}
        */
-      selectedMode: 'multiple'
+      selectedMode: 'multiple',
+      /**
+       * 图例项的顺序是否要逆序，默认为 false
+       * @type {Boolean}
+       */
+      reversed: false
     });
   }
 
@@ -189,8 +201,10 @@ class Category extends Base {
   }
 
   _bindUI() {
-    this.on('mousemove', Util.wrapBehavior(this, '_onMousemove'));
-    this.on('mouseleave', Util.wrapBehavior(this, '_onMouseleave'));
+    if (this.get('hoverable')) {
+      this.on('mousemove', Util.wrapBehavior(this, '_onMousemove'));
+      this.on('mouseleave', Util.wrapBehavior(this, '_onMouseleave'));
+    }
 
     if (this.get('clickable')) {
       this.on('click', Util.wrapBehavior(this, '_onClick'));
@@ -239,6 +253,47 @@ class Category extends Base {
       itemclick.item = item;
       itemclick.currentTarget = clickedItem;
       itemclick.checked = (mode === 'single') ? true : !checked;
+
+      const unCheckColor = this.get('unCheckColor');
+      const checkColor = this.get('textStyle').fill;
+      let markerItem = findShapeByName(clickedItem, 'legend-marker');
+      let textItem = findShapeByName(clickedItem, 'legend-text');
+      if (mode === 'single') {
+        const itemsGroup = this.get('itemsGroup');
+        const children = itemsGroup.get('children');
+        Util.each(children, child => {
+          if (child !== clickedItem) {
+            child.set('checked', false);
+            markerItem = findShapeByName(child, 'legend-marker');
+            textItem = findShapeByName(child, 'legend-text');
+            if (markerItem.attr('fill')) {
+              markerItem.attr('fill', unCheckColor);
+            }
+            if (markerItem.attr('stroke')) {
+              markerItem.attr('stroke', unCheckColor);
+            }
+            textItem.attr('fill', unCheckColor);
+          } else {
+            if (markerItem.attr('fill')) {
+              markerItem.attr('fill', item.marker.fill);
+            }
+            if (markerItem.attr('stroke')) {
+              markerItem.attr('stroke', item.marker.stroke);
+            }
+            textItem.attr('fill', checkColor);
+            clickedItem.set('checked', true);
+          }
+        });
+      } else {
+        if (markerItem.attr('fill')) {
+          markerItem.attr('fill', checked ? unCheckColor : item.marker.fill);
+        }
+        if (markerItem.attr('stroke')) {
+          markerItem.attr('stroke', checked ? unCheckColor : item.marker.stroke);
+        }
+        textItem.attr('fill', checked ? unCheckColor : checkColor);
+        clickedItem.set('checked', !checked);
+      }
       this.emit('itemclick', itemclick);
     }
     return;
@@ -268,6 +323,10 @@ class Category extends Base {
       itemTpl = userItemTpl;
     }
 
+    if (self.get('reversed')) {
+      items.reverse();
+    }
+
     Util.each(items, function(item, index) {
       const checked = item.checked;
       const value = self._formatItemValue(item.value);
@@ -294,16 +353,6 @@ class Category extends Base {
       itemListDom.appendChild(itemDom);
     });
 
-    if (self.get('scroll')) {
-      const width = canvas.get('width');
-      const height = canvas.get('height');
-      DomUtil.modifyCSS(legendWrapper, {
-        maxWidth: width + 'px',
-        maxHeight: height + 'px',
-        overflow: 'scroll'
-      });
-    }
-
     if (self.get('clickable')) {
       const childNodes = itemListDom.childNodes;
       // 注册事件
@@ -315,6 +364,8 @@ class Category extends Base {
           return;
         }
         const parentDom = getParentNode(target, ITEM_CLASS);
+        const textDom = findNodeByClass(parentDom, TEXT_CLASS);
+        const markerDom = findNodeByClass(parentDom, MARKER_CLASS);
         const clickedItem = findItem(items, parentDom.getAttribute('data-value'));
 
         if (!clickedItem) {
@@ -322,16 +373,49 @@ class Category extends Base {
         }
 
         const domClass = parentDom.className;
-        const clickedItemChecked = domClass.includes('checked');
-        let count = 0;
-        Util.each(childNodes, child => {
-          if (child.className.includes('checked')) {
-            count++;
+        const originColor = parentDom.getAttribute('data-color');
+        if (mode === 'single') { // 单选模式
+          // 其他图例项全部置灰
+          Util.each(childNodes, child => {
+            if (child !== parentDom) {
+              const childMarkerDom = findNodeByClass(child, MARKER_CLASS);
+              childMarkerDom.style.backgroundColor = unCheckedColor;
+              child.className = Util.replace(child.className, 'checked', 'unChecked');
+              child.style.color = unCheckedColor;
+            } else {
+              if (textDom) {
+                textDom.style.color = self.get('textStyle').fill;
+              }
+              if (markerDom) {
+                markerDom.style.backgroundColor = originColor;
+              }
+              parentDom.className = Util.replace(domClass, 'unChecked', 'checked');
+            }
+          });
+        } else { // 混合模式
+          const clickedItemChecked = domClass.includes('checked');
+          let count = 0;
+          Util.each(childNodes, child => {
+            if (child.className.includes('checked')) {
+              count++;
+            }
+          });
+          if (!this.get('allowAllCanceled') && clickedItemChecked && count === 1) {
+            return;
           }
-        });
-
-        if (!this.get('allowAllCanceled') && clickedItemChecked && count === 1) {
-          return;
+          if (clickedItemChecked) {
+            if (markerDom) {
+              markerDom.style.backgroundColor = unCheckedColor;
+            }
+            parentDom.className = Util.replace(domClass, 'checked', 'unChecked');
+            parentDom.style.color = unCheckedColor;
+          } else {
+            if (markerDom) {
+              markerDom.style.backgroundColor = originColor;
+            }
+            parentDom.className = Util.replace(domClass, 'unChecked', 'checked');
+            parentDom.style.color = self.get('textStyle').fill;
+          }
         }
 
         self.emit('itemclick', {
@@ -341,39 +425,60 @@ class Category extends Base {
         });
       };
     }
+    if (self.get('hoverable')) {
+      legendWrapper.onmousemove = ev => {
+        const target = ev.target;
+        let targetClass = target.className;
+        targetClass = targetClass.split(' ');
+        if (targetClass.indexOf(CONTAINER_CLASS) > -1 || targetClass.indexOf(LIST_CLASS) > -1) {
+          return;
+        }
+        const parentDom = getParentNode(target, ITEM_CLASS);
+        const domClass = parentDom.className;
+        const hoveredItem = findItem(items, parentDom.getAttribute('data-value'));
+        if (hoveredItem && domClass.includes('checked')) {
+          self.emit('itemhover', {
+            item: hoveredItem,
+            currentTarget: parentDom,
+            checked: hoveredItem.checked
+          });
+        } else if (!hoveredItem) {
+          self.emit('itemunhover', ev);
+        }
+      };
 
-    legendWrapper.onmousemove = ev => {
-      const target = ev.target;
-      let targetClass = target.className;
-      targetClass = targetClass.split(' ');
-      if (targetClass.indexOf(CONTAINER_CLASS) > -1 || targetClass.indexOf(LIST_CLASS) > -1) {
-        return;
-      }
-      const parentDom = getParentNode(target, ITEM_CLASS);
-      const domClass = parentDom.className;
-      const hoveredItem = findItem(items, parentDom.getAttribute('data-value'));
-      if (hoveredItem && domClass.includes('checked')) {
-        self.emit('itemhover', {
-          item: hoveredItem,
-          currentTarget: parentDom,
-          checked: hoveredItem.checked
-        });
-      } else if (!hoveredItem) {
+      legendWrapper.onmouseout = ev => {
         self.emit('itemunhover', ev);
+      };
+    }
+
+    let container = self.get('container');
+    if (/^\#/.test(container)) { // 如果传入 dom 节点的 id
+      const id = container.replace('#', '');
+      container = document.getElementById(id);
+      // container.style.position = 'relative';
+      container.appendChild(legendWrapper);
+    } else {
+      if (self.get('scroll')) {
+        const width = canvas.get('width');
+        const height = canvas.get('height');
+        DomUtil.modifyCSS(legendWrapper, {
+          maxWidth: width + 'px',
+          maxHeight: height + 'px',
+          overflow: 'scroll'
+        });
       }
-    };
-
-    legendWrapper.onmouseout = ev => {
-      self.emit('itemunhover', ev);
-    };
-
-    outterNode.appendChild(legendWrapper);
+      outterNode.appendChild(legendWrapper);
+    }
     self.set('legendWrapper', legendWrapper);
   }
 
   _renderItems() {
     const self = this;
     const items = self.get('items');
+    if (self.get('reversed')) {
+      items.reverse();
+    }
     Util.each(items, function(item, index) {
       self._addItem(item, index);
     });
@@ -511,7 +616,7 @@ class Category extends Base {
     const itemGap = this.get('itemGap');
     const itemMarginBottom = this.get('itemMarginBottom');
     const titleGap = this.get('titleShape') ? this.get('titleGap') : 0;
-    let row = 1;
+    let row = 0;
     let rowLength = 0;
     let width;
     let height;
@@ -602,10 +707,11 @@ class Category extends Base {
   }
 
   move(x, y) {
-    if (this.get('useHtml')) {
+    if (this.get('useHtml') && !(/^\#/.test(this.get('container')))) {
       DomUtil.modifyCSS(this.get('legendWrapper'), {
         left: x + 'px',
-        top: y + 'px'
+        top: y + 'px',
+        position: 'absolute'
       });
     } else {
       super.move(x, y);
