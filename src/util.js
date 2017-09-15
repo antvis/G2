@@ -84,6 +84,9 @@ const Util = {
    * @return {Function}        返回事件处理函数
    */
   wrapBehavior(obj, action) {
+    if (obj['_wrap_' + action]) {
+      return obj['_wrap_' + action];
+    }
     const method = e => {
       obj[action](e);
     };
