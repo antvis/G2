@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="geometry" content="facet">
+  <link rel="stylesheet" href="./assets/common.css">
+  <title>Facets Matrix</title>
+</head>
+
+<body>
+  <div id="canvas"></div>
+  <script src="./assets/jquery-3.2.1.min.js"></script>
+  <script src="../build/g2.js"></script>
+  <script>
+    $.getJSON('./data/Iris-flower.json', data => {
+      const chart = new G2.Chart({
+        container: 'canvas',
+        forceFit: true,
+        height: window.innerHeight
+      });
+
+      chart.source(data, {
+        Species: {
+          sync: true
+        }
+      });
+      chart.facet('matrix', {
+        fields: [ 'SepalLength', 'SepalWidth', 'PetalLength', 'PetalWidth' ],
+        eachView(view, facet) {
+          view.point().position([ facet.colField, facet.rowField ])
+            .color('Species', [ '#880000', '#008800', '#000088' ]);
+        }
+      });
+      chart.render();
+    });
+  </script>
+</body>
+</html>
