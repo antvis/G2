@@ -1055,6 +1055,7 @@ class GeomBase extends Base {
     //   this.set('adjusts', null);
     // }
     this.set('labelContainer', null);
+    this.set('xDistance', null);
   }
 
   clear() {
