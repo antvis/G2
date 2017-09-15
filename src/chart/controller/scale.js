@@ -97,12 +97,22 @@ class ScaleController {
   createScale(field, data) {
     const self = this;
     const def = self._getDef(field);
-    const firstObj = data[0];
-    // 如果数据为空直接返回 null
-    if (!firstObj) {
-      return null;
-    }
     let scale;
+    // 如果数据为空直接返回常量度量
+    if (!data || !data.length) {
+      if (def && def.type) {
+        scale = Scale[def.type](def);
+      } else {
+        scale = Scale.identity({
+          value: field,
+          field: field.toString(),
+          values: [ field ]
+        });
+      }
+      return scale;
+    }
+    const firstObj = data[0];
+
     if (Util.isNumber(field) || (Util.isNil(firstObj[field])) && !def) {
       scale = Scale.identity({
         value: field,
