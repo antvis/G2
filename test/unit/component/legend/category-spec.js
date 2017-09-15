@@ -490,8 +490,8 @@ describe('分类图例', function() {
       items,
       useHtml: true,
       itemTpl(value, color) {
-        const tpl = '<li class="g2-legend-item item-${ index } ${ checked }" data-color="${ originColor }" data-value="${ originValue }" style="cursor:pointer;display: inline-block;width: 85px">' +
-        '<i class="g2-legend-marker" style="width:16px;height:16px;border-radius:4px;display:inline-block;margin-right:10px;background-color: ${ color };"></i>' +
+        const tpl = '<li class="g2-legend-item item-{index} {checked}" data-color="{originColor}" data-value="{originValue}" style="cursor:pointer;display: inline-block;width: 85px">' +
+        '<i class="g2-legend-marker" style="width:16px;height:16px;border-radius:4px;display:inline-block;margin-right:10px;background-color: {color};"></i>' +
         '<span class="g2-legend-text" style="color:' + color + '">' + value + '</span></li>';
         return tpl;
       },
@@ -547,7 +547,7 @@ describe('分类图例', function() {
     const legend = canvas.addGroup(Legend, {
       items,
       useHtml: true,
-      itemTpl: '<li class="g2-legend-item item-${ index } ${ checked }" data-color="${ originColor }" data-value="${ originValue }" style="cursor:pointer;width: 85px"><span class="g2-legend-text" style="color: ${ color };cursor: pointer;">${ value }</span></li>'
+      itemTpl: '<li class="g2-legend-item item-{index} {checked}" data-color="{originColor}" data-value="{originValue}" style="cursor:pointer;width: 85px"><span class="g2-legend-text" style="color: {color};cursor: pointer;">{value}</span></li>'
     });
     legend.move(0, 0);
     canvas.draw();

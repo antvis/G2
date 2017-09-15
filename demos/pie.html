@@ -95,7 +95,7 @@
     chart.tooltip({
       showTitle: false, // 不展示 tooltip
       containerTpl: '<div class="g2-tooltip"><ul class="g2-tooltip-list"></ul></div>',
-      itemTpl: '<li data-index=${ index }><span style="color:${color}">${ name }:</span> ${ value }</li>'
+      itemTpl: '<li data-index={index}><span style="color:{color}">{name}:</span>{value}</li>'
     });
     chart.legend({
       useHtml: true,

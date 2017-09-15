@@ -65,7 +65,8 @@
     chart.axis('from', false);
     chart.source(data, defs);
     chart.legend({
-      itemWidth: 50
+      itemWidth: 50,
+      offset: 10
     });
 
     const ploygon = chart.polygon().position('from*to')

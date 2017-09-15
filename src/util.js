@@ -29,7 +29,6 @@ const Util = {
   isArray: require('lodash/isArray'),
   isDate: require('lodash/isDate'),
   toArray: require('lodash/toArray'),
-  template: require('lodash/template'),
   indexOf: require('lodash/indexOf'),
   assign: require('lodash/assign'),
   groupBy: require('lodash/groupBy'),
@@ -126,6 +125,23 @@ const Util = {
       left = padding.left || 0;
     }
     return [ top, right, bottom, left ];
+  },
+  /**
+   * 替换字符串中的字段.
+   * @param {String} str 模版字符串
+   * @param {Object} o json data
+   * @return {String}     替换后的字符串
+   */
+  substitute(str, o) {
+    if (!str || !o) {
+      return str;
+    }
+    return str.replace(/\\?\{([^{}]+)\}/g, (match, name) => {
+      if (match.charAt(0) === '\\') {
+        return match.slice(1);
+      }
+      return (o[name] === undefined) ? '' : o[name];
+    });
   }
 };
 
