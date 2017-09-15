@@ -70,9 +70,9 @@
       });
       chart.legend({
         useHtml: true,
-        itemTpl: '<li class="g2-legend-item item-${ index } ${ checked }" data-color="${ originColor }" data-value="${ originValue }" style="cursor: pointer;font-size: 12px;">' +
-        '<i class="g2-legend-marker" style="width:8px;height:8px;display:inline-block;margin-right:8px;background-color: ${ color };"></i>' +
-        '<span class="g2-legend-text">${ value }</span></li>',
+        itemTpl: '<li class="g2-legend-item item-{index} {checked}" data-color="{originColor}" data-value="{originValue}" style="cursor: pointer;font-size: 12px;">' +
+        '<i class="g2-legend-marker" style="width:8px;height:8px;display:inline-block;margin-right:8px;background-color: {color};"></i>' +
+        '<span class="g2-legend-text">{value}</span></li>',
         onHover: ev => {
           const shapes = ev.shapes;
           const geom = ev.geom;

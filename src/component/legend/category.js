@@ -153,9 +153,9 @@ class Category extends Base {
        * 默认的图例项 html 模板
        * @type {String}
        */
-      _defaultItemTpl: '<li class="' + ITEM_CLASS + ' item-${ index } ${ checked }" data-color="${ originColor }" data-value="${ originValue }" style="cursor: pointer;font-size: 12px;margin-bottom:5px;">' +
-        '<i class="' + MARKER_CLASS + '" style="width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:8px;background-color:${ color };vertical-align:middle"></i>' +
-        '<span class="' + TEXT_CLASS + '">${ value }</span></li>',
+      _defaultItemTpl: '<li class="' + ITEM_CLASS + ' item-{index} {checked}" data-color="{originColor}" data-value="{originValue}" style="cursor: pointer;font-size: 12px;margin-bottom:5px;">' +
+        '<i class="' + MARKER_CLASS + '" style="width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:8px;background-color:{color};vertical-align:middle"></i>' +
+        '<span class="' + TEXT_CLASS + '">{value}</span></li>',
       /**
        * 用户设置的图例项 html 模板
        * @type {String|Function}
@@ -337,8 +337,7 @@ class Category extends Base {
       } else {
         domStr = itemTpl;
       }
-      const stringCompiler = Util.template(domStr);
-      const itemDiv = stringCompiler({
+      const itemDiv = Util.substitute(domStr, {
         index,
         checked: checked ? 'checked' : 'unChecked',
         value,

@@ -34,7 +34,7 @@ class Labels extends Group {
        * html 渲染时单个 label 的模板，必须存在 class = "g-label"，如果 htmlTemplate 为字符串，则使用 htmlTemplate
        * @type {String}
        */
-      _itemTpl: '<div class="g-label" style="position:absolute;">${ text }</div>'
+      _itemTpl: '<div class="g-label" style="position:absolute;">{text}</div>'
     };
   }
 
@@ -141,14 +141,11 @@ class Labels extends Group {
     const itemTpl = this.get('_itemTpl');
     const htmlTemplate = this.get('htmlTemplate');
 
-    let stringCompiler;
     if (Util.isString(htmlTemplate)) {
-      stringCompiler = Util.template(htmlTemplate);
-      cfg.text = stringCompiler({ text: cfg.text });
+      cfg.text = Util.substitute(htmlTemplate, { text: cfg.text });
     }
 
-    stringCompiler = Util.template(itemTpl);
-    const str = stringCompiler({ text: cfg.text });
+    const str = Util.substitute(itemTpl, { text: cfg.text });
 
     return DomUtil.createDom(str);
   }
