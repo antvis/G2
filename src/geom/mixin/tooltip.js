@@ -126,18 +126,31 @@ const TooltipMixin = {
 
   getXDistance() {
     const self = this;
-    const xScale = self.getXScale();
-    let distance;
-    if (xScale.isCategory) {
-      distance = 1;
-    } else {
-      const values = xScale.values; // values 是无序的
-      const length = values.length;
-      const min = Math.min.apply(null, values);
-      const max = Math.max.apply(null, values);
-      // 应该是除以 length - 1
-      distance = (xScale.translate(max) - xScale.translate(min)) / (length - 1);
+    let distance = self.get('xDistance');
+    if (!distance) {
+      const xScale = self.getXScale();
+      if (xScale.isCategory) {
+        distance = 1;
+      } else {
+        const values = xScale.values; // values 是无序的
+        let min = xScale.translate(values[0]);
+        let max = min;
+        Util.each(values, value => { // 时间类型需要 translate
+          value = xScale.translate(value);
+          if (value < min) {
+            min = value;
+          }
+          if (value > max) {
+            max = value;
+          }
+        });
+        const length = values.length;
+        // 应该是除以 length - 1
+        distance = (max - min) / (length - 1);
+      }
+      self.set('xDistance', distance);
     }
+
     return distance;
   },
 
