@@ -144,18 +144,17 @@ function addAnimate(cache, shapes, canvas, isUpdate) {
   }
 }
 
-
 module.exports = {
   execAnimation(view, isUpdate) {
     const viewContainer = view.get('middlePlot');
     const axisContainer = view.get('backPlot');
     const viewId = view.get('_id');
-    const caches = view.get('caches') || [];
+    const canvas = view.get('canvas');
+    const caches = canvas.get(viewId + 'caches') || [];
     const shapes = getShapes(viewContainer, viewId);
     const axisShapes = getShapes(axisContainer, viewId);
     const cacheShapes = shapes.concat(axisShapes);
-    const canvas = view.get('canvas');
-    view.set('caches', cache(cacheShapes));
+    canvas.setSilent(viewId + 'caches', cache(cacheShapes));
     if (isUpdate) {
       addAnimate(caches, cacheShapes, canvas, isUpdate);
     } else {
