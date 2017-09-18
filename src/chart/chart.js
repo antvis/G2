@@ -10,6 +10,7 @@ const Canvas = G.Canvas;
 const DomUtil = G.DomUtil;
 const Component = require('../component/index');
 const Controller = require('./controller/index');
+const Facets = require('../facet/index');
 const Global = require('../global');
 
 function _isScaleExist(scales, compareScale) {
@@ -244,6 +245,20 @@ class Chart extends View {
     self.repaint();
     this.emit('afterchangesize');
     return self;
+  }
+
+  facet(type, cfg) {
+    const cls = Facets[Util.upperFirst(type)];
+    if (!cls) {
+      throw new Error('Not support such type of facets as: ' + type);
+    }
+    const preFacets = this.get('facets');
+    if (preFacets) {
+      preFacets.destroy();
+    }
+    cfg.chart = this;
+    const facets = new cls(cfg);
+    this.set('facets', facets);
   }
 
   /**

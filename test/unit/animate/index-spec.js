@@ -70,7 +70,7 @@ describe('Aniamte', function() {
     addElements(10, container, backContainer);
     expect(canvas.get('children').length).eql(2);
     Animate.execAnimation(view);
-    expect(Object.keys(view.get('caches')).length).eql(20);
+    expect(Object.keys(canvas.get('view1caches')).length).eql(20);
     canvas.clear();
     expect(canvas.get('children').length).eql(0);
     container = canvas.addGroup();
@@ -80,6 +80,6 @@ describe('Aniamte', function() {
     view.set('backPlot', backContainer);
     expect(canvas.get('children').length).eql(2);
     Animate.execAnimation(view, true);
-    expect(Object.keys(view.get('caches')).length).eql(10);
+    expect(Object.keys(canvas.get('view1caches')).length).eql(10);
   });
 });
