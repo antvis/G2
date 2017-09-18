@@ -3,6 +3,7 @@
  */
 const DEFAULT_COLOR = '#4E7CCC';
 const FONT_FAMILY = '"Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", SimSun, "sans-serif"';
+// tooltip 相关 dom 的 css 类名
 const TOOLTIP_CONTAINER_CLASS = 'g2-tooltip';
 const TOOLTIP_TITLE_CLASS = 'g2-tooltip-title';
 const TOOLTIP_LIST_CLASS = 'g2-tooltip-list';
@@ -11,7 +12,7 @@ const TOOLTIP_MARKER_CLASS = 'g2-tooltip-marker';
 const Theme = {
   defaultColor: DEFAULT_COLOR, // 默认主题色
   plotCfg: {
-    padding: [ 20, 20, 63, 69 ]
+    padding: [ 20, 20, 80, 69 ]
   },
   fontFamily: FONT_FAMILY,
   defaultLegendPosition: 'bottom', // 默认图例的展示位置
@@ -63,7 +64,7 @@ const Theme = {
     bottom: {
       position: 'bottom',
       title: {
-        offset: 31,
+        offset: 36,
         autoRotate: true,
         position: 'center',
         textStyle: {
@@ -141,7 +142,7 @@ const Theme = {
           fill: '#999',
           lineHeight: 1,
           textBaseline: 'middle',
-          textAlign: 'center'
+          textAlign: 'start'
         }
       },
       label: {
@@ -303,6 +304,7 @@ const Theme = {
     },
     top: {
       position: 'top',
+      offset: 6,
       layout: 'horizontal',
       title: null,
       itemGap: 10,
@@ -318,6 +320,7 @@ const Theme = {
     },
     bottom: {
       position: 'bottom',
+      offset: 50,
       layout: 'horizontal',
       title: null,
       itemGap: 24,

@@ -7,12 +7,16 @@ class CoordController {
     this.actions = [];
     this.cfg = {};
     Util.mix(this, option);
+    this.option = option || {};
   }
 
   reset(coordOption) {
     this.actions = coordOption.actions || [];
     this.type = coordOption.type;
     this.cfg = coordOption.cfg;
+    this.option.actions = this.actions;
+    this.option.type = this.type;
+    this.option.cfg = this.cfg;
     return this;
   }
 

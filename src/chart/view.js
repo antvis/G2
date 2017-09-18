@@ -573,19 +573,8 @@ class View extends Base {
 
   // 获取 filters
   _getFilters() {
-    const self = this;
-    const parent = self.get('parent');
-    const options = self.get('options');
-    let filters = options.filters;
-    let parentFilters = null;
-    if (parent) {
-      parentFilters = parent._getFilters();
-    }
-    // 过滤器以chart 上的为准，图例会引起chart上的过滤变化
-    if (filters || parentFilters) {
-      filters = Util.mix({}, filters, parentFilters);
-    }
-    return filters;
+    const options = this.get('options');
+    return options.filters;
   }
 
   // 执行 filter 数据
@@ -787,6 +776,7 @@ class View extends Base {
     if (scales) {
       this.scale(scales);
     }
+    this.emit('setdata');
     return this;
   }
 

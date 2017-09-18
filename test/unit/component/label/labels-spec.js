@@ -220,7 +220,7 @@ describe('HTML 自定义 Labels', function() {
         fill: '#f80',
         textAlign: 'right'
       },
-      htmlTemplate: '<p style="color: red;font-weight: 700;font: 12px arial;text-align: center;width: 50px;">${text}</p>',
+      htmlTemplate: '<p style="color: red;font-weight: 700;font: 12px arial;text-align: center;width: 50px;">{text}</p>',
       formatter(value) {
         return 'text--' + value;
       }

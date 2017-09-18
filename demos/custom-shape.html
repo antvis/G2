@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="geometry" content="custom">
+  <link rel="stylesheet" href="./assets/common.css">
+  <title>Custom Shape</title>
+</head>
+
+<body>
+  <div id="canvas"></div>
+  <script src="../build/g2.js"></script>
+  <script>
+    // G2 对数据源格式的要求，仅仅是 JSON 数组，数组的每个元素是一个标准 JSON 对象。
+    const data = [
+      { name: 'John', vote: 35654 },
+      { name: 'Damon', vote: 65456 },
+      { name: 'Patrick', vote: 45724 },
+      { name: 'Mark', vote: 13654 }
+    ];
+    const imageMap = {
+      John: 'https://zos.alipayobjects.com/rmsportal/mYhpaYHyHhjYcQf.png',
+      Damon: 'https://zos.alipayobjects.com/rmsportal/JBxkqlzhrlkGlLW.png',
+      Patrick: 'https://zos.alipayobjects.com/rmsportal/zlkGnEMgOawcyeX.png',
+      Mark: 'https://zos.alipayobjects.com/rmsportal/KzCdIdkwsXdtWkg.png'
+    };
+    // 自定义 shape, 支持图片形式的气泡
+    const Shape = G2.Shape;
+    Shape.registerShape('interval', 'image-top', {
+      drawShape(cfg, container) {
+        const points = cfg.points; // 点从左下角开始，顺时针方向
+        let path = [];
+        path.push([ 'M', points[0].x, points[0].y ]);
+        path.push([ 'L', points[1].x, points[1].y ]);
+        path = this.parsePath(path);
+        container.addShape('rect', {
+          attrs: {
+            x: cfg.x - 50,
+            y: path[1][2], // 矩形起始点为左上角
+            width: 100,
+            height: path[0][2] - cfg.y,
+            fill: cfg.color,
+            radius: 10
+          }
+        });
+        console.log(cfg.shape);
+        return container.addShape('image', {
+          attrs: {
+            x: cfg.x - 20,
+            y: cfg.y - 20,
+            width: 40,
+            height: 40,
+            img: cfg.shape[1]
+          }
+        });
+      }
+    });
+    const chart = new G2.Chart({
+      container: 'canvas',
+      forceFit: true,
+      height: 450
+    });
+    chart.source(data, {
+      vote: {
+        min: 0
+      }
+    });
+    chart.legend(false);
+    chart.axis('vote', {
+      labels: null,
+      title: null,
+      line: null,
+      tickLine: null
+    });
+    chart.axis('name', {
+      title: null
+    });
+    chart.interval().position('name*vote').color('name', [ '#7f8da9', '#fec514', '#db4c3c', '#daf0fd' ])
+      .shape('name', function(name) {
+        return [ 'image-top', imageMap[name] ]; // 根据具体的字段指定 shape
+      });
+    chart.render();
+  </script>
+</body>
+</html>

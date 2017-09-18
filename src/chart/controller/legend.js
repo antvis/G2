@@ -59,9 +59,21 @@ class LegendController {
     this.legends = {};
   }
 
-  _bindEvent(legend, scale, filterVals) {
+  _isFieldInView(field, value, view) {
+    let flag = false;
+    const scales = view.get('scales');
+    const fieldScale = scales[field];
+    if (fieldScale && fieldScale.values) {
+      flag = Util.inArray(fieldScale.values, value);
+    }
+
+    return flag;
+  }
+
+  _bindClickEvent(legend, scale, filterVals) {
     const self = this;
     const chart = self.chart;
+    const views = chart.get('views');
     const field = scale.field;
     const options = self.options;
 
@@ -75,13 +87,32 @@ class LegendController {
 
         if (checked) {
           filterVals.push(item.value);
-          chart.filter(field, field => {
-            return isSingeSelected ? field === item.value : Util.inArray(filterVals, field);
+          if (self._isFieldInView(field, item.value, chart)) {
+            chart.filter(field, field => {
+              return isSingeSelected ? field === item.value : Util.inArray(filterVals, field);
+            });
+          }
+          Util.each(views, view => {
+            if (self._isFieldInView(field, item.value, view)) {
+              view.filter(field, field => {
+                return isSingeSelected ? field === item.value : Util.inArray(filterVals, field);
+              });
+            }
           });
         } else if (!isSingeSelected) {
           Util.Array.remove(filterVals, item.value);
-          chart.filter(field, field => {
-            return Util.inArray(filterVals, field);
+
+          if (self._isFieldInView(field, item.value, chart)) {
+            chart.filter(field, field => {
+              return Util.inArray(filterVals, field);
+            });
+          }
+          Util.each(views, view => {
+            if (self._isFieldInView(field, item.value, view)) {
+              view.filter(field, field => {
+                return Util.inArray(filterVals, field);
+              });
+            }
           });
         }
         chart.repaint();
@@ -95,7 +126,10 @@ class LegendController {
     legend.on('itemfilter', ev => {
       const range = ev.range;
       chart.filterShape(function(obj) {
-        return obj[field] >= range[0] && obj[field] <= range[1];
+        if (obj[field]) {
+          return obj[field] >= range[0] && obj[field] <= range[1];
+        }
+        return true;
       });
       const geoms = chart.getAllGeoms() || [];
       for (let i = 0; i < geoms.length; i++) {
@@ -197,6 +231,7 @@ class LegendController {
     const plotRange = self.plotRange;
     const offsetX = legend.get('offsetX') || 0;
     const offsetY = legend.get('offsetY') || 0;
+    const offset = Util.isNil(legend.get('offset')) ? MARGIN : legend.get('offset');
     const legendHeight = legend.getHeight();
 
     let x = 0;
@@ -206,26 +241,15 @@ class LegendController {
     }
 
     if (position === 'left' || position === 'right') { // 垂直
-      const legendWidth = region.maxWidth;
-      if (plotRange) {
-        height = plotRange.br.y;
-        x = position === 'left' ? MARGIN : plotRange.br.x + MARGIN;
-      } else {
-        x = position === 'left' ? MARGIN : width - legendWidth + MARGIN;
-      }
-
+      height = plotRange.br.y;
+      x = position === 'left' ? offset : plotRange.br.x + offset;
       y = height - legendHeight;
       if (pre) {
         y = pre.get('y') - legendHeight - MARGIN_LEGEND;
       }
     } else {
-      let statrX = 0;
-
-      if (plotRange) {
-        statrX = plotRange.bl.x + ((plotRange.br.x - plotRange.bl.x) - region.totalWidth) / 2;
-      }
-      x = statrX;
-      y = position === 'top' ? 10 : (height - legendHeight);
+      x = (width - region.totalWidth) / 2;
+      y = (position === 'top') ? offset : (plotRange.bl.y + offset);
 
       if (pre) {
         const preWidth = pre.getWidth();
@@ -314,7 +338,7 @@ class LegendController {
     });
 
     const legend = container.addGroup(Legend.Category, legendCfg);
-    self._bindEvent(legend, scale, filterVals);
+    self._bindClickEvent(legend, scale, filterVals);
     legends[position].push(legend);
     return legend;
   }

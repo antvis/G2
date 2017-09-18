@@ -81,9 +81,9 @@ class Tooltip extends Group {
        * tooltip 列表项模板
        * @type {String}
        */
-      itemTpl: '<li data-index=${ index } style="margin-bottom:8px;">'
-       + '<span style="background-color:${color};" class=' + MARKER_CLASS + '></span>'
-       + '${ name }: ${ value }</li>',
+      itemTpl: '<li data-index={index} style="margin-bottom:8px;">'
+       + '<span style="background-color:{color};" class=' + MARKER_CLASS + '></span>'
+       + '{name}: {value}</li>',
       /**
        * 将 tooltip 展示在指定区域内
        * @type {Boolean}
@@ -165,8 +165,7 @@ class Tooltip extends Group {
     const listDom = find(container, LIST_CLASS);
     const itemTpl = this.get('itemTpl'); // TODO: 有可能是个回调函数
 
-    const itemTplCompiler = Util.template(itemTpl);
-    const itemDiv = itemTplCompiler({
+    const itemDiv = Util.substitute(itemTpl, {
       index,
       color: item.color,
       value: item.value,
