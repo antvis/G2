@@ -15,7 +15,7 @@ describe('test scale controller', function() {
   });
   it('create scale without data', function() {
     const scale = controller.createScale('a', []);
-    expect(scale).equal(null);
+    expect(scale.type).equal('identity');
   });
   it('create cat scale', function() {
     const scale = controller.createScale('b', data);

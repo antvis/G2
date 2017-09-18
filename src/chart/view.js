@@ -845,16 +845,15 @@ class View extends Base {
   }
 
   initView() {
-    const data = this.get('data');
-    if (data) {
-      const filteredData = this.execFilter(data);
-      this.set('filteredData', filteredData);
-      if (!Util.isEmpty(data)) {
-        this._createCoord(); // draw geometry 前绘制区域可能会发生改变
-        this._initGeoms();
-        this._adjustScale();
-      }
-    }
+    const data = this.get('data') || [];
+    const filteredData = this.execFilter(data);
+    this.set('filteredData', filteredData);
+    // if (!Util.isEmpty(data)) {
+    this._createCoord(); // draw geometry 前绘制区域可能会发生改变
+    this._initGeoms();
+    this._adjustScale();
+    // }
+
   }
 
   paint() {
@@ -863,8 +862,8 @@ class View extends Base {
       this.beforeDraw();
       this._drawGeoms();
       this._renderGuides();
-      this._renderAxes();
     }
+    this._renderAxes();
   }
 
   changeVisible(visible) {

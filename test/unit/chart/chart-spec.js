@@ -576,3 +576,58 @@ describe('chart sync scales', function() {
   });
 });
 
+describe('chart empty data', function() {
+  let chart;
+  it('init', function() {
+    chart = new Chart({
+      container: div,
+      width: 800,
+      height: 500,
+      animate: false
+    });
+  });
+
+  it('no data', function() {
+    chart.point().position('x*y');
+    expect(chart.get('viewContainer').getCount()).equal(0);
+    chart.render();
+    expect(chart.get('viewContainer').getCount()).equal(1);
+    expect(chart.get('viewContainer').getFirst().getCount()).equal(0);
+  });
+
+  it('chart epmty data', function() {
+    chart.clear();
+    chart.source([], {
+      x: {
+        type: 'linear',
+        min: 0,
+        max: 100
+      },
+      y: {
+        type: 'cat',
+        values: [ '1', '2' ]
+      }
+    });
+    chart.point().position('x*y');
+    chart.render();
+    expect(chart.get('viewContainer').getCount()).equal(1);
+    expect(chart.get('viewContainer').getFirst().getCount()).equal(0);
+  });
+
+  it('view epmty data', function() {
+    chart.clear();
+    expect(chart.get('viewContainer').getCount()).equal(0);
+    const v1 = chart.view();
+    v1.source([]);
+    v1.point().position('x*y');
+    chart.render();
+    expect(chart.get('viewContainer').getCount()).equal(1);
+    expect(chart.get('viewContainer').getFirst().getCount()).equal(0);
+  });
+
+  it('destroy', function() {
+    chart.destroy();
+    expect(chart.destroyed).equal(true);
+  });
+});
+
