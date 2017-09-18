@@ -1,5 +1,4 @@
 const G = require('@ali/g');
-const Monitor = require('@ali/g2-monitor');
 const Animate = require('./src/animate/animate');
 const Chart = require('./src/chart/chart');
 const Global = require('./src/global');
@@ -24,9 +23,8 @@ const G2 = {
   PathUtil: G.PathUtil
 };
 
-Monitor.tracking = true;
 G2.track = function(enable) {
-  Monitor.tracking = enable;
+  Global.trackable = enable;
 };
 require('./src/track');
 
