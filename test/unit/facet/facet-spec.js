@@ -13,7 +13,8 @@ describe('facets test', function() {
       container: div,
       width: 500,
       height: 500,
-      padding: [ 40, 50, 50, 50 ]
+      animate: false,
+      padding: [ 40, 50, 60, 50 ]
     });
 
     chart.source(diamonds, {
@@ -70,6 +71,59 @@ describe('facets test', function() {
       chart.source(diamonds);
       chart.point().position('carat*price');
       chart.render();
+    });
+
+    it('only col', function() {
+      chart.clear();
+      const colFacets = new Facets.Rect({
+        chart,
+        fields: [ 'clarity' ],
+        eachView(view) {
+          view.point().position('carat*price').color('cut');
+        }
+      });
+      chart.render();
+      expect(colFacets.facets.length).equal(8);
+      expect(chart.get('views').length).equal(8);
+      chart.clear();
+      expect(colFacets.facets).equal(null);
+    });
+
+    it('only row', function() {
+      const rowFacets = new Facets.Rect({
+        chart,
+        fields: [ null, 'cut' ],
+        eachView(view) {
+          view.point().position('carat*price').color('cut');
+        }
+      });
+      chart.render();
+      expect(rowFacets.facets.length).equal(5);
+      expect(chart.get('views').length).equal(5);
+      chart.clear();
+      expect(rowFacets.facets).equal(null);
+    });
+
+    it('only one type', function() {
+      const data = [
+        { a: 1, b: 2, c: '1' },
+        { a: 2, b: 1, c: '1' },
+        { a: 3, b: 3, c: '1' },
+        { a: 4, b: 5, c: '1' },
+        { a: 5, b: 2.5, c: '1' }
+      ];
+      chart.source(data);
+
+      const singleFacets = new Facets.Rect({
+        chart,
+        fields: [ null, 'c' ],
+        eachView(view) {
+          view.point().position('a*b').color('c');
+        }
+      });
+      chart.render();
+      expect(chart.get('views').length).equal(1);
+      expect(singleFacets.facets.length).equal(1);
     });
 
     it('destroy', function() {
