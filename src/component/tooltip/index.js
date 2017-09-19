@@ -10,15 +10,86 @@ function find(dom, cls) {
   return dom.getElementsByClassName(cls)[0];
 }
 
-function isInPlot(range, point) {
-  const { tl, br } = range;
-  const { x, y } = point;
-  const result = {};
-  result.inPlot = (x >= tl.x && x <= br.x && y >= tl.y && y <= br.y);
-  result.inHorizontal = (x >= tl.x && x <= br.x);
-  result.inVertical = (y >= tl.y && y <= br.y);
+function refixTooltipPosition(x, y, el, viewWidth, viewHeight) {
+  const width = el.clientWidth;
+  const height = el.clientHeight;
+  const gap = 20;
 
-  return result;
+  if (x + width + gap > viewWidth) {
+    x -= width + gap;
+    x = x < 0 ? 0 : x;
+  } else {
+    x += gap;
+  }
+  if (y + height + gap > viewHeight) {
+    y -= height + gap;
+    y = x < 0 ? 0 : y;
+  } else {
+    y += gap;
+  }
+  return [ x, y ];
+}
+
+function calcTooltipPosition(position, rect, dom) {
+  const domWidth = dom.clientWidth;
+  const domHeight = dom.clientHeight;
+  const gap = 5;
+  let x = 0;
+  let y = 0;
+  const rectWidth = rect.width;
+  const rectHeight = rect.height;
+  switch (position) {
+    case 'inside':
+      x = rect.x + rectWidth / 2 - domWidth / 2;
+      y = rect.y + rectHeight / 2 - domHeight / 2;
+      break;
+    case 'top':
+      x = rect.x + rectWidth / 2 - domWidth / 2;
+      y = rect.y - domHeight - gap;
+      break;
+    case 'left':
+      x = rect.x - domWidth - gap;
+      y = rect.y + rectHeight / 2 - domHeight / 2;
+      break;
+    case 'right':
+      x = rect.x + rectWidth + gap;
+      y = rect.y + rectHeight / 2 - domHeight / 2;
+      break;
+    case 'bottom':
+    default:
+      x = rect.x + rectWidth / 2 - domWidth / 2;
+      y = rect.y + rectHeight + gap;
+      break;
+  }
+  return [ x, y ];
+}
+
+
+function confineTooltipPosition(x, y, el, plotRange) {
+  const gap = 20;
+  const width = el.clientWidth;
+  const height = el.clientHeight;
+  if (x > plotRange.tr.x) {
+    x = plotRange.tr.x - width - gap;
+  } else if (x + width > plotRange.tr.x) {
+    x -= (width + gap);
+  }
+
+  if (x < plotRange.tl.x) {
+    x = plotRange.tl.x;
+  }
+
+  if (y > plotRange.bl.y) {
+    y = plotRange.bl.y - height - gap;
+  } else if (y + height > plotRange.bl.y) {
+    y -= (height + gap);
+  }
+
+  if (y < plotRange.tl.y) {
+    y = plotRange.tl.y;
+  }
+
+  return [ x, y ];
 }
 
 class Tooltip extends Group {
@@ -75,15 +146,16 @@ class Tooltip extends Group {
        * @type {String}
        */
       containerTpl: '<div class="' + CONTAINER_CLASS + '">'
-       + '<div class="' + TITLE_CLASS + '"></div>'
-       + '<ul class="' + LIST_CLASS + '"></ul></div>',
+        + '<div class="' + TITLE_CLASS + '"></div>'
+        + '<ul class="' + LIST_CLASS + '"></ul>'
+        + '</div>',
       /**
        * tooltip 列表项模板
        * @type {String}
        */
       itemTpl: '<li data-index={index} style="margin-bottom:8px;">'
-       + '<span style="background-color:{color};" class=' + MARKER_CLASS + '></span>'
-       + '{name}: {value}</li>',
+        + '<span style="background-color:{color};" class=' + MARKER_CLASS + '></span>'
+        + '{name}: {value}</li>',
       /**
        * 将 tooltip 展示在指定区域内
        * @type {Boolean}
@@ -107,11 +179,11 @@ class Tooltip extends Group {
       container = document.getElementById(id);
     } else {
       container = DomUtil.createDom(containerTpl);
+      DomUtil.modifyCSS(container, self.get(CONTAINER_CLASS));
+      outterNode.appendChild(container);
+      outterNode.style.position = 'relative';
     }
-    DomUtil.modifyCSS(container, self.get(CONTAINER_CLASS));
     self.set('container', container);
-    outterNode.appendChild(container);
-    outterNode.style.position = 'relative';
   }
 
   _beforeRenderUI() {
@@ -161,8 +233,6 @@ class Tooltip extends Group {
   }
 
   _addItem(item, index) {
-    const container = this.get('container');
-    const listDom = find(container, LIST_CLASS);
     const itemTpl = this.get('itemTpl'); // TODO: 有可能是个回调函数
 
     const itemDiv = Util.substitute(itemTpl, {
@@ -177,7 +247,8 @@ class Tooltip extends Group {
     if (markerDom) {
       DomUtil.modifyCSS(markerDom, this.get(MARKER_CLASS));
     }
-    listDom.appendChild(itemDOM);
+
+    return itemDOM;
   }
 
   _renderTooltip() {
@@ -198,7 +269,7 @@ class Tooltip extends Group {
     if (listDom) {
       DomUtil.modifyCSS(listDom, self.get(LIST_CLASS));
       Util.each(items, (item, index) => {
-        self._addItem(item, index);
+        listDom.appendChild(self._addItem(item, index));
       });
     }
   }
@@ -255,7 +326,9 @@ class Tooltip extends Group {
   }
 
   _renderVerticalLine(canvas, plotRange) {
-    const { style } = this.get('crosshairs');
+    const {
+      style
+    } = this.get('crosshairs');
     const attrs = Util.mix({
       x1: 0,
       y1: plotRange ? plotRange.bl.y : canvas.get('height'),
@@ -267,7 +340,9 @@ class Tooltip extends Group {
   }
 
   _renderHorizontalLine(canvas, plotRange) {
-    const { style } = this.get('crosshairs');
+    const {
+      style
+    } = this.get('crosshairs');
     const attrs = Util.mix({
       x1: plotRange ? plotRange.bl.x : canvas.get('width'),
       y1: 0,
@@ -279,7 +354,9 @@ class Tooltip extends Group {
   }
 
   _renderBackground(canvas, plotRange) {
-    const { style } = this.get('crosshairs');
+    const {
+      style
+    } = this.get('crosshairs');
     const attrs = Util.mix({
       x: plotRange ? plotRange.tl.x : 0,
       y: plotRange ? plotRange.tl.y : canvas.get('height'),
@@ -352,50 +429,35 @@ class Tooltip extends Group {
     markerGroup && markerGroup.clear();
   }
 
-  setPosition(x, y, isFixed) {
+  setPosition(x, y, target) {
     const container = this.get('container');
     const crossLineShapeX = this.get('crossLineShapeX');
     const crossLineShapeY = this.get('crossLineShapeY');
     const crosshairsRectShape = this.get('crosshairsRectShape');
     const endx = x;
     const endy = y;
-    const containerWidth = DomUtil.getWidth(container);
-    const containerHeight = DomUtil.getHeight(container);
+    const outterNode = this.get('canvas').get('el').parentNode;
+    const viewWidth = DomUtil.getWidth(outterNode);
+    const viewHeight = DomUtil.getHeight(outterNode);
     let offset = this.get('offset');
-    let after = true;
 
-    if (isFixed) {
-      x = x - containerWidth / 2;
-      y = y - containerHeight - offset;
-    } else {
-      const width = containerWidth + 2 * offset;
-      x = x - width;
-      y = y - containerHeight - 2 * offset;
+    let position;
+    if (this.get('position') && target) {
+      const bbox = target.getBBox();
+      position = calcTooltipPosition(this.get('position'), bbox, container);
+      x = position[0];
+      y = position[1];
+    } else if (!this.get('position')) {
+      position = refixTooltipPosition(x, y, container, viewWidth, viewHeight);
+      x = position[0];
+      y = position[1];
     }
 
-    if (this.get('inPlot')) { // 限定必须展示在图表绘图区域内
+    if (this.get('inPlot')) { // tooltip 必须限制在绘图区域内
       const plotRange = this.get('plotRange');
-      const point = {
-        x,
-        y
-      };
-      const inPlot = isInPlot(plotRange, point);
-
-      if (!inPlot.inPlot) {
-        if (!inPlot.inHorizontal) {
-          if ((plotRange.tr.x - plotRange.tl.x) >= 2 * containerWidth) {
-            x = Math.max(plotRange.tl.x, endx) + offset;
-            after = false;
-          } else {
-            x = plotRange.tl.x;
-            y -= offset;
-          }
-        }
-
-        if (!inPlot.inVertical) {
-          y = plotRange.tl.y;
-        }
-      }
+      position = confineTooltipPosition(x, y, container, plotRange);
+      x = position[0];
+      y = position[1];
     }
 
     if (this.get('x') !== x || this.get('y') !== y) {
