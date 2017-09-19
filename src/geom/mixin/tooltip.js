@@ -406,7 +406,7 @@ const TooltipMixin = {
     } else {
       options = view.get('options');
     }
-    if (options.tooltip && options.tooltip.split) {
+    if (options.tooltip && options.tooltip.shared) {
       shareTooltip = false;
     }
 
