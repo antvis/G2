@@ -248,7 +248,7 @@ class TooltipController {
       const coord = view.get('coord');
       Util.each(geoms, geom => {
         const type = geom.get('type');
-        if (geom.get('visible')) {
+        if (geom.get('visible') && geom.get('tooltipCfg') !== false) {
           const dataArray = geom.get('dataArray');
           if (geom.isShareTooltip() || (options.shared && Util.inArray([ 'area', 'line', 'path' ], type))) {
             const points = [];

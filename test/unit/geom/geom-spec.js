@@ -312,8 +312,29 @@ describe('test geoms', function() {
       expect(shape.attr('lineWidth')).equal(data[0].a * 2);
       canvas.draw();
     });
+    it('geom.tooltip(false)', function() {
+      geom.reset();
+      geom.position('a*b').color('c').tooltip(false);
+      geom.init();
+      geom.paint();
+      expect(geom.get('tooltipCfg')).eql({});
+      canvas.draw();
+    });
+    it('geom.tooltip("x*y", callback)', function() {
+      geom.reset();
+      geom.position('a*b').color('c').tooltip('b*c', (b, c) => {
+        return {
+          name: b,
+          value: c
+        };
+      });
+      geom.init();
+      geom.paint();
+      expect(geom.get('tooltipCfg')).to.be.an.instanceof(Object);
+      expect(geom.get('tooltipCfg').fields).to.eql([ 'b', 'c' ]);
+      canvas.draw();
+    });
   });
-
 });
 
 describe('test geom point', function() {

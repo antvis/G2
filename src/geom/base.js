@@ -152,7 +152,7 @@ class GeomBase extends Base {
        * @type {Boolean}
        */
       shareTooltip: true,
-      tooltipFields: null,
+      tooltipCfg: null,
       /**
        * 是否执行动画，默认执行
        * @type {Boolean}
@@ -313,12 +313,23 @@ class GeomBase extends Base {
     return this;
   }
 
-  tooltip(field/* , cfg */) {
-    // TODO: 还需要支持回调
-    if (Util.isString(field)) {
-      this.set('tooltipFields', parseFields(field));
+  tooltip(field, cfg) {
+    let tooltipCfg = this.get('tooltipCfg');
+    if (!tooltipCfg) {
+      tooltipCfg = {};
+    }
+    if (field === false) { // geom 关闭 tooltip
+      this.set('tooltipCfg', false);
+    } else {
+      let tooltipFields;
+      if (field) {
+        tooltipFields = parseFields(field);
+      }
+      tooltipCfg.fields = tooltipFields;
+      tooltipCfg.cfg = cfg;
     }
 
+    this.set('tooltipCfg', tooltipCfg);
     return this;
   }
 
@@ -407,8 +418,9 @@ class GeomBase extends Base {
     const self = this;
     self._initContainer();
     self._initAttrs();
-    if (self.get('tooltipFields')) { // 创建 tooltip 对应的 scale
-      Util.each(self.get('tooltipFields'), field => {
+    if (self.get('tooltipCfg') && self.get('tooltipCfg').fields) {
+      const tooltipFields = self.get('tooltipCfg').fields;
+      Util.each(tooltipFields, field => {
         self._createScale(field);
       });
     }
