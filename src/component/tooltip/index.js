@@ -30,35 +30,42 @@ function refixTooltipPosition(x, y, el, viewWidth, viewHeight) {
   return [ x, y ];
 }
 
-function calcTooltipPosition(position, rect, dom) {
+function calcTooltipPosition(x, y, position, dom, target) {
   const domWidth = dom.clientWidth;
   const domHeight = dom.clientHeight;
-  const gap = 5;
-  let x = 0;
-  let y = 0;
-  const rectWidth = rect.width;
-  const rectHeight = rect.height;
+  let rectWidth = 0;
+  let rectHeight = 0;
+  let gap = 20;
+
+  if (target) {
+    const rect = target.getBBox();
+    rectWidth = rect.width;
+    rectHeight = rect.height;
+    x = rect.x;
+    y = rect.y;
+    gap = 5;
+  }
   switch (position) {
     case 'inside':
-      x = rect.x + rectWidth / 2 - domWidth / 2;
-      y = rect.y + rectHeight / 2 - domHeight / 2;
+      x = x + rectWidth / 2 - domWidth / 2;
+      y = y + rectHeight / 2 - domHeight / 2;
       break;
     case 'top':
-      x = rect.x + rectWidth / 2 - domWidth / 2;
-      y = rect.y - domHeight - gap;
+      x = x + rectWidth / 2 - domWidth / 2;
+      y = y - domHeight - gap;
       break;
     case 'left':
-      x = rect.x - domWidth - gap;
-      y = rect.y + rectHeight / 2 - domHeight / 2;
+      x = x - domWidth - gap;
+      y = y + rectHeight / 2 - domHeight / 2;
       break;
     case 'right':
-      x = rect.x + rectWidth + gap;
-      y = rect.y + rectHeight / 2 - domHeight / 2;
+      x = x + rectWidth + gap;
+      y = y + rectHeight / 2 - domHeight / 2;
       break;
     case 'bottom':
     default:
-      x = rect.x + rectWidth / 2 - domWidth / 2;
-      y = rect.y + rectHeight + gap;
+      x = x + rectWidth / 2 - domWidth / 2;
+      y = y + rectHeight + gap;
       break;
   }
   return [ x, y ];
@@ -69,20 +76,16 @@ function confineTooltipPosition(x, y, el, plotRange) {
   const gap = 20;
   const width = el.clientWidth;
   const height = el.clientHeight;
-  if (x > plotRange.tr.x) {
+  if (x + width > plotRange.tr.x) {
     x = plotRange.tr.x - width - gap;
-  } else if (x + width > plotRange.tr.x) {
-    x -= (width + gap);
   }
 
   if (x < plotRange.tl.x) {
     x = plotRange.tl.x;
   }
 
-  if (y > plotRange.bl.y) {
+  if (y + height > plotRange.bl.y) {
     y = plotRange.bl.y - height - gap;
-  } else if (y + height > plotRange.bl.y) {
-    y -= (height + gap);
   }
 
   if (y < plotRange.tl.y) {
@@ -442,9 +445,8 @@ class Tooltip extends Group {
     let offset = this.get('offset');
 
     let position;
-    if (this.get('position') && target) {
-      const bbox = target.getBBox();
-      position = calcTooltipPosition(this.get('position'), bbox, container);
+    if (this.get('position')) {
+      position = calcTooltipPosition(x, y, this.get('position'), container, target);
       x = position[0];
       y = position[1];
     } else if (!this.get('position')) {
@@ -462,11 +464,7 @@ class Tooltip extends Group {
 
     if (this.get('x') !== x || this.get('y') !== y) {
       if (crossLineShapeY) { // 第一次进入时，画布需要单独绘制，所以需要先设定corss的位置
-        if (after) {
-          crossLineShapeY.move(endx, 0);
-        } else {
-          crossLineShapeY.move((x - offset), 0);
-        }
+        crossLineShapeY.move(endx, 0);
       }
       if (crossLineShapeX) {
         crossLineShapeX.move(0, endy);

@@ -176,7 +176,7 @@ class TooltipController {
     if ((timeStamp - lastTimeStamp) > 16) {
       let target;
       if (ev.shape
-        && Util.inArray([ 'area', 'line', 'point', 'edge', 'interval', 'polygon', 'schema' ], ev.shape.name)) {
+        && Util.inArray([ 'point', 'interval', 'polygon', 'schema' ], ev.shape.name)) {
         target = ev.shape;
       }
       this.showTooltip(point, ev.views, target);
