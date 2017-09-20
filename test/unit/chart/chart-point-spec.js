@@ -6,9 +6,9 @@ document.body.appendChild(div);
 
 describe('test point chart', function() {
   const data = [];
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < 100; i++) {
     data.push({
-      x: Math.random() * 100,
+      x: parseInt(Math.random() * 100),
       y: Math.random() * 100,
       type: parseInt(Math.random() * 10).toString()
     });
@@ -28,10 +28,20 @@ describe('test point chart', function() {
       max: 0
     }
   });
-  xit('multiple points', function() {
+  it('multiple points', function() {
     chart.point().position('x*y').color('type');
     chart.render();
   });
+
+  it('stack points', function() {
+    chart.clear();
+    chart.point().position('x*y')
+      .color('type')
+      .adjust('stack');
+    chart.render();
+    expect(chart.get('viewContainer').getFirst().getCount()).equal(data.length);
+  });
+
   xit('one dim', function() {
     chart.clear();
     chart.point().position('type*..y').color('type');

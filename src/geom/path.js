@@ -25,6 +25,12 @@ class Path extends GeomBase {
     Util.assign(this, SplitMixin);
   }
 
+  getDrawCfg(obj) {
+    const cfg = super.getDrawCfg(obj);
+    cfg.isStack = this.hasStack();
+    return cfg;
+  }
+
   draw(data, container, shapeFactory, index) {
     const self = this;
     const splitArray = this.splitData(data);

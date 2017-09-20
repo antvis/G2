@@ -25,7 +25,7 @@ function getAttrs(cfg) {
 }
 
 // 获取带有上下区间的 path
-function getRangePath(points, smooth, isInCircle) {
+function getRangePath(points, smooth, isInCircle, isStack) {
   const topPoints = [];
   const bottomPoints = [];
   for (let i = 0; i < points.length; i++) {
@@ -36,7 +36,11 @@ function getRangePath(points, smooth, isInCircle) {
   }
   const topPath = getSinglePath(topPoints, smooth, isInCircle);
   const bottomPath = getSinglePath(bottomPoints, smooth, isInCircle);
+  if (isStack) {
+    return topPath;
+  }
   return topPath.concat(bottomPath);
+
 }
 
 // 单条 path
@@ -59,7 +63,7 @@ function getPath(cfg, smooth) {
   const isInCircle = cfg.isInCircle;
   const first = points[0];
   if (Util.isArray(first.y)) {
-    path = getRangePath(points, smooth, isInCircle);
+    path = getRangePath(points, smooth, isInCircle, cfg.isStack);
   } else {
     path = getSinglePath(points, smooth, isInCircle);
   }

@@ -26,14 +26,17 @@ class Point extends GeomBase {
     const cfg = self.getDrawCfg(obj);
     let geomShape;
     if (Util.isArray(obj.y)) {
+      const hasAdjust = self.hasStack();
       Util.each(obj.y, (y, idx) => {
         cfg.y = y;
         cfg.yIndex = idx;
-        geomShape = shapeFactory.drawShape(shape, cfg, container);
-        geomShape.setSilent('index', index + idx);
-        geomShape.setSilent('coord', self.get('coord'));
-        if (self.get('animate') && self.get('animateCfg')) {
-          geomShape.setSilent('animateCfg', self.get('animateCfg'));
+        if (!hasAdjust || idx !== 0) {
+          geomShape = shapeFactory.drawShape(shape, cfg, container);
+          geomShape.setSilent('index', index + idx);
+          geomShape.setSilent('coord', self.get('coord'));
+          if (self.get('animate') && self.get('animateCfg')) {
+            geomShape.setSilent('animateCfg', self.get('animateCfg'));
+          }
         }
       });
     } else {

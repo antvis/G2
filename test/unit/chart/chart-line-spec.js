@@ -104,8 +104,8 @@ describe('test line chart', function() {
       .getLast()
       .attr('path');
     // 层叠
-    expect(firstPath[0][1]).equal(lastPath[5][1]);
-    expect(firstPath[1][1]).equal(lastPath[6][1]);
+    expect(firstPath.length).equal(data.length / 2);
+    expect(lastPath.length).equal(data.length / 2);
   });
 
   it('destroy', function() {

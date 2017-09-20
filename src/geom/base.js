@@ -388,7 +388,7 @@ class GeomBase extends Base {
     const self = this;
     const adjusts = self.get('adjusts');
     if (!adjustType) {
-      return !!adjusts;
+      return false;
     }
     let rst = false;
     Util.each(adjusts, function(adjust) {
@@ -398,6 +398,15 @@ class GeomBase extends Base {
       }
     });
     return rst;
+  }
+
+  hasStack() {
+    let isStacked = this.get('isStacked');
+    if (Util.isNil(isStacked)) {
+      isStacked = this.hasAdjust('stack');
+      this.set('isStacked', isStacked);
+    }
+    return isStacked;
   }
 
   isInCircle() {
@@ -1075,6 +1084,7 @@ class GeomBase extends Base {
     // }
     this.set('labelContainer', null);
     this.set('xDistance', null);
+    this.set('isStacked', null);
   }
 
   clear() {
