@@ -51,7 +51,9 @@ class TimeCategory extends Category {
     Util.each(values, function(v, i) {
       values[i] = self._toTimeStamp(v);
     });
-    this.ticks = this.calculateTicks(true);
+    if (!self.ticks) {
+      self.ticks = this.calculateTicks(true);
+    }
   }
 
   /**
@@ -134,7 +136,7 @@ class TimeCategory extends Category {
    */
   getTicks() {
     const self = this;
-    const ticks = this.calculateTicks(false);
+    const ticks = this.ticks;
     const rst = [];
     Util.each(ticks, function(tick) {
       let obj;

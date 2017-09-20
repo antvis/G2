@@ -210,5 +210,15 @@ describe('scale time cat', function() {
     });
     expect(scale.invert(scale.scale(1442937600000))).to.be.equal(1442937600000);
   });
+
+  it('change with ticks', function() {
+    scale.change({
+      range: [ 0, 1 ],
+      ticks: [ 1442937600000, 1443024000000 ],
+      values: [ 1442937600000, 1441296000000, 1449849600000, 1359648000000, 1362326400000, 1443024000000 ]
+    });
+    expect(scale.getTicks().length).equal(2);
+    console.log(scale.getTicks());
+  });
 });
 /**/
