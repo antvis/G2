@@ -135,11 +135,6 @@ class Tooltip extends Group {
        */
       offset: 10,
       /**
-       * 移动的动画时间
-       * @type {Number}
-       */
-      duration: 50,
-      /**
        * 时间戳
        * @type {Number}
        */
@@ -505,11 +500,7 @@ class Tooltip extends Group {
     const crosshairsRectShape = this.get('crosshairsRectShape');
     const markerGroup = this.get('markerGroup');
     const container = this.get('container');
-    const hideHandler = this.get('hideHandler');
     const canvas = this.get('canvas');
-    if (hideHandler) {
-      clearTimeout(hideHandler);
-    }
     crossLineShapeX && crossLineShapeX.show();
     crossLineShapeY && crossLineShapeY.show();
     crosshairsRectShape && crosshairsRectShape.show();
@@ -528,19 +519,13 @@ class Tooltip extends Group {
     const crosshairsRectShape = this.get('crosshairsRectShape');
     const markerGroup = self.get('markerGroup');
     const canvas = self.get('canvas');
-    const hideHandler = setTimeout(function() {
-      container.style.visibility = 'hidden';
-      self.set('hideHandler', null);
-      if (!self.get('destroyed')) {
-        Tooltip.superclass.hide.call(self);
-        canvas.draw();
-      }
-    }, self.get('duration'));
-    self.set('hideHandler', hideHandler);
+    container.style.visibility = 'hidden';
     crossLineShapeX && crossLineShapeX.hide();
     crossLineShapeY && crossLineShapeY.hide();
     crosshairsRectShape && crosshairsRectShape.hide();
     markerGroup && markerGroup.hide();
+    super.hide();
+    canvas.draw();
   }
 
   remove() {
