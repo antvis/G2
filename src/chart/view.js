@@ -555,12 +555,16 @@ class View extends Base {
   }
 
   getFilteredValues(field) {
-    let data = this.get('filteredData');
-    if (Util.isNil(data)) {
-      data = this.get('data');
+    const scale = this.get('scales')[field];
+    const values = scale.values;
+    const filters = this._getFilters();
+    let rst;
+    if (filters && filters[field]) {
+      rst = values.filter(filters[field]);
+    } else {
+      rst = values.slice(0);
     }
-    const values = Util.Array.values(data, field);
-    return values;
+    return rst;
   }
 
   filter(field, condition) {
