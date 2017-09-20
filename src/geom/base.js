@@ -901,35 +901,42 @@ class GeomBase extends Base {
 
   _getShapeId(dataObj) {
     let id = this.get('_id');
-    const type = this.get('type');
-    const xScale = this.getXScale();
-    const yScale = this.getYScale();
-    const xField = xScale.field || 'x';
-    const yField = yScale.field || 'y';
-    const yVal = dataObj[yField];
-    let xVal;
-    if (xScale.isIdentity) {
-      xVal = xScale.value;
-    } else {
-      xVal = dataObj[xField];
-    }
-
-    if (type === 'interval' || type === 'schema') {
-      id += '-' + xVal;
-    } else if (type === 'line' || type === 'area' || type === 'path') {
-      id += '-' + type;
-    } else {
-      id += '-' + xVal + '-' + yVal;
-    }
-
-    const groupScales = this._getGroupScales();
-    if (!Util.isEmpty(groupScales)) {
-      Util.each(groupScales, groupScale => {
-        const field = groupScale.field;
-        if (groupScale.type !== 'identity') {
-          id += '-' + dataObj[field];
-        }
+    const keyFields = this.get('keyFields');
+    if (keyFields && keyFields.length > 0) {
+      Util.each(keyFields, key => {
+        id += '-' + dataObj[key];
       });
+    } else {
+      const type = this.get('type');
+      const xScale = this.getXScale();
+      const yScale = this.getYScale();
+      const xField = xScale.field || 'x';
+      const yField = yScale.field || 'y';
+      const yVal = dataObj[yField];
+      let xVal;
+      if (xScale.isIdentity) {
+        xVal = xScale.value;
+      } else {
+        xVal = dataObj[xField];
+      }
+
+      if (type === 'interval' || type === 'schema') {
+        id += '-' + xVal;
+      } else if (type === 'line' || type === 'area' || type === 'path') {
+        id += '-' + type;
+      } else {
+        id += '-' + xVal + '-' + yVal;
+      }
+
+      const groupScales = this._getGroupScales();
+      if (!Util.isEmpty(groupScales)) {
+        Util.each(groupScales, groupScale => {
+          const field = groupScale.field;
+          if (groupScale.type !== 'identity') {
+            id += '-' + dataObj[field];
+          }
+        });
+      }
     }
 
     return id;

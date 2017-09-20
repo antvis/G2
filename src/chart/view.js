@@ -178,6 +178,7 @@ class View extends Base {
       geom.set('data', filteredData);
       geom.set('coord', coord);
       geom.set('_id', viewId + '-geom' + i);
+      geom.set('keyFields', this.get('keyFields'));
       geom.init();
     }
   }
@@ -615,6 +616,16 @@ class View extends Base {
     return this.get('guideController');
   }
 
+  _getKeyFields(scaleDefs) {
+    const keyFields = [];
+    Util.each(scaleDefs, (def, field) => {
+      if (def.key) {
+        keyFields.push(field);
+      }
+    });
+    this.set('keyFields', keyFields);
+  }
+
   scale(field, cfg) {
     const options = this.get('options');
     const scaleDefs = options.scales;
@@ -623,6 +634,8 @@ class View extends Base {
     } else {
       scaleDefs[field] = cfg;
     }
+
+    this._getKeyFields(scaleDefs);
     return this;
   }
 
@@ -738,6 +751,7 @@ class View extends Base {
     this.clearInner();
     this.get('guideController') && this.get('guideController').clear();
     this.set('isUpdate', false);
+    this.set('keyFields', []);
     return this;
   }
 
