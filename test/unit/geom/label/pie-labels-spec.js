@@ -563,10 +563,10 @@ describe('pie labels', function() {
       const first = labelsGroup.getFirst();
       const last = labelsGroup.getLast();
 
-      expect(first.attr('x')).to.be.equal(190.14971157455594);
-      expect(first.attr('y')).to.be.equal(85.649711574556);
+      expect(first.attr('x')).to.be.equal(192.97813869930215);
+      expect(first.attr('y')).to.be.equal(83.47813869930218);
       expect(last.attr('x')).to.be.equal(324.5);
-      expect(last.attr('y')).to.be.equal(413);
+      expect(last.attr('y')).to.be.equal(403);
     });
   });
 
@@ -680,8 +680,8 @@ describe('pie labels', function() {
       const labelsGroup = labelGroup.get('labelsGroup');
       const cText = labelsGroup.get('children')[0];
       console.log(cText.get('attrs').x, cText.get('attrs').y);
-      expect(cText.get('attrs').x).to.equal(266.58325082500164);
-      expect(cText.get('attrs').y).to.equal(243);
+      expect(cText.get('attrs').x).to.equal(265.7431812546026);
+      expect(cText.get('attrs').y).to.equal(233);
     });
   });
 });
