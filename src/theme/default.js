@@ -12,7 +12,7 @@ const TOOLTIP_MARKER_CLASS = 'g2-tooltip-marker';
 const Theme = {
   defaultColor: DEFAULT_COLOR, // 默认主题色
   plotCfg: {
-    padding: [ 20, 20, 80, 69 ]
+    padding: [ 20, 20, 90, 69 ]
   },
   fontFamily: FONT_FAMILY,
   defaultLegendPosition: 'bottom', // 默认图例的展示位置
@@ -320,7 +320,7 @@ const Theme = {
     },
     bottom: {
       position: 'bottom',
-      offset: 50,
+      offset: 52,
       layout: 'horizontal',
       title: null,
       itemGap: 24,

@@ -631,3 +631,55 @@ describe('chart empty data', function() {
   });
 });
 
+describe('chart set keyFields', function() {
+  let chart;
+  const data = [
+      { a: 1, b: 2, c: '1' },
+      { a: 2, b: 5, c: '1' },
+      { a: 3, b: 4, c: '1' },
+
+      { a: 1, b: 3, c: '2' },
+      { a: 2, b: 1, c: '2' },
+      { a: 3, b: 2, c: '2' }
+  ];
+
+  it('chart.source', function() {
+    chart = new Chart({
+      height: 500,
+      forceFit: true,
+      container: 'cchart',
+      animate: false
+    });
+    chart.source(data, {
+      a: {
+        key: true
+      }
+    });
+    chart.line().position('a*b').color('c');
+    chart.render();
+
+    expect(chart.get('geoms')[0].get('keyFields')).eql([ 'a' ]);
+  });
+
+  it('chart.scale', function() {
+    chart.clear();
+    chart.scale({
+      c: {
+        key: true
+      },
+      b: {
+        key: true
+      }
+    });
+    chart.line().position('a*b').color('c');
+    chart.render();
+
+    expect(chart.get('geoms')[0].get('keyFields')).eql([ 'a', 'c', 'b' ]);
+  });
+
+  it('destroy', function() {
+    chart.destroy();
+    expect(chart.destroyed).equal(true);
+  });
+});
+
