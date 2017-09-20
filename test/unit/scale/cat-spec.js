@@ -190,9 +190,9 @@ describe('scale time cat', function() {
     // 按照 mask 格式化后的 ticks
     expect(scale.ticks.length).to.be.equal(3);
     expect(scale.ticks).eqls([
-      fecha.format(1441296000000, mask),
-      fecha.format(1442937600000, mask),
-      fecha.format(1449849600000, mask)
+      1441296000000,
+      1442937600000,
+      1449849600000
     ]);
   });
 
@@ -218,7 +218,5 @@ describe('scale time cat', function() {
       values: [ 1442937600000, 1441296000000, 1449849600000, 1359648000000, 1362326400000, 1443024000000 ]
     });
     expect(scale.getTicks().length).equal(2);
-    console.log(scale.getTicks());
   });
 });
-/**/

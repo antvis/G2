@@ -42,17 +42,16 @@ class TimeCategory extends Category {
   init() {
     const self = this;
     const values = this.values;
-    values.sort(function(v1, v2) {
-      v1 = self._toTimeStamp(v1);
-      v2 = self._toTimeStamp(v2);
-      return v1 - v2;
-    });
     // 针对时间分类类型，会将时间统一转换为时间戳
     Util.each(values, function(v, i) {
       values[i] = self._toTimeStamp(v);
     });
+    values.sort(function(v1, v2) {
+      return v1 - v2;
+    });
+
     if (!self.ticks) {
-      self.ticks = this.calculateTicks(true);
+      self.ticks = this.calculateTicks(false);
     }
   }
 
@@ -123,6 +122,8 @@ class TimeCategory extends Category {
     const index = this.translate(value);
     if (index > -1) {
       result = this.values[index];
+    } else {
+      result = value;
     }
 
     const formatter = this.formatter;
@@ -144,7 +145,7 @@ class TimeCategory extends Category {
         obj = tick;
       } else {
         obj = {
-          text: self.getText(tick),
+          text: Util.isString(tick) ? tick : self.getText(tick),
           value: self.scale(tick)
         };
       }
