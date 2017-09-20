@@ -354,12 +354,12 @@ const TooltipMixin = {
     const self = this;
     const origin = point[FIELD_ORIGIN];
     const tipTitle = self.getTipTitle(origin);
-    const tooltipFields = self.get('tooltipFields');
+    const tooltipCfg = self.get('tooltipCfg');
     const items = [];
     let name;
     let value;
 
-    function addItem(itemName, itemValue) {
+    function addItem(itemName, itemValue, cfg) {
       if (!Util.isNil(itemValue) && itemValue !== '') { // 值为null的时候，忽视
         const item = {
           title: tipTitle,
@@ -372,19 +372,42 @@ const TooltipMixin = {
         if (self.get('type') === 'interval' || self.get('type') === 'schema') {
           item.size = self.getSize();
         }
-        items.push(item);
+
+        items.push(Util.mix({}, item, cfg));
       }
     }
 
-    if (tooltipFields) {
-      Util.each(tooltipFields, function(field) {
-        if (!Util.isNil(origin[field])) { // 字段数据为null ,undefined时不显示
-          const scale = self._getScale(field);
-          name = getScaleName(scale);
-          value = scale.getText(origin[field]);
-          addItem(name, value);
-        }
+    if (tooltipCfg) {
+      const fields = tooltipCfg.fields;
+      let cfg = tooltipCfg.cfg;
+      const callbackParams = [];
+      Util.each(fields, field => {
+        callbackParams.push(origin[field]);
       });
+      if (cfg) { // 存在回调函数
+        if (Util.isFunction(cfg)) {
+          cfg = cfg.apply(null, callbackParams);
+        }
+        const itemCfg = Util.mix({}, {
+          point,
+          title: tipTitle,
+          color: point.color || defaultColor,
+          marker: true // 默认展示 marker
+        }, cfg);
+        if (self.get('type') === 'interval' || self.get('type') === 'schema') {
+          itemCfg.size = self.getSize();
+        }
+        items.push(itemCfg);
+      } else {
+        Util.each(fields, function(field) {
+          if (!Util.isNil(origin[field])) { // 字段数据为null ,undefined时不显示
+            const scale = self._getScale(field);
+            name = getScaleName(scale);
+            value = scale.getText(origin[field]);
+            addItem(name, value);
+          }
+        });
+      }
     } else {
       const valueScale = self._getTipValueScale();
       if (!Util.isNil(origin[valueScale.field])) { // 字段数据为null ,undefined时不显示
@@ -406,7 +429,7 @@ const TooltipMixin = {
     } else {
       options = view.get('options');
     }
-    if (options.tooltip && options.tooltip.split) {
+    if (options.tooltip && options.tooltip.shared === false) {
       shareTooltip = false;
     }
 

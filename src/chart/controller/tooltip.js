@@ -85,7 +85,7 @@ class TooltipController {
       }
     });
     if (geoms.length && geoms[0].get('coord') && geoms[0].get('coord').type === 'cartesian' && shapes.length === 1) {
-      if (shapes[0] === 'interval' && !options.split) { // 直角坐标系下 interval 的 crosshair 为矩形背景框
+      if (shapes[0] === 'interval' && options.shared !== false) { // 直角坐标系下 interval 的 crosshair 为矩形背景框
         Util.mix(defaultCfg, {
           zIndex: 0, // 矩形背景框不可覆盖 geom
           crosshairs: Global.tooltipCrosshairsRect,
@@ -114,9 +114,8 @@ class TooltipController {
     chart.off('plotleave', Util.getWrapBehavior(this, 'onMouseOut'));
   }
 
-  _setTooltip(title, point, items, markersItems) {
+  _setTooltip(title, point, items, markersItems, target) {
     const self = this;
-    const options = self.options;
     const tooltip = self.tooltip;
     const prePoint = self.prePoint;
     if (!prePoint || (prePoint.x !== point.x || prePoint.y !== point.y)) {
@@ -145,14 +144,8 @@ class TooltipController {
       } else {
         tooltip.clearMarkers();
       }
-      if (options.split) {
-        const positionX = Util.isArray(items[0].point.x) ? items[0].point.x[0] : items[0].point.x;
-        const positionY = Util.isArray(items[0].point.y) ? items[0].point.y[1] : items[0].point.y;
 
-        tooltip.setPosition(positionX, positionY, true);
-      } else {
-        tooltip.setPosition(x, y);
-      }
+      tooltip.setPosition(x, y, target);
       tooltip.show();
     }
   }
@@ -181,7 +174,12 @@ class TooltipController {
       y: ev.y
     };
     if ((timeStamp - lastTimeStamp) > 16) {
-      this.showTooltip(point, ev.views);
+      let target;
+      if (ev.shape
+        && Util.inArray([ 'point', 'interval', 'polygon', 'schema' ], ev.shape.name)) {
+        target = ev.shape;
+      }
+      this.showTooltip(point, ev.views, target);
       this.timeStamp = timeStamp;
     }
   }
@@ -215,11 +213,14 @@ class TooltipController {
     });
 
     if (options.crosshairs && options.crosshairs.type === 'rect') {
-      // options.isTransposed = chart.get('coord').isTransposed; // 是否旋转
       options.zIndex = 0; // toolip 背景框不可遮盖住 geom，防止用户配置了 crosshairs
     }
 
     options.visible = false;
+    if (options.shared === false && Util.isNil(options.position)) {
+      options.position = 'top';
+    }
+
     const canvas = self._getCanvas();
     const tooltip = canvas.addGroup(Tooltip, options);
     canvas.sort();
@@ -227,7 +228,7 @@ class TooltipController {
     self._bindEvent();
   }
 
-  showTooltip(point, views) {
+  showTooltip(point, views, target) {
     const self = this;
     if (Util.isEmpty(views) || !point) {
       return;
@@ -238,7 +239,6 @@ class TooltipController {
     const options = self.options;
     let markersItems = [];
     let items = [];
-    // const tooltip = self.tooltip;
 
     Util.each(views, view => {
       if (!view.get('tooltipEnable')) { // 如果不显示tooltip，则跳过
@@ -248,9 +248,9 @@ class TooltipController {
       const coord = view.get('coord');
       Util.each(geoms, geom => {
         const type = geom.get('type');
-        if (geom.get('visible')) {
+        if (geom.get('visible') && geom.get('tooltipCfg') !== false) {
           const dataArray = geom.get('dataArray');
-          if (geom.isShareTooltip() || (options.split && Util.inArray([ 'area', 'line', 'path' ], type))) {
+          if (geom.isShareTooltip() || (options.shared === false && Util.inArray([ 'area', 'line', 'path' ], type))) {
             const points = [];
             Util.each(dataArray, function(obj) {
               const tmpPoint = geom.findPoint(point, obj);
@@ -272,7 +272,6 @@ class TooltipController {
                 items = items.concat(subItems);
               }
             });
-          // } else if ((options.split && Util.inArray([ 'interval', 'schema' ], type)) || !geom.isShareTooltip()) {
           } else {
             const geomContainer = geom.get('shapeContainer');
             const canvas = geomContainer.get('canvas');
@@ -304,7 +303,7 @@ class TooltipController {
         markersItems = markersItems.filter(item => item.title === nearestItem.title);
       }
 
-      if (options.split && items.length > 1) {
+      if (options.shared === false && items.length > 1) {
         let snapItem = items[0];
         let min = Math.abs(point.y - snapItem.y);
         Util.each(items, aItem => {
@@ -321,7 +320,7 @@ class TooltipController {
       }
       const title = first.title || first.name;
 
-      self._setTooltip(title, point, items, markersItems);
+      self._setTooltip(title, point, items, markersItems, target);
     } else {
       self.hideTooltip();
     }
