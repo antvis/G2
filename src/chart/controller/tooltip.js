@@ -85,7 +85,7 @@ class TooltipController {
       }
     });
     if (geoms.length && geoms[0].get('coord') && geoms[0].get('coord').type === 'cartesian' && shapes.length === 1) {
-      if (shapes[0] === 'interval' && !options.shared) { // 直角坐标系下 interval 的 crosshair 为矩形背景框
+      if (shapes[0] === 'interval' && options.shared !== false) { // 直角坐标系下 interval 的 crosshair 为矩形背景框
         Util.mix(defaultCfg, {
           zIndex: 0, // 矩形背景框不可覆盖 geom
           crosshairs: Global.tooltipCrosshairsRect,
@@ -217,7 +217,7 @@ class TooltipController {
     }
 
     options.visible = false;
-    if (options.shared && Util.isNil(options.position)) {
+    if (options.shared === false && Util.isNil(options.position)) {
       options.position = 'top';
     }
 
@@ -250,7 +250,7 @@ class TooltipController {
         const type = geom.get('type');
         if (geom.get('visible') && geom.get('tooltipCfg') !== false) {
           const dataArray = geom.get('dataArray');
-          if (geom.isShareTooltip() || (options.shared && Util.inArray([ 'area', 'line', 'path' ], type))) {
+          if (geom.isShareTooltip() || (options.shared === false && Util.inArray([ 'area', 'line', 'path' ], type))) {
             const points = [];
             Util.each(dataArray, function(obj) {
               const tmpPoint = geom.findPoint(point, obj);
@@ -303,7 +303,7 @@ class TooltipController {
         markersItems = markersItems.filter(item => item.title === nearestItem.title);
       }
 
-      if (options.shared && items.length > 1) {
+      if (options.shared === false && items.length > 1) {
         let snapItem = items[0];
         let min = Math.abs(point.y - snapItem.y);
         Util.each(items, aItem => {
