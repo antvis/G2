@@ -295,7 +295,7 @@ class GeomBase extends Base {
     return this;
   }
 
-  label(field, cfg) {
+  label(field, callback, cfg) {
     const self = this;
     let labelCfg = self.get('labelCfg');
     // const scales = Util.map(self.get('labelCfg').fields, field => self._createScale(field));
@@ -308,6 +308,16 @@ class GeomBase extends Base {
       fields = parseFields(field);
     }
     labelCfg.fields = fields;
+    // 如果存在回调函数
+    if (Util.isFunction(callback)) {
+      if (!cfg) {
+        cfg = {};
+      }
+      cfg.content = callback;
+    } else if (Util.isObject(callback)) { // 如果没有设置回调函数
+      cfg = callback;
+    }
+
     labelCfg.cfg = cfg;
 
     return this;

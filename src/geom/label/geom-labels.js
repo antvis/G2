@@ -121,7 +121,7 @@ class GeomLabels extends Group {
       Util.each(label, function(sub, subIdx) {
         let obj = self.getLabelPoint(label, point, subIdx);
         if (obj) {
-          obj = Util.merge({}, origin, obj); // 为了格式化输出
+          obj = Util.mix({}, origin, obj); // 为了格式化输出
           let align;
           if (labels && labels.label && labels.label.textAlign) {
             align = labels.label.textAlign;

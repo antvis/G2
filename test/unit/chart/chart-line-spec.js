@@ -94,7 +94,15 @@ describe('test line chart', function() {
     chart.clear();
     chart.source(data);
     chart.coord('rect');
-    chart.lineStack().position('genre*sold').color('type');
+    chart.lineStack().position('genre*sold')
+      .color('type')
+      .label('type*sold', function(type, sold) {
+        return type + sold;
+      }, {
+        textStyle: {
+          fill: 'red'
+        }
+      });
     chart.render();
 
     const firstPath = chart.get('viewContainer').getFirst()
@@ -108,7 +116,7 @@ describe('test line chart', function() {
     expect(lastPath.length).equal(data.length / 2);
   });
 
-  it('destroy', function() {
+  xit('destroy', function() {
     chart.destroy();
     document.body.removeChild(div);
   });
