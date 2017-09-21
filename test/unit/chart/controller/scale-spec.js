@@ -46,11 +46,15 @@ describe('test scale controller', function() {
     expect(scale.values).eqls([ '一', '二', '三' ]);
   });
 
-  /* it('create scale with arr', function() {
+  it('create scale with arr', function() {
     const data = [
-      { a: [ 1, 2, 3 ], b: true, c: {} },
-      { a: [ 4, 5, 6 ], b: false, c: {} }
+      { a: 1 },
+      { a: [ 4, 5, 6 ] },
+      { a: [ 1, 2, 3, 4 ] }
     ];
 
-  }); */
+    const scale = controller.createScale('a', data);
+    expect(scale.type).equal('linear');
+    expect(scale.values).eqls([ 1, 4, 5, 6, 2, 3 ]);
+  });
 });
