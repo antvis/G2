@@ -161,10 +161,17 @@ Util.Array = {
     const tmpMap = {};
     for (let i = 0; i < data.length; i++) {
       const obj = data[i];
-      const value = obj[name];
-      if (!Util.isNil(value) && !tmpMap[value]) {
-        rst.push(value);
-        tmpMap[value] = true;
+      let value = obj[name];
+      if (!Util.isNil(value)) {
+        if (!Util.isArray(value)) {
+          value = [ value ];
+        }
+        Util.each(value, val => {
+          if (!tmpMap[val]) {
+            rst.push(val);
+            tmpMap[val] = true;
+          }
+        });
       }
     }
     return rst;

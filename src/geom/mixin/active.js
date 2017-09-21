@@ -37,7 +37,7 @@ const ActiveMixin = {
       const view = this.get('view');
       const isShareTooltip = this.isShareTooltip();
       const options = view.get('options');
-      // 默认情况下，tooltip 关闭或者 tooltip 模式为 split 的时候允许 active
+      // 默认情况下，tooltip 关闭或者 tooltip 模式为 shared === false 的时候允许 active
       if (options.tooltip === false || !isShareTooltip) {
         return true;
       }

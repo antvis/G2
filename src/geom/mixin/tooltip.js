@@ -429,9 +429,6 @@ const TooltipMixin = {
     } else {
       options = view.get('options');
     }
-    if (options.tooltip && options.tooltip.shared === false) {
-      shareTooltip = false;
-    }
 
     if (type === 'interval') {
       const coord = this.get('coord');
@@ -439,8 +436,12 @@ const TooltipMixin = {
       if (coordType === 'theta' || (coordType === 'polar' && coord.isTransposed)) {
         shareTooltip = false;
       }
-    } else if (!this.getYScale() || Util.inArray([ 'contour', 'point', 'polygon', 'edge', 'schema' ], type)) {
+    } else if (!this.getYScale() || Util.inArray([ 'contour', 'point', 'polygon', 'edge' ], type)) {
       shareTooltip = false;
+    }
+
+    if (options.tooltip && Util.isBoolean(options.tooltip.shared)) { // 以用户设置的为准
+      shareTooltip = options.tooltip.shared;
     }
     return shareTooltip;
   }
