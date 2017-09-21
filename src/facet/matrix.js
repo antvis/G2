@@ -10,6 +10,7 @@ class Matrix extends Rect {
   getDefaultCfg() {
     const cfg = super.getDefaultCfg();
     cfg.type = 'matrix';
+    cfg.showTitle = false;
     return cfg;
   }
 
@@ -40,6 +41,22 @@ class Matrix extends Rect {
       }
     }
     return rst;
+  }
+
+  // 设置 x 坐标轴的文本、title 是否显示
+  setXAxis(xField, axes, facet) {
+    if (facet.rowIndex !== facet.rows - 1) {
+      axes[xField].title = null;
+      axes[xField].label = null;
+    }
+  }
+
+  // 设置 y 坐标轴的文本、title 是否显示
+  setYAxis(yField, axes, facet) {
+    if (facet.colIndex !== 0) {
+      axes[yField].title = null;
+      axes[yField].label = null;
+    }
   }
 }
 
