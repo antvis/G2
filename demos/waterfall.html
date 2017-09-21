@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="geometry" content="interval">
+  <link rel="stylesheet" href="./assets/common.css">
+  <title>Waterfall Plot</title>
+</head>
+
+<body>
+  <div id="canvas"></div>
+  <script src="./assets/jquery-3.2.1.min.js"></script>
+  <script src="./assets/data-set.min.js"></script>
+  <script src="https://gw.alipayobjects.com/as/g/datavis/g2/2.3.8/index.js"></script>
+  <script src="../build/g2.js"></script>
+
+  <script>
+    const G2 = window.G2_3 || window.G2;
+    const Util = G2.Util;
+    const data = [
+      { type: '日用品', money: 300 },
+      { type: '伙食费', money: 900 },
+      { type: '交通费', money: 200 },
+      { type: '水电费', money: 300 },
+      { type: '房租', money: 1200 },
+      { type: '商场消费', money: 1000 },
+      { type: '应酬交际', money: 2000 },
+      { type: '总费用', money: 5900 }
+    ];
+
+    for (let i = 0; i < data.length; i++) {
+      const item = data[i];
+      if (i > 0 && i < data.length - 1) {
+        if (Util.isArray(data[i - 1].money)) {
+          item.money = [ data[i - 1].money[1], item.money + data[i - 1].money[1] ];
+        } else {
+          item.money = [ data[i - 1].money, item.money + data[i - 1].money ];
+        }
+      }
+    }
+
+    const chart = new G2.Chart({
+      container: 'canvas',
+      forceFit: true,
+      height: window.innerHeight
+    });
+    chart.source(data);
+    chart.interval().position('type*money').color('type', type => {
+      if (type === '总费用') {
+        return 'rgba(0, 0, 0, 0.65)';
+      }
+      return '#1890FF';
+    })
+    .tooltip('type*money', (type, money) => {
+      if (Util.isArray(money)) {
+        return {
+          name: '生活费',
+          value: money[1] - money[0]
+        };
+      }
+
+      return {
+        name: '生活费',
+        value: money
+      };
+    });
+    chart.render();
+  </script>
+</body>
+
+</html>
