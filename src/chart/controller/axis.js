@@ -212,12 +212,12 @@ class AxisController {
       const coordType = coord.type;
       if (coord.isRect) {
         if (dimType === 'x') {
-          position = coord.isTransposed ? 'left' : 'bottom';
+          position = 'bottom';
         } else if (dimType === 'y') {
           if (index) {
-            position = coord.isTransposed ? 'bottom' : 'right';
+            position = 'right';
           } else {
-            position = coord.isTransposed ? 'bottom' : 'left';
+            position = 'left';
           }
         }
       } else if (coordType === 'helix') {

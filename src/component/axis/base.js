@@ -71,7 +71,6 @@ class Base extends Group {
     const textStyle = {
       fontSize: 12,
       fill: '#ccc',
-      textAlign: 'center',
       textBaseline: 'middle'
     };
     if (title) {
@@ -285,15 +284,15 @@ class Base extends Group {
   }
 
   getTextAnchor(vector) {
-    const ratio = Math.abs(vector.y / vector.x);
+    const ratio = Math.abs(vector[1] / vector[0]);
     let align;
     if (ratio >= 1) { // 上面或者下面
       align = 'center';
     } else {
-      if (vector.x > 0) { // 右侧
-        align = 'left';
+      if (vector[0] > 0) { // 右侧
+        align = 'start';
       } else { // 左侧
-        align = 'right';
+        align = 'end';
       }
     }
     return align;

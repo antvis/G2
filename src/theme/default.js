@@ -50,8 +50,7 @@ const Theme = {
           fill: '#545454',
           fontSize: 12,
           lineHeight: 20 / 12,
-          textBaseline: 'middle',
-          textAlign: 'center'
+          textBaseline: 'middle'
         },
         autoRotate: true
       },
@@ -75,8 +74,7 @@ const Theme = {
           fill: '#545454',
           fontSize: 12,
           lineHeight: 20 / 12,
-          textBaseline: 'middle',
-          textAlign: 'center'
+          textBaseline: 'middle'
         }
       },
       line: {
@@ -99,8 +97,7 @@ const Theme = {
           fill: '#545454',
           fontSize: 12,
           lineHeight: 20 / 12,
-          textBaseline: 'middle',
-          textAlign: 'end'
+          textBaseline: 'middle'
         }
       },
       line: null,
@@ -123,8 +120,7 @@ const Theme = {
           fill: '#545454',
           fontSize: 12,
           lineHeight: 20 / 12,
-          textBaseline: 'middle',
-          textAlign: 'start'
+          textBaseline: 'middle'
         }
       },
       line: null,
@@ -164,7 +160,6 @@ const Theme = {
           fill: '#545454',
           fontSize: 12,
           textBaseline: 'middle',
-          textAlign: 'end',
           lineHeight: 20 / 12
         }
       },
