@@ -77,7 +77,7 @@ describe('test chart', function() {
     const tooltipController = chart.get('tooltipController');
     const { tooltip } = tooltipController;
     const tooltipItems = chart.getTooltipItems(point);
-    expect(tooltip.get('items')).eql(tooltipItems);
+    expect(tooltip.get('items').length).eql(tooltipItems.length);
   });
 
   it('forceFit', function() {
@@ -344,7 +344,7 @@ describe('filter shape', function() {
     const container = chart.get('viewContainer').getFirst();
     expect(container.getCount()).equal(2);
     chart.filterShape(function(arr) {
-      console.log(arr);
+      // console.log(arr);
       return arr[0].c !== '1';
     });
     expect(container.getCount()).equal(2);

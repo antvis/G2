@@ -80,26 +80,38 @@ class TooltipController {
     const shapes = [];
     Util.each(geoms, function(geom) {
       const type = geom.get('type');
-      if (Util.indexOf(shapes, type) === -1) {
+      const adjusts = geom.get('adjusts');
+      let isSymmetric = false;
+      if (adjusts) {
+        Util.each(adjusts, adjust => {
+          if (adjust.type === 'symmetric' || adjust.type === 'Symmetric') {
+            isSymmetric = true;
+            return false;
+          }
+        });
+      }
+      if (Util.indexOf(shapes, type) === -1 && !isSymmetric) {
         shapes.push(type);
       }
     });
+
+    let crosshairsCfg;
     if (geoms.length && geoms[0].get('coord') && geoms[0].get('coord').type === 'cartesian' && shapes.length === 1) {
       if (shapes[0] === 'interval' && options.shared !== false) { // 直角坐标系下 interval 的 crosshair 为矩形背景框
-        Util.mix(defaultCfg, {
+        crosshairsCfg = {
           zIndex: 0, // 矩形背景框不可覆盖 geom
-          crosshairs: Global.tooltipCrosshairsRect,
-          isTransposed: geoms[0].get('coord').isTransposed
-        });
+          crosshairs: Global.tooltipCrosshairsRect
+        };
       } else if (Util.indexOf(TYPE_SHOW_CROSSHAIRS, shapes[0]) > -1) {
-        Util.mix(defaultCfg, {
-          crosshairs: Global.tooltipCrosshairsLine,
-          isTransposed: geoms[0].get('coord').isTransposed
-        });
+        crosshairsCfg = {
+          crosshairs: Global.tooltipCrosshairsLine
+        };
       }
     }
 
-    return defaultCfg;
+    return Util.mix(defaultCfg, crosshairsCfg, {
+      isTransposed: geoms[0].get('coord').isTransposed
+    });
   }
 
   _bindEvent() {
@@ -251,11 +263,9 @@ class TooltipController {
         if (geom.get('visible') && geom.get('tooltipCfg') !== false) {
           const dataArray = geom.get('dataArray');
           if (geom.isShareTooltip() || (options.shared === false && Util.inArray([ 'area', 'line', 'path' ], type))) {
-            const points = [];
             Util.each(dataArray, function(obj) {
               const tmpPoint = geom.findPoint(point, obj);
               if (tmpPoint) {
-                points.push(tmpPoint);
                 const subItems = geom.getTipItems(tmpPoint);
                 if (Util.indexOf(TYPE_SHOW_MARKERS, type) !== -1) {
                   Util.each(subItems, v => {
@@ -282,6 +292,15 @@ class TooltipController {
             }
           }
         }
+      });
+
+      Util.each(items, item => {
+        let point = item.point;
+        const x = Util.isArray(point.x) ? point.x[point.x.length - 1] : point.x;
+        const y = Util.isArray(point.y) ? point.y[point.y.length - 1] : point.y;
+        point = coord.applyMatrix(x, y, 1);
+        item.x = point[0];
+        item.y = point[1];
       });
     });
 
