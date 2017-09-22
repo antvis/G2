@@ -116,7 +116,7 @@ describe('test line chart', function() {
     expect(lastPath.length).equal(data.length / 2);
   });
 
-  xit('destroy', function() {
+  it('destroy', function() {
     chart.destroy();
     document.body.removeChild(div);
   });
