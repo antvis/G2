@@ -96,7 +96,7 @@
     //     // offset: -10
     //   }
     // });
-    chart.coord().transpose();
+    chart.coord().transpose().scale(1, -1);
     chart.scale('name', { alias: '城市' });
     chart.interval()
       .position('月份*月均降雨量')

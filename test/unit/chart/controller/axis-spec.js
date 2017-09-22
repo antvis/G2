@@ -291,7 +291,8 @@ describe('AxisController', function() {
       expect(axisCfg.label.autoRotate).to.equal(true);
       expect(axisCfg.position).to.equal('bottom');
       expect(axisCfg.ticks.length).to.equal(10);
-      expect(axisCfg.title.text).to.equal('a');
+      // expect(axisCfg.title.text).to.equal('a');
+      expect(axisCfg.title).to.be.null;
     });
     it('_getAxisCfg when gridAlign is middle.', function() {
       as.options = {

@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="geometry" content="area">
   <link rel="stylesheet" href="./assets/common.css">
-  <title>Area Stack Plot</title>
+  <title>Line Stack Plot</title>
 </head>
 
 <body>
@@ -59,16 +59,16 @@
     });
     chart.areaStack()
       .position('year*value')
-      .color('country', [ '#FF6A84', '#30A4EB', '#45BFC0', '#FFCC55' ]);
+      .color('country');
 
     chart.line()
       .position('year*value')
-      .color('country', [ '#FF6A84', '#30A4EB', '#45BFC0', '#FFCC55' ])
+      .color('country')
       .adjust('stack');
 
     chart.point()
       .position('year*value')
-      .color('country', [ '#FF6A84', '#30A4EB', '#45BFC0', '#FFCC55' ])
+      .color('country')
       .adjust('stack');
     chart.render();
   </script>

@@ -138,7 +138,7 @@ Shape.registerShape('point', 'rect', {
   getMarkerCfg(cfg) {
     const attrs = getFillAttrs(cfg);
     attrs.symbol = 'rect';
-    attrs.radius = 5;
+    attrs.radius = Global.markerRadius;
     return attrs;
   }
 });
@@ -160,7 +160,7 @@ Util.each(SHAPES, function(shape) {
     getMarkerCfg(cfg) {
       const attrs = getFillAttrs(cfg);
       attrs.symbol = shape;
-      attrs.radius = 5;
+      attrs.radius = Global.markerRadius;
       return attrs;
     }
   });
@@ -180,7 +180,7 @@ Util.each(SHAPES, function(shape) {
     getMarkerCfg(cfg) {
       const attrs = getLineAttrs(cfg);
       attrs.symbol = shape;
-      attrs.radius = 5;
+      attrs.radius = Global.markerRadius;
       return attrs;
     }
   });
@@ -202,7 +202,7 @@ Util.each(HOLLOW_SHAPES, function(shape) {
     getMarkerCfg(cfg) {
       const attrs = getLineAttrs(cfg);
       attrs.symbol = shape;
-      attrs.radius = 5;
+      attrs.radius = Global.markerRadius;
       return attrs;
     }
   });

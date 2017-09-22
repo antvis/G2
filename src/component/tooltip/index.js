@@ -151,7 +151,7 @@ class Tooltip extends Group {
        * tooltip 列表项模板
        * @type {String}
        */
-      itemTpl: '<li data-index={index} style="margin-bottom:8px;">'
+      itemTpl: '<li data-index={index} style="margin-bottom:4px;">'
         + '<span style="background-color:{color};" class=' + MARKER_CLASS + '></span>'
         + '{name}: {value}</li>',
       /**
@@ -288,18 +288,10 @@ class Tooltip extends Group {
       this._clearCrosshairsGroup();
       switch (crosshairs.type) {
         case 'x':
-          if (isTransposed) {
-            this._renderVerticalLine(canvas, plotRange);
-          } else {
-            this._renderHorizontalLine(canvas, plotRange);
-          }
+          this._renderHorizontalLine(canvas, plotRange);
           break;
         case 'y':
-          if (isTransposed) {
-            this._renderHorizontalLine(canvas, plotRange);
-          } else {
-            this._renderVerticalLine(canvas, plotRange);
-          }
+          this._renderVerticalLine(canvas, plotRange);
           break;
         case 'cross':
           this._renderHorizontalLine(canvas, plotRange);
@@ -309,7 +301,7 @@ class Tooltip extends Group {
           this._renderBackground(canvas, plotRange);
           break;
         default:
-          this._renderVerticalLine(canvas, plotRange);
+          isTransposed ? this._renderHorizontalLine(canvas, plotRange) : this._renderVerticalLine(canvas, plotRange);
       }
     }
   }
@@ -467,23 +459,28 @@ class Tooltip extends Group {
 
       if (crosshairsRectShape) {
         const isTransposed = this.get('isTransposed');
-        const items = isTransposed ? this.get('items').reverse() : this.get('items');
+        const items = this.get('items');
         const firstItem = items[0];
+        const lastItem = items[items.length - 1];
         const dim = isTransposed ? 'y' : 'x';
         const attr = isTransposed ? 'height' : 'width';
+        let startDim = firstItem[dim];
+        if (items.length > 1 && firstItem[dim] > lastItem[dim]) {
+          startDim = lastItem[dim];
+        }
 
         if (this.get('crosshairs').width) { // 用户定义了 width
-          crosshairsRectShape.attr(dim, firstItem.point[dim] - this.get('crosshairs').width / 2);
+          crosshairsRectShape.attr(dim, startDim - this.get('crosshairs').width / 2);
           crosshairsRectShape.attr(attr, this.get('crosshairs').width);
         } else {
           offset = (firstItem.size / 2 + firstItem.size / 4) || 10;
-          crosshairsRectShape.attr(dim, firstItem.point[dim] - offset);
+          crosshairsRectShape.attr(dim, startDim - offset);
 
           if (items.length === 1) {
             crosshairsRectShape.attr(attr, firstItem.size + firstItem.size / 2);
           } else {
             const lastItem = items[items.length - 1];
-            crosshairsRectShape.attr(attr, lastItem.point[dim] - firstItem.point[dim] + 2 * offset);
+            crosshairsRectShape.attr(attr, Math.abs(lastItem[dim] - firstItem[dim]) + 2 * offset);
           }
         }
       }

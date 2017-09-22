@@ -110,7 +110,7 @@ function _smoothMarkerFn(x, y, r, ctx) {
 function _getMarkerCfg(cfg, smooth) {
   return Util.mix({
     symbol: smooth ? _smoothMarkerFn : _markerFn,
-    radius: 5
+    radius: Global.markerRadius
   }, getAttrs(cfg));
 }
 

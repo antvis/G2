@@ -85,7 +85,7 @@ function _getMarkerCfg(cfg, smooth, hollow) {
 
   return Util.mix({
     symbol: smooth ? _smoothMarkerFn : _markerFn,
-    radius: 5
+    radius: Global.markerRadius
   }, areaCfg);
 }
 
