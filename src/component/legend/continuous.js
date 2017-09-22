@@ -71,7 +71,7 @@ class Continuous extends Base {
         fillOpacity: 0
       },
       outRangeStyle: {
-        fill: '#ccc'
+        fill: '#D9D9D9'
       },
       labelOffset: 10 // ToDO: 文本同渐变背景的距离
     });

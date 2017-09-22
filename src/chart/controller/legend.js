@@ -4,7 +4,7 @@ const { Legend } = require('../../component/index');
 const Shape = require('../../geom/shape/index');
 
 const FIELD_ORIGIN = '_origin';
-const MARGIN = 16;
+const MARGIN = 24;
 const MARGIN_LEGEND = 24;
 const requireAnimationFrameFn = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
   window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;

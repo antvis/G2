@@ -183,7 +183,7 @@ function getCandlePath(points) {
 function getMarkerCfg(cfg, fn) {
   return Util.mix({
     symbol: fn,
-    radius: 5
+    radius: Global.markerRadius
   }, getAttrs(cfg));
 }
 

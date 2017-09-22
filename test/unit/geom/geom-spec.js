@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const { Canvas } = require('@ali/g');
 const Geom = require('../../../src/geom/index');
-const Global = require('../../../src/global');
+// const Global = require('../../../src/global');
 const Scale = require('../../../src/scale/index');
 const Coord = require('../../../src/coord/index');
 const Util = require('../../../src/util');
@@ -117,7 +117,8 @@ describe('test geoms', function() {
       const attrOptions = geom.get('attrOptions');
       // debugger;
       expect(attrOptions.color.field).eqls('red');
-      expect(attrOptions.color.values).eqls(Global.colors);
+      // expect(attrOptions.color.values).eqls(Global.colors);
+      expect(attrOptions.color.values).to.be.undefined;
       expect(attrOptions.shape).eqls({ field: 'a', values: [ 'circle', 'rect' ] });
       expect(attrOptions.size.field).equal('b');
       expect(attrOptions.size.callback).to.be.a('function');

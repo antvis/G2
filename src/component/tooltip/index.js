@@ -151,7 +151,7 @@ class Tooltip extends Group {
        * tooltip 列表项模板
        * @type {String}
        */
-      itemTpl: '<li data-index={index} style="margin-bottom:8px;">'
+      itemTpl: '<li data-index={index} style="margin-bottom:4px;">'
         + '<span style="background-color:{color};" class=' + MARKER_CLASS + '></span>'
         + '{name}: {value}</li>',
       /**

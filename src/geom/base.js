@@ -207,7 +207,7 @@ class GeomBase extends Base {
       } else {
         attrCfg.values = cfg;
       }
-    } else {
+    } else if (attrName !== 'color') {
       attrCfg.values = defaultValues;
     }
     this._setAttrOptions(attrName, attrCfg);
@@ -446,6 +446,8 @@ class GeomBase extends Base {
     const attrs = this.get('attrs');
     const attrOptions = this.get('attrOptions');
     const coord = self.get('coord');
+    let isPie = false;
+
     for (const type in attrOptions) {
       if (attrOptions.hasOwnProperty(type)) {
         const option = attrOptions[type];
@@ -456,12 +458,26 @@ class GeomBase extends Base {
           // 饼图坐标系下，填充一维
           if (fields.length === 1 && coord.type === 'theta') {
             fields.unshift('1');
+            isPie = true;
           }
         }
         const scales = [];
         for (let i = 0; i < fields.length; i++) {
           const field = fields[i];
           const scale = self._createScale(field);
+          if (type === 'color' && Util.isNil(option.values)) { // 设置 color 的默认色值
+            if (scale.values.length <= 8) {
+              option.values = isPie ? Global.colors_pie : Global.colors;
+            } else if (scale.values.length <= 16) {
+              option.values = isPie ? Global.colors_pie_16 : Global.colors_16;
+            } else {
+              option.values = Global.colors_24;
+            }
+
+            if (Util.isNil(option.values)) {
+              option.values = Global.colors; // 防止主题没有声明诸如 colors_pie 的属性
+            }
+          }
           scales.push(scale);
         }
         // 饼图需要填充满整个空间
