@@ -62,7 +62,7 @@ getPort().then(port => {
         q.defer(callback => {
           const t0 = Date.now();
           const nightmare = Nightmare({
-            show: true
+            show: false
           });
           nightmare
             .viewport(width, height)
@@ -77,6 +77,7 @@ getPort().then(port => {
             })
             .end()
             .catch(e => {
+              console.log(file);
               callback(e);
             });
         });
