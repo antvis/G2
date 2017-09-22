@@ -44,7 +44,8 @@
       });
       chart.source(dv);
       chart.tooltip({
-        showTitle: false
+        showTitle: false,
+        crosshairs: false
       });
       chart.polygon().position('x*y')
         .color('count', [ 'rgb(200, 200, 255)', 'rgb(0, 0, 255)' ])

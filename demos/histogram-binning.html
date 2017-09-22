@@ -30,6 +30,10 @@
         height: window.innerHeight
       });
       chart.source(dv);
+      chart.tooltip({
+        crosshairs: false,
+        showTitle: false
+      });
       chart.interval().position('depth*count');
       chart.render();
     });
