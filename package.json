@@ -16,7 +16,7 @@
   "author": "https://github.com/orgs/antvis/people",
   "license": "MIT",
   "devDependencies": {
-    "@alipay/data-set": "^0.4.2",
+    "@alipay/data-set": "^0.4.1",
     "@lite-js/torch": "^0.2.6",
     "babel-core": "^6.25.0",
     "babel-eslint": "^7.2.3",
