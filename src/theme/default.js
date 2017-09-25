@@ -42,6 +42,7 @@ const Theme = {
   opacities: [ 0.1, 0.9 ],
   axis: {
     top: {
+      // zIndex: 1, // 默认上下方向的坐标轴位于左右坐标轴的上方
       position: 'top',
       title: null,
       label: {
@@ -107,7 +108,8 @@ const Theme = {
           stroke: '#E9E9E9',
           lineWidth: 1,
           lineDash: [ 3, 3 ]
-        }
+        },
+        hideFirstLine: true
       }
     },
     right: {
@@ -124,9 +126,18 @@ const Theme = {
         }
       },
       line: null,
-      tickLine: null
+      tickLine: null,
+      grid: {
+        lineStyle: {
+          stroke: '#E9E9E9',
+          lineWidth: 1,
+          lineDash: [ 3, 3 ]
+        },
+        hideFirstLine: true
+      }
     },
     circle: {
+      zIndex: 1,
       title: null,
       label: {
         offset: 12,
@@ -150,10 +161,12 @@ const Theme = {
           stroke: '#E9E9E9',
           lineWidth: 1,
           lineDash: [ 3, 3 ]
-        }
+        },
+        hideFirstLine: true
       }
     },
     radius: {
+      zIndex: 0,
       label: {
         offset: 12,
         textStyle: {
