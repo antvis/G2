@@ -27,7 +27,17 @@ class Grid extends Group {
        * @type {String | Array}
        */
       alternateColor: null,
-      matrix: null
+      matrix: null,
+      /**
+       * 是否隐藏第一条网格线，默认为 false
+       * @type {Boolean}
+       */
+      hideFirstLine: false,
+      /**
+       * 是否隐藏最后一条网格线，默认为 false
+       * @type {Boolean}
+       */
+      hideLastLine: false
     };
   }
 
@@ -65,16 +75,18 @@ class Grid extends Group {
     let path;
     let cfg;
     let points;
-    const start = this.get('start');
+    const itemsLength = items.length;
 
     if (type === 'line' || type === 'polygon') {
-      Util.each(items, function(item) {
-        points = item.points;
-        // TODO: 是否可以通过设置标识符规避这个判断
-        if (start && start.x === points[0].x && points[0].y === start.y) {
+      Util.each(items, (item, idx) => {
+        if (self.get('hideFirstLine') && idx === 0) { // 不展示第一条网格线
+          return;
+        }
+        if (self.get('hideLastLine') && idx === (itemsLength - 1)) { // 不展示最后一条网格线
           return;
         }
 
+        points = item.points;
         path = [];
         if (type === 'line') {
           path.push([ 'M', points[0].x, points[0].y ]);
@@ -100,13 +112,15 @@ class Grid extends Group {
         gridLine.set('coord', self.get('coord'));
       });
     } else {
-      Util.each(items, function(item) {
-        points = item.points;
-
-        // TODO: 是否可以通过设置标识符规避这个判断
-        if (start && start.x === points[0].x && points[0].y === start.y) {
+      Util.each(items, (item, idx) => {
+        if (self.get('hideFirstLine') && idx === 0) { // 不展示第一条网格线
           return;
         }
+        if (self.get('hideLastLine') && idx === (itemsLength - 1)) { // 不展示最后一条网格线
+          return;
+        }
+
+        points = item.points;
         path = [];
         Util.each(points, function(point, index) {
           const radius = point.radius;

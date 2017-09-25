@@ -257,10 +257,6 @@ class Base extends Group {
     if (!grid) {
       return;
     }
-
-    if (this.get('start')) {
-      grid.start = this.get('start');
-    }
     grid.coord = this.get('coord');
     this.set('gridGroup', this.addGroup(Grid, grid));
   }
