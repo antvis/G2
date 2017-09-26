@@ -233,12 +233,9 @@ class Tooltip extends Group {
   _addItem(item, index) {
     const itemTpl = this.get('itemTpl'); // TODO: 有可能是个回调函数
 
-    const itemDiv = Util.substitute(itemTpl, {
-      index,
-      color: item.color,
-      value: item.value,
-      name: item.name
-    });
+    const itemDiv = Util.substitute(itemTpl, Util.mix({
+      index
+    }, item));
 
     const itemDOM = DomUtil.createDom(itemDiv);
     const markerDom = find(itemDOM, MARKER_CLASS);
