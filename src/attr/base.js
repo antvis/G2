@@ -36,7 +36,6 @@ class AttributeBase {
      */
     this.method = null;
 
-
     /**
      * 备选的值数组
      * @type {Array}
@@ -48,6 +47,12 @@ class AttributeBase {
      * @type {Array}
      */
     this.scales = [];
+
+    /**
+     * 是否通过线性取值, 如果未指定，则根据数值的类型判定
+     * @type {Boolean}
+     */
+    this.linear = null;
 
     Util.mix(this, cfg);
   }
@@ -63,7 +68,7 @@ class AttributeBase {
   // 获取属性值，将值映射到视觉通道
   _getAttrValue(scale, value) {
     const values = this.values;
-    if (scale.isCategory) {
+    if (scale.isCategory && !this.linear) {
       const index = scale.translate(value);
       return values[index % values.length];
     }

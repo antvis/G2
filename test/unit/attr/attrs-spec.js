@@ -63,6 +63,32 @@ describe('attr test color', () => {
     });
   });
 
+  describe('color gradient', function() {
+    const color = new Attr.Color({
+      scales: [ scaleCat ],
+      values: '#000000-#0000ff'
+    });
+    it('init', function() {
+      expect(color.linear).equal(true);
+    });
+    it('mapping', function() {
+      expect(color.mapping('a')[0]).equal('#000000');
+      expect(color.mapping('b')[0]).equal('#000055');
+      expect(color.mapping('c')[0]).equal('#0000aa');
+      expect(color.mapping('d')[0]).equal('#0000ff');
+    });
+    it('single color', function() {
+      const color = new Attr.Color({
+        scales: [ scaleCat ],
+        values: 'red'
+      });
+      expect(color.mapping('a')[0]).equal('#ff0000');
+      expect(color.mapping('b')[0]).equal('#ff0000');
+      expect(color.mapping('c')[0]).equal('#ff0000');
+      expect(color.mapping('d')[0]).equal('#ff0000');
+    });
+  });
+
 });
 
 describe('attr test size & opacity', () => {
