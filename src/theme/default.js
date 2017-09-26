@@ -361,7 +361,7 @@ const Theme = {
   }, // tooltip 辅助背景框样式
   tooltipCrosshairsLine: {
     style: {
-      stroke: 'rgba(0, 0, 0, 0.4)',
+      stroke: 'rgba(0, 0, 0, 0.45)',
       lineWidth: 1
     }
   },
@@ -369,7 +369,8 @@ const Theme = {
     point: {
       lineWidth: 1,
       fill: DEFAULT_COLOR,
-      radius: 4
+      radius: 4,
+      fillOpacity: 0.65
     },
     hollowPoint: {
       fill: '#fff',
@@ -380,7 +381,7 @@ const Theme = {
     interval: {
       lineWidth: 0,
       fill: DEFAULT_COLOR,
-      fillOpacity: 0.9
+      fillOpacity: 0.85
     },
     pie: {
       lineWidth: 1,
@@ -395,7 +396,7 @@ const Theme = {
     area: {
       lineWidth: 0,
       fill: DEFAULT_COLOR,
-      fillOpacity: 0.8
+      fillOpacity: 0.3
     },
     polygon: {
       lineWidth: 0,
