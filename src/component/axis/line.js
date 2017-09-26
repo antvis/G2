@@ -157,10 +157,10 @@ class Line extends Base {
     const self = this;
     const labelsGroup = self.get('labelsGroup');
     const title = self.get('title');
-    if (title && labelsGroup) {
+    if (labelsGroup) {
       const offset = self.get('label').offset;
       const append = 12;
-      const titleOffset = title.offset;
+      const titleOffset = title ? title.offset : 48;
       if (titleOffset < 0) { // 如果是负的的话就不旋转
         return;
       }
