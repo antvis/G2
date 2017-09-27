@@ -248,7 +248,7 @@ class AxisController {
     cfg.ticks = scale.getTicks();
 
     if (coord.isPolar && !scale.isCategory) {
-      if (type === 'x') {
+      if (type === 'x' && Math.abs(coord.endAngle - coord.startAngle) === Math.PI * 2) {
         cfg.ticks.pop();
       }
     }

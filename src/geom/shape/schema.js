@@ -41,7 +41,17 @@ function getAttrs(cfg) {
   const attrs = Util.mix({}, defaultAttrs, {
     stroke: cfg.color,
     strokeOpacity: cfg.opacity
-  });
+  }, cfg.style);
+  return attrs;
+}
+
+function getFillAttrs(cfg) {
+  const defaultAttrs = Global.shape.line;
+  const attrs = Util.mix({}, defaultAttrs, {
+    fill: cfg.color,
+    stroke: cfg.color,
+    fillOpacity: cfg.opacity
+  }, cfg.style);
   return attrs;
 }
 
@@ -221,9 +231,7 @@ Shape.registerShape('schema', 'box', {
     path = this.parsePath(path);
     return container.addShape('path', {
       attrs: Util.mix(attrs, {
-        path,
-        fill: '#fff',
-        fillOpacity: 0
+        path
       })
     });
   },
@@ -257,15 +265,12 @@ Shape.registerShape('schema', 'candle', {
     return getCandlePoints(pointInfo.x, pointInfo.y, pointInfo.size);
   },
   draw(cfg, container) {
-    const attrs = getAttrs(cfg);
+    const attrs = getFillAttrs(cfg);
     let path = getCandlePath(cfg.points);
     path = this.parsePath(path);
     return container.addShape('path', {
       attrs: Util.mix(attrs, {
-        path,
-        fill: cfg.color,
-        fillOpacity: cfg.opacity,
-        lineWidth: 1
+        path
       })
     });
   },
