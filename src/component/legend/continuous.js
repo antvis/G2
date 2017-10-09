@@ -39,7 +39,7 @@ class Continuous extends Base {
        * 标题偏移量
        * @type {Number}
        */
-      titleGap: 10,
+      titleGap: 22,
       /**
        * 默认文本图形属性
        * @type {ATTRS}
@@ -203,7 +203,7 @@ class Continuous extends Base {
     });
     const text = trigger.addShape('text', {
       attrs: Util.mix(textAttr, {
-        x: width + 4,
+        x: width + 8,
         y: type === 'max' ? -4 : 4,
         textAlign: 'start',
         lineHeight: 1,
