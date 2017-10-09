@@ -51,7 +51,7 @@ const Theme = {
         textStyle: {
           fill: '#545454',
           fontSize: 12,
-          lineHeight: 20 / 12,
+          lineHeight: 20,
           textBaseline: 'middle'
         },
         autoRotate: true
@@ -75,7 +75,7 @@ const Theme = {
         textStyle: {
           fill: '#545454',
           fontSize: 12,
-          lineHeight: 20 / 12,
+          lineHeight: 20,
           textBaseline: 'middle'
         }
       },
@@ -98,7 +98,7 @@ const Theme = {
         textStyle: {
           fill: '#545454',
           fontSize: 12,
-          lineHeight: 20 / 12,
+          lineHeight: 20,
           textBaseline: 'middle'
         }
       },
@@ -122,7 +122,7 @@ const Theme = {
         textStyle: {
           fill: '#545454',
           fontSize: 12,
-          lineHeight: 20 / 12,
+          lineHeight: 20,
           textBaseline: 'middle'
         }
       },
@@ -145,7 +145,7 @@ const Theme = {
         textStyle: {
           fill: '#545454',
           fontSize: 12,
-          lineHeight: 20 / 12
+          lineHeight: 20
         }
       },
       line: {
@@ -174,7 +174,7 @@ const Theme = {
           fill: '#545454',
           fontSize: 12,
           textBaseline: 'middle',
-          lineHeight: 20 / 12
+          lineHeight: 20
         }
       },
       line: {
@@ -256,7 +256,7 @@ const Theme = {
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle',
-        lineHeight: 20 / 12
+        lineHeight: 20
       }, // 图例项文本的样式
       unCheckColor: '#bfbfbf'
     },
@@ -272,7 +272,7 @@ const Theme = {
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle',
-        lineHeight: 20 / 12
+        lineHeight: 20
       }, // 图例项文本的样式
       unCheckColor: '#bfbfbf'
     },
@@ -289,7 +289,7 @@ const Theme = {
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle',
-        lineHeight: 20 / 12
+        lineHeight: 20
       }, // 图例项文本的样式
       unCheckColor: '#bfbfbf'
     },
@@ -306,7 +306,7 @@ const Theme = {
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle',
-        lineHeight: 20 / 12
+        lineHeight: 20
       }, // 图例项文本的样式
       unCheckColor: '#bfbfbf'
     }
