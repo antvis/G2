@@ -350,7 +350,8 @@ const Theme = {
     }
   },
   tooltipMarker: {
-    symbol: (x, y, r, ctx, color) => {
+    symbol: (x, y, r, ctx, marker) => {
+      const color = marker.get('color');
       ctx.fillStyle = color;
       ctx.beginPath();
       ctx.arc(x, y, r, 0, Math.PI * 2, false);
