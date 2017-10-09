@@ -346,10 +346,22 @@ const Theme = {
     }
   },
   tooltipMarker: {
-    fill: '#fff',
-    symbol: 'circle',
-    lineWidth: 2,
-    stroke: DEFAULT_COLOR,
+    symbol: (x, y, r, ctx, color) => {
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2, false);
+      ctx.fill();
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.fillStyle = '#fff';
+      ctx.strokeStyle = color;
+      ctx.globalAlpha = 0.3;
+      ctx.lineWidth = 4;
+      ctx.arc(x, y, 7, 0, Math.PI * 2, false);
+      ctx.stroke();
+      ctx.restore();
+    },
     radius: 4
   }, // 提示信息在折线图、区域图上形成点的样式
   tooltipCrosshairsRect: {

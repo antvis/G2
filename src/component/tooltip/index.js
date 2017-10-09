@@ -399,11 +399,10 @@ class Tooltip extends Group {
     } else {
       markerGroup.clear();
     }
-
     Util.each(markerItems, item => {
       markerGroup.addShape('marker', {
+        color: item.color,
         attrs: Util.mix({}, markerCfg, {
-          stroke: item.color,
           x: item.x,
           y: item.y
         })
