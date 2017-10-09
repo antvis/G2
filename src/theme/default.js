@@ -17,6 +17,7 @@ const FONT_FAMILY = '"Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans 
 const TOOLTIP_CONTAINER_CLASS = 'g2-tooltip';
 const TOOLTIP_TITLE_CLASS = 'g2-tooltip-title';
 const TOOLTIP_LIST_CLASS = 'g2-tooltip-list';
+const TOOLTIP_LIST_ITEM_CLASS = 'g2-tooltip-list-item';
 const TOOLTIP_MARKER_CLASS = 'g2-tooltip-marker';
 
 const Theme = {
@@ -335,6 +336,9 @@ const Theme = {
       margin: 0,
       listStyleType: 'none',
       padding: 0
+    },
+    [`${TOOLTIP_LIST_ITEM_CLASS}`]: {
+      marginBottom: '4px'
     },
     [`${TOOLTIP_MARKER_CLASS}`]: {
       width: '7px',

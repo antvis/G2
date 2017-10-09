@@ -5,6 +5,7 @@ const CONTAINER_CLASS = 'g2-tooltip';
 const TITLE_CLASS = 'g2-tooltip-title';
 const LIST_CLASS = 'g2-tooltip-list';
 const MARKER_CLASS = 'g2-tooltip-marker';
+const LIST_ITEM_CLASS = 'g2-tooltip-list-item';
 
 function find(dom, cls) {
   return dom.getElementsByClassName(cls)[0];
@@ -151,7 +152,7 @@ class Tooltip extends Group {
        * tooltip 列表项模板
        * @type {String}
        */
-      itemTpl: '<li data-index={index} style="margin-bottom:4px;">'
+      itemTpl: '<li data-index={index}>'
         + '<span style="background-color:{color};" class=' + MARKER_CLASS + '></span>'
         + '{name}: {value}</li>',
       /**
@@ -238,6 +239,7 @@ class Tooltip extends Group {
     }, item));
 
     const itemDOM = DomUtil.createDom(itemDiv);
+    DomUtil.modifyCSS(itemDOM, this.get(LIST_ITEM_CLASS));
     const markerDom = find(itemDOM, MARKER_CLASS);
     if (markerDom) {
       DomUtil.modifyCSS(markerDom, this.get(MARKER_CLASS));
