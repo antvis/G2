@@ -376,9 +376,11 @@ Util.assign(Base.prototype, LabelsRenderer, {
       label.y = point.y;
       label.textAlign = this.getTextAnchor(vector);
       rst = labelsGroup.addLabel(label);
-      rst.name = 'axis-label';
-      rst._id = this.get('_id') + '-' + tick.tickValue; // 每个 label 用 _id 唯一标识
-      rst.set('coord', this.get('coord'));
+      if (rst) {
+        rst.name = 'axis-label';
+        rst._id = this.get('_id') + '-' + tick.tickValue; // 每个 label 用 _id 唯一标识
+        rst.set('coord', this.get('coord'));
+      }
     }
     return rst;
   }
