@@ -17,6 +17,7 @@ const FONT_FAMILY = '"Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans 
 const TOOLTIP_CONTAINER_CLASS = 'g2-tooltip';
 const TOOLTIP_TITLE_CLASS = 'g2-tooltip-title';
 const TOOLTIP_LIST_CLASS = 'g2-tooltip-list';
+const TOOLTIP_LIST_ITEM_CLASS = 'g2-tooltip-list-item';
 const TOOLTIP_MARKER_CLASS = 'g2-tooltip-marker';
 
 const Theme = {
@@ -50,7 +51,7 @@ const Theme = {
         textStyle: {
           fill: '#545454',
           fontSize: 12,
-          lineHeight: 20 / 12,
+          lineHeight: 20,
           textBaseline: 'middle'
         },
         autoRotate: true
@@ -74,7 +75,7 @@ const Theme = {
         textStyle: {
           fill: '#545454',
           fontSize: 12,
-          lineHeight: 20 / 12,
+          lineHeight: 20,
           textBaseline: 'middle'
         }
       },
@@ -97,7 +98,7 @@ const Theme = {
         textStyle: {
           fill: '#545454',
           fontSize: 12,
-          lineHeight: 20 / 12,
+          lineHeight: 20,
           textBaseline: 'middle'
         }
       },
@@ -121,7 +122,7 @@ const Theme = {
         textStyle: {
           fill: '#545454',
           fontSize: 12,
-          lineHeight: 20 / 12,
+          lineHeight: 20,
           textBaseline: 'middle'
         }
       },
@@ -144,7 +145,7 @@ const Theme = {
         textStyle: {
           fill: '#545454',
           fontSize: 12,
-          lineHeight: 20 / 12
+          lineHeight: 20
         }
       },
       line: {
@@ -173,7 +174,7 @@ const Theme = {
           fill: '#545454',
           fontSize: 12,
           textBaseline: 'middle',
-          lineHeight: 20 / 12
+          lineHeight: 20
         }
       },
       line: {
@@ -255,7 +256,7 @@ const Theme = {
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle',
-        lineHeight: 20 / 12
+        lineHeight: 20
       }, // 图例项文本的样式
       unCheckColor: '#bfbfbf'
     },
@@ -271,7 +272,7 @@ const Theme = {
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle',
-        lineHeight: 20 / 12
+        lineHeight: 20
       }, // 图例项文本的样式
       unCheckColor: '#bfbfbf'
     },
@@ -288,7 +289,7 @@ const Theme = {
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle',
-        lineHeight: 20 / 12
+        lineHeight: 20
       }, // 图例项文本的样式
       unCheckColor: '#bfbfbf'
     },
@@ -305,7 +306,7 @@ const Theme = {
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle',
-        lineHeight: 20 / 12
+        lineHeight: 20
       }, // 图例项文本的样式
       unCheckColor: '#bfbfbf'
     }
@@ -336,6 +337,9 @@ const Theme = {
       listStyleType: 'none',
       padding: 0
     },
+    [`${TOOLTIP_LIST_ITEM_CLASS}`]: {
+      marginBottom: '4px'
+    },
     [`${TOOLTIP_MARKER_CLASS}`]: {
       width: '7px',
       height: '7px',
@@ -346,10 +350,23 @@ const Theme = {
     }
   },
   tooltipMarker: {
-    fill: '#fff',
-    symbol: 'circle',
-    lineWidth: 2,
-    stroke: DEFAULT_COLOR,
+    symbol: (x, y, r, ctx, marker) => {
+      const color = marker.get('color');
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2, false);
+      ctx.fill();
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.fillStyle = '#fff';
+      ctx.strokeStyle = color;
+      ctx.globalAlpha = 0.3;
+      ctx.lineWidth = 4;
+      ctx.arc(x, y, 7, 0, Math.PI * 2, false);
+      ctx.stroke();
+      ctx.restore();
+    },
     radius: 4
   }, // 提示信息在折线图、区域图上形成点的样式
   tooltipCrosshairsRect: {
