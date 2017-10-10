@@ -212,7 +212,7 @@ Util.Array = {
     if (!Util.isFunction(condition)) {
       const paramsCondition = Util.isArray(condition) ? condition : condition.replace(/\s+/g, '').split('*');
       condition = function(row) {
-        let unique = '';
+        let unique = '_'; // 避免出现数字作为Key的情况，会进行按照数字的排序
         for (let i = 0, l = paramsCondition.length; i < l; i++) {
           unique += row[paramsCondition[i]] && row[paramsCondition[i]].toString();
         }
