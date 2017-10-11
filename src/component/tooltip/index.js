@@ -410,6 +410,7 @@ class Tooltip extends Group {
         })
       });
     });
+    this.set('markerItems', markerItems);
   }
 
   clearMarkers() {
@@ -422,8 +423,8 @@ class Tooltip extends Group {
     const crossLineShapeX = this.get('crossLineShapeX');
     const crossLineShapeY = this.get('crossLineShapeY');
     const crosshairsRectShape = this.get('crosshairsRectShape');
-    const endx = x;
-    const endy = y;
+    let endx = x;
+    let endy = y;
     // const outterNode = this.get('canvas').get('el').parentNode;
     const outterNode = this.get('canvas').get('el');
     const viewWidth = DomUtil.getWidth(outterNode);
@@ -449,6 +450,11 @@ class Tooltip extends Group {
     }
 
     if (this.get('x') !== x || this.get('y') !== y) {
+      const markerItems = this.get('markerItems');
+      if (!Util.isEmpty(markerItems)) {
+        endx = markerItems[0].x;
+        endy = markerItems[0].y;
+      }
       if (crossLineShapeY) { // 第一次进入时，画布需要单独绘制，所以需要先设定corss的位置
         crossLineShapeY.move(endx, 0);
       }
