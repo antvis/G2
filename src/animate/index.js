@@ -64,6 +64,7 @@ function getAnimateCfg(geomType, animationType, animateCfg) {
 function addAnimate(cache, shapes, canvas, isUpdate) {
   let animate;
   let animateCfg;
+  let canvasDrawn = false;
 
   if (isUpdate) {
     // Step: leave -> update -> enter
@@ -96,6 +97,7 @@ function addAnimate(cache, shapes, canvas, isUpdate) {
           const finalMatrix = mat3.multiply([], tempShapeMatrix, coord.matrix);
           tempShape.setMatrix(finalMatrix);
         }
+        canvasDrawn = true;
         animate(tempShape, animateCfg, coord);
       }
     });
@@ -118,6 +120,7 @@ function addAnimate(cache, shapes, canvas, isUpdate) {
             updateShape.setSilent('cacheShape', null);
           });
         }
+        canvasDrawn = true;
       }
     });
 
@@ -129,6 +132,7 @@ function addAnimate(cache, shapes, canvas, isUpdate) {
       animate = getAnimate(name, coord, 'enter', animateCfg.animation);
       if (Util.isFunction(animate)) {
         animate(newShape, animateCfg, coord);
+        canvasDrawn = true;
       }
     });
   } else {
@@ -139,9 +143,11 @@ function addAnimate(cache, shapes, canvas, isUpdate) {
       animate = getAnimate(name, coord, 'appear', animateCfg.animation);
       if (Util.isFunction(animate)) {
         animate(shape, animateCfg, coord);
+        canvasDrawn = true;
       }
     });
   }
+  return canvasDrawn;
 }
 
 module.exports = {
@@ -155,10 +161,14 @@ module.exports = {
     const axisShapes = getShapes(axisContainer, viewId);
     const cacheShapes = shapes.concat(axisShapes);
     canvas.setSilent(viewId + 'caches', cache(cacheShapes));
+    let drawn;
     if (isUpdate) {
-      addAnimate(caches, cacheShapes, canvas, isUpdate);
+      drawn = addAnimate(caches, cacheShapes, canvas, isUpdate);
     } else {
-      addAnimate(caches, shapes, canvas, isUpdate);
+      drawn = addAnimate(caches, shapes, canvas, isUpdate);
+    }
+    if (!drawn) {
+      canvas.draw();
     }
   }
 };
