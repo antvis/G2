@@ -72,13 +72,12 @@ function calcTooltipPosition(x, y, position, dom, target) {
   return [ x, y ];
 }
 
-
 function confineTooltipPosition(x, y, el, plotRange) {
   const gap = 20;
   const width = el.clientWidth;
   const height = el.clientHeight;
   if (x + width > plotRange.tr.x) {
-    x = plotRange.tr.x - width - gap;
+    x -= width + 2 * gap;
   }
 
   if (x < plotRange.tl.x) {
@@ -86,7 +85,7 @@ function confineTooltipPosition(x, y, el, plotRange) {
   }
 
   if (y + height > plotRange.bl.y) {
-    y = plotRange.bl.y - height - gap;
+    y -= height + 2 * gap;
   }
 
   if (y < plotRange.tl.y) {
@@ -164,7 +163,8 @@ class Tooltip extends Group {
        * tooltip 内容跟随鼠标移动
        * @type {Boolean}
        */
-      follow: true
+      follow: true,
+      enterable: false
     };
   }
 
@@ -424,7 +424,8 @@ class Tooltip extends Group {
     const crosshairsRectShape = this.get('crosshairsRectShape');
     const endx = x;
     const endy = y;
-    const outterNode = this.get('canvas').get('el').parentNode;
+    // const outterNode = this.get('canvas').get('el').parentNode;
+    const outterNode = this.get('canvas').get('el');
     const viewWidth = DomUtil.getWidth(outterNode);
     const viewHeight = DomUtil.getHeight(outterNode);
     let offset = this.get('offset');

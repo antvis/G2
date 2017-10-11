@@ -65,6 +65,19 @@ class TooltipController {
     this.timeStamp = 0;
   }
 
+  _normalizeEvent(event) {
+    const chart = this.chart;
+    const canvas = this._getCanvas();
+    const pixelRatio = canvas.get('pixelRatio');
+    const point = {
+      x: event.x / pixelRatio,
+      y: event.y / pixelRatio
+    };
+    const views = chart.getViewsByPoint(point);
+    event.views = views;
+    return event;
+  }
+
   _getCanvas() {
     return this.chart.get('canvas');
   }
@@ -237,6 +250,16 @@ class TooltipController {
     const tooltip = canvas.addGroup(Tooltip, options);
     canvas.sort();
     self.tooltip = tooltip;
+    if (!tooltip.get('enterable')) { // 鼠标不允许进入 tooltip 容器
+      const tooltipContainer = tooltip.get('container');
+      if (tooltipContainer) {
+        tooltipContainer.onmousemove = e => {
+          // 避免 tooltip 频繁闪烁
+          const eventObj = self._normalizeEvent(e);
+          chart.emit('plotmove', eventObj);
+        };
+      }
+    }
     self._bindEvent();
   }
 
@@ -334,9 +357,10 @@ class TooltipController {
         markersItems = [ snapItem ];
         items = [ snapItem ];
       }
-      if (!Util.isEmpty(markersItems)) {
-        point = markersItems[0];
-      }
+      // 3.0 采用当前鼠标位置作为 tooltip 的参考点
+      // if (!Util.isEmpty(markersItems)) {
+      //   point = markersItems[0];
+      // }
       const title = first.title || first.name;
 
       self._setTooltip(title, point, items, markersItems, target);
