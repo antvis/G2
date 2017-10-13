@@ -1,0 +1,188 @@
+/**
+ * @fileOverview G2 3.0 深色主题
+ */
+const Util = require('../util');
+const BasicTheme = require('./default');
+
+// tooltip 相关 dom 的 css 类名
+const TOOLTIP_CONTAINER_CLASS = 'g2-tooltip';
+
+const DarkTheme = Util.defaultsDeep({
+  background: {
+    fill: '#1F1F1F',
+    radius: 2
+  }, // 容器区域
+  plotBackground: {
+    fill: '#1F1F1F'
+  }, // 绘图区域
+  axis: {
+    top: {
+      label: {
+        textStyle: {
+          fill: '#A6A6A6'
+        }
+      },
+      line: {
+        stroke: '#737373'
+      },
+      tickLine: {
+        stroke: '#737373'
+      }
+    },
+    bottom: {
+      label: {
+        textStyle: {
+          fill: '#A6A6A6'
+        }
+      },
+      line: {
+        stroke: '#737373'
+      },
+      tickLine: {
+        stroke: '#737373'
+      }
+    },
+    left: {
+      label: {
+        textStyle: {
+          fill: '#A6A6A6'
+        }
+      },
+      grid: {
+        lineStyle: {
+          stroke: '#BFBFBF'
+        }
+      }
+    },
+    right: {
+      label: {
+        textStyle: {
+          fill: '#A6A6A6'
+        }
+      },
+      grid: {
+        lineStyle: {
+          stroke: '#BFBFBF'
+        }
+      }
+    },
+    circle: {
+      label: {
+        textStyle: {
+          fill: '#A6A6A6'
+        }
+      },
+      line: {
+        stroke: '#737373'
+      },
+      tickLine: {
+        stroke: '#737373'
+      },
+      grid: {
+        lineStyle: {
+          stroke: '#BFBFBF'
+        }
+      }
+    },
+    radius: {
+      label: {
+        textStyle: {
+          fill: '#A6A6A6'
+        }
+      },
+      line: {
+        stroke: '#737373'
+      },
+      tickLine: {
+        stroke: '#737373'
+      },
+      grid: {
+        lineStyle: {
+          stroke: '#BFBFBF'
+        }
+      }
+    },
+    helix: {
+      line: {
+        stroke: '#737373'
+      },
+      tickLine: {
+        stroke: '#737373'
+      }
+    }
+  },
+  label: {
+    textStyle: {
+      fill: '#A6A6A6'
+    }
+  },
+  legend: {
+    right: {
+      textStyle: {
+        fill: '#737373'
+      },
+      unCheckColor: '#bfbfbf'
+    },
+    left: {
+      textStyle: {
+        fill: '#737373'
+      }, // 图例项文本的样式
+      unCheckColor: '#bfbfbf'
+    },
+    top: {
+      textStyle: {
+        fill: '#737373'
+      }, // 图例项文本的样式
+      unCheckColor: '#bfbfbf'
+    },
+    bottom: {
+      textStyle: {
+        fill: '#737373'
+      }, // 图例项文本的样式
+      unCheckColor: '#bfbfbf'
+    }
+  },
+  tooltip: {
+    // css style for tooltip
+    [`${TOOLTIP_CONTAINER_CLASS}`]: {
+      color: '#D9D9D9'
+    }
+  },
+  tooltipCrosshairsRect: {
+    type: 'rect',
+    style: {
+      fill: '#fff',
+      opacity: 0.15
+    }
+  }, // tooltip 辅助背景框样式
+  tooltipCrosshairsLine: {
+    style: {
+      stroke: '#BFBFBF'
+    }
+  },
+  guide: {
+    line: {
+      text: {
+        style: {
+          fill: '#A6A6A6'
+        }
+      }
+    },
+    text: {
+      style: {
+        fill: '#A6A6A6'
+      }
+    },
+    region: {
+      // TODO
+      style: {
+        lineWidth: 0, // 辅助框的边框宽度
+        fill: '#000', // 辅助框填充的颜色
+        fillOpacity: 0.04 // 辅助框的背景透明度
+      } // 辅助框的图形样式属性
+    }
+  }
+}, BasicTheme);
+
+module.exports = DarkTheme;
+
