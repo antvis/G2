@@ -299,8 +299,9 @@ class LegendController {
       isByAttr = false;
     }
 
-    const plotRange = self.plotRange;
-    const maxLength = (position === 'right' || position === 'left') ? plotRange.bl.y - plotRange.tr.y : plotRange.tr.x - plotRange.bl.x;
+    const chart = self.chart;
+    const canvas = chart.get('canvas');
+    const maxLength = (position === 'right' || position === 'left') ? canvas.get('height') : canvas.get('width');
 
     Util.each(ticks, tick => {
       const text = tick.text;
@@ -463,8 +464,8 @@ class LegendController {
       item.geom = geom;
     });
 
-    const plotRange = self.plotRange;
-    const maxLength = (position === 'right' || position === 'left') ? plotRange.bl.y - plotRange.tr.y : plotRange.tr.x - plotRange.bl.x;
+    const canvas = chart.get('canvas');
+    const maxLength = (position === 'right' || position === 'left') ? canvas.get('height') : canvas.get('width');
 
     const legendCfg = Util.defaultsDeep({
       maxLength,
