@@ -50,7 +50,7 @@ const DarkTheme = Util.defaultsDeep({
       },
       grid: {
         lineStyle: {
-          stroke: '#BFBFBF'
+          stroke: '#404040'
         }
       }
     },
@@ -62,7 +62,7 @@ const DarkTheme = Util.defaultsDeep({
       },
       grid: {
         lineStyle: {
-          stroke: '#BFBFBF'
+          stroke: '#404040'
         }
       }
     },
@@ -80,7 +80,7 @@ const DarkTheme = Util.defaultsDeep({
       },
       grid: {
         lineStyle: {
-          stroke: '#BFBFBF'
+          stroke: '#404040'
         }
       }
     },
@@ -98,7 +98,7 @@ const DarkTheme = Util.defaultsDeep({
       },
       grid: {
         lineStyle: {
-          stroke: '#BFBFBF'
+          stroke: '#404040'
         }
       }
     },
@@ -157,7 +157,7 @@ const DarkTheme = Util.defaultsDeep({
   }, // tooltip 辅助背景框样式
   tooltipCrosshairsLine: {
     style: {
-      stroke: '#BFBFBF'
+      stroke: 'rgba(255, 255, 255, 0.45)'
     }
   },
   guide: {

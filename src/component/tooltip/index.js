@@ -1,4 +1,5 @@
 const Util = require('../../util');
+const Global = require('../../global');
 const { Group, DomUtil } = require('@ali/g');
 
 const CONTAINER_CLASS = 'g2-tooltip';
@@ -188,20 +189,9 @@ class Tooltip extends Group {
   _beforeRenderUI() {
     const crosshairs = this.get('crosshairs');
     if (crosshairs && crosshairs.type === 'rect') {
-      Util.defaultsDeep(this.get('crosshairs'), {
-        style: {
-          fill: '#CCD7EB',
-          opacity: 0.4,
-          lineWidth: 0
-        }
-      });
+      Util.defaultsDeep(this.get('crosshairs'), Global.tooltipCrosshairsRect);
     } else {
-      Util.defaultsDeep(this.get('crosshairs'), {
-        style: {
-          stroke: '#666',
-          lineWidth: 1
-        }
-      });
+      Util.defaultsDeep(this.get('crosshairs'), Global.tooltipCrosshairsLine);
     }
 
     const crosshairsGroup = this.addGroup({
