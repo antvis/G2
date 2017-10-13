@@ -181,7 +181,12 @@ class Category extends Base {
        * 图例项的顺序是否要逆序，默认为 false
        * @type {Boolean}
        */
-      reversed: false
+      reversed: false,
+      /**
+       * 是否自动换行
+       * @type {Boolean}
+       */
+      autoWrap: true
     });
   }
 
@@ -193,7 +198,7 @@ class Category extends Base {
     if (!this.get('useHtml')) {
       super._renderUI();
       this._renderItems();
-      this._adjustItems();
+      this.get('autoWrap') && this._adjustItems(); // 默认自动换行
       this._renderBack();
     } else { // 使用 html 渲染图例
       this._renderHTML();
