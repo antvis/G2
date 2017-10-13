@@ -2,11 +2,8 @@
  * @fileOverview 全局变量
  * @author dxq613
  */
-
-
 const Util = require('./util');
 const Theme = require('./theme/index');
-const THEME_TYPES = [ 'default' ];
 
 const Global = {};
 const Default = {
@@ -35,10 +32,12 @@ function setTheme(theme) {
   let newTheme = {};
   if (Util.isObject(theme)) {
     newTheme = theme;
-  } else if (Util.indexOf(THEME_TYPES, theme) !== -1) {
+  } else if (Util.indexOf(Object.keys(Theme), theme) !== -1) {
     newTheme = Theme[theme];
+  } else {
+    newTheme = Theme.default;
   }
-  Util.merge(Global, Default, Theme.default, newTheme);
+  Util.merge(Global, Default, newTheme);
   Global.setTheme = setTheme;
 }
 

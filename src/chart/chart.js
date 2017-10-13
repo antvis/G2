@@ -52,6 +52,7 @@ class Chart extends View {
       backPlot: null,
       frontPlot: null,
       plotBackground: null,
+      background: null,
       views: []
     });
   }
@@ -132,8 +133,8 @@ class Chart extends View {
     const canvas = this.get('canvas');
     const plot = canvas.addGroup(Component.Plot, {
       padding: this.get('padding'),
-      plotBackground: this.get('plotBackground'),
-      background: this.get('background')
+      plotBackground: Util.mix({}, Global.plotBackground, this.get('plotBackground')),
+      background: Util.mix({}, Global.background, this.get('background'))
     });
     this.set('plot', plot);
     this.set('plotRange', plot.get('plotRange'));

@@ -64,7 +64,6 @@ describe('Point shapes', function() {
       const markerCfg = Point.getMarkerCfg('circle', point);
       expect(markerCfg).eql({
         lineWidth: 2 / 2,
-        fillOpacity: 0.65,
         fill: Global.defaultColor,
         radius: Global.markerRadius,
         symbol: 'circle'
