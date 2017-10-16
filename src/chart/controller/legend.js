@@ -120,14 +120,42 @@ class LegendController {
     });
   }
 
+  _filterLabels(shape, geom, visible) {
+    if (shape.get('gLabel')) {
+      shape.get('gLabel').set('visible', visible);
+    } else {
+      const labelCfg = geom.get('labelCfg');
+      if (labelCfg && labelCfg.fields && labelCfg.fields.length > 0) {
+        const xScale = geom.getXScale();
+        const yScale = geom.getYScale();
+        const xField = xScale.field;
+        const yField = yScale.field;
+        const shapeData = shape.get('origin')._origin;
+        const labelContainer = geom.get('labelContainer');
+        const labels = labelContainer.get('labelsGroup').get('children');
+        Util.each(labels, label => {
+          const labelData = label.get('attrs').point;
+          if ((labelData[xField] === shapeData[xField]) && (labelData[yField] === shapeData[yField])) {
+            label.set('visible', visible);
+            shape.set('gLabel', label);
+          }
+        });
+      }
+    }
+  }
+
   _bindFilterEvent(legend, scale) {
+    const self = this;
     const chart = this.chart;
     const field = scale.field;
     legend.on('itemfilter', ev => {
       const range = ev.range;
-      chart.filterShape(function(obj) {
+      chart.filterShape(function(obj, shape, geom) {
         if (obj[field]) {
-          return obj[field] >= range[0] && obj[field] <= range[1];
+          const filtered = (obj[field] >= range[0] && obj[field] <= range[1]);
+          // shape 带 label，则还需要隐藏 label
+          self._filterLabels(shape, geom, filtered);
+          return filtered;
         }
         return true;
       });
