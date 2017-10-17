@@ -398,11 +398,9 @@ class Chart extends View {
    * @override
    */
   paint() {
-    this.emit('beforepaint');
     super.paint();
     this._renderLegends(); // 渲染图例
     this._renderTooltips(); // 渲染 tooltip
-    this.emit('afterpaint');
   }
 
   /**

@@ -140,7 +140,17 @@ describe('facets test', function() {
       height: 500,
       padding: [ 40, 50, 50, 50 ]
     });
-    chart.source(diamonds);
+    chart.source(diamonds, {
+      clarity: {
+        sync: true
+      },
+      cut: {
+        sync: true,
+        formatter(v) {
+          return v + '1111';
+        }
+      }
+    });
     let facets;
     it('init', function() {
       facets = new Facets.List({
@@ -149,7 +159,7 @@ describe('facets test', function() {
         cols: 3,
         padding: [ 20, 10 ],
         eachView(view) {
-          view.point().position('carat*price');
+          view.point().position('carat*price').color('clarity');
         }
       });
       expect(facets.type).equal('list');

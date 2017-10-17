@@ -152,9 +152,6 @@ class Base {
     if (this.autoSetAxis) {
       this.processAxis(view, facet);
     }
-    if (this.showTitle) {
-      this.renderTitle(view, facet);
-    }
   }
 
   processAxis(view, facet) {
@@ -197,18 +194,35 @@ class Base {
     this.drawColTitle(view, facet);
   }
 
+  getScaleText(field, value, view) {
+    let rst;
+    if (field) {
+      const scales = view.get('scales');
+      let scale = scales[field];
+      if (!scale) {
+        scale = view.createScale(field);
+      }
+      rst = scale.getText(value);
+    } else {
+      rst = value;
+    }
+    return rst;
+
+  }
   drawColTitle(view, facet) {
+    const text = this.getScaleText(facet.colField, facet.colValue, view);
     const colTextCfg = assign({
       position: [ '50%', '0%' ],
-      content: facet.colValue
+      content: text
     }, this.colTitle);
     view.guide().text(colTextCfg);
   }
 
   drawRowTitle(view, facet) {
+    const text = this.getScaleText(facet.rowField, facet.rowValue, view);
     const rowTextCfg = assign({
       position: [ '100%', '50%' ],
-      content: facet.rowValue
+      content: text
     }, cloneDeep(this.rowTitle));
 
     view.guide().text(rowTextCfg);
@@ -325,7 +339,14 @@ class Base {
   }
 
   onPaint() {
-
+    if (this.showTitle) {
+      const facets = this.facets;
+      for (let i = 0; i < facets.length; i++) {
+        const facet = facets[i];
+        const view = facet.view;
+        this.renderTitle(view, facet);
+      }
+    }
   }
 
   onDataChange() {

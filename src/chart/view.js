@@ -838,11 +838,13 @@ class View extends Base {
       view.initView();
     });
     this.initView();
+    this.emit('beforepaint');
     // 绘制
     Util.each(views, function(view) {
       view.paint();
     });
     this.paint();
+    this.emit('afterpaint');
     if (!stopDraw) {
       const backPlot = this.get('backPlot');
       backPlot.sort();

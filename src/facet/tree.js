@@ -189,6 +189,7 @@ class Tree extends Base {
 
   // 绘制完成后
   onPaint() {
+    super.onPaint();
     this.group.clear();
     if (this.facets && this.line) {
       this.drawLines(this.facets, this.group);
