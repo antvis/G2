@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
-const { Canvas } = require('@ali/g');
-const DataSet = require('@alipay/data-set');
+const { Canvas } = require('@antv/g');
+const DataSet = require('@antv/data-set');
 const PieLabels = require('../../../../src/geom/label/pie-labels');
 const Coord = require('../../../../src/coord/');
 const G2 = require('../../../../index');

@@ -1,6 +1,6 @@
 const Util = require('../../util');
 const Global = require('../../global');
-const { Group, DomUtil } = require('@ali/g');
+const { Group, DomUtil } = require('@antv/g');
 
 const CONTAINER_CLASS = 'g2-tooltip';
 const TITLE_CLASS = 'g2-tooltip-title';

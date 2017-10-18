@@ -1,5 +1,5 @@
 const Util = require('../../util');
-const { DomUtil } = require('@ali/g');
+const { DomUtil } = require('@antv/g');
 const Base = require('./base');
 
 class Html extends Base {

@@ -1,6 +1,6 @@
 const Util = require('../../util');
 const { Axis } = require('../../component/index');
-const { vec2 } = require('@ali/g').MatrixUtil;
+const { vec2 } = require('@antv/g').MatrixUtil;
 const Global = require('../../global');
 
 function formatTicks(ticks) {

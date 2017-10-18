@@ -1,4 +1,4 @@
-const { Group } = require('@ali/g');
+const { Group } = require('@antv/g');
 const Util = require('../../util');
 
 class Grid extends Group {

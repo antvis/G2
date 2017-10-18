@@ -1,70 +1,70 @@
 const Util = require('../../util');
 const { LabelsRenderer } = require('../label/index');
-const { Group } = require('@ali/g');
+const { Group } = require('@antv/g');
 const Grid = require('./grid');
 
 class Base extends Group {
   getDefaultCfg() {
     return {
       /**
-       * Î¨Ò»±êÊ¶£¬ÓÃÓÚ¶¯»­
+       * Î¨Ò»ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½
        * @type {[type]}
        */
       _id: null,
       zIndex: 4,
       /**
-       * ×ø±êÖáÉÏµÄ×ø±êµã
+       * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
        * @type {Array}
        */
       ticks: null,
       /**
-       * ×ø±êÖáÏßµÄÍ¼ÐÎÊôÐÔÅäÖÃ£¬Èç¹ûÉèÖÃ³Énull£¬Ôò²»ÏÔÊ¾
+       * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã³ï¿½nullï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
        * @type {Object}
        */
       line: null,
       /**
-       * ¿Ì¶ÈÏßµÄÑùÊ½ÅäÖÃ£¬Èç¹ûÉèÖÃ³Énull£¬Ôò²»ÏÔÊ¾
+       * ï¿½Ì¶ï¿½ï¿½ßµï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã³ï¿½nullï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
        * @type {Object}
        */
       tickLine: null,
       /**
-       * ´Î¿Ì¶ÈÏß¸öÊý£¬Èç¹ûÎ´ÉèÖÃ¸ÃÊôÐÔ£¬Ôò²»ÏÔÊ¾
+       * ï¿½Î¿Ì¶ï¿½ï¿½ß¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½Ô£ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
        * @type {Number}
        */
       subTickCount: 0,
       /**
-       * ´Î¿Ì¶ÈÏßÑùÊ½ÅäÖÃ
+       * ï¿½Î¿Ì¶ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½
        * @type {Object}
        */
       subTickLine: null,
       /**
-       * ×ø±êÖáÕ¤¸ñÏßÑùÊ½ÅäÖÃ£¬Èç¹ûÉèÖÃÎª null£¬Ôò²»ÏÔÊ¾
+       * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª nullï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
        * @type {Object}
        */
       grid: null,
       /**
-       * ×ø±êÖáÉÏµÄÎÄ±¾Ïà¹ØÅäÖÃ
+       * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
        * @type {Object}
        */
       label: {
-        textStyle: {}, // ÎÄ±¾ÑùÊ½ÅäÖÃ
+        textStyle: {}, // ï¿½Ä±ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½
         autoRotate: true,
-        formatter: null//  ¸ñÊ½»¯×ø±êÖáÎÄ±¾ÏÔÊ¾
+        formatter: null//  ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½Ê¾
       },
       /**
-       * ×ø±êÖá±êÌâÑùÊ½ÅäÖÃ
+       * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½
        * @type {Object}
        */
       title: {
-        autoRotate: true, // ×Ô¶¯Ðý×ª
-        textStyle: {} // ±êÌâÎÄ±¾ÑùÊ½ÅäÖÃ
+        autoRotate: true, // ï¿½Ô¶ï¿½ï¿½ï¿½×ª
+        textStyle: {} // ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½
       },
-      autoPaint: true // @type {Boolean} ÊÇ·ñ×Ô¶¯»æÖÆ
+      autoPaint: true // @type {Boolean} ï¿½Ç·ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½
     };
   }
 
   _beforeRenderUI() {
-    // Ìí¼ÓÄ¬ÈÏÑùÊ½
+    // ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½ï¿½ï¿½Ê½
     const title = this.get('title');
     const label = this.get('label');
     const grid = this.get('grid');
@@ -191,7 +191,7 @@ class Base extends Group {
       }
     });
 
-    if (subTickCount) { // Èç¹ûÓÐÉèÖÃ´Î¼¶·Öµã£¬Ìí¼Ó´Î¼¶tick
+    if (subTickCount) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã´Î¼ï¿½ï¿½Öµã£¬ï¿½ï¿½Ó´Î¼ï¿½tick
       const subTickLineCfg = self.get('subTickLine');
       Util.each(ticks, function(tick, index) {
         if (index > 0) {
@@ -232,7 +232,7 @@ class Base extends Group {
       attrs: cfg
     });
     tickShape.name = 'axis-ticks';
-    tickShape._id = this.get('_id') + '-ticks'; // Ã¿¸ö label ÓÃ _id Î¨Ò»±êÊ¶
+    tickShape._id = this.get('_id') + '-ticks'; // Ã¿ï¿½ï¿½ label ï¿½ï¿½ _id Î¨Ò»ï¿½ï¿½Ê¶
     tickShape.set('coord', this.get('coord'));
   }
 
@@ -282,12 +282,12 @@ class Base extends Group {
   getTextAnchor(vector) {
     const ratio = Math.abs(vector[1] / vector[0]);
     let align;
-    if (ratio >= 1) { // ÉÏÃæ»òÕßÏÂÃæ
+    if (ratio >= 1) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
       align = 'center';
     } else {
-      if (vector[0] > 0) { // ÓÒ²à
+      if (vector[0] > 0) { // ï¿½Ò²ï¿½
         align = 'start';
-      } else { // ×ó²à
+      } else { // ï¿½ï¿½ï¿½
         align = 'end';
       }
     }
@@ -315,42 +315,42 @@ class Base extends Group {
   }
 
   /**
-   * Ðý×ªÎÄ±¾
+   * ï¿½ï¿½×ªï¿½Ä±ï¿½
    * @abstract
    * @return {[type]} [description]
    */
   autoRotateLabels() {}
 
   /**
-   * äÖÈ¾×ø±êÖá±êÌâ
+   * ï¿½ï¿½È¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
    * @abstract
    * @return {[type]} [description]
    */
   renderTitle() {}
 
   /**
-   * »ñÈ¡×ø±êÖáÏßµÄ path
+   * ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½ path
    * @abstract
    * @return {[type]} [description]
    */
   getLinePath() {}
 
   /**
-   * »ñÈ¡tickÔÚ»­²¼ÉÏµÄÎ»ÖÃ
+   * ï¿½ï¿½È¡tickï¿½Ú»ï¿½ï¿½ï¿½ï¿½Ïµï¿½Î»ï¿½ï¿½
    * @abstract
    * @return {[type]} [description]
    */
   getTickPoint() {}
 
   /**
-   * »ñÈ¡±êÊ¾×ø±êµãµÄÏßµÄÖÕµã
+   * ï¿½ï¿½È¡ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½ï¿½Õµï¿½
    * @abstract
    * @return {[type]} [description]
    */
   getTickEnd() {}
 
   /**
-   * »ñÈ¡¾àÀë×ø±êÖáµÄÏòÁ¿
+   * ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
    * @abstract
    * @return {[type]} [description]
    */
@@ -378,7 +378,7 @@ Util.assign(Base.prototype, LabelsRenderer, {
       rst = labelsGroup.addLabel(label);
       if (rst) {
         rst.name = 'axis-label';
-        rst._id = this.get('_id') + '-' + tick.tickValue; // Ã¿¸ö label ÓÃ _id Î¨Ò»±êÊ¶
+        rst._id = this.get('_id') + '-' + tick.tickValue; // Ã¿ï¿½ï¿½ label ï¿½ï¿½ _id Î¨Ò»ï¿½ï¿½Ê¶
         rst.set('coord', this.get('coord'));
       }
     }

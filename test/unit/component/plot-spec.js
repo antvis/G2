@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const PlotBack = require('../../../src/component/plot');
-const { Canvas } = require('@ali/g');
+const { Canvas } = require('@antv/g');
 
 const div = document.createElement('div');
 div.id = 'c1';

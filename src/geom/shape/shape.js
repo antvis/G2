@@ -5,7 +5,7 @@
 
 const Util = require('../../util');
 const PathUtil = require('../util/path');
-const GPath = require('@ali/g').PathUtil;
+const GPath = require('@antv/g').PathUtil;
 const Shape = {};
 
 const ShapeBase = {

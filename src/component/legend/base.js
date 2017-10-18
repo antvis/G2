@@ -1,5 +1,5 @@
 const Util = require('../../util');
-const { Group } = require('@ali/g');
+const { Group } = require('@antv/g');
 
 class Base extends Group {
   getDefaultCfg() {

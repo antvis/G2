@@ -1,5 +1,5 @@
 const Util = require('../../util');
-const { Group, DomUtil } = require('@ali/g');
+const { Group, DomUtil } = require('@antv/g');
 
 class Slider extends Group {
   getDefaultCfg() {

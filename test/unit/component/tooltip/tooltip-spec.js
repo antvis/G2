@@ -1,5 +1,5 @@
 // const expect = require('chai').expect;
-const { Canvas } = require('@ali/g');
+const { Canvas } = require('@antv/g');
 const Tooltip = require('../../../../src/component/tooltip/index');
 
 const div = document.createElement('div');

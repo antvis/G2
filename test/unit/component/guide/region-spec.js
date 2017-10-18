@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const { Canvas } = require('@ali/g');
+const { Canvas } = require('@antv/g');
 const Coord = require('../../../../src/coord/index');
 const Region = require('../../../../src/component/guide/region');
 const Scale = require('../../../../src/scale/index');

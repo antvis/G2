@@ -1,4 +1,4 @@
-const G = require('@ali/g');
+const G = require('@antv/g');
 const Animate = require('./src/animate/animate');
 const Chart = require('./src/chart/chart');
 const Global = require('./src/global');

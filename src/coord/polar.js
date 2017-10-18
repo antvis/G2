@@ -1,6 +1,6 @@
 const Util = require('../util');
 const Base = require('./base');
-const MatrixUtil = require('@ali/g').MatrixUtil;
+const MatrixUtil = require('@antv/g').MatrixUtil;
 const mat3 = MatrixUtil.mat3;
 const vec2 = MatrixUtil.vec2;
 const vec3 = MatrixUtil.vec3;

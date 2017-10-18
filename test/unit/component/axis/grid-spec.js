@@ -1,10 +1,10 @@
 // var $ = require('jquery');
 
-// var Util = require('@ali/g-util');
+// var Util = require('@antv/g-util');
 // var expect = require('@ali/expect.js');
-// var Canvas = require('@ali/g-canvas');
+// var Canvas = require('@antv/g-canvas');
 // var Components = require('../../index')
-// var Coord = require('@ali/g-coord');
+// var Coord = require('@antv/g-coord');
 // var CartesianAxis = Components.Axis;
 // var CircleAxis = Components.Axis.Circle;
 

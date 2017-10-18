@@ -1,6 +1,6 @@
 const Util = require('../util');
 const Animate = require('./animate');
-const { MatrixUtil } = require('@ali/g');
+const { MatrixUtil } = require('@antv/g');
 const { mat3 } = MatrixUtil;
 
 // 获取图组内所有的shapes

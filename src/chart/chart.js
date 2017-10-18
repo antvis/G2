@@ -5,7 +5,7 @@
 
 const Util = require('../util');
 const View = require('./view');
-const G = require('@ali/g');
+const G = require('@antv/g');
 const Canvas = G.Canvas;
 const DomUtil = G.DomUtil;
 const Component = require('../component/index');

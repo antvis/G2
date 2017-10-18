@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const { Canvas, Group } = require('@ali/g');
+const { Canvas, Group } = require('@antv/g');
 const LineAxis = require('../../../../src/component/axis/line');
 
 const div = document.createElement('div');

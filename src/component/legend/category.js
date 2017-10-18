@@ -1,6 +1,6 @@
 const Util = require('../../util');
 const Base = require('./base');
-const { DomUtil, Event, Group } = require('@ali/g');
+const { DomUtil, Event, Group } = require('@antv/g');
 
 const CONTAINER_CLASS = 'g2-legend';
 const TITLE_CLASS = 'g2-legend-title';

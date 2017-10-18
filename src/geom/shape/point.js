@@ -7,7 +7,7 @@
 
 const Util = require('../../util');
 const ShapeUtil = require('../util/shape');
-const Marker = require('@ali/g').Marker;
+const Marker = require('@antv/g').Marker;
 const Global = require('../../global');
 const Shape = require('./shape');
 const SHAPES = [ 'circle', 'square', 'bowtie', 'diamond', 'hexagon', 'triangle', 'triangle-down' ];

@@ -1,6 +1,6 @@
 const Base = require('./base');
 const Util = require('../../util');
-const { MatrixUtil } = require('@ali/g');
+const { MatrixUtil } = require('@antv/g');
 const vec2 = MatrixUtil.vec2;
 
 class Line extends Base {

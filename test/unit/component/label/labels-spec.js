@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const G = require('@ali/g');
+const G = require('@antv/g');
 const Canvas = G.Canvas;
 const Labels = require('../../../../src/component/label/index');
 

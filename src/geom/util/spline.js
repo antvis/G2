@@ -1,4 +1,4 @@
-const MatrixUtil = require('@ali/g').MatrixUtil;
+const MatrixUtil = require('@antv/g').MatrixUtil;
 const Vector2 = MatrixUtil.vec2;
 
 function smoothBezier(points, smooth, isLoop, constraint) {

@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const { Canvas } = require('@ali/g');
+const { Canvas } = require('@antv/g');
 const PolyLineAxis = require('../../../../src/component/axis/polyline');
 
 const div = document.createElement('div');

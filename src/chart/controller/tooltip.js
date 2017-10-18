@@ -1,10 +1,11 @@
 const Util = require('../../util');
 const Global = require('../../global');
 const { Tooltip } = require('../../component/index');
+const MatrixUtil = require('@antv/g').MatrixUtil;
+const Vector2 = MatrixUtil.vec2;
+
 const TYPE_SHOW_MARKERS = [ 'line', 'area', 'path', 'areaStack' ]; // 默认展示 tooltip marker 的几何图形
 const TYPE_SHOW_CROSSHAIRS = [ 'line', 'area' ]; // 默认展示十字瞄准线的几何图形
-const MatrixUtil = require('@ali/g').MatrixUtil;
-const Vector2 = MatrixUtil.vec2;
 
 function _indexOfArray(items, item) {
   let rst = -1;

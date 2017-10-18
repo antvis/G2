@@ -1,5 +1,5 @@
 const Util = require('../../util');
-const { DomUtil, Group } = require('@ali/g');
+const { DomUtil, Group } = require('@antv/g');
 
 class Labels extends Group {
   getDefaultCfg() {

@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const Chart = require('../../../src/chart/chart');
-const { DomUtil } = require('@ali/g');
+const { DomUtil } = require('@antv/g');
 
 const div = document.createElement('div');
 div.id = 'cchart';

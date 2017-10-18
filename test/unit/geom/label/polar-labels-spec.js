@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const { Canvas } = require('@ali/g');
+const { Canvas } = require('@antv/g');
 const PolarLabels = require('../../../../src/geom/label/polar-labels');
 const Coord = require('../../../../src/coord/');
 const Scale = require('../../../../src/scale/index');

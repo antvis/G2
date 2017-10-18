@@ -1,6 +1,6 @@
 const Util = require('../util');
 const Base = require('./base');
-const MatrixUtil = require('@ali/g').MatrixUtil;
+const MatrixUtil = require('@antv/g').MatrixUtil;
 const vec2 = MatrixUtil.vec2;
 
 class Helix extends Base {

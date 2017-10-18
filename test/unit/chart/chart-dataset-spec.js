@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const Chart = require('../../../src/chart/chart');
-const DataSet = require('@alipay/data-set');
+const DataSet = require('@antv/data-set');
 
 const div = document.createElement('div');
 div.id = 'cdataset';

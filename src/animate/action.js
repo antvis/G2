@@ -1,5 +1,5 @@
 const Util = require('../util');
-const G = require('@ali/g');
+const G = require('@antv/g');
 const PathUtil = G.PathUtil;
 
 function getClip(coord) {
