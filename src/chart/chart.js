@@ -247,6 +247,22 @@ class Chart extends View {
     this.emit('afterchangesize');
     return self;
   }
+  /**
+   * 改变宽度
+   * @param  {Number} width  图表宽度
+   * @return {Chart} 图表对象
+   */
+  changeWidth(width) {
+    return this.changeSize(width, this.get('height'));
+  }
+  /**
+   * 改变宽度
+   * @param  {Number} height  图表高度
+   * @return {Chart} 图表对象
+   */
+  changeHeight(height) {
+    return this.changeSize(this.get('width'), height);
+  }
 
   facet(type, cfg) {
     const cls = Facets[Util.upperFirst(type)];
