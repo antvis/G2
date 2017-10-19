@@ -14,7 +14,6 @@
   <div id="canvas"></div>
   <script src="./assets/jquery-3.2.1.min.js"></script>
   <script src="./assets/data-set.min.js"></script>
-  <script src="https://gw.alipayobjects.com/as/g/datavis/g2/2.3.8/index.js"></script>
   <script src="../build/g2.js"></script>
 
   <script>
@@ -48,6 +47,7 @@
       chart.interval()
         .position('release*count')
         .color('#e50000');
+
       chart.render();
 
       chart.on('interval:click', function(ev) {

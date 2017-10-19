@@ -36,7 +36,12 @@
     chart.intervalSymmetric()
       .position('action*value')
       .color('action', [ '#C82B3D', '#EB4456', '#F9815C', '#F8AB60', '#EDCC72' ])
-      .shape('funnel');
+      .shape('funnel')
+      .label('value', {
+        labelLine: {
+          lineWidth: 1
+        }
+      });
     chart.render();
   </script>
 </body>

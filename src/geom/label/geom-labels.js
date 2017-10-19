@@ -151,11 +151,52 @@ class GeomLabels extends Group {
   }
 
   /**
-   * 绘制连接到
-   * @param {Array} items 文本项
-   * @param {Object} labelLine 连接文本的线的配置项
+   * drawing lines to labels
+   * @param  {Array} items labels
+   * @param  {Object} labelLine configuration for label lines
    */
-  drawLines() { /* items,labelLine */
+  drawLines(items, labelLine) {
+    const self = this;
+    const offset = self.getDefaultOffset();
+    if (offset > 0) {
+      Util.each(items, function(point) {
+        self.lineToLabel(point, labelLine);
+      });
+    }
+  }
+
+  // 连接线
+  lineToLabel(label, labelLine) {
+    const self = this;
+    const coord = self.get('coord');
+    const start = {
+      x: label.x - label._offset.x,
+      y: label.y - label._offset.y
+    };
+    const inner = {
+      x: (start.x + label.x) / 2,
+      y: (start.y + label.y) / 2
+    };
+    let lineGroup = self.get('lineGroup');
+    // var lineShape;
+    if (!lineGroup) {
+      lineGroup = self.addGroup({
+        elCls: 'x-line-group'
+      });
+      self.set('lineGroup', lineGroup);
+    }
+    const lineShape = lineGroup.addShape('path', {
+      attrs: Util.mix({
+        path: [ 'M' + start.x, start.y + ' Q' + inner.x, inner.y + ' ' + label.x, label.y ].join(','),
+        fill: null,
+        stroke: label.color
+      }, labelLine)
+    });
+    // label 对应线的动画关闭
+    lineShape.name = 'labelLine';
+    // generate labelLine id according to label id
+    lineShape._id = label._id && label._id.replace('glabel', 'glabelline');
+    lineShape.set('coord', coord);
   }
 
   /**
@@ -174,6 +215,7 @@ class GeomLabels extends Group {
         if (labels.length === 1) { // 如果仅一个label,多个y,取最后一个y
           if (value.length <= 2) {
             value = value[value.length - 1];
+            // value = value[0];
           } else {
             value = avg(value);
           }
@@ -193,6 +235,8 @@ class GeomLabels extends Group {
     self.transLabelPoint(labelPoint);
     labelPoint.x += offsetPoint.x;
     labelPoint.y += offsetPoint.y;
+    labelPoint.color = point.color;
+    labelPoint._offset = offsetPoint;
     return labelPoint;
   }
 

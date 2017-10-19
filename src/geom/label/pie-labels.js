@@ -178,21 +178,6 @@ class PieLabels extends PolarLabels {
     return halves[0].concat(halves[1]);
   }
 
-  /**
-   * drawing lines to labels
-   * @param  {Array} items labels
-   * @param  {Object} labelLine configuration for label lines
-   */
-  drawLines(items, labelLine) {
-    const self = this;
-    const offset = self.getDefaultOffset();
-    if (offset > 0) {
-      Util.each(items, function(point) {
-        self.lineToLabel(point, labelLine);
-      });
-    }
-  }
-
   // 连接线
   lineToLabel(label, labelLine) {
     const self = this;
