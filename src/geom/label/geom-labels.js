@@ -209,6 +209,7 @@ class GeomLabels extends Group {
    */
   getLabelPoint(labels, point, index) {
     const self = this;
+    const coord = self.get('coord');
 
     function getDimValue(value, idx) {
       if (Util.isArray(value)) {
@@ -225,11 +226,33 @@ class GeomLabels extends Group {
       }
       return value;
     }
+
     const labelPoint = {
       x: getDimValue(point.x, index),
       y: getDimValue(point.y, index),
       text: labels[index]
     };
+
+    // get nearest point of the shape as the label line start point
+    if (point && point.nextPoints && (point.shape === 'funnel' || point.shape === 'pyramid')) {
+      let maxX = -Infinity;
+      point.nextPoints.forEach(p => {
+        p = coord.convert(p);
+        if (p.x > maxX) {
+          maxX = p.x;
+        }
+      });
+      labelPoint.x = (labelPoint.x + maxX) / 2;
+    }
+    // sharp edge of the pyramid
+    if (point.shape === 'pyramid' && !point.nextPoints && point.points) {
+      point.points.forEach(p => {
+        p = coord.convert(p);
+        if (point.x.indexOf(p.x) === -1) {
+          labelPoint.x = (labelPoint.x + p.x) / 2;
+        }
+      });
+    }
 
     const offsetPoint = self.getLabelOffset(labelPoint, index, labels.length);
     self.transLabelPoint(labelPoint);
