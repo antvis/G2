@@ -237,14 +237,16 @@ class AxisController {
     const self = this;
     let cfg = {};
     const options = self.options;
+    const field = scale.field;
     const isShowTitle = !!(Global.axis[position] && Global.axis[position].title); // 用户全局禁用 title
 
-    if (isShowTitle) {
+    // bugfix: title was set by chart.axis('field', { title: {} })
+    if (isShowTitle || (options[field] && options[field].title)) {
       cfg.title = {
-        text: scale.alias || scale.field
+        text: scale.alias || field
       };
     }
-    cfg = Util.merge(true, {}, Global.axis[position], cfg, options[scale.field]);
+    cfg = Util.merge(true, {}, Global.axis[position], cfg, options[field]);
     cfg.ticks = scale.getTicks();
 
     if (coord.isPolar && !scale.isCategory) {

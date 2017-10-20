@@ -448,6 +448,7 @@ describe('chart, view, geom visible', function() {
 
     expect(v1.getViewRegion().start).eqls({ x: 20, y: 230 });
     expect(v2.getViewRegion().end.y).eqls(250);
+    expect(v1.get('axisController').axes[1].get('title').text).equal('别名');
   });
 
   it('geom show hide', function() {
