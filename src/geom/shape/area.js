@@ -61,32 +61,27 @@ function getPath(cfg, smooth) {
   return path;
 }
 
-function _markerFn(x, y, r, ctx) {
-  ctx.moveTo(x - r, y + r);
-  ctx.lineTo(x - r, y - r);
-  ctx.lineTo(x, y);
-  ctx.lineTo(x + r, y - r);
-  ctx.lineTo(x + r, y + r);
-  ctx.closePath();
-}
-
-function _smoothMarkerFn(x, y, r, ctx) {
-  ctx.moveTo(x - r, y + r);
-  ctx.lineTo(x - r, y);
-  ctx.arcTo(x - r / 2, y - r / 2, x, y, r);
-  ctx.arcTo(x + r / 2, y + r / 2, x + r, y, r);
-  ctx.lineTo(x + r, y + r);
-  ctx.closePath();
-}
-
 // get marker cfg
-function _getMarkerCfg(cfg, smooth, hollow) {
-  const areaCfg = hollow ? getLineAttrs(cfg) : getFillAttrs(cfg);
-
-  return Util.mix({
-    symbol: smooth ? _smoothMarkerFn : _markerFn,
-    radius: Global.markerRadius
-  }, areaCfg);
+function _getMarkerCfg(cfg) {
+  return {
+    symbol(x, y, r, ctx) {
+      ctx.save();
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = ctx.fillStyle;
+      ctx.moveTo(x - 5, y - 4);
+      ctx.lineTo(x + 5, y - 4);
+      ctx.stroke();
+      ctx.restore();
+      ctx.moveTo(x - 5, y - 4);
+      ctx.lineTo(x + 5, y - 4);
+      ctx.lineTo(x + 5, y + 4);
+      ctx.lineTo(x - 5, y + 4);
+      ctx.closePath();
+    },
+    radius: 5,
+    fill: cfg.color,
+    fillOpacity: 0.3
+  };
 }
 
 // 鼠标悬浮触发active状态
@@ -181,7 +176,7 @@ Shape.registerShape('area', 'area', {
     });
   },
   getMarkerCfg(cfg) {
-    return _getMarkerCfg(cfg, false, false);
+    return _getMarkerCfg(cfg);
   }
 });
 
@@ -198,7 +193,7 @@ Shape.registerShape('area', 'smooth', {
     });
   },
   getMarkerCfg(cfg) {
-    return _getMarkerCfg(cfg, true, false);
+    return _getMarkerCfg(cfg);
   }
 });
 
@@ -215,7 +210,7 @@ Shape.registerShape('area', 'line', {
     });
   },
   getMarkerCfg(cfg) {
-    return _getMarkerCfg(cfg, false, true);
+    return _getMarkerCfg(cfg);
   }
 });
 
@@ -233,7 +228,7 @@ Shape.registerShape('area', 'smoothLine', {
     });
   },
   getMarkerCfg(cfg) {
-    return _getMarkerCfg(cfg, true, true);
+    return _getMarkerCfg(cfg);
   }
 });
 

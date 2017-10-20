@@ -55,8 +55,8 @@ describe('line shapes', function() {
       };
 
       const pointCfg = Line.getMarkerCfg(undefined, point);
-      expect(pointCfg.opacity).to.be.equal(0.8);
-      expect(pointCfg.lineWidth).to.be.equal(30);
+      // expect(pointCfg.opacity).to.be.equal(0.8);
+      expect(pointCfg.lineWidth).to.be.equal(1);
       expect(pointCfg.symbol).to.be.an.instanceof(Function);
     });
 
@@ -137,7 +137,7 @@ describe('line shapes', function() {
         color: 'red'
       }, canvas);
       expect(shape.attr('stroke')).eql('red');
-      expect(shape.attr('lineDash')).eql([ 2, 1 ]);
+      expect(shape.attr('lineDash')).eql([ 1, 1 ]);
     });
     it('getMarkerCfg', function() {
       const point = {
@@ -147,7 +147,7 @@ describe('line shapes', function() {
 
       const pointCfg = Line.getMarkerCfg('dot', point);
 
-      expect(pointCfg.lineDash).eql([ 2, 1 ]);
+      expect(pointCfg.lineDash).eql([ 1, 1 ]);
       expect(pointCfg.symbol).to.be.an.instanceof(Function);
     });
   });
@@ -164,7 +164,7 @@ describe('line shapes', function() {
         color: 'red'
       }, canvas);
       expect(shape.attr('stroke')).eql('red');
-      expect(shape.attr('lineDash')).eql([ 10, 5 ]);
+      expect(shape.attr('lineDash')).eql([ 2, 1 ]);
     });
     it('getMarkerCfg', function() {
       const point = {
@@ -174,7 +174,7 @@ describe('line shapes', function() {
 
       const pointCfg = Line.getMarkerCfg('dash', point);
 
-      expect(pointCfg.lineDash).eql([ 10, 5 ]);
+      expect(pointCfg.lineDash).eql([ 2, 1 ]);
       expect(pointCfg.symbol).to.be.an.instanceof(Function);
     });
   });
@@ -208,7 +208,7 @@ describe('line shapes', function() {
       const splinePointCfg = Line.getMarkerCfg('spline', point);
 
       expect(pointCfg).eql(splinePointCfg);
-      expect(pointCfg.lineWidth).to.be.equal(30);
+      expect(pointCfg.lineWidth).to.be.equal(1);
       expect(pointCfg.stroke).to.be.equal(Global.defaultColor);
 
     });

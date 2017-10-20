@@ -17,7 +17,7 @@ const SQRT_3 = Math.sqrt(3);
 // 增加marker
 Util.mix(Marker.Symbols, {
   hexagon(x, y, r, ctx) {
-    const diffX = r / 2 * SQRT_3;
+    const diffX = (r / 2) * SQRT_3;
     ctx.moveTo(x, y - r);
     ctx.lineTo(x + diffX, y - r / 2);
     ctx.lineTo(x + diffX, y + r / 2);
@@ -27,10 +27,11 @@ Util.mix(Marker.Symbols, {
     ctx.closePath();
   },
   bowtie(x, y, r, ctx) {
-    ctx.moveTo(x - r, y - r);
-    ctx.lineTo(x + r, y + r);
-    ctx.lineTo(x + r, y - r);
-    ctx.lineTo(x - r, y + r);
+    const diffY = r - 2;
+    ctx.moveTo(x - r, y - diffY);
+    ctx.lineTo(x + r, y + diffY);
+    ctx.lineTo(x + r, y - diffY);
+    ctx.lineTo(x - r, y + diffY);
     ctx.closePath();
   },
   cross(x, y, r, ctx) {

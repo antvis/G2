@@ -10,16 +10,28 @@ const PathUtil = require('../util/path');
 const ShapeUtil = require('../util/shape');
 const Shape = require('./shape');
 const Global = require('../../global');
-const DOT_ARR = [ 2, 1 ];
-const DASH_ARR = [ 10, 5 ];
+const DOT_ARR = [ 1, 1 ];
+const DASH_ARR = [ 2, 1 ];
 
 function getAttrs(cfg) {
   const defaultCfg = Global.shape.line;
-  const shapeCfg = Util.merge({}, defaultCfg, {
+  const shapeCfg = Util.mix({}, defaultCfg, {
     stroke: cfg.color,
     lineWidth: cfg.size,
     strokeOpacity: cfg.opacity,
     opacity: cfg.opacity
+  }, cfg.style);
+  return shapeCfg;
+}
+
+function getMarkerAttrs(cfg) {
+  const defaultCfg = Global.shape.line;
+  const shapeCfg = Util.mix({}, defaultCfg, {
+    stroke: cfg.color,
+    lineWidth: 1,
+    strokeOpacity: cfg.opacity,
+    opacity: cfg.opacity,
+    radius: 5
   }, cfg.style);
   return shapeCfg;
 }
@@ -103,22 +115,21 @@ function _markerFn(x, y, r, ctx) {
 
 function _smoothMarkerFn(x, y, r, ctx) {
   ctx.moveTo(x - r, y);
-  ctx.arcTo(x - r / 2, y - r / 2, x, y, r);
-  ctx.arcTo(x + r / 2, y + r / 2, x + r, y, r);
+  ctx.arcTo(x - r / 2, y - r / 2, x, y, r / 2);
+  ctx.lineTo(x, y);
+  ctx.arcTo(x + r / 2, y + r / 2, x + r, y - r / 2, r / 2);
 }
 // get marker cfg
 function _getMarkerCfg(cfg, smooth) {
   return Util.mix({
-    symbol: smooth ? _smoothMarkerFn : _markerFn,
-    radius: Global.markerRadius
-  }, getAttrs(cfg));
+    symbol: smooth ? _smoothMarkerFn : _markerFn
+  }, getMarkerAttrs(cfg));
 }
 
 function _getInterMarkerCfg(cfg, fn) {
   return Util.mix({
-    symbol: fn,
-    radius: 5
-  }, getAttrs(cfg));
+    symbol: fn
+  }, getMarkerAttrs(cfg));
 }
 
 // 当只有一个数据时绘制点
@@ -185,7 +196,7 @@ Shape.registerShape('line', 'line', {
   }
 });
 
-// 点线
+// 点线 ···
 Shape.registerShape('line', 'dot', {
   draw(cfg, container) {
     const attrs = getAttrs(cfg);
@@ -204,7 +215,7 @@ Shape.registerShape('line', 'dot', {
   }
 });
 
-// 断线 - - - -
+// 断线 - - -
 Shape.registerShape('line', 'dash', {
   draw(cfg, container) {
     const attrs = getAttrs(cfg);
@@ -219,6 +230,7 @@ Shape.registerShape('line', 'dash', {
   getMarkerCfg(cfg) {
     const tmp = _getMarkerCfg(cfg, false);
     tmp.lineDash = DASH_ARR;
+    tmp.radius = 4.5;
     return tmp;
   }
 });
@@ -258,10 +270,10 @@ Shape.registerShape('line', 'hv', {
   },
   getMarkerCfg(cfg) {
     return _getInterMarkerCfg(cfg, function(x, y, r, ctx) {
-      ctx.moveTo(x - r, y - r);
-      ctx.lineTo(x, y - r);
-      ctx.lineTo(x, y);
-      ctx.lineTo(x + r, y);
+      ctx.moveTo(x - r - 1, y - 3);
+      ctx.lineTo(x, y - 3);
+      ctx.lineTo(x, y + 3);
+      ctx.lineTo(x + r + 1, y + 3);
     });
   }
 });
@@ -285,10 +297,10 @@ Shape.registerShape('line', 'vh', {
   },
   getMarkerCfg(cfg) {
     return _getInterMarkerCfg(cfg, function(x, y, r, ctx) {
-      ctx.moveTo(x - r, y);
-      ctx.lineTo(x, y);
-      ctx.lineTo(x, y - r);
-      ctx.lineTo(x + r, y - r);
+      ctx.moveTo(x - r - 1, y + 3);
+      ctx.lineTo(x, y + 3);
+      ctx.lineTo(x, y - 3);
+      ctx.lineTo(x + r + 1, y - 3);
     });
   }
 });
@@ -317,12 +329,12 @@ Shape.registerShape('line', 'hvh', {
   },
   getMarkerCfg(cfg) {
     return _getInterMarkerCfg(cfg, function(x, y, r, ctx) {
-      ctx.moveTo(x - r * 3 / 2, y);
-      ctx.lineTo(x - r / 2, y);
-      ctx.lineTo(x - r / 2, y - r / 2);
-      ctx.lineTo(x + r / 2, y - r / 2);
-      ctx.lineTo(x + r / 2, y);
-      ctx.lineTo(x + r * 3 / 2, y);
+      ctx.moveTo(x - r - 2, y + 2);
+      ctx.lineTo(x - r + 2, y + 2);
+      ctx.lineTo(x - r + 2, y - 2);
+      ctx.lineTo(x - r + 7, y - 2);
+      ctx.lineTo(x - r + 7, y + 2);
+      ctx.lineTo(x + r + 1, y + 2);
     });
   }
 });

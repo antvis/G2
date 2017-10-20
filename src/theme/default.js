@@ -433,7 +433,7 @@ const Theme = {
     },
     line: {
       stroke: DEFAULT_COLOR,
-      lineWidth: 1,
+      lineWidth: 2,
       fill: null
     }
   },
