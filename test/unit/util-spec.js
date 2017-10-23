@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const util = require('../../src/util');
-
+const data = require('../../demos/data/github-commit.json');
 describe('util test', () => {
   it('mix', () => {
     const a = {
@@ -31,5 +31,10 @@ describe('util test', () => {
     const group = util.Array.group(data, [ 'type' ]);
     expect(group.length).equal(2);
     expect(group[0][0].type).equal('2');
+  });
+  it('group by numbers', function() {
+    const groups = util.Array.groupToMap(data, [ 'month' ]);
+    const ten = groups._10;
+    expect(ten.length).equal(1);
   });
 });

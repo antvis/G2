@@ -240,10 +240,10 @@ class Base {
       conditions.forEach(function(cond) {
         const field = cond.field;
         const value = cond.value;
-        const values = cond.values;
+        // const values = cond.values;
         let tmp = true;
         if (!isNil(value) && field) {
-          tmp = obj[field] === value || obj[field] === values.indexOf(value);
+          tmp = obj[field] === value;
         }
         filtered = filtered && tmp;
       });
