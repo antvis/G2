@@ -1,3 +1,7 @@
+/**
+ * @fileOverview The Label class
+ * @author sima.zhang
+ */
 const Util = require('../../util');
 const { DomUtil, Group } = require('@antv/g');
 

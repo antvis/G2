@@ -1,3 +1,7 @@
+/**
+ * @fileOverview the region guide
+ * @author sima.zhang
+ */
 const Util = require('../../util');
 const Base = require('./base');
 

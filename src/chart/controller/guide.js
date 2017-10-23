@@ -1,3 +1,7 @@
+/**
+ * @fileOverview The controller of guide
+ * @author sima.zhang
+ */
 const Util = require('../../util');
 const { Guide } = require('../../component/index');
 const Global = require('../../global');

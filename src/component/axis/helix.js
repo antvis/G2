@@ -1,3 +1,7 @@
+/**
+ * @fileOverview the helix axis of helix coordinate
+ * @author sima.zhang
+ */
 const Util = require('../../util');
 const Base = require('./base');
 const { MatrixUtil, PathUtil } = require('@antv/g');

@@ -1,3 +1,7 @@
+/**
+ * @fileOverview The class of slider
+ * @author sima.zhang
+ */
 const Util = require('../../util');
 const { Group, DomUtil } = require('@antv/g');
 

@@ -1,3 +1,7 @@
+/**
+ * @fileOverview the base class of Axis
+ * @author sima.zhang
+ */
 const Util = require('../../util');
 const { LabelsRenderer } = require('../label/index');
 const { Group } = require('@antv/g');

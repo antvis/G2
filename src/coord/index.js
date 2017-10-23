@@ -1,5 +1,5 @@
 /**
- * @fileOverview the coordinate of G2
+ * @fileOverview the entry of coordinate
  * @author sima.zhang1990@gmail.com
  */
 const Coord = require('./base');

@@ -1,3 +1,7 @@
+/**
+ * @fileOverview The controller of chart's events
+ * @author sima.zhang
+ */
 const Util = require('../../util');
 
 function isSameShape(shape1, shape2) {

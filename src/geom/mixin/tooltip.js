@@ -1,3 +1,7 @@
+/**
+ * @fileOverview The tooltip handler
+ * @author sima.zhang
+ */
 const Util = require('../../util');
 const { defaultColor } = require('../../global');
 const FIELD_ORIGIN = '_origin';

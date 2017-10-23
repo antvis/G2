@@ -1,5 +1,3 @@
-
-
 module.exports = {
   Scale: require('./scale'),
   Coord: require('./coord'),

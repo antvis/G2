@@ -1,3 +1,7 @@
+/**
+ * @fileOverview The entry of chart's animation
+ * @author sima.zhang
+ */
 const Util = require('../util');
 const Animate = require('./animate');
 const { MatrixUtil } = require('@antv/g');

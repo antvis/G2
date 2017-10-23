@@ -1,3 +1,7 @@
+/**
+ * @fileOverview The controller of coordinate
+ * @author sima.zhang
+ */
 const Util = require('../../util');
 const Coord = require('../../coord/index');
 

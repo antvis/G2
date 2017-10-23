@@ -1,3 +1,7 @@
+/**
+ * @fileOverview the axis of map coodinate
+ * @author sima.zhang
+ */
 const Util = require('../../util');
 const Base = require('./base');
 const { MatrixUtil, PathUtil } = require('@antv/g');

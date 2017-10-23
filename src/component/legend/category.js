@@ -1,3 +1,7 @@
+/**
+ * @fileOverview The class of category legend
+ * @author sima.zhang
+ */
 const Util = require('../../util');
 const Base = require('./base');
 const { DomUtil, Event, Group } = require('@antv/g');

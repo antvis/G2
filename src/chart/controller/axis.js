@@ -1,3 +1,7 @@
+/**
+ * @fileOverview The controller of axis
+ * @author sima.zhang
+ */
 const Util = require('../../util');
 const { Axis } = require('../../component/index');
 const { vec2 } = require('@antv/g').MatrixUtil;

@@ -1,3 +1,7 @@
+/**
+ * @fileOverview the base class of guide
+ * @author sima.zhang
+ */
 const Util = require('../../util');
 const KEYWORDS = [ 'min', 'max', 'median' ];
 

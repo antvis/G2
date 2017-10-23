@@ -1,3 +1,7 @@
+/**
+ * @fileOverview the line guide
+ * @author sima.zhang
+ */
 const Util = require('../../util');
 const Base = require('./base');
 const { vec2 } = require('@antv/g').MatrixUtil;

@@ -1,3 +1,7 @@
+/**
+ * @fileOverview the base class of Coordinate
+ * @author sima.zhang
+ */
 const Util = require('../util');
 const MatrixUtil = require('@antv/g').MatrixUtil;
 const mat3 = MatrixUtil.mat3;

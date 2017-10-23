@@ -1,5 +1,6 @@
 /**
- * @fileOverview G2 3.0 深色主题
+ * @fileOverview G2 3.0 dark theme
+ * @author sima.zhang
  */
 const Util = require('../util');
 const BasicTheme = require('./default');

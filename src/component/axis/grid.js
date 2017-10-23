@@ -1,3 +1,7 @@
+/**
+ * @fileOverview the grid of axis
+ * @author sima.zhang
+ */
 const { Group } = require('@antv/g');
 const Util = require('../../util');
 

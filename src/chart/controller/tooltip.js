@@ -1,3 +1,7 @@
+/**
+ * @fileOverview The controller of tooltip
+ * @author sima.zhang
+ */
 const Util = require('../../util');
 const Global = require('../../global');
 const { Tooltip } = require('../../component/index');
