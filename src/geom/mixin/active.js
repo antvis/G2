@@ -1,3 +1,7 @@
+/**
+ * @fileOverview the interaction when geom was actived
+ * @author sima.zhang
+ */
 const Util = require('../../util');
 const FIELD_ORIGIN = '_origin';
 

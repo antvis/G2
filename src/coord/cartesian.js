@@ -1,3 +1,7 @@
+/**
+ * @fileOverview the class of Cartesian Coordinate
+ * @author sima.zhang
+ */
 const Util = require('../util');
 const Base = require('./base');
 

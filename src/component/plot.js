@@ -1,3 +1,7 @@
+/**
+ * @fileOverview The class of canvas plot
+ * @author sima.zhang
+ */
 const Util = require('../util');
 const { Group } = require('@antv/g');
 

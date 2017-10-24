@@ -1,3 +1,7 @@
+/**
+ * @fileOverview The class of the gradient color legend
+ * @author sima.zhang
+ */
 const Util = require('../../util');
 const Continuous = require('./continuous');
 const ColorUtil = require('../../attr/color-util'); // TODO： 这个 Util 是否可换个位置

@@ -1,3 +1,7 @@
+/**
+ * @fileOverview The class of the size legend
+ * @author sima.zhang
+ */
 const Util = require('../../util');
 const Continuous = require('./continuous');
 const CIRCLE_GAP = 8;

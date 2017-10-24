@@ -1,3 +1,7 @@
+/**
+ * @fileOverview The controller of tooltip
+ * @author sima.zhang
+ */
 const Util = require('../../util');
 const Global = require('../../global');
 const { Tooltip } = require('../../component/index');
@@ -290,7 +294,7 @@ class TooltipController {
             Util.each(dataArray, function(obj) {
               const tmpPoint = geom.findPoint(point, obj);
               if (tmpPoint) {
-                const subItems = geom.getTipItems(tmpPoint);
+                const subItems = geom.getTipItems(tmpPoint, options.title);
                 if (Util.indexOf(TYPE_SHOW_MARKERS, type) !== -1) {
                   Util.each(subItems, v => {
                     let point = v.point;
@@ -312,7 +316,7 @@ class TooltipController {
             const pixelRatio = canvas.get('pixelRatio');
             const shape = geomContainer.getShape(point.x * pixelRatio, point.y * pixelRatio);
             if (shape && shape.get('visible') && shape.get('origin')) {
-              items = geom.getTipItems(shape.get('origin'));
+              items = geom.getTipItems(shape.get('origin'), options.title);
             }
           }
         }

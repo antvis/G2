@@ -1,3 +1,7 @@
+/**
+ * @fileOverview The class that performs label rendering
+ * @author sima.zhang
+ */
 const Util = require('../../util');
 const Labels = require('./labels');
 

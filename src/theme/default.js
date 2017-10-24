@@ -1,5 +1,6 @@
 /**
- * @fileOverview G2 3.0 最新主题
+ * @fileOverview G2 3.0 default theme
+ * @author sima.zhang
  */
 const DEFAULT_COLOR = '#1890FF';
 const COLOR_PLATE_8 = [ '#1890FF', '#2FC25B', '#FACC14', '#223273', '#8543E0', '#13C2C2', '#3436C7', '#F04864' ];
@@ -433,7 +434,7 @@ const Theme = {
     },
     line: {
       stroke: DEFAULT_COLOR,
-      lineWidth: 1,
+      lineWidth: 2,
       fill: null
     }
   },

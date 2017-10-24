@@ -1,3 +1,7 @@
+/**
+ * @fileOverview The base class of continuous legend
+ * @author sima.zhang
+ */
 const Util = require('../../util');
 const Base = require('./base');
 const { Event, Group } = require('@antv/g');

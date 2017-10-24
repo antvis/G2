@@ -1,5 +1,6 @@
 /**
  * @fileOverview Default animation configuration for geoms
+ * @author sima.zhang
  */
 const Util = require('../util');
 const Action = require('./action');

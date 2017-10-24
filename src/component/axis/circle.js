@@ -1,3 +1,7 @@
+/**
+ * @fileOverview the circle axis of polar coordinate
+ * @author sima.zhang
+ */
 const Util = require('../../util');
 const Base = require('./base');
 const { vec2 } = require('@antv/g').MatrixUtil;

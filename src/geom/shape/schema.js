@@ -189,14 +189,6 @@ function getCandlePath(points) {
   return path;
 }
 
-// 获取图形的marker
-function getMarkerCfg(cfg, fn) {
-  return Util.mix({
-    symbol: fn,
-    radius: Global.markerRadius
-  }, getAttrs(cfg));
-}
-
 const Schema = Shape.registerFactory('schema', {
   defaultShapeType: '',
   getActiveCfg(type, cfg) {
@@ -236,26 +228,31 @@ Shape.registerShape('schema', 'box', {
     });
   },
   getMarkerCfg(cfg) {
-    return getMarkerCfg(cfg, function(x, y, r, ctx) {
-      const yValues = [ y - r, y - r / 2, y, y + r / 2, y + r ];
-      const points = getBoxPoints(x, yValues, 1.2 * r);
-      ctx.moveTo(points[0].x, points[0].y);
-      ctx.lineTo(points[1].x, points[1].y);
-      ctx.moveTo(points[2].x, points[2].y);
-      ctx.lineTo(points[3].x, points[3].y);
-      ctx.moveTo(points[4].x, points[4].y);
-      ctx.lineTo(points[5].x, points[5].y);
-      ctx.lineTo(points[6].x, points[6].y);
-      ctx.lineTo(points[7].x, points[7].y);
-      ctx.lineTo(points[4].x, points[4].y);
-      ctx.closePath();
-      ctx.moveTo(points[8].x, points[8].y);
-      ctx.lineTo(points[9].x, points[9].y);
-      ctx.moveTo(points[10].x, points[10].y);
-      ctx.lineTo(points[11].x, points[11].y);
-      ctx.moveTo(points[12].x, points[12].y);
-      ctx.lineTo(points[13].x, points[13].y);
-    });
+    return {
+      symbol(x, y, r, ctx) {
+        const yValues = [ y - 6, y - 4, y, y + 4, y + 6 ];
+        const points = getBoxPoints(x, yValues, r);
+        ctx.moveTo(points[0].x + 1, points[0].y);
+        ctx.lineTo(points[1].x - 1, points[1].y);
+        ctx.moveTo(points[2].x, points[2].y);
+        ctx.lineTo(points[3].x, points[3].y);
+        ctx.moveTo(points[4].x, points[4].y);
+        ctx.lineTo(points[5].x, points[5].y);
+        ctx.lineTo(points[6].x, points[6].y);
+        ctx.lineTo(points[7].x, points[7].y);
+        ctx.lineTo(points[4].x, points[4].y);
+        ctx.closePath();
+        ctx.moveTo(points[8].x, points[8].y);
+        ctx.lineTo(points[9].x, points[9].y);
+        ctx.moveTo(points[10].x + 1, points[10].y);
+        ctx.lineTo(points[11].x - 1, points[11].y);
+        ctx.moveTo(points[12].x, points[12].y);
+        ctx.lineTo(points[13].x, points[13].y);
+      },
+      radius: 7,
+      lineWidth: 1,
+      stroke: cfg.color
+    };
   }
 });
 
@@ -275,23 +272,25 @@ Shape.registerShape('schema', 'candle', {
     });
   },
   getMarkerCfg(cfg) {
-    const tmp = getMarkerCfg(cfg, function(x, y, r, ctx) {
-      y = [ y + 1.5 * r, y + r / 2, y - r / 2, y - 1.5 * r ];
-      const points = getCandlePoints(x, y, r);
-      ctx.moveTo(points[0].x, points[0].y);
-      ctx.lineTo(points[1].x, points[1].y);
-      ctx.moveTo(points[2].x, points[2].y);
-      ctx.lineTo(points[3].x, points[3].y);
-      ctx.lineTo(points[4].x, points[4].y);
-      ctx.lineTo(points[5].x, points[5].y);
-      ctx.closePath();
-      ctx.moveTo(points[6].x, points[6].y);
-      ctx.lineTo(points[7].x, points[7].y);
-    });
-    tmp.fill = cfg.color;
-    tmp.fillOpacity = cfg.opacity;
-    tmp.radius = 5;
-    return tmp;
+    return {
+      symbol(x, y, r, ctx) {
+        y = [ y + 7, y + 3, y - 3, y - 7 ];
+        const points = getCandlePoints(x, y, r);
+        ctx.moveTo(points[0].x, points[0].y);
+        ctx.lineTo(points[1].x, points[1].y);
+        ctx.moveTo(points[2].x, points[2].y);
+        ctx.lineTo(points[3].x, points[3].y);
+        ctx.lineTo(points[4].x, points[4].y);
+        ctx.lineTo(points[5].x, points[5].y);
+        ctx.closePath();
+        ctx.moveTo(points[6].x, points[6].y);
+        ctx.lineTo(points[7].x, points[7].y);
+      },
+      lineWidth: 1,
+      stroke: cfg.color,
+      fill: cfg.color,
+      radius: 4
+    };
   }
 });
 

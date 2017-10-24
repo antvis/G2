@@ -1,3 +1,7 @@
+/**
+ * @fileOverview the html guide
+ * @author sima.zhang
+ */
 const Util = require('../../util');
 const { DomUtil } = require('@antv/g');
 const Base = require('./base');

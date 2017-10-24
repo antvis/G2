@@ -1,3 +1,7 @@
+/**
+ * @fileOverview The class of tooltip
+ * @author sima.zhang
+ */
 const Util = require('../../util');
 const Global = require('../../global');
 const { Group, DomUtil } = require('@antv/g');

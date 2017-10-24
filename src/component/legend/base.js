@@ -1,3 +1,7 @@
+/**
+ * @fileOverview The base class of legend
+ * @author sima.zhang
+ */
 const Util = require('../../util');
 const { Group } = require('@antv/g');
 

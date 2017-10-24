@@ -1,3 +1,7 @@
+/**
+ * @fileOverview the interaction when geom was selected
+ * @author sima.zhang
+ */
 const Util = require('../../util');
 
 function isSameShape(shape1, shape2) {

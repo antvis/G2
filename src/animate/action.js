@@ -1,3 +1,7 @@
+/**
+ * @fileOverview Default animation funciton
+ * @author sima.zhang
+ */
 const Util = require('../util');
 const G = require('@antv/g');
 const PathUtil = G.PathUtil;

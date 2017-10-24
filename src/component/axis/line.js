@@ -1,3 +1,7 @@
+/**
+ * @fileOverview the radius axis of polar coordinate and axis of cartesian coordinate
+ * @author sima.zhang
+ */
 const Base = require('./base');
 const Util = require('../../util');
 const { MatrixUtil } = require('@antv/g');

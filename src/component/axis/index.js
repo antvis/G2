@@ -1,3 +1,7 @@
+/**
+ * @fileOverview the entry of axis
+ * @author sima.zhang
+ */
 module.exports = {
   Line: require('./line'), // 基础的直线坐标轴
   Circle: require('./circle'), // 极坐标下

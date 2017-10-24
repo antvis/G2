@@ -1,3 +1,7 @@
+/**
+ * @fileOverview The tooltip handler
+ * @author sima.zhang
+ */
 const Util = require('../../util');
 const { defaultColor } = require('../../global');
 const FIELD_ORIGIN = '_origin';
@@ -91,8 +95,11 @@ const TooltipMixin = {
     return scale || yScale || xScale;
   },
 
-  _getTipTitleScale() {
+  _getTipTitleScale(titleField) {
     const self = this;
+    if (titleField) {
+      return self._getScale(titleField);
+    }
     const position = self.getAttr('position');
     const fields = position.getFields();
     let tmpField;
@@ -282,11 +289,12 @@ const TooltipMixin = {
    * @protected
    * 获取tooltip的标题
    * @param  {Object} origin 点的原始信息
+   * @param  {String} titleField 标题的字段
    * @return {String} 提示信息的标题
    */
-  getTipTitle(origin) {
+  getTipTitle(origin, titleField) {
     let tipTitle = '';
-    const titleScale = this._getTipTitleScale();
+    const titleScale = this._getTipTitleScale(titleField);
 
     if (titleScale) {
       const value = origin[titleScale.field];
@@ -347,13 +355,13 @@ const TooltipMixin = {
    * 获取点对应tooltip的信息
    * @protected
    * @param  {Object} point 原始的数据记录
-   * @param  {Object} cfg tooltipTitle 配置信息
+   * @param  {String} titleField tooltipTitle 配置信息
    * @return {Array}  一条或者多条记录
    */
-  getTipItems(point) {
+  getTipItems(point, titleField) {
     const self = this;
     const origin = point[FIELD_ORIGIN];
-    const tipTitle = self.getTipTitle(origin);
+    const tipTitle = self.getTipTitle(origin, titleField);
     const tooltipCfg = self.get('tooltipCfg');
     const items = [];
     let name;

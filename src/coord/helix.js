@@ -1,3 +1,7 @@
+/**
+ * @fileOverview the class of Helix Coordinate
+ * @author sima.zhang
+ */
 const Util = require('../util');
 const Base = require('./base');
 const MatrixUtil = require('@antv/g').MatrixUtil;
