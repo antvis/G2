@@ -38,14 +38,16 @@ class Path extends GeomBase {
     const cfg = this.getDrawCfg(data[0]);
     cfg.origin = data; // path,line 等图的origin 是整个序列
     Util.each(splitArray, function(subData, splitedIndex) {
-      cfg.splitedIndex = splitedIndex; // 传入分割片段索引 用于生成id
-      cfg.points = subData;
-      const geomShape = shapeFactory.drawShape(cfg.shape, cfg, container);
-      geomShape.setSilent('index', index + splitedIndex);
-      geomShape.setSilent('coord', self.get('coord'));
+      if (!Util.isEmpty(subData)) {
+        cfg.splitedIndex = splitedIndex; // 传入分割片段索引 用于生成id
+        cfg.points = subData;
+        const geomShape = shapeFactory.drawShape(cfg.shape, cfg, container);
+        geomShape.setSilent('index', index + splitedIndex);
+        geomShape.setSilent('coord', self.get('coord'));
 
-      if (self.get('animate') && self.get('animateCfg')) {
-        geomShape.setSilent('animateCfg', self.get('animateCfg'));
+        if (self.get('animate') && self.get('animateCfg')) {
+          geomShape.setSilent('animateCfg', self.get('animateCfg'));
+        }
       }
     });
   }
