@@ -64,7 +64,8 @@ class Chart extends View {
     super.init();
 
     const tooltipController = new Controller.Tooltip({
-      chart: this
+      chart: this,
+      options: {}
     });
     this.set('tooltipController', tooltipController);
 
@@ -192,6 +193,7 @@ class Chart extends View {
       const tooltipController = this.get('tooltipController');
       tooltipController.options = options.tooltip || {};
       tooltipController.renderTooltip();
+      tooltipController.bindEvent();
     }
   }
 

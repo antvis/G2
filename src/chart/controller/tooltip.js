@@ -132,13 +132,13 @@ class TooltipController {
     });
   }
 
-  _bindEvent() {
+  bindEvent() {
     const chart = this.chart;
     chart.on('plotmove', Util.wrapBehavior(this, 'onMouseMove'));
     chart.on('plotleave', Util.wrapBehavior(this, 'onMouseOut'));
   }
 
-  _offEvent() {
+  offEvent() {
     const chart = this.chart;
     chart.off('plotmove', Util.getWrapBehavior(this, 'onMouseMove'));
     chart.off('plotleave', Util.getWrapBehavior(this, 'onMouseOut'));
@@ -265,7 +265,7 @@ class TooltipController {
         };
       }
     }
-    self._bindEvent();
+    // self._bindEvent();
   }
 
   showTooltip(point, views, target) {
@@ -379,7 +379,7 @@ class TooltipController {
     tooltip && tooltip.remove();
     this.tooltip = null;
     this.prePoint = null;
-    this._offEvent();
+    this.offEvent();
   }
 }
 
