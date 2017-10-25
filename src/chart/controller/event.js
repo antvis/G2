@@ -10,6 +10,12 @@ function isSameShape(shape1, shape2) {
   }
   const shape1Origin = shape1.get('origin');
   const shape2Origin = shape2.get('origin');
+
+  // hotfix: if both shapes have no data，just compare shapes.
+  if (Util.isNil(shape1Origin) && Util.isNil(shape2Origin)) {
+    return Util.isEqual(shape1, shape2);
+  }
+
   return Util.isEqual(shape1Origin, shape2Origin);
 }
 
