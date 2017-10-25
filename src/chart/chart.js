@@ -193,7 +193,6 @@ class Chart extends View {
       const tooltipController = this.get('tooltipController');
       tooltipController.options = options.tooltip || {};
       tooltipController.renderTooltip();
-      tooltipController.bindEvent();
     }
   }
 
