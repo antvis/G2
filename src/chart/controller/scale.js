@@ -111,9 +111,9 @@ class ScaleController {
       }
       return scale;
     }
-    const firstObj = data[0];
+    const firstValue = Util.Array.firstValue(data, field);
 
-    if (Util.isNumber(field) || (Util.isNil(firstObj[field])) && !def) {
+    if (Util.isNumber(field) || (Util.isNil(firstValue)) && !def) {
       scale = Scale.identity({
         value: field,
         field: field.toString(),
