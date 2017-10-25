@@ -113,6 +113,10 @@ class View extends Base {
       this.set('animate', false);
     }
 
+    if (options.tooltip === false || Util.isNull(options.tooltip)) { // 配置项方式关闭 tooltip
+      this.set('tooltipEnable', false);
+    }
+
     if (options.geoms && options.geoms.length) {
       Util.each(options.geoms, function(geomOption) {
         self._createGeom(geomOption);
@@ -136,7 +140,22 @@ class View extends Base {
       geom = this[type]();
       Util.each(cfg, function(v, k) {
         if (geom[k]) {
-          geom[k](v);
+
+          if (Util.isObject(v) && v.field) { // 配置项传入
+            if (v === 'label') {
+              geom[k](v.field, v.callback, v.cfg);
+            } else {
+              let cfg;
+              Util.each(v, (value, key) => {
+                if (key !== 'field') {
+                  cfg = value;
+                }
+              });
+              geom[k](v.field, cfg);
+            }
+          } else {
+            geom[k](v);
+          }
         }
       });
     }

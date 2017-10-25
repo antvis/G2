@@ -74,8 +74,8 @@ const Polygon = Shape.registerFactory('polygon', {
 
     const opacity = cfg.fillOpacity || cfg.opacity || 1;
     return {
-      lineWidth,
-      fillOpacity: opacity - 0.15
+      // lineWidth,
+      fillOpacity: opacity - 0.08
     };
   },
   getSelectedCfg(type, cfg) {

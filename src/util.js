@@ -26,6 +26,7 @@ const Util = {
   upperFirst: require('lodash/upperFirst'),
   upperCase: require('lodash/upperCase'),
   isNil: require('lodash/isNil'),
+  isNull: require('lodash/isNull'),
   isArray: require('lodash/isArray'),
   isDate: require('lodash/isDate'),
   toArray: require('lodash/toArray'),
