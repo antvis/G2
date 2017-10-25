@@ -347,8 +347,13 @@ class LegendController {
       if (isByAttr && geom.getAttr('shape')) { // 存在形状映射
         shape = geom.getAttr('shape').mapping(value).join('');
       }
+
       const shapeObject = Shape.getShapeFactory(shapeType);
       const marker = shapeObject.getMarkerCfg(shape, cfg);
+
+      if (Util.isFunction(shape)) {
+        marker.symbol = shape;
+      }
 
       items.push({
         value: name,

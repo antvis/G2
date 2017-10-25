@@ -63,8 +63,6 @@ class Line extends Base {
     if (this.text && this.text.content) {
       self._drawText(start, end, guideLineGroup);
     }
-    guideLineGroup.set('zIndex', 15); // TODO: 需要确定数值
-    guideLineGroup.name = 'guide-line';
     self.el = guideLineGroup;
   }
 
@@ -73,11 +71,12 @@ class Line extends Base {
       [ 'M', start.x, start.y ],
       [ 'L', end.x, end.y ]
     ];
-    group.addShape('Path', {
+    const guideLine = group.addShape('Path', {
       attrs: Util.mix({
         path
       }, this.lineStyle)
     });
+    guideLine.name = 'guide-line';
   }
 
   _drawText(start, end, group) {
@@ -124,9 +123,10 @@ class Line extends Base {
       cfg.rotate = (textStyle.rotate * Math.PI) / 180;
     }
 
-    group.addShape('Text', {
+    const shape = group.addShape('Text', {
       attrs: cfg
     });
+    shape.name = 'guide-line-text';
   }
 }
 

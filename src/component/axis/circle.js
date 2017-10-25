@@ -180,7 +180,7 @@ class Circle extends Base {
     const self = this;
     const ticks = self.get('ticks');
     const labelsGroup = self.get('labelsGroup');
-    if (labelsGroup && ticks.length > 12) { // 小于15个文本时文本不旋转
+    if (labelsGroup && ticks.length > 12) { // 小于12个文本时文本不旋转
       const radius = self.get('radius');
       const startAngle = self.get('startAngle');
       const endAngle = self.get('endAngle');

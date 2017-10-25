@@ -87,6 +87,22 @@ class TooltipController {
     return this.chart.get('canvas');
   }
 
+  _getTriggerEvent() {
+    const options = this.options;
+    const triggerOn = options.triggerOn;
+    let eventName;
+
+    if (!triggerOn || triggerOn === 'mousemove') {
+      eventName = 'plotmove';
+    } else if (triggerOn === 'click') {
+      eventName = 'plotclick';
+    } else if (triggerOn === 'none') {
+      eventName = null;
+    }
+
+    return eventName;
+  }
+
   _getDefaultTooltipCfg() {
     const self = this;
     const options = self.options;
@@ -134,14 +150,20 @@ class TooltipController {
 
   _bindEvent() {
     const chart = this.chart;
-    chart.on('plotmove', Util.wrapBehavior(this, 'onMouseMove'));
-    chart.on('plotleave', Util.wrapBehavior(this, 'onMouseOut'));
+    const triggerEvent = this._getTriggerEvent();
+    if (triggerEvent) {
+      chart.on(triggerEvent, Util.wrapBehavior(this, 'onMouseMove'));
+      chart.on('plotleave', Util.wrapBehavior(this, 'onMouseOut'));
+    }
   }
 
   _offEvent() {
     const chart = this.chart;
-    chart.off('plotmove', Util.getWrapBehavior(this, 'onMouseMove'));
-    chart.off('plotleave', Util.getWrapBehavior(this, 'onMouseOut'));
+    const triggerEvent = this._getTriggerEvent();
+    if (triggerEvent) {
+      chart.off(triggerEvent, Util.getWrapBehavior(this, 'onMouseMove'));
+      chart.off('plotleave', Util.getWrapBehavior(this, 'onMouseOut'));
+    }
   }
 
   _setTooltip(title, point, items, markersItems, target) {
@@ -255,13 +277,15 @@ class TooltipController {
     const tooltip = canvas.addGroup(Tooltip, options);
     canvas.sort();
     self.tooltip = tooltip;
-    if (!tooltip.get('enterable')) { // 鼠标不允许进入 tooltip 容器
+
+    const triggerEvent = self._getTriggerEvent();
+    if (!tooltip.get('enterable') && triggerEvent === 'plotmove') { // 鼠标不允许进入 tooltip 容器
       const tooltipContainer = tooltip.get('container');
       if (tooltipContainer) {
         tooltipContainer.onmousemove = e => {
           // 避免 tooltip 频繁闪烁
           const eventObj = self._normalizeEvent(e);
-          chart.emit('plotmove', eventObj);
+          chart.emit(triggerEvent, eventObj);
         };
       }
     }
