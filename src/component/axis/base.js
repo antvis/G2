@@ -81,7 +81,7 @@ class Base extends Group {
       Util.defaultsDeep(title, {
         autoRotate: true,
         textStyle,
-        offset: 40
+        offset: 48
       });
       this.setSilent('title', title);
     }
