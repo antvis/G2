@@ -66,12 +66,31 @@ const SizeMixin = {
       }
       normalizeSize *= widthRatio;
       if (this.hasAdjust('dodge')) {
-        normalizeSize = normalizeSize / dataArray.length;
+        const dodgeCount = this._getDodgeCount(dataArray);
+        normalizeSize = normalizeSize / dodgeCount;
       }
       defaultSize = normalizeSize;
       this.set('defaultSize', defaultSize);
     }
     return defaultSize;
+  },
+  _getDodgeCount(dataArray) {
+    const adjusts = this.get('adjusts');
+    let dodgeBy;
+    let count = dataArray.length;
+    Util.each(adjusts, function(adjust) {
+      if (adjust.type === 'dodge') {
+        dodgeBy = adjust.dodgeBy;
+      }
+    });
+
+    if (dodgeBy) {
+      const mergeData = Util.Array.merge(dataArray);
+      const values = Util.Array.values(mergeData, dodgeBy);
+      count = values.length;
+    }
+
+    return count;
   },
   getDimWidth(dimName) {
     const coord = this.get('coord');
