@@ -37,7 +37,7 @@ function addPoints(from, to) {
 }
 
 function getAttrs(cfg) {
-  const defaultAttrs = Global.shape.line;
+  const defaultAttrs = Global.shape.schema;
   const attrs = Util.mix({}, defaultAttrs, {
     stroke: cfg.color,
     strokeOpacity: cfg.opacity
@@ -46,7 +46,7 @@ function getAttrs(cfg) {
 }
 
 function getFillAttrs(cfg) {
-  const defaultAttrs = Global.shape.line;
+  const defaultAttrs = Global.shape.schema;
   const attrs = Util.mix({}, defaultAttrs, {
     fill: cfg.color,
     stroke: cfg.color,

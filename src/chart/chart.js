@@ -164,23 +164,23 @@ class Chart extends View {
 
       if (legendOptions && legendOptions.custom) { // 用户自定义图例
         legendController.addCustomLegend();
-      }
-
-      const geoms = this.getAllGeoms();
-      const scales = [];
-      Util.each(geoms, geom => {
-        const view = geom.get('view');
-        const attrs = geom.getAttrsForLegend();
-        Util.each(attrs, attr => {
-          const type = attr.type;
-          const scale = attr.getScale(type);
-          if (scale.type !== 'identity' && !_isScaleExist(scales, scale)) {
-            scales.push(scale);
-            const filteredValues = view.getFilteredValues(scale.field);
-            legendController.addLegend(scale, attr, geom, filteredValues);
-          }
+      } else {
+        const geoms = this.getAllGeoms();
+        const scales = [];
+        Util.each(geoms, geom => {
+          const view = geom.get('view');
+          const attrs = geom.getAttrsForLegend();
+          Util.each(attrs, attr => {
+            const type = attr.type;
+            const scale = attr.getScale(type);
+            if (scale.type !== 'identity' && !_isScaleExist(scales, scale)) {
+              scales.push(scale);
+              const filteredValues = view.getFilteredValues(scale.field);
+              legendController.addLegend(scale, attr, geom, filteredValues);
+            }
+          });
         });
-      });
+      }
 
       legendController.alignLegends();
     }

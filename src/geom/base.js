@@ -702,7 +702,7 @@ class GeomBase extends Base {
     const xField = xScale.field;
     Util.each(mappedArray, itemArr => {
       itemArr.sort((obj1, obj2) => {
-        return obj1[FIELD_ORIGIN][xField] - obj2[FIELD_ORIGIN][xField];
+        return xScale.translate(obj1[FIELD_ORIGIN][xField]) - xScale.translate(obj2[FIELD_ORIGIN][xField]);
       });
     });
 

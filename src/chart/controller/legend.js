@@ -446,35 +446,44 @@ class LegendController {
     const self = this;
     const legendOptions = self.options;
     const field = scale.field;
-    if (legendOptions[field] === false) { // 如果不显示此图例
+    const fieldOption = legendOptions[field];
+
+    if (fieldOption === false) { // 如果不显示此图例
       return null;
     }
 
-    let position = legendOptions.position || Global.defaultLegendPosition;
-    const fieldOption = legendOptions[field];
-    if (fieldOption && fieldOption.position) { // 如果对某个图例单独设置 position，则对 position 重新赋值
-      position = fieldOption.position;
-    }
-
-    let legend;
-    if (scale.isLinear) {
-      legend = self._addContinuousLegend(scale, attr, position);
+    if (fieldOption && fieldOption.custom) {
+      self.addCustomLegend(field);
     } else {
-      legend = self._addCategroyLegend(scale, attr, geom, filterVals, position);
-    }
-    self._bindHoverEvent(legend, field);
+      let position = legendOptions.position || Global.defaultLegendPosition;
+      if (fieldOption && fieldOption.position) { // 如果对某个图例单独设置 position，则对 position 重新赋值
+        position = fieldOption.position;
+      }
 
-    return legend;
+      let legend;
+      if (scale.isLinear) {
+        legend = self._addContinuousLegend(scale, attr, position);
+      } else {
+        legend = self._addCategroyLegend(scale, attr, geom, filterVals, position);
+      }
+      self._bindHoverEvent(legend, field);
+    }
   }
 
   /**
    * 自定义图例
+   * @param {string} field 自定义图例的数据字段名，可以为空
    */
-  addCustomLegend() {
+  addCustomLegend(field) {
     const self = this;
     const chart = self.chart;
     const container = self.container;
-    const legendOptions = self.options;
+    let legendOptions = self.options;
+
+    if (field) {
+      legendOptions = legendOptions[field];
+    }
+
     const position = legendOptions.position || Global.defaultLegendPosition;
     const legends = self.legends;
     legends[position] = legends[position] || [];

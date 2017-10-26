@@ -436,6 +436,11 @@ const Theme = {
       stroke: DEFAULT_COLOR,
       lineWidth: 2,
       fill: null
+    },
+    schema: {
+      stroke: DEFAULT_COLOR,
+      lineWidth: 1,
+      fill: null
     }
   },
   guide: {
