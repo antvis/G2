@@ -549,10 +549,26 @@ describe('test geom interval', function() {
 
   });
 
+  it('size test dodge by', function() {
+    geom.reset();
+    geom.position('a*b').color('c')
+      .adjust([{ type: 'dodge', dodgeBy: 'a' }]);
+    geom.set('data', data);
+    geom.init();
+    geom.paint();
+
+    const path = shapeContainer.getFirst();
+    const arr = path.attr('path');
+    expect(arr.length).eql(6);
+    expect(geom.getSize()).equal((500) / 3 / 6);
+  });
+
   it('custom size', function() {
 
     geom.reset();
-    geom.position('a*b').color('c').size(10);
+    geom.position('a*b').color('c')
+      .size(10)
+      .adjust(null);
     geom.set('data', [
       { a: '1', b: 2, c: '1' },
       { a: '2', b: 5, c: '1' },
