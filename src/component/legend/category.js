@@ -727,14 +727,13 @@ class Category extends Base {
   }
 
   remove() {
-    if (this.get('useHtml')) {
+    if (this.get('useHtml')) { // 移除元素
       const legendWrapper = this.get('legendWrapper');
       if (legendWrapper && legendWrapper.parentNode) {
         legendWrapper.parentNode.removeChild(legendWrapper);
       }
-    } else {
-      super.remove();
     }
+    super.remove(); // must be called
   }
 }
 
