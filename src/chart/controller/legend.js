@@ -264,14 +264,12 @@ class LegendController {
 
     let x = 0;
     let y = 0;
-    if (legend.get('useHtml')) {
-      position = 'right';
-    }
 
     if (position === 'left' || position === 'right') { // 垂直
       height = plotRange.br.y;
       x = position === 'left' ? offset : plotRange.br.x + offset;
       y = height - legendHeight;
+
       if (pre) {
         y = pre.get('y') - legendHeight - MARGIN_LEGEND;
       }
@@ -329,7 +327,8 @@ class LegendController {
 
     const chart = self.chart;
     const canvas = chart.get('canvas');
-    const maxLength = (position === 'right' || position === 'left') ? canvas.get('height') : canvas.get('width');
+    const plotRange = self.plotRange;
+    const maxLength = (position === 'right' || position === 'left') ? plotRange.bl.y - plotRange.tr.y : canvas.get('width');
 
     Util.each(ticks, tick => {
       const text = tick.text;
@@ -507,7 +506,8 @@ class LegendController {
     });
 
     const canvas = chart.get('canvas');
-    const maxLength = (position === 'right' || position === 'left') ? canvas.get('height') : canvas.get('width');
+    const plotRange = self.plotRange;
+    const maxLength = (position === 'right' || position === 'left') ? plotRange.bl.y - plotRange.tr.y : canvas.get('width');
 
     const legendCfg = Util.defaultsDeep({
       maxLength,
@@ -533,7 +533,9 @@ class LegendController {
       const region = self._getRegion(legendItems);
       Util.each(legendItems, (legend, index) => {
         const pre = legendItems[index - 1];
-        self._alignLegend(legend, pre, region, position);
+        if (!(legend.get('useHtml') && !legend.get('autoPosition'))) {
+          self._alignLegend(legend, pre, region, position);
+        }
       });
     });
 

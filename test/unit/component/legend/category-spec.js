@@ -438,8 +438,8 @@ describe('分类图例', function() {
     expect(legendDom).not.to.be.undefined;
     expect(legendDom.style.position).to.equal('absolute');
 
-    const legendItem = div.getElementsByClassName('g2-legend-item')[1];
-    expect(legendItem.className).to.equal('g2-legend-item item-1 checked');
+    const legendItem = div.getElementsByClassName('g2-legend-list-item')[1];
+    expect(legendItem.className).to.equal('g2-legend-list-item item-1 checked');
 
     // 模拟点击事件
     const event = new MouseEvent('click', {
@@ -448,7 +448,7 @@ describe('分类图例', function() {
       cancelable: true
     });
     legendItem.dispatchEvent(event);
-    expect(legendItem.className).to.equal('g2-legend-item item-1 unChecked');
+    expect(legendItem.className).to.equal('g2-legend-list-item item-1 unChecked');
 
     let count = 0;
     legend.on('itemhover', function() {
@@ -464,7 +464,7 @@ describe('分类图例', function() {
     legendItem.dispatchEvent(hoverEvent);
     expect(count).to.equal(0);
 
-    const hoveredLegendItem = div.getElementsByClassName('g2-legend-item')[2];
+    const hoveredLegendItem = div.getElementsByClassName('g2-legend-list-item')[2];
     hoveredLegendItem.dispatchEvent(hoverEvent);
     expect(count).to.equal(1);
 
@@ -490,7 +490,7 @@ describe('分类图例', function() {
       items,
       useHtml: true,
       itemTpl(value, color) {
-        const tpl = '<li class="g2-legend-item item-{index} {checked}" data-color="{originColor}" data-value="{originValue}" style="cursor:pointer;display: inline-block;width: 85px">' +
+        const tpl = '<li class="g2-legend-list-item item-{index} {checked}" data-color="{originColor}" data-value="{originValue}" style="cursor:pointer;display: inline-block;width: 85px">' +
         '<i class="g2-legend-marker" style="width:16px;height:16px;border-radius:4px;display:inline-block;margin-right:10px;background-color: {color};"></i>' +
         '<span class="g2-legend-text" style="color:' + color + '">' + value + '</span></li>';
         return tpl;
@@ -507,10 +507,10 @@ describe('分类图例', function() {
     expect(legendDom).not.to.be.undefined;
     expect(legendDom.style.position).to.equal('absolute');
 
-    const legendItem10 = div.getElementsByClassName('g2-legend-item')[10];
-    const legendItem11 = div.getElementsByClassName('g2-legend-item')[11];
-    expect(legendItem10.className).to.equal('g2-legend-item item-10 checked');
-    expect(legendItem11.className).to.equal('g2-legend-item item-11 unChecked');
+    const legendItem10 = div.getElementsByClassName('g2-legend-list-item')[10];
+    const legendItem11 = div.getElementsByClassName('g2-legend-list-item')[11];
+    expect(legendItem10.className).to.equal('g2-legend-list-item item-10 checked');
+    expect(legendItem11.className).to.equal('g2-legend-list-item item-11 unChecked');
     // 模拟点击事件
     const event = new MouseEvent('click', {
       view: window,
@@ -518,13 +518,13 @@ describe('分类图例', function() {
       cancelable: true
     });
     legendItem10.dispatchEvent(event);
-    expect(legendItem10.className).to.equal('g2-legend-item item-10 checked');
-    expect(legendItem11.className).to.equal('g2-legend-item item-11 unChecked');
+    expect(legendItem10.className).to.equal('g2-legend-list-item item-10 checked');
+    expect(legendItem11.className).to.equal('g2-legend-list-item item-11 unChecked');
 
 
     legendItem11.dispatchEvent(event);
-    expect(legendItem10.className).to.equal('g2-legend-item item-10 unChecked');
-    expect(legendItem11.className).to.equal('g2-legend-item item-11 checked');
+    expect(legendItem10.className).to.equal('g2-legend-list-item item-10 unChecked');
+    expect(legendItem11.className).to.equal('g2-legend-list-item item-11 checked');
     div.removeChild(legendDom);
   });
 
@@ -547,7 +547,8 @@ describe('分类图例', function() {
     const legend = canvas.addGroup(Legend, {
       items,
       useHtml: true,
-      itemTpl: '<li class="g2-legend-item item-{index} {checked}" data-color="{originColor}" data-value="{originValue}" style="cursor:pointer;width: 85px"><span class="g2-legend-text" style="color: {color};cursor: pointer;">{value}</span></li>'
+      position: 'bottom',
+      itemTpl: '<li class="g2-legend-list-item item-{index} {checked}" data-color="{originColor}" data-value="{originValue}" style="cursor:pointer;width: 85px"><span class="g2-legend-text" style="color: {color};cursor: pointer;">{value}</span></li>'
     });
     legend.move(0, 0);
     canvas.draw();
@@ -557,8 +558,8 @@ describe('分类图例', function() {
     expect(legendDom.style.position).to.equal('absolute');
     expect(legendDom.style.maxWidth).to.equal('500px');
 
-    const legendItem01 = div.getElementsByClassName('g2-legend-item')[1];
-    expect(legendItem01.className).to.equal('g2-legend-item item-1 checked');
+    const legendItem01 = div.getElementsByClassName('g2-legend-list-item')[1];
+    expect(legendItem01.className).to.equal('g2-legend-list-item item-1 checked');
 
     // 模拟点击事件1
     const event1 = new MouseEvent('click', {
@@ -567,10 +568,10 @@ describe('分类图例', function() {
       cancelable: true
     });
     legendItem01.dispatchEvent(event1);
-    expect(legendItem01.className).to.equal('g2-legend-item item-1 checked');
+    expect(legendItem01.className).to.equal('g2-legend-list-item item-1 checked');
 
-    const legendItem00 = div.getElementsByClassName('g2-legend-item')[0];
-    expect(legendItem00.className).to.equal('g2-legend-item item-0 unChecked');
+    const legendItem00 = div.getElementsByClassName('g2-legend-list-item')[0];
+    expect(legendItem00.className).to.equal('g2-legend-list-item item-0 unChecked');
     // 模拟点击事件2
     const event2 = new MouseEvent('click', {
       view: window,
@@ -578,6 +579,6 @@ describe('分类图例', function() {
       cancelable: true
     });
     legendItem00.dispatchEvent(event2);
-    expect(legendItem00.className).to.equal('g2-legend-item item-0 checked');
+    expect(legendItem00.className).to.equal('g2-legend-list-item item-0 checked');
   });
 });

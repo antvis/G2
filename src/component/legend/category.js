@@ -5,11 +5,13 @@
 const Util = require('../../util');
 const Base = require('./base');
 const { DomUtil, Event, Group } = require('@antv/g');
+const Global = require('../../global');
+const LEGEND_STYLE = Global.legend.html;
 
 const CONTAINER_CLASS = 'g2-legend';
 const TITLE_CLASS = 'g2-legend-title';
-const LIST_CLASS = 'g2-legend-itemlist';
-const ITEM_CLASS = 'g2-legend-item';
+const LIST_CLASS = 'g2-legend-list';
+const ITEM_CLASS = 'g2-legend-list-item';
 const TEXT_CLASS = 'g2-legend-text';
 const MARKER_CLASS = 'g2-legend-marker';
 
@@ -144,6 +146,11 @@ class Category extends Base {
        * @type {Boolean}
        */
       useHtml: false,
+      /**
+       * useHtml 为 true 时生效，用于自动定位
+       * @type {[type]}
+       */
+      autoPosition: true,
       container: null,
       /**
        * 使用html时的外层模板
@@ -151,25 +158,20 @@ class Category extends Base {
        */
       containerTpl: '<div class="' + CONTAINER_CLASS + '">' +
         '<h4 class="' + TITLE_CLASS + '"></h4>' +
-        '<ul class="' + LIST_CLASS + '" style="list-style-type:none;margin:0;padding:0;"></ul>' +
+        '<ul class="' + LIST_CLASS + '"></ul>' +
         '</div>',
       /**
        * 默认的图例项 html 模板
        * @type {String}
        */
-      _defaultItemTpl: '<li class="' + ITEM_CLASS + ' item-{index} {checked}" data-color="{originColor}" data-value="{originValue}" style="cursor: pointer;font-size: 12px;margin-bottom:5px;">' +
-        '<i class="' + MARKER_CLASS + '" style="width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:8px;background-color:{color};vertical-align:middle"></i>' +
+      _defaultItemTpl: '<li class="' + ITEM_CLASS + ' item-{index} {checked}" data-color="{originColor}" data-value="{originValue}">' +
+        '<i class="' + MARKER_CLASS + '" style="background-color:{color};"></i>' +
         '<span class="' + TEXT_CLASS + '">{value}</span></li>',
       /**
        * 用户设置的图例项 html 模板
        * @type {String|Function}
        */
       itemTpl: null,
-      /**
-       * 当用户使用 html 的时候，超出高度或者宽度会自动换行
-       * @type {Boolean}
-       */
-      scroll: true,
       /**
        * 图例项是否可点击，默认为 true
        * @type {Boolean}
@@ -320,8 +322,15 @@ class Category extends Base {
     const unCheckedColor = self.get('unCheckColor');
     const mode = self.get('selectedMode');
 
-    if (titleDom && title && title.text) { // 渲染标题
-      titleDom.innerHTML = title.text;
+    DomUtil.modifyCSS(itemListDom, Util.mix({}, LEGEND_STYLE[LIST_CLASS], self.get(LIST_CLASS)));
+
+    if (titleDom) {
+      if (title && title.text) {
+        titleDom.innerHTML = title.text;
+        DomUtil.modifyCSS(titleDom, Util.mix({}, LEGEND_STYLE[TITLE_CLASS], self.get(TITLE_CLASS)));
+      } else {
+        legendWrapper.removeChild(titleDom);
+      }
     }
 
     // 开始渲染图例项
@@ -336,6 +345,11 @@ class Category extends Base {
       items.reverse();
     }
 
+    const position = self.get('position');
+    const itemStyle = Util.mix({}, LEGEND_STYLE[ITEM_CLASS], {
+      display: (position === 'right' || position === 'left') ? 'block' : 'inline-block'
+    }, self.get(ITEM_CLASS));
+    const markerStyle = Util.mix({}, LEGEND_STYLE[MARKER_CLASS], self.get(MARKER_CLASS));
     Util.each(items, function(item, index) {
       const checked = item.checked;
       const value = self._formatItemValue(item.value);
@@ -355,8 +369,15 @@ class Category extends Base {
         originValue: item.value
       });
       const itemDom = DomUtil.createDom(itemDiv);
+      const markerDom = findNodeByClass(itemDom, MARKER_CLASS);
+      DomUtil.modifyCSS(itemDom, itemStyle);
+      markerDom && DomUtil.modifyCSS(markerDom, markerStyle);
+
       if (!checked) {
         itemDom.style.color = unCheckedColor;
+        if (markerDom) {
+          markerDom.style.backgroundColor = unCheckedColor;
+        }
       }
       itemListDom.appendChild(itemDom);
     });
@@ -467,15 +488,20 @@ class Category extends Base {
       // container.style.position = 'relative';
       container.appendChild(legendWrapper);
     } else {
-      if (self.get('scroll')) {
-        const width = canvas.get('width');
-        const height = canvas.get('height');
-        DomUtil.modifyCSS(legendWrapper, {
-          maxWidth: width + 'px',
-          maxHeight: height + 'px',
-          overflow: 'scroll'
-        });
+      const position = self.get('position');
+      const canvas = self.get('canvas');
+      let rangeStyle = {};
+      if (position === 'left' || position === 'right') {
+        rangeStyle = {
+          maxHeight: (self.get('maxLength') || canvas.get('height')) + 'px'
+        };
+      } else {
+        rangeStyle = {
+          maxWidth: (self.get('maxLength') || canvas.get('width')) + 'px'
+        };
       }
+
+      DomUtil.modifyCSS(legendWrapper, Util.mix({}, LEGEND_STYLE[CONTAINER_CLASS], rangeStyle, self.get(CONTAINER_CLASS)));
       outterNode.appendChild(legendWrapper);
     }
     self.set('legendWrapper', legendWrapper);
@@ -718,8 +744,7 @@ class Category extends Base {
     if (this.get('useHtml') && !(/^\#/.test(this.get('container')))) {
       DomUtil.modifyCSS(this.get('legendWrapper'), {
         left: x + 'px',
-        top: y + 'px',
-        position: 'absolute'
+        top: y + 'px'
       });
     } else {
       super.move(x, y);
