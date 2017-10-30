@@ -21,6 +21,14 @@ const TOOLTIP_LIST_CLASS = 'g2-tooltip-list';
 const TOOLTIP_LIST_ITEM_CLASS = 'g2-tooltip-list-item';
 const TOOLTIP_MARKER_CLASS = 'g2-tooltip-marker';
 
+// html 渲染的 legend 相关 dom 的 css 类型
+const LEGEND_CONTAINER_CLASS = 'g2-legend';
+const LEGEND_TITLE_CLASS = 'g2-legend-title';
+const LEGEND_LIST_CLASS = 'g2-legend-list';
+const LEGEND_LIST_ITEM_CLASS = 'g2-legend-list-item';
+const LEGEND_MARKER_CLASS = 'g2-legend-marker';
+
+
 const Theme = {
   defaultColor: DEFAULT_COLOR, // 默认主题色
   plotCfg: {
@@ -310,6 +318,37 @@ const Theme = {
         lineHeight: 20
       }, // 图例项文本的样式
       unCheckColor: '#bfbfbf'
+    },
+    // 定义 html 渲染图例的样式
+    html: {
+      [`${LEGEND_CONTAINER_CLASS}`]: {
+        height: 'auto',
+        width: 'auto',
+        position: 'absolute',
+        overflow: 'scroll'
+      },
+      [`${LEGEND_TITLE_CLASS}`]: {
+        marginBottom: '4px'
+      },
+      [`${LEGEND_LIST_CLASS}`]: {
+        listStyleType: 'none',
+        margin: 0,
+        padding: 0
+      },
+      [`${LEGEND_LIST_ITEM_CLASS}`]: {
+        cursor: 'pointer',
+        fontSize: '12px',
+        marginBottom: '5px',
+        marginRight: '24px'
+      },
+      [`${LEGEND_MARKER_CLASS}`]: {
+        width: '10px',
+        height: '10px',
+        borderRadius: '50%',
+        display: 'inline-block',
+        marginRight: '8px',
+        verticalAlign: 'middle'
+      }
     }
   },
   tooltip: {

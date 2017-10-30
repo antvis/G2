@@ -533,15 +533,15 @@ class Tooltip extends Group {
     const container = self.get('container');
     const containerTpl = self.get('containerTpl');
 
+    if (container && !(/^\#/.test(containerTpl))) {
+      container.parentNode.removeChild(container);
+    }
+
     crossLineShapeX && crossLineShapeX.remove();
     crossLineShapeY && crossLineShapeY.remove();
     markerGroup && markerGroup.remove();
     crosshairsRectShape && crosshairsRectShape.remove();
     super.remove();
-
-    if (container && !(/^\#/.test(containerTpl))) {
-      container.parentNode.removeChild(container);
-    }
   }
 }
 
