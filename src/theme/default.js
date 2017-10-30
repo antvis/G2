@@ -28,7 +28,6 @@ const LEGEND_LIST_CLASS = 'g2-legend-list';
 const LEGEND_LIST_ITEM_CLASS = 'g2-legend-list-item';
 const LEGEND_MARKER_CLASS = 'g2-legend-marker';
 
-
 const Theme = {
   defaultColor: DEFAULT_COLOR, // 默认主题色
   plotCfg: {
@@ -393,17 +392,20 @@ const Theme = {
     symbol: (x, y, r, ctx, marker) => {
       const color = marker.get('color');
       ctx.fillStyle = color;
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = '#fff';
       ctx.beginPath();
       ctx.arc(x, y, r, 0, Math.PI * 2, false);
       ctx.fill();
+      ctx.stroke();
 
       ctx.save();
       ctx.beginPath();
       ctx.fillStyle = '#fff';
       ctx.strokeStyle = color;
-      ctx.globalAlpha = 0.3;
-      ctx.lineWidth = 4;
-      ctx.arc(x, y, 7, 0, Math.PI * 2, false);
+      ctx.globalAlpha = 0.2;
+      ctx.lineWidth = 3;
+      ctx.arc(x, y, 6, 0, Math.PI * 2, false);
       ctx.stroke();
       ctx.restore();
     },
@@ -438,10 +440,6 @@ const Theme = {
       lineWidth: 0,
       fill: DEFAULT_COLOR,
       fillOpacity: 0.85
-    },
-    pie: {
-      lineWidth: 1,
-      stroke: '#fff'
     },
     hollowInterval: {
       fill: '#fff',
