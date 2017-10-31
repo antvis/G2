@@ -7,6 +7,7 @@ const BasicTheme = require('./default');
 
 // tooltip 相关 dom 的 css 类名
 const TOOLTIP_CONTAINER_CLASS = 'g2-tooltip';
+const LEGEND_CONTAINER_CLASS = 'g2-legend';
 
 const DarkTheme = Util.defaultsDeep({
   background: {
@@ -141,6 +142,11 @@ const DarkTheme = Util.defaultsDeep({
         fill: '#737373'
       }, // 图例项文本的样式
       unCheckColor: '#bfbfbf'
+    },
+    html: {
+      [`${LEGEND_CONTAINER_CLASS}`]: {
+        color: '#D9D9D9'
+      }
     }
   },
   tooltip: {

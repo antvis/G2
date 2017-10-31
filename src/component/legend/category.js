@@ -353,7 +353,8 @@ class Category extends Base {
     Util.each(items, function(item, index) {
       const checked = item.checked;
       const value = self._formatItemValue(item.value);
-      const color = checked ? item.marker.fill : unCheckedColor;
+      const markerColor = item.marker.fill || item.marker.stroke;
+      const color = checked ? markerColor : unCheckedColor;
       let domStr;
       if (Util.isFunction(itemTpl)) {
         domStr = itemTpl(value, color, checked, index);
@@ -365,7 +366,7 @@ class Category extends Base {
         checked: checked ? 'checked' : 'unChecked',
         value,
         color,
-        originColor: item.marker.fill,
+        originColor: markerColor,
         originValue: item.value
       });
       const itemDom = DomUtil.createDom(itemDiv);

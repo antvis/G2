@@ -7,7 +7,7 @@ const Theme = require('./theme/index');
 
 const Global = {};
 const Default = {
-  version: '3.0.0-rc5.4',
+  version: '3.0.0-rc5.5',
   trackable: true,
   animate: true,
   widthRatio: { // 宽度所占的分类的比例
