@@ -7,7 +7,9 @@ const Util = require('../../util');
 const AutoUtil = require('./util');
 const MIN_COUNT = 5;
 const MAX_COUNT = 7;
-const INTERVAL_ARRAY = [ 0, 1, 2, 4, 5, 10 ];
+const Global = require('../../global');
+const INTERVAL_ARRAY = Global.snapArray;
+const INTERVAL_ARRAY_COUNT = Global.snapCountArray; // 指定了坐标个数的逼近数组
 
 module.exports = function(info) {
   let min = info.min;
@@ -18,6 +20,7 @@ module.exports = function(info) {
   const maxCount = info.maxCount || MAX_COUNT;
   let avgCount = (minCount + maxCount) / 2;
   let count;
+  const snapArray = info.minCount ? INTERVAL_ARRAY_COUNT : INTERVAL_ARRAY;
 
   if (Util.isNil(min)) {
     min = 0;
@@ -43,7 +46,7 @@ module.exports = function(info) {
   if (Util.isNil(interval)) {
     // 计算间距
     const temp = (max - min) / (avgCount - 1);
-    interval = AutoUtil.snapFactorTo(temp, INTERVAL_ARRAY, 'ceil');
+    interval = AutoUtil.snapFactorTo(temp, snapArray, 'ceil');
     if (maxCount !== minCount) {
       count = parseInt((max - min) / interval, 10);
       if (count > maxCount) {
@@ -53,7 +56,7 @@ module.exports = function(info) {
         count = minCount;
       }
       // 不确定tick的个数时，使得tick偏小
-      interval = AutoUtil.snapFactorTo((max - min) / (count - 1), INTERVAL_ARRAY, 'floor');
+      interval = AutoUtil.snapFactorTo((max - min) / (count - 1), snapArray, 'floor');
     } else {
       count = avgCount;
     }

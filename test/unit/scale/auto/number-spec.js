@@ -90,6 +90,16 @@ describe('test number auto', () => {
     expect(rst.ticks).eql([ 0, 5, 10 ]);
   });
 
+  it('with count', () => {
+    const rst = auto({
+      min: 0,
+      minCount: 5,
+      maxCount: 5,
+      max: 4200
+    });
+    expect(rst.ticks).eql([ 0, 1200, 2400, 3600, 4800 ]);
+  });
+
   it('max equals min', () => {
     let rst = auto({
       min: 100,
@@ -141,7 +151,7 @@ describe('test number auto', () => {
       maxCount: 5,
       max: 605
     });
-    expect(rst.ticks).eql([ -200, 0, 200, 400, 600, 800 ]);
+    expect(rst.ticks).eql([ -160, 0, 160, 320, 480, 640 ]);
   });
 
   it('tick count 6', () => {
