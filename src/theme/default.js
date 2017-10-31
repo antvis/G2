@@ -324,7 +324,11 @@ const Theme = {
         height: 'auto',
         width: 'auto',
         position: 'absolute',
-        overflow: 'scroll'
+        overflow: 'scroll',
+        fontSize: '12px',
+        fontFamily: FONT_FAMILY,
+        lineHeight: '20px',
+        color: '#8C8C8C'
       },
       [`${LEGEND_TITLE_CLASS}`]: {
         marginBottom: '4px'
@@ -336,13 +340,12 @@ const Theme = {
       },
       [`${LEGEND_LIST_ITEM_CLASS}`]: {
         cursor: 'pointer',
-        fontSize: '12px',
         marginBottom: '5px',
         marginRight: '24px'
       },
       [`${LEGEND_MARKER_CLASS}`]: {
-        width: '10px',
-        height: '10px',
+        width: '8px',
+        height: '8px',
         borderRadius: '50%',
         display: 'inline-block',
         marginRight: '8px',
