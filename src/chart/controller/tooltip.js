@@ -73,14 +73,13 @@ class TooltipController {
   _normalizeEvent(event) {
     const chart = this.chart;
     const canvas = this._getCanvas();
+    const point = canvas.getPointByClient(event.clientX, event.clientY);
     const pixelRatio = canvas.get('pixelRatio');
-    const point = {
-      x: event.x / pixelRatio,
-      y: event.y / pixelRatio
-    };
+    point.x = point.x / pixelRatio;
+    point.y = point.y / pixelRatio;
     const views = chart.getViewsByPoint(point);
-    event.views = views;
-    return event;
+    point.views = views;
+    return point;
   }
 
   _getCanvas() {
