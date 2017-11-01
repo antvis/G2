@@ -71,8 +71,8 @@ class Html extends Base {
     const self = this;
     const alignX = self.alignX;
     const alignY = self.alignY;
-    const domWidth = DomUtil.getWidth(childDom);
-    const domHeight = DomUtil.getHeight(childDom);
+    const domWidth = DomUtil.getOuterWidth(childDom);
+    const domHeight = DomUtil.getOuterHeight(childDom);
 
     const position = {
       x: point.x,

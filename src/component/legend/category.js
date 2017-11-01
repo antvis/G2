@@ -735,14 +735,14 @@ class Category extends Base {
 
   getWidth() {
     if (this.get('useHtml')) {
-      return DomUtil.getWidth(this.get('legendWrapper'));
+      return DomUtil.getOuterWidth(this.get('legendWrapper'));
     }
     return super.getWidth();
   }
 
   getHeight() {
     if (this.get('useHtml')) {
-      return DomUtil.getHeight(this.get('legendWrapper'));
+      return DomUtil.getOuterHeight(this.get('legendWrapper'));
     }
 
     return super.getHeight();
