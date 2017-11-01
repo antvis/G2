@@ -23,7 +23,7 @@ const plotRange = {
 
 describe('Tooltip', function() {
   it('默认', function() {
-    const tooltip = canvas.addGroup(Tooltip, {
+    const tooltip = new Tooltip({
       x: 10,
       y: 10,
       plotRange,
@@ -42,7 +42,9 @@ describe('Tooltip', function() {
         { color: 'blue', name: 'n2', value: '1233' },
         { color: 'yellow', name: 'name3', value: 'swww - afas' }
       ],
-      offset: 50
+      offset: 50,
+      canvas,
+      frontPlot: canvas.addGroup()
     });
     tooltip.setPosition(50, 100);
     tooltip.show();
