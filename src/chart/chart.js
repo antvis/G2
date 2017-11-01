@@ -402,11 +402,15 @@ class Chart extends View {
     Util.each(views, function(view) {
       view.clearInner();
     });
-    const legendController = this.get('legendController');
-    const tooltipController = this.get('tooltipController');
 
-    legendController && legendController.clear();
+    const tooltipController = this.get('tooltipController');
     tooltipController && tooltipController.clear();
+
+    if (!this.get('keepLegend')) {
+      const legendController = this.get('legendController');
+      legendController && legendController.clear();
+    }
+
     super.clearInner();
   }
 
@@ -416,8 +420,9 @@ class Chart extends View {
    */
   paint() {
     super.paint();
-    this._renderLegends(); // 渲染图例
+    !this.get('keepLegend') && this._renderLegends(); // 渲染图例
     this._renderTooltips(); // 渲染 tooltip
+    this.set('keepLegend', false);
   }
 
   /**

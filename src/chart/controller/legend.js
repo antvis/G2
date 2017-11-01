@@ -115,6 +115,7 @@ class LegendController {
             }
           });
         }
+        chart.set('keepLegend', true); // 图例不重新渲染
         chart.repaint();
       }
     });
