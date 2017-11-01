@@ -34,7 +34,6 @@ class Text extends Base {
         fill: '#999',
         fontSize: 12,
         fontWeight: 500,
-        fontFamily: 'sans-serif',
         textAlign: 'center'
       },
       /**

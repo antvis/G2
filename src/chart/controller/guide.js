@@ -23,10 +23,10 @@ class GuideController {
     const yScales = this.yScales;
     options.forEach(function(option) {
       let type = option.type;
-      const config = Util.defaultsDeep(option, Global.guide[type], {
+      const config = Util.deepMix({
         xScales,
         yScales
-      });
+      }, Global.guide[type], option);
       type = Util.upperFirst(type);
       const guide = new Guide[type](config);
       self.guides.push(guide);

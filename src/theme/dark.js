@@ -9,7 +9,7 @@ const BasicTheme = require('./default');
 const TOOLTIP_CONTAINER_CLASS = 'g2-tooltip';
 const LEGEND_CONTAINER_CLASS = 'g2-legend';
 
-const DarkTheme = Util.defaultsDeep({
+const DarkTheme = Util.deepMix({}, BasicTheme, {
   background: {
     fill: '#1F1F1F',
     radius: 2
@@ -189,7 +189,7 @@ const DarkTheme = Util.defaultsDeep({
       } // 辅助框的图形样式属性
     }
   }
-}, BasicTheme);
+});
 
 module.exports = DarkTheme;
 

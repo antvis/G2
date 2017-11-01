@@ -37,7 +37,7 @@ function setTheme(theme) {
   } else {
     newTheme = Theme.default;
   }
-  Util.merge(Global, Default, newTheme);
+  Util.deepMix(Global, Default, newTheme);
   Global.setTheme = setTheme;
 }
 

@@ -3,6 +3,7 @@
  * @author sima.zhang
  */
 const Util = require('../../util');
+const Global = require('../../global');
 const { Group } = require('@antv/g');
 
 class Base extends Group {
@@ -55,7 +56,8 @@ class Base extends Group {
           x: 0,
           y: 0,
           fill: '#333', // 默认样式
-          textBaseline: 'middle'
+          textBaseline: 'middle',
+          fontFamily: Global.fontFamily
         }, title)
       });
       titleShape.name = 'legend-title';

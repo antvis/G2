@@ -15,7 +15,6 @@ class Line extends Base {
        * @type {String}
        */
       type: 'line',
-      // TODO 需要调整
       zIndex: 15,
       /**
        * 辅助线的起点位置

@@ -60,7 +60,7 @@ function getAnimate(geomType, coord, animationType, animationName) {
 function getAnimateCfg(geomType, animationType, animateCfg) {
   const defaultCfg = Animate.getAnimateCfg(geomType, animationType);
   if (animateCfg && animateCfg[animationType]) {
-    return Util.defaultsDeep(animateCfg[animationType], defaultCfg);
+    return Util.deepMix({}, defaultCfg, animateCfg[animationType]);
   }
   return defaultCfg;
 }

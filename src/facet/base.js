@@ -7,6 +7,7 @@ const assign = require('lodash/assign');
 const isNil = require('lodash/isNil');
 const isArray = require('lodash/isArray');
 const cloneDeep = require('lodash/cloneDeep');
+const Global = require('../global');
 
 // 绑定事件
 function wrapBehavior(obj, action) {
@@ -71,7 +72,8 @@ class Base {
         style: {
           fontSize: 14,
           textAlign: 'center',
-          fill: '#444'
+          fill: '#444',
+          fontFamily: Global.fontFamily
         }
       },
       rowTitle: {
@@ -80,7 +82,8 @@ class Base {
           fontSize: 14,
           textAlign: 'center',
           rotate: 90,
-          fill: '#444'
+          fill: '#444',
+          fontFamily: Global.fontFamily
         }
       }
     };

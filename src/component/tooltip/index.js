@@ -192,10 +192,13 @@ class Tooltip extends Group {
 
   _beforeRenderUI() {
     const crosshairs = this.get('crosshairs');
-    if (crosshairs && crosshairs.type === 'rect') {
-      Util.defaultsDeep(this.get('crosshairs'), Global.tooltipCrosshairsRect);
-    } else {
-      Util.defaultsDeep(this.get('crosshairs'), Global.tooltipCrosshairsLine);
+
+    if (crosshairs) {
+      if (crosshairs.type === 'rect') {
+        this.set('crosshairs', Util.deepMix({}, Global.tooltipCrosshairsRect, crosshairs));
+      } else {
+        this.set('crosshairs', Util.deepMix({}, Global.tooltipCrosshairsLine, crosshairs));
+      }
     }
 
     const crosshairsGroup = this.addGroup({

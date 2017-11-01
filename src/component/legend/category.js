@@ -134,7 +134,8 @@ class Category extends Base {
         fill: '#333',
         fontSize: 12,
         textAlign: 'start',
-        textBaseline: 'middle'
+        textBaseline: 'middle',
+        fontFamily: Global.fontFamily
       },
       /**
        * marker 和文字的距离

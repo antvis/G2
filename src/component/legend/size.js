@@ -3,6 +3,7 @@
  * @author sima.zhang
  */
 const Util = require('../../util');
+const Global = require('../../global');
 const Continuous = require('./continuous');
 const CIRCLE_GAP = 8;
 
@@ -25,7 +26,8 @@ class Size extends Continuous {
       textStyle: {
         fill: '#333',
         textAlign: 'start',
-        textBaseline: 'middle'
+        textBaseline: 'middle',
+        fontFamily: Global.fontFamily
       }
     });
   }

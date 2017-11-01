@@ -6,6 +6,7 @@ const Util = require('../../util');
 const { LabelsRenderer } = require('../label/index');
 const { Group } = require('@antv/g');
 const Grid = require('./grid');
+const Global = require('../../global');
 
 class Base extends Group {
   getDefaultCfg() {
@@ -75,32 +76,30 @@ class Base extends Group {
     const textStyle = {
       fontSize: 12,
       fill: '#ccc',
-      textBaseline: 'middle'
+      textBaseline: 'middle',
+      fontFamily: Global.fontFamily
     };
     if (title) {
-      Util.defaultsDeep(title, {
+      this.setSilent('title', Util.deepMix({
         autoRotate: true,
         textStyle,
         offset: 48
-      });
-      this.setSilent('title', title);
+      }, title));
     }
     if (label) {
-      Util.defaultsDeep(label, {
+      this.setSilent('label', Util.deepMix({
         autoRotate: true,
         textStyle,
         offset: 10
-      });
-      this.setSilent('label', label);
+      }, label));
     }
     if (grid) {
-      Util.defaultsDeep(grid, {
+      this.setSilent('grid', Util.deepMix({
         lineStyle: {
           lineWidth: 1,
           stroke: '#C0D0E0'
         }
-      });
-      this.setSilent('grid', grid);
+      }, grid));
     }
   }
 

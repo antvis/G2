@@ -257,12 +257,11 @@ class TooltipController {
     }
     const chart = self.chart;
     const defaultCfg = self._getDefaultTooltipCfg();
-    const options = self.options;
-    Util.defaultsDeep(options, defaultCfg, {
+    let options = self.options;
+    options = Util.deepMix({
       plotRange: chart.get('plotRange'),
       capture: false
-    });
-
+    }, defaultCfg, options);
     if (options.crosshairs && options.crosshairs.type === 'rect') {
       options.zIndex = 0; // toolip 背景框不可遮盖住 geom，防止用户配置了 crosshairs
     }
