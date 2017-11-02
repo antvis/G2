@@ -535,7 +535,7 @@ class Tooltip extends Base {
     canvas.draw();
   }
 
-  remove() {
+  destroy() {
     const self = this;
     const crossLineShapeX = self.get('crossLineShapeX');
     const crossLineShapeY = self.get('crossLineShapeY');

@@ -400,7 +400,7 @@ class TooltipController {
 
   clear() {
     const tooltip = this.tooltip;
-    tooltip && tooltip.remove();
+    tooltip && tooltip.destroy();
     this.tooltip = null;
     this.prePoint = null;
     this._offEvent();

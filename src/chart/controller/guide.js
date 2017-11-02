@@ -36,36 +36,45 @@ class GuideController {
   }
 
   line(cfg = {}) {
-    cfg.type = 'line';
-    this.options.push(cfg);
+    this.options.push(Util.mix({
+      type: 'line'
+    }, cfg));
     return this;
   }
 
   arc(cfg = {}) {
-    cfg.type = 'arc';
-    this.options.push(cfg);
+    this.options.push(Util.mix({
+      type: 'arc'
+    }, cfg));
     return this;
   }
 
   text(cfg = {}) {
-    cfg.type = 'text';
-    this.options.push(cfg);
+    this.options.push(Util.mix({
+      type: 'text'
+    }, cfg));
     return this;
   }
 
   image(cfg = {}) {
-    cfg.type = 'image';
-    this.options.push(cfg);
+    this.options.push(Util.mix({
+      type: 'image'
+    }, cfg));
+    return this;
   }
 
   region(cfg = {}) {
-    cfg.type = 'region';
-    this.options.push(cfg);
+    this.options.push(Util.mix({
+      type: 'region'
+    }, cfg));
+    return this;
   }
 
   html(cfg = {}) {
-    cfg.type = 'html';
-    this.options.push(cfg);
+    this.options.push(Util.mix({
+      type: 'html'
+    }, cfg));
+    return this;
   }
 
   render(coord) {
