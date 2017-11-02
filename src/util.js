@@ -213,6 +213,27 @@ Util.Array = {
     }
     return rst;
   },
+  getRange(values) {
+    if (!values.length) { // 如果没有数值则直接返回0
+      return {
+        min: 0,
+        max: 0
+      };
+    }
+    if (Util.isArray(values[0])) {
+      let tmp = [];
+      for (let i = 0; i < values.length; i++) {
+        tmp = tmp.concat(values[i]);
+      }
+      values = tmp;
+    }
+    const max = Math.max.apply(null, values);
+    const min = Math.min.apply(null, values);
+    return {
+      min,
+      max
+    };
+  },
   firstValue(data, name) {
     let rst = null;
     for (let i = 0; i < data.length; i++) {

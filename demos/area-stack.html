@@ -53,10 +53,16 @@
     });
     chart.source(data, {
       year: {
+        type: 'linear'
+      },
+      value: {
         type: 'linear',
-        tickInterval: 25
+        tickCount: 5,
+        minLimit: 0,
+        snapArray: [ 3, 6, 30 ]
       }
     });
+
     chart.areaStack()
       .position('year*value')
       .color('country', [ '#FF6A84', '#30A4EB', '#45BFC0', '#FFCC55' ]);

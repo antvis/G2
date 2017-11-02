@@ -163,4 +163,29 @@ describe('test number auto', () => {
     });
     expect(rst.ticks).eql([ 0, 20, 40, 60, 80, 100 ]);
   });
+
+  it('snapArray', () => {
+    const rst = auto({
+      min: 0,
+      minCount: 6,
+      maxCount: 6,
+      snapArray: [ 0.3, 3, 6, 30 ],
+      max: 1000
+    });
+    expect(rst.ticks).eql([ 0, 300, 600, 900, 1200 ]);
+  });
+
+  it('tick count with limit 0', () => {
+
+    const rst = auto({
+      min: 200,
+      minCount: 5,
+      maxCount: 5,
+      snapArray: [ 3, 6, 30 ],
+      max: 5268,
+      minLimit: 0
+    });
+    expect(rst.ticks).eql([ 0, 3000, 6000 ]);
+  });
+
 });

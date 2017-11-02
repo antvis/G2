@@ -8,8 +8,6 @@ const AutoUtil = require('./util');
 const MIN_COUNT = 5;
 const MAX_COUNT = 7;
 const Global = require('../../global');
-const INTERVAL_ARRAY = Global.snapArray;
-const INTERVAL_ARRAY_COUNT = Global.snapCountArray; // 指定了坐标个数的逼近数组
 
 module.exports = function(info) {
   let min = info.min;
@@ -18,9 +16,18 @@ module.exports = function(info) {
   const ticks = [];
   const minCount = info.minCount || MIN_COUNT;
   const maxCount = info.maxCount || MAX_COUNT;
+  const isFixedCount = minCount === maxCount; // 是否限定死了个数
+  const minLimit = Util.isNil(info.minLimit) ? -Infinity : info.minLimit; // 限定的最小值
+  const maxLimit = Util.isNil(info.maxLimit) ? Infinity : info.maxLimit; // 限定最大值
   let avgCount = (minCount + maxCount) / 2;
-  let count;
-  const snapArray = info.minCount ? INTERVAL_ARRAY_COUNT : INTERVAL_ARRAY;
+  let count = avgCount;
+  // 用户传入的逼近数组
+  const snapArray = info.snapArray ? info.snapArray : (isFixedCount ? Global.snapCountArray : Global.snapArray);
+
+  // 如果限定大小范围，同时大小范围等于用户传入的范围，同时限定了个数，interval 按照个数均分
+  if (min === minLimit && max === maxLimit && isFixedCount) {
+    interval = (max - min) / (count - 1);
+  }
 
   if (Util.isNil(min)) {
     min = 0;
@@ -57,14 +64,13 @@ module.exports = function(info) {
       }
       // 不确定tick的个数时，使得tick偏小
       interval = AutoUtil.snapFactorTo((max - min) / (count - 1), snapArray, 'floor');
-    } else {
-      count = avgCount;
     }
   }
   if (info.interval || maxCount !== minCount) {
     // 校正 max 和 min
-    max = AutoUtil.snapMultiple(max, interval, 'ceil'); // 向上逼近
-    min = AutoUtil.snapMultiple(min, interval, 'floor'); // 向下逼近
+    max = Math.min(AutoUtil.snapMultiple(max, interval, 'ceil'), maxLimit); // 向上逼近
+    min = Math.max(AutoUtil.snapMultiple(min, interval, 'floor'), minLimit); // 向下逼近
+
     count = Math.round((max - min) / interval);
     min = Util.fixedBase(min, interval);
     max = Util.fixedBase(max, interval);
@@ -90,9 +96,15 @@ module.exports = function(info) {
     min = Util.fixedBase(minTick, interval);
   }
 
+  max = Math.min(max, maxLimit);
+  min = Math.max(min, minLimit);
+
   ticks.push(min);
   for (let i = 1; i < count; i++) {
-    ticks.push(Util.fixedBase(interval * i + min, interval));
+    const tickValue = Util.fixedBase(interval * i + min, interval);
+    if (tickValue < max) {
+      ticks.push(tickValue);
+    }
   }
   if (ticks[ticks.length - 1] < max) {
     ticks.push(max);
