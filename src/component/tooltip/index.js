@@ -319,6 +319,7 @@ class Tooltip extends Base {
     const shape = crosshairsGroup.addShape('line', {
       attrs
     });
+    shape.hide();
     this.set('crossLineShape' + type, shape);
     return shape;
   }
