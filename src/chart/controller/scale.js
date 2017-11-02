@@ -13,22 +13,6 @@ const TYPES = {
   TIME: 'time'
 };
 
-function getRange(values) {
-  if (Util.isArray(values[0])) {
-    let tmp = [];
-    for (let i = 0; i < values.length; i++) {
-      tmp = tmp.concat(values[i]);
-    }
-    values = tmp;
-  }
-  const max = Math.max.apply(null, values);
-  const min = Math.min.apply(null, values);
-  return {
-    min,
-    max
-  };
-}
-
 class ScaleController {
   constructor(cfg) {
     // defs 列定义
@@ -74,7 +58,7 @@ class ScaleController {
     const values = Util.Array.values(data, field);
     cfg.values = values;
     if (!Scale.isCategory(type) && type !== 'time') {
-      const range = getRange(values);
+      const range = Util.Array.getRange(values);
       cfg.min = range.min;
       cfg.max = range.max;
       cfg.nice = true;
@@ -83,14 +67,6 @@ class ScaleController {
     if (type === 'time') {
       cfg.nice = false;
     }
-    /* if (!Scale.isCategory(type) && type !== 'time' && isIntervalY && (!cfg.min || cfg.min > 0)) {
-      var defs = this.defs;
-      var newDef = {};
-      newDef[field] = {
-        min: 0
-      };
-      this.defs = Util.mix(true, newDef, defs);
-    }*/
     return cfg;
   }
 

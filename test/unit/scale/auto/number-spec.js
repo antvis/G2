@@ -90,6 +90,16 @@ describe('test number auto', () => {
     expect(rst.ticks).eql([ 0, 5, 10 ]);
   });
 
+  it('with count', () => {
+    const rst = auto({
+      min: 0,
+      minCount: 5,
+      maxCount: 5,
+      max: 4200
+    });
+    expect(rst.ticks).eql([ 0, 1200, 2400, 3600, 4800 ]);
+  });
+
   it('max equals min', () => {
     let rst = auto({
       min: 100,
@@ -141,7 +151,7 @@ describe('test number auto', () => {
       maxCount: 5,
       max: 605
     });
-    expect(rst.ticks).eql([ -200, 0, 200, 400, 600, 800 ]);
+    expect(rst.ticks).eql([ -160, 0, 160, 320, 480, 640 ]);
   });
 
   it('tick count 6', () => {
@@ -153,4 +163,29 @@ describe('test number auto', () => {
     });
     expect(rst.ticks).eql([ 0, 20, 40, 60, 80, 100 ]);
   });
+
+  it('snapArray', () => {
+    const rst = auto({
+      min: 0,
+      minCount: 6,
+      maxCount: 6,
+      snapArray: [ 0.3, 3, 6, 30 ],
+      max: 1000
+    });
+    expect(rst.ticks).eql([ 0, 300, 600, 900, 1200 ]);
+  });
+
+  it('tick count with limit 0', () => {
+
+    const rst = auto({
+      min: 200,
+      minCount: 5,
+      maxCount: 5,
+      snapArray: [ 3, 6, 30 ],
+      max: 5268,
+      minLimit: 0
+    });
+    expect(rst.ticks).eql([ 0, 3000, 6000 ]);
+  });
+
 });

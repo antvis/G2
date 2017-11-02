@@ -42,11 +42,25 @@ class Linear extends Base {
       min: null,
 
       /**
+       * min value limitted of the scale
+       * @type {Number}
+       * @default null
+       */
+      minLimit: null,
+
+      /**
        * max value of the scale
        * @type {Number}
        * @default null
        */
       max: null,
+
+      /**
+       * max value limitted of the scale
+       * @type {Number}
+       * @default null
+       */
+      maxLimit: null,
 
       /**
        * 是否为了用户习惯，优化min,max和ticks，如果进行优化，则会根据生成的ticks调整min,max，否则舍弃(min,max)范围之外的ticks
@@ -67,7 +81,13 @@ class Linear extends Base {
        * @type {Number}
        * @default null
        */
-      tickInterval: null
+      tickInterval: null,
+
+      /**
+       * 用于计算坐标点时逼近的数组
+       * @type {Array}
+       */
+      snapArray: null
     });
   }
   /**
@@ -110,9 +130,12 @@ class Linear extends Base {
     const tmp = numberAuto({
       min,
       max,
+      minLimit: self.minLimit,
+      maxLimit: self.maxLimit,
       minCount: count,
       maxCount: count,
-      interval
+      interval,
+      snapArray: this.snapArray
     });
     return tmp.ticks;
   }
