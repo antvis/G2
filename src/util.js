@@ -4,6 +4,8 @@
  * @see https://github.com/lodash/lodash
  */
 
+const MAX_LEVEL = 5;
+
 function _mix(dist, obj) {
   for (const k in obj) {
     if (obj.hasOwnProperty(k) && k !== 'constructor' && obj[k] !== undefined) {
@@ -29,6 +31,7 @@ const Util = {
   isNull: require('lodash/isNull'),
   isArray: require('lodash/isArray'),
   isDate: require('lodash/isDate'),
+  isPlainObject: require('lodash/isPlainObject'),
   toArray: require('lodash/toArray'),
   indexOf: require('lodash/indexOf'),
   assign: require('lodash/assign'),
@@ -37,9 +40,7 @@ const Util = {
   maxBy: require('lodash/maxBy'),
   minBy: require('lodash/minBy'),
   round: require('lodash/round'),
-  merge: require('lodash/merge'),
   filter: require('lodash/filter'),
-  defaultsDeep: require('lodash/defaultsDeep'),
   isEqualWith: require('lodash/isEqualWith'),
   isEqual: require('lodash/isEqual'),
   replace: require('lodash/replace'),
@@ -147,6 +148,41 @@ const Util = {
       return (o[name] === undefined) ? '' : o[name];
     });
   }
+};
+
+function deepMix(dst, src, level) {
+  level = level || 0;
+  for (const k in src) {
+    if (src.hasOwnProperty(k)) {
+      const value = src[k];
+      if (value !== null && Util.isPlainObject(value)) {
+        if (!Util.isPlainObject(dst[k])) {
+          dst[k] = {};
+        }
+        if (level < MAX_LEVEL) {
+          deepMix(dst[k], src[k], level + 1);
+        } else {
+          dst[k] = src[k];
+        }
+      } else if (Util.isArray(value)) {
+        dst[k] = [];
+        dst[k] = dst[k].concat(value);
+      } else if (value !== undefined) {
+        dst[k] = src[k];
+      }
+    }
+  }
+}
+
+
+Util.deepMix = function() {
+  const args = Util.toArray(arguments);
+  const rst = args[0];
+  for (let i = 1; i < args.length; i++) {
+    const source = args[i];
+    deepMix(rst, source);
+  }
+  return rst;
 };
 
 Util.Array = {

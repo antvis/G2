@@ -127,8 +127,8 @@ class Labels extends Group {
     const textAlign = cfg.textAlign || 'left';
     let top = cfg.y;
     let left = cfg.x;
-    const width = DomUtil.getWidth(htmlDom);
-    const height = DomUtil.getHeight(htmlDom);
+    const width = DomUtil.getOuterWidth(htmlDom);
+    const height = DomUtil.getOuterHeight(htmlDom);
 
     top = top - height / 2;
     if (textAlign === 'center') {

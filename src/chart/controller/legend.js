@@ -115,6 +115,7 @@ class LegendController {
             }
           });
         }
+        chart.set('keepLegend', true); // 图例不重新渲染
         chart.repaint();
       }
     });
@@ -361,13 +362,13 @@ class LegendController {
       });
     });
 
-    const legendCfg = Util.defaultsDeep({
-      maxLength,
-      items
-    }, legendOptions[field] || legendOptions, Global.legend[position], {
+    const legendCfg = Util.deepMix({
       title: {
         text: scale.alias || scale.field
       }
+    }, Global.legend[position], legendOptions[field] || legendOptions, {
+      maxLength,
+      items
     });
 
     const legend = container.addGroup(Legend.Category, legendCfg);
@@ -422,13 +423,13 @@ class LegendController {
     }
 
     const options = self.options;
-    const legendCfg = Util.defaultsDeep({
-      items,
-      attr
-    }, options[field] || options, Global.legend[position], {
+    const legendCfg = Util.deepMix({
       title: {
         text: scale.alias || scale.field
       }
+    }, Global.legend[position], options[field] || options, {
+      items,
+      attr
     });
 
     if (attr.type === 'color') {
@@ -509,10 +510,10 @@ class LegendController {
     const plotRange = self.plotRange;
     const maxLength = (position === 'right' || position === 'left') ? plotRange.bl.y - plotRange.tr.y : canvas.get('width');
 
-    const legendCfg = Util.defaultsDeep({
+    const legendCfg = Util.deepMix({}, Global.legend[position], legendOptions, {
       maxLength,
       items
-    }, legendOptions, Global.legend[position]);
+    });
 
     const legend = container.addGroup(Legend.Category, legendCfg);
     legends[position].push(legend);

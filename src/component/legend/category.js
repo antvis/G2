@@ -134,7 +134,8 @@ class Category extends Base {
         fill: '#333',
         fontSize: 12,
         textAlign: 'start',
-        textBaseline: 'middle'
+        textBaseline: 'middle',
+        fontFamily: Global.fontFamily
       },
       /**
        * marker 和文字的距离
@@ -267,16 +268,16 @@ class Category extends Base {
 
       const unCheckColor = this.get('unCheckColor');
       const checkColor = this.get('textStyle').fill;
-      let markerItem = findShapeByName(clickedItem, 'legend-marker');
-      let textItem = findShapeByName(clickedItem, 'legend-text');
+      let markerItem;
+      let textItem;
       if (mode === 'single') {
         const itemsGroup = this.get('itemsGroup');
         const children = itemsGroup.get('children');
         Util.each(children, child => {
+          markerItem = findShapeByName(child, 'legend-marker');
+          textItem = findShapeByName(child, 'legend-text');
           if (child !== clickedItem) {
             child.set('checked', false);
-            markerItem = findShapeByName(child, 'legend-marker');
-            textItem = findShapeByName(child, 'legend-text');
             if (markerItem.attr('fill')) {
               markerItem.attr('fill', unCheckColor);
             }
@@ -292,10 +293,12 @@ class Category extends Base {
               markerItem.attr('stroke', item.marker.stroke);
             }
             textItem.attr('fill', checkColor);
-            clickedItem.set('checked', true);
+            child.set('checked', true);
           }
         });
       } else {
+        markerItem = findShapeByName(clickedItem, 'legend-marker');
+        textItem = findShapeByName(clickedItem, 'legend-text');
         if (markerItem.attr('fill')) {
           markerItem.attr('fill', checked ? unCheckColor : item.marker.fill);
         }
@@ -401,7 +404,8 @@ class Category extends Base {
         if (!clickedItem) {
           return;
         }
-
+        // update checked status
+        clickedItem.checked = (mode === 'single') ? true : !(clickedItem.checked);
         const domClass = parentDom.className;
         const originColor = parentDom.getAttribute('data-color');
         if (mode === 'single') { // 单选模式
@@ -412,6 +416,9 @@ class Category extends Base {
               childMarkerDom.style.backgroundColor = unCheckedColor;
               child.className = Util.replace(child.className, 'checked', 'unChecked');
               child.style.color = unCheckedColor;
+
+              const childItem = findItem(items, child.getAttribute('data-value'));
+              childItem.checked = false;
             } else {
               if (textDom) {
                 textDom.style.color = self.get('textStyle').fill;
@@ -451,7 +458,7 @@ class Category extends Base {
         self.emit('itemclick', {
           item: clickedItem,
           currentTarget: parentDom,
-          checked: (mode === 'single') ? true : !clickedItem.checked
+          checked: (mode === 'single') ? true : clickedItem.checked
         });
       };
     }
@@ -728,14 +735,14 @@ class Category extends Base {
 
   getWidth() {
     if (this.get('useHtml')) {
-      return DomUtil.getWidth(this.get('legendWrapper'));
+      return DomUtil.getOuterWidth(this.get('legendWrapper'));
     }
     return super.getWidth();
   }
 
   getHeight() {
     if (this.get('useHtml')) {
-      return DomUtil.getHeight(this.get('legendWrapper'));
+      return DomUtil.getOuterHeight(this.get('legendWrapper'));
     }
 
     return super.getHeight();

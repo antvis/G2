@@ -3,6 +3,7 @@
  * @author sima.zhang
  */
 const Util = require('../../util');
+const Global = require('../../global');
 const Base = require('./base');
 const { Event, Group } = require('@antv/g');
 const Slider = require('./slider');
@@ -51,7 +52,8 @@ class Continuous extends Base {
       textStyle: {
         fill: '#333',
         textAlign: 'center',
-        textBaseline: 'middle'
+        textBaseline: 'middle',
+        fontFamily: Global.fontFamily
       },
       /**
        * 连续图例是否可滑动

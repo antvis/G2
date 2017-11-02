@@ -250,7 +250,7 @@ class AxisController {
         text: scale.alias || field
       };
     }
-    cfg = Util.merge(true, {}, Global.axis[position], cfg, options[field]);
+    cfg = Util.deepMix({}, Global.axis[position], cfg, options[field]);
     cfg.ticks = scale.getTicks();
 
     if (coord.isPolar && !scale.isCategory) {

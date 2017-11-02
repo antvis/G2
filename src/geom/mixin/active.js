@@ -99,6 +99,7 @@ const ActiveMixin = {
   },
   setShapesActived(shapes) {
     const self = this;
+    let isStop = false; // 判断 shape 是否正在动画
     if (!Util.isArray(shapes)) {
       shapes = [ shapes ];
     }
@@ -114,6 +115,10 @@ const ActiveMixin = {
     const canvas = view.get('canvas');
     const shapeContainer = self.get('shapeContainer');
     Util.each(shapes, shape => {
+      if (shape.get('animating')) {
+        isStop = true;
+        return false;
+      }
       if (!shape.get('_originAttrs')) {
         shape.set('_originAttrs', Util.cloneDeep(shape.__attrs)); // 缓存原来的属性，由于 __attrs.matrix 是数组，所以此处需要深度复制
       }
@@ -121,6 +126,10 @@ const ActiveMixin = {
         self._setActiveShape(shape);
       }
     });
+
+    if (isStop) {
+      return;
+    }
 
     self.set('activeShapes', shapes);
     self.set('preShapes', shapes);

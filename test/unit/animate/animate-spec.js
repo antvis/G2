@@ -14,7 +14,7 @@ describe('Animate', () => {
     geomType = 'area';
     animationType = 'update';
     result = Animate.getAnimateCfg(geomType, animationType);
-    expect(result).eq(Animate.area.cfg[animationType]);
+    expect(result).to.deep.equal(Animate.area.cfg[animationType]);
 
     geomType = 'label';
     animationType = 'update';

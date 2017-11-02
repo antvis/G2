@@ -252,7 +252,7 @@ Animate.getAnimation = function(geomType, coord, animationType) {
 Animate.getAnimateCfg = function(geomType, animationType) {
   const defaultCfg = defaultAnimationCfg[animationType];
   if (this[geomType] && this[geomType].cfg && this[geomType].cfg[animationType]) {
-    return Util.defaultsDeep(this[geomType].cfg[animationType], defaultCfg);
+    return Util.deepMix({}, defaultCfg, this[geomType].cfg[animationType]);
   }
   return defaultCfg;
 };

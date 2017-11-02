@@ -3,8 +3,9 @@
  * @author sima.zhang
  */
 const Util = require('../../util');
+const Base = require('../../base');
 const Global = require('../../global');
-const { Group, DomUtil } = require('@antv/g');
+const { DomUtil } = require('@antv/g');
 
 const CONTAINER_CLASS = 'g2-tooltip';
 const TITLE_CLASS = 'g2-tooltip-title';
@@ -100,10 +101,9 @@ function confineTooltipPosition(x, y, el, plotRange) {
   return [ x, y ];
 }
 
-class Tooltip extends Group {
+class Tooltip extends Base {
   getDefaultCfg() {
     return {
-      zIndex: 10,
       /**
        * 右下角坐标
        * @type {Number}
@@ -169,11 +169,15 @@ class Tooltip extends Group {
        * @type {Boolean}
        */
       follow: true,
+      /**
+       * 是否允许鼠标停留在 tooltip 上，默认不允许
+       * @type {Boolean}
+       */
       enterable: false
     };
   }
 
-  _setTooltipWrapper() {
+  _initTooltipWrapper() {
     const self = this;
     const containerTpl = self.get('containerTpl');
     const outterNode = self.get('canvas').get('el').parentNode;
@@ -190,28 +194,38 @@ class Tooltip extends Group {
     self.set('container', container);
   }
 
-  _beforeRenderUI() {
+  _init() {
     const crosshairs = this.get('crosshairs');
-    if (crosshairs && crosshairs.type === 'rect') {
-      Util.defaultsDeep(this.get('crosshairs'), Global.tooltipCrosshairsRect);
-    } else {
-      Util.defaultsDeep(this.get('crosshairs'), Global.tooltipCrosshairsLine);
+    const frontPlot = this.get('frontPlot');
+    const backPlot = this.get('backPlot');
+    let crosshairsGroup;
+
+    if (crosshairs) {
+      if (crosshairs.type === 'rect') {
+        this.set('crosshairs', Util.deepMix({}, Global.tooltipCrosshairsRect, crosshairs));
+        crosshairsGroup = backPlot.addGroup({
+          zIndex: 0
+        });
+      } else {
+        this.set('crosshairs', Util.deepMix({}, Global.tooltipCrosshairsLine, crosshairs));
+        crosshairsGroup = frontPlot.addGroup();
+      }
     }
 
-    const crosshairsGroup = this.addGroup({
-      zIndex: 0
-    });
-
     this.set('crosshairsGroup', crosshairsGroup);
-    this._setTooltipWrapper();
+    this._initTooltipWrapper();
   }
 
-  _renderUI() {
+  constructor(cfg) {
+    super(cfg);
+    this._init(); // 初始化属性
+
     if (this.get('items')) {
       this._renderTooltip();
     }
     this._renderCrosshairs();
   }
+
 
   _clearDom() {
     const container = this.get('container');
@@ -269,6 +283,7 @@ class Tooltip extends Group {
     const crosshairsGroup = this.get('crosshairsGroup');
     this.set('crossLineShapeX', null);
     this.set('crossLineShapeY', null);
+    this.set('crosshairsRectShape', null);
     crosshairsGroup.clear();
   }
 
@@ -309,9 +324,7 @@ class Tooltip extends Group {
   }
 
   _renderVerticalLine(canvas, plotRange) {
-    const {
-      style
-    } = this.get('crosshairs');
+    const { style } = this.get('crosshairs');
     const attrs = Util.mix({
       x1: 0,
       y1: plotRange ? plotRange.bl.y : canvas.get('height'),
@@ -323,9 +336,7 @@ class Tooltip extends Group {
   }
 
   _renderHorizontalLine(canvas, plotRange) {
-    const {
-      style
-    } = this.get('crosshairs');
+    const { style } = this.get('crosshairs');
     const attrs = Util.mix({
       x1: plotRange ? plotRange.bl.x : canvas.get('width'),
       y1: 0,
@@ -337,9 +348,8 @@ class Tooltip extends Group {
   }
 
   _renderBackground(canvas, plotRange) {
-    const {
-      style
-    } = this.get('crosshairs');
+    const { style } = this.get('crosshairs');
+    const crosshairsGroup = this.get('crosshairsGroup');
     const attrs = Util.mix({
       x: plotRange ? plotRange.tl.x : 0,
       y: plotRange ? plotRange.tl.y : canvas.get('height'),
@@ -347,7 +357,7 @@ class Tooltip extends Group {
       height: plotRange ? Math.abs(plotRange.tl.y - plotRange.bl.y) : canvas.get('height')
     }, style);
 
-    const shape = this.addShape('rect', {
+    const shape = crosshairsGroup.addShape('rect', {
       attrs
     });
     shape.hide();
@@ -387,8 +397,9 @@ class Tooltip extends Group {
   setMarkers(markerItems, markerCfg) {
     const self = this;
     let markerGroup = self.get('markerGroup');
+    const frontPlot = self.get('frontPlot');
     if (!markerGroup) {
-      markerGroup = self.addGroup({
+      markerGroup = frontPlot.addGroup({
         zIndex: 1
       });
       self.set('markerGroup', markerGroup);
@@ -503,7 +514,7 @@ class Tooltip extends Group {
     markerGroup && markerGroup.show();
     super.show();
     container.style.visibility = 'visible';
-    this.sort();
+    // canvas.sort();
     canvas.draw();
   }
 
@@ -524,7 +535,7 @@ class Tooltip extends Group {
     canvas.draw();
   }
 
-  remove() {
+  destroy() {
     const self = this;
     const crossLineShapeX = self.get('crossLineShapeX');
     const crossLineShapeY = self.get('crossLineShapeY');
@@ -541,7 +552,8 @@ class Tooltip extends Group {
     crossLineShapeY && crossLineShapeY.remove();
     markerGroup && markerGroup.remove();
     crosshairsRectShape && crosshairsRectShape.remove();
-    super.remove();
+    // super.remove();
+    super.destroy();
   }
 }
 

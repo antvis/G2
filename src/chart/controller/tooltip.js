@@ -256,13 +256,16 @@ class TooltipController {
       return;
     }
     const chart = self.chart;
+    const canvas = self._getCanvas();
     const defaultCfg = self._getDefaultTooltipCfg();
-    const options = self.options;
-    Util.defaultsDeep(options, defaultCfg, {
+    let options = self.options;
+    options = Util.deepMix({
       plotRange: chart.get('plotRange'),
-      capture: false
-    });
-
+      capture: false,
+      canvas,
+      frontPlot: chart.get('frontPlot'),
+      backPlot: chart.get('backPlot')
+    }, defaultCfg, options);
     if (options.crosshairs && options.crosshairs.type === 'rect') {
       options.zIndex = 0; // toolip 背景框不可遮盖住 geom，防止用户配置了 crosshairs
     }
@@ -272,9 +275,7 @@ class TooltipController {
       options.position = 'top';
     }
 
-    const canvas = self._getCanvas();
-    const tooltip = canvas.addGroup(Tooltip, options);
-    canvas.sort();
+    const tooltip = new Tooltip(options);
     self.tooltip = tooltip;
 
     const triggerEvent = self._getTriggerEvent();
@@ -399,7 +400,7 @@ class TooltipController {
 
   clear() {
     const tooltip = this.tooltip;
-    tooltip && tooltip.remove();
+    tooltip && tooltip.destroy();
     this.tooltip = null;
     this.prePoint = null;
     this._offEvent();

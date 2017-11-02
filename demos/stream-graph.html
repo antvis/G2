@@ -8,15 +8,6 @@
   <meta name="geometry" content="area">
   <link rel="stylesheet" href="./assets/common.css">
   <title>Stream Graph</title>
-  <style type="text/css">
-    #canvas .g2-legend {
-      top: 20px!important;
-      height: calc(100% - 70px);
-    }
-    #canvas .g2-legend-title {
-      margin: 0 0 8px 0;
-    }
-  </style>
 </head>
 
 <body>
@@ -70,13 +61,18 @@
       });
       chart.legend({
         useHtml: true,
-        itemTpl: '<li class="g2-legend-item item-{index} {checked}" data-color="{originColor}" data-value="{originValue}" style="cursor: pointer;font-size: 12px;">' +
-        '<i class="g2-legend-marker" style="width:8px;height:8px;display:inline-block;margin-right:8px;background-color: {color};"></i>' +
-        '<span class="g2-legend-text">{value}</span></li>',
-        onHover: ev => {
-          const shapes = ev.shapes;
-          const geom = ev.geom;
-          geom.highlightShapes(shapes);
+        position: 'right',
+        title: {
+          text: '图例可滚动'
+        },
+        'g2-legend-marker': {
+          borderRadius: 'none'
+        },
+        'g2-legend-title': {
+          fontSize: '12px',
+          fontWeight: 500,
+          margin: 0,
+          color: '#ff8800'
         }
       });
       chart.tooltip({

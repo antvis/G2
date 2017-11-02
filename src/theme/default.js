@@ -13,7 +13,7 @@ const COLOR_PIE = [ '#1890FF', '#13C2C2', '#2FC25B', '#FACC14', '#F04864', '#854
 const COLOR_PIE_16 = [ '#1890FF', '#73C9E6', '#13C2C2', '#6CD9B3', '#2FC25B', '#9DD96C', '#FACC14', '#E6965C',
   '#F04864', '#D66BCA', '#8543E0', '#8E77ED', '#3436C7', '#737EE6', '#223273', '#7EA2E6' ];
 
-const FONT_FAMILY = '"Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", SimSun, "sans-serif"';
+const FONT_FAMILY = '"-apple-system", BlinkMacSystemFont, "Segoe UI", Roboto,"Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",SimSun, "sans-serif"';
 // tooltip 相关 dom 的 css 类名
 const TOOLTIP_CONTAINER_CLASS = 'g2-tooltip';
 const TOOLTIP_TITLE_CLASS = 'g2-tooltip-title';
@@ -60,7 +60,8 @@ const Theme = {
           fill: '#545454',
           fontSize: 12,
           lineHeight: 20,
-          textBaseline: 'middle'
+          textBaseline: 'middle',
+          fontFamily: FONT_FAMILY
         },
         autoRotate: true
       },
@@ -84,7 +85,8 @@ const Theme = {
           fill: '#545454',
           fontSize: 12,
           lineHeight: 20,
-          textBaseline: 'middle'
+          textBaseline: 'middle',
+          fontFamily: FONT_FAMILY
         }
       },
       line: {
@@ -107,7 +109,8 @@ const Theme = {
           fill: '#545454',
           fontSize: 12,
           lineHeight: 20,
-          textBaseline: 'middle'
+          textBaseline: 'middle',
+          fontFamily: FONT_FAMILY
         }
       },
       line: null,
@@ -131,7 +134,8 @@ const Theme = {
           fill: '#545454',
           fontSize: 12,
           lineHeight: 20,
-          textBaseline: 'middle'
+          textBaseline: 'middle',
+          fontFamily: FONT_FAMILY
         }
       },
       line: null,
@@ -153,7 +157,8 @@ const Theme = {
         textStyle: {
           fill: '#545454',
           fontSize: 12,
-          lineHeight: 20
+          lineHeight: 20,
+          fontFamily: FONT_FAMILY
         }
       },
       line: {
@@ -182,7 +187,8 @@ const Theme = {
           fill: '#545454',
           fontSize: 12,
           textBaseline: 'middle',
-          lineHeight: 20
+          lineHeight: 20,
+          fontFamily: FONT_FAMILY
         }
       },
       line: {
@@ -223,7 +229,8 @@ const Theme = {
     textStyle: {
       fill: '#545454',
       fontSize: 12,
-      textBaseline: 'middle'
+      textBaseline: 'middle',
+      fontFamily: FONT_FAMILY
     }
   },
   treemapLabels: {
@@ -232,14 +239,16 @@ const Theme = {
       fill: '#fff',
       fontSize: 12,
       textBaseline: 'top',
-      fontStyle: 'bold'
+      fontStyle: 'bold',
+      fontFamily: FONT_FAMILY
     }
   },
   innerLabels: {
     textStyle: {
       fill: '#fff',
       fontSize: 12,
-      textBaseline: 'middle'
+      textBaseline: 'middle',
+      fontFamily: FONT_FAMILY
     }
   },
   // 在theta坐标系下的饼图文本内部的样式
@@ -264,7 +273,8 @@ const Theme = {
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle',
-        lineHeight: 20
+        lineHeight: 20,
+        fontFamily: FONT_FAMILY
       }, // 图例项文本的样式
       unCheckColor: '#bfbfbf'
     },
@@ -280,7 +290,8 @@ const Theme = {
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle',
-        lineHeight: 20
+        lineHeight: 20,
+        fontFamily: FONT_FAMILY
       }, // 图例项文本的样式
       unCheckColor: '#bfbfbf'
     },
@@ -297,7 +308,8 @@ const Theme = {
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle',
-        lineHeight: 20
+        lineHeight: 20,
+        fontFamily: FONT_FAMILY
       }, // 图例项文本的样式
       unCheckColor: '#bfbfbf'
     },
@@ -314,7 +326,8 @@ const Theme = {
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle',
-        lineHeight: 20
+        lineHeight: 20,
+        fontFamily: FONT_FAMILY
       }, // 图例项文本的样式
       unCheckColor: '#bfbfbf'
     },
@@ -496,7 +509,8 @@ const Theme = {
         style: {
           fill: '#545454',
           fontSize: 12,
-          textAlign: 'center'
+          textAlign: 'center',
+          fontFamily: FONT_FAMILY
         }
       }
     },
@@ -505,7 +519,9 @@ const Theme = {
         fill: '#545454',
         fontSize: 12,
         textBaseline: 'middle',
-        textAlign: 'start'
+        textAlign: 'start',
+        fontFamily: FONT_FAMILY
+
       }
     },
     region: {

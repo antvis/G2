@@ -23,10 +23,10 @@ class GuideController {
     const yScales = this.yScales;
     options.forEach(function(option) {
       let type = option.type;
-      const config = Util.defaultsDeep(option, Global.guide[type], {
+      const config = Util.deepMix({
         xScales,
         yScales
-      });
+      }, Global.guide[type], option);
       type = Util.upperFirst(type);
       const guide = new Guide[type](config);
       self.guides.push(guide);
@@ -36,36 +36,45 @@ class GuideController {
   }
 
   line(cfg = {}) {
-    cfg.type = 'line';
-    this.options.push(cfg);
+    this.options.push(Util.mix({
+      type: 'line'
+    }, cfg));
     return this;
   }
 
   arc(cfg = {}) {
-    cfg.type = 'arc';
-    this.options.push(cfg);
+    this.options.push(Util.mix({
+      type: 'arc'
+    }, cfg));
     return this;
   }
 
   text(cfg = {}) {
-    cfg.type = 'text';
-    this.options.push(cfg);
+    this.options.push(Util.mix({
+      type: 'text'
+    }, cfg));
     return this;
   }
 
   image(cfg = {}) {
-    cfg.type = 'image';
-    this.options.push(cfg);
+    this.options.push(Util.mix({
+      type: 'image'
+    }, cfg));
+    return this;
   }
 
   region(cfg = {}) {
-    cfg.type = 'region';
-    this.options.push(cfg);
+    this.options.push(Util.mix({
+      type: 'region'
+    }, cfg));
+    return this;
   }
 
   html(cfg = {}) {
-    cfg.type = 'html';
-    this.options.push(cfg);
+    this.options.push(Util.mix({
+      type: 'html'
+    }, cfg));
+    return this;
   }
 
   render(coord) {

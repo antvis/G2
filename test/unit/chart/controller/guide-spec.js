@@ -69,7 +69,25 @@ describe('GuideController', function() {
   });
 
   it('添加辅助线, line', function() {
-    guideController.line({
+    const lineCfg = {
+      start: {
+        x: 'a',
+        y1: 250
+      },
+      end: {
+        x: 'd',
+        y2: 50
+      },
+      text: {
+        content: '辅助线的辅助文本'
+      }
+    };
+    guideController.line(lineCfg);
+
+    const guidesOptions = guideController.options;
+    expect(guidesOptions.length).to.equal(1);
+    expect(guidesOptions[0].type).to.equal('line');
+    expect(lineCfg).to.eql({
       start: {
         x: 'a',
         y1: 250
@@ -82,10 +100,6 @@ describe('GuideController', function() {
         content: '辅助线的辅助文本'
       }
     });
-
-    const guidesOptions = guideController.options;
-    expect(guidesOptions.length).to.equal(1);
-    expect(guidesOptions[0].type).to.equal('line');
   });
 
   it('添加图片, image', function() {

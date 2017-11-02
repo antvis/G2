@@ -77,7 +77,8 @@ class GeomLabels extends Group {
     const self = this;
     const labels = self.getDefaultLabelCfg();
     const labelCfg = self.get('labelCfg');
-    Util.merge(labels, labelCfg.cfg);
+    // Util.merge(labels, labelCfg.cfg);
+    Util.deepMix(labels, labelCfg.cfg);
     self.set('label', labels);
   }
 
@@ -91,9 +92,11 @@ class GeomLabels extends Group {
     const labelCfg = self.get('labelCfg').cfg;
     const geomType = self.get('geomType');
     if (geomType === 'polygon' || (labelCfg && labelCfg.offset < 0 && Util.indexOf(IGNORE_ARR, geomType) === -1)) {
-      return Util.merge({}, self.get('label'), Global.innerLabels);
+      // return Util.merge({}, self.get('label'), Global.innerLabels);
+      return Util.deepMix({}, self.get('label'), Global.innerLabels);
     }
-    return Util.merge({}, Global.label, self.get('label'));
+    // return Util.merge({}, Global.label, self.get('label'));
+    return Util.deepMix({}, Global.label, self.get('label'));
   }
 
   /**
