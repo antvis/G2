@@ -27,7 +27,7 @@ Util.mix(Marker.Symbols, {
     ctx.closePath();
   },
   bowtie(x, y, r, ctx) {
-    const diffY = r - 2;
+    const diffY = r - 1.5;
     ctx.moveTo(x - r, y - diffY);
     ctx.lineTo(x + r, y + diffY);
     ctx.lineTo(x + r, y - diffY);
@@ -139,7 +139,7 @@ Shape.registerShape('point', 'rect', {
   getMarkerCfg(cfg) {
     const attrs = getFillAttrs(cfg);
     attrs.symbol = 'rect';
-    attrs.radius = Global.markerRadius;
+    attrs.radius = 4.5;
     return attrs;
   }
 });
@@ -161,7 +161,7 @@ Util.each(SHAPES, function(shape) {
     getMarkerCfg(cfg) {
       const attrs = getFillAttrs(cfg);
       attrs.symbol = shape;
-      attrs.radius = Global.markerRadius;
+      attrs.radius = 4.5;
       return attrs;
     }
   });
@@ -181,7 +181,7 @@ Util.each(SHAPES, function(shape) {
     getMarkerCfg(cfg) {
       const attrs = getLineAttrs(cfg);
       attrs.symbol = shape;
-      attrs.radius = Global.markerRadius;
+      attrs.radius = 4.5;
       return attrs;
     }
   });
@@ -203,7 +203,7 @@ Util.each(HOLLOW_SHAPES, function(shape) {
     getMarkerCfg(cfg) {
       const attrs = getLineAttrs(cfg);
       attrs.symbol = shape;
-      attrs.radius = Global.markerRadius;
+      attrs.radius = 4.5;
       return attrs;
     }
   });

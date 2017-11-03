@@ -230,7 +230,7 @@ Shape.registerShape('schema', 'box', {
   getMarkerCfg(cfg) {
     return {
       symbol(x, y, r, ctx) {
-        const yValues = [ y - 6, y - 4, y, y + 4, y + 6 ];
+        const yValues = [ y - 6, y - 3, y, y + 3, y + 6 ];
         const points = getBoxPoints(x, yValues, r);
         ctx.moveTo(points[0].x + 1, points[0].y);
         ctx.lineTo(points[1].x - 1, points[1].y);
@@ -249,7 +249,7 @@ Shape.registerShape('schema', 'box', {
         ctx.moveTo(points[12].x, points[12].y);
         ctx.lineTo(points[13].x, points[13].y);
       },
-      radius: 7,
+      radius: 6,
       lineWidth: 1,
       stroke: cfg.color
     };
@@ -274,7 +274,7 @@ Shape.registerShape('schema', 'candle', {
   getMarkerCfg(cfg) {
     return {
       symbol(x, y, r, ctx) {
-        y = [ y + 7, y + 3, y - 3, y - 7 ];
+        y = [ y + 7.5, y + 3, y - 3, y - 7.5 ];
         const points = getCandlePoints(x, y, r);
         ctx.moveTo(points[0].x, points[0].y);
         ctx.lineTo(points[1].x, points[1].y);
@@ -289,7 +289,7 @@ Shape.registerShape('schema', 'candle', {
       lineWidth: 1,
       stroke: cfg.color,
       fill: cfg.color,
-      radius: 4
+      radius: 6
     };
   }
 });

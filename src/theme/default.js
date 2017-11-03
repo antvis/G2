@@ -46,7 +46,6 @@ const Theme = {
     line: [ 'line', 'dash', 'dot' ],
     area: [ 'area' ]
   },
-  markerRadius: 4,
   sizes: [ 1, 10 ],
   opacities: [ 0.1, 0.9 ],
   axis: {
@@ -357,8 +356,8 @@ const Theme = {
         marginRight: '24px'
       },
       [`${LEGEND_MARKER_CLASS}`]: {
-        width: '8px',
-        height: '8px',
+        width: '9px',
+        height: '9px',
         borderRadius: '50%',
         display: 'inline-block',
         marginRight: '8px',
@@ -461,7 +460,7 @@ const Theme = {
       fill: '#fff',
       stroke: DEFAULT_COLOR,
       fillOpacity: 0,
-      lineWidth: 1
+      lineWidth: 2
     },
     area: {
       lineWidth: 0,
@@ -477,13 +476,13 @@ const Theme = {
       fill: '#fff',
       stroke: DEFAULT_COLOR,
       fillOpacity: 0,
-      lineWidth: 1
+      lineWidth: 2
     },
     hollowArea: {
       fill: '#fff',
       stroke: DEFAULT_COLOR,
       fillOpacity: 0,
-      lineWidth: 1
+      lineWidth: 2
     },
     line: {
       stroke: DEFAULT_COLOR,

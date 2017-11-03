@@ -11,7 +11,7 @@ const ShapeUtil = require('../util/shape');
 const Shape = require('./shape');
 const Global = require('../../global');
 const DOT_ARR = [ 1, 1 ];
-const DASH_ARR = [ 2, 1 ];
+const DASH_ARR = [ 5.5, 1 ];
 
 function getAttrs(cfg) {
   const defaultCfg = Global.shape.line;
@@ -28,10 +28,10 @@ function getMarkerAttrs(cfg) {
   const defaultCfg = Global.shape.line;
   const shapeCfg = Util.mix({}, defaultCfg, {
     stroke: cfg.color,
-    lineWidth: 1,
+    lineWidth: 2,
     strokeOpacity: cfg.opacity,
     opacity: cfg.opacity,
-    radius: 5
+    radius: 6
   }, cfg.style);
   return shapeCfg;
 }
@@ -230,7 +230,6 @@ Shape.registerShape('line', 'dash', {
   getMarkerCfg(cfg) {
     const tmp = _getMarkerCfg(cfg, false);
     tmp.lineDash = DASH_ARR;
-    tmp.radius = 4.5;
     return tmp;
   }
 });
@@ -270,10 +269,10 @@ Shape.registerShape('line', 'hv', {
   },
   getMarkerCfg(cfg) {
     return _getInterMarkerCfg(cfg, function(x, y, r, ctx) {
-      ctx.moveTo(x - r - 1, y - 3);
-      ctx.lineTo(x, y - 3);
-      ctx.lineTo(x, y + 3);
-      ctx.lineTo(x + r + 1, y + 3);
+      ctx.moveTo(x - r - 1, y - 2.5);
+      ctx.lineTo(x, y - 2.5);
+      ctx.lineTo(x, y + 2.5);
+      ctx.lineTo(x + r + 1, y + 2.5);
     });
   }
 });
@@ -297,10 +296,10 @@ Shape.registerShape('line', 'vh', {
   },
   getMarkerCfg(cfg) {
     return _getInterMarkerCfg(cfg, function(x, y, r, ctx) {
-      ctx.moveTo(x - r - 1, y + 3);
-      ctx.lineTo(x, y + 3);
-      ctx.lineTo(x, y - 3);
-      ctx.lineTo(x + r + 1, y - 3);
+      ctx.moveTo(x - r - 1, y + 2.5);
+      ctx.lineTo(x, y + 2.5);
+      ctx.lineTo(x, y - 2.5);
+      ctx.lineTo(x + r + 1, y - 2.5);
     });
   }
 });
@@ -329,12 +328,12 @@ Shape.registerShape('line', 'hvh', {
   },
   getMarkerCfg(cfg) {
     return _getInterMarkerCfg(cfg, function(x, y, r, ctx) {
-      ctx.moveTo(x - r - 2, y + 2);
-      ctx.lineTo(x - r + 2, y + 2);
-      ctx.lineTo(x - r + 2, y - 2);
-      ctx.lineTo(x - r + 7, y - 2);
-      ctx.lineTo(x - r + 7, y + 2);
-      ctx.lineTo(x + r + 1, y + 2);
+      ctx.moveTo(x - (r + 1), y + 2.5);
+      ctx.lineTo(x - r / 2, y + 2.5);
+      ctx.lineTo(x - r / 2, y - 2.5);
+      ctx.lineTo(x + r / 2, y - 2.5);
+      ctx.lineTo(x + r / 2, y + 2.5);
+      ctx.lineTo(x + r + 1, y + 2.5);
     });
   }
 });
@@ -363,12 +362,13 @@ Shape.registerShape('line', 'vhv', {
   },
   getMarkerCfg(cfg) {
     return _getInterMarkerCfg(cfg, function(x, y, r, ctx) {
-      ctx.moveTo(x - r, y);
-      ctx.lineTo(x - r, y - r / 2);
-      ctx.lineTo(x, y - r / 2);
-      ctx.lineTo(x, y - r);
-      ctx.lineTo(x, y + r / 2);
-      ctx.lineTo(x + r, y + r / 2);
+      // 宽 13px，高 8px
+      ctx.moveTo(x - 5, y + 2.5);
+      ctx.lineTo(x - 5, y);
+      ctx.lineTo(x, y);
+      ctx.lineTo(x, y - 3);
+      ctx.lineTo(x, y + 3);
+      ctx.lineTo(x + 6.5, y + 3);
     });
   }
 });

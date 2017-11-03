@@ -65,17 +65,18 @@ function getPath(cfg, smooth) {
 function _getMarkerCfg(cfg) {
   return {
     symbol(x, y, r, ctx) {
+      // 11px * 9px
       ctx.save();
-      ctx.lineWidth = 1;
+      ctx.lineWidth = 2;
       ctx.strokeStyle = ctx.fillStyle;
-      ctx.moveTo(x - 5, y - 4);
-      ctx.lineTo(x + 5, y - 4);
+      ctx.moveTo(x - 5.5, y - 4);
+      ctx.lineTo(x + 5.5, y - 4);
       ctx.stroke();
       ctx.restore();
-      ctx.moveTo(x - 5, y - 4);
-      ctx.lineTo(x + 5, y - 4);
-      ctx.lineTo(x + 5, y + 4);
-      ctx.lineTo(x - 5, y + 4);
+      ctx.moveTo(x - 5.5, y - 4);
+      ctx.lineTo(x + 5.5, y - 4);
+      ctx.lineTo(x + 5.5, y + 4);
+      ctx.lineTo(x - 5.5, y + 4);
       ctx.closePath();
     },
     radius: 5,
