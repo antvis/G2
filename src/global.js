@@ -7,7 +7,7 @@ const Theme = require('./theme/index');
 
 const Global = {};
 const Default = {
-  version: '3.0.0-rc5.9',
+  version: '3.0.0-rc5.10',
   trackable: true,
   animate: true,
   snapArray: [ 0, 1, 2, 4, 5, 10 ],
