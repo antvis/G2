@@ -140,7 +140,7 @@ Shape.registerShape('edge', 'line', {
   getMarkerCfg(cfg) {
     return Util.mix({
       symbol: 'circle',
-      radius: Global.markerRadius
+      radius: 4.5
     }, getAttrs(cfg));
   }
 });
@@ -161,7 +161,7 @@ Shape.registerShape('edge', 'vhv', {
   getMarkerCfg(cfg) {
     return Util.mix({
       symbol: 'circle',
-      radius: Global.markerRadius
+      radius: 4.5
     }, getAttrs(cfg));
   }
 });
@@ -183,7 +183,7 @@ Shape.registerShape('edge', 'smooth', {
   getMarkerCfg(cfg) {
     return Util.mix({
       symbol: 'circle',
-      radius: Global.markerRadius
+      radius: 4.5
     }, getAttrs(cfg));
   }
 });
@@ -251,7 +251,7 @@ Shape.registerShape('edge', 'arc', {
   getMarkerCfg(cfg) {
     return Util.mix({
       symbol: 'circle',
-      radius: Global.markerRadius
+      radius: 4.5
     }, getAttrs(cfg));
   }
 });

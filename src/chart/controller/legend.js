@@ -499,7 +499,7 @@ class LegendController {
         item.marker = {
           symbol: item.marker ? item.marker : 'circle',
           fill: item.fill,
-          radius: 5
+          radius: 4.5
         };
       }
       item.checked = Util.isNil(item.checked) ? true : item.checked;

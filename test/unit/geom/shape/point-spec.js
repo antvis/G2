@@ -65,7 +65,7 @@ describe('Point shapes', function() {
       expect(markerCfg).eql({
         lineWidth: 2 / 2,
         fill: Global.defaultColor,
-        radius: Global.markerRadius,
+        radius: 4.5,
         symbol: 'circle'
       });
     });
@@ -236,7 +236,7 @@ describe('Point shapes', function() {
       expect(markerCfg).eql({
         fill: '#fff',
         lineWidth: 1,
-        radius: Global.markerRadius,
+        radius: 4.5,
         stroke: 'red',
         symbol: 'cross'
       });
