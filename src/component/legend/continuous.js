@@ -180,10 +180,10 @@ class Continuous extends Base {
       maxBlockAttr = Util.mix({}, inRange);
     }
     const minTextAttr = Util.mix({
-      text: this._formatItemValue(min.value * 1) + ''
+      text: this._formatItemValue(min.value) + ''
     }, textStyle);
     const maxTextAttr = Util.mix({
-      text: this._formatItemValue(max.value * 1) + ''
+      text: this._formatItemValue(max.value) + ''
     }, textStyle);
     if (layout === 'vertical') {
       this._addVerticalTrigger('min', minBlockAttr, minTextAttr);

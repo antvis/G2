@@ -147,6 +147,14 @@ const DarkTheme = Util.deepMix({}, BasicTheme, {
       [`${LEGEND_CONTAINER_CLASS}`]: {
         color: '#D9D9D9'
       }
+    },
+    gradient: {
+      textStyle: {
+        fill: '#D9D9D9'
+      },
+      lineStyle: {
+        stroke: '#404040'
+      }
     }
   },
   tooltip: {
@@ -159,7 +167,7 @@ const DarkTheme = Util.deepMix({}, BasicTheme, {
     type: 'rect',
     style: {
       fill: '#fff',
-      opacity: 0.15
+      opacity: 0.1
     }
   }, // tooltip 辅助背景框样式
   tooltipCrosshairsLine: {

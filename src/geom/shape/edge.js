@@ -11,7 +11,7 @@ const PathUtil = require('../util/path');
 const CORNER_PERCENT = 1 / 3;
 
 function getAttrs(cfg) {
-  const defaultCfg = Global.shape.line;
+  const defaultCfg = Global.shape.edge;
   const shapeCfg = Util.mix({}, defaultCfg, {
     stroke: cfg.color,
     lineWidth: cfg.size,
