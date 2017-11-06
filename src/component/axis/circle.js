@@ -77,7 +77,7 @@ class Circle extends Base {
     const self = this;
     const center = self.get('center');
     const vector = [ point.x - center.x, point.y - center.y ];
-    if (offset) {
+    if (!Util.isNil(offset)) {
       const vecLen = vec2.length(vector);
       vec2.scale(vector, vector, offset / vecLen);
     }
