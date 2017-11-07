@@ -115,6 +115,7 @@ class Labels extends Group {
       customDiv.appendChild(node);
       this._setCustomPosition(cfg, node);
     } else {
+      delete cfg.point; // 临时解决，否则影响动画
       labelShape = this.addShape('text', {
         attrs: cfg
       });

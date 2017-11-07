@@ -22,7 +22,11 @@ class Color extends Continuous {
        * @type {String}
        */
       layout: 'vertical',
-      labelOffset: 5 // TODO: 文本同渐变背景的距离
+      labelOffset: 15,
+      lineStyle: {
+        lineWidth: 1,
+        stroke: '#fff'
+      }
     });
   }
 
@@ -76,16 +80,19 @@ class Color extends Continuous {
 
     if (layout === 'vertical') {
       fill += 'l (90) ';
-      Util.each(items, v => {
-        path.push([ 'M', 0, height - v.scaleValue * height ]);
-        path.push([ 'L', width, height - v.scaleValue * height ]);
+      Util.each(items, (v, index) => {
+        if (index !== 0 && (index !== items.length - 1)) {
+          path.push([ 'M', 0, height - v.scaleValue * height ]);
+          path.push([ 'L', width, height - v.scaleValue * height ]);
+        }
+
         rgbColor = ColorUtil.toRGB(v.attrValue);
         fill += (1 - v.scaleValue) + ':' + rgbColor + ' ';
         bgGroup.addShape('text', {
           attrs: Util.mix({}, {
-            x: width + self.get('labelOffset'),
+            x: width + self.get('labelOffset') / 2,
             y: height - v.scaleValue * height,
-            text: self._formatItemValue(v.value * 1) + ''
+            text: self._formatItemValue(v.value) + '' // 以字符串格式展示
           }, self.get('textStyle'), {
             textAlign: 'start'
           })
@@ -93,16 +100,18 @@ class Color extends Continuous {
       });
     } else {
       fill += 'l (0) ';
-      Util.each(items, v => {
-        path.push([ 'M', v.scaleValue * width, 0 ]);
-        path.push([ 'L', v.scaleValue * width, height ]);
+      Util.each(items, (v, index) => {
+        if (index !== 0 && (index !== items.length - 1)) {
+          path.push([ 'M', v.scaleValue * width, 0 ]);
+          path.push([ 'L', v.scaleValue * width, height ]);
+        }
         rgbColor = ColorUtil.toRGB(v.attrValue);
         fill += v.scaleValue + ':' + rgbColor + ' ';
         bgGroup.addShape('text', {
           attrs: Util.mix({}, {
             x: v.scaleValue * width,
             y: height + self.get('labelOffset'),
-            text: self._formatItemValue(v.value * 1) + ''
+            text: self._formatItemValue(v.value) + '' // 以字符串格式展示
           }, self.get('textStyle'))
         });
       });
@@ -119,11 +128,9 @@ class Color extends Continuous {
     });
 
     bgGroup.addShape('path', {
-      attrs: {
-        path,
-        lineWidth: 1,
-        stroke: '#fff'
-      }
+      attrs: Util.mix({
+        path
+      }, this.get('lineStyle'))
     });
 
     bgGroup.move(0, titleGap);

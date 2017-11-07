@@ -363,6 +363,22 @@ const Theme = {
         marginRight: '8px',
         verticalAlign: 'middle'
       }
+    },
+    // 不能滑动的连续图例样式
+    gradient: {
+      textStyle: {
+        fill: '#8C8C8C',
+        fontSize: 12,
+        textAlign: 'center',
+        textBaseline: 'middle',
+        lineHeight: 20,
+        fontFamily: FONT_FAMILY
+      }, // 图例项文本的样式
+      lineStyle: {
+        lineWidth: 1,
+        stroke: '#fff'
+      },
+      unCheckColor: '#bfbfbf'
     }
   },
   tooltip: {
@@ -487,6 +503,11 @@ const Theme = {
     line: {
       stroke: DEFAULT_COLOR,
       lineWidth: 2,
+      fill: null
+    },
+    edge: {
+      stroke: DEFAULT_COLOR,
+      lineWidth: 1,
       fill: null
     },
     schema: {

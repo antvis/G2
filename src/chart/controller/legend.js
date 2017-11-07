@@ -423,11 +423,17 @@ class LegendController {
     }
 
     const options = self.options;
+
+    let defaultCfg = Global.legend[position];
+    if ((options && options.slidable === false) || (options[field] && options[field].slidable === false)) {
+      defaultCfg = Util.mix({}, defaultCfg, Global.legend.gradient);
+    }
+
     const legendCfg = Util.deepMix({
       title: {
         text: scale.alias || scale.field
       }
-    }, Global.legend[position], options[field] || options, {
+    }, defaultCfg, options[field] || options, {
       items,
       attr
     });

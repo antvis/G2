@@ -367,7 +367,10 @@ Util.assign(Base.prototype, LabelsRenderer, {
     let rst;
 
     if (labelsGroup) {
-      const offset = this.get('label').offset || this.get('_labelOffset');
+      let offset = this.get('_labelOffset');
+      if (!Util.isNil(this.get('label').offset)) {
+        offset = this.get('label').offset;
+      }
       const vector = this.getSideVector(offset, point, index);
       point = {
         x: point.x + vector[0],
