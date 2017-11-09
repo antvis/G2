@@ -286,10 +286,10 @@ class Category extends Base {
               markerItem.attr('stroke', unCheckColor);
             }
             textItem.attr('fill', unCheckColor);
-            markerItem.set('checked', false);
-            textItem.set('checked', false);
-            legendItem.set('checked', false);
-            child.set('checked', false);
+            markerItem.setSilent('checked', false);
+            textItem.setSilent('checked', false);
+            legendItem.setSilent('checked', false);
+            child.setSilent('checked', false);
           } else {
             if (markerItem.attr('fill')) {
               markerItem.attr('fill', item.marker.fill);
@@ -298,10 +298,10 @@ class Category extends Base {
               markerItem.attr('stroke', item.marker.stroke);
             }
             textItem.attr('fill', checkColor);
-            markerItem.set('checked', true);
-            textItem.set('checked', true);
-            legendItem.set('checked', true);
-            child.set('checked', true);
+            markerItem.setSilent('checked', true);
+            textItem.setSilent('checked', true);
+            legendItem.setSilent('checked', true);
+            child.setSilent('checked', true);
           }
         });
       } else {
@@ -316,10 +316,10 @@ class Category extends Base {
           markerItem.attr('stroke', checked ? unCheckColor : item.marker.stroke);
         }
         textItem.attr('fill', checked ? unCheckColor : checkColor);
-        clickedItem.set('checked', !checked);
-        markerItem.set('checked', !checked);
-        textItem.set('checked', !checked);
-        legendItem.set('checked', !checked);
+        clickedItem.setSilent('checked', !checked);
+        markerItem.setSilent('checked', !checked);
+        textItem.setSilent('checked', !checked);
+        legendItem.setSilent('checked', !checked);
       }
       this.emit('itemclick', itemclick);
     }
@@ -659,7 +659,7 @@ class Category extends Base {
       }
     });
     wrapperShape.attr('cursor', 'pointer');
-    wrapperShape.set('origin', item); // 保存图例项相关的数据，便于事件操作
+    wrapperShape.setSilent('origin', item); // 保存图例项相关的数据，便于事件操作
     wrapperShape.name = 'legend-item';
     itemGroup.name = 'legendGroup';
     return itemGroup;
