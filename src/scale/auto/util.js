@@ -102,7 +102,14 @@ const Util = {
     } else {
       v = Util.snapTo(arr, v); // 四舍五入 5
     }
-    return v * factor;
+    let rst = v * factor;
+    // 如果出现浮点数计算问题，需要处理一下
+    if (Math.abs(factor) < 1 && rst.toString().length > 20) {
+      const decimalVal = parseInt(1 / factor);
+      const symbol = factor > 0 ? 1 : -1;
+      rst = v / decimalVal * symbol;
+    }
+    return rst;
   },
   // 获取逼近的倍数
   snapMultiple(v, base, snapType) {

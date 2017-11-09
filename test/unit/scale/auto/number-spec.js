@@ -188,4 +188,38 @@ describe('test number auto', () => {
     expect(rst.ticks).eql([ 0, 3000, 6000 ]);
   });
 
+  it('very small and float', function() {
+    let rst = auto({
+      min: 0,
+      max: 0.0000267519
+    });
+
+    expect(rst.ticks).eql([
+      0,
+      0.000005,
+      0.00001,
+      0.000015,
+      0.00002,
+      0.000025,
+      0.00003
+    ]);
+
+    rst = auto({
+      min: 0.0000237464,
+      max: 0.0000586372
+    });
+
+    expect(rst.ticks).eql([
+      0.00002,
+      0.000025,
+      0.00003,
+      0.000035,
+      0.00004,
+      0.000045,
+      0.00005,
+      0.000055,
+      0.00006
+    ]);
+  });
+
 });
