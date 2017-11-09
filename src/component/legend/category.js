@@ -270,14 +270,15 @@ class Category extends Base {
       const checkColor = this.get('textStyle').fill;
       let markerItem;
       let textItem;
+      let legendItem;
       if (mode === 'single') {
         const itemsGroup = this.get('itemsGroup');
         const children = itemsGroup.get('children');
         Util.each(children, child => {
           markerItem = findShapeByName(child, 'legend-marker');
           textItem = findShapeByName(child, 'legend-text');
+          legendItem = findShapeByName(child, 'legend-item');
           if (child !== clickedItem) {
-            child.set('checked', false);
             if (markerItem.attr('fill')) {
               markerItem.attr('fill', unCheckColor);
             }
@@ -285,6 +286,10 @@ class Category extends Base {
               markerItem.attr('stroke', unCheckColor);
             }
             textItem.attr('fill', unCheckColor);
+            markerItem.set('checked', false);
+            textItem.set('checked', false);
+            legendItem.set('checked', false);
+            child.set('checked', false);
           } else {
             if (markerItem.attr('fill')) {
               markerItem.attr('fill', item.marker.fill);
@@ -293,12 +298,17 @@ class Category extends Base {
               markerItem.attr('stroke', item.marker.stroke);
             }
             textItem.attr('fill', checkColor);
+            markerItem.set('checked', true);
+            textItem.set('checked', true);
+            legendItem.set('checked', true);
             child.set('checked', true);
           }
         });
       } else {
         markerItem = findShapeByName(clickedItem, 'legend-marker');
         textItem = findShapeByName(clickedItem, 'legend-text');
+        legendItem = findShapeByName(clickedItem, 'legend-item');
+
         if (markerItem.attr('fill')) {
           markerItem.attr('fill', checked ? unCheckColor : item.marker.fill);
         }
@@ -307,6 +317,9 @@ class Category extends Base {
         }
         textItem.attr('fill', checked ? unCheckColor : checkColor);
         clickedItem.set('checked', !checked);
+        markerItem.set('checked', !checked);
+        textItem.set('checked', !checked);
+        legendItem.set('checked', !checked);
       }
       this.emit('itemclick', itemclick);
     }
@@ -646,6 +659,7 @@ class Category extends Base {
       }
     });
     wrapperShape.attr('cursor', 'pointer');
+    wrapperShape.set('origin', item); // 保存图例项相关的数据，便于事件操作
     wrapperShape.name = 'legend-item';
     itemGroup.name = 'legendGroup';
     return itemGroup;
