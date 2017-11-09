@@ -84,31 +84,32 @@ class LegendController {
         const item = ev.item;
         const checked = ev.checked;
         const isSingeSelected = legend.get('selectedMode') === 'single'; // 图例的选中模式
+        const clickedValue = item.dataValue; // import: 需要取该图例项原始的数值
 
         if (checked) {
-          filterVals.push(item.value);
-          if (self._isFieldInView(field, item.value, chart)) {
+          filterVals.push(clickedValue);
+          if (self._isFieldInView(field, clickedValue, chart)) {
             chart.filter(field, field => {
-              return isSingeSelected ? field === item.value : Util.inArray(filterVals, field);
+              return isSingeSelected ? field === clickedValue : Util.inArray(filterVals, field);
             });
           }
           Util.each(views, view => {
-            if (self._isFieldInView(field, item.value, view)) {
+            if (self._isFieldInView(field, clickedValue, view)) {
               view.filter(field, field => {
-                return isSingeSelected ? field === item.value : Util.inArray(filterVals, field);
+                return isSingeSelected ? field === clickedValue : Util.inArray(filterVals, field);
               });
             }
           });
         } else if (!isSingeSelected) {
-          Util.Array.remove(filterVals, item.value);
+          Util.Array.remove(filterVals, clickedValue);
 
-          if (self._isFieldInView(field, item.value, chart)) {
+          if (self._isFieldInView(field, clickedValue, chart)) {
             chart.filter(field, field => {
               return Util.inArray(filterVals, field);
             });
           }
           Util.each(views, view => {
-            if (self._isFieldInView(field, item.value, view)) {
+            if (self._isFieldInView(field, clickedValue, view)) {
               view.filter(field, field => {
                 return Util.inArray(filterVals, field);
               });
@@ -356,7 +357,8 @@ class LegendController {
       }
 
       items.push({
-        value: name,
+        value: name, // 图例项显示文本的内容
+        dataValue: value, // 图例项对应原始数据中的数值
         checked,
         marker
       });
