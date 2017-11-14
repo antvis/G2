@@ -12,64 +12,63 @@ class Base extends Group {
   getDefaultCfg() {
     return {
       /**
-       * Ψһ��ʶ�����ڶ���
+       * 用于动画，唯一标识的 id
        * @type {[type]}
        */
       _id: null,
       zIndex: 4,
       /**
-       * �������ϵ������
+       * 坐标轴上的坐标点
        * @type {Array}
        */
       ticks: null,
       /**
-       * �������ߵ�ͼ���������ã�������ó�null������ʾ
+       * 坐标轴线的配置信息，如果设置成null，则不显示轴线
        * @type {Object}
        */
       line: null,
       /**
-       * �̶��ߵ���ʽ���ã�������ó�null������ʾ
+       * 坐标轴刻度线的配置,如果设置成null，则不显示刻度线
        * @type {Object}
        */
       tickLine: null,
       /**
-       * �ο̶��߸��������δ���ø����ԣ�����ʾ
+       * 次刻度线个数配置
        * @type {Number}
        */
       subTickCount: 0,
       /**
-       * �ο̶�����ʽ����
+       * 次刻度线样式配置
        * @type {Object}
        */
       subTickLine: null,
       /**
-       * ������դ������ʽ���ã��������Ϊ null������ʾ
+       * 网格线配置，如果值为 null，则不显示
        * @type {Object}
        */
       grid: null,
       /**
-       * �������ϵ��ı��������
+       * 坐标轴文本配置
        * @type {Object}
        */
       label: {
-        textStyle: {}, // �ı���ʽ����
+        textStyle: {}, // 坐标轴文本样式
         autoRotate: true,
-        formatter: null//  ��ʽ���������ı���ʾ
+        formatter: null // 坐标轴文本格式化回调函数
       },
       /**
-       * �����������ʽ����
+       * 坐标轴标题配置
        * @type {Object}
        */
       title: {
-        autoRotate: true, // �Զ���ת
-        textStyle: {} // �����ı���ʽ����
+        autoRotate: true, // 文本是否自动旋转
+        textStyle: {} // 坐标轴标题样式
       },
-      autoPaint: true // @type {Boolean} �Ƿ��Զ�����
+      autoPaint: true
     };
   }
 
   _beforeRenderUI() {
-    // ���Ĭ����ʽ
     const title = this.get('title');
     const label = this.get('label');
     const grid = this.get('grid');
@@ -77,24 +76,25 @@ class Base extends Group {
       fontSize: 12,
       fill: '#ccc',
       textBaseline: 'middle',
-      fontFamily: Global.fontFamily
+      fontFamily: Global.fontFamily,
+      textAlign: 'center'
     };
     if (title) {
-      this.setSilent('title', Util.deepMix({
+      this.setSilent('title', Util.deepMix({}, {
         autoRotate: true,
         textStyle,
         offset: 48
       }, title));
     }
     if (label) {
-      this.setSilent('label', Util.deepMix({
+      this.setSilent('label', Util.deepMix({}, {
         autoRotate: true,
         textStyle,
         offset: 10
       }, label));
     }
     if (grid) {
-      this.setSilent('grid', Util.deepMix({
+      this.setSilent('grid', Util.deepMix({}, {
         lineStyle: {
           lineWidth: 1,
           stroke: '#C0D0E0'
@@ -194,7 +194,7 @@ class Base extends Group {
       }
     });
 
-    if (subTickCount) { // ��������ôμ��ֵ㣬��Ӵμ�tick
+    if (subTickCount) { // 如果有设置次级分点，添加次级tick
       const subTickLineCfg = self.get('subTickLine');
       Util.each(ticks, function(tick, index) {
         if (index > 0) {
@@ -235,7 +235,7 @@ class Base extends Group {
       attrs: cfg
     });
     tickShape.name = 'axis-ticks';
-    tickShape._id = this.get('_id') + '-ticks'; // ÿ�� label �� _id Ψһ��ʶ
+    tickShape._id = this.get('_id') + '-ticks';
     tickShape.set('coord', this.get('coord'));
   }
 
@@ -285,12 +285,12 @@ class Base extends Group {
   getTextAnchor(vector) {
     const ratio = Math.abs(vector[1] / vector[0]);
     let align;
-    if (ratio >= 1) { // �����������
+    if (ratio >= 1) { // 上面或者下面
       align = 'center';
     } else {
-      if (vector[0] > 0) { // �Ҳ�
+      if (vector[0] > 0) { // 右侧
         align = 'start';
-      } else { // ���
+      } else { // 左侧
         align = 'end';
       }
     }
@@ -318,42 +318,42 @@ class Base extends Group {
   }
 
   /**
-   * ��ת�ı�
+   * 旋转文本
    * @abstract
    * @return {[type]} [description]
    */
   autoRotateLabels() {}
 
   /**
-   * ��Ⱦ���������
+   * 渲染标题
    * @abstract
    * @return {[type]} [description]
    */
   renderTitle() {}
 
   /**
-   * ��ȡ�������ߵ� path
+   * 获取坐标轴线的 path
    * @abstract
    * @return {[type]} [description]
    */
   getLinePath() {}
 
   /**
-   * ��ȡtick�ڻ����ϵ�λ��
+   * 获取 tick 在画布上的位置
    * @abstract
    * @return {[type]} [description]
    */
   getTickPoint() {}
 
   /**
-   * ��ȡ��ʾ�������ߵ��յ�
+   * 获取标示坐标点的线的终点
    * @abstract
    * @return {[type]} [description]
    */
   getTickEnd() {}
 
   /**
-   * ��ȡ���������������
+   * 获取距离坐标轴的向量
    * @abstract
    * @return {[type]} [description]
    */
@@ -376,7 +376,6 @@ Util.assign(Base.prototype, LabelsRenderer, {
         x: point.x + vector[0],
         y: point.y + vector[1]
       };
-
       label.text = tick.text;
       label.x = point.x;
       label.y = point.y;
@@ -384,7 +383,7 @@ Util.assign(Base.prototype, LabelsRenderer, {
       rst = labelsGroup.addLabel(label);
       if (rst) {
         rst.name = 'axis-label';
-        rst._id = this.get('_id') + '-' + tick.tickValue; // ÿ�� label �� _id Ψһ��ʶ
+        rst._id = this.get('_id') + '-' + tick.tickValue;
         rst.set('coord', this.get('coord'));
       }
     }

@@ -88,7 +88,7 @@ class Labels extends Group {
 
     item.text = item.text + ''; // ? 为什么转换为字符串
 
-    const cfg = Util.mix({}, item, textStyle, {
+    const cfg = Util.mix({}, textStyle, item, {
       x: item.x || 0,
       y: item.y || 0
     });
