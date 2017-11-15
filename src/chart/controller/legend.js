@@ -342,11 +342,23 @@ class LegendController {
       };
       const checked = filterVals ? self._isFiltered(scale, filterVals, scaleValue) : true;
 
-      if (geom.getAttr('color')) { // 存在颜色映射
-        cfg.color = geom.getAttr('color').mapping(value).join('');
+      const colorAttr = geom.getAttr('color');
+      const shapeAttr = geom.getAttr('shape');
+      if (colorAttr) { // 存在颜色映射
+        if (colorAttr.callback && colorAttr.callback.length > 1) { // 多参数映射，阻止程序报错
+          const restArgs = Array(colorAttr.callback.length - 1).fill('');
+          cfg.color = colorAttr.mapping(value, ...restArgs).join('');
+        } else {
+          cfg.color = colorAttr.mapping(value).join('');
+        }
       }
-      if (isByAttr && geom.getAttr('shape')) { // 存在形状映射
-        shape = geom.getAttr('shape').mapping(value).join('');
+      if (isByAttr && shapeAttr) { // 存在形状映射
+        if (shapeAttr.callback && shapeAttr.callback.length > 1) { // 多参数映射，阻止程序报错
+          const restArgs = Array(shapeAttr.callback.length - 1).fill('');
+          shape = shapeAttr.mapping(value, ...restArgs).join('');
+        } else {
+          shape = shapeAttr.mapping(value).join('');
+        }
       }
 
       const shapeObject = Shape.getShapeFactory(shapeType);
