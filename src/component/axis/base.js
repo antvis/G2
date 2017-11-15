@@ -72,29 +72,33 @@ class Base extends Group {
     const title = this.get('title');
     const label = this.get('label');
     const grid = this.get('grid');
-    const textStyle = {
-      fontSize: 12,
-      fill: '#ccc',
-      textBaseline: 'middle',
-      fontFamily: Global.fontFamily,
-      textAlign: 'center'
-    };
     if (title) {
-      this.setSilent('title', Util.deepMix({}, {
+      this.setSilent('title', Util.deepMix({
         autoRotate: true,
-        textStyle,
+        textStyle: {
+          fontSize: 12,
+          fill: '#ccc',
+          textBaseline: 'middle',
+          fontFamily: Global.fontFamily,
+          textAlign: 'center'
+        },
         offset: 48
       }, title));
     }
     if (label) {
-      this.setSilent('label', Util.deepMix({}, {
+      this.setSilent('label', Util.deepMix({
         autoRotate: true,
-        textStyle,
+        textStyle: {
+          fontSize: 12,
+          fill: '#ccc',
+          textBaseline: 'middle',
+          fontFamily: Global.fontFamily
+        },
         offset: 10
       }, label));
     }
     if (grid) {
-      this.setSilent('grid', Util.deepMix({}, {
+      this.setSilent('grid', Util.deepMix({
         lineStyle: {
           lineWidth: 1,
           stroke: '#C0D0E0'

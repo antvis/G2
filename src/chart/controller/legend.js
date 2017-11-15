@@ -347,9 +347,9 @@ class LegendController {
       if (colorAttr) { // 存在颜色映射
         if (colorAttr.callback && colorAttr.callback.length > 1) { // 多参数映射，阻止程序报错
           const restArgs = Array(colorAttr.callback.length - 1).fill('');
-          cfg.color = colorAttr.mapping(value, ...restArgs).join('');
+          cfg.color = colorAttr.mapping(value, ...restArgs).join('') || Global.defaultColor;
         } else {
-          cfg.color = colorAttr.mapping(value).join('');
+          cfg.color = colorAttr.mapping(value).join('') || Global.defaultColor;
         }
       }
       if (isByAttr && shapeAttr) { // 存在形状映射
