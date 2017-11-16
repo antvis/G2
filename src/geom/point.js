@@ -39,7 +39,7 @@ class Point extends GeomBase {
           }
         }
       });
-    } else {
+    } else if (!Util.isNil(obj.y)) {
       geomShape = shapeFactory.drawShape(shape, cfg, container);
       geomShape.setSilent('index', index);
       geomShape.setSilent('coord', self.get('coord'));
