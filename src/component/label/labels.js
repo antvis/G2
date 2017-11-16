@@ -115,10 +115,12 @@ class Labels extends Group {
       customDiv.appendChild(node);
       this._setCustomPosition(cfg, node);
     } else {
+      const origin = cfg.point;
       delete cfg.point; // 临时解决，否则影响动画
       labelShape = this.addShape('text', {
         attrs: cfg
       });
+      labelShape.setSilent('origin', origin);
       labelShape.name = 'label'; // 用于事件标注
       return labelShape;
     }

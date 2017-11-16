@@ -136,7 +136,7 @@ class LegendController {
         const labelContainer = geom.get('labelContainer');
         const labels = labelContainer.get('labelsGroup').get('children');
         Util.each(labels, label => {
-          const labelData = label.get('attrs').point;
+          const labelData = label.get('origin') || [];
           if ((labelData[xField] === shapeData[xField]) && (labelData[yField] === shapeData[yField])) {
             label.set('visible', visible);
             shape.set('gLabel', label);
