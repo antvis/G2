@@ -37,8 +37,9 @@ function getMarkerAttrs(cfg) {
 }
 
 // 获取带有上下区间的 path
-function getRangePath(points, smooth, isInCircle, isStack) {
+function getRangePath(points, smooth, isInCircle, cfg) {
   const topPoints = [];
+  const isStack = cfg.isStack;
   const bottomPoints = [];
   for (let i = 0; i < points.length; i++) {
     const point = points[i];
@@ -46,8 +47,8 @@ function getRangePath(points, smooth, isInCircle, isStack) {
     bottomPoints.push(tmp[0]);
     topPoints.push(tmp[1]);
   }
-  const topPath = getSinglePath(topPoints, smooth, isInCircle);
-  const bottomPath = getSinglePath(bottomPoints, smooth, isInCircle);
+  const topPath = getSinglePath(topPoints, smooth, isInCircle, cfg);
+  const bottomPath = getSinglePath(bottomPoints, smooth, isInCircle, cfg);
   if (isStack) {
     return topPath;
   }
@@ -56,12 +57,14 @@ function getRangePath(points, smooth, isInCircle, isStack) {
 }
 
 // 单条 path
-function getSinglePath(points, smooth, isInCircle) {
+function getSinglePath(points, smooth, isInCircle, cfg) {
   let path;
   if (!smooth) {
     path = PathUtil.getLinePath(points, false);
   } else {
-    path = PathUtil.getSplinePath(points, false);
+    // 直角坐标系下绘制曲线时限制最大值、最小值
+    const constraint = isInCircle ? null : cfg.constraint;
+    path = PathUtil.getSplinePath(points, false, constraint);
   }
   if (isInCircle) {
     path.push([ 'Z' ]);
@@ -75,9 +78,9 @@ function getPath(cfg, smooth) {
   const isInCircle = cfg.isInCircle;
   const first = points[0];
   if (Util.isArray(first.y)) {
-    path = getRangePath(points, smooth, isInCircle, cfg.isStack);
+    path = getRangePath(points, smooth, isInCircle, cfg);
   } else {
-    path = getSinglePath(points, smooth, isInCircle);
+    path = getSinglePath(points, smooth, isInCircle, cfg);
   }
   return path;
 }
@@ -238,6 +241,12 @@ Shape.registerShape('line', 'dash', {
 Shape.registerShape('line', 'smooth', {
   draw(cfg, container) {
     const attrs = getAttrs(cfg);
+    const coord = this._coord;
+    // 曲线的限制
+    cfg.constraint = [
+      [ coord.start.x, coord.end.y ],
+      [ coord.end.x, coord.start.y ]
+    ];
     const path = getPath(cfg, true);
     return container.addShape('path', {
       attrs: Util.mix(attrs, {
