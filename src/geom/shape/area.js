@@ -185,6 +185,12 @@ Shape.registerShape('area', 'area', {
 Shape.registerShape('area', 'smooth', {
   draw(cfg, container) {
     const attrs = getFillAttrs(cfg);
+    const coord = this._coord;
+    // 曲线的限制
+    cfg.constraint = [
+      [ coord.start.x, coord.end.y ],
+      [ coord.end.x, coord.start.y ]
+    ];
     let path = getPath(cfg, true);
     path = this.parsePath(path, false);
     return container.addShape('path', {
