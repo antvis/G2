@@ -42,6 +42,18 @@ describe('test point chart', function() {
     expect(chart.get('viewContainer').getFirst().getCount()).equal(data.length);
   });
 
+  it('has null', function() {
+    chart.clear();
+    const arr = [
+      { x: 1, y: 1 },
+      { x: 1, y: null }
+    ];
+    chart.source(arr);
+    chart.point().position('x*y');
+    chart.render();
+    expect(chart.get('viewContainer').getFirst().getCount()).equal(1);
+  });
+
   xit('one dim', function() {
     chart.clear();
     chart.point().position('type*..y').color('type');
