@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2",
-  "version": "3.0.0-rc5.14",
+  "version": "3.0.0",
   "description": "the Grammar of Graphics in Javascript",
   "main": "build/g2.js",
   "browser": "build/g2.js",
@@ -47,7 +47,7 @@
   },
   "scripts": {
     "build": "webpack",
-    "ci": "tnpm run lint && tnpm run test",
+    "ci": "npm run lint && npm run test",
     "compress": "uglifyjs -c -m -o dist/g2.min.js -- build/g2.js",
     "coverage": "npm run coverage-generator && npm run coverage-viewer",
     "coverage-viewer": "torch-coverage",
