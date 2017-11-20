@@ -1,13 +1,17 @@
 {
   "name": "@antv/g2",
-  "version": "3.0.0-rc5.14",
+  "version": "3.0.0",
   "description": "the Grammar of Graphics in Javascript",
   "main": "build/g2.js",
   "browser": "build/g2.js",
   "module": "index.js",
+  "homepage": "https://github.com/antvis/g2",
   "repository": {
     "type": "git",
-    "url": "git@gitlab.alibaba-inc.com:datavis/g2.git"
+    "url": "git@github.com:antvis/g2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/antvis/g2/issues"
   },
   "keywords": [
     "g2",
@@ -47,7 +51,7 @@
   },
   "scripts": {
     "build": "webpack",
-    "ci": "tnpm run lint && tnpm run test",
+    "ci": "npm run lint && npm run test",
     "compress": "uglifyjs -c -m -o dist/g2.min.js -- build/g2.js",
     "coverage": "npm run coverage-generator && npm run coverage-viewer",
     "coverage-viewer": "torch-coverage",
@@ -71,7 +75,7 @@
     "silent": false
   },
   "dependencies": {
-    "@antv/g": "^2.0.0-beta.27",
+    "@antv/g": "^2.0.0",
     "fecha": "^2.3.1",
     "gl-matrix": "^2.4.0",
     "lodash": "^4.17.4",
