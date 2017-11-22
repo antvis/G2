@@ -1,5 +1,9 @@
 # G2: the Grammar of Graphics in Javascript
 
+[![](https://img.shields.io/travis/antvis/g2.svg)](https://travis-ci.org/antvis/g2)
+![](https://img.shields.io/badge/language-javascript-red.svg)
+![](https://img.shields.io/badge/license-MIT-000000.svg)
+
 [![npm package](https://img.shields.io/npm/v/@antv/g2.svg?style=flat-square)](https://www.npmjs.com/package/@antv/g2)
 [![NPM downloads](http://img.shields.io/npm/dm/@antv/g2.svg?style=flat-square)](https://npmjs.org/package/@antv/g2)
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/antvis/g2.svg)](http://isitmaintained.com/project/antvis/g2 "Percentage of issues still open")
