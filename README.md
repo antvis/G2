@@ -12,6 +12,10 @@ G2 is a visualization grammar, a data-driven visual language with a high level o
 
 [More details about G2](https://antv.alipay.com/zh-cn/g2/3.x/index.html).
 
+<img src="https://gw.alipayobjects.com/zos/rmsportal/AOwgKIjknXfggPijmhym.gif" width="200"><img src="https://gw.alipayobjects.com/zos/rmsportal/nfiOREzMIsENrzUeLOGR.gif" width="200"><img src="https://gw.alipayobjects.com/zos/rmsportal/uZZmaudtKRnvUhmUdZSZ.gif" width="180"><img src="https://gw.alipayobjects.com/zos/rmsportal/ifSTXzrGbvtLRpnAvAiZ.gif" width="200">
+
+
+
 ## Installation
 
 ```js
@@ -19,6 +23,8 @@ npm install @antv/g2
 ```
 
 ### Usage
+
+<img src="https://gw.alipayobjects.com/zos/rmsportal/aHvVgFiBnGzzKCEjdVtL.png" width="450">
 
 ```html
 <div id="c1"></div>
@@ -47,3 +53,5 @@ chart.render();
 ```
 
 [More examples](https://antv.alipay.com/zh-cn/g2/3.x/demo/index.html)
+
+<img src="https://gw.alipayobjects.com/zos/rmsportal/mIeSjXfslxpwgqhnzEjQ.png" width="800">
