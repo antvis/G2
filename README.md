@@ -1,24 +1,24 @@
-# G2: the Grammar of Graphics in Javascript
+# G2: The Grammar of Graphics in JavaScript
 
 [![](https://img.shields.io/travis/antvis/g2.svg)](https://travis-ci.org/antvis/g2)
 ![](https://img.shields.io/badge/language-javascript-red.svg)
 ![](https://img.shields.io/badge/license-MIT-000000.svg)
 
-[![npm package](https://img.shields.io/npm/v/@antv/g2.svg?style=flat-square)](https://www.npmjs.com/package/@antv/g2)
-[![NPM downloads](http://img.shields.io/npm/dm/@antv/g2.svg?style=flat-square)](https://npmjs.org/package/@antv/g2)
+[![NPM Package](https://img.shields.io/npm/v/@antv/g2.svg)](https://www.npmjs.com/package/@antv/g2)
+[![NPM Downloads](http://img.shields.io/npm/dm/@antv/g2.svg)](https://npmjs.org/package/@antv/g2)
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/antvis/g2.svg)](http://isitmaintained.com/project/antvis/g2 "Percentage of issues still open")
 
 G2 is a visualization grammar, a data-driven visual language with a high level of usability and scalability. It provides a set of grammars, takes users beyond a limited set of charts to an almost unlimited world of graphical forms. With G2, users can describe the visual appearance of a visualization just by one statement.
 
 [More details about G2](https://antv.alipay.com/zh-cn/g2/3.x/index.html).
 
-## Installing
+## Installation
 
 ```js
 npm install @antv/g2
 ```
 
-### Example
+### Usage
 
 ```html
 <div id="c1"></div>
