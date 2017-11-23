@@ -32,7 +32,7 @@ describe('Guide: 辅助图片', function() {
     max: 1200
   });
 
-  it('image only start', function(done) {
+  xit('image only start', function(done) {
     const img = new Image({
       xScales: {
         month: xScale
@@ -58,7 +58,7 @@ describe('Guide: 辅助图片', function() {
     }, 400);
   });
 
-  it('image, set start, width', function(done) {
+  xit('image, set start, width', function(done) {
     group.clear();
     const img = new Image({
       xScales: {
@@ -85,7 +85,7 @@ describe('Guide: 辅助图片', function() {
     }, 200);
   });
 
-  it('image, set start, height', function(done) {
+  xit('image, set start, height', function(done) {
     group.clear();
 
     const img = new Image({

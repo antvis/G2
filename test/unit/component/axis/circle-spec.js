@@ -347,7 +347,7 @@ describe('测试圆轴', function() {
     expect(textChildren.get('children')[0].attr('matrix')).not.eql([ 1, 0, 0, 0, 1, 0, 0, 0, 1 ]);
     expect(textChildren.get('children')[1].attr('matrix')).to.eql([ 1, 0, 0, 0, 1, 0, 0, 0, 1 ]);
   });
-  it('测试文本自动旋转－情况2', function() {
+  xit('测试文本自动旋转－情况2', function() {
     const cfg = Util.mix({}, simpleAxisCfg, {
       radius: 200,
       inner: 0,

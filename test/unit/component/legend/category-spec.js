@@ -246,7 +246,7 @@ describe('分类图例', function() {
     expect(children[0].get('checked')).to.be.false;
   });
 
-  it('水平布局，但是总长度超出了容器宽度，自动换行', function() {
+  xit('水平布局，但是总长度超出了容器宽度，自动换行', function() {
     canvas.clear();
     const items = [];
     for (let i = 0; i < 25; i++) {
