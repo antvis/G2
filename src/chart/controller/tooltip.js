@@ -191,7 +191,11 @@ class TooltipController {
       });
       tooltip.setContent(title, items);
       if (!Util.isEmpty(markersItems)) {
-        tooltip.setMarkers(markersItems, Global.tooltipMarker);
+        if (self.options.hideMarkers === true) { // 不展示 tooltip marker
+          tooltip.set('markerItems', markersItems); // 用于 tooltip 辅助线的定位
+        } else {
+          tooltip.setMarkers(markersItems, Global.tooltipMarker);
+        }
       } else {
         tooltip.clearMarkers();
       }

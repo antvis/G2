@@ -684,3 +684,48 @@ describe('chart set keyFields', function() {
   });
 });
 
+describe('chart diaplay axis title', function() {
+  it('the axis title of a is showed.', function() {
+    const data = [
+      { a: 1, b: 2, c: '1' },
+      { a: 2, b: 5, c: '1' },
+      { a: 3, b: 4, c: '1' },
+
+      { a: 1, b: 3, c: '2' },
+      { a: 2, b: 1, c: '2' },
+      { a: 3, b: 2, c: '2' }
+    ];
+    const chart = new Chart({
+      height: 500,
+      forceFit: true,
+      container: 'cchart',
+      animate: false,
+      data,
+      options: {
+        geoms: [{
+          type: 'line',
+          position: 'a*b',
+          color: 'c'
+        }],
+        axes: {
+          a: {
+            title: true
+          }
+        }
+      }
+    });
+
+    chart.render();
+
+    const axisController = chart.get('axisController');
+    const axes = axisController.axes;
+    expect(axes.length).equal(2);
+
+    const aAxis = axes[0];
+    expect(aAxis.get('title')).to.be.an.instanceof(Object);
+    expect(aAxis.get('title').text).to.eql('a');
+
+    chart.destroy();
+  });
+});
+
