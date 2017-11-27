@@ -61,7 +61,7 @@ const Animate = {
     cfg: {
       appear: {
         duration: 500,
-        easing: 'easeQuadInOut'
+        easing: 'easeQuadOut'
       },
       update: {
         duration: 450,
