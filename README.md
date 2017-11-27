@@ -53,7 +53,7 @@ chart.render();
 
 [More examples](https://antv.alipay.com/zh-cn/g2/3.x/demo/index.html)
 
-<img src="https://user-images.githubusercontent.com/6628666/33157917-b970a70c-d040-11e7-9601-b1da1dbe26ab.png" width="800" style="text-align: center;">
+<img src="https://user-images.githubusercontent.com/6628666/33254261-ccc1f55a-d382-11e7-83ba-808712bd5b92.png" width="400" height="636"><img src="https://user-images.githubusercontent.com/6628666/33254262-cce7c8a2-d382-11e7-9e9b-2eba6093db39.png" width="400" height="636">
 
 ## Development
 
