@@ -10,6 +10,8 @@
 
 G2 is a visualization grammar, a data-driven visual language with a high level of usability and scalability. It provides a set of grammars, takes users beyond a limited set of charts to an almost unlimited world of graphical forms. With G2, users can describe the visual appearance of a visualization just by one statement.
 
+**Special thanks to [Leland Wilkinson](https://github.com/lelandwilkinson), the author of 《The Grammar Of Graphics》, whose book served as the foundation for G2.**
+
 [More details about G2](https://antv.alipay.com/zh-cn/g2/3.x/index.html).
 
 <img src="https://gw.alipayobjects.com/zos/rmsportal/AOwgKIjknXfggPijmhym.gif" width="200"><img src="https://gw.alipayobjects.com/zos/rmsportal/nfiOREzMIsENrzUeLOGR.gif" width="200"><img src="https://gw.alipayobjects.com/zos/rmsportal/uZZmaudtKRnvUhmUdZSZ.gif" width="180"><img src="https://gw.alipayobjects.com/zos/rmsportal/ifSTXzrGbvtLRpnAvAiZ.gif" width="200">
