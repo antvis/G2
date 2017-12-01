@@ -80,6 +80,7 @@ class Image extends Base {
       attrs: cfg
     });
     imgGuide.name = 'guide-image';
+    self.appendInfo && imgGuide.setSilent('appendInfo', self.appendInfo);
     self.el = imgGuide;
   }
 }

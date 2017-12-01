@@ -176,6 +176,7 @@ class Base extends Group {
         attrs: lineCfg
       });
       lineShape.name = 'axis-line';
+      this.get('appendInfo') && lineShape.setSilent('appendInfo', this.get('appendInfo'));
       this.set('lineShape', lineShape);
     }
   }
@@ -239,8 +240,9 @@ class Base extends Group {
       attrs: cfg
     });
     tickShape.name = 'axis-ticks';
-    tickShape._id = this.get('_id') + '-ticks';
-    tickShape.set('coord', this.get('coord'));
+    tickShape._id = self.get('_id') + '-ticks';
+    tickShape.set('coord', self.get('coord'));
+    self.get('appendInfo') && tickShape.setSilent('appendInfo', self.get('appendInfo'));
   }
 
   _renderTicks() {
@@ -265,6 +267,7 @@ class Base extends Group {
       return;
     }
     grid.coord = this.get('coord');
+    grid.appendInfo = this.get('appendInfo');
     this.set('gridGroup', this.addGroup(Grid, grid));
   }
 
@@ -389,6 +392,7 @@ Util.assign(Base.prototype, LabelsRenderer, {
         rst.name = 'axis-label';
         rst._id = this.get('_id') + '-' + tick.tickValue;
         rst.set('coord', this.get('coord'));
+        this.get('appendInfo') && rst.setSilent('appendInfo', this.get('appendInfo'));
       }
     }
     return rst;

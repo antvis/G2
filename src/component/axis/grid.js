@@ -114,6 +114,7 @@ class Grid extends Group {
         gridLine.name = 'axis-grid';
         gridLine._id = item._id;
         gridLine.set('coord', self.get('coord'));
+        self.get('appendInfo') && gridLine.setSilent('appendInfo', self.get('appendInfo'));
       });
     } else {
       Util.each(items, (item, idx) => {
@@ -143,6 +144,7 @@ class Grid extends Group {
         gridLine.name = 'axis-grid';
         gridLine._id = item._id;
         gridLine.set('coord', self.get('coord'));
+        self.get('appendInfo') && gridLine.setSilent('appendInfo', self.get('appendInfo'));
       });
     }
   }
@@ -175,6 +177,7 @@ class Grid extends Group {
     shape.name = 'axis-grid-rect';
     shape._id = item._id && item._id.replace('grid', 'grid-rect');
     shape.set('coord', self.get('coord'));
+    self.get('appendInfo') && shape.setSilent('appendInfo', self.get('appendInfo'));
   }
 
   _getBackItem(start, end, bgColor) {

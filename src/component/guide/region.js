@@ -34,6 +34,7 @@ class Region extends Base {
       }, rectStyle)
     });
     regionGroup.name = 'guide-region';
+    self.appendInfo && regionGroup.setSilent('appendInfo', self.appendInfo);
     self.el = regionGroup;
   }
 

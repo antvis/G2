@@ -76,6 +76,7 @@ class Line extends Base {
       }, this.lineStyle)
     });
     guideLine.name = 'guide-line';
+    this.appendInfo && guideLine.setSilent('appendInfo', this.appendInfo);
   }
 
   _drawText(start, end, group) {
@@ -126,6 +127,7 @@ class Line extends Base {
       attrs: cfg
     });
     shape.name = 'guide-line-text';
+    this.appendInfo && shape.setSilent('appendInfo', this.appendInfo);
   }
 }
 

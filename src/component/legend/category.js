@@ -645,6 +645,8 @@ class Category extends Base {
     });
     textShape.attr('cursor', 'pointer');
     textShape.name = 'legend-text';
+    this.get('appendInfo') && textShape.setSilent('appendInfo', this.get('appendInfo'));
+
     // 添加一个包围矩形，用于事件支持
     const bbox = itemGroup.getBBox();
     const itemWidth = this.get('itemWidth');
@@ -661,6 +663,7 @@ class Category extends Base {
     wrapperShape.attr('cursor', 'pointer');
     wrapperShape.setSilent('origin', item); // 保存图例项相关的数据，便于事件操作
     wrapperShape.name = 'legend-item';
+    this.get('appendInfo') && wrapperShape.setSilent('appendInfo', this.get('appendInfo'));
     itemGroup.name = 'legendGroup';
     return itemGroup;
   }
