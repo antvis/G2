@@ -74,6 +74,7 @@ class Text extends Base {
       }, textStyle, point)
     });
     guideText.name = 'guide-text';
+    self.appendInfo && guideText.setSilent('appendInfo', self.appendInfo);
     self.el = guideText;
   }
 }
