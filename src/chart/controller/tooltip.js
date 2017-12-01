@@ -326,14 +326,16 @@ class TooltipController {
                 if (Util.indexOf(TYPE_SHOW_MARKERS, type) !== -1) {
                   Util.each(subItems, v => {
                     let point = v.point;
-                    const x = Util.isArray(point.x) ? point.x[point.x.length - 1] : point.x;
-                    const y = Util.isArray(point.y) ? point.y[point.y.length - 1] : point.y;
-                    point = coord.applyMatrix(x, y, 1);
-                    v.x = point[0];
-                    v.y = point[1];
-                    v.showMarker = true;
+                    if (point && point.x && point.y) { // hotfix: make sure there is no null value
+                      const x = Util.isArray(point.x) ? point.x[point.x.length - 1] : point.x;
+                      const y = Util.isArray(point.y) ? point.y[point.y.length - 1] : point.y;
+                      point = coord.applyMatrix(x, y, 1);
+                      v.x = point[0];
+                      v.y = point[1];
+                      v.showMarker = true;
+                      markersItems.push(v);
+                    }
                   });
-                  markersItems = markersItems.concat(subItems);
                 }
                 items = items.concat(subItems);
               }
@@ -387,7 +389,9 @@ class TooltipController {
             min = Math.abs(point.y - aItem.y);
           }
         });
-        markersItems = [ snapItem ];
+        if (snapItem && snapItem.x && snapItem.y) {
+          markersItems = [ snapItem ];
+        }
         items = [ snapItem ];
       }
       // 3.0 采用当前鼠标位置作为 tooltip 的参考点
