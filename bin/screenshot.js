@@ -1,0 +1,80 @@
+#!/usr/bin/env node
+const debug = require('debug')('app:screenshot');
+const MAX_POOL_SIZE = require('os').cpus().length;
+const connect = require('connect');
+const getPort = require('get-port');
+const http = require('http');
+const serveStatic = require('serve-static');
+const shelljs = require('shelljs');
+const mkdir = shelljs.mkdir;
+const ls = shelljs.ls;
+const queue = require('d3-queue').queue;
+const path = require('path');
+const join = path.join;
+const extname = path.extname;
+const basename = path.basename;
+const commander = require('commander');
+const Nightmare = require('nightmare');
+const pkg = require('../package.json');
+
+commander
+  .version(pkg.version)
+  .option('-p, --port <port>', 'specify a port number to run on', parseInt)
+  .option('-n, --name <name>', 'specify the name for demos')
+  .parse(process.argv);
+
+// assets
+const src = join(process.cwd(), './demos');
+const dest = join(process.cwd(), './demos/assets/screenshots');
+mkdir('-p', dest);
+
+const app = connect();
+app.use('/', serveStatic(process.cwd()));
+
+const DELAY = 6000;
+
+getPort().then(port => {
+  http.createServer(app).listen(port);
+  const url = 'http://127.0.0.1:' + port;
+  debug('server is ready on port ' + port + '! url: ' + url);
+
+  const q = queue(MAX_POOL_SIZE > 2 ? MAX_POOL_SIZE - 1 : MAX_POOL_SIZE);
+  const files = ls(src).filter(filename => (extname(filename) === '.html'));
+  files.forEach(filename => {
+    const name = basename(filename, '.html');
+    if (commander.name && filename.indexOf(commander.name) === -1) {
+      debug(`>>>>>>>>> skipping because filename not matched: ${name}`);
+      return;
+    }
+    q.defer(callback => {
+      const t0 = Date.now();
+      const nightmare = Nightmare({
+        gotoTimeout: 600000,
+        show: false
+      });
+      const url = `http://127.0.0.1:${port}/demos/${name}.html`;
+      const target = join(dest, `./${name}.png`);
+      nightmare.viewport(800, 450) // 16 x 9
+        .goto(url)
+        .wait(DELAY)
+        .screenshot(target, () => {
+          debug(name + ' took ' + (Date.now() - t0) + ' to take a screenshot.');
+          callback(null);
+        })
+        .end()
+        .catch(e => {
+          debug(url);
+          debug(target);
+          debug(name + ' failed to take a screenshot: ' + e);
+        });
+    });
+  });
+  q.awaitAll(error => {
+    if (error) {
+      debug(error);
+      process.exit(1);
+    }
+    debug('screenshots are all captured!');
+    process.exit();
+  });
+});
