@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./assets/codemirror-5.29.0/codemirror-merged.min.css">
+  <link rel="stylesheet" href="./assets/bootstrap-4.0.0-beta/bootstrap.min.css">
+  <link rel="stylesheet" href="./assets/bootstrap-4.0.0-beta/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="./assets/index.css">
+  <title>Demos</title>
+</head>
+<body>
+<div id="code-list" style="display: none">
+  {% for file in demoFiles %}
+    <textarea id="code-{{ file.basename }}">{{ file.content | safe }}</textarea>
+  {% endfor %}
+</div>
+<div class="main">
+  <div class="container filter">
+    <input id="query" class="form-control" type="text" placeholder="search">
+  </div>
+  <div class="row demo-thumbnails">
+    {% for file in demoFiles %}
+      <div class="demo-thumbnail col-md-4 col-sm-6 col-xs-12 text-center" data-basename="{{ file.basename }}">
+        <div class="card">
+          <a href="#/{{ file.basename }}" class="thumbnail-container">
+            <img src="{{ file.screenshot }}" alt="">
+          </a>
+          <div class="card-body">
+            <h6>{{ file.basename }}</h6>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <div id="doc-container" style="display:none;">
+    <div class="code-panel" id="code-panel">
+      <div class="code-banner">
+        <a class="btn btn-light" href="#">back</a>
+        <button id="execute" class="btn btn-primary">execute</button>
+        <button id="copy-code" class="btn btn-light">copy</button>
+      </div>
+      <div class="code-editor">
+        <textarea name="code" id="code"></textarea>
+      </div>
+    </div>
+    <div id="resize-handler"></div>
+    <div id="chart-panel" class="preview"></div>
+  </div>
+</div>
+<script src="./assets/codemirror-5.29.0/codemirror-merged.min.js"></script>
+<script src="./assets/lodash-4.17.4.min.js"></script>
+<script src="./assets/jquery-3.2.1.min.js"></script>
+<script src="./assets/jquery.resizable-0.20.0.js"></script>
+<script src="./assets/popper.js-1.12.5/popper.min.js"></script>
+<script src="./assets/bootstrap-4.0.0-beta/bootstrap.min.js"></script>
+<script src="./assets/clipboard-1.7.1.min.js"></script>
+<script src="./assets/routie-0.3.2.min.js"></script>
+<script src="./assets/index.js"></script>
+</body>
+</html>
