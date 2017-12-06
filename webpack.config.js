@@ -26,12 +26,11 @@ module.exports = {
             ],
             presets: [
               [
-                'es2015', {
+                'env', {
                   loose: true,
                   modules: false
                 }
-              ],
-              'stage-0'
+              ]
             ]
           }
         }

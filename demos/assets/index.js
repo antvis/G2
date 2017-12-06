@@ -11,6 +11,8 @@
         const basename = $thumbnail.data('basename');
         if (basename.indexOf(str) === -1) {
           $thumbnail.hide();
+        } else {
+          $thumbnail.show();
         }
       });
     }
