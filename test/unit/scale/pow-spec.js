@@ -32,7 +32,7 @@ describe('scale pow', () => {
 
   it('ticks', () => {
     const ticks = scale.getTicks();
-    expect(ticks.length).to.be.equal(11);
+    expect(ticks.length).to.be.equal(6);
     expect(ticks[ticks.length - 1].value).to.be.equal(1);
   });
 
