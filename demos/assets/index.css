@@ -58,7 +58,7 @@ iframe {
   width: 400px;
   height: 100%;
   overflow: hidden;
-  padding: 0 1rem 1em 0;
+  padding: 0 1rem 0 0;
   position: relative;
   right: 0;
   top: 0;
@@ -70,12 +70,17 @@ iframe {
 }
 
 .code-banner {
-  padding: .5em 0;
+  padding: .5rem 0;
 }
 
-.code-panel, .code-editor, .code-editor .CodeMirror {
+.code-panel, .code-editor .CodeMirror {
   height: 100%;
 }
+
+.code-editor {
+  height: calc(100% - 3.375rem);
+}
+
 
 #chart-panel {
   flex: 1;
