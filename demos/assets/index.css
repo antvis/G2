@@ -6,13 +6,13 @@ body {
 }
 
 .filter {
-  padding: 1em;
+  padding: 15px;
 }
 .demo-thumbnails {
-  padding: 1em;
+  padding: 15px;
 }
 .demo-thumbnail {
-  margin-bottom: 1em;
+  margin-bottom: 30px;
 }
 .thumbnail-container {
   overflow: hidden;
@@ -79,8 +79,7 @@ iframe {
 
 #chart-panel {
   flex: 1;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
   padding: 1rem;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);

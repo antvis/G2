@@ -1,20 +1,21 @@
 #!/usr/bin/env node
 const debug = require('debug')('app:screenshot');
 const MAX_POOL_SIZE = require('os').cpus().length;
+const Nightmare = require('nightmare');
+const _ = require('lodash');
+const commander = require('commander');
 const connect = require('connect');
 const getPort = require('get-port');
 const http = require('http');
+const path = require('path');
+const basename = path.basename;
+const extname = path.extname;
+const join = path.join;
+const queue = require('d3-queue').queue;
 const serveStatic = require('serve-static');
 const shelljs = require('shelljs');
-const mkdir = shelljs.mkdir;
 const ls = shelljs.ls;
-const queue = require('d3-queue').queue;
-const path = require('path');
-const join = path.join;
-const extname = path.extname;
-const basename = path.basename;
-const commander = require('commander');
-const Nightmare = require('nightmare');
+const mkdir = shelljs.mkdir;
 const pkg = require('../package.json');
 
 commander
@@ -42,7 +43,7 @@ getPort().then(port => {
   const files = ls(src).filter(filename => (extname(filename) === '.html'));
   files.forEach(filename => {
     const name = basename(filename, '.html');
-    if (commander.name && filename.indexOf(commander.name) === -1) {
+    if (_.isString(commander.name) && filename.indexOf(commander.name) === -1) {
       debug(`>>>>>>>>> skipping because filename not matched: ${name}`);
       return;
     }
