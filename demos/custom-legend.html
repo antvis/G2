@@ -193,7 +193,9 @@
   pointView.point()
     .position('direction*value')
     .size(0)
-    .label('value');
+    .label('value', function(value) {
+      return value.toFixed(2);
+    });
 
   chart.render();
 </script>
