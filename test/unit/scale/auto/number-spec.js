@@ -164,6 +164,16 @@ describe('test number auto', () => {
     expect(rst.ticks).eql([ 0, 20, 40, 60, 80, 100 ]);
   });
 
+  it('tick count 10', () => {
+    const rst = auto({
+      min: 0,
+      minCount: 10,
+      maxCount: 10,
+      max: 5
+    });
+    expect(rst.ticks).eql([ 0, 0.6, 1.2, 1.8, 2.4, 3.0, 3.6, 4.2, 4.8, 5.4 ]);
+  });
+
   it('snapArray', () => {
     const rst = auto({
       min: 0,

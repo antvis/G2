@@ -3,6 +3,8 @@
  * @author dxq613@gmail.com
  */
 
+// 如果小数点后面超过 10 位浮点数时进行一下处理
+const DECIMAL_LENGTH = 12;
 // 获取系数
 function getFactor(v) {
   let factor = 1;
@@ -14,7 +16,7 @@ function getFactor(v) {
       count++;
     }
     // 浮点数计算出现问题
-    if (factor.toString().length > 20) {
+    if (factor.toString().length > DECIMAL_LENGTH) {
       factor = parseFloat(factor.toFixed(count));
     }
   } else {
@@ -104,7 +106,7 @@ const Util = {
     }
     let rst = v * factor;
     // 如果出现浮点数计算问题，需要处理一下
-    if (Math.abs(factor) < 1 && rst.toString().length > 20) {
+    if (Math.abs(factor) < 1 && rst.toString().length > DECIMAL_LENGTH) {
       const decimalVal = parseInt(1 / factor);
       const symbol = factor > 0 ? 1 : -1;
       rst = v / decimalVal * symbol;
