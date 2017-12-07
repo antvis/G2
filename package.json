@@ -57,17 +57,19 @@
     "coverage": "npm run coverage-generator && npm run coverage-viewer",
     "coverage-generator": "torch --compile --coverage --renderer --recursive test/unit",
     "coverage-viewer": "torch-coverage",
-    "demos": "$(npm bin)/electron ./demos/app.js",
+    "demos": "electron ./demos/app.js",
     "demos-web": "node ./demos/app.js --web --port 2046",
-    "dev": "npm run watch & DEBUG=app:* npm run demos-web",
-    "dist": "rm -rf dist && mkdir dist && npm run build && npm run compress",
+    "dev": "npm run watch & npm run demos-web",
+    "dist": "npm run mkdir-dist && npm run build && npm run compress",
     "lint": "eslint --ext .html,.js ./",
     "lint-fix": "eslint --ext .html,.js --fix ./",
+    "mkdir-dist": "node ./bin/mkdir-dist.js",
     "prepublishOnly": "npm run dist",
-    "screenshot": "DEBUG=app:* ./bin/screenshot.js",
+    "screenshot": "node ./bin/screenshot.js",
     "test": "torch --compile --renderer --recursive ./test/unit",
     "test-live": "torch --compile --interactive --watch --recursive ./test/unit",
-    "watch": "webpack --config webpack-dev.config.js"
+    "watch": "webpack --config webpack-dev.config.js",
+    "win-dev": "node ./bin/win-dev.js"
   },
   "pre-commit": {
     "run": [
