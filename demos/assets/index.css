@@ -57,7 +57,7 @@ iframe {
   display: block;
   width: 400px;
   height: 100%;
-  overflow: hidden;
+  overflow: auto;
   padding: 0 1rem 1em 0;
   position: relative;
   right: 0;

@@ -1,3 +1,4 @@
+process.env.DEBUG = 'app:*';
 const debug = require('debug')('app:demos');
 const commander = require('commander');
 const connect = require('connect');
