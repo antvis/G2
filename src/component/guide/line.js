@@ -15,7 +15,6 @@ class Line extends Base {
        * @type {String}
        */
       type: 'line',
-      zIndex: 15,
       /**
        * 辅助线的起点位置
        * @type {Object | Function | Array}
