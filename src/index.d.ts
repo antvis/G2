@@ -936,12 +936,22 @@ class ChartGuide {
   ) => void;
 }
 
-class Chart {
-  constructor(ChartProp: {});
-  source(data: any): Chart;
-  source(data: any, scaleConfig: any): Chart;
-  scale(scaleConfig: any): Chart;
-  scale(field: string, scaleConfig: any): Chart;
+class View {
+  tooltip: (option: boolean) => void;
+  source;
+  getXScale: () => number;
+  getYScales: () => number;
+  getXY: () => {
+    x: number; // 画布上的横坐标
+    y: number; // 画布上的纵坐标
+  };
+  filter(field: string, callback: (value: string | number) => boolen): this;
+  axis(option: boolean): this;
+  axis(field: string, option: boolean): this;
+  axis(field: string, axisConfig: ChartAxisConfig): this;
+  guide(): ChartGuide;
+  scale(scaleConfig: any): this;
+  scale(field: string, scaleConfig: any): this;
   coord(
     type: "rect" | "polar" | "theta" | "helix",
     coordConfig?: {
@@ -955,16 +965,32 @@ class Chart {
       endAngle: number;
     }
   ): Coordinate;
-  axis(option: boolean): Chart;
-  axis(field: string, option: boolean): Chart;
-  axis(field: string, axisConfig: ChartAxisConfig): Chart;
-  legend(option: boolean): Chart;
-  legend(field: string, option: boolean): Chart;
+  tooltip(option: boolean): this;
+  animate: (option: boolean) => void;
+  clear: () => void;
+  changeData: (data: any) => void;
+  changeVisible: (visible: string) => void;
+  repaint: () => void;
+  destroy: () => void;
+  line: () => any;
+  path: () => any;
+  area: () => any;
+  point: () => any;
+  interval: () => any;
+  polygon: () => any;
+  schema: () => any;
+  edge: () => any;
+  heatmap: () => any;
+}
+
+class Chart extends View {
+  constructor(ChartProp: {});
+  source(data: any): this;
+  source(data: any, scaleConfig: any): this;
+  legend(option: boolean): this;
+  legend(field: string, option: boolean): this;
   legend(field: string, legendConfig: ChartAxisConfig);
-  tooltip(option: boolean): Chart;
-  tooltip(tooltipConfig: TooltipConfig): Chart;
-  guide(): ChartGuide;
-  filter(field: string, callback: (value: string | number) => boolen): Chart;
+  tooltip(tooltipConfig: TooltipConfig): this;
   view: (
     option: {
       start: { x: number; y: number };
@@ -972,32 +998,13 @@ class Chart {
       padding: number;
       animate: boolean;
     }
-  ) => void;
+  ) => View;
   forceFit: () => void;
-  line: () => any;
-  path: () => any;
-  area: () => any;
-  interval: () => any;
-  polygon: () => any;
-  schema: () => any;
-  edge: () => any;
-  heatmap: () => any;
   render: () => void;
-  clear: () => void;
-  repaint: () => void;
-  destroy: () => void;
-  changeData: (data: any) => void;
   changeSize: (width: number, height: number) => void;
   changeWidth: (width: number) => void;
-  getXScale: () => number;
-  getYScales: () => number;
-  getXY: () => {
-    x: number; // 画布上的横坐标
-    y: number; // 画布上的纵坐标
-  };
   getSnapRecords: (ponit: { x: number; y: number }) => Array<number>;
   getAllGeoms: () => Array<any>;
-  changeVisible: (visible: string) => void;
   toDataURL: () => string;
   downloadImage: (name: string) => string;
   showTooltip: (ponit: { x: number; y: number }) => any;
