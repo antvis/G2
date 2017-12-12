@@ -2,6 +2,28 @@ export = G2;
 export as namespace G2;
 
 declare namespace G2 {
+  function track(option: boolean): void;
+  const version: string;
+
+  class Global {
+    setTheme(option: 'default' | 'dark'): void;
+    version: string;
+    trackable: boolean;
+    animate: boolean;
+    snapArray: Array<number>;
+    // 指定固定 tick 数的逼近值
+    snapCountArray: Array<number>;
+    widthRatio: {
+      // 宽度所占的分类的比例
+      column: number; // 一般的柱状图占比 1/2
+      rose: number; // 玫瑰图柱状占比 1
+      multiplePie: number; // 多层的饼图、环图
+    };
+    // 折线图、区域图、path 当只有一个数据时，是否显示成点
+    showSinglePoint: boolean;
+    connectNulls: boolean;
+  }
+
   /**
    * 图标背景对象
    */
@@ -430,7 +452,7 @@ declare namespace G2 {
     };
   }
 
-  class Bash {
+  class BashView {
     source(data: any): this;
     source(data: any, scaleConfig: any): this;
     getXScale: () => number;
@@ -476,11 +498,11 @@ declare namespace G2 {
     heatmap: () => any;
   }
 
-  class View extends Bash {
+  class View extends BashView {
     tooltip(option: boolean): this;
   }
 
-  class Chart extends Bash {
+  class Chart extends BashView {
     constructor(ChartProp: {});
     legend(option: boolean): this;
     legend(field: string, option: boolean): this;
@@ -507,6 +529,15 @@ declare namespace G2 {
     on: (eventNane: string, event: any) => any;
   }
 
+  class Scale {
+    type: 'identity' | 'linear' | 'cat' | 'time' | 'timeCat' | 'log' | 'pow';
+    formatter: (value: string) => string;
+    range: [number, number];
+    alias: string;
+    tickCount: number;
+    ticks: Array<any>;
+  }
+
   class Shape {
     registerShape: (
       chartType: string,
@@ -520,6 +551,14 @@ declare namespace G2 {
       parsePoints: any;
       parsePath: any;
     };
+  }
+
+  class Animate {
+    registerAnimation(
+      animationType: string,
+      animationName: string,
+      animationFun: any,
+    );
   }
 
   class DomUtil {
