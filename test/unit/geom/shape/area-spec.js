@@ -161,12 +161,12 @@ describe('area shapes', function() {
       }, canvas);
       expect(shape.attr('stroke')).eql('red');
       expect(shape.attr('fill')).eql('red');
-      expect(shape.attr('path').length).eql(7);
+      expect(shape.attr('path').length).eql(5);
       expect(shape.attr('path')[0].length).eql(3);
       expect(shape.attr('path')[1].length).eql(7);
       expect(shape.attr('path')[2].length).eql(7);
       expect(shape.attr('path')[3].length).eql(3);
-      expect(shape.attr('path')[4].length).eql(7);
+      expect(shape.attr('path')[4].length).eql(1);
     });
     it('getMarkerCfg', function() {
       const point = {
@@ -287,6 +287,7 @@ describe('area shapes', function() {
         color: 'red',
         isInCircle: true
       }, canvas);
+      expect(shape.attr('path').length).equal(7);
       expect(shape.attr('stroke')).eql('red');
       expect(shape.attr('path')[0].length).eql(3);
       expect(shape.attr('path')[1].length).eql(3);

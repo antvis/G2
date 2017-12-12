@@ -30,29 +30,33 @@ function getFillAttrs(cfg) {
   return areaAttrs;
 }
 
-function getPath(cfg, smooth) {
+function getPath(cfg, smooth, shape) {
   let path = [];
-  const points = [];
+  const pointsArr = [];
   const topLinePoints = []; // area 区域上部分
   let bottomLinePoints = []; // area 区域下部分
   const isInCircle = cfg.isInCircle;
   Util.each(cfg.points, function(point) {
-    topLinePoints.push(point[0]);
-    bottomLinePoints.push(point[1]);
+    topLinePoints.push(point[1]);
+    bottomLinePoints.push(point[0]);
   });
-  bottomLinePoints = bottomLinePoints.reverse();
-  points.push(topLinePoints, bottomLinePoints);
-  Util.each(points, function(point, index) {
+  if (!isInCircle) {
+    bottomLinePoints = bottomLinePoints.reverse();
+  }
+  pointsArr.push(topLinePoints, bottomLinePoints);
+  Util.each(pointsArr, function(points, index) {
     let subPath = [];
-    if (smooth) {
-      subPath = PathUtil.getSplinePath(point, false);
-    } else {
-      subPath = PathUtil.getLinePath(point, false);
-    }
+    points = shape.parsePoints(points);
+    const p1 = points[0];
     if (isInCircle) {
-      const p1 = point[0];
-      subPath.push([ 'L', p1.x, p1.y ]);
-    } else if (index > 0) {
+      points.push({ x: p1.x, y: p1.y });
+    }
+    if (smooth) {
+      subPath = PathUtil.getSplinePath(points, false, cfg.constraint);
+    } else {
+      subPath = PathUtil.getLinePath(points, false);
+    }
+    if (!isInCircle && index > 0) {
       subPath[0][0] = 'L';
     }
     path = path.concat(subPath);
@@ -168,8 +172,8 @@ const Area = Shape.registerFactory('area', {
 Shape.registerShape('area', 'area', {
   draw(cfg, container) {
     const attrs = getFillAttrs(cfg);
-    let path = getPath(cfg, false);
-    path = this.parsePath(path, false);
+    const path = getPath(cfg, false, this);
+    // path = this.parsePath(path, false);
     return container.addShape('path', {
       attrs: Util.mix(attrs, {
         path
@@ -191,8 +195,8 @@ Shape.registerShape('area', 'smooth', {
       [ coord.start.x, coord.end.y ],
       [ coord.end.x, coord.start.y ]
     ];
-    let path = getPath(cfg, true);
-    path = this.parsePath(path, false);
+    const path = getPath(cfg, true, this);
+   // path = this.parsePath(path, false);
     return container.addShape('path', {
       attrs: Util.mix(attrs, {
         path
@@ -208,8 +212,8 @@ Shape.registerShape('area', 'smooth', {
 Shape.registerShape('area', 'line', {
   draw(cfg, container) {
     const attrs = getLineAttrs(cfg);
-    let path = getPath(cfg, false);
-    path = this.parsePath(path, false);
+    const path = getPath(cfg, false, this);
+    // path = this.parsePath(path, false);
     return container.addShape('path', {
       attrs: Util.mix(attrs, {
         path
@@ -226,8 +230,7 @@ Shape.registerShape('area', 'line', {
 Shape.registerShape('area', 'smoothLine', {
   draw(cfg, container) {
     const attrs = getLineAttrs(cfg);
-    let path = getPath(cfg, true);
-    path = this.parsePath(path, false);
+    const path = getPath(cfg, true, this);
     return container.addShape('path', {
       attrs: Util.mix(attrs, {
         path

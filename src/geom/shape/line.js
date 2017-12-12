@@ -61,14 +61,18 @@ function getSinglePath(points, smooth, isInCircle, cfg) {
   let path;
   if (!smooth) {
     path = PathUtil.getLinePath(points, false);
+    if (isInCircle) {
+      path.push([ 'Z' ]);
+    }
   } else {
     // 直角坐标系下绘制曲线时限制最大值、最小值
-    const constraint = isInCircle ? null : cfg.constraint;
+    const constraint = cfg.constraint;
+    if (isInCircle && points.length) {
+      points.push({ x: points[0].x, y: points[0].y });
+    }
     path = PathUtil.getSplinePath(points, false, constraint);
   }
-  if (isInCircle) {
-    path.push([ 'Z' ]);
-  }
+
   return path;
 }
 // get line path
