@@ -224,6 +224,55 @@ describe('test chart width filter', function() {
 
 });
 
+describe('test chart width filter, ignore legend', function() {
+  const data = [
+    { genre: 'Sports', sold: 475, type: '1' },
+    { genre: 'Strategy', sold: 115, type: '1' },
+    { genre: 'Action', sold: 120, type: '1' },
+    { genre: 'Shooter', sold: 350, type: '1' },
+    { genre: 'Other', sold: 150, type: '1' }
+  ];
+  let chart;
+  it('init filter', function() {
+    chart = new Chart({
+      height: 500,
+      forceFit: true,
+      container: 'cchart',
+      animate: false
+    });
+    chart.source(data);
+    chart.line().position('genre*sold').color('genre');
+    chart.filter('genre', function(genre) {
+      return genre === 'Sports';
+    });
+
+    const rst = chart.execFilter(data);
+    expect(rst.length).equal(1);
+
+    chart.initView();
+    const scale = chart.createScale('genre');
+    expect(scale.values.length).equal(5);
+  });
+  it('change fitler', function() {
+    chart.filter('genre', null);
+    chart.set('scales', {});
+    chart.filter('sold', function(sold) {
+      return sold > 200;
+    });
+    chart.initView();
+    const scale = chart.createScale('genre');
+    expect(scale.values.length).equal(5);
+    const scale1 = chart.createScale('sold');
+
+    expect(scale1.min > 200).equal(true);
+
+  });
+  it('destroy', function() {
+    chart.destroy();
+  });
+
+});
+
 describe('chart forceFit', function() {
   let chart;
   const data = [

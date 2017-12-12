@@ -302,6 +302,10 @@ class Chart extends View {
     return view;
   }
 
+  isShapeInView() {
+    return true;
+  }
+
   removeView(view) {
     const views = this.get('views');
     Util.Array.remove(views, view);

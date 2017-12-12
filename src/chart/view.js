@@ -230,6 +230,15 @@ class View extends Base {
     }
   }
 
+  isShapeInView(shape) {
+    const id = this.get('_id');
+    const shapeId = shape._id;
+    if (!shapeId) {
+      return shape.get('parent').get('viewId') === id;
+    }
+    return shapeId.split('-')[0] === id;
+  }
+
   /**
    * View 所在的范围
    * @protected
@@ -518,12 +527,13 @@ class View extends Base {
     const scales = this.get('scales');
     const parent = this.get('parent');
     let scale = scales[field];
-    const filters = this._getFilters();
+    // const filters = this._getFilters();
     if (!data) {
       const filteredData = this.get('filteredData');
+      const legendFields = this._getFieldsForLegend();
       // 过滤导致数据为空时，需要使用全局数据
       // 参与过滤的字段的度量也根据全局数据来生成
-      if (filteredData.length && !(filters && filters[field])) {
+      if (filteredData.length && legendFields.indexOf(field) === -1) {
         data = filteredData;
       } else {
         data = this.get('data');
@@ -542,6 +552,16 @@ class View extends Base {
       this._syncScale(scale, newScale);
     }
     return scale;
+  }
+
+  _getFieldsForLegend() {
+    let fields = [];
+    const geoms = this.get('geoms');
+    Util.each(geoms, geom => {
+      const geomFields = geom.getFieldsForLegend();
+      fields = fields.concat(geomFields);
+    });
+    return Util.uniq(fields);
   }
 
   // 如果需要同步度量，则使得 values,min,max的范围最大
@@ -609,9 +629,11 @@ class View extends Base {
       data = data.filter(function(obj) {
         let rst = true;
         Util.each(filters, function(fn, k) {
-          rst = fn(obj[k], obj);
-          if (!rst) {
-            return false;
+          if (fn) {
+            rst = fn(obj[k], obj);
+            if (!rst) {
+              return false;
+            }
           }
         });
         return rst;
