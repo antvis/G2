@@ -20,7 +20,8 @@
         id: 'canvas',
         forceFit: true,
         height: window.innerHeight,
-        padding: 20
+        padding: 20,
+        animate: false
       });
         // 获取当前月的第几周,从 0 开始
       function getMonthWeek(date) {
@@ -64,7 +65,7 @@
           type: 'time'
         }
       };
-      chart.axis(false);
+      // chart.axis(false);
       chart.source(data, defs);
       chart.facet('list', {
         fields: [ 'month' ],
@@ -78,9 +79,18 @@
               stroke: '#999'
             })
             .tooltip('日期*涨跌幅');
+          view.on('polygon:click', ev => {
+            console.log(ev);
+          });
+
+          view.on('axis-label:click', ev => {
+            console.log(ev);
+          });
         }
       });
       chart.render();
+
+    
     });
   </script>
 </body>

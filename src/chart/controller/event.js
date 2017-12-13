@@ -90,10 +90,12 @@ class EventController {
   _triggerShapeEvent(shape, eventName, eventObj) {
     if (shape && shape.name) {
       const view = this.view;
-      const name = shape.name + ':' + eventName;
-      eventObj.view = view;
-      eventObj.appendInfo = shape.get('appendInfo'); // appendInfo is defined by user
-      view.emit(name, eventObj);
+      if (view.isShapeInView(shape)) {
+        const name = shape.name + ':' + eventName;
+        eventObj.view = view;
+        eventObj.appendInfo = shape.get('appendInfo'); // appendInfo is defined by user
+        view.emit(name, eventObj);
+      }
       // const parent = view.get('parent');
       // if (parent) { // chart 上也需要抛出该事件，本期先不抛出
       //   parent.emit(name, eventObj);

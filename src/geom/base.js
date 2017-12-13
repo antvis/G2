@@ -13,7 +13,7 @@ const Shape = require('./shape/index');
 const TooltipMixin = require('./mixin/tooltip');
 const ActiveMixin = require('./mixin/active');
 const SelectMixin = require('./mixin/select');
-const GROUP_ATTRS = [ 'size', 'shape', 'color' ];
+const GROUP_ATTRS = [ 'color', 'shape', 'size' ];
 const FIELD_ORIGIN = '_origin';
 
 function parseFields(field) {
@@ -426,10 +426,15 @@ class GeomBase extends Base {
 
   _initContainer() {
     const self = this;
-    const shapeContainer = self.get('shapeContainer');
+    let shapeContainer = self.get('shapeContainer');
     if (!shapeContainer) {
       const container = self.get('container');
-      self.set('shapeContainer', container.addGroup());
+      const view = self.get('view');
+      const viewId = view && view.get('_id');
+      shapeContainer = container.addGroup({
+        viewId
+      });
+      self.set('shapeContainer', shapeContainer);
     }
   }
 
@@ -1074,6 +1079,18 @@ class GeomBase extends Base {
       }
     });
     return rst;
+  }
+
+  getFieldsForLegend() {
+    let fields = [];
+    const attrOptions = this.get('attrOptions');
+    Util.each(GROUP_ATTRS, attrName => {
+      const attrCfg = attrOptions[attrName];
+      if (attrCfg && attrCfg.field && Util.isString(attrCfg.field)) {
+        fields = fields.concat(attrCfg.field.split('*'));
+      }
+    });
+    return Util.uniq(fields);
   }
 
   changeVisible(visible, stopDraw) {

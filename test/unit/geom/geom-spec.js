@@ -123,6 +123,8 @@ describe('test geoms', function() {
       expect(attrOptions.size.field).equal('b');
       expect(attrOptions.size.callback).to.be.a('function');
       expect(attrOptions.opacity.field).equal(0.8);
+
+      expect(geom.getFieldsForLegend()).eqls([ 'red', 'a', 'b' ]);
     });
     it('geom.active', function() {
       expect(geom.get('allowActive')).to.be.undefined;
@@ -147,6 +149,12 @@ describe('test geoms', function() {
         adjusts: 'stack'
       });
       expect(newGeom.get('adjusts')).eqls([{ type: 'stack' }]);
+    });
+
+    it('same field with color and shape', function() {
+      const newGeom = new Geom({});
+      newGeom.color('a').shape('a').size('a');
+      expect(newGeom.getFieldsForLegend()).eqls([ 'a' ]);
     });
   });
 
