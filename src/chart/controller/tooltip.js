@@ -165,7 +165,7 @@ class TooltipController {
     }
   }
 
-  _setTooltip(title, point, items, markersItems, target) {
+  _setTooltip(point, items, markersItems, target) {
     const self = this;
     const tooltip = self.tooltip;
     const prePoint = self.prePoint;
@@ -189,6 +189,9 @@ class TooltipController {
         y,
         items
       });
+      // bugfix: when set the title in the tooltip:change event does not take effect.
+      const first = items[0];
+      const title = first.title || first.name;
       tooltip.setContent(title, items);
       if (!Util.isEmpty(markersItems)) {
         if (self.options.hideMarkers === true) { // 不展示 tooltip marker
@@ -398,9 +401,7 @@ class TooltipController {
       // if (!Util.isEmpty(markersItems)) {
       //   point = markersItems[0];
       // }
-      const title = first.title || first.name;
-
-      self._setTooltip(title, point, items, markersItems, target);
+      self._setTooltip(point, items, markersItems, target);
     } else {
       self.hideTooltip();
     }
