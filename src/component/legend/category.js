@@ -6,7 +6,6 @@ const Util = require('../../util');
 const Base = require('./base');
 const { DomUtil, Event, Group } = require('@antv/g');
 const Global = require('../../global');
-const LEGEND_STYLE = Global.legend.html;
 
 const CONTAINER_CLASS = 'g2-legend';
 const TITLE_CLASS = 'g2-legend-title';
@@ -337,6 +336,7 @@ class Category extends Base {
     const itemListDom = findNodeByClass(legendWrapper, LIST_CLASS);
     const unCheckedColor = self.get('unCheckColor');
     const mode = self.get('selectedMode');
+    const LEGEND_STYLE = Global.legend.html;
 
     DomUtil.modifyCSS(itemListDom, Util.mix({}, LEGEND_STYLE[LIST_CLASS], self.get(LIST_CLASS)));
 
