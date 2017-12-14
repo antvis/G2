@@ -14,7 +14,6 @@ class Arc extends Base {
        * @type {String}
        */
       type: 'arc',
-      zIndex: 15,
       /**
        * 辅助弧线的起始点
        * @type {Object | Function | Array}

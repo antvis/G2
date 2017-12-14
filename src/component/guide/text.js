@@ -14,8 +14,6 @@ class Text extends Base {
        * @type {String}
        */
       type: 'text',
-      // TODO 需要调整
-      zIndex: 15,
       /**
        * 辅助文本的位置
        * @type {Object | Function | Array}
