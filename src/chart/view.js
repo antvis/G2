@@ -891,7 +891,7 @@ class View extends Base {
       backPlot.sort();
       const canvas = this.get('canvas');
 
-      if (animate) {
+      if (animate && this.get('rendered')) {
         const isUpdate = this.get('isUpdate');
         Util.each(views, function(view) {
           Animate.execAnimation(view, isUpdate);
@@ -902,6 +902,7 @@ class View extends Base {
       }
     }
     this.emit('afterrender');
+    this.set('rendered', true);
     return this;
   }
 

@@ -1,7 +1,7 @@
 const G2 = require('../../index');
 
 describe('#238', () => {
-  it.only('Endless loop when calling chart.forceFit()', () => {
+  it('Endless loop when calling chart.forceFit()', () => {
     const div = document.createElement('div');
     document.body.appendChild(div);
     const data = [
