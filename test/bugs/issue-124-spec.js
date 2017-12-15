@@ -1,7 +1,7 @@
 const G2 = require('../../index');
 
-describe('ticks', () => {
-  it('all data equals null', () => {
+describe('#124', () => {
+  it('null data draw point', () => {
     const div = document.createElement('div');
     document.body.appendChild(div);
     const data = [
@@ -22,7 +22,9 @@ describe('ticks', () => {
       }
     });
 
-    chart.line().position('genre*sold');
+    chart.point().position('genre*sold')
+      .size(20)
+      .shape('circle');
     chart.render();
   });
 });
