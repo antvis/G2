@@ -254,7 +254,7 @@ class AxisController {
       };
     }
     cfg = Util.deepMix({}, Global.axis[position], cfg, options[field]);
-    Util.mix(cfg, titleCfg);
+    Util.deepMix(cfg, titleCfg);
     cfg.ticks = scale.getTicks();
 
     if (coord.isPolar && !scale.isCategory) {
