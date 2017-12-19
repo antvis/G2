@@ -48,6 +48,9 @@ class Time extends Linear {
       // 使用一个循环，计算min,max,secondMin
       Util.each(values, function(v) {
         const timeStamp = self._toTimeStamp(v);
+        if (isNaN(timeStamp)) {
+          throw new TypeError(`Invalid Time: ${v}`);
+        }
         if (min > timeStamp) {
           secondMin = min;
           min = timeStamp;
