@@ -5,8 +5,8 @@
 const Util = require('./util');
 const Theme = require('./theme/index');
 
-const Global = {};
-const Default = {
+// const Global = {};
+const Global = {
   version: '3.0.2-beta.1',
   trackable: true,
   animate: true,
@@ -26,11 +26,11 @@ const Default = {
 };
 
 function setTheme(theme) {
-  for (const k in Global) {
-    if (Global.hasOwnProperty(k)) {
-      delete Global[k];
-    }
-  }
+  // for (const k in Global) {
+  //   if (Global.hasOwnProperty(k)) {
+  //     delete Global[k];
+  //   }
+  // }
 
   let newTheme = {};
   if (Util.isObject(theme)) {
@@ -40,10 +40,11 @@ function setTheme(theme) {
   } else {
     newTheme = Theme.default;
   }
-  Util.deepMix(Global, Default, newTheme);
-  Global.setTheme = setTheme;
+  Util.deepMix(Global, newTheme);
 }
 
 setTheme('default');
+
+Global.setTheme = setTheme;
 
 module.exports = Global;
