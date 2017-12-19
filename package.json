@@ -21,7 +21,6 @@
   "license": "MIT",
   "devDependencies": {
     "@antv/data-set": "~0.8.0",
-    "@lite-js/torch": "~0.2.6",
     "babel-core": "~6.26.0",
     "babel-eslint": "~8.0.3",
     "babel-loader": "~7.1.2",
