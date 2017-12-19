@@ -66,3 +66,6 @@ temp
 .DS_Store
 .idea
 demos/assets/screenshots
+
+*.sw*
+*.un~
