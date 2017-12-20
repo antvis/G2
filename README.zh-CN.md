@@ -18,7 +18,7 @@ G2 是一套基于可视化编码的图形语法，以数据驱动，具有高�
 
 ## 安装
 
-```js
+```bash
 npm install @antv/g2
 ```
 
@@ -66,4 +66,25 @@ chart.render();
 
 [更多示例](https://antv.alipay.com/zh-cn/g2/3.x/demo/index.html)
 
-<img src="https://user-images.githubusercontent.com/6628666/33157917-b970a70c-d040-11e7-9601-b1da1dbe26ab.png" width="800">
+![demos](https://user-images.githubusercontent.com/1655789/34187141-d800fe94-e56a-11e7-878a-4dc0e4f538d9.png)
+
+## 本地开发
+
+```bash
+$ npm install
+
+# 跑测试用例
+$ npm run test-live
+
+# 监听文件变化构建，并打开 demo 页面
+$ npm run dev
+
+# 打开 demo
+$ npm run demos
+```
+
+## 如何贡献
+
+如果您在使用的过程中碰到问题，可以先通过 [issues](https://github.com/antvis/g2/issues) 看看有没有类似的 bug 或者建议。
+
+如需提交代码，请遵从我们的[贡献指南](https://github.com/antvis/g2/blob/master/CONTRIBUTING.md)。
