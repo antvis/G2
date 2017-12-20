@@ -81,7 +81,7 @@
     "silent": false
   },
   "dependencies": {
-    "@antv/g": "~2.0.2",
+    "@antv/g": "~2.0.4",
     "fecha": "~2.3.2",
     "gl-matrix": "~2.4.0",
     "lodash": "~4.17.4",
