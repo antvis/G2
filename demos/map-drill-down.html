@@ -16,8 +16,9 @@
   document.body.clientHeight;
 </script>
 <script src="https://gw.alipayobjects.com/os/antv/assets/g2/3.0.2/g2.min.js"></script>
-<script src="https://gw.alipayobjects.com/os/antv/assets/data-set/0.8.0/data-set.js"></script>
+<script src="https://gw.alipayobjects.com/os/antv/assets/data-set/0.8.1/data-set.js"></script>
 <script src="https://gw.alipayobjects.com/os/antv/assets/lib/jquery-3.2.1.min.js"></script>
+<script src="https://gw.alipayobjects.com/os/antv/assets/lib/lodash-4.17.4.min.js"></script>
 <script src="https://webapi.amap.com/maps?v=1.4.1&key=0d78256ea89beeb8c25d1cd047549d1f"></script>
 <script src="https://webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
 <script>
@@ -69,8 +70,9 @@
 
     // 绘制某个区域的边界
     function renderAreaPolygons(areaNode) {
+      const node = _.cloneDeep(areaNode);
       districtExplorer.clearFeaturePolygons();
-      districtExplorer.renderSubFeatures(areaNode, function(feature, i) {
+      districtExplorer.renderSubFeatures(node, function(feature, i) {
         const fillColor = colors[i % colors.length];
         const strokeColor = colors[colors.length - 1 - i % colors.length];
 
@@ -86,7 +88,7 @@
       });
 
       // 绘制父区域
-      districtExplorer.renderParentFeature(areaNode, {
+      districtExplorer.renderParentFeature(node, {
         cursor: 'default',
         bubble: true,
         strokeColor: 'black', // 线颜色
