@@ -19,8 +19,8 @@ G2 is a visualization grammar, a data-driven visual language with a high level o
 
 ## Installation
 
-```js
-npm install @antv/g2
+```bash
+$ npm install @antv/g2
 ```
 
 ### Usage
@@ -55,7 +55,7 @@ chart.render();
 
 [More examples](https://antv.alipay.com/zh-cn/g2/3.x/demo/index.html)
 
-<img src="https://user-images.githubusercontent.com/6628666/33254261-ccc1f55a-d382-11e7-83ba-808712bd5b92.png" width="400" height="636"><img src="https://user-images.githubusercontent.com/6628666/33254262-cce7c8a2-d382-11e7-9e9b-2eba6093db39.png" width="400" height="636">
+![demos](https://user-images.githubusercontent.com/1655789/34187141-d800fe94-e56a-11e7-878a-4dc0e4f538d9.png)
 
 ## Development
 
@@ -64,6 +64,9 @@ $ npm install
 
 # run test case
 $ npm run test-live
+
+# build watching file changes and run demos
+$ npm run dev
 
 # run demos
 $ npm run demos
