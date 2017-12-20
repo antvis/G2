@@ -9,7 +9,7 @@
 ##### Bug Fixes
 
 * fix tooltip bug. ([2933b777](https://github.com/antvis/g2/commit/2933b7777c4365c5fd8f52bb37fd4ee35250c627))
-* Unified the easing funciton of all geoms. ([78849666](https://github.com/antvis/g2/commit/78849666be78b0b3754c1ed43bfff05e0fff1361))
+* Unified the easing function of all geoms. ([78849666](https://github.com/antvis/g2/commit/78849666be78b0b3754c1ed43bfff05e0fff1361))
 
 #### 3.0.0 (2017-11-22)
 
