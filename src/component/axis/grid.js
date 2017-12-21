@@ -67,7 +67,6 @@ class Grid extends Group {
       if (preItem && self.get('alternateColor')) {
         self._drawAlternativeBg(item, preItem, index);
       }
-
       preItem = item;
     });
   }
