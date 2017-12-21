@@ -98,7 +98,7 @@ class Chart extends View {
     container.appendChild(wrapperEl);
     this.set('wrapperEl', wrapperEl);
     if (this.get('forceFit')) {
-      width = DomUtil.getWidth(container);
+      width = DomUtil.getWidth(container, width);
       this.set('width', width);
     }
     const canvas = new Canvas({
@@ -220,10 +220,11 @@ class Chart extends View {
   forceFit() {
     const self = this;
     const container = self.get('container');
-    const width = DomUtil.getWidth(container);
-    if (width !== this.get('width')) {
-      const height = this.get('height');
-      this.changeSize(width, height);
+    const oldWidth = self.get('width');
+    const width = DomUtil.getWidth(container, oldWidth);
+    if (width !== oldWidth) {
+      const height = self.get('height');
+      self.changeSize(width, height);
     }
     return self;
   }
@@ -245,7 +246,7 @@ class Chart extends View {
     plot.repaint();
 
     self.repaint();
-    this.emit('afterchangesize');
+    self.emit('afterchangesize');
     return self;
   }
   /**
