@@ -161,6 +161,9 @@ module.exports = {
     const viewId = view.get('_id');
     const canvas = view.get('canvas');
     const caches = canvas.get(viewId + 'caches') || [];
+    if (caches.length === 0) {
+      isUpdate = false;
+    }
     const shapes = getShapes(viewContainer, viewId);
     const axisShapes = getShapes(axisContainer, viewId);
     const cacheShapes = shapes.concat(axisShapes);

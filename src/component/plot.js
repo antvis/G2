@@ -4,6 +4,7 @@
  */
 const Util = require('../util');
 const { Group } = require('@antv/g');
+const AUTO_STR = 'auto';
 
 class PlotBack extends Group {
   getDefaultCfg() {
@@ -110,12 +111,16 @@ class PlotBack extends Group {
   }
 
   _convert(val, isHorizontal) {
-    if (Util.isString(val) && val.indexOf('%') !== -1) {
-      const canvas = this.get('canvas');
-      const width = this.get('width') || canvas.get('width');
-      const height = this.get('height') || canvas.get('height');
-      val = parseInt(val, 10) / 100;
-      val = isHorizontal ? val * width : val * height;
+    if (Util.isString(val)) {
+      if (val === AUTO_STR) {
+        val = 0;
+      } else if (val.indexOf('%') !== -1) {
+        const canvas = this.get('canvas');
+        const width = this.get('width') || canvas.get('width');
+        const height = this.get('height') || canvas.get('height');
+        val = parseInt(val, 10) / 100;
+        val = isHorizontal ? val * width : val * height;
+      }
     }
 
     return val;

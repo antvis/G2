@@ -117,7 +117,10 @@ class LegendController {
           });
         }
         chart.set('keepLegend', true); // 图例不重新渲染
+        chart.set('keepPadding', true); // 边框不重新计算
         chart.repaint();
+        chart.set('keepPadding', false);
+        chart.set('keepLegend', false);
       }
     });
   }

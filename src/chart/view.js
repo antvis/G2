@@ -823,13 +823,6 @@ class View extends Base {
     this._createCoord();
   }
 
-  /**
-   * 绘制 geometry 前处理一些度量统一
-   * @protected
-   */
-  beforeDraw() {
-  }
-
   source(data, scales) {
     this._initData(data);
     if (scales) {
@@ -870,28 +863,32 @@ class View extends Base {
     this.repaint();
   }
 
-  render(stopDraw) {
-    this.emit('beforerender');
+  // 初始化各个 view 和绘制辅助元素
+  beforeRender() {
     const views = this.get('views');
-    const animate = this.get('animate');
-    // 初始化 View 的数据
+    // 如果存在 views 则初始化子 view 的方法
     Util.each(views, function(view) {
-      view.initView();
+      view.beforeRender();
     });
     this.initView();
-    this.emit('beforepaint');
-    // 绘制
-    Util.each(views, function(view) {
-      view.paint();
-    });
-    this.paint();
-    this.emit('afterpaint');
+    this.drawComponents();
+  }
+
+  // 绘制坐标轴、图例、辅助元素等图表组件
+  drawComponents() {
+    this._renderGuides();
+    this._renderAxes();
+  }
+
+  // 绘制图形
+  drawCanvas(stopDraw) {
     if (!stopDraw) {
+      const views = this.get('views');
       const backPlot = this.get('backPlot');
       backPlot.sort();
       const canvas = this.get('canvas');
-
-      if (animate && this.get('rendered')) {
+      const animate = this.get('animate');
+      if (animate) {
         const isUpdate = this.get('isUpdate');
         Util.each(views, function(view) {
           Animate.execAnimation(view, isUpdate);
@@ -901,6 +898,16 @@ class View extends Base {
         canvas.draw();
       }
     }
+  }
+
+  render(stopDraw) {
+    this.clearInner();
+    this.emit('beforerender');
+    this.beforeRender();
+    this.emit('beforepaint');
+    this.paint();
+    this.emit('afterpaint');
+    this.drawCanvas(stopDraw);
     this.emit('afterrender');
     this.set('rendered', true);
     return this;
@@ -919,13 +926,15 @@ class View extends Base {
   }
 
   paint() {
+    const views = this.get('views');
+    // 绘制
+    Util.each(views, function(view) {
+      view.paint();
+    });
     const data = this.get('data');
     if (!Util.isEmpty(data)) {
-      this.beforeDraw();
       this._drawGeoms();
-      this._renderGuides();
     }
-    this._renderAxes();
   }
 
   changeVisible(visible) {
