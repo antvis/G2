@@ -1,3 +1,48 @@
+#### 3.0.3 (2017-12-25)
+
+##### New Features
+
+* chore(dev): remove useless dependency (cheerio)
+* chore(dev): upgrade torchjs (testing framework)
+* chore(doc): replacing demos screenshot in README.md
+* chore(legend): better continous legend's mouse cursor.
+* feat(chart): support auto padding
+
+##### Bug Fixes
+
+* fix(axis): axis'title setting. Close #299
+* fix(axis): fill gaps near edges when gridAlign is `center`
+* fix(axis): left axis grid cover the axis line
+* fix(chart): Endless loop after chart.forceFit()
+* fix(chart): crush after resize. Closes: #241
+* fix(demos): @lite-js/torch => torchjs
+* fix(demos): map drilling down problem
+* fix(scale): throw an error to avoid stack overflow, etc.
+* fix(theme): allow set partial theme. Closed #205.
+* fix(theme): set theme for legend.html but not work
+* fix(tooltip): fixed bug of #318, size(filed) caused error of tooltip
+
+#### 3.0.2 (2017-12-14)
+
+##### New Features
+
+* chore(dev): add `index.d.ts`
+* chore(dev): working with Windows
+* chore(dev): better scripts for dev
+* chore(demos): better demos solution & add more demos
+
+##### Bug Fixes
+
+* fix(tooltip): set title for tooltip, change does not take effect(#280)
+* fix(shape): fixed bug of #252
+* fix(view): fix bug of filter and view event
+* fix(eslint): close the linebreak-style rule to support windows os
+* fix(dependencies): be more careful on dependencies management (like uglify-js)
+* fix(scale): very little number ticks
+* fix(component): set appropriate value of zIndex
+* chore(demos): fixing demos style, etc.
+* chore(demos): remove screenshots
+
 #### 3.0.1 (2017-12-01)
 
 ##### New Features
