@@ -378,7 +378,7 @@ const TooltipMixin = {
           marker: true
         };
         if (self.get('type') === 'interval' || self.get('type') === 'schema') {
-          item.size = self.getSize();
+          item.size = self.getSize(point[FIELD_ORIGIN]); // 如果字段发生了映射，宽度计算就会报错
         }
 
         items.push(Util.mix({}, item, cfg));
