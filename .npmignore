@@ -68,3 +68,10 @@ test
 
 *.sw*
 *.un~
+.idea
+bin
+demos
+docs
+temp
+webpack-dev.config.js
+webpack.config.js
