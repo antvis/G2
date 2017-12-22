@@ -90,8 +90,8 @@ function startService(port) {
     debug('running on electron!');
     const app = require('electron').app;
     const BrowserWindow = require('electron').BrowserWindow;
-    const watch = require('@lite-js/torch/lib/watch');
-    const windowBoundsConfig = require('@lite-js/torch/lib/windowBoundsConfig')(
+    const watch = require('torchjs/lib/watch');
+    const windowBoundsConfig = require('torchjs/lib/windowBoundsConfig')(
       resolve(app.getPath('userData'), './data-set-config.json')
     );
 
