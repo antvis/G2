@@ -115,6 +115,7 @@ const Theme = {
       line: null,
       tickLine: null,
       grid: {
+        zIndex: -1,
         lineStyle: {
           stroke: '#E9E9E9',
           lineWidth: 1,
