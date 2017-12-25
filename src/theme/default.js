@@ -337,7 +337,7 @@ const Theme = {
         height: 'auto',
         width: 'auto',
         position: 'absolute',
-        overflow: 'scroll',
+        overflow: 'auto',
         fontSize: '12px',
         fontFamily: FONT_FAMILY,
         lineHeight: '20px',
