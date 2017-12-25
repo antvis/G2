@@ -6,6 +6,7 @@ const Shape = require('../../geom/shape/index');
 const FIELD_ORIGIN = '_origin';
 const MARGIN = 24;
 const MARGIN_LEGEND = 24;
+const MARKER_SIZE = 4.5;
 const requireAnimationFrameFn = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
   window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
@@ -522,8 +523,10 @@ class LegendController {
         item.marker = {
           symbol: item.marker ? item.marker : 'circle',
           fill: item.fill,
-          radius: 4.5
+          radius: MARKER_SIZE
         };
+      } else {
+        item.marker.radius = item.marker.radius || MARKER_SIZE;
       }
       item.checked = Util.isNil(item.checked) ? true : item.checked;
       item.geom = geom;
