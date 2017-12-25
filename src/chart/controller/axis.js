@@ -29,6 +29,8 @@ function formatTicks(ticks) {
 
 function fillAxisTicks(ticks, isLinear, gridCentering) {
   let result = [];
+  if (ticks.length < 1) return result;
+
   if (ticks.length >= 2 && isLinear && gridCentering) {
     result.push({
       text: '',
