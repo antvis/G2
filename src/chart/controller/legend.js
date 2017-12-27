@@ -380,14 +380,17 @@ class LegendController {
       });
     });
 
-    const legendCfg = Util.deepMix({
-      title: {
-        text: scale.alias || scale.field
-      }
-    }, Global.legend[position], legendOptions[field] || legendOptions, {
+    const legendCfg = Util.deepMix({}, Global.legend[position], legendOptions[field] || legendOptions, {
       maxLength,
       items
     });
+    if (legendCfg.title) {
+      Util.deepMix(legendCfg, {
+        title: {
+          text: scale.alias || scale.field
+        }
+      });
+    }
 
     const legend = container.addGroup(Legend.Category, legendCfg);
     self._bindClickEvent(legend, scale, filterVals);
@@ -447,14 +450,17 @@ class LegendController {
       defaultCfg = Util.mix({}, defaultCfg, Global.legend.gradient);
     }
 
-    const legendCfg = Util.deepMix({
-      title: {
-        text: scale.alias || scale.field
-      }
-    }, defaultCfg, options[field] || options, {
+    const legendCfg = Util.deepMix({}, defaultCfg, options[field] || options, {
       items,
       attr
     });
+    if (legendCfg.title) {
+      Util.deepMix(legendCfg, {
+        title: {
+          text: scale.alias || scale.field
+        }
+      });
+    }
 
     if (attr.type === 'color') {
       legend = container.addGroup(Legend.Color, legendCfg);
