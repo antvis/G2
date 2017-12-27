@@ -276,19 +276,16 @@ class AxisController {
     let cfg = {};
     const options = self.options;
     const field = scale.field;
-    const isShowTitle = !!(Global.axis[position] && Global.axis[position].title); // 用户全局禁用 title
-    let titleCfg;
 
-    // bugfix: title was set by chart.axis('field', { title: {} })
-    if (isShowTitle || (options[field] && options[field].title)) {
-      titleCfg = {
+    cfg = Util.deepMix({}, Global.axis[position], cfg, options[field]);
+    if (cfg.title) {
+      Util.deepMix(cfg, {
         title: {
           text: scale.alias || field
         }
-      };
+      });
     }
-    cfg = Util.deepMix({}, Global.axis[position], cfg, options[field]);
-    Util.deepMix(cfg, titleCfg);
+
     cfg.ticks = scale.getTicks();
 
     if (coord.isPolar && !scale.isCategory) {
