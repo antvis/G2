@@ -35,7 +35,7 @@ class TimeCategory extends Category {
       /**
        * @override
        */
-      tickCount: 5
+      tickCount: 7
     });
   }
 
@@ -63,12 +63,17 @@ class TimeCategory extends Category {
   calculateTicks(formated) {
     const self = this;
     const count = self.tickCount;
-    const temp = catAuto({
-      maxCount: count,
-      data: self.values
-    });
+    let ticks;
+    if (count) {
+      const temp = catAuto({
+        maxCount: count,
+        data: self.values
+      });
+      ticks = temp.ticks;
+    } else {
+      ticks = self.values;
+    }
 
-    const ticks = temp.ticks;
     if (formated) {
       Util.each(ticks, function(value, index) {
         ticks[index] = fecha.format(value, self.mask);
