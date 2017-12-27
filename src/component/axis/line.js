@@ -97,7 +97,7 @@ class Line extends Base {
     const title = self.get('title');
     const offsetPoint = self.getTickPoint(0.5);
     let titleOffset = title.offset;
-    if (!titleOffset) { // 没有指定 offset 则自动计算
+    if (Util.isNil(titleOffset)) { // 没有指定 offset 则自动计算
       titleOffset = 20;
       const labelsGroup = self.get('labelsGroup');
       if (labelsGroup) {
@@ -111,8 +111,7 @@ class Line extends Base {
     const cfg = Util.mix({}, textStyle);
     if (title.text) {
       const vector = self.getAxisVector(); // 坐标轴方向的向量
-
-      if (title.autoRotate && !textStyle.rotate) { // 自动旋转并且用户没有指定标题的旋转角度
+      if (title.autoRotate && Util.isNil(textStyle.rotate)) { // 自动旋转并且用户没有指定标题的旋转角度
         let angle = 0;
         if (!Util.snapEqual(vector[1], 0)) { // 所有水平坐标轴，文本不转置
           const v1 = [ 1, 0 ];
@@ -121,7 +120,7 @@ class Line extends Base {
         }
 
         cfg.rotate = angle * (180 / Math.PI);
-      } else if (textStyle.rotate) { // 用户设置了旋转角度就以用户设置的为准
+      } else if (!Util.isNil(textStyle.rotate)) { // 用户设置了旋转角度就以用户设置的为准
         cfg.rotate = (textStyle.rotate / 180) * Math.PI; // 将角度转换为弧度
       }
 
