@@ -270,7 +270,7 @@ class Chart extends View {
    */
   forceFit() {
     const self = this;
-    if (self.destroyed) {
+    if (!self || self.destroyed) {
       return;
     }
     const container = self.get('container');
