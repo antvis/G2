@@ -143,7 +143,7 @@ class TooltipController {
     }
 
     return Util.mix(defaultCfg, crosshairsCfg, {
-      isTransposed: geoms[0].get('coord').isTransposed
+      isTransposed: geoms.length && geoms[0].get('coord') ? geoms[0].get('coord').isTransposed : false
     });
   }
 
