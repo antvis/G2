@@ -270,6 +270,9 @@ class Chart extends View {
    */
   forceFit() {
     const self = this;
+    if (!self || self.destroyed) {
+      return;
+    }
     const container = self.get('container');
     const oldWidth = self.get('width');
     const width = DomUtil.getWidth(container, oldWidth);
@@ -613,6 +616,7 @@ class Chart extends View {
    */
   destroy() {
     this.emit('beforedestroy');
+    clearTimeout(this.get('resizeTimer'));
     const canvas = this.get('canvas');
     const wrapperEl = this.get('wrapperEl');
     wrapperEl.parentNode.removeChild(wrapperEl);
