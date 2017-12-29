@@ -156,10 +156,10 @@ function drawPointShape(shapeObj, cfg, container) {
 const Line = Shape.registerFactory('line', {
   // 默认的shape
   defaultShapeType: 'line',
-  getMarkerCfg(type, cfg) {
+  /* getMarkerCfg(type, cfg) {
     const lineObj = Line[type] || Line.line;
     return lineObj.getMarkerCfg(cfg);
-  },
+  }, */
   getActiveCfg(type, cfg) {
     const lineWidth = cfg.lineWidth || 0;
     return {
