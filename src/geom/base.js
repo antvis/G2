@@ -1020,16 +1020,22 @@ class GeomBase extends Base {
     return cfg;
   }
 
+  appendShapeInfo(shape, index) {
+    if (shape) {
+      shape.setSilent('index', index);
+      shape.setSilent('coord', this.get('coord'));
+
+      if (this.get('animate') && this.get('animateCfg')) {
+        shape.setSilent('animateCfg', this.get('animateCfg'));
+      }
+    }
+  }
+
   drawPoint(obj, container, shapeFactory, index) {
     const shape = obj.shape;
     const cfg = this.getDrawCfg(obj);
     const geomShape = shapeFactory.drawShape(shape, cfg, container);
-    geomShape.setSilent('index', index);
-    geomShape.setSilent('coord', this.get('coord'));
-
-    if (this.get('animate') && this.get('animateCfg')) {
-      geomShape.setSilent('animateCfg', this.get('animateCfg'));
-    }
+    this.appendShapeInfo(geomShape, index);
   }
 
   /**

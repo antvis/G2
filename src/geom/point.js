@@ -32,21 +32,12 @@ class Point extends GeomBase {
         cfg.yIndex = idx;
         if (!hasAdjust || idx !== 0) {
           geomShape = shapeFactory.drawShape(shape, cfg, container);
-          geomShape.setSilent('index', index + idx);
-          geomShape.setSilent('coord', self.get('coord'));
-          if (self.get('animate') && self.get('animateCfg')) {
-            geomShape.setSilent('animateCfg', self.get('animateCfg'));
-          }
+          self.appendShapeInfo(geomShape, index + idx);
         }
       });
     } else if (!Util.isNil(obj.y)) {
       geomShape = shapeFactory.drawShape(shape, cfg, container);
-      geomShape.setSilent('index', index);
-      geomShape.setSilent('coord', self.get('coord'));
-
-      if (self.get('animate') && self.get('animateCfg')) {
-        geomShape.setSilent('animateCfg', self.get('animateCfg'));
-      }
+      self.appendShapeInfo(geomShape, index);
     }
   }
 }
