@@ -871,11 +871,15 @@ class View extends Base {
       view.beforeRender();
     });
     this.initView();
-    this.drawComponents();
   }
 
   // 绘制坐标轴、图例、辅助元素等图表组件
   drawComponents() {
+    const views = this.get('views');
+    // 如果存在 views 则初始化子 view 的方法
+    Util.each(views, function(view) {
+      view.drawComponents();
+    });
     this._renderGuides();
     this._renderAxes();
   }
@@ -904,6 +908,7 @@ class View extends Base {
     this.clearInner();
     this.emit('beforerender');
     this.beforeRender();
+    this.drawComponents();
     this.emit('beforepaint');
     this.paint();
     this.emit('afterpaint');
