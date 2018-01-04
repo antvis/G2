@@ -503,6 +503,7 @@ class Chart extends View {
     // 需要自动计算边框，则重新设置
     if (!this.get('keepPadding') && this._isAutoPadding()) {
       this.beforeRender(); // 初始化各个 view 和 绘制
+      this.drawComponents();
       const autoPadding = this._getAutoPadding();
       const plot = this.get('plot');
       // 在计算出来的边框不一致的情况，重新改变边框

@@ -198,6 +198,16 @@ describe('test number auto', () => {
     expect(rst.ticks).eql([ 0, 3000, 6000 ]);
   });
 
+  it('with count 5', function() {
+    const rst = auto({
+      min: 0,
+      minCount: 5,
+      maxCount: 5,
+      max: 10
+    });
+    expect(rst.ticks).eql([ 0, 2.5, 5, 7.5, 10 ]);
+  });
+
   it('very small and float', function() {
     let rst = auto({
       min: 0,
