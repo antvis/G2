@@ -369,9 +369,9 @@ class Chart extends View {
     return view;
   }
 
-  isShapeInView() {
-    return true;
-  }
+  // isShapeInView() {
+  //   return true;
+  // }
 
   removeView(view) {
     const views = this.get('views');

@@ -95,11 +95,11 @@ class EventController {
         eventObj.view = view;
         eventObj.appendInfo = shape.get('appendInfo'); // appendInfo is defined by user
         view.emit(name, eventObj);
+        const parent = view.get('parent');
+        if (parent) { // chart 上也需要抛出该事件，本期先不抛出
+          parent.emit(name, eventObj);
+        }
       }
-      // const parent = view.get('parent');
-      // if (parent) { // chart 上也需要抛出该事件，本期先不抛出
-      //   parent.emit(name, eventObj);
-      // }
     }
   }
 
