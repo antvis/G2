@@ -106,8 +106,10 @@ const ShapeFactoryBase = {
       const defaultShapeType = this.defaultShapeType;
       shape = this.getShape(defaultShapeType);
     }
-
     return shape.getMarkerCfg(cfg);
+  },
+  getSelectedCfg(/* type, cfg */) {
+    return {};
   },
   drawShape(type, cfg, container) {
     const shape = this.getShape(type);

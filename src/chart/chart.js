@@ -224,7 +224,7 @@ class Chart extends View {
           Util.each(attrs, attr => {
             const type = attr.type;
             const scale = attr.getScale(type);
-            if (scale.type !== 'identity' && !_isScaleExist(scales, scale)) {
+            if (scale.field && scale.type !== 'identity' && !_isScaleExist(scales, scale)) {
               scales.push(scale);
               const filteredValues = view.getFilteredValues(scale.field);
               legendController.addLegend(scale, attr, geom, filteredValues);
@@ -276,7 +276,7 @@ class Chart extends View {
     const container = self.get('container');
     const oldWidth = self.get('width');
     const width = DomUtil.getWidth(container, oldWidth);
-    if (width !== oldWidth) {
+    if (width !== 0 && width !== oldWidth) {
       const height = self.get('height');
       self.changeSize(width, height);
     }
