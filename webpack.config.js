@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const resolve = require('path').resolve;
+const pkg = require('./package.json');
 
 module.exports = {
   devtool: 'cheap-source-map',
@@ -32,6 +33,16 @@ module.exports = {
                 }
               ]
             ]
+          }
+        }
+      },
+      {
+        test: /global\.js$/,
+        use: {
+          loader: 'string-replace-loader',
+          options: {
+            search: '____G2_VERSION____',
+            replace: pkg.version
           }
         }
       }
