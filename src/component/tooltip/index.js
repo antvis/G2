@@ -401,7 +401,8 @@ class Tooltip extends Base {
     const frontPlot = self.get('frontPlot');
     if (!markerGroup) {
       markerGroup = frontPlot.addGroup({
-        zIndex: 1
+        zIndex: 1,
+        capture: false // 不进行拾取
       });
       self.set('markerGroup', markerGroup);
     } else {

@@ -1,8 +1,8 @@
 const expect = require('chai').expect;
 const G2 = require('../../index');
 
-describe('#360', () => {
-  it('point selected error', () => {
+describe('#371', () => {
+  it('point click with line error', () => {
     const div = document.createElement('div');
     document.body.appendChild(div);
     const data = [
@@ -16,11 +16,16 @@ describe('#360', () => {
     const chart = new G2.Chart({
       container: div,
       width: 540,
-      height: 540
+      height: 540,
+      pixelRatio: 2,
+      animate: false
     });
 
     chart.source(data);
 
+    chart.line()
+      .position('genre*sold')
+      .color('red');
     chart.point()
       .position('genre*sold')
       .color('red')
@@ -29,12 +34,21 @@ describe('#360', () => {
       });
 
     chart.render();
-    const geom = chart.get('geoms')[0];
-    const shapes = geom.getShapes();
-    expect(() => {
-      geom.setShapeSelected(shapes[0]);
-    }).not.to.throw();
 
-    chart.destroy();
+    chart.on('point:click', function(ev) {
+      console.log(ev.shape.get('origin'));
+    });
+
+    chart.showTooltip({
+      x: 476,
+      y: 360
+    });
+    const canvas = chart.get('canvas');
+    setTimeout(function() {
+      const shape = canvas.getShape({ x: 952, y: 720 });
+      expect(shape).not.equal(undefined);
+      expect(shape.get('origin')).not.equal(undefined);
+    }, 50);
+
   });
 });
