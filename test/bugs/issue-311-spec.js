@@ -1,8 +1,8 @@
 const expect = require('chai').expect;
 const G2 = require('../../index');
 
-describe('#318', () => {
-  it('when show tooltip, throw error', () => {
+describe('#311', () => {
+  it('no data legend error', () => {
     const div = document.createElement('div');
     document.body.appendChild(div);
     const data = [
