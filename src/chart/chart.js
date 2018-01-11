@@ -276,7 +276,7 @@ class Chart extends View {
     const container = self.get('container');
     const oldWidth = self.get('width');
     const width = DomUtil.getWidth(container, oldWidth);
-    if (width !== oldWidth) {
+    if (width !== 0 && width !== oldWidth) {
       const height = self.get('height');
       self.changeSize(width, height);
     }
