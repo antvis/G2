@@ -1,8 +1,8 @@
 const expect = require('chai').expect;
 const G2 = require('../../index');
 
-describe('#360', () => {
-  it('point selected error', () => {
+describe('#368', () => {
+  it('tooltip change', () => {
     const div = document.createElement('div');
     document.body.appendChild(div);
     const data = [
@@ -21,19 +21,28 @@ describe('#360', () => {
 
     chart.source(data);
 
-    chart.point()
+    chart.line()
       .position('genre*sold')
-      .color('red')
-      .select(true, {
-        style: { fill: 'blue' }
-      });
+      .color('red');
 
     chart.render();
-    const geom = chart.get('geoms')[0];
-    const shapes = geom.getShapes();
-    expect(() => {
-      geom.setShapeSelected(shapes[0]);
-    }).not.to.throw();
+    let num = 0;
+    chart.on('tooltip:change', () => {
+      num++;
+      console.log(num);
+    });
+
+    chart.showTooltip({
+      x: 200,
+      y: 200
+    });
+
+    chart.showTooltip({
+      x: 200,
+      y: 201
+    });
+
+    expect(num).equal(1);
 
     chart.destroy();
   });

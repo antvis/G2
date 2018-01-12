@@ -183,26 +183,27 @@ class TooltipController {
           tooltip
         });
       }
-      chart.emit('tooltip:change', {
-        tooltip,
-        x,
-        y,
-        items
-      });
-      // bugfix: when set the title in the tooltip:change event does not take effect.
       const first = items[0];
       const title = first.title || first.name;
-      tooltip.setContent(title, items);
-      if (!Util.isEmpty(markersItems)) {
-        if (self.options.hideMarkers === true) { // 不展示 tooltip marker
-          tooltip.set('markerItems', markersItems); // 用于 tooltip 辅助线的定位
+      // bugfix: when set the title in the tooltip:change event does not take effect.
+      if (tooltip.isContentChange(title, items)) {
+        chart.emit('tooltip:change', {
+          tooltip,
+          x,
+          y,
+          items
+        });
+        tooltip.setContent(title, items);
+        if (!Util.isEmpty(markersItems)) {
+          if (self.options.hideMarkers === true) { // 不展示 tooltip marker
+            tooltip.set('markerItems', markersItems); // 用于 tooltip 辅助线的定位
+          } else {
+            tooltip.setMarkers(markersItems, Global.tooltipMarker);
+          }
         } else {
-          tooltip.setMarkers(markersItems, Global.tooltipMarker);
+          tooltip.clearMarkers();
         }
-      } else {
-        tooltip.clearMarkers();
       }
-
       tooltip.setPosition(x, y, target);
       tooltip.show();
     }
