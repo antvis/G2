@@ -366,7 +366,7 @@ class Tooltip extends Base {
     return shape;
   }
 
-  _isContentChange(title, items) {
+  isContentChange(title, items) {
     const titleContent = this.get('titleContent');
     const lastItems = this.get('items');
     let isChanged = !(title === titleContent && lastItems.length === items.length);
@@ -384,14 +384,15 @@ class Tooltip extends Base {
   }
 
   setContent(title, items) {
-    const isChange = this._isContentChange(title, items);
-    if (isChange) {
-      const timeStamp = +new Date();
-      this.set('items', items);
-      this.set('titleContent', title);
-      this.set('timeStamp', timeStamp);
-      this._renderTooltip();
-    }
+    // const isChange = this.isContentChange(title, items);
+    // if (isChange) {
+    // 在外面进行判断是否内容发生改变
+    const timeStamp = +new Date();
+    this.set('items', items);
+    this.set('titleContent', title);
+    this.set('timeStamp', timeStamp);
+    this._renderTooltip();
+    // }
     return this;
   }
 
