@@ -116,10 +116,10 @@ function getRectPath(cfg) {
   const w = cfg.size[0];
   const h = cfg.size[1];
   const path = [[ 'M', x - 0.5 * w, y - 0.5 * h ],
-      [ 'L', x + 0.5 * w, y - 0.5 * h ],
-      [ 'L', x + 0.5 * w, y + 0.5 * h ],
-      [ 'L', x - 0.5 * w, y + 0.5 * h ],
-      [ 'z' ]];
+    [ 'L', x + 0.5 * w, y - 0.5 * h ],
+    [ 'L', x + 0.5 * w, y + 0.5 * h ],
+    [ 'L', x - 0.5 * w, y + 0.5 * h ],
+    [ 'z' ]];
   return path;
 }
 
@@ -208,5 +208,30 @@ Util.each(HOLLOW_SHAPES, function(shape) {
     }
   });
 });
+
+// image
+Shape.registerShape('point', 'image', {
+  draw(cfg, container) {
+    cfg.points = this.parsePoints(cfg.points);
+    return container.addShape('image', {
+      attrs: {
+        x: cfg.points[0].x - (cfg.size / 2),
+        y: cfg.points[0].y - cfg.size,
+        width: cfg.size,
+        height: cfg.size,
+        img: cfg.shape[1]
+      }
+    });
+  },
+  getMarkerCfg(cfg) {
+    const attrs = getFillAttrs(cfg);
+    attrs.symbol = 'rect';
+    attrs.radius = 4.5;
+    return attrs;
+  }
+});
+
+// path
+
 
 module.exports = Point;
