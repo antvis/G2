@@ -72,7 +72,7 @@ class Base {
         style: {
           fontSize: 14,
           textAlign: 'center',
-          fill: '#444',
+          fill: '#666',
           fontFamily: Global.fontFamily
         }
       },
@@ -82,7 +82,7 @@ class Base {
           fontSize: 14,
           textAlign: 'center',
           rotate: 90,
-          fill: '#444',
+          fill: '#666',
           fontFamily: Global.fontFamily
         }
       }
