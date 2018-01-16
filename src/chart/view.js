@@ -908,8 +908,8 @@ class View extends Base {
     this.clearInner();
     this.emit('beforerender');
     this.beforeRender();
-    this.drawComponents();
     this.emit('beforepaint');
+    this.drawComponents();
     this.paint();
     this.emit('afterpaint');
     this.drawCanvas(stopDraw);
