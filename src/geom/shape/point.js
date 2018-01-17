@@ -105,7 +105,6 @@ const Point = Shape.registerFactory('point', {
       shadowBlur: radius,
       shadowColor: color,
       stroke: color,
-      strokeStyle: color,
       strokeOpacity: 1,
       lineWidth: 1
     };

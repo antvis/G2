@@ -84,6 +84,7 @@ const ActiveMixin = {
   },
   _setActiveShape(shape) {
     const self = this;
+    const activedOptions = self.get('activedOptions') || {};
     const shapeData = shape.get('origin');
     let shapeName = shapeData.shape || self.getDefaultValue('shape');
     if (Util.isArray(shapeName)) {
@@ -94,7 +95,21 @@ const ActiveMixin = {
       origin: shapeData
     });
     const activeCfg = shapeFactory.getActiveCfg(shapeName, shapeCfg);
-    Util.mix(shape.__attrs, activeCfg);
+    if (activedOptions.style) {
+      Util.mix(activeCfg, activedOptions.style);
+    }
+    const originAttrs = {};
+    Util.each(activeCfg, function(v, k) {
+      const originValue = shape.__attrs[k];
+      originAttrs[k] = Util.cloneDeep(originValue);// 缓存原来的属性，由于 __attrs.matrix 是数组，所以此处需要深度复制
+    });
+    shape.setSilent('_originAttrs', originAttrs);
+    if (activedOptions.animate) {
+      shape.animate(activeCfg, 300);
+    } else {
+      // Util.mix(shape.__attrs, activeCfg);
+      shape.attr(activeCfg);
+    }
     shape.setZIndex(1); // 提前
   },
   setShapesActived(shapes) {
@@ -119,9 +134,6 @@ const ActiveMixin = {
         isStop = true;
         return false;
       }
-      if (!shape.get('_originAttrs')) {
-        shape.set('_originAttrs', Util.cloneDeep(shape.__attrs)); // 缓存原来的属性，由于 __attrs.matrix 是数组，所以此处需要深度复制
-      }
       if (shape.get('visible') && !shape.get('selected')) {
         self._setActiveShape(shape);
       }
@@ -139,12 +151,18 @@ const ActiveMixin = {
   clearActivedShapes() {
     const self = this;
     const shapeContainer = self.get('shapeContainer');
+    const activedOptions = self.get('activedOptions');
+    const activeAnimate = activedOptions && activedOptions.animate;
     if (shapeContainer && !shapeContainer.get('destroyed')) {
       const activeShapes = self.get('activeShapes');
       Util.each(activeShapes, activeShape => {
         if (!activeShape.get('selected')) {
           const originAttrs = activeShape.get('_originAttrs');
-          activeShape.__attrs = Util.cloneDeep(originAttrs);
+          if (activeAnimate) {
+            activeShape.animate(originAttrs, 300);
+          } else {
+            activeShape.attr(originAttrs);
+          }
           activeShape.setZIndex(0);
           activeShape.set('_originAttrs', null);
         }
@@ -156,7 +174,11 @@ const ActiveMixin = {
           if (!shape.get('selected')) {
             const originAttrs = shape.get('_originAttrs');
             if (originAttrs) {
-              shape.__attrs = Util.cloneDeep(originAttrs);
+              if (activeAnimate) {
+                shape.animate(originAttrs, 300);
+              } else {
+                shape.attr(originAttrs);
+              }
               shape.setZIndex(0);
               shape.set('_originAttrs', null);
             }

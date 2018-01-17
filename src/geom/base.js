@@ -119,13 +119,18 @@ class GeomBase extends Base {
       attrOptions: {
 
       },
+      // 样式配置项
       styleOptions: null,
+      // 选中时的配置项
       selectedOptions: null,
+      // active 时的配置项
+      activedOptions: null,
       /**
        * 某些类存在默认的adjust，不能更改 adjust
        * @type {Boolean}
        */
       hasDefaultAdjust: false,
+      // 数据调整类型
       adjusts: null,
       /**
        * 使用形状的类型
@@ -351,10 +356,19 @@ class GeomBase extends Base {
   /**
    * 是否允许使用默认的图形激活交互
    * @param  {Boolean} enable 是否允许激活开关
+   * @param {Object} cfg 激活的配置项
    * @return {Geom}    返回 geom 自身
    */
-  active(enable) {
-    this.set('allowActive', enable);
+  active(enable, cfg) {
+    if (enable === false) {
+      this.set('allowActive', false);
+    } else if (Util.isObject(enable)) {
+      this.set('allowActive', true);
+      this.set('activedOptions', enable);
+    } else {
+      this.set('allowActive', true);
+      this.set('activedOptions', cfg);
+    }
     return this;
   }
 
