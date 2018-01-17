@@ -230,13 +230,19 @@ Shape.registerShape('point', 'image', {
   }
 });
 
+const pathRangeCache = {};
 function getUnifiedPath(path, cfg) {
-  const pathArray = PathUtil.parsePathString(path);
-  const nums = Util.flatten(pathArray).filter(num => Util.isNumber(num));
-  const max = Math.max.apply(null, nums);
-  const min = Math.min.apply(null, nums);
+  let pathRange;
+  if (pathRangeCache[path]) {
+    pathRange = pathRangeCache[path];
+  } else {
+    const segments = PathUtil.parsePathString(path);
+    const nums = Util.flatten(segments).filter(num => Util.isNumber(num));
+    pathRangeCache[path] = pathRange = Math.max.apply(null, nums) - Math.min.apply(null, nums);
+  }
+
   const size = cfg.size || 10;
-  const scale = size / (max - min);
+  const scale = size / pathRange;
   const transformed = svgpath(path)
     .scale(scale)
     .translate(cfg.x, cfg.y);
