@@ -98,7 +98,10 @@
       .position('x*y')
       .shape('name', name => [ 'path', pathMap[name] ]) // 根据具体的字段指定 shape
       .size(20)
-      .color('name');
+      .color('name')
+      .style({
+        rotate: 90
+      });
 
     chart.render();
   })();

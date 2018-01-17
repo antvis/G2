@@ -238,9 +238,11 @@ function getUnifiedPath(path, cfg) {
   const scale = cfg.size / (max - min);
   const transformed = svgpath(path)
     .scale(scale)
-    .translate(cfg.x, cfg.y)
-    .toString();
-  return PathUtil.parsePathString(transformed);
+    .translate(cfg.x, cfg.y);
+  if (cfg.style && cfg.style.rotate) {
+    transformed.rotate(cfg.style.rotate, cfg.x, cfg.y);
+  }
+  return PathUtil.parsePathString(transformed.toString());
 }
 
 // path
