@@ -235,7 +235,8 @@ function getUnifiedPath(path, cfg) {
   const nums = Util.flatten(pathArray).filter(num => Util.isNumber(num));
   const max = Math.max.apply(null, nums);
   const min = Math.min.apply(null, nums);
-  const scale = cfg.size / (max - min);
+  const size = cfg.size || 10;
+  const scale = size / (max - min);
   const transformed = svgpath(path)
     .scale(scale)
     .translate(cfg.x, cfg.y);
