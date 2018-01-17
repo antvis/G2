@@ -16,6 +16,7 @@ function _mix(dist, obj) {
 
 const Util = {
   each: require('lodash/each'),
+  flatten: require('lodash/flatten'),
   map: require('lodash/map'),
   isObject: require('lodash/isObject'),
   isNumber: require('lodash/isNumber'),

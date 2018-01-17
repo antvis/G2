@@ -7,9 +7,14 @@
 
 const Util = require('../../util');
 const ShapeUtil = require('../util/shape');
-const Marker = require('@antv/g').Marker;
 const Global = require('../../global');
 const Shape = require('./shape');
+const svgpath = require('svgpath');
+const {
+  Marker,
+  PathUtil
+} = require('@antv/g');
+
 const SHAPES = [ 'circle', 'square', 'bowtie', 'diamond', 'hexagon', 'triangle', 'triangle-down' ];
 const HOLLOW_SHAPES = [ 'cross', 'tick', 'plus', 'hyphen', 'line', 'pointerLine', 'pointerArrow' ];
 const SQRT_3 = Math.sqrt(3);
@@ -222,16 +227,33 @@ Shape.registerShape('point', 'image', {
         img: cfg.shape[1]
       }
     });
-  },
-  getMarkerCfg(cfg) {
-    const attrs = getFillAttrs(cfg);
-    attrs.symbol = 'rect';
-    attrs.radius = 4.5;
-    return attrs;
   }
 });
 
-// path
+function getUnifiedPath(path, cfg) {
+  const pathArray = PathUtil.parsePathString(path);
+  const nums = Util.flatten(pathArray).filter(num => Util.isNumber(num));
+  const max = Math.max.apply(null, nums);
+  const min = Math.min.apply(null, nums);
+  const scale = cfg.size / (max - min);
+  const transformed = svgpath(path)
+    .scale(scale)
+    .translate(cfg.x, cfg.y)
+    .toString();
+  return PathUtil.parsePathString(transformed);
+}
 
+// path
+Shape.registerShape('point', 'path', {
+  draw(cfg, container) {
+    const attrs = Util.mix({}, getLineAttrs(cfg), getFillAttrs(cfg));
+    const unifiedPathArray = getUnifiedPath(cfg.shape[1], cfg);
+    return container.addShape('path', {
+      attrs: Util.mix(attrs, {
+        path: unifiedPathArray
+      })
+    });
+  }
+});
 
 module.exports = Point;
