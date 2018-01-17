@@ -167,7 +167,8 @@ class GeomBase extends Base {
        * 动画配置
        * @type {[type]}
        */
-      animateCfg: null
+      animateCfg: null,
+      visible: true
     };
   }
 
@@ -446,7 +447,8 @@ class GeomBase extends Base {
       const view = self.get('view');
       const viewId = view && view.get('_id');
       shapeContainer = container.addGroup({
-        viewId
+        viewId,
+        visible: self.get('visible')
       });
       self.set('shapeContainer', shapeContainer);
     }
@@ -768,7 +770,8 @@ class GeomBase extends Base {
       }, self.get('labelCfg')),
       coord,
       geom: self,
-      geomType: type
+      geomType: type,
+      visible: self.get('visible')
     });
     labelContainer.showLabels(points);
     self.set('labelContainer', labelContainer);
