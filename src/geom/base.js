@@ -28,7 +28,8 @@ function parseFields(field) {
 
 // 转换成对象的数组 [{type: 'adjust'}]
 function parseAdjusts(adjusts) {
-  if (Util.isString(adjusts)) {
+  // 如果是字符串或者对象转换成数组
+  if (Util.isString(adjusts) || Util.isPlainObject(adjusts)) {
     adjusts = [ adjusts ];
   }
   Util.each(adjusts, function(adjust, index) {
@@ -664,7 +665,8 @@ class GeomBase extends Base {
           const size = self.getDefaultValue('size') || 3;
           adjustCfg.size = size;
         }
-        if (!coord.isTransposed) {
+        // 不进行 transpose 时，用户又没有设置这个参数时，默认从上向下
+        if (!coord.isTransposed && Util.isNil(adjustCfg.reverseOrder)) {
           adjustCfg.reverseOrder = true;
         }
       }
