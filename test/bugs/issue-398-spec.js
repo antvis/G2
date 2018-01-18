@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const G2 = require('../../index');
 
-describe('#371', () => {
+describe('#398', () => {
   it('color mapping: data is null', () => {
     const div = document.createElement('div');
     document.body.appendChild(div);
