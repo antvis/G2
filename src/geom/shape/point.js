@@ -9,7 +9,7 @@ const Util = require('../../util');
 const ShapeUtil = require('../util/shape');
 const Global = require('../../global');
 const Shape = require('./shape');
-const svgpath = require('svgpath');
+// const svgpath = require('svgpath');
 const {
   Marker,
   PathUtil
@@ -230,31 +230,68 @@ Shape.registerShape('point', 'image', {
   }
 });
 
-function getUnifiedPath(path, cfg) {
-  const pathArray = PathUtil.parsePathString(path);
-  const nums = Util.flatten(pathArray).filter(num => Util.isNumber(num));
-  const max = Math.max.apply(null, nums);
-  const min = Math.min.apply(null, nums);
-  const scale = cfg.size / (max - min);
-  const transformed = svgpath(path)
-    .scale(scale)
-    .translate(cfg.x, cfg.y);
-  if (cfg.style && cfg.style.rotate) {
-    transformed.rotate(cfg.style.rotate, cfg.x, cfg.y);
-  }
-  return PathUtil.parsePathString(transformed.toString());
-}
+// const pathRangeCache = {};
+// function getUnifiedPath(path, cfg) {
+//   let pathRange;
+//   if (pathRangeCache[path]) {
+//     pathRange = pathRangeCache[path];
+//   } else {
+//     const segments = PathUtil.parsePathString(path);
+//     const nums = Util.flatten(segments).filter(num => Util.isNumber(num));
+//     pathRangeCache[path] = pathRange = Math.max.apply(null, nums) - Math.min.apply(null, nums);
+//   }
+//
+//   const size = cfg.size || 10;
+//   const scale = size / pathRange;
+//   const transformed = svgpath(path)
+//     .scale(scale)
+//     .translate(cfg.x, cfg.y);
+//   if (cfg.style && cfg.style.rotate) {
+//     transformed.rotate(cfg.style.rotate, cfg.x, cfg.y);
+//   }
+//   return PathUtil.parsePathString(transformed.toString());
+// }
 
 // path
+const pathMetaCache = {};
 Shape.registerShape('point', 'path', {
   draw(cfg, container) {
     const attrs = Util.mix({}, getLineAttrs(cfg), getFillAttrs(cfg));
-    const unifiedPathArray = getUnifiedPath(cfg.shape[1], cfg);
-    return container.addShape('path', {
+    // const unifiedPathArray = getUnifiedPath(cfg.shape[1], cfg);
+    // return container.addShape('path', {
+    //   attrs: Util.mix(attrs, {
+    //     path: unifiedPathArray
+    //   })
+    // });
+    const path = cfg.shape[1];
+    const size = cfg.size || 10;
+    let pathMeta;
+    if (pathMetaCache[path]) {
+      pathMeta = pathMetaCache[path];
+    } else {
+      const segments = PathUtil.parsePathString(path);
+      const nums = Util.flatten(segments).filter(num => Util.isNumber(num));
+      pathMetaCache[path] = pathMeta = {
+        range: Math.max.apply(null, nums) - Math.min.apply(null, nums),
+        segments
+      };
+    }
+    const scale = size / pathMeta.range;
+    const transform = [];
+
+    if (attrs.rotate) {
+      transform.push([ 'r', attrs.rotate / 180 * Math.PI ]);
+      delete attrs.rotate;
+    }
+    const shape = container.addShape('path', {
       attrs: Util.mix(attrs, {
-        path: unifiedPathArray
+        path: pathMeta.segments
       })
     });
+    transform.push([ 's', scale, scale ], [ 't', cfg.x, cfg.y ]);
+    shape.transform(transform);
+    return shape;
+
   }
 });
 

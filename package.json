@@ -86,7 +86,6 @@
     "fecha": "~2.3.2",
     "gl-matrix": "~2.4.0",
     "lodash": "~4.17.4",
-    "svgpath": "^2.2.1",
     "wolfy87-eventemitter": "~5.2.4"
   }
 }
