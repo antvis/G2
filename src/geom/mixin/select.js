@@ -2,7 +2,9 @@
  * @fileOverview the interaction when geom was selected
  * @author sima.zhang
  */
+
 const Util = require('../../util');
+const FIELD_ORIGIN = '_origin';
 
 function isSameShape(shape1, shape2) {
   if (Util.isNil(shape1) || Util.isNil(shape2)) {
@@ -134,6 +136,23 @@ const SelectMixin = {
         shape.set('_originAttrs', null);
       });
     }
+  },
+  /**
+   * 设置记录对应的图形选中
+   * @param {Object} record 选中的记录
+   * @chainable
+   * @return {Geom} 返回当前的 Geometry
+   */
+  setSelected(record) {
+    const self = this;
+    const shapes = self.getShapes();
+    Util.each(shapes, shape => {
+      const origin = shape.get('origin');
+      if (origin && origin[FIELD_ORIGIN] === record) {
+        self.setShapeSelected(shape);
+      }
+    });
+    return this;
   },
   _getSelectedShapes() {
     const self = this;
