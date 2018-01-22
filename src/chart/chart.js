@@ -554,9 +554,13 @@ class Chart extends View {
   downloadImage(name) {
     const dataURL = this.toDataURL();
     const link = document.createElement('a');
-    link.download = (name || 'chart') + '.png';
-    link.href = dataURL.replace('image/png', 'image/octet-stream');
-    link.click();
+    link.addEventListener('click', function() {
+      link.download = (name || 'chart') + '.png';
+      link.href = dataURL.replace('image/png', 'image/octet-stream');
+    });
+    const e = document.createEvent('MouseEvents');
+    e.initEvent('click', false, false);
+    link.dispatchEvent(e);
     return dataURL;
   }
 
