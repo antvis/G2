@@ -1,10 +1,10 @@
 const G = require('@antv/g');
-const Animate = require('./src/animate/animate');
-const Chart = require('./src/chart/chart');
-const Global = require('./src/global');
-const Scale = require('./src/scale/index');
-const Shape = require('./src/geom/shape/');
-const Util = require('./src/util');
+const Animate = require('./animate/animate');
+const Chart = require('./chart/chart');
+const Global = require('./global');
+const Scale = require('./scale/index');
+const Shape = require('./geom/shape/index');
+const Util = require('./util');
 
 const G2 = {
   // version
@@ -26,7 +26,7 @@ const G2 = {
 G2.track = function(enable) {
   Global.trackable = enable;
 };
-require('./src/track');
+require('./track');
 
 // 保证两个版本共存
 if (typeof window !== 'undefined') {

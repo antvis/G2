@@ -5,7 +5,7 @@ const pkg = require('./package.json');
 module.exports = {
   devtool: 'cheap-source-map',
   entry: {
-    g2: './index.js'
+    g2: './src/index.js'
   },
   output: {
     filename: '[name].js',
@@ -21,18 +21,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            babelrc: false,
-            plugins: [
-              'transform-remove-strict-mode'
-            ],
-            presets: [
-              [
-                'env', {
-                  loose: true,
-                  modules: false
-                }
-              ]
-            ]
+            babelrc: true
           }
         }
       },

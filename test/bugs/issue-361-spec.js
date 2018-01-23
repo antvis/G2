@@ -1,5 +1,5 @@
 // const expect = require('chai').expect;
-const G2 = require('../../index');
+const G2 = require('../../src/index');
 const diamonds = require('../../demos/data/diamond.json');
 const DataSet = require('@antv/data-set');
 const DataView = DataSet.View;

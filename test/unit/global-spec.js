@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const { Global } = require('../../index');
+const { Global } = require('../../src/index');
 
 
 describe('Global', () => {
