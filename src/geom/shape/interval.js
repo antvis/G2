@@ -139,7 +139,12 @@ function getTickPoints(cfg) {
 function getTickPath(points) {
   const path = [];
   path.push(
-    [ 'M', points[0].x, points[0].y ], [ 'L', points[1].x, points[1].y ], [ 'M', points[2].x, points[2].y ], [ 'L', points[3].x, points[3].y ], [ 'M', points[4].x, points[4].y ], [ 'L', points[5].x, points[5].y ]
+    [ 'M', points[0].x, points[0].y ],
+    [ 'L', points[1].x, points[1].y ],
+    [ 'M', points[2].x, points[2].y ],
+    [ 'L', points[3].x, points[3].y ],
+    [ 'M', points[4].x, points[4].y ],
+    [ 'L', points[5].x, points[5].y ]
   );
   return path;
 }
@@ -169,15 +174,26 @@ function getFunnelPath(cfg, isFunnel) {
   const nextPoints = cfg.nextPoints;
   if (!Util.isNil(nextPoints)) {
     path.push(
-      [ 'M', points[0].x, points[0].y ], [ 'L', points[1].x, points[1].y ], [ 'L', nextPoints[1].x, nextPoints[1].y ], [ 'L', nextPoints[0].x, nextPoints[0].y ], [ 'Z' ]
+      [ 'M', points[0].x, points[0].y ],
+      [ 'L', points[1].x, points[1].y ],
+      [ 'L', nextPoints[1].x, nextPoints[1].y ],
+      [ 'L', nextPoints[0].x, nextPoints[0].y ],
+      [ 'Z' ]
     );
   } else if (isFunnel) {
     path.push(
-      [ 'M', points[0].x, points[0].y ], [ 'L', points[1].x, points[1].y ], [ 'L', points[2].x, points[2].y ], [ 'L', points[3].x, points[3].y ], [ 'Z' ]
+      [ 'M', points[0].x, points[0].y ],
+      [ 'L', points[1].x, points[1].y ],
+      [ 'L', points[2].x, points[2].y ],
+      [ 'L', points[3].x, points[3].y ],
+      [ 'Z' ]
     );
   } else {
     path.push(
-      [ 'M', points[0].x, points[0].y ], [ 'L', points[1].x, points[1].y ], [ 'L', points[2].x, points[2].y ], [ 'Z' ]
+      [ 'M', points[0].x, points[0].y ],
+      [ 'L', points[1].x, points[1].y ],
+      [ 'L', points[2].x, points[2].y ],
+      [ 'Z' ]
     );
   }
 
@@ -406,6 +422,28 @@ Shape.registerShape('interval', 'pyramid', {
       symbol: 'square',
       radius: 4
     }, funnelCfg);
+  }
+});
+
+// 水波图
+Shape.registerShape('interval', 'liquid-fill-gauge', {
+  getPoints(pointInfo) {
+    pointInfo.size = pointInfo.size * 2; // 漏斗图的 size 是柱状图的两倍
+    return getRectPoints(pointInfo);
+  },
+  draw(cfg, container) {
+    // const cy = 0.5;
+    // const cx = Util.reduce(cfg.points, (sum, n) => sum + n.x) / 4;
+    // [ [minX, 0], [minX, 1], [maxX, 1], [maxX, 0], [halfX, 0.5] ]
+    const attrs = getFillAttrs(cfg);
+    let path = getRectPath(cfg.points);
+    path = this.parsePath(path);
+    console.log(cfg, container, attrs, path);
+    return container.addShape('path', {
+      attrs: Util.mix(attrs, {
+        path
+      })
+    });
   }
 });
 module.exports = Interval;
