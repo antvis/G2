@@ -66,7 +66,7 @@
     "lint": "eslint --ext .html,.js ./",
     "lint-fix": "eslint --ext .html,.js --fix ./",
     "mkdir-dist": "node ./bin/mkdir-dist.js",
-    "prepublishOnly": "npm run dist",
+    "prepublishOnly": "npm run build-lib && npm run dist",
     "screenshot": "node ./bin/screenshot.js",
     "test": "torch --compile --renderer --recursive ./test/unit",
     "test-all": "npm run test && npm run test-bugs",
