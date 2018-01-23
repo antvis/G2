@@ -1,0 +1,14 @@
+{
+  "plugins": [
+    "transform-remove-strict-mode"
+  ],
+  "presets": [
+    [
+      "env",
+      {
+        "loose": true,
+        "modules": false
+      }
+    ]
+  ]
+}

@@ -1,5 +1,5 @@
 const DataSet = require('@antv/data-set');
-const G2 = require('../../index');
+const G2 = require('../../src/index');
 
 describe('#242', () => {
   it('Tooltip throws error when shape\'s area is 0', () => {

@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const G2 = require('../../index');
+const G2 = require('../../src/index');
 
 describe('sync bug', function() {
   const div = document.createElement('div');

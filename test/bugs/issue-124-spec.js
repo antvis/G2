@@ -1,4 +1,4 @@
-const G2 = require('../../index');
+const G2 = require('../../src/index');
 
 describe('#124', () => {
   it('null data draw point', () => {
