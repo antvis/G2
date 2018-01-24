@@ -28,7 +28,8 @@ function parseFields(field) {
 
 // 转换成对象的数组 [{type: 'adjust'}]
 function parseAdjusts(adjusts) {
-  if (Util.isString(adjusts)) {
+  // 如果是字符串或者对象转换成数组
+  if (Util.isString(adjusts) || Util.isPlainObject(adjusts)) {
     adjusts = [ adjusts ];
   }
   Util.each(adjusts, function(adjust, index) {
@@ -119,13 +120,18 @@ class GeomBase extends Base {
       attrOptions: {
 
       },
+      // 样式配置项
       styleOptions: null,
+      // 选中时的配置项
       selectedOptions: null,
+      // active 时的配置项
+      activedOptions: null,
       /**
        * 某些类存在默认的adjust，不能更改 adjust
        * @type {Boolean}
        */
       hasDefaultAdjust: false,
+      // 数据调整类型
       adjusts: null,
       /**
        * 使用形状的类型
@@ -162,7 +168,8 @@ class GeomBase extends Base {
        * 动画配置
        * @type {[type]}
        */
-      animateCfg: null
+      animateCfg: null,
+      visible: true
     };
   }
 
@@ -351,10 +358,19 @@ class GeomBase extends Base {
   /**
    * 是否允许使用默认的图形激活交互
    * @param  {Boolean} enable 是否允许激活开关
+   * @param {Object} cfg 激活的配置项
    * @return {Geom}    返回 geom 自身
    */
-  active(enable) {
-    this.set('allowActive', enable);
+  active(enable, cfg) {
+    if (enable === false) {
+      this.set('allowActive', false);
+    } else if (Util.isObject(enable)) {
+      this.set('allowActive', true);
+      this.set('activedOptions', enable);
+    } else {
+      this.set('allowActive', true);
+      this.set('activedOptions', cfg);
+    }
     return this;
   }
 
@@ -432,7 +448,8 @@ class GeomBase extends Base {
       const view = self.get('view');
       const viewId = view && view.get('_id');
       shapeContainer = container.addGroup({
-        viewId
+        viewId,
+        visible: self.get('visible')
       });
       self.set('shapeContainer', shapeContainer);
     }
@@ -648,7 +665,8 @@ class GeomBase extends Base {
           const size = self.getDefaultValue('size') || 3;
           adjustCfg.size = size;
         }
-        if (!coord.isTransposed) {
+        // 不进行 transpose 时，用户又没有设置这个参数时，默认从上向下
+        if (!coord.isTransposed && Util.isNil(adjustCfg.reverseOrder)) {
           adjustCfg.reverseOrder = true;
         }
       }
@@ -754,7 +772,8 @@ class GeomBase extends Base {
       }, self.get('labelCfg')),
       coord,
       geom: self,
-      geomType: type
+      geomType: type,
+      visible: self.get('visible')
     });
     labelContainer.showLabels(points);
     self.set('labelContainer', labelContainer);

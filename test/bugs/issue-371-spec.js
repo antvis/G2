@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const G2 = require('../../index');
+const G2 = require('../../src/index');
 
 describe('#371', () => {
   it('point click with line error', () => {

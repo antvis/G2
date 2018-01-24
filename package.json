@@ -4,7 +4,7 @@
   "description": "the Grammar of Graphics in Javascript",
   "main": "build/g2.js",
   "browser": "build/g2.js",
-  "module": "index.js",
+  "module": "lib/index.js",
   "homepage": "https://github.com/antvis/g2",
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
   "license": "MIT",
   "devDependencies": {
     "@antv/data-set": "~0.8.0",
+    "babel-cli": "~6.26.0",
     "babel-core": "~6.26.0",
     "babel-eslint": "~8.0.3",
     "babel-loader": "~7.1.2",
@@ -52,6 +53,7 @@
   },
   "scripts": {
     "build": "webpack",
+    "build-lib": "babel src --out-dir lib",
     "ci": "npm run lint && npm run test",
     "compress": "uglifyjs -c -m -o dist/g2.min.js -- build/g2.js",
     "coverage": "npm run coverage-generator && npm run coverage-viewer",
@@ -64,7 +66,7 @@
     "lint": "eslint --ext .html,.js ./",
     "lint-fix": "eslint --ext .html,.js --fix ./",
     "mkdir-dist": "node ./bin/mkdir-dist.js",
-    "prepublishOnly": "npm run dist",
+    "prepublishOnly": "npm run build-lib && npm run dist",
     "screenshot": "node ./bin/screenshot.js",
     "test": "torch --compile --renderer --recursive ./test/unit",
     "test-all": "npm run test && npm run test-bugs",
@@ -82,7 +84,7 @@
     "silent": false
   },
   "dependencies": {
-    "@antv/g": "~2.0.4",
+    "@antv/g": "^2.0.5-beta.3",
     "fecha": "~2.3.2",
     "gl-matrix": "~2.4.0",
     "lodash": "~4.17.4",

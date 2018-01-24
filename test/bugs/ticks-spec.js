@@ -1,4 +1,4 @@
-const G2 = require('../../index');
+const G2 = require('../../src/index');
 
 describe('ticks', () => {
   it('all data equals null', () => {

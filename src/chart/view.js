@@ -74,7 +74,8 @@ class View extends Base {
       padding: 0,
       parent: null,
       tooltipEnable: true, // 是否展示 tooltip
-      animate: true
+      animate: true,
+      visible: true
     };
   }
 
@@ -418,9 +419,12 @@ class View extends Base {
   }
 
   getXScale() {
-    const geoms = this.get('geoms').filter(function(geom) {
+    const geoms = this.get('geoms');
+    // 如果进行过滤，那么 geom 默认隐藏时会出现不一致
+    // 默认隐藏时坐标轴不绘制，但是调用了 geom.show() 后，则图形显示了，坐标轴依然不见
+    /* .filter(function(geom) {
       return geom.get('visible');
-    });
+    }); */
     let xScale = null;
     if (!Util.isEmpty(geoms)) {
       xScale = geoms[0].getXScale();
@@ -429,9 +433,10 @@ class View extends Base {
   }
 
   getYScales() {
-    const geoms = this.get('geoms').filter(function(geom) {
+    const geoms = this.get('geoms');
+    /* .filter(function(geom) {
       return geom.get('visible');
-    });
+    }); */
     const rst = [];
 
     for (let i = 0; i < geoms.length; i++) {
@@ -940,9 +945,13 @@ class View extends Base {
     if (!Util.isEmpty(data)) {
       this._drawGeoms();
     }
+    // 如果 view 隐藏了，隐藏所有的图形和坐标轴
+    if (!this.get('visible')) {
+      this.changeVisible(false, true); // 隐藏所有的图形，但是不绘制
+    }
   }
 
-  changeVisible(visible) {
+  changeVisible(visible, stopDraw) {
     const geoms = this.get('geoms');
     Util.each(geoms, function(geom) {
       if (geom.get('visible')) { // geom 隐藏时不受
@@ -951,9 +960,10 @@ class View extends Base {
     });
     this.get('axisController') && this.get('axisController').changeVisible(visible);
     this.get('guideController') && this.get('guideController').changeVisible(visible);
-    const canvas = this.get('canvas');
-
-    canvas.draw();
+    if (!stopDraw) {
+      const canvas = this.get('canvas');
+      canvas.draw();
+    }
   }
 
   repaint() {

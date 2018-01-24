@@ -33,6 +33,18 @@ function isChange(preShapes, shapes) {
   return rst;
 }
 
+function getOriginAttrs(activeCfg, shape) {
+  const originAttrs = {};
+  Util.each(activeCfg, function(v, k) {
+    let originValue = shape.__attrs[k];
+    if (Util.isArray(originValue)) {
+      originValue = Util.cloneDeep(originValue);// 缓存原来的属性，由于 __attrs.matrix 是数组，所以此处需要深度复制
+    }
+    originAttrs[k] = originValue;
+  });
+  return originAttrs;
+}
+
 
 const ActiveMixin = {
   _isAllowActive() {
@@ -55,7 +67,7 @@ const ActiveMixin = {
     const self = this;
     const shape = ev.shape;
     const shapeContainer = self.get('shapeContainer');
-    if (shape && !shape.get('animating') && shapeContainer.contain(shape) && self._isAllowActive()) {
+    if (shape && shapeContainer.contain(shape) && self._isAllowActive()) { // shape.get('animating')
       self.setShapesActived(shape);
     }
   },
@@ -84,6 +96,7 @@ const ActiveMixin = {
   },
   _setActiveShape(shape) {
     const self = this;
+    const activedOptions = self.get('activedOptions') || {};
     const shapeData = shape.get('origin');
     let shapeName = shapeData.shape || self.getDefaultValue('shape');
     if (Util.isArray(shapeName)) {
@@ -94,57 +107,74 @@ const ActiveMixin = {
       origin: shapeData
     });
     const activeCfg = shapeFactory.getActiveCfg(shapeName, shapeCfg);
-    Util.mix(shape.__attrs, activeCfg);
+    if (activedOptions.style) {
+      Util.mix(activeCfg, activedOptions.style);
+    }
+    const originAttrs = getOriginAttrs(activeCfg, shape);
+    shape.setSilent('_originAttrs', originAttrs);
+    if (activedOptions.animate) {
+      shape.animate(activeCfg, 300);
+    } else {
+      // Util.mix(shape.__attrs, activeCfg);
+      shape.attr(activeCfg);
+    }
     shape.setZIndex(1); // 提前
   },
   setShapesActived(shapes) {
     const self = this;
-    let isStop = false; // 判断 shape 是否正在动画
     if (!Util.isArray(shapes)) {
       shapes = [ shapes ];
     }
-
-    const preShapes = self.get('preShapes'); // 获取上次被激活的 shapes
+    const preShapes = self.get('activeShapes'); // 获取上次被激活的 shapes
     if (!isChange(preShapes, shapes)) {
       return;
-    }
-    if (preShapes) {
-      self.clearActivedShapes(); // 先清除激活元素
     }
     const view = self.get('view');
     const canvas = view.get('canvas');
     const shapeContainer = self.get('shapeContainer');
-    Util.each(shapes, shape => {
-      if (shape.get('animating')) {
-        isStop = true;
-        return false;
+    const activedOptions = self.get('activedOptions');
+    if (activedOptions && activedOptions.highlight) {
+      // 上次的动画未完成，所以要停止掉动画
+      Util.each(shapes, shape => {
+        if (shape.get('animating')) {
+          shape.stopAnimate();
+        }
+      });
+      self.highlightShapes(shapes);
+    } else {
+      if (preShapes) {
+        self.clearActivedShapes(); // 先清除激活元素
       }
-      if (!shape.get('_originAttrs')) {
-        shape.set('_originAttrs', Util.cloneDeep(shape.__attrs)); // 缓存原来的属性，由于 __attrs.matrix 是数组，所以此处需要深度复制
-      }
-      if (shape.get('visible') && !shape.get('selected')) {
-        self._setActiveShape(shape);
-      }
-    });
 
-    if (isStop) {
-      return;
+      Util.each(shapes, shape => {
+        if (shape.get('animating')) {
+          shape.stopAnimate();
+        }
+        if (shape.get('visible') && !shape.get('selected')) {
+          self._setActiveShape(shape);
+        }
+      });
     }
-
     self.set('activeShapes', shapes);
-    self.set('preShapes', shapes);
     shapeContainer.sort();
     canvas.draw();
   },
   clearActivedShapes() {
     const self = this;
     const shapeContainer = self.get('shapeContainer');
+    const activedOptions = self.get('activedOptions');
+    const activeAnimate = activedOptions && activedOptions.animate;
     if (shapeContainer && !shapeContainer.get('destroyed')) {
       const activeShapes = self.get('activeShapes');
       Util.each(activeShapes, activeShape => {
         if (!activeShape.get('selected')) {
           const originAttrs = activeShape.get('_originAttrs');
-          activeShape.__attrs = Util.cloneDeep(originAttrs);
+          if (activeAnimate) {
+            activeShape.stopAnimate();
+            activeShape.animate(originAttrs, 300);
+          } else {
+            activeShape.attr(originAttrs);
+          }
           activeShape.setZIndex(0);
           activeShape.set('_originAttrs', null);
         }
@@ -156,7 +186,12 @@ const ActiveMixin = {
           if (!shape.get('selected')) {
             const originAttrs = shape.get('_originAttrs');
             if (originAttrs) {
-              shape.__attrs = Util.cloneDeep(originAttrs);
+              if (activeAnimate) {
+                shape.stopAnimate();
+                shape.animate(originAttrs, 300);
+              } else {
+                shape.attr(originAttrs);
+              }
               shape.setZIndex(0);
               shape.set('_originAttrs', null);
             }
@@ -170,7 +205,6 @@ const ActiveMixin = {
       });
 
       self.set('activeShapes', null);
-      self.set('preShapes', null);
       self.set('preHighlightShapes', null);
     }
   },
@@ -214,32 +248,38 @@ const ActiveMixin = {
       highlightShapes = [ highlightShapes ];
     }
 
-    const preHighlightShapes = self.get('preHighlightShapes'); // 获取上次被激活的 shapes
+    const preHighlightShapes = self.get('activeShapes'); // 获取上次被激活的 shapes
     if (!isChange(preHighlightShapes, highlightShapes)) {
       return;
     }
-
     if (preHighlightShapes) {
       self.clearActivedShapes();
     }
 
     const shapes = self.getShapes();
+    const activedOptions = self.get('activedOptions');
+    const activeAnimate = activedOptions && activedOptions.animate;
+    const activeStyle = activedOptions && activedOptions.style;
 
     Util.each(shapes, shape => {
-      if (!shape.get('_originAttrs')) {
-        shape.set('_originAttrs', Util.cloneDeep(shape.__attrs)); // 缓存原来的属性
-      }
+      const changeAttrs = {};
+      shape.stopAnimate();
       if (Util.indexOf(highlightShapes, shape) !== -1) {
-        shape.__attrs = Util.mix({}, shape.get('_originAttrs'), highlightCfg);
+        Util.mix(changeAttrs, activeStyle, highlightCfg);
+        // shape.__attrs = Util.mix({}, shape.get('_originAttrs'), highlightCfg);
         shape.setZIndex(1); // 提前
       } else {
-        Util.mix(shape.__attrs, {
-          fill: '#fff',
-          fillOpacity: 0.3,
-          strokeOpacity: 0.3,
-          stroke: '#fff'
+        Util.mix(changeAttrs, {
+          fillOpacity: 0.3
         });
         shape.setZIndex(0);
+      }
+      const originAttrs = getOriginAttrs(changeAttrs, shape);
+      shape.setSilent('_originAttrs', originAttrs);
+      if (activeAnimate) {
+        shape.animate(changeAttrs, 300);
+      } else {
+        shape.attr(changeAttrs);
       }
     });
     self.set('preHighlightShapes', highlightShapes);

@@ -1,6 +1,6 @@
 const DataSet = require('@antv/data-set');
 // const expect = require('chai').expect;
-const G2 = require('../../index');
+const G2 = require('../../src/index');
 
 describe('#243', () => {
   it('Axis grid `alternateColor` has gaps when field is `category`', () => {

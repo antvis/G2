@@ -3,7 +3,7 @@ const { Canvas } = require('@antv/g');
 const DataSet = require('@antv/data-set');
 const PieLabels = require('../../../../src/geom/label/pie-labels');
 const Coord = require('../../../../src/coord/');
-const G2 = require('../../../../index');
+const G2 = require('../../../../src/index');
 const Scale = require('../../../../src/scale/index');
 
 describe('pie labels', function() {
