@@ -417,11 +417,11 @@ class Category extends Base {
         if (!clickedItem) {
           return;
         }
-        // update checked status
-        clickedItem.checked = (mode === 'single') ? true : !(clickedItem.checked);
         const domClass = parentDom.className;
         const originColor = parentDom.getAttribute('data-color');
         if (mode === 'single') { // 单选模式
+          // update checked status
+          clickedItem.checked = true;
           // 其他图例项全部置灰
           Util.each(childNodes, child => {
             if (child !== parentDom) {
@@ -453,6 +453,8 @@ class Category extends Base {
           if (!this.get('allowAllCanceled') && clickedItemChecked && count === 1) {
             return;
           }
+          // 在判断最后一个图例后再更新checked状态，防止点击最后一个图例item时图例样式没有变化但是checked状态改变了 fix #422
+          clickedItem.checked = !clickedItem.checked;
           if (clickedItemChecked) {
             if (markerDom) {
               markerDom.style.backgroundColor = unCheckedColor;
