@@ -1,3 +1,8 @@
+// Type definitions for g2 3.0.x
+// Project: https://github.com/antvis/g2
+
+// Last module patch version validated against: 3.0.4
+
 export = G2;
 export as namespace G2;
 
@@ -22,27 +27,87 @@ declare namespace G2 {
     // 折线图、区域图、path 当只有一个数据时，是否显示成点
     showSinglePoint: boolean;
     connectNulls: boolean;
+    colors: string[]; // 更改默认的颜色 --不推荐
   }
 
   /**
-   * 图标背景对象
+   * base Style interface [绘图属性]
    */
-  interface ChartBackground {
-    fill: string; // 图表背景色
-    fillOpacity: number; // 图表背景透明度
-    stroke: string; // 图表边框颜色
-    strokeOpacity: number; // 图表边框透明度
-    opacity: number; // 图表整体透明度
-    lineWidth: number; // 图表边框粗度
-    radius: number; // 图表圆角大小
+  namespace Styles {
+    interface common {
+      fill?: string; // 设置用于填充绘画的颜色、渐变或模式；
+      stroke?: string | number; //  设置用于笔触的颜色、渐变或模式；
+      shadowColor?: string; // 设置用于阴影的颜色；
+      shadowBlur?: string | number; // 设置用于阴影的模糊级别；
+      shadowOffsetX?: string | number; // 设置阴影距形状的水平距离；
+      shadowOffsetY?: string | number; //  设置阴影距形状的垂直距离；
+      opacity?: string | number; // 设置绘图的当前 alpha 或透明值；
+      globalCompositeOperation?: string; // 设置新图像如何绘制到已有的图像上。
+    }
+    interface text extends common {
+      font?: string;
+      // 文本对齐方向，可取值为
+      textAlign?: 'center' | 'end' | 'left' | 'right' | 'start';
+      // 文本粗细
+      rotate?: number;
+      // 文本基准线，可取 top middle bottom，默认为middle
+      textBaseline?: 'top' | 'middle' | 'bottom';
+      fontStyle?: 'normal' | 'italic' | 'oblique';
+      fontVariant?: 'normal' | 'small-caps';
+      fontWeight?: string | number;
+      fontSize?: string | number;
+      fontFamily?: string;
+    }
+    interface line extends common {
+      strokeOpacity?: string | number;
+      lineDash?: number[]; // 虚线的设置
+      lineCap?: string;
+      lineJoin?: string;
+      lineWidth?: string | number;
+      miterLimit?: string | number;
+      startArrow?: boolean;
+      endArrow?: boolean;
+      arrowAngle?: number;
+      arrowRadius?: number;
+    }
+
+    interface tickLine extends line{
+      length?: number; // 刻度线的长度，可以为负值（表示反方向渲染）
+    }
+
+    interface background extends common {
+      fillOpacity: number; // 图表背景透明度
+      strokeOpacity: number; // 图表边框透明度
+      lineWidth: number; // 图表边框粗度
+      radius: number; // 图表圆角大小
+    }
+
+    interface path extends common {
+      fillOpacity: number; // 图表背景透明度
+      strokeOpacity: number; // 图表边框透明度
+    }
+  }
+
+  /**
+   * base type
+   */
+  type EventParams = {
+    x?: number;
+    y?: number;
+    target?: HTMLCanvasElement;
+    toElement?: HTMLElement;
+    shape?: Shape;
+    views?: View[];
+    data?: any;
+    geom?: any;
   }
 
   /**
    * 图标接收的参数
    */
-  interface ChartProp {
+  interface ChartProps {
     container: string | HTMLDivElement;
-    width: number;
+    width?: number;
     height: number;
     padding?:
       | {
@@ -54,8 +119,8 @@ declare namespace G2 {
       | number
       | [number, number, number, number]
       | [string, string];
-    background?: ChartBackground;
-    plotBackground?: ChartBackground;
+    background?: Styles.background;
+    plotBackground?: Styles.background;
     forceFit?: boolean;
     animate?: boolean;
     pixelRatio?: number;
@@ -68,7 +133,7 @@ declare namespace G2 {
     //坐标系缩放，sx 代表 x 方向缩放比例，sy 代表 y 方向缩放比例，单位为数值。
     scale(sx: number, sy: number): Coordinate;
     //坐标系转置，将 x 或者 y 的起始、结束值倒置。
-    reflect(xy?: 'x' | 'y' | 'xy'): Coordinate;
+    reflect(xy?: 'x' | 'y' ): Coordinate;
     //将坐标系 x 轴和 y 轴转置。
     transpose(): Coordinate;
   }
@@ -76,28 +141,16 @@ declare namespace G2 {
   /**
    * 坐标轴标签
    */
-  interface AxisChartLabel {
+  interface AxisLabel {
     // 数值，设置坐标轴文本 label 距离坐标轴线的距离
-    offset: number;
+    offset?: number;
     // 设置文本的显示样式，还可以是个回调函数，
     // 回调函数的参数为该坐标轴对应字段的数值
-    textStyle: (
-      text: string,
-    ) => void | {
-      // 文本对齐方向，可取值为
-      textAlign: 'start' | 'middle' | 'end';
-      // 文本的颜色
-      fill: string;
-      // 文本大小
-      fontSize: number;
-      fontWeight: string;
-      // 文本粗细
-      rotate: number;
-      // 文本基准线，可取 top middle bottom，默认为middle
-      textBaseline: 'top' | 'middle' | 'bottom';
-    };
+    textStyle?: (
+      text?: string,
+    ) => Styles.text | Styles.text;
     // 文本是否需要自动旋转，默认为 true
-    autoRotate: boolean;
+    autoRotate?: boolean;
     /**
      * 用于格式化坐标轴上显示的文本信息的回调函数
      * @param  {string} text  文本值
@@ -105,7 +158,7 @@ declare namespace G2 {
      * @param  {number} index 索引值
      * @return {string}       返回格式化后的文本值
      */
-    formatter(text: string, item, index: number): string;
+    formatter?(text: string, item, index: number): string;
     /**
      * 使用 html 渲染文本
      * @param  {string} text  文本值
@@ -113,31 +166,18 @@ declare namespace G2 {
      * @param  {number} index 索引值
      * @return {string}       返回 html 字符串
      */
-    htmlTemplate(text: string, item, index: number): string;
+    htmlTemplate?(text: string, item, index: number): string;
   }
   /**
    * 坐标轴线
    */
-  interface AxisChartTile {
-    autoRotate: boolean; // 是否需要自动旋转，默认为 true
-    offset: number; // 数值，设置坐标轴标题距离坐标轴线的距离
+  interface AxisTile {
+    autoRotate?: boolean; // 是否需要自动旋转，默认为 true
+    offset?: number; // 数值，设置坐标轴标题距离坐标轴线的距离
     // 设置标题的文本样式
-    textStyle: {
-      // 文本对齐方向，可取值为： start middle end
-      textAlign: 'start' | 'middle' | 'end';
-      // 文本的颜色
-      fill: string;
-      // 文本大小
-      fontSize: string;
-      // 文本粗细
-      fontWeight: string | number;
-      // 文本旋转角度，以角度为单位，仅当 autoRotate 为 false 时生效
-      rotate: number;
-      // 文本基准线，可取 top middle bottom，默认为middle
-      textBaseline: 'top' | 'middle' | 'bottom';
-    };
+    textStyle?: Styles.text;
     // 标题的显示位置（相对于坐标轴线），可取值为 start center end
-    position: 'start' | 'center' | 'end';
+    position?: 'start' | 'center' | 'end';
   }
 
   const markerAction: (
@@ -150,20 +190,7 @@ declare namespace G2 {
   interface LegendConfig {
     position?: 'top' | 'bottom' | 'left' | 'right';
     layout?: 'vertica' | 'horizontal';
-    title?: {
-      // 文本对齐方向，可取值为： start middle end
-      textAlign: 'start' | 'middle' | 'end';
-      // 文本的颜色
-      fill: string;
-      // 文本大小
-      fontSize: string;
-      // 文本粗细
-      fontWeight: string | number;
-      // 文本旋转角度，以角度为单位，仅当 autoRotate 为 false 时生效
-      rotate: number;
-      // 文本基准线，可取 top middle bottom，默认为middle
-      textBaseline: 'top' | 'middle' | 'bottom';
-    };
+    title?: Styles.text;
     offsetX?: number;
     offsetY?: number;
     itemGap?: number;
@@ -177,20 +204,7 @@ declare namespace G2 {
     allowAllCanceled: number;
     itemFormatter: (value: string) => string;
     marker?: string | Function;
-    textStyle?: {
-      // 文本对齐方向，可取值为： start middle end
-      textAlign: 'start' | 'middle' | 'end';
-      // 文本的颜色
-      fill: string;
-      // 文本大小
-      fontSize: string;
-      // 文本粗细
-      fontWeight: string | number;
-      // 文本旋转角度，以角度为单位，仅当 autoRotate 为 false 时生效
-      rotate: number;
-      // 文本基准线，可取 top middle bottom，默认为middle
-      textBaseline: 'top' | 'middle' | 'bottom';
-    };
+    textStyle?: Styles.text;
     clickable?: boolean;
     hoverable?: boolean;
     selectedMode?: 'single' | 'multiple';
@@ -252,11 +266,7 @@ declare namespace G2 {
         start?: any | Function | Array<string | number>;
         // 辅助线结束位置，值为原始数据值，支持 callback
         end?: any | Function | Array<string | number>;
-        lineStyle?: {
-          stroke?: string; // 线的颜色
-          lineDash?: [number, number, number]; // 虚线的设置
-          lineWidth?: number; // 线的宽度
-        }; // 图形样式配置
+        lineStyle?: Styles.line; // 图形样式配置
         text?: {
           // 文本的显示位置
           position?: 'start' | 'center' | 'end' | '39%' | 0.5;
@@ -392,65 +402,31 @@ declare namespace G2 {
 
   class ChartAxisConfig {
     position?: 'top' | 'bottom' | 'left' | 'right';
-    line?: {
-      // 坐标轴线的颜色
-      stroke?: string;
-      // 坐标轴线的透明度，数值范围为 0 - 1
-      strokeOpacity?: number;
-      /*设置虚线的样式
-        * 如 [2, 3]第一个用来表示实线的像素，
-        * 第二个用来表示空白的像素。
-        * 如果提供了奇数个值，则这个值的数列重复一次，从而变成偶数个值
-        */
-      lineDash?: [number, number];
-      lineWidth?: number;
-    } | null;
-    label?: AxisChartLabel;
-    title?: AxisChartTile;
-    tickLine?: {
-      // 刻度线宽
-      lineWidth: number;
-      // 刻度线的颜色
-      stroke: string;
-      // 刻度线颜色的透明度
-      strokeOpacity: number;
-      // 刻度线的长度，可以为负值（表示反方向渲染）
-      length: number;
-    };
+    line?: Styles.line;
+    label?: AxisLabel;
+    title?: AxisTile;
+    tickLine?: Styles.tickLine | null;
     subTickCount?: number;
-    subTickLine?: {
-      // 次刻度线宽
-      lineWidth: number;
-      // 次刻度线颜色
-      stroke: string;
-      // 次刻度线颜色的透明度
-      strokeOpacity: number;
-      // 次刻度线的长度，可以为负值（表示反方向渲染）
-      length: number;
-    };
-    grid?: {
-      // 声明网格顶点从两个刻度中间开始，默认从刻度点开始
-      align?: 'center';
-      // 声明网格的类型，line 表示线，polygon 表示矩形框
-      type?: 'line' | 'polygon';
-      // 当网格类型 type 为 line 时，使用 lineStyle 设置样式
-      lineStyle?: {
-        // 网格线的颜色
-        stroke?: string;
-        // 网格线的粗细
-        lineWidth?: number;
-        // 网格线的虚线配置，第一个参数描述虚线的实部占多少像素，第二个参数描述虚线的虚部占多少像素
-        lineDash?: [number, number];
-      };
-      // 当网格类型 type 为 polygon 时，使用 alternateColor 为网格设置交替的颜色
-      // 指定一个值则先渲染奇数层，两个值则交替渲染
-      alternateColor?: string | [string, string];
-      // 是否隐藏第一条网格线，默认为 false
-      hideFirstLine: boolean;
-      // 是否隐藏最后一条网格线，默认为 false
-      hideLastLine: boolean;
-    };
+    subTickLine?: Styles.tickLine | null;
+    grid?: AxisGrid | null;
   }
+  type AxisGrid  = {
+    // 声明网格顶点从两个刻度中间开始，默认从刻度点开始
+    align?: 'center';
+    // 声明网格的类型，line 表示线，polygon 表示矩形框
+    type?: 'line' | 'polygon';
+    // 当网格类型 type 为 line 时，使用 lineStyle 设置样式
+    lineStyle?: Styles.line;
+    // 当网格类型 type 为 polygon 时，使用 alternateColor 为网格设置交替的颜色
+    // 指定一个值则先渲染奇数层，两个值则交替渲染
+    alternateColor?: string | [string, string];
+    // 是否隐藏第一条网格线，默认为 false
+    hideFirstLine?: boolean;
+    // 是否隐藏最后一条网格线，默认为 false
+    hideLastLine?: boolean;
+  };
+
+
 
   class BashView {
     source(data: any): this;
@@ -529,13 +505,21 @@ declare namespace G2 {
     on: (eventNane: string, event: any) => any;
   }
 
-  class Scale {
+    /**
+   * config interface
+   */
+  interface ScaleConfig {
     type: 'identity' | 'linear' | 'cat' | 'time' | 'timeCat' | 'log' | 'pow';
     formatter: (value: string) => string;
     range: [number, number];
     alias: string;
     tickCount: number;
     ticks: Array<any>;
+    sync: boolean;
+  }
+
+  interface Scale {
+    [fileName: string]: ScaleConfig;
   }
 
   class Shape {
@@ -559,6 +543,18 @@ declare namespace G2 {
       animationName: string,
       animationFun: any,
     );
+  }
+
+  type lodashFn = any;
+
+  class Util {
+    each: lodashFn;
+    map: lodashFn;
+    isObject: lodashFn;
+    isNumber: lodashFn;
+    isString: lodashFn;
+    isFunction: lodashFn;
+    [other:string]: lodashFn;
   }
 
   class DomUtil {
