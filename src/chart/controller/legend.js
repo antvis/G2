@@ -381,6 +381,7 @@ class LegendController {
     });
 
     const legendCfg = Util.deepMix({}, Global.legend[position], legendOptions[field] || legendOptions, {
+      viewId: chart.get('_id'),
       maxLength,
       items
     });

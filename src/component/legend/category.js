@@ -602,6 +602,7 @@ class Category extends Base {
       value: item.value,
       checked: item.checked
     });
+    itemGroup.set('viewId', itemsGroup.get('viewId'));
 
     const textStyle = this.get('textStyle');
     const wordSpace = this.get('_wordSpaceing');
