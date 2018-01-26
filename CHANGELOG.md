@@ -1,3 +1,35 @@
+#### 3.0.4 (2018-01-26)
+
+##### New Features
+
+* chore(dev): keep G2.Global.Version same as pkg.version
+* chore(dev): provide ES5 version for npm pkg
+* feat(highlight): active shape support highlight
+* feat(scale): update cat ticks calculate
+* feat(shape): add image shape for point
+* feat(shape): add path shape for point
+* feat(stack): support stack reverse order
+* perf(shape): caching path calculating for point path shape
+
+##### Bug Fixes
+
+* fix(attr): do not throw when color mapping value is NaN
+* fix(axis): title config not working
+* fix(chart): clear timer after chart instance destroyed
+* fix(chart): download image supports Firefox, etc.
+* fix(event): event triggering in point geom
+* fix(event): modifying shapes in events not working
+* fix(facet): duplicated axes rendering
+* fix(legend): error when `cat` scale with empty data
+* fix(legend): event is not triggered due to lacking of viewId
+* fix(legend): extra legend generated in heatmap rendering
+* fix(legend): html legend checked status error
+* fix(legend): title config not working
+* fix(scale): scale sync not working
+* fix(select): getSelectedCfg is not a function
+* fix(shape): fixed register shape error
+* fix(tooltip): tooltip change event emitted only when content changes
+
 #### 3.0.3 (2017-12-25)
 
 ##### New Features
