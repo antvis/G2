@@ -41,7 +41,9 @@ class Base extends Group {
   }
 
   _beforeRenderUI() {
-    this.set('itemsGroup', this.addGroup());
+    const group = this.addGroup();
+    group.set('viewId', this.get('viewId'));
+    this.set('itemsGroup', group);
   }
 
   _renderUI() {
