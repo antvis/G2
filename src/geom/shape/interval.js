@@ -553,7 +553,43 @@ function getWaterWavePath(radius, waterLevel, waveLength, phase, amplitude, cx, 
   return path;
 }
 
-console.log(getWaterWavePath);
+/**
+ * 添加水波
+ * @param {number} x           中心x
+ * @param {number} y           中心y
+ * @param {number} level       水位等级 0～1
+ * @param {number} waveCount   水波数
+ * @param {number} colors      色值
+ * @param {number} group       图组
+ * @param {number} clip        用于剪切的图形
+ */
+function addWaterWave(x, y, level, waveCount, colors, group, clip) {
+  const bbox = clip.getBBox();
+  const width = bbox.maxX - bbox.minX;
+  const height = bbox.maxY - bbox.minY;
+  const duration = 2800;
+  const delayDiff = 300;
+  const minorWaveDiff = 10;
+  for (let i = 0; i < waveCount; i++) {
+    const wave = group.addShape('path', {
+      attrs: {
+        path: getWaterWavePath(
+          width / 2,
+          (y + height / 2) - height * level + i * minorWaveDiff,
+          50, 0, 2, x, y
+        ),
+        fill: colors[i],
+        clip
+      }
+    });
+    wave.animate({
+      transform: [
+        [ 't', width / 2, 0 ]
+      ],
+      repeat: true
+    }, duration - i * delayDiff);
+  }
+}
 
 Shape.registerShape('interval', 'liquid-fill-gauge', {
   getPoints(pointInfo) {
@@ -561,16 +597,34 @@ Shape.registerShape('interval', 'liquid-fill-gauge', {
     return getRectPoints(pointInfo);
   },
   draw(cfg, container) {
-    // const cy = 0.5;
-    // const cx = Util.reduce(cfg.points, (sum, n) => sum + n.x) / 4;
-    // [ [minX, 0], [minX, 1], [maxX, 1], [maxX, 0], [halfX, 0.5] ]
+    const self = this;
+    const cy = 0.5;
+    let sumX = 0;
+    let minX = Infinity;
+    Util.each(cfg.points, p => {
+      if (p.x < minX) {
+        minX = p.x;
+      }
+      sumX += p.x;
+    });
+    const cx = sumX / cfg.points.length;
+    const cp = self.parsePoint({ x: cx, y: cy });
+    const sizeP = self.parsePoint({ x: cx - minX, y: cy });
+    const radius = Math.min(sizeP.x, sizeP.y);
     const attrs = getFillAttrs(cfg);
-    let path = getRectPath(cfg.points);
-    path = this.parsePath(path);
-    console.log(cfg, container, attrs, path);
-    return container.addShape('path', {
-      attrs: Util.mix(attrs, {
-        path
+    const clipCircle = container.addShape('circle', {
+      attrs: {
+        x: cp.x,
+        y: cp.y,
+        r: radius
+      }
+    });
+    addWaterWave(cp.x, cp.y, cfg.y / (2 * cp.y), 1, [ attrs.fill ], container, clipCircle);
+    return container.addShape('circle', {
+      attrs: Util.mix(getLineAttrs(cfg), {
+        x: cp.x,
+        y: cp.y,
+        r: radius
       })
     });
   }
