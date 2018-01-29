@@ -184,8 +184,7 @@ class TooltipController {
         });
       }
       const first = items[0];
-      const title = first.title || first.name;
-      // bugfix: when set the title in the tooltip:change event does not take effect.
+      let title = first.title || first.name;
       if (tooltip.isContentChange(title, items)) {
         chart.emit('tooltip:change', {
           tooltip,
@@ -193,6 +192,8 @@ class TooltipController {
           y,
           items
         });
+        // bugfix: when set the title in the tooltip:change event does not take effect.
+        title = items[0].title || items[0].name;
         tooltip.setContent(title, items);
         if (!Util.isEmpty(markersItems)) {
           if (self.options.hideMarkers === true) { // 不展示 tooltip marker
