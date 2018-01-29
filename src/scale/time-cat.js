@@ -151,6 +151,7 @@ class TimeCategory extends Category {
       } else {
         obj = {
           text: Util.isString(tick) ? tick : self.getText(tick),
+          tickValue: tick, // 用于坐标轴上文本动画时确定前后帧的对应关系
           value: self.scale(tick)
         };
       }

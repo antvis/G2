@@ -60,7 +60,8 @@ describe('#368', () => {
     const chart = new G2.Chart({
       container: div,
       width: 540,
-      height: 540
+      height: 540,
+      animate: false
     });
 
     chart.source(data);
@@ -83,6 +84,6 @@ describe('#368', () => {
     const controller = chart.get('tooltipController');
     const tooltip = controller.tooltip;
     expect(tooltip.get('titleContent')).equal('xxx');
-
+    chart.destroy();
   });
 });
