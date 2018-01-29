@@ -79,6 +79,7 @@ class Continuous extends Base {
       outRangeStyle: {
         fill: '#D9D9D9'
       },
+      numberFormatter: null, // 如果数字已经有格式化函数，从外部传入
       labelOffset: 10 // ToDO: 文本同渐变背景的距离
     });
   }
@@ -109,6 +110,10 @@ class Continuous extends Base {
   }
 
   _formatItemValue(value) {
+    const numberFormatter = this.get('numberFormatter');
+    if (numberFormatter) {
+      value = numberFormatter(value);
+    }
     const formatter = this.get('itemFormatter');
     if (formatter) {
       value = formatter.call(this, value);

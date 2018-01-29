@@ -417,7 +417,7 @@ class LegendController {
       const attrValue = attr.mapping(invertValue).join('');
 
       items.push({
-        value: tick.text,
+        value: tick.tickValue, // tick.text
         attrValue,
         scaleValue
       });
@@ -431,14 +431,14 @@ class LegendController {
 
     if (!minValue) {
       items.push({
-        value: scale.getText(scale.invert(0)),
+        value: scale.min,
         attrValue: attr.mapping(0).join(''),
         scaleValue: 0
       });
     }
     if (!maxValue) {
       items.push({
-        value: scale.getText(scale.invert(1)),
+        value: scale.max,
         attrValue: attr.mapping(1).join(''),
         scaleValue: 1
       });
@@ -453,7 +453,8 @@ class LegendController {
 
     const legendCfg = Util.deepMix({}, defaultCfg, options[field] || options, {
       items,
-      attr
+      attr,
+      numberFormatter: scale.formatter
     });
     if (legendCfg.title) {
       Util.deepMix(legendCfg, {
