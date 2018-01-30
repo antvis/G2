@@ -8,6 +8,9 @@ const DECIMAL_LENGTH = 12;
 // 获取系数
 function getFactor(v) {
   let factor = 1;
+  if (v === Infinity || v === -Infinity) {
+    throw new Error('Not support Infinity!');
+  }
   if (v < 1) {
     let count = 0;
     while (v < 1) {
