@@ -177,7 +177,7 @@ function getFunnelPath(cfg, isFunnel) {
     );
   } else {
     path.push(
-      [ 'M', points[0].x, points[0].y ], [ 'L', points[1].x, points[1].y ], [ 'L', points[2].x, points[2].y ], [ 'Z' ]
+      [ 'M', points[0].x, points[0].y ], [ 'L', points[1].x, points[1].y ], [ 'L', points[2].x, points[2].y ], [ 'L', points[2].x, points[2].y ], [ 'Z' ]
     );
   }
 
