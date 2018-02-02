@@ -403,7 +403,7 @@ const TooltipMixin = {
           marker: true // 默认展示 marker
         }, cfg);
         if (self.get('type') === 'interval' || self.get('type') === 'schema') {
-          itemCfg.size = self.getSize();
+          itemCfg.size = self.getSize(point[FIELD_ORIGIN]);
         }
         items.push(itemCfg);
       } else {
