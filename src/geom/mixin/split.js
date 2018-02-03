@@ -5,6 +5,7 @@
 
 
 const Util = require('../../util');
+const Global = require('../../global');
 
 module.exports = {
   splitData(data) {
@@ -16,13 +17,19 @@ module.exports = {
     let yValue;
     Util.each(data, function(obj) {
       yValue = obj._origin ? obj._origin[yDim] : obj[yDim];
-      if ((Util.isArray(yValue) && Util.isNil(yValue[0])) || Util.isNil(yValue)) {
-        if (tmp.length) {
-          arr.push(tmp);
-          tmp = [];
+      if (Global.connectNulls) { // 如果忽视 Null 直接连接节点，则将 value = null 的数据过滤掉
+        if (!Util.isNil(yValue)) {
+          tmp.push(obj);
         }
       } else {
-        tmp.push(obj);
+        if ((Util.isArray(yValue) && Util.isNil(yValue[0])) || Util.isNil(yValue)) {
+          if (tmp.length) {
+            arr.push(tmp);
+            tmp = [];
+          }
+        } else {
+          tmp.push(obj);
+        }
       }
     });
     if (tmp.length) {

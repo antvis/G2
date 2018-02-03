@@ -374,7 +374,7 @@ describe('interval shapes', function() {
       expect(shape.attr('path').length).eql(5);
       expect(shapeNull.attr('fill')).eql('red');
       expect(shapeNull.attr('stroke')).eql('red');
-      expect(shapeNull.attr('path').length).eql(4);
+      expect(shapeNull.attr('path').length).eql(5);
     });
     it('get marker config', function() {
       const marker = Interval.getMarkerCfg('pyramid', {

@@ -96,7 +96,7 @@ function addAnimate(cache, shapes, canvas, isUpdate) {
         });
         tempShape._id = _id;
         tempShape.name = name;
-        if (coord) {
+        if (coord && name !== 'label') {
           const tempShapeMatrix = tempShape.getMatrix();
           const finalMatrix = mat3.multiply([], tempShapeMatrix, coord.matrix);
           tempShape.setMatrix(finalMatrix);

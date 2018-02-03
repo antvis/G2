@@ -2,6 +2,7 @@
 const Geom = require('./base');
 Geom.Point = require('./point');
 Geom.PointJitter = Geom.Point.Jitter;
+Geom.PointStack = Geom.Point.Stack;
 Geom.Path = require('./path');
 Geom.Line = require('./line');
 Geom.LineStack = Geom.Line.Stack;

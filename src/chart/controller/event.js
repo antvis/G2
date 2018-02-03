@@ -88,7 +88,7 @@ class EventController {
   }
 
   _triggerShapeEvent(shape, eventName, eventObj) {
-    if (shape && shape.name) {
+    if (shape && shape.name && !shape.get('destroyed')) {
       const view = this.view;
       if (view.isShapeInView(shape)) {
         const name = shape.name + ':' + eventName;
@@ -115,7 +115,12 @@ class EventController {
   onMove(ev) {
     const self = this;
     const view = self.view;
-    const currentShape = self.currentShape;
+    let currentShape = self.currentShape;
+    // 如果图形被销毁，则设置当前 shape 为空
+    if (currentShape && currentShape.get('destroyed')) {
+      currentShape = null;
+      self.currentShape = null;
+    }
     const shape = self._getShape(ev.x, ev.y);
     let eventObj = self._getShapeEventObj(ev);
     eventObj.shape = shape;
