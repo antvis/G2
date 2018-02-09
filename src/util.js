@@ -218,6 +218,10 @@ Util.Array = {
     return rst;
   },
   getRange(values) {
+    // 存在 NaN 时，min,max 判定会出问题
+    values = Util.filter(values, function(v) {
+      return !isNaN(v);
+    });
     if (!values.length) { // 如果没有数值则直接返回0
       return {
         min: 0,

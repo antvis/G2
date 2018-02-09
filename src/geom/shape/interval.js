@@ -193,6 +193,7 @@ function getFunnelPath(cfg, isFunnel) {
       [ 'M', points[0].x, points[0].y ],
       [ 'L', points[1].x, points[1].y ],
       [ 'L', points[2].x, points[2].y ],
+      [ 'L', points[2].x, points[2].y ],
       [ 'Z' ]
     );
   }

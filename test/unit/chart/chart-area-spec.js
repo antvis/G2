@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const Chart = require('../../../src/chart/chart');
-
+const Global = require('../../../src/global');
 const div = document.createElement('div');
 div.id = 'ccharta';
 document.body.appendChild(div);
@@ -30,12 +30,13 @@ describe('test area chart', function() {
       alias: '销售量'
     }
   });
+  chart.area().position('genre*sold').color('#f80')
+    .style({
+      lineDash: [ 2, 2 ]
+    });
+  chart.render();
   it('basic area', function() {
-    chart.area().position('genre*sold').color('#f80')
-      .style({
-        lineDash: [ 2, 2 ]
-      });
-    chart.render();
+
     const group = chart.get('viewContainer').getFirst();
     expect(group.getCount()).equal(1);
     const path = group.getFirst().attr('path');
@@ -68,6 +69,21 @@ describe('test area chart', function() {
     chart.changeData(newData);
     const group = chart.get('viewContainer').getFirst();
     expect(group.getCount()).equal(2);
+  });
+
+  it('area with null and connectNulls', function() {
+    const newData = [
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: null },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 }
+    ];
+    Global.connectNulls = true;
+    chart.changeData(newData);
+    const group = chart.get('viewContainer').getFirst();
+    expect(group.getCount()).equal(1);
+    Global.connectNulls = false;
   });
 
   it('area in polar', function() {

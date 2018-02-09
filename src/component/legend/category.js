@@ -338,6 +338,31 @@ class Category extends Base {
     const mode = self.get('selectedMode');
     const LEGEND_STYLE = Global.legend.html;
 
+    // fix：IE 9 兼容问题，先加入 legendWrapper
+    let container = self.get('container');
+    if (/^\#/.test(container)) { // 如果传入 dom 节点的 id
+      const id = container.replace('#', '');
+      container = document.getElementById(id);
+      // container.style.position = 'relative';
+      container.appendChild(legendWrapper);
+    } else {
+      const position = self.get('position');
+      const canvas = self.get('canvas');
+      let rangeStyle = {};
+      if (position === 'left' || position === 'right') {
+        rangeStyle = {
+          maxHeight: (self.get('maxLength') || canvas.get('height')) + 'px'
+        };
+      } else {
+        rangeStyle = {
+          maxWidth: (self.get('maxLength') || canvas.get('width')) + 'px'
+        };
+      }
+
+      DomUtil.modifyCSS(legendWrapper, Util.mix({}, LEGEND_STYLE[CONTAINER_CLASS], rangeStyle, self.get(CONTAINER_CLASS)));
+      outterNode.appendChild(legendWrapper);
+    }
+
     DomUtil.modifyCSS(itemListDom, Util.mix({}, LEGEND_STYLE[LIST_CLASS], self.get(LIST_CLASS)));
 
     if (titleDom) {
@@ -504,29 +529,6 @@ class Category extends Base {
       };
     }
 
-    let container = self.get('container');
-    if (/^\#/.test(container)) { // 如果传入 dom 节点的 id
-      const id = container.replace('#', '');
-      container = document.getElementById(id);
-      // container.style.position = 'relative';
-      container.appendChild(legendWrapper);
-    } else {
-      const position = self.get('position');
-      const canvas = self.get('canvas');
-      let rangeStyle = {};
-      if (position === 'left' || position === 'right') {
-        rangeStyle = {
-          maxHeight: (self.get('maxLength') || canvas.get('height')) + 'px'
-        };
-      } else {
-        rangeStyle = {
-          maxWidth: (self.get('maxLength') || canvas.get('width')) + 'px'
-        };
-      }
-
-      DomUtil.modifyCSS(legendWrapper, Util.mix({}, LEGEND_STYLE[CONTAINER_CLASS], rangeStyle, self.get(CONTAINER_CLASS)));
-      outterNode.appendChild(legendWrapper);
-    }
     self.set('legendWrapper', legendWrapper);
   }
 

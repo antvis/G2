@@ -35,9 +35,8 @@ describe('test point chart', function() {
 
   it('stack points', function() {
     chart.clear();
-    chart.point().position('x*y')
-      .color('type')
-      .adjust('stack');
+    chart.pointStack().position('x*y')
+      .color('type');
     chart.render();
     expect(chart.get('viewContainer').getFirst().getCount()).equal(data.length);
   });

@@ -51,6 +51,16 @@ class PointJitter extends Point {
   }
 }
 
+class PointStack extends Point {
+  getDefaultCfg() {
+    const cfg = super.getDefaultCfg();
+    cfg.hasDefaultAdjust = true;
+    cfg.adjusts = [{ type: 'stack' }];
+    return cfg;
+  }
+}
+
 Point.Jitter = PointJitter;
+Point.Stack = PointStack;
 
 module.exports = Point;
