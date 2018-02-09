@@ -8,6 +8,7 @@
 const Util = require('../../util');
 const Shape = require('./shape');
 const PathUtil = require('../util/path');
+const GPathUtil = require('@antv/g').PathUtil;
 const Global = require('../../global');
 
 // 获取柱状图的几个点
@@ -568,16 +569,15 @@ function addWaterWave(x, y, level, waveCount, colors, group, clip) {
   const bbox = clip.getBBox();
   const width = bbox.maxX - bbox.minX;
   const height = bbox.maxY - bbox.minY;
-  const duration = 2800;
+  const duration = 5000;
   const delayDiff = 300;
-  const minorWaveDiff = 10;
   for (let i = 0; i < waveCount; i++) {
     const wave = group.addShape('path', {
       attrs: {
         path: getWaterWavePath(
           width / 2,
-          (y + height / 2) - height * level + i * minorWaveDiff,
-          50, 0, 2, x, y
+          bbox.minY + height * level,
+          width / 4, 0, width / 64, x, y
         ),
         fill: colors[i],
         clip
@@ -593,10 +593,6 @@ function addWaterWave(x, y, level, waveCount, colors, group, clip) {
 }
 
 Shape.registerShape('interval', 'liquid-fill-gauge', {
-  getPoints(pointInfo) {
-    pointInfo.size = pointInfo.size * 2; // 漏斗图的 size 是柱状图的两倍
-    return getRectPoints(pointInfo);
-  },
   draw(cfg, container) {
     const self = this;
     const cy = 0.5;
@@ -610,8 +606,9 @@ Shape.registerShape('interval', 'liquid-fill-gauge', {
     });
     const cx = sumX / cfg.points.length;
     const cp = self.parsePoint({ x: cx, y: cy });
-    const sizeP = self.parsePoint({ x: cx - minX, y: cy });
-    const radius = Math.min(sizeP.x, sizeP.y);
+    const minP = self.parsePoint({ x: minX, y: 0.5 });
+    const xWidth = cp.x - minP.x;
+    const radius = Math.min(xWidth, minP.y);
     const attrs = getFillAttrs(cfg);
     const clipCircle = container.addShape('circle', {
       attrs: {
@@ -625,9 +622,92 @@ Shape.registerShape('interval', 'liquid-fill-gauge', {
       attrs: Util.mix(getLineAttrs(cfg), {
         x: cp.x,
         y: cp.y,
-        r: radius
+        r: radius + radius / 8
       })
     });
   }
 });
+
+const pathMetaCache = {};
+Shape.registerShape('interval', 'liquid-fill-path', {
+  draw(cfg, container) {
+    const self = this;
+    const attrs = Util.mix({}, getFillAttrs(cfg));
+    const path = cfg.shape[1];
+
+    const cy = 0.5;
+    let sumX = 0;
+    let minX = Infinity;
+    Util.each(cfg.points, p => {
+      if (p.x < minX) {
+        minX = p.x;
+      }
+      sumX += p.x;
+    });
+    const cx = sumX / cfg.points.length;
+    const cp = self.parsePoint({ x: cx, y: cy });
+    const minP = self.parsePoint({ x: minX, y: 0.5 });
+    const xWidth = cp.x - minP.x;
+    const radius = Math.min(xWidth, minP.y);
+
+    let pathMeta;
+    if (pathMetaCache[path]) {
+      pathMeta = pathMetaCache[path];
+    } else {
+      const segments = GPathUtil.parsePathString(path);
+      const nums = Util.flatten(segments).filter(num => Util.isNumber(num));
+      pathMetaCache[path] = pathMeta = {
+        range: Math.max.apply(null, nums) - Math.min.apply(null, nums),
+        segments
+      };
+    }
+    const scale = radius * 2 / pathMeta.range;
+    const transform = [];
+
+    if (attrs.rotate) {
+      transform.push([ 'r', attrs.rotate / 180 * Math.PI ]);
+      delete attrs.rotate;
+    }
+    const shape = container.addShape('path', {
+      attrs: Util.mix(attrs, {
+        fillOpacity: 0,
+        path: pathMeta.segments
+      })
+    });
+    shape.transform(
+      transform.concat([
+        [ 's', scale, scale ]
+      ])
+    );
+    const bbox = Util.cloneDeep(shape.getBBox());
+    const dw = (bbox.maxX - bbox.minX) / 2;
+    const dh = (bbox.maxY - bbox.minY) / 2;
+    shape.transform([
+      [ 't', cp.x - dw, cp.y - dh ]
+    ]);
+    console.log(bbox);
+    addWaterWave(
+      cp.x - dw, cp.y - dh,
+      cfg.y / (2 * cp.y),
+      1,
+      [ attrs.fill ],
+      container,
+      shape
+    );
+
+    const keyShape = container.addShape('path', {
+      attrs: Util.mix(getLineAttrs(cfg), {
+        path: pathMeta.segments
+      })
+    });
+    keyShape.transform(
+      transform.concat([
+        [ 's', scale, scale ],
+        [ 't', cp.x - dw, cp.y - dh ]
+      ])
+    );
+    return keyShape;
+  }
+});
+
 module.exports = Interval;

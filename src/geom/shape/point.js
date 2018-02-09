@@ -256,12 +256,6 @@ const pathMetaCache = {};
 Shape.registerShape('point', 'path', {
   draw(cfg, container) {
     const attrs = Util.mix({}, getLineAttrs(cfg), getFillAttrs(cfg));
-    // const unifiedPathArray = getUnifiedPath(cfg.shape[1], cfg);
-    // return container.addShape('path', {
-    //   attrs: Util.mix(attrs, {
-    //     path: unifiedPathArray
-    //   })
-    // });
     const path = cfg.shape[1];
     const size = cfg.size || 10;
     let pathMeta;
@@ -290,7 +284,6 @@ Shape.registerShape('point', 'path', {
     transform.push([ 's', scale, scale ], [ 't', cfg.x, cfg.y ]);
     shape.transform(transform);
     return shape;
-
   }
 });
 
