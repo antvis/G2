@@ -61,7 +61,7 @@ class CoordController {
       end
     }, cfg);
 
-    if (type === 'theta') {
+    if (type === 'theta') { // definition of theta coord
       C = Coord.Polar;
 
       if (!self.hasAction('transpose')) {

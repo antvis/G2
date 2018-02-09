@@ -117,6 +117,7 @@ class Heatmap extends GeomBase {
     const ctx = circleCanvas.getContext('2d');
     circleCanvas.width = circleCanvas.height = r2 * 2;
     ctx.clearRect(0, 0, circleCanvas.width, circleCanvas.height);
+    // ctx.shadowOffsetX = ctx.shadowOffsetY = r2 * 2;
     ctx.shadowOffsetX = ctx.shadowOffsetY = r2 * 2;
     ctx.shadowBlur = blur;
     ctx.shadowColor = 'black';
@@ -128,7 +129,8 @@ class Heatmap extends GeomBase {
   }
 
   _drawGrayScaleBlurredCircle(x, y, r, alpha, ctx) {
-    const circleCanvas = this.get(GRAY_SCALE_BLURRED_CANVAS);
+    const self = this;
+    const circleCanvas = self.get(GRAY_SCALE_BLURRED_CANVAS);
     ctx.globalAlpha = alpha;
     ctx.drawImage(circleCanvas, x - r, y - r);
   }
@@ -200,7 +202,7 @@ class Heatmap extends GeomBase {
       const obj = data[i];
       const cfg = self.getDrawCfg(obj);
       const alpha = scale.scale(obj[ORIGIN_FIELD][valueField]);
-      self._drawGrayScaleBlurredCircle(cfg.x, cfg.y, size.radius, alpha, ctx);
+      self._drawGrayScaleBlurredCircle(cfg.x, cfg.y, size.radius + size.blur, alpha, ctx);
     }
 
     // step2. convert pixels
@@ -230,7 +232,6 @@ class Heatmap extends GeomBase {
     self.drawWithRange(range);
     // super.draw(data, container, shapeFactory, index);
   }
-
 }
 
 module.exports = Heatmap;

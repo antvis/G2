@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="geometry" content="polygon">
+  <link rel="stylesheet" href="./assets/common.css">
+  <style>::-webkit-scrollbar{display:none;}html,body{overflow:hidden;height:100%;}</style>
+  <title>Map Drill Down</title>
+</head>
+<div id="mountNode"></div>
+<script>
+  /* Fixing iframe window.innerHeight 0 issue in Safari*/
+  document.body.clientHeight;
+</script>
+<script src="../build/g2.js"></script>
+<script src="./assets/jquery-3.2.1.min.js"></script>
+<script src="./assets/data-set.min.js"></script>
+<script>
+  $.getJSON('./data/africa.geo.json', GeoJSON => {
+    const userData = [];
+    const geoDv = new DataSet.View().source(GeoJSON, {
+      type: 'GeoJSON'
+    }).transform({
+      type: 'map',
+      callback(row) {
+        userData.push({
+          longitude: row.centroidX,
+          latitude: row.centroidY,
+          name: row.name,
+          value: Math.random() * (1000 - 1)
+        });
+        return row;
+      }
+    });
+
+    const chart = new G2.Chart({
+      container: 'mountNode',
+      forceFit: true,
+      height: window.innerHeight,
+      padding: 0
+    });
+    chart.scale({
+      latitude: { sync: true, nice: false },
+      longitude: { sync: true, nice: false }
+    });
+    chart.legend(false);
+    chart.axis(false);
+    chart.tooltip(false);
+
+    const geoView = chart.view();
+    geoView.source(geoDv);
+    geoView.polygon()
+      .position('longitude*latitude')
+      .color('grey')
+      .label('name', {
+        offset: 0
+      });
+
+    const userView = chart.view();
+    userView.source(userData);
+    userView.heatmap()
+      .position('longitude*latitude')
+      .color('value', '#F51D27-#FA541C-#FF8C12-#FFC838-#FAFFA8-#80FF73-#12CCCC-#1890FF-#6E32C2')
+      .size(60)
+      .style({
+        blur: 40
+      });
+
+    chart.render();
+  });
+</script>
+<body>
+</body>
+
+</html>

@@ -42,6 +42,7 @@ const Util = {
   maxBy: require('lodash/maxBy'),
   minBy: require('lodash/minBy'),
   pick: require('lodash/pick'),
+  reduce: require('lodash/reduce'),
   replace: require('lodash/replace'),
   round: require('lodash/round'),
   toArray: require('lodash/toArray'),
