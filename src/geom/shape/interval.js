@@ -564,8 +564,9 @@ function getWaterWavePath(radius, waterLevel, waveLength, phase, amplitude, cx, 
  * @param {number} colors      色值
  * @param {number} group       图组
  * @param {number} clip        用于剪切的图形
+ * @param {number} radius      绘制图形的高度
  */
-function addWaterWave(x, y, level, waveCount, colors, group, clip) {
+function addWaterWave(x, y, level, waveCount, colors, group, clip, radius) {
   const bbox = clip.getBBox();
   const width = bbox.maxX - bbox.minX;
   const height = bbox.maxY - bbox.minY;
@@ -575,7 +576,7 @@ function addWaterWave(x, y, level, waveCount, colors, group, clip) {
     const wave = group.addShape('path', {
       attrs: {
         path: getWaterWavePath(
-          width / 2,
+          radius,
           bbox.minY + height * level,
           width / 4, 0, width / 64, x, y
         ),
@@ -617,7 +618,15 @@ Shape.registerShape('interval', 'liquid-fill-gauge', {
         r: radius
       }
     });
-    addWaterWave(cp.x, cp.y, cfg.y / (2 * cp.y), 1, [ attrs.fill ], container, clipCircle);
+    addWaterWave(
+      cp.x, cp.y,
+      cfg.y / (2 * cp.y),
+      1,
+      [ attrs.fill ],
+      container,
+      clipCircle,
+      radius * 4
+    );
     return container.addShape('circle', {
       attrs: Util.mix(getLineAttrs(cfg), {
         x: cp.x,
@@ -655,15 +664,11 @@ Shape.registerShape('interval', 'liquid-fill-path', {
       pathMeta = pathMetaCache[path];
     } else {
       const segments = GPathUtil.parsePathString(path);
-      const nums = Util.flatten(segments).filter(num => Util.isNumber(num));
       pathMetaCache[path] = pathMeta = {
-        range: Math.max.apply(null, nums) - Math.min.apply(null, nums),
         segments
       };
     }
-    const scale = radius * 2 / pathMeta.range;
     const transform = [];
-
     if (attrs.rotate) {
       transform.push([ 'r', attrs.rotate / 180 * Math.PI ]);
       delete attrs.rotate;
@@ -674,25 +679,29 @@ Shape.registerShape('interval', 'liquid-fill-path', {
         path: pathMeta.segments
       })
     });
+    const bbox = Util.cloneDeep(shape.getBBox());
+    const rangeX = bbox.maxX - bbox.minX;
+    const rangeY = bbox.maxY - bbox.minY;
+    const range = Math.max(rangeX, rangeY);
+    const scale = radius * 2 / range;
     shape.transform(
       transform.concat([
         [ 's', scale, scale ]
       ])
     );
-    const bbox = Util.cloneDeep(shape.getBBox());
-    const dw = (bbox.maxX - bbox.minX) / 2;
-    const dh = (bbox.maxY - bbox.minY) / 2;
+    const dw = scale * rangeX / 2; // (bbox.maxX - bbox.minX) / 2;
+    const dh = scale * rangeY / 2; // (bbox.maxY - bbox.minY) / 2;
     shape.transform([
       [ 't', cp.x - dw, cp.y - dh ]
     ]);
-    console.log(bbox);
     addWaterWave(
-      cp.x - dw, cp.y - dh,
+      cp.x, cp.y,
       cfg.y / (2 * cp.y),
       1,
       [ attrs.fill ],
       container,
-      shape
+      shape,
+      minP.y * 4
     );
 
     const keyShape = container.addShape('path', {
