@@ -228,15 +228,15 @@ Shape.registerShape('line', 'dash', {
     const attrs = getAttrs(cfg);
     const path = getPath(cfg, false);
     return container.addShape('path', {
-      attrs: Util.mix(attrs, {
+      attrs: Util.mix({
         path,
         lineDash: DASH_ARR
-      })
+      }, attrs)
     });
   },
   getMarkerCfg(cfg) {
     const tmp = _getMarkerCfg(cfg, false);
-    tmp.lineDash = DASH_ARR;
+    tmp.lineDash = tmp.lineDash || DASH_ARR;
     return tmp;
   }
 });
