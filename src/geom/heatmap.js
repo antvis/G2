@@ -166,8 +166,7 @@ class Heatmap extends GeomBase {
       return imageShape;
     }
     const container = self.get('container');
-    imageShape = container.addShape('Image', {
-    });
+    imageShape = container.addShape('Image', {});
     self.set(IMAGE_SHAPE, imageShape);
     return imageShape;
   }
