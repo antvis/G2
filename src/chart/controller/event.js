@@ -151,9 +151,9 @@ class EventController {
     if (preViews.length === 0 && point.views.length) {
       view.emit('plotenter', self._getEventObj(ev, point, point.views));
     }
-    if (preViews.length && point.views.length === 0) {
-      view.emit('plotleave', self._getEventObj(ev, point, preViews));
-    }
+    // if (preViews.length && point.views.length === 0) {
+    //   view.emit('plotleave', self._getEventObj(ev, point, preViews));
+    // }
 
     if (point.views.length) {
       eventObj = self._getEventObj(ev, point, point.views);
@@ -169,7 +169,12 @@ class EventController {
     const self = this;
     const view = self.view;
     const point = self._getPointInfo(ev);
-    view.emit('plotleave', self._getEventObj(ev, point, self.curViews));
+    const preViews = self.curViews || [];
+    const evtObj = self._getEventObj(ev, point, preViews);
+    if (point.views.length === 0 && evtObj.toElement.tagName !== 'CANVAS') {
+      console.log(preViews, self);
+      view.emit('plotleave', evtObj);
+    }
   }
 
   onUp(ev) {
