@@ -1,9 +1,7 @@
-// const expect = require('chai').expect;
 const G2 = require('../../src/index');
 
-describe('#424', () => {
-  window.navigator = 3;
-  it('legend-item:click event not working', () => {
+describe('#502', () => {
+  it('plot enter and plot leave event', () => {
     const div = document.createElement('div');
     document.body.appendChild(div);
     const data = [
@@ -26,21 +24,19 @@ describe('#424', () => {
       height: 540,
       animate: false
     });
-
     chart.source(data);
 
     chart.interval()
       .position('genre*sold')
-      .color('type')
-      .adjust([{
-        type: 'stack',
-        reverseOrder: false
-      }]);
+      .color('type');
+
+    chart.on('plotenter', evt => {
+      console.log('entering: ', evt);
+    });
+    chart.on('plotleave', evt => {
+      console.log('leaving: ', evt);
+    });
 
     chart.render();
-
-    chart.on('legend-item:click', evt => {
-      console.log(evt);
-    });
   });
 });
