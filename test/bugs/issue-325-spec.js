@@ -83,7 +83,6 @@ describe('#360', () => {
       { genre: 'Action', sold: 120, type: '1' },
       { genre: 'Shooter', sold: 350, type: '1' },
       { genre: 'Other', sold: 150, type: '1' },
-
       { genre: 'Sports', sold: 175, type: '2' },
       { genre: 'Strategy', sold: 215, type: '2' },
       { genre: 'Action', sold: 220, type: '2' },
