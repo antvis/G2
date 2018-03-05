@@ -171,8 +171,7 @@ class EventController {
     const point = self._getPointInfo(ev);
     const preViews = self.curViews || [];
     const evtObj = self._getEventObj(ev, point, preViews);
-    if (point.views.length === 0 && evtObj.toElement.tagName !== 'CANVAS') {
-      console.log(preViews, self);
+    if (point.views.length === 0 && (!evtObj.toElement || evtObj.toElement.tagName !== 'CANVAS')) {
       view.emit('plotleave', evtObj);
     }
   }
