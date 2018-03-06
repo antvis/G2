@@ -191,11 +191,11 @@ class GeomBase extends Base {
     }
   }
 
-  _createScale(field) {
+  _createScale(field, data) {
     const scales = this.get('scales');
     let scale = scales[field];
     if (!scale) {
-      scale = this.get('view').createScale(field);
+      scale = this.get('view').createScale(field, data);
       scales[field] = scale;
     }
     return scale;

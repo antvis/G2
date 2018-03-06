@@ -88,6 +88,7 @@
     "fecha": "~2.3.2",
     "gl-matrix": "~2.4.0",
     "lodash": "~4.17.4",
+    "venn.js": "^0.2.20",
     "wolfy87-eventemitter": "~5.2.4"
   }
 }
