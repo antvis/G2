@@ -15,6 +15,21 @@ function isSameShape(shape1, shape2) {
   return Util.isEqual(shape1Origin, shape2Origin);
 }
 
+function getOriginAttrs(selectedCfg, shape) {
+  const originAttrs = {};
+  Util.each(selectedCfg, function(v, k) {
+    if (k === 'transform') {
+      k = 'matrix';
+    }
+    let originValue = shape.__attrs[k];
+    if (Util.isArray(originValue)) {
+      originValue = Util.cloneDeep(originValue);// 缓存原来的属性，由于 __attrs.matrix 是数组，所以此处需要深度复制
+    }
+    originAttrs[k] = originValue;
+  });
+  return originAttrs;
+}
+
 const SelectMixin = {
   _isAllowSelect() {
     const isAllowSelect = this.get('allowSelect');
@@ -79,7 +94,10 @@ const SelectMixin = {
       Util.mix(selectedStyle, cfg.style); // 用户设置的优先级更高
 
       if (!shape.get('_originAttrs')) { // 缓存原有属性
-        shape.set('_originAttrs', Util.cloneDeep(shape.__attrs));
+        if (shape.get('animating')) { // 停止动画
+          shape.stopAnimate();
+        }
+        shape.set('_originAttrs', getOriginAttrs(selectedStyle, shape));
       }
 
       if (animate) {
@@ -90,6 +108,7 @@ const SelectMixin = {
       }
     } else {
       const originAttrs = shape.get('_originAttrs');
+      shape.set('_originAttrs', null);
       if (animate) {
         shape.animate(originAttrs, 300);
       } else {
