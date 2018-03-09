@@ -75,7 +75,6 @@
     .color('gender');
 
   chart1.on('click', evt => {
-    console.log(evt);
     ds.setState('gender', evt.data._origin.gender); // 更新状态量
   });
   chart1.render();

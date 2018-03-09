@@ -679,7 +679,6 @@ describe('pie labels', function() {
       const labelGroup = geom.get('labelContainer');
       const labelsGroup = labelGroup.get('labelsGroup');
       const cText = labelsGroup.get('children')[0];
-      console.log(cText.get('attrs').x, cText.get('attrs').y);
       expect(cText.get('attrs').x).to.equal(270.8166632639171);
       expect(cText.get('attrs').y).to.equal(228);
     });

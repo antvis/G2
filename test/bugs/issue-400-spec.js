@@ -39,7 +39,6 @@ describe('#400', () => {
     chart.render();
     const coord = inteval.get('coord');
     const point = coord.convert({ x: 0, y: 0 });
-    console.log(point);
     let shapes = inteval.getShapes();
     expect(shapes[0].get('origin').y[0]).equal(point.y);
 

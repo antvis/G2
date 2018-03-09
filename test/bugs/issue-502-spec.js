@@ -30,12 +30,12 @@ describe('#502', () => {
       .position('genre*sold')
       .color('type');
 
+    /*
     chart.on('plotenter', evt => {
-      console.log('entering: ', evt);
     });
     chart.on('plotleave', evt => {
-      console.log('leaving: ', evt);
     });
+    */
 
     chart.render();
   });

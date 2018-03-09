@@ -140,7 +140,6 @@ describe('geom labels', function() {
         geomType: 'interval'
       });
       const cfg = gLabels.get('label');
-      // console.log(gLabels, cfg);
       expect(cfg.offset).to.equal(-10);
       expect(cfg.textStyle.fill).to.equal('#fff');
     });

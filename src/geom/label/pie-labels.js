@@ -129,7 +129,6 @@ class PieLabels extends PolarLabels {
   _distribute(labels, offset) {
     const self = this;
     const coord = self.get('coord');
-    // console.log(coord);
     const radius = coord.getRadius();
     const lineHeight = self.get('label').labelHeight;
     const center = coord.getCenter();

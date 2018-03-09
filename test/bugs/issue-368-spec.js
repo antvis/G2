@@ -29,7 +29,6 @@ describe('#368', () => {
     let num = 0;
     chart.on('tooltip:change', () => {
       num++;
-      console.log(num);
     });
 
     chart.showTooltip({

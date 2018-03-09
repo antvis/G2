@@ -49,18 +49,6 @@
         .color('#e50000');
 
       chart.render();
-
-      chart.on('interval:click', function(ev) {
-        console.log(ev.data);
-      });
-
-      chart.on('interval:mouseenter', function(ev) {
-        console.log('enter：', ev.data);
-      });
-
-      chart.on('interval:mouseleave', function(ev) {
-        console.log('leave：', ev.data);
-      });
     });
   </script>
 </body>

@@ -39,8 +39,9 @@ describe('#424', () => {
 
     chart.render();
 
+    /*
     chart.on('legend-item:click', evt => {
-      console.log(evt);
     });
+    */
   });
 });

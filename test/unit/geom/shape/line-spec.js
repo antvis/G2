@@ -266,7 +266,6 @@ describe('line shapes', function() {
         points,
         color: 'red'
       }, canvas);
-      console.log(shape.attr('path'));
       expect(shape.attr('stroke')).eql('red');
       expect(shape.attr('path').length).eql(4);
       expect(shape.attr('path')[0]).eqls([ 'M', 100, 100 ]);
