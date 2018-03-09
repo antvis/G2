@@ -40,7 +40,6 @@
 //      },
 
       draw(cfg, group) { // 自定义最终绘制
-        console.log(cfg);
         const points = this.parsePoints(cfg.points); // 将0-1空间的坐标转换为画布坐标
         points.forEach(obj => { // 关键：就是把 bar 错位一下
           obj.y += item.offsetY ? item.offsetY : 0;

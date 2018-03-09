@@ -128,7 +128,6 @@ describe('#378', () => {
       const scale = lineView.get('scales').name;
       const ticks = scale.getTicks();
       expect(ticks[0].tickValue).not.equal(undefined);
-      // console.log(data);
       // chart.changeData(data);
       chart.destroy();
       done();

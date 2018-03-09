@@ -6,11 +6,11 @@ function parseArray(arr) {
     return new Date(value).getTime();
   });
 }
-function parseTime(arr) {
-  return arr.map(function(value) {
-    return new Date(value);
-  });
-}
+// function parseTime(arr) {
+//   return arr.map(function(value) {
+//     return new Date(value);
+//   });
+// }
 
 describe('test time auto', () => {
   it('years', () => {
@@ -52,7 +52,6 @@ describe('test time auto', () => {
       max: 1504195200000
     });
 
-    console.log(parseTime(rst.ticks));
     expect(rst.ticks).eql(parseArray([ '2010/01/01 00:00:00', '2010/03/01 00:00:00', '2010/05/01 00:00:00', '2010/07/01 00:00:00',
       '2010/09/01 00:00:00', '2010/11/01 00:00:00', '2011/01/01 00:00:00'
     ]));

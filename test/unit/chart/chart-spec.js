@@ -393,7 +393,6 @@ describe('filter shape', function() {
     const container = chart.get('viewContainer').getFirst();
     expect(container.getCount()).equal(2);
     chart.filterShape(function(arr) {
-      // console.log(arr);
       return arr[0].c !== '1';
     });
     expect(container.getCount()).equal(2);

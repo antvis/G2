@@ -18,6 +18,15 @@
     "html"
   ],
   "rules": {
+    "no-console": [
+      "error",
+      {
+        "allow": [
+          "warn",
+          "error"
+        ]
+      }
+    ],
     "no-bitwise": [
       0
     ],

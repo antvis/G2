@@ -46,7 +46,6 @@
     districtExplorer.on('featureClick', function(e, feature) {
       const props = feature.properties;
       // 如果存在子节点
-      console.log(props);
       if (props.childrenNum > 0) {
         // 切换聚焦区域
         switch2AreaNode(props.adcode);
@@ -216,7 +215,6 @@
   }
 
   function processData(geoJSON) {
-    console.log(geoJSON);
     const mapData = {
       type: 'FeatureCollection',
       features: geoJSON

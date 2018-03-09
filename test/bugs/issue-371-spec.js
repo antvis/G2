@@ -35,10 +35,6 @@ describe('#371', () => {
 
     chart.render();
 
-    chart.on('point:click', function(ev) {
-      console.log(ev.shape.get('origin'));
-    });
-
     chart.showTooltip({
       x: 476,
       y: 360
