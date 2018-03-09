@@ -149,7 +149,6 @@ class Venn extends GeomBase {
     dataArray.forEach(row => {
       const cfg = self.getDrawCfg(row[0]);
       const origin = cfg.origin._origin;
-      console.log(cfg);
       shapeContainer.addShape('text', {
         attrs: Util.mix({}, {
           x: origin.x,
@@ -157,7 +156,8 @@ class Venn extends GeomBase {
           text: origin.label || '',
           fontSize: 18,
           fill: cfg.shape === 'hollow' ? cfg.color : '#666',
-          textAlign: 'center'
+          textAlign: 'center',
+          textBaseline: 'middle'
         }, cfg.style ? cfg.style.textStyle : {})
       });
     });
