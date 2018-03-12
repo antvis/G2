@@ -370,7 +370,7 @@ class View extends Base {
       if (geom.get('type') === 'interval') {
         const yScale = geom.getYScale();
         const field = yScale.field;
-        if (!(colDefs[field] && colDefs[field].min) && yScale.min > 0) {
+        if (!(colDefs[field] && colDefs[field].min) && yScale.min > 0 && yScale.type !== 'time') {
           yScale.change({
             min: 0
           });
