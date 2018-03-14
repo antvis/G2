@@ -155,6 +155,11 @@ class Linear extends Base {
           ticks.push(tick);
         }
       });
+      // 如果 ticks 为空，直接输入最小值、最大值
+      if (!ticks.length) {
+        ticks.push(self.min);
+        ticks.push(self.max);
+      }
       self.ticks = ticks;
     }
   }

@@ -104,6 +104,12 @@ class PieLabels extends PolarLabels {
     };
   }
 
+  getDefaultOffset() {
+    const labelCfg = this.get('label');
+    const offset = labelCfg.offset || 0;
+    return offset;
+  }
+
   /**
    * @protected
    * to avoid overlapping
@@ -116,6 +122,7 @@ class PieLabels extends PolarLabels {
     if (offset > 0) {
       items = self._distribute(items, offset);
     }
+
     return items;
   }
 
@@ -240,6 +247,7 @@ class PieLabels extends PolarLabels {
     const self = this;
     const coord = self.get('coord');
     const center = coord.getCenter();
+
     let align;
     if (point.angle <= Math.PI / 2 && point.x >= center.x) {
       align = 'left';
@@ -269,10 +277,12 @@ class PieLabels extends PolarLabels {
       x: Util.isArray(point.x) ? point.x[0] : point.x,
       y: point.y[0]
     };
+    self.transLabelPoint(startPoint); // 转换到画布坐标，如果坐标系发生改变
     const endPoint = {
       x: Util.isArray(point.x) ? point.x[1] : point.x,
       y: point.y[1]
     };
+    self.transLabelPoint(endPoint); // 转换到画布坐标，如果坐标系发生改变
     let angle;
     const startAngle = PathUtil.getPointAngle(coord, startPoint);
     if (point.points && point.points[0].y === point.points[1].y) {

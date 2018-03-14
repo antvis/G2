@@ -131,7 +131,7 @@ describe('#378', () => {
       // chart.changeData(data);
       chart.destroy();
       done();
-    }, 500);
+    }, 800);
   });
 
   it('animate dodge label override', done => {
