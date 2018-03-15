@@ -123,7 +123,9 @@ class GeomLabels extends Group {
 
       Util.each(label, function(sub, subIdx) {
         let obj = self.getLabelPoint(label, point, subIdx);
-        if (obj) {
+        // 文本为 null, undefined, 空字符串时不显示
+        // 但是文本为 0 时，需要显示
+        if (obj && !Util.isNil(obj.text) && obj.text !== '') {
           obj = Util.mix({}, origin, obj); // 为了格式化输出
           let align;
           if (labels && labels.label && labels.label.textAlign) {
