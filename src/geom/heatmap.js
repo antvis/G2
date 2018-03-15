@@ -141,9 +141,7 @@ class Heatmap extends GeomBase {
     if (ctx) {
       return ctx;
     }
-    const coord = self.get('coord');
-    const width = coord.x.end;
-    const height = coord.y.start;
+    const { width, height } = self.get('coord');
     const heatmapCanvas = document.createElement('canvas');
     heatmapCanvas.width = width;
     heatmapCanvas.height = height;
@@ -175,9 +173,7 @@ class Heatmap extends GeomBase {
     const self = this;
 
     // canvas size
-    const coord = self.get('coord');
-    const width = coord.width;
-    const height = coord.height;
+    const { start, end, width, height } = self.get('coord');
 
     // value, range, etc
     const valueField = self.getAttr('color').field;
@@ -205,15 +201,15 @@ class Heatmap extends GeomBase {
     }
 
     // step2. convert pixels
-    const colored = ctx.getImageData(coord.start.x, coord.end.y, width + coord.start.x, height + coord.end.y);
+    const colored = ctx.getImageData(start.x, end.y, width, height);
     self._clearShadowCanvasCtx();
     self._colorize(colored);
     ctx.putImageData(colored, 0, 0);
     const imageShape = self._getImageShape();
-    imageShape.attr('x', coord.start.x);
-    imageShape.attr('y', coord.end.y);
-    imageShape.attr('width', width + coord.start.x);
-    imageShape.attr('height', height + coord.end.y);
+    imageShape.attr('x', start.x);
+    imageShape.attr('y', end.y);
+    imageShape.attr('width', width);
+    imageShape.attr('height', height);
     imageShape.attr('img', ctx.canvas);
   }
 
