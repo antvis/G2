@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const G2 = require('../../src/index');
 
-describe('#454', () => {
+describe('#439', () => {
   it('tooltip and size', () => {
     const div = document.createElement('div');
     document.body.appendChild(div);
@@ -31,8 +31,7 @@ describe('#454', () => {
       container: div,
       width: 1000,
       height: 540,
-      animate: false,
-      padding: 'auto'
+      animate: false
     });
 
     chart.source(data);
@@ -48,8 +47,8 @@ describe('#454', () => {
     const canvas = chart.get('canvas');
     canvas.emit('click', {
       type: 'click',
-      x: 1562,
-      y: 560,
+      x: 748 * 2,
+      y: 79 * 2,
       event: {
         toElement: canvas.get('el')
       }
@@ -58,8 +57,8 @@ describe('#454', () => {
     expect(() => {
       canvas.emit('mousemove', {
         type: 'mousemove',
-        x: 1062,
-        y: 560,
+        x: 748 * 2,
+        y: 79 * 2,
         event: {
           toElement: canvas.get('el')
         }

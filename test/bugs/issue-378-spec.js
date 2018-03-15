@@ -72,7 +72,8 @@ describe('#378', () => {
       container: div,
       width: 500,
       height: 300,
-      padding: [ 30, 60, 60, 60 ]
+      padding: [ 30, 60, 60, 60 ],
+      animate: false
     });
     chart.scale({
       name: {
@@ -129,9 +130,9 @@ describe('#378', () => {
       const ticks = scale.getTicks();
       expect(ticks[0].tickValue).not.equal(undefined);
       // chart.changeData(data);
-      chart.destroy();
+      // chart.destroy();
       done();
-    }, 800);
+    }, 500);
   });
 
   it('animate dodge label override', done => {

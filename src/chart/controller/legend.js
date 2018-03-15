@@ -4,8 +4,6 @@ const { Legend } = require('../../component/index');
 const Shape = require('../../geom/shape/index');
 
 const FIELD_ORIGIN = '_origin';
-const MARGIN = 24;
-const MARGIN_LEGEND = 24;
 const MARKER_SIZE = 4.5;
 const requireAnimationFrameFn = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
   window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
@@ -52,12 +50,23 @@ class LegendController {
 
   clear() {
     const legends = this.legends;
+    this.backRange = null;
     Util.each(legends, legendItems => {
       Util.each(legendItems, legend => {
         legend.remove();
       });
     });
     this.legends = {};
+  }
+
+  // 获取坐标轴等背景元素占的范围，防止遮挡坐标轴
+  getBackRange() {
+    let backRange = this.backRange;
+    if (!backRange) {
+      backRange = this.chart.get('backPlot').getBBox();
+      this.backRange = backRange;
+    }
+    return backRange;
   }
 
   _isFieldInView(field, value, view) {
@@ -263,29 +272,32 @@ class LegendController {
     const width = canvas.get('width');
     let height = canvas.get('height');
     const plotRange = self.plotRange;
+    const backRange = self.getBackRange(); // 背景占得范围
     const offsetX = legend.get('offsetX') || 0;
     const offsetY = legend.get('offsetY') || 0;
-    const offset = Util.isNil(legend.get('offset')) ? MARGIN : legend.get('offset');
+    // const offset = Util.isNil(legend.get('offset')) ? MARGIN : legend.get('offset');
     const legendHeight = legend.getHeight();
+    const legendWidth = legend.getWidth();
+    const borderMargin = Global.legend.margin;
+    const innerMargin = Global.legend.legendMargin;
 
     let x = 0;
     let y = 0;
 
     if (position === 'left' || position === 'right') { // 垂直
       height = plotRange.br.y;
-      x = position === 'left' ? offset : plotRange.br.x + offset;
+      x = position === 'left' ? backRange.minX - legendWidth - borderMargin[3] : backRange.maxX + borderMargin[1];
       y = height - legendHeight;
 
       if (pre) {
-        y = pre.get('y') - legendHeight - MARGIN_LEGEND;
+        y = pre.get('y') - legendHeight - innerMargin;
       }
     } else {
       x = (width - region.totalWidth) / 2;
-      y = (position === 'top') ? offset : (plotRange.bl.y + offset);
-
+      y = (position === 'top') ? backRange.minY - legendHeight - borderMargin[0] : backRange.maxY + borderMargin[2];
       if (pre) {
         const preWidth = pre.getWidth();
-        x = pre.get('x') + preWidth + MARGIN_LEGEND;
+        x = pre.get('x') + preWidth + innerMargin;
       }
     }
 

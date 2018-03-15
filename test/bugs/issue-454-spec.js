@@ -4,7 +4,7 @@ const G2 = require('../../src/index');
 describe('#454', () => {
   it('tooltip and size', () => {
     const div = document.createElement('div');
-    document.body.appendChild(div);
+    document.body.prepend(div);
     const data = [
       { genre: 'Sports', sold: 275, type: '1' },
       { genre: 'Strategy', sold: 115, type: '1' },
