@@ -449,7 +449,9 @@ const Theme = {
         stroke: '#fff'
       },
       unCheckColor: '#bfbfbf'
-    }
+    },
+    margin: [ 0, 20, 24, 5 ], // 图例跟四个边的坐标轴、绘图区域的间距
+    legendMargin: 24 // 图例之间的间距
   },
   tooltip: {
     crosshairs: false,

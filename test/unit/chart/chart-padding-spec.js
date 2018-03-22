@@ -114,7 +114,7 @@ describe('chart auto padding', function() {
       expect(plotRange.tl.x > 42).equal(true);
       expect(plotRange.tl.y).equal(10);
       expect(plotRange.bl.x > 42).equal(true);
-      expect(plotRange.bl.y).equal(224.5);
+      expect(plotRange.bl.y).equal(230);
     });
     let pretl;
     let prebl;
@@ -135,7 +135,7 @@ describe('chart auto padding', function() {
         expect(plotRange.tl.x > 49).equal(true);
         expect(plotRange.tl.y).equal(10);
         expect(plotRange.bl.x > 49).equal(true);
-        expect(plotRange.bl.y).equal(202.5);
+        expect(plotRange.bl.y > 190).equal(true);
         pretl = plotRange.tl;
         prebl = plotRange.bl;
         done();
