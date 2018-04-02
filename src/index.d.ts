@@ -153,23 +153,23 @@ declare namespace G2 {
     size(size: number): this;
     size(col: string): this;
     size(type: string, colors: number[]): this;
-    size(type: string, Function): this;
+    size(type: string, func: Function): this;
     opacity(op: number): this;
     opacity(col: string): this;
-    opacity(type: string, Function): this;
+    opacity(type: string, func: Function): this;
     adjust(adj: string): this;
     adjust(adjs: any[]): this;
     label(field: string): this;
-    label(exe: string, Function): this;
+    label(exe: string, func: Function): this;
     label(exe: string,opt: {
       offset?: number;
       textStyle?: Styles.text;
     }): this;
     tooltip(open: boolean): this;
     tooltip(field: string): this;
-    tooltip(exe: string, Function): this;
+    tooltip(exe: string, func: Function): this;
     style(style: any): this;
-    style(exe: string, Function): this;
+    style(exe: string, func: Function): this;
     select(open: boolean): this;
     select(opt: {
       mode: 'single' | 'multiple', // 选中模式，单选、多选
@@ -183,10 +183,10 @@ declare namespace G2 {
       cancelable: true | false, // 选中之后是否允许取消选中，默认允许取消选中
       animate: true | false // 选中是否执行动画，默认执行动画
     }): this;
-    active(open: boolean);
-    animate(opt: any);
+    active(open: boolean): Geom;
+    animate(opt: any): Geom;
   }
-  
+
 
   /**
    * 坐标轴标签
@@ -208,7 +208,7 @@ declare namespace G2 {
      * @param  {number} index 索引值
      * @return {string}       返回格式化后的文本值
      */
-    formatter?(text: string, item, index: number): string;
+    formatter?(text: string, item: {}, index: number): string;
     /**
      * 使用 html 渲染文本
      * @param  {string} text  文本值
@@ -216,7 +216,7 @@ declare namespace G2 {
      * @param  {number} index 索引值
      * @return {string}       返回 html 字符串
      */
-    htmlTemplate?(text: string, item, index: number): string;
+    htmlTemplate?(text: string, item: {}, index: number): string;
   }
   /**
    * 坐标轴线
@@ -502,7 +502,7 @@ declare namespace G2 {
         animate?: boolean;
       },
     ) => View;
-    forceFit(boolean): this;
+    forceFit(): this;
     render: () => void;
     changeSize(width: number, height: number) : this;
     changeWidth(width: number): this;
@@ -639,7 +639,7 @@ declare namespace G2 {
 
   class DomUtil {
     getBoundingClientRect: (
-      node,
+      node: Element,
     ) => { top: number; bottom: number; left: number; right: number };
     getStyle: (dom: HTMLElement, name: string) => any;
     modifyCSS(dom: HTMLElement, css: any): HTMLElement;
@@ -653,8 +653,8 @@ declare namespace G2 {
       target: HTMLElement,
       eventType: string,
       callback: (e: any) => void,
-    );
-    requestAnimationFrame(fn: () => void);
+    ): void;
+    requestAnimationFrame(fn: () => void): void;
   }
 
   class MatrixUtil {
@@ -665,7 +665,7 @@ declare namespace G2 {
   }
   class PathUtil {
     parsePathString(pathString: string): Array<any>;
-    parsePathArray(pathArray): any;
+    parsePathArray(pathArray: any): any;
     pathTocurve(path: Array<any>): any;
     pathToAbsolute(path: Array<any>): any;
     catmullRomToBezier(pointsArray: Array<any>): any;
