@@ -11,6 +11,23 @@ function getScaleName(scale) {
 }
 
 const TooltipMixin = {
+  _getIntervalSize(obj) {
+    let size = null;
+    const type = this.get('type');
+    const coord = this.get('coord');
+    if (coord.isRect && (type === 'interval' || type === 'schema')) {
+      size = this.getSize(obj[FIELD_ORIGIN]); // 如果字段发生了映射，宽度计算就会报错
+
+      const dim = coord.isTransposed ? 'y' : 'x';
+      if (Util.isArray(obj[dim])) {
+        const width = Math.abs(obj[dim][1] - obj[dim][0]);
+        size = size < width ? null : size; // 直方图计算错误
+      }
+    }
+
+    return size;
+  },
+
   _snapEqual(v1, v2, scale) {
     let equals;
     v1 = scale.translate(v1);
@@ -377,9 +394,7 @@ const TooltipMixin = {
           color: point.color || defaultColor,
           marker: true
         };
-        if (self.get('type') === 'interval' || self.get('type') === 'schema') {
-          item.size = self.getSize(point[FIELD_ORIGIN]); // 如果字段发生了映射，宽度计算就会报错
-        }
+        item.size = self._getIntervalSize(point);
 
         items.push(Util.mix({}, item, cfg));
       }
@@ -402,9 +417,8 @@ const TooltipMixin = {
           color: point.color || defaultColor,
           marker: true // 默认展示 marker
         }, cfg);
-        if (self.get('type') === 'interval' || self.get('type') === 'schema') {
-          itemCfg.size = self.getSize(point[FIELD_ORIGIN]);
-        }
+
+        itemCfg.size = self._getIntervalSize(point);
         items.push(itemCfg);
       } else {
         Util.each(fields, function(field) {

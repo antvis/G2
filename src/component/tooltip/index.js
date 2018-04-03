@@ -470,7 +470,7 @@ class Tooltip extends Base {
         crossLineShapeX.move(0, endy);
       }
 
-      if (crosshairsRectShape) {
+      if (crosshairsRectShape) { // 绘制矩形辅助框，只在直角坐标系下生效
         const isTransposed = this.get('isTransposed');
         const items = this.get('items');
         const firstItem = items[0];
@@ -486,14 +486,19 @@ class Tooltip extends Base {
           crosshairsRectShape.attr(dim, startDim - this.get('crosshairs').width / 2);
           crosshairsRectShape.attr(attr, this.get('crosshairs').width);
         } else {
-          offset = (firstItem.size / 2 + firstItem.size / 4) || 10;
-          crosshairsRectShape.attr(dim, startDim - offset);
-
-          if (items.length === 1) {
-            crosshairsRectShape.attr(attr, firstItem.size + firstItem.size / 2);
+          if (Util.isArray(firstItem.point[dim]) && !firstItem.size) { // 直方图
+            const width = firstItem.point[dim][1] - firstItem.point[dim][0];
+            crosshairsRectShape.attr(dim, firstItem.point[dim][0]);
+            crosshairsRectShape.attr(attr, width);
           } else {
-            const lastItem = items[items.length - 1];
-            crosshairsRectShape.attr(attr, Math.abs(lastItem[dim] - firstItem[dim]) + 2 * offset);
+            offset = (3 * firstItem.size) / 4;
+            crosshairsRectShape.attr(dim, startDim - offset);
+
+            if (items.length === 1) {
+              crosshairsRectShape.attr(attr, (3 * firstItem.size) / 2);
+            } else {
+              crosshairsRectShape.attr(attr, Math.abs(lastItem[dim] - firstItem[dim]) + 2 * offset);
+            }
           }
         }
       }
