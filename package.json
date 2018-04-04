@@ -32,7 +32,7 @@
     "connect": "~3.6.5",
     "d3-queue": "~3.0.7",
     "debug": "~3.1.0",
-    "electron": "~1.7.9",
+    "electron": "~1.8.2-beta5",
     "eslint": "~3.19.0",
     "eslint-config-airbnb": "~15.0.1",
     "eslint-config-egg": "~4.2.0",
