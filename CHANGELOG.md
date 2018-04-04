@@ -1,3 +1,41 @@
+#### 3.0.5 (2018-04-04)
+
+##### New Features
+
+* chore(demo): map with heatmap
+* chore(dev): remove console logs
+* feat(chart): add Venn Geom
+* feat(chart): liquid-fill plots
+* feat(chart): liquid-fill shapes (guage and path)
+* feat(line): make lineDash configurable, Closes #486
+
+##### Bug Fixes
+
+* fix(typescript): Some func signature is wrong and cause typescript to * throw error to block compile
+* fix(animate): fixed axis animate, Closes #378
+* fix(chart): venn label position
+* fix(dev): resolve potential security vulnerability in * dependencies
+* fix(event): Closes #439
+* fix(event): emit plotleave event properly, Closes #502
+* fix(funnel): fixed bug of funnel animation, Closes #213
+* fix(geom): add chart.pointStack(), Closes #437
+* fix(geom): support connect null values, Closes #415
+* fix(heatmap): heatmap cannot be drew when reflecting coord
+* fix(label): fixed bug of pie label when coord rotate
+* fix(label): when label is empty, the label line does not show
+* fix(legend): legend value formatter, #406
+* fix(legend): when chart auto padding, legend overlap axis
+* fix(scale): Closes #520, #528, #408
+* fix(scale): when Infinity throw error
+* fix(selected): Closes #515
+* fix(tooltip): Closes #454
+* fix(tooltip): change tooltip title in tooltip:change, Closes #280
+* fix(typing): add missing implicit type definition
+* fix(venn): label color when shape is hollow
+* fix(venn): label textBaseline should be middle by default
+* fix: Closes #557
+* fix: html legend in ie9
+
 #### 3.0.4 (2018-01-26)
 
 ##### New Features
