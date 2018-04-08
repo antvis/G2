@@ -64,6 +64,15 @@ class LegendController {
     let backRange = this.backRange;
     if (!backRange) {
       backRange = this.chart.get('backPlot').getBBox();
+      if (backRange.minX === Infinity) { // 如果背景不占宽高，则直接使用 plotRange
+        const plotRange = this.plotRange;
+        backRange = {
+          minX: plotRange.tl.x,
+          minY: plotRange.tl.y,
+          maxX: plotRange.br.x,
+          maxY: plotRange.br.y
+        };
+      }
       this.backRange = backRange;
     }
     return backRange;

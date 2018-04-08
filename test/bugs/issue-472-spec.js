@@ -53,4 +53,41 @@ describe('#472', () => {
 
     chart.destroy();
   });
+
+  it('no axis position error', () => {
+    const div = document.createElement('div');
+    document.body.appendChild(div);
+    const data = [
+      { genre: 'Sports', sold: 275, type: '1' },
+      { genre: 'Strategy', sold: 115, type: '1' },
+      { genre: 'Action', sold: 120, type: '1' },
+      { genre: 'Shooter', sold: 350, type: '1' },
+      { genre: 'Other', sold: 150, type: '1' }
+    ];
+
+    const chart = new G2.Chart({
+      container: div,
+      width: 500,
+      height: 500,
+      animate: false,
+      padding: 'auto'
+    });
+    chart.source(data);
+    // chart.legend({ position: 'top' });
+    chart.coord('theta');
+    chart.intervalStack()
+      .position('sold')
+      .color('genre');
+
+    chart.render();
+
+    let plotRange = chart.get('plotRange');
+    expect(500 - plotRange.bl.y < 40).equal(true);
+
+    chart.legend({ position: 'right' });
+    chart.repaint();
+
+    plotRange = chart.get('plotRange');
+    expect(500 - plotRange.tr.x > 85).equal(true);
+  });
 });
