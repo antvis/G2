@@ -719,4 +719,42 @@ Shape.registerShape('interval', 'liquid-fill-path', {
   }
 });
 
+Shape.registerShape('interval', 'top-line', {
+  draw(cfg, container) {
+    const attrs = getFillAttrs(cfg);
+    const style = cfg.style || {};
+    const linePath = [
+      [ 'M', cfg.points[1].x, cfg.points[1].y ],
+      [ 'L', cfg.points[2].x, cfg.points[2].y ]
+    ];
+    const lineAttrs = {
+      stroke: style.stroke || 'white',
+      lineWidth: style.lineWidth || 1,
+      path: this.parsePath(linePath)
+    };
+    let path = getRectPath(cfg.points);
+    path = this.parsePath(path);
+    delete attrs.stroke; // 不在柱子上绘制线
+    const rectShape = container.addShape('path', {
+      attrs: Util.mix(attrs, {
+        zIndex: 0,
+        path
+      })
+    });
+    container.addShape('path', {
+      zIndex: 1,
+      attrs: lineAttrs
+    });
+    return rectShape;
+  },
+  getMarkerCfg(cfg) {
+    const rectCfg = getFillAttrs(cfg);
+    const isInCircle = cfg.isInCircle;
+    return Util.mix({
+      symbol: isInCircle ? 'circle' : 'square',
+      radius: isInCircle ? 4.5 : 4
+    }, rectCfg);
+  }
+});
+
 module.exports = Interval;

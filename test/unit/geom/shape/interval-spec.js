@@ -387,6 +387,32 @@ describe('interval shapes', function() {
     });
   });
 
+  describe('top-line', function() {
+    it('getShapePoints && drawShape', function() {
+      const type = 'top-line';
+      const cfg1 = {
+        x: 0.5,
+        y: 0.6,
+        y0: 0,
+        size: 0.25
+      };
+      Interval.setCoord(coord1);
+      const points = Interval.getShapePoints(type, cfg1);
+      expect(points.length).equal(4);
+      const group = canvas.addGroup();
+      Interval.drawShape(type, {
+        points,
+        style: {
+          stroke: 'blue',
+          lineWidth: 2
+        },
+        color: 'red'
+      }, group);
+      expect(group.getCount()).equal(2);
+      expect(group.get('children')[1].attr('stroke')).equal('blue');
+    });
+  });
+
   /* describe('pie', function() {
     it('get selected config', function() {
       var selectedCfg = Interval.getSelectedCfg('rect', {
