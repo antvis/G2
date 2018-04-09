@@ -3,6 +3,7 @@
  * @author dxq613@gmail.com
  * @author sima.zhang1990@gmail.com
  * @author huangtonger@aliyun.com
+ # @author liuye10@yahoo.com
  */
 
 const Util = require('../../util');
@@ -27,26 +28,46 @@ function getHollowAttrs(cfg) {
   }, cfg.style);
   return shapeCfg;
 }
-function getPath(points) {
-  const path = [];
-  let flag = [ points[0].x, points[0].y ];
-  let flagIndex = 0;
-  let lastStartPoint = points[0];
-  Util.each(points, function(obj, index) {
-    const subPath = index === 0 ? [ 'M', obj.x, obj.y ] : [ 'L', obj.x, obj.y ];
-    path.push(subPath);
-    if (flagIndex !== index && index < (points.length - 1) && Util.isEqualWith(flag, [ obj.x, obj.y ])) {
-      const nextPoint = points[index + 1];
-      path.push([ 'Z' ]);
-      path.push([ 'M', nextPoint.x, nextPoint.y ]);
-      lastStartPoint = nextPoint;
-      flagIndex = index + 1;
-      flag = [ nextPoint.x, nextPoint.y ];
+
+
+function divideByRepeat(points){
+    const ps = [];
+    let flag = points[0];
+    let i = 1;
+    let start =0;
+    let end = 0;
+    while(i<points.length){
+        const c = points[i];
+        if( c.x==points[i+1].x && c.y==points[i+1].y ){
+            if(start==i) start=i+1;
+            i++;
+        }else if(c[0] == flag[0] && c[1] == flag[1]){
+            end = i;
+            const arr = points.slice(start,end+1);
+            ps.push(arr);
+            flag = points[i+1];
+            start = i+1;
+            i++;
+        }
+        i++;
     }
-  });
-  path.push([ 'L', lastStartPoint.x, lastStartPoint.y ]);
-  path.push([ 'Z' ]);
-  return path;
+    return ps;
+}
+
+
+function getPath(points){
+  const pathStr='';
+  for(let i=0; i<points.length; i++){
+      const p='';
+      const d=points[i];
+      for(let n=0; n<d.length; n++){
+         const header = (n==0)?'M':'L';
+         p+=(header+d[n][1]+','+d[n][0])
+      }
+      p+='Z';
+      pathStr+=p;
+   }
+   return pathStr;
 }
 
 // regist line geom
@@ -110,7 +131,8 @@ Shape.registerShape('polygon', 'hollow', {
   draw(cfg, container) {
     if (!Util.isEmpty(cfg.points)) {
       const attrs = getHollowAttrs(cfg);
-      let path = getPath(cfg.points);
+      const ps = divideByRepeat(cfg.points);
+      const path = getPath(ps);
       path = this.parsePath(path);
 
       return container.addShape('path', {
