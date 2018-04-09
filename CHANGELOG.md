@@ -1,3 +1,13 @@
+#### 3.0.6 (2018-04-09)
+
+##### New Features
+
+* feat(interval): add top-line shape
+
+##### Bug Fixes
+
+* fix(legend): position and offset settings not working
+
 #### 3.0.5 (2018-04-04)
 
 ##### New Features
