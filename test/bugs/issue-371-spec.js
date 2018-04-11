@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const G2 = require('../../src/index');
 
 describe('#371', () => {
-  it('point click with line error', () => {
+  it('point click with line error', done => {
     const div = document.createElement('div');
     document.body.appendChild(div);
     const data = [
@@ -41,9 +41,10 @@ describe('#371', () => {
     });
     const canvas = chart.get('canvas');
     setTimeout(function() {
-      const shape = canvas.getShape({ x: 952, y: 720 });
+      const shape = canvas.getShape(952, 720);
       expect(shape).not.equal(undefined);
       expect(shape.get('origin')).not.equal(undefined);
+      done();
     }, 50);
 
   });

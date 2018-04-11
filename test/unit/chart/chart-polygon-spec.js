@@ -51,7 +51,7 @@ describe('test polygon chart', function() {
     const group = chart.get('viewContainer').getFirst();
     expect(group.getCount()).equal(source.length);
     const path = group.getFirst().attr('path');
-    expect(path.length).equal(6);
+    expect(path.length).equal(5);
   });
 
   it('ploar', function() {
@@ -60,7 +60,7 @@ describe('test polygon chart', function() {
     const group = chart.get('viewContainer').getFirst();
     expect(group.getCount()).equal(chart.get('data').length);
     const path = group.getFirst().attr('path');
-    expect(path.length).equal(6);
+    expect(path.length).equal(5);
   });
   it('destroy', function() {
     chart.destroy();

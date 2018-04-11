@@ -30,44 +30,31 @@ function getHollowAttrs(cfg) {
 }
 
 
-function divideByRepeat(points){
-    const ps = [];
-    let flag = points[0];
-    let i = 1;
-    let start =0;
-    let end = 0;
-    while(i<points.length){
-        const c = points[i];
-        if( c.x==points[i+1].x && c.y==points[i+1].y ){
-            if(start==i) start=i+1;
-            i++;
-        }else if(c[0] == flag[0] && c[1] == flag[1]){
-            end = i;
-            const arr = points.slice(start,end+1);
-            ps.push(arr);
-            flag = points[i+1];
-            start = i+1;
-            i++;
+function getPath(points) {
+  let flag = points[0];
+  let i = 1;
+
+  const path = [[ 'M', flag.x, flag.y ]];
+
+  while (i < points.length) {
+    const c = points[i];
+    if (c.x !== points[i - 1].x || c.y !== points[i - 1].y) {
+      path.push([ 'L', c.x, c.y ]);
+      if (c.x === flag.x && c.y === flag.y) {
+        flag = points[i + 1];
+        if (i < points.length - 1) {
+          path.push([ 'Z' ]);
+          path.push([ 'M', flag.x, flag.y ]);
         }
         i++;
-    }
-    return ps;
-}
-
-
-function getPath(points){
-  const pathStr='';
-  for(let i=0; i<points.length; i++){
-      const p='';
-      const d=points[i];
-      for(let n=0; n<d.length; n++){
-         const header = (n==0)?'M':'L';
-         p+=(header+d[n][1]+','+d[n][0])
       }
-      p+='Z';
-      pathStr+=p;
-   }
-   return pathStr;
+    }
+    i++;
+  }
+
+  path.push([ 'Z' ]);
+
+  return path;
 }
 
 // regist line geom
@@ -131,8 +118,7 @@ Shape.registerShape('polygon', 'hollow', {
   draw(cfg, container) {
     if (!Util.isEmpty(cfg.points)) {
       const attrs = getHollowAttrs(cfg);
-      const ps = divideByRepeat(cfg.points);
-      const path = getPath(ps);
+      let path = getPath(cfg.points);
       path = this.parsePath(path);
 
       return container.addShape('path', {
@@ -149,5 +135,6 @@ Shape.registerShape('polygon', 'hollow', {
     }, getAttrs(cfg));
   }
 });
+
 
 module.exports = Polygon;
