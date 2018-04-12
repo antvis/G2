@@ -3,6 +3,9 @@
  * @author dxq613@gmail.com
  * @see https://github.com/lodash/lodash
  */
+const G = require('@antv/g');
+
+const CommonUtil = G.CommonUtil;
 
 const MAX_LEVEL = 5;
 
@@ -14,29 +17,19 @@ function _mix(dist, obj) {
   }
 }
 
-const Util = {
-  assign: require('lodash/assign'),
+const Util = CommonUtil.assign({
   cloneDeep: require('lodash/cloneDeep'),
-  each: require('lodash/each'),
   filter: require('lodash/filter'),
   flatten: require('lodash/flatten'),
   groupBy: require('lodash/groupBy'),
   indexOf: require('lodash/indexOf'),
-  isArray: require('lodash/isArray'),
-  isBoolean: require('lodash/isBoolean'),
   isDate: require('lodash/isDate'),
   isEmpty: require('lodash/isEmpty'),
-  isEqual: require('lodash/isEqual'),
   isEqualWith: require('lodash/isEqualWith'),
   isFinite: require('lodash/isFinite'),
-  isFunction: require('lodash/isFunction'),
   isNaN: require('lodash/isNaN'),
-  isNil: require('lodash/isNil'),
   isNull: require('lodash/isNull'),
-  isNumber: require('lodash/isNumber'),
-  isObject: require('lodash/isObject'),
   isPlainObject: require('lodash/isPlainObject'),
-  isString: require('lodash/isString'),
   lowerFirst: require('lodash/lowerFirst'),
   map: require('lodash/map'),
   maxBy: require('lodash/maxBy'),
@@ -45,11 +38,9 @@ const Util = {
   reduce: require('lodash/reduce'),
   replace: require('lodash/replace'),
   round: require('lodash/round'),
-  toArray: require('lodash/toArray'),
   union: require('lodash/union'),
   uniq: require('lodash/uniq'),
   upperCase: require('lodash/upperCase'),
-  upperFirst: require('lodash/upperFirst'),
   snapEqual(v1, v2) {
     return Math.abs(v1 - v2) < 0.001;
   },
@@ -152,7 +143,7 @@ const Util = {
       return (o[name] === undefined) ? '' : o[name];
     });
   }
-};
+}, CommonUtil);
 
 function deepMix(dst, src, level) {
   level = level || 0;
@@ -288,12 +279,7 @@ Util.Array = {
     const groups = Util.groupBy(data, condition);
     return groups;
   },
-  remove(arr, obj) {
-    const index = Util.indexOf(arr, obj);
-    if (index !== -1) {
-      arr.splice(index, 1);
-    }
-  }
+  remove: CommonUtil.remove
 };
 
 module.exports = Util;
