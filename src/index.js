@@ -37,4 +37,16 @@ if (typeof window !== 'undefined') {
   }
 }
 
+// geoms
+require('./geom/area');
+require('./geom/edge');
+require('./geom/heatmap');
+require('./geom/interval');
+require('./geom/line');
+require('./geom/path');
+require('./geom/point');
+require('./geom/polygon');
+require('./geom/schema');
+require('./geom/venn');
+
 module.exports = G2;

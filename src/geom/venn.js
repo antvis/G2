@@ -2,6 +2,7 @@
  * @fileOverview Venn Diagram
  * @author leungwensen@gmail.com
  */
+const View = require('../chart/view');
 const GeomBase = require('./base');
 const Attr = require('../attr/index');
 const Global = require('../global');
@@ -163,5 +164,8 @@ class Venn extends GeomBase {
     });
   }
 }
+
+
+View.registerGeom(Venn, 'Venn');
 
 module.exports = Venn;

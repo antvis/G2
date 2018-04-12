@@ -4,7 +4,6 @@
  */
 
 const Base = require('../base');
-const Geom = require('../geom/');
 const Util = require('../util');
 const Controller = require('./controller/index');
 const Global = require('../global');
@@ -41,16 +40,6 @@ function isPointInCoord(coord, point) {
   return result;
 }
 
-const ViewGeoms = {};
-Util.each(Geom, function(geomConstructor, className) {
-  const methodName = Util.lowerFirst(className);
-  ViewGeoms[methodName] = function(cfg) {
-    const geom = new geomConstructor(cfg);
-    this.addGeom(geom);
-    return geom;
-  };
-});
-
 /**
  * 图表中的视图
  * @class View
@@ -81,9 +70,10 @@ class View extends Base {
 
   constructor(cfg) {
     super(cfg);
-    Util.mix(this, ViewGeoms);
+    // Util.mix(this, ViewGeoms);
     this.init();
   }
+
 
   /**
    * @protected
@@ -980,5 +970,14 @@ class View extends Base {
     super.destroy();
   }
 }
+
+View.registerGeom = function(Geom, className) {
+  const methodName = Util.lowerFirst(className);
+  View.prototype[methodName] = function(cfg) {
+    const geom = new Geom(cfg);
+    this.addGeom(geom);
+    return geom;
+  };
+};
 
 module.exports = View;

@@ -2,7 +2,7 @@
  * @fileOverview 线图
  * @author dxq613@gmail.com
  */
-
+const View = require('../chart/view');
 const Path = require('./path');
 
 class Line extends Path {
@@ -29,4 +29,8 @@ class LineStack extends Line {
 }
 
 Line.Stack = LineStack;
+
+View.registerGeom(Line, 'Line');
+View.registerGeom(LineStack, 'LineStack');
+
 module.exports = Line;
