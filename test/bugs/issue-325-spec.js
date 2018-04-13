@@ -115,7 +115,7 @@ describe('#360', () => {
     }, 600);
   });
 
-  xit('destroy', function() {
+  after(function() {
     chart.destroy();
   });
 

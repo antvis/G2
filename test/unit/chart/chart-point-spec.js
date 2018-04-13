@@ -53,7 +53,7 @@ describe('test point chart', function() {
     expect(chart.get('viewContainer').getFirst().getCount()).equal(1);
   });
 
-  xit('one dim', function() {
+  it('one dim', function() {
     chart.clear();
     chart.point().position('type*..y').color('type');
     chart.render();

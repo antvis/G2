@@ -94,13 +94,14 @@ describe('schema shapes', function() {
       expect(marker.stroke).equal('red');
     });
 
-    xit('getActiveCfg', function() {
-      const activeCfg = Schema.getActiveCfg();
+    // xit('getActiveCfg', function() {
+    //   const activeCfg = Schema.getActiveCfg();
+    //
+    //   expect(activeCfg).eql({
+    //     lineWidth: 2
+    //   });
+    // });
 
-      expect(activeCfg).eql({
-        lineWidth: 2
-      });
-    });
   });
   describe('candle', function() {
     it('getShapePoints && drawShape', function() {

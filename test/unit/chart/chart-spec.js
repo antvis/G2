@@ -614,10 +614,10 @@ describe('chart sync scales', function() {
     expect(str.length).not.equal(0);
   });
 
-  xit('download', function() {
-    const str = chart.downloadImage('xx');
-    expect(str.length).not.equal(0);
-  });
+  // xit('download', function() {
+  //   const str = chart.downloadImage('xx');
+  //   expect(str.length).not.equal(0);
+  // });
 
   it('destroy', function() {
     chart.destroy();

@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const { Canvas } = require('@antv/g');
 const Interval = require('../../../../src/geom/shape/interval');
 const Coord = require('../../../../src/coord/');
-const Global = require('../../../../src/global');
+// const Global = require('../../../../src/global');
 
 const div = document.createElement('div');
 div.id = 'csinterval';
@@ -150,21 +150,21 @@ describe('interval shapes', function() {
       expect(marker2.symbol).equal('circle');
     });
 
-    xit('get selected config', function() {
-      const selectedCfg = Interval.getSelectedCfg('rect', {
-        coord,
-        point: {
-          x: 10,
-          y: 30
-        }
-      });
-      expect(selectedCfg).not.equal(null);
-      expect(selectedCfg).to.have.property('transform');
-      const transform = selectedCfg.transform[0];
-      expect(transform[0]).equal('t');
-      expect(transform[1].toFixed(10)).equal('-3.0199743083');
-      expect(transform[2].toFixed(10)).equal('-6.8651114468');
-    });
+    // xit('get selected config', function() {
+    //   const selectedCfg = Interval.getSelectedCfg('rect', {
+    //     coord,
+    //     point: {
+    //       x: 10,
+    //       y: 30
+    //     }
+    //   });
+    //   expect(selectedCfg).not.equal(null);
+    //   expect(selectedCfg).to.have.property('transform');
+    //   const transform = selectedCfg.transform[0];
+    //   expect(transform[0]).equal('t');
+    //   expect(transform[1].toFixed(10)).equal('-3.0199743083');
+    //   expect(transform[2].toFixed(10)).equal('-6.8651114468');
+    // });
   });
 
   describe('hollowRect', function() {
@@ -187,10 +187,10 @@ describe('interval shapes', function() {
       expect(shape.attr('stroke')).eql('red');
       expect(shape.attr('path').length).eql(6);
     });
-    xit('get active config', function() {
-      const shapeCfg = Interval.getActiveCfg('hollowRect', {});
-      expect(shapeCfg.lineWidth).not.equal(Global.shape.hollowInterval.lineWidth);
-    });
+    // xit('get active config', function() {
+    //   const shapeCfg = Interval.getActiveCfg('hollowRect', {});
+    //   expect(shapeCfg.lineWidth).not.equal(Global.shape.hollowInterval.lineWidth);
+    // });
 
     it('get marker config', function() {
       const marker = Interval.getMarkerCfg('hollowRect', {
@@ -206,21 +206,21 @@ describe('interval shapes', function() {
       expect(marker2.symbol).equal('circle');
     });
 
-    xit('get selected config', function() {
-      const selectedCfg = Interval.getSelectedCfg('hollowRect', {
-        coord: new Coord.Rect({
-          start: {
-            x: 0,
-            y: 500
-          },
-          end: {
-            x: 500,
-            y: 0
-          }
-        })
-      });
-      expect(selectedCfg).not.have.property('transform');
-    });
+    // xit('get selected config', function() {
+    //   const selectedCfg = Interval.getSelectedCfg('hollowRect', {
+    //     coord: new Coord.Rect({
+    //       start: {
+    //         x: 0,
+    //         y: 500
+    //       },
+    //       end: {
+    //         x: 500,
+    //         y: 0
+    //       }
+    //     })
+    //   });
+    //   expect(selectedCfg).not.have.property('transform');
+    // });
   });
   describe('line', function() {
     it('getShapePoints && drawShape', function() {
