@@ -253,7 +253,7 @@ class GeomLabels extends Group {
     if (point.shape === 'pyramid' && !point.nextPoints && point.points) {
       point.points.forEach(p => {
         p = coord.convert(p);
-        if ((point.x instanceof Array && point.x.indexOf(p.x) === -1) || (typeof (point.x) === 'number' && point.x !== p.x)) {
+        if ((Util.isArray(p.x) && point.x.indexOf(p.x) === -1) || (Util.isNumber(p.x) && point.x !== p.x)) {
           labelPoint.x = (labelPoint.x + p.x) / 2;
         }
       });
