@@ -1,4 +1,5 @@
 const G2 = require('../../src/index');
+const expect = require('chai').expect;
 
 describe('#573', () => {
   it('innerRadius failed display in area shape when coordinates system setted as ploar.', () => {
@@ -52,7 +53,19 @@ describe('#573', () => {
         alternateColor: 'rgba(204, 204, 204, 0.4)'
       }
     });
-    chart.area().position('categories*value').color('name');
+    const area = chart.area().position('categories*value').color('name');
     chart.render();
+    const shapes = area.getShapes();
+    const path = shapes[0].__attrs.path;
+    expect(path[6][0]).to.equal('L');
+    expect(path[6][1]).to.equal(280);
+    expect(path[6][2]).to.equal(99.5769230769231);
+    expect(path[7][0]).to.equal('L');
+    expect(path[7][1]).to.equal(210.71796769724492);
+    expect(path[7][2]).to.equal(192.5);
+    expect(path[13][0]).to.equal('L');
+    expect(path[13][1]).to.equal(210.71796769724492);
+    expect(path[13][2]).to.equal(192.5);
+    expect(path[14].length).to.equal(1);
   });
 });
