@@ -5,6 +5,7 @@
 
 const View = require('../chart/view');
 const GeomBase = require('./base');
+require('./shape/edge');
 
 class Edge extends GeomBase {
   /**

@@ -3,7 +3,7 @@ const Animate = require('./animate/animate');
 const Chart = require('./chart/chart');
 const Global = require('./global');
 const Scale = require('./scale/index');
-const Shape = require('./geom/shape/index');
+const Shape = require('./geom/shape/shape');
 const Util = require('./util');
 
 const G2 = {

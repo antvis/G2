@@ -1,7 +1,7 @@
 const Util = require('../../util');
 const Global = require('../../global');
 const Legend = require('../../component/legend');
-const Shape = require('../../geom/shape/index');
+const Shape = require('../../geom/shape/shape');
 
 const FIELD_ORIGIN = '_origin';
 const MARKER_SIZE = 4.5;

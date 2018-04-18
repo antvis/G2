@@ -14,6 +14,7 @@ const {
   intersectionAreaPath,
   computeTextCentres
 } = require('venn.js');
+require('./shape/venn');
 
 function parseFields(field) {
   if (Util.isArray(field)) {

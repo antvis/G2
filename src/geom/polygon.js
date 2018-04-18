@@ -5,6 +5,7 @@
 const View = require('../chart/view');
 const GeomBase = require('./base');
 const Util = require('../util');
+require('./shape/polygon');
 
 class Polygon extends GeomBase {
   /**

@@ -4,6 +4,7 @@
  */
 const View = require('../chart/view');
 const Path = require('./path');
+require('./shape/line');
 
 class Line extends Path {
   /**

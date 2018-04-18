@@ -1,8 +1,9 @@
 const expect = require('chai').expect;
 const { Canvas } = require('@antv/g');
-const Shape = require('../../../../src/geom/shape/');
+const Shape = require('../../../../src/geom/shape/shape');
 const Coord = require('../../../../src/coord/');
 const Global = require('../../../../src/global');
+require('../../../../src/geom/shape/point');
 
 const div = document.createElement('div');
 div.id = 'csp';
@@ -27,6 +28,7 @@ const canvas = new Canvas({
 
 const Point = Shape.getShapeFactory('point');
 Point._coord = coord;
+
 describe('Point shapes', function() {
   describe('default', function() {
     it('default shape type', function() {

@@ -7,6 +7,7 @@ const GeomBase = require('./base');
 const SplitMixin = require('./mixin/split');
 const Util = require('../util');
 const View = require('../chart/view');
+require('./shape/area');
 
 class Area extends GeomBase {
   /**

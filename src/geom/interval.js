@@ -6,6 +6,7 @@ const View = require('../chart/view');
 const GeomBase = require('./base');
 const Util = require('../util');
 const SizeMixin = require('./mixin/size');
+require('./shape/interval');
 
 class Interval extends GeomBase {
   /**
