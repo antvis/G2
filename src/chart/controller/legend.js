@@ -1,6 +1,6 @@
 const Util = require('../../util');
 const Global = require('../../global');
-const { Legend } = require('../../component/index');
+const Legend = require('../../component/legend');
 const Shape = require('../../geom/shape/index');
 
 const FIELD_ORIGIN = '_origin';

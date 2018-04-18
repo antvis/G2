@@ -49,4 +49,7 @@ require('./geom/polygon');
 require('./geom/schema');
 require('./geom/venn');
 
+// facets
+require('./facet/index');
+
 module.exports = G2;
