@@ -92,7 +92,7 @@ function startService(port) {
     const BrowserWindow = require('electron').BrowserWindow;
     const watch = require('torchjs/lib/watch');
     const windowBoundsConfig = require('torchjs/lib/windowBoundsConfig')(
-      resolve(app.getPath('userData'), './data-set-config.json')
+      resolve(app.getPath('userData'), './g2-demos-config.json')
     );
 
     let win;
