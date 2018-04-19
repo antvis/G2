@@ -36,11 +36,12 @@ function getPath(cfg, smooth, shape) {
   const topLinePoints = []; // area 区域上部分
   let bottomLinePoints = []; // area 区域下部分
   const isInCircle = cfg.isInCircle;
+  const hasStack = cfg.hasStack;
   Util.each(cfg.points, function(point) {
     topLinePoints.push(point[1]);
     bottomLinePoints.push(point[0]);
   });
-  if (!isInCircle) {
+  if (isInCircle || hasStack) {
     bottomLinePoints = bottomLinePoints.reverse();
   }
   pointsArr.push(topLinePoints, bottomLinePoints);
@@ -56,7 +57,7 @@ function getPath(cfg, smooth, shape) {
     } else {
       subPath = PathUtil.getLinePath(points, false);
     }
-    if (!isInCircle && index > 0) {
+    if ((isInCircle || hasStack) && index > 0) {
       subPath[0][0] = 'L';
     }
     path = path.concat(subPath);
