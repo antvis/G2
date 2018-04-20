@@ -60,12 +60,12 @@ describe('line shapes', function() {
       expect(pointCfg.symbol).to.be.an.instanceof(Function);
     });
 
-    xit('getActiveCfg', function() {
-      const activeCfg = Line.getActiveCfg();
-      expect(activeCfg).eql({
-        lineWidth: 4 / 2
-      });
-    });
+    // xit('getActiveCfg', function() {
+    //   const activeCfg = Line.getActiveCfg();
+    //   expect(activeCfg).eql({
+    //     lineWidth: 4 / 2
+    //   });
+    // });
   });
 
   describe('line has size', function() {

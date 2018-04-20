@@ -8,9 +8,8 @@ const View = require('./view');
 const G = require('@antv/g');
 const Canvas = G.Canvas;
 const DomUtil = G.DomUtil;
-const Component = require('../component/index');
+const Plot = require('../component/plot');
 const Controller = require('./controller/index');
-const Facets = require('../facet/index');
 const Global = require('../global');
 const AUTO_STR = 'auto';
 
@@ -183,7 +182,7 @@ class Chart extends View {
   // 初始化背景
   _initPlotBack() {
     const canvas = this.get('canvas');
-    const plot = canvas.addGroup(Component.Plot, {
+    const plot = canvas.addGroup(Plot, {
       padding: this.get('padding'),
       plotBackground: Util.mix({}, Global.plotBackground, this.get('plotBackground')),
       background: Util.mix({}, Global.background, this.get('background'))
@@ -330,20 +329,6 @@ class Chart extends View {
    */
   changeHeight(height) {
     return this.changeSize(this.get('width'), height);
-  }
-
-  facet(type, cfg) {
-    const cls = Facets[Util.upperFirst(type)];
-    if (!cls) {
-      throw new Error('Not support such type of facets as: ' + type);
-    }
-    const preFacets = this.get('facets');
-    if (preFacets) {
-      preFacets.destroy();
-    }
-    cfg.chart = this;
-    const facets = new cls(cfg);
-    this.set('facets', facets);
   }
 
   /**

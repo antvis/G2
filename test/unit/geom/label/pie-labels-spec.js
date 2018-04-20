@@ -640,9 +640,9 @@ describe('pie labels', function() {
       canvas.draw();
     });
 
-    xit('remove', function() {
-      // $('#gl3').remove();
-    });
+    // xit('remove', function() {
+    //   // $('#gl3').remove();
+    // });
   });
 
   describe('Just one label.', function() {

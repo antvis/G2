@@ -3,8 +3,10 @@
  * @author dxq613@gmail.com
  */
 
-const assign = require('lodash/assign');
 const Base = require('./base');
+const Util = require('../util');
+
+const assign = Util.assign;
 
 class Tree extends Base {
   getDefaultCfg() {

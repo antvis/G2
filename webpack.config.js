@@ -5,7 +5,9 @@ const pkg = require('./package.json');
 module.exports = {
   devtool: 'cheap-source-map',
   entry: {
-    g2: './src/index.js'
+    g2: './src/index.js',
+    'g2-core': './src/core.js',
+    'g2-simple': './src/simple.js'
   },
   output: {
     filename: '[name].js',

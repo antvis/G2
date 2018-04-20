@@ -229,4 +229,6 @@ class Heatmap extends GeomBase {
   }
 }
 
+GeomBase.Heatmap = Heatmap;
+
 module.exports = Heatmap;

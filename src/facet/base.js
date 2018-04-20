@@ -3,11 +3,13 @@
  * @author dxq613@gmail.com
  */
 
-const assign = require('lodash/assign');
-const isNil = require('lodash/isNil');
-const isArray = require('lodash/isArray');
-const cloneDeep = require('lodash/cloneDeep');
 const Global = require('../global');
+const Util = require('../util');
+
+const assign = Util.assign;
+const isNil = Util.isNil;
+const isArray = Util.isArray;
+const cloneDeep = Util.cloneDeep;
 
 // 绑定事件
 function wrapBehavior(obj, action) {
