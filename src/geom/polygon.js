@@ -2,7 +2,6 @@
  * @fileOverview 多边形
  * @author dxq613@gmail.com
  */
-const View = require('../chart/view');
 const GeomBase = require('./base');
 const Util = require('../util');
 require('./shape/polygon');
@@ -53,6 +52,6 @@ class Polygon extends GeomBase {
   }
 }
 
-View.registerGeom(Polygon, 'Polygon');
+GeomBase.Polygon = Polygon;
 
 module.exports = Polygon;

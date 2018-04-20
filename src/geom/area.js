@@ -6,7 +6,6 @@
 const GeomBase = require('./base');
 const SplitMixin = require('./mixin/split');
 const Util = require('../util');
-const View = require('../chart/view');
 require('./shape/area');
 
 class Area extends GeomBase {
@@ -58,8 +57,8 @@ class AreaStack extends Area {
 
 Area.Stack = AreaStack;
 
-View.registerGeom(Area, 'Area');
-View.registerGeom(AreaStack, 'AreaStack');
+GeomBase.Area = Area;
+GeomBase.AreaStack = AreaStack;
 
 module.exports = Area;
 

@@ -4,6 +4,7 @@
  */
 
 const Base = require('../base');
+const Geom = require('../geom/base');
 const Util = require('../util');
 const Controller = require('./controller/index');
 const Global = require('../global');
@@ -70,10 +71,18 @@ class View extends Base {
 
   constructor(cfg) {
     super(cfg);
+    const self = this;
+    Util.each(Geom, function(geomConstructor, className) {
+      const methodName = Util.lowerFirst(className);
+      self[methodName] = function(cfg) {
+        const geom = new geomConstructor(cfg);
+        self.addGeom(geom);
+        return geom;
+      };
+    });
     // Util.mix(this, ViewGeoms);
     this.init();
   }
-
 
   /**
    * @protected

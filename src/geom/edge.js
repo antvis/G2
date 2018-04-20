@@ -3,7 +3,6 @@
  * @author dxq613@gmail.com
  */
 
-const View = require('../chart/view');
 const GeomBase = require('./base');
 require('./shape/edge');
 
@@ -22,6 +21,6 @@ class Edge extends GeomBase {
   }
 }
 
-View.registerGeom(Edge, 'Edge');
+GeomBase.Edge = Edge;
 
 module.exports = Edge;

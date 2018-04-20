@@ -2,7 +2,6 @@
  * @fileOverview 点图
  * @author dxq613@gmail.com
  */
-const View = require('../chart/view');
 const GeomBase = require('./base');
 const Util = require('../util');
 require('./shape/point');
@@ -64,8 +63,8 @@ class PointStack extends Point {
 Point.Jitter = PointJitter;
 Point.Stack = PointStack;
 
-View.registerGeom(Point, 'Point');
-View.registerGeom(PointJitter, 'PointJitter');
-View.registerGeom(PointStack, 'PointStack');
+GeomBase.Point = Point;
+GeomBase.PointJitter = PointJitter;
+GeomBase.PointStack = PointStack;
 
 module.exports = Point;

@@ -2,7 +2,6 @@
  * @fileOverview heatmap
  * @author leungwensen@gmail.com
  */
-const View = require('../chart/view');
 const GeomBase = require('./base');
 const colorUtil = require('../attr/color-util');
 const Util = require('../util');
@@ -230,6 +229,6 @@ class Heatmap extends GeomBase {
   }
 }
 
-View.registerGeom(Heatmap, 'Heatmap');
+GeomBase.Heatmap = Heatmap;
 
 module.exports = Heatmap;

@@ -2,7 +2,6 @@
  * @fileOverview interval geometry
  * @author dxq613@gmail.com
  */
-const View = require('../chart/view');
 const GeomBase = require('./base');
 const Util = require('../util');
 const SizeMixin = require('./mixin/size');
@@ -70,9 +69,9 @@ Interval.Stack = IntervalStack;
 Interval.Dodge = IntervalDodge;
 Interval.Symmetric = IntervalSymmetric;
 
-View.registerGeom(Interval, 'Interval');
-View.registerGeom(IntervalStack, 'IntervalStack');
-View.registerGeom(IntervalDodge, 'IntervalDodge');
-View.registerGeom(IntervalSymmetric, 'IntervalSymmetric');
+GeomBase.Interval = Interval;
+GeomBase.IntervalStack = IntervalStack;
+GeomBase.IntervalDodge = IntervalDodge;
+GeomBase.IntervalSymmetric = IntervalSymmetric;
 
 module.exports = Interval;

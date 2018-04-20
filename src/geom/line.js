@@ -2,7 +2,7 @@
  * @fileOverview 线图
  * @author dxq613@gmail.com
  */
-const View = require('../chart/view');
+const GeomBase = require('./base');
 const Path = require('./path');
 require('./shape/line');
 
@@ -31,7 +31,7 @@ class LineStack extends Line {
 
 Line.Stack = LineStack;
 
-View.registerGeom(Line, 'Line');
-View.registerGeom(LineStack, 'LineStack');
+GeomBase.Line = Line;
+GeomBase.LineStack = LineStack;
 
 module.exports = Line;
