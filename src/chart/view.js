@@ -980,13 +980,4 @@ class View extends Base {
   }
 }
 
-View.registerGeom = function(Geom, className) {
-  const methodName = Util.lowerFirst(className);
-  View.prototype[methodName] = function(cfg) {
-    const geom = new Geom(cfg);
-    this.addGeom(geom);
-    return geom;
-  };
-};
-
 module.exports = View;
