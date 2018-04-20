@@ -1,3 +1,19 @@
+
+#### 3.0.6 (2018-04-20)
+
+##### New Features
+
+* feat(geom): support multiple polygon
+* refactor(dev): require on demand (with bundler app) #579 #364
+* chore(dev): reduce module size by removing useless deps of lodash
+* chore(test): clear up test cases
+
+##### Bug Fixes
+
+* fix(geom): fix bug in rendering GeoJSON multi-polygon #551
+* fix(area): fix bug of area innerRadius in polar coord #573
+* fix(pyramid): fix bug of pyramid when processing data with 0 #569
+
 #### 3.0.6 (2018-04-09)
 
 ##### New Features
