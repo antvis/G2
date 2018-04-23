@@ -74,6 +74,7 @@
     "mkdir-dist": "node ./bin/mkdir-dist.js",
     "prepublishOnly": "npm run build-lib && npm run dist",
     "screenshot": "node ./bin/screenshot.js",
+    "start": "npm run dev",
     "test": "torch --compile --renderer --recursive ./test/unit",
     "test-all": "npm run test && npm run test-bugs",
     "test-bugs": "torch --compile --renderer --recursive ./test/bugs",
