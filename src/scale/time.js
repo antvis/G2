@@ -40,7 +40,7 @@ class Time extends Linear {
   init() {
     const self = this;
     const values = self.values;
-    if (values) { // 重新计算最大最小值
+    if (values && values.length) { // 重新计算最大最小值
       const timeStamps = [];
       let min = Infinity; // 最小值
       let secondMin = min; // 次小值
