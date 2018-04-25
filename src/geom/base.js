@@ -1023,7 +1023,6 @@ class GeomBase extends Base {
       size: obj.size,
       shape: obj.shape,
       isInCircle: self.isInCircle(),
-      hasStack: self.hasStack(),
       opacity: obj.opacity
     };
     const styleOptions = self.get('styleOptions');
