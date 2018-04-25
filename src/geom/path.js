@@ -2,7 +2,6 @@
  * @fileOverview 路径图，无序的线图
  * @author dxq613@gmail.com
  */
-
 const GeomBase = require('./base');
 const SplitMixin = require('./mixin/split');
 const Util = require('../util');
@@ -47,5 +46,7 @@ class Path extends GeomBase {
     });
   }
 }
+
+GeomBase.Path = Path;
 
 module.exports = Path;

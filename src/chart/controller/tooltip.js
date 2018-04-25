@@ -4,7 +4,7 @@
  */
 const Util = require('../../util');
 const Global = require('../../global');
-const { Tooltip } = require('../../component/index');
+const Tooltip = require('../../component/tooltip');
 const MatrixUtil = require('@antv/g').MatrixUtil;
 const Vector2 = MatrixUtil.vec2;
 
@@ -419,4 +419,3 @@ class TooltipController {
 }
 
 module.exports = TooltipController;
-

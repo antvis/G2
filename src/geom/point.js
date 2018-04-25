@@ -2,9 +2,9 @@
  * @fileOverview 点图
  * @author dxq613@gmail.com
  */
-
 const GeomBase = require('./base');
 const Util = require('../util');
+require('./shape/point');
 
 class Point extends GeomBase {
   /**
@@ -62,5 +62,9 @@ class PointStack extends Point {
 
 Point.Jitter = PointJitter;
 Point.Stack = PointStack;
+
+GeomBase.Point = Point;
+GeomBase.PointJitter = PointJitter;
+GeomBase.PointStack = PointStack;
 
 module.exports = Point;

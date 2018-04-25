@@ -246,42 +246,42 @@ describe('分类图例', function() {
     expect(children[0].get('checked')).to.be.false;
   });
 
-  xit('水平布局，但是总长度超出了容器宽度，自动换行', function() {
-    canvas.clear();
-    const items = [];
-    for (let i = 0; i < 25; i++) {
-      items.push({
-        value: 'test ' + i,
-        attrValue: colors[i % 10],
-        marker: {
-          symbol: symbols[i % 5],
-          radius: 5,
-          fill: colors[i % 10]
-        },
-        checked: !(i >= 20)
-      });
-    }
+  // it('水平布局，但是总长度超出了容器宽度，自动换行', function() {
+  //   canvas.clear();
+  //   const items = [];
+  //   for (let i = 0; i < 25; i++) {
+  //     items.push({
+  //       value: 'test ' + i,
+  //       attrValue: colors[i % 10],
+  //       marker: {
+  //         symbol: symbols[i % 5],
+  //         radius: 5,
+  //         fill: colors[i % 10]
+  //       },
+  //       checked: !(i >= 20)
+  //     });
+  //   }
 
-    const legend = canvas.addGroup(Legend, {
-      items,
-      allowAllCanceled: true,
-      itemGap: 20,
-      itemMarginBottom: 20,
-      title: {
-        fill: '#f80',
-        fontSize: 16,
-        textAlign: 'start',
-        textBaseline: 'top',
-        text: 'Legend-title'
-      },
-      maxLength: 500
-    });
-    canvas.draw();
-    const legendBBox = legend.getBBox();
-    const legendItems = legend.get('itemsGroup');
-    expect(legendBBox.width).to.be.below(500);
-    expect(legendItems.getCount()).to.equal(25);
-  });
+  //   const legend = canvas.addGroup(Legend, {
+  //     items,
+  //     allowAllCanceled: true,
+  //     itemGap: 20,
+  //     itemMarginBottom: 20,
+  //     title: {
+  //       fill: '#f80',
+  //       fontSize: 16,
+  //       textAlign: 'start',
+  //       textBaseline: 'top',
+  //       text: 'Legend-title'
+  //     },
+  //     maxLength: 500
+  //   });
+  //   canvas.draw();
+  //   const legendBBox = legend.getBBox();
+  //   const legendItems = legend.get('itemsGroup');
+  //   expect(legendBBox.width).to.be.below(500);
+  //   expect(legendItems.getCount()).to.equal(25);
+  // });
 
   it('水平布局，但是总长度超出了容器宽度，自动换行，且每行列对齐', function() {
     canvas.clear();

@@ -13,6 +13,7 @@ const {
   intersectionAreaPath,
   computeTextCentres
 } = require('venn.js');
+require('./shape/venn');
 
 function parseFields(field) {
   if (Util.isArray(field)) {
@@ -163,5 +164,7 @@ class Venn extends GeomBase {
     });
   }
 }
+
+GeomBase.Venn = Venn;
 
 module.exports = Venn;

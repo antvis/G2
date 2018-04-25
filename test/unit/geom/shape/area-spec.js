@@ -104,24 +104,24 @@ describe('area shapes', function() {
       expect(pointCfg.symbol).to.be.an.instanceof(Function);
     });
 
-    xit('getActiveCfg', function() {
-      let activeCfg = Area.getActiveCfg('area');
-      expect(activeCfg).eql({
-        fill: '#fff',
-        fillOpacity: 0.3
-      });
-
-      activeCfg = Area.getActiveCfg('line');
-      expect(activeCfg).eql({
-        lineWidth: 2
-      });
-
-      activeCfg = Area.getActiveCfg();
-      expect(activeCfg).eql({
-        fill: '#fff',
-        fillOpacity: 0.3
-      });
-    });
+    // xit('getActiveCfg', function() {
+    //   let activeCfg = Area.getActiveCfg('area');
+    //   expect(activeCfg).eql({
+    //     fill: '#fff',
+    //     fillOpacity: 0.3
+    //   });
+    //
+    //   activeCfg = Area.getActiveCfg('line');
+    //   expect(activeCfg).eql({
+    //     lineWidth: 2
+    //   });
+    //
+    //   activeCfg = Area.getActiveCfg();
+    //   expect(activeCfg).eql({
+    //     fill: '#fff',
+    //     fillOpacity: 0.3
+    //   });
+    // });
   });
 
   describe('smooth', function() {

@@ -6,6 +6,7 @@
 const GeomBase = require('./base');
 const SplitMixin = require('./mixin/split');
 const Util = require('../util');
+require('./shape/area');
 
 class Area extends GeomBase {
   /**
@@ -55,4 +56,9 @@ class AreaStack extends Area {
 }
 
 Area.Stack = AreaStack;
+
+GeomBase.Area = Area;
+GeomBase.AreaStack = AreaStack;
+
 module.exports = Area;
+

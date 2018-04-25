@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const Shape = require('../../../../src/geom/shape/');
+const Shape = require('../../../../src/geom/shape/shape');
 const Coord = require('../../../../src/coord/');
 
 describe('shape register', () => {
