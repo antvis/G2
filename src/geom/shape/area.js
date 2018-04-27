@@ -40,9 +40,9 @@ function getPath(cfg, smooth, shape) {
     topLinePoints.push(point[1]);
     bottomLinePoints.push(point[0]);
   });
-
+  // if (!isInCircle) {
   bottomLinePoints = bottomLinePoints.reverse();
-
+  // }
   pointsArr.push(topLinePoints, bottomLinePoints);
   Util.each(pointsArr, function(points, index) {
     let subPath = [];
