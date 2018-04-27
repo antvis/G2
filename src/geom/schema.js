@@ -2,10 +2,10 @@
  * @fileOverview 自定义图形
  * @author dxq613@gmail.com
  */
-
 const GeomBase = require('./base');
 const Util = require('../util');
 const SizeMixin = require('./mixin/size');
+require('./shape/schema');
 
 class Schema extends GeomBase {
   /**
@@ -43,4 +43,8 @@ class SchemaDodge extends Schema {
 }
 
 Schema.Dodge = SchemaDodge;
+
+GeomBase.Schema = Schema;
+GeomBase.SchemaDodge = SchemaDodge;
+
 module.exports = Schema;

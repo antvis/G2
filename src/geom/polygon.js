@@ -2,9 +2,10 @@
  * @fileOverview 多边形
  * @author dxq613@gmail.com
  */
-
 const GeomBase = require('./base');
 const Util = require('../util');
+require('./shape/polygon');
+
 class Polygon extends GeomBase {
   /**
    * 获取默认的配置属性
@@ -50,5 +51,7 @@ class Polygon extends GeomBase {
     return cfg;
   }
 }
+
+GeomBase.Polygon = Polygon;
 
 module.exports = Polygon;

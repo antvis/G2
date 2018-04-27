@@ -66,14 +66,14 @@ describe('polygon shapes', function() {
       });
       expect(markerCfg.symbol).eql('square');
     });
-    xit('getActiveCfg', function() {
-      const activeCfg = Polygon.getActiveCfg('polygon');
-
-      expect(activeCfg).eql({
-        fill: '#fff',
-        fillOpacity: 0.3
-      });
-    });
+    // xit('getActiveCfg', function() {
+    //   const activeCfg = Polygon.getActiveCfg('polygon');
+    //
+    //   expect(activeCfg).eql({
+    //     fill: '#fff',
+    //     fillOpacity: 0.3
+    //   });
+    // });
   });
 
   describe('hollow', function() {

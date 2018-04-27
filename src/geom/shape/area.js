@@ -246,3 +246,4 @@ Shape.registerShape('area', 'smoothLine', {
 Area.spline = Area.smooth;
 
 module.exports = Area;
+

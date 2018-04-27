@@ -4,6 +4,7 @@
  */
 
 const GeomBase = require('./base');
+require('./shape/edge');
 
 class Edge extends GeomBase {
   /**
@@ -19,5 +20,7 @@ class Edge extends GeomBase {
     return cfg;
   }
 }
+
+GeomBase.Edge = Edge;
 
 module.exports = Edge;

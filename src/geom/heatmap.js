@@ -7,7 +7,7 @@ const colorUtil = require('../attr/color-util');
 const Util = require('../util');
 
 const ORIGIN_FIELD = '_origin';
-const SHADOW_CANVAS_CTX = 'shadowCanvasCtx';
+const SHADOW_CANVAS = 'shadowCanvas';
 const VALUE_RANGE = 'valueRange';
 const IMAGE_SHAPE = 'imageShape';
 const MAPPED_DATA = 'mappedData';
@@ -137,24 +137,20 @@ class Heatmap extends GeomBase {
 
   _getShadowCanvasCtx() {
     const self = this;
-    let ctx = self.get(SHADOW_CANVAS_CTX);
-    if (ctx) {
-      return ctx;
+    let canvas = self.get(SHADOW_CANVAS);
+    if (!canvas) {
+      canvas = document.createElement('canvas');
+      self.set(SHADOW_CANVAS, canvas);
     }
     const { width, height } = self.get('coord');
-    const heatmapCanvas = document.createElement('canvas');
-    heatmapCanvas.width = width;
-    heatmapCanvas.height = height;
-    ctx = heatmapCanvas.getContext('2d');
-    self.set(SHADOW_CANVAS_CTX, ctx);
-    return ctx;
+    canvas.width = width;
+    canvas.height = height;
+    return canvas.getContext('2d');
   }
 
   _clearShadowCanvasCtx() {
-    const ctx = this.get(SHADOW_CANVAS_CTX);
-    if (ctx) {
-      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    }
+    const ctx = this._getShadowCanvasCtx();
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   }
 
   _getImageShape() {
@@ -228,5 +224,7 @@ class Heatmap extends GeomBase {
     // super.draw(data, container, shapeFactory, index);
   }
 }
+
+GeomBase.Heatmap = Heatmap;
 
 module.exports = Heatmap;

@@ -3,7 +3,7 @@
  * @author sima.zhang
  */
 const Util = require('../../util');
-const { Axis } = require('../../component/index');
+const Axis = require('../../component/axis');
 const { vec2 } = require('@antv/g').MatrixUtil;
 const Global = require('../../global');
 

@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const Chart = require('../../../src/chart/chart');
+const Chart = require('../../../src/index').Chart;
 const Global = require('../../../src/global');
 const div = document.createElement('div');
 div.id = 'ccharta';
