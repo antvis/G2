@@ -40,22 +40,25 @@ function getPath(points) {
     const c = points[i];
     if (c.x !== points[i - 1].x || c.y !== points[i - 1].y) {
       path.push([ 'L', c.x, c.y ]);
-      if (c.x === flag.x && c.y === flag.y) {
+      if (c.x === flag.x && c.y === flag.y && i < points.length - 1) {
         flag = points[i + 1];
-        if (i < points.length - 1) {
-          path.push([ 'Z' ]);
-          path.push([ 'M', flag.x, flag.y ]);
-        }
+        path.push([ 'Z' ]);
+        path.push([ 'M', flag.x, flag.y ]);
         i++;
       }
     }
     i++;
   }
 
+  if (!Util.isEqual(path[path.length - 1], flag)) {
+    path.push([ 'L', flag.x, flag.y ]);
+  }
+
   path.push([ 'Z' ]);
 
   return path;
 }
+
 
 // regist line geom
 const Polygon = Shape.registerFactory('polygon', {

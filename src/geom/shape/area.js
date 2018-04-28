@@ -36,7 +36,6 @@ function getPath(cfg, smooth, shape) {
   const topLinePoints = []; // area 区域上部分
   let bottomLinePoints = []; // area 区域下部分
   const isInCircle = cfg.isInCircle;
-  // const hasStack = cfg.hasStack;
   Util.each(cfg.points, function(point) {
     topLinePoints.push(point[1]);
     bottomLinePoints.push(point[0]);
@@ -57,6 +56,7 @@ function getPath(cfg, smooth, shape) {
     } else {
       subPath = PathUtil.getLinePath(points, false);
     }
+
     if (index > 0) {
       subPath[0][0] = 'L';
     }
@@ -246,3 +246,4 @@ Shape.registerShape('area', 'smoothLine', {
 Area.spline = Area.smooth;
 
 module.exports = Area;
+

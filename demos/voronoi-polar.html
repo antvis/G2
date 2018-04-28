@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="geometry" content="diagram">
+  <link rel="stylesheet" href="./assets/common.css">
+  <title>Voronoi Diagram in Polar Coord</title>
+</head>
+
+<body>
+<div id="canvas"></div>
+<script src="./assets/jquery-3.2.1.min.js"></script>
+<script src="./assets/data-set.min.js"></script>
+<script src="../build/g2.js"></script>
+<script>
+  $.getJSON('./data/voronoi.json', data => {
+    const ds = new DataSet();
+    const dv = ds.createView().source(data);
+    dv.transform({
+      type: 'diagram.voronoi',
+      fields: [ 'x', 'y' ],
+      size: [ 800, 600 ],
+      as: [ '_x', '_y' ]
+    });
+
+    const chart = new G2.Chart({
+      container: 'canvas',
+      forceFit: true,
+      height: window.innerHeight,
+      padding: 0
+    });
+    chart.axis(false);
+    chart.legend(false);
+    chart.coord('polar');
+    chart.tooltip({
+      showTitle: false
+    });
+
+    chart.source(dv);
+    chart.polygon()
+      .position('_x*_y')
+      .color('value')
+      .label('value', {
+        offset: 0,
+        textStyle: {
+          fill: '#fff',
+          fontSize: '12',
+          textAlign: 'center',
+          shadowBlur: 2,
+          shadowColor: 'rgba(0, 0, 0, .45)'
+        }
+      });
+
+    chart.render();
+  });
+</script>
+</body>
+
+</html>
+
