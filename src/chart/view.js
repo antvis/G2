@@ -931,7 +931,6 @@ class View extends Base {
     this._initGeoms();
     this._adjustScale();
     // }
-
   }
 
   paint() {
