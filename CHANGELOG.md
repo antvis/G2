@@ -1,3 +1,16 @@
+#### 3.0.9 (2018-04-28)
+
+##### Bug Fixes
+
+* fix(heatmap): not drawn properly after resize (caused by ctx cache), Closes #604
+* fix(scale): time scale init error (caused by invalid min and max), Closes #607
+* fix(polygon): open path is not drawn properly in polar coordinate system
+
+#### 3.0.8 (2018-04-22)
+
+##### Bug Fixes
+
+* fix(area): urgent fix of basic area plot, Closes #602
 
 #### 3.0.7 (2018-04-20)
 

@@ -52,12 +52,13 @@ describe('polygon shapes', function() {
         color: 'red'
       }, canvas);
       expect(shape.attr('fill')).eql('red');
-      expect(shape.attr('path').length).eql(5);
+      expect(shape.attr('path').length).eql(6);
       expect(shape.attr('path')[0].length).eql(3);
       expect(shape.attr('path')[1].length).eql(3);
       expect(shape.attr('path')[2].length).eql(3);
       expect(shape.attr('path')[3].length).eql(3);
-      expect(shape.attr('path')[4].length).eql(1);
+      expect(shape.attr('path')[4].length).eql(3);
+      expect(shape.attr('path')[5].length).eql(1);
     });
     it('getMarkerCfg', function() {
       const markerCfg = Polygon.getMarkerCfg('polygon', {
@@ -95,13 +96,14 @@ describe('polygon shapes', function() {
         color: 'blue'
       }, canvas);
       expect(shape.attr('stroke')).eql('blue');
-      expect(shape.attr('path').length).eql(6);
+      expect(shape.attr('path').length).eql(7);
       expect(shape.attr('path')[0].length).eql(3);
       expect(shape.attr('path')[1].length).eql(3);
       expect(shape.attr('path')[2].length).eql(3);
       expect(shape.attr('path')[3].length).eql(3);
       expect(shape.attr('path')[4].length).eql(3);
-      expect(shape.attr('path')[5].length).eql(1);
+      expect(shape.attr('path')[5].length).eql(3);
+      expect(shape.attr('path')[6].length).eql(1);
       canvas.draw();
     });
   });
@@ -120,7 +122,7 @@ describe('polygon shapes', function() {
       }, canvas);
 
       expect(shape.attr('fill')).eql('blue');
-      expect(shape.attr('path').length).eql(97);
+      expect(shape.attr('path').length).eql(98);
       expect(shape.attr('path')[51].length).eql(1);
       expect(shape.attr('path')[57].length).eql(1);
       expect(shape.attr('path')[68].length).eql(1);
@@ -128,7 +130,7 @@ describe('polygon shapes', function() {
       expect(shape.attr('path')[79].length).eql(1);
       expect(shape.attr('path')[85].length).eql(1);
       expect(shape.attr('path')[90].length).eql(1);
-      expect(shape.attr('path')[96].length).eql(1);
+      expect(shape.attr('path')[97].length).eql(1);
       canvas.draw();
     });
   });
