@@ -79,11 +79,21 @@ class View extends Base {
     };
   }
 
-  constructor(cfg) {
+   constructor(cfg) {
     super(cfg);
-    Util.mix(this, ViewGeoms);
+    const self = this;
+    Util.each(Geom, function(geomConstructor, className) {
+      const methodName = Util.lowerFirst(className);
+      self[methodName] = function(cfg) {
+        const geom = new geomConstructor(cfg);
+        self.addGeom(geom);
+        return geom;
+      };
+    });
+    // Util.mix(this, ViewGeoms);
     this.init();
   }
+
 
   /**
    * @protected
