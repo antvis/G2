@@ -4,7 +4,7 @@
  */
 
 const Base = require('../base');
-const Geom = require('../geom/');
+const Geom = require('../geom/base');
 const Util = require('../util');
 const Controller = require('./controller/index');
 const Global = require('../global');
