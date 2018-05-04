@@ -6,20 +6,20 @@ const View = require('../chart/view');
 const G2 = require('../core.js');
 const Util = require('../util');
 
-G2.__Interactions = {};
+G2._Interactions = {};
 G2.registerInteraction = function(type, constructor) {
-  G2.__Interactions[type] = constructor;
+  G2._Interactions[type] = constructor;
 };
 G2.getInteraction = function(type) {
-  return G2.__Interactions[type];
+  return G2._Interactions[type];
 };
 
 View.prototype.getInteractions = function() {
   const me = this;
-  if (!me.__interactions) {
-    me.__interactions = {};
+  if (!me._interactions) {
+    me._interactions = {};
   }
-  return me.__interactions;
+  return me._interactions;
 };
 
 View.prototype.setInteraction = function(type, interact) {
@@ -34,12 +34,12 @@ View.prototype.clearInteraction = function(type) {
   const interactions = me.getInteractions();
   if (type) {
     (interactions[type] || []).forEach(interact => {
-      interact.clear();
+      interact.destroy();
     });
   } else {
     Util.each(interactions, collection => {
       (collection || []).forEach(interact => {
-        interact.clear();
+        interact.destroy();
       });
     });
   }
@@ -47,9 +47,8 @@ View.prototype.clearInteraction = function(type) {
 View.prototype.interact = function(type, cfg) {
   const me = this;
   const Interaction = G2.getInteraction[type];
-  const interact = new Interaction(cfg);
-  interact.execute();
+  const interact = new Interaction(cfg, me);
   me.setInteraction(type, interact);
 };
 
-module.exports = G2.__interactions;
+module.exports = G2._interactions;
