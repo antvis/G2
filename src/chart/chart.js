@@ -546,11 +546,11 @@ class Chart extends View {
       const bstr = atob(arr[1]);
       let n = bstr.length;
       let u8arr = new Uint8Array(n);
-      while (n--){
-        u8arr[n] = bstr.charCodeAt(n);
+      while (n--) {
+        const u8arr[n] = bstr.charCodeAt(n);
       }
       const blobObj = new Blob([ u8arr ], { type: mime });
-      if (window.navigator.msSaveBlob){
+      if (window.navigator.msSaveBlob) {
         window.navigator.msSaveBlob(blobObj, (name || 'chart') + '.png');
       } else {
         link.addEventListener('click', function() {
@@ -563,7 +563,7 @@ class Chart extends View {
         link.download = (name || 'chart') + '.png';
         link.href = dataURL.replace('image/png', 'image/octet-stream');
       });
-    } 
+    }
     const e = document.createEvent('MouseEvents');
     e.initEvent('click', false, false);
     link.dispatchEvent(e);
