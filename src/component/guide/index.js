@@ -7,6 +7,7 @@ module.exports = {
   Text: require('./text'),
   Image: require('./image'),
   Region: require('./region'),
+  RegionFilter: require('./region-filter'),
   Html: require('./html'),
   Arc: require('./arc')
 };
