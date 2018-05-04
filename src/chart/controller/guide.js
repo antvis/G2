@@ -3,7 +3,7 @@
  * @author sima.zhang
  */
 const Util = require('../../util');
-const { Guide } = require('../../component/index');
+const Guide = require('../../component/guide');
 const Global = require('../../global');
 
 class GuideController {

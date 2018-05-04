@@ -79,7 +79,7 @@ class View extends Base {
     };
   }
 
-  constructor(cfg) {
+   constructor(cfg) {
     super(cfg);
     const self = this;
     Util.each(Geom, function(geomConstructor, className) {
