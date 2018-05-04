@@ -54,13 +54,17 @@ module.exports = function(info) {
     return e;
   });
 
-  ticks.push(categories[0]);
+  if (categories.length) {
+    ticks.push(categories[0]);
+  }
   for (let i = 1; (i < groups.length) && (i * step < length - step); i++) {
     ticks.push(groups[i][0]);
   }
-  const last = categories[length - 1];
-  if (ticks.indexOf(last) === -1) {
-    ticks.push(last);
+  if (categories.length) {
+    const last = categories[length - 1];
+    if (ticks.indexOf(last) === -1) {
+      ticks.push(last);
+    }
   }
 
   rst.categories = categories;

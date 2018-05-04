@@ -12,6 +12,7 @@ class GuideController {
     this.options = [];
     this.xScales = null;
     this.yScales = null;
+    this.view = null;
     this.container = null;
     Util.mix(this, cfg);
   }
@@ -21,11 +22,13 @@ class GuideController {
     const options = this.options;
     const xScales = this.xScales;
     const yScales = this.yScales;
+    const view = this.view;
     options.forEach(function(option) {
       let type = option.type;
       const config = Util.deepMix({
         xScales,
-        yScales
+        yScales,
+        view
       }, Global.guide[type], option);
       type = Util.upperFirst(type);
       const guide = new Guide[type](config);
@@ -70,12 +73,20 @@ class GuideController {
     return this;
   }
 
+  regionFilter(cfg = {}) {
+    this.options.push(Util.mix({
+      type: 'regionFilter'
+    }, cfg));
+    return this;
+  }
+
   html(cfg = {}) {
     this.options.push(Util.mix({
       type: 'html'
     }, cfg));
     return this;
   }
+
 
   render(coord) {
     const self = this;

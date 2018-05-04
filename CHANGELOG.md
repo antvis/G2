@@ -1,3 +1,14 @@
+#### 3.0.10 (2018-05-04)
+
+##### New Features
+
+* feat(guide):add regionFilter guide
+
+##### Bug Fixes
+
+* fix(chart): fix downloadImage method in chart to fit IE 10+ and Firefox, Close #617
+* fix(scale): fixing timeCat scale when data is empty, Closes #615
+
 #### 3.0.9 (2018-04-28)
 
 ##### Bug Fixes
