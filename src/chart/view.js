@@ -323,6 +323,7 @@ class View extends Base {
     const guideController = this.get('guideController');
     if (!Util.isEmpty(guideController.options)) {
       const coord = this.get('coord');
+      guideController.view = this;
       guideController.backContainer = this.get('backPlot');
       guideController.frontContainer = this.get('frontPlot');
       guideController.xScales = this._getScales('x');
