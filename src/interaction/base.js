@@ -1,6 +1,8 @@
 // const Global = require('../global');
 const Util = require('../util');
 const { DomUtil } = require('@antv/g');
+const View = require('../chart/view');
+const G2 = require('../core.js');
 
 const assign = Util.assign;
 
@@ -27,8 +29,8 @@ class Interaction {
     const me = this;
     const defaultCfg = me.getDefaultCfg();
     assign(me, defaultCfg, cfg);
-    me._ownerView = view;
-    me._canvas = view.get('canvas');
+    me.view = view;
+    me.canvas = view.get('canvas');
     me._bindEvents();
   }
 
@@ -54,5 +56,50 @@ class Interaction {
     this._clearEvents();
   }
 }
+
+G2._Interactions = {};
+G2.registerInteraction = function(type, constructor) {
+  G2._Interactions[type] = constructor;
+};
+G2.getInteraction = function(type) {
+  return G2._Interactions[type];
+};
+
+View.prototype.getInteractions = function() {
+  const me = this;
+  if (!me._interactions) {
+    me._interactions = {};
+  }
+  return me._interactions;
+};
+
+View.prototype.setInteraction = function(type, interact) {
+  const me = this;
+  const interactions = me.getInteractions();
+  interactions[type] = interactions[type] || [];
+  interactions[type].push(interact);
+};
+
+View.prototype.clearInteraction = function(type) {
+  const me = this;
+  const interactions = me.getInteractions();
+  if (type) {
+    (interactions[type] || []).forEach(interact => {
+      interact.destroy();
+    });
+  } else {
+    Util.each(interactions, collection => {
+      (collection || []).forEach(interact => {
+        interact.destroy();
+      });
+    });
+  }
+};
+View.prototype.interact = function(type, cfg) {
+  const me = this;
+  const Ctor = G2.getInteraction(type);
+  const interact = new Ctor(cfg, me);
+  me.setInteraction(type, interact);
+};
 
 module.exports = Interaction;
