@@ -3,7 +3,7 @@
  * @author sima.zhang
  */
 const Util = require('../../util');
-const Guide = require('../../component/guide');
+const { Guide } = require('../../component/index');
 const Global = require('../../global');
 
 class GuideController {
@@ -12,6 +12,7 @@ class GuideController {
     this.options = [];
     this.xScales = null;
     this.yScales = null;
+    this.view = null;
     this.container = null;
     Util.mix(this, cfg);
   }
@@ -85,6 +86,7 @@ class GuideController {
     }, cfg));
     return this;
   }
+
 
   render(coord) {
     const self = this;
