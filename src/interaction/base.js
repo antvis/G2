@@ -10,7 +10,7 @@ class Interaction {
   getDefaultCfg() {
     return {
       startEvent: 'mousedown',
-      processingEvent: 'mouseover',
+      processingEvent: 'mousemove',
       endEvent: 'mouseup',
       resetEvent: 'dblclick'
     };
@@ -38,6 +38,7 @@ class Interaction {
     const me = this;
     const canvas = me.canvas;
     const canvasDOM = canvas.get('canvasDOM');
+    me._clearEvents();
     me._onStartListener = DomUtil.addEventListener(canvasDOM, me.startEvent, Util.wrapBehavior(me, 'onStart'));
     me._onProcessingListener = DomUtil.addEventListener(canvasDOM, me.processingEvent, Util.wrapBehavior(me, 'onProcessing'));
     me._onEndListener = DomUtil.addEventListener(canvasDOM, me.endEvent, Util.wrapBehavior(me, 'onEnd'));

@@ -42,7 +42,7 @@ class Brush extends Interaction {
     if (BRUSH_TYPES.indexOf(me.type) === -1) {
       me.type = DEFAULT_TYPE;
     }
-    const canvas = me._canvas;
+    const canvas = me.canvas;
     if (canvas) {
       let plotRange;
       canvas.get('children').map(child => {
@@ -70,12 +70,12 @@ class Brush extends Interaction {
     }
   }
 
-  onBrushStart() {}
-  onBrushMove() {}
-  onBrushEnd() {}
-  onDragStart() {}
-  onDragMove() {}
-  onDragEnd() {}
+  onBurshstart() { }
+  onBrushmove() { }
+  onBrushend() {}
+  onDragstart() {}
+  onDragmove() {}
+  onDragend() {}
 
   onStart(ev) {
     const me = this;
@@ -90,7 +90,7 @@ class Brush extends Interaction {
 
     if (me.selection) me.selection = null;
 
-    if (me.dragable && brushShape && !brushShape.get('destroyed')) { // allow drag the brushShape
+    if (me.draggable && brushShape && !brushShape.get('destroyed')) { // allow drag the brushShape
       if (brushShape.isHit(startPoint.x * pixelRatio, startPoint.y * pixelRatio)) {
         canvasDOM.style.cursor = 'move';
         me.selection = brushShape;

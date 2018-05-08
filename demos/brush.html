@@ -48,9 +48,21 @@
         .position('release*count')
         .color('#e50000');
 
+      // chart.tooltip(false);
+
       chart.render();
 
-      chart.interact('brush');
+      chart.interact('brush', {
+        draggable: true,
+        onBrushstart() {
+          chart.hideTooltip();
+        },
+        onBrushmove() {
+          chart.hideTooltip();
+        },
+        onBrushend() {
+        }
+      });
     });
   </script>
 </body>
