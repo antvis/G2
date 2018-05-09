@@ -70,12 +70,12 @@ class Brush extends Interaction {
     }
   }
 
-  onBurshstart() { }
-  onBrushmove() { }
-  onBrushend() {}
-  onDragstart() {}
-  onDragmove() {}
-  onDragend() {}
+  // onBurshstart() { }
+  // onBrushmove() { }
+  // onBrushend() {}
+  // onDragstart() {}
+  // onDragmove() {}
+  // onDragend() {}
 
   onStart(ev) {
     const me = this;
@@ -341,6 +341,12 @@ class Brush extends Interaction {
   }
 
   onReset() {
+    const me = this;
+    const { chart, filter } = me;
+    if (chart && filter) {
+      chart.get('options').filters = {};
+      chart.repaint();
+    }
   }
 
   _limitCoordScope(point) {

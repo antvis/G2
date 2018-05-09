@@ -53,15 +53,17 @@
       chart.render();
 
       chart.interact('brush', {
-        draggable: true,
+        type: 'X',
+        // filter: true,
+        // draggable: true,
         onBrushstart() {
           chart.hideTooltip();
         },
         onBrushmove() {
           chart.hideTooltip();
-        },
-        onBrushend() {
         }
+        // onBrushend() {
+        // }
       });
     });
   </script>
