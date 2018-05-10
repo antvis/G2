@@ -373,7 +373,15 @@ class Tooltip extends Base {
     if (!isChanged) {
       Util.each(items, (item, index) => {
         const preItem = lastItems[index];
-        isChanged = (item.value !== preItem.value) || (item.color !== preItem.color) || (item.name !== preItem.name) || (item.title !== preItem.title);
+        for (const key in item) {
+          if (item.hasOwnProperty(key)) {
+            if (item[key] !== preItem[key]) {
+              isChanged = true;
+              break;
+            }
+          }
+        }
+        // isChanged = (item.value !== preItem.value) || (item.color !== preItem.color) || (item.name !== preItem.name) || (item.title !== preItem.title);
         if (isChanged) {
           return false;
         }
