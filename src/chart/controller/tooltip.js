@@ -14,7 +14,16 @@ const TYPE_SHOW_CROSSHAIRS = [ 'line', 'area' ]; // 默认展示十字瞄准线�
 function _indexOfArray(items, item) {
   let rst = -1;
   Util.each(items, function(sub, index) {
-    if (sub.title === item.title && sub.name === item.name && sub.value === item.value && sub.color === item.color) {
+    let isEqual = true;
+    for (const key in item) {
+      if (item.hasOwnProperty(key)) {
+        if (item[key] !== sub[key]) {
+          isEqual = false;
+          break;
+        }
+      }
+    }
+    if (isEqual) {
       rst = index;
       return false;
     }
