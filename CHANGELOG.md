@@ -1,3 +1,11 @@
+
+#### 3.0.11 (2018-05-11)
+
+##### Bug Fixes
+
+* fix(tooltip): change tooltip when any of the item properties changed, Closes #616
+* fix(tooltip): fix bug in removing duplicated items
+
 #### 3.0.10 (2018-05-04)
 
 ##### New Features
