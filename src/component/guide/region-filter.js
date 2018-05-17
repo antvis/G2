@@ -22,7 +22,6 @@ class RegionFilter extends Base {
     });
   }
 
-
   render(coord, group) {
     const self = this;
     const view = self.view;
@@ -36,7 +35,6 @@ class RegionFilter extends Base {
     self.appendInfo && layer.setSilent('appendInfo', self.appendInfo);
     self.el = layer;
   }
-
 
   _drawShapes(view, layer) {
     const self = this;
@@ -83,8 +81,6 @@ class RegionFilter extends Base {
     }
     attr.stroke = color;
   }
-
 }
-
 
 module.exports = RegionFilter;

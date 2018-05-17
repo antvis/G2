@@ -17,12 +17,16 @@ class Interaction {
   }
 
   onStart() {
+    // TODO override
   }
   onProcessing() {
+    // TODO override
   }
   onEnd() {
+    // TODO override
   }
   onReset() {
+    // TODO override
   }
 
   constructor(cfg, view) {
