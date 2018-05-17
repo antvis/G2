@@ -375,7 +375,7 @@ class Tooltip extends Base {
         const preItem = lastItems[index];
         for (const key in item) {
           if (item.hasOwnProperty(key)) {
-            if (item[key] !== preItem[key]) {
+            if (!Util.isObject(item[key]) && item[key] !== preItem[key]) {
               isChanged = true;
               break;
             }

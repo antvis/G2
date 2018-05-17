@@ -17,7 +17,7 @@ function _indexOfArray(items, item) {
     let isEqual = true;
     for (const key in item) {
       if (item.hasOwnProperty(key)) {
-        if (item[key] !== sub[key]) {
+        if (!Util.isObject(item[key]) && item[key] !== sub[key]) {
           isEqual = false;
           break;
         }
