@@ -32,7 +32,7 @@ class Zoom extends Interaction {
     const scaleController = view.get('scaleController');
     scales.forEach(scale => {
       const field = scale.field;
-      const def = scaleController.defs[field];
+      const def = scaleController.defs[field] || {};
       me.originScaleDefsByField[field] = Util.mix(def, {
         nice: !!def.nice
       });

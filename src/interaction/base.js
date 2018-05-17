@@ -105,6 +105,7 @@ View.prototype.interact = function(type, cfg) {
   const Ctor = G2.getInteraction(type);
   const interact = new Ctor(cfg, me);
   me.setInteraction(type, interact);
+  return me;
 };
 
 module.exports = Interaction;

@@ -52,13 +52,17 @@
 
       chart.render();
 
-      chart.interact('zoom', {
-        type: 'XY'
-        // filter: true,
-        // draggable: true,
-        // onBrushend() {
-        // }
-      });
+      chart
+        .interact('zoom', {
+          type: 'XY'
+          // filter: true,
+          // draggable: true,
+          // onBrushend() {
+          // }
+        })
+        .interact('drag', {
+          type: 'XY'
+        });
     });
   </script>
 </body>

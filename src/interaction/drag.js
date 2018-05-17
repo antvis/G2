@@ -13,7 +13,9 @@ class Drag extends Interaction {
       type: DEFAULT_TYPE,
       stepRatio: 0.05,
       stepByField: {},
-      originScaleDefsByField: {}
+      originScaleDefsByField: {},
+      previousPoint: null,
+      isDragging: false
     });
   }
 
@@ -47,7 +49,55 @@ class Drag extends Interaction {
   // onDrag() { }
   // onDragend() { }
 
-  onProcessing() {
+  _applyTranslate(scale, offset = 0) {
+    const me = this;
+    const { chart } = me;
+    const { min, max, field } = scale;
+    const range = max - min;
+    chart.scale(field, {
+      nice: false,
+      min: min - offset * range,
+      max: max - offset * range
+    });
+  }
+
+  onStart(ev) {
+    const me = this;
+    const { chart, canvas } = me;
+    const canvasDOM = canvas.get('canvasDOM');
+    canvasDOM.style.cursor = 'pointer';
+    const coord = chart.get('coord');
+    me.isDragging = true;
+    me.previousPoint = coord.invertPoint(ev);
+  }
+  onProcessing(ev) {
+    const me = this;
+    if (me.isDragging) {
+      const { chart, type, canvas } = me;
+      const canvasDOM = canvas.get('canvasDOM');
+      canvasDOM.style.cursor = 'move';
+      const coord = chart.get('coord');
+      const previousPoint = me.previousPoint;
+      const currentPoint = coord.invertPoint(ev);
+      if (type.indexOf('X') > -1) {
+        me._applyTranslate(chart.getXScale(), currentPoint.x - previousPoint.x);
+      }
+      if (type.indexOf('Y') > -1) {
+        const yScales = chart.getYScales();
+        yScales.forEach(yScale => {
+          me._applyTranslate(yScale, currentPoint.y - previousPoint.y);
+        });
+      }
+      me.previousPoint = currentPoint;
+      chart.repaint();
+    }
+  }
+  onEnd() {
+    const me = this;
+    me.isDragging = false;
+    const { canvas } = me;
+    const canvasDOM = canvas.get('canvasDOM');
+    canvasDOM.style.cursor = 'default';
   }
 
   onReset() {
