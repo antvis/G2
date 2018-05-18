@@ -1,4 +1,11 @@
 
+#### 3.0.12 (2018-05-18)
+
+##### Bug Fixes
+
+* fix(geom): undefined container in changeVisible. Closes #629
+* fix(tooltip): bug in removing duplicated items, Closes #637
+
 #### 3.0.11 (2018-05-11)
 
 ##### Bug Fixes
