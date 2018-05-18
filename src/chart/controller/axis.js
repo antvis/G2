@@ -315,11 +315,13 @@ class AxisController {
     const cfg = self._getAxisDefaultCfg(coord, scale, dimType, position);
     if (!Util.isEmpty(cfg.grid) && verticalScale) { // 生成 gridPoints
       const gridPoints = [];
+      const tickValues = [];
       const verticalTicks = formatTicks(verticalScale.getTicks());
       // 没有垂直的坐标点时不会只栅格
       if (verticalTicks.length) {
         const ticks = fillAxisTicks(cfg.ticks, scale.isLinear, cfg.grid.align === 'center');
         Util.each(ticks, (tick, idx) => {
+          tickValues.push(tick.tickValue);
           const subPoints = [];
           let value = tick.value;
           if (cfg.grid.align === 'center') {
@@ -353,6 +355,7 @@ class AxisController {
         });
       }
       cfg.grid.items = gridPoints;
+      cfg.grid.tickValues = tickValues;
     }
     return cfg;
   }

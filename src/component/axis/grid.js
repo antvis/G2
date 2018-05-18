@@ -46,7 +46,12 @@ class Grid extends Group {
        * 0基线不在轴线上时，是否强调0基线
        * @type {Boolean}
        */
-      hightLightZero: true
+      hightLightZero: true,
+      /**
+       * 0基线样式
+       * @type {Object}
+       */
+      zeroLineStyle: { stroke: '#000', lineDash: [ 0, 0 ] }
     };
   }
 
@@ -79,6 +84,7 @@ class Grid extends Group {
   _drawGridLines(items, lineStyle) {
     const self = this;
     const type = this.get('type');
+    const tickValues = this.get('tickValues');
     let gridLine;
     let path;
     let cfg;
@@ -109,10 +115,8 @@ class Grid extends Group {
           });
         }
 
-        if (item._id === 'chart-y0-grid-0' && self.get('hightLightZero')) {
-          cfg = Util.mix({}, lineStyle, {
-            stroke: '#000',
-            lineDash: [ 0, 0 ],
+        if (tickValues[idx] === 0 && self.get('hightLightZero') && type === 'line') {
+          cfg = Util.mix({}, self.get('zeroLineStyle'), {
             path
           });
         } else {
