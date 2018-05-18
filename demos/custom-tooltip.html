@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="geometry" content="interval">
+  <link rel="stylesheet" href="./assets/common.css">
+  <title>Custom Tooltip</title>
+</head>
+
+<body>
+  <div id="canvas"></div>
+  <script src="./assets/jquery-3.2.1.min.js"></script>
+  <script src="./assets/data-set.min.js"></script>
+  <script src="../build/g2.js"></script>
+  <script>
+    const data = [
+      {
+        period: '对比期',
+        metricName: '待付款金额-天工专用',
+        count: 28489924.03,
+        percent: null
+      },
+      {
+        period: '对比期',
+        metricName: '销售数量总数-天工专用',
+        count: 855112,
+        percent: 33.31718421680435
+      },
+      {
+        period: '对比期',
+        metricName: '销售金额总数-天工专用',
+        count: 357745303.48,
+        percent: 0.0023902815541722564
+      },
+      {
+        period: '本期',
+        metricName: '待付款金额-天工专用',
+        count: 28489924.03,
+        percent: null
+      },
+      {
+        period: '本期',
+        metricName: '销售数量总数-天工专用',
+        count: 855112,
+        percent: 33.31718421680435
+      },
+      {
+        period: '本期',
+        metricName: '销售金额总数-天工专用',
+        count: 357745303.48,
+        percent: 0.0023902815541722564
+      }
+    ];
+    const chart = new G2.Chart({
+      container: 'canvas',
+      height: window.innerHeight,
+      padding: [ 30, 120, 95 ]
+    });
+    chart.source(data);
+    chart.axis(false);
+    chart.legend(false); // 不显示图例
+    chart.tooltip({
+      crosshairs: false,
+      showTitle: false,
+      itemTpl: '<li data-index={index} style="margin-bottom:4px;">'
+        + '<span style="background-color:{color};" class="g2-tooltip-marker"></span>'
+        + '{period}<br/>'
+        + '<span style="padding-left: 16px">名称：{name}</span><br/>'
+        + '<span style="padding-left: 16px">数值：{count}</span><br/>'
+        + '<span style="padding-left: 16px">占比：{percent}</span><br/>'
+        + '</li>'
+    });
+    chart.facet('mirror', {
+      fields: [ 'period' ],
+      transpose: true,
+      padding: 0,
+      eachView(view) {
+        view.interval()
+          .position('metricName*count')
+          .color('metricName', [ '#BAE7FF', '#69C0FF', '#40A9FF', '#1890FF', '#0050B3' ])
+          .shape('funnel')
+          .tooltip('period*percent*metricName*count', (period, percent, metricName, count) => {
+            return {
+              period,
+              name: metricName,
+              percent: parseFloat(percent * 100).toFixed(2) + '%',
+              count
+            };
+          })
+          .style({
+            lineWidth: 1,
+            stroke: '#fff'
+          });
+      }
+    });
+    chart.render();
+  </script>
+</body>
+
+</html>

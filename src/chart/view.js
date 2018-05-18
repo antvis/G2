@@ -964,9 +964,9 @@ class View extends Base {
   changeVisible(visible, stopDraw) {
     const geoms = this.get('geoms');
     Util.each(geoms, function(geom) {
-      if (geom.get('visible')) { // geom 隐藏时不受
-        geom.changeVisible(visible, true);
-      }
+      // if (geom.get('visible')) { // geom 隐藏时不受
+      geom.changeVisible(visible, true);
+      // }
     });
     this.get('axisController') && this.get('axisController').changeVisible(visible);
     this.get('guideController') && this.get('guideController').changeVisible(visible);
