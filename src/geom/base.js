@@ -1119,13 +1119,17 @@ class GeomBase extends Base {
   }
 
   changeVisible(visible, stopDraw) {
+    const me = this;
+    me.set('visible', visible);
     const shapeContainer = this.get('shapeContainer');
-    shapeContainer.set('visible', visible);
+    if (shapeContainer) {
+      shapeContainer.set('visible', visible);
+    }
     const labelContainer = this.get('labelContainer');
     if (labelContainer) {
       labelContainer.set('visible', visible);
     }
-    if (!stopDraw) {
+    if (!stopDraw && shapeContainer) {
       const canvas = shapeContainer.get('canvas');
       canvas.draw();
     }
