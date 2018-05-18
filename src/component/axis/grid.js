@@ -41,7 +41,12 @@ class Grid extends Group {
        * 是否隐藏最后一条网格线，默认为 false
        * @type {Boolean}
        */
-      hideLastLine: false
+      hideLastLine: false,
+      /**
+       * 0基线不在轴线上时，是否强调0基线
+       * @type {Boolean}
+       */
+      hightLightZero: true
     };
   }
 
@@ -104,9 +109,18 @@ class Grid extends Group {
           });
         }
 
-        cfg = Util.mix({}, lineStyle, {
-          path
-        });
+        if (item._id === 'chart-y0-grid-0' && self.get('hightLightZero')) {
+          cfg = Util.mix({}, lineStyle, {
+            stroke: '#000',
+            lineDash: [ 0, 0 ],
+            path
+          });
+        } else {
+          cfg = Util.mix({}, lineStyle, {
+            path
+          });
+        }
+
         gridLine = self.addShape('path', {
           attrs: cfg
         });

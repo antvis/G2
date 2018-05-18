@@ -298,6 +298,13 @@ class AxisController {
     if (cfg.label && Util.isNil(cfg.label.autoRotate)) {
       cfg.label.autoRotate = true; // 允许自动旋转，避免重叠
     }
+
+    if (options.hasOwnProperty('xField') && options.xField.hasOwnProperty('grid')) {
+      if (cfg.position === 'left') {
+        Util.deepMix(cfg, options.xField);
+      }
+    }
+
     return cfg;
   }
 
