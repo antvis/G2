@@ -34,7 +34,6 @@
         forceFit: true,
         height: window.innerHeight
       });
-      chart.source(dv.rows); // TODO
       chart.scale({
         count: {
           alias: 'top2000 唱片总量'
@@ -44,15 +43,23 @@
           alias: '唱片发行年份'
         }
       });
-      chart.interval()
+      chart.source(dv.rows);
+      const view1 = chart.view();
+      view1.source(dv.rows); // TODO
+      view1.interval()
+        .position('release*count')
+        .color('#e50000');
+
+      const view2 = chart.view();
+      view2.source(dv.rows); // TODO
+      view2.point()
         .position('release*count')
         .color('#e50000');
 
       // chart.tooltip(false);
-
       chart.render();
 
-      chart
+      view1
         .interact('zoom', {
           type: 'XY'
           // filter: true,
@@ -63,6 +70,8 @@
         .interact('drag', {
           type: 'XY'
         });
+
+
     });
   </script>
 </body>

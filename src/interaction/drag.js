@@ -61,7 +61,7 @@ class Drag extends Interaction {
     });
   }
 
-  onStart(ev) {
+  start(ev) {
     const me = this;
     const { chart, canvas } = me;
     const canvasDOM = canvas.get('canvasDOM');
@@ -70,7 +70,7 @@ class Drag extends Interaction {
     me.isDragging = true;
     me.previousPoint = coord.invertPoint(ev);
   }
-  onProcessing(ev) {
+  process(ev) {
     const me = this;
     if (me.isDragging) {
       const { chart, type, canvas } = me;
@@ -92,7 +92,7 @@ class Drag extends Interaction {
       chart.repaint();
     }
   }
-  onEnd() {
+  end() {
     const me = this;
     me.isDragging = false;
     const { canvas } = me;
@@ -100,7 +100,7 @@ class Drag extends Interaction {
     canvasDOM.style.cursor = 'default';
   }
 
-  onReset() {
+  reset() {
     const me = this;
     const { view, originScaleDefsByField } = me;
     const scales = view.getYScales();

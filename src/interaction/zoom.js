@@ -24,7 +24,6 @@ class Zoom extends Interaction {
     super(cfg, view);
     const me = this;
     me.type = me.type.toUpperCase();
-    me.chart = view;
 
     const scales = view.getYScales();
     const xScale = view.getXScale();
@@ -69,7 +68,7 @@ class Zoom extends Interaction {
     }
   }
 
-  onProcessing(ev) {
+  process(ev) {
     const me = this;
     const { chart, type } = me;
     const coord = chart.get('coord');
@@ -96,7 +95,7 @@ class Zoom extends Interaction {
     chart.repaint();
   }
 
-  onReset() {
+  reset() {
     const me = this;
     const { view, originScaleDefsByField } = me;
     const scales = view.getYScales();

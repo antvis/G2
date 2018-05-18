@@ -16,16 +16,43 @@ class Interaction {
     };
   }
 
-  onStart() {
+  _start(ev) {
+    const me = this;
+    me.preStart && me.preStart(ev);
+    me.start(ev);
+    me.onStart && me.onStart(ev);
+  }
+  _process(ev) {
+    const me = this;
+    me.preProcess && me.preProcess(ev);
+    me.process(ev);
+    me.onProcess && me.onProcess(ev);
+  }
+  _end(ev) {
+    const me = this;
+    me.preEnd && me.preEnd(ev);
+    me.end(ev);
+    me.onEnd && me.onEnd(ev);
+  }
+
+  _reset(ev) {
+    const me = this;
+    me.preReset && me.preReset(ev);
+    me.reset(ev);
+    me.onReset && me.onReset(ev);
+  }
+
+
+  start() {
     // TODO override
   }
-  onProcessing() {
+  process() {
     // TODO override
   }
-  onEnd() {
+  end() {
     // TODO override
   }
-  onReset() {
+  reset() {
     // TODO override
   }
 
@@ -43,10 +70,10 @@ class Interaction {
     const canvas = me.canvas;
     const canvasDOM = canvas.get('canvasDOM');
     me._clearEvents();
-    me._onStartListener = DomUtil.addEventListener(canvasDOM, me.startEvent, Util.wrapBehavior(me, 'onStart'));
-    me._onProcessingListener = DomUtil.addEventListener(canvasDOM, me.processingEvent, Util.wrapBehavior(me, 'onProcessing'));
-    me._onEndListener = DomUtil.addEventListener(canvasDOM, me.endEvent, Util.wrapBehavior(me, 'onEnd'));
-    me._onResetListener = DomUtil.addEventListener(canvasDOM, me.resetEvent, Util.wrapBehavior(me, 'onReset'));
+    me._onStartListener = DomUtil.addEventListener(canvasDOM, me.startEvent, Util.wrapBehavior(me, '_start'));
+    me._onProcessingListener = DomUtil.addEventListener(canvasDOM, me.processingEvent, Util.wrapBehavior(me, '_process'));
+    me._onEndListener = DomUtil.addEventListener(canvasDOM, me.endEvent, Util.wrapBehavior(me, '_end'));
+    me._onResetListener = DomUtil.addEventListener(canvasDOM, me.resetEvent, Util.wrapBehavior(me, '_reset'));
   }
 
   _clearEvents() {

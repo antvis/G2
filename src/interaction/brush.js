@@ -77,7 +77,7 @@ class Brush extends Interaction {
   // onDragmove() {}
   // onDragend() {}
 
-  onStart(ev) {
+  start(ev) {
     const me = this;
     const { canvas, type, brushShape } = me;
 
@@ -152,7 +152,7 @@ class Brush extends Interaction {
       if (type === 'POLYGON') me.polygonPath = `M ${startPoint.x} ${startPoint.y}`;
     }
   }
-  onProcessing(ev) {
+  process(ev) {
     const me = this;
     const { brushing, dragging, type, plot, startPoint, xScale, yScale, canvas } = me;
 
@@ -269,7 +269,7 @@ class Brush extends Interaction {
     me.onDragmove && me.onDragmove(eventObj);
     me.onBrushmove && me.onBrushmove(eventObj);
   }
-  onEnd(ev) {
+  end(ev) {
     const me = this;
     const { data, shapes, xValues, yValues, canvas, type, startPoint, chart, container, xScale, yScale } = me;
     const { offsetX, offsetY } = ev;
@@ -340,7 +340,7 @@ class Brush extends Interaction {
     }
   }
 
-  onReset() {
+  reset() {
     const me = this;
     const { chart, filter } = me;
     if (chart && filter) {
