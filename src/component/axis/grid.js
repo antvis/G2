@@ -84,7 +84,7 @@ class Grid extends Group {
   _drawGridLines(items, lineStyle) {
     const self = this;
     const type = this.get('type');
-    const tickValues = this.get('tickValues');
+
     let gridLine;
     let path;
     let cfg;
@@ -115,7 +115,7 @@ class Grid extends Group {
           });
         }
 
-        if (tickValues[idx] === 0 && self.get('hightLightZero') && type === 'line') {
+        if (self._drawZeroLine(type, idx)) {
           cfg = Util.mix({}, self.get('zeroLineStyle'), {
             path
           });
@@ -164,6 +164,17 @@ class Grid extends Group {
         self.get('appendInfo') && gridLine.setSilent('appendInfo', self.get('appendInfo'));
       });
     }
+  }
+
+  _drawZeroLine(type, idx) {
+    const self = this;
+    const tickValues = self.get('tickValues');
+    if (type === 'line' && tickValues) {
+      if (tickValues[idx] === 0 && self.get('hightLightZero')) {
+        return true;
+      }
+    }
+    return false;
   }
 
   _drawAlternativeBg(item, preItem, index) {
@@ -246,5 +257,6 @@ class Grid extends Group {
     };
   }
 }
+
 
 module.exports = Grid;
