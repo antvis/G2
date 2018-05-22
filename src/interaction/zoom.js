@@ -23,6 +23,7 @@ class Zoom extends Interaction {
   constructor(cfg, view) {
     super(cfg, view);
     const me = this;
+    me.chart = view;
     me.type = me.type.toUpperCase();
 
     const scales = view.getYScales();
