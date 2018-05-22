@@ -119,11 +119,13 @@ View.prototype.clearInteraction = function(type) {
     (interactions[type] || []).forEach(interact => {
       interact.destroy();
     });
+    delete interactions[type];
   } else {
-    Util.each(interactions, collection => {
+    Util.each(interactions, (collection, key) => {
       (collection || []).forEach(interact => {
         interact.destroy();
       });
+      delete interactions[key];
     });
   }
 };
