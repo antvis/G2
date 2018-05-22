@@ -84,6 +84,7 @@ class Brush extends Interaction {
     if (!type) return;
 
     const startPoint = { x: ev.offsetX, y: ev.offsetY };
+    if (!startPoint.x) return;
     const isInPlot = me.plot && me.inPlot;
     const canvasDOM = canvas.get('canvasDOM');
     const pixelRatio = canvas.get('pixelRatio');
