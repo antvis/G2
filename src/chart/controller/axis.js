@@ -353,10 +353,11 @@ class AxisController {
             });
           }
         });
-      }
+      }     
       cfg.grid.items = gridPoints;
       cfg.grid.tickValues = tickValues;
     }
+    cfg.type = scale.type;
     return cfg;
   }
 
