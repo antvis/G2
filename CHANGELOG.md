@@ -1,3 +1,17 @@
+#### 3.1.0 (2018-05-25)
+
+##### New Features
+
+* chore(dev): update dependencies, etc.
+* feat(interaction): add basic interaction grammar (beta)
+* feat(interaction): add brush interaction
+* feat(interaction): add zoom interaction
+* feat(interaction): add drag interaction
+* feat(axis): highlight zero baseline
+
+##### BugFixes
+
+* fix(tooltip): ignore properties like showMarker of tooltip items
 
 #### 3.0.12 (2018-05-18)
 
