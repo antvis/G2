@@ -48,5 +48,10 @@
     "name": "facet",
     "code": "require('./facet/index');",
     "description": "Facets"
+  },
+  {
+    "name": "interact",
+    "code": "require('./interaction/index');",
+    "description": "Interactions"
   }
 ]

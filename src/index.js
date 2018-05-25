@@ -15,4 +15,7 @@ require('./geom/venn');
 // facets
 require('./facet/index');
 
+// interaction
+require('./interaction/index');
+
 module.exports = G2;

@@ -61,11 +61,10 @@ chart.axis('value', {
     alternateColor: 'rgba(204, 204, 204, 0.4)'
   }
 });
-    /* chart.line().position('categories*value').color('name')
-      .size(2);
-    chart.point().position('categories*value').color('name')
-      .shape('name', [ 'square', 'triangle' ])
-      .size(4);*/
+chart.line().position('categories*value').color('name')
+  .size(2);
+chart.point().position('categories*value').color('name')
+  .size(4);
 chart.area().position('categories*value').color('name');
 chart.render();
 </script>
