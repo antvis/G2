@@ -65,7 +65,7 @@ class Base extends Group {
         textStyle: {} // 坐标轴标题样式
       },
       autoPaint: true,
-      alignWithLabel:false
+      alignWithLabel: false
     };
   }
 
@@ -182,24 +182,26 @@ class Base extends Group {
     }
   }
 
-  _processCatTicks(){
+  _processCatTicks() {
     const self = this;
     const labelCfg = self.get('label');
-    const subTickCount = self.get('subTickCount');
     const tickLineCfg = self.get('tickLine');
     let ticks = self.get('ticks');
     ticks = self._parseTicks(ticks);
-    const tickSeg = (ticks[1].value - ticks[0].value)/2;
+    let tickSeg = 0;
+    if (ticks.length > 1) {
+      tickSeg = (ticks[1].value - ticks[0].value) / 2;
+    }
 
-    Util.each(ticks, function(tick,index){
+    Util.each(ticks, function(tick, index) {
       const tickPoint = self.getTickPoint(tick.value, index);
-      const tickPoint0 = self.getTickPoint(tick.value-tickSeg, index);
-      const tickPoint1 = self.getTickPoint(tick.value+tickSeg, index);
-      if(tickLineCfg) {
+      const tickPoint0 = self.getTickPoint(tick.value - tickSeg, index);
+      const tickPoint1 = self.getTickPoint(tick.value + tickSeg, index);
+      if (tickLineCfg) {
         self._addTickItem(index, tickPoint0, tickLineCfg.length);
         self._addTickItem(index, tickPoint1, tickLineCfg.length);
       }
-      if(labelCfg){
+      if (labelCfg) {
         self.addLabel(tick, tickPoint, index);
       }
     });
@@ -297,10 +299,10 @@ class Base extends Group {
 
   paint() {
     this._renderLine();
-    const type = this.get("type");
-    if(type=="cat" || type=="timecat"){
+    const type = this.get('type');
+    if (type === 'cat' || type === 'timecat') {
       this._processCatTicks();
-    }else{
+    } else {
       this._processTicks();
     }
     this._renderTicks();
