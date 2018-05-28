@@ -64,7 +64,8 @@ class Base extends Group {
         autoRotate: true, // 文本是否自动旋转
         textStyle: {} // 坐标轴标题样式
       },
-      autoPaint: true
+      autoPaint: true,
+      alignWithLabel: false
     };
   }
 
@@ -181,6 +182,31 @@ class Base extends Group {
     }
   }
 
+  _processCatTicks() {
+    const self = this;
+    const labelCfg = self.get('label');
+    const tickLineCfg = self.get('tickLine');
+    let ticks = self.get('ticks');
+    ticks = self._parseTicks(ticks);
+    let tickSeg = 0;
+    if (ticks.length > 1) {
+      tickSeg = (ticks[1].value - ticks[0].value) / 2;
+    }
+
+    Util.each(ticks, function(tick, index) {
+      const tickPoint = self.getTickPoint(tick.value, index);
+      const tickPoint0 = self.getTickPoint(tick.value - tickSeg, index);
+      const tickPoint1 = self.getTickPoint(tick.value + tickSeg, index);
+      if (tickLineCfg) {
+        self._addTickItem(index, tickPoint0, tickLineCfg.length);
+        self._addTickItem(index, tickPoint1, tickLineCfg.length);
+      }
+      if (labelCfg) {
+        self.addLabel(tick, tickPoint, index);
+      }
+    });
+  }
+
   _processTicks() {
     const self = this;
     const labelCfg = self.get('label');
@@ -273,7 +299,12 @@ class Base extends Group {
 
   paint() {
     this._renderLine();
-    this._processTicks();
+    const type = this.get('type');
+    if (type === 'cat' || type === 'timecat') {
+      this._processCatTicks();
+    } else {
+      this._processTicks();
+    }
     this._renderTicks();
     this._renderGrid();
     const labelCfg = this.get('label');
