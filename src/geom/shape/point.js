@@ -21,51 +21,65 @@ const SQRT_3 = Math.sqrt(3);
 
 // 增加marker
 Util.mix(Marker.Symbols, {
-  hexagon(x, y, r, ctx) {
+  hexagon(x, y, r) {
     const diffX = (r / 2) * SQRT_3;
-    ctx.moveTo(x, y - r);
-    ctx.lineTo(x + diffX, y - r / 2);
-    ctx.lineTo(x + diffX, y + r / 2);
-    ctx.lineTo(x, y + r);
-    ctx.lineTo(x - diffX, y + r / 2);
-    ctx.lineTo(x - diffX, y - r / 2);
-    ctx.closePath();
+    return [
+      [ 'M', x, y - r ],
+      [ 'L', x + diffX, y - r / 2 ],
+      [ 'L', x + diffX, y + r / 2 ],
+      [ 'L', x, y + r ],
+      [ 'L', x - diffX, y + r / 2 ],
+      [ 'L', x - diffX, y - r / 2 ],
+      [ 'Z' ]
+    ];
   },
-  bowtie(x, y, r, ctx) {
+  bowtie(x, y, r) {
     const diffY = r - 1.5;
-    ctx.moveTo(x - r, y - diffY);
-    ctx.lineTo(x + r, y + diffY);
-    ctx.lineTo(x + r, y - diffY);
-    ctx.lineTo(x - r, y + diffY);
-    ctx.closePath();
+    return [
+      [ 'M', x - r, y - diffY ],
+      [ 'L', x + r, y + diffY ],
+      [ 'L', x + r, y - diffY ],
+      [ 'L', x - r, y + diffY ],
+      [ 'Z' ]
+    ];
   },
-  cross(x, y, r, ctx) {
-    ctx.moveTo(x - r, y - r);
-    ctx.lineTo(x + r, y + r);
-    ctx.moveTo(x + r, y - r);
-    ctx.lineTo(x - r, y + r);
+  cross(x, y, r) {
+    return [
+      [ 'M', x - r, y - r ],
+      [ 'L', x + r, y + r ],
+      [ 'M', x + r, y - r ],
+      [ 'L', x - r, y + r ]
+    ];
   },
-  tick(x, y, r, ctx) {
-    ctx.moveTo(x - r / 2, y - r);
-    ctx.lineTo(x + r / 2, y - r);
-    ctx.moveTo(x, y - r);
-    ctx.lineTo(x, y + r);
-    ctx.moveTo(x - r / 2, y + r);
-    ctx.lineTo(x + r / 2, y + r);
+  tick(x, y, r) {
+    return [
+      [ 'M', x - r / 2, y - r ],
+      [ 'L', x + r / 2, y - r ],
+      [ 'M', x, y - r ],
+      [ 'L', x, y + r ],
+      [ 'M', x - r / 2, y + r ],
+      [ 'L', x + r / 2, y + r ]
+    ];
   },
-  plus(x, y, r, ctx) {
-    ctx.moveTo(x - r, y);
-    ctx.lineTo(x + r, y);
-    ctx.moveTo(x, y - r);
-    ctx.lineTo(x, y + r);
+  plus(x, y, r) {
+    return [
+      [ 'M', x - r, y ],
+      [ 'L', x + r, y ],
+      [ 'M', x, y - r ],
+      [ 'L', x, y + r ]
+    ];
   },
-  hyphen(x, y, r, ctx) {
-    ctx.moveTo(x - r, y);
-    ctx.lineTo(x + r, y);
+  hyphen(x, y, r) {
+    return [
+      [ 'M', x - r, y ],
+      [ 'L', x + r, y ]
+    ];
   },
-  line(x, y, r, ctx) {
-    ctx.moveTo(x, y - r);
-    ctx.lineTo(x, y + r);
+  line(x, y, r) {
+    return [
+      [ 'M', x, y - r ],
+      [ 'L', x, y + r ]
+    ];
   }
 });
 
