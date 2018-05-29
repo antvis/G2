@@ -896,8 +896,8 @@ class View extends Base {
     Util.each(views, function(view) {
       view.drawComponents();
     });
-    this._renderGuides();
     this._renderAxes();
+    this._renderGuides();
   }
 
   // 绘制图形

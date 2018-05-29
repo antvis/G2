@@ -1,4 +1,5 @@
 const expect = require('chai').expect;
+require('../../../src/index');
 const Chart = require('../../../src/chart/chart');
 const { DomUtil } = require('@antv/g');
 

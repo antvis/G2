@@ -43,7 +43,8 @@ class Text extends Base {
        * y 方向的偏移量
        * @type {Number}
        */
-      offsetY: null
+      offsetY: null,
+      top: true
     });
   }
 
