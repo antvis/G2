@@ -13,7 +13,7 @@ const Shape = require('./shape');
 const {
   Marker,
   PathUtil
-} = require('@antv/g');
+} = require('../../renderer2d');
 
 const SHAPES = [ 'circle', 'square', 'bowtie', 'diamond', 'hexagon', 'triangle', 'triangle-down' ];
 const HOLLOW_SHAPES = [ 'cross', 'tick', 'plus', 'hyphen', 'line', 'pointerLine', 'pointerArrow' ];

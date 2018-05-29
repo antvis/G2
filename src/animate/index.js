@@ -4,7 +4,7 @@
  */
 const Util = require('../util');
 const Animate = require('./animate');
-const { MatrixUtil } = require('@antv/g');
+const { MatrixUtil } = require('../renderer2d');
 const { mat3 } = MatrixUtil;
 
 // 获取图组内所有的shapes

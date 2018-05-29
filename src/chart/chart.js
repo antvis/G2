@@ -5,7 +5,7 @@
 
 const Util = require('../util');
 const View = require('./view');
-const G = require('@antv/g');
+const G = require('../renderer2d');
 const Canvas = G.Canvas;
 const DomUtil = G.DomUtil;
 const Plot = require('../component/plot');

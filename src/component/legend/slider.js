@@ -3,7 +3,7 @@
  * @author sima.zhang
  */
 const Util = require('../../util');
-const { Group, DomUtil } = require('@antv/g');
+const { Group, DomUtil } = require('../../renderer2d');
 
 class Slider extends Group {
   getDefaultCfg() {

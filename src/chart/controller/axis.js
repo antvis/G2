@@ -4,7 +4,7 @@
  */
 const Util = require('../../util');
 const Axis = require('../../component/axis');
-const { vec2 } = require('@antv/g').MatrixUtil;
+const { vec2 } = require('../../renderer2d').MatrixUtil;
 const Global = require('../../global');
 
 function formatTicks(ticks) {

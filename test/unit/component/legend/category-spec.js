@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 // const Util = require('../../../../src/util');
-const { Canvas, Event } = require('@antv/g');
+const { Canvas, Event } = require('../../../../src/renderer2d');
 const Legend = require('../../../../src/component/legend/category');
 
 const div = document.createElement('div');

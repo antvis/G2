@@ -4,7 +4,7 @@
  */
 const Util = require('../../util');
 const Base = require('./base');
-const { MatrixUtil, PathUtil } = require('@antv/g');
+const { MatrixUtil, PathUtil } = require('../../renderer2d');
 const vec2 = MatrixUtil.vec2;
 
 class Polyline extends Base {

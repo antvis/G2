@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const { Canvas } = require('@antv/g');
+const { Canvas } = require('../../../../src/renderer2d');
 const Scale = require('../../../../src/scale/index');
 const Labels = require('../../../../src/geom/label/');
 const GeomLabels = require('../../../../src/geom/label/geom-labels');

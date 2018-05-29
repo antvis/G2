@@ -1,6 +1,6 @@
 // const Global = require('../global');
 const Util = require('../util');
-const { DomUtil } = require('@antv/g');
+const { DomUtil } = require('../renderer2d');
 const View = require('../chart/view');
 const G2 = require('../core.js');
 

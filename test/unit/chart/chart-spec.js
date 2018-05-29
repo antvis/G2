@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const Chart = require('../../../src/chart/chart');
-const { DomUtil } = require('@antv/g');
+const { DomUtil } = require('../../../src/renderer2d');
 
 const div = document.createElement('div');
 div.id = 'cchart';

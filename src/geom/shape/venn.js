@@ -7,7 +7,7 @@ const Shape = require('./shape');
 const Global = require('../../global');
 const {
   PathUtil
-} = require('@antv/g');
+} = require('../../renderer2d');
 
 function getAttrs(cfg) {
   const defaultCfg = Global.shape.venn;

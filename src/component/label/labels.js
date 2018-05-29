@@ -3,7 +3,7 @@
  * @author sima.zhang
  */
 const Util = require('../../util');
-const { DomUtil, Group } = require('@antv/g');
+const { DomUtil, Group } = require('../../renderer2d');
 
 class Labels extends Group {
   getDefaultCfg() {

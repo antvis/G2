@@ -3,7 +3,7 @@
  * @author sima.zhang
  */
 const Util = require('../../util');
-const { DomUtil } = require('@antv/g');
+const { DomUtil } = require('../../renderer2d');
 const Base = require('./base');
 
 class Html extends Base {

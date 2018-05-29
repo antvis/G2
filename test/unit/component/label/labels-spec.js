@@ -1,7 +1,8 @@
 const expect = require('chai').expect;
-const G = require('@antv/g');
-const Canvas = G.Canvas;
+const G = require('../../../../src/renderer2d');
 const Labels = require('../../../../src/component/label/index');
+
+const Canvas = G.Canvas;
 
 const div = document.createElement('div');
 div.id = 'c1';

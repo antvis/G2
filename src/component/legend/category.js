@@ -4,7 +4,7 @@
  */
 const Util = require('../../util');
 const Base = require('./base');
-const { DomUtil, Event, Group } = require('@antv/g');
+const { DomUtil, Event, Group } = require('../../renderer2d');
 const Global = require('../../global');
 
 const CONTAINER_CLASS = 'g2-legend';
