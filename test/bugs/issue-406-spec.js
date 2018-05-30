@@ -37,7 +37,7 @@ describe('#406', () => {
 
     chart.render();
 
-    const legend = chart.get('legendController').legends.right[0];
+    const legend = chart.get('legendController').legends.right_bottom[0];
     expect(legend.get('minTextElement').attr('text')).equal('0元');
     chart.destroy();
   });
@@ -77,7 +77,7 @@ describe('#406', () => {
 
     chart.render();
 
-    const legend = chart.get('legendController').legends.right[0];
+    const legend = chart.get('legendController').legends.right_bottom[0];
     expect(legend.get('items')[0].value).equal('Sports-xxx');
     chart.destroy();
   });
