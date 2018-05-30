@@ -279,7 +279,8 @@ class LegendController {
     const container = self.container;
     const canvas = container.get('canvas');
     const width = canvas.get('width');
-    const height = canvas.get('height');
+    let height = canvas.get('height');
+    const plotRange = self.plotRange;
     const backRange = self.getBackRange(); // 背景占得范围
     const offsetX = legend.get('offsetX') || 0;
     const offsetY = legend.get('offsetY') || 0;
@@ -291,34 +292,36 @@ class LegendController {
 
     const legendNum = self.legends[position].length;
 
-    const poses = position.split('_');
+    const posArray = position.split('_');
 
     let x = 0;
     let y = 0;
 
-    if (poses[0] === 'left' || poses[0] === 'right') {
-      x = self._xAlign(poses[0], width, region, backRange, legendWidth, borderMargin);
+    if (posArray[0] === 'left' || posArray[0] === 'right') {
+      height = plotRange.br.y;
+      x = self._getXAlign(posArray[0], width, region, backRange, legendWidth, borderMargin);
       if (pre) {
         y = pre.get('y') - legendHeight - innerMargin;
       } else {
-        y = self._yAlign(poses[1], height, region, backRange, 0, borderMargin); // legendHeight = 0
-        if (poses[1] === 'bottom') y -= legendHeight;
-        if (legendNum > 1 || poses[1] === 'center') y += legendHeight;// multi-shape legend
+        y = self._getYAlignVertical(posArray[1], height, region, backRange, 0, borderMargin, canvas.get('height'));
+        if (posArray[1] === 'bottom') y -= legendHeight;
+        if (legendNum > 1 || posArray[1] === 'center') y += region.totalHeight;// multi-shape legend*/
       }
-    } else if (poses[0] === 'top' || poses[0] === 'bottom') {
-      y = self._yAlign(poses[0], height, region, backRange, legendHeight, borderMargin);
+    } else if (posArray[0] === 'top' || posArray[0] === 'bottom') {
+      y = self._getYAlignHorizontal(posArray[0], height, region, backRange, legendHeight, borderMargin);
       if (pre) {
         const preWidth = pre.getWidth();
         x = pre.get('x') + preWidth + innerMargin;
       } else {
-        x = self._xAlign(poses[1], width, region, backRange, 0, borderMargin);
-        if (poses[1] === 'right') x -= legendWidth;
+        x = self._getXAlign(posArray[1], width, region, backRange, 0, borderMargin);
+        if (posArray[1] === 'right') x = plotRange.br.x - legendWidth;
       }
     }
+
     legend.move(x + offsetX, y + offsetY);
   }
 
-  _xAlign(pos /* left,center,right*/, width, region, backRange, legendWidth, borderMargin) {
+  _getXAlign(pos, width, region, backRange, legendWidth, borderMargin) {
     let x = pos === 'left' ? backRange.minX - legendWidth - borderMargin[3] : backRange.maxX + borderMargin[1];
     if (pos === 'center') {
       x = (width - region.totalWidth) / 2;
@@ -326,10 +329,16 @@ class LegendController {
     return x;
   }
 
-  _yAlign(pos/* top,center,bottom*/, height, region, backRange, legendHeight, borderMargin) {
-    let y = (pos === 'top') ? backRange.minY - legendHeight - borderMargin[0] : backRange.maxY + borderMargin[2];
+
+  _getYAlignHorizontal(pos, height, region, backRange, legendHeight, borderMargin) {
+    const y = (pos === 'top') ? backRange.minY - legendHeight - borderMargin[0] : backRange.maxY + borderMargin[2];
+    return y;
+  }
+
+  _getYAlignVertical(pos, height, region, backRange, legendHeight, borderMargin, canvasHeight) {
+    let y = (pos === 'top') ? backRange.minY - legendHeight - borderMargin[0] : height - legendHeight;
     if (pos === 'center') {
-      y = (height - region.totalHeight / 2) / 2;
+      y = canvasHeight / 2 - region.totalHeight;
     }
     return y;
   }
@@ -386,8 +395,8 @@ class LegendController {
     const chart = self.chart;
     const canvas = chart.get('canvas');
     const plotRange = self.plotRange;
-    const poses = position.split('_');
-    const maxLength = (poses[0] === 'right' || poses[0] === 'left') ? plotRange.bl.y - plotRange.tr.y : canvas.get('width');
+    const posArray = position.split('_');
+    const maxLength = (posArray[0] === 'right' || posArray[0] === 'left') ? plotRange.bl.y - plotRange.tr.y : canvas.get('width');
 
     Util.each(ticks, tick => {
       const text = tick.text;
@@ -529,15 +538,20 @@ class LegendController {
 
   _adjustPosition(position) {
     let pos;
-    const posArr = position.split('-');
-    if (posArr.length === 1) { // 只用了left/right/bottom/top一个位置定位
-      if (posArr[0] === 'left') pos = 'left_bottom';
-      if (posArr[0] === 'right') pos = 'right_bottom';
-      if (posArr[0] === 'top') pos = 'top_center';
-      if (posArr[0] === 'bottom') pos = 'bottom_center';
-    } else { // 使用了位置组合的定位方式
-      pos = posArr[0] + '_' + posArr[1];
+    if (Util.isArray(position)) {
+      pos = String(position[0]) + '_' + String(position[1]);
+    } else {
+      const posArr = position.split('-');
+      if (posArr.length === 1) { // 只用了left/right/bottom/top一个位置定位
+        if (posArr[0] === 'left') pos = 'left_bottom';
+        if (posArr[0] === 'right') pos = 'right_bottom';
+        if (posArr[0] === 'top') pos = 'top_center';
+        if (posArr[0] === 'bottom') pos = 'bottom_center';
+      } else { // 使用了位置组合的定位方式
+        pos = posArr[0] + '_' + posArr[1];
+      }
     }
+
     return pos;
   }
 
@@ -611,8 +625,8 @@ class LegendController {
 
     const canvas = chart.get('canvas');
     const plotRange = self.plotRange;
-    const poses = position.split('_');
-    const maxLength = (poses[0] === 'right' || poses[0] === 'left') ? plotRange.bl.y - plotRange.tr.y : canvas.get('width');
+    const posArray = position.split('_');
+    const maxLength = (posArray[0] === 'right' || posArray[0] === 'left') ? plotRange.bl.y - plotRange.tr.y : canvas.get('width');
 
     const legendCfg = Util.deepMix({}, Global.legend[position], legendOptions, {
       maxLength,
