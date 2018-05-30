@@ -422,7 +422,9 @@ class Tooltip extends Base {
         color: item.color,
         attrs: Util.mix({}, markerCfg, {
           x: item.x,
-          y: item.y
+          y: item.y,
+          fill: item.color,
+          shadowColor: item.color
         })
       });
     });
