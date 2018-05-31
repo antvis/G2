@@ -2,6 +2,7 @@ const expect = require('chai').expect;
 const Chart = require('../../../../src/chart/chart');
 require('../../../../src/geom/line');
 const LegendController = require('../../../../src/chart/controller/legend');
+const Global = require('../../../../src/global');
 
 const div = document.createElement('div');
 div.id = 'legendTest';
@@ -57,27 +58,36 @@ describe('LegendController', function() {
     expect(legendController.legends).to.be.empty;
   });
 
-  it('legendPosition right-bottom', function() {
+  it('legendPosition right-center', function() {
     chart.source(data);
     chart.legend({ position: 'right-center' });
     chart.line().position('year*value').color('country');
     chart.render();
-    const legend = chart.get('legendController').legends.right_center[0];
+    const controller = chart.get('legendController');
+    const legend = controller.legends.right_center[0];
     const x = legend.get('x');
     const y = legend.get('y');
     const height = legend.getHeight();
-    expect(x).to.equal(324.48046875);
+    const backRange = controller.getBackRange();
+    const canvas = chart.get('canvas');
+    const chartHeight = canvas.get('height');
+    const borderMargin = Global.legend.margin;
+
+    expect(x).to.equal(backRange.maxX + borderMargin[1]);
     expect(y).to.equal((chartHeight - height) / 2);
   });
 
   it('legendPosition top-left', function() {
     chart.legend({ position: 'top-left' });
     chart.repaint();
-    const legend = chart.get('legendController').legends.top_left[0];
+    const controller = chart.get('legendController');
+    const legend = controller.legends.top_left[0];
     const x = legend.get('x');
     const y = legend.get('y');
-    expect(x).to.equal(6.5);
-    expect(y).to.equal(13);
+    const height = legend.getHeight();
+    const backRange = controller.getBackRange();
+    const borderMargin = Global.legend.margin;
+    expect(x).to.equal(backRange.minX - borderMargin[3]);
+    expect(y).to.equal(backRange.minY - height - borderMargin[0]);
   });
-
 });
