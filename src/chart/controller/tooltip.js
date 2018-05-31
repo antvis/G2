@@ -327,7 +327,6 @@ class TooltipController {
     const options = self.options;
     let markersItems = [];
     let items = [];
-
     Util.each(views, view => {
       if (!view.get('tooltipEnable')) { // 如果不显示tooltip，则跳过
         return true;
@@ -364,7 +363,7 @@ class TooltipController {
             const geomContainer = geom.get('shapeContainer');
             const canvas = geomContainer.get('canvas');
             const pixelRatio = canvas.get('pixelRatio');
-            const shape = geomContainer.getShape(point.x * pixelRatio, point.y * pixelRatio);
+            const shape = geomContainer.getShape(point.x * pixelRatio, point.y * pixelRatio) || target;
             if (shape && shape.get('visible') && shape.get('origin')) {
               items = geom.getTipItems(shape.get('origin'), options.title);
             }
