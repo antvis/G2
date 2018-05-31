@@ -305,8 +305,9 @@ class LegendController {
       } else {
         y = self._getYAlignVertical(posArray[1], height, region, backRange, 0, borderMargin, canvas.get('height'));
         if (posArray[1] === 'bottom') y -= legendHeight;
-        if (legendNum > 1 || posArray[1] === 'center') y += region.totalHeight;// multi-shape legend*/
+        if (legendNum > 1 && posArray[1] === 'center') y += region.totalHeight / 2;// multi-shape legend*/
       }
+
     } else if (posArray[0] === 'top' || posArray[0] === 'bottom') {
       y = self._getYAlignHorizontal(posArray[0], height, region, backRange, legendHeight, borderMargin);
       if (pre) {
@@ -338,7 +339,7 @@ class LegendController {
   _getYAlignVertical(pos, height, region, backRange, legendHeight, borderMargin, canvasHeight) {
     let y = (pos === 'top') ? backRange.minY - legendHeight - borderMargin[0] : height - legendHeight;
     if (pos === 'center') {
-      y = canvasHeight / 2 - region.totalHeight;
+      y = (canvasHeight - region.totalHeight) / 2;
     }
     return y;
   }
