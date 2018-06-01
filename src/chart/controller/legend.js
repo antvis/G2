@@ -292,7 +292,7 @@ class LegendController {
 
     const legendNum = self.legends[position].length;
 
-    const posArray = position.split('_');
+    const posArray = position.split('-');
 
     let x = 0;
     let y = 0;
@@ -329,7 +329,6 @@ class LegendController {
     }
     return x;
   }
-
 
   _getYAlignHorizontal(pos, height, region, backRange, legendHeight, borderMargin) {
     const y = (pos === 'top') ? backRange.minY - legendHeight - borderMargin[0] : backRange.maxY + borderMargin[2];
@@ -396,9 +395,8 @@ class LegendController {
     const chart = self.chart;
     const canvas = chart.get('canvas');
     const plotRange = self.plotRange;
-    const posArray = position.split('_');
+    const posArray = position.split('-');
     const maxLength = (posArray[0] === 'right' || posArray[0] === 'left') ? plotRange.bl.y - plotRange.tr.y : canvas.get('width');
-
     Util.each(ticks, tick => {
       const text = tick.text;
       const name = text;
@@ -443,7 +441,7 @@ class LegendController {
       });
     });
 
-    const legendCfg = Util.deepMix({}, Global.legend[position], legendOptions[field] || legendOptions, {
+    const legendCfg = Util.deepMix({}, Global.legend[posArray[0]], legendOptions[field] || legendOptions, {
       viewId: chart.get('_id'),
       maxLength,
       items
@@ -509,7 +507,8 @@ class LegendController {
 
     const options = self.options;
 
-    let defaultCfg = Global.legend[position];
+    const posArray = position.split('-');
+    let defaultCfg = Global.legend[posArray[0]];
     if ((options && options.slidable === false) || (options[field] && options[field].slidable === false)) {
       defaultCfg = Util.mix({}, defaultCfg, Global.legend.gradient);
     }
@@ -540,19 +539,18 @@ class LegendController {
   _adjustPosition(position) {
     let pos;
     if (Util.isArray(position)) {
-      pos = String(position[0]) + '_' + String(position[1]);
+      pos = String(position[0]) + '-' + String(position[1]);
     } else {
       const posArr = position.split('-');
       if (posArr.length === 1) { // 只用了left/right/bottom/top一个位置定位
-        if (posArr[0] === 'left') pos = 'left_bottom';
-        if (posArr[0] === 'right') pos = 'right_bottom';
-        if (posArr[0] === 'top') pos = 'top_center';
-        if (posArr[0] === 'bottom') pos = 'bottom_center';
-      } else { // 使用了位置组合的定位方式
-        pos = posArr[0] + '_' + posArr[1];
+        if (posArr[0] === 'left') pos = 'left-bottom';
+        if (posArr[0] === 'right') pos = 'right-bottom';
+        if (posArr[0] === 'top') pos = 'top-center';
+        if (posArr[0] === 'bottom') pos = 'bottom-center';
+      } else {
+        pos = position;
       }
     }
-
     return pos;
   }
 
@@ -626,10 +624,10 @@ class LegendController {
 
     const canvas = chart.get('canvas');
     const plotRange = self.plotRange;
-    const posArray = position.split('_');
+    const posArray = position.split('-');
     const maxLength = (posArray[0] === 'right' || posArray[0] === 'left') ? plotRange.bl.y - plotRange.tr.y : canvas.get('width');
 
-    const legendCfg = Util.deepMix({}, Global.legend[position], legendOptions, {
+    const legendCfg = Util.deepMix({}, Global.legend[posArray[0]], legendOptions, {
       maxLength,
       items
     });

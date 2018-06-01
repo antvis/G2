@@ -330,7 +330,7 @@ const Theme = {
     // 在theta坐标系下的饼图文本的样式
   },
   legend: {
-    left_top: {
+   /* left_top: {
       position: [ 'left', 'top' ],
       layout: 'vertical',
       itemMarginBottom: 8,
@@ -528,6 +528,76 @@ const Theme = {
       layout: 'horizontal',
       title: null,
       itemGap: 10,
+      width: 156,
+      height: 16,
+      textStyle: {
+        fill: '#8C8C8C',
+        fontSize: 12,
+        textAlign: 'start',
+        textBaseline: 'middle',
+        lineHeight: 20,
+        fontFamily: FONT_FAMILY
+      }, // 图例项文本的样式
+      unCheckColor: '#bfbfbf'
+    },*/
+    right: {
+      position: 'right',
+      layout: 'vertical',
+      itemMarginBottom: 8, // layout 为 vertical 时各个图例项的间距
+      width: 16,
+      height: 156,
+      title: null,
+      textStyle: {
+        fill: '#8C8C8C',
+        fontSize: 12,
+        textAlign: 'start',
+        textBaseline: 'middle',
+        lineHeight: 20,
+        fontFamily: FONT_FAMILY
+      }, // 图例项文本的样式
+      unCheckColor: '#bfbfbf'
+    },
+    left: {
+      position: 'left',
+      layout: 'vertical',
+      itemMarginBottom: 8,
+      width: 16,
+      height: 156,
+      title: null,
+      textStyle: {
+        fill: '#8C8C8C',
+        fontSize: 12,
+        textAlign: 'start',
+        textBaseline: 'middle',
+        lineHeight: 20,
+        fontFamily: FONT_FAMILY
+      }, // 图例项文本的样式
+      unCheckColor: '#bfbfbf'
+    },
+    top: {
+      position: 'top',
+      offset: 6,
+      layout: 'horizontal',
+      title: null,
+      itemGap: 10,
+      width: 156,
+      height: 16,
+      textStyle: {
+        fill: '#8C8C8C',
+        fontSize: 12,
+        textAlign: 'start',
+        textBaseline: 'middle',
+        lineHeight: 20,
+        fontFamily: FONT_FAMILY
+      }, // 图例项文本的样式
+      unCheckColor: '#bfbfbf'
+    },
+    bottom: {
+      position: 'bottom',
+      offset: 58,
+      layout: 'horizontal',
+      title: null,
+      itemGap: 24,
       width: 156,
       height: 16,
       textStyle: {
