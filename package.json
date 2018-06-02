@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "the Grammar of Graphics in Javascript",
   "main": "build/g2.js",
   "browser": "build/g2.js",
