@@ -1,3 +1,13 @@
+#### 3.1.1 (2018-06-02)
+
+##### New Features
+
+* feat(axis): linear and category axis style
+
+##### BugFixes
+
+* fix(tooltip): disable tooltip crosshairs event capturing. Closes #656
+
 #### 3.1.0 (2018-05-25)
 
 ##### New Features
