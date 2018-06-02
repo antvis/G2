@@ -20,7 +20,7 @@
   "author": "https://github.com/orgs/antvis/people",
   "license": "MIT",
   "devDependencies": {
-    "@antv/data-set": "^0.8.6",
+    "@antv/data-set": "~0.8.6",
     "babel-cli": "~6.26.0",
     "babel-core": "~6.26.0",
     "babel-eslint": "~8.0.3",
@@ -51,7 +51,7 @@
     "serve-static": "~1.13.2",
     "shelljs": "~0.7.8",
     "string-replace-loader": "~1.3.0",
-    "torchjs": "~1.2.3",
+    "torchjs": "~2.0.3",
     "uglify-js": "~3.1.10",
     "webpack": "~3.10.0"
   },
@@ -65,7 +65,7 @@
     "compress-simple": "uglifyjs -c -m -o dist/g2-simple.min.js -- build/g2-simple.js",
     "compress": "npm run compress-g2 && npm run compress-core && npm run compress-simple",
     "coverage": "npm run coverage-generator && npm run coverage-viewer",
-    "coverage-generator": "torch --compile --coverage --renderer --recursive test/unit",
+    "coverage-generator": "torch --compile --coverage --renderer --recursive --source-pattern index.js,src/**/*.js test/unit",
     "coverage-viewer": "torch-coverage",
     "demos": "electron ./demos/app.js",
     "demos-web": "node ./demos/app.js --web --port 2046",
