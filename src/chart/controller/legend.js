@@ -280,6 +280,7 @@ class LegendController {
     const canvas = container.get('canvas');
     const width = canvas.get('width');
     let height = canvas.get('height');
+    const totalRegion = self.totalRegion;
     const plotRange = self.plotRange;
     const backRange = self.getBackRange(); // 背景占得范围
     const offsetX = legend.get('offsetX') || 0;
@@ -289,33 +290,29 @@ class LegendController {
     const legendWidth = legend.getWidth();
     const borderMargin = Global.legend.margin;
     const innerMargin = Global.legend.legendMargin;
-
     const legendNum = self.legends[position].length;
-
     const posArray = position.split('-');
 
     let x = 0;
     let y = 0;
+    const tempoRegion = (legendNum > 1) ? totalRegion : region;
 
     if (posArray[0] === 'left' || posArray[0] === 'right') {
       height = plotRange.br.y;
       x = self._getXAlign(posArray[0], width, region, backRange, legendWidth, borderMargin);
       if (pre) {
-        y = pre.get('y') - legendHeight - innerMargin;
+        y = pre.get('y') + pre.getHeight() + innerMargin;
       } else {
-        y = self._getYAlignVertical(posArray[1], height, region, backRange, 0, borderMargin, canvas.get('height'));
-        if (posArray[1] === 'bottom') y -= legendHeight;
-        if (legendNum > 1 && posArray[1] === 'center') y += region.totalHeight / 2;// multi-shape legend*/
+        y = self._getYAlignVertical(posArray[1], height, tempoRegion, backRange, 0, borderMargin, canvas.get('height'));
       }
-
     } else if (posArray[0] === 'top' || posArray[0] === 'bottom') {
       y = self._getYAlignHorizontal(posArray[0], height, region, backRange, legendHeight, borderMargin);
       if (pre) {
         const preWidth = pre.getWidth();
         x = pre.get('x') + preWidth + innerMargin;
       } else {
-        x = self._getXAlign(posArray[1], width, region, backRange, 0, borderMargin);
-        if (posArray[1] === 'right') x = plotRange.br.x - legendWidth;
+        x = self._getXAlign(posArray[1], width, tempoRegion, backRange, 0, borderMargin);
+        if (posArray[1] === 'right') x = plotRange.br.x - tempoRegion.totalWidth;
       }
     }
 
@@ -336,15 +333,14 @@ class LegendController {
   }
 
   _getYAlignVertical(pos, height, region, backRange, legendHeight, borderMargin, canvasHeight) {
-    let y = (pos === 'top') ? backRange.minY - legendHeight - borderMargin[0] : height - legendHeight;
+    let y = (pos === 'top') ? backRange.minY - legendHeight - borderMargin[0] : height - region.totalHeight;
     if (pos === 'center') {
       y = (canvasHeight - region.totalHeight) / 2;
     }
     return y;
   }
 
-
-  _getRegion(legends) {
+  _getSubRegion(legends) {
     let maxWidth = 0;
     let maxHeight = 0;
     let totalWidth = 0;
@@ -366,6 +362,26 @@ class LegendController {
       totalWidth,
       maxHeight,
       totalHeight
+    };
+  }
+
+  _getRegion() {
+    const self = this;
+    const legends = self.legends;
+    const innerMargin = Global.legend.legendMargin;
+    const subs = [];
+    let totalWidth = 0;
+    let totalHeight = 0;
+    Util.each(legends, legendItems => {
+      const subRegion = self._getSubRegion(legendItems);
+      subs.push(subRegion);
+      totalWidth += (subRegion.totalWidth + innerMargin);
+      totalHeight += (subRegion.totalHeight + innerMargin);
+    });
+    return {
+      totalWidth,
+      totalHeight,
+      subs
     };
   }
 
@@ -647,14 +663,18 @@ class LegendController {
   alignLegends() {
     const self = this;
     const legends = self.legends;
+    const totalRegion = self._getRegion(legends);
+    self.totalRegion = totalRegion;
+    let i = 0;
     Util.each(legends, (legendItems, position) => {
-      const region = self._getRegion(legendItems);
+      const region = /* self._getRegion(legendItems)*/totalRegion.subs[i];
       Util.each(legendItems, (legend, index) => {
         const pre = legendItems[index - 1];
         if (!(legend.get('useHtml') && !legend.get('autoPosition'))) {
           self._alignLegend(legend, pre, region, position);
         }
       });
+      i++;
     });
 
     return this;
