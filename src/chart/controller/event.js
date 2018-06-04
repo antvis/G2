@@ -121,7 +121,7 @@ class EventController {
       currentShape = null;
       self.currentShape = null;
     }
-    const shape = self._getShape(ev.x, ev.y);
+    const shape = self._getShape(ev.x, ev.y) || ev.currentTarget;
     let eventObj = self._getShapeEventObj(ev);
     eventObj.shape = shape;
     registerData(eventObj);
