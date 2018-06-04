@@ -280,6 +280,7 @@ class LegendController {
     const canvas = container.get('canvas');
     const width = canvas.get('width');
     let height = canvas.get('height');
+    const totalRegion = self.totalRegion;
     const plotRange = self.plotRange;
     const backRange = self.getBackRange(); // 背景占得范围
     const offsetX = legend.get('offsetX') || 0;
@@ -289,43 +290,98 @@ class LegendController {
     const legendWidth = legend.getWidth();
     const borderMargin = Global.legend.margin;
     const innerMargin = Global.legend.legendMargin;
+    const legendNum = self.legends[position].length;
+    const posArray = position.split('-');
 
     let x = 0;
     let y = 0;
+    const tempoRegion = (legendNum > 1) ? totalRegion : region;
 
-    if (position === 'left' || position === 'right') { // 垂直
+    if (posArray[0] === 'left' || posArray[0] === 'right') {
       height = plotRange.br.y;
-      x = position === 'left' ? backRange.minX - legendWidth - borderMargin[3] : backRange.maxX + borderMargin[1];
-      y = height - legendHeight;
-
+      x = self._getXAlign(posArray[0], width, region, backRange, legendWidth, borderMargin);
       if (pre) {
-        y = pre.get('y') - legendHeight - innerMargin;
+        y = pre.get('y') + pre.getHeight() + innerMargin;
+      } else {
+        y = self._getYAlignVertical(posArray[1], height, tempoRegion, backRange, 0, borderMargin, canvas.get('height'));
       }
-    } else {
-      x = (width - region.totalWidth) / 2;
-      y = (position === 'top') ? backRange.minY - legendHeight - borderMargin[0] : backRange.maxY + borderMargin[2];
+    } else if (posArray[0] === 'top' || posArray[0] === 'bottom') {
+      y = self._getYAlignHorizontal(posArray[0], height, region, backRange, legendHeight, borderMargin);
       if (pre) {
         const preWidth = pre.getWidth();
         x = pre.get('x') + preWidth + innerMargin;
+      } else {
+        x = self._getXAlign(posArray[1], width, tempoRegion, backRange, 0, borderMargin);
+        if (posArray[1] === 'right') x = plotRange.br.x - tempoRegion.totalWidth;
       }
     }
 
     legend.move(x + offsetX, y + offsetY);
   }
 
-  _getRegion(legends) {
+  _getXAlign(pos, width, region, backRange, legendWidth, borderMargin) {
+    let x = pos === 'left' ? backRange.minX - legendWidth - borderMargin[3] : backRange.maxX + borderMargin[1];
+    if (pos === 'center') {
+      x = (width - region.totalWidth) / 2;
+    }
+    return x;
+  }
+
+  _getYAlignHorizontal(pos, height, region, backRange, legendHeight, borderMargin) {
+    const y = (pos === 'top') ? backRange.minY - legendHeight - borderMargin[0] : backRange.maxY + borderMargin[2];
+    return y;
+  }
+
+  _getYAlignVertical(pos, height, region, backRange, legendHeight, borderMargin, canvasHeight) {
+    let y = (pos === 'top') ? backRange.minY - legendHeight - borderMargin[0] : height - region.totalHeight;
+    if (pos === 'center') {
+      y = (canvasHeight - region.totalHeight) / 2;
+    }
+    return y;
+  }
+
+  _getSubRegion(legends) {
     let maxWidth = 0;
+    let maxHeight = 0;
     let totalWidth = 0;
+    let totalHeight = 0;
     Util.each(legends, function(legend) {
       const width = legend.getWidth();
+      const height = legend.getHeight();
       if (maxWidth < width) {
         maxWidth = width;
       }
       totalWidth += width;
+      if (maxHeight < height) {
+        maxHeight = height;
+      }
+      totalHeight += height;
     });
     return {
       maxWidth,
-      totalWidth
+      totalWidth,
+      maxHeight,
+      totalHeight
+    };
+  }
+
+  _getRegion() {
+    const self = this;
+    const legends = self.legends;
+    const innerMargin = Global.legend.legendMargin;
+    const subs = [];
+    let totalWidth = 0;
+    let totalHeight = 0;
+    Util.each(legends, legendItems => {
+      const subRegion = self._getSubRegion(legendItems);
+      subs.push(subRegion);
+      totalWidth += (subRegion.totalWidth + innerMargin);
+      totalHeight += (subRegion.totalHeight + innerMargin);
+    });
+    return {
+      totalWidth,
+      totalHeight,
+      subs
     };
   }
 
@@ -355,8 +411,8 @@ class LegendController {
     const chart = self.chart;
     const canvas = chart.get('canvas');
     const plotRange = self.plotRange;
-    const maxLength = (position === 'right' || position === 'left') ? plotRange.bl.y - plotRange.tr.y : canvas.get('width');
-
+    const posArray = position.split('-');
+    const maxLength = (posArray[0] === 'right' || posArray[0] === 'left') ? plotRange.bl.y - plotRange.tr.y : canvas.get('width');
     Util.each(ticks, tick => {
       const text = tick.text;
       const name = text;
@@ -401,7 +457,7 @@ class LegendController {
       });
     });
 
-    const legendCfg = Util.deepMix({}, Global.legend[position], legendOptions[field] || legendOptions, {
+    const legendCfg = Util.deepMix({}, Global.legend[posArray[0]], legendOptions[field] || legendOptions, {
       viewId: chart.get('_id'),
       maxLength,
       items
@@ -467,7 +523,8 @@ class LegendController {
 
     const options = self.options;
 
-    let defaultCfg = Global.legend[position];
+    const posArray = position.split('-');
+    let defaultCfg = Global.legend[posArray[0]];
     if ((options && options.slidable === false) || (options[field] && options[field].slidable === false)) {
       defaultCfg = Util.mix({}, defaultCfg, Global.legend.gradient);
     }
@@ -495,6 +552,24 @@ class LegendController {
     return legend;
   }
 
+  _adjustPosition(position) {
+    let pos;
+    if (Util.isArray(position)) {
+      pos = String(position[0]) + '-' + String(position[1]);
+    } else {
+      const posArr = position.split('-');
+      if (posArr.length === 1) { // 只用了left/right/bottom/top一个位置定位
+        if (posArr[0] === 'left') pos = 'left-bottom';
+        if (posArr[0] === 'right') pos = 'right-bottom';
+        if (posArr[0] === 'top') pos = 'top-center';
+        if (posArr[0] === 'bottom') pos = 'bottom-center';
+      } else {
+        pos = position;
+      }
+    }
+    return pos;
+  }
+
   addLegend(scale, attr, geom, filterVals) {
     const self = this;
     const legendOptions = self.options;
@@ -509,6 +584,7 @@ class LegendController {
       self.addCustomLegend(field);
     } else {
       let position = legendOptions.position || Global.defaultLegendPosition;
+      position = self._adjustPosition(position);
       if (fieldOption && fieldOption.position) { // 如果对某个图例单独设置 position，则对 position 重新赋值
         position = fieldOption.position;
       }
@@ -537,7 +613,8 @@ class LegendController {
       legendOptions = legendOptions[field];
     }
 
-    const position = legendOptions.position || Global.defaultLegendPosition;
+    let position = legendOptions.position || Global.defaultLegendPosition;
+    position = self._adjustPosition(position);
     const legends = self.legends;
     legends[position] = legends[position] || [];
     const items = legendOptions.items;
@@ -563,9 +640,10 @@ class LegendController {
 
     const canvas = chart.get('canvas');
     const plotRange = self.plotRange;
-    const maxLength = (position === 'right' || position === 'left') ? plotRange.bl.y - plotRange.tr.y : canvas.get('width');
+    const posArray = position.split('-');
+    const maxLength = (posArray[0] === 'right' || posArray[0] === 'left') ? plotRange.bl.y - plotRange.tr.y : canvas.get('width');
 
-    const legendCfg = Util.deepMix({}, Global.legend[position], legendOptions, {
+    const legendCfg = Util.deepMix({}, Global.legend[posArray[0]], legendOptions, {
       maxLength,
       items
     });
@@ -585,14 +663,18 @@ class LegendController {
   alignLegends() {
     const self = this;
     const legends = self.legends;
+    const totalRegion = self._getRegion(legends);
+    self.totalRegion = totalRegion;
+    let i = 0;
     Util.each(legends, (legendItems, position) => {
-      const region = self._getRegion(legendItems);
+      const region = /* self._getRegion(legendItems)*/totalRegion.subs[i];
       Util.each(legendItems, (legend, index) => {
         const pre = legendItems[index - 1];
         if (!(legend.get('useHtml') && !legend.get('autoPosition'))) {
           self._alignLegend(legend, pre, region, position);
         }
       });
+      i++;
     });
 
     return this;

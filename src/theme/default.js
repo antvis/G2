@@ -384,10 +384,10 @@ const Theme = {
     },
     bottom: {
       position: 'bottom',
-      offset: 58,
+      offset: 6,
       layout: 'horizontal',
       title: null,
-      itemGap: 24,
+      itemGap: 10,
       width: 156,
       height: 16,
       textStyle: {
