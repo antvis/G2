@@ -4,7 +4,7 @@
  */
 
 const Util = require('../../util');
-const Category = require('./Category');
+const Category = require('./category');
 
 class Tail extends Category {
   getDefaultCfg() {
