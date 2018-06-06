@@ -249,12 +249,7 @@ class TooltipController {
       y: ev.y
     };
     if ((timeStamp - lastTimeStamp) > 16) {
-      let target;
-      if (ev.shape
-        && Util.inArray([ 'point', 'interval', 'polygon', 'schema' ], ev.shape.name)) {
-        target = ev.shape;
-      }
-      this.showTooltip(point, ev.views, target);
+      this.showTooltip(point, ev.views, ev.shape);
       this.timeStamp = timeStamp;
     }
   }
@@ -361,11 +356,12 @@ class TooltipController {
             });
           } else {
             const geomContainer = geom.get('shapeContainer');
-            const canvas = geomContainer.get('canvas');
-            const pixelRatio = canvas.get('pixelRatio');
-            const shape = geomContainer.getShape(point.x * pixelRatio, point.y * pixelRatio) || target;
-            if (shape && shape.get('visible') && shape.get('origin')) {
-              items = geom.getTipItems(shape.get('origin'), options.title);
+            if (target &&
+              target.get('visible') &&
+              target.get('origin') &&
+              target.get('parent') === geomContainer
+            ) {
+              items = geom.getTipItems(target.get('origin'), options.title);
             }
           }
         }

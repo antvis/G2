@@ -206,7 +206,7 @@ class Heatmap extends GeomBase {
     imageShape.attr('y', end.y);
     imageShape.attr('width', width);
     imageShape.attr('height', height);
-    imageShape.attr('img', ctx.canvas);
+    imageShape.attr('img', colored);
   }
 
   draw(data /* , container, shapeFactory, index */) {

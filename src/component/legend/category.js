@@ -205,7 +205,7 @@ class Category extends Base {
       super._renderUI();
       this._renderItems();
       this.get('autoWrap') && this._adjustItems(); // 默认自动换行
-      this._renderBack();
+      // this._renderBack();
     } else { // 使用 html 渲染图例
       this._renderHTML();
     }
