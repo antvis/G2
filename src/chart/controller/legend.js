@@ -561,7 +561,7 @@ class LegendController {
   _isTailLegend(opt, geom) {
     if (opt.hasOwnProperty('attachLast') && opt.attachLast) {
       const geomType = geom.get('type');
-      if (geomType === 'line' || geomType === 'area') return true;
+      if (geomType === 'line' || geomType === 'lineStack' || geomType === 'area' || geomType === 'areaStack') return true;
     }
     return false;
   }

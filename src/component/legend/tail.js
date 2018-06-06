@@ -28,11 +28,11 @@ class Tail extends Category {
   _addItem(item) {
     const itemsGroup = this.get('itemsGroup');
     const x = this._getNextX();
-    const y = this._getNextY();
+    const y = 0;
     const unCheckColor = this.get('unCheckColor');
     const itemGroup = itemsGroup.addGroup({
-      x,
-      y,
+      x: 0,
+      y: 0,
       value: item.value,
       scaleValue: item.scaleValue,
       checked: item.checked
