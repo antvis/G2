@@ -25,70 +25,58 @@ class Tail extends Category {
     });
   }
 
-  _addItem(item) {
-    const itemsGroup = this.get('itemsGroup');
-    const x = this._getNextX();
-    const y = 0;
+  _addItemMarker(item, itemGroup) {
     const unCheckColor = this.get('unCheckColor');
-    const itemGroup = itemsGroup.addGroup({
-      x: 0,
-      y: 0,
-      value: item.value,
-      scaleValue: item.scaleValue,
-      checked: item.checked
+    const markerAttrs = Util.mix({}, item.marker, {
+      x: item.marker.radius,
+      y: 0
     });
-    itemGroup.translate(x, y);
-    itemGroup.set('viewId', itemsGroup.get('viewId'));
 
-    const textStyle = this.get('textStyle');
-    const wordSpace = this.get('_wordSpaceing');
-    let startX = 0;
-
-    if (item.marker) { // 如果有marker添加marker
-      const markerAttrs = Util.mix({}, item.marker, {
-        x: item.marker.radius,
-        y: 0
-      });
-
-      if (!item.checked) {
-        if (markerAttrs.fill) {
-          markerAttrs.fill = unCheckColor;
-        }
-        if (markerAttrs.stroke) {
-          markerAttrs.stroke = unCheckColor;
-        }
+    if (!item.checked) {
+      if (markerAttrs.fill) {
+        markerAttrs.fill = unCheckColor;
       }
-
-      const markerShape = itemGroup.addShape('marker', {
-        type: 'marker',
-        attrs: markerAttrs
-      });
-      markerShape.attr('cursor', 'pointer');
-      markerShape.name = 'legend-marker';
-      startX += markerShape.getBBox().width + wordSpace;
+      if (markerAttrs.stroke) {
+        markerAttrs.stroke = unCheckColor;
+      }
     }
 
+    const markerShape = itemGroup.addShape('marker', {
+      type: 'marker',
+      attrs: markerAttrs
+    });
+    markerShape.attr('cursor', 'pointer');
+    markerShape.name = 'legend-marker';
+
+    return markerShape;
+  }
+
+  _addItemText(item, itemGroup, startX) {
+    const self = this;
+    const unCheckColor = self.get('unCheckColor');
+    const textStyle = self.get('textStyle');
     const textAttrs = Util.mix({}, textStyle, {
       x: startX,
       y: 0,
-      text: this._formatItemValue(item.value)
+      text: self._formatItemValue(item.value)
     });
     if (!item.checked) {
       Util.mix(textAttrs, {
         fill: unCheckColor
       });
     }
-
     const textShape = itemGroup.addShape('text', {
       attrs: textAttrs
     });
     textShape.attr('cursor', 'pointer');
     textShape.name = 'legend-text';
-    this.get('appendInfo') && textShape.setSilent('appendInfo', this.get('appendInfo'));
+    self.get('appendInfo') && textShape.setSilent('appendInfo', this.get('appendInfo'));
+  }
 
-    // 添加一个包围矩形，用于事件支持
+  _addItemWrapper(item, itemGroup, x, y) {
+    const self = this;
     const bbox = itemGroup.getBBox();
-    const itemWidth = this.get('itemWidth');
+    const itemWidth = self.get('itemWidth');
     const wrapperShape = itemGroup.addShape('rect', {
       attrs: {
         x,
@@ -103,6 +91,33 @@ class Tail extends Category {
     wrapperShape.setSilent('origin', item); // 保存图例项相关的数据，便于事件操作
     wrapperShape.name = 'legend-item';
     this.get('appendInfo') && wrapperShape.setSilent('appendInfo', this.get('appendInfo'));
+  }
+
+  _addItem(item) {
+    const self = this;
+    const itemsGroup = self.get('itemsGroup');
+    const x = 0;
+    const y = 0;
+    const itemGroup = itemsGroup.addGroup({
+      x,
+      y,
+      value: item.value,
+      scaleValue: item.scaleValue,
+      checked: item.checked
+    });
+    itemGroup.translate(x, y);
+    itemGroup.setSilent('viewId', itemsGroup.get('viewId'));
+    const wordSpace = this.get('_wordSpaceing');
+    let startX = 0;
+    // 如果有marker添加marker
+    if (item.marker) {
+      const markerShape = self._addItemMarker(item, itemGroup);
+      startX += markerShape.getBBox().width + wordSpace;
+    }
+    // text
+    self._addItemText(item, itemGroup, startX);
+    // 添加一个包围矩形，用于事件支持
+    self._addItemWrapper(item, itemGroup, x, y);
     itemGroup.name = 'legendGroup';
     return itemGroup;
   }
