@@ -470,7 +470,14 @@ class LegendController {
       });
     }
 
-    const legend = container.addGroup(Legend.Category, legendCfg);
+    let legend;
+    if (self._isTailLegend(legendOptions, geom)) {
+      legendCfg.chart = self.chart;
+      legendCfg.geom = geom;
+      legend = container.addGroup(Legend.Tail, legendCfg);
+    } else {
+      legend = container.addGroup(Legend.Category, legendCfg);
+    }
     self._bindClickEvent(legend, scale, filterVals);
     legends[position].push(legend);
     return legend;
@@ -551,10 +558,19 @@ class LegendController {
     legends[position].push(legend);
     return legend;
   }
+  _isTailLegend(opt, geom) {
+    if (opt.hasOwnProperty('attachLast') && opt.attachLast) {
+      const geomType = geom.get('type');
+      if (geomType === 'line' || geomType === 'lineStack' || geomType === 'area' || geomType === 'areaStack') return true;
+    }
+    return false;
+  }
 
-  _adjustPosition(position) {
+  _adjustPosition(position, isTailLegend) {
     let pos;
-    if (Util.isArray(position)) {
+    if (isTailLegend) {
+      pos = 'right-top';
+    } else if (Util.isArray(position)) {
       pos = String(position[0]) + '-' + String(position[1]);
     } else {
       const posArr = position.split('-');
@@ -584,7 +600,7 @@ class LegendController {
       self.addCustomLegend(field);
     } else {
       let position = legendOptions.position || Global.defaultLegendPosition;
-      position = self._adjustPosition(position);
+      position = self._adjustPosition(position, self._isTailLegend(legendOptions, geom));
       if (fieldOption && fieldOption.position) { // 如果对某个图例单独设置 position，则对 position 重新赋值
         position = fieldOption.position;
       }
