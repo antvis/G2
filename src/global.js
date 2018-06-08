@@ -7,7 +7,7 @@ const Theme = require('./theme/index');
 
 // const Global = {};
 const Global = {
-  version: '____G2_VERSION____',
+  version: '3.1.2', // TODO fix version
   trackable: true,
   animate: true,
   snapArray: [ 0, 1, 2, 4, 5, 10 ],

@@ -1,5 +1,6 @@
 const expect = require('chai').expect;
 const { Global } = require('../../src/index');
+const pkg = require('../../package.json');
 
 
 describe('Global', () => {
@@ -32,5 +33,9 @@ describe('Global', () => {
     });
     expect(Global.colors).eqls([ 'red', 'blue', 'yellow' ]);
     expect(Global.axis.left.tickLine).not.to.be.empty;
+  });
+
+  it('version sync', () => {
+    expect(Global.version).equal(pkg.version);
   });
 });

@@ -1,10 +1,23 @@
+#### 3.1.2 (2018-06-08)
+
+##### New Features
+
+* feat(legend): tail-legend
+* feat(legend): extend legend positions to twelve
+
+##### Bug Fixes
+
+* fix(guide): exception when draw with reflected coord
+* fix(heatmap): keep heatmap image in plot range
+* fix(dev): sync pkg and global version for g2
+
 #### 3.1.1 (2018-06-02)
 
 ##### New Features
 
 * feat(axis): linear and category axis style
 
-##### BugFixes
+##### Bug Fixes
 
 * fix(tooltip): disable tooltip crosshairs event capturing. Closes #656
 
@@ -19,7 +32,7 @@
 * feat(interaction): add drag interaction
 * feat(axis): highlight zero baseline
 
-##### BugFixes
+##### Bug Fixes
 
 * fix(tooltip): ignore properties like showMarker of tooltip items
 
