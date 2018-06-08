@@ -20,10 +20,10 @@
       container: 'canvas',
       forceFit: true,
       height: window.innerHeight,
-      padding: 'auto',
-      plotBackground: {
-        fill: '#666' // 图表背景色
-      }
+      padding: 'auto'
+      // plotBackground: {
+      //   fill: '#666' // 图表背景色
+      // }
     });
     chart.coord().reflect('y');
     chart.source(data);
@@ -38,6 +38,11 @@
     chart.heatmap()
       .position('g*l')
       .color('tmp', 'blue-cyan-lime-yellow-red');
+    chart.guide().image({
+      start: [ 'min', 'max' ],
+      end: [ 'max', 'min' ],
+      src: 'https://gw.alipayobjects.com/zos/rmsportal/NeUTMwKtPcPxIFNTWZOZ.png'
+    });
     chart.render();
   });
 </script>
