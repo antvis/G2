@@ -178,7 +178,6 @@ class Heatmap extends GeomBase {
     // prepare shadow canvas context
     self._clearShadowCanvasCtx();
     const ctx = self._getShadowCanvasCtx();
-
     // filter data
     let data = self.get(MAPPED_DATA);
     if (range) {
@@ -206,7 +205,7 @@ class Heatmap extends GeomBase {
     imageShape.attr('y', end.y);
     imageShape.attr('width', width);
     imageShape.attr('height', height);
-    imageShape.attr('img', colored);
+    imageShape.attr('img', ctx.canvas);
   }
 
   draw(data /* , container, shapeFactory, index */) {
