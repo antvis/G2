@@ -20,7 +20,10 @@
       container: 'canvas',
       forceFit: true,
       height: window.innerHeight,
-      padding: [ 0, 50, 0, 0 ]
+      padding: 'auto',
+      plotBackground: {
+        fill: '#666' // 图表背景色
+      }
     });
     chart.coord().reflect('y');
     chart.source(data);
