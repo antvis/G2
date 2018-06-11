@@ -263,6 +263,7 @@ class Category extends Base {
       const itemclick = new Event('itemclick', ev, true, true);
       itemclick.item = item;
       itemclick.currentTarget = clickedItem;
+      itemclick.appendInfo = ev.currentTarget.get('appendInfo');
       itemclick.checked = (mode === 'single') ? true : !checked;
 
       const unCheckColor = this.get('unCheckColor');
