@@ -64,7 +64,7 @@ class LegendController {
     let backRange = this.backRange;
     if (!backRange) {
       backRange = this.chart.get('backPlot').getBBox();
-      if (backRange.minX === Infinity) { // 如果背景不占宽高，则直接使用 plotRange
+      if (backRange.minX === 0) { // 如果背景不占宽高，则直接使用 plotRange
         const plotRange = this.plotRange;
         backRange = {
           minX: plotRange.tl.x,
@@ -309,7 +309,6 @@ class LegendController {
         x = pre.get('x') + preWidth + innerMargin;
       }
     }
-
     legend.move(x + offsetX, y + offsetY);
   }
 
