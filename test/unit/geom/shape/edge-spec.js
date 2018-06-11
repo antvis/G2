@@ -1,5 +1,6 @@
 const expect = require('chai').expect;
 const { Canvas } = require('../../../../src/renderer2d');
+const Global = require('../../../../src/global');
 const Shape = require('../../../../src/geom/shape/shape');
 const Coord = require('../../../../src/coord/');
 require('../../../../src/geom/shape/edge');
@@ -80,41 +81,41 @@ describe('edge shape test', function() {
       expect(shape.attr('path').length).equal(4);
 
     });
+    if (Global.renderer2d === 'canvas') {
+      it('draw shape arc rect', function() {
+        const obj = {
+          x: [ 0.2, 0.4 ],
+          y: [ 0.5, 0.5 ]
+        };
+        const points = shapeObj.getShapePoints('arc', obj);
+        const shape = shapeObj.drawShape('arc', {
+          points,
+          color: 'red'
+        }, canvas);
+        expect(shape.attr('r')).equal(50);
+        expect(shape.attr('startAngle')).eql(Math.PI);
+        expect(shape.attr('endAngle')).eql(Math.PI * 2);
+        expect(shape.attr('x')).eql(150);
+        expect(shape.attr('y')).eql(250);
+        canvas.draw();
 
-    it('draw shape arc rect', function() {
-      const obj = {
-        x: [ 0.2, 0.4 ],
-        y: [ 0.5, 0.5 ]
-      };
-      const points = shapeObj.getShapePoints('arc', obj);
-      const shape = shapeObj.drawShape('arc', {
-        points,
-        color: 'red'
-      }, canvas);
-      expect(shape.attr('r')).equal(50);
-      expect(shape.attr('startAngle')).eql(Math.PI);
-      expect(shape.attr('endAngle')).eql(Math.PI * 2);
-      expect(shape.attr('x')).eql(150);
-      expect(shape.attr('y')).eql(250);
-      canvas.draw();
+      });
 
-    });
+      it('draw shape arc rect hasWeight', function() {
+        const obj = {
+          x: [ 0.2, 0.4, 0.6, 0.7 ],
+          y: [ 0.1, 0.1, 0.5, 0.5 ]
+        };
+        const points = shapeObj.getShapePoints('arc', obj);
+        const shape = shapeObj.drawShape('arc', {
+          points,
+          color: 'green'
+        }, canvas);
+        expect(shape.attr('path').length).equal(7);
 
-    it('draw shape arc rect hasWeight', function() {
-      const obj = {
-        x: [ 0.2, 0.4, 0.6, 0.7 ],
-        y: [ 0.1, 0.1, 0.5, 0.5 ]
-      };
-      const points = shapeObj.getShapePoints('arc', obj);
-      const shape = shapeObj.drawShape('arc', {
-        points,
-        color: 'green'
-      }, canvas);
-      expect(shape.attr('path').length).equal(7);
-
-      canvas.draw();
-    });
-
+        canvas.draw();
+      });
+    }
     // xit('getActiveCfg', function() {
     //   const activeCfg = shapeObj.getActiveCfg();
     //   expect(activeCfg).eql({
@@ -123,117 +124,119 @@ describe('edge shape test', function() {
     // });
   });
 });
-
-describe('edge shape test polar', function() {
-  const canvas2 = canvas;
-  const coord2 = new Coord.Polar({
-    start: {
-      x: 0,
-      y: 500
-    },
-    end: {
-      x: 500,
-      y: 0
-    }
-  });
-
-  it('draw shape arc polar hasWeight', function() {
-    const shapeObj = Shape.getShapeFactory('edge');
-    shapeObj._coord = coord2;
-    const obj = {
-      x: [ 0.2, 0.4, 0.6, 0.7 ],
-      y: [ 0.5, 0.5, 0.5, 0.5 ]
-    };
-    const points = shapeObj.getShapePoints('arc', obj);
-    const shape = shapeObj.drawShape('arc', {
-      points,
-      color: 'green',
-      isInCircle: true,
-      center: {
-        x: 230,
-        y: 250
+if (Global.renderer2d === 'canvas') {
+  describe('edge shape test polar', function() {
+    const canvas2 = canvas;
+    const coord2 = new Coord.Polar({
+      start: {
+        x: 0,
+        y: 500
+      },
+      end: {
+        x: 500,
+        y: 0
       }
-    }, canvas2);
-    expect(shape.attr('path').length).equal(8);
-    expect(shape.attr('path')).eql(
-      [
+    });
+
+    it('draw shape arc polar hasWeight', function() {
+      const shapeObj = Shape.getShapeFactory('edge');
+      shapeObj._coord = coord2;
+      const obj = {
+        x: [ 0.2, 0.4, 0.6, 0.7 ],
+        y: [ 0.5, 0.5, 0.5, 0.5 ]
+      };
+      const points = shapeObj.getShapePoints('arc', obj);
+      const shape = shapeObj.drawShape('arc', {
+        points,
+        color: 'green',
+        isInCircle: true,
+        center: {
+          x: 230,
+          y: 250
+        }
+      }, canvas2);
+      expect(shape.attr('path').length).equal(8);
+      expect(shape.attr('path')).eql(
+        [
           [ 'M', 368.8820645368942, 211.37287570313157 ],
-        [ 'Q',
-          250.00000000000003,
-          0,
-          131.11793546310582,
-          288.62712429686843 ],
-        [ 'A',
-          124.99999999999999,
-          124.99999999999999,
-          0,
-          1,
-          1,
-          131.11793546310582,
-          288.62712429686843 ],
-        [ 'A',
-          125,
-          125,
-          0,
-          0,
-          0,
-          176.52684346344085,
-          351.12712429686843 ],
-        [ 'Q',
-          250.00000000000003,
-          0,
-          323.47315653655915,
-          351.12712429686843 ],
-        [ 'A',
-          125,
-          125,
-          0,
-          0,
-          1,
-          323.47315653655915,
-          351.12712429686843 ],
-        [ 'A',
-          124.99999999999999,
-          124.99999999999999,
-          0,
-          0,
-          0,
-          368.8820645368942,
-          211.37287570313157 ],
+          [ 'Q',
+            250.00000000000003,
+            0,
+            131.11793546310582,
+            288.62712429686843 ],
+          [ 'A',
+            124.99999999999999,
+            124.99999999999999,
+            0,
+            1,
+            1,
+            131.11793546310582,
+            288.62712429686843 ],
+          [ 'A',
+            125,
+            125,
+            0,
+            0,
+            0,
+            176.52684346344085,
+            351.12712429686843 ],
+          [ 'Q',
+            250.00000000000003,
+            0,
+            323.47315653655915,
+            351.12712429686843 ],
+          [ 'A',
+            125,
+            125,
+            0,
+            0,
+            1,
+            323.47315653655915,
+            351.12712429686843 ],
+          [ 'A',
+            124.99999999999999,
+            124.99999999999999,
+            0,
+            0,
+            0,
+            368.8820645368942,
+            211.37287570313157 ],
           [ 'Z' ]
-      ]
+        ]
       );
-  });
-  it('draw shape arc polar', function() {
-    const shapeObj = Shape.getShapeFactory('edge');
-    shapeObj._coord = coord2;
-    const obj = {
-      x: [ 0.2, 0.4 ],
-      y: [ 0.5, 0.5 ]
-    };
-    const points = shapeObj.getShapePoints('arc', obj);
-    const shape = shapeObj.drawShape('arc', {
-      points,
-      color: 'red',
-      isInCircle: true,
-      center: {
-        x: 230,
-        y: 250
-      }
-    }, canvas2);
-    expect(shape.attr('path').length).equal(2);
-    expect(shape.attr('path')).eql(
-      [
-        [ 'M', 368.8820645368942, 211.37287570313157 ],
-        [ 'Q', 250.00000000000003, 0, 323.47315653655915, 351.12712429686843 ]
-      ]
-    );
-    canvas2.draw();
-  });
+    });
+    it('draw shape arc polar', function() {
+      const shapeObj = Shape.getShapeFactory('edge');
+      shapeObj._coord = coord2;
+      const obj = {
+        x: [ 0.2, 0.4 ],
+        y: [ 0.5, 0.5 ]
+      };
+      const points = shapeObj.getShapePoints('arc', obj);
+      const shape = shapeObj.drawShape('arc', {
+        points,
+        color: 'red',
+        isInCircle: true,
+        center: {
+          x: 230,
+          y: 250
+        }
+      }, canvas2);
+      expect(shape.attr('path').length).equal(2);
+      expect(shape.attr('path')).eql(
+        [
+          [ 'M', 368.8820645368942, 211.37287570313157 ],
+          [ 'Q', 250.00000000000003, 0, 323.47315653655915, 351.12712429686843 ]
+        ]
+      );
+      canvas2.draw();
+    });
 
-  it('clear', function() {
-    canvas.clear();
-    canvas.destroy();
-    document.body.removeChild(div);
+    it('clear', function() {
+      canvas.clear();
+      canvas.destroy();
+      document.body.removeChild(div);
+    });
   });
-});
+}
+

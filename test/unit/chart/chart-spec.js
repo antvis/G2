@@ -1,4 +1,5 @@
 const expect = require('chai').expect;
+const Global = require('../../../src/global');
 const Chart = require('../../../src/chart/chart');
 const { DomUtil } = require('../../../src/renderer2d');
 
@@ -611,8 +612,10 @@ describe('chart sync scales', function() {
   });
 
   it('toDataURL', function() {
-    const str = chart.toDataURL();
-    expect(str.length).not.equal(0);
+    if (Global.renderer2d === 'canvas') {
+      const str = chart.toDataURL();
+      expect(str.length).not.equal(0);
+    }
   });
 
   // xit('download', function() {
