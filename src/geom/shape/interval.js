@@ -8,10 +8,8 @@
 const Util = require('../../util');
 const Shape = require('./shape');
 const PathUtil = require('../util/path');
-const G = require('../../renderer2d');
-const GPathUtil = G.PathUtil;
+const GPathUtil = require('../../renderer2d').PathUtil;
 const Global = require('../../global');
-
 
 // 获取柱状图的几个点
 function getRectPoints(cfg, isPyramid) {
@@ -549,7 +547,7 @@ function getWaterWavePath(radius, waterLevel, waveLength, phase, amplitude, cx, 
    *                       +------+
    *                          ^
    *                          |
-                  2. draws this line
+   *                  2. draws this line
    */
   path.push([ 'L', waveRight + left, cy + radius ]);
   path.push([ 'L', left, cy + radius ]);
@@ -562,34 +560,40 @@ function getWaterWavePath(radius, waterLevel, waveLength, phase, amplitude, cx, 
  * @param {number} x           中心x
  * @param {number} y           中心y
  * @param {number} level       水位等级 0～1
+ * @param {number} waveCount   水波数
+ * @param {number} colors      色值
+ * @param {number} group       图组
+ * @param {number} clip        用于剪切的图形
  * @param {number} radius      绘制图形的高度
- * @param {number} shape       水位容器
- *
- * @return {object} shape      水波图形
  */
-function addWaterWave(x, y, level, radius, shape) {
-  const bbox = shape.getBBox();
+function addWaterWave(x, y, level, waveCount, colors, group, clip, radius) {
+  const bbox = clip.getBBox();
   const width = bbox.maxX - bbox.minX;
   const height = bbox.maxY - bbox.minY;
   const duration = 5000;
-  const wave = new G.Path({
-    attrs: {
-      path: getWaterWavePath(
-        radius,
-        bbox.minY + height * level,
-        width / 4, 0, width / 64, x, y
-      )
+  const delayDiff = 300;
+  for (let i = 0; i < waveCount; i++) {
+    const wave = group.addShape('path', {
+      attrs: {
+        path: getWaterWavePath(
+          radius,
+          bbox.minY + height * level,
+          width / 4, 0, width / 64, x, y
+        ),
+        fill: colors[i],
+        clip
+      }
+    });
+    // FIXME wave animation error in svg
+    if (Global.renderer2d === 'canvas') {
+      wave.animate({
+        transform: [
+          [ 't', width / 2, 0 ]
+        ],
+        repeat: true
+      }, duration - i * delayDiff);
     }
-  });
-  wave.__cfg.canvas = shape.get('canvas');
-  wave.animate({
-    transform: [
-      [ 't', width / 2, 0 ]
-    ],
-    repeat: true
-  }, duration);
-  shape.attr('clip', wave);
-  return wave;
+  }
 }
 
 Shape.registerShape('interval', 'liquid-fill-gauge', {
@@ -610,22 +614,29 @@ Shape.registerShape('interval', 'liquid-fill-gauge', {
     const xWidth = cp.x - minP.x;
     const radius = Math.min(xWidth, minP.y);
     const attrs = getFillAttrs(cfg);
-    const circle = container.addShape('circle', {
+    const clipCircle = container.addShape('circle', {
+      attrs: {
+        x: cp.x,
+        y: cp.y,
+        r: radius
+      }
+    });
+    addWaterWave(
+      cp.x, cp.y,
+      cfg.y / (2 * cp.y),
+      1,
+      [ attrs.fill ],
+      container,
+      clipCircle,
+      radius * 4
+    );
+    return container.addShape('circle', {
       attrs: Util.mix(getLineAttrs(cfg), {
         x: cp.x,
         y: cp.y,
-        fill: attrs.fill,
         r: radius + radius / 8
       })
     });
-    addWaterWave(
-      cp.x,
-      cp.y,
-      cfg.y / (2 * cp.y),
-      radius * 4,
-      circle
-    );
-    return;
   }
 });
 
@@ -660,20 +671,14 @@ Shape.registerShape('interval', 'liquid-fill-path', {
         segments
       };
     }
-    let transform = [];
+    const transform = [];
     if (attrs.rotate) {
       transform.push([ 'r', attrs.rotate / 180 * Math.PI ]);
       delete attrs.rotate;
     }
-    const group = container.addGroup();
-    const shape = group.addShape('path', {
+    const shape = container.addShape('path', {
       attrs: Util.mix(attrs, {
-        path: pathMeta.segments,
-        fill: attrs.fill
-      })
-    });
-    const keyShape = group.addShape('path', {
-      attrs: Util.mix(getLineAttrs(cfg), {
+        fillOpacity: 0,
         path: pathMeta.segments
       })
     });
@@ -682,23 +687,38 @@ Shape.registerShape('interval', 'liquid-fill-path', {
     const rangeY = bbox.maxY - bbox.minY;
     const range = Math.max(rangeX, rangeY);
     const scale = radius * 2 / range;
+    shape.transform(
+      transform.concat([
+        [ 's', scale, scale ]
+      ])
+    );
     const dw = scale * rangeX / 2; // (bbox.maxX - bbox.minX) / 2;
     const dh = scale * rangeY / 2; // (bbox.maxY - bbox.minY) / 2;
-    transform = transform.concat([
-      [ 's', scale, scale ],
+    shape.transform([
       [ 't', cp.x - dw, cp.y - dh ]
     ]);
-    shape.transform(transform);
-    keyShape.transform(transform);
-
     addWaterWave(
-      cp.x,
-      cp.y,
+      cp.x, cp.y,
       cfg.y / (2 * cp.y),
-      minP.y * 4,
-      shape
-   );
-    return group;
+      1,
+      [ attrs.fill ],
+      container,
+      shape,
+      minP.y * 4
+    );
+
+    const keyShape = container.addShape('path', {
+      attrs: Util.mix(getLineAttrs(cfg), {
+        path: pathMeta.segments
+      })
+    });
+    keyShape.transform(
+      transform.concat([
+        [ 's', scale, scale ],
+        [ 't', cp.x - dw, cp.y - dh ]
+      ])
+    );
+    return keyShape;
   }
 });
 
