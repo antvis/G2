@@ -57,6 +57,9 @@ class Polyline extends Base {
     let preTickPoint;
     if (index === 0) {
       preTickPoint = self.get('start');
+      if (preTickPoint.x === point.x && preTickPoint.y === point.y) {
+        return [ 0, 0 ];
+      }
     } else {
       const tickPoints = self.get('tickPoints');
       preTickPoint = tickPoints[index - 1];
