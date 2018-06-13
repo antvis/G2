@@ -3,7 +3,7 @@
  * @author sima.zhang
  */
 const Util = require('../../util');
-const { DomUtil } = require('../../renderer2d');
+const DomUtil = Util.DomUtil;
 const Base = require('./base');
 
 class Html extends Base {

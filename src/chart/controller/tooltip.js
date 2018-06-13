@@ -5,7 +5,7 @@
 const Util = require('../../util');
 const Global = require('../../global');
 const Tooltip = require('../../component/tooltip');
-const MatrixUtil = require('../../renderer2d').MatrixUtil;
+const MatrixUtil = Util.MatrixUtil;
 const Vector2 = MatrixUtil.vec2;
 
 const TYPE_SHOW_MARKERS = [ 'line', 'area', 'path', 'areaStack' ]; // 默认展示 tooltip marker 的几何图形

@@ -5,7 +5,7 @@
 
 const Util = require('../../util');
 const PathUtil = require('../util/path');
-const GPath = require('../../renderer2d').PathUtil;
+const GPath = Util.PathUtil;
 const Shape = {};
 
 const ShapeBase = {

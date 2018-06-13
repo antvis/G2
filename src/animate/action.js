@@ -4,7 +4,7 @@
  */
 const Util = require('../util');
 const G = require('../renderer2d');
-const PathUtil = G.PathUtil;
+const PathUtil = Util.PathUtil;
 
 function getClip(coord) {
   const start = coord.start;

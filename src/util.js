@@ -19,6 +19,9 @@ function _mix(dist, obj) {
 
 const Util = CommonUtil.assign({
   cloneDeep: require('lodash/cloneDeep'),
+  MatrixUtil: G.MatrixUtil,
+  DomUtil: G.DomUtil,
+  PathUtil: G.PathUtil,
   filter: require('lodash/filter'),
   flatten: require('lodash/flatten'),
   groupBy: require('lodash/groupBy'),

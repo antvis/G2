@@ -4,7 +4,7 @@
  */
 const Util = require('../util');
 const Base = require('./base');
-const MatrixUtil = require('../renderer2d').MatrixUtil;
+const MatrixUtil = Util.MatrixUtil;
 const vec2 = MatrixUtil.vec2;
 
 class Helix extends Base {

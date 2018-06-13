@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const Global = require('../../../src/global');
 const Chart = require('../../../src/chart/chart');
-const { DomUtil } = require('../../../src/renderer2d');
+const { DomUtil } = require('../../../src/util');
 
 const div = document.createElement('div');
 div.id = 'cchart';
