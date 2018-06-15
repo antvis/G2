@@ -75,11 +75,10 @@ describe('test chart', function() {
   it('showTooltip', function() {
     const point = chart.getXY({ a: 1, b: 2 });
     chart.showTooltip(point);
-    // TODO 如果直接调用chart.showToolTip,非shared的tooltip不显示
-    // const tooltipController = chart.get('tooltipController');
-    // const { tooltip } = tooltipController;
-    // const tooltipItems = chart.getTooltipItems(point);
-    // expect(tooltip.get('items').length).eql(tooltipItems.length);
+    const tooltipController = chart.get('tooltipController');
+    const { tooltip } = tooltipController;
+    const tooltipItems = chart.getTooltipItems(point);
+    expect(tooltip.get('items').length).eql(tooltipItems.length);
   });
 
   it('forceFit', function() {
@@ -612,10 +611,8 @@ describe('chart sync scales', function() {
   });
 
   it('toDataURL', function() {
-    if (Global.renderer2d === 'canvas') {
-      const str = chart.toDataURL();
-      expect(str.length).not.equal(0);
-    }
+    const str = chart.toDataURL();
+    expect(str.length).not.equal(0);
   });
 
   // xit('download', function() {

@@ -63,8 +63,10 @@ class Image extends Base {
       }
     } else {
       const end = self.parsePoint(coord, self.end);
-      cfg.width = Math.abs(end.x - start.x);
-      cfg.height = Math.abs(start.y - end.y);
+      // cfg.width = Math.abs(end.x - start.x);
+      // cfg.height = Math.abs(start.y - end.y);
+      cfg.width = end.x - start.x;
+      cfg.height = end.y - start.y;
     }
 
     if (self.offsetX) {

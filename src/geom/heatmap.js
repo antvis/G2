@@ -192,11 +192,11 @@ class Heatmap extends GeomBase {
       const obj = data[i];
       const cfg = self.getDrawCfg(obj);
       const alpha = scale.scale(obj[ORIGIN_FIELD][valueField]);
-      self._drawGrayScaleBlurredCircle(cfg.x, cfg.y, size.radius + size.blur, alpha, ctx);
+      self._drawGrayScaleBlurredCircle(cfg.x - start.x, cfg.y - end.y, size.radius + size.blur, alpha, ctx);
     }
 
     // step2. convert pixels
-    const colored = ctx.getImageData(start.x, end.y, width, height);
+    const colored = ctx.getImageData(0, 0, width, height);
     self._clearShadowCanvasCtx();
     self._colorize(colored);
     ctx.putImageData(colored, 0, 0);
