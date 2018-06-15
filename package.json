@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2",
-  "version": "3.1.0",
+  "version": "3.2.0-beta.1",
   "description": "the Grammar of Graphics in Javascript",
   "main": "build/g2.js",
   "browser": "build/g2.js",
@@ -93,8 +93,8 @@
     "silent": false
   },
   "dependencies": {
-    "@antv/g": "antvis/g#svg_support",
-    "@antv/util": "~1.0.2",
+    "@antv/g": "~3.0.0-beta.1",
+    "@antv/util": "^1.0.4",
     "fecha": "~2.3.3",
     "gl-matrix": "~2.6.1",
     "venn.js": "~0.2.20",
