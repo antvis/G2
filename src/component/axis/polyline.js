@@ -4,7 +4,7 @@
  */
 const Util = require('../../util');
 const Base = require('./base');
-const { MatrixUtil, PathUtil } = require('@antv/g');
+const { MatrixUtil, PathUtil } = Util;
 const vec2 = MatrixUtil.vec2;
 
 class Polyline extends Base {
@@ -57,6 +57,9 @@ class Polyline extends Base {
     let preTickPoint;
     if (index === 0) {
       preTickPoint = self.get('start');
+      if (preTickPoint.x === point.x && preTickPoint.y === point.y) {
+        return [ 0, 0 ];
+      }
     } else {
       const tickPoints = self.get('tickPoints');
       preTickPoint = tickPoints[index - 1];

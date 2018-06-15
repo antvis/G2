@@ -121,7 +121,7 @@ class EventController {
       currentShape = null;
       self.currentShape = null;
     }
-    const shape = self._getShape(ev.x, ev.y);
+    const shape = self._getShape(ev.x, ev.y) || ev.currentTarget;
     let eventObj = self._getShapeEventObj(ev);
     eventObj.shape = shape;
     registerData(eventObj);
@@ -187,7 +187,7 @@ class EventController {
   onClick(ev) {
     const self = this;
     const view = self.view;
-    const shape = self._getShape(ev.x, ev.y);
+    const shape = self._getShape(ev.x, ev.y) || ev.currentTarget;
     const shapeEventObj = self._getShapeEventObj(ev);
     shapeEventObj.shape = shape;
     registerData(shapeEventObj);
@@ -215,7 +215,7 @@ class EventController {
 
   onTouchstart(ev) {
     const view = this.view;
-    const shape = this._getShape(ev.x, ev.y);
+    const shape = this._getShape(ev.x, ev.y) || ev.currentTarget;
     const eventObj = this._getShapeEventObj(ev);
     eventObj.shape = shape;
     registerData(eventObj);
@@ -226,7 +226,7 @@ class EventController {
 
   onTouchmove(ev) {
     const view = this.view;
-    const shape = this._getShape(ev.x, ev.y);
+    const shape = this._getShape(ev.x, ev.y) || ev.currentTarget;
     const eventObj = this._getShapeEventObj(ev);
     eventObj.shape = shape;
     registerData(eventObj);

@@ -5,7 +5,7 @@
 const Util = require('../../util');
 const Base = require('../../base');
 const Global = require('../../global');
-const { DomUtil } = require('@antv/g');
+const DomUtil = Util.DomUtil;
 
 const CONTAINER_CLASS = 'g2-tooltip';
 const TITLE_CLASS = 'g2-tooltip-title';
@@ -423,7 +423,10 @@ class Tooltip extends Base {
         color: item.color,
         attrs: Util.mix({}, markerCfg, {
           x: item.x,
-          y: item.y
+          y: item.y,
+          fill: item.color,
+          symbol: 'circle',
+          shadowColor: item.color
         })
       });
     });
@@ -472,6 +475,7 @@ class Tooltip extends Base {
         endx = markerItems[0].x;
         endy = markerItems[0].y;
       }
+
       if (crossLineShapeY) { // 第一次进入时，画布需要单独绘制，所以需要先设定corss的位置
         crossLineShapeY.move(endx, 0);
       }
@@ -490,7 +494,6 @@ class Tooltip extends Base {
         if (items.length > 1 && firstItem[dim] > lastItem[dim]) {
           startDim = lastItem[dim];
         }
-
         if (this.get('crosshairs').width) { // 用户定义了 width
           crosshairsRectShape.attr(dim, startDim - this.get('crosshairs').width / 2);
           crosshairsRectShape.attr(attr, this.get('crosshairs').width);

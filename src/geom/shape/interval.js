@@ -8,7 +8,7 @@
 const Util = require('../../util');
 const Shape = require('./shape');
 const PathUtil = require('../util/path');
-const GPathUtil = require('@antv/g').PathUtil;
+const GPathUtil = Util.PathUtil;
 const Global = require('../../global');
 
 // 获取柱状图的几个点
@@ -584,12 +584,15 @@ function addWaterWave(x, y, level, waveCount, colors, group, clip, radius) {
         clip
       }
     });
-    wave.animate({
-      transform: [
-        [ 't', width / 2, 0 ]
-      ],
-      repeat: true
-    }, duration - i * delayDiff);
+    // FIXME wave animation error in svg
+    if (Global.renderer2d === 'canvas') {
+      wave.animate({
+        transform: [
+          [ 't', width / 2, 0 ]
+        ],
+        repeat: true
+      }, duration - i * delayDiff);
+    }
   }
 }
 

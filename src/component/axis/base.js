@@ -4,7 +4,7 @@
  */
 const Util = require('../../util');
 const { LabelsRenderer } = require('../label/index');
-const { Group } = require('@antv/g');
+const { Group } = require('../../renderer2d');
 const Grid = require('./grid');
 const Global = require('../../global');
 

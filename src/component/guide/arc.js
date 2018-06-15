@@ -5,6 +5,28 @@
 const Util = require('../../util');
 const Base = require('./base');
 
+function calculateAngle(point, center) {
+  const x = point.x - center.x;
+  const y = point.y - center.y;
+  let deg;
+  if (y === 0) {
+    if (x < 0) {
+      deg = Math.PI / 2;
+    } else {
+      deg = (270 * Math.PI) / 180;
+    }
+  } else if (x >= 0 && y > 0) {
+    deg = Math.PI * 2 - Math.atan(x / y);
+  } else if (x <= 0 && y < 0) {
+    deg = Math.PI - Math.atan(x / y);
+  } else if (x > 0 && y < 0) {
+    deg = Math.PI + Math.atan(-x / y);
+  } else if (x < 0 && y > 0) {
+    deg = Math.atan(x / -y);
+  }
+  return deg;
+}
+
 class Arc extends Base {
   getDefaultCfg() {
     const cfg = super.getDefaultCfg();
@@ -42,17 +64,18 @@ class Arc extends Base {
     const coordCenter = coord.getCenter();
     const radius = Math.sqrt((start.x - coordCenter.x) * (start.x - coordCenter.x)
       + (start.y - coordCenter.y) * (start.y - coordCenter.y));
-    const startAngle = Math.atan2(start.y - coordCenter.y, start.x - coordCenter.x);
-    const endAngle = Math.atan2(end.y - coordCenter.y, end.x - coordCenter.x);
-
-    const arcShape = group.addShape('arc', {
+    const startAngle = calculateAngle(start, coordCenter);
+    const endAngle = calculateAngle(end, coordCenter);
+    const dAngle = (endAngle - startAngle) % (Math.PI * 2);
+    const largeArc = dAngle > Math.PI ? 1 : 0;
+    const clockwise = endAngle - startAngle >= 0 ? 1 : 0;
+    const arcShape = group.addShape('path', {
       zIndex: self.zIndex,
       attrs: Util.mix({
-        x: coordCenter.x,
-        y: coordCenter.y,
-        r: radius,
-        startAngle,
-        endAngle
+        path: [
+          [ 'M', start.x, start.y ],
+          [ 'A', radius, radius, startAngle, largeArc, clockwise, end.x, end.y ]
+        ]
       }, self.style)
     });
     arcShape.name = 'guide-arc';

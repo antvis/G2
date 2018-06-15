@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const { Canvas, Group } = require('@antv/g');
+const { Canvas, Group } = require('../../../../src/renderer2d');
 const Labels = require('../../../../src/component/label/index');
 const LabelsRenderer = Labels.LabelsRenderer;
 const assign = require('lodash/assign');

@@ -4,7 +4,7 @@
  */
 const Util = require('../../util');
 const Base = require('./base');
-const { MatrixUtil, PathUtil } = require('@antv/g');
+const { MatrixUtil, PathUtil } = Util;
 const vec2 = MatrixUtil.vec2;
 
 class Helix extends Base {

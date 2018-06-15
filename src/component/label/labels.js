@@ -3,7 +3,8 @@
  * @author sima.zhang
  */
 const Util = require('../../util');
-const { DomUtil, Group } = require('@antv/g');
+const Group = require('../../renderer2d').Group;
+const DomUtil = Util.DomUtil;
 
 class Labels extends Group {
   getDefaultCfg() {

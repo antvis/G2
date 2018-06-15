@@ -3,8 +3,8 @@
  * @author sima.zhang
  */
 const Util = require('../util');
-const G = require('@antv/g');
-const PathUtil = G.PathUtil;
+const G = require('../renderer2d');
+const PathUtil = Util.PathUtil;
 
 function getClip(coord) {
   const start = coord.start;

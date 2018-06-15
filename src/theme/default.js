@@ -492,26 +492,18 @@ const Theme = {
     }
   },
   tooltipMarker: {
-    symbol: (x, y, r, ctx, marker) => {
-      const color = marker.get('color');
-      ctx.fillStyle = color;
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = '#fff';
-      ctx.beginPath();
-      ctx.arc(x, y, r, 0, Math.PI * 2, false);
-      ctx.fill();
-      ctx.stroke();
-
-      ctx.save();
-      ctx.beginPath();
-      ctx.fillStyle = '#fff';
-      ctx.strokeStyle = color;
-      ctx.globalAlpha = 0.2;
-      ctx.lineWidth = 3;
-      ctx.arc(x, y, 6, 0, Math.PI * 2, false);
-      ctx.stroke();
-      ctx.restore();
+    symbol: (x, y, r) => {
+      return [
+        [ 'M', x, y ],
+        [ 'm', -r, 0 ],
+        [ 'a', r, r, 0, 1, 0, r * 2, 0 ],
+        [ 'a', r, r, 0, 1, 0, -r * 2, 0 ]
+      ];
     },
+    stroke: '#fff',
+    shadowBlur: 8,
+    shadowOffsetX: 0,
+    shadowOffSetY: 0,
     radius: 4
   }, // 提示信息在折线图、区域图上形成点的样式
   tooltipCrosshairsRect: {

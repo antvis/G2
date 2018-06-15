@@ -118,7 +118,7 @@ const ActiveMixin = {
       // Util.mix(shape.__attrs, activeCfg);
       shape.attr(activeCfg);
     }
-    shape.setZIndex(1); // 提前
+    shape.set('zIndex', 1); // 提前
   },
   setShapesActived(shapes) {
     const self = this;

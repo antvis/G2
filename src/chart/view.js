@@ -779,9 +779,9 @@ class View extends Base {
   filterShape(fn) {
     const callback = function(record, shape, geom, view) {
       if (!fn(record, shape, geom, view)) {
-        shape.set('visible', false);
+        shape.hide();
       } else {
-        shape.set('visible', true);
+        shape.show();
       }
     };
     this.eachShape(callback);

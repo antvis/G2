@@ -5,9 +5,7 @@
 const Util = require('../../util');
 const Shape = require('./shape');
 const Global = require('../../global');
-const {
-  PathUtil
-} = require('@antv/g');
+const PathUtil = Util.PathUtil;
 
 function getAttrs(cfg) {
   const defaultCfg = Global.shape.venn;

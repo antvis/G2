@@ -4,7 +4,8 @@
  */
 const Util = require('../../util');
 const Base = require('./base');
-const { DomUtil, Event, Group } = require('@antv/g');
+const DomUtil = Util.DomUtil;
+const { Event, Group } = require('../../renderer2d');
 const Global = require('../../global');
 
 const CONTAINER_CLASS = 'g2-legend';
@@ -205,7 +206,7 @@ class Category extends Base {
       super._renderUI();
       this._renderItems();
       this.get('autoWrap') && this._adjustItems(); // 默认自动换行
-      this._renderBack();
+      // this._renderBack();
     } else { // 使用 html 渲染图例
       this._renderHTML();
     }
@@ -263,6 +264,7 @@ class Category extends Base {
       const itemclick = new Event('itemclick', ev, true, true);
       itemclick.item = item;
       itemclick.currentTarget = clickedItem;
+      itemclick.appendInfo = ev.currentTarget.get('appendInfo');
       itemclick.checked = (mode === 'single') ? true : !checked;
 
       const unCheckColor = this.get('unCheckColor');
@@ -452,9 +454,8 @@ class Category extends Base {
             if (child !== parentDom) {
               const childMarkerDom = findNodeByClass(child, MARKER_CLASS);
               childMarkerDom.style.backgroundColor = unCheckedColor;
-              child.className = Util.replace(child.className, 'checked', 'unChecked');
+              child.className = child.className.replace('checked', 'unChecked');
               child.style.color = unCheckedColor;
-
               const childItem = findItem(items, child.getAttribute('data-value'));
               childItem.checked = false;
             } else {
@@ -464,7 +465,7 @@ class Category extends Base {
               if (markerDom) {
                 markerDom.style.backgroundColor = originColor;
               }
-              parentDom.className = Util.replace(domClass, 'unChecked', 'checked');
+              parentDom.className = domClass.replace('unChecked', 'checked');
             }
           });
         } else { // 混合模式
@@ -484,13 +485,13 @@ class Category extends Base {
             if (markerDom) {
               markerDom.style.backgroundColor = unCheckedColor;
             }
-            parentDom.className = Util.replace(domClass, 'checked', 'unChecked');
+            parentDom.className = domClass.replace('checked', 'unChecked');
             parentDom.style.color = unCheckedColor;
           } else {
             if (markerDom) {
               markerDom.style.backgroundColor = originColor;
             }
-            parentDom.className = Util.replace(domClass, 'unChecked', 'checked');
+            parentDom.className = domClass.replace('unChecked', 'checked');
             parentDom.style.color = self.get('textStyle').fill;
           }
         }

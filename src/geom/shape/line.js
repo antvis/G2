@@ -115,16 +115,18 @@ function _getInterPointShapeCfg(cfg, fn) {
   return _getInterPath(points);
 }
 
-function _markerFn(x, y, r, ctx) {
-  ctx.moveTo(x - r, y);
-  ctx.lineTo(x + r, y);
+function _markerFn(x, y, r) {
+  return [
+    [ 'M', x - r, y ],
+    [ 'L', x + r, y ]
+  ];
 }
 
-function _smoothMarkerFn(x, y, r, ctx) {
-  ctx.moveTo(x - r, y);
-  ctx.arcTo(x - r / 2, y - r / 2, x, y, r / 2);
-  ctx.lineTo(x, y);
-  ctx.arcTo(x + r / 2, y + r / 2, x + r, y - r / 2, r / 2);
+function _smoothMarkerFn(x, y, r) {
+  return [
+    [ 'M', x - r, y ],
+    [ 'A' ]
+  ];
 }
 // get marker cfg
 function _getMarkerCfg(cfg, smooth) {
@@ -281,11 +283,13 @@ Shape.registerShape('line', 'hv', {
     });
   },
   getMarkerCfg(cfg) {
-    return _getInterMarkerCfg(cfg, function(x, y, r, ctx) {
-      ctx.moveTo(x - r - 1, y - 2.5);
-      ctx.lineTo(x, y - 2.5);
-      ctx.lineTo(x, y + 2.5);
-      ctx.lineTo(x + r + 1, y + 2.5);
+    return _getInterMarkerCfg(cfg, function(x, y, r) {
+      return [
+        [ 'M', x - r - 1, y - 2.5 ],
+        [ 'L', x, y - 2.5 ],
+        [ 'L', x, y + 2.5 ],
+        [ 'L', x + r + 1, y + 2.5 ]
+      ];
     });
   }
 });
@@ -308,11 +312,13 @@ Shape.registerShape('line', 'vh', {
     });
   },
   getMarkerCfg(cfg) {
-    return _getInterMarkerCfg(cfg, function(x, y, r, ctx) {
-      ctx.moveTo(x - r - 1, y + 2.5);
-      ctx.lineTo(x, y + 2.5);
-      ctx.lineTo(x, y - 2.5);
-      ctx.lineTo(x + r + 1, y - 2.5);
+    return _getInterMarkerCfg(cfg, function(x, y, r) {
+      return [
+        [ 'M', x - r - 1, y + 2.5 ],
+        [ 'L', x, y + 2.5 ],
+        [ 'L', x, y - 2.5 ],
+        [ 'L', x + r + 1, y - 2.5 ]
+      ];
     });
   }
 });
@@ -340,13 +346,15 @@ Shape.registerShape('line', 'hvh', {
     });
   },
   getMarkerCfg(cfg) {
-    return _getInterMarkerCfg(cfg, function(x, y, r, ctx) {
-      ctx.moveTo(x - (r + 1), y + 2.5);
-      ctx.lineTo(x - r / 2, y + 2.5);
-      ctx.lineTo(x - r / 2, y - 2.5);
-      ctx.lineTo(x + r / 2, y - 2.5);
-      ctx.lineTo(x + r / 2, y + 2.5);
-      ctx.lineTo(x + r + 1, y + 2.5);
+    return _getInterMarkerCfg(cfg, function(x, y, r) {
+      return [
+        [ 'M', x - (r + 1), y + 2.5 ],
+        [ 'L', x - r / 2, y + 2.5 ],
+        [ 'L', x - r / 2, y - 2.5 ],
+        [ 'L', x + r / 2, y - 2.5 ],
+        [ 'L', x + r / 2, y + 2.5 ],
+        [ 'L', x + r + 1, y + 2.5 ]
+      ];
     });
   }
 });
@@ -374,14 +382,16 @@ Shape.registerShape('line', 'vhv', {
     });
   },
   getMarkerCfg(cfg) {
-    return _getInterMarkerCfg(cfg, function(x, y, r, ctx) {
+    return _getInterMarkerCfg(cfg, function(x, y) {
       // 宽 13px，高 8px
-      ctx.moveTo(x - 5, y + 2.5);
-      ctx.lineTo(x - 5, y);
-      ctx.lineTo(x, y);
-      ctx.lineTo(x, y - 3);
-      ctx.lineTo(x, y + 3);
-      ctx.lineTo(x + 6.5, y + 3);
+      return [
+        [ 'M', x - 5, y + 2.5 ],
+        [ 'L', x - 5, y ],
+        [ 'L', x, y ],
+        [ 'L', x, y - 3 ],
+        [ 'L', x, y + 3 ],
+        [ 'L', x + 6.5, y + 3 ]
+      ];
     });
   }
 });

@@ -3,7 +3,7 @@
  * @author sima.zhang
  */
 const Util = require('../util');
-const MatrixUtil = require('@antv/g').MatrixUtil;
+const MatrixUtil = Util.MatrixUtil;
 const mat3 = MatrixUtil.mat3;
 const vec3 = MatrixUtil.vec3;
 

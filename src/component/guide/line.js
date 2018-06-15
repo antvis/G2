@@ -4,7 +4,7 @@
  */
 const Util = require('../../util');
 const Base = require('./base');
-const { vec2 } = require('@antv/g').MatrixUtil;
+const { vec2 } = Util.MatrixUtil;
 
 class Line extends Base {
   getDefaultCfg() {

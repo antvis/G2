@@ -7,7 +7,9 @@ const Theme = require('./theme/index');
 
 // const Global = {};
 const Global = {
-  version: '3.1.2', // TODO fix version
+  version: '3.2.0-beta.1',
+  renderer2d: 'canvas',
+  // renderer2d: 'svg',
   trackable: true,
   animate: true,
   snapArray: [ 0, 1, 2, 4, 5, 10 ],

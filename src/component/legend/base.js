@@ -4,7 +4,7 @@
  */
 const Util = require('../../util');
 const Global = require('../../global');
-const { Group } = require('@antv/g');
+const { Group } = require('../../renderer2d');
 
 class Base extends Group {
   getDefaultCfg() {

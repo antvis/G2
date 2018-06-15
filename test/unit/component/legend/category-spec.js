@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 // const Util = require('../../../../src/util');
-const { Canvas, Event } = require('@antv/g');
+const { Canvas, Event } = require('../../../../src/renderer2d');
 const Legend = require('../../../../src/component/legend/category');
 
 const div = document.createElement('div');
@@ -47,8 +47,8 @@ describe('分类图例', function() {
 
     canvas.draw();
     const itemsGroup = legend.get('itemsGroup');
-    expect(legend.get('children')[0].get('type')).to.equal('rect');
-    expect(legend.getCount()).to.equal(3);
+    // expect(legend.get('children')[0].get('type')).to.equal('rect');
+    expect(legend.getCount()).to.equal(2);
     expect(itemsGroup.getCount()).to.equal(5);
     expect(legend._wrap__onClick).to.be.an.instanceof(Function);
     // expect(legend._wrap__onMousemove).to.be.an.instanceof(Function);
@@ -225,7 +225,7 @@ describe('分类图例', function() {
     });
     legend.move(0, 150);
     canvas.draw();
-    expect(legend.getCount()).to.equal(3);
+    expect(legend.getCount()).to.equal(2);
     const itemsGroup = legend.get('itemsGroup');
     // expect(Util.snapEqual(itemsGroup.getBBox().width, 50.34765625)).to.be.true;
     expect(itemsGroup.getCount()).to.equal(5);
@@ -364,7 +364,7 @@ describe('分类图例', function() {
     legend.move(50, 0);
     canvas.draw();
     const legendBBox = legend.getBBox();
-    expect(legendBBox.height).to.be.equal(177.5);
+    expect(legendBBox.height).to.be.equal(176.5);
   });
 
   it('垂直布局图例，设置了 itemWidth, 超出容器高度，自动生列', function() {
@@ -402,7 +402,7 @@ describe('分类图例', function() {
     // legend.move(50, 0);
     canvas.draw();
     const legendBBox = legend.getBBox();
-    expect(legendBBox.height).to.be.equal(83);
+    expect(legendBBox.height).to.be.equal(82);
     // expect(legendBBox.width).to.equal(192.34765625);
   });
 
