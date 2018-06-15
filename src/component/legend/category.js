@@ -454,9 +454,8 @@ class Category extends Base {
             if (child !== parentDom) {
               const childMarkerDom = findNodeByClass(child, MARKER_CLASS);
               childMarkerDom.style.backgroundColor = unCheckedColor;
-              child.className = Util.replace(child.className, 'checked', 'unChecked');
+              child.className = child.className.replace('checked', 'unChecked');
               child.style.color = unCheckedColor;
-
               const childItem = findItem(items, child.getAttribute('data-value'));
               childItem.checked = false;
             } else {
@@ -466,7 +465,7 @@ class Category extends Base {
               if (markerDom) {
                 markerDom.style.backgroundColor = originColor;
               }
-              parentDom.className = Util.replace(domClass, 'unChecked', 'checked');
+              parentDom.className = domClass.replace('unChecked', 'checked');
             }
           });
         } else { // 混合模式
@@ -486,13 +485,13 @@ class Category extends Base {
             if (markerDom) {
               markerDom.style.backgroundColor = unCheckedColor;
             }
-            parentDom.className = Util.replace(domClass, 'checked', 'unChecked');
+            parentDom.className = domClass.replace('checked', 'unChecked');
             parentDom.style.color = unCheckedColor;
           } else {
             if (markerDom) {
               markerDom.style.backgroundColor = originColor;
             }
-            parentDom.className = Util.replace(domClass, 'unChecked', 'checked');
+            parentDom.className = domClass.replace('unChecked', 'checked');
             parentDom.style.color = self.get('textStyle').fill;
           }
         }

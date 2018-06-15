@@ -4,46 +4,36 @@
  * @see https://github.com/lodash/lodash
  */
 const G = require('@antv/g');
-
 const CommonUtil = G.CommonUtil;
-
-const MAX_LEVEL = 5;
-
-function _mix(dist, obj) {
-  for (const k in obj) {
-    if (obj.hasOwnProperty(k) && k !== 'constructor' && obj[k] !== undefined) {
-      dist[k] = obj[k];
-    }
-  }
-}
+const Utils = require('@antv/util');
 
 const Util = CommonUtil.assign({
-  cloneDeep: require('lodash/cloneDeep'),
+  cloneDeep: Utils.clone,
   MatrixUtil: G.MatrixUtil,
   DomUtil: G.DomUtil,
   PathUtil: G.PathUtil,
-  filter: require('lodash/filter'),
-  flatten: require('lodash/flatten'),
-  groupBy: require('lodash/groupBy'),
-  indexOf: require('lodash/indexOf'),
-  isDate: require('lodash/isDate'),
-  isEmpty: require('lodash/isEmpty'),
-  isEqualWith: require('lodash/isEqualWith'),
-  isFinite: require('lodash/isFinite'),
-  isNaN: require('lodash/isNaN'),
-  isNull: require('lodash/isNull'),
-  isPlainObject: require('lodash/isPlainObject'),
-  lowerFirst: require('lodash/lowerFirst'),
-  map: require('lodash/map'),
-  maxBy: require('lodash/maxBy'),
-  minBy: require('lodash/minBy'),
-  pick: require('lodash/pick'),
-  reduce: require('lodash/reduce'),
-  replace: require('lodash/replace'),
-  round: require('lodash/round'),
-  union: require('lodash/union'),
-  uniq: require('lodash/uniq'),
-  upperCase: require('lodash/upperCase'),
+  filter: Utils.filter,
+  flatten: Utils.flatten,
+  groupBy: Utils.groupBy,
+  indexOf: Utils.indexOf,
+  isDate: Utils.isDate,
+  isEmpty: Utils.isEmpty,
+  isEqualWith: Utils.isEqualWith,
+  isFinite,
+  isNaN,
+  isNull: Utils.isNull,
+  isPlainObject: Utils.isPlainObject,
+  lowerFirst: Utils.lowerFirst,
+  map: Utils.map,
+  mix: Utils.mix,
+  deepMix: Utils.deepMix,
+  maxBy: Utils.maxBy,
+  minBy: Utils.minBy,
+  pick: Utils.pick,
+  reduce: Utils.reduce,
+  union: Utils.union,
+  uniq: Utils.uniq,
+  upperCase: Utils.upperCase,
   snapEqual(v1, v2) {
     return Math.abs(v1 - v2) < 0.001;
   },
@@ -59,20 +49,7 @@ const Util = CommonUtil.assign({
     }
     return parseFloat(v.toFixed(length));
   },
-  mix(dist, obj1, obj2, obj3) {
-    if (obj1) {
-      _mix(dist, obj1);
-    }
 
-    if (obj2) {
-      _mix(dist, obj2);
-    }
-
-    if (obj3) {
-      _mix(dist, obj3);
-    }
-    return dist;
-  },
   inArray(arr, value) {
     return arr.indexOf(value) >= 0;
   },
@@ -148,42 +125,9 @@ const Util = CommonUtil.assign({
   }
 }, CommonUtil);
 
-function deepMix(dst, src, level) {
-  level = level || 0;
-  for (const k in src) {
-    if (src.hasOwnProperty(k)) {
-      const value = src[k];
-      if (value !== null && Util.isPlainObject(value)) {
-        if (!Util.isPlainObject(dst[k])) {
-          dst[k] = {};
-        }
-        if (level < MAX_LEVEL) {
-          deepMix(dst[k], src[k], level + 1);
-        } else {
-          dst[k] = src[k];
-        }
-      } else if (Util.isArray(value)) {
-        dst[k] = [];
-        dst[k] = dst[k].concat(value);
-      } else if (value !== undefined) {
-        dst[k] = src[k];
-      }
-    }
-  }
-}
-
-
-Util.deepMix = function() {
-  const args = Util.toArray(arguments);
-  const rst = args[0];
-  for (let i = 1; i < args.length; i++) {
-    const source = args[i];
-    deepMix(rst, source);
-  }
-  return rst;
-};
-
 Util.Array = {
+  groupToMap: Utils.groupToMap,
+  group: Utils.group,
   merge(dataArray) {
     let rst = [];
     for (let i = 0; i < dataArray.length; i++) {
@@ -251,36 +195,6 @@ Util.Array = {
       }
     }
     return rst;
-  },
-  group(data, condition) {
-    if (!condition) {
-      return [ data ];
-    }
-    const groups = Util.Array.groupToMap(data, condition);
-    const array = [];
-    for (const i in groups) {
-      array.push(groups[i]);
-    }
-    return array;
-  },
-  groupToMap(data, condition) {
-    if (!condition) {
-      return {
-        0: data
-      };
-    }
-    if (!Util.isFunction(condition)) {
-      const paramsCondition = Util.isArray(condition) ? condition : condition.replace(/\s+/g, '').split('*');
-      condition = function(row) {
-        let unique = '_'; // 避免出现数字作为Key的情况，会进行按照数字的排序
-        for (let i = 0, l = paramsCondition.length; i < l; i++) {
-          unique += row[paramsCondition[i]] && row[paramsCondition[i]].toString();
-        }
-        return unique;
-      };
-    }
-    const groups = Util.groupBy(data, condition);
-    return groups;
   },
   remove: CommonUtil.remove
 };

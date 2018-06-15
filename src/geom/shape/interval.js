@@ -8,7 +8,7 @@
 const Util = require('../../util');
 const Shape = require('./shape');
 const PathUtil = require('../util/path');
-const GPathUtil = require('../../renderer2d').PathUtil;
+const GPathUtil = Util.PathUtil;
 const Global = require('../../global');
 
 // 获取柱状图的几个点

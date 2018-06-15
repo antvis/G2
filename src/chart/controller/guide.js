@@ -34,7 +34,6 @@ class GuideController {
       const guide = new Guide[type](config);
       self.guides.push(guide);
     });
-
     return self.guides;
   }
 

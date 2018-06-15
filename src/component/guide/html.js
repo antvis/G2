@@ -80,28 +80,28 @@ class Html extends Base {
     };
 
     if (alignX === 'middle' && alignY === 'top') {
-      position.x -= Util.round(domWidth / 2);
+      position.x -= Math.round(domWidth / 2);
     } else if (alignX === 'middle' && alignY === 'bottom') {
-      position.x -= Util.round(domWidth / 2);
-      position.y -= Util.round(domHeight);
+      position.x -= Math.round(domWidth / 2);
+      position.y -= Math.round(domHeight);
     } else if (alignX === 'left' && alignY === 'bottom') {
-      position.y -= Util.round(domHeight);
+      position.y -= Math.round(domHeight);
     } else if (alignX === 'left' && alignY === 'middle') {
-      position.y -= Util.round(domHeight / 2);
+      position.y -= Math.round(domHeight / 2);
     } else if (alignX === 'left' && alignY === 'top') {
       position.x = point.x;
       position.y = point.y;
     } else if (alignX === 'right' && alignY === 'bottom') {
-      position.x -= Util.round(domWidth);
-      position.y -= Util.round(domHeight);
+      position.x -= Math.round(domWidth);
+      position.y -= Math.round(domHeight);
     } else if (alignX === 'right' && alignY === 'middle') {
-      position.x -= Util.round(domWidth);
-      position.y -= Util.round(domHeight / 2);
+      position.x -= Math.round(domWidth);
+      position.y -= Math.round(domHeight / 2);
     } else if (alignX === 'right' && alignY === 'top') {
-      position.x -= Util.round(domWidth);
+      position.x -= Math.round(domWidth);
     } else { // 默认位于中心点
-      position.x -= Util.round(domWidth / 2);
-      position.y -= Util.round(domHeight / 2);
+      position.x -= Math.round(domWidth / 2);
+      position.y -= Math.round(domHeight / 2);
     }
 
     if (self.offsetX) {

@@ -63,7 +63,7 @@ class Heatmap extends GeomBase {
     }
     const styleOptions = self.get('styleOptions');
     let blur = styleOptions && Util.isObject(styleOptions.style) ? styleOptions.style.blur : null;
-    if (!Util.isFinite(blur)) {
+    if (!Util.isFinite(blur) || blur === null) {
       blur = radius / 2;
     }
     self.set(HEATMAP_SIZE, {
