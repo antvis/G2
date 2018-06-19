@@ -230,6 +230,13 @@ class Chart extends View {
             }
           });
         });
+
+        // 双轴的情况
+        const yScales = this.getYScales();
+        if (scales.length === 0 && yScales.length > 1) {
+          legendController.addMixedLegend(yScales, geoms);
+        }
+
       }
 
       legendController.alignLegends();

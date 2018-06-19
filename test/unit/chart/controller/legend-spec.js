@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const Chart = require('../../../../src/chart/chart');
 const LegendController = require('../../../../src/chart/controller/legend');
 const Global = require('../../../../src/global');
-require('../../../../src/geom/line');
+const Line = require('../../../../src/geom/line');
 require('../../../../src/geom/point');
 
 const div = document.createElement('div');
@@ -334,6 +334,30 @@ describe('LegendController', function() {
     controller = chart.get('legendController');
     legends = controller.legends;
     expect(legends).property('bottom-center');
+  });
+
+  it('multi-geom legend', function() {
+    const data2 = [
+      { year: '1', a: 0.5, b: 0.23 },
+      { year: '2', a: 0.1, b: 0.5 },
+      { year: '3', a: 0.3, b: 0.9 },
+      { year: '4', a: 0.8, b: 0.2 }
+    ];
+    chart.clear();
+    chart.source(data2);
+    chart.line().position('year*a').color('red');
+    chart.line().position('year*b').color('black');
+    chart.render();
+
+    const controller = chart.get('legendController');
+    const legend = controller.legends['bottom-center'][0];
+    const items = legend.get('items');
+    expect(items[0].value).to.equal('a');
+    expect(items[0].marker.stroke).to.equal('red');
+    expect(items[0].geom).to.be.an.instanceof(Line);
+    expect(items[1].value).to.equal('b');
+    expect(items[1].marker.stroke).to.equal('black');
+    expect(items[1].geom).to.be.an.instanceof(Line);
   });
 
 });
