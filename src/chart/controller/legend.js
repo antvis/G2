@@ -92,6 +92,7 @@ class LegendController {
     return flag;
   }
 
+
   _bindClickEvent(legend, scale, filterVals) {
     const self = this;
     const chart = self.chart;
@@ -146,6 +147,33 @@ class LegendController {
       }
     });
   }
+
+
+  _bindClickEventForMix(legend) {
+    const self = this;
+    const chart = self.chart;
+    const geoms = chart.getAllGeoms();
+    legend.on('itemclick', ev => {
+      const value = ev.item.value;
+      const checked = ev.checked;
+      if (checked) {
+        Util.each(geoms, geom => {
+          const field = geom.getYScale().field;
+          if (field === value) {
+            geom.show();
+          }
+        });
+      } else {
+        Util.each(geoms, geom => {
+          const field = geom.getYScale().field;
+          if (field === value) {
+            geom.hide();
+          }
+        });
+      }
+    });
+  }
+
 
   _filterLabels(shape, geom, visible) {
     if (shape.get('gLabel')) {
@@ -621,6 +649,7 @@ class LegendController {
   /**
    * 自定义图例
    * @param {string} field 自定义图例的数据字段名，可以为空
+   * @return {object} legend 自定义图例实例
    */
   addCustomLegend(field) {
     const self = this;
@@ -677,6 +706,30 @@ class LegendController {
     });
 
     self._bindHoverEvent(legend);
+    return legend;
+  }
+
+  addMixedLegend(scales, geoms) {
+    const self = this;
+    const items = [];
+    Util.each(scales, scale => {
+      const value = scale.field;
+      Util.each(geoms, geom => {
+        if (geom.getYScale() === scale && scale.values && scale.values.length > 0) {
+          const shapeType = geom.get('shapeType') || 'point';
+          const shape = geom.getDefaultValue('shape') || 'circle';
+          const shapeObject = Shape.getShapeFactory(shapeType);
+          const cfg = { color: geom.getDefaultValue('color') };
+          const marker = shapeObject.getMarkerCfg(shape, cfg);
+          const item = { value, marker };
+          items.push(item);
+        }
+      });// end of geom loop
+    });// end of scale loop
+    const options = { custom: true, items };
+    self.options = Util.deepMix({}, options, self.options);
+    const legend = self.addCustomLegend();
+    self._bindClickEventForMix(legend);
   }
 
   alignLegends() {
