@@ -2,7 +2,7 @@ const G2 = require('../../src/index');
 const expect = require('chai').expect;
 
 describe('#678', () => {
-  it('time as y axis, can not show', () => {
+  it('rgba color is not correctly parsed', () => {
     const div = document.createElement('div');
     document.body.appendChild(div);
 
