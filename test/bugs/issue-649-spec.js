@@ -1,7 +1,7 @@
 const G2 = require('../../src/index');
 const expect = require('chai').expect;
 
-describe('#528', () => {
+describe('#649', () => {
   it('time as y axis, can not show', () => {
     const div = document.createElement('div');
     document.body.appendChild(div);

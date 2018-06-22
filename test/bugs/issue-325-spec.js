@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const G2 = require('../../src/index');
 
-describe('#360', () => {
+describe('#325', () => {
   const div = document.createElement('div');
   document.body.appendChild(div);
 
