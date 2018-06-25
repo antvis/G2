@@ -653,6 +653,7 @@ class GeomBase extends Base {
           throw new Error('dodge is not support linear attribute, please use category attribute!');
         }
         adjustCfg.adjustNames = adjustNames;
+        adjustCfg.dodgeRatio = Global.widthRatio.column;
         /* if (self.isInCircle()) {
           adjustCfg.dodgeRatio = 1;
           adjustCfg.marginRatio = 0;
