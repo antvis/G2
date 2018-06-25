@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const { Canvas, Group } = require('../../../../src/renderer2d');
 const Coord = require('../../../../src/coord/index');
 const Line = require('../../../../src/component/guide/line');
-const Scale = require('../../../../src/scale/index');
+const Scale = require('@antv/scale');
 
 const div = document.createElement('div');
 div.id = 'c1';

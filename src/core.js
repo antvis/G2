@@ -2,7 +2,7 @@ const G = require('./renderer2d');
 const Animate = require('./animate/animate');
 const Chart = require('./chart/chart');
 const Global = require('./global');
-const Scale = require('./scale/index');
+const Scale = require('@antv/scale');
 const Shape = require('./geom/shape/shape');
 const Util = require('./util');
 

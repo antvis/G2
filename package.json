@@ -93,8 +93,10 @@
   },
   "dependencies": {
     "@antv/g": "~3.0.0-beta.5",
+    "@antv/attr": "~0.0.1",
+    "@antv/scale": "~0.0.1",
+    "@antv/adjust": "~0.0.1",
     "@antv/util": "~1.0.4",
-    "fecha": "~2.3.3",
     "gl-matrix": "~2.6.1",
     "venn.js": "~0.2.20",
     "wolfy87-eventemitter": "~5.1.0"

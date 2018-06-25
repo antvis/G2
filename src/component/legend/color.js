@@ -4,7 +4,7 @@
  */
 const Util = require('../../util');
 const Continuous = require('./continuous');
-const ColorUtil = require('../../attr/color-util'); // TODO： 这个 Util 是否可换个位置
+const { ColorUtil } = require('@antv/attr'); // TODO：ColorUtil 包需要从 attr 包中抽离
 
 class Color extends Continuous {
   getDefaultCfg() {

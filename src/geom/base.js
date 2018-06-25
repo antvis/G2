@@ -4,10 +4,10 @@
  */
 
 const Base = require('../base');
-const Attr = require('../attr/index');
+const Attr = require('@antv/attr');
 const Util = require('../util');
 const Global = require('../global');
-const Adjust = require('./adjust/index');
+const Adjust = require('@antv/adjust');
 const Labels = require('./label/index');
 const Shape = require('./shape/shape');
 const TooltipMixin = require('./mixin/tooltip');
