@@ -7,7 +7,7 @@ const Theme = require('./theme/index');
 
 // const Global = {};
 const Global = {
-  version: '3.2.0-beta.4',
+  version: '3.2.0-beta.5',
   renderer2d: 'canvas',
   // renderer2d: 'svg',
   trackable: true,
