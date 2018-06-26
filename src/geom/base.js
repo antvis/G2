@@ -4,10 +4,10 @@
  */
 
 const Base = require('../base');
-const Attr = require('../attr/index');
+const Attr = require('@antv/attr');
 const Util = require('../util');
 const Global = require('../global');
-const Adjust = require('./adjust/index');
+const Adjust = require('@antv/adjust');
 const Labels = require('./label/index');
 const Shape = require('./shape/shape');
 const TooltipMixin = require('./mixin/tooltip');
@@ -653,6 +653,7 @@ class GeomBase extends Base {
           throw new Error('dodge is not support linear attribute, please use category attribute!');
         }
         adjustCfg.adjustNames = adjustNames;
+        adjustCfg.dodgeRatio = Global.widthRatio.column;
         /* if (self.isInCircle()) {
           adjustCfg.dodgeRatio = 1;
           adjustCfg.marginRatio = 0;

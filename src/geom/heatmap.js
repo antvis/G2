@@ -3,9 +3,8 @@
  * @author leungwensen@gmail.com
  */
 const GeomBase = require('./base');
-const colorUtil = require('../attr/color-util');
+const { ColorUtil } = require('@antv/attr'); // TODO: ColorUtil 独立成包，从 attr 包中抽离
 const Util = require('../util');
-
 const ORIGIN_FIELD = '_origin';
 const SHADOW_CANVAS = 'shadowCanvas';
 const VALUE_RANGE = 'valueRange';
@@ -94,7 +93,7 @@ class Heatmap extends GeomBase {
         if (paletteCache[alpha]) {
           palette = paletteCache[alpha];
         } else {
-          palette = colorUtil.rgb2arr(colorAttr.gradient(alpha / 256));
+          palette = ColorUtil.rgb2arr(colorAttr.gradient(alpha / 256));
           paletteCache[alpha] = palette;
         }
         // const palette = colorUtil.rgb2arr(colorAttr.gradient(alpha / 256));

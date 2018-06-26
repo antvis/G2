@@ -37,19 +37,6 @@ const Util = CommonUtil.assign({
   snapEqual(v1, v2) {
     return Math.abs(v1 - v2) < 0.001;
   },
-  fixedBase(v, base) {
-    const str = base.toString();
-    const index = str.indexOf('.');
-    if (index === -1) {
-      return Math.round(v);
-    }
-    let length = str.substr(index + 1).length;
-    if (length > 20) {
-      length = 20;
-    }
-    return parseFloat(v.toFixed(length));
-  },
-
   inArray(arr, value) {
     return arr.indexOf(value) >= 0;
   },

@@ -3,7 +3,7 @@
  * @author leungwensen@gmail.com
  */
 const GeomBase = require('./base');
-const Attr = require('../attr/index');
+const Attr = require('@antv/attr');
 const Global = require('../global');
 const Util = require('../util');
 const {

@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const { Canvas } = require('../../../../src/renderer2d');
 const PolarLabels = require('../../../../src/geom/label/polar-labels');
 const Coord = require('../../../../src/coord/');
-const Scale = require('../../../../src/scale/index');
+const Scale = require('@antv/scale');
 
 const div = document.createElement('div');
 div.id = 'gl2';

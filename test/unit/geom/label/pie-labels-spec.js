@@ -4,7 +4,7 @@ const { Canvas } = require('../../../../src/renderer2d');
 const PieLabels = require('../../../../src/geom/label/pie-labels');
 const Coord = require('../../../../src/coord/');
 const G2 = require('../../../../src/index');
-const Scale = require('../../../../src/scale/index');
+const Scale = require('@antv/scale');
 
 describe('pie labels', function() {
   const ds = new DataSet();
