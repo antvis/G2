@@ -64,7 +64,7 @@
     "compress-simple": "uglifyjs -c -m -o dist/g2-simple.min.js -- build/g2-simple.js",
     "compress": "npm run compress-g2 && npm run compress-core && npm run compress-simple",
     "coverage": "npm run coverage-generator && npm run coverage-viewer",
-    "coverage-generator": "torch --compile --coverage --renderer --recursive --source-pattern index.js,src/**/*.js test/unit",
+    "coverage-generator": "torch --compile --coverage --renderer --recursive --source-pattern src/*.js,src/**/*.js test/unit",
     "coverage-viewer": "torch-coverage",
     "demos": "electron ./demos/app.js",
     "demos-web": "node ./demos/app.js --web --port 2046",
