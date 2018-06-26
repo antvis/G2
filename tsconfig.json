@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "system",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true
+  },
+  "include": [
+    "src/**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "test/**/*"
+  ]
+}

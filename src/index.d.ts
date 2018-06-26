@@ -103,7 +103,7 @@ declare namespace G2 {
     views?: View[];
     data?: any;
     geom?: any;
-  }
+  };
 
   /**
    * 图标接收的参数
@@ -131,13 +131,13 @@ declare namespace G2 {
   }
 
   interface Coordinate {
-    //坐标系旋转，angle 表示旋转的度数，单位为角度。
+    // 坐标系旋转，angle 表示旋转的度数，单位为角度。
     rotate(angle: number): Coordinate;
-    //坐标系缩放，sx 代表 x 方向缩放比例，sy 代表 y 方向缩放比例，单位为数值。
+    // 坐标系缩放，sx 代表 x 方向缩放比例，sy 代表 y 方向缩放比例，单位为数值。
     scale(sx: number, sy: number): Coordinate;
-    //坐标系转置，将 x 或者 y 的起始、结束值倒置。
+    // 坐标系转置，将 x 或者 y 的起始、结束值倒置。
     reflect(xy?: 'x' | 'y' ): Coordinate;
-    //将坐标系 x 轴和 y 轴转置。
+    // 将坐标系 x 轴和 y 轴转置。
     transpose(): Coordinate;
   }
 
@@ -324,7 +324,7 @@ declare namespace G2 {
           offsetY?: number;
         };
       },
-    ) : void;
+    ): void;
     text(
       option: {
         // 指定 guide 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层
@@ -479,7 +479,7 @@ declare namespace G2 {
     intervalStack: () => Geom;
     intervalDodge: () => Geom;
     intervalSymmetric: () => Geom;
-    areaStack:() => Geom;
+    areaStack: () => Geom;
     schemaDodge: () => Geom;
   }
 
@@ -504,7 +504,7 @@ declare namespace G2 {
     ) => View;
     forceFit(): this;
     render: () => void;
-    changeSize(width: number, height: number) : this;
+    changeSize(width: number, height: number): this;
     changeWidth(width: number): this;
     changeHeight(height: number): this;
     getSnapRecords(ponit: { x: number; y: number }): Array<number>;
@@ -634,7 +634,7 @@ declare namespace G2 {
     isNumber: lodashFn;
     isString: lodashFn;
     isFunction: lodashFn;
-    [other:string]: lodashFn;
+    [other: string]: lodashFn;
   }
 
   class DomUtil {
