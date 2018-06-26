@@ -488,7 +488,7 @@ declare namespace G2 {
   }
 
   class Chart extends BashView {
-    constructor(ChartProp: {});
+    constructor(config: Partial<ChartProps>);
     legend(option: boolean): this;
     legend(field: string, option: boolean): this;
     legend(field: string, legendConfig: LegendConfig): this;
@@ -540,6 +540,7 @@ declare namespace G2 {
         } | null;
       },
     ): void;
+    get<K extends keyof ChartProps>(prop: K): ChartProps[K];
   }
 
   /**
