@@ -1,10 +1,9 @@
 
-const G = require('@antv/g');
+const G = require('@antv/g/src');
 const Global = require('./global');
 const Util = require('./util');
 
 let renderer = G.canvas;
-
 
 if (Global.renderer2d === 'svg') {
   renderer = G.svg;
