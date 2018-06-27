@@ -131,7 +131,7 @@
     chart.filter('country', val => {
       return val !== 'UK';
     });
-    chart.intervalStack()
+    const interval = chart.intervalStack()
       .position('percent')
       .color('country', [ '#67b7dc', '#84b761', '#fdd400', '#cc4748', '#cd82ad', '#2f4074', '#448e4d', '#b7b83f', '#b9783f' ])
       .label('percent', {
@@ -142,33 +142,16 @@
       .style({
         lineWidth: 2,
         stroke: '#fff'
-      });
+      })
+      .select(false)
+      .active(false);
     chart.render();
-    const canvas = chart.get('canvas');
     chart.on('interval:mouseenter', ev => {
       const shape = ev.shape;
-      const coord = chart.get('coord');
-      if (!shape.get('selected')) {
-        if (!shape.get('_originAttrs')) {
-          shape.set('_originAttrs', G2.Util.cloneDeep(shape.__attrs));
-        }
-        shape.attr('shadowBlur', 40);
-        shape.attr('shadowColor', 'rgba(0, 0, 0, 0.3)');
-        shape.attr('transform', [
-          [ 't', -coord.getCenter().x, -coord.getCenter().y ],
-          [ 's', 1.1, 1.1 ],
-          [ 't', coord.getCenter().x, coord.getCenter().y ]
-        ]);
-        canvas.draw();
-      }
+      interval.setShapeSelected(shape);
     });
-    chart.on('interval:mouseleave', ev => {
-      const shape = ev.shape;
-      if (!shape.get('selected') && shape.get('_originAttrs')) {
-        shape.__attrs = shape.get('_originAttrs');
-        shape.set('_originAttrs', null);
-        canvas.draw();
-      }
+    chart.on('interval:mouseleave', () => {
+      interval.clearSelected();
     });
 
   </script>
