@@ -2,8 +2,8 @@
  * @fileOverview Venn Diagram
  * @author leungwensen@gmail.com
  */
+const Attr = require('@antv/attr/src');
 const GeomBase = require('./base');
-const Attr = require('@antv/attr');
 const Global = require('../global');
 const Util = require('../util');
 const {

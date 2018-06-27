@@ -3,11 +3,11 @@
  * @author dxq613@gmail.com
  */
 
+const Attr = require('@antv/attr/src');
+const Adjust = require('@antv/adjust/src');
 const Base = require('../base');
-const Attr = require('@antv/attr');
 const Util = require('../util');
 const Global = require('../global');
-const Adjust = require('@antv/adjust');
 const Labels = require('./label/index');
 const Shape = require('./shape/shape');
 const TooltipMixin = require('./mixin/tooltip');
