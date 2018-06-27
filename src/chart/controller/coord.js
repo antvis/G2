@@ -70,7 +70,7 @@ class CoordController {
       coord = new C(coordCfg);
       coord.type = type;
     } else {
-      C = Coord[Util.upperFirst(type)] || Coord.Rect;
+      C = Coord[Util.upperFirst(type || '')] || Coord.Rect;
       coord = new C(coordCfg);
     }
 
