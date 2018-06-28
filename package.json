@@ -66,7 +66,7 @@
     "compress-simple": "uglifyjs -c -m -o dist/g2-simple.min.js -- build/g2-simple.js",
     "compress": "npm run compress-g2 && npm run compress-core && npm run compress-simple",
     "coverage": "npm run coverage-generator && npm run coverage-viewer",
-    "coverage-generator": "torch --compile --coverage --renderer --recursive --source-pattern index.js,src/**/*.js test/unit",
+    "coverage-generator": "torch --compile --coverage --renderer --recursive --source-pattern src/*.js,src/**/*.js test/unit",
     "coverage-viewer": "torch-coverage",
     "demos": "electron ./demos/app.js",
     "demos-web": "node ./demos/app.js --web --port 2046",
@@ -97,9 +97,10 @@
   "dependencies": {
     "@antv/adjust": "~0.0.2",
     "@antv/attr": "~0.0.3",
-    "@antv/g": "~3.0.0-beta.5",
+    "@antv/g": "~3.0.0-beta.6",
+    "@antv/interaction": "~0.0.4",
     "@antv/scale": "~0.0.1",
-    "@antv/util": "~1.0.6",
+    "@antv/util": "~1.0.8",
     "gl-matrix": "~2.6.1",
     "venn.js": "~0.2.20",
     "wolfy87-eventemitter": "~5.1.0"

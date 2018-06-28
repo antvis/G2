@@ -2,9 +2,10 @@
  * @fileOverview heatmap
  * @author leungwensen@gmail.com
  */
+const { ColorUtil } = require('@antv/attr/src'); // TODO: ColorUtil 独立成包，从 attr 包中抽离
 const GeomBase = require('./base');
-const { ColorUtil } = require('@antv/attr'); // TODO: ColorUtil 独立成包，从 attr 包中抽离
 const Util = require('../util');
+
 const ORIGIN_FIELD = '_origin';
 const SHADOW_CANVAS = 'shadowCanvas';
 const VALUE_RANGE = 'valueRange';

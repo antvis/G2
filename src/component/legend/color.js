@@ -2,9 +2,9 @@
  * @fileOverview The class of the gradient color legend
  * @author sima.zhang
  */
+const { ColorUtil } = require('@antv/attr/src'); // TODO：ColorUtil 包需要从 attr 包中抽离
 const Util = require('../../util');
 const Continuous = require('./continuous');
-const { ColorUtil } = require('@antv/attr'); // TODO：ColorUtil 包需要从 attr 包中抽离
 
 class Color extends Continuous {
   getDefaultCfg() {

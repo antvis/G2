@@ -3,11 +3,17 @@
  * @author leungwensen@gmail.com
  */
 
-const Interactions = {
-  Base: require('./base'),
-  Brush: require('./brush'),
-  Drag: require('./drag'),
-  Zoom: require('./zoom')
-};
+const Interaction = require('@antv/interaction/src');
+const G2 = require('../core');
+const View = require('../chart/view');
 
-module.exports = Interactions;
+Interaction.helper.bindInteraction(G2, View);
+
+G2.registerInteraction('brush', Interaction.Brush);
+G2.registerInteraction('Brush', Interaction.Brush);
+G2.registerInteraction('drag', Interaction.Drag);
+G2.registerInteraction('Drag', Interaction.Drag);
+G2.registerInteraction('zoom', Interaction.Zoom);
+G2.registerInteraction('Zoom', Interaction.Zoom);
+
+module.exports = Interaction;
