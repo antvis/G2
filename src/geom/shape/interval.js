@@ -585,7 +585,7 @@ function addWaterWave(x, y, level, waveCount, colors, group, clip, radius) {
       }
     });
     // FIXME wave animation error in svg
-    if (Global.renderer2d === 'canvas') {
+    if (Global.renderer === 'canvas') {
       wave.animate({
         transform: [
           [ 't', width / 2, 0 ]

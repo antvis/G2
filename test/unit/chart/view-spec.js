@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const { Canvas } = require('../../../src/renderer2d');
+const { Canvas } = require('../../../src/renderer');
 const View = require('../../../src/chart/view');
 const Chart = require('../../../src/chart/chart');
 const Coord = require('../../../src/coord/index');

@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const DataSet = require('@antv/data-set');
-const { Canvas } = require('../../../../src/renderer2d');
+const { Canvas } = require('../../../../src/renderer');
 const PieLabels = require('../../../../src/geom/label/pie-labels');
 const Coord = require('../../../../src/coord/');
 const G2 = require('../../../../src/index');

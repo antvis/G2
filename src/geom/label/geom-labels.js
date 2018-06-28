@@ -1,4 +1,4 @@
-const { Group } = require('../../renderer2d');
+const { Group } = require('../../renderer');
 const Labels = require('../../component/label/index');
 const Global = require('../../global');
 const Util = require('../../util');

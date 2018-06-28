@@ -4,7 +4,7 @@
  */
 const Util = require('../../util');
 const DomUtil = Util.DomUtil;
-const { Group } = require('../../renderer2d');
+const { Group } = require('../../renderer');
 
 class Slider extends Group {
   getDefaultCfg() {

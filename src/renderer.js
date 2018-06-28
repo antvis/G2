@@ -5,7 +5,7 @@ const Util = require('./util');
 
 let renderer = G.canvas;
 
-if (Global.renderer2d === 'svg') {
+if (Global.renderer === 'svg') {
   renderer = G.svg;
 }
 

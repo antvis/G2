@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const { Canvas } = require('../../../../src/renderer2d');
+const { Canvas } = require('../../../../src/renderer');
 const PolyLineAxis = require('../../../../src/component/axis/polyline');
 
 const div = document.createElement('div');

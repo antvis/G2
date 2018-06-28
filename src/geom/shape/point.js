@@ -11,7 +11,7 @@ const ShapeUtil = require('../util/shape');
 const Global = require('../../global');
 const Shape = require('./shape');
 // const svgpath = require('svgpath');
-const { Marker } = require('../../renderer2d');
+const { Marker } = require('../../renderer');
 
 const SHAPES = [ 'circle', 'square', 'bowtie', 'diamond', 'hexagon', 'triangle', 'triangle-down' ];
 const HOLLOW_SHAPES = [ 'cross', 'tick', 'plus', 'hyphen', 'line', 'pointerLine', 'pointerArrow' ];

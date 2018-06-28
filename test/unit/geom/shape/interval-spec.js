@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const { Canvas } = require('../../../../src/renderer2d');
+const { Canvas } = require('../../../../src/renderer');
 const Interval = require('../../../../src/geom/shape/interval');
 const Coord = require('../../../../src/coord/');
 // const Global = require('../../../../src/global');

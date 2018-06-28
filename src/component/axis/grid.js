@@ -2,7 +2,7 @@
  * @fileOverview the grid of axis
  * @author sima.zhang
  */
-const { Group } = require('../../renderer2d');
+const { Group } = require('../../renderer');
 const Util = require('../../util');
 
 class Grid extends Group {

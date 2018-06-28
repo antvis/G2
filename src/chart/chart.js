@@ -5,7 +5,7 @@
 
 const Util = require('../util');
 const View = require('./view');
-const G = require('../renderer2d');
+const G = require('../renderer');
 const Canvas = G.Canvas;
 const DomUtil = Util.DomUtil;
 const Plot = require('../component/plot');

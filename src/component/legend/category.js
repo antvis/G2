@@ -5,7 +5,7 @@
 const Util = require('../../util');
 const Base = require('./base');
 const DomUtil = Util.DomUtil;
-const { Event, Group } = require('../../renderer2d');
+const { Event, Group } = require('../../renderer');
 const Global = require('../../global');
 
 const CONTAINER_CLASS = 'g2-legend';

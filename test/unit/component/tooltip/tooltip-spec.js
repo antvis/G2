@@ -1,5 +1,5 @@
 // const expect = require('chai').expect;
-const { Canvas } = require('../../../../src/renderer2d');
+const { Canvas } = require('../../../../src/renderer');
 const Tooltip = require('../../../../src/component/tooltip/index');
 
 const div = document.createElement('div');
