@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="geometry" content="line">
+  <link rel="stylesheet" href="./assets/common.css">
+  <title>Line Plot</title>
+</head>
+
+<body>
+  <div id="canvas"></div>
+  <script src="./assets/jquery-3.2.1.min.js"></script>
+  <script src="../build/g2.js"></script>
+  <script>
+    $.getJSON('./data/income.json', data => {
+      const chart = new G2.Chart({
+        container: 'canvas',
+        forceFit: true,
+        height: window.innerHeight,
+        padding: 50
+      });
+      chart.source(data);
+      chart.scale('time', {
+        range: [ 0, 1 ]
+      });
+      chart.line().position('time*rate');
+      chart.guide().dataMarker({
+        position: [ '2014-01-03', 6.763 ],
+        content: '受稳健货币政策影响，协定存款利\n率居高不下,收益率达6.763%',
+        style: {
+          text: { textAlign: 'left' }
+        }
+      });
+      chart.guide().dataMarker({
+        position: [ '2013-05-31', 2.093 ],
+        content: '余额宝刚成立时，并未达到目标资产\n配置，故收益率较低',
+        style: {
+          text: { textAlign: 'left' }
+        }
+      });
+      chart.guide().dataMarker({
+        position: [ '2016-09-04', 2.321 ],
+        content: '受积极货币政策的影响，收益率降\n到历史最低2.321%',
+        style: {
+          text: { textAlign: 'left' }
+        }
+      });
+      chart.guide().dataRegion({
+        start: [ '2016-12-02', 2.517 ],
+        end: [ '2017-03-24', 3.83 ],
+        content: '宏观经济过热，受稳健货币政策影\n响，余额宝收益率随之上升',
+        lineLength: 50
+      });
+      chart.render();
+    });
+  </script>
+</body>
+
+</html>

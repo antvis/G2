@@ -1,0 +1,557 @@
+[
+ {
+   "year": 1950,
+   "younger": 44.532,
+   "older": 14.5641
+ },
+ {
+   "year": 1951,
+   "younger": 44.26,
+   "older": 14.8647
+ },
+ {
+   "year": 1952,
+   "younger": 44.104,
+   "older": 15.0972
+ },
+ {
+   "year": 1953,
+   "younger": 44.0641,
+   "older": 15.3199
+ },
+ {
+   "year": 1954,
+   "younger": 44.03,
+   "older": 15.5684
+ },
+ {
+   "year": 1955,
+   "younger": 43.9243,
+   "older": 15.8143
+ },
+ {
+   "year": 1956,
+   "younger": 43.8541,
+   "older": 16.1154
+ },
+ {
+   "year": 1957,
+   "younger": 43.6914,
+   "older": 16.4688
+ },
+ {
+   "year": 1958,
+   "younger": 43.6617,
+   "older": 16.7804
+ },
+ {
+   "year": 1959,
+   "younger": 43.7082,
+   "older": 17.0733
+ },
+ {
+   "year": 1960,
+   "younger": 43.7982,
+   "older": 17.3412
+ },
+ {
+   "year": 1961,
+   "younger": 43.6738,
+   "older": 17.8095
+ },
+ {
+   "year": 1962,
+   "younger": 43.9473,
+   "older": 18.097
+ },
+ {
+   "year": 1963,
+   "younger": 44.2439,
+   "older": 18.3339
+ },
+ {
+   "year": 1964,
+   "younger": 44.2424,
+   "older": 18.6282
+ },
+ {
+   "year": 1965,
+   "younger": 44.1995,
+   "older": 18.8487
+ },
+ {
+   "year": 1966,
+   "younger": 44.1249,
+   "older": 19.0982
+ },
+ {
+   "year": 1967,
+   "younger": 43.9524,
+   "older": 19.4324
+ },
+ {
+   "year": 1968,
+   "younger": 43.7894,
+   "older": 19.5906
+ },
+ {
+   "year": 1969,
+   "younger": 43.528,
+   "older": 19.6844
+ },
+ {
+   "year": 1970,
+   "younger": 42.9236,
+   "older": 19.927
+ },
+ {
+   "year": 1971,
+   "younger": 42.664,
+   "older": 19.9982
+ },
+ {
+   "year": 1972,
+   "younger": 42.5948,
+   "older": 20.1611
+ },
+ {
+   "year": 1973,
+   "younger": 42.4696,
+   "older": 20.2725
+ },
+ {
+   "year": 1974,
+   "younger": 42.2607,
+   "older": 20.4526
+ },
+ {
+   "year": 1975,
+   "younger": 42.3207,
+   "older": 20.3834
+ },
+ {
+   "year": 1976,
+   "younger": 42.3183,
+   "older": 20.0726
+ },
+ {
+   "year": 1977,
+   "younger": 42.1894,
+   "older": 19.7039
+ },
+ {
+   "year": 1978,
+   "younger": 42.0494,
+   "older": 19.313
+ },
+ {
+   "year": 1979,
+   "younger": 41.8601,
+   "older": 19.2021
+ },
+ {
+   "year": 1980,
+   "younger": 41.7062,
+   "older": 19.3271
+ },
+ {
+   "year": 1981,
+   "younger": 41.4793,
+   "older": 19.4856
+ },
+ {
+   "year": 1982,
+   "younger": 41.1516,
+   "older": 19.6311
+ },
+ {
+   "year": 1983,
+   "younger": 40.8052,
+   "older": 19.712
+ },
+ {
+   "year": 1984,
+   "younger": 40.4254,
+   "older": 19.8393
+ },
+ {
+   "year": 1985,
+   "younger": 40.1005,
+   "older": 19.9549
+ },
+ {
+   "year": 1986,
+   "younger": 39.8189,
+   "older": 20.0136
+ },
+ {
+   "year": 1987,
+   "younger": 39.2479,
+   "older": 20.1672
+ },
+ {
+   "year": 1988,
+   "younger": 39.0091,
+   "older": 20.2627
+ },
+ {
+   "year": 1989,
+   "younger": 38.7551,
+   "older": 20.2906
+ },
+ {
+   "year": 1990,
+   "younger": 38.4313,
+   "older": 20.3473
+ },
+ {
+   "year": 1991,
+   "younger": 37.9797,
+   "older": 20.3647
+ },
+ {
+   "year": 1992,
+   "younger": 37.5366,
+   "older": 20.3302
+ },
+ {
+   "year": 1993,
+   "younger": 36.9325,
+   "older": 20.3462
+ },
+ {
+   "year": 1994,
+   "younger": 36.2245,
+   "older": 20.6408
+ },
+ {
+   "year": 1995,
+   "younger": 35.5802,
+   "older": 20.9726
+ },
+ {
+   "year": 1996,
+   "younger": 34.9544,
+   "older": 21.339
+ },
+ {
+   "year": 1997,
+   "younger": 34.338,
+   "older": 21.7735
+ },
+ {
+   "year": 1998,
+   "younger": 33.736,
+   "older": 22.3032
+ },
+ {
+   "year": 1999,
+   "younger": 33.2403,
+   "older": 22.8849
+ },
+ {
+   "year": 2000,
+   "younger": 32.8338,
+   "older": 23.4872
+ },
+ {
+   "year": 2001,
+   "younger": 32.4718,
+   "older": 24.0775
+ },
+ {
+   "year": 2002,
+   "younger": 32.2497,
+   "older": 24.3252
+ },
+ {
+   "year": 2003,
+   "younger": 32.1087,
+   "older": 24.6103
+ },
+ {
+   "year": 2004,
+   "younger": 31.95,
+   "older": 24.8921
+ },
+ {
+   "year": 2005,
+   "younger": 31.7911,
+   "older": 24.8695
+ },
+ {
+   "year": 2006,
+   "younger": 31.5636,
+   "older": 24.9866
+ },
+ {
+   "year": 2007,
+   "younger": 31.3483,
+   "older": 25.2106
+ },
+ {
+   "year": 2008,
+   "younger": 31.1283,
+   "older": 25.4931
+ },
+ {
+   "year": 2009,
+   "younger": 30.865,
+   "older": 25.8842
+ },
+ {
+   "year": 2010,
+   "younger": 30.5303,
+   "older": 26.3043
+ },
+ {
+   "year": 2011,
+   "younger": 30.4744,
+   "older": 26.6754
+ },
+ {
+   "year": 2012,
+   "younger": 30.3123,
+   "older": 26.9294
+ },
+ {
+   "year": 2013,
+   "younger": 30.2073,
+   "older": 27.1597
+ },
+ {
+   "year": 2014,
+   "younger": 30.1018,
+   "older": 27.3971
+ },
+ {
+   "year": 2015,
+   "younger": 29.9966,
+   "older": 27.6369
+ },
+ {
+   "year": 2016,
+   "younger": 29.7893,
+   "older": 27.9554
+ },
+ {
+   "year": 2017,
+   "younger": 29.5506,
+   "older": 28.3083
+ },
+ {
+   "year": 2018,
+   "younger": 29.2673,
+   "older": 28.6911
+ },
+ {
+   "year": 2019,
+   "younger": 28.9927,
+   "older": 29.1632
+ },
+ {
+   "year": 2020,
+   "younger": 28.6769,
+   "older": 29.6829
+ },
+ {
+   "year": 2021,
+   "younger": 28.4615,
+   "older": 30.2559
+ },
+ {
+   "year": 2022,
+   "younger": 28.2805,
+   "older": 30.8472
+ },
+ {
+   "year": 2023,
+   "younger": 28.1167,
+   "older": 31.4914
+ },
+ {
+   "year": 2024,
+   "younger": 27.9893,
+   "older": 32.1371
+ },
+ {
+   "year": 2025,
+   "younger": 27.8828,
+   "older": 32.7489
+ },
+ {
+   "year": 2026,
+   "younger": 27.747,
+   "older": 33.3558
+ },
+ {
+   "year": 2027,
+   "younger": 27.5953,
+   "older": 33.9092
+ },
+ {
+   "year": 2028,
+   "younger": 27.4714,
+   "older": 34.4277
+ },
+ {
+   "year": 2029,
+   "younger": 27.3687,
+   "older": 34.8718
+ },
+ {
+   "year": 2030,
+   "younger": 27.2633,
+   "older": 35.2179
+ },
+ {
+   "year": 2031,
+   "younger": 27.188,
+   "older": 35.5157
+ },
+ {
+   "year": 2032,
+   "younger": 27.1276,
+   "older": 35.6887
+ },
+ {
+   "year": 2033,
+   "younger": 27.0723,
+   "older": 35.7754
+ },
+ {
+   "year": 2034,
+   "younger": 27.0139,
+   "older": 35.8556
+ },
+ {
+   "year": 2035,
+   "younger": 26.9669,
+   "older": 35.9189
+ },
+ {
+   "year": 2036,
+   "younger": 26.9359,
+   "older": 36.0172
+ },
+ {
+   "year": 2037,
+   "younger": 26.8707,
+   "older": 36.1411
+ },
+ {
+   "year": 2038,
+   "younger": 26.8042,
+   "older": 36.2716
+ },
+ {
+   "year": 2039,
+   "younger": 26.7636,
+   "older": 36.4162
+ },
+ {
+   "year": 2040,
+   "younger": 26.6971,
+   "older": 36.6218
+ },
+ {
+   "year": 2041,
+   "younger": 26.6518,
+   "older": 36.8284
+ },
+ {
+   "year": 2042,
+   "younger": 26.5857,
+   "older": 37.0492
+ },
+ {
+   "year": 2043,
+   "younger": 26.5184,
+   "older": 37.2312
+ },
+ {
+   "year": 2044,
+   "younger": 26.4526,
+   "older": 37.4038
+ },
+ {
+   "year": 2045,
+   "younger": 26.3824,
+   "older": 37.5837
+ },
+ {
+   "year": 2046,
+   "younger": 26.3143,
+   "older": 37.8049
+ },
+ {
+   "year": 2047,
+   "younger": 26.2421,
+   "older": 38.0444
+ },
+ {
+   "year": 2048,
+   "younger": 26.1836,
+   "older": 38.3088
+ },
+ {
+   "year": 2049,
+   "younger": 26.1175,
+   "older": 38.5374
+ },
+ {
+   "year": 2050,
+   "younger": 26.0602,
+   "older": 38.7867
+ },
+ {
+   "year": 2051,
+   "younger": 26.008,
+   "older": 38.9167
+ },
+ {
+   "year": 2052,
+   "younger": 25.9501,
+   "older": 39.0098
+ },
+ {
+   "year": 2053,
+   "younger": 25.9058,
+   "older": 39.0809
+ },
+ {
+   "year": 2054,
+   "younger": 25.8655,
+   "older": 39.1131
+ },
+ {
+   "year": 2055,
+   "younger": 25.8273,
+   "older": 39.1226
+ },
+ {
+   "year": 2056,
+   "younger": 25.7946,
+   "older": 39.1606
+ },
+ {
+   "year": 2057,
+   "younger": 25.7766,
+   "older": 39.2145
+ },
+ {
+   "year": 2058,
+   "younger": 25.7649,
+   "older": 39.238
+ },
+ {
+   "year": 2059,
+   "younger": 25.7536,
+   "older": 39.2387
+ },
+ {
+   "year": 2060,
+   "younger": 25.7553,
+   "older": 39.2539
+ }
+]
