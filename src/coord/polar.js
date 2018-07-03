@@ -100,11 +100,9 @@ class Polar extends Base {
     const xs = [ 0, Math.cos(startAngle), Math.cos(endAngle) ];
     const ys = [ 0, Math.sin(startAngle), Math.sin(endAngle) ];
 
-    for (let i = -Math.PI * 5 / 2; i < Math.PI * 3 / 2; i += Math.PI / 2) {
-      if (startAngle <= i && i <= endAngle) {
-        xs.push(Math.cos(i));
-        ys.push(Math.sin(i));
-      }
+    for (let i = startAngle; i < endAngle; i += Math.PI / 18) {
+      xs.push(Math.cos(i));
+      ys.push(Math.sin(i));
     }
 
     return {
