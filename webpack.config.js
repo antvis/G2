@@ -6,7 +6,8 @@ module.exports = {
   entry: {
     g2: './src/index.js',
     'g2-core': './src/core.js',
-    'g2-simple': './src/simple.js'
+    'g2-simple': './src/simple.js',
+    'g2-svg': './src/index-svg.js'
   },
   output: {
     filename: '[name].js',
