@@ -15,5 +15,7 @@ G2.registerInteraction('drag', Interaction.Drag);
 G2.registerInteraction('Drag', Interaction.Drag);
 G2.registerInteraction('zoom', Interaction.Zoom);
 G2.registerInteraction('Zoom', Interaction.Zoom);
+G2.registerInteraction('shape-select', Interaction.ShapeSelect);
+G2.registerInteraction('ShapeSelect', Interaction.ShapeSelect);
 
 module.exports = Interaction;
