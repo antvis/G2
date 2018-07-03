@@ -4,7 +4,7 @@
  */
 
 const Util = require('../../util');
-const Category = require('./Category');
+const Category = require('./category');
 const Global = require('../../global');
 
 class Tail extends Category {
