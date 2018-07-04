@@ -4,9 +4,7 @@ const resolve = require('path').resolve;
 module.exports = {
   devtool: 'cheap-source-map',
   entry: {
-    g2: './src/index.js',
-    'g2-core': './src/core.js',
-    'g2-simple': './src/simple.js'
+    'g2-svg': './src/index.js'
   },
   output: {
     filename: '[name].js',
@@ -16,6 +14,16 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /global\.js$/,
+        use: {
+          loader: 'string-replace-loader',
+          options: {
+            search: 'renderer\:\ \'canvas\'',
+            replace: 'renderer\:\ \'svg\''
+          }
+        }
+      },
       {
         test: /\.js$/,
         // exclude: /(node_modules|bower_components)/,

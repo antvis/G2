@@ -5,11 +5,9 @@
 const Util = require('./util');
 const Theme = require('./theme/index');
 
-// const Global = {};
 const Global = {
   version: '3.2.0-beta.6',
   renderer: 'canvas',
-  // renderer: 'svg',
   trackable: true,
   animate: true,
   widthRatio: { // 宽度所占的分类的比例
