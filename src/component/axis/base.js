@@ -64,8 +64,8 @@ class Base extends Group {
         autoRotate: true, // 文本是否自动旋转
         textStyle: {} // 坐标轴标题样式
       },
-      autoPaint: true,
-      alignWithLabel: false
+      autoPaint: true
+      // alignWithLabel: false
     };
   }
 
@@ -298,9 +298,14 @@ class Base extends Group {
   }
 
   paint() {
+    const tickLineCfg = this.get('tickLine');
+    let alignWithLabel = true;
+    if (tickLineCfg && tickLineCfg.hasOwnProperty('alignWithLabel')) {
+      alignWithLabel = tickLineCfg.alignWithLabel;
+    }
     this._renderLine();
     const type = this.get('type');
-    if (type === 'cat' || type === 'timecat') {
+    if (type === 'cat' && alignWithLabel === false) {
       this._processCatTicks();
     } else {
       this._processTicks();

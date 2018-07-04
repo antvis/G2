@@ -141,7 +141,8 @@ const Theme = {
       tickLine: {
         lineWidth: 1,
         stroke: '#BFBFBF',
-        length: 4
+        length: 4,
+        alignWithLabel: true
       }
     },
     bottom: {
@@ -165,7 +166,8 @@ const Theme = {
       tickLine: {
         lineWidth: 1,
         stroke: '#BFBFBF',
-        length: 4
+        length: 4,
+        alignWithLabel: true
       }
     },
     left: {
@@ -238,7 +240,8 @@ const Theme = {
       tickLine: {
         lineWidth: 1,
         stroke: '#BFBFBF',
-        length: 4
+        length: 4,
+        alignWithLabel: true
       },
       grid: {
         lineStyle: {
@@ -268,7 +271,8 @@ const Theme = {
       tickLine: {
         lineWidth: 1,
         stroke: '#BFBFBF',
-        length: 4
+        length: 4,
+        alignWithLabel: true
       },
       grid: {
         lineStyle: {
@@ -290,7 +294,8 @@ const Theme = {
       tickLine: {
         lineWidth: 1,
         length: 4,
-        stroke: '#BFBFBF'
+        stroke: '#BFBFBF',
+        alignWithLabel: true
       }
     }
   },
