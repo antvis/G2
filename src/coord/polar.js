@@ -89,7 +89,7 @@ class Polar extends Base {
   getOneBox() {
     const startAngle = this.startAngle;
     const endAngle = this.endAngle;
-    if (endAngle - startAngle >= Math.PI * 2) {
+    if (Math.abs(endAngle - startAngle) >= Math.PI * 2) {
       return {
         minX: -1,
         maxX: 1,
@@ -100,7 +100,7 @@ class Polar extends Base {
     const xs = [ 0, Math.cos(startAngle), Math.cos(endAngle) ];
     const ys = [ 0, Math.sin(startAngle), Math.sin(endAngle) ];
 
-    for (let i = startAngle; i < endAngle; i += Math.PI / 18) {
+    for (let i = Math.min(startAngle, endAngle); i < Math.max(startAngle, endAngle); i += Math.PI / 18) {
       xs.push(Math.cos(i));
       ys.push(Math.sin(i));
     }
