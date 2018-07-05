@@ -8,9 +8,9 @@ const View = require('./view');
 const G = require('../renderer');
 const Canvas = G.Canvas;
 const DomUtil = Util.DomUtil;
+const Global = require('../global');
 const Plot = require('../component/plot');
 const Controller = require('./controller/index');
-const Global = require('../global');
 const AUTO_STR = 'auto';
 
 function _isScaleExist(scales, compareScale) {
@@ -61,10 +61,10 @@ class Chart extends View {
       width: 500,
       height: 500,
       pixelRatio: null,
-      padding: Global.plotCfg.padding,
       backPlot: null,
       frontPlot: null,
       plotBackground: null,
+      padding: Global.plotCfg.padding,
       background: null,
       autoPaddingAppend: 5,
       views: []
@@ -72,23 +72,27 @@ class Chart extends View {
   }
 
   init() {
-    this._initCanvas();
-    this._initPlot();
-    this._initEvents();
+    const self = this;
+    const viewTheme = self.get('viewTheme');
+    self._initCanvas();
+    self._initPlot();
+    self._initEvents();
     super.init();
 
     const tooltipController = new Controller.Tooltip({
-      chart: this,
+      chart: self,
+      viewTheme,
       options: {}
     });
-    this.set('tooltipController', tooltipController);
+    self.set('tooltipController', tooltipController);
 
     const legendController = new Controller.Legend({
-      chart: this
+      chart: self,
+      viewTheme
     });
-    this.set('legendController', legendController);
-    this.set('_id', 'chart'); // 防止同用户设定的 id 同名
-    this.emit('afterinit'); // 初始化完毕
+    self.set('legendController', legendController);
+    self.set('_id', 'chart'); // 防止同用户设定的 id 同名
+    self.emit('afterinit'); // 初始化完毕
   }
 
   _isAutoPadding() {
@@ -162,8 +166,9 @@ class Chart extends View {
 
   // 初始化绘图区间
   _initPlot() {
-    this._initPlotBack(); // 最底层的是背景相关的 group
-    const canvas = this.get('canvas');
+    const self = this;
+    self._initPlotBack(); // 最底层的是背景相关的 group
+    const canvas = self.get('canvas');
     const backPlot = canvas.addGroup({
       zIndex: 1
     }); // 图表最后面的容器
@@ -174,21 +179,24 @@ class Chart extends View {
       zIndex: 3
     }); // 图表前面的容器
 
-    this.set('backPlot', backPlot);
-    this.set('middlePlot', plotContainer);
-    this.set('frontPlot', frontPlot);
+    self.set('backPlot', backPlot);
+    self.set('middlePlot', plotContainer);
+    self.set('frontPlot', frontPlot);
   }
 
   // 初始化背景
   _initPlotBack() {
-    const canvas = this.get('canvas');
+    const self = this;
+    const canvas = self.get('canvas');
+    const viewTheme = self.get('viewTheme');
+
     const plot = canvas.addGroup(Plot, {
       padding: this.get('padding'),
-      plotBackground: Util.mix({}, Global.plotBackground, this.get('plotBackground')),
-      background: Util.mix({}, Global.background, this.get('background'))
+      plotBackground: Util.mix({}, viewTheme.plotBackground, self.get('plotBackground')),
+      background: Util.mix({}, viewTheme.background, self.get('background'))
     });
-    this.set('plot', plot);
-    this.set('plotRange', plot.get('plotRange'));
+    self.set('plot', plot);
+    self.set('plotRange', plot.get('plotRange'));
   }
 
   _initEvents() {
@@ -345,6 +353,7 @@ class Chart extends View {
    */
   view(cfg) {
     cfg = cfg || {};
+    cfg.theme = this.get('theme');
     cfg.parent = this;
     cfg.backPlot = this.get('backPlot');
     cfg.middlePlot = this.get('middlePlot');

@@ -1,5 +1,4 @@
 const Util = require('../../util');
-const Global = require('../../global');
 const Legend = require('../../component/legend');
 const Shape = require('../../geom/shape/shape');
 
@@ -40,12 +39,13 @@ function findGeom(geoms, value) {
 
 class LegendController {
   constructor(cfg) {
-    this.options = {};
-    Util.mix(this, cfg);
-    this.clear();
-    const chart = this.chart;
-    this.container = chart.get('frontPlot');
-    this.plotRange = chart.get('plotRange');
+    const self = this;
+    self.options = {};
+    Util.mix(self, cfg);
+    self.clear();
+    const chart = self.chart;
+    self.container = chart.get('frontPlot');
+    self.plotRange = chart.get('plotRange');
   }
 
   clear() {
@@ -307,6 +307,7 @@ class LegendController {
 
   _alignLegend(legend, pre, region, position) {
     const self = this;
+    const viewTheme = self.viewTheme;
     const container = self.container;
     const canvas = container.get('canvas');
     const width = canvas.get('width');
@@ -319,8 +320,8 @@ class LegendController {
     // const offset = Util.isNil(legend.get('offset')) ? MARGIN : legend.get('offset');
     const legendHeight = legend.getHeight();
     const legendWidth = legend.getWidth();
-    const borderMargin = Global.legend.margin;
-    const innerMargin = Global.legend.legendMargin;
+    const borderMargin = viewTheme.legend.margin;
+    const innerMargin = viewTheme.legend.legendMargin;
     const legendNum = self.legends[position].length;
     const posArray = position.split('-');
 
@@ -398,8 +399,9 @@ class LegendController {
 
   _getRegion() {
     const self = this;
+    const viewTheme = self.viewTheme;
     const legends = self.legends;
-    const innerMargin = Global.legend.legendMargin;
+    const innerMargin = viewTheme.legend.legendMargin;
     const subs = [];
     let totalWidth = 0;
     let totalHeight = 0;
@@ -440,6 +442,7 @@ class LegendController {
     }
 
     const chart = self.chart;
+    const viewTheme = self.viewTheme;
     const canvas = chart.get('canvas');
     const plotRange = self.plotRange;
     const posArray = position.split('-');
@@ -459,9 +462,9 @@ class LegendController {
       if (colorAttr) { // 存在颜色映射
         if (colorAttr.callback && colorAttr.callback.length > 1) { // 多参数映射，阻止程序报错
           const restArgs = Array(colorAttr.callback.length - 1).fill('');
-          cfg.color = colorAttr.mapping(value, ...restArgs).join('') || Global.defaultColor;
+          cfg.color = colorAttr.mapping(value, ...restArgs).join('') || viewTheme.defaultColor;
         } else {
-          cfg.color = colorAttr.mapping(value).join('') || Global.defaultColor;
+          cfg.color = colorAttr.mapping(value).join('') || viewTheme.defaultColor;
         }
       }
       if (isByAttr && shapeAttr) { // 存在形状映射
@@ -488,7 +491,7 @@ class LegendController {
       });
     });
 
-    const legendCfg = Util.deepMix({}, Global.legend[posArray[0]], legendOptions[field] || legendOptions, {
+    const legendCfg = Util.deepMix({}, viewTheme.legend[posArray[0]], legendOptions[field] || legendOptions, {
       viewId: chart.get('_id'),
       maxLength,
       items
@@ -525,6 +528,7 @@ class LegendController {
     let legend;
     let minValue;
     let maxValue;
+    const viewTheme = self.viewTheme;
 
     Util.each(ticks, tick => {
       const scaleValue = tick.value;
@@ -562,9 +566,9 @@ class LegendController {
     const options = self.options;
 
     const posArray = position.split('-');
-    let defaultCfg = Global.legend[posArray[0]];
+    let defaultCfg = viewTheme.legend[posArray[0]];
     if ((options && options.slidable === false) || (options[field] && options[field].slidable === false)) {
-      defaultCfg = Util.mix({}, defaultCfg, Global.legend.gradient);
+      defaultCfg = Util.mix({}, defaultCfg, viewTheme.legend.gradient);
     }
 
     const legendCfg = Util.deepMix({}, defaultCfg, options[field] || options, {
@@ -622,6 +626,7 @@ class LegendController {
     const legendOptions = self.options;
     const field = scale.field;
     const fieldOption = legendOptions[field];
+    const viewTheme = self.viewTheme;
 
     if (fieldOption === false) { // 如果不显示此图例
       return null;
@@ -630,7 +635,7 @@ class LegendController {
     if (fieldOption && fieldOption.custom) {
       self.addCustomLegend(field);
     } else {
-      let position = legendOptions.position || Global.defaultLegendPosition;
+      let position = legendOptions.position || viewTheme.defaultLegendPosition;
       position = self._adjustPosition(position, self._isTailLegend(legendOptions, geom));
       if (fieldOption && fieldOption.position) { // 如果对某个图例单独设置 position，则对 position 重新赋值
         position = fieldOption.position;
@@ -654,6 +659,7 @@ class LegendController {
   addCustomLegend(field) {
     const self = this;
     const chart = self.chart;
+    const viewTheme = self.viewTheme;
     const container = self.container;
     let legendOptions = self.options;
 
@@ -661,7 +667,7 @@ class LegendController {
       legendOptions = legendOptions[field];
     }
 
-    let position = legendOptions.position || Global.defaultLegendPosition;
+    let position = legendOptions.position || viewTheme.defaultLegendPosition;
     position = self._adjustPosition(position);
     const legends = self.legends;
     legends[position] = legends[position] || [];
@@ -691,7 +697,7 @@ class LegendController {
     const posArray = position.split('-');
     const maxLength = (posArray[0] === 'right' || posArray[0] === 'left') ? plotRange.bl.y - plotRange.tr.y : canvas.get('width');
 
-    const legendCfg = Util.deepMix({}, Global.legend[posArray[0]], legendOptions, {
+    const legendCfg = Util.deepMix({}, viewTheme.legend[posArray[0]], legendOptions, {
       maxLength,
       items
     });

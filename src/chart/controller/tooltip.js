@@ -3,7 +3,6 @@
  * @author sima.zhang
  */
 const Util = require('../../util');
-const Global = require('../../global');
 const Tooltip = require('../../component/tooltip');
 const MatrixUtil = Util.MatrixUtil;
 const Vector2 = MatrixUtil.vec2;
@@ -119,9 +118,10 @@ class TooltipController {
 
   _getDefaultTooltipCfg() {
     const self = this;
-    const options = self.options;
-    const defaultCfg = Util.mix({}, Global.tooltip);
     const chart = self.chart;
+    const viewTheme = self.viewTheme;
+    const options = self.options;
+    const defaultCfg = Util.mix({}, viewTheme.tooltip);
     const geoms = chart.getAllGeoms().filter(function(geom) {
       return geom.get('visible');
     });
@@ -148,11 +148,11 @@ class TooltipController {
       if (shapes[0] === 'interval' && options.shared !== false) { // 直角坐标系下 interval 的 crosshair 为矩形背景框
         crosshairsCfg = {
           zIndex: 0, // 矩形背景框不可覆盖 geom
-          crosshairs: Global.tooltipCrosshairsRect
+          crosshairs: viewTheme.tooltipCrosshairsRect
         };
       } else if (Util.indexOf(TYPE_SHOW_CROSSHAIRS, shapes[0]) > -1) {
         crosshairsCfg = {
-          crosshairs: Global.tooltipCrosshairsLine
+          crosshairs: viewTheme.tooltipCrosshairsLine
         };
       }
     }
@@ -189,6 +189,7 @@ class TooltipController {
       self.prePoint = point;
 
       const chart = self.chart;
+      const viewTheme = self.viewTheme;
       const x = Util.isArray(point.x) ? point.x[point.x.length - 1] : point.x;
       const y = Util.isArray(point.y) ? point.y[point.y.length - 1] : point.y;
       if (!tooltip.get('visible')) {
@@ -214,7 +215,7 @@ class TooltipController {
           if (self.options.hideMarkers === true) { // 不展示 tooltip marker
             tooltip.set('markerItems', markersItems); // 用于 tooltip 辅助线的定位
           } else {
-            tooltip.setMarkers(markersItems, Global.tooltipMarker);
+            tooltip.setMarkers(markersItems, viewTheme.tooltipMarker);
           }
         } else {
           tooltip.clearMarkers();
