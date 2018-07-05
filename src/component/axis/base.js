@@ -65,7 +65,6 @@ class Base extends Group {
         textStyle: {} // 坐标轴标题样式
       },
       autoPaint: true
-      // alignWithLabel: false
     };
   }
 
@@ -135,6 +134,19 @@ class Base extends Group {
     return ticks;
   }
 
+  _parseCatTicks(ticks) {
+    ticks = ticks || [];
+    const ticksLength = ticks.length;
+    for (let i = 0; i < ticksLength; i++) {
+      const item = ticks[i];
+      if (!Util.isObject(item)) {
+        ticks[i] = this.parseTick(item, i, ticksLength);
+      }
+    }
+    this.set('ticks', ticks);
+    return ticks;
+  }
+
   _addTickItem(index, point, length, type = '') {
     let tickItems = this.get('tickItems');
     let subTickItems = this.get('subTickItems');
@@ -188,24 +200,45 @@ class Base extends Group {
     const tickLineCfg = self.get('tickLine');
     let ticks = self.get('ticks');
     ticks = self._parseTicks(ticks);
+    const new_ticks = self._getNormalizedTicks(ticks);
+    for (let i = 0; i < new_ticks.length; i += 3) {
+      const p = self.getTickPoint(new_ticks[i]);
+      const p0 = self.getTickPoint(new_ticks[i + 1]);
+      const p1 = self.getTickPoint(new_ticks[i + 2]);
+      const index = Math.floor(i / 3);
+      const tick = ticks[index];
+      if (tickLineCfg) {
+        if (index === 0) {
+          self._addTickItem(index, p0, tickLineCfg.length);
+        }
+        self._addTickItem(index, p1, tickLineCfg.length);
+      }
+      if (labelCfg) {
+        self.addLabel(tick, p, index);
+      }
+    }
+  }
+
+  _getNormalizedTicks(ticks) {
     let tickSeg = 0;
     if (ticks.length > 1) {
       tickSeg = (ticks[1].value - ticks[0].value) / 2;
     }
-
-    Util.each(ticks, function(tick, index) {
-      const tickPoint = self.getTickPoint(tick.value, index);
-      const tickPoint0 = self.getTickPoint(tick.value - tickSeg, index);
-      const tickPoint1 = self.getTickPoint(tick.value + tickSeg, index);
-      if (tickLineCfg) {
-        self._addTickItem(index, tickPoint0, tickLineCfg.length);
-        self._addTickItem(index, tickPoint1, tickLineCfg.length);
-      }
-      if (labelCfg) {
-        self.addLabel(tick, tickPoint, index);
-      }
+    const points = [];
+    for (let i = 0; i < ticks.length; i++) {
+      const tick = ticks[i];
+      const p = tick.value;
+      const p0 = tick.value - tickSeg;
+      const p1 = tick.value + tickSeg;
+      points.push(p, p0, p1);
+    }
+    const range = Util.Array.getRange(points);
+    return points.map(p => {
+      const norm = (p - range.min) / (range.max - range.min);
+      return norm;
     });
   }
+
 
   _processTicks() {
     const self = this;
@@ -324,6 +357,7 @@ class Base extends Group {
       value: index / (length - 1)
     };
   }
+
 
   getTextAnchor(vector) {
     const ratio = Math.abs(vector[1] / vector[0]);
