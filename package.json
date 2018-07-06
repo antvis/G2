@@ -97,7 +97,7 @@
   "dependencies": {
     "@antv/adjust": "~0.0.2",
     "@antv/attr": "~0.0.3",
-    "@antv/g": "~3.0.0-beta.6",
+    "@antv/g": "~3.0.0-beta.8",
     "@antv/interaction": "~0.0.4",
     "@antv/scale": "~0.0.1",
     "@antv/util": "~1.0.8",

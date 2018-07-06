@@ -89,6 +89,7 @@ const TOOLTIP_TITLE_CLASS = 'g2-tooltip-title';
 const TOOLTIP_LIST_CLASS = 'g2-tooltip-list';
 const TOOLTIP_LIST_ITEM_CLASS = 'g2-tooltip-list-item';
 const TOOLTIP_MARKER_CLASS = 'g2-tooltip-marker';
+const TOOLTIP_VALUE_CLASS = 'g2-tooltip-value';
 
 // html 渲染的 legend 相关 dom 的 css 类型
 const LEGEND_CONTAINER_CLASS = 'g2-legend';
@@ -140,7 +141,8 @@ const Theme = {
       tickLine: {
         lineWidth: 1,
         stroke: '#BFBFBF',
-        length: 4
+        length: 4,
+        alignWithLabel: true
       }
     },
     bottom: {
@@ -164,7 +166,8 @@ const Theme = {
       tickLine: {
         lineWidth: 1,
         stroke: '#BFBFBF',
-        length: 4
+        length: 4,
+        alignWithLabel: true
       }
     },
     left: {
@@ -237,7 +240,8 @@ const Theme = {
       tickLine: {
         lineWidth: 1,
         stroke: '#BFBFBF',
-        length: 4
+        length: 4,
+        alignWithLabel: true
       },
       grid: {
         lineStyle: {
@@ -267,7 +271,8 @@ const Theme = {
       tickLine: {
         lineWidth: 1,
         stroke: '#BFBFBF',
-        length: 4
+        length: 4,
+        alignWithLabel: true
       },
       grid: {
         lineStyle: {
@@ -289,7 +294,8 @@ const Theme = {
       tickLine: {
         lineWidth: 1,
         length: 4,
-        stroke: '#BFBFBF'
+        stroke: '#BFBFBF',
+        alignWithLabel: true
       }
     }
   },
@@ -463,9 +469,10 @@ const Theme = {
       whiteSpace: 'nowrap',
       zIndex: 8,
       transition: 'visibility 0.2s cubic-bezier(0.23, 1, 0.32, 1), left 0.4s cubic-bezier(0.23, 1, 0.32, 1), top 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
-      backgroundColor: 'rgba(0, 0, 0, 0.65)',
-      borderRadius: '4px',
-      color: 'rgb(255, 255, 255)',
+      backgroundColor: 'rgba(255, 255, 255, 0.9)',
+      boxShadow: '0px 0px 10px #aeaeae',
+      borderRadius: '3px',
+      color: 'rgb(87, 87, 87)',
       fontSize: '12px',
       fontFamily: FONT_FAMILY,
       lineHeight: '20px',
@@ -483,13 +490,20 @@ const Theme = {
       marginBottom: '4px'
     },
     [`${TOOLTIP_MARKER_CLASS}`]: {
-      width: '7px',
-      height: '7px',
-      borderRadius: '50%',
+      width: '10px',
+      height: '2px',
+      borderRadius: '5%',
       border: '1px solid #fff',
       display: 'inline-block',
       marginRight: '8px'
+    },
+
+    [`${TOOLTIP_VALUE_CLASS}`]: {
+      display: 'inline-block',
+      float: 'right',
+      marginLeft: '30px'
     }
+
   },
   tooltipMarker: {
     symbol: (x, y, r) => {

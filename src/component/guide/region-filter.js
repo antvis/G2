@@ -16,6 +16,7 @@ class RegionFilter extends Base {
       start: null,
       end: null,
       color: null,
+      apply: null,
       style: {
         opacity: 1
       }
@@ -42,16 +43,20 @@ class RegionFilter extends Base {
     const geoms = view.getAllGeoms();
     geoms.map(geom => {
       const shapes = geom.getShapes();
-      shapes.map(shape => {
-        const shapeType = shape.type;
-        const shapeAttr = Util.cloneDeep(shape.get('attrs'));
-        self._adjustDisplay(shapeAttr);
-        const s = layer.addShape(shapeType, {
-          attrs: shapeAttr
+      const geomType = geom.get('type');
+      const filter = self._geomFilter(geomType);
+      if (filter) {
+        shapes.map(shape => {
+          const shapeType = shape.type;
+          const shapeAttr = Util.cloneDeep(shape.get('attrs'));
+          self._adjustDisplay(shapeAttr);
+          const s = layer.addShape(shapeType, {
+            attrs: shapeAttr
+          });
+          output.push(s);
+          return shape;
         });
-        output.push(s);
-        return shape;
-      });
+      }
       return geom;
     });
     return output;
@@ -80,6 +85,14 @@ class RegionFilter extends Base {
       attr.fill = color;
     }
     attr.stroke = color;
+  }
+
+  _geomFilter(geomType) {
+    const self = this;
+    if (self.apply) {
+      return Util.inArray(self.apply, geomType);
+    }
+    return true;
   }
 }
 

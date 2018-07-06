@@ -9,5 +9,7 @@ module.exports = {
   Region: require('./region'),
   RegionFilter: require('./region-filter'),
   Html: require('./html'),
-  Arc: require('./arc')
+  Arc: require('./arc'),
+  DataMarker: require('./data-marker'),
+  DataRegion: require('./data-region')
 };
