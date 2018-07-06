@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const G = require('../../../../src/renderer2d');
+const G = require('../../../../src/renderer');
 const Labels = require('../../../../src/component/label/index');
 
 const Canvas = G.Canvas;

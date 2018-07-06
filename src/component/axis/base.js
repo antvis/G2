@@ -4,7 +4,7 @@
  */
 const Util = require('../../util');
 const { LabelsRenderer } = require('../label/index');
-const { Group } = require('../../renderer2d');
+const { Group } = require('../../renderer');
 const Grid = require('./grid');
 const Global = require('../../global');
 
@@ -72,6 +72,7 @@ class Base extends Group {
     const title = this.get('title');
     const label = this.get('label');
     const grid = this.get('grid');
+    const viewTheme = this.get('viewTheme') || Global;
     if (title) {
       this.setSilent('title', Util.deepMix({
         autoRotate: true,
@@ -79,7 +80,7 @@ class Base extends Group {
           fontSize: 12,
           fill: '#ccc',
           textBaseline: 'middle',
-          fontFamily: Global.fontFamily,
+          fontFamily: viewTheme.fontFamily,
           textAlign: 'center'
         },
         offset: 48
@@ -92,7 +93,7 @@ class Base extends Group {
           fontSize: 12,
           fill: '#ccc',
           textBaseline: 'middle',
-          fontFamily: Global.fontFamily
+          fontFamily: viewTheme.fontFamily
         },
         offset: 10
       }, label));

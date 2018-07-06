@@ -1,8 +1,9 @@
 const expect = require('chai').expect;
-const { Canvas } = require('../../../src/renderer2d');
+const { Canvas } = require('../../../src/renderer');
 const View = require('../../../src/chart/view');
 const Chart = require('../../../src/chart/chart');
 const Coord = require('../../../src/coord/index');
+const Theme = require('../../../src/theme/index');
 
 const div = document.createElement('div');
 div.id = 'cview';
@@ -321,7 +322,7 @@ describe('view get shape and records', function() {
     expect(records[0]._origin.month).equal(6);
   });
 
-  it('getSnapRecords line，已排序', function() {
+  it('getSnapRecords line, sorted', function() {
     chart.clear();
     chart.source([
       { month: 0, tem: 7, city: 'tokyo' },
@@ -381,5 +382,52 @@ describe('view get shape and records', function() {
     records = chart.getSnapRecords(point);
     expect(records[0]._origin.month).equal(2);
     chart.destroy();
+  });
+
+  it('view theme', () => {
+    const data = [{
+      year: '1951 年',
+      sales: 38
+    }, {
+      year: '1952 年',
+      sales: 52
+    }, {
+      year: '1956 年',
+      sales: 61
+    }, {
+      year: '1957 年',
+      sales: 145
+    }, {
+      year: '1958 年',
+      sales: 48
+    }];
+    const div1 = document.createElement('div');
+    div1.id = 'cview-theme-default';
+    document.body.appendChild(div1);
+    const div2 = document.createElement('div');
+    div2.id = 'cview-theme-dark';
+    document.body.appendChild(div2);
+    const chart1 = new Chart({
+      container: div1
+    });
+    chart1.source(data);
+    chart1.scale('sales', {
+      tickInterval: 20
+    });
+    chart1.interval().position('year*sales');
+    chart1.render();
+    const chart2 = new Chart({
+      container: div2,
+      theme: 'dark'
+    });
+    chart2.source(data);
+    chart2.scale('sales', {
+      tickInterval: 20
+    });
+    chart2.interval().position('year*sales');
+    chart2.render();
+
+    expect(chart1.get('plot').get('background')).to.eql(Theme.default.background || {});
+    expect(chart2.get('plot').get('background')).to.eql(Theme.dark.background);
   });
 });

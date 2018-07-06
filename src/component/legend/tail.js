@@ -179,7 +179,8 @@ class Tail extends Category {
   }
 
   _adjustDenote(group, start, end) {
-    const margin = Global.legend.legendMargin - 2;
+    const viewTheme = this.get('viewTheme') || Global;
+    const margin = viewTheme.legend.legendMargin - 2;
     const x0 = -2;
     const x1 = -margin;
     const x2 = -margin * 2;

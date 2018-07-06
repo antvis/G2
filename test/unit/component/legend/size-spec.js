@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const Simulate = require('event-simulate');
-const { Canvas, Event } = require('../../../../src/renderer2d');
+const { Canvas, Event } = require('../../../../src/renderer');
 const { Size } = require('../../../../src/component/legend/index');
 
 const div = document.createElement('div');

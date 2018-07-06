@@ -1,4 +1,4 @@
-const { Group } = require('../../renderer2d');
+const { Group } = require('../../renderer');
 const Labels = require('../../component/label/index');
 const Global = require('../../global');
 const Util = require('../../util');
@@ -91,12 +91,11 @@ class GeomLabels extends Group {
     const self = this;
     const labelCfg = self.get('labelCfg').cfg;
     const geomType = self.get('geomType');
+    const viewTheme = self.get('viewTheme') || Global;
     if (geomType === 'polygon' || (labelCfg && labelCfg.offset < 0 && Util.indexOf(IGNORE_ARR, geomType) === -1)) {
-      // return Util.merge({}, self.get('label'), Global.innerLabels);
-      return Util.deepMix({}, self.get('label'), Global.innerLabels);
+      return Util.deepMix({}, self.get('label'), viewTheme.innerLabels);
     }
-    // return Util.merge({}, Global.label, self.get('label'));
-    return Util.deepMix({}, Global.label, self.get('label'));
+    return Util.deepMix({}, viewTheme.label, self.get('label'));
   }
 
   /**
@@ -293,7 +292,7 @@ class GeomLabels extends Group {
   // 获取默认的偏移量
   getDefaultOffset() {
     const self = this;
-    let offset = 0; // Global.labels.offset;
+    let offset = 0;
 
     const coord = self.get('coord');
     const vector = self.getOffsetVector();

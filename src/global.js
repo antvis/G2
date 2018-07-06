@@ -5,11 +5,9 @@
 const Util = require('./util');
 const Theme = require('./theme/index');
 
-// const Global = {};
 const Global = {
   version: '3.2.0-beta.6',
-  renderer2d: 'canvas',
-  // renderer2d: 'svg',
+  renderer: 'canvas',
   trackable: true,
   animate: true,
   widthRatio: { // 宽度所占的分类的比例
@@ -25,12 +23,6 @@ const Global = {
 };
 
 function setTheme(theme) {
-  // for (const k in Global) {
-  //   if (Global.hasOwnProperty(k)) {
-  //     delete Global[k];
-  //   }
-  // }
-
   let newTheme = {};
   if (Util.isObject(theme)) {
     newTheme = theme;

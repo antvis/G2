@@ -5,7 +5,6 @@
 const Util = require('../../util');
 const Axis = require('../../component/axis');
 const { vec2 } = Util.MatrixUtil;
-const Global = require('../../global');
 
 function formatTicks(ticks) {
   let tmp = [];
@@ -273,11 +272,12 @@ class AxisController {
   // 获取坐标轴构成的配置信息
   _getAxisDefaultCfg(coord, scale, type, position) {
     const self = this;
+    const viewTheme = self.viewTheme;
     let cfg = {};
     const options = self.options;
     const field = scale.field;
 
-    cfg = Util.deepMix({}, Global.axis[position], cfg, options[field]);
+    cfg = Util.deepMix({}, viewTheme.axis[position], cfg, options[field]);
     if (cfg.title) {
       Util.deepMix(cfg, {
         title: {

@@ -3,8 +3,8 @@
  * @author sima.zhang
  */
 const Util = require('../../util');
+const { Group } = require('../../renderer');
 const Global = require('../../global');
-const { Group } = require('../../renderer2d');
 
 class Base extends Group {
   getDefaultCfg() {
@@ -52,6 +52,7 @@ class Base extends Group {
 
   _renderTitle() {
     const title = this.get('title');
+    const viewTheme = this.get('viewTheme') || Global;
     if (title && title.text) {
       const titleShape = this.addShape('text', {
         attrs: Util.mix({
@@ -59,7 +60,7 @@ class Base extends Group {
           y: 0,
           fill: '#333', // 默认样式
           textBaseline: 'middle',
-          fontFamily: Global.fontFamily
+          fontFamily: viewTheme.fontFamily
         }, title)
       });
       titleShape.name = 'legend-title';

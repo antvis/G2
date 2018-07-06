@@ -5,7 +5,7 @@
 const Util = require('../../util');
 const Base = require('./base');
 const DomUtil = Util.DomUtil;
-const { Event, Group } = require('../../renderer2d');
+const { Event, Group } = require('../../renderer');
 const Global = require('../../global');
 
 const CONTAINER_CLASS = 'g2-legend';
@@ -330,6 +330,7 @@ class Category extends Base {
   _renderHTML() {
     const self = this;
     const canvas = self.get('canvas');
+    const viewTheme = self.get('viewTheme') || Global;
     const outterNode = canvas.get('el').parentNode;
     const title = this.get('title');
     const containerTpl = self.get('containerTpl');
@@ -338,7 +339,7 @@ class Category extends Base {
     const itemListDom = findNodeByClass(legendWrapper, LIST_CLASS);
     const unCheckedColor = self.get('unCheckColor');
     const mode = self.get('selectedMode');
-    const LEGEND_STYLE = Global.legend.html;
+    const LEGEND_STYLE = viewTheme.legend.html;
 
     // fix：IE 9 兼容问题，先加入 legendWrapper
     let container = self.get('container');

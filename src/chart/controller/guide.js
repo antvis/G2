@@ -4,7 +4,6 @@
  */
 const Util = require('../../util');
 const Guide = require('../../component/guide');
-const Global = require('../../global');
 
 class GuideController {
   constructor(cfg) {
@@ -13,6 +12,7 @@ class GuideController {
     this.xScales = null;
     this.yScales = null;
     this.view = null;
+    this.viewTheme = null;
     this.frontGroup = null;
     this.backGroup = null;
     Util.mix(this, cfg);
@@ -24,6 +24,7 @@ class GuideController {
     const xScales = this.xScales;
     const yScales = this.yScales;
     const view = this.view;
+    const viewTheme = this.viewTheme;
     if (this.backContainer && view) {
       this.backGroup = this.backContainer.addGroup({
         viewId: view.get('_id')
@@ -39,8 +40,9 @@ class GuideController {
       const config = Util.deepMix({
         xScales,
         yScales,
-        view
-      }, Global.guide[type], option);
+        view,
+        viewTheme
+      }, viewTheme ? viewTheme.guide[type] : {}, option);
       type = Util.upperFirst(type);
       const guide = new Guide[type](config);
       self.guides.push(guide);

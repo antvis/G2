@@ -50,7 +50,9 @@ describe('AxisController', function() {
       ];
     }
   };
-  const as = new AxisController();
+  const as = new AxisController({
+    viewTheme: require('../../../../src/global')
+  });
 
   it('_isHide', function() {
     as.options = {

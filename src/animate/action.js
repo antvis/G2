@@ -3,7 +3,7 @@
  * @author sima.zhang
  */
 const Util = require('../util');
-const G = require('../renderer2d');
+const G = require('../renderer');
 const PathUtil = Util.PathUtil;
 
 function getClip(coord) {

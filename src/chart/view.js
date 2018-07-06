@@ -8,6 +8,7 @@ const Geom = require('../geom/base');
 const Util = require('../util');
 const Controller = require('./controller/index');
 const Global = require('../global');
+const Theme = require('../theme/index');
 const FIELD_ORIGIN = '_origin';
 const Animate = require('../animate/index');
 
@@ -72,6 +73,7 @@ class View extends Base {
       options: {},
       scaleController: null,
       padding: 0,
+      theme: 'default',
       parent: null,
       tooltipEnable: true, // 是否展示 tooltip
       animate: true,
@@ -82,18 +84,35 @@ class View extends Base {
   constructor(cfg) {
     super(cfg);
     const self = this;
-    Util.each(Geom, function(geomConstructor, className) {
+    self._setTheme();
+    Util.each(Geom, function(GeomConstructor, className) {
       const methodName = Util.lowerFirst(className);
-      self[methodName] = function(cfg) {
-        const geom = new geomConstructor(cfg);
+      self[methodName] = function(cfg = {}) {
+        cfg.viewTheme = self.get('viewTheme');
+        const geom = new GeomConstructor(cfg);
         self.addGeom(geom);
         return geom;
       };
     });
     // Util.mix(this, ViewGeoms);
-    this.init();
+    self.init();
   }
 
+  _setTheme() {
+    const self = this;
+    const theme = self.get('theme');
+    const viewTheme = {};
+    let newTheme = {};
+    if (Util.isObject(theme)) {
+      newTheme = theme;
+    } else if (Util.indexOf(Object.keys(Theme), theme) !== -1) {
+      newTheme = Theme[theme];
+    } else {
+      newTheme = Theme.default;
+    }
+    Util.deepMix(viewTheme, Global, newTheme);
+    self.set('viewTheme', viewTheme);
+  }
 
   /**
    * @protected
@@ -174,19 +193,28 @@ class View extends Base {
 
   // 初始化所有的控制器
   _initControllers() {
-    const options = this.get('options');
+    const self = this;
+    const options = self.get('options');
+    const viewTheme = self.get('viewTheme');
+
 
     const scaleController = new Controller.Scale({
+      viewTheme,
       defs: options.scales
     });
-    const coordController = new Controller.Coord(options.coord);
+    const coordController = new Controller.Coord(Util.mix({
+      viewTheme
+    }, options.coord));
     this.set('scaleController', scaleController);
     this.set('coordController', coordController);
 
-    const axisController = new Controller.Axis();
+    const axisController = new Controller.Axis({
+      viewTheme
+    });
     this.set('axisController', axisController);
 
     const guideController = new Controller.Guide({
+      viewTheme,
       options: options.guides || []
     });
     this.set('guideController', guideController);
@@ -393,6 +421,7 @@ class View extends Base {
   _setCatScalesRange() {
     const self = this;
     const coord = self.get('coord');
+    const viewTheme = self.get('viewTheme');
     const xScale = self.getXScale();
     const yScales = self.getYScales();
     let scales = [];
@@ -415,7 +444,7 @@ class View extends Base {
             if (!coord.isTransposed) {
               range = [ 0, 1 - 1 / count ];
             } else {
-              widthRatio = Global.widthRatio.multiplePie;
+              widthRatio = viewTheme.widthRatio.multiplePie;
               offset = 1 / count * widthRatio;
               range = [ offset / 2, 1 - offset / 2 ];
             }

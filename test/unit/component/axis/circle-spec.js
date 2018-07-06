@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const Util = require('../../../../src/util');
-const { Canvas } = require('../../../../src/renderer2d');
+const { Canvas } = require('../../../../src/renderer');
 const CircleAxis = require('../../../../src/component/axis/circle');
 const RadiusAxis = require('../../../../src/component/axis/line');
 

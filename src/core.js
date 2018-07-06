@@ -1,5 +1,5 @@
 const Scale = require('@antv/scale/src');
-const G = require('./renderer2d');
+const G = require('./renderer');
 const Animate = require('./animate/animate');
 const Chart = require('./chart/chart');
 const Global = require('./global');

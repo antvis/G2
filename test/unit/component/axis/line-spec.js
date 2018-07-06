@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const { Canvas, Group } = require('../../../../src/renderer2d');
+const { Canvas, Group } = require('../../../../src/renderer');
 const LineAxis = require('../../../../src/component/axis/line');
 
 const div = document.createElement('div');
