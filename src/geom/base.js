@@ -175,6 +175,7 @@ class GeomBase extends Base {
 
   constructor(cfg) {
     super(cfg);
+    this.viewTheme = this.get('viewTheme');
     Util.assign(this, TooltipMixin, ActiveMixin, SelectMixin);
     if (this.get('container')) {
       this._initContainer();
@@ -241,7 +242,8 @@ class GeomBase extends Base {
    * @return {Geom} geom 当前几何标记
    */
   color(field, values) {
-    this._createAttrOption('color', field, values, Global.colors);
+    const viewTheme = this.viewTheme || Global;
+    this._createAttrOption('color', field, values, viewTheme.colors);
     return this;
   }
 
@@ -253,7 +255,8 @@ class GeomBase extends Base {
    * @return {Geom} geom 当前几何标记
    */
   size(field, values) {
-    this._createAttrOption('size', field, values, Global.sizes);
+    const viewTheme = this.viewTheme || Global;
+    this._createAttrOption('size', field, values, viewTheme.sizes);
     return this;
   }
 
@@ -265,8 +268,9 @@ class GeomBase extends Base {
    * @return {Geom} geom 当前几何标记
    */
   shape(field, values) {
+    const viewTheme = this.viewTheme || Global;
     const type = this.get('type');
-    const shapes = Global.shapes[type] || [];
+    const shapes = viewTheme.shapes[type] || [];
     this._createAttrOption('shape', field, values, shapes);
     return this;
   }
@@ -279,7 +283,8 @@ class GeomBase extends Base {
    * @return {Geom} geom 当前几何标记
    */
   opacity(field, values) {
-    this._createAttrOption('opacity', field, values, Global.opacities);
+    const viewTheme = this.viewTheme || Global;
+    this._createAttrOption('opacity', field, values, viewTheme.opacities);
     return this;
   }
 
@@ -478,6 +483,7 @@ class GeomBase extends Base {
     const attrs = this.get('attrs');
     const attrOptions = this.get('attrOptions');
     const coord = self.get('coord');
+    const viewTheme = this.viewTheme || Global;
     let isPie = false;
 
     for (const type in attrOptions) {
@@ -499,15 +505,15 @@ class GeomBase extends Base {
           const scale = self._createScale(field);
           if (type === 'color' && Util.isNil(option.values)) { // 设置 color 的默认色值
             if (scale.values.length <= 8) {
-              option.values = isPie ? Global.colors_pie : Global.colors;
+              option.values = isPie ? viewTheme.colors_pie : viewTheme.colors;
             } else if (scale.values.length <= 16) {
-              option.values = isPie ? Global.colors_pie_16 : Global.colors_16;
+              option.values = isPie ? viewTheme.colors_pie_16 : viewTheme.colors_16;
             } else {
-              option.values = Global.colors_24;
+              option.values = viewTheme.colors_24;
             }
 
             if (Util.isNil(option.values)) {
-              option.values = Global.colors; // 防止主题没有声明诸如 colors_pie 的属性
+              option.values = viewTheme.colors; // 防止主题没有声明诸如 colors_pie 的属性
             }
           }
           scales.push(scale);
@@ -632,6 +638,7 @@ class GeomBase extends Base {
   _adjust(dataArray) {
     const self = this;
     const adjusts = self.get('adjusts');
+    const viewTheme = this.viewTheme || Global;
 
     const yScale = self.getYScale();
     const xScale = self.getXScale();
@@ -653,7 +660,7 @@ class GeomBase extends Base {
           throw new Error('dodge is not support linear attribute, please use category attribute!');
         }
         adjustCfg.adjustNames = adjustNames;
-        adjustCfg.dodgeRatio = Global.widthRatio.column;
+        adjustCfg.dodgeRatio = viewTheme.widthRatio.column;
         /* if (self.isInCircle()) {
           adjustCfg.dodgeRatio = 1;
           adjustCfg.marginRatio = 0;
@@ -762,6 +769,7 @@ class GeomBase extends Base {
   _addLabels(points) {
     const self = this;
     const type = self.get('type');
+    const viewTheme = self.get('viewTheme') || Global;
     const coord = self.get('coord');
     const C = Labels.getLabelsClass(coord.type, type);
     const container = self.get('container');
@@ -774,6 +782,7 @@ class GeomBase extends Base {
       coord,
       geom: self,
       geomType: type,
+      viewTheme,
       visible: self.get('visible')
     });
     labelContainer.showLabels(points);

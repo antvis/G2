@@ -43,6 +43,7 @@ class Venn extends GeomBase {
   _initAttrs() {
     const self = this;
     const view = self.get('view');
+    const viewTheme = this.viewTheme || Global;
     const attrs = this.get('attrs');
     const attrOptions = self.get('attrOptions');
     const labelCfg = self.get('labelCfg');
@@ -109,15 +110,15 @@ class Venn extends GeomBase {
           const scale = self._createScale(field, data);
           if (type === 'color' && Util.isNil(option.values)) { // 设置 color 的默认色值
             if (scale.values.length <= 8) {
-              option.values = Global.colors;
+              option.values = viewTheme.colors;
             } else if (scale.values.length <= 16) {
-              option.values = Global.colors_16;
+              option.values = viewTheme.colors_16;
             } else {
-              option.values = Global.colors_24;
+              option.values = viewTheme.colors_24;
             }
 
             if (Util.isNil(option.values)) {
-              option.values = Global.colors; // 防止主题没有声明诸如 colors_pie 的属性
+              option.values = viewTheme.colors; // 防止主题没有声明诸如 colors_pie 的属性
             }
           }
           scales.push(scale);

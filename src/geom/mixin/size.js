@@ -29,6 +29,7 @@ function findMinDistance(arr, scale) {
 const SizeMixin = {
   getDefalutSize() {
     let defaultSize = this.get('defaultSize');
+    const viewTheme = this.get('viewTheme') || Global;
     if (!defaultSize) {
       const coord = this.get('coord');
       const xScale = this.getXScale();
@@ -51,9 +52,9 @@ const SizeMixin = {
 
       if (this.isInCircle()) {
         if (coord.isTransposed && count > 1) { // 极坐标下多层环图
-          widthRatio = Global.widthRatio.multiplePie;
+          widthRatio = viewTheme.widthRatio.multiplePie;
         } else {
-          widthRatio = Global.widthRatio.rose;
+          widthRatio = viewTheme.widthRatio.rose;
         }
         /* if (dataArray.length > 1) {
           normalizeSize *= (range[1] - range[0]);
@@ -62,7 +63,7 @@ const SizeMixin = {
         if (xScale.isLinear) {
           normalizeSize *= (range[1] - range[0]);
         }
-        widthRatio = Global.widthRatio.column; // 柱状图要除以2
+        widthRatio = viewTheme.widthRatio.column; // 柱状图要除以2
       }
       normalizeSize *= widthRatio;
       if (this.hasAdjust('dodge')) {
