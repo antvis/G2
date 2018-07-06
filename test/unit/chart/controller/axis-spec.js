@@ -213,7 +213,7 @@ describe('AxisController', function() {
       expect(circleCfg.endAngle).to.equal(3.141592653589794);
       expect(circleCfg.center).to.eql({
         x: 250.70494165327872,
-        y: 124.64752917336064
+        y: 124.94090329888789
       });
     });
 
@@ -267,11 +267,11 @@ describe('AxisController', function() {
       expect(radiusCfg.factor).to.equal(1);
       expect(radiusCfg.start).to.eql({
         x: 250.70494165327872,
-        y: 124.64752917336064
+        y: 124.94090329888789
       });
       expect(radiusCfg.end).to.eql({
         x: 500.00000000000006,
-        y: 151.1982665130035
+        y: 151.49164063853073
       });
     });
   });

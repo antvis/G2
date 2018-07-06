@@ -1,10 +1,12 @@
 /**
  * @fileOverview The class of the size legend
  * @author sima.zhang
+ * @author ye liu
  */
 const Util = require('../../util');
 const Global = require('../../global');
 const Continuous = require('./continuous');
+const SLIDER_HEIGHT = 2;
 const CIRCLE_GAP = 8;
 
 class Size extends Continuous {
@@ -28,32 +30,200 @@ class Size extends Continuous {
         textAlign: 'start',
         textBaseline: 'middle',
         fontFamily: Global.fontFamily
+      },
+      inRange: {
+        fill: 'white',
+        stroke: '#5d7ca3',
+        lineWidth: 2
+      },
+      inRangeSlider: {
+        fill: '#5d7ca3'
+      },
+      backgroundCircle: {
+        stroke: '#ccc',
+        fill: 'white',
+        lineWidth: 2
       }
     });
   }
 
   _renderSliderShape() {
+    const min = this.get('firstItem');
+    const max = this.get('lastItem');
+    const minRadius = parseFloat(min.attrValue);
+    const maxRadius = parseFloat(max.attrValue);
     const slider = this.get('slider');
     const backgroundElement = slider.get('backgroundElement');
-    const width = this.get('width');
-    const height = this.get('height');
-    const inRange = this.get('inRange');
     const layout = this.get('layout');
-    const points = (layout === 'vertical') ? [
-      [ 0, 0 ],
-      [ width, 0 ],
-      [ width, height ]
-    ] : [
-      [ 0, height ],
-      [ width, 0 ],
-      [ width, height ]
-    ];
+    const width = (layout === 'vertical') ? SLIDER_HEIGHT : this.get('width');
+    const height = (layout === 'vertical') ? this.get('height') : SLIDER_HEIGHT;
+    const x = minRadius;
+    const y = this.get('height') / 2;
+    const inRangeSlider = this.get('inRangeSlider');
 
+    const points = (layout === 'vertical') ? [
+      [ 0, maxRadius ],
+      [ width, maxRadius ],
+      [ width, height - minRadius ],
+      [ 0, height - minRadius ]
+    ] : [
+      [ x, y + height ],
+      [ x, y ],
+      [ x + width - maxRadius - 4, y ],
+      [ x + width - maxRadius - 4, y + height ]
+    ];
+    // add background circle
+    const backCircleStyle = this.get('backgroundCircle');
+    backgroundElement.addShape('circle', {
+      attrs: Util.mix({
+        x: (layout === 'vertical') ? width / 2 : 0,
+        y: (layout === 'vertical') ? 0 : y,
+        r: (layout === 'vertical') ? maxRadius : minRadius
+      }, backCircleStyle)
+    });
+    backgroundElement.addShape('circle', {
+      attrs: Util.mix({
+        x: width,
+        y: (layout === 'vertical') ? height : y,
+        r: (layout === 'vertical') ? minRadius : maxRadius
+      }, backCircleStyle)
+    });
     return this._addBackground(backgroundElement, 'Polygon', Util.mix({
       points
-    }, inRange));
+    }, inRangeSlider));
   }
 
+
+  _addHorizontalTrigger(type, blockAttr, textAttr, radius) {
+    const slider = this.get('slider');
+    const trigger = slider.get(type + 'HandleElement');
+    const y = -this.get('height') / 2;
+    const button = trigger.addShape('circle', {
+      attrs: Util.mix({
+        x: 0,
+        y,
+        r: radius
+      }, blockAttr)
+    });
+    const text = trigger.addShape('text', {
+      attrs: Util.mix(textAttr, {
+        x: 0,
+        y: y + radius + 10,
+        textAlign: 'center',
+        textBaseline: 'middle'
+      })
+    });
+    const layout = this.get('layout');
+    const trigerCursor = layout === 'vertical' ? 'ns-resize' : 'ew-resize';
+    button.attr('cursor', trigerCursor);
+    text.attr('cursor', trigerCursor);
+    this.set(type + 'ButtonElement', button);
+    this.set(type + 'TextElement', text);
+  }
+
+  _addVerticalTrigger(type, blockAttr, textAttr, radius) {
+    const slider = this.get('slider');
+    const trigger = slider.get(type + 'HandleElement');
+    const button = trigger.addShape('circle', {
+      attrs: Util.mix({
+        x: -6,
+        y: 0,
+        r: radius
+      }, blockAttr)
+    });
+    const text = trigger.addShape('text', {
+      attrs: Util.mix(textAttr, {
+        x: radius + 10,
+        y: 0,
+        textAlign: 'start',
+        textBaseline: 'middle'
+      })
+    });
+    const layout = this.get('layout');
+    const trigerCursor = layout === 'vertical' ? 'ns-resize' : 'ew-resize';
+    button.attr('cursor', trigerCursor);
+    text.attr('cursor', trigerCursor);
+    this.set(type + 'ButtonElement', button);
+    this.set(type + 'TextElement', text);
+  }
+
+  _renderTrigger() {
+    const min = this.get('firstItem');
+    const max = this.get('lastItem');
+    const layout = this.get('layout');
+    const textStyle = this.get('textStyle');
+    const inRange = this.get('inRange');
+    const minBlockAttr = Util.mix({}, inRange);
+    const maxBlockAttr = Util.mix({}, inRange);
+    const minRadius = parseFloat(min.attrValue);
+    const maxRadius = parseFloat(max.attrValue);
+
+    const minTextAttr = Util.mix({
+      text: this._formatItemValue(min.value) + ''
+    }, textStyle);
+    const maxTextAttr = Util.mix({
+      text: this._formatItemValue(max.value) + ''
+    }, textStyle);
+    if (layout === 'vertical') {
+      this._addVerticalTrigger('min', minBlockAttr, minTextAttr, minRadius);
+      this._addVerticalTrigger('max', maxBlockAttr, maxTextAttr, maxRadius);
+    } else {
+      this._addHorizontalTrigger('min', minBlockAttr, minTextAttr, minRadius);
+      this._addHorizontalTrigger('max', maxBlockAttr, maxTextAttr, maxRadius);
+    }
+  }
+
+
+  _bindUI() {
+    const self = this;
+    if (self.get('slidable')) {
+      // const canvas = self.get('canvas');
+      const slider = self.get('slider');
+      slider.on('sliderchange', ev => {
+        const range = ev.range;
+        const firstItemValue = self.get('firstItem').value * 1;
+        const lastItemValue = self.get('lastItem').value * 1;
+        const minValue = firstItemValue + (range[0] / 100) * (lastItemValue - firstItemValue);
+        const maxValue = firstItemValue + (range[1] / 100) * (lastItemValue - firstItemValue);
+        const firstItemRadius = parseFloat(self.get('firstItem').attrValue) * 1;
+        const lastItemRadius = parseFloat(self.get('lastItem').attrValue) * 1;
+        const minRadius = firstItemRadius + (range[0] / 100) * (lastItemRadius - firstItemRadius);
+        const maxRadius = firstItemRadius + (range[1] / 100) * (lastItemRadius - firstItemRadius);
+        self._updateElement(minValue, maxValue, minRadius, maxRadius);
+        const itemFiltered = new Event('itemfilter', ev, true, true);
+        itemFiltered.range = [ minValue, maxValue ];
+        self.emit('itemfilter', itemFiltered);
+      });
+    }
+  }
+
+
+  _updateElement(min, max, minR, maxR) {
+    const minTextElement = this.get('minTextElement');
+    const maxTextElement = this.get('maxTextElement');
+    const minCircleElement = this.get('minButtonElement');
+    const maxCircleElement = this.get('maxButtonElement');
+    if (max > 1) { // 对于大于 1 的值，默认显示为整数
+      min = parseInt(min, 10);
+      max = parseInt(max, 10);
+    }
+    minTextElement.attr('text', this._formatItemValue(min) + '');
+    maxTextElement.attr('text', this._formatItemValue(max) + '');
+    minCircleElement.attr('r', minR);
+    maxCircleElement.attr('r', maxR);
+
+    const layout = this.get('layout');
+    if (layout === 'vertical') {
+      minTextElement.attr('x', minR + 10);
+      maxTextElement.attr('x', maxR + 10);
+    } else {
+      const y = -this.get('height') / 2;
+      minTextElement.attr('y', y + minR + 10);
+      maxTextElement.attr('y', y + maxR + 10);
+    }
+  }
+
+  // not slidable
   _addCircle(x, y, r, text, maxWidth) {
     const group = this.addGroup();
     const circleStyle = this.get('_circleStyle');
@@ -80,6 +250,7 @@ class Size extends Continuous {
     });
   }
 
+
   _renderBackground() {
     const self = this;
     const minRadius = this.get('firstItem').attrValue * 1;
@@ -89,6 +260,7 @@ class Size extends Continuous {
     self._addCircle(maxRadius, maxRadius * 2 + CIRCLE_GAP + medianRadius, medianRadius, (minRadius + medianRadius) / 2, 2 * maxRadius);
     self._addCircle(maxRadius, (maxRadius + CIRCLE_GAP + medianRadius) * 2 + minRadius, minRadius, minRadius, 2 * maxRadius);
   }
+
 }
 
 module.exports = Size;

@@ -90,6 +90,20 @@ class GuideController {
     return this;
   }
 
+  dataMarker(cfg = {}) {
+    this.options.push(Util.mix({
+      type: 'dataMarker'
+    }, cfg));
+    return this;
+  }
+
+  dataRegion(cfg = {}) {
+    this.options.push(Util.mix({
+      type: 'dataRegion'
+    }, cfg));
+    return this;
+  }
+
   html(cfg = {}) {
     this.options.push(Util.mix({
       type: 'html'

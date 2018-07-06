@@ -11,6 +11,7 @@ const CONTAINER_CLASS = 'g2-tooltip';
 const TITLE_CLASS = 'g2-tooltip-title';
 const LIST_CLASS = 'g2-tooltip-list';
 const MARKER_CLASS = 'g2-tooltip-marker';
+const VALUE_CLASS = 'g2-tooltip-value';
 const LIST_ITEM_CLASS = 'g2-tooltip-list-item';
 
 function find(dom, cls) {
@@ -157,8 +158,8 @@ class Tooltip extends Base {
        * @type {String}
        */
       itemTpl: '<li data-index={index}>'
-        + '<span style="background-color:{color};" class=' + MARKER_CLASS + '></span>'
-        + '{name}: {value}</li>',
+      + '<span style="background-color:{color};" class=' + MARKER_CLASS + '></span>'
+      + '{name}<span class=' + VALUE_CLASS + '>{value}</span></li>',
       /**
        * 将 tooltip 展示在指定区域内
        * @type {Boolean}
@@ -251,6 +252,10 @@ class Tooltip extends Base {
     const markerDom = find(itemDOM, MARKER_CLASS);
     if (markerDom) {
       DomUtil.modifyCSS(markerDom, this.get(MARKER_CLASS));
+    }
+    const valueDom = find(itemDOM, VALUE_CLASS);
+    if (valueDom) {
+      DomUtil.modifyCSS(valueDom, this.get(VALUE_CLASS));
     }
 
     return itemDOM;
