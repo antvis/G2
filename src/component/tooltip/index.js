@@ -199,16 +199,17 @@ class Tooltip extends Base {
     const crosshairs = this.get('crosshairs');
     const frontPlot = this.get('frontPlot');
     const backPlot = this.get('backPlot');
+    const viewTheme = this.get('viewTheme') || Global;
     let crosshairsGroup;
 
     if (crosshairs) {
       if (crosshairs.type === 'rect') {
-        this.set('crosshairs', Util.deepMix({}, Global.tooltipCrosshairsRect, crosshairs));
+        this.set('crosshairs', Util.deepMix({}, viewTheme.tooltipCrosshairsRect, crosshairs));
         crosshairsGroup = backPlot.addGroup({
           zIndex: 0
         });
       } else {
-        this.set('crosshairs', Util.deepMix({}, Global.tooltipCrosshairsLine, crosshairs));
+        this.set('crosshairs', Util.deepMix({}, viewTheme.tooltipCrosshairsLine, crosshairs));
         crosshairsGroup = frontPlot.addGroup();
       }
     }

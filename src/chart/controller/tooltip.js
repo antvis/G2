@@ -276,6 +276,7 @@ class TooltipController {
       return;
     }
     const chart = self.chart;
+    const viewTheme = self.viewTheme;
     const canvas = self._getCanvas();
     const defaultCfg = self._getDefaultTooltipCfg();
     let options = self.options;
@@ -284,6 +285,7 @@ class TooltipController {
       capture: false,
       canvas,
       frontPlot: chart.get('frontPlot'),
+      viewTheme,
       backPlot: chart.get('backPlot')
     }, defaultCfg, options);
     if (options.crosshairs && options.crosshairs.type === 'rect') {

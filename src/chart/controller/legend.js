@@ -494,6 +494,7 @@ class LegendController {
     const legendCfg = Util.deepMix({}, viewTheme.legend[posArray[0]], legendOptions[field] || legendOptions, {
       viewId: chart.get('_id'),
       maxLength,
+      viewTheme,
       items
     });
     if (legendCfg.title) {
@@ -574,6 +575,7 @@ class LegendController {
     const legendCfg = Util.deepMix({}, defaultCfg, options[field] || options, {
       items,
       attr,
+      viewTheme,
       numberFormatter: scale.formatter
     });
     if (legendCfg.title) {
@@ -699,6 +701,7 @@ class LegendController {
 
     const legendCfg = Util.deepMix({}, viewTheme.legend[posArray[0]], legendOptions, {
       maxLength,
+      viewTheme,
       items
     });
 
