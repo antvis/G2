@@ -65,10 +65,9 @@ class LegendController {
     if (!backRange) {
       backRange = this.chart.get('backPlot').getBBox();
       const plotRange = this.plotRange;
-      if (backRange.minX === 0 || (
-        backRange.maxX - backRange.minX < plotRange.br.x - plotRange.tl.x) || (
-        backRange.maxY - backRange.minY) < plotRange.br.y - plotRange.tl.y
-      ) { // 如果背景不占宽高，或者背景小于则直接使用 plotRange
+      if (backRange.maxX - backRange.minX < plotRange.br.x - plotRange.tl.x &&
+        backRange.maxY - backRange.minY < plotRange.br.y - plotRange.tl.y) {
+          // 如果背景小于则直接使用 plotRange
         backRange = {
           minX: plotRange.tl.x,
           minY: plotRange.tl.y,

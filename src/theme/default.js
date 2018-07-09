@@ -493,7 +493,6 @@ const Theme = {
       width: '5px',
       height: '5px',
       borderRadius: '50%',
-      border: '1px solid #fff',
       display: 'inline-block',
       marginRight: '8px'
     },
