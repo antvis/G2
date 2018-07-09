@@ -1,3 +1,54 @@
+
+#### 3.2.0 (2018-07-09)
+
+##### New Features
+
+* chore(dev): fix test coverage generator
+* chore(dev): remove lodash, use `@antv/util` instead
+* chore(dev): support svg (add entry for svg version)
+* chore(dev): upgrade `@antv/g` to svg supported version
+* chore(dev): use `@antv/interaction` instead
+* chore(dev): use src entries to make bundle thinner
+* chore(structure): publich module `@antv/scale`, `@antv/adjust` and `@antv/attr`.
+* chore(test): fix test case description
+* chore(test): remove useless test cases
+* chore(util): Added tslint npm command that validates src/index.d.ts file; Added simple rules and fixed several tslint code style issues
+* feat(component): add new components
+* feat(interaction): support shape select interaction
+* feat(legend): multi-geom legend support
+* feat(renderer): support svg renderer
+* feat(theme): Global -> viewTheme
+* feat(theme): view theme support for components
+* feat(theme): view theme support for geom
+* refactor: add appendInfo to click event if exists
+* refactor: change clip method of liquid fill plot
+* refactor: if tooltip is not shared, use event target instead of picking shape from geom
+* refactor: replace shape Arc with path
+* refactor: sort out all the util methods into Util
+* refractor size legend
+
+##### Bug Fixes
+
+* fix(axis): tickLine & label positions
+* fix(axis):align with label, Closes #718
+* fix(color): rgba to hex, Closes #678
+* fix(coord.polar): when endAngle = Math.PI * 2, graph not fitting canvas. Closes #689
+* fix(demo): fixing pie demo
+* fix(dev) main field in package  + fix typescipt requirement issue
+* fix(geom): interval and area with negative data, Closes #731
+* fix(pathUtil.convertPolarPath): Closes #730
+* fix(types): Fixed type definition for Chart: correctly typed the constructor argument and added get method
+* fix(util): DomUtil compatible with older version
+* fix: fix api usage error
+* fix: fix some unit tests
+* fix: fix the incorrect vector of start point tick
+* fix: fix width & height value of group when group has no child
+* fix: pass path array instead of manipulating context when defining Marker
+* fix: revert liquid wave plot
+* fix: set symbol of tooltip marker
+* fix: svg version don't have to getShape, use event target
+* fix: use show & hide instead of set visible
+
 #### 3.1.2 (2018-06-08)
 
 ##### New Features
