@@ -65,7 +65,8 @@ function convertPolarPath(pre, cur, coord) {
   // innerRadius = innerRadius || 0;
   const xDim = transposed ? 'y' : 'x';
   const angleRange = Math.abs(curPoint[xDim] - prePoint[xDim]) * (endAngle - startAngle);
-  const direction = curPoint[xDim] >= prePoint[xDim] ? 1 : 0; // 圆弧的方向
+  const _arcDirection = coord.endAngle >= coord.startAngle ? [ 0, 1 ] : [ 1, 0 ]; // 极坐标方向决定哪个方向是`圆弧向外`
+  const direction = _arcDirection[curPoint[xDim] >= prePoint[xDim] ? 1 : 0]; // 描点顺序决定`圆弧的方向`
   const flag = angleRange > Math.PI ? 1 : 0; // 大弧还是小弧标志位
   const convertPoint = coord.convertPoint(curPoint);
   const r = getPointRadius(coord, convertPoint);
