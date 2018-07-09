@@ -408,11 +408,17 @@ class View extends Base {
       const geom = geoms[i];
       if (geom.get('type') === 'interval') {
         const yScale = geom.getYScale();
-        const field = yScale.field;
-        if (!(colDefs[field] && colDefs[field].min) && yScale.min > 0 && yScale.type !== 'time') {
-          yScale.change({
-            min: 0
-          });
+        const { field, min, max, type } = yScale;
+        if (!(colDefs[field] && colDefs[field].min) && type !== 'time') {
+          if (min > 0) {
+            yScale.change({
+              min: 0
+            });
+          } else if (max <= 0) { // 当柱状图全为负值时也需要从 0 开始生长
+            yScale.change({
+              max: 0
+            });
+          }
         }
       }
     }

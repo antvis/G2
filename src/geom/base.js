@@ -850,10 +850,13 @@ class GeomBase extends Base {
    */
   getYMinValue() {
     const yScale = this.getYScale();
-    const min = yScale.min;
+    const { min, max } = yScale;
     let value;
+
     if (min >= 0) {
       value = min;
+    } else if (max <= 0) { // 当值全位于负区间时，需要保证 ymin 在区域内，不可为 0
+      value = max;
     } else {
       value = 0;
     }
