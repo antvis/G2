@@ -339,7 +339,8 @@ class Base extends Group {
     }
     this._renderLine();
     const type = this.get('type');
-    if (type === 'cat' && alignWithLabel === false) {
+    const isCat = (type === 'cat' || type === 'timeCat');
+    if (isCat && alignWithLabel === false) {
       this._processCatTicks();
     } else {
       this._processTicks();
