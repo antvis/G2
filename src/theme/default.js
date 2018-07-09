@@ -490,9 +490,9 @@ const Theme = {
       marginBottom: '4px'
     },
     [`${TOOLTIP_MARKER_CLASS}`]: {
-      width: '10px',
-      height: '2px',
-      borderRadius: '5%',
+      width: '5px',
+      height: '5px',
+      borderRadius: '50%',
       border: '1px solid #fff',
       display: 'inline-block',
       marginRight: '8px'
