@@ -408,7 +408,8 @@ class Category extends Base {
         value,
         color,
         originColor: markerColor,
-        originValue: item.value
+        // @2018-07-09 by blue.lb 修复如果legend值中存在双引号"时，导致的无法点击触发legend正常操作bug
+        originValue: item.value.replace(/\"/g,'&quot;')
       });
       const itemDom = DomUtil.createDom(itemDiv);
       const markerDom = findNodeByClass(itemDom, MARKER_CLASS);
