@@ -1,4 +1,15 @@
 
+#### 3.2.0 (2018-07-10)
+
+##### Bug Fixes
+
+* fix(axis): cat axis support timeCat data type
+* fix(legend): chart backplot range calculation
+* fix(legend): issue if legend value contains "
+* fix(legend): path of legend marker of line chart
+* fix(theme): Global theme is not working
+* fix(tooltip): tooltip marker style
+
 #### 3.2.0 (2018-07-09)
 
 ##### New Features
