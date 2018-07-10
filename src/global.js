@@ -6,7 +6,7 @@ const Util = require('./util');
 const Theme = require('./theme/index');
 
 const Global = {
-  version: '3.2.1',
+  version: '3.2.2',
   renderer: 'canvas',
   trackable: true,
   animate: true,
@@ -19,23 +19,23 @@ const Global = {
   showSinglePoint: false,
   connectNulls: false,
   scales: {
+  },
+  registerTheme(name, theme) {
+    Theme[name] = theme;
+  },
+  setTheme(theme) {
+    let newTheme = {};
+    if (Util.isObject(theme)) {
+      newTheme = theme;
+    } else if (Util.indexOf(Object.keys(Theme), theme) !== -1) {
+      newTheme = Theme[theme];
+    } else {
+      newTheme = Theme.default;
+    }
+    Util.deepMix(Global, newTheme);
   }
 };
 
-function setTheme(theme) {
-  let newTheme = {};
-  if (Util.isObject(theme)) {
-    newTheme = theme;
-  } else if (Util.indexOf(Object.keys(Theme), theme) !== -1) {
-    newTheme = Theme[theme];
-  } else {
-    newTheme = Theme.default;
-  }
-  Util.deepMix(Global, newTheme);
-}
-
-setTheme('default');
-
-Global.setTheme = setTheme;
+Global.setTheme('default');
 
 module.exports = Global;
