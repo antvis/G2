@@ -73,7 +73,7 @@ class View extends Base {
       options: {},
       scaleController: null,
       padding: 0,
-      theme: 'default',
+      theme: null,
       parent: null,
       tooltipEnable: true, // 是否展示 tooltip
       animate: true,
@@ -107,8 +107,6 @@ class View extends Base {
       newTheme = theme;
     } else if (Util.indexOf(Object.keys(Theme), theme) !== -1) {
       newTheme = Theme[theme];
-    } else {
-      newTheme = Theme.default;
     }
     Util.deepMix(viewTheme, Global, newTheme);
     self.set('viewTheme', viewTheme);
