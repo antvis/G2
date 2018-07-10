@@ -125,7 +125,8 @@ function _markerFn(x, y, r) {
 function _smoothMarkerFn(x, y, r) {
   return [
     [ 'M', x - r, y ],
-    [ 'A' ]
+    [ 'A', r / 2, r / 2, 0, 1, 1, x, y ],
+    [ 'A', r / 2, r / 2, 0, 1, 0, x + r, y ]
   ];
 }
 // get marker cfg
