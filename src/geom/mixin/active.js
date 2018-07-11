@@ -270,7 +270,9 @@ const ActiveMixin = {
         shape.setZIndex(1); // 提前
       } else {
         Util.mix(changeAttrs, {
-          fillOpacity: 0.3
+          fillOpacity: 0.3,
+          // @2018-07-11 by blue.lb 由于线图只有stoke，fillOpacity不生效，最好还是直接改成整个图形透明度opacity
+          opacity: 0.3
         });
         shape.setZIndex(0);
       }
