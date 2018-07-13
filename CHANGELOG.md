@@ -1,3 +1,9 @@
+#### 3.2.3 (2018-07-13)
+
+##### Bug Fixes
+
+* fix(coord): should not set coord in theme. Closes #745
+* fix(dev): unify module entries to avoid building issues
 
 #### 3.2.2 (2018-07-10)
 
