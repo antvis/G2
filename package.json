@@ -2,9 +2,7 @@
   "name": "@antv/g2",
   "version": "3.2.2",
   "description": "the Grammar of Graphics in Javascript",
-  "browser": "build/g2.js",
-  "main": "lib/index.js",
-  "module": "src/index.js",
+  "main": "build/index.js",
   "homepage": "https://github.com/antvis/g2",
   "repository": {
     "type": "git",
