@@ -200,9 +200,7 @@ class View extends Base {
       viewTheme,
       defs: options.scales
     });
-    const coordController = new Controller.Coord(Util.mix({
-      viewTheme
-    }, options.coord));
+    const coordController = new Controller.Coord(options.coord);
     this.set('scaleController', scaleController);
     this.set('coordController', coordController);
 
