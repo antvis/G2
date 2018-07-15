@@ -304,6 +304,22 @@ class LegendController {
     return rst;
   }
 
+  _isFilteredBuilder(scale, values) {
+    if (!values || !scale.isCategory) {
+      return () => true;
+    }
+
+    const valuesMap = Util.reduce(values, (acc, val) => Util.assign(acc, {
+      [scale.getText(val)]: 1
+    }), {});
+
+    return value => {
+      value = scale.invert(value);
+      const result = scale.getText(value) in valuesMap;
+      return result;
+    };
+  }
+
   _alignLegend(legend, pre, region, position) {
     const self = this;
     const viewTheme = self.viewTheme;
@@ -446,6 +462,7 @@ class LegendController {
     const plotRange = self.plotRange;
     const posArray = position.split('-');
     const maxLength = (posArray[0] === 'right' || posArray[0] === 'left') ? plotRange.bl.y - plotRange.tr.y : canvas.get('width');
+    const isFiltered = self._isFilteredBuilder(scale, filterVals);
     Util.each(ticks, tick => {
       const text = tick.text;
       const name = text;
@@ -454,7 +471,7 @@ class LegendController {
       const cfg = {
         isInCircle: geom.isInCircle()
       };
-      const checked = filterVals ? self._isFiltered(scale, filterVals, scaleValue) : true;
+      const checked = isFiltered(scaleValue);
 
       const colorAttr = geom.getAttr('color');
       const shapeAttr = geom.getAttr('shape');
