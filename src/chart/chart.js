@@ -233,8 +233,7 @@ class Chart extends View {
             const scale = attr.getScale(type);
             if (scale.field && scale.type !== 'identity' && !_isScaleExist(scales, scale)) {
               scales.push(scale);
-              const checkedValues = view.getFilteredValues(scale.field);
-              const filteredValues = scale.values.filter(val => !Util.inArray(checkedValues, val));
+              const filteredValues = view.getFilteredOutValues(scale.field);
               legendController.addLegend(scale, attr, geom, filteredValues);
             }
           });

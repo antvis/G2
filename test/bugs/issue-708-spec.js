@@ -46,6 +46,7 @@ describe('#708', () => {
       { v: 5, x: 'x', name: 'E' }
     ]);
     expect(Util.inArray(chart.getFilteredValues('name'), 'A')).to.be.false;
+    expect(Util.inArray(chart.getFilteredValues('name'), 'B')).to.be.false;
     expect(Util.inArray(chart.getFilteredValues('name'), 'E')).to.be.true;
   });
 });
