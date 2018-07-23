@@ -1,8 +1,10 @@
 {
   "name": "@antv/g2",
-  "version": "3.2.4",
+  "version": "3.2.5",
   "description": "the Grammar of Graphics in Javascript",
+  "browser": "build/g2.js",
   "main": "build/g2.js",
+  "module": "lib/index.js",
   "homepage": "https://github.com/antvis/g2",
   "repository": {
     "type": "git",
@@ -96,13 +98,12 @@
     "silent": false
   },
   "dependencies": {
-    "@antv/adjust": "~0.0.2",
-    "@antv/attr": "~0.0.3",
-    "@antv/g": "~3.0.0-beta.8",
-    "@antv/interaction": "~0.0.5",
-    "@antv/scale": "~0.0.1",
-    "@antv/util": "~1.0.8",
-    "gl-matrix": "~2.6.1",
+    "@antv/adjust": "~0.0.6",
+    "@antv/attr": "~0.0.6",
+    "@antv/g": "~3.0.0-beta.11",
+    "@antv/interaction": "~0.0.8",
+    "@antv/scale": "~0.0.4",
+    "@antv/util": "~1.0.12",
     "venn.js": "~0.2.20",
     "wolfy87-eventemitter": "~5.1.0"
   }
