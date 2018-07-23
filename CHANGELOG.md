@@ -1,3 +1,10 @@
+
+#### 3.2.5 (2018-07-23)
+
+##### Bug Fixes
+
+* fix(dev): require entries from src to lib
+
 #### 3.2.4 (2018-07-13)
 
 ##### Bug Fixes
