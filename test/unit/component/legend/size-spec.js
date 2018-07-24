@@ -74,12 +74,12 @@ describe('连续图例 - Size', function() {
     const canvasDOM = canvas.get('el');
     Simulate.simulate(canvasDOM, 'mousemove', {
       clientX: 227,
-      clientY: 260
+      clientY: 50
     });
 
     Simulate.simulate(canvasDOM, 'mouseup', {
       clientX: 227,
-      clientY: 260
+      clientY: 50
     });
     expect(slider.get('middleHandleElement').attr('width')).to.equal(120);
     expect(legend.get('minTextElement').attr('text')).to.equal('18');
@@ -106,7 +106,7 @@ describe('连续图例 - Size', function() {
     const slider = legend.get('slider');
     const event = new Event('mousedown', {
       pageX: 206,
-      pageY: 300,
+      pageY: 100,
       stopPropagation() {
         return true;
       },
@@ -120,12 +120,12 @@ describe('连续图例 - Size', function() {
     const canvasDOM = canvas.get('el');
     Simulate.simulate(canvasDOM, 'mousemove', {
       clientX: 206,
-      clientY: 350
+      clientY: 150
     });
 
     Simulate.simulate(canvasDOM, 'mouseup', {
       clientX: 206,
-      clientY: 350
+      clientY: 150
     });
     expect(slider.get('middleHandleElement').attr('height')).to.equal(50);
     expect(legend.get('maxTextElement').attr('text')).to.equal('30');
