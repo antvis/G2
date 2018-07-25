@@ -499,6 +499,7 @@ const Theme = {
 
     [`${TOOLTIP_VALUE_CLASS}`]: {
       display: 'inline-block',
+      // @2018-07-25 by blue.lb 这里去掉浮动，火狐上存在样式错位
       float: 'right',
       marginLeft: '30px'
     }
