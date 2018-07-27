@@ -1,4 +1,17 @@
 
+#### 3.2.6 (2018-07-28)
+
+##### New Features
+
+* feat(tooltip): support custom format
+
+##### Bug Fixes
+
+* fix(legend): constrain size legend scroll bar size
+* fix(tooltip): tooltip style in firefox, Closes #769
+* fix(tooltip): Theme.tooltipMarker invalid. Closes #757
+* fix(legend): mouseover on customized legend title does not throw. Closes #775
+
 #### 3.2.5 (2018-07-23)
 
 ##### Bug Fixes
