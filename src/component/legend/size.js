@@ -8,6 +8,8 @@ const Global = require('../../global');
 const Continuous = require('./continuous');
 const SLIDER_HEIGHT = 2;
 const CIRCLE_GAP = 8;
+const MAX_SIZE = 15;
+const MIN_SIZE = 5;
 
 class Size extends Continuous {
   getDefaultCfg() {
@@ -48,10 +50,8 @@ class Size extends Continuous {
   }
 
   _renderSliderShape() {
-    const min = this.get('firstItem');
-    const max = this.get('lastItem');
-    const minRadius = parseFloat(min.attrValue);
-    const maxRadius = parseFloat(max.attrValue);
+    const minRadius = MIN_SIZE;
+    const maxRadius = MAX_SIZE;
     const slider = this.get('slider');
     const backgroundElement = slider.get('backgroundElement');
     const layout = this.get('layout');
@@ -155,8 +155,8 @@ class Size extends Continuous {
     const inRange = this.get('inRange');
     const minBlockAttr = Util.mix({}, inRange);
     const maxBlockAttr = Util.mix({}, inRange);
-    const minRadius = parseFloat(min.attrValue);
-    const maxRadius = parseFloat(max.attrValue);
+    const minRadius = MIN_SIZE;
+    const maxRadius = MAX_SIZE;
 
     const minTextAttr = Util.mix({
       text: this._formatItemValue(min.value) + ''
@@ -177,7 +177,6 @@ class Size extends Continuous {
   _bindUI() {
     const self = this;
     if (self.get('slidable')) {
-      // const canvas = self.get('canvas');
       const slider = self.get('slider');
       slider.on('sliderchange', ev => {
         const range = ev.range;
@@ -185,10 +184,8 @@ class Size extends Continuous {
         const lastItemValue = self.get('lastItem').value * 1;
         const minValue = firstItemValue + (range[0] / 100) * (lastItemValue - firstItemValue);
         const maxValue = firstItemValue + (range[1] / 100) * (lastItemValue - firstItemValue);
-        const firstItemRadius = parseFloat(self.get('firstItem').attrValue) * 1;
-        const lastItemRadius = parseFloat(self.get('lastItem').attrValue) * 1;
-        const minRadius = firstItemRadius + (range[0] / 100) * (lastItemRadius - firstItemRadius);
-        const maxRadius = firstItemRadius + (range[1] / 100) * (lastItemRadius - firstItemRadius);
+        const minRadius = MIN_SIZE + (range[0] / 100) * (MAX_SIZE - MIN_SIZE);
+        const maxRadius = MIN_SIZE + (range[1] / 100) * (MAX_SIZE - MIN_SIZE);
         self._updateElement(minValue, maxValue, minRadius, maxRadius);
         const itemFiltered = new Event('itemfilter', ev, true, true);
         itemFiltered.range = [ minValue, maxValue ];
