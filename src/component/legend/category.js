@@ -21,6 +21,9 @@ function findNodeByClass(node, className) {
 
 function getParentNode(node, className) {
   let nodeClass = node.className;
+  if (Util.isNil(nodeClass)) {
+    return node;
+  }
   nodeClass = nodeClass.split(' ');
   if (nodeClass.indexOf(className) > -1) {
     return node;
@@ -431,7 +434,7 @@ class Category extends Base {
     if (self.get('clickable')) {
       const childNodes = itemListDom.childNodes;
       // 注册事件
-      legendWrapper.onclick = ev => {
+      itemListDom.onclick = ev => {
         const target = ev.target;
         let targetClass = target.className;
         targetClass = targetClass.split(' ');
@@ -506,7 +509,7 @@ class Category extends Base {
       };
     }
     if (self.get('hoverable')) {
-      legendWrapper.onmousemove = ev => {
+      itemListDom.onmousemove = ev => {
         const target = ev.target;
         let targetClass = target.className;
         targetClass = targetClass.split(' ');
@@ -527,7 +530,7 @@ class Category extends Base {
         }
       };
 
-      legendWrapper.onmouseout = ev => {
+      itemListDom.onmouseout = ev => {
         self.emit('itemunhover', ev);
       };
     }
