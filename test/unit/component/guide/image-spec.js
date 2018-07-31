@@ -52,8 +52,8 @@ describe('Guide: 辅助图片', function() {
   //   expect(children.length).to.equal(1);
 
   //   setTimeout(function() {
-  //     expect(children[0].__attrs.width).to.equal(64);
-  //     expect(children[0].__attrs.height).to.equal(64);
+  //     expect(children[0]._attrs.width).to.equal(64);
+  //     expect(children[0]._attrs.height).to.equal(64);
   //     done();
   //   }, 400);
   // });
@@ -79,8 +79,8 @@ describe('Guide: 辅助图片', function() {
   //   const children = group.get('children');
 
   //   setTimeout(function() {
-  //     expect(children[0].__attrs.width).to.equal(32);
-  //     expect(children[0].__attrs.height).to.equal(64);
+  //     expect(children[0]._attrs.width).to.equal(32);
+  //     expect(children[0]._attrs.height).to.equal(64);
   //     done();
   //   }, 200);
   // });
@@ -107,8 +107,8 @@ describe('Guide: 辅助图片', function() {
   //   const children = group.get('children');
 
   //   setTimeout(function() {
-  //     expect(children[0].__attrs.width).to.equal(64);
-  //     expect(children[0].__attrs.height).to.equal(32);
+  //     expect(children[0]._attrs.width).to.equal(64);
+  //     expect(children[0]._attrs.height).to.equal(32);
   //     done();
   //   }, 200);
   // });
@@ -136,8 +136,8 @@ describe('Guide: 辅助图片', function() {
     const children = group.get('children');
 
     setTimeout(function() {
-      expect(children[0].__attrs.width).to.equal(32);
-      expect(children[0].__attrs.height).to.equal(32);
+      expect(children[0]._attrs.width).to.equal(32);
+      expect(children[0]._attrs.height).to.equal(32);
       done();
     }, 200);
   });
@@ -170,8 +170,8 @@ describe('Guide: 辅助图片', function() {
     const children = group.get('children');
 
     setTimeout(function() {
-      expect(children[0].__attrs.width).to.equal(200);
-      expect(children[0].__attrs.height).to.equal(200);
+      expect(children[0]._attrs.width).to.equal(200);
+      expect(children[0]._attrs.height).to.equal(200);
       expect(children[0].attr('x')).to.equal(360);
       expect(children[0].attr('y')).to.equal(293.33333333333337);
       done();

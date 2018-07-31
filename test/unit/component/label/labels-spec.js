@@ -51,8 +51,8 @@ describe('Labels', function() {
 
   it('labels create', function() {
     expect(labels.getCount()).to.equal(labels.get('items').length);
-    expect(labels).to.have.property('__cfg');
-    expect(labels.__cfg.textStyle).to.be.a('function');
+    expect(labels).to.have.property('_cfg');
+    expect(labels._cfg.textStyle).to.be.a('function');
   });
 
   it('labels x,y', function() {
