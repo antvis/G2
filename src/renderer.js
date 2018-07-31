@@ -1,5 +1,5 @@
 
-const G = require('@antv/g/src');
+const G = require('@antv/g/lib');
 const Global = require('./global');
 const Util = require('./util');
 

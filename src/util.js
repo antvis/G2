@@ -3,9 +3,9 @@
  * @author dxq613@gmail.com
  * @see https://github.com/lodash/lodash
  */
-const G = require('@antv/g/src');
+const G = require('@antv/g/lib');
 const CommonUtil = G.CommonUtil;
-const Utils = require('@antv/util/src/');
+const Utils = require('@antv/util/lib');
 
 const Util = CommonUtil.assign({
   DomUtil: G.DomUtil,

@@ -67,7 +67,7 @@ class LegendController {
       const plotRange = this.plotRange;
       if (backRange.maxX - backRange.minX < plotRange.br.x - plotRange.tl.x &&
         backRange.maxY - backRange.minY < plotRange.br.y - plotRange.tl.y) {
-          // 如果背景小于则直接使用 plotRange
+        // 如果背景小于则直接使用 plotRange
         backRange = {
           minX: plotRange.tl.x,
           minY: plotRange.tl.y,
@@ -109,31 +109,31 @@ class LegendController {
         const clickedValue = item.dataValue; // import: 需要取该图例项原始的数值
 
         if (checked) {
-          filterVals.push(clickedValue);
+          Util.Array.remove(filterVals, clickedValue);
           if (self._isFieldInView(field, clickedValue, chart)) {
             chart.filter(field, field => {
-              return isSingeSelected ? field === clickedValue : Util.inArray(filterVals, field);
+              return isSingeSelected ? field === clickedValue : !Util.inArray(filterVals, field);
             });
           }
           Util.each(views, view => {
             if (self._isFieldInView(field, clickedValue, view)) {
               view.filter(field, field => {
-                return isSingeSelected ? field === clickedValue : Util.inArray(filterVals, field);
+                return isSingeSelected ? field === clickedValue : !Util.inArray(filterVals, field);
               });
             }
           });
         } else if (!isSingeSelected) {
-          Util.Array.remove(filterVals, clickedValue);
+          filterVals.push(clickedValue);
 
           if (self._isFieldInView(field, clickedValue, chart)) {
             chart.filter(field, field => {
-              return Util.inArray(filterVals, field);
+              return !Util.inArray(filterVals, field);
             });
           }
           Util.each(views, view => {
             if (self._isFieldInView(field, clickedValue, view)) {
               view.filter(field, field => {
-                return Util.inArray(filterVals, field);
+                return !Util.inArray(filterVals, field);
               });
             }
           });
@@ -289,15 +289,15 @@ class LegendController {
     });
   }
 
-  _isFiltered(scale, values, value) {
+  _isFiltered(scale, filterVals, scaleValue) {
     if (!scale.isCategory) {
       return true;
     }
-    let rst = false;
-    value = scale.invert(value);
-    Util.each(values, val => {
-      rst = rst || scale.getText(val) === scale.getText(value);
-      if (rst) {
+    let rst = true;
+    scaleValue = scale.invert(scaleValue);
+    Util.each(filterVals, val => {
+      if (scale.getText(val) === scale.getText(scaleValue)) {
+        rst = false;
         return false;
       }
     });

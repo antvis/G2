@@ -427,12 +427,14 @@ class Tooltip extends Base {
     Util.each(markerItems, item => {
       markerGroup.addShape('marker', {
         color: item.color,
-        attrs: Util.mix({}, markerCfg, {
-          x: item.x,
-          y: item.y,
+        attrs: Util.mix({
+          // fix: Theme.tooltipMarker invalid
           fill: item.color,
           symbol: 'circle',
           shadowColor: item.color
+        }, markerCfg, {
+          x: item.x,
+          y: item.y
         })
       });
     });

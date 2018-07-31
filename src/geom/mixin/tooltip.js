@@ -330,6 +330,7 @@ const TooltipMixin = {
   getTipValue(origin, valueScale) {
     let value;
     const field = valueScale.field;
+    const key = origin.key;
     value = origin[field];
 
     if (Util.isArray(value)) {
@@ -339,7 +340,7 @@ const TooltipMixin = {
       });
       value = tmp.join('-');
     } else {
-      value = valueScale.getText(value);
+      value = valueScale.getText(value, key);
     }
     return value;
   },

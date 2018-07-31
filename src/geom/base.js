@@ -3,8 +3,8 @@
  * @author dxq613@gmail.com
  */
 
-const Attr = require('@antv/attr/src');
-const Adjust = require('@antv/adjust/src');
+const Attr = require('@antv/attr/lib');
+const Adjust = require('@antv/adjust/lib');
 const Base = require('../base');
 const Util = require('../util');
 const Global = require('../global');

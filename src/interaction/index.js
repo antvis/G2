@@ -3,7 +3,7 @@
  * @author leungwensen@gmail.com
  */
 
-const Interaction = require('@antv/interaction/src');
+const Interaction = require('@antv/interaction/lib');
 const G2 = require('../core');
 const View = require('../chart/view');
 

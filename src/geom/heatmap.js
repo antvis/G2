@@ -2,7 +2,7 @@
  * @fileOverview heatmap
  * @author leungwensen@gmail.com
  */
-const { ColorUtil } = require('@antv/attr/src'); // TODO: ColorUtil 独立成包，从 attr 包中抽离
+const { ColorUtil } = require('@antv/attr/lib'); // TODO: ColorUtil 独立成包，从 attr 包中抽离
 const GeomBase = require('./base');
 const Util = require('../util');
 

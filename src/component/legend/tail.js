@@ -22,7 +22,8 @@ class Tail extends Category {
        * vertical 垂直
        * @type {String}
        */
-      layout: 'vertical'
+      layout: 'vertical',
+      autoLayout: true
     });
   }
 
@@ -131,7 +132,11 @@ class Tail extends Category {
         groupItem.translate(x, y);
         index++;
       });
-      self._collisionDetection(groups);
+
+      if (self.get('autoLayout')) {
+        self._antiCollision(groups);
+      }
+
     }
   }
 
@@ -157,42 +162,91 @@ class Tail extends Category {
     return y + height;
   }
 
-  _collisionDetection(items) {
-    const group = this.get('itemsGroup');
-    items.sort(function(a, b) {
-      const ay = a.attr('matrix')[7];
-      const by = b.attr('matrix')[7];
-      return by - ay;
-    });
-    for (let i = 1; i < items.length; i++) {
-      const previous = items[i - 1];
-      const previous_y = previous.attr('matrix')[7] - previous.getBBox().height;
-      const current = items[i];
-      const current_y = current.attr('matrix')[7];
-      if (current_y >= previous_y && current.get('value')) { // collision
-        const target = previous_y - 20;
-        const gap = current_y - target;
-        current.translate(0, gap);
-        this._adjustDenote(group, current.attr('matrix')[7], current_y);
-      }
-    }
-  }
-
   _adjustDenote(group, start, end) {
-    const viewTheme = this.get('viewTheme') || Global;
-    const margin = viewTheme.legend.legendMargin - 2;
+    const margin = Global.legend.legendMargin;
     const x0 = -2;
-    const x1 = -margin;
     const x2 = -margin * 2;
     group.addShape('path', {
       attrs: {
-        path: 'M' + x0 + ',' + start + 'L' + x1 + ',' + (end + 3) + 'L' + x2 + ',' + (end + 3),
+        path: 'M' + x0 + ',' + start + 'L' + x2 + ',' + (end + 3),
         lineWidth: 1,
         lineDash: [ 2, 2 ],
         stroke: '#999999'
       }
     });
   }
+
+  _antiCollision(items) {
+    const self = this;
+    items.sort(function(a, b) {
+      const ay = a.attr('matrix')[7];
+      const by = b.attr('matrix')[7];
+      return ay - by;
+    });
+    let overlapping = true;
+    const plotRange = self.get('chart').get('plotRange');
+    const startY = plotRange.tl.y;
+    const totalHeight = Math.abs(startY - plotRange.bl.y);
+    const elementHeight = items[0].getBBox().height;
+    let minY = Number.MIN_VALUE;
+    let maxY = 0;
+
+    const boxes = items.map(function(item) {
+      const y = item.attr('matrix')[7];
+      if (y > maxY) {
+        maxY = y;
+      }
+      if (y < minY) {
+        minY = y;
+      }
+      return {
+        size: item.getBBox().height,
+        targets: [ y - startY ]
+      };
+    });
+    minY -= startY;
+
+    let i = 0;
+    while (overlapping) {
+      for (let i = 0; i < boxes.length; i++) {
+        const box = boxes[i];
+        const target = (Math.min.apply(minY, box.targets) + Math.max.apply(minY, box.targets)) / 2;
+        box.pos = Math.min(Math.max(minY, target - box.size / 2), totalHeight - box.size);
+      }
+      overlapping = false;
+      i = boxes.length;
+      while (i--) {
+        if (i > 0) {
+          const previous = boxes[i - 1];
+          const current = boxes[i];
+          if (previous.pos + previous.size > current.pos) { // overlapping
+            previous.size += current.size;
+            previous.targets = previous.targets.concat(current.targets);
+            boxes.splice(i, 1);
+            overlapping = true;
+          }
+        }
+      }// end of while i
+    }// end of while
+  // adjust y
+    i = 0;
+    const group = this.get('itemsGroup').addGroup();
+    boxes.forEach(function(b) {
+      let posInCompositeBox = startY + elementHeight;
+      b.targets.forEach(function() {
+        const origin_y = items[i].attr('matrix')[7];
+        const y = b.pos + posInCompositeBox - elementHeight / 2;
+        const dist = Math.abs(origin_y - y);
+        if (dist > elementHeight / 2) {
+          self._adjustDenote(group, y, origin_y - self.attr('matrix')[7] / 2);
+        }
+        items[i].translate(0, -origin_y);
+        items[i].translate(0, y);
+        posInCompositeBox += elementHeight;
+        i++;
+      });
+    });
+  }// end of antiCollision
 
 }
 

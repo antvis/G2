@@ -234,11 +234,13 @@ class Slider extends Group {
   }
 
   _onCanvasMouseMove(ev) {
-    const layout = this.get('layout');
-    if (layout === 'horizontal') {
-      this._updateStatus('x', ev);
-    } else {
-      this._updateStatus('y', ev);
+    if (!this._mouseOutArea(ev)) {
+      const layout = this.get('layout');
+      if (layout === 'horizontal') {
+        this._updateStatus('x', ev);
+      } else {
+        this._updateStatus('y', ev);
+      }
     }
   }
 
@@ -249,6 +251,21 @@ class Slider extends Group {
   _removeDocumentEvents() {
     this.onMouseMoveListener.remove();
     this.onMouseUpListener.remove();
+  }
+
+  _mouseOutArea(ev) {
+    const parent = this.get('parent');
+    const bbox = parent.getBBox();
+    const left = parent.attr('matrix')[6];
+    const top = parent.attr('matrix')[7];
+    const right = left + bbox.width;
+    const bottom = top + bbox.height;
+    const mouseX = ev.clientX;
+    const mouseY = ev.clientY;
+    if (mouseX < left || mouseX > right || mouseY < top || mouseY > bottom) {
+      return true;
+    }
+    return false;
   }
 }
 

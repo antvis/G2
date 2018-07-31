@@ -641,6 +641,12 @@ class View extends Base {
     }
   }
 
+  /**
+   * @protected
+   * 获取过滤后的值（需要显示的值）
+   * @param {String} field 度量
+   * @return {Array.<String>} 滤后的值
+   */
   getFilteredValues(field) {
     const scale = this.get('scales')[field];
     const values = scale.values;
@@ -650,6 +656,25 @@ class View extends Base {
       rst = values.filter(filters[field]);
     } else {
       rst = values.slice(0);
+    }
+    return rst;
+  }
+
+  /**
+   * @protected
+   * 获取被过滤的值（不需显示的值）
+   * @param {String} field 度量
+   * @return {Array.<String>} 滤出的值
+   */
+  getFilteredOutValues(field) {
+    const scale = this.get('scales')[field];
+    const values = scale.values;
+    const filters = this._getFilters();
+    let rst;
+    if (filters && filters[field]) {
+      rst = values.filter(v => !filters[field](v));
+    } else {
+      rst = [];
     }
     return rst;
   }
