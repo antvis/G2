@@ -55,6 +55,16 @@
   chart.area().position('year*value');
   chart.line().position('year*value').size(2);
   chart.render();
+  document.body.onkeydown = e => {
+    if (e.keyCode === 18) {
+      chart.set('blockTooltipChange', true);
+    }
+  };
+  document.body.onkeyup = e => {
+    if (e.keyCode === 18) {
+      chart.set('blockTooltipChange', false);
+    }
+  };
   </script>
 </body>
 
