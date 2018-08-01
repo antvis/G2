@@ -67,6 +67,7 @@ class Chart extends View {
       padding: Global.plotCfg.padding,
       background: null,
       autoPaddingAppend: 5,
+      renderer: 'canvas',
       views: []
     });
   }
@@ -159,7 +160,8 @@ class Chart extends View {
       containerDOM: wrapperEl,
       width,
       height,
-      pixelRatio: this.get('pixelRatio')
+      pixelRatio: this.get('pixelRatio'),
+      renderer: this.get('renderer')
     });
     this.set('canvas', canvas);
   }

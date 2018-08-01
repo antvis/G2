@@ -13,7 +13,7 @@
 <body>
   <div id="canvas"></div>
   <script src="./assets/jquery-3.2.1.min.js"></script>
-  <script src="../build/g2-svg.js"></script>
+  <script src="../build/g2.js"></script>
   <script>
   const data = [
     { year: '1991', value: 15468 },
@@ -29,7 +29,8 @@
   const chart = new G2.Chart({
     container: 'canvas',
     forceFit: true,
-    height: window.innerHeight
+    height: window.innerHeight,
+    renderer: 'svg'
   });
   chart.source(data);
   chart.scale({
