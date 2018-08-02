@@ -81,8 +81,8 @@ describe('连续图例 - Size', function() {
       clientX: 227,
       clientY: 50
     });
-    expect(slider.get('middleHandleElement').attr('width')).to.equal(120);
-    expect(legend.get('minTextElement').attr('text')).to.equal('18');
+    expect(slider.get('middleHandleElement').attr('width')).to.equal(150);
+    expect(legend.get('minTextElement').attr('text')).to.equal('10');
   });
 
   it('垂直大小图例，可筛选，不带标题', function() {
@@ -127,8 +127,8 @@ describe('连续图例 - Size', function() {
       clientX: 206,
       clientY: 150
     });
-    expect(slider.get('middleHandleElement').attr('height')).to.equal(50);
-    expect(legend.get('maxTextElement').attr('text')).to.equal('30');
+    expect(slider.get('middleHandleElement').attr('height')).to.equal(100);
+    expect(legend.get('maxTextElement').attr('text')).to.equal('50');
     canvas.destroy();
   });
 });
