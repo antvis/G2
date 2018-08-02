@@ -97,8 +97,8 @@
   "dependencies": {
     "@antv/adjust": "~0.0.6",
     "@antv/attr": "~0.0.6",
-    "@antv/g": "3.1.0-beta.2",
-    "@antv/interaction": "~0.1.1",
+    "@antv/g": "3.1.0-beta.3",
+    "@antv/interaction": "~0.1.2",
     "@antv/scale": "~0.0.5",
     "@antv/util": "~1.0.12",
     "venn.js": "~0.2.20",
