@@ -67,8 +67,8 @@ class Chart extends View {
       padding: Global.plotCfg.padding,
       background: null,
       autoPaddingAppend: 5,
-      // renderer: 'canvas',
-      renderer: 'svg',
+      renderer: 'canvas',
+      // renderer: 'svg',
       views: []
     });
   }
