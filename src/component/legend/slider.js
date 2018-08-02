@@ -112,8 +112,8 @@ class Slider extends Group {
     const maxHandleElement = this.get('maxHandleElement');
     const middleHandleElement = this.get('middleHandleElement');
 
-    minHandleElement.initTransform();
-    maxHandleElement.initTransform();
+    minHandleElement.resetMatrix();
+    maxHandleElement.resetMatrix();
 
     if (layout === 'horizontal') {
       middleHandleElement.attr({
@@ -204,7 +204,6 @@ class Slider extends Group {
         range[0] = range[1] - diffStashRange;
       }
     }
-
     this.emit('sliderchange', {
       range
     });
