@@ -106,8 +106,8 @@ describe('连续图例 - Color', function() {
       clientX: 227,
       clientY: 12
     });
-    expect(slider.get('middleHandleElement').attr('width')).to.equal(120);
-    expect(legend.get('minTextElement').attr('text')).to.equal('20');
+    expect(slider.get('middleHandleElement').attr('width')).to.equal(150);
+    expect(legend.get('minTextElement').attr('text')).to.equal('0');
   });
 
   it('垂直渐变图例，可筛选，不带标题', function() {
@@ -151,8 +151,8 @@ describe('连续图例 - Color', function() {
       clientX: 206,
       clientY: 150
     });
-    expect(slider.get('middleHandleElement').attr('height')).to.equal(50);
-    expect(legend.get('maxTextElement').attr('text')).to.equal('50');
+    expect(slider.get('middleHandleElement').attr('height')).to.equal(100);
+    expect(legend.get('maxTextElement').attr('text')).to.equal('100');
     canvas.destroy();
   });
 });

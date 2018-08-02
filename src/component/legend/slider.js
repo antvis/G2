@@ -232,6 +232,7 @@ class Slider extends Group {
     const containerDOM = this.get('canvas').get('containerDOM');
     this.onMouseMoveListener = DomUtil.addEventListener(containerDOM, 'mousemove', Util.wrapBehavior(this, '_onCanvasMouseMove'));
     this.onMouseUpListener = DomUtil.addEventListener(containerDOM, 'mouseup', Util.wrapBehavior(this, '_onCanvasMouseUp'));
+    this.onMouseLeaveListener = DomUtil.addEventListener(containerDOM, 'mouseleave', Util.wrapBehavior(this, '_onCanvasMouseUp'));
   }
 
   _onCanvasMouseMove(ev) {
@@ -255,19 +256,22 @@ class Slider extends Group {
   }
 
   _mouseOutArea(ev) {
+    const el = this.get('canvas').get('el');
+    const el_bbox = el.getBoundingClientRect();
     const parent = this.get('parent');
     const bbox = parent.getBBox();
     const left = parent.attr('matrix')[6];
     const top = parent.attr('matrix')[7];
     const right = left + bbox.width;
     const bottom = top + bbox.height;
-    const mouseX = ev.clientX;
-    const mouseY = ev.clientY;
+    const mouseX = ev.clientX - el_bbox.x;
+    const mouseY = ev.clientY - el_bbox.y;
     if (mouseX < left || mouseX > right || mouseY < top || mouseY > bottom) {
       return true;
     }
     return false;
   }
+
 }
 
 module.exports = Slider;
