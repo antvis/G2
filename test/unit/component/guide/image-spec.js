@@ -32,87 +32,6 @@ describe('Guide: 辅助图片', function() {
     max: 1200
   });
 
-  // it('image only start', function(done) {
-  //   const img = new Image({
-  //     xScales: {
-  //       month: xScale
-  //     },
-  //     yScales: {
-  //       temp: yScale
-  //     },
-  //     start: {
-  //       month: '二月',
-  //       temp: 800
-  //     },
-  //     src: 'https://zos.alipayobjects.com/rmsportal/YZsqDCAvphpUzpNHMqvv.png'
-  //   });
-  //   img.render(coord, group);
-  //   canvas.draw();
-  //   const children = group.get('children');
-  //   expect(children.length).to.equal(1);
-
-  //   setTimeout(function() {
-  //     expect(children[0]._attrs.width).to.equal(64);
-  //     expect(children[0]._attrs.height).to.equal(64);
-  //     done();
-  //   }, 400);
-  // });
-
-  // it('image, set start, width', function(done) {
-  //   group.clear();
-  //   const img = new Image({
-  //     xScales: {
-  //       month: xScale
-  //     },
-  //     yScales: {
-  //       temp: yScale
-  //     },
-  //     start: {
-  //       month: '二月',
-  //       temp: 600
-  //     },
-  //     src: 'https://zos.alipayobjects.com/rmsportal/YZsqDCAvphpUzpNHMqvv.png',
-  //     width: 32
-  //   });
-  //   img.render(coord, group);
-  //   canvas.draw();
-  //   const children = group.get('children');
-
-  //   setTimeout(function() {
-  //     expect(children[0]._attrs.width).to.equal(32);
-  //     expect(children[0]._attrs.height).to.equal(64);
-  //     done();
-  //   }, 200);
-  // });
-
-  // it('image, set start, height', function(done) {
-  //   group.clear();
-
-  //   const img = new Image({
-  //     xScales: {
-  //       month: xScale
-  //     },
-  //     yScales: {
-  //       temp: yScale
-  //     },
-  //     start: {
-  //       month: '二月',
-  //       temp: 400
-  //     },
-  //     src: 'https://zos.alipayobjects.com/rmsportal/YZsqDCAvphpUzpNHMqvv.png',
-  //     height: 32
-  //   });
-  //   img.render(coord, group);
-  //   canvas.draw();
-  //   const children = group.get('children');
-
-  //   setTimeout(function() {
-  //     expect(children[0]._attrs.width).to.equal(64);
-  //     expect(children[0]._attrs.height).to.equal(32);
-  //     done();
-  //   }, 200);
-  // });
-
   it('image, set start, width and height', function(done) {
     group.clear();
 
@@ -136,8 +55,8 @@ describe('Guide: 辅助图片', function() {
     const children = group.get('children');
 
     setTimeout(function() {
-      expect(children[0]._attrs.width).to.equal(32);
-      expect(children[0]._attrs.height).to.equal(32);
+      expect(children[0].attr('width')).to.equal(32);
+      expect(children[0].attr('height')).to.equal(32);
       done();
     }, 200);
   });
@@ -170,8 +89,8 @@ describe('Guide: 辅助图片', function() {
     const children = group.get('children');
 
     setTimeout(function() {
-      expect(children[0]._attrs.width).to.equal(200);
-      expect(children[0]._attrs.height).to.equal(200);
+      expect(children[0].attr('width')).to.equal(200);
+      expect(children[0].attr('height')).to.equal(200);
       expect(children[0].attr('x')).to.equal(360);
       expect(children[0].attr('y')).to.equal(293.33333333333337);
       done();

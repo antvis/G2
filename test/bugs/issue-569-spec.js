@@ -36,7 +36,7 @@ describe('#569', () => {
     });
     chart.render();
     const shapes = pyramid.getShapes();
-    const path = shapes[0]._attrs.path;
+    const path = shapes[0].attr('path');
     expect(path.length).to.equal(5);
     expect(path[0].length).eql(3);
     expect(path[1].length).eql(3);

@@ -56,7 +56,7 @@ describe('#573', () => {
     const area = chart.area().position('categories*value').color('name');
     chart.render();
     const shapes = area.getShapes();
-    const path = shapes[0]._attrs.path;
+    const path = shapes[0].attr('path');
     expect(path[6][0]).to.equal('L');
     expect(path[6][1]).to.equal(280);
     expect(path[6][2]).to.equal(99.5769230769231);
