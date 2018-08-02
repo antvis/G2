@@ -67,7 +67,8 @@ class Chart extends View {
       padding: Global.plotCfg.padding,
       background: null,
       autoPaddingAppend: 5,
-      renderer: 'canvas',
+      // renderer: 'canvas',
+      renderer: 'svg',
       views: []
     });
   }
@@ -543,49 +544,68 @@ class Chart extends View {
    * @return {String} dataUrl 路径
    */
   toDataURL() {
-    const canvas = this.get('canvas');
+    const chart = this;
+    const canvas = chart.get('canvas');
+    const renderer = chart.get('renderer');
     const canvasDom = canvas.get('el');
-    const dataURL = canvasDom.toDataURL('image/png');
+    let dataURL = '';
+    if (renderer === 'svg') {
+      const clone = canvasDom.cloneNode(true);
+      const svgDocType = document.implementation.createDocumentType(
+        'svg', '-//W3C//DTD SVG 1.1//EN', 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'
+      );
+      const svgDoc = document.implementation.createDocument('http://www.w3.org/2000/svg', 'svg', svgDocType);
+      svgDoc.replaceChild(clone, svgDoc.documentElement);
+      const svgData = (new XMLSerializer()).serializeToString(svgDoc);
+      dataURL = 'data:image/svg+xml;charset=utf8,' + encodeURIComponent(svgData);
+    } else if (renderer === 'canvas') {
+      dataURL = canvasDom.toDataURL('image/png');
+    }
     return dataURL;
   }
 
   /**
    * 图表导出功能
-   * @param  {String} [name] 图片的名称，默认为 chart.png
-   * @return {String} 返回生成图片的 dataUrl 路径
+   * @param  {String} [name] 图片的名称，默认为 chart(.png|.svg)
    */
   downloadImage(name) {
-    const dataURL = this.toDataURL();
+    const chart = this;
     const link = document.createElement('a');
+    const renderer = chart.get('renderer');
+    const filename = (name || 'chart') + (renderer === 'svg' ? '.svg' : '.png');
+    const canvas = chart.get('canvas');
+    canvas.get('timeline').stopAllAnimations();
 
-    if (window.Blob && window.URL) {
-      const arr = dataURL.split(',');
-      const mime = arr[0].match(/:(.*?);/)[1];
-      const bstr = atob(arr[1]);
-      let n = bstr.length;
-      const u8arr = new Uint8Array(n);
-      while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
-      }
-      const blobObj = new Blob([ u8arr ], { type: mime });
-      if (window.navigator.msSaveBlob) {
-        window.navigator.msSaveBlob(blobObj, (name || 'chart') + '.png');
+    setTimeout(() => {
+      const dataURL = chart.toDataURL();
+      if (window.Blob && window.URL && renderer !== 'svg') {
+        const arr = dataURL.split(',');
+        const mime = arr[0].match(/:(.*?);/)[1];
+        const bstr = atob(arr[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        while (n--) {
+          u8arr[n] = bstr.charCodeAt(n);
+        }
+        const blobObj = new Blob([ u8arr ], { type: mime });
+        if (window.navigator.msSaveBlob) {
+          window.navigator.msSaveBlob(blobObj, filename);
+        } else {
+          link.addEventListener('click', function() {
+            link.download = filename;
+            link.href = window.URL.createObjectURL(blobObj);
+          });
+        }
       } else {
         link.addEventListener('click', function() {
-          link.download = (name || 'chart') + '.png';
-          link.href = window.URL.createObjectURL(blobObj);
+          link.download = filename;
+          link.href = dataURL;
         });
       }
-    } else {
-      link.addEventListener('click', function() {
-        link.download = (name || 'chart') + '.png';
-        link.href = dataURL.replace('image/png', 'image/octet-stream');
-      });
-    }
-    const e = document.createEvent('MouseEvents');
-    e.initEvent('click', false, false);
-    link.dispatchEvent(e);
-    return dataURL;
+      const e = document.createEvent('MouseEvents');
+      e.initEvent('click', false, false);
+      link.dispatchEvent(e);
+    }, 16);
   }
 
   /**

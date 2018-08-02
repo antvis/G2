@@ -36,9 +36,9 @@ function isChange(preShapes, shapes) {
 function getOriginAttrs(activeCfg, shape) {
   const originAttrs = {};
   Util.each(activeCfg, function(v, k) {
-    let originValue = shape._attrs[k];
+    let originValue = shape.attr(k);
     if (Util.isArray(originValue)) {
-      originValue = Util.cloneDeep(originValue);// 缓存原来的属性，由于 _attrs.matrix 是数组，所以此处需要深度复制
+      originValue = Util.cloneDeep(originValue);// 缓存原来的属性，由于 .attr('matrix') 是数组，所以此处需要深度复制
     }
     originAttrs[k] = originValue;
   });
@@ -103,7 +103,7 @@ const ActiveMixin = {
       shapeName = shapeName[0];
     }
     const shapeFactory = self.get('shapeFactory');
-    const shapeCfg = Util.mix({}, shape._attrs, {
+    const shapeCfg = Util.mix({}, shape.attr(), {
       origin: shapeData
     });
     const activeCfg = shapeFactory.getActiveCfg(shapeName, shapeCfg);
@@ -115,7 +115,6 @@ const ActiveMixin = {
     if (activedOptions.animate) {
       shape.animate(activeCfg, 300);
     } else {
-      // Util.mix(shape._attrs, activeCfg);
       shape.attr(activeCfg);
     }
     shape.set('zIndex', 1); // 提前
@@ -266,7 +265,6 @@ const ActiveMixin = {
       shape.stopAnimate();
       if (Util.indexOf(highlightShapes, shape) !== -1) {
         Util.mix(changeAttrs, activeStyle, highlightCfg);
-        // shape._attrs = Util.mix({}, shape.get('_originAttrs'), highlightCfg);
         shape.setZIndex(1); // 提前
       } else {
         Util.mix(changeAttrs, {
