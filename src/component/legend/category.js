@@ -150,11 +150,6 @@ class Category extends Base {
        * @type {Boolean}
        */
       useHtml: false,
-      /**
-       * useHtml 为 true 时生效，用于自动定位
-       * @type {[type]}
-       */
-      autoPosition: true,
       container: null,
       /**
        * 使用html时的外层模板
@@ -782,6 +777,8 @@ class Category extends Base {
         left: x + 'px',
         top: y + 'px'
       });
+      this.set('x', x);
+      this.set('y', y);
     } else {
       super.move(x, y);
     }

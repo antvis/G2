@@ -28,6 +28,11 @@ class Base extends Group {
        */
       useHtml: false,
       /**
+       * useHtml 为 true 时生效，用于自动定位
+       * @type {[type]}
+       */
+      autoPosition: true,
+      /**
        * 图例是否绘制在绘图区域内
        * @type {Boolean}
        */
