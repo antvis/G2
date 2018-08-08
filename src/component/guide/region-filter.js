@@ -29,6 +29,8 @@ class RegionFilter extends Base {
     const view = self.view;
     const layer = group.addGroup();
     view.once('afterpaint', function() {
+      // 2018-08-08 by blue.lb padding为auto时，会导致重新绘制一次，这时候layer已经被销毁了
+      if (layer.get('destroyed')) return;
       self._drawShapes(view, layer);
       const clip = self._drawClip(coord, group);
       layer.attr({ clip });
