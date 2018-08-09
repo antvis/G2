@@ -257,13 +257,14 @@ class TooltipController {
 
   onMouseOut(ev) {
     const tooltip = this.tooltip;
-    const canvas = this._getCanvas();
+    // const canvas = this._getCanvas();
     if (!tooltip.get('visible')) {
       return;
     }
-    if (ev && ev.target !== canvas) {
-      return;
-    }
+    // 除非离开 plot 时鼠标依然在图形上，这段逻辑没有意义
+    // if (ev && ev.target !== canvas) {
+    //   return;
+    // }
     if (ev && ev.toElement && (_hasClass(ev.toElement, 'g2-tooltip') || _isParent(ev.toElement, 'g2-tooltip'))) {
       return;
     }
