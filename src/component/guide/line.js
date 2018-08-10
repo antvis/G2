@@ -55,7 +55,9 @@ class Line extends Base {
     const self = this;
     const start = self.parsePoint(coord, self.start);
     const end = self.parsePoint(coord, self.end);
-    const guideLineGroup = group.addGroup();
+    const guideLineGroup = group.addGroup({
+      viewId: group.get('viewId')
+    });
 
     self._drawLines(start, end, guideLineGroup);
     if (this.text && this.text.content) {
