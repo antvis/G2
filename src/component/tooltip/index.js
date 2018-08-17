@@ -29,6 +29,7 @@ function refixTooltipPosition(x, y, el, viewWidth, viewHeight) {
   } else {
     x += gap;
   }
+
   if (y + height + gap > viewHeight) {
     y -= height + gap;
     y = x < 0 ? 0 : y;
@@ -79,7 +80,7 @@ function calcTooltipPosition(x, y, position, dom, target) {
   return [ x, y ];
 }
 
-function confineTooltipPosition(x, y, el, plotRange) {
+function confineTooltipPosition(x, y, el, plotRange, onlyHorizontal) {
   const gap = 20;
   const width = el.clientWidth;
   const height = el.clientHeight;
@@ -91,14 +92,15 @@ function confineTooltipPosition(x, y, el, plotRange) {
     x = plotRange.tl.x;
   }
 
-  if (y + height > plotRange.bl.y) {
-    y -= height + 2 * gap;
-  }
+  if (!onlyHorizontal) {
+    if (y + height > plotRange.bl.y) {
+      y -= height + 2 * gap;
+    }
 
-  if (y < plotRange.tl.y) {
-    y = plotRange.tl.y;
+    if (y < plotRange.tl.y) {
+      y = plotRange.tl.y;
+    }
   }
-
   return [ x, y ];
 }
 
@@ -460,24 +462,36 @@ class Tooltip extends Base {
     let offset = this.get('offset');
 
     let position;
+    const prePosition = this.get('prePosition') || { x: 0, y: 0 };
     if (this.get('position')) {
       position = calcTooltipPosition(x, y, this.get('position'), container, target);
       x = position[0];
       y = position[1];
-    } else if (!this.get('position')) {
+    } else if (this.get('enterable')) {
+      y = y - container.clientHeight / 2;
+      position = { x, y };
+      if (prePosition && x - prePosition.x > 0) { // 留 1px 防止鼠标点击事件无法在画布上触发
+        x -= container.clientWidth + 1;
+      } else {
+        x += 1;
+      }
+
+    } else {
       position = refixTooltipPosition(x, y, container, viewWidth, viewHeight);
       x = position[0];
       y = position[1];
     }
 
+    this.set('prePosition', position); // 记录上次的位置
     if (this.get('inPlot')) { // tooltip 必须限制在绘图区域内
       const plotRange = this.get('plotRange');
-      position = confineTooltipPosition(x, y, container, plotRange);
+      position = confineTooltipPosition(x, y, container, plotRange, this.get('enterable'));
       x = position[0];
       y = position[1];
     }
 
-    if (this.get('x') !== x || this.get('y') !== y) {
+
+    if (prePosition.x !== x || prePosition.y !== y) {
       const markerItems = this.get('markerItems');
       if (!Util.isEmpty(markerItems)) {
         endx = markerItems[0].x;
@@ -522,7 +536,6 @@ class Tooltip extends Base {
           }
         }
       }
-
       const follow = this.get('follow');
       container.style.left = follow ? (x + 'px') : 0;
       container.style.top = follow ? (y + 'px') : 0;
