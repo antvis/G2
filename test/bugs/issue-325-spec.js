@@ -59,7 +59,7 @@ describe('#325', () => {
     const shapes = geom.getShapes();
     geom.setShapesActived([ shapes[0] ]);
     setTimeout(function() {
-      expect(shapes[0].attr('fill')).equal('rgb(255, 0, 0)');
+      expect(shapes[0].attr('fill')).equal('red');
       chart.clear();
       done();
     }, 600);

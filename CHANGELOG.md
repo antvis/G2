@@ -1,4 +1,29 @@
 
+#### 3.2.7 (2018-08-17)
+
+##### New Features
+
+* chore(dev): remove svg-related building code
+* chore(dev): update g and interaction
+* chore(test): fixing test cases for new renderer
+* chore(tooltip): blockTooltipChange -> stopTooltip
+* feat(renderer): chart scope renderer switching
+* feat(tooltip): add blockTooltipChange state
+* feat(track): add trackingInfo for product analysis
+* refactor(g): change `__attrs` to `_attrs` in tests
+
+##### Bug Fixes
+
+* fix(chart): downlownImage not working in svg context
+* fix(event): fixed bug of guide-line click
+* fix(g): avoid initializing matrix again, use reset instead
+* fix(g): new a rect as clip instead of add the shape into a group
+* fix(legend): fix continuous error position when useHtml is true
+* fix(legend): slider mousemove events under the condition that legend container is a seperate canvas
+* fix(region-filter): 判断layer销毁不执行创建shape的行为
+* fix(tooltip): fixed tooltip bug of enterable feature
+* fix(tooltip, event): fix plotleave and tooltip hide bugs
+
 #### 3.2.6 (2018-07-28)
 
 ##### New Features
