@@ -3,7 +3,7 @@
  * @author sima.zhang
  */
 const Util = require('../../util');
-const KEYWORDS = [ 'min', 'max', 'median' ];
+const KEYWORDS = [ 'min', 'max', 'median', 'start', 'end' ];
 
 function getFirstScale(scales) {
   let firstScale;
@@ -42,7 +42,11 @@ class Base {
     let result;
     if (Util.indexOf(KEYWORDS, val) !== -1) { // 分类则对应索引值
       let scaleValue;
-      if (val === 'median') {
+      if (val === 'start') { // 坐标系开始的位置
+        result = 0;
+      } else if (val === 'end') {
+        result = 1;
+      } else if (val === 'median') {
         scaleValue = scale.isCategory ? (scale.values.length - 1) / 2 : (scale.min + scale.max) / 2;
         result = scale.scale(scaleValue);
       } else {
