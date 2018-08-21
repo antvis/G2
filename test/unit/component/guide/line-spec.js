@@ -91,6 +91,34 @@ describe('Guide: 辅助线', function() {
     expect(children[0].getCount()).to.equal(1);
   });
 
+  it('guide line, start, end', function() {
+    group.clear();
+
+    const line = new Line({
+      xScales: {
+        month: xScale
+      },
+      yScales: {
+        temp: yScale
+      },
+      start: [ 'start', 200 ],
+      end: [ 'end', 200 ],
+      lineStyle: {
+        stroke: 'red',
+        lineWidth: 2,
+        lineDash: [ 2, 2 ]
+      }
+    });
+    line.render(coord, group);
+    canvas.draw();
+    const children = group.get('children');
+    expect(children.length).to.equal(1);
+    expect(children[0]).to.an.instanceof(Group);
+    expect(children[0].getCount()).to.equal(1);
+    expect(children[0].get('children')[0].attr('path')[0][1]).eqls(60);
+    expect(children[0].get('children')[0].attr('path')[1][1]).eqls(460);
+  });
+
 
   it('guide line with text, and autoRotate is true', function() {
     group.clear();
