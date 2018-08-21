@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2",
-  "version": "3.2.7",
+  "version": "3.2.8-beta.1",
   "description": "the Grammar of Graphics in Javascript",
   "browser": "build/g2.js",
   "main": "build/g2.js",
@@ -99,7 +99,7 @@
     "@antv/attr": "~0.0.6",
     "@antv/g": "~3.1.1",
     "@antv/interaction": "~0.1.5",
-    "@antv/scale": "~0.0.5",
+    "@antv/scale": "~0.0.7",
     "@antv/util": "~1.0.12",
     "venn.js": "~0.2.20",
     "wolfy87-eventemitter": "~5.1.0"
