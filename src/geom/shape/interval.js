@@ -10,6 +10,7 @@ const Shape = require('./shape');
 const PathUtil = require('../util/path');
 const GPathUtil = Util.PathUtil;
 const Global = require('../../global');
+const G = require('../../renderer');
 
 // 获取柱状图的几个点
 function getRectPoints(cfg, isPyramid) {
@@ -614,7 +615,7 @@ Shape.registerShape('interval', 'liquid-fill-gauge', {
     const xWidth = cp.x - minP.x;
     const radius = Math.min(xWidth, minP.y);
     const attrs = getFillAttrs(cfg);
-    const clipCircle = container.addShape('circle', {
+    const clipCircle = new G.Circle({
       attrs: {
         x: cp.x,
         y: cp.y,
