@@ -492,8 +492,7 @@ declare namespace G2 {
     legend(option: boolean): this;
     legend(field: string, option: boolean): this;
     legend(field: string, legendConfig: LegendConfig): this;
-    tooltip(tooltipConfig: TooltipConfig): this;
-    tooltip(tooltipConfig: boolean): this;
+    tooltip(tooltipConfig: TooltipConfig | boolean): this;
     view: (
       option?: {
         start?: { x: number; y: number };
