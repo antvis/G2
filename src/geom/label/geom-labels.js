@@ -162,7 +162,7 @@ class GeomLabels extends Group {
   drawLines(items, labelLine) {
     const self = this;
     const offset = self.getDefaultOffset();
-    if (offset > 0) {
+    if (offset[0] > 0 || offset[1] > 0) {
       Util.each(items, function(point) {
         self.lineToLabel(point, labelLine);
       });
@@ -278,13 +278,16 @@ class GeomLabels extends Group {
   getOffsetVector() {
     const self = this;
     const labelCfg = self.get('label');
-    const offset = labelCfg.offset || 0;
+    let offset = labelCfg.offset || 0;
+    if (!Util.isArray(offset)) {
+      offset = [ 0, offset ];
+    }
     const coord = self.get('coord');
     let vector;
     if (coord.isTransposed) { // 如果x,y翻转，则偏移x
-      vector = coord.applyMatrix(offset, 0);
+      vector = coord.applyMatrix(offset[1], offset[0]);
     } else { // 否则，偏转y
-      vector = coord.applyMatrix(0, offset);
+      vector = coord.applyMatrix(offset[0], offset[1]);
     }
     return vector;
   }
@@ -297,9 +300,9 @@ class GeomLabels extends Group {
     const coord = self.get('coord');
     const vector = self.getOffsetVector();
     if (coord.isTransposed) { // 如果x,y翻转，则偏移x
-      offset = vector[0];
+      offset = [ vector[1], vector[0] ];
     } else { // 否则，偏转y
-      offset = vector[1];
+      offset = [ vector[0], vector[1] ];
     }
     return offset;
   }
@@ -310,16 +313,24 @@ class GeomLabels extends Group {
     const offset = self.getDefaultOffset();
     const coord = self.get('coord');
     const transposed = coord.isTransposed;
+    const xField = transposed ? 'y' : 'x';
     const yField = transposed ? 'x' : 'y';
     const factor = transposed ? 1 : -1; // y 方向上越大，像素的坐标越小，所以transposed时将系数变成
+    // 保存原始点，用于画labelLine
+    point._originPoint = {
+      x: point.x,
+      y: point.y
+    };
     const offsetPoint = {
       x: 0,
       y: 0
     };
     if (index > 0 || total === 1) { // 判断是否小于0
-      offsetPoint[yField] = offset * factor;
+      offsetPoint[xField] = offset[0] * factor;
+      offsetPoint[yField] = offset[1] * factor;
     } else {
-      offsetPoint[yField] = offset * factor * -1;
+      offsetPoint[xField] = offset[0] * factor * -1;
+      offsetPoint[yField] = offset[1] * factor * -1;
     }
     return offsetPoint;
   }
