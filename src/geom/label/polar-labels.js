@@ -13,12 +13,23 @@ class PolarLabels extends Labels {
     const center = coord.getCenter();
     const labelEmit = self._isEmitLabels();
     let r = self.getPointRauis(coord, point);
-    if (coord.isTransposed && r > offset && !labelEmit) {
+    if (coord.isTransposed) {
+      if (r > offset[0] && !labelEmit) {
+        const appendAngle = Math.asin(offset[1] / (2 * r));
+        r += offset[0];
+        angle = angle + appendAngle * 2;
+      }
+    } else {
+      const appendAngle = Math.asin(offset[0] / (2 * r));
+      angle = angle + appendAngle * 2;
+      r += offset[1];
+    }
+/*    if (coord.isTransposed && r > offset[1] && !labelEmit) {
       const appendAngle = Math.asin(offset / (2 * r));
       angle = angle + appendAngle * 2;
     } else {
       r = r + offset;
-    }
+    }*/
 
     return {
       x: center.x + r * Math.cos(angle),
@@ -103,7 +114,7 @@ class PolarLabels extends Labels {
     }
 
     let offset = self.getDefaultOffset();
-    offset = offset * factor;
+    offset = [ offset[0] * factor, offset[1] * factor ];
     const middleAngle = self.getPointAngle(arcPoint);
     const labelPoint = self.getCirclePoint(middleAngle, offset, arcPoint);
     labelPoint.text = text;
