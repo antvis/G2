@@ -106,7 +106,10 @@ class PieLabels extends PolarLabels {
 
   getDefaultOffset() {
     const labelCfg = this.get('label');
-    const offset = labelCfg.offset || 0;
+    let offset = labelCfg.offset || 0;
+    if (!Util.isArray(offset)) {
+      offset = [ 0, offset ];
+    }
     return offset;
   }
 
@@ -119,7 +122,7 @@ class PieLabels extends PolarLabels {
   adjustItems(items) {
     const self = this;
     const offset = self.getDefaultOffset();
-    if (offset > 0) {
+    if (offset[1] > 0) {
       items = self._distribute(items, offset);
     }
 
@@ -139,7 +142,7 @@ class PieLabels extends PolarLabels {
     const radius = coord.getRadius();
     const lineHeight = self.get('label').labelHeight;
     const center = coord.getCenter();
-    const totalR = radius + offset;
+    const totalR = radius + offset[1];
     const totalHeight = totalR * 2 + lineHeight * 2;
     let plotRange = {
       start: coord.start,
@@ -189,7 +192,7 @@ class PieLabels extends PolarLabels {
     const self = this;
     const coord = self.get('coord');
     const r = coord.getRadius();
-    const distance = self.getDefaultOffset();
+    const distance = self.getDefaultOffset()[1];
     const angle = label.orignAngle || label.angle;
     const center = coord.getCenter();
     const start = getEndPoint(center, angle, r + MARGIN / 2);
@@ -225,7 +228,7 @@ class PieLabels extends PolarLabels {
    */
   getLabelRotate(angle, offset) {
     let rotate;
-    if (offset < 0) {
+    if (offset[1] < 0) {
       rotate = angle * 180 / Math.PI;
       if (rotate > 90) {
         rotate = rotate - 180;
@@ -255,7 +258,7 @@ class PieLabels extends PolarLabels {
       align = 'right';
     }
 
-    const offset = self.getDefaultOffset();
+    const offset = self.getDefaultOffset()[1];
     if (offset <= 0) {
       if (align === 'right') {
         align = 'left';
@@ -301,8 +304,10 @@ class PieLabels extends PolarLabels {
     const self = this;
     const coord = self.get('coord');
     const center = coord.getCenter();
-    const r = coord.getRadius() + offset;
+    const r = coord.getRadius() + offset[1];
     const point = getEndPoint(center, angle, r);
+    const appendAngle = Math.asin(offset[0] / (2 * r));
+    angle = angle + appendAngle * 2;
     point.angle = angle;
     point.r = r;
     return point;
