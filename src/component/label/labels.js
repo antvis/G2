@@ -117,14 +117,27 @@ class Labels extends Group {
       this._setCustomPosition(cfg, node);
     } else {
       const origin = cfg.point;
-      delete cfg.point; // 临时解决，否则影响动画
-      labelShape = this.addShape('text', {
-        attrs: cfg
-      });
+      labelShape = this.addShape('text');
+      this._setLabelAttrs(labelShape, cfg);
       labelShape.setSilent('origin', origin);
       labelShape.name = 'label'; // 用于事件标注
       this.get('appendInfo') && labelShape.setSilent('appendInfo', this.get('appendInfo'));
       return labelShape;
+    }
+  }
+
+  _setLabelAttrs(shape, cfg) {
+    const rotate = cfg.rotate;
+    // 防止rotate和point影响文本动画效果
+    delete cfg.rotate;
+    delete cfg.point;
+    shape.attr(cfg);
+    if (rotate) {
+      shape.transform([
+        [ 't', -cfg.x, -cfg.y ],
+        [ 'r', rotate ],
+        [ 't', cfg.x, cfg.y ]
+      ]);
     }
   }
 
@@ -187,17 +200,8 @@ class Labels extends Group {
       this._setCustomPosition(cfg, oldLabel);
     } else {
       oldLabel._id = newLabel._id;
-      oldLabel.attr('text', cfg.text);
-      if (oldLabel.attr('x') !== cfg.x || oldLabel.attr('y') !== cfg.y) {
-        const rotate = oldLabel.get('attrs').rotate;
-        if (rotate) {
-          oldLabel.rotateAtStart(-rotate);
-          oldLabel.attr(cfg);
-          oldLabel.rotateAtStart(rotate);
-        } else {
-          oldLabel.attr(cfg);
-        }
-      }
+      oldLabel.resetMatrix();
+      this._setLabelAttrs(oldLabel, cfg);
     }
   }
 
