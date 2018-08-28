@@ -27,7 +27,7 @@ function findMinDistance(arr, scale) {
 }
 
 const SizeMixin = {
-  getDefalutSize() {
+  getDefaultSize() {
     let defaultSize = this.get('defaultSize');
     const viewTheme = this.get('viewTheme') || Global;
     if (!defaultSize) {
@@ -130,7 +130,7 @@ const SizeMixin = {
   getNormalizedSize(obj) {
     let size = this.getAttrValue('size', obj);
     if (Util.isNil(size)) {
-      size = this.getDefalutSize();
+      size = this.getDefaultSize();
     } else {
       size = this._toNormalizedSize(size);
     }
@@ -139,7 +139,7 @@ const SizeMixin = {
   getSize(obj) {
     let size = this.getAttrValue('size', obj);
     if (Util.isNil(size)) {
-      const normalizeSize = this.getDefalutSize();
+      const normalizeSize = this.getDefaultSize();
       size = this._toCoordSize(normalizeSize);
     }
     return size;

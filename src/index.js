@@ -11,6 +11,7 @@ require('./geom/point');
 require('./geom/polygon');
 require('./geom/schema');
 require('./geom/venn');
+require('./geom/violin');
 
 // facets
 require('./facet/index');

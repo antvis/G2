@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="geometry" content="venn">
+  <link rel="stylesheet" href="./assets/common.css">
+  <title>Venn Diagram</title>
+  <style>
+    html, body {
+      font-family: "-apple-system", BlinkMacSystemFont, "Segoe UI", Roboto,"Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",SimSun, "sans-serif";
+    }
+  </style>
+</head>
+
+<body>
+  <div id="control-panel" style="text-align: center;">
+    <label for="bandwidth">bandwidth</label>
+    <input id="bandwidth" type="range" min="0.01" max="0.5" step="0.005">
+    <span id="bandwidth-value" style="display: inline-block; width: 40px;"></span>
+  </div>
+<div id="canvas" style="border: 1px solid grey; border-radius: 4px;">
+</div>
+<script src="./assets/jquery-3.2.1.min.js"></script>
+<script src="./assets/data-set.min.js"></script>
+<!-- <script src="http://unpkg.alipay.com/@antv/data-set@0.9.3/build/data-set.js"></script> -->
+<script src="../build/g2.js"></script>
+<script>
+  G2.track(false);
+  $.getJSON('./data/iris-flower.json', data => {
+    const $bw = $('#bandwidth');
+    const $bwVal = $('#bandwidth-value');
+    $bwVal.text($bw.val());
+
+    const ds = new DataSet({
+      state: {
+        bandwidth: parseFloat($bw.val(), 10)
+      }
+    });
+
+    // input 值变更时更新 bandwidth 值
+    $bw.on('input', () => {
+      ds.setState('bandwidth', parseFloat($bw.val()));
+      $bwVal.text($bw.val());
+    });
+
+    const fields = [ 'PetalWidth', 'PetalLength', 'SepalWidth', 'SepalLength' ];
+
+    // 小提琴图用 KDE transform 提供数据
+    const dv1 = ds.createView({
+      watchingStates: [ 'bandwidth' ] // 根据 bandwidth state 重新计算
+    }).source(data);
+    dv1.transform({
+      type: 'kde',
+      bandwidth: '$state.bandwidth',
+      fields,
+      minY: 0.0001 // 小于这个值的概率将被忽略
+    });
+    const chart = new G2.Chart({
+      container: 'canvas',
+      forceFit: true,
+      height: window.innerHeight - 40,
+      padding: 'auto',
+      theme: {
+        widthRatio: {
+          column: 0.9 // 小提琴图最宽处占总宽度的比例
+        }
+      }
+    });
+    // 需要根据分组提供分位值等统计数据，所以提前拍平数据
+    const dv2 = ds.createView().source(data);
+    dv2.transform({
+      type: 'fold',
+      fields
+    });
+    // 计算 Q1 和 Q3 分位值，用于画分位线
+    const dv3 = ds.createView().source(dv2);
+    dv3.transform({
+      type: 'bin.quantile',
+      field: 'value',
+      as: 'x',
+      groupBy: [ 'key' ],
+      p: [ 1 / 4, 3 / 4 ]
+    });
+    // 计算中位值
+    const dv4 = ds.createView().source(dv2);
+    dv4.transform({
+      type: 'aggregate',
+      fields: [ 'value' ],
+      operations: [ 'median' ],
+      as: [ 'x' ],
+      groupBy: [ 'key' ]
+    });
+
+    chart.scale({
+      key: { sync: true }, // key 字段在其中一个 view 映射到 color 了，在其他所以需要同步，否则
+      x: { sync: true }
+    });
+
+    // chart.tooltip(false);
+    chart.coord().transpose();
+    chart.axis('key', {
+      tickLine: {
+        alignWithLabel: false
+      }
+    });
+    chart.axis('x', {
+      line: G2.Global.axis.top.line,
+      tickLine: G2.Global.axis.top.tickLine,
+      grid: null
+    });
+
+    // 小提琴图
+    const view1 = chart.view();
+    view1.source(dv1);
+    view1.violin()
+      .position('key*x')
+      .color('key')
+      // .shape('hollow')
+      .size('y')
+      .style({
+        lineWidth: 1,
+        fillOpacity: 0.5,
+        strokeOpacity: 0.5
+      })
+      .tooltip(false);
+
+    // Q1 / Q3
+    const view3 = chart.view();
+    view3.source(dv3);
+    view3.interval()
+      .position('key*x')
+      .color('black')
+      .size(2)
+      .style({
+        fill: 'black',
+        // fill: 'white',
+        fillOpacity: 1
+        // lineWidth: 1,
+        // stroke: 'black',
+      })
+      .tooltip('x', value => {
+        return {
+          name: 'Q1-Q3',
+          value
+        };
+      });
+
+    // median
+    const view4 = chart.view();
+    view4.source(dv4);
+    view4.point()
+      .position('key*x')
+      .color('black')
+      .size(3)
+      .style({
+        fill: 'white',
+        stroke: 'black',
+        lineWidth: 2
+      })
+      .tooltip('x', value => {
+        return {
+          name: 'Median',
+          value
+        };
+      });
+
+    chart.render();
+  });
+</script>
+</body>
+
+</html>
+
