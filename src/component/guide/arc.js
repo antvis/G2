@@ -64,19 +64,30 @@ class Arc extends Base {
     const coordCenter = coord.getCenter();
     const radius = Math.sqrt((start.x - coordCenter.x) * (start.x - coordCenter.x)
       + (start.y - coordCenter.y) * (start.y - coordCenter.y));
-    const startAngle = calculateAngle(start, coordCenter);
-    const endAngle = calculateAngle(end, coordCenter);
-    const dAngle = (endAngle - startAngle) % (Math.PI * 2);
-    const largeArc = dAngle > Math.PI ? 1 : 0;
-    const clockwise = endAngle - startAngle >= 0 ? 1 : 0;
+    let path;
+    // 处理整圆的情况
+    if (Util.isNumberEqual(start.x, end.x) && Util.isNumberEqual(start.y, end.y)) {
+      path = [
+        [ 'M', start.x, start.y ],
+        [ 'A', radius, radius, 0, 1, 1, 2 * coordCenter.x - start.x, 2 * coordCenter.y - start.y ],
+        [ 'A', radius, radius, 0, 1, 1, start.x, start.y ]
+      ];
+    } else {
+      const startAngle = calculateAngle(start, coordCenter);
+      let endAngle = calculateAngle(end, coordCenter);
+      if (endAngle < startAngle) {
+        endAngle += (Math.PI * 2);
+      }
+      const dAngle = (endAngle - startAngle) % (Math.PI * 2);
+      const largeArc = dAngle > Math.PI ? 1 : 0;
+      path = [
+        [ 'M', start.x, start.y ],
+        [ 'A', radius, radius, 0, largeArc, 1, end.x, end.y ]
+      ];
+    }
     const arcShape = group.addShape('path', {
       zIndex: self.zIndex,
-      attrs: Util.mix({
-        path: [
-          [ 'M', start.x, start.y ],
-          [ 'A', radius, radius, startAngle, largeArc, clockwise, end.x, end.y ]
-        ]
-      }, self.style)
+      attrs: Util.mix({ path }, self.style)
     });
     arcShape.name = 'guide-arc';
     self.appendInfo && arcShape.setSilent('appendInfo', self.appendInfo);
