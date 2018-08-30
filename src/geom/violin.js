@@ -51,6 +51,18 @@ class Violin extends GeomBase {
   }
 }
 
+class ViolinDodge extends Violin {
+  getDefaultCfg() {
+    const cfg = super.getDefaultCfg();
+    cfg.hasDefaultAdjust = true;
+    cfg.adjusts = [{ type: 'dodge' }];
+    return cfg;
+  }
+}
+
+Violin.Dodge = ViolinDodge;
+
 GeomBase.Violin = Violin;
+GeomBase.ViolinDodge = ViolinDodge;
 
 module.exports = Violin;
