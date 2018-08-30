@@ -62,5 +62,26 @@ describe('violin shapes', function() {
       expect(shape.attr('stroke')).eql('red');
       expect(shape.attr('path').length).eql(cfg.y.length * 2 + 2);
     });
+
+    it('drawShape: smooth', () => {
+      Violin.setCoord(coord);
+      const shape = Violin.drawShape('smooth', {
+        points,
+        color: 'red'
+      }, canvas);
+      expect(shape.attr('stroke')).eql('red');
+      expect(shape.attr('path').length).eql(cfg.y.length * 2 + 2);
+      expect(shape.attr('path').pop()).eql([ 'z' ]); // 闭合路径
+    });
+
+    it('drawShape: smoothHollow', () => {
+      Violin.setCoord(coord);
+      const shape = Violin.drawShape('smoothHollow', {
+        points,
+        color: 'red'
+      }, canvas);
+      expect(shape.attr('stroke')).eql('red');
+      expect(shape.attr('path').length).eql(cfg.y.length * 2 + 2);
+    });
   });
 });
