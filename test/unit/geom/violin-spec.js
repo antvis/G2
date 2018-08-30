@@ -13,7 +13,7 @@ describe('chart.violin', function() {
     type: 'kde',
     bandwidth: 'nrd',
     fields,
-    minY: 0.0001 // 小于这个值的概率将被忽略
+    minSize: 0.0001 // 小于这个值的概率将被忽略
   });
 
   const chart = new Chart({
@@ -35,9 +35,9 @@ describe('chart.violin', function() {
     }
   });
   chart.violin()
-    .position('key*x')
+    .position('key*y')
     .color('key')
-    .size('y')
+    .size('size')
     .style({
       lineWidth: 1,
       fillOpacity: 0.5,

@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="geometry" content="venn">
   <link rel="stylesheet" href="./assets/common.css">
-  <title>Venn Diagram</title>
+  <title>Violin Diagram</title>
   <style>
     html, body {
       font-family: "-apple-system", BlinkMacSystemFont, "Segoe UI", Roboto,"Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",SimSun, "sans-serif";
@@ -56,7 +56,8 @@
       type: 'kde',
       bandwidth: '$state.bandwidth',
       fields,
-      minY: 0.0001 // 小于这个值的概率将被忽略
+      groupBy: [ 'Species' ],
+      minSize: 0.0001 // 小于这个值的概率将被忽略
     });
     const chart = new G2.Chart({
       container: 'canvas',
@@ -80,8 +81,8 @@
     dv3.transform({
       type: 'bin.quantile',
       field: 'value',
-      as: 'x',
-      groupBy: [ 'key' ],
+      as: 'y',
+      groupBy: [ 'key', 'Species' ],
       p: [ 1 / 4, 3 / 4 ]
     });
     // 计算中位值
@@ -90,13 +91,13 @@
       type: 'aggregate',
       fields: [ 'value' ],
       operations: [ 'median' ],
-      as: [ 'x' ],
-      groupBy: [ 'key' ]
+      as: [ 'y' ],
+      groupBy: [ 'key', 'Species' ]
     });
 
     chart.scale({
       key: { sync: true }, // key 字段在其中一个 view 映射到 color 了，在其他所以需要同步，否则
-      x: { sync: true }
+      y: { sync: true }
     });
 
     // chart.tooltip(false);
@@ -106,7 +107,7 @@
         alignWithLabel: false
       }
     });
-    chart.axis('x', {
+    chart.axis('y', {
       line: G2.Global.axis.top.line,
       tickLine: G2.Global.axis.top.tickLine,
       grid: null
@@ -116,10 +117,10 @@
     const view1 = chart.view();
     view1.source(dv1);
     view1.violin()
-      .position('key*x')
+      .position('key*y')
       .color('key')
       // .shape('hollow')
-      .size('y')
+      .size('size')
       .style({
         lineWidth: 1,
         fillOpacity: 0.5,
@@ -131,7 +132,7 @@
     const view3 = chart.view();
     view3.source(dv3);
     view3.interval()
-      .position('key*x')
+      .position('key*y')
       .color('black')
       .size(2)
       .style({
@@ -141,7 +142,7 @@
         // lineWidth: 1,
         // stroke: 'black',
       })
-      .tooltip('x', value => {
+      .tooltip('y', value => {
         return {
           name: 'Q1-Q3',
           value
@@ -152,7 +153,7 @@
     const view4 = chart.view();
     view4.source(dv4);
     view4.point()
-      .position('key*x')
+      .position('key*y')
       .color('black')
       .size(3)
       .style({
@@ -160,7 +161,7 @@
         stroke: 'black',
         lineWidth: 2
       })
-      .tooltip('x', value => {
+      .tooltip('y', value => {
         return {
           name: 'Median',
           value
