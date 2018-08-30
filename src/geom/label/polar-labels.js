@@ -99,13 +99,13 @@ class PolarLabels extends Labels {
    */
   getLabelPoint(labels, point, index) {
     const self = this;
-    const text = labels[index];
+    const text = labels.text[index];
     let factor = 1;
     let arcPoint;
     if (self._isToMiddle(point)) {
       arcPoint = self.getMiddlePoint(point.points);
     } else {
-      if (labels.length === 1 && index === 0) {
+      if (labels.text.length === 1 && index === 0) {
         index = 1;
       } else if (index === 0) {
         factor = -1;
@@ -113,8 +113,9 @@ class PolarLabels extends Labels {
       arcPoint = self.getArcPoint(point, index);
     }
 
-    let offset = self.getDefaultOffset();
+    let offset = labels.offset;
     offset = [ offset[0] * factor, offset[1] * factor ];
+    labels._offset = offset;
     const middleAngle = self.getPointAngle(arcPoint);
     const labelPoint = self.getCirclePoint(middleAngle, offset, arcPoint);
     labelPoint.text = text;
@@ -170,7 +171,7 @@ class PolarLabels extends Labels {
       align = 'center';
     } else {
       const center = coord.getCenter();
-      const offset = self.getDefaultOffset();
+      const offset = self.getDefaultOffset(point);
       if (Math.abs(point.x - center.x) < 1) {
         align = 'center';
       } else if (point.angle > Math.PI || point.angle <= 0) {
