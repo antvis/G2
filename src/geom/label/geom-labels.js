@@ -105,7 +105,7 @@ class GeomLabels extends Group {
           obj.textAlign = self.getLabelAlign(obj, subIndex, total);
         }
         if (geom) {
-          obj._id = geom._getShapeId(origin) + '-glabel-0-' + obj.text;
+          obj._id = geom._getShapeId(origin) + '-glabel-' + subIndex + '-' + obj.text;
         }
         obj.coord = coord;
         items.push(obj);
