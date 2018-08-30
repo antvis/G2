@@ -420,7 +420,11 @@ class LegendController {
   _addCategroyLegend(scale, attr, geom, filterVals, position) {
     const self = this;
     const field = scale.field;
-    const legendOptions = self.options;
+    let legendOptions = self.options;
+    const fieldOption = legendOptions[field];
+    if (fieldOption) {
+      legendOptions = fieldOption;
+    }
     const legends = self.legends;
     legends[position] = legends[position] || [];
     const container = self.container;
@@ -639,9 +643,8 @@ class LegendController {
       let position = legendOptions.position || viewTheme.defaultLegendPosition;
       position = self._adjustPosition(position, self._isTailLegend(legendOptions, geom));
       if (fieldOption && fieldOption.position) { // 如果对某个图例单独设置 position，则对 position 重新赋值
-        position = fieldOption.position;
+        position = self._adjustPosition(fieldOption.position, self._isTailLegend(fieldOption, geom));
       }
-
       let legend;
       if (scale.isLinear) {
         legend = self._addContinuousLegend(scale, attr, position);
