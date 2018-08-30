@@ -36,9 +36,8 @@ class Polar extends Base {
     let endAngle = this.endAngle;
     while (endAngle < startAngle) {
       endAngle += (Math.PI * 2);
-      this.endAngle = endAngle;
     }
-
+    this.endAngle = endAngle;
     const oneBox = this.getOneBox();
 
     const oneWidth = oneBox.maxX - oneBox.minX;
