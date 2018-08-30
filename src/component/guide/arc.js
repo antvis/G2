@@ -5,24 +5,27 @@
 const Util = require('../../util');
 const Base = require('./base');
 
+const PI = Math.PI;
+const atan = Math.atan;
+
 function calculateAngle(point, center) {
   const x = point.x - center.x;
   const y = point.y - center.y;
   let deg;
   if (y === 0) {
     if (x < 0) {
-      deg = Math.PI / 2;
+      deg = PI / 2;
     } else {
-      deg = (270 * Math.PI) / 180;
+      deg = (270 * PI) / 180;
     }
   } else if (x >= 0 && y > 0) {
-    deg = Math.PI * 2 - Math.atan(x / y);
+    deg = PI * 2 - atan(x / y);
   } else if (x <= 0 && y < 0) {
-    deg = Math.PI - Math.atan(x / y);
+    deg = PI - atan(x / y);
   } else if (x > 0 && y < 0) {
-    deg = Math.PI + Math.atan(-x / y);
+    deg = PI + atan(-x / y);
   } else if (x < 0 && y > 0) {
-    deg = Math.atan(x / -y);
+    deg = atan(x / -y);
   }
   return deg;
 }
@@ -76,10 +79,10 @@ class Arc extends Base {
       const startAngle = calculateAngle(start, coordCenter);
       let endAngle = calculateAngle(end, coordCenter);
       if (endAngle < startAngle) {
-        endAngle += (Math.PI * 2);
+        endAngle += (PI * 2);
       }
-      const dAngle = (endAngle - startAngle) % (Math.PI * 2);
-      const largeArc = dAngle > Math.PI ? 1 : 0;
+      const dAngle = (endAngle - startAngle) % (PI * 2);
+      const largeArc = dAngle > PI ? 1 : 0;
       path = [
         [ 'M', start.x, start.y ],
         [ 'A', radius, radius, 0, largeArc, 1, end.x, end.y ]
