@@ -104,9 +104,8 @@ class PieLabels extends PolarLabels {
     };
   }
 
-  getDefaultOffset() {
-    const labelCfg = this.get('label');
-    let offset = labelCfg.offset || 0;
+  getDefaultOffset(point) {
+    let offset = point.offset || [ 0, 0 ];
     if (!Util.isArray(offset)) {
       offset = [ 0, offset ];
     }
@@ -121,11 +120,10 @@ class PieLabels extends PolarLabels {
    */
   adjustItems(items) {
     const self = this;
-    const offset = self.getDefaultOffset();
-    if (offset[1] > 0) {
+    const offset = items[0].offset[1];
+    if (offset > 0) {
       items = self._distribute(items, offset);
     }
-
     return items;
   }
 
@@ -188,11 +186,11 @@ class PieLabels extends PolarLabels {
   }
 
   // 连接线
-  lineToLabel(label, labelLine) {
+  lineToLabel(label) {
     const self = this;
     const coord = self.get('coord');
-    const r = coord.getRadius();
-    const distance = self.getDefaultOffset()[1];
+    const r = coord.getRadius() + label.offset[0];
+    const distance = label.offset[1];
     const angle = label.orignAngle || label.angle;
     const center = coord.getCenter();
     const start = getEndPoint(center, angle, r + MARGIN / 2);
@@ -211,7 +209,7 @@ class PieLabels extends PolarLabels {
         path: [ 'M' + start.x, start.y + ' Q' + inner.x, inner.y + ' ' + label.x, label.y ].join(','),
         fill: null,
         stroke: label.color
-      }, labelLine)
+      }, label.labelLine)
     });
     // label 对应线的动画关闭
     lineShape.name = 'labelLine';
@@ -258,7 +256,7 @@ class PieLabels extends PolarLabels {
       align = 'right';
     }
 
-    const offset = self.getDefaultOffset()[1];
+    const offset = point.offset[1];
     if (offset <= 0) {
       if (align === 'right') {
         align = 'left';
