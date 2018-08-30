@@ -34,7 +34,7 @@ class Polar extends Base {
     const startAngle = this.startAngle;
 
     let endAngle = this.endAngle;
-    if (endAngle < startAngle) {
+    while (endAngle < startAngle) {
       endAngle += (Math.PI * 2);
       this.endAngle = endAngle;
     }
