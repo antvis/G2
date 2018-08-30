@@ -42,36 +42,6 @@ class GeomLabels extends Group {
     this.renderLabels(); // 调用入口文件
   }
 
-  // 获取显示的 label 文本值
-  _getLabelValue(record) {
-    const self = this;
-    const originRecord = record[ORIGIN];
-    const labelCfg = self.get('labelCfg');
-    const scales = labelCfg.scales;
-    const callback = labelCfg.cfg && labelCfg.cfg.content;
-    let value;
-    if (callback) {
-      const params = [];
-      Util.each(scales, function(scale) {
-        params.push(originRecord[scale.field]);
-      });
-      value = callback.apply(null, params);
-    } else {
-      const scale = scales[0];
-      value = originRecord[scale.field];
-      if (Util.isArray(value)) {
-        const tmp = [];
-        Util.each(value, function(subVal) {
-          tmp.push(scale.getText(subVal));
-        });
-        value = tmp;
-      } else {
-        value = scale.getText(value);
-      }
-    }
-    return value;
-  }
-
   // 初始化labels的配置项
   initLabelsCfg() {
     const self = this;
@@ -107,38 +77,38 @@ class GeomLabels extends Group {
   getLabelsItems(points) {
     const self = this;
     const items = [];
-    const labels = self.get('label');
     const geom = self.get('geom');
-    let origin;
+    const coord = self.get('coord');
+
+    self._getLabelCfgs(points);
+    const labelCfg = self.get('labelItemCfgs');
 
     // 获取label相关的x，y的值，获取具体的x,y,防止存在数组
-    Util.each(points, point => {
-      origin = point._origin;
-      let label = self._getLabelValue(point);
-      if (!Util.isArray(label)) {
-        label = [ label ];
+    Util.each(points, (point, i) => {
+      const origin = point[ORIGIN];
+      const label = labelCfg[i];
+      if (!label) {
+        return;
+      }
+      if (!Util.isArray(label.text)) {
+        label.text = [ label.text ];
       }
       const total = label.length;
 
-      Util.each(label, function(sub, subIdx) {
-        let obj = self.getLabelPoint(label, point, subIdx);
-        // 文本为 null, undefined, 空字符串时不显示
-        // 但是文本为 0 时，需要显示
-        if (obj && !Util.isNil(obj.text) && obj.text !== '') {
-          obj = Util.mix({}, origin, obj); // 为了格式化输出
-          let align;
-          if (labels && labels.label && labels.label.textAlign) {
-            align = labels.label.textAlign;
-          } else {
-            align = self.getLabelAlign(obj, subIdx, total);
-          }
-          obj.textAlign = align;
-          if (geom) {
-            obj._id = geom._getShapeId(origin) + '-glabel-' + subIdx + '-' + obj.text;
-          }
-          obj.coord = self.get('coord');
-          items.push(obj);
+      Util.each(label.text, (sub, subIndex) => {
+        if (Util.isNil(sub) || sub === '') {
+          return;
         }
+        let obj = self.getLabelPoint(label, point, subIndex);
+        obj = Util.mix({}, label, obj);
+        if (!obj.textAlign) {
+          obj.textAlign = self.getLabelAlign(obj, subIndex, total);
+        }
+        if (geom) {
+          obj._id = geom._getShapeId(origin) + '-glabel-0-' + obj.text;
+        }
+        obj.coord = coord;
+        items.push(obj);
       });
     });
     return items;
@@ -159,18 +129,18 @@ class GeomLabels extends Group {
    * @param  {Array} items labels
    * @param  {Object} labelLine configuration for label lines
    */
-  drawLines(items, labelLine) {
+  drawLines(items) {
     const self = this;
-    const offset = self.getDefaultOffset();
-    if (offset[0] > 0 || offset[1] > 0) {
-      Util.each(items, function(point) {
-        self.lineToLabel(point, labelLine);
-      });
-    }
+    Util.each(items, function(point) {
+      if (point._offset[0] > 0 || point._offset[1] > 0) {
+        self.lineToLabel(point);
+      }
+    });
   }
 
   // 连接线
-  lineToLabel(label, labelLine) {
+  lineToLabel(label) {
+    const labelLine = label.labelLine;
     const self = this;
     const coord = self.get('coord');
     const start = {
@@ -206,18 +176,19 @@ class GeomLabels extends Group {
   /**
    * @protected
    * 获取文本的位置信息
-   * @param {Array} labels labels
+   * @param {Array} labelCfg labels
    * @param {Object} point point
    * @param {Number} index index
    * @return {Object} point
    */
-  getLabelPoint(labels, point, index) {
+  getLabelPoint(labelCfg, point, index) {
     const self = this;
     const coord = self.get('coord');
+    const total = labelCfg.text.length;
 
     function getDimValue(value, idx) {
       if (Util.isArray(value)) {
-        if (labels.length === 1) { // 如果仅一个label,多个y,取最后一个y
+        if (labelCfg.text.length === 1) { // 如果仅一个label,多个y,取最后一个y
           if (value.length <= 2) {
             value = value[value.length - 1];
             // value = value[0];
@@ -231,10 +202,16 @@ class GeomLabels extends Group {
       return value;
     }
 
-    const labelPoint = {
+    const label = {
       x: getDimValue(point.x, index),
       y: getDimValue(point.y, index),
-      text: labels[index]
+      text: labelCfg.text[index]
+    };
+
+    // save start point of labelLine temporarily
+    label._originPoint = {
+      x: label.x,
+      y: label.y
     };
 
     // get nearest point of the shape as the label line start point
@@ -246,27 +223,30 @@ class GeomLabels extends Group {
           maxX = p.x;
         }
       });
-      labelPoint.x = (labelPoint.x + maxX) / 2;
+      label.x = (label.x + maxX) / 2;
     }
     // sharp edge of the pyramid
     if (point.shape === 'pyramid' && !point.nextPoints && point.points) {
       point.points.forEach(p => {
         p = coord.convert(p);
         if ((Util.isArray(p.x) && point.x.indexOf(p.x) === -1) || (Util.isNumber(p.x) && point.x !== p.x)) {
-          labelPoint.x = (labelPoint.x + p.x) / 2;
+          label.x = (label.x + p.x) / 2;
         }
       });
     }
 
-    const offsetPoint = self.getLabelOffset(labelPoint, index, labels.length);
-    self.transLabelPoint(labelPoint);
-    labelPoint.x += offsetPoint.x;
-    labelPoint.y += offsetPoint.y;
-    labelPoint.color = point.color;
-    labelPoint._offset = offsetPoint;
-    return labelPoint;
+    if (labelCfg.position) {
+      self.setLabelPosition(label, point, index);
+    }
+    const offsetPoint = self.getLabelOffset(labelCfg, index, total);
+    self.transLabelPoint(label);
+    label.x += offsetPoint[0];
+    label.y += offsetPoint[1];
+    label.color = point.color;
+    label._offset = offsetPoint;
+    return label;
   }
-
+  setLabelPosition() {}
   transLabelPoint(point) {
     const self = this;
     const coord = self.get('coord');
@@ -275,64 +255,35 @@ class GeomLabels extends Group {
     point.y = tmpPoint[1];
   }
 
-  getOffsetVector() {
-    const self = this;
-    const labelCfg = self.get('label');
-    let offset = labelCfg.offset || 0;
-    if (!Util.isArray(offset)) {
-      offset = [ 0, offset ];
-    }
-    const coord = self.get('coord');
-    let vector;
-    if (coord.isTransposed) { // 如果x,y翻转，则偏移x
-      vector = coord.applyMatrix(offset[1], offset[0]);
-    } else { // 否则，偏转y
-      vector = coord.applyMatrix(offset[0], offset[1]);
-    }
-    return vector;
-  }
-
   // 获取默认的偏移量
-  getDefaultOffset() {
-    const self = this;
-    let offset = 0;
-
-    const coord = self.get('coord');
-    const vector = self.getOffsetVector();
-    if (coord.isTransposed) { // 如果x,y翻转，则偏移x
-      offset = [ vector[1], vector[0] ];
-    } else { // 否则，偏转y
-      offset = [ vector[0], vector[1] ];
-    }
-    return offset;
+  getDefaultOffset(point) {
+    const offset = point.offset || [ 0, 0 ];
+    const coord = this.get('coord');
+    const vector = coord.applyMatrix(offset[0], offset[1]);
+    return [ vector[0], vector[1] ];
   }
 
   // 获取文本的偏移位置，x,y
   getLabelOffset(point, index, total) {
     const self = this;
-    const offset = self.getDefaultOffset();
+    const offset = self.getDefaultOffset(point);
     const coord = self.get('coord');
     const transposed = coord.isTransposed;
     const xField = transposed ? 'y' : 'x';
     const yField = transposed ? 'x' : 'y';
-    const factor = transposed ? 1 : -1; // y 方向上越大，像素的坐标越小，所以transposed时将系数变成
-    // 保存原始点，用于画labelLine
-    point._originPoint = {
-      x: point.x,
-      y: point.y
-    };
+    let factor = transposed ? 1 : -1; // y 方向上越大，像素的坐标越小
     const offsetPoint = {
       x: 0,
       y: 0
     };
-    if (index > 0 || total === 1) { // 判断是否小于0
-      offsetPoint[xField] = offset[0] * factor;
-      offsetPoint[yField] = offset[1] * factor;
-    } else {
-      offsetPoint[xField] = offset[0] * factor * -1;
-      offsetPoint[yField] = offset[1] * factor * -1;
+
+    // 一个shape对应多个label时，第二个label的offset与第一个相反
+    if (index <= 0 && total !== 1) {
+      factor *= -1;
     }
-    return offsetPoint;
+    offsetPoint[xField] = offset[0] * factor;
+    offsetPoint[yField] = offset[1] * factor;
+    return [ offsetPoint.x, offsetPoint.y ];
   }
 
   getLabelAlign(point, index, total) {
@@ -340,11 +291,11 @@ class GeomLabels extends Group {
     let align = 'center';
     const coord = self.get('coord');
     if (coord.isTransposed) {
-      const offset = self.getDefaultOffset();
+      const offset = point._offset;
       // var vector = coord.applyMatrix(offset,0);
-      if (offset < 0) {
+      if (offset[1] < 0) {
         align = 'right';
-      } else if (offset === 0) {
+      } else if (offset[1] === 0) {
         align = 'center';
       } else {
         align = 'left';
@@ -359,16 +310,101 @@ class GeomLabels extends Group {
     }
     return align;
   }
+  _getLabelValue(record) {
+    const self = this;
+    const originRecord = record[ORIGIN];
+    const labelCfg = self.get('labelCfg');
+    const scales = labelCfg.scales;
+    const callback = labelCfg.cfg && labelCfg.cfg.content;
+    let value;
+    if (callback) {
+      const params = [];
+      Util.each(scales, function(scale) {
+        params.push(originRecord[scale.field]);
+      });
+      value = callback.apply(null, params);
+    } else {
+      const scale = scales[0];
+      value = originRecord[scale.field];
+      if (Util.isArray(value)) {
+        const tmp = [];
+        Util.each(value, function(subVal) {
+          tmp.push(scale.getText(subVal));
+        });
+        value = tmp;
+      } else {
+        value = scale.getText(value);
+      }
+    }
+    return value;
+  }
+  // 获取每个label的配置
+  _getLabelCfgs(points) {
+    const labelCfg = this.get('labelCfg');
+    const defaultCfg = this.get('label');
+    const cfgs = [];
+    const scales = labelCfg.scales;
+    const globalCfg = defaultCfg.textStyle;
+    globalCfg.offset = defaultCfg.offset;
 
+    Util.each(points, (point, i) => {
+      let cfg = {};
+      const origin = point[ORIGIN];
+      if (labelCfg.callback) {
+        cfg = labelCfg.callback.call(null, origin[scales[0].field], origin, i);
+      }
+      // 如果callback指定不显示label
+      if (cfg === null) {
+        cfgs.push(null);
+        return;
+      }
+      if (Util.isString(cfg) || Util.isNumber(cfg)) {
+        cfg = { text: cfg };
+      } else {
+        const scale = scales[0];
+        let value = origin[scale.field];
+        if (Util.isArray(value)) {
+          const tmp = [];
+          Util.each(value, function(subVal) {
+            tmp.push(scale.getText(subVal));
+          });
+          value = tmp;
+        } else {
+          value = scale.getText(value);
+        }
+        cfg.text = value;
+      }
+      cfg = Util.mix({}, defaultCfg, labelCfg.globalCfg || {}, cfg);
+      if (cfg.label) {
+        // 兼容有些直接写在labelCfg.label的配置
+        const label = cfg.label;
+        delete cfg.label;
+        cfg = Util.mix(cfg, label);
+      }
+      if (cfg.textStyle) {
+        // 兼容旧写法，globalCfg的offset优先级高
+        delete cfg.textStyle.offset;
+        const textStyle = cfg.textStyle;
+        delete cfg.textStyle;
+        cfg = Util.mix(cfg, textStyle);
+      }
+
+      let offset = cfg.offset || [ 0, 0 ];
+      if (!Util.isArray(offset)) {
+        offset = [ 0, offset ];
+      }
+      cfg.offset = offset;
+      delete cfg.items;
+      cfgs.push(cfg);
+    });
+    this.set('labelItemCfgs', cfgs);
+  }
   showLabels(points) {
     const self = this;
     let items = self.getLabelsItems(points);
-    const labels = self.get('label');
     items = self.adjustItems(items);
     self.resetLabels(items);
-    if (labels.labelLine) {
-      self.drawLines(items, labels.labelLine);
-    }
+    self.drawLines(items);
   }
 
   destroy() {
