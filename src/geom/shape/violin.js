@@ -5,7 +5,7 @@
 const Util = require('../../util');
 const Shape = require('./shape');
 const Global = require('../../global');
-// const PathUtil = Util.PathUtil;
+const PathUtil = require('../util/path');
 
 function getAttrs(cfg) {
   const defaultCfg = Global.shape.venn;
@@ -13,6 +13,14 @@ function getAttrs(cfg) {
     stroke: cfg.color,
     fill: cfg.color,
     fillOpacity: cfg.opacity
+  }, cfg.style);
+  return shapeCfg;
+}
+function getHollowAttrs(cfg) {
+  const defaultCfg = Global.shape.hollowVenn;
+  const shapeCfg = Util.mix({}, defaultCfg, {
+    stroke: cfg.color,
+    strokeOpacity: cfg.opacity
   }, cfg.style);
   return shapeCfg;
 }
@@ -31,14 +39,25 @@ function getViolinPath(points) {
   path.push([ 'z' ]);
   return path;
 }
-
-function getHollowAttrs(cfg) {
-  const defaultCfg = Global.shape.hollowVenn;
-  const shapeCfg = Util.mix({}, defaultCfg, {
-    stroke: cfg.color,
-    strokeOpacity: cfg.opacity
-  }, cfg.style);
-  return shapeCfg;
+function getSmoothViolinPath(points) {
+  const half = points.length / 2;
+  const leftPoints = [];
+  const rightPoints = [];
+  for (let i = 0; i < points.length; i++) {
+    if (i < half) {
+      leftPoints.push(points[i]);
+    } else {
+      rightPoints.push(points[i]);
+    }
+  }
+  const leftPath = PathUtil.getSplinePath(leftPoints, false);
+  const rightPath = PathUtil.getSplinePath(rightPoints, false);
+  leftPath.push([ 'L', rightPoints[0].x, rightPoints[0].y ]);
+  rightPath.shift();
+  const path = leftPath.concat(rightPath);
+  path.push([ 'L', leftPoints[0].x, leftPoints[0].y ]);
+  path.push([ 'z' ]);
+  return path;
 }
 
 function normalizeSize(arr) {
@@ -46,19 +65,17 @@ function normalizeSize(arr) {
   return arr.map(num => num / max);
 }
 
-// register venn geom
+// register violin geom shape
 const Violin = Shape.registerFactory('violin', {
   defaultShapeType: 'violin',
   getDefaultPoints(pointInfo) {
     const radius = pointInfo.size / 2;
     const points = [];
-
     const sizeArr = normalizeSize(pointInfo._size);
-
     Util.each(pointInfo.y, (y, index) => {
       const offset = sizeArr[index] * radius;
       const isMin = index === 0;
-      const isMax = index === pointInfo.y.length;
+      const isMax = index === pointInfo.y.length - 1;
       points.push({
         isMin,
         isMax,
@@ -96,6 +113,7 @@ const Violin = Shape.registerFactory('violin', {
   }
 });
 
+// normal violin, filled path
 Shape.registerShape('violin', 'violin', {
   draw(cfg, container) {
     const attrs = getAttrs(cfg);
@@ -116,11 +134,53 @@ Shape.registerShape('violin', 'violin', {
     }, getAttrs(cfg));
   }
 });
-
+// smooth spline violin, filled path
+Shape.registerShape('violin', 'smooth', {
+  draw(cfg, container) {
+    const attrs = getAttrs(cfg);
+    let path = getSmoothViolinPath(cfg.points);
+    path = this.parsePath(path);
+    const pathShape = container.addShape('path', {
+      attrs: Util.mix(attrs, {
+        path
+      })
+    });
+    return pathShape;
+  },
+  getMarkerCfg(cfg) {
+    // console.log(cfg);
+    return Util.mix({
+      symbol: 'circle',
+      radius: 4
+    }, getAttrs(cfg));
+  }
+});
+// hollow violin, stroked path
 Shape.registerShape('violin', 'hollow', {
   draw(cfg, container) {
     const attrs = getHollowAttrs(cfg);
     let path = getViolinPath(cfg.points);
+    path = this.parsePath(path);
+    const pathShape = container.addShape('path', {
+      attrs: Util.mix(attrs, {
+        path
+      })
+    });
+    return pathShape;
+  },
+  getMarkerCfg(cfg) {
+    // console.log(cfg);
+    return Util.mix({
+      symbol: 'circle',
+      radius: 4
+    }, getHollowAttrs(cfg));
+  }
+});
+// hollow smooth spline violin, stroked path
+Shape.registerShape('violin', 'smoothHollow', {
+  draw(cfg, container) {
+    const attrs = getHollowAttrs(cfg);
+    let path = getSmoothViolinPath(cfg.points);
     path = this.parsePath(path);
     const pathShape = container.addShape('path', {
       attrs: Util.mix(attrs, {

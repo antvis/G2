@@ -123,7 +123,7 @@
         alternateColor: '#f5f5f5',
         type: 'polygon',
         lineStyle: {
-          // stroke: 'white'
+          stroke: 'white'
         }
       },
       tickLine: {
@@ -147,7 +147,8 @@
       .position('key*y')
       .color('Species')
       .adjust(adjustCfg)
-      // .shape('hollow')
+      // .shape('smooth')
+      // .shape('smoothHollow')
       .size('size')
       .style({
         lineWidth: 1,
