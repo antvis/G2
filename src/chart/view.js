@@ -76,7 +76,7 @@ class View extends Base {
       theme: null,
       parent: null,
       tooltipEnable: true, // 是否展示 tooltip
-      animate: true,
+      animate: Global.animate,
       visible: true
     };
   }
