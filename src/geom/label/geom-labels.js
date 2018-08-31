@@ -208,12 +208,6 @@ class GeomLabels extends Group {
       text: labelCfg.text[index]
     };
 
-    // save start point of labelLine temporarily
-    label._originPoint = {
-      x: label.x,
-      y: label.y
-    };
-
     // get nearest point of the shape as the label line start point
     if (point && point.nextPoints && (point.shape === 'funnel' || point.shape === 'pyramid')) {
       let maxX = -Infinity;
@@ -236,7 +230,7 @@ class GeomLabels extends Group {
     }
 
     if (labelCfg.position) {
-      self.setLabelPosition(label, point, index);
+      self.setLabelPosition(label, point, index, labelCfg.position);
     }
     const offsetPoint = self.getLabelOffset(labelCfg, index, total);
     self.transLabelPoint(label);
@@ -353,8 +347,7 @@ class GeomLabels extends Group {
       if (labelCfg.callback) {
         cfg = labelCfg.callback.call(null, origin[scales[0].field], origin, i);
       }
-      // 如果callback指定不显示label
-      if (cfg === null) {
+      if (!cfg && cfg !== 0) {
         cfgs.push(null);
         return;
       }
@@ -371,6 +364,10 @@ class GeomLabels extends Group {
           value = tmp;
         } else {
           value = scale.getText(value);
+        }
+        if (Util.isNil(value) || value === '') {
+          cfgs.push(null);
+          return;
         }
         cfg.text = value;
       }
