@@ -372,6 +372,10 @@ class GeomLabels extends Group {
         cfg.text = value;
       }
       cfg = Util.mix({}, defaultCfg, labelCfg.globalCfg || {}, cfg);
+
+      if (cfg.formatter) {
+        cfg.text = cfg.formatter.call(null, origin[scales[0].field], origin, i);
+      }
       if (cfg.label) {
         // 兼容有些直接写在labelCfg.label的配置
         const label = cfg.label;
@@ -381,11 +385,13 @@ class GeomLabels extends Group {
       if (cfg.textStyle) {
         // 兼容旧写法，globalCfg的offset优先级高
         delete cfg.textStyle.offset;
-        const textStyle = cfg.textStyle;
+        let textStyle = cfg.textStyle;
+        if (Util.isFunction(textStyle)) {
+          textStyle = textStyle.call(null, origin[scales[0].field], origin, i);
+        }
         delete cfg.textStyle;
         cfg = Util.mix(cfg, textStyle);
       }
-
       let offset = cfg.offset || [ 0, 0 ];
       if (!Util.isArray(offset)) {
         offset = [ 0, offset ];
