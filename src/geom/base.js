@@ -325,13 +325,11 @@ class GeomBase extends Base {
       if (!cfg) {
         cfg = {};
       }
-      cfg.content = callback;
+      labelCfg.callback = callback;
     } else if (Util.isObject(callback)) { // 如果没有设置回调函数
       cfg = callback;
     }
-
-    labelCfg.cfg = cfg;
-
+    labelCfg.globalCfg = cfg;
     return this;
   }
 
@@ -717,7 +715,7 @@ class GeomBase extends Base {
       self.draw(data, shapeContainer, shapeFactory, index);
     }
     if (self.get('labelCfg')) {
-      self._addLabels(Util.union.apply(null, mappedArray));
+      self._addLabels(Util.union.apply(null, mappedArray), shapeContainer.get('children'));
     }
 
     if (!self.get('sortable')) {
@@ -766,7 +764,7 @@ class GeomBase extends Base {
   }
 
   // step 3.2 add labels
-  _addLabels(points) {
+  _addLabels(points, shapes) {
     const self = this;
     const type = self.get('type');
     const viewTheme = self.get('viewTheme') || Global;
@@ -785,7 +783,8 @@ class GeomBase extends Base {
       viewTheme,
       visible: self.get('visible')
     });
-    labelContainer.showLabels(points);
+
+    labelContainer.showLabels(points, shapes);
     self.set('labelContainer', labelContainer);
   }
 
