@@ -60,8 +60,44 @@ describe('Guide: 辅助圆弧线', function() {
     const children = group.get('children');
     expect(children.length).to.equal(1);
     expect(children[0].name).to.equal('guide-arc');
-/*    expect(children[0].attr('r')).to.equal(200);
-    expect(children[0].attr('startAngle')).to.equal(2.7488935718910694);
-    expect(children[0].attr('endAngle')).to.equal(0.39269908169872403);*/
+    expect(children[0].attr('path').length).to.equal(2);
+    expect(children[0].getBBox().width).to.equal(403.3810740653281);
+    expect(children[0].getBBox().height).to.equal(279.80013887133464);
+  });
+  it('circle as arc', function() {
+    const coord = new Coord.Polar({
+      start: { x: 80, y: 355 },
+      end: { x: 480, y: 20 },
+      startAngle: 0,
+      endAngle: 2 * Math.PI
+    });
+    const arc = new Arc({
+      xScales: {
+        month: xScale
+      },
+      yScales: {
+        temp: yScale
+      },
+      start: {
+        month: 0,
+        temp: 1200
+      },
+      end: {
+        month: 4,
+        temp: 1200
+      },
+      style: {
+        lineWidth: 3,
+        stroke: 'blue'
+      }
+    });
+    arc.render(coord, group);
+    canvas.draw();
+    const children = group.get('children');
+    expect(children.length).to.equal(2);
+    expect(children[0].name).to.equal('guide-arc');
+    expect(children[1].attr('path').length).to.equal(3);
+    expect(children[1].getBBox().width).to.equal(338);
+    expect(children[1].getBBox().height).to.equal(338);
   });
 });

@@ -59,7 +59,11 @@ describe('Labels', function() {
     const item = labels.getFirst();
     expect(item.attr('x')).to.equal(10);
     expect(item.attr('y')).to.equal(20);
-    expect(item.attr('rotate')).to.equal(45);
+    const matrix = item.attr('matrix');
+    expect(matrix[0]).to.equal(Math.cos(45));
+    expect(matrix[1]).to.equal(Math.sin(45));
+    expect(matrix[3]).to.equal(-Math.sin(45));
+    expect(matrix[4]).to.equal(Math.cos(45));
   });
 
   it('labels rotate', function() {
@@ -122,7 +126,11 @@ describe('Labels', function() {
     });
     expect(label.attr('x')).to.equal(100);
     expect(label.attr('text')).to.equal('变化');
-    expect(label.attr('rotate')).to.equal(45);
+    const matrix = label.attr('matrix');
+    expect(matrix[0]).to.equal(Math.cos(45));
+    expect(matrix[1]).to.equal(Math.sin(45));
+    expect(matrix[3]).to.equal(-Math.sin(45));
+    expect(matrix[4]).to.equal(Math.cos(45));
   });
 
   it('change label without rotate.', function() {
@@ -134,7 +142,11 @@ describe('Labels', function() {
     });
     expect(label.attr('x')).to.equal(100);
     expect(label.attr('text')).to.equal('变化');
-    expect(label.attr('rotate')).to.equal(45);
+    const matrix = label.attr('matrix');
+    expect(matrix[0]).to.equal(Math.cos(45));
+    expect(matrix[1]).to.equal(Math.sin(45));
+    expect(matrix[3]).to.equal(-Math.sin(45));
+    expect(matrix[4]).to.equal(Math.cos(45));
   });
 });
 

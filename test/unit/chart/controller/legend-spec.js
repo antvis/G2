@@ -360,4 +360,30 @@ describe('LegendController', function() {
     expect(items[1].geom).to.be.an.instanceof(Line);
   });
 
+  it('legendPosition top-center field-specified', function() {
+    const chart2 = new Chart({
+      container: div,
+      width: chartWidth,
+      height: chartHeight,
+      padding: 'auto',
+      animate: false
+    });
+    chart2.source(data);
+    chart2.legend('country', { position: 'top-center' });
+    chart2.line().position('year*value').color('country');
+    chart2.render();
+    const controller = chart2.get('legendController');
+    const legend = controller.legends['top-center'][0];
+    const x = legend.get('x');
+    const y = legend.get('y');
+    const width = legend.getWidth();
+    const height = legend.getHeight();
+    const canvasWidth = canvas.get('width');
+    const backRange = controller.getBackRange();
+    const borderMargin = Global.legend.margin;
+    expect(x).to.equal((canvasWidth - width) / 2);
+    expect(y).to.equal(backRange.minY - height - borderMargin[0]);
+  });
+
+
 });
