@@ -4,11 +4,11 @@ const Coord = require('../../../../src/coord/index');
 const { Arc } = require('../../../../src/component/guide/index');
 const Scale = require('@antv/scale');
 
-const div = document.createElement('div');
-div.id = 'c1';
-document.body.appendChild(div);
-
 describe('Guide: 辅助圆弧线', function() {
+  const div = document.createElement('div');
+  div.id = 'arc-spec';
+  document.body.appendChild(div);
+
   const coord = new Coord.Polar({
     start: { x: 60, y: 460 },
     end: { x: 460, y: 60 },
@@ -17,7 +17,7 @@ describe('Guide: 辅助圆弧线', function() {
   });
 
   const canvas = new Canvas({
-    containerId: 'c1',
+    containerId: 'arc-spec',
     width: 500,
     height: 500,
     pixelRatio: 2
@@ -64,7 +64,8 @@ describe('Guide: 辅助圆弧线', function() {
     expect(children[0].getBBox().width).to.equal(403.3810740653281);
     expect(children[0].getBBox().height).to.equal(279.80013887133464);
   });
-  it('circle as arc', function() {
+
+  it('empty arc', function() {
     const coord = new Coord.Polar({
       start: { x: 80, y: 355 },
       end: { x: 480, y: 20 },
@@ -83,7 +84,7 @@ describe('Guide: 辅助圆弧线', function() {
         temp: 1200
       },
       end: {
-        month: 4,
+        month: 0,
         temp: 1200
       },
       style: {
@@ -96,8 +97,8 @@ describe('Guide: 辅助圆弧线', function() {
     const children = group.get('children');
     expect(children.length).to.equal(2);
     expect(children[0].name).to.equal('guide-arc');
-    expect(children[1].attr('path').length).to.equal(3);
-    expect(children[1].getBBox().width).to.equal(338);
-    expect(children[1].getBBox().height).to.equal(338);
+    expect(children[1].attr('path').length).to.equal(2);
+    expect(children[1].getBBox().width).to.equal(-Infinity);
+    expect(children[1].getBBox().height).to.equal(-Infinity);
   });
 });
