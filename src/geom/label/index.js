@@ -1,6 +1,7 @@
 const GeomLabels = require('./geom-labels');
 const PolarLabels = require('./polar-labels');
 const PieLabels = require('./pie-labels');
+const IntervalLabels = require('./interval-labels');
 
 const Labels = {
   getLabelsClass(coordType) {
@@ -9,6 +10,8 @@ const Labels = {
       rst = PolarLabels;
     } else if (coordType === 'theta') { // pie chart
       rst = PieLabels;
+    } else if (coordType === 'interval') { // bar
+      rst = IntervalLabels;
     }
     return rst;
   }
