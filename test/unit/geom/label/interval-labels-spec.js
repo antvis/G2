@@ -87,29 +87,6 @@ describe('interval labels', () => {
     expect(items[1].textAlign).to.equal('right');
   });
 
-  it('single label position insideLeft', () => {
-    const gLabels = canvas.addGroup(IntervalLabels, {
-      coord,
-      labelCfg: {
-        cfg: {
-          position: 'insideLeft',
-          offset: 0
-        },
-        scales: [ labelScale ]
-      },
-      geomType: 'interval'
-    });
-    const cfg = gLabels.get('label');
-    expect(cfg.position).to.equal('insideLeft');
-    const items = gLabels.getLabelsItems(points);
-    expect(items[0].x).to.equal(111.78571428571428);
-    expect(items[0].y).to.equal(58.257466529351184);
-    expect(items[0].textAlign).to.equal('left');
-    expect(items[1].x).to.equal(238.9285714285714);
-    expect(items[1].y).to.equal(61.03930131004366);
-    expect(items[1].textAlign).to.equal('left');
-  });
-
   it('single label position right', () => {
     const gLabels = canvas.addGroup(IntervalLabels, {
       coord,
@@ -131,28 +108,5 @@ describe('interval labels', () => {
     expect(items[1].x).to.equal(302.49999999999994);
     expect(items[1].y).to.equal(61.03930131004366);
     expect(items[1].textAlign).to.equal('left');
-  });
-
-  it('single label position insideRight', () => {
-    const gLabels = canvas.addGroup(IntervalLabels, {
-      coord,
-      labelCfg: {
-        cfg: {
-          position: 'insideRight',
-          offset: 0
-        },
-        scales: [ labelScale ]
-      },
-      geomType: 'interval'
-    });
-    const cfg = gLabels.get('label');
-    expect(cfg.position).to.equal('insideRight');
-    const items = gLabels.getLabelsItems(points);
-    expect(items[0].x).to.equal(175.35714285714283);
-    expect(items[0].y).to.equal(58.257466529351184);
-    expect(items[0].textAlign).to.equal('right');
-    expect(items[1].x).to.equal(302.49999999999994);
-    expect(items[1].y).to.equal(61.03930131004366);
-    expect(items[1].textAlign).to.equal('right');
   });
 });
