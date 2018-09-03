@@ -304,48 +304,38 @@ class GeomLabels extends Group {
     }
     return align;
   }
-  _getLabelValue(record) {
-    const self = this;
-    const originRecord = record[ORIGIN];
-    const labelCfg = self.get('labelCfg');
-    const scales = labelCfg.scales;
-    const callback = labelCfg.cfg && labelCfg.cfg.content;
-    let value;
-    if (callback) {
-      const params = [];
-      Util.each(scales, function(scale) {
-        params.push(originRecord[scale.field]);
+  _getLabelValue(origin, scale) {
+    let value = origin[scale.field];
+    if (Util.isArray(value)) {
+      const tmp = [];
+      Util.each(value, function(subVal) {
+        tmp.push(scale.getText(subVal));
       });
-      value = callback.apply(null, params);
+      value = tmp;
     } else {
-      const scale = scales[0];
-      value = originRecord[scale.field];
-      if (Util.isArray(value)) {
-        const tmp = [];
-        Util.each(value, function(subVal) {
-          tmp.push(scale.getText(subVal));
-        });
-        value = tmp;
-      } else {
-        value = scale.getText(value);
-      }
+      value = scale.getText(value);
+    }
+    if (Util.isNil(value) || value === '') {
+      return null;
     }
     return value;
   }
   // 获取每个label的配置
   _getLabelCfgs(points) {
+    const self = this;
     const labelCfg = this.get('labelCfg');
+    const scale = labelCfg.scales[0];
     const defaultCfg = this.get('label');
     const cfgs = [];
-    const scales = labelCfg.scales;
     const globalCfg = defaultCfg.textStyle;
     globalCfg.offset = defaultCfg.offset;
 
     Util.each(points, (point, i) => {
       let cfg = {};
       const origin = point[ORIGIN];
+      const originText = origin[scale.field];
       if (labelCfg.callback) {
-        cfg = labelCfg.callback.call(null, origin[scales[0].field], origin, i);
+        cfg = labelCfg.callback.call(null, originText, origin, i);
       }
       if (!cfg && cfg !== 0) {
         cfgs.push(null);
@@ -354,27 +344,14 @@ class GeomLabels extends Group {
       if (Util.isString(cfg) || Util.isNumber(cfg)) {
         cfg = { text: cfg };
       } else {
-        const scale = scales[0];
-        let value = origin[scale.field];
-        if (Util.isArray(value)) {
-          const tmp = [];
-          Util.each(value, function(subVal) {
-            tmp.push(scale.getText(subVal));
-          });
-          value = tmp;
-        } else {
-          value = scale.getText(value);
-        }
-        if (Util.isNil(value) || value === '') {
-          cfgs.push(null);
-          return;
-        }
-        cfg.text = value;
+        cfg.text = self._getLabelValue(origin, scale);
       }
       cfg = Util.mix({}, defaultCfg, labelCfg.globalCfg || {}, cfg);
-
+      if (cfg.htmlTemplate) {
+        cfg.text = cfg.htmlTemplate.call(null, originText, origin, i);
+      }
       if (cfg.formatter) {
-        cfg.text = cfg.formatter.call(null, origin[scales[0].field], origin, i);
+        cfg.text = cfg.formatter.call(null, originText, origin, i);
       }
       if (cfg.label) {
         // 兼容有些直接写在labelCfg.label的配置
@@ -385,12 +362,10 @@ class GeomLabels extends Group {
       if (cfg.textStyle) {
         // 兼容旧写法，globalCfg的offset优先级高
         delete cfg.textStyle.offset;
-        let textStyle = cfg.textStyle;
+        const textStyle = cfg.textStyle;
         if (Util.isFunction(textStyle)) {
-          textStyle = textStyle.call(null, origin[scales[0].field], origin, i);
+          cfg.textStyle = textStyle.call(null, originText, origin, i);
         }
-        delete cfg.textStyle;
-        cfg = Util.mix(cfg, textStyle);
       }
       let offset = cfg.offset || [ 0, 0 ];
       if (!Util.isArray(offset)) {
