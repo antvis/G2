@@ -15,45 +15,36 @@ class IntervalLabels extends GeomLabels {
 
     switch (position) {
       case 'right':
-        if (!transposed) {
+        if (transposed) {
           point.x -= width;
           point.y += height;
+          point.textAlign = point.textAlign || 'center';
+        } else {
+          point.x -= width;
+          point.y += height;
+          point.textAlign = point.textAlign || 'left';
         }
-        point.textAlign = 'left';
         break;
       case 'left':
         if (transposed) {
-          point.x -= (width * 2);
-        } else {
-          point.x += width;
-          point.y += height;
-        }
-        point.textAlign = 'right';
-        break;
-      case 'insideLeft':
-        if (transposed) {
-          point.x -= (width * 2);
-        } else {
-          point.x += width;
-          point.y += height;
-        }
-        point.textAlign = 'left';
-        break;
-      case 'insideRight':
-        if (!transposed) {
           point.x -= width;
+          point.y -= height;
+          point.textAlign = point.textAlign || 'center';
+        } else {
+          point.x += width;
           point.y += height;
+          point.textAlign = point.textAlign || 'right';
         }
-        point.textAlign = 'right';
         break;
       case 'bottom':
         if (transposed) {
-          point.x -= width;
-          point.y -= height;
+          point.x -= (width * 2);
+          point.textAlign = point.textAlign || 'left';
         } else {
-          position.y += (height * 2);
+          point.y += (height * 2);
+          point.textAlign = point.textAlign || 'center';
         }
-        point.textAlign = 'center';
+
         break;
       case 'middle':
         if (transposed) {
@@ -61,14 +52,14 @@ class IntervalLabels extends GeomLabels {
         } else {
           point.y += height;
         }
-        point.textAlign = 'center';
+        point.textAlign = point.textAlign || 'center';
         break;
       case 'top':
         if (transposed) {
-          point.x -= width;
-          point.y += height;
+          point.textAlign = point.textAlign || 'left';
+        } else {
+          point.textAlign = point.textAlign || 'center';
         }
-        point.textAlign = 'center';
         break;
       default:
         break;
