@@ -13,6 +13,26 @@ function avg(arr) {
   return sum / arr.length;
 }
 
+// 计算多边形重心: https://en.wikipedia.org/wiki/Centroid#Of_a_polygon
+function getCentroid(xs, ys) {
+  let i = -1,
+    x = 0,
+    y = 0;
+  let former,
+    current = xs.length - 1;
+  let diff,
+    k = 0;
+  while (++i < xs.length) {
+    former = current;
+    current = i;
+    k += diff = xs[former] * ys[current] - xs[current] * ys[former];
+    x += (xs[former] + xs[current]) * diff;
+    y += (ys[former] + ys[current]) * diff;
+  }
+  k *= 3;
+  return [ x / k, y / k ];
+}
+
 class GeomLabels extends Group {
   getDefaultCfg() {
     return {
@@ -203,10 +223,17 @@ class GeomLabels extends Group {
     }
 
     const label = {
-      x: getDimValue(point.x, index),
-      y: getDimValue(point.y, index),
       text: labelCfg.text[index]
     };
+    // 多边形场景,多用于地图
+    if (point && this.get('geomType') === 'polygon') {
+      const centroid = getCentroid(point.x, point.y);
+      label.x = centroid[0];
+      label.y = centroid[1];
+    } else {
+      label.x = getDimValue(point.x, index);
+      label.y = getDimValue(point.y, index);
+    }
 
     // get nearest point of the shape as the label line start point
     if (point && point.nextPoints && (point.shape === 'funnel' || point.shape === 'pyramid')) {
