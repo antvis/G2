@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2",
-  "version": "3.2.8-beta.5",
+  "version": "3.2.8-beta.6",
   "description": "the Grammar of Graphics in Javascript",
   "browser": "build/g2.js",
   "main": "build/g2.js",
@@ -21,10 +21,11 @@
   "license": "MIT",
   "devDependencies": {
     "@antv/data-set": "~0.8.6",
-    "babel-cli": "~6.26.0",
-    "babel-core": "~6.26.0",
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
     "babel-eslint": "~8.0.3",
-    "babel-loader": "~7.1.4",
+    "babel-loader": "^8.0.0",
     "babel-plugin-transform-remove-strict-mode": "~0.0.2",
     "babel-preset-env": "~1.6.1",
     "blink-diff": "^1.0.13",
