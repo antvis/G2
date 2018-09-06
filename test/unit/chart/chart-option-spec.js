@@ -50,7 +50,7 @@ describe('test chart options', function() {
     expect(chart.get('geoms')[0].get('attrOptions').color.field).eql('type');
   });
 
-  xit('change', function() {
+  it('change', function() {
     chart.clear();
     const options = {
       geoms: [{
