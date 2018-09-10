@@ -26,7 +26,7 @@ commander
     .version(pkg.version)
     .option('-p, --port <port>', 'specify a port number to run on', parseInt)
     .option('-n, --name <name>', 'specify the name for demos')
-    .option('-r, --override')
+    .option('-- --override')
     .parse(process.argv);
 
 // file directory
@@ -43,6 +43,18 @@ getPort().then(port => {
   http.createServer(app).listen(port);
   const url = 'http://127.0.0.1:' + port;
   debug('server is ready on port ' + port + '! url: ' + url);
+
+  // 如果screenshots目录不存在，提示：npm run test-pixel-screenshot
+  const old = join(process.cwd(), './test/pixel/screenshots');
+  if (!fs.existsSync(old)) {
+    new Promise(() => {
+      throw new Error('screenshots didn\'t exist, please npm run pixel-test-screenshot');
+    })
+    .catch(error => {
+      console.error(error);
+      process.exit();
+    });
+  }
 
   const q = queue(MAX_POOL_SIZE > 2 ? MAX_POOL_SIZE - 1 : MAX_POOL_SIZE);
   const files = ls(src).filter(filename => (extname(filename) === '.html'));
@@ -68,12 +80,10 @@ getPort().then(port => {
           // pixel diff
           const diff = new BlinkDiff({
             imageAPath: join(src, `./screenshots/${name}.png`),
-            imageBPath: join(dest, `${name}.png`),
+            imageBPath: target,
 
             thresholdType: BlinkDiff.THRESHOLD_PERCENT,
             threshold: 0.05 // 5% threshold
-
-            // imageOutputPath: join(dest, `./output/${name}.png`)
           });
 
           diff.run((error, result) => {
@@ -114,20 +124,19 @@ getPort().then(port => {
   });
 });
 
-// 覆盖原截图方法
+// override test/pixel/screenshots
 function overrideScreenshots() {
-  const old = join(src, './screenshots');
-  if (fs.existsSync(old) && fs.existsSync(dest)) {
-    deleteScreenshots(old);
-    try {
-      fs.renameSync(dest, join(src, './screenshots'));
-    } catch (error) {
-      debug(error);
-    }
-  }
+  const screenshots = fs.readdirSync(dest);
+  screenshots.forEach(screenshot => {
+    const name = basename(screenshot, '.png');
+    const sour = join(dest, `./${name}.png`);
+    const dst = join(src, `./screenshots/${name}.png`);
+    fs.copyFileSync(sour, dst);
+  });
+  deleteScreenshots(dest);
 }
 
-// 删除截图的方法
+// delete test/pixel/screenshots-news
 function deleteScreenshots(path) {
   let files = [];
   if (fs.existsSync(path)) {

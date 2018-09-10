@@ -80,7 +80,6 @@
     "prepublishOnly": "npm run build-lib && npm run dist",
     "pixel-test-screenshot": "node ./test/pixel/pixel-test-screenshot.js",
     "pixel-test": "node ./test/pixel/pixel-test.js",
-    "pixel-test-override": "node ./test/pixel/pixel-test.js --override",
     "screenshot": "node ./bin/screenshot.js",
     "start": "npm run dev",
     "test": "torch --compile --renderer --recursive ./test/unit",
