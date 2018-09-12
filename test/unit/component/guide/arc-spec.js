@@ -4,11 +4,11 @@ const Coord = require('../../../../src/coord/index');
 const { Arc } = require('../../../../src/component/guide/index');
 const Scale = require('@antv/scale');
 
-const div = document.createElement('div');
-div.id = 'c1';
-document.body.appendChild(div);
-
 describe('Guide: 辅助圆弧线', function() {
+  const div = document.createElement('div');
+  div.id = 'arc-spec';
+  document.body.appendChild(div);
+
   const coord = new Coord.Polar({
     start: { x: 60, y: 460 },
     end: { x: 460, y: 60 },
@@ -17,7 +17,7 @@ describe('Guide: 辅助圆弧线', function() {
   });
 
   const canvas = new Canvas({
-    containerId: 'c1',
+    containerId: 'arc-spec',
     width: 500,
     height: 500,
     pixelRatio: 2
@@ -60,8 +60,45 @@ describe('Guide: 辅助圆弧线', function() {
     const children = group.get('children');
     expect(children.length).to.equal(1);
     expect(children[0].name).to.equal('guide-arc');
-/*    expect(children[0].attr('r')).to.equal(200);
-    expect(children[0].attr('startAngle')).to.equal(2.7488935718910694);
-    expect(children[0].attr('endAngle')).to.equal(0.39269908169872403);*/
+    expect(children[0].attr('path').length).to.equal(2);
+    expect(children[0].getBBox().width).to.equal(403.3810740653281);
+    expect(children[0].getBBox().height).to.equal(279.80013887133464);
+  });
+
+  it('empty arc', function() {
+    const coord = new Coord.Polar({
+      start: { x: 80, y: 355 },
+      end: { x: 480, y: 20 },
+      startAngle: 0,
+      endAngle: 2 * Math.PI
+    });
+    const arc = new Arc({
+      xScales: {
+        month: xScale
+      },
+      yScales: {
+        temp: yScale
+      },
+      start: {
+        month: 0,
+        temp: 1200
+      },
+      end: {
+        month: 0,
+        temp: 1200
+      },
+      style: {
+        lineWidth: 3,
+        stroke: 'blue'
+      }
+    });
+    arc.render(coord, group);
+    canvas.draw();
+    const children = group.get('children');
+    expect(children.length).to.equal(2);
+    expect(children[0].name).to.equal('guide-arc');
+    expect(children[1].attr('path').length).to.equal(2);
+    expect(children[1].getBBox().width).to.equal(-Infinity);
+    expect(children[1].getBBox().height).to.equal(-Infinity);
   });
 });

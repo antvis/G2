@@ -5,24 +5,27 @@
 const Util = require('../../util');
 const Base = require('./base');
 
+const PI = Math.PI;
+const atan = Math.atan;
+
 function calculateAngle(point, center) {
   const x = point.x - center.x;
   const y = point.y - center.y;
   let deg;
   if (y === 0) {
     if (x < 0) {
-      deg = Math.PI / 2;
+      deg = PI / 2;
     } else {
-      deg = (270 * Math.PI) / 180;
+      deg = (270 * PI) / 180;
     }
   } else if (x >= 0 && y > 0) {
-    deg = Math.PI * 2 - Math.atan(x / y);
+    deg = PI * 2 - atan(x / y);
   } else if (x <= 0 && y < 0) {
-    deg = Math.PI - Math.atan(x / y);
+    deg = PI - atan(x / y);
   } else if (x > 0 && y < 0) {
-    deg = Math.PI + Math.atan(-x / y);
+    deg = PI + atan(-x / y);
   } else if (x < 0 && y > 0) {
-    deg = Math.atan(x / -y);
+    deg = atan(x / -y);
   }
   return deg;
 }
@@ -64,19 +67,32 @@ class Arc extends Base {
     const coordCenter = coord.getCenter();
     const radius = Math.sqrt((start.x - coordCenter.x) * (start.x - coordCenter.x)
       + (start.y - coordCenter.y) * (start.y - coordCenter.y));
+    let path;
+    // 处理整圆的情况
     const startAngle = calculateAngle(start, coordCenter);
-    const endAngle = calculateAngle(end, coordCenter);
-    const dAngle = (endAngle - startAngle) % (Math.PI * 2);
-    const largeArc = dAngle > Math.PI ? 1 : 0;
-    const clockwise = endAngle - startAngle >= 0 ? 1 : 0;
+    let endAngle = calculateAngle(end, coordCenter);
+    if (endAngle < startAngle) {
+      endAngle += (PI * 2);
+    }
+
+    if (Util.isNumberEqual(start.x, end.x) && Util.isNumberEqual(start.y, end.y) &&
+    (self.start[0] !== self.end[0] || self.start[1] !== self.end[1])) {
+      path = [
+        [ 'M', start.x, start.y ],
+        [ 'A', radius, radius, 0, 1, 1, 2 * coordCenter.x - start.x, 2 * coordCenter.y - start.y ],
+        [ 'A', radius, radius, 0, 1, 1, start.x, start.y ]
+      ];
+    } else {
+      const dAngle = (endAngle - startAngle) % (PI * 2);
+      const largeArc = dAngle > PI ? 1 : 0;
+      path = [
+        [ 'M', start.x, start.y ],
+        [ 'A', radius, radius, 0, largeArc, 1, end.x, end.y ]
+      ];
+    }
     const arcShape = group.addShape('path', {
       zIndex: self.zIndex,
-      attrs: Util.mix({
-        path: [
-          [ 'M', start.x, start.y ],
-          [ 'A', radius, radius, startAngle, largeArc, clockwise, end.x, end.y ]
-        ]
-      }, self.style)
+      attrs: Util.mix({ path }, self.style)
     });
     arcShape.name = 'guide-arc';
     self.appendInfo && arcShape.setSilent('appendInfo', self.appendInfo);
