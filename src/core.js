@@ -18,9 +18,9 @@ const G2 = {
   Util,
   // render engine
   G,
-  DomUtil: G.DomUtil,
-  MatrixUtil: G.MatrixUtil,
-  PathUtil: G.PathUtil
+  DomUtil: Util.DomUtil,
+  MatrixUtil: Util.MatrixUtil,
+  PathUtil: Util.PathUtil
 };
 
 G2.track = function(enable) {

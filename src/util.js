@@ -3,20 +3,18 @@
  * @author dxq613@gmail.com
  * @see https://github.com/lodash/lodash
  */
-const G = require('@antv/g/lib');
-const CommonUtil = G.CommonUtil;
 const Utils = require('@antv/util/lib');
 
-const Util = CommonUtil.assign({
-  DomUtil: G.DomUtil,
-  MatrixUtil: G.MatrixUtil,
-  PathUtil: G.PathUtil,
+const Util = Utils.mix({}, Utils, {
+  assign: Utils.mix, // simple mix
+  merge: Utils.deepMix, // deep mix
   cloneDeep: Utils.clone,
   isFinite,
   isNaN,
   snapEqual(v1, v2) {
     return Math.abs(v1 - v2) < 0.001;
   },
+  remove: Utils.pull,
   inArray: Utils.contains,
   /**
    * 将用户输入的 padding 转换成 [top, right, bottom, right] 的模式
@@ -44,16 +42,35 @@ const Util = CommonUtil.assign({
     }
     return [ top, right, bottom, left ];
   }
-}, Utils, CommonUtil);
+});
 
 Util.Array = {
   groupToMap: Utils.groupToMap,
   group: Utils.group,
   merge: Utils.merge,
-  values: Utils.values,
+  values: (data, name) => {
+    const rst = [];
+    const tmpMap = {};
+    for (let i = 0; i < data.length; i++) {
+      const obj = data[i];
+      let value = obj[name];
+      if (!Utils.isNil(value)) {
+        if (!Utils.isArray(value)) {
+          value = [ value ];
+        }
+        Utils.each(value, val => {
+          if (!tmpMap[val]) {
+            rst.push(val);
+            tmpMap[val] = true;
+          }
+        });
+      }
+    }
+    return rst;
+  },
   getRange: Utils.getRange,
   firstValue: Utils.firstValue,
-  remove: CommonUtil.remove
+  remove: Utils.pull
 };
 
 module.exports = Util;
