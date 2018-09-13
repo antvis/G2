@@ -26,7 +26,7 @@ commander
     .version(pkg.version)
     .option('-p, --port <port>', 'specify a port number to run on', parseInt)
     .option('-n, --name <name>', 'specify the name for demos')
-    .option('-- --override')
+    .option('-o, --override')
     .parse(process.argv);
 
 // file directory
