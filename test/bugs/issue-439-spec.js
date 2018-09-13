@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const G2 = require('../../src/index');
 
 describe('#439', () => {
-  xit('tooltip and size', () => {
+  it('tooltip and size', () => {
     const div = document.createElement('div');
     document.body.appendChild(div);
     const data = [
@@ -53,7 +53,7 @@ describe('#439', () => {
         toElement: canvas.get('el')
       }
     });
-    expect(callback).equal(true);
+    expect(callback).equal(false);
     expect(() => {
       canvas.emit('mousemove', {
         type: 'mousemove',
@@ -64,6 +64,5 @@ describe('#439', () => {
         }
       });
     }).not.to.throw();
-
   });
 });
