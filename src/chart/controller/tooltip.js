@@ -294,9 +294,10 @@ class TooltipController {
     }
 
     options.visible = false;
-    if (options.shared === false && Util.isNil(options.position)) {
-      options.position = 'top';
-    }
+    // @2018-09-13 by blue.lb 如果设置shared为false不需要指定position
+    // if (options.shared === false && Util.isNil(options.position)) {
+    //   options.position = 'top';
+    // }
 
     const tooltip = new Tooltip(options);
     self.tooltip = tooltip;
