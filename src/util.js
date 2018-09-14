@@ -11,9 +11,7 @@ const Util = Utils.mix({}, Utils, {
   cloneDeep: Utils.clone,
   isFinite,
   isNaN,
-  snapEqual(v1, v2) {
-    return Math.abs(v1 - v2) < 0.001;
-  },
+  snapEqual: Utils.isNumberEqual,
   remove: Utils.pull,
   inArray: Utils.contains,
   /**
@@ -48,26 +46,7 @@ Util.Array = {
   groupToMap: Utils.groupToMap,
   group: Utils.group,
   merge: Utils.merge,
-  values: (data, name) => {
-    const rst = [];
-    const tmpMap = {};
-    for (let i = 0; i < data.length; i++) {
-      const obj = data[i];
-      let value = obj[name];
-      if (!Utils.isNil(value)) {
-        if (!Utils.isArray(value)) {
-          value = [ value ];
-        }
-        Utils.each(value, val => {
-          if (!tmpMap[val]) {
-            rst.push(val);
-            tmpMap[val] = true;
-          }
-        });
-      }
-    }
-    return rst;
-  },
+  values: Utils.valuesOfKey,
   getRange: Utils.getRange,
   firstValue: Utils.firstValue,
   remove: Utils.pull
