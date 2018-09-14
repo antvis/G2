@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const { Canvas } = require('../../../../src/renderer');
 const HelixAxis = require('../../../../src/component/axis/helix');
-const Coord = require('../../../../src/coord/index');
+const Coord = require('@antv/coord/lib/index');
 
 const div = document.createElement('div');
 div.id = 'c1';

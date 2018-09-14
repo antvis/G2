@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const Coord = require('../../src/coord/index');
+const Coord = require('@antv/coord/lib/index');
 
 describe('#689 极坐标图形在画布内', () => {
   it('锐角扇形 宽画布', () => {
