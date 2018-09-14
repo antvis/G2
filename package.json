@@ -95,12 +95,12 @@
     "silent": false
   },
   "dependencies": {
-    "@antv/adjust": "~0.0.6",
-    "@antv/attr": "~0.0.6",
+    "@antv/adjust": "~0.0.7",
+    "@antv/attr": "~0.0.7",
     "@antv/coord": "~0.0.3",
     "@antv/g": "~3.2.2",
-    "@antv/scale": "~0.0.8",
-    "@antv/util": "~1.2.4",
+    "@antv/scale": "~0.0.9",
+    "@antv/util": "~1.2.5",
     "venn.js": "~0.2.20",
     "wolfy87-eventemitter": "~5.1.0"
   }
