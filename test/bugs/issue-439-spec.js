@@ -53,7 +53,7 @@ describe('#439', () => {
         toElement: canvas.get('el')
       }
     });
-    expect(callback).equal(true);
+    expect(callback).equal(false);
     expect(() => {
       canvas.emit('mousemove', {
         type: 'mousemove',
@@ -64,6 +64,5 @@ describe('#439', () => {
         }
       });
     }).not.to.throw();
-
   });
 });
