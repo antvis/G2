@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const G2 = require('../../src/index');
 const { DataView } = require('@antv/data-set');
 
-describe('#811 tooltip enterable', () => {
+describe('#838 tooltip enterable', () => {
   const div = document.createElement('div');
   document.body.appendChild(div);
   const data = [{
