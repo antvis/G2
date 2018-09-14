@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const DataSet = require('@antv/data-set');
 const { Canvas } = require('../../../../src/renderer');
 const PieLabels = require('../../../../src/geom/label/pie-labels');
-const Coord = require('../../../../src/coord/');
+const Coord = require('@antv/coord/lib/');
 const G2 = require('../../../../src/index');
 const Scale = require('@antv/scale');
 

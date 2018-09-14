@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2",
-  "version": "3.2.8-beta.5",
+  "version": "3.2.8-beta.6",
   "description": "the Grammar of Graphics in Javascript",
   "browser": "build/g2.js",
   "main": "build/g2.js",
@@ -20,13 +20,13 @@
   "author": "https://github.com/orgs/antvis/people",
   "license": "MIT",
   "devDependencies": {
-    "@antv/data-set": "~0.9.4",
-    "babel-cli": "~6.26.0",
-    "babel-core": "~6.26.0",
+    "@antv/data-set": "~0.9.6",
+    "@babel/cli": "~7.0.0",
+    "@babel/core": "~7.0.0",
+    "@babel/preset-env": "~7.0.0",
     "babel-eslint": "~8.0.3",
-    "babel-loader": "~7.1.4",
+    "babel-loader": "^8.0.0",
     "babel-plugin-transform-remove-strict-mode": "~0.0.2",
-    "babel-preset-env": "~1.6.1",
     "body-parser": "~1.18.2",
     "chai": "~4.1.2",
     "commander": "~2.12.2",
@@ -95,12 +95,12 @@
     "silent": false
   },
   "dependencies": {
-    "@antv/adjust": "~0.0.6",
-    "@antv/attr": "~0.0.6",
-    "@antv/g": "~3.1.1",
-    "@antv/interaction": "~0.1.5",
-    "@antv/scale": "~0.0.8",
-    "@antv/util": "~1.0.12",
+    "@antv/adjust": "~0.0.7",
+    "@antv/attr": "~0.0.7",
+    "@antv/coord": "~0.0.3",
+    "@antv/g": "~3.2.2",
+    "@antv/scale": "~0.0.9",
+    "@antv/util": "~1.2.5",
     "venn.js": "~0.2.20",
     "wolfy87-eventemitter": "~5.1.0"
   }

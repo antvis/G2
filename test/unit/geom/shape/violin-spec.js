@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const { Canvas } = require('../../../../src/renderer');
 const Violin = require('../../../../src/geom/shape/violin');
-const Coord = require('../../../../src/coord');
+const Coord = require('@antv/coord/lib/');
 
 const div = document.createElement('div');
 div.id = 'csviolin';

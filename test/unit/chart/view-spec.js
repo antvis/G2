@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const { Canvas } = require('../../../src/renderer');
 const View = require('../../../src/chart/view');
 const Chart = require('../../../src/chart/chart');
-const Coord = require('../../../src/coord/index');
+const Coord = require('@antv/coord/lib/index');
 const Theme = require('../../../src/theme/index');
 
 const div = document.createElement('div');
