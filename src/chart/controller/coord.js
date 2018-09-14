@@ -3,7 +3,7 @@
  * @author sima.zhang
  */
 const Util = require('../../util');
-const Coord = require('../../coord/index');
+const Coord = require('@antv/coord/lib/');
 
 class CoordController {
   constructor(option) {

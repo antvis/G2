@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const Polar = require('../../../src/coord/polar');
+const Polar = require('@antv/coord/lib/polar');
 
 describe('Polar', function() {
   const coord = new Polar({

@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const AxisController = require('../../../../src/chart/controller/axis');
-const Coord = require('../../../../src/coord/index');
+const Coord = require('@antv/coord/lib/index');
 
 
 describe('AxisController', function() {

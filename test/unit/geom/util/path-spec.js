@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const PathUtil = require('../../../../src/geom/util/path');
-const Coord = require('../../../../src/coord/');
+const Coord = require('@antv/coord/lib/');
 
 describe('shape path test', () => {
   it('line path', () => {

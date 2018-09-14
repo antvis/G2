@@ -5,7 +5,7 @@ const Labels = require('../../../../src/geom/label/');
 const GeomLabels = require('../../../../src/geom/label/geom-labels');
 const PolarLabels = require('../../../../src/geom/label/polar-labels');
 const PieLabels = require('../../../../src/geom/label/pie-labels');
-const Coord = require('../../../../src/coord/');
+const Coord = require('@antv/coord/lib/');
 
 describe('geom labels', function() {
   describe('labels constructor', function() {

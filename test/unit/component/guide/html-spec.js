@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const { Canvas } = require('../../../../src/renderer');
-const Coord = require('../../../../src/coord/index');
+const Coord = require('@antv/coord/lib/index');
 const Html = require('../../../../src/component/guide/html');
 const Scale = require('@antv/scale');
 

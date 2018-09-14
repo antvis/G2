@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const Guide = require('../../../../src/component/guide/base');
-const Coord = require('../../../../src/coord/index');
+const Coord = require('@antv/coord/lib/index');
 
 describe('Guide 基类异常情况测试', function() {
   const coord = new Coord.Rect({
