@@ -187,7 +187,7 @@ const TooltipMixin = {
     const yField = yScale.field;
     let rst = null;
 
-    if (Util.indexOf([ 'heatmap' ], type) > -1) {
+    if (Util.indexOf([ 'heatmap', 'point' ], type) > -1) {
       const coord = self.get('coord');
       const invertPoint = coord.invert(point);
       const xValue = xScale.invert(invertPoint.x);

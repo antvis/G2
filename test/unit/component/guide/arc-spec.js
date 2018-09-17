@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const { Canvas } = require('../../../../src/renderer');
-const Coord = require('../../../../src/coord/index');
+const Coord = require('@antv/coord/lib/index');
 const { Arc } = require('../../../../src/component/guide/index');
 const Scale = require('@antv/scale');
 
@@ -98,7 +98,7 @@ describe('Guide: 辅助圆弧线', function() {
     expect(children.length).to.equal(2);
     expect(children[0].name).to.equal('guide-arc');
     expect(children[1].attr('path').length).to.equal(2);
-    expect(children[1].getBBox().width).to.equal(-Infinity);
-    expect(children[1].getBBox().height).to.equal(-Infinity);
+    expect(children[1].getBBox().width).to.equal(0);
+    expect(children[1].getBBox().height).to.equal(0);
   });
 });

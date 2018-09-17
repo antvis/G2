@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const Util = require('../../../src/util');
-const Cartesian = require('../../../src/coord/cartesian');
+const Cartesian = require('@antv/coord/lib/cartesian');
 
 describe('Cartesian', function() {
   const coord = new Cartesian({

@@ -19,5 +19,6 @@ Geom.SchemaDodge = Geom.Schema.Dodge;
 Geom.Edge = require('./edge');
 Geom.Heatmap = require('./heatmap');
 Geom.Venn = require('./venn');
+Geom.Violin = require('./violin');
 
 module.exports = Geom;

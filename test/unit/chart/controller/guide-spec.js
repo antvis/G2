@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const { Canvas } = require('../../../../src/renderer');
 const Scale = require('@antv/scale');
-const Coord = require('../../../../src/coord/index');
+const Coord = require('@antv/coord/lib/index');
 const GuideController = require('../../../../src/chart/controller/guide');
 
 const div = document.createElement('div');

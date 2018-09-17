@@ -2,7 +2,6 @@
  * @fileOverview 所有 Geometry 的基类
  * @author dxq613@gmail.com
  */
-
 const Attr = require('@antv/attr/lib');
 const Adjust = require('@antv/adjust/lib');
 const Base = require('../base');
@@ -13,18 +12,10 @@ const Shape = require('./shape/shape');
 const TooltipMixin = require('./mixin/tooltip');
 const ActiveMixin = require('./mixin/active');
 const SelectMixin = require('./mixin/select');
+const parseFields = require('./util/parse-fields');
+
 const GROUP_ATTRS = [ 'color', 'shape', 'size' ];
 const FIELD_ORIGIN = '_origin';
-
-function parseFields(field) {
-  if (Util.isArray(field)) {
-    return field;
-  }
-  if (Util.isString(field)) {
-    return field.split('*');
-  }
-  return [ field ];
-}
 
 // 转换成对象的数组 [{type: 'adjust'}]
 function parseAdjusts(adjusts) {
@@ -478,10 +469,10 @@ class GeomBase extends Base {
   // step 1: init attrs
   _initAttrs() {
     const self = this;
-    const attrs = this.get('attrs');
-    const attrOptions = this.get('attrOptions');
+    const attrs = self.get('attrs');
+    const attrOptions = self.get('attrOptions');
     const coord = self.get('coord');
-    const viewTheme = this.viewTheme || Global;
+    const viewTheme = self.viewTheme || Global;
     let isPie = false;
 
     for (const type in attrOptions) {
