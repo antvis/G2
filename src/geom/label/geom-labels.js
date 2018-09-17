@@ -1,5 +1,5 @@
 const { Group } = require('../../renderer');
-const Labels = require('../../component/label/index');
+const Labels = require('@antv/components/src/label');
 const Global = require('../../global');
 const Util = require('../../util');
 const IGNORE_ARR = [ 'line', 'point', 'path' ];
@@ -59,16 +59,32 @@ class GeomLabels extends Group {
   _renderUI() {
     super._renderUI.call(this);
     this.initLabelsCfg();
-    this.renderLabels(); // 调用入口文件
+    const labelsGroup = this.addGroup();
+    const lineGroup = this.addGroup({
+      elCls: 'x-line-group'
+    });
+    const labelRenderer = this.get('labelRenderer');
+    this.set('labelsGroup', labelsGroup);
+    this.set('lineGroup', lineGroup);
+    this.get('labelRenderer').set('group', labelsGroup);
+    labelRenderer.set('group', labelsGroup);
+    labelRenderer.set('lineGroup', lineGroup);
   }
 
   // 初始化labels的配置项
   initLabelsCfg() {
     const self = this;
+    const labelRenderer = new Labels();
     const labels = self.getDefaultLabelCfg();
     const labelCfg = self.get('labelCfg');
     // Util.merge(labels, labelCfg.cfg);
-    Util.deepMix(labels, labelCfg.cfg);
+    Util.deepMix(labels, labelCfg.globalCfg || labelCfg.cfg);
+    labelRenderer.set('labelCfg', labels);
+    if (labels.labelLine) {
+      labelRenderer.set('labelLine', labels.labelLine);
+    }
+    labelRenderer.set('coord', self.get('coord'));
+    this.set('labelRenderer', labelRenderer);
     self.set('label', labels);
   }
 
@@ -354,8 +370,6 @@ class GeomLabels extends Group {
     const scale = labelCfg.scales[0];
     const defaultCfg = this.get('label');
     const cfgs = [];
-    const globalCfg = defaultCfg.textStyle;
-    globalCfg.offset = defaultCfg.offset;
 
     Util.each(points, (point, i) => {
       let cfg = {};
@@ -406,18 +420,22 @@ class GeomLabels extends Group {
   }
   showLabels(points) {
     const self = this;
+    const labelRenderer = self.get('labelRenderer');
     let items = self.getLabelsItems(points);
     items = self.adjustItems(items);
-    self.resetLabels(items);
-    self.drawLines(items);
+    labelRenderer.set('items', items);
+    labelRenderer.set('canvas', this.get('canvas'));
+    labelRenderer.draw();
+/*    self.resetLabels(items);
+    self.drawLines(items);*/
   }
 
   destroy() {
-    this.removeLabels(); // 清理文本
+    this.get('labelRenderer').destroy(); // 清理文本
     super.destroy.call(this);
   }
 }
 
-Util.assign(GeomLabels.prototype, Labels.LabelsRenderer);
+// Util.assign(GeomLabels.prototype, Labels.LabelslabelRenderer);
 
 module.exports = GeomLabels;
