@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const { Canvas } = require('../../../../src/renderer');
 const Scale = require('@antv/scale');
-const Coord = require('../../../../src/coord/');
+const Coord = require('@antv/coord/lib/index');
 const IntervalLabels = require('../../../../src/geom/label/interval-labels');
 
 describe('interval labels', () => {
