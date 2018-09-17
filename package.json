@@ -99,6 +99,7 @@
     "@antv/attr": "~0.0.7",
     "@antv/coord": "~0.0.3",
     "@antv/g": "~3.2.2",
+    "@antv/components": "git@github.com:antvis/component.git",
     "@antv/scale": "~0.0.9",
     "@antv/util": "~1.2.5",
     "venn.js": "~0.2.20",
