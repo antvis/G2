@@ -2,7 +2,7 @@ const G2 = require('../../src/index');
 const expect = require('chai').expect;
 
 describe('#500', () => {
-  it.only('after pie rotated, label unchange', () => {
+  it('after pie rotated, label unchange', () => {
     const div = document.createElement('div');
     document.body.appendChild(div);
     const data = [
