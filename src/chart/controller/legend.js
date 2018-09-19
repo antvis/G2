@@ -317,8 +317,8 @@ class LegendController {
     const totalRegion = self.totalRegion;
     const plotRange = self.plotRange;
     const backRange = self.getBackRange(); // 背景占得范围
-    const offsetX = legend.get('offset')[0];
-    const offsetY = legend.get('offset')[1];
+    const offsetX = legend.get('offset')[0] || 0;
+    const offsetY = legend.get('offset')[1] || 0;
     // const offset = Util.isNil(legend.get('offset')) ? MARGIN : legend.get('offset');
     const legendHeight = legend.getHeight();
     const legendWidth = legend.getWidth();
@@ -349,7 +349,6 @@ class LegendController {
         if (posArray[1] === 'right') x = plotRange.br.x - tempoRegion.totalWidth;
       }
     }
-
     legend.move(x + offsetX, y + offsetY);
   }
 
