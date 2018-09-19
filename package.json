@@ -25,7 +25,7 @@
     "@babel/core": "~7.0.0",
     "@babel/preset-env": "~7.0.0",
     "babel-eslint": "~8.0.3",
-    "babel-loader": "^8.0.0",
+    "babel-loader": "~8.0.0",
     "babel-plugin-transform-remove-strict-mode": "~0.0.2",
     "body-parser": "~1.18.2",
     "chai": "~4.1.2",
@@ -95,12 +95,11 @@
     "silent": false
   },
   "dependencies": {
-    "@antv/component": "~0.0.1",
+    "@antv/component": "~0.0.2",
     "@antv/adjust": "~0.0.7",
     "@antv/attr": "~0.0.7",
     "@antv/coord": "~0.0.3",
     "@antv/g": "~3.2.2",
-    "@antv/components": "antvis/component#master",
     "@antv/scale": "~0.0.9",
     "@antv/util": "~1.2.5",
     "venn.js": "~0.2.20",

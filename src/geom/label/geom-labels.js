@@ -1,5 +1,5 @@
 const { Group } = require('../../renderer');
-const Labels = require('@antv/components/src/label');
+const { Label } = require('@antv/component/lib');
 const Global = require('../../global');
 const Util = require('../../util');
 const IGNORE_ARR = [ 'line', 'point', 'path' ];
@@ -74,7 +74,7 @@ class GeomLabels extends Group {
   // 初始化labels的配置项
   initLabelsCfg() {
     const self = this;
-    const labelRenderer = new Labels();
+    const labelRenderer = new Label();
     const labels = self.getDefaultLabelCfg();
     const labelCfg = self.get('labelCfg');
     // Util.merge(labels, labelCfg.cfg);
