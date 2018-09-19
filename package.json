@@ -25,7 +25,7 @@
     "@babel/core": "~7.0.0",
     "@babel/preset-env": "~7.0.0",
     "babel-eslint": "~8.0.3",
-    "babel-loader": "^8.0.0",
+    "babel-loader": "~8.0.0",
     "babel-plugin-transform-remove-strict-mode": "~0.0.2",
     "body-parser": "~1.18.2",
     "chai": "~4.1.2",
@@ -50,9 +50,9 @@
     "pre-commit": "~1.2.2",
     "serve-static": "~1.13.2",
     "shelljs": "~0.7.8",
-    "torchjs": "~2.0.3",
-    "tslint": "^5.10.0",
-    "typescript": "^2.9.2",
+    "torchjs": "~2.1.0",
+    "tslint": "~5.10.0",
+    "typescript": "~2.9.2",
     "uglify-js": "~3.1.10",
     "webpack": "~3.10.0"
   },
@@ -95,7 +95,7 @@
     "silent": false
   },
   "dependencies": {
-    "@antv/component": "~0.0.1",
+    "@antv/component": "~0.0.2",
     "@antv/adjust": "~0.0.7",
     "@antv/attr": "~0.0.7",
     "@antv/coord": "~0.0.3",

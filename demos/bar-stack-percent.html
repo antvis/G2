@@ -71,6 +71,13 @@
     });
     chart.intervalStack()
       .position('year*percent')
+      .label('percent', () => {
+        return {
+          position: 'middle',
+          offset: 0,
+          textStyle: { fill: 'red' }
+        };
+      })
       .color('country', [ '#FF6A84', '#30A4EB', '#45BFC0', '#FFCC55' ])
       .shape('top-line');
     chart.render();

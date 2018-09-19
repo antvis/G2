@@ -364,17 +364,17 @@ describe('pie labels', function() {
       padding: [ 20, 10, 50, 60 ]
     });
     const defs = {
-      visiter: { min: 0 }
+      visitor: { min: 0 }
     };
     let data;
 
     beforeEach(() => {
       data = [
-        { action: '访问', visiter: 500, text: 'xxdadsfsadfasdfadsf' },
-        { action: '浏览', visiter: 400, text: 'sfsadfasdfadsf' },
-        { action: '交互', visiter: 300, text: 'xxdadsfs' },
-        { action: '下单', visiter: 200, text: 'fsadfasdfadsf' },
-        { action: '付款', visiter: 100, text: 'xxd' }
+        { action: '访问', visitor: 500, text: 'xxdadsfsadfasdfadsf' },
+        { action: '浏览', visitor: 400, text: 'sfsadfasdfadsf' },
+        { action: '交互', visitor: 300, text: 'xxdadsfs' },
+        { action: '下单', visitor: 200, text: 'fsadfasdfadsf' },
+        { action: '付款', visitor: 100, text: 'xxd' }
       ];
     });
 
@@ -384,9 +384,9 @@ describe('pie labels', function() {
       chart.source(data);
       chart.scale(defs);
       chart.interval()
-        .position('action*visiter')
+        .position('action*visitor')
         .color('action')
-        .label('visiter', { offset: 10 });
+        .label('visitor', { offset: 10 });
       chart.render();
 
       const geom = chart.get('geoms')[0];
@@ -408,9 +408,9 @@ describe('pie labels', function() {
       chart.coord('polar');
       chart.source(data, defs);
       chart.interval()
-        .position('action*visiter')
+        .position('action*visitor')
         .color('action')
-        .label('visiter', { offset: -10 });
+        .label('visitor', { offset: -10 });
       chart.render();
 
       const geom = chart.get('geoms')[0];
@@ -429,7 +429,7 @@ describe('pie labels', function() {
       const dv = ds.createView('pie-outer-text').source(data);
       dv.transform({
         type: 'percent',
-        field: 'visiter',
+        field: 'visitor',
         dimension: 'action',
         as: 'percent'
       });
@@ -440,7 +440,7 @@ describe('pie labels', function() {
         .position('percent')
         .adjust('stack')
         .color('action')
-        .label('visiter', { offset: 15 });
+        .label('visitor', { offset: 15 });
       chart.render();
 
       const geom = chart.get('geoms')[0];
@@ -459,7 +459,7 @@ describe('pie labels', function() {
       const dv = ds.createView('pie-inner-text').source(data);
       dv.transform({
         type: 'percent',
-        field: 'visiter',
+        field: 'visitor',
         dimension: 'action',
         as: 'percent'
       });
@@ -470,7 +470,7 @@ describe('pie labels', function() {
         .position('percent')
         .adjust('stack')
         .color('action')
-        .label('visiter', { offset: -5 });
+        .label('visitor', { offset: -5 });
       chart.render();
 
       const geom = chart.get('geoms')[0];
