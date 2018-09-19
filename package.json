@@ -82,7 +82,7 @@
     "test-all": "npm run test && npm run test-bugs",
     "test-bugs": "torch --compile --renderer --recursive ./test/bugs",
     "test-bugs-live": "torch --compile --interactive --watch --recursive ./test/bugs",
-    "test-live": "torch --compile --interactive --watch --recursive ./test/unit/component/legend/tail-spec.js",
+    "test-live": "torch --compile --interactive --watch --recursive ./test/unit/chart/chart-padding-spec.js",
     "tslint": "tslint --project tsconfig.json --config tslint.json src/index.d.ts",
     "watch": "webpack --config webpack-dev.config.js",
     "win-dev": "node ./bin/win-dev.js"
@@ -103,6 +103,6 @@
     "@antv/util": "~1.2.5",
     "venn.js": "~0.2.20",
     "wolfy87-eventemitter": "~5.1.0",
-    "@antv/components": "antvis/component#master"
+    "@antv/components": "antvis/component#legend"
   }
 }

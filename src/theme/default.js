@@ -372,7 +372,7 @@ const Theme = {
     },
     top: {
       position: 'top',
-      offset: 6,
+      offset: [ 0, 6 ],
       layout: 'horizontal',
       title: null,
       itemGap: 10,
@@ -390,7 +390,7 @@ const Theme = {
     },
     bottom: {
       position: 'bottom',
-      offset: 6,
+      offset: [ 0, 6 ],
       layout: 'horizontal',
       title: null,
       itemGap: 10,

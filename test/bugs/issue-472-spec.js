@@ -49,7 +49,7 @@ describe('#472', () => {
     chart.repaint();
 
     plotRange = chart.get('plotRange');
-    expect(plotRange.tr.y > 30).equal(true);
+    expect(plotRange.tr.y > 25).equal(true);
 
     chart.destroy();
   });
@@ -82,7 +82,7 @@ describe('#472', () => {
     chart.render();
 
     let plotRange = chart.get('plotRange');
-    expect(500 - plotRange.bl.y < 40).equal(true);
+    expect(500 - plotRange.bl.y < 45).equal(true);
 
     chart.legend({ position: 'right' });
     chart.repaint();

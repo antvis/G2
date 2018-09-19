@@ -317,8 +317,8 @@ class LegendController {
     const totalRegion = self.totalRegion;
     const plotRange = self.plotRange;
     const backRange = self.getBackRange(); // 背景占得范围
-    const offsetX = legend.get('offsetX') || 0;
-    const offsetY = legend.get('offsetY') || 0;
+    const offsetX = legend.get('offset')[0];
+    const offsetY = legend.get('offset')[1];
     // const offset = Util.isNil(legend.get('offset')) ? MARGIN : legend.get('offset');
     const legendHeight = legend.getHeight();
     const legendWidth = legend.getWidth();
@@ -420,7 +420,7 @@ class LegendController {
     };
   }
 
-  _addCategroyLegend(scale, attr, geom, filterVals, position) {
+  _addCategoryLegend(scale, attr, geom, filterVals, position) {
     const self = this;
     const field = scale.field;
     let legendOptions = self.options;
@@ -452,7 +452,7 @@ class LegendController {
     const plotRange = self.plotRange;
     const posArray = position.split('-');
     const maxLength = (posArray[0] === 'right' || posArray[0] === 'left') ? plotRange.bl.y - plotRange.tr.y : canvas.get('width');
-    
+
     Util.each(ticks, tick => {
       const text = tick.text;
       const name = text;
@@ -502,7 +502,8 @@ class LegendController {
       maxLength,
       viewTheme,
       items,
-      container
+      container,
+      position: [ 0, 0 ]
     });
     if (legendCfg.title) {
       Util.deepMix(legendCfg, {
@@ -519,7 +520,12 @@ class LegendController {
       // legend = container.addGroup(Tail, legendCfg);
       legend = new Tail(legendCfg);
     } else {
-      legend = new Legend.Category(legendCfg);
+      if (legendOptions.useHtml) {
+        legendCfg.container = container.get('canvas').get('el').parentNode;
+        legend = new Legend.CatHtml(legendCfg);
+      } else {
+        legend = new Legend.Category(legendCfg);
+      }
       // legend = container.addGroup(Legend.Category, legendCfg);
     }
     self._bindClickEvent(legend, scale, filterVals);
@@ -548,6 +554,7 @@ class LegendController {
       items.push({
         value: tick.tickValue, // tick.text
         attrValue,
+        color: attrValue,
         scaleValue
       });
       if (scaleValue === 0) {
@@ -562,6 +569,7 @@ class LegendController {
       items.push({
         value: scale.min,
         attrValue: attr.mapping(0).join(''),
+        color: attr.mapping(0).join(''),
         scaleValue: 0
       });
     }
@@ -569,6 +577,7 @@ class LegendController {
       items.push({
         value: scale.max,
         attrValue: attr.mapping(1).join(''),
+        color: attr.mapping(1).join(''),
         scaleValue: 1
       });
     }
@@ -585,8 +594,9 @@ class LegendController {
       items,
       attr,
       viewTheme,
-      numberFormatter: scale.formatter,
-      container
+      formatter: scale.formatter,
+      container,
+      position: [ 0, 0 ]
     });
     if (legendCfg.title) {
       Util.deepMix(legendCfg, {
@@ -658,7 +668,7 @@ class LegendController {
       if (scale.isLinear) {
         legend = self._addContinuousLegend(scale, attr, position);
       } else {
-        legend = self._addCategroyLegend(scale, attr, geom, filterVals, position);
+        legend = self._addCategoryLegend(scale, attr, geom, filterVals, position);
       }
       self._bindHoverEvent(legend, field);
     }
@@ -714,7 +724,8 @@ class LegendController {
       maxLength,
       viewTheme,
       items,
-      container
+      container,
+      position: [ 0, 0 ]
     });
 
     const legend = new Legend.Category(legendCfg);
