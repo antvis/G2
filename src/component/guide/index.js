@@ -1,15 +1,5 @@
-/**
- * @fileOverview the entry of guide
- * @author sima.zhang
- */
-module.exports = {
-  Line: require('./line'),
-  Text: require('./text'),
-  Image: require('./image'),
-  Region: require('./region'),
-  RegionFilter: require('./region-filter'),
-  Html: require('./html'),
-  Arc: require('./arc'),
-  DataMarker: require('./data-marker'),
-  DataRegion: require('./data-region')
-};
+const { Guide } = require('@antv/component/lib');
+const RegionFilter = require('./region-filter');
+Guide.RegionFilter = RegionFilter;
+
+module.exports = Guide;
