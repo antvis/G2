@@ -343,12 +343,17 @@ const Theme = {
       width: 16,
       height: 156,
       title: null,
+      legendStyle: {
+        LIST_CLASS: {
+          textAlign: 'left'
+        }
+      },
       textStyle: {
         fill: '#8C8C8C',
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle',
-        lineHeight: 20,
+        lineHeight: 0,
         fontFamily: FONT_FAMILY
       }, // 图例项文本的样式
       unCheckColor: '#bfbfbf'
