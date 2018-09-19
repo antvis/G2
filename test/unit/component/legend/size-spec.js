@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
-const Simulate = require('event-simulate');
-const { Canvas, Event } = require('../../../../src/renderer');
-const { Size } = require('../../../../src/component/legend/index');
+const { Canvas } = require('../../../../src/renderer');
+// const { Size } = require('../../../../src/component/legend/index');
+const Legend = require('@antv/components/src/legend/size');
 
 const div = document.createElement('div');
 div.id = 'legend';
@@ -14,16 +14,17 @@ const canvas = new Canvas({
 });
 
 const items = [
-  { value: '10' },
-  { value: '20' },
-  { value: '40' },
-  { value: '50' }
+  { value: 10 },
+  { value: 20 },
+  { value: 40 },
+  { value: 50 }
 ];
 
 describe('连续图例 - Size', function() {
-  it('大小图例，不可筛选', function() {
-    const legend = canvas.addGroup(Size, {
+  it('垂直大小图例，不可筛选', function() {
+    const cfg = {
       items,
+      container: canvas,
       title: {
         text: '图例标题',
         fill: '#333',
@@ -32,16 +33,36 @@ describe('连续图例 - Size', function() {
       width: 150,
       height: 60,
       slidable: false
-    });
+    };
+    const legend = new Legend(cfg);
     legend.move(10, 10);
-    canvas.draw();
+    legend.draw();
+    expect(legend.get('slider')).to.be.undefined;
+    expect(legend.get('type')).to.equal('size-legend');
+  });
+
+  it('水平大小图例，不可筛选', function() {
+    canvas.clear();
+    const cfg = {
+      items,
+      container: canvas,
+      width: 150,
+      height: 60,
+      slidable: false,
+      layout: 'horizontal'
+    };
+    const legend = new Legend(cfg);
+    legend.move(10, 10);
+    legend.draw();
     expect(legend.get('slider')).to.be.undefined;
     expect(legend.get('type')).to.equal('size-legend');
   });
 
   it('水平大小图例，可筛选', function() {
-    const legend = canvas.addGroup(Size, {
+    canvas.clear();
+    const cfg = {
       items,
+      container: canvas,
       layout: 'horizontal',
       title: {
         text: '这就是连续图例A的Title',
@@ -50,45 +71,26 @@ describe('连续图例 - Size', function() {
       },
       width: 150,
       height: 15
-    });
+    };
+    const legend = new Legend(cfg);
     legend.move(200, 10);
-    canvas.draw();
+    legend.draw();
     expect(legend.get('slider')).not.to.be.undefined;
     expect(legend.get('type')).to.equal('size-legend');
 
     // 模拟筛选事件
     const slider = legend.get('slider');
-    const event = new Event('mousedown', {
-      pageX: 197,
-      pageY: 260,
-      stopPropagation() {
-        return true;
-      },
-      preventDefault() {
-        return true;
-      }
-    }, true, true);
-    event.currentTarget = legend.get('minButtonElement');
-    slider.trigger('mousedown', [ event ]);
-
-    const canvasDOM = canvas.get('el');
-    Simulate.simulate(canvasDOM, 'mousemove', {
-      clientX: 227,
-      clientY: 50
-    });
-
-    Simulate.simulate(canvasDOM, 'mouseup', {
-      clientX: 227,
-      clientY: 50
-    });
+    const ev = { range: [ 0, 90 ] };
+    slider.trigger('sliderchange', [ ev ]);
     expect(slider.get('middleHandleElement').attr('width')).to.equal(150);
-    expect(legend.get('minTextElement').attr('text')).to.equal('10');
+    expect(legend.get('maxTextElement').attr('text')).to.equal('46');
   });
 
   it('垂直大小图例，可筛选，不带标题', function() {
-
-    const legend = canvas.addGroup(Size, {
+    canvas.clear();
+    const cfg = {
       items,
+      container: canvas,
       layout: 'vertical',
       title: {
         fill: '#333',
@@ -96,39 +98,56 @@ describe('连续图例 - Size', function() {
       },
       width: 15,
       height: 100
-    });
+    };
+    const legend = new Legend(cfg);
     legend.move(200, 100);
-    canvas.draw();
+    legend.draw();
     expect(legend.get('slider')).not.to.be.undefined;
     expect(legend.get('type')).to.equal('size-legend');
 
     // 模拟筛选事件
     const slider = legend.get('slider');
-    const event = new Event('mousedown', {
-      pageX: 206,
-      pageY: 100,
-      stopPropagation() {
-        return true;
+    const ev = { range: [ 0, 90 ] };
+    slider.trigger('sliderchange', [ ev ]);
+    expect(slider.get('middleHandleElement').attr('width')).to.equal(15);
+    expect(legend.get('maxTextElement').attr('text')).to.equal('46');
+  });
+
+  it('可滑动的垂直图例带标题， activate', function() {
+    canvas.clear();
+    const cfg = {
+      items,
+      container: canvas,
+      layout: 'vertical',
+      title: {
+        text: 'aaa',
+        fill: '#333',
+        textBaseline: 'middle'
       },
-      preventDefault() {
-        return true;
-      }
-    }, true, true);
-    event.currentTarget = legend.get('maxButtonElement');
-    slider.trigger('mousedown', [ event ]);
+      width: 15,
+      height: 150,
+      slidable: true
+    };
+    const legend = new Legend(cfg);
+    legend.move(200, 100);
+    legend.draw();
+    legend.activate(50);
+  });
 
-    const canvasDOM = canvas.get('el');
-    Simulate.simulate(canvasDOM, 'mousemove', {
-      clientX: 206,
-      clientY: 150
-    });
-
-    Simulate.simulate(canvasDOM, 'mouseup', {
-      clientX: 206,
-      clientY: 150
-    });
-    expect(slider.get('middleHandleElement').attr('height')).to.equal(100);
-    expect(legend.get('maxTextElement').attr('text')).to.equal('50');
-    canvas.destroy();
+  it('可滑动的水平图例带标题， activate', function() {
+    canvas.clear();
+    const cfg = {
+      items,
+      container: canvas,
+      layout: 'horizontal',
+      width: 150,
+      height: 15,
+      slidable: true
+    };
+    const legend = new Legend(cfg);
+    legend.move(200, 100);
+    legend.draw();
+    legend.activate(50);
+    legend.destroy();
   });
 });

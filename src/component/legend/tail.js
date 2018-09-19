@@ -4,7 +4,8 @@
  */
 
 const Util = require('../../util');
-const Category = require('./category');
+// const Category = require('./category');
+const Category = require('@antv/components/src/legend/category');
 const Global = require('../../global');
 
 class Tail extends Category {
@@ -140,19 +141,11 @@ class Tail extends Category {
     }
   }
 
-  _renderUI() {
-    const self = this;
-    if (!self.get('useHtml')) {
-      // super._renderUI();
-      self._renderItems();
-      self.get('autoWrap') && self._adjustItems(); // 默认自动换行
-      self._renderBack();
-    } else { // 使用 html 渲染图例
-      self._renderHTML();
-    }
-    const chart = self.get('chart');
-    chart.once('afterpaint', function() {
-      self._adjust();
+  render() {
+    super.render();
+    const chart = this.get('chart');
+    chart.once('afterpaint', () => {
+      this._adjust();
     });
   }
 

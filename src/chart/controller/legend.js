@@ -1,5 +1,8 @@
 const Util = require('../../util');
-const Legend = require('../../component/legend');
+// const Legend = require('../../component/legend');
+const Legend = require('@antv/components/src/legend');
+const Tail = require('../../component/legend/tail');
+// const Legend = require('@antv/components/legend');
 const Shape = require('../../geom/shape/shape');
 
 const FIELD_ORIGIN = '_origin';
@@ -53,7 +56,7 @@ class LegendController {
     this.backRange = null;
     Util.each(legends, legendItems => {
       Util.each(legendItems, legend => {
-        legend.remove();
+        legend.destroy();
       });
     });
     this.legends = {};
@@ -443,13 +446,13 @@ class LegendController {
       shapeType = 'point';
       isByAttr = false;
     }
-
     const chart = self.chart;
     const viewTheme = self.viewTheme;
     const canvas = chart.get('canvas');
     const plotRange = self.plotRange;
     const posArray = position.split('-');
     const maxLength = (posArray[0] === 'right' || posArray[0] === 'left') ? plotRange.bl.y - plotRange.tr.y : canvas.get('width');
+    
     Util.each(ticks, tick => {
       const text = tick.text;
       const name = text;
@@ -498,7 +501,8 @@ class LegendController {
       viewId: chart.get('_id'),
       maxLength,
       viewTheme,
-      items
+      items,
+      container
     });
     if (legendCfg.title) {
       Util.deepMix(legendCfg, {
@@ -512,9 +516,11 @@ class LegendController {
     if (self._isTailLegend(legendOptions, geom)) {
       legendCfg.chart = self.chart;
       legendCfg.geom = geom;
-      legend = container.addGroup(Legend.Tail, legendCfg);
+      // legend = container.addGroup(Tail, legendCfg);
+      legend = new Tail(legendCfg);
     } else {
-      legend = container.addGroup(Legend.Category, legendCfg);
+      legend = new Legend.Category(legendCfg);
+      // legend = container.addGroup(Legend.Category, legendCfg);
     }
     self._bindClickEvent(legend, scale, filterVals);
     legends[position].push(legend);
@@ -579,7 +585,8 @@ class LegendController {
       items,
       attr,
       viewTheme,
-      numberFormatter: scale.formatter
+      numberFormatter: scale.formatter,
+      container
     });
     if (legendCfg.title) {
       Util.deepMix(legendCfg, {
@@ -590,9 +597,11 @@ class LegendController {
     }
 
     if (attr.type === 'color') {
-      legend = container.addGroup(Legend.Color, legendCfg);
+      legend = new Legend.Color(legendCfg);
+      // legend = container.addGroup(Legend.Color, legendCfg);
     } else if (attr.type === 'size') {
-      legend = container.addGroup(Legend.Size, legendCfg);
+      legend = new Legend.Size(legendCfg);
+      // legend = container.addGroup(Legend.Size, legendCfg);
     }
     self._bindFilterEvent(legend, scale);
     legends[position].push(legend);
@@ -704,10 +713,12 @@ class LegendController {
     const legendCfg = Util.deepMix({}, viewTheme.legend[posArray[0]], legendOptions, {
       maxLength,
       viewTheme,
-      items
+      items,
+      container
     });
 
-    const legend = container.addGroup(Legend.Category, legendCfg);
+    const legend = new Legend.Category(legendCfg);
+    // const legend = container.addGroup(Legend.Category, legendCfg);
     legends[position].push(legend);
 
     legend.on('itemclick', ev => {
