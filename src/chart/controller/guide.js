@@ -36,7 +36,6 @@ class GuideController {
       const config = Util.deepMix({
         xScales,
         yScales,
-        // view,
         viewTheme
       }, viewTheme ? viewTheme.guide[type] : {}, option);
       type = Util.upperFirst(type);
@@ -123,15 +122,7 @@ class GuideController {
       } else {
         container = self.backGroup || self.backContainer;
       }
-
-      const guideName = guide.get('name');
-      if (guideName === 'dataRegion') {
-        guide.render(coord, container, viewData);
-      } else if (guideName === 'regionFilter') {
-        guide.render(coord, container, view);
-      } else {
-        guide.render(coord, container);
-      }
+      guide.render(coord, container, viewData, view);
     });
   }
 

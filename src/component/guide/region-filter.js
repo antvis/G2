@@ -21,7 +21,7 @@ class RegionFilter extends Guide {
     });
   }
 
-  render(coord, group, view) {
+  render(coord, group, viewData, view) {
     const self = this;
     const layer = group.addGroup();
     layer.name = 'guide-region-filter';
