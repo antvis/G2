@@ -6,14 +6,15 @@ const div = document.createElement('div');
 div.id = 'c1';
 document.body.appendChild(div);
 
+const data = [
+  { country: '巴西', population: 18203 },
+  { country: '印尼', population: 23489 },
+  { country: '美国', population: 29034 },
+  { country: '印度', population: 104970 },
+  { country: '中国', population: 131744 }
+];
+
 function drawChart() {
-  const data = [
-    { country: '巴西', population: 18203 },
-    { country: '印尼', population: 23489 },
-    { country: '美国', population: 29034 },
-    { country: '印度', population: 104970 },
-    { country: '中国', population: 131744 }
-  ];
   const chart = new G2.Chart({
     container: 'c1',
     width: 400,
@@ -54,7 +55,7 @@ describe('Guide.RegionFilter', () => {
       color: '#FF4D4F',
       appendInfo: 'region-filter'
     });
-    regionFilter.render(coord, group, chart);
+    regionFilter.render(coord, group, data, chart);
     chart.repaint();
 
     const el = regionFilter.get('el');
@@ -92,7 +93,7 @@ describe('Guide.RegionFilter', () => {
         lineWidth: 4
       }
     });
-    regionFilter.render(coord, group, chart);
+    regionFilter.render(coord, group, data, chart);
     chart.repaint();
 
     const el = regionFilter.get('el');
