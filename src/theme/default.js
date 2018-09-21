@@ -460,6 +460,7 @@ const Theme = {
     legendMargin: 24 // 图例之间的间距
   },
   tooltip: {
+    useHtml: true,
     crosshairs: false,
     offset: 15,
     // css style for tooltip
