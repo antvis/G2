@@ -597,29 +597,29 @@ const Theme = {
   guide: {
     line: {
       lineStyle: {
-        stroke: DEFAULT_COLOR,
-        lineDash: [ 0, 2, 2 ],
+        stroke: 'rgba(0, 0, 0, .65)',
+        lineDash: [ 2, 2 ],
         lineWidth: 1
       },
       text: {
-        position: 'end',
+        position: 'start',
         autoRotate: true,
         style: {
-          fill: '#545454',
+          fill: 'rgba(0, 0, 0, .45)',
           fontSize: 12,
-          textAlign: 'center',
-          fontFamily: FONT_FAMILY
+          textAlign: 'start',
+          fontFamily: FONT_FAMILY,
+          textBaseline: 'bottom'
         }
       }
     },
     text: {
       style: {
-        fill: '#545454',
+        fill: 'rgba(0,0,0,.5)',
         fontSize: 12,
         textBaseline: 'middle',
         textAlign: 'start',
         fontFamily: FONT_FAMILY
-
       }
     },
     region: {
@@ -632,6 +632,50 @@ const Theme = {
     html: {
       alignX: 'middle',
       alignY: 'middle'
+    },
+    dataRegion: {
+      style: {
+        region: {
+          lineWidth: 0,
+          fill: '#000000',
+          opacity: 0.04
+        },
+        text: {
+          textAlign: 'center',
+          textBaseline: 'bottom',
+          fontSize: 12,
+          fill: 'rgba(0, 0, 0, .65)'
+        }
+      }
+    },
+    dataMarker: {
+      top: true,
+      style: {
+        point: {
+          r: 3,
+          fill: '#FFFFFF',
+          stroke: '#1890FF',
+          lineWidth: 2
+        },
+        line: {
+          stroke: '#A3B1BF',
+          lineWidth: 1
+        },
+        text: {
+          fill: 'rgba(0, 0, 0, .65)',
+          opacity: 1,
+          fontSize: 12,
+          textAlign: 'start'
+        }
+      },
+      display: {
+        point: true,
+        line: true,
+        text: true
+      },
+      lineLength: 20,
+      direction: 'upward',
+      autoAdjust: true
     }
   },
   pixelRatio: null
