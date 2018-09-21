@@ -194,7 +194,7 @@ class View extends Base {
     const self = this;
     const options = self.get('options');
     const viewTheme = self.get('viewTheme');
-
+    const canvas = self.get('canvas');
 
     const scaleController = new Controller.Scale({
       viewTheme,
@@ -205,6 +205,7 @@ class View extends Base {
     this.set('coordController', coordController);
 
     const axisController = new Controller.Axis({
+      canvas,
       viewTheme
     });
     this.set('axisController', axisController);
