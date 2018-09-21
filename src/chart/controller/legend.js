@@ -103,7 +103,6 @@ class LegendController {
     const options = self.options;
 
     legend.on('itemclick', ev => {
-      console.log('item click');
       if (options.onClick) { // 用户自定义了图例点击事件
         options.onClick(ev);
       } else {
@@ -112,7 +111,6 @@ class LegendController {
         const isSingeSelected = legend.get('selectedMode') === 'single'; // 图例的选中模式
         const clickedValue = item.dataValue; // import: 需要取该图例项原始的数值
 
-        console.log(clickedValue, item, checked, isSingeSelected);
         if (checked) {
           Util.Array.remove(filterVals, clickedValue);
           if (self._isFieldInView(field, clickedValue, chart)) {
@@ -131,8 +129,6 @@ class LegendController {
           filterVals.push(clickedValue);
 
           if (self._isFieldInView(field, clickedValue, chart)) {
-            console.log(field);
-            console.log(filterVals);
             chart.filter(field, field => {
               return !Util.inArray(filterVals, field);
             });
@@ -525,7 +521,13 @@ class LegendController {
     } else {
       if (legendOptions.useHtml) {
         legendCfg.container = container.get('canvas').get('el').parentNode;
-        console.log(legendCfg);
+        if (legendCfg.legendStyle === undefined) legendCfg.legendStyle = {};
+        legendCfg.legendStyle.CONTAINER_CLASS = {
+          height: (posArray[0] === 'right' || posArray[0] === 'left') ? maxLength + 'px' : 'auto',
+          width: !(posArray[0] === 'right' || posArray[0] === 'left') ? maxLength + 'px' : 'auto',
+          position: 'absolute',
+          overflow: 'auto'
+        };
         legend = new Legend.CatHtml(legendCfg);
       } else {
         legend = new Legend.Category(legendCfg);
