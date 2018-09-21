@@ -195,26 +195,10 @@ class PieLabels extends PolarLabels {
     const center = coord.getCenter();
     const start = getEndPoint(center, angle, r + MARGIN / 2);
     const inner = getEndPoint(center, angle, r + distance / 2);
-    let lineGroup = self.get('lineGroup');
-    // var lineShape;
-    if (!lineGroup) {
-      lineGroup = self.addGroup({
-        elCls: 'x-line-group'
-      });
-      self.set('lineGroup', lineGroup);
+    if (!label.labelLine) {
+      label.labelLine = self.get('labels').labelLine || {};
     }
-    // lineShape =
-    const lineShape = lineGroup.addShape('path', {
-      attrs: Util.mix({
-        path: [ 'M' + start.x, start.y + ' Q' + inner.x, inner.y + ' ' + label.x, label.y ].join(','),
-        fill: null,
-        stroke: label.color
-      }, label.labelLine)
-    });
-    // label 对应线的动画关闭
-    lineShape.name = 'labelLine';
-    lineShape._id = label._id && label._id.replace('glabel', 'glabelline'); // generate labelLine id according to label id
-    lineShape.set('coord', coord);
+    label.labelLine.path = [ 'M' + start.x, start.y + ' Q' + inner.x, inner.y + ' ' + label.x, label.y ].join(',');
   }
 
   /**
