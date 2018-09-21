@@ -315,36 +315,43 @@ class GeomLabels extends Group {
     }
     return align;
   }
-  _getLabelValue(origin, scale) {
-    let value = origin[scale.field];
-    if (Util.isArray(value)) {
-      const tmp = [];
-      Util.each(value, function(subVal) {
-        tmp.push(scale.getText(subVal));
-      });
-      value = tmp;
-    } else {
-      value = scale.getText(value);
+  _getLabelValue(origin, scales) {
+    if (!Util.isArray(scales)) {
+      scales = [ scales ];
     }
-    if (Util.isNil(value) || value === '') {
-      return null;
-    }
-    return value;
+    const text = [];
+    Util.each(scales, scale => {
+      let value = origin[scale.field];
+      if (Util.isArray(value)) {
+        const tmp = [];
+        Util.each(value, function(subVal) {
+          tmp.push(scale.getText(subVal));
+        });
+        value = tmp;
+      } else {
+        value = scale.getText(value);
+      }
+      if (Util.isNil(value) || value === '') {
+        text.push(null);
+      }
+      text.push(value);
+    });
+    return text;
   }
   // 获取每个label的配置
   _getLabelCfgs(points) {
     const self = this;
     const labelCfg = this.get('labelCfg');
-    const scale = labelCfg.scales[0];
+    const scale = labelCfg.scales;
     const defaultCfg = this.get('label');
     const cfgs = [];
 
     Util.each(points, (point, i) => {
       let cfg = {};
       const origin = point[ORIGIN];
-      const originText = origin[scale.field];
+      const originText = self._getLabelValue(origin, scale);
       if (labelCfg.callback) {
-        cfg = labelCfg.callback.call(null, originText, origin, i);
+        cfg = labelCfg.callback.apply(null, originText);
       }
       if (!cfg && cfg !== 0) {
         cfgs.push(null);
@@ -353,14 +360,14 @@ class GeomLabels extends Group {
       if (Util.isString(cfg) || Util.isNumber(cfg)) {
         cfg = { text: cfg };
       } else {
-        cfg.text = self._getLabelValue(origin, scale);
+        cfg.text = originText[0];
       }
       cfg = Util.mix({}, defaultCfg, labelCfg.globalCfg || {}, cfg);
       if (cfg.htmlTemplate) {
-        cfg.text = cfg.htmlTemplate.call(null, originText, origin, i);
+        cfg.text = cfg.htmlTemplate.call(null, cfg.text[0], origin, i);
       }
       if (cfg.formatter) {
-        cfg.text = cfg.formatter.call(null, originText, origin, i);
+        cfg.text = cfg.formatter.call(null, cfg.text[0], origin, i);
       }
       if (cfg.label) {
         // 兼容有些直接写在labelCfg.label的配置
