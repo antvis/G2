@@ -460,11 +460,12 @@ class AxisController {
   }
 
   clear() {
-    const axes = this.axes;
+    const self = this;
+    const axes = self.axes;
     Util.each(axes, function(axis) {
-      axis.destroy();
+      axis.clear();
     });
-    this.axes = [];
+    self.axes = [];
   }
 }
 
