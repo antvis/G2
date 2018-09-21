@@ -1,5 +1,5 @@
 const { Group } = require('../../renderer');
-const Label = require('@antv/component/src/label/base');
+const { Label } = require('@antv/component/lib');
 const Global = require('../../global');
 const Util = require('../../util');
 const IGNORE_ARR = [ 'line', 'point', 'path' ];
@@ -342,14 +342,14 @@ class GeomLabels extends Group {
   _getLabelCfgs(points) {
     const self = this;
     const labelCfg = this.get('labelCfg');
-    const scale = labelCfg.scales;
+    const scales = labelCfg.scales;
     const defaultCfg = this.get('label');
     const cfgs = [];
 
     Util.each(points, (point, i) => {
       let cfg = {};
       const origin = point[ORIGIN];
-      const originText = self._getLabelValue(origin, scale);
+      const originText = self._getLabelValue(origin, scales);
       if (labelCfg.callback) {
         cfg = labelCfg.callback.apply(null, originText);
       }
