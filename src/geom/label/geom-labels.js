@@ -1,5 +1,5 @@
 const { Group } = require('../../renderer');
-const { Label } = require('@antv/component/lib');
+const Label = require('@antv/component/src/label/base');
 const Global = require('../../global');
 const Util = require('../../util');
 const IGNORE_ARR = [ 'line', 'point', 'path' ];
@@ -174,40 +174,8 @@ class GeomLabels extends Group {
     });
   }
 
-  // 连接线
-  lineToLabel(label) {
-    const labelLine = label.labelLine;
-    const self = this;
-    const coord = self.get('coord');
-    const start = {
-      x: label.x - label._offset.x,
-      y: label.y - label._offset.y
-    };
-    const inner = {
-      x: (start.x + label.x) / 2,
-      y: (start.y + label.y) / 2
-    };
-    let lineGroup = self.get('lineGroup');
-    // var lineShape;
-    if (!lineGroup) {
-      lineGroup = self.addGroup({
-        elCls: 'x-line-group'
-      });
-      self.set('lineGroup', lineGroup);
-    }
-    const lineShape = lineGroup.addShape('path', {
-      attrs: Util.mix({
-        path: [ 'M' + start.x, start.y + ' Q' + inner.x, inner.y + ' ' + label.x, label.y ].join(','),
-        fill: null,
-        stroke: label.color
-      }, labelLine)
-    });
-    // label 对应线的动画关闭
-    lineShape.name = 'labelLine';
-    // generate labelLine id according to label id
-    lineShape._id = label._id && label._id.replace('glabel', 'glabelline');
-    lineShape.set('coord', coord);
-  }
+  // 定义连接线
+  lineToLabel() {}
 
   /**
    * @protected
@@ -412,6 +380,7 @@ class GeomLabels extends Group {
       if (!Util.isArray(offset)) {
         offset = [ 0, offset ];
       }
+      cfg.labelLine = Util.mix({}, cfg.labelLine, defaultCfg.labelLine);
       cfg.offset = offset;
       delete cfg.items;
       cfgs.push(cfg);
@@ -422,6 +391,7 @@ class GeomLabels extends Group {
     const self = this;
     const labelRenderer = self.get('labelRenderer');
     let items = self.getLabelsItems(points);
+    self.drawLines(items);
     items = self.adjustItems(items);
     labelRenderer.set('items', items);
     labelRenderer.set('canvas', this.get('canvas'));
