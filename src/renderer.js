@@ -1,4 +1,4 @@
 
-const G = require('@antv/g/lib');
+const G = require('@antv/g/src');
 
 module.exports = G;

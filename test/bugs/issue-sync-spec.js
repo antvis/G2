@@ -136,6 +136,6 @@ describe('sync bug', function() {
 
     const aixs1 = barView.get('axisController').axes[1];
     const aixs2 = lineView.get('axisController').axes[1];
-    expect(aixs1.get('labelsGroup').getCount()).equal(aixs2.get('labelsGroup').getCount());
+    expect(aixs1.get('labelRenderer').get('group').getCount()).equal(aixs2.get('labelRenderer').get('group').getCount());
   });
 });

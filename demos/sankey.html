@@ -69,6 +69,16 @@
           fill: 'black',
           textAlign: 'left'
         },
+        position(text, data) {
+          if (data.sourceLinks.length > 0) {
+            if (data.targetLinks.length > 0) {
+              return 'middle';
+            }
+            return 'right';
+
+          }
+          return 'left';
+        },
         offset: 0
       })
       .style({

@@ -1,7 +1,3 @@
-/**
- * @fileOverview The controller of guide
- * @author sima.zhang
- */
 const Util = require('../../util');
 const Guide = require('../../component/guide');
 
@@ -40,7 +36,6 @@ class GuideController {
       const config = Util.deepMix({
         xScales,
         yScales,
-        view,
         viewTheme
       }, viewTheme ? viewTheme.guide[type] : {}, option);
       type = Util.upperFirst(type);
@@ -116,14 +111,18 @@ class GuideController {
 
   render(coord) {
     const self = this;
+    const view = self.view;
+    const viewData = view && view.get('data');
     const guides = self._creatGuides();
-    let container = self.backGroup || this.backContainer;
 
     Util.each(guides, guide => {
-      if (guide.top) { // 默认 guide 绘制到 backPlot，用户也可以声明 top: true，显示在最上层
-        container = self.frontGroup || this.frontContainer;
+      let container;
+      if (guide.get('top')) { // 默认 guide 绘制到 backPlot，用户也可以声明 top: true，显示在最上层
+        container = self.frontGroup || self.frontContainer;
+      } else {
+        container = self.backGroup || self.backContainer;
       }
-      guide.render(coord, container);
+      guide.render(coord, container, viewData, view);
     });
   }
 
@@ -135,14 +134,14 @@ class GuideController {
   changeVisible(visible) {
     const guides = this.guides;
     Util.each(guides, function(guide) {
-      guide.setVisible(visible);
+      guide.changeVisible(visible);
     });
   }
 
   reset() {
     const guides = this.guides;
     Util.each(guides, function(guide) {
-      guide.remove();
+      guide.clear();
     });
     this.guides = [];
     this.backGroup && this.backGroup.remove();

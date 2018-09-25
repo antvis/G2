@@ -3,7 +3,7 @@
  * @author sima.zhang
  */
 const Util = require('../../util');
-const Axis = require('../../component/axis');
+const { Axis } = require('@antv/component/lib');
 const { vec2 } = Util.MatrixUtil;
 
 function formatTicks(ticks) {
@@ -58,6 +58,7 @@ function fillAxisTicks(ticks, isLinear, gridCentering) {
 class AxisController {
   constructor(cfg) {
     this.visible = true;
+    this.canvas = null;
     this.container = null;
     this.coord = null;
     this.options = null;
@@ -392,6 +393,7 @@ class AxisController {
 
   _drawAxis(coord, scale, verticalScale, dimType, viewId, xAxis, index) {
     const container = this.container;
+    const canvas = this.canvas;
     let C; // 坐标轴类
     let appendCfg; // 每个坐标轴 start end 等绘制边界的信息
 
@@ -419,7 +421,12 @@ class AxisController {
       cfg._id = viewId + '-' + dimType + index;
     }
 
-    const axis = container.addGroup(C, cfg);
+    Util.mix(cfg, {
+      canvas,
+      group: container
+    });
+    const axis = new C(cfg);
+    axis.render();
     this.axes.push(axis);
     return axis;
   }
@@ -453,11 +460,12 @@ class AxisController {
   }
 
   clear() {
-    const axes = this.axes;
+    const self = this;
+    const axes = self.axes;
     Util.each(axes, function(axis) {
-      axis.remove();
+      axis.clear();
     });
-    this.axes = [];
+    self.axes = [];
   }
 }
 
