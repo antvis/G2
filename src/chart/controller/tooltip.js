@@ -222,8 +222,13 @@ class TooltipController {
           tooltip.clearMarkers();
         }
       }
-      tooltip.setPosition(x, y, target);
-      tooltip.show();
+      const canvas = this._getCanvas();
+      if (target === canvas && tooltip.get('type') === 'mini') { // filter mini tooltip
+        tooltip.hide();
+      } else {
+        tooltip.setPosition(x, y, target);
+        tooltip.show();
+      }
     }
   }
 
@@ -300,7 +305,12 @@ class TooltipController {
     //   options.position = 'top';
     // }
     let tooltip;
-    if (options.useHtml) {
+    if (options.type === 'mini') {
+      options.crosshairs = false;
+      this.options.shared = false;
+      options.position = 'top';
+      tooltip = new Tooltip.Mini(options);
+    } else if (options.useHtml) {
       tooltip = new Tooltip.Html(options);
     } else {
       tooltip = new Tooltip.Canvas(options);
@@ -447,6 +457,7 @@ class TooltipController {
     const marker = shapeObject.getMarkerCfg(shape, cfg);
     return marker;
   }
+
 }
 
 module.exports = TooltipController;
