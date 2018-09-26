@@ -99,6 +99,7 @@
     });
     chart.legend({
       useHtml: true,
+      flipPage: true,
       position: 'right',
       containerTpl: '<div class="g2-legend">' +
         '<table class="g2-legend-list"></table>' +
@@ -136,7 +137,7 @@
       .color('country', [ '#67b7dc', '#84b761', '#fdd400', '#cc4748', '#cd82ad', '#2f4074', '#448e4d', '#b7b83f', '#b9783f' ])
       .label('percent', {
         formatter: (val, item) => {
-          return item.point.country + ': ' + val;
+          return item.country + ': ' + val;
         }
       })
       .style({

@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const { Canvas } = require('../../../../src/renderer');
-// const { Color } = require('../../../../src/component/legend/index');
-const Color = require('@antv/components/src/legend/color');
+const { Legend } = require('@antv/component');
+const Color = Legend.Color;
 
 const div = document.createElement('div');
 div.id = 'legend';

@@ -68,7 +68,10 @@ $.getJSON('./data/world.geo.json', data => {
     }
   });
   chart.axis(false);
-  chart.legend('name', false);
+  chart.legend({
+    name: false,
+    sizeType: 'circle'
+  });
   /* chart.legend({ position: 'right-center' });*/
   chart.tooltip({
     showTitle: false

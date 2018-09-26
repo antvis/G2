@@ -5,9 +5,10 @@
 
 const Util = require('../../util');
 // const Category = require('./category');
-const Category = require('@antv/components/src/legend/category');
+const Components = require('@antv/component');
 const Global = require('../../global');
-
+const { Legend } = Components;
+const { Category } = Legend;
 class Tail extends Category {
   getDefaultCfg() {
     const cfg = super.getDefaultCfg();
@@ -231,7 +232,7 @@ class Tail extends Category {
         const y = b.pos + posInCompositeBox - elementHeight / 2;
         const dist = Math.abs(origin_y - y);
         if (dist > elementHeight / 2) {
-          self._adjustDenote(group, y, origin_y - self.attr('matrix')[7] / 2);
+          self._adjustDenote(group, y, origin_y - self.get('group').attr('matrix')[7] / 2);
         }
         items[i].translate(0, -origin_y);
         items[i].translate(0, y);

@@ -1,8 +1,6 @@
 const Util = require('../../util');
-// const Legend = require('../../component/legend');
-const Legend = require('@antv/components/src/legend');
+const { Legend } = require('@antv/component/');
 const Tail = require('../../component/legend/tail');
-// const Legend = require('@antv/components/legend');
 const Shape = require('../../geom/shape/shape');
 
 const FIELD_ORIGIN = '_origin';
@@ -108,24 +106,24 @@ class LegendController {
       } else {
         const item = ev.item;
         const checked = ev.checked;
-        const isSingeSelected = legend.get('selectedMode') === 'single'; // 图例的选中模式
+        const isSingleSelected = legend.get('selectedMode') === 'single'; // 图例的选中模式
         const clickedValue = item.dataValue; // import: 需要取该图例项原始的数值
 
         if (checked) {
           Util.Array.remove(filterVals, clickedValue);
           if (self._isFieldInView(field, clickedValue, chart)) {
             chart.filter(field, field => {
-              return isSingeSelected ? field === clickedValue : !Util.inArray(filterVals, field);
+              return isSingleSelected ? field === clickedValue : !Util.inArray(filterVals, field);
             });
           }
           Util.each(views, view => {
             if (self._isFieldInView(field, clickedValue, view)) {
               view.filter(field, field => {
-                return isSingeSelected ? field === clickedValue : !Util.inArray(filterVals, field);
+                return isSingleSelected ? field === clickedValue : !Util.inArray(filterVals, field);
               });
             }
           });
-        } else if (!isSingeSelected) {
+        } else if (!isSingleSelected) {
           filterVals.push(clickedValue);
 
           if (self._isFieldInView(field, clickedValue, chart)) {
@@ -516,7 +514,6 @@ class LegendController {
     if (self._isTailLegend(legendOptions, geom)) {
       legendCfg.chart = self.chart;
       legendCfg.geom = geom;
-      // legend = container.addGroup(Tail, legendCfg);
       legend = new Tail(legendCfg);
     } else {
       if (legendOptions.useHtml) {
@@ -528,17 +525,51 @@ class LegendController {
           position: 'absolute',
           overflow: 'auto'
         };
-        legend = new Legend.CatHtml(legendCfg);
+        if (legendOptions.flipPage) {
+          legend = new Legend.CatPageHtml(legendCfg);
+        } else {
+          legend = new Legend.CatHtml(legendCfg);
+        }
       } else {
         legend = new Legend.Category(legendCfg);
       }
-      // legend = container.addGroup(Legend.Category, legendCfg);
     }
     self._bindClickEvent(legend, scale, filterVals);
+
     legends[position].push(legend);
     return legend;
   }
 
+  _bindChartMove(scale) {
+    const chart = this.chart;
+    const legends = this.legends;
+    chart.on('plotmove', ev => {
+      let selected = false;
+      if (ev.target) {
+        const origin = ev.target.get('origin');
+        if (origin) {
+          const data = origin[FIELD_ORIGIN] || origin[0][FIELD_ORIGIN];
+          const field = scale.field;
+          if (data) {
+            const value = data[field];
+            Util.each(legends, legendItems => {
+              Util.each(legendItems, legend => {
+                selected = true;
+                (!legend.destroyed) && legend.activate(value);
+              });
+            });
+          }
+        }
+      }
+      if (!selected) {
+        Util.each(legends, legendItems => {
+          Util.each(legendItems, legend => {
+            (!legend.destroyed) && legend.unactivate();
+          });
+        });
+      }
+    });
+  }
   _addContinuousLegend(scale, attr, position) {
     const self = this;
     const legends = self.legends;
@@ -614,10 +645,9 @@ class LegendController {
 
     if (attr.type === 'color') {
       legend = new Legend.Color(legendCfg);
-      // legend = container.addGroup(Legend.Color, legendCfg);
     } else if (attr.type === 'size') {
-      legend = new Legend.Size(legendCfg);
-      // legend = container.addGroup(Legend.Size, legendCfg);
+      if (options && options.sizeType === 'circle') legend = new Legend.CircleSize(legendCfg);
+      else legend = new Legend.Size(legendCfg);
     }
     self._bindFilterEvent(legend, scale);
     legends[position].push(legend);
@@ -677,6 +707,7 @@ class LegendController {
         legend = self._addCategoryLegend(scale, attr, geom, filterVals, position);
       }
       self._bindHoverEvent(legend, field);
+      self._bindChartMove(scale);
     }
   }
 

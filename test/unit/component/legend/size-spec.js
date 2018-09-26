@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const { Canvas } = require('../../../../src/renderer');
-// const { Size } = require('../../../../src/component/legend/index');
-const Legend = require('@antv/components/src/legend/size');
+const { Legend } = require('@antv/component');
+const Size = Legend.Size;
 
 const div = document.createElement('div');
 div.id = 'legend';
@@ -34,7 +34,7 @@ describe('连续图例 - Size', function() {
       height: 60,
       slidable: false
     };
-    const legend = new Legend(cfg);
+    const legend = new Size(cfg);
     legend.move(10, 10);
     legend.draw();
     expect(legend.get('slider')).to.be.undefined;
@@ -51,7 +51,7 @@ describe('连续图例 - Size', function() {
       slidable: false,
       layout: 'horizontal'
     };
-    const legend = new Legend(cfg);
+    const legend = new Size(cfg);
     legend.move(10, 10);
     legend.draw();
     expect(legend.get('slider')).to.be.undefined;
@@ -72,7 +72,7 @@ describe('连续图例 - Size', function() {
       width: 150,
       height: 15
     };
-    const legend = new Legend(cfg);
+    const legend = new Size(cfg);
     legend.move(200, 10);
     legend.draw();
     expect(legend.get('slider')).not.to.be.undefined;
@@ -99,7 +99,7 @@ describe('连续图例 - Size', function() {
       width: 15,
       height: 100
     };
-    const legend = new Legend(cfg);
+    const legend = new Size(cfg);
     legend.move(200, 100);
     legend.draw();
     expect(legend.get('slider')).not.to.be.undefined;
@@ -128,7 +128,7 @@ describe('连续图例 - Size', function() {
       height: 150,
       slidable: true
     };
-    const legend = new Legend(cfg);
+    const legend = new Size(cfg);
     legend.move(200, 100);
     legend.draw();
     legend.activate(50);
@@ -144,7 +144,7 @@ describe('连续图例 - Size', function() {
       height: 15,
       slidable: true
     };
-    const legend = new Legend(cfg);
+    const legend = new Size(cfg);
     legend.move(200, 100);
     legend.draw();
     legend.activate(50);
