@@ -5,7 +5,7 @@
 
 const Util = require('../../util');
 // const Category = require('./category');
-const Components = require('@antv/component');
+const Components = require('@antv/component/lib');
 const Global = require('../../global');
 const { Legend } = Components;
 const { Category } = Legend;

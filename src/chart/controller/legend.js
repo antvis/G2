@@ -1,5 +1,5 @@
 const Util = require('../../util');
-const { Legend } = require('@antv/component/');
+const { Legend } = require('@antv/component/lib');
 const Tail = require('../../component/legend/tail');
 const Shape = require('../../geom/shape/shape');
 
