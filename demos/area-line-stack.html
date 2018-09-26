@@ -57,7 +57,9 @@
         tickInterval: 25
       }
     });
-    // chart.legend(false);
+    chart.legend({
+      reactive: true
+    });
     chart.areaStack()
       .position('year*value')
       .color('country');

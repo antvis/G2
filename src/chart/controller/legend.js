@@ -707,7 +707,7 @@ class LegendController {
         legend = self._addCategoryLegend(scale, attr, geom, filterVals, position);
       }
       self._bindHoverEvent(legend, field);
-      self._bindChartMove(scale);
+      legendOptions.reactive && self._bindChartMove(scale);
     }
   }
 
