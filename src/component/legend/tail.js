@@ -4,9 +4,11 @@
  */
 
 const Util = require('../../util');
-const Category = require('./category');
+// const Category = require('./category');
+const Components = require('@antv/component/lib');
 const Global = require('../../global');
-
+const { Legend } = Components;
+const { Category } = Legend;
 class Tail extends Category {
   getDefaultCfg() {
     const cfg = super.getDefaultCfg();
@@ -140,19 +142,11 @@ class Tail extends Category {
     }
   }
 
-  _renderUI() {
-    const self = this;
-    if (!self.get('useHtml')) {
-      // super._renderUI();
-      self._renderItems();
-      self.get('autoWrap') && self._adjustItems(); // 默认自动换行
-      self._renderBack();
-    } else { // 使用 html 渲染图例
-      self._renderHTML();
-    }
-    const chart = self.get('chart');
-    chart.once('afterpaint', function() {
-      self._adjust();
+  render() {
+    super.render();
+    const chart = this.get('chart');
+    chart.once('afterpaint', () => {
+      this._adjust();
     });
   }
 
@@ -238,7 +232,7 @@ class Tail extends Category {
         const y = b.pos + posInCompositeBox - elementHeight / 2;
         const dist = Math.abs(origin_y - y);
         if (dist > elementHeight / 2) {
-          self._adjustDenote(group, y, origin_y - self.attr('matrix')[7] / 2);
+          self._adjustDenote(group, y, origin_y - self.get('group').attr('matrix')[7] / 2);
         }
         items[i].translate(0, -origin_y);
         items[i].translate(0, y);

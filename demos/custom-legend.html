@@ -194,6 +194,7 @@
     .position('direction*value')
     .size(0)
     .label('value', function(value) {
+      value = Number.parseFloat(value);
       return value.toFixed(2);
     });
 

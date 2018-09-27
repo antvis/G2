@@ -69,8 +69,8 @@ describe('LegendController', function() {
     canvas = chart.get('canvas');
     const controller = chart.get('legendController');
     const legend = controller.legends['right-center'][0];
-    const x = legend.get('x');
-    const y = legend.get('y');
+    const x = legend.get('group').get('x');
+    const y = legend.get('group').get('y');
     const height = legend.getHeight();
     const backRange = controller.getBackRange();
     const chartHeight = canvas.get('height');
@@ -84,8 +84,8 @@ describe('LegendController', function() {
     chart.repaint();
     const controller = chart.get('legendController');
     const legend = controller.legends['right-bottom'][0];
-    const x = legend.get('x');
-    const y = legend.get('y');
+    const x = legend.get('group').get('x');
+    const y = legend.get('group').get('y');
     const height = legend.getHeight();
     const backRange = controller.getBackRange();
     const borderMargin = Global.legend.margin;
@@ -100,8 +100,8 @@ describe('LegendController', function() {
     chart.repaint();
     const controller = chart.get('legendController');
     const legend = controller.legends['right-top'][0];
-    const x = legend.get('x');
-    const y = legend.get('y');
+    const x = legend.get('group').get('x');
+    const y = legend.get('group').get('y');
     const backRange = controller.getBackRange();
     const borderMargin = Global.legend.margin;
     expect(x).to.equal(backRange.maxX + borderMargin[1]);
@@ -113,8 +113,8 @@ describe('LegendController', function() {
     chart.repaint();
     const controller = chart.get('legendController');
     const legend = controller.legends['left-center'][0];
-    const x = legend.get('x');
-    const y = legend.get('y');
+    const x = legend.get('group').get('x');
+    const y = legend.get('group').get('y');
     const width = legend.getWidth();
     const height = legend.getHeight();
     const chartHeight = canvas.get('height');
@@ -129,13 +129,14 @@ describe('LegendController', function() {
     chart.repaint();
     const controller = chart.get('legendController');
     const legend = controller.legends['top-left'][0];
-    const x = legend.get('x');
-    const y = legend.get('y');
+    const x = legend.get('group').get('x');
+    const y = legend.get('group').get('y');
+    const offsetY = legend.get('offset')[1];
     const height = legend.getHeight();
     const backRange = controller.getBackRange();
     const borderMargin = Global.legend.margin;
     expect(x).to.equal(backRange.minX - borderMargin[3]);
-    expect(y).to.equal(backRange.minY - height - borderMargin[0]);
+    expect(y).to.equal(backRange.minY - height - borderMargin[0] + offsetY);
   });
 
   it('legendPosition top-center', function() {
@@ -143,15 +144,16 @@ describe('LegendController', function() {
     chart.repaint();
     const controller = chart.get('legendController');
     const legend = controller.legends['top-center'][0];
-    const x = legend.get('x');
-    const y = legend.get('y');
+    const x = legend.get('group').get('x');
+    const y = legend.get('group').get('y');
     const width = legend.getWidth();
     const height = legend.getHeight();
+    const offsetY = legend.get('offset')[1];
     const canvasWidth = canvas.get('width');
     const backRange = controller.getBackRange();
     const borderMargin = Global.legend.margin;
     expect(x).to.equal((canvasWidth - width) / 2);
-    expect(y).to.equal(backRange.minY - height - borderMargin[0]);
+    expect(y).to.equal(backRange.minY - height - borderMargin[0] + offsetY);
   });
 
   it('legendPosition top-right', function() {
@@ -159,15 +161,16 @@ describe('LegendController', function() {
     chart.repaint();
     const controller = chart.get('legendController');
     const legend = controller.legends['top-right'][0];
-    const x = legend.get('x');
-    const y = legend.get('y');
+    const x = legend.get('group').get('x');
+    const y = legend.get('group').get('y');
     const width = legend.getWidth();
     const height = legend.getHeight();
+    const offsetY = legend.get('offset')[1];
     const plotRange = controller.plotRange;
     const backRange = controller.getBackRange();
     const borderMargin = Global.legend.margin;
     expect(x).to.equal(plotRange.br.x - width);
-    expect(y).to.equal(backRange.minY - height - borderMargin[0]);
+    expect(y).to.equal(backRange.minY - height - borderMargin[0] + offsetY);
   });
 
   it('legendPosition bottom-center', function() {
@@ -175,14 +178,15 @@ describe('LegendController', function() {
     chart.repaint();
     const controller = chart.get('legendController');
     const legend = controller.legends['bottom-center'][0];
-    const x = legend.get('x');
-    const y = legend.get('y');
+    const x = legend.get('group').get('x');
+    const y = legend.get('group').get('y');
     const width = legend.getWidth();
+    const offsetY = legend.get('offset')[1];
     const canvasWidth = canvas.get('width');
     const backRange = controller.getBackRange();
     const borderMargin = Global.legend.margin;
     expect(x).to.equal((canvasWidth - width) / 2);
-    expect(y).to.equal(backRange.maxY + borderMargin[2]);
+    expect(y).to.equal(backRange.maxY + borderMargin[2] + offsetY);
   });
 
   it('legendPosition right-center multi-shapes', function() {
@@ -193,14 +197,15 @@ describe('LegendController', function() {
     chart.render();
     const controller = chart.get('legendController');
     const legend = controller.legends['right-center'][0];
-    const x = legend.get('x');
-    const y = legend.get('y');
+    const x = legend.get('group').get('x');
+    const y = legend.get('group').get('y');
     const totalHeight = controller._getRegion().totalHeight;
     const chartHeight = canvas.get('height');
+    const offsetY = legend.get('offset')[1];
     const backRange = controller.getBackRange();
     const borderMargin = Global.legend.margin;
     expect(x).to.equal(backRange.maxX + borderMargin[1]);
-    expect(y).to.equal((chartHeight - totalHeight) / 2);
+    expect(y).to.equal((chartHeight - totalHeight) / 2 + offsetY);
   });
 
   it('legendPosition right-top multi-shapes', function() {
@@ -208,8 +213,8 @@ describe('LegendController', function() {
     chart.repaint();
     const controller = chart.get('legendController');
     const legend = controller.legends['right-top'][0];
-    const x = legend.get('x');
-    const y = legend.get('y');
+    const x = legend.get('group').get('x');
+    const y = legend.get('group').get('y');
     const backRange = controller.getBackRange();
     const borderMargin = Global.legend.margin;
     expect(x).to.equal(backRange.maxX + borderMargin[1]);
@@ -221,8 +226,8 @@ describe('LegendController', function() {
     chart.repaint();
     const controller = chart.get('legendController');
     const legend = controller.legends['right-bottom'][0];
-    const x = legend.get('x');
-    const y = legend.get('y');
+    const x = legend.get('group').get('x');
+    const y = legend.get('group').get('y');
     const plotRange = controller.plotRange;
     const plotHeight = plotRange.br.y;
     const totalHeight = controller._getRegion().totalHeight;
@@ -237,8 +242,8 @@ describe('LegendController', function() {
     chart.repaint();
     const controller = chart.get('legendController');
     const legend = controller.legends['left-bottom'][0];
-    const x = legend.get('x');
-    const y = legend.get('y');
+    const x = legend.get('group').get('x');
+    const y = legend.get('group').get('y');
     const width = legend.getWidth();
     const plotRange = controller.plotRange;
     const plotHeight = plotRange.br.y;
@@ -254,15 +259,16 @@ describe('LegendController', function() {
     chart.repaint();
     const controller = chart.get('legendController');
     const legend = controller.legends['top-center'][0];
-    const x = legend.get('x');
-    const y = legend.get('y');
+    const x = legend.get('group').get('x');
+    const y = legend.get('group').get('y');
     const height = legend.getHeight();
     const totalWidth = controller._getRegion().totalWidth;
     const chartWidth = canvas.get('width');
+    const offsetY = legend.get('offset')[1];
     const backRange = controller.getBackRange();
     const borderMargin = Global.legend.margin;
     expect(x).to.equal((chartWidth - totalWidth) / 2);
-    expect(y).to.equal(backRange.minY - height - borderMargin[0]);
+    expect(y).to.equal(backRange.minY - height - borderMargin[0] + offsetY);
   });
 
   it('legendPosition top-left multi-shapes', function() {
@@ -270,13 +276,14 @@ describe('LegendController', function() {
     chart.repaint();
     const controller = chart.get('legendController');
     const legend = controller.legends['top-left'][0];
-    const x = legend.get('x');
-    const y = legend.get('y');
+    const x = legend.get('group').get('x');
+    const y = legend.get('group').get('y');
     const height = legend.getHeight();
+    const offsetY = legend.get('offset')[1];
     const backRange = controller.getBackRange();
     const borderMargin = Global.legend.margin;
     expect(x).to.equal(backRange.minX - borderMargin[3]);
-    expect(y).to.equal(backRange.minY - height - borderMargin[0]);
+    expect(y).to.equal(backRange.minY - height - borderMargin[0] + offsetY);
   });
 
   it('legendPosition top-right multi-shapes', function() {
@@ -284,15 +291,16 @@ describe('LegendController', function() {
     chart.repaint();
     const controller = chart.get('legendController');
     const legend = controller.legends['top-right'][0];
-    const x = legend.get('x');
-    const y = legend.get('y');
+    const x = legend.get('group').get('x');
+    const y = legend.get('group').get('y');
     const height = legend.getHeight();
+    const offsetY = legend.get('offset')[1];
     const totalWidth = controller._getRegion().totalWidth;
     const backRange = controller.getBackRange();
     const borderMargin = Global.legend.margin;
     const plotRange = controller.plotRange;
     expect(x).to.equal(plotRange.br.x - totalWidth);
-    expect(y).to.equal(backRange.minY - height - borderMargin[0]);
+    expect(y).to.equal(backRange.minY - height - borderMargin[0] + offsetY);
   });
 
   it('legendPosition top-center multi-shapes', function() {
@@ -300,14 +308,15 @@ describe('LegendController', function() {
     chart.repaint();
     const controller = chart.get('legendController');
     const legend = controller.legends['bottom-center'][0];
-    const x = legend.get('x');
-    const y = legend.get('y');
+    const x = legend.get('group').get('x');
+    const y = legend.get('group').get('y');
+    const offsetY = legend.get('offset')[1];
     const totalWidth = controller._getRegion().totalWidth;
     const chartWidth = canvas.get('width');
     const backRange = controller.getBackRange();
     const borderMargin = Global.legend.margin;
     expect(x).to.equal((chartWidth - totalWidth) / 2);
-    expect(y).to.equal(backRange.maxY + borderMargin[2]);
+    expect(y).to.equal(backRange.maxY + borderMargin[2] + offsetY);
   });
 
   it('legendPosition previous version', function() {
@@ -374,16 +383,17 @@ describe('LegendController', function() {
     chart2.render();
     const controller = chart2.get('legendController');
     const legend = controller.legends['top-center'][0];
-    const x = legend.get('x');
-    const y = legend.get('y');
+    const x = legend.get('group').get('x');
+    const y = legend.get('group').get('y');
     const width = legend.getWidth();
     const height = legend.getHeight();
+    const offsetY = legend.get('offset')[1];
     const canvasWidth = canvas.get('width');
     const backRange = controller.getBackRange();
     const borderMargin = Global.legend.margin;
     expect(x).to.equal((canvasWidth - width) / 2);
-    expect(y).to.equal(backRange.minY - height - borderMargin[0]);
+    expect(y).to.equal(backRange.minY - height - borderMargin[0] + offsetY);
+    chart.clear();
+    chart2.clear();
   });
-
-
 });
