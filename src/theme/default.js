@@ -343,12 +343,17 @@ const Theme = {
       width: 16,
       height: 156,
       title: null,
+      legendStyle: {
+        LIST_CLASS: {
+          textAlign: 'left'
+        }
+      },
       textStyle: {
         fill: '#8C8C8C',
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle',
-        lineHeight: 20,
+        lineHeight: 0,
         fontFamily: FONT_FAMILY
       }, // 图例项文本的样式
       unCheckColor: '#bfbfbf'
@@ -372,7 +377,7 @@ const Theme = {
     },
     top: {
       position: 'top',
-      offset: 6,
+      offset: [ 0, 6 ],
       layout: 'horizontal',
       title: null,
       itemGap: 10,
@@ -390,7 +395,7 @@ const Theme = {
     },
     bottom: {
       position: 'bottom',
-      offset: 6,
+      offset: [ 0, 6 ],
       layout: 'horizontal',
       title: null,
       itemGap: 10,
