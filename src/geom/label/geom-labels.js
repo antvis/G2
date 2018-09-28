@@ -1,5 +1,6 @@
 const { Group } = require('../../renderer');
 const { Label } = require('@antv/component/lib');
+const visualCenter = require('@antv/component/lib/label/utils/visual-center');
 const Global = require('../../global');
 const Util = require('../../util');
 const IGNORE_ARR = [ 'line', 'point', 'path' ];
@@ -11,26 +12,6 @@ function avg(arr) {
     sum += value;
   });
   return sum / arr.length;
-}
-
-// 计算多边形重心: https://en.wikipedia.org/wiki/Centroid#Of_a_polygon
-function getCentroid(xs, ys) {
-  let i = -1,
-    x = 0,
-    y = 0;
-  let former,
-    current = xs.length - 1;
-  let diff,
-    k = 0;
-  while (++i < xs.length) {
-    former = current;
-    current = i;
-    k += diff = xs[former] * ys[current] - xs[current] * ys[former];
-    x += (xs[former] + xs[current]) * diff;
-    y += (ys[former] + ys[current]) * diff;
-  }
-  k *= 3;
-  return [ x / k, y / k ];
 }
 
 class GeomLabels extends Group {
@@ -154,9 +135,37 @@ class GeomLabels extends Group {
    * @protected
    * 如果发生冲突则会调整文本的位置
    * @param {Array} items 文本的集合
+   * @param {Array} shapes 关联形状
    * @return {Array} adjusted items
    */
-  adjustItems(items) {
+  adjustItems(items, shapes) {
+    // 多边形shape的label位于其可视中心
+    if (this.get('geomType') === 'polygon') {
+      shapes = shapes.sort((a, b) => a.get('index') - b.get('index'));
+      let index,
+        shape,
+        path,
+        center,
+        points;
+      Util.each(items, (item, i) => {
+        shape = shapes[ i ];
+        path = shape.attr('path');
+        points = [[]];
+        index = 0;
+        path.forEach((segment, i) => {
+          if (segment[ 0 ] === 'z' || segment[ 0 ] === 'Z' && i !== path.length - 1) {
+            points.push([]);
+            index += 1;
+          }
+          if (segment.length === 3) {
+            points[ index ].push([ segment[ 1 ], segment[ 2 ] ]);
+          }
+        });
+        center = visualCenter(points);
+        item.x = center.x;
+        item.y = center.y;
+      });
+    }
     return items;
   }
 
@@ -207,17 +216,10 @@ class GeomLabels extends Group {
     }
 
     const label = {
-      text: labelCfg.text[index]
+      text: labelCfg.text[index],
+      x: getDimValue(point.x, index),
+      y: getDimValue(point.y, index)
     };
-    // 多边形场景,多用于地图
-    if (point && this.get('geomType') === 'polygon') {
-      const centroid = getCentroid(point.x, point.y);
-      label.x = centroid[0];
-      label.y = centroid[1];
-    } else {
-      label.x = getDimValue(point.x, index);
-      label.y = getDimValue(point.y, index);
-    }
 
     // get nearest point of the shape as the label line start point
     if (point && point.nextPoints && (point.shape === 'funnel' || point.shape === 'pyramid')) {
@@ -345,7 +347,9 @@ class GeomLabels extends Group {
     const scales = labelCfg.scales;
     const defaultCfg = this.get('label');
     const cfgs = [];
-
+    if (labelCfg.globalCfg && labelCfg.globalCfg.type) {
+      self.set('type', labelCfg.globalCfg.type);
+    }
     Util.each(points, (point, i) => {
       let cfg = {};
       const origin = point[ORIGIN];
@@ -363,11 +367,15 @@ class GeomLabels extends Group {
         cfg.text = originText[0];
       }
       cfg = Util.mix({}, defaultCfg, labelCfg.globalCfg || {}, cfg);
+      // 兼容旧的源数据写在item.point中
+      point.point = origin;
       if (cfg.htmlTemplate) {
-        cfg.text = cfg.htmlTemplate.call(null, cfg.text[0], origin, i);
+        cfg.text = cfg.htmlTemplate.call(null, cfg.text, point, i);
+        delete cfg.htmlTemplate;
       }
       if (cfg.formatter) {
-        cfg.text = cfg.formatter.call(null, cfg.text[0], origin, i);
+        cfg.text = cfg.formatter.call(null, cfg.text, point, i);
+        delete cfg.formatter;
       }
       if (cfg.label) {
         // 兼容有些直接写在labelCfg.label的配置
@@ -394,17 +402,21 @@ class GeomLabels extends Group {
     });
     this.set('labelItemCfgs', cfgs);
   }
-  showLabels(points) {
+  showLabels(points, shapes) {
     const self = this;
     const labelRenderer = self.get('labelRenderer');
     let items = self.getLabelsItems(points);
+    const type = self.get('type');
     self.drawLines(items);
-    items = self.adjustItems(items);
+    items = self.adjustItems(items, shapes);
     labelRenderer.set('items', items);
+    if (type) {
+      labelRenderer.set('shapes', shapes);
+      labelRenderer.set('type', type);
+      labelRenderer.set('points', points);
+    }
     labelRenderer.set('canvas', this.get('canvas'));
     labelRenderer.draw();
-/*    self.resetLabels(items);
-    self.drawLines(items);*/
   }
 
   destroy() {
