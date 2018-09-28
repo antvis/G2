@@ -382,7 +382,9 @@ class GeomLabels extends Group {
       const origin = point[ORIGIN];
       const originText = self._getLabelValue(origin, scales);
       if (labelCfg.callback) {
-        cfg = labelCfg.callback.apply(null, originText);
+        // callback中应使用原始数据，而不是数据字符串
+        const originValues = scales.map(scale => origin[scale.field]);
+        cfg = labelCfg.callback.apply(null, originValues);
       }
       if (!cfg && cfg !== 0) {
         cfgs.push(null);
