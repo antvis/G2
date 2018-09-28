@@ -4,7 +4,7 @@
  */
 const Util = require('../../util');
 const Shape = require('../../geom/shape/shape');
-const Tooltip = require('@antv/component').Tooltip;
+const { Tooltip } = require('@antv/component/lib');
 const MatrixUtil = Util.MatrixUtil;
 const Vector2 = MatrixUtil.vec2;
 
