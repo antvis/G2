@@ -48,6 +48,12 @@
       }
     });
 
+    chart.legend('source', false);
+    chart.legend('id', false);
+    chart.legend('value', {
+      slidable: false,
+      hoverable: false
+    });
     const edgeView = chart.view();
     edgeView.source(dv.edges);
     edgeView.coord('polar').reflect('y');
