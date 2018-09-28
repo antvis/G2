@@ -190,8 +190,11 @@
       .polygon()
       .position('longitude*lantitude')
       .label('name', {
+        offset: 0,
+        type: 'map',
         textStyle: {
-          fill: '#fff',
+          textBaseline: 'middle',
+          fill: '#000',
           fontSize: 10,
           shadowBlur: 2,
           shadowColor: 'rgba(0, 0, 0, .45)'

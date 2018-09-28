@@ -1,6 +1,6 @@
 const { Group } = require('../../renderer');
-const { Label } = require('@antv/component/lib');
-const visualCenter = require('@antv/component/lib/label/utils/visual-center');
+const Label = require('@antv/component/src/label/base');
+// const visualCenter = require('@antv/component/lib/label/utils/visual-center');
 const Global = require('../../global');
 const Util = require('../../util');
 const IGNORE_ARR = [ 'line', 'point', 'path' ];
@@ -12,6 +12,26 @@ function avg(arr) {
     sum += value;
   });
   return sum / arr.length;
+}
+
+// 计算多边形重心: https://en.wikipedia.org/wiki/Centroid#Of_a_polygon
+function getCentroid(xs, ys) {
+  let i = -1,
+    x = 0,
+    y = 0;
+  let former,
+    current = xs.length - 1;
+  let diff,
+    k = 0;
+  while (++i < xs.length) {
+    former = current;
+    current = i;
+    k += diff = xs[former] * ys[current] - xs[current] * ys[former];
+    x += (xs[former] + xs[current]) * diff;
+    y += (ys[former] + ys[current]) * diff;
+  }
+  k *= 3;
+  return [ x / k, y / k ];
 }
 
 class GeomLabels extends Group {
@@ -138,9 +158,9 @@ class GeomLabels extends Group {
    * @param {Array} shapes 关联形状
    * @return {Array} adjusted items
    */
-  adjustItems(items, shapes) {
+  adjustItems(items) {
     // 多边形shape的label位于其可视中心
-    if (this.get('geomType') === 'polygon') {
+    /* if (this.get('geomType') === 'polygon') {
       shapes = shapes.sort((a, b) => a.get('index') - b.get('index'));
       let index,
         shape,
@@ -165,7 +185,7 @@ class GeomLabels extends Group {
         item.x = center.x;
         item.y = center.y;
       });
-    }
+    }*/
     return items;
   }
 
@@ -216,10 +236,17 @@ class GeomLabels extends Group {
     }
 
     const label = {
-      text: labelCfg.text[index],
-      x: getDimValue(point.x, index),
-      y: getDimValue(point.y, index)
+      text: labelCfg.text[index]
     };
+    // 多边形场景,多用于地图
+    if (point && this.get('geomType') === 'polygon') {
+      const centroid = getCentroid(point.x, point.y);
+      label.x = centroid[0];
+      label.y = centroid[1];
+    } else {
+      label.x = getDimValue(point.x, index);
+      label.y = getDimValue(point.y, index);
+    }
 
     // get nearest point of the shape as the label line start point
     if (point && point.nextPoints && (point.shape === 'funnel' || point.shape === 'pyramid')) {
@@ -395,7 +422,8 @@ class GeomLabels extends Group {
       if (!Util.isArray(offset)) {
         offset = [ 0, offset ];
       }
-      cfg.labelLine = Util.mix({}, cfg.labelLine, defaultCfg.labelLine);
+      cfg.labelLine = Util.mix({}, defaultCfg.labelLine, cfg.labelLine);
+      cfg.textStyle = Util.mix({}, defaultCfg.textStyle, cfg.textStyle);
       cfg.offset = offset;
       delete cfg.items;
       cfgs.push(cfg);
