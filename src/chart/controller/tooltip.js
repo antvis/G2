@@ -3,7 +3,8 @@
  * @author sima.zhang
  */
 const Util = require('../../util');
-const Tooltip = require('../../component/tooltip');
+const Shape = require('../../geom/shape/shape');
+const { Tooltip } = require('@antv/component/lib');
 const MatrixUtil = Util.MatrixUtil;
 const Vector2 = MatrixUtil.vec2;
 
@@ -221,8 +222,13 @@ class TooltipController {
           tooltip.clearMarkers();
         }
       }
-      tooltip.setPosition(x, y, target);
-      tooltip.show();
+      const canvas = this._getCanvas();
+      if (target === canvas && tooltip.get('type') === 'mini') { // filter mini tooltip
+        tooltip.hide();
+      } else {
+        tooltip.setPosition(x, y, target);
+        tooltip.show();
+      }
     }
   }
 
@@ -286,7 +292,7 @@ class TooltipController {
       capture: false,
       canvas,
       frontPlot: chart.get('frontPlot'),
-      viewTheme,
+      vieTheme: viewTheme.tooltip,
       backPlot: chart.get('backPlot')
     }, defaultCfg, options);
     if (options.crosshairs && options.crosshairs.type === 'rect') {
@@ -298,8 +304,17 @@ class TooltipController {
     // if (options.shared === false && Util.isNil(options.position)) {
     //   options.position = 'top';
     // }
-
-    const tooltip = new Tooltip(options);
+    let tooltip;
+    if (options.type === 'mini') {
+      options.crosshairs = false;
+      this.options.shared = false;
+      options.position = 'top';
+      tooltip = new Tooltip.Mini(options);
+    } else if (options.useHtml) {
+      tooltip = new Tooltip.Html(options);
+    } else {
+      tooltip = new Tooltip.Canvas(options);
+    }
     self.tooltip = tooltip;
 
     const triggerEvent = self._getTriggerEvent();
@@ -342,20 +357,22 @@ class TooltipController {
               const tmpPoint = geom.findPoint(point, obj);
               if (tmpPoint) {
                 const subItems = geom.getTipItems(tmpPoint, options.title);
-                if (Util.indexOf(TYPE_SHOW_MARKERS, type) !== -1) {
-                  Util.each(subItems, v => {
-                    let point = v.point;
-                    if (point && point.x && point.y) { // hotfix: make sure there is no null value
-                      const x = Util.isArray(point.x) ? point.x[point.x.length - 1] : point.x;
-                      const y = Util.isArray(point.y) ? point.y[point.y.length - 1] : point.y;
-                      point = coord.applyMatrix(x, y, 1);
-                      v.x = point[0];
-                      v.y = point[1];
-                      v.showMarker = true;
+                Util.each(subItems, v => {
+                  let point = v.point;
+                  if (point && point.x && point.y) { // hotfix: make sure there is no null value
+                    const x = Util.isArray(point.x) ? point.x[point.x.length - 1] : point.x;
+                    const y = Util.isArray(point.y) ? point.y[point.y.length - 1] : point.y;
+                    point = coord.applyMatrix(x, y, 1);
+                    v.x = point[0];
+                    v.y = point[1];
+                    v.showMarker = true;
+                    const itemMarker = self._getItemMarker(geom, v.color);
+                    v.marker = itemMarker;
+                    if (Util.indexOf(TYPE_SHOW_MARKERS, type) !== -1) {
                       markersItems.push(v);
                     }
-                  });
-                }
+                  }
+                });
                 items = items.concat(subItems);
               }
             });
@@ -382,9 +399,9 @@ class TooltipController {
       });
     });
 
+
     if (items.length) {
       const first = items[0];
-
       // bugfix: multiple tooltip items with different titles
       if (!items.every(item => item.title === first.title)) {
         let nearestItem = first;
@@ -431,6 +448,16 @@ class TooltipController {
     this.prePoint = null;
     this._offEvent();
   }
+
+  _getItemMarker(geom, color) {
+    const shapeType = geom.get('shapeType') || 'point';
+    const shape = geom.getDefaultValue('shape') || 'circle';
+    const shapeObject = Shape.getShapeFactory(shapeType);
+    const cfg = { color };
+    const marker = shapeObject.getMarkerCfg(shape, cfg);
+    return marker;
+  }
+
 }
 
 module.exports = TooltipController;
