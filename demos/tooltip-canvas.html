@@ -148,8 +148,13 @@ chart.tooltip({
   },
   useHtml: false
 });
-chart.areaStack().position('year*value').color('country');
-chart.lineStack().position('year*value').color('country').size(2);
+chart.areaStack()
+  .position('year*value')
+  .color('country');
+chart.lineStack()
+  .position('year*value')
+  .color('country')
+  .size(2);
 chart.render();
 </script>
 </body>
