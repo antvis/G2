@@ -97,6 +97,7 @@
       .color('sex', COLORS)
       .label('sold', {
         custom: true,
+        useHtml: true,
         htmlTemplate: (text, item) => {
           const isFemale = item.point.sex === '女';
           const src = isFemale ? '//img.alicdn.com/tps/TB1up3oPpXXXXbYXFXXXXXXXXXX-94-204.png'
