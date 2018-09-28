@@ -761,9 +761,21 @@ class LegendController {
       container,
       position: [ 0, 0 ]
     });
-
-    const legend = new Legend.Category(legendCfg);
-    // const legend = container.addGroup(Legend.Category, legendCfg);
+    let legend;
+    if (legendOptions.useHtml) {
+      legendCfg.container = container.get('canvas').get('el').parentNode;
+      if (legendCfg.legendStyle === undefined) legendCfg.legendStyle = {};
+      if (!legendCfg.legendStyle.CONTAINER_CLASS) {
+        legendCfg.legendStyle.CONTAINER_CLASS = {
+          height: (posArray[0] === 'right' || posArray[0] === 'left') ? maxLength + 'px' : 'auto',
+          width: !(posArray[0] === 'right' || posArray[0] === 'left') ? maxLength + 'px' : 'auto',
+          position: 'absolute',
+          overflow: 'auto'
+        };
+      }
+      if (legendOptions.flipPage) legend = new Legend.CatPageHtml(legendCfg);
+      else legend = new Legend.CatHtml(legendCfg);
+    } else legend = new Legend.Category(legendCfg);
     legends[position].push(legend);
 
     legend.on('itemclick', ev => {
