@@ -1,7 +1,7 @@
-const Util = require('@antv/util');
+const Util = require('../../util');
 const PathUtil = require('@antv/component/lib/guide/util/path');
 const Guide = require('@antv/component/lib/guide/base');
-const { Path } = require('@antv/g');
+const { Path } = require('@antv/g/lib');
 
 class RegionFilter extends Guide {
   getDefaultCfg() {

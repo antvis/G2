@@ -65,7 +65,8 @@ dist
 temp
 .DS_Store
 .idea
-demos/assets/screenshots
+# demos/assets/screenshots
+demos/assets/screenshots-new
 lib
 
 *.sw*

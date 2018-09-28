@@ -343,12 +343,17 @@ const Theme = {
       width: 16,
       height: 156,
       title: null,
+      legendStyle: {
+        LIST_CLASS: {
+          textAlign: 'left'
+        }
+      },
       textStyle: {
         fill: '#8C8C8C',
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle',
-        lineHeight: 20,
+        lineHeight: 0,
         fontFamily: FONT_FAMILY
       }, // 图例项文本的样式
       unCheckColor: '#bfbfbf'
@@ -372,7 +377,7 @@ const Theme = {
     },
     top: {
       position: 'top',
-      offset: 6,
+      offset: [ 0, 6 ],
       layout: 'horizontal',
       title: null,
       itemGap: 10,
@@ -390,7 +395,7 @@ const Theme = {
     },
     bottom: {
       position: 'bottom',
-      offset: 6,
+      offset: [ 0, 6 ],
       layout: 'horizontal',
       title: null,
       itemGap: 10,
@@ -460,6 +465,7 @@ const Theme = {
     legendMargin: 24 // 图例之间的间距
   },
   tooltip: {
+    useHtml: true,
     crosshairs: false,
     offset: 15,
     // css style for tooltip
@@ -597,29 +603,29 @@ const Theme = {
   guide: {
     line: {
       lineStyle: {
-        stroke: DEFAULT_COLOR,
-        lineDash: [ 0, 2, 2 ],
+        stroke: 'rgba(0, 0, 0, .65)',
+        lineDash: [ 2, 2 ],
         lineWidth: 1
       },
       text: {
-        position: 'end',
+        position: 'start',
         autoRotate: true,
         style: {
-          fill: '#545454',
+          fill: 'rgba(0, 0, 0, .45)',
           fontSize: 12,
-          textAlign: 'center',
-          fontFamily: FONT_FAMILY
+          textAlign: 'start',
+          fontFamily: FONT_FAMILY,
+          textBaseline: 'bottom'
         }
       }
     },
     text: {
       style: {
-        fill: '#545454',
+        fill: 'rgba(0,0,0,.5)',
         fontSize: 12,
         textBaseline: 'middle',
         textAlign: 'start',
         fontFamily: FONT_FAMILY
-
       }
     },
     region: {
@@ -632,6 +638,50 @@ const Theme = {
     html: {
       alignX: 'middle',
       alignY: 'middle'
+    },
+    dataRegion: {
+      style: {
+        region: {
+          lineWidth: 0,
+          fill: '#000000',
+          opacity: 0.04
+        },
+        text: {
+          textAlign: 'center',
+          textBaseline: 'bottom',
+          fontSize: 12,
+          fill: 'rgba(0, 0, 0, .65)'
+        }
+      }
+    },
+    dataMarker: {
+      top: true,
+      style: {
+        point: {
+          r: 3,
+          fill: '#FFFFFF',
+          stroke: '#1890FF',
+          lineWidth: 2
+        },
+        line: {
+          stroke: '#A3B1BF',
+          lineWidth: 1
+        },
+        text: {
+          fill: 'rgba(0, 0, 0, .65)',
+          opacity: 1,
+          fontSize: 12,
+          textAlign: 'start'
+        }
+      },
+      display: {
+        point: true,
+        line: true,
+        text: true
+      },
+      lineLength: 20,
+      direction: 'upward',
+      autoAdjust: true
     }
   },
   pixelRatio: null
