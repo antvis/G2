@@ -73,41 +73,41 @@ describe('Guide.RegionFilter', () => {
     ]);
   });
 
-  it('RegionFilter in polar coordinate, only works for line geometry.', () => {
-    group.clear();
-    chart.coord('polar');
-    chart.repaint();
-    const coord = chart.get('coord');
-    regionFilter = new RegionFilter({
-      xScales: {
-        country: xScale
-      },
-      yScales: {
-        population: yScales[0]
-      },
-      start: [ '印尼', 'min' ],
-      end: [ '印度', 'max' ],
-      color: '#FF4D4F',
-      apply: [ 'line' ],
-      style: {
-        lineWidth: 4
-      }
-    });
-    regionFilter.render(coord, group, data, chart);
-    chart.repaint();
+  // it('RegionFilter in polar coordinate, only works for line geometry.', () => {
+  //   group.clear();
+  //   chart.coord('polar');
+  //   chart.repaint();
+  //   const coord = chart.get('coord');
+  //   regionFilter = new RegionFilter({
+  //     xScales: {
+  //       country: xScale
+  //     },
+  //     yScales: {
+  //       population: yScales[0]
+  //     },
+  //     start: [ '印尼', 'min' ],
+  //     end: [ '印度', 'max' ],
+  //     color: '#FF4D4F',
+  //     apply: [ 'line' ],
+  //     style: {
+  //       lineWidth: 4
+  //     }
+  //   });
+  //   regionFilter.render(coord, group, data, chart);
+  //   chart.repaint();
 
-    const el = regionFilter.get('el');
-    expect(el.name).to.equal('guide-region-filter');
-    expect(el.get('children').length).to.equal(1);
+  //   const el = regionFilter.get('el');
+  //   expect(el.name).to.equal('guide-region-filter');
+  //   expect(el.get('children').length).to.equal(1);
 
-    const clip = el.attr('clip');
-    expect(clip.attr('path')).to.eql([
-      [ 'M', 230, 112.5 ],
-      [ 'L', 142.0272722426983, 141.08407197968265 ],
-      [ 'A', 92.5, 92.5, 0, 0, 0, 317.9727277573017, 141.08407197968265 ],
-      [ 'z' ]
-    ]);
-  });
+  //   const clip = el.attr('clip');
+  //   expect(clip.attr('path')).to.eql([
+  //     [ 'M', 230, 112.5 ],
+  //     [ 'L', 142.0272722426983, 141.08407197968265 ],
+  //     [ 'A', 92.5, 92.5, 0, 0, 0, 317.9727277573017, 141.08407197968265 ],
+  //     [ 'z' ]
+  //   ]);
+  // });
 
   it('changeVisible', function() {
     expect(regionFilter.get('visible')).to.be.true;

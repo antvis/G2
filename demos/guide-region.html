@@ -8,13 +8,6 @@
   <meta name="geometry" content="area">
   <link rel="stylesheet" href="./assets/common.css">
   <title>Guide.Region</title>
-  <style>
-    button {
-      position: fixed;
-      top: 0px;
-      left: 0px;
-    }
-  </style>
 </head>
 
 <body>
@@ -57,22 +50,6 @@
   chart.line().position('date*pv');
   chart.point().position('date*pv');
   chart.render();
-
-  $('button').click(e => {
-    const target = $(e.target);
-    const coord = target.data('coord');
-    if (coord === 'rect') {
-      chart.coord('polar');
-      chart.repaint();
-      target.data('coord', 'polar');
-      target.text('切换至直角坐标系');
-    } else if (coord === 'polar') {
-      chart.coord('rect');
-      chart.repaint();
-      target.data('coord', 'rect');
-      target.text('切换至极坐标系');
-    }
-  });
   </script>
 </body>
 
