@@ -267,7 +267,7 @@ class GeomLabels extends Group {
     label.x += offsetPoint[0];
     label.y += offsetPoint[1];
     label.color = point.color;
-    label._offset = offsetPoint;
+    label._offset = { x: offsetPoint[0], y: offsetPoint[1] };
     return label;
   }
   setLabelPosition() {}
