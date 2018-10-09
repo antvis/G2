@@ -195,6 +195,25 @@ class GeomLabels extends Group {
   adjustItems(items) {
     return items;
   }
+  /**
+   * drawing lines to labels
+   * @param  {Array} items labels
+   * @param  {Object} labelLine configuration for label lines
+   */
+  drawLines(items) {
+    const self = this;
+    Util.each(items, function(point) {
+      if (!point) {
+        return;
+      }
+      if (point._offset[0] > 0 || point._offset[1] > 0) {
+        self.lineToLabel(point);
+      }
+    });
+  }
+
+  // 定义连接线
+  lineToLabel() {}
 
   /**
    * @protected
@@ -432,6 +451,7 @@ class GeomLabels extends Group {
     let items = self.getLabelsItems(points, shapes);
     shapes = [].concat(shapes);
     const type = self.get('type');
+    self.drawLines(items);
     items = self.adjustItems(items, shapes);
     labelRenderer.set('items', items.filter((item, i) => {
       if (!item) {
