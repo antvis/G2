@@ -158,6 +158,9 @@ class PieLabels extends PolarLabels {
       [] // right
     ];
     labels.forEach(function(label) {
+      if (!label) {
+        return;
+      }
       if (label.textAlign === 'right') { // left
         halves[0].push(label);
       } else { // right or center will be put on the right side

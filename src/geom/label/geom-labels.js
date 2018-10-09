@@ -109,15 +109,16 @@ class GeomLabels extends Group {
    * @protected
    * 获取labels
    * @param {Array} points points
+   * @param {Array} shapes shapes
    * @return {Array} label items
    */
-  getLabelsItems(points) {
+  getLabelsItems(points, shapes) {
     const self = this;
     const items = [];
     const geom = self.get('geom');
     const coord = self.get('coord');
 
-    self._getLabelCfgs(points);
+    self._getLabelCfgs(points, shapes);
     const labelCfg = self.get('labelItemCfgs');
 
     // 获取label相关的x，y的值，获取具体的x,y,防止存在数组
@@ -125,6 +126,7 @@ class GeomLabels extends Group {
       const origin = point[ORIGIN];
       const label = labelCfg[i];
       if (!label) {
+        items.push(null);
         return;
       }
       if (!Util.isArray(label.text)) {
@@ -134,6 +136,7 @@ class GeomLabels extends Group {
 
       Util.each(label.text, (sub, subIndex) => {
         if (Util.isNil(sub) || sub === '') {
+          items.push(null);
           return;
         }
         let obj = self.getLabelPoint(label, point, subIndex);
@@ -151,23 +154,23 @@ class GeomLabels extends Group {
     return items;
   }
 
-  /**
+  /* /!*
    * @protected
    * 如果发生冲突则会调整文本的位置
    * @param {Array} items 文本的集合
    * @param {Array} shapes 关联形状
    * @return {Array} adjusted items
-   */
-  adjustItems(items) {
+   *!/
+  adjustItems(items, shapes) {
     // 多边形shape的label位于其可视中心
-    /* if (this.get('geomType') === 'polygon') {
-      shapes = shapes.sort((a, b) => a.get('index') - b.get('index'));
+    if (this.get('geomType') === 'polygon') {
       let index,
         shape,
         path,
         center,
         points;
       Util.each(items, (item, i) => {
+        if (!item) return;
         shape = shapes[ i ];
         path = shape.attr('path');
         points = [[]];
@@ -185,10 +188,13 @@ class GeomLabels extends Group {
         item.x = center.x;
         item.y = center.y;
       });
-    }*/
+    }
     return items;
   }
-
+*/
+  adjustItems(items) {
+    return items;
+  }
   /**
    * drawing lines to labels
    * @param  {Array} items labels
@@ -197,6 +203,9 @@ class GeomLabels extends Group {
   drawLines(items) {
     const self = this;
     Util.each(items, function(point) {
+      if (!point) {
+        return;
+      }
       if (point._offset[0] > 0 || point._offset[1] > 0) {
         self.lineToLabel(point);
       }
@@ -277,7 +286,7 @@ class GeomLabels extends Group {
     label.x += offsetPoint[0];
     label.y += offsetPoint[1];
     label.color = point.color;
-    label._offset = offsetPoint;
+    label._offset = { x: offsetPoint[0], y: offsetPoint[1] };
     return label;
   }
   setLabelPosition() {}
@@ -293,7 +302,13 @@ class GeomLabels extends Group {
   getDefaultOffset(point) {
     const offset = point.offset || [ 0, 0 ];
     const coord = this.get('coord');
-    const vector = coord.applyMatrix(offset[0], offset[1]);
+    let vector;
+    if (coord.isTransposed) {
+      vector = coord.applyMatrix(offset[1], offset[0]);
+    } else {
+      vector = coord.applyMatrix(offset[0], offset[1]);
+    }
+
     return [ vector[0], vector[1] ];
   }
 
@@ -303,8 +318,6 @@ class GeomLabels extends Group {
     const offset = self.getDefaultOffset(point);
     const coord = self.get('coord');
     const transposed = coord.isTransposed;
-    const xField = transposed ? 'y' : 'x';
-    const yField = transposed ? 'x' : 'y';
     let factor = transposed ? 1 : -1; // y 方向上越大，像素的坐标越小
     const offsetPoint = {
       x: 0,
@@ -315,8 +328,8 @@ class GeomLabels extends Group {
     if (index <= 0 && total !== 1) {
       factor *= -1;
     }
-    offsetPoint[xField] = offset[0] * factor;
-    offsetPoint[yField] = offset[1] * factor;
+    offsetPoint.x = offset[0] * factor;
+    offsetPoint.y = offset[1] * factor;
     return [ offsetPoint.x, offsetPoint.y ];
   }
 
@@ -327,9 +340,9 @@ class GeomLabels extends Group {
     if (coord.isTransposed) {
       const offset = point._offset;
       // var vector = coord.applyMatrix(offset,0);
-      if (offset[1] < 0) {
+      if (offset[0] < 0) {
         align = 'right';
-      } else if (offset[1] === 0) {
+      } else if (offset[0] === 0) {
         align = 'center';
       } else {
         align = 'left';
@@ -435,11 +448,18 @@ class GeomLabels extends Group {
   showLabels(points, shapes) {
     const self = this;
     const labelRenderer = self.get('labelRenderer');
-    let items = self.getLabelsItems(points);
+    let items = self.getLabelsItems(points, shapes);
+    shapes = [].concat(shapes);
     const type = self.get('type');
     self.drawLines(items);
     items = self.adjustItems(items, shapes);
-    labelRenderer.set('items', items);
+    labelRenderer.set('items', items.filter((item, i) => {
+      if (!item) {
+        shapes.splice(i, 1);
+        return false;
+      }
+      return true;
+    }));
     if (type) {
       labelRenderer.set('shapes', shapes);
       labelRenderer.set('type', type);
