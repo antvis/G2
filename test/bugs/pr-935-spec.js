@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const DataSet = require('@antv/data-set');
 const G2 = require('../../src/index');
 
-describe.only('scaled coord label', function() {
+describe('scaled coord label', function() {
   const div = document.createElement('div');
   document.body.appendChild(div);
 
