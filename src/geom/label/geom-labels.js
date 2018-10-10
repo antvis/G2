@@ -451,8 +451,8 @@ class GeomLabels extends Group {
     let items = self.getLabelsItems(points, shapes);
     shapes = [].concat(shapes);
     const type = self.get('type');
-    self.drawLines(items);
     items = self.adjustItems(items, shapes);
+    self.drawLines(items);
     labelRenderer.set('items', items.filter((item, i) => {
       if (!item) {
         shapes.splice(i, 1);

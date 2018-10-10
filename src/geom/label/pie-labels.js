@@ -140,7 +140,7 @@ class PieLabels extends PolarLabels {
     const radius = coord.getRadius();
     const lineHeight = self.get('label').labelHeight;
     const center = coord.getCenter();
-    const totalR = radius + offset[1];
+    const totalR = radius + offset;
     const totalHeight = totalR * 2 + lineHeight * 2;
     let plotRange = {
       start: coord.start,
