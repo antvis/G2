@@ -3,7 +3,6 @@ const Chart = require('../../../src/chart/chart');
 const { DomUtil } = require('../../../src/util');
 
 const div = document.createElement('div');
-div.id = 'cchart';
 document.body.appendChild(div);
 
 describe('test chart', function() {
@@ -114,7 +113,7 @@ describe('test chart with views', function() {
       height: 500,
       forceFit: true,
       padding: 50,
-      container: 'cchart',
+      container: div,
       animate: false
     });
 
@@ -186,7 +185,7 @@ describe('test chart width filter', function() {
     chart = new Chart({
       height: 500,
       forceFit: true,
-      container: 'cchart',
+      container: div,
       animate: false
     });
 
@@ -238,7 +237,7 @@ describe('test chart width filter, ignore legend', function() {
     chart = new Chart({
       height: 500,
       forceFit: true,
-      container: 'cchart',
+      container: div,
       animate: false
     });
     chart.source(data);
@@ -290,7 +289,7 @@ describe('chart forceFit', function() {
     chart = new Chart({
       height: 500,
       forceFit: true,
-      container: 'cchart',
+      container: div,
       animate: false,
       padding: [ 20, 80, 60, 80 ]
     });
@@ -365,7 +364,7 @@ describe('filter shape', function() {
     chart = new Chart({
       height: 500,
       forceFit: true,
-      container: 'cchart'
+      container: div
     });
     const viewContainer = chart.get('viewContainer');
     expect(viewContainer.getCount()).equal(0);
@@ -423,7 +422,7 @@ describe('chart, view, geom visible', function() {
     chart = new Chart({
       height: 500,
       forceFit: true,
-      container: 'cchart',
+      container: div,
       animate: false,
       padding: 0
     });
@@ -541,7 +540,7 @@ describe('chart sync scales', function() {
     chart = new Chart({
       height: 500,
       forceFit: true,
-      container: 'cchart',
+      container: div,
       animate: false
     });
 
@@ -697,7 +696,7 @@ describe('chart set keyFields', function() {
     chart = new Chart({
       height: 500,
       forceFit: true,
-      container: 'cchart',
+      container: div,
       animate: false
     });
     chart.source(data, {
@@ -747,7 +746,7 @@ describe('chart display axis title', function() {
     const chart = new Chart({
       height: 500,
       forceFit: true,
-      container: 'cchart',
+      container: div,
       animate: false,
       data,
       options: {
@@ -782,7 +781,6 @@ describe('chart display axis title', function() {
       { a: 1, b: 2, c: '1' },
       { a: 2, b: 5, c: '1' },
       { a: 3, b: 4, c: '1' },
-
       { a: 1, b: 3, c: '2' },
       { a: 2, b: 1, c: '2' },
       { a: 3, b: 2, c: '2' }
@@ -790,7 +788,7 @@ describe('chart display axis title', function() {
     const chart = new Chart({
       height: 500,
       forceFit: true,
-      container: 'cchart',
+      container: div,
       animate: false,
       data,
       options: {
@@ -812,7 +810,6 @@ describe('chart display axis title', function() {
         }
       }
     });
-
     chart.render();
 
     const axisController = chart.get('axisController');
