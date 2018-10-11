@@ -84,7 +84,7 @@
     "test-all": "npm run test && npm run test-bugs",
     "test-bugs": "torch --compile --renderer --recursive ./test/bugs",
     "test-bugs-live": "torch --compile --interactive --watch --recursive ./test/bugs",
-    "test-live": "torch --compile --interactive --watch --recursive ./test/unit/",
+    "test-live": "torch --compile --interactive --watch --recursive ./test/unit",
     "tslint": "tslint --project tsconfig.json --config tslint.json src/index.d.ts",
     "watch": "webpack --config webpack-dev.config.js",
     "win-dev": "node ./bin/win-dev.js"
@@ -97,11 +97,11 @@
     "silent": false
   },
   "dependencies": {
-    "@antv/component": "~0.1.0",
+    "@antv/component": "~0.1.2",
     "@antv/adjust": "~0.0.7",
     "@antv/attr": "~0.0.7",
     "@antv/coord": "~0.0.3",
-    "@antv/g": "~3.2.2",
+    "@antv/g": "~3.3.1",
     "@antv/scale": "~0.0.9",
     "@antv/util": "~1.2.5",
     "venn.js": "~0.2.20",

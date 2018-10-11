@@ -279,6 +279,7 @@ class AxisController {
     const field = scale.field;
 
     cfg = Util.deepMix({}, viewTheme.axis[position], cfg, options[field]);
+    cfg.viewTheme = viewTheme;
     if (cfg.title) {
       Util.deepMix(cfg, {
         title: {
