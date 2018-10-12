@@ -33,7 +33,7 @@ describe('chart auto padding', function() {
       chart.render();
       const plotRange = chart.get('plotRange');
       // expect(plotRange.tl).eqls({ x: 35.33984375, y: 6.5 });
-      expect(plotRange.tl.x > 30).equal(true);
+      expect(plotRange.tl.x > 28).equal(true);
       expect(plotRange.tl.y > 6).equal(true);
     });
 
@@ -45,7 +45,7 @@ describe('chart auto padding', function() {
         chart.render();
         const plotRange = chart.get('plotRange');
         // expect(plotRange.tl.x > 35).eqls({ x: 35.33984375, y: 28.5 });
-        expect(plotRange.tl.x > 30).equal(true);
+        expect(plotRange.tl.x > 28).equal(true);
         expect(plotRange.tl.y > 20).equal(true);
         done();
       }, 100);
@@ -111,9 +111,9 @@ describe('chart auto padding', function() {
       const plotRange = chart.get('plotRange');
       // expect(plotRange.tl).eqls({ x: 45.33984375, y: 10 });
       // expect(plotRange.bl).eqls({ x: 45.33984375, y: 224.5 });
-      expect(plotRange.tl.x > 40).equal(true);
+      expect(plotRange.tl.x > 38).equal(true);
       expect(plotRange.tl.y).equal(10);
-      expect(plotRange.bl.x > 40).equal(true);
+      expect(plotRange.bl.x > 38).equal(true);
       expect(plotRange.bl.y >= 230).equal(true);
     });
     let pretl;
