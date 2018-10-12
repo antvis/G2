@@ -31,7 +31,7 @@ describe('#472', () => {
 
     let plotRange = chart.get('plotRange');
 
-    expect(plotRange.bl.x - 110 > 0).equal(true);
+    expect(plotRange.bl.x - 107 > 0).equal(true);
 
     chart.legend({ position: 'bottom' });
     chart.repaint();
