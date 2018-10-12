@@ -264,7 +264,7 @@ class TooltipController {
   onMouseOut(ev) {
     const tooltip = this.tooltip;
     // const canvas = this._getCanvas();
-    if (!tooltip.get('visible')) {
+    if (!tooltip.get('visible') || !tooltip.get('follow')) {
       return;
     }
     // 除非离开 plot 时鼠标依然在图形上，这段逻辑没有意义
