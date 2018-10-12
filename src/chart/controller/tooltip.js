@@ -294,7 +294,7 @@ class TooltipController {
       frontPlot: chart.get('frontPlot'),
       viewTheme: viewTheme.tooltip,
       backPlot: chart.get('backPlot')
-    }, defaultCfg, viewTheme.tooltip, options);
+    }, defaultCfg, options);
     if (options.crosshairs && options.crosshairs.type === 'rect') {
       options.zIndex = 0; // toolip 背景框不可遮盖住 geom，防止用户配置了 crosshairs
     }
