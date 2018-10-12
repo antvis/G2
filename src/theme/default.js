@@ -565,7 +565,7 @@ const Theme = {
     area: {
       lineWidth: 0,
       fill: DEFAULT_COLOR,
-      fillOpacity: 0.3
+      fillOpacity: 0.6
     },
     polygon: {
       lineWidth: 0,
