@@ -10,12 +10,13 @@
   <title>tooltip-htmlContent</title>
   <style>
     body{background-color: #e8e3ce}
-    .custom-tooltip{position:absolute; background-color: rgba(255,255,255,0.9); color:#646464;; width:150px; height: 270px; border-radius: 3px; font-size:13px; background-size:100% auto; background-repeat: no-repeat; box-shadow: 0px 0px 10px #aeaeae;}
-    .custom-tooltip-title{width: 90%;height: 30px; margin-left: 5%; margin-top:100px; font-size:13px; border-bottom-style: solid; border-bottom-width: thin; border-bottom-color:#646464; }
-    .custom-tooltip-value{width: 90%; height:80px;margin-left: 5%;  margin-top:20px; font-size:40px; text-align: center;  border-bottom-style: solid; border-bottom-width: thin; border-bottom-color:#646464;}
+    .custom-tooltip{position:absolute; background-color: rgba(255,255,255,0.96); color:#646464;; width:150px; height: auto; border-radius: 3px; font-size:13px; background-size:100% auto; background-repeat: no-repeat; box-shadow: 0px 0px 10px #aeaeae;}
+    .custom-tooltip-title{margin: 72px 12px 0 12px; padding-bottom: 8px;font-size:12px; border-bottom-style: solid; border-bottom-width: thin; border-bottom-color:#e9e9e9; }
+    .custom-tooltip-value{display: flex;margin: 8px 12px 0 12px;padding-bottom:8px;font-size:40px; text-align: center;  border-bottom-style: solid; border-bottom-width: thin; border-bottom-color:#e9e9e9}
     .custom-tooltip-value span{position: absolute; top:-10px; font-size: 10px}
-    .custom-tooltip-temp{width: 30%; top:10px; text-align: center; position: relative;}
-    .custom-tooltip-wind{width: 90%; margin-left: 5%; margin-top: 10px; font-size: 10px;text-align: center}
+    .custom-tooltip-temp{width: 50%; top:10px; text-align: left; position: relative;color: rgba(0,0,0,0.85)}
+    .custom-tooltip-temp span { color: rgba(0,0,0,0.45) }
+    .custom-tooltip-wind{margin: 8px 12px 12px 12px; font-size: 10px; color: rgba(0,0,0,0.45)}
     .rain{background-image: url(images/rain.png); }
     .sun{background-image: url(images/sun.png);}
     .cloud{background-image: url(images/cloud.png);}
@@ -81,9 +82,9 @@ chart.tooltip({
     const data = items[0].point._origin;
     const titleDom = '<div class ="custom-tooltip-title">' + data.data + ' ></div>';
     const tempDom = '<div class = "custom-tooltip-value">'
-                    + '<div class = "custom-tooltip-temp" style="margin-left:15px; float:left;"><span>低温</span>' + data.minTemp + '</div>'
-                    + '<div class = "custom-tooltip-temp" style="margin-right:15px; float:right;"><span>高温</span>' + data.maxTemp + '</div>'
-                    + '</div>';
+      + '<div class = "custom-tooltip-temp" style="margin-left:15px; float:left;"><span>低温</span>' + data.minTemp + '</div>'
+      + '<div class = "custom-tooltip-temp" style="margin-right:15px; float:right;"><span>高温</span>' + data.maxTemp + '</div>'
+      + '</div>';
     const windDom = '<div class = "custom-tooltip-wind">风向:' + data.windDir + ',  风速:' + data.windSpeed + '</div>';
     let domClass;
     if (data.rain === true) {
@@ -111,22 +112,15 @@ chart.source(dv, {
 });
 chart.axis('minTemp', false);
 chart.axis('maxTemp', false);
+chart.legend(false);
 chart.interval().position('data*range').size(4)
-.color('#726b61');
+  .color('#EBEDF0');
 chart.point().position('data*minTemp').size(5)
-.color('minTemp', [ '#6ab7da', '#806bd9', '#da6bcc' ])
-.shape('circle')
-.style({
-  stroke: '#726b61',
-  lineWidth: 1
-});
+  .color('minTemp', [ '#6ab7da', '#806bd9', '#da6bcc' ])
+  .shape('circle');
 chart.point().position('data*maxTemp').size(5)
-.color('maxTemp', [ '#6ab7da', '#806bd9', '#da6bcc' ])
-.shape('circle')
-.style({
-  stroke: '#726b61',
-  lineWidth: 1
-});
+  .color('maxTemp', [ '#6ab7da', '#806bd9', '#da6bcc' ])
+  .shape('circle');
 chart.render();
 </script>
 </body>
