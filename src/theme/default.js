@@ -524,6 +524,7 @@ const Theme = {
     shadowBlur: 8,
     shadowOffsetX: 0,
     shadowOffSetY: 0,
+    lineWidth: 2,
     radius: 4
   }, // 提示信息在折线图、区域图上形成点的样式
   tooltipCrosshairsRect: {
