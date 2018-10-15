@@ -307,7 +307,7 @@ class TooltipController {
     let tooltip;
     if (options.type === 'mini') {
       options.crosshairs = false;
-      this.options.shared = false;
+      // this.options.shared = false;
       options.position = 'top';
       tooltip = new Tooltip.Mini(options);
     } else if (options.useHtml) {
