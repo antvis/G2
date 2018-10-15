@@ -1,5 +1,5 @@
 const { Group } = require('../../renderer');
-const { Label } = require('@antv/component/lib');
+const Label = require('@antv/component/src/label/base');
 // const visualCenter = require('@antv/component/lib/label/utils/visual-center');
 const Global = require('../../global');
 const Util = require('../../util');
@@ -437,7 +437,9 @@ class GeomLabels extends Group {
       if (!Util.isArray(offset)) {
         offset = [ 0, offset ];
       }
-      cfg.labelLine = Util.mix({}, defaultCfg.labelLine, cfg.labelLine);
+      if (cfg.labelLine) {
+        cfg.labelLine = Util.mix({}, defaultCfg.labelLine, cfg.labelLine);
+      }
       cfg.textStyle = Util.mix({}, defaultCfg.textStyle, cfg.textStyle);
       cfg.offset = offset;
       delete cfg.items;
