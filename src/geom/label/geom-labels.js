@@ -437,7 +437,9 @@ class GeomLabels extends Group {
       if (!Util.isArray(offset)) {
         offset = [ 0, offset ];
       }
-      cfg.labelLine = Util.mix({}, defaultCfg.labelLine, cfg.labelLine);
+      if (cfg.labelLine) {
+        cfg.labelLine = Util.mix({}, defaultCfg.labelLine, cfg.labelLine);
+      }
       cfg.textStyle = Util.mix({}, defaultCfg.textStyle, cfg.textStyle);
       cfg.offset = offset;
       delete cfg.items;

@@ -79,8 +79,8 @@ function _getMarkerCfg(cfg) {
       ];
     },
     radius: 5,
-    fill: cfg.color
-    // fillOpacity: 0.3
+    fill: cfg.color,
+    fillOpacity: 0.6
   };
 }
 
