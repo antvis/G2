@@ -74,7 +74,8 @@ function _getMarkerCfg(cfg) {
         [ 'M', x - 5.5, y - 4 ],
         [ 'L', x + 5.5, y - 4 ],
         [ 'L', x + 5.5, y + 4 ],
-        [ 'L', x - 5.5, y + 4 ]
+        [ 'L', x - 5.5, y + 4 ],
+        [ 'Z' ]
       ];
     },
     radius: 5,
