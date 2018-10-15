@@ -521,9 +521,10 @@ const Theme = {
       ];
     },
     stroke: '#fff',
-    shadowBlur: 8,
+    shadowBlur: 10,
     shadowOffsetX: 0,
     shadowOffSetY: 0,
+    shadowColor: 'rgba(0,0,0,0.09)',
     lineWidth: 2,
     radius: 4
   }, // 提示信息在折线图、区域图上形成点的样式
