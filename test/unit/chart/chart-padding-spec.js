@@ -1,12 +1,12 @@
 const expect = require('chai').expect;
 const Chart = require('../../../src/chart/chart');
+require('../../../src/index');
 
 const div = document.createElement('div');
 document.body.appendChild(div);
 
 describe('chart auto padding', function() {
   describe('all auto', function() {
-
     const data = [
       { genre: 'Sports', sold: 475, type: '1' },
       { genre: 'Strategy', sold: 115, type: '1' },
@@ -33,7 +33,7 @@ describe('chart auto padding', function() {
       chart.render();
       const plotRange = chart.get('plotRange');
       // expect(plotRange.tl).eqls({ x: 35.33984375, y: 6.5 });
-      expect(plotRange.tl.x > 30).equal(true);
+      expect(plotRange.tl.x > 28).equal(true);
       expect(plotRange.tl.y > 6).equal(true);
     });
 
@@ -45,8 +45,8 @@ describe('chart auto padding', function() {
         chart.render();
         const plotRange = chart.get('plotRange');
         // expect(plotRange.tl.x > 35).eqls({ x: 35.33984375, y: 28.5 });
-        expect(plotRange.tl.x > 30).equal(true);
-        expect(plotRange.tl.y > 28).equal(true);
+        expect(plotRange.tl.x > 28).equal(true);
+        expect(plotRange.tl.y > 20).equal(true);
         done();
       }, 100);
     });
@@ -64,7 +64,7 @@ describe('chart auto padding', function() {
         chart.changeData(data);
         const plotRange = chart.get('plotRange');
         // expect(plotRange.tl).eqls({ x: 40.935546875, y: 45.8522451815097 });
-        expect(plotRange.tl.x > 38).equal(true);
+        expect(plotRange.tl.x > 35).equal(true);
         expect(plotRange.tl.y > 45).equal(true);
         prePoint = plotRange.tl;
         done();
@@ -111,10 +111,10 @@ describe('chart auto padding', function() {
       const plotRange = chart.get('plotRange');
       // expect(plotRange.tl).eqls({ x: 45.33984375, y: 10 });
       // expect(plotRange.bl).eqls({ x: 45.33984375, y: 224.5 });
-      expect(plotRange.tl.x > 42).equal(true);
+      expect(plotRange.tl.x > 38).equal(true);
       expect(plotRange.tl.y).equal(10);
-      expect(plotRange.bl.x > 42).equal(true);
-      expect(plotRange.bl.y >= 224).equal(true);
+      expect(plotRange.bl.x > 38).equal(true);
+      expect(plotRange.bl.y >= 230).equal(true);
     });
     let pretl;
     let prebl;
@@ -132,10 +132,10 @@ describe('chart auto padding', function() {
         const plotRange = chart.get('plotRange');
         // expect(plotRange.tl).eqls({ x: 50.935546875, y: 10 });
         // expect(plotRange.bl).eqls({ x: 50.935546875, y: 202.5 });
-        expect(plotRange.tl.x > 49).equal(true);
+        expect(plotRange.tl.x > 45).equal(true);
         expect(plotRange.tl.y).equal(10);
-        expect(plotRange.bl.x > 49).equal(true);
-        expect(plotRange.bl.y > 190).equal(true);
+        expect(plotRange.bl.x > 45).equal(true);
+        expect(plotRange.bl.y > 200).equal(true);
         pretl = plotRange.tl;
         prebl = plotRange.bl;
         done();

@@ -124,11 +124,11 @@ const Theme = {
       position: 'top',
       title: null,
       label: {
-        offset: 14,
+        offset: 16,
         textStyle: {
           fill: '#545454',
           fontSize: 12,
-          lineHeight: 20,
+          lineHeight: 16,
           textBaseline: 'middle',
           fontFamily: FONT_FAMILY
         },
@@ -149,12 +149,12 @@ const Theme = {
       position: 'bottom',
       title: null,
       label: {
-        offset: 22,
+        offset: 16,
         autoRotate: true,
         textStyle: {
           fill: '#545454',
           fontSize: 12,
-          lineHeight: 20,
+          lineHeight: 16,
           textBaseline: 'middle',
           fontFamily: FONT_FAMILY
         }
@@ -174,12 +174,12 @@ const Theme = {
       position: 'left',
       title: null,
       label: {
-        offset: 12,
+        offset: 8,
         autoRotate: true,
         textStyle: {
           fill: '#545454',
           fontSize: 12,
-          lineHeight: 20,
+          lineHeight: 16,
           textBaseline: 'middle',
           fontFamily: FONT_FAMILY
         }
@@ -200,12 +200,12 @@ const Theme = {
       position: 'right',
       title: null,
       label: {
-        offset: 12,
+        offset: 8,
         autoRotate: true,
         textStyle: {
           fill: '#545454',
           fontSize: 12,
-          lineHeight: 20,
+          lineHeight: 16,
           textBaseline: 'middle',
           fontFamily: FONT_FAMILY
         }
@@ -225,11 +225,11 @@ const Theme = {
       zIndex: 1,
       title: null,
       label: {
-        offset: 12,
+        offset: 8,
         textStyle: {
           fill: '#545454',
           fontSize: 12,
-          lineHeight: 20,
+          lineHeight: 16,
           fontFamily: FONT_FAMILY
         }
       },
@@ -260,7 +260,7 @@ const Theme = {
           fill: '#545454',
           fontSize: 12,
           textBaseline: 'middle',
-          lineHeight: 20,
+          lineHeight: 16,
           fontFamily: FONT_FAMILY
         }
       },
