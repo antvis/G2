@@ -39,132 +39,133 @@
 </head>
 
 <body>
-  <div id="canvas">
-    <div class="title">
-      <h1>Daily Temperatures in Boston</h1>
-      <p class="subtitle">2015</p>
-    </div>
+<div id="canvas">
+  <div class="title">
+    <h1>Daily Temperatures in Boston</h1>
+    <p class="subtitle">2015</p>
   </div>
-  <script src="./assets/jquery-3.2.1.min.js"></script>
-  <script src="./assets/data-set.min.js"></script>
-  <script src="../build/g2.js"></script>
-  <script>
-    $.getJSON('./data/daily-temp-in-boston.json', data => {
-      const ds = new DataSet();
-      const dv = ds.createView('test')
-        .source(data)
-        .transform({
-          type: 'map',
-          callback(row) { // 加工数据后返回新的一行，默认返回行数据本身
-            row.range = [ row.min_temp, row.max_temp ];
-            return row;
-          }
-        });
-
-      const chart = new G2.Chart({
-        container: 'canvas',
-        forceFit: true,
-        height: window.innerHeight,
-        padding: [ 50, 0, 120 ]
-      });
-
-      chart.source(dv, {
-        date: {
-          type: 'cat'
-        },
-        range: {
-          max: 30,
-          min: -25
-        },
-        mean_temp: {
-          alias: 'Average Daily Temperature'
-        }
-      });
-      chart.coord('polar', { innerRadius: 0.35 });
-      chart.legend({
-        offset: [ 0, 5 ],
-        title: {
-          fontSize: 12,
-          fill: '#4F4F4F',
-          fontWeight: 300,
-          textAlign: 'start'
-        },
-        slidable: false,
-        position: 'bottom',
-        width: 200, // 连续图例宽度
-        height: 15, // 连续图例高度度
-        textStyle: {
-          textBaseline: 'top',
-          textAlign: 'center'
-        }
-      });
-      chart.axis('date', false);
-      chart.axis('range', {
-        line: null,
-        tickLine: null,
-        label: null,
-        grid: {
-          lineStyle: {
-            lineDash: [ 0, 0 ],
-            stroke: '#E8E8E8',
-            lineWidth: 1
-          }
-        }
-      });
-      chart.interval().position('date*range')
-        .color('mean_temp', 'rgb(44, 123, 182)-rgb(0, 166, 202)-rgb(0, 204, 188)-rgb(144, 235, 157)-rgb(255, 255, 140)-rgb(249, 208, 87)-rgb(242, 158, 46)-rgb(231, 104, 24)-rgb(215, 25, 28)')
-        .size(2.5)
-        .opacity(1);
-
-      chart.guide().line({
-        start: {
-          date: '2015-1-1',
-          range: -25
-        },
-        end: {
-          date: '2015-1-1',
-          range: 35
-        },
-        lineStyle: {
-          stroke: '#aaa',
-          lineWidth: 1,
-          lineDash: null
-        },
-        text: {
-          position: 0.95,
-          autoRotate: false,
-          style: {
-            fontSize: 16,
-            textAlign: 'start',
-            fontWeight: 100,
-            fill: '#aaa'
-          },
-          content: 'January',
-          offsetX: 10
+</div>
+<script src="./assets/jquery-3.2.1.min.js"></script>
+<script src="./assets/data-set.min.js"></script>
+<script src="../build/g2.js"></script>
+<script>
+  $.getJSON('./data/daily-temp-in-boston.json', data => {
+    const ds = new DataSet();
+    const dv = ds.createView('test')
+      .source(data)
+      .transform({
+        type: 'map',
+        callback(row) { // 加工数据后返回新的一行，默认返回行数据本身
+          row.range = [ row.min_temp, row.max_temp ];
+          return row;
         }
       });
 
-      const ticks = [ -20, -10, 0, 10, 20, 30 ];
-      for (let i = 0; i < ticks.length; i++) {
-        chart.guide().text({
-          start: {
-            date: '2015-7-1',
-            range: ticks[i]
-          },
-          content: ticks[i] + '°C',
-          style: {
-            fill: '#C4C4C4',
-            fontSize: 12,
-            fontWeight: 100,
-            textAlign: 'center',
-            textBaseline: 'middle'
-          }
-        });
-      }
-
-      chart.render();
+    const chart = new G2.Chart({
+      container: 'canvas',
+      forceFit: true,
+      height: window.innerHeight,
+      padding: [ 50, 0, 120 ]
     });
-  </script>
+
+    chart.source(dv, {
+      date: {
+        type: 'cat'
+      },
+      range: {
+        max: 30,
+        min: -25
+      },
+      mean_temp: {
+        alias: 'Average Daily Temperature'
+      }
+    });
+    chart.coord('polar', { innerRadius: 0.35 });
+    chart.legend({
+      hoverable: false,
+      title: {
+        fontSize: 12,
+        fill: '#4F4F4F',
+        fontWeight: 300,
+        textAlign: 'start'
+      },
+      textOffset: 0,
+      slidable: false,
+      position: 'bottom',
+      width: 200, // 连续图例宽度
+      height: 8, // 连续图例高度度
+      textStyle: {
+        textBaseline: 'top',
+        textAlign: 'center'
+      }
+    });
+    chart.axis('date', false);
+    chart.axis('range', {
+      line: null,
+      tickLine: null,
+      label: null,
+      grid: {
+        lineStyle: {
+          lineDash: [ 0, 0 ],
+          stroke: '#E8E8E8',
+          lineWidth: 1
+        }
+      }
+    });
+    chart.interval().position('date*range')
+      .color('mean_temp', 'rgb(44, 123, 182)-rgb(0, 166, 202)-rgb(0, 204, 188)-rgb(144, 235, 157)-rgb(255, 255, 140)-rgb(249, 208, 87)-rgb(242, 158, 46)-rgb(231, 104, 24)-rgb(215, 25, 28)')
+      .size(2.5)
+      .opacity(1);
+
+    chart.guide().line({
+      start: {
+        date: '2015-1-1',
+        range: -25
+      },
+      end: {
+        date: '2015-1-1',
+        range: 35
+      },
+      lineStyle: {
+        stroke: '#aaa',
+        lineWidth: 1,
+        lineDash: null
+      },
+      text: {
+        position: 0.95,
+        autoRotate: false,
+        style: {
+          fontSize: 16,
+          textAlign: 'start',
+          fontWeight: 100,
+          fill: '#aaa'
+        },
+        content: 'January',
+        offsetX: 10
+      }
+    });
+
+    const ticks = [ -20, -10, 0, 10, 20, 30 ];
+    for (let i = 0; i < ticks.length; i++) {
+      chart.guide().text({
+        start: {
+          date: '2015-7-1',
+          range: ticks[i]
+        },
+        content: ticks[i] + '°C',
+        style: {
+          fill: '#C4C4C4',
+          fontSize: 12,
+          fontWeight: 100,
+          textAlign: 'center',
+          textBaseline: 'middle'
+        }
+      });
+    }
+
+    chart.render();
+  });
+</script>
 </body>
 
 </html>
