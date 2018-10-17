@@ -47,7 +47,8 @@ class RegionFilter extends Guide {
       if (filter) {
         shapes.map(shape => {
           const shapeType = shape.type;
-          const shapeAttr = Util.mix({}, shape.attr());
+          // const shapeAttr = Util.mix({}, shape.attr());
+          const shapeAttr = Util.cloneDeep(shape.attr());
           self._adjustDisplay(shapeAttr);
           const s = layer.addShape(shapeType, {
             attrs: shapeAttr
