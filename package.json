@@ -1,10 +1,11 @@
 {
   "name": "@antv/g2",
-  "version": "3.3.0",
+  "version": "3.3.1",
   "description": "the Grammar of Graphics in Javascript",
   "browser": "build/g2.js",
   "main": "build/g2.js",
   "module": "lib/index.js",
+  "types": "lib/index.d.ts",
   "homepage": "https://github.com/antvis/g2",
   "repository": {
     "type": "git",
@@ -59,7 +60,7 @@
   },
   "scripts": {
     "build": "webpack",
-    "build-lib": "babel src --out-dir lib",
+    "build-lib": "babel src --out-dir lib && cp src/index.d.ts lib/",
     "bundler": "electron ./bundler/app.js",
     "ci": "npm run lint && npm run test",
     "compress-g2": "uglifyjs -c -m -o dist/g2.min.js -- build/g2.js",
@@ -101,7 +102,7 @@
     "@antv/adjust": "~0.0.7",
     "@antv/attr": "~0.0.7",
     "@antv/coord": "~0.0.3",
-    "@antv/g": "~3.3.1",
+    "@antv/g": "~3.3.3",
     "@antv/scale": "~0.0.9",
     "@antv/util": "~1.2.5",
     "venn.js": "~0.2.20",

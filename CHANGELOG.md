@@ -1,3 +1,78 @@
+#### 3.3.0 (2018-10-16)
+
+##### New Features
+
+- chore(demo): add some guide demos.
+- chore(dev): @babel/env => @babel/preset-env
+- chore(dev): add scripts for npm run pixel-test
+- chore(dev): update issue templates
+- chore: modify components reference
+- feat(theme): add chart view theme to tooltip
+- feat: add default style for guide component.
+- feat: add label type: interval
+- feat: component legend
+- feat: demo for custom html legend. fix: custom html and htmlpage category legend
+- feat: double direction interaction (from chart to legend)
+- feat: legend component html scroll
+- feat: legend demos
+- feat: legend-component, html controller, offset
+- feat: mini tooltip
+- feat: tooltip controller module import
+- refactor(axis): AxisController
+- refactor(demo): modify demos' styles
+- refactor(demo): modify html tooltip styles
+- refactor(geom-labels): merge master
+- refactor(legend): update demo html style
+- refactor(tooltip): modify tooltip marker style
+- refactor: adapt to new guide components.
+- refactor: better guide.render().
+- refactor: modify some test case with Labels
+- refactor: tooltip controller
+- refactor: use @antv/components to render label instead of Labels
+- refactor: use components to render label instead of `Labels`
+- refator: modify label callback args to fields
+- revert: remove polar coordinate support
+- test(bin): add scripts for npm run pixel-test
+- test: add Node.js 10
+- test: delete some tests; fix: @antv/component/lib
+- test: legend controller
+
+##### Bug Fixes
+
+- fix(area): modify default style of area
+- fix(area): remove default fillOpacity from area shape
+- fix(axis): clear axis component correctly in axisController
+- fix(axis): set default label offset to 8px
+- fix(dev): require lib version instead of src
+- fix(geom-labels): add unit test of scaled coord labels
+- fix(geom-labels): change label dependency to lib
+- fix(geom-labels): fix callback value type
+- fix(geom-labels): fix default label textStyle sometimes doesn't work
+- fix(geom-labels): fix label dependency
+- fix(geom-labels): fix label offset format to match with component
+- fix(geom-labels): fix offset exception when coord is scaled
+- fix(geom-labels): fix polygon label position calculation
+- fix(geom-labels): fix transposed text align logic
+- fix(geom-labels): modify label position calculation when geom is polygon
+- fix(geom-labels): resume drawLines
+- fix(label): merge labelLine only if a value is assigned to it
+- fix(legend): fix default style of color-legend demo
+- fix(legend): fix default style of legend marker of area
+- fix(legend): fix default style of legend marker of area & demo styles
+- fix(legend): marker for area should be a closed path
+- fix(pie-label): fix labelLine end point error
+- fix(test): auto padding in ci evironment
+- fix(tooltip): fixed tooltip won't hide when plotleave fired
+- fix(tooltip): should not merge viewTheme into default tooltip cfg again
+- fix(tooltip): viewTheme in controller
+- fix(tooltip):mini-tooltip flash
+- fix: configuration to control the interaction from chart to legend -- reactive [boolean]
+- fix: fix polar labels don't work
+- fix: html legend filter
+- fix: scales to scale
+- fix: viewTheme
+
+
 #### 3.2.8 (2018-09-14)
 
 ##### New Features
