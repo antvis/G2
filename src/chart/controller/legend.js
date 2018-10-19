@@ -430,7 +430,6 @@ class LegendController {
     const container = self.container;
     const items = [];
     const ticks = scale.getTicks();
-
     let isByAttr = true;
     let shapeType = geom.get('shapeType') || 'point';
     let shape = geom.getDefaultValue('shape') || 'circle';
@@ -516,7 +515,14 @@ class LegendController {
       legend = new Tail(legendCfg);
     } else {
       if (legendOptions.useHtml) {
-        legendCfg.container = container.get('canvas').get('el').parentNode;
+        let htmlContainer = legendOptions.container;
+        if (/^\#/.test(htmlContainer)) { // 如果传入 dom 节点的 id
+          const id = htmlContainer.replace('#', '');
+          htmlContainer = document.getElementById(id);
+        } else {
+          htmlContainer = container.get('canvas').get('el').parentNode;
+        }
+        legendCfg.container = htmlContainer;
         if (legendCfg.legendStyle === undefined) legendCfg.legendStyle = {};
         legendCfg.legendStyle.CONTAINER_CLASS = {
           height: (posArray[0] === 'right' || posArray[0] === 'left') ? maxLength + 'px' : 'auto',
@@ -763,7 +769,14 @@ class LegendController {
     });
     let legend;
     if (legendOptions.useHtml) {
-      legendCfg.container = container.get('canvas').get('el').parentNode;
+      let htmlContainer = legendOptions.container;
+      if (/^\#/.test(container)) { // 如果传入 dom 节点的 id
+        const id = htmlContainer.replace('#', '');
+        htmlContainer = document.getElementById(id);
+      } else if (!htmlContainer) {
+        htmlContainer = container.get('canvas').get('el').parentNode;
+      }
+      legendCfg.container = htmlContainer;
       if (legendCfg.legendStyle === undefined) legendCfg.legendStyle = {};
       if (!legendCfg.legendStyle.CONTAINER_CLASS) {
         legendCfg.legendStyle.CONTAINER_CLASS = {
