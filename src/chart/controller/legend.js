@@ -1,5 +1,5 @@
 const Util = require('../../util');
-const { Legend } = require('@antv/component/lib');
+const Legend = require('@antv/component/src/legend/index');
 const Tail = require('../../component/legend/tail');
 const Shape = require('../../geom/shape/shape');
 
@@ -519,7 +519,8 @@ class LegendController {
         if (/^\#/.test(htmlContainer)) { // 如果传入 dom 节点的 id
           const id = htmlContainer.replace('#', '');
           htmlContainer = document.getElementById(id);
-        } else {
+        }
+        if (!htmlContainer) {
           htmlContainer = container.get('canvas').get('el').parentNode;
         }
         legendCfg.container = htmlContainer;
@@ -528,7 +529,8 @@ class LegendController {
           height: (posArray[0] === 'right' || posArray[0] === 'left') ? maxLength + 'px' : 'auto',
           width: !(posArray[0] === 'right' || posArray[0] === 'left') ? maxLength + 'px' : 'auto',
           position: 'absolute',
-          overflow: 'auto'
+          overflow: 'auto',
+          'z-index': 1
         };
         if (legendOptions.flipPage) {
           legend = new Legend.CatPageHtml(legendCfg);
