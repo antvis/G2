@@ -149,14 +149,14 @@ class TooltipController {
     let crosshairsCfg;
     if (geoms.length && geoms[0].get('coord') && geoms[0].get('coord').type === 'cartesian' && shapes.length === 1) {
       if (shapes[0] === 'interval' && options.shared !== false) { // 直角坐标系下 interval 的 crosshair 为矩形背景框
-        const crosshairs = viewTheme.tooltipCrosshairsRect;
+        const crosshairs = Util.mix({}, viewTheme.tooltipCrosshairsRect);
         crosshairs.isTransposed = isTransposed;
         crosshairsCfg = {
           zIndex: 0, // 矩形背景框不可覆盖 geom
           crosshairs
         };
       } else if (Util.indexOf(TYPE_SHOW_CROSSHAIRS, shapes[0]) > -1) {
-        const crosshairs = viewTheme.tooltipCrosshairsLine;
+        const crosshairs = Util.mix({}, viewTheme.tooltipCrosshairsLine);
         crosshairs.isTransposed = isTransposed;
         crosshairsCfg = {
           crosshairs
