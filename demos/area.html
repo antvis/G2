@@ -19,7 +19,8 @@
       const chart = new G2.Chart({
         container: 'canvas',
         forceFit: true,
-        height: window.innerHeight
+        height: window.innerHeight,
+        padding: 'auto'
       });
       chart.source(data); // TODO
       chart.scale({
@@ -37,6 +38,11 @@
         }
       });
       chart.axis('rain', false);
+      chart.legend({
+        position: 'top-left',
+        itemGap: 150,
+        itemMarginBottom: 30
+      });
 
       chart.area()
         .position('time*flow')
