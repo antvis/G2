@@ -333,7 +333,8 @@ class LegendController {
       height = plotRange.br.y;
       x = self._getXAlign(posArray[0], width, region, backRange, legendWidth, borderMargin);
       if (pre) {
-        y = pre.get('y') + pre.getHeight() + innerMargin;
+        // @2018-10-19 by blue.lb 由于legend中并不存在y属性，这里需要先获取group再获取y值
+        y = pre.get('group').get('y') + pre.getHeight() + innerMargin;
       } else {
         y = self._getYAlignVertical(posArray[1], height, tempoRegion, backRange, 0, borderMargin, canvas.get('height'));
       }
@@ -341,7 +342,8 @@ class LegendController {
       y = self._getYAlignHorizontal(posArray[0], height, region, backRange, legendHeight, borderMargin);
       if (pre) {
         const preWidth = pre.getWidth();
-        x = pre.get('x') + preWidth + innerMargin;
+        // @2018-10-19 by blue.lb 由于legend中并不存在x属性，这里需要先获取group再获取x值
+        x = pre.get('group').get('x') + preWidth + innerMargin;
       } else {
         x = self._getXAlign(posArray[1], width, tempoRegion, backRange, 0, borderMargin);
         if (posArray[1] === 'right') x = plotRange.br.x - tempoRegion.totalWidth;
