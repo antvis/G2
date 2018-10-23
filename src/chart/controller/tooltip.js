@@ -144,23 +144,27 @@ class TooltipController {
       }
     });
 
+    const isTransposed = geoms.length && geoms[0].get('coord') ? geoms[0].get('coord').isTransposed : false;
+
     let crosshairsCfg;
     if (geoms.length && geoms[0].get('coord') && geoms[0].get('coord').type === 'cartesian' && shapes.length === 1) {
       if (shapes[0] === 'interval' && options.shared !== false) { // 直角坐标系下 interval 的 crosshair 为矩形背景框
+        const crosshairs = Util.mix({}, viewTheme.tooltipCrosshairsRect);
+        crosshairs.isTransposed = isTransposed;
         crosshairsCfg = {
           zIndex: 0, // 矩形背景框不可覆盖 geom
-          crosshairs: viewTheme.tooltipCrosshairsRect
+          crosshairs
         };
       } else if (Util.indexOf(TYPE_SHOW_CROSSHAIRS, shapes[0]) > -1) {
+        const crosshairs = Util.mix({}, viewTheme.tooltipCrosshairsLine);
+        crosshairs.isTransposed = isTransposed;
         crosshairsCfg = {
-          crosshairs: viewTheme.tooltipCrosshairsLine
+          crosshairs
         };
       }
     }
 
-    return Util.mix(defaultCfg, crosshairsCfg, {
-      isTransposed: geoms.length && geoms[0].get('coord') ? geoms[0].get('coord').isTransposed : false
-    });
+    return Util.mix(defaultCfg, crosshairsCfg, {});
   }
 
   _bindEvent() {
