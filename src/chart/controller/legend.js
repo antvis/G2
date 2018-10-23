@@ -429,10 +429,9 @@ class LegendController {
     }
     const legends = self.legends;
     legends[position] = legends[position] || [];
-    const container = self.container;
+    let container = self.container;
     const items = [];
     const ticks = scale.getTicks();
-
     let isByAttr = true;
     let shapeType = geom.get('shapeType') || 'point';
     let shape = geom.getDefaultValue('shape') || 'circle';
@@ -518,13 +517,23 @@ class LegendController {
       legend = new Tail(legendCfg);
     } else {
       if (legendOptions.useHtml) {
-        legendCfg.container = container.get('canvas').get('el').parentNode;
+        const canvasEle = container.get('canvas').get('el');
+        container = legendOptions.container;
+        if (Util.isString(container) && /^\#/.test(container)) { // 如果传入 dom 节点的 id
+          const id = container.replace('#', '');
+          container = document.getElementById(id);
+        }
+        if (!container) {
+          container = canvasEle.parentNode;
+        }
+        legendCfg.container = container;
         if (legendCfg.legendStyle === undefined) legendCfg.legendStyle = {};
         legendCfg.legendStyle.CONTAINER_CLASS = {
           height: (posArray[0] === 'right' || posArray[0] === 'left') ? maxLength + 'px' : 'auto',
           width: !(posArray[0] === 'right' || posArray[0] === 'left') ? maxLength + 'px' : 'auto',
           position: 'absolute',
-          overflow: 'auto'
+          overflow: 'auto',
+          'z-index': canvasEle.style.zIndex === '' ? 1 : parseInt(canvasEle.style.zIndex, 10) + 1
         };
         if (legendOptions.flipPage) {
           legend = new Legend.CatPageHtml(legendCfg);
@@ -765,7 +774,14 @@ class LegendController {
     });
     let legend;
     if (legendOptions.useHtml) {
-      legendCfg.container = container.get('canvas').get('el').parentNode;
+      let htmlContainer = legendOptions.container;
+      if (/^\#/.test(container)) { // 如果传入 dom 节点的 id
+        const id = htmlContainer.replace('#', '');
+        htmlContainer = document.getElementById(id);
+      } else if (!htmlContainer) {
+        htmlContainer = container.get('canvas').get('el').parentNode;
+      }
+      legendCfg.container = htmlContainer;
       if (legendCfg.legendStyle === undefined) legendCfg.legendStyle = {};
       if (!legendCfg.legendStyle.CONTAINER_CLASS) {
         legendCfg.legendStyle.CONTAINER_CLASS = {
