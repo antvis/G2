@@ -427,7 +427,7 @@ class LegendController {
     }
     const legends = self.legends;
     legends[position] = legends[position] || [];
-    const container = self.container;
+    let container = self.container;
     const items = [];
     const ticks = scale.getTicks();
     let isByAttr = true;
@@ -515,22 +515,23 @@ class LegendController {
       legend = new Tail(legendCfg);
     } else {
       if (legendOptions.useHtml) {
-        let htmlContainer = legendOptions.container;
-        if (/^\#/.test(htmlContainer)) { // 如果传入 dom 节点的 id
-          const id = htmlContainer.replace('#', '');
-          htmlContainer = document.getElementById(id);
+        const canvasEle = container.get('canvas').get('el');
+        container = legendOptions.container;
+        if (Util.isString(container) && /^\#/.test(container)) { // 如果传入 dom 节点的 id
+          const id = container.replace('#', '');
+          container = document.getElementById(id);
         }
-        if (!htmlContainer) {
-          htmlContainer = container.get('canvas').get('el').parentNode;
+        if (!container) {
+          container = canvasEle.parentNode;
         }
-        legendCfg.container = htmlContainer;
+        legendCfg.container = container;
         if (legendCfg.legendStyle === undefined) legendCfg.legendStyle = {};
         legendCfg.legendStyle.CONTAINER_CLASS = {
           height: (posArray[0] === 'right' || posArray[0] === 'left') ? maxLength + 'px' : 'auto',
           width: !(posArray[0] === 'right' || posArray[0] === 'left') ? maxLength + 'px' : 'auto',
           position: 'absolute',
           overflow: 'auto',
-          'z-index': 1
+          'z-index': canvasEle.style.zIndex === '' ? 1 : parseInt(canvasEle.style.zIndex, 10) + 1
         };
         if (legendOptions.flipPage) {
           legend = new Legend.CatPageHtml(legendCfg);
