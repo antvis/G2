@@ -281,10 +281,10 @@ class AxisController {
     cfg = Util.deepMix({}, viewTheme.axis[position], cfg, options[field]);
     cfg.viewTheme = viewTheme;
     if (cfg.title) {
+      const title = Util.isPlainObject(cfg.title) ? cfg.title : {};
+      title.text = title.text || scale.alias || field;
       Util.deepMix(cfg, {
-        title: {
-          text: scale.alias || field
-        }
+        title
       });
     }
 
