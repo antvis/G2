@@ -129,7 +129,9 @@ class PolarLabels extends Labels {
       labelPoint.angle = middleAngle;
       labelPoint.color = point.color;
     }
-    labelPoint.rotate = self.getLabelRotate(middleAngle, offset, point);
+    if (labelPoint.autoRotate || typeof labelPoint.autoRotate === 'undefined') {
+      labelPoint.rotate = labelPoint.rotate || self.getLabelRotate(middleAngle, offset, point);
+    }
     return labelPoint;
   }
 
