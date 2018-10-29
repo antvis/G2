@@ -96,9 +96,10 @@ class GeomLabels extends Group {
    */
   getDefaultLabelCfg() {
     const self = this;
-    const labelCfg = self.get('labelCfg').cfg;
+    const labelCfg = self.get('labelCfg').cfg || self.get('labelCfg').globalCfg;
     const geomType = self.get('geomType');
     const viewTheme = self.get('viewTheme') || Global;
+
     if (geomType === 'polygon' || (labelCfg && labelCfg.offset < 0 && Util.indexOf(IGNORE_ARR, geomType) === -1)) {
       return Util.deepMix({}, self.get('label'), viewTheme.innerLabels);
     }
@@ -120,7 +121,6 @@ class GeomLabels extends Group {
 
     self._getLabelCfgs(points, shapes);
     const labelCfg = self.get('labelItemCfgs');
-
     // 获取label相关的x，y的值，获取具体的x,y,防止存在数组
     Util.each(points, (point, i) => {
       const origin = point[ORIGIN];
@@ -206,7 +206,7 @@ class GeomLabels extends Group {
       if (!point) {
         return;
       }
-      if (point._offset[0] > 0 || point._offset[1] > 0) {
+      if (point.offset > 0) {
         self.lineToLabel(point);
       }
     });
@@ -283,10 +283,10 @@ class GeomLabels extends Group {
     }
     const offsetPoint = self.getLabelOffset(labelCfg, index, total);
     self.transLabelPoint(label);
-    label.x += offsetPoint[0];
-    label.y += offsetPoint[1];
+    label.x += offsetPoint.x;
+    label.y += offsetPoint.y;
     label.color = point.color;
-    label._offset = { x: offsetPoint[0], y: offsetPoint[1] };
+    label._offset = { x: offsetPoint.x, y: offsetPoint.y };
     return label;
   }
   setLabelPosition() {}
@@ -298,18 +298,32 @@ class GeomLabels extends Group {
     point.y = tmpPoint[1];
   }
 
+  getOffsetVector(point) {
+    const self = this;
+    const offset = point.offset || 0;
+    const coord = self.get('coord');
+    let vector;
+    if (coord.isTransposed) { // 如果x,y翻转，则偏移x
+      vector = coord.applyMatrix(offset, 0);
+    } else { // 否则，偏转y
+      vector = coord.applyMatrix(0, offset);
+    }
+    return vector;
+  }
+
   // 获取默认的偏移量
   getDefaultOffset(point) {
-    const offset = point.offset || [ 0, 0 ];
-    const coord = this.get('coord');
-    let vector;
-    if (coord.isTransposed) {
-      vector = coord.applyMatrix(offset[1], offset[0]);
-    } else {
-      vector = coord.applyMatrix(offset[0], offset[1]);
-    }
+    const self = this;
+    let offset = 0;
 
-    return [ vector[0], vector[1] ];
+    const coord = self.get('coord');
+    const vector = self.getOffsetVector(point);
+    if (coord.isTransposed) { // 如果x,y翻转，则偏移x
+      offset = vector[0];
+    } else { // 否则，偏转y
+      offset = vector[1];
+    }
+    return offset;
   }
 
   // 获取文本的偏移位置，x,y
@@ -318,19 +332,18 @@ class GeomLabels extends Group {
     const offset = self.getDefaultOffset(point);
     const coord = self.get('coord');
     const transposed = coord.isTransposed;
-    let factor = transposed ? 1 : -1; // y 方向上越大，像素的坐标越小
+    const yField = transposed ? 'x' : 'y';
+    const factor = transposed ? 1 : -1; // y 方向上越大，像素的坐标越小，所以transposed时将系数变成
     const offsetPoint = {
       x: 0,
       y: 0
     };
-
-    // 一个shape对应多个label时，第二个label的offset与第一个相反
-    if (index <= 0 && total !== 1) {
-      factor *= -1;
+    if (index > 0 || total === 1) { // 判断是否小于0
+      offsetPoint[yField] = offset * factor;
+    } else {
+      offsetPoint[yField] = offset * factor * -1;
     }
-    offsetPoint.x = offset[0] * factor;
-    offsetPoint.y = offset[1] * factor;
-    return [ offsetPoint.x, offsetPoint.y ];
+    return offsetPoint;
   }
 
   getLabelAlign(point, index, total) {
@@ -338,11 +351,11 @@ class GeomLabels extends Group {
     let align = 'center';
     const coord = self.get('coord');
     if (coord.isTransposed) {
-      const offset = point._offset;
+      const offset = self.getDefaultOffset(point);
       // var vector = coord.applyMatrix(offset,0);
-      if (offset[0] < 0) {
+      if (offset < 0) {
         align = 'right';
-      } else if (offset[0] === 0) {
+      } else if (offset === 0) {
         align = 'center';
       } else {
         align = 'left';
@@ -433,15 +446,10 @@ class GeomLabels extends Group {
           cfg.textStyle = textStyle.call(null, originText, origin, i);
         }
       }
-      let offset = cfg.offset || [ 0, 0 ];
-      if (!Util.isArray(offset)) {
-        offset = [ 0, offset ];
-      }
       if (cfg.labelLine) {
         cfg.labelLine = Util.mix({}, defaultCfg.labelLine, cfg.labelLine);
       }
       cfg.textStyle = Util.mix({}, defaultCfg.textStyle, cfg.textStyle);
-      cfg.offset = offset;
       delete cfg.items;
       cfgs.push(cfg);
     });
