@@ -179,7 +179,8 @@ describe('pie labels', function() {
       const cfg = gLabels.get('label');
       expect(cfg.offset).to.equal(10);
       expect(cfg.textStyle).not.to.equal(undefined);
-      expect(cfg.labelLine).not.to.equal(undefined);
+      // 现在在drawLine的时候通过offset判断，不走统一逻辑
+      // expect(cfg.labelLine).not.to.equal(undefined);
       // expect(cfg.label.fill).to.equal('#fff');
     });
     let items;
@@ -269,7 +270,7 @@ describe('pie labels', function() {
       const cfg = gLabels.get('label');
       expect(cfg.offset).to.equal(20);
       expect(cfg.textStyle).not.to.equal(undefined);
-      expect(cfg.labelLine).not.to.equal(undefined);
+      // expect(cfg.labelLine).not.to.equal(undefined);
     });
     let items;
     it('get items', function() {
@@ -341,7 +342,7 @@ describe('pie labels', function() {
       const cfg = gLabels.get('label');
       expect(cfg.offset).to.equal(20);
       expect(cfg.textStyle).not.to.equal(undefined);
-      expect(cfg.labelLine).not.to.equal(undefined);
+      // expect(cfg.labelLine).not.to.equal(undefined);
     });
     let items;
     it('get items', function() {
@@ -629,7 +630,7 @@ describe('pie labels', function() {
       const cfg = gLabels.get('label');
       expect(cfg.offset).to.equal(30);
       expect(cfg.textStyle).not.to.equal(undefined);
-      expect(cfg.labelLine).not.to.equal(undefined);
+      // expect(cfg.labelLine).not.to.equal(undefined);
     });
     it('get items', function() {
       gLabels.getLabelsItems(points);
