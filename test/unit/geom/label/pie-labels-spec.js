@@ -3,6 +3,7 @@ const DataSet = require('@antv/data-set');
 const { Canvas } = require('../../../../src/renderer');
 const PieLabels = require('../../../../src/geom/label/pie-labels');
 const Coord = require('@antv/coord/lib/');
+const Util = require('../../../../src/util');
 const G2 = require('../../../../src/index');
 const Scale = require('@antv/scale');
 
@@ -682,6 +683,92 @@ describe('pie labels', function() {
       const cText = labelsGroup.get('children')[0];
       expect(cText.get('attrs').x).to.equal(270.8166632639171);
       expect(cText.get('attrs').y).to.equal(228);
+    });
+  });
+
+  describe('pie text outter with offsetX & offsetY', function() {
+    const coord = new Coord.Polar({
+      start: {
+        x: 200,
+        y: 200
+      },
+      end: {
+        x: 300,
+        y: 0
+      }
+    });
+
+    coord.transpose();
+    const points = [];
+    const values = [];
+    for (let i = 0; i < 6; i++) {
+      const obj = coord.convertPoint({
+        x: 0.5,
+        y: i / 6
+      });
+      const endPoint = coord.convertPoint({
+        x: 0.5,
+        y: (i + 1) / 6
+      });
+      const point = {
+        x: [ obj.x, endPoint.x ],
+        y: [ obj.y, endPoint.y ],
+        color: 'red',
+        label: i.toString(),
+        _origin: {
+          x: [ obj.x, endPoint.x ],
+          y: [ obj.y, endPoint.y ],
+          color: 'red',
+          label: i.toString()
+        }
+      };
+
+      values.push(i.toString());
+      points.push(point);
+    }
+    const scale = Scale.cat({
+      field: 'label',
+      values
+    });
+    let gLabels;
+    it('init', function() {
+      gLabels = canvas.addGroup(PieLabels, {
+        coord,
+        labelCfg: {
+          cfg: {
+            offset: 10,
+            offsetX: 10,
+            offsetY: -10
+          },
+          scales: [ scale ]
+        },
+        geomType: 'point'
+      });
+
+      const cfg = gLabels.get('label');
+      expect(cfg.offset).to.equal(10);
+      expect(cfg.offsetX).to.equal(10);
+      expect(cfg.offsetY).to.equal(-10);
+      expect(cfg.textStyle).not.to.equal(undefined);
+      // 现在在drawLine的时候通过offset判断，不走统一逻辑
+      // expect(cfg.labelLine).not.to.equal(undefined);
+      // expect(cfg.label.fill).to.equal('#fff');
+    });
+    it('points', function() {
+      let items = gLabels.getLabelsItems(points);
+      items = gLabels.adjustItems(items);
+      expect(items.length).to.equal(points.length);
+      expect(items[0].x).to.equal(230);
+      expect(Util.isNumberEqual(items[0].y, 48.03847577293368 - 10)).to.be.true;
+
+      expect(items[1].x).to.equal(200);
+      expect(Util.isNumberEqual(items[1].y, 100 - 10)).to.be.true;
+
+      expect(items[2].x).to.equal(230.00000000000006);
+      expect(Util.isNumberEqual(items[2].y, 151.96152422706632 - 10)).to.be.true;
+
+      expect(items[5].x).to.equal(290);
+      expect(Util.isNumberEqual(items[5].y, 151.96152422706632 - 10)).to.be.true;
     });
   });
 });
