@@ -120,7 +120,7 @@ class PieLabels extends PolarLabels {
     if (offset > 0) {
       items = self._distribute(items, offset);
     }
-    return items;
+    return super.adjustItems(items);
   }
 
   /**

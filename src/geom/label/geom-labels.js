@@ -193,6 +193,14 @@ class GeomLabels extends Group {
   }
 */
   adjustItems(items) {
+    Util.each(items, function(item) {
+      if (item.offsetX) {
+        item.x += item.offsetX;
+      }
+      if (item.offsetY) {
+        item.y += item.offsetY;
+      }
+    });
     return items;
   }
   /**
@@ -282,6 +290,12 @@ class GeomLabels extends Group {
       self.setLabelPosition(label, point, index, labelCfg.position);
     }
     const offsetPoint = self.getLabelOffset(labelCfg, index, total);
+    if (labelCfg.offsetX) {
+      offsetPoint.x += labelCfg.offsetX;
+    }
+    if (labelCfg.offsetY) {
+      offsetPoint.y += labelCfg.offsetY;
+    }
     self.transLabelPoint(label);
     label.x += offsetPoint.x;
     label.y += offsetPoint.y;
