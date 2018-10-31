@@ -99,6 +99,30 @@ describe('geom labels', function() {
       expect(canvas.get('children').length).to.equal(0);
     });
   });
+  describe('one point one label with offsetX & offsetY', function() {
+    it('absolute offsetX & offsetY', function() {
+      const gLabels = canvas.addGroup(GeomLabels, {
+        coord,
+        labelCfg: {
+          cfg: {
+            offset: 0,
+            offsetX: 10,
+            offsetY: 10
+          },
+          scales: [ labelScale ]
+        },
+        geomType: 'point'
+      });
+      const cfg = gLabels.get('label');
+      expect(cfg.offsetX).to.equal(10);
+      expect(cfg.offsetY).to.equal(10);
+      expect(cfg.textStyle).not.to.equal(undefined);
+      const items = gLabels.getLabelsItems(points);
+      const first = items[0];
+      expect(first.x).to.equal(points[0].x + 10);
+      expect(first.y).to.equal(points[0].y + 10);
+    });
+  });
 
   describe('one point two labels', function() {
     it('get label items', function() {

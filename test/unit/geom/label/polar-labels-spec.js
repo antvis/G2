@@ -237,7 +237,7 @@ describe('polar labels', function() {
       gLabels = canvas.addGroup(PolarLabels, {
         coord,
         labelCfg: {
-          cfg: {
+          globalCfg: {
             offset: -10
           },
           scales: [ labelScale1 ]

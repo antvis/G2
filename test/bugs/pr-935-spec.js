@@ -94,8 +94,7 @@ describe('scaled coord label', function() {
     const labelLines = container.get('lineGroup');
     const origin = labels.get('children')[0].get('origin');
     const offset = container.get('labelItemCfgs')[0].offset;
-    expect(offset[0]).to.equal(0);
-    expect(offset[1]).to.equal(35);
+    expect(offset).to.equal(35);
     expect(origin.textAlign).to.equal('left');
     const path = labelLines.get('children')[0].attr('path');
     expect(path.join('').indexOf('NaN') < 0);

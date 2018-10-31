@@ -509,7 +509,6 @@ class LegendController {
         }
       });
     }
-
     let legend;
     if (self._isTailLegend(legendOptions, geom)) {
       legendCfg.chart = self.chart;
@@ -529,8 +528,6 @@ class LegendController {
         legendCfg.container = container;
         if (legendCfg.legendStyle === undefined) legendCfg.legendStyle = {};
         legendCfg.legendStyle.CONTAINER_CLASS = {
-          height: (posArray[0] === 'right' || posArray[0] === 'left') ? maxLength + 'px' : 'auto',
-          width: !(posArray[0] === 'right' || posArray[0] === 'left') ? maxLength + 'px' : 'auto',
           position: 'absolute',
           overflow: 'auto',
           'z-index': canvasEle.style.zIndex === '' ? 1 : parseInt(canvasEle.style.zIndex, 10) + 1
