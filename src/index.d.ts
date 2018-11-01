@@ -516,7 +516,7 @@ declare namespace G2 {
     facet(
       type: 'rect' | 'list' | 'tree' | 'mirror' | 'matrix',
       option: {
-        fileds?: Array<String>;
+        fields?: Array<String>;
         showTitle?: boolean; // 显示标题
         autoSetAxis?: boolean; // 自动设置坐标轴的文本，避免重复和遮挡
         padding?: number; // 每个 view 之间的间距
