@@ -32,7 +32,8 @@
       const chart = new G2.Chart({
         container: 'canvas',
         forceFit: true,
-        height: window.innerHeight
+        height: window.innerHeight,
+        padding: 'auto'
       });
       chart.scale({
         count: {
@@ -43,6 +44,12 @@
           alias: '唱片发行年份'
         }
       });
+      chart.axis('release', {
+        position: 'middle'
+      });
+      chart.axis('count', {
+        position: 'middle'
+      });
       chart.source(dv.rows);
       const view1 = chart.view();
       view1.source(dv.rows); // TODO
@@ -50,11 +57,11 @@
         .position('release*count')
         .color('#e50000');
 
-      const view2 = chart.view();
-      view2.source(dv.rows); // TODO
-      view2.point()
-        .position('release*count')
-        .color('#e50000');
+      // const view2 = chart.view();
+      // view2.source(dv.rows); // TODO
+      // view2.point()
+      //   .position('release*count')
+      //   .color('#e50000');
 
       // chart.tooltip(false);
       chart.render();

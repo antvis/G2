@@ -55,6 +55,16 @@ function fillAxisTicks(ticks, isLinear, gridCentering) {
   return result;
 }
 
+function getDefaultValueFromPosition(position, val = 0) {
+  if (position === 'middle') {
+    val = 0.5;
+  }
+  if (position.indexOf('%') !== -1) {
+    val = parseInt(position, 10) / 100;
+  }
+  return val;
+}
+
 class AxisController {
   constructor(cfg) {
     this.visible = true;
@@ -100,33 +110,40 @@ class AxisController {
       position = options[field].position;
     }
 
+    // TODO middle & percentage for position
     if (dimType === 'x') { // x轴的坐标轴,底部的横坐标
+      let y = (position === 'top') ? 1 : 0;
+      y = getDefaultValueFromPosition(position, y);
       start = {
         x: 0,
-        y: position === 'top' ? 1 : 0
+        y
       };
       end = {
         x: 1,
-        y: position === 'top' ? 1 : 0
+        y
       };
       isVertical = false;
     } else { // y轴坐标轴
       if (index) { // 多轴的情况
+        let x = (position === 'left') ? 0 : 1;
+        x = getDefaultValueFromPosition(position, x);
         start = {
-          x: position === 'left' ? 0 : 1,
+          x,
           y: 0
         };
         end = {
-          x: position === 'left' ? 0 : 1,
+          x,
           y: 1
         };
       } else { // 单个y轴，或者第一个y轴
+        let x = (position === 'right') ? 1 : 0;
+        x = getDefaultValueFromPosition(position, x);
         start = {
-          x: position === 'right' ? 1 : 0,
+          x,
           y: 0
         };
         end = {
-          x: position === 'right' ? 1 : 0,
+          x,
           y: 1
         };
       }
