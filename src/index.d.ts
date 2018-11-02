@@ -172,7 +172,7 @@ declare namespace G2 {
     tooltip(field: string): this;
     tooltip(exe: string, func: Function): this;
     style(style: any): this;
-    style(exe: string, func: Function): this;
+    style(exe: string, style: any): this;
     select(open: boolean): this;
     select(opt: {
       mode: 'single' | 'multiple'; // 选中模式，单选、多选
