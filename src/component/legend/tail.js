@@ -116,6 +116,8 @@ class Tail extends Category {
     const self = this;
     const geom = self.get('geom');
     if (geom) {
+      const groupMatrix = self.get('group').attr('matrix');
+      groupMatrix[7] = 0;
       const dataArray = self.get('geom').get('dataArray');
       const groups = this.get('itemsGroup').get('children');
       let index = 0;
@@ -127,10 +129,7 @@ class Tail extends Category {
         }
         const groupHeight = groupItem.getBBox().height;
         const x = groupItem.get('x');
-        const y = lastY - (groupHeight / 2);
-
-        // groupItem.set('y', lastY - groupHeight);
-        // adjust y position by previous
+        const y = lastY - groupHeight / 2;
         groupItem.translate(x, y);
         index++;
       });
@@ -138,7 +137,6 @@ class Tail extends Category {
       if (self.get('autoLayout')) {
         self._antiCollision(groups);
       }
-
     }
   }
 

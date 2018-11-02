@@ -43,7 +43,7 @@ describe('#472', () => {
     chart.repaint();
 
     plotRange = chart.get('plotRange');
-    expect(500 - plotRange.tr.x > 85).equal(true);
+    expect(500 - plotRange.tr.x > 75).equal(true);
 
     chart.legend({ position: 'top' });
     chart.repaint();
@@ -88,6 +88,6 @@ describe('#472', () => {
     chart.repaint();
 
     plotRange = chart.get('plotRange');
-    expect(500 - plotRange.tr.x > 85).equal(true);
+    expect(500 - plotRange.tr.x > 75).equal(true);
   });
 });
