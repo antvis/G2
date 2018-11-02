@@ -571,7 +571,7 @@ class LegendController {
       if (!selected) {
         Util.each(legends, legendItems => {
           Util.each(legendItems, legend => {
-            (!legend.destroyed) && legend.unactivate();
+            (!legend.destroyed) && legend.deactivate();
           });
         });
       }
