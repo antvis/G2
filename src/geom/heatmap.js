@@ -14,8 +14,6 @@ const MAPPED_DATA = 'mappedData';
 const GRAY_SCALE_BLURRED_CANVAS = 'grayScaleBlurredCanvas';
 const HEATMAP_SIZE = 'heatmapSize';
 
-const paletteCache = {};
-
 class Heatmap extends GeomBase {
   /**
    * get default configuration
@@ -25,6 +23,7 @@ class Heatmap extends GeomBase {
   getDefaultCfg() {
     const cfg = super.getDefaultCfg();
     cfg.type = 'heatmap';
+    cfg.paletteCache = {};
     // cfg.shapeType = 'heatmap';
     return cfg;
   }
@@ -87,6 +86,7 @@ class Heatmap extends GeomBase {
     const self = this;
     const colorAttr = self.getAttr('color');
     const pixels = img.data;
+    const paletteCache = self.get('paletteCache');
     for (let i = 3; i < pixels.length; i += 4) {
       const alpha = pixels[i]; // get gradient color from opacity value
       if (alpha) {
