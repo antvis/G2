@@ -33,6 +33,7 @@
         container: 'canvas',
         forceFit: true,
         height: window.innerHeight,
+        limitInPlot: true,
         padding: 'auto'
       });
       chart.scale({
@@ -44,12 +45,12 @@
           alias: '唱片发行年份'
         }
       });
-      chart.axis('release', {
-        position: 'middle'
-      });
-      chart.axis('count', {
-        position: 'middle'
-      });
+      // chart.axis('release', {
+      //   position: 'middle'
+      // });
+      // chart.axis('count', {
+      //   position: 'middle'
+      // });
       chart.source(dv.rows);
       const view1 = chart.view();
       view1.source(dv.rows); // TODO

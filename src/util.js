@@ -4,6 +4,7 @@
  * @see https://github.com/lodash/lodash
  */
 const Utils = require('@antv/util/lib');
+const G = require('./renderer');
 
 const Util = Utils.mix({}, Utils, {
   assign: Utils.mix, // simple mix
@@ -39,6 +40,18 @@ const Util = Utils.mix({}, Utils, {
       left = padding.left || 0;
     }
     return [ top, right, bottom, left ];
+  },
+  getClipByRange(plotRange) {
+    const { tl, br } = plotRange;
+    const clip = new G.Rect({
+      attrs: {
+        x: tl.x,
+        y: tl.y,
+        width: br.x - tl.x,
+        height: br.y - tl.y
+      }
+    });
+    return clip;
   }
 });
 

@@ -67,6 +67,7 @@ class Chart extends View {
       padding: Global.plotCfg.padding,
       background: null,
       autoPaddingAppend: 5,
+      limitInPlot: false,
       renderer: Global.renderer,
       // renderer: 'svg',
       views: []
@@ -504,20 +505,29 @@ class Chart extends View {
    * @override
    */
   render() {
+    const self = this;
     // 需要自动计算边框，则重新设置
-    if (!this.get('keepPadding') && this._isAutoPadding()) {
-      this.beforeRender(); // 初始化各个 view 和 绘制
-      this.drawComponents();
-      const autoPadding = this._getAutoPadding();
-      const plot = this.get('plot');
+    if (!self.get('keepPadding') && self._isAutoPadding()) {
+      self.beforeRender(); // 初始化各个 view 和 绘制
+      self.drawComponents();
+      const autoPadding = self._getAutoPadding();
+      const plot = self.get('plot');
       // 在计算出来的边框不一致的情况，重新改变边框
       if (!isEqualArray(plot.get('padding'), autoPadding)) {
         plot.set('padding', autoPadding);
         plot.repaint();
       }
     }
+    const middlePlot = self.get('middlePlot');
+    if (self.get('limitInPlot') && !middlePlot.attr('clip')) {
+      const clip = Util.getClipByRange(self.get('plotRange')); // TODO Polar coord
+      middlePlot.attr('clip', clip);
+      // clip.attr('fill', 'grey');
+      // clip.attr('opacity', 0.5);
+      // middlePlot.add(clip);
+    }
     super.render();
-    this._renderTooltips(); // 渲染 tooltip
+    self._renderTooltips(); // 渲染 tooltip
   }
 
   repaint() {
