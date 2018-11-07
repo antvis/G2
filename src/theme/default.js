@@ -527,7 +527,7 @@ const Theme = {
   }, // 提示信息在折线图、区域图上形成点的样式
   tooltipCrosshairsRect: {
     type: 'rect',
-    reactStyle: {
+    rectStyle: {
       fill: '#CCD6EC',
       opacity: 0.3
     }
