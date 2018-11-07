@@ -436,7 +436,8 @@ class GeomLabels extends Group {
       if (Util.isString(cfg) || Util.isNumber(cfg)) {
         cfg = { text: cfg };
       } else {
-        cfg.text = originText[0];
+        cfg.text = cfg.content || originText[0];
+        delete cfg.content;
       }
       cfg = Util.mix({}, defaultCfg, labelCfg.globalCfg || {}, cfg);
       // 兼容旧的源数据写在item.point中
