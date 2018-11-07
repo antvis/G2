@@ -10,7 +10,7 @@ const Interactions = {
   Base: require('./base'),
   Brush: require('./brush'),
   Drag: require('./drag'),
-  ShapeSelect: require('./shapeSelect'),
+  ShapeSelect: require('./shape-select'),
   Zoom: require('./zoom')
 };
 
