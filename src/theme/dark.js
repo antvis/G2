@@ -165,13 +165,13 @@ const DarkTheme = Util.deepMix({}, BasicTheme, {
   },
   tooltipCrosshairsRect: {
     type: 'rect',
-    style: {
+    rectStyle: {
       fill: '#fff',
       opacity: 0.1
     }
   }, // tooltip 辅助背景框样式
   tooltipCrosshairsLine: {
-    style: {
+    lineStyle: {
       stroke: 'rgba(255, 255, 255, 0.45)'
     }
   },
