@@ -461,7 +461,7 @@ class GeomLabels extends Group {
         delete cfg.textStyle.offset;
         const textStyle = cfg.textStyle;
         if (Util.isFunction(textStyle)) {
-          cfg.textStyle = textStyle.call(null, originText, origin, i);
+          cfg.textStyle = textStyle.call(null, cfg.text, point, i);
         }
       }
       if (cfg.labelLine) {
