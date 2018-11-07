@@ -194,6 +194,9 @@ class GeomLabels extends Group {
 */
   adjustItems(items) {
     Util.each(items, function(item) {
+      if (!item) {
+        return;
+      }
       if (item.offsetX) {
         item.x += item.offsetX;
       }
