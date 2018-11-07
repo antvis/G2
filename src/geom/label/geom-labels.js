@@ -101,9 +101,9 @@ class GeomLabels extends Group {
     const viewTheme = self.get('viewTheme') || Global;
 
     if (geomType === 'polygon' || (labelCfg && labelCfg.offset < 0 && Util.indexOf(IGNORE_ARR, geomType) === -1)) {
-      return Util.deepMix({}, self.get('label'), viewTheme.innerLabels);
+      return Util.deepMix({}, self.get('label'), viewTheme.innerLabels, labelCfg);
     }
-    return Util.deepMix({}, viewTheme.label, self.get('label'));
+    return Util.deepMix({}, self.get('label'), viewTheme.label, labelCfg);
   }
 
   /**

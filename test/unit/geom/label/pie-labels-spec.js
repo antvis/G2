@@ -565,8 +565,8 @@ describe('pie labels', function() {
       const first = labelsGroup.getFirst();
       const last = labelsGroup.getLast();
 
-      expect(first.attr('x')).to.be.equal(199.89235226167526);
-      expect(first.attr('y')).to.be.equal(82.39235226167526);
+      expect(first.attr('x')).to.be.equal(206.9634200735407);
+      expect(first.attr('y')).to.be.equal(89.46342007354075);
       expect(last.attr('x')).to.be.equal(330);
       expect(last.attr('y')).to.be.equal(398);
     });
@@ -681,8 +681,8 @@ describe('pie labels', function() {
       const labelGroup = geom.get('labelContainer');
       const labelsGroup = labelGroup.get('labelsGroup');
       const cText = labelsGroup.get('children')[0];
-      expect(cText.get('attrs').x).to.equal(270.8166632639171);
-      expect(cText.get('attrs').y).to.equal(228);
+      expect(cText.get('attrs').x).to.equal(269.0640499692492);
+      expect(cText.get('attrs').y).to.equal(218);
     });
   });
 
