@@ -46,8 +46,8 @@ describe('#1018', () => {
           hollowPoint: {
             // fill: 'red',
             lineWidth: 3,
-            // stroke: 'red',
-            radius: 3
+            stroke: 'red'
+            // radius: 3
           }
         }
       }
@@ -65,5 +65,6 @@ describe('#1018', () => {
 
     const point = chart.getAllGeoms()[0].get('shapeContainer')._cfg.children[0];
     expect(point._attrs.lineWidth === 3);
+    expect(point._attrs.stroke === 'red');
   });
 });
