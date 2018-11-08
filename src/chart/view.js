@@ -257,6 +257,7 @@ class View extends Base {
   }
 
   _drawGeoms() {
+    this.emit('beforedrawgeoms');
     const geoms = this.get('geoms');
     const coord = this.get('coord');
     for (let i = 0; i < geoms.length; i++) {
@@ -264,6 +265,7 @@ class View extends Base {
       geom.setCoord(coord);
       geom.paint();
     }
+    this.emit('afterdrawgeoms');
   }
 
   isShapeInView(shape) {
@@ -847,6 +849,7 @@ class View extends Base {
 
   clearInner() {
     this.set('scales', {});
+    this.emit('beforeclearinner');
     const options = this.get('options');
     options.geoms = null;
     this._clearGeoms();
@@ -854,6 +857,7 @@ class View extends Base {
     this.get('guideController') && this.get('guideController').reset();
     // clear axis
     this.get('axisController') && this.get('axisController').clear();
+    this.emit('afterclearinner');
   }
 
   /**
@@ -997,6 +1001,7 @@ class View extends Base {
     this.set('filteredData', filteredData);
     // if (!Util.isEmpty(data)) {
     this._createCoord(); // draw geometry 前绘制区域可能会发生改变
+    this.emit('beforeinitgeoms');
     this._initGeoms();
     this._adjustScale();
     // }

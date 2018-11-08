@@ -34,7 +34,7 @@
         forceFit: true,
         height: window.innerHeight,
         limitInPlot: true,
-        padding: 'auto'
+        padding: 100
       });
       chart.scale({
         count: {
@@ -52,10 +52,10 @@
       //   position: 'middle'
       // });
       chart.source(dv.rows);
-      const view1 = chart.view();
-      view1.source(dv.rows); // TODO
-      view1.interval()
+      chart.axis(false);
+      chart.interval()
         .position('release*count')
+        .shape('hollowRect')
         .color('#e50000');
 
       // const view2 = chart.view();
@@ -67,7 +67,7 @@
       // chart.tooltip(false);
       chart.render();
 
-      view1
+      chart
         .interact('zoom', {
           type: 'XY'
           // filter: true,
@@ -77,9 +77,10 @@
         })
         .interact('drag', {
           type: 'XY'
-        });
+        })
+        .interact('scroll-bar');
 
-
+      // console.log(chart);
     });
   </script>
 </body>

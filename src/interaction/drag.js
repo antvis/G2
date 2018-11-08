@@ -1,6 +1,7 @@
 
 const Util = require('../util');
 const Interaction = require('./base');
+const filterData = require('./helper/filter-data');
 // const G2 = require('../core.js');
 
 const DRAGGING_TYPES = [ 'X', 'Y', 'XY' ];
@@ -12,6 +13,7 @@ class Drag extends Interaction {
     return Util.mix({}, cfg, {
       type: DEFAULT_TYPE,
       stepRatio: 0.05,
+      limitRange: false,
       stepByField: {},
       originScaleDefsByField: {},
       previousPoint: null,
@@ -25,13 +27,16 @@ class Drag extends Interaction {
     me.type = me.type.toUpperCase();
     me.chart = view;
 
+    // pre process
+    filterData(view);
+
     const scales = view.getYScales();
     const xScale = view.getXScale();
     scales.push(xScale);
     const scaleController = view.get('scaleController');
     scales.forEach(scale => {
       const field = scale.field;
-      const def = scaleController.defs[field];
+      const def = scaleController.defs[field] || {};
       me.originScaleDefsByField[field] = Util.mix(def, {
         nice: !!def.nice
       });
@@ -49,7 +54,7 @@ class Drag extends Interaction {
   // onDrag() { }
   // onDragend() { }
 
-  _applyTranslate(scale, offset = 0) {
+  _applyTranslate(scale, offset = 0 /* , coord */) {
     const me = this;
     const { chart } = me;
     const { min, max, field } = scale;
@@ -80,12 +85,12 @@ class Drag extends Interaction {
       const previousPoint = me.previousPoint;
       const currentPoint = coord.invertPoint(ev);
       if (type.indexOf('X') > -1) {
-        me._applyTranslate(chart.getXScale(), currentPoint.x - previousPoint.x);
+        me._applyTranslate(chart.getXScale(), currentPoint.x - previousPoint.x, coord);
       }
       if (type.indexOf('Y') > -1) {
         const yScales = chart.getYScales();
         yScales.forEach(yScale => {
-          me._applyTranslate(yScale, currentPoint.y - previousPoint.y);
+          me._applyTranslate(yScale, currentPoint.y - previousPoint.y, coord);
         });
       }
       me.previousPoint = currentPoint;

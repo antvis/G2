@@ -10,6 +10,7 @@ const Interactions = {
   Base: require('./base'),
   Brush: require('./brush'),
   Drag: require('./drag'),
+  ScrollBar: require('./scroll-bar'),
   ShapeSelect: require('./shape-select'),
   Zoom: require('./zoom')
 };
@@ -65,6 +66,8 @@ G2.registerInteraction('drag', Interactions.Drag);
 G2.registerInteraction('Drag', Interactions.Drag);
 G2.registerInteraction('zoom', Interactions.Zoom);
 G2.registerInteraction('Zoom', Interactions.Zoom);
+G2.registerInteraction('scroll-bar', Interactions.ScrollBar);
+G2.registerInteraction('ScrollBar', Interactions.ScrollBar);
 G2.registerInteraction('shape-select', Interactions.ShapeSelect);
 G2.registerInteraction('ShapeSelect', Interactions.ShapeSelect);
 

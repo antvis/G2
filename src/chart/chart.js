@@ -177,7 +177,7 @@ class Chart extends View {
       zIndex: 1
     }); // 图表最后面的容器
     const plotContainer = canvas.addGroup({
-      zIndex: 2
+      zIndex: 0
     }); // 图表所在的容器
     const frontPlot = canvas.addGroup({
       zIndex: 3
