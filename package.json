@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2",
-  "version": "3.3.4",
+  "version": "3.4.0-beta.1",
   "description": "the Grammar of Graphics in Javascript",
   "browser": "build/g2.js",
   "main": "build/g2.js",
@@ -98,9 +98,9 @@
     "silent": false
   },
   "dependencies": {
-    "@antv/component": "~0.2.1",
+    "@antv/component": "~0.2.2",
     "@antv/adjust": "~0.1.0",
-    "@antv/attr": "~0.1.0",
+    "@antv/attr": "~0.1.1",
     "@antv/coord": "~0.1.0",
     "@antv/g": "~3.3.4",
     "@antv/scale": "~0.1.0",
