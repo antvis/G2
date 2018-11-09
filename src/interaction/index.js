@@ -12,6 +12,7 @@ const Interactions = {
   Drag: require('./drag'),
   ScrollBar: require('./scroll-bar'),
   ShapeSelect: require('./shape-select'),
+  Slider: require('./slider'),
   Zoom: require('./zoom')
 };
 
@@ -70,5 +71,7 @@ G2.registerInteraction('scroll-bar', Interactions.ScrollBar);
 G2.registerInteraction('ScrollBar', Interactions.ScrollBar);
 G2.registerInteraction('shape-select', Interactions.ShapeSelect);
 G2.registerInteraction('ShapeSelect', Interactions.ShapeSelect);
+G2.registerInteraction('slider', Interactions.Slider);
+G2.registerInteraction('Slider', Interactions.Slider);
 
 module.exports = Interactions;

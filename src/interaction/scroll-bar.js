@@ -9,6 +9,10 @@ class ScrollBar extends Interaction {
   getDefaultCfg() {
     const cfg = super.getDefaultCfg();
     return Util.mix({}, cfg, {
+      startEvent: null,
+      processEvent: null,
+      endEvent: null,
+      resetEvent: null,
       type: DEFAULT_TYPE,
       xStyle: {
         backgroundColor: 'rgba(202, 215, 239, .2)',
@@ -16,7 +20,7 @@ class ScrollBar extends Interaction {
         size: 4,
         lineCap: 'round',
         offsetX: 0,
-        offsetY: -20 // TODO
+        offsetY: -10
       },
       yStyle: {
         backgroundColor: 'rgba(202, 215, 239, .2)',
@@ -56,7 +60,7 @@ class ScrollBar extends Interaction {
 
       const currentRange = getFieldRange(xScale, xLimitRange, xScale.type);
       let horizontalBar = chart.get('_horizontalBar');
-      const yPos = canvasHeight - size / 2 + offsetY;
+      const yPos = canvasHeight - (size / 2) + offsetY;
       if (horizontalBar) {
         const progressLine = horizontalBar.get('children')[1];
 

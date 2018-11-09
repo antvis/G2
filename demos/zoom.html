@@ -12,6 +12,7 @@
 
 <body>
   <div id="canvas"></div>
+  <div id="slider"></div>
   <script src="./assets/jquery-3.2.1.min.js"></script>
   <script src="./assets/data-set.min.js"></script>
   <script src="../build/g2.js"></script>
@@ -27,14 +28,14 @@
           groupBy: [ 'release' ],
           operations: [ 'count' ],
           type: 'aggregate'
-        })
-        .transform({
-          type: 'map',
-          callback(row) {
-            row.release = ` ${row.release}`;
-            return row;
-          }
         });
+        // .transform({
+        //   type: 'map',
+        //   callback(row) {
+        //     row.release = ` ${row.release}`;
+        //     return row;
+        //   }
+        // });
 
       const values = [];
       dv.rows.forEach((row, index) => {
@@ -46,9 +47,9 @@
       const chart = new G2.Chart({
         container: 'canvas',
         forceFit: true,
-        height: window.innerHeight,
+        height: window.innerHeight - 64,
         limitInPlot: true,
-        padding: [ 20, 20, 60, 60 ]
+        padding: [ 20, 20, 75, 60 ]
       });
       chart.scale({
         count: {
@@ -95,6 +96,12 @@
         })
         .interact('scroll-bar', {
           type: 'XY'
+        })
+        .interact('slider', {
+          container: 'slider'
+          // onChange(options) {
+          //   console.log(options);
+          // }
         });
 
       // console.log(chart);
