@@ -527,13 +527,13 @@ const Theme = {
   }, // 提示信息在折线图、区域图上形成点的样式
   tooltipCrosshairsRect: {
     type: 'rect',
-    style: {
+    rectStyle: {
       fill: '#CCD6EC',
       opacity: 0.3
     }
   }, // tooltip 辅助背景框样式
   tooltipCrosshairsLine: {
-    style: {
+    lineStyle: {
       stroke: 'rgba(0, 0, 0, 0.25)',
       lineWidth: 1
     }

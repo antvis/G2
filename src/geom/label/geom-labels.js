@@ -194,6 +194,9 @@ class GeomLabels extends Group {
 */
   adjustItems(items) {
     Util.each(items, function(item) {
+      if (!item) {
+        return;
+      }
       if (item.offsetX) {
         item.x += item.offsetX;
       }
@@ -433,7 +436,8 @@ class GeomLabels extends Group {
       if (Util.isString(cfg) || Util.isNumber(cfg)) {
         cfg = { text: cfg };
       } else {
-        cfg.text = originText[0];
+        cfg.text = cfg.content || originText[0];
+        delete cfg.content;
       }
       cfg = Util.mix({}, defaultCfg, labelCfg.globalCfg || {}, cfg);
       // 兼容旧的源数据写在item.point中
@@ -457,7 +461,7 @@ class GeomLabels extends Group {
         delete cfg.textStyle.offset;
         const textStyle = cfg.textStyle;
         if (Util.isFunction(textStyle)) {
-          cfg.textStyle = textStyle.call(null, originText, origin, i);
+          cfg.textStyle = textStyle.call(null, cfg.text, point, i);
         }
       }
       if (cfg.labelLine) {
