@@ -34,7 +34,7 @@
         forceFit: true,
         height: window.innerHeight,
         limitInPlot: true,
-        padding: 100
+        padding: [ 20, 20, 50, 100 ]
       });
       chart.scale({
         count: {
@@ -52,7 +52,7 @@
       //   position: 'middle'
       // });
       chart.source(dv.rows);
-      chart.axis(false);
+      // chart.axis(false);
       chart.interval()
         .position('release*count')
         .shape('hollowRect')
@@ -78,7 +78,9 @@
         .interact('drag', {
           type: 'XY'
         })
-        .interact('scroll-bar');
+        .interact('scroll-bar', {
+          type: 'XY'
+        });
 
       // console.log(chart);
     });

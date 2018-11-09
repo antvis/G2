@@ -3,7 +3,7 @@
  * @author leungwensen@gmail.com
  */
 const G2 = require('../core');
-const View = require('../chart/view');
+const Chart = require('../chart/chart');
 const Util = require('../util');
 
 const Interactions = {
@@ -24,14 +24,14 @@ G2.getInteraction = function(type) {
 };
 
 // binding on View
-View.prototype.getInteractions = function() {
+Chart.prototype.getInteractions = function() {
   const me = this;
   if (!me._interactions) {
     me._interactions = {};
   }
   return me._interactions;
 };
-View.prototype._setInteraction = function(type, interaction) {
+Chart.prototype._setInteraction = function(type, interaction) {
   const me = this;
   const interactions = me.getInteractions();
   if (interactions[type] && interactions[type] !== interaction) { // only one interaction for a key
@@ -39,7 +39,7 @@ View.prototype._setInteraction = function(type, interaction) {
   }
   interactions[type] = interaction;
 };
-View.prototype.clearInteraction = function(type) {
+Chart.prototype.clearInteraction = function(type) {
   const me = this;
   const interactions = me.getInteractions();
   if (type) {
@@ -52,7 +52,7 @@ View.prototype.clearInteraction = function(type) {
     });
   }
 };
-View.prototype.interact = View.prototype.interaction = function(type, cfg) {
+Chart.prototype.interact = Chart.prototype.interaction = function(type, cfg) {
   const me = this;
   const Ctor = G2.getInteraction(type);
   const interaction = new Ctor(cfg, me);

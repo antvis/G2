@@ -57,6 +57,7 @@ class Drag extends Interaction {
   _applyTranslate(scale, offset = 0 /* , coord */) {
     const me = this;
     const { chart } = me;
+    // linear / cat
     const { min, max, field } = scale;
     const range = max - min;
     chart.scale(field, {
@@ -64,6 +65,11 @@ class Drag extends Interaction {
       min: min - offset * range,
       max: max - offset * range
     });
+  }
+
+  _translateCatScale() {
+  }
+  _translateLinearScale() {
   }
 
   start(ev) {

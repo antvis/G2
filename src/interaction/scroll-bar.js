@@ -12,7 +12,7 @@ class ScrollBar extends Interaction {
       type: DEFAULT_TYPE,
       xStyle: {
         backgroundColor: 'rgba(202, 215, 239, .2)',
-        fillerColor: 'rgba(202, 215, 239, .5)',
+        fillerColor: 'rgba(202, 215, 239, .75)',
         size: 4,
         lineCap: 'round',
         offsetX: 0,
@@ -20,7 +20,7 @@ class ScrollBar extends Interaction {
       },
       yStyle: {
         backgroundColor: 'rgba(202, 215, 239, .2)',
-        fillerColor: 'rgba(202, 215, 239, .5)',
+        fillerColor: 'rgba(202, 215, 239, .75)',
         size: 4,
         lineCap: 'round',
         offsetX: 8,
@@ -37,6 +37,7 @@ class ScrollBar extends Interaction {
     const data = chart.get('data');
     const plotRange = chart.get('plotRange');
     plotRange.width = Math.abs(plotRange.br.x - plotRange.bl.x);
+    plotRange.height = Math.abs(plotRange.tl.y - plotRange.bl.y);
     const backPlot = chart.get('backPlot');
     const canvas = chart.get('canvas');
     const canvasHeight = canvas.get('height');
@@ -55,7 +56,7 @@ class ScrollBar extends Interaction {
 
       const currentRange = getFieldRange(xScale, xLimitRange, xScale.type);
       let horizontalBar = chart.get('_horizontalBar');
-      const yPos = canvasHeight - (size / 2) + offsetY;
+      const yPos = canvasHeight - size / 2 + offsetY;
       if (horizontalBar) {
         const progressLine = horizontalBar.get('children')[1];
 
