@@ -24,6 +24,7 @@ class Point extends GeomBase {
     const self = this;
     const shape = obj.shape;
     const cfg = self.getDrawCfg(obj);
+    self._applyViewThemeShapeStyle(cfg, shape, shapeFactory);
     let geomShape;
     if (Util.isArray(obj.y)) {
       const hasAdjust = self.hasStack();

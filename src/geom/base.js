@@ -696,6 +696,7 @@ class GeomBase extends Base {
     const mappedArray = [];
     const shapeFactory = self.getShapeFactory();
     shapeFactory.setCoord(self.get('coord'));
+    self.set('shapeFactory', shapeFactory);
     const shapeContainer = self.get('shapeContainer');
     self._beforeMapping(dataArray);
     for (let i = 0; i < dataArray.length; i++) {
@@ -1053,11 +1054,31 @@ class GeomBase extends Base {
     }
   }
 
+  _applyViewThemeShapeStyle(cfg, shape, shapeFactory) {
+    // applying view theme
+    const self = this;
+    const viewTheme = self.viewTheme || Global;
+    let shapeName = shapeFactory.name;
+    if (shape) {
+      if (shape && shape.indexOf('hollow') > -1) {
+        shapeName = `hollow${Util.upperFirst(shapeName)}`;
+      }
+    } else if (shapeFactory.defaultShapeType.indexOf('hollow') > -1) {
+      shapeName = `hollow${Util.upperFirst(shapeName)}`;
+    }
+    const defaultStyle = viewTheme.shape[shapeName] || {};
+    cfg.style = Util.mix({}, defaultStyle, cfg.style);
+  }
+
   drawPoint(obj, container, shapeFactory, index) {
+    const self = this;
     const shape = obj.shape;
-    const cfg = this.getDrawCfg(obj);
+    const cfg = self.getDrawCfg(obj);
+
+    self._applyViewThemeShapeStyle(cfg, shape, shapeFactory);
+
     const geomShape = shapeFactory.drawShape(shape, cfg, container);
-    this.appendShapeInfo(geomShape, index);
+    self.appendShapeInfo(geomShape, index);
   }
 
   /**

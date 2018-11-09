@@ -3,14 +3,16 @@
  * @author leungwensen@gmail.com
  */
 const G2 = require('../core');
-const View = require('../chart/view');
+const Chart = require('../chart/chart');
 const Util = require('../util');
 
 const Interactions = {
   Base: require('./base'),
   Brush: require('./brush'),
   Drag: require('./drag'),
-  ShapeSelect: require('./shapeSelect'),
+  ScrollBar: require('./scroll-bar'),
+  ShapeSelect: require('./shape-select'),
+  Slider: require('./slider'),
   Zoom: require('./zoom')
 };
 
@@ -23,14 +25,14 @@ G2.getInteraction = function(type) {
 };
 
 // binding on View
-View.prototype.getInteractions = function() {
+Chart.prototype.getInteractions = function() {
   const me = this;
   if (!me._interactions) {
     me._interactions = {};
   }
   return me._interactions;
 };
-View.prototype._setInteraction = function(type, interaction) {
+Chart.prototype._setInteraction = function(type, interaction) {
   const me = this;
   const interactions = me.getInteractions();
   if (interactions[type] && interactions[type] !== interaction) { // only one interaction for a key
@@ -38,7 +40,7 @@ View.prototype._setInteraction = function(type, interaction) {
   }
   interactions[type] = interaction;
 };
-View.prototype.clearInteraction = function(type) {
+Chart.prototype.clearInteraction = function(type) {
   const me = this;
   const interactions = me.getInteractions();
   if (type) {
@@ -51,7 +53,7 @@ View.prototype.clearInteraction = function(type) {
     });
   }
 };
-View.prototype.interact = View.prototype.interaction = function(type, cfg) {
+Chart.prototype.interact = Chart.prototype.interaction = function(type, cfg) {
   const me = this;
   const Ctor = G2.getInteraction(type);
   const interaction = new Ctor(cfg, me);
@@ -65,7 +67,11 @@ G2.registerInteraction('drag', Interactions.Drag);
 G2.registerInteraction('Drag', Interactions.Drag);
 G2.registerInteraction('zoom', Interactions.Zoom);
 G2.registerInteraction('Zoom', Interactions.Zoom);
+G2.registerInteraction('scroll-bar', Interactions.ScrollBar);
+G2.registerInteraction('ScrollBar', Interactions.ScrollBar);
 G2.registerInteraction('shape-select', Interactions.ShapeSelect);
 G2.registerInteraction('ShapeSelect', Interactions.ShapeSelect);
+G2.registerInteraction('slider', Interactions.Slider);
+G2.registerInteraction('Slider', Interactions.Slider);
 
 module.exports = Interactions;

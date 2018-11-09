@@ -1,6 +1,8 @@
 
 const Util = require('../util');
 const Interaction = require('./base');
+const getColDef = require('./helper/get-col-def');
+const getLimitRange = require('./helper/get-limit-range');
 
 const ZOOMING_TYPES = [ 'X', 'Y', 'XY' ];
 const DEFAULT_TYPE = 'X';
@@ -13,28 +15,36 @@ class Zoom extends Interaction {
       type: DEFAULT_TYPE,
       stepRatio: 0.05,
       stepByField: {},
+      minScale: 1,
+      maxScale: 4,
+      catStep: 2,
+      limitRange: {},
       originScaleDefsByField: {}
     });
   }
 
-  constructor(cfg, view) {
-    super(cfg, view);
+  constructor(cfg, chart) {
+    super(cfg, chart);
     const me = this;
-    me.chart = view;
+    me.chart = chart;
     me.type = me.type.toUpperCase();
+    const data = me.data = chart.get('data');
 
-    const scales = view.getYScales();
-    const xScale = view.getXScale();
+    const scales = chart.getYScales();
+    const xScale = chart.getXScale();
     scales.push(xScale);
-    const scaleController = view.get('scaleController');
+    const scaleController = chart.get('scaleController');
     scales.forEach(scale => {
       const field = scale.field;
       const def = scaleController.defs[field] || {};
+      me.limitRange[field] = getLimitRange(data, scale);
       me.originScaleDefsByField[field] = Util.mix(def, {
         nice: !!def.nice
       });
       if (scale.isLinear) {
         me.stepByField[field] = (scale.max - scale.min) * me.stepRatio;
+      } else {
+        me.stepByField[field] = me.catStep;
       }
     });
 
@@ -47,7 +57,7 @@ class Zoom extends Interaction {
   // onZoomin() { }
   // onZoomout() { }
 
-  _applyScale(scale, delta, minOffset = 0) {
+  _applyScale(scale, delta, minOffset = 0, center) {
     const me = this;
     const { chart, stepByField } = me;
     if (scale.isLinear) {
@@ -62,6 +72,47 @@ class Zoom extends Interaction {
           min: newMin,
           max: newMax
         });
+      }
+    } else {
+      const { field, values } = scale;
+      const chart = me.chart;
+      const coord = chart.get('coord');
+      const colDef = getColDef(chart, field);
+
+      const originValues = me.limitRange[field];
+      const originValuesLen = originValues.length;
+      const maxScale = me.maxScale;
+      const minScale = me.minScale;
+      const minCount = originValuesLen / maxScale;
+      const maxCount = originValuesLen / minScale;
+
+      const valuesLength = values.length;
+      const offsetPoint = coord.invertPoint(center);
+      const percent = offsetPoint.x;
+      const deltaCount = valuesLength - delta * this.catStep;
+      const minDelta = parseInt(deltaCount * (percent));
+      const maxDelta = deltaCount + minDelta;
+
+      if (delta > 0 && valuesLength >= minCount) { // zoom out
+        let min = minDelta;
+        let max = maxDelta;
+        if (maxDelta > valuesLength) {
+          max = valuesLength - 1;
+          min = valuesLength - deltaCount;
+        }
+        const newValues = values.slice(min, max);
+        chart.scale(field, Util.mix({}, colDef, {
+          values: newValues
+        }));
+      } else if (delta < 0 && valuesLength <= maxCount) { // zoom in
+        const firstIndex = originValues.indexOf(values[0]);
+        const lastIndex = originValues.indexOf(values[valuesLength - 1]);
+        const minIndex = Math.max(0, firstIndex - minDelta);
+        const maxIndex = Math.min(lastIndex + maxDelta, originValuesLen);
+        const newValues = originValues.slice(minIndex, maxIndex);
+        chart.scale(field, Util.mix({}, colDef, {
+          values: newValues
+        }));
       }
     }
   }
@@ -81,12 +132,12 @@ class Zoom extends Interaction {
       }
       const delta = deltaY / Math.abs(deltaY);
       if (type.indexOf('X') > -1) {
-        me._applyScale(chart.getXScale(), delta, offsetPoint.x);
+        me._applyScale(chart.getXScale(), delta, offsetPoint.x, ev);
       }
       if (type.indexOf('Y') > -1) {
         const yScales = chart.getYScales();
         yScales.forEach(yScale => {
-          me._applyScale(yScale, delta, offsetPoint.y);
+          me._applyScale(yScale, delta, offsetPoint.y, ev);
         });
       }
     }
