@@ -27,22 +27,37 @@
           groupBy: [ 'release' ],
           operations: [ 'count' ],
           type: 'aggregate'
+        })
+        .transform({
+          type: 'map',
+          callback(row) {
+            row.release = ` ${row.release}`;
+            return row;
+          }
         });
+
+      const values = [];
+      dv.rows.forEach((row, index) => {
+        if (index < 20) {
+          values.push(row.release);
+        }
+      });
 
       const chart = new G2.Chart({
         container: 'canvas',
         forceFit: true,
         height: window.innerHeight,
         limitInPlot: true,
-        padding: [ 20, 20, 50, 100 ]
+        padding: [ 20, 20, 60, 60 ]
       });
       chart.scale({
         count: {
           alias: 'top2000 唱片总量'
         },
         release: {
-          tickInterval: 5,
-          alias: '唱片发行年份'
+          // tickInterval: 5,
+          alias: '唱片发行年份',
+          values
         }
       });
       // chart.axis('release', {
