@@ -15,25 +15,22 @@ const DASH_ARR = [ 5.5, 1 ];
 
 function getAttrs(cfg) {
   const defaultCfg = Global.shape.line;
-  const shapeCfg = Util.mix({}, defaultCfg, {
-    stroke: cfg.color,
-    lineWidth: cfg.size,
-    strokeOpacity: cfg.opacity,
-    opacity: cfg.opacity
-  }, cfg.style);
-  return shapeCfg;
+  const lineAttrs = Util.mix({}, defaultCfg, cfg.style);
+  ShapeUtil.addStrokeAttrs(lineAttrs, cfg);
+  if (cfg.size) {
+    lineAttrs.lineWidth = cfg.size;
+  }
+  return lineAttrs;
 }
 
 function getMarkerAttrs(cfg) {
   const defaultCfg = Global.shape.line;
-  const shapeCfg = Util.mix({}, defaultCfg, {
-    stroke: cfg.color,
+  const lineAttrs = Util.mix({
     lineWidth: 2,
-    strokeOpacity: cfg.opacity,
-    opacity: cfg.opacity,
     radius: 6
-  }, cfg.style);
-  return shapeCfg;
+  }, defaultCfg, cfg.style);
+  ShapeUtil.addStrokeAttrs(lineAttrs, cfg);
+  return lineAttrs;
 }
 
 // 获取带有上下区间的 path

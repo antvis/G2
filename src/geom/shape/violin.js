@@ -4,25 +4,21 @@
  */
 const Util = require('../../util');
 const Shape = require('./shape');
+const ShapeUtil = require('../util/shape');
 const Global = require('../../global');
 const PathUtil = require('../util/path');
 
 function getAttrs(cfg) {
   const defaultCfg = Global.shape.venn;
-  const shapeCfg = Util.mix({}, defaultCfg, {
-    stroke: cfg.color,
-    fill: cfg.color,
-    fillOpacity: cfg.opacity
-  }, cfg.style);
-  return shapeCfg;
+  const pathAttrs = Util.mix({}, defaultCfg, cfg.style);
+  ShapeUtil.addFillAttrs(pathAttrs, cfg);
+  return pathAttrs;
 }
 function getHollowAttrs(cfg) {
   const defaultCfg = Global.shape.hollowVenn;
-  const shapeCfg = Util.mix({}, defaultCfg, {
-    stroke: cfg.color,
-    strokeOpacity: cfg.opacity
-  }, cfg.style);
-  return shapeCfg;
+  const pathAttrs = Util.mix({}, defaultCfg, cfg.style);
+  ShapeUtil.addStrokeAttrs(pathAttrs, cfg);
+  return pathAttrs;
 }
 
 function getViolinPath(points) {
