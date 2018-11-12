@@ -6,12 +6,13 @@
  */
 
 const Util = require('../../util');
-const PathUtil = Util.PathUtil;
 const ShapeUtil = require('../util/shape');
 const Global = require('../../global');
 const Shape = require('./shape');
 // const svgpath = require('svgpath');
 const { Marker } = require('../../renderer');
+
+const PathUtil = Util.PathUtil;
 
 const SHAPES = [ 'circle', 'square', 'bowtie', 'diamond', 'hexagon', 'triangle', 'triangle-down' ];
 const HOLLOW_SHAPES = [ 'cross', 'tick', 'plus', 'hyphen', 'line', 'pointerLine', 'pointerArrow' ];
@@ -83,21 +84,21 @@ Util.mix(Marker.Symbols, {
 
 function getFillAttrs(cfg) {
   const defaultAttrs = Global.shape.point;
-  const pointAttrs = Util.mix({}, defaultAttrs, {
-    fill: cfg.color,
-    fillOpacity: cfg.opacity,
-    radius: cfg.size
-  }, cfg.style);
+  const pointAttrs = Util.mix({}, defaultAttrs, cfg.style);
+  ShapeUtil.addFillAttrs(pointAttrs, cfg);
+  if (cfg.size) {
+    pointAttrs.radius = cfg.size;
+  }
   return pointAttrs;
 }
 
 function getLineAttrs(cfg) {
   const defaultAttrs = Global.shape.hollowPoint;
-  const pointAttrs = Util.mix({}, defaultAttrs, {
-    stroke: cfg.color,
-    strokeOpacity: cfg.opacity,
-    radius: cfg.size
-  }, cfg.style);
+  const pointAttrs = Util.mix({}, defaultAttrs, cfg.style);
+  ShapeUtil.addStrokeAttrs(pointAttrs, cfg);
+  if (cfg.size) {
+    pointAttrs.radius = cfg.size;
+  }
   return pointAttrs;
 }
 

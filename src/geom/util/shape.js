@@ -18,6 +18,22 @@ const ShapeUtil = {
       points.push(point);
     });
     return points;
+  },
+  addFillAttrs(attrs, cfg) {
+    if (cfg.color) {
+      attrs.fill = attrs.stroke = cfg.color;
+    }
+    if (cfg.opacity) {
+      attrs.opacity = attrs.fillOpacity = cfg.opacity;
+    }
+  },
+  addStrokeAttrs(attrs, cfg) {
+    if (cfg.color) {
+      attrs.stroke = cfg.color;
+    }
+    if (cfg.opacity) {
+      attrs.opacity = attrs.strokeOpacity = cfg.opacity;
+    }
   }
 };
 

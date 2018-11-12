@@ -8,9 +8,11 @@
 const Util = require('../../util');
 const Shape = require('./shape');
 const PathUtil = require('../util/path');
-const GPathUtil = Util.PathUtil;
+const ShapeUtil = require('../util/shape');
 const Global = require('../../global');
 const G = require('../../renderer');
+
+const GPathUtil = Util.PathUtil;
 
 // 获取柱状图的几个点
 function getRectPoints(cfg, isPyramid) {
@@ -153,20 +155,15 @@ function getTickPath(points) {
 
 function getFillAttrs(cfg) {
   const defaultAttrs = Global.shape.interval;
-  const attrs = Util.mix({}, defaultAttrs, {
-    fill: cfg.color,
-    stroke: cfg.color,
-    fillOpacity: cfg.opacity
-  }, cfg.style);
+  const attrs = Util.mix({}, defaultAttrs, cfg.style);
+  ShapeUtil.addFillAttrs(attrs, cfg);
   return attrs;
 }
 
 function getLineAttrs(cfg) {
   const defaultAttrs = Global.shape.hollowInterval;
-  const attrs = Util.mix({}, defaultAttrs, {
-    stroke: cfg.color,
-    strokeOpacity: cfg.opacity
-  }, cfg.style);
+  const attrs = Util.mix({}, defaultAttrs, cfg.style);
+  ShapeUtil.addStrokeAttrs(attrs, cfg);
   return attrs;
 }
 
