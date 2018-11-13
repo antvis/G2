@@ -80,7 +80,7 @@ class GeomLabels extends Group {
     const labelCfg = self.get('labelCfg');
     // Util.merge(labels, labelCfg.cfg);
     Util.deepMix(labels, labelCfg.globalCfg || labelCfg.cfg);
-    labelRenderer.set('labelCfg', labels);
+    labelRenderer.set('config', false);
     if (labels.labelLine) {
       labelRenderer.set('labelLine', labels.labelLine);
     }
@@ -99,7 +99,6 @@ class GeomLabels extends Group {
     const labelCfg = self.get('labelCfg').cfg || self.get('labelCfg').globalCfg;
     const geomType = self.get('geomType');
     const viewTheme = self.get('viewTheme') || Global;
-
     if (geomType === 'polygon' || (labelCfg && labelCfg.offset < 0 && Util.indexOf(IGNORE_ARR, geomType) === -1)) {
       return Util.deepMix({}, self.get('label'), viewTheme.innerLabels, labelCfg);
     }
@@ -300,10 +299,10 @@ class GeomLabels extends Group {
       offsetPoint.y += labelCfg.offsetY;
     }
     self.transLabelPoint(label);
+    label.start = { x: label.x, y: label.y };
     label.x += offsetPoint.x;
     label.y += offsetPoint.y;
     label.color = point.color;
-    label._offset = { x: offsetPoint.x, y: offsetPoint.y };
     return label;
   }
   setLabelPosition() {}
