@@ -124,6 +124,10 @@ class PolarLabels extends Labels {
       }
       labelPoint.rotate = rotate;
     }
+    labelPoint.start = {
+      x: arcPoint.x,
+      y: arcPoint.y
+    };
     return labelPoint;
   }
 

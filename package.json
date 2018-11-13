@@ -98,7 +98,7 @@
     "silent": false
   },
   "dependencies": {
-    "@antv/component": "~0.2.3",
+    "@antv/component": "~0.2.4",
     "@antv/adjust": "~0.1.0",
     "@antv/attr": "~0.1.1",
     "@antv/coord": "~0.1.0",
