@@ -252,7 +252,6 @@ class TooltipController {
     if (Util.isEmpty(ev.views)) {
       return;
     }
-
     const lastTimeStamp = this.timeStamp;
     const timeStamp = +new Date();
     const point = {
@@ -260,7 +259,17 @@ class TooltipController {
       y: ev.y
     };
     if ((timeStamp - lastTimeStamp) > 16 && !this.chart.get('stopTooltip')) {
-      this.showTooltip(point, ev.views, ev.shape);
+      let target;
+      if (ev.shape
+        && Util.inArray([
+          'interval',
+          'point',
+          'polygon',
+          'schema'
+        ], ev.shape.name)) {
+        target = ev.shape;
+        this.showTooltip(point, ev.views, target);
+      }
       this.timeStamp = timeStamp;
     }
   }

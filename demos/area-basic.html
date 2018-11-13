@@ -29,7 +29,13 @@
   const chart = new G2.Chart({
     container: 'canvas',
     forceFit: true,
-    height: window.innerHeight
+    height: window.innerHeight,
+    theme: {
+      shape: {
+        line: { stroke: 'red', fill: 'red' },
+        area: { stroke: 'red', fill: 'red' }
+      }
+    }
   });
   chart.source(data);
   chart.scale({

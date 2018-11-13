@@ -31,6 +31,7 @@ class Area extends GeomBase {
   draw(data, container, shapeFactory, index) {
     const self = this;
     const cfg = this.getDrawCfg(data[0]);
+    self._applyViewThemeShapeStyle(cfg, cfg.shape, shapeFactory);
     const splitArray = this.splitData(data);
 
     cfg.origin = data; // path,line,area 等图的origin 是整个序列

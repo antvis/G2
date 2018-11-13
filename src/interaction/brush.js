@@ -111,16 +111,16 @@ class Brush extends Interaction {
         }
 
         if (isInPlot) {
-          me.selection.attr('clip', canvas.addShape('rect', {
-            attrs: {
-              x: this.plot.start.x,
-              y: this.plot.end.y,
-              width: this.plot.end.x - this.plot.start.x,
-              height: this.plot.start.y - this.plot.end.y,
-              fill: '#fff',
-              fillOpacity: 0
-            }
-          }));
+          // me.selection.attr('clip', canvas.addShape('rect', {
+          //   attrs: {
+          //     x: this.plot.start.x,
+          //     y: this.plot.end.y,
+          //     width: this.plot.end.x - this.plot.start.x,
+          //     height: this.plot.start.y - this.plot.end.y,
+          //     fill: '#fff',
+          //     fillOpacity: 0
+          //   }
+          // }));
         }
         me.onDragstart && me.onDragstart(ev);
       }
@@ -406,6 +406,7 @@ class Brush extends Interaction {
     me.xValues = xValues;
     me.yValues = yValues;
     me.data = selectedData;
+    canvas.draw();
     return {
       data: selectedData,
       xValues,
