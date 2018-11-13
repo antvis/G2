@@ -1,5 +1,5 @@
 const { Group } = require('../../renderer');
-const { Label } = require('@antv/component/src');
+const { Label } = require('@antv/component/lib');
 // const visualCenter = require('@antv/component/lib/label/utils/visual-center');
 const Global = require('../../global');
 const Util = require('../../util');
