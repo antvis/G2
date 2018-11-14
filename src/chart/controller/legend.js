@@ -279,8 +279,11 @@ class LegendController {
       }
     });
 
-    legend.on('itemunhover', function() {
+    legend.on('itemunhover', function(ev) {
       self.pre = null;
+      if (options.onUnhover) {
+        options.onUnhover(ev);
+      }
       Util.each(geoms, function(geom) {
         if (geom.get('activeShapes')) {
           geom.clearActivedShapes();
