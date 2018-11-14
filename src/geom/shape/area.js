@@ -14,7 +14,7 @@ function getLineAttrs(cfg) {
   const defaultAttrs = Global.shape.hollowArea;
   const lineAttrs = Util.mix({}, defaultAttrs, cfg.style);
   ShapeUtil.addStrokeAttrs(lineAttrs, cfg);
-  if (cfg.size) {
+  if (Util.isNumber(cfg.size)) {
     lineAttrs.lineWidth = cfg.size;
   }
   return lineAttrs;
@@ -24,7 +24,7 @@ function getFillAttrs(cfg) {
   const defaultAttrs = Global.shape.area;
   const areaAttrs = Util.mix({}, defaultAttrs, cfg.style);
   ShapeUtil.addFillAttrs(areaAttrs, cfg);
-  if (cfg.size) {
+  if (Util.isNumber(cfg.size)) {
     areaAttrs.lineWidth = cfg.size;
   }
   return areaAttrs;

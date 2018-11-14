@@ -31,7 +31,7 @@ const ShapeUtil = {
     if (cfg.color) {
       attrs.stroke = cfg.color;
     }
-    if (cfg.opacity) {
+    if (!Util.isNil(cfg.opacity)) {
       attrs.opacity = attrs.strokeOpacity = cfg.opacity;
     }
   }

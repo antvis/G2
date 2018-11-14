@@ -86,7 +86,7 @@ function getFillAttrs(cfg) {
   const defaultAttrs = Global.shape.point;
   const pointAttrs = Util.mix({}, defaultAttrs, cfg.style);
   ShapeUtil.addFillAttrs(pointAttrs, cfg);
-  if (cfg.size) {
+  if (Util.isNumber(cfg.size)) {
     pointAttrs.radius = cfg.size;
   }
   return pointAttrs;
@@ -96,7 +96,7 @@ function getLineAttrs(cfg) {
   const defaultAttrs = Global.shape.hollowPoint;
   const pointAttrs = Util.mix({}, defaultAttrs, cfg.style);
   ShapeUtil.addStrokeAttrs(pointAttrs, cfg);
-  if (cfg.size) {
+  if (Util.isNumber(cfg.size)) {
     pointAttrs.radius = cfg.size;
   }
   return pointAttrs;
