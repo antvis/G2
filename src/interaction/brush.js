@@ -342,10 +342,14 @@ class Brush extends Interaction {
 
   reset() {
     const me = this;
-    const { chart, filter } = me;
+    const { chart, filter, brushShape, canvas } = me;
     if (chart && filter) {
       chart.get('options').filters = {};
       chart.repaint();
+    }
+    if (brushShape) {
+      brushShape.destroy();
+      canvas.draw();
     }
   }
 

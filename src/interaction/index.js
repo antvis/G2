@@ -44,11 +44,14 @@ Chart.prototype.clearInteraction = function(type) {
   const me = this;
   const interactions = me.getInteractions();
   if (type) {
-    interactions[type] && interactions[type].reset() && interactions[type].destroy();
+    if (interactions[type]) {
+      interactions[type]._reset();
+      interactions[type].destroy();
+    }
     delete interactions[type];
   } else {
     Util.each(interactions, (interaction, key) => {
-      interaction.reset();
+      interaction._reset();
       interaction.destroy();
       delete interactions[key];
     });
