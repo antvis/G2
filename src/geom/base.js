@@ -1033,11 +1033,11 @@ class GeomBase extends Base {
     if (styleOptions && styleOptions.style) {
       cfg.style = self.getCallbackCfg(styleOptions.fields, styleOptions.style, obj[FIELD_ORIGIN]);
     }
-    if (this.get('generatePoints')) {
+    if (self.get('generatePoints')) {
       cfg.points = obj.points;
       cfg.nextPoints = obj.nextPoints;
     }
-    if (this.get('animate')) { // _id 字段仅用于动画
+    if (self.get('animate')) { // _id 字段仅用于动画
       cfg._id = self._getShapeId(obj[FIELD_ORIGIN]);
     }
     return cfg;
