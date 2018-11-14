@@ -31,6 +31,12 @@ declare namespace G2 {
     showSinglePoint: boolean;
     connectNulls: boolean;
     colors: string[]; // 更改默认的颜色 --不推荐
+    colors_16: string[];
+    colors_24: string[];
+    colors_pie: string[];
+    colors_pie_16: string[];
+    fontFamily: string;
+    renderer: 'canvas' | 'svg';
   }
 
   /**
