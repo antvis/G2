@@ -13,16 +13,33 @@
 <body>
   <div id="canvas"></div>
   <script src="./assets/jquery-3.2.1.min.js"></script>
+  <script src="./assets/data-set.min.js"></script>
   <script src="../build/g2.js"></script>
   <script>
+    $('<div id="slider"></div>').insertAfter('#canvas');
+
     $.getJSON('./data/rain-flow.json', data => {
+      const ds = new DataSet({
+        state: {
+          start: new Date('2009/7/20 0:00').getTime(),
+          end: new Date('2009/9/9 0:00').getTime()
+        }
+      });
+      const dv = ds.createView('origin').source(data);
+      dv.transform({
+        type: 'filter',
+        callback: function callback(obj) {
+          const time = new Date(obj.time).getTime(); // !注意：时间格式，建议转换为时间戳进行比较
+          return time >= ds.state.start && time <= ds.state.end;
+        }
+      });
       const chart = new G2.Chart({
         container: 'canvas',
         forceFit: true,
-        height: window.innerHeight,
+        height: window.innerHeight - 50,
         padding: 'auto'
       });
-      chart.source(data); // TODO
+      chart.source(dv); // TODO
       chart.scale({
         time: {
           type: 'time',
@@ -53,6 +70,17 @@
         .color('l(100) 0:#293c55 1:#f7f7f7')
         .opacity(0.85);
       chart.render();
+      chart.interact('slider', {
+        container: 'slider',
+        _startValue: ds.state.start,
+        _endValue: ds.state.end,
+        onChange(ev) {
+          const startValue = ev.startValue;
+          const endValue = ev.endValue;
+          ds.setState('start', startValue);
+          ds.setState('end', endValue);
+        }
+      });
     });
   </script>
 </body>

@@ -1,11 +1,12 @@
 const Util = require('../../util');
 const TimeUtil = require('@antv/scale/lib/time-util');
+const getColDefs = require('./get-col-defs');
 
 module.exports = chart => {
   chart.on('beforeinitgeoms', () => {
     chart.set('limitInPlot', true);
     const data = chart.get('data');
-    const colDefs = chart.get('colDefs');
+    const colDefs = getColDefs(chart);
     if (!colDefs) return data;
 
     const geoms = chart.get('geoms');

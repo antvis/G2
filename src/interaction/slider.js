@@ -5,6 +5,7 @@ const G = require('../renderer');
 const Global = require('../global');
 const Interaction = require('./base');
 const getColDef = require('./helper/get-col-def');
+const getColDefs = require('./helper/get-col-defs');
 
 const { Canvas } = G;
 const { DomUtil, isNumber } = Util;
@@ -142,14 +143,14 @@ class Slider extends Interaction {
     const { chart } = this;
     const geom = chart.getAllGeoms[0];
     const xScale = chart.getXScale();
-    const data = me.data = chart.get('data');
+    const data = me.data = me.data || chart.get('data');
     const xAxis = me.xAxis || xScale.field;
     const yAxis = me.yAxis || chart.getYScales()[0].field;
     const scales = Util.deepMix({
       [`${xAxis}`]: {
         range: [ 0, 1 ]
       }
-    }, chart.get('colDefs'), me.scales); // 用户列定义
+    }, getColDefs(chart), me.scales); // 用户列定义
     delete scales[xAxis].min;
     delete scales[xAxis].max;
     if (!data) { // 没有数据，则不创建
@@ -248,9 +249,9 @@ class Slider extends Interaction {
     const max = range[1] / 100;
     const scale = me.scale;
     if (type === 'min') {
-      value = me._startValue ? me._startValueValue : scale.invert(min);
+      value = me._startValue ? me._startValue : scale.invert(min);
     } else {
-      value = me._endValueValue ? me._endValue : scale.invert(max);
+      value = me._endValue ? me._endValue : scale.invert(max);
     }
     return value;
   }
