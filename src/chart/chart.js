@@ -158,12 +158,14 @@ class Chart extends View {
       width = DomUtil.getWidth(container, width);
       this.set('width', width);
     }
+    const renderer = this.get('renderer');
     const canvas = new Canvas({
       containerDOM: wrapperEl,
       width,
       height,
-      pixelRatio: this.get('pixelRatio'),
-      renderer: this.get('renderer')
+      // NOTICE: 有问题找青湳
+      pixelRatio: renderer === 'svg' ? 1 : this.get('pixelRatio'),
+      renderer
     });
     this.set('canvas', canvas);
   }
