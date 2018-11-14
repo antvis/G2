@@ -142,8 +142,8 @@ class Slider extends Interaction {
     const me = this;
     const { chart } = this;
     const geom = chart.getAllGeoms[0];
-    const xScale = chart.getXScale();
     const data = me.data = me.data || chart.get('data');
+    const xScale = chart.getXScale();
     const xAxis = me.xAxis || xScale.field;
     const yAxis = me.yAxis || chart.getYScales()[0].field;
     const scales = Util.deepMix({
@@ -165,7 +165,7 @@ class Slider extends Interaction {
 
     const backgroundChart = me.backgroundChart;
     let type = backgroundChart.type || geom.get('type');
-    const color = backgroundChart.color;
+    const color = backgroundChart.color || 'grey';
     if (!Util.isArray(type)) {
       type = [ type ];
     }

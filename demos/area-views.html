@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="geometry" content="area">
+  <link rel="stylesheet" href="./assets/common.css">
+  <title>Area Plot</title>
+</head>
+
+<body>
+  <div id="canvas"></div>
+  <script src="./assets/jquery-3.2.1.min.js"></script>
+  <script src="./assets/data-set.min.js"></script>
+  <script src="../build/g2.js"></script>
+  <script>
+    $('<div id="slider"></div>').insertAfter('#canvas');
+
+    $.getJSON('./data/rain-flow.json', data => {
+      const ds = new DataSet({
+        state: {
+          start: new Date('2009/7/20 0:00').getTime(),
+          end: new Date('2009/9/9 0:00').getTime()
+        }
+      });
+      const dv = ds.createView('origin').source(data);
+      dv.transform({
+        type: 'filter',
+        callback: function callback(obj) {
+          const time = new Date(obj.time).getTime(); // !注意：时间格式，建议转换为时间戳进行比较
+          return time >= ds.state.start && time <= ds.state.end;
+        }
+      });
+      const chart = new G2.Chart({
+        container: 'canvas',
+        forceFit: true,
+        height: window.innerHeight - 50,
+        padding: 'auto'
+      });
+      const scales = {
+        time: {
+          type: 'time',
+          tickCount: 8,
+          alias: '时间',
+          mask: 'm/dd hh:MM'
+        },
+        flow: {
+          alias: '流量(m^3/s)'
+        },
+        rain: {
+          alias: '降雨量(mm)'
+        }
+      };
+      chart.axis('rain', false);
+      chart.legend({
+        position: 'top-left',
+        itemGap: 150,
+        itemMarginBottom: 30
+      });
+      const view1 = chart.view();
+      view1.source(dv, scales);
+      view1.area()
+        .position('time*flow')
+        .color('l(100) 0:#a50f15 1:#fee5d9')
+        .opacity(0.85);
+      const view2 = chart.view();
+      view2.axis('rain', {
+        position: 'right'
+      });
+      view2.source(dv, scales);
+      view2.coord().reflect();
+      view2.area()
+        .position('time*rain')
+        .color('l(100) 0:#293c55 1:#f7f7f7')
+        .opacity(0.85);
+      chart.render();
+      chart.interact('slider', {
+        container: 'slider',
+        data: dv.rows,
+        start: ds.state.start, // 和状态量对应
+        end: ds.state.end,
+        scales,
+        xAxis: 'time',
+        yAxis: 'flow',
+        backgroundChart: {
+          type: 'line',
+          color: 'grey'
+        },
+        onChange(ev) {
+          const { startValue, endValue } = ev;
+          ds.setState('start', startValue);
+          ds.setState('end', endValue);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
