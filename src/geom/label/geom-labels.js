@@ -442,6 +442,7 @@ class GeomLabels extends Group {
       // 兼容旧的源数据写在item.point中
       point.point = origin;
       if (cfg.htmlTemplate) {
+        cfg.useHtml = true;
         cfg.text = cfg.htmlTemplate.call(null, cfg.text, point, i);
         delete cfg.htmlTemplate;
       }
