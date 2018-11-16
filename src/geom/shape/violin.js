@@ -126,7 +126,6 @@ Shape.registerShape('violin', 'violin', {
     return pathShape;
   },
   getMarkerCfg(cfg) {
-    // console.log(cfg);
     return Util.mix({
       symbol: 'circle',
       radius: 4
@@ -147,7 +146,6 @@ Shape.registerShape('violin', 'smooth', {
     return pathShape;
   },
   getMarkerCfg(cfg) {
-    // console.log(cfg);
     return Util.mix({
       symbol: 'circle',
       radius: 4
@@ -168,7 +166,6 @@ Shape.registerShape('violin', 'hollow', {
     return pathShape;
   },
   getMarkerCfg(cfg) {
-    // console.log(cfg);
     return Util.mix({
       symbol: 'circle',
       radius: 4
@@ -189,7 +186,6 @@ Shape.registerShape('violin', 'smoothHollow', {
     return pathShape;
   },
   getMarkerCfg(cfg) {
-    // console.log(cfg);
     return Util.mix({
       symbol: 'circle',
       radius: 4
