@@ -12,6 +12,9 @@ function getAttrs(cfg) {
   const defaultCfg = Global.shape.venn;
   const pathAttrs = Util.mix({}, defaultCfg, cfg.style);
   ShapeUtil.addFillAttrs(pathAttrs, cfg);
+  if (cfg.color) {
+    pathAttrs.stroke = cfg.color;
+  }
   return pathAttrs;
 }
 function getHollowAttrs(cfg) {
