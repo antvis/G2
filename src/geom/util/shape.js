@@ -21,7 +21,7 @@ const ShapeUtil = {
   },
   addFillAttrs(attrs, cfg) {
     if (cfg.color) {
-      attrs.fill = attrs.stroke = cfg.color;
+      attrs.fill = cfg.color;
     }
     if (cfg.opacity) {
       attrs.opacity = attrs.fillOpacity = cfg.opacity;

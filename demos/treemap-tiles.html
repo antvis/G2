@@ -109,7 +109,11 @@
       chart.polygon()
         .position('x*y')
         .color('name')
-        .label('name');
+        .label('name')
+        .style({
+          lineWidth: 0.5,
+          stroke: 'rgba(255,255,255,0.65)'
+        });
       chart.render();
     }
 

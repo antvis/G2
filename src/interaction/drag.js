@@ -191,7 +191,8 @@ class Drag extends Interaction {
       let modified = false;
       if (Math.abs(deltaX) > threshold && type.indexOf('X') > -1) {
         modified = true;
-        me._applyTranslate(chart.getXScale(), deltaX, coord.width);
+        const xScale = chart.getXScale();
+        me._applyTranslate(xScale, xScale.isLinear ? -deltaX : deltaX, coord.width);
       }
       if (Math.abs(deltaY) > threshold && type.indexOf('Y') > -1) {
         modified = true;

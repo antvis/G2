@@ -48,6 +48,9 @@ function getFillAttrs(cfg) {
   const defaultAttrs = Global.shape.schema;
   const lineAttrs = Util.mix({}, defaultAttrs, cfg.style);
   ShapeUtil.addFillAttrs(lineAttrs, cfg);
+  if (cfg.color) {
+    lineAttrs.stroke = cfg.color;
+  }
   return lineAttrs;
 }
 
