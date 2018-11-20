@@ -536,6 +536,8 @@ class LegendController {
           'z-index': canvasEle.style.zIndex === '' ? 1 : parseInt(canvasEle.style.zIndex, 10) + 1
         };
         if (legendOptions.flipPage) {
+          legendCfg.legendStyle.CONTAINER_CLASS.height = (posArray[0] === 'right' || posArray[0] === 'left') ? maxLength + 'px' : 'auto';
+          legendCfg.legendStyle.CONTAINER_CLASS.width = !(posArray[0] === 'right' || posArray[0] === 'left') ? maxLength + 'px' : 'auto';
           legend = new Legend.CatPageHtml(legendCfg);
         } else {
           legend = new Legend.CatHtml(legendCfg);
