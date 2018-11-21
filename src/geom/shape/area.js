@@ -25,7 +25,7 @@ function getFillAttrs(cfg) {
   const areaAttrs = Util.mix({}, defaultAttrs, cfg.style);
   ShapeUtil.addFillAttrs(areaAttrs, cfg);
   if (cfg.color) {
-    areaAttrs.stroke = cfg.color;
+    areaAttrs.stroke = areaAttrs.stroke || cfg.color;
   }
   if (Util.isNumber(cfg.size)) {
     areaAttrs.lineWidth = cfg.size;

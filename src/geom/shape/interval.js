@@ -158,7 +158,7 @@ function getFillAttrs(cfg) {
   const attrs = Util.mix({}, defaultAttrs, cfg.style);
   ShapeUtil.addFillAttrs(attrs, cfg);
   if (cfg.color) {
-    attrs.stroke = cfg.color;
+    attrs.stroke = attrs.stroke || cfg.color;
   }
   return attrs;
 }
