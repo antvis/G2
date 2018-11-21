@@ -49,7 +49,7 @@ function getFillAttrs(cfg) {
   const lineAttrs = Util.mix({}, defaultAttrs, cfg.style);
   ShapeUtil.addFillAttrs(lineAttrs, cfg);
   if (cfg.color) {
-    lineAttrs.stroke = cfg.color;
+    lineAttrs.stroke = lineAttrs.stroke || cfg.color;
   }
   return lineAttrs;
 }

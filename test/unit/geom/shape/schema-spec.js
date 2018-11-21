@@ -118,7 +118,7 @@ describe('schema shapes', function() {
         points,
         color: 'red'
       }, canvas);
-      expect(shape.attr('stroke')).eql('red');
+      expect(shape.attr('fill')).eql('red');
       expect(shape.attr('path').length).eql(9);
     });
     it('get marker', function() {
@@ -144,7 +144,7 @@ describe('schema shapes', function() {
         points,
         color: 'red'
       }, canvas);
-      expect(shape.attr('stroke')).eql('red');
+      expect(shape.attr('fill')).eql('red');
       expect(shape.attr('path').length).eql(9);
     });
   });
@@ -163,7 +163,7 @@ describe('schema shapes', function() {
         points,
         color: 'red'
       }, canvas);
-      expect(shape.attr('stroke')).eql('red');
+      expect(shape.attr('fill')).eql('red');
       expect(shape.attr('path').length).eql(9);
     });
 

@@ -13,7 +13,7 @@ function getAttrs(cfg) {
   const pathAttrs = Util.mix({}, defaultCfg, cfg.style);
   ShapeUtil.addFillAttrs(pathAttrs, cfg);
   if (cfg.color) {
-    pathAttrs.stroke = cfg.color;
+    pathAttrs.stroke = pathAttrs.stroke || cfg.color;
   }
   return pathAttrs;
 }
