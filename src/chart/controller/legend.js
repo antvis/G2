@@ -659,6 +659,8 @@ class LegendController {
     } else if (attr.type === 'size') {
       if (options && options.sizeType === 'circle') legend = new Legend.CircleSize(legendCfg);
       else legend = new Legend.Size(legendCfg);
+    } else {
+      return;
     }
     self._bindFilterEvent(legend, scale);
     legends[position].push(legend);
@@ -717,8 +719,10 @@ class LegendController {
       } else {
         legend = self._addCategoryLegend(scale, attr, geom, filterVals, position);
       }
-      self._bindHoverEvent(legend, field);
-      legendOptions.reactive && self._bindChartMove(scale);
+      if (legend) {
+        self._bindHoverEvent(legend, field);
+        legendOptions.reactive && self._bindChartMove(scale);
+      }
     }
   }
 
