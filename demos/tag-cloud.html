@@ -18,7 +18,7 @@
   <script src="../build/g2.js"></script>
   <script>
     function getTextAttrs(cfg) {
-      return _.assign({}, {
+      return _.assign({}, cfg.style, {
         fillOpacity: cfg.opacity,
         fontSize: cfg.size,
         rotate: cfg.origin._origin.rotate,
@@ -27,7 +27,7 @@
         fontFamily: cfg.origin._origin.font,
         fill: cfg.color,
         textBaseline: 'Alphabetic'
-      }, cfg.style);
+      });
     }
     // 给point注册一个词云的shape
     G2.Shape.registerShape('point', 'cloud', {
