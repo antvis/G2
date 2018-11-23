@@ -23,7 +23,7 @@ const ShapeUtil = {
     if (cfg.color) {
       attrs.fill = cfg.color;
     }
-    if (cfg.opacity) {
+    if (Util.isNumber(cfg.opacity)) {
       attrs.opacity = attrs.fillOpacity = cfg.opacity;
     }
   },
@@ -31,7 +31,7 @@ const ShapeUtil = {
     if (cfg.color) {
       attrs.stroke = cfg.color;
     }
-    if (!Util.isNil(cfg.opacity)) {
+    if (Util.isNumber(cfg.opacity)) {
       attrs.opacity = attrs.strokeOpacity = cfg.opacity;
     }
   }
