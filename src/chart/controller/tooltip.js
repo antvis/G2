@@ -147,7 +147,7 @@ class TooltipController {
     const isTransposed = geoms.length && geoms[0].get('coord') ? geoms[0].get('coord').isTransposed : false;
 
     let crosshairsCfg;
-    if (geoms.length && geoms[0].get('coord') && geoms[0].get('coord').type === 'cartesian' && shapes.length === 1) {
+    if (geoms.length && geoms[0].get('coord') && geoms[0].get('coord').type === 'cartesian') {
       if (shapes[0] === 'interval' && options.shared !== false) { // 直角坐标系下 interval 的 crosshair 为矩形背景框
         const crosshairs = Util.mix({}, viewTheme.tooltipCrosshairsRect);
         crosshairs.isTransposed = isTransposed;
