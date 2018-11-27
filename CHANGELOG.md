@@ -1,3 +1,161 @@
+
+#### 3.4.4 (2018-10-17)
+
+##### New Features
+
+##### Bug Fixes
+
+- fix(tooltip): crosshair style
+
+#### 3.4.3 (2018-11-27)
+
+##### New Features
+
+##### Bug Fixes
+
+- fix(shape): add fillOpacity correctly, Closes #1065
+- fix(tooltip): crosshair theme & tooltip dark theme
+
+#### 3.4.2 (2018-11-22)
+
+##### New Features
+
+##### Bug Fixes
+
+- chore(demo): cfg.color should have a higher piority, Closes #1060
+- fix(legend): shape mapping should not generate legend, Closes #1057
+
+
+#### 3.4.1 (2018-11-21)
+
+##### New Features
+
+##### Bug Fixes
+
+- fix(geom): applying shape style correctly
+
+
+#### 3.4.0 (2018-11-20)
+
+##### New Features
+
+- Feat interaction
+- chore(demo): default drag and zoom interaction
+- chore(dev): add some type def in Global
+- chore(dev): clear code, Closes #1040
+- chore(dev): shapeSelect.js -> shape-select.js
+- chore(interaction): interaction should be call by chart, for some tricky cases
+- chore(label): add unit test of label capture
+- chore(package): update dependency version
+- chore(package): update dependency version
+- chore(test): confirming theme settings for geom shapes. Closes #1018
+- feat(chart): limitInPlot: add clip to middlePlot
+- feat(interaction): drag and zoom support category fields
+- feat(interaction): scroll-bar
+- feat(interaction): slider as an interaction
+- feat(legend): add onUnhover event
+
+##### Bug Fixes
+
+- Fix interaction and theme
+- Fix label issues
+- fix(label): Protect `items`, because `getLabelItems` may get the result of `null`.
+- fix(label): Protect label of `null` value.
+- fix issue 1014
+- fix reactStyle to rectStyle
+- fix(geom-labels): if htmlTemplate is set, useHtml is true by default
+- fix(geom-labels): if htmlTemplate is set, useHtml is true by default
+- fix(heatmap): paletteCache should not be global. Closes #1009
+- fix(interaction): X coord dragging
+- fix(interaction): brush reset
+- fix(interaction): bug in shape hitting when clip is defined
+- fix(interaction): slider
+- fix(interaction): slider default bgChart color
+- fix(label): fix callback content
+- fix(label): fix label cfg piority
+- fix(label): fix label reference
+- fix(label): fix label rotate issue
+- fix(label): fix textStyle callback argument error
+- fix(label): remove _offset, use start point to decide the start point of labelLine
+- fix(legend): fix legend height when flip is true
+- fix(shape): default shape color is incorrect, Closes #1027
+- fix(shape): default shape color is incorrect, Closes #1027
+- fix(shape): do not set color as stroke when setting fill attrs
+- fix(theme): area & line theme setting is not working
+- fix(theme): default size
+- fix(theme): shape setting in theme is not working
+- fix(tooltip): failed to trigger tooltip on geom labels, fix #1035
+- fix(tooltip): tooltip hides when mouse over geom label. Closes #1031
+
+
+#### 3.3.4 (2018-11-02)
+
+##### New Features
+
+- Feat axis position (percentage, 'middle')
+- chore(demo): add demo for axis position and stock index chart
+- feat(axis): support middle and percentage for axis position
+- feat(label): add unit tests of `offsetX` & `offsetY`
+- feat(legend): add option `offsetX` & `offsetY`
+- refactor(label): label no longer supports array-like offset value
+- refactor(label): modify unit tests related to array-like offset value
+- refactor(legend): fix default style of thetaLabels
+
+##### Bug Fixes
+
+- Fix #1001
+- Fix hover legend
+- Fix label styles
+- fix(arc): fix demo
+- fix(demo): fix demo usage
+- fix(facet): fix facet type
+- fix(label): add option `autoRotate` & `rotate` in label
+- fix(legend): container's width & height of html legend should not be assigned
+- fix(legend): fix demo css
+- fix(legend): fix misspelling
+- fix(legend):tail-legend position incorerct when the padding-top property of chart was manully setted
+
+#### 3.3.3 (2018-10-24)
+
+##### New Features
+
+- feat(axis): customized axis title. Closes #974
+- chore(dev): upgrade dependencies
+- feat(axis): customized axis title. Closes #974
+
+##### Bug Fixes
+
+- fix(polar-labels): fix label position calculation error when r = 0
+
+#### 3.3.2 (2018-10-23)
+
+##### New Features
+
+- chore(dev): update screenshots
+- chore(dev): remove useless files in src/component/legend
+- chore(package): update package version to 3.3.2 & update dependencies
+
+##### Bug Fixes
+
+- fix(tooltip): crosshairs-rect display error in bar chart
+- fix(style): use mix instead of using theme style directly
+- fix(legend): fix overlapping problem of  html legend and canvas
+- fix(tooltip): crosshairs-rect display error in bar chart
+- fix(legend): modify reference entry
+- fix(legend): add z-index to legend in case it's covered by canvas
+- fix(legend): 修复多面图时导致的legend显示位置bug
+- fix(legend): determine container when use html to render a legend & add unit test
+
+
+#### 3.3.1 (2018-10-17)
+
+##### New Features
+
+##### Bug Fixes
+
+- fix(dev): typescript defination file
+- fix(guide): region filter does not work on interval geom, etc. Closes #961, #941
+
 #### 3.3.0 (2018-10-16)
 
 ##### New Features
