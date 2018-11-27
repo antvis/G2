@@ -1,7 +1,7 @@
 const G2 = require('../../src/index');
 const expect = require('chai').expect;
 
-describe.only('#1057', () => {
+describe('#1057', () => {
   const div = document.createElement('div');
   document.body.appendChild(div);
   it('error on legend for shape', () => {
