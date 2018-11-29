@@ -688,6 +688,7 @@ class View extends Base {
       options.filters = {};
     }
     options.filters[field] = condition;
+    this.get('scaleController').filters = options.filters;
   }
 
   // 获取 filters

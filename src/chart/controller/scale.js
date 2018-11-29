@@ -19,6 +19,8 @@ class ScaleController {
     this.viewTheme = {
       scales: {}
     };
+    // filtered fields
+    this.filters = {};
     Util.assign(this, cfg);
   }
 
@@ -36,6 +38,10 @@ class ScaleController {
           def[k] = v;
         }
       });
+      if (this.filters[field]) {
+        delete def.min;
+        delete def.max;
+      }
     }
     return def;
   }
