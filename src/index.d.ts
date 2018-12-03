@@ -265,6 +265,7 @@ declare namespace G2 {
     textStyle?: Styles.text;
     clickable?: boolean;
     hoverable?: boolean;
+    defaultClickHandlerEnabled?:  boolean;
     selectedMode?: 'single' | 'multiple';
     onHover?: (e: MouseEvent) => void;
     onClick?: (e: MouseEvent) => void;
