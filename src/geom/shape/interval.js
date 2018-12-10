@@ -167,6 +167,8 @@ function getLineAttrs(cfg) {
   const defaultAttrs = Global.shape.hollowInterval;
   const attrs = Util.mix({}, defaultAttrs, cfg.style);
   ShapeUtil.addStrokeAttrs(attrs, cfg);
+  // @2018-12-10 by blue.lb 这里需要特殊处理，由于像tick这种shape名称在方法_applyViewThemeShapeStyle中，不会被当做hollow镂空图形处理，这导致lineWidth的值为0，所以无法绘制出内容，如果写在addStrokeAttrs中，又不能保证所有的默认lineWidth为2，这里做一下特殊处理解决
+  attrs.lineWidth = cfg.size || 2; // size 就是线的宽度
   return attrs;
 }
 
