@@ -101,9 +101,9 @@ class LegendController {
     const options = self.options;
 
     legend.on('itemclick', ev => {
-      if (options.onClick) { // 用户自定义了图例点击事件
+      if (options.onClick && options.defaultClickHandlerEnabled !== true) {
         options.onClick(ev);
-      } else {
+      } else {   // if 'defaultClickHandlerEnabled' is true the default click behavior would be worked.
         const item = ev.item;
         const checked = ev.checked;
         const isSingleSelected = legend.get('selectedMode') === 'single'; // 图例的选中模式
@@ -138,6 +138,9 @@ class LegendController {
               });
             }
           });
+        }
+        if (options.onClick) {
+          options.onClick(ev);
         }
         chart.set('keepLegend', true); // 图例不重新渲染
         chart.set('keepPadding', true); // 边框不重新计算
