@@ -1060,7 +1060,7 @@ class GeomBase extends Base {
     const viewTheme = self.viewTheme || Global;
     let shapeName = shapeFactory.name;
     if (shape) {
-      if (shape && shape.indexOf('hollow') > -1) {
+      if (shape && (shape.indexOf('hollow') > -1 || shape.indexOf('liquid') > -1)) {
         shapeName = `hollow${Util.upperFirst(shapeName)}`;
       }
     } else if (shapeFactory.defaultShapeType.indexOf('hollow') > -1) {
