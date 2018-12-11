@@ -61,8 +61,8 @@
   chart.interval()
     .position('gender*value')
     .color('gender')
-    .shape('path', path => [ 'liquid-fill-path', path ])
-    // .shape('liquid-fill-gauge')
+    // .shape('path', path => [ 'liquid-fill-path', path ])
+    .shape('liquid-fill-gauge')
     .style({
       lineWidth: 10,
       opacity: 0.75
