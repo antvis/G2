@@ -8,7 +8,7 @@ const { Tooltip } = require('@antv/component/lib');
 const MatrixUtil = Util.MatrixUtil;
 const Vector2 = MatrixUtil.vec2;
 
-const TYPE_SHOW_MARKERS = [ 'line', 'area', 'path', 'areaStack', 'interval' ]; // 默认展示 tooltip marker 的几何图形
+const TYPE_SHOW_MARKERS = [ 'line', 'area', 'path', 'areaStack' ]; // 默认展示 tooltip marker 的几何图形
 const TYPE_SHOW_CROSSHAIRS = [ 'line', 'area' ]; // 默认展示十字瞄准线的几何图形
 
 // TODO FIXME this is HARD CODING
@@ -224,6 +224,10 @@ class TooltipController {
           }
         } else {
           tooltip.clearMarkers();
+          // clearMarkers 只会将 markerItems 从 markerGroup 中移除
+          // 所以我们还要将 markerItems 从 tooltip 中移除
+          // 这么做是为了防止上一次设置 marker 时的 markerItems 影响此次 tooltip 辅助线的定位
+          tooltip.set('markerItems', []);
         }
       }
       const canvas = this._getCanvas();
