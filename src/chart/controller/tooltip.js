@@ -224,6 +224,10 @@ class TooltipController {
           }
         } else {
           tooltip.clearMarkers();
+          // clearMarkers 只会将 markerItems 从 markerGroup 中移除
+          // 所以我们还要将 markerItems 从 tooltip 中移除
+          // 这么做是为了防止上一次设置 marker 时的 markerItems 影响此次 tooltip 辅助线的定位
+          tooltip.set('markerItems', []);
         }
       }
       const canvas = this._getCanvas();
