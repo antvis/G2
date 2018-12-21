@@ -210,7 +210,7 @@ class LegendController {
       const range = ev.range;
       chart.filterShape(function(obj, shape, geom) {
         // @2018-12-21 by blue.lb 由于数值0直接被类型转换为false，这里需要做更精确一点的判断
-        if (obj[field] !== undefined && obj[field] !== null) {
+        if (!Util.isNil(obj[field])) {
           const filtered = (obj[field] >= range[0] && obj[field] <= range[1]);
           // shape 带 label，则还需要隐藏 label
           self._filterLabels(shape, geom, filtered);
