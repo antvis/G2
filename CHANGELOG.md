@@ -1,3 +1,19 @@
+#### 3.4.6 (2018-12-21)
+
+##### New Features
+
+- chore(test): removing .only() statement
+- feat(legend): enable default legend-item handler
+
+##### Bug Fixes
+
+- fix #1051
+- fix(legend): issue on filtering https://github.com/antvis/g2/issues/1119
+- fix(scale & filter): remove min max limit if field filtered
+- fix(schema): error bar can't show
+- fix(shape): liquid fill shapes should use hollow shape styles by default, Closes #1081
+- fix(tooltip): 多 view 下 interval 的 tooltip 辅助线不显示
+- fix(tooltip): 正确清除 markers
 
 #### 3.4.5 (2018-11-27)
 
