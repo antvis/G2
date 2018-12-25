@@ -77,3 +77,16 @@ $ npm run demos
 Please let us know how can we help. Do check out [issues](https://github.com/antvis/g2/issues) for bug reports or suggestions first.
 
 To become a contributor, please follow our [contributing guide](https://github.com/antvis/g2/blob/master/CONTRIBUTING.md).
+
+## Experience Improvement Program Description
+
+In order to serve the users better, G2 will send the URL and version information back to the AntV server:
+
+https://kcart.alipay.com/web/bi.do
+
+**Except for URL and G2 version information, no other information will be collected.** You can also turn it off with the following code:
+
+```js
+// Unable the tracking
+G2.track(false)
+```
