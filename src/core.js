@@ -23,10 +23,10 @@ const G2 = {
   PathUtil: Util.PathUtil
 };
 
-G2.track = function(enable) {
-  Global.trackable = enable;
-};
-require('./track');
+// G2.track = function(enable) {
+//   Global.trackable = enable;
+// };
+// require('./track');
 
 // 保证两个版本共存
 if (typeof window !== 'undefined') {

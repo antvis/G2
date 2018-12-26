@@ -1,3 +1,11 @@
+#### 3.4.7 (2018-12-26)
+
+**All tracking code is removed, no more unexpected remote request will be sent**
+
+##### Bug Fixes
+
+- fix(interval): error bar filling issue. Closes #1123
+
 #### 3.4.6 (2018-12-21)
 
 ##### New Features
