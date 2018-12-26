@@ -27,6 +27,9 @@ const G2 = {
 //   Global.trackable = enable;
 // };
 // require('./track');
+G2.track = () => {
+  console.warn('G2 tracks nothing ;-)');
+};
 
 // 保证两个版本共存
 if (typeof window !== 'undefined') {

@@ -1,3 +1,8 @@
+
+#### 3.4.8 (2018-12-26)
+
+- G2.track = () => { console.warn('G2 tracks nothing ;-)'); };
+
 #### 3.4.7 (2018-12-26)
 
 **All tracking code is removed, no more unexpected remote request will be sent**
