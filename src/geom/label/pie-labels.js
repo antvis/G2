@@ -116,7 +116,7 @@ class PieLabels extends PolarLabels {
    */
   adjustItems(items) {
     const self = this;
-    const offset = items[0].offset;
+    const offset = items[0] ? items[0].offset : 0;
     if (offset > 0) {
       items = self._distribute(items, offset);
     }
