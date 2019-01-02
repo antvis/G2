@@ -151,37 +151,63 @@ class ScrollBar extends Interaction {
 
   constructor(cfg, chart) {
     super(cfg, chart);
-    const me = this;
-
-    chart.set('_limitRange', {});
-    const defaultCfg = me.getDefaultCfg();
-
+    const defaultCfg = this.getDefaultCfg();
     chart.set('_scrollBarCfg', Util.deepMix({}, defaultCfg, cfg));
+    chart.set('_limitRange', {});
+    if (!chart.get('_horizontalBar') && !chart.get('_verticalBar')) {
+      this._renderScrollBars();
+    }
+  }
 
-    chart.on('afterclear', () => {
-      chart.set('_limitRange', {});
-    });
-
-    chart.on('beforechangedata', () => {
-      chart.set('_limitRange', {});
-    });
-
-    chart.on('afterclearinner', () => {
+  _clear() {
+    const chart = this.chart;
+    if (chart) {
       const hBar = chart.get('_horizontalBar');
       const vBar = chart.get('_verticalBar');
       hBar && hBar.remove(true);
       vBar && vBar.remove(true);
       chart.set('_horizontalBar', null);
       chart.set('_verticalBar', null);
-    });
-
-    chart.on('afterdrawgeoms', () => {
-      me._renderScrollBars();
-    });
-
-    if (!chart.get('_horizontalBar') && !chart.get('_verticalBar')) {
-      me._renderScrollBars();
     }
+  }
+
+  _bindEvents() {
+    this._onAfterclearOrBeforechangedata = this._onAfterclearOrBeforechangedata.bind(this);
+    this._onAfterclearinner = this._onAfterclearinner.bind(this);
+    this._onAfterdrawgeoms = this._onAfterdrawgeoms.bind(this);
+    const chart = this.chart;
+    chart.on('afterclear', this._onAfterclearOrBeforechangedata);
+    chart.on('beforechangedata', this._onAfterclearOrBeforechangedata);
+    chart.on('afterclearinner', this._onAfterclearinner);
+    chart.on('afterdrawgeoms', this._onAfterdrawgeoms);
+  }
+
+  _onAfterclearOrBeforechangedata() {
+    this.chart && this.chart.set('_limitRange', {});
+  }
+
+  _onAfterclearinner() {
+    this._clear();
+  }
+
+  _onAfterdrawgeoms() {
+    this._renderScrollBars();
+  }
+
+  _clearEvents() {
+    const chart = this.chart;
+    if (chart) {
+      chart.off('afterclear', this._onAfterclearOrBeforechangedata);
+      chart.off('beforechangedata', this._onAfterclearOrBeforechangedata);
+      chart.off('afterclearinner', this._onAfterclearinner);
+      chart.off('afterdrawgeoms', this._onAfterdrawgeoms);
+    }
+  }
+
+  destroy() {
+    this._clearEvents();
+    this._clear();
+    this.canvas.draw();
   }
 }
 
