@@ -1,3 +1,16 @@
+#### 3.4.9 (2019-01-04)
+
+##### New Features
+
+- chore(test): removing describe.only statement
+    
+##### Bug Fixes
+
+- fix(chart): auto padding with more accurate backPlot range, Closes #1079
+- fix: applyMatrix when calculating bbox of axis title
+- fix(chart): auto padding with more accurate backPlot range, Closes #1079
+- clearInteraction不能清除scrollBar的bug
+- fix pie-label adjustItems offset err
 
 #### 3.4.8 (2018-12-26)
 
