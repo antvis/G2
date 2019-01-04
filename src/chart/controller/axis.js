@@ -261,8 +261,17 @@ class AxisController {
     let position = '';
     // 用户自己定义了 position
     const options = this.options;
+    // const VALID_POSITIONS = [
+    //   'top',
+    //   'left',
+    //   'right',
+    //   'bottom'
+    // ];
     if (options[field] && options[field].position) {
       position = options[field].position;
+      // if (VALID_POSITIONS.indexOf(position) > -1) {
+      //   return position;
+      // }
     } else {
       const coordType = coord.type;
       if (coord.isRect) {
