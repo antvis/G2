@@ -2,6 +2,8 @@ const Util = require('../../util');
 const { Legend } = require('@antv/component/lib');
 const Tail = require('../../component/legend/tail');
 const Shape = require('../../geom/shape/shape');
+const bboxOfBackPlot = require('../util/bbox-of-back-plot');
+const plotRange2BBox = require('../util/plot-range2bbox');
 
 const FIELD_ORIGIN = '_origin';
 const MARKER_SIZE = 4.5;
@@ -64,7 +66,8 @@ class LegendController {
   getBackRange() {
     let backRange = this.backRange;
     if (!backRange) {
-      backRange = this.chart.get('backPlot').getBBox();
+      const backPlot = this.chart.get('backPlot');
+      backRange = bboxOfBackPlot(backPlot, plotRange2BBox(this.chart.get('plotRange')));
       const plotRange = this.plotRange;
       if (backRange.maxX - backRange.minX < plotRange.br.x - plotRange.tl.x &&
         backRange.maxY - backRange.minY < plotRange.br.y - plotRange.tl.y) {

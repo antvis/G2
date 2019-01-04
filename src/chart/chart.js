@@ -11,6 +11,10 @@ const DomUtil = Util.DomUtil;
 const Global = require('../global');
 const Plot = require('../component/plot');
 const Controller = require('./controller/index');
+const mergeBBox = require('./util/merge-bbox');
+const bboxOfBackPlot = require('./util/bbox-of-back-plot');
+const plotRange2BBox = require('./util/plot-range2bbox');
+
 const AUTO_STR = 'auto';
 
 function _isScaleExist(scales, compareScale) {
@@ -25,15 +29,6 @@ function _isScaleExist(scales, compareScale) {
   });
 
   return flag;
-}
-
-function mergeBBox(box1, box2) {
-  return {
-    minX: Math.min(box1.minX, box2.minX),
-    minY: Math.min(box1.minY, box2.minY),
-    maxX: Math.max(box1.maxX, box2.maxX),
-    maxY: Math.max(box1.maxY, box2.maxY)
-  };
 }
 
 function isEqualArray(arr1, arr2) {
@@ -112,8 +107,9 @@ class Chart extends View {
     const frontPlot = this.get('frontPlot');
     const frontBBox = frontPlot.getBBox();
     // 坐标轴在最后面的一层
+
     const backPlot = this.get('backPlot');
-    const backBBox = backPlot.getBBox();
+    const backBBox = bboxOfBackPlot(backPlot, plotRange2BBox(this.get('plotRange')));
 
     const box = mergeBBox(frontBBox, backBBox);
     const outter = [
