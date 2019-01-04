@@ -2,7 +2,7 @@ const G2 = require('../../src/index');
 const plotRange2BBox = require('../../src/chart/util/plot-range2bbox');
 const expect = require('chai').expect;
 
-describe.only('#1079', () => {
+describe('#1079', () => {
   const div = document.createElement('div');
   document.body.appendChild(div);
   it('result of auto padding is passable when title is too long', () => {
