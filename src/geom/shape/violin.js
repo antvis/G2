@@ -34,8 +34,10 @@ function getViolinPath(points) {
     }
   }
   const first = points[0];
-  path.push([ 'L', first.x, first.y ]);
-  path.push([ 'z' ]);
+  if (first) {
+    path.push([ 'L', first.x, first.y ]);
+    path.push([ 'z' ]);
+  }
   return path;
 }
 function getSmoothViolinPath(points) {
