@@ -3,7 +3,7 @@ const DataSet = require('@antv/data-set');
 const G2 = require('../../src/index');
 const data = require('../../demos/data/iris-flower.json');
 
-describe.only('#1177', () => {
+describe.only('#1144', () => {
   const div = document.createElement('div');
   document.body.appendChild(div);
   it('Violin plot throws error when data is empty', () => {
