@@ -16,119 +16,35 @@ const data = [{ country: 'Europe', year: '1750', value: 163, type: 'a' },
 { country: 'Europe', year: '1999', value: 729, type: 'b' },
 { country: 'Europe', year: '2050', value: 628, type: 'b' }];
 
-const data2 = [{
-  country: 'Asia',
-  year: '1750',
-  value: 502
-}, {
-  country: 'Asia',
-  year: '1800',
-  value: 635
-}, {
-  country: 'Asia',
-  year: '1850',
-  value: 809
-}, {
-  country: 'Asia',
-  year: '1900',
-  value: 5268
-}, {
-  country: 'Asia',
-  year: '1950',
-  value: 4400
-}, {
-  country: 'Asia',
-  year: '1999',
-  value: 3634
-}, {
-  country: 'Asia',
-  year: '2050',
-  value: 947
-}, {
-  country: 'Africa',
-  year: '1750',
-  value: 106
-}, {
-  country: 'Africa',
-  year: '1800',
-  value: 107
-}, {
-  country: 'Africa',
-  year: '1850',
-  value: 111
-}, {
-  country: 'Africa',
-  year: '1900',
-  value: 1766
-}, {
-  country: 'Africa',
-  year: '1950',
-  value: 221
-}, {
-  country: 'Africa',
-  year: '1999',
-  value: 767
-}, {
-  country: 'Africa',
-  year: '2050',
-  value: 133
-}, {
-  country: 'Europe',
-  year: '1750',
-  value: 163
-}, {
-  country: 'Europe',
-  year: '1800',
-  value: 203
-}, {
-  country: 'Europe',
-  year: '1850',
-  value: 276
-}, {
-  country: 'Europe',
-  year: '1900',
-  value: 628
-}, {
-  country: 'Europe',
-  year: '1950',
-  value: 547
-}, {
-  country: 'Europe',
-  year: '1999',
-  value: 729
-}, {
-  country: 'Europe',
-  year: '2050',
-  value: 408
-}, {
-  country: 'Oceania',
-  year: '1750',
-  value: 200
-}, {
-  country: 'Oceania',
-  year: '1800',
-  value: 200
-}, {
-  country: 'Oceania',
-  year: '1850',
-  value: 200
-}, {
-  country: 'Oceania',
-  year: '1900',
-  value: 460
-}, {
-  country: 'Oceania',
-  year: '1950',
-  value: 230
-}, {
-  country: 'Oceania',
-  year: '1999',
-  value: 300
-}, {
-  country: 'Oceania',
-  year: '2050',
-  value: 300
-}];
+// const data2 = [{
+//   country: 'Asia',
+//   year: '1750',
+//   value: 502
+// }, {
+//   country: 'Asia',
+//   year: '1800',
+//   value: 635
+// }, {
+//   country: 'Asia',
+//   year: '1850',
+//   value: 809
+// }, {
+//   country: 'Asia',
+//   year: '1900',
+//   value: 5268
+// }, {
+//   country: 'Asia',
+//   year: '1950',
+//   value: 4400
+// }, {
+//   country: 'Asia',
+//   year: '1999',
+//   value: 3634
+// }, {
+//   country: 'Asia',
+//   year: '2050',
+//   value: 947
+// }];
 
 
 let chart;
@@ -152,62 +68,41 @@ describe('tail legend', function() {
     // legend类型检测
     const legend = legends['right-top'][0];
     expect(legend).to.be.an.instanceof(Tail);
-    // legend y轴坐标检测
+    // // legend y轴坐标检测
     const group = legend.get('itemsGroup').get('children')[0];
     const y = group.attr('matrix')[7];
     const groupHeight = group.getBBox().height;
     const geomData = legend.get('geom').get('dataArray')[0];
     const lastY = geomData[geomData.length - 1].y;
-    expect(y).to.equal(lastY - groupHeight);
+    expect(y).to.equal(lastY - groupHeight / 2);
   });
 
-  it('area-line-stack chart', function() {
-    chart.clear();
-    chart.source(data2, {
-      year: {
-        type: 'linear',
-        tickInterval: 50
-      }
-    });
-    chart.legend({ attachLast: true });
-    chart.areaStack().position('year*value').color('country');
-    chart.line().position('year*value').color('country')
-    .adjust('stack');
-    chart.repaint();
-    // 默认位置检测（right-top）
-    const controller = chart.get('legendController');
-    const legends = controller.legends;
-    expect(legends).property('right-top');
-    // legend类型检测
-    const legend = legends['right-top'][0];
-    expect(legend).to.be.an.instanceof(Tail);
-    // legend y轴坐标检测
-    let group = legend.get('itemsGroup').get('children')[0];
-    let y = group.attr('matrix')[7];
-    let groupHeight = group.getBBox().height;
-    let geomData = legend.get('geom').get('dataArray')[0];
-    let lastY = geomData[geomData.length - 1].y[1];
-    expect(y).to.equal(lastY - groupHeight);
-
-    group = legend.get('itemsGroup').get('children')[1];
-    y = group.attr('matrix')[7] - group.get('y');
-    groupHeight = group.getBBox().height;
-    geomData = legend.get('geom').get('dataArray')[1];
-    lastY = geomData[geomData.length - 1].y[1];
-    expect(y).to.equal(lastY - groupHeight);
-
-    group = legend.get('itemsGroup').get('children')[2];
-    y = group.attr('matrix')[7] - group.get('y');
-    groupHeight = group.getBBox().height;
-    geomData = legend.get('geom').get('dataArray')[2];
-    lastY = geomData[geomData.length - 1].y[1];
-    expect(y).to.equal(lastY - groupHeight);
-
-    group = legend.get('itemsGroup').get('children')[3];
-    y = group.attr('matrix')[7] - group.get('y');
-    groupHeight = group.getBBox().height;
-    geomData = legend.get('geom').get('dataArray')[3];
-    lastY = geomData[geomData.length - 1].y[1];
-    expect(y).to.equal(lastY - groupHeight);
-  });
+  // it('area-line-stack chart', function() {
+  //   chart.clear();
+  //   chart.source(data2, {
+  //     year: {
+  //       type: 'linear',
+  //       tickInterval: 50
+  //     }
+  //   });
+  //   chart.legend({ attachLast: true });
+  //   chart.areaStack().position('year*value').color('country');
+  //   chart.line().position('year*value').color('country')
+  //   .adjust('stack');
+  //   chart.repaint();
+  //   // 默认位置检测（right-top）
+  //   const controller = chart.get('legendController');
+  //   const legends = controller.legends;
+  //   expect(legends).property('right-top');
+  //   // legend类型检测
+  //   const legend = legends['right-top'][0];
+  //   expect(legend).to.be.an.instanceof(Tail);
+  //   // legend y轴坐标检测
+  //   const group = legend.get('itemsGroup').get('children')[0];
+  //   const y = group.attr('matrix')[7];
+  //   const groupHeight = group.getBBox().height;
+  //   const geomData = legend.get('geom').get('dataArray')[0];
+  //   const lastY = geomData[geomData.length - 1].y[1];
+  //   expect(y).to.equal(lastY - groupHeight / 2);
+  // });
 });

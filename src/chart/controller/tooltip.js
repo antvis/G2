@@ -3,8 +3,8 @@
  * @author sima.zhang
  */
 const Util = require('../../util');
-const Global = require('../../global');
-const Tooltip = require('../../component/tooltip');
+const Shape = require('../../geom/shape/shape');
+const { Tooltip } = require('@antv/component/lib');
 const MatrixUtil = Util.MatrixUtil;
 const Vector2 = MatrixUtil.vec2;
 
@@ -119,9 +119,10 @@ class TooltipController {
 
   _getDefaultTooltipCfg() {
     const self = this;
-    const options = self.options;
-    const defaultCfg = Util.mix({}, Global.tooltip);
     const chart = self.chart;
+    const viewTheme = self.viewTheme;
+    const options = self.options;
+    const defaultCfg = Util.mix({}, viewTheme.tooltip);
     const geoms = chart.getAllGeoms().filter(function(geom) {
       return geom.get('visible');
     });
@@ -143,23 +144,27 @@ class TooltipController {
       }
     });
 
+    const isTransposed = geoms.length && geoms[0].get('coord') ? geoms[0].get('coord').isTransposed : false;
+
     let crosshairsCfg;
-    if (geoms.length && geoms[0].get('coord') && geoms[0].get('coord').type === 'cartesian' && shapes.length === 1) {
+    if (geoms.length && geoms[0].get('coord') && geoms[0].get('coord').type === 'cartesian') {
       if (shapes[0] === 'interval' && options.shared !== false) { // 直角坐标系下 interval 的 crosshair 为矩形背景框
+        const crosshairs = Util.mix({}, viewTheme.tooltipCrosshairsRect);
+        crosshairs.isTransposed = isTransposed;
         crosshairsCfg = {
           zIndex: 0, // 矩形背景框不可覆盖 geom
-          crosshairs: Global.tooltipCrosshairsRect
+          crosshairs
         };
       } else if (Util.indexOf(TYPE_SHOW_CROSSHAIRS, shapes[0]) > -1) {
+        const crosshairs = Util.mix({}, viewTheme.tooltipCrosshairsLine);
+        crosshairs.isTransposed = isTransposed;
         crosshairsCfg = {
-          crosshairs: Global.tooltipCrosshairsLine
+          crosshairs
         };
       }
     }
 
-    return Util.mix(defaultCfg, crosshairsCfg, {
-      isTransposed: geoms.length && geoms[0].get('coord') ? geoms[0].get('coord').isTransposed : false
-    });
+    return Util.mix(defaultCfg, crosshairsCfg, {});
   }
 
   _bindEvent() {
@@ -189,6 +194,7 @@ class TooltipController {
       self.prePoint = point;
 
       const chart = self.chart;
+      const viewTheme = self.viewTheme;
       const x = Util.isArray(point.x) ? point.x[point.x.length - 1] : point.x;
       const y = Util.isArray(point.y) ? point.y[point.y.length - 1] : point.y;
       if (!tooltip.get('visible')) {
@@ -214,14 +220,23 @@ class TooltipController {
           if (self.options.hideMarkers === true) { // 不展示 tooltip marker
             tooltip.set('markerItems', markersItems); // 用于 tooltip 辅助线的定位
           } else {
-            tooltip.setMarkers(markersItems, Global.tooltipMarker);
+            tooltip.setMarkers(markersItems, viewTheme.tooltipMarker);
           }
         } else {
           tooltip.clearMarkers();
+          // clearMarkers 只会将 markerItems 从 markerGroup 中移除
+          // 所以我们还要将 markerItems 从 tooltip 中移除
+          // 这么做是为了防止上一次设置 marker 时的 markerItems 影响此次 tooltip 辅助线的定位
+          tooltip.set('markerItems', []);
         }
       }
-      tooltip.setPosition(x, y, target);
-      tooltip.show();
+      const canvas = this._getCanvas();
+      if (target === canvas && tooltip.get('type') === 'mini') { // filter mini tooltip
+        tooltip.hide();
+      } else {
+        tooltip.setPosition(x, y, target);
+        tooltip.show();
+      }
     }
   }
 
@@ -241,14 +256,13 @@ class TooltipController {
     if (Util.isEmpty(ev.views)) {
       return;
     }
-
     const lastTimeStamp = this.timeStamp;
     const timeStamp = +new Date();
     const point = {
       x: ev.x,
       y: ev.y
     };
-    if ((timeStamp - lastTimeStamp) > 16) {
+    if ((timeStamp - lastTimeStamp) > 16 && !this.chart.get('stopTooltip')) {
       this.showTooltip(point, ev.views, ev.shape);
       this.timeStamp = timeStamp;
     }
@@ -256,13 +270,14 @@ class TooltipController {
 
   onMouseOut(ev) {
     const tooltip = this.tooltip;
-    const canvas = this._getCanvas();
-    if (!tooltip.get('visible')) {
+    // const canvas = this._getCanvas();
+    if (!tooltip.get('visible') || !tooltip.get('follow')) {
       return;
     }
-    if (ev && ev.target !== canvas) {
-      return;
-    }
+    // 除非离开 plot 时鼠标依然在图形上，这段逻辑没有意义
+    // if (ev && ev.target !== canvas) {
+    //   return;
+    // }
     if (ev && ev.toElement && (_hasClass(ev.toElement, 'g2-tooltip') || _isParent(ev.toElement, 'g2-tooltip'))) {
       return;
     }
@@ -275,6 +290,7 @@ class TooltipController {
       return;
     }
     const chart = self.chart;
+    const viewTheme = self.viewTheme;
     const canvas = self._getCanvas();
     const defaultCfg = self._getDefaultTooltipCfg();
     let options = self.options;
@@ -283,6 +299,7 @@ class TooltipController {
       capture: false,
       canvas,
       frontPlot: chart.get('frontPlot'),
+      viewTheme: viewTheme.tooltip,
       backPlot: chart.get('backPlot')
     }, defaultCfg, options);
     if (options.crosshairs && options.crosshairs.type === 'rect') {
@@ -290,11 +307,21 @@ class TooltipController {
     }
 
     options.visible = false;
-    if (options.shared === false && Util.isNil(options.position)) {
+    // @2018-09-13 by blue.lb 如果设置shared为false不需要指定position
+    // if (options.shared === false && Util.isNil(options.position)) {
+    //   options.position = 'top';
+    // }
+    let tooltip;
+    if (options.type === 'mini') {
+      options.crosshairs = false;
+      // this.options.shared = false;
       options.position = 'top';
+      tooltip = new Tooltip.Mini(options);
+    } else if (options.useHtml) {
+      tooltip = new Tooltip.Html(options);
+    } else {
+      tooltip = new Tooltip.Canvas(options);
     }
-
-    const tooltip = new Tooltip(options);
     self.tooltip = tooltip;
 
     const triggerEvent = self._getTriggerEvent();
@@ -332,36 +359,37 @@ class TooltipController {
         const type = geom.get('type');
         if (geom.get('visible') && geom.get('tooltipCfg') !== false) {
           const dataArray = geom.get('dataArray');
-          if (geom.isShareTooltip() || (options.shared === false && Util.inArray([ 'area', 'line', 'path' ], type))) {
+          if (geom.isShareTooltip() || (options.shared === false && Util.inArray([ 'area', 'line', 'path', 'polygon' ], type))) {
             Util.each(dataArray, function(obj) {
               const tmpPoint = geom.findPoint(point, obj);
               if (tmpPoint) {
                 const subItems = geom.getTipItems(tmpPoint, options.title);
-                if (Util.indexOf(TYPE_SHOW_MARKERS, type) !== -1) {
-                  Util.each(subItems, v => {
-                    let point = v.point;
-                    if (point && point.x && point.y) { // hotfix: make sure there is no null value
-                      const x = Util.isArray(point.x) ? point.x[point.x.length - 1] : point.x;
-                      const y = Util.isArray(point.y) ? point.y[point.y.length - 1] : point.y;
-                      point = coord.applyMatrix(x, y, 1);
-                      v.x = point[0];
-                      v.y = point[1];
-                      v.showMarker = true;
+                Util.each(subItems, v => {
+                  let point = v.point;
+                  if (point && point.x && point.y) { // hotfix: make sure there is no null value
+                    const x = Util.isArray(point.x) ? point.x[point.x.length - 1] : point.x;
+                    const y = Util.isArray(point.y) ? point.y[point.y.length - 1] : point.y;
+                    point = coord.applyMatrix(x, y, 1);
+                    v.x = point[0];
+                    v.y = point[1];
+                    v.showMarker = true;
+                    const itemMarker = self._getItemMarker(geom, v.color);
+                    v.marker = itemMarker;
+                    if (Util.indexOf(TYPE_SHOW_MARKERS, type) !== -1) {
                       markersItems.push(v);
                     }
-                  });
-                }
+                  }
+                });
                 items = items.concat(subItems);
               }
             });
           } else {
             const geomContainer = geom.get('shapeContainer');
-            if (target &&
-              target.get('visible') &&
-              target.get('origin') &&
-              target.get('parent') === geomContainer
-            ) {
-              items = geom.getTipItems(target.get('origin'), options.title);
+            const canvas = geomContainer.get('canvas');
+            const pixelRatio = canvas.get('pixelRatio');
+            const shape = geomContainer.getShape(point.x * pixelRatio, point.y * pixelRatio);
+            if (shape && shape.get('visible') && shape.get('origin')) {
+              items = geom.getTipItems(shape.get('origin'), options.title);
             }
           }
         }
@@ -377,9 +405,9 @@ class TooltipController {
       });
     });
 
+
     if (items.length) {
       const first = items[0];
-
       // bugfix: multiple tooltip items with different titles
       if (!items.every(item => item.title === first.title)) {
         let nearestItem = first;
@@ -426,6 +454,16 @@ class TooltipController {
     this.prePoint = null;
     this._offEvent();
   }
+
+  _getItemMarker(geom, color) {
+    const shapeType = geom.get('shapeType') || 'point';
+    const shape = geom.getDefaultValue('shape') || 'circle';
+    const shapeObject = Shape.getShapeFactory(shapeType);
+    const cfg = { color };
+    const marker = shapeObject.getMarkerCfg(shape, cfg);
+    return marker;
+  }
+
 }
 
 module.exports = TooltipController;

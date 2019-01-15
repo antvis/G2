@@ -2,9 +2,7 @@
  * @fileOverview Venn Diagram
  * @author leungwensen@gmail.com
  */
-const Attr = require('@antv/attr/src');
 const GeomBase = require('./base');
-const Global = require('../global');
 const Util = require('../util');
 const {
   venn,
@@ -14,16 +12,6 @@ const {
   computeTextCentres
 } = require('venn.js');
 require('./shape/venn');
-
-function parseFields(field) {
-  if (Util.isArray(field)) {
-    return field;
-  }
-  if (Util.isString(field)) {
-    return field.split('*');
-  }
-  return [ field ];
-}
 
 class Venn extends GeomBase {
   /**
@@ -42,8 +30,6 @@ class Venn extends GeomBase {
 
   _initAttrs() {
     const self = this;
-    const view = self.get('view');
-    const attrs = this.get('attrs');
     const attrOptions = self.get('attrOptions');
     const labelCfg = self.get('labelCfg');
     const data = self.get('data');
@@ -89,56 +75,8 @@ class Venn extends GeomBase {
       }
     });
     // x, y scales
-    view.set('data', data);
-    self.set('data', data);
-    self.set('dataArray', data);
     self.position('x*y');
-
-    // init attrs
-    for (const type in attrOptions) {
-      if (attrOptions.hasOwnProperty(type)) {
-        const option = attrOptions[type];
-        const className = Util.upperFirst(type);
-        const fields = parseFields(option.field);
-        if (type === 'position') {
-          option.coord = coord;
-        }
-        const scales = [];
-        for (let i = 0; i < fields.length; i++) {
-          const field = fields[i];
-          const scale = self._createScale(field, data);
-          if (type === 'color' && Util.isNil(option.values)) { // 设置 color 的默认色值
-            if (scale.values.length <= 8) {
-              option.values = Global.colors;
-            } else if (scale.values.length <= 16) {
-              option.values = Global.colors_16;
-            } else {
-              option.values = Global.colors_24;
-            }
-
-            if (Util.isNil(option.values)) {
-              option.values = Global.colors; // 防止主题没有声明诸如 colors_pie 的属性
-            }
-          }
-          scales.push(scale);
-        }
-        if (type === 'position') {
-          scales[0].change({
-            nice: false,
-            min: xRange[0],
-            max: xRange[1]
-          });
-          scales[1].change({
-            nice: false,
-            min: yRange[0],
-            max: yRange[1]
-          });
-        }
-        option.scales = scales;
-        const attr = new Attr[className](option);
-        attrs[type] = attr;
-      }
-    }
+    super._initAttrs();
   }
 
   paint() {

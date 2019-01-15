@@ -5,12 +5,11 @@
 const Util = require('./util');
 const Theme = require('./theme/index');
 
-// const Global = {};
 const Global = {
-  version: '3.2.0-beta.6',
-  renderer2d: 'canvas',
-  // renderer2d: 'svg',
-  trackable: true,
+  version: '3.4.10',
+  renderer: 'canvas',
+  // trackable: false,
+  trackingInfo: {},
   animate: true,
   widthRatio: { // 宽度所占的分类的比例
     column: 1 / 2, // 一般的柱状图占比 1/2
@@ -21,29 +20,23 @@ const Global = {
   showSinglePoint: false,
   connectNulls: false,
   scales: {
+  },
+  registerTheme(name, theme) {
+    Theme[name] = theme;
+  },
+  setTheme(theme) {
+    let newTheme = {};
+    if (Util.isObject(theme)) {
+      newTheme = theme;
+    } else if (Util.indexOf(Object.keys(Theme), theme) !== -1) {
+      newTheme = Theme[theme];
+    } else {
+      newTheme = Theme.default;
+    }
+    Util.deepMix(Global, newTheme);
   }
 };
 
-function setTheme(theme) {
-  // for (const k in Global) {
-  //   if (Global.hasOwnProperty(k)) {
-  //     delete Global[k];
-  //   }
-  // }
-
-  let newTheme = {};
-  if (Util.isObject(theme)) {
-    newTheme = theme;
-  } else if (Util.indexOf(Object.keys(Theme), theme) !== -1) {
-    newTheme = Theme[theme];
-  } else {
-    newTheme = Theme.default;
-  }
-  Util.deepMix(Global, newTheme);
-}
-
-setTheme('default');
-
-Global.setTheme = setTheme;
+Global.setTheme('default');
 
 module.exports = Global;

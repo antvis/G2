@@ -3,9 +3,8 @@
  * @author sima.zhang
  */
 const Util = require('../../util');
-const Axis = require('../../component/axis');
+const { Axis } = require('@antv/component/lib');
 const { vec2 } = Util.MatrixUtil;
-const Global = require('../../global');
 
 function formatTicks(ticks) {
   let tmp = [];
@@ -56,9 +55,20 @@ function fillAxisTicks(ticks, isLinear, gridCentering) {
   return result;
 }
 
+function getDefaultValueFromPosition(position, val = 0) {
+  if (position === 'middle') {
+    val = 0.5;
+  }
+  if (position.indexOf('%') !== -1) {
+    val = parseInt(position, 10) / 100;
+  }
+  return val;
+}
+
 class AxisController {
   constructor(cfg) {
     this.visible = true;
+    this.canvas = null;
     this.container = null;
     this.coord = null;
     this.options = null;
@@ -100,33 +110,40 @@ class AxisController {
       position = options[field].position;
     }
 
+    // TODO middle & percentage for position
     if (dimType === 'x') { // x轴的坐标轴,底部的横坐标
+      let y = (position === 'top') ? 1 : 0;
+      y = getDefaultValueFromPosition(position, y);
       start = {
         x: 0,
-        y: position === 'top' ? 1 : 0
+        y
       };
       end = {
         x: 1,
-        y: position === 'top' ? 1 : 0
+        y
       };
       isVertical = false;
     } else { // y轴坐标轴
       if (index) { // 多轴的情况
+        let x = (position === 'left') ? 0 : 1;
+        x = getDefaultValueFromPosition(position, x);
         start = {
-          x: position === 'left' ? 0 : 1,
+          x,
           y: 0
         };
         end = {
-          x: position === 'left' ? 0 : 1,
+          x,
           y: 1
         };
       } else { // 单个y轴，或者第一个y轴
+        let x = (position === 'right') ? 1 : 0;
+        x = getDefaultValueFromPosition(position, x);
         start = {
-          x: position === 'right' ? 1 : 0,
+          x,
           y: 0
         };
         end = {
-          x: position === 'right' ? 1 : 0,
+          x,
           y: 1
         };
       }
@@ -244,8 +261,17 @@ class AxisController {
     let position = '';
     // 用户自己定义了 position
     const options = this.options;
+    // const VALID_POSITIONS = [
+    //   'top',
+    //   'left',
+    //   'right',
+    //   'bottom'
+    // ];
     if (options[field] && options[field].position) {
       position = options[field].position;
+      // if (VALID_POSITIONS.indexOf(position) > -1) {
+      //   return position;
+      // }
     } else {
       const coordType = coord.type;
       if (coord.isRect) {
@@ -273,16 +299,18 @@ class AxisController {
   // 获取坐标轴构成的配置信息
   _getAxisDefaultCfg(coord, scale, type, position) {
     const self = this;
+    const viewTheme = self.viewTheme;
     let cfg = {};
     const options = self.options;
     const field = scale.field;
 
-    cfg = Util.deepMix({}, Global.axis[position], cfg, options[field]);
+    cfg = Util.deepMix({}, viewTheme.axis[position], cfg, options[field]);
+    cfg.viewTheme = viewTheme;
     if (cfg.title) {
+      const title = Util.isPlainObject(cfg.title) ? cfg.title : {};
+      title.text = title.text || scale.alias || field;
       Util.deepMix(cfg, {
-        title: {
-          text: scale.alias || field
-        }
+        title
       });
     }
 
@@ -392,6 +420,7 @@ class AxisController {
 
   _drawAxis(coord, scale, verticalScale, dimType, viewId, xAxis, index) {
     const container = this.container;
+    const canvas = this.canvas;
     let C; // 坐标轴类
     let appendCfg; // 每个坐标轴 start end 等绘制边界的信息
 
@@ -419,7 +448,12 @@ class AxisController {
       cfg._id = viewId + '-' + dimType + index;
     }
 
-    const axis = container.addGroup(C, cfg);
+    Util.mix(cfg, {
+      canvas,
+      group: container
+    });
+    const axis = new C(cfg);
+    axis.render();
     this.axes.push(axis);
     return axis;
   }
@@ -453,11 +487,12 @@ class AxisController {
   }
 
   clear() {
-    const axes = this.axes;
+    const self = this;
+    const axes = self.axes;
     Util.each(axes, function(axis) {
-      axis.remove();
+      axis.clear();
     });
-    this.axes = [];
+    self.axes = [];
   }
 }
 

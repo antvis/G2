@@ -3,7 +3,7 @@
  * @author sima.zhang
  */
 const Util = require('../util');
-const { Group } = require('../renderer2d');
+const { Group } = require('../renderer');
 const AUTO_STR = 'auto';
 
 class PlotBack extends Group {

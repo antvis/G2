@@ -33,13 +33,13 @@ describe('#500', () => {
     });
 
     chart.render();
-    const labels = interval.get('labelContainer').get('labelsGroup').get('items');
+    const labels = interval.get('labelContainer').get('labelRenderer').get('items');
 
     chart.coord('theta', {
       radius: 0.8
     }).rotate(120);
     chart.repaint();
-    const changeLabels = interval.get('labelContainer').get('labelsGroup').get('items');
+    const changeLabels = interval.get('labelContainer').get('labelRenderer').get('items');
     expect(labels[0].x).not.equal(changeLabels[0].x);
     expect(labels[0].y).not.equal(changeLabels[0].y);
   });

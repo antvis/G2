@@ -1,10 +1,5 @@
-/**
- * @fileOverview The controller of guide
- * @author sima.zhang
- */
 const Util = require('../../util');
 const Guide = require('../../component/guide');
-const Global = require('../../global');
 
 class GuideController {
   constructor(cfg) {
@@ -13,6 +8,7 @@ class GuideController {
     this.xScales = null;
     this.yScales = null;
     this.view = null;
+    this.viewTheme = null;
     this.frontGroup = null;
     this.backGroup = null;
     Util.mix(this, cfg);
@@ -24,6 +20,7 @@ class GuideController {
     const xScales = this.xScales;
     const yScales = this.yScales;
     const view = this.view;
+    const viewTheme = this.viewTheme;
     if (this.backContainer && view) {
       this.backGroup = this.backContainer.addGroup({
         viewId: view.get('_id')
@@ -39,8 +36,8 @@ class GuideController {
       const config = Util.deepMix({
         xScales,
         yScales,
-        view
-      }, Global.guide[type], option);
+        viewTheme
+      }, viewTheme ? viewTheme.guide[type] : {}, option);
       type = Util.upperFirst(type);
       const guide = new Guide[type](config);
       self.guides.push(guide);
@@ -90,6 +87,20 @@ class GuideController {
     return this;
   }
 
+  dataMarker(cfg = {}) {
+    this.options.push(Util.mix({
+      type: 'dataMarker'
+    }, cfg));
+    return this;
+  }
+
+  dataRegion(cfg = {}) {
+    this.options.push(Util.mix({
+      type: 'dataRegion'
+    }, cfg));
+    return this;
+  }
+
   html(cfg = {}) {
     this.options.push(Util.mix({
       type: 'html'
@@ -100,14 +111,18 @@ class GuideController {
 
   render(coord) {
     const self = this;
+    const view = self.view;
+    const viewData = view && view.get('data');
     const guides = self._creatGuides();
-    let container = self.backGroup || this.backContainer;
 
     Util.each(guides, guide => {
-      if (guide.top) { // 默认 guide 绘制到 backPlot，用户也可以声明 top: true，显示在最上层
-        container = self.frontGroup || this.frontContainer;
+      let container;
+      if (guide.get('top')) { // 默认 guide 绘制到 backPlot，用户也可以声明 top: true，显示在最上层
+        container = self.frontGroup || self.frontContainer;
+      } else {
+        container = self.backGroup || self.backContainer;
       }
-      guide.render(coord, container);
+      guide.render(coord, container, viewData, view);
     });
   }
 
@@ -119,14 +134,14 @@ class GuideController {
   changeVisible(visible) {
     const guides = this.guides;
     Util.each(guides, function(guide) {
-      guide.setVisible(visible);
+      guide.changeVisible(visible);
     });
   }
 
   reset() {
     const guides = this.guides;
     Util.each(guides, function(guide) {
-      guide.remove();
+      guide.clear();
     });
     this.guides = [];
     this.backGroup && this.backGroup.remove();

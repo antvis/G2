@@ -1,8 +1,8 @@
 const expect = require('chai').expect;
-const { Canvas } = require('../../../../src/renderer2d');
+const { Canvas } = require('../../../../src/renderer');
 const Global = require('../../../../src/global');
 const Shape = require('../../../../src/geom/shape/shape');
-const Coord = require('../../../../src/coord/');
+const Coord = require('@antv/coord/lib/');
 require('../../../../src/geom/shape/edge');
 
 const div = document.createElement('div');
@@ -81,7 +81,7 @@ describe('edge shape test', function() {
       expect(shape.attr('path').length).equal(4);
 
     });
-    if (Global.renderer2d === 'canvas') {
+    if (Global.renderer === 'canvas') {
       it('draw shape arc rect', function() {
         const obj = {
           x: [ 0.2, 0.4 ],
@@ -124,7 +124,7 @@ describe('edge shape test', function() {
     // });
   });
 });
-if (Global.renderer2d === 'canvas') {
+if (Global.renderer === 'canvas') {
   describe('edge shape test polar', function() {
     const canvas2 = canvas;
     const coord2 = new Coord.Polar({

@@ -104,10 +104,8 @@ class PieLabels extends PolarLabels {
     };
   }
 
-  getDefaultOffset() {
-    const labelCfg = this.get('label');
-    const offset = labelCfg.offset || 0;
-    return offset;
+  getDefaultOffset(point) {
+    return point.offset || 0;
   }
 
   /**
@@ -118,12 +116,11 @@ class PieLabels extends PolarLabels {
    */
   adjustItems(items) {
     const self = this;
-    const offset = self.getDefaultOffset();
+    const offset = items[0] ? items[0].offset : 0;
     if (offset > 0) {
       items = self._distribute(items, offset);
     }
-
-    return items;
+    return super.adjustItems(items);
   }
 
   /**
@@ -157,6 +154,9 @@ class PieLabels extends PolarLabels {
       [] // right
     ];
     labels.forEach(function(label) {
+      if (!label) {
+        return;
+      }
       if (label.textAlign === 'right') { // left
         halves[0].push(label);
       } else { // right or center will be put on the right side
@@ -185,35 +185,19 @@ class PieLabels extends PolarLabels {
   }
 
   // 连接线
-  lineToLabel(label, labelLine) {
+  lineToLabel(label) {
     const self = this;
     const coord = self.get('coord');
     const r = coord.getRadius();
-    const distance = self.getDefaultOffset();
+    const distance = label.offset;
     const angle = label.orignAngle || label.angle;
     const center = coord.getCenter();
     const start = getEndPoint(center, angle, r + MARGIN / 2);
     const inner = getEndPoint(center, angle, r + distance / 2);
-    let lineGroup = self.get('lineGroup');
-    // var lineShape;
-    if (!lineGroup) {
-      lineGroup = self.addGroup({
-        elCls: 'x-line-group'
-      });
-      self.set('lineGroup', lineGroup);
+    if (!label.labelLine) {
+      label.labelLine = self.get('label').labelLine || {};
     }
-    // lineShape =
-    const lineShape = lineGroup.addShape('path', {
-      attrs: Util.mix({
-        path: [ 'M' + start.x, start.y + ' Q' + inner.x, inner.y + ' ' + label.x, label.y ].join(','),
-        fill: null,
-        stroke: label.color
-      }, labelLine)
-    });
-    // label 对应线的动画关闭
-    lineShape.name = 'labelLine';
-    lineShape._id = label._id && label._id.replace('glabel', 'glabelline'); // generate labelLine id according to label id
-    lineShape.set('coord', coord);
+    label.labelLine.path = [ 'M' + start.x, start.y + ' Q' + inner.x, inner.y + ' ' + label.x, label.y ].join(',');
   }
 
   /**
@@ -254,8 +238,7 @@ class PieLabels extends PolarLabels {
     } else {
       align = 'right';
     }
-
-    const offset = self.getDefaultOffset();
+    const offset = self.getDefaultOffset(point);
     if (offset <= 0) {
       if (align === 'right') {
         align = 'left';

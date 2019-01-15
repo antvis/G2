@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const Animate = require('../../../src/animate/animate');
-const Coord = require('../../../src/coord/index');
+const Coord = require('@antv/coord/lib/index');
 const Action = require('../../../src/animate/action');
 
 describe('Animate', () => {

@@ -7,26 +7,29 @@
 const Util = require('../../util');
 const Shape = require('./shape');
 const PathUtil = require('../util/path');
+const ShapeUtil = require('../util/shape');
 const Global = require('../../global');
 
 function getLineAttrs(cfg) {
   const defaultAttrs = Global.shape.hollowArea;
-  const lineAttrs = Util.mix({}, defaultAttrs, {
-    stroke: cfg.color,
-    lineWidth: cfg.size,
-    strokeOpacity: cfg.opacity
-  }, cfg.style);
+  const lineAttrs = Util.mix({}, defaultAttrs, cfg.style);
+  ShapeUtil.addStrokeAttrs(lineAttrs, cfg);
+  if (Util.isNumber(cfg.size)) {
+    lineAttrs.lineWidth = cfg.size;
+  }
   return lineAttrs;
 }
 
 function getFillAttrs(cfg) {
   const defaultAttrs = Global.shape.area;
-  const areaAttrs = Util.mix({}, defaultAttrs, {
-    fill: cfg.color,
-    stroke: cfg.color,
-    lineWidth: cfg.size,
-    fillOpacity: cfg.opacity
-  }, cfg.style);
+  const areaAttrs = Util.mix({}, defaultAttrs, cfg.style);
+  ShapeUtil.addFillAttrs(areaAttrs, cfg);
+  if (cfg.color) {
+    areaAttrs.stroke = areaAttrs.stroke || cfg.color;
+  }
+  if (Util.isNumber(cfg.size)) {
+    areaAttrs.lineWidth = cfg.size;
+  }
   return areaAttrs;
 }
 
@@ -74,12 +77,13 @@ function _getMarkerCfg(cfg) {
         [ 'M', x - 5.5, y - 4 ],
         [ 'L', x + 5.5, y - 4 ],
         [ 'L', x + 5.5, y + 4 ],
-        [ 'L', x - 5.5, y + 4 ]
+        [ 'L', x - 5.5, y + 4 ],
+        [ 'Z' ]
       ];
     },
     radius: 5,
     fill: cfg.color,
-    fillOpacity: 0.3
+    fillOpacity: 0.6
   };
 }
 

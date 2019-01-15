@@ -1,9 +1,9 @@
 const expect = require('chai').expect;
-const { Canvas } = require('../../../src/renderer2d');
+const { Canvas } = require('../../../src/renderer');
 const Geom = require('../../../src/geom/index');
 // const Global = require('../../../src/global');
 const Scale = require('@antv/scale');
-const Coord = require('../../../src/coord/index');
+const Coord = require('@antv/coord/lib/index');
 const Util = require('../../../src/util');
 const div = document.createElement('div');
 div.id = 'cgbase';

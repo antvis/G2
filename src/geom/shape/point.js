@@ -6,12 +6,13 @@
  */
 
 const Util = require('../../util');
-const PathUtil = Util.PathUtil;
 const ShapeUtil = require('../util/shape');
 const Global = require('../../global');
 const Shape = require('./shape');
 // const svgpath = require('svgpath');
-const { Marker } = require('../../renderer2d');
+const { Marker } = require('../../renderer');
+
+const PathUtil = Util.PathUtil;
 
 const SHAPES = [ 'circle', 'square', 'bowtie', 'diamond', 'hexagon', 'triangle', 'triangle-down' ];
 const HOLLOW_SHAPES = [ 'cross', 'tick', 'plus', 'hyphen', 'line', 'pointerLine', 'pointerArrow' ];
@@ -83,21 +84,21 @@ Util.mix(Marker.Symbols, {
 
 function getFillAttrs(cfg) {
   const defaultAttrs = Global.shape.point;
-  const pointAttrs = Util.mix({}, defaultAttrs, {
-    fill: cfg.color,
-    fillOpacity: cfg.opacity,
-    radius: cfg.size
-  }, cfg.style);
+  const pointAttrs = Util.mix({}, defaultAttrs, cfg.style);
+  ShapeUtil.addFillAttrs(pointAttrs, cfg);
+  if (Util.isNumber(cfg.size)) {
+    pointAttrs.radius = cfg.size;
+  }
   return pointAttrs;
 }
 
 function getLineAttrs(cfg) {
   const defaultAttrs = Global.shape.hollowPoint;
-  const pointAttrs = Util.mix({}, defaultAttrs, {
-    stroke: cfg.color,
-    strokeOpacity: cfg.opacity,
-    radius: cfg.size
-  }, cfg.style);
+  const pointAttrs = Util.mix({}, defaultAttrs, cfg.style);
+  ShapeUtil.addStrokeAttrs(pointAttrs, cfg);
+  if (Util.isNumber(cfg.size)) {
+    pointAttrs.radius = cfg.size;
+  }
   return pointAttrs;
 }
 
@@ -240,28 +241,6 @@ Shape.registerShape('point', 'image', {
     });
   }
 });
-
-// const pathRangeCache = {};
-// function getUnifiedPath(path, cfg) {
-//   let pathRange;
-//   if (pathRangeCache[path]) {
-//     pathRange = pathRangeCache[path];
-//   } else {
-//     const segments = PathUtil.parsePathString(path);
-//     const nums = Util.flatten(segments).filter(num => Util.isNumber(num));
-//     pathRangeCache[path] = pathRange = Math.max.apply(null, nums) - Math.min.apply(null, nums);
-//   }
-//
-//   const size = cfg.size || 10;
-//   const scale = size / pathRange;
-//   const transformed = svgpath(path)
-//     .scale(scale)
-//     .translate(cfg.x, cfg.y);
-//   if (cfg.style && cfg.style.rotate) {
-//     transformed.rotate(cfg.style.rotate, cfg.x, cfg.y);
-//   }
-//   return PathUtil.parsePathString(transformed.toString());
-// }
 
 // path
 const pathMetaCache = {};

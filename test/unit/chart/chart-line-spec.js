@@ -69,7 +69,7 @@ describe('test line chart', function() {
       { genre: 'Shooter', sold: 350 },
       { genre: 'Other', sold: 150 }
     ];
-    Global.connectNulls = true;
+    chart.get('viewTheme').connectNulls = true;
     chart.changeData(newData);
     const group = chart.get('viewContainer').getFirst();
     expect(group.getCount()).equal(1);

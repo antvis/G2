@@ -151,9 +151,10 @@ class EventController {
     if (preViews.length === 0 && point.views.length) {
       view.emit('plotenter', self._getEventObj(ev, point, point.views));
     }
-    // if (preViews.length && point.views.length === 0) {
-    //   view.emit('plotleave', self._getEventObj(ev, point, preViews));
-    // }
+    // point.views 是指当前 view 或者子 view，不会取跟当前 view 同一层级的兄弟元素（view)
+    if (preViews.length && point.views.length === 0) {
+      view.emit('plotleave', self._getEventObj(ev, point, preViews));
+    }
 
     if (point.views.length) {
       eventObj = self._getEventObj(ev, point, point.views);
@@ -171,8 +172,10 @@ class EventController {
     const point = self._getPointInfo(ev);
     const preViews = self.curViews || [];
     const evtObj = self._getEventObj(ev, point, preViews);
-    if (point.views.length === 0 && (!evtObj.toElement || evtObj.toElement.tagName !== 'CANVAS')) {
+    // 只有没有padding 时，当前依然在 view 的 plotRange 情况下才会出现这个情况，保证 plotleave 触发
+    if (self.curViews && self.curViews.length !== 0 && (!evtObj.toElement || evtObj.toElement.tagName !== 'CANVAS')) {
       view.emit('plotleave', evtObj);
+      self.curViews = []; // 清空
     }
   }
 

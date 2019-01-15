@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="geometry" content="funnel">
+  <link rel="stylesheet" href="./assets/common.css">
+  <title>Funnel Plot</title>
+</head>
+
+<body>
+  <div id="canvas"></div>
+  <script src="../build/g2.js"></script>
+  <script>
+    G2.Shape.registerShape('point', 'pointer', {
+      drawShape: function drawShape(cfg, group) {
+        const center = this.parsePoint({ // 获取极坐标系下画布中心点
+          x: 0,
+          y: 0
+        });
+        // 绘制指针
+        group.addShape('line', {
+          attrs: {
+            x1: center.x,
+            y1: center.y,
+            x2: cfg.x,
+            y2: cfg.y,
+            stroke: cfg.color,
+            lineWidth: 5,
+            lineCap: 'round'
+          }
+        });
+        return group.addShape('circle', {
+          attrs: {
+            x: center.x,
+            y: center.y,
+            r: 9.75,
+            stroke: cfg.color,
+            lineWidth: 4.5,
+            fill: '#fff'
+          }
+        });
+      }
+    });
+
+    const data = [{
+      value: 0
+    }];
+    const chart = new G2.Chart({
+      container: 'canvas',
+      forceFit: true,
+      height: window.innerHeight,
+      padding: [ 0, 0, 30, 0 ]
+    });
+    chart.source(data);
+
+    chart.coord('polar', {
+      startAngle: -0.5 * Math.PI,
+      endAngle: 1.5 * Math.PI,
+      radius: 0.75
+    });
+    chart.scale('value', {
+      min: 0,
+      max: 9,
+      tickInterval: 1,
+      nice: false
+    });
+
+    chart.axis('1', false);
+    chart.axis('value', {
+      zIndex: 2,
+      line: null,
+      label: {
+        offset: -16,
+        textStyle: {
+          fontSize: 18,
+          textAlign: 'center',
+          textBaseline: 'middle'
+        }
+      },
+      subTickCount: 4,
+      subTickLine: {
+        length: -8,
+        stroke: '#fff',
+        strokeOpacity: 1
+      },
+      tickLine: {
+        length: -17,
+        stroke: '#fff',
+        strokeOpacity: 1
+      },
+      grid: null
+    });
+    chart.legend(false);
+    chart.point()
+      .position('value*1')
+      .shape('pointer')
+      .color('#1890FF')
+      .active(false);
+
+    // 绘制仪表盘背景
+    chart.guide().arc({
+      zIndex: 0,
+      top: false,
+      start: [ 0, 1 ],
+      end: [ 9, 1 ],
+      style: { // 底灰色
+        stroke: '#CBCBCB',
+        lineWidth: 18
+      }
+    });
+    // 绘制指标
+    chart.guide().arc({
+      zIndex: 1,
+      start: [ 0, 1 ],
+      end: [ 0, 1 ],
+      style: {
+        stroke: '#1890FF',
+        lineWidth: 18
+      }
+    });
+
+
+    chart.render();
+
+  </script>
+</body>
+
+</html>

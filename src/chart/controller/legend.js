@@ -1,7 +1,9 @@
 const Util = require('../../util');
-const Global = require('../../global');
-const Legend = require('../../component/legend');
+const { Legend } = require('@antv/component/lib');
+const Tail = require('../../component/legend/tail');
 const Shape = require('../../geom/shape/shape');
+const bboxOfBackPlot = require('../util/bbox-of-back-plot');
+const plotRange2BBox = require('../util/plot-range2bbox');
 
 const FIELD_ORIGIN = '_origin';
 const MARKER_SIZE = 4.5;
@@ -40,12 +42,13 @@ function findGeom(geoms, value) {
 
 class LegendController {
   constructor(cfg) {
-    this.options = {};
-    Util.mix(this, cfg);
-    this.clear();
-    const chart = this.chart;
-    this.container = chart.get('frontPlot');
-    this.plotRange = chart.get('plotRange');
+    const self = this;
+    self.options = {};
+    Util.mix(self, cfg);
+    self.clear();
+    const chart = self.chart;
+    self.container = chart.get('frontPlot');
+    self.plotRange = chart.get('plotRange');
   }
 
   clear() {
@@ -53,7 +56,7 @@ class LegendController {
     this.backRange = null;
     Util.each(legends, legendItems => {
       Util.each(legendItems, legend => {
-        legend.remove();
+        legend.destroy();
       });
     });
     this.legends = {};
@@ -63,12 +66,12 @@ class LegendController {
   getBackRange() {
     let backRange = this.backRange;
     if (!backRange) {
-      backRange = this.chart.get('backPlot').getBBox();
+      const backPlot = this.chart.get('backPlot');
+      backRange = bboxOfBackPlot(backPlot, plotRange2BBox(this.chart.get('plotRange')));
       const plotRange = this.plotRange;
-      if (backRange.minX === 0 || (
-        backRange.maxX - backRange.minX < plotRange.br.x - plotRange.tl.x) || (
-        backRange.maxY - backRange.minY) < plotRange.br.y - plotRange.tl.y
-      ) { // 如果背景不占宽高，或者背景小于则直接使用 plotRange
+      if (backRange.maxX - backRange.minX < plotRange.br.x - plotRange.tl.x &&
+        backRange.maxY - backRange.minY < plotRange.br.y - plotRange.tl.y) {
+        // 如果背景小于则直接使用 plotRange
         backRange = {
           minX: plotRange.tl.x,
           minY: plotRange.tl.y,
@@ -101,43 +104,46 @@ class LegendController {
     const options = self.options;
 
     legend.on('itemclick', ev => {
-      if (options.onClick) { // 用户自定义了图例点击事件
+      if (options.onClick && options.defaultClickHandlerEnabled !== true) {
         options.onClick(ev);
-      } else {
+      } else {   // if 'defaultClickHandlerEnabled' is true the default click behavior would be worked.
         const item = ev.item;
         const checked = ev.checked;
-        const isSingeSelected = legend.get('selectedMode') === 'single'; // 图例的选中模式
+        const isSingleSelected = legend.get('selectedMode') === 'single'; // 图例的选中模式
         const clickedValue = item.dataValue; // import: 需要取该图例项原始的数值
 
         if (checked) {
-          filterVals.push(clickedValue);
+          Util.Array.remove(filterVals, clickedValue);
           if (self._isFieldInView(field, clickedValue, chart)) {
             chart.filter(field, field => {
-              return isSingeSelected ? field === clickedValue : Util.inArray(filterVals, field);
+              return isSingleSelected ? field === clickedValue : !Util.inArray(filterVals, field);
             });
           }
           Util.each(views, view => {
             if (self._isFieldInView(field, clickedValue, view)) {
               view.filter(field, field => {
-                return isSingeSelected ? field === clickedValue : Util.inArray(filterVals, field);
+                return isSingleSelected ? field === clickedValue : !Util.inArray(filterVals, field);
               });
             }
           });
-        } else if (!isSingeSelected) {
-          Util.Array.remove(filterVals, clickedValue);
+        } else if (!isSingleSelected) {
+          filterVals.push(clickedValue);
 
           if (self._isFieldInView(field, clickedValue, chart)) {
             chart.filter(field, field => {
-              return Util.inArray(filterVals, field);
+              return !Util.inArray(filterVals, field);
             });
           }
           Util.each(views, view => {
             if (self._isFieldInView(field, clickedValue, view)) {
               view.filter(field, field => {
-                return Util.inArray(filterVals, field);
+                return !Util.inArray(filterVals, field);
               });
             }
           });
+        }
+        if (options.onClick) {
+          options.onClick(ev);
         }
         chart.set('keepLegend', true); // 图例不重新渲染
         chart.set('keepPadding', true); // 边框不重新计算
@@ -206,7 +212,8 @@ class LegendController {
     legend.on('itemfilter', ev => {
       const range = ev.range;
       chart.filterShape(function(obj, shape, geom) {
-        if (obj[field]) {
+        // @2018-12-21 by blue.lb 由于数值0直接被类型转换为false，这里需要做更精确一点的判断
+        if (!Util.isNil(obj[field])) {
           const filtered = (obj[field] >= range[0] && obj[field] <= range[1]);
           // shape 带 label，则还需要隐藏 label
           self._filterLabels(shape, geom, filtered);
@@ -279,8 +286,11 @@ class LegendController {
       }
     });
 
-    legend.on('itemunhover', function() {
+    legend.on('itemunhover', function(ev) {
       self.pre = null;
+      if (options.onUnhover) {
+        options.onUnhover(ev);
+      }
       Util.each(geoms, function(geom) {
         if (geom.get('activeShapes')) {
           geom.clearActivedShapes();
@@ -290,15 +300,15 @@ class LegendController {
     });
   }
 
-  _isFiltered(scale, values, value) {
+  _isFiltered(scale, filterVals, scaleValue) {
     if (!scale.isCategory) {
       return true;
     }
-    let rst = false;
-    value = scale.invert(value);
-    Util.each(values, val => {
-      rst = rst || scale.getText(val) === scale.getText(value);
-      if (rst) {
+    let rst = true;
+    scaleValue = scale.invert(scaleValue);
+    Util.each(filterVals, val => {
+      if (scale.getText(val) === scale.getText(scaleValue)) {
+        rst = false;
         return false;
       }
     });
@@ -307,6 +317,7 @@ class LegendController {
 
   _alignLegend(legend, pre, region, position) {
     const self = this;
+    const viewTheme = self.viewTheme;
     const container = self.container;
     const canvas = container.get('canvas');
     const width = canvas.get('width');
@@ -314,13 +325,13 @@ class LegendController {
     const totalRegion = self.totalRegion;
     const plotRange = self.plotRange;
     const backRange = self.getBackRange(); // 背景占得范围
-    const offsetX = legend.get('offsetX') || 0;
-    const offsetY = legend.get('offsetY') || 0;
+    const offsetX = legend.get('offset')[0] || 0;
+    const offsetY = legend.get('offset')[1] || 0;
     // const offset = Util.isNil(legend.get('offset')) ? MARGIN : legend.get('offset');
     const legendHeight = legend.getHeight();
     const legendWidth = legend.getWidth();
-    const borderMargin = Global.legend.margin;
-    const innerMargin = Global.legend.legendMargin;
+    const borderMargin = viewTheme.legend.margin;
+    const innerMargin = viewTheme.legend.legendMargin;
     const legendNum = self.legends[position].length;
     const posArray = position.split('-');
 
@@ -332,7 +343,8 @@ class LegendController {
       height = plotRange.br.y;
       x = self._getXAlign(posArray[0], width, region, backRange, legendWidth, borderMargin);
       if (pre) {
-        y = pre.get('y') + pre.getHeight() + innerMargin;
+        // @2018-10-19 by blue.lb 由于legend中并不存在y属性，这里需要先获取group再获取y值
+        y = pre.get('group').get('y') + pre.getHeight() + innerMargin;
       } else {
         y = self._getYAlignVertical(posArray[1], height, tempoRegion, backRange, 0, borderMargin, canvas.get('height'));
       }
@@ -340,13 +352,13 @@ class LegendController {
       y = self._getYAlignHorizontal(posArray[0], height, region, backRange, legendHeight, borderMargin);
       if (pre) {
         const preWidth = pre.getWidth();
-        x = pre.get('x') + preWidth + innerMargin;
+        // @2018-10-19 by blue.lb 由于legend中并不存在x属性，这里需要先获取group再获取x值
+        x = pre.get('group').get('x') + preWidth + innerMargin;
       } else {
         x = self._getXAlign(posArray[1], width, tempoRegion, backRange, 0, borderMargin);
         if (posArray[1] === 'right') x = plotRange.br.x - tempoRegion.totalWidth;
       }
     }
-
     legend.move(x + offsetX, y + offsetY);
   }
 
@@ -398,8 +410,9 @@ class LegendController {
 
   _getRegion() {
     const self = this;
+    const viewTheme = self.viewTheme;
     const legends = self.legends;
-    const innerMargin = Global.legend.legendMargin;
+    const innerMargin = viewTheme.legend.legendMargin;
     const subs = [];
     let totalWidth = 0;
     let totalHeight = 0;
@@ -416,16 +429,19 @@ class LegendController {
     };
   }
 
-  _addCategroyLegend(scale, attr, geom, filterVals, position) {
+  _addCategoryLegend(scale, attr, geom, filterVals, position) {
     const self = this;
     const field = scale.field;
-    const legendOptions = self.options;
+    let legendOptions = self.options;
+    const fieldOption = legendOptions[field];
+    if (fieldOption) {
+      legendOptions = fieldOption;
+    }
     const legends = self.legends;
     legends[position] = legends[position] || [];
-    const container = self.container;
+    let container = self.container;
     const items = [];
     const ticks = scale.getTicks();
-
     let isByAttr = true;
     let shapeType = geom.get('shapeType') || 'point';
     let shape = geom.getDefaultValue('shape') || 'circle';
@@ -438,12 +454,13 @@ class LegendController {
       shapeType = 'point';
       isByAttr = false;
     }
-
     const chart = self.chart;
+    const viewTheme = self.viewTheme;
     const canvas = chart.get('canvas');
     const plotRange = self.plotRange;
     const posArray = position.split('-');
     const maxLength = (posArray[0] === 'right' || posArray[0] === 'left') ? plotRange.bl.y - plotRange.tr.y : canvas.get('width');
+
     Util.each(ticks, tick => {
       const text = tick.text;
       const name = text;
@@ -459,9 +476,9 @@ class LegendController {
       if (colorAttr) { // 存在颜色映射
         if (colorAttr.callback && colorAttr.callback.length > 1) { // 多参数映射，阻止程序报错
           const restArgs = Array(colorAttr.callback.length - 1).fill('');
-          cfg.color = colorAttr.mapping(value, ...restArgs).join('') || Global.defaultColor;
+          cfg.color = colorAttr.mapping(value, ...restArgs).join('') || viewTheme.defaultColor;
         } else {
-          cfg.color = colorAttr.mapping(value).join('') || Global.defaultColor;
+          cfg.color = colorAttr.mapping(value).join('') || viewTheme.defaultColor;
         }
       }
       if (isByAttr && shapeAttr) { // 存在形状映射
@@ -488,10 +505,12 @@ class LegendController {
       });
     });
 
-    const legendCfg = Util.deepMix({}, Global.legend[posArray[0]], legendOptions[field] || legendOptions, {
+    const legendCfg = Util.deepMix({}, viewTheme.legend[posArray[0]], legendOptions[field] || legendOptions, {
       viewId: chart.get('_id'),
       maxLength,
-      items
+      items,
+      container,
+      position: [ 0, 0 ]
     });
     if (legendCfg.title) {
       Util.deepMix(legendCfg, {
@@ -500,20 +519,76 @@ class LegendController {
         }
       });
     }
-
     let legend;
     if (self._isTailLegend(legendOptions, geom)) {
       legendCfg.chart = self.chart;
       legendCfg.geom = geom;
-      legend = container.addGroup(Legend.Tail, legendCfg);
+      legend = new Tail(legendCfg);
     } else {
-      legend = container.addGroup(Legend.Category, legendCfg);
+      if (legendOptions.useHtml) {
+        const canvasEle = container.get('canvas').get('el');
+        container = legendOptions.container;
+        if (Util.isString(container) && /^\#/.test(container)) { // 如果传入 dom 节点的 id
+          const id = container.replace('#', '');
+          container = document.getElementById(id);
+        }
+        if (!container) {
+          container = canvasEle.parentNode;
+        }
+        legendCfg.container = container;
+        if (legendCfg.legendStyle === undefined) legendCfg.legendStyle = {};
+        legendCfg.legendStyle.CONTAINER_CLASS = {
+          position: 'absolute',
+          overflow: 'auto',
+          'z-index': canvasEle.style.zIndex === '' ? 1 : parseInt(canvasEle.style.zIndex, 10) + 1
+        };
+        if (legendOptions.flipPage) {
+          legendCfg.legendStyle.CONTAINER_CLASS.height = (posArray[0] === 'right' || posArray[0] === 'left') ? maxLength + 'px' : 'auto';
+          legendCfg.legendStyle.CONTAINER_CLASS.width = !(posArray[0] === 'right' || posArray[0] === 'left') ? maxLength + 'px' : 'auto';
+          legend = new Legend.CatPageHtml(legendCfg);
+        } else {
+          legend = new Legend.CatHtml(legendCfg);
+        }
+      } else {
+        legend = new Legend.Category(legendCfg);
+      }
     }
     self._bindClickEvent(legend, scale, filterVals);
+
     legends[position].push(legend);
     return legend;
   }
 
+  _bindChartMove(scale) {
+    const chart = this.chart;
+    const legends = this.legends;
+    chart.on('plotmove', ev => {
+      let selected = false;
+      if (ev.target) {
+        const origin = ev.target.get('origin');
+        if (origin) {
+          const data = origin[FIELD_ORIGIN] || origin[0][FIELD_ORIGIN];
+          const field = scale.field;
+          if (data) {
+            const value = data[field];
+            Util.each(legends, legendItems => {
+              Util.each(legendItems, legend => {
+                selected = true;
+                (!legend.destroyed) && legend.activate(value);
+              });
+            });
+          }
+        }
+      }
+      if (!selected) {
+        Util.each(legends, legendItems => {
+          Util.each(legendItems, legend => {
+            (!legend.destroyed) && legend.deactivate();
+          });
+        });
+      }
+    });
+  }
   _addContinuousLegend(scale, attr, position) {
     const self = this;
     const legends = self.legends;
@@ -525,6 +600,7 @@ class LegendController {
     let legend;
     let minValue;
     let maxValue;
+    const viewTheme = self.viewTheme;
 
     Util.each(ticks, tick => {
       const scaleValue = tick.value;
@@ -534,6 +610,7 @@ class LegendController {
       items.push({
         value: tick.tickValue, // tick.text
         attrValue,
+        color: attrValue,
         scaleValue
       });
       if (scaleValue === 0) {
@@ -548,6 +625,7 @@ class LegendController {
       items.push({
         value: scale.min,
         attrValue: attr.mapping(0).join(''),
+        color: attr.mapping(0).join(''),
         scaleValue: 0
       });
     }
@@ -555,6 +633,7 @@ class LegendController {
       items.push({
         value: scale.max,
         attrValue: attr.mapping(1).join(''),
+        color: attr.mapping(1).join(''),
         scaleValue: 1
       });
     }
@@ -562,15 +641,17 @@ class LegendController {
     const options = self.options;
 
     const posArray = position.split('-');
-    let defaultCfg = Global.legend[posArray[0]];
+    let defaultCfg = viewTheme.legend[posArray[0]];
     if ((options && options.slidable === false) || (options[field] && options[field].slidable === false)) {
-      defaultCfg = Util.mix({}, defaultCfg, Global.legend.gradient);
+      defaultCfg = Util.mix({}, defaultCfg, viewTheme.legend.gradient);
     }
 
     const legendCfg = Util.deepMix({}, defaultCfg, options[field] || options, {
       items,
       attr,
-      numberFormatter: scale.formatter
+      formatter: scale.formatter,
+      container,
+      position: [ 0, 0 ]
     });
     if (legendCfg.title) {
       Util.deepMix(legendCfg, {
@@ -581,9 +662,12 @@ class LegendController {
     }
 
     if (attr.type === 'color') {
-      legend = container.addGroup(Legend.Color, legendCfg);
+      legend = new Legend.Color(legendCfg);
     } else if (attr.type === 'size') {
-      legend = container.addGroup(Legend.Size, legendCfg);
+      if (options && options.sizeType === 'circle') legend = new Legend.CircleSize(legendCfg);
+      else legend = new Legend.Size(legendCfg);
+    } else {
+      return;
     }
     self._bindFilterEvent(legend, scale);
     legends[position].push(legend);
@@ -622,6 +706,7 @@ class LegendController {
     const legendOptions = self.options;
     const field = scale.field;
     const fieldOption = legendOptions[field];
+    const viewTheme = self.viewTheme;
 
     if (fieldOption === false) { // 如果不显示此图例
       return null;
@@ -630,19 +715,21 @@ class LegendController {
     if (fieldOption && fieldOption.custom) {
       self.addCustomLegend(field);
     } else {
-      let position = legendOptions.position || Global.defaultLegendPosition;
+      let position = legendOptions.position || viewTheme.defaultLegendPosition;
       position = self._adjustPosition(position, self._isTailLegend(legendOptions, geom));
       if (fieldOption && fieldOption.position) { // 如果对某个图例单独设置 position，则对 position 重新赋值
-        position = fieldOption.position;
+        position = self._adjustPosition(fieldOption.position, self._isTailLegend(fieldOption, geom));
       }
-
       let legend;
       if (scale.isLinear) {
         legend = self._addContinuousLegend(scale, attr, position);
       } else {
-        legend = self._addCategroyLegend(scale, attr, geom, filterVals, position);
+        legend = self._addCategoryLegend(scale, attr, geom, filterVals, position);
       }
-      self._bindHoverEvent(legend, field);
+      if (legend) {
+        self._bindHoverEvent(legend, field);
+        legendOptions.reactive && self._bindChartMove(scale);
+      }
     }
   }
 
@@ -654,6 +741,7 @@ class LegendController {
   addCustomLegend(field) {
     const self = this;
     const chart = self.chart;
+    const viewTheme = self.viewTheme;
     const container = self.container;
     let legendOptions = self.options;
 
@@ -661,7 +749,7 @@ class LegendController {
       legendOptions = legendOptions[field];
     }
 
-    let position = legendOptions.position || Global.defaultLegendPosition;
+    let position = legendOptions.position || viewTheme.defaultLegendPosition;
     position = self._adjustPosition(position);
     const legends = self.legends;
     legends[position] = legends[position] || [];
@@ -691,12 +779,34 @@ class LegendController {
     const posArray = position.split('-');
     const maxLength = (posArray[0] === 'right' || posArray[0] === 'left') ? plotRange.bl.y - plotRange.tr.y : canvas.get('width');
 
-    const legendCfg = Util.deepMix({}, Global.legend[posArray[0]], legendOptions, {
+    const legendCfg = Util.deepMix({}, viewTheme.legend[posArray[0]], legendOptions, {
       maxLength,
-      items
+      items,
+      container,
+      position: [ 0, 0 ]
     });
-
-    const legend = container.addGroup(Legend.Category, legendCfg);
+    let legend;
+    if (legendOptions.useHtml) {
+      let htmlContainer = legendOptions.container;
+      if (/^\#/.test(container)) { // 如果传入 dom 节点的 id
+        const id = htmlContainer.replace('#', '');
+        htmlContainer = document.getElementById(id);
+      } else if (!htmlContainer) {
+        htmlContainer = container.get('canvas').get('el').parentNode;
+      }
+      legendCfg.container = htmlContainer;
+      if (legendCfg.legendStyle === undefined) legendCfg.legendStyle = {};
+      if (!legendCfg.legendStyle.CONTAINER_CLASS) {
+        legendCfg.legendStyle.CONTAINER_CLASS = {
+          height: (posArray[0] === 'right' || posArray[0] === 'left') ? maxLength + 'px' : 'auto',
+          width: !(posArray[0] === 'right' || posArray[0] === 'left') ? maxLength + 'px' : 'auto',
+          position: 'absolute',
+          overflow: 'auto'
+        };
+      }
+      if (legendOptions.flipPage) legend = new Legend.CatPageHtml(legendCfg);
+      else legend = new Legend.CatHtml(legendCfg);
+    } else legend = new Legend.Category(legendCfg);
     legends[position].push(legend);
 
     legend.on('itemclick', ev => {

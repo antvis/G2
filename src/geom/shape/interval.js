@@ -8,8 +8,11 @@
 const Util = require('../../util');
 const Shape = require('./shape');
 const PathUtil = require('../util/path');
-const GPathUtil = Util.PathUtil;
+const ShapeUtil = require('../util/shape');
 const Global = require('../../global');
+const G = require('../../renderer');
+
+const GPathUtil = Util.PathUtil;
 
 // 获取柱状图的几个点
 function getRectPoints(cfg, isPyramid) {
@@ -152,20 +155,18 @@ function getTickPath(points) {
 
 function getFillAttrs(cfg) {
   const defaultAttrs = Global.shape.interval;
-  const attrs = Util.mix({}, defaultAttrs, {
-    fill: cfg.color,
-    stroke: cfg.color,
-    fillOpacity: cfg.opacity
-  }, cfg.style);
+  const attrs = Util.mix({}, defaultAttrs, cfg.style);
+  ShapeUtil.addFillAttrs(attrs, cfg);
+  if (cfg.color) {
+    attrs.stroke = attrs.stroke || cfg.color;
+  }
   return attrs;
 }
 
 function getLineAttrs(cfg) {
   const defaultAttrs = Global.shape.hollowInterval;
-  const attrs = Util.mix({}, defaultAttrs, {
-    stroke: cfg.color,
-    strokeOpacity: cfg.opacity
-  }, cfg.style);
+  const attrs = Util.mix({}, defaultAttrs, cfg.style);
+  ShapeUtil.addStrokeAttrs(attrs, cfg);
   return attrs;
 }
 
@@ -360,6 +361,10 @@ Shape.registerShape('interval', 'tick', {
   },
   draw(cfg, container) {
     const attrs = getLineAttrs(cfg);
+    // @2018-12-25 by blue.lb 经过测试发现size代表的是宽度，而style中的lineWidth才是设置线宽，放在interval暂时先特殊处理
+    if (!attrs.lineWidth) {
+      attrs.lineWidth = 2;
+    }
     let path = getTickPath(cfg.points);
     path = this.parsePath(path);
     return container.addShape('path', {
@@ -585,7 +590,7 @@ function addWaterWave(x, y, level, waveCount, colors, group, clip, radius) {
       }
     });
     // FIXME wave animation error in svg
-    if (Global.renderer2d === 'canvas') {
+    if (Global.renderer === 'canvas') {
       wave.animate({
         transform: [
           [ 't', width / 2, 0 ]
@@ -614,7 +619,7 @@ Shape.registerShape('interval', 'liquid-fill-gauge', {
     const xWidth = cp.x - minP.x;
     const radius = Math.min(xWidth, minP.y);
     const attrs = getFillAttrs(cfg);
-    const clipCircle = container.addShape('circle', {
+    const clipCircle = new G.Circle({
       attrs: {
         x: cp.x,
         y: cp.y,

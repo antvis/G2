@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="geometry" content="area">
+  <link rel="stylesheet" href="./assets/common.css">
+  <title>Guide.RegionFilter</title>
+</head>
+
+<body>
+  <div id="canvas"></div>
+  <script src="./assets/jquery-3.2.1.min.js"></script>
+  <script src="../build/g2.js"></script>
+  <script>
+  let chart;
+  $.getJSON('./data/tempChange.json', function(data) {
+    chart = new G2.Chart({
+      container: 'canvas',
+      forceFit: true,
+      height: window.innerHeight
+    });
+    chart.source(data);
+    chart.area()
+      .position('year*change')
+      .color('white')
+      .shape('smooth');
+    chart.line()
+      .position('year*change')
+      .color('white')
+      .shape('smooth');
+    chart.guide().regionFilter({
+      top: true,
+      start: [ 'min', 0 ],
+      end: [ 'max', 'min' ],
+      color: '#18a1cd'
+    });
+    chart.guide().regionFilter({
+      top: true,
+      start: [ 'min', 'max' ],
+      end: [ 'max', 0 ],
+      color: '#FF4D4F'
+    });
+    chart.render();
+  });
+  </script>
+</body>
+
+</html>

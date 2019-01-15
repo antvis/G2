@@ -31,6 +31,12 @@ declare namespace G2 {
     showSinglePoint: boolean;
     connectNulls: boolean;
     colors: string[]; // 更改默认的颜色 --不推荐
+    colors_16: string[];
+    colors_24: string[];
+    colors_pie: string[];
+    colors_pie_16: string[];
+    fontFamily: string;
+    renderer: 'canvas' | 'svg';
   }
 
   /**
@@ -106,7 +112,7 @@ declare namespace G2 {
   };
 
   /**
-   * 图标接收的参数
+   * 图表接收的参数
    */
   interface ChartProps {
     container: string | HTMLDivElement;
@@ -114,13 +120,14 @@ declare namespace G2 {
     height: number;
     padding?:
       | {
-          top?: number;
-          right?: number;
-          bottom?: number;
-          left?: number;
+          top?: number | string;
+          right?: number | string;
+          bottom?: number | string;
+          left?: number | string;
         }
       | number
-      | [number, number, number, number]
+      | string
+      | [number | string, number | string, number | string, number | string]
       | [string, string];
     background?: Styles.background;
     plotBackground?: Styles.background;
@@ -128,6 +135,7 @@ declare namespace G2 {
     animate?: boolean;
     pixelRatio?: number;
     data?: Object | any;
+    theme?: Object | string; // 主题
   }
 
   interface Coordinate {
@@ -161,39 +169,39 @@ declare namespace G2 {
     adjust(adjs: any[]): this;
     label(field: string): this;
     label(exe: string, func: Function): this;
-    label(exe: string,opt: {
+    label(exe: string, opt: {
       offset?: number;
       textStyle?: Styles.text;
+      [key: string]: any;
     }): this;
     tooltip(open: boolean): this;
     tooltip(field: string): this;
     tooltip(exe: string, func: Function): this;
     style(style: any): this;
-    style(exe: string, func: Function): this;
+    style(exe: string, style: any): this;
     select(open: boolean): this;
     select(opt: {
-      mode: 'single' | 'multiple', // 选中模式，单选、多选
-      style: {}, // 选中后 shape 的样式
-      cancelable: true | false, // 选中之后是否允许取消选中，默认允许取消选中
-      animate: true | false // 选中是否执行动画，默认执行动画
+      mode: 'single' | 'multiple'; // 选中模式，单选、多选
+      style: {}; // 选中后 shape 的样式
+      cancelable: true | false; // 选中之后是否允许取消选中，默认允许取消选中
+      animate: true | false; // 选中是否执行动画，默认执行动画
     }): this;
     select(open: boolean, opt: {
-      mode: 'single' | 'multiple', // 选中模式，单选、多选
-      style: {}, // 选中后 shape 的样式
-      cancelable: true | false, // 选中之后是否允许取消选中，默认允许取消选中
-      animate: true | false // 选中是否执行动画，默认执行动画
+      mode: 'single' | 'multiple'; // 选中模式，单选、多选
+      style: {}; // 选中后 shape 的样式
+      cancelable: true | false; // 选中之后是否允许取消选中，默认允许取消选中
+      animate: true | false; // 选中是否执行动画，默认执行动画
     }): this;
     active(open: boolean): Geom;
     animate(opt: any): Geom;
   }
-
 
   /**
    * 坐标轴标签
    */
   interface AxisLabel {
     // 数值，设置坐标轴文本 label 距离坐标轴线的距离
-    offset?: number;
+    offset?: number | Array<number>;
     // 设置文本的显示样式，还可以是个回调函数，
     // 回调函数的参数为该坐标轴对应字段的数值
     textStyle?: ((
@@ -257,6 +265,7 @@ declare namespace G2 {
     textStyle?: Styles.text;
     clickable?: boolean;
     hoverable?: boolean;
+    defaultClickHandlerEnabled?:  boolean;
     selectedMode?: 'single' | 'multiple';
     onHover?: (e: MouseEvent) => void;
     onClick?: (e: MouseEvent) => void;
@@ -427,8 +436,6 @@ declare namespace G2 {
     hideLastLine?: boolean;
   };
 
-
-
   class BashView {
     source(data: any): this;
     source(data: any, scaleConfig: any): this;
@@ -492,8 +499,7 @@ declare namespace G2 {
     legend(option: boolean): this;
     legend(field: string, option: boolean): this;
     legend(field: string, legendConfig: LegendConfig): this;
-    tooltip(tooltipConfig: TooltipConfig): this;
-    tooltip(tooltipConfig: boolean): this;
+    tooltip(tooltipConfig: TooltipConfig | boolean): this;
     view: (
       option?: {
         start?: { x: number; y: number };
@@ -517,7 +523,7 @@ declare namespace G2 {
     facet(
       type: 'rect' | 'list' | 'tree' | 'mirror' | 'matrix',
       option: {
-        fileds?: Array<String>;
+        fields?: Array<String>;
         showTitle?: boolean; // 显示标题
         autoSetAxis?: boolean; // 自动设置坐标轴的文本，避免重复和遮挡
         padding?: number; // 每个 view 之间的间距

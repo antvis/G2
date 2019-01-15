@@ -2,9 +2,8 @@
  * @fileOverview 所有 Geometry 的基类
  * @author dxq613@gmail.com
  */
-
-const Attr = require('@antv/attr/src');
-const Adjust = require('@antv/adjust/src');
+const Attr = require('@antv/attr/lib');
+const Adjust = require('@antv/adjust/lib');
 const Base = require('../base');
 const Util = require('../util');
 const Global = require('../global');
@@ -13,18 +12,10 @@ const Shape = require('./shape/shape');
 const TooltipMixin = require('./mixin/tooltip');
 const ActiveMixin = require('./mixin/active');
 const SelectMixin = require('./mixin/select');
+const parseFields = require('./util/parse-fields');
+
 const GROUP_ATTRS = [ 'color', 'shape', 'size' ];
 const FIELD_ORIGIN = '_origin';
-
-function parseFields(field) {
-  if (Util.isArray(field)) {
-    return field;
-  }
-  if (Util.isString(field)) {
-    return field.split('*');
-  }
-  return [ field ];
-}
 
 // 转换成对象的数组 [{type: 'adjust'}]
 function parseAdjusts(adjusts) {
@@ -175,6 +166,7 @@ class GeomBase extends Base {
 
   constructor(cfg) {
     super(cfg);
+    this.viewTheme = this.get('viewTheme');
     Util.assign(this, TooltipMixin, ActiveMixin, SelectMixin);
     if (this.get('container')) {
       this._initContainer();
@@ -241,7 +233,8 @@ class GeomBase extends Base {
    * @return {Geom} geom 当前几何标记
    */
   color(field, values) {
-    this._createAttrOption('color', field, values, Global.colors);
+    const viewTheme = this.viewTheme || Global;
+    this._createAttrOption('color', field, values, viewTheme.colors);
     return this;
   }
 
@@ -253,7 +246,8 @@ class GeomBase extends Base {
    * @return {Geom} geom 当前几何标记
    */
   size(field, values) {
-    this._createAttrOption('size', field, values, Global.sizes);
+    const viewTheme = this.viewTheme || Global;
+    this._createAttrOption('size', field, values, viewTheme.sizes);
     return this;
   }
 
@@ -265,8 +259,9 @@ class GeomBase extends Base {
    * @return {Geom} geom 当前几何标记
    */
   shape(field, values) {
+    const viewTheme = this.viewTheme || Global;
     const type = this.get('type');
-    const shapes = Global.shapes[type] || [];
+    const shapes = viewTheme.shapes[type] || [];
     this._createAttrOption('shape', field, values, shapes);
     return this;
   }
@@ -279,7 +274,8 @@ class GeomBase extends Base {
    * @return {Geom} geom 当前几何标记
    */
   opacity(field, values) {
-    this._createAttrOption('opacity', field, values, Global.opacities);
+    const viewTheme = this.viewTheme || Global;
+    this._createAttrOption('opacity', field, values, viewTheme.opacities);
     return this;
   }
 
@@ -320,13 +316,11 @@ class GeomBase extends Base {
       if (!cfg) {
         cfg = {};
       }
-      cfg.content = callback;
+      labelCfg.callback = callback;
     } else if (Util.isObject(callback)) { // 如果没有设置回调函数
       cfg = callback;
     }
-
-    labelCfg.cfg = cfg;
-
+    labelCfg.globalCfg = cfg;
     return this;
   }
 
@@ -475,9 +469,10 @@ class GeomBase extends Base {
   // step 1: init attrs
   _initAttrs() {
     const self = this;
-    const attrs = this.get('attrs');
-    const attrOptions = this.get('attrOptions');
+    const attrs = self.get('attrs');
+    const attrOptions = self.get('attrOptions');
     const coord = self.get('coord');
+    const viewTheme = self.viewTheme || Global;
     let isPie = false;
 
     for (const type in attrOptions) {
@@ -499,15 +494,15 @@ class GeomBase extends Base {
           const scale = self._createScale(field);
           if (type === 'color' && Util.isNil(option.values)) { // 设置 color 的默认色值
             if (scale.values.length <= 8) {
-              option.values = isPie ? Global.colors_pie : Global.colors;
+              option.values = isPie ? viewTheme.colors_pie : viewTheme.colors;
             } else if (scale.values.length <= 16) {
-              option.values = isPie ? Global.colors_pie_16 : Global.colors_16;
+              option.values = isPie ? viewTheme.colors_pie_16 : viewTheme.colors_16;
             } else {
-              option.values = Global.colors_24;
+              option.values = viewTheme.colors_24;
             }
 
             if (Util.isNil(option.values)) {
-              option.values = Global.colors; // 防止主题没有声明诸如 colors_pie 的属性
+              option.values = viewTheme.colors; // 防止主题没有声明诸如 colors_pie 的属性
             }
           }
           scales.push(scale);
@@ -632,6 +627,7 @@ class GeomBase extends Base {
   _adjust(dataArray) {
     const self = this;
     const adjusts = self.get('adjusts');
+    const viewTheme = this.viewTheme || Global;
 
     const yScale = self.getYScale();
     const xScale = self.getXScale();
@@ -653,7 +649,7 @@ class GeomBase extends Base {
           throw new Error('dodge is not support linear attribute, please use category attribute!');
         }
         adjustCfg.adjustNames = adjustNames;
-        adjustCfg.dodgeRatio = Global.widthRatio.column;
+        adjustCfg.dodgeRatio = viewTheme.widthRatio.column;
         /* if (self.isInCircle()) {
           adjustCfg.dodgeRatio = 1;
           adjustCfg.marginRatio = 0;
@@ -700,6 +696,7 @@ class GeomBase extends Base {
     const mappedArray = [];
     const shapeFactory = self.getShapeFactory();
     shapeFactory.setCoord(self.get('coord'));
+    self.set('shapeFactory', shapeFactory);
     const shapeContainer = self.get('shapeContainer');
     self._beforeMapping(dataArray);
     for (let i = 0; i < dataArray.length; i++) {
@@ -710,7 +707,7 @@ class GeomBase extends Base {
       self.draw(data, shapeContainer, shapeFactory, index);
     }
     if (self.get('labelCfg')) {
-      self._addLabels(Util.union.apply(null, mappedArray));
+      self._addLabels(Util.union.apply(null, mappedArray), shapeContainer.get('children'));
     }
 
     if (!self.get('sortable')) {
@@ -759,9 +756,10 @@ class GeomBase extends Base {
   }
 
   // step 3.2 add labels
-  _addLabels(points) {
+  _addLabels(points, shapes) {
     const self = this;
     const type = self.get('type');
+    const viewTheme = self.get('viewTheme') || Global;
     const coord = self.get('coord');
     const C = Labels.getLabelsClass(coord.type, type);
     const container = self.get('container');
@@ -774,9 +772,11 @@ class GeomBase extends Base {
       coord,
       geom: self,
       geomType: type,
+      viewTheme,
       visible: self.get('visible')
     });
-    labelContainer.showLabels(points);
+
+    labelContainer.showLabels(points, shapes);
     self.set('labelContainer', labelContainer);
   }
 
@@ -841,10 +841,13 @@ class GeomBase extends Base {
    */
   getYMinValue() {
     const yScale = this.getYScale();
-    const min = yScale.min;
+    const { min, max } = yScale;
     let value;
+
     if (min >= 0) {
       value = min;
+    } else if (max <= 0) { // 当值全位于负区间时，需要保证 ymin 在区域内，不可为 0
+      value = max;
     } else {
       value = 0;
     }
@@ -1030,11 +1033,11 @@ class GeomBase extends Base {
     if (styleOptions && styleOptions.style) {
       cfg.style = self.getCallbackCfg(styleOptions.fields, styleOptions.style, obj[FIELD_ORIGIN]);
     }
-    if (this.get('generatePoints')) {
+    if (self.get('generatePoints')) {
       cfg.points = obj.points;
       cfg.nextPoints = obj.nextPoints;
     }
-    if (this.get('animate')) { // _id 字段仅用于动画
+    if (self.get('animate')) { // _id 字段仅用于动画
       cfg._id = self._getShapeId(obj[FIELD_ORIGIN]);
     }
     return cfg;
@@ -1051,11 +1054,31 @@ class GeomBase extends Base {
     }
   }
 
+  _applyViewThemeShapeStyle(cfg, shape, shapeFactory) {
+    // applying view theme
+    const self = this;
+    const viewTheme = self.viewTheme || Global;
+    let shapeName = shapeFactory.name;
+    if (shape) {
+      if (shape && (shape.indexOf('hollow') > -1 || shape.indexOf('liquid') > -1)) {
+        shapeName = `hollow${Util.upperFirst(shapeName)}`;
+      }
+    } else if (shapeFactory.defaultShapeType.indexOf('hollow') > -1) {
+      shapeName = `hollow${Util.upperFirst(shapeName)}`;
+    }
+    const defaultStyle = viewTheme.shape[shapeName] || {};
+    cfg.style = Util.mix({}, defaultStyle, cfg.style);
+  }
+
   drawPoint(obj, container, shapeFactory, index) {
+    const self = this;
     const shape = obj.shape;
-    const cfg = this.getDrawCfg(obj);
+    const cfg = self.getDrawCfg(obj);
+
+    self._applyViewThemeShapeStyle(cfg, shape, shapeFactory);
+
     const geomShape = shapeFactory.drawShape(shape, cfg, container);
-    this.appendShapeInfo(geomShape, index);
+    self.appendShapeInfo(geomShape, index);
   }
 
   /**

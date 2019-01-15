@@ -187,7 +187,7 @@ const TooltipMixin = {
     const yField = yScale.field;
     let rst = null;
 
-    if (Util.indexOf([ 'heatmap' ], type) > -1) {
+    if (Util.indexOf([ 'heatmap', 'point' ], type) > -1) {
       const coord = self.get('coord');
       const invertPoint = coord.invert(point);
       const xValue = xScale.invert(invertPoint.x);
@@ -330,6 +330,7 @@ const TooltipMixin = {
   getTipValue(origin, valueScale) {
     let value;
     const field = valueScale.field;
+    const key = origin.key;
     value = origin[field];
 
     if (Util.isArray(value)) {
@@ -339,7 +340,7 @@ const TooltipMixin = {
       });
       value = tmp.join('-');
     } else {
-      value = valueScale.getText(value);
+      value = valueScale.getText(value, key);
     }
     return value;
   },

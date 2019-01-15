@@ -6,6 +6,7 @@
 
 const Util = require('../../util');
 const Shape = require('./shape');
+const ShapeUtil = require('../util/shape');
 const Global = require('../../global');
 
 function _parseValue(value) {
@@ -38,21 +39,19 @@ function addPoints(from, to) {
 
 function getAttrs(cfg) {
   const defaultAttrs = Global.shape.schema;
-  const attrs = Util.mix({}, defaultAttrs, {
-    stroke: cfg.color,
-    strokeOpacity: cfg.opacity
-  }, cfg.style);
-  return attrs;
+  const lineAttrs = Util.mix({}, defaultAttrs, cfg.style);
+  ShapeUtil.addStrokeAttrs(lineAttrs, cfg);
+  return lineAttrs;
 }
 
 function getFillAttrs(cfg) {
   const defaultAttrs = Global.shape.schema;
-  const attrs = Util.mix({}, defaultAttrs, {
-    fill: cfg.color,
-    stroke: cfg.color,
-    fillOpacity: cfg.opacity
-  }, cfg.style);
-  return attrs;
+  const lineAttrs = Util.mix({}, defaultAttrs, cfg.style);
+  ShapeUtil.addFillAttrs(lineAttrs, cfg);
+  if (cfg.color) {
+    lineAttrs.stroke = lineAttrs.stroke || cfg.color;
+  }
+  return lineAttrs;
 }
 
 function getBoxPoints(x, y, width) {

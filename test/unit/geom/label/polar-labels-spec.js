@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
-const { Canvas } = require('../../../../src/renderer2d');
+const { Canvas } = require('../../../../src/renderer');
 const PolarLabels = require('../../../../src/geom/label/polar-labels');
-const Coord = require('../../../../src/coord/');
+const Coord = require('@antv/coord/lib/');
 const Scale = require('@antv/scale');
 
 const div = document.createElement('div');
@@ -237,7 +237,7 @@ describe('polar labels', function() {
       gLabels = canvas.addGroup(PolarLabels, {
         coord,
         labelCfg: {
-          cfg: {
+          globalCfg: {
             offset: -10
           },
           scales: [ labelScale1 ]

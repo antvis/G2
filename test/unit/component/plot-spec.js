@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const PlotBack = require('../../../src/component/plot');
-const { Canvas } = require('../../../src/renderer2d');
+const { Canvas } = require('../../../src/renderer');
 
 const div = document.createElement('div');
 div.id = 'c1';

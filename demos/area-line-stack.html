@@ -57,18 +57,22 @@
         tickInterval: 25
       }
     });
+    chart.axis(false);
+    chart.legend({
+      reactive: true,
+      highlight: true
+    });
     chart.areaStack()
       .position('year*value')
       .color('country');
-
     chart.line()
       .position('year*value')
       .color('country')
       .adjust('stack');
-
     chart.point()
       .position('year*value')
       .color('country')
+      .style({ lineWidth: 2 })
       .adjust('stack');
     chart.render();
   </script>

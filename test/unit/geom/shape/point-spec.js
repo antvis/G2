@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
-const { Canvas } = require('../../../../src/renderer2d');
+const { Canvas } = require('../../../../src/renderer');
 const Shape = require('../../../../src/geom/shape/shape');
-const Coord = require('../../../../src/coord/');
+const Coord = require('@antv/coord/lib/');
 const Global = require('../../../../src/global');
 require('../../../../src/geom/shape/point');
 

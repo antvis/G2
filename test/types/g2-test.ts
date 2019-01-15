@@ -288,7 +288,7 @@ chart.guide().arc({
 
 // 用于生成分面
 chart.facet('rect', {
-  fileds: [ 'field1', 'field2'],
+  fields: [ 'field1', 'field2'],
   showTitle: true, // 显示标题
   autoSetAxis: true, // 自动设置坐标轴的文本，避免重复和遮挡
   padding: 10, // 每个 view 之间的间距

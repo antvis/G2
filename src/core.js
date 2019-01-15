@@ -1,5 +1,5 @@
-const Scale = require('@antv/scale/src');
-const G = require('./renderer2d');
+const Scale = require('@antv/scale/lib');
+const G = require('./renderer');
 const Animate = require('./animate/animate');
 const Chart = require('./chart/chart');
 const Global = require('./global');
@@ -18,15 +18,18 @@ const G2 = {
   Util,
   // render engine
   G,
-  DomUtil: G.DomUtil,
-  MatrixUtil: G.MatrixUtil,
-  PathUtil: G.PathUtil
+  DomUtil: Util.DomUtil,
+  MatrixUtil: Util.MatrixUtil,
+  PathUtil: Util.PathUtil
 };
 
-G2.track = function(enable) {
-  Global.trackable = enable;
+// G2.track = function(enable) {
+//   Global.trackable = enable;
+// };
+// require('./track');
+G2.track = () => {
+  console.warn('G2 tracks nothing ;-)');
 };
-require('./track');
 
 // 保证两个版本共存
 if (typeof window !== 'undefined') {

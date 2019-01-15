@@ -21,9 +21,9 @@ function getOriginAttrs(selectedCfg, shape) {
     if (k === 'transform') {
       k = 'matrix';
     }
-    let originValue = shape.__attrs[k];
+    let originValue = shape.attr(k);
     if (Util.isArray(originValue)) {
-      originValue = Util.cloneDeep(originValue);// 缓存原来的属性，由于 __attrs.matrix 是数组，所以此处需要深度复制
+      originValue = Util.cloneDeep(originValue);// 缓存原来的属性，由于 .attr('matrix') 是数组，所以此处需要深度复制
     }
     originAttrs[k] = originValue;
   });

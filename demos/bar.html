@@ -48,6 +48,13 @@
         .position('release*count')
         .color('#e50000');
 
+      chart.guide().regionFilter({
+        start: [ 'min', 60 ],
+        end: [ 'max', 160 ],
+        color: '#ff0000',
+        apply: [ 'interval' ]
+      });
+
       chart.render();
     });
   </script>

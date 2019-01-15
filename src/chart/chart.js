@@ -5,12 +5,16 @@
 
 const Util = require('../util');
 const View = require('./view');
-const G = require('../renderer2d');
+const G = require('../renderer');
 const Canvas = G.Canvas;
 const DomUtil = Util.DomUtil;
+const Global = require('../global');
 const Plot = require('../component/plot');
 const Controller = require('./controller/index');
-const Global = require('../global');
+const mergeBBox = require('./util/merge-bbox');
+const bboxOfBackPlot = require('./util/bbox-of-back-plot');
+const plotRange2BBox = require('./util/plot-range2bbox');
+
 const AUTO_STR = 'auto';
 
 function _isScaleExist(scales, compareScale) {
@@ -25,15 +29,6 @@ function _isScaleExist(scales, compareScale) {
   });
 
   return flag;
-}
-
-function mergeBBox(box1, box2) {
-  return {
-    minX: Math.min(box1.minX, box2.minX),
-    minY: Math.min(box1.minY, box2.minY),
-    maxX: Math.max(box1.maxX, box2.maxX),
-    maxY: Math.max(box1.maxY, box2.maxY)
-  };
 }
 
 function isEqualArray(arr1, arr2) {
@@ -61,34 +56,41 @@ class Chart extends View {
       width: 500,
       height: 500,
       pixelRatio: null,
-      padding: Global.plotCfg.padding,
       backPlot: null,
       frontPlot: null,
       plotBackground: null,
+      padding: Global.plotCfg.padding,
       background: null,
       autoPaddingAppend: 5,
+      limitInPlot: false,
+      renderer: Global.renderer,
+      // renderer: 'svg',
       views: []
     });
   }
 
   init() {
-    this._initCanvas();
-    this._initPlot();
-    this._initEvents();
+    const self = this;
+    const viewTheme = self.get('viewTheme');
+    self._initCanvas();
+    self._initPlot();
+    self._initEvents();
     super.init();
 
     const tooltipController = new Controller.Tooltip({
-      chart: this,
+      chart: self,
+      viewTheme,
       options: {}
     });
-    this.set('tooltipController', tooltipController);
+    self.set('tooltipController', tooltipController);
 
     const legendController = new Controller.Legend({
-      chart: this
+      chart: self,
+      viewTheme
     });
-    this.set('legendController', legendController);
-    this.set('_id', 'chart'); // 防止同用户设定的 id 同名
-    this.emit('afterinit'); // 初始化完毕
+    self.set('legendController', legendController);
+    self.set('_id', 'chart'); // 防止同用户设定的 id 同名
+    self.emit('afterinit'); // 初始化完毕
   }
 
   _isAutoPadding() {
@@ -105,8 +107,9 @@ class Chart extends View {
     const frontPlot = this.get('frontPlot');
     const frontBBox = frontPlot.getBBox();
     // 坐标轴在最后面的一层
+
     const backPlot = this.get('backPlot');
-    const backBBox = backPlot.getBBox();
+    const backBBox = bboxOfBackPlot(backPlot, plotRange2BBox(this.get('plotRange')));
 
     const box = mergeBBox(frontBBox, backBBox);
     const outter = [
@@ -151,44 +154,51 @@ class Chart extends View {
       width = DomUtil.getWidth(container, width);
       this.set('width', width);
     }
+    const renderer = this.get('renderer');
     const canvas = new Canvas({
       containerDOM: wrapperEl,
       width,
       height,
-      pixelRatio: this.get('pixelRatio')
+      // NOTICE: 有问题找青湳
+      pixelRatio: renderer === 'svg' ? 1 : this.get('pixelRatio'),
+      renderer
     });
     this.set('canvas', canvas);
   }
 
   // 初始化绘图区间
   _initPlot() {
-    this._initPlotBack(); // 最底层的是背景相关的 group
-    const canvas = this.get('canvas');
+    const self = this;
+    self._initPlotBack(); // 最底层的是背景相关的 group
+    const canvas = self.get('canvas');
     const backPlot = canvas.addGroup({
       zIndex: 1
     }); // 图表最后面的容器
     const plotContainer = canvas.addGroup({
-      zIndex: 2
+      zIndex: 0
     }); // 图表所在的容器
     const frontPlot = canvas.addGroup({
       zIndex: 3
     }); // 图表前面的容器
 
-    this.set('backPlot', backPlot);
-    this.set('middlePlot', plotContainer);
-    this.set('frontPlot', frontPlot);
+    self.set('backPlot', backPlot);
+    self.set('middlePlot', plotContainer);
+    self.set('frontPlot', frontPlot);
   }
 
   // 初始化背景
   _initPlotBack() {
-    const canvas = this.get('canvas');
+    const self = this;
+    const canvas = self.get('canvas');
+    const viewTheme = self.get('viewTheme');
+
     const plot = canvas.addGroup(Plot, {
       padding: this.get('padding'),
-      plotBackground: Util.mix({}, Global.plotBackground, this.get('plotBackground')),
-      background: Util.mix({}, Global.background, this.get('background'))
+      plotBackground: Util.mix({}, viewTheme.plotBackground, self.get('plotBackground')),
+      background: Util.mix({}, viewTheme.background, self.get('background'))
     });
-    this.set('plot', plot);
-    this.set('plotRange', plot.get('plotRange'));
+    self.set('plot', plot);
+    self.set('plotRange', plot.get('plotRange'));
   }
 
   _initEvents() {
@@ -225,7 +235,7 @@ class Chart extends View {
             const scale = attr.getScale(type);
             if (scale.field && scale.type !== 'identity' && !_isScaleExist(scales, scale)) {
               scales.push(scale);
-              const filteredValues = view.getFilteredValues(scale.field);
+              const filteredValues = view.getFilteredOutValues(scale.field);
               legendController.addLegend(scale, attr, geom, filteredValues);
             }
           });
@@ -345,6 +355,7 @@ class Chart extends View {
    */
   view(cfg) {
     cfg = cfg || {};
+    cfg.theme = this.get('theme');
     cfg.parent = this;
     cfg.backPlot = this.get('backPlot');
     cfg.middlePlot = this.get('middlePlot');
@@ -492,20 +503,29 @@ class Chart extends View {
    * @override
    */
   render() {
+    const self = this;
     // 需要自动计算边框，则重新设置
-    if (!this.get('keepPadding') && this._isAutoPadding()) {
-      this.beforeRender(); // 初始化各个 view 和 绘制
-      this.drawComponents();
-      const autoPadding = this._getAutoPadding();
-      const plot = this.get('plot');
+    if (!self.get('keepPadding') && self._isAutoPadding()) {
+      self.beforeRender(); // 初始化各个 view 和 绘制
+      self.drawComponents();
+      const autoPadding = self._getAutoPadding();
+      const plot = self.get('plot');
       // 在计算出来的边框不一致的情况，重新改变边框
       if (!isEqualArray(plot.get('padding'), autoPadding)) {
         plot.set('padding', autoPadding);
         plot.repaint();
       }
     }
+    const middlePlot = self.get('middlePlot');
+    if (self.get('limitInPlot') && !middlePlot.attr('clip')) {
+      const clip = Util.getClipByRange(self.get('plotRange')); // TODO Polar coord
+      middlePlot.attr('clip', clip);
+      // clip.attr('fill', 'grey');
+      // clip.attr('opacity', 0.5);
+      // middlePlot.add(clip);
+    }
     super.render();
-    this._renderTooltips(); // 渲染 tooltip
+    self._renderTooltips(); // 渲染 tooltip
   }
 
   repaint() {
@@ -532,49 +552,68 @@ class Chart extends View {
    * @return {String} dataUrl 路径
    */
   toDataURL() {
-    const canvas = this.get('canvas');
+    const chart = this;
+    const canvas = chart.get('canvas');
+    const renderer = chart.get('renderer');
     const canvasDom = canvas.get('el');
-    const dataURL = canvasDom.toDataURL('image/png');
+    let dataURL = '';
+    if (renderer === 'svg') {
+      const clone = canvasDom.cloneNode(true);
+      const svgDocType = document.implementation.createDocumentType(
+        'svg', '-//W3C//DTD SVG 1.1//EN', 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'
+      );
+      const svgDoc = document.implementation.createDocument('http://www.w3.org/2000/svg', 'svg', svgDocType);
+      svgDoc.replaceChild(clone, svgDoc.documentElement);
+      const svgData = (new XMLSerializer()).serializeToString(svgDoc);
+      dataURL = 'data:image/svg+xml;charset=utf8,' + encodeURIComponent(svgData);
+    } else if (renderer === 'canvas') {
+      dataURL = canvasDom.toDataURL('image/png');
+    }
     return dataURL;
   }
 
   /**
    * 图表导出功能
-   * @param  {String} [name] 图片的名称，默认为 chart.png
-   * @return {String} 返回生成图片的 dataUrl 路径
+   * @param  {String} [name] 图片的名称，默认为 chart(.png|.svg)
    */
   downloadImage(name) {
-    const dataURL = this.toDataURL();
+    const chart = this;
     const link = document.createElement('a');
+    const renderer = chart.get('renderer');
+    const filename = (name || 'chart') + (renderer === 'svg' ? '.svg' : '.png');
+    const canvas = chart.get('canvas');
+    canvas.get('timeline').stopAllAnimations();
 
-    if (window.Blob && window.URL) {
-      const arr = dataURL.split(',');
-      const mime = arr[0].match(/:(.*?);/)[1];
-      const bstr = atob(arr[1]);
-      let n = bstr.length;
-      const u8arr = new Uint8Array(n);
-      while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
-      }
-      const blobObj = new Blob([ u8arr ], { type: mime });
-      if (window.navigator.msSaveBlob) {
-        window.navigator.msSaveBlob(blobObj, (name || 'chart') + '.png');
+    setTimeout(() => {
+      const dataURL = chart.toDataURL();
+      if (window.Blob && window.URL && renderer !== 'svg') {
+        const arr = dataURL.split(',');
+        const mime = arr[0].match(/:(.*?);/)[1];
+        const bstr = atob(arr[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        while (n--) {
+          u8arr[n] = bstr.charCodeAt(n);
+        }
+        const blobObj = new Blob([ u8arr ], { type: mime });
+        if (window.navigator.msSaveBlob) {
+          window.navigator.msSaveBlob(blobObj, filename);
+        } else {
+          link.addEventListener('click', function() {
+            link.download = filename;
+            link.href = window.URL.createObjectURL(blobObj);
+          });
+        }
       } else {
         link.addEventListener('click', function() {
-          link.download = (name || 'chart') + '.png';
-          link.href = window.URL.createObjectURL(blobObj);
+          link.download = filename;
+          link.href = dataURL;
         });
       }
-    } else {
-      link.addEventListener('click', function() {
-        link.download = (name || 'chart') + '.png';
-        link.href = dataURL.replace('image/png', 'image/octet-stream');
-      });
-    }
-    const e = document.createEvent('MouseEvents');
-    e.initEvent('click', false, false);
-    link.dispatchEvent(e);
-    return dataURL;
+      const e = document.createEvent('MouseEvents');
+      e.initEvent('click', false, false);
+      link.dispatchEvent(e);
+    }, 16);
   }
 
   /**

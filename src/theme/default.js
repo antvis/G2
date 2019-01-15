@@ -89,6 +89,7 @@ const TOOLTIP_TITLE_CLASS = 'g2-tooltip-title';
 const TOOLTIP_LIST_CLASS = 'g2-tooltip-list';
 const TOOLTIP_LIST_ITEM_CLASS = 'g2-tooltip-list-item';
 const TOOLTIP_MARKER_CLASS = 'g2-tooltip-marker';
+const TOOLTIP_VALUE_CLASS = 'g2-tooltip-value';
 
 // html 渲染的 legend 相关 dom 的 css 类型
 const LEGEND_CONTAINER_CLASS = 'g2-legend';
@@ -123,11 +124,11 @@ const Theme = {
       position: 'top',
       title: null,
       label: {
-        offset: 14,
+        offset: 16,
         textStyle: {
           fill: '#545454',
           fontSize: 12,
-          lineHeight: 20,
+          lineHeight: 16,
           textBaseline: 'middle',
           fontFamily: FONT_FAMILY
         },
@@ -140,19 +141,20 @@ const Theme = {
       tickLine: {
         lineWidth: 1,
         stroke: '#BFBFBF',
-        length: 4
+        length: 4,
+        alignWithLabel: true
       }
     },
     bottom: {
       position: 'bottom',
       title: null,
       label: {
-        offset: 22,
+        offset: 16,
         autoRotate: true,
         textStyle: {
           fill: '#545454',
           fontSize: 12,
-          lineHeight: 20,
+          lineHeight: 16,
           textBaseline: 'middle',
           fontFamily: FONT_FAMILY
         }
@@ -164,19 +166,20 @@ const Theme = {
       tickLine: {
         lineWidth: 1,
         stroke: '#BFBFBF',
-        length: 4
+        length: 4,
+        alignWithLabel: true
       }
     },
     left: {
       position: 'left',
       title: null,
       label: {
-        offset: 12,
+        offset: 8,
         autoRotate: true,
         textStyle: {
           fill: '#545454',
           fontSize: 12,
-          lineHeight: 20,
+          lineHeight: 16,
           textBaseline: 'middle',
           fontFamily: FONT_FAMILY
         }
@@ -197,12 +200,12 @@ const Theme = {
       position: 'right',
       title: null,
       label: {
-        offset: 12,
+        offset: 8,
         autoRotate: true,
         textStyle: {
           fill: '#545454',
           fontSize: 12,
-          lineHeight: 20,
+          lineHeight: 16,
           textBaseline: 'middle',
           fontFamily: FONT_FAMILY
         }
@@ -222,11 +225,11 @@ const Theme = {
       zIndex: 1,
       title: null,
       label: {
-        offset: 12,
+        offset: 8,
         textStyle: {
           fill: '#545454',
           fontSize: 12,
-          lineHeight: 20,
+          lineHeight: 16,
           fontFamily: FONT_FAMILY
         }
       },
@@ -237,7 +240,8 @@ const Theme = {
       tickLine: {
         lineWidth: 1,
         stroke: '#BFBFBF',
-        length: 4
+        length: 4,
+        alignWithLabel: true
       },
       grid: {
         lineStyle: {
@@ -256,7 +260,7 @@ const Theme = {
           fill: '#545454',
           fontSize: 12,
           textBaseline: 'middle',
-          lineHeight: 20,
+          lineHeight: 16,
           fontFamily: FONT_FAMILY
         }
       },
@@ -267,7 +271,8 @@ const Theme = {
       tickLine: {
         lineWidth: 1,
         stroke: '#BFBFBF',
-        length: 4
+        length: 4,
+        alignWithLabel: true
       },
       grid: {
         lineStyle: {
@@ -289,7 +294,8 @@ const Theme = {
       tickLine: {
         lineWidth: 1,
         length: 4,
-        stroke: '#BFBFBF'
+        stroke: '#BFBFBF',
+        alignWithLabel: true
       }
     }
   },
@@ -322,9 +328,6 @@ const Theme = {
   },
   // 在theta坐标系下的饼图文本内部的样式
   thetaLabels: {
-    labelLine: {
-      lineWidth: 1
-    },
     labelHeight: 14,
     offset: 30
     // 在theta坐标系下的饼图文本的样式
@@ -337,12 +340,17 @@ const Theme = {
       width: 16,
       height: 156,
       title: null,
+      legendStyle: {
+        LIST_CLASS: {
+          textAlign: 'left'
+        }
+      },
       textStyle: {
         fill: '#8C8C8C',
         fontSize: 12,
         textAlign: 'start',
         textBaseline: 'middle',
-        lineHeight: 20,
+        lineHeight: 0,
         fontFamily: FONT_FAMILY
       }, // 图例项文本的样式
       unCheckColor: '#bfbfbf'
@@ -366,7 +374,7 @@ const Theme = {
     },
     top: {
       position: 'top',
-      offset: 6,
+      offset: [ 0, 6 ],
       layout: 'horizontal',
       title: null,
       itemGap: 10,
@@ -384,7 +392,7 @@ const Theme = {
     },
     bottom: {
       position: 'bottom',
-      offset: 6,
+      offset: [ 0, 6 ],
       layout: 'horizontal',
       title: null,
       itemGap: 10,
@@ -450,22 +458,25 @@ const Theme = {
       },
       unCheckColor: '#bfbfbf'
     },
-    margin: [ 0, 20, 24, 5 ], // 图例跟四个边的坐标轴、绘图区域的间距
+    margin: [ 0, 5, 24, 5 ], // 图例跟四个边的坐标轴、绘图区域的间距
     legendMargin: 24 // 图例之间的间距
   },
   tooltip: {
+    useHtml: true,
     crosshairs: false,
     offset: 15,
     // css style for tooltip
     [`${TOOLTIP_CONTAINER_CLASS}`]: {
       position: 'absolute',
       visibility: 'hidden',
-      whiteSpace: 'nowrap',
+      // @2018-07-25 by blue.lb 这里去掉浮动，火狐上存在样式错位
+      // whiteSpace: 'nowrap',
       zIndex: 8,
       transition: 'visibility 0.2s cubic-bezier(0.23, 1, 0.32, 1), left 0.4s cubic-bezier(0.23, 1, 0.32, 1), top 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
-      backgroundColor: 'rgba(0, 0, 0, 0.65)',
-      borderRadius: '4px',
-      color: 'rgb(255, 255, 255)',
+      backgroundColor: 'rgba(255, 255, 255, 0.9)',
+      boxShadow: '0px 0px 10px #aeaeae',
+      borderRadius: '3px',
+      color: 'rgb(87, 87, 87)',
       fontSize: '12px',
       fontFamily: FONT_FAMILY,
       lineHeight: '20px',
@@ -483,13 +494,19 @@ const Theme = {
       marginBottom: '4px'
     },
     [`${TOOLTIP_MARKER_CLASS}`]: {
-      width: '7px',
-      height: '7px',
+      width: '5px',
+      height: '5px',
       borderRadius: '50%',
-      border: '1px solid #fff',
       display: 'inline-block',
       marginRight: '8px'
+    },
+
+    [`${TOOLTIP_VALUE_CLASS}`]: {
+      display: 'inline-block',
+      float: 'right',
+      marginLeft: '30px'
     }
+
   },
   tooltipMarker: {
     symbol: (x, y, r) => {
@@ -501,20 +518,22 @@ const Theme = {
       ];
     },
     stroke: '#fff',
-    shadowBlur: 8,
+    shadowBlur: 10,
     shadowOffsetX: 0,
     shadowOffSetY: 0,
+    shadowColor: 'rgba(0,0,0,0.09)',
+    lineWidth: 2,
     radius: 4
   }, // 提示信息在折线图、区域图上形成点的样式
   tooltipCrosshairsRect: {
     type: 'rect',
-    style: {
+    rectStyle: {
       fill: '#CCD6EC',
       opacity: 0.3
     }
   }, // tooltip 辅助背景框样式
   tooltipCrosshairsLine: {
-    style: {
+    lineStyle: {
       stroke: 'rgba(0, 0, 0, 0.25)',
       lineWidth: 1
     }
@@ -545,7 +564,7 @@ const Theme = {
     area: {
       lineWidth: 0,
       fill: DEFAULT_COLOR,
-      fillOpacity: 0.3
+      fillOpacity: 0.6
     },
     polygon: {
       lineWidth: 0,
@@ -583,29 +602,29 @@ const Theme = {
   guide: {
     line: {
       lineStyle: {
-        stroke: DEFAULT_COLOR,
-        lineDash: [ 0, 2, 2 ],
+        stroke: 'rgba(0, 0, 0, .65)',
+        lineDash: [ 2, 2 ],
         lineWidth: 1
       },
       text: {
-        position: 'end',
+        position: 'start',
         autoRotate: true,
         style: {
-          fill: '#545454',
+          fill: 'rgba(0, 0, 0, .45)',
           fontSize: 12,
-          textAlign: 'center',
-          fontFamily: FONT_FAMILY
+          textAlign: 'start',
+          fontFamily: FONT_FAMILY,
+          textBaseline: 'bottom'
         }
       }
     },
     text: {
       style: {
-        fill: '#545454',
+        fill: 'rgba(0,0,0,.5)',
         fontSize: 12,
         textBaseline: 'middle',
         textAlign: 'start',
         fontFamily: FONT_FAMILY
-
       }
     },
     region: {
@@ -618,6 +637,50 @@ const Theme = {
     html: {
       alignX: 'middle',
       alignY: 'middle'
+    },
+    dataRegion: {
+      style: {
+        region: {
+          lineWidth: 0,
+          fill: '#000000',
+          opacity: 0.04
+        },
+        text: {
+          textAlign: 'center',
+          textBaseline: 'bottom',
+          fontSize: 12,
+          fill: 'rgba(0, 0, 0, .65)'
+        }
+      }
+    },
+    dataMarker: {
+      top: true,
+      style: {
+        point: {
+          r: 3,
+          fill: '#FFFFFF',
+          stroke: '#1890FF',
+          lineWidth: 2
+        },
+        line: {
+          stroke: '#A3B1BF',
+          lineWidth: 1
+        },
+        text: {
+          fill: 'rgba(0, 0, 0, .65)',
+          opacity: 1,
+          fontSize: 12,
+          textAlign: 'start'
+        }
+      },
+      display: {
+        point: true,
+        line: true,
+        text: true
+      },
+      lineLength: 20,
+      direction: 'upward',
+      autoAdjust: true
     }
   },
   pixelRatio: null

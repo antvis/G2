@@ -8,6 +8,7 @@ const Geom = require('../geom/base');
 const Util = require('../util');
 const Controller = require('./controller/index');
 const Global = require('../global');
+const Theme = require('../theme/index');
 const FIELD_ORIGIN = '_origin';
 const Animate = require('../animate/index');
 
@@ -72,9 +73,10 @@ class View extends Base {
       options: {},
       scaleController: null,
       padding: 0,
+      theme: null,
       parent: null,
       tooltipEnable: true, // 是否展示 tooltip
-      animate: true,
+      animate: Global.animate,
       visible: true
     };
   }
@@ -82,18 +84,33 @@ class View extends Base {
   constructor(cfg) {
     super(cfg);
     const self = this;
-    Util.each(Geom, function(geomConstructor, className) {
+    self._setTheme();
+    Util.each(Geom, function(GeomConstructor, className) {
       const methodName = Util.lowerFirst(className);
-      self[methodName] = function(cfg) {
-        const geom = new geomConstructor(cfg);
+      self[methodName] = function(cfg = {}) {
+        cfg.viewTheme = self.get('viewTheme');
+        const geom = new GeomConstructor(cfg);
         self.addGeom(geom);
         return geom;
       };
     });
     // Util.mix(this, ViewGeoms);
-    this.init();
+    self.init();
   }
 
+  _setTheme() {
+    const self = this;
+    const theme = self.get('theme');
+    const viewTheme = {};
+    let newTheme = {};
+    if (Util.isObject(theme)) {
+      newTheme = theme;
+    } else if (Util.indexOf(Object.keys(Theme), theme) !== -1) {
+      newTheme = Theme[theme];
+    }
+    Util.deepMix(viewTheme, Global, newTheme);
+    self.set('viewTheme', viewTheme);
+  }
 
   /**
    * @protected
@@ -174,19 +191,27 @@ class View extends Base {
 
   // 初始化所有的控制器
   _initControllers() {
-    const options = this.get('options');
+    const self = this;
+    const options = self.get('options');
+    const viewTheme = self.get('viewTheme');
+    const canvas = self.get('canvas');
 
     const scaleController = new Controller.Scale({
+      viewTheme,
       defs: options.scales
     });
     const coordController = new Controller.Coord(options.coord);
     this.set('scaleController', scaleController);
     this.set('coordController', coordController);
 
-    const axisController = new Controller.Axis();
+    const axisController = new Controller.Axis({
+      canvas,
+      viewTheme
+    });
     this.set('axisController', axisController);
 
     const guideController = new Controller.Guide({
+      viewTheme,
       options: options.guides || []
     });
     this.set('guideController', guideController);
@@ -232,6 +257,7 @@ class View extends Base {
   }
 
   _drawGeoms() {
+    this.emit('beforedrawgeoms');
     const geoms = this.get('geoms');
     const coord = this.get('coord');
     for (let i = 0; i < geoms.length; i++) {
@@ -239,6 +265,7 @@ class View extends Base {
       geom.setCoord(coord);
       geom.paint();
     }
+    this.emit('afterdrawgeoms');
   }
 
   isShapeInView(shape) {
@@ -380,11 +407,17 @@ class View extends Base {
       const geom = geoms[i];
       if (geom.get('type') === 'interval') {
         const yScale = geom.getYScale();
-        const field = yScale.field;
-        if (!(colDefs[field] && colDefs[field].min) && yScale.min > 0 && yScale.type !== 'time') {
-          yScale.change({
-            min: 0
-          });
+        const { field, min, max, type } = yScale;
+        if (!(colDefs[field] && colDefs[field].min) && type !== 'time') {
+          if (min > 0) {
+            yScale.change({
+              min: 0
+            });
+          } else if (max <= 0) { // 当柱状图全为负值时也需要从 0 开始生长
+            yScale.change({
+              max: 0
+            });
+          }
         }
       }
     }
@@ -393,6 +426,7 @@ class View extends Base {
   _setCatScalesRange() {
     const self = this;
     const coord = self.get('coord');
+    const viewTheme = self.get('viewTheme');
     const xScale = self.getXScale();
     const yScales = self.getYScales();
     let scales = [];
@@ -415,7 +449,7 @@ class View extends Base {
             if (!coord.isTransposed) {
               range = [ 0, 1 - 1 / count ];
             } else {
-              widthRatio = Global.widthRatio.multiplePie;
+              widthRatio = viewTheme.widthRatio.multiplePie;
               offset = 1 / count * widthRatio;
               range = [ offset / 2, 1 - offset / 2 ];
             }
@@ -610,6 +644,12 @@ class View extends Base {
     }
   }
 
+  /**
+   * @protected
+   * 获取过滤后的值（需要显示的值）
+   * @param {String} field 度量
+   * @return {Array.<String>} 滤后的值
+   */
   getFilteredValues(field) {
     const scale = this.get('scales')[field];
     const values = scale.values;
@@ -623,12 +663,32 @@ class View extends Base {
     return rst;
   }
 
+  /**
+   * @protected
+   * 获取被过滤的值（不需显示的值）
+   * @param {String} field 度量
+   * @return {Array.<String>} 滤出的值
+   */
+  getFilteredOutValues(field) {
+    const scale = this.get('scales')[field];
+    const values = scale.values;
+    const filters = this._getFilters();
+    let rst;
+    if (filters && filters[field]) {
+      rst = values.filter(v => !filters[field](v));
+    } else {
+      rst = [];
+    }
+    return rst;
+  }
+
   filter(field, condition) {
     const options = this.get('options');
     if (!options.filters) {
       options.filters = {};
     }
     options.filters[field] = condition;
+    this.get('scaleController').filters = options.filters;
   }
 
   // 获取 filters
@@ -790,6 +850,7 @@ class View extends Base {
 
   clearInner() {
     this.set('scales', {});
+    this.emit('beforeclearinner');
     const options = this.get('options');
     options.geoms = null;
     this._clearGeoms();
@@ -797,6 +858,7 @@ class View extends Base {
     this.get('guideController') && this.get('guideController').reset();
     // clear axis
     this.get('axisController') && this.get('axisController').clear();
+    this.emit('afterclearinner');
   }
 
   /**
@@ -940,6 +1002,7 @@ class View extends Base {
     this.set('filteredData', filteredData);
     // if (!Util.isEmpty(data)) {
     this._createCoord(); // draw geometry 前绘制区域可能会发生改变
+    this.emit('beforeinitgeoms');
     this._initGeoms();
     this._adjustScale();
     // }

@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
-const { Canvas } = require('../../../../src/renderer2d');
+const { Canvas } = require('../../../../src/renderer');
 const Schema = require('../../../../src/geom/shape/schema');
-const Coord = require('../../../../src/coord/');
+const Coord = require('@antv/coord/lib/');
 
 const div = document.createElement('div');
 div.id = 'csschema';
@@ -118,7 +118,7 @@ describe('schema shapes', function() {
         points,
         color: 'red'
       }, canvas);
-      expect(shape.attr('stroke')).eql('red');
+      expect(shape.attr('fill')).eql('red');
       expect(shape.attr('path').length).eql(9);
     });
     it('get marker', function() {
@@ -144,7 +144,7 @@ describe('schema shapes', function() {
         points,
         color: 'red'
       }, canvas);
-      expect(shape.attr('stroke')).eql('red');
+      expect(shape.attr('fill')).eql('red');
       expect(shape.attr('path').length).eql(9);
     });
   });
@@ -163,7 +163,7 @@ describe('schema shapes', function() {
         points,
         color: 'red'
       }, canvas);
-      expect(shape.attr('stroke')).eql('red');
+      expect(shape.attr('fill')).eql('red');
       expect(shape.attr('path').length).eql(9);
     });
 
