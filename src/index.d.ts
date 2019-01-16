@@ -246,7 +246,7 @@ declare namespace G2 {
   ) => void;
 
   interface LegendConfig {
-    position?: 'top' | 'bottom' | 'left' | 'right' | 'left-top' | 'left-center' | 'left-bottom' | 'right-top' | 'right-top' | 'right-bottom' | 'top-left' | 'top-center' | 'top-bottom' | 'bottom-left' | 'bottom-center' | 'bottom-right';
+    position?: 'top' | 'bottom' | 'left' | 'right' | 'left-top' | 'left-center' | 'left-bottom' | 'right-top' | 'right-center' | 'right-bottom' | 'top-left' | 'top-center' | 'top-bottom' | 'bottom-left' | 'bottom-center' | 'bottom-right';
     layout?: 'vertica' | 'horizontal';
     title?: Styles.text;
     offsetX?: number;
