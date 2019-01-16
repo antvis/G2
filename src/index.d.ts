@@ -456,13 +456,13 @@ declare namespace G2 {
       type: 'rect' | 'polar' | 'theta' | 'helix',
       coordConfig?: {
         // 设置半径，值范围为 0 至 1
-        radius: number;
+        radius?: number;
         // 空心圆的半径，值范围为 0 至 1
-        innerRadius: number;
+        innerRadius?: number;
         // 极坐标的起始角度，单位为弧度
-        startAngle: number;
+        startAngle?: number;
         // 极坐标的结束角度，单位为弧度
-        endAngle: number;
+        endAngle?: number;
       },
     ): Coordinate;
     animate: (option: boolean) => void;
@@ -613,8 +613,13 @@ declare namespace G2 {
       chartType: string,
       shapeName: string,
       config: {
-        getPoints: any;
+        getPoints?: any;
+        getMarkerCfg?: any;
         draw: any;
+      } | {
+        getPoints?: any;
+        getMarkerCfg?: any;
+        drawShape: any;
       },
     ) => {
       parsePoint: any;
