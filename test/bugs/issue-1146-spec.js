@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const DataSet = require('@antv/data-set');
 const G2 = require('../../src/index');
 
-describe.only('#1146', () => {
+describe('#1146', () => {
   it('venn label', () => {
     const data = [
       { sets: [ '人传人领取红包活动' ], size: 27086351, origin: '人传人领取红包活动', label: '人传人领取红包活动' },
@@ -50,7 +50,7 @@ describe.only('#1146', () => {
       .position('x*y')
       .sets('sets')
       .label('_sets', {
-        type: 'map',
+        type: 'scatter',
         offset: 0,
         textStyle(text, item) {
           return {
@@ -80,6 +80,6 @@ describe.only('#1146', () => {
 
     chart.render();
 
-    expect(true).to.be.true;
+    expect(chart.getAllGeoms()[0].get('labelContainer').get('labelItemCfgs')[0].type).to.equal('scatter');
   });
 });
