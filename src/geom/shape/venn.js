@@ -25,17 +25,6 @@ function getHollowAttrs(cfg) {
 // register venn geom
 const Venn = Shape.registerFactory('venn', {
   defaultShapeType: 'venn',
-  getDefaultPoints(pointInfo) {
-    const points = [];
-    Util.each(pointInfo.x, function(subX, index) {
-      const subY = pointInfo.y[index];
-      points.push({
-        x: subX,
-        y: subY
-      });
-    });
-    return points;
-  },
   getActiveCfg(type, cfg) {
     const lineWidth = cfg.lineWidth || 1;
     if (type === 'hollow') {

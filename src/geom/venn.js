@@ -23,22 +23,34 @@ class Venn extends GeomBase {
     const cfg = super.getDefaultCfg();
     cfg.type = 'venn';
     cfg.shapeType = 'venn';
-    cfg.generatePoints = true;
+    cfg.generatePoints = false;
     // super.draw(data, container, shapeFactory, index);
     return cfg;
   }
 
+  _getAttrValues(attr, record) {
+    if (attr.type === 'position') {
+      return [ record.x, record.y ];
+    }
+    return super._getAttrValues(attr, record);
+  }
+
+  sets(field) {
+    this.set('setsField', field);
+    return this;
+  }
+
   _initAttrs() {
     const self = this;
+    super._initAttrs();
     const attrOptions = self.get('attrOptions');
-    const labelCfg = self.get('labelCfg');
+    const setsField = self.get('setsField') || 'sets';
     const data = self.get('data');
     const sizeField = attrOptions.size ? attrOptions.size.field : 'size';
-    const labelField = labelCfg ? labelCfg.fields[0] : 'sets';
-    self.set('labelCfg', null);
     // prepare data
     data.forEach(row => {
-      row.sets = row[labelField];
+      row.sets = row[setsField];
+      row._sets = row[setsField].join('&');
       row.size = row[sizeField];
     });
     const solution = venn(data);
@@ -75,32 +87,43 @@ class Venn extends GeomBase {
       }
     });
     // x, y scales
-    self.position('x*y');
-    super._initAttrs();
+    // self.position('x*y');
+    // self.scale('x', { type: 'identity' });
+    // self.scale('y', { type: 'identity' });
   }
 
-  paint() {
-    super.paint();
-    const self = this;
-    const dataArray = self.get('dataArray');
-    const shapeContainer = self.get('shapeContainer');
-    // add labels
-    dataArray.forEach(row => {
-      const cfg = self.getDrawCfg(row[0]);
-      const origin = cfg.origin._origin;
-      shapeContainer.addShape('text', {
-        attrs: Util.mix({}, {
-          x: origin.x,
-          y: origin.y,
-          text: origin.label || '',
-          fontSize: 18,
-          fill: cfg.shape === 'hollow' ? cfg.color : '#666',
-          textAlign: 'center',
-          textBaseline: 'middle'
-        }, cfg.style ? cfg.style.textStyle : {})
-      });
-    });
-  }
+  // createShapePointsCfg(obj) {
+  //   const xScale = this.getXScale();
+  //   const yScale = this.getYScale();
+  //   return {
+  //     x: obj[xScale.field],
+  //     y: obj[yScale.field],
+  //     y0: yScale ? yScale.scale(this.getYMinValue()) : undefined
+  //   };
+  // }
+
+  // paint() {
+  //   super.paint();
+  //   const self = this;
+  //   const dataArray = self.get('dataArray');
+  //   const shapeContainer = self.get('shapeContainer');
+  //   // add labels
+  //   dataArray.forEach(row => {
+  //     const cfg = self.getDrawCfg(row[0]);
+  //     const origin = cfg.origin._origin;
+  //     shapeContainer.addShape('text', {
+  //       attrs: Util.mix({}, {
+  //         x: origin.x,
+  //         y: origin.y,
+  //         text: origin.label || '',
+  //         fontSize: 18,
+  //         fill: cfg.shape === 'hollow' ? cfg.color : '#666',
+  //         textAlign: 'center',
+  //         textBaseline: 'middle'
+  //       }, cfg.style ? cfg.style.textStyle : {})
+  //     });
+  //   });
+  // }
 }
 
 GeomBase.Venn = Venn;
