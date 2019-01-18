@@ -421,8 +421,9 @@ describe('GuideController', function() {
     expect(dom).not.to.be.empty;
     expect(dom.length).to.equal(1);
 
-    const frontGroup = guideController.frontGroup;
-    const backGroup = guideController.backGroup;
+    // @2019-01-18 by blue.lb 由于这里我去掉了frontGroup和backGroup，调整一下test直接获取frontContainer和backContainer
+    const frontGroup = guideController.frontContainer;
+    const backGroup = guideController.backContainer;
     expect(frontGroup.get('children').length).to.equal(6); // 文本默认在最上面
     expect(backGroup.get('children').length).to.equal(3);
   });
