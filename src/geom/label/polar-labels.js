@@ -91,6 +91,7 @@ class PolarLabels extends Labels {
    * @return {Object} point
    */
   getLabelPoint(label, point, index) {
+    if (Util.isNil(point.x)) return;
     const self = this;
     const text = label.text[index];
     let factor = 1;
