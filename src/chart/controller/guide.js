@@ -19,19 +19,19 @@ class GuideController {
     const options = this.options;
     const xScales = this.xScales;
     const yScales = this.yScales;
-    // const view = this.view;
+    const view = this.view;
     const viewTheme = this.viewTheme;
-    // @2019-01-18 by blue.lb 这里如果给backContainer添加group的话，会直接导致BBoxOfBackPlot函数中计算element.getBBox()出错
-    // if (this.backContainer && view) {
-    //   this.backGroup = this.backContainer.addGroup({
-    //     viewId: view.get('_id')
-    //   });
-    // }
-    // if (this.frontContainer && view) {
-    //   this.frontGroup = this.frontContainer.addGroup({
-    //     viewId: view.get('_id')
-    //   });
-    // }
+    // @2019-01-18 by blue.lb 这里如果给 backContainer 添加 group 的话，会直接导致 BBoxOfBackPlot 函数中计算 element.getBBox() 出错
+    if (this.backContainer && view) {
+      this.backGroup = this.backContainer.addGroup({
+        viewId: view.get('_id')
+      });
+    }
+    if (this.frontContainer && view) {
+      this.frontGroup = this.frontContainer.addGroup({
+        viewId: view.get('_id')
+      });
+    }
     options.forEach(function(option) {
       let type = option.type;
       const config = Util.deepMix({
@@ -120,12 +120,12 @@ class GuideController {
       let container;
       if (guide.get('top')) { // 默认 guide 绘制到 backPlot，用户也可以声明 top: true，显示在最上层
         // @2019-01-18 by blue.lb 直接用传入的就行
-        // container = self.frontGroup || self.frontContainer;
-        container = self.frontContainer;
+        container = self.frontGroup || self.frontContainer;
+        // container = self.frontContainer;
       } else {
         // @2019-01-18 by blue.lb 直接用传入的就行
-        // container = self.backGroup || self.backContainer;
-        container = self.backContainer;
+        container = self.backGroup || self.backContainer;
+        // container = self.backContainer;
       }
       guide.render(coord, container, viewData, view);
     });
@@ -150,8 +150,8 @@ class GuideController {
     });
     this.guides = [];
     // @2019-01-18 by blue.lb 删除这部分
-    // this.backGroup && this.backGroup.remove();
-    // this.frontGroup && this.frontGroup.remove();
+    this.backGroup && this.backGroup.remove();
+    this.frontGroup && this.frontGroup.remove();
   }
 }
 

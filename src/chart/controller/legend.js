@@ -95,7 +95,6 @@ class LegendController {
     return flag;
   }
 
-
   _bindClickEvent(legend, scale, filterVals) {
     const self = this;
     const chart = self.chart;

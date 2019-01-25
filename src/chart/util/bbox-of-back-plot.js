@@ -37,7 +37,7 @@ function getTitleBBox(title) {
 module.exports = function BBoxOfBackPlot(backPlot, defaultBBox) {
   let bbox = defaultBBox;
   Util.each(backPlot.get('children'), element => {
-    if (element instanceof G.Group || element instanceof G.Path) {
+    if ((element instanceof G.Group && element.get('children').length) || element instanceof G.Path) {
       bbox = mergeBBox(bbox, element.getBBox());
     } else if (element instanceof G.Text) { // title
       const elementBBox = getTitleBBox(element);

@@ -36,6 +36,8 @@ describe('#553', () => {
         lineDash: null
       }
     });
+    chart.tooltip(false);
+    chart.legend(false);
 
     chart.guide().text({
       top: true,
