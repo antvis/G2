@@ -132,13 +132,10 @@ Shape.registerShape('violin', 'violin', {
     return pathShape;
   },
   getMarkerCfg(cfg) {
-    return Util.mix(
-      {
-        symbol: 'circle',
-        radius: 4
-      },
-      getAttrs(cfg)
-    );
+    return Util.mix({
+      symbol: 'circle',
+      radius: 4
+    }, getAttrs(cfg));
   }
 });
 // smooth spline violin, filled path
@@ -155,13 +152,10 @@ Shape.registerShape('violin', 'smooth', {
     return pathShape;
   },
   getMarkerCfg(cfg) {
-    return Util.mix(
-      {
-        symbol: 'circle',
-        radius: 4
-      },
-      getAttrs(cfg)
-    );
+    return Util.mix({
+      symbol: 'circle',
+      radius: 4
+    }, getAttrs(cfg));
   }
 });
 // hollow violin, stroked path
@@ -178,13 +172,10 @@ Shape.registerShape('violin', 'hollow', {
     return pathShape;
   },
   getMarkerCfg(cfg) {
-    return Util.mix(
-      {
-        symbol: 'circle',
-        radius: 4
-      },
-      getHollowAttrs(cfg)
-    );
+    return Util.mix({
+      symbol: 'circle',
+      radius: 4
+    }, getHollowAttrs(cfg));
   }
 });
 // hollow smooth spline violin, stroked path
@@ -201,14 +192,12 @@ Shape.registerShape('violin', 'smoothHollow', {
     return pathShape;
   },
   getMarkerCfg(cfg) {
-    return Util.mix(
-      {
-        symbol: 'circle',
-        radius: 4
-      },
-      getHollowAttrs(cfg)
-    );
+    return Util.mix({
+      symbol: 'circle',
+      radius: 4
+    }, getHollowAttrs(cfg));
   }
 });
+
 
 module.exports = Violin;
