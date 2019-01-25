@@ -53,10 +53,14 @@ function getSmoothViolinPath(points) {
   }
   const leftPath = PathUtil.getSplinePath(leftPoints, false);
   const rightPath = PathUtil.getSplinePath(rightPoints, false);
-  leftPath.push([ 'L', rightPoints[0].x, rightPoints[0].y ]);
+  if (rightPoints.length) {
+    leftPath.push([ 'L', rightPoints[0].x, rightPoints[0].y ]);
+  }
   rightPath.shift();
   const path = leftPath.concat(rightPath);
-  path.push([ 'L', leftPoints[0].x, leftPoints[0].y ]);
+  if (leftPoints.length) {
+    path.push([ 'L', leftPoints[0].x, leftPoints[0].y ]);
+  }
   path.push([ 'z' ]);
   return path;
 }
