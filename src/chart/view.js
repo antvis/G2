@@ -271,10 +271,17 @@ class View extends Base {
   isShapeInView(shape) {
     const id = this.get('_id');
     const shapeId = shape._id;
-    if (!shapeId) {
-      return shape.get('parent').get('viewId') === id;
+    if (shapeId) {
+      return shapeId.split('-')[0] === id;
     }
-    return shapeId.split('-')[0] === id;
+    let parent = shape;
+    while (parent) {
+      if (parent.get('viewId') === id) {
+        return true;
+      }
+      parent = parent.get('parent');
+    }
+    return false;
   }
 
   /**
