@@ -53,10 +53,14 @@ function getSmoothViolinPath(points) {
   }
   const leftPath = PathUtil.getSplinePath(leftPoints, false);
   const rightPath = PathUtil.getSplinePath(rightPoints, false);
-  leftPath.push([ 'L', rightPoints[0].x, rightPoints[0].y ]);
+  if (rightPoints.length) {
+    leftPath.push([ 'L', rightPoints[0].x, rightPoints[0].y ]);
+  }
   rightPath.shift();
   const path = leftPath.concat(rightPath);
-  path.push([ 'L', leftPoints[0].x, leftPoints[0].y ]);
+  if (leftPoints.length) {
+    path.push([ 'L', leftPoints[0].x, leftPoints[0].y ]);
+  }
   path.push([ 'z' ]);
   return path;
 }
@@ -128,10 +132,13 @@ Shape.registerShape('violin', 'violin', {
     return pathShape;
   },
   getMarkerCfg(cfg) {
-    return Util.mix({
-      symbol: 'circle',
-      radius: 4
-    }, getAttrs(cfg));
+    return Util.mix(
+      {
+        symbol: 'circle',
+        radius: 4
+      },
+      getAttrs(cfg)
+    );
   }
 });
 // smooth spline violin, filled path
@@ -148,10 +155,13 @@ Shape.registerShape('violin', 'smooth', {
     return pathShape;
   },
   getMarkerCfg(cfg) {
-    return Util.mix({
-      symbol: 'circle',
-      radius: 4
-    }, getAttrs(cfg));
+    return Util.mix(
+      {
+        symbol: 'circle',
+        radius: 4
+      },
+      getAttrs(cfg)
+    );
   }
 });
 // hollow violin, stroked path
@@ -168,10 +178,13 @@ Shape.registerShape('violin', 'hollow', {
     return pathShape;
   },
   getMarkerCfg(cfg) {
-    return Util.mix({
-      symbol: 'circle',
-      radius: 4
-    }, getHollowAttrs(cfg));
+    return Util.mix(
+      {
+        symbol: 'circle',
+        radius: 4
+      },
+      getHollowAttrs(cfg)
+    );
   }
 });
 // hollow smooth spline violin, stroked path
@@ -188,12 +201,14 @@ Shape.registerShape('violin', 'smoothHollow', {
     return pathShape;
   },
   getMarkerCfg(cfg) {
-    return Util.mix({
-      symbol: 'circle',
-      radius: 4
-    }, getHollowAttrs(cfg));
+    return Util.mix(
+      {
+        symbol: 'circle',
+        radius: 4
+      },
+      getHollowAttrs(cfg)
+    );
   }
 });
-
 
 module.exports = Violin;
