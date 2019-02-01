@@ -62,6 +62,7 @@ class Brush extends Interaction {
         start: coord.start,
         end: coord.end
       };
+      me.isTransposed = coord.isTransposed;
       const xScales = view._getScales('x');
       const yScales = view._getScales('y');
       me.xScale = me.xField ? xScales[me.xField] : view.getXScale();
@@ -319,11 +320,11 @@ class Brush extends Interaction {
       } else if (chart && me.filter) {
         container.clear(); // clear the brush
         // filter data
-        if (type === 'X') {
+        if ((!me.isTransposed && type === 'X') || (me.isTransposed && type === 'Y')) {
           xScale && chart.filter(xScale.field, val => {
             return xValues.indexOf(val) > -1;
           });
-        } else if (type === 'Y') {
+        } else if ((!me.isTransposed && type === 'Y') || (me.isTransposed && type === 'X')) {
           yScale && chart.filter(yScale.field, val => {
             return yValues.indexOf(val) > -1;
           });
