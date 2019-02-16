@@ -876,8 +876,8 @@ class View extends Base {
     const options = this.get('options');
     options.filters = null;
     this._removeGeoms();
-    // const container = this.get('viewContainer');
-    // container.clear();
+    const container = this.get('viewContainer');
+    container.clear();
     this.clearInner();
     this.get('guideController') && this.get('guideController').clear();
     this.set('isUpdate', false);
