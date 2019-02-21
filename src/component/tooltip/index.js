@@ -562,18 +562,20 @@ class Tooltip extends Base {
   hide() {
     const self = this;
     const container = self.get('container');
-    const crossLineShapeX = self.get('crossLineShapeX');
-    const crossLineShapeY = self.get('crossLineShapeY');
-    const crosshairsRectShape = this.get('crosshairsRectShape');
-    const markerGroup = self.get('markerGroup');
-    const canvas = self.get('canvas');
-    container.style.visibility = 'hidden';
-    crossLineShapeX && crossLineShapeX.hide();
-    crossLineShapeY && crossLineShapeY.hide();
-    crosshairsRectShape && crosshairsRectShape.hide();
-    markerGroup && markerGroup.hide();
-    super.hide();
-    canvas.draw();
+    if (container && container.style) {
+      const crossLineShapeX = self.get('crossLineShapeX');
+      const crossLineShapeY = self.get('crossLineShapeY');
+      const crosshairsRectShape = this.get('crosshairsRectShape');
+      const markerGroup = self.get('markerGroup');
+      const canvas = self.get('canvas');
+      container.style.visibility = 'hidden';
+      crossLineShapeX && crossLineShapeX.hide();
+      crossLineShapeY && crossLineShapeY.hide();
+      crosshairsRectShape && crosshairsRectShape.hide();
+      markerGroup && markerGroup.hide();
+      super.hide();
+      canvas.draw();
+    }
   }
 
   destroy() {
