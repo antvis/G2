@@ -45,13 +45,13 @@ module.exports = function BBoxOfBackPlot(backPlot, defaultBBox) {
       const dy = Math.abs(elementBBox.maxY - elementBBox.minY);
       if (dx < dy) {
         bbox = mergeBBox(bbox, Util.mix(bbox, {
-          minX: bbox.minX - dx,
-          maxX: bbox.maxX + dx
+          minX: Math.min(bbox.minX, elementBBox.minX),
+          maxX: Math.max(bbox.maxX, elementBBox.maxX)
         }));
       } else {
         bbox = mergeBBox(bbox, Util.mix(bbox, {
-          minY: bbox.minY - dy,
-          maxY: bbox.maxY + dy
+          minY: Math.min(bbox.minY, elementBBox.minY),
+          maxY: Math.max(bbox.maxY, elementBBox.maxY)
         }));
       }
     }
