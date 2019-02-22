@@ -16,6 +16,9 @@ function avg(arr) {
 
 // 计算多边形重心: https://en.wikipedia.org/wiki/Centroid#Of_a_polygon
 function getCentroid(xs, ys) {
+  if (Util.isNumber(xs) && Util.isNumber(ys)) {
+    return [ xs, ys ];
+  }
   let i = -1,
     x = 0,
     y = 0;
@@ -260,6 +263,7 @@ class GeomLabels extends Group {
     // 多边形场景,多用于地图
     if (point && this.get('geomType') === 'polygon') {
       const centroid = getCentroid(point.x, point.y);
+      // 多边形的场景也有 x 和 y 只是数字的情况，譬如当 x 和 y 都是分类字段的时候 @see #1184
       label.x = centroid[0];
       label.y = centroid[1];
     } else {
