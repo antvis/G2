@@ -7,7 +7,7 @@ const backgroundStyle: G2.Styles.background = {
   strokeOpacity: .5, // 图表边框透明度
   opacity: .5, // 图表整体透明度
   lineWidth: 1, // 图表边框粗度
-  radius: 5 // 图表圆角大小 
+  radius: 5 // 图表圆角大小
 }
 const data = [
   { type: 0, value: 1 },
@@ -18,7 +18,7 @@ const data = [
 let str: string;
 let num: number;
 
-// 创建 Chart 
+// 创建 Chart
 const chart = new G2.Chart({
   container: 'div',
   width: 123,
@@ -49,7 +49,7 @@ chart.source(data, {
 chart.scale('x', {
   type: 'cat', // 声明 type 字段为分类类型
   values: [ 'A', 'B', 'C' ], // 重新显示的值
-  alias: '类型' // 设置属性的别名  
+  alias: '类型' // 设置属性的别名
 });
 
 chart.scale({
@@ -80,7 +80,7 @@ chart.axis('x', {
       fill: '#404040', // 文本的颜色
       fontSize: '12', // 文本大小
       fontWeight: 'bold', // 文本粗细
-      rotate: 30, 
+      rotate: 30,
       textBaseline: 'top' // 文本基准线，可取 top middle bottom，默认为middle
     },
     formatter: (text, item, index) => '',
@@ -166,7 +166,7 @@ const legendConfig: G2.LegendConfig = {
   onHover: ev => {},
   onClick: ev => {},
   containerTpl: '<div class="g2-legend" style="position:absolute;top:20px;right:60px;width:auto;">'
-  + '<h4 class="g2-legend-title"></h4>' 
+  + '<h4 class="g2-legend-title"></h4>'
   + '<ul class="g2-legend-list" style="list-style-type:none;margin:0;padding:0;"></ul>'
   + '</div>',
   itemTpl: '<li class="g2-legend-list-item item-{index} {checked}" data-color="{originColor}" data-value="{originValue}" style="cursor: pointer;font-size: 14px;">'
@@ -186,6 +186,7 @@ const tooltipConfig: G2.TooltipConfig = {
   inPlot: false,
   title: '',
   crosshairs: {
+    type: 'line',
     style: {
       fill: '#aaa',
       lineDash: [1,2,1,1,2]
@@ -249,7 +250,7 @@ chart.guide().image({
 });
 // 辅助图片 image，通过指定 start 和 end 确定图片的位置和宽高
 chart.guide().image({
-  top: true, // 指定 giude 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层 
+  top: true, // 指定 giude 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层
   start: [], // 图片起始位置， 值为原始数据值，支持 callback
   end: [], // 图片结束位置， 值为原始数据值，支持 callback
   src: '', // 图片路径
@@ -259,7 +260,7 @@ chart.guide().image({
 // 辅助框
 chart.guide().region({
   top: true, // 指定 giude 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层
-  start: [], // 辅助框起始位置，值为原始数据值，支持 callback 
+  start: [], // 辅助框起始位置，值为原始数据值，支持 callback
   end: [],// 辅助框结束位置，值为原始数据值，支持 callback
   style: {
     lineWidth: 0, // 辅助框的边框宽度
@@ -281,7 +282,7 @@ chart.guide().html({
 
 chart.guide().arc({
   top: true, // 指定 giude 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层
-  start: [], // 辅助框起始位置，值为原始数据值，支持 callback 
+  start: [], // 辅助框起始位置，值为原始数据值，支持 callback
   end: [],// 辅助框结束位置，值为原始数据值，支持 callback
   style: {} // 图形样式属性
 });
@@ -439,7 +440,7 @@ chart.line().animate({
 });
 
 const Shape = G2.Shape; // 全局shape ，非实例
-const shapeObj = Shape.registerShape('geomType', 'shapeName', { 
+const shapeObj = Shape.registerShape('geomType', 'shapeName', {
   getPoints(pointInfo) {
     // 获取每种 shape 绘制的关键点
   },

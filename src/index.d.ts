@@ -290,7 +290,7 @@ declare namespace G2 {
     title?: string;
     crosshairs?: {
       // rect 表示矩形框，x 表示水平辅助线，y 表示垂直辅助线，cross 表示十字辅助线
-      type?: 'rect' | 'x' | 'y' | 'cross';
+      type?: 'rect' | 'x' | 'y' | 'cross' | 'line';
       style?: Styles.background | Styles.line;
     };
     offset?: number;
