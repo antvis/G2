@@ -165,6 +165,12 @@ class Heatmap extends GeomBase {
     return imageShape;
   }
 
+  clear() {
+    // @2019-02-28 by blue.lb 由于设置了SHADOW_CANVAS作为像素缓存canvas，每次销毁chart时，也需要清除该缓冲区
+    this._clearShadowCanvasCtx();
+    super.clear();
+  }
+
   drawWithRange(range) {
     const self = this;
 
