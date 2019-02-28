@@ -67,11 +67,13 @@ class Zoom extends Interaction {
       const newMin = min + step * minOffset;
       const newMax = max - step * maxOffset;
       if (newMax > newMin) {
-        chart.scale(field, {
+        const colDef = getColDef(chart, field);
+        // @2019-02-28 by blue.lb 这里需要将原始scale的配置整合新算出的最大及最小值
+        chart.scale(field, Util.mix({}, colDef, {
           nice: false,
           min: newMin,
           max: newMax
-        });
+        }));
       }
     } else {
       const { field, values } = scale;
