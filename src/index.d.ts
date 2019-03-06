@@ -284,7 +284,21 @@ declare namespace G2 {
     }>;
   }
 
-  interface TooltipConfig {
+  interface TooltipItem {
+    color: string;
+    title: string;
+    name: string;
+    value: string;
+    x: number;
+    y: number;
+    point: any;
+    marker: any;
+    showMarker: boolean;
+  }
+
+  type TooltipConfig = HtmlTooltipConfig | CanvasTooltipConfig | MiniTooltipConfig;
+
+  interface CommonTooltipConfig {
     triggerOn?: 'mousemove' | 'click' | 'none';
     showTitle?: boolean;
     title?: string;
@@ -297,16 +311,43 @@ declare namespace G2 {
     inPlot?: boolean;
     follow?: boolean;
     shared?: boolean;
-    enterable?: boolean;
-    position?: 'left' | 'righ' | 'top' | 'bottom';
+    position?: 'left' | 'right' | 'top' | 'bottom';
     hideMarkers?: boolean;
+    useHtml?: boolean;
+    type?: 'default' | 'mini';
+  }
+
+  interface HtmlTooltipConfig extends CommonTooltipConfig {
+    useHtml?: true;
+    type?: 'default';
+    htmlContent?(title: string, items: TooltipItem[]): string;
     containerTpl?: string;
     itemTpl?: string;
-    'g2-tooltip'?: any;
-    'g2-tooltip-title'?: any;
-    'g2-tooltip-list-item'?: any;
-    'g2-tooltip-list'?: any;
-    'g2-tooltip-marker'?: any;
+    'g2-tooltip'?: Record<string, any>;
+    'g2-tooltip-title'?: Record<string, any>;
+    'g2-tooltip-list-item'?: Record<string, any>;
+    'g2-tooltip-list'?: Record<string, any>;
+    'g2-tooltip-marker'?: Record<string, any>;
+    'g2-tooltip-value'?: Record<string, any>;
+    enterable?: boolean;
+  }
+
+  interface CanvasTooltipConfig extends CommonTooltipConfig {
+    useHtml: false;
+    type?: 'default';
+    boardStyle?: Styles.background;
+    titleStyle?: Styles.text;
+    nameStyle?: Styles.text;
+    valueStyle?: Styles.text;
+    itemGap?: number;
+  }
+
+  interface MiniTooltipConfig extends CommonTooltipConfig {
+    type: 'mini';
+    boardStyle?: Styles.background;
+    valueStyle?: Styles.text;
+    triangleWidth?: number;
+    triangleHeight?: number;
   }
 
   class ChartGuide {
