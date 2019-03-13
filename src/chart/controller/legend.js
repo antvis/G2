@@ -159,19 +159,19 @@ class LegendController {
     const chart = self.chart;
     const geoms = chart.getAllGeoms();
     legend.on('itemclick', ev => {
-      const value = ev.item.value;
+      const { field: itemField } = ev.item;
       const checked = ev.checked;
       if (checked) {
         Util.each(geoms, geom => {
           const field = geom.getYScale().field;
-          if (field === value) {
+          if (field === itemField) {
             geom.show();
           }
         });
       } else {
         Util.each(geoms, geom => {
           const field = geom.getYScale().field;
-          if (field === value) {
+          if (field === itemField) {
             geom.hide();
           }
         });
@@ -822,7 +822,7 @@ class LegendController {
     const self = this;
     const items = [];
     Util.each(scales, scale => {
-      const value = scale.field;
+      const value = scale.alias || scale.field;
       Util.each(geoms, geom => {
         if (geom.getYScale() === scale && scale.values && scale.values.length > 0) {
           const shapeType = geom.get('shapeType') || 'point';
@@ -830,7 +830,11 @@ class LegendController {
           const shapeObject = Shape.getShapeFactory(shapeType);
           const cfg = { color: geom.getDefaultValue('color') };
           const marker = shapeObject.getMarkerCfg(shape, cfg);
-          const item = { value, marker };
+          const item = {
+            value,
+            marker,
+            field: scale.field
+          };
           items.push(item);
         }
       });// end of geom loop
