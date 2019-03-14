@@ -83,21 +83,8 @@ class ScaleController {
     const self = this;
     const def = self._getDef(field);
     let scale;
-    // 如果数据为空直接返回常量度量
-    if (!data || !data.length) {
-      if (def && def.type) {
-        scale = Scale[def.type](def);
-      } else {
-        scale = Scale.identity({
-          value: field,
-          field: field.toString(),
-          values: [ field ]
-        });
-      }
-      return scale;
-    }
-    const firstValue = Util.Array.firstValue(data, field);
-
+    const validData = data || [];
+    const firstValue = Util.Array.firstValue(validData, field);
     if (Util.isNumber(field) || (Util.isNil(firstValue)) && !def) {
       scale = Scale.identity({
         value: field,
@@ -109,8 +96,8 @@ class ScaleController {
       if (def) {
         type = def.type;
       }
-      type = type || self._getDefaultType(field, data);
-      const cfg = self._getScaleCfg(type, field, data);
+      type = type || self._getDefaultType(field, validData);
+      const cfg = self._getScaleCfg(type, field, validData);
       if (def) {
         Util.mix(cfg, def);
       }
