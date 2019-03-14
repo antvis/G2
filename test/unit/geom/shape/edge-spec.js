@@ -15,7 +15,7 @@ const canvas = new Canvas({
   height: 500
 });
 
-describe('edge shape test', function() {
+describe('edge shape test', () => {
 
   const coord = new Coord.Rect({
     start: {
@@ -30,19 +30,19 @@ describe('edge shape test', function() {
   const shapeObj = Shape.getShapeFactory('edge');
   shapeObj._coord = coord;
 
-  it('get default shape', function() {
+  it('get default shape', () => {
     expect(shapeObj).not.equal(undefined);
     const shape = shapeObj.getShape();
     expect(shape).not.equal(undefined);
   });
 
-  describe('line shape', function() {
-    it('get shape', function() {
+  describe('line shape', () => {
+    it('get shape', () => {
       const shape = shapeObj.getShape('line');
       expect(shape).not.equal(undefined);
     });
 
-    it('get points', function() {
+    it('get points', () => {
       const obj = {
         x: [ 0.1, 0.2 ],
         y: [ 0.3, 0.5 ]
@@ -53,7 +53,7 @@ describe('edge shape test', function() {
       expect(points[0].y).equal(0.3);
     });
 
-    it('draw shape', function() {
+    it('draw shape', () => {
       const obj = {
         x: [ 0.2, 0.4 ],
         y: [ 0.5, 0.5 ]
@@ -68,7 +68,7 @@ describe('edge shape test', function() {
       expect(canvas.get('children').length).equal(1);
     });
 
-    it('draw shape vhv', function() {
+    it('draw shape vhv', () => {
       const obj = {
         x: [ 0.1, 0.1 ],
         y: [ 0.1, 0.3 ]
@@ -82,7 +82,7 @@ describe('edge shape test', function() {
 
     });
     if (Global.renderer === 'canvas') {
-      it('draw shape arc rect', function() {
+      it('draw shape arc rect', () => {
         const obj = {
           x: [ 0.2, 0.4 ],
           y: [ 0.5, 0.5 ]
@@ -101,7 +101,7 @@ describe('edge shape test', function() {
 
       });
 
-      it('draw shape arc rect hasWeight', function() {
+      it('draw shape arc rect hasWeight', () => {
         const obj = {
           x: [ 0.2, 0.4, 0.6, 0.7 ],
           y: [ 0.1, 0.1, 0.5, 0.5 ]
@@ -125,7 +125,7 @@ describe('edge shape test', function() {
   });
 });
 if (Global.renderer === 'canvas') {
-  describe('edge shape test polar', function() {
+  describe('edge shape test polar', () => {
     const canvas2 = canvas;
     const coord2 = new Coord.Polar({
       start: {
@@ -138,7 +138,7 @@ if (Global.renderer === 'canvas') {
       }
     });
 
-    it('draw shape arc polar hasWeight', function() {
+    it('draw shape arc polar hasWeight', () => {
       const shapeObj = Shape.getShapeFactory('edge');
       shapeObj._coord = coord2;
       const obj = {
@@ -205,7 +205,7 @@ if (Global.renderer === 'canvas') {
         ]
       );
     });
-    it('draw shape arc polar', function() {
+    it('draw shape arc polar', () => {
       const shapeObj = Shape.getShapeFactory('edge');
       shapeObj._coord = coord2;
       const obj = {
@@ -232,7 +232,7 @@ if (Global.renderer === 'canvas') {
       canvas2.draw();
     });
 
-    it('clear', function() {
+    it('clear', () => {
       canvas.clear();
       canvas.destroy();
       document.body.removeChild(div);

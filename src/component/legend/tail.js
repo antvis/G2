@@ -170,7 +170,7 @@ class Tail extends Category {
 
   _antiCollision(items) {
     const self = this;
-    items.sort(function(a, b) {
+    items.sort((a, b) => {
       const ay = a.attr('matrix')[7];
       const by = b.attr('matrix')[7];
       return ay - by;
@@ -183,7 +183,7 @@ class Tail extends Category {
     let minY = Number.MIN_VALUE;
     let maxY = 0;
 
-    const boxes = items.map(function(item) {
+    const boxes = items.map(item => {
       const y = item.attr('matrix')[7];
       if (y > maxY) {
         maxY = y;
@@ -223,9 +223,9 @@ class Tail extends Category {
   // adjust y
     i = 0;
     const group = this.get('itemsGroup').addGroup();
-    boxes.forEach(function(b) {
+    boxes.forEach(b => {
       let posInCompositeBox = startY + elementHeight;
-      b.targets.forEach(function() {
+      b.targets.forEach(() => {
         const origin_y = items[i].attr('matrix')[7];
         const y = b.pos + posInCompositeBox - elementHeight / 2;
         const dist = Math.abs(origin_y - y);

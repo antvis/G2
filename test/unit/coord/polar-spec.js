@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const Polar = require('@antv/coord/lib/polar');
 
-describe('Polar', function() {
+describe('Polar', () => {
   const coord = new Polar({
     start: {
       x: 0,
@@ -13,14 +13,14 @@ describe('Polar', function() {
     }
   });
 
-  it('construction', function() {
+  it('construction', () => {
     const center = coord.getCenter();
     expect(center.x).to.equal(100);
     expect(center.y).to.equal(150);
     expect(coord.radius).to.equal(100);
   });
 
-  it('convert', function() {
+  it('convert', () => {
     let point = {
       x: 0,
       y: 1
@@ -45,7 +45,7 @@ describe('Polar', function() {
     expect(point.y).to.equal(200);
   });
 
-  it('invert', function() {
+  it('invert', () => {
     let point = {
       x: 100,
       y: 200
@@ -55,12 +55,12 @@ describe('Polar', function() {
     expect(point.y).to.equal(0.5);
   });
 
-  it('getWidth and getHeight', function() {
+  it('getWidth and getHeight', () => {
     expect(coord.getWidth()).to.equal(200);
     expect(coord.getHeight()).to.equal(300);
   });
 
-  it('translate', function() {
+  it('translate', () => {
     let point = {
       x: 0.25,
       y: 1
@@ -72,7 +72,7 @@ describe('Polar', function() {
     coord.translate(-100, -20);
   });
 
-  it('rotate', function() {
+  it('rotate', () => {
     let point = {
       x: 0.5,
       y: 0.5
@@ -84,7 +84,7 @@ describe('Polar', function() {
     coord.rotate(-Math.PI / 2);
   });
 
-  it('scale', function() {
+  it('scale', () => {
     let point = {
       x: 0.5,
       y: 0.5
@@ -96,7 +96,7 @@ describe('Polar', function() {
     coord.scale(0.5, 0.5);
   });
 
-  it('reflect x', function() {
+  it('reflect x', () => {
     let point = {
       x: 0.25,
       y: 0.5
@@ -108,7 +108,7 @@ describe('Polar', function() {
     coord.reflect('x');
   });
 
-  it('reflect y', function() {
+  it('reflect y', () => {
     let point = {
       x: 0.75,
       y: 0.5

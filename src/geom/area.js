@@ -35,7 +35,7 @@ class Area extends GeomBase {
     const splitArray = this.splitData(data);
 
     cfg.origin = data; // path,line,area 等图的origin 是整个序列
-    Util.each(splitArray, function(subData, splitedIndex) {
+    Util.each(splitArray, (subData, splitedIndex) => {
       cfg.splitedIndex = splitedIndex; // 传入分割片段索引 用于生成id
       const points = subData.map(obj => {
         return obj.points;

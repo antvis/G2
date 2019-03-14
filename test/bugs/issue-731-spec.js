@@ -7,7 +7,7 @@ describe('#731 全是负值时图形超出画布 ', () => {
   div.id = 'issue731';
 
   let chart;
-  it('柱状图，未进行列定义设置，默认从 0 开始生长', function() {
+  it('柱状图，未进行列定义设置，默认从 0 开始生长', () => {
     const data = [
       { value: -139255.5, season: '第四季' },
       { value: -51926.5, season: '第三季' },
@@ -37,7 +37,7 @@ describe('#731 全是负值时图形超出画布 ', () => {
     }
   });
 
-  it('柱状图，进行列定义设置', function() {
+  it('柱状图，进行列定义设置', () => {
     chart.scale('value', {
       max: 100000
     });
@@ -58,7 +58,7 @@ describe('#731 全是负值时图形超出画布 ', () => {
     }
   });
 
-  it('负区间区域图', function() {
+  it('负区间区域图', () => {
     chart.clear();
     chart.scale('value', {});
     chart.area().position('season*value');

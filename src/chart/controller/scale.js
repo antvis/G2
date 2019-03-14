@@ -31,7 +31,7 @@ class ScaleController {
     if (viewTheme.scales[field] || defs[field]) {
       def = Util.mix({}, viewTheme.scales[field]);
       // 处理覆盖属性的问题
-      Util.each(defs[field], function(v, k) {
+      Util.each(defs[field], (v, k) => {
         if (Util.isNil(v)) {
           delete def[k];
         } else {

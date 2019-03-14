@@ -4,7 +4,7 @@ const div = document.createElement('div');
 div.id = 'geom-heatmap';
 document.body.appendChild(div);
 
-describe('chart.heatmap', function() {
+describe('chart.heatmap', () => {
   const data = require('../../../demos/data/heatmap.json');
   const chart = new Chart({
     container: div,
@@ -31,7 +31,7 @@ describe('chart.heatmap', function() {
     .color('tmp', 'blue-cyan-lime-yellow-red');
   chart.render();
 
-  it('heatmap size', function() {
+  it('heatmap size', () => {
     const viewContainer = chart.get('viewContainer');
     const heatmap = viewContainer.get('children')[1];
     const bbox = heatmap.getBBox();

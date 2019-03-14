@@ -75,7 +75,7 @@ describe('GuideController', function() {
 
   let guideController;
 
-  it('Initialization.', function() {
+  it('Initialization.', () => {
     guideController = new GuideController({
       backContainer,
       frontContainer,
@@ -87,7 +87,7 @@ describe('GuideController', function() {
     expect(guideController.guides).to.be.empty;
   });
 
-  it('添加辅助线, line', function() {
+  it('添加辅助线, line', () => {
     const lineCfg = {
       start: {
         x: 'a',
@@ -123,7 +123,7 @@ describe('GuideController', function() {
     });
   });
 
-  it('添加图片, image', function() {
+  it('添加图片, image', () => {
     guideController.image({
       start: {
         x: 'a',
@@ -148,7 +148,7 @@ describe('GuideController', function() {
     });
   });
 
-  it('添加框, region', function() {
+  it('添加框, region', () => {
     guideController.region({
       start: {
         x: 'a',
@@ -175,7 +175,7 @@ describe('GuideController', function() {
     });
   });
 
-  it('添加文本, text', function() {
+  it('添加文本, text', () => {
     guideController.text({
       start: {
         x: 'b',
@@ -198,7 +198,7 @@ describe('GuideController', function() {
     });
   });
 
-  it('添加垂直于 x 轴的辅助线', function() {
+  it('添加垂直于 x 轴的辅助线', () => {
     guideController.line({
       start: {
         x: 'd',
@@ -226,7 +226,7 @@ describe('GuideController', function() {
     });
   });
 
-  it('添加中间段水平辅助线', function() {
+  it('添加中间段水平辅助线', () => {
     guideController.line({
       start: {
         x: 'a',
@@ -262,7 +262,7 @@ describe('GuideController', function() {
     });
   });
 
-  it('动态文本', function() {
+  it('动态文本', () => {
     guideController.text({
       content: '我是一条动态的文本。',
       style: {
@@ -285,7 +285,7 @@ describe('GuideController', function() {
     expect(guidesOptions[6].start).to.be.an.instanceOf(Function);
   });
 
-  it('添加html.', function() {
+  it('添加html.', () => {
     guideController.html({
       position: {
         x: 'e',
@@ -310,7 +310,7 @@ describe('GuideController', function() {
     });
   });
 
-  it('添加 DataRegion', function() {
+  it('添加 DataRegion', () => {
     guideController.dataRegion({
       start: {
         x: 'b',
@@ -361,7 +361,7 @@ describe('GuideController', function() {
     });
   });
 
-  it('绘制 DataMarker', function() {
+  it('绘制 DataMarker', () => {
     guideController.dataMarker({
       top: true,
       position: [ '50%', '50%' ],
@@ -378,7 +378,7 @@ describe('GuideController', function() {
     });
   });
 
-  it('绘制 Arc', function() {
+  it('绘制 Arc', () => {
     guideController.arc({
       start: [ 0, 'min' ],
       end: [ 4, 'max' ]
@@ -394,7 +394,7 @@ describe('GuideController', function() {
     guidesOptions.pop();
   });
 
-  it('绘制 RegionFilter', function() {
+  it('绘制 RegionFilter', () => {
     // guideController.clear();
     guideController.regionFilter({
       start: [ 'min', '0%' ],
@@ -413,7 +413,7 @@ describe('GuideController', function() {
     guidesOptions.pop();
   });
 
-  it('绘制.', function() {
+  it('绘制.', () => {
     guideController.render(coord);
     canvas.draw();
 
@@ -430,7 +430,7 @@ describe('GuideController', function() {
     expect(backGroup.get('children').length).to.equal(3);
   });
 
-  it('changeVisible', function() {
+  it('changeVisible', () => {
     guideController.changeVisible(false);
     canvas.draw();
 
@@ -441,7 +441,7 @@ describe('GuideController', function() {
     }
   });
 
-  it('clear', function() {
+  it('clear', () => {
     guideController.clear();
     const dom = div.getElementsByClassName('g-guide');
 
@@ -455,7 +455,7 @@ describe('GuideController', function() {
     expect(guides.length).to.equal(0);
   });
 
-  it('destroy', function() {
+  it('destroy', () => {
     canvas.destroy();
   });
 });

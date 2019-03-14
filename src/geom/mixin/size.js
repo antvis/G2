@@ -12,9 +12,7 @@ function findMinDistance(arr, scale) {
   const count = arr.length;
   // 日期类型的 values 经常上文本类型，所以需要转换一下
   if (Util.isString(arr[0])) {
-    arr = arr.map(function(v) {
-      return scale.translate(v);
-    });
+    arr = arr.map(v => scale.translate(v));
   }
   let distance = arr[1] - arr[0];
   for (let i = 2; i < count; i++) {
@@ -79,7 +77,7 @@ const SizeMixin = {
     const adjusts = this.get('adjusts');
     let dodgeBy;
     let count = dataArray.length;
-    Util.each(adjusts, function(adjust) {
+    Util.each(adjusts, adjust => {
       if (adjust.type === 'dodge') {
         dodgeBy = adjust.dodgeBy;
       }
@@ -105,7 +103,7 @@ const SizeMixin = {
     });
     let width = 0;
     if (start && end) {
-      width = Math.sqrt(Math.pow(end.x - start.x, 2) + Math.pow(end.y - start.y, 2));
+      width = Math.sqrt((end.x - start.x) ** 2 + (end.y - start.y) ** 2);
     }
     return width;
   },

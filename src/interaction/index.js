@@ -17,12 +17,10 @@ const Interactions = {
 };
 
 G2._Interactions = {};
-G2.registerInteraction = function(type, constructor) {
+G2.registerInteraction = (type, constructor) => {
   G2._Interactions[type] = constructor;
 };
-G2.getInteraction = function(type) {
-  return G2._Interactions[type];
-};
+G2.getInteraction = type => G2._Interactions[type];
 
 // binding on View
 Chart.prototype.getInteractions = function() {

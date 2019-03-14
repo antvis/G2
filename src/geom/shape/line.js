@@ -88,7 +88,7 @@ function getPath(cfg, smooth) {
 
 function _interpPoints(points, fn) {
   let tmpPoints = [];
-  Util.each(points, function(point, index) {
+  Util.each(points, (point, index) => {
     const nextPoint = points[index + 1];
     tmpPoints.push(point);
     if (nextPoint) {
@@ -100,7 +100,7 @@ function _interpPoints(points, fn) {
 // 插值的图形path，不考虑null
 function _getInterPath(points) {
   const path = [];
-  Util.each(points, function(point, index) {
+  Util.each(points, (point, index) => {
     const subPath = index === 0 ? [ 'M', point.x, point.y ] : [ 'L', point.x, point.y ];
     path.push(subPath);
   });
@@ -266,7 +266,7 @@ Shape.registerShape('line', 'smooth', {
 Shape.registerShape('line', 'hv', {
   draw(cfg, container) {
     const attrs = getAttrs(cfg);
-    const path = _getInterPointShapeCfg(cfg, function(point, nextPoint) {
+    const path = _getInterPointShapeCfg(cfg, (point, nextPoint) => {
       const tmp = [];
       tmp.push({
         x: nextPoint.x,
@@ -281,21 +281,19 @@ Shape.registerShape('line', 'hv', {
     });
   },
   getMarkerCfg(cfg) {
-    return _getInterMarkerCfg(cfg, function(x, y, r) {
-      return [
+    return _getInterMarkerCfg(cfg, (x, y, r) => [
         [ 'M', x - r - 1, y - 2.5 ],
         [ 'L', x, y - 2.5 ],
         [ 'L', x, y + 2.5 ],
         [ 'L', x + r + 1, y + 2.5 ]
-      ];
-    });
+    ]);
   }
 });
 
 Shape.registerShape('line', 'vh', {
   draw(cfg, container) {
     const attrs = getAttrs(cfg);
-    const path = _getInterPointShapeCfg(cfg, function(point, nextPoint) {
+    const path = _getInterPointShapeCfg(cfg, (point, nextPoint) => {
       const tmp = [];
       tmp.push({
         x: point.x,
@@ -310,21 +308,19 @@ Shape.registerShape('line', 'vh', {
     });
   },
   getMarkerCfg(cfg) {
-    return _getInterMarkerCfg(cfg, function(x, y, r) {
-      return [
+    return _getInterMarkerCfg(cfg, (x, y, r) => [
         [ 'M', x - r - 1, y + 2.5 ],
         [ 'L', x, y + 2.5 ],
         [ 'L', x, y - 2.5 ],
         [ 'L', x + r + 1, y - 2.5 ]
-      ];
-    });
+    ]);
   }
 });
 
 Shape.registerShape('line', 'hvh', {
   draw(cfg, container) {
     const attrs = getAttrs(cfg);
-    const path = _getInterPointShapeCfg(cfg, function(point, nextPoint) {
+    const path = _getInterPointShapeCfg(cfg, (point, nextPoint) => {
       const tmp = [];
       const middlex = (nextPoint.x - point.x) / 2 + point.x;
       tmp.push({
@@ -344,23 +340,21 @@ Shape.registerShape('line', 'hvh', {
     });
   },
   getMarkerCfg(cfg) {
-    return _getInterMarkerCfg(cfg, function(x, y, r) {
-      return [
+    return _getInterMarkerCfg(cfg, (x, y, r) => [
         [ 'M', x - (r + 1), y + 2.5 ],
         [ 'L', x - r / 2, y + 2.5 ],
         [ 'L', x - r / 2, y - 2.5 ],
         [ 'L', x + r / 2, y - 2.5 ],
         [ 'L', x + r / 2, y + 2.5 ],
         [ 'L', x + r + 1, y + 2.5 ]
-      ];
-    });
+    ]);
   }
 });
 
 Shape.registerShape('line', 'vhv', {
   draw(cfg, container) {
     const attrs = getAttrs(cfg);
-    const path = _getInterPointShapeCfg(cfg, function(point, nextPoint) {
+    const path = _getInterPointShapeCfg(cfg, (point, nextPoint) => {
       const tmp = [];
       const middley = (nextPoint.y - point.y) / 2 + point.y;
       tmp.push({
@@ -380,7 +374,7 @@ Shape.registerShape('line', 'vhv', {
     });
   },
   getMarkerCfg(cfg) {
-    return _getInterMarkerCfg(cfg, function(x, y) {
+    return _getInterMarkerCfg(cfg, (x, y) => {
       // 宽 13px，高 8px
       return [
         [ 'M', x - 5, y + 2.5 ],

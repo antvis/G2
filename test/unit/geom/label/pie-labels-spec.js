@@ -7,7 +7,7 @@ const Util = require('../../../../src/util');
 const G2 = require('../../../../src/index');
 const Scale = require('@antv/scale');
 
-describe('pie labels', function() {
+describe('pie labels', () => {
   const ds = new DataSet();
 
   const div = document.createElement('div');
@@ -20,7 +20,7 @@ describe('pie labels', function() {
     height: 500
   });
 
-  describe('pie text inner', function() {
+  describe('pie text inner', () => {
     const coord = new Coord.Polar({
       start: {
         x: 0,
@@ -64,7 +64,7 @@ describe('pie labels', function() {
     });
     let gLabels;
 
-    it('init', function() {
+    it('init', () => {
       gLabels = canvas.addGroup(PieLabels, {
         coord,
         labelCfg: {
@@ -83,12 +83,12 @@ describe('pie labels', function() {
 
     let items;
 
-    it('get items', function() {
+    it('get items', () => {
       items = gLabels.getLabelsItems(points);
       expect(items.length).to.equal(points.length);
     });
 
-    it('first point rotate', function() {
+    it('first point rotate', () => {
       const first = items[0];
 
       expect(first.x).to.equal(65.3073372946036);
@@ -97,14 +97,14 @@ describe('pie labels', function() {
       expect(first.textAlign).to.equal('right');
     });
 
-    it('second point', function() {
+    it('second point', () => {
       const second = items[1];
       expect(second.x).to.equal(86.95518130045147);
       expect(second.y).to.equal(34.69266270539641);
       expect(second.rotate).to.equal(-22.5 / 180 * Math.PI);
     });
 
-    it('third point', function() {
+    it('third point', () => {
       const point = items[2];
 
 
@@ -113,14 +113,14 @@ describe('pie labels', function() {
       expect(point.rotate).to.equal(22.5 / 180 * Math.PI);
     });
 
-    it('show labels', function() {
+    it('show labels', () => {
       gLabels.showLabels(points);
       canvas.draw();
       expect(gLabels.get('labelsGroup').get('children').length).to.equal(points.length);
     });
   });
 
-  describe('pie text outter', function() {
+  describe('pie text outter', () => {
     const coord = new Coord.Polar({
       start: {
         x: 200,
@@ -165,7 +165,7 @@ describe('pie labels', function() {
       values
     });
     let gLabels;
-    it('init', function() {
+    it('init', () => {
       gLabels = canvas.addGroup(PieLabels, {
         coord,
         labelCfg: {
@@ -185,13 +185,13 @@ describe('pie labels', function() {
       // expect(cfg.label.fill).to.equal('#fff');
     });
     let items;
-    it('get items', function() {
+    it('get items', () => {
       items = gLabels.getLabelsItems(points);
       expect(items.length).to.equal(points.length);
 
     });
 
-    it('points', function() {
+    it('points', () => {
       expect(items[0].x).to.equal(280);
       expect(items[0].y).to.equal(48.03847577293368);
 
@@ -205,7 +205,7 @@ describe('pie labels', function() {
       expect(+(items[5].y).toFixed(14)).to.equal(48.03847577293369);
     });
 
-    it('show labels', function() {
+    it('show labels', () => {
       gLabels.showLabels(points);
       canvas.draw();
       expect(gLabels.get('labelsGroup').get('children').length).to.equal(points.length);
@@ -214,7 +214,7 @@ describe('pie labels', function() {
 
   });
 
-  describe('pie text not stack', function() {
+  describe('pie text not stack', () => {
     const coord = new Coord.Polar({
       start: {
         x: 100,
@@ -255,7 +255,7 @@ describe('pie labels', function() {
       values
     });
     let gLabels;
-    it('init', function() {
+    it('init', () => {
       gLabels = canvas.addGroup(PieLabels, {
         coord,
         labelCfg: {
@@ -274,7 +274,7 @@ describe('pie labels', function() {
       // expect(cfg.labelLine).not.to.equal(undefined);
     });
     let items;
-    it('get items', function() {
+    it('get items', () => {
       items = gLabels.getLabelsItems(points);
       expect(items.length).to.equal(points.length);
     });
@@ -282,7 +282,7 @@ describe('pie labels', function() {
   });
 
 
-  describe('pie text more', function() {
+  describe('pie text more', () => {
     const coord = new Coord.Polar({
       start: {
         x: 100,
@@ -327,7 +327,7 @@ describe('pie labels', function() {
     });
 
     let gLabels;
-    it('init', function() {
+    it('init', () => {
       gLabels = canvas.addGroup(PieLabels, {
         coord,
         labelCfg: {
@@ -346,18 +346,18 @@ describe('pie labels', function() {
       // expect(cfg.labelLine).not.to.equal(undefined);
     });
     let items;
-    it('get items', function() {
+    it('get items', () => {
       items = gLabels.getLabelsItems(points);
       expect(items.length).to.equal(points.length);
     });
-    it('show labels', function() {
+    it('show labels', () => {
       gLabels.showLabels(points);
       canvas.draw();
     });
 
   });
 
-  describe('pie,polar text position', function() {
+  describe('pie,polar text position', () => {
     const chart = new G2.Chart({
       container: 'gl3',
       width: 400,
@@ -380,7 +380,7 @@ describe('pie labels', function() {
       ];
     });
 
-    it('radar outer', function() {
+    it('radar outer', () => {
       chart.clear();
       chart.coord('polar');
       chart.source(data);
@@ -404,7 +404,7 @@ describe('pie labels', function() {
       expect(last.attr('y')).to.equal(249.60487837125345 / 2);
     });
 
-    it('radar inner', function() {
+    it('radar inner', () => {
       chart.clear();
 
       chart.coord('polar');
@@ -427,7 +427,7 @@ describe('pie labels', function() {
       expect(last.attr('y')).to.equal(261.96555814625134 / 2);
     });
 
-    it('pie outer text', function() {
+    it('pie outer text', () => {
       const dv = ds.createView('pie-outer-text').source(data);
       dv.transform({
         type: 'percent',
@@ -457,7 +457,7 @@ describe('pie labels', function() {
       expect(last.attr('y')).to.equal(255.1591880953947);
     });
 
-    it('pie inner text', function() {
+    it('pie inner text', () => {
       const dv = ds.createView('pie-inner-text').source(data);
       dv.transform({
         type: 'percent',
@@ -489,7 +489,7 @@ describe('pie labels', function() {
     });
   });
 
-  describe('unusual pie labeling', function() {
+  describe('unusual pie labeling', () => {
     const chart = new G2.Chart({
       container: 'gl3',
       width: 600,
@@ -536,7 +536,7 @@ describe('pie labels', function() {
       ];
     });
 
-    it('pie labeling overlap', function() {
+    it('pie labeling overlap', () => {
       const dv = ds.createView().source(data);
       dv.transform({
         type: 'percent',
@@ -555,9 +555,7 @@ describe('pie labels', function() {
         .position('percent')
         .adjust('stack')
         .color('type')
-        .label('type*percent', function(type, percent) {
-          return type + ': ' + percent * 100 + '%';
-        });
+        .label('type*percent', (type, percent) => type + ': ' + percent * 100 + '%');
       chart.render();
       const geom = chart.get('geoms')[0];
       const labelsGroup = geom.get('labelContainer').get('labelsGroup');
@@ -572,7 +570,7 @@ describe('pie labels', function() {
     });
   });
 
-  describe('pie text more', function() {
+  describe('pie text more', () => {
     const coord = new Coord.Polar({
       start: {
         x: 300,
@@ -615,7 +613,7 @@ describe('pie labels', function() {
       values
     });
     let gLabels;
-    it('init', function() {
+    it('init', () => {
       gLabels = canvas.addGroup(PieLabels, {
         coord,
         labelCfg: {
@@ -633,11 +631,11 @@ describe('pie labels', function() {
       expect(cfg.textStyle).not.to.equal(undefined);
       // expect(cfg.labelLine).not.to.equal(undefined);
     });
-    it('get items', function() {
+    it('get items', () => {
       gLabels.getLabelsItems(points);
       expect(gLabels.get('labelsGroup').get('children').length).not.to.equal(points.length);
     });
-    it('show labels', function() {
+    it('show labels', () => {
       gLabels.showLabels(points);
       canvas.draw();
     });
@@ -647,8 +645,8 @@ describe('pie labels', function() {
     // });
   });
 
-  describe('Just one label.', function() {
-    it('Even though source data just has one item, the label must be shown.', function() {
+  describe('Just one label.', () => {
+    it('Even though source data just has one item, the label must be shown.', () => {
       const dv = ds.createView().source([
         { name: 'Singapore', count: 28 }
       ]);
@@ -671,7 +669,7 @@ describe('pie labels', function() {
         .position('percent')
         .adjust('stack')
         .color('name')
-        .label('name*percent', function(name, percent) {
+        .label('name*percent', (name, percent) => {
           percent = (percent * 100).toFixed(2) + '%';
           return name + ' ' + percent;
         });
@@ -686,7 +684,7 @@ describe('pie labels', function() {
     });
   });
 
-  describe('pie text outter with offsetX & offsetY', function() {
+  describe('pie text outter with offsetX & offsetY', () => {
     const coord = new Coord.Polar({
       start: {
         x: 200,
@@ -731,7 +729,7 @@ describe('pie labels', function() {
       values
     });
     let gLabels;
-    it('init', function() {
+    it('init', () => {
       gLabels = canvas.addGroup(PieLabels, {
         coord,
         labelCfg: {
@@ -754,7 +752,7 @@ describe('pie labels', function() {
       // expect(cfg.labelLine).not.to.equal(undefined);
       // expect(cfg.label.fill).to.equal('#fff');
     });
-    it('points', function() {
+    it('points', () => {
       let items = gLabels.getLabelsItems(points);
       items = gLabels.adjustItems(items);
       expect(items.length).to.equal(points.length);

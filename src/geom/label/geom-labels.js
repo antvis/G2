@@ -8,7 +8,7 @@ const ORIGIN = '_origin';
 
 function avg(arr) {
   let sum = 0;
-  Util.each(arr, function(value) {
+  Util.each(arr, value => {
     sum += value;
   });
   return sum / arr.length;
@@ -195,7 +195,7 @@ class GeomLabels extends Group {
   }
 */
   adjustItems(items) {
-    Util.each(items, function(item) {
+    Util.each(items, item => {
       if (!item) {
         return;
       }
@@ -215,7 +215,7 @@ class GeomLabels extends Group {
    */
   drawLines(items) {
     const self = this;
-    Util.each(items, function(point) {
+    Util.each(items, point => {
       if (!point) {
         return;
       }
@@ -286,7 +286,7 @@ class GeomLabels extends Group {
     if (point.shape === 'pyramid' && !point.nextPoints && point.points) {
       point.points.forEach(p => {
         p = coord.convert(p);
-        if ((Util.isArray(p.x) && point.x.indexOf(p.x) === -1) || (Util.isNumber(p.x) && point.x !== p.x)) {
+        if ((Util.isArray(p.x) && !point.x.includes(p.x)) || (Util.isNumber(p.x) && point.x !== p.x)) {
           label.x = (label.x + p.x) / 2;
         }
       });
@@ -399,7 +399,7 @@ class GeomLabels extends Group {
       let value = origin[scale.field];
       if (Util.isArray(value)) {
         const tmp = [];
-        Util.each(value, function(subVal) {
+        Util.each(value, subVal => {
           tmp.push(scale.getText(subVal));
         });
         value = tmp;

@@ -29,9 +29,9 @@ describe('#515', () => {
 
     interval.setSelected(data[0]);
 
-    setTimeout(function() {
+    setTimeout(() => {
       interval.clearSelected();
-      setTimeout(function() {
+      setTimeout(() => {
         const firstShape = interval.getShapes()[0];
         expect(firstShape.attr('clip')).equal(null);
         chart.destroy();
@@ -73,9 +73,9 @@ describe('#515', () => {
 
     interval.setSelected(data[0]);
     const firstShape = interval.getShapes()[0];
-    setTimeout(function() {
+    setTimeout(() => {
       interval.clearSelected();
-      setTimeout(function() {
+      setTimeout(() => {
         expect(firstShape.attr('fill')).not.equal('red');
         chart.destroy();
         done();

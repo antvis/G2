@@ -38,7 +38,7 @@ class Brush extends Interaction {
     me.type = me.type.toUpperCase();
     me.chart = view;
 
-    if (BRUSH_TYPES.indexOf(me.type) === -1) {
+    if (!BRUSH_TYPES.includes(me.type)) {
       me.type = DEFAULT_TYPE;
     }
     const canvas = me.canvas;

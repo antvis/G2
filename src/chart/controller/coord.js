@@ -26,7 +26,7 @@ class CoordController {
 
   _execActions(coord) {
     const actions = this.actions;
-    Util.each(actions, function(action) {
+    Util.each(actions, action => {
       const m = action[0];
       coord[m](action[1], action[2]);
     });
@@ -35,7 +35,7 @@ class CoordController {
   hasAction(actionName) {
     const actions = this.actions;
     let rst = false;
-    Util.each(actions, function(action) {
+    Util.each(actions, action => {
       if (actionName === action[0]) {
         rst = true;
         return false;

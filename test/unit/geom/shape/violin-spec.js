@@ -24,7 +24,7 @@ const coord = new Coord.Rect({
   }
 });
 
-describe('violin shapes', function() {
+describe('violin shapes', () => {
   const cfg = {
     x: 0.125,
     y: [ 0.0125, 0.044375, 0.07625, 0.108125, 0.14, 0.171875, 0.20375, 0.23562499999999997, 0.26749999999999996, 0.29937499999999995, 0.33124999999999993, 0.3631249999999999, 0.3949999999999999 ],
@@ -32,14 +32,14 @@ describe('violin shapes', function() {
     size: 0.225,
     _size: [ 0.42719122967414686, 0.44553393512452116, 0.23259051646275541, 0.1939762223716194, 0.3557956111139111, 0.4870328378876867, 0.4742334076668541, 0.4171103376547852, 0.34611155336167754, 0.2294380115772542, 0.0945436804984983, 0.019530344332635393, 0.001789349060768542 ]
   };
-  describe('default', function() {
-    it('default shape type', function() {
+  describe('default', () => {
+    it('default shape type', () => {
       expect(Violin.defaultShapeType).equal('violin');
     });
 
     const points = Violin.getShapePoints(null, cfg);
 
-    it('get points', function() {
+    it('get points', () => {
       expect(points.length).equal(cfg.y.length * 2);
     });
 

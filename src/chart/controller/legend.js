@@ -210,7 +210,7 @@ class LegendController {
     const field = scale.field;
     legend.on('itemfilter', ev => {
       const range = ev.range;
-      chart.filterShape(function(obj, shape, geom) {
+      chart.filterShape((obj, shape, geom) => {
         // @2018-12-21 by blue.lb 由于数值0直接被类型转换为false，这里需要做更精确一点的判断
         if (!Util.isNil(obj[field])) {
           const filtered = (obj[field] >= range[0] && obj[field] <= range[1]);
@@ -285,12 +285,12 @@ class LegendController {
       }
     });
 
-    legend.on('itemunhover', function(ev) {
+    legend.on('itemunhover', ev => {
       self.pre = null;
       if (options.onUnhover) {
         options.onUnhover(ev);
       }
-      Util.each(geoms, function(geom) {
+      Util.each(geoms, geom => {
         if (geom.get('activeShapes')) {
           geom.clearActivedShapes();
           canvas.draw();
@@ -387,7 +387,7 @@ class LegendController {
     let maxHeight = 0;
     let totalWidth = 0;
     let totalHeight = 0;
-    Util.each(legends, function(legend) {
+    Util.each(legends, legend => {
       const width = legend.getWidth();
       const height = legend.getHeight();
       if (maxWidth < width) {

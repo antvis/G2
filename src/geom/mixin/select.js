@@ -17,7 +17,7 @@ function isSameShape(shape1, shape2) {
 
 function getOriginAttrs(selectedCfg, shape) {
   const originAttrs = {};
-  Util.each(selectedCfg, function(v, k) {
+  Util.each(selectedCfg, (v, k) => {
     if (k === 'transform') {
       k = 'matrix';
     }

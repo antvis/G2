@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const DataSet = require('@antv/data-set');
 const G2 = require('../../src/index');
 
-describe('scaled coord label', function() {
+describe('scaled coord label', () => {
   it('label offset', () => {
     const div = document.createElement('div');
     document.body.appendChild(div);
@@ -53,23 +53,19 @@ describe('scaled coord label', function() {
     chart.intervalSymmetric().position('action*percent')
       .shape('funnel')
       .color('action', [ '#0050B3', '#1890FF', '#40A9FF', '#69C0FF', '#BAE7FF' ])
-      .label('action*pv', function(action, pv) {
-        return action + ' ' + pv;
-      }, {
+      .label('action*pv', (action, pv) => action + ' ' + pv, {
         offset: 35,
         labelLine: {
           lineWidth: 1,
           stroke: 'rgba(0, 0, 0, 0.15)'
         }
       })
-      .tooltip('action*pv*percent', function(action, pv, percent) {
-        return {
-          name: action,
-          percent: parseInt(percent * 100) + '%',
-          pv
-        };
-      });
-    data.forEach(function(obj) {
+      .tooltip('action*pv*percent', (action, pv, percent) => ({
+        name: action,
+        percent: parseInt(percent * 100) + '%',
+        pv
+      }));
+    data.forEach(obj => {
       // 中间标签文本
       chart.guide().text({
         top: true,

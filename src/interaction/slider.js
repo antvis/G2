@@ -318,7 +318,7 @@ class Slider extends Interaction {
   _bindEvent() {
     const me = this;
     const rangeElement = me.rangeElement;
-    rangeElement.on('sliderchange', function(ev) {
+    rangeElement.on('sliderchange', ev => {
       const range = ev.range;
       const minRatio = range[0] / 100;
       const maxRatio = range[1] / 100;

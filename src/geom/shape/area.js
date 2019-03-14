@@ -39,7 +39,7 @@ function getPath(cfg, smooth, shape) {
   const topLinePoints = []; // area 区域上部分
   let bottomLinePoints = []; // area 区域下部分
   const isInCircle = cfg.isInCircle;
-  Util.each(cfg.points, function(point) {
+  Util.each(cfg.points, point => {
     topLinePoints.push(point[1]);
     bottomLinePoints.push(point[0]);
   });
@@ -47,7 +47,7 @@ function getPath(cfg, smooth, shape) {
   bottomLinePoints = bottomLinePoints.reverse();
   // }
   pointsArr.push(topLinePoints, bottomLinePoints);
-  Util.each(pointsArr, function(points, index) {
+  Util.each(pointsArr, (points, index) => {
     let subPath = [];
     points = shape.parsePoints(points);
     const p1 = points[0];
@@ -131,7 +131,7 @@ const Area = Shape.registerFactory('area', {
     const y0 = pointInfo.y0;
     y = Util.isArray(y) ? y : [ y0, y ];
 
-    Util.each(y, function(yItem) {
+    Util.each(y, yItem => {
       points.push({
         x,
         y: yItem

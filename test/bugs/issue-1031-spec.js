@@ -80,7 +80,7 @@ describe('#1031', () => {
       as: [ 'x', 'y' ]
     });
     const nodes = dv.getAllNodes();
-    nodes.map(function(node) {
+    nodes.map(node => {
       node.name = node.data.name;
       node.value = node.data.value;
       return node;
@@ -103,12 +103,10 @@ describe('#1031', () => {
     chart.polygon()
       .position('x*y')
       .color('name')
-      .tooltip('name*value', function(name, count) {
-        return {
-          name,
-          count
-        };
-      })
+      .tooltip('name*value', (name, count) => ({
+        name,
+        count
+      }))
       .style({
         lineWidth: 1,
         stroke: '#fff'

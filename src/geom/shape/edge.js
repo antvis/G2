@@ -44,7 +44,7 @@ function getCPath(from, to) {
   points.push(to);
   const sub = [ 'C' ];
 
-  Util.each(points, function(point) {
+  Util.each(points, point => {
     sub.push(point.x, point.y);
   });
   return sub;
@@ -59,7 +59,7 @@ function getQPath(to, center) {
   points.push(to);
 
   const sub = [ 'Q' ];
-  Util.each(points, function(point) {
+  Util.each(points, point => {
     sub.push(point.x, point.y);
   });
   return sub;
@@ -115,7 +115,7 @@ function createRectPath(from, to) {
   const path = [
     [ 'M', from.x, from.y ]
   ];
-  Util.each(points, function(point) {
+  Util.each(points, point => {
     path.push([ 'L', point.x, point.y ]);
   });
   return path;

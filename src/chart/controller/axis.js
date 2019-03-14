@@ -59,7 +59,7 @@ function getDefaultValueFromPosition(position, val = 0) {
   if (position === 'middle') {
     val = 0.5;
   }
-  if (position.indexOf('%') !== -1) {
+  if (position.includes('%')) {
     val = parseInt(position, 10) / 100;
   }
   return val;
@@ -220,7 +220,7 @@ class AxisController {
     circleCfg.startAngle = startAngle;
     circleCfg.endAngle = endAngle;
     circleCfg.center = center;
-    circleCfg.radius = Math.sqrt(Math.pow(start.x - center.x, 2) + Math.pow(start.y - center.y, 2));
+    circleCfg.radius = Math.sqrt((start.x - center.x) ** 2 + (start.y - center.y) ** 2);
     circleCfg.inner = coord.innerRadius || 0;
     return circleCfg;
   }
@@ -371,7 +371,7 @@ class AxisController {
                   y = 1 - y;
                 }
                 point.flag = rangeX.start > rangeX.end ? 0 : 1;
-                point.radius = Math.sqrt(Math.pow(point.x - center.x, 2) + Math.pow(point.y - center.y, 2));
+                point.radius = Math.sqrt((point.x - center.x) ** 2 + (point.y - center.y) ** 2);
               }
               subPoints.push(point);
             });
@@ -481,7 +481,7 @@ class AxisController {
 
   changeVisible(visible) {
     const axes = this.axes;
-    Util.each(axes, function(axis) {
+    Util.each(axes, axis => {
       axis.set('visible', visible);
     });
   }
@@ -489,7 +489,7 @@ class AxisController {
   clear() {
     const self = this;
     const axes = self.axes;
-    Util.each(axes, function(axis) {
+    Util.each(axes, axis => {
       axis.clear();
     });
     self.axes = [];

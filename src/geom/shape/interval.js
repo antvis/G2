@@ -90,7 +90,7 @@ function getLinePoints(cfg) {
   const points = [];
 
   if (Util.isArray(y)) {
-    Util.each(y, function(yItem, idx) {
+    Util.each(y, (yItem, idx) => {
       points.push({
         x: Util.isArray(x) ? x[idx] : x,
         y: yItem

@@ -26,15 +26,15 @@ const canvas = new Canvas({
 });
 
 
-describe('area shapes', function() {
+describe('area shapes', () => {
   Area._coord = coord;
-  describe('default', function() {
-    it('default shape type', function() {
+  describe('default', () => {
+    it('default shape type', () => {
       expect(Area.defaultShapeType).equal('area');
     });
   });
-  describe('area', function() {
-    it('getShapePoints && drawShape', function() {
+  describe('area', () => {
+    it('getShapePoints && drawShape', () => {
       const type = 'area';
       const points1 = Area.getShapePoints(type, {
         x: 0.1,
@@ -71,7 +71,7 @@ describe('area shapes', function() {
       expect(shape.attr('path')[3].length).eql(3);
       expect(shape.attr('path')[4].length).eql(1);
     });
-    it('getMarkerCfg', function() {
+    it('getMarkerCfg', () => {
       const point = {
         points: [{
           B: 2,
@@ -124,8 +124,8 @@ describe('area shapes', function() {
     // });
   });
 
-  describe('smooth', function() {
-    it('getShapePoints && drawShape', function() {
+  describe('smooth', () => {
+    it('getShapePoints && drawShape', () => {
       const type = 'smooth';
       const points1 = Area.getShapePoints(type, {
         x: 0.1,
@@ -168,7 +168,7 @@ describe('area shapes', function() {
       expect(shape.attr('path')[3].length).eql(3);
       expect(shape.attr('path')[4].length).eql(1);
     });
-    it('getMarkerCfg', function() {
+    it('getMarkerCfg', () => {
       const point = {
         fill: 'red'
       };
@@ -180,8 +180,8 @@ describe('area shapes', function() {
     });
   });
 
-  describe('line', function() {
-    it('getShapePoints && drawShape', function() {
+  describe('line', () => {
+    it('getShapePoints && drawShape', () => {
       const type = 'line';
       const points1 = Area.getShapePoints(type, {
         x: 0.1,
@@ -215,7 +215,7 @@ describe('area shapes', function() {
       expect(shape.attr('path')[3].length).eql(3);
       expect(shape.attr('path')[4].length).eql(1);
     });
-    it('getMarkerCfg', function() {
+    it('getMarkerCfg', () => {
       const point = {
         points: [{
           B: 2,
@@ -248,7 +248,7 @@ describe('area shapes', function() {
     });
   });
 
-  describe('area shapes Polar', function() {
+  describe('area shapes Polar', () => {
     coord = new Coord.Polar({
       start: {
         x: 0,
@@ -259,7 +259,7 @@ describe('area shapes', function() {
         y: 0
       }
     });
-    it('getShapePoints && drawShape', function() {
+    it('getShapePoints && drawShape', () => {
       const type = 'area';
       const points1 = Area.getShapePoints(type, {
         x: 0.1,
@@ -298,7 +298,7 @@ describe('area shapes', function() {
       expect(shape.attr('path')[6].length).eql(1);
     });
 
-    it('clear', function() {
+    it('clear', () => {
       canvas.destroy();
     });
   });

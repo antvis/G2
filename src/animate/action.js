@@ -193,7 +193,7 @@ function lineWidthOut(shape, animateCfg) {
   const id = shape._id;
   const index = shape.get('index');
   const animateParam = getAnimateParam(animateCfg, index, id, endState);
-  shape.animate(endState, animateParam.duration, animateParam.easing, function() {
+  shape.animate(endState, animateParam.duration, animateParam.easing, () => {
     shape.remove();
   }, animateParam.delay);
 }
@@ -254,7 +254,7 @@ function zoomOut(shape, animateCfg, coord) {
     ]
   };
   const animateParam = getAnimateParam(animateCfg, index, id, endState);
-  shape.animate(endState, animateParam.duration, animateParam.easing, function() {
+  shape.animate(endState, animateParam.duration, animateParam.easing, () => {
     shape.remove();
   }, animateParam.delay);
 }
@@ -281,7 +281,7 @@ function pathOut(shape, animateCfg) {
     path: [ path[0] ]
   };
   const animateParam = getAnimateParam(animateCfg, index, id, endState);
-  shape.animate(endState, animateParam.duration, animateParam.easing, function() {
+  shape.animate(endState, animateParam.duration, animateParam.easing, () => {
     shape.remove();
   }, animateParam.delay);
 }
@@ -306,7 +306,7 @@ function clipIn(shape, animateCfg, coord, startAngle, endAngle) {
   shape.setSilent('animating', true);
   const animateParam = getAnimateParam(animateCfg, index, id, endState);
   clip.animate(endState, animateParam.duration, animateParam.easing,
-    function() {
+    () => {
       if (shape && !shape.get('destroyed')) {
         shape.attr('clip', null);
         shape.setSilent('cacheShape', null);
@@ -339,7 +339,7 @@ function fadeOut(shape, animateCfg) {
     strokeOpacity: 0
   };
   const animateParam = getAnimateParam(animateCfg, index, id, endState);
-  shape.animate(endState, animateParam.duration, animateParam.easing, function() {
+  shape.animate(endState, animateParam.duration, animateParam.easing, () => {
     shape.remove();
   }, animateParam.delay);
 }

@@ -28,9 +28,7 @@ function isFile(source) {
 }
 
 function getFiles(source) {
-  return readdirSync(source).map(function(name) {
-    return join(source, name);
-  }).filter(isFile);
+  return readdirSync(source).map(name => join(source, name)).filter(isFile);
 }
 
 const screenshotsPath = join(process.cwd(), './demos/assets/screenshots');
