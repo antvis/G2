@@ -9,6 +9,7 @@ const FIELD_ORIGIN = '_origin';
 const MARKER_SIZE = 4.5;
 const requireAnimationFrameFn = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
   window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+const STROKE_MARKERS = [ 'cross', 'tick', 'plus', 'hyphen', 'line' ];
 
 function _snapEqual(v1, v2, scale) {
   let isEqual;
@@ -761,11 +762,16 @@ class LegendController {
     Util.each(items, item => {
       const geom = findGeom(geoms, item.value);
       if (!Util.isObject(item.marker)) {
+        const symbol = item.marker || 'circle';
         item.marker = {
-          symbol: item.marker ? item.marker : 'circle',
-          fill: item.fill,
+          symbol,
           radius: MARKER_SIZE
         };
+        if (Util.indexOf(STROKE_MARKERS, symbol) !== -1) {
+          item.marker.stroke = item.fill;
+        } else {
+          item.marker.fill = item.fill;
+        }
       } else {
         item.marker.radius = item.marker.radius || MARKER_SIZE;
       }
