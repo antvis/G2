@@ -177,6 +177,7 @@ class EventController {
       view.emit('plotleave', evtObj);
       self.curViews = []; // 清空
     }
+    view.emit('mouseleave',evtObj)
   }
 
   onUp(ev) {
