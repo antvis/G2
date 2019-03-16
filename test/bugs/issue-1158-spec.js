@@ -41,9 +41,26 @@ describe('#1158', () => {
       custom: true,
       items: [
         {
-          value: 'hahaha',
+          value: 'Item A',
           fill: 'red',
-          marker: 'tick' // not working
+          marker: 'tick'
+        },
+        {
+          value: 'Item B',
+          fill: 'green',
+          marker: 'circle'
+        },
+        {
+          value: 'Item C',
+          fill: 'blue',
+          marker: 'hollowCircle'
+        },
+        {
+          value: 'Item D',
+          marker: {
+            symbol: 'hollowSquare',
+            stroke: 'yellow'
+          }
         }
       ]
     });
@@ -61,6 +78,21 @@ describe('#1158', () => {
       radius: 4.5,
       stroke: 'red',
       symbol: 'tick'
+    });
+    expect(legend.get('items')[1].marker).to.eql({
+      radius: 4.5,
+      fill: 'green',
+      symbol: 'circle'
+    });
+    expect(legend.get('items')[2].marker).to.eql({
+      radius: 4.5,
+      stroke: 'blue',
+      symbol: 'circle'
+    });
+    expect(legend.get('items')[3].marker).to.eql({
+      radius: 4.5,
+      stroke: 'yellow',
+      symbol: 'square'
     });
   });
 
