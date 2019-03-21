@@ -1,3 +1,30 @@
+#### 3.5.0 (2019-03-21)
+
+##### New Features
+
+- feat(venn): venn geom label supports position adjusting
+- feat(types): improve TooltipConfig type definition
+- feat(types): add full LegendConfig.position enums
+
+##### Bug Fixes
+
+- fix: label should keep default textStyle when textStyle is a function and returns null. Closes #1231
+- fix: 兼容，legend实例attr中存在x与y而canvas形式中是通过group获取的兼容. Closes #997
+- fix(scale): Scale config should be effective when data is null or data length is 0, close #1208
+- fix(legend): fix the scale alias for mixed legend does not work. Closed #1209
+- fix(tooltip): Added line to TooltipConfig crosshairs type
+- fix(Scale): 线性缩放时，需要深拷贝scale配置. Closes #1178
+- fix: auto padding blocks axis title, Closes #1188
+- fix(schema): use cfg.color for lineAttrs.stroke if available.
+- fix(HtmlTooltip): 在特定场景下HtmlTooltip.hide()时大概率获取不到container
+- fix(label): show label for heatmap, Closes #1184
+- fix: Use cfg.color for lineAttrs.stroke if available.
+- fix: issue-1167 还原格式化. Closes #1167
+- fix: when guide.html() is defined, legends is not in view. Closes #1149
+- fix: bug in guide. Closes #1149
+- fix: *.d.ts: Shape.registerShape and BashView.coord declare
+
+
 #### 3.4.9 (2019-01-04)
 
 ##### New Features
