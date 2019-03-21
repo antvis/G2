@@ -419,6 +419,7 @@ class GeomLabels extends Group {
     const labelCfg = this.get('labelCfg');
     const scales = labelCfg.scales;
     const defaultCfg = this.get('label');
+    const viewTheme = self.get('viewTheme') || Global;
     const cfgs = [];
     if (labelCfg.globalCfg && labelCfg.globalCfg.type) {
       self.set('type', labelCfg.globalCfg.type);
@@ -471,7 +472,8 @@ class GeomLabels extends Group {
       if (cfg.labelLine) {
         cfg.labelLine = Util.mix({}, defaultCfg.labelLine, cfg.labelLine);
       }
-      cfg.textStyle = Util.mix({}, defaultCfg.textStyle, cfg.textStyle);
+      // 因为 defaultCfg.textStyle 有可能是函数，所以这里可能没有把主题的 label 样式合进来
+      cfg.textStyle = Util.mix({}, defaultCfg.textStyle, viewTheme.label.textStyle, cfg.textStyle);
       delete cfg.items;
       cfgs.push(cfg);
     });
