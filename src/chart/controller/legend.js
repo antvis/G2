@@ -9,6 +9,20 @@ const FIELD_ORIGIN = '_origin';
 const MARKER_SIZE = 4.5;
 const requireAnimationFrameFn = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
   window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+const STROKE_MARKERS = [
+  'cross',
+  'tick',
+  'plus',
+  'hyphen',
+  'line',
+  'hollowCircle',
+  'hollowSquare',
+  'hollowDiamond',
+  'hollowTriangle',
+  'hollowTriangleDown',
+  'hollowHexagon',
+  'hollowBowtie'
+];
 
 function _snapEqual(v1, v2, scale) {
   let isEqual;
@@ -762,15 +776,25 @@ class LegendController {
     const geoms = chart.getAllGeoms();
     Util.each(items, item => {
       const geom = findGeom(geoms, item.value);
-      if (!Util.isObject(item.marker)) {
+      if (!Util.isPlainObject(item.marker)) { // 直接传入字符串或者回调函数时转换为对象，如 item.marker = 'circle'
         item.marker = {
-          symbol: item.marker ? item.marker : 'circle',
-          fill: item.fill,
+          symbol: item.marker || 'circle',
           radius: MARKER_SIZE
         };
-      } else {
+        if (Util.indexOf(STROKE_MARKERS, item.marker.symbol) !== -1) {
+          item.marker.stroke = item.fill;
+        } else {
+          item.marker.fill = item.fill;
+        }
+      } else { // 用户传入对象 item.marker = { symbol: 'circle', fill: 'red', radius: 3 }
         item.marker.radius = item.marker.radius || MARKER_SIZE;
       }
+
+      const symbol = item.marker.symbol;
+      if (Util.isString(symbol) && symbol.indexOf('hollow') !== -1) {
+        item.marker.symbol = Util.lowerFirst(symbol.substr(6));
+      }
+
       item.checked = Util.isNil(item.checked) ? true : item.checked;
       item.geom = geom;
     });

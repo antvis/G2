@@ -5,6 +5,9 @@ describe('#439', () => {
   it('tooltip and size', () => {
     const div = document.createElement('div');
     document.body.appendChild(div);
+    div.style.position = 'fixed';
+    div.style.top = 0;
+    div.style.left = 0;
     const data = [
       { genre: 'Sports', sold: 275, type: '1' },
       { genre: 'Strategy', sold: 115, type: '1' },
@@ -47,8 +50,8 @@ describe('#439', () => {
     const canvas = chart.get('canvas');
     canvas.emit('click', {
       type: 'click',
-      x: 748 * 2,
-      y: 79 * 2,
+      x: 542 * 2,
+      y: 201 * 2,
       event: {
         toElement: canvas.get('el')
       }
@@ -64,6 +67,5 @@ describe('#439', () => {
         }
       });
     }).not.to.throw();
-
   });
 });
