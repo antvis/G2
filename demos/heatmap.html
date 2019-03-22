@@ -19,13 +19,13 @@
       const chart = new G2.Chart({
         container: 'canvas',
         forceFit: true,
-        height: window.innerHeight,
-        padding: 'auto'
+        height: window.innerHeight
+        // padding: 'auto'
         // plotBackground: {
         //   fill: '#666' // 图表背景色
         // }
       });
-      chart.coord().reflect('y');
+      // chart.coord().reflect('y');
       chart.source(data);
       chart.tooltip({
         showTitle: false
@@ -45,29 +45,32 @@
       });
       chart.render();
 
-      setTimeout(() => {
-        chart.clear();
-        chart.coord().reflect('y');
-        chart.source(data);
-        chart.tooltip({
-          showTitle: false
-        });
-        chart.axis(false);
-        chart.legend({
-          position: 'right',
-          layout: 'vertical'
-        });
-        chart.heatmap()
-          .position('g*l')
-          .color('tmp', 'red-yellow-green');
-        chart.guide().image({
-          start: [ 'min', 'max' ],
-          end: [ 'max', 'min' ],
-          src: 'https://gw.alipayobjects.com/zos/rmsportal/NeUTMwKtPcPxIFNTWZOZ.png'
-        });
-        chart.render();
+      // setTimeout(() => {
+      //   chart.clear();
+      // }, 200);
 
-      }, 4000);
+      // setTimeout(() => {
+      //   chart.clear();
+      //   // chart.coord().reflect('y');
+      //   chart.source(data);
+      //   chart.tooltip({
+      //     showTitle: false
+      //   });
+      //   chart.axis(false);
+      //   chart.legend({
+      //     position: 'right',
+      //     layout: 'vertical'
+      //   });
+      //   chart.heatmap()
+      //     .position('g*l')
+      //     .color('tmp', 'red-yellow-green');
+      //   chart.guide().image({
+      //     start: [ 'min', 'max' ],
+      //     end: [ 'max', 'min' ],
+      //     src: 'https://gw.alipayobjects.com/zos/rmsportal/NeUTMwKtPcPxIFNTWZOZ.png'
+      //   });
+      //   chart.render();
+      // }, 4000);
     });
   </script>
 </body>

@@ -142,9 +142,11 @@ class Heatmap extends GeomBase {
       canvas = document.createElement('canvas');
       self.set(SHADOW_CANVAS, canvas);
     }
-    const { width, height } = self.get('coord');
-    canvas.width = width;
-    canvas.height = height;
+    const coord = self.get('coord');
+    if (coord) {
+      canvas.width = coord.width;
+      canvas.height = coord.height;
+    }
     return canvas.getContext('2d');
   }
 

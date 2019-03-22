@@ -137,18 +137,32 @@
   chart.axis(false);
   chart.legend(false);
   chart.venn()
-    .label('sets')
-    .size('size')
-    .color('id')
-    .tooltip('size')
+    .position('x*y')
+    .sets('sets')
+    .label('label', {
+      type: 'scatter',
+      offset: 0,
+      textStyle(text, item) {
+        return {
+          textAlign: 'center',
+          fill: item.color
+        };
+      }
+    })
+    .size('size') // 这个字段用来获取集合 size
+    .color('label')
     .shape('hollow')
+    .active(false)
     .style({
-      lineWidth: 10,
+      lineWidth: 2,
       padding: 10,
       textStyle: {
-        fontSize: 32
+        textAlign: 'center',
+        fontSize: 12,
+        fontWeight: 'bold' // 文本粗细
       }
     });
+
   chart.render();
 </script>
 </body>
