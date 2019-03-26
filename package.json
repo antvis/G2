@@ -103,7 +103,7 @@
     "@antv/attr": "~0.1.2",
     "@antv/coord": "~0.1.0",
     "@antv/g": "~3.3.6",
-    "@antv/scale": "~0.1.0",
+    "@antv/scale": "~0.1.1",
     "@antv/util": "~1.3.1",
     "venn.js": "~0.2.20",
     "wolfy87-eventemitter": "~5.1.0"

@@ -22,6 +22,12 @@ describe('#1208', () => {
       },
       sold: {
         alias: '销售量'
+      },
+      percent: {
+        formatter: function formatter(val) {
+          val = val * 100 + '%';
+          return val;
+        }
       }
     });
     chart.axis('genre', {
@@ -38,5 +44,43 @@ describe('#1208', () => {
     const yTitle = axisController.axes[1].get('title').text;
     expect(xTitle).to.equal('游戏种类');
     expect(yTitle).to.equal('销售量');
+
+    expect(() => {
+      chart.coord('theta', {
+        radius: 0.75,
+        innerRadius: 0.6
+      });
+      chart.tooltip({
+        showTitle: false,
+        itemTpl: '<li><span style="background-color:{color};" class="g2-tooltip-marker"></span>{name}: {value}</li>'
+      });
+      // 辅助文本
+      chart.guide().html({
+        position: [ '50%', '50%' ],
+        html: '<div style="color:#8c8c8c;font-size: 14px;text-align: center;width: 10em;">主机<br><span style="color:#8c8c8c;font-size:20px">200</span>台</div>',
+        alignX: 'middle',
+        alignY: 'middle'
+      });
+      chart.intervalStack()
+        .position('percent')
+        .color('item')
+        .label('percent', {
+          formatter: function formatter(val, item) {
+            return item.point.item + ': ' + val;
+          }
+        })
+        .tooltip('item*percent', function(item, percent) {
+          percent = percent * 100 + '%';
+          return {
+            name: item,
+            value: percent
+          };
+        })
+        .style({
+          lineWidth: 1,
+          stroke: '#fff'
+        });
+      chart.render();
+    }).to.not.throw();
   });
 });

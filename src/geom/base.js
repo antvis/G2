@@ -510,10 +510,15 @@ class GeomBase extends Base {
         // 饼图需要填充满整个空间
         if (coord.type === 'theta' && type === 'position' && scales.length > 1) {
           const yScale = scales[1];
+          const min = 0;
+          let max = Math.max.apply(null, yScale.values);
+          if (!isFinite(max)) {
+            max = 1;
+          }
           yScale.change({
             nice: false,
-            min: 0,
-            max: Math.max.apply(null, yScale.values)
+            min,
+            max
           });
         }
         option.scales = scales;
