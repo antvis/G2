@@ -208,10 +208,11 @@ class EventController {
         registerData(eventObj);
         // eventObj.data = shape.get('origin');
       }
-      view.emit('plotclick', eventObj);
       if (ev.type === 'dblclick') {
         view.emit('plotdblclick', eventObj);
         view.emit('dblclick', shapeEventObj);
+      } else {
+        view.emit('plotclick', eventObj);
       }
     }
   }
