@@ -314,9 +314,7 @@ class Brush extends Interaction {
       }
 
 
-      if (me.onBrushend) {
-        me.onBrushend(eventObj);
-      } else if (chart && me.filter) {
+      if ((!me.onBrushend || me.onBrushend(eventObj) === true) && chart && me.filter) {
         container.clear(); // clear the brush
         // filter data
         if (type === 'X') {
