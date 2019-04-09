@@ -759,7 +759,7 @@ declare namespace G2 {
 
   type ScaleConfigMap = { [field: string]: ScaleConfig };
 
-  class BashView {
+  class BaseView {
     source(data: any): this;
     source(data: any, scaleConfig: ScaleConfigMap): this;
     getXScale<T>(): T;
@@ -830,11 +830,11 @@ declare namespace G2 {
     schemaDodge(): Geom;
   }
 
-  class View extends BashView {
+  class View extends BaseView {
     tooltip(option: boolean): this;
   }
 
-  class Chart extends BashView {
+  class Chart extends BaseView {
     constructor(config: Partial<ChartProps>);
     legend(option: boolean): this;
     legend(field: string, option: boolean): this;
