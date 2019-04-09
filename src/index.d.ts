@@ -686,8 +686,8 @@ declare namespace G2 {
   interface AxisConfig {
     position?: 'top' | 'bottom' | 'left' | 'right';
     line?: Styles.line;
-    label?: AxisLabel;
-    title?: AxisTile;
+    label?: AxisLabel | null;
+    title?: AxisTile | null;
     tickLine?: Styles.tickLine | null;
     subTickCount?: number;
     subTickLine?: Styles.tickLine | null;
