@@ -683,7 +683,7 @@ declare namespace G2 {
     }): void;
   }
 
-  class ChartAxisConfig {
+  interface AxisConfig {
     position?: 'top' | 'bottom' | 'left' | 'right';
     line?: Styles.line;
     label?: AxisLabel;
@@ -693,7 +693,8 @@ declare namespace G2 {
     subTickLine?: Styles.tickLine | null;
     grid?: AxisGrid | null;
   }
-  type AxisGrid = {
+
+  interface AxisGrid = {
     /**
      * 声明网格顶点从两个刻度中间开始，默认从刻度点开始
      */
@@ -721,9 +722,46 @@ declare namespace G2 {
     hideLastLine?: boolean;
   };
 
+  interface ScaleConfig {
+    /**
+     * 指定数据类型
+     */
+    type: 'identity' | 'linear' | 'cat' | 'time' | 'timeCat' | 'log' | 'pow';
+    /**
+     * 数据字段的别名
+     */
+    alias: string;
+    /**
+     * 格式化文本内容
+     */
+    formatter(val: number | string): number | string;
+    /**
+     * 输出数据的范围，默认[ 0, 1 ]，格式为 [ min, max ]，min 和 max 均为 0 至 1 范围的数据。
+     */
+    range: [number, number];
+    /**
+     * 设置坐标轴上刻度点的个数
+     */
+    tickCount: number;
+    /**
+     * 用于指定坐标轴上刻度点的文本信息，当用户设置了 ticks 就会按照 ticks 的个数和文本来显示
+     */
+    ticks: Array<string | number>;
+    /**
+     * 重新显示的值
+     */
+    values: Array<string | number>;
+    /**
+     * 当 chart 存在不同数据源的 view 时，用于统一相同数据属性的值域范围
+     */
+    sync: boolean;
+  };
+
+  type ScaleConfigMap = { [field: string]: ScaleConfig };
+
   class BashView {
     source(data: any): this;
-    source(data: any, scaleConfig: any): this;
+    source(data: any, scaleConfig: ScaleConfigMap): this;
     getXScale<T>(): T;
     getYScales<T>(): T[];
     getXY(): {
@@ -742,10 +780,10 @@ declare namespace G2 {
     ): this;
     axis(option: boolean): this;
     axis(field: string, option: boolean): this;
-    axis(field: string, axisConfig: ChartAxisConfig): this;
+    axis(field: string, axisConfig: AxisConfig): this;
     guide(): ChartGuide;
-    scale(scaleConfig: any): this;
-    scale(field: string, scaleConfig: any): this;
+    scale(scaleConfig: ScaleConfigMap): this;
+    scale(field: string, scaleConfig: ScaleConfig): this;
     coord(
       type: 'rect' | 'polar' | 'theta' | 'helix',
       coordConfig?: {
