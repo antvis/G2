@@ -800,7 +800,7 @@ declare namespace G2 {
     constructor(config: Partial<ChartProps>);
     legend(option: boolean): this;
     legend(field: string, option: boolean): this;
-    legend(field: string, legendConfig: LegendConfig): this;
+    legend(field: string | true, legendConfig: LegendConfig): this;
     tooltip(tooltipConfig: TooltipConfig | boolean): this;
     view(option?: {
       start?: { x: number; y: number };
