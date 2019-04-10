@@ -40,10 +40,10 @@
   const $chartPanel = $('#chart-panel');
   const $codePanel = $('#code-panel');
 
-  function syncCode(code) {
+  function syncCode(code, updateEditor = true) {
     $chartPanel.html('<iframe class="chart-frame" frameborder="0"></iframe>');
     $chartPanel.find('iframe')[0].contentWindow.document.write(code);
-    htmlEditor.getDoc().setValue(code);
+    if (updateEditor) htmlEditor.getDoc().setValue(code);
   }
 
   routie({
@@ -100,6 +100,6 @@
 
   // run code
   $('#execute').on('click', () => {
-    syncCode(htmlEditor.getValue());
+    syncCode(htmlEditor.getValue(), false);
   });
 })();
