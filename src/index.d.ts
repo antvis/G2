@@ -13,6 +13,8 @@ declare namespace G2 {
   const Util: Util;
   const Shape: Shape;
 
+  type ChartValue = string | number
+
   class Global {
     setTheme(option: 'default' | 'dark'): void;
     version: string;
@@ -69,7 +71,7 @@ declare namespace G2 {
       /**
        * 设置用于笔触的颜色、渐变或模式；
        */
-      stroke?: string | number;
+      stroke?: ChartValue;
       /**
        * 设置用于阴影的颜色；
        */
@@ -77,19 +79,19 @@ declare namespace G2 {
       /**
        * 设置用于阴影的模糊级别；
        */
-      shadowBlur?: string | number;
+      shadowBlur?: ChartValue;
       /**
        * 设置阴影距形状的水平距离；
        */
-      shadowOffsetX?: string | number;
+      shadowOffsetX?: ChartValue;
       /**
        * 设置阴影距形状的垂直距离；
        */
-      shadowOffsetY?: string | number;
+      shadowOffsetY?: ChartValue;
       /**
        * 设置绘图的当前 alpha 或透明值；
        */
-      opacity?: string | number;
+      opacity?: ChartValue;
       /**
        * 设置新图像如何绘制到已有的图像上。
        */
@@ -120,26 +122,26 @@ declare namespace G2 {
       /**
        * 文本粗细
        */
-      fontWeight?: string | number;
+      fontWeight?: ChartValue;
       /**
        * 文本字号大小
        */
-      fontSize?: string | number;
+      fontSize?: ChartValue;
       /**
        * 文本字体名称
        */
       fontFamily?: string;
     }
     interface line extends common {
-      strokeOpacity?: string | number;
+      strokeOpacity?: ChartValue;
       /**
        * 虚线的设置
        */
       lineDash?: number[];
       lineCap?: string;
       lineJoin?: string;
-      lineWidth?: string | number;
-      miterLimit?: string | number;
+      lineWidth?: ChartValue;
+      miterLimit?: ChartValue;
       startArrow?: boolean;
       endArrow?: boolean;
       arrowAngle?: number;
@@ -202,25 +204,20 @@ declare namespace G2 {
    * 图表接收的参数
    */
   interface ChartProps {
-    container: string | HTMLDivElement;
+    container: string | HTMLElement;
     width?: number;
     height: number;
     padding?:
-      | {
-          top?: number | string;
-          right?: number | string;
-          bottom?: number | string;
-          left?: number | string;
-        }
-      | number
-      | string
-      | [
-          number | string,
-          number | string,
-          number | string,
-          number | string
-        ]
-      | [string, string];
+    | { top?: ChartValue; right?: ChartValue; bottom?: ChartValue; left?: ChartValue; }
+    | ChartValue
+    | [ChartValue]
+    | [ChartValue, ChartValue]
+    | [ChartValue, ChartValue, ChartValue]
+    | [ChartValue, ChartValue, ChartValue, ChartValue]
+    /**
+     * 当`padding`为`'auto'`时该属性生效，为自动计算后额外的`padding`值，默认为`5`
+     */
+    autoPaddingAppend?: number;
     background?: Styles.background;
     plotBackground?: Styles.background;
     forceFit?: boolean;
@@ -393,23 +390,9 @@ declare namespace G2 {
   ) => void;
 
   interface LegendConfig {
-    position?:
-      | 'top'
-      | 'bottom'
-      | 'left'
-      | 'right'
-      | 'left-top'
-      | 'left-center'
-      | 'left-bottom'
-      | 'right-top'
-      | 'right-center'
-      | 'right-bottom'
-      | 'top-left'
-      | 'top-center'
-      | 'top-bottom'
-      | 'bottom-left'
-      | 'bottom-center'
-      | 'bottom-right';
+    position?: 'top' | 'bottom' | 'left' | 'right' | 'left-top' | 'left-center' | 'left-bottom'
+    | 'right-top' | 'right-center' | 'right-bottom' | 'top-left' | 'top-center' | 'top-bottom'
+    | 'bottom-left' | 'bottom-center' | 'bottom-right';
     layout?: 'vertica' | 'horizontal';
     title?: Styles.text;
     offsetX?: number;
@@ -465,10 +448,7 @@ declare namespace G2 {
     showMarker: boolean;
   }
 
-  type TooltipConfig =
-    | HtmlTooltipConfig
-    | CanvasTooltipConfig
-    | MiniTooltipConfig;
+  type TooltipConfig = HtmlTooltipConfig | CanvasTooltipConfig | MiniTooltipConfig;
 
   interface CommonTooltipConfig {
     triggerOn?: 'mousemove' | 'click' | 'none';
@@ -524,6 +504,11 @@ declare namespace G2 {
     triangleHeight?: number;
   }
 
+  type GuidePosition =
+    | { [key: string]: ChartValue }
+    | ChartValue[]
+    | ((xScales: any, yScales: any) => { [key: string]: ChartValue } | ChartValue[])
+
   class ChartGuide {
     line(option: {
       /**
@@ -533,11 +518,11 @@ declare namespace G2 {
       /**
        * 辅助线起始位置，值为原始数据值，支持 callback
        */
-      start?: any | Function | Array<string | number>;
+      start?: GuidePosition;
       /**
        * 辅助线结束位置，值为原始数据值，支持 callback
        */
-      end?: any | Function | Array<string | number>;
+      end?: GuidePosition;
       /**
        * 图形样式配置
        */
@@ -578,7 +563,7 @@ declare namespace G2 {
       /**
        * 文本的起始位置，值为原始数据值，支持 callback
        */
-      position?: any | Function | Array<string | number>;
+      position?: GuidePosition;
       /**
        * 显示的文本内容
        */
@@ -604,11 +589,11 @@ declare namespace G2 {
       /**
        * 图片起始位置， 值为原始数据值，支持 callback
        */
-      start?: any | Function | Array<string | number>;
+      start?: GuidePosition;
       /**
        * 图片结束位置， 值为原始数据值，支持 callback
        */
-      end?: any | Function | Array<string | number>;
+      end?: GuidePosition;
       /**
        * 图片路径
        */
@@ -632,11 +617,11 @@ declare namespace G2 {
       /**
        * 辅助框起始位置，值为原始数据值，支持 callback
        */
-      start?: any | Function | Array<string | number>;
+      start?: GuidePosition;
       /**
        * 辅助框结束位置，值为原始数据值，支持 callback
        */
-      end?: any | Function | Array<string | number>;
+      end?: GuidePosition;
       style?: {
         /**
          * 辅助框的边框宽度
@@ -657,7 +642,7 @@ declare namespace G2 {
       /**
        * html的起始位置，值为原始数据值，支持 callback
        */
-      position?: any | Function | Array<string | number>;
+      position?: GuidePosition;
       alignX?: 'left' | 'middle' | 'right';
       alignY?: 'top' | 'middle' | 'bottom';
       offsetX?: number;
@@ -674,11 +659,11 @@ declare namespace G2 {
       /**
        * 辅助框起始位置，值为原始数据值，支持 callback
        */
-      start?: any | Function | Array<string | number>;
+      start?: GuidePosition;
       /**
        * 辅助框结束位置，值为原始数据值，支持 callback
        */
-      end?: any | Function | Array<string | number>;
+      end?: GuidePosition;
       style?: object;
     }): void;
   }
@@ -722,41 +707,7 @@ declare namespace G2 {
     hideLastLine?: boolean;
   }
 
-  interface ScaleConfig {
-    /**
-     * 指定数据类型
-     */
-    type?: 'identity' | 'linear' | 'cat' | 'time' | 'timeCat' | 'log' | 'pow';
-    /**
-     * 数据字段的别名
-     */
-    alias?: string;
-    /**
-     * 格式化文本内容
-     */
-    formatter?(val: number | string): number | string;
-    /**
-     * 输出数据的范围，默认[ 0, 1 ]，格式为 [ min, max ]，min 和 max 均为 0 至 1 范围的数据。
-     */
-    range?: [number, number];
-    /**
-     * 设置坐标轴上刻度点的个数
-     */
-    tickCount?: number;
-    /**
-     * 用于指定坐标轴上刻度点的文本信息，当用户设置了 ticks 就会按照 ticks 的个数和文本来显示
-     */
-    ticks?: Array<string | number>;
-    /**
-     * 重新显示的值
-     */
-    values?: Array<string | number>;
-    /**
-     * 当 chart 存在不同数据源的 view 时，用于统一相同数据属性的值域范围
-     */
-    sync?: boolean;
-  }
-
+  type ScaleConfig = ScaleIdentity | ScaleLinear | ScaleCat | ScaleLog | ScalePow | ScaleTime | ScaleTimeCat
   type ScaleConfigMap = { [field: string]: ScaleConfig };
 
   class BaseView {
@@ -776,7 +727,7 @@ declare namespace G2 {
     };
     filter(
       field: string,
-      callback: (value: string | number) => boolean
+      callback: (value: ChartValue) => boolean
     ): this;
     axis(option: boolean): this;
     axis(field: string, option: boolean): this;
@@ -805,10 +756,11 @@ declare namespace G2 {
         endAngle?: number;
       }
     ): Coordinate;
-    animate(option: boolean): void;
+    animate(enable: boolean): void;
     clear(): void;
+    changeOptions(option: Partial<ChartProps>): void;
     changeData(data: any): void;
-    changeVisible(visible: string): void;
+    changeVisible(visible: boolean): void;
     repaint(): void;
     destroy(): void;
     line(): Geom;
@@ -835,7 +787,7 @@ declare namespace G2 {
   }
 
   class Chart extends BaseView {
-    constructor(config: Partial<ChartProps>);
+    constructor(option: ChartProps);
     legend(option: boolean): this;
     legend(field: string, option: boolean): this;
     legend(field: string | true, legendConfig: LegendConfig): this;
@@ -903,67 +855,176 @@ declare namespace G2 {
    * config interface
    */
   class Scale<T> {
-    type?:
-      | 'identity'
-      | 'linear'
-      | 'cat'
-      | 'time'
-      | 'timeCat'
-      | 'log'
-      | 'pow';
+    /**
+     * 指定数据类型
+     */
+    type?: 'identity' | 'linear' | 'cat' | 'time' | 'timeCat' | 'log' | 'pow'
+    /**
+     * 格式化文本内容
+     */
     formatter?(value: T): string;
+    /**
+     * 输出数据的范围，默认[ 0, 1 ]，格式为 [ min, max ]，min 和 max 均为 0 至 1 范围的数据。
+     */
     range?: [number, number];
-    alias?: string | number;
+    /**
+     * 数据字段的别名
+     */
+    alias?: string;
+    /**
+     * 设置坐标轴上刻度点的个数，默认为 `5`
+     */
     tickCount?: number;
-    ticks?: any[];
+    /**
+     * 用于指定坐标轴上刻度点的文本信息，当用户设置了 ticks 就会按照 ticks 的个数和文本来显示
+     */
+    ticks?: ChartValue[];
+    /**
+     * 当 chart 存在不同数据源的 view 时，用于统一相同数据属性的值域范围
+     */
+    sync?: boolean;
+    /**
+     * 将数据转换到 [0, 1] 之间
+     * @param value 待转换的值
+     */
     scale?(value: T): number;
+    /**
+     * 将 [0, 1] 之间的数据转换至原始数据
+     * @param n [0, 1] 之间的值
+     */
     invert?(n: number): T;
+    /**
+     * 获取坐标轴需要的 ticks
+     */
     getTicks?(): any[];
+    /**
+     * 格式化具体的一个值
+     * @param value 需要格式化的值
+     */
     getText?(value: any): string;
   }
 
+  class ScaleIdentity extends Scale<ChartValue>{
+    type?: 'identity'
+  }
+
   class ScaleLinear extends Scale<number> {
+    type?: 'linear'
+    /**
+     * 用于优化数值范围，使绘制的坐标轴刻度线均匀分布，默认为`true`
+     */
     nice?: boolean;
+    /**
+     * 定义数值范围的最小值
+     */
     min?: number;
+    /**
+     * 定义数值范围的最大值
+     */
     max?: number;
     /**
-     * 用于指定坐标轴各个标度点的间距，是原始数据之间的间距差值，tickCount 和 tickInterval 不可以同时声明。
+     * 用于指定坐标轴各个标度点的间距，是原始数据之间的间距差值。
+     * `tickCount` 和 `tickInterval` 不可以同时声明。
      */
     tickInterval?: number;
   }
 
-  class ScaleCat<T> extends Scale<T> {
-    range?: [number, number];
-    values?: T[];
+  class ScaleCat extends Scale<ChartValue> {
+    type?: 'cat'
+    /**
+     * 重新显示的值
+     */
+    values?: ChartValue[];
   }
 
   class ScaleLog extends Scale<number> {
+    type?: 'log'
+    /**
+     * 用于优化数值范围，使绘制的坐标轴刻度线均匀分布，默认为`true`
+     */
     nice?: boolean;
+    /**
+     * 定义数值范围的最小值
+     */
     min?: number;
+    /**
+     * 定义数值范围的最大值
+     */
     max?: number;
-    base?: number;
+    /**
+     * 用于指定坐标轴各个标度点的间距，是原始数据之间的间距差值。
+     * `tickCount` 和 `tickInterval` 不可以同时声明。
+     */
     tickInterval?: number;
+    /**
+     * Log 的基数，默认是`2`
+     */
+    base?: number;
   }
 
   class ScalePow extends Scale<number> {
+    type?: 'pow'
+    /**
+     * 用于优化数值范围，使绘制的坐标轴刻度线均匀分布，默认为`true`
+     */
     nice?: boolean;
+    /**
+     * 定义数值范围的最小值
+     */
     min?: number;
+    /**
+     * 定义数值范围的最大值
+     */
     max?: number;
+    /**
+     * 用于指定坐标轴各个标度点的间距，是原始数据之间的间距差值。
+     * `tickCount` 和 `tickInterval` 不可以同时声明。
+     */
+    tickInterval?: number;
+    /**
+     * 指数，默认是`2`
+     */
     exponent?: number;
-    tickInterval?: number;
   }
 
-  class ScaleTime extends Scale<number | string> {
+  class ScaleTime extends Scale<ChartValue> {
+    type?: 'time'
+    /**
+     * 用于优化数值范围，使绘制的坐标轴刻度线均匀分布，默认为`true`
+     */
     nice?: boolean;
-    min?: number | string;
-    max?: number | string;
-    mask?: string;
+    /**
+     * 定义数值范围的最小值
+     */
+    min?: ChartValue;
+    /**
+     * 定义数值范围的最大值
+     */
+    max?: ChartValue;
+    /**
+     * 用于指定坐标轴各个标度点的间距，是原始数据之间的间距差值。
+     * `tickCount` 和 `tickInterval` 不可以同时声明。
+     */
     tickInterval?: number;
+    /**
+     * 数据的格式化格式 默认是`'yyyy-mm-dd'`,
+     */
+    mask?: string;
   }
 
-  class scaleTimeCat extends Scale<number | string> {
+  class ScaleTimeCat extends Scale<ChartValue> {
+    type?: 'timeCat'
+    /**
+     * 用于优化数值范围，使绘制的坐标轴刻度线均匀分布，默认为`true`
+     */
     nice?: boolean;
+    /**
+     * 数据的格式化格式 默认是`'yyyy-mm-dd'`,
+     */
     mask?: string;
+    /**
+     * 具体的分类的值
+     */
     values?: number[] | string[];
   }
 
@@ -974,15 +1035,15 @@ declare namespace G2 {
       shapeName: string,
       config:
         | {
-            getPoints?: any;
-            getMarkerCfg?: any;
-            draw: any;
-          }
+          getPoints?: any;
+          getMarkerCfg?: any;
+          draw: any;
+        }
         | {
-            getPoints?: any;
-            getMarkerCfg?: any;
-            drawShape: any;
-          }
+          getPoints?: any;
+          getMarkerCfg?: any;
+          drawShape: any;
+        }
     ): {
       parsePoint: any;
       parsePoints: any;

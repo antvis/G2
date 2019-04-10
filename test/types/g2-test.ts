@@ -1,14 +1,14 @@
 import G2 from '../../src/index';
 
 const backgroundStyle: G2.Styles.background = {
-  fill: "#aaa", // 图表背景色
+  fill: '#aaa', // 图表背景色
   fillOpacity: .5, // 图表背景透明度
-  stroke: "#aaa", // 图表边框颜色
+  stroke: '#aaa', // 图表边框颜色
   strokeOpacity: .5, // 图表边框透明度
   opacity: .5, // 图表整体透明度
   lineWidth: 1, // 图表边框粗度
   radius: 5 // 图表圆角大小
-}
+};
 const data = [
   { type: 0, value: 1 },
   { type: 1, value: 2 },
@@ -23,7 +23,7 @@ const chart = new G2.Chart({
   container: 'div',
   width: 123,
   height: 123,
-  padding: {x:1,y:1},
+  padding: [1, 2, 3, 4],
   background: backgroundStyle,
   plotBackground: backgroundStyle,
   forceFit: true,
@@ -35,7 +35,8 @@ const chart = new G2.Chart({
 const chart1 = new G2.Chart({
   container: document.getElementById('c1'),
   width: 1000,
-  height: 500
+  height: 500,
+  padding: 'auto'
 });
 
 chart.source(data, {
@@ -174,7 +175,7 @@ const legendConfig: G2.LegendConfig = {
   + '<span class="g2-legend-text">{value}</span>'
   + '</li>',
 
-}
+};
 chart.legend('field', legendConfig);
 
 // 关闭 tooltip 功能
@@ -200,7 +201,7 @@ const tooltipConfig: G2.TooltipConfig = {
     font: '',
     border: ''
   }
-}
+};
 chart.tooltip({});
 chart.tooltip(tooltipConfig);
 
@@ -208,7 +209,7 @@ chart.tooltip(tooltipConfig);
 chart.guide().line({
   top: true, // 指定 guide 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层
   start: () => [1,2], // 辅助线起始位置，值为原始数据值，支持 callback
-  end: {x: 1, y:1}, // 辅助线结束位置，值为原始数据值，支持 callback
+  end: {x: 1, y: 1}, // 辅助线结束位置，值为原始数据值，支持 callback
   lineStyle: {
     stroke: '#999', // 线的颜色
     lineDash: [ 0, 2, 2 ], // 虚线的设置
@@ -336,7 +337,7 @@ chart.view({
 });
 
 chart.animate(true);
-chart.forceFit(true);
+chart.forceFit();
 
 chart.render();
 chart.clear();
@@ -346,10 +347,10 @@ chart.changeData(data);
 chart.changeSize(100,100)
      .changeWidth(100)
      .changeHeight(100);
-chart.getXScale<G2.ScaleCat<string>>().values;
+chart.getXScale<G2.ScaleCat>().values;
 chart.getYScales<G2.ScaleLog>()[0].base;
 chart.getXY().x;
-chart.getSnapRecords({x:1, y:2});
+chart.getSnapRecords({x: 1, y: 2});
 str = chart.toDataURL();
 chart.hideTooltip();
 
@@ -366,9 +367,9 @@ chart.on('touchend', ev => {});
 
 // Scale
 const defs: {
-  'month': G2.ScaleCat<string>,
+  'month': G2.ScaleCat
 } = {
-  'month':{
+  'month': {
     type: 'cat',
     values: [ '一月','二月','三月','四月','五月','六月','七月' ] // 这时候 month 的原始值是索引值
   }
@@ -410,14 +411,14 @@ chart.line().position([ 'x', 'y' ]);
 
 chart.line().color('red'); // 常量颜色
 chart.line().color('type'); // 对 type 字段进行映射，使用内置的颜色
-chart.line().color('type', [ 'red', 'blue' ]) // 指定颜色
+chart.line().color('type', [ 'red', 'blue' ]); // 指定颜色
 chart.line().color('type', (type) => { // 通过回调函数
   if (type === 'a') {
     return 'red';
   }
   return 'blue';
 });
-chart.line().color('type*value', (type, value) => { //多个参数，通过回调函数
+chart.line().color('type*value', (type, value) => { // 多个参数，通过回调函数
   if (type === 'a' && value > 100) {
     return 'red';
   }
