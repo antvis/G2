@@ -480,7 +480,8 @@ const Theme = {
       fontSize: '12px',
       fontFamily: FONT_FAMILY,
       lineHeight: '20px',
-      padding: '10px 10px 6px 10px'
+      padding: '10px 10px 6px 10px',
+      display: 'none'
     },
     [`${TOOLTIP_TITLE_CLASS}`]: {
       marginBottom: '4px'
