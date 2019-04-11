@@ -31,8 +31,8 @@ iframe {
   margin: 0 auto;
   width: 800px;
   height: 450px;
-  -webkit-transform: scale(0.45);
-  -webkit-transform-origin: 0 0;
+  transform: scale(0.45);
+  transform-origin: 0 0;
 }
 #doc-container {
   display: -webkit-box;
@@ -92,7 +92,7 @@ iframe {
   -webkit-overflow-scrolling: touch;
 }
 #resize-handler {
-  //background: #DEDEEB;
+  /*background: #DEDEEB;*/
   border-right: 2px solid #DEDEEB;
   cursor: col-resize;
 }
