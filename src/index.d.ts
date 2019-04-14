@@ -15,6 +15,11 @@ declare namespace G2 {
 
   type ChartValue = string | number
 
+  interface Point {
+    x: number
+    y: number
+  }
+
   class Global {
     setTheme(option: 'default' | 'dark'): void;
     version: string;
@@ -715,16 +720,7 @@ declare namespace G2 {
     source(data: any, scaleConfig: ScaleConfigMap): this;
     getXScale<T>(): T;
     getYScales<T>(): T[];
-    getXY(): {
-      /**
-       * 画布上的横坐标
-       */
-      x: number;
-      /**
-       * 画布上的纵坐标
-       */
-      y: number;
-    };
+    getXY(): Point;
     filter(
       field: string,
       callback: (value: ChartValue) => boolean
@@ -793,8 +789,8 @@ declare namespace G2 {
     legend(field: string | true, legendConfig: LegendConfig): this;
     tooltip(tooltipConfig: TooltipConfig | boolean): this;
     view(option?: {
-      start?: { x: number; y: number };
-      end?: { x: number; y: number };
+      start?: Point;
+      end?: Point;
       padding?: number;
       animate?: boolean;
     }): View;
@@ -803,11 +799,11 @@ declare namespace G2 {
     changeSize(width: number, height: number): this;
     changeWidth(width: number): this;
     changeHeight(height: number): this;
-    getSnapRecords(ponit: { x: number; y: number }): number[];
+    getSnapRecords(point: Point): number[];
     getAllGeoms(): Geom[];
     toDataURL(): string;
     downloadImage(name: string): string;
-    showTooltip(ponit: { x: number; y: number }): any;
+    showTooltip(ponit: Point): any;
     hideTooltip(): any;
     on(eventNane: string, event: any): any;
     facet(
@@ -1102,12 +1098,23 @@ declare namespace G2 {
     vec3: any;
     transform: any;
   }
-  class PathUtil {
-    parsePathString(pathString: string): any[];
-    parsePathArray(pathArray: any): any;
-    pathTocurve(path: any[]): any;
-    pathToAbsolute(path: any[]): any;
-    catmullRomToBezier(pointsArray: any[]): any;
-    intersection(path1: any[], path2: any[]): any;
+
+  type PathArray = [string, ...number[]]
+
+  interface PathUtil {
+    fillPath(source: PathArray[], target: PathArray[]): PathArray[]
+    fillPathByDiff(source: PathArray[], target: PathArray[]): PathArray[]
+    formatPath(fromPath: PathArray[], toPath: PathArray[]): PathArray[]
+    parsePathString(pathString: string): PathArray[];
+    parsePathArray(pathArray: PathArray[]): string;
+    path2curve(path: PathArray[]): PathArray[];
+    pathTocurve: PathUtil['path2curve'];
+    path2absolute(path: PathArray[]): PathArray[];
+    pathToAbsolute: PathUtil['path2absolute'];
+    catmullRom2Bezier(pointsArray: number[], crz: boolean): PathArray[];
+    catmullRomToBezier: PathUtil['catmullRom2Bezier'];
+    intersection(path1: PathArray[], path2: PathArray[]): Point[];
+    pathIntersection: PathUtil['intersection'];
+    rectPath(x: number, y: number, width: number, height: number, radius: number): PathArray[];
   }
 }
