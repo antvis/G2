@@ -20,6 +20,8 @@ declare namespace G2 {
     y: number
   }
 
+  type ChartData = Array<{ [key: string]: ChartValue }>
+
   class Global {
     setTheme(option: 'default' | 'dark'): void;
     version: string;
@@ -228,7 +230,7 @@ declare namespace G2 {
     forceFit?: boolean;
     animate?: boolean;
     pixelRatio?: number;
-    data?: Object | any;
+    data?: ChartData;
     /**
      * 主题
      */
@@ -716,8 +718,8 @@ declare namespace G2 {
   type ScaleConfigMap = { [field: string]: ScaleConfig };
 
   class BaseView {
-    source(data: any): this;
-    source(data: any, scaleConfig: ScaleConfigMap): this;
+    source(data: ChartData): this;
+    source(data: ChartData, scaleConfig: ScaleConfigMap): this;
     getXScale<T>(): T;
     getYScales<T>(): T[];
     getXY(): Point;
@@ -755,7 +757,7 @@ declare namespace G2 {
     animate(enable: boolean): void;
     clear(): void;
     changeOptions(option: Partial<ChartProps>): void;
-    changeData(data: any): void;
+    changeData(data: ChartData): void;
     changeVisible(visible: boolean): void;
     repaint(): void;
     destroy(): void;
@@ -780,6 +782,57 @@ declare namespace G2 {
 
   class View extends BaseView {
     tooltip(option: boolean): this;
+  }
+
+  interface FacetItem {
+    /**
+     * 分面类型
+     */
+    type: string
+    view: View
+    /**
+     * 当前分面数据
+     */
+    data: ChartData
+    /**
+     * 当前分面位置
+     */
+    region: {
+      start: Point
+      end: Point
+    }
+    /**
+     * 分面列字段
+     */
+    colField: string
+    /**
+     * 当前第几列
+     */
+    colIndex: number
+    /**
+     * 当前分面列字段对应的值
+     */
+    colValue: ChartValue
+    /**
+     * 分面总列数
+     */
+    cols: number
+    /**
+     * 分面行字段
+     */
+    rowField: string
+    /**
+    * 当前第几行
+    */
+    rowIndex: number
+    /**
+     * 当前分面行字段对应的值
+     */
+    rowValue: ChartValue
+    /**
+     * 分面总行数
+     */
+    rows: number
   }
 
   class Chart extends BaseView {
@@ -825,9 +878,9 @@ declare namespace G2 {
         /**
          * 创建每个分面中的视图
          * @param view 视图对象
-         * @param facet 行列等信息，常见属性：data rows cols rowIndex colIndex rowField colField
+         * @param facet 行列等信息
          */
-        eachView?(view: View, facet: any): void;
+        eachView?(view: View, facet: FacetItem): void;
         /**
          * 列标题
          */
@@ -1030,21 +1083,9 @@ declare namespace G2 {
       chartType: string,
       shapeName: string,
       config:
-        | {
-          getPoints?: any;
-          getMarkerCfg?: any;
-          draw: any;
-        }
-        | {
-          getPoints?: any;
-          getMarkerCfg?: any;
-          drawShape: any;
-        }
-    ): {
-      parsePoint: any;
-      parsePoints: any;
-      parsePath: any;
-    };
+        | { getPoints?: any; getMarkerCfg?: any; draw: any; }
+        | { getPoints?: any; getMarkerCfg?: any; drawShape: any; }
+    ): { parsePoint: any; parsePoints: any; parsePath: any; };
   }
 
   interface Animate {
@@ -1084,11 +1125,7 @@ declare namespace G2 {
       eventType: K,
       listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any
     ): void;
-    addEventListener(
-      target: HTMLElement,
-      eventType: string,
-      listener: (ev: Event) => any
-    ): void;
+    addEventListener(target: HTMLElement, eventType: string, listener: (ev: Event) => any): void;
     requestAnimationFrame(fn: () => void): void;
   }
 
