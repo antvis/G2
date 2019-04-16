@@ -7,6 +7,10 @@ export = G2;
 export as namespace G2;
 
 declare namespace G2 {
+  /**
+   * @deprecated G2不再追踪任何内容
+   * @param option 
+   */
   function track(option: boolean): void;
   const version: string;
   const Animate: Animate;
@@ -20,7 +24,7 @@ declare namespace G2 {
     y: number
   }
 
-  type ChartData = Array<{ [key: string]: ChartValue }>
+  type ChartData = Array<{ [key: string]: any }>
 
   class Global {
     setTheme(option: 'default' | 'dark'): void;
@@ -104,6 +108,7 @@ declare namespace G2 {
        */
       globalCompositeOperation?: string;
     }
+
     interface text extends common {
       font?: string;
       /**
@@ -139,6 +144,7 @@ declare namespace G2 {
        */
       fontFamily?: string;
     }
+
     interface line extends common {
       strokeOpacity?: ChartValue;
       /**
@@ -345,7 +351,7 @@ declare namespace G2 {
      * 设置文本的显示样式，还可以是个回调函数，
      * 回调函数的参数为该坐标轴对应字段的数值
      */
-    textStyle?: ((text?: string) => Styles.text) | Styles.text;
+    textStyle?: ((text: string, item: any, index: number) => Styles.text) | Styles.text;
     /**
      * 文本是否需要自动旋转，默认为 true
      */
@@ -397,49 +403,210 @@ declare namespace G2 {
   ) => void;
 
   interface LegendConfig {
+    /**
+     * 图例的显示位置
+     */
     position?: 'top' | 'bottom' | 'left' | 'right' | 'left-top' | 'left-center' | 'left-bottom'
     | 'right-top' | 'right-center' | 'right-bottom' | 'top-left' | 'top-center' | 'top-bottom'
     | 'bottom-left' | 'bottom-center' | 'bottom-right';
+    /**
+     * 各个图例项的排列方式
+     */
     layout?: 'vertica' | 'horizontal';
-    title?: Styles.text;
+    /**
+     * 标题的显示样式
+     */
+    title?: Styles.text | null;
+    /**
+     * 图例 x 方向的偏移值，默认为`0`
+     */
     offsetX?: number;
+    /**
+     * 图例 y 方向的偏移值，默认为`0`
+     */
     offsetY?: number;
+    /**
+     * **针对分类图例**，表示图例每项之间的间距，如果是水平排布则为左右间距，如果是竖直排布则为上下间距
+     */
     itemGap?: number;
+    /**
+     * **针对分类图例**，表示各个图例项垂直方向的间距
+     */
     itemMarginBottom?: number;
+    /**
+     * **针对分类图例**，设置图例项的宽度，当图例有很多图例项，并且用户想要这些图例项能垂直对齐时，此时这个属性可帮用户实现此效果。
+     */
     itemWidth?: number;
+    /**
+     * **针对分类图例**，用于取消选中的图例文本颜色
+     */
     unCheckColor?: string;
-    background?: {
-      fill?: string;
-      fillOpacity?: number;
-    };
-    allowAllCanceled?: number;
+    /**
+     * **针对分类图例**，用于设置图例的背景样式
+     */
+    background?: Styles.background;
+    /**
+     * **针对分类图例**，表示是否允许所有图例项被取消选中，默认为 `false`，即必须保留一个被选中的图例项
+     */
+    allowAllCanceled?: boolean;
+    /**
+     * 格式化图例每项的文本显示
+     * @param value 
+     */
     itemFormatter?(value: string): string;
-    marker?: string | Function;
+    /**
+     * 设置图例的 marker 样式，默认按照 `geom` 的类型显示
+     */
+    marker?: ((x: number, y: number, r: number) => PathArray[])
+    | 'circle' | 'square' | 'bowtie' | 'diamond' | 'hexagon' | 'triangle'
+    | 'triangle-down' | 'cross' | 'tick' | 'plus' | 'hyphen' | 'line'
+    | 'hollowCircle' | 'hollowSquare' | 'hollowBowtie' | 'hollowDiamond'
+    | 'hollowHexagon' | 'hollowTriangle' | 'hollowTriangle-down';
+    /**
+     * 图例项的文本样式
+     */
     textStyle?: Styles.text;
+    /**
+     * **针对分类图例**，是否启用尾部跟随图例(tail-legend)，
+     * 尾部跟随图例自动跟随 geom 的最后一个数据点，
+     * 适用的图表类型为line、stackLine、area、stackArea。 
+     * 默认为 `false` ，即不启用
+     */
+    attachLast: boolean
+    /**
+     * **针对分类图例**，设置图例项是否允许点击，默认为 `true`，即允许点击
+     */
     clickable?: boolean;
-    hoverable?: boolean;
-    defaultClickHandlerEnabled?: boolean;
+    /**
+     * **针对分类图例**，当 clickable 为 `true` 时该配置项生效，用于设置图例的选中交互模式，
+     * 默认为 `'multiple'`
+     */
     selectedMode?: 'single' | 'multiple';
-    onHover?(e: MouseEvent): void;
+    /**
+     * **针对分类图例**，用于自定义鼠标点击图例项的交互，当 clickable 为 `false` 不生效
+     * @param e 事件对象
+     */
     onClick?(e: MouseEvent): void;
+    /**
+     * **针对分类图例**，用于开启是否使用 HTML 渲染图例，默认为 `false`。
+     * `true` 表示使用 HTML 渲染图例。
+     */
     useHtml?: boolean;
+    /**
+     * 针对 HTML 版本的分类类型图例，即 useHtml 为 `true` 时。
+     * 指定是否使用翻页的方式来交互超出容器的图例项。
+     * 默认为 `false` ，即不使用翻页方式，而使用滚轮滚动的交互方式
+     */
+    flipPage: boolean
+    /**
+     * 当 useHtml 为 `true` 时生效，用于指定生成图例的 dom 容器，
+     * 那么该值必须为 dom 容器的 id ，值为分类类型的话，则支持传入索引值
+     */
     container?: string;
+    /**
+     * 当 useHtml 为 `true` 时生效，用于指定图例容器的模板
+     * 默认值如下
+     * ```html
+      <div class="g2-legend" style="position:absolute;top:20px;right:60px;width:auto;">
+        <h4 class="g2-legend-title"></h4>
+        <ul class="g2-legend-list" style="list-style-type:none;margin:0;padding:0;"></ul>
+      </div>```
+     * 如默认结构不满足需求，可以自定义该模板。
+     * 但是自定义模板时必须包含各个 dom 节点的 class，样式可以自定义
+     */
     containerTpl?: string;
+    /**
+     * 当 useHtml 为 `true` 时生效，生成图例的图例项 HTML 模板
+     * 默认值如下
+     * ```html
+      <li class="g2-legend-list-item item-{index} {checked}" data-color="{originColor}" data-value="{originValue}">
+        <i class="g2-legend-marker" style="background-color:{color};"></i>
+        <span class="g2-legend-text">{value}</span>
+      </li>```
+     * 注意：自定义模板时必须包含各个 dom 节点的 class，样式可以自定义
+     */
     itemTpl?: string;
+    /**
+     * **针对连续图例**，用于设置连续图例是否允许滑动，默认为 `true`，即开启滑动操作
+     */
     slidable?: boolean;
+    /**
+     * **针对连续图例**，用于设置图例的宽度
+     */
     width?: number;
+    /**
+     * **针对连续图例**，用于设置图例的高度
+     */
     height?: number;
-    custom?: number;
+    /**
+     * **针对分类图例**，设置是否开启鼠标 hover 至图例的交互效果，默认为 `true`，即开启动画。
+     */
+    hoverable?: boolean;
+    /**
+     * 用于自定义鼠标 hover 图例项的交互，当 hoverable 为 `false` 不生效
+     * @param e 事件对象
+     */
+    onHover?(e: MouseEvent): void;
+    /**
+     * 设置是否开启鼠标 hover 图表元素时，图例对应项的高亮效果。默认为 `false`，即不开启动画
+     */
+    reactive: boolean;
+    /**
+     * **针对连续的颜色图例**，设置图例样式是否为分块颜色模式，默认为 `false`，即非分块颜色模式，为渐变颜色模式
+     */
+    isSegment: boolean;
+    /**
+     * **针对连续的大小图例**，设置图例是否是针对节点大小映射的样式
+     */
+    sizeType: 'circle' | 'normal' | null;
+    /**
+     * 当 custom 为 `true`，表示不使用默认生成的图例，允许用户自定义非 HTML 版本的分类类型图例，
+     * 包括具体的图例项以及 click、hover 交互，默认为 `false`。
+     */
+    custom?: boolean;
+    /**
+     * 当 custom 为 `true` 时生效。用以声明自定义的图例项
+     */
     items?: Array<{
       /**
        * 图例项的文本内容
        */
       value: string;
       /**
-       * 该图例项 marker 的填充颜色
+       * 图例项 marker 的颜色
        */
       fill: string;
-      marker?: string | Function;
+      /**
+       * 图例项 marker
+       */
+      marker?: {
+        /**
+         * marker形状
+         */
+        symbol: LegendConfig['marker'];
+        /**
+         * marker填充颜色
+         */
+        fill?: string;
+        /**
+        * marker描边颜色
+        */
+        stroke?: string;
+        /**
+         * marker半径
+         */
+        radius?: number;
+      };
+      /**
+       * 用于自定义鼠标 hover 事件
+       * @param e 事件对象
+       */
+      onHover?(e: MouseEvent): void;
+      /**
+       * 用于自定义鼠标 click 事件
+       * @param e 事件对象
+       */
+      onClick?(e: MouseEvent): void;
     }>;
   }
 
@@ -516,10 +683,18 @@ declare namespace G2 {
     | ChartValue[]
     | ((xScales: any, yScales: any) => { [key: string]: ChartValue } | ChartValue[])
 
+  type GeomName = 'line' | 'path' | 'area' | 'point' | 'interval' | 'polygon'
+    | 'schema' | 'edge' | 'heatmap' | 'pointStack' | 'pointJitter' | 'pointDodge'
+    | 'intervalStack' | 'intervalDodge' | 'intervalSymmetric' | 'areaStack' | 'schemaDodge'
+
   class ChartGuide {
+    /**
+     * 绘制辅助线
+     * @param option 
+     */
     line(option: {
       /**
-       * 指定 guide 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层
+       * 指定 guide 是否绘制在 canvas 最上层，默认为 `false`, 即绘制在最下层
        */
       top?: boolean;
       /**
@@ -539,15 +714,15 @@ declare namespace G2 {
         /**
          * 文本的显示位置
          */
-        position?: 'start' | 'center' | 'end' | '39%' | 0.5;
+        position?: 'start' | 'center' | 'end' | string | number
         /**
-         * 是否沿线的角度排布，默认为 true
+         * 是否沿线的角度排布，默认为 `true`
          */
         autoRotate?: boolean;
         /**
          * 文本图形样式配置
          */
-        style?: any;
+        style?: Styles.text;
         /**
          * 文本的内容
          */
@@ -561,10 +736,15 @@ declare namespace G2 {
          */
         offsetY?: number;
       };
-    }): void;
+    }): this;
+
+    /**
+     * 绘制辅助文本
+     * @param option 
+     */
     text(option: {
       /**
-       * 指定 guide 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层
+       * 指定 guide 是否绘制在 canvas 最上层，默认为 `false`, 即绘制在最下层
        */
       top?: boolean;
       /**
@@ -578,7 +758,7 @@ declare namespace G2 {
       /**
        * 文本的图形样式属性
        */
-      style?: G2.Styles.text;
+      style?: Styles.text;
       /**
        * x 方向的偏移量
        */
@@ -587,18 +767,23 @@ declare namespace G2 {
        * y 方向偏移量
        */
       offsetY?: number;
-    }): void;
+    }): this;
+
+    /**
+     * 绘制辅助图片
+     * @param option 
+     */
     image(option: {
       /**
-       * 指定 giude 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层
+       * 指定 giude 是否绘制在 canvas 最上层，默认为 `false`, 即绘制在最下层
        */
       top?: boolean;
       /**
-       * 图片起始位置， 值为原始数据值，支持 callback
+       * 图片起始位置，值为原始数据值，支持 callback
        */
       start?: GuidePosition;
       /**
-       * 图片结束位置， 值为原始数据值，支持 callback
+       * 图片结束位置，值为原始数据值，支持 callback
        */
       end?: GuidePosition;
       /**
@@ -606,6 +791,14 @@ declare namespace G2 {
        */
       src?: string;
       /**
+       * **当仅指定了 `start` 属性时使用**，用于设置图片的宽度
+       */
+      width?: number;
+      /**
+       * **当仅指定了 `start` 属性时使用**，用于设置图片的高度
+       */
+      height?: number;
+      /**
        * x 方向的偏移量
        */
       offsetX?: number;
@@ -613,12 +806,15 @@ declare namespace G2 {
        * y 方向偏移量
        */
       offsetY?: number;
-      width?: number;
-      height?: number;
-    }): void;
+    }): this;
+
+    /**
+     * 绘制辅助背景框
+     * @param option 
+     */
     region(option: {
       /**
-       * 指定 giude 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层
+       * 指定 giude 是否绘制在 canvas 最上层，默认为 `false`, 即绘制在最下层
        */
       top?: boolean;
       /**
@@ -629,50 +825,205 @@ declare namespace G2 {
        * 辅助框结束位置，值为原始数据值，支持 callback
        */
       end?: GuidePosition;
-      style?: {
-        /**
-         * 辅助框的边框宽度
-         */
-        lineWidth?: number;
-        /**
-         * 辅助框填充的颜色
-         */
-        fill?: string;
-        /**
-         * 辅助框的背景透明度
-         */
-        fillOpacity?: number;
-        stroke?: string;
-      };
-    }): void;
+      /**
+       * 辅助背景框的样式
+       */
+      style?: Styles.background;
+    }): this;
+
+    /**
+     * 绘制辅助 html
+     * @param option 
+     */
     html(option: {
       /**
        * html的起始位置，值为原始数据值，支持 callback
        */
       position?: GuidePosition;
-      alignX?: 'left' | 'middle' | 'right';
-      alignY?: 'top' | 'middle' | 'bottom';
-      offsetX?: number;
-      offsetY?: number;
       /**
-       * html 代码
+       * html 的水平对齐方式
+       */
+      alignX?: 'left' | 'middle' | 'right';
+      /**
+       * html 的垂直对齐方式
+       */
+      alignY?: 'top' | 'middle' | 'bottom';
+      /**
+       * html 内容
        */
       html?: string;
+      /**
+       * html 层级
+       */
       zIndex?: number;
-    }): void;
+      /**
+       * html 在 x 方向的偏移量
+       */
+      offsetX?: number;
+      /**
+       * html 在 y 方向的偏移量
+       */
+      offsetY?: number;
+    }): this;
 
+    /**
+     * 绘制辅助圆弧
+     * @param option 
+     */
     arc(option: {
+      /**
+       * 指定 giude 是否绘制在 canvas 最上层，默认为 `false`, 即绘制在最下层
+       */
       top?: boolean;
       /**
-       * 辅助框起始位置，值为原始数据值，支持 callback
+       * 辅助圆弧起始位置，值为原始数据值，支持 callback
        */
       start?: GuidePosition;
       /**
-       * 辅助框结束位置，值为原始数据值，支持 callback
+       * 辅助圆弧结束位置，值为原始数据值，支持 callback
        */
       end?: GuidePosition;
-      style?: object;
-    }): void;
+      /**
+       * 设置圆弧的显示样式
+       */
+      style?: Styles.line;
+    }): this;
+
+    /**
+     * 辅助区域过滤，将图表中位于矩形选区中的图形元素提取出来，重新着色
+     * @param option 
+     */
+    regionFilter(option: {
+      /**
+       * 指定 giude 是否绘制在 canvas 最上层，默认为 `false`, 即绘制在最下层
+       */
+      top?: boolean;
+      /**
+       * 辅助过滤区域起始位置，即过滤区域的左上角，支持 callback
+       */
+      start?: GuidePosition;
+      /**
+       * 辅助过滤区域结束位置，即过滤区域的右下角，支持 callback
+       */
+      end?: GuidePosition;
+      /**
+       * 指定辅助过滤区域内图形元素重新着色的色值
+       */
+      color?: string;
+      /**
+       * 设定 regionFilter 只对特定 geom 类型起作用
+       */
+      apply?: GeomName[];
+      /**
+       * 为过滤区域的图形设置额外的样式
+       */
+      style?: Styles.background;
+    }): this;
+
+    /**
+     * 特殊数据标注点，适用于折线图和面积图
+     * @param option 
+     */
+    dataMarker(option: {
+      /**
+       * 指定 giude 是否绘制在 canvas 最上层，默认为 `false`, 即绘制在最下层
+       */
+      top?: boolean;
+      /**
+       * 特殊数据点标注的位置
+       */
+      position?: GuidePosition;
+      /**
+       * 辅助文本的显示内容
+       */
+      content?: string;
+      /**
+       * 是否显示文本、标注点，标注线
+       */
+      style?: {
+        /**
+         * 文本的显示样式
+         */
+        text?: Styles.text;
+        /**
+         * 标注点的显示样式
+         */
+        point?: Styles.background;
+        /**
+         * 标注线的显示样式
+         */
+        line?: Styles.line;
+      };
+      /**
+       * 是否显示文本、标注点，标注线
+       */
+      display?: {
+        /**
+         * 是否显示文本
+         */
+        text?: boolean;
+        /**
+         * 是否显示标注点
+         */
+        point?: boolean;
+        /**
+         * 是否显示标注线
+         */
+        line?: boolean;
+      };
+      /**
+       * line 的长度，默认为 `20`
+       */
+      lineLength: number;
+      /**
+       * 标注点朝向，默认为 `'upward'`，即向上。
+       */
+      direction: 'upward' | 'downward';
+      /**
+       * 当文本超出绘制区域时，是否自动调节文本方向，默认为 `true`
+       */
+      autoAdjust: boolean;
+    }): this;
+
+    /**
+     * 特殊数据区间标注，适用于折线图和面积图
+     * @param option 
+     */
+    dataRegion(option: {
+      /**
+       * 指定 giude 是否绘制在 canvas 最上层，默认为 `false`, 即绘制在最下层
+       */
+      top?: boolean;
+      /**
+       * 特殊数据区间标注起始位置，值为原始数据值，支持 callback
+       */
+      start?: GuidePosition;
+      /**
+       * 特殊数据区间标注结束位置，值为原始数据值，支持 callback
+       */
+      end?: GuidePosition;
+      /**
+       * 辅助文本的显示内容
+       */
+      content: string;
+      /**
+       * 背景框、文本的显示样式
+       */
+      style?: {
+        /**
+         * 背景框的显示样式
+         */
+        region: Styles.background;
+        /**
+         * 文本的显示样式
+         */
+        text: Styles.text;
+      };
+      /**
+       * line 的长度，默认为 `0`
+       */
+      lineLength: number;
+    }): this;
   }
 
   interface AxisConfig {
@@ -838,6 +1189,7 @@ declare namespace G2 {
   class Chart extends BaseView {
     constructor(option: ChartProps);
     legend(option: boolean): this;
+    legend(legendConfig: LegendConfig): this;
     legend(field: string, option: boolean): this;
     legend(field: string | true, legendConfig: LegendConfig): this;
     tooltip(tooltipConfig: TooltipConfig | boolean): this;
@@ -884,17 +1236,11 @@ declare namespace G2 {
         /**
          * 列标题
          */
-        colTitle?: {
-          offsetY?: number;
-          style?: G2.Styles.text;
-        } | null;
+        colTitle?: Parameters<ChartGuide['text']>[0] | null;
         /**
          * 行标题
          */
-        rowTitle?: {
-          offsetX?: number;
-          style?: G2.Styles.text;
-        } | null;
+        rowTitle?: Parameters<ChartGuide['text']>[0] | null;
       }
     ): void;
     get<K extends keyof ChartProps>(prop: K): ChartProps[K];
@@ -1056,7 +1402,7 @@ declare namespace G2 {
      */
     tickInterval?: number;
     /**
-     * 数据的格式化格式 默认是`'yyyy-mm-dd'`,
+     * 数据的格式化格式 默认是`'yyyy-mm-dd'`
      */
     mask?: string;
   }
@@ -1068,7 +1414,7 @@ declare namespace G2 {
      */
     nice?: boolean;
     /**
-     * 数据的格式化格式 默认是`'yyyy-mm-dd'`,
+     * 数据的格式化格式 默认是`'yyyy-mm-dd'`
      */
     mask?: string;
     /**
