@@ -1,7 +1,7 @@
-// Type definitions for g2 3.0.x
+// Type definitions for g2 3.5.x
 // Project: https://github.com/antvis/g2
 
-// Last module patch version validated against: 3.0.4
+// Last module patch version validated against: 3.5.3
 
 export = G2;
 export as namespace G2;
@@ -9,7 +9,7 @@ export as namespace G2;
 declare namespace G2 {
   /**
    * @deprecated G2不再追踪任何内容
-   * @param option 
+   * @param option
    */
   function track(option: boolean): void;
   const version: string;
@@ -17,14 +17,14 @@ declare namespace G2 {
   const Util: Util;
   const Shape: Shape;
 
-  type ChartValue = string | number
+  type ChartValue = string | number;
 
   interface Point {
-    x: number
-    y: number
+    x: number;
+    y: number;
   }
 
-  type ChartData = Array<{ [key: string]: any }>
+  type ChartData = Array<{ [key: string]: any }>;
 
   class Global {
     setTheme(option: 'default' | 'dark'): void;
@@ -221,12 +221,12 @@ declare namespace G2 {
     width?: number;
     height: number;
     padding?:
-    | { top?: ChartValue; right?: ChartValue; bottom?: ChartValue; left?: ChartValue; }
-    | ChartValue
-    | [ChartValue]
-    | [ChartValue, ChartValue]
-    | [ChartValue, ChartValue, ChartValue]
-    | [ChartValue, ChartValue, ChartValue, ChartValue]
+      | { top?: ChartValue; right?: ChartValue; bottom?: ChartValue; left?: ChartValue }
+      | ChartValue
+      | [ChartValue]
+      | [ChartValue, ChartValue]
+      | [ChartValue, ChartValue, ChartValue]
+      | [ChartValue, ChartValue, ChartValue, ChartValue];
     /**
      * 当`padding`为`'auto'`时该属性生效，为自动计算后额外的`padding`值，默认为`5`
      */
@@ -395,20 +395,29 @@ declare namespace G2 {
     position?: 'start' | 'center' | 'end';
   }
 
-  const markerAction: (
-    x: number,
-    y: number,
-    r: number,
-    ctx: CanvasRenderingContext2D
-  ) => void;
+  const markerAction: (x: number, y: number, r: number, ctx: CanvasRenderingContext2D) => void;
 
   interface LegendConfig {
     /**
      * 图例的显示位置
      */
-    position?: 'top' | 'bottom' | 'left' | 'right' | 'left-top' | 'left-center' | 'left-bottom'
-    | 'right-top' | 'right-center' | 'right-bottom' | 'top-left' | 'top-center' | 'top-bottom'
-    | 'bottom-left' | 'bottom-center' | 'bottom-right';
+    position?:
+      | 'top'
+      | 'bottom'
+      | 'left'
+      | 'right'
+      | 'left-top'
+      | 'left-center'
+      | 'left-bottom'
+      | 'right-top'
+      | 'right-center'
+      | 'right-bottom'
+      | 'top-left'
+      | 'top-center'
+      | 'top-bottom'
+      | 'bottom-left'
+      | 'bottom-center'
+      | 'bottom-right';
     /**
      * 各个图例项的排列方式
      */
@@ -451,17 +460,33 @@ declare namespace G2 {
     allowAllCanceled?: boolean;
     /**
      * 格式化图例每项的文本显示
-     * @param value 
+     * @param value
      */
     itemFormatter?(value: string): string;
     /**
      * 设置图例的 marker 样式，默认按照 `geom` 的类型显示
      */
-    marker?: ((x: number, y: number, r: number) => PathArray[])
-    | 'circle' | 'square' | 'bowtie' | 'diamond' | 'hexagon' | 'triangle'
-    | 'triangle-down' | 'cross' | 'tick' | 'plus' | 'hyphen' | 'line'
-    | 'hollowCircle' | 'hollowSquare' | 'hollowBowtie' | 'hollowDiamond'
-    | 'hollowHexagon' | 'hollowTriangle' | 'hollowTriangle-down';
+    marker?:
+      | ((x: number, y: number, r: number) => PathArray[])
+      | 'circle'
+      | 'square'
+      | 'bowtie'
+      | 'diamond'
+      | 'hexagon'
+      | 'triangle'
+      | 'triangle-down'
+      | 'cross'
+      | 'tick'
+      | 'plus'
+      | 'hyphen'
+      | 'line'
+      | 'hollowCircle'
+      | 'hollowSquare'
+      | 'hollowBowtie'
+      | 'hollowDiamond'
+      | 'hollowHexagon'
+      | 'hollowTriangle'
+      | 'hollowTriangle-down';
     /**
      * 图例项的文本样式
      */
@@ -469,10 +494,10 @@ declare namespace G2 {
     /**
      * **针对分类图例**，是否启用尾部跟随图例(tail-legend)，
      * 尾部跟随图例自动跟随 geom 的最后一个数据点，
-     * 适用的图表类型为line、stackLine、area、stackArea。 
+     * 适用的图表类型为line、stackLine、area、stackArea。
      * 默认为 `false` ，即不启用
      */
-    attachLast: boolean
+    attachLast?: boolean;
     /**
      * **针对分类图例**，设置图例项是否允许点击，默认为 `true`，即允许点击
      */
@@ -497,7 +522,7 @@ declare namespace G2 {
      * 指定是否使用翻页的方式来交互超出容器的图例项。
      * 默认为 `false` ，即不使用翻页方式，而使用滚轮滚动的交互方式
      */
-    flipPage: boolean
+    flipPage?: boolean;
     /**
      * 当 useHtml 为 `true` 时生效，用于指定生成图例的 dom 容器，
      * 那么该值必须为 dom 容器的 id ，值为分类类型的话，则支持传入索引值
@@ -550,15 +575,15 @@ declare namespace G2 {
     /**
      * 设置是否开启鼠标 hover 图表元素时，图例对应项的高亮效果。默认为 `false`，即不开启动画
      */
-    reactive: boolean;
+    reactive?: boolean;
     /**
      * **针对连续的颜色图例**，设置图例样式是否为分块颜色模式，默认为 `false`，即非分块颜色模式，为渐变颜色模式
      */
-    isSegment: boolean;
+    isSegment?: boolean;
     /**
      * **针对连续的大小图例**，设置图例是否是针对节点大小映射的样式
      */
-    sizeType: 'circle' | 'normal' | null;
+    sizeType?: 'circle' | 'normal' | null;
     /**
      * 当 custom 为 `true`，表示不使用默认生成的图例，允许用户自定义非 HTML 版本的分类类型图例，
      * 包括具体的图例项以及 click、hover 交互，默认为 `false`。
@@ -575,7 +600,7 @@ declare namespace G2 {
       /**
        * 图例项 marker 的颜色
        */
-      fill: string;
+      fill?: string;
       /**
        * 图例项 marker
        */
@@ -589,8 +614,8 @@ declare namespace G2 {
          */
         fill?: string;
         /**
-        * marker描边颜色
-        */
+         * marker描边颜色
+         */
         stroke?: string;
         /**
          * marker半径
@@ -622,75 +647,135 @@ declare namespace G2 {
     showMarker: boolean;
   }
 
-  type TooltipConfig = HtmlTooltipConfig | CanvasTooltipConfig | MiniTooltipConfig;
-
-  interface CommonTooltipConfig {
+  interface TooltipConfig {
+    /**
+     * tooltip 的触发方式，默认为 `'mousemove'`
+     */
     triggerOn?: 'mousemove' | 'click' | 'none';
+    /**
+     * 是否展示提示信息的标题，默认为 `true`
+     */
     showTitle?: boolean;
+    /**
+     * 标题展示的数据字段，设置该字段后，该标题即会展示该字段对应的数值。
+     * `showTitle` 为 `false` 时，该设置不生效。
+     */
     title?: string;
+    /**
+     * 设置 tooltip 的辅助线或者辅助框
+     */
     crosshairs?: {
       /**
        * rect 表示矩形框，x 表示水平辅助线，y 表示垂直辅助线，cross 表示十字辅助线
        */
-      type?: 'rect' | 'x' | 'y' | 'cross' | 'line';
+      type?: 'rect' | 'x' | 'y' | 'cross';
+      /**
+       * 辅助线或者辅助框详细样式
+       */
       style?: Styles.background | Styles.line;
     };
+    /**
+     * tooltip 距离鼠标的偏移量
+     */
     offset?: number;
+    /**
+     * 是否将 tooltip 限定在绘图区域内，默认为 `true`
+     */
     inPlot?: boolean;
+    /**
+     * tooltip 是否跟随鼠标移动。默认为 `true`
+     */
     follow?: boolean;
+    /**
+     * tooltip 只展示单条数据
+     */
     shared?: boolean;
-    position?: 'left' | 'right' | 'top' | 'bottom';
-    hideMarkers?: boolean;
-    useHtml?: boolean;
-    type?: 'default' | 'mini';
-  }
-
-  interface HtmlTooltipConfig extends CommonTooltipConfig {
-    useHtml?: true;
-    type?: 'default';
-    htmlContent?(title: string, items: TooltipItem[]): string;
-    containerTpl?: string;
-    itemTpl?: string;
-    'g2-tooltip'?: Record<string, any>;
-    'g2-tooltip-title'?: Record<string, any>;
-    'g2-tooltip-list-item'?: Record<string, any>;
-    'g2-tooltip-list'?: Record<string, any>;
-    'g2-tooltip-marker'?: Record<string, any>;
-    'g2-tooltip-value'?: Record<string, any>;
+    /**
+     * 是否允许鼠标进入 tooltip，默认为 `false`
+     */
     enterable?: boolean;
-  }
-
-  interface CanvasTooltipConfig extends CommonTooltipConfig {
-    useHtml: false;
-    type?: 'default';
-    boardStyle?: Styles.background;
-    titleStyle?: Styles.text;
-    nameStyle?: Styles.text;
-    valueStyle?: Styles.text;
-    itemGap?: number;
-  }
-
-  interface MiniTooltipConfig extends CommonTooltipConfig {
-    type: 'mini';
-    boardStyle?: Styles.background;
-    valueStyle?: Styles.text;
-    triangleWidth?: number;
-    triangleHeight?: number;
+    /**
+     * 设置之后，就会在固定位置展示 tooltip
+     */
+    position?: 'left' | 'right' | 'top' | 'bottom';
+    /**
+     * 对于 line、area、path 这三种几何图形，我们在渲染 tooltip 时会自动渲染 tooltipMarker。
+     */
+    hideMarkers?: boolean;
+    /**
+     * tooltip 默认的容器模板，默认值如下
+     * ```html
+      <div class="g2-tooltip">
+        <div class="g2-tooltip-title" style="margin-bottom: 4px;"></div>
+        <ul class="g2-tooltip-list"></ul>
+      </div>```
+     * 如默认结构不满足需求，可以自定义该模板，但是**自定义模板时必须包含各个 dom 节点的 class**，样式可以自定义。
+     */
+    containerTpl?: string;
+    /**
+     * tooltip 每项记录的默认模板，默认值如下
+     * ```html
+      <li data-index={index}>
+        <span style="background-color:{color};width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:8px;"></span>
+        {name}: {value}
+      </li>```
+     * 如默认结构不满足需求，可以自定义该模板，但是**自定义模板时必须包含各个 dom 节点的 class**，样式可以自定义。
+     */
+    itemTpl?: string;
+    /**
+     * tooltip 容器的 CSS 样式
+     */
+    'g2-tooltip'?: Partial<CSSStyleDeclaration>;
+    /**
+     * tooltip 标题的 CSS 样式
+     */
+    'g2-tooltip-title'?: Partial<CSSStyleDeclaration>;
+    /**
+     * tooltip 列表容器的 CSS 样式
+     */
+    'g2-tooltip-list-item'?: Partial<CSSStyleDeclaration>;
+    /**
+     * tooltip 列表容器中每一项的 CSS 样式
+     */
+    'g2-tooltip-list'?: Partial<CSSStyleDeclaration>;
+    /**
+     * tooltip 列表容器中每一项 marker 的 CSS 样式
+     */
+    'g2-tooltip-marker'?: Partial<CSSStyleDeclaration>;
+    /**
+     * tooltip 列表容器中每一项值的 CSS 样式
+     */
+    'g2-tooltip-value'?: Partial<CSSStyleDeclaration>;
   }
 
   type GuidePosition =
     | { [key: string]: ChartValue }
     | ChartValue[]
-    | ((xScales: any, yScales: any) => { [key: string]: ChartValue } | ChartValue[])
+    | ((xScales: any, yScales: any) => { [key: string]: ChartValue } | ChartValue[]);
 
-  type GeomName = 'line' | 'path' | 'area' | 'point' | 'interval' | 'polygon'
-    | 'schema' | 'edge' | 'heatmap' | 'pointStack' | 'pointJitter' | 'pointDodge'
-    | 'intervalStack' | 'intervalDodge' | 'intervalSymmetric' | 'areaStack' | 'schemaDodge'
+  type GeomName =
+    | 'line'
+    | 'path'
+    | 'area'
+    | 'point'
+    | 'interval'
+    | 'polygon'
+    | 'schema'
+    | 'edge'
+    | 'heatmap'
+    | 'pointStack'
+    | 'pointJitter'
+    | 'pointDodge'
+    | 'intervalStack'
+    | 'intervalDodge'
+    | 'intervalSymmetric'
+    | 'areaStack'
+    | 'schemaDodge';
 
   class ChartGuide {
     /**
      * 绘制辅助线
-     * @param option 
+     * @param option
      */
     line(option: {
       /**
@@ -714,7 +799,7 @@ declare namespace G2 {
         /**
          * 文本的显示位置
          */
-        position?: 'start' | 'center' | 'end' | string | number
+        position?: 'start' | 'center' | 'end' | string | number;
         /**
          * 是否沿线的角度排布，默认为 `true`
          */
@@ -740,7 +825,7 @@ declare namespace G2 {
 
     /**
      * 绘制辅助文本
-     * @param option 
+     * @param option
      */
     text(option: {
       /**
@@ -771,7 +856,7 @@ declare namespace G2 {
 
     /**
      * 绘制辅助图片
-     * @param option 
+     * @param option
      */
     image(option: {
       /**
@@ -810,7 +895,7 @@ declare namespace G2 {
 
     /**
      * 绘制辅助背景框
-     * @param option 
+     * @param option
      */
     region(option: {
       /**
@@ -833,7 +918,7 @@ declare namespace G2 {
 
     /**
      * 绘制辅助 html
-     * @param option 
+     * @param option
      */
     html(option: {
       /**
@@ -868,7 +953,7 @@ declare namespace G2 {
 
     /**
      * 绘制辅助圆弧
-     * @param option 
+     * @param option
      */
     arc(option: {
       /**
@@ -891,7 +976,7 @@ declare namespace G2 {
 
     /**
      * 辅助区域过滤，将图表中位于矩形选区中的图形元素提取出来，重新着色
-     * @param option 
+     * @param option
      */
     regionFilter(option: {
       /**
@@ -922,7 +1007,7 @@ declare namespace G2 {
 
     /**
      * 特殊数据标注点，适用于折线图和面积图
-     * @param option 
+     * @param option
      */
     dataMarker(option: {
       /**
@@ -974,20 +1059,20 @@ declare namespace G2 {
       /**
        * line 的长度，默认为 `20`
        */
-      lineLength: number;
+      lineLength?: number;
       /**
        * 标注点朝向，默认为 `'upward'`，即向上。
        */
-      direction: 'upward' | 'downward';
+      direction?: 'upward' | 'downward';
       /**
        * 当文本超出绘制区域时，是否自动调节文本方向，默认为 `true`
        */
-      autoAdjust: boolean;
+      autoAdjust?: boolean;
     }): this;
 
     /**
      * 特殊数据区间标注，适用于折线图和面积图
-     * @param option 
+     * @param option
      */
     dataRegion(option: {
       /**
@@ -1005,7 +1090,7 @@ declare namespace G2 {
       /**
        * 辅助文本的显示内容
        */
-      content: string;
+      content?: string;
       /**
        * 背景框、文本的显示样式
        */
@@ -1013,16 +1098,16 @@ declare namespace G2 {
         /**
          * 背景框的显示样式
          */
-        region: Styles.background;
+        region?: Styles.background;
         /**
          * 文本的显示样式
          */
-        text: Styles.text;
+        text?: Styles.text;
       };
       /**
        * line 的长度，默认为 `0`
        */
-      lineLength: number;
+      lineLength?: number;
     }): this;
   }
 
@@ -1065,7 +1150,7 @@ declare namespace G2 {
     hideLastLine?: boolean;
   }
 
-  type ScaleConfig = ScaleIdentity | ScaleLinear | ScaleCat | ScaleLog | ScalePow | ScaleTime | ScaleTimeCat
+  type ScaleConfig = ScaleIdentity | ScaleLinear | ScaleCat | ScaleLog | ScalePow | ScaleTime | ScaleTimeCat;
   type ScaleConfigMap = { [field: string]: ScaleConfig };
 
   class BaseView {
@@ -1074,10 +1159,7 @@ declare namespace G2 {
     getXScale<T>(): T;
     getYScales<T>(): T[];
     getXY(): Point;
-    filter(
-      field: string,
-      callback: (value: ChartValue) => boolean
-    ): this;
+    filter(field: string, callback: (value: ChartValue) => boolean): this;
     axis(option: boolean): this;
     axis(field: string, option: boolean): this;
     axis(field: string, axisConfig: AxisConfig): this;
@@ -1139,51 +1221,54 @@ declare namespace G2 {
     /**
      * 分面类型
      */
-    type: string
-    view: View
+    type: string;
+    /**
+     * 分面对应的view
+     */
+    view: View;
     /**
      * 当前分面数据
      */
-    data: ChartData
+    data: ChartData;
     /**
      * 当前分面位置
      */
     region: {
-      start: Point
-      end: Point
-    }
+      start: Point;
+      end: Point;
+    };
     /**
      * 分面列字段
      */
-    colField: string
+    colField: string;
     /**
      * 当前第几列
      */
-    colIndex: number
+    colIndex: number;
     /**
      * 当前分面列字段对应的值
      */
-    colValue: ChartValue
+    colValue: ChartValue;
     /**
      * 分面总列数
      */
-    cols: number
+    cols: number;
     /**
      * 分面行字段
      */
-    rowField: string
+    rowField: string;
     /**
-    * 当前第几行
-    */
-    rowIndex: number
+     * 当前第几行
+     */
+    rowIndex: number;
     /**
      * 当前分面行字段对应的值
      */
-    rowValue: ChartValue
+    rowValue: ChartValue;
     /**
      * 分面总行数
      */
-    rows: number
+    rows: number;
   }
 
   class Chart extends BaseView {
@@ -1192,13 +1277,10 @@ declare namespace G2 {
     legend(legendConfig: LegendConfig): this;
     legend(field: string, option: boolean): this;
     legend(field: string | true, legendConfig: LegendConfig): this;
-    tooltip(tooltipConfig: TooltipConfig | boolean): this;
-    view(option?: {
-      start?: Point;
-      end?: Point;
-      padding?: number;
-      animate?: boolean;
-    }): View;
+    tooltip(enable: false): this;
+    tooltip(enable: true, tooltipConfig: TooltipConfig): this;
+    tooltip(tooltipConfig: TooltipConfig): this;
+    view(option?: { start?: Point; end?: Point; padding?: number; animate?: boolean }): View;
     forceFit(): this;
     render(): void;
     changeSize(width: number, height: number): this;
@@ -1253,7 +1335,7 @@ declare namespace G2 {
     /**
      * 指定数据类型
      */
-    type?: 'identity' | 'linear' | 'cat' | 'time' | 'timeCat' | 'log' | 'pow'
+    type?: 'identity' | 'linear' | 'cat' | 'time' | 'timeCat' | 'log' | 'pow';
     /**
      * 格式化文本内容
      */
@@ -1299,12 +1381,12 @@ declare namespace G2 {
     getText?(value: any): string;
   }
 
-  class ScaleIdentity extends Scale<ChartValue>{
-    type?: 'identity'
+  class ScaleIdentity extends Scale<ChartValue> {
+    type?: 'identity';
   }
 
   class ScaleLinear extends Scale<number> {
-    type?: 'linear'
+    type?: 'linear';
     /**
      * 用于优化数值范围，使绘制的坐标轴刻度线均匀分布，默认为`true`
      */
@@ -1325,7 +1407,7 @@ declare namespace G2 {
   }
 
   class ScaleCat extends Scale<ChartValue> {
-    type?: 'cat'
+    type?: 'cat';
     /**
      * 重新显示的值
      */
@@ -1333,7 +1415,7 @@ declare namespace G2 {
   }
 
   class ScaleLog extends Scale<number> {
-    type?: 'log'
+    type?: 'log';
     /**
      * 用于优化数值范围，使绘制的坐标轴刻度线均匀分布，默认为`true`
      */
@@ -1358,7 +1440,7 @@ declare namespace G2 {
   }
 
   class ScalePow extends Scale<number> {
-    type?: 'pow'
+    type?: 'pow';
     /**
      * 用于优化数值范围，使绘制的坐标轴刻度线均匀分布，默认为`true`
      */
@@ -1383,7 +1465,7 @@ declare namespace G2 {
   }
 
   class ScaleTime extends Scale<ChartValue> {
-    type?: 'time'
+    type?: 'time';
     /**
      * 用于优化数值范围，使绘制的坐标轴刻度线均匀分布，默认为`true`
      */
@@ -1408,7 +1490,7 @@ declare namespace G2 {
   }
 
   class ScaleTimeCat extends Scale<ChartValue> {
-    type?: 'timeCat'
+    type?: 'timeCat';
     /**
      * 用于优化数值范围，使绘制的坐标轴刻度线均匀分布，默认为`true`
      */
@@ -1429,17 +1511,13 @@ declare namespace G2 {
       chartType: string,
       shapeName: string,
       config:
-        | { getPoints?: any; getMarkerCfg?: any; draw: any; }
-        | { getPoints?: any; getMarkerCfg?: any; drawShape: any; }
-    ): { parsePoint: any; parsePoints: any; parsePath: any; };
+        | { getPoints?: any; getMarkerCfg?: any; draw?: any }
+        | { getPoints?: any; getMarkerCfg?: any; drawShape?: any }
+    ): { parsePoint: any; parsePoints: any; parsePath: any };
   }
 
   interface Animate {
-    registerAnimation(
-      animationType: string,
-      animationName: string,
-      animationFun: any
-    ): void;
+    registerAnimation(animationType: string, animationName: string, animationFun: any): void;
   }
 
   type lodashFn = any;
@@ -1455,9 +1533,7 @@ declare namespace G2 {
   }
 
   class DomUtil {
-    getBoundingClientRect(
-      node: Element
-    ): { top: number; bottom: number; left: number; right: number };
+    getBoundingClientRect(node: Element): { top: number; bottom: number; left: number; right: number };
     getStyle(dom: HTMLElement, name: string): any;
     modifyCSS(dom: HTMLElement, css: any): HTMLElement;
     createDom(str: string): HTMLElement;
@@ -1482,12 +1558,12 @@ declare namespace G2 {
     transform: any;
   }
 
-  type PathArray = [string, ...number[]]
+  type PathArray = [string, ...number[]];
 
   interface PathUtil {
-    fillPath(source: PathArray[], target: PathArray[]): PathArray[]
-    fillPathByDiff(source: PathArray[], target: PathArray[]): PathArray[]
-    formatPath(fromPath: PathArray[], toPath: PathArray[]): PathArray[]
+    fillPath(source: PathArray[], target: PathArray[]): PathArray[];
+    fillPathByDiff(source: PathArray[], target: PathArray[]): PathArray[];
+    formatPath(fromPath: PathArray[], toPath: PathArray[]): PathArray[];
     parsePathString(pathString: string): PathArray[];
     parsePathArray(pathArray: PathArray[]): string;
     path2curve(path: PathArray[]): PathArray[];
