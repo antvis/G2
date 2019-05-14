@@ -432,7 +432,7 @@ class GeomLabels extends Group {
         // callback中应使用原始数据，而不是数据字符串
         const originValues = scales.map(scale => origin[scale.field]);
         // 将point信息以及index信息也返回，方便能够根据point以及index，返回不同的配置
-        cfg = labelCfg.callback.apply(null, [...originValues, point, i]);
+        cfg = labelCfg.callback.apply(null, [ ...originValues, point, i ]);
       }
       if (!cfg && cfg !== 0) {
         cfgs.push(null);
