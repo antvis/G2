@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="geometry" content="line">
+  <link rel="stylesheet" href="./assets/common.css">
+  <title>Smooth Line Plot</title>
+</head>
+
+<body>
+  <div id="canvas"></div>
+  <div id="slider"></div>
+  <script src="./assets/data-set.min.js"></script>
+  <script src="../build/g2.js"></script>
+  <script>
+    const data = [
+      { time: '2015-05-31 00:00', value: 0.2, type: 'Hestavollane' },
+      { time: '2015-05-31 01:00', value: 0.8, type: 'Hestavollane' },
+      { time: '2015-05-31 02:00', value: 0.8, type: 'Hestavollane' },
+      { time: '2015-05-31 03:00', value: 0.8, type: 'Hestavollane' },
+      { time: '2015-05-31 04:00', value: 1, type: 'Hestavollane' },
+      { time: '2015-05-31 05:00', value: 1.3, type: 'Hestavollane' },
+      { time: '2015-05-31 06:00', value: 1.5, type: 'Hestavollane' },
+      { time: '2015-05-31 07:00', value: 2.9, type: 'Hestavollane' },
+      { time: '2015-05-31 08:00', value: 1.9, type: 'Hestavollane' },
+      { time: '2015-05-31 09:00', value: 2.6, type: 'Hestavollane' },
+      { time: '2015-05-31 10:00', value: 1.6, type: 'Hestavollane' },
+      { time: '2015-05-31 11:00', value: 3, type: 'Hestavollane' },
+      { time: '2015-05-31 12:00', value: 4, type: 'Hestavollane' },
+      { time: '2015-05-31 13:00', value: 3.6, type: 'Hestavollane' },
+      { time: '2015-05-31 14:00', value: 4.5, type: 'Hestavollane' },
+      { time: '2015-05-31 15:00', value: 4.2, type: 'Hestavollane' },
+      { time: '2015-05-31 16:00', value: 4.5, type: 'Hestavollane' },
+      { time: '2015-05-31 17:00', value: 4.5, type: 'Hestavollane' },
+      { time: '2015-05-31 18:00', value: 4, type: 'Hestavollane' },
+      { time: '2015-05-31 19:00', value: 3.1, type: 'Hestavollane' },
+      { time: '2015-05-31 20:00', value: 2.7, type: 'Hestavollane' },
+      { time: '2015-05-31 21:00', value: 4, type: 'Hestavollane' },
+      { time: '2015-05-31 22:00', value: 2.7, type: 'Hestavollane' },
+      { time: '2015-05-31 23:00', value: 2.3, type: 'Hestavollane' },
+      { time: '2015-06-01 00:00', value: 2.3, type: 'Hestavollane' },
+      { time: '2015-06-01 01:00', value: 4.1, type: 'Hestavollane' },
+      { time: '2015-06-01 02:00', value: 7.7, type: 'Hestavollane' },
+      { time: '2015-06-01 03:00', value: 7.1, type: 'Hestavollane' },
+      { time: '2015-06-01 04:00', value: 5.6, type: 'Hestavollane' },
+      { time: '2015-06-01 05:00', value: 6.1, type: 'Hestavollane' },
+      { time: '2015-06-01 06:00', value: 5.8, type: 'Hestavollane' },
+      { time: '2015-06-01 07:00', value: 8.6, type: 'Hestavollane' },
+      { time: '2015-06-01 08:00', value: 7.2, type: 'Hestavollane' },
+      { time: '2015-06-01 09:00', value: 9, type: 'Hestavollane' },
+      { time: '2015-06-01 10:00', value: 10.9, type: 'Hestavollane' },
+      { time: '2015-06-01 11:00', value: 11.5, type: 'Hestavollane' },
+      { time: '2015-06-01 12:00', value: 11.6, type: 'Hestavollane' },
+      { time: '2015-06-01 13:00', value: 11.1, type: 'Hestavollane' },
+      { time: '2015-06-01 14:00', value: 12, type: 'Hestavollane' },
+      { time: '2015-06-01 15:00', value: 12.3, type: 'Hestavollane' },
+      { time: '2015-06-01 16:00', value: 10.7, type: 'Hestavollane' },
+      { time: '2015-06-01 17:00', value: 9.4, type: 'Hestavollane' },
+      { time: '2015-06-01 18:00', value: 9.8, type: 'Hestavollane' },
+      { time: '2015-06-01 19:00', value: 9.6, type: 'Hestavollane' },
+      { time: '2015-06-01 20:00', value: 9.8, type: 'Hestavollane' },
+      { time: '2015-06-01 21:00', value: 9.5, type: 'Hestavollane' },
+      { time: '2015-06-01 22:00', value: 8.5, type: 'Hestavollane' },
+      { time: '2015-06-01 23:00', value: 7.4, type: 'Hestavollane' },
+      { time: '2015-06-02 00:00', value: 7.6, type: 'Hestavollane' },
+      { time: '2015-05-31 00:00', value: 0, type: 'Vik' },
+      { time: '2015-05-31 01:00', value: 0, type: 'Vik' },
+      { time: '2015-05-31 02:00', value: 0.6, type: 'Vik' },
+      { time: '2015-05-31 03:00', value: 0.9, type: 'Vik' },
+      { time: '2015-05-31 04:00', value: 0.8, type: 'Vik' },
+      { time: '2015-05-31 05:00', value: 0.2, type: 'Vik' },
+      { time: '2015-05-31 06:00', value: 0, type: 'Vik' },
+      { time: '2015-05-31 07:00', value: 0, type: 'Vik' },
+      { time: '2015-05-31 08:00', value: 0, type: 'Vik' },
+      { time: '2015-05-31 09:00', value: 0.1, type: 'Vik' },
+      { time: '2015-05-31 10:00', value: 0.6, type: 'Vik' },
+      { time: '2015-05-31 11:00', value: 0.7, type: 'Vik' },
+      { time: '2015-05-31 12:00', value: 0.8, type: 'Vik' },
+      { time: '2015-05-31 13:00', value: 0.6, type: 'Vik' },
+      { time: '2015-05-31 14:00', value: 0.2, type: 'Vik' },
+      { time: '2015-05-31 15:00', value: 0, type: 'Vik' },
+      { time: '2015-05-31 16:00', value: 0.1, type: 'Vik' },
+      { time: '2015-05-31 17:00', value: 0.3, type: 'Vik' },
+      { time: '2015-05-31 18:00', value: 0.3, type: 'Vik' },
+      { time: '2015-05-31 19:00', value: 0, type: 'Vik' },
+      { time: '2015-05-31 20:00', value: 0.1, type: 'Vik' },
+      { time: '2015-05-31 21:00', value: 0, type: 'Vik' },
+      { time: '2015-05-31 22:00', value: 0, type: 'Vik' },
+      { time: '2015-05-31 23:00', value: 0, type: 'Vik' },
+      { time: '2015-06-01 00:00', value: 0.2, type: 'Vik' },
+      { time: '2015-06-01 01:00', value: 0.1, type: 'Vik' },
+      { time: '2015-06-01 02:00', value: 0, type: 'Vik' },
+      { time: '2015-06-01 03:00', value: 0.3, type: 'Vik' },
+      { time: '2015-06-01 04:00', value: 0, type: 'Vik' },
+      { time: '2015-06-01 05:00', value: 0.1, type: 'Vik' },
+      { time: '2015-06-01 06:00', value: 0.2, type: 'Vik' },
+      { time: '2015-06-01 07:00', value: 0.1, type: 'Vik' },
+      { time: '2015-06-01 08:00', value: 0.3, type: 'Vik' },
+      { time: '2015-06-01 09:00', value: 0.3, type: 'Vik' },
+      { time: '2015-06-01 10:00', value: 0, type: 'Vik' },
+      { time: '2015-06-01 11:00', value: 3.1, type: 'Vik' },
+      { time: '2015-06-01 12:00', value: 3.1, type: 'Vik' },
+      { time: '2015-06-01 13:00', value: 2.5, type: 'Vik' },
+      { time: '2015-06-01 14:00', value: 1.5, type: 'Vik' },
+      { time: '2015-06-01 15:00', value: 1.9, type: 'Vik' },
+      { time: '2015-06-01 16:00', value: 2.1, type: 'Vik' },
+      { time: '2015-06-01 17:00', value: 1, type: 'Vik' },
+      { time: '2015-06-01 18:00', value: 2.3, type: 'Vik' },
+      { time: '2015-06-01 19:00', value: 1.9, type: 'Vik' },
+      { time: '2015-06-01 20:00', value: 1.2, type: 'Vik' },
+      { time: '2015-06-01 21:00', value: 0.7, type: 'Vik' },
+      { time: '2015-06-01 22:00', value: 1.3, type: 'Vik' },
+      { time: '2015-06-01 23:00', value: 0.4, type: 'Vik' },
+      { time: '2015-06-02 00:00', value: 0.3, type: 'Vik' }
+    ];
+
+    const chart = new G2.Chart({
+      container: 'canvas',
+      forceFit: true,
+      height: window.innerHeight - 50
+
+    });
+    const times = data.map(entry => (new Date(entry.time).valueOf()));
+    const ds = new DataSet({
+      state: {
+        start: Math.min.apply(null, times),
+        end: Math.max.apply(null, times)
+      }
+    });
+    const dv = ds.createView().source(data);
+
+    dv.transform({
+      type: 'filter',
+      callback: function callback(obj) {
+        const time = new Date(obj.time).valueOf();
+    
+        return time >= ds.state.start && time <= ds.state.end;
+      }
+    });
+    chart.source(dv);
+    // 列定义
+
+    const scales = {
+      value: {
+        min: 0,
+        max: 15,
+        tickInterval: 2.5,
+        alias: 'Wind speed (m/s)'
+      },
+      time: {
+        type: 'time',
+        mask: 'HH:MM',
+        formatter(val) {
+          if (val === 1433001600000) {
+            return '31. May';
+          } else if (val === 1433088000000) {
+            return '1. Jun';
+          } else if (val === 1433174400000) {
+            return '2. Jun';
+          }
+          const d = new Date(val);
+          const hr = d.getHours();
+          let min = d.getMinutes();
+          if (min < 10) {
+            min = '0' + min;
+          }
+          return hr + ':' + min;
+        }
+      }
+    };
+    chart.scale(scales);
+
+    // 坐标轴配置
+    chart.axis('value', {
+      tickLine: null,
+      tick: null,
+      line: null,
+      grid: null
+    });
+    chart.axis('time', {
+      title: null
+    });
+
+    // 图例配置
+    chart.legend({
+      position: 'bottom'
+      // allowAllCanceled: true
+    });
+
+    chart.tooltip({
+      shared: false
+    });
+
+    // 辅助元素绘制
+    chart.guide().region({
+      start: { time: 'min', value: 0.3 },
+      end: { time: 'max', value: 1.5 },
+      style: {
+        fill: 'rgba(68, 170, 213, 0.9)'
+      }
+    });
+    chart.guide().text({
+      start: { time: '2015-05-31 01:00', value: 0.9 },
+      content: 'Light air'
+    });
+    chart.guide().region({
+      start: { time: 'min', value: 1.5 },
+      end: { time: 'max', value: 3.3 },
+      style: {
+        fill: 'rgba(0, 0, 0, 0)'
+      }
+    });
+    chart.guide().text({
+      start: { time: '2015-05-31 01:00', value: 2.4 },
+      content: 'Light breeze'
+    });
+    chart.guide().region({
+      start: { time: 'min', value: 3.3 },
+      end: { time: 'max', value: 5.5 },
+      style: {
+        fill: 'rgba(68, 170, 213, 0.9)'
+      }
+    });
+    chart.guide().text({
+      start: { time: '2015-05-31 01:00', value: 4.4 },
+      content: 'Gentle breeze'
+    });
+    chart.guide().region({
+      start: { time: 'min', value: 5.5 },
+      end: { time: 'max', value: 8 },
+      style: {
+        fill: 'rgba(0, 0, 0, 0)'
+      }
+    });
+    chart.guide().text({
+      start: { time: '2015-05-31 01:00', value: 6.75 },
+      content: 'Moderate breeze'
+    });
+    chart.guide().region({
+      start: { time: 'min', value: 8 },
+      end: { time: 'max', value: 11 },
+      style: {
+        fill: 'rgba(68, 170, 213, 0.9)'
+      }
+    });
+    chart.guide().text({
+      start: { time: '2015-05-31 01:00', value: 9.5 },
+      content: 'Fresh breeze'
+    });
+    chart.guide().region({
+      start: { time: 'min', value: 11 },
+      end: { time: 'max', value: 14 },
+      style: {
+        fill: 'rgba(0, 0, 0, 0)'
+      }
+    });
+    chart.guide().text({
+      start: { time: '2015-05-31 01:00', value: 12.5 },
+      content: 'Strong breeze'
+    });
+    chart.guide().region({
+      start: { time: 'min', value: 14 },
+      end: { time: 'max', value: 15 },
+      style: {
+        fill: 'rgba(68, 170, 213, 0.9)'
+      }
+    });
+    chart.guide().text({
+      start: { time: '2015-05-31 01:00', value: 14.5 },
+      content: 'High wind'
+    });
+
+    chart.line().position('time*value').color('type')
+      .shape('type', [ 'smooth', 'dash' ])
+      .size(2);
+    chart.render();
+
+    // 创建 Slider
+    chart.interact('slider', {
+      container: 'slider',
+      data,
+      start: ds.state.start, // 和状态量对应
+      end: ds.state.end,
+      scales,
+      xAxis: 'time',
+      yAxis: 'value',
+      backgroundChart: {
+        type: 'line',
+        color: 'type',
+        shape: {
+          field: 'type',
+          shapes: [ 'smooth', 'dash' ]
+        }
+      },
+      onChange: function onChange(ev) {
+        const startValue = ev.startValue;
+        const endValue = ev.endValue;
+
+        ds.setState('start', Math.floor(startValue));
+        ds.setState('end', Math.ceil(endValue));
+      }
+    });
+  </script>
+</body>
+
+</html>
