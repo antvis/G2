@@ -447,6 +447,7 @@ class GeomLabels extends Group {
       cfg = Util.mix({}, defaultCfg, labelCfg.globalCfg || {}, cfg);
       // 兼容旧的源数据写在item.point中
       point.point = origin;
+      cfg.point = origin;
       if (cfg.htmlTemplate) {
         cfg.useHtml = true;
         cfg.text = cfg.htmlTemplate.call(null, cfg.text, point, i);
