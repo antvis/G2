@@ -92,10 +92,10 @@ describe('scaled coord label', function() {
     const container = chart.get('geoms')[0].get('labelContainer');
     const labels = container.get('labelsGroup');
     const labelLines = container.get('lineGroup');
-    const origin = labels.get('children')[0].get('origin');
+    const attrs = labels.get('children')[0].get('attrs');
     const offset = container.get('labelItemCfgs')[0].offset;
     expect(offset).to.equal(35);
-    expect(origin.textAlign).to.equal('left');
+    expect(attrs.textAlign).to.equal('left');
     const path = labelLines.get('children')[0].attr('path');
     expect(path.join('').indexOf('NaN') < 0);
   });
