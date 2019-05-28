@@ -267,7 +267,7 @@ const Interval = Shape.registerFactory('interval', {
   defaultShapeType: 'rect',
   getActiveCfg(type, cfg) {
     if (!type || Util.inArray([ 'rect', 'funnel', 'pyramid' ], type)) { // 透明度降低 0.15
-      const fillOpacity = cfg.fillOpacity || cfg.opacity || 1;
+      const fillOpacity = ShapeUtil.getOpacity(cfg);
       return {
         fillOpacity: fillOpacity - 0.15
       };

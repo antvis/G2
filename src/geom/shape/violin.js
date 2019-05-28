@@ -104,7 +104,7 @@ const Violin = Shape.registerFactory('violin', {
       };
     }
 
-    const opacity = cfg.fillOpacity || cfg.opacity || 1;
+    const opacity = ShapeUtil.getOpacity(cfg);
     return {
       // lineWidth,
       fillOpacity: opacity - 0.08

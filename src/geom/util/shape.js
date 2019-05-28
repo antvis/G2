@@ -34,6 +34,11 @@ const ShapeUtil = {
     if (Util.isNumber(cfg.opacity)) {
       attrs.opacity = attrs.strokeOpacity = cfg.opacity;
     }
+  },
+  getOpacity(cfg) {
+    if (Util.isNumber(cfg.fillOpacity)) return cfg.fillOpacity;
+    if (Util.isNumber(cfg.opacity)) return cfg.opacity;
+    return 1;
   }
 };
 

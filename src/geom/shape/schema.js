@@ -197,7 +197,7 @@ const Schema = Shape.registerFactory('schema', {
         lineWidth: lineWidth + 1
       };
     }
-    const opacity = cfg.fillOpacity || cfg.opacity || 1;
+    const opacity = ShapeUtil.getOpacity(cfg);
     return {
       fillOpacity: opacity - 0.15,
       strokeOpacity: opacity - 0.15
