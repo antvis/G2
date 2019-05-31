@@ -168,7 +168,8 @@ class Tail extends Category {
     });
   }
 
-  _antiCollision(items) {
+  _antiCollision(items = []) {
+    if (!items.length) return;
     const self = this;
     items.sort(function(a, b) {
       const ay = a.attr('matrix')[7];
