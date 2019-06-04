@@ -28,7 +28,9 @@
             <img src="{{ file.screenshot }}" alt="">
           </a>
           <div class="card-body">
-            <h6>{{ file.basename }}</h6>
+            <a href="#/{{ file.basename }}" class="thumbnail-container">
+              <h6>{{ file.basename }}</h6>
+            </a>
           </div>
         </div>
       </div>

@@ -553,6 +553,7 @@ class LegendController {
         legendCfg.container = container;
         if (legendCfg.legendStyle === undefined) legendCfg.legendStyle = {};
         legendCfg.legendStyle.CONTAINER_CLASS = {
+          ...(legendCfg.legendStyle.CONTAINER_CLASS),
           position: 'absolute',
           overflow: 'auto',
           'z-index': canvasEle.style.zIndex === '' ? 1 : parseInt(canvasEle.style.zIndex, 10) + 1
