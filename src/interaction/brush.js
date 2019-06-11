@@ -279,6 +279,8 @@ class Brush extends Interaction {
     if (Math.abs(startPoint.x - offsetX) <= 1 && Math.abs(startPoint.y - offsetY) <= 1) { // 防止点击事件
       me.brushing = false;
       me.dragging = false;
+      container.clear();
+      canvas.draw();
       return;
     }
 
