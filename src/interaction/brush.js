@@ -271,6 +271,10 @@ class Brush extends Interaction {
   }
   end(ev) {
     const me = this;
+
+    if (!me.brushing && !me.dragging) {
+      return;
+    }
     const { data, shapes, xValues, yValues, canvas, type, startPoint, chart, container, xScale, yScale } = me;
     const { offsetX, offsetY } = ev;
     const canvasDOM = canvas.get('canvasDOM');
