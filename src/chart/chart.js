@@ -109,6 +109,7 @@ class Chart extends View {
     // 坐标轴在最后面的一层
 
     const backPlot = this.get('backPlot');
+    // 这段代码临时处理了title 过长的情况，但是是非常不好的代码
     const backBBox = bboxOfBackPlot(backPlot, plotRange2BBox(this.get('plotRange')));
 
     const box = mergeBBox(frontBBox, backBBox);

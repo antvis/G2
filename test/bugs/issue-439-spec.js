@@ -34,7 +34,8 @@ describe('#439', () => {
       container: div,
       width: 1000,
       height: 540,
-      animate: false
+      animate: false,
+      pixelRatio: 2
     });
 
     chart.source(data);

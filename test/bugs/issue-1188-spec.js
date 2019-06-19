@@ -38,7 +38,7 @@ describe('#1188', () => {
     chart.render();
 
     const axisController = chart.get('axisController');
-    const axisShapes = axisController.container.get('children');
+    const axisShapes = axisController.axes[0].get('group').get('children');
     let titleShape = null;
     G2.Util.each(axisShapes, shape => {
       if (shape.name === 'axis-title') {

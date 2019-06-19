@@ -450,7 +450,12 @@ class AxisController {
 
     Util.mix(cfg, {
       canvas,
-      group: container
+      // 每个 axis 需要单独的 group，
+      // 否则所有的 aixs 的文本都混在一起了
+      // 同时无法知道是哪个坐标轴的事件
+      group: container.addGroup({
+        viewId
+      })
     });
     const axis = new C(cfg);
     axis.render();
