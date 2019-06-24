@@ -67,21 +67,28 @@ const SizeMixin = {
       }
       normalizeSize *= widthRatio;
       if (this.hasAdjust('dodge')) {
-        const dodgeCount = this._getDodgeCount(dataArray);
+        const { dodgeCount, dodgeRatio } = this._getDodgeCfg(dataArray);
+
         normalizeSize = normalizeSize / dodgeCount;
+
+        if (dodgeRatio > 0) {
+          normalizeSize = dodgeRatio * normalizeSize / widthRatio;
+        }
       }
       defaultSize = normalizeSize;
       this.set('defaultSize', defaultSize);
     }
     return defaultSize;
   },
-  _getDodgeCount(dataArray) {
+  _getDodgeCfg(dataArray) {
     const adjusts = this.get('adjusts');
     let dodgeBy;
+    let dodgeRatio;
     let count = dataArray.length;
     Util.each(adjusts, function(adjust) {
       if (adjust.type === 'dodge') {
         dodgeBy = adjust.dodgeBy;
+        dodgeRatio = adjust.dodgeRatio;
       }
     });
 
@@ -91,8 +98,9 @@ const SizeMixin = {
       count = values.length;
     }
 
-    return count;
+    return { dodgeCount: count, dodgeRatio };
   },
+
   getDimWidth(dimName) {
     const coord = this.get('coord');
     const start = coord.convertPoint({
