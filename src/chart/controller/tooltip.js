@@ -373,6 +373,12 @@ class TooltipController {
                     v.x = point[0];
                     v.y = point[1];
                     v.showMarker = true;
+                    // bugfix
+                    // 由于tooltip是DOM而不是Canvas，设置渐变色时，marker无法正常显示
+                    // 如果，设置的颜色是渐变色，则取渐变色的起始颜色作为marker的颜色，暂时解决这个问题
+                    if (v.color.substring(0, 2) === 'l(') {
+                      v.color = v.color.split(' ')[1].substring(2);
+                    }
                     const itemMarker = self._getItemMarker(geom, v.color);
                     v.marker = itemMarker;
                     if (Util.indexOf(TYPE_SHOW_MARKERS, type) !== -1) {
