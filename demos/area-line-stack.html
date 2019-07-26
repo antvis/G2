@@ -46,6 +46,13 @@
       { country: 'Oceania', year: '2050', value: 460 }
     ];
 
+    const shapeMap = {
+      Asia: 'diamond',
+      Africa: 'triangle',
+      Europe: 'square',
+      Oceania: 'hexagon'
+    };
+
     const chart = new G2.Chart({
       container: 'canvas',
       forceFit: true,
@@ -73,7 +80,18 @@
       .position('year*value')
       .color('country')
       .style({ lineWidth: 2 })
-      .adjust('stack');
+      .adjust('stack')
+      .shape('country', val => {
+        return shapeMap[val];
+      });
+    chart.tooltip(true, {
+      marker: (markerObj, item) => {
+        return {
+          ...markerObj,
+          activeSymbol: shapeMap[item.name]
+        };
+      }
+    });
     chart.render();
   </script>
 </body>

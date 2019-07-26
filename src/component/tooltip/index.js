@@ -176,7 +176,11 @@ class Tooltip extends Base {
        * 是否允许鼠标停留在 tooltip 上，默认不允许
        * @type {Boolean}
        */
-      enterable: false
+      enterable: false,
+      /**
+       * 设置几何体对应的maker
+       */
+      marker: null
     };
   }
 
@@ -436,7 +440,8 @@ class Tooltip extends Base {
           shadowColor: item.color
         }, markerCfg, {
           x: item.x,
-          y: item.y
+          y: item.y,
+          symbol: item.symbol
         })
       });
     });

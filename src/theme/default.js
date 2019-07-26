@@ -496,7 +496,6 @@ const Theme = {
     [`${TOOLTIP_MARKER_CLASS}`]: {
       width: '5px',
       height: '5px',
-      borderRadius: '50%',
       display: 'inline-block',
       marginRight: '8px'
     },
