@@ -15,25 +15,22 @@ const DASH_ARR = [ 5.5, 1 ];
 
 function getAttrs(cfg) {
   const defaultCfg = Global.shape.line;
-  const shapeCfg = Util.mix({}, defaultCfg, {
-    stroke: cfg.color,
-    lineWidth: cfg.size,
-    strokeOpacity: cfg.opacity,
-    opacity: cfg.opacity
-  }, cfg.style);
-  return shapeCfg;
+  const lineAttrs = Util.mix({}, defaultCfg, cfg.style);
+  ShapeUtil.addStrokeAttrs(lineAttrs, cfg);
+  if (cfg.size) {
+    lineAttrs.lineWidth = cfg.size;
+  }
+  return lineAttrs;
 }
 
 function getMarkerAttrs(cfg) {
   const defaultCfg = Global.shape.line;
-  const shapeCfg = Util.mix({}, defaultCfg, {
-    stroke: cfg.color,
+  const lineAttrs = Util.mix({
     lineWidth: 2,
-    strokeOpacity: cfg.opacity,
-    opacity: cfg.opacity,
     radius: 6
-  }, cfg.style);
-  return shapeCfg;
+  }, defaultCfg, cfg.style);
+  ShapeUtil.addStrokeAttrs(lineAttrs, cfg);
+  return lineAttrs;
 }
 
 // 获取带有上下区间的 path
@@ -115,16 +112,19 @@ function _getInterPointShapeCfg(cfg, fn) {
   return _getInterPath(points);
 }
 
-function _markerFn(x, y, r, ctx) {
-  ctx.moveTo(x - r, y);
-  ctx.lineTo(x + r, y);
+function _markerFn(x, y, r) {
+  return [
+    [ 'M', x - r, y ],
+    [ 'L', x + r, y ]
+  ];
 }
 
-function _smoothMarkerFn(x, y, r, ctx) {
-  ctx.moveTo(x - r, y);
-  ctx.arcTo(x - r / 2, y - r / 2, x, y, r / 2);
-  ctx.lineTo(x, y);
-  ctx.arcTo(x + r / 2, y + r / 2, x + r, y - r / 2, r / 2);
+function _smoothMarkerFn(x, y, r) {
+  return [
+    [ 'M', x - r, y ],
+    [ 'A', r / 2, r / 2, 0, 1, 1, x, y ],
+    [ 'A', r / 2, r / 2, 0, 1, 0, x + r, y ]
+  ];
 }
 // get marker cfg
 function _getMarkerCfg(cfg, smooth) {
@@ -156,10 +156,10 @@ function drawPointShape(shapeObj, cfg, container) {
 const Line = Shape.registerFactory('line', {
   // 默认的shape
   defaultShapeType: 'line',
-  getMarkerCfg(type, cfg) {
+  /* getMarkerCfg(type, cfg) {
     const lineObj = Line[type] || Line.line;
     return lineObj.getMarkerCfg(cfg);
-  },
+  }, */
   getActiveCfg(type, cfg) {
     const lineWidth = cfg.lineWidth || 0;
     return {
@@ -228,15 +228,15 @@ Shape.registerShape('line', 'dash', {
     const attrs = getAttrs(cfg);
     const path = getPath(cfg, false);
     return container.addShape('path', {
-      attrs: Util.mix(attrs, {
+      attrs: Util.mix({
         path,
         lineDash: DASH_ARR
-      })
+      }, attrs)
     });
   },
   getMarkerCfg(cfg) {
     const tmp = _getMarkerCfg(cfg, false);
-    tmp.lineDash = DASH_ARR;
+    tmp.lineDash = tmp.lineDash || DASH_ARR;
     return tmp;
   }
 });
@@ -281,11 +281,13 @@ Shape.registerShape('line', 'hv', {
     });
   },
   getMarkerCfg(cfg) {
-    return _getInterMarkerCfg(cfg, function(x, y, r, ctx) {
-      ctx.moveTo(x - r - 1, y - 2.5);
-      ctx.lineTo(x, y - 2.5);
-      ctx.lineTo(x, y + 2.5);
-      ctx.lineTo(x + r + 1, y + 2.5);
+    return _getInterMarkerCfg(cfg, function(x, y, r) {
+      return [
+        [ 'M', x - r - 1, y - 2.5 ],
+        [ 'L', x, y - 2.5 ],
+        [ 'L', x, y + 2.5 ],
+        [ 'L', x + r + 1, y + 2.5 ]
+      ];
     });
   }
 });
@@ -308,11 +310,13 @@ Shape.registerShape('line', 'vh', {
     });
   },
   getMarkerCfg(cfg) {
-    return _getInterMarkerCfg(cfg, function(x, y, r, ctx) {
-      ctx.moveTo(x - r - 1, y + 2.5);
-      ctx.lineTo(x, y + 2.5);
-      ctx.lineTo(x, y - 2.5);
-      ctx.lineTo(x + r + 1, y - 2.5);
+    return _getInterMarkerCfg(cfg, function(x, y, r) {
+      return [
+        [ 'M', x - r - 1, y + 2.5 ],
+        [ 'L', x, y + 2.5 ],
+        [ 'L', x, y - 2.5 ],
+        [ 'L', x + r + 1, y - 2.5 ]
+      ];
     });
   }
 });
@@ -340,13 +344,15 @@ Shape.registerShape('line', 'hvh', {
     });
   },
   getMarkerCfg(cfg) {
-    return _getInterMarkerCfg(cfg, function(x, y, r, ctx) {
-      ctx.moveTo(x - (r + 1), y + 2.5);
-      ctx.lineTo(x - r / 2, y + 2.5);
-      ctx.lineTo(x - r / 2, y - 2.5);
-      ctx.lineTo(x + r / 2, y - 2.5);
-      ctx.lineTo(x + r / 2, y + 2.5);
-      ctx.lineTo(x + r + 1, y + 2.5);
+    return _getInterMarkerCfg(cfg, function(x, y, r) {
+      return [
+        [ 'M', x - (r + 1), y + 2.5 ],
+        [ 'L', x - r / 2, y + 2.5 ],
+        [ 'L', x - r / 2, y - 2.5 ],
+        [ 'L', x + r / 2, y - 2.5 ],
+        [ 'L', x + r / 2, y + 2.5 ],
+        [ 'L', x + r + 1, y + 2.5 ]
+      ];
     });
   }
 });
@@ -374,14 +380,16 @@ Shape.registerShape('line', 'vhv', {
     });
   },
   getMarkerCfg(cfg) {
-    return _getInterMarkerCfg(cfg, function(x, y, r, ctx) {
+    return _getInterMarkerCfg(cfg, function(x, y) {
       // 宽 13px，高 8px
-      ctx.moveTo(x - 5, y + 2.5);
-      ctx.lineTo(x - 5, y);
-      ctx.lineTo(x, y);
-      ctx.lineTo(x, y - 3);
-      ctx.lineTo(x, y + 3);
-      ctx.lineTo(x + 6.5, y + 3);
+      return [
+        [ 'M', x - 5, y + 2.5 ],
+        [ 'L', x - 5, y ],
+        [ 'L', x, y ],
+        [ 'L', x, y - 3 ],
+        [ 'L', x, y + 3 ],
+        [ 'L', x + 6.5, y + 3 ]
+      ];
     });
   }
 });

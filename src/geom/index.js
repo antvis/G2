@@ -2,6 +2,7 @@
 const Geom = require('./base');
 Geom.Point = require('./point');
 Geom.PointJitter = Geom.Point.Jitter;
+Geom.PointStack = Geom.Point.Stack;
 Geom.Path = require('./path');
 Geom.Line = require('./line');
 Geom.LineStack = Geom.Line.Stack;
@@ -17,5 +18,7 @@ Geom.Schema = require('./schema');
 Geom.SchemaDodge = Geom.Schema.Dodge;
 Geom.Edge = require('./edge');
 Geom.Heatmap = require('./heatmap');
+Geom.Venn = require('./venn');
+Geom.Violin = require('./violin');
 
 module.exports = Geom;

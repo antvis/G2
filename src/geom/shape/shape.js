@@ -5,7 +5,7 @@
 
 const Util = require('../../util');
 const PathUtil = require('../util/path');
-const GPath = require('@antv/g').PathUtil;
+const GPath = Util.PathUtil;
 const Shape = {};
 
 const ShapeBase = {
@@ -106,8 +106,10 @@ const ShapeFactoryBase = {
       const defaultShapeType = this.defaultShapeType;
       shape = this.getShape(defaultShapeType);
     }
-
     return shape.getMarkerCfg(cfg);
+  },
+  getSelectedCfg(/* type, cfg */) {
+    return {};
   },
   drawShape(type, cfg, container) {
     const shape = this.getShape(type);

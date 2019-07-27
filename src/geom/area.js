@@ -6,6 +6,7 @@
 const GeomBase = require('./base');
 const SplitMixin = require('./mixin/split');
 const Util = require('../util');
+require('./shape/area');
 
 class Area extends GeomBase {
   /**
@@ -30,6 +31,7 @@ class Area extends GeomBase {
   draw(data, container, shapeFactory, index) {
     const self = this;
     const cfg = this.getDrawCfg(data[0]);
+    self._applyViewThemeShapeStyle(cfg, cfg.shape, shapeFactory);
     const splitArray = this.splitData(data);
 
     cfg.origin = data; // path,line,area 等图的origin 是整个序列
@@ -40,12 +42,7 @@ class Area extends GeomBase {
       });
       cfg.points = points;
       const geomShape = shapeFactory.drawShape(cfg.shape, cfg, container);
-      geomShape.setSilent('index', index + splitedIndex);
-      geomShape.setSilent('coord', self.get('coord'));
-
-      if (self.get('animate') && self.get('animateCfg')) {
-        geomShape.setSilent('animateCfg', self.get('animateCfg'));
-      }
+      self.appendShapeInfo(geomShape, index + splitedIndex);
     });
   }
 }
@@ -60,4 +57,9 @@ class AreaStack extends Area {
 }
 
 Area.Stack = AreaStack;
+
+GeomBase.Area = Area;
+GeomBase.AreaStack = AreaStack;
+
 module.exports = Area;
+

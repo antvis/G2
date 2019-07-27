@@ -1,4 +1,4 @@
-const G2 = require('../../index');
+const G2 = require('../../src/index');
 
 describe('#238', () => {
   it('Endless loop when calling chart.forceFit()', () => {

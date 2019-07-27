@@ -1,6 +1,6 @@
 const DataSet = require('@antv/data-set');
 const expect = require('chai').expect;
-const G2 = require('../../index');
+const G2 = require('../../src/index');
 
 describe('#285', () => {
   it('Throws to break endless loop in scale calculating when field values are not regular', () => {

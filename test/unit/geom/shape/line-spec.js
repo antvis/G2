@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
-const { Canvas } = require('@antv/g');
+const { Canvas } = require('../../../../src/renderer');
 const Line = require('../../../../src/geom/shape/line');
-const Coord = require('../../../../src/coord/');
+const Coord = require('@antv/coord/lib/');
 const Global = require('../../../../src/global');
 
 const div = document.createElement('div');
@@ -60,12 +60,12 @@ describe('line shapes', function() {
       expect(pointCfg.symbol).to.be.an.instanceof(Function);
     });
 
-    xit('getActiveCfg', function() {
-      const activeCfg = Line.getActiveCfg();
-      expect(activeCfg).eql({
-        lineWidth: 4 / 2
-      });
-    });
+    // xit('getActiveCfg', function() {
+    //   const activeCfg = Line.getActiveCfg();
+    //   expect(activeCfg).eql({
+    //     lineWidth: 4 / 2
+    //   });
+    // });
   });
 
   describe('line has size', function() {
@@ -266,7 +266,6 @@ describe('line shapes', function() {
         points,
         color: 'red'
       }, canvas);
-      console.log(shape.attr('path'));
       expect(shape.attr('stroke')).eql('red');
       expect(shape.attr('path').length).eql(4);
       expect(shape.attr('path')[0]).eqls([ 'M', 100, 100 ]);

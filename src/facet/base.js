@@ -3,28 +3,19 @@
  * @author dxq613@gmail.com
  */
 
-const assign = require('lodash/assign');
-const isNil = require('lodash/isNil');
-const isArray = require('lodash/isArray');
-const cloneDeep = require('lodash/cloneDeep');
 const Global = require('../global');
+const Util = require('../util');
+
+const assign = Util.assign;
+const isNil = Util.isNil;
+const isArray = Util.isArray;
+const cloneDeep = Util.cloneDeep;
 
 // 绑定事件
-function wrapBehavior(obj, action) {
-  if (obj['_wrap_' + action]) {
-    return obj['_wrap_' + action];
-  }
-  const method = e => {
-    obj[action](e);
-  };
-  obj['_wrap_' + action] = method;
-  return method;
-}
+const wrapBehavior = Util.wrapBehavior;
 
 // 获取绑定的事件
-function getWrapBehavior(obj, action) {
-  return obj['_wrap_' + action];
-}
+const getWrapBehavior = Util.getWrapBehavior;
 
 class Base {
 
@@ -72,7 +63,7 @@ class Base {
         style: {
           fontSize: 14,
           textAlign: 'center',
-          fill: '#444',
+          fill: '#666',
           fontFamily: Global.fontFamily
         }
       },
@@ -82,7 +73,7 @@ class Base {
           fontSize: 14,
           textAlign: 'center',
           rotate: 90,
-          fill: '#444',
+          fill: '#666',
           fontFamily: Global.fontFamily
         }
       }

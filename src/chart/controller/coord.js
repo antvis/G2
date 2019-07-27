@@ -3,7 +3,7 @@
  * @author sima.zhang
  */
 const Util = require('../../util');
-const Coord = require('../../coord/index');
+const Coord = require('@antv/coord/lib/');
 
 class CoordController {
   constructor(option) {
@@ -61,7 +61,7 @@ class CoordController {
       end
     }, cfg);
 
-    if (type === 'theta') {
+    if (type === 'theta') { // definition of theta coord
       C = Coord.Polar;
 
       if (!self.hasAction('transpose')) {
@@ -70,7 +70,7 @@ class CoordController {
       coord = new C(coordCfg);
       coord.type = type;
     } else {
-      C = Coord[Util.upperFirst(type)] || Coord.Rect;
+      C = Coord[Util.upperFirst(type || '')] || Coord.Rect;
       coord = new C(coordCfg);
     }
 

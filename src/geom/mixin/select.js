@@ -2,7 +2,9 @@
  * @fileOverview the interaction when geom was selected
  * @author sima.zhang
  */
+
 const Util = require('../../util');
+const FIELD_ORIGIN = '_origin';
 
 function isSameShape(shape1, shape2) {
   if (Util.isNil(shape1) || Util.isNil(shape2)) {
@@ -11,6 +13,21 @@ function isSameShape(shape1, shape2) {
   const shape1Origin = shape1.get('origin');
   const shape2Origin = shape2.get('origin');
   return Util.isEqual(shape1Origin, shape2Origin);
+}
+
+function getOriginAttrs(selectedCfg, shape) {
+  const originAttrs = {};
+  Util.each(selectedCfg, function(v, k) {
+    if (k === 'transform') {
+      k = 'matrix';
+    }
+    let originValue = shape.attr(k);
+    if (Util.isArray(originValue)) {
+      originValue = Util.cloneDeep(originValue);// 缓存原来的属性，由于 .attr('matrix') 是数组，所以此处需要深度复制
+    }
+    originAttrs[k] = originValue;
+  });
+  return originAttrs;
 }
 
 const SelectMixin = {
@@ -77,7 +94,10 @@ const SelectMixin = {
       Util.mix(selectedStyle, cfg.style); // 用户设置的优先级更高
 
       if (!shape.get('_originAttrs')) { // 缓存原有属性
-        shape.set('_originAttrs', Util.cloneDeep(shape.__attrs));
+        if (shape.get('animating')) { // 停止动画
+          shape.stopAnimate();
+        }
+        shape.set('_originAttrs', getOriginAttrs(selectedStyle, shape));
       }
 
       if (animate) {
@@ -88,6 +108,7 @@ const SelectMixin = {
       }
     } else {
       const originAttrs = shape.get('_originAttrs');
+      shape.set('_originAttrs', null);
       if (animate) {
         shape.animate(originAttrs, 300);
       } else {
@@ -134,6 +155,23 @@ const SelectMixin = {
         shape.set('_originAttrs', null);
       });
     }
+  },
+  /**
+   * 设置记录对应的图形选中
+   * @param {Object} record 选中的记录
+   * @chainable
+   * @return {Geom} 返回当前的 Geometry
+   */
+  setSelected(record) {
+    const self = this;
+    const shapes = self.getShapes();
+    Util.each(shapes, shape => {
+      const origin = shape.get('origin');
+      if (origin && origin[FIELD_ORIGIN] === record) {
+        self.setShapeSelected(shape);
+      }
+    });
+    return this;
   },
   _getSelectedShapes() {
     const self = this;

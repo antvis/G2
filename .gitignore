@@ -65,7 +65,12 @@ dist
 temp
 .DS_Store
 .idea
-demos/assets/screenshots
+# demos/assets/screenshots
+demos/assets/screenshots-new
+lib
+stats.json
+tslint.json
 
 *.sw*
 *.un~
+*.vscode

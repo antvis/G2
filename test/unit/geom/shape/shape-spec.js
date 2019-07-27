@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
-const Shape = require('../../../../src/geom/shape/');
-const Coord = require('../../../../src/coord/');
+const Shape = require('../../../../src/geom/shape/shape');
+const Coord = require('@antv/coord/lib/');
 
 describe('shape register', () => {
   const coord = new Coord.Rect({

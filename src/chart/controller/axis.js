@@ -3,9 +3,8 @@
  * @author sima.zhang
  */
 const Util = require('../../util');
-const { Axis } = require('../../component/index');
-const { vec2 } = require('@antv/g').MatrixUtil;
-const Global = require('../../global');
+const { Axis } = require('@antv/component/lib');
+const { vec2 } = Util.MatrixUtil;
 
 function formatTicks(ticks) {
   let tmp = [];
@@ -27,9 +26,49 @@ function formatTicks(ticks) {
   return tmp;
 }
 
+function fillAxisTicks(ticks, isLinear, gridCentering) {
+  let result = [];
+  if (ticks.length < 1) return result;
+
+  if (ticks.length >= 2 && isLinear && gridCentering) {
+    result.push({
+      text: '',
+      tickValue: '',
+      value: 0
+    });
+  }
+  if (ticks[0].value !== 0) {
+    result.push({
+      text: '',
+      tickValue: '',
+      value: 0
+    });
+  }
+  result = result.concat(ticks);
+  if (result[result.length - 1].value !== 1) {
+    result.push({
+      text: '',
+      tickValue: '',
+      value: 1
+    });
+  }
+  return result;
+}
+
+function getDefaultValueFromPosition(position, val = 0) {
+  if (position === 'middle') {
+    val = 0.5;
+  }
+  if (position.indexOf('%') !== -1) {
+    val = parseInt(position, 10) / 100;
+  }
+  return val;
+}
+
 class AxisController {
   constructor(cfg) {
     this.visible = true;
+    this.canvas = null;
     this.container = null;
     this.coord = null;
     this.options = null;
@@ -46,12 +85,17 @@ class AxisController {
     return false;
   }
 
-  _getMiddleValue(curValue, ticks, index) {
-    const tickCount = ticks.length;
-    if (index === tickCount - 1) {
-      return null;
+  _getMiddleValue(curValue, ticks, index, isLinear) {
+    if (curValue === 0 && !isLinear) {
+      return 0;
+    }
+    if (curValue === 1) {
+      return 1;
     }
     const nextValue = ticks[index + 1].value;
+    if (!isLinear && nextValue === 1) {
+      return 1;
+    }
     return (curValue + nextValue) / 2;
   }
 
@@ -66,33 +110,40 @@ class AxisController {
       position = options[field].position;
     }
 
+    // TODO middle & percentage for position
     if (dimType === 'x') { // x轴的坐标轴,底部的横坐标
+      let y = (position === 'top') ? 1 : 0;
+      y = getDefaultValueFromPosition(position, y);
       start = {
         x: 0,
-        y: position === 'top' ? 1 : 0
+        y
       };
       end = {
         x: 1,
-        y: position === 'top' ? 1 : 0
+        y
       };
       isVertical = false;
     } else { // y轴坐标轴
       if (index) { // 多轴的情况
+        let x = (position === 'left') ? 0 : 1;
+        x = getDefaultValueFromPosition(position, x);
         start = {
-          x: position === 'left' ? 0 : 1,
+          x,
           y: 0
         };
         end = {
-          x: position === 'left' ? 0 : 1,
+          x,
           y: 1
         };
       } else { // 单个y轴，或者第一个y轴
+        let x = (position === 'right') ? 1 : 0;
+        x = getDefaultValueFromPosition(position, x);
         start = {
-          x: position === 'right' ? 1 : 0,
+          x,
           y: 0
         };
         end = {
-          x: position === 'right' ? 1 : 0,
+          x,
           y: 1
         };
       }
@@ -210,8 +261,17 @@ class AxisController {
     let position = '';
     // 用户自己定义了 position
     const options = this.options;
+    // const VALID_POSITIONS = [
+    //   'top',
+    //   'left',
+    //   'right',
+    //   'bottom'
+    // ];
     if (options[field] && options[field].position) {
       position = options[field].position;
+      // if (VALID_POSITIONS.indexOf(position) > -1) {
+      //   return position;
+      // }
     } else {
       const coordType = coord.type;
       if (coord.isRect) {
@@ -239,22 +299,21 @@ class AxisController {
   // 获取坐标轴构成的配置信息
   _getAxisDefaultCfg(coord, scale, type, position) {
     const self = this;
+    const viewTheme = self.viewTheme;
     let cfg = {};
     const options = self.options;
     const field = scale.field;
-    const isShowTitle = !!(Global.axis[position] && Global.axis[position].title); // 用户全局禁用 title
-    let titleCfg;
 
-    // bugfix: title was set by chart.axis('field', { title: {} })
-    if (isShowTitle || (options[field] && options[field].title)) {
-      titleCfg = {
-        title: {
-          text: scale.alias || field
-        }
-      };
+    cfg = Util.deepMix({}, viewTheme.axis[position], cfg, options[field]);
+    cfg.viewTheme = viewTheme;
+    if (cfg.title) {
+      const title = Util.isPlainObject(cfg.title) ? cfg.title : {};
+      title.text = title.text || scale.alias || field;
+      Util.deepMix(cfg, {
+        title
+      });
     }
-    cfg = Util.deepMix({}, Global.axis[position], cfg, options[field]);
-    Util.mix(cfg, titleCfg);
+
     cfg.ticks = scale.getTicks();
 
     if (coord.isPolar && !scale.isCategory) {
@@ -267,6 +326,13 @@ class AxisController {
     if (cfg.label && Util.isNil(cfg.label.autoRotate)) {
       cfg.label.autoRotate = true; // 允许自动旋转，避免重叠
     }
+
+    if (options.hasOwnProperty('xField') && options.xField.hasOwnProperty('grid')) {
+      if (cfg.position === 'left') {
+        Util.deepMix(cfg, options.xField);
+      }
+    }
+
     return cfg;
   }
 
@@ -277,15 +343,17 @@ class AxisController {
     const cfg = self._getAxisDefaultCfg(coord, scale, dimType, position);
     if (!Util.isEmpty(cfg.grid) && verticalScale) { // 生成 gridPoints
       const gridPoints = [];
+      const tickValues = [];
       const verticalTicks = formatTicks(verticalScale.getTicks());
       // 没有垂直的坐标点时不会只栅格
       if (verticalTicks.length) {
-        const ticks = cfg.ticks;
+        const ticks = fillAxisTicks(cfg.ticks, scale.isLinear, cfg.grid.align === 'center');
         Util.each(ticks, (tick, idx) => {
+          tickValues.push(tick.tickValue);
           const subPoints = [];
           let value = tick.value;
           if (cfg.grid.align === 'center') {
-            value = self._getMiddleValue(value, ticks, idx);
+            value = self._getMiddleValue(value, ticks, idx, scale.isLinear);
           }
           if (!Util.isNil(value)) {
             const rangeX = coord.x;
@@ -313,19 +381,11 @@ class AxisController {
             });
           }
         });
-
-        // TODO: 临时解决，需要添加一条以满足最后一格能颜色交替
-        if ((ticks.length % 2 === 0) && (cfg.grid.align === 'center') && cfg.grid.alternateColor) {
-          gridPoints.push({
-            points: [
-              { x: coord.end.x, y: coord.start.y },
-              { x: coord.end.x, y: coord.end.y }
-            ]
-          });
-        }
       }
       cfg.grid.items = gridPoints;
+      cfg.grid.tickValues = tickValues;
     }
+    cfg.type = scale.type;
     return cfg;
   }
 
@@ -360,6 +420,7 @@ class AxisController {
 
   _drawAxis(coord, scale, verticalScale, dimType, viewId, xAxis, index) {
     const container = this.container;
+    const canvas = this.canvas;
     let C; // 坐标轴类
     let appendCfg; // 每个坐标轴 start end 等绘制边界的信息
 
@@ -387,7 +448,17 @@ class AxisController {
       cfg._id = viewId + '-' + dimType + index;
     }
 
-    const axis = container.addGroup(C, cfg);
+    Util.mix(cfg, {
+      canvas,
+      // 每个 axis 需要单独的 group，
+      // 否则所有的 aixs 的文本都混在一起了
+      // 同时无法知道是哪个坐标轴的事件
+      group: container.addGroup({
+        viewId
+      })
+    });
+    const axis = new C(cfg);
+    axis.render();
     this.axes.push(axis);
     return axis;
   }
@@ -421,11 +492,12 @@ class AxisController {
   }
 
   clear() {
-    const axes = this.axes;
+    const self = this;
+    const axes = self.axes;
     Util.each(axes, function(axis) {
-      axis.remove();
+      axis.clear();
     });
-    this.axes = [];
+    self.axes = [];
   }
 }
 

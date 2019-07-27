@@ -1,8 +1,8 @@
 const expect = require('chai').expect;
-const { Canvas } = require('@antv/g');
+const { Canvas } = require('../../../../src/renderer');
 const Interval = require('../../../../src/geom/shape/interval');
-const Coord = require('../../../../src/coord/');
-const Global = require('../../../../src/global');
+const Coord = require('@antv/coord/lib/');
+// const Global = require('../../../../src/global');
 
 const div = document.createElement('div');
 div.id = 'csinterval';
@@ -150,21 +150,21 @@ describe('interval shapes', function() {
       expect(marker2.symbol).equal('circle');
     });
 
-    xit('get selected config', function() {
-      const selectedCfg = Interval.getSelectedCfg('rect', {
-        coord,
-        point: {
-          x: 10,
-          y: 30
-        }
-      });
-      expect(selectedCfg).not.equal(null);
-      expect(selectedCfg).to.have.property('transform');
-      const transform = selectedCfg.transform[0];
-      expect(transform[0]).equal('t');
-      expect(transform[1].toFixed(10)).equal('-3.0199743083');
-      expect(transform[2].toFixed(10)).equal('-6.8651114468');
-    });
+    // xit('get selected config', function() {
+    //   const selectedCfg = Interval.getSelectedCfg('rect', {
+    //     coord,
+    //     point: {
+    //       x: 10,
+    //       y: 30
+    //     }
+    //   });
+    //   expect(selectedCfg).not.equal(null);
+    //   expect(selectedCfg).to.have.property('transform');
+    //   const transform = selectedCfg.transform[0];
+    //   expect(transform[0]).equal('t');
+    //   expect(transform[1].toFixed(10)).equal('-3.0199743083');
+    //   expect(transform[2].toFixed(10)).equal('-6.8651114468');
+    // });
   });
 
   describe('hollowRect', function() {
@@ -187,10 +187,10 @@ describe('interval shapes', function() {
       expect(shape.attr('stroke')).eql('red');
       expect(shape.attr('path').length).eql(6);
     });
-    xit('get active config', function() {
-      const shapeCfg = Interval.getActiveCfg('hollowRect', {});
-      expect(shapeCfg.lineWidth).not.equal(Global.shape.hollowInterval.lineWidth);
-    });
+    // xit('get active config', function() {
+    //   const shapeCfg = Interval.getActiveCfg('hollowRect', {});
+    //   expect(shapeCfg.lineWidth).not.equal(Global.shape.hollowInterval.lineWidth);
+    // });
 
     it('get marker config', function() {
       const marker = Interval.getMarkerCfg('hollowRect', {
@@ -206,21 +206,21 @@ describe('interval shapes', function() {
       expect(marker2.symbol).equal('circle');
     });
 
-    xit('get selected config', function() {
-      const selectedCfg = Interval.getSelectedCfg('hollowRect', {
-        coord: new Coord.Rect({
-          start: {
-            x: 0,
-            y: 500
-          },
-          end: {
-            x: 500,
-            y: 0
-          }
-        })
-      });
-      expect(selectedCfg).not.have.property('transform');
-    });
+    // xit('get selected config', function() {
+    //   const selectedCfg = Interval.getSelectedCfg('hollowRect', {
+    //     coord: new Coord.Rect({
+    //       start: {
+    //         x: 0,
+    //         y: 500
+    //       },
+    //       end: {
+    //         x: 500,
+    //         y: 0
+    //       }
+    //     })
+    //   });
+    //   expect(selectedCfg).not.have.property('transform');
+    // });
   });
   describe('line', function() {
     it('getShapePoints && drawShape', function() {
@@ -374,7 +374,7 @@ describe('interval shapes', function() {
       expect(shape.attr('path').length).eql(5);
       expect(shapeNull.attr('fill')).eql('red');
       expect(shapeNull.attr('stroke')).eql('red');
-      expect(shapeNull.attr('path').length).eql(4);
+      expect(shapeNull.attr('path').length).eql(5);
     });
     it('get marker config', function() {
       const marker = Interval.getMarkerCfg('pyramid', {
@@ -384,6 +384,32 @@ describe('interval shapes', function() {
       expect(marker.symbol).equal('square');
       expect(marker.stroke).equal('blue');
       expect(marker.fill).equal('blue');
+    });
+  });
+
+  describe('top-line', function() {
+    it('getShapePoints && drawShape', function() {
+      const type = 'top-line';
+      const cfg1 = {
+        x: 0.5,
+        y: 0.6,
+        y0: 0,
+        size: 0.25
+      };
+      Interval.setCoord(coord1);
+      const points = Interval.getShapePoints(type, cfg1);
+      expect(points.length).equal(4);
+      const group = canvas.addGroup();
+      Interval.drawShape(type, {
+        points,
+        style: {
+          stroke: 'blue',
+          lineWidth: 2
+        },
+        color: 'red'
+      }, group);
+      expect(group.getCount()).equal(2);
+      expect(group.get('children')[1].attr('stroke')).equal('blue');
     });
   });
 

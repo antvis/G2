@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const Helix = require('../../../src/coord/helix');
+const Helix = require('@antv/coord/lib/helix');
 
 describe('Helix', function() {
   const coord = new Helix({

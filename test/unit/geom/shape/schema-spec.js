@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
-const { Canvas } = require('@antv/g');
+const { Canvas } = require('../../../../src/renderer');
 const Schema = require('../../../../src/geom/shape/schema');
-const Coord = require('../../../../src/coord/');
+const Coord = require('@antv/coord/lib/');
 
 const div = document.createElement('div');
 div.id = 'csschema';
@@ -94,13 +94,14 @@ describe('schema shapes', function() {
       expect(marker.stroke).equal('red');
     });
 
-    xit('getActiveCfg', function() {
-      const activeCfg = Schema.getActiveCfg();
+    // xit('getActiveCfg', function() {
+    //   const activeCfg = Schema.getActiveCfg();
+    //
+    //   expect(activeCfg).eql({
+    //     lineWidth: 2
+    //   });
+    // });
 
-      expect(activeCfg).eql({
-        lineWidth: 2
-      });
-    });
   });
   describe('candle', function() {
     it('getShapePoints && drawShape', function() {
@@ -117,7 +118,7 @@ describe('schema shapes', function() {
         points,
         color: 'red'
       }, canvas);
-      expect(shape.attr('stroke')).eql('red');
+      expect(shape.attr('fill')).eql('red');
       expect(shape.attr('path').length).eql(9);
     });
     it('get marker', function() {
@@ -143,7 +144,7 @@ describe('schema shapes', function() {
         points,
         color: 'red'
       }, canvas);
-      expect(shape.attr('stroke')).eql('red');
+      expect(shape.attr('fill')).eql('red');
       expect(shape.attr('path').length).eql(9);
     });
   });
@@ -162,7 +163,7 @@ describe('schema shapes', function() {
         points,
         color: 'red'
       }, canvas);
-      expect(shape.attr('stroke')).eql('red');
+      expect(shape.attr('fill')).eql('red');
       expect(shape.attr('path').length).eql(9);
     });
 

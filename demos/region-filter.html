@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="geometry" content="line">
+  <link rel="stylesheet" href="./assets/common.css">
+  <title>Line Plot</title>
+</head>
+
+<body>
+  <div id="canvas"></div>
+  <script src="./assets/jquery-3.2.1.min.js"></script>
+  <script src="../build/g2.js"></script>
+  <script>
+    $.getJSON('./data/tempChange.json', data => {
+      const chart = new G2.Chart({
+        container: 'canvas',
+        forceFit: true,
+        height: window.innerHeight
+      });
+      chart.source(data);
+      chart.area().position('year*change').color('white')
+           .shape('smooth');
+      chart.line().position('year*change').color('white')
+           .shape('smooth');
+      chart.guide().regionFilter({
+        top: true,
+        start: [ 'min', 0 ],
+        end: [ 'max', 'min' ],
+        color: '#18a1cd'
+      });
+      chart.guide().regionFilter({
+        top: true,
+        start: [ 'min', 'max' ],
+        end: [ 'max', 0 ],
+        color: '#FF4D4F'
+      });
+      chart.guide().region({
+        top: false,
+        start: [ 2000, 'max' ],
+        end: [ 2016, 'min' ]
+      });
+      chart.guide().dataMarker({
+        top: true,
+        position: [ 1977, 0.18 ],
+        content: '时间进入1977年后，全球气\n温开始呈现整体升高趋势。',
+        lineLength: 50,
+        style: {
+          text: { textAlign: 'right', fontSize: 13 },
+          point: { stroke: '#FF4D4F' }
+        }
+  });
+  chart.guide().dataMarker({
+        top: true,
+        position: [ 1940, 0.08 ],
+        content: '1940年，气温变化首次出现正值。',
+        lineLength: 50,
+        style: {
+          text: { textAlign: 'right', fontSize: 13 },
+          point: { stroke: '#FF4D4F' }
+        }
+  });
+      chart.render();
+    });
+  </script>
+</body>
+
+</html>

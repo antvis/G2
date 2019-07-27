@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="geometry" content="line">
+  <link rel="stylesheet" href="./assets/common.css">
+  <title>Line Plot</title>
+</head>
+
+<body>
+<div id="canvas"></div>
+<script src="./assets/jquery-3.2.1.min.js"></script>
+<script src="./assets/data-set.min.js"></script>
+<script src="../build/g2.js"></script>
+<script>
+ $.getJSON('./data/fertility.json', data => {
+   const dv = new DataSet.View().source(data).transform({
+     type: 'aggregate',
+     fields: [ 'value', 'value' ],
+     operations: [ 'min', 'max' ],
+     as: [ 'min', 'max' ],
+     groupBy: [ 'country' ],
+     orderBy: [ 'year' ]
+   }).rows;
+
+   data = new DataSet.View().source(data)
+      .transform({
+        type: 'sort-by',
+        field: 'year',
+        orderBy: 'ASC'
+      });
+   const valueMap = {};
+   const chart = new G2.Chart({
+     container: 'canvas',
+     forceFit: true,
+     height: 200,
+     padding: [ 10, 200, 50, 50 ]
+   });
+   chart.source(data);
+   chart.legend({
+     position: 'right',
+     useHtml: true,
+     flipPage: true
+      // legendStyle: {
+      //   CONTAINER_CLASS: { maxHeight: '30px', height: '30px' },
+      // }
+   });
+   chart.line().position('year*value').color('country')
+      .size('country', country => {
+        if (country === 'China') return 5;
+        return 2;
+      })
+      .label('country*value*year', function(country, value, year) {
+        let result = null;
+        for (let i = 0; i < dv.length; i++) {
+          if (dv[i].country === country) {
+            if (dv[i].min === value && !valueMap[country + 'min']) {
+              valueMap[country + 'min'] = year;
+              result = value;
+              break;
+            }
+
+            if (dv[i].max === value && !valueMap[country + 'max']) {
+              valueMap[country + 'max'] = year;
+              result = value;
+              break;
+            }
+          }
+        }
+        return result;
+      }, {
+        labelLine: false,
+        offset: 10,
+        textStyle: {
+          stroke: '#fff',
+          lineWidth: 2
+        }
+      })
+      .style({ lineCap: 'round' });
+   chart.point()
+      .position('year*value')
+      .color('country')
+      .style({ lineWidth: 2 })
+      .size('country*value*year', function(country, value, year) {
+        if (valueMap[country + 'min'] === year || valueMap[country + 'max'] === year) {
+          return 3;
+        }
+        return 0;
+      });
+   chart.render();
+
+ });
+</script>
+</body>
+
+</html>

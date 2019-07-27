@@ -31,12 +31,10 @@
     chart.coord('theta', { innerRadius: 0.6 });
     chart.intervalStack().position('value').color('name')
       .label('name*value', {
-        content(name, value) {
-          return name + ':' + value + '%';
-        }
+        formatter(name, item) { return name + ':' + item.point.value + '%'; }
       });
     chart.guide().text({
-      start: { 1: -0.5, value: 0 },
+      position: { 1: -0.5, value: 0 },
       content: '测试文本',
       style: {
         fill: 'red',

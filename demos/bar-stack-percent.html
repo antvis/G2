@@ -56,7 +56,6 @@
         as: 'percent'
       });
 
-    console.log(dv.rows);
     const chart = new G2.Chart({
       container: 'canvas',
       forceFit: true,
@@ -72,7 +71,15 @@
     });
     chart.intervalStack()
       .position('year*percent')
-      .color('country', [ '#FF6A84', '#30A4EB', '#45BFC0', '#FFCC55' ]);
+      .label('percent', () => {
+        return {
+          position: 'middle',
+          offset: 0,
+          textStyle: { fill: 'red' }
+        };
+      })
+      .color('country', [ '#FF6A84', '#30A4EB', '#45BFC0', '#FFCC55' ])
+      .shape('top-line');
     chart.render();
 
   </script>

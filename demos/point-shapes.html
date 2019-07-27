@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="geometry" content="point">
+  <link rel="stylesheet" href="./assets/common.css">
+  <title>Jitter Point Plots</title>
+</head>
+
+<body>
+<div id="canvas-image"></div>
+<div id="canvas-path"></div>
+<script src="./assets/jquery-3.2.1.min.js"></script>
+<script src="./assets/data-set.min.js"></script>
+<script src="../build/g2.js"></script>
+<script>
+  (function() {
+    const data = [
+      { name: 'Internet Explorer', value: 26 },
+      { name: 'Chrome', value: 40 },
+      { name: 'Firefox', value: 30 },
+      { name: 'Safari', value: 24 },
+      { name: 'Opera', value: 15 },
+      { name: 'Undetectable', value: 8 }
+    ];
+    const imageMap = {
+      'Internet Explorer': 'https://gw.alipayobjects.com/zos/rmsportal/eOYRaLPOmkieVvjyjTzM.png',
+      Chrome: 'https://gw.alipayobjects.com/zos/rmsportal/dWJWRLWfpOEbwCyxmZwu.png',
+      Firefox: 'https://gw.alipayobjects.com/zos/rmsportal/ZEPeDluKmAoTioCABBTc.png',
+      Safari: 'https://gw.alipayobjects.com/zos/rmsportal/eZYhlLzqWLAYwOHQAXmc.png',
+      Opera: 'https://gw.alipayobjects.com/zos/rmsportal/vXiGOWCGZNKuVVpVYQAw.png',
+      Undetectable: 'https://gw.alipayobjects.com/zos/rmsportal/NjApYXminrnhBgOXyuaK.png'
+    };
+    const dv = new DataSet.View().source(data)
+    .transform({
+      type: 'waffle'
+    });
+    const chart = new G2.Chart({
+      container: 'canvas-image',
+      forceFit: true,
+      height: window.innerHeight / 2,
+      padding: [ 20, 20, 20 ]
+    });
+    chart.source(dv);
+    chart.legend(false);
+    chart.axis(false);
+    chart.point()
+      .position('x*y')
+      .size(40)
+      .color('name')
+      .shape('name', name => [ 'image', imageMap[name] ]); // 根据具体的字段指定 shape
+
+    chart.render();
+  })();
+
+  (function() {
+    const pathMap = {
+      club: 'M22.439 36.421c.179 1.756.693 4.774 1.544 9.054h-7.428c.85-3.971 1.275-6.989 1.275-9.054l.504-6.626c0-.411.169-.329.505.247-.707 1.763-1.595 3.269-2.665 4.517-1.818 2.188-4.188 3.282-7.11 3.282-2.743 0-4.952-.93-6.626-2.788C.813 33.071 0 30.725 0 28.015c0-3.107.85-5.651 2.552-7.634 1.646-1.7 3.817-2.551 6.512-2.551 2.483 0 4.678.782 6.585 2.346.432-.31.367-.68-.195-1.112-3.17-2.112-4.754-5.326-4.754-9.64 0-2.593.847-4.808 2.541-6.647C15.066.925 17.323 0 20.011 0c3.04 0 5.323.85 6.853 2.551 1.81 1.996 2.716 4.373 2.716 7.13 0 3.773-1.495 6.89-4.486 9.352-.57.453-.727.837-.473 1.153 2.092-1.57 4.29-2.356 6.595-2.356 2.689 0 4.86.854 6.513 2.562 1.872 1.982 2.808 4.523 2.808 7.623 0 2.717-.909 5.073-2.726 7.069-1.66 1.838-3.858 2.757-6.595 2.757-2.75 0-5.124-1.09-7.12-3.272-.892-1.076-1.776-2.579-2.654-4.506.336-.59.504-.634.504-.134l.494 6.492z',
+      diamond: 'M18.993 46.638L0 23.52 18.983 0l19.003 23.53-18.993 23.108z',
+      heart: 'M40.281 10.443c0 7.634-4.47 16.606-13.407 26.915l-6.605 7.357-6.873-7.357C4.466 27.049 0 18.079 0 10.443c0-2.942 1.019-5.49 3.056-7.644C4.881.933 7.476 0 10.845 0c3.025 0 5.387.847 7.089 2.541 1.145 1.187 1.896 2.412 2.253 3.674.295-1.263.95-2.398 1.965-3.406C24.169.937 26.597 0 29.436 0c3.361 0 5.958.933 7.789 2.799 2.037 2.16 3.056 4.708 3.056 7.644z',
+      spade: 'M21.175 38.088c.178 2.786.69 5.553 1.533 8.304h-8.447c.679-3.245 1.19-6.012 1.533-8.303l.134-5.597c.425-.453.802-.453 1.131 0-.919 1.646-1.9 2.99-2.942 4.033-1.482 1.482-3.673 2.222-6.575 2.222-2.085 0-3.772-.74-5.062-2.222C.827 34.872 0 32.591 0 29.683c0-3.285 3.228-9.287 9.682-18.005L18.479 0l8.93 11.606c6.373 8.1 9.56 14.126 9.56 18.077 0 2.901-.827 5.182-2.48 6.842-1.482 1.482-3.252 2.222-5.31 2.222-2.716 0-4.941-.771-6.677-2.315-1.564-1.563-2.428-2.832-2.593-3.806.343-.165.515-.186.515-.062l.751 5.525z'
+    };
+    const data = [
+      { name: 'club', value: 50 },
+      { name: 'diamond', value: 65 },
+      { name: 'heart', value: 43 },
+      { name: 'spade', value: 12 }
+    ];
+    const dv = new DataSet.View().source(data)
+      .transform({
+        type: 'waffle'
+      });
+    const chart = new G2.Chart({
+      container: 'canvas-path',
+      forceFit: true,
+      height: window.innerHeight / 2,
+      padding: [ 20, 80, 80, 20 ]
+    });
+    chart.source(dv, {
+      x: { nice: false },
+      y: { nice: false }
+    });
+    chart.axis(false);
+//    chart.legend('name', {
+//      position: 'bottom'
+//    });
+    chart.legend(false);
+    chart.point()
+      .position('x*y')
+      .shape('name', name => [ 'path', pathMap[name] ]) // 根据具体的字段指定 shape
+      .size(40)
+      .color('name');
+
+    chart.render();
+  })();
+</script>
+</body>
+</html>

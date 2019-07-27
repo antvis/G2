@@ -12,13 +12,9 @@ const CORNER_PERCENT = 1 / 3;
 
 function getAttrs(cfg) {
   const defaultCfg = Global.shape.edge;
-  const shapeCfg = Util.mix({}, defaultCfg, {
-    stroke: cfg.color,
-    lineWidth: cfg.size,
-    strokeOpacity: cfg.opacity,
-    opacity: cfg.opacity
-  }, cfg.style);
-  return shapeCfg;
+  const lineAttrs = Util.mix({}, defaultCfg, cfg.style);
+  ShapeUtil.addStrokeAttrs(lineAttrs, cfg);
+  return lineAttrs;
 }
 
 const Edge = Shape.registerFactory('edge', {

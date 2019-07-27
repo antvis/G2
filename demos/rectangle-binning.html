@@ -44,6 +44,9 @@
       });
       chart.source(dv);
       chart.tooltip(false);
+      chart.legend({
+        reactive: true
+      });
       chart.polygon()
         .position('x*y')
         .color('count', [ 'rgb(200, 200, 255)', 'rgb(0, 0, 255)' ]);

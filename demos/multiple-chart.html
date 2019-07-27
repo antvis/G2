@@ -47,7 +47,11 @@
       items: [
         { value: 'waiting', fill: '#3182bd' },
         { value: 'call', fill: '#99d8c9' },
-        { value: 'people', fill: '#fdae6b' }
+        { value: 'people', marker: {
+          symbol: 'square',
+          fill: '#fdae6b'
+          // radius: 4.5
+        } }
       ],
       onClick: ev => {
         const item = ev.item;

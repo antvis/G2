@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="geometry" content="venn">
+  <link rel="stylesheet" href="./assets/common.css">
+  <title>Venn Diagram</title>
+</head>
+
+<body>
+<div id="canvas"></div>
+<script src="../build/g2.js"></script>
+<script>
+const data = [
+      { value: 43000, categories: 'Sales', name: 'Allocated Budget' },
+      { value: 19000, categories: 'Marketing', name: 'Allocated Budget' },
+      { value: 60000, categories: 'Development', name: 'Allocated Budget' },
+      { value: 35000, categories: 'Customer Support', name: 'Allocated Budget' },
+      { value: 17000, categories: 'Information Technology', name: 'Allocated Budget' },
+      { value: 10000, categories: 'Administration', name: 'Allocated Budget' },
+      { value: 50000, categories: 'Sales', name: 'Actual Spending' },
+      { value: 39000, categories: 'Marketing', name: 'Actual Spending' },
+      { value: 42000, categories: 'Development', name: 'Actual Spending' },
+      { value: 31000, categories: 'Customer Support', name: 'Actual Spending' },
+      { value: 26000, categories: 'Information Technology', name: 'Actual Spending' },
+      { value: 14000, categories: 'Administration', name: 'Actual Spending' }
+];
+const chart = new G2.Chart({
+  container: 'canvas',
+  forceFit: true,
+  height: window.innerHeight
+});
+
+chart.source(data, {
+  value: {
+    min: 0,
+    max: 65000,
+    nice: false,
+    tickInterval: 15000
+  }
+});
+chart.coord('polar', { radius: 0.8, innerRadius: 0.5 });
+chart.legend('name', {
+  position: 'bottom'
+});
+chart.axis('categories', { // 设置坐标系栅格样式
+  line: null
+});
+chart.axis('value', {
+  line: {
+    lineWidth: 2
+  },
+  grid: {
+    line: {
+      lineDash: [ 0, 0 ],
+      lineWidth: 1
+    },
+    alternateColor: 'rgba(204, 204, 204, 0.4)'
+  }
+});
+chart.line().position('categories*value').color('name')
+  .size(2);
+chart.point().position('categories*value').color('name')
+  .size(4);
+chart.area().position('categories*value').color('name');
+chart.render();
+</script>
+</body>
+
+</html>
+

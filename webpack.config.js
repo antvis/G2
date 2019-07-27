@@ -4,7 +4,9 @@ const resolve = require('path').resolve;
 module.exports = {
   devtool: 'cheap-source-map',
   entry: {
-    g2: './index.js'
+    g2: './src/index.js',
+    'g2-core': './src/core.js',
+    'g2-simple': './src/simple.js'
   },
   output: {
     filename: '[name].js',
@@ -20,18 +22,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            babelrc: false,
-            plugins: [
-              'transform-remove-strict-mode'
-            ],
-            presets: [
-              [
-                'env', {
-                  loose: true,
-                  modules: false
-                }
-              ]
-            ]
+            babelrc: true
           }
         }
       }

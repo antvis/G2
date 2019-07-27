@@ -2,19 +2,17 @@
  * @fileOverview heatmap
  * @author leungwensen@gmail.com
  */
+const { ColorUtil } = require('@antv/attr/lib'); // TODO: ColorUtil 独立成包，从 attr 包中抽离
 const GeomBase = require('./base');
-const colorUtil = require('../attr/color-util');
 const Util = require('../util');
 
 const ORIGIN_FIELD = '_origin';
-const SHADOW_CANVAS_CTX = 'shadowCanvasCtx';
+const SHADOW_CANVAS = 'shadowCanvas';
 const VALUE_RANGE = 'valueRange';
 const IMAGE_SHAPE = 'imageShape';
 const MAPPED_DATA = 'mappedData';
 const GRAY_SCALE_BLURRED_CANVAS = 'grayScaleBlurredCanvas';
 const HEATMAP_SIZE = 'heatmapSize';
-
-const paletteCache = {};
 
 class Heatmap extends GeomBase {
   /**
@@ -25,6 +23,7 @@ class Heatmap extends GeomBase {
   getDefaultCfg() {
     const cfg = super.getDefaultCfg();
     cfg.type = 'heatmap';
+    cfg.paletteCache = {};
     // cfg.shapeType = 'heatmap';
     return cfg;
   }
@@ -63,7 +62,7 @@ class Heatmap extends GeomBase {
     }
     const styleOptions = self.get('styleOptions');
     let blur = styleOptions && Util.isObject(styleOptions.style) ? styleOptions.style.blur : null;
-    if (!Util.isFinite(blur)) {
+    if (!Util.isFinite(blur) || blur === null) {
       blur = radius / 2;
     }
     self.set(HEATMAP_SIZE, {
@@ -87,6 +86,7 @@ class Heatmap extends GeomBase {
     const self = this;
     const colorAttr = self.getAttr('color');
     const pixels = img.data;
+    const paletteCache = self.get('paletteCache');
     for (let i = 3; i < pixels.length; i += 4) {
       const alpha = pixels[i]; // get gradient color from opacity value
       if (alpha) {
@@ -94,7 +94,7 @@ class Heatmap extends GeomBase {
         if (paletteCache[alpha]) {
           palette = paletteCache[alpha];
         } else {
-          palette = colorUtil.rgb2arr(colorAttr.gradient(alpha / 256));
+          palette = ColorUtil.rgb2arr(colorAttr.gradient(alpha / 256));
           paletteCache[alpha] = palette;
         }
         // const palette = colorUtil.rgb2arr(colorAttr.gradient(alpha / 256));
@@ -117,6 +117,7 @@ class Heatmap extends GeomBase {
     const ctx = circleCanvas.getContext('2d');
     circleCanvas.width = circleCanvas.height = r2 * 2;
     ctx.clearRect(0, 0, circleCanvas.width, circleCanvas.height);
+    // ctx.shadowOffsetX = ctx.shadowOffsetY = r2 * 2;
     ctx.shadowOffsetX = ctx.shadowOffsetY = r2 * 2;
     ctx.shadowBlur = blur;
     ctx.shadowColor = 'black';
@@ -128,33 +129,30 @@ class Heatmap extends GeomBase {
   }
 
   _drawGrayScaleBlurredCircle(x, y, r, alpha, ctx) {
-    const circleCanvas = this.get(GRAY_SCALE_BLURRED_CANVAS);
+    const self = this;
+    const circleCanvas = self.get(GRAY_SCALE_BLURRED_CANVAS);
     ctx.globalAlpha = alpha;
     ctx.drawImage(circleCanvas, x - r, y - r);
   }
 
   _getShadowCanvasCtx() {
     const self = this;
-    let ctx = self.get(SHADOW_CANVAS_CTX);
-    if (ctx) {
-      return ctx;
+    let canvas = self.get(SHADOW_CANVAS);
+    if (!canvas) {
+      canvas = document.createElement('canvas');
+      self.set(SHADOW_CANVAS, canvas);
     }
     const coord = self.get('coord');
-    const width = coord.x.end;
-    const height = coord.y.start;
-    const heatmapCanvas = document.createElement('canvas');
-    heatmapCanvas.width = width;
-    heatmapCanvas.height = height;
-    ctx = heatmapCanvas.getContext('2d');
-    self.set(SHADOW_CANVAS_CTX, ctx);
-    return ctx;
+    if (coord) {
+      canvas.width = coord.width;
+      canvas.height = coord.height;
+    }
+    return canvas.getContext('2d');
   }
 
   _clearShadowCanvasCtx() {
-    const ctx = this.get(SHADOW_CANVAS_CTX);
-    if (ctx) {
-      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    }
+    const ctx = this._getShadowCanvasCtx();
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   }
 
   _getImageShape() {
@@ -164,19 +162,22 @@ class Heatmap extends GeomBase {
       return imageShape;
     }
     const container = self.get('container');
-    imageShape = container.addShape('Image', {
-    });
+    imageShape = container.addShape('Image', {});
     self.set(IMAGE_SHAPE, imageShape);
     return imageShape;
+  }
+
+  clear() {
+    // @2019-02-28 by blue.lb 由于设置了SHADOW_CANVAS作为像素缓存canvas，每次销毁chart时，也需要清除该缓冲区
+    this._clearShadowCanvasCtx();
+    super.clear();
   }
 
   drawWithRange(range) {
     const self = this;
 
     // canvas size
-    const coord = self.get('coord');
-    const width = coord.width;
-    const height = coord.height;
+    const { start, end, width, height } = self.get('coord');
 
     // value, range, etc
     const valueField = self.getAttr('color').field;
@@ -185,7 +186,6 @@ class Heatmap extends GeomBase {
     // prepare shadow canvas context
     self._clearShadowCanvasCtx();
     const ctx = self._getShadowCanvasCtx();
-
     // filter data
     let data = self.get(MAPPED_DATA);
     if (range) {
@@ -200,19 +200,19 @@ class Heatmap extends GeomBase {
       const obj = data[i];
       const cfg = self.getDrawCfg(obj);
       const alpha = scale.scale(obj[ORIGIN_FIELD][valueField]);
-      self._drawGrayScaleBlurredCircle(cfg.x, cfg.y, size.radius, alpha, ctx);
+      self._drawGrayScaleBlurredCircle(cfg.x - start.x, cfg.y - end.y, size.radius + size.blur, alpha, ctx);
     }
 
     // step2. convert pixels
-    const colored = ctx.getImageData(coord.start.x, coord.end.y, width + coord.start.x, height + coord.end.y);
+    const colored = ctx.getImageData(0, 0, width, height);
     self._clearShadowCanvasCtx();
     self._colorize(colored);
     ctx.putImageData(colored, 0, 0);
     const imageShape = self._getImageShape();
-    imageShape.attr('x', coord.start.x);
-    imageShape.attr('y', coord.end.y);
-    imageShape.attr('width', width + coord.start.x);
-    imageShape.attr('height', height + coord.end.y);
+    imageShape.attr('x', start.x);
+    imageShape.attr('y', end.y);
+    imageShape.attr('width', width);
+    imageShape.attr('height', height);
     imageShape.attr('img', ctx.canvas);
   }
 
@@ -230,7 +230,8 @@ class Heatmap extends GeomBase {
     self.drawWithRange(range);
     // super.draw(data, container, shapeFactory, index);
   }
-
 }
+
+GeomBase.Heatmap = Heatmap;
 
 module.exports = Heatmap;

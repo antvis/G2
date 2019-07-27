@@ -3,9 +3,8 @@
  * @author dxq613@gmail.com
  */
 
+const Scale = require('@antv/scale/lib');
 const Util = require('../../util');
-const Global = require('../../global');
-const Scale = require('../../scale/');
 const dateRegex = /^(?:(?!0000)[0-9]{4}([-/.]+)(?:(?:0?[1-9]|1[0-2])\1(?:0?[1-9]|1[0-9]|2[0-8])|(?:0?[13-9]|1[0-2])\1(?:29|30)|(?:0?[13578]|1[02])\1(?:31))|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)([-/.]?)0?2\2(?:29))(\s+([01]|([01][0-9]|2[0-3])):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))?$/;
 const TYPES = {
   LINEAR: 'linear',
@@ -17,14 +16,20 @@ class ScaleController {
   constructor(cfg) {
     // defs 列定义
     this.defs = {};
+    this.viewTheme = {
+      scales: {}
+    };
+    // filtered fields
+    this.filters = {};
     Util.assign(this, cfg);
   }
 
   _getDef(field) {
     const defs = this.defs;
+    const viewTheme = this.viewTheme;
     let def = null;
-    if (Global.scales[field] || defs[field]) {
-      def = Util.mix({}, Global.scales[field]);
+    if (viewTheme.scales[field] || defs[field]) {
+      def = Util.mix({}, viewTheme.scales[field]);
       // 处理覆盖属性的问题
       Util.each(defs[field], function(v, k) {
         if (Util.isNil(v)) {
@@ -33,6 +38,10 @@ class ScaleController {
           def[k] = v;
         }
       });
+      if (this.filters[field]) {
+        delete def.min;
+        delete def.max;
+      }
     }
     return def;
   }
@@ -74,21 +83,8 @@ class ScaleController {
     const self = this;
     const def = self._getDef(field);
     let scale;
-    // 如果数据为空直接返回常量度量
-    if (!data || !data.length) {
-      if (def && def.type) {
-        scale = Scale[def.type](def);
-      } else {
-        scale = Scale.identity({
-          value: field,
-          field: field.toString(),
-          values: [ field ]
-        });
-      }
-      return scale;
-    }
-    const firstValue = Util.Array.firstValue(data, field);
-
+    const validData = data || [];
+    const firstValue = Util.Array.firstValue(validData, field);
     if (Util.isNumber(field) || (Util.isNil(firstValue)) && !def) {
       scale = Scale.identity({
         value: field,
@@ -100,8 +96,8 @@ class ScaleController {
       if (def) {
         type = def.type;
       }
-      type = type || self._getDefaultType(field, data);
-      const cfg = self._getScaleCfg(type, field, data);
+      type = type || self._getDefaultType(field, validData);
+      const cfg = self._getScaleCfg(type, field, validData);
       if (def) {
         Util.mix(cfg, def);
       }

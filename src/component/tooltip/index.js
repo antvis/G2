@@ -5,12 +5,13 @@
 const Util = require('../../util');
 const Base = require('../../base');
 const Global = require('../../global');
-const { DomUtil } = require('@antv/g');
+const DomUtil = Util.DomUtil;
 
 const CONTAINER_CLASS = 'g2-tooltip';
 const TITLE_CLASS = 'g2-tooltip-title';
 const LIST_CLASS = 'g2-tooltip-list';
 const MARKER_CLASS = 'g2-tooltip-marker';
+const VALUE_CLASS = 'g2-tooltip-value';
 const LIST_ITEM_CLASS = 'g2-tooltip-list-item';
 
 function find(dom, cls) {
@@ -28,6 +29,7 @@ function refixTooltipPosition(x, y, el, viewWidth, viewHeight) {
   } else {
     x += gap;
   }
+
   if (y + height + gap > viewHeight) {
     y -= height + gap;
     y = x < 0 ? 0 : y;
@@ -78,7 +80,7 @@ function calcTooltipPosition(x, y, position, dom, target) {
   return [ x, y ];
 }
 
-function confineTooltipPosition(x, y, el, plotRange) {
+function confineTooltipPosition(x, y, el, plotRange, onlyHorizontal) {
   const gap = 20;
   const width = el.clientWidth;
   const height = el.clientHeight;
@@ -90,14 +92,15 @@ function confineTooltipPosition(x, y, el, plotRange) {
     x = plotRange.tl.x;
   }
 
-  if (y + height > plotRange.bl.y) {
-    y -= height + 2 * gap;
-  }
+  if (!onlyHorizontal) {
+    if (y + height > plotRange.bl.y) {
+      y -= height + 2 * gap;
+    }
 
-  if (y < plotRange.tl.y) {
-    y = plotRange.tl.y;
+    if (y < plotRange.tl.y) {
+      y = plotRange.tl.y;
+    }
   }
-
   return [ x, y ];
 }
 
@@ -157,8 +160,8 @@ class Tooltip extends Base {
        * @type {String}
        */
       itemTpl: '<li data-index={index}>'
-        + '<span style="background-color:{color};" class=' + MARKER_CLASS + '></span>'
-        + '{name}: {value}</li>',
+      + '<span style="background-color:{color};" class=' + MARKER_CLASS + '></span>'
+      + '{name}<span class=' + VALUE_CLASS + '>{value}</span></li>',
       /**
        * 将 tooltip 展示在指定区域内
        * @type {Boolean}
@@ -198,16 +201,17 @@ class Tooltip extends Base {
     const crosshairs = this.get('crosshairs');
     const frontPlot = this.get('frontPlot');
     const backPlot = this.get('backPlot');
+    const viewTheme = this.get('viewTheme') || Global;
     let crosshairsGroup;
 
     if (crosshairs) {
       if (crosshairs.type === 'rect') {
-        this.set('crosshairs', Util.deepMix({}, Global.tooltipCrosshairsRect, crosshairs));
+        this.set('crosshairs', Util.deepMix({}, viewTheme.tooltipCrosshairsRect, crosshairs));
         crosshairsGroup = backPlot.addGroup({
           zIndex: 0
         });
       } else {
-        this.set('crosshairs', Util.deepMix({}, Global.tooltipCrosshairsLine, crosshairs));
+        this.set('crosshairs', Util.deepMix({}, viewTheme.tooltipCrosshairsLine, crosshairs));
         crosshairsGroup = frontPlot.addGroup();
       }
     }
@@ -251,6 +255,10 @@ class Tooltip extends Base {
     const markerDom = find(itemDOM, MARKER_CLASS);
     if (markerDom) {
       DomUtil.modifyCSS(markerDom, this.get(MARKER_CLASS));
+    }
+    const valueDom = find(itemDOM, VALUE_CLASS);
+    if (valueDom) {
+      DomUtil.modifyCSS(valueDom, this.get(VALUE_CLASS));
     }
 
     return itemDOM;
@@ -317,6 +325,7 @@ class Tooltip extends Base {
   _addCrossLineShape(attrs, type) {
     const crosshairsGroup = this.get('crosshairsGroup');
     const shape = crosshairsGroup.addShape('line', {
+      capture: false,
       attrs
     });
     shape.hide();
@@ -366,14 +375,22 @@ class Tooltip extends Base {
     return shape;
   }
 
-  _isContentChange(title, items) {
+  isContentChange(title, items) {
     const titleContent = this.get('titleContent');
     const lastItems = this.get('items');
     let isChanged = !(title === titleContent && lastItems.length === items.length);
     if (!isChanged) {
       Util.each(items, (item, index) => {
         const preItem = lastItems[index];
-        isChanged = (item.value !== preItem.value) || (item.color !== preItem.color) || (item.name !== preItem.name) || (item.title !== preItem.title);
+        for (const key in item) {
+          if (item.hasOwnProperty(key)) {
+            if (!Util.isObject(item[key]) && item[key] !== preItem[key]) {
+              isChanged = true;
+              break;
+            }
+          }
+        }
+        // isChanged = (item.value !== preItem.value) || (item.color !== preItem.color) || (item.name !== preItem.name) || (item.title !== preItem.title);
         if (isChanged) {
           return false;
         }
@@ -384,14 +401,15 @@ class Tooltip extends Base {
   }
 
   setContent(title, items) {
-    const isChange = this._isContentChange(title, items);
-    if (isChange) {
-      const timeStamp = +new Date();
-      this.set('items', items);
-      this.set('titleContent', title);
-      this.set('timeStamp', timeStamp);
-      this._renderTooltip();
-    }
+    // const isChange = this.isContentChange(title, items);
+    // if (isChange) {
+    // 在外面进行判断是否内容发生改变
+    const timeStamp = +new Date();
+    this.set('items', items);
+    this.set('titleContent', title);
+    this.set('timeStamp', timeStamp);
+    this._renderTooltip();
+    // }
     return this;
   }
 
@@ -401,7 +419,8 @@ class Tooltip extends Base {
     const frontPlot = self.get('frontPlot');
     if (!markerGroup) {
       markerGroup = frontPlot.addGroup({
-        zIndex: 1
+        zIndex: 1,
+        capture: false // 不进行拾取
       });
       self.set('markerGroup', markerGroup);
     } else {
@@ -410,7 +429,12 @@ class Tooltip extends Base {
     Util.each(markerItems, item => {
       markerGroup.addShape('marker', {
         color: item.color,
-        attrs: Util.mix({}, markerCfg, {
+        attrs: Util.mix({
+          // fix: Theme.tooltipMarker invalid
+          fill: item.color,
+          symbol: 'circle',
+          shadowColor: item.color
+        }, markerCfg, {
           x: item.x,
           y: item.y
         })
@@ -438,29 +462,42 @@ class Tooltip extends Base {
     let offset = this.get('offset');
 
     let position;
+    const prePosition = this.get('prePosition') || { x: 0, y: 0 };
     if (this.get('position')) {
       position = calcTooltipPosition(x, y, this.get('position'), container, target);
       x = position[0];
       y = position[1];
-    } else if (!this.get('position')) {
+    } else if (this.get('enterable')) {
+      y = y - container.clientHeight / 2;
+      position = { x, y };
+      if (prePosition && x - prePosition.x > 0) { // 留 1px 防止鼠标点击事件无法在画布上触发
+        x -= container.clientWidth + 1;
+      } else {
+        x += 1;
+      }
+
+    } else {
       position = refixTooltipPosition(x, y, container, viewWidth, viewHeight);
       x = position[0];
       y = position[1];
     }
 
+    this.set('prePosition', position); // 记录上次的位置
     if (this.get('inPlot')) { // tooltip 必须限制在绘图区域内
       const plotRange = this.get('plotRange');
-      position = confineTooltipPosition(x, y, container, plotRange);
+      position = confineTooltipPosition(x, y, container, plotRange, this.get('enterable'));
       x = position[0];
       y = position[1];
     }
 
-    if (this.get('x') !== x || this.get('y') !== y) {
+
+    if (prePosition.x !== x || prePosition.y !== y) {
       const markerItems = this.get('markerItems');
       if (!Util.isEmpty(markerItems)) {
         endx = markerItems[0].x;
         endy = markerItems[0].y;
       }
+
       if (crossLineShapeY) { // 第一次进入时，画布需要单独绘制，所以需要先设定corss的位置
         crossLineShapeY.move(endx, 0);
       }
@@ -468,7 +505,7 @@ class Tooltip extends Base {
         crossLineShapeX.move(0, endy);
       }
 
-      if (crosshairsRectShape) {
+      if (crosshairsRectShape) { // 绘制矩形辅助框，只在直角坐标系下生效
         const isTransposed = this.get('isTransposed');
         const items = this.get('items');
         const firstItem = items[0];
@@ -479,23 +516,26 @@ class Tooltip extends Base {
         if (items.length > 1 && firstItem[dim] > lastItem[dim]) {
           startDim = lastItem[dim];
         }
-
         if (this.get('crosshairs').width) { // 用户定义了 width
           crosshairsRectShape.attr(dim, startDim - this.get('crosshairs').width / 2);
           crosshairsRectShape.attr(attr, this.get('crosshairs').width);
         } else {
-          offset = (firstItem.size / 2 + firstItem.size / 4) || 10;
-          crosshairsRectShape.attr(dim, startDim - offset);
-
-          if (items.length === 1) {
-            crosshairsRectShape.attr(attr, firstItem.size + firstItem.size / 2);
+          if (Util.isArray(firstItem.point[dim]) && !firstItem.size) { // 直方图
+            const width = firstItem.point[dim][1] - firstItem.point[dim][0];
+            crosshairsRectShape.attr(dim, firstItem.point[dim][0]);
+            crosshairsRectShape.attr(attr, width);
           } else {
-            const lastItem = items[items.length - 1];
-            crosshairsRectShape.attr(attr, Math.abs(lastItem[dim] - firstItem[dim]) + 2 * offset);
+            offset = (3 * firstItem.size) / 4;
+            crosshairsRectShape.attr(dim, startDim - offset);
+
+            if (items.length === 1) {
+              crosshairsRectShape.attr(attr, (3 * firstItem.size) / 2);
+            } else {
+              crosshairsRectShape.attr(attr, Math.abs(lastItem[dim] - firstItem[dim]) + 2 * offset);
+            }
           }
         }
       }
-
       const follow = this.get('follow');
       container.style.left = follow ? (x + 'px') : 0;
       container.style.top = follow ? (y + 'px') : 0;
@@ -522,18 +562,20 @@ class Tooltip extends Base {
   hide() {
     const self = this;
     const container = self.get('container');
-    const crossLineShapeX = self.get('crossLineShapeX');
-    const crossLineShapeY = self.get('crossLineShapeY');
-    const crosshairsRectShape = this.get('crosshairsRectShape');
-    const markerGroup = self.get('markerGroup');
-    const canvas = self.get('canvas');
-    container.style.visibility = 'hidden';
-    crossLineShapeX && crossLineShapeX.hide();
-    crossLineShapeY && crossLineShapeY.hide();
-    crosshairsRectShape && crosshairsRectShape.hide();
-    markerGroup && markerGroup.hide();
-    super.hide();
-    canvas.draw();
+    if (container && container.style) {
+      const crossLineShapeX = self.get('crossLineShapeX');
+      const crossLineShapeY = self.get('crossLineShapeY');
+      const crosshairsRectShape = this.get('crosshairsRectShape');
+      const markerGroup = self.get('markerGroup');
+      const canvas = self.get('canvas');
+      container.style.visibility = 'hidden';
+      crossLineShapeX && crossLineShapeX.hide();
+      crossLineShapeY && crossLineShapeY.hide();
+      crosshairsRectShape && crosshairsRectShape.hide();
+      markerGroup && markerGroup.hide();
+      super.hide();
+      canvas.draw();
+    }
   }
 
   destroy() {

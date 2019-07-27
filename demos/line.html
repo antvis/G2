@@ -89,7 +89,13 @@
       showTitle: false,
       itemTpl: '<span style="color:#0066e3;font-size: 18px;font-weight: bold;">{value}</span>'
     });
-    chart.line().position('year*bicycles').shape('dot')
+    chart.line()
+      .position('year*bicycles')
+      // .shape('dot')
+      .shape('dash')
+      .style({
+        lineDash: [ 10, 10 ]
+      })
       .color('#0066e3');
     chart.point().position('year*bicycles').size(6)
       .shape('circle')

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="geometry" content="interval">
+  <link rel="stylesheet" href="./assets/common.css">
+  <title>Bar Plot</title>
+</head>
+
+<body>
+  <div id="canvas"></div>
+  <script src="./assets/jquery-3.2.1.min.js"></script>
+  <script src="./assets/data-set.min.js"></script>
+  <script src="../build/g2.js"></script>
+
+  <script>
+    $.getJSON('./data/top2000.json', data => {
+      const G2 = window.G2_3 || window.G2;
+      const ds = new DataSet();
+      const dv = ds.createView('test')
+        .source(data)
+        .transform({
+          as: [ 'count' ],
+          groupBy: [ 'release' ],
+          operations: [ 'count' ],
+          type: 'aggregate'
+        });
+
+      const chart = new G2.Chart({
+        container: 'canvas',
+        forceFit: true,
+        height: window.innerHeight,
+        limitInPlot: true
+      });
+      chart.source(dv.rows); // TODO
+      chart.scale({
+        count: {
+          alias: 'top2000 唱片总量'
+        },
+        release: {
+          tickInterval: 5,
+          alias: '唱片发行年份'
+        }
+      });
+      chart.interval()
+        .position('release*count')
+        .color('#e50000');
+
+      // chart.tooltip(false);
+
+      chart.render();
+
+      chart.interact('brush', {
+        type: 'X',
+        // filter: true,
+        draggable: true,
+        onBrushstart() {
+          chart.hideTooltip();
+        },
+        onBrushmove() {
+          chart.hideTooltip();
+        }
+        // onBrushend() {
+        // }
+      });
+    });
+  </script>
+</body>
+
+</html>

@@ -5,14 +5,12 @@
 const Util = require('./util');
 const Theme = require('./theme/index');
 
-// const Global = {};
 const Global = {
-  version: '3.0.2-beta.1',
-  trackable: true,
+  version: '3.5.8-beta.1',
+  renderer: 'canvas',
+  // trackable: false,
+  trackingInfo: {},
   animate: true,
-  snapArray: [ 0, 1, 2, 4, 5, 10 ],
-  // 指定固定 tick 数的逼近值
-  snapCountArray: [ 0, 1, 1.2, 1.5, 1.6, 2, 2.2, 2.4, 3, 4, 5, 6, 7.5, 8, 10 ],
   widthRatio: { // 宽度所占的分类的比例
     column: 1 / 2, // 一般的柱状图占比 1/2
     rose: 0.9999999, // 玫瑰图柱状占比 1
@@ -22,29 +20,23 @@ const Global = {
   showSinglePoint: false,
   connectNulls: false,
   scales: {
+  },
+  registerTheme(name, theme) {
+    Theme[name] = theme;
+  },
+  setTheme(theme) {
+    let newTheme = {};
+    if (Util.isObject(theme)) {
+      newTheme = theme;
+    } else if (Util.indexOf(Object.keys(Theme), theme) !== -1) {
+      newTheme = Theme[theme];
+    } else {
+      newTheme = Theme.default;
+    }
+    Util.deepMix(Global, newTheme);
   }
 };
 
-function setTheme(theme) {
-  // for (const k in Global) {
-  //   if (Global.hasOwnProperty(k)) {
-  //     delete Global[k];
-  //   }
-  // }
-
-  let newTheme = {};
-  if (Util.isObject(theme)) {
-    newTheme = theme;
-  } else if (Util.indexOf(Object.keys(Theme), theme) !== -1) {
-    newTheme = Theme[theme];
-  } else {
-    newTheme = Theme.default;
-  }
-  Util.deepMix(Global, newTheme);
-}
-
-setTheme('default');
-
-Global.setTheme = setTheme;
+Global.setTheme('default');
 
 module.exports = Global;

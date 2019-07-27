@@ -160,18 +160,20 @@ const DarkTheme = Util.deepMix({}, BasicTheme, {
   tooltip: {
     // css style for tooltip
     [`${TOOLTIP_CONTAINER_CLASS}`]: {
-      color: '#D9D9D9'
+      color: '#D9D9D9',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      boxShadow: '0px 0px 2px #000'
     }
   },
   tooltipCrosshairsRect: {
     type: 'rect',
-    style: {
+    rectStyle: {
       fill: '#fff',
       opacity: 0.1
     }
   }, // tooltip 辅助背景框样式
   tooltipCrosshairsLine: {
-    style: {
+    lineStyle: {
       stroke: 'rgba(255, 255, 255, 0.45)'
     }
   },

@@ -88,18 +88,18 @@ class EventController {
   }
 
   _triggerShapeEvent(shape, eventName, eventObj) {
-    if (shape && shape.name) {
+    if (shape && shape.name && !shape.get('destroyed')) {
       const view = this.view;
       if (view.isShapeInView(shape)) {
         const name = shape.name + ':' + eventName;
         eventObj.view = view;
         eventObj.appendInfo = shape.get('appendInfo'); // appendInfo is defined by user
         view.emit(name, eventObj);
+        const parent = view.get('parent');
+        if (parent) { // chart 上也需要抛出该事件，本期先不抛出
+          parent.emit(name, eventObj);
+        }
       }
-      // const parent = view.get('parent');
-      // if (parent) { // chart 上也需要抛出该事件，本期先不抛出
-      //   parent.emit(name, eventObj);
-      // }
     }
   }
 
@@ -115,8 +115,13 @@ class EventController {
   onMove(ev) {
     const self = this;
     const view = self.view;
-    const currentShape = self.currentShape;
-    const shape = self._getShape(ev.x, ev.y);
+    let currentShape = self.currentShape;
+    // 如果图形被销毁，则设置当前 shape 为空
+    if (currentShape && currentShape.get('destroyed')) {
+      currentShape = null;
+      self.currentShape = null;
+    }
+    const shape = self._getShape(ev.x, ev.y) || ev.currentTarget;
     let eventObj = self._getShapeEventObj(ev);
     eventObj.shape = shape;
     registerData(eventObj);
@@ -146,6 +151,7 @@ class EventController {
     if (preViews.length === 0 && point.views.length) {
       view.emit('plotenter', self._getEventObj(ev, point, point.views));
     }
+    // point.views 是指当前 view 或者子 view，不会取跟当前 view 同一层级的兄弟元素（view)
     if (preViews.length && point.views.length === 0) {
       view.emit('plotleave', self._getEventObj(ev, point, preViews));
     }
@@ -164,7 +170,13 @@ class EventController {
     const self = this;
     const view = self.view;
     const point = self._getPointInfo(ev);
-    view.emit('plotleave', self._getEventObj(ev, point, self.curViews));
+    const preViews = self.curViews || [];
+    const evtObj = self._getEventObj(ev, point, preViews);
+    // 只有没有padding 时，当前依然在 view 的 plotRange 情况下才会出现这个情况，保证 plotleave 触发
+    if (self.curViews && self.curViews.length !== 0 && (!evtObj.toElement || evtObj.toElement.tagName !== 'CANVAS')) {
+      view.emit('plotleave', evtObj);
+      self.curViews = []; // 清空
+    }
   }
 
   onUp(ev) {
@@ -178,7 +190,7 @@ class EventController {
   onClick(ev) {
     const self = this;
     const view = self.view;
-    const shape = self._getShape(ev.x, ev.y);
+    const shape = self._getShape(ev.x, ev.y) || ev.currentTarget;
     const shapeEventObj = self._getShapeEventObj(ev);
     shapeEventObj.shape = shape;
     registerData(shapeEventObj);
@@ -196,17 +208,18 @@ class EventController {
         registerData(eventObj);
         // eventObj.data = shape.get('origin');
       }
-      view.emit('plotclick', eventObj);
       if (ev.type === 'dblclick') {
         view.emit('plotdblclick', eventObj);
         view.emit('dblclick', shapeEventObj);
+      } else {
+        view.emit('plotclick', eventObj);
       }
     }
   }
 
   onTouchstart(ev) {
     const view = this.view;
-    const shape = this._getShape(ev.x, ev.y);
+    const shape = this._getShape(ev.x, ev.y) || ev.currentTarget;
     const eventObj = this._getShapeEventObj(ev);
     eventObj.shape = shape;
     registerData(eventObj);
@@ -217,7 +230,7 @@ class EventController {
 
   onTouchmove(ev) {
     const view = this.view;
-    const shape = this._getShape(ev.x, ev.y);
+    const shape = this._getShape(ev.x, ev.y) || ev.currentTarget;
     const eventObj = this._getShapeEventObj(ev);
     eventObj.shape = shape;
     registerData(eventObj);

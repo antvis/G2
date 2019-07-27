@@ -7,26 +7,29 @@
 const Util = require('../../util');
 const Shape = require('./shape');
 const PathUtil = require('../util/path');
+const ShapeUtil = require('../util/shape');
 const Global = require('../../global');
 
 function getLineAttrs(cfg) {
   const defaultAttrs = Global.shape.hollowArea;
-  const lineAttrs = Util.mix({}, defaultAttrs, {
-    stroke: cfg.color,
-    lineWidth: cfg.size,
-    strokeOpacity: cfg.opacity
-  }, cfg.style);
+  const lineAttrs = Util.mix({}, defaultAttrs, cfg.style);
+  ShapeUtil.addStrokeAttrs(lineAttrs, cfg);
+  if (Util.isNumber(cfg.size)) {
+    lineAttrs.lineWidth = cfg.size;
+  }
   return lineAttrs;
 }
 
 function getFillAttrs(cfg) {
   const defaultAttrs = Global.shape.area;
-  const areaAttrs = Util.mix({}, defaultAttrs, {
-    fill: cfg.color,
-    stroke: cfg.color,
-    lineWidth: cfg.size,
-    fillOpacity: cfg.opacity
-  }, cfg.style);
+  const areaAttrs = Util.mix({}, defaultAttrs, cfg.style);
+  ShapeUtil.addFillAttrs(areaAttrs, cfg);
+  if (cfg.color) {
+    areaAttrs.stroke = areaAttrs.stroke || cfg.color;
+  }
+  if (Util.isNumber(cfg.size)) {
+    areaAttrs.lineWidth = cfg.size;
+  }
   return areaAttrs;
 }
 
@@ -40,9 +43,9 @@ function getPath(cfg, smooth, shape) {
     topLinePoints.push(point[1]);
     bottomLinePoints.push(point[0]);
   });
-  if (!isInCircle) {
-    bottomLinePoints = bottomLinePoints.reverse();
-  }
+  // if (!isInCircle) {
+  bottomLinePoints = bottomLinePoints.reverse();
+  // }
   pointsArr.push(topLinePoints, bottomLinePoints);
   Util.each(pointsArr, function(points, index) {
     let subPath = [];
@@ -56,7 +59,8 @@ function getPath(cfg, smooth, shape) {
     } else {
       subPath = PathUtil.getLinePath(points, false);
     }
-    if (!isInCircle && index > 0) {
+
+    if (index > 0) {
       subPath[0][0] = 'L';
     }
     path = path.concat(subPath);
@@ -68,24 +72,18 @@ function getPath(cfg, smooth, shape) {
 // get marker cfg
 function _getMarkerCfg(cfg) {
   return {
-    symbol(x, y, r, ctx) {
-      // 11px * 9px
-      ctx.save();
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = ctx.fillStyle;
-      ctx.moveTo(x - 5.5, y - 4);
-      ctx.lineTo(x + 5.5, y - 4);
-      ctx.stroke();
-      ctx.restore();
-      ctx.moveTo(x - 5.5, y - 4);
-      ctx.lineTo(x + 5.5, y - 4);
-      ctx.lineTo(x + 5.5, y + 4);
-      ctx.lineTo(x - 5.5, y + 4);
-      ctx.closePath();
+    symbol(x, y) {
+      return [
+        [ 'M', x - 5.5, y - 4 ],
+        [ 'L', x + 5.5, y - 4 ],
+        [ 'L', x + 5.5, y + 4 ],
+        [ 'L', x - 5.5, y + 4 ],
+        [ 'Z' ]
+      ];
     },
     radius: 5,
     fill: cfg.color,
-    fillOpacity: 0.3
+    fillOpacity: 0.6
   };
 }
 
@@ -245,3 +243,4 @@ Shape.registerShape('area', 'smoothLine', {
 Area.spline = Area.smooth;
 
 module.exports = Area;
+

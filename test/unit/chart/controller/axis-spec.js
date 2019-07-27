@@ -1,7 +1,6 @@
 const expect = require('chai').expect;
 const AxisController = require('../../../../src/chart/controller/axis');
-const Coord = require('../../../../src/coord/index');
-
+const Coord = require('@antv/coord/lib/index');
 
 describe('AxisController', function() {
   const start = {
@@ -50,7 +49,9 @@ describe('AxisController', function() {
       ];
     }
   };
-  const as = new AxisController();
+  const as = new AxisController({
+    viewTheme: require('../../../../src/global')
+  });
 
   it('_isHide', function() {
     as.options = {
@@ -60,7 +61,7 @@ describe('AxisController', function() {
     expect(as._isHide('b')).to.equal(false);
   });
 
-  describe('_getAxisPosition 确定坐标轴的位置', function() {
+  describe('_getAxisPosition', function() {
     it('get axis position rect', function() {
       let position = as._getAxisPosition(coord, 'x');
       expect(position).to.equal('bottom');
@@ -98,7 +99,7 @@ describe('AxisController', function() {
     });
   });
 
-  describe('_getLineCfg 获取直线坐标轴配置项信息', function() {
+  describe('_getLineCfg', function() {
     as.options = null;
     it('_getLineCfg, X axis when position is bottom.', function() {
       const lineCfg = as._getLineCfg(coord, scaleX, 'x');
@@ -106,6 +107,22 @@ describe('AxisController', function() {
       expect(lineCfg.factor).to.equal(1);
       expect(lineCfg.start).to.eql({ x: 0, y: 500 });
       expect(lineCfg.end).to.eql({ x: 500, y: 500 });
+    });
+
+    it('axis title', () => {
+      let cfg;
+      as.options = {
+        a: {
+          title: true
+        }
+      };
+      cfg = as._getAxisDefaultCfg(coord, scaleX, 'x');
+      expect(cfg.title.text).to.equal('a');
+      as.options.a.title = {
+        text: 'test'
+      };
+      cfg = as._getAxisDefaultCfg(coord, scaleX, 'x');
+      expect(cfg.title.text).to.equal('test');
     });
 
     it('_getLineCfg, X axis when position is top.', function() {
@@ -182,7 +199,7 @@ describe('AxisController', function() {
     });
   });
 
-  describe('_getCircleCfg 获取圆弧坐标轴配置项信息。', function() {
+  describe('_getCircleCfg', function() {
     it('_getCircleCfg', function() {
       const coord = new Coord.Polar({
         start,
@@ -211,7 +228,7 @@ describe('AxisController', function() {
       expect(circleCfg.endAngle).to.equal(3.141592653589794);
       expect(circleCfg.center).to.eql({
         x: 250.70494165327872,
-        y: 124.64752917336064
+        y: 124.94090329888789
       });
     });
 
@@ -235,7 +252,7 @@ describe('AxisController', function() {
     });
   });
 
-  describe('_getRadiusCfg 获取半径坐标轴配置项信息。', function() {
+  describe('_getRadiusCfg', function() {
     it('_getRadiusCfg', function() {
       const coord = new Coord.Polar({
         start,
@@ -265,11 +282,11 @@ describe('AxisController', function() {
       expect(radiusCfg.factor).to.equal(1);
       expect(radiusCfg.start).to.eql({
         x: 250.70494165327872,
-        y: 124.64752917336064
+        y: 124.94090329888789
       });
       expect(radiusCfg.end).to.eql({
         x: 500.00000000000006,
-        y: 151.1982665130035
+        y: 151.49164063853073
       });
     });
   });
@@ -285,7 +302,7 @@ describe('AxisController', function() {
     });
   });
 
-  describe('_getAxisCfg 常规逻辑测试。', function() {
+  describe('_getAxisCfg', function() {
     it('_getAxisCfg', function() {
       const axisCfg = as._getAxisCfg(coord, scaleX, scaleY, 'x');
       expect(axisCfg.label.autoRotate).to.equal(true);
@@ -312,7 +329,7 @@ describe('AxisController', function() {
       expect(axisCfg.ticks.length).to.equal(10);
       expect(axisCfg.grid).not.to.be.empty;
       expect(axisCfg.grid.type).to.equal('circle');
-      expect(axisCfg.grid.items.length).to.equal(9);
+      expect(axisCfg.grid.items.length).to.equal(12); // fixed: fill gaps
       expect(axisCfg.grid.items[0]._id).not.to.be.undefined;
       expect(axisCfg.grid.items[0].points.length).to.equal(12);
     });

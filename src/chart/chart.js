@@ -5,13 +5,17 @@
 
 const Util = require('../util');
 const View = require('./view');
-const G = require('@antv/g');
+const G = require('../renderer');
 const Canvas = G.Canvas;
-const DomUtil = G.DomUtil;
-const Component = require('../component/index');
-const Controller = require('./controller/index');
-const Facets = require('../facet/index');
+const DomUtil = Util.DomUtil;
 const Global = require('../global');
+const Plot = require('../component/plot');
+const Controller = require('./controller/index');
+const mergeBBox = require('./util/merge-bbox');
+const bboxOfBackPlot = require('./util/bbox-of-back-plot');
+const plotRange2BBox = require('./util/plot-range2bbox');
+
+const AUTO_STR = 'auto';
 
 function _isScaleExist(scales, compareScale) {
   let flag = false;
@@ -25,6 +29,10 @@ function _isScaleExist(scales, compareScale) {
   });
 
   return flag;
+}
+
+function isEqualArray(arr1, arr2) {
+  return Util.isEqualWith(arr1, arr2, (v1, v2) => v1 === v2);
 }
 
 /**
@@ -48,34 +56,80 @@ class Chart extends View {
       width: 500,
       height: 500,
       pixelRatio: null,
-      padding: Global.plotCfg.padding,
       backPlot: null,
       frontPlot: null,
       plotBackground: null,
+      padding: Global.plotCfg.padding,
       background: null,
+      autoPaddingAppend: 5,
+      limitInPlot: false,
+      renderer: Global.renderer,
+      // renderer: 'svg',
       views: []
     });
   }
 
   init() {
-    this._initCanvas();
-    this._initPlot();
-    this._initEvents();
+    const self = this;
+    const viewTheme = self.get('viewTheme');
+    self._initCanvas();
+    self._initPlot();
+    self._initEvents();
     super.init();
 
     const tooltipController = new Controller.Tooltip({
-      chart: this,
+      chart: self,
+      viewTheme,
       options: {}
     });
-    this.set('tooltipController', tooltipController);
+    self.set('tooltipController', tooltipController);
 
     const legendController = new Controller.Legend({
-      chart: this
+      chart: self,
+      viewTheme
     });
-    this.set('legendController', legendController);
-    this.set('_id', 'chart'); // 防止同用户设定的 id 同名
-    this.emit('afterinit'); // 初始化完毕
+    self.set('legendController', legendController);
+    self.set('_id', 'chart'); // 防止同用户设定的 id 同名
+    self.emit('afterinit'); // 初始化完毕
   }
+
+  _isAutoPadding() {
+    const padding = this.get('padding');
+    if (Util.isArray(padding)) {
+      return padding.indexOf(AUTO_STR) !== -1;
+    }
+    return padding === AUTO_STR;
+  }
+
+  _getAutoPadding() {
+    const padding = this.get('padding');
+    // 图例在最前面的一层
+    const frontPlot = this.get('frontPlot');
+    const frontBBox = frontPlot.getBBox();
+    // 坐标轴在最后面的一层
+
+    const backPlot = this.get('backPlot');
+    // 这段代码临时处理了title 过长的情况，但是是非常不好的代码
+    const backBBox = bboxOfBackPlot(backPlot, plotRange2BBox(this.get('plotRange')));
+
+    const box = mergeBBox(frontBBox, backBBox);
+    const outter = [
+      0 - box.minY, // 上面超出的部分
+      box.maxX - this.get('width'), // 右边超出的部分
+      box.maxY - this.get('height'), // 下边超出的部分
+      0 - box.minX
+    ];
+    // 如果原始的 padding 内部存在 'auto' 则替换对应的边
+    const autoPadding = Util.toAllPadding(padding);
+    for (let i = 0; i < autoPadding.length; i++) {
+      if (autoPadding[i] === AUTO_STR) {
+        const tmp = Math.max(0, outter[i]);
+        autoPadding[i] = tmp + this.get('autoPaddingAppend');
+      }
+    }
+    return autoPadding;
+  }
+
   // 初始化画布
   _initCanvas() {
     let container = this.get('container');
@@ -98,47 +152,54 @@ class Chart extends View {
     container.appendChild(wrapperEl);
     this.set('wrapperEl', wrapperEl);
     if (this.get('forceFit')) {
-      width = DomUtil.getWidth(container);
+      width = DomUtil.getWidth(container, width);
       this.set('width', width);
     }
+    const renderer = this.get('renderer');
     const canvas = new Canvas({
       containerDOM: wrapperEl,
       width,
       height,
-      pixelRatio: this.get('pixelRatio')
+      // NOTICE: 有问题找青湳
+      pixelRatio: renderer === 'svg' ? 1 : this.get('pixelRatio'),
+      renderer
     });
     this.set('canvas', canvas);
   }
 
   // 初始化绘图区间
   _initPlot() {
-    this._initPlotBack(); // 最底层的是背景相关的 group
-    const canvas = this.get('canvas');
+    const self = this;
+    self._initPlotBack(); // 最底层的是背景相关的 group
+    const canvas = self.get('canvas');
     const backPlot = canvas.addGroup({
       zIndex: 1
     }); // 图表最后面的容器
     const plotContainer = canvas.addGroup({
-      zIndex: 2
+      zIndex: 0
     }); // 图表所在的容器
     const frontPlot = canvas.addGroup({
       zIndex: 3
     }); // 图表前面的容器
 
-    this.set('backPlot', backPlot);
-    this.set('middlePlot', plotContainer);
-    this.set('frontPlot', frontPlot);
+    self.set('backPlot', backPlot);
+    self.set('middlePlot', plotContainer);
+    self.set('frontPlot', frontPlot);
   }
 
   // 初始化背景
   _initPlotBack() {
-    const canvas = this.get('canvas');
-    const plot = canvas.addGroup(Component.Plot, {
+    const self = this;
+    const canvas = self.get('canvas');
+    const viewTheme = self.get('viewTheme');
+
+    const plot = canvas.addGroup(Plot, {
       padding: this.get('padding'),
-      plotBackground: Util.mix({}, Global.plotBackground, this.get('plotBackground')),
-      background: Util.mix({}, Global.background, this.get('background'))
+      plotBackground: Util.mix({}, viewTheme.plotBackground, self.get('plotBackground')),
+      background: Util.mix({}, viewTheme.background, self.get('background'))
     });
-    this.set('plot', plot);
-    this.set('plotRange', plot.get('plotRange'));
+    self.set('plot', plot);
+    self.set('plotRange', plot.get('plotRange'));
   }
 
   _initEvents() {
@@ -173,13 +234,20 @@ class Chart extends View {
           Util.each(attrs, attr => {
             const type = attr.type;
             const scale = attr.getScale(type);
-            if (scale.type !== 'identity' && !_isScaleExist(scales, scale)) {
+            if (scale.field && scale.type !== 'identity' && !_isScaleExist(scales, scale)) {
               scales.push(scale);
-              const filteredValues = view.getFilteredValues(scale.field);
+              const filteredValues = view.getFilteredOutValues(scale.field);
               legendController.addLegend(scale, attr, geom, filteredValues);
             }
           });
         });
+
+        // 双轴的情况
+        const yScales = this.getYScales();
+        if (scales.length === 0 && yScales.length > 1) {
+          legendController.addMixedLegend(yScales, geoms);
+        }
+
       }
 
       legendController.alignLegends();
@@ -219,13 +287,27 @@ class Chart extends View {
    */
   forceFit() {
     const self = this;
+    if (!self || self.destroyed) {
+      return;
+    }
     const container = self.get('container');
-    const width = DomUtil.getWidth(container);
-    if (width !== this.get('width')) {
-      const height = this.get('height');
-      this.changeSize(width, height);
+    const oldWidth = self.get('width');
+    const width = DomUtil.getWidth(container, oldWidth);
+    if (width !== 0 && width !== oldWidth) {
+      const height = self.get('height');
+      self.changeSize(width, height);
     }
     return self;
+  }
+
+  resetPlot() {
+    const plot = this.get('plot');
+    const padding = this.get('padding');
+    if (!isEqualArray(padding, plot.get('padding'))) {
+      // 重置 padding，仅当padding 发生更改
+      plot.set('padding', padding);
+      plot.repaint();
+    }
   }
 
   /**
@@ -238,13 +320,15 @@ class Chart extends View {
     const self = this;
     const canvas = self.get('canvas');
     canvas.changeSize(width, height);
-
+    const plot = this.get('plot');
     self.set('width', width);
     self.set('height', height);
-    const plot = self.get('plot');
+    // change size 时重新计算边框
     plot.repaint();
-
+    // 保持边框不变，防止自动 padding 时绘制多遍
+    this.set('keepPadding', true);
     self.repaint();
+    this.set('keepPadding', false);
     this.emit('afterchangesize');
     return self;
   }
@@ -265,20 +349,6 @@ class Chart extends View {
     return this.changeSize(this.get('width'), height);
   }
 
-  facet(type, cfg) {
-    const cls = Facets[Util.upperFirst(type)];
-    if (!cls) {
-      throw new Error('Not support such type of facets as: ' + type);
-    }
-    const preFacets = this.get('facets');
-    if (preFacets) {
-      preFacets.destroy();
-    }
-    cfg.chart = this;
-    const facets = new cls(cfg);
-    this.set('facets', facets);
-  }
-
   /**
    * 创建一个视图
    * @param  {Object} cfg 视图的配置项
@@ -286,6 +356,7 @@ class Chart extends View {
    */
   view(cfg) {
     cfg = cfg || {};
+    cfg.theme = this.get('theme');
     cfg.parent = this;
     cfg.backPlot = this.get('backPlot');
     cfg.middlePlot = this.get('middlePlot');
@@ -302,9 +373,9 @@ class Chart extends View {
     return view;
   }
 
-  isShapeInView() {
-    return true;
-  }
+  // isShapeInView() {
+  //   return true;
+  // }
 
   removeView(view) {
     const views = this.get('views');
@@ -396,6 +467,7 @@ class Chart extends View {
     }
     super.clear();
     const canvas = this.get('canvas');
+    this.resetPlot();
     canvas.draw();
     this.emit('afterclear');
     return this;
@@ -418,15 +490,52 @@ class Chart extends View {
     super.clearInner();
   }
 
+  // chart 除了view 上绘制的组件外，还会绘制图例和 tooltip
+  drawComponents() {
+    super.drawComponents();
+    // 一般是点击图例时，仅仅隐藏某些选项，而不销毁图例
+    if (!this.get('keepLegend')) {
+      this._renderLegends(); // 渲染图例
+    }
+  }
+
   /**
    * 绘制图表
    * @override
    */
-  paint() {
-    super.paint();
-    !this.get('keepLegend') && this._renderLegends(); // 渲染图例
-    this._renderTooltips(); // 渲染 tooltip
-    this.set('keepLegend', false);
+  render() {
+    const self = this;
+    // 需要自动计算边框，则重新设置
+    if (!self.get('keepPadding') && self._isAutoPadding()) {
+      self.beforeRender(); // 初始化各个 view 和 绘制
+      self.drawComponents();
+      const autoPadding = self._getAutoPadding();
+      const plot = self.get('plot');
+      // 在计算出来的边框不一致的情况，重新改变边框
+      if (!isEqualArray(plot.get('padding'), autoPadding)) {
+        plot.set('padding', autoPadding);
+        plot.repaint();
+      }
+    }
+    const middlePlot = self.get('middlePlot');
+    if (self.get('limitInPlot') && !middlePlot.attr('clip')) {
+      const clip = Util.getClipByRange(self.get('plotRange')); // TODO Polar coord
+      middlePlot.attr('clip', clip);
+      // clip.attr('fill', 'grey');
+      // clip.attr('opacity', 0.5);
+      // middlePlot.add(clip);
+    }
+    super.render();
+    self._renderTooltips(); // 渲染 tooltip
+  }
+
+  repaint() {
+    // 重绘时需要判定当前的 padding 是否发生过改变，如果发生过改变进行调整
+    // 需要判定是否使用了自动 padding
+    if (!this.get('keepPadding')) {
+      this.resetPlot();
+    }
+    super.repaint();
   }
 
   /**
@@ -444,24 +553,68 @@ class Chart extends View {
    * @return {String} dataUrl 路径
    */
   toDataURL() {
-    const canvas = this.get('canvas');
+    const chart = this;
+    const canvas = chart.get('canvas');
+    const renderer = chart.get('renderer');
     const canvasDom = canvas.get('el');
-    const dataURL = canvasDom.toDataURL('image/png');
+    let dataURL = '';
+    if (renderer === 'svg') {
+      const clone = canvasDom.cloneNode(true);
+      const svgDocType = document.implementation.createDocumentType(
+        'svg', '-//W3C//DTD SVG 1.1//EN', 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'
+      );
+      const svgDoc = document.implementation.createDocument('http://www.w3.org/2000/svg', 'svg', svgDocType);
+      svgDoc.replaceChild(clone, svgDoc.documentElement);
+      const svgData = (new XMLSerializer()).serializeToString(svgDoc);
+      dataURL = 'data:image/svg+xml;charset=utf8,' + encodeURIComponent(svgData);
+    } else if (renderer === 'canvas') {
+      dataURL = canvasDom.toDataURL('image/png');
+    }
     return dataURL;
   }
 
   /**
    * 图表导出功能
-   * @param  {String} [name] 图片的名称，默认为 chart.png
-   * @return {String} 返回生成图片的 dataUrl 路径
+   * @param  {String} [name] 图片的名称，默认为 chart(.png|.svg)
    */
   downloadImage(name) {
-    const dataURL = this.toDataURL();
+    const chart = this;
     const link = document.createElement('a');
-    link.download = (name || 'chart') + '.png';
-    link.href = dataURL.replace('image/png', 'image/octet-stream');
-    link.click();
-    return dataURL;
+    const renderer = chart.get('renderer');
+    const filename = (name || 'chart') + (renderer === 'svg' ? '.svg' : '.png');
+    const canvas = chart.get('canvas');
+    canvas.get('timeline').stopAllAnimations();
+
+    setTimeout(() => {
+      const dataURL = chart.toDataURL();
+      if (window.Blob && window.URL && renderer !== 'svg') {
+        const arr = dataURL.split(',');
+        const mime = arr[0].match(/:(.*?);/)[1];
+        const bstr = atob(arr[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        while (n--) {
+          u8arr[n] = bstr.charCodeAt(n);
+        }
+        const blobObj = new Blob([ u8arr ], { type: mime });
+        if (window.navigator.msSaveBlob) {
+          window.navigator.msSaveBlob(blobObj, filename);
+        } else {
+          link.addEventListener('click', function() {
+            link.download = filename;
+            link.href = window.URL.createObjectURL(blobObj);
+          });
+        }
+      } else {
+        link.addEventListener('click', function() {
+          link.download = filename;
+          link.href = dataURL;
+        });
+      }
+      const e = document.createEvent('MouseEvents');
+      e.initEvent('click', false, false);
+      link.dispatchEvent(e);
+    }, 16);
   }
 
   /**
@@ -521,6 +674,7 @@ class Chart extends View {
    */
   destroy() {
     this.emit('beforedestroy');
+    clearTimeout(this.get('resizeTimer'));
     const canvas = this.get('canvas');
     const wrapperEl = this.get('wrapperEl');
     wrapperEl.parentNode.removeChild(wrapperEl);

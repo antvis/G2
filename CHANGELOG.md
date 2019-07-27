@@ -1,3 +1,675 @@
+#### 3.5.0 (2019-03-21)
+
+##### New Features
+
+- feat(venn): venn geom label supports position adjusting
+- feat(types): improve TooltipConfig type definition
+- feat(types): add full LegendConfig.position enums
+
+##### Bug Fixes
+
+- fix: label should keep default textStyle when textStyle is a function and returns null. Closes #1231
+- fix: 兼容，legend实例attr中存在x与y而canvas形式中是通过group获取的兼容. Closes #997
+- fix(scale): Scale config should be effective when data is null or data length is 0, close #1208
+- fix(legend): fix the scale alias for mixed legend does not work. Closed #1209
+- fix(tooltip): Added line to TooltipConfig crosshairs type
+- fix(Scale): 线性缩放时，需要深拷贝scale配置. Closes #1178
+- fix: auto padding blocks axis title, Closes #1188
+- fix(schema): use cfg.color for lineAttrs.stroke if available.
+- fix(HtmlTooltip): 在特定场景下HtmlTooltip.hide()时大概率获取不到container
+- fix(label): show label for heatmap, Closes #1184
+- fix: Use cfg.color for lineAttrs.stroke if available.
+- fix: issue-1167 还原格式化. Closes #1167
+- fix: when guide.html() is defined, legends is not in view. Closes #1149
+- fix: bug in guide. Closes #1149
+- fix: *.d.ts: Shape.registerShape and BashView.coord declare
+
+
+#### 3.4.9 (2019-01-04)
+
+##### New Features
+
+- chore(test): removing describe.only statement
+    
+##### Bug Fixes
+
+- fix(chart): auto padding with more accurate backPlot range, Closes #1079
+- fix: applyMatrix when calculating bbox of axis title
+- fix(chart): auto padding with more accurate backPlot range, Closes #1079
+- clearInteraction不能清除scrollBar的bug
+- fix pie-label adjustItems offset err
+
+#### 3.4.8 (2018-12-26)
+
+- G2.track = () => { console.warn('G2 tracks nothing ;-)'); };
+
+#### 3.4.7 (2018-12-26)
+
+**All tracking code is removed, no more unexpected remote request will be sent**
+
+##### Bug Fixes
+
+- fix(interval): error bar filling issue. Closes #1123
+
+#### 3.4.6 (2018-12-21)
+
+##### New Features
+
+- chore(test): removing .only() statement
+- feat(legend): enable default legend-item handler
+
+##### Bug Fixes
+
+- fix #1051
+- fix(legend): issue on filtering https://github.com/antvis/g2/issues/1119
+- fix(scale & filter): remove min max limit if field filtered
+- fix(schema): error bar can't show
+- fix(shape): liquid fill shapes should use hollow shape styles by default, Closes #1081
+- fix(tooltip): 多 view 下 interval 的 tooltip 辅助线不显示
+- fix(tooltip): 正确清除 markers
+
+#### 3.4.5 (2018-11-27)
+
+##### New Features
+
+##### Bug Fixes
+
+- fix(tooltip): crosshair style
+
+#### 3.4.3 (2018-11-27)
+
+##### New Features
+
+##### Bug Fixes
+
+- fix(shape): add fillOpacity correctly, Closes #1065
+- fix(tooltip): crosshair theme & tooltip dark theme
+
+#### 3.4.2 (2018-11-22)
+
+##### New Features
+
+##### Bug Fixes
+
+- chore(demo): cfg.color should have a higher piority, Closes #1060
+- fix(legend): shape mapping should not generate legend, Closes #1057
+
+
+#### 3.4.1 (2018-11-21)
+
+##### New Features
+
+##### Bug Fixes
+
+- fix(geom): applying shape style correctly
+
+
+#### 3.4.0 (2018-11-20)
+
+##### New Features
+
+- Feat interaction
+- chore(demo): default drag and zoom interaction
+- chore(dev): add some type def in Global
+- chore(dev): clear code, Closes #1040
+- chore(dev): shapeSelect.js -> shape-select.js
+- chore(interaction): interaction should be call by chart, for some tricky cases
+- chore(label): add unit test of label capture
+- chore(package): update dependency version
+- chore(package): update dependency version
+- chore(test): confirming theme settings for geom shapes. Closes #1018
+- feat(chart): limitInPlot: add clip to middlePlot
+- feat(interaction): drag and zoom support category fields
+- feat(interaction): scroll-bar
+- feat(interaction): slider as an interaction
+- feat(legend): add onUnhover event
+
+##### Bug Fixes
+
+- Fix interaction and theme
+- Fix label issues
+- fix(label): Protect `items`, because `getLabelItems` may get the result of `null`.
+- fix(label): Protect label of `null` value.
+- fix issue 1014
+- fix reactStyle to rectStyle
+- fix(geom-labels): if htmlTemplate is set, useHtml is true by default
+- fix(geom-labels): if htmlTemplate is set, useHtml is true by default
+- fix(heatmap): paletteCache should not be global. Closes #1009
+- fix(interaction): X coord dragging
+- fix(interaction): brush reset
+- fix(interaction): bug in shape hitting when clip is defined
+- fix(interaction): slider
+- fix(interaction): slider default bgChart color
+- fix(label): fix callback content
+- fix(label): fix label cfg piority
+- fix(label): fix label reference
+- fix(label): fix label rotate issue
+- fix(label): fix textStyle callback argument error
+- fix(label): remove _offset, use start point to decide the start point of labelLine
+- fix(legend): fix legend height when flip is true
+- fix(shape): default shape color is incorrect, Closes #1027
+- fix(shape): default shape color is incorrect, Closes #1027
+- fix(shape): do not set color as stroke when setting fill attrs
+- fix(theme): area & line theme setting is not working
+- fix(theme): default size
+- fix(theme): shape setting in theme is not working
+- fix(tooltip): failed to trigger tooltip on geom labels, fix #1035
+- fix(tooltip): tooltip hides when mouse over geom label. Closes #1031
+
+
+#### 3.3.4 (2018-11-02)
+
+##### New Features
+
+- Feat axis position (percentage, 'middle')
+- chore(demo): add demo for axis position and stock index chart
+- feat(axis): support middle and percentage for axis position
+- feat(label): add unit tests of `offsetX` & `offsetY`
+- feat(legend): add option `offsetX` & `offsetY`
+- refactor(label): label no longer supports array-like offset value
+- refactor(label): modify unit tests related to array-like offset value
+- refactor(legend): fix default style of thetaLabels
+
+##### Bug Fixes
+
+- Fix #1001
+- Fix hover legend
+- Fix label styles
+- fix(arc): fix demo
+- fix(demo): fix demo usage
+- fix(facet): fix facet type
+- fix(label): add option `autoRotate` & `rotate` in label
+- fix(legend): container's width & height of html legend should not be assigned
+- fix(legend): fix demo css
+- fix(legend): fix misspelling
+- fix(legend):tail-legend position incorerct when the padding-top property of chart was manully setted
+
+#### 3.3.3 (2018-10-24)
+
+##### New Features
+
+- feat(axis): customized axis title. Closes #974
+- chore(dev): upgrade dependencies
+- feat(axis): customized axis title. Closes #974
+
+##### Bug Fixes
+
+- fix(polar-labels): fix label position calculation error when r = 0
+
+#### 3.3.2 (2018-10-23)
+
+##### New Features
+
+- chore(dev): update screenshots
+- chore(dev): remove useless files in src/component/legend
+- chore(package): update package version to 3.3.2 & update dependencies
+
+##### Bug Fixes
+
+- fix(tooltip): crosshairs-rect display error in bar chart
+- fix(style): use mix instead of using theme style directly
+- fix(legend): fix overlapping problem of  html legend and canvas
+- fix(tooltip): crosshairs-rect display error in bar chart
+- fix(legend): modify reference entry
+- fix(legend): add z-index to legend in case it's covered by canvas
+- fix(legend): 修复多面图时导致的legend显示位置bug
+- fix(legend): determine container when use html to render a legend & add unit test
+
+
+#### 3.3.1 (2018-10-17)
+
+##### New Features
+
+##### Bug Fixes
+
+- fix(dev): typescript defination file
+- fix(guide): region filter does not work on interval geom, etc. Closes #961, #941
+
+#### 3.3.0 (2018-10-16)
+
+##### New Features
+
+- chore(demo): add some guide demos.
+- chore(dev): @babel/env => @babel/preset-env
+- chore(dev): add scripts for npm run pixel-test
+- chore(dev): update issue templates
+- chore: modify components reference
+- feat(theme): add chart view theme to tooltip
+- feat: add default style for guide component.
+- feat: add label type: interval
+- feat: component legend
+- feat: demo for custom html legend. fix: custom html and htmlpage category legend
+- feat: double direction interaction (from chart to legend)
+- feat: legend component html scroll
+- feat: legend demos
+- feat: legend-component, html controller, offset
+- feat: mini tooltip
+- feat: tooltip controller module import
+- refactor(axis): AxisController
+- refactor(demo): modify demos' styles
+- refactor(demo): modify html tooltip styles
+- refactor(geom-labels): merge master
+- refactor(legend): update demo html style
+- refactor(tooltip): modify tooltip marker style
+- refactor: adapt to new guide components.
+- refactor: better guide.render().
+- refactor: modify some test case with Labels
+- refactor: tooltip controller
+- refactor: use @antv/components to render label instead of Labels
+- refactor: use components to render label instead of `Labels`
+- refator: modify label callback args to fields
+- revert: remove polar coordinate support
+- test(bin): add scripts for npm run pixel-test
+- test: add Node.js 10
+- test: delete some tests; fix: @antv/component/lib
+- test: legend controller
+
+##### Bug Fixes
+
+- fix(area): modify default style of area
+- fix(area): remove default fillOpacity from area shape
+- fix(axis): clear axis component correctly in axisController
+- fix(axis): set default label offset to 8px
+- fix(dev): require lib version instead of src
+- fix(geom-labels): add unit test of scaled coord labels
+- fix(geom-labels): change label dependency to lib
+- fix(geom-labels): fix callback value type
+- fix(geom-labels): fix default label textStyle sometimes doesn't work
+- fix(geom-labels): fix label dependency
+- fix(geom-labels): fix label offset format to match with component
+- fix(geom-labels): fix offset exception when coord is scaled
+- fix(geom-labels): fix polygon label position calculation
+- fix(geom-labels): fix transposed text align logic
+- fix(geom-labels): modify label position calculation when geom is polygon
+- fix(geom-labels): resume drawLines
+- fix(label): merge labelLine only if a value is assigned to it
+- fix(legend): fix default style of color-legend demo
+- fix(legend): fix default style of legend marker of area
+- fix(legend): fix default style of legend marker of area & demo styles
+- fix(legend): marker for area should be a closed path
+- fix(pie-label): fix labelLine end point error
+- fix(test): auto padding in ci evironment
+- fix(tooltip): fixed tooltip won't hide when plotleave fired
+- fix(tooltip): should not merge viewTheme into default tooltip cfg again
+- fix(tooltip): viewTheme in controller
+- fix(tooltip):mini-tooltip flash
+- fix: configuration to control the interaction from chart to legend -- reactive [boolean]
+- fix: fix polar labels don't work
+- fix: html legend filter
+- fix: scales to scale
+- fix: viewTheme
+
+
+#### 3.2.8 (2018-09-14)
+
+##### New Features
+
+* chore(dev): add test case. Closes #878
+* chore(dev): coord as an interval dependency
+* chore(dev): upgrade babel
+* chore(dev): upgrade dataset, support grouped KED transform
+* chore(dev): upgrade utils, fix donut arc, etc. Closes #878
+* chore(naming): demos/data/Iris-flower.json -> demos/data/iris-flower.json
+* chore(test): add test cases for violinDodge and violin smooth shapes, etc.
+* chore(util): values -> @antv/util/lib/array/values-of-key, etc.
+* feat(geom): support dodge adjust for violin geom
+* feat(geom): support violin and add demos / test cases, etc.
+* feat(geom): violin geom supports smooth/smoothHollow shapes
+* feat(guide): add start,end support
+* refactor(arc): sort out codes related to Math
+* refactor(polar): add endAngle until endAngle > startAngle
+
+##### Bug Fixes
+
+* fix(Global): G2.Global.animate setting is not working, Closes #856
+* fix(arc): fix unable to draw circle
+* fix(arc): when start and end is equal, it should not be a circle
+* fix(chart): getSnapRecords for points. Closes #885
+* fix(dev): upgrade babel preset env for torchjs
+* fix(label): modify unit tests of label rotation
+* fix(label): stop setting rotation in attr(), use shape.transform instead
+* fix(legend):field option error
+* fix(liquidfill): clip shape should not be added into group
+* fix(polar): add endAngle until endAngle > startAngle
+* fix(polar): avoid possible exception when startAngle > endAngle
+* fix: add issue test case, Closes #838
+* fix: add unit test of Polar coord when startAngle > endAngle
+* fix: add unit test of drawing arc
+* fix: modify test case accordingly
+* fix: resume origin code of direction
+* fix: 修复shared为false，tooltip不随动的bug
+* fix: 修复test不通过的问题，应该是改为svg和canvas通用以后的遗留问题
+* fix: 修改tooltip方法，旧的存在bug，导致typscript报错，无法使用第一个方法。
+
+#### 3.2.7 (2018-08-17)
+
+##### New Features
+
+* chore(dev): remove svg-related building code
+* chore(dev): update g and interaction
+* chore(test): fixing test cases for new renderer
+* chore(tooltip): blockTooltipChange -> stopTooltip
+* feat(renderer): chart scope renderer switching
+* feat(tooltip): add blockTooltipChange state
+* feat(track): add trackingInfo for product analysis
+* refactor(g): change `__attrs` to `_attrs` in tests
+
+##### Bug Fixes
+
+* fix(chart): downlownImage not working in svg context
+* fix(event): fixed bug of guide-line click
+* fix(g): avoid initializing matrix again, use reset instead
+* fix(g): new a rect as clip instead of add the shape into a group
+* fix(legend): fix continuous error position when useHtml is true
+* fix(legend): slider mousemove events under the condition that legend container is a seperate canvas
+* fix(region-filter): 判断layer销毁不执行创建shape的行为
+* fix(tooltip): fixed tooltip bug of enterable feature
+* fix(tooltip, event): fix plotleave and tooltip hide bugs
+
+#### 3.2.6 (2018-07-28)
+
+##### New Features
+
+* feat(tooltip): support custom format
+
+##### Bug Fixes
+
+* fix(legend): constrain size legend scroll bar size
+* fix(tooltip): tooltip style in firefox, Closes #769
+* fix(tooltip): Theme.tooltipMarker invalid. Closes #757
+* fix(legend): mouseover on customized legend title does not throw. Closes #775
+
+#### 3.2.5 (2018-07-23)
+
+##### Bug Fixes
+
+* fix(dev): require entries from src to lib
+
+#### 3.2.4 (2018-07-13)
+
+##### Bug Fixes
+
+* fix(coord): should not set coord in theme. Closes #745
+* fix(dev): unify module entries to avoid building issues
+
+#### 3.2.2 (2018-07-10)
+
+##### Bug Fixes
+
+* fix(axis): cat axis support timeCat data type
+* fix(legend): chart backplot range calculation
+* fix(legend): issue if legend value contains "
+* fix(legend): path of legend marker of line chart
+* fix(theme): Global theme is not working
+* fix(tooltip): tooltip marker style
+
+#### 3.2.0 (2018-07-09)
+
+##### New Features
+
+* chore(dev): fix test coverage generator
+* chore(dev): remove lodash, use `@antv/util` instead
+* chore(dev): support svg (add entry for svg version)
+* chore(dev): upgrade `@antv/g` to svg supported version
+* chore(dev): use `@antv/interaction` instead
+* chore(dev): use src entries to make bundle thinner
+* chore(structure): publich module `@antv/scale`, `@antv/adjust` and `@antv/attr`.
+* chore(test): fix test case description
+* chore(test): remove useless test cases
+* chore(util): Added tslint npm command that validates src/index.d.ts file; Added simple rules and fixed several tslint code style issues
+* feat(component): add new components
+* feat(interaction): support shape select interaction
+* feat(legend): multi-geom legend support
+* feat(renderer): support svg renderer
+* feat(theme): Global -> viewTheme
+* feat(theme): view theme support for components
+* feat(theme): view theme support for geom
+* refactor: add appendInfo to click event if exists
+* refactor: change clip method of liquid fill plot
+* refactor: if tooltip is not shared, use event target instead of picking shape from geom
+* refactor: replace shape Arc with path
+* refactor: sort out all the util methods into Util
+* refractor size legend
+
+##### Bug Fixes
+
+* fix(axis): tickLine & label positions
+* fix(axis):align with label, Closes #718
+* fix(color): rgba to hex, Closes #678
+* fix(coord.polar): when endAngle = Math.PI * 2, graph not fitting canvas. Closes #689
+* fix(demo): fixing pie demo
+* fix(dev) main field in package  + fix typescipt requirement issue
+* fix(geom): interval and area with negative data, Closes #731
+* fix(pathUtil.convertPolarPath): Closes #730
+* fix(types): Fixed type definition for Chart: correctly typed the constructor argument and added get method
+* fix(util): DomUtil compatible with older version
+* fix: fix api usage error
+* fix: fix some unit tests
+* fix: fix the incorrect vector of start point tick
+* fix: fix width & height value of group when group has no child
+* fix: pass path array instead of manipulating context when defining Marker
+* fix: revert liquid wave plot
+* fix: set symbol of tooltip marker
+* fix: svg version don't have to getShape, use event target
+* fix: use show & hide instead of set visible
+
+#### 3.1.2 (2018-06-08)
+
+##### New Features
+
+* feat(legend): tail-legend
+* feat(legend): extend legend positions to twelve
+
+##### Bug Fixes
+
+* fix(guide): exception when draw with reflected coord
+* fix(heatmap): keep heatmap image in plot range
+* fix(dev): sync pkg and global version for g2
+
+#### 3.1.1 (2018-06-02)
+
+##### New Features
+
+* feat(axis): linear and category axis style
+
+##### Bug Fixes
+
+* fix(tooltip): disable tooltip crosshairs event capturing. Closes #656
+
+#### 3.1.0 (2018-05-25)
+
+##### New Features
+
+* chore(dev): update dependencies, etc.
+* feat(interaction): add basic interaction grammar (beta)
+* feat(interaction): add brush interaction
+* feat(interaction): add zoom interaction
+* feat(interaction): add drag interaction
+* feat(axis): highlight zero baseline
+
+##### Bug Fixes
+
+* fix(tooltip): ignore properties like showMarker of tooltip items
+
+#### 3.0.12 (2018-05-18)
+
+##### Bug Fixes
+
+* fix(geom): undefined container in changeVisible. Closes #629
+* fix(tooltip): bug in removing duplicated items, Closes #637
+
+#### 3.0.11 (2018-05-11)
+
+##### Bug Fixes
+
+* fix(tooltip): change tooltip when any of the item properties changed, Closes #616
+* fix(tooltip): fix bug in removing duplicated items
+
+#### 3.0.10 (2018-05-04)
+
+##### New Features
+
+* feat(guide):add regionFilter guide
+
+##### Bug Fixes
+
+* fix(chart): fix downloadImage method in chart to fit IE 10+ and Firefox, Close #617
+* fix(scale): fixing timeCat scale when data is empty, Closes #615
+
+#### 3.0.9 (2018-04-28)
+
+##### Bug Fixes
+
+* fix(heatmap): not drawn properly after resize (caused by ctx cache), Closes #604
+* fix(scale): time scale init error (caused by invalid min and max), Closes #607
+* fix(polygon): open path is not drawn properly in polar coordinate system
+
+#### 3.0.8 (2018-04-22)
+
+##### Bug Fixes
+
+* fix(area): urgent fix of basic area plot, Closes #602
+
+#### 3.0.7 (2018-04-20)
+
+##### New Features
+
+* feat(geom): support multiple polygon
+* refactor(dev): require on demand (with bundler app) #579 #364
+* chore(dev): reduce module size by removing useless deps of lodash
+* chore(test): clear up test cases
+
+##### Bug Fixes
+
+* fix(geom): fix bug in rendering GeoJSON multi-polygon #551
+* fix(area): fix bug of area innerRadius in polar coord #573
+* fix(pyramid): fix bug of pyramid when processing data with 0 #569
+
+#### 3.0.6 (2018-04-09)
+
+##### New Features
+
+* feat(interval): add top-line shape
+
+##### Bug Fixes
+
+* fix(legend): position and offset settings not working
+
+#### 3.0.5 (2018-04-04)
+
+##### New Features
+
+* chore(demo): map with heatmap
+* chore(dev): remove console logs
+* feat(chart): add Venn Geom
+* feat(chart): liquid-fill plots
+* feat(chart): liquid-fill shapes (guage and path)
+* feat(line): make lineDash configurable, Closes #486
+
+##### Bug Fixes
+
+* fix(typescript): Some func signature is wrong and cause typescript to * throw error to block compile
+* fix(animate): fixed axis animate, Closes #378
+* fix(chart): venn label position
+* fix(dev): resolve potential security vulnerability in * dependencies
+* fix(event): Closes #439
+* fix(event): emit plotleave event properly, Closes #502
+* fix(funnel): fixed bug of funnel animation, Closes #213
+* fix(geom): add chart.pointStack(), Closes #437
+* fix(geom): support connect null values, Closes #415
+* fix(heatmap): heatmap cannot be drew when reflecting coord
+* fix(label): fixed bug of pie label when coord rotate
+* fix(label): when label is empty, the label line does not show
+* fix(legend): legend value formatter, #406
+* fix(legend): when chart auto padding, legend overlap axis
+* fix(scale): Closes #520, #528, #408
+* fix(scale): when Infinity throw error
+* fix(selected): Closes #515
+* fix(tooltip): Closes #454
+* fix(tooltip): change tooltip title in tooltip:change, Closes #280
+* fix(typing): add missing implicit type definition
+* fix(venn): label color when shape is hollow
+* fix(venn): label textBaseline should be middle by default
+* fix: Closes #557
+* fix: html legend in ie9
+
+#### 3.0.4 (2018-01-26)
+
+##### New Features
+
+* chore(dev): keep G2.Global.Version same as pkg.version
+* chore(dev): provide ES5 version for npm pkg
+* feat(highlight): active shape support highlight
+* feat(scale): update cat ticks calculate
+* feat(shape): add image shape for point
+* feat(shape): add path shape for point
+* feat(stack): support stack reverse order
+* perf(shape): caching path calculating for point path shape
+
+##### Bug Fixes
+
+* fix(attr): do not throw when color mapping value is NaN
+* fix(axis): title config not working
+* fix(chart): clear timer after chart instance destroyed
+* fix(chart): download image supports Firefox, etc.
+* fix(event): event triggering in point geom
+* fix(event): modifying shapes in events not working
+* fix(facet): duplicated axes rendering
+* fix(legend): error when `cat` scale with empty data
+* fix(legend): event is not triggered due to lacking of viewId
+* fix(legend): extra legend generated in heatmap rendering
+* fix(legend): html legend checked status error
+* fix(legend): title config not working
+* fix(scale): scale sync not working
+* fix(select): getSelectedCfg is not a function
+* fix(shape): fixed register shape error
+* fix(tooltip): tooltip change event emitted only when content changes
+
+#### 3.0.3 (2017-12-25)
+
+##### New Features
+
+* chore(dev): remove useless dependency (cheerio)
+* chore(dev): upgrade torchjs (testing framework)
+* chore(doc): replacing demos screenshot in README.md
+* chore(legend): better continous legend's mouse cursor.
+* feat(chart): support auto padding
+
+##### Bug Fixes
+
+* fix(axis): axis'title setting. Close #299
+* fix(axis): fill gaps near edges when gridAlign is `center`
+* fix(axis): left axis grid cover the axis line
+* fix(chart): Endless loop after chart.forceFit()
+* fix(chart): crush after resize. Closes: #241
+* fix(demos): @lite-js/torch => torchjs
+* fix(demos): map drilling down problem
+* fix(scale): throw an error to avoid stack overflow, etc.
+* fix(theme): allow set partial theme. Closed #205.
+* fix(theme): set theme for legend.html but not work
+* fix(tooltip): fixed bug of #318, size(filed) caused error of tooltip
+
+#### 3.0.2 (2017-12-14)
+
+##### New Features
+
+* chore(dev): add `index.d.ts`
+* chore(dev): working with Windows
+* chore(dev): better scripts for dev
+* chore(demos): better demos solution & add more demos
+
+##### Bug Fixes
+
+* fix(tooltip): set title for tooltip, change does not take effect(#280)
+* fix(shape): fixed bug of #252
+* fix(view): fix bug of filter and view event
+* fix(eslint): close the linebreak-style rule to support windows os
+* fix(dependencies): be more careful on dependencies management (like uglify-js)
+* fix(scale): very little number ticks
+* fix(component): set appropriate value of zIndex
+* chore(demos): fixing demos style, etc.
+* chore(demos): remove screenshots
+
 #### 3.0.1 (2017-12-01)
 
 ##### New Features
@@ -9,7 +681,7 @@
 ##### Bug Fixes
 
 * fix tooltip bug. ([2933b777](https://github.com/antvis/g2/commit/2933b7777c4365c5fd8f52bb37fd4ee35250c627))
-* Unified the easing funciton of all geoms. ([78849666](https://github.com/antvis/g2/commit/78849666be78b0b3754c1ed43bfff05e0fff1361))
+* Unified the easing function of all geoms. ([78849666](https://github.com/antvis/g2/commit/78849666be78b0b3754c1ed43bfff05e0fff1361))
 
 #### 3.0.0 (2017-11-22)
 

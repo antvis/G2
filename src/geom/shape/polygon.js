@@ -3,52 +3,58 @@
  * @author dxq613@gmail.com
  * @author sima.zhang1990@gmail.com
  * @author huangtonger@aliyun.com
+ # @author liuye10@yahoo.com
  */
 
 const Util = require('../../util');
 const Shape = require('./shape');
+const ShapeUtil = require('../util/shape');
 const Global = require('../../global');
 
 function getAttrs(cfg) {
   const defaultCfg = Global.shape.polygon;
-  const shapeCfg = Util.mix({}, defaultCfg, {
-    stroke: cfg.color,
-    fill: cfg.color,
-    fillOpacity: cfg.opacity
-  }, cfg.style);
-  return shapeCfg;
+  const pathAttrs = Util.mix({}, defaultCfg, cfg.style);
+  ShapeUtil.addFillAttrs(pathAttrs, cfg);
+  return pathAttrs;
 }
 
 function getHollowAttrs(cfg) {
   const defaultCfg = Global.shape.hollowPolygon;
-  const shapeCfg = Util.mix({}, defaultCfg, {
-    stroke: cfg.color,
-    strokeOpacity: cfg.opacity
-  }, cfg.style);
-  return shapeCfg;
+  const pathAttrs = Util.mix({}, defaultCfg, cfg.style);
+  ShapeUtil.addStrokeAttrs(pathAttrs, cfg);
+  return pathAttrs;
 }
+
+
 function getPath(points) {
-  const path = [];
-  let flag = [ points[0].x, points[0].y ];
-  let flagIndex = 0;
-  let lastStartPoint = points[0];
-  Util.each(points, function(obj, index) {
-    const subPath = index === 0 ? [ 'M', obj.x, obj.y ] : [ 'L', obj.x, obj.y ];
-    path.push(subPath);
-    if (flagIndex !== index && index < (points.length - 1) && Util.isEqualWith(flag, [ obj.x, obj.y ])) {
-      const nextPoint = points[index + 1];
-      path.push([ 'Z' ]);
-      path.push([ 'M', nextPoint.x, nextPoint.y ]);
-      lastStartPoint = nextPoint;
-      flagIndex = index + 1;
-      flag = [ nextPoint.x, nextPoint.y ];
+  let flag = points[0];
+  let i = 1;
+
+  const path = [[ 'M', flag.x, flag.y ]];
+
+  while (i < points.length) {
+    const c = points[i];
+    if (c.x !== points[i - 1].x || c.y !== points[i - 1].y) {
+      path.push([ 'L', c.x, c.y ]);
+      if (c.x === flag.x && c.y === flag.y && i < points.length - 1) {
+        flag = points[i + 1];
+        path.push([ 'Z' ]);
+        path.push([ 'M', flag.x, flag.y ]);
+        i++;
+      }
     }
-  });
-  path.push([ 'L', lastStartPoint.x, lastStartPoint.y ]);
+    i++;
+  }
+
+  if (!Util.isEqual(path[path.length - 1], flag)) {
+    path.push([ 'L', flag.x, flag.y ]);
+  }
+
   path.push([ 'Z' ]);
-  // console.log(Util.map(path, points => points.join('')).join(''));
+
   return path;
 }
+
 
 // regist line geom
 const Polygon = Shape.registerFactory('polygon', {
@@ -128,5 +134,6 @@ Shape.registerShape('polygon', 'hollow', {
     }, getAttrs(cfg));
   }
 });
+
 
 module.exports = Polygon;

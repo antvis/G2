@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="geometry" content="interval">
+  <link rel="stylesheet" href="./assets/common.css">
+  <title>Interval with labels</title>
+</head>
+
+<body>
+  <div id="canvas"></div>
+  <script src="./assets/jquery-3.2.1.min.js"></script>
+  <script src="../build/g2.js"></script>
+  <script>
+    const data = [{
+      year: '1951 年',
+      sales: 38
+    }, {
+      year: '1952 年',
+      sales: 52
+    }, {
+      year: '1956 年',
+      sales: 61
+    }, {
+      year: '1957 年',
+      sales: 145
+    }, {
+      year: '1958 年',
+      sales: 48
+    }, {
+      year: '1959 年',
+      sales: 38
+    }, {
+      year: '1960 年',
+      sales: 38
+    }, {
+      year: '1962 年',
+      sales: 38
+    }];
+    const chart = new G2.Chart({
+      container: 'canvas',
+      forceFit: true,
+      height: window.innerHeight
+    });
+    chart.source(data);
+    chart.scale('sales', {
+      tickInterval: 20
+    });
+    chart.axis('sales', {
+      label: {
+        offset: [ -10, 10 ]
+      }
+    });
+    chart.interval().position('year*sales');
+    chart.render();
+  </script>
+</body>
+</html>

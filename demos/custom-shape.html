@@ -46,7 +46,6 @@
             radius: 10
           }
         });
-        console.log(cfg.shape);
         return container.addShape('image', {
           attrs: {
             x: cfg.x - 20,
@@ -68,7 +67,55 @@
         min: 0
       }
     });
-    chart.legend(false);
+    const colors = [ '#7f8da9', '#fec514', '#db4c3c', '#daf0fd' ];
+    const items = [];
+    let totalVote = 0;
+    data.forEach(d => {
+      totalVote += d.vote;
+    });
+    let i = 0;
+    data.forEach(d => {
+      items.push({
+        value: d.name,
+        percentage: (100 * d.vote / totalVote).toFixed(2),
+        vote: d.vote,
+        marker: {
+          fill: colors[i],
+          symbol: d.name,
+          raduis: 5
+        }
+      });
+      i++;
+    });
+    chart.legend('name', {
+      items,
+      useHtml: true,
+      custom: true,
+      layout: 'vertical',
+      itemTpl: '<li class="g2-legend-list-item item-{index} {checked}" data-color="{originColor}" data-value="{originValue}">' +
+              '<span class="customize-icon" style="background-color:#eee; width:15px; height:15px; display:inline-block; margin-right: 4px; vertical-align:middle;  border-radius:20%" >' +
+              '<div style="color:#aaa; font-family:PingFang SC; text-align:center; margin-top:-2px">{index}</div></span>' +
+              '&nbsp;<i class="g2-legend-marker" style="background-color:{color};"></i>&nbsp;' +
+              '<span class="g2-legend-text">{value}&nbsp;&nbsp;<span style="color:#ccc">|&nbsp;&nbsp;{percentage}%</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{vote} votes</span>' +
+            '</li>',
+      legendStyle: {
+        CONTAINER_CLASS: {
+          height: '300px'
+        },
+        LIST_ITEM_CLASS: {
+          cursor: 'pointer',
+          marginBottom: '12px',
+          marginRight: '24px',
+          height: '20px'
+        },
+        LIST_CLASS: {
+          listStyleType: 'none',
+          margin: 0,
+          padding: 0,
+          textAlign: 'left'
+        }
+      }
+    });
     chart.axis('vote', {
       labels: null,
       title: null,
@@ -78,7 +125,7 @@
     chart.axis('name', {
       title: null
     });
-    chart.interval().position('name*vote').color('name', [ '#7f8da9', '#fec514', '#db4c3c', '#daf0fd' ])
+    chart.interval().position('name*vote').color('name', colors)
       .shape('name', function(name) {
         return [ 'image-top', imageMap[name] ]; // 根据具体的字段指定 shape
       });

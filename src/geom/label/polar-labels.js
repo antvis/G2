@@ -13,6 +13,10 @@ class PolarLabels extends Labels {
     const center = coord.getCenter();
     const labelEmit = self._isEmitLabels();
     let r = self.getPointRauis(coord, point);
+    if (r === 0) {
+      return null;
+    }
+
     if (coord.isTransposed && r > offset && !labelEmit) {
       const appendAngle = Math.asin(offset / (2 * r));
       angle = angle + appendAngle * 2;
@@ -81,20 +85,21 @@ class PolarLabels extends Labels {
   /**
    * @protected
    * 获取文本的位置信息
-   * @param {Array} labels labels
+   * @param {Array} label labels
    * @param {Object} point point
    * @param {Number} index index
    * @return {Object} point
    */
-  getLabelPoint(labels, point, index) {
+  getLabelPoint(label, point, index) {
+    // if (Util.isNil(point.x)) return;
     const self = this;
-    const text = labels[index];
+    const text = label.text[index];
     let factor = 1;
     let arcPoint;
     if (self._isToMiddle(point)) {
       arcPoint = self.getMiddlePoint(point.points);
     } else {
-      if (labels.length === 1 && index === 0) {
+      if (label.text.length === 1 && index === 0) {
         index = 1;
       } else if (index === 0) {
         factor = -1;
@@ -102,15 +107,28 @@ class PolarLabels extends Labels {
       arcPoint = self.getArcPoint(point, index);
     }
 
-    let offset = self.getDefaultOffset();
+    let offset = self.getDefaultOffset(label);
     offset = offset * factor;
     const middleAngle = self.getPointAngle(arcPoint);
-    const labelPoint = self.getCirclePoint(middleAngle, offset, arcPoint);
-    labelPoint.text = text;
-    labelPoint.angle = middleAngle;
-    labelPoint.color = point.color;
-
-    labelPoint.rotate = self.getLabelRotate(middleAngle, offset, point);
+    let labelPoint = self.getCirclePoint(middleAngle, offset, arcPoint);
+    if (!labelPoint) {
+      labelPoint = { text: '' };
+    } else {
+      labelPoint.text = text;
+      labelPoint.angle = middleAngle;
+      labelPoint.color = point.color;
+    }
+    if (label.autoRotate || typeof label.autoRotate === 'undefined') {
+      let rotate = labelPoint.textStyle ? labelPoint.textStyle.rotate : null;
+      if (!rotate) {
+        rotate = labelPoint.rotate || self.getLabelRotate(middleAngle, offset, point);
+      }
+      labelPoint.rotate = rotate;
+    }
+    labelPoint.start = {
+      x: arcPoint.x,
+      y: arcPoint.y
+    };
     return labelPoint;
   }
 
@@ -159,7 +177,7 @@ class PolarLabels extends Labels {
       align = 'center';
     } else {
       const center = coord.getCenter();
-      const offset = self.getDefaultOffset();
+      const offset = self.getDefaultOffset(point);
       if (Math.abs(point.x - center.x) < 1) {
         align = 'center';
       } else if (point.angle > Math.PI || point.angle <= 0) {

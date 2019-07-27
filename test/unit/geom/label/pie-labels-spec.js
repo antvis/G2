@@ -1,10 +1,11 @@
 const expect = require('chai').expect;
-const { Canvas } = require('@antv/g');
 const DataSet = require('@antv/data-set');
+const { Canvas } = require('../../../../src/renderer');
 const PieLabels = require('../../../../src/geom/label/pie-labels');
-const Coord = require('../../../../src/coord/');
-const G2 = require('../../../../index');
-const Scale = require('../../../../src/scale/index');
+const Coord = require('@antv/coord/lib/');
+const Util = require('../../../../src/util');
+const G2 = require('../../../../src/index');
+const Scale = require('@antv/scale');
 
 describe('pie labels', function() {
   const ds = new DataSet();
@@ -179,7 +180,8 @@ describe('pie labels', function() {
       const cfg = gLabels.get('label');
       expect(cfg.offset).to.equal(10);
       expect(cfg.textStyle).not.to.equal(undefined);
-      expect(cfg.labelLine).not.to.equal(undefined);
+      // 现在在drawLine的时候通过offset判断，不走统一逻辑
+      // expect(cfg.labelLine).not.to.equal(undefined);
       // expect(cfg.label.fill).to.equal('#fff');
     });
     let items;
@@ -269,7 +271,7 @@ describe('pie labels', function() {
       const cfg = gLabels.get('label');
       expect(cfg.offset).to.equal(20);
       expect(cfg.textStyle).not.to.equal(undefined);
-      expect(cfg.labelLine).not.to.equal(undefined);
+      // expect(cfg.labelLine).not.to.equal(undefined);
     });
     let items;
     it('get items', function() {
@@ -341,7 +343,7 @@ describe('pie labels', function() {
       const cfg = gLabels.get('label');
       expect(cfg.offset).to.equal(20);
       expect(cfg.textStyle).not.to.equal(undefined);
-      expect(cfg.labelLine).not.to.equal(undefined);
+      // expect(cfg.labelLine).not.to.equal(undefined);
     });
     let items;
     it('get items', function() {
@@ -364,17 +366,17 @@ describe('pie labels', function() {
       padding: [ 20, 10, 50, 60 ]
     });
     const defs = {
-      visiter: { min: 0 }
+      visitor: { min: 0 }
     };
     let data;
 
     beforeEach(() => {
       data = [
-        { action: '访问', visiter: 500, text: 'xxdadsfsadfasdfadsf' },
-        { action: '浏览', visiter: 400, text: 'sfsadfasdfadsf' },
-        { action: '交互', visiter: 300, text: 'xxdadsfs' },
-        { action: '下单', visiter: 200, text: 'fsadfasdfadsf' },
-        { action: '付款', visiter: 100, text: 'xxd' }
+        { action: '访问', visitor: 500, text: 'xxdadsfsadfasdfadsf' },
+        { action: '浏览', visitor: 400, text: 'sfsadfasdfadsf' },
+        { action: '交互', visitor: 300, text: 'xxdadsfs' },
+        { action: '下单', visitor: 200, text: 'fsadfasdfadsf' },
+        { action: '付款', visitor: 100, text: 'xxd' }
       ];
     });
 
@@ -384,9 +386,9 @@ describe('pie labels', function() {
       chart.source(data);
       chart.scale(defs);
       chart.interval()
-        .position('action*visiter')
+        .position('action*visitor')
         .color('action')
-        .label('visiter', { offset: 10 });
+        .label('visitor', { offset: 10 });
       chart.render();
 
       const geom = chart.get('geoms')[0];
@@ -408,9 +410,9 @@ describe('pie labels', function() {
       chart.coord('polar');
       chart.source(data, defs);
       chart.interval()
-        .position('action*visiter')
+        .position('action*visitor')
         .color('action')
-        .label('visiter', { offset: -10 });
+        .label('visitor', { offset: -10 });
       chart.render();
 
       const geom = chart.get('geoms')[0];
@@ -429,7 +431,7 @@ describe('pie labels', function() {
       const dv = ds.createView('pie-outer-text').source(data);
       dv.transform({
         type: 'percent',
-        field: 'visiter',
+        field: 'visitor',
         dimension: 'action',
         as: 'percent'
       });
@@ -440,7 +442,7 @@ describe('pie labels', function() {
         .position('percent')
         .adjust('stack')
         .color('action')
-        .label('visiter', { offset: 15 });
+        .label('visitor', { offset: 15 });
       chart.render();
 
       const geom = chart.get('geoms')[0];
@@ -459,7 +461,7 @@ describe('pie labels', function() {
       const dv = ds.createView('pie-inner-text').source(data);
       dv.transform({
         type: 'percent',
-        field: 'visiter',
+        field: 'visitor',
         dimension: 'action',
         as: 'percent'
       });
@@ -470,7 +472,7 @@ describe('pie labels', function() {
         .position('percent')
         .adjust('stack')
         .color('action')
-        .label('visiter', { offset: -5 });
+        .label('visitor', { offset: -5 });
       chart.render();
 
       const geom = chart.get('geoms')[0];
@@ -563,8 +565,8 @@ describe('pie labels', function() {
       const first = labelsGroup.getFirst();
       const last = labelsGroup.getLast();
 
-      expect(first.attr('x')).to.be.equal(199.89235226167526);
-      expect(first.attr('y')).to.be.equal(82.39235226167526);
+      expect(first.attr('x')).to.be.equal(206.9634200735407);
+      expect(first.attr('y')).to.be.equal(89.46342007354075);
       expect(last.attr('x')).to.be.equal(330);
       expect(last.attr('y')).to.be.equal(398);
     });
@@ -629,7 +631,7 @@ describe('pie labels', function() {
       const cfg = gLabels.get('label');
       expect(cfg.offset).to.equal(30);
       expect(cfg.textStyle).not.to.equal(undefined);
-      expect(cfg.labelLine).not.to.equal(undefined);
+      // expect(cfg.labelLine).not.to.equal(undefined);
     });
     it('get items', function() {
       gLabels.getLabelsItems(points);
@@ -640,9 +642,9 @@ describe('pie labels', function() {
       canvas.draw();
     });
 
-    xit('remove', function() {
-      // $('#gl3').remove();
-    });
+    // xit('remove', function() {
+    //   // $('#gl3').remove();
+    // });
   });
 
   describe('Just one label.', function() {
@@ -679,9 +681,94 @@ describe('pie labels', function() {
       const labelGroup = geom.get('labelContainer');
       const labelsGroup = labelGroup.get('labelsGroup');
       const cText = labelsGroup.get('children')[0];
-      console.log(cText.get('attrs').x, cText.get('attrs').y);
-      expect(cText.get('attrs').x).to.equal(270.8166632639171);
-      expect(cText.get('attrs').y).to.equal(228);
+      expect(cText.get('attrs').x).to.equal(269.0640499692492);
+      expect(cText.get('attrs').y).to.equal(218);
+    });
+  });
+
+  describe('pie text outter with offsetX & offsetY', function() {
+    const coord = new Coord.Polar({
+      start: {
+        x: 200,
+        y: 200
+      },
+      end: {
+        x: 300,
+        y: 0
+      }
+    });
+
+    coord.transpose();
+    const points = [];
+    const values = [];
+    for (let i = 0; i < 6; i++) {
+      const obj = coord.convertPoint({
+        x: 0.5,
+        y: i / 6
+      });
+      const endPoint = coord.convertPoint({
+        x: 0.5,
+        y: (i + 1) / 6
+      });
+      const point = {
+        x: [ obj.x, endPoint.x ],
+        y: [ obj.y, endPoint.y ],
+        color: 'red',
+        label: i.toString(),
+        _origin: {
+          x: [ obj.x, endPoint.x ],
+          y: [ obj.y, endPoint.y ],
+          color: 'red',
+          label: i.toString()
+        }
+      };
+
+      values.push(i.toString());
+      points.push(point);
+    }
+    const scale = Scale.cat({
+      field: 'label',
+      values
+    });
+    let gLabels;
+    it('init', function() {
+      gLabels = canvas.addGroup(PieLabels, {
+        coord,
+        labelCfg: {
+          cfg: {
+            offset: 10,
+            offsetX: 10,
+            offsetY: -10
+          },
+          scales: [ scale ]
+        },
+        geomType: 'point'
+      });
+
+      const cfg = gLabels.get('label');
+      expect(cfg.offset).to.equal(10);
+      expect(cfg.offsetX).to.equal(10);
+      expect(cfg.offsetY).to.equal(-10);
+      expect(cfg.textStyle).not.to.equal(undefined);
+      // 现在在drawLine的时候通过offset判断，不走统一逻辑
+      // expect(cfg.labelLine).not.to.equal(undefined);
+      // expect(cfg.label.fill).to.equal('#fff');
+    });
+    it('points', function() {
+      let items = gLabels.getLabelsItems(points);
+      items = gLabels.adjustItems(items);
+      expect(items.length).to.equal(points.length);
+      expect(items[0].x).to.equal(230);
+      expect(Util.isNumberEqual(items[0].y, 48.03847577293368 - 10)).to.be.true;
+
+      expect(items[1].x).to.equal(200);
+      expect(Util.isNumberEqual(items[1].y, 100 - 10)).to.be.true;
+
+      expect(items[2].x).to.equal(230.00000000000006);
+      expect(Util.isNumberEqual(items[2].y, 151.96152422706632 - 10)).to.be.true;
+
+      expect(items[5].x).to.equal(290);
+      expect(Util.isNumberEqual(items[5].y, 151.96152422706632 - 10)).to.be.true;
     });
   });
 });

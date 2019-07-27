@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="geometry" content="area">
+  <link rel="stylesheet" href="./assets/common.css">
+  <title>Guide.Region</title>
+</head>
+
+<body>
+  <div id="canvas"></div>
+  <button data-coord="rect">切换为极坐标</button>
+  <script src="./assets/jquery-3.2.1.min.js"></script>
+  <script src="../build/g2.js"></script>
+  <script>
+  const data = [
+    { date: '2018-05-14', pv: 709 },
+    { date: '2018-05-15', pv: 936 },
+    { date: '2018-05-16', pv: 627 },
+    { date: '2018-05-17', pv: 872 },
+    { date: '2018-05-18', pv: 824 },
+    { date: '2018-05-19', pv: 258 },
+    { date: '2018-05-20', pv: 59 },
+    { date: '2018-05-21', pv: 880 },
+    { date: '2018-05-22', pv: 995 },
+    { date: '2018-05-23', pv: 842 }
+  ];
+  const chart = new G2.Chart({
+    container: 'canvas',
+    forceFit: true,
+    height: window.innerHeight
+  });
+  chart.source(data, {
+    date: {
+      type: 'cat',
+      range: [ 0, 1 ]
+    }
+  });
+  chart.tooltip({
+    showCrosshairs: true
+  });
+  // set Guide.region
+  chart.guide().region({
+    start: [ '2018-05-19', 'max' ],
+    end: [ '2018-05-20', 'min' ]
+  });
+  chart.line().position('date*pv');
+  chart.point().position('date*pv');
+  chart.render();
+  </script>
+</body>
+
+</html>

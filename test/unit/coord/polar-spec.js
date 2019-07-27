@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const Polar = require('../../../src/coord/polar');
+const Polar = require('@antv/coord/lib/polar');
 
 describe('Polar', function() {
   const coord = new Polar({
@@ -118,5 +118,16 @@ describe('Polar', function() {
     expect(point.x).to.equal(50);
     expect(point.y).to.equal(150);
     coord.reflect('y');
+  });
+
+  it('endAngle < startAngle', () => {
+    const coord = new Polar({
+      start: { x: 80, y: 355 },
+      end: { x: 480, y: 20 },
+      startAngle: 1 / 2 * Math.PI,
+      endAngle: -1 / 2 * Math.PI
+    });
+    expect(coord.startAngle).to.equal(1 / 2 * Math.PI);
+    expect(coord.endAngle).to.equal(3 / 2 * Math.PI);
   });
 });

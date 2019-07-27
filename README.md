@@ -19,8 +19,8 @@ G2 is a visualization grammar, a data-driven visual language with a high level o
 
 ## Installation
 
-```js
-npm install @antv/g2
+```bash
+$ npm install @antv/g2
 ```
 
 ### Usage
@@ -55,7 +55,7 @@ chart.render();
 
 [More examples](https://antv.alipay.com/zh-cn/g2/3.x/demo/index.html)
 
-<img src="https://user-images.githubusercontent.com/6628666/33254261-ccc1f55a-d382-11e7-83ba-808712bd5b92.png" width="400" height="636"><img src="https://user-images.githubusercontent.com/6628666/33254262-cce7c8a2-d382-11e7-9e9b-2eba6093db39.png" width="400" height="636">
+![demos](https://user-images.githubusercontent.com/1655789/34187141-d800fe94-e56a-11e7-878a-4dc0e4f538d9.png)
 
 ## Development
 
@@ -64,6 +64,9 @@ $ npm install
 
 # run test case
 $ npm run test-live
+
+# build watching file changes and run demos
+$ npm run dev
 
 # run demos
 $ npm run demos
@@ -74,3 +77,20 @@ $ npm run demos
 Please let us know how can we help. Do check out [issues](https://github.com/antvis/g2/issues) for bug reports or suggestions first.
 
 To become a contributor, please follow our [contributing guide](https://github.com/antvis/g2/blob/master/CONTRIBUTING.md).
+
+## ~~Experience Improvement Program Description~~
+
+~~In order to serve the users better, G2 will send the URL and version information back to the AntV server:~~
+
+~~https://kcart.alipay.com/web/bi.do~~
+
+~~**Except for URL and G2 version information, no other information will be collected.** You can also turn it off with the following code:~~
+
+```js
+// disable tracking
+G2.track(false)
+```
+
+**update:**
+
+**We decided to terminate the "Experience Improvement Program". In verson `@antv/g2@3.4.7` and above, all tracking code is removed, no unexpected remote request will be sent while you are using G2.**

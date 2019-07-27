@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="geometry" content="interval">
+  <link rel="stylesheet" href="./assets/common.css">
+  <title>Bar Plot</title>
+</head>
+
+<body>
+  <div id="canvas"></div>
+  <div id="slider"></div>
+  <script src="./assets/jquery-3.2.1.min.js"></script>
+  <script src="./assets/data-set.min.js"></script>
+  <script src="../build/g2.js"></script>
+
+  <script>
+    $.getJSON('./data/top2000.json', data => {
+      const G2 = window.G2_3 || window.G2;
+      const ds = new DataSet();
+      const dv = ds.createView('test')
+        .source(data)
+        .transform({
+          as: [ 'count' ],
+          groupBy: [ 'release' ],
+          operations: [ 'count' ],
+          type: 'aggregate'
+        });
+        // .transform({
+        //   type: 'map',
+        //   callback(row) {
+        //     row.release = ` ${row.release}`;
+        //     return row;
+        //   }
+        // });
+
+      const values = [];
+      dv.rows.forEach((row, index) => {
+        if (index < 20) {
+          values.push(row.release);
+        }
+      });
+
+      const chart = new G2.Chart({
+        container: 'canvas',
+        forceFit: true,
+        height: window.innerHeight - 64,
+        limitInPlot: true,
+        padding: [ 20, 20, 75, 60 ]
+      });
+      chart.scale({
+        count: {
+          alias: 'top2000 唱片总量'
+        },
+        release: {
+          // tickInterval: 5,
+          alias: '唱片发行年份',
+          values
+        }
+      });
+      // chart.axis('release', {
+      //   position: 'middle'
+      // });
+      // chart.axis('count', {
+      //   position: 'middle'
+      // });
+      chart.source(dv.rows);
+      // chart.axis(false);
+      chart.interval()
+        .position('release*count')
+        .shape('hollowRect')
+        .color('#e50000');
+
+      // const view2 = chart.view();
+      // view2.source(dv.rows); // TODO
+      // view2.point()
+      //   .position('release*count')
+      //   .color('#e50000');
+
+      // chart.tooltip(false);
+      chart.render();
+
+      chart
+        .interact('zoom', {
+          type: 'X'
+          // filter: true,
+          // draggable: true,
+          // onBrushend() {
+          // }
+        })
+        .interact('drag', {
+          type: 'XY'
+        })
+        .interact('scroll-bar', {
+          type: 'XY'
+        })
+        .interact('slider', {
+          container: 'slider'
+          // onChange(options) {
+          //   console.log(options);
+          // }
+        });
+
+      // console.log(chart);
+    });
+  </script>
+</body>
+
+</html>
