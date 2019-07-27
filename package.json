@@ -44,6 +44,7 @@
     "eslint-plugin-react": "~7.1.0",
     "event-simulate": "~1.0.0",
     "get-port": "~3.2.0",
+    "git-contributor": "1",
     "jszip": "~3.1.5",
     "nightmare": "~2.10.0",
     "nunjucks": "~3.0.1",
@@ -88,7 +89,8 @@
     "test-live": "torch --compile --interactive --watch --recursive ./test/unit",
     "tslint": "tslint --project tsconfig.json --config tslint.json src/index.d.ts",
     "watch": "webpack --config webpack-dev.config.js",
-    "win-dev": "node ./bin/win-dev.js"
+    "win-dev": "node ./bin/win-dev.js",
+    "contributor": "git-contributor"
   },
   "pre-commit": {
     "run": [
