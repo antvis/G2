@@ -351,6 +351,131 @@ function fanIn(shape, animateCfg, coord) {
   clipIn(shape, animateCfg, coord, startAngle, endAngle);
 }
 
+function lineSlideLeft(shape, animateCfg, coord) {
+
+  if (shape.name !== 'line') {
+    return;
+  }
+
+  const canvas = shape.get('canvas');
+  const cache = shape.get('cacheShape');
+  const id = shape._id;
+  const index = shape.get('index');
+
+  const clip = new G.Rect({
+    attrs: {
+      x: coord.start.x,
+      y: coord.end.y,
+      width: coord.getWidth(),
+      height: coord.getHeight()
+    }
+  });
+  clip.isClip = true;
+
+  clip.set('canvas', canvas);
+
+  const lastPath = PathUtil.pathToAbsolute(cache.attrs.path);
+  const updatePath = PathUtil.pathToAbsolute(shape.attr('path'));
+
+  const gap = lastPath[1][1] - lastPath[0][1];
+
+  // 生成过渡Path
+  const pathPatchPosX = lastPath[lastPath.length - 1][1] + gap;
+  const pathPatchPosY = updatePath[updatePath.length - 1][2];
+  const transitionPath = lastPath.concat([[ 'L', pathPatchPosX, pathPatchPosY ]]);
+
+  const v = [ 0, 0, 1 ];
+  shape.apply(v);
+
+  shape.attr('clip', clip);
+  shape.attr('path', transitionPath);
+
+  const endState = {
+    transform: [
+      [ 't', -gap, 0 ]
+    ]
+  };
+
+  const animateParam = getAnimateParam(animateCfg, index, id, endState);
+
+  shape.animate(endState, animateParam.duration, animateParam.easing, function() {
+    if (shape && !shape.get('destroyed')) {
+      shape.attr('path', updatePath);
+      shape.attr({
+        transform: [
+          [ 't', gap, 0 ]
+        ]
+      });
+      shape.attr('clip', null);
+      shape.setSilent('cacheShape', null);
+      clip.remove();
+    }
+  }, animateParam.delay);
+}
+
+function areaSlideLeft(shape, animateCfg, coord) {
+
+  if (shape.name !== 'area') {
+    return;
+  }
+
+  const canvas = shape.get('canvas');
+  const cache = shape.get('cacheShape');
+  const id = shape._id;
+  const index = shape.get('index');
+
+  const clip = new G.Rect({
+    attrs: {
+      x: coord.start.x,
+      y: coord.end.y,
+      width: coord.getWidth(),
+      height: coord.getHeight()
+    }
+  });
+  clip.isClip = true;
+
+  clip.set('canvas', canvas);
+
+  const lastPath = PathUtil.pathToAbsolute(cache.attrs.path);
+  const updatePath = PathUtil.pathToAbsolute(shape.attr('path'));
+
+  const gap = lastPath[1][1] - lastPath[0][1];
+
+  // 生成过渡Path
+  const middleIndex = Math.floor(lastPath.length / 2);
+  const pathPatchPosX = lastPath[middleIndex - 1][1] + gap;
+  const pathPatchPosY = updatePath[middleIndex - 1][2];
+  const transitionPath = [ ...lastPath.slice(0, middleIndex), [ 'L', pathPatchPosX, pathPatchPosY ], [ 'L', pathPatchPosX, updatePath[middleIndex][2] ], ...lastPath.slice(middleIndex) ];
+
+  const v = [ 0, 0, 1 ];
+  shape.apply(v);
+
+  shape.attr('clip', clip);
+  shape.attr('path', transitionPath);
+
+  const endState = {
+    transform: [
+      [ 't', -gap, 0 ]
+    ]
+  };
+
+  const animateParam = getAnimateParam(animateCfg, index, id, endState);
+
+  shape.animate(endState, animateParam.duration, animateParam.easing, function() {
+    if (shape && !shape.get('destroyed')) {
+      shape.attr('path', updatePath);
+      shape.attr({
+        transform: [
+          [ 't', gap, 0 ]
+        ]
+      });
+      shape.attr('clip', null);
+      shape.setSilent('cacheShape', null);
+      clip.remove();
+    }
+  }, animateParam.delay);
+}
+
 // 默认动画库
 module.exports = {
   enter: {
@@ -379,6 +504,8 @@ module.exports = {
   },
   update: {
     fadeIn,
-    fanIn
+    fanIn,
+    lineSlideLeft,
+    areaSlideLeft
   }
 };
