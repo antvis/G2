@@ -60,6 +60,9 @@ describe('#1271', () => {
       stroke: '#fff',
       lineWidth: 1
     });
+    // chart.tooltip({
+    //   useHtml: false
+    // });
     chart.render();
 
     chart.showTooltip({ x: 100, y: 100 });
