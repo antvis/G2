@@ -338,6 +338,33 @@ class TooltipController {
     self._bindEvent();
   }
 
+  _formatMarkerOfItem(coord, geom, item) {
+    const self = this;
+    const options = self.options;
+    let point = item.point;
+    if (point && point.x && point.y) { // hotfix: make sure there is no null value
+      const x = Util.isArray(point.x) ? point.x[point.x.length - 1] : point.x;
+      const y = Util.isArray(point.y) ? point.y[point.y.length - 1] : point.y;
+      point = coord.applyMatrix(x, y, 1);
+      item.x = point[0];
+      item.y = point[1];
+      item.showMarker = true;
+      // bugfix
+      // 由于tooltip是DOM而不是Canvas，设置渐变色时，marker无法正常显示
+      // 如果，设置的颜色是渐变色并且设置了tooltip使用html方式渲染，则取渐变色的起始颜色作为marker的颜色，暂时解决这个问题
+      if (item.color.substring(0, 2) === 'l(' && (!options.hasOwnProperty('useHtml') || options.useHtml)) {
+        item.color = item.color.split(' ')[1].substring(2);
+      }
+      const itemMarker = self._getItemMarker(geom, item);
+      item.marker = itemMarker;
+      if (Util.indexOf(TYPE_SHOW_MARKERS, geom.get('type')) !== -1) {
+        return item;
+      }
+    }
+
+    return null;
+  }
+
   showTooltip(point, views, target) {
     const self = this;
     if (Util.isEmpty(views) || !point) {
@@ -365,25 +392,10 @@ class TooltipController {
               if (tmpPoint) {
                 const subItems = geom.getTipItems(tmpPoint, options.title);
                 Util.each(subItems, v => {
-                  let point = v.point;
-                  if (point && point.x && point.y) { // hotfix: make sure there is no null value
-                    const x = Util.isArray(point.x) ? point.x[point.x.length - 1] : point.x;
-                    const y = Util.isArray(point.y) ? point.y[point.y.length - 1] : point.y;
-                    point = coord.applyMatrix(x, y, 1);
-                    v.x = point[0];
-                    v.y = point[1];
-                    v.showMarker = true;
-                    // bugfix
-                    // 由于tooltip是DOM而不是Canvas，设置渐变色时，marker无法正常显示
-                    // 如果，设置的颜色是渐变色并且设置了tooltip使用html方式渲染，则取渐变色的起始颜色作为marker的颜色，暂时解决这个问题
-                    if (v.color.substring(0, 2) === 'l(' && (!options.hasOwnProperty('useHtml') || options.useHtml)) {
-                      v.color = v.color.split(' ')[1].substring(2);
-                    }
-                    const itemMarker = self._getItemMarker(geom, v.color);
-                    v.marker = itemMarker;
-                    if (Util.indexOf(TYPE_SHOW_MARKERS, type) !== -1) {
-                      markersItems.push(v);
-                    }
+                  const markerItem = self._formatMarkerOfItem(coord, geom, v);
+
+                  if (markerItem) {
+                    markersItems.push(markerItem);
                   }
                 });
                 items = items.concat(subItems);
@@ -397,6 +409,14 @@ class TooltipController {
             if (shape && shape.get('visible') && shape.get('origin')) {
               items = geom.getTipItems(shape.get('origin'), options.title);
             }
+
+            Util.each(items, v => {
+              const markerItem = this._formatMarkerOfItem(coord, geom, v);
+
+              if (markerItem) {
+                markersItems.push(markerItem);
+              }
+            });
           }
         }
       });
@@ -461,12 +481,20 @@ class TooltipController {
     this._offEvent();
   }
 
-  _getItemMarker(geom, color) {
+  _getItemMarker(geom, item) {
+    const options = this.options;
+    const markerOption = options.marker;
     const shapeType = geom.get('shapeType') || 'point';
     const shape = geom.getDefaultValue('shape') || 'circle';
     const shapeObject = Shape.getShapeFactory(shapeType);
-    const cfg = { color };
+    const cfg = { color: item.color };
     const marker = shapeObject.getMarkerCfg(shape, cfg);
+
+    if (Util.isFunction(markerOption)) {
+      return markerOption(marker, item);
+    } else if (Util.isObject(markerOption)) {
+      return { ...marker, markerOption };
+    }
     return marker;
   }
 
