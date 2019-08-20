@@ -1,16 +1,22 @@
 {
   "compilerOptions": {
-    "module": "system",
-    "noImplicitAny": true,
-    "removeComments": true,
-    "preserveConstEnums": true,
-    "sourceMap": true
+    "module": "commonjs",
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "lib",
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "lib": [
+      "dom",
+      "es7"
+    ]
   },
   "include": [
-    "src/**/*.d.ts"
+    "src"
   ],
   "exclude": [
     "node_modules",
-    "test/**/*"
+    "**/node_modules/*"
   ]
 }

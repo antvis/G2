@@ -65,12 +65,10 @@ dist
 temp
 .DS_Store
 .idea
-# demos/assets/screenshots
-demos/assets/screenshots-new
-lib
-stats.json
-tslint.json
+demos/assets/screenshots
 
 *.sw*
 *.un~
-*.vscode
+lib
+esm
+dist

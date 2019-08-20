@@ -1,0 +1,51 @@
+{
+  "name": "@antv/g2",
+  "version": "3.6.0-beta.1",
+  "description": "the Grammar of Graphics in Javascript",
+  "main": "lib/index.js",
+  "module": "esm/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "esm",
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.alipay-inc.com:datavis/eva-engine.git"
+  },
+  "scripts": {
+    "clean": "rimraf lib esm dist",
+    "lint": "lint-staged",
+    "test": "torch --renderer --compile --recursive ./__tests__/",
+    "test-live": "torch --compile --interactive --watch --recursive ./__tests__/",
+    "coverage": "exit 0",
+    "build:cjs": "tsc -p tsconfig.json --target ES5 --module commonjs --outDir lib",
+    "build:esm": "tsc -p tsconfig.json --target ES5 --module ESNext --outDir esm",
+    "build:umd": "webpack --config webpack.config.js --mode production",
+    "build": "run-s clean build:*",
+    "ci": "run-s build test"
+  },
+  "dependencies": {
+    "@antv/adjust": "~0.2.0",
+    "@antv/attr": "~0.2.0",
+    "@antv/coord": "~0.2.0",
+    "@antv/event-emitter": "~0.1.0",
+    "@antv/g": "~3.4.1",
+    "@antv/component": "~0.4.0",
+    "@antv/scale": "~0.2.0",
+    "@antv/util": "~2.0.4"
+  },
+  "devDependencies": {
+    "@antv/torch": "^1.0.3",
+    "event-simulate": "~1.0.0",
+    "webpack-cli": "^3.1.2"
+  },
+  "author": "https://github.com/orgs/antvis/people",
+  "license": "MIT"
+}

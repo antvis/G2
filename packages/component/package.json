@@ -1,0 +1,38 @@
+{
+  "name": "@antv/component",
+  "version": "0.4.0",
+  "description": "Component for @antv.",
+  "main": "lib/index.js",
+  "files": [
+    "lib",
+    "esm"
+  ],
+  "scripts": {
+    "clean": "rimraf lib esm",
+    "lint": "lint-staged",
+    "test": "torch --renderer --compile --recursive ./__tests__/",
+    "test-live": "torch --compile --interactive --watch --recursive ./__tests__/",
+    "coverage": "exit 0",
+    "build:cjs": "tsc -p tsconfig.json --target ES5 --module commonjs --outDir lib",
+    "build:esm": "tsc -p tsconfig.json --target ES5 --module ESNext --outDir esm",
+    "build": "run-s clean build:*",
+    "ci": "run-s build test"
+  },
+  "dependencies": {
+    "@antv/attr": "~0.2.0",
+    "@antv/event-emitter": "~0.1.0",
+    "@antv/g": "~3.4.1",
+    "@antv/scale": "~0.2.0",
+    "@antv/util": "~2.0.4"
+  },
+  "devDependencies": {
+    "@antv/coord": "~0.2.0",
+    "event-simulate": "^1.0.0",
+    "d3-color": "^1.2.3"
+  },
+  "keywords": [
+    "guide",
+    "component"
+  ],
+  "license": "MIT"
+}
