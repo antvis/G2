@@ -3,8 +3,9 @@
  */
 // @ts-ignore
 import { Group, Shape } from '@antv/g';
-import { Coord } from '../../dependents';
 import * as _ from '@antv/util';
+import * as pathUtil from '@antv/path-util';
+import { Coord } from '../../dependents';
 import {
   PointObject,
   DataPointType,
@@ -69,7 +70,7 @@ const ShapeBase = {
    */
   parsePath(path: string, islineToArc: boolean): any[] {
     const coord = this._coord;
-    let parsedPath = _.parsePathString(path);
+    let parsedPath = pathUtil.parsePathString(path);
     if (coord.isPolar && islineToArc !== false) {
       parsedPath = convertPolarPath(coord, parsedPath);
     } else {

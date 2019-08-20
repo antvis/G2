@@ -1,6 +1,7 @@
 import { Group } from '@antv/g';
 import { Coord } from '@antv/coord';
 import * as _ from '@antv/util';
+import { vec2 } from '@antv/matrix-util';
 import Annotation, { AnnotationCfg, Point } from './base';
 
 // 只适用于极坐标系
@@ -58,7 +59,7 @@ export default class Arc extends Annotation {
 
       // 求向量 center -> start 和 center -> end 的顺时针角度
       // 即等于求 start -> center 和 end -> center 的逆时针角度
-      const dAngle = _.vec2.angleTo(
+      const dAngle = vec2.angleTo(
         [ coordCenter.x - start.x, coordCenter.y - start.y ],
         [ coordCenter.x - end.x, coordCenter.y - end.y ],
         0,

@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const { Canvas } = require('@antv/g');
 const { getCoord } = require('@antv/coord');
 const { getScale } = require('@antv/scale');
-const { Annotation } = require('@antv/guide');
+const { Annotation } = require('@antv/component');
 const Controller = require('../../../../src/plot/controller/annotation').default;
 
 const Cat = getScale('cat');

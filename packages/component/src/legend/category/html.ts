@@ -3,6 +3,7 @@
  */
 
 import * as Util from '@antv/util';
+import * as domUtil from '@antv/dom-util';
 import CategoryBase from './base';
 import { CommonCfg, HTMLCategoryLegendCfg } from '../../interface';
 
@@ -95,12 +96,12 @@ export default class HTMLLegend extends CategoryBase {
         <ul class="${prefixClassName}-list"></ul>
       </div>`;
     }
-    const legendContainer = Util.createDom(containerTpl);
+    const legendContainer = domUtil.createDom(containerTpl);
     const backgroundStyle = Util.deepMix(
       {},
       DEFAULT_THEME.backgroundStyle,
       this.get('backgroundStyle'));
-    Util.modifyCSS(legendContainer, {
+    domUtil.modifyCSS(legendContainer, {
       fontFamily,
       maxHeight: `${maxHeight}px`,
       // width: 'auto',
@@ -109,7 +110,7 @@ export default class HTMLLegend extends CategoryBase {
       ...backgroundStyle,
     });
     if (layout === 'horizontal') {
-      Util.modifyCSS(legendContainer, {
+      domUtil.modifyCSS(legendContainer, {
         maxWidth: `${maxWidth}px`,
       });
     }
@@ -138,12 +139,12 @@ export default class HTMLLegend extends CategoryBase {
       const legendContainer = this.get('_legendContainer');
       let titleContainer = _findNodeByClass(legendContainer, `${prefixClassName}-title`);
       if (!titleContainer) {
-        titleContainer = Util.createDom(`<div class="${prefixClassName}-title"></div>`);
+        titleContainer = domUtil.createDom(`<div class="${prefixClassName}-title"></div>`);
         legendContainer.appendChild(titleContainer);
       }
       titleContainer.innerHTML = title;
       const titleStyle = Util.deepMix({}, DEFAULT_THEME.titleStyle, this.get('titleStyle'));
-      Util.modifyCSS(titleContainer, titleStyle);
+      domUtil.modifyCSS(titleContainer, titleStyle);
       this.set('_titleContainer', titleContainer);
     }
   }
@@ -164,7 +165,7 @@ export default class HTMLLegend extends CategoryBase {
 
     let itemGroupContainer = _findNodeByClass(legendContainer, `${prefixClassName}-list`);
     if (!itemGroupContainer) {
-      itemGroupContainer = Util.createDom(`<ul class="${prefixClassName}-list"></ul>`);
+      itemGroupContainer = domUtil.createDom(`<ul class="${prefixClassName}-list"></ul>`);
     }
     const listStyle = Util.deepMix({}, DEFAULT_THEME.listStyle, this.get('listStyle'));
     if (layout === 'horizontal') {
@@ -172,10 +173,10 @@ export default class HTMLLegend extends CategoryBase {
       // @todo ie是否会有兼容问题？
       listStyle.width = 'max-content';
     }
-    Util.modifyCSS(itemGroupContainer, listStyle);
+    domUtil.modifyCSS(itemGroupContainer, listStyle);
 
     // 用于支持分页逻辑
-    const clipContainer = Util.createDom('<div></div>');
+    const clipContainer = domUtil.createDom('<div></div>');
     legendContainer.appendChild(clipContainer);
     clipContainer.appendChild(itemGroupContainer);
 
@@ -209,23 +210,23 @@ export default class HTMLLegend extends CategoryBase {
       let itemDom;
       if (Util.isFunction(itemTpl)) { // 用户声明了回调
         const domStr = itemTpl(value, color, checked, index);
-        itemDom = Util.createDom(domStr);
+        itemDom = domUtil.createDom(domStr);
       } else {
-        itemDom = Util.createDom(itemTpl);
+        itemDom = domUtil.createDom(itemTpl);
         const textDom = _findNodeByClass(itemDom, `${prefixClassName}-item-text`);
         textDom.innerHTML = value;
       }
       itemStyle.color = color; // 设置为当前状态对应的文本颜色
       markerStyle.backgroundColor = color; // 设置为当前状态 marker 的背景色
 
-      Util.modifyCSS(itemDom, itemStyle);
+      domUtil.modifyCSS(itemDom, itemStyle);
       itemDom.setAttribute('data-checked', checked); // 存储当前的选中状态
       itemDom.setAttribute('data-value', item.value); // 存储 item 的原始值
       itemDom.setAttribute('data-color', originColor); // 存储 item 的原始颜色
 
       const markerDom = _findNodeByClass(itemDom, `${prefixClassName}-item-marker`);
       if (markerDom) {
-        Util.modifyCSS(markerDom, markerStyle);
+        domUtil.modifyCSS(markerDom, markerStyle);
       }
       itemGroupContainer.appendChild(itemDom);
 
@@ -258,7 +259,7 @@ export default class HTMLLegend extends CategoryBase {
    */
   getWidth(): number {
     const container = this.get('_legendContainer');
-    return Util.getOuterWidth(container);
+    return domUtil.getOuterWidth(container);
   }
 
   /**
@@ -266,7 +267,7 @@ export default class HTMLLegend extends CategoryBase {
    */
   getHeight(): number {
     const container = this.get('_legendContainer');
-    return Util.getOuterHeight(container);
+    return domUtil.getOuterHeight(container);
   }
 
   /**
@@ -276,7 +277,7 @@ export default class HTMLLegend extends CategoryBase {
    */
   moveTo(x: number, y: number) {
     const container = this.get('_legendContainer');
-    Util.modifyCSS(container, {
+    domUtil.modifyCSS(container, {
       left: `${x}px`,
       top: `${y}px`,
     });
@@ -447,29 +448,29 @@ export default class HTMLLegend extends CategoryBase {
     `; // 分页器结构模板，目前不允许自定义
 
     if (pagination && (legendContainer.scrollHeight > legendContainer.offsetHeight)) { // 满足分页条件
-      Util.modifyCSS(legendContainer, {
+      domUtil.modifyCSS(legendContainer, {
         overflow: 'hidden',
         height: `${this.get('maxHeight')}px`,
       }); // 如果允许分页，则禁止滚动
-      const paginationDom = Util.createDom(paginationDomStr);
+      const paginationDom = domUtil.createDom(paginationDomStr);
       legendContainer.appendChild(paginationDom);
 
       const legendContainerHeight = this.getHeight(); // legend 容器的高度
       const titleHeight = this.get('_titleContainer') ?
-        Util.getOuterHeight(this.get('_titleContainer')) : 0;  // Legend 标题的高度
-      const paginationHeight = Util.getOuterHeight(paginationDom); // 分页器的高度
+        domUtil.getOuterHeight(this.get('_titleContainer')) : 0;  // Legend 标题的高度
+      const paginationHeight = domUtil.getOuterHeight(paginationDom); // 分页器的高度
       const itemGroupContainerHeight = legendContainerHeight - titleHeight - paginationHeight; // 获取图例项容器的可视高度
       const itemGroupContainerOffsetHeight = itemGroupContainer.offsetHeight; // 获取图例项实际的高度
 
       // 剪切区域的样式设置
       const clipContainer = this.get('_clipContainer');
-      Util.modifyCSS(clipContainer, {
+      domUtil.modifyCSS(clipContainer, {
         maxHeight: `${itemGroupContainerHeight}px`,
         overflow: 'hidden',
       });
 
       const pageSize = Math.ceil(itemGroupContainerOffsetHeight / itemGroupContainerHeight); // 计算页数
-      const itemHeight = Util.getOuterHeight(itemGroupContainer.childNodes[0]); // 获取每个图例项的高度
+      const itemHeight = domUtil.getOuterHeight(itemGroupContainer.childNodes[0]); // 获取每个图例项的高度
       const onePageCount = Math.floor(itemGroupContainerHeight / itemHeight); // 计算一页可完整显示的图例项个数
       const deltaHeight = onePageCount * itemHeight; // 每页滚动的高度
 
@@ -496,10 +497,10 @@ export default class HTMLLegend extends CategoryBase {
         height: `${paginationCfg.arrowSize}px`,
       };
 
-      Util.modifyCSS(prePageButton, inactiveStyle);
-      Util.modifyCSS(nextPageButton, activeStyle);
+      domUtil.modifyCSS(prePageButton, inactiveStyle);
+      domUtil.modifyCSS(nextPageButton, activeStyle);
       if (paginationCfg.animation) { // 允许分页的滚动动画
-        Util.modifyCSS(itemGroupContainer, {
+        domUtil.modifyCSS(itemGroupContainer, {
           transition: 'transform .3s ease-in',
         });
       }
@@ -514,13 +515,13 @@ export default class HTMLLegend extends CategoryBase {
         translateY += deltaHeight;
         currentPageNum.innerHTML = currentPage;
 
-        Util.modifyCSS(prePageButton, activeStyle);
-        Util.modifyCSS(nextPageButton, activeStyle);
-        Util.modifyCSS(itemGroupContainer, {
+        domUtil.modifyCSS(prePageButton, activeStyle);
+        domUtil.modifyCSS(nextPageButton, activeStyle);
+        domUtil.modifyCSS(itemGroupContainer, {
           transform: `translateY(${translateY}px)`,
         });
         if (currentPage === 1) {
-          Util.modifyCSS(prePageButton, inactiveStyle);
+          domUtil.modifyCSS(prePageButton, inactiveStyle);
         }
       };
 
@@ -532,13 +533,13 @@ export default class HTMLLegend extends CategoryBase {
         translateY -= deltaHeight;
         currentPageNum.innerHTML = currentPage;
 
-        Util.modifyCSS(nextPageButton, activeStyle);
-        Util.modifyCSS(prePageButton, activeStyle);
-        Util.modifyCSS(itemGroupContainer, {
+        domUtil.modifyCSS(nextPageButton, activeStyle);
+        domUtil.modifyCSS(prePageButton, activeStyle);
+        domUtil.modifyCSS(itemGroupContainer, {
           transform: `translateY(${translateY}px)`,
         });
         if (currentPage === pageSize) {
-          Util.modifyCSS(nextPageButton, inactiveStyle);
+          domUtil.modifyCSS(nextPageButton, inactiveStyle);
         }
       };
     }
@@ -559,29 +560,29 @@ export default class HTMLLegend extends CategoryBase {
       </div>
     `; // 分页器结构模板，目前不允许自定义
     if (pagination && (legendContainer.scrollWidth > legendContainer.offsetWidth)) { // 满足分页条件
-      Util.modifyCSS(legendContainer, {
+      domUtil.modifyCSS(legendContainer, {
         overflow: 'hidden',
         width: `${this.get('maxWidth')}px`,
       }); // 如果允许分页，则禁止滚动
-      const paginationDom = Util.createDom(paginationDomStr);
+      const paginationDom = domUtil.createDom(paginationDomStr);
       legendContainer.appendChild(paginationDom);
 
       const legendContainerWidth = this.getWidth(); // legend 容器的宽度
       // const titleHeight = this.get('_titleContainer') ?
         // Util.getOuterHeight(this.get('_titleContainer')) : 0;  // Legend 标题的高度
-      const paginationWidth = Util.getOuterWidth(paginationDom); // 分页器的宽度
+      const paginationWidth = domUtil.getOuterWidth(paginationDom); // 分页器的宽度
       const itemGroupContainerWidth = legendContainerWidth  - paginationWidth - 40; // 获取图例项容器的可视宽度
       const itemGroupContainerOffsetWidth = itemGroupContainer.offsetWidth; // 获取图例项实际的宽度
 
       // 剪切区域的样式设置
       const clipContainer = this.get('_clipContainer');
-      Util.modifyCSS(clipContainer, {
+      domUtil.modifyCSS(clipContainer, {
         maxWidth: `${itemGroupContainerWidth}px`,
         overflow: 'hidden',
       });
 
       const pageSize = Math.ceil(itemGroupContainerOffsetWidth / itemGroupContainerWidth); // 计算页数
-      const itemWidth = Util.getOuterWidth(itemGroupContainer.childNodes[0]); // 获取每个图例项的宽度
+      const itemWidth = domUtil.getOuterWidth(itemGroupContainer.childNodes[0]); // 获取每个图例项的宽度
       // const onePageCount = Math.floor(itemGroupContainerWidth / itemWidth); // 计算一页可完整显示的图例项个数
       const deltaWidth = itemGroupContainerWidth; // 每页滚动的宽度
 
@@ -608,10 +609,10 @@ export default class HTMLLegend extends CategoryBase {
         height: `${paginationCfg.arrowSize}px`,
       };
 
-      Util.modifyCSS(prePageButton, inactiveStyle);
-      Util.modifyCSS(nextPageButton, activeStyle);
+      domUtil.modifyCSS(prePageButton, inactiveStyle);
+      domUtil.modifyCSS(nextPageButton, activeStyle);
       if (paginationCfg.animation) { // 允许分页的滚动动画
-        Util.modifyCSS(itemGroupContainer, {
+        domUtil.modifyCSS(itemGroupContainer, {
           transition: 'transform .3s ease-in',
         });
       }
@@ -626,13 +627,13 @@ export default class HTMLLegend extends CategoryBase {
         translateX += deltaWidth;
         currentPageNum.innerHTML = currentPage;
 
-        Util.modifyCSS(prePageButton, activeStyle);
-        Util.modifyCSS(nextPageButton, activeStyle);
-        Util.modifyCSS(itemGroupContainer, {
+        domUtil.modifyCSS(prePageButton, activeStyle);
+        domUtil.modifyCSS(nextPageButton, activeStyle);
+        domUtil.modifyCSS(itemGroupContainer, {
           transform: `translateX(${translateX}px)`,
         });
         if (currentPage === 1) {
-          Util.modifyCSS(prePageButton, inactiveStyle);
+          domUtil.modifyCSS(prePageButton, inactiveStyle);
         }
       };
 
@@ -644,13 +645,13 @@ export default class HTMLLegend extends CategoryBase {
         translateX -= deltaWidth;
         currentPageNum.innerHTML = currentPage;
 
-        Util.modifyCSS(nextPageButton, activeStyle);
-        Util.modifyCSS(prePageButton, activeStyle);
-        Util.modifyCSS(itemGroupContainer, {
+        domUtil.modifyCSS(nextPageButton, activeStyle);
+        domUtil.modifyCSS(prePageButton, activeStyle);
+        domUtil.modifyCSS(itemGroupContainer, {
           transform: `translateX(${translateX}px)`,
         });
         if (currentPage === pageSize) {
-          Util.modifyCSS(nextPageButton, inactiveStyle);
+          domUtil.modifyCSS(nextPageButton, inactiveStyle);
         }
       };
     }

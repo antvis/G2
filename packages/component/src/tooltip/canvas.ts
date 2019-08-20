@@ -1,6 +1,8 @@
 // @ts-ignore // todo 等 g ready 好后再去掉这行 ignore
 import * as G from '@antv/g';
-import * as Util  from '@antv/util';
+import * as Util  from '@antv/util'
+import * as domUtil from '@antv/dom-util';
+import { transform } from '@antv/matrix-util';
 import Crosshair from './crosshair';
 import Tooltip from './base';
 import {
@@ -229,8 +231,8 @@ export default class CanvasTooltip extends Tooltip {
     let y = oldy;
     const container = this.get('container');
     const outterNode = this.get('canvas').get('el');
-    const viewWidth = Util.getWidth(outterNode);
-    const viewHeight = Util.getHeight(outterNode);
+    const viewWidth = domUtil.getWidth(outterNode);
+    const viewHeight = domUtil.getHeight(outterNode);
     const bbox = container.getBBox();
     const containerWidth = bbox.width;
     const containerHeight = bbox.height;
@@ -276,7 +278,7 @@ export default class CanvasTooltip extends Tooltip {
     }
 
     const ulMatrix = [ 1, 0, 0, 0, 1, 0, 0, 0, 1 ];
-    const mat = Util.transform(ulMatrix, [
+    const mat = transform(ulMatrix, [
         [ 't', x, y ],
     ]);
     container.stopAnimate();

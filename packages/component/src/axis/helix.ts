@@ -1,8 +1,8 @@
 import * as Util from '@antv/util';
+import * as pathUtil from '@antv/path-util';
+import { vec2 } from '@antv/matrix-util';
 import Axis from './base';
 import { HelixAxisCfg } from '../interface';
-
-const { vec2 } = Util;
 
 export default class Helix extends Axis {
   constructor(cfg = {} as HelixAxisCfg) {
@@ -22,7 +22,7 @@ export default class Helix extends Axis {
   getLinePath() {
     const crp = this.get('crp');
     const axisStart = this.get('axisStart');
-    const path = Util.catmullRom2Bezier(crp);
+    const path = pathUtil.catmullRom2Bezier(crp);
     path.unshift([ 'M', axisStart.x, axisStart.y ]);
     return path;
   }

@@ -1,5 +1,6 @@
 import { Group, Shape } from '@antv/g';
 import * as _ from '@antv/util';
+import * as domUtil from '@antv/dom-util';
 import { SLIDER_CIRCLE_MAX_SIZE, SLIDER_WIDTH, SLIDER_HEIGHT, SliderBtnStyle } from '../constant';
 import { CreateBgType } from '../interface';
 
@@ -368,9 +369,9 @@ export default class Slider extends Group {
   private bindCanvasEvents() {
     const containerDOM = this.get('canvas').get('containerDOM');
 
-    const e1 = _.addEventListener(containerDOM, 'mousemove', this.onMouseMove);
-    const e2 = _.addEventListener(containerDOM, 'mouseup', this.onMouseUp);
-    const e3 = _.addEventListener(containerDOM, 'mouseleave', this.onMouseUp);
+    const e1 = domUtil.addEventListener(containerDOM, 'mousemove', this.onMouseMove);
+    const e2 = domUtil.addEventListener(containerDOM, 'mouseup', this.onMouseUp);
+    const e3 = domUtil.addEventListener(containerDOM, 'mouseleave', this.onMouseUp);
 
     // 清除所有事件的方法，在交互结束的时候执行
     this.clearAllEvents = () => {

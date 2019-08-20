@@ -1,4 +1,5 @@
 import * as Util from '@antv/util';
+import { vec2 } from '@antv/matrix-util';
 import { Shape } from '@antv/g';
 import Axis from './base';
 import { CircleAxisCfg } from '../interface';
@@ -31,8 +32,8 @@ export default class Circle extends Axis {
     const center = this.get('center');
     const vector = [ point.x - center.x, point.y - center.y ];
     if (!Util.isNil(offset)) {
-      const vecLen = Util.vec2.length(vector);
-      Util.vec2.scale(vector, vector, offset / vecLen);
+      const vecLen = vec2.length(vector);
+      vec2.scale(vector, vector, offset / vecLen);
     }
     return vector;
   }

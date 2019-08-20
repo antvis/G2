@@ -1,4 +1,5 @@
 import * as _ from '@antv/util';
+import { mat3 } from '@antv/matrix-util';
 import { Shapes } from '@antv/g';
 
 export function getAnimateParam(animateCfg, index, id) {
@@ -80,7 +81,7 @@ export function getScaledMatrix(shape, v, direct) {
       [ 't', x, y ],
     ]);
     const matrix = shape.getMatrix();
-    scaledMatrix = _.mat3.transform(matrix, [
+    scaledMatrix = mat3.transform(matrix, [
       [ 't', -x, -y ],
       [ 's', 100, 1 ],
       [ 't', x, y ],
@@ -92,7 +93,7 @@ export function getScaledMatrix(shape, v, direct) {
       [ 't', x, y ],
     ]);
     const matrix = shape.getMatrix();
-    scaledMatrix = _.mat3.transform(matrix, [
+    scaledMatrix = mat3.transform(matrix, [
       [ 't', -x, -y ],
       [ 's', 1, 100 ],
       [ 't', x, y ],
@@ -104,7 +105,7 @@ export function getScaledMatrix(shape, v, direct) {
       [ 't', x, y ],
     ]);
     const matrix = shape.getMatrix();
-    scaledMatrix = _.mat3.transform(matrix, [
+    scaledMatrix = mat3.transform(matrix, [
       [ 't', -x, -y ],
       [ 's', 100, 100 ],
       [ 't', x, y ],

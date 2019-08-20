@@ -1,4 +1,5 @@
 import * as Util from '@antv/util';
+import * as domUtil from '@antv/dom-util';
 import Tooltip from './base';
 import TooltipTheme from './theme';
 import Crosshair from './crosshair';
@@ -99,13 +100,13 @@ export default class HtmlTooltip extends Tooltip {
         const id = containerTpl.replace('#', '');
         container = document.getElementById(id);
       } else {
-        container = Util.createDom(containerTpl);
+        container = domUtil.createDom(containerTpl);
       }
     } else {
       container = this._getHtmlContent();
     }
     this.set('container', container);
-    Util.modifyCSS(container, this.style[CONTAINER_CLASS]);
+    domUtil.modifyCSS(container, this.style[CONTAINER_CLASS]);
     outterNode.appendChild(container);
     outterNode.style.position = 'relative';
   }
@@ -130,12 +131,12 @@ export default class HtmlTooltip extends Tooltip {
     const listDom = find(container, LIST_CLASS);
     const items = this.get('items');
     if (titleDom && showTitle) {
-      Util.modifyCSS(titleDom, this.style[TITLE_CLASS]);
+      domUtil.modifyCSS(titleDom, this.style[TITLE_CLASS]);
       titleDom.innerHTML = titleContent;
     }
 
     if (listDom) {
-      Util.modifyCSS(listDom, this.style[LIST_CLASS]);
+      domUtil.modifyCSS(listDom, this.style[LIST_CLASS]);
       Util.each(items, (item: ToolTipContentItem, index: number) => {
         listDom.appendChild(this._addItem(item, index));
       });
@@ -206,15 +207,15 @@ export default class HtmlTooltip extends Tooltip {
       },
       item,
     ));
-    const itemDOM = Util.createDom(itemDiv);
-    Util.modifyCSS(itemDOM, this.style[LIST_ITEM_CLASS]);
+    const itemDOM = domUtil.createDom(itemDiv);
+    domUtil.modifyCSS(itemDOM, this.style[LIST_ITEM_CLASS]);
     const markerDom = find(itemDOM, MARKER_CLASS);
     if (markerDom) {
-      Util.modifyCSS(markerDom, this.style[MARKER_CLASS]);
+      domUtil.modifyCSS(markerDom, this.style[MARKER_CLASS]);
     }
     const valueDom = find(itemDOM, VALUE_CLASS);
     if (valueDom) {
-      Util.modifyCSS(valueDom, this.style[VALUE_CLASS]);
+      domUtil.modifyCSS(valueDom, this.style[VALUE_CLASS]);
     }
     return itemDOM;
   }
@@ -229,7 +230,7 @@ export default class HtmlTooltip extends Tooltip {
     if (Util.isElement(html)) {
       ele = html;
     } else {
-      ele = Util.createDom(html);
+      ele = domUtil.createDom(html);
     }
     return ele;
   }
@@ -239,8 +240,8 @@ export default class HtmlTooltip extends Tooltip {
     let y = oldy;
     const container = this.get('container');
     const outterNode = this.get('canvas').get('el');
-    const viewWidth = Util.getWidth(outterNode);
-    const viewHeight = Util.getHeight(outterNode);
+    const viewWidth = domUtil.getWidth(outterNode);
+    const viewHeight = domUtil.getHeight(outterNode);
     const containerWidth = container.clientWidth;
     const containerHeight = container.clientHeight;
 

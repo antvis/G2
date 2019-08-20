@@ -1,5 +1,6 @@
 
 import * as Util from '@antv/util';
+import * as domUtil from '@antv/dom-util';
 import Guide from '../base';
 import { GuideCfg } from '../interface';
 import positionAdjust from './adjust/position';
@@ -322,7 +323,7 @@ class Label extends Guide {
     if (!container) {
       const containerTpl = this.get('containerTpl');
       const wrapper = this.get('canvas').get('el').parentNode;
-      container = Util.createDom(containerTpl);
+      container = domUtil.createDom(containerTpl);
       wrapper.style.position = 'relative';
       wrapper.appendChild(container);
       this.set('container', container);
@@ -333,15 +334,15 @@ class Label extends Guide {
   _createDom(cfg:any) {
     const itemTpl = this.get('itemTpl');
     const str = Util.substitute(itemTpl, { text: cfg.text });
-    return Util.createDom(str);
+    return domUtil.createDom(str);
   }
   // 根据文本对齐方式确定dom位置
   _setCustomPosition(cfg:any, htmlDom:any) {
     const textAlign = cfg.textAlign || 'left';
     let top = cfg.y;
     let left = cfg.x;
-    const width = Util.getOuterWidth(htmlDom);
-    const height = Util.getOuterHeight(htmlDom);
+    const width = domUtil.getOuterWidth(htmlDom);
+    const height = domUtil.getOuterHeight(htmlDom);
 
     top = top - height / 2;
     if (textAlign === 'center') {

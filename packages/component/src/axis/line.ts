@@ -1,4 +1,5 @@
 import * as Util from '@antv/util';
+import { vec2 } from '@antv/matrix-util';
 import { Shape } from '@antv/g';
 import Axis from './base';
 import { LineAxisCfg } from '../interface';
@@ -34,13 +35,13 @@ export default class Line extends Axis {
     const start = this.get('start');
     const end = this.get('end');
     const axisVector = this.getAxisVector();
-    const normal = Util.vec2.normalize([], axisVector);
+    const normal = vec2.normalize([], axisVector);
     let direction = false;
     if ((isVertical && (start.y < end.y)) || (!isVertical && (start.x > end.x))) {
       direction = true;
     }
-    const verticalVector = Util.vec2.vertical([], normal, direction);
-    return Util.vec2.scale([], verticalVector, offset * factor);
+    const verticalVector = vec2.vertical([], normal, direction);
+    return vec2.scale([], verticalVector, offset * factor);
   }
 
   getAxisVector() {
@@ -101,7 +102,7 @@ export default class Line extends Axis {
         if (!Util.isNumberEqual(vector[1], 0)) { // 所有水平坐标轴，文本不转置
           const v1 = [ 1, 0 ];
           const v2 = [ vector[0], vector[1] ];
-          angle = Util.vec2.angleTo(v2, v1, true);
+          angle = vec2.angleTo(v2, v1, true);
         }
 
         cfg.rotate = angle * (180 / Math.PI);

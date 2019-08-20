@@ -2,6 +2,7 @@
  * The entry of chart's animation
  */
 import * as _ from '@antv/util';
+import { mat3 } from '@antv/matrix-util';
 import {
   Group,
   Shape,
@@ -10,7 +11,6 @@ import {
 import Animate from './animate';
 import Element from '../element/base';
 import { CacheType, AnimateCFG } from './interface';
-const mat3 = _.mat3;
 
 /*
  * 获取图组内所有的shapes

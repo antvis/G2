@@ -3,8 +3,8 @@
  */
 
 import * as _ from '@antv/util';
+import { vec2 as vector2 } from '@antv/matrix-util';
 import { PointObject } from '../../interface';
-const vector2 = _.vec2;
 
 type PointArray = [ number, number ];
 

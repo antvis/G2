@@ -1,6 +1,7 @@
 import { Group } from '@antv/g';
 import { Coord } from '@antv/coord';
 import * as _ from '@antv/util';
+import { vec2, vec3 } from '@antv/matrix-util';
 import Annotation, { AnnotationCfg, Point, SvgAttrs } from './base';
 import { FONT_FAMILY } from '../const';
 
@@ -111,7 +112,7 @@ export default class Line extends Annotation<LineCfg> {
 
     if (textCfg.autoRotate && _.isNil(textStyle.rotate)) {
       // 自动旋转且用户没有设置旋转角度
-      const angle = _.vec2.angleTo([ end.x - start.x, end.y - start.y ], [ 1, 0 ], 1);
+      const angle = vec2.angleTo([ end.x - start.x, end.y - start.y ], [ 1, 0 ], 1);
       cfg.rotate = angle;
     } else if (!_.isNil(textStyle.rotate)) {
       // 用户设置了旋转角度

@@ -3,6 +3,7 @@
  */
 import { Marker, Group } from '@antv/g';
 import * as _ from '@antv/util';
+import * as pathUtil from '@antv/path-util';
 import { registerShape, registerShapeFactory, ShapeFactoryCFG } from './base';
 import { splitPoints, setStrokeStyle, setFillStyle } from '../util/shape';
 import {
@@ -182,7 +183,7 @@ registerShape('point', 'image', {
 
 // path 解析，缓存一下
 const pathMetaParser = _.memoize((path: string) => {
-  const segments = _.parsePathString(path);
+  const segments = pathUtil.parsePathString(path);
   const nums = _.flatten(segments).filter((num) => _.isNumber(num));
   return {
     range: Math.max.apply(null, nums) - Math.min.apply(null, nums),

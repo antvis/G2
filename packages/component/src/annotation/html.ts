@@ -2,6 +2,7 @@ import { Group } from '@antv/g';
 import { Coord } from '@antv/coord';
 import { Scale } from '@antv/scale';
 import * as _ from '@antv/util';
+import * as domUtil from '@antv/dom-util';
 import Annotation, { AnnotationCfg, Point } from './base';
 
 export interface HtmlCfg extends AnnotationCfg {
@@ -30,7 +31,7 @@ export default class Html extends Annotation<HtmlCfg> {
   render(coord: Coord, container: Group) {
     const position = this.parsePoint(coord, this.get('position'));
     const parentNode: HTMLElement = container.get('canvas').get('el').parentNode;
-    const wrapperNode: HTMLElement = _.createDom('<div class="guide-annotation"></div>');
+    const wrapperNode: HTMLElement = domUtil.createDom('<div class="guide-annotation"></div>');
     parentNode.appendChild(wrapperNode);
 
     let html = this.get('html');
@@ -39,10 +40,10 @@ export default class Html extends Annotation<HtmlCfg> {
       const yScales = this.get('yScales');
       html = html(xScales, yScales);
     }
-    const htmlNode: HTMLElement = _.createDom(html);
+    const htmlNode: HTMLElement = domUtil.createDom(html);
     wrapperNode.appendChild(htmlNode);
 
-    _.modifyCSS(wrapperNode, {
+    domUtil.modifyCSS(wrapperNode, {
       position: 'absolute', // to fix dom in the document stream to get the true width
     });
 
@@ -53,8 +54,8 @@ export default class Html extends Annotation<HtmlCfg> {
   private setDomPosition(parentDom: HTMLElement, childDom: HTMLElement, point: Point) {
     const alignX = this.get('alignX');
     const alignY = this.get('alignY');
-    const domWidth = _.getOuterWidth(childDom);
-    const domHeight = _.getOuterHeight(childDom);
+    const domWidth = domUtil.getOuterWidth(childDom);
+    const domHeight = domUtil.getOuterHeight(childDom);
 
     const position: Point = {
       x: point.x, // alignX = left
@@ -82,7 +83,7 @@ export default class Html extends Annotation<HtmlCfg> {
       position.y += offsetY;
     }
 
-    _.modifyCSS(parentDom, {
+    domUtil.modifyCSS(parentDom, {
       top: `${Math.round(position.y)}px`,
       left: `${Math.round(position.x)}px`,
       visibility: 'visible',

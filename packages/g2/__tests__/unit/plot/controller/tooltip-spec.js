@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 import { Canvas } from '@antv/g';
-import { Tooltip } from '@antv/guide';
+import { Tooltip } from '@antv/component';
 import TooltipController from '../../../../src/plot/controller/tooltip';
 import View from '../../../../src/plot/view';
 

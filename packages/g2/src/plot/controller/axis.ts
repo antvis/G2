@@ -1,4 +1,5 @@
 import * as _ from '@antv/util';
+import { vec2 } from '@antv/matrix-util';
 import { Group } from '@antv/g';
 import { Axis, Interface } from '@antv/component';
 import { Scale, Coord } from '../../dependents';
@@ -242,9 +243,9 @@ export default class AxisController {
     const normalVector = [ 1, 0 ];
     let startAngle;
     if (start.y > center.y) {
-      startAngle = _.vec2.angle(startVector, normalVector);
+      startAngle = vec2.angle(startVector, normalVector);
     } else {
-      startAngle = _.vec2.angle(startVector, normalVector) * -1;
+      startAngle = vec2.angle(startVector, normalVector) * -1;
     }
     const endAngle = startAngle + (rangeX.end - rangeX.start);
 
