@@ -9,7 +9,7 @@
     "lint": "lint-staged",
     "test": "lerna run test",
     "coverage": "exit 0",
-    "build": "lerna run build",
+    "build-all": "lerna run build",
     "ci": "run-s build test"
   },
   "devDependencies": {

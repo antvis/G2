@@ -1,9 +1,10 @@
 /**
  * @fileOverview Default animation funciton
  */
+import * as pathUtil from '@antv/path-util';
 import * as _ from '@antv/util';
 import { PointObject } from '../interface';
-import { getClip, getScaledMatrix, doAnimation, doGroupScaleIn } from './util';
+import { doAnimation, doGroupScaleIn, getClip, getScaledMatrix } from './util';
 
 // 获取图形的包围盒
 function getPointsBox(points: PointObject[]) {
@@ -61,7 +62,7 @@ function scaleInY(shape, animateCfg) {
   const x = (box.minX + box.maxX) / 2;
   const y = points[0].y - points[1].y <= 0 ? box.maxY : box.minY;
   const endState = {
-    matrix: getScaledMatrix(shape, [ x, y, 1 ], 'y'),
+    matrix: getScaledMatrix(shape, [x, y, 1], 'y'),
   };
 
   doAnimation(shape, endState, animateCfg);
@@ -73,7 +74,7 @@ function scaleInX(shape, animateCfg) {
   const x = points[0].y - points[1].y > 0 ? box.maxX : box.minX;
   const y = (box.minY + box.maxY) / 2;
   const endState = {
-    matrix: getScaledMatrix(shape, [ x, y, 1 ], 'x'),
+    matrix: getScaledMatrix(shape, [x, y, 1], 'x'),
   };
 
   doAnimation(shape, endState, animateCfg);
@@ -101,7 +102,7 @@ function zoomIn(shape, animateCfg, coord) {
   }
 
   const endState = {
-    matrix: getScaledMatrix(shape, [ x, y, 1 ], 'xy'),
+    matrix: getScaledMatrix(shape, [x, y, 1], 'xy'),
   };
 
   doAnimation(shape, endState, animateCfg);
@@ -118,10 +119,10 @@ function zoomOut(shape, animateCfg, coord) {
     x = (box.minX + box.maxX) / 2;
     y = (box.minY + box.maxY) / 2;
   }
-  const v = [ x, y, 1 ];
+  const v = [x, y, 1];
   shape.apply(v);
   const endState = {
-    transform: [ [ 't', -x, -y ], [ 's', 0.01, 0.01 ], [ 't', x, y ] ],
+    transform: [['t', -x, -y], ['s', 0.01, 0.01], ['t', x, y]],
   };
 
   animateCfg.callback = () => shape.remove();
@@ -129,9 +130,11 @@ function zoomOut(shape, animateCfg, coord) {
 }
 
 function pathIn(shape, animateCfg) {
-  if (shape.get('type') !== 'path') return;
-  const path = _.path2Curve(shape.attr('path'));
-  shape.attr('path', [ path[0] ]);
+  if (shape.get('type') !== 'path') {
+    return;
+  }
+  const path = pathUtil.path2Curve(shape.attr('path'));
+  shape.attr('path', [path[0]]);
   const endState = {
     path,
   };
@@ -140,10 +143,12 @@ function pathIn(shape, animateCfg) {
 }
 
 function pathOut(shape, animateCfg) {
-  if (shape.get('type') !== 'path') return;
-  const path = _.path2Curve(shape.attr('path'));
+  if (shape.get('type') !== 'path') {
+    return;
+  }
+  const path = pathUtil.path2Curve(shape.attr('path'));
   const endState = {
-    path: [ path[0] ],
+    path: [path[0]],
   };
   animateCfg.callback = () => shape.remove();
 
@@ -154,7 +159,8 @@ function clipIn(shape, animateCfg, coord, startAngle, endAngle) {
   const clip = getClip(coord);
   const canvas = shape.get('canvas');
   let endState;
-  if (startAngle) { // 指定了 startAngle 和 endAngle
+  if (startAngle) {
+    // 指定了 startAngle 和 endAngle
     clip.attr('startAngle', startAngle);
     clip.attr('endAngle', startAngle);
     endState = {
@@ -222,7 +228,7 @@ function groupWaveIn(container, animateCfg, coord) {
   const clip = getClip(coord);
   clip.set('canvas', container.get('canvas'));
   container.attr('clip', clip);
-  animateCfg.callback = function () {
+  animateCfg.callback = function() {
     container.attr('clip', null);
     clip.remove();
   };

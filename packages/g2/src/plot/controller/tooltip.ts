@@ -1,10 +1,11 @@
 import * as _ from '@antv/util';
+import * as matrixUtil from '@antv/matrix-util';
 import { Tooltip } from '@antv/component';
 import View from '../view';
 import { getShapeFactory } from '../../element/shape/base';
 import { DataPointType } from '../../interface';
 import Element from '../../element/base';
-const Vector2 = _.vec2;
+const Vector2 = matrixUtil.vec2;
 
 const TYPE_SHOW_MARKERS = [ 'line', 'area', 'path' ]; // 默认展示 tooltip marker 的几何图形
 const TYPE_SHOW_CROSSHAIRS = [ 'line', 'area' ]; // 默认展示十字瞄准线的几何图形

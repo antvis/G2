@@ -1,12 +1,9 @@
-import * as _ from '@antv/util';
+import * as domUtil from '@antv/dom-util';
 import { Canvas } from '@antv/g';
+import * as _ from '@antv/util';
 import Global from '../global';
+import { DataPointType } from '../interface';
 import View from './view';
-import {
-  DataPointType,
-  // PointObject,
-  // ShapeDrawCFG,
-} from '../interface';
 
 export default class Plot extends View {
   constructor(cfg: DataPointType) {
@@ -60,6 +57,11 @@ export default class Plot extends View {
     this.get('canvas').draw();
     return this;
   }
+  public destroy() {
+    window.removeEventListener('resize', _.getWrapBehavior(this, '_initForceFitEvent') as () => void);
+
+    super.destroy();
+  }
 
   private _initCanvas() {
     const canvas = new Canvas({
@@ -74,13 +76,13 @@ export default class Plot extends View {
     this.set('container', canvas);
     if (this.get('forceFit')) {
       const container = this._getContainerDOM();
-      const width = _.getWidth(container, this.get('width'));
+      const width = domUtil.getWidth(container, this.get('width'));
       this.set('width', width);
     }
   }
   private _initEvents() {
     if (this.get('forceFit')) {
-      window.addEventListener('resize', _.wrapBehavior(this, '_initForceFitEvent'));
+      window.addEventListener('resize', _.wrapBehavior(this, '_initForceFitEvent') as () => void);
     }
   }
   private _initForceFitEvent() {
@@ -99,7 +101,7 @@ export default class Plot extends View {
     }
     const container = this._getContainerDOM();
     const oldWidth = this.get('width');
-    const width = _.getWidth(container, oldWidth);
+    const width = domUtil.getWidth(container, oldWidth);
     if (width !== 0 && width !== oldWidth) {
       const height = this.get('height');
       this.changeSize(width, height);
@@ -112,10 +114,5 @@ export default class Plot extends View {
       container = document.getElementById(this.get('containerId'));
     }
     return container;
-  }
-  public destroy() {
-    window.removeEventListener('resize', _.getWrapBehavior(this, '_initForceFitEvent'));
-
-    super.destroy();
   }
 }
