@@ -1,5 +1,5 @@
-import { Group } from '@antv/g';
 import { Label } from '@antv/component';
+import { Group } from '@antv/g';
 import * as _ from '@antv/util';
 import { DataPointType } from '../../../../interface';
 
@@ -37,9 +37,7 @@ function getCentroid(xs, ys) {
   return [ x / k, y / k ];
 }
 
-export interface ElementLabelsConstructor {
-  new (cfg: any): ElementLabels;
-}
+export type ElementLabelsConstructor = new (cfg: any) => ElementLabels;
 
 export default class ElementLabels extends Group {
   constructor(cfg) {
@@ -54,7 +52,7 @@ export default class ElementLabels extends Group {
     this.set('defaultLabelCfg', this.get('theme').label);
   }
 
-  _renderUI() {
+  public _renderUI() {
     super._renderUI();
 
     const labelsGroup = this.addGroup({
@@ -74,12 +72,12 @@ export default class ElementLabels extends Group {
     this.set('lineGroup', lineGroup);
   }
 
-  destroy() {
+  public destroy() {
     this.get('labelsRenderer').destroy(); // 清理文本
     super.destroy.call(this);
   }
 
-  showLabels(points, originShapes) {
+  public showLabels(points, originShapes) {
     const labelsRenderer = this.get('labelsRenderer');
     let items = this.getLabelsItems(points, originShapes);
     const shapes = [].concat(originShapes);
@@ -100,6 +98,93 @@ export default class ElementLabels extends Group {
     }
     labelsRenderer.set('canvas', this.get('canvas'));
     labelsRenderer.draw();
+  }
+
+  public adjustItems(items, shapes?) {
+    _.each(items, (item: any) => {
+      if (!item) {
+        return;
+      }
+      if (item.offsetX) {
+        item.x += item.offsetX;
+      }
+      if (item.offsetY) {
+        item.y += item.offsetY;
+      }
+    });
+    return items;
+  }
+
+  /**
+   * drawing lines to labels
+   * @param  {Array} items labels
+   * @param  {Object} labelLine configuration for label lines
+   */
+  public drawLines(items) {
+    _.each(items, (point: any) =>  {
+      if (!point) {
+        return;
+      }
+      if (point.offset > 0 && point.labelLine) {
+        this.lineToLabel(point);
+      }
+    });
+  }
+
+  // 定义连接线
+  public lineToLabel(point?) {}
+
+  public setLabelPosition(label?, point?, index?, position?) {}
+
+  public transLabelPoint(point) {
+    const coord = this.get('coord');
+    const tmpPoint = coord.applyMatrix(point.x, point.y, 1);
+    point.x = tmpPoint[0];
+    point.y = tmpPoint[1];
+  }
+
+  public getOffsetVector(point) {
+    const offset = point.offset || 0;
+    const coord = this.get('coord');
+    let vector;
+    if (coord.isTransposed) { // 如果x,y翻转，则偏移x
+      vector = coord.applyMatrix(offset, 0);
+    } else { // 否则，偏转y
+      vector = coord.applyMatrix(0, offset);
+    }
+    return vector;
+  }
+
+  // 获取默认的偏移量
+  public getDefaultOffset(point) {
+    let offset = 0;
+    const coord = this.get('coord');
+    const vector = this.getOffsetVector(point);
+    if (coord.isTransposed) { // 如果x,y翻转，则偏移x
+      offset = vector[0];
+    } else { // 否则，偏转y
+      offset = vector[1];
+    }
+    return offset;
+  }
+
+  // 获取文本的偏移位置，x,y
+  public getLabelOffset(point, index, total) {
+    const offset = this.getDefaultOffset(point);
+    const coord = this.get('coord');
+    const transposed = coord.isTransposed;
+    const yField = transposed ? 'x' : 'y';
+    const factor = transposed ? 1 : -1; // y 方向上越大，像素的坐标越小，所以transposed时将系数变成
+    const offsetPoint = {
+      x: 0,
+      y: 0,
+    };
+    if (index > 0 || total === 1) { // 判断是否小于0
+      offsetPoint[yField] = offset * factor;
+    } else {
+      offsetPoint[yField] = offset * factor * -1;
+    }
+    return offsetPoint;
   }
 
   /**
@@ -147,40 +232,6 @@ export default class ElementLabels extends Group {
     });
     return items;
   }
-
-  adjustItems(items, shapes?) {
-    _.each(items, (item: any) => {
-      if (!item) {
-        return;
-      }
-      if (item.offsetX) {
-        item.x += item.offsetX;
-      }
-      if (item.offsetY) {
-        item.y += item.offsetY;
-      }
-    });
-    return items;
-  }
-
-  /**
-   * drawing lines to labels
-   * @param  {Array} items labels
-   * @param  {Object} labelLine configuration for label lines
-   */
-  drawLines(items) {
-    _.each(items, (point: any) =>  {
-      if (!point) {
-        return;
-      }
-      if (point.offset > 0 && point.labelLine) {
-        this.lineToLabel(point);
-      }
-    });
-  }
-
-  // 定义连接线
-  lineToLabel(point?) {}
 
   /**
    * @protected
@@ -265,59 +316,6 @@ export default class ElementLabels extends Group {
     label.y += offsetPoint.y;
     label.color = point.color;
     return label;
-  }
-
-  setLabelPosition(label?, point?, index?, position?) {}
-
-  transLabelPoint(point) {
-    const coord = this.get('coord');
-    const tmpPoint = coord.applyMatrix(point.x, point.y, 1);
-    point.x = tmpPoint[0];
-    point.y = tmpPoint[1];
-  }
-
-  getOffsetVector(point) {
-    const offset = point.offset || 0;
-    const coord = this.get('coord');
-    let vector;
-    if (coord.isTransposed) { // 如果x,y翻转，则偏移x
-      vector = coord.applyMatrix(offset, 0);
-    } else { // 否则，偏转y
-      vector = coord.applyMatrix(0, offset);
-    }
-    return vector;
-  }
-
-  // 获取默认的偏移量
-  getDefaultOffset(point) {
-    let offset = 0;
-    const coord = this.get('coord');
-    const vector = this.getOffsetVector(point);
-    if (coord.isTransposed) { // 如果x,y翻转，则偏移x
-      offset = vector[0];
-    } else { // 否则，偏转y
-      offset = vector[1];
-    }
-    return offset;
-  }
-
-  // 获取文本的偏移位置，x,y
-  getLabelOffset(point, index, total) {
-    const offset = this.getDefaultOffset(point);
-    const coord = this.get('coord');
-    const transposed = coord.isTransposed;
-    const yField = transposed ? 'x' : 'y';
-    const factor = transposed ? 1 : -1; // y 方向上越大，像素的坐标越小，所以transposed时将系数变成
-    const offsetPoint = {
-      x: 0,
-      y: 0,
-    };
-    if (index > 0 || total === 1) { // 判断是否小于0
-      offsetPoint[yField] = offset * factor;
-    } else {
-      offsetPoint[yField] = offset * factor * -1;
-    }
-    return offsetPoint;
   }
 
   protected getLabelAlign(point, index, total) {
@@ -405,6 +403,10 @@ export default class ElementLabels extends Group {
         cfg.useHtml = true;
         cfg.text = cfg.htmlTemplate(origin, point, i);
         delete cfg.htmlTemplate;
+      }
+      if (cfg.formatter) {
+        cfg.text = cfg.formatter.call(null, cfg.text, point, i);
+        delete cfg.formatter
       }
 
       if (
