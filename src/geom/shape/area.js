@@ -72,12 +72,12 @@ function getPath(cfg, smooth, shape) {
 // get marker cfg
 function _getMarkerCfg(cfg) {
   return {
-    symbol(x, y) {
+    symbol(x, y, r) {
       return [
-        [ 'M', x - 5.5, y - 4 ],
-        [ 'L', x + 5.5, y - 4 ],
-        [ 'L', x + 5.5, y + 4 ],
-        [ 'L', x - 5.5, y + 4 ],
+        [ 'M', x - r, y - 4 ],
+        [ 'L', x + r, y - 4 ],
+        [ 'L', x + r, y + 4 ],
+        [ 'L', x - r, y + 4 ],
         [ 'Z' ]
       ];
     },

@@ -509,8 +509,8 @@ class LegendController {
       const shapeObject = Shape.getShapeFactory(shapeType);
       const marker = shapeObject.getMarkerCfg(shape, cfg);
 
-      if (Global.markerRadius) {
-        marker.radius = Global.markerRadius;
+      if (Global.legendMarkerRadius) {
+        marker.radius = Global.legendMarkerRadius;
       }
 
       if (Util.isFunction(shape)) {
@@ -785,7 +785,7 @@ class LegendController {
       if (!Util.isPlainObject(item.marker)) { // 直接传入字符串或者回调函数时转换为对象，如 item.marker = 'circle'
         item.marker = {
           symbol: item.marker || 'circle',
-          radius: Global.markerRadius || MARKER_SIZE
+          radius: Global.legendMarkerRadius || MARKER_SIZE
         };
         if (Util.indexOf(STROKE_MARKERS, item.marker.symbol) !== -1) {
           item.marker.stroke = item.fill;
@@ -793,7 +793,7 @@ class LegendController {
           item.marker.fill = item.fill;
         }
       } else { // 用户传入对象 item.marker = { symbol: 'circle', fill: 'red', radius: 3 }
-        item.marker.radius = item.marker.radius || Global.markerRadius || MARKER_SIZE;
+        item.marker.radius = item.marker.radius || Global.legendMarkerRadius || MARKER_SIZE;
       }
 
       const symbol = item.marker.symbol;
@@ -862,8 +862,8 @@ class LegendController {
           const shapeObject = Shape.getShapeFactory(shapeType);
           const cfg = { color: geom.getDefaultValue('color') };
           const marker = shapeObject.getMarkerCfg(shape, cfg);
-          if (Global.markerRadius) {
-            marker.radius = Global.markerRadius;
+          if (Global.legendMarkerRadius) {
+            marker.radius = Global.legendMarkerRadius;
           }
 
           const item = {
