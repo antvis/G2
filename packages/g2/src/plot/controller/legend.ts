@@ -1,23 +1,17 @@
 /**
  * @description legend 的控制器
  */
-import * as _ from '@antv/util';
-import { Group, BBox } from '@antv/g';
-import { Legend, Color, Size, CanvasCategory, HtmlCategory } from '@antv/component/lib/legend';
-import { ContinuousItem, EventType } from '@antv/component/lib/interface';
 import { Label } from '@antv/component';
+import { ContinuousItem, EventType } from '@antv/component/lib/interface';
+import { CanvasCategory, Color, HtmlCategory, Legend, Size } from '@antv/component/lib/legend';
+import { BBox, Group } from '@antv/g';
+import * as _ from '@antv/util';
 import { Attribute, Scale } from '../../dependents';
-import View from '../view';
 import { Element } from '../../element';
-import  { getShapeFactory }  from '../../element/shape/base';
-import {
-  LegendsOption,
-  LegendOption,
-  ThemeOption,
-  SubRegion,
-  Region,
-} from '../interface';
+import { getShapeFactory } from '../../element/shape/base';
 import { ShapeMarkerCfg } from '../../interface';
+import { LegendOption, LegendsOption, Region, SubRegion, ThemeOption } from '../interface';
+import View from '../view';
 
 const MARKER_SIZE = 4.5;
 const STROKE_MARKERS = [
@@ -63,13 +57,16 @@ const findTargetScale = (scales: Scale[], compareScale: Scale): Scale => {
   return _.find(scales, (scale: Scale) => {
     const scaleValues = [].concat(scale.values);
     const compareScaleValues = [].concat(compareScale.values);
-    return scale.type === compareScale.type &&
+    return (
+      scale.type === compareScale.type &&
       scale.field === compareScale.field &&
-      _.isEqual(scaleValues.sort(), compareScaleValues.sort());
+      _.isEqual(scaleValues.sort(), compareScaleValues.sort())
+    );
   });
 };
 
 export default class LegendController {
+  [key: string]: any;
 
   private view: View;
   // plot 上的属性
@@ -79,12 +76,11 @@ export default class LegendController {
   private container: Group;
   private totalRegion: Region;
 
-  private theme:ThemeOption | null;
+  private theme: ThemeOption | null;
 
   // 类内部属性
   // 生成的所有 legend 实例
   private legends: Legend[] = [];
-  [key:string]:any;
 
   constructor(cfg: LegendControllerCfg) {
     const { view } = cfg;
@@ -92,16 +88,6 @@ export default class LegendController {
     this.view = view;
     this.theme = view.get('theme');
     // 需要用到 plot 的属性，在这里先定义出来
-  }
-
-  /**
-   * 初始化 legend 相关的属性
-   */
-  private init() {
-    this.options = this.getLegendOptions();
-    this.panelRange = this.view.get('panelRange') as BBox;
-    this.viewRange = this.view.get('viewRange') as BBox;
-    this.container = this.view.get('frontgroundGroup');
   }
 
   /**
@@ -132,7 +118,9 @@ export default class LegendController {
               const filteredValues = view.getFilteredOutValues(scale.field);
               const legend = this.addLegend(legendOptions as LegendsOption, scale, attr, element, filteredValues);
               // 创建成功，则放入到数组中
-              if (legend) this.legends.push(legend);
+              if (legend) {
+                this.legends.push(legend);
+              }
             }
           });
         });
@@ -174,6 +162,16 @@ export default class LegendController {
   }
 
   /**
+   * 初始化 legend 相关的属性
+   */
+  private init() {
+    this.options = this.getLegendOptions();
+    this.panelRange = this.view.get('panelRange') as BBox;
+    this.viewRange = this.view.get('viewRange') as BBox;
+    this.container = this.view.get('frontgroundGroup');
+  }
+
+  /**
    * 根据相关的配置，添加一个图例
    * @param legendOptions
    * @param scale
@@ -182,16 +180,21 @@ export default class LegendController {
    * @param filteredValues
    */
   private addLegend(
-    legendOptions: LegendsOption, scale: Scale, attr: Attribute, element: Element, filteredValues: Value[],
+    legendOptions: LegendsOption,
+    scale: Scale,
+    attr: Attribute,
+    element: Element,
+    filteredValues: Value[]
   ): Legend {
     const field = scale.field;
     const fieldOption = legendOptions.fields && legendOptions.fields[field];
-    if (fieldOption === false) { // 用户关闭 field 对应的图例
+    if (fieldOption === false) {
+      // 用户关闭 field 对应的图例
       return;
     }
 
     // 自定义图例
-    if (fieldOption && (<LegendOption>fieldOption).custom) {
+    if (fieldOption && (fieldOption as LegendOption).custom) {
       return this.addCustomLegend(field);
     }
 
@@ -204,9 +207,9 @@ export default class LegendController {
      */
     let position = this.getFieldLegendConfig(field, 'position', this.theme.defaultLegendPosition);
     position = this.adjustPosition(position);
-    const legend = scale.isLinear ?
-      this.addContinuousLegend(scale, attr, position) :
-      this.addCategoryLegend(scale, attr, element, filteredValues, position);
+    const legend = scale.isLinear
+      ? this.addContinuousLegend(scale, attr, position)
+      : this.addCategoryLegend(scale, attr, element, filteredValues, position);
     if (legend) {
       this.bindHoverEvent(legend, field);
     }
@@ -225,17 +228,20 @@ export default class LegendController {
     const ticks = scale.getTicks();
 
     // 构造图例的 items
-    const items: ContinuousItem[] = _.map(ticks, (tick): ContinuousItem => {
-      const value = tick.value; // scale 后的值
-      const tickValue = tick.tickValue; // tick text value
-      const originalValue = scale.invert(value); // original value
-      const attrValue = attr.mapping(originalValue).join('');
+    const items: ContinuousItem[] = _.map(
+      ticks,
+      (tick): ContinuousItem => {
+        const value = tick.value; // scale 后的值
+        const tickValue = tick.tickValue; // tick text value
+        const originalValue = scale.invert(value); // original value
+        const attrValue = attr.mapping(originalValue).join('');
 
-      return {
-        value: tickValue, // tick.text
-        color: attrValue,
-      };
-    });
+        return {
+          value: tickValue, // tick.text
+          color: attrValue,
+        };
+      }
+    );
 
     const containsMinValue = !!_.find(ticks, (tick) => tick.value === 0);
     const containsMaxValue = !!_.find(ticks, (tick) => tick.value === 1);
@@ -295,22 +301,28 @@ export default class LegendController {
    * @param position
    */
   private addCategoryLegend(
-    scale: Scale, attr: Attribute, element: Element, filteredValues: Value[], position: string,
+    scale: Scale,
+    attr: Attribute,
+    element: Element,
+    filteredValues: Value[],
+    position: string
   ): Legend {
     const legendOptions = this.options as LegendsOption;
     const field = scale.field;
-    const fieldOption = legendOptions.fields ? legendOptions.fields[field] as LegendOption : null;
+    const fieldOption = legendOptions.fields ? (legendOptions.fields[field] as LegendOption) : null;
     const items = [];
     const ticks = scale.getTicks();
     let isByAttr = true;
     let shapeType = element.get('shapeType') || 'point';
     let shape = element.getDefaultValue('shape') || shapeType || 'point';
-    if (legendOptions.marker) { // 用户全局自定义图例的marker
+    if (legendOptions.marker) {
+      // 用户全局自定义图例的marker
       shape = legendOptions.marker;
       shapeType = 'point';
       isByAttr = false;
     }
-    if (fieldOption && fieldOption.marker) { // 用户自定义图例的marker
+    if (fieldOption && fieldOption.marker) {
+      // 用户自定义图例的marker
       shape = fieldOption.marker;
       shapeType = 'point';
       isByAttr = false;
@@ -321,8 +333,10 @@ export default class LegendController {
     const panelRange = this.panelRange;
     const viewRange = this.viewRange;
     const posArray = position.split('-');
-    const maxLength = (posArray[0] === 'right' || posArray[0] === 'left')  // TODO
-    ? panelRange.height : viewRange.width;
+    const maxLength =
+      posArray[0] === 'right' || posArray[0] === 'left' // TODO
+        ? panelRange.height
+        : viewRange.width;
     _.each(ticks, (tick) => {
       const text = tick.text;
       const name = text;
@@ -334,23 +348,27 @@ export default class LegendController {
       const checked = filteredValues ? this.isFiltered(scale, filteredValues, value) : true;
       const colorAttr = element.getAttr('color');
       const shapeAttr = element.getAttr('shape');
-      if (colorAttr) { // 存在颜色映射
-        if (colorAttr.callback && colorAttr.callback.length > 1) { // 多参数映射，阻止程序报错
+      if (colorAttr) {
+        // 存在颜色映射
+        if (colorAttr.callback && colorAttr.callback.length > 1) {
+          // 多参数映射，阻止程序报错
           const restArgs = Array(colorAttr.callback.length - 1).fill('');
           cfg.color = colorAttr.mapping(value, ...restArgs).join('') || viewTheme.defaultColor;
         } else {
           cfg.color = colorAttr.mapping(value).join('') || viewTheme.defaultColor;
         }
       }
-      if (isByAttr && shapeAttr && shapeAttr.scales.length) { // 存在形状映射
-        if (shapeAttr.callback && shapeAttr.callback.length > 1) { // 多参数映射，阻止程序报错
+      if (isByAttr && shapeAttr && shapeAttr.scales.length) {
+        // 存在形状映射
+        if (shapeAttr.callback && shapeAttr.callback.length > 1) {
+          // 多参数映射，阻止程序报错
           const restArgs = Array(shapeAttr.callback.length - 1).fill('');
           shape = shapeAttr.mapping(value, ...restArgs).join('');
         } else {
           shape = shapeAttr.mapping(value).join('');
         }
       }
-      const shapeObject  = getShapeFactory(shapeType);
+      const shapeObject = getShapeFactory(shapeType);
       const marker = shapeObject.getMarkerStyle(shape, cfg);
       // 补充 marker 为自定义形状场景。
       if (_.isFunction(shape)) {
@@ -372,28 +390,28 @@ export default class LegendController {
 
     switch (posArray[0]) {
       case 'left':
-          /*maxHeight = viewRange.height;
+        /*maxHeight = viewRange.height;
           maxWidth = panelRange.x - viewRange.x;*/
         maxHeight = panelRange.height;
         maxWidth = panelRange.x - viewRange.x;
         layout = 'vertical';
         break;
       case 'right':
-          /*maxHeight = viewRange.height;
+        /*maxHeight = viewRange.height;
           maxWidth = viewRange.tr.x - panelRange.tr.x;*/
         maxHeight = panelRange.height;
         maxWidth = viewRange.tr.x - panelRange.tr.x;
         layout = 'vertical';
         break;
       case 'top':
-          /*maxHeight = panelRange.tr.y - viewRange.tr.y;
+        /*maxHeight = panelRange.tr.y - viewRange.tr.y;
           maxWidth = viewRange.width;*/
         maxHeight = panelRange.tr.y - viewRange.tr.y;
         maxWidth = viewRange.width;
         layout = 'horizontal';
         break;
       case 'bottom':
-          /*maxHeight = viewRange.br.y - panelRange.br.y;
+        /*maxHeight = viewRange.br.y - panelRange.br.y;
           maxWidth = viewRange.width;*/
         maxHeight = viewRange.br.y - panelRange.br.y;
         maxWidth = viewRange.width;
@@ -428,9 +446,7 @@ export default class LegendController {
         title: scale.alias || scale.field,
       });
     }
-    const legend = useHtml ?
-     new HtmlCategory(legendCfg) :
-      new CanvasCategory(legendCfg);
+    const legend = useHtml ? new HtmlCategory(legendCfg) : new CanvasCategory(legendCfg);
 
     this.bindClickEvent(legend, scale, filteredValues, legendCfg.onClick);
     return legend;
@@ -449,7 +465,7 @@ export default class LegendController {
     const legendOptions = this.options as LegendsOption;
     let fieldOption;
     if (_.isObject(legendOptions)) {
-      fieldOption = legendOptions.fields ? legendOptions.fields[field] as LegendOption : {};
+      fieldOption = legendOptions.fields ? (legendOptions.fields[field] as LegendOption) : {};
     }
     let position = fieldOption.position || legendOptions.position || viewTheme.defaultLegendPosition;
     position = this.adjustPosition(position);
@@ -457,30 +473,33 @@ export default class LegendController {
     if (!items) {
       return;
     }
-    _.each(items, (item:any) => {
-      if (!_.isPlainObject(item.marker)) { // 直接传入字符串或者回调函数时转换为对象，如 item.marker = 'circle'
+    _.each(items, (item: any) => {
+      if (!_.isPlainObject(item.marker)) {
+        // 直接传入字符串或者回调函数时转换为对象，如 item.marker = 'circle'
         item.marker = {
           symbol: item.marker || 'circle',
           radius: MARKER_SIZE,
         };
-        if (_.contains(STROKE_MARKERS, item.marker.symbol)) { // 支持描边 marker 的绘制
+        if (_.contains(STROKE_MARKERS, item.marker.symbol)) {
+          // 支持描边 marker 的绘制
           item.marker.stroke = item.color;
         } else {
           item.marker.fill = item.color;
         }
-      } else { // 用户传入对象 item.marker = { symbol: 'circle', fill: 'red', radius: 3 }
+      } else {
+        // 用户传入对象 item.marker = { symbol: 'circle', fill: 'red', radius: 3 }
         item.marker.radius = item.marker.radius || MARKER_SIZE;
       }
       const symbol = item.marker.symbol;
-      if (_.isString(symbol) && symbol.indexOf('hollow') !== -1) { // 支持 hollowCircle 等
+      if (_.isString(symbol) && symbol.indexOf('hollow') !== -1) {
+        // 支持 hollowCircle 等
         item.marker.symbol = _.lowerFirst(symbol.substr(6));
       }
 
       item.checked = _.isNil(item.checked) ? true : item.checked;
     });
     const posArray = position.split('-');
-    const maxLength =
-     (posArray[0] === 'right' || posArray[0] === 'left') ? panelRange.height : this.viewRange.width;
+    const maxLength = posArray[0] === 'right' || posArray[0] === 'left' ? panelRange.height : this.viewRange.width;
     const legendCfg = _.deepMix({}, viewTheme.legend[posArray[0]], legendOptions, fieldOption, {
       maxLength,
       viewTheme,
@@ -490,12 +509,11 @@ export default class LegendController {
     });
     const useHtml = !!legendCfg.useHtml;
 
-    const legend = useHtml ?
-    new HtmlCategory(legendCfg) :
-      new CanvasCategory(legendCfg);
+    const legend = useHtml ? new HtmlCategory(legendCfg) : new CanvasCategory(legendCfg);
 
     legend.on('itemclick', (ev: EventType) => {
-      if (legendOptions.onClick) { // 用户自定义图例点击事件
+      if (legendOptions.onClick) {
+        // 用户自定义图例点击事件
         legendOptions.onClick(ev);
       }
     });
@@ -511,9 +529,9 @@ export default class LegendController {
     this.totalRegion = totalRegion;
     const legendGroup = this.groupLegendByPosition();
     let i = 0;
-    _.each(legendGroup, (legendItems:Legend[], position:string) => {
+    _.each(legendGroup, (legendItems: Legend[], position: string) => {
       const region = totalRegion.subs[i];
-      _.each(legendItems, (legend:Legend, index:number) => {
+      _.each(legendItems, (legend: Legend, index: number) => {
         const pre = legendItems[index - 1];
         // if (!(legend.get('useHtml') && !legend.get('autoPosition'))) {
         this.alignLegend(legend, pre, region, position);
@@ -547,12 +565,12 @@ export default class LegendController {
     const posArray = position.split('-');
     let x = 0;
     let y = 0;
-    const tempoRegion = (legendNum > 1) ? totalRegion : region;
+    const tempoRegion = legendNum > 1 ? totalRegion : region;
     if (posArray[0] === 'left' || posArray[0] === 'right') {
       height = backPlot.maxY;
       x = this.getXAlign(posArray[0], width, region, backPlot, legendWidth, borderMargin);
       if (pre) {
-        const preY =  pre.get('y');
+        const preY = pre.get('y');
         y = preY + pre.getHeight() + innerMargin;
       } else {
         y = this.getYAlignVertical(posArray[1], height, tempoRegion, backPlot, 0, borderMargin, this.viewRange.height);
@@ -564,8 +582,7 @@ export default class LegendController {
         const preX = pre.get('x');
         x = preX + preWidth + innerMargin;
       } else {
-        x = this.getXAlign(posArray[1], width, tempoRegion, backPlot, 0, borderMargin);
-        if (posArray[1] === 'right') x = backPlot.maxX - tempoRegion.totalWidth;
+        x = this.getXAlign(posArray[1], width, tempoRegion, backPlot, legendWidth, borderMargin);
       }
     }
 
@@ -574,7 +591,13 @@ export default class LegendController {
 
   // @ts-ignore
   private getXAlign(
-    pos:string, width:number, region:SubRegion | Region, backPlot: BBox, legendWidth:number, borderMargin:number) {
+    pos: string,
+    width: number,
+    region: SubRegion | Region,
+    backPlot: BBox,
+    legendWidth: number,
+    borderMargin: number
+  ) {
     let x = pos === 'left' ? backPlot.minX + borderMargin[3] : backPlot.maxX - borderMargin[1] - legendWidth;
     if (pos === 'center') {
       x = (width - region.totalWidth) / 2;
@@ -582,13 +605,13 @@ export default class LegendController {
     return x;
   }
 
-  private getYAlignHorizontal(pos:string, height:number, region, backPlot, legendHeight, borderMargin) {
-    const y = (pos === 'top') ? backPlot.minY + borderMargin[0] : backPlot.maxY - borderMargin[2] - legendHeight;
+  private getYAlignHorizontal(pos: string, height: number, region, backPlot, legendHeight, borderMargin) {
+    const y = pos === 'top' ? backPlot.minY + borderMargin[0] : backPlot.maxY - borderMargin[2] - legendHeight;
     return y;
   }
 
   private getYAlignVertical(pos, height, region, backPlot, legendHeight, borderMargin, canvasHeight) {
-    let y = (pos === 'top') ? backPlot.minY + borderMargin[0] : backPlot.maxY - region.totalHeight - borderMargin[2];
+    let y = pos === 'top' ? backPlot.minY + borderMargin[0] : backPlot.maxY - region.totalHeight - borderMargin[2];
     if (pos === 'center') {
       // y = (canvasHeight - region.totalHeight) / 2;
       y = backPlot.minY + (backPlot.height - region.totalHeight) / 2;
@@ -602,20 +625,26 @@ export default class LegendController {
     if (positionArr.length === 1) {
       const pos = positionArr[0];
 
-      return pos === 'left' ? 'left-bottom' :
-        pos === 'right' ? 'right-bottom' :
-          pos === 'top' ? 'top-center' :
-            pos === 'bottom' ? 'bottom-center' : '';
+      return pos === 'left'
+        ? 'left-bottom'
+        : pos === 'right'
+        ? 'right-bottom'
+        : pos === 'top'
+        ? 'top-center'
+        : pos === 'bottom'
+        ? 'bottom-center'
+        : '';
     }
     return positionArr.slice(0, 2).join('-');
   }
 
-  private bindClickEvent(legend:Legend, scale:Scale, filteredValues:Value[], onClick) {
+  private bindClickEvent(legend: Legend, scale: Scale, filteredValues: Value[], onClick) {
     const view = this.view;
     const field = scale.field;
 
-    legend.on('itemclick', (ev:EventType) => {
-      if (onClick) { // 用户自定义图例点击交互行为
+    legend.on('itemclick', (ev: EventType) => {
+      if (onClick) {
+        // 用户自定义图例点击交互行为
         onClick(ev);
       } else {
         const item = ev.item;
@@ -625,15 +654,16 @@ export default class LegendController {
         if (checked) {
           _.pull(filteredValues, clickedValue);
           if (this.isFieldInView(field, clickedValue)) {
-            view.filter(field, (field:Value) => {
-              return isSingeSelected ? field === clickedValue : !_.contains(filteredValues, field);
+            view.filter(field, (f: Value) => {
+              return isSingeSelected ? f === clickedValue : !_.contains(filteredValues, f);
             });
           }
-        } else if (!isSingeSelected) { // 未选中状态
+        } else if (!isSingeSelected) {
+          // 未选中状态
           filteredValues.push(clickedValue);
           if (this.isFieldInView(field, clickedValue)) {
-            view.filter(field, (field:Value) => {
-              return !_.contains(filteredValues, field);
+            view.filter(field, (f: Value) => {
+              return !_.contains(filteredValues, f);
             });
           }
         }
@@ -652,7 +682,8 @@ export default class LegendController {
     const onMouseleave = legend.get('onMouseleave');
 
     legend.on('itemmouseover', (ev) => {
-      if (onMouseover) { // 由用户自定义 onHover 交互行为
+      if (onMouseover) {
+        // 由用户自定义 onHover 交互行为
         onMouseover(ev);
       }
     });
@@ -664,7 +695,7 @@ export default class LegendController {
     });
   }
 
-  private getRegion():Region {
+  private getRegion(): Region {
     const theme = this.theme;
     const innerMargin = theme.legend.legendMargin;
     const subs = [];
@@ -674,8 +705,8 @@ export default class LegendController {
     _.each(legendGroup, (legendItems: Legend[]) => {
       const subRegion = this.getSubRegion(legendItems);
       subs.push(subRegion);
-      totalWidth += (subRegion.totalWidth + innerMargin);
-      totalHeight += (subRegion.totalHeight + innerMargin);
+      totalWidth += subRegion.totalWidth + innerMargin;
+      totalHeight += subRegion.totalHeight + innerMargin;
     });
     return {
       totalWidth,
@@ -684,7 +715,7 @@ export default class LegendController {
     };
   }
 
-  private getSubRegion(legends: Legend[]):SubRegion {
+  private getSubRegion(legends: Legend[]): SubRegion {
     let maxWidth = 0;
     let maxHeight = 0;
     let totalWidth = 0;
@@ -709,12 +740,12 @@ export default class LegendController {
     };
   }
 
-  private isFiltered(scale:Scale, filterVals:Value[], scaleValue:number) {
+  private isFiltered(scale: Scale, filterVals: Value[], scaleValue: number) {
     if (!scale.isCategory) {
       return true;
     }
     let rst = true;
-    _.each(filterVals, (val:Value) => {
+    _.each(filterVals, (val: Value) => {
       if (scale.getText(val) === scale.getText(scaleValue)) {
         rst = false;
         return false;
@@ -722,7 +753,7 @@ export default class LegendController {
     });
     return rst;
   }
-  private isFieldInView(field:string, value:Value) {
+  private isFieldInView(field: string, value: Value) {
     let flag = false;
 
     const scales = this.view.get('scales');
@@ -738,7 +769,7 @@ export default class LegendController {
     return _.get(
       this.view.get('options'),
       'legends',
-      {}, // 默认为空
+      {} // 默认为空
     );
   }
 
@@ -753,9 +784,7 @@ export default class LegendController {
     const legendOptions = this.options;
     const fieldOption = _.get(legendOptions, `fields.${filed}`, {}) as LegendOption;
 
-    return fieldOption[key] ? fieldOption[key] :
-      legendOptions[key] ? legendOptions[key] :
-        defaultValue;
+    return fieldOption[key] ? fieldOption[key] : legendOptions[key] ? legendOptions[key] : defaultValue;
   }
 
   /**
@@ -766,7 +795,7 @@ export default class LegendController {
   private bindFilterEvent(legend: Legend, scale: Scale) {
     const field = scale.field;
     legend.on('itemfilter', ({ range }) => {
-      const [ min, max ] = range;
+      const [min, max] = range;
 
       // 根据 legend 范围来
       this.filterShape(field, min, max);
@@ -795,7 +824,7 @@ export default class LegendController {
       if (_.isNil(v)) {
         shape.show();
       } else {
-        const visible = (v >= min && v <= max);
+        const visible = v >= min && v <= max;
         // shape 带 label，则还需要隐藏 label
         this.filterLabels(shape, element, visible);
         // 显示还是隐藏 shape
@@ -812,7 +841,6 @@ export default class LegendController {
    * @param position 图例位置
    */
   private groupLegendByPosition() {
-
     return _.groupBy(this.legends, (legend: Legend) => legend.get('position'));
   }
 
@@ -823,7 +851,8 @@ export default class LegendController {
    * @param visible
    */
   private filterLabels(shape, element: Element, visible: boolean) {
-    if (shape.get('gLabel')) { // shape 中缓存了 gLabel Shape
+    if (shape.get('gLabel')) {
+      // shape 中缓存了 gLabel Shape
       shape.get('gLabel').set('visible', visible);
     } else {
       /* 从 label 中获取 shape 对应的 label item */
@@ -835,7 +864,7 @@ export default class LegendController {
         const labels = element.get('labels') as Label[];
         _.each(labels, (label) => {
           const labelData = label.get('origin') || [];
-          if ((labelData[xField] === shapeData[xField]) && (labelData[yField] === shapeData[yField])) {
+          if (labelData[xField] === shapeData[xField] && labelData[yField] === shapeData[yField]) {
             label.set('visible', visible);
             shape.set('gLabel', label);
           }

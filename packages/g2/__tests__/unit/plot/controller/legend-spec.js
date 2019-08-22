@@ -5,7 +5,6 @@ import '../../../../src';
 import View from '../../../../src/plot/view';
 
 describe('LegendController', () => {
-
   const data = [
     { country: 'Asia', year: '1750', value: 502, type: 'a' },
     { country: 'Asia', year: '1800', value: 635, type: 'a' },
@@ -34,7 +33,7 @@ describe('LegendController', () => {
     { country: 'Oceania', year: '1900', value: 300, type: 'a' },
     { country: 'Oceania', year: '1950', value: 230, type: 'c' },
     { country: 'Oceania', year: '1999', value: 300, type: 'a' },
-    { country: 'Oceania', year: '2050', value: 460, type: 'a' }
+    { country: 'Oceania', year: '2050', value: 460, type: 'a' },
   ];
   const div = document.createElement('div');
   div.id = 'view';
@@ -48,22 +47,23 @@ describe('LegendController', () => {
     pixelRatio: 2,
   });
 
-
   const view = new View({
     canvas,
     container: canvas.addGroup(),
     width: 500,
     height: 400,
-    padding: [ 10, 90, 50, 90 ]
+    padding: [10, 90, 50, 90],
   });
 
   it('close legend', () => {
     view.data(data);
-    view.line().position({
-      fields: [ 'year', 'value' ],
-    })
+    view
+      .line()
+      .position({
+        fields: ['year', 'value'],
+      })
       .color({
-        fields: [ 'country' ],
+        fields: ['country'],
       });
     view.legend('country', false);
     view.render();
@@ -81,11 +81,13 @@ describe('LegendController', () => {
 
   it('legendPosition right-center', () => {
     view.data(data);
-    view.line().position({
-      fields: [ 'year', 'value' ],
-    })
+    view
+      .line()
+      .position({
+        fields: ['year', 'value'],
+      })
       .color({
-        fields: [ 'country' ],
+        fields: ['country'],
       });
     view.legend({
       position: 'right-center',
@@ -100,14 +102,23 @@ describe('LegendController', () => {
     const backRange = lc.viewRange;
     const canvasHeight = view.get('height');
     const borderMargin = lc.theme.legend.margin;
-    expect(x).to.equal(backRange.maxX + borderMargin[1] - legendWidth);
+    expect(x).to.equal(backRange.maxX - borderMargin[1] - legendWidth);
     expect(y).to.equal((canvasHeight - legendHeight) / 2);
   });
 
   it('legendPosition right-top', () => {
+    view.data(data);
+    view
+      .line()
+      .position({
+        fields: ['year', 'value'],
+      })
+      .color({
+        fields: ['country'],
+      });
     view.legend({
       position: 'right-top',
-      useHtml: true,
+      useHtml: false,
     });
     view.render();
 
@@ -118,7 +129,7 @@ describe('LegendController', () => {
     const legendWidth = legend.getWidth();
     const backRange = lc.viewRange;
     const borderMargin = lc.theme.legend.margin;
-    expect(x).to.equal(backRange.maxX + borderMargin[1] - legendWidth);
+    expect(x).to.equal(backRange.maxX - borderMargin[1] - legendWidth);
     expect(y).to.equal(backRange.minY + borderMargin[0]);
   });
 
@@ -173,8 +184,18 @@ describe('LegendController', () => {
   });
 
   it('legendPosition top-right', () => {
+    view.data(data);
+    view
+      .line()
+      .position({
+        fields: ['year', 'value'],
+      })
+      .color({
+        fields: ['country'],
+      });
     view.legend({
       position: 'top-right',
+      useHtml: false,
     });
     view.render();
     const lc = view.get('legendController');
@@ -184,8 +205,8 @@ describe('LegendController', () => {
     const legendWidth = legend.getWidth();
     const backRange = lc.viewRange;
     const borderMargin = lc.theme.legend.margin;
-    expect(x).to.equal(backRange.maxX - legendWidth);
-    expect(y).to.equal(backRange.minY + borderMargin[0]);
+    expect(x).to.equal(backRange.maxX - legendWidth - borderMargin[1]);
+    expect(y).to.equal(backRange.minY - borderMargin[0]);
   });
 
   it('legendPosition bottom-center', () => {
@@ -215,7 +236,7 @@ describe('LegendController', () => {
     event1.target = targetItem.get('children')[0];
     itemsGroup.emit('click', event1);
     const filteredValues = view.getFilteredValues('country');
-    expect(filteredValues).eql([ 'Africa', 'Europe', 'Oceania' ]);
+    expect(filteredValues).eql(['Africa', 'Europe', 'Oceania']);
 
     expect(view.get('isUpdate')).to.be.true;
   });
@@ -224,53 +245,50 @@ describe('LegendController', () => {
     view.legend({
       position: 'bottom-right',
       custom: true,
-      items: [ {
-        value: 'Asia',
-        marker: {
-          symbol: 'square',
-          radius: 5,
-          fill: 'purple',
+      items: [
+        {
+          value: 'Asia',
+          marker: {
+            symbol: 'square',
+            radius: 5,
+            fill: 'purple',
+          },
+          checked: true,
         },
-        checked: true,
-      },
-      {
-        value: 'Africa',
-        marker: 'hollowTriangle',
-        checked: true,
-        color: '#d73027',
-      },
-      {
-        value: 'Europe',
-        marker: {
-          symbol: 'cross',
-          radius: 5,
-          stroke: '#91cf60',
+        {
+          value: 'Africa',
+          marker: 'hollowTriangle',
+          checked: true,
+          color: '#d73027',
         },
-        checked: true
-      },
-      {
-        value: 'Oceania',
-        marker: 'tick',
-        color: '#fee08b',
-        checked: true,
-      },
-      {
-        value: 'other',
-        marker: 'circle',
-        color: 'blue',
-      },
-      {
-        value: 'custom',
-        marker: (x, y, r) => {
-          return [
-            [ 'M', x, y ],
-            [ 'm', -r, 0 ],
-            [ 'a', r, r, 0, 1, 0, r * 2, 0 ],
-            [ 'a', r, r, 0, 1, 0, -r * 2, 0 ],
-          ];
+        {
+          value: 'Europe',
+          marker: {
+            symbol: 'cross',
+            radius: 5,
+            stroke: '#91cf60',
+          },
+          checked: true,
         },
-        color: 'pink',
-      } ],
+        {
+          value: 'Oceania',
+          marker: 'tick',
+          color: '#fee08b',
+          checked: true,
+        },
+        {
+          value: 'other',
+          marker: 'circle',
+          color: 'blue',
+        },
+        {
+          value: 'custom',
+          marker: (x, y, r) => {
+            return [['M', x, y], ['m', -r, 0], ['a', r, r, 0, 1, 0, r * 2, 0], ['a', r, r, 0, 1, 0, -r * 2, 0]];
+          },
+          color: 'pink',
+        },
+      ],
     });
     view.render();
     const lc = view.get('legendController');
@@ -310,11 +328,13 @@ describe('LegendController', () => {
     view.legend({
       position: 'bottom',
     });
-    view.interval().position({
-      fields: [ 'year', 'value' ],
-    })
+    view
+      .interval()
+      .position({
+        fields: ['year', 'value'],
+      })
       .color({
-        fields: [ 'type' ]
+        fields: ['type'],
       });
     view.render();
 
@@ -368,7 +388,6 @@ describe('LegendController', () => {
     const itemsGroup = legend.get('itemsGroup');
     const targetItem = itemsGroup.get('children')[0];
 
-
     const clickEvent = new Event('mousemove', {}, true, true);
     clickEvent.target = targetItem.get('children')[0];
     itemsGroup.emit('click', clickEvent);
@@ -388,12 +407,7 @@ describe('LegendController', () => {
   it('legend marker custom', () => {
     view.legend({
       marker(x, y, r) {
-        return [
-          [ 'M', x - r, y ],
-          [ 'L', x + r / 2, y + r ],
-          [ 'L', x + r, y ],
-          [ 'Z' ],
-        ];
+        return [['M', x - r, y], ['L', x + r / 2, y + r], ['L', x + r, y], ['Z']];
       },
     });
     view.render();
