@@ -3,9 +3,13 @@
   "version": "0.4.0",
   "description": "Component for @antv.",
   "main": "lib/index.js",
+  "module": "esm/index.js",
+  "types": "lib/index.d.ts",
   "files": [
     "lib",
-    "esm"
+    "esm",
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "clean": "rimraf lib esm",
