@@ -1,14 +1,14 @@
-import { Group } from '@antv/g';
 import { Coord } from '@antv/coord';
+import * as domUtil from '@antv/dom-util';
+import { Group } from '@antv/g';
 import { Scale } from '@antv/scale';
 import * as _ from '@antv/util';
-import * as domUtil from '@antv/dom-util';
 import Annotation, { AnnotationCfg, Point } from './base';
 
 export interface HtmlCfg extends AnnotationCfg {
   alignX: 'left' | 'middle' | 'right';
   alignY: 'top' | 'middle' | 'bottom';
-  html: ((xScales: Scale[] | Record<string, Scale>, yScales: Scale[] | Record<string, Scale>) => string) | string;
+  html: ((xScales: Scale[] | Record<string, Scale>, yScales: Scale[] | Record<string, Scale>) => string) | string | HTMLElement;
   el: HTMLElement;
 }
 
@@ -34,13 +34,14 @@ export default class Html extends Annotation<HtmlCfg> {
     const wrapperNode: HTMLElement = domUtil.createDom('<div class="guide-annotation"></div>');
     parentNode.appendChild(wrapperNode);
 
-    let html = this.get('html');
+    let html: any = this.get('html');
     if (_.isFunction(html)) {
       const xScales = this.get('xScales');
       const yScales = this.get('yScales');
       html = html(xScales, yScales);
     }
-    const htmlNode: HTMLElement = domUtil.createDom(html);
+    // 判断 html 是 Html element 还是 html string
+    const htmlNode: HTMLElement = _.isElement(html) ? html : domUtil.createDom(html);
     wrapperNode.appendChild(htmlNode);
 
     domUtil.modifyCSS(wrapperNode, {
