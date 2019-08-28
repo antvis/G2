@@ -10,7 +10,7 @@
     "test": "lerna run test",
     "coverage": "exit 0",
     "build-all": "lerna run build",
-    "ci": "run-s build test"
+    "ci": "run-s build-all test"
   },
   "devDependencies": {
     "@antv/torch": "~1.0.5",
