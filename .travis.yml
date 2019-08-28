@@ -12,7 +12,6 @@ addons:
   apt:
     packages:
       - xvfb
-      - libgconf-2-4
 
 install:
   - export DISPLAY=':99.0'
