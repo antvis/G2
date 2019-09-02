@@ -1,17 +1,17 @@
-import * as _ from '@antv/util';
-import * as matrixUtil from '@antv/matrix-util';
 import { Tooltip } from '@antv/component';
-import View from '../view';
+import * as matrixUtil from '@antv/matrix-util';
+import * as _ from '@antv/util';
+import Element from '../../element/base';
 import { getShapeFactory } from '../../element/shape/base';
 import { DataPointType } from '../../interface';
-import Element from '../../element/base';
+import View from '../view';
 const Vector2 = matrixUtil.vec2;
 
-const TYPE_SHOW_MARKERS = [ 'line', 'area', 'path' ]; // 默认展示 tooltip marker 的几何图形
-const TYPE_SHOW_CROSSHAIRS = [ 'line', 'area' ]; // 默认展示十字瞄准线的几何图形
+const TYPE_SHOW_MARKERS = ['line', 'area', 'path']; // 默认展示 tooltip marker 的几何图形
+const TYPE_SHOW_CROSSHAIRS = ['line', 'area']; // 默认展示十字瞄准线的几何图形
 
 // TODO FIXME this is HARD CODING
-const IGNORE_TOOLTIP_ITEM_PROPERTIES = [ 'marker', 'showMarker' ];
+const IGNORE_TOOLTIP_ITEM_PROPERTIES = ['marker', 'showMarker'];
 
 const _indexOfArray = (items, item) => {
   let rst = -1;
@@ -65,21 +65,21 @@ const _uniqItems = (items) => {
 };
 
 export default class TooltipController {
+  public view: View;
+  public theme: DataPointType;
+  public options: DataPointType;
+  public tooltip: Tooltip.Html | Tooltip.Canvas;
   private timeStamp: number = 0;
   private prePoint: {
     x: number;
     y: number;
   };
-  view: View;
-  theme: DataPointType;
-  options: DataPointType;
-  tooltip: Tooltip.Html | Tooltip.Canvas;
 
   constructor(cfg) {
     _.assign(this, cfg);
   }
 
-  renderTooltip() {
+  public renderTooltip() {
     if (this.tooltip) {
       // tooltip 对象已经创建
       return;
@@ -99,12 +99,14 @@ export default class TooltipController {
         backgroundGroup: view.get('backgroundGroup'),
       },
       defaultCfg,
-      options,
+      options
     );
-
+    if (options.crosshairs && options.crosshairs.type === 'rect') {
+      options.zIndex = 0; // toolip 背景框不可遮盖住 geom，防止用户配置了 crosshairs
+    }
     options.visible = false;
 
-    let tooltip;
+    let tooltip: any;
     if (options.useHtml) {
       tooltip = new Tooltip.Html(options);
       const triggerEvent = this._getTriggerEvent();
@@ -128,7 +130,7 @@ export default class TooltipController {
     this._bindEvent();
   }
 
-  _normalizeEvent(event) {
+  public _normalizeEvent(event) {
     const view = this.view;
     const canvas = this._getCanvas();
     const point = canvas.getPointByClient(event.clientX, event.clientY);
@@ -137,6 +139,175 @@ export default class TooltipController {
     point.y = point.y / pixelRatio;
     point.view = view;
     return point;
+  }
+
+  public hideTooltip() {
+    const tooltip = this.tooltip;
+    if (tooltip.get('visible')) {
+      // 优化，只有 tooltip 处于 visible: true 状态时才隐藏，否则会造成 canvas 的不断重绘
+      const view = this.view;
+      const canvas = this._getCanvas();
+      this.prePoint = null;
+      tooltip.hide();
+      view.emit('tooltip:hide', {
+        tooltip,
+      });
+      view.setActive(() => {
+        return false;
+      });
+      canvas.draw();
+    }
+  }
+
+  public onMouseMove = (ev) => {
+    const group = this.view.get('panelGroup');
+    const lastTimeStamp = this.timeStamp;
+    const timeStamp = +new Date();
+    const point = {
+      x: ev.x - (group.get('x') || 0),
+      y: ev.y - (group.get('y') || 0),
+    };
+    if (timeStamp - lastTimeStamp > 16) {
+      this.showTooltip(point, this.view, ev.target);
+      this.timeStamp = timeStamp;
+    }
+  };
+
+  public onMouseOut = (ev) => {
+    // const tooltip = this.tooltip;
+    // if (!tooltip.get('visible') || !tooltip.get('follow')) {
+    //   return;
+    // }
+    if (ev && !ev.event) {
+      // 如果鼠标 hover 到 tooltipContainer 内容框上不需要 hideTooltip
+      return;
+    }
+    this.hideTooltip();
+  };
+
+  public showTooltip(point, view, target) {
+    if (!point) {
+      return;
+    }
+    if (!this.tooltip) {
+      this.renderTooltip(); // 如果一开始 tooltip 关闭，用户重新调用的时候需要先生成 tooltip
+    }
+    const options = this.options;
+    let markersItems = [];
+    let items = [];
+    const elements = view.getElements();
+    const coord = view.get('coord');
+    _.each(elements, (element: Element) => {
+      const type = element.get('type');
+      if (element.get('visible') && element.get('tooltipOptions') !== false) {
+        const dataArray = element.get('dataArray');
+        if (element.isShareTooltip() || _.contains(['area', 'line', 'path'], type)) {
+          // area、line、path 四种几何标记以及共享 tooltip 的场景使用数据查找策略
+          _.each(dataArray, (data: DataPointType[]) => {
+            const tmpPoint = element.findPoint(point, data);
+            if (tmpPoint) {
+              const subItems = element.getTooltipItems(tmpPoint, options.title);
+              _.each(subItems, (v: DataPointType) => {
+                // tslint:disable-next-line: no-shadowed-variable
+                let point = v.point;
+                if (!_.isNil(point) && !_.isNil(point.x) && !_.isNil(point.y)) {
+                  // hotfix: make sure there is no null value
+                  const x = _.isArray(point.x) ? point.x[point.x.length - 1] : point.x;
+                  const y = _.isArray(point.y) ? point.y[point.y.length - 1] : point.y;
+                  point = coord.applyMatrix(x, y, 1);
+                  v.x = point[0];
+                  v.y = point[1];
+                  v.showMarker = true;
+                  const itemMarker = this._getItemMarker(element, v.color);
+                  v.marker = itemMarker;
+                  if (_.indexOf(TYPE_SHOW_MARKERS, type) !== -1) {
+                    markersItems.push(v);
+                  }
+                }
+              });
+              items = items.concat(subItems);
+            }
+          });
+        } else {
+          const shapeContainer = element.get('shapeContainer');
+          const canvas = shapeContainer.get('canvas');
+          const pixelRatio = canvas.get('pixelRatio');
+          const shape = shapeContainer.getShape(point.x * pixelRatio, point.y * pixelRatio);
+          if (shape && shape.get('visible') && shape.get('origin')) {
+            items = element.getTooltipItems(shape.get('origin'), options.title);
+          }
+        }
+      }
+    });
+
+    _.each(items, (item) => {
+      // tslint:disable-next-line: no-shadowed-variable
+      let point = item.point;
+      const x = _.isArray(point.x) ? point.x[point.x.length - 1] : point.x;
+      const y = _.isArray(point.y) ? point.y[point.y.length - 1] : point.y;
+      point = coord.applyMatrix(x, y, 1);
+      item.x = point[0];
+      item.y = point[1];
+    });
+
+    if (items.length) {
+      const first = items[0];
+      // bugfix: multiple tooltip items with different titles
+      if (!items.every((item) => item.title === first.title)) {
+        let nearestItem = first;
+        let nearestDistance = Infinity;
+        items.forEach((item) => {
+          const distance = Vector2.distance([point.x, point.y], [item.x, item.y]);
+          if (distance < nearestDistance) {
+            nearestDistance = distance;
+            nearestItem = item;
+          }
+        });
+        items = items.filter((item) => item.title === nearestItem.title);
+        markersItems = markersItems.filter((item) => item.title === nearestItem.title);
+      }
+
+      if (options.shared === false && items.length > 1) {
+        let snapItem = items[0];
+        let min = Math.abs(point.y - snapItem.y);
+        _.each(items, (aItem) => {
+          if (Math.abs(point.y - aItem.y) <= min) {
+            snapItem = aItem;
+            min = Math.abs(point.y - aItem.y);
+          }
+        });
+        if (snapItem && !_.isNil(snapItem.x) && !_.isNil(snapItem.y)) {
+          markersItems = [snapItem];
+        }
+        items = [snapItem];
+      }
+      this._setTooltip(point, items, markersItems, target);
+      // 使查找到的数据对应的 shape 处于 active 状态
+      // 应该在每次出现 tooltip 的时候就 active 对应的 shapes
+      view.setActive((obj) => {
+        let result = false;
+        _.each(items, (item) => {
+          const origin = item.point._origin;
+          if (origin === obj) {
+            result = true;
+            return false;
+          }
+        });
+        return result;
+      }, false);
+    } else {
+      this.hideTooltip();
+    }
+  }
+
+  public clear() {
+    const tooltip = this.tooltip;
+    if (tooltip) {
+      tooltip.destroy();
+    }
+    this.tooltip = null;
+    this.prePoint = null;
+    this._offEvent();
   }
 
   private _getCanvas() {
@@ -160,6 +331,7 @@ export default class TooltipController {
 
   private _getDefaultTooltipOptions() {
     const view = this.view;
+    const options = this.options;
     const theme = this.theme;
     const defaultCfg = _.mix({}, theme.tooltip);
     const elements = _.filter(view.getElements(), (element: Element): boolean => element.get('visible'));
@@ -169,7 +341,16 @@ export default class TooltipController {
 
     let crosshairsCfg;
     if (view.get('coord') && view.get('coord').type === 'cartesian') {
-      if (_.indexOf(TYPE_SHOW_CROSSHAIRS, shapes[0]) > -1) {
+      if (shapes[0] === 'interval') {
+        if (options.shape !== false) {
+          const crosshairs = _.mix({}, theme.tooltipCrosshairsRect);
+          crosshairs.isTransposed = isTransposed;
+          crosshairsCfg = {
+            zIndex: 0, // 矩形背景框不可覆盖 geom
+            crosshairs,
+          };
+        }
+      } else if (_.indexOf(TYPE_SHOW_CROSSHAIRS, shapes[0]) > -1) {
         const crosshairs = _.mix({}, theme.tooltipCrosshairsLine);
         crosshairs.isTransposed = isTransposed;
         crosshairsCfg = {
@@ -247,175 +428,10 @@ export default class TooltipController {
       tooltip.setPosition(
         x + (view.get('panelGroup').get('x') || 0),
         y + (view.get('panelGroup').get('y') || 0),
-        target,
+        target
       );
       tooltip.show();
     }
-  }
-
-  hideTooltip() {
-    const tooltip = this.tooltip;
-    if (tooltip.get('visible')) {
-      // 优化，只有 tooltip 处于 visible: true 状态时才隐藏，否则会造成 canvas 的不断重绘
-      const view = this.view;
-      const canvas = this._getCanvas();
-      this.prePoint = null;
-      tooltip.hide();
-      view.emit('tooltip:hide', {
-        tooltip,
-      });
-      view.setActive(() => {
-        return false;
-      });
-      canvas.draw();
-    }
-  }
-
-  onMouseMove = (ev) => {
-    const group = this.view.get('panelGroup');
-    const lastTimeStamp = this.timeStamp;
-    const timeStamp = +new Date();
-    const point = {
-      x: ev.x - (group.get('x') || 0),
-      y: ev.y - (group.get('y') || 0),
-    };
-    if (timeStamp - lastTimeStamp > 16) {
-      this.showTooltip(point, this.view, ev.target);
-      this.timeStamp = timeStamp;
-    }
-  }
-
-  onMouseOut = (ev) => {
-    // const tooltip = this.tooltip;
-    // if (!tooltip.get('visible') || !tooltip.get('follow')) {
-    //   return;
-    // }
-    if (ev && !ev.event) {
-      // 如果鼠标 hover 到 tooltipContainer 内容框上不需要 hideTooltip
-      return;
-    }
-    this.hideTooltip();
-  }
-
-  showTooltip(point, view, target) {
-    if (!point) {
-      return;
-    }
-    if (!this.tooltip) {
-      this.renderTooltip(); // 如果一开始 tooltip 关闭，用户重新调用的时候需要先生成 tooltip
-    }
-    const options = this.options;
-    let markersItems = [];
-    let items = [];
-    const elements = view.getElements();
-    const coord = view.get('coord');
-    _.each(elements, (element: Element) => {
-      const type = element.get('type');
-      if (element.get('visible') && element.get('tooltipOptions') !== false) {
-        const dataArray = element.get('dataArray');
-        if (element.isShareTooltip() || _.contains([ 'area', 'line', 'path' ], type)) {
-          // area、line、path 四种几何标记以及共享 tooltip 的场景使用数据查找策略
-          _.each(dataArray, (data: DataPointType[]) => {
-            const tmpPoint = element.findPoint(point, data);
-            if (tmpPoint) {
-              const subItems = element.getTooltipItems(tmpPoint, options.title);
-              _.each(subItems, (v: DataPointType) => {
-                let point = v.point;
-                if (!_.isNil(point) && !_.isNil(point.x) && !_.isNil(point.y)) {
-                  // hotfix: make sure there is no null value
-                  const x = _.isArray(point.x) ? point.x[point.x.length - 1] : point.x;
-                  const y = _.isArray(point.y) ? point.y[point.y.length - 1] : point.y;
-                  point = coord.applyMatrix(x, y, 1);
-                  v.x = point[0];
-                  v.y = point[1];
-                  v.showMarker = true;
-                  const itemMarker = this._getItemMarker(element, v.color);
-                  v.marker = itemMarker;
-                  if (_.indexOf(TYPE_SHOW_MARKERS, type) !== -1) {
-                    markersItems.push(v);
-                  }
-                }
-              });
-              items = items.concat(subItems);
-            }
-          });
-        } else {
-          const shapeContainer = element.get('shapeContainer');
-          const canvas = shapeContainer.get('canvas');
-          const pixelRatio = canvas.get('pixelRatio');
-          const shape = shapeContainer.getShape(point.x * pixelRatio, point.y * pixelRatio);
-          if (shape && shape.get('visible') && shape.get('origin')) {
-            items = element.getTooltipItems(shape.get('origin'), options.title);
-          }
-        }
-      }
-    });
-
-    _.each(items, (item) => {
-      let point = item.point;
-      const x = _.isArray(point.x) ? point.x[point.x.length - 1] : point.x;
-      const y = _.isArray(point.y) ? point.y[point.y.length - 1] : point.y;
-      point = coord.applyMatrix(x, y, 1);
-      item.x = point[0];
-      item.y = point[1];
-    });
-
-    if (items.length) {
-      const first = items[0];
-      // bugfix: multiple tooltip items with different titles
-      if (!items.every((item) => item.title === first.title)) {
-        let nearestItem = first;
-        let nearestDistance = Infinity;
-        items.forEach((item) => {
-          const distance = Vector2.distance([ point.x, point.y ], [ item.x, item.y ]);
-          if (distance < nearestDistance) {
-            nearestDistance = distance;
-            nearestItem = item;
-          }
-        });
-        items = items.filter((item) => item.title === nearestItem.title);
-        markersItems = markersItems.filter((item) => item.title === nearestItem.title);
-      }
-
-      if (options.shared === false && items.length > 1) {
-        let snapItem = items[0];
-        let min = Math.abs(point.y - snapItem.y);
-        _.each(items, (aItem) => {
-          if (Math.abs(point.y - aItem.y) <= min) {
-            snapItem = aItem;
-            min = Math.abs(point.y - aItem.y);
-          }
-        });
-        if (snapItem && !_.isNil(snapItem.x) && !_.isNil(snapItem.y)) {
-          markersItems = [ snapItem ];
-        }
-        items = [ snapItem ];
-      }
-      this._setTooltip(point, items, markersItems, target);
-      // 使查找到的数据对应的 shape 处于 active 状态
-      // 应该在每次出现 tooltip 的时候就 active 对应的 shapes
-      view.setActive((obj) => {
-        let result = false;
-        _.each(items, (item) => {
-          const origin = item.point._origin;
-          if (origin === obj) {
-            result = true;
-            return false;
-          }
-        });
-        return result;
-      },             false);
-    } else {
-      this.hideTooltip();
-    }
-  }
-
-  clear() {
-    const tooltip = this.tooltip;
-    tooltip && tooltip.destroy();
-    this.tooltip = null;
-    this.prePoint = null;
-    this._offEvent();
   }
 
   private _getItemMarker(element: Element, color) {

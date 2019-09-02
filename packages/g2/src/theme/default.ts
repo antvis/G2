@@ -42,7 +42,8 @@ const COLOR_PLATE_20 = [
   '#FFD6E7',
 ];
 // tslint:disable-next-line
-const FONT_FAMILY = '"-apple-system", BlinkMacSystemFont, "Segoe UI", Roboto,"Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",SimSun, "sans-serif"';
+const FONT_FAMILY =
+  '"-apple-system", BlinkMacSystemFont, "Segoe UI", Roboto,"Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",SimSun, "sans-serif"';
 // tooltip 相关 dom 的 css 类名
 const TOOLTIP_CONTAINER_CLASS = 'g2-tooltip';
 const TOOLTIP_TITLE_CLASS = 'g2-tooltip-title';
@@ -122,26 +123,26 @@ const SHAPE_STYLE = {
     textBaseline: 'middle',
   },
 };
-const OPACITY_ACTIVE_STYLE = function (style) {
+const OPACITY_ACTIVE_STYLE = function(style) {
   const opacity = style.fillOpacity || style.opacity || 1;
   return {
     fillOpacity: _.clamp(opacity - 0.15, 0.1, 1),
     strokeOpacity: _.clamp(opacity - 0.15, 0.1, 1),
   };
 };
-const LINEWIDTH_ACTIVE_STYLE = function (style) {
+const LINEWIDTH_ACTIVE_STYLE = function(style) {
   const lineWidth = style.lineWidth || 1;
   return {
     lineWidth: lineWidth + 1,
   };
 };
-const FILLOPACITY_ACTIVE_STYLE = function (style) {
+const FILLOPACITY_ACTIVE_STYLE = function(style) {
   const fillOpacity = style.fillOpacity || style.opacity || 1;
   return {
     fillOpacity: _.clamp(fillOpacity - 0.15, 0.1, 1),
   };
 };
-const POINT_ACTIVE_STYLE = function (style) {
+const POINT_ACTIVE_STYLE = function(style) {
   const color = style.fill || style.fillStyle;
   const radius = style.size || style.radius;
 
@@ -154,7 +155,7 @@ const POINT_ACTIVE_STYLE = function (style) {
     lineWidth: 1,
   };
 };
-const HOLLOW_POINT_ACTIVE_STYLE = function (style) {
+const HOLLOW_POINT_ACTIVE_STYLE = function(style) {
   const color = style.stroke || style.strokeStyle;
   const radius = style.size || style.radius;
 
@@ -167,7 +168,7 @@ const HOLLOW_POINT_ACTIVE_STYLE = function (style) {
     lineWidth: 1,
   };
 };
-const TEXT_ACTIVE_STYLE = function (style) {
+const TEXT_ACTIVE_STYLE = function(style) {
   const color = style.fill || style.fillStyle;
 
   return {
@@ -217,7 +218,7 @@ const DEFAULT_AXIS_CONFIG = {
   grid: {
     stroke: '#E9E9E9',
     lineWidth: 1,
-    lineDash: [ 3, 3 ],
+    lineDash: [3, 3],
   },
 };
 
@@ -245,18 +246,29 @@ const DEFAULT_LEGEND_CONFIG = {
 const Theme = {
   pixelRatio: null,
   defaultColor: DEFAULT_COLOR, // 默认主题色
-  padding: [ 20, 20, 95, 80 ], // Todo：auto padding 逻辑加入后改成 'auto'
+  padding: [20, 20, 95, 80], // Todo：auto padding 逻辑加入后改成 'auto'
   fontFamily: FONT_FAMILY,
   colors: COLOR_PLATE_10,
   colors_20: COLOR_PLATE_20,
   shapes: {
-    point: [ 'hollowCircle', 'hollowSquare', 'hollowDiamond', 'hollowBowtie', 'hollowTriangle',
-      'hollowHexagon', 'cross', 'tick', 'plus', 'hyphen', 'line' ],
-    line: [ 'line', 'dash', 'dot' ],
-    area: [ 'area' ],
+    point: [
+      'hollowCircle',
+      'hollowSquare',
+      'hollowDiamond',
+      'hollowBowtie',
+      'hollowTriangle',
+      'hollowHexagon',
+      'cross',
+      'tick',
+      'plus',
+      'hyphen',
+      'line',
+    ],
+    line: ['line', 'dash', 'dot'],
+    area: ['area'],
   },
-  sizes: [ 1, 10 ],
-  opacities: [ 0.1, 0.9 ],
+  sizes: [1, 10],
+  opacities: [0.1, 0.9],
   backgroundStyle: {
     fill: 'rgba(255,255,255,0)',
   },
@@ -401,7 +413,7 @@ const Theme = {
         verticalAlign: 'middle',
       },
     },
-    margin: [ 0, 24, 24, 24 ], // 图例跟四个边的坐标轴、绘图区域的间距
+    margin: [0, 24, 24, 24], // 图例跟四个边的坐标轴、绘图区域的间距
     legendMargin: 24, // 图例之间的间距
   },
   tooltip: {
@@ -414,7 +426,8 @@ const Theme = {
       // whiteSpace: 'nowrap',
       zIndex: 8,
       // tslint:disable-next-line
-      transition: 'visibility 0.2s cubic-bezier(0.23, 1, 0.32, 1), left 0.4s cubic-bezier(0.23, 1, 0.32, 1), top 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
+      transition:
+        'visibility 0.2s cubic-bezier(0.23, 1, 0.32, 1), left 0.4s cubic-bezier(0.23, 1, 0.32, 1), top 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
       backgroundColor: 'rgba(255, 255, 255, 0.9)',
       boxShadow: '0px 0px 10px #aeaeae',
       borderRadius: '3px',
@@ -450,12 +463,7 @@ const Theme = {
   },
   tooltipMarker: {
     symbol: (x, y, r) => {
-      return [
-        [ 'M', x, y ],
-        [ 'm', -r, 0 ],
-        [ 'a', r, r, 0, 1, 0, r * 2, 0 ],
-        [ 'a', r, r, 0, 1, 0, -r * 2, 0 ],
-      ];
+      return [['M', x, y], ['m', -r, 0], ['a', r, r, 0, 1, 0, r * 2, 0], ['a', r, r, 0, 1, 0, -r * 2, 0]];
     },
     stroke: '#fff',
     shadowBlur: 10,
@@ -465,6 +473,13 @@ const Theme = {
     lineWidth: 2,
     radius: 4,
   }, // 提示信息在折线图、区域图上形成点的样式
+  tooltipCrosshairsRect: {
+    type: 'rect',
+    rectStyle: {
+      fill: '#CCD6EC',
+      opacity: 0.3,
+    },
+  }, // tooltip 辅助背景框样式
   tooltipCrosshairsLine: {
     lineStyle: {
       stroke: 'rgba(0, 0, 0, 0.25)',
@@ -476,7 +491,7 @@ const Theme = {
       line: {
         style: {
           stroke: 'rgba(0, 0, 0, .65)',
-          lineDash: [ 2, 2 ],
+          lineDash: [2, 2],
           lineWidth: 1,
         },
       },
