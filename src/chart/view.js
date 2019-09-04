@@ -682,7 +682,7 @@ class View extends Base {
     const filters = this._getFilters();
     let rst;
     if (filters && filters[field]) {
-      rst = values.filter(v => !filters[field](v));
+      rst = values.filter((...args) => !filters[field](...args));
     } else {
       rst = [];
     }
