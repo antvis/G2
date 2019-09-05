@@ -2,8 +2,6 @@
   "name": "@antv/g2",
   "version": "4.0.0-beta.1",
   "description": "the Grammar of Graphics in Javascript",
-  "author": "https://github.com/orgs/antvis/people",
-  "license": "MIT",
   "main": "lib/index.js",
   "module": "esm/index.js",
   "types": "lib/index.d.ts",
@@ -13,43 +11,38 @@
     "README.md",
     "LICENSE"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:antvis/g2.git"
-  },
   "scripts": {
-    "build": "run-s clean lib",
     "clean": "rimraf lib esm",
-    "lib": "run-p lib:*",
+    "lint": "lint-staged",
+    "test": "torch --renderer --compile --recursive ./__tests__/",
+    "test-live": "torch --compile --interactive --watch --recursive ./__tests__/",
+    "coverage": "exit 0",
     "lib:cjs": "tsc -p tsconfig.json --target ES5 --module commonjs --outDir lib",
     "lib:esm": "tsc -p tsconfig.json --target ES5 --module ESNext --outDir esm",
-    "lint": "lint-staged",
-    "coverage": "jest --coverage",
-    "test": "jest",
+    "lib": "run-p lib:*",
+    "build": "run-s clean lib",
     "ci": "run-s build test"
+  },
+  "dependencies": {
+    "@antv/util": "~2.0.0",
+    "tslib": "^1.10.0"
+  },
+  "devDependencies": {
+    "@antv/torch": "~1.0.6",
+    "chai": "~4.1.2",
+    "husky": "^3.0.4",
+    "lint-staged": "^9.2.3",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.18.2",
+    "rimraf": "^3.0.0",
+    "tslint": "^5.18.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.5.3"
   },
   "husky": {
     "hooks": {
       "pre-commit": "run-s lint build test"
     }
-  },
-  "devDependencies": {
-    "@jest-runner/electron": "^2.0.2",
-    "@types/jest": "^24.0.18",
-    "electron": "^6.0.7",
-    "husky": "^3.0.4",
-    "jest": "^24.9.0",
-    "lint-staged": "^9.2.3",
-    "npm-run-all": "^4.1.5",
-    "prettier": "^1.18.2",
-    "rimraf": "^3.0.0",
-    "ts-jest": "^24.0.2",
-    "tslint": "^5.18.0",
-    "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.6.2"
-  },
-  "dependencies": {
-    "tslib": "^1.10.0"
   },
   "lint-staged": {
     "*.{js,css,json,md}": [
@@ -62,14 +55,17 @@
       "git add"
     ]
   },
-  "jest": {
-    "collectCoverage": false,
-    "preset": "ts-jest",
-    "runner": "@jest-runner/electron",
-    "testEnvironment": "@jest-runner/electron/environment",
-    "testRegex": "(/__tests__/.*\\.(test|spec))\\.tsx?$",
-    "collectCoverageFrom": [
-      "src/**/*.{ts,js}"
-    ]
-  }
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:antvis/g2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/antvis/g2/issues"
+  },
+  "keywords": [
+    "antv",
+    "g2"
+  ],
+  "author": "https://github.com/orgs/antvis/people",
+  "license": "MIT"
 }
