@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /** 二维点坐标结构 */
 export interface PointObject {
   x: number;
@@ -88,3 +89,22 @@ export interface ScaleDef {
 export interface ScaleOption {
   [key: string]: ScaleDef;
 }
+=======
+/**
+ * 画布范围的类型定
+ */
+export interface Region {
+  readonly start: Point;
+  readonly end: Point;
+}
+
+/**
+ * 一个点位置
+ */
+export interface Point {
+  readonly x: number;
+  readonly y: number;
+}
+
+export type Padding = number | number[] | string;
+>>>>>>> feat(view): add View, Chart class structure
