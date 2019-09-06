@@ -24,6 +24,8 @@
     "ci": "run-s build test"
   },
   "dependencies": {
+    "@antv/event-emitter": "^0.1.0",
+    "@antv/g": "^3.4.6",
     "@antv/util": "~2.0.0",
     "tslib": "^1.10.0"
   },
