@@ -1,14 +1,14 @@
-import CategoryBase from './base';
 import { BBox, Event, Group, Rect } from '@antv/g';
+import { clone, each, filter, isNumber, mix, wrapBehavior } from '@antv/util';
+import { CanvasCategoryLegendCfg, EventType, GroupType, LegendItem } from '../../interface';
 import Arrow from './arrow';
-import { each, filter, wrapBehavior, isNumber, clone, mix } from '@antv/util';
-import { GroupType, LegendItem, EventType, CanvasCategoryLegendCfg } from '../../interface';
+import CategoryBase from './base';
 
 export default class CanvasLegend extends CategoryBase {
-  maxWidth: number;
-  maxHeight: number;
-  isFlipped: boolean;
-  flipUI: any;
+  public maxWidth: number;
+  public maxHeight: number;
+  public isFlipped: boolean;
+  public flipUI: any;
 
   constructor(cfg: CanvasCategoryLegendCfg) {
     super({
@@ -17,16 +17,18 @@ export default class CanvasLegend extends CategoryBase {
     });
   }
 
-  init() {
+  public init() {
     this.isFlipped = false;
     const container = this.get('container');
     this.set('canvas', container.get('canvas'));
     const itemsGroup = container.addGroup();
     this.set('itemsGroup', itemsGroup);
-    this.get('flipPage') && this.set('autoWrap', true);
+    if (this.get('flipPage')) {
+      this.set('autoWrap', true);
+    }
   }
 
-  renderTitle() {
+  public renderTitle() {
     const title = this.get('title');
     if (title) {
       const container = this.get('container');
@@ -44,7 +46,7 @@ export default class CanvasLegend extends CategoryBase {
     }
   }
 
-  renderItems(): void {
+  public renderItems(): void {
     const items = this.get('items');
     if (this.get('reversed')) {
       items.reverse();
@@ -52,7 +54,9 @@ export default class CanvasLegend extends CategoryBase {
     each(items, (item: LegendItem) => {
       this._addItem(item);
     });
-    this.get('autoWrap') && this._adjustItems(); // 默认自动换行
+    if (this.get('autoWrap')) {
+      this._adjustItems();
+    } // 默认自动换行
     const { maxItemWidth, maxItemHeight } = this._getMaxItemSize();
     this.set('maxItemWidth', maxItemWidth);
     this.set('maxItemHeight', maxItemHeight);
@@ -64,7 +68,7 @@ export default class CanvasLegend extends CategoryBase {
     this._renderBack();
   }
 
-  isNeedFlip(): Boolean {
+  public isNeedFlip(): boolean {
     const maxWidth = this.get('maxWidth');
     const maxItemHeight = this.get('maxItemHeight');
     const itemsBBox = this.get('itemsGroup').getBBox();
@@ -81,7 +85,7 @@ export default class CanvasLegend extends CategoryBase {
     return false;
   }
 
-  flipPage(): void {
+  public flipPage(): void {
     this.isFlipped = true;
     const maxItemWidth = this.get('maxItemWidth');
     const maxItemHeight = this.get('maxItemHeight');
@@ -90,6 +94,7 @@ export default class CanvasLegend extends CategoryBase {
     const itemsGroup = this.get('itemsGroup');
     const itemsBBox = itemsGroup.getBBox();
     const layout = this.get('layout');
+    const paginationCfg = this._getPaginationCfg();
     // 根据layout创建clip
     let pageNumber = 0;
     let mode = 'up-down'; // 上下翻页
@@ -100,7 +105,7 @@ export default class CanvasLegend extends CategoryBase {
       attrs: {
         x,
         y,
-        width: maxWidth,
+        width: maxWidth - paginationCfg.size,
         height: maxHeight,
       },
     });
@@ -111,12 +116,15 @@ export default class CanvasLegend extends CategoryBase {
       this.set('maxWidth', width);
       this.set('maxHeight', maxItemHeight);
       pageNumber = Math.ceil(itemsBBox.height / (maxItemHeight + this.get('itemMarginBottom')));
-      x = x + width - this._getPaginationCfg().size; // temp:padding
-      y = y + maxItemHeight / 2;
+      x = x + width - paginationCfg.size; // temp:padding
+      y = Math.ceil(y + maxItemHeight / 2);
       size = maxItemHeight;
+      if (y - this._getHorizontalPaginationHeight() / 2 < 0) {
+        const offsetY = (this.get('offsetY') || 0) + this._getHorizontalPaginationHeight() / 2 - y;
+        this.set('offsetY', offsetY);
+      }
     }
     if (layout === 'vertical') {
-
       clip.attr('width', maxItemWidth);
       const height = Math.max(maxHeight, itemsBBox.height);
       clip.attr('height', height);
@@ -129,6 +137,7 @@ export default class CanvasLegend extends CategoryBase {
     }
     // 应用clip
     itemsGroup.attr('clip', clip);
+    this.set('clip', clip);
     // 绘制翻页器UI
     const flipUI = this.flipPageUI(x, y, size, pageNumber, mode);
     this.flipUI = flipUI;
@@ -149,9 +158,12 @@ export default class CanvasLegend extends CategoryBase {
           matrix[7] += dist;
         }
         itemsGroup.stopAnimate();
-        itemsGroup.animate({
-          matrix,
-        },                 100);
+        itemsGroup.animate(
+          {
+            matrix,
+          },
+          100
+        );
         this.get('canvas').draw();
       }
     });
@@ -168,14 +180,17 @@ export default class CanvasLegend extends CategoryBase {
           matrix[7] -= dist;
         }
         itemsGroup.stopAnimate();
-        itemsGroup.animate({
-          matrix,
-        },                 100);
+        itemsGroup.animate(
+          {
+            matrix,
+          },
+          100
+        );
       }
     });
   }
 
-  flipPageUI(x, y, size, pageNumber, mode) {
+  public flipPageUI(x, y, size, pageNumber, mode) {
     const paginationCfg = this._getPaginationCfg();
     const container = this.get('container');
     const group = container.addGroup();
@@ -188,7 +203,7 @@ export default class CanvasLegend extends CategoryBase {
           x: x + paginationCfg.arrow.width / 2,
           y,
           direction: 'left',
-        } as any),
+        } as any)
       );
       group.add(la.shape);
       arrows.push(la.shape);
@@ -198,7 +213,7 @@ export default class CanvasLegend extends CategoryBase {
           x: x + size - paginationCfg.arrow.width / 2,
           y,
           direction: 'right',
-        } as any),
+        } as any)
       );
       group.add(ra.shape);
       arrows.push(ra.shape);
@@ -212,12 +227,13 @@ export default class CanvasLegend extends CategoryBase {
       });
     } else {
       // upper arrow
+      const height = this._getHorizontalPaginationHeight();
       const ua = new Arrow(
         mix({}, paginationCfg.arrow, {
           x,
-          y: y - size,
+          y: y - height / 2 + paginationCfg.arrow.height / 2,
           direction: 'up',
-        } as any),
+        } as any)
       );
       group.add(ua.shape);
       arrows.push(ua.shape);
@@ -225,16 +241,17 @@ export default class CanvasLegend extends CategoryBase {
       const da = new Arrow(
         mix({}, paginationCfg.arrow, {
           x,
-          y: y + size,
+          y: y + height / 2 - paginationCfg.arrow.height / 2,
           direction: 'down',
-        } as any),
+        } as any)
       );
       group.add(da.shape);
       arrows.push(da.shape);
       // text
       text = group.addShape('text', {
         attrs: mix({}, paginationCfg.text, {
-          x, y,
+          x,
+          y,
           text: `1 / ${pageNumber}`,
         } as any),
       });
@@ -247,7 +264,7 @@ export default class CanvasLegend extends CategoryBase {
     };
   }
 
-  _getPaginationCfg() {
+  public _getPaginationCfg() {
     const defaultCfg = {
       arrow: {
         x: 0,
@@ -272,7 +289,13 @@ export default class CanvasLegend extends CategoryBase {
     return defaultCfg;
   }
 
-  bindEvents(): void {
+  public _getHorizontalPaginationHeight() {
+    const GAP = 2;
+    const cfg = this._getPaginationCfg();
+    return cfg.text.fontSize + cfg.arrow.height * 2 + GAP * 2;
+  }
+
+  public bindEvents(): void {
     const itemsGroup = this.get('itemsGroup');
     if (this.get('hoverable')) {
       itemsGroup.on('mousemove', wrapBehavior(this, '_onMousemove'));
@@ -286,7 +309,7 @@ export default class CanvasLegend extends CategoryBase {
   /**
    * 清空容器
    */
-  clear() {
+  public clear() {
     const container = this.get('container');
     if (container && !container.destroyed) {
       container.clear();
@@ -296,7 +319,7 @@ export default class CanvasLegend extends CategoryBase {
   /**
    * 销毁
    */
-  destroy() {
+  public destroy() {
     super.destroy();
     const container = this.get('container');
     if (container && !container.destroyed) {
@@ -307,7 +330,7 @@ export default class CanvasLegend extends CategoryBase {
     }
   }
 
-  getCheckedCount() {
+  public getCheckedCount() {
     const itemsGroup = this.get('itemsGroup');
     const items = itemsGroup.get('children');
     const checkedArr = filter(items, (item: GroupType) => {
@@ -316,7 +339,7 @@ export default class CanvasLegend extends CategoryBase {
     return checkedArr.length;
   }
 
-  getWidth() {
+  public getWidth() {
     if (this.isFlipped) {
       const fliperContainer = this.flipUI.container;
       return this.get('maxWidth') + fliperContainer.getBBox().width; // bbox width取不准
@@ -326,18 +349,26 @@ export default class CanvasLegend extends CategoryBase {
     return bbox.width + 2;
   }
 
-  getHeight() {
+  public getHeight() {
     if (this.isFlipped) {
       const fliperContainer = this.flipUI.container;
       if (this.get('layout') === 'horizontal') {
         return Math.max(this.get('maxHeight'), fliperContainer.getBBox().height);
       }
       return this.get('maxHeight') + fliperContainer.getBBox().height;
-
     }
     const container = this.get('container');
     const bbox = container.getBBox();
     return bbox.height;
+  }
+
+  public getFlippedBBox() {
+    if (this.isFlipped) {
+      const clip = this.get('clip');
+      const fliperContainer = this.flipUI.container;
+      return this._mergeBBox([clip.getBBox(), fliperContainer.getBBox()]);
+    }
+    return this.get('container').getBBox();
   }
 
   private _adjustPositionOffset(): void {
@@ -497,9 +528,7 @@ export default class CanvasLegend extends CategoryBase {
     const itemDistance = this.get('itemDistance');
     const itemMarginBottom = this.get('itemMarginBottom');
     const titleDisatance = this.get('titleDistance');
-    const titleHeight = titleShape
-      ? titleShape.getBBox().height + titleDisatance
-      : 0;
+    const titleHeight = titleShape ? titleShape.getBBox().height + titleDisatance : 0;
     const itemWidth = this.get('itemWidth') ? this.get('itemWidth') : 0;
     let colLength = titleHeight + itemsGroup.getBBox().height;
     let width;
@@ -508,16 +537,19 @@ export default class CanvasLegend extends CategoryBase {
     maxItemWidth = Math.max(maxItemWidth, itemWidth) + itemDistance;
     let totalLength = 0;
     if (colLength > maxLength) {
-      each(children, (child: GroupType, index: Number) => {
+      each(children, (child: GroupType, index: number) => {
         box = child.getBBox();
         width = box.width;
         height = box.height;
         /*if (index > 0) {
           maxItemWidth = itemWidth + itemDistance;
         }*/
-        if (maxLength - colLength < height) { // 剩余高度不能满足一行，增加一列
+        if (maxLength - colLength < height) {
+          // 剩余高度不能满足一行，增加一列
           colLength = titleHeight;
-          if (index > 0) totalLength += maxItemWidth;
+          if (index > 0) {
+            totalLength += maxItemWidth;
+          }
           child.move(totalLength, titleHeight);
         } else {
           child.move(totalLength, colLength);
@@ -538,11 +570,12 @@ export default class CanvasLegend extends CategoryBase {
     let padding = this.get('backgroundPadding');
     const backAttrs = this.get('backgroundStyle');
     if (isNumber(padding)) {
-      padding = [ padding, padding, padding, padding ];
+      padding = [padding, padding, padding, padding];
     }
-    if (!backAttrs) return;
+    if (!backAttrs) {
+      return;
+    }
     container.renderBack(padding, backAttrs);
-
   }
 
   private _onMousemove(ev: EventType): void {
@@ -580,7 +613,7 @@ export default class CanvasLegend extends CategoryBase {
       const itemClick: EventType = new Event('itemclick', ev, true, true);
       itemClick.item = item;
       itemClick.currentTarget = clickedItem;
-      itemClick.checked = (mode === 'single') ? true : !checked;
+      itemClick.checked = mode === 'single' ? true : !checked;
       const unSelectedColor = this.get('unSelectedColor');
       const checkColor = this.get('textStyle').fill;
       let markerItem;
@@ -645,7 +678,7 @@ export default class CanvasLegend extends CategoryBase {
 
   private _getLegendItem(target) {
     const item = target.get('parent');
-    if (item && (item.name === 'legendGroup')) {
+    if (item && item.name === 'legendGroup') {
       return item;
     }
     return null;
@@ -654,7 +687,7 @@ export default class CanvasLegend extends CategoryBase {
   private _findItem(refer) {
     const items = this.get('items');
     let rst = null;
-    const value = (refer instanceof Group) ? refer.get('value') : refer;
+    const value = refer instanceof Group ? refer.get('value') : refer;
     each(items, (item: LegendItem) => {
       if (item.value === value) {
         rst = item;
@@ -678,9 +711,28 @@ export default class CanvasLegend extends CategoryBase {
     each(items, (item) => {
       const i = item as Group;
       const bbox = i.getBBox();
-      if (maxItemWidth < bbox.width) maxItemWidth = bbox.width;
-      if (maxItemHeight < bbox.height) maxItemHeight = bbox.height;
+      if (maxItemWidth < bbox.width) {
+        maxItemWidth = bbox.width;
+      }
+      if (maxItemHeight < bbox.height) {
+        maxItemHeight = bbox.height;
+      }
     });
     return { maxItemWidth, maxItemHeight };
+  }
+
+  private _mergeBBox(bboxes: BBox[]) {
+    let minX = Infinity;
+    let maxX = -Infinity;
+    let minY = Infinity;
+    let maxY = -Infinity;
+    each(bboxes, (bbox) => {
+      const box = bbox;
+      minX = Math.min(box.minX, minX);
+      maxX = Math.max(box.maxX, maxX);
+      minY = Math.min(box.minY, minY);
+      maxY = Math.max(box.maxY, maxY);
+    });
+    return new BBox(minX, minY, maxX - minX, maxY - minY);
   }
 }
