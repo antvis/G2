@@ -28,7 +28,7 @@
     "build:cjs": "tsc -p tsconfig.json --target ES5 --module commonjs --outDir lib",
     "build:esm": "tsc -p tsconfig.json --target ES5 --module ESNext --outDir esm",
     "build:umd": "webpack --config webpack.config.js --mode production",
-    "build": "run-s clean build:*",
+    "build": "run-s build:*",
     "ci": "run-s build test"
   },
   "dependencies": {
@@ -47,6 +47,10 @@
   "devDependencies": {
     "@antv/torch": "^1.0.3",
     "event-simulate": "~1.0.0",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.0",
+    "ts-loader": "^6.0.4",
+    "webpack": "^4.39.3",
     "webpack-cli": "^3.1.2"
   },
   "author": "https://github.com/orgs/antvis/people",
