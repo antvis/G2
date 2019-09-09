@@ -28,7 +28,7 @@
     "build:cjs": "tsc -p tsconfig.json --target ES5 --module commonjs --outDir lib",
     "build:esm": "tsc -p tsconfig.json --target ES5 --module ESNext --outDir esm",
     "build:umd": "webpack --config webpack.config.js --mode production",
-    "build": "run-s build:*",
+    "build": "run-s clean build:*",
     "ci": "run-s build test"
   },
   "dependencies": {
