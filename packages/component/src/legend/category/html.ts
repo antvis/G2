@@ -2,10 +2,11 @@
  * @description 使用 HTML 进行渲染的图例
  */
 
-import * as Util from '@antv/util';
 import * as domUtil from '@antv/dom-util';
-import CategoryBase from './base';
+import { BBox } from '@antv/g';
+import * as Util from '@antv/util';
 import { CommonCfg, HTMLCategoryLegendCfg } from '../../interface';
+import CategoryBase from './base';
 
 const DEFAULT_THEME = {
   backgroundStyle: {
@@ -69,7 +70,6 @@ function _findNodeByClass(node, className) {
 }
 
 export default class HTMLLegend extends CategoryBase {
-
   constructor(cfg: HTMLCategoryLegendCfg) {
     super({
       type: 'html-legend',
@@ -80,7 +80,7 @@ export default class HTMLLegend extends CategoryBase {
     });
   }
 
-  init() {
+  public init() {
     // 初始化 HTML dom
     const fontFamily = this.get('fontFamily');
     // const width = this.get('width');
@@ -97,10 +97,7 @@ export default class HTMLLegend extends CategoryBase {
       </div>`;
     }
     const legendContainer = domUtil.createDom(containerTpl);
-    const backgroundStyle = Util.deepMix(
-      {},
-      DEFAULT_THEME.backgroundStyle,
-      this.get('backgroundStyle'));
+    const backgroundStyle = Util.deepMix({}, DEFAULT_THEME.backgroundStyle, this.get('backgroundStyle'));
     domUtil.modifyCSS(legendContainer, {
       fontFamily,
       maxHeight: `${maxHeight}px`,
@@ -116,15 +113,18 @@ export default class HTMLLegend extends CategoryBase {
     }
 
     let container = this.get('container');
-    if (!container) { // 没有传入挂载的 dom，则作为 canvas 的兄弟节点
+    if (!container) {
+      // 没有传入挂载的 dom，则作为 canvas 的兄弟节点
       const canvas = this.get('canvas');
       const mountNode = canvas.get('el').parentNode;
       mountNode.appendChild(legendContainer);
-    } else if (/^\#/.test(container)) { // 如果传入 dom 节点的 id
+    } else if (/^\#/.test(container)) {
+      // 如果传入 dom 节点的 id
       const id = container.replace('#', '');
       container = document.getElementById(id);
       container.appendChild(legendContainer);
-    } else { // 传入 dom 节点
+    } else {
+      // 传入 dom 节点
       container.appendChild(legendContainer);
     }
 
@@ -132,7 +132,7 @@ export default class HTMLLegend extends CategoryBase {
   }
 
   // 渲染标题
-  renderTitle() {
+  public renderTitle() {
     const title = this.get('title');
     if (title) {
       const prefixClassName = this.get('prefixClassName');
@@ -150,9 +150,11 @@ export default class HTMLLegend extends CategoryBase {
   }
 
   // 渲染图例项
-  renderItems() {
+  public renderItems() {
     const items = this.get('items');
-    if (!items || !items.length) return;
+    if (!items || !items.length) {
+      return;
+    }
 
     const legendContainer = this.get('_legendContainer');
     const layout = this.get('layout');
@@ -208,7 +210,8 @@ export default class HTMLLegend extends CategoryBase {
       const originColor = item.marker.fill || item.marker.stroke;
       const color = checked ? originColor : unSelectedColor;
       let itemDom;
-      if (Util.isFunction(itemTpl)) { // 用户声明了回调
+      if (Util.isFunction(itemTpl)) {
+        // 用户声明了回调
         const domStr = itemTpl(value, color, checked, index);
         itemDom = domUtil.createDom(domStr);
       } else {
@@ -240,9 +243,11 @@ export default class HTMLLegend extends CategoryBase {
     }
   }
 
-  bindEvents() {
+  public bindEvents() {
     const itemGroupContainer = this.get('_itemGroupContainer');
-    if (!itemGroupContainer) return;
+    if (!itemGroupContainer) {
+      return;
+    }
 
     if (this.get('clickable')) {
       itemGroupContainer.onclick = (ev) => this._onClick(ev);
@@ -257,7 +262,7 @@ export default class HTMLLegend extends CategoryBase {
   /**
    * 获取图例的宽度
    */
-  getWidth(): number {
+  public getWidth(): number {
     const container = this.get('_legendContainer');
     return domUtil.getOuterWidth(container);
   }
@@ -265,9 +270,16 @@ export default class HTMLLegend extends CategoryBase {
   /**
    * 获取图例的高度
    */
-  getHeight(): number {
+  public getHeight(): number {
     const container = this.get('_legendContainer');
     return domUtil.getOuterHeight(container);
+  }
+
+  /**
+   * 获取图例的BBox
+   */
+  public getBBox(): BBox {
+    return new BBox(this.get('x') || 0, this.get('y') || 0, this.getWidth(), this.getHeight());
   }
 
   /**
@@ -275,7 +287,7 @@ export default class HTMLLegend extends CategoryBase {
    * @param x x 坐标
    * @param y y 坐标
    */
-  moveTo(x: number, y: number) {
+  public moveTo(x: number, y: number) {
     const container = this.get('_legendContainer');
     domUtil.modifyCSS(container, {
       left: `${x}px`,
@@ -288,7 +300,7 @@ export default class HTMLLegend extends CategoryBase {
   /**
    * 销毁
    */
-  destroy() {
+  public destroy() {
     super.destroy();
     const container = this.get('_legendContainer');
     if (container && container.parentNode) {
@@ -296,7 +308,7 @@ export default class HTMLLegend extends CategoryBase {
     }
   }
 
-  draw() {
+  public draw() {
     // HTML Legend 不需要调用 canvas.draw();
     return null;
   }
@@ -320,7 +332,8 @@ export default class HTMLLegend extends CategoryBase {
 
     const target = ev.target;
     const targetClassName = target.className.split(' ');
-    if (Util.indexOf(targetClassName, `${prefixClassName}-list`) > -1) { // 用户点击到了 list 容器上
+    if (Util.indexOf(targetClassName, `${prefixClassName}-list`) > -1) {
+      // 用户点击到了 list 容器上
       return;
     }
 
@@ -337,11 +350,13 @@ export default class HTMLLegend extends CategoryBase {
     const selectedMode = this.get('selectedMode');
     const unSelectedColor = this.get('unSelectedColor');
     const itemNodes = itemGroupContainer.childNodes;
-    if (selectedMode === 'single') { // 单选模式
+    if (selectedMode === 'single') {
+      // 单选模式
       clickedItem.checked = true; // 更新选中状态
       // 其他图例项全部置灰
       Util.each(itemNodes, (child: HTMLElement) => {
         if (child !== clickedItemDom) {
+          // tslint:disable-next-line: no-shadowed-variable
           const markerDom = _findNodeByClass(child, LIST_ITEM_MARKER_CLASS);
           this._updateStatus(child, markerDom, unSelectedColor, 'false');
 
@@ -351,8 +366,9 @@ export default class HTMLLegend extends CategoryBase {
           this._updateStatus(clickedItemDom, markerDom, originColor, 'true');
         }
       });
-    } else { // 混合模式
-      const isCurrentChecked = (clickedItemDom.getAttribute('data-checked') === 'true');
+    } else {
+      // 混合模式
+      const isCurrentChecked = clickedItemDom.getAttribute('data-checked') === 'true';
       let count = 0;
       Util.each(itemNodes, (child: HTMLElement) => {
         if (child.getAttribute('data-checked') === 'true') {
@@ -374,7 +390,7 @@ export default class HTMLLegend extends CategoryBase {
     this.emit('itemclick', {
       item: clickedItem,
       currentTarget: clickedItemDom,
-      checked: (selectedMode === 'single') ? true : clickedItem.checked,
+      checked: selectedMode === 'single' ? true : clickedItem.checked,
     });
   }
 
@@ -389,7 +405,8 @@ export default class HTMLLegend extends CategoryBase {
 
     const target = ev.target;
     const targetClassName = target.className.split(' ');
-    if (Util.indexOf(targetClassName, LIST_CLASS) > -1) { // 用户 move 到了 list 容器上
+    if (Util.indexOf(targetClassName, LIST_CLASS) > -1) {
+      // 用户 move 到了 list 容器上
       return;
     }
 
@@ -398,9 +415,11 @@ export default class HTMLLegend extends CategoryBase {
 
     if (hoveredItem) {
       const highlight = this.get('highlight');
-      if (hoveredItem.checked && (lastActiveItem !== hoveredItem)) { // 只有选中状态才应用样式
+      if (hoveredItem.checked && lastActiveItem !== hoveredItem) {
+        // 只有选中状态才应用样式
         hoveredItemDom.className += ' active';
-        if (highlight) { // 如果开启高亮效果
+        if (highlight) {
+          // 如果开启高亮效果
           const itemGroupContainer = this.get('_itemGroupContainer');
           const itemNodes = itemGroupContainer.childNodes;
           itemNodes.forEach((itemNode) => {
@@ -447,7 +466,8 @@ export default class HTMLLegend extends CategoryBase {
       </div>
     `; // 分页器结构模板，目前不允许自定义
 
-    if (pagination && (legendContainer.scrollHeight > legendContainer.offsetHeight)) { // 满足分页条件
+    if (pagination && legendContainer.scrollHeight > legendContainer.offsetHeight) {
+      // 满足分页条件
       domUtil.modifyCSS(legendContainer, {
         overflow: 'hidden',
         height: `${this.get('maxHeight')}px`,
@@ -456,8 +476,7 @@ export default class HTMLLegend extends CategoryBase {
       legendContainer.appendChild(paginationDom);
 
       const legendContainerHeight = this.getHeight(); // legend 容器的高度
-      const titleHeight = this.get('_titleContainer') ?
-        domUtil.getOuterHeight(this.get('_titleContainer')) : 0;  // Legend 标题的高度
+      const titleHeight = this.get('_titleContainer') ? domUtil.getOuterHeight(this.get('_titleContainer')) : 0; // Legend 标题的高度
       const paginationHeight = domUtil.getOuterHeight(paginationDom); // 分页器的高度
       const itemGroupContainerHeight = legendContainerHeight - titleHeight - paginationHeight; // 获取图例项容器的可视高度
       const itemGroupContainerOffsetHeight = itemGroupContainer.offsetHeight; // 获取图例项实际的高度
@@ -499,7 +518,8 @@ export default class HTMLLegend extends CategoryBase {
 
       domUtil.modifyCSS(prePageButton, inactiveStyle);
       domUtil.modifyCSS(nextPageButton, activeStyle);
-      if (paginationCfg.animation) { // 允许分页的滚动动画
+      if (paginationCfg.animation) {
+        // 允许分页的滚动动画
         domUtil.modifyCSS(itemGroupContainer, {
           transition: 'transform .3s ease-in',
         });
@@ -559,7 +579,8 @@ export default class HTMLLegend extends CategoryBase {
         </div>
       </div>
     `; // 分页器结构模板，目前不允许自定义
-    if (pagination && (legendContainer.scrollWidth > legendContainer.offsetWidth)) { // 满足分页条件
+    if (pagination && legendContainer.scrollWidth > legendContainer.offsetWidth) {
+      // 满足分页条件
       domUtil.modifyCSS(legendContainer, {
         overflow: 'hidden',
         width: `${this.get('maxWidth')}px`,
@@ -569,9 +590,9 @@ export default class HTMLLegend extends CategoryBase {
 
       const legendContainerWidth = this.getWidth(); // legend 容器的宽度
       // const titleHeight = this.get('_titleContainer') ?
-        // Util.getOuterHeight(this.get('_titleContainer')) : 0;  // Legend 标题的高度
+      // Util.getOuterHeight(this.get('_titleContainer')) : 0;  // Legend 标题的高度
       const paginationWidth = domUtil.getOuterWidth(paginationDom); // 分页器的宽度
-      const itemGroupContainerWidth = legendContainerWidth  - paginationWidth - 40; // 获取图例项容器的可视宽度
+      const itemGroupContainerWidth = legendContainerWidth - paginationWidth - 40; // 获取图例项容器的可视宽度
       const itemGroupContainerOffsetWidth = itemGroupContainer.offsetWidth; // 获取图例项实际的宽度
 
       // 剪切区域的样式设置
@@ -611,7 +632,8 @@ export default class HTMLLegend extends CategoryBase {
 
       domUtil.modifyCSS(prePageButton, inactiveStyle);
       domUtil.modifyCSS(nextPageButton, activeStyle);
-      if (paginationCfg.animation) { // 允许分页的滚动动画
+      if (paginationCfg.animation) {
+        // 允许分页的滚动动画
         domUtil.modifyCSS(itemGroupContainer, {
           transition: 'transform .3s ease-in',
         });

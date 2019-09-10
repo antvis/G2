@@ -339,30 +339,15 @@ export default class CanvasLegend extends CategoryBase {
     return checkedArr.length;
   }
 
-  public getWidth() {
-    if (this.isFlipped) {
-      const fliperContainer = this.flipUI.container;
-      return this.get('maxWidth') + fliperContainer.getBBox().width; // bbox width取不准
-    }
-    const container = this.get('container');
-    const bbox = container.getBBox();
-    return bbox.width + 2;
+  public getWidth(): number {
+    return this.getBBox().width;
   }
 
-  public getHeight() {
-    if (this.isFlipped) {
-      const fliperContainer = this.flipUI.container;
-      if (this.get('layout') === 'horizontal') {
-        return Math.max(this.get('maxHeight'), fliperContainer.getBBox().height);
-      }
-      return this.get('maxHeight') + fliperContainer.getBBox().height;
-    }
-    const container = this.get('container');
-    const bbox = container.getBBox();
-    return bbox.height;
+  public getHeight(): number {
+    return this.getBBox().width;
   }
 
-  public getFlippedBBox() {
+  public getBBox(): BBox {
     if (this.isFlipped) {
       const clip = this.get('clip');
       const fliperContainer = this.flipUI.container;
