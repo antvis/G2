@@ -1,12 +1,12 @@
 /**
  * @description Legend 图例基类
  */
+import { BBox } from '@antv/g';
 import * as _ from '@antv/util';
 import Guide from '../base';
 import { LegendCfg } from '../interface';
 
 export default abstract class Legend extends Guide {
-
   constructor(cfg: LegendCfg) {
     super({
       /**
@@ -43,7 +43,7 @@ export default abstract class Legend extends Guide {
   /**
    * 渲染图例内容
    */
-  render() {
+  public render() {
     this.renderTitle(); // 渲染标题
     this.renderItems(); // 渲染图例项
   }
@@ -52,7 +52,7 @@ export default abstract class Legend extends Guide {
    * @override
    * 获取图例的宽度
    */
-  getWidth(): number {
+  public getWidth(): number {
     const container = this.get('container');
     const bbox = container.getBBox();
     return bbox.width;
@@ -62,10 +62,18 @@ export default abstract class Legend extends Guide {
    * @override
    * 获取图例的高度
    */
-  getHeight(): number {
+  public getHeight(): number {
     const container = this.get('container');
     const bbox = container.getBBox();
     return bbox.height;
+  }
+
+  /**
+   * @override
+   * 获取图例BBox
+   */
+  public getBBox(): BBox {
+    return this.get('container').getBBox();
   }
 
   /**
@@ -74,7 +82,7 @@ export default abstract class Legend extends Guide {
    * @param x x 坐标
    * @param y y 坐标
    */
-  moveTo(x: number, y: number) {
+  public moveTo(x: number, y: number) {
     const container = this.get('container');
     container.move(x, y);
     this.set('x', x);
@@ -83,17 +91,17 @@ export default abstract class Legend extends Guide {
   /**
    * 绘制图例
    */
-  draw() {
+  public draw() {
     this.get('canvas').draw();
   }
+
+  public abstract init(): void;
+  public abstract renderTitle(): void;
+  public abstract renderItems(): void;
+  public abstract bindEvents(): void;
   /* 格式化 legend 显示数据 */
   protected formatterValue(v) {
     const formatter = this.get('formatter') || _.identity;
     return formatter.call(this, v);
   }
-
-  abstract init(): void;
-  abstract renderTitle(): void;
-  abstract renderItems(): void;
-  abstract bindEvents(): void;
 }

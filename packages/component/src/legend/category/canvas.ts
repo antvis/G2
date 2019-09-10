@@ -362,7 +362,7 @@ export default class CanvasLegend extends CategoryBase {
     return bbox.height;
   }
 
-  public getFlippedBBox() {
+  public getBBox() {
     if (this.isFlipped) {
       const clip = this.get('clip');
       const fliperContainer = this.flipUI.container;
