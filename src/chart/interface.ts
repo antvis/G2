@@ -1,13 +1,25 @@
-import { Group } from '@antv/g';
+import { Canvas, Group } from '@antv/g';
 import Component from '../component';
+import Interaction from '../interaction';
 import { Padding, Region } from '../interface';
 import { DIRECTION, LAYER } from './constant';
 import View from './view';
-import Interaction from '../interaction';
-import { Canvas } from '@antv/g';
+
+export type Renderer = 'svg' | 'canvas';
+
+// chart 构造方法的入参
+export interface ChartCfg {
+  readonly container: string | HTMLElement;
+  readonly width: number;
+  readonly height: number;
+  readonly autoFit?: boolean;
+  readonly renderer?: Renderer;
+  readonly pixelRatio?: number;
+  readonly padding?: number | number[];
+}
 
 // view 构造参数
-export interface ViewProps {
+export interface ViewCfg {
   readonly parent: View;
   readonly canvas: Canvas;
   /** 前景层 */
@@ -36,20 +48,19 @@ export type Data = Datum[];
 export type FilterCondition = (datum: Datum) => boolean;
 
 export interface AxisCfg {
-  // todo
+  readonly type: string;
 }
 
 export interface LegendCfg {
-  // todo
+  readonly type: string;
 }
 
-
 export interface ScaleCfg {
-  // todo
+  readonly type: string;
 }
 
 export interface CoordinateCfg {
-
+  readonly type: string;
 }
 
 export interface CoordinateOpt {
@@ -67,4 +78,3 @@ export interface Options {
   readonly coordinate: CoordinateOpt;
   readonly interactions: Record<string, Interaction>;
 }
-

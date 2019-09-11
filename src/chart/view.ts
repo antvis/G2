@@ -1,26 +1,25 @@
 import EE from '@antv/event-emitter';
-import { Canvas, Group, BBox } from '@antv/g';
+import { BBox, Canvas, Group } from '@antv/g';
 import * as _ from '@antv/util';
-import Component from 'component';
-import Geometry from 'geometry/geometry';
-import { Padding, Point, Region } from 'interface';
-import Chart from './chart';
-import { DIRECTION, LAYER } from './constant';
-import defaultLayout, { Layout } from './layout';
 import {
-  Options,
   AxisCfg,
   ComponentOption,
   CoordinateCfg,
   CoordinateOpt,
   Data,
   FilterCondition,
+  Options,
   ScaleCfg,
-  ViewProps
+  ViewCfg,
 } from 'chart/interface';
+import Component from 'component';
+import Geometry from 'geometry/geometry';
 import Interaction from 'interaction';
+import { Padding, Point, Region } from 'interface';
 import { parsePadding } from '../util';
-
+import Chart from './chart';
+import { DIRECTION, LAYER } from './constant';
+import defaultLayout, { Layout } from './layout';
 
 /**
  * View 对象
@@ -47,9 +46,6 @@ export default class View extends EE {
 
   public padding: Padding;
 
-  // 布局函数
-  protected _layout: Layout = defaultLayout;
-
   // 配置信息存储
   public options: Options;
 
@@ -57,7 +53,10 @@ export default class View extends EE {
   /** view 实际的绘图区域，除去 padding */
   public viewBBox: BBox;
 
-  constructor(props: ViewProps) {
+  // 布局函数
+  protected _layout: Layout = defaultLayout;
+
+  constructor(props: ViewCfg) {
     super();
 
     const {
@@ -77,6 +76,8 @@ export default class View extends EE {
     this.foregroundGroup = foregroundGroup;
     this.region = region;
     this.padding = padding;
+
+    this.initial();
   }
 
   /**
@@ -109,7 +110,6 @@ export default class View extends EE {
     this._layout = layout;
   }
 
-  /* todo 下面为生命周期函数 */
   /**
    * 初始化
    */
@@ -120,8 +120,7 @@ export default class View extends EE {
     // 事件委托机制
     this._initialEvents();
 
-    // 初始化配置，合并进入一些默认配置
-    this._initialOptions();
+    this._initialControllers();
 
     // 初始化数据
     this._initialData();
@@ -134,35 +133,54 @@ export default class View extends EE {
    * 渲染流程，渲染过程需要处理数据更新的情况
    */
   public render() {
-    // 1. 生成 UI
-    // 渲染组件 component
-    this._renderComponents();
-    // 渲染几何标记
-    this._renderGeometries();
-    // 渲染子 view
-    this._renderViews();
+    // 1. 递归 views，生成 UI
+    this.renderUI();
 
-    // 2. 布局，更新位置等
+    // 2.  递归 views，进行布局
     this.doLayout();
 
     // 3. 实际的绘制
     this._canvasDraw();
   }
 
+  // /**
+  //  * 更新函数
+  //  */
+  // public update() {
+  //
+  // }
+
   /**
    * 清空，之后可以再走 initial 流程，正常使用
    */
-  public clear() {}
+  public clear() {
+    // 1. 清空 geometries
+    _.each(this.geometries, (geometry: Geometry) => {
+      geometry.clear();
+    });
+    this.geometries = [];
+
+    // 2. 清空 components
+    _.each(this.componentOptions, (co: ComponentOption) => {
+      co.component.destroy();
+    });
+    this.componentOptions = [];
+
+    // 3. 递归处理子 view
+    _.each(this.views, (view: View) => {
+      view.clear();
+    });
+  }
 
   /**
    * 销毁，完全无法使用
    */
   public destroy() {
     this.clear();
+    // todo
   }
   /* end 生命周期函数 */
 
-  /* todo 下面为一系列传入配置的 API */
   /**
    * 装载数据。暂时将 data 和 changeData 合并成一个 API
    */
@@ -209,7 +227,7 @@ export default class View extends EE {
    * 辅助标记配置
    */
   public annotation() {
-    // todo
+    // todo @hustcc
     // return this.annotationController;
   }
 
@@ -217,7 +235,7 @@ export default class View extends EE {
    * 坐标系配置
    */
   public coordinate(type: string, coordinateCfg?: CoordinateCfg) {
-    _.set(this.options, 'coordinate', { type, cfg: coordinateCfg } as CoordinateOpt)
+    _.set(this.options, 'coordinate', { type, cfg: coordinateCfg } as CoordinateOpt);
   }
 
   public animate() {}
@@ -240,7 +258,6 @@ export default class View extends EE {
 
     // 保存新的 interaction
     _.set(this.options, ['interactions', name], interaction);
-
   }
 
   /* View 管理相关的 API */
@@ -278,7 +295,39 @@ export default class View extends EE {
       v = this.parent;
     } while (v);
 
-    return (v as unknown as Chart).canvas;
+    return ((v as unknown) as Chart).canvas;
+  }
+
+  // 渲染流程
+
+  /**
+   * 渲染所有的 UI
+   */
+  public renderUI() {
+    // 1. 渲染组件 component
+    this._renderComponents();
+    // 2. 渲染几何标记
+    this._renderGeometries();
+    // 3. 递归渲染子 view
+    _.each(this.views, (view: View) => {
+      view.renderUI();
+    });
+
+    // 3. 布局，更新位置等
+    this.doLayout();
+  }
+
+  /**
+   * 进行布局，同时对子 view 进行布局
+   */
+  public doLayout() {
+    // 当前进行布局
+    this._layout(this);
+
+    // 子 view 进行布局
+    _.each(this.views, (view: View) => {
+      view.doLayout();
+    });
   }
 
   // 生命周期子流程
@@ -304,46 +353,70 @@ export default class View extends EE {
       start = { x: 0, y: 0 };
     }
 
-    const end = { x: start.x + width, y: start.y + height };
     const region = this.region;
 
-    const [ top, right, bottom, left ] = parsePadding(this.padding);
+    const [top, right, bottom, left] = parsePadding(this.padding);
 
     // 计算 bbox 除去 padding 之后的
-    this.viewBBox = BBox.fromRange(
+    this.viewBBox = new BBox(
       start.x + width * region.start.x + left,
       start.y + height * region.start.y + top,
-      end.x - width * region.end.x - right,
-      end.y - height * region.end.y - bottom,
+      width * (region.end.x - region.start.x) - left - right,
+      height * (region.end.y - region.start.y) - top - bottom
     );
   }
 
-  private _initialEvents() {}
-  private _initialOptions() {}
-  private _initialData() {}
+  private _initialEvents() {
+    // todo 依赖 G 的事件实现机制
+  }
+
+  /**
+   * 生成 controller 实例，后续更新配置
+   * @private
+   */
+  private _initialControllers() {
+    // todo @hustcc
+    // 可能暂时不需要，组件管理直接使用 components 管理，生成逻辑写成工具函数
+  }
+
+  /**
+   * 将不同的数据源，处理成 Data 定义的结构
+   * @private
+   */
+  private _initialData() {
+    // 暂时只有一种数据结构，所以无需处理
+  }
+
+  /**
+   * 遍历子 view，子 view 也进行初始化
+   * @private
+   */
   private _initialViews() {
     _.each(this.views, (view: View) => {
       view.initial();
     });
   }
 
-  // 渲染流程
-  private _renderComponents() {}
-  private _renderGeometries() {}
-  private _renderViews() {
-    _.each(this.views, (view: View) => {
-      view.render();
-    });
+  /**
+   * 根据 options 配置自动渲染 components
+   * @private
+   */
+  private _renderComponents() {
+    // todo @hustcc
   }
 
-  // tslint:disable-next-line
-  public doLayout() {
-    this._layout(this);
-    _.each(this.views, (view: View) => {
-      view.doLayout();
-    });
+  /**
+   * 根据 options 配置自动渲染 geometry
+   * @private
+   */
+  private _renderGeometries() {
+    // todo @hustcc
   }
 
+  /**
+   * canvas.draw 实际的绘制
+   * @private
+   */
   private _canvasDraw() {
     this.getCanvas().draw();
   }

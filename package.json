@@ -24,13 +24,14 @@
     "ci": "run-s build test"
   },
   "dependencies": {
-    "@antv/event-emitter": "^0.1.0",
-    "@antv/g": "^3.4.6",
+    "@antv/event-emitter": "~0.1.0",
+    "@antv/g": "~3.5.0-beta.1",
     "@antv/util": "~2.0.0",
     "tslib": "^1.10.0"
   },
   "devDependencies": {
     "@antv/torch": "~1.0.6",
+    "@types/mocha": "^5.2.7",
     "chai": "~4.1.2",
     "husky": "^3.0.4",
     "lint-staged": "^9.2.3",

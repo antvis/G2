@@ -1,19 +1,7 @@
 import { Canvas } from '@antv/g';
 import * as _ from '@antv/util';
+import { ChartCfg } from './interface';
 import View from './view';
-
-type Renderer = 'svg' | 'canvas';
-
-// chart 构造方法的入参
-export interface ChartProps {
-  readonly container: string | HTMLElement;
-  readonly width: number;
-  readonly height: number;
-  readonly autoFit?: boolean;
-  readonly renderer?: Renderer;
-  readonly pixelRatio?: number;
-  readonly padding?: number | number[];
-}
 
 /**
  * Chart 类，是使用 G2 进行绘图的入口
@@ -27,13 +15,15 @@ export default class Chart extends View {
 
   public autoFit: boolean;
 
-  constructor(props: ChartProps) {
-    const { container, width, height, autoFit, renderer, pixelRatio, padding = 0 } = props;
+  constructor(props: ChartCfg) {
+    const { container, width, height, autoFit = true, renderer, pixelRatio, padding = 0 } = props;
 
     const ele: HTMLElement = _.isString(container) ? document.querySelector(container) : container;
 
+    // todo @hustcc
+    // autoFit 为 true 的时候，应该设置 width height 为容器的大小，否则会有两次渲染和闪烁的过程。
     const canvas = new Canvas({
-      container: ele,
+      containerDOM: ele,
       width,
       height,
       renderer,
