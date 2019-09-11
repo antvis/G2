@@ -38,6 +38,7 @@ describe('CanvasTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
     });
     // tooltip.show();
@@ -57,6 +58,7 @@ describe('CanvasTooltip测试', () => {
       visible: true,
       // items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
     });
     // tooltip.show();
@@ -80,6 +82,7 @@ describe('CanvasTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
     });
     // tooltip.show();
@@ -99,6 +102,7 @@ describe('CanvasTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
     });
     // tooltip.show();
@@ -118,6 +122,7 @@ describe('CanvasTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
     });
     tooltip.hide();
@@ -136,6 +141,7 @@ describe('CanvasTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
     });
     tooltip.clear();
@@ -157,6 +163,7 @@ describe('CanvasTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
       crosshairs: { type: 'cross' },
     });
@@ -175,12 +182,13 @@ describe('CanvasTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
     });
     tooltip.setPosition(50, 10);
     canvas.draw();
-    expect(tooltip.get('x')).to.equal(70);// x+gap
-    expect(tooltip.get('y')).to.equal(50);// y+gap
+    expect(tooltip.get('x')).to.equal(70); // x+gap
+    expect(tooltip.get('y')).to.equal(50); // y+gap
     tooltip.destroy();
   });
 
@@ -195,6 +203,7 @@ describe('CanvasTooltip测试', () => {
       position: 'left',
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
     });
     tooltip.setPosition(50, 10);
@@ -215,13 +224,14 @@ describe('CanvasTooltip测试', () => {
       items,
       offset: 50,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
       inPanel: false,
     });
     tooltip.setPosition(-100, 600);
     canvas.draw();
     const height = tooltip.get('container').getBBox().height;
-    expect(tooltip.get('x')).to.equal(20);// gap
+    expect(tooltip.get('x')).to.equal(20); // gap
     expect(tooltip.get('y')).to.equal(600 - height - 20);
     tooltip.destroy();
   });
@@ -244,6 +254,7 @@ describe('CanvasTooltip测试', () => {
       items,
       offset: 50,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
     });
     tooltip.setPosition(10, 20);
@@ -268,6 +279,7 @@ describe('CanvasTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
     });
     tooltip.setPosition(300, 20);
@@ -294,6 +306,7 @@ describe('CanvasTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
     });
     tooltip.setPosition(10, 20);
@@ -318,6 +331,7 @@ describe('CanvasTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
     });
     tooltip.setPosition(10, 300);
@@ -337,6 +351,7 @@ describe('CanvasTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       backgroundGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
       crosshairs: { type: 'cross' },
@@ -362,6 +377,7 @@ describe('CanvasTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       backgroundGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
       crosshair: { type: 'cross' },
@@ -381,5 +397,4 @@ describe('CanvasTooltip测试', () => {
     expect(markergroup.get('visible')).to.equal(true);
     tooltip.destroy();
   });
-
 });

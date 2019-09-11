@@ -1,20 +1,15 @@
 // @ts-ignore // todo 等 g ready 好后再去掉这行 ignore
-import * as G from '@antv/g';
-import * as Util  from '@antv/util'
 import * as domUtil from '@antv/dom-util';
+import * as G from '@antv/g';
 import { transform } from '@antv/matrix-util';
-import Crosshair from './crosshair';
-import Tooltip from './base';
-import {
-  defaultPosition,
-  constraintPositionInBoundary,
-  constraintPositionInPanel,
-} from './util/position';
+import * as Util from '@antv/util';
 import { FONT_FAMILY } from '../const';
+import Tooltip from './base';
+import Crosshair from './crosshair';
 import { TooltipCfg, ToolTipContentItem } from './interface';
+import { constraintPositionInBoundary, constraintPositionInPanel, defaultPosition } from './util/position';
 
 export default class CanvasTooltip extends Tooltip {
-
   constructor(cfg: TooltipCfg) {
     super({
       /**
@@ -97,11 +92,16 @@ export default class CanvasTooltip extends Tooltip {
     const crosshair = this.get('crosshairs');
     if (crosshair) {
       const plot = this.get('frontgroundGroup');
-      const crosshairGroup = new Crosshair(Util.mix({
-        plot,
-        panelRange: this.get('panelRange'),
-        canvas: this.get('canvas'),
-      },                                            this.get('crosshairs')));
+      const crosshairGroup = new Crosshair(
+        Util.mix(
+          {
+            plot,
+            panelRange: this.get('panelRange'),
+            canvas: this.get('canvas'),
+          },
+          this.get('crosshairs')
+        )
+      );
       crosshairGroup.hide();
       this.set('crosshairGroup', crosshairGroup);
     }
@@ -112,7 +112,7 @@ export default class CanvasTooltip extends Tooltip {
     }
   }
 
-  _init_() {
+  public _init_() {
     const padding = this.get('padding');
     const parent = this.get('frontgroundGroup');
     // marker group
@@ -133,10 +133,13 @@ export default class CanvasTooltip extends Tooltip {
     const titleStyle = this.get('titleStyle');
     if (this.get('showTitle')) {
       const titleShape = container.addShape('text', {
-        attrs: Util.mix({
-          x: padding.left,
-          y: padding.top,
-        },              titleStyle),
+        attrs: Util.mix(
+          {
+            x: padding.left,
+            y: padding.top,
+          },
+          titleStyle
+        ),
       });
       this.set('titleShape', titleShape);
       titleShape.name = 'tooltip-title';
@@ -147,7 +150,7 @@ export default class CanvasTooltip extends Tooltip {
     this.set('itemsGroup', itemsGroup);
   }
 
-  render() {
+  public render() {
     this.clear();
     const container = this.get('container');
     const board = this.get('board');
@@ -182,7 +185,7 @@ export default class CanvasTooltip extends Tooltip {
     this._alignToRight(width);
   }
 
-  clear() {
+  public clear() {
     const titleShape = this.get('titleShape');
     const itemsGroup = this.get('itemsGroup');
     const board = this.get('board');
@@ -194,39 +197,52 @@ export default class CanvasTooltip extends Tooltip {
     board.attr('height', 0);
   }
 
-  show() {
+  public show() {
     const container = this.get('container');
     container.show();
     const crosshairGroup = this.get('crosshairGroup');
-    crosshairGroup && crosshairGroup.show();
+    if (crosshairGroup) {
+      crosshairGroup.show();
+    }
     const markerGroup = this.get('markerGroup');
-    markerGroup && markerGroup.show();
+    if (markerGroup) {
+      markerGroup.show();
+    }
     super.show();
     this.get('canvas').draw();
   }
 
-  hide() {
+  public hide() {
     const container = this.get('container');
     container.hide();
     const crosshairGroup = this.get('crosshairGroup');
-    crosshairGroup && crosshairGroup.hide();
+    if (crosshairGroup) {
+      crosshairGroup.hide();
+    }
     const markerGroup = this.get('markerGroup');
-    markerGroup && markerGroup.hide();
+    if (markerGroup) {
+      markerGroup.hide();
+    }
     super.hide();
     this.get('canvas').draw();
   }
 
-  destroy() {
+  public destroy() {
     const container = this.get('container');
     const crosshairGroup = this.get('crosshairGroup');
-    crosshairGroup && crosshairGroup.destroy();
+    if (crosshairGroup) {
+      crosshairGroup.destroy();
+    }
     const markerGroup = this.get('markerGroup');
-    markerGroup && markerGroup.remove();
+    if (markerGroup) {
+      markerGroup.remove();
+    }
     super.destroy();
     container.remove();
   }
 
-  setPosition(oldx: number, oldy: number, target?: any) { // todo
+  public setPosition(oldx: number, oldy: number, target?: any) {
+    // todo
     let x = oldx;
     let y = oldy;
     const container = this.get('container');
@@ -242,30 +258,27 @@ export default class CanvasTooltip extends Tooltip {
 
     let position;
     if (this.get('position')) {
-      const containerWidth = bbox.width;
-      const containerHeight = bbox.height;
-      position = defaultPosition(
-        x, y, this.get('position'),
-        containerWidth, containerHeight, target,
-      );
+      position = defaultPosition(x, y, this.get('position'), containerWidth, containerHeight, target);
       x = position[0];
       y = position[1];
     } else {
-      position = constraintPositionInBoundary(
-        x, y,
-        containerWidth, containerHeight,
-        viewWidth, viewHeight,
-      );
+      position = constraintPositionInBoundary(x, y, containerWidth, containerHeight, viewWidth, viewHeight);
       x = position[0];
       y = position[1];
     }
 
-    if (this.get('inPanel')) { // tooltip 必须限制在绘图区域内
+    if (this.get('inPanel')) {
+      // tooltip 必须限制在绘图区域内
       const panelRange = this.get('panelRange');
+      const panelGroup = this.get('panelGroup');
+      const panelClip = panelGroup.attr('clip');
       position = constraintPositionInPanel(
-        x, y,
-        containerWidth, containerHeight,
-        panelRange, this.get('enterable'),
+        x,
+        y,
+        containerWidth,
+        containerHeight,
+        panelClip ? panelClip.getBBox() : panelRange,
+        this.get('enterable')
       );
       x = position[0];
       y = position[1];
@@ -277,14 +290,15 @@ export default class CanvasTooltip extends Tooltip {
       endy = markerItems[0].y;
     }
 
-    const ulMatrix = [ 1, 0, 0, 0, 1, 0, 0, 0, 1 ];
-    const mat = transform(ulMatrix, [
-        [ 't', x, y ],
-    ]);
+    const ulMatrix = [1, 0, 0, 0, 1, 0, 0, 0, 1];
+    const mat = transform(ulMatrix, [['t', x, y]]);
     container.stopAnimate();
-    container.animate({
-      matrix: mat,
-    },                this.get('animationDuration'));
+    container.animate(
+      {
+        matrix: mat,
+      },
+      this.get('animationDuration')
+    );
 
     const crosshairGroup = this.get('crosshairGroup');
     if (crosshairGroup) {
@@ -294,7 +308,7 @@ export default class CanvasTooltip extends Tooltip {
     super.setPosition(x, y);
   }
 
-  _addItem(item: ToolTipContentItem) {
+  public _addItem(item: ToolTipContentItem) {
     const group = new G.Group();
     let markerRadius = this.get('markerStyle').radius;
     // marker
@@ -312,29 +326,36 @@ export default class CanvasTooltip extends Tooltip {
     // name
     const nameStyle = this.get('nameStyle');
     group.addShape('text', {
-      attrs: Util.mix({
-        x: markerRadius + nameStyle.padding,
-        y: 0,
-        text: item.name,
-      },              nameStyle),
+      attrs: Util.mix(
+        {
+          x: markerRadius + nameStyle.padding,
+          y: 0,
+          text: item.name,
+        },
+        nameStyle
+      ),
     });
     // value
     const valueStyle = this.get('valueStyle');
     group.addShape('text', {
-      attrs: Util.mix({
-        x: group.getBBox().width + valueStyle.padding,
-        y: 0,
-        text: item.value,
-      },              valueStyle),
+      attrs: Util.mix(
+        {
+          x: group.getBBox().width + valueStyle.padding,
+          y: 0,
+          text: item.value,
+        },
+        valueStyle
+      ),
     });
 
     return group;
   }
 
-  _alignToRight(width: number): void {
+  public _alignToRight(width: number): void {
     const itemsGroup = this.get('itemsGroup');
     const groups = itemsGroup.get('children');
-    Util.each(groups, (g: any): void => { // todo
+    Util.each(groups, (g: any): void => {
+      // todo
       const children = g.get('children');
       const valueText = children[2];
       if (valueText) {

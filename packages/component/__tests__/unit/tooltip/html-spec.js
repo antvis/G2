@@ -39,6 +39,7 @@ describe('HtmlTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
     });
     tooltip.show();
@@ -57,6 +58,7 @@ describe('HtmlTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
     });
     tooltip.show();
@@ -75,6 +77,7 @@ describe('HtmlTooltip测试', () => {
       visible: true,
       // items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
     });
     tooltip.show();
@@ -94,6 +97,7 @@ describe('HtmlTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
       crosshairs: { type: 'cross' },
     });
@@ -113,6 +117,7 @@ describe('HtmlTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
     });
     tooltip.clear();
@@ -134,6 +139,7 @@ describe('HtmlTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
     });
     tooltip.destroy();
@@ -151,12 +157,13 @@ describe('HtmlTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
     });
     tooltip.setPosition(50, 10);
     tooltip.show();
-    expect(tooltip.get('x')).to.equal(70);// x+gap
-    expect(tooltip.get('y')).to.equal(50);// y+gap
+    expect(tooltip.get('x')).to.equal(70); // x+gap
+    expect(tooltip.get('y')).to.equal(50); // y+gap
     tooltip.destroy();
   });
 
@@ -170,6 +177,7 @@ describe('HtmlTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
       enterable: true,
     });
@@ -192,13 +200,14 @@ describe('HtmlTooltip测试', () => {
       items,
       offset: 50,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
       inPanel: false,
     });
     tooltip.setPosition(-100, 600);
     tooltip.show();
     const height = tooltip.get('container').clientHeight;
-    expect(tooltip.get('x')).to.equal(20);// gap
+    expect(tooltip.get('x')).to.equal(20); // gap
     expect(tooltip.get('y')).to.equal(600 - height - 20);
     tooltip.destroy();
   });
@@ -221,6 +230,7 @@ describe('HtmlTooltip测试', () => {
       items,
       offset: 50,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
     });
     tooltip.setPosition(10, 20);
@@ -246,6 +256,7 @@ describe('HtmlTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
     });
     tooltip.setPosition(300, 20);
@@ -272,6 +283,7 @@ describe('HtmlTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
     });
     tooltip.setPosition(10, 20);
@@ -297,6 +309,7 @@ describe('HtmlTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
     });
     tooltip.setPosition(10, 300);
@@ -316,6 +329,7 @@ describe('HtmlTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
       enterable: true,
     });
@@ -336,6 +350,7 @@ describe('HtmlTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
       enterable: false,
       position: 'top',
@@ -355,6 +370,7 @@ describe('HtmlTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
       follow: true,
     });
@@ -372,6 +388,7 @@ describe('HtmlTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
       follow: false,
     });
@@ -390,6 +407,7 @@ describe('HtmlTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       backgroundGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
       crosshairs: { type: 'cross' },
@@ -410,6 +428,7 @@ describe('HtmlTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
       htmlContent: (title, items) => {
         let list = '<ul>';
@@ -450,6 +469,7 @@ describe('HtmlTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
       containerTpl: '#container',
     });
@@ -469,6 +489,7 @@ describe('HtmlTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
       containerTpl: `
       <div class="${CONTAINER_CLASS}">
@@ -492,6 +513,7 @@ describe('HtmlTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
       itemTpl: `<li data-index={index}>
         <span style="background-color:{color};" class="${MARKER_CLASS}"></span>
@@ -510,6 +532,7 @@ describe('HtmlTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
       htmlContent: (title, items) => {
         let list = '<ul>';
@@ -545,9 +568,9 @@ describe('HtmlTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
       htmlContent: (title, items) => {
-
         const tooltipContent = document.createElement('div');
         tooltipContent.className = 'g2-tooltip';
 
@@ -566,7 +589,6 @@ describe('HtmlTooltip测试', () => {
         tooltipContent.appendChild(tooltipList);
 
         return tooltipContent;
-
       },
     });
     tooltip.show();
@@ -598,6 +620,7 @@ describe('HtmlTooltip测试', () => {
       visible: true,
       items,
       canvas,
+      panelGroup: canvas.addGroup(),
       backgroundGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
       crosshair: { type: 'cross' },
@@ -617,6 +640,4 @@ describe('HtmlTooltip测试', () => {
     expect(markergroup.get('visible')).to.equal(true);
     tooltip.destroy();
   });
-
 });
-
