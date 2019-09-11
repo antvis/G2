@@ -285,7 +285,16 @@ export default class HtmlTooltip extends Tooltip {
     if (this.get('inPanel')) {
       // tooltip 必须限制在绘图区域内
       const panelRange = this.get('panelRange');
-      position = constraintPositionInPanel(x, y, containerWidth, containerHeight, panelRange, this.get('enterable'));
+      const panelGroup = this.get('panelGroup');
+      const panelClip = panelGroup.attr('clip');
+      position = constraintPositionInPanel(
+        x,
+        y,
+        containerWidth,
+        containerHeight,
+        panelClip ? panelClip.getBBox() : panelRange,
+        this.get('enterable')
+      );
       x = position[0];
       y = position[1];
     }

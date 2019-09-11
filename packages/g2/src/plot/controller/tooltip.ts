@@ -91,6 +91,7 @@ export default class TooltipController {
     let options = this.options;
     options = _.deepMix(
       {
+        panelGroup: view.get('panelGroup'),
         panelRange: view.get('panelRange'),
         capture: false,
         canvas,

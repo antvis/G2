@@ -21,13 +21,13 @@ describe('Tooltip基类测试', () => {
     br: { x: 425, y: 440 },
     cc: { x: 225, y: 245 },
   };
-
   it('initialize', () => {
     const tooltip = new Tooltip({
       x: 10,
       y: 10,
       items,
       titleContent: title,
+      panelGroup: new G.Group(),
       panelRange,
     });
     expect(tooltip).be.an.instanceof(Tooltip);
@@ -40,6 +40,7 @@ describe('Tooltip基类测试', () => {
     const tooltip = new Tooltip({
       x: 10,
       y: 10,
+      panelGroup: new G.Group(),
       panelRange,
     });
     tooltip.setContent(title, items);
@@ -53,6 +54,7 @@ describe('Tooltip基类测试', () => {
       y: 10,
       items,
       titleContent: title,
+      panelGroup: new G.Group(),
       panelRange,
     });
     const newItems = [
@@ -70,6 +72,7 @@ describe('Tooltip基类测试', () => {
       y: 10,
       items,
       titleContent: title,
+      panelGroup: new G.Group(),
       panelRange,
     });
     const newItems = [
@@ -86,6 +89,7 @@ describe('Tooltip基类测试', () => {
       y: 10,
       items,
       titleContent: title,
+      panelGroup: new G.Group(),
       panelRange,
     });
     const isChanged = tooltip.isContentChange(title, items);
@@ -98,6 +102,7 @@ describe('Tooltip基类测试', () => {
       y: 10,
       items,
       titleContent: title,
+      panelGroup: new G.Group(),
       panelRange,
     });
     tooltip.setPosition(20, 15);
@@ -111,6 +116,7 @@ describe('Tooltip基类测试', () => {
       y: 10,
       items,
       titleContent: title,
+      panelGroup: new G.Group(),
       panelRange,
     });
     tooltip.setPosition(20, 15);
@@ -124,6 +130,7 @@ describe('Tooltip基类测试', () => {
       y: 10,
       items,
       titleContent: title,
+      panelGroup: new G.Group(),
       panelRange,
     });
     tooltip.setPosition(20, 15);
@@ -148,6 +155,7 @@ describe('Tooltip基类测试', () => {
       items,
       titleContent: title,
       panelRange,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
     });
     tooltip.setMarkers(markerItems, { radius: 5 });
@@ -176,6 +184,7 @@ describe('Tooltip基类测试', () => {
       items,
       titleContent: title,
       panelRange,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
     });
     tooltip.setMarkers(markerItems, { radius: 5 });
@@ -205,6 +214,7 @@ describe('Tooltip基类测试', () => {
       items,
       titleContent: title,
       panelRange,
+      panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
     });
     tooltip.setMarkers(markerItems, { radius: 5 });
