@@ -1,38 +1,32 @@
 import EE from '@antv/event-emitter';
-import { Canvas, Group } from '@antv/g';
+import { Canvas, Group, BBox } from '@antv/g';
 import * as _ from '@antv/util';
-import Component from '../component';
-import Geometry from '../geometry/geometry';
-import { Padding, Region } from '../interface';
+import Component from 'component';
+import Geometry from 'geometry/geometry';
+import { Padding, Point, Region } from 'interface';
 import Chart from './chart';
 import { DIRECTION, LAYER } from './constant';
 import defaultLayout, { Layout } from './layout';
+import {
+  Options,
+  AxisCfg,
+  ComponentOption,
+  CoordinateCfg,
+  CoordinateOpt,
+  Data,
+  FilterCondition,
+  ScaleCfg,
+  ViewProps
+} from 'chart/interface';
+import Interaction from 'interaction';
+import { parsePadding } from '../util';
 
-// view 构造参数
-export interface ViewProps {
-  readonly parent: View;
-  /** 前景层 */
-  readonly foregroundGroup: Group;
-  /** 中间层 */
-  readonly middleGroup: Group;
-  /** 背景层 */
-  readonly backgroundGroup: Group;
-  /** 位置大小范围 */
-  readonly region?: Region;
-  readonly padding?: Padding;
-}
-
-// 组件及布局的信息
-interface ComponentOption {
-  readonly component: Component;
-  readonly layer: LAYER;
-  readonly direction: DIRECTION;
-}
 
 /**
  * View 对象
  */
 export default class View extends EE {
+  public canvas: Canvas;
   /** 所有的子 view */
   public views: View[] = [];
   /** 所有的组件配置 */
@@ -48,19 +42,27 @@ export default class View extends EE {
   public middleGroup: Group;
   /** 前景层 */
   public foregroundGroup: Group;
-  /** 标记 view 的大小位置范围 */
+  /** 标记 view 的大小位置范围，均是 0 ~ 1 范围，便于开发者使用 */
   public region: Region;
 
   public padding: Padding;
 
   // 布局函数
-  private _layout: Layout = defaultLayout;
+  protected _layout: Layout = defaultLayout;
+
+  // 配置信息存储
+  public options: Options;
+
+  // 计算信息
+  /** view 实际的绘图区域，除去 padding */
+  public viewBBox: BBox;
 
   constructor(props: ViewProps) {
     super();
 
     const {
       parent,
+      canvas,
       backgroundGroup,
       middleGroup,
       foregroundGroup,
@@ -69,6 +71,7 @@ export default class View extends EE {
     } = props;
 
     this.parent = parent;
+    this.canvas = canvas;
     this.backgroundGroup = backgroundGroup;
     this.middleGroup = middleGroup;
     this.foregroundGroup = foregroundGroup;
@@ -112,7 +115,7 @@ export default class View extends EE {
    */
   public initial() {
     // 将相对的 region 范围转化为实际的范围
-    this._initialRegion();
+    this._initialViewBBox();
 
     // 事件委托机制
     this._initialEvents();
@@ -128,7 +131,7 @@ export default class View extends EE {
   }
 
   /**
-   * 渲染流程
+   * 渲染流程，渲染过程需要处理数据更新的情况
    */
   public render() {
     // 1. 生成 UI
@@ -139,10 +142,10 @@ export default class View extends EE {
     // 渲染子 view
     this._renderViews();
 
-    // 布局，更新位置等
+    // 2. 布局，更新位置等
     this.doLayout();
 
-    // 实际的绘制
+    // 3. 实际的绘制
     this._canvasDraw();
   }
 
@@ -163,42 +166,59 @@ export default class View extends EE {
   /**
    * 装载数据。暂时将 data 和 changeData 合并成一个 API
    */
-  public data() {}
+  public data(data: Data) {
+    _.set(this.options, 'data', data);
+  }
 
   /**
    * 数据筛选配置
    */
-  public filter() {}
+  public filter(field: string, condition: FilterCondition) {
+    _.set(this.options, ['filters', field], condition);
+  }
 
   /**
    * 坐标轴配置
    */
-  public axis() {}
+  public axis(field: string, axisCfg: AxisCfg) {
+    _.set(this.options, ['axes', field], axisCfg);
+  }
 
   /**
    * 图例配置
    */
-  public legend() {}
+  public legend(field: string, legendCfg) {
+    _.set(this.options, ['legends', field], legendCfg);
+  }
 
   /**
    * scale 配置
    */
-  public scale() {}
+  public scale(field: string, scaleCfg: ScaleCfg) {
+    _.set(this.options, ['scales', field], scaleCfg);
+  }
 
   /**
    * tooltip 配置
    */
-  public tooltip() {}
+  public tooltip(visible: boolean) {
+    _.set(this.options, 'tooltip', visible);
+  }
 
   /**
    * 辅助标记配置
    */
-  public annotation() {}
+  public annotation() {
+    // todo
+    // return this.annotationController;
+  }
 
   /**
    * 坐标系配置
    */
-  public coordinate() {}
+  public coordinate(type: string, coordinateCfg?: CoordinateCfg) {
+    _.set(this.options, 'coordinate', { type, cfg: coordinateCfg } as CoordinateOpt)
+  }
 
   public animate() {}
 
@@ -206,8 +226,22 @@ export default class View extends EE {
 
   /**
    * 加载自定义交互
+   * @param name 交互的名称（唯一）
+   * @param interaction 交互类，view 中会对他们进行实例化和销毁
    */
-  public interaction() {}
+  public interaction(name: string, interaction: Interaction) {
+    const path = ['interactions', name];
+
+    const existInteraction = _.get(this.options, path) as Interaction;
+    // 存在则先销毁已有的
+    if (existInteraction) {
+      existInteraction.destroy();
+    }
+
+    // 保存新的 interaction
+    _.set(this.options, ['interactions', name], interaction);
+
+  }
 
   /* View 管理相关的 API */
   /**
@@ -216,6 +250,7 @@ export default class View extends EE {
   public createView(): View {
     const v = new View({
       parent: this,
+      canvas: this.canvas,
       // 子 view 共用三层 group
       backgroundGroup: this.backgroundGroup,
       middleGroup: this.middleGroup,
@@ -243,12 +278,46 @@ export default class View extends EE {
       v = this.parent;
     } while (v);
 
-    return (v as Chart).canvas;
+    return (v as unknown as Chart).canvas;
   }
 
   // 生命周期子流程
   // 初始化流程
-  private _initialRegion() {}
+  /**
+   * 初始化 region，计算实际的像素范围坐标，去除 padding 之后的
+   * @private
+   */
+  private _initialViewBBox() {
+    // 存在 parent， 那么就是通过父容器大小计算
+    let width;
+    let height;
+    let start: Point;
+
+    if (this.parent) {
+      start = this.parent.viewBBox.tl;
+      width = this.parent.viewBBox.width;
+      height = this.parent.viewBBox.height;
+    } else {
+      // 顶层容器，从 canvas 中取值 宽高
+      width = this.canvas.get('width');
+      height = this.canvas.get('height');
+      start = { x: 0, y: 0 };
+    }
+
+    const end = { x: start.x + width, y: start.y + height };
+    const region = this.region;
+
+    const [ top, right, bottom, left ] = parsePadding(this.padding);
+
+    // 计算 bbox 除去 padding 之后的
+    this.viewBBox = BBox.fromRange(
+      start.x + width * region.start.x + left,
+      start.y + height * region.start.y + top,
+      end.x - width * region.end.x - right,
+      end.y - height * region.end.y - bottom,
+    );
+  }
+
   private _initialEvents() {}
   private _initialOptions() {}
   private _initialData() {}

@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-/** 二维点坐标结构 */
+/** 二维点坐标结构 todo 和 Point 一样，保留一个即可 @simaq */
 export interface PointObject {
   x: number;
   y: number;
@@ -89,7 +88,7 @@ export interface ScaleDef {
 export interface ScaleOption {
   [key: string]: ScaleDef;
 }
-=======
+
 /**
  * 画布范围的类型定
  */
@@ -106,5 +105,4 @@ export interface Point {
   readonly y: number;
 }
 
-export type Padding = number | number[] | string;
->>>>>>> feat(view): add View, Chart class structure
+export type Padding = number | number[];

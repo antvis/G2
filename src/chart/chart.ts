@@ -1,6 +1,5 @@
 import { Canvas } from '@antv/g';
 import * as _ from '@antv/util';
-import { Padding } from '../interface';
 import View from './view';
 
 type Renderer = 'svg' | 'canvas';
@@ -21,14 +20,12 @@ export interface ChartProps {
  */
 export default class Chart extends View {
   public ele: HTMLElement;
-  public canvas: Canvas;
 
   // 大小
   public width: number;
   public height: number;
 
   public autoFit: boolean;
-  public padding: Padding;
 
   constructor(props: ChartProps) {
     const { container, width, height, autoFit, renderer, pixelRatio, padding = 0 } = props;
@@ -46,6 +43,7 @@ export default class Chart extends View {
     // 调用 view 的创建
     super({
       parent: null,
+      canvas,
       // 创建三层 group
       backgroundGroup: canvas.addGroup(),
       middleGroup: canvas.addGroup(),
