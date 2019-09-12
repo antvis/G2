@@ -24,8 +24,14 @@
     "ci": "run-s build test"
   },
   "dependencies": {
+    "@antv/adjust": "^0.2.0",
+    "@antv/attr": "^0.2.0",
+    "@antv/coord": "^0.2.0",
     "@antv/event-emitter": "~0.1.0",
     "@antv/g": "~3.5.0-beta.1",
+    "@antv/matrix-util": "^2.0.2",
+    "@antv/path-util": "^2.0.3",
+    "@antv/scale": "^0.2.0",
     "@antv/util": "~2.0.0",
     "tslib": "^1.10.0"
   },
