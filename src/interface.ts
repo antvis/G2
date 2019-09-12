@@ -1,4 +1,4 @@
-/** 二维点坐标结构 */
+/** 二维点坐标结构 todo 和 Point 一样，保留一个即可 @simaq */
 export interface PointObject {
   x: number;
   y: number;
@@ -88,3 +88,21 @@ export interface ScaleDef {
 export interface ScaleOption {
   [key: string]: ScaleDef;
 }
+
+/**
+ * 画布范围的类型定
+ */
+export interface Region {
+  readonly start: Point;
+  readonly end: Point;
+}
+
+/**
+ * 一个点位置
+ */
+export interface Point {
+  readonly x: number;
+  readonly y: number;
+}
+
+export type Padding = number | number[];
