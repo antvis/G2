@@ -382,7 +382,7 @@ export default abstract class Axis extends Guide {
     Util.each(gridPoints, (subPoints: any, index) => {
       if (Util.isFunction(grid)) { // grid 是回调函数
         const tick = ticks[index];
-        const executedGrid = grid(tick.text, index, count);
+        const executedGrid = tick && grid(tick.text, index, count);
         gridCfg = executedGrid ? Util.mix({}, theme.grid, executedGrid) : null;
       }
 
