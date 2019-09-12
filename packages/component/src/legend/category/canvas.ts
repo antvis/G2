@@ -344,7 +344,7 @@ export default class CanvasLegend extends CategoryBase {
   }
 
   public getHeight(): number {
-    return this.getBBox().width;
+    return this.getBBox().height;
   }
 
   public getBBox(): BBox {
