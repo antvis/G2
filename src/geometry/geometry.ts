@@ -360,6 +360,9 @@ export default class Geometry {
     this.dataArray = mappedArray;
   }
 
+  // todo
+  public clear() {}
+
   public getGroupScales() {
     let scales = this.groupScales;
     if (!scales) {
