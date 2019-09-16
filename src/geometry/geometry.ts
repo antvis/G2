@@ -99,6 +99,7 @@ interface MappedRecord {
 }
 
 /**
+ * @todo label tooltip animate
  * Create a new Geometry
  * @class
  */
@@ -136,7 +137,7 @@ export default class Geometry {
 
   /** 图形属性映射配置 */
   public attrOption: Record<string, AttributeOption> = {};
-  /** TODO: tooltip 配置项 */
+  /** tooltip 配置项 */
   public tooltipOption = null;
   /** adjust 配置项 */
   public adjustOption = null;

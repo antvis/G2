@@ -62,7 +62,6 @@ const ShapeFactoryBase = {
   },
   /**
    * 获取 shape 对应的缩略图
-   * @todo
    * @override
    * @param shapeType shape 类型
    * @param markerCfg 样式配置
@@ -98,7 +97,6 @@ const ShapeFactoryBase = {
     const shape = this.getShape(shapeType);
     shape.update(cfg, element);
   },
-
   /**
    * 设置 shape 状态
    * @override
@@ -119,7 +117,6 @@ const Shape = {
   getCoord(): Coord {
     return this.coord;
   },
-
   /**
    * 将归一化的 path 转换成坐标系下的 path
    * @param path 归一化的路径
@@ -135,7 +132,6 @@ const Shape = {
     }
     return parsedPath;
   },
-
   /**
    * 将归一化的坐标转换成画布坐标
    * @param point 归一化的坐标点数据
@@ -144,7 +140,6 @@ const Shape = {
     const coord = this.coord;
     return coord.convertPoint(point);
   },
-
   /**
    * 0～1 points 转 画布 points
    * @param points 节点集合
@@ -155,7 +150,6 @@ const Shape = {
       return coord.convertPoint(point);
     });
   },
-
   /**
    * 绘制 shape
    * @override
@@ -180,7 +174,7 @@ const Shape = {
    */
   setState(stateName: string, stateStatus: boolean, element: Element) {
     const states = element.getStates(); // 获取当前的状态集合
-    const gShape = element.shape;
+    const gShape = element.shape; // 默认 element 都只包含一个 shape，如果是 group 的场景用户自己定义 setState 方法
 
     if (!gShape) {
       return;
@@ -211,7 +205,6 @@ export function registerShapeFactory(factoryName: string, cfg: RegisterShapeFact
   const geomObj = {
     ...ShapeFactoryBase,
     ...cfg,
-    // name: factoryName,
   };
   ShapeFactoryMap[className] = geomObj;
   return geomObj;
@@ -224,7 +217,6 @@ export function registerShape(factoryName: string, shapeType: string, cfg: Regis
   const shapeObj = {
     ...Shape,
     ...cfg,
-    // name: shapeType,
   };
   factory[shapeType] = shapeObj;
   return shapeObj;
