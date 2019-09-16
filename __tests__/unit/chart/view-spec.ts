@@ -1,9 +1,15 @@
 import { Canvas, Group } from '@antv/g';
+import * as _ from '@antv/util';
 import { expect } from 'chai';
-import { View } from '../../../src/chart';
+import { View } from '../../../src';
 import { createCanvas, createDiv } from '../../util/dom';
 
-const data = [{ city: '杭州', sale: 100 }, { city: '上海', sale: 200 }, { city: '呼和浩特', sale: 50 }];
+const data = [
+  { city: '杭州', sale: 100 },
+  { city: '广州', sale: 30 },
+  { city: '上海', sale: 200 },
+  { city: '呼和浩特', sale: 10 },
+];
 
 describe('View', () => {
   const div = createDiv();
@@ -58,7 +64,7 @@ describe('View', () => {
     view.filter('city', (city: string) => city.length <= 2);
 
     view.render();
-    expect(view.filteredData).to.be.eql([{ city: '杭州', sale: 100 }]);
+    expect(view.filteredData).to.be.eql([{ city: '杭州', sale: 100 }, { city: '广州', sale: 30 }]);
   });
 
   it('coordinate', () => {
@@ -74,5 +80,16 @@ describe('View', () => {
     expect(view.getCoordinate().type).to.be.eql('theta');
     expect(view.getCoordinate().width).to.be.eql(790);
     expect(view.getCoordinate().height).to.be.eql(590);
+  });
+
+  it('geometry', () => {
+    // @ts-ignore
+    view.polygon().position('city*sale');
+
+    view.render();
+    expect(view.geometries.length).to.be.eql(1);
+    expect(_.size(view.geometries[0].scales)).to.be.eql(2);
+    expect(view.geometries[0].scales.city.ticks).to.be.eql(['杭州', '广州']);
+    expect(view.geometries[0].scales.sale.values).to.be.eql([100, 30]);
   });
 });

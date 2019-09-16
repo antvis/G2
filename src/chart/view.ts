@@ -14,13 +14,14 @@ import {
   ViewCfg,
 } from 'chart/interface';
 import Component from 'component';
-import { Coordinate } from 'dependents';
+import { Coordinate, Scale } from 'dependents';
 import Geometry from 'geometry/geometry';
 import Interaction from 'interaction';
 import { Padding, Point, Region } from 'interface';
 import { parsePadding } from '../util';
 import Chart from './chart';
 import { DIRECTION, LAYER } from './constant';
+import { createAxes } from './controller/axis';
 import { createCoordinate } from './controller/coordinate';
 import defaultLayout, { Layout } from './layout';
 
@@ -160,7 +161,10 @@ export default class View extends EE {
     // 3. 递归 views，生成 UI
     this._renderUI();
 
-    // 4.  递归 views，进行布局
+    // 4. 调整 scale 配置
+    this._adjustScales();
+
+    // 5.  递归 views，进行布局
     this._doLayout();
 
     // 同样递归处理子 views
@@ -353,14 +357,24 @@ export default class View extends EE {
   }
 
   /**
+   * 调整 scale 配置
+   * @private
+   */
+  private _adjustScales() {
+    // 调整目前包括：
+    // scale sync 的配置
+  }
+
+  /**
    * 渲染所有的 UI
    * @private
    */
   private _renderUI() {
-    // 1. 渲染组件 component
-    this._renderComponents();
-    // 2. 渲染几何标记
+    // 先渲染 Geometry，后渲染组件；因为一些组件可能会依赖 Geometry 中创建的 scale
+    // 1. 渲染几何标记
     this._renderGeometries();
+    // 2. 渲染组件 component
+    this._renderComponents();
   }
 
   /**
@@ -448,7 +462,6 @@ export default class View extends EE {
    * @private
    */
   private _initialControllers() {
-    // todo @hustcc
     // 可能暂时不需要，组件管理直接使用 components 管理，生成逻辑写成工具函数
   }
 
@@ -471,19 +484,31 @@ export default class View extends EE {
   }
 
   /**
-   * 根据 options 配置自动渲染 components
-   * @private
-   */
-  private _renderComponents() {
-    // todo @hustcc
-  }
-
-  /**
    * 根据 options 配置自动渲染 geometry
    * @private
    */
   private _renderGeometries() {
-    // todo @hustcc
+    _.each(this.geometries, (geometry) => {
+      // FIXME geometry.init(); 应该在构造函数中就执行掉
+      geometry.init();
+    });
+  }
+
+  /**
+   * 根据 options 配置自动渲染 components
+   * @private
+   */
+  private _renderComponents() {
+    const { axes, legends } = this.options;
+    // 1. axis
+    _.each(createAxes(axes, this), (axis: any) => {
+      this.addComponent(axis);
+    });
+
+    // 2. legend
+    _.each(createAxes(legends, this), (legend: any) => {
+      this.addComponent(legend, LAYER.FORE, DIRECTION.BOTTOM);
+    });
   }
 
   /**
@@ -494,3 +519,35 @@ export default class View extends EE {
     this.getCanvas().draw();
   }
 }
+
+/**
+ * 注册 geometry 组件
+ * @param name
+ * @param Ctor
+ */
+export const registerGeometry = (name: string, Ctor: any) => {
+  // 语法糖，在 view API 上增加原型方法
+  View.prototype[name.toLowerCase()] = function(cfg: any = {}) {
+    const props = {
+      /** 坐标系对象 */
+      // FIXME 不使用简写
+      coord: this._coordinate,
+      // coordinate: this._coordinate,
+      /** data 数据 */
+      data: this.filteredData,
+      /** 图形容器 */
+      container: this.middleGroup,
+      /** scale 配置 */
+      scaleDefs: this.options.scales,
+      // 其他信息，不知道需不需要
+      canvas: this.canvas,
+      view: this,
+      ...cfg,
+    };
+
+    const geometry = new Ctor(props);
+    this.addGeometry(geometry);
+
+    return geometry;
+  };
+};

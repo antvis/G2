@@ -24,8 +24,8 @@ export function createCoordinate(coordinateOption: CoordinateOption = {}, viewBB
   const { type = 'rect', cfg, actions = [] } = coordinateOption;
 
   // 1. 起始位置
-  const start = { x: viewBBox.minX, y: viewBBox.minY };
-  const end = { x: viewBBox.maxX, y: viewBBox.maxY };
+  const start = viewBBox.bl;
+  const end = viewBBox.tr;
 
   const props = {
     start,
