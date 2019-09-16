@@ -330,12 +330,19 @@ export default class LegendController {
     const view = this.view;
     const viewTheme = this.theme;
     const canvas = view.get('canvas');
-    const panelRange = this.panelRange;
-    const viewRange = this.viewRange;
+    const panelGroup = view.get('panelGroup');
+    const panelGroupClip = panelGroup.attr('clip');
+    const panelGroupClipBox = panelGroupClip ? panelGroupClip.getBBox() : undefined;
+    const panelRange = view.get('panelRange');
+    const viewRange = view.get('viewRange');
     const posArray = position.split('-');
     const maxLength =
       posArray[0] === 'right' || posArray[0] === 'left' // TODO
-        ? panelRange.height
+        ? panelGroupClipBox
+          ? panelGroupClipBox.height
+          : panelRange.height
+        : panelGroupClipBox
+        ? viewRange.width - (panelRange.width - panelGroupClipBox.width)
         : viewRange.width;
     _.each(ticks, (tick) => {
       const text = tick.text;
@@ -392,14 +399,14 @@ export default class LegendController {
       case 'left':
         /*maxHeight = viewRange.height;
           maxWidth = panelRange.x - viewRange.x;*/
-        maxHeight = panelRange.height;
+        maxHeight = panelGroupClipBox ? panelGroupClipBox.height : panelRange.height;
         maxWidth = panelRange.x - viewRange.x;
         layout = 'vertical';
         break;
       case 'right':
         /*maxHeight = viewRange.height;
           maxWidth = viewRange.tr.x - panelRange.tr.x;*/
-        maxHeight = panelRange.height;
+        maxHeight = panelGroupClipBox ? panelGroupClipBox.height : panelRange.height;
         maxWidth = viewRange.tr.x - panelRange.tr.x;
         layout = 'vertical';
         break;
@@ -407,14 +414,14 @@ export default class LegendController {
         /*maxHeight = panelRange.tr.y - viewRange.tr.y;
           maxWidth = viewRange.width;*/
         maxHeight = panelRange.tr.y - viewRange.tr.y;
-        maxWidth = viewRange.width;
+        maxWidth = panelGroupClipBox ? viewRange.width - (panelRange.width - panelGroupClipBox.width) : viewRange.width;
         layout = 'horizontal';
         break;
       case 'bottom':
         /*maxHeight = viewRange.br.y - panelRange.br.y;
           maxWidth = viewRange.width;*/
         maxHeight = viewRange.br.y - panelRange.br.y;
-        maxWidth = viewRange.width;
+        maxWidth = panelGroupClipBox ? viewRange.width - (panelRange.width - panelGroupClipBox.width) : viewRange.width;
         layout = 'horizontal';
         break;
       default:
