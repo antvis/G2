@@ -7,6 +7,7 @@ import {
   CoordinateCfg,
   CoordinateOpt,
   Data,
+  Datum,
   FilterCondition,
   Options,
   ScaleCfg,
@@ -47,11 +48,13 @@ export default class View extends EE {
   public padding: Padding;
 
   // 配置信息存储
-  public options: Options;
+  // @ts-ignore
+  public options: Options = {}; // 初始化为空
 
   // 计算信息
   /** view 实际的绘图区域，除去 padding */
   public viewBBox: BBox;
+  public filteredData: Data;
 
   // 布局函数
   protected _layout: Layout = defaultLayout;
@@ -133,13 +136,16 @@ export default class View extends EE {
    * 渲染流程，渲染过程需要处理数据更新的情况
    */
   public render() {
-    // 1. 递归 views，生成 UI
+    // 1. 处理数据
+    this._filterData();
+
+    // 2. 递归 views，生成 UI
     this.renderUI();
 
-    // 2.  递归 views，进行布局
+    // 3.  递归 views，进行布局
     this.doLayout();
 
-    // 3. 实际的绘制
+    // 4. 实际的绘制
     this._canvasDraw();
   }
 
@@ -291,14 +297,16 @@ export default class View extends EE {
 
   public getCanvas(): Canvas {
     let v = this as View;
-    do {
-      v = this.parent;
-    } while (v);
 
+    while (true) {
+      if (v.parent) {
+        v = v.parent;
+        continue;
+      }
+      break;
+    }
     return ((v as unknown) as Chart).canvas;
   }
-
-  // 渲染流程
 
   /**
    * 渲染所有的 UI
@@ -327,6 +335,37 @@ export default class View extends EE {
     // 子 view 进行布局
     _.each(this.views, (view: View) => {
       view.doLayout();
+    });
+  }
+
+  // 渲染流程
+
+  /**
+   * 处理筛选器，筛选数据
+   * @private
+   */
+  private _filterData() {
+    const { data, filters } = this.options;
+    // 不存在 filters，则不需要进行数据过滤
+    if (_.size(filters) === 0) {
+      this.filteredData = data;
+      return;
+    }
+
+    // 存在过滤器，则逐个执行过滤，过滤器之间是 与 的关系
+    this.filteredData = _.filter(data, (datum: Datum) => {
+      let filtered = true;
+
+      _.each(filters, (filter: FilterCondition, field: string) => {
+        // 只要一个不通过，就结束循环
+        if (!filter(datum[field], datum)) {
+          filtered = false;
+          // return false === break loop
+          return false;
+        }
+      });
+
+      return filtered;
     });
   }
 

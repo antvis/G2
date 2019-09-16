@@ -45,7 +45,7 @@ export type Datum = Record<string, string | number>;
 export type Data = Datum[];
 
 /* 筛选器函数类型定义 */
-export type FilterCondition = (datum: Datum) => boolean;
+export type FilterCondition = (value: any, datum: Datum) => boolean;
 
 export interface AxisCfg {
   readonly type: string;
