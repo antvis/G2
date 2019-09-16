@@ -45,13 +45,15 @@ export default class Element {
   // 存储当前状态
   private states: string[] = [];
   // 存储 shape 的原始样式
-  private originStyle: LooseObject;
+  private originStyle: LooseObject = {};
 
   constructor(cfg: ElementCfg) {
     Util.mix(this, cfg);
 
     // 绘制 shape
     this._drawShape();
+    // 存储初始样式
+    this._setOriginStyle();
   }
   /**
    * Sets state
@@ -85,34 +87,31 @@ export default class Element {
     // 获取默认的图形样式
     const defaultStyle = this.getStateStyle('default');
     cfg.style = Util.mix({}, defaultStyle, cfg.style);
-
+    // 更新图形
     shapeFactory.updateShape(shapeType, cfg, this);
-
-    // TODO：有可能会返回 Group
-    const shape = this.shape;
-    this.originStyle = shape.attr();
+    // 更新原始状态
+    this._setOriginStyle();
+    // 更新数据
     this.model = cfg;
     this.data = cfg.origin[FIELD_ORIGIN];
   }
-  // TODO
-  public updateData(data: object) {}
 
   /**
-   * TODO：更新图形样式
+   * @todo
+   * @param data
+   */
+  public updateData(data: LooseObject) {}
+
+  /**
+   * @todo 更新图形样式
    * @param attrs 图形属性配置
    */
-  public style(attrs: object) {
-    // const shapeFactory = this.get('shapeFactory');
-    // const shapeType = this.get('shapeType');
-    // shapeFactory.updateShape(shapeType, attrs);
-  }
+  public style(attrs: LooseObject) {}
 
+  /**
+   * @todo
+   */
   public destroy() {
-    // if (this.destroyed) {
-    //   return;
-    // }
-
-    // TODO
     // const shapeFactory = this.get('shapeFactory');
     // const shapeType = this.get('shapeType');
     // shapeFactory.destroy(shapeType);
@@ -122,7 +121,7 @@ export default class Element {
   }
   /**
    * 清空状量态，恢复至初始状态
-   * TODO: 是否应该提供一个 revert() 的方法直接回恢复至出厂状态？
+   * @todo 是否应该提供一个 revert() 的方法直接回恢复至出厂状态？
    */
   public clearStates() {
     const states = this.states;
@@ -181,9 +180,19 @@ export default class Element {
     model.style = Util.mix({}, defaultStyle, model.style);
 
     const shape = shapeFactory.drawShape(shapeType, model, this);
-
-    // TODO: 有可能返回 Group
     this.shape = shape;
-    this.originStyle = shape.attr();
+  }
+
+  private _setOriginStyle() {
+    const shape = this.shape;
+    if ((shape as Group).isGroup) {
+      const children = shape.get('children');
+      Util.each(children, (child, index) => {
+        const key = child.name || index;
+        this.originStyle[key] = child.attr();
+      });
+    } else {
+      this.originStyle = shape.attr();
+    }
   }
 }
