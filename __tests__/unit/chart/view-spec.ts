@@ -8,7 +8,6 @@ const data = [{ city: '杭州', sale: 100 }, { city: '上海', sale: 200 }, { ci
 describe('View', () => {
   const div = createDiv();
 
-  console.log(div);
   const canvas = createCanvas({
     containerDOM: div,
   });
@@ -60,5 +59,20 @@ describe('View', () => {
 
     view.render();
     expect(view.filteredData).to.be.eql([{ city: '杭州', sale: 100 }]);
+  });
+
+  it('coordinate', () => {
+    expect(view.getCoordinate().type).to.be.eql('rect');
+
+    view.coordinate('rect');
+    view.render();
+    expect(view.getCoordinate().type).to.be.eql('rect');
+
+    view.coordinate('theta');
+    view.render();
+
+    expect(view.getCoordinate().type).to.be.eql('theta');
+    expect(view.getCoordinate().width).to.be.eql(790);
+    expect(view.getCoordinate().height).to.be.eql(590);
   });
 });

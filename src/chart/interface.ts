@@ -59,13 +59,22 @@ export interface ScaleCfg {
   readonly type: string;
 }
 
-export interface CoordinateCfg {
-  readonly type: string;
+export interface CoordinateOption {
+  type?: 'polar' | 'theta' | 'rect' | 'cartesian' | 'helix' | 'geo'; // 坐标系类型
+  cfg?: CoordinateCfg; // 坐标系配置项
+  actions?: any[][]; // 坐标系变换操作
 }
 
-export interface CoordinateOpt {
-  readonly type: string;
-  readonly cfg: CoordinateCfg;
+export interface CoordinateCfg {
+  // 极坐标系配置
+  startAngle?: number; // 起始弧度
+  endAngle?: number; // 结束弧度
+  radius?: number; // 极坐标半径，0 - 1 范围的数值
+  innerRadius?: number; // 极坐标内半径，0 -1 范围的数值
+
+  // 地理坐标系配置
+  zoom?: number; // 缩放等级，0 - 20 的数值范围
+  center?: [number, number]; // 中心经纬度设置，比如 [ 120, 20 ]
 }
 
 export interface Options {
@@ -75,6 +84,6 @@ export interface Options {
   readonly legends: Record<string, LegendCfg>;
   readonly scales: Record<string, ScaleCfg>;
   readonly tooltip: boolean; // tooltip visible or not
-  readonly coordinate: CoordinateOpt;
+  readonly coordinate: CoordinateOption;
   readonly interactions: Record<string, Interaction>;
 }

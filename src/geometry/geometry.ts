@@ -6,7 +6,7 @@ import { parseFields } from './util/parse-fields';
 
 import { getAdjust } from '@antv/adjust';
 import { Attribute, getAttribute } from '@antv/attr';
-import { Coord, Scale } from '../dependents';
+import { Coordinate, Scale } from '../dependents';
 import { PointObject, ScaleOption, ShapeDrawCFG } from '../interface';
 
 import { Group } from '@antv/g';
@@ -129,7 +129,7 @@ export default class Geometry {
   public elementsMap: ElementsMap = {};
 
   /** 坐标系对象 */
-  public coord: Coord = null;
+  public coord: Coordinate = null;
   /** data 数据 */
   public data: object[] = null;
   /** 图形容器 */

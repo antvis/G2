@@ -5,7 +5,7 @@ import {
   AxisCfg,
   ComponentOption,
   CoordinateCfg,
-  CoordinateOpt,
+  CoordinateOption,
   Data,
   Datum,
   FilterCondition,
@@ -14,12 +14,14 @@ import {
   ViewCfg,
 } from 'chart/interface';
 import Component from 'component';
+import { Coordinate } from 'dependents';
 import Geometry from 'geometry/geometry';
 import Interaction from 'interaction';
 import { Padding, Point, Region } from 'interface';
 import { parsePadding } from '../util';
 import Chart from './chart';
 import { DIRECTION, LAYER } from './constant';
+import { createCoordinate } from './controller/coordinate';
 import defaultLayout, { Layout } from './layout';
 
 /**
@@ -58,6 +60,8 @@ export default class View extends EE {
 
   // 布局函数
   protected _layout: Layout = defaultLayout;
+  // 生成的坐标系实例
+  private _coordinate: Coordinate;
 
   constructor(props: ViewCfg) {
     super();
@@ -134,19 +138,35 @@ export default class View extends EE {
 
   /**
    * 渲染流程，渲染过程需要处理数据更新的情况
+   * render 函数仅仅会处理 view 和子 view
    */
   public render() {
+    // 递归渲染
+    this.renderRecursive();
+    // 实际的绘图
+    this._canvasDraw();
+  }
+
+  /**
+   * 递归 render views
+   */
+  public renderRecursive() {
     // 1. 处理数据
     this._filterData();
 
-    // 2. 递归 views，生成 UI
-    this.renderUI();
+    // 2. 创建 coordinate 实例
+    this._createCoordinate();
 
-    // 3.  递归 views，进行布局
-    this.doLayout();
+    // 3. 递归 views，生成 UI
+    this._renderUI();
 
-    // 4. 实际的绘制
-    this._canvasDraw();
+    // 4.  递归 views，进行布局
+    this._doLayout();
+
+    // 同样递归处理子 views
+    _.each(this.views, (view: View) => {
+      view.renderRecursive();
+    });
   }
 
   // /**
@@ -240,8 +260,15 @@ export default class View extends EE {
   /**
    * 坐标系配置
    */
-  public coordinate(type: string, coordinateCfg?: CoordinateCfg) {
-    _.set(this.options, 'coordinate', { type, cfg: coordinateCfg } as CoordinateOpt);
+  public coordinate(option: CoordinateOption);
+  public coordinate(type: string, coordinateCfg?: CoordinateCfg);
+  public coordinate(type: string | CoordinateOption, coordinateCfg?: CoordinateCfg) {
+    // 提供语法糖，使用更简单
+    if (_.isString(type)) {
+      _.set(this.options, 'coordinate', { type, cfg: coordinateCfg } as CoordinateOption);
+    } else {
+      _.set(this.options, 'coordinate', type);
+    }
   }
 
   public animate() {}
@@ -308,34 +335,41 @@ export default class View extends EE {
     return ((v as unknown) as Chart).canvas;
   }
 
+  // 一些 get 方法
+
+  /**
+   * 获取坐标系
+   */
+  public getCoordinate() {
+    return this._coordinate;
+  }
+
+  /**
+   * 创建坐标系
+   * @private
+   */
+  private _createCoordinate() {
+    this._coordinate = createCoordinate(this.options.coordinate, this.viewBBox);
+  }
+
   /**
    * 渲染所有的 UI
+   * @private
    */
-  public renderUI() {
+  private _renderUI() {
     // 1. 渲染组件 component
     this._renderComponents();
     // 2. 渲染几何标记
     this._renderGeometries();
-    // 3. 递归渲染子 view
-    _.each(this.views, (view: View) => {
-      view.renderUI();
-    });
-
-    // 3. 布局，更新位置等
-    this.doLayout();
   }
 
   /**
-   * 进行布局，同时对子 view 进行布局
+   * 进行布局，同时对子 view 进行布局，更新组件的位置大小属性
+   * @private
    */
-  public doLayout() {
+  private _doLayout() {
     // 当前进行布局
     this._layout(this);
-
-    // 子 view 进行布局
-    _.each(this.views, (view: View) => {
-      view.doLayout();
-    });
   }
 
   // 渲染流程
