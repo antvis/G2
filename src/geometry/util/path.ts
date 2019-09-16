@@ -4,11 +4,11 @@ import { Coord } from '@antv/coord/lib/factory';
 
 import { vec2 } from '@antv/matrix-util';
 
-import { PointObject } from '../../interface';
+import { Point } from '../../interface';
 
 type PointArray = [number, number];
 
-function _points2path(points: PointObject[], isInCircle: boolean): any[] {
+function _points2path(points: Point[], isInCircle: boolean): any[] {
   const path = [];
   if (points.length) {
     for (let i = 0, length = points.length; i < length; i += 1) {
@@ -25,8 +25,8 @@ function _points2path(points: PointObject[], isInCircle: boolean): any[] {
   return path;
 }
 
-function _getPointRadius(coord: Coord, point: PointObject): number {
-  const center = coord.getCenter() as PointObject;
+function _getPointRadius(coord: Coord, point: Point): number {
+  const center = coord.getCenter() as Point;
   const r = Math.sqrt(Math.pow(point.x - center.x, 2) + Math.pow(point.y - center.y, 2));
   return r;
 }
@@ -210,12 +210,12 @@ export function catmullRom2bezier(crp: number[], z: boolean, constraint: PointAr
 }
 
 /** 将点连接成路径 path */
-export function getLinePath(points: PointObject[], isInCircle: boolean): any[] {
+export function getLinePath(points: Point[], isInCircle: boolean): any[] {
   return _points2path(points, isInCircle);
 }
 
 /** 根据关键点获取限定了范围的平滑线 */
-export function getSplinePath(points: PointObject[], isInCircle: boolean, constaint: PointArray[]): any[] {
+export function getSplinePath(points: Point[], isInCircle: boolean, constaint: PointArray[]): any[] {
   const data = [];
   const first = points[0];
   let prePoint = null;
@@ -241,12 +241,12 @@ export function getSplinePath(points: PointObject[], isInCircle: boolean, consta
 }
 
 /** 获取点到圆心的距离 */
-export function getPointRadius(coord, point: PointObject): number {
+export function getPointRadius(coord, point: Point): number {
   return _getPointRadius(coord, point);
 }
 
 /** 获取点到圆心的夹角 */
-export function getPointAngle(coord, point: PointObject): number {
+export function getPointAngle(coord, point: Point): number {
   const center = coord.getCenter();
   return Math.atan2(point.y - center.y, point.x - center.x);
 }
