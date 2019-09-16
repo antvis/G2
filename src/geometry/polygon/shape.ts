@@ -1,9 +1,9 @@
-import { Group } from '@antv/g';
 import * as Util from '@antv/util';
 import Element from '../element';
 
-import { PointObject, ShapeDrawCFG } from '../../interface';
-import { registerShape, registerShapeFactory, ShapePointCfg } from '../shape';
+import { ShapeDrawCFG } from '../../interface';
+import { ShapePoint } from '../interface';
+import { registerShape, registerShapeFactory } from '../shape';
 
 function getPath(points: any[]) {
   let flag: any = points[0];
@@ -36,7 +36,7 @@ function getPath(points: any[]) {
 
 const PolygonShapeFactory = registerShapeFactory('polygon', {
   defaultShapeType: 'polygon',
-  getDefaultPoints(pointInfo: ShapePointCfg) {
+  getDefaultPoints(pointInfo: ShapePoint) {
     const points = [];
     Util.each(pointInfo.x as number[], (subX, index) => {
       const subY = pointInfo.y[index];
@@ -50,13 +50,14 @@ const PolygonShapeFactory = registerShapeFactory('polygon', {
 });
 
 registerShape('polygon', 'polygon', {
-  draw(cfg: ShapeDrawCFG, container: Element) {
+  draw(cfg: ShapeDrawCFG, element: Element) {
     if (!Util.isEmpty(cfg.points)) {
       const shapeAttrs: any = cfg.style;
       if (cfg.color) {
         shapeAttrs.fill = cfg.color;
       }
       const path = this.parsePath(getPath(cfg.points));
+      const container = element.container;
       return container.addShape('path', {
         attrs: {
           ...shapeAttrs,
@@ -65,15 +66,16 @@ registerShape('polygon', 'polygon', {
       });
     }
   },
-  update(cfg: ShapeDrawCFG, container: Element) {
+  update(cfg: ShapeDrawCFG, element: Element) {
     // TODO: 可优化
     if (!Util.isEmpty(cfg.points)) {
       const shapeAttrs: any = cfg.style;
       if (cfg.color) {
         shapeAttrs.fill = cfg.color;
       }
+
       const path = this.parsePath(getPath(cfg.points));
-      const shape = container.get('shape');
+      const shape = element.shape;
       shape.attr({
         ...shapeAttrs,
         path,

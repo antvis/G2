@@ -1,9 +1,7 @@
-/** 二维点坐标结构 todo 和 Point 一样，保留一个即可 @simaq */
-export interface PointObject {
-  x: number;
-  y: number;
+/** 对象 */
+export interface LooseObject {
+  [key: string]: any;
 }
-
 /** 绘制 shape 时传入的信息 */
 // TODO: 结构最后还需要梳理
 export interface ShapeDrawCFG {
@@ -24,9 +22,9 @@ export interface ShapeDrawCFG {
   /** geometry 类型 */
   geomType?: string;
   /** 构成 shape 的关键点  */
-  points?: PointObject[];
+  points?: Point[];
   /** 下一个数据集对应的关键点 */
-  nextPoints?: PointObject[];
+  nextPoints?: Point[];
 
   splitedIndex?: number;
   text?: string | null;
@@ -41,8 +39,6 @@ export interface ShapeDrawCFG {
   /** area line 两类 Geometry 适用，是否连接空值 */
   connectNulls?: boolean;
 }
-
-type ScaleType = 'cat' | 'identity' | 'linear' | 'pow' | 'log' | 'time';
 
 /** 列定义配置项 */
 export interface ScaleDef {
@@ -106,5 +102,7 @@ export interface Point {
 }
 
 export type Padding = number | number[];
-
 export type Position = [number, number];
+export type AttributType = 'position' | 'size' | 'color' | 'shape';
+export type ScaleType = 'linear' | 'cat' | 'identity' | 'log' | 'pow' | 'time' | 'timeCat';
+export type AdjustType = 'stack' | 'jitter' | 'dodge' | 'symmetric';
