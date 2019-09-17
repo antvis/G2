@@ -1,7 +1,6 @@
 import { Group } from '@antv/g';
+import { Position } from 'interface';
 import Component from '../../component';
-
-type Position = [number, number];
 
 interface MockComponentProps {
   readonly text: string;

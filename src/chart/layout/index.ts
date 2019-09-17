@@ -1,15 +1,14 @@
 import { BBox } from '@antv/g';
 import * as _ from '@antv/util';
 import { BBoxProcessor } from '../../util/bbox';
-import { ComponentType, DIRECTION } from '../constant';
+import { directionToPosition } from '../../util/direction';
+import { ComponentType } from '../constant';
 import { ComponentOption } from '../interface';
 import View from '../view';
 
 // 布局函数的定义
 // 布局函数的职责：针对 view 中的 Component 和 geometry，调整组件和 x、y、width、height，以及图形的 coordinate 范围
 export type Layout = (view: View) => void;
-
-// TODO 8 个 direction，目前仅仅处理测试用的几个方向
 
 /**
  * 计算出 legend 的 direction 位置 x, y
@@ -20,13 +19,7 @@ function layoutLegend(legends: ComponentOption[], viewBBox: BBox) {
   _.each(legends, (legend: ComponentOption) => {
     const { component, direction } = legend;
 
-    switch (direction) {
-      case DIRECTION.TOP:
-        component.move(viewBBox.width / 2 - component.getBBox().width / 2, viewBBox.minY);
-        break;
-      default:
-        break;
-    }
+    component.move(...directionToPosition(viewBBox, component.getBBox(), direction));
   });
 }
 
@@ -39,16 +32,7 @@ function layoutAxis(axes: ComponentOption[], viewBBox: BBox) {
   _.each(axes, (axis: ComponentOption) => {
     const { component, direction } = axis;
 
-    switch (direction) {
-      case DIRECTION.LEFT:
-        component.move(viewBBox.minX, viewBBox.height / 2 - component.getBBox().height / 2);
-        break;
-      case DIRECTION.BOTTOM:
-        component.move(viewBBox.width / 2 - component.getBBox().width / 2, viewBBox.maxY - component.getBBox().height);
-        break;
-      default:
-        break;
-    }
+    component.move(...directionToPosition(viewBBox, component.getBBox(), direction));
   });
 }
 
