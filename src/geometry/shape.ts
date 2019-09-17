@@ -191,6 +191,11 @@ const Shape = {
       Util.each(states, (state) => {
         Util.mix(currentStyle, element.getStateStyle(state));
       });
+      Util.each(stateStyle, (value, attr) => {
+        if (!currentStyle.hasOwnProperty(attr)) {
+          currentStyle[attr] = null;
+        }
+      });
 
       gShape.attr(currentStyle);
     }

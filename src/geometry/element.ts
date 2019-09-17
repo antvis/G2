@@ -64,12 +64,11 @@ export default class Element {
     const { states, shapeFactory, shapeType } = this;
 
     const index = states.indexOf(stateName);
-    if (index > -1) {
-      // 该状态已经开启
-      return;
-    }
-
     if (stateStatus) {
+      if (index > -1) {
+        // 该状态已经开启
+        return;
+      }
       states.push(stateName);
     } else {
       states.splice(index, 1);
@@ -118,6 +117,8 @@ export default class Element {
 
     const shape = this.shape;
     shape.remove(true);
+    this.states = [];
+    this.originStyle = {};
   }
   /**
    * 清空状量态，恢复至初始状态
@@ -169,17 +170,20 @@ export default class Element {
   public getAnimateCfg(animateType: string) {
     const { shapeType, theme } = this;
 
-    const animateCfg = Util.get(theme, `.${shapeType}.animate`, {});
+    const animateCfg = Util.get(theme, `${shapeType}.animate`, {});
     return animateCfg[animateType];
   }
 
   private _drawShape() {
     const { shapeType, shapeFactory, model } = this;
 
+    const drawCfg = {
+      ...model,
+    };
     const defaultStyle = this.getStateStyle('default');
-    model.style = Util.mix({}, defaultStyle, model.style);
+    drawCfg.style = Util.mix({}, defaultStyle, model.style);
 
-    const shape = shapeFactory.drawShape(shapeType, model, this);
+    const shape = shapeFactory.drawShape(shapeType, drawCfg, this);
     this.shape = shape;
   }
 
@@ -189,10 +193,10 @@ export default class Element {
       const children = shape.get('children');
       Util.each(children, (child, index) => {
         const key = child.name || index;
-        this.originStyle[key] = child.attr();
+        this.originStyle[key] = Util.mix({}, child.attr());
       });
     } else {
-      this.originStyle = shape.attr();
+      this.originStyle = Util.mix({}, shape.attr());
     }
   }
 }
