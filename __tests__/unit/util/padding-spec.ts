@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { parsePadding } from '../../../src/util';
+import { parsePadding } from '../../../src/util/padding';
 
 describe('util padding', () => {
   it('parsePadding', () => {

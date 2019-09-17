@@ -18,7 +18,7 @@ import { Coordinate, Scale } from 'dependents';
 import Geometry from 'geometry/geometry';
 import Interaction from 'interaction';
 import { Padding, Point, Region } from 'interface';
-import { parsePadding } from '../util';
+import { parsePadding } from '../util/padding';
 import Chart from './chart';
 import { ComponentType, DIRECTION, LAYER } from './constant';
 import { createAxes } from './controller/axis';
