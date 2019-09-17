@@ -5,10 +5,10 @@ import { View } from '../../../src';
 import { createCanvas, createDiv } from '../../util/dom';
 
 const data = [
-  { city: '杭州', sale: 100 },
-  { city: '广州', sale: 30 },
-  { city: '上海', sale: 200 },
-  { city: '呼和浩特', sale: 10 },
+  { city: '杭州', sale: 100, category: '电脑' },
+  { city: '广州', sale: 30, category: '电脑' },
+  { city: '上海', sale: 200, category: '鼠标' },
+  { city: '呼和浩特', sale: 10, category: '鼠标' },
 ];
 
 describe('View', () => {
@@ -65,7 +65,10 @@ describe('View', () => {
     view.filter('city', (city: string) => city.length <= 2);
 
     view.render();
-    expect(view.filteredData).to.be.eql([{ city: '杭州', sale: 100 }, { city: '广州', sale: 30 }]);
+    expect(view.filteredData).to.be.eql([
+      { city: '杭州', sale: 100, category: '电脑' },
+      { city: '广州', sale: 30, category: '电脑' },
+    ]);
   });
 
   it('coordinate', () => {
@@ -85,11 +88,14 @@ describe('View', () => {
 
   it('geometry', () => {
     // @ts-ignore
-    view.polygon().position('city*sale');
+    view
+      .polygon()
+      .position('city*sale')
+      .color('category');
 
     view.render();
     expect(view.geometries.length).to.be.eql(1);
-    expect(_.size(view.geometries[0].scales)).to.be.eql(2);
+    expect(_.size(view.geometries[0].scales)).to.be.eql(3);
     expect(view.geometries[0].scales.city.ticks).to.be.eql(['杭州', '广州']);
     expect(view.geometries[0].scales.sale.values).to.be.eql([100, 30]);
   });
@@ -114,5 +120,17 @@ describe('View', () => {
 
     expect(view.getCoordinate().width).to.be.eql(742.3125);
     expect(view.getCoordinate().height).to.be.eql(564);
+  });
+
+  it('getXScale', () => {
+    expect(view.getXScale().field).to.be.eql('city');
+  });
+
+  it('getYScales', () => {
+    expect(view.getYScales().map((s) => s.field)).to.be.eql(['sale']);
+  });
+
+  it('getGroupScales', () => {
+    expect(view.getGroupScales().map((s) => s.field)).to.be.eql(['category']);
   });
 });

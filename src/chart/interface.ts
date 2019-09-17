@@ -48,13 +48,17 @@ export type Data = Datum[];
 /* 筛选器函数类型定义 */
 export type FilterCondition = (value: any, datum: Datum) => boolean;
 
-export interface AxisCfg {
-  readonly type: string;
-}
+export type AxisCfg =
+  | {
+      readonly type: string;
+    }
+  | boolean;
 
-export interface LegendCfg {
-  readonly type: string;
-}
+export type LegendCfg =
+  | {
+      readonly type: string;
+    }
+  | boolean;
 
 export interface ScaleCfg {
   readonly type: string;

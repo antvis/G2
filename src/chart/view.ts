@@ -46,9 +46,10 @@ export default class View extends EE {
   public middleGroup: Group;
   /** 前景层 */
   public foregroundGroup: Group;
+
   /** 标记 view 的大小位置范围，均是 0 ~ 1 范围，便于开发者使用 */
   public region: Region;
-
+  /** view 的 padding 大小 */
   public padding: Padding;
 
   // 配置信息存储
@@ -63,7 +64,7 @@ export default class View extends EE {
   public coordinateBBox: BBox;
 
   // 布局函数
-  protected _layout: Layout = defaultLayout;
+  protected layoutFunc: Layout = defaultLayout;
   // 生成的坐标系实例
   private coordinateInstance: Coordinate;
 
@@ -125,7 +126,7 @@ export default class View extends EE {
    * @param layout
    */
   public setLayout(layout: Layout) {
-    this._layout = layout;
+    this.layoutFunc = layout;
   }
 
   /**
@@ -224,7 +225,6 @@ export default class View extends EE {
    */
   public destroy() {
     this.clear();
-    // todo
   }
   /* end 生命周期函数 */
 
@@ -337,8 +337,59 @@ export default class View extends EE {
   public removeView(view: View): View {
     return _.remove(this.views, (v: View) => v === view)[0];
   }
-
   /* end View 管理相关的 API */
+
+  /**
+   * 创建坐标系
+   * @private
+   */
+  public createCoordinate(bbox: BBox) {
+    this.setCoordinate(createCoordinate(this.options.coordinate, bbox));
+  }
+
+  // 一些 get 方法
+
+  /**
+   * 获取坐标系
+   */
+  public getCoordinate() {
+    return this.coordinateInstance;
+  }
+
+  /**
+   * 设置新的坐标系
+   * @param coordinate
+   */
+  public setCoordinate(coordinate: Coordinate) {
+    this.coordinateInstance = coordinate;
+  }
+
+  /**
+   * 获得 x 轴字段的 scale 实例
+   */
+  public getXScale(): Scale {
+    // 拿第一个 Geometry 的 X scale
+    // 隐藏逻辑：一个 view 中的 Geometry 必须 x 字段一致
+    const g = this.geometries[0];
+    return g ? g.getXScale() : null;
+  }
+
+  /**
+   * 获取 y 轴字段的 scales 实例
+   */
+  public getYScales(): Scale[] {
+    // 拿到所有的 Geometry 的 Y scale，然后去重
+    return _.uniq(_.map(this.geometries, (g: Geometry) => g.getYScale()));
+  }
+
+  /**
+   * 获取所有的分组字段的 scales
+   */
+  public getGroupScales(): Scale[] {
+    // 拿到所有的 Geometry 的 分组字段 scale，然后打平去重
+    const scales = _.map(this.geometries, (g: Geometry) => g.getGroupScales());
+    return _.uniq(_.flatten(scales));
+  }
 
   public getCanvas(): Canvas {
     let v = this as View;
@@ -353,26 +404,7 @@ export default class View extends EE {
     return ((v as unknown) as Chart).canvas;
   }
 
-  // 一些 get 方法
-
-  /**
-   * 获取坐标系
-   */
-  public getCoordinate() {
-    return this.coordinateInstance;
-  }
-
-  public setCoordinate(coordinate: Coordinate) {
-    this.coordinateInstance = coordinate;
-  }
-
-  /**
-   * 创建坐标系
-   * @private
-   */
-  public createCoordinate(bbox: BBox) {
-    this.setCoordinate(createCoordinate(this.options.coordinate, bbox));
-  }
+  // end Get 方法
 
   /**
    * 调整 scale 配置
@@ -390,7 +422,7 @@ export default class View extends EE {
    */
   private _doLayout() {
     // 当前进行布局
-    this._layout(this);
+    this.layoutFunc(this);
   }
 
   // 渲染流程
@@ -524,15 +556,20 @@ export default class View extends EE {
    * @private
    */
   private _renderComponents() {
-    // TODO 还需要根据 Geometry 字段信息来自动推荐生成
     const { axes, legends } = this.options;
+
+    this.componentOptions = [];
+
     // 1. axis
+    this.backgroundGroup.clear();
+    // 根据 Geometry 的字段来创建 axis
     _.each(createAxes(this.backgroundGroup, axes, this), (axis: ComponentOption) => {
       const { component, layer, direction, type } = axis;
       this.addComponent(component, layer, direction, type);
     });
 
     // 2. legend
+    this.foregroundGroup.clear();
     _.each(createLegends(this.foregroundGroup, legends, this), (legend: ComponentOption) => {
       const { component, layer, direction, type } = legend;
       this.addComponent(component, layer, direction, type);
@@ -570,6 +607,7 @@ export const registerGeometry = (name: string, Ctor: any) => {
       // 其他信息，不知道需不需要
       canvas: this.canvas,
       view: this,
+      theme: {},
       ...cfg,
     };
 
