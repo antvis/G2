@@ -6,19 +6,19 @@ export interface LooseObject {
 // TODO: 结构最后还需要梳理
 export interface ShapeDrawCFG {
   /** 映射的颜色值 */
-  color: string | null | undefined;
+  color?: string | null | undefined;
   /** 是否在极坐标下 */
-  isInCircle: boolean | undefined;
+  isInCircle?: boolean | undefined;
   /** x 坐标 */
   x: number;
   /** y 坐标 */
   y: number | number[];
   /** 映射的 shape 类型 */
-  shape: string | undefined | null;
+  shape?: string | undefined | null;
   /** size 映射值 */
-  size: number | undefined | null;
+  size?: number | undefined | null;
   /** 对应的原始数据记录 */
-  origin: object;
+  origin?: object;
   /** geometry 类型 */
   geomType?: string;
   /** 构成 shape 的关键点  */
