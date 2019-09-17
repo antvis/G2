@@ -16,6 +16,7 @@ describe('View', () => {
 
   const canvas = createCanvas({
     containerDOM: div,
+    // renderer: 'svg',
   });
 
   const backgroundGroup = canvas.addGroup();
@@ -70,14 +71,14 @@ describe('View', () => {
   it('coordinate', () => {
     expect(view.getCoordinate().type).to.be.eql('rect');
 
+    view.coordinate('theta');
+    view.render();
+    expect(view.getCoordinate().type).to.be.eql('theta');
+
     view.coordinate('rect');
     view.render();
     expect(view.getCoordinate().type).to.be.eql('rect');
 
-    view.coordinate('theta');
-    view.render();
-
-    expect(view.getCoordinate().type).to.be.eql('theta');
     expect(view.getCoordinate().width).to.be.eql(790);
     expect(view.getCoordinate().height).to.be.eql(590);
   });
@@ -103,5 +104,15 @@ describe('View', () => {
 
     const bbox = view.componentOptions[0].component.getBBox();
     expect(bbox.height).to.be.eql(13);
+  });
+
+  it('layout', () => {
+    expect(view.coordinateBBox.x).to.be.eql(52.6875);
+    expect(view.coordinateBBox.y).to.be.eql(18);
+    expect(view.coordinateBBox.width).to.be.eql(742.3125);
+    expect(view.coordinateBBox.height).to.be.eql(564);
+
+    expect(view.getCoordinate().width).to.be.eql(742.3125);
+    expect(view.getCoordinate().height).to.be.eql(564);
   });
 });

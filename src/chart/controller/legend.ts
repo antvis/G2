@@ -16,7 +16,7 @@ export function createLegends(container: any, legends: Record<string, LegendCfg>
 
   _.each(legends, (legend: AxisCfg, field: string) => {
     legendArray.push({
-      component: new Legend(container, [0, 0], { text: 'legend' }),
+      component: new Legend(container.addGroup(), [0, 0], { text: 'legend' }),
       layer: LAYER.FORE,
       direction: DIRECTION.TOP,
       type: ComponentType.LEGEND,

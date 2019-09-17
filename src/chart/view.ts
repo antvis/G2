@@ -23,6 +23,7 @@ import Chart from './chart';
 import { ComponentType, DIRECTION, LAYER } from './constant';
 import { createAxes } from './controller/axis';
 import { createCoordinate } from './controller/coordinate';
+import { createLegends } from './controller/legend';
 import defaultLayout, { Layout } from './layout';
 
 /**
@@ -58,11 +59,13 @@ export default class View extends EE {
   /** view 实际的绘图区域，除去 padding，出去组件占用空间 */
   public viewBBox: BBox;
   public filteredData: Data;
+  /** 坐标系的位置大小 */
+  public coordinateBBox: BBox;
 
   // 布局函数
   protected _layout: Layout = defaultLayout;
   // 生成的坐标系实例
-  private _coordinate: Coordinate;
+  private coordinateInstance: Coordinate;
 
   constructor(props: ViewCfg) {
     super();
@@ -175,8 +178,8 @@ export default class View extends EE {
     // 5.  递归 views，进行布局
     this._doLayout();
 
-    // 6. 创建 coordinate 实例
-    this._createCoordinate();
+    // 6. 创建 coordinate 实例（在 layout 中做掉了）
+    // this.createCoordinate();
 
     // 7. 渲染几何标记
     this._paintGeometries();
@@ -356,15 +359,19 @@ export default class View extends EE {
    * 获取坐标系
    */
   public getCoordinate() {
-    return this._coordinate;
+    return this.coordinateInstance;
+  }
+
+  public setCoordinate(coordinate: Coordinate) {
+    this.coordinateInstance = coordinate;
   }
 
   /**
    * 创建坐标系
    * @private
    */
-  private _createCoordinate() {
-    this._coordinate = createCoordinate(this.options.coordinate, this.viewBBox);
+  public createCoordinate(bbox: BBox) {
+    this.setCoordinate(createCoordinate(this.options.coordinate, bbox));
   }
 
   /**
@@ -499,6 +506,17 @@ export default class View extends EE {
    */
   private _paintGeometries() {
     // geometry 的 paint 阶段
+    // TODO 等待联调，以下测试用
+    this.middleGroup.clear();
+    this.middleGroup.addShape('rect', {
+      attrs: {
+        x: this.coordinateBBox.x,
+        y: this.coordinateBBox.y,
+        width: this.coordinateBBox.width,
+        height: this.coordinateBBox.height,
+        stroke: 'red',
+      },
+    });
   }
 
   /**
@@ -515,7 +533,7 @@ export default class View extends EE {
     });
 
     // 2. legend
-    _.each(createAxes(this.foregroundGroup, legends, this), (legend: ComponentOption) => {
+    _.each(createLegends(this.foregroundGroup, legends, this), (legend: ComponentOption) => {
       const { component, layer, direction, type } = legend;
       this.addComponent(component, layer, direction, type);
     });
@@ -541,7 +559,7 @@ export const registerGeometry = (name: string, Ctor: any) => {
     const props = {
       /** 坐标系对象 */
       // FIXME 不使用简写
-      coord: this._coordinate,
+      coord: this.getCoordinate(),
       // coordinate: this._coordinate,
       /** data 数据 */
       data: this.filteredData,

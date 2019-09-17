@@ -1,6 +1,6 @@
 import { Canvas, Group } from '@antv/g';
 import { expect } from 'chai';
-import Chart from '../../../src/chart/chart';
+import { Chart } from '../../../src/';
 import { createDiv } from '../../util/dom';
 
 describe('Chart', () => {

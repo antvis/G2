@@ -29,8 +29,9 @@ export class MockComponent extends Component {
         x: 0,
         y: 0,
         text: this.text,
-        textAlign: 'top',
-        textBaseline: 'left',
+        textAlign: 'left',
+        textBaseline: 'top',
+        fill: '#333',
       },
     });
 

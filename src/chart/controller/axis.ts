@@ -15,9 +15,9 @@ export function createAxes(container: any, axes: Record<string, AxisCfg>, view: 
 
   _.each(axes, (axis: AxisCfg, field: string) => {
     axisArray.push({
-      component: new Axis(container, [0, 0], { text: 'axis' }),
+      component: new Axis(container.addGroup(), [0, 0], { text: `axis ${field}` }),
       layer: LAYER.BG,
-      direction: DIRECTION.BOTTOM,
+      direction: field === 'city' ? DIRECTION.BOTTOM : DIRECTION.LEFT,
       type: ComponentType.AXIS,
     });
   });
