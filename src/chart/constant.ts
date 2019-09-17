@@ -16,3 +16,12 @@ export enum DIRECTION {
   BOTTOM = 'bottom',
   LEFT = 'left',
 }
+
+/**
+ * 组件的类型，可能会影响到布局算法
+ */
+export enum ComponentType {
+  AXIS = 'axis',
+  LEGEND = 'legend',
+  OTHER = 'other',
+}

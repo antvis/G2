@@ -2,7 +2,7 @@ import { Canvas, Group } from '@antv/g';
 import Component from '../component';
 import Interaction from '../interaction';
 import { Padding, Region } from '../interface';
-import { DIRECTION, LAYER } from './constant';
+import { ComponentType, DIRECTION, LAYER } from './constant';
 import View from './view';
 
 export type Renderer = 'svg' | 'canvas';
@@ -38,6 +38,7 @@ export interface ComponentOption {
   readonly component: Component;
   readonly layer: LAYER;
   readonly direction: DIRECTION;
+  readonly type: ComponentType;
 }
 
 /** 数据的定义 */

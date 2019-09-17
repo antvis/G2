@@ -20,7 +20,7 @@ import Interaction from 'interaction';
 import { Padding, Point, Region } from 'interface';
 import { parsePadding } from '../util';
 import Chart from './chart';
-import { DIRECTION, LAYER } from './constant';
+import { ComponentType, DIRECTION, LAYER } from './constant';
 import { createAxes } from './controller/axis';
 import { createCoordinate } from './controller/coordinate';
 import defaultLayout, { Layout } from './layout';
@@ -55,7 +55,7 @@ export default class View extends EE {
   public options: Options = {}; // 初始化为空
 
   // 计算信息
-  /** view 实际的绘图区域，除去 padding */
+  /** view 实际的绘图区域，除去 padding，出去组件占用空间 */
   public viewBBox: BBox;
   public filteredData: Data;
 
@@ -93,12 +93,19 @@ export default class View extends EE {
    * @param component
    * @param layer
    * @param direction
+   * @param type
    */
-  public addComponent(component: Component, layer: LAYER = LAYER.MID, direction: DIRECTION = DIRECTION.BOTTOM) {
+  public addComponent(
+    component: Component,
+    layer: LAYER = LAYER.MID,
+    direction: DIRECTION = DIRECTION.BOTTOM,
+    type: ComponentType = ComponentType.OTHER
+  ) {
     this.componentOptions.push({
       component,
       layer,
       direction,
+      type,
     });
   }
 
@@ -150,22 +157,29 @@ export default class View extends EE {
 
   /**
    * 递归 render views
+   * 步骤非常繁琐，因为之间有一些数据依赖，所以执行流程上有先后关系
    */
   public renderRecursive() {
     // 1. 处理数据
     this._filterData();
 
-    // 2. 创建 coordinate 实例
-    this._createCoordinate();
+    // 2. 初始化 Geometry
+    this._initialGeometries();
 
-    // 3. 递归 views，生成 UI
-    this._renderUI();
-
-    // 4. 调整 scale 配置
+    // 3. 调整 scale 配置
     this._adjustScales();
+
+    // 4. 渲染组件 component
+    this._renderComponents();
 
     // 5.  递归 views，进行布局
     this._doLayout();
+
+    // 6. 创建 coordinate 实例
+    this._createCoordinate();
+
+    // 7. 渲染几何标记
+    this._paintGeometries();
 
     // 同样递归处理子 views
     _.each(this.views, (view: View) => {
@@ -256,10 +270,7 @@ export default class View extends EE {
   /**
    * 辅助标记配置
    */
-  public annotation() {
-    // todo @hustcc
-    // return this.annotationController;
-  }
+  public annotation() {}
 
   /**
    * 坐标系配置
@@ -363,18 +374,7 @@ export default class View extends EE {
   private _adjustScales() {
     // 调整目前包括：
     // scale sync 的配置
-  }
-
-  /**
-   * 渲染所有的 UI
-   * @private
-   */
-  private _renderUI() {
-    // 先渲染 Geometry，后渲染组件；因为一些组件可能会依赖 Geometry 中创建的 scale
-    // 1. 渲染几何标记
-    this._renderGeometries();
-    // 2. 渲染组件 component
-    this._renderComponents();
+    // 目前 scale 创建是在 Geometry 中，所以调整同步也在 Geometry 中完成
   }
 
   /**
@@ -484,30 +484,40 @@ export default class View extends EE {
   }
 
   /**
-   * 根据 options 配置自动渲染 geometry
+   * 初始化 Geometries
    * @private
    */
-  private _renderGeometries() {
+  private _initialGeometries() {
     _.each(this.geometries, (geometry) => {
-      // FIXME geometry.init(); 应该在构造函数中就执行掉
       geometry.init();
     });
   }
 
   /**
-   * 根据 options 配置自动渲染 components
+   * 根据 options 配置自动渲染 geometry
+   * @private
+   */
+  private _paintGeometries() {
+    // geometry 的 paint 阶段
+  }
+
+  /**
+   * 根据 options 配置、Geometry 字段配置，自动渲染 components
    * @private
    */
   private _renderComponents() {
+    // TODO 还需要根据 Geometry 字段信息来自动推荐生成
     const { axes, legends } = this.options;
     // 1. axis
-    _.each(createAxes(axes, this), (axis: any) => {
-      this.addComponent(axis);
+    _.each(createAxes(this.backgroundGroup, axes, this), (axis: ComponentOption) => {
+      const { component, layer, direction, type } = axis;
+      this.addComponent(component, layer, direction, type);
     });
 
     // 2. legend
-    _.each(createAxes(legends, this), (legend: any) => {
-      this.addComponent(legend, LAYER.FORE, DIRECTION.BOTTOM);
+    _.each(createAxes(this.foregroundGroup, legends, this), (legend: ComponentOption) => {
+      const { component, layer, direction, type } = legend;
+      this.addComponent(component, layer, direction, type);
     });
   }
 

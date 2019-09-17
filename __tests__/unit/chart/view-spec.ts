@@ -92,4 +92,16 @@ describe('View', () => {
     expect(view.geometries[0].scales.city.ticks).to.be.eql(['杭州', '广州']);
     expect(view.geometries[0].scales.sale.values).to.be.eql([100, 30]);
   });
+
+  it('component', () => {
+    view.axis('city', {});
+    view.axis('sale', {});
+    view.legend('city', {});
+    view.render();
+
+    expect(view.componentOptions.length).to.be.eql(3);
+
+    const bbox = view.componentOptions[0].component.getBBox();
+    expect(bbox.height).to.be.eql(13);
+  });
 });

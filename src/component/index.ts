@@ -20,7 +20,7 @@ export default abstract class Component extends EE {
   /** 其他配置，不同组件有自己不同的配置结构 */
   private cfg: any;
 
-  constructor(container: any, position: Position, cfg: any) {
+  constructor(container: any, position: Position, cfg?: any) {
     super();
 
     this.container = container;
@@ -58,6 +58,9 @@ export default abstract class Component extends EE {
     this.container.destroy();
   }
 
+  /** 初始化节点 */
+  protected abstract initial();
+
   // 代理 G.shape 事件，然后自己 emit 出来
-  protected abstract bindEvents();
+  protected abstract proxyEvents();
 }
