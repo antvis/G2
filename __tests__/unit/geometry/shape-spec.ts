@@ -1,11 +1,11 @@
-import { getCoord } from '@antv/coord';
 import { Group, Shapes } from '@antv/g';
 import { expect } from 'chai';
+import { getCoordinate } from '../../../src/dependents';
 import Element from '../../../src/geometry/element';
 import * as Shape from '../../../src/geometry/shape';
 
-const Rect = getCoord('rect');
-const Polar = getCoord('polar');
+const Rect = getCoordinate('rect');
+const Polar = getCoordinate('polar');
 
 describe('Shape', () => {
   let coord;
