@@ -111,7 +111,7 @@ const ShapeFactoryBase = {
 };
 
 /** Shape 基类 */
-const Shape = {
+const ShapeBase = {
   coord: null,
 
   getCoord(): Coord {
@@ -220,7 +220,7 @@ export function registerShape(factoryName: string, shapeType: string, cfg: Regis
   const className = Util.upperFirst(factoryName);
   const factory = ShapeFactoryMap[className];
   const shapeObj = {
-    ...Shape,
+    ...ShapeBase,
     ...cfg,
   };
   factory[shapeType] = shapeObj;
