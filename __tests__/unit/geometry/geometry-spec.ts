@@ -1,13 +1,13 @@
-import { getCoord } from '@antv/coord';
 import { Canvas, Group } from '@antv/g';
 import * as Util from '@antv/util';
 import { expect } from 'chai';
+import { getCoordinate } from '../../../src/dependents';
 import Geometry from '../../../src/geometry/geometry';
 import * as Shape from '../../../src/geometry/shape';
 import { LooseObject, Point } from '../../../src/interface';
 import Theme from '../../util/theme';
 
-const Rect = getCoord('rect');
+const Rect = getCoordinate('rect');
 
 describe('Geometry', () => {
   describe('Instantiation and setting', () => {
