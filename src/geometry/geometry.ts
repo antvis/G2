@@ -99,14 +99,13 @@ interface MappedRecord {
 }
 
 /**
- * @todo label tooltip animate
  * Create a new Geometry
  * @class
  */
 export default class Geometry {
   /** Geometry 类型 */
   public readonly type: string = 'base';
-  /** Geometry 对应的 shape 类型 */
+  /** Geometry 对应的 shapeFactory 类型 */
   public shapeType: string;
   /** 图形属性对象 */
   public attrs: Record<string, Attribute> = {};
@@ -128,11 +127,9 @@ export default class Geometry {
   public generatePoints: boolean = false;
   /** 是否对数据进行排序 */
   public sortable: boolean = false;
-  /** 是否执行动画 */
-  public animate: boolean = true;
   /** element 是否可见 */
   public visible: boolean = true;
-  /** todo 配置主题 */
+  /** 配置主题 */
   public theme: LooseObject = null;
 
   /** 图形属性映射配置 */
@@ -143,17 +140,18 @@ export default class Geometry {
   public adjustOption = null;
   /** style 配置项 */
   public styleOption = null;
-  /** TODO: label 配置项 */
+  /** label 配置项 */
   public labelOption = null;
-  /** TODO: animate 配置项 */
+  /** animate 配置项 */
   public animateOption = null;
 
   /** 分组、数字化、adjust 后的数据 */
   public dataArray;
-  public groupScales: Scale[];
 
   private shapeFactory;
   private elementsMap: Record<string, Element> = {};
+  private lastElementsMap: Record<string, Element> = {};
+  private groupScales: Scale[];
 
   constructor(cfg) {
     Util.mix(this, cfg);
@@ -196,7 +194,7 @@ export default class Geometry {
   }
 
   /**
-   * TODO：如何支持接收相对值以及绝对值
+   * TODO: 如何支持接收相对值以及绝对值
    * 大小通道的映射配置
    * @param cfg 大小通道的映射规则
    */
@@ -264,6 +262,20 @@ export default class Geometry {
     return this;
   }
 
+  /**
+   * TODO: 动画配置
+   * @param cfg
+   */
+  public animate(cfg): Geometry {
+    this.animateOption = cfg;
+    return this;
+  }
+
+  /**
+   * TODO: label() 如何实现
+   */
+  public label() {}
+
   /** 初始化 Geometry */
   public init() {
     const coord = this.coord;
@@ -309,6 +321,7 @@ export default class Geometry {
   /** 更新数据 */
   public update(data) {
     this.data = data;
+    this.elementsMap = {};
 
     // 更新 scale
     const { scaleDefs, scales } = this;
@@ -324,13 +337,21 @@ export default class Geometry {
     const dataArray = this._processData(data);
     this._beforeMapping(dataArray);
     const mappedArray = [];
+    let newElements = [];
     Util.each(dataArray, (everyData, i) => {
       const mappedResult = this._mapping(everyData);
       mappedArray.push(mappedResult);
-      this.updateElements(mappedResult);
+      const elements = this.updateElements(mappedResult);
+      newElements = newElements.concat(elements);
     });
 
     this._afterMapping(mappedArray);
+
+    this.elements = newElements;
+    // 销毁不存在的数据
+    Util.each(this.lastElementsMap, (deletedElement, id) => {
+      deletedElement.destroy();
+    });
   }
 
   public clear() {
@@ -341,8 +362,10 @@ export default class Geometry {
     this.attrs = {};
     this.scales = {};
     this.elementsMap = {};
+    this.lastElementsMap = {};
     this.elements = [];
-    this.groupScales = [];
+    this.groupScales = null;
+    this.dataArray = null;
   }
 
   /**
@@ -446,22 +469,22 @@ export default class Geometry {
       elements.push(element);
       elementsMap[elementId] = element;
     });
+    this.lastElementsMap = elementsMap;
   }
 
   protected createElement(record: LooseObject, groupIndex: number): Element {
     const originData = record[FIELD_ORIGIN];
-    const { type, shapeType, theme, container } = this;
+    const { theme, container } = this;
 
     const shapeCfg = this.getDrawCfg(record); // 获取绘制图形的配置信息
     const shapeFactory = this.shapeFactory;
-    // const id = this._getElementId(originData);
+    const shape = record.shape || shapeFactory.defaultShapeType;
 
     const element = new Element({
-      // id,
       data: originData,
       model: shapeCfg,
-      shapeType,
-      theme: Util.get(theme, `shape.${type}`, {}),
+      shapeType: shape,
+      theme: Util.get(theme, `shape.${this.shapeType}`, {}),
       shapeFactory,
       container,
     });
@@ -493,40 +516,28 @@ export default class Geometry {
   }
 
   protected updateElements(mappedArray: LooseObject[]) {
-    // const { elementsMap, type, shapeType, theme, shapeFactory } = this;
-    const elementsMap = this.elementsMap;
-    const newMap = {};
-    const newElements = [];
+    const lastElementsMap = this.lastElementsMap;
+    const elements = [];
     Util.each(mappedArray, (record, i) => {
       const originData = record[FIELD_ORIGIN];
       const id = this._getElementId(originData);
-      let result = elementsMap[id];
+      let result = lastElementsMap[id];
       if (!result) {
         result = this.createElement(record, i);
-
-        // newElements.push(element);
-        // newMap[id] = element;
       } else {
-        // 发生更新的 Element
-        if (originData !== result.getData()) {
+        // if (originData !== result.getData()) { // 数据发生更新才进行更新
+        if (Util.isEqual(originData, result.getData())) {
           const shapeCfg = this.getDrawCfg(record); // 获取绘制图形的配置信息
           result.update(shapeCfg); // 更新对应的 element
         }
-        // newMap[id] = result;
-        // newElements.push(result);
 
-        delete elementsMap[id];
+        delete lastElementsMap[id];
       }
-      newElements.push(result);
-      newMap[id] = result;
-    });
-    // 被删除的 element
-    Util.each(elementsMap, (deletedElement, id) => {
-      deletedElement.destroy();
+      elements.push(result);
+      this.elementsMap[id] = result;
     });
 
-    this.elementsMap = newMap;
-    this.elements = newElements;
+    return elements;
   }
 
   // 存储用户设置的图形属性配置项
@@ -578,7 +589,7 @@ export default class Geometry {
     const attrs = this.attrs;
     const attrOption = this.attrOption;
     const theme = this.theme;
-    const geomType = this.type;
+    const shapeType = this.shapeType;
 
     // 遍历每一个 attrOption，各自创建 Attribute 实例
     Util.each(attrOption, (option: AttributeOption, attrType: string) => {
@@ -606,7 +617,7 @@ export default class Geometry {
         if (attrType === 'size') {
           attrCfg.values = theme.sizes;
         } else if (attrType === 'shape') {
-          attrCfg.values = theme.shapes[geomType] || [];
+          attrCfg.values = theme.shapes[shapeType] || [];
         } else if (attrType === 'color') {
           // TODO 需要优化
           attrCfg.values = theme.colors;
