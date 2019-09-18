@@ -3,7 +3,6 @@ import * as Util from '@antv/util';
 import { LooseObject, ShapeDrawCFG } from '../interface';
 import { ShapeFactory } from './interface';
 
-// TODO: 统一入口
 const FIELD_ORIGIN = '_origin';
 
 interface ElementCfg {
@@ -37,6 +36,8 @@ export default class Element {
   public container: Group;
   /** 最后创建的图形对象 todo: 重命名，因为有可能是 Group */
   public shape: Shape | Group;
+  /** 是否已经被销毁 */
+  public destroyed: boolean = false;
 
   // 存储当前状态
   private states: string[] = [];
@@ -115,6 +116,7 @@ export default class Element {
     shape.remove(true);
     this.states = [];
     this.originStyle = {};
+    this.destroyed = true;
   }
   /**
    * 清空状量态，恢复至初始状态
@@ -155,7 +157,6 @@ export default class Element {
 
     return Util.get(theme, `${shapeType}.${stateName}`, {});
   }
-
   /**
    * 获取初始化样式
    */
