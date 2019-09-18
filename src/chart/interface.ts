@@ -2,7 +2,7 @@ import { Canvas, Group } from '@antv/g';
 import Component from '../component';
 import Interaction from '../interaction';
 import { Padding, Region } from '../interface';
-import { DIRECTION, LAYER } from './constant';
+import { ComponentType, DIRECTION, LAYER } from './constant';
 import View from './view';
 
 export type Renderer = 'svg' | 'canvas';
@@ -38,6 +38,7 @@ export interface ComponentOption {
   readonly component: Component;
   readonly layer: LAYER;
   readonly direction: DIRECTION;
+  readonly type: ComponentType;
 }
 
 /** 数据的定义 */
@@ -45,27 +46,40 @@ export type Datum = Record<string, string | number>;
 export type Data = Datum[];
 
 /* 筛选器函数类型定义 */
-export type FilterCondition = (datum: Datum) => boolean;
+export type FilterCondition = (value: any, datum: Datum) => boolean;
 
-export interface AxisCfg {
-  readonly type: string;
-}
+export type AxisCfg =
+  | {
+      readonly type: string;
+    }
+  | boolean;
 
-export interface LegendCfg {
-  readonly type: string;
-}
+export type LegendCfg =
+  | {
+      readonly type: string;
+    }
+  | boolean;
 
 export interface ScaleCfg {
   readonly type: string;
 }
 
-export interface CoordinateCfg {
-  readonly type: string;
+export interface CoordinateOption {
+  type?: 'polar' | 'theta' | 'rect' | 'cartesian' | 'helix' | 'geo'; // 坐标系类型
+  cfg?: CoordinateCfg; // 坐标系配置项
+  actions?: any[][]; // 坐标系变换操作
 }
 
-export interface CoordinateOpt {
-  readonly type: string;
-  readonly cfg: CoordinateCfg;
+export interface CoordinateCfg {
+  // 极坐标系配置
+  startAngle?: number; // 起始弧度
+  endAngle?: number; // 结束弧度
+  radius?: number; // 极坐标半径，0 - 1 范围的数值
+  innerRadius?: number; // 极坐标内半径，0 -1 范围的数值
+
+  // 地理坐标系配置
+  zoom?: number; // 缩放等级，0 - 20 的数值范围
+  center?: [number, number]; // 中心经纬度设置，比如 [ 120, 20 ]
 }
 
 export interface Options {
@@ -75,6 +89,6 @@ export interface Options {
   readonly legends: Record<string, LegendCfg>;
   readonly scales: Record<string, ScaleCfg>;
   readonly tooltip: boolean; // tooltip visible or not
-  readonly coordinate: CoordinateOpt;
+  readonly coordinate: CoordinateOption;
   readonly interactions: Record<string, Interaction>;
 }

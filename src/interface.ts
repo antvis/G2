@@ -106,3 +106,5 @@ export interface Point {
 }
 
 export type Padding = number | number[];
+
+export type Position = [number, number];

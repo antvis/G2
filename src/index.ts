@@ -1,8 +1,8 @@
-export const VER = '4.0.0-beta.1';
+export * from './core';
 
-// API、组件 导出
-export { Chart, View, LAYER, DIRECTION } from './chart';
+// 注册 G2 内置的 geometry
+import { registerGeometry } from './chart';
 
-// 类型定义导出
-export { ChartCfg, ViewCfg } from './chart';
-export { Region, Point } from './interface';
+import Polygon from './geometry/polygon';
+
+registerGeometry('Polygon', Polygon);

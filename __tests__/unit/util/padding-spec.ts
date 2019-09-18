@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import { parsePadding } from '../../../src/util';
+import { parsePadding } from '../../../src/util/padding';
 
-describe('util', () => {
+describe('util padding', () => {
   it('parsePadding', () => {
     expect(parsePadding()).to.eql([0, 0, 0, 0]);
     expect(parsePadding(1)).to.eql([1, 1, 1, 1]);

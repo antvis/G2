@@ -5,20 +5,25 @@ import {
   AxisCfg,
   ComponentOption,
   CoordinateCfg,
-  CoordinateOpt,
+  CoordinateOption,
   Data,
+  Datum,
   FilterCondition,
   Options,
   ScaleCfg,
   ViewCfg,
 } from 'chart/interface';
 import Component from 'component';
+import { Coordinate, Scale } from 'dependents';
 import Geometry from 'geometry/geometry';
 import Interaction from 'interaction';
 import { Padding, Point, Region } from 'interface';
-import { parsePadding } from '../util';
+import { parsePadding } from '../util/padding';
 import Chart from './chart';
-import { DIRECTION, LAYER } from './constant';
+import { ComponentType, DIRECTION, LAYER } from './constant';
+import { createAxes } from './controller/axis';
+import { createCoordinate } from './controller/coordinate';
+import { createLegends } from './controller/legend';
 import defaultLayout, { Layout } from './layout';
 
 /**
@@ -41,20 +46,27 @@ export default class View extends EE {
   public middleGroup: Group;
   /** 前景层 */
   public foregroundGroup: Group;
+
   /** 标记 view 的大小位置范围，均是 0 ~ 1 范围，便于开发者使用 */
   public region: Region;
-
+  /** view 的 padding 大小 */
   public padding: Padding;
 
   // 配置信息存储
-  public options: Options;
+  // @ts-ignore
+  public options: Options = {}; // 初始化为空
 
   // 计算信息
-  /** view 实际的绘图区域，除去 padding */
+  /** view 实际的绘图区域，除去 padding，出去组件占用空间 */
   public viewBBox: BBox;
+  public filteredData: Data;
+  /** 坐标系的位置大小 */
+  public coordinateBBox: BBox;
 
   // 布局函数
-  protected _layout: Layout = defaultLayout;
+  protected layoutFunc: Layout = defaultLayout;
+  // 生成的坐标系实例
+  private coordinateInstance: Coordinate;
 
   constructor(props: ViewCfg) {
     super();
@@ -85,12 +97,19 @@ export default class View extends EE {
    * @param component
    * @param layer
    * @param direction
+   * @param type
    */
-  public addComponent(component: Component, layer: LAYER = LAYER.MID, direction: DIRECTION = DIRECTION.BOTTOM) {
+  public addComponent(
+    component: Component,
+    layer: LAYER = LAYER.MID,
+    direction: DIRECTION = DIRECTION.BOTTOM,
+    type: ComponentType = ComponentType.OTHER
+  ) {
     this.componentOptions.push({
       component,
       layer,
       direction,
+      type,
     });
   }
 
@@ -107,7 +126,7 @@ export default class View extends EE {
    * @param layout
    */
   public setLayout(layout: Layout) {
-    this._layout = layout;
+    this.layoutFunc = layout;
   }
 
   /**
@@ -131,16 +150,45 @@ export default class View extends EE {
 
   /**
    * 渲染流程，渲染过程需要处理数据更新的情况
+   * render 函数仅仅会处理 view 和子 view
    */
   public render() {
-    // 1. 递归 views，生成 UI
-    this.renderUI();
-
-    // 2.  递归 views，进行布局
-    this.doLayout();
-
-    // 3. 实际的绘制
+    // 递归渲染
+    this.renderRecursive();
+    // 实际的绘图
     this._canvasDraw();
+  }
+
+  /**
+   * 递归 render views
+   * 步骤非常繁琐，因为之间有一些数据依赖，所以执行流程上有先后关系
+   */
+  public renderRecursive() {
+    // 1. 处理数据
+    this._filterData();
+
+    // 2. 初始化 Geometry
+    this._initialGeometries();
+
+    // 3. 调整 scale 配置
+    this._adjustScales();
+
+    // 4. 渲染组件 component
+    this._renderComponents();
+
+    // 5.  递归 views，进行布局
+    this._doLayout();
+
+    // 6. 创建 coordinate 实例（在 layout 中做掉了）
+    // this.createCoordinate();
+
+    // 7. 渲染几何标记
+    this._paintGeometries();
+
+    // 同样递归处理子 views
+    _.each(this.views, (view: View) => {
+      view.renderRecursive();
+    });
   }
 
   // /**
@@ -177,7 +225,6 @@ export default class View extends EE {
    */
   public destroy() {
     this.clear();
-    // todo
   }
   /* end 生命周期函数 */
 
@@ -226,16 +273,20 @@ export default class View extends EE {
   /**
    * 辅助标记配置
    */
-  public annotation() {
-    // todo @hustcc
-    // return this.annotationController;
-  }
+  public annotation() {}
 
   /**
    * 坐标系配置
    */
-  public coordinate(type: string, coordinateCfg?: CoordinateCfg) {
-    _.set(this.options, 'coordinate', { type, cfg: coordinateCfg } as CoordinateOpt);
+  public coordinate(option: CoordinateOption);
+  public coordinate(type: string, coordinateCfg?: CoordinateCfg);
+  public coordinate(type: string | CoordinateOption, coordinateCfg?: CoordinateCfg) {
+    // 提供语法糖，使用更简单
+    if (_.isString(type)) {
+      _.set(this.options, 'coordinate', { type, cfg: coordinateCfg } as CoordinateOption);
+    } else {
+      _.set(this.options, 'coordinate', type);
+    }
   }
 
   public animate() {}
@@ -286,47 +337,122 @@ export default class View extends EE {
   public removeView(view: View): View {
     return _.remove(this.views, (v: View) => v === view)[0];
   }
-
   /* end View 管理相关的 API */
+
+  /**
+   * 创建坐标系
+   * @private
+   */
+  public createCoordinate(bbox: BBox) {
+    this.setCoordinate(createCoordinate(this.options.coordinate, bbox));
+  }
+
+  // 一些 get 方法
+
+  /**
+   * 获取坐标系
+   */
+  public getCoordinate() {
+    return this.coordinateInstance;
+  }
+
+  /**
+   * 设置新的坐标系
+   * @param coordinate
+   */
+  public setCoordinate(coordinate: Coordinate) {
+    this.coordinateInstance = coordinate;
+  }
+
+  /**
+   * 获得 x 轴字段的 scale 实例
+   */
+  public getXScale(): Scale {
+    // 拿第一个 Geometry 的 X scale
+    // 隐藏逻辑：一个 view 中的 Geometry 必须 x 字段一致
+    const g = this.geometries[0];
+    return g ? g.getXScale() : null;
+  }
+
+  /**
+   * 获取 y 轴字段的 scales 实例
+   */
+  public getYScales(): Scale[] {
+    // 拿到所有的 Geometry 的 Y scale，然后去重
+    return _.uniq(_.map(this.geometries, (g: Geometry) => g.getYScale()));
+  }
+
+  /**
+   * 获取所有的分组字段的 scales
+   */
+  public getGroupScales(): Scale[] {
+    // 拿到所有的 Geometry 的 分组字段 scale，然后打平去重
+    const scales = _.map(this.geometries, (g: Geometry) => g.getGroupScales());
+    return _.uniq(_.flatten(scales));
+  }
 
   public getCanvas(): Canvas {
     let v = this as View;
-    do {
-      v = this.parent;
-    } while (v);
 
+    while (true) {
+      if (v.parent) {
+        v = v.parent;
+        continue;
+      }
+      break;
+    }
     return ((v as unknown) as Chart).canvas;
+  }
+
+  // end Get 方法
+
+  /**
+   * 调整 scale 配置
+   * @private
+   */
+  private _adjustScales() {
+    // 调整目前包括：
+    // scale sync 的配置
+    // 目前 scale 创建是在 Geometry 中，所以调整同步也在 Geometry 中完成
+  }
+
+  /**
+   * 进行布局，同时对子 view 进行布局，更新组件的位置大小属性
+   * @private
+   */
+  private _doLayout() {
+    // 当前进行布局
+    this.layoutFunc(this);
   }
 
   // 渲染流程
 
   /**
-   * 渲染所有的 UI
+   * 处理筛选器，筛选数据
+   * @private
    */
-  public renderUI() {
-    // 1. 渲染组件 component
-    this._renderComponents();
-    // 2. 渲染几何标记
-    this._renderGeometries();
-    // 3. 递归渲染子 view
-    _.each(this.views, (view: View) => {
-      view.renderUI();
-    });
+  private _filterData() {
+    const { data, filters } = this.options;
+    // 不存在 filters，则不需要进行数据过滤
+    if (_.size(filters) === 0) {
+      this.filteredData = data;
+      return;
+    }
 
-    // 3. 布局，更新位置等
-    this.doLayout();
-  }
+    // 存在过滤器，则逐个执行过滤，过滤器之间是 与 的关系
+    this.filteredData = _.filter(data, (datum: Datum) => {
+      let filtered = true;
 
-  /**
-   * 进行布局，同时对子 view 进行布局
-   */
-  public doLayout() {
-    // 当前进行布局
-    this._layout(this);
+      _.each(filters, (filter: FilterCondition, field: string) => {
+        // 只要一个不通过，就结束循环
+        if (!filter(datum[field], datum)) {
+          filtered = false;
+          // return false === break loop
+          return false;
+        }
+      });
 
-    // 子 view 进行布局
-    _.each(this.views, (view: View) => {
-      view.doLayout();
+      return filtered;
     });
   }
 
@@ -375,7 +501,6 @@ export default class View extends EE {
    * @private
    */
   private _initialControllers() {
-    // todo @hustcc
     // 可能暂时不需要，组件管理直接使用 components 管理，生成逻辑写成工具函数
   }
 
@@ -398,19 +523,57 @@ export default class View extends EE {
   }
 
   /**
-   * 根据 options 配置自动渲染 components
+   * 初始化 Geometries
    * @private
    */
-  private _renderComponents() {
-    // todo @hustcc
+  private _initialGeometries() {
+    _.each(this.geometries, (geometry) => {
+      geometry.init();
+    });
   }
 
   /**
    * 根据 options 配置自动渲染 geometry
    * @private
    */
-  private _renderGeometries() {
-    // todo @hustcc
+  private _paintGeometries() {
+    // geometry 的 paint 阶段
+    // TODO 等待联调，以下测试用
+    this.middleGroup.clear();
+    this.middleGroup.addShape('rect', {
+      attrs: {
+        x: this.coordinateBBox.x,
+        y: this.coordinateBBox.y,
+        width: this.coordinateBBox.width,
+        height: this.coordinateBBox.height,
+        stroke: 'red',
+      },
+    });
+  }
+
+  /**
+   * 根据 options 配置、Geometry 字段配置，自动渲染 components
+   * @private
+   */
+  private _renderComponents() {
+    const { axes, legends } = this.options;
+
+    this.componentOptions = [];
+
+    // 1. axis
+    this.backgroundGroup.clear();
+    // 根据 Geometry 的字段来创建 axis
+    _.each(createAxes(this.backgroundGroup, axes, this), (axis: ComponentOption) => {
+      const { component, layer, direction, type } = axis;
+      this.addComponent(component, layer, direction, type);
+    });
+
+    // 2. legend
+    this.foregroundGroup.clear();
+    _.each(createLegends(this.foregroundGroup, legends, this), (legend: ComponentOption) => {
+      const { component, layer, direction, type } = legend;
+      this.addComponent(component, layer, direction, type);
+    });
   }
 
   /**
@@ -421,3 +584,36 @@ export default class View extends EE {
     this.getCanvas().draw();
   }
 }
+
+/**
+ * 注册 geometry 组件
+ * @param name
+ * @param Ctor
+ */
+export const registerGeometry = (name: string, Ctor: any) => {
+  // 语法糖，在 view API 上增加原型方法
+  View.prototype[name.toLowerCase()] = function(cfg: any = {}) {
+    const props = {
+      /** 坐标系对象 */
+      // FIXME 不使用简写
+      coord: this.getCoordinate(),
+      // coordinate: this._coordinate,
+      /** data 数据 */
+      data: this.filteredData,
+      /** 图形容器 */
+      container: this.middleGroup,
+      /** scale 配置 */
+      scaleDefs: this.options.scales,
+      // 其他信息，不知道需不需要
+      canvas: this.canvas,
+      view: this,
+      theme: {},
+      ...cfg,
+    };
+
+    const geometry = new Ctor(props);
+    this.addGeometry(geometry);
+
+    return geometry;
+  };
+};
