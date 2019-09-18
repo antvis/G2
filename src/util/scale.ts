@@ -1,10 +1,10 @@
 import { getScale, Scale, ScaleConfig } from '@antv/scale';
 import * as Util from '@antv/util';
-import { ScaleDef } from '../interface';
+import { LooseObject, ScaleDef } from '../interface';
 
 const dateRegex = /^(?:(?!0000)[0-9]{4}([-/.]+)(?:(?:0?[1-9]|1[0-2])\1(?:0?[1-9]|1[0-9]|2[0-8])|(?:0?[13-9]|1[0-2])\1(?:29|30)|(?:0?[13578]|1[02])\1(?:31))|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)([-/.]?)0?2\2(?:29))(\s+([01]|([01][0-9]|2[0-3])):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))?$/;
 
-/** @module 创建 Scale 工具函数 */
+/** 创建 Scale 工具函数 */
 const ScaleUtil = {
   /**
    * 为指定的 `field` 字段数据创建 scale
@@ -12,7 +12,7 @@ const ScaleUtil = {
    * @param data 数据集
    * @param scaleDef 列定义
    */
-  createScale(field: string, data: object[], scaleDef: ScaleDef) {
+  createScale(field: string | number, data?: LooseObject[] | [], scaleDef?: ScaleDef) {
     let scale: Scale;
 
     if (!data || !data.length) {
@@ -29,9 +29,8 @@ const ScaleUtil = {
       }
       return scale;
     }
-    const firstValue = Util.firstValue(data, field);
 
-    if (Util.isNumber(field) || (Util.isNil(firstValue) && !scaleDef)) {
+    if (Util.isNumber(field) || (Util.isNil(Util.firstValue(data, field)) && !scaleDef)) {
       const Identity = getScale('identity');
       scale = new Identity({
         field: field.toString(),
@@ -71,7 +70,7 @@ const ScaleUtil = {
    * @param field 数据字段名
    * @param data 数据集
    */
-  getDefaultType(field: string, data: object[]) {
+  getDefaultType(field: string, data: LooseObject[]) {
     let type = 'linear';
     let value = Util.firstValue(data, field);
     if (Util.isArray(value)) {
@@ -90,7 +89,7 @@ const ScaleUtil = {
    * @param field 数据字段名
    * @param data 数据集
    */
-  getScaleCfg(type: string, field: string, data: object[]) {
+  getScaleCfg(type: string, field: string, data: LooseObject[]) {
     const values = Util.valuesOfKey(data, field);
     const cfg: ScaleConfig = {
       field,

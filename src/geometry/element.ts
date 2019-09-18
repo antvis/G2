@@ -7,8 +7,6 @@ import { ShapeFactory } from './interface';
 const FIELD_ORIGIN = '_origin';
 
 interface ElementCfg {
-  /** 同 data 对应的唯一 ID */
-  // id: string;
   /** 原始数据 */
   data: LooseObject;
   /** 映射后的绘图数据 */
@@ -25,8 +23,6 @@ interface ElementCfg {
 
 /** @class Element 图形元素 */
 export default class Element {
-  /** 同 data 对应的唯一 ID */
-  // public id: string;
   /** 绘制的 shape 类型 */
   public readonly shapeType: string;
   /** 原始数据 */
