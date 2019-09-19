@@ -23,7 +23,7 @@ import { parsePadding } from '../util/padding';
 import Chart from './chart';
 import { ComponentType, DIRECTION, LAYER } from './constant';
 import { createAxes } from './controller/axis';
-import { createCoordinate } from './controller/coordinate';
+import { createCoordinate, isFullCircle } from './controller/coordinate';
 import { createLegends } from './controller/legend';
 import defaultLayout, { Layout } from './layout';
 
@@ -177,14 +177,14 @@ export default class View extends EE {
     // 2. 初始化 Geometry
     this._initialGeometries();
 
-    // 3. 调整 scale 配置
-    this._adjustScales();
-
-    // 4. 渲染组件 component
+    // 3. 渲染组件 component
     this._renderComponents();
 
-    // 5.  递归 views，进行布局
+    // 4.  递归 views，进行布局
     this._doLayout();
+
+    // 5. 调整 scale 配置
+    this._adjustScales();
 
     // 6. 创建 coordinate 实例（在 layout 中做掉了）
     // this.createCoordinate();
@@ -427,8 +427,46 @@ export default class View extends EE {
    */
   private _adjustScales() {
     // 调整目前包括：
-    // scale sync 的配置
-    // 目前 scale 创建是在 Geometry 中，所以调整同步也在 Geometry 中完成
+    // 分类 scale，调整 range 范围
+    const xyScales = [this.getXScale(), ...this.getYScales()].filter((e) => !!e);
+    const coordinate = this.getCoordinate();
+    const scaleOptions = this.options.scales;
+
+    _.each(xyScales, (scale: Scale) => {
+      // @ts-ignore
+      const { field, values, isCategory, isIdentity } = scale;
+
+      // 分类或者 identity 的 scale 才进行处理
+      if (isCategory || isIdentity) {
+        // 存在 value 值，且用户没有配置 range 配置
+        if (values && !_.get(scaleOptions, [field, 'range'])) {
+          const count = values.length;
+          let range;
+
+          if (count === 1) {
+            range = [0.5, 1]; // 只有一个分类时,防止计算出现 [0.5,0.5] 的状态
+          } else {
+            let widthRatio = 1;
+            let offset = 0;
+
+            if (isFullCircle(coordinate)) {
+              if (!coordinate.isTransposed) {
+                range = [0, 1 - 1 / count];
+              } else {
+                widthRatio = _.get(this.theme, 'widthRatio.multiplePie', 1 / 1.3);
+                offset = (1 / count) * widthRatio;
+                range = [offset / 2, 1 - offset / 2];
+              }
+            } else {
+              offset = 1 / count / 2; // 两边留下分类空间的一半
+              range = [offset, 1 - offset]; // 坐标轴最前面和最后面留下空白防止绘制柱状图时
+            }
+          }
+          // 更新 range
+          scale.range = range;
+        }
+      }
+    });
   }
 
   /**

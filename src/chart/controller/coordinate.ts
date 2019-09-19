@@ -18,14 +18,14 @@ function isTheta(type: string): boolean {
 /**
  * 创建坐标系
  * @param coordinateOption
- * @param viewBBox
+ * @param coordinateBBpx
  */
-export function createCoordinate(coordinateOption: CoordinateOption = {}, viewBBox: BBox): Coordinate {
+export function createCoordinate(coordinateOption: CoordinateOption = {}, coordinateBBpx: BBox): Coordinate {
   const { type = 'rect', cfg, actions = [] } = coordinateOption;
 
   // 1. 起始位置
-  const start = viewBBox.bl;
-  const end = viewBBox.tr;
+  const start = coordinateBBpx.bl;
+  const end = coordinateBBpx.tr;
 
   const props = {
     start,
@@ -56,4 +56,16 @@ export function createCoordinate(coordinateOption: CoordinateOption = {}, viewBB
   });
 
   return coordinate;
+}
+
+/**
+ * 整圆极坐标系
+ * @param coordinate
+ */
+export function isFullCircle(coordinate: Coordinate) {
+  if (coordinate.isPolar) {
+    const { startAngle, endAngle } = coordinate;
+    return endAngle - startAngle === Math.PI * 2;
+  }
+  return false;
 }

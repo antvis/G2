@@ -17,7 +17,6 @@ describe('View', () => {
 
   const canvas = createCanvas({
     containerDOM: div,
-    renderer: 'svg',
   });
 
   const backgroundGroup = canvas.addGroup();
