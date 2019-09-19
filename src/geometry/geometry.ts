@@ -1011,7 +1011,7 @@ export default class Geometry {
       const shapeType = this.shapeType;
       const coord = this.coord;
       shapeFactory = getShapeFactory(shapeType);
-      shapeFactory.setCoord(coord);
+      shapeFactory.setCoordinate(coord);
 
       this.shapeFactory = shapeFactory;
     }

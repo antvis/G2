@@ -17,7 +17,7 @@ const ShapeFactoryBase = {
   /** 默认绘制的 Shape 类型 */
   defaultShapeType: null,
 
-  setCoord(coord: Coord) {
+  setCoordinate(coord: Coord) {
     this.coord = coord;
   },
   /**
@@ -114,7 +114,7 @@ const ShapeFactoryBase = {
 const ShapeBase = {
   coord: null,
 
-  getCoord(): Coord {
+  getCoordinate(): Coord {
     return this.coord;
   },
   /**

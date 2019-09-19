@@ -50,7 +50,7 @@ export interface Shape extends RegisterShape {
   /** 坐标系对象 */
   coord: Coord;
   /** 获取坐标系对象 */
-  getCoord: () => Coord;
+  getCoordinate: () => Coord;
   /** 工具函数，将 0～1 path 转化成实际画布 path */
   parsePath: (path: any, islineToArc: boolean) => any[];
   /** 工具函数，0～1 的坐标点转换成实际画布坐标点 */
@@ -64,7 +64,7 @@ export interface ShapeFactory extends RegisterShapeFactory {
   /** 坐标系对象 */
   coord: Coord;
   /** 设置坐标系 */
-  setCoord: (coord: Coord) => void;
+  setCoordinate: (coord: Coord) => void;
   /** 根据名称获取具体的 shape 对象 */
   getShape: (shapeType: string | string[]) => Shape;
   /** 获取构成 shape 的关键点 */

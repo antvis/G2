@@ -99,7 +99,7 @@ describe('Shape', () => {
   describe('ShapeFactory', () => {
     it('getShape()', () => {
       const circleFactory = Shape.getShapeFactory('circleFactory');
-      circleFactory.setCoord(coord);
+      circleFactory.setCoordinate(coord);
 
       const shape = circleFactory.getShape('circle');
       expect(shape).to.eql(circleFactory[circleFactory.defaultShapeType]);
@@ -201,10 +201,10 @@ describe('Shape', () => {
   });
 
   describe('Shape', () => {
-    it('getCoord', () => {
+    it('getCoordinate', () => {
       const circleFactory = Shape.getShapeFactory('circleFactory');
       const shape = circleFactory.getShape('circle');
-      expect(shape.getCoord()).to.eql(coord);
+      expect(shape.getCoordinate()).to.eql(coord);
     });
 
     it('parsePoint', () => {
@@ -238,7 +238,7 @@ describe('Shape', () => {
         end: { x: 200, y: 200 },
       });
       const circleFactory = Shape.getShapeFactory('circleFactory');
-      circleFactory.setCoord(polar);
+      circleFactory.setCoordinate(polar);
       const shape = circleFactory.getShape('circle');
       let path = [['M', 0, 0], ['L', 0, 1], ['L', 0.5, 1]];
       let toPath = shape.parsePath(path, true);
