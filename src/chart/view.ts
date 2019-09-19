@@ -66,7 +66,7 @@ export default class View extends EE {
   /** 坐标系的位置大小 */
   public coordinateBBox: BBox;
   /** 所有的 scales */
-  public scales: Record<string, Scale>;
+  public scales: Record<string, Scale> = {};
 
   // 布局函数
   protected layoutFunc: Layout = defaultLayout;
@@ -624,23 +624,15 @@ export default class View extends EE {
    */
   private _initialGeometries() {
     // 实例化 Geometry，然后 view 将所有的 scale 管理起来
-    this.scales = _.reduce(
-      this.geometries,
-      (scales: Record<string, Scale>, geometry: Geometry, idx: number): Record<string, Scale> => {
-        geometry.scaleDefs = _.get(this.options, 'scales', {});
-        geometry.data = this.filteredData;
-        geometry.theme = this.theme;
-        geometry.scales = scales;
+    _.each(this.geometries, (geometry: Geometry) => {
+      geometry.scaleDefs = _.get(this.options, 'scales', {});
+      geometry.data = this.filteredData;
+      geometry.theme = this.theme;
+      // 保持 scales 引用不要变化
+      geometry.scales = this.scales;
 
-        geometry.init();
-
-        return {
-          ...scales,
-          ...geometry.scales,
-        };
-      },
-      {}
-    );
+      geometry.init();
+    });
   }
 
   /**
