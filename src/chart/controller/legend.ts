@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-import { Scale } from '../../dependents';
+import { Attribute, Scale } from '../../dependents';
 import { Legend } from '../__components__';
 import { ComponentType, DIRECTION, LAYER } from '../constant';
 import { ComponentOption, LegendCfg } from '../interface';
@@ -15,9 +15,10 @@ import View from '../view';
 export function createLegends(container: any, legends: Record<string, LegendCfg>, view: View): ComponentOption[] {
   const legendArray: ComponentOption[] = [];
 
-  const legendScales = view.getGroupScales();
+  const legendAttributes = view.getLegendAttributes();
 
-  _.each(legendScales, (scale: Scale) => {
+  _.each(legendAttributes, (attr: Attribute) => {
+    const scale = attr.getScale(attr.type);
     const legendCfg = _.get(legends, [scale.field]);
 
     // 如果配置中，用户没有关闭 legend，则添加组件

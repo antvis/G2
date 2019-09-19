@@ -410,6 +410,16 @@ export default class Geometry {
     return this.getAttr('position').scales[1];
   }
 
+  public getLegendAttributes(): Attribute[] {
+    const rst = [];
+    Util.each(this.attrs, (attr: Attribute) => {
+      if (GROUP_ATTRS.includes(attr.type)) {
+        rst.push(attr);
+      }
+    });
+    return rst;
+  }
+
   public getDefaultValue(attrName: string) {
     let value: any;
     const attr = this.getAttr(attrName);

@@ -18,6 +18,7 @@ import { Coordinate, Scale } from 'dependents';
 import Geometry from 'geometry/geometry';
 import Interaction from 'interaction';
 import { Padding, Point, Region } from 'interface';
+import { Attribute } from '../dependents';
 import { parsePadding } from '../util/padding';
 import Chart from './chart';
 import { ComponentType, DIRECTION, LAYER } from './constant';
@@ -51,6 +52,8 @@ export default class View extends EE {
   public region: Region;
   /** view 的 padding 大小 */
   public padding: Padding;
+  /** 主题配置 */
+  public theme: object;
 
   // 配置信息存储
   // @ts-ignore
@@ -62,6 +65,8 @@ export default class View extends EE {
   public filteredData: Data;
   /** 坐标系的位置大小 */
   public coordinateBBox: BBox;
+  /** 所有的 scales */
+  public scales: Record<string, Scale>;
 
   // 布局函数
   protected layoutFunc: Layout = defaultLayout;
@@ -79,6 +84,7 @@ export default class View extends EE {
       foregroundGroup,
       region = { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
       padding = 0,
+      theme,
     } = props;
 
     this.parent = parent;
@@ -88,6 +94,7 @@ export default class View extends EE {
     this.foregroundGroup = foregroundGroup;
     this.region = region;
     this.padding = padding;
+    this.theme = theme as object;
 
     this.initial();
   }
@@ -383,6 +390,14 @@ export default class View extends EE {
   }
 
   /**
+   * 获得所有的 legend 对应的 attribute 实例
+   */
+  public getLegendAttributes(): Attribute[] {
+    // FIXME util 中 flatten 的类型定义不正确
+    return (_.flatten(_.map(this.geometries, (g: Geometry) => g.getLegendAttributes())) as unknown) as Attribute[];
+  }
+
+  /**
    * 获取所有的分组字段的 scales
    */
   public getGroupScales(): Scale[] {
@@ -527,14 +542,24 @@ export default class View extends EE {
    * @private
    */
   private _initialGeometries() {
-    _.each(this.geometries, (geometry) => {
-      geometry.scaleDefs = _.get(this.options, 'scales', {});
-      // TODO view 对 scales 的管理
-      geometry.data = this.filteredData;
-      geometry.theme = {};
+    // 实例化 Geometry，然后 view 将所有的 scale 管理起来
+    this.scales = _.reduce(
+      this.geometries,
+      (scales: Record<string, Scale>, geometry: Geometry, idx: number): Record<string, Scale> => {
+        geometry.scaleDefs = _.get(this.options, 'scales', {});
+        geometry.data = this.filteredData;
+        geometry.theme = this.theme;
+        geometry.scales = scales;
 
-      geometry.init();
-    });
+        geometry.init();
+
+        return {
+          ...scales,
+          ...geometry.scales,
+        };
+      },
+      {}
+    );
   }
 
   /**
@@ -546,6 +571,7 @@ export default class View extends EE {
     this.geometries.map((geometry: Geometry) => {
       // 设置布局之后的 coordinate
       geometry.coord = this.getCoordinate();
+
       geometry.paint();
     });
   }

@@ -3,6 +3,7 @@ import * as _ from '@antv/util';
 import { expect } from 'chai';
 import { View } from '../../../src';
 import { createCanvas, createDiv } from '../../util/dom';
+import Theme from '../../util/theme';
 
 const data = [
   { city: '杭州', sale: 100, category: '电脑' },
@@ -37,6 +38,8 @@ describe('View', () => {
     expect(view.backgroundGroup).to.be.an.instanceof(Group);
     expect(view.middleGroup).to.be.an.instanceof(Group);
     expect(view.foregroundGroup).to.be.an.instanceof(Group);
+
+    view.theme = Theme;
   });
 
   it('region', () => {
@@ -72,6 +75,7 @@ describe('View', () => {
   });
 
   it('coordinate', () => {
+    view.render();
     expect(view.getCoordinate().type).to.be.eql('rect');
 
     view.coordinate('theta');
@@ -90,8 +94,8 @@ describe('View', () => {
     view
       // @ts-ignore
       .polygon()
-      .position('city*sale')
-      .color('category');
+      .position('city*category')
+      .color('sale');
 
     view.render();
     expect(view.geometries.length).to.be.eql(1);
@@ -101,9 +105,6 @@ describe('View', () => {
   });
 
   it('component', () => {
-    view.axis('city', {});
-    view.axis('sale', {});
-    view.legend('city', {});
     view.render();
 
     expect(view.componentOptions.length).to.be.eql(3);
@@ -113,12 +114,12 @@ describe('View', () => {
   });
 
   it('layout', () => {
-    expect(view.coordinateBBox.x).to.be.eql(52.6875);
+    expect(view.coordinateBBox.x).to.be.eql(76.69921875);
     expect(view.coordinateBBox.y).to.be.eql(18);
-    expect(view.coordinateBBox.width).to.be.eql(742.3125);
+    expect(view.coordinateBBox.width).to.be.eql(718.30078125);
     expect(view.coordinateBBox.height).to.be.eql(564);
 
-    expect(view.getCoordinate().width).to.be.eql(742.3125);
+    expect(view.getCoordinate().width).to.be.eql(718.30078125);
     expect(view.getCoordinate().height).to.be.eql(564);
   });
 
@@ -127,10 +128,19 @@ describe('View', () => {
   });
 
   it('getYScales', () => {
-    expect(view.getYScales().map((s) => s.field)).to.be.eql(['sale']);
+    expect(view.getYScales().map((s) => s.field)).to.be.eql(['category']);
   });
 
   it('getGroupScales', () => {
-    expect(view.getGroupScales().map((s) => s.field)).to.be.eql(['category']);
+    expect(view.getGroupScales().map((s) => s.field)).to.be.eql([]);
+  });
+
+  it('getLegendAttributes', () => {
+    expect(
+      view
+        .getLegendAttributes()
+        .map((a) => a.getScale(a.type))
+        .map((s) => s.field)
+    ).to.be.eql(['sale']);
   });
 });
