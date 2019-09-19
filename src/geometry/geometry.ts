@@ -278,10 +278,6 @@ export default class Geometry {
 
   /** 初始化 Geometry */
   public init() {
-    const coord = this.coord;
-    const container = this.container;
-    container.setMatrix(coord.matrix); // TODO：是否可以移除这步设置
-
     this._initAttrs(); // 创建图形属性
 
     // 为 tooltip 的字段创建对应的 scale 实例
@@ -298,6 +294,10 @@ export default class Geometry {
 
   /** 进行数据到图形空间的映射同时绘制图形 */
   public paint() {
+    const coord = this.coord;
+    const container = this.container;
+    container.setMatrix(coord.matrix); // TODO：是否可以移除这步设置
+
     const dataArray = this.dataArray;
     const mappedArray = [];
 

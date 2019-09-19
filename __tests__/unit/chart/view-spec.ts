@@ -16,7 +16,7 @@ describe('View', () => {
 
   const canvas = createCanvas({
     containerDOM: div,
-    // renderer: 'svg',
+    renderer: 'svg',
   });
 
   const backgroundGroup = canvas.addGroup();
@@ -87,8 +87,8 @@ describe('View', () => {
   });
 
   it('geometry', () => {
-    // @ts-ignore
     view
+      // @ts-ignore
       .polygon()
       .position('city*sale')
       .color('category');

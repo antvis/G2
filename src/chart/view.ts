@@ -528,6 +528,11 @@ export default class View extends EE {
    */
   private _initialGeometries() {
     _.each(this.geometries, (geometry) => {
+      geometry.scaleDefs = _.get(this.options, 'scales', {});
+      // TODO view 对 scales 的管理
+      geometry.data = this.filteredData;
+      geometry.theme = {};
+
       geometry.init();
     });
   }
@@ -538,16 +543,10 @@ export default class View extends EE {
    */
   private _paintGeometries() {
     // geometry 的 paint 阶段
-    // TODO 等待联调，以下测试用
-    this.middleGroup.clear();
-    this.middleGroup.addShape('rect', {
-      attrs: {
-        x: this.coordinateBBox.x,
-        y: this.coordinateBBox.y,
-        width: this.coordinateBBox.width,
-        height: this.coordinateBBox.height,
-        stroke: 'red',
-      },
+    this.geometries.map((geometry: Geometry) => {
+      // 设置布局之后的 coordinate
+      geometry.coord = this.getCoordinate();
+      geometry.paint();
     });
   }
 
@@ -594,20 +593,10 @@ export const registerGeometry = (name: string, Ctor: any) => {
   // 语法糖，在 view API 上增加原型方法
   View.prototype[name.toLowerCase()] = function(cfg: any = {}) {
     const props = {
-      /** 坐标系对象 */
-      // FIXME 不使用简写
-      coord: this.getCoordinate(),
-      // coordinate: this._coordinate,
-      /** data 数据 */
-      data: this.filteredData,
       /** 图形容器 */
-      container: this.middleGroup,
-      /** scale 配置 */
-      scaleDefs: this.options.scales,
+      container: this.middleGroup.addGroup(),
       // 其他信息，不知道需不需要
       canvas: this.canvas,
-      view: this,
-      theme: {},
       ...cfg,
     };
 
