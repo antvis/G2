@@ -18,14 +18,14 @@ function isTheta(type: string): boolean {
 /**
  * 创建坐标系
  * @param coordinateOption
- * @param coordinateBBpx
+ * @param coordinateBBox
  */
-export function createCoordinate(coordinateOption: CoordinateOption = {}, coordinateBBpx: BBox): Coordinate {
+export function createCoordinate(coordinateOption: CoordinateOption = {}, coordinateBBox: BBox): Coordinate {
   const { type = 'rect', cfg, actions = [] } = coordinateOption;
 
   // 1. 起始位置
-  const start = coordinateBBpx.bl;
-  const end = coordinateBBpx.tr;
+  const start = coordinateBBox.bl;
+  const end = coordinateBBox.tr;
 
   const props = {
     start,
