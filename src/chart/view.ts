@@ -428,6 +428,18 @@ export default class View extends EE {
   private _adjustScales() {
     // 调整目前包括：
     // 分类 scale，调整 range 范围
+    this._adjustCategoryScaleRange();
+
+    // 调整柱形图的 min max
+    // FIXME 应该放到 interval geometry 中比较合理
+    this._adjustIntervalScaleMinMax();
+  }
+
+  /**
+   * 调整分类 scale 的 range，防止超出坐标系外面
+   * @private
+   */
+  private _adjustCategoryScaleRange() {
     const xyScales = [this.getXScale(), ...this.getYScales()].filter((e) => !!e);
     const coordinate = this.getCoordinate();
     const scaleOptions = this.options.scales;
@@ -464,6 +476,37 @@ export default class View extends EE {
           }
           // 更新 range
           scale.range = range;
+        }
+      }
+    });
+  }
+
+  /**
+   * 调整 interval 的 scale min max 范围
+   * @private
+   */
+  private _adjustIntervalScaleMinMax() {
+    const scaleOptions = this.options.scales;
+
+    _.each(this.geometries, (geometry: Geometry) => {
+      if (geometry.type === 'interval') {
+        const yScale = geometry.getYScale();
+        if (yScale) {
+          const { field, min, max, type } = yScale;
+
+          // 没有设置 min，且不是 time 类型
+          if (_.get(scaleOptions, [field, 'min']) === undefined && type !== 'time') {
+            if (min > 0) {
+              yScale.change({
+                min: 0,
+              });
+            } else if (max <= 0) {
+              // 当柱状图全为负值时也需要从 0 开始生长
+              yScale.change({
+                max: 0,
+              });
+            }
+          }
         }
       }
     });
