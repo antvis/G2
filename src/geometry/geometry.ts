@@ -911,7 +911,7 @@ export default class Geometry {
       rstY = [];
       y.forEach((yVal) => {
         obj = coord.convertPoint({
-          x,
+          x: x as number,
           y: yVal,
         });
         if (rstX && rstX !== obj.x) {
@@ -929,7 +929,7 @@ export default class Geometry {
       x.forEach((xVal) => {
         obj = coord.convertPoint({
           x: xVal,
-          y,
+          y: y as number,
         });
         if (rstY && rstY !== obj.y) {
           if (!Util.isArray(rstY)) {
