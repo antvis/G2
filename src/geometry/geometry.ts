@@ -354,6 +354,10 @@ export default class Geometry {
     });
   }
 
+  /**
+   * Clears geometry
+   * @override
+   */
   public clear() {
     const container = this.container;
     container.clear();
@@ -446,6 +450,17 @@ export default class Geometry {
     return attr.mapping(...params);
   }
 
+  public hasAdjust(adjustType: string) {
+    let rst = false;
+    Util.each(this.adjustOption, (opt: AdjustOption) => {
+      if (opt.type === adjustType) {
+        rst = true;
+        return false;
+      }
+    });
+    return rst;
+  }
+
   /**
    * @protected
    * 根据数据获取图形的关键点数据
@@ -494,7 +509,7 @@ export default class Geometry {
       data: originData,
       model: shapeCfg,
       shapeType: shape,
-      theme: Util.get(theme, `shape.${this.shapeType}`, {}),
+      theme: Util.get(theme, `${this.shapeType}`, {}),
       shapeFactory,
       container,
     });
@@ -680,8 +695,6 @@ export default class Geometry {
             throw new Error('dodge is not support linear attribute, please use category attribute!');
           }
           adjustCfg.adjustNames = adjustNames;
-          // TODO
-          // adjustCfg.dodgeRatio = this.get('widthRatio').column;
         } else if (type === 'stack') {
           const coord = this.coord;
           if (!yScale) {
