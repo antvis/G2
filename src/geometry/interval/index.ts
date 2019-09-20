@@ -26,7 +26,7 @@ export default class Interval extends Geometry {
     if (sizeAttr) {
       size = this.getAttrValues(sizeAttr, record)[0];
       // 归一化
-      const coodinate = this.coord;
+      const coodinate = this.coordinate;
       const coordinateWidth = getCoordinateWidth(coodinate);
       size = size / coordinateWidth;
     } else {

@@ -41,7 +41,7 @@ function getDodgeCount(dataArray, adjustOption) {
 export function getDefaultSize(geometry): number {
   // TODO: @simaq 重命名
   const widthRatio = geometry.theme.widthRatio;
-  const coordinate = geometry.coord;
+  const coordinate = geometry.coordinate;
   const xScale = geometry.getXScale();
   const xValues = xScale.values;
   const dataArray = geometry.dataArray;

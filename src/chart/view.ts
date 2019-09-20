@@ -661,7 +661,7 @@ export default class View extends EE {
     // geometry 的 paint 阶段
     this.geometries.map((geometry: Geometry) => {
       // 设置布局之后的 coordinate
-      geometry.coord = this.getCoordinate();
+      geometry.coordinate = this.getCoordinate();
 
       geometry.paint();
     });
