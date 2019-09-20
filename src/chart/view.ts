@@ -634,11 +634,10 @@ export default class View extends EE {
    * @private
    */
   private _adjustCoordinate() {
-    this.coordinateInstance.start = this.coordinateBBox.bl;
-    this.coordinateInstance.end = this.coordinateBBox.tr;
-    // FIXME 简单重构 coordinate 代码，不然上层更新要写成这样才生效！
-    this.coordinateInstance.init();
-    this.coordinateInstance._init();
+    this.coordinateInstance.update({
+      start: this.coordinateBBox.bl,
+      end: this.coordinateBBox.tr,
+    });
   }
 
   /**

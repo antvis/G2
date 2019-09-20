@@ -1,7 +1,7 @@
 /** @module Shape */
 import * as Util from '@antv/util';
 
-import { Coord } from '@antv/coord/lib/factory';
+import { Coordinate } from '@antv/coord';
 import Element from './element';
 
 import { parsePathString } from '@antv/path-util';
@@ -17,7 +17,7 @@ const ShapeFactoryBase = {
   /** 默认绘制的 Shape 类型 */
   defaultShapeType: null,
 
-  setCoordinate(coord: Coord) {
+  setCoordinate(coord: Coordinate) {
     this.coord = coord;
   },
   /**
@@ -114,7 +114,7 @@ const ShapeFactoryBase = {
 const ShapeBase = {
   coord: null,
 
-  getCoordinate(): Coord {
+  getCoordinate(): Coordinate {
     return this.coord;
   },
   /**

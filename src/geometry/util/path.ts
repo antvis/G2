@@ -1,6 +1,6 @@
 import * as Util from '@antv/util';
 
-import { Coord } from '@antv/coord/lib/factory';
+import { Coordinate } from '@antv/coord';
 
 import { vec2 } from '@antv/matrix-util';
 
@@ -25,13 +25,13 @@ function _points2path(points: Point[], isInCircle: boolean): any[] {
   return path;
 }
 
-function _getPointRadius(coord: Coord, point: Point): number {
+function _getPointRadius(coord: Coordinate, point: Point): number {
   const center = coord.getCenter() as Point;
   const r = Math.sqrt(Math.pow(point.x - center.x, 2) + Math.pow(point.y - center.y, 2));
   return r;
 }
 
-function _convertArr(arr: number[], coord: Coord): any[] {
+function _convertArr(arr: number[], coord: Coordinate): any[] {
   const tmp = [arr[0]];
   for (let i = 1, len = arr.length; i < len; i = i + 2) {
     const point = coord.convertPoint({
@@ -43,7 +43,7 @@ function _convertArr(arr: number[], coord: Coord): any[] {
   return tmp;
 }
 
-function _convertPolarPath(pre: any[], cur: any[], coord: Coord): any[] {
+function _convertPolarPath(pre: any[], cur: any[], coord: Coordinate): any[] {
   const { isTransposed, startAngle, endAngle } = coord;
 
   const prePoint = {
