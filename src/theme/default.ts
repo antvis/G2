@@ -57,31 +57,46 @@ export default {
     area: ['area'],
   },
   sizes: [1, 10],
-  shape: {
+  polygon: {
     polygon: {
-      polygon: {
-        default: {
-          lineWidth: 0,
-          fill: '#1890ff',
-          fillOpacity: 1,
-        },
-        active: {
-          lineWidth: 2,
-          stroke: '#000',
-        },
+      default: {
+        lineWidth: 0,
+        fill: '#1890ff',
+        fillOpacity: 1,
+      },
+      active: {
+        lineWidth: 2,
+        stroke: '#000',
       },
     },
-    myInterval: {
-      tick: {
-        default: {
-          lineWidth: 10,
-        },
-        active: {
-          stroke: 'red',
-        },
-        selected: {
-          stroke: 'blue',
-        },
+  },
+  myInterval: {
+    tick: {
+      default: {
+        lineWidth: 10,
+      },
+      active: {
+        stroke: 'red',
+      },
+      selected: {
+        stroke: 'blue',
+      },
+    },
+  },
+  interval: {
+    rect: {
+      default: {
+        lineWidth: 0,
+        fill: '#1890ff',
+        fillOpacity: 0.85,
+      },
+      active: {
+        lineWidth: 2,
+        stroke: '#000',
+      },
+      selected: {
+        fillOpacity: 1,
+        fill: 'red',
       },
     },
   },
