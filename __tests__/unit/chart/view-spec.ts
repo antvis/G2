@@ -66,28 +66,35 @@ describe('View', () => {
     view.filter('sale', (sale: number) => sale <= 150);
     view.filter('city', (city: string) => city.length <= 2);
 
-    view.render();
+    expect(_.size(view.options.filters)).to.be.eql(2);
+
+    // @ts-ignore
+    view._filterData();
+
     expect(view.filteredData).to.be.eql([
       { city: '杭州', sale: 100, category: '电脑' },
       { city: '广州', sale: 30, category: '电脑' },
     ]);
   });
 
-  it('coordinate', () => {
-    view.render();
-    expect(view.getCoordinate().type).to.be.eql('rect');
-
-    view.coordinate('theta');
-    view.render();
-    expect(view.getCoordinate().type).to.be.eql('theta');
-
-    view.coordinate('rect');
-    view.render();
-    expect(view.getCoordinate().type).to.be.eql('rect');
-
-    expect(view.getCoordinate().width).to.be.eql(790);
-    expect(view.getCoordinate().height).to.be.eql(590);
-  });
+  // it('coordinate', () => {
+  //   // @ts-ignore
+  //   view._createCoordinateInstance();
+  //   expect(view.getCoordinate().type).to.be.eql('rect');
+  //
+  //   view.coordinate('theta');
+  //   // @ts-ignore
+  //   view._createCoordinateInstance();
+  //   expect(view.getCoordinate().type).to.be.eql('theta');
+  //
+  //   view.coordinate('rect');
+  //   // @ts-ignore
+  //   view._createCoordinateInstance();
+  //   expect(view.getCoordinate().type).to.be.eql('rect');
+  //
+  //   expect(view.getCoordinate().width).to.be.eql(790);
+  //   expect(view.getCoordinate().height).to.be.eql(590);
+  // });
 
   it('geometry', () => {
     view
@@ -101,25 +108,23 @@ describe('View', () => {
     expect(_.size(view.geometries[0].scales)).to.be.eql(3);
     expect(view.geometries[0].scales.city.ticks).to.be.eql(['杭州', '广州']);
     expect(view.geometries[0].scales.sale.values).to.be.eql([100, 30]);
+
+    expect(view.getCoordinate().width).to.be.eql(718.30078125);
+    expect(view.getCoordinate().height).to.be.eql(564);
   });
 
   it('component', () => {
-    view.render();
-
     expect(view.componentOptions.length).to.be.eql(3);
 
     const bbox = view.componentOptions[0].component.getBBox();
     expect(bbox.height).to.be.eql(13);
   });
 
-  it('layout', () => {
+  it('layout result', () => {
     expect(view.coordinateBBox.x).to.be.eql(76.69921875);
     expect(view.coordinateBBox.y).to.be.eql(18);
     expect(view.coordinateBBox.width).to.be.eql(718.30078125);
     expect(view.coordinateBBox.height).to.be.eql(564);
-
-    expect(view.getCoordinate().width).to.be.eql(718.30078125);
-    expect(view.getCoordinate().height).to.be.eql(564);
   });
 
   it('getXScale', () => {

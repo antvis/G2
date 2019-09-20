@@ -177,19 +177,22 @@ export default class View extends EE {
     // 2. 初始化 Geometry
     this._initialGeometries();
 
-    // 3. 渲染组件 component
-    this._renderComponents();
+    // 3. 创建 coordinate 实例
+    this._createCoordinateInstance();
 
-    // 4.  递归 views，进行布局
-    this._doLayout();
-
-    // 5. 调整 scale 配置
+    // 4. 调整 scale 配置
     this._adjustScales();
 
-    // 6. 创建 coordinate 实例（在 layout 中做掉了）
-    // this.createCoordinate();
+    // 5. 渲染组件 component
+    this._renderComponents();
 
-    // 7. 渲染几何标记
+    // 6.  递归 views，进行布局
+    this._doLayout();
+
+    // 7. 布局完之后，coordinate 的范围确定了，调整 coordinate 组件
+    this._adjustCoordinate();
+
+    // 8. 渲染几何标记
     this._paintGeometries();
 
     // 同样递归处理子 views
@@ -418,142 +421,9 @@ export default class View extends EE {
     }
     return ((v as unknown) as Chart).canvas;
   }
-
   // end Get 方法
 
-  /**
-   * 调整 scale 配置
-   * @private
-   */
-  private _adjustScales() {
-    // 调整目前包括：
-    // 分类 scale，调整 range 范围
-    this._adjustCategoryScaleRange();
-
-    // 调整柱形图的 min max
-    // FIXME 应该放到 interval geometry 中比较合理
-    this._adjustIntervalScaleMinMax();
-  }
-
-  /**
-   * 调整分类 scale 的 range，防止超出坐标系外面
-   * @private
-   */
-  private _adjustCategoryScaleRange() {
-    const xyScales = [this.getXScale(), ...this.getYScales()].filter((e) => !!e);
-    const coordinate = this.getCoordinate();
-    const scaleOptions = this.options.scales;
-
-    _.each(xyScales, (scale: Scale) => {
-      // @ts-ignore
-      const { field, values, isCategory, isIdentity } = scale;
-
-      // 分类或者 identity 的 scale 才进行处理
-      if (isCategory || isIdentity) {
-        // 存在 value 值，且用户没有配置 range 配置
-        if (values && !_.get(scaleOptions, [field, 'range'])) {
-          const count = values.length;
-          let range;
-
-          if (count === 1) {
-            range = [0.5, 1]; // 只有一个分类时,防止计算出现 [0.5,0.5] 的状态
-          } else {
-            let widthRatio = 1;
-            let offset = 0;
-
-            if (isFullCircle(coordinate)) {
-              if (!coordinate.isTransposed) {
-                range = [0, 1 - 1 / count];
-              } else {
-                widthRatio = _.get(this.theme, 'widthRatio.multiplePie', 1 / 1.3);
-                offset = (1 / count) * widthRatio;
-                range = [offset / 2, 1 - offset / 2];
-              }
-            } else {
-              offset = 1 / count / 2; // 两边留下分类空间的一半
-              range = [offset, 1 - offset]; // 坐标轴最前面和最后面留下空白防止绘制柱状图时
-            }
-          }
-          // 更新 range
-          scale.range = range;
-        }
-      }
-    });
-  }
-
-  /**
-   * 调整 interval 的 scale min max 范围
-   * @private
-   */
-  private _adjustIntervalScaleMinMax() {
-    const scaleOptions = this.options.scales;
-
-    _.each(this.geometries, (geometry: Geometry) => {
-      if (geometry.type === 'interval') {
-        const yScale = geometry.getYScale();
-        if (yScale) {
-          const { field, min, max, type } = yScale;
-
-          // 没有设置 min，且不是 time 类型
-          if (_.get(scaleOptions, [field, 'min']) === undefined && type !== 'time') {
-            if (min > 0) {
-              yScale.change({
-                min: 0,
-              });
-            } else if (max <= 0) {
-              // 当柱状图全为负值时也需要从 0 开始生长
-              yScale.change({
-                max: 0,
-              });
-            }
-          }
-        }
-      }
-    });
-  }
-
-  /**
-   * 进行布局，同时对子 view 进行布局，更新组件的位置大小属性
-   * @private
-   */
-  private _doLayout() {
-    // 当前进行布局
-    this.layoutFunc(this);
-  }
-
-  // 渲染流程
-
-  /**
-   * 处理筛选器，筛选数据
-   * @private
-   */
-  private _filterData() {
-    const { data, filters } = this.options;
-    // 不存在 filters，则不需要进行数据过滤
-    if (_.size(filters) === 0) {
-      this.filteredData = data;
-      return;
-    }
-
-    // 存在过滤器，则逐个执行过滤，过滤器之间是 与 的关系
-    this.filteredData = _.filter(data, (datum: Datum) => {
-      let filtered = true;
-
-      _.each(filters, (filter: FilterCondition, field: string) => {
-        // 只要一个不通过，就结束循环
-        if (!filter(datum[field], datum)) {
-          filtered = false;
-          // return false === break loop
-          return false;
-        }
-      });
-
-      return filtered;
-    });
-  }
-
-  // 生命周期子流程
-  // 初始化流程
+  // 生命周期子流程——初始化流程
   /**
    * 初始化 region，计算实际的像素范围坐标，去除 padding 之后的
    * @private
@@ -618,6 +488,36 @@ export default class View extends EE {
     });
   }
 
+  // view 生命周期 —— 渲染流程
+  /**
+   * 处理筛选器，筛选数据
+   * @private
+   */
+  private _filterData() {
+    const { data, filters } = this.options;
+    // 不存在 filters，则不需要进行数据过滤
+    if (_.size(filters) === 0) {
+      this.filteredData = data;
+      return;
+    }
+
+    // 存在过滤器，则逐个执行过滤，过滤器之间是 与 的关系
+    this.filteredData = _.filter(data, (datum: Datum) => {
+      let filtered = true;
+
+      _.each(filters, (filter: FilterCondition, field: string) => {
+        // 只要一个不通过，就结束循环
+        if (!filter(datum[field], datum)) {
+          filtered = false;
+          // return false === break loop
+          return false;
+        }
+      });
+
+      return filtered;
+    });
+  }
+
   /**
    * 初始化 Geometries
    * @private
@@ -636,16 +536,67 @@ export default class View extends EE {
   }
 
   /**
-   * 根据 options 配置自动渲染 geometry
+   * 初始创建实例
    * @private
    */
-  private _paintGeometries() {
-    // geometry 的 paint 阶段
-    this.geometries.map((geometry: Geometry) => {
-      // 设置布局之后的 coordinate
-      geometry.coord = this.getCoordinate();
+  private _createCoordinateInstance() {
+    // 创建实例使用 view 的大小来创建
+    this.createCoordinate(this.viewBBox);
+  }
 
-      geometry.paint();
+  /**
+   * 调整 scale 配置
+   * @private
+   */
+  private _adjustScales() {
+    // 调整目前包括：
+    // 分类 scale，调整 range 范围
+    this._adjustCategoryScaleRange();
+  }
+
+  /**
+   * 调整分类 scale 的 range，防止超出坐标系外面
+   * @private
+   */
+  private _adjustCategoryScaleRange() {
+    const xyScales = [this.getXScale(), ...this.getYScales()].filter((e) => !!e);
+    const coordinate = this.getCoordinate();
+    const scaleOptions = this.options.scales;
+
+    _.each(xyScales, (scale: Scale) => {
+      // @ts-ignore
+      const { field, values, isCategory, isIdentity } = scale;
+
+      // 分类或者 identity 的 scale 才进行处理
+      if (isCategory || isIdentity) {
+        // 存在 value 值，且用户没有配置 range 配置
+        if (values && !_.get(scaleOptions, [field, 'range'])) {
+          const count = values.length;
+          let range;
+
+          if (count === 1) {
+            range = [0.5, 1]; // 只有一个分类时,防止计算出现 [0.5,0.5] 的状态
+          } else {
+            let widthRatio = 1;
+            let offset = 0;
+
+            if (isFullCircle(coordinate)) {
+              if (!coordinate.isTransposed) {
+                range = [0, 1 - 1 / count];
+              } else {
+                widthRatio = _.get(this.theme, 'widthRatio.multiplePie', 1 / 1.3);
+                offset = (1 / count) * widthRatio;
+                range = [offset / 2, 1 - offset / 2];
+              }
+            } else {
+              offset = 1 / count / 2; // 两边留下分类空间的一半
+              range = [offset, 1 - offset]; // 坐标轴最前面和最后面留下空白防止绘制柱状图时
+            }
+          }
+          // 更新 range
+          scale.range = range;
+        }
+      }
     });
   }
 
@@ -671,6 +622,36 @@ export default class View extends EE {
     _.each(createLegends(this.foregroundGroup, legends, this), (legend: ComponentOption) => {
       const { component, layer, direction, type } = legend;
       this.addComponent(component, layer, direction, type);
+    });
+  }
+
+  private _doLayout() {
+    this.layoutFunc(this);
+  }
+
+  /**
+   * 调整 coordinate 的坐标范围
+   * @private
+   */
+  private _adjustCoordinate() {
+    this.coordinateInstance.start = this.coordinateBBox.bl;
+    this.coordinateInstance.end = this.coordinateBBox.tr;
+    // FIXME 简单重构 coordinate 代码，不然上层更新要写成这样才生效！
+    this.coordinateInstance.init();
+    this.coordinateInstance._init();
+  }
+
+  /**
+   * 根据 options 配置自动渲染 geometry
+   * @private
+   */
+  private _paintGeometries() {
+    // geometry 的 paint 阶段
+    this.geometries.map((geometry: Geometry) => {
+      // 设置布局之后的 coordinate
+      geometry.coord = this.getCoordinate();
+
+      geometry.paint();
     });
   }
 
