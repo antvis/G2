@@ -18,11 +18,12 @@ import { Coordinate, Scale } from 'dependents';
 import Geometry from 'geometry/geometry';
 import Interaction from 'interaction';
 import { Padding, Point, Region } from 'interface';
+import { Attribute } from '../dependents';
 import { parsePadding } from '../util/padding';
 import Chart from './chart';
 import { ComponentType, DIRECTION, LAYER } from './constant';
 import { createAxes } from './controller/axis';
-import { createCoordinate } from './controller/coordinate';
+import { createCoordinate, isFullCircle } from './controller/coordinate';
 import { createLegends } from './controller/legend';
 import defaultLayout, { Layout } from './layout';
 
@@ -51,6 +52,8 @@ export default class View extends EE {
   public region: Region;
   /** view 的 padding 大小 */
   public padding: Padding;
+  /** 主题配置 */
+  public theme: object;
 
   // 配置信息存储
   // @ts-ignore
@@ -62,6 +65,8 @@ export default class View extends EE {
   public filteredData: Data;
   /** 坐标系的位置大小 */
   public coordinateBBox: BBox;
+  /** 所有的 scales */
+  public scales: Record<string, Scale> = {};
 
   // 布局函数
   protected layoutFunc: Layout = defaultLayout;
@@ -79,6 +84,7 @@ export default class View extends EE {
       foregroundGroup,
       region = { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
       padding = 0,
+      theme,
     } = props;
 
     this.parent = parent;
@@ -88,6 +94,7 @@ export default class View extends EE {
     this.foregroundGroup = foregroundGroup;
     this.region = region;
     this.padding = padding;
+    this.theme = theme as object;
 
     this.initial();
   }
@@ -170,19 +177,22 @@ export default class View extends EE {
     // 2. 初始化 Geometry
     this._initialGeometries();
 
-    // 3. 调整 scale 配置
+    // 3. 创建 coordinate 实例
+    this._createCoordinateInstance();
+
+    // 4. 调整 scale 配置
     this._adjustScales();
 
-    // 4. 渲染组件 component
+    // 5. 渲染组件 component
     this._renderComponents();
 
-    // 5.  递归 views，进行布局
+    // 6.  递归 views，进行布局
     this._doLayout();
 
-    // 6. 创建 coordinate 实例（在 layout 中做掉了）
-    // this.createCoordinate();
+    // 7. 布局完之后，coordinate 的范围确定了，调整 coordinate 组件
+    this._adjustCoordinate();
 
-    // 7. 渲染几何标记
+    // 8. 渲染几何标记
     this._paintGeometries();
 
     // 同样递归处理子 views
@@ -383,6 +393,14 @@ export default class View extends EE {
   }
 
   /**
+   * 获得所有的 legend 对应的 attribute 实例
+   */
+  public getLegendAttributes(): Attribute[] {
+    // FIXME util 中 flatten 的类型定义不正确
+    return (_.flatten(_.map(this.geometries, (g: Geometry) => g.getLegendAttributes())) as unknown) as Attribute[];
+  }
+
+  /**
    * 获取所有的分组字段的 scales
    */
   public getGroupScales(): Scale[] {
@@ -403,61 +421,9 @@ export default class View extends EE {
     }
     return ((v as unknown) as Chart).canvas;
   }
-
   // end Get 方法
 
-  /**
-   * 调整 scale 配置
-   * @private
-   */
-  private _adjustScales() {
-    // 调整目前包括：
-    // scale sync 的配置
-    // 目前 scale 创建是在 Geometry 中，所以调整同步也在 Geometry 中完成
-  }
-
-  /**
-   * 进行布局，同时对子 view 进行布局，更新组件的位置大小属性
-   * @private
-   */
-  private _doLayout() {
-    // 当前进行布局
-    this.layoutFunc(this);
-  }
-
-  // 渲染流程
-
-  /**
-   * 处理筛选器，筛选数据
-   * @private
-   */
-  private _filterData() {
-    const { data, filters } = this.options;
-    // 不存在 filters，则不需要进行数据过滤
-    if (_.size(filters) === 0) {
-      this.filteredData = data;
-      return;
-    }
-
-    // 存在过滤器，则逐个执行过滤，过滤器之间是 与 的关系
-    this.filteredData = _.filter(data, (datum: Datum) => {
-      let filtered = true;
-
-      _.each(filters, (filter: FilterCondition, field: string) => {
-        // 只要一个不通过，就结束循环
-        if (!filter(datum[field], datum)) {
-          filtered = false;
-          // return false === break loop
-          return false;
-        }
-      });
-
-      return filtered;
-    });
-  }
-
-  // 生命周期子流程
-  // 初始化流程
+  // 生命周期子流程——初始化流程
   /**
    * 初始化 region，计算实际的像素范围坐标，去除 padding 之后的
    * @private
@@ -522,32 +488,115 @@ export default class View extends EE {
     });
   }
 
+  // view 生命周期 —— 渲染流程
+  /**
+   * 处理筛选器，筛选数据
+   * @private
+   */
+  private _filterData() {
+    const { data, filters } = this.options;
+    // 不存在 filters，则不需要进行数据过滤
+    if (_.size(filters) === 0) {
+      this.filteredData = data;
+      return;
+    }
+
+    // 存在过滤器，则逐个执行过滤，过滤器之间是 与 的关系
+    this.filteredData = _.filter(data, (datum: Datum) => {
+      let filtered = true;
+
+      _.each(filters, (filter: FilterCondition, field: string) => {
+        // 只要一个不通过，就结束循环
+        if (!filter(datum[field], datum)) {
+          filtered = false;
+          // return false === break loop
+          return false;
+        }
+      });
+
+      return filtered;
+    });
+  }
+
   /**
    * 初始化 Geometries
    * @private
    */
   private _initialGeometries() {
-    _.each(this.geometries, (geometry) => {
+    // 实例化 Geometry，然后 view 将所有的 scale 管理起来
+    _.each(this.geometries, (geometry: Geometry) => {
+      geometry.scaleDefs = _.get(this.options, 'scales', {});
+      geometry.data = this.filteredData;
+      geometry.theme = this.theme;
+      // 保持 scales 引用不要变化
+      geometry.scales = this.scales;
+
       geometry.init();
     });
   }
 
   /**
-   * 根据 options 配置自动渲染 geometry
+   * 初始创建实例
    * @private
    */
-  private _paintGeometries() {
-    // geometry 的 paint 阶段
-    // TODO 等待联调，以下测试用
-    this.middleGroup.clear();
-    this.middleGroup.addShape('rect', {
-      attrs: {
-        x: this.coordinateBBox.x,
-        y: this.coordinateBBox.y,
-        width: this.coordinateBBox.width,
-        height: this.coordinateBBox.height,
-        stroke: 'red',
-      },
+  private _createCoordinateInstance() {
+    // 创建实例使用 view 的大小来创建
+    this.createCoordinate(this.viewBBox);
+  }
+
+  /**
+   * 调整 scale 配置
+   * @private
+   */
+  private _adjustScales() {
+    // 调整目前包括：
+    // 分类 scale，调整 range 范围
+    this._adjustCategoryScaleRange();
+  }
+
+  /**
+   * 调整分类 scale 的 range，防止超出坐标系外面
+   * @private
+   */
+  private _adjustCategoryScaleRange() {
+    const xyScales = [this.getXScale(), ...this.getYScales()].filter((e) => !!e);
+    const coordinate = this.getCoordinate();
+    const scaleOptions = this.options.scales;
+
+    _.each(xyScales, (scale: Scale) => {
+      // @ts-ignore
+      const { field, values, isCategory, isIdentity } = scale;
+
+      // 分类或者 identity 的 scale 才进行处理
+      if (isCategory || isIdentity) {
+        // 存在 value 值，且用户没有配置 range 配置
+        if (values && !_.get(scaleOptions, [field, 'range'])) {
+          const count = values.length;
+          let range;
+
+          if (count === 1) {
+            range = [0.5, 1]; // 只有一个分类时,防止计算出现 [0.5,0.5] 的状态
+          } else {
+            let widthRatio = 1;
+            let offset = 0;
+
+            if (isFullCircle(coordinate)) {
+              if (!coordinate.isTransposed) {
+                range = [0, 1 - 1 / count];
+              } else {
+                widthRatio = _.get(this.theme, 'widthRatio.multiplePie', 1 / 1.3);
+                offset = (1 / count) * widthRatio;
+                range = [offset / 2, 1 - offset / 2];
+              }
+            } else {
+              offset = 1 / count / 2; // 两边留下分类空间的一半
+              range = [offset, 1 - offset]; // 坐标轴最前面和最后面留下空白防止绘制柱状图时
+            }
+          }
+          // 更新 range
+          scale.range = range;
+        }
+      }
     });
   }
 
@@ -576,6 +625,36 @@ export default class View extends EE {
     });
   }
 
+  private _doLayout() {
+    this.layoutFunc(this);
+  }
+
+  /**
+   * 调整 coordinate 的坐标范围
+   * @private
+   */
+  private _adjustCoordinate() {
+    this.coordinateInstance.start = this.coordinateBBox.bl;
+    this.coordinateInstance.end = this.coordinateBBox.tr;
+    // FIXME 简单重构 coordinate 代码，不然上层更新要写成这样才生效！
+    this.coordinateInstance.init();
+    this.coordinateInstance._init();
+  }
+
+  /**
+   * 根据 options 配置自动渲染 geometry
+   * @private
+   */
+  private _paintGeometries() {
+    // geometry 的 paint 阶段
+    this.geometries.map((geometry: Geometry) => {
+      // 设置布局之后的 coordinate
+      geometry.coord = this.getCoordinate();
+
+      geometry.paint();
+    });
+  }
+
   /**
    * canvas.draw 实际的绘制
    * @private
@@ -594,20 +673,10 @@ export const registerGeometry = (name: string, Ctor: any) => {
   // 语法糖，在 view API 上增加原型方法
   View.prototype[name.toLowerCase()] = function(cfg: any = {}) {
     const props = {
-      /** 坐标系对象 */
-      // FIXME 不使用简写
-      coord: this.getCoordinate(),
-      // coordinate: this._coordinate,
-      /** data 数据 */
-      data: this.filteredData,
       /** 图形容器 */
-      container: this.middleGroup,
-      /** scale 配置 */
-      scaleDefs: this.options.scales,
+      container: this.middleGroup.addGroup(),
       // 其他信息，不知道需不需要
       canvas: this.canvas,
-      view: this,
-      theme: {},
       ...cfg,
     };
 

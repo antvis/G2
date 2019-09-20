@@ -61,14 +61,13 @@ export default function defaultLayout(view: View): void {
 
   const processor = new BBoxProcessor(viewBBox);
 
+  // 剪裁掉组件的 bbox，剩余的给 绘图区域
   _.each(componentOptions, (co: ComponentOption) => {
     processor.cut(co.component.getBBox(), co.direction);
   });
 
   // 3. 获取最终的 Geometry 的 bbox 位置，坐标系位置
-  const coordinateBBox = processor.value();
-  view.coordinateBBox = coordinateBBox;
-  view.createCoordinate(coordinateBBox);
+  view.coordinateBBox = processor.value();
 
   // 4. 给 axis 组件更新 coordinate: 调整 axis 的宽高：y axis height, x axis width = coordinateBBox width height
 }
