@@ -1,7 +1,7 @@
 /** @module Shape */
 import * as Util from '@antv/util';
 
-import { Coordinate } from '@antv/coord';
+import { Coordinate } from '../dependents';
 import Element from './element';
 
 import { parsePathString } from '@antv/path-util';
@@ -13,12 +13,12 @@ import { RegisterShape, RegisterShapeFactory, Shape, ShapeFactory, ShapePoint } 
 /** ShapeFactory 基类 */
 const ShapeFactoryBase = {
   /** 坐标系对象 */
-  coord: null,
+  coordinate: null,
   /** 默认绘制的 Shape 类型 */
   defaultShapeType: null,
 
-  setCoordinate(coord: Coordinate) {
-    this.coord = coord;
+  setCoordinate(coordinate: Coordinate) {
+    this.coordinate = coordinate;
   },
   /**
    * 获取 shape 绘制需要的关键点
@@ -41,7 +41,7 @@ const ShapeFactoryBase = {
    */
   getShape(shapeType: string) {
     const shape = this[shapeType] || this[this.defaultShapeType];
-    shape.coord = this.coord;
+    shape.coordinate = this.coordinate;
 
     return shape;
   },
@@ -112,10 +112,10 @@ const ShapeFactoryBase = {
 
 /** Shape 基类 */
 const ShapeBase = {
-  coord: null,
+  coordinate: null,
 
   getCoordinate(): Coordinate {
-    return this.coord;
+    return this.coordinate;
   },
   /**
    * 将归一化的 path 转换成坐标系下的 path
@@ -123,12 +123,12 @@ const ShapeBase = {
    * @param isLineToArc 是否转换成圆弧
    */
   parsePath(path: string, isLineToArc: boolean = true) {
-    const coord = this.coord;
+    const coordinate = this.coordinate;
     let parsedPath = parsePathString(path);
-    if (coord.isPolar && isLineToArc !== false) {
-      parsedPath = convertPolarPath(coord, parsedPath);
+    if (coordinate.isPolar && isLineToArc !== false) {
+      parsedPath = convertPolarPath(coordinate, parsedPath);
     } else {
-      parsedPath = convertNormalPath(coord, parsedPath);
+      parsedPath = convertNormalPath(coordinate, parsedPath);
     }
     return parsedPath;
   },
@@ -137,17 +137,17 @@ const ShapeBase = {
    * @param point 归一化的坐标点数据
    */
   parsePoint(point: Point): Point {
-    const coord = this.coord;
-    return coord.convertPoint(point);
+    const coordinate = this.coordinate;
+    return coordinate.convertPoint(point);
   },
   /**
    * 0～1 points 转 画布 points
    * @param points 节点集合
    */
   parsePoints(points: Point[]): Point[] {
-    const coord = this.coord;
+    const coordinate = this.coordinate;
     return points.map((point) => {
-      return coord.convertPoint(point);
+      return coordinate.convertPoint(point);
     });
   },
   /**

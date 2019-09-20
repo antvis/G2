@@ -23,13 +23,13 @@ describe('Geometry', () => {
         { month: '二月', temperature: 8, day: 3 },
       ];
 
-      const coord = new Rect({
+      const coordinate = new Rect({
         start: { x: 0, y: 200 },
         end: { x: 200, y: 0 },
       });
       geometry = new Geometry({
         data,
-        coord,
+        coordinate,
         container: new Group(),
         theme: getTheme('default'),
         scaleDefs: {
@@ -43,11 +43,11 @@ describe('Geometry', () => {
       });
 
       expect(geometry.type).to.equal('myInterval');
-      expect(geometry.attrs).to.eql({});
+      expect(geometry.attributes).to.eql({});
       expect(geometry.scales).to.eql({});
       expect(geometry.elements).to.eql([]);
       expect(geometry.data).not.to.equal(undefined);
-      expect(geometry.coord).not.to.equal(undefined);
+      expect(geometry.coordinate).not.to.equal(undefined);
       expect(geometry.container).not.to.equal(undefined);
       expect(geometry.theme).not.to.equal(undefined);
       expect(geometry.scaleDefs).not.to.equal(undefined);
@@ -57,31 +57,31 @@ describe('Geometry', () => {
 
     it('position()', () => {
       geometry.position('month*temperature');
-      expect(geometry.attrOption.position).to.eql({
+      expect(geometry.attributeOption.position).to.eql({
         fields: ['month', 'temperature'],
       });
 
       geometry.position({
         fields: ['month', 'temperature'],
       });
-      expect(geometry.attrOption.position).to.eql({
+      expect(geometry.attributeOption.position).to.eql({
         fields: ['month', 'temperature'],
       });
     });
 
     it('color()', () => {
       geometry.color('red'); // 颜色常量
-      expect(geometry.attrOption.color).to.eql({
+      expect(geometry.attributeOption.color).to.eql({
         fields: ['red'],
       });
 
       geometry.color('month'); // 字段
-      expect(geometry.attrOption.color).to.eql({
+      expect(geometry.attributeOption.color).to.eql({
         fields: ['month'],
       });
 
       geometry.color('month', ['red', 'blue']);
-      expect(geometry.attrOption.color).to.eql({
+      expect(geometry.attributeOption.color).to.eql({
         fields: ['month'],
         values: ['red', 'blue'],
       });
@@ -89,17 +89,17 @@ describe('Geometry', () => {
       geometry.color('month', () => {
         return 'red';
       });
-      expect(geometry.attrOption.color).to.have.all.keys('fields', 'callback');
+      expect(geometry.attributeOption.color).to.have.all.keys('fields', 'callback');
     });
 
     it('shape()', () => {
       geometry.shape('circle');
-      expect(geometry.attrOption.shape).to.eql({
+      expect(geometry.attributeOption.shape).to.eql({
         fields: ['circle'],
       });
 
       geometry.shape('month', ['circle', 'square']);
-      expect(geometry.attrOption.shape).to.eql({
+      expect(geometry.attributeOption.shape).to.eql({
         fields: ['month'],
         values: ['circle', 'square'],
       });
@@ -107,23 +107,23 @@ describe('Geometry', () => {
       geometry.shape('month', () => {
         return 'circle';
       });
-      expect(geometry.attrOption.shape).to.have.all.keys('fields', 'callback');
-      expect(geometry.attrOption.shape.fields).eql(['month']);
+      expect(geometry.attributeOption.shape).to.have.all.keys('fields', 'callback');
+      expect(geometry.attributeOption.shape.fields).eql(['month']);
     });
 
     it('size()', () => {
       geometry.size(3);
-      expect(geometry.attrOption.size).to.eql({
+      expect(geometry.attributeOption.size).to.eql({
         values: [3],
       });
 
       geometry.size('temperature');
-      expect(geometry.attrOption.size).to.eql({
+      expect(geometry.attributeOption.size).to.eql({
         fields: ['temperature'],
       });
 
       geometry.size('temperature', [2, 10]);
-      expect(geometry.attrOption.size).to.eql({
+      expect(geometry.attributeOption.size).to.eql({
         fields: ['temperature'],
         values: [2, 10],
       });
@@ -131,8 +131,8 @@ describe('Geometry', () => {
       geometry.size('temperature', () => {
         return 0;
       });
-      expect(geometry.attrOption.size).to.have.all.keys('fields', 'callback');
-      expect(geometry.attrOption.size.fields).to.eql(['temperature']);
+      expect(geometry.attributeOption.size).to.have.all.keys('fields', 'callback');
+      expect(geometry.attributeOption.size.fields).to.eql(['temperature']);
     });
 
     it('adjust()', () => {
@@ -245,14 +245,14 @@ describe('Geometry', () => {
         { month: '一月', temperature: 8, city: '南京', year: '2018' },
         { month: '二月', temperature: 14, city: '南京', year: '2018' },
       ];
-      const coord = new Rect({
+      const coordinate = new Rect({
         start: { x: 0, y: 200 },
         end: { x: 200, y: 0 },
       });
       const container = canvas.addGroup();
       geometry = new Geometry({
         data,
-        coord,
+        coordinate,
         animate: false,
         container,
         theme: getTheme('default'),
@@ -325,7 +325,7 @@ describe('Geometry', () => {
         .adjust('dodge')
         .tooltip('year')
         .size(3);
-      expect(geometry.attrOption).to.have.all.keys('position', 'color', 'size');
+      expect(geometry.attributeOption).to.have.all.keys('position', 'color', 'size');
       expect(geometry.tooltipOption).to.eql({ fields: ['year'], callback: undefined });
       expect(geometry.adjustOption).to.eql([{ type: 'dodge' }]);
     });
@@ -334,7 +334,7 @@ describe('Geometry', () => {
       geometry.init();
 
       // attrs 的生成
-      const attrs = geometry.attrs;
+      const attrs = geometry.attributes;
       expect(attrs).to.have.all.keys('position', 'color', 'size');
 
       // scales 的生成
@@ -429,7 +429,7 @@ describe('Geometry', () => {
       geometry.clear();
 
       expect(geometry.container.get('children').length).to.equal(0);
-      expect(geometry.attrs).to.eql({});
+      expect(geometry.attributes).to.eql({});
       expect(geometry.scales).to.eql({});
       expect(geometry.elementsMap).to.eql({});
       expect(geometry.lastElementsMap).to.eql({});
