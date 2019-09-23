@@ -266,6 +266,7 @@ describe('Geometry', () => {
             min: 0,
           },
         },
+        type: 'interval',
       });
 
       function getPath(points) {
@@ -399,7 +400,7 @@ describe('Geometry', () => {
       expect(defaultSize).to.equal(3);
     });
 
-    it('update', () => {
+    it('update()', () => {
       const updateElement = geometry.elements[1];
       const deleteElement = geometry.elements[0];
 
@@ -415,11 +416,13 @@ describe('Geometry', () => {
       expect(elements.length).to.equal(3);
 
       const elementsMap = geometry.elementsMap;
-      expect(elementsMap).to.have.all.keys('二月-20-北京', '二月-14-南京', '三月-24-南京');
+      expect(elementsMap).to.have.all.keys('二月-北京', '二月-南京', '三月-南京');
 
       const xScale = geometry.getXScale();
       expect(xScale.values).to.eql(['二月', '三月']);
       expect(deleteElement.destroyed).to.equal(true);
+
+      expect(updateElement.getData()).to.eql({ month: '二月', temperature: 20, city: '北京', year: '2018' });
     });
 
     it('clear()', () => {

@@ -535,8 +535,8 @@ export default class Geometry {
       if (!result) {
         result = this.createElement(record, i);
       } else {
-        // if (originData !== result.getData()) { // 数据发生更新才进行更新
-        if (Util.isEqual(originData, result.getData())) {
+        if (!Util.isEqual(originData, result.getData())) {
+          // 数据发生变更了才做更新
           const shapeCfg = this.getDrawCfg(record); // 获取绘制图形的配置信息
           result.update(shapeCfg); // 更新对应的 element
         }
