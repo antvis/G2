@@ -1,11 +1,11 @@
 import { expect } from 'chai';
 import { Canvas } from '@antv/g';
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 import { registerShape } from '../../../../src/element/shape/base';
 import KLineShapeFactory from '../../../../src/element/shape/k-line';
 import Global from '../../../../src/global';
 
-const Rect = getCoord('rect');
+const Rect = getCoordinate('rect');
 
 describe('Kline shape', () => {
   const klineDiv = document.createElement('div');
@@ -79,7 +79,7 @@ describe('Kline shape', () => {
       const type = 'kline';
       const points = KLineShapeFactory.getShapePoints(type, {
         x: 0.1,
-        y: [ 0.2, 0.5, 0.12, 0.88 ],
+        y: [0.2, 0.5, 0.12, 0.88],
         y0: 0,
         size: 0.5,
       });
@@ -102,7 +102,7 @@ describe('Kline shape', () => {
       const type = 'kline';
       const points = KLineShapeFactory.getShapePoints(type, {
         x: 0.1,
-        y: [ 0.2, 0.5, 0.12 ],
+        y: [0.2, 0.5, 0.12],
         y0: 0,
         size: 0.5,
       });

@@ -7,14 +7,14 @@ const Controller = require('../../../../src/plot/controller/annotation').default
 
 const Cat = getScale('cat');
 const Linear = getScale('linear');
-const Rect = getCoord('Rect');
+const Rect = getCoordinate('Rect');
 
 describe('Annotation Controller', () => {
   const xScales = {
     x: new Cat({
-      range: [ 0.1, 0.9 ],
-      values: [ 'a', 'b', 'c', 'd', 'e' ],
-      ticks: [ 'a', 'b', 'c', 'd', 'e' ],
+      range: [0.1, 0.9],
+      values: ['a', 'b', 'c', 'd', 'e'],
+      ticks: ['a', 'b', 'c', 'd', 'e'],
       field: 'x',
     }),
   };
@@ -22,15 +22,15 @@ describe('Annotation Controller', () => {
     y1: new Linear({
       min: 100,
       max: 600,
-      values: [ 250, 350, 150, 450, 550 ],
-      ticks: [ 250, 350, 150, 450, 550 ],
+      values: [250, 350, 150, 450, 550],
+      ticks: [250, 350, 150, 450, 550],
       field: 'y1',
     }),
     y2: new Linear({
       min: 0,
       max: 100,
-      values: [ 0, 20, 40, 60, 80, 100 ],
-      ticks: [ 0, 20, 40, 60, 80, 100 ],
+      values: [0, 20, 40, 60, 80, 100],
+      ticks: [0, 20, 40, 60, 80, 100],
       field: 'y2',
     }),
   };
@@ -51,9 +51,7 @@ describe('Annotation Controller', () => {
       return this[key];
     },
   };
-  let controller,
-    canvas,
-    div;
+  let controller, canvas, div;
 
   before(() => {
     div = document.createElement('div');
@@ -195,7 +193,7 @@ describe('Annotation Controller', () => {
       .add(
         'dataMarker',
         {
-          position: [ '50%', '50%' ],
+          position: ['50%', '50%'],
           text: {
             content: '请注意这一点',
           },
@@ -283,7 +281,7 @@ describe('Annotation Controller', () => {
         .get('el')
         .get('children')[0]
         .attr('path')
-    ).to.eql([ [ 'M', 20, 100 ], [ 'L', 140, 100 ] ]);
+    ).to.eql([['M', 20, 100], ['L', 140, 100]]);
     line.change({
       start: {
         x: 'a',
@@ -303,6 +301,6 @@ describe('Annotation Controller', () => {
         .get('el')
         .get('children')[0]
         .attr('path')
-    ).to.eql([ [ 'M', 20, 40 ], [ 'L', 140, 40 ] ]);
+    ).to.eql([['M', 20, 40], ['L', 140, 40]]);
   });
 });

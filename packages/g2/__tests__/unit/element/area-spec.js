@@ -2,10 +2,10 @@ import { expect } from 'chai';
 import Area from '../../../src/element/area';
 import { Canvas } from '@antv/g';
 import { getScale } from '@antv/scale';
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 import View from '../../utils/view';
 
-const Rect = getCoord('rect');
+const Rect = getCoordinate('rect');
 const LinearScale = getScale('linear');
 const CatScale = getScale('cat');
 
@@ -19,8 +19,8 @@ describe('Area', () => {
 
     const yearScale = new CatScale({
       field: 'year',
-      values: [ '1994', '1995', '1996' ],
-      range: [ 0, 1 ],
+      values: ['1994', '1995', '1996'],
+      range: [0, 1],
     });
 
     const valueScale = new LinearScale({
@@ -85,11 +85,11 @@ describe('Area', () => {
     });
 
     it('element.init()', () => {
-      areaElement.position({ fields: [ 'year', 'value' ]});
+      areaElement.position({ fields: ['year', 'value'] });
       areaElement.init();
       const attrs = areaElement.get('attrs');
       const dataArray = areaElement.get('dataArray');
-      expect(attrs).to.have.keys([ 'position' ]);
+      expect(attrs).to.have.keys(['position']);
       expect(dataArray.length).to.eql(1);
     });
 
@@ -99,13 +99,13 @@ describe('Area', () => {
       const shapes = areaElement.getShapes();
       expect(shapes.length).to.eql(1);
       expect(shapes[0].attr('path')).to.eql([
-        [ 'M', 0, 200 ],
-        [ 'L', 100, 100 ],
-        [ 'L', 200, 0 ],
-        [ 'L', 200, 200 ],
-        [ 'L', 100, 200 ],
-        [ 'L', 0, 200 ],
-        [ 'Z' ],
+        ['M', 0, 200],
+        ['L', 100, 100],
+        ['L', 200, 0],
+        ['L', 200, 200],
+        ['L', 100, 200],
+        ['L', 0, 200],
+        ['Z'],
       ]);
     });
 
@@ -124,8 +124,8 @@ describe('Area', () => {
     let areaStackElement;
     const yearScale = new CatScale({
       field: 'year',
-      values: [ '1994', '1995', '1996' ],
-      range: [ 0, 1 ],
+      values: ['1994', '1995', '1996'],
+      range: [0, 1],
     });
 
     const valueScale = new LinearScale({
@@ -137,7 +137,7 @@ describe('Area', () => {
 
     const typeScale = new CatScale({
       field: 'type',
-      values: [ 'a', 'b' ],
+      values: ['a', 'b'],
     });
 
     const data = [
@@ -183,8 +183,8 @@ describe('Area', () => {
       });
 
       areaStackElement
-        .position({ fields: [ 'year', 'value' ]})
-        .color({ fields: [ 'type' ]})
+        .position({ fields: ['year', 'value'] })
+        .color({ fields: ['type'] })
         .adjust({ type: 'stack' });
       areaStackElement.init();
       areaStackElement.paint();
@@ -192,22 +192,22 @@ describe('Area', () => {
       const shapes = areaStackElement.getShapes();
       expect(shapes.length).to.eql(2);
       expect(shapes[0].attr('path')).to.eql([
-        [ 'M', 0, 24 ],
-        [ 'L', 100, 76 ],
-        [ 'L', 200, 96 ],
-        [ 'L', 200, 192 ],
-        [ 'L', 100, 148 ],
-        [ 'L', 0, 104 ],
-        [ 'Z' ],
+        ['M', 0, 24],
+        ['L', 100, 76],
+        ['L', 200, 96],
+        ['L', 200, 192],
+        ['L', 100, 148],
+        ['L', 0, 104],
+        ['Z'],
       ]);
       expect(shapes[1].attr('path')).to.eql([
-        [ 'M', 0, 104 ],
-        [ 'L', 100, 148 ],
-        [ 'L', 200, 192 ],
-        [ 'L', 200, 200 ],
-        [ 'L', 100, 200 ],
-        [ 'L', 0, 200 ],
-        [ 'Z' ],
+        ['M', 0, 104],
+        ['L', 100, 148],
+        ['L', 200, 192],
+        ['L', 200, 200],
+        ['L', 100, 200],
+        ['L', 0, 200],
+        ['Z'],
       ]);
     });
 
@@ -225,8 +225,8 @@ describe('Area', () => {
 
     const yearScale = new CatScale({
       field: 'year',
-      values: [ '1994', '1995', '1996', '1997', '1998' ],
-      range: [ 0, 1 ],
+      values: ['1994', '1995', '1996', '1997', '1998'],
+      range: [0, 1],
     });
 
     const valueScale = new LinearScale({
@@ -276,26 +276,14 @@ describe('Area', () => {
         id: 'view-area-stack',
       });
 
-      element.position({ fields: [ 'year', 'value' ]});
+      element.position({ fields: ['year', 'value'] });
       element.init();
       element.paint();
       canvas.draw();
       const shapes = element.getShapes();
       expect(shapes.length).to.eql(2);
-      expect(shapes[0].attr('path')).to.eql([
-        [ 'M', 0, 50 ],
-        [ 'L', 50, 50 ],
-        [ 'L', 50, 200 ],
-        [ 'L', 0, 200 ],
-        [ 'Z' ],
-      ]);
-      expect(shapes[1].attr('path')).to.eql([
-        [ 'M', 150, 0 ],
-        [ 'L', 200, 70 ],
-        [ 'L', 200, 200 ],
-        [ 'L', 150, 200 ],
-        [ 'Z' ],
-      ]);
+      expect(shapes[0].attr('path')).to.eql([['M', 0, 50], ['L', 50, 50], ['L', 50, 200], ['L', 0, 200], ['Z']]);
+      expect(shapes[1].attr('path')).to.eql([['M', 150, 0], ['L', 200, 70], ['L', 200, 200], ['L', 150, 200], ['Z']]);
 
       element.destroy();
     });
@@ -315,22 +303,22 @@ describe('Area', () => {
         id: 'view-area-stack',
       });
 
-      element.position({ fields: [ 'year', 'value' ]});
+      element.position({ fields: ['year', 'value'] });
       element.init();
       element.paint();
       canvas.draw();
       const shapes = element.getShapes();
       expect(shapes.length).to.eql(1);
       expect(shapes[0].attr('path')).to.eql([
-        [ 'M', 0, 50 ],
-        [ 'L', 50, 50 ],
-        [ 'L', 150, 0 ],
-        [ 'L', 200, 70 ],
-        [ 'L', 200, 200 ],
-        [ 'L', 150, 200 ],
-        [ 'L', 50, 200 ],
-        [ 'L', 0, 200 ],
-        [ 'Z' ],
+        ['M', 0, 50],
+        ['L', 50, 50],
+        ['L', 150, 0],
+        ['L', 200, 70],
+        ['L', 200, 200],
+        ['L', 150, 200],
+        ['L', 50, 200],
+        ['L', 0, 200],
+        ['Z'],
       ]);
       element.destroy();
     });

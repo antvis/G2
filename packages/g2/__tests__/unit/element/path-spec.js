@@ -1,12 +1,12 @@
 import { expect } from 'chai';
 import Path from '../../../src/element/path';
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 import { Canvas } from '@antv/g';
 import { getScale } from '@antv/scale';
 import * as Util from '@antv/util';
 import View from '../../utils/view';
 
-const Rect = getCoord('rect');
+const Rect = getCoordinate('rect');
 
 describe('Path Element', () => {
   const div = document.createElement('div');
@@ -78,15 +78,17 @@ describe('Path Element', () => {
   });
 
   it('draw path', () => {
-    pathElement.position({
-      fields: [ 'year', 'value' ],
-    }).style({
-      callback() {
-        return {
-          endArrow: true,
-        };
-      },
-    });
+    pathElement
+      .position({
+        fields: ['year', 'value'],
+      })
+      .style({
+        callback() {
+          return {
+            endArrow: true,
+          };
+        },
+      });
 
     pathElement.init();
     pathElement.paint();
@@ -97,7 +99,7 @@ describe('Path Element', () => {
     const years = Util.flatten(dataArray).map((obj) => {
       return obj._origin.year;
     });
-    expect(years).to.eql([ 1991, 1992, 1993, 1995, 1997 ]);
+    expect(years).to.eql([1991, 1992, 1993, 1995, 1997]);
 
     const shapes = pathElement.getShapes();
     expect(shapes.length).to.equal(1);

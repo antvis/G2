@@ -1,12 +1,12 @@
 import { expect } from 'chai';
 import { Canvas } from '@antv/g';
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 import { getScale } from '@antv/scale';
 import View from '../../../utils/view';
 import Interval from '../../../../src/element/interval';
 import StateController from '../../../../src/element/controller/state';
 
-const Rect = getCoord('rect');
+const Rect = getCoordinate('rect');
 const CatScale = getScale('cat');
 const LinearScale = getScale('linear');
 
@@ -54,15 +54,15 @@ describe('StateController', () => {
 
     const salesScale = new LinearScale({
       field: 'sales',
-      values: [ 38, 52, 61, 145, 48 ],
+      values: [38, 52, 61, 145, 48],
       nice: true,
       min: 0,
       max: 160,
     });
     const yearScale = new CatScale({
       field: 'year',
-      values: [ '1951 年', '1952 年', '1956 年', '1957 年', '1958 年', '1959 年', '1960 年', '1962 年' ],
-      range: [ 0.0625, 0.9375 ],
+      values: ['1951 年', '1952 年', '1956 年', '1957 年', '1958 年', '1959 年', '1960 年', '1962 年'],
+      range: [0.0625, 0.9375],
     });
 
     interval = new Interval({
@@ -87,23 +87,25 @@ describe('StateController', () => {
                 lineWidth: 2,
               },
               selected: {
-                fill: 'red'
+                fill: 'red',
               },
               // inactive: {
               //   fill: '#999',
               //   fillOpacity: 0.3,
               // }
-            }
-          }
-        }
+            },
+          },
+        },
       },
       id: 'view-interval',
     });
-    interval.position({
-      fields: [ 'year', 'sales' ],
-    }).label({
-      fields: [ 'sales' ],
-    });
+    interval
+      .position({
+        fields: ['year', 'sales'],
+      })
+      .label({
+        fields: ['sales'],
+      });
     interval.init();
     interval.paint();
     canvas.draw();

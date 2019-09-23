@@ -1,5 +1,5 @@
+import { Coordinate } from '@antv/coord';
 import { Group } from '@antv/g';
-import { Coord } from '@antv/coord';
 
 export interface CommonCfg {
   [ k: string ]: any;

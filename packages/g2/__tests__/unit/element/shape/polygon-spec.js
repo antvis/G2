@@ -3,7 +3,7 @@ import { Canvas } from '@antv/g';
 import { registerShape } from '../../../../src/element/shape/base';
 import PolygonShapeFactory from '../../../../src/element/shape/polygon';
 import Global from '../../../../src/global';
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 
 describe('Polygon shape factory', function() {
   let div;
@@ -14,7 +14,7 @@ describe('Polygon shape factory', function() {
     div.id = 'polygon-shape';
     document.body.appendChild(div);
 
-    const Cartesian = getCoord('cartesian');
+    const Cartesian = getCoordinate('cartesian');
     const coord = new Cartesian({
       start: {
         x: 0,
@@ -46,8 +46,8 @@ describe('Polygon shape factory', function() {
     it('getShapePoints && drawShape', function() {
       const type = 'polygon';
       const points = PolygonShapeFactory.getShapePoints(type, {
-        x: [ 0.1, 0.3, 0.3, 0.4 ],
-        y: [ 0.2, 0.5, 0.12, 0.88 ],
+        x: [0.1, 0.3, 0.3, 0.4],
+        y: [0.2, 0.5, 0.12, 0.88],
       });
       expect(points[0].x).eql(0.1);
       expect(points[0].y).eql(0.2);
@@ -104,8 +104,8 @@ describe('Polygon shape factory', function() {
     it('getShapePoints && drawShape', function() {
       const type = 'hollow';
       const points = PolygonShapeFactory.getShapePoints(type, {
-        x: [ 0.1, 0.3, 0.3, 0.4, 0.1 ],
-        y: [ 0.2, 0.5, 0.12, 0.88, 0.2 ],
+        x: [0.1, 0.3, 0.3, 0.4, 0.1],
+        y: [0.2, 0.5, 0.12, 0.88, 0.2],
       });
       expect(points[0].x).eql(0.1);
       expect(points[0].y).eql(0.2);

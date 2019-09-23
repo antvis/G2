@@ -1,9 +1,9 @@
 import { expect } from 'chai';
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 import * as Shape from '../../../../src/element/shape/base';
 
-const Rect = getCoord('rect');
-const Polar = getCoord('polar');
+const Rect = getCoordinate('rect');
+const Polar = getCoordinate('polar');
 
 describe('Register shape', () => {
   const coord = new Rect({
@@ -52,9 +52,7 @@ describe('Register shape', () => {
       getPoints(cfg) {
         const x = cfg.x * 10;
         const y = cfg.y * 10;
-        return [
-          { x, y },
-        ];
+        return [{ x, y }];
       },
     });
 
@@ -64,7 +62,7 @@ describe('Register shape', () => {
     expect(testFactory).not.equal(undefined);
 
     const points1 = testFactory.getShapePoints('test', { x: 2, y: 4 });
-    expect(points1).eqls([ { x: 20, y: 40 } ]);
+    expect(points1).eqls([{ x: 20, y: 40 }]);
     const points2 = testFactory.getShapePoints('test1', { x: 2, y: 4 });
     expect(points2).eqls([]);
 
@@ -100,7 +98,7 @@ describe('Register shape', () => {
             r: 5,
             fill: '#1890ff',
             stroke: '#000',
-          }
+          },
         },
       },
     };
@@ -124,15 +122,15 @@ describe('Register shape', () => {
 
     const testShape = testFactory.getShape('test');
     // shapeName 为数组
-    const test1 = testFactory.getShape([ 'test', { stroke: '#000' } ]);
+    const test1 = testFactory.getShape(['test', { stroke: '#000' }]);
     expect(test1).to.equal(testShape);
   });
 
-  it('shape.getCoord()', () => {
+  it('shape.getCoordinate()', () => {
     const testFactory = Shape.getShapeFactory('test');
     testFactory.setCoord(coord);
     const shape = testFactory.getShape('test');
-    expect(shape.getCoord()).to.eql(coord);
+    expect(shape.getCoordinate()).to.eql(coord);
   });
 
   it('parse point', () => {
@@ -148,16 +146,16 @@ describe('Register shape', () => {
     const testFactory = Shape.getShapeFactory('test');
     testFactory.setCoord(coord);
     const shape = testFactory.getShape('test');
-    const points = [ { x: 0, y: 0 }, { x: 0.5, y: 0.5 }, { x: 1, y: 1 } ];
-    expect(shape.parsePoints(points)).eqls([ { x: 0, y: 0 }, { x: 100, y: 100 }, { x: 200, y: 200 } ]);
+    const points = [{ x: 0, y: 0 }, { x: 0.5, y: 0.5 }, { x: 1, y: 1 }];
+    expect(shape.parsePoints(points)).eqls([{ x: 0, y: 0 }, { x: 100, y: 100 }, { x: 200, y: 200 }]);
   });
 
   it('parse path in rect', () => {
     const testFactory = Shape.getShapeFactory('test');
     testFactory.setCoord(coord);
     const shape = testFactory.getShape('test');
-    const path = [ [ 'M', 0, 0 ], [ 'L', 1, 1 ] ];
-    expect(shape.parsePath(path)).eqls([ [ 'M', 0, 0 ], [ 'L', 200, 200 ] ]);
+    const path = [['M', 0, 0], ['L', 1, 1]];
+    expect(shape.parsePath(path)).eqls([['M', 0, 0], ['L', 200, 200]]);
   });
 
   it('parse path in circle', () => {
@@ -174,16 +172,16 @@ describe('Register shape', () => {
     const testFactory = Shape.getShapeFactory('test');
     testFactory.setCoord(newCoord);
     const shape = testFactory.getShape('test');
-    let path = [ [ 'M', 0, 0 ], [ 'L', 0, 1 ], [ 'L', 0.5, 1 ] ];
+    let path = [['M', 0, 0], ['L', 0, 1], ['L', 0.5, 1]];
     let toPath = shape.parsePath(path);
-    expect(toPath[0]).eqls([ 'M', 100, 100 ]);
-    expect(toPath[1]).eqls([ 'L', 100, 0 ]);
-    expect(toPath[2]).eqls([ 'A', 100, 100, 0, 0, 1, 100, 200 ]);
+    expect(toPath[0]).eqls(['M', 100, 100]);
+    expect(toPath[1]).eqls(['L', 100, 0]);
+    expect(toPath[2]).eqls(['A', 100, 100, 0, 0, 1, 100, 200]);
 
-    path = [ [ 'M', 0, 0 ], [ 'L', 0, 1 ], [ 'L', 0.5, 1 ], [ 'L', 1, 1 ] ];
+    path = [['M', 0, 0], ['L', 0, 1], ['L', 0.5, 1], ['L', 1, 1]];
     toPath = shape.parsePath(path);
-    expect(toPath[0]).eqls([ 'M', 100, 100 ]);
-    expect(toPath[1]).eqls([ 'M', 100, 0 ]);
-    expect(toPath[2]).eqls([ 'A', 100, 100, 0, 0, 1, 100, 200 ]);
+    expect(toPath[0]).eqls(['M', 100, 100]);
+    expect(toPath[1]).eqls(['M', 100, 0]);
+    expect(toPath[2]).eqls(['A', 100, 100, 0, 0, 1, 100, 200]);
   });
 });

@@ -1,9 +1,9 @@
+import { Coordinate } from '@antv/coord';
 import { Group } from '@antv/g';
-import { Coord } from '@antv/coord';
-import * as _ from '@antv/util';
 import { vec2, vec3 } from '@antv/matrix-util';
-import Annotation, { AnnotationCfg, Point, SvgAttrs } from './base';
+import * as _ from '@antv/util';
 import { FONT_FAMILY } from '../const';
+import Annotation, { AnnotationCfg, Point, SvgAttrs } from './base';
 
 export interface LineCfg extends AnnotationCfg {
   line: {
@@ -51,7 +51,7 @@ export default class Line extends Annotation<LineCfg> {
     );
   }
 
-  render(coord: Coord, group: Group) {
+  public render(coord: Coordinate, group: Group) {
     const start = this.parsePoint(coord, this.get('start'));
     const end = this.parsePoint(coord, this.get('end'));
     const guideLineGroup = group.addGroup();
@@ -116,7 +116,7 @@ export default class Line extends Annotation<LineCfg> {
       cfg.rotate = angle;
     } else if (!_.isNil(textStyle.rotate)) {
       // 用户设置了旋转角度
-      cfg.rotate = (<number>textStyle.rotate * Math.PI) / 180;
+      cfg.rotate = ((textStyle.rotate as number) * Math.PI) / 180;
     }
 
     group.addShape('Text', {

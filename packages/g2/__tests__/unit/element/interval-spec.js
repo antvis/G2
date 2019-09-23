@@ -1,14 +1,14 @@
 import { expect } from 'chai';
 import { isNumberEqual } from '@antv/util';
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 import { Canvas } from '@antv/g';
 import { getScale } from '@antv/scale';
 import Interval from '../../../src/element/interval';
 import Global from '../../../src/global';
 import View from '../../utils/view';
 
-const Rect = getCoord('rect');
-const Polar = getCoord('polar');
+const Rect = getCoordinate('rect');
+const Polar = getCoordinate('polar');
 
 const LinearScale = getScale('linear');
 const CatScale = getScale('cat');
@@ -51,15 +51,11 @@ describe('Interval Element', () => {
   let interval;
 
   describe('Default', () => {
-    const data = [
-      { a: 'A', b: 10 },
-      { a: 'B', b: 12 },
-      { a: 'C', b: 8 },
-    ];
+    const data = [{ a: 'A', b: 10 }, { a: 'B', b: 12 }, { a: 'C', b: 8 }];
     const aScale = new CatScale({
       field: 'a',
-      values: [ 'A', 'B', 'C' ],
-      range: [ 0.2, 0.8 ],
+      values: ['A', 'B', 'C'],
+      range: [0.2, 0.8],
     });
     const bScale = new LinearScale({
       field: 'b',
@@ -89,18 +85,21 @@ describe('Interval Element', () => {
         view: new View(),
         id: 'view-interval',
       });
-      interval.position({
-        fields: [ 'a', 'b' ],
-      }).color({
-        fields: [ 'a' ],
-      }).animate({
-        update: false,
-      });
+      interval
+        .position({
+          fields: ['a', 'b'],
+        })
+        .color({
+          fields: ['a'],
+        })
+        .animate({
+          update: false,
+        });
       interval.init();
 
       const attrs = interval.get('attrs');
       dataArray = interval.get('dataArray');
-      expect(attrs).to.have.keys([ 'position', 'color' ]);
+      expect(attrs).to.have.keys(['position', 'color']);
       expect(dataArray.length).to.equal(3);
       expect(dataArray[0][0].a).to.equal(0);
       expect(dataArray[1][0].a).to.equal(1);
@@ -164,11 +163,13 @@ describe('Interval Element', () => {
         view: new View(),
         id: 'view-interval',
       });
-      interval.position({
-        fields: [ 'a', 'b' ],
-      }).size({
-        values: [ '20' ],
-      });
+      interval
+        .position({
+          fields: ['a', 'b'],
+        })
+        .size({
+          values: ['20'],
+        });
       interval.init();
       interval.paint();
 
@@ -193,8 +194,8 @@ describe('Interval Element', () => {
     ];
     const aScale = new CatScale({
       field: 'a',
-      values: [ '1', '2', '3' ],
-      range: [ 0.2, 0.8 ],
+      values: ['1', '2', '3'],
+      range: [0.2, 0.8],
     });
 
     const bScale = new LinearScale({
@@ -206,7 +207,7 @@ describe('Interval Element', () => {
 
     const cScale = new CatScale({
       field: 'c',
-      values: [ '1', '2' ],
+      values: ['1', '2'],
     });
 
     it('interval size with dodge', () => {
@@ -223,13 +224,16 @@ describe('Interval Element', () => {
         id: 'view-dodge-interval',
       });
 
-      interval.position({
-        fields: [ 'a', 'b' ],
-      }).color({
-        fields: [ 'c' ],
-      }).adjust({
-        type: 'dodge',
-      });
+      interval
+        .position({
+          fields: ['a', 'b'],
+        })
+        .color({
+          fields: ['c'],
+        })
+        .adjust({
+          type: 'dodge',
+        });
 
       interval.init();
       interval.paint();
@@ -246,14 +250,17 @@ describe('Interval Element', () => {
 
     it('interval size with dodge, dodgeBy', () => {
       interval.clearInner();
-      interval.position({
-        fields: [ 'a', 'b' ],
-      }).color({
-        fields: [ 'c' ],
-      }).adjust({
-        type: 'dodge',
-        dodgeBy: 'a',
-      });
+      interval
+        .position({
+          fields: ['a', 'b'],
+        })
+        .color({
+          fields: ['c'],
+        })
+        .adjust({
+          type: 'dodge',
+          dodgeBy: 'a',
+        });
 
       interval.init();
       interval.paint();
@@ -264,7 +271,7 @@ describe('Interval Element', () => {
 
       shapes.forEach((shape) => {
         expect(shape.attr('path').length).to.equal(6);
-        expect(isNumberEqual(shape.attr('path')[2][1] - shape.attr('path')[1][1], (180 / 3 / 6))).to.be.true;
+        expect(isNumberEqual(shape.attr('path')[2][1] - shape.attr('path')[1][1], 180 / 3 / 6)).to.be.true;
       });
     });
 
@@ -276,15 +283,11 @@ describe('Interval Element', () => {
   });
 
   describe('Interval in polar coordinate', () => {
-    const data = [
-      { a: '1', b: 2, c: '1' },
-      { a: '2', b: 5, c: '1' },
-      { a: '3', b: 4, c: '1' },
-    ];
+    const data = [{ a: '1', b: 2, c: '1' }, { a: '2', b: 5, c: '1' }, { a: '3', b: 4, c: '1' }];
     const aScale = new CatScale({
       field: 'a',
-      values: [ '1', '2', '3' ],
-      range: [ 1 / 6, 1 - 1 / 6 ],
+      values: ['1', '2', '3'],
+      range: [1 / 6, 1 - 1 / 6],
     });
 
     const bScale = new LinearScale({
@@ -307,7 +310,7 @@ describe('Interval Element', () => {
         id: 'view-polar-interval',
       });
       interval.position({
-        fields: [ 'a', 'b' ],
+        fields: ['a', 'b'],
       });
 
       interval.init();
@@ -341,8 +344,8 @@ describe('Interval Element', () => {
 
       const identityScale = new IdentityScale({
         field: '1',
-        values: [ 1 ],
-        range: [ 0.5, 1 ],
+        values: [1],
+        range: [0.5, 1],
       });
       const interval = new Interval({
         data,
@@ -352,27 +355,30 @@ describe('Interval Element', () => {
           1: identityScale,
           a: new CatScale({
             field: 'a',
-            range: [ 0, 1 ],
-            values: [ '1', '2', '3' ],
+            range: [0, 1],
+            values: ['1', '2', '3'],
           }),
           percent: new LinearScale({
             field: 'percent',
             min: 0,
             max: 1,
             nice: false,
-            values: [ 0.18181818181818182, 0.45454545454545453, 0.36363636363636365 ],
+            values: [0.18181818181818182, 0.45454545454545453, 0.36363636363636365],
           }),
         },
         view: new View(),
         id: 'view-polar-interval',
       });
-      interval.position({
-        fields: [ 'percent' ],
-      }).color({
-        fields: [ 'a' ],
-      }).adjust({
-        type: 'stack',
-      });
+      interval
+        .position({
+          fields: ['percent'],
+        })
+        .color({
+          fields: ['a'],
+        })
+        .adjust({
+          type: 'stack',
+        });
 
       interval.init();
       interval.paint();
@@ -402,8 +408,8 @@ describe('Interval Element', () => {
       ];
       const aScale = new CatScale({
         field: 'a',
-        values: [ '1', '2', '3' ],
-        range: [ 0, 1 - 1 / 3 ],
+        values: ['1', '2', '3'],
+        range: [0, 1 - 1 / 3],
       });
       const bScale = new LinearScale({
         field: 'b',
@@ -413,7 +419,7 @@ describe('Interval Element', () => {
       });
       const cScale = new CatScale({
         field: 'c',
-        values: [ '1', '2' ],
+        values: ['1', '2'],
       });
 
       interval = new Interval({
@@ -428,13 +434,16 @@ describe('Interval Element', () => {
         view: new View(),
         id: 'view-polar-dodge-interval',
       });
-      interval.position({
-        fields: [ 'a', 'b' ],
-      }).adjust({
-        type: 'dodge',
-      }).color({
-        fields: [ 'c' ],
-      });
+      interval
+        .position({
+          fields: ['a', 'b'],
+        })
+        .adjust({
+          type: 'dodge',
+        })
+        .color({
+          fields: ['c'],
+        });
 
       interval.init();
       interval.paint();
@@ -460,8 +469,8 @@ describe('Interval Element', () => {
       ];
       const aScale = new CatScale({
         field: 'a',
-        values: [ '1', '2', '3' ],
-        range: [ 1 / 6 * Global.widthRatio.multiplePie, 1 - 1 / 6 * Global.widthRatio.multiplePie ],
+        values: ['1', '2', '3'],
+        range: [(1 / 6) * Global.widthRatio.multiplePie, 1 - (1 / 6) * Global.widthRatio.multiplePie],
       });
       const bScale = new LinearScale({
         field: 'b',
@@ -471,7 +480,7 @@ describe('Interval Element', () => {
       });
       const cScale = new CatScale({
         field: 'c',
-        values: [ '1', '2' ],
+        values: ['1', '2'],
       });
       polarCoord.isTransposed = true;
 
@@ -487,13 +496,16 @@ describe('Interval Element', () => {
         view: new View(),
         id: 'view-polar-dodge-interval',
       });
-      interval.position({
-        fields: [ 'a', 'b' ],
-      }).adjust({
-        type: 'dodge',
-      }).color({
-        fields: [ 'c' ],
-      });
+      interval
+        .position({
+          fields: ['a', 'b'],
+        })
+        .adjust({
+          type: 'dodge',
+        })
+        .color({
+          fields: ['c'],
+        });
 
       interval.init();
       interval.paint();
@@ -513,11 +525,7 @@ describe('Interval Element', () => {
 
   describe('size calculation', () => {
     it('xScale is linear with min and max defined', () => {
-      const data1 = [
-        { a: 3, b: 23 },
-        { a: 4, b: 15 },
-        { a: 6, b: 9 },
-      ];
+      const data1 = [{ a: 3, b: 23 }, { a: 4, b: 15 }, { a: 6, b: 9 }];
       interval = new Interval({
         data: data1,
         coord: rectCoord,
@@ -528,21 +536,21 @@ describe('Interval Element', () => {
             min: 0,
             max: 10,
             nice: false,
-            values: [ 3, 4, 6 ],
+            values: [3, 4, 6],
           }),
           b: new LinearScale({
             field: 'b',
             min: 8,
             max: 24,
             nice: true,
-            values: [ 23, 15, 9 ],
+            values: [23, 15, 9],
           }),
         },
         view: new View(),
         id: 'view-interval',
       });
       interval.position({
-        fields: [ 'a', 'b' ],
+        fields: ['a', 'b'],
       });
       interval.init();
       interval.paint();
@@ -558,10 +566,7 @@ describe('Interval Element', () => {
       });
 
       interval.destroy();
-      const data2 = [
-        { a: 2, b: 15 },
-        { a: 6, b: 9 },
-      ];
+      const data2 = [{ a: 2, b: 15 }, { a: 6, b: 9 }];
       interval = new Interval({
         data: data2,
         coord: rectCoord,
@@ -572,20 +577,20 @@ describe('Interval Element', () => {
             min: 2,
             max: 7,
             nice: false,
-            values: [ 2, 6 ],
+            values: [2, 6],
           }),
           b: new LinearScale({
             field: 'b',
             min: 0,
             max: 16,
-            values: [ 9, 15 ],
+            values: [9, 15],
           }),
         },
         view: new View(),
         id: 'view-interval',
       });
       interval.position({
-        fields: [ 'a', 'b' ],
+        fields: ['a', 'b'],
       });
       interval.init();
       interval.paint();

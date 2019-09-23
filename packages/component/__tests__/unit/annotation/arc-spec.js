@@ -1,16 +1,16 @@
 const expect = require('chai').expect;
 const { Canvas } = require('@antv/g');
-const { getCoord } = require('@antv/coord');
+const { getCoordinate } = require('@antv/coord');
 const { getScale } = require('@antv/scale');
 const { Arc } = require('../../../src/annotation');
 
-const Polar = getCoord('polar');
+const Polar = getCoordinate('polar');
 const Cat = getScale('cat');
 const Linear = getScale('linear');
 
 describe('Annotation Arc', () => {
   const xScale = new Cat({
-    values: [ '一月', '二月', '三月', '四月', '五月' ],
+    values: ['一月', '二月', '三月', '四月', '五月'],
   });
   const yScale = new Linear({
     min: 0,
@@ -22,9 +22,7 @@ describe('Annotation Arc', () => {
     startAngle: -Math.PI,
     endAngle: Math.PI,
   });
-  let canvas,
-    group,
-    div;
+  let canvas, group, div;
 
   before(() => {
     div = document.createElement('div');

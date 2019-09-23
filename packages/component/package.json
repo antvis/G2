@@ -33,7 +33,7 @@
     "@antv/util": "~2.0.4"
   },
   "devDependencies": {
-    "@antv/coord": "~0.2.0",
+    "@antv/coord": "~0.2.1",
     "event-simulate": "^1.0.0",
     "d3-color": "^1.2.3"
   },

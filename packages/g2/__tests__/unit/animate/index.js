@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 import { Canvas } from '@antv/g';
 import Animate from '../../../src/animate/index';
 import { View } from '../../../src/';
@@ -8,16 +8,16 @@ const div = document.createElement('div');
 div.id = 'animateCanvas';
 document.body.appendChild(div);
 
-const Cartesian = getCoord('cartesian');
+const Cartesian = getCoordinate('cartesian');
 const coord = new Cartesian({
   start: {
     x: 0,
-    y: 300
+    y: 300,
   },
   end: {
     x: 600,
-    y: 0
-  }
+    y: 0,
+  },
 });
 
 function addElements(count, container, backContainer) {
@@ -27,8 +27,8 @@ function addElements(count, container, backContainer) {
         x: 300 * Math.random(),
         y: 300 * Math.random(),
         r: 30 * Math.random(),
-        fill: 'red'
-      }
+        fill: 'red',
+      },
     });
     shape.id = 'view1-circle' + i;
     shape.name = 'point';
@@ -37,13 +37,9 @@ function addElements(count, container, backContainer) {
   for (let j = 0; j < count; j++) {
     const shape = backContainer.addShape('path', {
       attrs: {
-        path: [
-          [ 'M', 300 * Math.random(), 300 * Math.random() ],
-          [ 'L', 100, 0 ],
-          [ 'C', 213, 323, 22, 10, 34, 90 ]
-        ],
-        fill: 'red'
-      }
+        path: [['M', 300 * Math.random(), 300 * Math.random()], ['L', 100, 0], ['C', 213, 323, 22, 10, 34, 90]],
+        fill: 'red',
+      },
     });
     shape.id = 'view1-path' + j;
     shape.name = 'axis-label';
@@ -55,7 +51,7 @@ describe('Aniamte', function() {
   const canvas = new Canvas({
     containerId: 'animateCanvas',
     width: 600,
-    height: 300
+    height: 300,
   });
   let container = canvas.addGroup();
 
@@ -64,7 +60,7 @@ describe('Aniamte', function() {
     container,
     width: 200,
     height: 200,
-    id: 'view1'
+    id: 'view1',
   });
   it('count', function() {
     addElements(10, view.get('panelGroup'), view.get('backgroundGroup'));

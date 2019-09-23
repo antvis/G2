@@ -1,16 +1,16 @@
 const expect = require('chai').expect;
 const { Canvas } = require('@antv/g');
-const { getCoord } = require('@antv/coord');
+const { getCoordinate } = require('@antv/coord');
 const { getScale } = require('@antv/scale');
 const { Html } = require('../../../src/annotation');
 
-const Rect = getCoord('Rect');
+const Rect = getCoordinate('Rect');
 const Cat = getScale('cat');
 const Linear = getScale('linear');
 
 describe('Annotation Html', () => {
   const xScale = new Cat({
-    values: [ '一月', '二月', '三月', '四月', '五月' ],
+    values: ['一月', '二月', '三月', '四月', '五月'],
   });
   const yScale = new Linear({
     min: 0,
@@ -20,9 +20,7 @@ describe('Annotation Html', () => {
     start: { x: 60, y: 460 },
     end: { x: 460, y: 60 },
   });
-  let canvas,
-    group,
-    div;
+  let canvas, group, div;
 
   before(() => {
     div = document.createElement('div');
@@ -131,7 +129,7 @@ describe('Annotation Html', () => {
       yScales: {
         temp: yScale,
       },
-      position: [ 'start', '100%' ],
+      position: ['start', '100%'],
       html: '<p style="width: 100px;height: 80px;font-size: 20px;">Hoooray</p>',
     });
     html.render(coord, group);

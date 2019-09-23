@@ -1,7 +1,7 @@
 // todo 再飞，涉及到 DataSource 的使用，所以先全部注释掉了
 // import { expect } from 'chai';
 // import * as _ from '@antv/util';
-// import { getCoord } from '@antv/coord';
+// import { getCoordinate } from '@antv/coord';
 // import { Canvas } from '@antv/g';
 // import { getScale } from '@antv/scale';
 // import { DataSource } from '@antv/data-source';
@@ -9,7 +9,7 @@
 // import WordData from '../../data/word';
 // import WordPopulation from '../../data/word-population';
 //
-// const Rect = getCoord('rect');
+// const Rect = getCoordinate('rect');
 //
 // const LinearScale = getScale('linear');
 // const CatScale = getScale('cat');

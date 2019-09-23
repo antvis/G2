@@ -1,17 +1,17 @@
 const expect = require('chai').expect;
 const { Canvas } = require('@antv/g');
-const { getCoord } = require('@antv/coord');
+const { getCoordinate } = require('@antv/coord');
 const { getScale } = require('@antv/scale');
 const { DataRegion } = require('../../../src/annotation');
 
-const Rect = getCoord('Rect');
+const Rect = getCoordinate('Rect');
 const Cat = getScale('cat');
 const Linear = getScale('linear');
 
 describe('Annotation DataRegion', () => {
   const xScale = new Cat({
     field: 'x',
-    values: [ '一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+    values: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
   });
   const yScale = new Linear({
     field: 'y',
@@ -36,10 +36,7 @@ describe('Annotation DataRegion', () => {
     { x: '十一月', y: 890 },
     { x: '十二月', y: 110 },
   ];
-  let canvas,
-    group,
-    div,
-    dataRegion;
+  let canvas, group, div, dataRegion;
 
   before(() => {
     div = document.createElement('div');
@@ -100,15 +97,15 @@ describe('Annotation DataRegion', () => {
     expect(pathShape.get('appendInfo')).to.equal('data-region');
     expect(pathShape.name).to.equal('annotation-data-region');
     expect(pathShape.attr('path')).to.eql([
-      [ 'M', 169.09090909090907, 96.66666666666663 ],
-      [ 'L', 169.09090909090907, 293.3333333333333 ],
-      [ 'L', 205.45454545454547, 310 ],
-      [ 'L', 241.8181818181818, 243.33333333333334 ],
-      [ 'L', 278.18181818181813, 223.33333333333334 ],
-      [ 'L', 314.5454545454545, 193.33333333333337 ],
-      [ 'L', 350.90909090909093, 239.99999999999997 ],
-      [ 'L', 387.2727272727273, 126.66666666666663 ],
-      [ 'L', 387.2727272727273, 96.66666666666663 ],
+      ['M', 169.09090909090907, 96.66666666666663],
+      ['L', 169.09090909090907, 293.3333333333333],
+      ['L', 205.45454545454547, 310],
+      ['L', 241.8181818181818, 243.33333333333334],
+      ['L', 278.18181818181813, 223.33333333333334],
+      ['L', 314.5454545454545, 193.33333333333337],
+      ['L', 350.90909090909093, 239.99999999999997],
+      ['L', 387.2727272727273, 126.66666666666663],
+      ['L', 387.2727272727273, 96.66666666666663],
     ]);
   });
 
@@ -120,8 +117,8 @@ describe('Annotation DataRegion', () => {
       yScales: {
         y: yScale,
       },
-      start: [ -1, 300 ],
-      end: [ 2, 400 ],
+      start: [-1, 300],
+      end: [2, 400],
       region: {
         lineLength: 30,
         style: {
@@ -146,8 +143,8 @@ describe('Annotation DataRegion', () => {
       yScales: {
         y: yScale,
       },
-      start: [ '五月', 500 ],
-      end: [ '六月', 650 ],
+      start: ['五月', 500],
+      end: ['六月', 650],
       region: {
         lineLength: 30,
         style: {
@@ -179,10 +176,10 @@ describe('Annotation DataRegion', () => {
     expect(textShape.name).to.equal('annotation-data-region');
 
     expect(pathShape.attr('path')).to.eql([
-      [ 'M', 205.45454545454547, 213.33333333333334 ],
-      [ 'L', 205.45454545454547, 310 ],
-      [ 'L', 241.8181818181818, 243.33333333333334 ],
-      [ 'L', 241.8181818181818, 213.33333333333334 ],
+      ['M', 205.45454545454547, 213.33333333333334],
+      ['L', 205.45454545454547, 310],
+      ['L', 241.8181818181818, 243.33333333333334],
+      ['L', 241.8181818181818, 213.33333333333334],
     ]);
     expect(textShape.attr('x')).to.equal(223.63636363636363);
     expect(textShape.attr('y')).to.equal(213.33333333333334);

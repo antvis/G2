@@ -1,16 +1,16 @@
 const expect = require('chai').expect;
 const { Canvas } = require('@antv/g');
-const { getCoord } = require('@antv/coord');
+const { getCoordinate } = require('@antv/coord');
 const { getScale } = require('@antv/scale');
 const { DataMarker } = require('../../../src/annotation');
 
-const Rect = getCoord('Rect');
+const Rect = getCoordinate('Rect');
 const Cat = getScale('cat');
 const Linear = getScale('linear');
 
 describe('Annotation DataMarker', () => {
   const xScale = new Cat({
-    values: [ '一月', '二月', '三月', '四月', '五月' ],
+    values: ['一月', '二月', '三月', '四月', '五月'],
   });
   const yScale = new Linear({
     min: 0,
@@ -20,10 +20,7 @@ describe('Annotation DataMarker', () => {
     start: { x: 60, y: 460 },
     end: { x: 460, y: 60 },
   });
-  let canvas,
-    group,
-    div,
-    dataMarker;
+  let canvas, group, div, dataMarker;
 
   before(() => {
     div = document.createElement('div');
@@ -78,7 +75,7 @@ describe('Annotation DataMarker', () => {
     const line = children[0];
 
     expect(line.name).to.equal('annotation-data-marker');
-    expect(line.attr('path')).to.eql([ [ 'M', 160, 260 ], [ 'L', 160, 240 ] ]);
+    expect(line.attr('path')).to.eql([['M', 160, 260], ['L', 160, 240]]);
     expect(line.get('appendInfo')).to.equal('data-marker');
   });
 
@@ -179,7 +176,7 @@ describe('Annotation DataMarker', () => {
     const text = children[1];
     const point = children[2];
 
-    expect(line.attr('path')).to.eql([ [ 'M', 460, 60 ], [ 'L', 460, 80 ] ]);
+    expect(line.attr('path')).to.eql([['M', 460, 60], ['L', 460, 80]]);
     expect(text.attr('x')).to.eql(460);
     expect(text.attr('y')).to.eql(82);
     expect(text.attr('textBaseline')).to.equal('top');
@@ -289,7 +286,7 @@ describe('Annotation DataMarker', () => {
     const children = el.get('children');
     const line = children[0];
     const text = children[1];
-    expect(line.attr('path')).to.eql([ [ 'M', 260, 460 ], [ 'L', 260, 440 ] ]);
+    expect(line.attr('path')).to.eql([['M', 260, 460], ['L', 260, 440]]);
     expect(text.attr('x')).to.eql(260);
     expect(text.attr('y')).to.eql(438);
     expect(text.attr('textBaseline')).to.equal('bottom');
@@ -321,7 +318,7 @@ describe('Annotation DataMarker', () => {
     const children = el.get('children');
     const line = children[0];
     const text = children[1];
-    expect(line.attr('path')).to.eql([ [ 'M', 460, 60 ], [ 'L', 460, 40 ] ]);
+    expect(line.attr('path')).to.eql([['M', 460, 60], ['L', 460, 40]]);
     expect(text.attr('x')).to.eql(460);
     expect(text.attr('y')).to.eql(38);
     expect(text.attr('textBaseline')).to.equal('bottom');

@@ -2,14 +2,14 @@ import { expect } from 'chai';
 import Box from '../../../src/element/box';
 import { Canvas } from '@antv/g';
 import { getScale } from '@antv/scale';
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 import View from '../../utils/view';
 
 const CatScale = getScale('cat');
 const LinearScale = getScale('linear');
 const IdentityScale = getScale('identity');
 
-const Rect = getCoord('rect');
+const Rect = getCoordinate('rect');
 describe('Box', () => {
   const boxPlotDiv = document.createElement('div');
   boxPlotDiv.id = 'boxPlot';
@@ -35,8 +35,8 @@ describe('Box', () => {
 
   const xScale = new CatScale({
     field: 'x',
-    values: [ 'x' ],
-    range: [ 0.5, 0.75 ],
+    values: ['x'],
+    range: [0.5, 0.75],
   });
 
   const yScale = new LinearScale({
@@ -54,7 +54,7 @@ describe('Box', () => {
     const data = [
       {
         x: 'x',
-        y: [ 1, 9, 16, 22, 24 ],
+        y: [1, 9, 16, 22, 24],
       },
     ];
 
@@ -78,12 +78,12 @@ describe('Box', () => {
     });
 
     it('element.init()', () => {
-      boxPlotElement.position({ fields: [ 'x', 'y' ]});
+      boxPlotElement.position({ fields: ['x', 'y'] });
       boxPlotElement.init();
 
       const attrs = boxPlotElement.get('attrs');
       dataArray = boxPlotElement.get('dataArray');
-      expect(attrs).to.have.keys([ 'position' ]);
+      expect(attrs).to.have.keys(['position']);
       expect(dataArray.length).to.eql(1);
     });
 
@@ -125,7 +125,7 @@ describe('Box', () => {
       const data = [
         {
           x: 'x',
-          y: [ 1, 9, 16, 22, 24 ],
+          y: [1, 9, 16, 22, 24],
         },
       ];
       const boxPlotElement = new Box({
@@ -139,11 +139,13 @@ describe('Box', () => {
         view: new View(),
         id: 'view-boxPlot',
       });
-      boxPlotElement.position({
-        fields: [ 'x', 'y' ]
-      }).size({
-        values: [ 20 ],
-      });
+      boxPlotElement
+        .position({
+          fields: ['x', 'y'],
+        })
+        .size({
+          values: [20],
+        });
       boxPlotElement.init();
       const dataArray = boxPlotElement.get('dataArray');
       const size = boxPlotElement.getSize(dataArray[0][0]);
@@ -160,20 +162,18 @@ describe('Box', () => {
   });
 
   describe('One-dimensional box plot', () => {
-    const data = [
-      { range: [ 1, 9, 16, 22, 24 ]},
-    ];
+    const data = [{ range: [1, 9, 16, 22, 24] }];
     const rangeScale = new LinearScale({
       field: 'range',
       min: 0,
       max: 35,
       nice: false,
-      values: [ 1, 9, 16, 22, 24 ],
+      values: [1, 9, 16, 22, 24],
     });
     const identityScale = new IdentityScale({
       field: '1',
-      values: [ '1' ],
-      range: [ 0.5, 1 ],
+      values: ['1'],
+      range: [0.5, 1],
     });
     it('should draw correctly', () => {
       const element = new Box({
@@ -189,7 +189,7 @@ describe('Box', () => {
       });
 
       element.position({
-        fields: [ 'range', 1 ],
+        fields: ['range', 1],
       });
       element.init();
       element.paint();

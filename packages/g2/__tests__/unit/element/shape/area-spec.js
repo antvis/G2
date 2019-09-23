@@ -3,9 +3,9 @@ import { Canvas } from '@antv/g';
 import AreaShapeFactory from '../../../../src/element/shape/area';
 import { registerShape } from '../../../../src/element/shape/base';
 import Global from '../../../../src/global';
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 
-const Cartestian = getCoord('cartesian');
+const Cartestian = getCoordinate('cartesian');
 
 describe('Area shape factory', () => {
   let div;
@@ -55,7 +55,7 @@ describe('Area shape factory', () => {
         y: 0.5,
         y0: 0,
       });
-      const points = [ points1, points2 ];
+      const points = [points1, points2];
       expect(points1[0].x).eql(0.1);
       expect(points1[0].y).eql(0);
       expect(points1[1].x).eql(0.1);
@@ -75,13 +75,7 @@ describe('Area shape factory', () => {
 
       canvas.draw();
       expect(shape.attr('fill')).eql('red');
-      expect(shape.attr('path')).to.eql([
-        [ 'M', 50, 400 ],
-        [ 'L', 100, 250 ],
-        [ 'L', 100, 500 ],
-        [ 'L', 50, 500 ],
-        [ 'Z' ],
-      ]);
+      expect(shape.attr('path')).to.eql([['M', 50, 400], ['L', 100, 250], ['L', 100, 500], ['L', 50, 500], ['Z']]);
     });
 
     it('getMarkerStyle', () => {
@@ -89,17 +83,11 @@ describe('Area shape factory', () => {
         points: [
           {
             B: 2,
-            points: [
-              { x: 273, y: 480 },
-              { x: 273, y: 304 },
-            ],
+            points: [{ x: 273, y: 480 }, { x: 273, y: 304 }],
           },
           {
             B: 3,
-            points: [
-              { x: 500, y: 480 },
-              { x: 500, y: 216 },
-            ],
+            points: [{ x: 500, y: 480 }, { x: 500, y: 216 }],
           },
         ],
         size: 30,
@@ -150,7 +138,7 @@ describe('Area shape factory', () => {
         y: 0.2,
         y0: 0,
       });
-      const points = [ points1 ];
+      const points = [points1];
       expect(points1[0].x).eql(0.1);
       expect(points1[0].y).eql(0);
       expect(points1[1].x).eql(0.1);
@@ -191,7 +179,7 @@ describe('Area shape factory', () => {
         y: 0.2,
         y0: 0,
       });
-      const points = [ points1, points2, points3 ];
+      const points = [points1, points2, points3];
       expect(points1[0].x).eql(0.1);
       expect(points1[0].y).eql(0);
       expect(points1[1].x).eql(0.1);
@@ -210,13 +198,13 @@ describe('Area shape factory', () => {
       );
       expect(shape.attr('fill')).eql('yellow');
       expect(shape.attr('path')).to.eql([
-        [ 'M', 50, 400 ],
-        [ 'C', 50, 400, 80, 250, 100, 250 ],
-        [ 'C', 120, 250, 150, 400, 150, 400 ],
-        [ 'L', 150, 500 ],
-        [ 'C', 150, 500, 120, 500, 100, 500 ],
-        [ 'C', 80, 500, 50, 500, 50, 500 ],
-        [ 'Z' ],
+        ['M', 50, 400],
+        ['C', 50, 400, 80, 250, 100, 250],
+        ['C', 120, 250, 150, 400, 150, 400],
+        ['L', 150, 500],
+        ['C', 150, 500, 120, 500, 100, 500],
+        ['C', 80, 500, 50, 500, 50, 500],
+        ['Z'],
       ]);
       canvas.draw();
     });
@@ -245,7 +233,7 @@ describe('Area shape factory', () => {
         y: 0.5,
         y0: 0,
       });
-      const points = [ points1, points2 ];
+      const points = [points1, points2];
       expect(points1[0].x).eql(0.1);
       expect(points1[0].y).eql(0);
       expect(points1[1].x).eql(0.1);
@@ -265,13 +253,7 @@ describe('Area shape factory', () => {
       );
       expect(shape.attr('stroke')).equal('green');
       expect(shape.attr('lineWidth')).equal(10);
-      expect(shape.attr('path')).to.eql([
-        [ 'M', 50, 400 ],
-        [ 'L', 100, 250 ],
-        [ 'L', 100, 500 ],
-        [ 'L', 50, 500 ],
-        [ 'Z' ],
-      ]);
+      expect(shape.attr('path')).to.eql([['M', 50, 400], ['L', 100, 250], ['L', 100, 500], ['L', 50, 500], ['Z']]);
       expect(shape.attr('fillOpacity')).to.equal(0);
 
       canvas.draw();
@@ -282,17 +264,11 @@ describe('Area shape factory', () => {
         points: [
           {
             B: 2,
-            points: [
-              { x: 273, y: 480 },
-              { x: 273, y: 304 },
-            ],
+            points: [{ x: 273, y: 480 }, { x: 273, y: 304 }],
           },
           {
             B: 3,
-            points: [
-              { x: 500, y: 480 },
-              { x: 500, y: 216 },
-            ],
+            points: [{ x: 500, y: 480 }, { x: 500, y: 216 }],
           },
         ],
         yDim: 'B',
@@ -339,7 +315,7 @@ describe('Area shape factory', () => {
         y: 0.2,
         y0: 0,
       });
-      const points = [ points1, points2, points3 ];
+      const points = [points1, points2, points3];
       expect(points1[0].x).eql(0.1);
       expect(points1[0].y).eql(0);
       expect(points1[1].x).eql(0.1);
@@ -367,13 +343,13 @@ describe('Area shape factory', () => {
       expect(shape.attr('fillStyle')).equal('#fff');
       expect(shape.attr('lineWidth')).equal(2);
       expect(shape.attr('path')).to.eql([
-        [ 'M', 50, 400 ],
-        [ 'C', 50, 400, 80, 250, 100, 250 ],
-        [ 'C', 120, 250, 150, 400, 150, 400 ],
-        [ 'L', 150, 500 ],
-        [ 'C', 150, 500, 120, 500, 100, 500 ],
-        [ 'C', 80, 500, 50, 500, 50, 500 ],
-        [ 'Z' ],
+        ['M', 50, 400],
+        ['C', 50, 400, 80, 250, 100, 250],
+        ['C', 120, 250, 150, 400, 150, 400],
+        ['L', 150, 500],
+        ['C', 150, 500, 120, 500, 100, 500],
+        ['C', 80, 500, 50, 500, 50, 500],
+        ['Z'],
       ]);
       canvas.draw();
     });
@@ -382,17 +358,11 @@ describe('Area shape factory', () => {
         points: [
           {
             B: 2,
-            points: [
-              { x: 273, y: 480 },
-              { x: 273, y: 304 },
-            ],
+            points: [{ x: 273, y: 480 }, { x: 273, y: 304 }],
           },
           {
             B: 3,
-            points: [
-              { x: 500, y: 480 },
-              { x: 500, y: 216 },
-            ],
+            points: [{ x: 500, y: 480 }, { x: 500, y: 216 }],
           },
         ],
         yDim: 'B',
@@ -418,7 +388,7 @@ describe('Area shape factory', () => {
   });
 
   describe('area shapes Polar', () => {
-    const Polar = getCoord('polar');
+    const Polar = getCoordinate('polar');
     const polarCoord = new Polar({
       start: {
         x: 0,
@@ -447,7 +417,7 @@ describe('Area shape factory', () => {
         y: 0.2,
         y0: 0,
       });
-      const points = [ points1, points2, points3 ];
+      const points = [points1, points2, points3];
       expect(points1[0].x).eql(0.1);
       expect(points1[0].y).eql(0);
       expect(points1[1].x).eql(0.1);

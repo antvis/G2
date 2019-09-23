@@ -1,5 +1,5 @@
+import { Coordinate } from '@antv/coord';
 import { Group } from '@antv/g';
-import { Coord } from '@antv/coord';
 import * as _ from '@antv/util';
 import Annotation, { AnnotationCfg } from './base';
 
@@ -20,7 +20,7 @@ export default class Region extends Annotation {
     });
   }
 
-  render(coord: Coord, group: Group) {
+  public render(coord: Coordinate, group: Group) {
     const rectStyle = this.get('style');
     const path = this.getPath(coord);
 
@@ -39,7 +39,7 @@ export default class Region extends Annotation {
     this.set('el', regionGroup);
   }
 
-  private getPath(coord: Coord) {
+  private getPath(coord: Coordinate) {
     const start = this.parsePoint(coord, this.get('start'));
     const end = this.parsePoint(coord, this.get('end'));
 

@@ -1,16 +1,16 @@
 const expect = require('chai').expect;
 const { Canvas } = require('@antv/g');
-const { getCoord } = require('@antv/coord');
+const { getCoordinate } = require('@antv/coord');
 const { getScale } = require('@antv/scale');
 const { Image } = require('../../../src/annotation');
 
-const Rect = getCoord('Rect');
+const Rect = getCoordinate('Rect');
 const Cat = getScale('cat');
 const Linear = getScale('linear');
 
 describe('Annotation Image', () => {
   const xScale = new Cat({
-    values: [ '一月', '二月', '三月', '四月', '五月' ],
+    values: ['一月', '二月', '三月', '四月', '五月'],
   });
   const yScale = new Linear({
     min: 0,
@@ -20,9 +20,7 @@ describe('Annotation Image', () => {
     start: { x: 60, y: 460 },
     end: { x: 460, y: 60 },
   });
-  let canvas,
-    group,
-    div;
+  let canvas, group, div;
 
   before(() => {
     div = document.createElement('div');
@@ -108,8 +106,8 @@ describe('Annotation Image', () => {
         temp: yScale,
       },
       src: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
-      start: [ '三月', 0 ],
-      end: [ '五月', 1200 ],
+      start: ['三月', 0],
+      end: ['五月', 1200],
       offsetX: -100,
       offsetY: 100,
     });

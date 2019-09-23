@@ -1,5 +1,5 @@
+import { Coordinate } from '@antv/coord';
 import { Group } from '@antv/g';
-import { Coord } from '@antv/coord';
 import * as _ from '@antv/util';
 import Annotation, { AnnotationCfg } from './base';
 
@@ -21,7 +21,7 @@ export default class Image extends Annotation<ImageCfg> {
     });
   }
 
-  render(coord: Coord, group: Group) {
+  public render(coord: Coordinate, group: Group) {
     const start = this.parsePoint(coord, this.get('start'));
 
     const cfg: any = {

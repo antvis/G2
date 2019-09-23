@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 import { Canvas } from '@antv/g';
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 import PointShapeFactory from '../../../../src/element/shape/point';
 import Global from '../../../../src/global';
 
@@ -13,7 +13,7 @@ describe('Point shapes', function() {
     div.id = 'csp';
     document.body.appendChild(div);
 
-    const Cartesian = getCoord('cartesian');
+    const Cartesian = getCoordinate('cartesian');
     const coord = new Cartesian({
       start: {
         x: 0,
@@ -51,10 +51,14 @@ describe('Point shapes', function() {
       expect(point[0].x).eql(0.4);
       expect(point[0].y).eql(0.8);
 
-      const shape = PointShapeFactory.drawShape(type, {
-        points: point,
-        color: 'red',
-      }, canvas);
+      const shape = PointShapeFactory.drawShape(
+        type,
+        {
+          points: point,
+          color: 'red',
+        },
+        canvas
+      );
       expect(shape.attr('stroke')).eql('red');
       expect(shape.attr('symbol')).eql('circle');
     });
@@ -63,10 +67,12 @@ describe('Point shapes', function() {
       const point = {
         x: 100,
         y: 300,
-        points: [ {
-          x: 100,
-          y: 300,
-        } ],
+        points: [
+          {
+            x: 100,
+            y: 300,
+          },
+        ],
       };
 
       // point.coord = coord;
@@ -83,10 +89,12 @@ describe('Point shapes', function() {
       const point = {
         x: 100,
         y: 300,
-        points: [ {
-          x: 100,
-          y: 300
-        } ],
+        points: [
+          {
+            x: 100,
+            y: 300,
+          },
+        ],
         radius: 5,
       };
 
@@ -99,10 +107,12 @@ describe('Point shapes', function() {
       const point = {
         x: 100,
         y: 300,
-        points: [ {
-          x: 100,
-          y: 300
-        } ],
+        points: [
+          {
+            x: 100,
+            y: 300,
+          },
+        ],
         size: 20,
       };
 
@@ -143,10 +153,12 @@ describe('Point shapes', function() {
       const point = {
         x: 100,
         y: 300,
-        points: [ {
-          x: 100,
-          y: 300,
-        } ],
+        points: [
+          {
+            x: 100,
+            y: 300,
+          },
+        ],
       };
 
       // point.coord = coord;
@@ -166,10 +178,14 @@ describe('Point shapes', function() {
       expect(point[0].x).eql(0.4);
       expect(point[0].y).eql(0.8);
 
-      const shape = PointShapeFactory.drawShape(type, {
-        points: point,
-        color: 'red',
-      }, canvas);
+      const shape = PointShapeFactory.drawShape(
+        type,
+        {
+          points: point,
+          color: 'red',
+        },
+        canvas
+      );
       expect(shape.attr('fill')).eql('red');
       expect(shape.attr('symbol')).eql('diamond');
     });
@@ -186,10 +202,14 @@ describe('Point shapes', function() {
       expect(point[0].x).eql(0.4);
       expect(point[0].y).eql(0.8);
 
-      const shape = PointShapeFactory.drawShape(type, {
-        points: point,
-        color: 'red',
-      }, canvas);
+      const shape = PointShapeFactory.drawShape(
+        type,
+        {
+          points: point,
+          color: 'red',
+        },
+        canvas
+      );
       expect(shape.attr('fill')).eql('red');
       expect(shape.attr('symbol')).eql('hexagon');
     });
@@ -206,10 +226,14 @@ describe('Point shapes', function() {
       expect(point[0].x).eql(0.4);
       expect(point[0].y).eql(0.8);
 
-      const shape = PointShapeFactory.drawShape(type, {
-        points: point,
-        color: 'red',
-      }, canvas);
+      const shape = PointShapeFactory.drawShape(
+        type,
+        {
+          points: point,
+          color: 'red',
+        },
+        canvas
+      );
       expect(shape.attr('fill')).eql('red');
       expect(shape.attr('symbol')).eql('bowtie');
     });
@@ -226,10 +250,14 @@ describe('Point shapes', function() {
       expect(point[0].x).eql(0.4);
       expect(point[0].y).eql(0.8);
 
-      const shape = PointShapeFactory.drawShape(type, {
-        points: point,
-        color: 'red',
-      }, canvas);
+      const shape = PointShapeFactory.drawShape(
+        type,
+        {
+          points: point,
+          color: 'red',
+        },
+        canvas
+      );
       expect(shape.attr('stroke')).eql('red');
       expect(shape.attr('symbol')).eql('cross');
     });
@@ -259,10 +287,14 @@ describe('Point shapes', function() {
       expect(point[0].x).eql(0.4);
       expect(point[0].y).eql(0.8);
 
-      const shape = PointShapeFactory.drawShape(type, {
-        points: point,
-        color: 'red',
-      }, canvas);
+      const shape = PointShapeFactory.drawShape(
+        type,
+        {
+          points: point,
+          color: 'red',
+        },
+        canvas
+      );
       expect(shape.attr('stroke')).eql('red');
       expect(shape.attr('symbol')).eql('tick');
     });
@@ -279,10 +311,14 @@ describe('Point shapes', function() {
       expect(point[0].x).eql(0.4);
       expect(point[0].y).eql(0.8);
 
-      const shape = PointShapeFactory.drawShape(type, {
-        points: point,
-        color: 'red',
-      }, canvas);
+      const shape = PointShapeFactory.drawShape(
+        type,
+        {
+          points: point,
+          color: 'red',
+        },
+        canvas
+      );
       expect(shape.attr('stroke')).eql('red');
       expect(shape.attr('symbol')).eql('plus');
     });
@@ -299,10 +335,14 @@ describe('Point shapes', function() {
       expect(point[0].x).eql(0.4);
       expect(point[0].y).eql(0.8);
 
-      const shape = PointShapeFactory.drawShape(type, {
-        points: point,
-        color: 'red',
-      }, canvas);
+      const shape = PointShapeFactory.drawShape(
+        type,
+        {
+          points: point,
+          color: 'red',
+        },
+        canvas
+      );
       expect(shape.attr('stroke')).eql('red');
       expect(shape.attr('symbol')).eql('hyphen');
     });
@@ -319,10 +359,14 @@ describe('Point shapes', function() {
       expect(point[0].x).eql(0.4);
       expect(point[0].y).eql(0.8);
 
-      const shape = PointShapeFactory.drawShape(type, {
-        points: point,
-        color: 'red',
-      }, canvas);
+      const shape = PointShapeFactory.drawShape(
+        type,
+        {
+          points: point,
+          color: 'red',
+        },
+        canvas
+      );
       expect(shape.attr('stroke')).eql('red');
       expect(shape.attr('symbol')).eql('line');
     });
@@ -339,10 +383,14 @@ describe('Point shapes', function() {
       expect(point[0].x).eql(0.4);
       expect(point[0].y).eql(0.8);
 
-      const shape = PointShapeFactory.drawShape(type, {
-        points: point,
-        color: 'red',
-      }, canvas);
+      const shape = PointShapeFactory.drawShape(
+        type,
+        {
+          points: point,
+          color: 'red',
+        },
+        canvas
+      );
       expect(shape.attr('stroke')).eql('red');
       expect(shape.attr('symbol')).eql('diamond');
     });
@@ -353,4 +401,3 @@ describe('Point shapes', function() {
     document.body.removeChild(div);
   });
 });
-
