@@ -632,6 +632,26 @@ class Chart extends View {
   }
 
   /**
+   * 将tooltip 锁定到当前位置不能移动
+   * @return {Chart}       返回 chart 实例
+   */
+  lockTooltip() {
+    const tooltipController = this.get('tooltipController');
+    tooltipController.lockTooltip();
+    return this;
+  }
+
+  /**
+   * 将tooltip 锁定解除
+   * @return {Chart}       返回 chart 实例
+   */
+  unlockTooltip() {
+    const tooltipController = this.get('tooltipController');
+    tooltipController.unlockTooltip();
+    return this;
+  }
+
+  /**
    * 隐藏 tooltip
   * @return {Chart}       返回 chart 实例
    */
