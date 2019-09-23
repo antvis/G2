@@ -1,8 +1,8 @@
-import * as _ from '@antv/util';
-import { Group } from '@antv/g';
-import { Scale, Coord } from '../../dependents';
 import { Annotation } from '@antv/component';
 import { AnnotationCfg } from '@antv/component/lib/annotation/base';
+import { Group } from '@antv/g';
+import * as _ from '@antv/util';
+import { Coordinate, Scale } from '../../dependents';
 import View from '../view';
 
 type AnnControllerConfig = Partial<{
@@ -15,15 +15,15 @@ type AnnControllerConfig = Partial<{
 }>;
 
 export default class AnnotationController {
-  options: AnnotationCfg[] = [];
-  annotations: Annotation.Annotation[] = [];
-  xScales?: AnnControllerConfig['xScales'];
-  yScales?: AnnControllerConfig['yScales'];
-  view: AnnControllerConfig['view'];
-  theme?: AnnControllerConfig['theme'];
-  frontgroundGroup: AnnControllerConfig['frontgroundGroup'];
-  backgroundGroup: AnnControllerConfig['backgroundGroup'];
-  private coord: Coord;
+  public options: AnnotationCfg[] = [];
+  public annotations: Annotation.Annotation[] = [];
+  public xScales?: AnnControllerConfig['xScales'];
+  public yScales?: AnnControllerConfig['yScales'];
+  public view: AnnControllerConfig['view'];
+  public theme?: AnnControllerConfig['theme'];
+  public frontgroundGroup: AnnControllerConfig['frontgroundGroup'];
+  public backgroundGroup: AnnControllerConfig['backgroundGroup'];
+  private coord: Coordinate;
 
   constructor(acfg: AnnControllerConfig) {
     _.assign(this, acfg);
@@ -49,7 +49,7 @@ export default class AnnotationController {
     return this.annotations[idx];
   }
 
-  render(coord: Coord) {
+  public render(coord: Coordinate) {
     this.coord = coord;
     const view = this.view;
     const viewData = view && view.get('filteredData');

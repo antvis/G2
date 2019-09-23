@@ -3,5 +3,5 @@
 // 只引入框架，不引入内容
 export { registerScale, getScale, Scale } from '@antv/scale';
 export { registerAdjust, getAdjust, Adjust } from '@antv/adjust';
-export { getCoord, Coord } from '@antv/coord';
+export { getCoordinate, Coordinate } from '@antv/coord';
 export { getAttribute, Attribute, colorUtil } from '@antv/attr';

@@ -2,10 +2,8 @@
  * @description 计算 element shape 的 size 辅助类
  */
 import * as _ from '@antv/util';
-import { Coord } from '../../dependents';
-import Element from '../base';
 import { AdjustCfg } from '../../interface';
-import Global from '../../global';
+import Element from '../base';
 
 // 已经排序后的数据查找距离最小的
 function findMinDistance(arr, scale) {
@@ -28,7 +26,7 @@ function findMinDistance(arr, scale) {
 }
 
 export default class SizeController {
-  readonly element: Element = null;
+  public readonly element: Element = null;
   private _defaultSize: number;
 
   constructor(element) {
@@ -39,7 +37,7 @@ export default class SizeController {
    * 获取数据对应的实际画布大小
    * @param record 图形数据
    */
-  getSize(record) {
+  public getSize(record) {
     const size = this._getSizeValue(record);
     if (_.isUndefined(size)) {
       const defaultSize = this._getDefaultSize();
@@ -53,7 +51,7 @@ export default class SizeController {
    * 获取数据对应归一化后的 size 值
    * @param record 图形数据
    */
-  getNormalizedSize(record) {
+  public getNormalizedSize(record) {
     const size = this._getSizeValue(record);
     if (_.isUndefined(size)) {
       return this._getDefaultSize();
@@ -62,7 +60,7 @@ export default class SizeController {
     return this._toNormalizedSize(size);
   }
 
-  clear() {
+  public clear() {
     this._defaultSize = null;
   }
 

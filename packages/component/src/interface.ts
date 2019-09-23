@@ -251,7 +251,7 @@ export interface AxisCfg extends GuideCfg {
   gridAlternateColor?: string | [string, string]; // 为网格设置交替的颜色，指定一个值则先渲染奇数层，两个值则交替渲染
   theme?: CommonCfg; // 坐标轴样式主题配置
   appendInfo?: any;
-  coord?: Coord;
+  coord?: Coordinate;
   gridPoints?: GridPoints;
 }
 
