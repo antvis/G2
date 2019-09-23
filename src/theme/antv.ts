@@ -34,7 +34,6 @@ const COLOR_PLATE_20 = [
   '#269A99',
   '#AAD8D8',
   '#FF99C3',
-  '#FF99C3',
   '#FFD6E7',
 ];
 /** antv 默认字体 */
