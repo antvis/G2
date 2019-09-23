@@ -83,6 +83,8 @@ class TooltipController {
   constructor(cfg) {
     Util.assign(this, cfg);
     this.timeStamp = 0;
+    // tooltip 锁定不能移动
+    this.locked = false;
   }
 
   _normalizeEvent(event) {
@@ -253,7 +255,8 @@ class TooltipController {
   }
 
   onMouseMove(ev) {
-    if (Util.isEmpty(ev.views)) {
+    // 锁定时不移动 tooltip
+    if (Util.isEmpty(ev.views) || this.locked) {
       return;
     }
     const lastTimeStamp = this.timeStamp;
@@ -270,8 +273,8 @@ class TooltipController {
 
   onMouseOut(ev) {
     const tooltip = this.tooltip;
-    // const canvas = this._getCanvas();
-    if (!tooltip.get('visible') || !tooltip.get('follow')) {
+    // 锁定 tooltip 时不隐藏
+    if (!tooltip.get('visible') || !tooltip.get('follow') || this.locked) {
       return;
     }
     // 除非离开 plot 时鼠标依然在图形上，这段逻辑没有意义
@@ -363,6 +366,14 @@ class TooltipController {
     }
 
     return null;
+  }
+
+  lockTooltip() {
+    this.locked = true;
+  }
+
+  unlockTooltip() {
+    this.locked = false;
   }
 
   showTooltip(point, views, target) {
