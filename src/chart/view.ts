@@ -19,7 +19,9 @@ import Geometry from 'geometry/geometry';
 import Interaction from 'interaction';
 import { Padding, Point, Region } from 'interface';
 import { Attribute } from '../dependents';
+import { getTheme } from '../theme';
 import { parsePadding } from '../util/padding';
+import { mergeTheme } from '../util/theme';
 import Chart from './chart';
 import { ComponentType, DIRECTION, LAYER } from './constant';
 import { createAxes } from './controller/axis';
@@ -53,7 +55,7 @@ export default class View extends EE {
   /** view 的 padding 大小 */
   public padding: Padding;
   /** 主题配置 */
-  public theme: object;
+  public _theme: object;
 
   // 配置信息存储
   // @ts-ignore
@@ -94,7 +96,7 @@ export default class View extends EE {
     this.foregroundGroup = foregroundGroup;
     this.region = region;
     this.padding = padding;
-    this.theme = theme as object;
+    this._theme = mergeTheme({}, theme);
 
     this.initial();
   }
@@ -301,6 +303,13 @@ export default class View extends EE {
 
   public animate() {}
 
+  /**
+   * 设置主题
+   */
+  public theme(theme: string | object) {
+    this._theme = mergeTheme(this._theme, theme);
+  }
+
   /* end 一系列传入配置的 API */
 
   /**
@@ -372,6 +381,10 @@ export default class View extends EE {
    */
   public setCoordinate(coordinate: Coordinate) {
     this.coordinateInstance = coordinate;
+  }
+
+  public getTheme(): object {
+    return this._theme;
   }
 
   /**
@@ -527,7 +540,7 @@ export default class View extends EE {
     _.each(this.geometries, (geometry: Geometry) => {
       geometry.scaleDefs = _.get(this.options, 'scales', {});
       geometry.data = this.filteredData;
-      geometry.theme = this.theme;
+      geometry.theme = this._theme;
       // 保持 scales 引用不要变化
       geometry.scales = this.scales;
 
