@@ -1,11 +1,11 @@
 import { expect } from 'chai';
 import { Canvas } from '@antv/g';
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 import { registerShape } from '../../../../src/element/shape/base';
 import BoxShapeFactory from '../../../../src/element/shape/box';
 import Global from '../../../../src/global';
 
-const Rect = getCoord('rect');
+const Rect = getCoordinate('rect');
 
 describe('Box shape', () => {
   let div;
@@ -77,7 +77,7 @@ describe('Box shape', () => {
     it('getShapePoints && drawShape', () => {
       const type = 'box';
       const points = BoxShapeFactory.getShapePoints(type, {
-        x: [ 0.1, 0.23, 0.42, 0.68, 0.9 ],
+        x: [0.1, 0.23, 0.42, 0.68, 0.9],
         y0: 0,
         size: 0.5,
       });
@@ -101,7 +101,7 @@ describe('Box shape', () => {
       const type = 'box';
       const points = BoxShapeFactory.getShapePoints(type, {
         x: 0.1,
-        y: [ 0.1, 0.23, 0.42, 0.68, 0.9 ],
+        y: [0.1, 0.23, 0.42, 0.68, 0.9],
         y0: 0,
         size: 0.5,
       });

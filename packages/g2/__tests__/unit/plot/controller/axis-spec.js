@@ -1,24 +1,24 @@
 import { expect } from 'chai';
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 import AxisController from '../../../../src/plot/controller/axis';
 import Global from '../../../../src/global';
 
-const Rect = getCoord('rect');
-const Polar = getCoord('polar');
-const Helix = getCoord('helix');
+const Rect = getCoordinate('rect');
+const Polar = getCoordinate('polar');
+const Helix = getCoordinate('helix');
 
 describe('AxisController', () => {
   const start = {
     x: 0,
-    y: 500
+    y: 500,
   };
   const end = {
     x: 500,
-    y: 0
+    y: 0,
   };
   const coord = new Rect({
     start,
-    end
+    end,
   });
   const scaleX = {
     field: 'a',
@@ -33,9 +33,9 @@ describe('AxisController', () => {
         { value: 7 },
         { value: 8 },
         { value: 9 },
-        { value: 10 }
+        { value: 10 },
       ];
-    }
+    },
   };
   const scaleY = {
     field: 'b',
@@ -50,9 +50,9 @@ describe('AxisController', () => {
         { value: 7 },
         { value: 8 },
         { value: 9 },
-        { value: 10 }
+        { value: 10 },
       ];
-    }
+    },
   };
   const as = new AxisController({
     theme: Global.theme,
@@ -62,7 +62,7 @@ describe('AxisController', () => {
     as.options = {
       fields: {
         a: false,
-      }
+      },
     };
     expect(as._isHide('a')).to.equal(true);
     expect(as._isHide('b')).to.equal(false);
@@ -83,7 +83,7 @@ describe('AxisController', () => {
     it('get axis position polar', () => {
       const coord = new Polar({
         start,
-        end
+        end,
       });
 
       let position = as._getAxisPosition(coord, 'x');
@@ -95,7 +95,7 @@ describe('AxisController', () => {
     it('get axis position polar transpose', () => {
       const coord = new Polar({
         start,
-        end
+        end,
       });
       coord.transpose();
 
@@ -227,7 +227,7 @@ describe('AxisController', () => {
     it('_getLineCfg, X axis when coord is transposed.', () => {
       const coord = new Rect({
         start,
-        end
+        end,
       });
       coord.transpose();
       const lineCfg = as._getLineCfg(coord, scaleX, 'x');
@@ -355,7 +355,7 @@ describe('AxisController', () => {
           b: {
             gridAlign: 'center',
           },
-        }
+        },
       };
       const coord = new Polar({
         start,

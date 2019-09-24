@@ -1,11 +1,11 @@
 import { expect } from 'chai';
 import { Canvas } from '@antv/g';
 import { getScale } from '@antv/scale';
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 import IntervalElementLabel from '../../../../../src/element/controller/label/components/interval';
 import { Global } from '../../../../../src';
 
-const Rect = getCoord('rect');
+const Rect = getCoordinate('rect');
 const LinearScale = getScale('linear');
 
 describe('interval labels', () => {
@@ -15,26 +15,60 @@ describe('interval labels', () => {
   const canvas = new Canvas({
     containerDOM: div,
     width: 500,
-    height: 500
+    height: 500,
   });
 
   const coord = new Rect({
     start: {
-      x: 80, y: 168
+      x: 80,
+      y: 168,
     },
     end: {
-      x: 970, y: 20
-    }
+      x: 970,
+      y: 20,
+    },
   });
 
   const labelScale = new LinearScale({
     field: 'percent',
-    formatter: (val) => { return val.toFixed(4) * 100 + '%'; },
-    values: [ 0.5169927909371782, 0.5545851528384279 ]
+    formatter: (val) => {
+      return val.toFixed(4) * 100 + '%';
+    },
+    values: [0.5169927909371782, 0.5545851528384279],
   });
   const points = [
-    { _origin: { country: 'Asia', year: '1750', value: 502, percent: 0.5169927909371782 }, points: [ { x: 0.03571428571428571, y: 0.48300720906282185 }, { x: 0.03571428571428571, y: 1 }, { x: 0.10714285714285714, y: 1 }, { x: 0.10714285714285714, y: 0.48300720906282185 } ], nextPoints: [ { x: 0.03571428571428571, y: 0.3738414006179197 }, { x: 0.03571428571428571, y: 0.48300720906282185 }, { x: 0.10714285714285714, y: 0.48300720906282185 }, { x: 0.10714285714285714, y: 0.3738414006179197 } ], x: 143.57142857142856, y: [ 219.04222451081358, 20 ], color: '#FF6A84', shape: 'top-line' },
-    { _origin: { country: 'Asia', year: '1800', value: 635, percent: 0.5545851528384279 }, points: [ { x: 0.17857142857142855, y: 0.4454148471615721 }, { x: 0.17857142857142855, y: 1 }, { x: 0.25, y: 1 }, { x: 0.25, y: 0.4454148471615721 } ], x: 270.71428571428567, y: [ 233.51528384279476, 20 ], color: '#FF6A84', shape: 'top-line' }
+    {
+      _origin: { country: 'Asia', year: '1750', value: 502, percent: 0.5169927909371782 },
+      points: [
+        { x: 0.03571428571428571, y: 0.48300720906282185 },
+        { x: 0.03571428571428571, y: 1 },
+        { x: 0.10714285714285714, y: 1 },
+        { x: 0.10714285714285714, y: 0.48300720906282185 },
+      ],
+      nextPoints: [
+        { x: 0.03571428571428571, y: 0.3738414006179197 },
+        { x: 0.03571428571428571, y: 0.48300720906282185 },
+        { x: 0.10714285714285714, y: 0.48300720906282185 },
+        { x: 0.10714285714285714, y: 0.3738414006179197 },
+      ],
+      x: 143.57142857142856,
+      y: [219.04222451081358, 20],
+      color: '#FF6A84',
+      shape: 'top-line',
+    },
+    {
+      _origin: { country: 'Asia', year: '1800', value: 635, percent: 0.5545851528384279 },
+      points: [
+        { x: 0.17857142857142855, y: 0.4454148471615721 },
+        { x: 0.17857142857142855, y: 1 },
+        { x: 0.25, y: 1 },
+        { x: 0.25, y: 0.4454148471615721 },
+      ],
+      x: 270.71428571428567,
+      y: [233.51528384279476, 20],
+      color: '#FF6A84',
+      shape: 'top-line',
+    },
   ];
 
   it('single label position middle', () => {
@@ -47,7 +81,7 @@ describe('interval labels', () => {
             offset: 0,
           };
         },
-        scales: [ labelScale ],
+        scales: [labelScale],
       },
       elementType: 'interval',
       theme: Global.theme,
@@ -71,7 +105,7 @@ describe('interval labels', () => {
             offset: 0,
           };
         },
-        scales: [ labelScale ],
+        scales: [labelScale],
       },
       elementType: 'interval',
       theme: Global.theme,
@@ -97,7 +131,7 @@ describe('interval labels', () => {
             offset: 0,
           };
         },
-        scales: [ labelScale ]
+        scales: [labelScale],
       },
       elementType: 'interval',
       theme: Global.theme,

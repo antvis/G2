@@ -1,4 +1,4 @@
-import { Coord } from '@antv/coord';
+import { Coordinate } from '@antv/coord';
 import * as domUtil from '@antv/dom-util';
 import { Group } from '@antv/g';
 import { Scale } from '@antv/scale';
@@ -28,7 +28,7 @@ export default class Html extends Annotation<HtmlCfg> {
     });
   }
 
-  render(coord: Coord, container: Group) {
+  public render(coord: Coordinate, container: Group) {
     const position = this.parsePoint(coord, this.get('position'));
     const parentNode: HTMLElement = container.get('canvas').get('el').parentNode;
     const wrapperNode: HTMLElement = domUtil.createDom('<div class="guide-annotation"></div>');
@@ -50,6 +50,12 @@ export default class Html extends Annotation<HtmlCfg> {
 
     this.setDomPosition(wrapperNode, htmlNode, position);
     this.set('el', wrapperNode);
+  }
+
+  public clear() {
+    // 由于基类使用了childNode.remove，而IE不支持该方法，需要进行兼容
+    const el = this.get('el');
+    el && el.parentNode && el.parentNode.removeChild(el);
   }
 
   private setDomPosition(parentDom: HTMLElement, childDom: HTMLElement, point: Point) {
@@ -90,11 +96,5 @@ export default class Html extends Annotation<HtmlCfg> {
       visibility: 'visible',
       zIndex: this.get('zIndex'),
     });
-  }
-
-  clear() {
-    // 由于基类使用了childNode.remove，而IE不支持该方法，需要进行兼容
-    const el = this.get('el');
-    el && el.parentNode && el.parentNode.removeChild(el);
   }
 }

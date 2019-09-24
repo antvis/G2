@@ -1,5 +1,5 @@
+import { Coordinate } from '@antv/coord';
 import { Group, Shape } from '@antv/g';
-import { Coord } from '@antv/coord';
 import * as _ from '@antv/util';
 import Annotation, { AnnotationCfg, Point, SvgAttrs } from './base';
 
@@ -65,7 +65,7 @@ export default class DataMarker extends Annotation<DataMarkerCfg> {
     );
   }
 
-  render(coord: Coord, group: Group) {
+  public render(coord: Coordinate, group: Group) {
     const point = this.parsePoint(coord, this.get('position'));
     // container
     const markerGroup = group.addGroup();

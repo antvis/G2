@@ -7,14 +7,9 @@
     "importHelpers": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "lib": [
-      "dom",
-      "es7"
-    ]
+    "lib": ["dom", "es7"],
+    "types": ["mocha"]
   },
   "include": ["src"],
-  "exclude": [
-    "node_modules",
-    "**/node_modules/*"
-  ]
+  "exclude": ["node_modules", "**/node_modules/*"]
 }

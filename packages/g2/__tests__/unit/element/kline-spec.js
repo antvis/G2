@@ -2,10 +2,10 @@ import { expect } from 'chai';
 import KLine from '../../../src/element/k-line';
 import { Canvas } from '@antv/g';
 import { getScale } from '@antv/scale';
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 import View from '../../utils/view';
 
-const Rect = getCoord('rect');
+const Rect = getCoordinate('rect');
 const CatScale = getScale('cat');
 const LinearScale = getScale('linear');
 const IdentityScale = getScale('identity');
@@ -35,8 +35,8 @@ describe.skip('KLine', () => {
 
   const xScale = new CatScale({
     field: 'x',
-    values: [ 'a' ],
-    range: [ 0.5, 0.75 ],
+    values: ['a'],
+    range: [0.5, 0.75],
   });
 
   const yScale = new LinearScale({
@@ -48,7 +48,7 @@ describe.skip('KLine', () => {
   const data = [
     {
       x: 'a',
-      y: [ 8.18, 8.32, 8.33, 7.98 ],
+      y: [8.18, 8.32, 8.33, 7.98],
     },
   ];
 
@@ -78,12 +78,12 @@ describe.skip('KLine', () => {
     });
 
     it('element.init()', () => {
-      kLineElement.position({ fields: [ 'x', 'y' ]});
+      kLineElement.position({ fields: ['x', 'y'] });
       kLineElement.init();
 
       const attrs = kLineElement.get('attrs');
       dataArray = kLineElement.get('dataArray');
-      expect(attrs).to.have.keys([ 'position' ]);
+      expect(attrs).to.have.keys(['position']);
       expect(dataArray.length).to.eql(1);
     });
 
@@ -125,7 +125,7 @@ describe.skip('KLine', () => {
       const data = [
         {
           x: 'a',
-          y: [ 8.18, 8.32, 8.33, 7.98 ],
+          y: [8.18, 8.32, 8.33, 7.98],
         },
       ];
       const boxPlotElement = new KLine({
@@ -141,10 +141,10 @@ describe.skip('KLine', () => {
       });
       boxPlotElement
         .position({
-          fields: [ 'x', 'y' ],
+          fields: ['x', 'y'],
         })
         .size({
-          values: [ 20 ],
+          values: [20],
         });
       boxPlotElement.init();
       const dataArray = boxPlotElement.get('dataArray');
@@ -160,7 +160,7 @@ describe.skip('KLine', () => {
   });
 
   describe('One-dimensional kLine plot', () => {
-    const data = [ { y: [ 8.18, 8.32, 8.33, 7.98 ]} ];
+    const data = [{ y: [8.18, 8.32, 8.33, 7.98] }];
     const yScale = new LinearScale({
       field: 'y',
       min: 0,
@@ -169,8 +169,8 @@ describe.skip('KLine', () => {
     });
     const identityScale = new IdentityScale({
       field: '1',
-      values: [ '1' ],
-      range: [ 0.5, 1 ],
+      values: ['1'],
+      range: [0.5, 1],
     });
     it('has identity dimension', () => {
       const element = new KLine({
@@ -186,7 +186,7 @@ describe.skip('KLine', () => {
       });
 
       element.position({
-        fields: [ 1, 'y' ],
+        fields: [1, 'y'],
       });
       element.init();
 

@@ -3,19 +3,19 @@
  */
 // @ts-ignore
 import { Group, Shape } from '@antv/g';
-import * as _ from '@antv/util';
 import * as pathUtil from '@antv/path-util';
-import { Coord } from '../../dependents';
+import * as _ from '@antv/util';
+import { Coordinate } from '../../dependents';
+import Global from '../../global';
 import {
-  PointObject,
   DataPointType,
+  PointObject,
   ShapeDrawCFG,
-  ShapePointInfo,
   ShapeMarkerCfg,
+  ShapePointInfo,
   ShapeStateCfg,
 } from '../../interface';
-import { convertPolarPath, convertNormalPath } from '../util/path';
-import Global from '../../global';
+import { convertNormalPath, convertPolarPath } from '../util/path';
 
 // 注册每一个 Element 对应的 shapeFactory 的配置
 interface RegisterShapeFactoryCFG {
@@ -40,8 +40,8 @@ interface RegisterShapeCFG {
 
 export interface ShapeCFG extends RegisterShapeCFG {
   name?: string; // shape 名称
-  _coord: Coord;
-  getCoord: () => Coord;
+  _coord: Coordinate;
+  getCoord: () => Coordinate;
   parsePath: (path: string, islineToArc: boolean) => any[];  // 0～1 path 转 画布 path
   parsePoint: (point: PointObject) => PointObject; // 0～1 point 转 画布 point
   parsePoints: (points: PointObject[]) => PointObject[]; // 0～1 points 转 画布 points
@@ -49,8 +49,8 @@ export interface ShapeCFG extends RegisterShapeCFG {
 
 export interface ShapeFactoryCFG extends RegisterShapeFactoryCFG {
   _theme: DataPointType; // shape 主题
-  _coord: Coord; // 坐标系对象
-  setCoord: (coord: Coord) => void; // 设置坐标系
+  _coord: Coordinate; // 坐标系对象
+  setCoord: (coord: Coordinate) => void; // 设置坐标系
   setTheme: (theme: DataPointType) => void; // 设置主题
   getShape: (type: string | string[]) => ShapeCFG; // 根据名称获取具体的 shape 对象
   getShapePoints: (type: string | string[], pointInfo: ShapePointInfo) => PointObject[]; // 获取构成 shape 的关键点
@@ -121,7 +121,7 @@ const ShapeFactoryBase = {
     }
   },
   defaultShapeType: null, // 默认的 shape 类型
-  setCoord(coord: Coord) {
+  setCoord(coord: Coordinate) {
     this._coord = coord;
   },
   setTheme(theme: DataPointType) {
@@ -130,7 +130,7 @@ const ShapeFactoryBase = {
   getShape(type: string | string[]) {
     const t = _.isArray(type) ? type[0] : type;
 
-    const shape = this[<string>t] || this[this.defaultShapeType];
+    const shape = this[t as string] || this[this.defaultShapeType];
     shape._coord = this._coord;
     return shape;
   },

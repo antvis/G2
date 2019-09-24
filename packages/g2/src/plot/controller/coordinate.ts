@@ -2,22 +2,22 @@
  * @description coord 的控制器
  */
 import * as _ from '@antv/util';
-import { getCoord } from '../../dependents';
-import { CoordinateType, CoordinateOption, CoordinateCfg } from '../interface';
+import { getCoordinate } from '../../dependents';
 import { PointObject } from '../../interface';
+import { CoordinateCfg, CoordinateOption, CoordinateType } from '../interface';
 
 export default class CoordController {
-  type: CoordinateType = 'rect';
-  actions: any[][] = [];
-  cfg: CoordinateCfg = {};
-  options: CoordinateOption = {};
+  public type: CoordinateType = 'rect';
+  public actions: any[][] = [];
+  public cfg: CoordinateCfg = {};
+  public options: CoordinateOption = {};
 
   constructor(option: CoordinateOption = {}) {
     _.mix(this, option);
     this.options = option; // ugly！！！通过浅拷贝 view.get('options').coord 来动态更改该属性值，见 view.ts#L917
   }
 
-  reset(option) {
+  public reset(option) {
     this.type = option.type || 'rect';
     this.actions = option.actions || [];
     this.cfg = option.cfg;
@@ -35,7 +35,7 @@ export default class CoordController {
    * @param  {Object} end   坐标系结束点
    * @return {Function} 坐标系的构造函数
    */
-  createCoord(start: PointObject, end: PointObject) {
+  public createCoord(start: PointObject, end: PointObject) {
     const type = this.type;
     const cfg = this.cfg;
     let C; // 构造函数
@@ -48,7 +48,7 @@ export default class CoordController {
     };
 
     if (type === 'theta') { // definition of theta coord
-      C = getCoord('polar');
+      C = getCoordinate('polar');
 
       if (!this._hasAction('transpose')) {
         this.transpose(); // 极坐标，同时transpose
@@ -56,7 +56,7 @@ export default class CoordController {
       coord = new C(coordCfg);
       coord.type = type;
     } else {
-      C = getCoord(type);
+      C = getCoordinate(type);
       coord = new C(coordCfg);
     }
 
@@ -68,7 +68,7 @@ export default class CoordController {
    * 围绕坐标系中心点旋转对应的角度
    * @param angle 旋转角度
    */
-  rotate(angle: number) {
+  public rotate(angle: number) {
     const _angle = angle * Math.PI / 180;
     this.actions.push([ 'rotate', _angle ]);
     return this;
@@ -78,7 +78,7 @@ export default class CoordController {
    * 将坐标系沿 x 方向或者沿 y 轴方向进行镜像映射
    * @param dim 镜像方向，可选值 'x' 和 'y'，默认为 'x'
    */
-  reflect(dim: 'x' | 'y' = 'y') {
+  public reflect(dim: 'x' | 'y' = 'y') {
     this.actions.push([ 'reflect', dim ]);
     return this;
   }
@@ -88,7 +88,7 @@ export default class CoordController {
    * @param sx x 轴缩放值
    * @param sy y 轴缩放值
    */
-  scale(sx: number, sy: number) {
+  public scale(sx: number, sy: number) {
     this.actions.push([ 'scale', sx, sy ]);
     return this;
   }
@@ -96,7 +96,7 @@ export default class CoordController {
   /**
    * x，y 轴交换
    */
-  transpose() {
+  public transpose() {
     this.actions.push([ 'transpose' ]);
     return this;
   }

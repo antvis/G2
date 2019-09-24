@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 import { Canvas } from '@antv/g';
 import { getScale } from '@antv/scale';
 import Point from '../../../src/element/point';
@@ -7,7 +7,7 @@ import Point from '../../../src/element/point';
 import ScatterData from '../../data/bubble';
 import View from '../../utils/view';
 
-const Rect = getCoord('rect');
+const Rect = getCoordinate('rect');
 
 const LinearScale = getScale('linear');
 const IdentityScale = getScale('identity');
@@ -43,7 +43,7 @@ describe('Point Element', () => {
   });
   const shapeIdentityScale = new IdentityScale({
     field: 'circle',
-    values: [ 'circle' ],
+    values: ['circle'],
   });
 
   const canvas = new Canvas({
@@ -77,11 +77,11 @@ describe('Point Element', () => {
   it('element.init()', () => {
     pointElement
       .position({
-        fields: [ 'GDP', 'LifeExpectancy' ]
+        fields: ['GDP', 'LifeExpectancy'],
       })
       .size({
-        fields: [ 'Population' ],
-        values: [ 4, 65 ],
+        fields: ['Population'],
+        values: [4, 65],
       })
       .shape('circle');
 
@@ -91,7 +91,7 @@ describe('Point Element', () => {
 
     const dataArray = pointElement.get('dataArray');
 
-    expect(attrs).to.have.keys([ 'position', 'size', 'shape' ]);
+    expect(attrs).to.have.keys(['position', 'size', 'shape']);
     expect(dataArray.length).to.equal(1); // 没有分组
     expect(dataArray[0][0].Country).to.eql('Argentina');
   });

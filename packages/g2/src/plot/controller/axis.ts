@@ -1,8 +1,8 @@
-import * as _ from '@antv/util';
-import { vec2 } from '@antv/matrix-util';
-import { Group } from '@antv/g';
 import { Axis, Interface } from '@antv/component';
-import { Scale, Coord } from '../../dependents';
+import { Group } from '@antv/g';
+import { vec2 } from '@antv/matrix-util';
+import * as _ from '@antv/util';
+import { Coordinate, Scale } from '../../dependents';
 import { AxesOption } from '../interface';
 
 interface CircleCFG {
@@ -45,7 +45,7 @@ function formatTicks(ticks) {
 
 function fillAxisTicks(ticks, isLinear, gridCentering) {
   let result = [];
-  if (!ticks.length) return result;
+  if (!ticks.length) { return result; }
 
   if (ticks.length >= 2 && isLinear && gridCentering) {
     result.push({
@@ -87,7 +87,7 @@ type AxisControllerCFG = Partial<{
   visible: boolean;
   canvas: Group;
   container: Group;
-  coord: Coord;
+  coord: Coordinate;
   options: AxesOption;
   axes: any[];
   theme: { axis: any };
@@ -95,20 +95,20 @@ type AxisControllerCFG = Partial<{
 }>;
 
 export default class AxisController {
-  title: AxisControllerCFG['title'] = null;
-  visible: AxisControllerCFG['visible'] = true;
-  canvas: AxisControllerCFG['canvas'] = null;
-  container: AxisControllerCFG['canvas'] = null;
-  coord: AxisControllerCFG['coord'] = null;
-  options: AxisControllerCFG['options'] = null;
-  axes: AxisControllerCFG['axes'] = [];
-  theme: AxisControllerCFG['theme'] = null;
+  public title: AxisControllerCFG['title'] = null;
+  public visible: AxisControllerCFG['visible'] = true;
+  public canvas: AxisControllerCFG['canvas'] = null;
+  public container: AxisControllerCFG['canvas'] = null;
+  public coord: AxisControllerCFG['coord'] = null;
+  public options: AxisControllerCFG['options'] = null;
+  public axes: AxisControllerCFG['axes'] = [];
+  public theme: AxisControllerCFG['theme'] = null;
 
   constructor(cfg: AxisControllerCFG) {
     _.mix(this, cfg);
   }
 
-  createAxis(xScale: Scale, yScales: Scale[], viewId) {
+  public createAxis(xScale: Scale, yScales: Scale[], viewId) {
     const coord = this.coord;
     const coordType = coord.type;
 
@@ -128,14 +128,14 @@ export default class AxisController {
     }
   }
 
-  changeVisible(visible) {
+  public changeVisible(visible) {
     const axes = this.axes;
     _.each(axes, (axis) => {
       axis.set('visible', visible);
     });
   }
 
-  clear() {
+  public clear() {
     const axes = this.axes;
     _.each(axes, (axis) => {
       axis.clear();

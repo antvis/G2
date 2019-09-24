@@ -2,10 +2,10 @@ import { expect } from 'chai';
 import { Canvas } from '@antv/g';
 import EdgeShapeFactory from '../../../../src/element/shape/edge';
 import * as Shape from '../../../../src/element/shape/base';
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 import Global from '../../../../src/global';
 
-const Rect = getCoord('rect');
+const Rect = getCoordinate('rect');
 
 describe('Edge shape factory', () => {
   let div;
@@ -72,8 +72,8 @@ describe('Edge shape factory', () => {
   describe('edge: default', () => {
     it('get Edge Points', () => {
       const points = EdgeShapeFactory.getShapePoints('line', {
-        x: [ 0.1, 0.2 ],
-        y: [ 0.3, 0.5 ],
+        x: [0.1, 0.2],
+        y: [0.3, 0.5],
       });
       expect(points.length).equal(2);
       expect(points[0].x).equal(0.1);
@@ -82,28 +82,36 @@ describe('Edge shape factory', () => {
 
     it('draw Edge', () => {
       const points = EdgeShapeFactory.getShapePoints('edge', {
-        x: [ 0.2, 0.4 ],
-        y: [ 0.5, 0.5 ],
+        x: [0.2, 0.4],
+        y: [0.5, 0.5],
       });
-      const shape = EdgeShapeFactory.drawShape('edge', {
-        points,
-        color: 'red',
-      }, canvas);
+      const shape = EdgeShapeFactory.drawShape(
+        'edge',
+        {
+          points,
+          color: 'red',
+        },
+        canvas
+      );
 
-      expect(shape.attr('path')).eqls([ [ 'M', 100, 250 ], [ 'L', 200, 250 ] ]);
+      expect(shape.attr('path')).eqls([['M', 100, 250], ['L', 200, 250]]);
       expect(canvas.get('children').length).equal(1);
     });
 
     it('draw Edge: vhv', () => {
       const obj = {
-        x: [ 0.1, 0.1 ],
-        y: [ 0.1, 0.3 ],
+        x: [0.1, 0.1],
+        y: [0.1, 0.3],
       };
       const points = EdgeShapeFactory.getShapePoints('vhv', obj);
-      const shape = EdgeShapeFactory.drawShape('vhv', {
-        points,
-        color: 'red',
-      }, canvas);
+      const shape = EdgeShapeFactory.drawShape(
+        'vhv',
+        {
+          points,
+          color: 'red',
+        },
+        canvas
+      );
       expect(shape.attr('path').length).equal(4);
     });
   });
@@ -111,14 +119,18 @@ describe('Edge shape factory', () => {
   describe('edge: arc', () => {
     it('draw shape arc rect', () => {
       const obj = {
-        x: [ 0.2, 0.4 ],
-        y: [ 0.5, 0.5 ],
+        x: [0.2, 0.4],
+        y: [0.5, 0.5],
       };
       const points = EdgeShapeFactory.getShapePoints('arc', obj);
-      const shape = EdgeShapeFactory.drawShape('arc', {
-        points,
-        color: 'red',
-      }, canvas);
+      const shape = EdgeShapeFactory.drawShape(
+        'arc',
+        {
+          points,
+          color: 'red',
+        },
+        canvas
+      );
       expect(shape.attr('r')).equal(50);
       expect(shape.attr('startAngle')).eql(Math.PI);
       expect(shape.attr('endAngle')).eql(Math.PI * 2);
@@ -129,23 +141,27 @@ describe('Edge shape factory', () => {
 
     it('draw shape arc rect hasWeight', () => {
       const obj = {
-        x: [ 0.2, 0.4, 0.6, 0.7 ],
-        y: [ 0.1, 0.1, 0.5, 0.5 ],
+        x: [0.2, 0.4, 0.6, 0.7],
+        y: [0.1, 0.1, 0.5, 0.5],
       };
       const points = EdgeShapeFactory.getShapePoints('arc', obj);
-      const shape = EdgeShapeFactory.drawShape('arc', {
-        points,
-        color: 'green',
-      }, canvas);
+      const shape = EdgeShapeFactory.drawShape(
+        'arc',
+        {
+          points,
+          color: 'green',
+        },
+        canvas
+      );
       expect(shape.attr('path').length).equal(7);
       expect(shape.attr('path')).eql([
-        [ 'M', 0.2 * 500, 450 ],
-        [ 'L', 0.4 * 500, 450 ],
-        [ 'C', 0.4 * 500, 350, 350, 350, 350, 250 ],
-        [ 'L', 0.7 * 500, 250 ],
-        [ 'L', 0.6 * 500, 250 ],
-        [ 'C', 0.6 * 500, 350, 100, 350, 100, 450 ],
-        [ 'Z' ],
+        ['M', 0.2 * 500, 450],
+        ['L', 0.4 * 500, 450],
+        ['C', 0.4 * 500, 350, 350, 350, 350, 250],
+        ['L', 0.7 * 500, 250],
+        ['L', 0.6 * 500, 250],
+        ['C', 0.6 * 500, 350, 100, 350, 100, 450],
+        ['Z'],
       ]);
 
       canvas.draw();
@@ -153,8 +169,7 @@ describe('Edge shape factory', () => {
   });
 
   describe('edge: polar', () => {
-
-    const Polar = getCoord('polar');
+    const Polar = getCoordinate('polar');
     const coord2 = new Polar({
       start: {
         x: 0,
@@ -168,92 +183,60 @@ describe('Edge shape factory', () => {
     it('draw shape arc polar hasWeight', () => {
       EdgeShapeFactory._coord = coord2;
       const obj = {
-        x: [ 0.2, 0.4, 0.6, 0.7 ],
-        y: [ 0.5, 0.5, 0.5, 0.5 ],
+        x: [0.2, 0.4, 0.6, 0.7],
+        y: [0.5, 0.5, 0.5, 0.5],
       };
       const points = EdgeShapeFactory.getShapePoints('arc', obj);
-      const shape = EdgeShapeFactory.drawShape('arc', {
-        points,
-        color: 'green',
-        isInCircle: true,
-        center: {
-          x: 230,
-          y: 250,
+      const shape = EdgeShapeFactory.drawShape(
+        'arc',
+        {
+          points,
+          color: 'green',
+          isInCircle: true,
+          center: {
+            x: 230,
+            y: 250,
+          },
         },
-      }, canvas);
-      expect(shape.attr('path').length).equal(8);
-      expect(shape.attr('path')).eql(
-        [
-          [ 'M', 368.8820645368942, 211.37287570313157 ],
-          [ 'Q',
-            250.00000000000003,
-            0,
-            131.11793546310582,
-            288.62712429686843 ],
-          [ 'A',
-            124.99999999999999,
-            124.99999999999999,
-            0,
-            1,
-            1,
-            131.11793546310582,
-            288.62712429686843 ],
-          [ 'A',
-            125,
-            125,
-            0,
-            0,
-            0,
-            176.52684346344085,
-            351.12712429686843 ],
-          [ 'Q',
-            250.00000000000003,
-            0,
-            323.47315653655915,
-            351.12712429686843 ],
-          [ 'A',
-            125,
-            125,
-            0,
-            0,
-            1,
-            323.47315653655915,
-            351.12712429686843 ],
-          [ 'A',
-            124.99999999999999,
-            124.99999999999999,
-            0,
-            0,
-            0,
-            368.8820645368942,
-            211.37287570313157 ],
-          [ 'Z' ],
-        ]
+        canvas
       );
+      expect(shape.attr('path').length).equal(8);
+      expect(shape.attr('path')).eql([
+        ['M', 368.8820645368942, 211.37287570313157],
+        ['Q', 250.00000000000003, 0, 131.11793546310582, 288.62712429686843],
+        ['A', 124.99999999999999, 124.99999999999999, 0, 1, 1, 131.11793546310582, 288.62712429686843],
+        ['A', 125, 125, 0, 0, 0, 176.52684346344085, 351.12712429686843],
+        ['Q', 250.00000000000003, 0, 323.47315653655915, 351.12712429686843],
+        ['A', 125, 125, 0, 0, 1, 323.47315653655915, 351.12712429686843],
+        ['A', 124.99999999999999, 124.99999999999999, 0, 0, 0, 368.8820645368942, 211.37287570313157],
+        ['Z'],
+      ]);
     });
     it('draw shape arc polar', () => {
       EdgeShapeFactory._coord = coord2;
       const obj = {
-        x: [ 0.2, 0.4 ],
-        y: [ 0.5, 0.5 ],
+        x: [0.2, 0.4],
+        y: [0.5, 0.5],
       };
       const points = EdgeShapeFactory.getShapePoints('arc', obj);
-      const shape = EdgeShapeFactory.drawShape('arc', {
-        points,
-        color: 'red',
-        isInCircle: true,
-        center: {
-          x: 230,
-          y: 250,
+      const shape = EdgeShapeFactory.drawShape(
+        'arc',
+        {
+          points,
+          color: 'red',
+          isInCircle: true,
+          center: {
+            x: 230,
+            y: 250,
+          },
         },
-      }, canvas);
-      expect(shape.attr('path').length).equal(2);
-      expect(shape.attr('path')).eql(
-        [
-          [ 'M', 368.8820645368942, 211.37287570313157 ],
-          [ 'Q', 250.00000000000003, 0, 323.47315653655915, 351.12712429686843 ],
-        ]
+        canvas
       );
+      expect(shape.attr('path').length).equal(2);
+      expect(shape.attr('path')).eql([
+        ['M', 368.8820645368942, 211.37287570313157],
+        ['Q', 250.00000000000003, 0, 323.47315653655915, 351.12712429686843],
+      ]);
       canvas.draw();
     });
   });

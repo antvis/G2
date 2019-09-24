@@ -1,9 +1,9 @@
-import * as _ from '@antv/util';
+import { Coordinate } from '@antv/coord';
+import { Element, Group } from '@antv/g';
 import { Scale } from '@antv/scale';
-import { Coord } from '@antv/coord';
-import { Group, Element } from '@antv/g';
-import { GuideCfg } from '../interface';
+import * as _ from '@antv/util';
 import Guide from '../base';
+import { GuideCfg } from '../interface';
 
 type PositionCallback = (
   xScales: Scale[] | Record<string, Scale>,
@@ -12,10 +12,10 @@ type PositionCallback = (
 
 export type Position = [number | string, number | string] | Record<string, number | string> | PositionCallback;
 
-export type Point = {
+export interface Point {
   x: number;
   y: number;
-};
+}
 
 // Q: 为什么使用React类型定义呢？
 // A: 因为在g提供类型定义前，目前我只找到它有比较多的svg属性定义，原生的CSSStyleDeclaration & CanvasPathDrawingStyles会有类型冲突
@@ -52,7 +52,7 @@ export interface AnnotationCfg extends GuideCfg {
 }
 
 export default abstract class Annotation<T extends AnnotationCfg = AnnotationCfg> extends Guide {
-  cfg: Partial<T>;
+  public cfg: Partial<T>;
 
   constructor(cfg: Partial<T>) {
     /* istanbul ignore next */
@@ -64,7 +64,7 @@ export default abstract class Annotation<T extends AnnotationCfg = AnnotationCfg
     });
   }
 
-  abstract render(coord: Coord, group: Group, data?: Point[]): void;
+  public abstract render(coord: Coordinate, group: Group, data?: Point[]): void;
 
   public clear() {
     const el = this.get('el');
@@ -91,16 +91,16 @@ export default abstract class Annotation<T extends AnnotationCfg = AnnotationCfg
   }
 
   // 修改基类会导致label中大量不严谨的类型写法需要重构
-  get<K extends keyof T>(name: K) {
+  public get<K extends keyof T>(name: K) {
     return this.cfg[name];
   }
 
-  set<K extends keyof T>(name: K, value: T[K]) {
+  public set<K extends keyof T>(name: K, value: T[K]) {
     this.cfg[name] = value;
     return this;
   }
 
-  protected parsePoint(coord: Coord, _position: Position): Point {
+  protected parsePoint(coord: Coordinate, _position: Position): Point {
     const xScales = this.get('xScales');
     const yScales = this.get('yScales');
     const position: Position = _.isFunction(_position) ? _position.call(null, xScales, yScales) : _position;
@@ -161,7 +161,7 @@ export default abstract class Annotation<T extends AnnotationCfg = AnnotationCfg
     return result;
   }
 
-  private parsePercentPoint(coord: Coord, position: [string, string]): Point {
+  private parsePercentPoint(coord: Coordinate, position: [string, string]): Point {
     const xPercent = parseFloat(position[0]) / 100;
     const yPercent = parseFloat(position[1]) / 100;
     const { start, end } = coord;

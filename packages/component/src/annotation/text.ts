@@ -1,5 +1,5 @@
+import { Coordinate } from '@antv/coord';
 import { Group } from '@antv/g';
-import { Coord } from '@antv/coord';
 import * as _ from '@antv/util';
 import Annotation, { AnnotationCfg } from './base';
 
@@ -23,7 +23,7 @@ export default class Text extends Annotation<TextCfg> {
     });
   }
 
-  render(coord: Coord, group: Group) {
+  public render(coord: Coordinate, group: Group) {
     const point = this.parsePoint(coord, this.get('position'));
     const textStyle = _.clone(this.get('style'));
     const offsetX = this.get('offsetX');

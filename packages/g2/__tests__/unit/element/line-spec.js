@@ -1,13 +1,13 @@
 import { expect } from 'chai';
 import Line from '../../../src/element/line';
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 import { Canvas } from '@antv/g';
 import { getScale } from '@antv/scale';
 import Theme from '../../../src/theme/default';
 import View from '../../utils/view';
 
-const Rect = getCoord('rect');
-const Polar = getCoord('polar');
+const Rect = getCoordinate('rect');
+const Polar = getCoordinate('polar');
 
 const LinearScale = getScale('linear');
 const CatScale = getScale('cat');
@@ -33,8 +33,8 @@ describe('Line Element', () => {
   });
   const countryScale = new CatScale({
     field: 'country',
-    values: [ 'Asia', 'Africa', 'Europe', 'Oceania' ],
-    range: [ 0, 1 ],
+    values: ['Asia', 'Africa', 'Europe', 'Oceania'],
+    range: [0, 1],
   });
   const data = [
     { country: 'Asia', year: '1750', value: 502 },
@@ -109,26 +109,24 @@ describe('Line Element', () => {
   it('element.init()', () => {
     lineElement
       .position({
-        fields: [ 'year', 'value' ],
+        fields: ['year', 'value'],
       })
       .color({
-        fields: [ 'country' ],
+        fields: ['country'],
       })
-      .adjust([
-        { type: 'stack' },
-      ]);
+      .adjust([{ type: 'stack' }]);
 
     lineElement.init();
 
     const attrs = lineElement.get('attrs');
     const dataArray = lineElement.get('dataArray');
 
-    expect(attrs).to.have.keys([ 'position', 'color' ]);
+    expect(attrs).to.have.keys(['position', 'color']);
     expect(attrs.color.values).to.eql(Theme.colors);
 
     expect(lineElement.hasAdjust('stack')).to.be.true;
     expect(dataArray.length).to.equal(4);
-    expect(dataArray[0][0].value).to.eql([ 469, 971 ]);
+    expect(dataArray[0][0].value).to.eql([469, 971]);
   });
 
   it('element.paint()', () => {
@@ -227,10 +225,9 @@ describe('Line Element in Polar coordinate', () => {
   });
 
   it('element.paint()', () => {
-    lineElement
-      .position({
-        fields: [ 'year', 'value' ],
-      });
+    lineElement.position({
+      fields: ['year', 'value'],
+    });
 
     lineElement.init();
     lineElement.paint();
@@ -241,16 +238,16 @@ describe('Line Element in Polar coordinate', () => {
     expect(shapes.length).to.equal(1);
     expect(dataArray.length).to.equal(1);
     expect(shapes[0].attr('path')).to.eql([
-      [ 'M', 100, 78.57142857142857 ],
-      [ 'L', 120.20305089104421, 79.79694910895579 ],
-      [ 'L', 125, 100 ],
-      [ 'L', 125.25381361380528, 125.25381361380526 ],
-      [ 'L', 100, 135 ],
-      [ 'L', 69.69542366343369, 130.30457633656633 ],
-      [ 'L', 50, 100 ],
-      [ 'L', 54.5431354951505, 54.543135495150516 ],
-      [ 'L', 99.99999999999999, 7.142857142857139 ],
-      [ 'Z' ],
+      ['M', 100, 78.57142857142857],
+      ['L', 120.20305089104421, 79.79694910895579],
+      ['L', 125, 100],
+      ['L', 125.25381361380528, 125.25381361380526],
+      ['L', 100, 135],
+      ['L', 69.69542366343369, 130.30457633656633],
+      ['L', 50, 100],
+      ['L', 54.5431354951505, 54.543135495150516],
+      ['L', 99.99999999999999, 7.142857142857139],
+      ['Z'],
     ]);
   });
 

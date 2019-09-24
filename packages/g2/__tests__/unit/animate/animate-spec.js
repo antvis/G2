@@ -1,10 +1,10 @@
 import { expect } from 'chai';
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 import '../../../src';
 import Animate from '../../../src/animate/animate';
 import Action from '../../../src/animate/action';
 
-const Cartesian = getCoord('cartesian');
+const Cartesian = getCoordinate('cartesian');
 
 describe('Animate', () => {
   it('Animate.getAnimateCfg', () => {
@@ -29,12 +29,12 @@ describe('Animate', () => {
     const coord = new Cartesian({
       start: {
         x: 0,
-        y: 300
+        y: 300,
       },
       end: {
         x: 200,
-        y: 0
-      }
+        y: 0,
+      },
     });
 
     let elementType = 'heatmap';

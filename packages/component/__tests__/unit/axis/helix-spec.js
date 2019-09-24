@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import { Canvas } from '@antv/g';
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 import HelixAxis from '../../../src/axis/helix';
 
-const Helix = getCoord('helix');
+const Helix = getCoordinate('helix');
 
 describe('Helix Axis for Helix Coord', function() {
   const div = document.createElement('div');
@@ -37,7 +37,7 @@ describe('Helix Axis for Helix Coord', function() {
       lineWidth: 1,
       stroke: '#C0D0E0',
     },
-    ticks: [ 0, 60, 120, 180, 240 ],
+    ticks: [0, 60, 120, 180, 240],
     tickLine: {
       lineWidth: 1,
       length: 10,
@@ -54,10 +54,10 @@ describe('Helix Axis for Helix Coord', function() {
       stroke: '#C0D0E0',
     },
     gridPoints: [
-      { id: 'test1', points: [ { x: 260, y: 260 }, { x: 260, y: 60 } ]},
-      { id: 'test2', points: [ { x: 260, y: 260 }, { x: 460, y: 260 } ]},
-      { id: 'test3', points: [ { x: 260, y: 260 }, { x: 260, y: 460 } ]},
-      { id: 'test4', points: [ { x: 260, y: 260 }, { x: 60, y: 260 } ]},
+      { id: 'test1', points: [{ x: 260, y: 260 }, { x: 260, y: 60 }] },
+      { id: 'test2', points: [{ x: 260, y: 260 }, { x: 460, y: 260 }] },
+      { id: 'test3', points: [{ x: 260, y: 260 }, { x: 260, y: 460 }] },
+      { id: 'test4', points: [{ x: 260, y: 260 }, { x: 60, y: 260 }] },
     ],
     a: coord.a,
     crp: (function() {

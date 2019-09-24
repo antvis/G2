@@ -1,7 +1,7 @@
 import * as _ from '@antv/util';
 import { Canvas } from '@antv/g';
 import { expect } from 'chai';
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 import { getScale } from '@antv/scale';
 import Element from '../../../src/element/base';
 import Theme from '../../../src/theme/default';
@@ -9,7 +9,7 @@ import { registerShapeFactory, registerShape } from '../../../src/element/shape/
 import { splitPoints, setFillStyle } from '../../../src/element/util/shape';
 import View from '../../utils/view';
 
-const Rect = getCoord('rect');
+const Rect = getCoordinate('rect');
 const CatScale = getScale('cat');
 const LinearScale = getScale('linear');
 
@@ -48,11 +48,11 @@ describe('Element', () => {
     ];
     const monthScale = new CatScale({
       field: 'month',
-      values: [ '一月', '二月' ],
+      values: ['一月', '二月'],
     });
     const temperatureScale = new LinearScale({
       field: 'temperature',
-      values: [ 5, 6, 10, 10, 9, 8 ],
+      values: [5, 6, 10, 10, 9, 8],
       min: 5,
       max: 10,
     });
@@ -75,121 +75,121 @@ describe('Element', () => {
     it('position()', () => {
       element.position('month*temperature');
       expect(element.get('attrOptions').position).to.eql({
-        fields: [ 'month', 'temperature' ],
+        fields: ['month', 'temperature'],
       });
 
       element.position({
-        fields: [ 'month', 'temperature' ],
+        fields: ['month', 'temperature'],
       });
       expect(element.get('attrOptions').position).to.eql({
-        fields: [ 'month', 'temperature' ],
+        fields: ['month', 'temperature'],
       });
     });
 
     it('color()', () => {
       element.color('red'); // 颜色常量
       expect(element.get('attrOptions').color).to.eql({
-        fields: [ 'red' ],
+        fields: ['red'],
       });
 
       element.color('month'); // 字段
       expect(element.get('attrOptions').color).to.eql({
-        fields: [ 'month' ],
+        fields: ['month'],
       });
 
-      element.color('month', [ 'red', 'blue' ]);
+      element.color('month', ['red', 'blue']);
       expect(element.get('attrOptions').color).to.eql({
-        fields: [ 'month' ],
-        values: [ 'red', 'blue' ],
+        fields: ['month'],
+        values: ['red', 'blue'],
       });
 
       element.color('month', () => {
         return 'red';
       });
-      expect(element.get('attrOptions').color.fields).eql([ 'month' ]);
+      expect(element.get('attrOptions').color.fields).eql(['month']);
       expect(element.get('attrOptions').color.callback).to.be.an.instanceOf(Function);
     });
 
     it('shape()', () => {
       element.shape('circle');
       expect(element.get('attrOptions').shape).to.eql({
-        fields: [ 'circle' ],
+        fields: ['circle'],
       });
 
-      element.shape('month', [ 'circle', 'square' ]);
+      element.shape('month', ['circle', 'square']);
       expect(element.get('attrOptions').shape).to.eql({
-        fields: [ 'month' ],
-        values: [ 'circle', 'square' ],
+        fields: ['month'],
+        values: ['circle', 'square'],
       });
 
       element.shape('month', () => {
         return 'circle';
       });
-      expect(element.get('attrOptions').shape.fields).eql([ 'month' ]);
+      expect(element.get('attrOptions').shape.fields).eql(['month']);
       expect(element.get('attrOptions').shape.callback).to.be.an.instanceOf(Function);
     });
 
     it('size()', () => {
       element.size(3);
       expect(element.get('attrOptions').size).to.eql({
-        values: [ 3 ],
+        values: [3],
       });
 
       element.size('temperature');
       expect(element.get('attrOptions').size).to.eql({
-        fields: [ 'temperature' ],
+        fields: ['temperature'],
       });
 
-      element.size('temperature', [ 2, 10 ]);
+      element.size('temperature', [2, 10]);
       expect(element.get('attrOptions').size).to.eql({
-        fields: [ 'temperature' ],
-        values: [ 2, 10 ],
+        fields: ['temperature'],
+        values: [2, 10],
       });
 
       element.size('temperature', () => {
         return 0;
       });
-      expect(element.get('attrOptions').size.fields).to.eql([ 'temperature' ]);
+      expect(element.get('attrOptions').size.fields).to.eql(['temperature']);
       expect(element.get('attrOptions').size.callback).to.be.an.instanceOf(Function);
     });
 
     it('opacity()', () => {
       element.opacity(0.3);
       expect(element.get('attrOptions').opacity).to.eql({
-        values: [ 0.3 ],
+        values: [0.3],
       });
 
       element.opacity('temperature');
       expect(element.get('attrOptions').opacity).to.eql({
-        fields: [ 'temperature' ],
+        fields: ['temperature'],
       });
 
       element.opacity('temperature', () => {
         return 0;
       });
-      expect(element.get('attrOptions').opacity.fields).to.eql([ 'temperature' ]);
+      expect(element.get('attrOptions').opacity.fields).to.eql(['temperature']);
       expect(element.get('attrOptions').opacity.callback).to.be.an.instanceOf(Function);
     });
 
     it('attribute mapping', () => {
       element
         .position({
-          fields: [ 'month', 'temperature' ],
+          fields: ['month', 'temperature'],
         })
         .color({
-          fields: [ 'month' ],
+          fields: ['month'],
         })
         .size({
-          fields: [ 'temperature' ],
+          fields: ['temperature'],
         })
         .opacity({
-          fields: [ 'temperature' ],
+          fields: ['temperature'],
         })
         .shape({
-          fields: [ 'month' ],
+          fields: ['month'],
         });
       const attrOptions = element.get('attrOptions');
-      expect(attrOptions).to.have.keys([ 'position', 'color', 'size', 'opacity', 'shape' ]);
+      expect(attrOptions).to.have.keys(['position', 'color', 'size', 'opacity', 'shape']);
     });
 
     it('adjust()', () => {
@@ -200,21 +200,27 @@ describe('Element', () => {
       expect(element.get('adjustOptions').length).to.equal(1);
 
       // 传入数组
-      element.adjust([ {
-        type: 'stack',
-      } ]);
+      element.adjust([
+        {
+          type: 'stack',
+        },
+      ]);
 
       expect(element.get('adjustOptions').length).to.equal(1);
 
       element.adjust('stack');
-      expect(element.get('adjustOptions')).to.eql([ {
-        type: 'stack',
-      } ]);
+      expect(element.get('adjustOptions')).to.eql([
+        {
+          type: 'stack',
+        },
+      ]);
 
-      element.adjust([ 'stack' ]);
-      expect(element.get('adjustOptions')).to.eql([ {
-        type: 'stack',
-      } ]);
+      element.adjust(['stack']);
+      expect(element.get('adjustOptions')).to.eql([
+        {
+          type: 'stack',
+        },
+      ]);
     });
 
     it('hasAdjust()', () => {
@@ -225,7 +231,7 @@ describe('Element', () => {
     it('label()', () => {
       element.label('temperature');
       expect(element.get('labelOptions')).to.eql({
-        fields: [ 'temperature' ],
+        fields: ['temperature'],
         callback: undefined,
       });
 
@@ -236,12 +242,12 @@ describe('Element', () => {
       expect(element.get('labelOptions').callback).to.be.an.instanceOf(Function);
 
       element.label({
-        fields: [ 'temperature' ],
+        fields: ['temperature'],
         callback: () => {
           return null;
         },
       });
-      expect(element.get('labelOptions').fields).to.eql([ 'temperature' ]);
+      expect(element.get('labelOptions').fields).to.eql(['temperature']);
       expect(element.get('labelOptions').callback).to.be.an.instanceOf(Function);
     });
 
@@ -271,7 +277,7 @@ describe('Element', () => {
           lineWidth: 1,
         };
       });
-      expect(element.get('styleOptions').fields).to.eql([ 'month' ]);
+      expect(element.get('styleOptions').fields).to.eql(['month']);
       expect(element.get('styleOptions').callback).to.be.an.instanceOf(Function);
     });
 
@@ -284,7 +290,7 @@ describe('Element', () => {
 
       element.tooltip('month*temperature');
       expect(element.get('tooltipOptions')).to.eql({
-        fields: [ 'month', 'temperature' ],
+        fields: ['month', 'temperature'],
         callback: undefined,
       });
 
@@ -294,15 +300,15 @@ describe('Element', () => {
           value: temperature,
         };
       });
-      expect(element.get('tooltipOptions').fields).to.eql([ 'month', 'temperature' ]);
+      expect(element.get('tooltipOptions').fields).to.eql(['month', 'temperature']);
       expect(element.get('tooltipOptions').callback).to.be.an.instanceOf(Function);
 
       element.tooltip({
-        fields: [ 'month', 'temperature' ],
+        fields: ['month', 'temperature'],
       });
 
       const tooltipOptions = element.get('tooltipOptions');
-      expect(tooltipOptions.fields).to.eql([ 'month', 'temperature' ]);
+      expect(tooltipOptions.fields).to.eql(['month', 'temperature']);
     });
 
     it('animate()', () => {
@@ -325,7 +331,7 @@ describe('Element', () => {
 
     it('getLegendFields()', () => {
       const legendFields = element.getLegendFields();
-      expect(legendFields).to.eql([ 'month', 'temperature' ]);
+      expect(legendFields).to.eql(['month', 'temperature']);
     });
 
     it('_initAttrs()', () => {
@@ -334,12 +340,12 @@ describe('Element', () => {
       const attrs = element.get('attrs');
       const scales = element.get('scales');
 
-      expect(attrs).to.have.keys([ 'position', 'color', 'size', 'opacity', 'shape' ]);
+      expect(attrs).to.have.keys(['position', 'color', 'size', 'opacity', 'shape']);
       expect(attrs.color.values).to.eql(Theme.colors);
       expect(attrs.size.values).to.eql(Theme.sizes);
       expect(attrs.opacity.values).to.eql(Theme.opacities);
 
-      expect(scales).to.have.keys([ 'month', 'temperature' ]);
+      expect(scales).to.have.keys(['month', 'temperature']);
     });
 
     it('getAttr()', () => {
@@ -376,21 +382,21 @@ describe('Element', () => {
     ];
     const monthScale = new CatScale({
       field: 'month',
-      values: [ '一月', '二月' ],
+      values: ['一月', '二月'],
     });
     const temperatureScale = new LinearScale({
       field: 'temperature',
-      values: [ 5, 10, 8, 14 ],
+      values: [5, 10, 8, 14],
       min: 5,
       max: 14,
     });
     const cityScale = new CatScale({
       field: 'city',
-      values: [ '北京', '南京' ],
+      values: ['北京', '南京'],
     });
     const yearScale = new CatScale({
       field: 'year',
-      values: [ '2018' ],
+      values: ['2018'],
     });
     const element = new Element({
       view,
@@ -407,38 +413,39 @@ describe('Element', () => {
     });
     element
       .position({
-        fields: [ 'month', 'temperature' ],
+        fields: ['month', 'temperature'],
       })
       .color({
-        fields: [ 'city' ],
+        fields: ['city'],
         callback(val) {
           return val === '北京' ? '#1890ff' : '#FACC14';
         },
       })
-      .adjust([ {
-        type: 'dodge',
-      } ])
+      .adjust([
+        {
+          type: 'dodge',
+        },
+      ])
       .tooltip({
-        fields: [ 'year' ],
+        fields: ['year'],
       })
       .size({
-        values: [ 3 ],
+        values: [3],
       })
       .label({
-        fields: [ 'temperature' ],
+        fields: ['temperature'],
       });
-
 
     it('init()', () => {
       element.init();
 
       // 确保 attrs 生成
       const attrs = element.get('attrs');
-      expect(attrs).to.have.keys([ 'position', 'color', 'size' ]);
+      expect(attrs).to.have.keys(['position', 'color', 'size']);
 
       // 确保 scales 生成
       const scales = element.get('scales');
-      expect(scales).to.have.keys([ 'month', 'temperature', 'city', 'year' ]);
+      expect(scales).to.have.keys(['month', 'temperature', 'city', 'year']);
       expect(scales.year.type).to.equal('cat');
 
       const dataArray = element.get('dataArray'); // 数据处理后的结果
@@ -561,13 +568,13 @@ describe('Element', () => {
     it('_beforeMapping', () => {
       element
         .position({
-          fields: [ 'year', 'value' ],
+          fields: ['year', 'value'],
         })
         .color({
-          values: [ 'red' ],
+          values: ['red'],
         })
         .label({
-          fields: [ 'value' ],
+          fields: ['value'],
         })
         .animate(false) // 关闭动画
         .style({
@@ -587,10 +594,10 @@ describe('Element', () => {
         return obj.year;
       });
 
-      expect(years).to.eql([ 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999 ]);
+      expect(years).to.eql([1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]);
 
       const shapeContainer = element.get('shapeContainer');
-      expect(shapeContainer.getMatrix()).to.eql([ 1, 0, 0, 0, -1, 0, 0, 200, 1 ]);
+      expect(shapeContainer.getMatrix()).to.eql([1, 0, 0, 0, -1, 0, 0, 200, 1]);
       expect(shapeContainer.getMatrix()).to.eql(coord.matrix);
     });
 

@@ -1,5 +1,5 @@
+import { Coordinate } from '@antv/coord';
 import { BBox, Group, Shape } from '@antv/g';
-import { Coord } from '@antv/coord';
 import * as _ from '@antv/util';
 import Annotation, { AnnotationCfg, Point, SvgAttrs } from './base';
 
@@ -48,13 +48,13 @@ export default class DataRegion extends Annotation<DataRegionCfg> {
     );
   }
 
-  render(coord: Coord, group: Group, data: Point[]) {
+  public render(coord: Coordinate, group: Group, data: Point[]) {
     const regionCfg = this.get('region');
     const textCfg = this.get('text');
     const lineLength = regionCfg.lineLength;
     const regionData = this.getRegionData(coord, data);
 
-    if (!regionData.length) return;
+    if (!regionData.length) { return; }
 
     const regionBBox = this.getBBox(regionData);
 
@@ -98,7 +98,7 @@ export default class DataRegion extends Annotation<DataRegionCfg> {
     this.set('el', regionGroup);
   }
 
-  private getRegionData(coord: Coord, data: Point[]) {
+  private getRegionData(coord: Coordinate, data: Point[]) {
     const start = this.get('start');
     const end = this.get('end');
     const xField = _.head(_.values(this.get('xScales'))).field;

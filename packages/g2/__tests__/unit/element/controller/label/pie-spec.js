@@ -2,11 +2,11 @@ import { expect } from 'chai';
 import * as _ from '@antv/util';
 import { Canvas } from '@antv/g';
 import { getScale } from '@antv/scale';
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 import PieLabels from '../../../../../src/element/controller/label/components/pie';
 import { Global } from '../../../../../src';
 
-const Polar = getCoord('polar');
+const Polar = getCoordinate('polar');
 const CatScale = getScale('cat');
 
 describe('pie labels', function() {
@@ -16,7 +16,7 @@ describe('pie labels', function() {
   const canvas = new Canvas({
     containerDOM: div,
     width: 500,
-    height: 500
+    height: 500,
   });
 
   describe('pie text inner', function() {
@@ -24,12 +24,12 @@ describe('pie labels', function() {
       type: 'theta',
       start: {
         x: 0,
-        y: 100
+        y: 100,
       },
       end: {
         x: 100,
-        y: 0
-      }
+        y: 0,
+      },
     });
     coord.type = 'theta';
     coord.transpose();
@@ -38,21 +38,21 @@ describe('pie labels', function() {
     for (let i = 0; i < 8; i++) {
       const obj = coord.convertPoint({
         x: 0.5,
-        y: i / 8
+        y: i / 8,
       });
       const endPoint = coord.convertPoint({
         x: 0.5,
-        y: (i + 1) / 8
+        y: (i + 1) / 8,
       });
       const point = {
-        x: [ obj.x, endPoint.x ],
-        y: [ obj.y, endPoint.y ],
+        x: [obj.x, endPoint.x],
+        y: [obj.y, endPoint.y],
         label: i.toString(),
         _origin: {
-          x: [ obj.x, endPoint.x ],
-          y: [ obj.y, endPoint.y ],
-          label: i.toString()
-        }
+          x: [obj.x, endPoint.x],
+          y: [obj.y, endPoint.y],
+          label: i.toString(),
+        },
       };
       values.push(i.toString());
       points.push(point);
@@ -60,7 +60,7 @@ describe('pie labels', function() {
 
     const scale = new CatScale({
       field: 'label',
-      values
+      values,
     });
     const gLabels = canvas.addGroup(PieLabels, {
       coord,
@@ -70,7 +70,7 @@ describe('pie labels', function() {
             offset: -10,
           };
         },
-        scales: [ scale ]
+        scales: [scale],
       },
       elementType: 'point',
       theme: Global.theme,
@@ -88,7 +88,7 @@ describe('pie labels', function() {
       expect(first.offset).to.equal(-10);
       expect(first.x).to.equal(65.3073372946036);
       expect(first.y).to.equal(13.044818699548529);
-      expect(first.rotate).to.equal(-67.5 / 180 * Math.PI);
+      expect(first.rotate).to.equal((-67.5 / 180) * Math.PI);
       expect(first.textAlign).to.equal('right');
     });
 
@@ -98,7 +98,7 @@ describe('pie labels', function() {
       expect(second.offset).to.equal(-10);
       expect(second.x).to.equal(86.95518130045147);
       expect(second.y).to.equal(34.69266270539641);
-      expect(second.rotate).to.equal(-22.5 / 180 * Math.PI);
+      expect(second.rotate).to.equal((-22.5 / 180) * Math.PI);
     });
 
     it('third point', function() {
@@ -107,7 +107,7 @@ describe('pie labels', function() {
       expect(point.offset).to.equal(-10);
       expect(point.x).to.equal(86.95518130045147);
       expect(point.y).to.equal(65.3073372946036);
-      expect(point.rotate).to.equal(22.5 / 180 * Math.PI);
+      expect(point.rotate).to.equal((22.5 / 180) * Math.PI);
     });
 
     it('show labels', function() {
@@ -121,12 +121,12 @@ describe('pie labels', function() {
     const coord = new Polar({
       start: {
         x: 200,
-        y: 200
+        y: 200,
       },
       end: {
         x: 300,
-        y: 0
-      }
+        y: 0,
+      },
     });
     coord.type = 'theta';
     coord.transpose();
@@ -135,23 +135,23 @@ describe('pie labels', function() {
     for (let i = 0; i < 6; i++) {
       const obj = coord.convertPoint({
         x: 0.5,
-        y: i / 6
+        y: i / 6,
       });
       const endPoint = coord.convertPoint({
         x: 0.5,
-        y: (i + 1) / 6
+        y: (i + 1) / 6,
       });
       const point = {
-        x: [ obj.x, endPoint.x ],
-        y: [ obj.y, endPoint.y ],
+        x: [obj.x, endPoint.x],
+        y: [obj.y, endPoint.y],
         color: 'red',
         label: i.toString(),
         _origin: {
-          x: [ obj.x, endPoint.x ],
-          y: [ obj.y, endPoint.y ],
+          x: [obj.x, endPoint.x],
+          y: [obj.y, endPoint.y],
           color: 'red',
-          label: i.toString()
-        }
+          label: i.toString(),
+        },
       };
 
       values.push(i.toString());
@@ -159,7 +159,7 @@ describe('pie labels', function() {
     }
     const scale = new CatScale({
       field: 'label',
-      values
+      values,
     });
     const gLabels = canvas.addGroup(PieLabels, {
       coord,
@@ -170,7 +170,7 @@ describe('pie labels', function() {
             labelLine: true,
           };
         },
-        scales: [ scale ]
+        scales: [scale],
       },
       elementType: 'point',
       theme: Global.theme,
@@ -179,7 +179,6 @@ describe('pie labels', function() {
     it('get items', function() {
       items = gLabels.getLabelsItems(points);
       expect(items.length).to.equal(points.length);
-
     });
 
     it('points', function() {
@@ -190,7 +189,7 @@ describe('pie labels', function() {
       expect(items[2].x).to.equal(280);
       expect(items[2].y).to.equal(151.96152422706632);
       expect(items[5].x).to.equal(220);
-      expect(+(items[5].y).toFixed(14)).to.equal(48.03847577293369);
+      expect(+items[5].y.toFixed(14)).to.equal(48.03847577293369);
     });
 
     it('show labels', function() {
@@ -199,19 +198,18 @@ describe('pie labels', function() {
       expect(gLabels.get('labelsGroup').get('children').length).to.equal(points.length);
       expect(gLabels.get('lineGroup').get('children').length).to.equal(points.length);
     });
-
   });
 
   describe('pie text not stack', function() {
     const coord = new Polar({
       start: {
         x: 100,
-        y: 300
+        y: 300,
       },
       end: {
         x: 200,
-        y: 200
-      }
+        y: 200,
+      },
     });
     coord.type = 'theta';
     coord.transpose();
@@ -220,7 +218,7 @@ describe('pie labels', function() {
     for (let i = 1; i <= 4; i++) {
       const obj = coord.convertPoint({
         x: 0.5,
-        y: i / 4
+        y: i / 4,
       });
 
       const point = {
@@ -232,15 +230,15 @@ describe('pie labels', function() {
           x: obj.x,
           y: obj.y,
           color: 'green',
-          label: i.toString()
-        }
+          label: i.toString(),
+        },
       };
       values.push(i.toString());
       points.push(point);
     }
     const scale = new CatScale({
       field: 'label',
-      values
+      values,
     });
     const gLabels = canvas.addGroup(PieLabels, {
       coord,
@@ -248,10 +246,10 @@ describe('pie labels', function() {
         callback: () => {
           return {
             offset: 20,
-            labelHeight: 10
+            labelHeight: 10,
           };
         },
-        scales: [ scale ]
+        scales: [scale],
       },
       elementType: 'point',
       theme: Global.theme,
@@ -262,20 +260,18 @@ describe('pie labels', function() {
       items = gLabels.getLabelsItems(points);
       expect(items.length).to.equal(points.length);
     });
-
   });
-
 
   describe('pie text more', function() {
     const coord = new Polar({
       start: {
         x: 100,
-        y: 300
+        y: 300,
       },
       end: {
         x: 200,
-        y: 200
-      }
+        y: 200,
+      },
     });
     coord.type = 'theta';
     coord.transpose();
@@ -284,30 +280,30 @@ describe('pie labels', function() {
     for (let i = 0; i < 24; i++) {
       const obj = coord.convertPoint({
         x: 0.5,
-        y: i / 24
+        y: i / 24,
       });
       const endPoint = coord.convertPoint({
         x: 0.5,
-        y: (i + 1) / 24
+        y: (i + 1) / 24,
       });
       const point = {
-        x: [ obj.x, endPoint.x ],
-        y: [ obj.y, endPoint.y ],
+        x: [obj.x, endPoint.x],
+        y: [obj.y, endPoint.y],
         color: 'green',
         label: i.toString(),
         _origin: {
-          x: [ obj.x, endPoint.x ],
-          y: [ obj.y, endPoint.y ],
+          x: [obj.x, endPoint.x],
+          y: [obj.y, endPoint.y],
           color: 'green',
-          label: i.toString()
-        }
+          label: i.toString(),
+        },
       };
       values.push(i.toString());
       points.push(point);
     }
     const scale = new CatScale({
       field: 'label',
-      values
+      values,
     });
 
     const gLabels = canvas.addGroup(PieLabels, {
@@ -316,10 +312,10 @@ describe('pie labels', function() {
         callback: () => {
           return {
             offset: 20,
-            labelHeight: 10
+            labelHeight: 10,
           };
         },
-        scales: [ scale ]
+        scales: [scale],
       },
       elementType: 'point',
       theme: Global.theme,
@@ -334,7 +330,6 @@ describe('pie labels', function() {
       gLabels.showLabels(points);
       canvas.draw();
     });
-
   });
 
   // describe('pie,polar text position', function() {
@@ -556,12 +551,12 @@ describe('pie labels', function() {
     const coord = new Polar({
       start: {
         x: 300,
-        y: 300
+        y: 300,
       },
       end: {
         x: 400,
-        y: 200
-      }
+        y: 200,
+      },
     });
     coord.type = 'theta';
     coord.transpose();
@@ -570,30 +565,30 @@ describe('pie labels', function() {
     for (let i = 0; i < 48; i++) {
       const obj = coord.convertPoint({
         x: 0.5,
-        y: i / 48
+        y: i / 48,
       });
       const endPoint = coord.convertPoint({
         x: 0.5,
-        y: (i + 1) / 48
+        y: (i + 1) / 48,
       });
       const point = {
-        x: [ obj.x, endPoint.x ],
-        y: [ obj.y, endPoint.y ],
+        x: [obj.x, endPoint.x],
+        y: [obj.y, endPoint.y],
         color: 'green',
         label: i.toString(),
         _origin: {
-          x: [ obj.x, endPoint.x ],
-          y: [ obj.y, endPoint.y ],
+          x: [obj.x, endPoint.x],
+          y: [obj.y, endPoint.y],
           color: 'green',
-          label: i.toString()
-        }
+          label: i.toString(),
+        },
       };
       values.push(i.toString());
       points.push(point);
     }
     const scale = new CatScale({
       field: 'label',
-      values
+      values,
     });
 
     const gLabels = canvas.addGroup(PieLabels, {
@@ -602,10 +597,10 @@ describe('pie labels', function() {
         callback: () => {
           return {
             offset: 30,
-            labelHeight: 10
+            labelHeight: 10,
           };
         },
-        scales: [ scale ]
+        scales: [scale],
       },
       elementType: 'point',
       theme: Global.theme,
@@ -664,12 +659,12 @@ describe('pie labels', function() {
     const coord = new Polar({
       start: {
         x: 200,
-        y: 200
+        y: 200,
       },
       end: {
         x: 300,
-        y: 0
-      }
+        y: 0,
+      },
     });
     coord.type = 'theta';
 
@@ -679,23 +674,23 @@ describe('pie labels', function() {
     for (let i = 0; i < 6; i++) {
       const obj = coord.convertPoint({
         x: 0.5,
-        y: i / 6
+        y: i / 6,
       });
       const endPoint = coord.convertPoint({
         x: 0.5,
-        y: (i + 1) / 6
+        y: (i + 1) / 6,
       });
       const point = {
-        x: [ obj.x, endPoint.x ],
-        y: [ obj.y, endPoint.y ],
+        x: [obj.x, endPoint.x],
+        y: [obj.y, endPoint.y],
         color: 'red',
         label: i.toString(),
         _origin: {
-          x: [ obj.x, endPoint.x ],
-          y: [ obj.y, endPoint.y ],
+          x: [obj.x, endPoint.x],
+          y: [obj.y, endPoint.y],
           color: 'red',
-          label: i.toString()
-        }
+          label: i.toString(),
+        },
       };
 
       values.push(i.toString());
@@ -703,7 +698,7 @@ describe('pie labels', function() {
     }
     const scale = new CatScale({
       field: 'label',
-      values
+      values,
     });
 
     const gLabels = canvas.addGroup(PieLabels, {
@@ -716,7 +711,7 @@ describe('pie labels', function() {
             offsetY: -10,
           };
         },
-        scales: [ scale ]
+        scales: [scale],
       },
       elementType: 'point',
       theme: Global.theme,

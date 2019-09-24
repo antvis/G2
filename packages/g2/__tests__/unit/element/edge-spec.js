@@ -1,11 +1,11 @@
 import { expect } from 'chai';
 import Edge from '../../../src/element/edge';
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 import { Canvas } from '@antv/g';
 import { getScale } from '@antv/scale';
 import View from '../../utils/view';
 
-const Rect = getCoord('rect');
+const Rect = getCoordinate('rect');
 
 const LinearScale = getScale('linear');
 const IdentityScale = getScale('identity');
@@ -28,17 +28,14 @@ describe('Edge Element', () => {
   });
   const scaleVhv = new IdentityScale({
     field: 'vhv',
-    values: [ 'vhv' ],
+    values: ['vhv'],
   });
   const scaleRed = new IdentityScale({
     field: 'red',
-    values: [ 'red' ],
+    values: ['red'],
   });
 
-  const data = [
-    { x: [ 1, 2 ], y: [ 3, 4 ]},
-    { x: [ 2, 3 ], y: [ 1, 5 ]},
-  ];
+  const data = [{ x: [1, 2], y: [3, 4] }, { x: [2, 3], y: [1, 5] }];
   const coord = new Rect({
     start: {
       x: 0,
@@ -80,15 +77,17 @@ describe('Edge Element', () => {
   });
 
   it('element.init()', () => {
-    edgeElement.position({
-      fields: [ 'x', 'y' ],
-    }).color({
-      values: [ 'red' ],
-    });
+    edgeElement
+      .position({
+        fields: ['x', 'y'],
+      })
+      .color({
+        values: ['red'],
+      });
     edgeElement.init();
 
     const attrs = edgeElement.get('attrs');
-    expect(attrs).to.have.keys([ 'position', 'color' ]);
+    expect(attrs).to.have.keys(['position', 'color']);
   });
 
   it('draw Edge: two points', () => {
@@ -115,11 +114,13 @@ describe('Edge Element', () => {
       view: new View(),
       id: 'view-edge',
     });
-    edgeElement.position({
-      fields: [ 'x', 'y' ],
-    }).shape({
-      fields: [ 'vhv' ],
-    });
+    edgeElement
+      .position({
+        fields: ['x', 'y'],
+      })
+      .shape({
+        fields: ['vhv'],
+      });
     edgeElement.init();
     edgeElement.paint();
     canvas.draw();

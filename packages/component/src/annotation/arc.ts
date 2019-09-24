@@ -1,7 +1,7 @@
+import { Coordinate } from '@antv/coord';
 import { Group } from '@antv/g';
-import { Coord } from '@antv/coord';
-import * as _ from '@antv/util';
 import { vec2 } from '@antv/matrix-util';
+import * as _ from '@antv/util';
 import Annotation, { AnnotationCfg, Point } from './base';
 
 // 只适用于极坐标系
@@ -19,7 +19,7 @@ export default class Arc extends Annotation {
     });
   }
 
-  render(coord: Coord, group: Group) {
+  public render(coord: Coordinate, group: Group) {
     const originStart = this.get('start');
     const originEnd = this.get('end');
     const start = this.parsePoint(coord, this.get('start'));

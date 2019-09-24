@@ -2,14 +2,14 @@ import { expect } from 'chai';
 import Polygon from '../../../src/element/polygon';
 import { Canvas } from '@antv/g';
 import { getScale } from '@antv/scale';
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 import Theme from '../../../src/theme/default';
 import View from '../../utils/view';
 
 const CatScale = getScale('cat');
 const LinearScale = getScale('linear');
 
-const Rect = getCoord('rect');
+const Rect = getCoordinate('rect');
 describe('Polygon Element X and Y are not all array', () => {
   const polygonDiv = document.createElement('div');
   polygonDiv.id = 'polygon1';
@@ -19,13 +19,13 @@ describe('Polygon Element X and Y are not all array', () => {
 
   const nameScale = new CatScale({
     field: 'name',
-    values: [ 'Alexander', 'Marie', 'Maximilian', 'Sophia', 'Lukas', 'Maria', 'Leon', 'Anna', 'Tim', 'Laura' ],
-    range: [ 0, 1 ],
+    values: ['Alexander', 'Marie', 'Maximilian', 'Sophia', 'Lukas', 'Maria', 'Leon', 'Anna', 'Tim', 'Laura'],
+    range: [0, 1],
   });
 
   const dayScale = new CatScale({
     field: 'day',
-    values: [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday' ],
+    values: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
   });
 
   const valueScale = new LinearScale({
@@ -128,12 +128,12 @@ describe('Polygon Element X and Y are not all array', () => {
   });
 
   it('element.init()', () => {
-    polygonElement.position({ fields: [ 'name', 'day' ]}).color({ fields: [ 'sales' ]});
+    polygonElement.position({ fields: ['name', 'day'] }).color({ fields: ['sales'] });
     polygonElement.init();
 
     const attrs = polygonElement.get('attrs');
     const dataArray = polygonElement.get('dataArray');
-    expect(attrs).to.have.keys([ 'position', 'color' ]);
+    expect(attrs).to.have.keys(['position', 'color']);
     expect(attrs.color.values).to.eql(Theme.colors);
 
     expect(dataArray.length).to.equal(1);
@@ -172,13 +172,13 @@ describe('Polygon Element X is array and Y is number', () => {
 
   const yScale = new CatScale({
     field: 'y',
-    values: [ 'category' ],
-    range: [ 0, 1 ],
+    values: ['category'],
+    range: [0, 1],
   });
 
   let polygonElement;
 
-  const data = [ { x: [ 60, 64 ], y: 'category' } ];
+  const data = [{ x: [60, 64], y: 'category' }];
 
   const coord = new Rect({
     start: {
@@ -220,12 +220,12 @@ describe('Polygon Element X is array and Y is number', () => {
   });
 
   it('element.init()', () => {
-    polygonElement.position({ fields: [ 'x', 'y' ]});
+    polygonElement.position({ fields: ['x', 'y'] });
     polygonElement.init();
 
     const attrs = polygonElement.get('attrs');
     const dataArray = polygonElement.get('dataArray');
-    expect(attrs).to.have.keys([ 'position' ]);
+    expect(attrs).to.have.keys(['position']);
 
     expect(dataArray.length).to.equal(1);
   });
@@ -257,8 +257,8 @@ describe('Polygon Element X is number and Y is array', () => {
 
   const keyScale = new CatScale({
     field: 'key',
-    values: [ 'PetalLength' ],
-    range: [ 0, 1 ],
+    values: ['PetalLength'],
+    range: [0, 1],
   });
 
   const yScale = new LinearScale({
@@ -268,7 +268,7 @@ describe('Polygon Element X is number and Y is array', () => {
     nice: true,
   });
 
-  const data = [ { key: 'PetalLength', value: 1.4, y: [ 1.3, 1.4 ]} ];
+  const data = [{ key: 'PetalLength', value: 1.4, y: [1.3, 1.4] }];
 
   const coord = new Rect({
     start: {
@@ -310,12 +310,12 @@ describe('Polygon Element X is number and Y is array', () => {
   });
 
   it('element.init()', () => {
-    polygonElement.position({ fields: [ 'key', 'y' ]});
+    polygonElement.position({ fields: ['key', 'y'] });
     polygonElement.init();
 
     const attrs = polygonElement.get('attrs');
     const dataArray = polygonElement.get('dataArray');
-    expect(attrs).to.have.keys([ 'position' ]);
+    expect(attrs).to.have.keys(['position']);
 
     expect(dataArray.length).to.equal(1);
   });
@@ -359,7 +359,7 @@ describe('Polygon Element both X and Y are array', () => {
     nice: true,
   });
 
-  const data = [ { x: [ 0.1, 0.3, 0.3, 0.4 ], y: [ 0.2, 0.5, 0.12, 0.88 ]} ];
+  const data = [{ x: [0.1, 0.3, 0.3, 0.4], y: [0.2, 0.5, 0.12, 0.88] }];
 
   const coord = new Rect({
     start: {
@@ -401,12 +401,12 @@ describe('Polygon Element both X and Y are array', () => {
   });
 
   it('element.init()', () => {
-    polygonElement.position({ fields: [ 'x', 'y' ]});
+    polygonElement.position({ fields: ['x', 'y'] });
     polygonElement.init();
 
     const attrs = polygonElement.get('attrs');
     const dataArray = polygonElement.get('dataArray');
-    expect(attrs).to.have.keys([ 'position' ]);
+    expect(attrs).to.have.keys(['position']);
 
     expect(dataArray.length).to.equal(1);
   });
@@ -428,4 +428,3 @@ describe('Polygon Element both X and Y are array', () => {
     document.body.removeChild(polygonDiv);
   });
 });
-

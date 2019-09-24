@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { Canvas } from '@antv/g';
 import { getScale } from '@antv/scale';
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 import { getElementLabels } from '../../../../../src/element/controller/label';
 import BaseElementLabel from '../../../../../src/element/controller/label/components/base';
 import IntervalElementLabel from '../../../../../src/element/controller/label/components/interval';
@@ -9,7 +9,7 @@ import PieElementLabel from '../../../../../src/element/controller/label/compone
 import PolarElementLabel from '../../../../../src/element/controller/label/components/polar';
 import { Global } from '../../../../../src';
 
-const Rect = getCoord('rect');
+const Rect = getCoordinate('rect');
 const CatScale = getScale('cat');
 // const LinearScale = getScale('linear');
 
@@ -29,36 +29,36 @@ describe('element label controller', function() {
   const canvas = new Canvas({
     containerDOM: div,
     width: 500,
-    height: 500
+    height: 500,
   });
 
   const coord = new Rect({
     start: {
       x: 0,
-      y: 100
+      y: 100,
     },
     end: {
       x: 100,
-      y: 0
-    }
+      y: 0,
+    },
   });
 
   const labelScale = new CatScale({
     field: 'z',
-    values: [ '1', '2' ]
+    values: ['1', '2'],
   });
   const points = [
     { x: 100, y: 10, z: 0, _origin: { x: 100, y: 10, z: '1' } },
-    { x: 100, y: 20, z: 1, _origin: { x: 100, y: 20, z: '2' } }
+    { x: 100, y: 20, z: 1, _origin: { x: 100, y: 20, z: '2' } },
   ];
 
   const labelScale1 = new CatScale({
     field: 'z',
-    values: [ [ '1', '2' ], [ '3', '4' ] ]
+    values: [['1', '2'], ['3', '4']],
   });
   const points1 = [
-    { x: 100, y: [ 10, 20 ], z: [ '1', '2' ], _origin: { x: 100, y: [ 10, 20 ], z: [ '1', '2' ]} },
-    { x: 100, y: [ 30, 40 ], z: [ '3', '4' ], _origin: { x: 100, y: [ 30, 40 ], z: [ '3', '4' ]} }
+    { x: 100, y: [10, 20], z: ['1', '2'], _origin: { x: 100, y: [10, 20], z: ['1', '2'] } },
+    { x: 100, y: [30, 40], z: ['3', '4'], _origin: { x: 100, y: [30, 40], z: ['3', '4'] } },
   ];
 
   describe('one point one label', function() {
@@ -70,10 +70,10 @@ describe('element label controller', function() {
             offset: 10,
           };
         },
-        scales: [ labelScale ]
+        scales: [labelScale],
       },
       theme: Global.theme,
-      elementType: 'point'
+      elementType: 'point',
     });
 
     it('get default label cfg', function() {
@@ -112,10 +112,10 @@ describe('element label controller', function() {
               offsetY: 10,
             };
           },
-          scales: [ labelScale ]
+          scales: [labelScale],
         },
         theme: Global.theme,
-        elementType: 'point'
+        elementType: 'point',
       });
 
       const items = gLabels.getLabelsItems(points);
@@ -138,7 +138,7 @@ describe('element label controller', function() {
               offset: 10,
             };
           },
-          scales: [ labelScale1 ],
+          scales: [labelScale1],
         },
         elementType: 'point',
         theme: Global.theme,
@@ -167,7 +167,7 @@ describe('element label controller', function() {
               offset: -10,
             };
           },
-          scales: [ labelScale ],
+          scales: [labelScale],
         },
         elementType: 'interval',
         theme: Global.theme,
@@ -194,7 +194,7 @@ describe('element label controller', function() {
               labelLine: true,
             };
           },
-          scales: [ labelScale1 ],
+          scales: [labelScale1],
         },
         theme: Global.theme,
         elementType: 'interval',
@@ -221,11 +221,11 @@ describe('element label controller', function() {
   describe('stack points', function() {
     const scale = new CatScale({
       field: 'text',
-      values: [ 'a', 'b' ]
+      values: ['a', 'b'],
     });
     const points = [
       { x: 0, y: 10, text: 'a', _origin: { x: 0, y: 10, text: 'a' } },
-      { x: 0, y: [ 10, 20 ], text: 'b', _origin: { x: 0, y: [ 10, 20 ], text: 'b' } }
+      { x: 0, y: [10, 20], text: 'b', _origin: { x: 0, y: [10, 20], text: 'b' } },
     ];
 
     it('get labels', function() {
@@ -238,7 +238,7 @@ describe('element label controller', function() {
               labelLine: true,
             };
           },
-          scales: [ scale ],
+          scales: [scale],
         },
         elementType: 'interval',
         theme: Global.theme,
@@ -264,15 +264,14 @@ describe('element label controller', function() {
     const coord = new Rect({
       start: {
         x: 0,
-        y: 100
+        y: 100,
       },
       end: {
         x: 100,
-        y: 0
-      }
+        y: 0,
+      },
     });
     coord.transpose();
-
 
     it('offset > 0', function() {
       const gLabels = canvas.addGroup(BaseElementLabel, {
@@ -283,7 +282,7 @@ describe('element label controller', function() {
               offset: 10,
             };
           },
-          scales: [ labelScale ]
+          scales: [labelScale],
         },
         elementType: 'interval',
         theme: Global.theme,
@@ -304,7 +303,7 @@ describe('element label controller', function() {
               offset: 0,
             };
           },
-          scales: [ labelScale ]
+          scales: [labelScale],
         },
         elementType: 'interval',
         theme: Global.theme,
@@ -324,7 +323,7 @@ describe('element label controller', function() {
               offset: -10,
             };
           },
-          scales: [ labelScale ]
+          scales: [labelScale],
         },
         elementType: 'interval',
         theme: Global.theme,
@@ -336,26 +335,28 @@ describe('element label controller', function() {
     });
 
     it('multiple labels', function() {
-      const points = [ {
-        x: [ 90, 100 ],
-        y: [ 20, 20 ],
-        z: [ '1', '2' ],
-        _origin: {
-          x: [ 90, 100 ],
-          y: [ 20, 20 ],
-          z: [ '1', '2' ]
-        }
-      },
-      {
-        x: [ 30, 40 ],
-        y: [ 40, 40 ],
-        z: [ '3', '4' ],
-        _origin: {
-          x: [ 30, 40 ],
-          y: [ 40, 40 ],
-          z: [ '3', '4' ]
-        }
-      } ];
+      const points = [
+        {
+          x: [90, 100],
+          y: [20, 20],
+          z: ['1', '2'],
+          _origin: {
+            x: [90, 100],
+            y: [20, 20],
+            z: ['1', '2'],
+          },
+        },
+        {
+          x: [30, 40],
+          y: [40, 40],
+          z: ['3', '4'],
+          _origin: {
+            x: [30, 40],
+            y: [40, 40],
+            z: ['3', '4'],
+          },
+        },
+      ];
       const gLabels = canvas.addGroup(BaseElementLabel, {
         coord,
         labelOptions: {
@@ -364,7 +365,7 @@ describe('element label controller', function() {
               offset: 10,
             };
           },
-          scales: [ labelScale1 ]
+          scales: [labelScale1],
         },
         elementType: 'interval',
         theme: Global.theme,
@@ -382,27 +383,28 @@ describe('element label controller', function() {
     });
 
     it('multiple labels inner', function() {
-
-      const points = [ {
-        x: [ 90, 100 ],
-        y: [ 20, 20 ],
-        z: [ '1', '2' ],
-        _origin: {
-          x: [ 90, 100 ],
-          y: [ 20, 20 ],
-          z: [ '1', '2' ]
-        }
-      },
-      {
-        x: [ 30, 40 ],
-        y: [ 40, 40 ],
-        z: [ '3', '4' ],
-        _origin: {
-          x: [ 30, 40 ],
-          y: [ 40, 40 ],
-          z: [ '3', '4' ]
-        }
-      } ];
+      const points = [
+        {
+          x: [90, 100],
+          y: [20, 20],
+          z: ['1', '2'],
+          _origin: {
+            x: [90, 100],
+            y: [20, 20],
+            z: ['1', '2'],
+          },
+        },
+        {
+          x: [30, 40],
+          y: [40, 40],
+          z: ['3', '4'],
+          _origin: {
+            x: [30, 40],
+            y: [40, 40],
+            z: ['3', '4'],
+          },
+        },
+      ];
       const gLabels = canvas.addGroup(BaseElementLabel, {
         coord,
         labelOptions: {
@@ -411,7 +413,7 @@ describe('element label controller', function() {
               offset: -10,
             };
           },
-          scales: [ labelScale1 ]
+          scales: [labelScale1],
         },
         elementType: 'interval',
         theme: Global.theme,
@@ -425,7 +427,6 @@ describe('element label controller', function() {
       const second = items[1];
       expect(second.x).to.equal(90);
       expect(second.y).to.equal(points[0].y[0]);
-
     });
   });
 

@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 import { Canvas } from '@antv/g';
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 import TextShapeFactory from '../../../../src/element/shape/text';
 import Global from '../../../../src/global';
 
@@ -13,7 +13,7 @@ describe('Text shapes', () => {
     div.id = 'csp';
     document.body.appendChild(div);
 
-    const Cartesian = getCoord('cartesian');
+    const Cartesian = getCoordinate('cartesian');
     const coord = new Cartesian({
       start: {
         x: 0,
@@ -51,11 +51,15 @@ describe('Text shapes', () => {
       expect(point[0].x).eql(0.4);
       expect(point[0].y).eql(0.8);
 
-      const shape = TextShapeFactory.drawShape(type, {
-        points: point,
-        color: 'red',
-        fontSize: '12px',
-      }, canvas);
+      const shape = TextShapeFactory.drawShape(
+        type,
+        {
+          points: point,
+          color: 'red',
+          fontSize: '12px',
+        },
+        canvas
+      );
       expect(shape.attr('fill')).eql('red');
     });
 
@@ -63,10 +67,12 @@ describe('Text shapes', () => {
       const point = {
         x: 100,
         y: 300,
-        points: [ {
-          x: 100,
-          y: 300,
-        } ],
+        points: [
+          {
+            x: 100,
+            y: 300,
+          },
+        ],
       };
 
       const markerCfg = TextShapeFactory.getMarkerStyle('text', point);
@@ -86,4 +92,3 @@ describe('Text shapes', () => {
     document.body.removeChild(div);
   });
 });
-
