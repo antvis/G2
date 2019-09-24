@@ -31,6 +31,11 @@ class Schema extends GeomBase {
     cfg.size = this.getNormalizedSize(obj);
     return cfg;
   }
+
+  clearInner() {
+    super.clearInner();
+    this.set('defaultSize', null);
+  }
 }
 
 class SchemaDodge extends Schema {
