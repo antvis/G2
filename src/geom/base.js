@@ -777,6 +777,7 @@ class GeomBase extends Base {
       coord,
       geom: self,
       geomType: type,
+      yScale: self.getYScale(),
       viewTheme,
       visible: self.get('visible')
     });
