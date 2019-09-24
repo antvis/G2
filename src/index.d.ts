@@ -798,7 +798,7 @@ declare namespace G2 {
 
   class Chart extends BashView {
     constructor(config: Partial<ChartProps>);
-    legend(option: boolean): this;
+    legend(option: boolean | LegendConfig): this;
     legend(field: string, option: boolean): this;
     legend(field: string, legendConfig: LegendConfig): this;
     tooltip(tooltipConfig: TooltipConfig | boolean): this;
