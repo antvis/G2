@@ -1,9 +1,9 @@
 import { Canvas, Group } from '@antv/g';
 import * as _ from '@antv/util';
 import { expect } from 'chai';
-import { View } from '../../../src';
-import { createCanvas, createDiv } from '../../util/dom';
-import Theme from '../../util/theme';
+import { View } from '../../../../src';
+import { createCanvas, createDiv } from '../../../util/dom';
+import Theme from '../../../util/theme';
 
 const data = [
   { city: '杭州', sale: 100, category: '电脑' },
@@ -17,6 +17,7 @@ describe('View', () => {
 
   const canvas = createCanvas({
     containerDOM: div,
+    renderer: 'svg',
   });
 
   const backgroundGroup = canvas.addGroup();
@@ -77,24 +78,24 @@ describe('View', () => {
     ]);
   });
 
-  // it('coordinate', () => {
-  //   // @ts-ignore
-  //   view._createCoordinateInstance();
-  //   expect(view.getCoordinate().type).to.be.eql('rect');
-  //
-  //   view.coordinate('theta');
-  //   // @ts-ignore
-  //   view._createCoordinateInstance();
-  //   expect(view.getCoordinate().type).to.be.eql('theta');
-  //
-  //   view.coordinate('rect');
-  //   // @ts-ignore
-  //   view._createCoordinateInstance();
-  //   expect(view.getCoordinate().type).to.be.eql('rect');
-  //
-  //   expect(view.getCoordinate().width).to.be.eql(790);
-  //   expect(view.getCoordinate().height).to.be.eql(590);
-  // });
+  it('coordinate', () => {
+    // @ts-ignore
+    view._createCoordinateInstance();
+    expect(view.getCoordinate().type).to.be.eql('rect');
+
+    view.coordinate('theta');
+    // @ts-ignore
+    view._createCoordinateInstance();
+    expect(view.getCoordinate().type).to.be.eql('theta');
+
+    view.coordinate('rect');
+    // @ts-ignore
+    view._createCoordinateInstance();
+    expect(view.getCoordinate().type).to.be.eql('rect');
+
+    expect(view.getCoordinate().width).to.be.eql(790);
+    expect(view.getCoordinate().height).to.be.eql(590);
+  });
 
   it('geometry', () => {
     view
@@ -146,5 +147,17 @@ describe('View', () => {
         .map((a) => a.getScale(a.type))
         .map((s) => s.field)
     ).to.be.eql(['sale']);
+  });
+
+  it('changeData', () => {
+    const geometries = view.geometries;
+    view.changeData([
+      ...data,
+      { city: '杭州', sale: 40, category: '鼠标' },
+      { city: '广州', sale: 90, category: '鼠标' },
+    ]);
+    expect(view.filteredData.length).to.be.eql(4);
+    // 几何标记是同一个实例
+    expect(geometries[0] === view.geometries[0]).to.be.eql(true);
   });
 });

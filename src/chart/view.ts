@@ -146,8 +146,6 @@ export default class View extends EE {
     // 事件委托机制
     this._initialEvents();
 
-    this._initialControllers();
-
     // 初始化数据
     this._initialData();
 
@@ -161,44 +159,9 @@ export default class View extends EE {
    */
   public render() {
     // 递归渲染
-    this.renderRecursive();
+    this._renderRecursive();
     // 实际的绘图
     this._canvasDraw();
-  }
-
-  /**
-   * 递归 render views
-   * 步骤非常繁琐，因为之间有一些数据依赖，所以执行流程上有先后关系
-   */
-  public renderRecursive() {
-    // 1. 处理数据
-    this._filterData();
-
-    // 2. 初始化 Geometry
-    this._initialGeometries();
-
-    // 3. 创建 coordinate 实例
-    this._createCoordinateInstance();
-
-    // 4. 调整 scale 配置
-    this._adjustScales();
-
-    // 5. 渲染组件 component
-    this._renderComponents();
-
-    // 6.  递归 views，进行布局
-    this._doLayout();
-
-    // 7. 布局完之后，coordinate 的范围确定了，调整 coordinate 组件
-    this._adjustCoordinate();
-
-    // 8. 渲染几何标记
-    this._paintGeometries();
-
-    // 同样递归处理子 views
-    _.each(this.views, (view: View) => {
-      view.renderRecursive();
-    });
   }
 
   // /**
@@ -239,7 +202,7 @@ export default class View extends EE {
   /* end 生命周期函数 */
 
   /**
-   * 装载数据。暂时将 data 和 changeData 合并成一个 API
+   * 装载数据。
    */
   public data(data: Data) {
     _.set(this.options, 'data', data);
@@ -319,6 +282,33 @@ export default class View extends EE {
 
     // 保存新的 interaction
     _.set(this.options, ['interactions', name], interaction);
+  }
+
+  /**
+   * 修改数据，数据更新逻辑
+   * 因为数据更新仅仅影响当前这一层的 view
+   * @param data
+   */
+  public changeData(data: Data) {
+    // 1. 保存数据
+    this.data(data);
+    // 2. 过滤数据
+    this._filterData();
+    // 3. 更新 geom 元素
+    _.each(this.geometries, (geometry: Geometry) => {
+      geometry.update(this.filteredData);
+    });
+    // 4. 更新组件
+    // TODO 目前是清空，重新绘制
+    this._renderComponents();
+    // 5. 布局
+    this._doLayout();
+    // 6. 布局之后，调整坐标系大小
+    this._adjustCoordinate();
+    // 7. 渲染几何标记
+    this._paintGeometries();
+    // 绘图
+    this._canvasDraw();
   }
 
   /* View 管理相关的 API */
@@ -421,6 +411,41 @@ export default class View extends EE {
     }
     return ((v as unknown) as Chart).canvas;
   }
+
+  /**
+   * 递归 render views
+   * 步骤非常繁琐，因为之间有一些数据依赖，所以执行流程上有先后关系
+   */
+  protected _renderRecursive() {
+    // 1. 处理数据
+    this._filterData();
+
+    // 2. 初始化 Geometry
+    this._initialGeometries();
+
+    // 3. 创建 coordinate 实例
+    this._createCoordinateInstance();
+
+    // 4. 调整 scale 配置
+    this._adjustScales();
+
+    // 5. 渲染组件 component
+    this._renderComponents();
+
+    // 6.  递归 views，进行布局
+    this._doLayout();
+
+    // 7. 布局完之后，coordinate 的范围确定了，调整 coordinate 组件
+    this._adjustCoordinate();
+
+    // 8. 渲染几何标记
+    this._paintGeometries();
+
+    // 同样递归处理子 views
+    _.each(this.views, (view: View) => {
+      view._renderRecursive();
+    });
+  }
   // end Get 方法
 
   // 生命周期子流程——初始化流程
@@ -460,14 +485,6 @@ export default class View extends EE {
 
   private _initialEvents() {
     // todo 依赖 G 的事件实现机制
-  }
-
-  /**
-   * 生成 controller 实例，后续更新配置
-   * @private
-   */
-  private _initialControllers() {
-    // 可能暂时不需要，组件管理直接使用 components 管理，生成逻辑写成工具函数
   }
 
   /**
