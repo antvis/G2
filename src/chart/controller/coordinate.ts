@@ -57,15 +57,3 @@ export function createCoordinate(coordinateOption: CoordinateOption = {}, coordi
 
   return coordinate;
 }
-
-/**
- * 整圆极坐标系
- * @param coordinate
- */
-export function isFullCircle(coordinate: Coordinate) {
-  if (coordinate.isPolar) {
-    const { startAngle, endAngle } = coordinate;
-    return endAngle - startAngle === Math.PI * 2;
-  }
-  return false;
-}

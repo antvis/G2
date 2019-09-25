@@ -19,13 +19,13 @@ import Geometry from 'geometry/geometry';
 import Interaction from 'interaction';
 import { Padding, Point, Region } from 'interface';
 import { Attribute } from '../dependents';
-import { getTheme } from '../theme';
+import { isFullCircle } from '../util/coordinate';
 import { parsePadding } from '../util/padding';
 import { mergeTheme } from '../util/theme';
 import Chart from './chart';
 import { ComponentType, DIRECTION, LAYER } from './constant';
 import { createAxes } from './controller/axis';
-import { createCoordinate, isFullCircle } from './controller/coordinate';
+import { createCoordinate } from './controller/coordinate';
 import { createLegends } from './controller/legend';
 import defaultLayout, { Layout } from './layout';
 
