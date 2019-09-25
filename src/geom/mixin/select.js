@@ -5,6 +5,7 @@
 
 const Util = require('../../util');
 const FIELD_ORIGIN = '_origin';
+const ZIndexUtil = require('./zindex-util');
 
 function isSameShape(shape1, shape2) {
   if (Util.isNil(shape1) || Util.isNil(shape2)) {
@@ -99,6 +100,10 @@ const SelectMixin = {
         }
         shape.set('_originAttrs', getOriginAttrs(selectedStyle, shape));
       }
+      // 选中时图形要到最上面
+      if (selectedOptions.toFront) {
+        ZIndexUtil.toFront(shape);
+      }
 
       if (animate) {
         shape.animate(selectedStyle, 300);
@@ -108,6 +113,10 @@ const SelectMixin = {
       }
     } else {
       const originAttrs = shape.get('_originAttrs');
+      // 取消选中时，要恢复到原先的位置
+      if (selectedOptions.toFront) {
+        ZIndexUtil.resetZIndex(shape);
+      }
       shape.set('_originAttrs', null);
       if (animate) {
         shape.animate(originAttrs, 300);
