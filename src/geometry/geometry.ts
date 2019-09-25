@@ -4,8 +4,8 @@ import Element from './element';
 import { getShapeFactory } from './shape';
 import { parseFields } from './util/parse-fields';
 
-import { getAdjust } from '@antv/adjust';
-import { Attribute, getAttribute } from '@antv/attr';
+import { Adjust, getAdjust } from '@antv/adjust';
+import { Attribute, getAttribute as getAttributeClass } from '@antv/attr';
 import { Coordinate, Scale } from '../dependents';
 import { AdjustType, LooseObject, Point, ScaleOption, ShapeDrawCFG } from '../interface';
 
@@ -402,16 +402,16 @@ export default class Geometry {
     return scales;
   }
 
-  public getAttr(name: string): Attribute {
+  public getAttribute(name: string): Attribute {
     return this.attributes[name];
   }
 
   public getXScale(): Scale {
-    return this.getAttr('position').scales[0];
+    return this.getAttribute('position').scales[0];
   }
 
   public getYScale(): Scale {
-    return this.getAttr('position').scales[1];
+    return this.getAttribute('position').scales[1];
   }
 
   public getLegendAttributes(): Attribute[] {
@@ -426,7 +426,7 @@ export default class Geometry {
 
   public getDefaultValue(attrName: string) {
     let value: any;
-    const attr = this.getAttr(attrName);
+    const attr = this.getAttribute(attrName);
     if (attr && Util.isEmpty(attr.scales)) {
       // 获取映射至常量的值
       value = attr.values[0];
@@ -648,7 +648,7 @@ export default class Geometry {
           attrCfg.values = theme.colors;
         }
       }
-      const attributeCtor = getAttribute(attrType);
+      const attributeCtor = getAttributeClass(attrType);
       attributes[attrType] = new attributeCtor(attrCfg);
     });
   }
@@ -695,6 +695,8 @@ export default class Geometry {
             throw new Error('dodge is not support linear attribute, please use category attribute!');
           }
           adjustCfg.adjustNames = adjustNames;
+          // 每个分组内每条柱子的宽度占比，用户不可指定，用户需要通过 columnWidthRatio 指定
+          adjustCfg.dodgeRatio = this.theme.columnWidthRatio;
         } else if (type === 'stack') {
           const coordinate = this.coordinate;
           if (!yScale) {
@@ -741,7 +743,7 @@ export default class Geometry {
 
   // 将分类数据翻译成数据, 仅对位置相关的度量进行数字化处理
   private _numeric(data: LooseObject[]) {
-    const positionAttr = this.getAttr('position');
+    const positionAttr = this.getAttribute('position');
     const scales = positionAttr.scales;
     for (let j = 0, len = data.length; j < len; j += 1) {
       const obj = data[j];
@@ -815,7 +817,7 @@ export default class Geometry {
   // 生成 shape 的关键点
   private _generatePoints(data: LooseObject[]) {
     const shapeFactory = this._getShapeFactory();
-    const shapeAttr = this.getAttr('shape');
+    const shapeAttr = this.getAttribute('shape');
     for (let i = 0, len = data.length; i < len; i += 1) {
       const obj = data[i];
       const cfg = this.createShapePointsCfg(obj);

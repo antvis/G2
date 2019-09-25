@@ -377,8 +377,8 @@ describe('Geometry', () => {
       expect(groupScales[0].field).to.equal('city');
     });
 
-    it('getAttr()', () => {
-      const colorAttr = geometry.getAttr('color');
+    it('getAttribute()', () => {
+      const colorAttr = geometry.getAttribute('color');
 
       expect(colorAttr.type).to.equal('color');
     });
