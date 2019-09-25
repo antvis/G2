@@ -1,4 +1,5 @@
 import * as Util from '@antv/util';
+import { getCoordinateWidth } from '../../util/coordinate';
 
 // 已经排序后的数据查找距离最小的
 function findMinDistance(arr, scale) {
@@ -20,15 +21,7 @@ function findMinDistance(arr, scale) {
   return distance;
 }
 
-function getDodgeCount(dataArray, adjustOption) {
-  let dodgeBy;
-  Util.each(adjustOption, (opt) => {
-    if (opt.type === 'dodge') {
-      dodgeBy = opt.dodgeBy;
-      return false;
-    }
-  });
-
+function getDodgeCount(dataArray, dodgeBy) {
   if (dodgeBy) {
     const mergeData = Util.flatten(dataArray);
     const values = Util.valuesOfKey(mergeData, dodgeBy);
@@ -38,9 +31,21 @@ function getDodgeCount(dataArray, adjustOption) {
   return dataArray.length;
 }
 
+function getDodgeOption(adjustOption) {
+  let result;
+
+  Util.each(adjustOption, (opt) => {
+    if (opt.type === 'dodge') {
+      result = opt;
+      return false;
+    }
+  });
+
+  return result;
+}
+
 export function getDefaultSize(geometry): number {
-  // TODO: @simaq 重命名
-  const widthRatio = geometry.theme.widthRatio;
+  const theme = geometry.theme;
   const coordinate = geometry.coordinate;
   const xScale = geometry.getXScale();
   const xValues = xScale.values;
@@ -62,20 +67,39 @@ export function getDefaultSize(geometry): number {
   if (coordinate.isPolar) {
     if (coordinate.isTransposed && count > 1) {
       // 极坐标下多层环图
-      wr = widthRatio.multiplePie;
+      wr = theme.multiplePieWidthRatio;
     } else {
-      wr = widthRatio.rose;
+      wr = theme.roseWidthRatio;
     }
   } else {
     if (xScale.isLinear) {
       normalizedSize *= range[1] - range[0];
     }
-    wr = widthRatio.column; // 柱状图要除以2
+    wr = theme.columnWidthRatio;
   }
   normalizedSize *= wr;
   if (geometry.hasAdjust('dodge')) {
-    const dodgeCount = getDodgeCount(dataArray, geometry.adjustOption);
+    const dodgeOption = getDodgeOption(geometry.adjustOption);
+    const { dodgeBy, dodgeRatio } = dodgeOption;
+    const dodgeCount = getDodgeCount(dataArray, dodgeBy);
+
     normalizedSize = normalizedSize / dodgeCount;
+  }
+
+  const { maxColumnWidth, minColumnWidth } = theme;
+  const coordinateWidth = getCoordinateWidth(geometry.coordinate);
+  if (maxColumnWidth) {
+    const normalizedMaxColumnWidth = maxColumnWidth / coordinateWidth;
+    if (normalizedSize > normalizedMaxColumnWidth) {
+      normalizedSize = normalizedMaxColumnWidth;
+    }
+  }
+
+  if (minColumnWidth) {
+    const normalizedMinColumnWidth = minColumnWidth / coordinateWidth;
+    if (normalizedSize < normalizedMinColumnWidth) {
+      normalizedSize = normalizedMinColumnWidth;
+    }
   }
 
   return normalizedSize;

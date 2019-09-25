@@ -48,13 +48,16 @@ export default {
   fontFamily: FONT_FAMILY,
   colors: COLOR_PLATE_10,
   colors_20: COLOR_PLATE_20,
-  // TODO: @simaq
-  widthRatio: {
-    column: 1 / 2, // 一般的柱状图占比 1/2
-    rose: 0.9999999, // 玫瑰图柱状占比 1
-    multiplePie: 1 / 1.3, // 多层的饼图、环图
-  },
-
+  /** 一般柱状图宽度占比 */
+  columnWidthRatio: 1 / 2,
+  /** 柱状图最大宽度 */
+  maxColumnWidth: null,
+  /** 柱状图最小宽度 */
+  minColumnWidth: null,
+  /** 玫瑰图占比 */
+  roseWidthRatio: 0.9999999,
+  /** 多层饼图/环图占比 */
+  multiplePieWidthRatio: 1 / 1.3,
   /** 定义 interval 下各个 shape 的样式以及动画 */
   interval: {
     rect: {
