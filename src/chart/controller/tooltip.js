@@ -396,9 +396,18 @@ class TooltipController {
         if (geom.get('visible') && geom.get('tooltipCfg') !== false) {
           const dataArray = geom.get('dataArray');
           if (geom.isShareTooltip() || (options.shared === false && Util.inArray([ 'area', 'line', 'path', 'polygon' ], type))) {
-            Util.each(dataArray, obj => {
-              const tmpPoint = geom.findPoint(point, obj);
-              if (tmpPoint) {
+
+            // 打补丁解决 bug: https://github.com/antvis/g2/issues/1248
+            // 当 interval 对应的 color 和 x 字段相同的时候，并且包含 dodge，items 取值逻辑不一样
+            // 这种情况下，每一个 x 字段分成一组
+            const xScale = geom.getXScale();
+            const colorAttr = geom.getAttr('color');
+            const colorField = colorAttr ? colorAttr.field : undefined;
+            if (type === 'interval' && xScale.field === colorField && geom.hasAdjust('dodge')) {
+              // 找不到不为空的
+              const points = Util.find(dataArray, obj => !!geom.findPoint(point, obj));
+              // 转为 tooltip items
+              Util.each(points, tmpPoint => {
                 const subItems = geom.getTipItems(tmpPoint, options.title);
                 Util.each(subItems, v => {
                   const markerItem = self._formatMarkerOfItem(coord, geom, v);
@@ -408,8 +417,23 @@ class TooltipController {
                   }
                 });
                 items = items.concat(subItems);
-              }
-            });
+              });
+            } else {
+              Util.each(dataArray, obj => {
+                const tmpPoint = geom.findPoint(point, obj);
+                if (tmpPoint) {
+                  const subItems = geom.getTipItems(tmpPoint, options.title);
+                  Util.each(subItems, v => {
+                    const markerItem = self._formatMarkerOfItem(coord, geom, v);
+
+                    if (markerItem) {
+                      markersItems.push(markerItem);
+                    }
+                  });
+                  items = items.concat(subItems);
+                }
+              });
+            }
           } else {
             const geomContainer = geom.get('shapeContainer');
             const canvas = geomContainer.get('canvas');
