@@ -176,11 +176,11 @@ export default class View extends EE {
     // 1. 处理数据
     this._filterData();
 
-    // 2. 初始化 Geometry
-    this._initialGeometries();
-
-    // 3. 创建 coordinate 实例
+    // 2. 创建 coordinate 实例
     this._createCoordinateInstance();
+
+    // 3. 初始化 Geometry
+    this._initialGeometries();
 
     // 4. 调整 scale 配置
     this._adjustScales();
@@ -538,6 +538,8 @@ export default class View extends EE {
   private _initialGeometries() {
     // 实例化 Geometry，然后 view 将所有的 scale 管理起来
     _.each(this.geometries, (geometry: Geometry) => {
+      // 使用 coordinate 引用，可以保持 coordinate 的同步更新
+      geometry.coordinate = this.getCoordinate();
       geometry.scaleDefs = _.get(this.options, 'scales', {});
       geometry.data = this.filteredData;
       geometry.theme = this.themeObject;
@@ -660,9 +662,6 @@ export default class View extends EE {
   private _paintGeometries() {
     // geometry 的 paint 阶段
     this.geometries.map((geometry: Geometry) => {
-      // 设置布局之后的 coordinate
-      geometry.coordinate = this.getCoordinate();
-
       geometry.paint();
     });
   }

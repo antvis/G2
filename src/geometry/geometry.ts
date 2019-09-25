@@ -278,6 +278,11 @@ export default class Geometry {
   public label() {}
 
   public init() {
+    // TODO: @simaq 是否可以移除设置矩阵这一步？
+    const coordinate = this.coordinate;
+    const container = this.container;
+    container.setMatrix(coordinate.matrix);
+
     this._initAttrs(); // 创建图形属性
 
     // 为 tooltip 的字段创建对应的 scale 实例
@@ -315,11 +320,6 @@ export default class Geometry {
   public paint() {
     this.elements = [];
     this.elementsMap = {};
-
-    // TODO: @simaq 是否可以移除设置矩阵这一步？
-    const coordinate = this.coordinate;
-    const container = this.container;
-    container.setMatrix(coordinate.matrix);
 
     const dataArray = this.dataArray;
     this._beforeMapping(dataArray);
@@ -587,10 +587,7 @@ export default class Geometry {
   }
 
   private _initAttrs() {
-    const attributes = this.attributes;
-    const attributeOption = this.attributeOption;
-    const theme = this.theme;
-    const shapeType = this.shapeType;
+    const { attributes, attributeOption, theme, shapeType, coordinate } = this;
 
     // 遍历每一个 attrOption，各自创建 Attribute 实例
     Util.each(attributeOption, (option: AttributeOption, attrType: string) => {
@@ -603,6 +600,16 @@ export default class Geometry {
       const scales = Util.map(fields, (field) => {
         return this._createScale(field);
       });
+
+      // 特殊逻辑：饼图需要填充满整个空间
+      if (coordinate.type === 'theta' && attrType === 'position' && scales.length > 1) {
+        const yScale = scales[1];
+        yScale.change({
+          nice: false,
+          min: 0,
+          max: Math.max.apply(null, yScale.values),
+        });
+      }
 
       attrCfg.scales = scales;
 
