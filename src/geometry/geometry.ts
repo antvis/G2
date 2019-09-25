@@ -149,6 +149,7 @@ export default class Geometry {
   public dataArray;
 
   private shapeFactory;
+  private adjusts: Record<string, Adjust> = {};
   private elementsMap: Record<string, Element> = {};
   private lastElementsMap: Record<string, Element> = {};
   private groupScales: Scale[];
@@ -443,15 +444,8 @@ export default class Geometry {
     return attr.mapping(...params);
   }
 
-  public hasAdjust(adjustType: string) {
-    let rst = false;
-    Util.each(this.adjustOption, (opt: AdjustOption) => {
-      if (opt.type === adjustType) {
-        rst = true;
-        return false;
-      }
-    });
-    return rst;
+  public getAdjust(adjustType: string) {
+    return this.adjusts[adjustType];
   }
 
   /**
@@ -699,6 +693,8 @@ export default class Geometry {
         if (type === 'stack' && yScale) {
           this._updateStackRange(yField, yScale, result);
         }
+
+        this.adjusts[type] = adjustInstance;
       });
     }
 
@@ -993,6 +989,16 @@ export default class Geometry {
         }
       });
     }
+
+    // 用户在进行 dodge 类型的 adjust 调整的时候设置了 dodgeBy 属性
+    const dodgeAdjust = this.getAdjust('dodge');
+    if (dodgeAdjust) {
+      const { dodgeBy } = dodgeAdjust.cfg;
+      if (dodgeBy) {
+        id = `${id}-${origin[dodgeBy]}`;
+      }
+    }
+
     return id;
   }
 

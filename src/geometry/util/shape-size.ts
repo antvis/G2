@@ -31,18 +31,18 @@ function getDodgeCount(dataArray, dodgeBy) {
   return dataArray.length;
 }
 
-function getDodgeOption(adjustOption) {
-  let result;
+// function getDodgeOption(adjustOption) {
+//   let result;
 
-  Util.each(adjustOption, (opt) => {
-    if (opt.type === 'dodge') {
-      result = opt;
-      return false;
-    }
-  });
+//   Util.each(adjustOption, (opt) => {
+//     if (opt.type === 'dodge') {
+//       result = opt;
+//       return false;
+//     }
+//   });
 
-  return result;
-}
+//   return result;
+// }
 
 export function getDefaultSize(geometry): number {
   const theme = geometry.theme;
@@ -78,9 +78,11 @@ export function getDefaultSize(geometry): number {
     wr = theme.columnWidthRatio;
   }
   normalizedSize *= wr;
-  if (geometry.hasAdjust('dodge')) {
-    const dodgeOption = getDodgeOption(geometry.adjustOption);
-    const { dodgeBy, dodgeRatio } = dodgeOption;
+  if (geometry.getAdjust('dodge')) {
+    // const dodgeOption = getDodgeOption(geometry.adjustOption);
+    // const { dodgeBy } = dodgeOption;
+    const dodgeAdjust = geometry.getAdjust('dodge');
+    const { dodgeBy } = dodgeAdjust.cfg;
     const dodgeCount = getDodgeCount(dataArray, dodgeBy);
 
     normalizedSize = normalizedSize / dodgeCount;
