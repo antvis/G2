@@ -180,7 +180,7 @@ describe('#378', () => {
       .label('sold');
 
     chart.render();
-    setTimeout(function() {
+    setTimeout(() => {
       chart.changeData(data1);
       const labels = interval.get('labelContainer').get('labelsGroup').get('children');
       expect(labels[0].attr('x') - labels[5].attr('x')).equal(50);

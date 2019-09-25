@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const AxisController = require('../../../../src/chart/controller/axis');
 const Coord = require('@antv/coord/lib/index');
 
-describe('AxisController', function() {
+describe('AxisController', () => {
   const start = {
     x: 0,
     y: 500
@@ -53,7 +53,7 @@ describe('AxisController', function() {
     viewTheme: require('../../../../src/global')
   });
 
-  it('_isHide', function() {
+  it('_isHide', () => {
     as.options = {
       a: false
     };
@@ -61,8 +61,8 @@ describe('AxisController', function() {
     expect(as._isHide('b')).to.equal(false);
   });
 
-  describe('_getAxisPosition', function() {
-    it('get axis position rect', function() {
+  describe('_getAxisPosition', () => {
+    it('get axis position rect', () => {
       let position = as._getAxisPosition(coord, 'x');
       expect(position).to.equal('bottom');
 
@@ -73,7 +73,7 @@ describe('AxisController', function() {
       expect(position).to.equal('right');
     });
 
-    it('get axis position polar', function() {
+    it('get axis position polar', () => {
       const coord = new Coord.Polar({
         start,
         end
@@ -85,7 +85,7 @@ describe('AxisController', function() {
       expect(position).to.equal('radius');
     });
 
-    it('get axis position polar transpose', function() {
+    it('get axis position polar transpose', () => {
       const coord = new Coord.Polar({
         start,
         end
@@ -99,9 +99,9 @@ describe('AxisController', function() {
     });
   });
 
-  describe('_getLineCfg', function() {
+  describe('_getLineCfg', () => {
     as.options = null;
-    it('_getLineCfg, X axis when position is bottom.', function() {
+    it('_getLineCfg, X axis when position is bottom.', () => {
       const lineCfg = as._getLineCfg(coord, scaleX, 'x');
       expect(lineCfg.isVertical).to.equal(false);
       expect(lineCfg.factor).to.equal(1);
@@ -125,7 +125,7 @@ describe('AxisController', function() {
       expect(cfg.title.text).to.equal('test');
     });
 
-    it('_getLineCfg, X axis when position is top.', function() {
+    it('_getLineCfg, X axis when position is top.', () => {
       as.options = {
         a: {
           position: 'top'
@@ -138,7 +138,7 @@ describe('AxisController', function() {
       expect(lineCfg.end).to.eql({ x: 500, y: 0 });
     });
 
-    it('_getLineCfg, Y axis when position is left.', function() {
+    it('_getLineCfg, Y axis when position is left.', () => {
       const lineCfg = as._getLineCfg(coord, scaleY, 'y');
       expect(lineCfg.isVertical).to.equal(true);
       expect(lineCfg.factor).to.equal(-1);
@@ -146,7 +146,7 @@ describe('AxisController', function() {
       expect(lineCfg.end).to.eql({ x: 0, y: 0 });
     });
 
-    it('_getLineCfg, Y axis when position is left and index is bigger than 0.', function() {
+    it('_getLineCfg, Y axis when position is left and index is bigger than 0.', () => {
       as.options = {
         b: {
           position: 'left'
@@ -159,7 +159,7 @@ describe('AxisController', function() {
       expect(lineCfg.end).to.eql({ x: 0, y: 0 });
     });
 
-    it('_getLineCfg, Y axis when position is right.', function() {
+    it('_getLineCfg, Y axis when position is right.', () => {
       as.options = {
         b: {
           position: 'right'
@@ -172,7 +172,7 @@ describe('AxisController', function() {
       expect(lineCfg.end).to.eql({ x: 500, y: 0 });
     });
 
-    it('_getLineCfg, Y axis when position is right and index is bigger than 0.', function() {
+    it('_getLineCfg, Y axis when position is right and index is bigger than 0.', () => {
       as.options = {
         b: {
           position: 'right'
@@ -185,7 +185,7 @@ describe('AxisController', function() {
       expect(lineCfg.end).to.eql({ x: 500, y: 0 });
     });
 
-    it('_getLineCfg, X axis when coord is transposed.', function() {
+    it('_getLineCfg, X axis when coord is transposed.', () => {
       const coord = new Coord.Rect({
         start,
         end
@@ -199,8 +199,8 @@ describe('AxisController', function() {
     });
   });
 
-  describe('_getCircleCfg', function() {
-    it('_getCircleCfg', function() {
+  describe('_getCircleCfg', () => {
+    it('_getCircleCfg', () => {
       const coord = new Coord.Polar({
         start,
         end
@@ -214,7 +214,7 @@ describe('AxisController', function() {
       expect(circleCfg.center).to.eql({ x: 250, y: 250 });
     });
 
-    it('_getCircleCfg when coord is reflectY.', function() {
+    it('_getCircleCfg when coord is reflectY.', () => {
       const coord = new Coord.Polar({
         start,
         end,
@@ -232,7 +232,7 @@ describe('AxisController', function() {
       });
     });
 
-    it('_getCircleCfg when coord is transposed.', function() {
+    it('_getCircleCfg when coord is transposed.', () => {
       const coord = new Coord.Polar({
         start,
         end,
@@ -252,8 +252,8 @@ describe('AxisController', function() {
     });
   });
 
-  describe('_getRadiusCfg', function() {
-    it('_getRadiusCfg', function() {
+  describe('_getRadiusCfg', () => {
+    it('_getRadiusCfg', () => {
       const coord = new Coord.Polar({
         start,
         end
@@ -270,7 +270,7 @@ describe('AxisController', function() {
       });
     });
 
-    it('_getRadiusCfg when coord is transpose.', function() {
+    it('_getRadiusCfg when coord is transpose.', () => {
       const coord = new Coord.Polar({
         start,
         end,
@@ -291,8 +291,8 @@ describe('AxisController', function() {
     });
   });
 
-  describe('_getHelixCfg ', function() {
-    it('_getHelixCfg', function() {
+  describe('_getHelixCfg ', () => {
+    it('_getHelixCfg', () => {
       const coord = new Coord.Helix({
         start,
         end
@@ -302,8 +302,8 @@ describe('AxisController', function() {
     });
   });
 
-  describe('_getAxisCfg', function() {
-    it('_getAxisCfg', function() {
+  describe('_getAxisCfg', () => {
+    it('_getAxisCfg', () => {
       const axisCfg = as._getAxisCfg(coord, scaleX, scaleY, 'x');
       expect(axisCfg.label.autoRotate).to.equal(true);
       expect(axisCfg.position).to.equal('bottom');
@@ -311,7 +311,7 @@ describe('AxisController', function() {
       // expect(axisCfg.title.text).to.equal('a');
       expect(axisCfg.title).to.be.null;
     });
-    it('_getAxisCfg when gridAlign is middle.', function() {
+    it('_getAxisCfg when gridAlign is middle.', () => {
       as.options = {
         b: {
           grid: {

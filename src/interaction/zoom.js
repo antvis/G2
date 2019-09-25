@@ -48,7 +48,7 @@ class Zoom extends Interaction {
       }
     });
 
-    if (ZOOMING_TYPES.indexOf(me.type) === -1) {
+    if (!ZOOMING_TYPES.includes(me.type)) {
       me.type = DEFAULT_TYPE;
     }
   }

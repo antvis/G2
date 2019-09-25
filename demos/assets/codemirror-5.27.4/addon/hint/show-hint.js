@@ -390,7 +390,7 @@
       resolved.supportsSelection = true
       return resolved
     } else if (words = cm.getHelper(cm.getCursor(), "hintWords")) {
-      return function(cm) { return CodeMirror.hint.fromList(cm, {words: words}) }
+      return function(cm) { return CodeMirror.hint.fromList(cm, {words}) }
     } else if (CodeMirror.hint.anyword) {
       return function(cm, options) { return CodeMirror.hint.anyword(cm, options) }
     } else {
@@ -417,7 +417,7 @@
         found.push(word);
     }
 
-    if (found.length) return {list: found, from: from, to: to};
+    if (found.length) return {list: found, from, to};
   });
 
   CodeMirror.commands.autocomplete = CodeMirror.showHint;

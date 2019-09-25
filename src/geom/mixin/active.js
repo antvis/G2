@@ -35,7 +35,7 @@ function isChange(preShapes, shapes) {
 
 function getOriginAttrs(activeCfg, shape) {
   const originAttrs = {};
-  Util.each(activeCfg, function(v, k) {
+  Util.each(activeCfg, (v, k) => {
     let originValue = shape.attr(k);
     if (Util.isArray(originValue)) {
       originValue = Util.cloneDeep(originValue);// 缓存原来的属性，由于 .attr('matrix') 是数组，所以此处需要深度复制

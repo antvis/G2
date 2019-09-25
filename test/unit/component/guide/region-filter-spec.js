@@ -109,7 +109,7 @@ describe('Guide.RegionFilter', () => {
   //   ]);
   // });
 
-  it('changeVisible', function() {
+  it('changeVisible', () => {
     expect(regionFilter.get('visible')).to.be.true;
 
     regionFilter.changeVisible(false);
@@ -121,7 +121,7 @@ describe('Guide.RegionFilter', () => {
 
   });
 
-  it('clear', function() {
+  it('clear', () => {
     regionFilter.clear();
     expect(regionFilter.get('el').get('destroyed')).to.be.true;
     const clip = regionFilter.get('clip');

@@ -12,7 +12,7 @@ module.exports = chart => {
     const geoms = chart.get('geoms');
     let isSpecialGeom = false;
     Util.each(geoms, geom => {
-      if ([ 'area', 'line', 'path' ].indexOf(geom.get('type')) !== -1) {
+      if ([ 'area', 'line', 'path' ].includes(geom.get('type'))) {
         isSpecialGeom = true;
         return false;
       }
@@ -43,7 +43,7 @@ module.exports = chart => {
             }
           }
 
-          if ((colDef.values && colDef.values.indexOf(value) === -1)
+          if ((colDef.values && !colDef.values.includes(value))
             || (colDef.min && (value < colDef.min))
             || (colDef.max && (value > colDef.max))) {
             flag = false;

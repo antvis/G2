@@ -16,7 +16,7 @@ module.exports = {
     const yScale = this.getYScale();
     const yDim = yScale.field;
     let yValue;
-    Util.each(data, function(obj) {
+    Util.each(data, obj => {
       yValue = obj._origin ? obj._origin[yDim] : obj[yDim];
       if (viewTheme.connectNulls) { // 如果忽视 Null 直接连接节点，则将 value = null 的数据过滤掉
         if (!Util.isNil(yValue)) {

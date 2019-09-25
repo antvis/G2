@@ -32,7 +32,7 @@ class GuideController {
         viewId: view.get('_id')
       });
     }
-    options.forEach(function(option) {
+    options.forEach(option => {
       let type = option.type;
       const config = Util.deepMix({
         xScales,
@@ -138,14 +138,14 @@ class GuideController {
 
   changeVisible(visible) {
     const guides = this.guides;
-    Util.each(guides, function(guide) {
+    Util.each(guides, guide => {
       guide.changeVisible(visible);
     });
   }
 
   reset() {
     const guides = this.guides;
-    Util.each(guides, function(guide) {
+    Util.each(guides, guide => {
       guide.clear();
     });
     this.guides = [];

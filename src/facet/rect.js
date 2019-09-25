@@ -51,8 +51,8 @@ class Rect extends Base {
     }
 
     // 获取每个维度对应的frame
-    colValues.forEach(function(xVal, xIndex) {
-      rowValues.forEach(function(yVal, yIndex) {
+    colValues.forEach((xVal, xIndex) => {
+      rowValues.forEach((yVal, yIndex) => {
         const conditions = [
           { field: colField, value: xVal, values: colValues },
           { field: rowField, value: yVal, values: rowValues }

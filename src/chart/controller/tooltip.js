@@ -19,10 +19,10 @@ const IGNORE_TOOLTIP_ITEM_PROPERTIES = [
 
 function _indexOfArray(items, item) {
   let rst = -1;
-  Util.each(items, function(sub, index) {
+  Util.each(items, (sub, index) => {
     let isEqual = true;
     for (const key in item) {
-      if (item.hasOwnProperty(key) && IGNORE_TOOLTIP_ITEM_PROPERTIES.indexOf(key) === -1) {
+      if (item.hasOwnProperty(key) && !IGNORE_TOOLTIP_ITEM_PROPERTIES.includes(key)) {
         if (!Util.isObject(item[key]) && item[key] !== sub[key]) {
           isEqual = false;
           break;
@@ -49,7 +49,7 @@ function _hasClass(dom, className) {
   } else {
     cls = dom.className;
   }
-  return cls.indexOf(className) !== -1;
+  return cls.includes(className);
 }
 
 function _isParent(dom, cls) {
@@ -68,7 +68,7 @@ function _isParent(dom, cls) {
 // 去除重复的值, 去除不同图形相同数据，只展示一份即可
 function _uniqItems(items) {
   const tmp = [];
-  Util.each(items, function(item) {
+  Util.each(items, item => {
     const index = _indexOfArray(tmp, item);
     if (index === -1) {
       tmp.push(item);
@@ -125,11 +125,9 @@ class TooltipController {
     const viewTheme = self.viewTheme;
     const options = self.options;
     const defaultCfg = Util.mix({}, viewTheme.tooltip);
-    const geoms = chart.getAllGeoms().filter(function(geom) {
-      return geom.get('visible');
-    });
+    const geoms = chart.getAllGeoms().filter(geom => geom.get('visible'));
     const shapes = [];
-    Util.each(geoms, function(geom) {
+    Util.each(geoms, geom => {
       const type = geom.get('type');
       const adjusts = geom.get('adjusts');
       let isSymmetric = false;
@@ -398,7 +396,7 @@ class TooltipController {
         if (geom.get('visible') && geom.get('tooltipCfg') !== false) {
           const dataArray = geom.get('dataArray');
           if (geom.isShareTooltip() || (options.shared === false && Util.inArray([ 'area', 'line', 'path', 'polygon' ], type))) {
-            Util.each(dataArray, function(obj) {
+            Util.each(dataArray, obj => {
               const tmpPoint = geom.findPoint(point, obj);
               if (tmpPoint) {
                 const subItems = geom.getTipItems(tmpPoint, options.title);

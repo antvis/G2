@@ -51,7 +51,7 @@ function addElements(count, container, backContainer) {
   }
 }
 
-describe('Aniamte', function() {
+describe('Aniamte', () => {
   const canvas = new Canvas({
     containerId: 'animateCanvas',
     width: 600,
@@ -66,7 +66,7 @@ describe('Aniamte', function() {
     _id: 'view1'
   });
 
-  it('count', function() {
+  it('count', () => {
     addElements(10, container, backContainer);
     expect(canvas.get('children').length).eql(2);
     Animate.execAnimation(view);

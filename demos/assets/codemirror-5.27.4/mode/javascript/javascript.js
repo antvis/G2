@@ -27,7 +27,7 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
   // Tokenizer
 
   var keywords = function(){
-    function kw(type) {return {type: type, style: "keyword"};}
+    function kw(type) {return {type, style: "keyword"};}
     var A = kw("keyword a"), B = kw("keyword b"), C = kw("keyword c");
     var operator = kw("operator"), atom = {type: "atom", style: "atom"};
 
@@ -791,10 +791,10 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
     closeBrackets: "()[]{}''\"\"``",
 
     helperType: jsonMode ? "json" : "javascript",
-    jsonldMode: jsonldMode,
-    jsonMode: jsonMode,
+    jsonldMode,
+    jsonMode,
 
-    expressionAllowed: expressionAllowed,
+    expressionAllowed,
     skipExpression: function(state) {
       var top = state.cc[state.cc.length - 1]
       if (top == expression || top == expressionNoComma) state.cc.pop()

@@ -50,9 +50,7 @@ describe('Animate', () => {
   });
 
   it('Animate.registerAnimation', () => {
-    Animate.registerAnimation('leave', 'myAnimation', function() {
-      return 'success';
-    });
+    Animate.registerAnimation('leave', 'myAnimation', () => 'success');
 
     expect(Action.leave.myAnimation).to.be.an.instanceof(Function);
   });

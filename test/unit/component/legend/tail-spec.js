@@ -48,8 +48,8 @@ const data = [{ country: 'Europe', year: '1750', value: 163, type: 'a' },
 
 
 let chart;
-describe('tail legend', function() {
-  it('line chart', function() {
+describe('tail legend', () => {
+  it('line chart', () => {
     chart = new Chart({
       container: div,
       width: 600,

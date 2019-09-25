@@ -70,7 +70,7 @@ const ShapeBase = {
   parsePoints(points) {
     const coord = this._coord;
     const rst = [];
-    Util.each(points, function(point) {
+    Util.each(points, point => {
       rst.push(coord.convertPoint(point));
     });
     return rst;
@@ -124,7 +124,7 @@ const ShapeFactoryBase = {
 };
 
 // 注册 Geometry 获取图形的入口
-Shape.registerFactory = function(factoryName, cfg) {
+Shape.registerFactory = (factoryName, cfg) => {
   const className = Util.upperFirst(factoryName);
   const geomObj = Util.assign({}, ShapeFactoryBase, cfg);
   Shape[className] = geomObj;
@@ -133,7 +133,7 @@ Shape.registerFactory = function(factoryName, cfg) {
 };
 
 // 注册图形
-Shape.registerShape = function(factoryName, shapeType, cfg) {
+Shape.registerShape = (factoryName, shapeType, cfg) => {
   const className = Util.upperFirst(factoryName);
   const factory = Shape[className];
   const shapeObj = Util.assign({}, ShapeBase, cfg);

@@ -96,7 +96,7 @@ class Chart extends View {
   _isAutoPadding() {
     const padding = this.get('padding');
     if (Util.isArray(padding)) {
-      return padding.indexOf(AUTO_STR) !== -1;
+      return padding.includes(AUTO_STR);
     }
     return padding === AUTO_STR;
   }
@@ -386,7 +386,7 @@ class Chart extends View {
   _getSharedOptions() {
     const options = this.get('options');
     const sharedOptions = {};
-    Util.each([ 'scales', 'coord', 'axes' ], function(name) {
+    Util.each([ 'scales', 'coord', 'axes' ], name => {
       sharedOptions[name] = Util.cloneDeep(options[name]);
     });
     return sharedOptions;
@@ -475,7 +475,7 @@ class Chart extends View {
 
   clearInner() {
     const views = this.get('views');
-    Util.each(views, function(view) {
+    Util.each(views, view => {
       view.clearInner();
     });
 
@@ -600,13 +600,13 @@ class Chart extends View {
         if (window.navigator.msSaveBlob) {
           window.navigator.msSaveBlob(blobObj, filename);
         } else {
-          link.addEventListener('click', function() {
+          link.addEventListener('click', () => {
             link.download = filename;
             link.href = window.URL.createObjectURL(blobObj);
           });
         }
       } else {
-        link.addEventListener('click', function() {
+        link.addEventListener('click', () => {
           link.download = filename;
           link.href = dataURL;
         });

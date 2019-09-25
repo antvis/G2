@@ -7,8 +7,8 @@ const Util = require('../../../src/util');
 const div = document.createElement('div');
 document.body.appendChild(div);
 
-describe('facets test', function() {
-  describe('facets rect test', function() {
+describe('facets test', () => {
+  describe('facets rect test', () => {
     const chart = new Chart({
       container: div,
       width: 500,
@@ -42,7 +42,7 @@ describe('facets test', function() {
       }
     });
 
-    it('init test', function() {
+    it('init test', () => {
       expect(rectFacets.fields).eqls([ 'clarity', 'cut' ]);
       expect(chart.get('views').length).equal(5 * 8);
       chart.render();
@@ -55,17 +55,15 @@ describe('facets test', function() {
       expect(viewLast.get('options').axes.carat.label).not.equal(null);
     });
 
-    it('chart change data', function() {
-      const subArr = diamonds.filter(function(obj) {
-        return obj.clarity === 'VS2';
-      });
+    it('chart change data', () => {
+      const subArr = diamonds.filter(obj => obj.clarity === 'VS2');
       const arr1 = Util.Array.values(subArr, 'clarity');
       const arr2 = Util.Array.values(subArr, 'cut');
       chart.changeData(subArr);
       expect(chart.get('views').length).equal(arr1.length * arr2.length);
     });
 
-    it('clear', function() {
+    it('clear', () => {
       chart.clear();
       expect(chart.get('views').length).equal(0);
       chart.source(diamonds);
@@ -73,7 +71,7 @@ describe('facets test', function() {
       chart.render();
     });
 
-    it('only col', function() {
+    it('only col', () => {
       chart.clear();
       const colFacets = new Facets.Rect({
         chart,
@@ -89,7 +87,7 @@ describe('facets test', function() {
       expect(colFacets.facets).equal(null);
     });
 
-    it('only row', function() {
+    it('only row', () => {
       const rowFacets = new Facets.Rect({
         chart,
         fields: [ null, 'cut' ],
@@ -104,7 +102,7 @@ describe('facets test', function() {
       expect(rowFacets.facets).equal(null);
     });
 
-    it('only one type', function() {
+    it('only one type', () => {
       const data = [
         { a: 1, b: 2, c: '1' },
         { a: 2, b: 1, c: '1' },
@@ -126,14 +124,14 @@ describe('facets test', function() {
       expect(singleFacets.facets.length).equal(1);
     });
 
-    it('destroy', function() {
+    it('destroy', () => {
       chart.clear();
       rectFacets.destroy();
       expect(rectFacets.destroyed).equal(true);
     });
   });
 
-  describe('list facets', function() {
+  describe('list facets', () => {
     const chart = new Chart({
       container: div,
       width: 500,
@@ -152,7 +150,7 @@ describe('facets test', function() {
       }
     });
     let facets;
-    it('init', function() {
+    it('init', () => {
       facets = new Facets.List({
         fields: [ 'cut' ],
         chart,
@@ -174,7 +172,7 @@ describe('facets test', function() {
       expect(view3.get('options').axes.carat.label).not.equal(null);
     });
 
-    it('change data and cols', function() {
+    it('change data and cols', () => {
       facets.cols = 2;
       chart.changeData(diamonds);
 
@@ -186,13 +184,13 @@ describe('facets test', function() {
       expect(view3.get('options').axes.carat.label).equal(null);
     });
 
-    it('destroyed', function() {
+    it('destroyed', () => {
       chart.destroy();
       expect(facets.destroyed).equal(true);
     });
   });
 
-  describe('circle facets', function() {
+  describe('circle facets', () => {
     const chart = new Chart({
       container: div,
       width: 500,
@@ -202,7 +200,7 @@ describe('facets test', function() {
     chart.source(diamonds);
     chart.coord().transpose();
     let facets;
-    it('init', function() {
+    it('init', () => {
       facets = new Facets.Circle({
         fields: [ 'cut' ],
         chart,
@@ -217,13 +215,13 @@ describe('facets test', function() {
       expect(facets.facets.length).equal(5);
       chart.render();
     });
-    it('destroy', function() {
+    it('destroy', () => {
       chart.destroy();
       expect(facets.destroyed).equal(true);
     });
   });
 
-  describe('tree facets', function() {
+  describe('tree facets', () => {
     const chart = new Chart({
       container: div,
       width: 500,
@@ -233,7 +231,7 @@ describe('facets test', function() {
     });
     chart.coord('polar');
     let facets;
-    it('init', function() {
+    it('init', () => {
       facets = new Facets.Tree({
         fields: [ 'cut' ],
         chart,
@@ -251,22 +249,22 @@ describe('facets test', function() {
       expect(facets.group.getFirst().getCount()).equal(5);
     });
 
-    it('change size', function() {
+    it('change size', () => {
       chart.changeSize(1000, 800);
       expect(facets.group.getFirst().getCount()).equal(5);
     });
 
-    it('clear', function() {
+    it('clear', () => {
       chart.clear();
       expect(facets.group).equal(null);
     });
-    it('destroy', function() {
+    it('destroy', () => {
       chart.destroy();
       expect(chart.destroyed).equal(true);
     });
   });
 
-  describe('mirror facets', function() {
+  describe('mirror facets', () => {
     const data = [
       { a: '1', b: 2, c: '1' },
       { a: '2', b: 5, c: '1' },
@@ -285,7 +283,7 @@ describe('facets test', function() {
     chart.source(data);
 
     let facets;
-    it('init', function() {
+    it('init', () => {
       facets = new Facets.Mirror({
         fields: [ 'c' ],
         chart,
@@ -303,7 +301,7 @@ describe('facets test', function() {
       // expect(views[1].get('options').coord.actions[0]).eqls([ 'scale', 1, -1 ]);
     });
 
-    it('transpose', function() {
+    it('transpose', () => {
       chart.clear();
       facets = new Facets.Mirror({
         fields: [ 'c' ],
@@ -317,13 +315,13 @@ describe('facets test', function() {
       chart.render();
     });
 
-    it('destroy', function() {
+    it('destroy', () => {
       chart.destroy();
       expect(chart.destroyed).equal(true);
     });
   });
 
-  describe('use in chart', function() {
+  describe('use in chart', () => {
     const data = [
       { a: '1', b: 2, c: '1' },
       { a: '2', b: 5, c: '1' },
@@ -334,7 +332,7 @@ describe('facets test', function() {
       { a: '3', b: 2, c: '2' }
     ];
     let chart;
-    it('init chart', function() {
+    it('init chart', () => {
       chart = new Chart({
         container: div,
         width: 500,
@@ -354,7 +352,7 @@ describe('facets test', function() {
       expect(chart.get('views').length).equal(2);
       chart.render();
     });
-    it('chang facet', function() {
+    it('chang facet', () => {
       chart.clear();
       chart.facet('mirror', {
         fields: [ 'c' ],
@@ -365,7 +363,7 @@ describe('facets test', function() {
       expect(chart.get('views').length).equal(2);
       chart.render();
     });
-    it('only change facet', function() {
+    it('only change facet', () => {
       chart.facet('rect', {
         fields: [ 'c' ],
         eachView(view) {
@@ -374,18 +372,18 @@ describe('facets test', function() {
       });
       chart.repaint();
     });
-    it('destroy', function() {
+    it('destroy', () => {
       const facets = chart.get('facets');
       chart.destroy();
       expect(facets.destroyed).equal(true);
     });
   });
 
-  describe('matrix facets', function() {
+  describe('matrix facets', () => {
     let chart;
     const data = diamonds.slice(0, 100);
 
-    it('init chart', function() {
+    it('init chart', () => {
       chart = new Chart({
         container: div,
         width: 500,
@@ -408,7 +406,7 @@ describe('facets test', function() {
       chart.render();
     });
 
-    it('destroy', function() {
+    it('destroy', () => {
       const facets = chart.get('facets');
       chart.destroy();
       expect(facets.destroyed).equal(true);

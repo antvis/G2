@@ -4,7 +4,7 @@ const Chart = require('../../../src/chart/chart');
 const div = document.createElement('div');
 document.body.appendChild(div);
 
-describe('test point chart', function() {
+describe('test point chart', () => {
   const data = [];
   for (let i = 0; i < 100; i++) {
     data.push({
@@ -28,12 +28,12 @@ describe('test point chart', function() {
       max: 0
     }
   });
-  it('multiple points', function() {
+  it('multiple points', () => {
     chart.point().position('x*y').color('type');
     chart.render();
   });
 
-  it('stack points', function() {
+  it('stack points', () => {
     chart.clear();
     chart.pointStack().position('x*y')
       .color('type');
@@ -41,7 +41,7 @@ describe('test point chart', function() {
     expect(chart.get('viewContainer').getFirst().getCount()).equal(data.length);
   });
 
-  it('has null', function() {
+  it('has null', () => {
     chart.clear();
     const arr = [
       { x: 1, y: 1 },
@@ -53,12 +53,12 @@ describe('test point chart', function() {
     expect(chart.get('viewContainer').getFirst().getCount()).equal(1);
   });
 
-  it('one dim', function() {
+  it('one dim', () => {
     chart.clear();
     chart.point().position('type*..y').color('type');
     chart.render();
   });
-  it('destroy', function() {
+  it('destroy', () => {
     chart.destroy();
     expect(chart.destroyed).equal(true);
   });

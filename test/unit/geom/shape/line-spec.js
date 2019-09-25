@@ -24,15 +24,15 @@ const canvas = new Canvas({
   height: 500
 });
 
-describe('line shapes', function() {
+describe('line shapes', () => {
   Line._coord = coord;
-  describe('default', function() {
-    it('default shape type', function() {
+  describe('default', () => {
+    it('default shape type', () => {
       expect(Line.defaultShapeType).to.be.equal('line');
     });
   });
-  describe('line', function() {
-    it('getShapePoints && drawShape', function() {
+  describe('line', () => {
+    it('getShapePoints && drawShape', () => {
       const type = 'line';
       const points = [
         { x: 100, y: 100 },
@@ -47,7 +47,7 @@ describe('line shapes', function() {
       expect(shape.attr('path')[0]).eqls([ 'M', 100, 100 ]);
       expect(shape.attr('path')[1]).eqls([ 'L', 200, 200 ]);
     });
-    it('getMarkerCfg', function() {
+    it('getMarkerCfg', () => {
       const point = {
         size: 30,
         yDim: 'berlin',
@@ -68,8 +68,8 @@ describe('line shapes', function() {
     // });
   });
 
-  describe('line has size', function() {
-    it('getShapePoints && drawShape', function() {
+  describe('line has size', () => {
+    it('getShapePoints && drawShape', () => {
       const type = 'line';
       const points = [
         { x: 100, y: 100 },
@@ -86,8 +86,8 @@ describe('line shapes', function() {
     });
   });
 
-  describe('line point.y = []', function() {
-    it('getShapePoints && drawShape', function() {
+  describe('line point.y = []', () => {
+    it('getShapePoints && drawShape', () => {
       const type = 'line';
       const points = [
         { x: 100, y: [ 100, 200 ] },
@@ -104,8 +104,8 @@ describe('line shapes', function() {
     });
   });
 
-  describe('line point.x = [], point.y = []', function() {
-    it('getShapePoints && drawShape', function() {
+  describe('line point.x = [], point.y = []', () => {
+    it('getShapePoints && drawShape', () => {
       const type = 'line';
       const points = [
         { x: [ 100, 50 ], y: [ 100, 200 ] },
@@ -125,8 +125,8 @@ describe('line shapes', function() {
     });
   });
 
-  describe('dot', function() {
-    it('getShapePoints && drawShape', function() {
+  describe('dot', () => {
+    it('getShapePoints && drawShape', () => {
       const type = 'dot';
       const points = [
         { x: 100, y: 100 },
@@ -139,7 +139,7 @@ describe('line shapes', function() {
       expect(shape.attr('stroke')).eql('red');
       expect(shape.attr('lineDash')).eql([ 1, 1 ]);
     });
-    it('getMarkerCfg', function() {
+    it('getMarkerCfg', () => {
       const point = {
         size: 30,
         yDim: 'berlin'
@@ -152,8 +152,8 @@ describe('line shapes', function() {
     });
   });
 
-  describe('dash', function() {
-    it('getShapePoints && drawShape', function() {
+  describe('dash', () => {
+    it('getShapePoints && drawShape', () => {
       const type = 'dash';
       const points = [
         { x: 100, y: 100 },
@@ -166,7 +166,7 @@ describe('line shapes', function() {
       expect(shape.attr('stroke')).eql('red');
       expect(shape.attr('lineDash')).eql([ 5.5, 1 ]);
     });
-    it('getMarkerCfg', function() {
+    it('getMarkerCfg', () => {
       const point = {
         size: 30,
         yDim: 'berlin'
@@ -179,8 +179,8 @@ describe('line shapes', function() {
     });
   });
 
-  describe('smooth && spline', function() {
-    it('getShapePoints && drawShape', function() {
+  describe('smooth && spline', () => {
+    it('getShapePoints && drawShape', () => {
       const type = 'smooth';
       const points = [
         { x: 100, y: 100 },
@@ -197,7 +197,7 @@ describe('line shapes', function() {
       expect(shape.attr('path')[1].length).eql(7);
       expect(shape.attr('path')[2].length).eql(7);
     });
-    it('getMarkerCfg', function() {
+    it('getMarkerCfg', () => {
       const point = {
         size: 30,
         yDim: 'berlin',
@@ -214,8 +214,8 @@ describe('line shapes', function() {
     });
   });
 
-  describe('hv', function() {
-    it('getShapePoints && drawShape', function() {
+  describe('hv', () => {
+    it('getShapePoints && drawShape', () => {
       const type = 'hv';
       const points = [
         { x: 100, y: 100 },
@@ -234,8 +234,8 @@ describe('line shapes', function() {
     });
   });
 
-  describe('vh', function() {
-    it('getShapePoints && drawShape', function() {
+  describe('vh', () => {
+    it('getShapePoints && drawShape', () => {
       const type = 'vh';
       const points = [
         { x: 100, y: 100 },
@@ -254,8 +254,8 @@ describe('line shapes', function() {
     });
   });
 
-  describe('hvh', function() {
-    it('getShapePoints && drawShape', function() {
+  describe('hvh', () => {
+    it('getShapePoints && drawShape', () => {
       const type = 'hvh';
       const points = [
         { x: 100, y: 100 },
@@ -274,8 +274,8 @@ describe('line shapes', function() {
       expect(shape.attr('path')[3]).eqls([ 'L', 200, 200 ]);
     });
   });
-  describe('vhv', function() {
-    it('getShapePoints && drawShape', function() {
+  describe('vhv', () => {
+    it('getShapePoints && drawShape', () => {
       const type = 'vhv';
       const points = [
         { x: 100, y: 100 },
@@ -292,7 +292,7 @@ describe('line shapes', function() {
       expect(shape.attr('path')[2].length).eql(3);
       expect(shape.attr('path')[3].length).eql(3);
     });
-    it('hv vh hvh vhv getMarkerCfg', function() {
+    it('hv vh hvh vhv getMarkerCfg', () => {
       const point = {
         size: 30,
         yDim: 'berlin',
@@ -310,7 +310,7 @@ describe('line shapes', function() {
       expect(vhvPointCfg.symbol).to.be.an.instanceof(Function);
     });
 
-    it('clear', function() {
+    it('clear', () => {
       canvas.destroy();
       document.body.removeChild(div);
     });

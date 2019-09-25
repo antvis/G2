@@ -40,7 +40,7 @@ describe('#371', () => {
       y: 360
     });
     const canvas = chart.get('canvas');
-    setTimeout(function() {
+    setTimeout(() => {
       const shape = canvas.getShape(952, 720);
       expect(shape).not.equal(undefined);
       expect(shape.get('origin')).not.equal(undefined);

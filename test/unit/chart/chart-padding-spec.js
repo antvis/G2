@@ -5,8 +5,8 @@ require('../../../src/index');
 const div = document.createElement('div');
 document.body.appendChild(div);
 
-describe('chart auto padding', function() {
-  describe('all auto', function() {
+describe('chart auto padding', () => {
+  describe('all auto', () => {
     const data = [
       { genre: 'Sports', sold: 475, type: '1' },
       { genre: 'Strategy', sold: 115, type: '1' },
@@ -27,7 +27,7 @@ describe('chart auto padding', function() {
       position: 'right'
     });
     chart.source(data);
-    it('init', function() {
+    it('init', () => {
 
       chart.interval().position('genre*sold').color('genre');
       chart.render();
@@ -37,8 +37,8 @@ describe('chart auto padding', function() {
       expect(plotRange.tl.y > 6).equal(true);
     });
 
-    it('change coord', function(done) {
-      setTimeout(function() {
+    it('change coord', done => {
+      setTimeout(() => {
         chart.clear();
         chart.coord().scale(1, -1);
         chart.interval().position('genre*sold').color('genre');
@@ -51,8 +51,8 @@ describe('chart auto padding', function() {
       }, 100);
     });
     let prePoint;
-    it('change data', function(done) {
-      setTimeout(function() {
+    it('change data', done => {
+      setTimeout(() => {
         const data = [
           { genre: 'Sports', sold: 475, type: '1' },
           { genre: 'Strategy', sold: 115, type: '1' },
@@ -71,8 +71,8 @@ describe('chart auto padding', function() {
       }, 100);
     });
 
-    it('change size', function(done) {
-      setTimeout(function() {
+    it('change size', done => {
+      setTimeout(() => {
         chart.changeSize(800, 500);
         const plotRange = chart.get('plotRange');
         expect(plotRange.tl).eqls(prePoint);
@@ -80,13 +80,13 @@ describe('chart auto padding', function() {
       }, 100);
     });
 
-    it('destroy', function() {
+    it('destroy', () => {
       chart.destroy();
       expect(chart.destroyed).equal(true);
     });
   });
 
-  describe('not all auto', function() {
+  describe('not all auto', () => {
     const data = [
       { genre: 'Sports', sold: 475, type: '1' },
       { genre: 'Strategy', sold: 115, type: '1' },
@@ -105,7 +105,7 @@ describe('chart auto padding', function() {
 
     chart.source(data);
 
-    it('init', function() {
+    it('init', () => {
       chart.interval().position('genre*sold').color('genre');
       chart.render();
       const plotRange = chart.get('plotRange');
@@ -118,8 +118,8 @@ describe('chart auto padding', function() {
     });
     let pretl;
     let prebl;
-    it('change data', function(done) {
-      setTimeout(function() {
+    it('change data', done => {
+      setTimeout(() => {
         const data = [
           { genre: 'Sports', sold: 475, type: '1' },
           { genre: 'Strategy', sold: 115, type: '1' },
@@ -142,8 +142,8 @@ describe('chart auto padding', function() {
       }, 100);
     });
 
-    it('change size', function(done) {
-      setTimeout(function() {
+    it('change size', done => {
+      setTimeout(() => {
         chart.changeSize(600, 300);
         const plotRange = chart.get('plotRange');
         expect(plotRange.tl).eqls(pretl);
@@ -152,8 +152,8 @@ describe('chart auto padding', function() {
       }, 100);
     });
 
-    it('force fit', function(done) {
-      setTimeout(function() {
+    it('force fit', done => {
+      setTimeout(() => {
         chart.forceFit();
         const plotRange = chart.get('plotRange');
         expect(plotRange.tl).eqls(pretl);
@@ -162,8 +162,8 @@ describe('chart auto padding', function() {
       }, 800);
     });
 
-    it('change to no auto', function(done) {
-      setTimeout(function() {
+    it('change to no auto', done => {
+      setTimeout(() => {
         chart.set('padding', 40);
         chart.repaint();
         const plotRange = chart.get('plotRange');
@@ -173,7 +173,7 @@ describe('chart auto padding', function() {
       }, 800);
     });
 
-    it('destroy', function() {
+    it('destroy', () => {
       chart.destroy();
       expect(chart.destroyed).equal(true);
     });

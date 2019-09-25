@@ -6,7 +6,7 @@ const div = document.createElement('div');
 div.id = 'cdataset';
 document.body.appendChild(div);
 
-describe('use dataset in chart', function() {
+describe('use dataset in chart', () => {
   const data = [
       { a: 1, b: 2, c: '1' },
       { a: 2, b: 5, c: '1' },
@@ -37,7 +37,7 @@ describe('use dataset in chart', function() {
       }
     });
 
-  it('init with view', function() {
+  it('init with view', () => {
     chart.source(view);
     chart.line().position('a*b').color('c');
     chart.render();
@@ -49,9 +49,9 @@ describe('use dataset in chart', function() {
     expect(path.attr('path').length).equal(3);
   });
 
-  it('data view change', function(done) {
+  it('data view change', done => {
     ds.setState('value', 1);
-    setTimeout(function() {
+    setTimeout(() => {
       const viewContainer = chart.get('viewContainer');
       expect(viewContainer.getCount()).equal(1);
       const group = viewContainer.getFirst();
@@ -62,7 +62,7 @@ describe('use dataset in chart', function() {
     }, 20);
   });
 
-  it('change data', function() {
+  it('change data', () => {
     chart.changeData(data);
     const viewContainer = chart.get('viewContainer');
     expect(viewContainer.getCount()).equal(1);
@@ -71,7 +71,7 @@ describe('use dataset in chart', function() {
     expect(path.attr('path').length).equal(3);
   });
 
-  it('multiple views', function(done) {
+  it('multiple views', done => {
     chart.clear();
     chart.source([]);
     chart.scale('b', {
@@ -79,7 +79,7 @@ describe('use dataset in chart', function() {
     });
     ds.setState('value', 0);
 
-    setTimeout(function() {
+    setTimeout(() => {
       const v1 = chart.view().source(view);
       v1.line().position('a*b').color('c');
 
@@ -95,10 +95,10 @@ describe('use dataset in chart', function() {
     }, 40);
   });
 
-  it('state change with multiple views', function(done) {
+  it('state change with multiple views', done => {
     ds.setState('value', 1);
 
-    setTimeout(function() {
+    setTimeout(() => {
       const viewContainer = chart.get('viewContainer');
       expect(viewContainer.getCount()).equal(2);
       const group = viewContainer.getFirst();
@@ -112,7 +112,7 @@ describe('use dataset in chart', function() {
     }, 40);
   });
 
-  it('destroy', function() {
+  it('destroy', () => {
     chart.destroy();
     expect(chart.destroyed).equal(true);
   });

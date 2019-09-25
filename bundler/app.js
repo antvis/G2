@@ -87,7 +87,7 @@ function startService(port) {
           const entryPath = resolve(process.cwd(), './src/__index.js');
           const ids = req.body.ids.map(id => parseInt(id, 10));
           const codeBlocks = blocks
-            .filter((item, index) => ids.indexOf(index) !== -1)
+            .filter((item, index) => ids.includes(index))
             .map(item => item.code)
             .join('\n');
           const entryFileContent = template(codeBlocks);
@@ -123,7 +123,7 @@ function startService(port) {
             zip
               .generateNodeStream({ type: 'nodebuffer', streamFiles: true })
               .pipe(res)
-              .on('finish', function() {
+              .on('finish', () => {
                 // step5: clear up
                 shelljs.rm(entryPath);
                 shelljs.rm('-rf', distPath);

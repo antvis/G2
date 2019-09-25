@@ -37,10 +37,10 @@ describe('#213', () => {
       });
     chart.render();
 
-    setTimeout(function() {
+    setTimeout(() => {
       chart.filter('action', null);
       chart.repaint();
-      setTimeout(function() {
+      setTimeout(() => {
         const shapes = interval.getShapes();
         const shape = shapes[3];
         expect(shape.attr('path')[3][2]).not.eqls(NaN);
