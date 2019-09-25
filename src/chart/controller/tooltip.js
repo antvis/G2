@@ -398,12 +398,12 @@ class TooltipController {
           if (geom.isShareTooltip() || (options.shared === false && Util.inArray([ 'area', 'line', 'path', 'polygon' ], type))) {
 
             // 打补丁解决 bug: https://github.com/antvis/g2/issues/1248
-            // 当 interval 对应的 color 和 x 字段相同的时候，items 取值逻辑不一样
+            // 当 interval 对应的 color 和 x 字段相同的时候，并且包含 dodge，items 取值逻辑不一样
             // 这种情况下，每一个 x 字段分成一组
             const xScale = geom.getXScale();
             const colorAttr = geom.getAttr('color');
             const colorField = colorAttr ? colorAttr.field : undefined;
-            if (type === 'interval' && xScale.field === colorField) {
+            if (type === 'interval' && xScale.field === colorField && geom.hasAdjust('dodge')) {
               // 找不到不为空的
               const points = Util.find(dataArray, obj => !!geom.findPoint(point, obj));
               // 转为 tooltip items
