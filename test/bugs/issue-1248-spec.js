@@ -73,8 +73,7 @@ describe('#1248', () => {
 
     const chart = new G2.Chart({
       container: div,
-      forceFit: true,
-      renderer: 'svg',
+      forceFit: true
     });
 
     chart.source(data);
@@ -86,9 +85,6 @@ describe('#1248', () => {
         marginRatio: 1 / 32
       }]);
 
-    chart.tooltip({
-      title: 'name',
-    });
     chart.render();
   });
 });
