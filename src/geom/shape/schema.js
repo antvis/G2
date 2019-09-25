@@ -105,7 +105,7 @@ function _sortValue(value) {
     value = [ value ];
   }
   // 从大到小排序
-  const sorted = value.sort(function(a, b) { return a < b ? 1 : -1; });
+  const sorted = value.sort((a, b) => (a < b ? 1 : -1));
 
   const length = sorted.length;
   if (length < 4) {
