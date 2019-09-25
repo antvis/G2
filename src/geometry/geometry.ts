@@ -276,7 +276,6 @@ export default class Geometry {
    */
   public label() {}
 
-  /** 初始化 Geometry */
   public init() {
     this._initAttrs(); // 创建图形属性
 
@@ -291,37 +290,12 @@ export default class Geometry {
     // 数据加工：分组 -> 数字化 -> adjust
     this._processData(this.data);
   }
-
-  /** 进行数据到图形空间的映射同时绘制图形 */
-  public paint() {
-    const coordinate = this.coordinate;
-    const container = this.container;
-    container.setMatrix(coordinate.matrix); // TODO：是否可以移除这步设置
-
-    const dataArray = this.dataArray;
-    const mappedArray = [];
-
-    this._beforeMapping(dataArray);
-    for (let i = 0, len = dataArray.length; i < len; i += 1) {
-      const mappedData = this._mapping(dataArray[i]);
-      mappedArray.push(mappedData);
-      this.createElements(mappedData, i);
-    }
-
-    // 添加 label
-    // if (this.get('labelOptions')) {
-    //   const labelController = this.get('labelController');
-    //   const labels = labelController.addLabels(Util.union(...mappedArray), shapeContainer.get('children'));
-    //   this.set('labels', labels);
-    // }
-
-    this._afterMapping(mappedArray);
-  }
-
-  /** 更新数据 */
-  public update(data) {
+  /**
+   * Updates data
+   * @param data
+   */
+  public updateData(data: LooseObject[]) {
     this.data = data;
-    this.elementsMap = {};
 
     // 更新 scale
     const { scaleDefs, scales } = this;
@@ -332,26 +306,45 @@ export default class Geometry {
         ScaleUtil.syncScale(scale, newScale);
       }
     });
+    // 数据加工：分组 -> 数字化 -> adjust
+    this._processData(data);
+  }
 
-    // 重新进行数据的加工
-    const dataArray = this._processData(data);
+  /** 进行数据到图形空间的映射同时绘制图形 */
+  public paint() {
+    this.elements = [];
+    this.elementsMap = {};
+
+    // TODO: @simaq 是否可以移除设置矩阵这一步？
+    const coordinate = this.coordinate;
+    const container = this.container;
+    container.setMatrix(coordinate.matrix);
+
+    const dataArray = this.dataArray;
     this._beforeMapping(dataArray);
+
     const mappedArray = [];
-    let newElements = [];
-    Util.each(dataArray, (everyData, i) => {
-      const mappedResult = this._mapping(everyData);
-      mappedArray.push(mappedResult);
-      const elements = this.updateElements(mappedResult);
-      newElements = newElements.concat(elements);
-    });
+    for (let i = 0, len = dataArray.length; i < len; i += 1) {
+      const mappedData = this._mapping(dataArray[i]);
+      mappedArray.push(mappedData);
+      this.createElements(mappedData);
+    }
+
+    // 添加 label
+    // if (this.get('labelOptions')) {
+    //   const labelController = this.get('labelController');
+    //   const labels = labelController.addLabels(Util.union(...mappedArray), shapeContainer.get('children'));
+    //   this.set('labels', labels);
+    // }
 
     this._afterMapping(mappedArray);
 
-    this.elements = newElements;
-    // 销毁不存在的数据
+    // 销毁被删除的 elements
     Util.each(this.lastElementsMap, (deletedElement, id) => {
       deletedElement.destroy();
     });
+
+    this.lastElementsMap = this.elementsMap;
   }
 
   /**
@@ -485,18 +478,6 @@ export default class Geometry {
     };
   }
 
-  protected createElements(data: LooseObject[], groupIndex: number) {
-    const { elements, elementsMap } = this;
-    Util.each(data, (record, index) => {
-      const elementId = this._getElementId(record[FIELD_ORIGIN]);
-      const element = this.createElement(record, groupIndex + index);
-
-      elements.push(element);
-      elementsMap[elementId] = element;
-    });
-    this.lastElementsMap = elementsMap;
-  }
-
   protected createElement(record: LooseObject, groupIndex: number): Element {
     const originData = record[FIELD_ORIGIN];
     const { theme, container } = this;
@@ -540,16 +521,17 @@ export default class Geometry {
     return cfg;
   }
 
-  protected updateElements(mappedArray: LooseObject[]) {
-    const lastElementsMap = this.lastElementsMap;
-    const elements = [];
+  protected createElements(mappedArray: LooseObject[]) {
+    const { lastElementsMap, elementsMap, elements } = this;
     Util.each(mappedArray, (record, i) => {
       const originData = record[FIELD_ORIGIN];
       const id = this._getElementId(originData);
       let result = lastElementsMap[id];
       if (!result) {
+        // 创建新的 element
         result = this.createElement(record, i);
       } else {
+        // element 已经创建
         if (!Util.isEqual(originData, result.getData())) {
           // 数据发生变更了才做更新
           const shapeCfg = this.getDrawCfg(record); // 获取绘制图形的配置信息
@@ -559,7 +541,7 @@ export default class Geometry {
         delete lastElementsMap[id];
       }
       elements.push(result);
-      this.elementsMap[id] = result;
+      elementsMap[id] = result;
     });
 
     return elements;

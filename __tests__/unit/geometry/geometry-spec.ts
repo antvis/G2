@@ -341,6 +341,7 @@ describe('Geometry', () => {
       const scales = geometry.scales;
       expect(scales).to.have.all.keys('month', 'temperature', 'city', 'year');
       expect(scales.month.range).to.eql([0.25, 0.75]);
+      expect(scales.month.values).to.eql(['一月', '二月']);
 
       // 数据加工
       const dataArray = geometry.dataArray;
@@ -400,18 +401,24 @@ describe('Geometry', () => {
       expect(defaultSize).to.equal(3);
     });
 
-    it('update()', () => {
+    it('update data and repaint', () => {
       const updateElement = geometry.elements[1];
       const deleteElement = geometry.elements[0];
 
-      geometry.update([
+      geometry.updateData([
         { month: '二月', temperature: 20, city: '北京', year: '2018' },
         { month: '二月', temperature: 14, city: '南京', year: '2018' },
         { month: '三月', temperature: 24, city: '南京', year: '2018' },
       ]);
 
       expect(geometry.data.length).to.equal(3);
+      expect(geometry.dataArray.length).to.equal(2);
 
+      const scales = geometry.scales;
+      expect(scales.month.values).to.eql(['二月', '三月']);
+
+      // 更新完数据后进行绘制
+      geometry.paint();
       const elements = geometry.elements;
       expect(elements.length).to.equal(3);
 
