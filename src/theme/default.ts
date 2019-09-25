@@ -39,6 +39,7 @@ export default {
     '#FF99C3',
     '#FFD6E7',
   ],
+  columnWidthRatio: 0.5,
   shapes: {
     point: [
       'hollowCircle',

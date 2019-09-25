@@ -1,6 +1,6 @@
 import { LooseObject } from 'interface';
+import { getCoordinateWidth } from '../../util/coordinate';
 import Geometry from '../geometry';
-import { getCoordinateWidth } from '../util/coodinate';
 import { getDefaultSize } from '../util/shape-size';
 /** 引入对应的 ShapeFactory */
 import './shape';
@@ -22,12 +22,12 @@ export default class Interval extends Geometry {
 
     // 计算每个 shape 的 size
     let size;
-    const sizeAttr = this.getAttr('size');
+    const sizeAttr = this.getAttribute('size');
     if (sizeAttr) {
       size = this.getAttrValues(sizeAttr, record)[0];
       // 归一化
-      const coodinate = this.coordinate;
-      const coordinateWidth = getCoordinateWidth(coodinate);
+      const coordinate = this.coordinate;
+      const coordinateWidth = getCoordinateWidth(coordinate);
       size = size / coordinateWidth;
     } else {
       if (!this._defaultSize) {
