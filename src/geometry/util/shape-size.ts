@@ -1,11 +1,11 @@
-import * as Util from '@antv/util';
+import * as _ from '@antv/util';
 import { getXDimensionLength } from '../../util/coordinate';
 
 // 已经排序后的数据查找距离最小的
 function findMinDistance(arr, scale) {
   const count = arr.length;
   let sourceArr = arr;
-  if (Util.isString(sourceArr[0])) {
+  if (_.isString(sourceArr[0])) {
     // 日期类型的 values 经常上文本类型，所以需要转换一下
     sourceArr = arr.map((v: string) => {
       return scale.translate(v);
@@ -23,8 +23,8 @@ function findMinDistance(arr, scale) {
 
 function getDodgeCount(dataArray, dodgeBy) {
   if (dodgeBy) {
-    const mergeData = Util.flatten(dataArray);
-    const values = Util.valuesOfKey(mergeData, dodgeBy);
+    const mergeData = _.flatten(dataArray);
+    const values = _.valuesOfKey(mergeData, dodgeBy);
     return values.length;
   }
 

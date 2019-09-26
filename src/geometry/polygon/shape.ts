@@ -1,4 +1,4 @@
-import * as Util from '@antv/util';
+import * as _ from '@antv/util';
 import Element from '../element';
 
 import { ShapeDrawCFG } from '../../interface';
@@ -25,7 +25,7 @@ function getPath(points: any[]) {
     i++;
   }
 
-  if (!Util.isEqual(path[path.length - 1], flag)) {
+  if (!_.isEqual(path[path.length - 1], flag)) {
     path.push(['L', flag.x, flag.y]);
   }
 
@@ -38,7 +38,7 @@ const PolygonShapeFactory = registerShapeFactory('polygon', {
   defaultShapeType: 'polygon',
   getDefaultPoints(pointInfo: ShapePoint) {
     const points = [];
-    Util.each(pointInfo.x as number[], (subX, index) => {
+    _.each(pointInfo.x as number[], (subX, index) => {
       const subY = pointInfo.y[index];
       points.push({
         x: subX,
@@ -51,7 +51,7 @@ const PolygonShapeFactory = registerShapeFactory('polygon', {
 
 registerShape('polygon', 'polygon', {
   draw(cfg: ShapeDrawCFG, element: Element) {
-    if (!Util.isEmpty(cfg.points)) {
+    if (!_.isEmpty(cfg.points)) {
       const shapeAttrs: any = cfg.style;
       if (cfg.color) {
         shapeAttrs.fill = cfg.color;
@@ -68,7 +68,7 @@ registerShape('polygon', 'polygon', {
   },
   update(cfg: ShapeDrawCFG, element: Element) {
     // TODO: 可优化
-    if (!Util.isEmpty(cfg.points)) {
+    if (!_.isEmpty(cfg.points)) {
       const shapeAttrs: any = cfg.style;
       if (cfg.color) {
         shapeAttrs.fill = cfg.color;
