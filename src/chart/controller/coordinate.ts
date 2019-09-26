@@ -37,6 +37,8 @@ export function createCoordinate(coordinateOption: CoordinateOption = {}, coordi
   const C = getCoordinate(isTheta(type) ? 'polar' : type);
 
   const coordinate = new C(props);
+  // @ts-ignore FIXME coordinate 包问题导致 type 不正确
+  coordinate.type = type;
 
   // 3. 执行 actions
   let coordinateActions = actions;
