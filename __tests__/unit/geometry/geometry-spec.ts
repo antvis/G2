@@ -5,7 +5,8 @@ import { getTheme } from '../../../src';
 import { getCoordinate } from '../../../src/dependents';
 import Geometry from '../../../src/geometry/geometry';
 import * as Shape from '../../../src/geometry/shape';
-import { LooseObject, Point } from '../../../src/interface';
+import { LooseObject } from '../../../src/interface';
+import Theme from '../../util/theme';
 
 const Rect = getCoordinate('rect');
 
@@ -31,7 +32,7 @@ describe('Geometry', () => {
         data,
         coordinate,
         container: new Group(),
-        theme: getTheme('default'),
+        theme: Theme, // 测试用主题
         scaleDefs: {
           month: {
             range: [0.25, 0.75],
@@ -255,7 +256,7 @@ describe('Geometry', () => {
         coordinate,
         animate: false,
         container,
-        theme: getTheme('default'),
+        theme: Theme, // 测试用主题
         generatePoints: true,
         shapeType: 'myInterval',
         scaleDefs: {
