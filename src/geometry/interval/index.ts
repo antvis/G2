@@ -1,3 +1,4 @@
+import * as _ from '@antv/util';
 import { LooseObject } from 'interface';
 import { getXDimensionLength } from '../../util/coordinate';
 import Geometry from '../geometry';
@@ -21,7 +22,7 @@ export default class Interval extends Geometry {
     const { field, min, max, type } = yScale;
     // 如果用户通过列定义自己定义了 min，则以用户的为准
     // time 类型不做调整
-    if (!(scaleDefs[field] && scaleDefs[field].min) && type !== 'time') {
+    if (!_.get(scaleDefs, `${field}.min`) && type !== 'time') {
       if (min > 0) {
         yScale.change({
           min: 0,
