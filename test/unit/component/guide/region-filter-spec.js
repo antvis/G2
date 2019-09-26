@@ -122,9 +122,10 @@ describe('Guide.RegionFilter', () => {
   });
 
   it('clear', () => {
-    regionFilter.clear();
-    expect(regionFilter.get('el').get('destroyed')).to.be.true;
+    const el = regionFilter.get('el');
     const clip = regionFilter.get('clip');
+    regionFilter.clear();
+    expect(el.get('destroyed')).to.be.true;
     expect(clip.get('destroyed')).to.be.true;
     expect(group.get('children').length).to.equal(0);
 
