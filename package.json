@@ -65,7 +65,7 @@
     "build": "webpack",
     "build-lib": "babel src --out-dir lib && cp src/index.d.ts lib/",
     "bundler": "electron ./bundler/app.js",
-    "ci": "npm run lint && npm run test",
+    "ci": "npm run lint && npm run build && npm run test",
     "compress-g2": "uglifyjs -c -m -o dist/g2.min.js -- build/g2.js",
     "compress-core": "uglifyjs -c -m -o dist/g2-core.min.js -- build/g2-core.js",
     "compress-simple": "uglifyjs -c -m -o dist/g2-simple.min.js -- build/g2-simple.js",
