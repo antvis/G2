@@ -108,7 +108,7 @@ const Animate = <any > {
   interval: {
     appear(coord) {
       let result;
-      if (coord.isPolar) { // polar coodinate
+      if (coord.isPolar) { // polar coordinate
         result = Action.appear.groupScaleInXY;
         if (coord.isTransposed) { // pie chart
           result = Action.appear.groupWaveIn;

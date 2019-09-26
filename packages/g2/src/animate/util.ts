@@ -143,8 +143,8 @@ export function doGroupScaleIn(container, animateCfg, coord, zeroY, type) {
     y = start.y + height / 2;
   } else if (type === 'xy') {
     if (coord.isPolar) {
-      x = coord.center.x;
-      y = coord.center.y;
+      x = coord.getCenter().x;
+      y = coord.getCenter().y;
     } else {
       x = (start.x + end.x) / 2;
       y = (start.y + end.y) / 2;
