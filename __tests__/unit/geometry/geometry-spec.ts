@@ -1,11 +1,11 @@
 import { Canvas, Group } from '@antv/g';
 import * as Util from '@antv/util';
 import { expect } from 'chai';
+import { getTheme } from '../../../src';
 import { getCoordinate } from '../../../src/dependents';
 import Geometry from '../../../src/geometry/geometry';
 import * as Shape from '../../../src/geometry/shape';
 import { LooseObject, Point } from '../../../src/interface';
-import Theme from '../../util/theme';
 
 const Rect = getCoordinate('rect');
 
@@ -31,7 +31,7 @@ describe('Geometry', () => {
         data,
         coord,
         container: new Group(),
-        theme: Theme,
+        theme: getTheme('default'),
         scaleDefs: {
           month: {
             range: [0.25, 0.75],
@@ -255,7 +255,7 @@ describe('Geometry', () => {
         coord,
         animate: false,
         container,
-        theme: Theme,
+        theme: getTheme('default'),
         generatePoints: true,
         shapeType: 'myInterval',
         scaleDefs: {
