@@ -55,7 +55,7 @@ export default class View extends EE {
   /** view 的 padding 大小 */
   public padding: Padding;
   /** 主题配置 */
-  public _theme: object;
+  public themeObject: object;
 
   // 配置信息存储
   // @ts-ignore
@@ -96,7 +96,7 @@ export default class View extends EE {
     this.foregroundGroup = foregroundGroup;
     this.region = region;
     this.padding = padding;
-    this._theme = mergeTheme({}, theme);
+    this.themeObject = mergeTheme({}, theme);
 
     this.initial();
   }
@@ -307,7 +307,7 @@ export default class View extends EE {
    * 设置主题
    */
   public theme(theme: string | object) {
-    this._theme = mergeTheme(this._theme, theme);
+    this.themeObject = mergeTheme(this.themeObject, theme);
   }
 
   /* end 一系列传入配置的 API */
@@ -384,7 +384,7 @@ export default class View extends EE {
   }
 
   public getTheme(): object {
-    return this._theme;
+    return this.themeObject;
   }
 
   /**
@@ -540,7 +540,7 @@ export default class View extends EE {
     _.each(this.geometries, (geometry: Geometry) => {
       geometry.scaleDefs = _.get(this.options, 'scales', {});
       geometry.data = this.filteredData;
-      geometry.theme = this._theme;
+      geometry.theme = this.themeObject;
       // 保持 scales 引用不要变化
       geometry.scales = this.scales;
 
