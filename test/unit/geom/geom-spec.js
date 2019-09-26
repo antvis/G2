@@ -235,6 +235,62 @@ describe('test geoms', () => {
     });
   });
 
+  describe('test empty data', () => {
+    const newData = [];
+    let geom;
+    it('init attrs', () => {
+      geom = new Geom({
+        type: 'test',
+        coord,
+        container: canvas.addGroup(),
+        data: newData,
+        scales: { a: scaleA, b: scaleB, c: scaleC }
+      });
+      geom.position('a*b').color('c');
+      geom._initAttrs();
+      const attrs = geom.get('attrs');
+      expect(attrs.position.type).equal('position');
+      expect(attrs.position.scales.length).equal(2);
+      expect(attrs.color.scales.length).eqls(1);
+    });
+
+    it('test adjust symmetric', () => {
+      geom.position('a*b').adjust('symmetric');
+      geom._initAttrs();
+      const arr = geom._groupData(Util.cloneDeep(newData));
+      geom._adjust(arr);
+
+      expect(arr).eqls([]);
+    });
+
+    it('test adjust stack', () => {
+      geom.position('a*b').adjust('stack');
+      geom._initAttrs();
+      const arr = geom._groupData(Util.cloneDeep(newData));
+      geom._adjust(arr);
+
+      expect(arr).eqls([]);
+    });
+
+    it('test adjust dodge', () => {
+      geom.position('a*b').adjust('dodge');
+      geom._initAttrs();
+      const arr = geom._groupData(Util.cloneDeep(newData));
+      geom._adjust(arr);
+
+      expect(arr).eqls([]);
+    });
+
+    it('test adjust jitter', () => {
+      geom.position('a*b').adjust('jitter');
+      geom._initAttrs();
+      const arr = geom._groupData(Util.cloneDeep(newData));
+      geom._adjust(arr);
+
+      expect(arr).eqls([]);
+    });
+  });
+
   describe('test paint', () => {
     const newData = data.slice(0);
     const group = canvas.addGroup();
