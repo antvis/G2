@@ -92,9 +92,9 @@ describe('#1222', () => {
     chart.line().position('month*rain').color('name');
     chart.render();
 
-    chart.repaint();
-    chart.repaint();
-    chart.repaint();
+    chart.render();
+    chart.render();
+    chart.render();
 
     expect(document.querySelectorAll('.g-labels').length).to.be.eql(1);
   });
