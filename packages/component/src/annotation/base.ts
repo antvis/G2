@@ -7,7 +7,7 @@ import { GuideCfg } from '../interface';
 
 type PositionCallback = (
   xScales: Scale[] | Record<string, Scale>,
-  yScales: Scale[] | Record<string, Scale>,
+  yScales: Scale[] | Record<string, Scale>
 ) => [number, number];
 
 export type Position = [number | string, number | string] | Record<string, number | string> | PositionCallback;
@@ -19,16 +19,14 @@ export interface Point {
 
 // Q: 为什么使用React类型定义呢？
 // A: 因为在g提供类型定义前，目前我只找到它有比较多的svg属性定义，原生的CSSStyleDeclaration & CanvasPathDrawingStyles会有类型冲突
-export type SvgAttrs = Partial<
-  {
-    path: any;
-    textAlign: string;
-    lineWidth: number;
-    text: string;
-    textBaseline: 'top' | 'bottom';
-    [key: string]: any;
-  }
->;
+export type SvgAttrs = Partial<{
+  path: any;
+  textAlign: string;
+  lineWidth: number;
+  text: string;
+  textBaseline: 'top' | 'bottom';
+  [key: string]: any;
+}>;
 
 // https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-414782407
 // type KnownKeys = {
@@ -131,6 +129,7 @@ export default abstract class Annotation<T extends AnnotationCfg = AnnotationCfg
 
   private getNormalizedValue(val: number | string, scale: Scale) {
     let result: number;
+    let scaled: number;
 
     switch (val) {
       case 'start':
@@ -140,13 +139,12 @@ export default abstract class Annotation<T extends AnnotationCfg = AnnotationCfg
         result = 1;
         break;
       case 'median': {
-        const scaled = scale.isCategory ? (scale.values.length - 1) / 2 : (scale.min + scale.max) / 2;
+        scaled = scale.isCategory ? (scale.values.length - 1) / 2 : (scale.min + scale.max) / 2;
         result = scale.scale(scaled);
         break;
       }
       case 'min':
       case 'max':
-        let scaled: number;
         if (scale.isCategory) {
           scaled = val === 'min' ? 0 : scale.values.length - 1;
         } else {
@@ -169,8 +167,8 @@ export default abstract class Annotation<T extends AnnotationCfg = AnnotationCfg
       x: Math.min(start.x, end.x),
       y: Math.min(start.y, end.y),
     };
-    const x = coord.width * xPercent + topLeft.x;
-    const y = coord.height * yPercent + topLeft.y;
+    const x = coord.getWidth() * xPercent + topLeft.x;
+    const y = coord.getHeight() * yPercent + topLeft.y;
     return { x, y };
   }
 }
