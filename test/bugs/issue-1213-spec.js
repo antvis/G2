@@ -83,7 +83,7 @@ describe('#1222', () => {
 
     chart.axis('rain', {
       label: {
-        position: 'buttom',
+        position: 'bottom',
         useHtml: true
       }
     });
