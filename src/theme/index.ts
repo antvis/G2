@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-import Default from './default';
+import Default from './antv';
 
 // 所有已经存在的主题
 const Themes: Record<string, object> = {
