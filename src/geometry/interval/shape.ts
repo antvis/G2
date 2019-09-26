@@ -1,4 +1,4 @@
-import * as Util from '@antv/util';
+import * as _ from '@antv/util';
 import { ShapePoint } from 'geometry/interface';
 import { Point } from 'interface';
 import { registerShape, registerShapeFactory } from '../shape';
@@ -13,7 +13,7 @@ function getRectPoints(cfg: ShapePoint, isPyramid = false) {
   // 4. x, y 都是数组
   let yMin;
   let yMax;
-  if (Util.isArray(y)) {
+  if (_.isArray(y)) {
     yMin = y[0];
     yMax = y[1];
   } else {
@@ -23,7 +23,7 @@ function getRectPoints(cfg: ShapePoint, isPyramid = false) {
 
   let xMin;
   let xMax;
-  if (Util.isArray(x)) {
+  if (_.isArray(x)) {
     xMin = x[0];
     xMax = x[1];
   } else {

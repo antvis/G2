@@ -1,5 +1,5 @@
 import { Group, Shape } from '@antv/g';
-import * as Util from '@antv/util';
+import * as _ from '@antv/util';
 import { LooseObject, ShapeDrawCFG } from '../interface';
 import { ShapeFactory } from './interface';
 
@@ -45,7 +45,7 @@ export default class Element {
   private originStyle: LooseObject = {};
 
   constructor(cfg: ElementCfg) {
-    Util.mix(this, cfg);
+    _.mix(this, cfg);
 
     // 绘制 shape
     this._drawShape();
@@ -82,7 +82,7 @@ export default class Element {
 
     // 获取默认的图形样式
     const defaultStyle = this.getStateStyle('default');
-    cfg.style = Util.mix({}, defaultStyle, cfg.style);
+    cfg.style = _.mix({}, defaultStyle, cfg.style);
     // 更新图形
     shapeFactory.updateShape(shapeType, cfg, this);
     // 更新原始状态
@@ -125,7 +125,7 @@ export default class Element {
   public clearStates() {
     const states = this.states;
 
-    Util.each(states, (state) => {
+    _.each(states, (state) => {
       this.setState(state, false);
     });
 
@@ -155,7 +155,7 @@ export default class Element {
   public getStateStyle(stateName: string): LooseObject {
     const { shapeType, theme } = this;
 
-    return Util.get(theme, `${shapeType}.${stateName}`, {});
+    return _.get(theme, `${shapeType}.${stateName}`, {});
   }
   /**
    * 获取初始化样式
@@ -167,7 +167,7 @@ export default class Element {
   public getAnimateCfg(animateType: string) {
     const { shapeType, theme } = this;
 
-    const animateCfg = Util.get(theme, `${shapeType}.animate`, {});
+    const animateCfg = _.get(theme, `${shapeType}.animate`, {});
     return animateCfg[animateType];
   }
 
@@ -178,7 +178,7 @@ export default class Element {
       ...model,
     };
     const defaultStyle = this.getStateStyle('default');
-    drawCfg.style = Util.mix({}, defaultStyle, model.style);
+    drawCfg.style = _.mix({}, defaultStyle, model.style);
 
     const shape = shapeFactory.drawShape(shapeType, drawCfg, this);
     this.shape = shape;
@@ -188,12 +188,12 @@ export default class Element {
     const shape = this.shape;
     if ((shape as Group).isGroup) {
       const children = shape.get('children');
-      Util.each(children, (child, index) => {
+      _.each(children, (child, index) => {
         const key = child.name || index;
-        this.originStyle[key] = Util.mix({}, child.attr());
+        this.originStyle[key] = _.mix({}, child.attr());
       });
     } else {
-      this.originStyle = Util.mix({}, shape.attr());
+      this.originStyle = _.mix({}, shape.attr());
     }
   }
 }

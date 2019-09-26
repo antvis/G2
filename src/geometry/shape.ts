@@ -1,5 +1,5 @@
 /** @module Shape */
-import * as Util from '@antv/util';
+import * as _ from '@antv/util';
 
 import { Coordinate } from '../dependents';
 import Element from './element';
@@ -187,11 +187,11 @@ const ShapeBase = {
     } else {
       // 移除当前状态，依次叠加保留状态量的样式
       const originStyle = element.getOriginStyle();
-      const currentStyle = Util.mix({}, originStyle);
-      Util.each(states, (state) => {
-        Util.mix(currentStyle, element.getStateStyle(state));
+      const currentStyle = _.mix({}, originStyle);
+      _.each(states, (state) => {
+        _.mix(currentStyle, element.getStateStyle(state));
       });
-      Util.each(stateStyle, (value, attr) => {
+      _.each(stateStyle, (value, attr) => {
         if (!currentStyle.hasOwnProperty(attr)) {
           currentStyle[attr] = null;
         }
@@ -206,7 +206,7 @@ const ShapeFactoryMap = {};
 
 /** 注册 ShapeFacroty 接口 */
 export function registerShapeFactory(factoryName: string, cfg: RegisterShapeFactory): ShapeFactory {
-  const className = Util.upperFirst(factoryName);
+  const className = _.upperFirst(factoryName);
   const geomObj = {
     ...ShapeFactoryBase,
     ...cfg,
@@ -217,7 +217,7 @@ export function registerShapeFactory(factoryName: string, cfg: RegisterShapeFact
 
 /** 注册 Shape 接口 */
 export function registerShape(factoryName: string, shapeType: string, cfg: RegisterShape): Shape {
-  const className = Util.upperFirst(factoryName);
+  const className = _.upperFirst(factoryName);
   const factory = ShapeFactoryMap[className];
   const shapeObj = {
     ...ShapeBase,
@@ -229,6 +229,6 @@ export function registerShape(factoryName: string, shapeType: string, cfg: Regis
 
 /** 获取 Geometry 对应的 shapeFactory */
 export function getShapeFactory(factoryName: string): ShapeFactory {
-  const className = Util.upperFirst(factoryName);
+  const className = _.upperFirst(factoryName);
   return ShapeFactoryMap[className];
 }

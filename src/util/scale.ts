@@ -1,5 +1,5 @@
 import { getScale, Scale, ScaleConfig } from '@antv/scale';
-import * as Util from '@antv/util';
+import * as _ from '@antv/util';
 import { LooseObject, ScaleDef } from '../interface';
 
 const dateRegex = /^(?:(?!0000)[0-9]{4}([-/.]+)(?:(?:0?[1-9]|1[0-2])\1(?:0?[1-9]|1[0-9]|2[0-8])|(?:0?[13-9]|1[0-2])\1(?:29|30)|(?:0?[13578]|1[02])\1(?:31))|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)([-/.]?)0?2\2(?:29))(\s+([01]|([01][0-9]|2[0-3])):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))?$/;
@@ -30,7 +30,7 @@ const ScaleUtil = {
       return scale;
     }
 
-    if (Util.isNumber(field) || (Util.isNil(Util.firstValue(data, field)) && !scaleDef)) {
+    if (_.isNumber(field) || (_.isNil(_.firstValue(data, field)) && !scaleDef)) {
       const Identity = getScale('identity');
       scale = new Identity({
         field: field.toString(),
@@ -39,10 +39,10 @@ const ScaleUtil = {
     } else {
       // 如果已经定义过这个度量
       // TODO: scale 将用户设置的 min 和 max 转换成 maxLimit，minLimit，使得生成的 scale 以用户设置的 min 和 max 为准
-      const type = Util.get(scaleDef, 'type', this.getDefaultType(field, data));
+      const type = _.get(scaleDef, 'type', this.getDefaultType(field, data));
       const cfg = this.getScaleCfg(type, field, data);
 
-      Util.mix(cfg, scaleDef);
+      _.mix(cfg, scaleDef);
 
       const scaleCtor = getScale(type);
       scale = new scaleCtor(cfg);
@@ -72,13 +72,13 @@ const ScaleUtil = {
    */
   getDefaultType(field: string, data: LooseObject[]) {
     let type = 'linear';
-    let value = Util.firstValue(data, field);
-    if (Util.isArray(value)) {
+    let value = _.firstValue(data, field);
+    if (_.isArray(value)) {
       value = value[0];
     }
     if (dateRegex.test(value)) {
       type = 'time';
-    } else if (Util.isString(value)) {
+    } else if (_.isString(value)) {
       type = 'cat';
     }
     return type;
@@ -90,13 +90,13 @@ const ScaleUtil = {
    * @param data 数据集
    */
   getScaleCfg(type: string, field: string, data: LooseObject[]) {
-    const values = Util.valuesOfKey(data, field);
+    const values = _.valuesOfKey(data, field);
     const cfg: ScaleConfig = {
       field,
       values,
     };
     if (type !== 'cat' && type !== 'timeCat' && type !== 'time') {
-      const { min, max } = Util.getRange(values);
+      const { min, max } = _.getRange(values);
       cfg.min = min;
       cfg.max = max;
       cfg.nice = true;

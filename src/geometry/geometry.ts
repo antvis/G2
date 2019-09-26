@@ -1,4 +1,4 @@
-import * as Util from '@antv/util';
+import * as _ from '@antv/util';
 import ScaleUtil from '../util/scale';
 import Element from './element';
 import { getShapeFactory } from './shape';
@@ -155,7 +155,7 @@ export default class Geometry {
   private groupScales: Scale[];
 
   constructor(cfg) {
-    Util.mix(this, cfg);
+    _.mix(this, cfg);
   }
 
   /**
@@ -163,7 +163,7 @@ export default class Geometry {
    * @param cfg 配置项
    */
   public position(cfg: string | AttributeOption): Geometry {
-    if (Util.isString(cfg)) {
+    if (_.isString(cfg)) {
       this._setAttrOptions('position', {
         fields: parseFields(cfg),
       });
@@ -211,11 +211,11 @@ export default class Geometry {
    */
   public adjust(adjustCfg: string | string[] | AdjustOption | AdjustOption[]): Geometry {
     let adjusts: any = adjustCfg;
-    if (Util.isString(adjustCfg) || Util.isPlainObject(adjustCfg)) {
+    if (_.isString(adjustCfg) || _.isPlainObject(adjustCfg)) {
       adjusts = [adjustCfg];
     }
-    Util.each(adjusts, (adjust, index) => {
-      if (!Util.isObject(adjust)) {
+    _.each(adjusts, (adjust, index) => {
+      if (!_.isObject(adjust)) {
         adjusts[index] = { type: adjust };
       }
     });
@@ -229,7 +229,7 @@ export default class Geometry {
    * @param cfg 图形样式配置
    */
   public style(field: StyleOption | LooseObject | string, styleFunc?: StyleCallback): Geometry {
-    if (Util.isString(field)) {
+    if (_.isString(field)) {
       const fields = parseFields(field);
       this.styleOption = {
         fields,
@@ -250,7 +250,7 @@ export default class Geometry {
   }
 
   public tooltip(field: TooltipOption | boolean | string, cfg?: TooltipCallback): Geometry {
-    if (Util.isString(field)) {
+    if (_.isString(field)) {
       const fields = parseFields(field);
       this.tooltipOption = {
         fields,
@@ -287,7 +287,7 @@ export default class Geometry {
 
     // 为 tooltip 的字段创建对应的 scale 实例
     const tooltipOption = this.tooltipOption;
-    const tooltipFields = Util.get(tooltipOption, 'fields');
+    const tooltipFields = _.get(tooltipOption, 'fields');
     if (tooltipFields) {
       tooltipFields.forEach((field: string) => {
         this._createScale(field);
@@ -305,7 +305,7 @@ export default class Geometry {
 
     // 更新 scale
     const { scaleDefs, scales } = this;
-    Util.each(scales, (scale) => {
+    _.each(scales, (scale) => {
       const { type, field } = scale;
       if (type !== 'identity') {
         const newScale = ScaleUtil.createScale(field, data, scaleDefs[field]);
@@ -334,14 +334,14 @@ export default class Geometry {
     // 添加 label
     // if (this.get('labelOptions')) {
     //   const labelController = this.get('labelController');
-    //   const labels = labelController.addLabels(Util.union(...mappedArray), shapeContainer.get('children'));
+    //   const labels = labelController.addLabels(_.union(...mappedArray), shapeContainer.get('children'));
     //   this.set('labels', labels);
     // }
 
     this._afterMapping(mappedArray);
 
     // 销毁被删除的 elements
-    Util.each(this.lastElementsMap, (deletedElement, id) => {
+    _.each(this.lastElementsMap, (deletedElement, id) => {
       deletedElement.destroy();
     });
 
@@ -380,11 +380,11 @@ export default class Geometry {
     if (!scales) {
       scales = [];
       const attributes = this.attributes;
-      Util.each(attributes, (attr: Attribute) => {
+      _.each(attributes, (attr: Attribute) => {
         if (GROUP_ATTRS.indexOf(attr.type) !== -1) {
           const attrScales = attr.scales;
-          Util.each(attrScales, (scale: Scale) => {
-            if (scale.isCategory && Util.indexOf(scales, scale) === -1) {
+          _.each(attrScales, (scale: Scale) => {
+            if (scale.isCategory && _.indexOf(scales, scale) === -1) {
               scales.push(scale);
             }
           });
@@ -410,7 +410,7 @@ export default class Geometry {
 
   public getLegendAttributes(): Attribute[] {
     const rst = [];
-    Util.each(this.attributes, (attr: Attribute) => {
+    _.each(this.attributes, (attr: Attribute) => {
       if (GROUP_ATTRS.includes(attr.type)) {
         rst.push(attr);
       }
@@ -421,7 +421,7 @@ export default class Geometry {
   public getDefaultValue(attrName: string) {
     let value: any;
     const attr = this.getAttribute(attrName);
-    if (attr && Util.isEmpty(attr.scales)) {
+    if (attr && _.isEmpty(attr.scales)) {
       // 获取映射至常量的值
       value = attr.values[0];
     }
@@ -431,7 +431,7 @@ export default class Geometry {
   public getAttrValues(attr: Attribute, record: LooseObject) {
     const scales = attr.scales;
 
-    const params = Util.map(scales, (scale: Scale) => {
+    const params = _.map(scales, (scale: Scale) => {
       const field = scale.field;
       if (scale.type === 'identity') {
         return scale.values[0];
@@ -484,7 +484,7 @@ export default class Geometry {
       data: originData,
       model: shapeCfg,
       shapeType: shape,
-      theme: Util.get(theme, `${this.shapeType}`, {}),
+      theme: _.get(theme, `${this.shapeType}`, {}),
       shapeFactory,
       container,
     });
@@ -517,7 +517,7 @@ export default class Geometry {
 
   protected createElements(mappedArray: LooseObject[]) {
     const { lastElementsMap, elementsMap, elements } = this;
-    Util.each(mappedArray, (record, i) => {
+    _.each(mappedArray, (record, i) => {
       const originData = record[FIELD_ORIGIN];
       const id = this._getElementId(originData);
       let result = lastElementsMap[id];
@@ -526,7 +526,7 @@ export default class Geometry {
         result = this.createElement(record, i);
       } else {
         // element 已经创建
-        if (!Util.isEqual(originData, result.getData())) {
+        if (!_.isEqual(originData, result.getData())) {
           // 数据发生变更了才做更新
           const shapeCfg = this.getDrawCfg(record); // 获取绘制图形的配置信息
           result.update(shapeCfg); // 更新对应的 element
@@ -549,11 +549,11 @@ export default class Geometry {
 
   // 创建图形属性相关的配置项
   private _createAttrOption(attrName: string, field: AttributeOption | string | number, cfg?) {
-    if (Util.isObject(field)) {
+    if (_.isObject(field)) {
       this._setAttrOptions(attrName, field);
     } else {
       const attrCfg: AttributeOption = {};
-      if (Util.isNumber(field)) {
+      if (_.isNumber(field)) {
         // size(3)
         attrCfg.values = [field];
       } else {
@@ -561,7 +561,7 @@ export default class Geometry {
       }
 
       if (cfg) {
-        if (Util.isFunction(cfg)) {
+        if (_.isFunction(cfg)) {
           attrCfg.callback = cfg;
         } else {
           attrCfg.values = cfg;
@@ -590,14 +590,14 @@ export default class Geometry {
     const { attributes, attributeOption, theme, shapeType, coordinate } = this;
 
     // 遍历每一个 attrOption，各自创建 Attribute 实例
-    Util.each(attributeOption, (option: AttributeOption, attrType: string) => {
+    _.each(attributeOption, (option: AttributeOption, attrType: string) => {
       const attrCfg: AttributeInstanceCfg = {
         ...option,
       };
       const { callback, values, fields = [] } = attrCfg;
 
       // 给每一个字段创建 scale
-      const scales = Util.map(fields, (field) => {
+      const scales = _.map(fields, (field) => {
         return this._createScale(field);
       });
 
@@ -614,7 +614,7 @@ export default class Geometry {
       attrCfg.scales = scales;
 
       if (
-        Util.indexOf(['color', 'size', 'shape', 'opacity'], attrType) !== -1 &&
+        _.indexOf(['color', 'size', 'shape', 'opacity'], attrType) !== -1 &&
         scales.length === 1 &&
         scales[0].type === 'identity'
       ) {
@@ -640,7 +640,7 @@ export default class Geometry {
   private _processData(data: LooseObject[]) {
     let groupedArray = this._groupData(data); // 数据分组
 
-    groupedArray = Util.map(groupedArray, (subData: LooseObject[]) => {
+    groupedArray = _.map(groupedArray, (subData: LooseObject[]) => {
       const tempData = this._saveOrigin(subData); // 存储原始数据
       this._numeric(tempData); // 将分类数据转换成数字
       return tempData;
@@ -689,7 +689,7 @@ export default class Geometry {
             adjustCfg.size = size;
           }
           // 不进行 transpose 时，用户又没有设置这个参数时，默认从上向下
-          if (!coordinate.isTransposed && Util.isNil(adjustCfg.reverseOrder)) {
+          if (!coordinate.isTransposed && _.isNil(adjustCfg.reverseOrder)) {
             adjustCfg.reverseOrder = true;
           }
         }
@@ -713,12 +713,12 @@ export default class Geometry {
     const groupScales = this.getGroupScales();
     const fields = groupScales.map((scale) => scale.field);
 
-    return Util.group(data, fields);
+    return _.group(data, fields);
   }
 
   // 数据调整前保存原始数据
   private _saveOrigin(data: LooseObject[]): LooseObject[] {
-    return Util.map(data, (origin: LooseObject) => {
+    return _.map(data, (origin: LooseObject) => {
       return {
         ...origin,
         [FIELD_ORIGIN]: origin, // 存入 origin 数据
@@ -744,7 +744,7 @@ export default class Geometry {
 
   // 更新发生层叠后的数据对应的度量范围
   private _updateStackRange(field: string, scale: Scale, dataArray: LooseObject[][]) {
-    const mergeArray = Util.flatten(dataArray);
+    const mergeArray = _.flatten(dataArray);
     let min = scale.min;
     let max = scale.max;
     for (let i = 0, len = mergeArray.length; i < len; i += 1) {
@@ -771,7 +771,7 @@ export default class Geometry {
     if (this.sortable) {
       const xScale = this.getXScale();
       const field = xScale.field;
-      Util.each(dataArray, (data) => {
+      _.each(dataArray, (data) => {
         data.sort((v1: object, v2: object) => {
           return xScale.translate(v1[field]) - xScale.translate(v2[field]); // TODO
         });
@@ -779,10 +779,10 @@ export default class Geometry {
     }
     if (this.generatePoints) {
       // 需要生成关键点
-      Util.each(dataArray, (data) => {
+      _.each(dataArray, (data) => {
         this._generatePoints(data);
       });
-      Util.each(dataArray, (data, index) => {
+      _.each(dataArray, (data, index) => {
         const nextData = dataArray[index + 1];
         if (nextData) {
           data[0].nextPoints = nextData[0].points;
@@ -815,7 +815,7 @@ export default class Geometry {
   // 将数据归一化
   private _normalizeValues(values, scale) {
     let rst = [];
-    if (Util.isArray(values)) {
+    if (_.isArray(values)) {
       for (let i = 0, len = values.length; i < len; i += 1) {
         const v = values[i];
         rst.push(scale.scale(v));
@@ -864,7 +864,7 @@ export default class Geometry {
             for (let j = 0; j < values.length; j += 1) {
               const val = values[j];
               const name = names[j];
-              newRecord[name] = Util.isArray(val) && val.length === 1 ? val[0] : val; // 只有一个值时返回第一个属性值
+              newRecord[name] = _.isArray(val) && val.length === 1 ? val[0] : val; // 只有一个值时返回第一个属性值
             }
           } else {
             // newRecord[names[0]] = values.length === 1 ? values[0] : values;
@@ -888,7 +888,7 @@ export default class Geometry {
   // 将归一化的坐标值转换成画布坐标
   private _convertPoint(mappedRecord: MappedRecord) {
     const { x, y } = mappedRecord;
-    if (Util.isNil(x) || Util.isNil(y)) {
+    if (_.isNil(x) || _.isNil(y)) {
       return;
     }
 
@@ -896,7 +896,7 @@ export default class Geometry {
     let rstY;
     let obj;
     const coordinate = this.coordinate;
-    if (Util.isArray(y) && Util.isArray(x)) {
+    if (_.isArray(y) && _.isArray(x)) {
       rstX = [];
       rstY = [];
       for (let i = 0, j = 0, xLen = x.length, yLen = y.length; i < xLen && j < yLen; i += 1, j += 1) {
@@ -907,7 +907,7 @@ export default class Geometry {
         rstX.push(obj.x);
         rstY.push(obj.y);
       }
-    } else if (Util.isArray(y)) {
+    } else if (_.isArray(y)) {
       rstY = [];
       y.forEach((yVal) => {
         obj = coordinate.convertPoint({
@@ -915,7 +915,7 @@ export default class Geometry {
           y: yVal,
         });
         if (rstX && rstX !== obj.x) {
-          if (!Util.isArray(rstX)) {
+          if (!_.isArray(rstX)) {
             rstX = [rstX];
           }
           rstX.push(obj.x);
@@ -924,7 +924,7 @@ export default class Geometry {
         }
         rstY.push(obj.y);
       });
-    } else if (Util.isArray(x)) {
+    } else if (_.isArray(x)) {
       rstX = [];
       x.forEach((xVal) => {
         obj = coordinate.convertPoint({
@@ -932,7 +932,7 @@ export default class Geometry {
           y: y as number,
         });
         if (rstY && rstY !== obj.y) {
-          if (!Util.isArray(rstY)) {
+          if (!_.isArray(rstY)) {
             rstY = [rstY];
           }
           rstY.push(obj.y);
@@ -957,7 +957,7 @@ export default class Geometry {
   private _sort(mappedArray: object[][]) {
     const xScale = this.getXScale();
     const xField = xScale.field;
-    Util.each(mappedArray, (itemArr: object[]) => {
+    _.each(mappedArray, (itemArr: object[]) => {
       itemArr.sort((obj1: object, obj2: object) => {
         return xScale.translate(obj1[FIELD_ORIGIN][xField]) - xScale.translate(obj2[FIELD_ORIGIN][xField]);
       });
@@ -988,8 +988,8 @@ export default class Geometry {
     }
 
     const groupScales = this.getGroupScales();
-    if (!Util.isEmpty(groupScales)) {
-      Util.each(groupScales, (groupScale: Scale) => {
+    if (!_.isEmpty(groupScales)) {
+      _.each(groupScales, (groupScale: Scale) => {
         const field = groupScale.field;
         if (groupScale.type !== 'identity') {
           id = `${id}-${origin[field]}`;

@@ -1,5 +1,5 @@
 import { Canvas, Group } from '@antv/g';
-import * as Util from '@antv/util';
+import * as _ from '@antv/util';
 import { expect } from 'chai';
 import { getTheme } from '../../../src';
 import { getCoordinate } from '../../../src/dependents';
@@ -353,7 +353,7 @@ describe('Geometry', () => {
       expect(dataArray[1][1].city).to.equal('南京');
 
       // 确保原始数据被保存
-      Util.flatten(dataArray).forEach((obj: LooseObject) => {
+      _.flatten(dataArray).forEach((obj: LooseObject) => {
         expect(obj._origin).not.to.equal(undefined);
       });
 
