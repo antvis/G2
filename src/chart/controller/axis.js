@@ -495,7 +495,7 @@ class AxisController {
     const self = this;
     const axes = self.axes;
     Util.each(axes, axis => {
-      axis.clear();
+      axis.destroy();
     });
     self.axes = [];
   }
