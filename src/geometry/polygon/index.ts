@@ -4,8 +4,8 @@ import Geometry from '../geometry';
 import './shape';
 
 export default class Polygon extends Geometry {
-  public type = 'polygon';
-  public shapeType = 'polygon';
+  public readonly type = 'polygon';
+  public readonly shapeType = 'polygon';
   public generatePoints = true;
 
   protected createShapePointsCfg(obj: object) {

@@ -8,13 +8,13 @@ const Rect = getCoordinate('rect');
 const Polar = getCoordinate('polar');
 
 describe('Shape', () => {
-  let coord;
+  let coordinate;
   let updateCalled = false;
   let setStateCalled = false;
   let destroyCalled = false;
 
   before(() => {
-    coord = new Rect({
+    coordinate = new Rect({
       start: { x: 0, y: 0 },
       end: { x: 200, y: 200 },
     });
@@ -99,7 +99,7 @@ describe('Shape', () => {
   describe('ShapeFactory', () => {
     it('getShape()', () => {
       const circleFactory = Shape.getShapeFactory('circleFactory');
-      circleFactory.setCoordinate(coord);
+      circleFactory.setCoordinate(coordinate);
 
       const shape = circleFactory.getShape('circle');
       expect(shape).to.eql(circleFactory[circleFactory.defaultShapeType]);
@@ -204,7 +204,7 @@ describe('Shape', () => {
     it('getCoordinate', () => {
       const circleFactory = Shape.getShapeFactory('circleFactory');
       const shape = circleFactory.getShape('circle');
-      expect(shape.getCoordinate()).to.eql(coord);
+      expect(shape.getCoordinate()).to.eql(coordinate);
     });
 
     it('parsePoint', () => {

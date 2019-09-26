@@ -4,6 +4,7 @@ export const VER = '4.0.0-beta.1';
 
 // API、组件 导出
 export { Chart, View, registerGeometry, LAYER, DIRECTION } from './chart';
+export { getTheme, registerTheme } from './theme';
 export { default as Component } from './component'; // 组件基类
 
 // 类型定义导出

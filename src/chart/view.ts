@@ -19,11 +19,13 @@ import Geometry from 'geometry/geometry';
 import Interaction from 'interaction';
 import { Padding, Point, Region } from 'interface';
 import { Attribute } from '../dependents';
+import { isFullCircle } from '../util/coordinate';
 import { parsePadding } from '../util/padding';
+import { mergeTheme } from '../util/theme';
 import Chart from './chart';
 import { ComponentType, DIRECTION, LAYER } from './constant';
 import { createAxes } from './controller/axis';
-import { createCoordinate, isFullCircle } from './controller/coordinate';
+import { createCoordinate } from './controller/coordinate';
 import { createLegends } from './controller/legend';
 import defaultLayout, { Layout } from './layout';
 
@@ -53,7 +55,7 @@ export default class View extends EE {
   /** view 的 padding 大小 */
   public padding: Padding;
   /** 主题配置 */
-  public theme: object;
+  public themeObject: object;
 
   // 配置信息存储
   // @ts-ignore
@@ -94,7 +96,7 @@ export default class View extends EE {
     this.foregroundGroup = foregroundGroup;
     this.region = region;
     this.padding = padding;
-    this.theme = theme as object;
+    this.themeObject = mergeTheme({}, theme);
 
     this.initial();
   }
@@ -163,13 +165,6 @@ export default class View extends EE {
     // 实际的绘图
     this._canvasDraw();
   }
-
-  // /**
-  //  * 更新函数
-  //  */
-  // public update() {
-  //
-  // }
 
   /**
    * 清空，之后可以再走 initial 流程，正常使用
@@ -264,6 +259,13 @@ export default class View extends EE {
 
   public animate() {}
 
+  /**
+   * 设置主题
+   */
+  public theme(theme: string | object) {
+    this.themeObject = mergeTheme(this.themeObject, theme);
+  }
+
   /* end 一系列传入配置的 API */
 
   /**
@@ -294,19 +296,22 @@ export default class View extends EE {
     this.data(data);
     // 2. 过滤数据
     this._filterData();
-    // 3. 更新 geom 元素
+    // 3. 更新 geom 元素数据
     _.each(this.geometries, (geometry: Geometry) => {
-      geometry.update(this.filteredData);
+      geometry.updateData(this.filteredData);
     });
-    // 4. 更新组件
+    // 4. 调整 scale
+    this._adjustScales();
+    // 5. 更新组件
     // TODO 目前是清空，重新绘制
     this._renderComponents();
-    // 5. 布局
+    // 6. 布局，计算每个组件的坐标、以及 coordinate 的范围
     this._doLayout();
-    // 6. 布局之后，调整坐标系大小
+    // 7. 布局之后，调整坐标系大小
     this._adjustCoordinate();
-    // 7. 渲染几何标记
+    // 8. 渲染几何标记
     this._paintGeometries();
+
     // 绘图
     this._canvasDraw();
   }
@@ -364,6 +369,10 @@ export default class View extends EE {
     this.coordinateInstance = coordinate;
   }
 
+  public getTheme(): object {
+    return this.themeObject;
+  }
+
   /**
    * 获得 x 轴字段的 scale 实例
    */
@@ -419,25 +428,18 @@ export default class View extends EE {
   protected _renderRecursive() {
     // 1. 处理数据
     this._filterData();
-
-    // 2. 初始化 Geometry
-    this._initialGeometries();
-
-    // 3. 创建 coordinate 实例
+    // 2. 创建 coordinate 实例
     this._createCoordinateInstance();
-
+    // 3. 初始化 Geometry
+    this._initialGeometries();
     // 4. 调整 scale 配置
     this._adjustScales();
-
     // 5. 渲染组件 component
     this._renderComponents();
-
     // 6.  递归 views，进行布局
     this._doLayout();
-
     // 7. 布局完之后，coordinate 的范围确定了，调整 coordinate 组件
     this._adjustCoordinate();
-
     // 8. 渲染几何标记
     this._paintGeometries();
 
@@ -542,9 +544,11 @@ export default class View extends EE {
   private _initialGeometries() {
     // 实例化 Geometry，然后 view 将所有的 scale 管理起来
     _.each(this.geometries, (geometry: Geometry) => {
+      // 使用 coordinate 引用，可以保持 coordinate 的同步更新
+      geometry.coordinate = this.getCoordinate();
       geometry.scaleDefs = _.get(this.options, 'scales', {});
       geometry.data = this.filteredData;
-      geometry.theme = this.theme;
+      geometry.theme = this.themeObject;
       // 保持 scales 引用不要变化
       geometry.scales = this.scales;
 
@@ -664,9 +668,6 @@ export default class View extends EE {
   private _paintGeometries() {
     // geometry 的 paint 阶段
     this.geometries.map((geometry: Geometry) => {
-      // 设置布局之后的 coordinate
-      geometry.coord = this.getCoordinate();
-
       geometry.paint();
     });
   }

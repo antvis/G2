@@ -29,7 +29,7 @@ export interface ShapeDrawCFG {
   splitedIndex?: number;
   text?: string | null;
   /** 样式 */
-  style?: object | null;
+  style?: LooseObject | null;
 
   yIndex?: number;
   constraint?: Array<[number, number]>;

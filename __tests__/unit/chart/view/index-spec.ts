@@ -3,7 +3,6 @@ import * as _ from '@antv/util';
 import { expect } from 'chai';
 import { View } from '../../../../src';
 import { createCanvas, createDiv } from '../../../util/dom';
-import Theme from '../../../util/theme';
 
 const data = [
   { city: '杭州', sale: 100, category: '电脑' },
@@ -38,8 +37,6 @@ describe('View', () => {
     expect(view.backgroundGroup).to.be.an.instanceof(Group);
     expect(view.middleGroup).to.be.an.instanceof(Group);
     expect(view.foregroundGroup).to.be.an.instanceof(Group);
-
-    view.theme = Theme;
   });
 
   it('region', () => {
