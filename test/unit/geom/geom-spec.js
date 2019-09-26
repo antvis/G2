@@ -988,3 +988,48 @@ describe('test edge', () => {
   });
 
 });
+
+describe('test specify values of scale', () => {
+  const data = [
+    {
+      month: 'Jan', country: 'Tokyo', value: 7.0
+    },
+    {
+      month: 'Jan', country: 'London', value: 3.9
+    },
+    {
+      month: 'Feb', country: 'Tokyo', value: 6.9
+    },
+    {
+      month: 'Feb', country: 'London', value: 4.2
+    }
+  ];
+  const group = canvas.addGroup();
+  const geom = new Geom.Interval({
+    type: 'interval',
+    coord,
+    container: group,
+    data,
+    scales: {
+      month: Scale.cat({
+        field: 'month',
+        values: [ 'Jan' ]
+      }),
+      value: Scale.linear({
+        field: 'value',
+        min: 0,
+        max: 30
+      })
+    }
+  });
+
+  it('should not return NaN category', () => {
+    geom.position([ 'month', 'value' ]).adjust('stack');
+    geom.init();
+    const dataArray = geom.get('dataArray');
+
+    expect(dataArray.length).equal(1);
+    expect(dataArray[0][0].value).deep.equal([ 0, 7 ]);
+    expect(dataArray[0][1].value).deep.equal([ 7, 10.9 ]);
+  });
+});
