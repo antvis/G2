@@ -95,7 +95,7 @@ function _filterFullCirleLine(path: any[]): void {
   });
 }
 
-export const  smoothBezier = (
+export const smoothBezier = (
   points: PointArray[],
   smooth: number,
   isLoop: boolean,

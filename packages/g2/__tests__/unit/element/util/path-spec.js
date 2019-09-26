@@ -47,7 +47,7 @@ describe('PathUtil', () => {
         y: 200,
       },
     });
-    expect(coord.radius).equal(100);
+    expect(coord.getRadius()).equal(100);
     expect(
       PathUtil.getPointRadius(coord, {
         x: 100,

@@ -151,7 +151,7 @@ export default class SizeController {
     const element = this.element;
     const coord = element.get('coord');
     if (element.isInCircle() && !coord.isTransposed) { // 极坐标下 width 为弧长
-      return (coord.endAngle - coord.startAngle) * coord.radius;
+      return (coord.endAngle - coord.startAngle) * coord.getRadius();
     }
 
     const start = coord.convertPoint({
