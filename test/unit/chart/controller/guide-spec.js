@@ -177,7 +177,7 @@ describe('GuideController', function() {
 
   it('添加文本, text', () => {
     guideController.text({
-      start: {
+      position: {
         x: 'b',
         y1: 350
       },
@@ -189,7 +189,7 @@ describe('GuideController', function() {
     expect(guidesOptions.length).to.equal(4);
     expect(guidesOptions[3]).to.eql({
       type: 'text',
-      start: {
+      position: {
         x: 'b',
         y1: 350
       },
@@ -270,7 +270,7 @@ describe('GuideController', function() {
         textAlign: 'center',
         fontSize: 20
       },
-      start: (xScales, yScales) => {
+      position: (xScales, yScales) => {
         return {
           x: xScales.x.values[0],
           y1: yScales.y1.min
@@ -282,7 +282,7 @@ describe('GuideController', function() {
     const guidesOptions = guideController.options;
     expect(guidesOptions.length).to.equal(7);
     expect(guidesOptions[6].type).to.equal('text');
-    expect(guidesOptions[6].start).to.be.an.instanceOf(Function);
+    expect(guidesOptions[6].position).to.be.an.instanceOf(Function);
   });
 
   it('添加html.', () => {
@@ -397,7 +397,7 @@ describe('GuideController', function() {
   it('绘制 RegionFilter', () => {
     // guideController.clear();
     guideController.regionFilter({
-      start: [ 'min', '0%' ],
+      start: [ '0%', '0%' ],
       end: [ '50%', '50%' ],
       color: 'red'
     });
@@ -406,7 +406,7 @@ describe('GuideController', function() {
     expect(guidesOptions.length).to.equal(11);
     expect(guidesOptions[10]).to.eql({
       type: 'regionFilter',
-      start: [ 'min', '0%' ],
+      start: [ '0%', '0%' ],
       end: [ '50%', '50%' ],
       color: 'red'
     });

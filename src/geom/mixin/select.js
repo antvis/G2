@@ -5,6 +5,7 @@
 
 const Util = require('../../util');
 const FIELD_ORIGIN = '_origin';
+const ZIndexUtil = require('./zindex-util');
 
 function isSameShape(shape1, shape2) {
   if (Util.isNil(shape1) || Util.isNil(shape2)) {
@@ -50,10 +51,10 @@ const SelectMixin = {
   _onClick(ev) {
     const self = this;
     if (self._isAllowSelect()) { // 允许选中下才执行
-      self.clearActivedShapes(); // 清除hover效果
+      // self.clearActivedShapes(); // 不需要清除hover效果
       const shape = ev.shape;
       const shapeContainer = self.get('shapeContainer');
-      if (shape && !shape.get('animating') && shapeContainer.contain(shape)) {
+      if (shape && shapeContainer.contain(shape)) { // 去除 !shape.get('animating') 的判定，点击反馈更加及时
         self.setShapeSelected(shape);
       }
     }
@@ -99,6 +100,10 @@ const SelectMixin = {
         }
         shape.set('_originAttrs', getOriginAttrs(selectedStyle, shape));
       }
+      // 选中时图形要到最上面
+      if (selectedOptions.toFront) {
+        ZIndexUtil.toFront(shape);
+      }
 
       if (animate) {
         shape.animate(selectedStyle, 300);
@@ -108,6 +113,10 @@ const SelectMixin = {
       }
     } else {
       const originAttrs = shape.get('_originAttrs');
+      // 取消选中时，要恢复到原先的位置
+      if (selectedOptions.toFront) {
+        ZIndexUtil.resetZIndex(shape);
+      }
       shape.set('_originAttrs', null);
       if (animate) {
         shape.animate(originAttrs, 300);
