@@ -38,10 +38,7 @@ export function createCoordinate(coordinateOption: CoordinateOption = {}, coordi
 
   const coordinate = new C(props);
 
-  // 3. 设置一下 type
-  coordinate.type = type;
-
-  // 4. 执行 actions
+  // 3. 执行 actions
   let coordinateActions = actions;
   if (isTheta(type)) {
     // 不存在 transpose，为其自动设置一个 action
