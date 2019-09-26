@@ -1,14 +1,14 @@
 import { Coordinate } from '../dependents';
 
 /**
- * Gets coordinate width
+ * Gets x dimension length
  * @param coordinate
- * @returns coordinate width
+ * @returns x dimension length
  */
-export function getCoordinateWidth(coordinate: Coordinate): number {
+export function getXDimensionLength(coordinate): number {
   if (coordinate.isPolar && !coordinate.isTransposed) {
     // 极坐标系下 width 为弧长
-    return (coordinate.endAngle - coordinate.startAngle) * coordinate.radius;
+    return (coordinate.endAngle - coordinate.startAngle) * coordinate.getRadius();
   }
 
   // 直角坐标系

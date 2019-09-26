@@ -28,10 +28,10 @@ describe('CoordinateUtil', () => {
     });
   });
 
-  it('getCoordinateWidth()', () => {
-    expect(CoordinateUtil.getCoordinateWidth(polar)).to.equal(Math.PI * 2 * 100);
-    expect(CoordinateUtil.getCoordinateWidth(cartesian)).to.equal(30);
-    expect(CoordinateUtil.getCoordinateWidth(theta)).to.equal(15);
+  it('getXDimensionLength()', () => {
+    expect(CoordinateUtil.getXDimensionLength(polar)).to.equal(Math.PI * 2 * 100);
+    expect(CoordinateUtil.getXDimensionLength(cartesian)).to.equal(30);
+    expect(CoordinateUtil.getXDimensionLength(theta)).to.equal(15);
   });
 
   it('isFullCircle()', () => {
