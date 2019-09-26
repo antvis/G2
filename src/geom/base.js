@@ -628,6 +628,8 @@ class GeomBase extends Base {
 
   // step 2.2 调整数据
   _adjust(dataArray) {
+    // 当数据为空的时候，就不需要对数据进行调整了
+    if (!dataArray || !dataArray.length) { return; }
     const self = this;
     const adjusts = self.get('adjusts');
     const viewTheme = this.viewTheme || Global;
