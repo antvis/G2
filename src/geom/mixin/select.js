@@ -51,10 +51,10 @@ const SelectMixin = {
   _onClick(ev) {
     const self = this;
     if (self._isAllowSelect()) { // 允许选中下才执行
-      self.clearActivedShapes(); // 清除hover效果
+      // self.clearActivedShapes(); // 不需要清除hover效果
       const shape = ev.shape;
       const shapeContainer = self.get('shapeContainer');
-      if (shape && !shape.get('animating') && shapeContainer.contain(shape)) {
+      if (shape && shapeContainer.contain(shape)) { // 去除 !shape.get('animating') 的判定，点击反馈更加及时
         self.setShapeSelected(shape);
       }
     }
