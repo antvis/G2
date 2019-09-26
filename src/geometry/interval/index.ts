@@ -1,5 +1,5 @@
 import { LooseObject } from 'interface';
-import { getCoordinateWidth } from '../../util/coordinate';
+import { getXDimensionLength } from '../../util/coordinate';
 import Geometry from '../geometry';
 import { getDefaultSize } from '../util/shape-size';
 /** 引入对应的 ShapeFactory */
@@ -50,7 +50,7 @@ export default class Interval extends Geometry {
       size = this.getAttrValues(sizeAttr, record)[0];
       // 归一化
       const coordinate = this.coordinate;
-      const coordinateWidth = getCoordinateWidth(coordinate);
+      const coordinateWidth = getXDimensionLength(coordinate);
       size = size / coordinateWidth;
     } else {
       if (!this._defaultSize) {

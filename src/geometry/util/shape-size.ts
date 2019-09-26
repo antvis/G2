@@ -1,5 +1,5 @@
 import * as Util from '@antv/util';
-import { getCoordinateWidth } from '../../util/coordinate';
+import { getXDimensionLength } from '../../util/coordinate';
 
 // 已经排序后的数据查找距离最小的
 function findMinDistance(arr, scale) {
@@ -30,19 +30,6 @@ function getDodgeCount(dataArray, dodgeBy) {
 
   return dataArray.length;
 }
-
-// function getDodgeOption(adjustOption) {
-//   let result;
-
-//   Util.each(adjustOption, (opt) => {
-//     if (opt.type === 'dodge') {
-//       result = opt;
-//       return false;
-//     }
-//   });
-
-//   return result;
-// }
 
 export function getDefaultSize(geometry): number {
   const theme = geometry.theme;
@@ -79,8 +66,6 @@ export function getDefaultSize(geometry): number {
   }
   normalizedSize *= wr;
   if (geometry.getAdjust('dodge')) {
-    // const dodgeOption = getDodgeOption(geometry.adjustOption);
-    // const { dodgeBy } = dodgeOption;
     const dodgeAdjust = geometry.getAdjust('dodge');
     const { dodgeBy } = dodgeAdjust.cfg;
     const dodgeCount = getDodgeCount(dataArray, dodgeBy);
@@ -89,16 +74,16 @@ export function getDefaultSize(geometry): number {
   }
 
   const { maxColumnWidth, minColumnWidth } = theme;
-  const coordinateWidth = getCoordinateWidth(geometry.coordinate);
+  const xDimensionLength = getXDimensionLength(geometry.coordinate);
   if (maxColumnWidth) {
-    const normalizedMaxColumnWidth = maxColumnWidth / coordinateWidth;
+    const normalizedMaxColumnWidth = maxColumnWidth / xDimensionLength;
     if (normalizedSize > normalizedMaxColumnWidth) {
       normalizedSize = normalizedMaxColumnWidth;
     }
   }
 
   if (minColumnWidth) {
-    const normalizedMinColumnWidth = minColumnWidth / coordinateWidth;
+    const normalizedMinColumnWidth = minColumnWidth / xDimensionLength;
     if (normalizedSize < normalizedMinColumnWidth) {
       normalizedSize = normalizedMinColumnWidth;
     }
