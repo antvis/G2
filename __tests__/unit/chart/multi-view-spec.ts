@@ -25,7 +25,7 @@ const chart = new Chart({
 });
 
 describe('chart multi view', () => {
-  // 左右评分
+  // 左右平分
   const v1 = chart.createView({
     region: {
       start: { x: 0, y: 0 },

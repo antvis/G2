@@ -90,8 +90,8 @@ describe('View', () => {
     view._createCoordinateInstance();
     expect(view.getCoordinate().type).to.be.eql('rect');
 
-    expect(view.getCoordinate().width).to.be.eql(790);
-    expect(view.getCoordinate().height).to.be.eql(590);
+    expect(view.getCoordinate().getWidth()).to.be.eql(790);
+    expect(view.getCoordinate().getHeight()).to.be.eql(590);
   });
 
   it('geometry', () => {
@@ -107,8 +107,8 @@ describe('View', () => {
     expect(view.geometries[0].scales.city.ticks).to.be.eql(['杭州', '广州']);
     expect(view.geometries[0].scales.sale.values).to.be.eql([100, 30]);
 
-    expect(view.getCoordinate().width).to.be.eql(718.30078125);
-    expect(view.getCoordinate().height).to.be.eql(564);
+    expect(view.getCoordinate().getWidth()).to.be.eql(718.30078125);
+    expect(view.getCoordinate().getHeight()).to.be.eql(564);
   });
 
   it('component', () => {
