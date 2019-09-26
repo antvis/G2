@@ -59,8 +59,6 @@ export default class Chart extends View {
     this.render();
   }
 
-  public render() {}
-
   private _autoFit() {
     if (this.autoFit) {
       // todo 监听容器大小，自动 changeSize
