@@ -4,6 +4,8 @@ export * from './core';
 import { registerGeometry } from './chart';
 
 import Geometry from './geometry/geometry';
+import Interval from './geometry/interval';
 import Polygon from './geometry/polygon';
 
 registerGeometry('Polygon', Polygon);
+registerGeometry('Interval', Interval);

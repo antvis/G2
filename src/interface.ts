@@ -103,6 +103,6 @@ export interface Point {
 
 export type Padding = number | number[];
 export type Position = [number, number];
-export type AttributType = 'position' | 'size' | 'color' | 'shape';
+export type AttributeType = 'position' | 'size' | 'color' | 'shape';
 export type ScaleType = 'linear' | 'cat' | 'identity' | 'log' | 'pow' | 'time' | 'timeCat';
 export type AdjustType = 'stack' | 'jitter' | 'dodge' | 'symmetric';

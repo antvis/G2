@@ -320,14 +320,16 @@ export default class View extends EE {
   /**
    * 创建子 view
    */
-  public createView(): View {
+  public createView(cfg?: Partial<ViewCfg>): View {
     const v = new View({
       parent: this,
       canvas: this.canvas,
       // 子 view 共用三层 group
-      backgroundGroup: this.backgroundGroup,
-      middleGroup: this.middleGroup,
-      foregroundGroup: this.foregroundGroup,
+      backgroundGroup: this.middleGroup.addGroup(),
+      middleGroup: this.middleGroup.addGroup(),
+      foregroundGroup: this.middleGroup.addGroup(),
+      theme: this.themeObject,
+      ...cfg,
     });
 
     this.views.push(v);
