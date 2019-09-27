@@ -465,6 +465,10 @@ const Theme = {
     useHtml: true,
     crosshairs: false,
     offset: 15,
+    marker: {
+      symbol: 'circle',
+      activeSymbol: 'circle'
+    },
     // css style for tooltip
     [`${TOOLTIP_CONTAINER_CLASS}`]: {
       position: 'absolute',
@@ -499,13 +503,11 @@ const Theme = {
       display: 'inline-block',
       marginRight: '8px'
     },
-
     [`${TOOLTIP_VALUE_CLASS}`]: {
       display: 'inline-block',
       float: 'right',
       marginLeft: '30px'
     }
-
   },
   tooltipMarker: {
     symbol: (x, y, r) => {
