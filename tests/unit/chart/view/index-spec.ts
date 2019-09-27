@@ -1,6 +1,6 @@
 import { Canvas, Group } from '@antv/g';
 import * as _ from '@antv/util';
-import { expect } from 'chai';
+import 'jest-extended';
 import { View } from '../../../../src';
 import { createCanvas, createDiv } from '../../../util/dom';
 
@@ -16,7 +16,6 @@ describe('View', () => {
 
   const canvas = createCanvas({
     containerDOM: div,
-    renderer: 'svg',
   });
 
   const backgroundGroup = canvas.addGroup();
@@ -33,10 +32,10 @@ describe('View', () => {
   });
 
   it('constructor', () => {
-    expect(view.canvas).to.be.an.instanceof(Canvas);
-    expect(view.backgroundGroup).to.be.an.instanceof(Group);
-    expect(view.middleGroup).to.be.an.instanceof(Group);
-    expect(view.foregroundGroup).to.be.an.instanceof(Group);
+    expect(view.canvas).toBeInstanceOf(Canvas);
+    expect(view.backgroundGroup).toBeInstanceOf(Group);
+    expect(view.middleGroup).toBeInstanceOf(Group);
+    expect(view.foregroundGroup).toBeInstanceOf(Group);
   });
 
   it('region', () => {
@@ -46,7 +45,7 @@ describe('View', () => {
       y: view.viewBBox.y,
       width: view.viewBBox.width,
       height: view.viewBBox.height,
-    }).to.eql({
+    }).toEqual({
       x: 5,
       y: 5,
       width: 790,
@@ -57,19 +56,19 @@ describe('View', () => {
   it('data', () => {
     view.data(data);
 
-    expect(view.options.data).to.be.eql(data);
+    expect(view.options.data).toEqual(data);
   });
 
   it('filter', () => {
     view.filter('sale', (sale: number) => sale <= 150);
     view.filter('city', (city: string) => city.length <= 2);
 
-    expect(_.size(view.options.filters)).to.be.eql(2);
+    expect(_.size(view.options.filters)).toEqual(2);
 
     // @ts-ignore
     view._filterData();
 
-    expect(view.filteredData).to.be.eql([
+    expect(view.filteredData).toEqual([
       { city: '杭州', sale: 100, category: '电脑' },
       { city: '广州', sale: 30, category: '电脑' },
     ]);
@@ -78,20 +77,20 @@ describe('View', () => {
   it('coordinate', () => {
     // @ts-ignore
     view._createCoordinateInstance();
-    expect(view.getCoordinate().type).to.be.eql('rect');
+    expect(view.getCoordinate().type).toEqual('rect');
 
     view.coordinate('theta');
     // @ts-ignore
     view._createCoordinateInstance();
-    expect(view.getCoordinate().type).to.be.eql('theta');
+    expect(view.getCoordinate().type).toEqual('theta');
 
     view.coordinate('rect');
     // @ts-ignore
     view._createCoordinateInstance();
-    expect(view.getCoordinate().type).to.be.eql('rect');
+    expect(view.getCoordinate().type).toEqual('rect');
 
-    expect(view.getCoordinate().getWidth()).to.be.eql(790);
-    expect(view.getCoordinate().getHeight()).to.be.eql(590);
+    expect(view.getCoordinate().getWidth()).toEqual(790);
+    expect(view.getCoordinate().getHeight()).toEqual(590);
   });
 
   it('geometry', () => {
@@ -102,39 +101,39 @@ describe('View', () => {
       .color('sale');
 
     view.render();
-    expect(view.geometries.length).to.be.eql(1);
-    expect(_.size(view.geometries[0].scales)).to.be.eql(3);
-    expect(view.geometries[0].scales.city.ticks).to.be.eql(['杭州', '广州']);
-    expect(view.geometries[0].scales.sale.values).to.be.eql([100, 30]);
+    expect(view.geometries.length).toEqual(1);
+    expect(_.size(view.geometries[0].scales)).toEqual(3);
+    expect(view.geometries[0].scales.city.ticks).toEqual(['杭州', '广州']);
+    expect(view.geometries[0].scales.sale.values).toEqual([100, 30]);
 
-    expect(view.getCoordinate().getWidth()).to.be.eql(718.30078125);
-    expect(view.getCoordinate().getHeight()).to.be.eql(564);
+    expect(view.getCoordinate().getWidth()).toBeWithin(714, 715);
+    expect(view.getCoordinate().getHeight()).toEqual(564);
   });
 
   it('component', () => {
-    expect(view.componentOptions.length).to.be.eql(3);
+    expect(view.componentOptions.length).toEqual(3);
 
     const bbox = view.componentOptions[0].component.getBBox();
-    expect(bbox.height).to.be.eql(13);
+    expect(bbox.height).toEqual(13);
   });
 
   it('layout result', () => {
-    expect(view.coordinateBBox.x).to.be.eql(76.69921875);
-    expect(view.coordinateBBox.y).to.be.eql(18);
-    expect(view.coordinateBBox.width).to.be.eql(718.30078125);
-    expect(view.coordinateBBox.height).to.be.eql(564);
+    expect(view.coordinateBBox.x).toBeWithin(80, 81);
+    expect(view.coordinateBBox.y).toEqual(18);
+    expect(view.coordinateBBox.width).toBeWithin(714, 715);
+    expect(view.coordinateBBox.height).toEqual(564);
   });
 
   it('getXScale', () => {
-    expect(view.getXScale().field).to.be.eql('city');
+    expect(view.getXScale().field).toEqual('city');
   });
 
   it('getYScales', () => {
-    expect(view.getYScales().map((s) => s.field)).to.be.eql(['category']);
+    expect(view.getYScales().map((s) => s.field)).toEqual(['category']);
   });
 
   it('getGroupScales', () => {
-    expect(view.getGroupScales().map((s) => s.field)).to.be.eql([]);
+    expect(view.getGroupScales().map((s) => s.field)).toEqual([]);
   });
 
   it('getLegendAttributes', () => {
@@ -143,7 +142,7 @@ describe('View', () => {
         .getLegendAttributes()
         .map((a) => a.getScale(a.type))
         .map((s) => s.field)
-    ).to.be.eql(['sale']);
+    ).toEqual(['sale']);
   });
 
   it('changeData', () => {
@@ -153,8 +152,8 @@ describe('View', () => {
       { city: '杭州', sale: 40, category: '鼠标' },
       { city: '广州', sale: 90, category: '鼠标' },
     ]);
-    expect(view.filteredData.length).to.be.eql(4);
+    expect(view.filteredData.length).toEqual(4);
     // 几何标记是同一个实例
-    expect(geometries[0] === view.geometries[0]).to.be.eql(true);
+    expect(geometries[0] === view.geometries[0]).toEqual(true);
   });
 });

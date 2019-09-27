@@ -1,5 +1,4 @@
 import { Canvas, Group } from '@antv/g';
-import { expect } from 'chai';
 import { Chart } from '../../../src';
 import { createDiv } from '../../util/dom';
 
@@ -61,7 +60,7 @@ describe('chart multi view', () => {
       y: chart.viewBBox.y,
       width: chart.viewBBox.width,
       height: chart.viewBBox.height,
-    }).to.eql({
+    }).toEqual({
       x: 0,
       y: 0,
       width: 800,
@@ -73,7 +72,7 @@ describe('chart multi view', () => {
       y: v1.viewBBox.y,
       width: v1.viewBBox.width,
       height: v1.viewBBox.height,
-    }).to.eql({
+    }).toEqual({
       x: 5,
       y: 5,
       width: 390,
@@ -85,7 +84,7 @@ describe('chart multi view', () => {
       y: v2.viewBBox.y,
       width: v2.viewBBox.width,
       height: v2.viewBBox.height,
-    }).to.eql({
+    }).toEqual({
       x: 405,
       y: 5,
       width: 390,
@@ -94,8 +93,8 @@ describe('chart multi view', () => {
   });
 
   it('chart constructor', () => {
-    expect(chart.views.length).to.be.eql(2);
-    expect(chart.views[0].geometries.length).to.be.eql(1);
-    expect(chart.views[1].geometries.length).to.be.eql(1);
+    expect(chart.views.length).toEqual(2);
+    expect(chart.views[0].geometries.length).toEqual(1);
+    expect(chart.views[1].geometries.length).toEqual(1);
   });
 });

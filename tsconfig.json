@@ -10,7 +10,7 @@
     "allowSyntheticDefaultImports": true,
     "lib": ["esnext", "dom"],
     "baseUrl": "src",
-    "types": ["mocha"]
+    "types": ["jest"]
   },
   "include": ["src"]
 }

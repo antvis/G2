@@ -1,5 +1,4 @@
 import { Group, Shapes } from '@antv/g';
-import { expect } from 'chai';
 import { getCoordinate } from '../../../src/dependents';
 import Element from '../../../src/geometry/element';
 import * as Shape from '../../../src/geometry/shape';
@@ -13,7 +12,7 @@ describe('Shape', () => {
   let setStateCalled = false;
   let destroyCalled = false;
 
-  before(() => {
+  beforeAll(() => {
     coordinate = new Rect({
       start: { x: 0, y: 0 },
       end: { x: 200, y: 200 },
@@ -35,15 +34,15 @@ describe('Shape', () => {
         },
       });
 
-      expect(Shape.getShapeFactory('circleFactory')).not.equal(undefined);
+      expect(Shape.getShapeFactory('circleFactory')).not.toBe(undefined);
     });
 
     it('getShapeFactory', () => {
       const circleFactory = Shape.getShapeFactory('circleFactory');
-      expect(circleFactory).not.to.equal(undefined);
+      expect(circleFactory).not.toBe(undefined);
 
       const unRegister = Shape.getShapeFactory('hello');
-      expect(unRegister).to.equal(undefined);
+      expect(unRegister).toBe(undefined);
     });
 
     it('registerShape', () => {
@@ -91,8 +90,8 @@ describe('Shape', () => {
         },
       });
       const circleFactory = Shape.getShapeFactory('circleFactory');
-      expect(circleFactory.getShape('circle')).not.to.equal(undefined);
-      expect(circleFactory.getShape('hollowCircle')).not.to.equal(undefined);
+      expect(circleFactory.getShape('circle')).not.toBe(undefined);
+      expect(circleFactory.getShape('hollowCircle')).not.toBe(undefined);
     });
   });
 
@@ -102,10 +101,10 @@ describe('Shape', () => {
       circleFactory.setCoordinate(coordinate);
 
       const shape = circleFactory.getShape('circle');
-      expect(shape).to.eql(circleFactory[circleFactory.defaultShapeType]);
+      expect(shape).toEqual(circleFactory[circleFactory.defaultShapeType]);
 
       // shape 不存在，则返回默认的 shape
-      expect(circleFactory.getShape('empty')).to.eql(circleFactory.getShape('test'));
+      expect(circleFactory.getShape('empty')).toEqual(circleFactory.getShape('test'));
     });
 
     it('getShapePoints()', () => {
@@ -116,7 +115,7 @@ describe('Shape', () => {
           x: 2,
           y: 2,
         })
-      ).to.eql([
+      ).toEqual([
         {
           x: 20,
           y: 20,
@@ -127,7 +126,7 @@ describe('Shape', () => {
           x: 2,
           y: 2,
         })
-      ).to.eql([
+      ).toEqual([
         {
           x: 3,
           y: 3,
@@ -143,7 +142,7 @@ describe('Shape', () => {
           x: 2,
           y: 2,
         })
-      ).to.eql([
+      ).toEqual([
         {
           x: 20,
           y: 20,
@@ -154,7 +153,7 @@ describe('Shape', () => {
           x: 2,
           y: 2,
         })
-      ).to.eql([
+      ).toEqual([
         {
           x: 3,
           y: 3,
@@ -165,14 +164,14 @@ describe('Shape', () => {
     it('getMarker()', () => {
       const circleFactory = Shape.getShapeFactory('circleFactory');
 
-      expect(circleFactory.getMarker('circle', {})).to.equal(undefined);
-      expect(circleFactory.getMarker('hollowCircle', {})).to.equal('marker');
+      expect(circleFactory.getMarker('circle', {})).toBe(undefined);
+      expect(circleFactory.getMarker('hollowCircle', {})).toBe('marker');
     });
 
     it('drawShape()', () => {
       const circleFactory = Shape.getShapeFactory('circleFactory');
       // @ts-ignore
-      expect(circleFactory.drawShape('circle')).to.equal('circle draw');
+      expect(circleFactory.drawShape('circle')).toBe('circle draw');
     });
 
     it('updateShape()', () => {
@@ -180,7 +179,7 @@ describe('Shape', () => {
       // @ts-ignore
       circleFactory.updateShape('circle');
 
-      expect(updateCalled).to.equal(true);
+      expect(updateCalled).toBe(true);
     });
 
     it('setState()', () => {
@@ -188,7 +187,7 @@ describe('Shape', () => {
       // @ts-ignore
       circleFactory.setState();
 
-      expect(setStateCalled).to.equal(true);
+      expect(setStateCalled).toBe(true);
     });
 
     it('destroy()', () => {
@@ -196,7 +195,7 @@ describe('Shape', () => {
       // @ts-ignore
       circleFactory.destroy();
 
-      expect(destroyCalled).to.equal(true);
+      expect(destroyCalled).toBe(true);
     });
   });
 
@@ -204,16 +203,16 @@ describe('Shape', () => {
     it('getCoordinate', () => {
       const circleFactory = Shape.getShapeFactory('circleFactory');
       const shape = circleFactory.getShape('circle');
-      expect(shape.getCoordinate()).to.eql(coordinate);
+      expect(shape.getCoordinate()).toEqual(coordinate);
     });
 
     it('parsePoint', () => {
       const circleFactory = Shape.getShapeFactory('circleFactory');
       const shape = circleFactory.getShape('circle');
 
-      expect(shape.parsePoint({ x: 0, y: 0 })).eqls({ x: 0, y: 0 });
-      expect(shape.parsePoint({ x: 0.5, y: 0.5 })).eqls({ x: 100, y: 100 });
-      expect(shape.parsePoint({ x: 1, y: 1 })).eqls({ x: 200, y: 200 });
+      expect(shape.parsePoint({ x: 0, y: 0 })).toEqual({ x: 0, y: 0 });
+      expect(shape.parsePoint({ x: 0.5, y: 0.5 })).toEqual({ x: 100, y: 100 });
+      expect(shape.parsePoint({ x: 1, y: 1 })).toEqual({ x: 200, y: 200 });
     });
 
     it('parsePoints', () => {
@@ -221,7 +220,7 @@ describe('Shape', () => {
       const shape = circleFactory.getShape('circle');
 
       const points = [{ x: 0, y: 0 }, { x: 0.5, y: 0.5 }, { x: 1, y: 1 }];
-      expect(shape.parsePoints(points)).eqls([{ x: 0, y: 0 }, { x: 100, y: 100 }, { x: 200, y: 200 }]);
+      expect(shape.parsePoints(points)).toEqual([{ x: 0, y: 0 }, { x: 100, y: 100 }, { x: 200, y: 200 }]);
     });
 
     it('parsePath at cartesian coordinate.', () => {
@@ -229,7 +228,7 @@ describe('Shape', () => {
       const shape = circleFactory.getShape('circle');
 
       const path = [['M', 0, 0], ['L', 1, 1]];
-      expect(shape.parsePath(path, false)).eqls([['M', 0, 0], ['L', 200, 200]]);
+      expect(shape.parsePath(path, false)).toEqual([['M', 0, 0], ['L', 200, 200]]);
     });
 
     it('parsePath at polar coordinate.', () => {
@@ -242,15 +241,15 @@ describe('Shape', () => {
       const shape = circleFactory.getShape('circle');
       let path = [['M', 0, 0], ['L', 0, 1], ['L', 0.5, 1]];
       let toPath = shape.parsePath(path, true);
-      expect(toPath[0]).eqls(['M', 100, 100]);
-      expect(toPath[1]).eqls(['L', 100, 0]);
-      expect(toPath[2]).eqls(['A', 100, 100, 0, 0, 1, 100, 200]);
+      expect(toPath[0]).toEqual(['M', 100, 100]);
+      expect(toPath[1]).toEqual(['L', 100, 0]);
+      expect(toPath[2]).toEqual(['A', 100, 100, 0, 0, 1, 100, 200]);
 
       path = [['M', 0, 0], ['L', 0, 1], ['L', 0.5, 1], ['L', 1, 1]];
       toPath = shape.parsePath(path, true);
-      expect(toPath[0]).eqls(['M', 100, 100]);
-      expect(toPath[1]).eqls(['M', 100, 0]);
-      expect(toPath[2]).eqls(['A', 100, 100, 0, 0, 1, 100, 200]);
+      expect(toPath[0]).toEqual(['M', 100, 100]);
+      expect(toPath[1]).toEqual(['M', 100, 0]);
+      expect(toPath[2]).toEqual(['A', 100, 100, 0, 0, 1, 100, 200]);
     });
 
     it('setState', () => {
@@ -279,14 +278,14 @@ describe('Shape', () => {
       });
 
       circleFactory.setState('hollowCircle', 'active', true, element);
-      expect(element.shape.attr('fill')).to.equal('blue');
+      expect(element.shape.attr('fill')).toBe('blue');
 
       element.setState('selected', true);
 
       circleFactory.setState('hollowCircle', 'active', false, element);
-      expect(element.shape.attr('fill')).to.equal('yellow');
-      expect(element.shape.attr('stroke')).to.equal('#000');
-      expect(element.shape.attr('lineWidth')).to.equal(1);
+      expect(element.shape.attr('fill')).toBe('yellow');
+      expect(element.shape.attr('stroke')).toBe('#000');
+      expect(element.shape.attr('lineWidth')).toBe(1);
     });
   });
 });
