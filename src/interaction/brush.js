@@ -255,9 +255,7 @@ class Brush extends Interaction {
     const { data, shapes, xValues, yValues } = me._getSelected();
     const eventObj = {
       data,
-      shapes,
-      x: currentPoint.x,
-      y: currentPoint.y
+      shapes
     };
 
     if (xScale) {
@@ -266,6 +264,13 @@ class Brush extends Interaction {
     if (yScale) {
       eventObj[yScale.field] = yValues;
     }
+
+    // 将框选的数据传递给 ev，供 onEnd 钩子使用
+    Util.mix(ev, eventObj);
+
+    eventObj.x = currentPoint.x;
+    eventObj.y = currentPoint.y;
+
     me.onDragmove && me.onDragmove(eventObj);
     me.onBrushmove && me.onBrushmove(eventObj);
   }
@@ -290,9 +295,7 @@ class Brush extends Interaction {
 
     const eventObj = {
       data,
-      shapes,
-      x: offsetX,
-      y: offsetY
+      shapes
     };
     if (xScale) {
       eventObj[xScale.field] = xValues;
@@ -300,6 +303,12 @@ class Brush extends Interaction {
     if (yScale) {
       eventObj[yScale.field] = yValues;
     }
+
+    // 将框选的数据传递给 ev，供 onEnd 钩子使用
+    Util.mix(ev, eventObj);
+
+    eventObj.x = offsetX;
+    eventObj.y = offsetY;
 
     if (me.dragging) {
       me.dragging = false;
