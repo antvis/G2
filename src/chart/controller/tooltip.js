@@ -516,19 +516,23 @@ class TooltipController {
 
   _getItemMarker(geom, item) {
     const options = this.options;
-    const markerOption = options.marker;
-    const shapeType = geom.get('shapeType') || 'point';
-    const shape = geom.getDefaultValue('shape') || 'circle';
-    const shapeObject = Shape.getShapeFactory(shapeType);
-    const cfg = { color: item.color };
-    const marker = shapeObject.getMarkerCfg(shape, cfg);
+    const markerOption = options.marker || this.viewTheme.tooltip.marker;
 
     if (Util.isFunction(markerOption)) {
+      const shapeType = geom.get('shapeType') || 'point';
+      const shape = geom.getDefaultValue('shape') || 'circle';
+      const shapeObject = Shape.getShapeFactory(shapeType);
+      const cfg = {
+        color: item.color
+      };
+      const marker = shapeObject.getMarkerCfg(shape, cfg);
       return markerOption(marker, item);
-    } else if (Util.isObject(markerOption)) {
-      return { ...marker, markerOption };
     }
-    return marker;
+
+    return {
+      fill: item.color,
+      ...markerOption
+    };
   }
 
 }
