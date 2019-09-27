@@ -106,7 +106,7 @@ describe('View', () => {
     expect(view.geometries[0].scales.city.ticks).toEqual(['杭州', '广州']);
     expect(view.geometries[0].scales.sale.values).toEqual([100, 30]);
 
-    expect(view.getCoordinate().getWidth()).toBeWithin(714, 715);
+    expect(view.getCoordinate().getWidth()).toBeWithin(714, 720);
     expect(view.getCoordinate().getHeight()).toEqual(564);
   });
 
@@ -118,9 +118,9 @@ describe('View', () => {
   });
 
   it('layout result', () => {
-    expect(view.coordinateBBox.x).toBeWithin(80, 81);
+    expect(view.coordinateBBox.x).toBeWithin(75, 81);
     expect(view.coordinateBBox.y).toEqual(18);
-    expect(view.coordinateBBox.width).toBeWithin(714, 715);
+    expect(view.getCoordinate().getWidth()).toBeWithin(714, 720);
     expect(view.coordinateBBox.height).toEqual(564);
   });
 
