@@ -536,8 +536,8 @@ class GeomBase extends Base {
     for (let i = 0; i < groupedArray.length; i++) {
       const subData = groupedArray[i];
       const tempData = self._saveOrigin(subData);
-      self._numberic(tempData);
-      dataArray.push(tempData);
+
+      dataArray.push(self._numberic(tempData));
     }
     return dataArray;
   }
@@ -570,16 +570,31 @@ class GeomBase extends Base {
   _numberic(data) {
     const positionAttr = this.getAttr('position');
     const scales = positionAttr.scales;
+    const result = [];
+
     for (let j = 0; j < data.length; j++) {
       const obj = data[j];
+      let isValidate = true;
+
       for (let i = 0; i < Math.min(2, scales.length); i++) {
         const scale = scales[i];
         if (scale.isCategory) {
           const field = scale.field;
           obj[field] = scale.translate(obj[field]);
+
+          if (Number.isNaN(obj[field])) {
+            // 当分类为 NaN 时，说明该条数据不在定义域内，需要过滤掉
+            isValidate = false;
+          }
         }
       }
+
+      if (isValidate) {
+        result.push(obj);
+      }
     }
+
+    return result;
   }
 
   _getGroupScales() {
@@ -609,6 +624,11 @@ class GeomBase extends Base {
     let max = scale.max;
     for (let i = 0; i < mergeArray.length; i++) {
       const obj = mergeArray[i];
+
+      // 过滤掉非法数据
+      if (!Util.isArray(obj[field])) {
+        continue;
+      }
       const tmpMin = Math.min.apply(null, obj[field]);
       const tmpMax = Math.max.apply(null, obj[field]);
       if (tmpMin < min) {
