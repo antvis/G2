@@ -106,14 +106,9 @@ export default class Geometry {
   /** Geometry 类型 */
   public readonly type: string = 'base';
   /** Geometry 对应的 shapeFactory 类型 */
-  public shapeType: string;
-  /** 图形属性对象 */
-  public attributes: Record<string, Attribute> = {};
-  /** scale·实例集合 */
-  public scales: Record<string, Scale> = {};
-  /** Element 实例集合 */
-  public elements: Element[] = [];
+  public readonly shapeType: string;
 
+  // 创建 Geometry 对象可传入的属性
   /** 坐标系对象 */
   public coordinate: Coordinate = null;
   /** data 数据 */
@@ -122,7 +117,6 @@ export default class Geometry {
   public readonly container: Group = null;
   /** scale 配置 */
   public scaleDefs: ScaleOption = {};
-
   /** 是否生成多个点来绘制图形 */
   public generatePoints: boolean = false;
   /** 是否对数据进行排序 */
@@ -131,28 +125,35 @@ export default class Geometry {
   public visible: boolean = true;
   /** 配置主题 */
   public theme: LooseObject = null;
+  /** scale·实例集合 */
+  public scales: Record<string, Scale> = {};
 
-  /** 图形属性映射配置 */
-  public attributeOption: Record<string, AttributeOption> = {};
-  /** tooltip 配置项 */
-  public tooltipOption = null;
-  /** adjust 配置项 */
-  public adjustOption = null;
-  /** style 配置项 */
-  public styleOption = null;
-  /** label 配置项 */
-  public labelOption = null;
-  /** animate 配置项 */
-  public animateOption = null;
-
+  // 计算生成的属性
+  /** 图形属性对象 */
+  public attributes: Record<string, Attribute> = {};
+  /** Element 实例集合 */
+  public elements: Element[] = [];
   /** 分组、数字化、adjust 后的数据 */
   public dataArray;
+
+  // 配置项属性存储
+  /** 图形属性映射配置 */
+  protected attributeOption: Record<string, AttributeOption> = {};
+  /** tooltip 配置项 */
+  protected tooltipOption = null;
+  /** adjust 配置项 */
+  protected adjustOption = null;
+  /** style 配置项 */
+  protected styleOption = null;
+  /** label 配置项 */
+  protected labelOption = null;
+  /** animate 配置项 */
+  protected animateOption = null;
 
   private shapeFactory;
   private adjusts: Record<string, Adjust> = {};
   private elementsMap: Record<string, Element> = {};
   private lastElementsMap: Record<string, Element> = {};
-  private groupScales: Scale[];
 
   constructor(cfg) {
     _.mix(this, cfg);
@@ -362,7 +363,6 @@ export default class Geometry {
     this.elementsMap = {};
     this.lastElementsMap = {};
     this.elements = [];
-    this.groupScales = null;
     this.dataArray = null;
   }
 
@@ -376,23 +376,19 @@ export default class Geometry {
   }
 
   public getGroupScales() {
-    let scales = this.groupScales;
-    if (!scales) {
-      scales = [];
-      const attributes = this.attributes;
-      _.each(attributes, (attr: Attribute) => {
-        if (GROUP_ATTRS.indexOf(attr.type) !== -1) {
-          const attrScales = attr.scales;
-          _.each(attrScales, (scale: Scale) => {
-            if (scale.isCategory && _.indexOf(scales, scale) === -1) {
-              scales.push(scale);
-            }
-          });
-        }
-      });
+    const scales = [];
+    const attributes = this.attributes;
+    _.each(attributes, (attr: Attribute) => {
+      if (GROUP_ATTRS.indexOf(attr.type) !== -1) {
+        const attrScales = attr.scales;
+        _.each(attrScales, (scale: Scale) => {
+          if (scale.isCategory && _.indexOf(scales, scale) === -1) {
+            scales.push(scale);
+          }
+        });
+      }
+    });
 
-      this.groupScales = scales;
-    }
     return scales;
   }
 

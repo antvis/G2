@@ -442,7 +442,6 @@ describe('Geometry', () => {
       expect(geometry.elementsMap).to.eql({});
       expect(geometry.lastElementsMap).to.eql({});
       expect(geometry.elements).to.eql([]);
-      expect(geometry.groupScales).to.equal(null);
     });
 
     it('destroy()', () => {
