@@ -1,7 +1,6 @@
 import { Canvas, Group } from '@antv/g';
 import * as _ from '@antv/util';
-import { expect } from 'chai';
-import { getTheme } from '../../../src';
+import 'jest-extended';
 import { getCoordinate } from '../../../src/dependents';
 import Geometry from '../../../src/geometry/geometry';
 import * as Shape from '../../../src/geometry/shape';
@@ -43,46 +42,46 @@ describe('Geometry', () => {
         type: 'myInterval',
       });
 
-      expect(geometry.type).to.equal('myInterval');
-      expect(geometry.attributes).to.eql({});
-      expect(geometry.scales).to.eql({});
-      expect(geometry.elements).to.eql([]);
-      expect(geometry.data).not.to.equal(undefined);
-      expect(geometry.coordinate).not.to.equal(undefined);
-      expect(geometry.container).not.to.equal(undefined);
-      expect(geometry.theme).not.to.equal(undefined);
-      expect(geometry.scaleDefs).not.to.equal(undefined);
-      expect(geometry.animate).to.equal(false);
-      expect(geometry.generatePoints).to.equal(true);
+      expect(geometry.type).toBe('myInterval');
+      expect(geometry.attributes).toEqual({});
+      expect(geometry.scales).toEqual({});
+      expect(geometry.elements).toEqual([]);
+      expect(geometry.data).not.toBe(undefined);
+      expect(geometry.coordinate).not.toBe(undefined);
+      expect(geometry.container).not.toBe(undefined);
+      expect(geometry.theme).not.toBe(undefined);
+      expect(geometry.scaleDefs).not.toBe(undefined);
+      expect(geometry.animate).toBe(false);
+      expect(geometry.generatePoints).toBe(true);
     });
 
     it('position()', () => {
       geometry.position('month*temperature');
-      expect(geometry.attributeOption.position).to.eql({
+      expect(geometry.attributeOption.position).toEqual({
         fields: ['month', 'temperature'],
       });
 
       geometry.position({
         fields: ['month', 'temperature'],
       });
-      expect(geometry.attributeOption.position).to.eql({
+      expect(geometry.attributeOption.position).toEqual({
         fields: ['month', 'temperature'],
       });
     });
 
     it('color()', () => {
       geometry.color('red'); // 颜色常量
-      expect(geometry.attributeOption.color).to.eql({
+      expect(geometry.attributeOption.color).toEqual({
         fields: ['red'],
       });
 
       geometry.color('month'); // 字段
-      expect(geometry.attributeOption.color).to.eql({
+      expect(geometry.attributeOption.color).toEqual({
         fields: ['month'],
       });
 
       geometry.color('month', ['red', 'blue']);
-      expect(geometry.attributeOption.color).to.eql({
+      expect(geometry.attributeOption.color).toEqual({
         fields: ['month'],
         values: ['red', 'blue'],
       });
@@ -90,17 +89,17 @@ describe('Geometry', () => {
       geometry.color('month', () => {
         return 'red';
       });
-      expect(geometry.attributeOption.color).to.have.all.keys('fields', 'callback');
+      expect(geometry.attributeOption.color).toContainKeys(['fields', 'callback']);
     });
 
     it('shape()', () => {
       geometry.shape('circle');
-      expect(geometry.attributeOption.shape).to.eql({
+      expect(geometry.attributeOption.shape).toEqual({
         fields: ['circle'],
       });
 
       geometry.shape('month', ['circle', 'square']);
-      expect(geometry.attributeOption.shape).to.eql({
+      expect(geometry.attributeOption.shape).toEqual({
         fields: ['month'],
         values: ['circle', 'square'],
       });
@@ -108,23 +107,24 @@ describe('Geometry', () => {
       geometry.shape('month', () => {
         return 'circle';
       });
-      expect(geometry.attributeOption.shape).to.have.all.keys('fields', 'callback');
-      expect(geometry.attributeOption.shape.fields).eql(['month']);
+
+      expect(geometry.attributeOption.shape).toContainKeys(['fields', 'callback']);
+      expect(geometry.attributeOption.shape.fields).toEqual(['month']);
     });
 
     it('size()', () => {
       geometry.size(3);
-      expect(geometry.attributeOption.size).to.eql({
+      expect(geometry.attributeOption.size).toEqual({
         values: [3],
       });
 
       geometry.size('temperature');
-      expect(geometry.attributeOption.size).to.eql({
+      expect(geometry.attributeOption.size).toEqual({
         fields: ['temperature'],
       });
 
       geometry.size('temperature', [2, 10]);
-      expect(geometry.attributeOption.size).to.eql({
+      expect(geometry.attributeOption.size).toEqual({
         fields: ['temperature'],
         values: [2, 10],
       });
@@ -132,8 +132,8 @@ describe('Geometry', () => {
       geometry.size('temperature', () => {
         return 0;
       });
-      expect(geometry.attributeOption.size).to.have.all.keys('fields', 'callback');
-      expect(geometry.attributeOption.size.fields).to.eql(['temperature']);
+      expect(geometry.attributeOption.size).toContainKeys(['fields', 'callback']);
+      expect(geometry.attributeOption.size.fields).toEqual(['temperature']);
     });
 
     it('adjust()', () => {
@@ -141,7 +141,7 @@ describe('Geometry', () => {
       geometry.adjust({
         type: 'stack',
       });
-      expect(geometry.adjustOption).to.eql([{ type: 'stack' }]);
+      expect(geometry.adjustOption).toEqual([{ type: 'stack' }]);
 
       // 传入数组
       geometry.adjust([
@@ -150,13 +150,13 @@ describe('Geometry', () => {
         },
       ]);
 
-      expect(geometry.adjustOption).to.eql([{ type: 'stack' }]);
+      expect(geometry.adjustOption).toEqual([{ type: 'stack' }]);
 
       geometry.adjust('stack');
-      expect(geometry.adjustOption).to.eql([{ type: 'stack' }]);
+      expect(geometry.adjustOption).toEqual([{ type: 'stack' }]);
 
       geometry.adjust(['stack']);
-      expect(geometry.adjustOption).to.eql([{ type: 'stack' }]);
+      expect(geometry.adjustOption).toEqual([{ type: 'stack' }]);
     });
 
     it('style()', () => {
@@ -169,12 +169,12 @@ describe('Geometry', () => {
         },
       });
 
-      expect(geometry.styleOption.callback).to.be.an.instanceOf(Function);
+      expect(geometry.styleOption.callback).toBeInstanceOf(Function);
 
       geometry.style({
         lineWidth: 1,
       });
-      expect(geometry.styleOption).to.eql({
+      expect(geometry.styleOption).toEqual({
         cfg: {
           lineWidth: 1,
         },
@@ -185,19 +185,19 @@ describe('Geometry', () => {
           lineWidth: 1,
         };
       });
-      expect(geometry.styleOption.fields).to.eql(['month']);
-      expect(geometry.styleOption.callback).to.be.an.instanceOf(Function);
+      expect(geometry.styleOption.fields).toEqual(['month']);
+      expect(geometry.styleOption.callback).toBeInstanceOf(Function);
     });
 
     it('tooltip()', () => {
       geometry.tooltip(false); // 关闭 geometry 上的 tooltip
-      expect(geometry.tooltipOption).to.equal(false);
+      expect(geometry.tooltipOption).toBe(false);
 
       geometry.tooltip(true); // 开启 geometry 上的 tooltip
-      expect(geometry.tooltipOption).to.equal(true);
+      expect(geometry.tooltipOption).toBe(true);
 
       geometry.tooltip('month*temperature');
-      expect(geometry.tooltipOption).to.eql({
+      expect(geometry.tooltipOption).toEqual({
         fields: ['month', 'temperature'],
         callback: undefined,
       });
@@ -208,15 +208,15 @@ describe('Geometry', () => {
           value: temperature,
         };
       });
-      expect(geometry.tooltipOption.fields).to.eql(['month', 'temperature']);
-      expect(geometry.tooltipOption.callback).to.be.an.instanceOf(Function);
+      expect(geometry.tooltipOption.fields).toEqual(['month', 'temperature']);
+      expect(geometry.tooltipOption.callback).toBeInstanceOf(Function);
 
       geometry.tooltip({
         fields: ['month', 'temperature'],
       });
 
       const tooltipOptions = geometry.tooltipOption;
-      expect(tooltipOptions.fields).to.eql(['month', 'temperature']);
+      expect(tooltipOptions.fields).toEqual(['month', 'temperature']);
     });
 
     it('animate', () => {
@@ -228,7 +228,7 @@ describe('Geometry', () => {
     let geometry;
     let canvas;
     let div;
-    before(() => {
+    beforeAll(() => {
       div = document.createElement('div');
       div.id = 'base';
       document.body.appendChild(div);
@@ -326,9 +326,9 @@ describe('Geometry', () => {
         .adjust('dodge')
         .tooltip('year')
         .size(3);
-      expect(geometry.attributeOption).to.have.all.keys('position', 'color', 'size');
-      expect(geometry.tooltipOption).to.eql({ fields: ['year'], callback: undefined });
-      expect(geometry.adjustOption).to.eql([{ type: 'dodge' }]);
+      expect(geometry.attributeOption).toContainKeys(['position', 'color', 'size']);
+      expect(geometry.tooltipOption).toEqual({ fields: ['year'], callback: undefined });
+      expect(geometry.adjustOption).toEqual([{ type: 'dodge' }]);
     });
 
     it('init()', () => {
@@ -336,70 +336,70 @@ describe('Geometry', () => {
 
       // attrs 的生成
       const attrs = geometry.attributes;
-      expect(attrs).to.have.all.keys('position', 'color', 'size');
+      expect(attrs).toContainKeys(['position', 'color', 'size']);
 
       // scales 的生成
       const scales = geometry.scales;
-      expect(scales).to.have.all.keys('month', 'temperature', 'city', 'year');
-      expect(scales.month.range).to.eql([0.25, 0.75]);
-      expect(scales.month.values).to.eql(['一月', '二月']);
+      expect(scales).toContainKeys(['month', 'temperature', 'city', 'year']);
+      expect(scales.month.range).toEqual([0.25, 0.75]);
+      expect(scales.month.values).toEqual(['一月', '二月']);
 
       // 数据加工
       const dataArray = geometry.dataArray;
-      expect(dataArray.length).to.equal(2);
-      expect(dataArray[0][0].city).to.equal('北京');
-      expect(dataArray[0][1].city).to.equal('北京');
-      expect(dataArray[1][0].city).to.equal('南京');
-      expect(dataArray[1][1].city).to.equal('南京');
+      expect(dataArray.length).toBe(2);
+      expect(dataArray[0][0].city).toBe('北京');
+      expect(dataArray[0][1].city).toBe('北京');
+      expect(dataArray[1][0].city).toBe('南京');
+      expect(dataArray[1][1].city).toBe('南京');
 
       // 确保原始数据被保存
       _.flatten(dataArray).forEach((obj: LooseObject) => {
-        expect(obj._origin).not.to.equal(undefined);
+        expect(obj._origin).not.toBe(undefined);
       });
 
       // 确保 x 字段对应的数据被数字化且发生 dodge 调整
-      expect(dataArray[0][0].month).to.equal(-0.1875);
-      expect(dataArray[1][0].month).to.equal(0.1875);
-      expect(dataArray[0][1].month).to.equal(0.8125);
-      expect(dataArray[1][1].month).to.equal(1.1875);
+      expect(dataArray[0][0].month).toBe(-0.1875);
+      expect(dataArray[1][0].month).toBe(0.1875);
+      expect(dataArray[0][1].month).toBe(0.8125);
+      expect(dataArray[1][1].month).toBe(1.1875);
     });
 
     it('paint()', () => {
       geometry.paint();
 
       const elements = geometry.elements;
-      expect(elements.length).to.equal(4);
-      expect(geometry.elementsMap).not.to.equal(undefined);
-      expect(geometry.container.get('children').length).to.equal(4);
+      expect(elements.length).toBe(4);
+      expect(geometry.elementsMap).not.toBe(undefined);
+      expect(geometry.container.get('children').length).toBe(4);
     });
 
     it('getGroupScales()', () => {
       const groupScales = geometry.getGroupScales();
-      expect(groupScales.length).to.equal(1);
-      expect(groupScales[0].field).to.equal('city');
+      expect(groupScales.length).toBe(1);
+      expect(groupScales[0].field).toBe('city');
     });
 
     it('getAttribute()', () => {
       const colorAttr = geometry.getAttribute('color');
 
-      expect(colorAttr.type).to.equal('color');
+      expect(colorAttr.type).toBe('color');
     });
 
     it('getXScale()', () => {
       const xScale = geometry.getXScale();
 
-      expect(xScale.field).to.equal('month');
+      expect(xScale.field).toBe('month');
     });
 
     it('getYScale()', () => {
       const yScale = geometry.getYScale();
-      expect(yScale.field).to.equal('temperature');
+      expect(yScale.field).toBe('temperature');
     });
 
     it('getDefaultValue()', () => {
       const defaultSize = geometry.getDefaultValue('size');
 
-      expect(defaultSize).to.equal(3);
+      expect(defaultSize).toBe(3);
     });
 
     it('update data and repaint', () => {
@@ -412,45 +412,45 @@ describe('Geometry', () => {
         { month: '三月', temperature: 24, city: '南京', year: '2018' },
       ]);
 
-      expect(geometry.data.length).to.equal(3);
-      expect(geometry.dataArray.length).to.equal(2);
+      expect(geometry.data.length).toBe(3);
+      expect(geometry.dataArray.length).toBe(2);
 
       const scales = geometry.scales;
-      expect(scales.month.values).to.eql(['二月', '三月']);
+      expect(scales.month.values).toEqual(['二月', '三月']);
 
       // 更新完数据后进行绘制
       geometry.paint();
       const elements = geometry.elements;
-      expect(elements.length).to.equal(3);
+      expect(elements.length).toBe(3);
 
       const elementsMap = geometry.elementsMap;
-      expect(elementsMap).to.have.all.keys('二月-北京', '二月-南京', '三月-南京');
+      expect(elementsMap).toContainKeys(['二月-北京', '二月-南京', '三月-南京']);
 
       const xScale = geometry.getXScale();
-      expect(xScale.values).to.eql(['二月', '三月']);
-      expect(deleteElement.destroyed).to.equal(true);
+      expect(xScale.values).toEqual(['二月', '三月']);
+      expect(deleteElement.destroyed).toBe(true);
 
-      expect(updateElement.getData()).to.eql({ month: '二月', temperature: 20, city: '北京', year: '2018' });
+      expect(updateElement.getData()).toEqual({ month: '二月', temperature: 20, city: '北京', year: '2018' });
     });
 
     it('clear()', () => {
       geometry.clear();
 
-      expect(geometry.container.get('children').length).to.equal(0);
-      expect(geometry.attributes).to.eql({});
-      expect(geometry.scales).to.eql({});
-      expect(geometry.elementsMap).to.eql({});
-      expect(geometry.lastElementsMap).to.eql({});
-      expect(geometry.elements).to.eql([]);
+      expect(geometry.container.get('children').length).toBe(0);
+      expect(geometry.attributes).toEqual({});
+      expect(geometry.scales).toEqual({});
+      expect(geometry.elementsMap).toEqual({});
+      expect(geometry.lastElementsMap).toEqual({});
+      expect(geometry.elements).toEqual([]);
     });
 
     it('destroy()', () => {
       geometry.destroy();
 
-      expect(canvas.get('children').length).to.equal(0);
+      expect(canvas.get('children').length).toBe(0);
     });
 
-    after(() => {
+    afterAll(() => {
       canvas.destroy();
       document.body.removeChild(div);
     });

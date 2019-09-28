@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 describe('template', () => {
   const el = document.createElement('div');
   el.id = 'test-div-id';
@@ -7,6 +5,6 @@ describe('template', () => {
   document.querySelector('body').appendChild(el);
 
   it('div content', () => {
-    expect(document.querySelector('#test-div-id').innerHTML).to.equals('hello g2');
+    expect(document.querySelector('#test-div-id').innerHTML).toBe('hello g2');
   });
 });

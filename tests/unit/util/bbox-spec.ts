@@ -1,5 +1,4 @@
 import { BBox } from '@antv/g';
-import { expect } from 'chai';
 import { DIRECTION } from '../../../src/chart';
 import { BBoxProcessor } from '../../../src/util/bbox';
 
@@ -17,9 +16,9 @@ describe('util/ bbox', () => {
       .cut(new BBox(50, 50, 10, 100), DIRECTION.LEFT); // 60, 60, 130, 130
 
     const newBBox = processor.value();
-    expect(newBBox.x).to.be.eql(60);
-    expect(newBBox.y).to.be.eql(60);
-    expect(newBBox.width).to.be.eql(130);
-    expect(newBBox.height).to.be.eql(130);
+    expect(newBBox.x).toEqual(60);
+    expect(newBBox.y).toEqual(60);
+    expect(newBBox.width).toEqual(130);
+    expect(newBBox.height).toEqual(130);
   });
 });

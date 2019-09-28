@@ -1,5 +1,4 @@
 import { Canvas, Group } from '@antv/g';
-import { expect } from 'chai';
 import { Chart } from '../../../src/';
 import { createDiv } from '../../util/dom';
 
@@ -14,12 +13,12 @@ describe('Chart', () => {
   });
 
   it('constructor', () => {
-    expect(chart.width).to.eql(800);
-    expect(chart.height).to.eql(600);
-    expect(chart.canvas).to.be.an.instanceof(Canvas);
-    expect(chart.backgroundGroup).to.be.an.instanceof(Group);
-    expect(chart.middleGroup).to.be.an.instanceof(Group);
-    expect(chart.foregroundGroup).to.be.an.instanceof(Group);
+    expect(chart.width).toEqual(800);
+    expect(chart.height).toEqual(600);
+    expect(chart.canvas).toBeInstanceOf(Canvas);
+    expect(chart.backgroundGroup).toBeInstanceOf(Group);
+    expect(chart.middleGroup).toBeInstanceOf(Group);
+    expect(chart.foregroundGroup).toBeInstanceOf(Group);
 
     // region -> view bbox
     expect({
@@ -27,7 +26,7 @@ describe('Chart', () => {
       y: chart.viewBBox.y,
       width: chart.viewBBox.width,
       height: chart.viewBBox.height,
-    }).to.eql({
+    }).toEqual({
       x: 10,
       y: 10,
       width: 780,
