@@ -60,10 +60,19 @@ export default class Chart extends View {
     this.render();
   }
 
+  public destroy() {
+    super.destroy();
+
+    this.unbindAutoFit();
+    this.canvas.destroy();
+  }
+
   private bindAutoFit() {
     if (this.autoFit) {
       // todo 监听容器大小，自动 changeSize
       // ResizeObserver
     }
   }
+
+  private unbindAutoFit() {}
 }

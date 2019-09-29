@@ -173,20 +173,25 @@ export default class View extends EE {
    * 清空，之后可以再走 initial 流程，正常使用
    */
   public clear() {
-    // 1. 清空 geometries
+    // 1. 清空缓存和计算数据
+    this.scales = {};
+    this.filteredData = [];
+    this.coordinateInstance = undefined;
+
+    // 2. 清空 geometries
     _.each(this.geometries, (geometry: Geometry) => {
       geometry.clear();
     });
     this.geometries = [];
 
-    // 2. 清空 components
+    // 3. 清空 components
     _.each(this.options.components, (co: ComponentOption) => {
       co.component.destroy();
     });
     // 清空
     this.options.components.splice(0);
 
-    // 3. 递归处理子 view
+    // 4. 递归处理子 view
     _.each(this.views, (view: View) => {
       view.clear();
     });
@@ -197,6 +202,10 @@ export default class View extends EE {
    */
   public destroy() {
     this.clear();
+
+    this.backgroundGroup.remove();
+    this.middleGroup.remove();
+    this.foregroundGroup.remove();
   }
   /* end 生命周期函数 */
 
@@ -382,7 +391,13 @@ export default class View extends EE {
    * @param view
    */
   public removeView(view: View): View {
-    return _.remove(this.views, (v: View) => v === view)[0];
+    const removedView = _.remove(this.views, (v: View) => v === view)[0];
+
+    if (removedView) {
+      removedView.destroy();
+    }
+
+    return removedView;
   }
   /* end View 管理相关的 API */
 

@@ -1,6 +1,17 @@
 import { Canvas, Group } from '@antv/g';
-import { Chart } from '../../../src/';
+import { Chart, LAYER } from '../../../src/';
 import { createDiv } from '../../util/dom';
+
+const data = [
+  { city: '杭州', sale: 100, category: '电脑' },
+  { city: '广州', sale: 30, category: '电脑' },
+  { city: '上海', sale: 110, category: '电脑' },
+  { city: '呼和浩特', sale: 40, category: '电脑' },
+  { city: '上海', sale: 200, category: '鼠标' },
+  { city: '呼和浩特', sale: 10, category: '鼠标' },
+  { city: '杭州', sale: 40, category: '鼠标' },
+  { city: '广州', sale: 90, category: '鼠标' },
+];
 
 describe('Chart', () => {
   const div = createDiv();
@@ -12,16 +23,22 @@ describe('Chart', () => {
     padding: 10,
   });
 
+  chart.data(data);
+
+  chart
+    // @ts-ignore
+    .interval()
+    .position('city*sale')
+    .color('category');
+
   it('constructor', () => {
     expect(chart.width).toEqual(800);
     expect(chart.height).toEqual(600);
     expect(chart.canvas).toBeInstanceOf(Canvas);
-    // @ts-ignore
-    expect(chart.backgroundGroup).toBeInstanceOf(Group);
-    // @ts-ignore
-    expect(chart.middleGroup).toBeInstanceOf(Group);
-    // @ts-ignore
-    expect(chart.foregroundGroup).toBeInstanceOf(Group);
+
+    expect(chart.getLayer(LAYER.BG)).toBeInstanceOf(Group);
+    expect(chart.getLayer(LAYER.MID)).toBeInstanceOf(Group);
+    expect(chart.getLayer(LAYER.FORE)).toBeInstanceOf(Group);
 
     // region -> view bbox
     expect({
@@ -35,5 +52,33 @@ describe('Chart', () => {
       width: 780,
       height: 580,
     });
+  });
+
+  it('render', () => {
+    chart.render();
+    expect(chart.getLayer(LAYER.BG).get('children').length).not.toBe(0);
+    expect(chart.getLayer(LAYER.MID).get('children').length).not.toBe(0);
+    expect(chart.getLayer(LAYER.FORE).get('children').length).not.toBe(0);
+  });
+
+  it('clear', () => {
+    chart.clear();
+
+    // @ts-ignore
+    expect(chart.filteredData).toEqual([]);
+    // @ts-ignore
+    expect(chart.scales).toEqual({});
+    expect(!!chart.getCoordinate()).toBe(false);
+
+    expect(chart.getLayer(LAYER.BG).get('children').length).toBe(0);
+    // FIXME Geometry.destroy do not remove the container
+    // expect(chart.getLayer(LAYER.MID).get('children').length).toBe(0);
+    expect(chart.getLayer(LAYER.FORE).get('children').length).toBe(0);
+  });
+
+  it('destroy', () => {
+    chart.destroy();
+
+    expect(chart.canvas.destroyed).toBe(true);
   });
 });
