@@ -203,49 +203,63 @@ export default class View extends EE {
   /**
    * 装载数据。
    */
-  public data(data: Data) {
+  public data(data: Data): View {
     _.set(this.options, 'data', data);
+
+    return this;
   }
 
   /**
    * 数据筛选配置
    */
-  public filter(field: string, condition: FilterCondition) {
+  public filter(field: string, condition: FilterCondition): View {
     _.set(this.options, ['filters', field], condition);
+
+    return this;
   }
 
   /**
    * 坐标轴配置
    */
-  public axis(field: string, axisOption: AxisOption) {
+  public axis(field: string, axisOption: AxisOption): View {
     _.set(this.options, ['axes', field], axisOption);
+
+    return this;
   }
 
   /**
    * 图例配置
    */
-  public legend(field: string, legendCfg) {
+  public legend(field: string, legendCfg): View {
     _.set(this.options, ['legends', field], legendCfg);
+
+    return this;
   }
 
   /**
    * scale 配置
    */
-  public scale(field: string, scaleOption: ScaleOption) {
+  public scale(field: string, scaleOption: ScaleOption): View {
     _.set(this.options, ['scales', field], scaleOption);
+
+    return this;
   }
 
   /**
    * tooltip 配置
    */
-  public tooltip(visible: boolean) {
+  public tooltip(visible: boolean): View {
     _.set(this.options, 'tooltip', visible);
+
+    return this;
   }
 
   /**
    * 辅助标记配置
    */
-  public annotation() {}
+  public annotation(): View {
+    return this;
+  }
 
   /**
    * 坐标系配置
@@ -261,13 +275,17 @@ export default class View extends EE {
     }
   }
 
-  public animate() {}
+  public animate(): View {
+    return this;
+  }
 
   /**
    * 设置主题
    */
-  public theme(theme: string | object) {
+  public theme(theme: string | object): View {
     this.themeObject = mergeTheme(this.themeObject, theme);
+
+    return this;
   }
 
   /* end 一系列传入配置的 API */
@@ -277,7 +295,7 @@ export default class View extends EE {
    * @param name 交互的名称（唯一）
    * @param interaction 交互类，view 中会对他们进行实例化和销毁
    */
-  public interaction(name: string, interaction: Interaction) {
+  public interaction(name: string, interaction: Interaction): View {
     const path = ['interactions', name];
 
     const existInteraction = _.get(this.options, path) as Interaction;
@@ -288,6 +306,8 @@ export default class View extends EE {
 
     // 保存新的 interaction
     _.set(this.options, ['interactions', name], interaction);
+
+    return this;
   }
 
   /**
