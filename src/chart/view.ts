@@ -2,13 +2,13 @@ import EE from '@antv/event-emitter';
 import { BBox, Canvas, Group } from '@antv/g';
 import * as _ from '@antv/util';
 import {
-  AxisCfg,
+  AxisOption,
   ComponentOption,
   CoordinateCfg,
   CoordinateOption,
   FilterCondition,
   Options,
-  ScaleCfg,
+  ScaleOption,
   ViewCfg,
 } from 'chart/interface';
 import Component from 'component';
@@ -212,8 +212,8 @@ export default class View extends EE {
   /**
    * 坐标轴配置
    */
-  public axis(field: string, axisCfg: AxisCfg) {
-    _.set(this.options, ['axes', field], axisCfg);
+  public axis(field: string, axisOption: AxisOption) {
+    _.set(this.options, ['axes', field], axisOption);
   }
 
   /**
@@ -226,8 +226,8 @@ export default class View extends EE {
   /**
    * scale 配置
    */
-  public scale(field: string, scaleCfg: ScaleCfg) {
-    _.set(this.options, ['scales', field], scaleCfg);
+  public scale(field: string, scaleOption: ScaleOption) {
+    _.set(this.options, ['scales', field], scaleOption);
   }
 
   /**
@@ -302,7 +302,6 @@ export default class View extends EE {
     // 4. 调整 scale
     this.adjustScales();
     // 5. 更新组件
-    // TODO 目前是清空，重新绘制
     this.renderComponents();
     // 6. 布局，计算每个组件的坐标、以及 coordinate 的范围
     this.doLayout();

@@ -43,7 +43,7 @@ export interface ComponentOption {
 /* 筛选器函数类型定义 */
 export type FilterCondition = (value: any, datum: Datum) => boolean;
 
-export type AxisCfg =
+export type AxisOption =
   | {
       readonly type: string;
     }
@@ -55,7 +55,7 @@ export type LegendCfg =
     }
   | boolean;
 
-export interface ScaleCfg {
+export interface ScaleOption {
   readonly type: string;
 }
 
@@ -80,9 +80,9 @@ export interface CoordinateCfg {
 export interface Options {
   readonly data: Data;
   readonly filters: Record<string, FilterCondition>;
-  readonly axes: Record<string, AxisCfg>;
+  readonly axes: Record<string, AxisOption>;
   readonly legends: Record<string, LegendCfg>;
-  readonly scales: Record<string, ScaleCfg>;
+  readonly scales: Record<string, ScaleOption>;
   readonly tooltip: boolean; // tooltip visible or not
   readonly coordinate: CoordinateOption;
   readonly interactions: Record<string, Interaction>;
