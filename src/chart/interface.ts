@@ -30,6 +30,7 @@ export interface ViewCfg {
   readonly region?: Region;
   readonly padding?: Padding;
   readonly theme?: object | string;
+  readonly options?: Options;
 }
 
 // 组件及布局的信息

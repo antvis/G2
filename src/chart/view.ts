@@ -349,6 +349,14 @@ export default class View extends EE {
    * 创建子 view
    */
   public createView(cfg?: Partial<ViewCfg>): View {
+    // 子 view 共享 options 配置数据
+    const sharedOptions = {
+      data: this.options.data,
+      scales: _.clone(this.options.scales),
+      axes: _.clone(this.options.axes),
+      coordinate: _.clone(this.options.coordinate),
+    };
+
     const v = new View({
       parent: this,
       canvas: this.canvas,
@@ -358,6 +366,10 @@ export default class View extends EE {
       foregroundGroup: this.middleGroup.addGroup({ zIndex: GroupZIndex.FORE }),
       theme: this.themeObject,
       ...cfg,
+      options: {
+        ...sharedOptions,
+        ...cfg.options,
+      },
     });
 
     this.views.push(v);
