@@ -7,12 +7,11 @@ import View from '../view';
 
 /**
  * 创建 legend 组件
- * @param container
  * @param legends
  * @param view
  */
 
-export function createLegends(container: any, legends: Record<string, LegendCfg>, view: View): ComponentOption[] {
+export function createLegends(legends: Record<string, LegendCfg>, view: View): ComponentOption[] {
   const legendArray: ComponentOption[] = [];
 
   const legendAttributes = view.getLegendAttributes();
@@ -23,9 +22,11 @@ export function createLegends(container: any, legends: Record<string, LegendCfg>
 
     // 如果配置中，用户没有关闭 legend，则添加组件
     if (legendCfg !== false) {
+      const layer = LAYER.FORE;
+      const container = view.getLayer(layer);
       legendArray.push({
         component: new Legend(container.addGroup(), [0, 0], { text: `legend ${scale.field}` }),
-        layer: LAYER.FORE,
+        layer,
         direction: DIRECTION.TOP,
         type: ComponentType.LEGEND,
       });

@@ -429,6 +429,20 @@ export default class View extends EE {
   }
 
   /**
+   * 获得绘制的层级 group
+   * @param layer
+   */
+  public getLayer(layer: LAYER): Group {
+    return layer === LAYER.BG
+      ? this.backgroundGroup
+      : layer === LAYER.MID
+      ? this.middleGroup
+      : layer === LAYER.FORE
+      ? this.foregroundGroup
+      : this.foregroundGroup;
+  }
+
+  /**
    * 获得所有的 legend 对应的 attribute 实例
    */
   public getLegendAttributes(): Attribute[] {
@@ -661,17 +675,19 @@ export default class View extends EE {
     // 清空 ComponentOptions 配置
     this.options.components.splice(0);
 
-    // 1. axis
     this.backgroundGroup.clear();
+    this.foregroundGroup.clear();
+
+    // 1. axis
     // 根据 Geometry 的字段来创建 axis
-    _.each(createAxes(this.backgroundGroup, axes, this), (axis: ComponentOption) => {
+    _.each(createAxes(axes, this), (axis: ComponentOption) => {
       const { component, layer, direction, type } = axis;
       this.addComponent(component, layer, direction, type);
     });
 
     // 2. legend
-    this.foregroundGroup.clear();
-    _.each(createLegends(this.foregroundGroup, legends, this), (legend: ComponentOption) => {
+    // 根据 Geometry 的字段来创建 legend
+    _.each(createLegends(legends, this), (legend: ComponentOption) => {
       const { component, layer, direction, type } = legend;
       this.addComponent(component, layer, direction, type);
     });
