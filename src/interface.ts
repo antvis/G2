@@ -2,7 +2,7 @@
 export type Renderer = 'svg' | 'canvas';
 
 /** 数据的定义 */
-export type Datum = Record<string, string | number>;
+export type Datum = Record<string, any>;
 export type Data = Datum[];
 
 /** 对象 */
