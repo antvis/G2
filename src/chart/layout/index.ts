@@ -1,8 +1,8 @@
 import { BBox } from '@antv/g';
 import * as _ from '@antv/util';
+import { ComponentType } from '../../constant';
 import { BBoxProcessor } from '../../util/bbox';
 import { directionToPosition } from '../../util/direction';
-import { ComponentType } from '../constant';
 import { ComponentOption } from '../interface';
 import View from '../view';
 

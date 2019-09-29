@@ -6,8 +6,6 @@ import {
   ComponentOption,
   CoordinateCfg,
   CoordinateOption,
-  Data,
-  Datum,
   FilterCondition,
   Options,
   ScaleCfg,
@@ -18,12 +16,13 @@ import { Coordinate, Scale } from 'dependents';
 import Geometry from 'geometry/geometry';
 import Interaction from 'interaction';
 import { Padding, Point, Region } from 'interface';
+import { ComponentType, DIRECTION, GroupZIndex, LAYER } from '../constant';
 import { Attribute } from '../dependents';
+import { Data, Datum } from '../interface';
 import { isFullCircle } from '../util/coordinate';
 import { parsePadding } from '../util/padding';
 import { mergeTheme } from '../util/theme';
 import Chart from './chart';
-import { ComponentType, DIRECTION, GroupZIndex, LAYER } from './constant';
 import { createAxes } from './controller/axis';
 import { createCoordinate } from './controller/coordinate';
 import { createLegends } from './controller/legend';

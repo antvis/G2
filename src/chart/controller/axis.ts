@@ -1,7 +1,7 @@
 import * as _ from '@antv/util';
+import { ComponentType, DIRECTION, LAYER } from '../../constant';
 import { Scale } from '../../dependents';
 import { Axis } from '../__components__';
-import { ComponentType, DIRECTION, LAYER } from '../constant';
 import { AxisCfg, ComponentOption } from '../interface';
 import View from '../view';
 

@@ -1,6 +1,6 @@
 import { Canvas } from '@antv/g';
 import * as _ from '@antv/util';
-import { GroupZIndex } from './constant';
+import { GroupZIndex } from '../constant';
 import { ChartCfg } from './interface';
 import View from './view';
 

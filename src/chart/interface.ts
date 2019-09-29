@@ -1,11 +1,9 @@
 import { Canvas, Group } from '@antv/g';
 import Component from '../component';
+import { ComponentType, DIRECTION, LAYER } from '../constant';
 import Interaction from '../interaction';
-import { Padding, Region } from '../interface';
-import { ComponentType, DIRECTION, LAYER } from './constant';
+import { Data, Datum, Padding, Region, Renderer } from '../interface';
 import View from './view';
-
-export type Renderer = 'svg' | 'canvas';
 
 // chart 构造方法的入参
 export interface ChartCfg {
@@ -41,10 +39,6 @@ export interface ComponentOption {
   readonly direction: DIRECTION;
   readonly type: ComponentType;
 }
-
-/** 数据的定义 */
-export type Datum = Record<string, string | number>;
-export type Data = Datum[];
 
 /* 筛选器函数类型定义 */
 export type FilterCondition = (value: any, datum: Datum) => boolean;
