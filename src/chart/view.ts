@@ -363,6 +363,7 @@ export default class View extends EE {
 
     // 9. 遍历子 view 进行 change data
     _.each(this.views, (view: View) => {
+      // FIXME 子 view 有自己的数据的情况，该如何处理？
       view.changeData(data);
     });
 
