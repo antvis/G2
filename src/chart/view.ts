@@ -32,47 +32,51 @@ import defaultLayout, { Layout } from './layout';
  * View 对象
  */
 export default class View extends EE {
-  public canvas: Canvas;
+  /** 父级 view，如果没有父级，则为空 */
+  public parent: View;
   /** 所有的子 view */
   public views: View[] = [];
-  /** 所有的组件配置 */
-  public componentOptions: ComponentOption[] = [];
   /** 所有的 geometry 实例 */
   public geometries: Geometry[] = [];
 
-  public parent: View;
-  // 三层 Group 图层
-  /** 背景层 */
-  public backgroundGroup: Group;
-  /** 中间层 */
-  public middleGroup: Group;
-  /** 前景层 */
-  public foregroundGroup: Group;
-
-  /** 标记 view 的大小位置范围，均是 0 ~ 1 范围，便于开发者使用 */
-  public region: Region;
-  /** view 的 padding 大小 */
-  public padding: Padding;
-  /** 主题配置 */
-  public themeObject: object;
-
-  // 配置信息存储
-  // @ts-ignore
-  public options: Options = {}; // 初始化为空
-
-  // 计算信息
   /** view 实际的绘图区域，除去 padding，出去组件占用空间 */
   public viewBBox: BBox;
-  public filteredData: Data;
   /** 坐标系的位置大小 */
   public coordinateBBox: BBox;
+
+  public canvas: Canvas;
+
+  // 三层 Group 图层
+  /** 背景层 */
+  protected backgroundGroup: Group;
+  /** 中间层 */
+  protected middleGroup: Group;
+  /** 前景层 */
+  protected foregroundGroup: Group;
+
+  /** 标记 view 的大小位置范围，均是 0 ~ 1 范围，便于开发者使用 */
+  protected region: Region;
+  /** view 的 padding 大小 */
+  protected padding: Padding;
+  /** 主题配置 */
+  protected themeObject: object;
+
+  // 配置信息存储
+  protected options: Options = {
+    data: [],
+    components: [],
+  }; // 初始化为空
+
+  // 过滤之后的数据
+  protected filteredData: Data;
+
   /** 所有的 scales */
-  public scales: Record<string, Scale> = {};
+  protected scales: Record<string, Scale> = {};
 
   // 布局函数
   protected layoutFunc: Layout = defaultLayout;
   // 生成的坐标系实例
-  private coordinateInstance: Coordinate;
+  protected coordinateInstance: Coordinate;
 
   constructor(props: ViewCfg) {
     super();
@@ -113,7 +117,7 @@ export default class View extends EE {
     direction: DIRECTION = DIRECTION.BOTTOM,
     type: ComponentType = ComponentType.OTHER
   ) {
-    this.componentOptions.push({
+    this.options.components.push({
       component,
       layer,
       direction,
@@ -176,10 +180,11 @@ export default class View extends EE {
     this.geometries = [];
 
     // 2. 清空 components
-    _.each(this.componentOptions, (co: ComponentOption) => {
+    _.each(this.options.components, (co: ComponentOption) => {
       co.component.destroy();
     });
-    this.componentOptions = [];
+    // 清空
+    this.options.components.splice(0);
 
     // 3. 递归处理子 view
     _.each(this.views, (view: View) => {
@@ -389,6 +394,13 @@ export default class View extends EE {
   public getYScales(): Scale[] {
     // 拿到所有的 Geometry 的 Y scale，然后去重
     return _.uniq(_.map(this.geometries, (g: Geometry) => g.getYScale()));
+  }
+
+  /**
+   * 返回所有配置信息
+   */
+  public getOptions(): Options {
+    return this.options;
   }
 
   /**
@@ -628,7 +640,8 @@ export default class View extends EE {
   private renderComponents() {
     const { axes, legends } = this.options;
 
-    this.componentOptions = [];
+    // 清空 ComponentOptions 配置
+    this.options.components.splice(0);
 
     // 1. axis
     this.backgroundGroup.clear();

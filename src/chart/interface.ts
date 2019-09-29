@@ -79,11 +79,13 @@ export interface CoordinateCfg {
 
 export interface Options {
   readonly data: Data;
-  readonly filters: Record<string, FilterCondition>;
-  readonly axes: Record<string, AxisOption>;
-  readonly legends: Record<string, LegendCfg>;
-  readonly scales: Record<string, ScaleOption>;
-  readonly tooltip: boolean; // tooltip visible or not
-  readonly coordinate: CoordinateOption;
-  readonly interactions: Record<string, Interaction>;
+  readonly filters?: Record<string, FilterCondition>;
+  readonly axes?: Record<string, AxisOption>;
+  readonly legends?: Record<string, LegendCfg>;
+  readonly scales?: Record<string, ScaleOption>;
+  readonly tooltip?: boolean; // tooltip visible or not
+  readonly coordinate?: CoordinateOption;
+  readonly interactions?: Record<string, Interaction>;
+  /** 所有的组件配置 */
+  readonly components: ComponentOption[];
 }
