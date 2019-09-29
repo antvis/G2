@@ -42,3 +42,20 @@ export const GroupZIndex = {
   MID: 2,
   BG: 1,
 };
+
+/**
+ * View 的生命周期阶段（和 3.x 的生命周期略有不同）
+ * 我们需要先确定在那写场景需要用到生命周期，如果只是为了在生命周期插入一下什么组件之类的，那么在现有架构就是不需要的
+ */
+export enum ViewLifeCircle {
+  BEFORE_RENDER = 'BEFORE_RENDER',
+  AFTER_RENDER = 'AFTER_RENDER',
+
+  BEFORE_CHANGE_DATA = 'BEFORE_CHANGE_DATA',
+  AFTER_CHANGE_DATA = 'AFTER_CHANGE_DATA',
+
+  BEFORE_CLEAR = 'BEFORE_CLEAR',
+  AFTER_CLEAR = 'AFTER_CLEAR',
+
+  BEFORE_DESTROY = 'BEFORE_DESTROY',
+}

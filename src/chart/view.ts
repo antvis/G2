@@ -16,7 +16,7 @@ import { Coordinate, Scale } from 'dependents';
 import Geometry from 'geometry/geometry';
 import Interaction from 'interaction';
 import { Padding, Point, Region } from 'interface';
-import { ComponentType, DIRECTION, GroupZIndex, LAYER } from '../constant';
+import { ComponentType, DIRECTION, GroupZIndex, LAYER, ViewLifeCircle } from '../constant';
 import { Attribute } from '../dependents';
 import { Data, Datum } from '../interface';
 import { isFullCircle } from '../util/coordinate';
@@ -166,8 +166,10 @@ export default class View extends EE {
    * render 函数仅仅会处理 view 和子 view
    */
   public render() {
+    this.emit(ViewLifeCircle.BEFORE_RENDER);
     // 递归渲染
     this.renderRecursive();
+    this.emit(ViewLifeCircle.AFTER_RENDER);
     // 实际的绘图
     this.canvasDraw();
   }
@@ -176,6 +178,7 @@ export default class View extends EE {
    * 清空，之后可以再走 initial 流程，正常使用
    */
   public clear() {
+    this.emit(ViewLifeCircle.BEFORE_CLEAR);
     // 1. 清空缓存和计算数据
     this.scales = {};
     this.filteredData = [];
@@ -198,12 +201,17 @@ export default class View extends EE {
     _.each(this.views, (view: View) => {
       view.clear();
     });
+
+    this.emit(ViewLifeCircle.AFTER_CLEAR);
   }
 
   /**
    * 销毁，完全无法使用
    */
   public destroy() {
+    // 销毁前事件，销毁之后已经没有意义了，所以不抛出事件
+    this.emit(ViewLifeCircle.BEFORE_DESTROY);
+
     this.clear();
 
     this.backgroundGroup.remove();
@@ -333,6 +341,7 @@ export default class View extends EE {
    * @param data
    */
   public changeData(data: Data) {
+    this.emit(ViewLifeCircle.BEFORE_CHANGE_DATA);
     // 1. 保存数据
     this.data(data);
     // 2. 过滤数据
@@ -357,6 +366,7 @@ export default class View extends EE {
       view.changeData(data);
     });
 
+    this.emit(ViewLifeCircle.AFTER_CHANGE_DATA);
     // 绘图
     this.canvasDraw();
   }

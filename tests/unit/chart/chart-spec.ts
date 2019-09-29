@@ -1,5 +1,6 @@
 import { Canvas, Group } from '@antv/g';
 import { Chart, LAYER } from '../../../src/';
+import { ViewLifeCircle } from '../../../src/constant';
 import { createDiv } from '../../util/dom';
 
 const data = [
@@ -55,14 +56,25 @@ describe('Chart', () => {
   });
 
   it('render', () => {
+    const renderEvent = jest.fn();
+    chart.on(ViewLifeCircle.BEFORE_RENDER, renderEvent);
+    chart.on(ViewLifeCircle.AFTER_RENDER, renderEvent);
+
     chart.render();
+    expect(renderEvent).toBeCalledTimes(2);
+
     expect(chart.getLayer(LAYER.BG).get('children').length).not.toBe(0);
     expect(chart.getLayer(LAYER.MID).get('children').length).not.toBe(0);
     expect(chart.getLayer(LAYER.FORE).get('children').length).not.toBe(0);
   });
 
   it('clear', () => {
+    const clearEvent = jest.fn();
+    chart.on(ViewLifeCircle.BEFORE_CLEAR, clearEvent);
+    chart.on(ViewLifeCircle.AFTER_CLEAR, clearEvent);
+
     chart.clear();
+    expect(clearEvent).toBeCalledTimes(2);
 
     // @ts-ignore
     expect(chart.filteredData).toEqual([]);
@@ -77,7 +89,11 @@ describe('Chart', () => {
   });
 
   it('destroy', () => {
+    const destroyEvent = jest.fn();
+    chart.on(ViewLifeCircle.BEFORE_DESTROY, destroyEvent);
+
     chart.destroy();
+    expect(destroyEvent).toBeCalledTimes(1);
 
     expect(chart.canvas.destroyed).toBe(true);
   });
