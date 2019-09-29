@@ -352,6 +352,11 @@ export default class View extends EE {
     // 8. 渲染几何标记
     this.paintGeometries();
 
+    // 9. 遍历子 view 进行 change data
+    _.each(this.views, (view: View) => {
+      view.changeData(data);
+    });
+
     // 绘图
     this.canvasDraw();
   }
