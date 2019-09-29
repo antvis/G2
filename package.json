@@ -21,7 +21,7 @@
     "lib:esm": "tsc -p tsconfig.json --target ES5 --module ESNext --outDir esm",
     "lib": "run-p lib:*",
     "build": "run-s clean lib",
-    "ci": "run-s build test",
+    "ci": "run-s build coverage",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "dependencies": {
