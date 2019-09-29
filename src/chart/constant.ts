@@ -33,3 +33,12 @@ export enum ComponentType {
   LEGEND = 'legend',
   OTHER = 'other',
 }
+
+/**
+ * 三层 group 的 z index
+ */
+export const GroupZIndex = {
+  FORE: 3,
+  MID: 2,
+  BG: 1,
+};

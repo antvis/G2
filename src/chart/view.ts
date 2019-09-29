@@ -23,7 +23,7 @@ import { isFullCircle } from '../util/coordinate';
 import { parsePadding } from '../util/padding';
 import { mergeTheme } from '../util/theme';
 import Chart from './chart';
-import { ComponentType, DIRECTION, LAYER } from './constant';
+import { ComponentType, DIRECTION, GroupZIndex, LAYER } from './constant';
 import { createAxes } from './controller/axis';
 import { createCoordinate } from './controller/coordinate';
 import { createLegends } from './controller/legend';
@@ -325,9 +325,9 @@ export default class View extends EE {
       parent: this,
       canvas: this.canvas,
       // 子 view 共用三层 group
-      backgroundGroup: this.middleGroup.addGroup(),
-      middleGroup: this.middleGroup.addGroup(),
-      foregroundGroup: this.middleGroup.addGroup(),
+      backgroundGroup: this.middleGroup.addGroup({ zIndex: GroupZIndex.BG }),
+      middleGroup: this.middleGroup.addGroup({ zIndex: GroupZIndex.MID }),
+      foregroundGroup: this.middleGroup.addGroup({ zIndex: GroupZIndex.FORE }),
       theme: this.themeObject,
       ...cfg,
     });

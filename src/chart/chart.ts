@@ -1,5 +1,6 @@
 import { Canvas } from '@antv/g';
 import * as _ from '@antv/util';
+import { GroupZIndex } from './constant';
 import { ChartCfg } from './interface';
 import View from './view';
 
@@ -35,9 +36,9 @@ export default class Chart extends View {
       parent: null,
       canvas,
       // 创建三层 group
-      backgroundGroup: canvas.addGroup(),
-      middleGroup: canvas.addGroup(),
-      foregroundGroup: canvas.addGroup(),
+      backgroundGroup: canvas.addGroup({ zIndex: GroupZIndex.BG }),
+      middleGroup: canvas.addGroup({ zIndex: GroupZIndex.MID }),
+      foregroundGroup: canvas.addGroup({ zIndex: GroupZIndex.FORE }),
       padding,
     });
 
