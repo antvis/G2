@@ -48,14 +48,14 @@ export const GroupZIndex = {
  * 我们需要先确定在那写场景需要用到生命周期，如果只是为了在生命周期插入一下什么组件之类的，那么在现有架构就是不需要的
  */
 export enum ViewLifeCircle {
-  BEFORE_RENDER = 'BEFORE_RENDER',
-  AFTER_RENDER = 'AFTER_RENDER',
+  BEFORE_RENDER = 'beforerender',
+  AFTER_RENDER = 'afterrender',
 
-  BEFORE_CHANGE_DATA = 'BEFORE_CHANGE_DATA',
-  AFTER_CHANGE_DATA = 'AFTER_CHANGE_DATA',
+  BEFORE_CHANGE_DATA = 'beforechangedata',
+  AFTER_CHANGE_DATA = 'afterchangedata',
 
-  BEFORE_CLEAR = 'BEFORE_CLEAR',
-  AFTER_CLEAR = 'AFTER_CLEAR',
+  BEFORE_CLEAR = 'beforeclear',
+  AFTER_CLEAR = 'afterclear',
 
-  BEFORE_DESTROY = 'BEFORE_DESTROY',
+  BEFORE_DESTROY = 'beforedestroy',
 }
