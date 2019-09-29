@@ -90,6 +90,7 @@ export default class View extends EE {
       region = { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
       padding = 0,
       theme,
+      options,
     } = props;
 
     this.parent = parent;
@@ -100,6 +101,8 @@ export default class View extends EE {
     this.region = region;
     this.padding = padding;
     this.themeObject = mergeTheme({}, theme);
+    // 接受父 view 传入的参数
+    this.options = { ...this.options, ...options };
 
     this.initial();
   }
