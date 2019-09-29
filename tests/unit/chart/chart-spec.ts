@@ -16,8 +16,11 @@ describe('Chart', () => {
     expect(chart.width).toEqual(800);
     expect(chart.height).toEqual(600);
     expect(chart.canvas).toBeInstanceOf(Canvas);
+    // @ts-ignore
     expect(chart.backgroundGroup).toBeInstanceOf(Group);
+    // @ts-ignore
     expect(chart.middleGroup).toBeInstanceOf(Group);
+    // @ts-ignore
     expect(chart.foregroundGroup).toBeInstanceOf(Group);
 
     // region -> view bbox
