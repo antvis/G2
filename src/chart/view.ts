@@ -406,7 +406,7 @@ export default class View extends EE {
    * @private
    */
   public createCoordinate(bbox?: BBox) {
-    this.setCoordinate(createCoordinate(this.options.coordinate, bbox || this.viewBBox));
+    this.coordinateInstance = createCoordinate(this.options.coordinate, bbox || this.viewBBox);
   }
 
   // 一些 get 方法
@@ -416,14 +416,6 @@ export default class View extends EE {
    */
   public getCoordinate() {
     return this.coordinateInstance;
-  }
-
-  /**
-   * 设置新的坐标系
-   * @param coordinate
-   */
-  public setCoordinate(coordinate: Coordinate) {
-    this.coordinateInstance = coordinate;
   }
 
   public getTheme(): object {
