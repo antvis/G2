@@ -1,3 +1,4 @@
+require('core-js/modules/es.typed-array.float32-array');
 const G2 = require('./core');
 
 // geoms

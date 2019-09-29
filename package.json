@@ -107,6 +107,7 @@
     "@antv/g": "~3.3.6",
     "@antv/scale": "~0.1.1",
     "@antv/util": "~1.3.1",
+    "core-js": "^3.2.1",
     "venn.js": "~0.2.20",
     "wolfy87-eventemitter": "~5.1.0"
   }
