@@ -143,16 +143,16 @@ export default class View extends EE {
    */
   public initial() {
     // 将相对的 region 范围转化为实际的范围
-    this._initialViewBBox();
+    this.initialViewBBox();
 
     // 事件委托机制
-    this._initialEvents();
+    this.initialEvents();
 
     // 初始化数据
-    this._initialData();
+    this.initialData();
 
     // 初始化子 view
-    this._initialViews();
+    this.initialViews();
   }
 
   /**
@@ -161,9 +161,9 @@ export default class View extends EE {
    */
   public render() {
     // 递归渲染
-    this._renderRecursive();
+    this.renderRecursive();
     // 实际的绘图
-    this._canvasDraw();
+    this.canvasDraw();
   }
 
   /**
@@ -295,25 +295,25 @@ export default class View extends EE {
     // 1. 保存数据
     this.data(data);
     // 2. 过滤数据
-    this._filterData();
+    this.filterData();
     // 3. 更新 geom 元素数据
     _.each(this.geometries, (geometry: Geometry) => {
       geometry.updateData(this.filteredData);
     });
     // 4. 调整 scale
-    this._adjustScales();
+    this.adjustScales();
     // 5. 更新组件
     // TODO 目前是清空，重新绘制
-    this._renderComponents();
+    this.renderComponents();
     // 6. 布局，计算每个组件的坐标、以及 coordinate 的范围
-    this._doLayout();
+    this.doLayout();
     // 7. 布局之后，调整坐标系大小
-    this._adjustCoordinate();
+    this.adjustCoordinate();
     // 8. 渲染几何标记
-    this._paintGeometries();
+    this.paintGeometries();
 
     // 绘图
-    this._canvasDraw();
+    this.canvasDraw();
   }
 
   /* View 管理相关的 API */
@@ -427,27 +427,27 @@ export default class View extends EE {
    * 递归 render views
    * 步骤非常繁琐，因为之间有一些数据依赖，所以执行流程上有先后关系
    */
-  protected _renderRecursive() {
+  protected renderRecursive() {
     // 1. 处理数据
-    this._filterData();
+    this.filterData();
     // 2. 创建 coordinate 实例
-    this._createCoordinateInstance();
+    this.createCoordinateInstance();
     // 3. 初始化 Geometry
-    this._initialGeometries();
+    this.initialGeometries();
     // 4. 调整 scale 配置
-    this._adjustScales();
+    this.adjustScales();
     // 5. 渲染组件 component
-    this._renderComponents();
+    this.renderComponents();
     // 6.  递归 views，进行布局
-    this._doLayout();
+    this.doLayout();
     // 7. 布局完之后，coordinate 的范围确定了，调整 coordinate 组件
-    this._adjustCoordinate();
+    this.adjustCoordinate();
     // 8. 渲染几何标记
-    this._paintGeometries();
+    this.paintGeometries();
 
     // 同样递归处理子 views
     _.each(this.views, (view: View) => {
-      view._renderRecursive();
+      view.renderRecursive();
     });
   }
   // end Get 方法
@@ -457,7 +457,7 @@ export default class View extends EE {
    * 初始化 region，计算实际的像素范围坐标，去除 padding 之后的
    * @private
    */
-  private _initialViewBBox() {
+  private initialViewBBox() {
     // 存在 parent， 那么就是通过父容器大小计算
     let width;
     let height;
@@ -487,7 +487,7 @@ export default class View extends EE {
     );
   }
 
-  private _initialEvents() {
+  private initialEvents() {
     // todo 依赖 G 的事件实现机制
   }
 
@@ -495,7 +495,7 @@ export default class View extends EE {
    * 将不同的数据源，处理成 Data 定义的结构
    * @private
    */
-  private _initialData() {
+  private initialData() {
     // 暂时只有一种数据结构，所以无需处理
   }
 
@@ -503,7 +503,7 @@ export default class View extends EE {
    * 遍历子 view，子 view 也进行初始化
    * @private
    */
-  private _initialViews() {
+  private initialViews() {
     _.each(this.views, (view: View) => {
       view.initial();
     });
@@ -514,7 +514,7 @@ export default class View extends EE {
    * 处理筛选器，筛选数据
    * @private
    */
-  private _filterData() {
+  private filterData() {
     const { data, filters } = this.options;
     // 不存在 filters，则不需要进行数据过滤
     if (_.size(filters) === 0) {
@@ -543,7 +543,7 @@ export default class View extends EE {
    * 初始化 Geometries
    * @private
    */
-  private _initialGeometries() {
+  private initialGeometries() {
     // 实例化 Geometry，然后 view 将所有的 scale 管理起来
     _.each(this.geometries, (geometry: Geometry) => {
       // 使用 coordinate 引用，可以保持 coordinate 的同步更新
@@ -562,7 +562,7 @@ export default class View extends EE {
    * 初始创建实例
    * @private
    */
-  private _createCoordinateInstance() {
+  private createCoordinateInstance() {
     // 创建实例使用 view 的大小来创建
     this.createCoordinate(this.viewBBox);
   }
@@ -571,17 +571,17 @@ export default class View extends EE {
    * 调整 scale 配置
    * @private
    */
-  private _adjustScales() {
+  private adjustScales() {
     // 调整目前包括：
     // 分类 scale，调整 range 范围
-    this._adjustCategoryScaleRange();
+    this.adjustCategoryScaleRange();
   }
 
   /**
    * 调整分类 scale 的 range，防止超出坐标系外面
    * @private
    */
-  private _adjustCategoryScaleRange() {
+  private adjustCategoryScaleRange() {
     const xyScales = [this.getXScale(), ...this.getYScales()].filter((e) => !!e);
     const coordinate = this.getCoordinate();
     const scaleOptions = this.options.scales;
@@ -627,7 +627,7 @@ export default class View extends EE {
    * 根据 options 配置、Geometry 字段配置，自动渲染 components
    * @private
    */
-  private _renderComponents() {
+  private renderComponents() {
     const { axes, legends } = this.options;
 
     this.componentOptions = [];
@@ -648,7 +648,7 @@ export default class View extends EE {
     });
   }
 
-  private _doLayout() {
+  private doLayout() {
     this.layoutFunc(this);
   }
 
@@ -656,7 +656,7 @@ export default class View extends EE {
    * 调整 coordinate 的坐标范围
    * @private
    */
-  private _adjustCoordinate() {
+  private adjustCoordinate() {
     this.coordinateInstance.update({
       start: this.coordinateBBox.bl,
       end: this.coordinateBBox.tr,
@@ -667,7 +667,7 @@ export default class View extends EE {
    * 根据 options 配置自动渲染 geometry
    * @private
    */
-  private _paintGeometries() {
+  private paintGeometries() {
     // geometry 的 paint 阶段
     this.geometries.map((geometry: Geometry) => {
       geometry.paint();
@@ -678,7 +678,7 @@ export default class View extends EE {
    * canvas.draw 实际的绘制
    * @private
    */
-  private _canvasDraw() {
+  private canvasDraw() {
     this.getCanvas().draw();
   }
 }

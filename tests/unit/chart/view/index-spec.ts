@@ -66,7 +66,7 @@ describe('View', () => {
     expect(_.size(view.options.filters)).toEqual(2);
 
     // @ts-ignore
-    view._filterData();
+    view.filterData();
 
     expect(view.filteredData).toEqual([
       { city: '杭州', sale: 100, category: '电脑' },
@@ -76,17 +76,17 @@ describe('View', () => {
 
   it('coordinate', () => {
     // @ts-ignore
-    view._createCoordinateInstance();
+    view.createCoordinateInstance();
     expect(view.getCoordinate().type).toEqual('rect');
 
     view.coordinate('theta');
     // @ts-ignore
-    view._createCoordinateInstance();
+    view.createCoordinateInstance();
     expect(view.getCoordinate().type).toEqual('theta');
 
     view.coordinate('rect');
     // @ts-ignore
-    view._createCoordinateInstance();
+    view.createCoordinateInstance();
     expect(view.getCoordinate().type).toEqual('rect');
 
     expect(view.getCoordinate().getWidth()).toEqual(790);

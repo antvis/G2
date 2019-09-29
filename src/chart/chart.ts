@@ -49,7 +49,7 @@ export default class Chart extends View {
     this.autoFit = autoFit;
 
     // 自适应大小
-    this._autoFit();
+    this.bindAutoFit();
   }
 
   public changeSize(width: number, height: number) {
@@ -60,7 +60,7 @@ export default class Chart extends View {
     this.render();
   }
 
-  private _autoFit() {
+  private bindAutoFit() {
     if (this.autoFit) {
       // todo 监听容器大小，自动 changeSize
       // ResizeObserver
