@@ -264,15 +264,20 @@ export default class View extends EE {
   /**
    * 坐标系配置
    */
-  public coordinate(option: CoordinateOption);
-  public coordinate(type: string, coordinateCfg?: CoordinateCfg);
-  public coordinate(type: string | CoordinateOption, coordinateCfg?: CoordinateCfg) {
+  public coordinate(option: CoordinateOption): Coordinate;
+  public coordinate(type: string, coordinateCfg?: CoordinateCfg): Coordinate;
+  public coordinate(type: string | CoordinateOption, coordinateCfg?: CoordinateCfg): Coordinate {
     // 提供语法糖，使用更简单
     if (_.isString(type)) {
       _.set(this.options, 'coordinate', { type, cfg: coordinateCfg } as CoordinateOption);
     } else {
       _.set(this.options, 'coordinate', type);
     }
+
+    // 创建一个 coordinate 实例
+    this.createCoordinate();
+
+    return this.coordinateInstance;
   }
 
   public animate(): View {
@@ -373,8 +378,8 @@ export default class View extends EE {
    * 创建坐标系
    * @private
    */
-  public createCoordinate(bbox: BBox) {
-    this.setCoordinate(createCoordinate(this.options.coordinate, bbox));
+  public createCoordinate(bbox?: BBox) {
+    this.setCoordinate(createCoordinate(this.options.coordinate, bbox || this.viewBBox));
   }
 
   // 一些 get 方法
@@ -461,7 +466,9 @@ export default class View extends EE {
     // 1. 处理数据
     this.filterData();
     // 2. 创建 coordinate 实例
-    this.createCoordinateInstance();
+    if (!this.coordinateInstance) {
+      this.createCoordinate();
+    }
     // 3. 初始化 Geometry
     this.initialGeometries();
     // 4. 调整 scale 配置
@@ -586,15 +593,6 @@ export default class View extends EE {
 
       geometry.init();
     });
-  }
-
-  /**
-   * 初始创建实例
-   * @private
-   */
-  private createCoordinateInstance() {
-    // 创建实例使用 view 的大小来创建
-    this.createCoordinate(this.viewBBox);
   }
 
   /**

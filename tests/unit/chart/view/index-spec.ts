@@ -79,19 +79,14 @@ describe('View', () => {
   });
 
   it('coordinate', () => {
-    // @ts-ignore
-    view.createCoordinateInstance();
+    view.createCoordinate();
     expect(view.getCoordinate().type).toEqual('rect');
 
-    view.coordinate('theta');
-    // @ts-ignore
-    view.createCoordinateInstance();
-    expect(view.getCoordinate().type).toEqual('theta');
+    let c = view.coordinate('theta');
+    expect(c.type).toEqual('theta');
 
-    view.coordinate('rect');
-    // @ts-ignore
-    view.createCoordinateInstance();
-    expect(view.getCoordinate().type).toEqual('rect');
+    c = view.coordinate('rect');
+    expect(c.type).toEqual('rect');
 
     expect(view.getCoordinate().getWidth()).toEqual(790);
     expect(view.getCoordinate().getHeight()).toEqual(590);
