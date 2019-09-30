@@ -1,5 +1,5 @@
 import { BBox } from '@antv/g';
-import { DIRECTION } from '../chart';
+import { DIRECTION } from '../constant';
 import { Position } from '../interface';
 
 /**

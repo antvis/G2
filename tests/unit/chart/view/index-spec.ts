@@ -33,8 +33,11 @@ describe('View', () => {
 
   it('constructor', () => {
     expect(view.canvas).toBeInstanceOf(Canvas);
+    // @ts-ignore
     expect(view.backgroundGroup).toBeInstanceOf(Group);
+    // @ts-ignore
     expect(view.middleGroup).toBeInstanceOf(Group);
+    // @ts-ignore
     expect(view.foregroundGroup).toBeInstanceOf(Group);
   });
 
@@ -56,18 +59,19 @@ describe('View', () => {
   it('data', () => {
     view.data(data);
 
-    expect(view.options.data).toEqual(data);
+    expect(view.getOptions().data).toEqual(data);
   });
 
   it('filter', () => {
     view.filter('sale', (sale: number) => sale <= 150);
     view.filter('city', (city: string) => city.length <= 2);
 
-    expect(_.size(view.options.filters)).toEqual(2);
+    expect(_.size(view.getOptions().filters)).toEqual(2);
 
     // @ts-ignore
-    view._filterData();
+    view.filterData();
 
+    // @ts-ignore
     expect(view.filteredData).toEqual([
       { city: '杭州', sale: 100, category: '电脑' },
       { city: '广州', sale: 30, category: '电脑' },
@@ -75,19 +79,14 @@ describe('View', () => {
   });
 
   it('coordinate', () => {
-    // @ts-ignore
-    view._createCoordinateInstance();
+    view.createCoordinate();
     expect(view.getCoordinate().type).toEqual('rect');
 
-    view.coordinate('theta');
-    // @ts-ignore
-    view._createCoordinateInstance();
-    expect(view.getCoordinate().type).toEqual('theta');
+    let c = view.coordinate('theta');
+    expect(c.type).toEqual('theta');
 
-    view.coordinate('rect');
-    // @ts-ignore
-    view._createCoordinateInstance();
-    expect(view.getCoordinate().type).toEqual('rect');
+    c = view.coordinate('rect');
+    expect(c.type).toEqual('rect');
 
     expect(view.getCoordinate().getWidth()).toEqual(790);
     expect(view.getCoordinate().getHeight()).toEqual(590);
@@ -111,9 +110,9 @@ describe('View', () => {
   });
 
   it('component', () => {
-    expect(view.componentOptions.length).toEqual(3);
+    expect(view.getOptions().components.length).toEqual(3);
 
-    const bbox = view.componentOptions[0].component.getBBox();
+    const bbox = view.getOptions().components[0].component.getBBox();
     expect(bbox.height).toEqual(13);
   });
 
@@ -152,6 +151,7 @@ describe('View', () => {
       { city: '杭州', sale: 40, category: '鼠标' },
       { city: '广州', sale: 90, category: '鼠标' },
     ]);
+    // @ts-ignore
     expect(view.filteredData.length).toEqual(4);
     // 几何标记是同一个实例
     expect(geometries[0] === view.geometries[0]).toEqual(true);

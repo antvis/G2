@@ -1,6 +1,6 @@
 import { BBox } from '@antv/g';
 import * as _ from '@antv/util';
-import { DIRECTION } from '../chart';
+import { DIRECTION } from '../constant';
 
 export class BBoxProcessor {
   private bbox: BBox;

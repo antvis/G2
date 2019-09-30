@@ -55,6 +55,7 @@ export default abstract class Component extends EE {
    * 销毁
    */
   public destroy() {
+    this.container.remove();
     this.container.destroy();
   }
 

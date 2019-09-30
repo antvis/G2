@@ -1,11 +1,9 @@
 import { Canvas, Group } from '@antv/g';
 import Component from '../component';
+import { ComponentType, DIRECTION, LAYER } from '../constant';
 import Interaction from '../interaction';
-import { Padding, Region } from '../interface';
-import { ComponentType, DIRECTION, LAYER } from './constant';
+import { Data, Datum, Padding, Region, Renderer } from '../interface';
 import View from './view';
-
-export type Renderer = 'svg' | 'canvas';
 
 // chart 构造方法的入参
 export interface ChartCfg {
@@ -32,6 +30,7 @@ export interface ViewCfg {
   readonly region?: Region;
   readonly padding?: Padding;
   readonly theme?: object | string;
+  readonly options?: Options;
 }
 
 // 组件及布局的信息
@@ -42,14 +41,10 @@ export interface ComponentOption {
   readonly type: ComponentType;
 }
 
-/** 数据的定义 */
-export type Datum = Record<string, string | number>;
-export type Data = Datum[];
-
 /* 筛选器函数类型定义 */
 export type FilterCondition = (value: any, datum: Datum) => boolean;
 
-export type AxisCfg =
+export type AxisOption =
   | {
       readonly type: string;
     }
@@ -61,7 +56,7 @@ export type LegendCfg =
     }
   | boolean;
 
-export interface ScaleCfg {
+export interface ScaleOption {
   readonly type: string;
 }
 
@@ -85,11 +80,13 @@ export interface CoordinateCfg {
 
 export interface Options {
   readonly data: Data;
-  readonly filters: Record<string, FilterCondition>;
-  readonly axes: Record<string, AxisCfg>;
-  readonly legends: Record<string, LegendCfg>;
-  readonly scales: Record<string, ScaleCfg>;
-  readonly tooltip: boolean; // tooltip visible or not
-  readonly coordinate: CoordinateOption;
-  readonly interactions: Record<string, Interaction>;
+  readonly filters?: Record<string, FilterCondition>;
+  readonly axes?: Record<string, AxisOption>;
+  readonly legends?: Record<string, LegendCfg>;
+  readonly scales?: Record<string, ScaleOption>;
+  readonly tooltip?: boolean; // tooltip visible or not
+  readonly coordinate?: CoordinateOption;
+  readonly interactions?: Record<string, Interaction>;
+  /** 所有的组件配置 */
+  readonly components: ComponentOption[];
 }
