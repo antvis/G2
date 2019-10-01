@@ -126,11 +126,11 @@ describe('Register shape', () => {
     expect(test1).to.equal(testShape);
   });
 
-  it('shape.getCoordinate()', () => {
+  it('shape.getCoord()', () => {
     const testFactory = Shape.getShapeFactory('test');
     testFactory.setCoord(coord);
     const shape = testFactory.getShape('test');
-    expect(shape.getCoordinate()).to.eql(coord);
+    expect(shape.getCoord()).to.eql(coord);
   });
 
   it('parse point', () => {
