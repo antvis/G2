@@ -67,7 +67,7 @@ export function getDefaultSize(geometry): number {
   normalizedSize *= wr;
   if (geometry.getAdjust('dodge')) {
     const dodgeAdjust = geometry.getAdjust('dodge');
-    const { dodgeBy } = dodgeAdjust.cfg;
+    const dodgeBy = dodgeAdjust.dodgeBy;
     const dodgeCount = getDodgeCount(dataArray, dodgeBy);
 
     normalizedSize = normalizedSize / dodgeCount;
