@@ -996,7 +996,7 @@ export default class Geometry {
     // 用户在进行 dodge 类型的 adjust 调整的时候设置了 dodgeBy 属性
     const dodgeAdjust = this.getAdjust('dodge');
     if (dodgeAdjust) {
-      const { dodgeBy } = dodgeAdjust.cfg;
+      const dodgeBy = dodgeAdjust.dodgeBy;
       if (dodgeBy) {
         id = `${id}-${origin[dodgeBy]}`;
       }
