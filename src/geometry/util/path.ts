@@ -1,10 +1,8 @@
-import * as _ from '@antv/util';
-
 import { Coordinate } from '@antv/coord';
-
 import { vec2 } from '@antv/matrix-util';
-
+import * as _ from '@antv/util';
 import { Point } from '../../interface';
+import { getDistanceToCenter } from '../../util/coordinate';
 
 type PointArray = [number, number];
 
@@ -23,12 +21,6 @@ function _points2path(points: Point[], isInCircle: boolean): any[] {
   }
 
   return path;
-}
-
-function _getPointRadius(coord: Coordinate, point: Point): number {
-  const center = coord.getCenter() as Point;
-  const r = Math.sqrt(Math.pow(point.x - center.x, 2) + Math.pow(point.y - center.y, 2));
-  return r;
 }
 
 function _convertArr(arr: number[], coord: Coordinate): any[] {
@@ -60,7 +52,7 @@ function _convertPolarPath(pre: any[], cur: any[], coord: Coordinate): any[] {
   const direction = curPoint[xDim] >= prePoint[xDim] ? 1 : 0; // 圆弧的方向
   const flag = angleRange > Math.PI ? 1 : 0; // 大弧还是小弧标志位
   const convertPoint = coord.convertPoint(curPoint);
-  const r = _getPointRadius(coord, convertPoint);
+  const r = getDistanceToCenter(coord, convertPoint);
   if (r >= 0.5) {
     // 小于1像素的圆在图像上无法识别
     if (angleRange === Math.PI * 2) {
@@ -242,7 +234,7 @@ export function getSplinePath(points: Point[], isInCircle: boolean, constaint: P
 
 /** 获取点到圆心的距离 */
 export function getPointRadius(coord, point: Point): number {
-  return _getPointRadius(coord, point);
+  return getDistanceToCenter(coord, point);
 }
 
 /** 获取点到圆心的夹角 */
