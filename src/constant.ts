@@ -59,3 +59,8 @@ export enum ViewLifeCircle {
 
   BEFORE_DESTROY = 'beforedestroy',
 }
+
+/** 参与分组的图形属性名 */
+export const GROUP_ATTRS = ['color', 'shape', 'size'];
+/** 存储原始数据的字段名 */
+export const FIELD_ORIGIN = '_origin';

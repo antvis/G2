@@ -73,6 +73,7 @@ export function getDefaultSize(geometry): number {
     normalizedSize = normalizedSize / dodgeCount;
   }
 
+  // 最大和最小限制
   const { maxColumnWidth, minColumnWidth } = theme;
   const xDimensionLength = getXDimensionLength(geometry.coordinate);
   if (maxColumnWidth) {

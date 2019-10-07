@@ -6,61 +6,22 @@ import { parseFields } from './util/parse-fields';
 
 import { Adjust, getAdjust } from '@antv/adjust';
 import { Attribute, getAttribute as getAttributeClass } from '@antv/attr';
+import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
 import { Coordinate, Scale } from '../dependents';
 import { AdjustType, LooseObject, Point, ScaleOption, ShapeDrawCFG } from '../interface';
 
 import { Group } from '@antv/g';
-
-const GROUP_ATTRS = ['color', 'shape', 'size'];
-const FIELD_ORIGIN = '_origin';
-
-type ColorAttrCallback = (...args) => string;
-type ShapeAttrCallback = (...args) => string | any[];
-type SizeAttrCallback = (...args) => number;
-type TooltipCallback = (...args) => LooseObject;
-type StyleCallback = (...args) => LooseObject;
-
-interface AttributeOption {
-  /** 映射的属性字段 */
-  fields?: string[];
-  /** 回调函数 */
-  callback?: (...args) => any;
-  /** 指定常量映射规则 */
-  values?: any[];
-}
-
-interface AdjustOption {
-  /** 调整类型 */
-  readonly type: AdjustType;
-  /**
-   * type 为 'dodge' 时生效，数值范围为 0 至 1，用于调整分组中各个柱子的间距
-   */
-  readonly marginRatio?: number;
-  /**
-   * type 为 'stack' 时生效，控制层叠的顺序，默认是 true
-   */
-  readonly reverseOrder?: boolean;
-  /**
-   * type 为 'dodge' 时生效, 按照声明的字段进行分组
-   */
-  readonly dodgeBy?: string;
-}
-
-interface StyleOption {
-  /** 映射的字段 */
-  readonly fields?: string[];
-  /** 回调函数 */
-  readonly callback?: (...args) => LooseObject;
-  /** 图形样式配置 */
-  readonly cfg?: LooseObject;
-}
-
-interface TooltipOption {
-  /** 参与映射的字段 */
-  readonly fields: string[];
-  /** 回调函数 */
-  readonly callback?: (...args) => LooseObject;
-}
+import {
+  AdjustOption,
+  AttributeOption,
+  ColorAttrCallback,
+  ShapeAttrCallback,
+  SizeAttrCallback,
+  StyleCallback,
+  StyleOption,
+  TooltipCallback,
+  TooltipOption,
+} from './interface';
 
 interface AttributeInstanceCfg {
   fields?: string[];
@@ -196,7 +157,6 @@ export default class Geometry {
   }
 
   /**
-   * TODO: 如何支持接收相对值以及绝对值
    * 大小通道的映射配置
    * @param cfg 大小通道的映射规则
    */
