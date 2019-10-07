@@ -140,6 +140,8 @@ export default class Geometry {
    * 颜色通道的映射配置
    * @param cfg 颜色通道的映射规则
    */
+  public color(field: AttributeOption): Geometry;
+  public color(field: string, cfg?: string[] | ColorAttrCallback): Geometry;
   public color(field: AttributeOption | string, cfg?: string[] | ColorAttrCallback): Geometry {
     this._createAttrOption('color', field, cfg);
 
@@ -150,6 +152,8 @@ export default class Geometry {
    * 形状通道的映射配置
    * @param cfg 形状通道的映射规则
    */
+  public shape(field: AttributeOption): Geometry;
+  public shape(field: string, cfg?: string[] | ShapeAttrCallback): Geometry;
   public shape(field: AttributeOption | string, cfg?: string[] | ShapeAttrCallback): Geometry {
     this._createAttrOption('shape', field, cfg);
 
@@ -160,6 +164,8 @@ export default class Geometry {
    * 大小通道的映射配置
    * @param cfg 大小通道的映射规则
    */
+  public size(field: AttributeOption): Geometry;
+  public size(field: number | string, cfg?: [number, number] | SizeAttrCallback): Geometry;
   public size(field: AttributeOption | number | string, cfg?: [number, number] | SizeAttrCallback): Geometry {
     this._createAttrOption('size', field, cfg);
 
@@ -189,6 +195,8 @@ export default class Geometry {
    * style 图形样式属性配置
    * @param cfg 图形样式配置
    */
+  public style(field: StyleOption | LooseObject): Geometry;
+  public style(field: string, styleFunc: StyleCallback): Geometry;
   public style(field: StyleOption | LooseObject | string, styleFunc?: StyleCallback): Geometry {
     if (_.isString(field)) {
       const fields = parseFields(field);
@@ -210,6 +218,8 @@ export default class Geometry {
     return this;
   }
 
+  public tooltip(field: TooltipOption | boolean): Geometry;
+  public tooltip(field: string, cfg?: TooltipCallback): Geometry;
   public tooltip(field: TooltipOption | boolean | string, cfg?: TooltipCallback): Geometry {
     if (_.isString(field)) {
       const fields = parseFields(field);
