@@ -128,11 +128,11 @@ export default class Geometry {
    */
   public position(cfg: string | AttributeOption): Geometry {
     if (_.isString(cfg)) {
-      this.setAttrOptions('position', {
+      _.set(this.attributeOption, 'position', {
         fields: parseFields(cfg),
       });
     } else {
-      this.setAttrOptions('position', cfg);
+      _.set(this.attributeOption, 'position', cfg);
     }
 
     return this;
@@ -256,7 +256,7 @@ export default class Geometry {
     const container = this.container;
     container.setMatrix(coordinate.matrix);
 
-    this.initAttrs(); // 创建图形属性
+    this.initAttributes(); // 创建图形属性
 
     // 为 tooltip 的字段创建对应的 scale 实例
     const tooltipOption = this.tooltipOption;
@@ -298,8 +298,8 @@ export default class Geometry {
     this.beforeMapping(dataArray);
 
     const mappedArray = [];
-    for (let i = 0, len = dataArray.length; i < len; i += 1) {
-      const mappedData = this.mapping(dataArray[i]);
+    for (const eachGroup of dataArray) {
+      const mappedData = this.mapping(eachGroup);
       mappedArray.push(mappedData);
       this.createElements(mappedData);
     }
@@ -351,10 +351,10 @@ export default class Geometry {
     const scales = [];
     const attributes = this.attributes;
     _.each(attributes, (attr: Attribute) => {
-      if (GROUP_ATTRS.indexOf(attr.type) !== -1) {
+      if (GROUP_ATTRS.includes(attr.type)) {
         const attrScales = attr.scales;
         _.each(attrScales, (scale: Scale) => {
-          if (scale.isCategory && _.indexOf(scales, scale) === -1) {
+          if (scale.isCategory && !scales.includes(scale)) {
             scales.push(scale);
           }
         });
@@ -452,7 +452,7 @@ export default class Geometry {
       data: originData,
       model: shapeCfg,
       shapeType: shape,
-      theme: _.get(theme, `${this.shapeType}`, {}),
+      theme: _.get(theme, this.shapeType, {}),
       shapeFactory,
       container,
     });
@@ -509,16 +509,10 @@ export default class Geometry {
     return elements;
   }
 
-  // 存储用户设置的图形属性配置项
-  private setAttrOptions(name: string, cfg: AttributeOption) {
-    const attributeOption = this.attributeOption;
-    attributeOption[name] = cfg;
-  }
-
   // 创建图形属性相关的配置项
   private createAttrOption(attrName: string, field: AttributeOption | string | number, cfg?) {
     if (_.isObject(field)) {
-      this.setAttrOptions(attrName, field);
+      _.set(this.attributeOption, attrName, field);
     } else {
       const attrCfg: AttributeOption = {};
       if (_.isNumber(field)) {
@@ -536,7 +530,7 @@ export default class Geometry {
         }
       }
 
-      this.setAttrOptions(attrName, attrCfg);
+      _.set(this.attributeOption, attrName, attrCfg);
     }
   }
 
@@ -554,7 +548,7 @@ export default class Geometry {
     return scale;
   }
 
-  private initAttrs() {
+  private initAttributes() {
     const { attributes, attributeOption, theme, shapeType, coordinate } = this;
 
     // 遍历每一个 attrOption，各自创建 Attribute 实例
@@ -581,11 +575,7 @@ export default class Geometry {
 
       attrCfg.scales = scales;
 
-      if (
-        _.indexOf(['color', 'size', 'shape', 'opacity'], attrType) !== -1 &&
-        scales.length === 1 &&
-        scales[0].type === 'identity'
-      ) {
+      if (['color', 'size', 'shape'].includes(attrType) && scales.length === 1 && scales[0].type === 'identity') {
         // 用户在图形通道上声明了常量字段 color('red'), size(5)
         attrCfg.values = scales[0].values;
       } else if (!callback && !values) {
@@ -715,8 +705,7 @@ export default class Geometry {
     const mergeArray = _.flatten(dataArray);
     let min = scale.min;
     let max = scale.max;
-    for (let i = 0, len = mergeArray.length; i < len; i += 1) {
-      const obj = mergeArray[i];
+    for (const obj of mergeArray) {
       const tmpMin = Math.min.apply(null, obj[field]);
       const tmpMax = Math.max.apply(null, obj[field]);
       if (tmpMin < min) {
@@ -750,11 +739,10 @@ export default class Geometry {
       _.each(dataArray, (data) => {
         this.generateShapePoints(data);
       });
-      _.each(dataArray, (data, index) => {
-        const nextData = dataArray[index + 1];
-        if (nextData) {
-          data[0].nextPoints = nextData[0].points;
-        }
+
+      dataArray.reduce((preData, nextData) => {
+        preData[0].nextPoints = nextData[0].points;
+        return preData;
       });
     }
   }
@@ -771,8 +759,7 @@ export default class Geometry {
   private generateShapePoints(data: LooseObject[]) {
     const shapeFactory = this.getShapeFactory();
     const shapeAttr = this.getAttribute('shape');
-    for (let i = 0, len = data.length; i < len; i += 1) {
-      const obj = data[i];
+    for (const obj of data) {
       const cfg = this.createShapePointsCfg(obj);
       const shape = shapeAttr ? this.getAttrValues(shapeAttr, obj) : null;
       const points = shapeFactory.getShapePoints(shape, cfg);
@@ -784,8 +771,7 @@ export default class Geometry {
   private normalizeValues(values, scale) {
     let rst = [];
     if (_.isArray(values)) {
-      for (let i = 0, len = values.length; i < len; i += 1) {
-        const v = values[i];
+      for (const v of values) {
         rst.push(scale.scale(v));
       }
     } else {
@@ -815,8 +801,7 @@ export default class Geometry {
   private mapping(data: LooseObject[]) {
     const attributes = this.attributes;
     const mappedData = [];
-    for (let i = 0, len = data.length; i < len; i += 1) {
-      const record = data[i];
+    for (const record of data) {
       const newRecord: MappedRecord = {
         _origin: record[FIELD_ORIGIN],
         points: record.points,
