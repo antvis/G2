@@ -599,8 +599,8 @@ export default class Geometry {
           attrCfg.values = theme.colors;
         }
       }
-      const attributeCtor = getAttributeClass(attrType);
-      attributes[attrType] = new attributeCtor(attrCfg);
+      const AttributeCtor = getAttributeClass(attrType);
+      attributes[attrType] = new AttributeCtor(attrCfg);
     });
   }
 
