@@ -25,7 +25,7 @@
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "dependencies": {
-    "@antv/adjust": "0.2.1-beta.2",
+    "@antv/adjust": "^0.2.1",
     "@antv/attr": "^0.2.0",
     "@antv/coord": "^0.2.1",
     "@antv/event-emitter": "~0.1.0",
