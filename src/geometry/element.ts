@@ -1,9 +1,8 @@
 import { Group, Shape } from '@antv/g';
 import * as _ from '@antv/util';
+import { FIELD_ORIGIN } from '../constant';
 import { LooseObject, ShapeDrawCFG } from '../interface';
 import { ShapeFactory } from './interface';
-
-const FIELD_ORIGIN = '_origin';
 
 interface ElementCfg {
   /** 原始数据 */
