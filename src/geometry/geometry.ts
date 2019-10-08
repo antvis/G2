@@ -16,6 +16,8 @@ import {
   AttributeOption,
   ColorAttrCallback,
   ShapeAttrCallback,
+  ShapeFactory,
+  ShapePoint,
   SizeAttrCallback,
   StyleCallback,
   StyleOption,
@@ -95,23 +97,23 @@ export default class Geometry {
   /** Element 实例集合 */
   public elements: Element[] = [];
   /** 分组、数字化、adjust 后的数据 */
-  public dataArray;
+  public dataArray: LooseObject[][];
 
   // 配置项属性存储
   /** 图形属性映射配置 */
   protected attributeOption: Record<string, AttributeOption> = {};
   /** tooltip 配置项 */
-  protected tooltipOption = null;
+  protected tooltipOption: TooltipOption | boolean = null;
   /** adjust 配置项 */
-  protected adjustOption = null;
+  protected adjustOption: AdjustOption[] = null;
   /** style 配置项 */
-  protected styleOption = null;
+  protected styleOption: StyleOption = null;
   /** label 配置项 */
   protected labelOption = null;
   /** animate 配置项 */
   protected animateOption = null;
 
-  private shapeFactory;
+  private shapeFactory: ShapeFactory;
   private adjusts: Record<string, Adjust> = {};
   private elementsMap: Record<string, Element> = {};
   private lastElementsMap: Record<string, Element> = {};
@@ -419,7 +421,7 @@ export default class Geometry {
    * 根据数据获取图形的关键点数据
    * @param obj 数据对象
    */
-  protected createShapePointsCfg(obj: LooseObject): LooseObject {
+  protected createShapePointsCfg(obj: LooseObject): ShapePoint {
     const xScale = this.getXScale();
     const yScale = this.getYScale();
     const x = this.normalizeValues(obj[xScale.field], xScale);

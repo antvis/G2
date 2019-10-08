@@ -8,8 +8,7 @@ export interface ShapePoint {
   readonly x: number | number[];
   readonly y: number | number[];
   readonly y0?: number;
-  readonly size?: number;
-  readonly _size?: number;
+  size?: number;
 }
 
 // Shape Module start
