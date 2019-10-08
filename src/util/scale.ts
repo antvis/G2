@@ -63,8 +63,8 @@ export function createScaleByField(field: string | number, data?: LooseObject[] 
   if (!data || !data.length) {
     // 如果数据为空直接返回常量度量
     if (scaleDef && scaleDef.type) {
-      const scaleCtor = getScale(scaleDef.type);
-      scale = new scaleCtor(scaleDef);
+      const ScaleCtor = getScale(scaleDef.type);
+      scale = new ScaleCtor(scaleDef);
     } else {
       const Identity = getScale('identity');
       scale = new Identity({
@@ -89,8 +89,8 @@ export function createScaleByField(field: string | number, data?: LooseObject[] 
 
     _.mix(cfg, scaleDef);
 
-    const scaleCtor = getScale(type);
-    scale = new scaleCtor(cfg);
+    const ScaleCtor = getScale(type);
+    scale = new ScaleCtor(cfg);
   }
   return scale;
 }
