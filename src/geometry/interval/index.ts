@@ -11,7 +11,7 @@ export default class Interval extends Geometry {
   public readonly shapeType: string = 'interval';
   public generatePoints: boolean = true;
 
-  private _defaultSize: number = null;
+  private defaultSize: number = null;
 
   public init() {
     super.init();
@@ -38,7 +38,7 @@ export default class Interval extends Geometry {
 
   public clear() {
     super.clear();
-    this._defaultSize = null;
+    this.defaultSize = null;
   }
 
   protected createShapePointsCfg(record: LooseObject) {
@@ -54,10 +54,10 @@ export default class Interval extends Geometry {
       const coordinateWidth = getXDimensionLength(coordinate);
       size = size / coordinateWidth;
     } else {
-      if (!this._defaultSize) {
-        this._defaultSize = getDefaultSize(this);
+      if (!this.defaultSize) {
+        this.defaultSize = getDefaultSize(this);
       }
-      size = this._defaultSize;
+      size = this.defaultSize;
     }
     cfg.size = size;
 
