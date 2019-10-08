@@ -47,7 +47,7 @@ export default class Element {
     _.mix(this, cfg);
 
     // 绘制 shape
-    this._drawShape();
+    this.drawShape();
     // 存储初始样式
     this._setOriginStyle();
   }
@@ -170,7 +170,7 @@ export default class Element {
     return animateCfg[animateType];
   }
 
-  private _drawShape() {
+  private drawShape() {
     const { shapeType, shapeFactory, model } = this;
 
     const drawCfg = {
