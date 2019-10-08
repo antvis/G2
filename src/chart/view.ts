@@ -643,7 +643,7 @@ export default class View extends EE {
       // 保持 scales 引用不要变化
       geometry.scales = this.scales;
 
-      geometry.init();
+      geometry.initial();
     });
   }
 
