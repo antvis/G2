@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-import ScaleUtil from '../util/scale';
+import { createScaleByField, syncScale } from '../util/scale';
 import Element from './element';
 import { getShapeFactory } from './shape';
 import { parseFields } from './util/parse-fields';
@@ -281,8 +281,8 @@ export default class Geometry {
     _.each(scales, (scale) => {
       const { type, field } = scale;
       if (type !== 'identity') {
-        const newScale = ScaleUtil.createScale(field, data, scaleDefs[field]);
-        ScaleUtil.syncScale(scale, newScale);
+        const newScale = createScaleByField(field, data, scaleDefs[field]);
+        syncScale(scale, newScale);
       }
     });
     // 数据加工：分组 -> 数字化 -> adjust
@@ -547,7 +547,7 @@ export default class Geometry {
     if (!scale) {
       const data = this.data;
       const scaleDefs = this.scaleDefs;
-      scale = ScaleUtil.createScale(field, data, scaleDefs[field]);
+      scale = createScaleByField(field, data, scaleDefs[field]);
       scales[field] = scale;
     }
 
