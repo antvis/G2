@@ -250,7 +250,7 @@ export default class Geometry {
    */
   public label() {}
 
-  public init() {
+  public initial() {
     // TODO: @simaq 是否可以移除设置矩阵这一步？
     const coordinate = this.coordinate;
     const container = this.container;

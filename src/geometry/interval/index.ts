@@ -13,8 +13,8 @@ export default class Interval extends Geometry {
 
   private defaultSize: number = null;
 
-  public init() {
-    super.init();
+  public initial() {
+    super.initial();
 
     // 柱状图数值轴默认从 0 开始
     const scaleDefs = this.scaleDefs;
