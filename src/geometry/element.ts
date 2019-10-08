@@ -49,7 +49,7 @@ export default class Element {
     // 绘制 shape
     this.drawShape();
     // 存储初始样式
-    this._setOriginStyle();
+    this.setOriginStyle();
   }
   /**
    * Sets state
@@ -81,11 +81,14 @@ export default class Element {
 
     // 获取默认的图形样式
     const defaultStyle = this.getStateStyle('default');
-    cfg.style = _.mix({}, defaultStyle, cfg.style);
+    cfg.style = {
+      ...defaultStyle,
+      ...cfg.style,
+    };
     // 更新图形
     shapeFactory.updateShape(shapeType, cfg, this);
     // 更新原始状态
-    this._setOriginStyle();
+    this.setOriginStyle();
     // 更新数据
     this.model = cfg;
     this.data = cfg.origin[FIELD_ORIGIN];
@@ -132,7 +135,7 @@ export default class Element {
   }
 
   public hasState(stateName: string) {
-    return this.states.indexOf(stateName) !== -1;
+    return this.states.includes(stateName);
   }
 
   public getStates() {
@@ -154,7 +157,7 @@ export default class Element {
   public getStateStyle(stateName: string): LooseObject {
     const { shapeType, theme } = this;
 
-    return _.get(theme, `${shapeType}.${stateName}`, {});
+    return _.get(theme, [shapeType, stateName], {});
   }
   /**
    * 获取初始化样式
@@ -166,7 +169,7 @@ export default class Element {
   public getAnimateCfg(animateType: string) {
     const { shapeType, theme } = this;
 
-    const animateCfg = _.get(theme, `${shapeType}.animate`, {});
+    const animateCfg = _.get(theme, [shapeType, 'animate'], {});
     return animateCfg[animateType];
   }
 
@@ -177,22 +180,29 @@ export default class Element {
       ...model,
     };
     const defaultStyle = this.getStateStyle('default');
-    drawCfg.style = _.mix({}, defaultStyle, model.style);
+    drawCfg.style = {
+      ...defaultStyle,
+      ...model.style,
+    };
 
     const shape = shapeFactory.drawShape(shapeType, drawCfg, this);
     this.shape = shape;
   }
 
-  private _setOriginStyle() {
+  private setOriginStyle() {
     const shape = this.shape;
     if ((shape as Group).isGroup) {
       const children = shape.get('children');
       _.each(children, (child, index) => {
         const key = child.name || index;
-        this.originStyle[key] = _.mix({}, child.attr());
+        this.originStyle[key] = {
+          ...child.attr(),
+        };
       });
     } else {
-      this.originStyle = _.mix({}, shape.attr());
+      this.originStyle = {
+        ...shape.attr(),
+      };
     }
   }
 }

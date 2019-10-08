@@ -187,7 +187,9 @@ const ShapeBase = {
     } else {
       // 移除当前状态，依次叠加保留状态量的样式
       const originStyle = element.getOriginStyle();
-      const currentStyle = _.mix({}, originStyle);
+      const currentStyle = {
+        ...originStyle,
+      };
       _.each(states, (state) => {
         _.mix(currentStyle, element.getStateStyle(state));
       });
