@@ -61,6 +61,18 @@ interface MappedRecord {
   size?: number;
 }
 
+interface GeometryCfg {
+  container: Group;
+  coordinate?: Coordinate;
+  data?: LooseObject[];
+  scaleDefs?: ScaleOption;
+  generatePoints?: boolean;
+  sortable?: boolean;
+  visible?: boolean;
+  theme?: LooseObject;
+  scales?: Record<string, Scale>;
+}
+
 /**
  * Create a new Geometry
  * @class
@@ -118,8 +130,28 @@ export default class Geometry {
   private elementsMap: Record<string, Element> = {};
   private lastElementsMap: Record<string, Element> = {};
 
-  constructor(cfg) {
-    _.mix(this, cfg);
+  constructor(cfg: GeometryCfg) {
+    const {
+      container,
+      coordinate,
+      data,
+      scaleDefs = {},
+      generatePoints = false,
+      sortable = false,
+      visible = true,
+      theme,
+      scales = {},
+    } = cfg;
+
+    this.container = container;
+    this.coordinate = coordinate;
+    this.data = data;
+    this.scaleDefs = scaleDefs;
+    this.generatePoints = generatePoints;
+    this.sortable = sortable;
+    this.visible = visible;
+    this.theme = theme;
+    this.scales = scales;
   }
 
   /**
