@@ -326,8 +326,8 @@ class TooltipController {
     self.tooltip = tooltip;
 
     const triggerEvent = self._getTriggerEvent();
+    const tooltipContainer = tooltip.get('container');
     if (!tooltip.get('enterable') && triggerEvent === 'plotmove') { // 鼠标不允许进入 tooltip 容器
-      const tooltipContainer = tooltip.get('container');
       if (tooltipContainer) {
         tooltipContainer.onmousemove = e => {
           // 避免 tooltip 频繁闪烁
@@ -336,6 +336,16 @@ class TooltipController {
         };
       }
     }
+
+    // 优化：鼠标移入 tooltipContainer 然后再移出时，需要隐藏 tooltip
+    if (tooltipContainer) {
+      tooltipContainer.onmouseleave = () => {
+        if (!self.locked) {
+          self.hideTooltip();
+        }
+      };
+    }
+
     self._bindEvent();
   }
 
