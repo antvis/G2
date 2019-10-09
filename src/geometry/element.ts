@@ -44,7 +44,13 @@ export default class Element {
   private originStyle: LooseObject = {};
 
   constructor(cfg: ElementCfg) {
-    _.mix(this, cfg);
+    const { data, model, shapeType, shapeFactory, theme, container } = cfg;
+    this.data = data;
+    this.model = model;
+    this.shapeType = shapeType;
+    this.shapeFactory = shapeFactory;
+    this.theme = theme;
+    this.container = container;
 
     // 绘制 shape
     this.drawShape();
