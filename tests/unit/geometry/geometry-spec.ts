@@ -37,10 +37,10 @@ describe('Geometry', () => {
             range: [0.25, 0.75],
           },
         },
-        animate: false,
         generatePoints: true,
-        type: 'myInterval',
       });
+      // @ts-ignore
+      geometry.type = 'myInterval';
 
       expect(geometry.type).toBe('myInterval');
       expect(geometry.attributes).toEqual({});
@@ -51,7 +51,6 @@ describe('Geometry', () => {
       expect(geometry.container).not.toBe(undefined);
       expect(geometry.theme).not.toBe(undefined);
       expect(geometry.scaleDefs).not.toBe(undefined);
-      expect(geometry.animate).toBe(false);
       expect(geometry.generatePoints).toBe(true);
     });
 
@@ -254,11 +253,9 @@ describe('Geometry', () => {
       geometry = new Geometry({
         data,
         coordinate,
-        animate: false,
         container,
         theme: Theme, // 测试用主题
         generatePoints: true,
-        shapeType: 'myInterval',
         scaleDefs: {
           month: {
             range: [0.25, 0.75],
@@ -267,8 +264,12 @@ describe('Geometry', () => {
             min: 0,
           },
         },
-        type: 'interval',
       });
+
+      // @ts-ignore
+      geometry.type = 'interval';
+      // @ts-ignore
+      geometry.shapeType = 'myInterval';
 
       function getPath(points) {
         const path = [];
