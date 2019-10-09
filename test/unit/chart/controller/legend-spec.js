@@ -120,7 +120,7 @@ describe('LegendController', () => {
     const chartHeight = canvas.get('height');
     const backRange = controller.getBackRange();
     const borderMargin = Global.legend.margin;
-    expect(x).to.equal(backRange.minX - width - borderMargin[3]);
+    expect(x).to.equal(backRange.minX - width - borderMargin[3] < 0 ? 0 : backRange.minX - width - borderMargin[3]);
     expect(y).to.equal((chartHeight - height) / 2);
   });
 
@@ -250,7 +250,7 @@ describe('LegendController', () => {
     const totalHeight = controller._getRegion().totalHeight;
     const backRange = controller.getBackRange();
     const borderMargin = Global.legend.margin;
-    expect(x).to.equal(backRange.minX - width - borderMargin[3]);
+    expect(x).to.equal(backRange.minX - width - borderMargin[3] < 0 ? 0 : backRange.minX - width - borderMargin[3]);
     expect(y).to.equal(plotHeight - totalHeight);
   });
 
