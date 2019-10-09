@@ -8,7 +8,7 @@ import { Adjust, getAdjust } from '@antv/adjust';
 import { Attribute, getAttribute as getAttributeClass } from '@antv/attr';
 import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
 import { Coordinate, Scale } from '../dependents';
-import { AdjustType, LooseObject, Point, ScaleOption, ShapeDrawCFG } from '../interface';
+import { AdjustType, Data, Datum, LooseObject, Point, ScaleOption, ShapeDrawCFG } from '../interface';
 
 import { Group } from '@antv/g';
 import {
@@ -49,7 +49,7 @@ interface AdjustInstanceCfg {
 
 interface MappedRecord {
   /** 原始数据 */
-  _origin: LooseObject;
+  _origin: Datum;
   /** 关键点坐标集合 */
   points?: Point[];
   /** 下一个 shape 的关键点坐标集合 */
@@ -64,7 +64,7 @@ interface MappedRecord {
 interface GeometryCfg {
   container: Group;
   coordinate?: Coordinate;
-  data?: LooseObject[];
+  data?: Data;
   scaleDefs?: ScaleOption;
   generatePoints?: boolean;
   sortable?: boolean;
@@ -87,7 +87,7 @@ export default class Geometry {
   /** 坐标系对象 */
   public coordinate: Coordinate = null;
   /** data 数据 */
-  public data: LooseObject[] = null;
+  public data: Data = null;
   /** 图形容器 */
   public readonly container: Group = null;
   /** scale 配置 */
@@ -109,7 +109,7 @@ export default class Geometry {
   /** Element 实例集合 */
   public elements: Element[] = [];
   /** 分组、数字化、adjust 后的数据 */
-  public dataArray: LooseObject[][];
+  public dataArray: Data[];
 
   // 配置项属性存储
   /** 图形属性映射配置 */
@@ -305,7 +305,7 @@ export default class Geometry {
    * Updates data
    * @param data
    */
-  public updateData(data: LooseObject[]) {
+  public updateData(data: Data) {
     this.data = data;
 
     // 更新 scale
@@ -428,7 +428,7 @@ export default class Geometry {
     return value;
   }
 
-  public getAttrValues(attr: Attribute, record: LooseObject) {
+  public getAttrValues(attr: Attribute, record: Datum) {
     const scales = attr.scales;
 
     const params = _.map(scales, (scale: Scale) => {
@@ -453,7 +453,7 @@ export default class Geometry {
    * 根据数据获取图形的关键点数据
    * @param obj 数据对象
    */
-  protected createShapePointsCfg(obj: LooseObject): ShapePoint {
+  protected createShapePointsCfg(obj: Datum): ShapePoint {
     const xScale = this.getXScale();
     const yScale = this.getYScale();
     const x = this.normalizeValues(obj[xScale.field], xScale);
@@ -472,7 +472,7 @@ export default class Geometry {
     };
   }
 
-  protected createElement(record: LooseObject, groupIndex: number): Element {
+  protected createElement(record: Datum, groupIndex: number): Element {
     const originData = record[FIELD_ORIGIN];
     const { theme, container } = this;
 
@@ -515,7 +515,7 @@ export default class Geometry {
     return cfg;
   }
 
-  protected createElements(mappedArray: LooseObject[]) {
+  protected createElements(mappedArray: Data) {
     const { lastElementsMap, elementsMap, elements } = this;
     _.each(mappedArray, (record, i) => {
       const originData = record[FIELD_ORIGIN];
@@ -627,10 +627,10 @@ export default class Geometry {
   }
 
   // 处理数据：分组 -> 数字化 -> adjust 调整
-  private processData(data: LooseObject[]) {
+  private processData(data: Data) {
     let groupedArray = this.groupData(data); // 数据分组
 
-    groupedArray = _.map(groupedArray, (subData: LooseObject[]) => {
+    groupedArray = _.map(groupedArray, (subData: Data) => {
       const tempData = this.saveOrigin(subData); // 存储原始数据
       this.numeric(tempData); // 将分类数据转换成数字
       return tempData;
@@ -643,7 +643,7 @@ export default class Geometry {
   }
 
   // 调整数据
-  private adjustData(dataArray: LooseObject[][]): LooseObject[][] {
+  private adjustData(dataArray: Data[]): Data[] {
     const adjustOption = this.adjustOption;
     let result = dataArray;
     if (adjustOption) {
@@ -699,7 +699,7 @@ export default class Geometry {
   }
 
   // 对数据进行分组
-  private groupData(data: LooseObject[]): LooseObject[][] {
+  private groupData(data: Data): Data[] {
     const groupScales = this.getGroupScales();
     const fields = groupScales.map((scale) => scale.field);
 
@@ -707,8 +707,8 @@ export default class Geometry {
   }
 
   // 数据调整前保存原始数据
-  private saveOrigin(data: LooseObject[]): LooseObject[] {
-    return _.map(data, (origin: LooseObject) => {
+  private saveOrigin(data: Data): Data {
+    return _.map(data, (origin: Datum) => {
       return {
         ...origin,
         [FIELD_ORIGIN]: origin, // 存入 origin 数据
@@ -717,7 +717,7 @@ export default class Geometry {
   }
 
   // 将分类数据翻译成数据, 仅对位置相关的度量进行数字化处理
-  private numeric(data: LooseObject[]) {
+  private numeric(data: Data) {
     const positionAttr = this.getAttribute('position');
     const scales = positionAttr.scales;
     for (let j = 0, len = data.length; j < len; j += 1) {
@@ -733,7 +733,7 @@ export default class Geometry {
   }
 
   // 更新发生层叠后的数据对应的度量范围
-  private updateStackRange(field: string, scale: Scale, dataArray: LooseObject[][]) {
+  private updateStackRange(field: string, scale: Scale, dataArray: Data[]) {
     const mergeArray = _.flatten(dataArray);
     let min = scale.min;
     let max = scale.max;
@@ -756,7 +756,7 @@ export default class Geometry {
   }
 
   // 将数据映射至图形空间前的操作：排序以及关键点的生成
-  private beforeMapping(dataArray: LooseObject[][]) {
+  private beforeMapping(dataArray: Data[]) {
     if (this.sortable) {
       const xScale = this.getXScale();
       const field = xScale.field;
@@ -780,7 +780,7 @@ export default class Geometry {
   }
 
   // 映射完毕后，对最后的结果集进行排序，方便后续 tooltip 的数据查找
-  private afterMapping(dataArray: LooseObject[][]) {
+  private afterMapping(dataArray: Data[]) {
     if (!this.sortable) {
       this.sort(dataArray);
     }
@@ -788,7 +788,7 @@ export default class Geometry {
   }
 
   // 生成 shape 的关键点
-  private generateShapePoints(data: LooseObject[]) {
+  private generateShapePoints(data: Data) {
     const shapeFactory = this.getShapeFactory();
     const shapeAttr = this.getAttribute('shape');
     for (const obj of data) {
@@ -828,7 +828,7 @@ export default class Geometry {
   }
 
   // 将数据映射至图形空间
-  private mapping(data: LooseObject[]) {
+  private mapping(data: Data) {
     const attributes = this.attributes;
     const mappedData = [];
     for (const record of data) {
