@@ -607,7 +607,7 @@ export default class Geometry {
 
       attrCfg.scales = scales;
 
-      if (['color', 'size', 'shape'].includes(attrType) && scales.length === 1 && scales[0].type === 'identity') {
+      if (attrType !== 'position' && scales.length === 1 && scales[0].type === 'identity') {
         // 用户在图形通道上声明了常量字段 color('red'), size(5)
         attrCfg.values = scales[0].values;
       } else if (!callback && !values) {
@@ -803,9 +803,7 @@ export default class Geometry {
   private normalizeValues(values, scale) {
     let rst = [];
     if (_.isArray(values)) {
-      for (const v of values) {
-        rst.push(scale.scale(v));
-      }
+      rst = values.map((v) => scale.scale(v));
     } else {
       rst = scale.scale(values);
     }
