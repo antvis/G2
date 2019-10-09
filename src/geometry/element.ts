@@ -1,12 +1,12 @@
 import { Group, Shape } from '@antv/g';
 import * as _ from '@antv/util';
 import { FIELD_ORIGIN } from '../constant';
-import { LooseObject, ShapeDrawCFG } from '../interface';
+import { Datum, LooseObject, ShapeDrawCFG } from '../interface';
 import { ShapeFactory } from './interface';
 
 interface ElementCfg {
   /** 原始数据 */
-  data: LooseObject;
+  data: Datum;
   /** 映射后的绘图数据 */
   model: ShapeDrawCFG;
   /** 绘制的 shape 类型 */
@@ -24,7 +24,7 @@ export default class Element {
   /** 绘制的 shape 类型 */
   public readonly shapeType: string;
   /** 原始数据 */
-  public data: LooseObject;
+  public data: Datum;
   /** shape 绘制数据 */
   public model: ShapeDrawCFG;
   /** 用于创建各种 shape 的工厂对象 */
@@ -104,7 +104,7 @@ export default class Element {
    * @todo
    * @param data
    */
-  public updateData(data: LooseObject) {}
+  public updateData(data: Datum) {}
 
   /**
    * @todo 更新图形样式
