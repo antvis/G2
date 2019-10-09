@@ -379,7 +379,8 @@ class LegendController {
   }
 
   _getXAlign(pos, width, region, backRange, legendWidth, borderMargin) {
-    let x = pos === 'left' ? backRange.minX - legendWidth - borderMargin[3] : backRange.maxX + borderMargin[1];
+    const leftPos = backRange.minX - legendWidth - borderMargin[3] < 0 ? 0 : backRange.minX - legendWidth - borderMargin[3];
+    let x = pos === 'left' ? leftPos : backRange.maxX + borderMargin[1];
     if (pos === 'center') {
       x = (width - region.totalWidth) / 2;
     }
