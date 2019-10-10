@@ -547,7 +547,7 @@ export default class Geometry {
 
   // 创建图形属性相关的配置项
   private createAttrOption(attrName: string, field: AttributeOption | string | number, cfg?) {
-    if (_.isObject(field)) {
+    if (!field || _.isObject(field)) {
       _.set(this.attributeOption, attrName, field);
     } else {
       const attrCfg: AttributeOption = {};
@@ -589,6 +589,9 @@ export default class Geometry {
 
     // 遍历每一个 attrOption，各自创建 Attribute 实例
     _.each(attributeOption, (option: AttributeOption, attrType: string) => {
+      if (!option) {
+        return;
+      }
       const attrCfg: AttributeInstanceCfg = {
         ...option,
       };
