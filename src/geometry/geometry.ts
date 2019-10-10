@@ -781,8 +781,8 @@ export default class Geometry {
 
       dataArray.reduce((preData, nextData) => {
         preData[0].nextPoints = nextData[0].points;
-        return preData;
-      });
+        return nextData;
+      }, dataArray[0]);
     }
   }
 
