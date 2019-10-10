@@ -24,3 +24,11 @@ export function createCanvas(args: object): Canvas {
     ...args,
   });
 }
+
+export function removeDom(dom: HTMLElement) {
+  const parent = dom.parentNode;
+
+  if (parent) {
+    parent.removeChild(dom);
+  }
+}

@@ -309,14 +309,7 @@ export default class Geometry {
     this.data = data;
 
     // 更新 scale
-    const { scaleDefs, scales } = this;
-    _.each(scales, (scale) => {
-      const { type, field } = scale;
-      if (type !== 'identity') {
-        const newScale = createScaleByField(field, data, scaleDefs[field]);
-        syncScale(scale, newScale);
-      }
-    });
+    this.updateScales();
     // 数据加工：分组 -> 数字化 -> adjust
     this.processData(data);
   }
@@ -448,6 +441,17 @@ export default class Geometry {
     return this.adjusts[adjustType];
   }
 
+  protected updateScales() {
+    const { scaleDefs, scales, data } = this;
+    _.each(scales, (scale) => {
+      const { type, field } = scale;
+      if (type !== 'identity') {
+        const newScale = createScaleByField(field, data, scaleDefs[field]);
+        syncScale(scale, newScale);
+      }
+    });
+  }
+
   /**
    * @protected
    * 根据数据获取图形的关键点数据
@@ -543,7 +547,7 @@ export default class Geometry {
 
   // 创建图形属性相关的配置项
   private createAttrOption(attrName: string, field: AttributeOption | string | number, cfg?) {
-    if (_.isObject(field)) {
+    if (!field || _.isObject(field)) {
       _.set(this.attributeOption, attrName, field);
     } else {
       const attrCfg: AttributeOption = {};
@@ -585,6 +589,9 @@ export default class Geometry {
 
     // 遍历每一个 attrOption，各自创建 Attribute 实例
     _.each(attributeOption, (option: AttributeOption, attrType: string) => {
+      if (!option) {
+        return;
+      }
       const attrCfg: AttributeInstanceCfg = {
         ...option,
       };
@@ -772,10 +779,10 @@ export default class Geometry {
         this.generateShapePoints(data);
       });
 
-      dataArray.reduce((preData, nextData) => {
-        preData[0].nextPoints = nextData[0].points;
-        return preData;
-      });
+      dataArray.reduce((preData: Data, currentData: Data) => {
+        preData[0].nextPoints = currentData[0].points;
+        return currentData;
+      }, dataArray[0]);
     }
   }
 

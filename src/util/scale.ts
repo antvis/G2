@@ -97,6 +97,7 @@ export function createScaleByField(field: string | number, data?: LooseObject[] 
 
 /**
  * 同步 scale
+ * @todo 是否可以通过 scale.update() 方法进行更新
  * @param scale 需要同步的 scale 实例
  * @param newScale 同步源 Scale
  */

@@ -11,34 +11,21 @@ export default class Interval extends Geometry {
   public readonly shapeType: string = 'interval';
   public generatePoints: boolean = true;
 
-  private defaultSize: number = null;
+  private defaultSize: number;
 
   public initial() {
     super.initial();
-
-    // 柱状图数值轴默认从 0 开始
-    const scaleDefs = this.scaleDefs;
-    const yScale = this.getYScale();
-    const { field, min, max, type } = yScale;
-    // 如果用户通过列定义自己定义了 min，则以用户的为准
-    // time 类型不做调整
-    if (!_.get(scaleDefs, [field, 'min']) && type !== 'time') {
-      if (min > 0) {
-        yScale.change({
-          min: 0,
-        });
-      } else if (max <= 0) {
-        // 当柱状图全为负值时也需要从 0 开始生长
-        yScale.change({
-          max: 0,
-        });
-      }
-    }
+    this.adjustYScale();
   }
 
   public clear() {
     super.clear();
-    this.defaultSize = null;
+    this.defaultSize = undefined;
+  }
+
+  protected updateScales() {
+    super.updateScales();
+    this.adjustYScale();
   }
 
   protected createShapePointsCfg(record: LooseObject) {
@@ -62,5 +49,27 @@ export default class Interval extends Geometry {
     cfg.size = size;
 
     return cfg;
+  }
+
+  // 柱状图数值轴默认从 0 开始
+  private adjustYScale() {
+    const scaleDefs = this.scaleDefs;
+    const yScale = this.getYScale();
+    const { field, min, max, type } = yScale;
+    if (type !== 'time') {
+      // time 类型不做调整
+      // 柱状图的 Y 轴要从 0 开始生长，但是如果用户设置了则以用户的为准
+      if (min > 0 && !_.get(scaleDefs, [field, 'min'])) {
+        yScale.change({
+          min: 0,
+        });
+      }
+      // 柱当柱状图全为负值时也需要从 0 开始生长，但是如果用户设置了则以用户的为准
+      if (max <= 0 && !_.get(scaleDefs, [field, 'max'])) {
+        yScale.change({
+          max: 0,
+        });
+      }
+    }
   }
 }

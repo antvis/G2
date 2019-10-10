@@ -36,10 +36,13 @@ export default {
     '#269A99',
     '#AAD8D8',
     '#FF99C3',
-    '#FF99C3',
     '#FFD6E7',
   ],
-  columnWidthRatio: 0.5,
+  columnWidthRatio: 1 / 2,
+  maxColumnWidth: null,
+  minColumnWidth: null,
+  roseWidthRatio: 0.9999999,
+  multiplePieWidthRatio: 1 / 1.3,
   shapes: {
     point: [
       'hollowCircle',
