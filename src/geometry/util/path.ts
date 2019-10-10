@@ -202,12 +202,12 @@ export function catmullRom2bezier(crp: number[], z: boolean, constraint: PointAr
 }
 
 /** 将点连接成路径 path */
-export function getLinePath(points: Point[], isInCircle: boolean): any[] {
+export function getLinePath(points: Point[], isInCircle?: boolean): any[] {
   return _points2path(points, isInCircle);
 }
 
 /** 根据关键点获取限定了范围的平滑线 */
-export function getSplinePath(points: Point[], isInCircle: boolean, constaint: PointArray[]): any[] {
+export function getSplinePath(points: Point[], isInCircle?: boolean, constaint?: PointArray[]): any[] {
   const data = [];
   const first = points[0];
   let prePoint = null;
