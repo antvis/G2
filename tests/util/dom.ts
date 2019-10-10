@@ -24,3 +24,7 @@ export function createCanvas(args: object): Canvas {
     ...args,
   });
 }
+
+export function removeDom(dom: HTMLElement) {
+  document.body.removeChild(dom);
+}
