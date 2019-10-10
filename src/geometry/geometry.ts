@@ -779,9 +779,9 @@ export default class Geometry {
         this.generateShapePoints(data);
       });
 
-      dataArray.reduce((preData, nextData) => {
-        preData[0].nextPoints = nextData[0].points;
-        return nextData;
+      dataArray.reduce((preData: Data, currentData: Data) => {
+        preData[0].nextPoints = currentData[0].points;
+        return currentData;
       }, dataArray[0]);
     }
   }
