@@ -309,14 +309,7 @@ export default class Geometry {
     this.data = data;
 
     // 更新 scale
-    const { scaleDefs, scales } = this;
-    _.each(scales, (scale) => {
-      const { type, field } = scale;
-      if (type !== 'identity') {
-        const newScale = createScaleByField(field, data, scaleDefs[field]);
-        syncScale(scale, newScale);
-      }
-    });
+    this.updateScales();
     // 数据加工：分组 -> 数字化 -> adjust
     this.processData(data);
   }
@@ -446,6 +439,17 @@ export default class Geometry {
 
   public getAdjust(adjustType: string) {
     return this.adjusts[adjustType];
+  }
+
+  protected updateScales() {
+    const { scaleDefs, scales, data } = this;
+    _.each(scales, (scale) => {
+      const { type, field } = scale;
+      if (type !== 'identity') {
+        const newScale = createScaleByField(field, data, scaleDefs[field]);
+        syncScale(scale, newScale);
+      }
+    });
   }
 
   /**
