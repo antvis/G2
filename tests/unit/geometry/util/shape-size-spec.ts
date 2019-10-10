@@ -76,7 +76,7 @@ describe('Calculate shape size', () => {
       expect(normalizedSize).toBe(10 / 54);
     });
 
-    it('xScale is linear and min and max defined', () => {
+    test('xScale is linear and min and max defined', () => {
       // 实际个数比 ((max - min) / 最小区间) 小
       interval = new Interval({
         data: [{ a: 3, b: 23 }, { a: 4, b: 15 }, { a: 6, b: 9 }],
@@ -196,12 +196,12 @@ describe('Calculate shape size', () => {
     interval.position('a*b');
     interval.initial();
 
-    it('polar interval', () => {
+    test('polar interval', () => {
       const normalizedSize = getDefaultSize(interval);
       expect(normalizedSize).toBe(0.3333333);
     });
 
-    it('pie chart', () => {
+    test('pie chart', () => {
       // 构造 theta 坐标系
       const thetaCoord = new PolarCoordinate({
         start: {
@@ -242,7 +242,7 @@ describe('Calculate shape size', () => {
       expect(normalizedSize).toBe(0.9999999);
     });
 
-    it('polar dodge interval', () => {
+    test('polar dodge interval', () => {
       interval = new Interval({
         data: [
           { a: '1', b: 2, c: '1' },
@@ -278,7 +278,7 @@ describe('Calculate shape size', () => {
       expect(normalizedSize).toBe((1 / 6) * Theme.roseWidthRatio);
     });
 
-    it('dodge interval, polar coordinate with transposed', () => {
+    test('dodge interval, polar coordinate with transposed', () => {
       const aScale = new CatScale({
         field: 'a',
         values: ['1', '2', '3'],
