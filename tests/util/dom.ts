@@ -26,5 +26,9 @@ export function createCanvas(args: object): Canvas {
 }
 
 export function removeDom(dom: HTMLElement) {
-  document.body.removeChild(dom);
+  const parent = dom.parentNode;
+
+  if (parent) {
+    parent.removeChild(dom);
+  }
 }
