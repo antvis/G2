@@ -1,8 +1,8 @@
-import { BBox } from '@antv/g';
 import * as _ from '@antv/util';
+import { ComponentType } from '../../constant';
+import { BBox } from '../../dependents';
 import { BBoxProcessor } from '../../util/bbox';
 import { directionToPosition } from '../../util/direction';
-import { ComponentType } from '../constant';
 import { ComponentOption } from '../interface';
 import View from '../view';
 
@@ -49,7 +49,8 @@ function layoutAxis(axes: ComponentOption[], viewBBox: BBox) {
  * @param view
  */
 export default function defaultLayout(view: View): void {
-  const { componentOptions, geometries, viewBBox } = view;
+  const { geometries, viewBBox } = view;
+  const componentOptions = this.getOptions().components;
 
   // 1. 计算出 legend 的 direction 位置 x, y
   const legends = _.filter(componentOptions, (co: ComponentOption) => co.type === ComponentType.LEGEND);

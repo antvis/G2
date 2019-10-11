@@ -14,8 +14,7 @@ function getRectPoints(cfg: ShapePoint, isPyramid = false) {
   let yMin;
   let yMax;
   if (_.isArray(y)) {
-    yMin = y[0];
-    yMax = y[1];
+    [yMin, yMax] = y;
   } else {
     yMin = y0;
     yMax = y;
@@ -24,8 +23,7 @@ function getRectPoints(cfg: ShapePoint, isPyramid = false) {
   let xMin;
   let xMax;
   if (_.isArray(x)) {
-    xMin = x[0];
-    xMax = x[1];
+    [xMin, xMax] = x;
   } else {
     xMin = x - size / 2;
     xMax = x + size / 2;

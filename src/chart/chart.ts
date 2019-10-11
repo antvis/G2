@@ -1,5 +1,6 @@
-import { Canvas } from '@antv/g';
 import * as _ from '@antv/util';
+import { GroupZIndex } from '../constant';
+import { Canvas } from '../dependents';
 import { ChartCfg } from './interface';
 import View from './view';
 
@@ -23,7 +24,9 @@ export default class Chart extends View {
     // todo @hustcc
     // autoFit 为 true 的时候，应该设置 width height 为容器的大小，否则会有两次渲染和闪烁的过程。
     const canvas = new Canvas({
-      containerDOM: ele,
+      // FIXME: 待 g-canvas 修复
+      // @ts-ignore
+      container: ele,
       width,
       height,
       renderer,
@@ -35,9 +38,9 @@ export default class Chart extends View {
       parent: null,
       canvas,
       // 创建三层 group
-      backgroundGroup: canvas.addGroup(),
-      middleGroup: canvas.addGroup(),
-      foregroundGroup: canvas.addGroup(),
+      backgroundGroup: canvas.addGroup({ zIndex: GroupZIndex.BG }),
+      middleGroup: canvas.addGroup({ zIndex: GroupZIndex.MID }),
+      foregroundGroup: canvas.addGroup({ zIndex: GroupZIndex.FORE }),
       padding,
     });
 
@@ -48,7 +51,7 @@ export default class Chart extends View {
     this.autoFit = autoFit;
 
     // 自适应大小
-    this._autoFit();
+    this.bindAutoFit();
   }
 
   public changeSize(width: number, height: number) {
@@ -59,10 +62,19 @@ export default class Chart extends View {
     this.render();
   }
 
-  private _autoFit() {
+  public destroy() {
+    super.destroy();
+
+    this.unbindAutoFit();
+    this.canvas.destroy();
+  }
+
+  private bindAutoFit() {
     if (this.autoFit) {
       // todo 监听容器大小，自动 changeSize
       // ResizeObserver
     }
   }
+
+  private unbindAutoFit() {}
 }

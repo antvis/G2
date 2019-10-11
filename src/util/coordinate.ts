@@ -1,4 +1,5 @@
 import { Coordinate } from '../dependents';
+import { Point } from '../interface';
 
 /**
  * Gets x dimension length
@@ -29,4 +30,15 @@ export function isFullCircle(coordinate: Coordinate): boolean {
     return endAngle - startAngle === Math.PI * 2;
   }
   return false;
+}
+
+/**
+ * Gets distance to center
+ * @param coordinate
+ * @param point
+ * @returns distance to center
+ */
+export function getDistanceToCenter(coordinate: Coordinate, point: Point): number {
+  const center = coordinate.getCenter() as Point;
+  return Math.sqrt((point.x - center.x) ** 2 + (point.y - center.y) ** 2);
 }

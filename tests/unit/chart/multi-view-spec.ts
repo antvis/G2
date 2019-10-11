@@ -1,4 +1,3 @@
-import { Canvas, Group } from '@antv/g';
 import { Chart } from '../../../src';
 import { createDiv } from '../../util/dom';
 
@@ -23,6 +22,12 @@ const chart = new Chart({
   renderer: 'svg',
 });
 
+chart.data(data.slice(0, data.length - 2));
+
+chart.scale('city', { type: 'cat' });
+chart.axis('city', { type: 'category' });
+chart.coordinate('rect');
+
 describe('chart multi view', () => {
   // 左右平分
   const v1 = chart.createView({
@@ -40,12 +45,10 @@ describe('chart multi view', () => {
     padding: 5,
   });
 
-  v1.data(data);
   // @ts-ignore
   v1.polygon()
     .position('city*category')
     .color('sale');
-  v2.data(data);
   // @ts-ignore
   v2.interval()
     .position('city*sale')
@@ -53,6 +56,14 @@ describe('chart multi view', () => {
     .adjust('stack');
 
   chart.render();
+
+  it('chart constructor', () => {
+    expect(chart.views.length).toEqual(2);
+    expect(chart.views[0].geometries.length).toEqual(1);
+    expect(chart.views[1].geometries.length).toEqual(1);
+
+    expect(v1.getOptions().data.length).toBe(6);
+  });
 
   it('region', () => {
     expect({
@@ -92,9 +103,25 @@ describe('chart multi view', () => {
     });
   });
 
-  it('chart constructor', () => {
-    expect(chart.views.length).toEqual(2);
-    expect(chart.views[0].geometries.length).toEqual(1);
-    expect(chart.views[1].geometries.length).toEqual(1);
+  it('shared options', () => {
+    expect(v1.getOptions().data).toBe(v2.getOptions().data);
+
+    expect(v1.getOptions().scales).not.toBe(v2.getOptions().scales);
+    expect(v1.getOptions().scales).toEqual(v2.getOptions().scales);
+
+    expect(v1.getOptions().coordinate).not.toBe(v2.getOptions().coordinate);
+    expect(v1.getOptions().coordinate).toEqual(v2.getOptions().coordinate);
+
+    expect(v1.getOptions().axes).not.toBe(v2.getOptions().axes);
+    expect(v1.getOptions().axes).toEqual(v2.getOptions().axes);
+
+    expect(v1.getOptions().coordinate.type).toBe('rect');
+  });
+
+  it('changeData', () => {
+    chart.changeData(data);
+
+    expect(v1.getOptions().data).toBe(data);
+    expect(v1.getOptions().data.length).toBe(8);
   });
 });

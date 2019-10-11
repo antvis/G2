@@ -1,10 +1,10 @@
-import { Canvas, Group } from '@antv/g';
 import * as _ from '@antv/util';
 import 'jest-extended';
-import { getCoordinate } from '../../../src/dependents';
+import { getCoordinate, Group } from '../../../src/dependents';
 import Geometry from '../../../src/geometry/geometry';
 import * as Shape from '../../../src/geometry/shape';
 import { LooseObject } from '../../../src/interface';
+import { createCanvas, createDiv, removeDom } from '../../util/dom';
 import Theme from '../../util/theme';
 
 const Rect = getCoordinate('rect');
@@ -30,17 +30,17 @@ describe('Geometry', () => {
       geometry = new Geometry({
         data,
         coordinate,
-        container: new Group(),
+        container: new Group({}),
         theme: Theme, // 测试用主题
         scaleDefs: {
           month: {
             range: [0.25, 0.75],
           },
         },
-        animate: false,
         generatePoints: true,
-        type: 'myInterval',
       });
+      // @ts-ignore
+      geometry.type = 'myInterval';
 
       expect(geometry.type).toBe('myInterval');
       expect(geometry.attributes).toEqual({});
@@ -51,7 +51,6 @@ describe('Geometry', () => {
       expect(geometry.container).not.toBe(undefined);
       expect(geometry.theme).not.toBe(undefined);
       expect(geometry.scaleDefs).not.toBe(undefined);
-      expect(geometry.animate).toBe(false);
       expect(geometry.generatePoints).toBe(true);
     });
 
@@ -229,16 +228,10 @@ describe('Geometry', () => {
     let canvas;
     let div;
     beforeAll(() => {
-      div = document.createElement('div');
-      div.id = 'base';
-      document.body.appendChild(div);
+      div = createDiv();
 
-      canvas = new Canvas({
-        containerId: 'base',
-        renderer: 'canvas',
-        width: 200,
-        height: 200,
-        pixelRatio: 2,
+      canvas = createCanvas({
+        container: div,
       });
       const data = [
         { month: '一月', temperature: 5, city: '北京', year: '2018' },
@@ -254,11 +247,9 @@ describe('Geometry', () => {
       geometry = new Geometry({
         data,
         coordinate,
-        animate: false,
         container,
         theme: Theme, // 测试用主题
         generatePoints: true,
-        shapeType: 'myInterval',
         scaleDefs: {
           month: {
             range: [0.25, 0.75],
@@ -267,8 +258,12 @@ describe('Geometry', () => {
             min: 0,
           },
         },
-        type: 'interval',
       });
+
+      // @ts-ignore
+      geometry.type = 'interval';
+      // @ts-ignore
+      geometry.shapeType = 'myInterval';
 
       function getPath(points) {
         const path = [];
@@ -332,7 +327,7 @@ describe('Geometry', () => {
     });
 
     it('init()', () => {
-      geometry.init();
+      geometry.initial();
 
       // attrs 的生成
       const attrs = geometry.attributes;
@@ -452,7 +447,7 @@ describe('Geometry', () => {
 
     afterAll(() => {
       canvas.destroy();
-      document.body.removeChild(div);
+      removeDom(div);
     });
   });
 });

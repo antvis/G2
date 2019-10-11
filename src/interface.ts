@@ -1,3 +1,12 @@
+import { ScaleConfig } from './dependents';
+
+/** G 的渲染类型 */
+export type Renderer = 'svg' | 'canvas';
+
+/** 数据的定义 */
+export type Datum = Record<string, any>;
+export type Data = Datum[];
+
 /** 对象 */
 export interface LooseObject {
   [key: string]: any;
@@ -41,44 +50,9 @@ export interface ShapeDrawCFG {
 }
 
 /** 列定义配置项 */
-export interface ScaleDef {
+export interface ScaleDef extends ScaleConfig {
   /** 声明数据类型  */
   type?: ScaleType;
-  /** 该数据字段的显示别名，一般用于将字段的英文名称转换成中文名 */
-  alias?: string;
-  /** 数据集 */
-  values?: any[];
-  /** 输出数据的范围，默认[0, 1]，格式为 [min, max]，min 和 max 均为 0 至 1 范围的数据 */
-  range?: [number, number];
-  /** 用于格式化坐标轴刻度点的文本显示，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示 */
-  formatter?: (value: any, key?: number) => string;
-  /** 用于指定坐标轴上刻度点的文本信息，当用户设置了 ticks 就会按照 ticks 的个数和文本来显示 */
-  ticks?: any[];
-  /** 坐标轴上刻度点的个数，默认值为 5 */
-  tickCount?: number;
-
-  /**
-   * type: 'cat' | 'time' 生效
-   * 不建议使用，优先级高于tickCount，可以强制设置 tick 分隔间隔
-   * 'time' 类型时值为时间戳
-   */
-  tickInterval?: number;
-
-  /** type: 'linear' 生效，设置最小值 */
-  min?: number;
-  /** type: 'linear' 生效，设置最大值 */
-  max?: number;
-  /** type: 'linear' 生效，默认为 true，用于优化数值范围，使绘制的坐标轴刻度线均匀分布 */
-  nice?: true;
-
-  /** type: 'pow' 生效，指数，默认值为 1 */
-  exponent?: number;
-
-  /** type: 'log' 生效，对数底数，默认值为 10 */
-  base?: number;
-
-  /** type: 'time' 生效，强制显示最后的日期tick */
-  showLast?: boolean;
 }
 
 export interface ScaleOption {

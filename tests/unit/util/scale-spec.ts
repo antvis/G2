@@ -1,15 +1,15 @@
-import ScaleUtil from '../../../src/util/scale';
+import { createScaleByField, syncScale } from '../../../src/util/scale';
 
 describe('ScaleUtil', () => {
   const data1 = [{ a: 1, b: '2', c: '2010-01-01', d: 1, e: null }];
 
-  it('createScale(), when data is empty', () => {
-    const aScale = ScaleUtil.createScale('a', []);
+  it('createScaleByField(), when data is empty', () => {
+    const aScale = createScaleByField('a', []);
     expect(aScale.type).toBe('identity');
     expect(aScale.field).toBe('a');
     expect(aScale.values).toEqual(['a']);
 
-    const dScale = ScaleUtil.createScale('d', undefined, {
+    const dScale = createScaleByField('d', undefined, {
       type: 'cat',
       values: ['一', '二', '三'],
     });
@@ -18,27 +18,27 @@ describe('ScaleUtil', () => {
   });
 
   it('create cat scale', () => {
-    const scale = ScaleUtil.createScale('b', data1);
+    const scale = createScaleByField('b', data1);
     expect(scale.type).toBe('cat');
     expect(scale.values).toEqual(['2']);
   });
 
   it('create identity scale', () => {
-    const scale = ScaleUtil.createScale(1, data1);
+    const scale = createScaleByField(1, data1);
     expect(scale.type).toBe('identity');
     expect(scale.values).toEqual([1]);
     expect(scale.field).toBe('1');
   });
 
   it('create identity scale, when first value is null', () => {
-    const scale = ScaleUtil.createScale('e', data1);
+    const scale = createScaleByField('e', data1);
     expect(scale.type).toBe('identity');
     expect(scale.values).toEqual(['e']);
     expect(scale.field).toBe('e');
   });
 
   it('create linear scale', () => {
-    const scale = ScaleUtil.createScale('a', data1, { max: 10 });
+    const scale = createScaleByField('a', data1, { max: 10 });
     expect(scale.type).toBe('linear');
     expect(scale.field).toBe('a');
     expect(scale.min).toBe(0);
@@ -48,14 +48,14 @@ describe('ScaleUtil', () => {
   });
 
   it('create time scale', () => {
-    const scale = ScaleUtil.createScale('c', data1);
+    const scale = createScaleByField('c', data1);
     expect(scale.type).toBe('time');
     // @ts-ignore
     expect(scale.nice).toBe(false);
   });
 
   it('create defined scale', () => {
-    const scale = ScaleUtil.createScale('d', data1, {
+    const scale = createScaleByField('d', data1, {
       type: 'cat',
       values: ['一', '二', '三'],
     });
@@ -66,7 +66,7 @@ describe('ScaleUtil', () => {
   it('create scale with arr', () => {
     const data2 = [{ a: [[4, 5], 6] }, { a: 1 }, { a: [1, 2, 3, 4] }];
 
-    const scale = ScaleUtil.createScale('a', data2, {});
+    const scale = createScaleByField('a', data2, {});
     expect(scale.type).toBe('linear');
     expect(scale.min).toBe(1);
     expect(scale.max).toBe(6);
@@ -80,11 +80,11 @@ describe('ScaleUtil', () => {
       { name: 'B', day: 'Tuesday', sales: 58 },
     ];
     const newData = [{ name: 'C', day: 'Monday', sales: 43 }, { name: 'B', day: 'Monday', sales: 9 }];
-    const oldScale = ScaleUtil.createScale('name', oldData);
+    const oldScale = createScaleByField('name', oldData);
     expect(oldScale.values).toEqual(['A', 'B']);
 
-    const newScale = ScaleUtil.createScale('name', newData);
-    ScaleUtil.syncScale(oldScale, newScale);
+    const newScale = createScaleByField('name', newData);
+    syncScale(oldScale, newScale);
     expect(oldScale.values).toEqual(['C', 'B']);
   });
 });

@@ -25,7 +25,7 @@ function getPath(points: any[]) {
     i++;
   }
 
-  if (!_.isEqual(path[path.length - 1], flag)) {
+  if (!_.isEqual(_.last(path), flag)) {
     path.push(['L', flag.x, flag.y]);
   }
 

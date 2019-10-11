@@ -1,6 +1,5 @@
-import { BBox } from '@antv/g';
 import * as _ from '@antv/util';
-import { Coordinate, getCoordinate } from '../../dependents';
+import { BBox, Coordinate, getCoordinate } from '../../dependents';
 import { CoordinateOption } from '../interface';
 
 /**

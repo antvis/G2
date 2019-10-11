@@ -1,13 +1,12 @@
-import { Group, Shape } from '@antv/g';
 import * as _ from '@antv/util';
-import { LooseObject, ShapeDrawCFG } from '../interface';
+import { FIELD_ORIGIN } from '../constant';
+import { IGroup, IShape } from '../dependents';
+import { Datum, LooseObject, ShapeDrawCFG } from '../interface';
 import { ShapeFactory } from './interface';
-
-const FIELD_ORIGIN = '_origin';
 
 interface ElementCfg {
   /** 原始数据 */
-  data: LooseObject;
+  data: Datum;
   /** 映射后的绘图数据 */
   model: ShapeDrawCFG;
   /** 绘制的 shape 类型 */
@@ -17,7 +16,7 @@ interface ElementCfg {
   /** 主题 */
   theme: LooseObject;
   /** shape 容器 */
-  container: Group;
+  container: IGroup;
 }
 
 /** @class Element 图形元素 */
@@ -25,7 +24,7 @@ export default class Element {
   /** 绘制的 shape 类型 */
   public readonly shapeType: string;
   /** 原始数据 */
-  public data: LooseObject;
+  public data: Datum;
   /** shape 绘制数据 */
   public model: ShapeDrawCFG;
   /** 用于创建各种 shape 的工厂对象 */
@@ -33,9 +32,9 @@ export default class Element {
   /** 主题 */
   public theme: LooseObject;
   /** shape 容器 */
-  public container: Group;
+  public container: IGroup;
   /** 最后创建的图形对象 todo: 重命名，因为有可能是 Group */
-  public shape: Shape | Group;
+  public shape: IShape | IGroup;
   /** 是否已经被销毁 */
   public destroyed: boolean = false;
 
@@ -45,12 +44,18 @@ export default class Element {
   private originStyle: LooseObject = {};
 
   constructor(cfg: ElementCfg) {
-    _.mix(this, cfg);
+    const { data, model, shapeType, shapeFactory, theme, container } = cfg;
+    this.data = data;
+    this.model = model;
+    this.shapeType = shapeType;
+    this.shapeFactory = shapeFactory;
+    this.theme = theme;
+    this.container = container;
 
     // 绘制 shape
-    this._drawShape();
+    this.drawShape();
     // 存储初始样式
-    this._setOriginStyle();
+    this.setOriginStyle();
   }
   /**
    * Sets state
@@ -82,11 +87,14 @@ export default class Element {
 
     // 获取默认的图形样式
     const defaultStyle = this.getStateStyle('default');
-    cfg.style = _.mix({}, defaultStyle, cfg.style);
+    cfg.style = {
+      ...defaultStyle,
+      ...cfg.style,
+    };
     // 更新图形
     shapeFactory.updateShape(shapeType, cfg, this);
     // 更新原始状态
-    this._setOriginStyle();
+    this.setOriginStyle();
     // 更新数据
     this.model = cfg;
     this.data = cfg.origin[FIELD_ORIGIN];
@@ -96,7 +104,7 @@ export default class Element {
    * @todo
    * @param data
    */
-  public updateData(data: LooseObject) {}
+  public updateData(data: Datum) {}
 
   /**
    * @todo 更新图形样式
@@ -133,7 +141,7 @@ export default class Element {
   }
 
   public hasState(stateName: string) {
-    return this.states.indexOf(stateName) !== -1;
+    return this.states.includes(stateName);
   }
 
   public getStates() {
@@ -155,7 +163,7 @@ export default class Element {
   public getStateStyle(stateName: string): LooseObject {
     const { shapeType, theme } = this;
 
-    return _.get(theme, `${shapeType}.${stateName}`, {});
+    return _.get(theme, [shapeType, stateName], {});
   }
   /**
    * 获取初始化样式
@@ -167,33 +175,41 @@ export default class Element {
   public getAnimateCfg(animateType: string) {
     const { shapeType, theme } = this;
 
-    const animateCfg = _.get(theme, `${shapeType}.animate`, {});
+    const animateCfg = _.get(theme, [shapeType, 'animate'], {});
     return animateCfg[animateType];
   }
 
-  private _drawShape() {
+  private drawShape() {
     const { shapeType, shapeFactory, model } = this;
 
     const drawCfg = {
       ...model,
     };
     const defaultStyle = this.getStateStyle('default');
-    drawCfg.style = _.mix({}, defaultStyle, model.style);
+    drawCfg.style = {
+      ...defaultStyle,
+      ...model.style,
+    };
 
     const shape = shapeFactory.drawShape(shapeType, drawCfg, this);
     this.shape = shape;
   }
 
-  private _setOriginStyle() {
+  // FIXME: 嵌套 Group 的场景
+  private setOriginStyle() {
     const shape = this.shape;
-    if ((shape as Group).isGroup) {
+    if ((shape as IGroup).isGroup()) {
       const children = shape.get('children');
       _.each(children, (child, index) => {
         const key = child.name || index;
-        this.originStyle[key] = _.mix({}, child.attr());
+        this.originStyle[key] = {
+          ...child.attr(),
+        };
       });
     } else {
-      this.originStyle = _.mix({}, shape.attr());
+      this.originStyle = {
+        ...shape.attr(),
+      };
     }
   }
 }

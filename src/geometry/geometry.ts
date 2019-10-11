@@ -1,66 +1,27 @@
 import * as _ from '@antv/util';
-import ScaleUtil from '../util/scale';
+import { createScaleByField, syncScale } from '../util/scale';
 import Element from './element';
 import { getShapeFactory } from './shape';
 import { parseFields } from './util/parse-fields';
 
 import { Adjust, getAdjust } from '@antv/adjust';
 import { Attribute, getAttribute as getAttributeClass } from '@antv/attr';
-import { Coordinate, Scale } from '../dependents';
-import { AdjustType, LooseObject, Point, ScaleOption, ShapeDrawCFG } from '../interface';
-
-import { Group } from '@antv/g';
-
-const GROUP_ATTRS = ['color', 'shape', 'size'];
-const FIELD_ORIGIN = '_origin';
-
-type ColorAttrCallback = (...args) => string;
-type ShapeAttrCallback = (...args) => string | any[];
-type SizeAttrCallback = (...args) => number;
-type TooltipCallback = (...args) => LooseObject;
-type StyleCallback = (...args) => LooseObject;
-
-interface AttributeOption {
-  /** 映射的属性字段 */
-  fields?: string[];
-  /** 回调函数 */
-  callback?: (...args) => any;
-  /** 指定常量映射规则 */
-  values?: any[];
-}
-
-interface AdjustOption {
-  /** 调整类型 */
-  readonly type: AdjustType;
-  /**
-   * type 为 'dodge' 时生效，数值范围为 0 至 1，用于调整分组中各个柱子的间距
-   */
-  readonly marginRatio?: number;
-  /**
-   * type 为 'stack' 时生效，控制层叠的顺序，默认是 true
-   */
-  readonly reverseOrder?: boolean;
-  /**
-   * type 为 'dodge' 时生效, 按照声明的字段进行分组
-   */
-  readonly dodgeBy?: string;
-}
-
-interface StyleOption {
-  /** 映射的字段 */
-  readonly fields?: string[];
-  /** 回调函数 */
-  readonly callback?: (...args) => LooseObject;
-  /** 图形样式配置 */
-  readonly cfg?: LooseObject;
-}
-
-interface TooltipOption {
-  /** 参与映射的字段 */
-  readonly fields: string[];
-  /** 回调函数 */
-  readonly callback?: (...args) => LooseObject;
-}
+import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
+import { Coordinate, IGroup, Scale } from '../dependents';
+import { AdjustType, Data, Datum, LooseObject, Point, ScaleOption, ShapeDrawCFG } from '../interface';
+import {
+  AdjustOption,
+  AttributeOption,
+  ColorAttrCallback,
+  ShapeAttrCallback,
+  ShapeFactory,
+  ShapePoint,
+  SizeAttrCallback,
+  StyleCallback,
+  StyleOption,
+  TooltipCallback,
+  TooltipOption,
+} from './interface';
 
 interface AttributeInstanceCfg {
   fields?: string[];
@@ -86,7 +47,7 @@ interface AdjustInstanceCfg {
 
 interface MappedRecord {
   /** 原始数据 */
-  _origin: LooseObject;
+  _origin: Datum;
   /** 关键点坐标集合 */
   points?: Point[];
   /** 下一个 shape 的关键点坐标集合 */
@@ -96,6 +57,18 @@ interface MappedRecord {
   color?: string;
   shape?: string;
   size?: number;
+}
+
+interface GeometryCfg {
+  container: IGroup;
+  coordinate?: Coordinate;
+  data?: Data;
+  scaleDefs?: ScaleOption;
+  generatePoints?: boolean;
+  sortable?: boolean;
+  visible?: boolean;
+  theme?: LooseObject;
+  scales?: Record<string, Scale>;
 }
 
 /**
@@ -112,9 +85,9 @@ export default class Geometry {
   /** 坐标系对象 */
   public coordinate: Coordinate = null;
   /** data 数据 */
-  public data: LooseObject[] = null;
+  public data: Data = null;
   /** 图形容器 */
-  public readonly container: Group = null;
+  public readonly container: IGroup = null;
   /** scale 配置 */
   public scaleDefs: ScaleOption = {};
   /** 是否生成多个点来绘制图形 */
@@ -134,29 +107,49 @@ export default class Geometry {
   /** Element 实例集合 */
   public elements: Element[] = [];
   /** 分组、数字化、adjust 后的数据 */
-  public dataArray;
+  public dataArray: Data[];
 
   // 配置项属性存储
   /** 图形属性映射配置 */
   protected attributeOption: Record<string, AttributeOption> = {};
   /** tooltip 配置项 */
-  protected tooltipOption = null;
+  protected tooltipOption: TooltipOption | boolean = null;
   /** adjust 配置项 */
-  protected adjustOption = null;
+  protected adjustOption: AdjustOption[] = null;
   /** style 配置项 */
-  protected styleOption = null;
+  protected styleOption: StyleOption = null;
   /** label 配置项 */
   protected labelOption = null;
   /** animate 配置项 */
   protected animateOption = null;
 
-  private shapeFactory;
+  private shapeFactory: ShapeFactory;
   private adjusts: Record<string, Adjust> = {};
   private elementsMap: Record<string, Element> = {};
   private lastElementsMap: Record<string, Element> = {};
 
-  constructor(cfg) {
-    _.mix(this, cfg);
+  constructor(cfg: GeometryCfg) {
+    const {
+      container,
+      coordinate,
+      data,
+      scaleDefs = {},
+      generatePoints = false,
+      sortable = false,
+      visible = true,
+      theme,
+      scales = {},
+    } = cfg;
+
+    this.container = container;
+    this.coordinate = coordinate;
+    this.data = data;
+    this.scaleDefs = scaleDefs;
+    this.generatePoints = generatePoints;
+    this.sortable = sortable;
+    this.visible = visible;
+    this.theme = theme;
+    this.scales = scales;
   }
 
   /**
@@ -165,11 +158,11 @@ export default class Geometry {
    */
   public position(cfg: string | AttributeOption): Geometry {
     if (_.isString(cfg)) {
-      this._setAttrOptions('position', {
+      _.set(this.attributeOption, 'position', {
         fields: parseFields(cfg),
       });
     } else {
-      this._setAttrOptions('position', cfg);
+      _.set(this.attributeOption, 'position', cfg);
     }
 
     return this;
@@ -179,8 +172,10 @@ export default class Geometry {
    * 颜色通道的映射配置
    * @param cfg 颜色通道的映射规则
    */
+  public color(field: AttributeOption): Geometry;
+  public color(field: string, cfg?: string[] | ColorAttrCallback): Geometry;
   public color(field: AttributeOption | string, cfg?: string[] | ColorAttrCallback): Geometry {
-    this._createAttrOption('color', field, cfg);
+    this.createAttrOption('color', field, cfg);
 
     return this;
   }
@@ -189,19 +184,22 @@ export default class Geometry {
    * 形状通道的映射配置
    * @param cfg 形状通道的映射规则
    */
+  public shape(field: AttributeOption): Geometry;
+  public shape(field: string, cfg?: string[] | ShapeAttrCallback): Geometry;
   public shape(field: AttributeOption | string, cfg?: string[] | ShapeAttrCallback): Geometry {
-    this._createAttrOption('shape', field, cfg);
+    this.createAttrOption('shape', field, cfg);
 
     return this;
   }
 
   /**
-   * TODO: 如何支持接收相对值以及绝对值
    * 大小通道的映射配置
    * @param cfg 大小通道的映射规则
    */
+  public size(field: AttributeOption): Geometry;
+  public size(field: number | string, cfg?: [number, number] | SizeAttrCallback): Geometry;
   public size(field: AttributeOption | number | string, cfg?: [number, number] | SizeAttrCallback): Geometry {
-    this._createAttrOption('size', field, cfg);
+    this.createAttrOption('size', field, cfg);
 
     return this;
   }
@@ -229,6 +227,8 @@ export default class Geometry {
    * style 图形样式属性配置
    * @param cfg 图形样式配置
    */
+  public style(field: StyleOption | LooseObject): Geometry;
+  public style(field: string, styleFunc: StyleCallback): Geometry;
   public style(field: StyleOption | LooseObject | string, styleFunc?: StyleCallback): Geometry {
     if (_.isString(field)) {
       const fields = parseFields(field);
@@ -250,6 +250,8 @@ export default class Geometry {
     return this;
   }
 
+  public tooltip(field: TooltipOption | boolean): Geometry;
+  public tooltip(field: string, cfg?: TooltipCallback): Geometry;
   public tooltip(field: TooltipOption | boolean | string, cfg?: TooltipCallback): Geometry {
     if (_.isString(field)) {
       const fields = parseFields(field);
@@ -278,43 +280,36 @@ export default class Geometry {
    */
   public label() {}
 
-  public init() {
+  public initial() {
     // TODO: @simaq 是否可以移除设置矩阵这一步？
     const coordinate = this.coordinate;
     const container = this.container;
     container.setMatrix(coordinate.matrix);
 
-    this._initAttrs(); // 创建图形属性
+    this.initAttributes(); // 创建图形属性
 
     // 为 tooltip 的字段创建对应的 scale 实例
     const tooltipOption = this.tooltipOption;
     const tooltipFields = _.get(tooltipOption, 'fields');
     if (tooltipFields) {
       tooltipFields.forEach((field: string) => {
-        this._createScale(field);
+        this.createScale(field);
       });
     }
     // 数据加工：分组 -> 数字化 -> adjust
-    this._processData(this.data);
+    this.processData(this.data);
   }
   /**
    * Updates data
    * @param data
    */
-  public updateData(data: LooseObject[]) {
+  public updateData(data: Data) {
     this.data = data;
 
     // 更新 scale
-    const { scaleDefs, scales } = this;
-    _.each(scales, (scale) => {
-      const { type, field } = scale;
-      if (type !== 'identity') {
-        const newScale = ScaleUtil.createScale(field, data, scaleDefs[field]);
-        ScaleUtil.syncScale(scale, newScale);
-      }
-    });
+    this.updateScales();
     // 数据加工：分组 -> 数字化 -> adjust
-    this._processData(data);
+    this.processData(data);
   }
 
   /** 进行数据到图形空间的映射同时绘制图形 */
@@ -323,11 +318,11 @@ export default class Geometry {
     this.elementsMap = {};
 
     const dataArray = this.dataArray;
-    this._beforeMapping(dataArray);
+    this.beforeMapping(dataArray);
 
     const mappedArray = [];
-    for (let i = 0, len = dataArray.length; i < len; i += 1) {
-      const mappedData = this._mapping(dataArray[i]);
+    for (const eachGroup of dataArray) {
+      const mappedData = this.mapping(eachGroup);
       mappedArray.push(mappedData);
       this.createElements(mappedData);
     }
@@ -339,7 +334,7 @@ export default class Geometry {
     //   this.set('labels', labels);
     // }
 
-    this._afterMapping(mappedArray);
+    this.afterMapping(mappedArray);
 
     // 销毁被删除的 elements
     _.each(this.lastElementsMap, (deletedElement, id) => {
@@ -372,17 +367,17 @@ export default class Geometry {
   public destroy() {
     this.clear();
     const container = this.container;
-    container.remove();
+    container.remove(true);
   }
 
   public getGroupScales() {
     const scales = [];
     const attributes = this.attributes;
     _.each(attributes, (attr: Attribute) => {
-      if (GROUP_ATTRS.indexOf(attr.type) !== -1) {
+      if (GROUP_ATTRS.includes(attr.type)) {
         const attrScales = attr.scales;
         _.each(attrScales, (scale: Scale) => {
-          if (scale.isCategory && _.indexOf(scales, scale) === -1) {
+          if (scale.isCategory && !scales.includes(scale)) {
             scales.push(scale);
           }
         });
@@ -424,7 +419,7 @@ export default class Geometry {
     return value;
   }
 
-  public getAttrValues(attr: Attribute, record: LooseObject) {
+  public getAttrValues(attr: Attribute, record: Datum) {
     const scales = attr.scales;
 
     const params = _.map(scales, (scale: Scale) => {
@@ -444,19 +439,30 @@ export default class Geometry {
     return this.adjusts[adjustType];
   }
 
+  protected updateScales() {
+    const { scaleDefs, scales, data } = this;
+    _.each(scales, (scale) => {
+      const { type, field } = scale;
+      if (type !== 'identity') {
+        const newScale = createScaleByField(field, data, scaleDefs[field]);
+        syncScale(scale, newScale);
+      }
+    });
+  }
+
   /**
    * @protected
    * 根据数据获取图形的关键点数据
    * @param obj 数据对象
    */
-  protected createShapePointsCfg(obj: LooseObject): LooseObject {
+  protected createShapePointsCfg(obj: Datum): ShapePoint {
     const xScale = this.getXScale();
     const yScale = this.getYScale();
-    const x = this._normalizeValues(obj[xScale.field], xScale);
+    const x = this.normalizeValues(obj[xScale.field], xScale);
     let y; // 存在没有 y 的情况
 
     if (yScale) {
-      y = this._normalizeValues(obj[yScale.field], yScale);
+      y = this.normalizeValues(obj[yScale.field], yScale);
     } else {
       y = obj.y ? obj.y : 0.1;
     }
@@ -464,11 +470,11 @@ export default class Geometry {
     return {
       x,
       y,
-      y0: yScale ? yScale.scale(this._getYMinValue()) : undefined,
+      y0: yScale ? yScale.scale(this.getYMinValue()) : undefined,
     };
   }
 
-  protected createElement(record: LooseObject, groupIndex: number): Element {
+  protected createElement(record: Datum, groupIndex: number): Element {
     const originData = record[FIELD_ORIGIN];
     const { theme, container } = this;
 
@@ -480,7 +486,7 @@ export default class Geometry {
       data: originData,
       model: shapeCfg,
       shapeType: shape,
-      theme: _.get(theme, `${this.shapeType}`, {}),
+      theme: _.get(theme, this.shapeType, {}),
       shapeFactory,
       container,
     });
@@ -501,7 +507,7 @@ export default class Geometry {
 
     const styleOption = this.styleOption;
     if (styleOption) {
-      cfg.style = this._getStyleCfg(styleOption, obj[FIELD_ORIGIN]);
+      cfg.style = this.getStyleCfg(styleOption, obj[FIELD_ORIGIN]);
     }
     if (this.generatePoints) {
       cfg.points = obj.points;
@@ -511,11 +517,11 @@ export default class Geometry {
     return cfg;
   }
 
-  protected createElements(mappedArray: LooseObject[]) {
+  protected createElements(mappedArray: Data) {
     const { lastElementsMap, elementsMap, elements } = this;
     _.each(mappedArray, (record, i) => {
       const originData = record[FIELD_ORIGIN];
-      const id = this._getElementId(originData);
+      const id = this.getElementId(originData);
       let result = lastElementsMap[id];
       if (!result) {
         // 创建新的 element
@@ -537,16 +543,10 @@ export default class Geometry {
     return elements;
   }
 
-  // 存储用户设置的图形属性配置项
-  private _setAttrOptions(name: string, cfg: AttributeOption) {
-    const attributeOption = this.attributeOption;
-    attributeOption[name] = cfg;
-  }
-
   // 创建图形属性相关的配置项
-  private _createAttrOption(attrName: string, field: AttributeOption | string | number, cfg?) {
-    if (_.isObject(field)) {
-      this._setAttrOptions(attrName, field);
+  private createAttrOption(attrName: string, field: AttributeOption | string | number, cfg?) {
+    if (!field || _.isObject(field)) {
+      _.set(this.attributeOption, attrName, field);
     } else {
       const attrCfg: AttributeOption = {};
       if (_.isNumber(field)) {
@@ -564,29 +564,32 @@ export default class Geometry {
         }
       }
 
-      this._setAttrOptions(attrName, attrCfg);
+      _.set(this.attributeOption, attrName, attrCfg);
     }
   }
 
   // 创建 scale 实例
-  private _createScale(field: string) {
+  private createScale(field: string) {
     const scales = this.scales;
     let scale = scales[field];
     if (!scale) {
       const data = this.data;
       const scaleDefs = this.scaleDefs;
-      scale = ScaleUtil.createScale(field, data, scaleDefs[field]);
+      scale = createScaleByField(field, data, scaleDefs[field]);
       scales[field] = scale;
     }
 
     return scale;
   }
 
-  private _initAttrs() {
+  private initAttributes() {
     const { attributes, attributeOption, theme, shapeType, coordinate } = this;
 
     // 遍历每一个 attrOption，各自创建 Attribute 实例
     _.each(attributeOption, (option: AttributeOption, attrType: string) => {
+      if (!option) {
+        return;
+      }
       const attrCfg: AttributeInstanceCfg = {
         ...option,
       };
@@ -594,7 +597,7 @@ export default class Geometry {
 
       // 给每一个字段创建 scale
       const scales = _.map(fields, (field) => {
-        return this._createScale(field);
+        return this.createScale(field);
       });
 
       // 特殊逻辑：饼图需要填充满整个空间
@@ -609,11 +612,7 @@ export default class Geometry {
 
       attrCfg.scales = scales;
 
-      if (
-        _.indexOf(['color', 'size', 'shape', 'opacity'], attrType) !== -1 &&
-        scales.length === 1 &&
-        scales[0].type === 'identity'
-      ) {
+      if (attrType !== 'position' && scales.length === 1 && scales[0].type === 'identity') {
         // 用户在图形通道上声明了常量字段 color('red'), size(5)
         attrCfg.values = scales[0].values;
       } else if (!callback && !values) {
@@ -623,33 +622,32 @@ export default class Geometry {
         } else if (attrType === 'shape') {
           attrCfg.values = theme.shapes[shapeType] || [];
         } else if (attrType === 'color') {
-          // TODO 需要优化
           attrCfg.values = theme.colors;
         }
       }
-      const attributeCtor = getAttributeClass(attrType);
-      attributes[attrType] = new attributeCtor(attrCfg);
+      const AttributeCtor = getAttributeClass(attrType);
+      attributes[attrType] = new AttributeCtor(attrCfg);
     });
   }
 
   // 处理数据：分组 -> 数字化 -> adjust 调整
-  private _processData(data: LooseObject[]) {
-    let groupedArray = this._groupData(data); // 数据分组
+  private processData(data: Data) {
+    let groupedArray = this.groupData(data); // 数据分组
 
-    groupedArray = _.map(groupedArray, (subData: LooseObject[]) => {
-      const tempData = this._saveOrigin(subData); // 存储原始数据
-      this._numeric(tempData); // 将分类数据转换成数字
+    groupedArray = _.map(groupedArray, (subData: Data) => {
+      const tempData = this.saveOrigin(subData); // 存储原始数据
+      this.numeric(tempData); // 将分类数据转换成数字
       return tempData;
     });
 
-    const dataArray = this._adjustData(groupedArray); // 进行 adjust 数据调整
+    const dataArray = this.adjustData(groupedArray); // 进行 adjust 数据调整
     this.dataArray = dataArray;
 
     return dataArray;
   }
 
   // 调整数据
-  private _adjustData(dataArray: LooseObject[][]): LooseObject[][] {
+  private adjustData(dataArray: Data[]): Data[] {
     const adjustOption = this.adjustOption;
     let result = dataArray;
     if (adjustOption) {
@@ -694,7 +692,7 @@ export default class Geometry {
 
         result = adjustInstance.process(result);
         if (type === 'stack' && yScale) {
-          this._updateStackRange(yField, yScale, result);
+          this.updateStackRange(yField, yScale, result);
         }
 
         this.adjusts[type] = adjustInstance;
@@ -705,7 +703,7 @@ export default class Geometry {
   }
 
   // 对数据进行分组
-  private _groupData(data: LooseObject[]): LooseObject[][] {
+  private groupData(data: Data): Data[] {
     const groupScales = this.getGroupScales();
     const fields = groupScales.map((scale) => scale.field);
 
@@ -713,8 +711,8 @@ export default class Geometry {
   }
 
   // 数据调整前保存原始数据
-  private _saveOrigin(data: LooseObject[]): LooseObject[] {
-    return _.map(data, (origin: LooseObject) => {
+  private saveOrigin(data: Data): Data {
+    return _.map(data, (origin: Datum) => {
       return {
         ...origin,
         [FIELD_ORIGIN]: origin, // 存入 origin 数据
@@ -723,7 +721,7 @@ export default class Geometry {
   }
 
   // 将分类数据翻译成数据, 仅对位置相关的度量进行数字化处理
-  private _numeric(data: LooseObject[]) {
+  private numeric(data: Data) {
     const positionAttr = this.getAttribute('position');
     const scales = positionAttr.scales;
     for (let j = 0, len = data.length; j < len; j += 1) {
@@ -739,12 +737,11 @@ export default class Geometry {
   }
 
   // 更新发生层叠后的数据对应的度量范围
-  private _updateStackRange(field: string, scale: Scale, dataArray: LooseObject[][]) {
+  private updateStackRange(field: string, scale: Scale, dataArray: Data[]) {
     const mergeArray = _.flatten(dataArray);
     let min = scale.min;
     let max = scale.max;
-    for (let i = 0, len = mergeArray.length; i < len; i += 1) {
-      const obj = mergeArray[i];
+    for (const obj of mergeArray) {
       const tmpMin = Math.min.apply(null, obj[field]);
       const tmpMax = Math.max.apply(null, obj[field]);
       if (tmpMin < min) {
@@ -763,44 +760,42 @@ export default class Geometry {
   }
 
   // 将数据映射至图形空间前的操作：排序以及关键点的生成
-  private _beforeMapping(dataArray: LooseObject[][]) {
+  private beforeMapping(dataArray: Data[]) {
     if (this.sortable) {
       const xScale = this.getXScale();
       const field = xScale.field;
       _.each(dataArray, (data) => {
         data.sort((v1: object, v2: object) => {
-          return xScale.translate(v1[field]) - xScale.translate(v2[field]); // TODO
+          return xScale.translate(v1[field]) - xScale.translate(v2[field]);
         });
       });
     }
     if (this.generatePoints) {
       // 需要生成关键点
       _.each(dataArray, (data) => {
-        this._generatePoints(data);
+        this.generateShapePoints(data);
       });
-      _.each(dataArray, (data, index) => {
-        const nextData = dataArray[index + 1];
-        if (nextData) {
-          data[0].nextPoints = nextData[0].points;
-        }
-      });
+
+      dataArray.reduce((preData: Data, currentData: Data) => {
+        preData[0].nextPoints = currentData[0].points;
+        return currentData;
+      }, dataArray[0]);
     }
   }
 
   // 映射完毕后，对最后的结果集进行排序，方便后续 tooltip 的数据查找
-  private _afterMapping(dataArray: LooseObject[][]) {
+  private afterMapping(dataArray: Data[]) {
     if (!this.sortable) {
-      this._sort(dataArray);
+      this.sort(dataArray);
     }
     this.dataArray = dataArray;
   }
 
   // 生成 shape 的关键点
-  private _generatePoints(data: LooseObject[]) {
-    const shapeFactory = this._getShapeFactory();
+  private generateShapePoints(data: Data) {
+    const shapeFactory = this.getShapeFactory();
     const shapeAttr = this.getAttribute('shape');
-    for (let i = 0, len = data.length; i < len; i += 1) {
-      const obj = data[i];
+    for (const obj of data) {
       const cfg = this.createShapePointsCfg(obj);
       const shape = shapeAttr ? this.getAttrValues(shapeAttr, obj) : null;
       const points = shapeFactory.getShapePoints(shape, cfg);
@@ -809,13 +804,10 @@ export default class Geometry {
   }
 
   // 将数据归一化
-  private _normalizeValues(values, scale) {
+  private normalizeValues(values, scale) {
     let rst = [];
     if (_.isArray(values)) {
-      for (let i = 0, len = values.length; i < len; i += 1) {
-        const v = values[i];
-        rst.push(scale.scale(v));
-      }
+      rst = values.map((v) => scale.scale(v));
     } else {
       rst = scale.scale(values);
     }
@@ -823,7 +815,7 @@ export default class Geometry {
   }
 
   // 获取 Y 轴上的最小值
-  private _getYMinValue(): number {
+  private getYMinValue(): number {
     const yScale = this.getYScale();
     const { min, max } = yScale;
     let value: number;
@@ -840,11 +832,10 @@ export default class Geometry {
   }
 
   // 将数据映射至图形空间
-  private _mapping(data: LooseObject[]) {
+  private mapping(data: Data) {
     const attributes = this.attributes;
     const mappedData = [];
-    for (let i = 0, len = data.length; i < len; i += 1) {
-      const record = data[i];
+    for (const record of data) {
       const newRecord: MappedRecord = {
         _origin: record[FIELD_ORIGIN],
         points: record.points,
@@ -874,7 +865,7 @@ export default class Geometry {
         }
       }
 
-      this._convertPoint(newRecord); // 将 x、y 转换成画布坐标
+      this.convertPoint(newRecord); // 将 x、y 转换成画布坐标
       mappedData.push(newRecord);
     }
 
@@ -882,7 +873,7 @@ export default class Geometry {
   }
 
   // 将归一化的坐标值转换成画布坐标
-  private _convertPoint(mappedRecord: MappedRecord) {
+  private convertPoint(mappedRecord: MappedRecord) {
     const { x, y } = mappedRecord;
     if (_.isNil(x) || _.isNil(y)) {
       return;
@@ -950,7 +941,7 @@ export default class Geometry {
   }
 
   // 对数据进行排序
-  private _sort(mappedArray: object[][]) {
+  private sort(mappedArray: object[][]) {
     const xScale = this.getXScale();
     const xField = xScale.field;
     _.each(mappedArray, (itemArr: object[]) => {
@@ -960,7 +951,7 @@ export default class Geometry {
     });
   }
 
-  private _getElementId(origin: object) {
+  private getElementId(origin: object) {
     const type = this.type;
     const xScale = this.getXScale();
     const yScale = this.getYScale();
@@ -996,7 +987,7 @@ export default class Geometry {
     // 用户在进行 dodge 类型的 adjust 调整的时候设置了 dodgeBy 属性
     const dodgeAdjust = this.getAdjust('dodge');
     if (dodgeAdjust) {
-      const { dodgeBy } = dodgeAdjust.cfg;
+      const dodgeBy = dodgeAdjust.dodgeBy;
       if (dodgeBy) {
         id = `${id}-${origin[dodgeBy]}`;
       }
@@ -1006,7 +997,7 @@ export default class Geometry {
   }
 
   // 获取 style 配置
-  private _getStyleCfg(styleOption: StyleOption, origin: object) {
+  private getStyleCfg(styleOption: StyleOption, origin: object) {
     const { fields = [], callback, cfg } = styleOption;
     if (cfg) {
       // 用户直接配置样式属性
@@ -1021,7 +1012,7 @@ export default class Geometry {
   }
 
   // 获取 element 对应 shape 的工厂对象
-  private _getShapeFactory() {
+  private getShapeFactory() {
     let shapeFactory = this.shapeFactory;
     if (!shapeFactory) {
       const shapeType = this.shapeType;

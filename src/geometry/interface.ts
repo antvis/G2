@@ -1,6 +1,5 @@
-import { Group as GGroup, Shape as GShape } from '@antv/g';
-import { Coordinate } from '../dependents';
-import { LooseObject, Point, ShapeDrawCFG } from '../interface';
+import { Coordinate, IGroup, IShape } from '../dependents';
+import { AdjustType, LooseObject, Point, ShapeDrawCFG } from '../interface';
 import Element from './element';
 
 /** shape 关键点信息 */
@@ -8,8 +7,7 @@ export interface ShapePoint {
   readonly x: number | number[];
   readonly y: number | number[];
   readonly y0?: number;
-  readonly size?: number;
-  readonly _size?: number;
+  size?: number;
 }
 
 // Shape Module start
@@ -20,9 +18,9 @@ export interface RegisterShapeFactory {
   /** 返回绘制 shape 所有的关键点集合 */
   readonly getDefaultPoints?: (pointInfo: ShapePoint) => Point[];
   /** 获取 shape 对应的缩略图 */
-  readonly getMarker?: (shapeType: string, markerCfg: LooseObject) => GShape | GGroup;
+  readonly getMarker?: (shapeType: string, markerCfg: LooseObject) => IShape | IGroup;
   /** 创建具体的 G.Shape 实例 */
-  readonly drawShape?: (shapeType: string, cfg: ShapeDrawCFG, element: Element) => GShape | GGroup;
+  readonly drawShape?: (shapeType: string, cfg: ShapeDrawCFG, element: Element) => IShape | IGroup;
   /** 更新 shape */
   readonly updateShape?: (shapeType: string, cfg: ShapeDrawCFG, element: Element) => void;
   /** 设置 shape 状态 */
@@ -34,9 +32,9 @@ export interface RegisterShape {
   /** 计算绘制需要的关键点，在注册具体的 shape 时由开发者自己定义 */
   readonly getPoints?: (pointInfo: ShapePoint) => Point[];
   /** 获取 shape 对应的缩略图样式配置，在注册具体的 shape 时由开发者自己定义 */
-  readonly getMarker?: (markerCfg: LooseObject) => GShape | GGroup;
+  readonly getMarker?: (markerCfg: LooseObject) => IShape | IGroup;
   /** 绘制 */
-  readonly draw: (cfg: ShapeDrawCFG, container: Element) => GShape | GGroup;
+  readonly draw: (cfg: ShapeDrawCFG, container: Element) => IShape | IGroup;
   /** 更新 shape */
   readonly update: (cfg: ShapeDrawCFG, container: Element) => void;
   /** todo 销毁 */
@@ -72,3 +70,60 @@ export interface ShapeFactory extends RegisterShapeFactory {
   /** 销毁 shape */
   destroy: (shapeType: string) => void;
 }
+
+/** 图形属性配置项定义，如 position({}) */
+export interface AttributeOption {
+  /** 映射的属性字段 */
+  fields?: string[];
+  /** 回调函数 */
+  callback?: (...args) => any;
+  /** 指定常量映射规则 */
+  values?: any[];
+}
+
+/** 数据调整配置项定义，`adjust({})` */
+export interface AdjustOption {
+  /** 调整类型 */
+  readonly type: AdjustType;
+  /**
+   * type 为 'dodge' 时生效，数值范围为 0 至 1，用于调整分组中各个柱子的间距
+   */
+  readonly marginRatio?: number;
+  /**
+   * type 为 'dodge' 时生效, 按照声明的字段进行分组
+   */
+  readonly dodgeBy?: string;
+  /**
+   * type 为 'stack' 时生效，控制层叠的顺序，默认是 true
+   */
+  readonly reverseOrder?: boolean;
+}
+
+/** `style({})` 样式配置定义 */
+export interface StyleOption {
+  /** 映射的字段 */
+  readonly fields?: string[];
+  /** 回调函数 */
+  readonly callback?: (...args) => LooseObject;
+  /** 图形样式配置 */
+  readonly cfg?: LooseObject;
+}
+
+/** `tooltip({})` Tooltip 配置定义 */
+export interface TooltipOption {
+  /** 参与映射的字段 */
+  readonly fields: string[];
+  /** 回调函数 */
+  readonly callback?: (...args) => LooseObject;
+}
+
+/** color() 图形属性回调函数定义 */
+export type ColorAttrCallback = (...args) => string;
+/** shape() 图形属性回调函数定义 */
+export type ShapeAttrCallback = (...args) => string | any[];
+/** size() 图形属性回调函数定义 */
+export type SizeAttrCallback = (...args) => number;
+/** tooltip() 接口回调函数定义 */
+export type TooltipCallback = (...args) => LooseObject;
+/** style() 接口回调函数定义 */
+export type StyleCallback = (...args) => LooseObject;

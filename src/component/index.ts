@@ -1,5 +1,6 @@
 import EE from '@antv/event-emitter';
-import { BBox, Group } from '@antv/g';
+import { BBox } from '../dependents';
+import { translate } from '../util/transform';
 
 type Position = [number, number];
 
@@ -48,13 +49,21 @@ export default abstract class Component extends EE {
    * @param y
    */
   public move(x: number, y: number) {
-    this.container.move(x, y);
+    const container = this.container;
+    const originX = container.get('x') || 0;
+    const originY = container.get('y') || 0;
+
+    translate(container, x - originX, y - originY);
+
+    container.set('x', x);
+    container.set('y', y);
   }
 
   /**
    * 销毁
    */
   public destroy() {
+    this.container.remove();
     this.container.destroy();
   }
 
