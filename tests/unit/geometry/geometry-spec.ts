@@ -4,7 +4,7 @@ import { getCoordinate, Group } from '../../../src/dependents';
 import Geometry from '../../../src/geometry/geometry';
 import * as Shape from '../../../src/geometry/shape';
 import { LooseObject } from '../../../src/interface';
-import { createCanvas } from '../../util/dom';
+import { createCanvas, createDiv, removeDom } from '../../util/dom';
 import Theme from '../../util/theme';
 
 const Rect = getCoordinate('rect');
@@ -228,12 +228,10 @@ describe('Geometry', () => {
     let canvas;
     let div;
     beforeAll(() => {
-      div = document.createElement('div');
-      div.id = 'base';
-      document.body.appendChild(div);
+      div = createDiv();
 
       canvas = createCanvas({
-        container: 'base',
+        container: div,
       });
       const data = [
         { month: '一月', temperature: 5, city: '北京', year: '2018' },
@@ -449,7 +447,7 @@ describe('Geometry', () => {
 
     afterAll(() => {
       canvas.destroy();
-      document.body.removeChild(div);
+      removeDom(div);
     });
   });
 });
