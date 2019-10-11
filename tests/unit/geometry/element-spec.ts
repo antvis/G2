@@ -1,4 +1,4 @@
-import { Group } from '@antv/g';
+import { Group } from '../../../src/dependents';
 import Element from '../../../src/geometry/element';
 import * as Shape from '../../../src/geometry/shape';
 
@@ -7,7 +7,7 @@ describe('Element', () => {
   let element;
 
   beforeAll(() => {
-    container = new Group();
+    container = new Group({});
 
     Shape.registerShapeFactory('shapes', {
       defaultShapeType: 'circle',

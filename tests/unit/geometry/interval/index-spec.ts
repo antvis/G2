@@ -1,8 +1,7 @@
 import { getCoordinate } from '@antv/coord';
-import { Canvas } from '@antv/g';
 import { isNumberEqual } from '@antv/util';
 import Interval from '../../../../src/geometry/interval';
-import { createDiv, removeDom } from '../../../util/dom';
+import { createCanvas, createDiv, removeDom } from '../../../util/dom';
 import Theme from '../../../util/theme';
 
 import 'jest-extended';
@@ -11,12 +10,8 @@ const CartesianCoordinate = getCoordinate('rect');
 
 describe('Interval', () => {
   const div = createDiv();
-  const canvas = new Canvas({
-    containerDOM: div,
-    renderer: 'canvas',
-    width: 200,
-    height: 200,
-    pixelRatio: 2,
+  const canvas = createCanvas({
+    container: div,
   });
   const rectCoord = new CartesianCoordinate({
     start: { x: 0, y: 180 },

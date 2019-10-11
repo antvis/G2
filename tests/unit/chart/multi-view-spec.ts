@@ -1,4 +1,3 @@
-import { Canvas, Group } from '@antv/g';
 import { Chart } from '../../../src';
 import { createDiv } from '../../util/dom';
 

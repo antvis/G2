@@ -1,10 +1,8 @@
 import { getCoordinate } from '@antv/coord';
-import { Canvas } from '@antv/g';
 import { getScale } from '@antv/scale';
-import { isNumberEqual, mix } from '@antv/util';
 import Interval from '../../../../src/geometry/interval';
 import { getDefaultSize } from '../../../../src/geometry/util/shape-size';
-import { createDiv, removeDom } from '../../../util/dom';
+import { createCanvas, createDiv, removeDom } from '../../../util/dom';
 import Theme from '../../../util/theme';
 
 import 'jest-extended';
@@ -18,12 +16,8 @@ const IdentityScale = getScale('identity');
 
 describe('Calculate shape size', () => {
   const div = createDiv();
-  const canvas = new Canvas({
-    containerDOM: div,
-    renderer: 'canvas',
-    width: 600,
-    height: 600,
-    pixelRatio: 2,
+  const canvas = createCanvas({
+    container: div,
   });
   const rectCoord = new CartesianCoordinate({
     start: { x: 0, y: 180 },
@@ -327,6 +321,6 @@ describe('Calculate shape size', () => {
   });
 
   afterAll(() => {
-    // removeDom(div);
+    removeDom(div);
   });
 });

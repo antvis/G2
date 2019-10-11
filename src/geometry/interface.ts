@@ -1,5 +1,4 @@
-import { Group as GGroup, Shape as GShape } from '@antv/g';
-import { Coordinate } from '../dependents';
+import { Coordinate, IGroup, IShape } from '../dependents';
 import { AdjustType, LooseObject, Point, ShapeDrawCFG } from '../interface';
 import Element from './element';
 
@@ -19,9 +18,9 @@ export interface RegisterShapeFactory {
   /** 返回绘制 shape 所有的关键点集合 */
   readonly getDefaultPoints?: (pointInfo: ShapePoint) => Point[];
   /** 获取 shape 对应的缩略图 */
-  readonly getMarker?: (shapeType: string, markerCfg: LooseObject) => GShape | GGroup;
+  readonly getMarker?: (shapeType: string, markerCfg: LooseObject) => IShape | IGroup;
   /** 创建具体的 G.Shape 实例 */
-  readonly drawShape?: (shapeType: string, cfg: ShapeDrawCFG, element: Element) => GShape | GGroup;
+  readonly drawShape?: (shapeType: string, cfg: ShapeDrawCFG, element: Element) => IShape | IGroup;
   /** 更新 shape */
   readonly updateShape?: (shapeType: string, cfg: ShapeDrawCFG, element: Element) => void;
   /** 设置 shape 状态 */
@@ -33,9 +32,9 @@ export interface RegisterShape {
   /** 计算绘制需要的关键点，在注册具体的 shape 时由开发者自己定义 */
   readonly getPoints?: (pointInfo: ShapePoint) => Point[];
   /** 获取 shape 对应的缩略图样式配置，在注册具体的 shape 时由开发者自己定义 */
-  readonly getMarker?: (markerCfg: LooseObject) => GShape | GGroup;
+  readonly getMarker?: (markerCfg: LooseObject) => IShape | IGroup;
   /** 绘制 */
-  readonly draw: (cfg: ShapeDrawCFG, container: Element) => GShape | GGroup;
+  readonly draw: (cfg: ShapeDrawCFG, container: Element) => IShape | IGroup;
   /** 更新 shape */
   readonly update: (cfg: ShapeDrawCFG, container: Element) => void;
   /** todo 销毁 */

@@ -1,6 +1,6 @@
-import { Group, Shape } from '@antv/g';
 import * as _ from '@antv/util';
 import { FIELD_ORIGIN } from '../constant';
+import { IGroup, IShape } from '../dependents';
 import { Datum, LooseObject, ShapeDrawCFG } from '../interface';
 import { ShapeFactory } from './interface';
 
@@ -16,7 +16,7 @@ interface ElementCfg {
   /** 主题 */
   theme: LooseObject;
   /** shape 容器 */
-  container: Group;
+  container: IGroup;
 }
 
 /** @class Element 图形元素 */
@@ -32,9 +32,9 @@ export default class Element {
   /** 主题 */
   public theme: LooseObject;
   /** shape 容器 */
-  public container: Group;
+  public container: IGroup;
   /** 最后创建的图形对象 todo: 重命名，因为有可能是 Group */
-  public shape: Shape | Group;
+  public shape: IShape | IGroup;
   /** 是否已经被销毁 */
   public destroyed: boolean = false;
 
@@ -195,9 +195,10 @@ export default class Element {
     this.shape = shape;
   }
 
+  // FIXME: 嵌套 Group 的场景
   private setOriginStyle() {
     const shape = this.shape;
-    if ((shape as Group).isGroup) {
+    if ((shape as IGroup).isGroup()) {
       const children = shape.get('children');
       _.each(children, (child, index) => {
         const key = child.name || index;

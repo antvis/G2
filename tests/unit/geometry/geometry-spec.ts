@@ -1,10 +1,10 @@
-import { Canvas, Group } from '@antv/g';
 import * as _ from '@antv/util';
 import 'jest-extended';
-import { getCoordinate } from '../../../src/dependents';
+import { getCoordinate, Group } from '../../../src/dependents';
 import Geometry from '../../../src/geometry/geometry';
 import * as Shape from '../../../src/geometry/shape';
 import { LooseObject } from '../../../src/interface';
+import { createCanvas, createDiv, removeDom } from '../../util/dom';
 import Theme from '../../util/theme';
 
 const Rect = getCoordinate('rect');
@@ -30,7 +30,7 @@ describe('Geometry', () => {
       geometry = new Geometry({
         data,
         coordinate,
-        container: new Group(),
+        container: new Group({}),
         theme: Theme, // 测试用主题
         scaleDefs: {
           month: {
@@ -228,16 +228,10 @@ describe('Geometry', () => {
     let canvas;
     let div;
     beforeAll(() => {
-      div = document.createElement('div');
-      div.id = 'base';
-      document.body.appendChild(div);
+      div = createDiv();
 
-      canvas = new Canvas({
-        containerId: 'base',
-        renderer: 'canvas',
-        width: 200,
-        height: 200,
-        pixelRatio: 2,
+      canvas = createCanvas({
+        container: div,
       });
       const data = [
         { month: '一月', temperature: 5, city: '北京', year: '2018' },
@@ -453,7 +447,7 @@ describe('Geometry', () => {
 
     afterAll(() => {
       canvas.destroy();
-      document.body.removeChild(div);
+      removeDom(div);
     });
   });
 });
