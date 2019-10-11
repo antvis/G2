@@ -576,8 +576,44 @@ export default class View extends EE {
     );
   }
 
+  /**
+   * 初始化事件机制：G 4.0 底层内置支持 name:event 的机制，那么只要所有组件都有自己的 name 即可。
+   *
+   * G2 的事件只是获取事件委托，然后在 view 嵌套结构中，形成事件冒泡机制。
+   * 当前 view 只委托自己 view 中的 Component 和 Geometry 事件，并向上冒泡
+   * @private
+   */
   private initialEvents() {
-    // todo 依赖 G 的事件实现机制
+    // 三层 group 中的 shape 事件都会通过 G 冒泡上来的
+    this.foregroundGroup.on('*', this.onEvents);
+    this.middleGroup.on('*', this.onEvents);
+    this.backgroundGroup.on('*', this.onEvents);
+  }
+
+  /**
+   * 触发事件之后
+   * @param evt
+   */
+  private onEvents = (evt: Event): void => {
+    // 阻止继续冒泡
+    evt.preventDefault();
+
+    const { type } = evt;
+    // 委托事件到 view 上
+    this.emit(type, evt);
+
+    if (this.parent) {
+      // 事件在 view 嵌套中冒泡（暂不提供阻止冒泡的机制）
+      this.parent.emit(type, evt);
+    }
+  };
+
+  /**
+   * 生成 controller 实例，后续更新配置
+   * @private
+   */
+  private _initialControllers() {
+    // 可能暂时不需要，组件管理直接使用 components 管理，生成逻辑写成工具函数
   }
 
   /**
