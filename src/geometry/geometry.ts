@@ -7,10 +7,8 @@ import { parseFields } from './util/parse-fields';
 import { Adjust, getAdjust } from '@antv/adjust';
 import { Attribute, getAttribute as getAttributeClass } from '@antv/attr';
 import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
-import { Coordinate, Scale } from '../dependents';
+import { Coordinate, IGroup, Scale } from '../dependents';
 import { AdjustType, Data, Datum, LooseObject, Point, ScaleOption, ShapeDrawCFG } from '../interface';
-
-import { Group } from '@antv/g';
 import {
   AdjustOption,
   AttributeOption,
@@ -62,7 +60,7 @@ interface MappedRecord {
 }
 
 interface GeometryCfg {
-  container: Group;
+  container: IGroup;
   coordinate?: Coordinate;
   data?: Data;
   scaleDefs?: ScaleOption;
@@ -89,7 +87,7 @@ export default class Geometry {
   /** data 数据 */
   public data: Data = null;
   /** 图形容器 */
-  public readonly container: Group = null;
+  public readonly container: IGroup = null;
   /** scale 配置 */
   public scaleDefs: ScaleOption = {};
   /** 是否生成多个点来绘制图形 */
@@ -369,7 +367,7 @@ export default class Geometry {
   public destroy() {
     this.clear();
     const container = this.container;
-    container.remove();
+    container.remove(true);
   }
 
   public getGroupScales() {
@@ -624,7 +622,6 @@ export default class Geometry {
         } else if (attrType === 'shape') {
           attrCfg.values = theme.shapes[shapeType] || [];
         } else if (attrType === 'color') {
-          // TODO 需要优化
           attrCfg.values = theme.colors;
         }
       }
@@ -769,7 +766,7 @@ export default class Geometry {
       const field = xScale.field;
       _.each(dataArray, (data) => {
         data.sort((v1: object, v2: object) => {
-          return xScale.translate(v1[field]) - xScale.translate(v2[field]); // TODO
+          return xScale.translate(v1[field]) - xScale.translate(v2[field]);
         });
       });
     }

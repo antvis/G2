@@ -1,6 +1,6 @@
-import { Canvas, Group } from '@antv/g';
 import { Chart, LAYER } from '../../../src/';
 import { ViewLifeCircle } from '../../../src/constant';
+import { Canvas, Group } from '../../../src/dependents';
 import { createDiv } from '../../util/dom';
 
 const data = [

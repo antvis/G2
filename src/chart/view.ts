@@ -1,5 +1,4 @@
 import EE from '@antv/event-emitter';
-import { BBox, Canvas, Group } from '@antv/g';
 import * as _ from '@antv/util';
 import {
   AxisOption,
@@ -18,6 +17,7 @@ import Interaction from 'interaction';
 import { Padding, Point, Region } from 'interface';
 import { ComponentType, DIRECTION, GroupZIndex, LAYER, ViewLifeCircle } from '../constant';
 import { Attribute } from '../dependents';
+import { BBox, ICanvas, IGroup } from '../dependents';
 import { Data, Datum } from '../interface';
 import { isFullCircle } from '../util/coordinate';
 import { parsePadding } from '../util/padding';
@@ -44,15 +44,15 @@ export default class View extends EE {
   /** 坐标系的位置大小 */
   public coordinateBBox: BBox;
 
-  public canvas: Canvas;
+  public canvas: ICanvas;
 
   // 三层 Group 图层
   /** 背景层 */
-  protected backgroundGroup: Group;
+  protected backgroundGroup: IGroup;
   /** 中间层 */
-  protected middleGroup: Group;
+  protected middleGroup: IGroup;
   /** 前景层 */
-  protected foregroundGroup: Group;
+  protected foregroundGroup: IGroup;
 
   /** 标记 view 的大小位置范围，均是 0 ~ 1 范围，便于开发者使用 */
   protected region: Region;
@@ -214,9 +214,9 @@ export default class View extends EE {
 
     this.clear();
 
-    this.backgroundGroup.remove();
-    this.middleGroup.remove();
-    this.foregroundGroup.remove();
+    this.backgroundGroup.remove(true);
+    this.middleGroup.remove(true);
+    this.foregroundGroup.remove(true);
   }
   /* end 生命周期函数 */
 
@@ -470,7 +470,7 @@ export default class View extends EE {
    * 获得绘制的层级 group
    * @param layer
    */
-  public getLayer(layer: LAYER): Group {
+  public getLayer(layer: LAYER): IGroup {
     return layer === LAYER.BG
       ? this.backgroundGroup
       : layer === LAYER.MID
@@ -497,7 +497,7 @@ export default class View extends EE {
     return _.uniq(_.flatten(scales));
   }
 
-  public getCanvas(): Canvas {
+  public getCanvas(): ICanvas {
     let v = this as View;
 
     while (true) {

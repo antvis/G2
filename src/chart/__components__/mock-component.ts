@@ -1,4 +1,3 @@
-import { Group } from '@antv/g';
 import { Position } from 'interface';
 import Component from '../../component';
 

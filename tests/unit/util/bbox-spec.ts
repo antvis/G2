@@ -1,5 +1,5 @@
-import { BBox } from '@antv/g';
 import { DIRECTION } from '../../../src';
+import { BBox } from '../../../src/dependents';
 import { BBoxProcessor } from '../../../src/util/bbox';
 
 describe('util/ bbox', () => {

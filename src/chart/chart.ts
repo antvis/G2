@@ -1,6 +1,6 @@
-import { Canvas } from '@antv/g';
 import * as _ from '@antv/util';
 import { GroupZIndex } from '../constant';
+import { Canvas } from '../dependents';
 import { ChartCfg } from './interface';
 import View from './view';
 
@@ -24,7 +24,9 @@ export default class Chart extends View {
     // todo @hustcc
     // autoFit 为 true 的时候，应该设置 width height 为容器的大小，否则会有两次渲染和闪烁的过程。
     const canvas = new Canvas({
-      containerDOM: ele,
+      // FIXME: 待 g-canvas 修复
+      // @ts-ignore
+      container: ele,
       width,
       height,
       renderer,

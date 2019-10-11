@@ -1,7 +1,6 @@
-import { Group, Shapes } from '@antv/g';
-import { getCoordinate } from '../../../src/dependents';
+import { getCoordinate, Group, Shape } from '../../../src/dependents';
 import Element from '../../../src/geometry/element';
-import * as Shape from '../../../src/geometry/shape';
+import * as GeometryShape from '../../../src/geometry/shape';
 
 const Rect = getCoordinate('rect');
 const Polar = getCoordinate('polar');
@@ -21,7 +20,7 @@ describe('Shape', () => {
 
   describe('register', () => {
     it('registerShapeFactory', () => {
-      Shape.registerShapeFactory('circleFactory', {
+      GeometryShape.registerShapeFactory('circleFactory', {
         defaultShapeType: 'circle',
         getDefaultPoints(point) {
           const { x, y } = point;
@@ -34,19 +33,19 @@ describe('Shape', () => {
         },
       });
 
-      expect(Shape.getShapeFactory('circleFactory')).not.toBe(undefined);
+      expect(GeometryShape.getShapeFactory('circleFactory')).not.toBe(undefined);
     });
 
     it('getShapeFactory', () => {
-      const circleFactory = Shape.getShapeFactory('circleFactory');
+      const circleFactory = GeometryShape.getShapeFactory('circleFactory');
       expect(circleFactory).not.toBe(undefined);
 
-      const unRegister = Shape.getShapeFactory('hello');
+      const unRegister = GeometryShape.getShapeFactory('hello');
       expect(unRegister).toBe(undefined);
     });
 
     it('registerShape', () => {
-      Shape.registerShape('circleFactory', 'circle', {
+      GeometryShape.registerShape('circleFactory', 'circle', {
         getPoints(point) {
           const { x, y } = point;
           return [
@@ -72,14 +71,16 @@ describe('Shape', () => {
         },
       });
 
-      Shape.registerShape('circleFactory', 'hollowCircle', {
+      GeometryShape.registerShape('circleFactory', 'hollowCircle', {
         // @ts-ignore
         // mock
         getMarker() {
           return 'marker';
         },
         draw() {
-          return new Shapes.Circle({
+          // @ts-ignore
+          // FIXME: 带 g-canvas 发新版本
+          return new Shape.Circle({
             attrs: {
               x: 50,
               y: 50,
@@ -89,7 +90,7 @@ describe('Shape', () => {
           });
         },
       });
-      const circleFactory = Shape.getShapeFactory('circleFactory');
+      const circleFactory = GeometryShape.getShapeFactory('circleFactory');
       expect(circleFactory.getShape('circle')).not.toBe(undefined);
       expect(circleFactory.getShape('hollowCircle')).not.toBe(undefined);
     });
@@ -97,7 +98,7 @@ describe('Shape', () => {
 
   describe('ShapeFactory', () => {
     it('getShape()', () => {
-      const circleFactory = Shape.getShapeFactory('circleFactory');
+      const circleFactory = GeometryShape.getShapeFactory('circleFactory');
       circleFactory.setCoordinate(coordinate);
 
       const shape = circleFactory.getShape('circle');
@@ -108,7 +109,7 @@ describe('Shape', () => {
     });
 
     it('getShapePoints()', () => {
-      const circleFactory = Shape.getShapeFactory('circleFactory');
+      const circleFactory = GeometryShape.getShapeFactory('circleFactory');
 
       expect(
         circleFactory.getShapePoints('circle', {
@@ -135,7 +136,7 @@ describe('Shape', () => {
     });
 
     it('getShapePoints()', () => {
-      const circleFactory = Shape.getShapeFactory('circleFactory');
+      const circleFactory = GeometryShape.getShapeFactory('circleFactory');
 
       expect(
         circleFactory.getShapePoints('circle', {
@@ -162,20 +163,20 @@ describe('Shape', () => {
     });
 
     it('getMarker()', () => {
-      const circleFactory = Shape.getShapeFactory('circleFactory');
+      const circleFactory = GeometryShape.getShapeFactory('circleFactory');
 
       expect(circleFactory.getMarker('circle', {})).toBe(undefined);
       expect(circleFactory.getMarker('hollowCircle', {})).toBe('marker');
     });
 
     it('drawShape()', () => {
-      const circleFactory = Shape.getShapeFactory('circleFactory');
+      const circleFactory = GeometryShape.getShapeFactory('circleFactory');
       // @ts-ignore
       expect(circleFactory.drawShape('circle')).toBe('circle draw');
     });
 
     it('updateShape()', () => {
-      const circleFactory = Shape.getShapeFactory('circleFactory');
+      const circleFactory = GeometryShape.getShapeFactory('circleFactory');
       // @ts-ignore
       circleFactory.updateShape('circle');
 
@@ -183,7 +184,7 @@ describe('Shape', () => {
     });
 
     it('setState()', () => {
-      const circleFactory = Shape.getShapeFactory('circleFactory');
+      const circleFactory = GeometryShape.getShapeFactory('circleFactory');
       // @ts-ignore
       circleFactory.setState();
 
@@ -191,7 +192,7 @@ describe('Shape', () => {
     });
 
     it('destroy()', () => {
-      const circleFactory = Shape.getShapeFactory('circleFactory');
+      const circleFactory = GeometryShape.getShapeFactory('circleFactory');
       // @ts-ignore
       circleFactory.destroy();
 
@@ -201,13 +202,13 @@ describe('Shape', () => {
 
   describe('Shape', () => {
     it('getCoordinate', () => {
-      const circleFactory = Shape.getShapeFactory('circleFactory');
+      const circleFactory = GeometryShape.getShapeFactory('circleFactory');
       const shape = circleFactory.getShape('circle');
       expect(shape.getCoordinate()).toEqual(coordinate);
     });
 
     it('parsePoint', () => {
-      const circleFactory = Shape.getShapeFactory('circleFactory');
+      const circleFactory = GeometryShape.getShapeFactory('circleFactory');
       const shape = circleFactory.getShape('circle');
 
       expect(shape.parsePoint({ x: 0, y: 0 })).toEqual({ x: 0, y: 0 });
@@ -216,7 +217,7 @@ describe('Shape', () => {
     });
 
     it('parsePoints', () => {
-      const circleFactory = Shape.getShapeFactory('circleFactory');
+      const circleFactory = GeometryShape.getShapeFactory('circleFactory');
       const shape = circleFactory.getShape('circle');
 
       const points = [{ x: 0, y: 0 }, { x: 0.5, y: 0.5 }, { x: 1, y: 1 }];
@@ -224,7 +225,7 @@ describe('Shape', () => {
     });
 
     it('parsePath at cartesian coordinate.', () => {
-      const circleFactory = Shape.getShapeFactory('circleFactory');
+      const circleFactory = GeometryShape.getShapeFactory('circleFactory');
       const shape = circleFactory.getShape('circle');
 
       const path = [['M', 0, 0], ['L', 1, 1]];
@@ -236,7 +237,7 @@ describe('Shape', () => {
         start: { x: 0, y: 0 },
         end: { x: 200, y: 200 },
       });
-      const circleFactory = Shape.getShapeFactory('circleFactory');
+      const circleFactory = GeometryShape.getShapeFactory('circleFactory');
       circleFactory.setCoordinate(polar);
       const shape = circleFactory.getShape('circle');
       let path = [['M', 0, 0], ['L', 0, 1], ['L', 0.5, 1]];
@@ -253,7 +254,7 @@ describe('Shape', () => {
     });
 
     it('setState', () => {
-      const circleFactory = Shape.getShapeFactory('circleFactory');
+      const circleFactory = GeometryShape.getShapeFactory('circleFactory');
       const element = new Element({
         shapeType: 'hollowCircle',
         shapeFactory: circleFactory,
@@ -274,7 +275,7 @@ describe('Shape', () => {
             },
           },
         },
-        container: new Group(),
+        container: new Group({}),
       });
 
       circleFactory.setState('hollowCircle', 'active', true, element);

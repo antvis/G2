@@ -1,5 +1,5 @@
-import BBox from '@antv/g/lib/core/bbox';
 import { DIRECTION } from '../../../src';
+import { BBox } from '../../../src/dependents';
 import { directionToPosition } from '../../../src/util/direction';
 
 const parentBBox = new BBox(10, 10, 100, 100);

@@ -1,7 +1,7 @@
-import { Canvas, Group } from '@antv/g';
 import * as _ from '@antv/util';
 import 'jest-extended';
 import { View } from '../../../../src';
+import { Canvas, Group } from '../../../../src/dependents';
 import { createCanvas, createDiv } from '../../../util/dom';
 
 const data = [
@@ -15,7 +15,7 @@ describe('View', () => {
   const div = createDiv();
 
   const canvas = createCanvas({
-    containerDOM: div,
+    container: div,
   });
 
   const backgroundGroup = canvas.addGroup();
@@ -106,21 +106,21 @@ describe('View', () => {
     expect(view.geometries[0].scales.sale.values).toEqual([100, 30]);
 
     expect(view.getCoordinate().getWidth()).toBeWithin(714, 720);
-    expect(view.getCoordinate().getHeight()).toEqual(564);
+    expect(view.getCoordinate().getHeight()).toEqual(566);
   });
 
   it('component', () => {
     expect(view.getOptions().components.length).toEqual(3);
 
     const bbox = view.getOptions().components[0].component.getBBox();
-    expect(bbox.height).toEqual(13);
+    expect(bbox.height).toEqual(12);
   });
 
   it('layout result', () => {
     expect(view.coordinateBBox.x).toBeWithin(75, 81);
-    expect(view.coordinateBBox.y).toEqual(18);
+    expect(view.coordinateBBox.y).toEqual(17);
     expect(view.getCoordinate().getWidth()).toBeWithin(714, 720);
-    expect(view.coordinateBBox.height).toEqual(564);
+    expect(view.coordinateBBox.height).toEqual(566);
   });
 
   it('getXScale', () => {

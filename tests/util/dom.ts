@@ -1,4 +1,4 @@
-import { Canvas } from '@antv/g';
+import { Canvas } from '../../src/dependents';
 
 /**
  * 创建一个 div 节点，并放到 container，默认放到 body 上
@@ -16,6 +16,7 @@ export function createDiv(container: HTMLElement = document.body): HTMLElement {
  * 创建一个 G.Canvas
  */
 export function createCanvas(args: object): Canvas {
+  // @ts-ignore
   return new Canvas({
     width: 800,
     height: 600,

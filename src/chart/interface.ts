@@ -1,6 +1,6 @@
-import { Canvas, Group } from '@antv/g';
 import Component from '../component';
 import { ComponentType, DIRECTION, LAYER } from '../constant';
+import { ICanvas, IGroup } from '../dependents';
 import Interaction from '../interaction';
 import { Data, Datum, Padding, Region, Renderer } from '../interface';
 import View from './view';
@@ -19,13 +19,13 @@ export interface ChartCfg {
 // view 构造参数
 export interface ViewCfg {
   readonly parent: View;
-  readonly canvas: Canvas;
+  readonly canvas: ICanvas;
   /** 前景层 */
-  readonly foregroundGroup: Group;
+  readonly foregroundGroup: IGroup;
   /** 中间层 */
-  readonly middleGroup: Group;
+  readonly middleGroup: IGroup;
   /** 背景层 */
-  readonly backgroundGroup: Group;
+  readonly backgroundGroup: IGroup;
   /** 位置大小范围 */
   readonly region?: Region;
   readonly padding?: Padding;
