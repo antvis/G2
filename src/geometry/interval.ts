@@ -1,10 +1,10 @@
 import * as _ from '@antv/util';
 import { LooseObject } from 'interface';
-import { getXDimensionLength } from '../../util/coordinate';
-import Geometry from '../geometry';
-import { getDefaultSize } from '../util/shape-size';
 /** 引入对应的 ShapeFactory */
-import './shape';
+import '../shape/interval';
+import { getXDimensionLength } from '../util/coordinate';
+import Geometry from './base';
+import { getDefaultSize } from './util/shape-size';
 
 export default class Interval extends Geometry {
   public readonly type: string = 'interval';

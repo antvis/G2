@@ -1,21 +1,29 @@
 import * as _ from '@antv/util';
+import Element from '../element';
+import { getShapeFactory } from '../shape';
 import { createScaleByField, syncScale } from '../util/scale';
-import Element from './element';
-import { getShapeFactory } from './shape';
 import { parseFields } from './util/parse-fields';
 
-import { Adjust, getAdjust } from '@antv/adjust';
+import { Adjust, getAdjust as getAdjustClass } from '@antv/adjust';
 import { Attribute, getAttribute as getAttributeClass } from '@antv/attr';
 import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
 import { Coordinate, IGroup, Scale } from '../dependents';
-import { AdjustType, Data, Datum, LooseObject, Point, ScaleOption, ShapeDrawCFG } from '../interface';
+import {
+  AdjustType,
+  Data,
+  Datum,
+  LooseObject,
+  Point,
+  ScaleOption,
+  ShapeDrawCFG,
+  ShapeFactory,
+  ShapePoint,
+} from '../interface';
 import {
   AdjustOption,
   AttributeOption,
   ColorAttrCallback,
   ShapeAttrCallback,
-  ShapeFactory,
-  ShapePoint,
   SizeAttrCallback,
   StyleCallback,
   StyleOption,
@@ -59,7 +67,7 @@ interface MappedRecord {
   size?: number;
 }
 
-interface GeometryCfg {
+export interface GeometryCfg {
   container: IGroup;
   coordinate?: Coordinate;
   data?: Data;
@@ -122,11 +130,11 @@ export default class Geometry {
   protected labelOption = null;
   /** animate 配置项 */
   protected animateOption = null;
+  protected shapeFactory: ShapeFactory;
+  protected elementsMap: Record<string, Element> = {};
+  protected lastElementsMap: Record<string, Element> = {};
 
-  private shapeFactory: ShapeFactory;
   private adjusts: Record<string, Adjust> = {};
-  private elementsMap: Record<string, Element> = {};
-  private lastElementsMap: Record<string, Element> = {};
 
   constructor(cfg: GeometryCfg) {
     const {
@@ -517,7 +525,7 @@ export default class Geometry {
     return cfg;
   }
 
-  protected createElements(mappedArray: Data) {
+  protected createElements(mappedArray: Data): Element[] {
     const { lastElementsMap, elementsMap, elements } = this;
     _.each(mappedArray, (record, i) => {
       const originData = record[FIELD_ORIGIN];
@@ -541,6 +549,51 @@ export default class Geometry {
     });
 
     return elements;
+  }
+
+  protected getElementId(origin: object) {
+    const type = this.type;
+    const xScale = this.getXScale();
+    const yScale = this.getYScale();
+    const xField = xScale.field || 'x';
+    const yField = yScale.field || 'y';
+    const yVal = origin[yField];
+    let xVal;
+    if (xScale.type === 'identity') {
+      xVal = xScale.values[0];
+    } else {
+      xVal = origin[xField];
+    }
+
+    let id: string;
+    if (type === 'interval' || type === 'schema') {
+      id = xVal;
+    } else if (type === 'line' || type === 'area' || type === 'path') {
+      id = type;
+    } else {
+      id = `${xVal}-${yVal}`;
+    }
+
+    const groupScales = this.getGroupScales();
+    if (!_.isEmpty(groupScales)) {
+      _.each(groupScales, (groupScale: Scale) => {
+        const field = groupScale.field;
+        if (groupScale.type !== 'identity') {
+          id = `${id}-${origin[field]}`;
+        }
+      });
+    }
+
+    // 用户在进行 dodge 类型的 adjust 调整的时候设置了 dodgeBy 属性
+    const dodgeAdjust = this.getAdjust('dodge');
+    if (dodgeAdjust) {
+      const dodgeBy = dodgeAdjust.dodgeBy;
+      if (dodgeBy) {
+        id = `${id}-${origin[dodgeBy]}`;
+      }
+    }
+
+    return id;
   }
 
   // 创建图形属性相关的配置项
@@ -687,7 +740,7 @@ export default class Geometry {
             adjustCfg.reverseOrder = true;
           }
         }
-        const adjustCtor = getAdjust(type);
+        const adjustCtor = getAdjustClass(type);
         const adjustInstance = new adjustCtor(adjustCfg);
 
         result = adjustInstance.process(result);
@@ -854,6 +907,7 @@ export default class Geometry {
               newRecord[name] = _.isArray(val) && val.length === 1 ? val[0] : val; // 只有一个值时返回第一个属性值
             }
           } else {
+            // newRecord[names[0]] = values.length === 1 ? values[0] : values;
             // FIXME: 目前只有 color 通道是受 attr 结果统一为数组的影响的，暂时这么调整
             if (values.length === 1 || names[0] === 'color') {
               newRecord[names[0]] = values[0];
@@ -948,51 +1002,6 @@ export default class Geometry {
         return xScale.translate(obj1[FIELD_ORIGIN][xField]) - xScale.translate(obj2[FIELD_ORIGIN][xField]);
       });
     });
-  }
-
-  private getElementId(origin: object) {
-    const type = this.type;
-    const xScale = this.getXScale();
-    const yScale = this.getYScale();
-    const xField = xScale.field || 'x';
-    const yField = yScale.field || 'y';
-    const yVal = origin[yField];
-    let xVal;
-    if (xScale.type === 'identity') {
-      xVal = xScale.values[0];
-    } else {
-      xVal = origin[xField];
-    }
-
-    let id: string;
-    if (type === 'interval' || type === 'schema') {
-      id = xVal;
-    } else if (type === 'line' || type === 'area' || type === 'path') {
-      id = type;
-    } else {
-      id = `${xVal}-${yVal}`;
-    }
-
-    const groupScales = this.getGroupScales();
-    if (!_.isEmpty(groupScales)) {
-      _.each(groupScales, (groupScale: Scale) => {
-        const field = groupScale.field;
-        if (groupScale.type !== 'identity') {
-          id = `${id}-${origin[field]}`;
-        }
-      });
-    }
-
-    // 用户在进行 dodge 类型的 adjust 调整的时候设置了 dodgeBy 属性
-    const dodgeAdjust = this.getAdjust('dodge');
-    if (dodgeAdjust) {
-      const dodgeBy = dodgeAdjust.dodgeBy;
-      if (dodgeBy) {
-        id = `${id}-${origin[dodgeBy]}`;
-      }
-    }
-
-    return id;
   }
 
   // 获取 style 配置

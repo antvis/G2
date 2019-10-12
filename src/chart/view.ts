@@ -12,7 +12,7 @@ import {
 } from 'chart/interface';
 import Component from 'component';
 import { Coordinate, Scale } from 'dependents';
-import Geometry from 'geometry/geometry';
+import Geometry from 'geometry/base';
 import Interaction from 'interaction';
 import { Padding, Point, Region } from 'interface';
 import { ComponentType, DIRECTION, GroupZIndex, LAYER, ViewLifeCircle } from '../constant';

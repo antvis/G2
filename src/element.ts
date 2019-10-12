@@ -1,8 +1,7 @@
 import * as _ from '@antv/util';
-import { FIELD_ORIGIN } from '../constant';
-import { IGroup, IShape } from '../dependents';
-import { Datum, LooseObject, ShapeDrawCFG } from '../interface';
-import { ShapeFactory } from './interface';
+import { FIELD_ORIGIN } from './constant';
+import { IGroup, IShape } from './dependents';
+import { Datum, LooseObject, ShapeDrawCFG, ShapeFactory } from './interface';
 
 interface ElementCfg {
   /** 原始数据 */

@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
-import { ShapePoint } from 'geometry/interface';
-import { Point } from 'interface';
+import { Point } from '../interface';
+import { ShapePoint } from '../interface';
 import { registerShape, registerShapeFactory } from '../shape';
 
 // 根据数据点生成矩形的四个关键点

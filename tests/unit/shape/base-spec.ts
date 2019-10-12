@@ -1,6 +1,6 @@
 import { getCoordinate, Group, Shape } from '../../../src/dependents';
-import Element from '../../../src/geometry/element';
-import * as GeometryShape from '../../../src/geometry/shape';
+import Element from '../../../src/element';
+import * as GeometryShape from '../../../src/shape/base';
 
 const Rect = getCoordinate('rect');
 const Polar = getCoordinate('polar');
@@ -72,12 +72,14 @@ describe('Shape', () => {
       });
 
       GeometryShape.registerShape('circleFactory', 'hollowCircle', {
-        // @ts-ignore mock
+        // @ts-ignore
+        // mock
         getMarker() {
           return 'marker';
         },
         draw() {
           // @ts-ignore
+          // FIXME: 带 g-canvas 发新版本
           return new Shape.Circle({
             attrs: {
               x: 50,

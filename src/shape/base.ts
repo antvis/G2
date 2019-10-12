@@ -2,13 +2,13 @@
 import * as _ from '@antv/util';
 
 import { Coordinate } from '../dependents';
-import Element from './element';
+import Element from '../element';
 
 import { parsePathString } from '@antv/path-util';
 import { convertNormalPath, convertPolarPath } from './util/path';
 
 import { LooseObject, Point, ShapeDrawCFG } from '../interface';
-import { RegisterShape, RegisterShapeFactory, Shape, ShapeFactory, ShapePoint } from './interface';
+import { RegisterShape, RegisterShapeFactory, Shape, ShapeFactory, ShapePoint } from '../interface';
 
 /** ShapeFactory 基类 */
 const ShapeFactoryBase = {
