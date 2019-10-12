@@ -1,7 +1,7 @@
 import * as _ from '@antv/util';
-
-import Geometry from '../geometry';
-import './shape';
+/** 引入 Path 对应的 ShapeFactory */
+import '../shape/polygon';
+import Geometry from './base';
 
 export default class Polygon extends Geometry {
   public readonly type = 'polygon';

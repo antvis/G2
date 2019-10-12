@@ -1,7 +1,7 @@
 import * as _ from '@antv/util';
 import Element from '../element';
 
-import { ShapeDrawCFG } from '../../interface';
+import { ShapeDrawCFG } from '../interface';
 import { ShapePoint } from '../interface';
 import { registerShape, registerShapeFactory } from '../shape';
 

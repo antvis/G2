@@ -7,7 +7,7 @@ export { LAYER, DIRECTION } from './constant';
 export { Chart, View, registerGeometry } from './chart';
 export { getTheme, registerTheme } from './theme';
 export { default as Component } from './component'; // 组件基类
-export { default as Geometry } from './geometry/geometry';
+export { default as Geometry } from './geometry/base';
 
 // 类型定义导出
 export { ChartCfg, ViewCfg } from './chart';
