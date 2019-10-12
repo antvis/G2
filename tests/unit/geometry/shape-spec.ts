@@ -72,14 +72,12 @@ describe('Shape', () => {
       });
 
       GeometryShape.registerShape('circleFactory', 'hollowCircle', {
-        // @ts-ignore
-        // mock
+        // @ts-ignore mock
         getMarker() {
           return 'marker';
         },
         draw() {
           // @ts-ignore
-          // FIXME: 带 g-canvas 发新版本
           return new Shape.Circle({
             attrs: {
               x: 50,
