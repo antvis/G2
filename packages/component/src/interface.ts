@@ -107,6 +107,8 @@ export interface EventType {
 export interface LegendCfg extends GuideCfg {
   readonly type: string; // 图例的类型
   readonly title?: string; // 图例标题
+  readonly x?: number;
+  readonly y?: number;
   readonly items?: CommonCfg[]; // 图例项配置, TODO: 确定了分类和连续 item 的配置后再修改
   readonly formatter?: Function; // 文本格式化函数
 }
@@ -252,7 +254,7 @@ export interface AxisCfg extends GuideCfg {
   theme?: CommonCfg; // 坐标轴样式主题配置
   appendInfo?: any;
   coord?: Coordinate;
-  gridPoints?: GridPoints;
+  gridPoints?: GridPoints[];
 }
 
 export interface CircleAxisCfg extends AxisCfg {

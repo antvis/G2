@@ -1,8 +1,9 @@
 
 import * as Util from '@antv/util';
+import * as G from '@antv/g';
 import * as domUtil from '@antv/dom-util';
 import Guide from '../base';
-import { GuideCfg } from '../interface';
+import { GuideCfg, TextType } from '../interface';
 import positionAdjust from './adjust/position';
 import spirialAdjust from './adjust/spiral';
 import bboxAdjust from './adjust/bbox';
@@ -11,15 +12,52 @@ interface Layouts {
   [key: string]: Function|undefined;
 }
 
+interface LabelCfg extends GuideCfg {
+  readonly name?: string,
+  /**
+   * label类型
+   */
+  readonly type?: string,
+  /**
+   * 显示的文本集合
+   */
+  readonly items?: TextType[] | null,
+  /**
+   * 是否使用html渲染label
+   */
+  readonly useHtml?: boolean,
+  /**
+   * html 渲染时用的容器的模板，必须存在 class = "g-labels"
+   */
+  readonly containerTpl?: string,
+  /**
+   * html 渲染时单个 label 的模板，必须存在 class = "g-label"
+   */
+  readonly itemTpl?: string,
+  /**
+   * label牵引线容器
+   */
+  readonly lineGroup?: object | null,
+  /**
+   * 需添加label的shape
+   */
+  readonly shapes?: object[] | null,
+  // 其他
+  readonly group?: G.Group;
+  readonly canvas?: G.Canvas;
+  readonly coord?: any;
+}
+
+
 const LAYOUTS: Layouts = {
   scatter: positionAdjust,
   map: spirialAdjust,
   treemap: bboxAdjust,
 };
 
-class Label extends Guide {
+class Label extends Guide<LabelCfg> {
 
-  constructor(cfg: GuideCfg = {}) {
+  constructor(cfg?: LabelCfg) {
     super({
       name: 'label',
       type: 'default', // label 类型

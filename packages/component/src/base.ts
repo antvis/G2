@@ -1,11 +1,11 @@
 import EventEmitter from '@antv/event-emitter';
 import { GuideCfg } from './interface';
 
-export abstract class Guide extends EventEmitter {
-  cfg: GuideCfg = {};
+export abstract class Guide<T extends GuideCfg> extends EventEmitter {
+  public cfg: T;
   destroyed: boolean;
 
-  constructor(cfg: GuideCfg) {
+  constructor(cfg: T) {
     super();
     this.cfg = {
       id: null, // 用于动画
@@ -26,11 +26,12 @@ export abstract class Guide extends EventEmitter {
     this.destroyed = false;
   }
 
-  get(name: string): any {
+  // 由于重构后影响太大了 所以使用any先
+  public get<K extends keyof T>(name: K): T[K] | any {
     return this.cfg[name];
   }
 
-  set(name: string, value: any) {
+  public set<K extends keyof T>(name: K, value: T[K]) {
     this.cfg[name] = value;
     return this;
   }

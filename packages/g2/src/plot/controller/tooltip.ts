@@ -414,6 +414,7 @@ export default class TooltipController {
         if (!_.isEmpty(markersItems)) {
           if (this.options.showTooltipMarkers === false) {
             // 不展示 tooltip marker
+            // @ts-ignore
             tooltip.set('markerItems', markersItems); // 用于 tooltip 辅助线的定位
           } else {
             tooltip.setMarkers(markersItems, theme.tooltipMarker);
@@ -423,6 +424,7 @@ export default class TooltipController {
           // clearMarkers 只会将 markerItems 从 markerGroup 中移除
           // 所以我们还要将 markerItems 从 tooltip 中移除
           // 这么做是为了防止上一次设置 marker 时的 markerItems 影响此次 tooltip 辅助线的定位
+          // @ts-ignore
           tooltip.set('markerItems', []);
         }
       }

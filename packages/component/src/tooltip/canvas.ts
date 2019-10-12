@@ -9,7 +9,7 @@ import Crosshair from './crosshair';
 import { TooltipCfg, ToolTipContentItem } from './interface';
 import { constraintPositionInBoundary, constraintPositionInPanel, defaultPosition } from './util/position';
 
-export default class CanvasTooltip extends Tooltip {
+export default class CanvasTooltip extends Tooltip<TooltipCfg> {
   constructor(cfg: TooltipCfg) {
     super({
       /**

@@ -27,7 +27,7 @@ const mergeStyles = (styles: any, cfg: any): any => {
   return styles;
 };
 
-export default class HtmlTooltip extends Tooltip {
+export default class HtmlTooltip extends Tooltip<TooltipCfg> {
   constructor(cfg: TooltipCfg) {
     super({
       /**
