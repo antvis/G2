@@ -18,6 +18,8 @@ import { Padding, Point, Region } from 'interface';
 import { ComponentType, DIRECTION, GroupZIndex, LAYER, ViewLifeCircle } from '../constant';
 import { Attribute } from '../dependents';
 import { BBox, ICanvas, IGroup } from '../dependents';
+import { Facet, getFacet } from '../facet';
+import { FacetCfg } from '../facet/interface';
 import { Data, Datum } from '../interface';
 import { isFullCircle } from '../util/coordinate';
 import { parsePadding } from '../util/padding';
@@ -77,6 +79,8 @@ export default class View extends EE {
   protected layoutFunc: Layout = defaultLayout;
   // 生成的坐标系实例
   protected coordinateInstance: Coordinate;
+  // 分面类实例
+  protected facetInstance: Facet;
 
   constructor(props: ViewCfg) {
     super();
@@ -298,6 +302,27 @@ export default class View extends EE {
     this.createCoordinate();
 
     return this.coordinateInstance;
+  }
+
+  /**
+   * view 分面绘制
+   * @param facetCfg
+   */
+  public facet(facetCfg: FacetCfg) {
+    // 先销毁掉之前的分面
+    if (this.facetInstance) {
+      this.facetInstance.destroy();
+    }
+
+    // 创建新的分面
+    const type = facetCfg.type;
+    const Ctor = getFacet(type);
+
+    if (!Ctor) {
+      throw new Error(`facet '${type}' is not exist!`);
+    }
+
+    this.facetInstance = new Ctor(this, facetCfg);
   }
 
   public animate(): View {
@@ -540,6 +565,8 @@ export default class View extends EE {
     this.adjustCoordinate();
     // 8. 渲染几何标记
     this.paintGeometries();
+    // 9. 渲染分面
+    this.renderFacet();
 
     // 同样递归处理子 views
     _.each(this.views, (view: View) => {
@@ -798,6 +825,15 @@ export default class View extends EE {
     this.geometries.map((geometry: Geometry) => {
       geometry.paint();
     });
+  }
+
+  /**
+   * 渲染分面，会在其中进行数据分面，然后进行子 view 创建
+   */
+  private renderFacet() {
+    if (this.facetInstance) {
+      this.facetInstance.render();
+    }
   }
 
   /**
