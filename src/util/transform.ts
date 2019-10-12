@@ -8,8 +8,7 @@ import { IGroup, IShape } from '../dependents';
  * @param y y 方向位移
  */
 export function translate(element: IGroup | IShape, x: number, y: number) {
-  // FIXME 待 @antv/matrix-util 发新版本后移除判空操作
-  const matrix = element.getMatrix() || [1, 0, 0, 0, 1, 0, 0, 0, 1];
+  const matrix = element.getMatrix();
   mat3.translate(matrix, matrix, [x, y]);
   element.setMatrix(matrix);
 }
