@@ -24,8 +24,6 @@ export default class Chart extends View {
     // todo @hustcc
     // autoFit 为 true 的时候，应该设置 width height 为容器的大小，否则会有两次渲染和闪烁的过程。
     const canvas = new Canvas({
-      // FIXME: 待 g-canvas 修复
-      // @ts-ignore
       container: ele,
       width,
       height,

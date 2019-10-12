@@ -1,4 +1,4 @@
-import { mat3 } from '@antv/matrix-util';
+import { transform } from '@antv/matrix-util';
 import { IGroup, IShape } from '../dependents';
 
 /**
@@ -8,8 +8,6 @@ import { IGroup, IShape } from '../dependents';
  * @param y y 方向位移
  */
 export function translate(element: IGroup | IShape, x: number, y: number) {
-  // FIXME
-  const matrix = element.getMatrix() || [1, 0, 0, 0, 1, 0, 0, 0, 1];
-  mat3.translate(matrix, matrix, [x, y]);
+  const matrix = transform(element.getMatrix(), ['t', x, y]);
   element.setMatrix(matrix);
 }
