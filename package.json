@@ -31,7 +31,7 @@
     "@antv/event-emitter": "~0.1.0",
     "@antv/g-base": "^0.1.0-beta.3",
     "@antv/g-canvas": "^0.1.0-beta.3",
-    "@antv/matrix-util": "^2.0.3",
+    "@antv/matrix-util": "^2.0.4",
     "@antv/path-util": "^2.0.3",
     "@antv/scale": "^0.2.0",
     "@antv/util": "~2.0.5",
