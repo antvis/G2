@@ -3,7 +3,15 @@ import { FIELD_ORIGIN } from '../../constant';
 import { Data, Datum } from '../../interface';
 
 /**
- * 分割数据，用于处理存在 null、undefined 值的折线图、区域图
+ * 分割数据，用于处理在一组数据中，field 对应的数值存在 null/undefined 的情况
+ * 应用于折线图、区域图以及路径图
+ * @example
+ * // return [{x: 1, y: 2}, {x: 3, y: 3}]
+ * splitData([{x: 1, y: 2}, {x: 2, y: null}, {x: 3, y: 3}], true, 'y');
+ * @example
+ * // return [[{x: 1, y: 2}], [{x: 3, y: 3}]]
+ * splitData([{x: 1, y: 2}, {x: 2, y: null}, {x: 3, y: 3}], false, 'y');
+ *
  * @param data 要进行分割的数据
  * @param connectNulls 是否连接空值数据
  * @param field 判断空值的字段名
