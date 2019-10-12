@@ -467,6 +467,13 @@ export default class View extends EE {
   }
 
   /**
+   * 获取 view 的数据（过滤后的数据）
+   */
+  public getData() {
+    return this.filteredData;
+  }
+
+  /**
    * 获得绘制的层级 group
    * @param layer
    */

@@ -9,7 +9,8 @@
     "only-arrow-functions": false,
     "object-literal-sort-keys": false,
     "no-empty": false,
-    "no-console": false
+    "no-console": false,
+    "member-ordering": false
   },
   "rulesDirectory": []
 }
