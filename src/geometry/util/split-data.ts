@@ -3,11 +3,7 @@ import { FIELD_ORIGIN } from '../../constant';
 import { Data, Datum } from '../../interface';
 
 function isValueNil(value) {
-  if ((_.isArray(value) && _.isNil(value[0])) || _.isNil(value)) {
-    return true;
-  }
-
-  return false;
+  return (_.isArray(value) && _.isNil(value[0])) || _.isNil(value);
 }
 
 /**
