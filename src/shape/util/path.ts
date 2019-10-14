@@ -1,10 +1,8 @@
 import { Coordinate } from '@antv/coord';
 import { vec2 } from '@antv/matrix-util';
 import * as _ from '@antv/util';
-import { Point } from '../../interface';
+import { Point, Position } from '../../interface';
 import { getDistanceToCenter } from '../../util/coordinate';
-
-type PointArray = [number, number];
 
 function _points2path(points: Point[], isInCircle: boolean): any[] {
   const path = [];
@@ -92,18 +90,18 @@ function _filterFullCirleLine(path: any[]): void {
 
 /** 计算光滑的贝塞尔曲线 */
 export const smoothBezier = (
-  points: PointArray[],
+  points: Position[],
   smooth: number,
   isLoop: boolean,
-  constraint: PointArray[]
-): PointArray[] => {
+  constraint: Position[]
+): Position[] => {
   const cps = [];
 
-  let prevPoint: PointArray;
-  let nextPoint: PointArray;
+  let prevPoint: Position;
+  let nextPoint: Position;
   const hasConstraint = !!constraint;
-  let min: PointArray;
-  let max: PointArray;
+  let min: Position;
+  let max: Position;
   if (hasConstraint) {
     min = [Infinity, Infinity];
     max = [-Infinity, -Infinity];
@@ -168,7 +166,7 @@ export const smoothBezier = (
 };
 
 /** 贝塞尔曲线 */
-export function catmullRom2bezier(crp: number[], z: boolean, constraint: PointArray[]): any[] {
+export function catmullRom2bezier(crp: number[], z: boolean, constraint: Position[]): any[] {
   const isLoop = !!z;
   const pointList = [];
   for (let i = 0, l = crp.length; i < l; i += 2) {
@@ -179,9 +177,9 @@ export function catmullRom2bezier(crp: number[], z: boolean, constraint: PointAr
   const len = pointList.length;
   const d1 = [];
 
-  let cp1: PointArray;
-  let cp2: PointArray;
-  let p: PointArray;
+  let cp1: Position;
+  let cp2: Position;
+  let p: Position;
 
   for (let i = 0; i < len - 1; i++) {
     cp1 = controlPointList[i * 2];
@@ -207,7 +205,7 @@ export function getLinePath(points: Point[], isInCircle?: boolean): any[] {
 }
 
 /** 根据关键点获取限定了范围的平滑线 */
-export function getSplinePath(points: Point[], isInCircle?: boolean, constaint?: PointArray[]): any[] {
+export function getSplinePath(points: Point[], isInCircle?: boolean, constaint?: Position[]): any[] {
   const data = [];
   const first = points[0];
   let prePoint = null;
