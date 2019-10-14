@@ -96,7 +96,7 @@ export default class Element {
     this.setOriginStyle();
     // 更新数据
     this.model = cfg;
-    this.data = cfg.origin[FIELD_ORIGIN];
+    this.data = cfg.data;
   }
 
   /**
@@ -189,7 +189,6 @@ export default class Element {
       ...defaultStyle,
       ...model.style,
     };
-
     const shape = shapeFactory.drawShape(shapeType, drawCfg, this);
     this.shape = shape;
   }

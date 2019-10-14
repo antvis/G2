@@ -54,6 +54,8 @@ export interface ShapeDrawCFG {
   /** size 映射值 */
   size?: number | undefined | null;
   /** 对应的原始数据记录 */
+  data?: object;
+  /** 进行图形映射后的数据记录 */
   origin?: object;
   /** geometry 类型 */
   geomType?: string;
@@ -74,6 +76,9 @@ export interface ShapeDrawCFG {
   showSinglePoint?: boolean;
   /** area line 两类 Geometry 适用，是否连接空值 */
   connectNulls?: boolean;
+
+  /** 数据是否发生了调整 */
+  isStack?: boolean;
 }
 
 /** shape 关键点信息 */

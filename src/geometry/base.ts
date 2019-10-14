@@ -511,6 +511,7 @@ export default class Geometry {
       size: obj.size,
       shape: obj.shape,
       isInCircle: this.coordinate.isPolar,
+      data: obj[FIELD_ORIGIN],
     };
 
     const styleOption = this.styleOption;
@@ -594,6 +595,20 @@ export default class Geometry {
     }
 
     return id;
+  }
+
+  // 获取 element 对应 shape 的工厂对象
+  protected getShapeFactory() {
+    let shapeFactory = this.shapeFactory;
+    if (!shapeFactory) {
+      const shapeType = this.shapeType;
+      const coordinate = this.coordinate;
+      shapeFactory = getShapeFactory(shapeType);
+      shapeFactory.setCoordinate(coordinate);
+      this.shapeFactory = shapeFactory;
+    }
+
+    return shapeFactory;
   }
 
   // 创建图形属性相关的配置项
@@ -1017,19 +1032,5 @@ export default class Geometry {
     });
 
     return callback(...params);
-  }
-
-  // 获取 element 对应 shape 的工厂对象
-  private getShapeFactory() {
-    let shapeFactory = this.shapeFactory;
-    if (!shapeFactory) {
-      const shapeType = this.shapeType;
-      const coordinate = this.coordinate;
-      shapeFactory = getShapeFactory(shapeType);
-      shapeFactory.setCoordinate(coordinate);
-      this.shapeFactory = shapeFactory;
-    }
-
-    return shapeFactory;
   }
 }
