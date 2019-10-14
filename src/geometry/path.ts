@@ -35,7 +35,7 @@ export default class Path extends Geometry {
     if (!result) {
       const shapeFactory = this.getShapeFactory();
       result = new Element({
-        data: mappedArray,
+        data: shapeCfg.data,
         model: shapeCfg,
         shapeType: shapeCfg.shape || shapeFactory.defaultShapeType,
         theme: _.get(theme, this.shapeType, {}),
@@ -44,8 +44,11 @@ export default class Path extends Geometry {
       });
     } else {
       // element 已经创建
-      // FIXME: 应该通过判断 shapeCfg 是否有变化来进行更新
-      result.update(shapeCfg); // 更新对应的 element
+      const preShapeCfg = result.model;
+      if (!_.isEqual(preShapeCfg, shapeCfg)) {
+        // 通过绘制数据的变更来判断是否需要更新，因为用户有可能会修改图形属性映射
+        result.update(shapeCfg); // 更新对应的 element
+      }
       delete lastElementsMap[elementId];
     }
 

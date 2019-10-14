@@ -537,10 +537,11 @@ export default class Geometry {
         result = this.createElement(record, i);
       } else {
         // element 已经创建
-        if (!_.isEqual(originData, result.getData())) {
-          // 数据发生变更了才做更新
-          const shapeCfg = this.getDrawCfg(record); // 获取绘制图形的配置信息
-          result.update(shapeCfg); // 更新对应的 element
+        const currentShapeCfg = this.getDrawCfg(record);
+        const preShapeCfg = result.model;
+        if (!_.isEqual(currentShapeCfg, preShapeCfg)) {
+          // 通过绘制数据的变更来判断是否需要更新，因为用户有可能会修改图形属性映射
+          result.update(currentShapeCfg); // 更新对应的 element
         }
 
         delete lastElementsMap[id];

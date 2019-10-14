@@ -52,6 +52,17 @@ describe('Path', () => {
 
     const model = elements[0].model;
     expect(model.points.length).toBe(2);
+
+    const data = elements[0].data;
+    expect(data).toEqual([
+      { x: 'Jan.', y: 18.9 },
+      { x: 'Feb.', y: 28.8 },
+      { x: 'Mar.', y: 39.3 },
+      { x: 'Apr.' },
+      { x: 'Jun.', y: 20.3 },
+      { x: 'Jul.', y: 24 },
+      { x: 'Aug.', y: 35.6 },
+    ]);
   });
 
   it('connectNulls is true,', () => {
