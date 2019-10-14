@@ -72,4 +72,13 @@ export default {
       animate: {},
     },
   },
+  line: {
+    line: {
+      default: {
+        lineWidth: 2,
+        stroke: DEFAULT_COLOR,
+        fill: null,
+      },
+    },
+  },
 };
