@@ -923,13 +923,9 @@ export default class Geometry {
               newRecord[name] = _.isArray(val) && val.length === 1 ? val[0] : val; // 只有一个值时返回第一个属性值
             }
           } else {
-            // newRecord[names[0]] = values.length === 1 ? values[0] : values;
-            // FIXME: 目前只有 color 通道是受 attr 结果统一为数组的影响的，暂时这么调整
-            if (values.length === 1 || names[0] === 'color') {
-              newRecord[names[0]] = values[0];
-            } else {
-              newRecord[names[0]] = values;
-            }
+            // values.length === 1 的判断是以下情况，获取用户设置的图形属性值
+            // shape('a', ['dot', 'dash']), color('a', ['red', 'yellow'])
+            newRecord[names[0]] = values.length === 1 ? values[0] : values;
           }
         }
       }
