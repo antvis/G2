@@ -20,8 +20,8 @@ export function createCanvas(args: object): Canvas {
   return new Canvas({
     width: 800,
     height: 600,
-    renderer: 'canvas',
     pixelRatio: 2,
+    autoDraw: false,
     ...args,
   });
 }
