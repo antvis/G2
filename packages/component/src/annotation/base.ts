@@ -49,10 +49,9 @@ export interface AnnotationCfg extends GuideCfg {
   style: SvgAttrs | Record<string, SvgAttrs>;
 }
 
-export default abstract class Annotation<T extends AnnotationCfg = AnnotationCfg> extends Guide {
-  public cfg: Partial<T>;
+export default abstract class Annotation<T extends AnnotationCfg = AnnotationCfg> extends Guide<T> {
 
-  constructor(cfg: Partial<T>) {
+  constructor(cfg: T) {
     /* istanbul ignore next */
     super({
       xScales: null,

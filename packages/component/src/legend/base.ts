@@ -6,8 +6,8 @@ import * as _ from '@antv/util';
 import Guide from '../base';
 import { LegendCfg } from '../interface';
 
-export default abstract class Legend extends Guide {
-  constructor(cfg: LegendCfg) {
+export default abstract class Legend<T extends LegendCfg = LegendCfg> extends Guide<T> {
+  constructor(cfg: T) {
     super({
       /**
        * 图例类型

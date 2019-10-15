@@ -2,10 +2,10 @@ import * as Util from '@antv/util';
 import { TooltipCfg, ToolTipContentItem } from './interface';
 import Guide from '../base';
 
-export default class Tooltip extends Guide {
+export default class Tooltip<T extends TooltipCfg = TooltipCfg> extends Guide<T> {
   protected style?: any; // todo
 
-  constructor(cfg: TooltipCfg) {
+  constructor(cfg: T) {
     super({
       /**
        * 右下角坐标

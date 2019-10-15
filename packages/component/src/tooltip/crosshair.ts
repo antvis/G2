@@ -4,8 +4,11 @@ import Guide from '../base';
 import { Attrs } from '../interface';
 import { TooltipCfg, ToolTipContentItem } from './interface';
 
-export default class Crosshair extends Guide {
-  constructor(cfg: TooltipCfg) {
+interface CrosshairCfg extends TooltipCfg {
+  rectStyle?: object;
+}
+export default class Crosshair extends Guide<CrosshairCfg> {
+  constructor(cfg: CrosshairCfg) {
     super({
       /**
        * crosshair的类型

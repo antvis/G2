@@ -22,7 +22,7 @@ interface Tick {
   value: number;
 }
 
-export default abstract class Axis extends Guide {
+export default abstract class Axis extends Guide<AxisCfg> {
   constructor(cfg: AxisCfg) {
     super({
       type: 'base',
