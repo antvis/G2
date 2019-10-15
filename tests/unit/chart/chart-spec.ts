@@ -1,18 +1,8 @@
 import { Chart, LAYER } from '../../../src/';
 import { ViewLifeCircle } from '../../../src/constant';
 import { Canvas, Group } from '../../../src/dependents';
+import { CITY_SALE } from '../../util/data';
 import { createDiv } from '../../util/dom';
-
-const data = [
-  { city: '杭州', sale: 100, category: '电脑' },
-  { city: '广州', sale: 30, category: '电脑' },
-  { city: '上海', sale: 110, category: '电脑' },
-  { city: '呼和浩特', sale: 40, category: '电脑' },
-  { city: '上海', sale: 200, category: '鼠标' },
-  { city: '呼和浩特', sale: 10, category: '鼠标' },
-  { city: '杭州', sale: 40, category: '鼠标' },
-  { city: '广州', sale: 90, category: '鼠标' },
-];
 
 describe('Chart', () => {
   const div = createDiv();
@@ -24,7 +14,7 @@ describe('Chart', () => {
     padding: 10,
   });
 
-  chart.data(data);
+  chart.data(CITY_SALE);
 
   chart
     // @ts-ignore

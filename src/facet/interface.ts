@@ -10,7 +10,7 @@ export type FacetCtor = new (view: View, cfg: any) => Facet;
  */
 export interface FacetCfg {
   // 布局类型
-  readonly type: string;
+  readonly type?: string;
   // view 创建回调
   readonly eachView: (innerView: View, facet?: FacetData) => any;
   // 间距
@@ -51,4 +51,8 @@ export interface RectData extends FacetData {
   // 当前行列字段的值长度
   readonly rowValueLength: number;
   readonly columnValueLength: number;
+}
+
+export interface FacetCfgMap {
+  rect: RectCfg;
 }

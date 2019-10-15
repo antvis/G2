@@ -19,7 +19,7 @@ import { ComponentType, DIRECTION, GroupZIndex, LAYER, ViewLifeCircle } from '..
 import { Attribute } from '../dependents';
 import { BBox, ICanvas, IGroup } from '../dependents';
 import { Facet, getFacet } from '../facet';
-import { FacetCfg } from '../facet/interface';
+import { FacetCfg, FacetCfgMap } from '../facet/interface';
 import { Data, Datum } from '../interface';
 import { isFullCircle } from '../util/coordinate';
 import { parsePadding } from '../util/padding';
@@ -306,23 +306,23 @@ export default class View extends EE {
 
   /**
    * view 分面绘制
-   * @param facetCfg
+   * @param type
+   * @param cfg
    */
-  public facet(facetCfg: FacetCfg) {
+  public facet<T extends keyof FacetCfgMap>(type: T, cfg: FacetCfgMap[T]) {
     // 先销毁掉之前的分面
     if (this.facetInstance) {
       this.facetInstance.destroy();
     }
 
     // 创建新的分面
-    const type = facetCfg.type;
     const Ctor = getFacet(type);
 
     if (!Ctor) {
       throw new Error(`facet '${type}' is not exist!`);
     }
 
-    this.facetInstance = new Ctor(this, facetCfg);
+    this.facetInstance = new Ctor(this, { ...cfg, type });
   }
 
   public animate(): View {
@@ -495,7 +495,7 @@ export default class View extends EE {
    * 获取 view 的数据（过滤后的数据）
    */
   public getData() {
-    return this.filteredData;
+    return this.options.data;
   }
 
   /**
@@ -686,7 +686,7 @@ export default class View extends EE {
       let filtered = true;
 
       _.each(filters, (filter: FilterCondition, field: string) => {
-        // 只要一个不通过，就结束循环
+        // 只要一个不通过，就结束循环，并过滤掉
         if (!filter(datum[field], datum)) {
           filtered = false;
           // return false === break loop
