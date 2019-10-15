@@ -10,7 +10,7 @@ const Rect = getCoordinate('rect');
 const LinearScale = getScale('linear');
 const IdentityScale = getScale('identity');
 
-describe('Edge Element', () => {
+describe.skip('Edge Element', () => {
   const div = document.createElement('div');
   div.id = 'edge';
   document.body.appendChild(div);

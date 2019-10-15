@@ -340,7 +340,7 @@ describe('HtmlTooltip测试', () => {
     expect(tooltip.get('x')).to.equal(300 - width - 1);
     tooltip.destroy();
   });
-  it('not enterable', () => {
+  it.skip('not enterable', () => {
     const tooltip = new HtmlTooltip({
       x: 10,
       y: 10,
