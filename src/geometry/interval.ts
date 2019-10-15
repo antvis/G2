@@ -9,7 +9,7 @@ import { getDefaultSize } from './util/shape-size';
 export default class Interval extends Geometry {
   public readonly type: string = 'interval';
   public readonly shapeType: string = 'interval';
-  public generatePoints: boolean = true;
+  protected generatePoints: boolean = true;
 
   private defaultSize: number;
 

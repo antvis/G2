@@ -72,7 +72,6 @@ export interface GeometryCfg {
   coordinate?: Coordinate;
   data?: Data;
   scaleDefs?: ScaleOption;
-  generatePoints?: boolean;
   sortable?: boolean;
   visible?: boolean;
   theme?: LooseObject;
@@ -91,23 +90,21 @@ export default class Geometry {
 
   // 创建 Geometry 对象可传入的属性
   /** 坐标系对象 */
-  public coordinate: Coordinate = null;
+  public coordinate: Coordinate;
   /** data 数据 */
-  public data: Data = null;
+  public data: Data;
   /** 图形容器 */
-  public readonly container: IGroup = null;
+  public readonly container: IGroup;
   /** scale 配置 */
-  public scaleDefs: ScaleOption = {};
-  /** 是否生成多个点来绘制图形 */
-  public generatePoints: boolean = false;
+  public scaleDefs: ScaleOption;
   /** 是否对数据进行排序 */
-  public sortable: boolean = false;
+  public sortable: boolean;
   /** element 是否可见 */
-  public visible: boolean = true;
+  public visible: boolean;
   /** 配置主题 */
-  public theme: LooseObject = null;
+  public theme: LooseObject;
   /** scale·实例集合 */
-  public scales: Record<string, Scale> = {};
+  public scales: Record<string, Scale>;
 
   // 计算生成的属性
   /** 图形属性对象 */
@@ -133,27 +130,18 @@ export default class Geometry {
   protected shapeFactory: ShapeFactory;
   protected elementsMap: Record<string, Element> = {};
   protected lastElementsMap: Record<string, Element> = {};
+  /** 是否生成多个点来绘制图形 */
+  protected generatePoints: boolean = false;
 
   private adjusts: Record<string, Adjust> = {};
 
   constructor(cfg: GeometryCfg) {
-    const {
-      container,
-      coordinate,
-      data,
-      scaleDefs = {},
-      generatePoints = false,
-      sortable = false,
-      visible = true,
-      theme,
-      scales = {},
-    } = cfg;
+    const { container, coordinate, data, scaleDefs = {}, sortable = false, visible = true, theme, scales = {} } = cfg;
 
     this.container = container;
     this.coordinate = coordinate;
     this.data = data;
     this.scaleDefs = scaleDefs;
-    this.generatePoints = generatePoints;
     this.sortable = sortable;
     this.visible = visible;
     this.theme = theme;
@@ -487,7 +475,7 @@ export default class Geometry {
     const { theme, container } = this;
 
     const shapeCfg = this.getDrawCfg(record); // 获取绘制图形的配置信息
-    const shapeFactory = this.shapeFactory;
+    const shapeFactory = this.getShapeFactory();
     const shape = record.shape || shapeFactory.defaultShapeType;
 
     const element = new Element({
@@ -511,6 +499,7 @@ export default class Geometry {
       size: obj.size,
       shape: obj.shape,
       isInCircle: this.coordinate.isPolar,
+      data: obj[FIELD_ORIGIN],
     };
 
     const styleOption = this.styleOption;
@@ -536,10 +525,11 @@ export default class Geometry {
         result = this.createElement(record, i);
       } else {
         // element 已经创建
-        if (!_.isEqual(originData, result.getData())) {
-          // 数据发生变更了才做更新
-          const shapeCfg = this.getDrawCfg(record); // 获取绘制图形的配置信息
-          result.update(shapeCfg); // 更新对应的 element
+        const currentShapeCfg = this.getDrawCfg(record);
+        const preShapeCfg = result.model;
+        if (!_.isEqual(currentShapeCfg, preShapeCfg)) {
+          // 通过绘制数据的变更来判断是否需要更新，因为用户有可能会修改图形属性映射
+          result.update(currentShapeCfg); // 更新对应的 element
         }
 
         delete lastElementsMap[id];
@@ -594,6 +584,20 @@ export default class Geometry {
     }
 
     return id;
+  }
+
+  // 获取 element 对应 shape 的工厂对象
+  protected getShapeFactory() {
+    let shapeFactory = this.shapeFactory;
+    if (!shapeFactory) {
+      const shapeType = this.shapeType;
+      const coordinate = this.coordinate;
+      shapeFactory = getShapeFactory(shapeType);
+      shapeFactory.setCoordinate(coordinate);
+      this.shapeFactory = shapeFactory;
+    }
+
+    return shapeFactory;
   }
 
   // 创建图形属性相关的配置项
@@ -907,13 +911,9 @@ export default class Geometry {
               newRecord[name] = _.isArray(val) && val.length === 1 ? val[0] : val; // 只有一个值时返回第一个属性值
             }
           } else {
-            // newRecord[names[0]] = values.length === 1 ? values[0] : values;
-            // FIXME: 目前只有 color 通道是受 attr 结果统一为数组的影响的，暂时这么调整
-            if (values.length === 1 || names[0] === 'color') {
-              newRecord[names[0]] = values[0];
-            } else {
-              newRecord[names[0]] = values;
-            }
+            // values.length === 1 的判断是以下情况，获取用户设置的图形属性值
+            // shape('a', ['dot', 'dash']), color('a', ['red', 'yellow'])
+            newRecord[names[0]] = values.length === 1 ? values[0] : values;
           }
         }
       }
@@ -1017,19 +1017,5 @@ export default class Geometry {
     });
 
     return callback(...params);
-  }
-
-  // 获取 element 对应 shape 的工厂对象
-  private getShapeFactory() {
-    let shapeFactory = this.shapeFactory;
-    if (!shapeFactory) {
-      const shapeType = this.shapeType;
-      const coordinate = this.coordinate;
-      shapeFactory = getShapeFactory(shapeType);
-      shapeFactory.setCoordinate(coordinate);
-      this.shapeFactory = shapeFactory;
-    }
-
-    return shapeFactory;
   }
 }

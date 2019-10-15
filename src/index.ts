@@ -4,7 +4,11 @@ export * from './core';
 import { registerGeometry } from './chart';
 
 import Interval from './geometry/interval';
+import Line from './geometry/line';
+import Path from './geometry/path';
 import Polygon from './geometry/polygon';
 
 registerGeometry('Polygon', Polygon);
 registerGeometry('Interval', Interval);
+registerGeometry('Path', Path);
+registerGeometry('Line', Line);

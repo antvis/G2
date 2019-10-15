@@ -42,6 +42,29 @@ const FONT_FAMILY = `
   Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
   SimSun, "sans-serif"'`;
 
+const SHAPE_STYLE = {
+  area: {
+    lineWidth: 0,
+    fill: DEFAULT_COLOR,
+    fillOpacity: 0.6,
+  },
+  interval: {
+    lineWidth: 0,
+    fill: DEFAULT_COLOR,
+    fillOpacity: 0.85,
+  },
+  line: {
+    stroke: DEFAULT_COLOR,
+    lineWidth: 2,
+    fill: null,
+  },
+  polygon: {
+    lineWidth: 0,
+    fill: DEFAULT_COLOR,
+    fillOpacity: 1,
+  },
+};
+
 export default {
   defaultColor: DEFAULT_COLOR,
   padding: 'auto',
@@ -61,15 +84,43 @@ export default {
   /** 定义 interval 下各个 shape 的样式以及动画 */
   interval: {
     rect: {
-      default: {
-        lineWidth: 0,
-        fill: DEFAULT_COLOR,
-        fillOpacity: 0.85,
-      },
+      default: SHAPE_STYLE.interval,
       active: {},
       inactive: {},
       selected: {},
       animate: {},
+    },
+  },
+  line: {
+    line: {
+      default: SHAPE_STYLE.line,
+    },
+    dot: {
+      default: {
+        ...SHAPE_STYLE.line,
+        lineDash: [1, 1],
+      },
+    },
+    dash: {
+      default: {
+        ...SHAPE_STYLE.line,
+        lineDash: [5.5, 1],
+      },
+    },
+    smooth: {
+      default: SHAPE_STYLE.line,
+    },
+    hv: {
+      default: SHAPE_STYLE.line,
+    },
+    vh: {
+      default: SHAPE_STYLE.line,
+    },
+    hvh: {
+      default: SHAPE_STYLE.line,
+    },
+    vhv: {
+      default: SHAPE_STYLE.line,
     },
   },
 };

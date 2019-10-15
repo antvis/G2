@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
-import { Point } from '../interface';
-import { ShapePoint } from '../interface';
+import Element from '../element';
+import { Point, ShapeDrawCFG, ShapePoint } from '../interface';
 import { registerShape, registerShapeFactory } from '../shape';
 
 // 根据数据点生成矩形的四个关键点
@@ -74,7 +74,7 @@ const IntervalShapeFactory = registerShapeFactory('interval', {
 });
 
 registerShape('interval', 'rect', {
-  draw(cfg, element) {
+  draw(cfg: ShapeDrawCFG, element: Element) {
     const style = cfg.style;
     if (cfg.color) {
       style.fill = cfg.color;
@@ -89,7 +89,7 @@ registerShape('interval', 'rect', {
       },
     });
   },
-  update(cfg, element) {
+  update(cfg: ShapeDrawCFG, element: Element) {
     const shape = element.shape;
     // todo 重复代码优化
     const style = cfg.style;

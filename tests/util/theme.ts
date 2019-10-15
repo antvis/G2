@@ -104,4 +104,13 @@ export default {
       },
     },
   },
+  line: {
+    line: {
+      default: {
+        lineWidth: 2,
+        stroke: '#1890ff',
+        fill: null,
+      },
+    },
+  },
 };

@@ -141,6 +141,7 @@ describe('Element', () => {
       origin: {
         _origin: { x: 12 },
       },
+      data: { x: 12 },
     });
 
     const shape = element.shape;
@@ -157,6 +158,7 @@ describe('Element', () => {
       origin: {
         _origin: { x: 12 },
       },
+      data: { x: 12 },
     });
     expect(element.getData()).toEqual({ x: 12 });
   });
