@@ -6,7 +6,6 @@ import Path from './path';
 
 export default class Line extends Path {
   public type: string = 'line';
-  public sortable: boolean = true;
 
   constructor(cfg: GeometryCfg) {
     super(cfg);

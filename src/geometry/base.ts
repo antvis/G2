@@ -72,7 +72,6 @@ export interface GeometryCfg {
   coordinate?: Coordinate;
   data?: Data;
   scaleDefs?: ScaleOption;
-  generatePoints?: boolean;
   sortable?: boolean;
   visible?: boolean;
   theme?: LooseObject;
@@ -91,23 +90,21 @@ export default class Geometry {
 
   // 创建 Geometry 对象可传入的属性
   /** 坐标系对象 */
-  public coordinate: Coordinate = null;
+  public coordinate: Coordinate;
   /** data 数据 */
-  public data: Data = null;
+  public data: Data;
   /** 图形容器 */
-  public readonly container: IGroup = null;
+  public readonly container: IGroup;
   /** scale 配置 */
-  public scaleDefs: ScaleOption = {};
-  /** 是否生成多个点来绘制图形 */
-  public generatePoints: boolean = false;
+  public scaleDefs: ScaleOption;
   /** 是否对数据进行排序 */
-  public sortable: boolean = false;
+  public sortable: boolean;
   /** element 是否可见 */
-  public visible: boolean = true;
+  public visible: boolean;
   /** 配置主题 */
-  public theme: LooseObject = null;
+  public theme: LooseObject;
   /** scale·实例集合 */
-  public scales: Record<string, Scale> = {};
+  public scales: Record<string, Scale>;
 
   // 计算生成的属性
   /** 图形属性对象 */
@@ -133,27 +130,18 @@ export default class Geometry {
   protected shapeFactory: ShapeFactory;
   protected elementsMap: Record<string, Element> = {};
   protected lastElementsMap: Record<string, Element> = {};
+  /** 是否生成多个点来绘制图形 */
+  protected generatePoints: boolean = false;
 
   private adjusts: Record<string, Adjust> = {};
 
   constructor(cfg: GeometryCfg) {
-    const {
-      container,
-      coordinate,
-      data,
-      scaleDefs = {},
-      generatePoints = false,
-      sortable = false,
-      visible = true,
-      theme,
-      scales = {},
-    } = cfg;
+    const { container, coordinate, data, scaleDefs = {}, sortable = false, visible = true, theme, scales = {} } = cfg;
 
     this.container = container;
     this.coordinate = coordinate;
     this.data = data;
     this.scaleDefs = scaleDefs;
-    this.generatePoints = generatePoints;
     this.sortable = sortable;
     this.visible = visible;
     this.theme = theme;

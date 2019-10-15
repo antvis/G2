@@ -16,7 +16,7 @@ export default class Path extends Geometry {
   public readonly type: string = 'path';
   public readonly shapeType: string = 'line';
   /** 是否连接空值 */
-  public connectNulls: boolean = false;
+  public connectNulls: boolean;
 
   constructor(cfg: PathCfg) {
     super(cfg);

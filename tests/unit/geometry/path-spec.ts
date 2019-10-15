@@ -66,17 +66,24 @@ describe('Path', () => {
   });
 
   it('connectNulls is true,', () => {
-    path.connectNulls = true;
-    path.updateData([
-      { x: 'Jan.', y: 18.9 },
-      { x: 'Feb.', y: 28.8 },
-      { x: 'Mar.', y: 39.3 },
-      { x: 'Apr.' },
-      { x: 'Jun.' },
-      { x: 'Jul.', y: 24 },
-      { x: 'Aug.', y: 35.6 },
-    ]);
+    path = new Path({
+      coordinate: rectCoord,
+      data: [
+        { x: 'Jan.', y: 18.9 },
+        { x: 'Feb.', y: 28.8 },
+        { x: 'Mar.', y: 39.3 },
+        { x: 'Apr.' },
+        { x: 'Jun.' },
+        { x: 'Jul.', y: 24 },
+        { x: 'Aug.', y: 35.6 },
+      ],
+      container: canvas.addGroup(),
+      theme: Theme,
+      connectNulls: true,
+    });
 
+    path.position('x*y').size(4);
+    path.initial();
     path.paint();
     canvas.draw();
     expect(path.container.get('children').length).toBe(1);
