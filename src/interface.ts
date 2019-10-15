@@ -54,9 +54,9 @@ export interface ShapeDrawCFG {
   /** size 映射值 */
   size?: number | undefined | null;
   /** 对应的原始数据记录 */
-  data?: object;
+  data?: Datum;
   /** 进行图形映射后的数据记录 */
-  origin?: object;
+  origin?: Datum;
   /** geometry 类型 */
   geomType?: string;
   /** 构成 shape 的关键点  */
