@@ -1,6 +1,7 @@
 import { Point } from '@antv/g-base/lib/types';
 import * as _ from '@antv/util';
-import { Position } from '../interface';
+import Element from '../element';
+import { Position, ShapeDrawCFG } from '../interface';
 import { registerShape, registerShapeFactory } from '../shape/base';
 import { getLinePath, getSplinePath } from './util/path';
 import { splitPoints } from './util/split-points';
@@ -149,7 +150,7 @@ const LineShapeFactory = registerShapeFactory('line', {
 // 'dash' 断线 - - -
 _.each(['line', 'dot', 'dash', 'smooth'], (shapeType) => {
   registerShape('line', shapeType, {
-    draw(cfg, element) {
+    draw(cfg: ShapeDrawCFG, element: Element) {
       const container = element.container;
       const smooth = shapeType === 'smooth';
       let constraint;
@@ -164,7 +165,7 @@ _.each(['line', 'dot', 'dash', 'smooth'], (shapeType) => {
         attrs,
       });
     },
-    update(cfg, element) {
+    update(cfg: ShapeDrawCFG, element: Element) {
       const shape = element.shape;
       const smooth = shapeType === 'smooth';
       let constraint;
@@ -182,7 +183,7 @@ _.each(['line', 'dot', 'dash', 'smooth'], (shapeType) => {
 // step line
 _.each(['hv', 'vh', 'hvh', 'vhv'], (shapeType) => {
   registerShape('line', shapeType, {
-    draw(cfg, element) {
+    draw(cfg: ShapeDrawCFG, element: Element) {
       const container = element.container;
       const attrs = getInterpolateShapeAttrs(cfg, shapeType);
       return container.addShape({
@@ -190,7 +191,7 @@ _.each(['hv', 'vh', 'hvh', 'vhv'], (shapeType) => {
         attrs,
       });
     },
-    update(cfg, element) {
+    update(cfg: ShapeDrawCFG, element: Element) {
       const shape = element.shape;
       const attrs = getInterpolateShapeAttrs(cfg, shapeType);
       shape.attr(attrs);
