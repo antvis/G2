@@ -6,7 +6,7 @@ import {
   getPointAngle,
   getPointRadius,
   getSplinePath,
-} from '../../../../src/shape/util/path';
+} from '../../../../../src/geometry/shape/util/path';
 
 const Rect = getCoordinate('rect');
 const Polar = getCoordinate('polar');

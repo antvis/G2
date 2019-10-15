@@ -1,6 +1,6 @@
-import { getCoordinate, Group, Shape } from '../../../src/dependents';
-import Element from '../../../src/element';
-import * as GeometryShape from '../../../src/shape/base';
+import { getCoordinate, Group, Shape } from '../../../../src/dependents';
+import Element from '../../../../src/geometry/element';
+import * as GeometryShape from '../../../../src/geometry/shape/base';
 
 const Rect = getCoordinate('rect');
 const Polar = getCoordinate('polar');

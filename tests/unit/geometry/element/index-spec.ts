@@ -1,6 +1,6 @@
-import { Group } from '../../src/dependents';
-import Element from '../../src/element';
-import * as Shape from '../../src/shape/base';
+import { Group } from '../../../../src/dependents';
+import Element from '../../../../src/geometry/element';
+import * as Shape from '../../../../src/geometry/shape/base';
 
 describe('Element', () => {
   let container;

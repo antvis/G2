@@ -1,9 +1,7 @@
 import * as _ from '@antv/util';
+import { ShapeDrawCFG, ShapePoint } from '../../interface';
 import Element from '../element';
-
-import { ShapeDrawCFG } from '../interface';
-import { ShapePoint } from '../interface';
-import { registerShape, registerShapeFactory } from '../shape';
+import { registerShape, registerShapeFactory } from './base';
 
 function getPath(points: any[]) {
   let flag: any = points[0];

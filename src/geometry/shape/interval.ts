@@ -1,7 +1,7 @@
 import * as _ from '@antv/util';
+import { Point, ShapeDrawCFG, ShapePoint } from '../../interface';
 import Element from '../element';
-import { Point, ShapeDrawCFG, ShapePoint } from '../interface';
-import { registerShape, registerShapeFactory } from '../shape';
+import { registerShape, registerShapeFactory } from './base';
 
 // 根据数据点生成矩形的四个关键点
 function getRectPoints(cfg: ShapePoint, isPyramid = false) {
