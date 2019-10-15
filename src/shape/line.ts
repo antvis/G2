@@ -1,8 +1,38 @@
+import { Point } from '@antv/g-base/lib/types';
 import * as _ from '@antv/util';
 import { Position } from '../interface';
 import { registerShape, registerShapeFactory } from '../shape/base';
 import { getLinePath, getSplinePath } from './util/path';
 import { splitPoints } from './util/split-points';
+
+function getStyle(cfg) {
+  const { style, color, size } = cfg;
+  const result = {
+    ...style,
+  };
+  if (color) {
+    result.stroke = color;
+  }
+  if (size) {
+    result.lineWidth = size;
+  }
+
+  return result;
+}
+
+function getShapeAttrs(cfg, smooth?: boolean, constraint?: Position[]) {
+  const { isStack, points, isInCircle } = cfg;
+
+  let path = [];
+  _.each(points, (eachLinePoints) => {
+    path = path.concat(getPath(eachLinePoints, isInCircle, isStack, smooth, constraint));
+  });
+
+  return {
+    ...getStyle(cfg),
+    path,
+  };
+}
 
 // 单条 path
 function getSinglePath(points, isInCircle: boolean, smooth?: boolean, constraint?: Position[]) {
@@ -48,46 +78,44 @@ function getPath(points, isInCircle, isStack?: boolean, smooth?: boolean, constr
     : getSinglePath(points, isInCircle, smooth, constraint);
 }
 
-function getStyle(cfg) {
-  const { style, color, size } = cfg;
-  const result = {
-    ...style,
-  };
-  if (color) {
-    result.stroke = color;
-  }
-  if (size) {
-    result.lineWidth = size;
+const interpolateCallback = (point: Point, nextPoint: Point, shapeType: string) => {
+  const { x, y } = point;
+  const { x: nextX, y: nextY } = nextPoint;
+  let result;
+
+  switch (shapeType) {
+    case 'hv':
+      result = [{ x: nextX, y }];
+      break;
+    case 'vh':
+      result = [{ x, y: nextY }];
+      break;
+    case 'hvh':
+      const middleX = (nextX + x) / 2;
+      result = [{ x: middleX, y }, { x: middleX, y: nextY }];
+      break;
+    case 'vhv':
+      const middleY = (y + nextY) / 2;
+      result = [{ x, y: middleY }, { x: nextX, y: middleY }];
+      break;
+    default:
+      break;
   }
 
   return result;
-}
+};
 
-function getShapeAttrs(cfg, smooth?: boolean, constraint?: Position[]) {
-  const { isStack, points, isInCircle } = cfg;
-
-  let path = [];
-  // FIXME: 喵呜，需要更合理的命名
-  _.each(points, (linePoints) => {
-    path = path.concat(getPath(linePoints, isInCircle, isStack, smooth, constraint));
-  });
-
-  return {
-    ...getStyle(cfg),
-    path,
-  };
-}
-
-function getInterpolatePoints(points, fn) {
-  let tmpPoints = [];
-  _.each(points, (point, index) => {
+function getInterpolatePoints(points: Point[], shapeType: string) {
+  let result = [];
+  _.each(points, (point: Point, index) => {
     const nextPoint = points[index + 1];
-    tmpPoints.push(point);
+    result.push(point);
     if (nextPoint) {
-      tmpPoints = tmpPoints.concat(fn(point, nextPoint));
+      const interpolatePoint = interpolateCallback(point, nextPoint, shapeType);
+      result = result.concat(interpolatePoint);
     }
   });
-  return tmpPoints;
+  return result;
 }
 
 // 插值的图形path，不考虑null
@@ -98,12 +126,11 @@ function getInterpolatePath(points) {
 }
 
 // 插值的图形
-function getInterpolateShapeAttrs(cfg, fn) {
+function getInterpolateShapeAttrs(cfg, shapeType) {
   const points = cfg.points;
   let path = [];
-  // FIXME: 喵呜，需要更合理的命名
-  _.each(points, (linePoints) => {
-    const interpolatePoints = getInterpolatePoints(linePoints, fn);
+  _.each(points, (eachLinePoints) => {
+    const interpolatePoints = getInterpolatePoints(eachLinePoints, shapeType);
     path = path.concat(getInterpolatePath(interpolatePoints));
   });
 
@@ -152,39 +179,12 @@ _.each(['line', 'dot', 'dash', 'smooth'], (shapeType) => {
   });
 });
 
-const callbackMap = {
-  hv: (point, nextPoint) => {
-    return [
-      {
-        x: nextPoint.x,
-        y: point.y,
-      },
-    ];
-  },
-  vh: (point, nextPoint) => {
-    return [
-      {
-        x: point.x,
-        y: nextPoint.y,
-      },
-    ];
-  },
-  hvh: (point, nextPoint) => {
-    const middleX = (nextPoint.x + point.x) / 2;
-    return [{ x: middleX, y: point.y }, { x: middleX, y: nextPoint.y }];
-  },
-  vhv: (point, nextPoint) => {
-    const middleY = (point.y + nextPoint.y) / 2;
-    return [{ x: point.x, y: middleY }, { x: nextPoint.x, y: middleY }];
-  },
-};
-
 // step line
 _.each(['hv', 'vh', 'hvh', 'vhv'], (shapeType) => {
   registerShape('line', shapeType, {
     draw(cfg, element) {
       const container = element.container;
-      const attrs = getInterpolateShapeAttrs(cfg, callbackMap[shapeType]);
+      const attrs = getInterpolateShapeAttrs(cfg, shapeType);
       return container.addShape({
         type: 'path',
         attrs,
@@ -192,7 +192,7 @@ _.each(['hv', 'vh', 'hvh', 'vhv'], (shapeType) => {
     },
     update(cfg, element) {
       const shape = element.shape;
-      const attrs = getInterpolateShapeAttrs(cfg, callbackMap[shapeType]);
+      const attrs = getInterpolateShapeAttrs(cfg, shapeType);
       shape.attr(attrs);
     },
   });

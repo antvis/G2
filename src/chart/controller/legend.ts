@@ -19,7 +19,7 @@ export function createLegends(legends: Record<string, LegendCfg>, view: View): C
   _.each(legendAttributes, (attr: Attribute) => {
     const scale = attr.getScale(attr.type);
     if (!scale) {
-      // 如果在视觉通道上映射常量值则不会生成 scale
+      // 如果在视觉通道上映射常量值则不会生成 scale，如 size(2) shape('circle')
       return;
     }
     const legendCfg = _.get(legends, [scale.field]);
