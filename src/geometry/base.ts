@@ -475,7 +475,7 @@ export default class Geometry {
     const { theme, container } = this;
 
     const shapeCfg = this.getDrawCfg(record); // 获取绘制图形的配置信息
-    const shapeFactory = this.shapeFactory;
+    const shapeFactory = this.getShapeFactory();
     const shape = record.shape || shapeFactory.defaultShapeType;
 
     const element = new Element({

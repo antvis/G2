@@ -86,6 +86,8 @@ describe('Path', () => {
     path.initial();
     path.paint();
     canvas.draw();
+
+    expect(path.connectNulls).toBe(true);
     expect(path.container.get('children').length).toBe(1);
 
     const elements = path.elements;

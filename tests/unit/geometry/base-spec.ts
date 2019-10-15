@@ -37,7 +37,6 @@ describe('Geometry', () => {
             range: [0.25, 0.75],
           },
         },
-        generatePoints: true,
       });
       // @ts-ignore
       geometry.type = 'myInterval';
@@ -51,7 +50,6 @@ describe('Geometry', () => {
       expect(geometry.container).not.toBe(undefined);
       expect(geometry.theme).not.toBe(undefined);
       expect(geometry.scaleDefs).not.toBe(undefined);
-      expect(geometry.generatePoints).toBe(true);
     });
 
     it('position()', () => {
@@ -249,7 +247,6 @@ describe('Geometry', () => {
         coordinate,
         container,
         theme: Theme, // 测试用主题
-        generatePoints: true,
         scaleDefs: {
           month: {
             range: [0.25, 0.75],
@@ -264,6 +261,8 @@ describe('Geometry', () => {
       geometry.type = 'interval';
       // @ts-ignore
       geometry.shapeType = 'myInterval';
+      // @ts-ignore 测试使用
+      geometry.generatePoints = true;
 
       function getPath(points) {
         const path = [];
