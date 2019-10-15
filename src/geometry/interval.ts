@@ -1,9 +1,9 @@
 import * as _ from '@antv/util';
 import { LooseObject } from 'interface';
-/** 引入对应的 ShapeFactory */
-import '../shape/interval';
 import { getXDimensionLength } from '../util/coordinate';
 import Geometry from './base';
+/** 引入对应的 ShapeFactory */
+import './shape/interval';
 import { getDefaultSize } from './util/shape-size';
 
 export default class Interval extends Geometry {

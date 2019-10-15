@@ -1,10 +1,10 @@
 import * as _ from '@antv/util';
 import { FIELD_ORIGIN } from '../constant';
-import Element from '../element';
 import { Data, Datum } from '../interface';
-/** 引入对应的 ShapeFactory */
-import '../shape/line';
 import Geometry, { GeometryCfg } from './base';
+import Element from './element';
+/** 引入对应的 ShapeFactory */
+import './shape/line';
 import { splitData } from './util/split-data';
 
 interface PathCfg extends GeometryCfg {

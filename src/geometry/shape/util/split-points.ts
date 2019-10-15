@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-import { Point, ShapePoint } from '../../interface';
+import { Point, ShapePoint } from '../../../interface';
 
 export function splitPoints(obj: ShapePoint): Point[] {
   // y 有可能是数组，对应原始数据中 y 为一个区间数据，如 [19, 30]，为了统一也将 x 转换为数组

@@ -1,8 +1,7 @@
-import * as _ from '@antv/util';
-/** 引入 Path 对应的 ShapeFactory */
-import '../shape/line';
 import { GeometryCfg } from './base';
 import Path from './path';
+/** 引入 Path 对应的 ShapeFactory */
+import './shape/line';
 
 export default class Line extends Path {
   public type: string = 'line';

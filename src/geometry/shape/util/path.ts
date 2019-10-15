@@ -1,8 +1,8 @@
-import { Coordinate } from '@antv/coord';
 import { vec2 } from '@antv/matrix-util';
 import * as _ from '@antv/util';
-import { Point, Position } from '../../interface';
-import { getDistanceToCenter } from '../../util/coordinate';
+import { Coordinate } from '../../../dependents';
+import { Point, Position } from '../../../interface';
+import { getDistanceToCenter } from '../../../util/coordinate';
 
 function _points2path(points: Point[], isInCircle: boolean): any[] {
   const path = [];

@@ -2,8 +2,8 @@ import * as _ from '@antv/util';
 import 'jest-extended';
 import { getCoordinate, Group } from '../../../src/dependents';
 import Geometry from '../../../src/geometry/base';
+import * as Shape from '../../../src/geometry/shape/base';
 import { LooseObject } from '../../../src/interface';
-import * as Shape from '../../../src/shape/base';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
 import Theme from '../../util/theme';
 

@@ -1,8 +1,7 @@
-import { Point } from '@antv/g-base/lib/types';
 import * as _ from '@antv/util';
+import { Point, Position, ShapeDrawCFG } from '../../interface';
 import Element from '../element';
-import { Position, ShapeDrawCFG } from '../interface';
-import { registerShape, registerShapeFactory } from '../shape/base';
+import { registerShape, registerShapeFactory } from './base';
 import { getLinePath, getSplinePath } from './util/path';
 import { splitPoints } from './util/split-points';
 

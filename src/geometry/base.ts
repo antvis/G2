@@ -1,7 +1,7 @@
 import * as _ from '@antv/util';
-import Element from '../element';
-import { getShapeFactory } from '../shape';
 import { createScaleByField, syncScale } from '../util/scale';
+import Element from './element';
+import { getShapeFactory } from './shape/base';
 import { parseFields } from './util/parse-fields';
 
 import { Adjust, getAdjust as getAdjustClass } from '@antv/adjust';

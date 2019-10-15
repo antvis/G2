@@ -1,5 +1,5 @@
 import { Coordinate, IGroup, IShape, ScaleConfig } from './dependents';
-import Element from './element';
+import Element from './geometry/element';
 
 /** G 的渲染类型 */
 export type Renderer = 'svg' | 'canvas';
