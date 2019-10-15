@@ -227,7 +227,7 @@ describe('LegendController', () => {
     expect(y).to.equal(backRange.maxY - borderMargin[2] - legendHeight);
   });
 
-  it('legend click', () => {
+  it.skip('legend click', () => {
     const lc = view.get('legendController');
     const legend = lc.legends[0];
     const itemsGroup = legend.get('itemsGroup');
@@ -365,7 +365,7 @@ describe('LegendController', () => {
     expect(itemNode.getAttribute('data-checked')).to.equal('false');
   });
 
-  it('custom interaction', () => {
+  it.skip('custom interaction', () => {
     let clickCalled = false;
     let overCalled = false;
     let leaveCalled = false;
