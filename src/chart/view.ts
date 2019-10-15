@@ -323,6 +323,8 @@ export default class View extends EE {
     }
 
     this.facetInstance = new Ctor(this, { ...cfg, type });
+
+    return this;
   }
 
   public animate(): View {
