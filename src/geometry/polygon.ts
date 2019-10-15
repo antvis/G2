@@ -4,9 +4,9 @@ import '../shape/polygon';
 import Geometry from './base';
 
 export default class Polygon extends Geometry {
-  public readonly type = 'polygon';
-  public readonly shapeType = 'polygon';
-  public generatePoints = true;
+  public readonly type: string = 'polygon';
+  public readonly shapeType: string = 'polygon';
+  protected generatePoints: boolean = true;
 
   protected createShapePointsCfg(obj: object) {
     const cfg: any = super.createShapePointsCfg(obj);
