@@ -2,8 +2,8 @@ import { getCoordinate } from '@antv/coord';
 import { getScale } from '@antv/scale';
 import Interval from '../../../../src/geometry/interval';
 import { getDefaultSize } from '../../../../src/geometry/util/shape-size';
+import Theme from '../../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../../util/dom';
-import Theme from '../../../util/theme';
 
 import 'jest-extended';
 

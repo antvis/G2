@@ -1,8 +1,8 @@
 import { getCoordinate } from '@antv/coord';
 import { isNumberEqual } from '@antv/util';
 import Interval from '../../../src/geometry/interval';
+import Theme from '../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
-import Theme from '../../util/theme';
 
 import 'jest-extended';
 

@@ -4,8 +4,8 @@ import { getCoordinate, Group } from '../../../src/dependents';
 import Geometry from '../../../src/geometry/base';
 import * as Shape from '../../../src/geometry/shape/base';
 import { LooseObject } from '../../../src/interface';
+import Theme from '../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
-import Theme from '../../util/theme';
 
 const Rect = getCoordinate('rect');
 
@@ -31,7 +31,22 @@ describe('Geometry', () => {
         data,
         coordinate,
         container: new Group({}),
-        theme: Theme, // 测试用主题
+        theme: {
+          ...Theme,
+          myInterval: {
+            tick: {
+              default: {
+                lineWidth: 10,
+              },
+              active: {
+                stroke: 'red',
+              },
+              selected: {
+                stroke: 'blue',
+              },
+            },
+          },
+        },
         scaleDefs: {
           month: {
             range: [0.25, 0.75],
@@ -246,7 +261,22 @@ describe('Geometry', () => {
         data,
         coordinate,
         container,
-        theme: Theme, // 测试用主题
+        theme: {
+          ...Theme,
+          myInterval: {
+            tick: {
+              default: {
+                lineWidth: 10,
+              },
+              active: {
+                stroke: 'red',
+              },
+              selected: {
+                stroke: 'blue',
+              },
+            },
+          },
+        },
         scaleDefs: {
           month: {
             range: [0.25, 0.75],

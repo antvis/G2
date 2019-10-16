@@ -123,4 +123,9 @@ export default {
       default: SHAPE_STYLE.line,
     },
   },
+  polygon: {
+    polygon: {
+      default: SHAPE_STYLE.polygon,
+    },
+  },
 };
