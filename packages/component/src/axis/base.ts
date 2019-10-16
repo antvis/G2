@@ -1,14 +1,9 @@
-import * as Util from '@antv/util';
 import { Shape } from '@antv/g';
+import * as Util from '@antv/util';
 import Guide from '../base';
+import { AxisCfg, GridPoint, GridPoints, PointType } from '../interface';
 import Label from '../label/base';
 import Theme from './theme';
-import {
-  AxisCfg,
-  PointType,
-  GridPoints,
-  GridPoint,
-} from '../interface';
 
 interface ItemType {
   x: number;
@@ -54,7 +49,7 @@ export default abstract class Axis extends Guide<AxisCfg> {
     this._processTicks();
   }
 
-  render() {
+  public render() {
     const line = this.get('line');
     line && this._renderLine(); // 渲染坐标轴线
 
@@ -68,13 +63,14 @@ export default abstract class Axis extends Guide<AxisCfg> {
     label && this._renderLabels(); // 渲染坐标轴文本
 
     const title = this.get('title');
-    if (title) { // 渲染坐标轴标题
+    if (title) {
+      // 渲染坐标轴标题
       this.set('title', Util.deepMix({}, Theme.title, this.get('title')));
       this.renderTitle();
     }
   }
 
-  destroy() {
+  public destroy() {
     if (!this.destroyed) {
       super.destroy();
       const gridGroup = this.get('gridGroup');
@@ -87,7 +83,7 @@ export default abstract class Axis extends Guide<AxisCfg> {
     }
   }
 
-  clear() {
+  public clear() {
     const group = this.get('group');
     if (!group.get('destroyed') && group.get('children').length) {
       const gridGroup = this.get('gridGroup');
@@ -96,10 +92,36 @@ export default abstract class Axis extends Guide<AxisCfg> {
       labelRenderer && labelRenderer.clear();
       // 再飞 mark: 这样就会将所有的 axis 实例中创建的 shapes 和 groups 清空
       // 按照正常的逻辑，应该只负责清空当前实例创建的 shaps 和 groups
-      const group = this.get('group');
-      group.clear();
+      this.get('group').clear();
     }
   }
+
+  /**
+   * 获取坐标轴线的 path
+   * @abstract
+   * @return {[type]} [description]
+   */
+  public abstract getLinePath(): any[];
+
+  /**
+   * 获取 tick 在画布上的位置
+   * @abstract
+   * @return {[type]} [description]
+   */
+  public abstract getTickPoint(p: number, index?: number): PointType;
+
+  /**
+   * 获取标示坐标点的线的终点
+   * @abstract
+   */
+  public abstract getTickEnd(point?: any, length?: number, index?: number): PointType;
+
+  /**
+   * 获取距离坐标轴的向量
+   * @abstract
+   * @return {[type]} [description]
+   */
+  public abstract getSideVector(offset: number, point: PointType, index: number): number[];
 
   /**
    * 解析 tick 文本
@@ -126,7 +148,8 @@ export default abstract class Axis extends Guide<AxisCfg> {
     const label = this.get('label');
     let labelCfg = label;
 
-    if (Util.isFunction(labelCfg)) { // 如果用户定义的 label 属性是回调函数
+    if (Util.isFunction(labelCfg)) {
+      // 如果用户定义的 label 属性是回调函数
       const executedLabel = label(tick.text, index, tickCount);
       labelCfg = executedLabel ? Util.deepMix({}, theme.label, executedLabel) : null;
     }
@@ -162,10 +185,12 @@ export default abstract class Axis extends Guide<AxisCfg> {
    */
   protected getTextAnchor(vector) {
     const ratio = Math.abs(vector[1] / vector[0]);
-    if (ratio >= 1) { // 上面或者下面
+    if (ratio >= 1) {
+      // 上面或者下面
       return 'center';
     }
-    if (vector[0] > 0) { // 右侧
+    if (vector[0] > 0) {
+      // 右侧
       return 'start';
     }
     return 'end'; // 左侧
@@ -202,35 +227,8 @@ export default abstract class Axis extends Guide<AxisCfg> {
    */
   protected renderTitle() {}
 
-  /**
-   * 获取坐标轴线的 path
-   * @abstract
-   * @return {[type]} [description]
-   */
-  abstract getLinePath(): any[];
-
-  /**
-   * 获取 tick 在画布上的位置
-   * @abstract
-   * @return {[type]} [description]
-   */
-  abstract getTickPoint(p: number, index?: number): PointType;
-
-  /**
-   * 获取标示坐标点的线的终点
-   * @abstract
-   */
-  abstract getTickEnd(point?: any, length?: number, index?: number): PointType;
-
-  /**
-   * 获取距离坐标轴的向量
-   * @abstract
-   * @return {[type]} [description]
-   */
-  abstract getSideVector(offset: number, point: PointType, index: number): number[];
-
   // 渲染坐标轴线
-  private _renderLine() {
+  protected _renderLine() {
     const path = this.getLinePath();
     const lineCfg = {
       path,
@@ -247,7 +245,7 @@ export default abstract class Axis extends Guide<AxisCfg> {
   }
 
   // 渲染坐标轴线
-  private _renderTicks() {
+  protected _renderTicks() {
     const tickLineCfg = this.get('tickLine');
     const tickItems = this.get('tickItems');
     const subTickItems = this.get('subTickItems');
@@ -258,6 +256,105 @@ export default abstract class Axis extends Guide<AxisCfg> {
     if (subTickItems && subTickItems.length) {
       const subTickLineCfg = this.get('subTickLine') || tickLineCfg;
       this._addTickLine(subTickItems, subTickLineCfg);
+    }
+  }
+
+  protected _renderGrid() {
+    const coord = this.get('coord');
+    const appendInfo = this.get('appendInfo');
+    const group = this.get('group');
+    const gridPoints = this.get('gridPoints');
+    const grid = this.get('grid');
+    const gridType = this.get('gridType');
+    const theme = this.get('theme') || {};
+    const ticks = this.get('ticks');
+    const count = gridPoints.length;
+
+    const gridGroup = group.addGroup({
+      class: 'axis-grid',
+      zIndex: 0, // 位于下层，line 下面
+    });
+    this.set('gridGroup', gridGroup);
+
+    // 渲染网格线
+    let gridCfg = grid;
+    Util.each(gridPoints, (subPoints: any, index) => {
+      if (Util.isFunction(grid)) {
+        // grid 是回调函数
+        const tick = ticks[index];
+        const executedGrid = tick && grid(tick.text, index, count);
+        gridCfg = executedGrid ? Util.mix({}, theme.grid, executedGrid) : null;
+      }
+
+      if (gridCfg) {
+        const points = subPoints.points;
+        const path = [];
+
+        if (gridType === 'arc') {
+          // 弧形
+          Util.each(points, (point: ItemType, idx: number) => {
+            const { radius, x, y, flag } = point;
+            if (idx === 0) {
+              path.push(['M', x, y]);
+            } else {
+              path.push(['A', radius, radius, 0, 0, flag, x, y]);
+            }
+          });
+        } else {
+          Util.each(points, (point: PointType, idx: number) => {
+            const { x, y } = point;
+            if (idx === 0) {
+              path.push(['M', x, y]);
+            } else {
+              path.push(['L', x, y]);
+            }
+          });
+        }
+        const gridLineShape = gridGroup.addShape('path', {
+          attrs: Util.mix({ path }, Theme.grid, gridCfg),
+        });
+
+        gridLineShape.name = 'axis-grid';
+        gridLineShape.id = subPoints.id;
+        gridLineShape.set('coord', coord);
+        appendInfo && gridLineShape.setSilent('appendInfo', gridLineShape);
+      }
+    });
+
+    // 用户设置了网格的交替填充色
+    const gridAlternateColor = this.get('gridAlternateColor');
+    if (gridAlternateColor) {
+      let preItem;
+      Util.each(gridPoints, (item: GridPoints, index: number) => {
+        if (preItem) {
+          this._drawAlternativeBg(item, preItem, index);
+        }
+        preItem = item;
+      });
+    }
+  }
+
+  protected _renderLabels() {
+    const group = this.get('group');
+    const labelRenderer = new Label({ name: 'axis-label' });
+    labelRenderer.set('coord', this.get('coord'));
+    labelRenderer.set(
+      'group',
+      group.addGroup({
+        class: 'axis-labels',
+      })
+    );
+    labelRenderer.set('canvas', this.get('canvas'));
+    labelRenderer.set('items', this.get('labelItems'));
+
+    labelRenderer.draw(false);
+    this.set('labelRenderer', labelRenderer);
+
+    if (this.get('autoRotateLabel')) {
+      this.autoRotateLabels();
+    }
+    if (this.get('autoHideLabel')) {
+      this.autoHideLabels();
     }
   }
 
@@ -279,7 +376,8 @@ export default abstract class Axis extends Guide<AxisCfg> {
       }
     });
 
-    if (subTickCount) { // 如果有设置次级分点，添加次级tick
+    if (subTickCount) {
+      // 如果有设置次级分点，添加次级tick
       const subTickLineCfg = this.get('subTickLine');
       Util.each(ticks, (tick: Tick, index: number) => {
         if (index > 0) {
@@ -344,8 +442,8 @@ export default abstract class Axis extends Guide<AxisCfg> {
     const cfg = Util.mix({}, lineCfg);
     const path = [];
     Util.each(ticks, (item: any) => {
-      path.push([ 'M', item.x1, item.y1 ]);
-      path.push([ 'L', item.x2, item.y2 ]);
+      path.push(['M', item.x1, item.y1]);
+      path.push(['L', item.x2, item.y2]);
     });
     delete cfg.length;
     cfg.path = path;
@@ -358,79 +456,6 @@ export default abstract class Axis extends Guide<AxisCfg> {
     tickShape.id = `${this.get('id')}-ticks`;
     tickShape.set('coord', this.get('coord'));
     this.get('appendInfo') && tickShape.setSilent('appendInfo', this.get('appendInfo'));
-  }
-
-  private _renderGrid() {
-    const coord = this.get('coord');
-    const appendInfo = this.get('appendInfo');
-    const group = this.get('group');
-    const gridPoints = this.get('gridPoints');
-    const grid = this.get('grid');
-    const gridType = this.get('gridType');
-    const theme = this.get('theme') || {};
-    const ticks = this.get('ticks');
-    const count = gridPoints.length;
-
-    const gridGroup = group.addGroup({
-      class: 'axis-grid',
-      zIndex: 0, // 位于下层，line 下面
-    });
-    this.set('gridGroup', gridGroup);
-
-    // 渲染网格线
-    let gridCfg = grid;
-    Util.each(gridPoints, (subPoints: any, index) => {
-      if (Util.isFunction(grid)) { // grid 是回调函数
-        const tick = ticks[index];
-        const executedGrid = tick && grid(tick.text, index, count);
-        gridCfg = executedGrid ? Util.mix({}, theme.grid, executedGrid) : null;
-      }
-
-      if (gridCfg) {
-        const points = subPoints.points;
-        const path = [];
-
-        if (gridType === 'arc') { // 弧形
-          Util.each(points, (point: ItemType, idx: number) => {
-            const { radius, x, y, flag } = point;
-            if (idx === 0) {
-              path.push([ 'M', x, y ]);
-            } else {
-              path.push([ 'A', radius, radius, 0, 0, flag, x, y ]);
-            }
-          });
-        } else {
-          Util.each(points, (point: PointType, idx: number) => {
-            const { x, y } = point;
-            if (idx === 0) {
-              path.push([ 'M', x, y ]);
-            } else {
-              path.push([ 'L', x, y ]);
-            }
-          });
-        }
-        const gridLineShape = gridGroup.addShape('path', {
-          attrs: Util.mix({ path }, Theme.grid, gridCfg),
-        });
-
-        gridLineShape.name = 'axis-grid';
-        gridLineShape.id = subPoints.id;
-        gridLineShape.set('coord', coord);
-        appendInfo && gridLineShape.setSilent('appendInfo', gridLineShape);
-      }
-    });
-
-    // 用户设置了网格的交替填充色
-    const gridAlternateColor = this.get('gridAlternateColor');
-    if (gridAlternateColor) {
-      let preItem;
-      Util.each(gridPoints, (item: GridPoints, index: number) => {
-        if (preItem) {
-          this._drawAlternativeBg(item, preItem, index);
-        }
-        preItem = item;
-      });
-    }
   }
 
   // Grid 的背景层绘制逻辑
@@ -472,59 +497,38 @@ export default abstract class Axis extends Guide<AxisCfg> {
       Util.each(start, (subItem: GridPoint, index: number) => {
         const { x, y, radius, flag } = subItem;
         if (index === 0) {
-          path.push([ 'M', x, y ]);
+          path.push(['M', x, y]);
         } else {
-          path.push([ 'A', radius, radius, 0, 0, flag, x, y ]);
+          path.push(['A', radius, radius, 0, 0, flag, x, y]);
         }
       });
       for (let j = end.length - 1; j >= 0; j--) {
         const endSubItem = end[j];
         const { x, y, radius, flag } = endSubItem;
         if (j === end.length - 1) {
-          path.push([ 'M', x, y ]);
+          path.push(['M', x, y]);
         } else {
-          path.push([ 'A', radius, radius, 0, 0, flag === 1 ? 0 : 1, x, y ]);
+          path.push(['A', radius, radius, 0, 0, flag === 1 ? 0 : 1, x, y]);
         }
       }
     } else {
       Util.each(start, (subItem: GridPoint, index: number) => {
         const { x, y } = subItem;
         if (index === 0) {
-          path.push([ 'M', x, y ]);
+          path.push(['M', x, y]);
         } else {
-          path.push([ 'L', x, y ]);
+          path.push(['L', x, y]);
         }
       });
       for (let i = end.length - 1; i >= 0; i--) {
-        path.push([ 'L', end[i].x, end[i].y ]);
+        path.push(['L', end[i].x, end[i].y]);
       }
-      path.push([ 'Z' ]);
+      path.push(['Z']);
     }
 
     return {
       fill: bgColor,
       path,
     };
-  }
-
-  private _renderLabels() {
-    const group = this.get('group');
-    const labelRenderer = new Label({ name:'axis-label' });
-    labelRenderer.set('coord', this.get('coord'));
-    labelRenderer.set('group', group.addGroup({
-      class: 'axis-labels',
-    }));
-    labelRenderer.set('canvas', this.get('canvas'));
-    labelRenderer.set('items', this.get('labelItems'));
-
-    labelRenderer.draw(false);
-    this.set('labelRenderer', labelRenderer);
-
-    if (this.get('autoRotateLabel')) {
-      this.autoRotateLabels();
-    }
-    if (this.get('autoHideLabel')) {
-      this.autoHideLabels();
-    }
   }
 }

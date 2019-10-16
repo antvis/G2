@@ -1,8 +1,8 @@
-import * as Util from '@antv/util';
-import { vec2 } from '@antv/matrix-util';
 import { Shape } from '@antv/g';
-import Axis from './base';
+import { vec2 } from '@antv/matrix-util';
+import * as Util from '@antv/util';
 import { LineAxisCfg } from '../interface';
+import Axis from './base';
 
 export default class Line extends Axis {
   constructor(cfg = {} as LineAxisCfg) {
@@ -23,43 +23,40 @@ export default class Line extends Axis {
    * @param  {Number} offset 偏移值
    * @return {Array}        返回二维向量
    */
-  getSideVector(offset) {
+  public getSideVector(offset) {
     const isVertical = this.get('isVertical');
     const factor = this.get('factor');
     // if (Util.isArray(offset)) {
     //   return offset.map(value => value * factor);
     // }
     if (!Util.isNumber(offset)) {
-      return [ 0, 0 ];
+      return [0, 0];
     }
     const start = this.get('start');
     const end = this.get('end');
     const axisVector = this.getAxisVector();
     const normal = vec2.normalize([], axisVector);
     let direction = false;
-    if ((isVertical && (start.y < end.y)) || (!isVertical && (start.x > end.x))) {
+    if ((isVertical && start.y < end.y) || (!isVertical && start.x > end.x)) {
       direction = true;
     }
     const verticalVector = vec2.vertical([], normal, direction);
     return vec2.scale([], verticalVector, offset * factor);
   }
 
-  getAxisVector() {
+  public getAxisVector() {
     const start = this.get('start');
     const end = this.get('end');
-    return [ end.x - start.x, end.y - start.y ];
+    return [end.x - start.x, end.y - start.y];
   }
 
-  getLinePath() {
+  public getLinePath() {
     const start = this.get('start');
     const end = this.get('end');
-    return [
-      [ 'M', start.x, start.y ],
-      [ 'L', end.x, end.y ],
-    ];
+    return [['M', start.x, start.y], ['L', end.x, end.y]];
   }
 
-  getTickEnd(start, value) {
+  public getTickEnd(start, value) {
     const offsetVector = this.getSideVector(value);
     return {
       x: start.x + offsetVector[0],
@@ -67,7 +64,7 @@ export default class Line extends Axis {
     };
   }
 
-  getTickPoint(tickValue) {
+  public getTickPoint(tickValue) {
     const start = this.get('start');
     const end = this.get('end');
     const rangeX = end.x - start.x;
@@ -78,7 +75,7 @@ export default class Line extends Axis {
     };
   }
 
-  renderTitle() {
+  public renderTitle() {
     const title = this.get('title');
     const autoRotateTitle = this.get('autoRotateTitle');
     const offsetPoint = this.getTickPoint(0.5);
@@ -97,16 +94,19 @@ export default class Line extends Axis {
     const cfg = Util.mix({}, textStyle);
     if (title.text) {
       const vector = this.getAxisVector(); // 坐标轴方向的向量
-      if (autoRotateTitle && Util.isNil(title.rotate)) { // 自动旋转并且用户没有设置 title.rotate
+      if (autoRotateTitle && Util.isNil(title.rotate)) {
+        // 自动旋转并且用户没有设置 title.rotate
         let angle = 0;
-        if (!Util.isNumberEqual(vector[1], 0)) { // 所有水平坐标轴，文本不转置
-          const v1 = [ 1, 0 ];
-          const v2 = [ vector[0], vector[1] ];
+        if (!Util.isNumberEqual(vector[1], 0)) {
+          // 所有水平坐标轴，文本不转置
+          const v1 = [1, 0];
+          const v2 = [vector[0], vector[1]];
           angle = vec2.angleTo(v2, v1, true);
         }
 
         cfg.rotate = angle * (180 / Math.PI);
-      } else if (!Util.isNil(title.rotate)) { // 用户设置了旋转角度就以用户设置的为准
+      } else if (!Util.isNil(title.rotate)) {
+        // 用户设置了旋转角度就以用户设置的为准
         cfg.rotate = (title.rotate / 180) * Math.PI; // 将角度转换为弧度
       }
 
@@ -144,30 +144,33 @@ export default class Line extends Axis {
     }
   }
 
-  autoRotateLabels() {
+  public autoRotateLabels() {
     const labelRenderer = this.get('labelRenderer');
     const title = this.get('title');
     if (labelRenderer) {
       const labels: Shape[] = labelRenderer.getLabels();
       const offset = this.get('label').offset;
       const append = 12;
-      const titleOffset = (title && title.offset) ? title.offset : 20;
-      if (titleOffset < 0) { // 如果是负的的话就不旋转
+      const titleOffset = title && title.offset ? title.offset : 20;
+      if (titleOffset < 0) {
+        // 如果是负的的话就不旋转
         return;
       }
       const vector = this.getAxisVector(); // 坐标轴的向量，仅处理水平或者垂直的场景
       let angle;
       let maxWidth;
-      if (Util.isNumberEqual(vector[0], 0) && title && title.text) { // 坐标轴垂直，由于不知道边距，只能防止跟title重合，如果title不存在，则不自动旋转
+      if (Util.isNumberEqual(vector[0], 0) && title && title.text) {
+        // 坐标轴垂直，由于不知道边距，只能防止跟title重合，如果title不存在，则不自动旋转
         maxWidth = this.getMaxLabelWidthOrHeight(labelRenderer, 'width');
-        if ((maxWidth) > (titleOffset - offset - append)) {
-          angle = Math.acos((titleOffset - offset - append) / (maxWidth)) * -1;
+        if (maxWidth > titleOffset - offset - append) {
+          angle = Math.acos((titleOffset - offset - append) / maxWidth) * -1;
         }
-      } else if (Util.isNumberEqual(vector[1], 0) && labels.length > 1) { // 坐标轴水平，不考虑边距，根据最长的和平均值进行翻转
+      } else if (Util.isNumberEqual(vector[1], 0) && labels.length > 1) {
+        // 坐标轴水平，不考虑边距，根据最长的和平均值进行翻转
         const avgWidth = Math.abs(this._getAvgLabelLength(labelRenderer));
         maxWidth = this.getMaxLabelWidthOrHeight(labelRenderer, 'width');
         if (maxWidth > avgWidth) {
-          angle = Math.asin((titleOffset - offset - append) * 1.25 / (maxWidth));
+          angle = Math.asin(((titleOffset - offset - append) * 1.25) / maxWidth);
         }
       }
 
@@ -187,25 +190,28 @@ export default class Line extends Axis {
     }
   }
 
-  autoHideLabels() {
+  public autoHideLabels() {
     const labelRenderer = this.get('labelRenderer');
     let labelSpace;
     let tickStep;
     const append = 8;
     if (labelRenderer) {
+      const ticks = this.get('tickItems');
       const labels = labelRenderer.getLabels();
       const vector = this.getAxisVector(); // 坐标轴的向量，仅处理水平或者垂直的场景
       if (labels.length < 2) {
         return;
       }
-      if (Util.isNumberEqual(vector[0], 0)) { // 坐标轴垂直
+      if (Util.isNumberEqual(vector[0], 0)) {
+        // 坐标轴垂直
         const maxHeight = this.getMaxLabelWidthOrHeight(labelRenderer, 'height') + append;
         const avgHeight = Math.abs(this._getAvgLabelHeightSpace(labelRenderer));
         if (maxHeight > avgHeight) {
           labelSpace = maxHeight;
           tickStep = avgHeight;
         }
-      } else if (Util.isNumberEqual(vector[1], 0) && labels.length > 1) { // 坐标轴水平
+      } else if (Util.isNumberEqual(vector[1], 0) && labels.length > 1) {
+        // 坐标轴水平
         const maxWidth = this.getMaxLabelWidthOrHeight(labelRenderer, 'width') + append;
         const avgWidth = Math.abs(this._getAvgLabelLength(labelRenderer));
         if (maxWidth > avgWidth) {
@@ -218,9 +224,16 @@ export default class Line extends Axis {
         const ratio = Math.ceil(labelSpace / tickStep);
         Util.each(labels, (label: Shape, i: number) => {
           if (i % ratio !== 0) {
+            label.set('visible', false);
             label.attr('text', '');
           }
         });
+        const visibleTicks = Util.filter(ticks, (tick, idx) => labels[idx].get('visible'));
+        if (Util.size(visibleTicks) > 0) {
+          this.set('tickItems', visibleTicks);
+          Util.remove(this.get('group').get('children'), (s: Shape) => s.name === 'axis-ticks');
+          this._renderTicks();
+        }
       }
     }
   }
