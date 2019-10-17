@@ -119,6 +119,8 @@ export default class View extends EE {
   // 分面类实例
   protected facetInstance: Facet;
 
+  private doAnimation: boolean = true;
+
   constructor(props: ViewCfg) {
     super();
 
@@ -372,7 +374,13 @@ export default class View extends EE {
     return this;
   }
 
-  public animate(): View {
+  /*
+   * 开启或者关闭动画
+   * @param status 动画状态，true 表示开始，false 表示关闭
+   * @returns
+   */
+  public animate(status: boolean): View {
+    this.doAnimation = status;
     return this;
   }
 
@@ -857,8 +865,13 @@ export default class View extends EE {
    * @private
    */
   private paintGeometries() {
+    const doAnimation = this.doAnimation;
     // geometry 的 paint 阶段
     this.geometries.map((geometry: Geometry) => {
+      if (!doAnimation) {
+        // 如果 view 不执行动画，那么 view 下所有的 geometry 都不执行动画
+        geometry.animate(false);
+      }
       geometry.paint();
     });
   }
