@@ -38,7 +38,7 @@ describe('Element', () => {
     const shapeFactory = Shape.getShapeFactory('shapes');
     element = new Element({
       data: { x: 10, y: 10 },
-      model: { x: 1, y: 1 },
+      model: { x: 1, y: 1, animate: true },
       shapeType: 'circle',
       shapeFactory,
       theme: {
@@ -54,11 +54,6 @@ describe('Element', () => {
           selected: {
             fill: 'red',
           },
-          animate: {
-            appear: {
-              animation: 'fadeIn',
-            },
-          },
         },
       },
       container,
@@ -72,7 +67,7 @@ describe('Element', () => {
 
   it('getModel', () => {
     const model = element.getModel();
-    expect(model).toEqual({ x: 1, y: 1 });
+    expect(model).toEqual({ x: 1, y: 1, animate: true });
   });
 
   it('getData()', () => {
@@ -89,10 +84,8 @@ describe('Element', () => {
   });
 
   it('getAnimateCfg()', () => {
-    const animateCfg = element.getAnimateCfg('appear');
-    expect(animateCfg).toEqual({
-      animation: 'fadeIn',
-    });
+    const animateCfg = element.getAnimateCfg('enter');
+    expect(animateCfg).toEqual(undefined);
   });
 
   it('setState()', () => {

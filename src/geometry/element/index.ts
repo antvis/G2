@@ -1,12 +1,13 @@
 import * as _ from '@antv/util';
 import { IGroup, IShape } from '../../dependents';
-import { Datum, LooseObject, ShapeDrawCFG, ShapeFactory } from '../../interface';
+import { Datum, LooseObject, ShapeFactory, ShapeModel } from '../../interface';
+import { getDefaultAnimateCfg } from '../animate';
 
 interface ElementCfg {
   /** 原始数据 */
   data: Datum;
   /** 映射后的绘图数据 */
-  model: ShapeDrawCFG;
+  model: ShapeModel;
   /** 绘制的 shape 类型 */
   shapeType: string;
   /** 用于创建各种 shape 的工厂对象 */
@@ -24,7 +25,7 @@ export default class Element {
   /** 原始数据 */
   public data: Datum;
   /** shape 绘制数据 */
-  public model: ShapeDrawCFG;
+  public model: ShapeModel;
   /** 用于创建各种 shape 的工厂对象 */
   public shapeFactory: ShapeFactory;
   /** 主题 */
@@ -55,6 +56,63 @@ export default class Element {
     // 存储初始样式
     this.setOriginStyle();
   }
+
+  /**
+   * Updates element
+   * @param cfg 更新的绘制数据
+   */
+  public update(cfg: ShapeModel) {
+    const { shapeType, shapeFactory } = this;
+    const drawCfg = {
+      ...cfg,
+      style: {
+        ...this.getStateStyle('default'),
+        ...cfg.style,
+      },
+    };
+    const animateCfg = this.getAnimateCfg('update');
+    if (animateCfg) {
+      drawCfg.animate = animateCfg;
+    }
+    // 更新图形
+    // @ts-ignore
+    shapeFactory.updateShape(shapeType, drawCfg, this);
+    // 更新原始状态
+    this.setOriginStyle();
+    // 更新数据
+    this.model = cfg;
+    this.data = cfg.data;
+  }
+
+  public destroy() {
+    const { model, shapeFactory, shapeType } = this;
+    const drawCfg = {
+      ...model,
+    };
+    const animateCfg = this.getAnimateCfg('leave');
+    if (animateCfg) {
+      drawCfg.animate = animateCfg;
+    }
+    // @ts-ignore
+    shapeFactory.destroyShape(shapeType, drawCfg, this);
+
+    this.states = [];
+    this.originStyle = {};
+    this.destroyed = true;
+  }
+
+  /**
+   * @todo
+   * @param data
+   */
+  public updateData(data: Datum) {}
+
+  /**
+   * @todo 更新图形样式
+   * @param attrs 图形属性配置
+   */
+  public style(attrs: LooseObject) {}
+
   /**
    * Sets state
    * @param stateName 状态名
@@ -76,54 +134,7 @@ export default class Element {
 
     shapeFactory.setState(shapeType, stateName, stateStatus, this);
   }
-  /**
-   * Updates element
-   * @param cfg 更新的绘制数据
-   */
-  public update(cfg: ShapeDrawCFG) {
-    const { shapeType, shapeFactory } = this;
 
-    // 获取默认的图形样式
-    const defaultStyle = this.getStateStyle('default');
-    cfg.style = {
-      ...defaultStyle,
-      ...cfg.style,
-    };
-    // 更新图形
-    shapeFactory.updateShape(shapeType, cfg, this);
-    // 更新原始状态
-    this.setOriginStyle();
-    // 更新数据
-    this.model = cfg;
-    this.data = cfg.data;
-  }
-
-  /**
-   * @todo
-   * @param data
-   */
-  public updateData(data: Datum) {}
-
-  /**
-   * @todo 更新图形样式
-   * @param attrs 图形属性配置
-   */
-  public style(attrs: LooseObject) {}
-
-  /**
-   * @todo
-   */
-  public destroy() {
-    // const shapeFactory = this.get('shapeFactory');
-    // const shapeType = this.get('shapeType');
-    // shapeFactory.destroy(shapeType);
-
-    const shape = this.shape;
-    shape.remove(true);
-    this.states = [];
-    this.originStyle = {};
-    this.destroyed = true;
-  }
   /**
    * 清空状量态，恢复至初始状态
    * @todo 是否应该提供一个 revert() 的方法直接回恢复至出厂状态？
@@ -170,11 +181,25 @@ export default class Element {
     return this.originStyle;
   }
 
-  public getAnimateCfg(animateType: string) {
-    const { shapeType, theme } = this;
+  private getAnimateCfg(animateType: string) {
+    const { shapeFactory, model } = this;
+    const animate = model.animate;
+    if (!animate) {
+      // 不进行动画
+      return;
+    }
+    const { geometryType, coordinate } = shapeFactory;
+    const defaultCfg = getDefaultAnimateCfg(geometryType, animateType, coordinate);
 
-    const animateCfg = _.get(theme, [shapeType, 'animate'], {});
-    return animateCfg[animateType];
+    // 如果动画开启，用户没有配置动画同时又没有默认的动画配置时，返回 null
+    if (animate === true && _.isEmpty(defaultCfg)) {
+      return;
+    }
+
+    return {
+      ...defaultCfg,
+      ...animate[animateType],
+    };
   }
 
   private drawShape() {
@@ -182,12 +207,16 @@ export default class Element {
 
     const drawCfg = {
       ...model,
+      style: {
+        ...this.getStateStyle('default'),
+        ...model.style,
+      },
     };
-    const defaultStyle = this.getStateStyle('default');
-    drawCfg.style = {
-      ...defaultStyle,
-      ...model.style,
-    };
+    const animateCfg = this.getAnimateCfg('enter');
+    if (animateCfg) {
+      drawCfg.animate = animateCfg;
+    }
+    // @ts-ignore
     const shape = shapeFactory.drawShape(shapeType, drawCfg, this);
     this.shape = shape;
   }

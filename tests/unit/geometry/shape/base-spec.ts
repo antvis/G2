@@ -194,7 +194,7 @@ describe('Shape', () => {
     it('destroy()', () => {
       const circleFactory = GeometryShape.getShapeFactory('circleFactory');
       // @ts-ignore
-      circleFactory.destroy();
+      circleFactory.destroyShape();
 
       expect(destroyCalled).toBe(true);
     });

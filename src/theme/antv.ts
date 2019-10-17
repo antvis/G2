@@ -88,7 +88,6 @@ export default {
       active: {},
       inactive: {},
       selected: {},
-      animate: {},
     },
   },
   line: {
