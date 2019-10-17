@@ -18,6 +18,7 @@ import {
   ScaleOption,
   ShapeDrawCFG,
   ShapeFactory,
+  ShapeModel,
   ShapePoint,
 } from '../interface';
 import {
@@ -275,9 +276,9 @@ export default class Geometry {
 
   public initial() {
     // TODO: @simaq 是否可以移除设置矩阵这一步？
-    const coordinate = this.coordinate;
+    /*  const coordinate = this.coordinate;
     const container = this.container;
-    container.setMatrix(coordinate.matrix);
+    container.setMatrix(coordinate.matrix); */
 
     this.initAttributes(); // 创建图形属性
 
@@ -330,7 +331,7 @@ export default class Geometry {
     this.afterMapping(mappedArray);
 
     // 销毁被删除的 elements
-    _.each(this.lastElementsMap, (deletedElement, id) => {
+    _.each(this.lastElementsMap, (deletedElement: Element) => {
       deletedElement.destroy();
     });
 
@@ -487,8 +488,8 @@ export default class Geometry {
     return element;
   }
 
-  protected getDrawCfg(obj) {
-    const cfg: ShapeDrawCFG = {
+  protected getDrawCfg(obj): ShapeModel {
+    const cfg: ShapeModel = {
       origin: obj,
       x: obj.x,
       y: obj.y,

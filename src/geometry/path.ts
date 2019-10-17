@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
 import { FIELD_ORIGIN } from '../constant';
-import { Data, Datum } from '../interface';
+import { Data, Datum, ShapeModel } from '../interface';
 import Geometry, { GeometryCfg } from './base';
 import Element from './element';
 /** 引入对应的 ShapeFactory */
@@ -29,7 +29,7 @@ export default class Path extends Geometry {
     // path 的每个 element 对应一组数据， 由于数据分割，有可能一个 element 会包含多个 shape
     const { lastElementsMap, elementsMap, elements, theme, container } = this;
     const elementId = this.getElementId(mappedArray[0]);
-    const shapeCfg = this.getShapeCfg(mappedArray);
+    const shapeCfg = this.getDrawCfg(mappedArray);
 
     let result = lastElementsMap[elementId];
     if (!result) {
@@ -58,12 +58,12 @@ export default class Path extends Geometry {
     return elements;
   }
 
-  private getShapeCfg(mappedArray: Data) {
+  protected getDrawCfg(mappedArray: Data): ShapeModel {
+    const shapeCfg = super.getDrawCfg(mappedArray[0]);
     const connectNulls = this.connectNulls;
     const yScale = this.getYScale();
     const splitArray = splitData(mappedArray, yScale.field, connectNulls);
 
-    const shapeCfg = this.getDrawCfg(mappedArray[0]);
     shapeCfg.origin = mappedArray;
     shapeCfg.isStack = !!this.getAdjust('adjust');
     shapeCfg.points = splitArray;
