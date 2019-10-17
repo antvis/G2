@@ -1,5 +1,6 @@
 import * as _ from '@antv/util';
 import { Point, ShapeDrawCFG, ShapePoint } from '../../interface';
+import { doAnimate } from '../animate/';
 import Element from '../element';
 import { registerShape, registerShapeFactory } from './base';
 
@@ -81,13 +82,18 @@ registerShape('interval', 'rect', {
     }
     const path = this.parsePath(getRectPath(cfg.points));
     const container = element.container;
-
-    return container.addShape('path', {
+    const shape = container.addShape('path', {
       attrs: {
         ...style,
         path,
       },
     });
+
+    if (cfg.animate) {
+      doAnimate(shape, cfg);
+    }
+
+    return shape;
   },
   update(cfg: ShapeDrawCFG, element: Element) {
     const shape = element.shape;
@@ -97,10 +103,18 @@ registerShape('interval', 'rect', {
       style.fill = cfg.color;
     }
     const path = this.parsePath(getRectPath(cfg.points));
-    shape.attr({
+    const attrs = {
       ...style,
       path,
-    });
+    };
+    if (cfg.animate) {
+      doAnimate(shape, cfg, attrs);
+    } else {
+      shape.attr({
+        ...style,
+        path,
+      });
+    }
   },
 });
 
