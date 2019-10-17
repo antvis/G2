@@ -39,7 +39,33 @@ export interface Point {
   readonly y: number;
 }
 
-/** 绘制 shape 时传入的信息 */
+export interface AnimateCfg {
+  /** 动画缓动函数 */
+  readonly easing?: string;
+  /** 动画执行函数 */
+  readonly animation?: string;
+  /** 动画执行时间 */
+  readonly duration?: number;
+  /** 动画延迟时间 */
+  readonly delay?: number;
+  // TODO: 完善 callback 的类型定义
+  /** 动画执行结束后的回调函数 */
+  readonly callback?: (...args) => any;
+}
+
+export interface AnimateOption {
+  /** 入场动画配置，false/null 表示关闭入场动画 */
+  enter?: AnimateCfg | false | null;
+  /** 更新动画配置，false/null 表示关闭更新动画 */
+  update?: AnimateCfg | false | null;
+  /** 销毁动画配置，false/null 表示关闭销毁动画 */
+  leave?: AnimateCfg | false | null;
+}
+
+/**
+ * @todo 重命名
+ * 绘制 shape 时传入的信息
+ */
 export interface ShapeDrawCFG {
   /** 映射的颜色值 */
   color?: string | null | undefined;
@@ -79,6 +105,9 @@ export interface ShapeDrawCFG {
 
   /** 数据是否发生了调整 */
   isStack?: boolean;
+  /** 动画配置，false 表示关闭动画 */
+  // TODO
+  animate?: AnimateOption | AnimateCfg | boolean;
 }
 
 /** shape 关键点信息 */

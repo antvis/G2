@@ -232,7 +232,21 @@ describe('Geometry', () => {
     });
 
     it('animate', () => {
-      // todo
+      geometry.animate(false);
+      // @ts-ignore
+      expect(geometry.animateOption).toBe(false);
+
+      geometry.animate(true);
+      // @ts-ignore
+      expect(geometry.animateOption).toBe(true);
+
+      geometry.animate({
+        enter: null,
+      });
+      // @ts-ignore
+      expect(geometry.animateOption).toEqual({
+        enter: null,
+      });
     });
   });
 
@@ -355,6 +369,12 @@ describe('Geometry', () => {
       expect(geometry.adjustOption).toEqual([{ type: 'dodge' }]);
     });
 
+    it('animate()', () => {
+      geometry.animate(false);
+      // @ts-ignore
+      expect(geometry.animateOption).toBe(false);
+    });
+
     it('init()', () => {
       geometry.initial();
 
@@ -395,6 +415,7 @@ describe('Geometry', () => {
       expect(elements.length).toBe(4);
       expect(geometry.elementsMap).not.toBe(undefined);
       expect(geometry.container.get('children').length).toBe(4);
+      expect(elements[0].model.animate).toBe(false);
     });
 
     it('getGroupScales()', () => {
