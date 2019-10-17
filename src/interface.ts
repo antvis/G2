@@ -62,15 +62,8 @@ export interface AnimateOption {
   leave?: AnimateCfg | false | null;
 }
 
-/**
- * @todo 重命名
- * 绘制 shape 时传入的信息
- */
-export interface ShapeDrawCFG {
-  /** 映射的颜色值 */
-  color?: string | null | undefined;
-  /** 是否在极坐标下 */
-  isInCircle?: boolean | undefined;
+// 绘制 Shape 需要的图形、样式、关键点等信息
+interface ShapeInfo {
   /** x 坐标 */
   x: number;
   /** y 坐标 */
@@ -79,35 +72,34 @@ export interface ShapeDrawCFG {
   shape?: string | undefined | null;
   /** size 映射值 */
   size?: number | undefined | null;
+  /** 映射的颜色值 */
+  color?: string | null | undefined;
+  /** 样式 */
+  style?: LooseObject | null;
+  /** 是否在极坐标下 */
+  isInCircle?: boolean | undefined;
   /** 对应的原始数据记录 */
-  data?: Datum;
+  data?: Datum | Data;
   /** 进行图形映射后的数据记录 */
   origin?: Datum;
-  /** geometry 类型 */
-  geomType?: string;
   /** 构成 shape 的关键点  */
   points?: Point[];
   /** 下一个数据集对应的关键点 */
   nextPoints?: Point[];
-
-  splitedIndex?: number;
+  /** Geometry.Text 需要 */
   text?: string | null;
-  /** 样式 */
-  style?: LooseObject | null;
-
-  yIndex?: number;
-  constraint?: Array<[number, number]>;
-
-  /** area line 两类 Geometry 适用，当只有一个数据时是否以数据点的形式显示 */
-  showSinglePoint?: boolean;
-  /** area line 两类 Geometry 适用，是否连接空值 */
-  connectNulls?: boolean;
-
-  /** 数据是否发生了调整 */
+  /** 数据是否发生层叠 */
   isStack?: boolean;
-  /** 动画配置，false 表示关闭动画 */
-  // TODO
-  animate?: AnimateOption | AnimateCfg | boolean;
+}
+
+/** Element.model 的数据类型 */
+export interface ShapeModel extends ShapeInfo {
+  /** shape 所有的动画配置 */
+  animate?: AnimateOption | boolean;
+}
+/** 自定义 Shape 每个接口的 cfg 类型 */
+export interface ShapeDrawCFG extends ShapeInfo {
+  animate?: AnimateCfg;
 }
 
 /** shape 关键点信息 */
@@ -131,6 +123,8 @@ export interface RegisterShapeFactory {
   readonly drawShape?: (shapeType: string, cfg: ShapeDrawCFG, element: Element) => IShape | IGroup;
   /** 更新 shape */
   readonly updateShape?: (shapeType: string, cfg: ShapeDrawCFG, element: Element) => void;
+  /** 销毁 shape */
+  readonly destroyShape?: (shapeType: string, cfg: ShapeDrawCFG, element: Element) => void;
   /** 设置 shape 状态 */
   readonly setState?: (shapeType: string, stateName: string, stateStatus: boolean, element: Element) => void;
 }
@@ -145,8 +139,8 @@ export interface RegisterShape {
   readonly draw: (cfg: ShapeDrawCFG, container: Element) => IShape | IGroup;
   /** 更新 shape */
   readonly update: (cfg: ShapeDrawCFG, container: Element) => void;
-  /** todo 销毁 */
-  readonly destroy?: () => void;
+  /** 销毁 */
+  readonly destroy?: (cfg: ShapeDrawCFG, container: Element) => void;
   /** 响应状态量 */
   readonly setState?: (stateName: string, stateStatus: boolean, element: Element) => void;
 }
@@ -167,6 +161,8 @@ export interface Shape extends RegisterShape {
 
 /** ShapeFactory 接口定义 */
 export interface ShapeFactory extends RegisterShapeFactory {
+  /** 工厂名 */
+  geometryType: string;
   /** 坐标系对象 */
   coordinate: Coordinate;
   /** 设置坐标系 */
@@ -175,8 +171,6 @@ export interface ShapeFactory extends RegisterShapeFactory {
   getShape: (shapeType: string | string[]) => Shape;
   /** 获取构成 shape 的关键点 */
   getShapePoints: (shapeType: string | string[], pointInfo: ShapePoint) => Point[];
-  /** 销毁 shape */
-  destroy: (shapeType: string) => void;
 }
 
 export type Padding = number | number[];
