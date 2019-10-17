@@ -29,8 +29,11 @@ export enum DIRECTION {
  * 组件的类型，可能会影响到布局算法
  */
 export enum ComponentType {
+  // axis 组件
   AXIS = 'axis',
+  // legend 组件
   LEGEND = 'legend',
+  // 其他组件，自定义组件
   OTHER = 'other',
 }
 

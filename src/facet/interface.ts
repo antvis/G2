@@ -1,9 +1,17 @@
 import View from '../chart/view';
+import Component from '../component';
+import { DIRECTION } from '../constant';
 import { Region } from '../interface';
 import Facet from './facet';
 
 // 分面基类
 export type FacetCtor = new (view: View, cfg: any) => Facet;
+
+export interface FacetComponent {
+  direction: DIRECTION;
+  component: Component;
+  facetIndex: number;
+}
 
 /**
  * 默认的基础配置
@@ -49,8 +57,8 @@ export interface RectData extends FacetData {
   readonly rowIndex: number;
   readonly columnIndex: number;
   // 当前行列字段的值长度
-  readonly rowValueLength: number;
-  readonly columnValueLength: number;
+  readonly rowValuesLength: number;
+  readonly columnValuesLength: number;
 }
 
 export interface FacetCfgMap {

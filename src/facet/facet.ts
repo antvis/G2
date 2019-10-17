@@ -3,7 +3,7 @@ import View from '../chart/view';
 import { LAYER } from '../constant';
 import { IGroup } from '../dependents';
 import { Datum, Region } from '../interface';
-import { FacetCfg, FacetData } from './interface';
+import { FacetCfg, FacetComponent, FacetData } from './interface';
 
 /**
  * facet 基类
@@ -39,6 +39,8 @@ export default abstract class Facet<C extends FacetCfg = FacetCfg, F extends Fac
   protected cfg: C;
   /** 分面之后的所有分面数据结构 */
   protected facets: F[] = [];
+  /** 存储四个方向的组件 */
+  protected components: FacetComponent[] = [];
   /** 是否销毁 */
   protected destroyed: boolean = false;
 
@@ -70,6 +72,11 @@ export default abstract class Facet<C extends FacetCfg = FacetCfg, F extends Fac
    *  子类可以复写，添加一些其他组件，比如滚动条等
    */
   public render() {
+    // 1. add facet component into parent view
+    this.renderFacetComponents();
+    // 2. layout facet components
+    this.layoutFacetComponents();
+    // 3. render facet children views
     this.renderViews();
   }
 
@@ -237,4 +244,14 @@ export default abstract class Facet<C extends FacetCfg = FacetCfg, F extends Fac
    * @param data
    */
   protected abstract generateFacets(data: Datum[]): F[];
+
+  /**
+   * 根据 facets 数据，生成 facet Component 内容
+   */
+  protected abstract renderFacetComponents(): void;
+
+  /**
+   * 布局 facets components 内容
+   */
+  protected abstract layoutFacetComponents(): void;
 }

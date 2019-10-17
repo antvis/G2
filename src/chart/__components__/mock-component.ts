@@ -3,6 +3,7 @@ import Component from '../../component';
 
 interface MockComponentProps {
   readonly text: string;
+  readonly attributes?: object;
 }
 
 /**
@@ -11,12 +12,14 @@ interface MockComponentProps {
 export class MockComponent extends Component {
   // 组件的属性
   private text: string = '';
+  protected attributes: object;
 
   constructor(container: any, position: Position, props: MockComponentProps) {
     super(container, position);
 
-    const { text = '' } = props;
+    const { text = '', attributes } = props;
     this.text = text;
+    this.attributes = attributes;
 
     this.initial();
   }
@@ -30,6 +33,7 @@ export class MockComponent extends Component {
         textAlign: 'left',
         textBaseline: 'top',
         fill: '#333',
+        ...this.attributes,
       },
     });
 

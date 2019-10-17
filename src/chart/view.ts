@@ -563,12 +563,12 @@ export default class View extends EE {
     this.renderComponents();
     // 6.  递归 views，进行布局
     this.doLayout();
-    // 7. 布局完之后，coordinate 的范围确定了，调整 coordinate 组件
-    this.adjustCoordinate();
-    // 8. 渲染几何标记
-    this.paintGeometries();
-    // 9. 渲染分面
+    // 7. 渲染分面
     this.renderFacet();
+    // 8. 布局完之后，coordinate 的范围确定了，调整 coordinate 组件
+    this.adjustCoordinate();
+    // 9. 渲染几何标记
+    this.paintGeometries();
 
     // 同样递归处理子 views
     _.each(this.views, (view: View) => {
@@ -589,9 +589,9 @@ export default class View extends EE {
     let start: Point;
 
     if (this.parent) {
-      start = this.parent.viewBBox.tl;
-      width = this.parent.viewBBox.width;
-      height = this.parent.viewBBox.height;
+      start = this.parent.coordinateBBox.tl;
+      width = this.parent.coordinateBBox.width;
+      height = this.parent.coordinateBBox.height;
     } else {
       // 顶层容器，从 canvas 中取值 宽高
       width = this.canvas.get('width');
@@ -604,7 +604,7 @@ export default class View extends EE {
     const [top, right, bottom, left] = parsePadding(this.padding);
 
     // 计算 bbox 除去 padding 之后的
-    this.viewBBox = new BBox(
+    this.viewBBox = this.coordinateBBox = new BBox(
       start.x + width * region.start.x + left,
       start.y + height * region.start.y + top,
       width * (region.end.x - region.start.x) - left - right,
