@@ -5,8 +5,8 @@ import Element from '../element';
 import { registerShape, registerShapeFactory } from './base';
 
 // 根据数据点生成矩形的四个关键点
-function getRectPoints(cfg: ShapePoint, isPyramid = false) {
-  const { x, y, y0, size } = cfg;
+function getRectPoints(pointInfo: ShapePoint, isPyramid = false): Point[] {
+  const { x, y, y0, size } = pointInfo;
   // 有 4 种情况，
   // 1. x, y 都不是数组
   // 2. y是数组，x不是
@@ -66,6 +66,98 @@ function getRectPath(points: Point[]) {
   return path;
 }
 
+// 根据数据点生成 Line 的两个关键点
+function getLinePoints(pointInfo: ShapePoint): Point[] {
+  const { x, y, y0 } = pointInfo;
+
+  if (_.isArray(y)) {
+    return y.map((yItem, idx) => {
+      return {
+        x: _.isArray(x) ? x[idx] : x,
+        y: yItem,
+      };
+    });
+  }
+
+  // 起始点从 y0 开始
+  return [{ x: x as number, y: y0 }, { x: x as number, y }];
+}
+
+// 根据数据点生成 tick shape 的 6 个关键点
+function getTickPoints(pointInfo: ShapePoint): Point[] {
+  const { x, y, y0, size } = pointInfo;
+  let yMin;
+  let yMax;
+  if (_.isArray(y)) {
+    [yMin, yMax] = y;
+  } else {
+    yMin = y0;
+    yMax = y;
+  }
+
+  const xMax = (x as number) + size / 2;
+  const xMin = (x as number) - size / 2;
+
+  // tick 关键点顺序
+  // 4 - 1 - 5
+  //     |
+  // 2 - 0 - 3
+  return [
+    { x: x as number, y: yMin },
+    { x: x as number, y: yMax },
+    { x: xMin, y: yMin },
+    { x: xMax, y: yMin },
+    { x: xMin, y: yMax },
+    { x: xMax, y: yMax },
+  ];
+}
+
+// 根据 tick 关键点绘制 path
+function getTickPath(points: Point[]) {
+  return [
+    ['M', points[0].x, points[0].y],
+    ['L', points[1].x, points[1].y],
+    ['M', points[2].x, points[2].y],
+    ['L', points[3].x, points[3].y],
+    ['M', points[4].x, points[4].y],
+    ['L', points[5].x, points[5].y],
+  ];
+}
+
+// 根据 funnel 关键点绘制漏斗图的 path
+function getFunnelPath(points: Point[], nextPoints: Point[], isFunnel: boolean) {
+  const path = [];
+  if (!_.isNil(nextPoints)) {
+    path.push(
+      ['M', points[0].x, points[0].y],
+      ['L', points[1].x, points[1].y],
+      ['L', nextPoints[1].x, nextPoints[1].y],
+      ['L', nextPoints[0].x, nextPoints[0].y],
+      ['Z']
+    );
+  } else if (isFunnel) {
+    // 漏斗图最底部
+    path.push(
+      ['M', points[0].x, points[0].y],
+      ['L', points[1].x, points[1].y],
+      ['L', points[2].x, points[2].y],
+      ['L', points[3].x, points[3].y],
+      ['Z']
+    );
+  } else {
+    // 金字塔最底部
+    path.push(
+      ['M', points[0].x, points[0].y],
+      ['L', points[1].x, points[1].y],
+      ['L', points[2].x, points[2].y],
+      ['L', points[2].x, points[2].y],
+      ['Z']
+    );
+  }
+
+  return path;
+}
+
 /** Interval 的 shape 工厂 */
 const IntervalShapeFactory = registerShapeFactory('interval', {
   defaultShapeType: 'rect',
@@ -74,6 +166,7 @@ const IntervalShapeFactory = registerShapeFactory('interval', {
   },
 });
 
+// 矩形柱图
 registerShape('interval', 'rect', {
   draw(cfg: ShapeDrawCFG, element: Element) {
     const style = cfg.style;
@@ -97,12 +190,250 @@ registerShape('interval', 'rect', {
   },
   update(cfg: ShapeDrawCFG, element: Element) {
     const shape = element.shape;
-    // todo 重复代码优化
     const style = cfg.style;
     if (cfg.color) {
       style.fill = cfg.color;
     }
     const path = this.parsePath(getRectPath(cfg.points));
+    const attrs = {
+      ...style,
+      path,
+    };
+    if (cfg.animate) {
+      doAnimate(shape, cfg, attrs);
+    } else {
+      shape.attr({
+        ...style,
+        path,
+      });
+    }
+  },
+});
+
+// 描边柱状图
+registerShape('interval', 'hollowRect', {
+  draw(cfg: ShapeDrawCFG, element: Element) {
+    const style = cfg.style;
+    if (cfg.color) {
+      style.stroke = cfg.color;
+    }
+    const path = this.parsePath(getRectPath(cfg.points));
+    const container = element.container;
+    const shape = container.addShape('path', {
+      attrs: {
+        ...style,
+        path,
+      },
+    });
+
+    if (cfg.animate) {
+      doAnimate(shape, cfg);
+    }
+
+    return shape;
+  },
+  update(cfg: ShapeDrawCFG, element: Element) {
+    const shape = element.shape;
+    const style = cfg.style;
+    if (cfg.color) {
+      style.stroke = cfg.color;
+    }
+    const path = this.parsePath(getRectPath(cfg.points));
+    const attrs = {
+      ...style,
+      path,
+    };
+    if (cfg.animate) {
+      doAnimate(shape, cfg, attrs);
+    } else {
+      shape.attr({
+        ...style,
+        path,
+      });
+    }
+  },
+});
+
+// 直线柱图
+registerShape('interval', 'line', {
+  getPoints(shapePoint: ShapePoint) {
+    return getLinePoints(shapePoint);
+  },
+  draw(cfg: ShapeDrawCFG, element: Element) {
+    const style = cfg.style;
+    if (cfg.color) {
+      style.stroke = cfg.color;
+    }
+    if (cfg.size) {
+      style.lineWidth = cfg.size;
+    }
+    const path = this.parsePath(getRectPath(cfg.points));
+    const container = element.container;
+    const shape = container.addShape('path', {
+      attrs: {
+        ...style,
+        path,
+      },
+    });
+
+    if (cfg.animate) {
+      doAnimate(shape, cfg);
+    }
+
+    return shape;
+  },
+  update(cfg: ShapeDrawCFG, element: Element) {
+    const shape = element.shape;
+    const style = cfg.style;
+    if (cfg.color) {
+      style.stroke = cfg.color;
+    }
+    if (cfg.size) {
+      style.lineWidth = cfg.size;
+    }
+    const path = this.parsePath(getRectPath(cfg.points));
+    const attrs = {
+      ...style,
+      path,
+    };
+    if (cfg.animate) {
+      doAnimate(shape, cfg, attrs);
+    } else {
+      shape.attr({
+        ...style,
+        path,
+      });
+    }
+  },
+});
+
+// I 形状柱状图，常用于 error bar chart
+registerShape('interval', 'tick', {
+  getPoints(shapePoint: ShapePoint) {
+    return getTickPoints(shapePoint);
+  },
+  draw(cfg: ShapeDrawCFG, element: Element) {
+    const style = cfg.style;
+    if (cfg.color) {
+      style.stroke = cfg.color;
+    }
+    const path = this.parsePath(getTickPath(cfg.points));
+    const container = element.container;
+    const shape = container.addShape('path', {
+      attrs: {
+        ...style,
+        path,
+      },
+    });
+    if (cfg.animate) {
+      doAnimate(shape, cfg);
+    }
+
+    return shape;
+  },
+  update(cfg: ShapeDrawCFG, element: Element) {
+    const shape = element.shape;
+    const style = cfg.style;
+    if (cfg.color) {
+      style.stroke = cfg.color;
+    }
+    const path = this.parsePath(getTickPath(cfg.points));
+    const attrs = {
+      ...style,
+      path,
+    };
+    if (cfg.animate) {
+      doAnimate(shape, cfg, attrs);
+    } else {
+      shape.attr({
+        ...style,
+        path,
+      });
+    }
+  },
+});
+
+// 漏斗图
+registerShape('interval', 'funnel', {
+  getPoints(shapePoint: ShapePoint) {
+    shapePoint.size = shapePoint.size * 2; // 漏斗图的 size 是柱状图的两倍
+    return getRectPoints(shapePoint);
+  },
+  draw(cfg: ShapeDrawCFG, element: Element) {
+    const style = cfg.style;
+    if (cfg.color) {
+      style.fill = cfg.color;
+    }
+    const path = this.parsePath(getFunnelPath(cfg.points, cfg.nextPoints, true));
+    const container = element.container;
+    const shape = container.addShape('path', {
+      attrs: {
+        ...style,
+        path,
+      },
+    });
+
+    if (cfg.animate) {
+      doAnimate(shape, cfg);
+    }
+
+    return shape;
+  },
+  update(cfg: ShapeDrawCFG, element: Element) {
+    const shape = element.shape;
+    const style = cfg.style;
+    if (cfg.color) {
+      style.fill = cfg.color;
+    }
+    const path = this.parsePath(getFunnelPath(cfg.points, cfg.nextPoints, true));
+    const attrs = {
+      ...style,
+      path,
+    };
+    if (cfg.animate) {
+      doAnimate(shape, cfg, attrs);
+    } else {
+      shape.attr({
+        ...style,
+        path,
+      });
+    }
+  },
+});
+
+// 金字塔图，尖底漏斗图
+registerShape('interval', 'pyramid', {
+  getPoints(shapePoint: ShapePoint) {
+    shapePoint.size = shapePoint.size * 2; // 漏斗图的 size 是柱状图的两倍
+    return getRectPoints(shapePoint, true);
+  },
+  draw(cfg: ShapeDrawCFG, element: Element) {
+    const style = cfg.style;
+    if (cfg.color) {
+      style.fill = cfg.color;
+    }
+    const path = this.parsePath(getFunnelPath(cfg.points, cfg.nextPoints, false));
+    const container = element.container;
+    const shape = container.addShape('path', {
+      attrs: {
+        ...style,
+        path,
+      },
+    });
+
+    if (cfg.animate) {
+      doAnimate(shape, cfg);
+    }
+
+    return shape;
+  },
+  update(cfg: ShapeDrawCFG, element: Element) {
+    const shape = element.shape;
+    const style = cfg.style;
+    if (cfg.color) {
+      style.fill = cfg.color;
+    }
+    const path = this.parsePath(getFunnelPath(cfg.points, cfg.nextPoints, false));
     const attrs = {
       ...style,
       path,
