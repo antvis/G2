@@ -11,7 +11,7 @@ export function scaleInY(shape: IShape | IGroup, animateCfg, shapeModel: ShapeDr
   const box = shape.getBBox();
   const x = (box.minX + box.maxX) / 2;
   const { points } = shapeModel;
-  // 数值如果为负值，那么应该从上往下生长
+  // 数值如果为负值，那么应该从上往下生长，通过 shape 的关键点进行判断
   const y = points[0].y - points[1].y <= 0 ? box.maxY : box.minY;
 
   const v = [x, y, 1];

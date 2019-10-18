@@ -276,9 +276,10 @@ export default class Geometry {
 
   public initial() {
     // TODO: @simaq 是否可以移除设置矩阵这一步？
-    /*  const coordinate = this.coordinate;
+    // 需要修改 @antv/coord 模块，将点与当前矩阵相乘
+    const coordinate = this.coordinate;
     const container = this.container;
-    container.setMatrix(coordinate.matrix); */
+    container.setMatrix(coordinate.matrix);
 
     this.initAttributes(); // 创建图形属性
 
