@@ -5,9 +5,9 @@ import { getDefaultAnimateCfg } from '../animate';
 
 interface ElementCfg {
   /** 原始数据 */
-  data: Datum;
+  data?: Datum;
   /** 映射后的绘图数据 */
-  model: ShapeModel;
+  model?: ShapeModel;
   /** 绘制的 shape 类型 */
   shapeType: string;
   /** 用于创建各种 shape 的工厂对象 */
@@ -51,10 +51,13 @@ export default class Element {
     this.theme = theme;
     this.container = container;
 
-    // 绘制 shape
-    this.drawShape();
-    // 存储初始样式
-    this.setOriginStyle();
+    if (model) {
+      // 只有有数据的时候才进行绘制
+      // 绘制 shape
+      this.drawShape();
+      // 存储初始样式
+      this.setOriginStyle();
+    }
   }
 
   /**
