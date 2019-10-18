@@ -72,6 +72,7 @@ export default class Element {
     };
     const animateCfg = this.getAnimateCfg('update');
     if (animateCfg) {
+      // 只有获取到动画配置才赋值 animate 属性
       drawCfg.animate = animateCfg;
     }
     // 更新图形
@@ -91,6 +92,7 @@ export default class Element {
     };
     const animateCfg = this.getAnimateCfg('leave');
     if (animateCfg) {
+      // 只有获取到动画配置才赋值 animate 属性
       drawCfg.animate = animateCfg;
     }
     // @ts-ignore
@@ -185,15 +187,15 @@ export default class Element {
     const { shapeFactory, model } = this;
     const animate = model.animate;
     if (!animate) {
-      // 不进行动画
-      return;
+      // animate === false 关闭动画，则返回 null
+      return null;
     }
     const { geometryType, coordinate } = shapeFactory;
     const defaultCfg = getDefaultAnimateCfg(geometryType, animateType, coordinate);
 
     // 如果动画开启，用户没有配置动画同时又没有默认的动画配置时，返回 null
     if (animate === true && _.isEmpty(defaultCfg)) {
-      return;
+      return null;
     }
 
     return {
@@ -214,6 +216,7 @@ export default class Element {
     };
     const animateCfg = this.getAnimateCfg('enter');
     if (animateCfg) {
+      // 只有获取到动画配置才赋值 animate 属性
       drawCfg.animate = animateCfg;
     }
     // @ts-ignore
