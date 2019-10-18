@@ -149,8 +149,6 @@ export interface RegisterShape {
 export interface Shape extends RegisterShape {
   /** 坐标系对象 */
   coordinate: Coordinate;
-  /** 获取坐标系对象 */
-  getCoordinate: () => Coordinate;
   /** 工具函数，将 0～1 path 转化成实际画布 path */
   parsePath: (path: any, islineToArc: boolean) => any[];
   /** 工具函数，0～1 的坐标点转换成实际画布坐标点 */

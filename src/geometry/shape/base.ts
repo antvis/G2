@@ -121,10 +121,6 @@ const ShapeFactoryBase = {
 /** Shape 基类 */
 const ShapeBase = {
   coordinate: null,
-
-  getCoordinate(): Coordinate {
-    return this.coordinate;
-  },
   /**
    * 将归一化的 path 转换成坐标系下的 path
    * @param path 归一化的路径

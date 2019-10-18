@@ -201,10 +201,10 @@ describe('Shape', () => {
   });
 
   describe('Shape', () => {
-    it('getCoordinate', () => {
+    it('coordinate', () => {
       const circleFactory = GeometryShape.getShapeFactory('circleFactory');
       const shape = circleFactory.getShape('circle');
-      expect(shape.getCoordinate()).toEqual(coordinate);
+      expect(shape.coordinate).toEqual(coordinate);
     });
 
     it('parsePoint', () => {
