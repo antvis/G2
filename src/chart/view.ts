@@ -6,6 +6,7 @@ import {
   CoordinateCfg,
   CoordinateOption,
   FilterCondition,
+  LegendOption,
   Options,
   ScaleOption,
   ViewCfg,
@@ -241,8 +242,13 @@ export default class View extends EE {
   /**
    * 坐标轴配置
    */
-  public axis(field: string, axisOption: AxisOption): View {
-    _.set(this.options, ['axes', field], axisOption);
+  public axis(field: boolean): View;
+  public axis(field: string | boolean, axisOption?: AxisOption): View {
+    if (_.isBoolean(field)) {
+      _.set(this.options, ['axes'], field);
+    } else {
+      _.set(this.options, ['axes', field], axisOption);
+    }
 
     return this;
   }
@@ -250,8 +256,13 @@ export default class View extends EE {
   /**
    * 图例配置
    */
-  public legend(field: string, legendCfg): View {
-    _.set(this.options, ['legends', field], legendCfg);
+  public legend(field: boolean): View;
+  public legend(field: string | boolean, legendCfg?: LegendOption): View {
+    if (_.isBoolean(field)) {
+      _.set(this.options, ['legends'], field);
+    } else {
+      _.set(this.options, ['legends', field], legendCfg);
+    }
 
     return this;
   }

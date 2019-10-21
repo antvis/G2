@@ -5,7 +5,20 @@ import { Axis } from '../__components__';
 import { AxisOption, ComponentOption } from '../interface';
 import View from '../view';
 
-function createXAxes(axes: Record<string, AxisOption>, view: View): ComponentOption[] {
+/**
+ * 从配置中获取单个字段的 axis 配置
+ * @param axes
+ * @param field
+ */
+function getAxisOption(axes: Record<string, AxisOption> | boolean, field: string) {
+  if (_.isBoolean(axes)) {
+    return axes === false ? false : {};
+  } else {
+    return _.get(axes, [field]);
+  }
+}
+
+function createXAxes(axes: Record<string, AxisOption> | boolean, view: View): ComponentOption[] {
   const axisArray: ComponentOption[] = [];
   // x axis
   const xScale = view.getXScale();
@@ -13,7 +26,8 @@ function createXAxes(axes: Record<string, AxisOption>, view: View): ComponentOpt
     return axisArray;
   }
 
-  const xAxisOption = _.get(axes, [xScale.field]);
+  const xAxisOption = getAxisOption(axes, xScale.field);
+
   if (xAxisOption !== false) {
     const layer = LAYER.BG;
     axisArray.push({
@@ -27,14 +41,15 @@ function createXAxes(axes: Record<string, AxisOption>, view: View): ComponentOpt
   return axisArray;
 }
 
-function createYAxes(axes: Record<string, AxisOption>, view: View): ComponentOption[] {
+function createYAxes(axes: Record<string, AxisOption> | boolean, view: View): ComponentOption[] {
   const axisArray: ComponentOption[] = [];
 
   // y axes
   const yScales = view.getYScales();
 
   _.each(yScales, (yScale: Scale, idx: number) => {
-    const yAxisOption = _.get(axes, [yScale.field]);
+    const yAxisOption = getAxisOption(axes, yScale.field);
+
     if (yAxisOption !== false) {
       const layer = LAYER.BG;
       axisArray.push({
@@ -55,6 +70,6 @@ function createYAxes(axes: Record<string, AxisOption>, view: View): ComponentOpt
  * @param axes
  * @param view
  */
-export function createAxes(axes: Record<string, AxisOption>, view: View): ComponentOption[] {
+export function createAxes(axes: Record<string, AxisOption> | boolean, view: View): ComponentOption[] {
   return [...createXAxes(axes, view), ...createYAxes(axes, view)];
 }

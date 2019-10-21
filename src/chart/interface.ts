@@ -50,7 +50,7 @@ export type AxisOption =
     }
   | boolean;
 
-export type LegendCfg =
+export type LegendOption =
   | {
       readonly type: string;
     }
@@ -81,8 +81,8 @@ export interface CoordinateCfg {
 export interface Options {
   readonly data: Data;
   readonly filters?: Record<string, FilterCondition>;
-  readonly axes?: Record<string, AxisOption>;
-  readonly legends?: Record<string, LegendCfg>;
+  readonly axes?: Record<string, AxisOption> | boolean;
+  readonly legends?: Record<string, LegendOption> | boolean;
   readonly scales?: Record<string, ScaleOption>;
   readonly tooltip?: boolean; // tooltip visible or not
   readonly coordinate?: CoordinateOption;

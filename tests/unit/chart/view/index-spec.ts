@@ -62,6 +62,21 @@ describe('View', () => {
     expect(view.getOptions().data).toEqual(data);
   });
 
+  it('axis', () => {
+    view.axis(false);
+    expect(view.getOptions().axes).toBe(false);
+  });
+
+  it('legend', () => {
+    view.legend(false);
+    expect(view.getOptions().legends).toBe(false);
+  });
+
+  it('tooltip', () => {
+    view.tooltip(false);
+    expect(view.getOptions().tooltip).toBe(false);
+  });
+
   it('filter', () => {
     view.filter('sale', (sale: number) => sale <= 150);
     view.filter('city', (city: string) => city.length <= 2);
@@ -105,11 +120,17 @@ describe('View', () => {
     expect(view.geometries[0].scales.city.ticks).toEqual(['杭州', '广州']);
     expect(view.geometries[0].scales.sale.values).toEqual([100, 30]);
 
-    expect(view.getCoordinate().getWidth()).toBeWithin(714, 720);
-    expect(view.getCoordinate().getHeight()).toEqual(566);
+    expect(view.getCoordinate().getWidth()).toBeWithin(780, 800);
+    expect(view.getCoordinate().getHeight()).toBeWithin(580, 600);
   });
 
   it('component', () => {
+    expect(view.getOptions().components.length).toEqual(0);
+
+    view.axis(true);
+    view.legend(true);
+    view.render();
+
     expect(view.getOptions().components.length).toEqual(3);
 
     const bbox = view.getOptions().components[0].component.getBBox();
