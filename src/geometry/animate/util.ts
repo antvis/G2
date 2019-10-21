@@ -1,9 +1,9 @@
 import * as _ from '@antv/util';
 import { Coordinate, Shape } from '../../dependents';
-import { ShapeDrawCFG } from '../../interface';
+import { Point, ShapeDrawCFG } from '../../interface';
 
 // 获取图形的包围盒
-function getPointsBox(points) {
+function getPointsBox(points: Point[]) {
   if (_.isEmpty(points)) {
     return null;
   }
