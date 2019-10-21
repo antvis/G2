@@ -228,11 +228,13 @@ export default class Line extends Axis {
             label.attr('text', '');
           }
         });
-        const visibleTicks = Util.filter(ticks, (tick, idx) => labels[idx].get('visible'));
-        if (Util.size(visibleTicks) > 0) {
-          this.set('tickItems', visibleTicks);
-          Util.remove(this.get('group').get('children'), (s: Shape) => s.name === 'axis-ticks');
-          this._renderTicks();
+        if (ticks) {
+          const visibleTicks = Util.filter(ticks, (tick, idx) => labels[idx].get('visible'));
+          if (Util.size(visibleTicks) > 0) {
+            this.set('tickItems', visibleTicks);
+            Util.remove(this.get('group').get('children'), (s: Shape) => s.name === 'axis-ticks');
+            this._renderTicks();
+          }
         }
       }
     }
