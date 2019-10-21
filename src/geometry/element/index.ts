@@ -81,6 +81,7 @@ export default class Element {
     // 更新图形
     // @ts-ignore
     shapeFactory.updateShape(shapeType, drawCfg, this);
+    this.shape.set('origin', drawCfg);
     // 更新原始状态
     this.setOriginStyle();
     // 更新数据
@@ -225,6 +226,8 @@ export default class Element {
     }
     // @ts-ignore
     const shape = shapeFactory.drawShape(shapeType, drawCfg, this);
+    // 存储绘图数据
+    shape.set('origin', drawCfg);
     this.shape = shape;
   }
 
