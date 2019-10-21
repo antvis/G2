@@ -9,7 +9,6 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "lib": ["esnext", "dom"],
-    "baseUrl": "src",
     "types": ["jest"]
   },
   "include": ["src"]
