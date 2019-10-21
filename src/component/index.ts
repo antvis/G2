@@ -1,8 +1,10 @@
 import EE from '@antv/event-emitter';
-import { BBox } from '../dependents';
+import { BBox, IGroup } from '../dependents';
 import { translate } from '../util/transform';
 
 type Position = [number, number];
+
+export type ComponentCtor = new (container: IGroup, position: Position, cfg?: any) => Component;
 
 /**
  * Component 规范需要定义的基类

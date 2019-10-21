@@ -66,6 +66,7 @@ describe('chart multi view', () => {
   });
 
   it('region', () => {
+    chart.render();
     expect({
       x: chart.viewBBox.x,
       y: chart.viewBBox.y,

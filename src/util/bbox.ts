@@ -1,6 +1,7 @@
 import * as _ from '@antv/util';
 import { DIRECTION } from '../constant';
 import { BBox } from '../dependents';
+import { Padding, Point, Region } from '../interface';
 
 export class BBoxProcessor {
   private bbox: BBox;
@@ -82,9 +83,67 @@ export class BBoxProcessor {
   }
 
   /**
+   * 收缩形成新的
+   * @param gap
+   */
+  public shrink(gap: number[]) {
+    const [top, right, bottom, left] = gap;
+    this.bbox = new BBox(
+      this.bbox.x + left,
+      this.bbox.y + top,
+      this.bbox.width - left - right,
+      this.bbox.height - top - bottom
+    );
+
+    return this;
+  }
+
+  /**
    * 获取最终的 bbox
    */
   public value(): BBox {
     return this.bbox;
   }
+
+  public get top(): Point {
+    return {
+      x: this.bbox.x + this.bbox.width / 2,
+      y: this.bbox.minY,
+    };
+  }
+
+  public get right(): Point {
+    return {
+      x: this.bbox.maxX,
+      y: this.bbox.y + this.bbox.height / 2,
+    };
+  }
+  public get bottom(): Point {
+    return {
+      x: this.bbox.x + this.bbox.width / 2,
+      y: this.bbox.maxY,
+    };
+  }
+  public get left(): Point {
+    return {
+      x: this.bbox.minX,
+      y: this.bbox.y + this.bbox.height / 2,
+    };
+  }
 }
+
+/**
+ * 从一个 bbox 的 region 获取 bbox
+ * @param bbox
+ * @param region
+ */
+export const getRegionBBox = (bbox: BBox, region: Region): BBox => {
+  const { start, end } = region;
+
+  return new BBox(
+    bbox.x + bbox.width * start.x,
+    bbox.y + bbox.height * start.y,
+    bbox.width * Math.abs(end.x - start.x),
+    bbox.height * Math.abs(end.y - start.y)
+  );
+};

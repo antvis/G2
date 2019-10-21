@@ -18,6 +18,8 @@ import { Padding, Point, Region } from 'interface';
 import { ComponentType, DIRECTION, GroupZIndex, LAYER, ViewLifeCircle } from '../constant';
 import { Attribute } from '../dependents';
 import { BBox, ICanvas, IGroup } from '../dependents';
+import { Facet, getFacet } from '../facet';
+import { FacetCfg, FacetCfgMap } from '../facet/interface';
 import { Data, Datum } from '../interface';
 import { isFullCircle } from '../util/coordinate';
 import { parsePadding } from '../util/padding';
@@ -28,8 +30,44 @@ import { createCoordinate } from './controller/coordinate';
 import { createLegends } from './controller/legend';
 import defaultLayout, { Layout } from './layout';
 
-/**
- * View 对象
+/*
+          +-------------------------------------------------------------------------------------------------------------------------------------+
+          |                                                              top                                                                    |
+          |    +---------------------------------------------------------------------------------------------------------------------------+    |
+          |    |                                                                                                                           |    |
+  viewBBox|    |       +------------------------------------------------------------------------------------------------------------+      |    |
+     <---------+       +------------------------------------------------------------------------------------------------------------|      |    |
+          |    |        +----------------------------------------------------------------------------------------------------------------+ |    |
+          |    |   +--+ |                                                                                                                | |    |
+          |    |   |  | |    +---------------------------------------------------+   +------------------------------------------------+  | |    |
+          |    |   |  | |    |                                                   |   |                                                |  | |    |
+          |    |   |  | |    |                                                   |   |                                                |  | |    |
+coordinateBBox |   |  | |    |                                                   |   |                                                |  | |    |
+        <-+-------------+    |                                                   |   |                                                |  | |    |
+          |    |   |  | |    |                                                   |   |                                                |  | |    |
+          |    |   |  | |    |                                                   |   |                                                |  | |    |
+          |    |   |  | |    |                                                   |   |                                                |  | |    |
+          |    |   |  | |    |                                                   |   |                                                |  | |    |
+          |left|   |  | |    |                                                   |   |                                                |  | |    |
+          |    |   |  | |    |                                                   |   |                                                |  | | right
+          |    |   |  | |    |                                                   |   |                                                |  | |    |
+ subView  |    |   |  | |    |                                                   |   |                                                |  | |    |
+       <---------------------+                                                   |   |                                                |  | |    |
+          |    |   |  | |    |                                                   |   |                                                |  | |    |
+          |    |   |  | |    |                                                   |   |                                                |  | |    |
+          |    |   |  | |    |                                                   |   |                                                |  | |    |
+          |    |   |  | |    |                                                   |   |                                                |  | |    |
+          |    |   |  | |    |                                                   |   |                                                |  | |    |
+          |    |   |  | |    |                                                   |   |                                                |  | |    |
+          |    |   |  | |    |                                                   |   |                                                |  | |    |
+          |    |   |  | |    +---------------------------------------------------+   +------------------------------------------------+  | |    |
+          |    |   |  | |                                                                                                                | |    |
+          |    |   |  | +----------------------------------------------------------------------------------------------------------------+ |    |
+          |    |   +--+    |--------------------------------------------------------------------------------------------------------|      |    |
+          |    |           |--------------------------------------------------------------------------------------------------------|      |    |
+          |    +---------------------------------------------------------------------------------------------------------------------------+    |
+          |                                                            buttom                                                                   |
+          +-------------------------------------------------------------------------------------------------------------------------------------+
  */
 export default class View extends EE {
   /** 父级 view，如果没有父级，则为空 */
@@ -57,7 +95,7 @@ export default class View extends EE {
   /** 标记 view 的大小位置范围，均是 0 ~ 1 范围，便于开发者使用 */
   protected region: Region;
   /** view 的 padding 大小 */
-  protected padding: Padding;
+  protected padding: number[];
   /** 主题配置 */
   protected themeObject: object;
 
@@ -77,6 +115,8 @@ export default class View extends EE {
   protected layoutFunc: Layout = defaultLayout;
   // 生成的坐标系实例
   protected coordinateInstance: Coordinate;
+  // 分面类实例
+  protected facetInstance: Facet;
 
   constructor(props: ViewCfg) {
     super();
@@ -99,7 +139,7 @@ export default class View extends EE {
     this.middleGroup = middleGroup;
     this.foregroundGroup = foregroundGroup;
     this.region = region;
-    this.padding = padding;
+    this.padding = parsePadding(padding);
     this.themeObject = mergeTheme({}, theme);
     // 接受父 view 传入的参数
     this.options = { ...this.options, ...options };
@@ -148,17 +188,13 @@ export default class View extends EE {
    * 初始化
    */
   public initial() {
-    // 将相对的 region 范围转化为实际的范围
-    this.initialViewBBox();
-
     // 事件委托机制
     this.initialEvents();
 
-    // 初始化数据
-    this.initialData();
-
-    // 初始化子 view
-    this.initialViews();
+    // 递归初始化子 view
+    _.each(this.views, (view: View) => {
+      view.initial();
+    });
   }
 
   /**
@@ -300,6 +336,29 @@ export default class View extends EE {
     return this.coordinateInstance;
   }
 
+  /**
+   * view 分面绘制
+   * @param type
+   * @param cfg
+   */
+  public facet<T extends keyof FacetCfgMap>(type: T, cfg: FacetCfgMap[T]) {
+    // 先销毁掉之前的分面
+    if (this.facetInstance) {
+      this.facetInstance.destroy();
+    }
+
+    // 创建新的分面
+    const Ctor = getFacet(type);
+
+    if (!Ctor) {
+      throw new Error(`facet '${type}' is not exist!`);
+    }
+
+    this.facetInstance = new Ctor(this, { ...cfg, type });
+
+    return this;
+  }
+
   public animate(): View {
     return this;
   }
@@ -347,9 +406,7 @@ export default class View extends EE {
     // 2. 过滤数据
     this.filterData();
     // 3. 更新 geom 元素数据
-    _.each(this.geometries, (geometry: Geometry) => {
-      geometry.updateData(this.filteredData);
-    });
+    this.updateGeometries();
     // 4. 调整 scale
     this.adjustScales();
     // 5. 更新组件
@@ -425,7 +482,7 @@ export default class View extends EE {
    * @private
    */
   public createCoordinate(bbox?: BBox) {
-    this.coordinateInstance = createCoordinate(this.options.coordinate, bbox || this.viewBBox);
+    this.coordinateInstance = createCoordinate(this.options.coordinate, bbox || this.coordinateBBox);
   }
 
   // 一些 get 方法
@@ -464,6 +521,13 @@ export default class View extends EE {
    */
   public getOptions(): Options {
     return this.options;
+  }
+
+  /**
+   * 获取 view 的数据（过滤后的数据）
+   */
+  public getData() {
+    return this.options.data;
   }
 
   /**
@@ -515,23 +579,25 @@ export default class View extends EE {
    * 步骤非常繁琐，因为之间有一些数据依赖，所以执行流程上有先后关系
    */
   protected renderRecursive() {
-    // 1. 处理数据
+    // 1. 计算画布的 viewBBox
+    this.calculateViewBBox();
+    // 2. 处理数据
     this.filterData();
-    // 2. 创建 coordinate 实例
+    // 3. 创建 coordinate 实例
     if (!this.coordinateInstance) {
       this.createCoordinate();
     }
-    // 3. 初始化 Geometry
+    // 4. 初始化 Geometry
     this.initialGeometries();
-    // 4. 调整 scale 配置
-    this.adjustScales();
     // 5. 渲染组件 component
     this.renderComponents();
     // 6.  递归 views，进行布局
     this.doLayout();
-    // 7. 布局完之后，coordinate 的范围确定了，调整 coordinate 组件
+    // 7. 渲染分面
+    this.renderFacet();
+    // 8. 布局完之后，coordinate 的范围确定了，调整 coordinate 组件
     this.adjustCoordinate();
-    // 8. 渲染几何标记
+    // 9. 渲染几何标记
     this.paintGeometries();
 
     // 同样递归处理子 views
@@ -542,39 +608,6 @@ export default class View extends EE {
   // end Get 方法
 
   // 生命周期子流程——初始化流程
-  /**
-   * 初始化 region，计算实际的像素范围坐标，去除 padding 之后的
-   * @private
-   */
-  private initialViewBBox() {
-    // 存在 parent， 那么就是通过父容器大小计算
-    let width;
-    let height;
-    let start: Point;
-
-    if (this.parent) {
-      start = this.parent.viewBBox.tl;
-      width = this.parent.viewBBox.width;
-      height = this.parent.viewBBox.height;
-    } else {
-      // 顶层容器，从 canvas 中取值 宽高
-      width = this.canvas.get('width');
-      height = this.canvas.get('height');
-      start = { x: 0, y: 0 };
-    }
-
-    const region = this.region;
-
-    const [top, right, bottom, left] = parsePadding(this.padding);
-
-    // 计算 bbox 除去 padding 之后的
-    this.viewBBox = new BBox(
-      start.x + width * region.start.x + left,
-      start.y + height * region.start.y + top,
-      width * (region.end.x - region.start.x) - left - right,
-      height * (region.end.y - region.start.y) - top - bottom
-    );
-  }
 
   /**
    * 初始化事件机制：G 4.0 底层内置支持 name:event 的机制，那么只要所有组件都有自己的 name 即可。
@@ -608,33 +641,43 @@ export default class View extends EE {
     }
   };
 
-  /**
-   * 生成 controller 实例，后续更新配置
-   * @private
-   */
-  private _initialControllers() {
-    // 可能暂时不需要，组件管理直接使用 components 管理，生成逻辑写成工具函数
-  }
-
-  /**
-   * 将不同的数据源，处理成 Data 定义的结构
-   * @private
-   */
-  private initialData() {
-    // 暂时只有一种数据结构，所以无需处理
-  }
-
-  /**
-   * 遍历子 view，子 view 也进行初始化
-   * @private
-   */
-  private initialViews() {
-    _.each(this.views, (view: View) => {
-      view.initial();
-    });
-  }
-
   // view 生命周期 —— 渲染流程
+
+  /**
+   * 计算 region，计算实际的像素范围坐标，去除 padding 之后的
+   * @private
+   */
+  private calculateViewBBox() {
+    // 存在 parent， 那么就是通过父容器大小计算
+    let width;
+    let height;
+    let start: Point;
+
+    if (this.parent) {
+      start = this.parent.coordinateBBox.tl;
+      width = this.parent.coordinateBBox.width;
+      height = this.parent.coordinateBBox.height;
+    } else {
+      // 顶层容器，从 canvas 中取值 宽高
+      width = this.canvas.get('width');
+      height = this.canvas.get('height');
+      start = { x: 0, y: 0 };
+    }
+
+    const region = this.region;
+
+    const [top, right, bottom, left] = this.padding;
+
+    // 计算 bbox 除去 padding 之后的
+    // 初始 coordinateBBox = viewBBox
+    this.viewBBox = this.coordinateBBox = new BBox(
+      start.x + width * region.start.x + left,
+      start.y + height * region.start.y + top,
+      width * (region.end.x - region.start.x) - left - right,
+      height * (region.end.y - region.start.y) - top - bottom
+    );
+  }
+
   /**
    * 处理筛选器，筛选数据
    * @private
@@ -652,7 +695,7 @@ export default class View extends EE {
       let filtered = true;
 
       _.each(filters, (filter: FilterCondition, field: string) => {
-        // 只要一个不通过，就结束循环
+        // 只要一个不通过，就结束循环，并过滤掉
         if (!filter(datum[field], datum)) {
           filtered = false;
           // return false === break loop
@@ -681,6 +724,20 @@ export default class View extends EE {
 
       geometry.initial();
     });
+
+    // Geometry 初始化之后，生成了 scale，然后进行调整 scale 配置
+    this.adjustScales();
+  }
+
+  /**
+   * 更新 Geometry 数据
+   */
+  private updateGeometries() {
+    _.each(this.geometries, (geometry: Geometry) => {
+      geometry.updateData(this.filteredData);
+    });
+
+    this.adjustScales();
   }
 
   /**
@@ -791,6 +848,15 @@ export default class View extends EE {
     this.geometries.map((geometry: Geometry) => {
       geometry.paint();
     });
+  }
+
+  /**
+   * 渲染分面，会在其中进行数据分面，然后进行子 view 创建
+   */
+  private renderFacet() {
+    if (this.facetInstance) {
+      this.facetInstance.render();
+    }
   }
 
   /**

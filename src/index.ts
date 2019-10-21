@@ -1,8 +1,7 @@
 export * from './core';
 
 // 注册 G2 内置的 geometry
-import { registerGeometry } from './chart';
-
+import { registerGeometry } from './core';
 import Interval from './geometry/interval';
 import Line from './geometry/line';
 import Path from './geometry/path';
@@ -12,3 +11,9 @@ registerGeometry('Polygon', Polygon);
 registerGeometry('Interval', Interval);
 registerGeometry('Path', Path);
 registerGeometry('Line', Line);
+
+// 注册内置的 Facet
+import { registerFacet } from './core';
+import Rect from './facet/rect';
+
+registerFacet('rect', Rect);

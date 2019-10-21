@@ -8,7 +8,10 @@ export { Chart, View, registerGeometry } from './chart';
 export { getTheme, registerTheme } from './theme';
 export { default as Component } from './component'; // 组件基类
 export { default as Geometry } from './geometry/base';
+// facet 相关 API
+export { Facet, getFacet, registerFacet } from './facet';
 
 // 类型定义导出
 export { ChartCfg, ViewCfg } from './chart';
 export { Data, Datum, Region, Point } from './interface';
+export { FacetCfg, FacetData } from './facet/interface';
