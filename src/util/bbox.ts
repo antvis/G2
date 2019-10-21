@@ -1,7 +1,7 @@
 import * as _ from '@antv/util';
 import { DIRECTION } from '../constant';
 import { BBox } from '../dependents';
-import { Padding, Point, Region } from '../interface';
+import { Point, Region } from '../interface';
 
 export class BBoxProcessor {
   private bbox: BBox;
