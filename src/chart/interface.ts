@@ -89,4 +89,5 @@ export interface Options {
   readonly interactions?: Record<string, Interaction>;
   /** 所有的组件配置 */
   readonly components: ComponentOption[];
+  readonly animate?: boolean;
 }

@@ -104,6 +104,7 @@ export default class View extends EE {
   protected options: Options = {
     data: [],
     components: [],
+    animate: true, // 默认开启动画
   }; // 初始化为空
 
   // 过滤之后的数据
@@ -118,8 +119,6 @@ export default class View extends EE {
   protected coordinateInstance: Coordinate;
   // 分面类实例
   protected facetInstance: Facet;
-
-  private doAnimation: boolean = true;
 
   constructor(props: ViewCfg) {
     super();
@@ -380,7 +379,7 @@ export default class View extends EE {
    * @returns
    */
   public animate(status: boolean): View {
-    this.doAnimation = status;
+    _.set(this.options, 'animate', status);
     return this;
   }
 
@@ -865,7 +864,7 @@ export default class View extends EE {
    * @private
    */
   private paintGeometries() {
-    const doAnimation = this.doAnimation;
+    const doAnimation = this.options.animate;
     // geometry 的 paint 阶段
     this.geometries.map((geometry: Geometry) => {
       if (!doAnimation) {

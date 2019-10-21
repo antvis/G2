@@ -110,10 +110,10 @@ describe('View', () => {
 
   it('animate', () => {
     // @ts-ignore 默认执行动画
-    expect(view.doAnimation).toBe(true);
+    expect(view.options.animate).toBe(true);
     view.animate(false);
     // @ts-ignore
-    expect(view.doAnimation).toBe(false);
+    expect(view.options.animate).toBe(false);
   });
 
   it('geometry', () => {
