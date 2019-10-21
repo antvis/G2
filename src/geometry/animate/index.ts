@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
-import { AnimateCfg, Data, Datum, ShapeDrawCFG } from 'interface';
 import { Coordinate, IGroup, IShape } from '../../dependents';
+import { AnimateCfg, Data, Datum, ShapeDrawCFG } from '../../interface';
 import * as Action from './action';
 
 // 默认动画配置

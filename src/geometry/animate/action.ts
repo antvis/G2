@@ -1,6 +1,6 @@
 import { transform } from '@antv/matrix-util';
-import { ShapeDrawCFG } from 'interface';
 import { Coordinate, IGroup, IShape } from '../../dependents';
+import { ShapeDrawCFG } from '../../interface';
 import { getAngle, getCoordinateClipCfg, getSectorPath } from './util';
 
 /**

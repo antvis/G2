@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
-import { ShapeDrawCFG } from 'interface';
 import { Coordinate, Shape } from '../../dependents';
+import { ShapeDrawCFG } from '../../interface';
 
 // 获取图形的包围盒
 function getPointsBox(points) {
