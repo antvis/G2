@@ -183,7 +183,7 @@ registerShape('interval', 'rect', {
     });
 
     if (cfg.animate) {
-      doAnimate(shape, cfg);
+      doAnimate(shape, cfg, this.coordinate);
     }
 
     return shape;
@@ -199,13 +199,11 @@ registerShape('interval', 'rect', {
       ...style,
       path,
     };
+
     if (cfg.animate) {
-      doAnimate(shape, cfg, attrs);
+      doAnimate(shape, cfg, this.coordinate, attrs);
     } else {
-      shape.attr({
-        ...style,
-        path,
-      });
+      shape.attr(attrs);
     }
   },
 });
@@ -227,7 +225,7 @@ registerShape('interval', 'hollowRect', {
     });
 
     if (cfg.animate) {
-      doAnimate(shape, cfg);
+      doAnimate(shape, cfg, this.coordinate);
     }
 
     return shape;
@@ -244,12 +242,9 @@ registerShape('interval', 'hollowRect', {
       path,
     };
     if (cfg.animate) {
-      doAnimate(shape, cfg, attrs);
+      doAnimate(shape, cfg, this.coordinate, attrs);
     } else {
-      shape.attr({
-        ...style,
-        path,
-      });
+      shape.attr(attrs);
     }
   },
 });
@@ -277,7 +272,7 @@ registerShape('interval', 'line', {
     });
 
     if (cfg.animate) {
-      doAnimate(shape, cfg);
+      doAnimate(shape, cfg, this.coordinate);
     }
 
     return shape;
@@ -297,12 +292,9 @@ registerShape('interval', 'line', {
       path,
     };
     if (cfg.animate) {
-      doAnimate(shape, cfg, attrs);
+      doAnimate(shape, cfg, this.coordinate, attrs);
     } else {
-      shape.attr({
-        ...style,
-        path,
-      });
+      shape.attr(attrs);
     }
   },
 });
@@ -326,7 +318,7 @@ registerShape('interval', 'tick', {
       },
     });
     if (cfg.animate) {
-      doAnimate(shape, cfg);
+      doAnimate(shape, cfg, this.coordinate);
     }
 
     return shape;
@@ -343,12 +335,9 @@ registerShape('interval', 'tick', {
       path,
     };
     if (cfg.animate) {
-      doAnimate(shape, cfg, attrs);
+      doAnimate(shape, cfg, this.coordinate, attrs);
     } else {
-      shape.attr({
-        ...style,
-        path,
-      });
+      shape.attr(attrs);
     }
   },
 });
@@ -374,7 +363,7 @@ registerShape('interval', 'funnel', {
     });
 
     if (cfg.animate) {
-      doAnimate(shape, cfg);
+      doAnimate(shape, cfg, this.coordinate);
     }
 
     return shape;
@@ -391,12 +380,9 @@ registerShape('interval', 'funnel', {
       path,
     };
     if (cfg.animate) {
-      doAnimate(shape, cfg, attrs);
+      doAnimate(shape, cfg, this.coordinate, attrs);
     } else {
-      shape.attr({
-        ...style,
-        path,
-      });
+      shape.attr(attrs);
     }
   },
 });
@@ -422,7 +408,7 @@ registerShape('interval', 'pyramid', {
     });
 
     if (cfg.animate) {
-      doAnimate(shape, cfg);
+      doAnimate(shape, cfg, this.coordinate);
     }
 
     return shape;
@@ -439,12 +425,9 @@ registerShape('interval', 'pyramid', {
       path,
     };
     if (cfg.animate) {
-      doAnimate(shape, cfg, attrs);
+      doAnimate(shape, cfg, this.coordinate, attrs);
     } else {
-      shape.attr({
-        ...style,
-        path,
-      });
+      shape.attr(attrs);
     }
   },
 });

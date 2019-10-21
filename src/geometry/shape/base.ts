@@ -173,7 +173,7 @@ const ShapeBase = {
     const animate = cfg.animate;
     if (animate) {
       // 指定了动画配置则执行动画
-      doAnimate(shape, cfg);
+      doAnimate(shape, cfg, this.coordinate);
     } else {
       // 否则直接销毁
       shape.remove(true);
