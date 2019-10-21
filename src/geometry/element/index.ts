@@ -189,15 +189,11 @@ export default class Element {
   private getAnimateCfg(animateType: string) {
     const { shapeFactory, model } = this;
     const animate = model.animate;
-    if (!animate) {
-      // animate === false 关闭动画，则返回 null
-      return null;
-    }
     const { geometryType, coordinate } = shapeFactory;
     const defaultCfg = getDefaultAnimateCfg(geometryType, animateType, coordinate);
 
     // 如果动画开启，用户没有配置动画同时又没有默认的动画配置时，返回 null
-    if (animate === true && _.isEmpty(defaultCfg)) {
+    if (!animate || (animate === true && _.isEmpty(defaultCfg)) || animate[animateType] === false) {
       return null;
     }
 

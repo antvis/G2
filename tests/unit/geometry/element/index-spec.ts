@@ -203,11 +203,12 @@ describe('Element', () => {
       expect(element.getAnimateCfg('update')).toBe(null);
     });
 
-    it('model.animate is true', () => {
+    it('model.animate is not empty', () => {
       element.model.animate = {
         update: {
           delay: 1000,
         },
+        destroy: false,
       };
       // @ts-ignore
       expect(element.getAnimateCfg('update')).toEqual({
@@ -215,6 +216,8 @@ describe('Element', () => {
         easing: 'easeQuadInOut',
         delay: 1000,
       });
+      // @ts-ignore
+      expect(element.getAnimateCfg('destroy')).toBe(null);
     });
   });
 });
