@@ -1,6 +1,6 @@
 import { transform } from '@antv/matrix-util';
 import { Coordinate, IGroup, IShape } from '../../dependents';
-import { ShapeDrawCFG } from '../../interface';
+import { AnimateCfg, ShapeDrawCFG } from '../../interface';
 import { getAngle, getCoordinateClipCfg, getSectorPath } from './util';
 
 /**
@@ -9,7 +9,12 @@ import { getAngle, getCoordinateClipCfg, getSectorPath } from './util';
  * @param animateCfg
  * @param shapeModel
  */
-export function scaleInY(shape: IShape | IGroup, animateCfg, coordinate: Coordinate, shapeModel: ShapeDrawCFG) {
+export function scaleInY(
+  shape: IShape | IGroup,
+  animateCfg: AnimateCfg,
+  coordinate: Coordinate,
+  shapeModel: ShapeDrawCFG
+) {
   const box = shape.getBBox();
   const x = (box.minX + box.maxX) / 2;
   const { points } = shapeModel;
@@ -35,7 +40,12 @@ export function scaleInY(shape: IShape | IGroup, animateCfg, coordinate: Coordin
  * @param animateCfg
  * @param shapeModel
  */
-export function scaleInX(shape: IShape | IGroup, animateCfg, coordinate: Coordinate, shapeModel: ShapeDrawCFG) {
+export function scaleInX(
+  shape: IShape | IGroup,
+  animateCfg: AnimateCfg,
+  coordinate: Coordinate,
+  shapeModel: ShapeDrawCFG
+) {
   const box = shape.getBBox();
   const { points } = shapeModel;
   // x 数值如果为负值，那么应该从右往左生长
@@ -61,7 +71,12 @@ export function scaleInX(shape: IShape | IGroup, animateCfg, coordinate: Coordin
  * @param animateCfg
  * @param shapeModel
  */
-export function fadeOut(shape: IShape | IGroup, animateCfg, coordinate: Coordinate, shapeModel: ShapeDrawCFG) {
+export function fadeOut(
+  shape: IShape | IGroup,
+  animateCfg: AnimateCfg,
+  coordinate: Coordinate,
+  shapeModel: ShapeDrawCFG
+) {
   const endState = {
     fillOpacity: 0,
     strokeOpacity: 0,
@@ -79,7 +94,12 @@ export function fadeOut(shape: IShape | IGroup, animateCfg, coordinate: Coordina
 }
 
 // TODO: 待 G 4.0 修复，关联 issue https://github.com/antvis/g/issues/218
-export function clipIn(shape: IShape | IGroup, animateCfg, coordinate: Coordinate, shapeModel: ShapeDrawCFG) {
+export function clipIn(
+  shape: IShape | IGroup,
+  animateCfg: AnimateCfg,
+  coordinate: Coordinate,
+  shapeModel: ShapeDrawCFG
+) {
   const clipCfg = getCoordinateClipCfg(coordinate); // 根据坐标系类型获取整体的剪切区域配置信息
   const endState = clipCfg.endState;
   // 为 shape 设置剪切区域
@@ -101,7 +121,12 @@ export function clipIn(shape: IShape | IGroup, animateCfg, coordinate: Coordinat
 }
 
 // TODO: 待 G 4.0 修复，关联 issue https://github.com/antvis/g/issues/218
-export function pieChartEnter(shape: IShape | IGroup, animateCfg, coordinate: Coordinate, shapeModel: ShapeDrawCFG) {
+export function pieChartEnter(
+  shape: IShape | IGroup,
+  animateCfg: AnimateCfg,
+  coordinate: Coordinate,
+  shapeModel: ShapeDrawCFG
+) {
   const { endAngle } = getAngle(shapeModel, coordinate);
   const coordinateStartAngle = coordinate.startAngle;
   const center = coordinate.getCenter();
@@ -137,7 +162,7 @@ export function pieChartEnter(shape: IShape | IGroup, animateCfg, coordinate: Co
 
 export function pieChartUpdate(
   shape: IShape | IGroup,
-  animateCfg,
+  animateCfg: AnimateCfg,
   coordinate: Coordinate,
   shapeModel: ShapeDrawCFG,
   toAttrs
