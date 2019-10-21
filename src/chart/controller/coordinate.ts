@@ -19,7 +19,10 @@ function isTheta(type: string): boolean {
  * @param coordinateOption
  * @param coordinateBBox
  */
-export function createCoordinate(coordinateOption: CoordinateOption = {}, coordinateBBox: BBox): Coordinate {
+export function createCoordinate(
+  coordinateOption: CoordinateOption = {},
+  coordinateBBox: BBox = new BBox(0, 0, 0, 0)
+): Coordinate {
   const { type = 'rect', cfg, actions = [] } = coordinateOption;
 
   // 1. 起始位置

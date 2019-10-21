@@ -31,6 +31,7 @@ describe('Chart', () => {
     expect(chart.getLayer(LAYER.MID)).toBeInstanceOf(Group);
     expect(chart.getLayer(LAYER.FORE)).toBeInstanceOf(Group);
 
+    chart.render();
     // region -> view bbox
     expect({
       x: chart.viewBBox.x,

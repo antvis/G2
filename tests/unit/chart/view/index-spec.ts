@@ -42,6 +42,7 @@ describe('View', () => {
   });
 
   it('region', () => {
+    view.render();
     // region -> view bbox
     expect({
       x: view.viewBBox.x,
