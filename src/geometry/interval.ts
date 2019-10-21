@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-import { LooseObject } from 'interface';
+import { LooseObject } from '../interface';
 import { getXDimensionLength } from '../util/coordinate';
 import Geometry from './base';
 /** 引入对应的 ShapeFactory */

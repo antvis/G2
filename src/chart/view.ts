@@ -1,5 +1,23 @@
 import EE from '@antv/event-emitter';
 import * as _ from '@antv/util';
+import Component from '../component';
+import { ComponentType, DIRECTION, GroupZIndex, LAYER, ViewLifeCircle } from '../constant';
+import { Coordinate, Scale } from '../dependents';
+import { Attribute } from '../dependents';
+import { BBox, ICanvas, IGroup } from '../dependents';
+import { Facet, getFacet } from '../facet';
+import { FacetCfgMap } from '../facet/interface';
+import Geometry from '../geometry/base';
+import Interaction from '../interaction';
+import { Point, Region } from '../interface';
+import { Data, Datum } from '../interface';
+import { isFullCircle } from '../util/coordinate';
+import { parsePadding } from '../util/padding';
+import { mergeTheme } from '../util/theme';
+import Chart from './chart';
+import { createAxes } from './controller/axis';
+import { createCoordinate } from './controller/coordinate';
+import { createLegends } from './controller/legend';
 import {
   AxisOption,
   ComponentOption,
@@ -10,25 +28,7 @@ import {
   Options,
   ScaleOption,
   ViewCfg,
-} from 'chart/interface';
-import Component from 'component';
-import { Coordinate, Scale } from 'dependents';
-import Geometry from 'geometry/base';
-import Interaction from 'interaction';
-import { Padding, Point, Region } from 'interface';
-import { ComponentType, DIRECTION, GroupZIndex, LAYER, ViewLifeCircle } from '../constant';
-import { Attribute } from '../dependents';
-import { BBox, ICanvas, IGroup } from '../dependents';
-import { Facet, getFacet } from '../facet';
-import { FacetCfg, FacetCfgMap } from '../facet/interface';
-import { Data, Datum } from '../interface';
-import { isFullCircle } from '../util/coordinate';
-import { parsePadding } from '../util/padding';
-import { mergeTheme } from '../util/theme';
-import Chart from './chart';
-import { createAxes } from './controller/axis';
-import { createCoordinate } from './controller/coordinate';
-import { createLegends } from './controller/legend';
+} from './interface';
 import defaultLayout, { Layout } from './layout';
 
 /*

@@ -1,5 +1,5 @@
-import { Position } from 'interface';
 import Component from '../../component';
+import { Position } from '../../interface';
 
 interface MockComponentProps {
   readonly text: string;
