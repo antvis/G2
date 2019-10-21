@@ -243,6 +243,7 @@ export default class View extends EE {
    * 坐标轴配置
    */
   public axis(field: boolean): View;
+  public axis(field: string, axisOption: AxisOption): View;
   public axis(field: string | boolean, axisOption?: AxisOption): View {
     if (_.isBoolean(field)) {
       _.set(this.options, ['axes'], field);
@@ -257,11 +258,12 @@ export default class View extends EE {
    * 图例配置
    */
   public legend(field: boolean): View;
-  public legend(field: string | boolean, legendCfg?: LegendOption): View {
+  public legend(field: string, legendOption: LegendOption): View;
+  public legend(field: string | boolean, legendOption?: LegendOption): View {
     if (_.isBoolean(field)) {
       _.set(this.options, ['legends'], field);
     } else {
-      _.set(this.options, ['legends', field], legendCfg);
+      _.set(this.options, ['legends', field], legendOption);
     }
 
     return this;
