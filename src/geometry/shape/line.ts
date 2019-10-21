@@ -1,5 +1,6 @@
 import * as _ from '@antv/util';
 import { Point, Position, ShapeDrawCFG } from '../../interface';
+import { doAnimate } from '../animate/index';
 import Element from '../element';
 import { registerShape, registerShapeFactory } from './base';
 import { getLinePath, getSplinePath } from './util/path';
@@ -159,10 +160,14 @@ _.each(['line', 'dot', 'dash', 'smooth'], (shapeType) => {
       }
 
       const attrs = getShapeAttrs(cfg, smooth, constraint);
-      return container.addShape({
+      const shape = container.addShape({
         type: 'path',
         attrs,
       });
+      if (cfg.animate) {
+        doAnimate(shape, cfg, this.coordinate);
+      }
+      return shape;
     },
     update(cfg: ShapeDrawCFG, element: Element) {
       const shape = element.shape;
@@ -174,7 +179,11 @@ _.each(['line', 'dot', 'dash', 'smooth'], (shapeType) => {
       }
 
       const attrs = getShapeAttrs(cfg, smooth, constraint);
-      shape.attr(attrs);
+      if (cfg.animate) {
+        doAnimate(shape, cfg, this.coordinate, attrs);
+      } else {
+        shape.attr(attrs);
+      }
     },
   });
 });
@@ -185,15 +194,23 @@ _.each(['hv', 'vh', 'hvh', 'vhv'], (shapeType) => {
     draw(cfg: ShapeDrawCFG, element: Element) {
       const container = element.container;
       const attrs = getInterpolateShapeAttrs(cfg, shapeType);
-      return container.addShape({
+      const shape = container.addShape({
         type: 'path',
         attrs,
       });
+      if (cfg.animate) {
+        doAnimate(shape, cfg, this.coordinate);
+      }
+      return shape;
     },
     update(cfg: ShapeDrawCFG, element: Element) {
       const shape = element.shape;
       const attrs = getInterpolateShapeAttrs(cfg, shapeType);
-      shape.attr(attrs);
+      if (cfg.animate) {
+        doAnimate(shape, cfg, this.coordinate, attrs);
+      } else {
+        shape.attr(attrs);
+      }
     },
   });
 });
