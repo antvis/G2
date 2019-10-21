@@ -114,6 +114,9 @@ describe('Element', () => {
       expect(shape.attr('fill')).toBe('red');
       expect(shape.attr('stroke')).toBe(null);
       expect(shape.attr('lineWidth')).toBe(0);
+
+      element.setState('otherState', false);
+      expect(element.getStates()).toEqual(['selected']);
     });
 
     it('hasState()', () => {

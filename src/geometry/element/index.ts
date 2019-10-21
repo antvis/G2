@@ -37,7 +37,7 @@ export default class Element {
   /** 是否已经被销毁 */
   public destroyed: boolean = false;
 
-  // 存储当前状态
+  // 存储当前开启的状态
   private states: string[] = [];
   // 存储 shape 的原始样式
   private originStyle: LooseObject = {};
@@ -128,12 +128,17 @@ export default class Element {
 
     const index = states.indexOf(stateName);
     if (stateStatus) {
+      // 开启状态
       if (index > -1) {
-        // 该状态已经开启
+        // 该状态已经开启，则返回
         return;
       }
       states.push(stateName);
     } else {
+      if (index === -1) {
+        // 关闭状态，但是状态未设置过
+        return;
+      }
       states.splice(index, 1);
     }
 
