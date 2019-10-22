@@ -1,6 +1,5 @@
 import * as _ from '@antv/util';
-import { FIELD_ORIGIN } from '../../../constant';
-import { Data, Datum, Point, RangePoint } from '../../../interface';
+import { RangePoint } from '../../../interface';
 
 function isValueNil(value) {
   return (_.isArray(value) && _.isNil(value[0])) || _.isNil(value);
@@ -20,14 +19,14 @@ function isValueNil(value) {
  * @param field 判断空值的字段名
  * @param connectNulls 是否连接空值数据
  */
-export function getPathPoints(points: Point[] | RangePoint[], connectNulls?: boolean) {
+export function getPathPoints(points: RangePoint[], connectNulls?: boolean) {
   if (!points.length) {
     return [];
   }
 
   if (connectNulls) {
     // 即 y 值为空的场景
-    const filtered = _.filter(points, (point: Point) => {
+    const filtered = _.filter(points, (point: RangePoint) => {
       return !isValueNil(point.y);
     });
     return [filtered];
@@ -35,7 +34,7 @@ export function getPathPoints(points: Point[] | RangePoint[], connectNulls?: boo
 
   const result = [];
   let tmp = [];
-  points.forEach((point: Point) => {
+  points.forEach((point: RangePoint) => {
     if (isValueNil(point.y)) {
       if (tmp.length) {
         result.push(tmp);
