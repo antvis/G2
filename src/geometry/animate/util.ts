@@ -125,7 +125,7 @@ export function getCoordinateClipCfg(coordinate: Coordinate) {
 
 export function getAngle(shapeModel: ShapeDrawCFG, coordinate: Coordinate) {
   const points = shapeModel.points;
-  const box = getPointsBox(points);
+  const box = getPointsBox(points as Point[]);
   let endAngle;
   let startAngle;
   const { startAngle: coordStartAngle, endAngle: coordEndAngle } = coordinate;

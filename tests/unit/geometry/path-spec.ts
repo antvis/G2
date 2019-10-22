@@ -51,7 +51,7 @@ describe('Path', () => {
     expect(elements.length).toBe(1);
 
     const model = elements[0].model;
-    expect(model.points.length).toBe(2);
+    expect(model.points.length).toBe(7);
 
     const data = elements[0].data;
     expect(data).toEqual([
@@ -94,7 +94,7 @@ describe('Path', () => {
     expect(elements.length).toBe(1);
 
     const model = elements[0].model;
-    expect(model.points.length).toBe(1);
+    expect(model.points.length).toBe(7);
   });
 
   afterAll(() => {

@@ -19,7 +19,7 @@ export function scaleInY(
   const x = (box.minX + box.maxX) / 2;
   const { points } = shapeModel;
   // 数值如果为负值，那么应该从上往下生长，通过 shape 的关键点进行判断
-  const y = points[0].y - points[1].y <= 0 ? box.maxY : box.minY;
+  const y = (points[0].y as number) - (points[1].y as number) <= 0 ? box.maxY : box.minY;
 
   const v = [x, y, 1];
   shape.applyToMatrix(v);
@@ -49,7 +49,7 @@ export function scaleInX(
   const box = shape.getBBox();
   const { points } = shapeModel;
   // x 数值如果为负值，那么应该从右往左生长
-  const x = points[0].y - points[1].y > 0 ? box.maxX : box.minX;
+  const x = (points[0].y as number) - (points[1].y as number) > 0 ? box.maxX : box.minX;
   const y = (box.minY + box.maxY) / 2;
 
   const v = [x, y, 1];

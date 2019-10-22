@@ -173,7 +173,7 @@ registerShape('interval', 'rect', {
     if (cfg.color) {
       style.fill = cfg.color;
     }
-    const path = this.parsePath(getRectPath(cfg.points));
+    const path = this.parsePath(getRectPath(cfg.points as Point[]));
     const container = element.container;
     const shape = container.addShape('path', {
       attrs: {
@@ -194,7 +194,7 @@ registerShape('interval', 'rect', {
     if (cfg.color) {
       style.fill = cfg.color;
     }
-    const path = this.parsePath(getRectPath(cfg.points));
+    const path = this.parsePath(getRectPath(cfg.points as Point[]));
     const attrs = {
       ...style,
       path,
@@ -215,7 +215,7 @@ registerShape('interval', 'hollowRect', {
     if (cfg.color) {
       style.stroke = cfg.color;
     }
-    const path = this.parsePath(getRectPath(cfg.points));
+    const path = this.parsePath(getRectPath(cfg.points as Point[]));
     const container = element.container;
     const shape = container.addShape('path', {
       attrs: {
@@ -236,7 +236,7 @@ registerShape('interval', 'hollowRect', {
     if (cfg.color) {
       style.stroke = cfg.color;
     }
-    const path = this.parsePath(getRectPath(cfg.points));
+    const path = this.parsePath(getRectPath(cfg.points as Point[]));
     const attrs = {
       ...style,
       path,
@@ -262,7 +262,7 @@ registerShape('interval', 'line', {
     if (cfg.size) {
       style.lineWidth = cfg.size;
     }
-    const path = this.parsePath(getRectPath(cfg.points));
+    const path = this.parsePath(getRectPath(cfg.points as Point[]));
     const container = element.container;
     const shape = container.addShape('path', {
       attrs: {
@@ -286,7 +286,7 @@ registerShape('interval', 'line', {
     if (cfg.size) {
       style.lineWidth = cfg.size;
     }
-    const path = this.parsePath(getRectPath(cfg.points));
+    const path = this.parsePath(getRectPath(cfg.points as Point[]));
     const attrs = {
       ...style,
       path,
@@ -309,7 +309,7 @@ registerShape('interval', 'tick', {
     if (cfg.color) {
       style.stroke = cfg.color;
     }
-    const path = this.parsePath(getTickPath(cfg.points));
+    const path = this.parsePath(getTickPath(cfg.points as Point[]));
     const container = element.container;
     const shape = container.addShape('path', {
       attrs: {
@@ -329,7 +329,7 @@ registerShape('interval', 'tick', {
     if (cfg.color) {
       style.stroke = cfg.color;
     }
-    const path = this.parsePath(getTickPath(cfg.points));
+    const path = this.parsePath(getTickPath(cfg.points as Point[]));
     const attrs = {
       ...style,
       path,
@@ -353,7 +353,7 @@ registerShape('interval', 'funnel', {
     if (cfg.color) {
       style.fill = cfg.color;
     }
-    const path = this.parsePath(getFunnelPath(cfg.points, cfg.nextPoints, true));
+    const path = this.parsePath(getFunnelPath(cfg.points as Point[], cfg.nextPoints as Point[], true));
     const container = element.container;
     const shape = container.addShape('path', {
       attrs: {
@@ -374,7 +374,7 @@ registerShape('interval', 'funnel', {
     if (cfg.color) {
       style.fill = cfg.color;
     }
-    const path = this.parsePath(getFunnelPath(cfg.points, cfg.nextPoints, true));
+    const path = this.parsePath(getFunnelPath(cfg.points as Point[], cfg.nextPoints as Point[], true));
     const attrs = {
       ...style,
       path,
@@ -398,7 +398,7 @@ registerShape('interval', 'pyramid', {
     if (cfg.color) {
       style.fill = cfg.color;
     }
-    const path = this.parsePath(getFunnelPath(cfg.points, cfg.nextPoints, false));
+    const path = this.parsePath(getFunnelPath(cfg.points as Point[], cfg.nextPoints as Point[], false));
     const container = element.container;
     const shape = container.addShape('path', {
       attrs: {
@@ -419,7 +419,7 @@ registerShape('interval', 'pyramid', {
     if (cfg.color) {
       style.fill = cfg.color;
     }
-    const path = this.parsePath(getFunnelPath(cfg.points, cfg.nextPoints, false));
+    const path = this.parsePath(getFunnelPath(cfg.points as Point[], cfg.nextPoints as Point[], false));
     const attrs = {
       ...style,
       path,
