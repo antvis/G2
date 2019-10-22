@@ -3,7 +3,7 @@ import { Coordinate, Shape } from '../../dependents';
 import { Point, ShapeDrawCFG } from '../../interface';
 
 // 获取图形的包围盒
-function getPointsBox(points: Point[]) {
+function getPointsBox(points) {
   if (_.isEmpty(points)) {
     return null;
   }

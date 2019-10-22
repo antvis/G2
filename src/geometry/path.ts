@@ -1,11 +1,10 @@
 import * as _ from '@antv/util';
 import { FIELD_ORIGIN } from '../constant';
-import { Data, Datum, ShapeModel } from '../interface';
+import { Data, Datum, Point, ShapeModel } from '../interface';
 import Geometry, { GeometryCfg } from './base';
 import Element from './element';
 /** 引入对应的 ShapeFactory */
 import './shape/line';
-import { splitData } from './util/split-data';
 
 interface PathCfg extends GeometryCfg {
   /** 是否连接空值 */
@@ -60,16 +59,24 @@ export default class Path extends Geometry {
 
   protected getDrawCfg(mappedArray: Data): ShapeModel {
     const shapeCfg = super.getDrawCfg(mappedArray[0]);
-    const connectNulls = this.connectNulls;
-    const yScale = this.getYScale();
-    const splitArray = splitData(mappedArray, yScale.field, connectNulls);
 
-    shapeCfg.origin = mappedArray;
-    shapeCfg.isStack = !!this.getAdjust('adjust');
-    shapeCfg.points = splitArray;
-    shapeCfg.data = this.getData(mappedArray);
+    return {
+      ...shapeCfg,
+      origin: mappedArray,
+      isStack: !!this.getAdjust('adjust'),
+      points: this.getPoints(mappedArray),
+      data: this.getData(mappedArray),
+      connectNulls: this.connectNulls,
+    };
+  }
 
-    return shapeCfg;
+  private getPoints(mappedArray: Data): Point[] {
+    return mappedArray.map((obj: Datum) => {
+      return {
+        x: obj.x,
+        y: obj.y,
+      };
+    });
   }
 
   private getData(mappedArray: Data): Data {

@@ -39,6 +39,11 @@ export interface Point {
   readonly y: number;
 }
 
+export interface RangePoint {
+  readonly x: number | number[];
+  readonly y: number | number[];
+}
+
 export interface AnimateCfg {
   /** 动画缓动函数 */
   readonly easing: string;
@@ -83,13 +88,15 @@ interface ShapeInfo {
   /** 进行图形映射后的数据记录 */
   origin?: Datum;
   /** 构成 shape 的关键点  */
-  points?: Point[];
+  points?: RangePoint[] | Point[];
   /** 下一个数据集对应的关键点 */
-  nextPoints?: Point[];
+  nextPoints?: RangePoint[] | Point[];
   /** Geometry.Text 需要 */
   text?: string | null;
   /** 数据是否发生层叠 */
   isStack?: boolean;
+  /** 是否连接空值，对 Path Line Area 这三种 Geometry 生效 */
+  connectNulls?: boolean;
 }
 
 /** Element.model 的数据类型 */
