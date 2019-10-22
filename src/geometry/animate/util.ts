@@ -3,7 +3,7 @@ import { Coordinate, Shape } from '../../dependents';
 import { Point, ShapeDrawCFG } from '../../interface';
 
 // 获取图形的包围盒
-function getPointsBox(points: Point[]) {
+function getPointsBox(points) {
   if (_.isEmpty(points)) {
     return null;
   }
@@ -125,7 +125,7 @@ export function getCoordinateClipCfg(coordinate: Coordinate) {
 
 export function getAngle(shapeModel: ShapeDrawCFG, coordinate: Coordinate) {
   const points = shapeModel.points;
-  const box = getPointsBox(points as Point[]);
+  const box = getPointsBox(points);
   let endAngle;
   let startAngle;
   const { startAngle: coordStartAngle, endAngle: coordEndAngle } = coordinate;
