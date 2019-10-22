@@ -3,6 +3,7 @@ import { Point, Position, RangePoint, ShapeDrawCFG } from '../../interface';
 import { doAnimate } from '../animate/index';
 import Element from '../element';
 import { registerShape, registerShapeFactory } from './base';
+import { getPathPoints } from './util/get-path-points';
 import { getLinePath, getSplinePath } from './util/path';
 import { splitPoints } from './util/split-points';
 
@@ -22,7 +23,8 @@ function getStyle(cfg: ShapeDrawCFG) {
 }
 
 function getShapeAttrs(cfg: ShapeDrawCFG, smooth?: boolean, constraint?: Position[]) {
-  const { isStack, points, isInCircle } = cfg;
+  const { isStack, connectNulls, isInCircle } = cfg;
+  const points = getPathPoints(cfg.points, connectNulls); // 根据 connectNulls 值处理 points
 
   let path = [];
   _.each(points, (eachLinePoints: Point[] | RangePoint[]) => {
@@ -142,7 +144,7 @@ function getInterpolatePath(points: Point[]) {
 
 // 插值的图形
 function getInterpolateShapeAttrs(cfg: ShapeDrawCFG, shapeType: string) {
-  const points = cfg.points;
+  const points = getPathPoints(cfg.points, cfg.connectNulls); // 根据 connectNulls 值处理 points
   let path = [];
   _.each(points, (eachLinePoints) => {
     const interpolatePoints = getInterpolatePoints(eachLinePoints, shapeType);
