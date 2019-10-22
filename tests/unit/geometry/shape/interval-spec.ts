@@ -1,12 +1,10 @@
-import { isNumberEqual, mix } from '@antv/util';
-import { Canvas, getCoordinate } from '../../../../src/dependents';
+import { getCoordinate } from '../../../../src/dependents';
 import Element from '../../../../src/geometry/element/index';
 import IntervalShapeFactory from '../../../../src/geometry/shape/interval';
 import Theme from '../../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../../util/dom';
 
 const Rect = getCoordinate('rect');
-const Polar = getCoordinate('polar');
 
 describe('Interval shapes', () => {
   const div = createDiv();
