@@ -22,7 +22,8 @@
     "lib": "run-p lib:*",
     "build": "run-s clean lib",
     "ci": "run-s build coverage",
-    "coveralls": "cat ./coverage/lcov.info | coveralls"
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "doc": "rm -rf docs/api && typedoc"
   },
   "dependencies": {
     "@antv/adjust": "^0.2.1",
@@ -51,6 +52,8 @@
     "ts-jest": "^24.1.0",
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
+    "typedoc": "^0.15.0",
+    "typedoc-plugin-markdown": "^2.2.11",
     "typescript": "^3.5.3"
   },
   "husky": {
