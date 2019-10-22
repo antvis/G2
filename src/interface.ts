@@ -39,6 +39,11 @@ export interface Point {
   readonly y: number;
 }
 
+export interface RangePoint {
+  readonly x: number | number[];
+  readonly y: number | number[];
+}
+
 export interface AnimateCfg {
   /** 动画缓动函数 */
   readonly easing: string;

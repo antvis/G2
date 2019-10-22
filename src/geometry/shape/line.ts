@@ -1,12 +1,12 @@
 import * as _ from '@antv/util';
-import { Point, Position, ShapeDrawCFG } from '../../interface';
+import { Point, Position, RangePoint, ShapeDrawCFG } from '../../interface';
 import { doAnimate } from '../animate/index';
 import Element from '../element';
 import { registerShape, registerShapeFactory } from './base';
 import { getLinePath, getSplinePath } from './util/path';
 import { splitPoints } from './util/split-points';
 
-function getStyle(cfg) {
+function getStyle(cfg: ShapeDrawCFG) {
   const { style, color, size } = cfg;
   const result = {
     ...style,
@@ -21,11 +21,11 @@ function getStyle(cfg) {
   return result;
 }
 
-function getShapeAttrs(cfg, smooth?: boolean, constraint?: Position[]) {
+function getShapeAttrs(cfg: ShapeDrawCFG, smooth?: boolean, constraint?: Position[]) {
   const { isStack, points, isInCircle } = cfg;
 
   let path = [];
-  _.each(points, (eachLinePoints) => {
+  _.each(points, (eachLinePoints: Point[] | RangePoint[]) => {
     path = path.concat(getPath(eachLinePoints, isInCircle, isStack, smooth, constraint));
   });
 
@@ -36,7 +36,7 @@ function getShapeAttrs(cfg, smooth?: boolean, constraint?: Position[]) {
 }
 
 // 单条 path
-function getSinglePath(points, isInCircle: boolean, smooth?: boolean, constraint?: Position[]) {
+function getSinglePath(points: Point[], isInCircle: boolean, smooth?: boolean, constraint?: Position[]) {
   let path;
   if (!smooth) {
     path = getLinePath(points, false);
@@ -54,13 +54,19 @@ function getSinglePath(points, isInCircle: boolean, smooth?: boolean, constraint
   return path;
 }
 
-function getRangePath(points, isInCircle: boolean, isStack?: boolean, smooth?: boolean, constraint?: Position[]) {
+function getRangePath(
+  points: RangePoint[],
+  isInCircle: boolean,
+  isStack?: boolean,
+  smooth?: boolean,
+  constraint?: Position[]
+) {
   const topPoints = [];
   const bottomPoints = [];
-  _.each(points, (point) => {
+  _.each(points, (point: RangePoint) => {
     const result = splitPoints(point);
-    topPoints.push(result);
-    bottomPoints.push(result);
+    topPoints.push(result[0]); // 上边
+    bottomPoints.push(result[1]); // 底边
   });
 
   const topPath = getSinglePath(topPoints, isInCircle, smooth, constraint);
@@ -71,17 +77,25 @@ function getRangePath(points, isInCircle: boolean, isStack?: boolean, smooth?: b
   return topPath.concat(bottomPath);
 }
 
-function getPath(points, isInCircle, isStack?: boolean, smooth?: boolean, constraint?: Position[]) {
+function getPath(
+  points: Point[] | RangePoint[],
+  isInCircle: boolean,
+  isStack?: boolean,
+  smooth?: boolean,
+  constraint?: Position[]
+) {
   const first = points[0];
 
   return _.isArray(first.y)
-    ? getRangePath(points, isInCircle, isStack, smooth, constraint)
-    : getSinglePath(points, isInCircle, smooth, constraint);
+    ? getRangePath(points as RangePoint[], isInCircle, isStack, smooth, constraint)
+    : getSinglePath(points as Point[], isInCircle, smooth, constraint);
 }
 
 const interpolateCallback = (point: Point, nextPoint: Point, shapeType: string) => {
-  const { x, y } = point;
-  const { x: nextX, y: nextY } = nextPoint;
+  const x = point.x as number;
+  const y = point.y as number;
+  const nextX = nextPoint.x as number;
+  const nextY = nextPoint.y as number;
   let result;
 
   switch (shapeType) {
@@ -120,14 +134,14 @@ function getInterpolatePoints(points: Point[], shapeType: string) {
 }
 
 // 插值的图形path，不考虑null
-function getInterpolatePath(points) {
+function getInterpolatePath(points: Point[]) {
   return points.map((point, index) => {
     return index === 0 ? ['M', point.x, point.y] : ['L', point.x, point.y];
   });
 }
 
 // 插值的图形
-function getInterpolateShapeAttrs(cfg, shapeType) {
+function getInterpolateShapeAttrs(cfg: ShapeDrawCFG, shapeType: string) {
   const points = cfg.points;
   let path = [];
   _.each(points, (eachLinePoints) => {
@@ -155,7 +169,7 @@ _.each(['line', 'dot', 'dash', 'smooth'], (shapeType) => {
       const smooth = shapeType === 'smooth';
       let constraint;
       if (smooth) {
-        const { start, end } = this.getCoordinate();
+        const { start, end } = this.coordinate;
         constraint = [[start.x, end.y], [end.x, start.y]];
       }
 
@@ -174,7 +188,7 @@ _.each(['line', 'dot', 'dash', 'smooth'], (shapeType) => {
       const smooth = shapeType === 'smooth';
       let constraint;
       if (smooth) {
-        const { start, end } = this.getCoordinate();
+        const { start, end } = this.coordinate;
         constraint = [[start.x, end.y], [end.x, start.y]];
       }
 
@@ -214,3 +228,5 @@ _.each(['hv', 'vh', 'hvh', 'vhv'], (shapeType) => {
     },
   });
 });
+
+export default LineShapeFactory;
