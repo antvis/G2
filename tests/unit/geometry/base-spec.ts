@@ -4,8 +4,8 @@ import { getCoordinate, Group } from '../../../src/dependents';
 import Geometry from '../../../src/geometry/base';
 import * as Shape from '../../../src/geometry/shape/base';
 import { LooseObject } from '../../../src/interface';
+import Theme from '../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
-import Theme from '../../util/theme';
 
 const Rect = getCoordinate('rect');
 
@@ -31,7 +31,22 @@ describe('Geometry', () => {
         data,
         coordinate,
         container: new Group({}),
-        theme: Theme, // 测试用主题
+        theme: {
+          ...Theme,
+          myInterval: {
+            tick: {
+              default: {
+                lineWidth: 10,
+              },
+              active: {
+                stroke: 'red',
+              },
+              selected: {
+                stroke: 'blue',
+              },
+            },
+          },
+        },
         scaleDefs: {
           month: {
             range: [0.25, 0.75],
@@ -217,7 +232,21 @@ describe('Geometry', () => {
     });
 
     it('animate', () => {
-      // todo
+      geometry.animate(false);
+      // @ts-ignore
+      expect(geometry.animateOption).toBe(false);
+
+      geometry.animate(true);
+      // @ts-ignore
+      expect(geometry.animateOption).toBe(true);
+
+      geometry.animate({
+        enter: null,
+      });
+      // @ts-ignore
+      expect(geometry.animateOption).toEqual({
+        enter: null,
+      });
     });
   });
 
@@ -246,7 +275,22 @@ describe('Geometry', () => {
         data,
         coordinate,
         container,
-        theme: Theme, // 测试用主题
+        theme: {
+          ...Theme,
+          myInterval: {
+            tick: {
+              default: {
+                lineWidth: 10,
+              },
+              active: {
+                stroke: 'red',
+              },
+              selected: {
+                stroke: 'blue',
+              },
+            },
+          },
+        },
         scaleDefs: {
           month: {
             range: [0.25, 0.75],
@@ -325,6 +369,12 @@ describe('Geometry', () => {
       expect(geometry.adjustOption).toEqual([{ type: 'dodge' }]);
     });
 
+    it('animate()', () => {
+      geometry.animate(false);
+      // @ts-ignore
+      expect(geometry.animateOption).toBe(false);
+    });
+
     it('init()', () => {
       geometry.initial();
 
@@ -365,6 +415,7 @@ describe('Geometry', () => {
       expect(elements.length).toBe(4);
       expect(geometry.elementsMap).not.toBe(undefined);
       expect(geometry.container.get('children').length).toBe(4);
+      expect(elements[0].model.animate).toBe(false);
     });
 
     it('getGroupScales()', () => {

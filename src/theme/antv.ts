@@ -53,6 +53,12 @@ const SHAPE_STYLE = {
     fill: DEFAULT_COLOR,
     fillOpacity: 0.85,
   },
+  hollowInterval: {
+    fill: '#fff',
+    stroke: DEFAULT_COLOR,
+    fillOpacity: 0,
+    lineWidth: 2,
+  },
   line: {
     stroke: DEFAULT_COLOR,
     lineWidth: 2,
@@ -88,7 +94,21 @@ export default {
       active: {},
       inactive: {},
       selected: {},
-      animate: {},
+    },
+    hollowRect: {
+      default: SHAPE_STYLE.hollowInterval,
+    },
+    line: {
+      default: SHAPE_STYLE.hollowInterval,
+    },
+    tick: {
+      default: SHAPE_STYLE.hollowInterval,
+    },
+    funnel: {
+      default: SHAPE_STYLE.interval,
+    },
+    pyramid: {
+      default: SHAPE_STYLE.interval,
     },
   },
   line: {
@@ -121,6 +141,11 @@ export default {
     },
     vhv: {
       default: SHAPE_STYLE.line,
+    },
+  },
+  polygon: {
+    polygon: {
+      default: SHAPE_STYLE.polygon,
     },
   },
 };

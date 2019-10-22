@@ -194,17 +194,17 @@ describe('Shape', () => {
     it('destroy()', () => {
       const circleFactory = GeometryShape.getShapeFactory('circleFactory');
       // @ts-ignore
-      circleFactory.destroy();
+      circleFactory.destroyShape();
 
       expect(destroyCalled).toBe(true);
     });
   });
 
   describe('Shape', () => {
-    it('getCoordinate', () => {
+    it('coordinate', () => {
       const circleFactory = GeometryShape.getShapeFactory('circleFactory');
       const shape = circleFactory.getShape('circle');
-      expect(shape.getCoordinate()).toEqual(coordinate);
+      expect(shape.coordinate).toEqual(coordinate);
     });
 
     it('parsePoint', () => {

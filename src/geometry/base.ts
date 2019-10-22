@@ -10,6 +10,7 @@ import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
 import { Coordinate, IGroup, Scale } from '../dependents';
 import {
   AdjustType,
+  AnimateOption,
   Data,
   Datum,
   LooseObject,
@@ -17,6 +18,7 @@ import {
   ScaleOption,
   ShapeDrawCFG,
   ShapeFactory,
+  ShapeModel,
   ShapePoint,
 } from '../interface';
 import {
@@ -118,15 +120,15 @@ export default class Geometry {
   /** 图形属性映射配置 */
   protected attributeOption: Record<string, AttributeOption> = {};
   /** tooltip 配置项 */
-  protected tooltipOption: TooltipOption | boolean = null;
+  protected tooltipOption: TooltipOption | boolean;
   /** adjust 配置项 */
-  protected adjustOption: AdjustOption[] = null;
+  protected adjustOption: AdjustOption[];
   /** style 配置项 */
-  protected styleOption: StyleOption = null;
+  protected styleOption: StyleOption;
   /** label 配置项 */
-  protected labelOption = null;
+  protected labelOption;
   /** animate 配置项 */
-  protected animateOption = null;
+  protected animateOption: AnimateOption | boolean = true;
   protected shapeFactory: ShapeFactory;
   protected elementsMap: Record<string, Element> = {};
   protected lastElementsMap: Record<string, Element> = {};
@@ -262,11 +264,7 @@ export default class Geometry {
     return this;
   }
 
-  /**
-   * TODO: 动画配置
-   * @param cfg
-   */
-  public animate(cfg): Geometry {
+  public animate(cfg: AnimateOption | boolean): Geometry {
     this.animateOption = cfg;
     return this;
   }
@@ -278,6 +276,7 @@ export default class Geometry {
 
   public initial() {
     // TODO: @simaq 是否可以移除设置矩阵这一步？
+    // 需要修改 @antv/coord 模块，将点与当前矩阵相乘
     const coordinate = this.coordinate;
     const container = this.container;
     container.setMatrix(coordinate.matrix);
@@ -333,7 +332,7 @@ export default class Geometry {
     this.afterMapping(mappedArray);
 
     // 销毁被删除的 elements
-    _.each(this.lastElementsMap, (deletedElement, id) => {
+    _.each(this.lastElementsMap, (deletedElement: Element) => {
       deletedElement.destroy();
     });
 
@@ -490,8 +489,8 @@ export default class Geometry {
     return element;
   }
 
-  protected getDrawCfg(obj) {
-    const cfg: ShapeDrawCFG = {
+  protected getDrawCfg(obj): ShapeModel {
+    const cfg: ShapeModel = {
       origin: obj,
       x: obj.x,
       y: obj.y,
@@ -500,6 +499,7 @@ export default class Geometry {
       shape: obj.shape,
       isInCircle: this.coordinate.isPolar,
       data: obj[FIELD_ORIGIN],
+      animate: this.animateOption,
     };
 
     const styleOption = this.styleOption;

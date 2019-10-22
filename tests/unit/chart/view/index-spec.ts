@@ -108,6 +108,14 @@ describe('View', () => {
     expect(view.getCoordinate().getHeight()).toEqual(590);
   });
 
+  it('animate', () => {
+    // @ts-ignore 默认执行动画
+    expect(view.options.animate).toBe(true);
+    view.animate(false);
+    // @ts-ignore
+    expect(view.options.animate).toBe(false);
+  });
+
   it('geometry', () => {
     view
       // @ts-ignore
@@ -120,6 +128,8 @@ describe('View', () => {
     expect(_.size(view.geometries[0].scales)).toEqual(3);
     expect(view.geometries[0].scales.city.ticks).toEqual(['杭州', '广州']);
     expect(view.geometries[0].scales.sale.values).toEqual([100, 30]);
+    // @ts-ignore
+    expect(view.geometries[0].animateOption).toBe(false);
 
     expect(view.getCoordinate().getWidth()).toBeWithin(780, 800);
     expect(view.getCoordinate().getHeight()).toBeWithin(580, 600);

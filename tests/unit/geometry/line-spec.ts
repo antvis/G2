@@ -1,7 +1,7 @@
 import { getCoordinate } from '@antv/coord';
 import Line from '../../../src/geometry/line';
+import Theme from '../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
-import Theme from '../../util/theme';
 
 import 'jest-extended';
 

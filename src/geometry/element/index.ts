@@ -1,12 +1,13 @@
 import * as _ from '@antv/util';
 import { IGroup, IShape } from '../../dependents';
-import { Datum, LooseObject, ShapeDrawCFG, ShapeFactory } from '../../interface';
+import { Datum, LooseObject, ShapeFactory, ShapeModel } from '../../interface';
+import { getDefaultAnimateCfg } from '../animate';
 
 interface ElementCfg {
   /** 原始数据 */
-  data: Datum;
+  data?: Datum;
   /** 映射后的绘图数据 */
-  model: ShapeDrawCFG;
+  model?: ShapeModel;
   /** 绘制的 shape 类型 */
   shapeType: string;
   /** 用于创建各种 shape 的工厂对象 */
@@ -24,7 +25,7 @@ export default class Element {
   /** 原始数据 */
   public data: Datum;
   /** shape 绘制数据 */
-  public model: ShapeDrawCFG;
+  public model: ShapeModel;
   /** 用于创建各种 shape 的工厂对象 */
   public shapeFactory: ShapeFactory;
   /** 主题 */
@@ -36,7 +37,7 @@ export default class Element {
   /** 是否已经被销毁 */
   public destroyed: boolean = false;
 
-  // 存储当前状态
+  // 存储当前开启的状态
   private states: string[] = [];
   // 存储 shape 的原始样式
   private originStyle: LooseObject = {};
@@ -50,52 +51,60 @@ export default class Element {
     this.theme = theme;
     this.container = container;
 
-    // 绘制 shape
-    this.drawShape();
-    // 存储初始样式
-    this.setOriginStyle();
-  }
-  /**
-   * Sets state
-   * @param stateName 状态名
-   * @param stateStatus 是否开启状态
-   */
-  public setState(stateName: string, stateStatus: boolean) {
-    const { states, shapeFactory, shapeType } = this;
-
-    const index = states.indexOf(stateName);
-    if (stateStatus) {
-      if (index > -1) {
-        // 该状态已经开启
-        return;
-      }
-      states.push(stateName);
-    } else {
-      states.splice(index, 1);
+    if (model) {
+      // 只有有数据的时候才进行绘制
+      // 绘制 shape
+      this.drawShape();
+      // 存储初始样式
+      this.setOriginStyle();
     }
-
-    shapeFactory.setState(shapeType, stateName, stateStatus, this);
   }
+
   /**
    * Updates element
    * @param cfg 更新的绘制数据
    */
-  public update(cfg: ShapeDrawCFG) {
+  public update(cfg: ShapeModel) {
     const { shapeType, shapeFactory } = this;
-
-    // 获取默认的图形样式
-    const defaultStyle = this.getStateStyle('default');
-    cfg.style = {
-      ...defaultStyle,
-      ...cfg.style,
+    const drawCfg = {
+      ...cfg,
+      style: {
+        ...this.getStateStyle('default'),
+        ...cfg.style,
+      },
     };
+    const animateCfg = this.getAnimateCfg('update');
+    if (animateCfg) {
+      // 只有获取到动画配置才赋值 animate 属性
+      drawCfg.animate = animateCfg;
+    }
     // 更新图形
-    shapeFactory.updateShape(shapeType, cfg, this);
+    // @ts-ignore
+    shapeFactory.updateShape(shapeType, drawCfg, this);
+    this.shape.set('origin', drawCfg);
     // 更新原始状态
     this.setOriginStyle();
     // 更新数据
     this.model = cfg;
     this.data = cfg.data;
+  }
+
+  public destroy() {
+    const { model, shapeFactory, shapeType } = this;
+    const drawCfg = {
+      ...model,
+    };
+    const animateCfg = this.getAnimateCfg('leave');
+    if (animateCfg) {
+      // 只有获取到动画配置才赋值 animate 属性
+      drawCfg.animate = animateCfg;
+    }
+    // @ts-ignore
+    shapeFactory.destroyShape(shapeType, drawCfg, this);
+
+    this.states = [];
+    this.originStyle = {};
+    this.destroyed = true;
   }
 
   /**
@@ -111,19 +120,32 @@ export default class Element {
   public style(attrs: LooseObject) {}
 
   /**
-   * @todo
+   * Sets state
+   * @param stateName 状态名
+   * @param stateStatus 是否开启状态
    */
-  public destroy() {
-    // const shapeFactory = this.get('shapeFactory');
-    // const shapeType = this.get('shapeType');
-    // shapeFactory.destroy(shapeType);
+  public setState(stateName: string, stateStatus: boolean) {
+    const { states, shapeFactory, shapeType } = this;
 
-    const shape = this.shape;
-    shape.remove(true);
-    this.states = [];
-    this.originStyle = {};
-    this.destroyed = true;
+    const index = states.indexOf(stateName);
+    if (stateStatus) {
+      // 开启状态
+      if (index > -1) {
+        // 该状态已经开启，则返回
+        return;
+      }
+      states.push(stateName);
+    } else {
+      if (index === -1) {
+        // 关闭状态，但是状态未设置过
+        return;
+      }
+      states.splice(index, 1);
+    }
+
+    shapeFactory.setState(shapeType, stateName, stateStatus, this);
   }
+
   /**
    * 清空状量态，恢复至初始状态
    * @todo 是否应该提供一个 revert() 的方法直接回恢复至出厂状态？
@@ -170,11 +192,21 @@ export default class Element {
     return this.originStyle;
   }
 
-  public getAnimateCfg(animateType: string) {
-    const { shapeType, theme } = this;
+  private getAnimateCfg(animateType: string) {
+    const { shapeFactory, model } = this;
+    const animate = model.animate;
+    const { geometryType, coordinate } = shapeFactory;
+    const defaultCfg = getDefaultAnimateCfg(geometryType, animateType, coordinate);
 
-    const animateCfg = _.get(theme, [shapeType, 'animate'], {});
-    return animateCfg[animateType];
+    // 如果动画开启，用户没有配置动画同时又没有默认的动画配置时，返回 null
+    if (!animate || (animate === true && _.isEmpty(defaultCfg)) || animate[animateType] === false) {
+      return null;
+    }
+
+    return {
+      ...defaultCfg,
+      ...animate[animateType],
+    };
   }
 
   private drawShape() {
@@ -182,13 +214,20 @@ export default class Element {
 
     const drawCfg = {
       ...model,
+      style: {
+        ...this.getStateStyle('default'),
+        ...model.style,
+      },
     };
-    const defaultStyle = this.getStateStyle('default');
-    drawCfg.style = {
-      ...defaultStyle,
-      ...model.style,
-    };
+    const animateCfg = this.getAnimateCfg('enter');
+    if (animateCfg) {
+      // 只有获取到动画配置才赋值 animate 属性
+      drawCfg.animate = animateCfg;
+    }
+    // @ts-ignore
     const shape = shapeFactory.drawShape(shapeType, drawCfg, this);
+    // 存储绘图数据
+    shape.set('origin', drawCfg);
     this.shape = shape;
   }
 

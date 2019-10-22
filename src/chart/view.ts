@@ -104,6 +104,7 @@ export default class View extends EE {
   protected options: Options = {
     data: [],
     components: [],
+    animate: true, // 默认开启动画
   }; // 初始化为空
 
   // 过滤之后的数据
@@ -372,7 +373,13 @@ export default class View extends EE {
     return this;
   }
 
-  public animate(): View {
+  /*
+   * 开启或者关闭动画
+   * @param status 动画状态，true 表示开始，false 表示关闭
+   * @returns
+   */
+  public animate(status: boolean): View {
+    _.set(this.options, 'animate', status);
     return this;
   }
 
@@ -857,8 +864,13 @@ export default class View extends EE {
    * @private
    */
   private paintGeometries() {
+    const doAnimation = this.options.animate;
     // geometry 的 paint 阶段
     this.geometries.map((geometry: Geometry) => {
+      if (!doAnimation) {
+        // 如果 view 不执行动画，那么 view 下所有的 geometry 都不执行动画
+        geometry.animate(false);
+      }
       geometry.paint();
     });
   }

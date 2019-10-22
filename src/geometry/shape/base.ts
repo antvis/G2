@@ -13,6 +13,7 @@ import {
   ShapeFactory,
   ShapePoint,
 } from '../../interface';
+import { doAnimate } from '../animate/index';
 import Element from '../element';
 import { convertNormalPath, convertPolarPath } from './util/path';
 
@@ -52,14 +53,6 @@ const ShapeFactoryBase = {
     return shape;
   },
   /**
-   * @todo 用户设置销毁动画
-   * @param shapeType
-   */
-  destroy(shapeType: string) {
-    const shape = this.getShape(shapeType);
-    shape.destroy();
-  },
-  /**
    * 获取 shape 的默认关键点
    * @override
    */
@@ -82,7 +75,6 @@ const ShapeFactoryBase = {
   },
   /**
    * 绘制 shape
-   * @todo 完善 cfg 的类型定义
    * @override
    * @param shapeType 绘制的 shape 类型
    * @param cfg 绘制 shape 需要的信息
@@ -104,6 +96,16 @@ const ShapeFactoryBase = {
     shape.update(cfg, element);
   },
   /**
+   * 销毁 shape
+   * @param shapeType shape 类型
+   * @param cfg
+   * @param element
+   */
+  destroyShape(shapeType: string, cfg: ShapeDrawCFG, element: Element) {
+    const shape = this.getShape(shapeType);
+    shape.destroy(cfg, element);
+  },
+  /**
    * 设置 shape 状态
    * @override
    * @param shapeType shape 类型
@@ -119,10 +121,6 @@ const ShapeFactoryBase = {
 /** Shape 基类 */
 const ShapeBase = {
   coordinate: null,
-
-  getCoordinate(): Coordinate {
-    return this.coordinate;
-  },
   /**
    * 将归一化的 path 转换成坐标系下的 path
    * @param path 归一化的路径
@@ -170,7 +168,17 @@ const ShapeBase = {
    * 销毁
    * @override
    */
-  destroy() {},
+  destroy(cfg: ShapeDrawCFG, element: Element) {
+    const shape = element.shape;
+    const animate = cfg.animate;
+    if (animate) {
+      // 指定了动画配置则执行动画
+      doAnimate(shape, cfg, this.coordinate);
+    } else {
+      // 否则直接销毁
+      shape.remove(true);
+    }
+  },
   /**
    * 响应具体的状态量
    * @override
@@ -218,6 +226,7 @@ export function registerShapeFactory(factoryName: string, cfg: RegisterShapeFact
   const geomObj = {
     ...ShapeFactoryBase,
     ...cfg,
+    geometryType: factoryName,
   };
   ShapeFactoryMap[className] = geomObj;
   return geomObj;
