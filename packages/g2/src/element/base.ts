@@ -875,9 +875,7 @@ export default class Element extends Base {
       cfg.points = obj.points;
       cfg.nextPoints = obj.nextPoints;
     }
-    if (this.get('animate')) { // id 字段仅用于动画
-      cfg.id = this.getShapeId(obj[FIELD_ORIGIN]);
-    }
+    cfg.id = this.getShapeId(obj[FIELD_ORIGIN]);
     return cfg;
   }
 
