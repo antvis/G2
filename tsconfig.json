@@ -11,5 +11,14 @@
     "lib": ["esnext", "dom"],
     "types": ["jest"]
   },
-  "include": ["src"]
+  "include": ["src"],
+  "typedocOptions": {
+    "mode": "modules",
+    "out": "docs/api",
+    "excludePrivate": true,
+    "excludeProtected": true,
+    "excludeExternals": true,
+    "plugin": "typedoc-plugin-markdown",
+    "theme": "docusaurus2"
+  }
 }
