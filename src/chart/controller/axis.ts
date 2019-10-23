@@ -1,7 +1,6 @@
 import * as _ from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
-import { Scale } from '../../dependents';
-import { Axis } from '../__components__';
+import { Line as LineAxis, Scale } from '../../dependents';
 import { AxisOption, ComponentOption } from '../interface';
 import View from '../view';
 
@@ -18,6 +17,11 @@ function getAxisOption(axes: Record<string, AxisOption> | boolean, field: string
   }
 }
 
+/**
+ * 创建 x axis 组件
+ * @param axes axes 用户配置
+ * @param view
+ */
 function createXAxes(axes: Record<string, AxisOption> | boolean, view: View): ComponentOption[] {
   const axisArray: ComponentOption[] = [];
   // x axis
@@ -30,8 +34,23 @@ function createXAxes(axes: Record<string, AxisOption> | boolean, view: View): Co
 
   if (xAxisOption !== false) {
     const layer = LAYER.BG;
+    const component = new LineAxis({
+      container: view.getLayer(layer).addGroup(),
+      // 初始的位置大小方向，x 不同是水平方向的
+      start: { x: 0, y: 0 },
+      end: { x: 1, y: 0 },
+      ticks: _.map(xScale.getTicks(), (tick) => ({ name: tick.text, value: tick.value })),
+      title: {
+        text: `${xScale.field}`,
+      },
+    });
+
+    component.render();
+
     axisArray.push({
-      component: new Axis(view.getLayer(layer).addGroup(), [0, 0], { text: `axis ${xScale.field}` }),
+      // @ts-ignore
+      component,
+      // component: new Axis(container, [0, 0], { text: `axis ${xScale.field}` }),
       layer,
       direction: DIRECTION.BOTTOM,
       type: COMPONENT_TYPE.AXIS,
@@ -52,8 +71,24 @@ function createYAxes(axes: Record<string, AxisOption> | boolean, view: View): Co
 
     if (yAxisOption !== false) {
       const layer = LAYER.BG;
+
+      const component = new LineAxis({
+        container: view.getLayer(layer).addGroup(),
+        // 初始的位置大小方向，y 不同是垂直方向的
+        start: { x: 0, y: 0 },
+        end: { x: 0, y: 1 },
+        ticks: _.map(yScale.getTicks(), (tick) => ({ name: tick.text, value: tick.value })),
+        title: {
+          text: `${yScale.field}`,
+        },
+      });
+
+      component.render();
+
       axisArray.push({
-        component: new Axis(view.getLayer(layer).addGroup(), [0, 0], { text: `axis ${yScale.field}` }),
+        // @ts-ignore
+        component,
+        // component: new Axis(view.getLayer(layer).addGroup(), [0, 0], { text: `axis ${yScale.field}` }),
         layer,
         // 如果有两个，则是双轴图
         direction: idx === 0 ? DIRECTION.LEFT : DIRECTION.RIGHT,

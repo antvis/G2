@@ -9,3 +9,9 @@ export { ICanvas, IGroup, IShape } from '@antv/g-base/lib/interfaces';
 export { getCoordinate, registerCoordinate, Coordinate, CoordinateCfg } from '@antv/coord';
 export { getScale, registerScale, Scale, ScaleConfig } from '@antv/scale';
 export { Canvas, Group, Shape, Event } from '@antv/g-canvas';
+
+// 内置的 Component 组件
+// axis
+export { Line, Circle } from '@antv/component';
+// legend
+export { Category } from '@antv/component';
