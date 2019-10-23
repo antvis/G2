@@ -23,7 +23,7 @@
     "build": "run-s clean lib",
     "ci": "run-s build coverage",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "doc": "rm -rf docs/api && typedoc"
+    "doc": "rimraf -rf docs/api && typedoc"
   },
   "dependencies": {
     "@antv/adjust": "^0.2.1",
