@@ -10,15 +10,16 @@ const DEFAULT_ANIMATE_CFG = {
       let animation;
       if (coordinate.isRect) {
         animation = coordinate.isTransposed ? 'scaleInX' : 'scaleInY';
-      } else {
+      } else if (coordinate.isPolar) {
+        animation = 'zoomIn';
         if (coordinate.isTransposed) {
           // pie chart
-          animation = 'pieChartEnter';
+          animation = 'clipIn';
         }
       }
       return {
         animation,
-        duration: 450,
+        duration: 600,
         easing: 'easeQuadOut',
       };
     },
@@ -40,30 +41,46 @@ const DEFAULT_ANIMATE_CFG = {
       animation: 'fadeOut',
       duration: 400,
       easing: 'easeQuadIn',
+    },
+  },
+  line: {
+    enter: {
+      animation: 'clipIn',
+      duration: 600,
+      easing: 'easeQuadOut',
+    },
+    update: {
+      duration: 450,
+      easing: 'easeQuadInOut',
+    },
+    leave: {
+      animation: 'fadeOut',
+      duration: 400,
+      easing: 'easeQuadIn',
       callback: (shape: IShape | IGroup) => {
         shape.remove(true);
       },
     },
   },
-  // line: {
-  //   enter: {
-  //     animation: 'clipIn',
-  //     duration: 450,
-  //     easing: 'easeQuadOut',
-  //   },
-  //   update: {
-  //     duration: 450,
-  //     easing: 'easeQuadInOut',
-  //   },
-  //   leave: {
-  //     animation: 'fadeOut',
-  //     duration: 350,
-  //     easing: 'easeQuadIn',
-  //     callback: (shape: IShape | IGroup) => {
-  //       shape.remove(true);
-  //     },
-  //   },
-  // },
+  path: {
+    enter: {
+      animation: 'clipIn',
+      duration: 600,
+      easing: 'easeQuadOut',
+    },
+    update: {
+      duration: 450,
+      easing: 'easeQuadInOut',
+    },
+    leave: {
+      animation: 'fadeOut',
+      duration: 400,
+      easing: 'easeQuadIn',
+      callback: (shape: IShape | IGroup) => {
+        shape.remove(true);
+      },
+    },
+  },
 };
 
 function getAnimateConfig(animateCfg: AnimateCfg, data: Data | Datum) {
