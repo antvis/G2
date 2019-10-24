@@ -47,8 +47,6 @@ export default abstract class Facet<C extends FacetCfg = FacetCfg, F extends Fac
   constructor(view: View, cfg: C) {
     this.view = view;
     this.cfg = cfg;
-
-    this.initial();
   }
 
   /**
