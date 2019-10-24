@@ -547,7 +547,7 @@ export default class View extends EE {
    * 获取 view 的数据（过滤后的数据）
    */
   public getData() {
-    return this.options.data;
+    return this.filteredData;
   }
 
   /**
@@ -712,18 +712,16 @@ export default class View extends EE {
 
     // 存在过滤器，则逐个执行过滤，过滤器之间是 与 的关系
     this.filteredData = _.filter(data, (datum: Datum) => {
-      let filtered = true;
+      // 所有的 filter 字段
+      const fields = Object.keys(filters);
 
-      _.each(filters, (filter: FilterCondition, field: string) => {
-        // 只要一个不通过，就结束循环，并过滤掉
-        if (!filter(datum[field], datum)) {
-          filtered = false;
-          // return false === break loop
-          return false;
-        }
+      // 所有的条件都通过，才算通过
+      return fields.every((field: string) => {
+        const condition = filters[field];
+
+        // condition 返回 true，则保留
+        return condition(datum[field], datum);
       });
-
-      return filtered;
     });
   }
 
@@ -880,6 +878,9 @@ export default class View extends EE {
    */
   private renderFacet() {
     if (this.facetInstance) {
+      // 计算分面数据
+      this.facetInstance.initial();
+      // 渲染组件和 views
       this.facetInstance.render();
     }
   }
