@@ -228,6 +228,10 @@ export default class Element {
     const shape = shapeFactory.drawShape(shapeType, drawCfg, this);
     // 存储绘图数据
     shape.set('origin', drawCfg);
+    if (!shape.get('name')) {
+      // 如果用户已设置 name 属性则忽略
+      shape.set('name', shapeType);
+    }
     this.shape = shape;
   }
 

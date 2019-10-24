@@ -64,6 +64,7 @@ describe('Element', () => {
         container,
       });
 
+      expect(element.shape.get('name')).toBe('circle');
       expect(container.get('children').length).toBe(1);
       expect(container.get('children')[0]).toEqual(element.shape);
       expect(element.getOriginStyle().fill).toEqual('#333');
