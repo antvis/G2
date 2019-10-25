@@ -29,7 +29,6 @@ const ShapeFactoryBase = {
   },
   /**
    * 获取 shape 绘制需要的关键点
-   * @todo shapePoints 的类型定义
    * @param shapeType shape 类型
    * @param shapePoint 每条数据映射后的坐标点以及 size 数值
    */
