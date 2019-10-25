@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-import { ComponentType, DIRECTION, LAYER } from '../../constant';
+import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { Scale } from '../../dependents';
 import { Axis } from '../__components__';
 import { AxisOption, ComponentOption } from '../interface';
@@ -34,7 +34,7 @@ function createXAxes(axes: Record<string, AxisOption> | boolean, view: View): Co
       component: new Axis(view.getLayer(layer).addGroup(), [0, 0], { text: `axis ${xScale.field}` }),
       layer,
       direction: DIRECTION.BOTTOM,
-      type: ComponentType.AXIS,
+      type: COMPONENT_TYPE.AXIS,
     });
   }
 
@@ -57,7 +57,7 @@ function createYAxes(axes: Record<string, AxisOption> | boolean, view: View): Co
         layer,
         // 如果有两个，则是双轴图
         direction: idx === 0 ? DIRECTION.LEFT : DIRECTION.RIGHT,
-        type: ComponentType.AXIS,
+        type: COMPONENT_TYPE.AXIS,
       });
     }
   });

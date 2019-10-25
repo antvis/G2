@@ -1,7 +1,7 @@
 import EE from '@antv/event-emitter';
 import * as _ from '@antv/util';
 import Component from '../component';
-import { ComponentType, DIRECTION, GroupZIndex, LAYER, ViewLifeCircle } from '../constant';
+import { COMPONENT_TYPE, DIRECTION, GroupZIndex, LAYER, VIEW_LIFE_CIRCLE } from '../constant';
 import { Coordinate, Scale } from '../dependents';
 import { Attribute } from '../dependents';
 import { Event as GEvent, ICanvas, IGroup } from '../dependents';
@@ -126,7 +126,7 @@ export default class View extends EE {
     component: Component,
     layer: LAYER = LAYER.MID,
     direction: DIRECTION = DIRECTION.BOTTOM,
-    type: ComponentType = ComponentType.OTHER
+    type: COMPONENT_TYPE = COMPONENT_TYPE.OTHER
   ) {
     this.options.components.push({
       component,
@@ -170,10 +170,10 @@ export default class View extends EE {
    * render 函数仅仅会处理 view 和子 view
    */
   public render() {
-    this.emit(ViewLifeCircle.BEFORE_RENDER);
+    this.emit(VIEW_LIFE_CIRCLE.BEFORE_RENDER);
     // 递归渲染
     this.renderRecursive();
-    this.emit(ViewLifeCircle.AFTER_RENDER);
+    this.emit(VIEW_LIFE_CIRCLE.AFTER_RENDER);
     // 实际的绘图
     this.canvasDraw();
   }
@@ -182,7 +182,7 @@ export default class View extends EE {
    * 清空，之后可以再走 initial 流程，正常使用
    */
   public clear() {
-    this.emit(ViewLifeCircle.BEFORE_CLEAR);
+    this.emit(VIEW_LIFE_CIRCLE.BEFORE_CLEAR);
     // 1. 清空缓存和计算数据
     this.scales = {};
     this.filteredData = [];
@@ -206,7 +206,7 @@ export default class View extends EE {
       view.clear();
     });
 
-    this.emit(ViewLifeCircle.AFTER_CLEAR);
+    this.emit(VIEW_LIFE_CIRCLE.AFTER_CLEAR);
   }
 
   /**
@@ -214,7 +214,7 @@ export default class View extends EE {
    */
   public destroy() {
     // 销毁前事件，销毁之后已经没有意义了，所以不抛出事件
-    this.emit(ViewLifeCircle.BEFORE_DESTROY);
+    this.emit(VIEW_LIFE_CIRCLE.BEFORE_DESTROY);
 
     this.clear();
 
@@ -389,7 +389,7 @@ export default class View extends EE {
    * @param data
    */
   public changeData(data: Data) {
-    this.emit(ViewLifeCircle.BEFORE_CHANGE_DATA);
+    this.emit(VIEW_LIFE_CIRCLE.BEFORE_CHANGE_DATA);
     // 1. 保存数据
     this.data(data);
     // 2. 过滤数据
@@ -413,7 +413,7 @@ export default class View extends EE {
       view.changeData(data);
     });
 
-    this.emit(ViewLifeCircle.AFTER_CHANGE_DATA);
+    this.emit(VIEW_LIFE_CIRCLE.AFTER_CHANGE_DATA);
     // 绘图
     this.canvasDraw();
   }

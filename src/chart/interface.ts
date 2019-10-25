@@ -1,5 +1,5 @@
 import Component from '../component';
-import { ComponentType, DIRECTION, LAYER } from '../constant';
+import { COMPONENT_TYPE, DIRECTION, LAYER } from '../constant';
 import { ICanvas, IGroup } from '../dependents';
 import Interaction from '../interaction';
 import { Data, Datum, Padding, Region, Renderer } from '../interface';
@@ -38,7 +38,7 @@ export interface ComponentOption {
   readonly component: Component;
   readonly layer: LAYER;
   readonly direction: DIRECTION;
-  readonly type: ComponentType;
+  readonly type: COMPONENT_TYPE;
 }
 
 /* 筛选器函数类型定义 */

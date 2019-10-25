@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-import { ComponentType, DIRECTION, LAYER } from '../../constant';
+import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { Attribute } from '../../dependents';
 import { Legend } from '../__components__';
 import { ComponentOption, LegendOption } from '../interface';
@@ -44,7 +44,7 @@ export function createLegends(legends: Record<string, LegendOption> | boolean, v
         component: new Legend(container.addGroup(), [0, 0], { text: `legend ${scale.field}` }),
         layer,
         direction: DIRECTION.TOP,
-        type: ComponentType.LEGEND,
+        type: COMPONENT_TYPE.LEGEND,
       });
     }
   });
