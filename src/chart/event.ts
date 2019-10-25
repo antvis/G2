@@ -1,5 +1,5 @@
 import { Event as GEvent, IShape } from '../dependents';
-import { Data } from '../interface';
+import { Datum } from '../interface';
 import View from './view';
 
 /**
@@ -11,9 +11,9 @@ export default class Event {
   /** the event which G wrapped */
   public gEvent: GEvent;
   /** the data for the event, such as original data point */
-  public data?: Data;
+  public data?: Datum;
 
-  constructor(view: View, gEvent: GEvent, data: Data = []) {
+  constructor(view: View, gEvent: GEvent, data?: Datum) {
     this.view = view;
     this.gEvent = gEvent;
     this.data = data;

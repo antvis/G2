@@ -17,7 +17,7 @@ gEvent.domEvent = { event: 3 };
 describe('Event', () => {
   it('constructor', () => {
     // @ts-ignore
-    const e = new Event(v, gEvent, [{ data: 1 }]);
+    const e = new Event(v, gEvent, { data: 1 });
 
     expect(e.type).toBe('test-event');
 
@@ -26,7 +26,7 @@ describe('Event', () => {
     expect(e.clientX).toBe(3);
     expect(e.clientY).toBe(4);
 
-    expect(e.data).toEqual([{ data: 1 }]);
+    expect(e.data).toEqual({ data: 1 });
     expect(e.target).toEqual({ target: 2 });
     expect(e.event).toEqual({ event: 3 });
 

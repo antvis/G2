@@ -4,7 +4,7 @@ import Component from '../component';
 import { ComponentType, DIRECTION, GroupZIndex, LAYER, ViewLifeCircle } from '../constant';
 import { Coordinate, Scale } from '../dependents';
 import { Attribute } from '../dependents';
-import { ICanvas, IGroup } from '../dependents';
+import { Event as GEvent, ICanvas, IGroup } from '../dependents';
 import { Facet, getFacet } from '../facet';
 import { FacetCfgMap } from '../facet/interface';
 import Geometry from '../geometry/base';
@@ -19,6 +19,7 @@ import Chart from './chart';
 import { createAxes } from './controller/axis';
 import { createCoordinate } from './controller/coordinate';
 import { createLegends } from './controller/legend';
+import Event from './event';
 import {
   AxisOption,
   ComponentOption,
@@ -32,44 +33,8 @@ import {
 } from './interface';
 import defaultLayout, { Layout } from './layout';
 
-/*
-          +-------------------------------------------------------------------------------------------------------------------------------------+
-          |                                                              top                                                                    |
-          |    +---------------------------------------------------------------------------------------------------------------------------+    |
-          |    |                                                                                                                           |    |
-  viewBBox|    |       +------------------------------------------------------------------------------------------------------------+      |    |
-     <---------+       +------------------------------------------------------------------------------------------------------------|      |    |
-          |    |        +----------------------------------------------------------------------------------------------------------------+ |    |
-          |    |   +--+ |                                                                                                                | |    |
-          |    |   |  | |    +---------------------------------------------------+   +------------------------------------------------+  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
-coordinateBBox |   |  | |    |                                                   |   |                                                |  | |    |
-        <-+-------------+    |                                                   |   |                                                |  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
-          |left|   |  | |    |                                                   |   |                                                |  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | | right
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
- subView  |    |   |  | |    |                                                   |   |                                                |  | |    |
-       <---------------------+                                                   |   |                                                |  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
-          |    |   |  | |    +---------------------------------------------------+   +------------------------------------------------+  | |    |
-          |    |   |  | |                                                                                                                | |    |
-          |    |   |  | +----------------------------------------------------------------------------------------------------------------+ |    |
-          |    |   +--+    |--------------------------------------------------------------------------------------------------------|      |    |
-          |    |           |--------------------------------------------------------------------------------------------------------|      |    |
-          |    +---------------------------------------------------------------------------------------------------------------------------+    |
-          |                                                            buttom                                                                   |
-          +-------------------------------------------------------------------------------------------------------------------------------------+
+/**
+ * view container of G2
  */
 export default class View extends EE {
   /** 父级 view，如果没有父级，则为空 */
@@ -256,6 +221,9 @@ export default class View extends EE {
     this.backgroundGroup.remove(true);
     this.middleGroup.remove(true);
     this.foregroundGroup.remove(true);
+
+    // 取消是新建监听
+    this.off();
   }
   /* end 生命周期函数 */
 
@@ -642,23 +610,42 @@ export default class View extends EE {
     this.foregroundGroup.on('*', this.onEvents);
     this.middleGroup.on('*', this.onEvents);
     this.backgroundGroup.on('*', this.onEvents);
+
+    // 自己监听事件，然后向上冒泡
+    this.on('*', this.onViewEvents);
   }
 
   /**
    * 触发事件之后
    * @param evt
    */
-  private onEvents = (evt: Event): void => {
-    // 阻止继续冒泡
+  private onEvents = (evt: GEvent): void => {
+    // 阻止继续冒泡，防止重复事件触发
     evt.preventDefault();
 
-    const { type } = evt;
-    // 委托事件到 view 上
-    this.emit(type, evt);
+    const { type, shape } = evt;
 
-    if (this.parent) {
-      // 事件在 view 嵌套中冒泡（暂不提供阻止冒泡的机制）
-      this.parent.emit(type, evt);
+    const data = shape.get('origin');
+    const e = new Event(this, evt, data);
+
+    // 委托事件到 view 上
+    this.emit(type, e);
+  };
+
+  /**
+   * 监听自己的 view 事件，然后向上传递，形成事件冒泡的机制
+   * @param evt
+   */
+  private onViewEvents = (evt?: Event): void => {
+    // 存在事件的时候才冒泡，否则可能是生命周期事件，暂时不冒泡
+    // 因为 chart 上监听到很多的 view 生命周期事件，好像没有意义
+    if (evt) {
+      const { type } = evt;
+
+      if (this.parent) {
+        // 事件在 view 嵌套中冒泡（暂不提供阻止冒泡的机制）
+        this.parent.emit(type, evt);
+      }
     }
   };
 
