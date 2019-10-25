@@ -40,7 +40,7 @@ export enum COMPONENT_TYPE {
 /**
  * 三层 group 的 z index
  */
-export const GroupZIndex = {
+export const GROUP_Z_INDEX = {
   FORE: 3,
   MID: 2,
   BG: 1,

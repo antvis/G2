@@ -1,7 +1,7 @@
 import EE from '@antv/event-emitter';
 import * as _ from '@antv/util';
 import Component from '../component';
-import { COMPONENT_TYPE, DIRECTION, GroupZIndex, LAYER, VIEW_LIFE_CIRCLE } from '../constant';
+import { COMPONENT_TYPE, DIRECTION, GROUP_Z_INDEX, LAYER, VIEW_LIFE_CIRCLE } from '../constant';
 import { Coordinate, Scale } from '../dependents';
 import { Attribute } from '../dependents';
 import { Event as GEvent, ICanvas, IGroup } from '../dependents';
@@ -435,9 +435,9 @@ export default class View extends EE {
       parent: this,
       canvas: this.canvas,
       // 子 view 共用三层 group
-      backgroundGroup: this.middleGroup.addGroup({ zIndex: GroupZIndex.BG }),
-      middleGroup: this.middleGroup.addGroup({ zIndex: GroupZIndex.MID }),
-      foregroundGroup: this.middleGroup.addGroup({ zIndex: GroupZIndex.FORE }),
+      backgroundGroup: this.middleGroup.addGroup({ zIndex: GROUP_Z_INDEX.BG }),
+      middleGroup: this.middleGroup.addGroup({ zIndex: GROUP_Z_INDEX.MID }),
+      foregroundGroup: this.middleGroup.addGroup({ zIndex: GROUP_Z_INDEX.FORE }),
       theme: this.themeObject,
       ...cfg,
       options: {
