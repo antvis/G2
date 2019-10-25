@@ -16,7 +16,6 @@ import {
   LooseObject,
   Point,
   ScaleOption,
-  ShapeDrawCFG,
   ShapeFactory,
   ShapeModel,
   ShapePoint,

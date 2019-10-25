@@ -111,17 +111,7 @@ export function zoomIn(
   coordinate: Coordinate,
   shapeModel: ShapeDrawCFG
 ) {
-  const { start, end } = coordinate;
-  let x;
-  let y;
-  if (coordinate.isPolar) {
-    x = coordinate.getCenter().x;
-    y = coordinate.getCenter().y;
-  } else {
-    x = (start.x + end.x) / 2;
-    y = (start.y + start.y) / 2;
-  }
-
+  const { x, y } = coordinate.getCenter();
   shape.applyToMatrix([x, y, 1]);
   const matrix = transform(shape.getMatrix(), [['t', -x, -y], ['s', 0.01, 0.01], ['t', x, y]]);
   shape.setMatrix(matrix);
