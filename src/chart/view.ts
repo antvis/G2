@@ -646,13 +646,8 @@ export default class View extends EE {
    */
   private doPlotEvent(e: Event) {
     const { type, x, y } = e;
-    // @ts-ignore 上层没有定义这个 public 方法（使用 interface 开发的缺点，需要将 class 定义的方法全部用 interface 定义一遍）
-    const pixelRatio = this.canvas.getPixelRatio();
 
-    const point = {
-      x: x / pixelRatio,
-      y: y / pixelRatio,
-    };
+    const point = { x, y };
 
     // 使用 mousemove 事件计算出 plotmove，plotenter、plotleave 事件
     if (type === 'mousemove') {
