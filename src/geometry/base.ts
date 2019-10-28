@@ -16,9 +16,8 @@ import {
   LooseObject,
   Point,
   ScaleOption,
-  ShapeDrawCFG,
   ShapeFactory,
-  ShapeModel,
+  ShapeInfo,
   ShapePoint,
 } from '../interface';
 import {
@@ -333,6 +332,8 @@ export default class Geometry {
 
     // 销毁被删除的 elements
     _.each(this.lastElementsMap, (deletedElement: Element) => {
+      // 更新动画配置，用户有可能在更新之前有对动画进行配置操作
+      deletedElement.animate = this.animateOption;
       deletedElement.destroy();
     });
 
@@ -484,13 +485,14 @@ export default class Geometry {
       theme: _.get(theme, this.shapeType, {}),
       shapeFactory,
       container,
+      animate: this.animateOption,
     });
 
     return element;
   }
 
-  protected getDrawCfg(obj): ShapeModel {
-    const cfg: ShapeModel = {
+  protected getDrawCfg(obj): ShapeInfo {
+    const cfg: ShapeInfo = {
       origin: obj,
       x: obj.x,
       y: obj.y,
@@ -499,7 +501,6 @@ export default class Geometry {
       shape: obj.shape,
       isInCircle: this.coordinate.isPolar,
       data: obj[FIELD_ORIGIN],
-      animate: this.animateOption,
     };
 
     const styleOption = this.styleOption;
@@ -528,6 +529,8 @@ export default class Geometry {
         const currentShapeCfg = this.getDrawCfg(record);
         const preShapeCfg = result.model;
         if (!_.isEqual(currentShapeCfg, preShapeCfg)) {
+          // 更新动画配置，用户有可能在更新之前有对动画进行配置操作
+          result.animate = this.animateOption;
           // 通过绘制数据的变更来判断是否需要更新，因为用户有可能会修改图形属性映射
           result.update(currentShapeCfg); // 更新对应的 element
         }

@@ -69,6 +69,17 @@ const SHAPE_STYLE = {
     fill: DEFAULT_COLOR,
     fillOpacity: 1,
   },
+  point: {
+    lineWidth: 1,
+    fill: DEFAULT_COLOR,
+    r: 4,
+  },
+  hollowPoint: {
+    fill: '#fff',
+    lineWidth: 1,
+    stroke: DEFAULT_COLOR,
+    r: 3,
+  },
 };
 
 export default {
@@ -146,6 +157,65 @@ export default {
   polygon: {
     polygon: {
       default: SHAPE_STYLE.polygon,
+    },
+  },
+  point: {
+    circle: {
+      default: SHAPE_STYLE.point,
+    },
+    square: {
+      default: SHAPE_STYLE.point,
+    },
+    bowtie: {
+      default: SHAPE_STYLE.point,
+    },
+    diamond: {
+      default: SHAPE_STYLE.point,
+    },
+    hexagon: {
+      default: SHAPE_STYLE.point,
+    },
+    triangle: {
+      default: SHAPE_STYLE.point,
+    },
+    triangleDown: {
+      default: SHAPE_STYLE.point,
+    },
+    hollowCircle: {
+      default: SHAPE_STYLE.hollowPoint,
+    },
+    hollowSquare: {
+      default: SHAPE_STYLE.hollowPoint,
+    },
+    hollowBowtie: {
+      default: SHAPE_STYLE.hollowPoint,
+    },
+    hollowDiamond: {
+      default: SHAPE_STYLE.hollowPoint,
+    },
+    hollowHexagon: {
+      default: SHAPE_STYLE.hollowPoint,
+    },
+    hollowTriangle: {
+      default: SHAPE_STYLE.hollowPoint,
+    },
+    hollowTriangleDown: {
+      default: SHAPE_STYLE.hollowPoint,
+    },
+    cross: {
+      default: SHAPE_STYLE.hollowPoint,
+    },
+    tick: {
+      default: SHAPE_STYLE.hollowPoint,
+    },
+    plus: {
+      default: SHAPE_STYLE.hollowPoint,
+    },
+    hyphen: {
+      default: SHAPE_STYLE.hollowPoint,
+    },
+    line: {
+      default: SHAPE_STYLE.hollowPoint,
     },
   },
 };

@@ -5,11 +5,13 @@ import { registerGeometry } from './core';
 import Interval from './geometry/interval';
 import Line from './geometry/line';
 import Path from './geometry/path';
+import Point from './geometry/point';
 import Polygon from './geometry/polygon';
 
 registerGeometry('Polygon', Polygon);
 registerGeometry('Interval', Interval);
 registerGeometry('Path', Path);
+registerGeometry('Point', Point);
 registerGeometry('Line', Line);
 
 // 注册内置的 Facet

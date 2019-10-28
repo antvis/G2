@@ -65,7 +65,7 @@ export function scaleInX(
 }
 
 /**
- * 整体进入动画
+ * 以坐标系区域为剪切区域的进入动画
  * @param shape
  * @param animateCfg
  * @param coordinate
@@ -111,17 +111,7 @@ export function zoomIn(
   coordinate: Coordinate,
   shapeModel: ShapeDrawCFG
 ) {
-  const { start, end } = coordinate;
-  let x;
-  let y;
-  if (coordinate.isPolar) {
-    x = coordinate.getCenter().x;
-    y = coordinate.getCenter().y;
-  } else {
-    x = (start.x + end.x) / 2;
-    y = (start.y + start.y) / 2;
-  }
-
+  const { x, y } = coordinate.getCenter();
   shape.applyToMatrix([x, y, 1]);
   const matrix = transform(shape.getMatrix(), [['t', -x, -y], ['s', 0.01, 0.01], ['t', x, y]]);
   shape.setMatrix(matrix);
@@ -131,6 +121,61 @@ export function zoomIn(
       matrix: transform(shape.getMatrix(), [['t', -x, -y], ['s', 100, 100], ['t', x, y]]),
     },
     animateCfg
+  );
+}
+
+/**
+ * shape 以自身中心点逐渐放大的进入动画
+ * @param shape
+ * @param animateCfg
+ * @param coordinate
+ * @param shapeModel
+ */
+export function grow(shape: IShape | IGroup, animateCfg: AnimateCfg, coordinate: Coordinate, shapeModel: ShapeDrawCFG) {
+  const bbox = shape.getBBox();
+  const x = (bbox.minX + bbox.maxX) / 2;
+  const y = (bbox.minY + bbox.maxY) / 2;
+  shape.applyToMatrix([x, y, 1]);
+  const matrix = transform(shape.getMatrix(), [['t', -x, -y], ['s', 0.01, 0.01], ['t', x, y]]);
+  shape.setMatrix(matrix);
+
+  shape.animate(
+    {
+      matrix: transform(shape.getMatrix(), [['t', -x, -y], ['s', 100, 100], ['t', x, y]]),
+    },
+    animateCfg
+  );
+}
+
+/**
+ * 消失动画，shape 以自身为中心点的逐渐缩小
+ * @param shape
+ * @param animateCfg
+ * @param coordinate
+ * @param shapeModel
+ */
+export function shrink(
+  shape: IShape | IGroup,
+  animateCfg: AnimateCfg,
+  coordinate: Coordinate,
+  shapeModel: ShapeDrawCFG
+) {
+  const bbox = shape.getBBox();
+  const x = (bbox.minX + bbox.maxX) / 2;
+  const y = (bbox.minY + bbox.maxY) / 2;
+  shape.applyToMatrix([x, y, 1]);
+
+  const { easing, duration, delay } = animateCfg;
+  shape.animate(
+    {
+      matrix: transform(shape.getMatrix(), [['t', -x, -y], ['s', 0.01, 0.01], ['t', x, y]]),
+    },
+    duration,
+    easing,
+    () => {
+      shape.remove(true);
+    },
+    delay
   );
 }
 

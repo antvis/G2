@@ -57,9 +57,6 @@ const DEFAULT_ANIMATE_CFG = {
       animation: 'fadeOut',
       duration: 400,
       easing: 'easeQuadIn',
-      callback: (shape: IShape | IGroup) => {
-        shape.remove(true);
-      },
     },
   },
   path: {
@@ -76,9 +73,22 @@ const DEFAULT_ANIMATE_CFG = {
       animation: 'fadeOut',
       duration: 400,
       easing: 'easeQuadIn',
-      callback: (shape: IShape | IGroup) => {
-        shape.remove(true);
-      },
+    },
+  },
+  point: {
+    enter: {
+      animation: 'grow',
+      duration: 600,
+      easing: 'easeQuadOut',
+    },
+    update: {
+      duration: 450,
+      easing: 'easeQuadInOut',
+    },
+    leave: {
+      animation: 'shrink',
+      duration: 400,
+      easing: 'easeQuadIn',
     },
   },
 };

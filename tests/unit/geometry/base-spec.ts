@@ -415,7 +415,7 @@ describe('Geometry', () => {
       expect(elements.length).toBe(4);
       expect(geometry.elementsMap).not.toBe(undefined);
       expect(geometry.container.get('children').length).toBe(4);
-      expect(elements[0].model.animate).toBe(false);
+      expect(elements[0].animate).toBe(false);
     });
 
     it('getGroupScales()', () => {
@@ -451,6 +451,7 @@ describe('Geometry', () => {
       const updateElement = geometry.elements[1];
       const deleteElement = geometry.elements[0];
 
+      geometry.animate(true);
       geometry.updateData([
         { month: '二月', temperature: 20, city: '北京', year: '2018' },
         { month: '二月', temperature: 14, city: '南京', year: '2018' },
@@ -474,8 +475,10 @@ describe('Geometry', () => {
       const xScale = geometry.getXScale();
       expect(xScale.values).toEqual(['二月', '三月']);
       expect(deleteElement.destroyed).toBe(true);
+      expect(deleteElement.animate).toBe(true);
 
       expect(updateElement.getData()).toEqual({ month: '二月', temperature: 20, city: '北京', year: '2018' });
+      expect(updateElement.animate).toBe(true);
     });
 
     it('clear()', () => {

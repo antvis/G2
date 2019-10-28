@@ -1,13 +1,13 @@
 import * as _ from '@antv/util';
 import { IGroup, IShape } from '../../dependents';
-import { Datum, LooseObject, ShapeFactory, ShapeModel } from '../../interface';
+import { AnimateOption, Datum, LooseObject, ShapeDrawCFG, ShapeFactory, ShapeInfo } from '../../interface';
 import { getDefaultAnimateCfg } from '../animate';
 
 interface ElementCfg {
   /** 原始数据 */
   data?: Datum;
   /** 映射后的绘图数据 */
-  model?: ShapeModel;
+  model?: ShapeInfo;
   /** 绘制的 shape 类型 */
   shapeType: string;
   /** 用于创建各种 shape 的工厂对象 */
@@ -16,6 +16,8 @@ interface ElementCfg {
   theme: LooseObject;
   /** shape 容器 */
   container: IGroup;
+  /** 动画配置 */
+  animate?: AnimateOption | boolean;
 }
 
 /** @class Element 图形元素 */
@@ -25,7 +27,7 @@ export default class Element {
   /** 原始数据 */
   public data: Datum;
   /** shape 绘制数据 */
-  public model: ShapeModel;
+  public model: ShapeInfo;
   /** 用于创建各种 shape 的工厂对象 */
   public shapeFactory: ShapeFactory;
   /** 主题 */
@@ -34,6 +36,8 @@ export default class Element {
   public container: IGroup;
   /** 最后创建的图形对象 todo: 重命名，因为有可能是 Group */
   public shape: IShape | IGroup;
+  /** shape 的动画配置 */
+  public animate: AnimateOption | boolean;
   /** 是否已经被销毁 */
   public destroyed: boolean = false;
 
@@ -43,13 +47,14 @@ export default class Element {
   private originStyle: LooseObject = {};
 
   constructor(cfg: ElementCfg) {
-    const { data, model, shapeType, shapeFactory, theme, container } = cfg;
+    const { data, model, shapeType, shapeFactory, theme, container, animate } = cfg;
     this.data = data;
     this.model = model;
     this.shapeType = shapeType;
     this.shapeFactory = shapeFactory;
     this.theme = theme;
     this.container = container;
+    this.animate = animate;
 
     if (model) {
       // 只有有数据的时候才进行绘制
@@ -64,9 +69,9 @@ export default class Element {
    * Updates element
    * @param cfg 更新的绘制数据
    */
-  public update(cfg: ShapeModel) {
+  public update(cfg: ShapeInfo) {
     const { shapeType, shapeFactory } = this;
-    const drawCfg = {
+    const drawCfg: ShapeDrawCFG = {
       ...cfg,
       style: {
         ...this.getStateStyle('default'),
@@ -79,7 +84,6 @@ export default class Element {
       drawCfg.animate = animateCfg;
     }
     // 更新图形
-    // @ts-ignore
     shapeFactory.updateShape(shapeType, drawCfg, this);
     this.shape.set('origin', drawCfg);
     // 更新原始状态
@@ -91,7 +95,7 @@ export default class Element {
 
   public destroy() {
     const { model, shapeFactory, shapeType } = this;
-    const drawCfg = {
+    const drawCfg: ShapeDrawCFG = {
       ...model,
     };
     const animateCfg = this.getAnimateCfg('leave');
@@ -99,7 +103,6 @@ export default class Element {
       // 只有获取到动画配置才赋值 animate 属性
       drawCfg.animate = animateCfg;
     }
-    // @ts-ignore
     shapeFactory.destroyShape(shapeType, drawCfg, this);
 
     this.states = [];
@@ -193,9 +196,8 @@ export default class Element {
   }
 
   private getAnimateCfg(animateType: string) {
-    const { shapeFactory, model } = this;
-    const animate = model.animate;
-    const { geometryType, coordinate } = shapeFactory;
+    const animate = this.animate;
+    const { geometryType, coordinate } = this.shapeFactory;
     const defaultCfg = getDefaultAnimateCfg(geometryType, animateType, coordinate);
 
     // 如果动画开启，用户没有配置动画同时又没有默认的动画配置时，返回 null
@@ -212,7 +214,7 @@ export default class Element {
   private drawShape() {
     const { shapeType, shapeFactory, model } = this;
 
-    const drawCfg = {
+    const drawCfg: ShapeDrawCFG = {
       ...model,
       style: {
         ...this.getStateStyle('default'),
@@ -224,7 +226,6 @@ export default class Element {
       // 只有获取到动画配置才赋值 animate 属性
       drawCfg.animate = animateCfg;
     }
-    // @ts-ignore
     const shape = shapeFactory.drawShape(shapeType, drawCfg, this);
     // 存储绘图数据
     shape.set('origin', drawCfg);
