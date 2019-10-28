@@ -3,6 +3,7 @@ import { Datum } from '../interface';
 import View from './view';
 
 /**
+ * TODO Whether it can(or necessary to) keep consistent with the structure of G.Event or directly use the structure of G.Event
  * The event wrapper of G2 event, wrapper from G.Event
  */
 export default class Event {
