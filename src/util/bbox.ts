@@ -1,56 +1,131 @@
 import * as _ from '@antv/util';
 import { DIRECTION } from '../constant';
-import { BBox } from '../dependents';
 import { Point, Region } from '../interface';
 
-export class BBoxProcessor {
-  private bbox: BBox;
+export class BBox {
+  public x: number;
+  public y: number;
+  public height: number;
+  public width: number;
 
-  constructor(bbox: BBox) {
-    this.bbox = bbox;
+  public static fromRange(minX: number, minY: number, maxX: number, maxY: number) {
+    return new BBox(minX, minY, maxX - minX, maxY - minY);
+  }
+
+  constructor(x: number = 0, y: number = 0, width: number = 0, height: number = 0) {
+    this.x = x;
+    this.y = y;
+    this.height = height;
+    this.width = width;
+  }
+
+  // 计算属性
+  public get minX(): number {
+    return this.x;
+  }
+
+  public get maxX(): number {
+    return this.x + this.width;
+  }
+
+  public get minY(): number {
+    return this.y;
+  }
+
+  public get maxY(): number {
+    return this.y + this.height;
+  }
+
+  public get tl(): Point {
+    return { x: this.x, y: this.y };
+  }
+
+  public get tr(): Point {
+    return { x: this.maxX, y: this.y };
+  }
+
+  public get bl(): Point {
+    return { x: this.x, y: this.maxY };
+  }
+
+  public get br(): Point {
+    return { x: this.maxX, y: this.maxY };
+  }
+
+  public get top(): Point {
+    return {
+      x: this.x + this.width / 2,
+      y: this.minY,
+    };
+  }
+
+  public get right(): Point {
+    return {
+      x: this.maxX,
+      y: this.y + this.height / 2,
+    };
+  }
+  public get bottom(): Point {
+    return {
+      x: this.x + this.width / 2,
+      y: this.maxY,
+    };
+  }
+  public get left(): Point {
+    return {
+      x: this.minX,
+      y: this.y + this.height / 2,
+    };
+  }
+  // end 计算属性
+
+  /**
+   * 包围盒是否相等
+   * @param {BBox} bbox 包围盒
+   * @returns      包围盒是否相等
+   */
+  public isEqual(bbox: BBox): boolean {
+    return this.x === bbox.x && this.y === bbox.y && this.width === bbox.width && this.height === bbox.height;
   }
 
   /**
-   * clone 新的对象
+   * 克隆包围盒
+   * @returns 包围盒
    */
-  public clone(): BBoxProcessor {
-    const bbox = this.bbox;
-    this.bbox = new BBox(bbox.x, bbox.y, bbox.width, bbox.height);
-    return this;
+  public clone(): BBox {
+    return new BBox(this.x, this.y, this.width, this.height);
   }
 
   /**
    * 取并集
    * @param subBBox
    */
-  public add(...subBBox: BBox[]): BBoxProcessor {
+  public add(...subBBox: BBox[]): BBox {
+    const bbox = this.clone();
     _.each(subBBox, (b: BBox) => {
-      this.bbox = BBox.fromRange(
-        Math.min(this.bbox.minX, b.minX),
-        Math.min(this.bbox.minY, b.minY),
-        Math.max(this.bbox.maxX, b.maxX),
-        Math.max(this.bbox.maxY, b.maxY)
-      );
+      bbox.x = Math.min(b.x, bbox.x);
+      bbox.y = Math.min(b.y, bbox.y);
+      bbox.width = Math.max(b.maxX, bbox.maxX) - bbox.x;
+      bbox.height = Math.max(b.maxY, bbox.maxY) - bbox.y;
     });
 
-    return this;
+    return bbox;
   }
 
   /**
    * 取交集
    * @param subBBox
    */
-  public merge(...subBBox: BBox[]): BBoxProcessor {
+  public merge(...subBBox: BBox[]): BBox {
+    const bbox = this.clone();
     _.each(subBBox, (b: BBox) => {
-      this.bbox = BBox.fromRange(
-        Math.max(this.bbox.minX, b.minX),
-        Math.max(this.bbox.minY, b.minY),
-        Math.min(this.bbox.maxX, b.maxX),
-        Math.min(this.bbox.maxY, b.maxY)
-      );
+      bbox.x = Math.max(b.x, bbox.x);
+      bbox.y = Math.max(b.y, bbox.y);
+      bbox.width = Math.min(b.maxX, bbox.maxX) - bbox.x;
+      bbox.height = Math.min(b.maxY, bbox.maxY) - bbox.y;
     });
 
-    return this;
+    return bbox;
   }
 
   /**
@@ -58,25 +133,19 @@ export class BBoxProcessor {
    * @param subBBox
    * @param direction
    */
-  public cut(subBBox: BBox, direction: DIRECTION): BBoxProcessor {
-    const bbox = this.bbox;
-
+  public cut(subBBox: BBox, direction: DIRECTION): BBox {
     const width = subBBox.width;
     const height = subBBox.height;
 
     switch (direction) {
       case DIRECTION.TOP:
-        this.bbox = BBox.fromRange(bbox.minX, bbox.minY + height, bbox.maxX, bbox.maxY);
-        break;
+        return BBox.fromRange(this.minX, this.minY + height, this.maxX, this.maxY);
       case DIRECTION.RIGHT:
-        this.bbox = BBox.fromRange(bbox.minX, bbox.minY, bbox.maxX - width, bbox.maxY);
-        break;
+        return BBox.fromRange(this.minX, this.minY, this.maxX - width, this.maxY);
       case DIRECTION.BOTTOM:
-        this.bbox = BBox.fromRange(bbox.minX, bbox.minY, bbox.maxX, bbox.maxY - height);
-        break;
+        return BBox.fromRange(this.minX, this.minY, this.maxX, this.maxY - height);
       case DIRECTION.LEFT:
-        this.bbox = BBox.fromRange(bbox.minX + width, bbox.minY, bbox.maxX, bbox.maxY);
-        break;
+        return BBox.fromRange(this.minX + width, this.minY, this.maxX, this.maxY);
     }
 
     return this;
@@ -86,49 +155,18 @@ export class BBoxProcessor {
    * 收缩形成新的
    * @param gap
    */
-  public shrink(gap: number[]) {
+  public shrink(gap: number[]): BBox {
     const [top, right, bottom, left] = gap;
-    this.bbox = new BBox(
-      this.bbox.x + left,
-      this.bbox.y + top,
-      this.bbox.width - left - right,
-      this.bbox.height - top - bottom
-    );
 
-    return this;
+    return new BBox(this.x + left, this.y + top, this.width - left - right, this.height - top - bottom);
   }
 
   /**
-   * 获取最终的 bbox
+   * 获取包围盒大小
+   * @returns 包围盒大小
    */
-  public value(): BBox {
-    return this.bbox;
-  }
-
-  public get top(): Point {
-    return {
-      x: this.bbox.x + this.bbox.width / 2,
-      y: this.bbox.minY,
-    };
-  }
-
-  public get right(): Point {
-    return {
-      x: this.bbox.maxX,
-      y: this.bbox.y + this.bbox.height / 2,
-    };
-  }
-  public get bottom(): Point {
-    return {
-      x: this.bbox.x + this.bbox.width / 2,
-      y: this.bbox.maxY,
-    };
-  }
-  public get left(): Point {
-    return {
-      x: this.bbox.minX,
-      y: this.bbox.y + this.bbox.height / 2,
-    };
+  public size(): number {
+    return this.width * this.height;
   }
 }
 

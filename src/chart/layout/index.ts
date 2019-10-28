@@ -1,7 +1,6 @@
 import * as _ from '@antv/util';
 import { ComponentType } from '../../constant';
-import { BBox } from '../../dependents';
-import { BBoxProcessor } from '../../util/bbox';
+import { BBox } from '../../util/bbox';
 import { directionToPosition } from '../../util/direction';
 import { ComponentOption } from '../interface';
 import View from '../view';
@@ -18,8 +17,10 @@ export type Layout = (view: View) => void;
 function layoutLegend(legends: ComponentOption[], viewBBox: BBox) {
   _.each(legends, (legend: ComponentOption) => {
     const { component, direction } = legend;
+    const bboxObject = component.getBBox();
+    const bbox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height);
 
-    component.move(...directionToPosition(viewBBox, component.getBBox(), direction));
+    component.move(...directionToPosition(viewBBox, bbox, direction));
   });
 }
 
@@ -32,7 +33,10 @@ function layoutAxis(axes: ComponentOption[], viewBBox: BBox) {
   _.each(axes, (axis: ComponentOption) => {
     const { component, direction } = axis;
 
-    component.move(...directionToPosition(viewBBox, component.getBBox(), direction));
+    const bboxObject = component.getBBox();
+    const bbox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height);
+
+    component.move(...directionToPosition(viewBBox, bbox, direction));
   });
 }
 
@@ -60,15 +64,18 @@ export default function defaultLayout(view: View): void {
   const axes = _.filter(componentOptions, (co: ComponentOption) => co.type === ComponentType.AXIS);
   layoutAxis(axes, viewBBox);
 
-  const processor = new BBoxProcessor(viewBBox);
+  let bbox = viewBBox;
 
   // 剪裁掉组件的 bbox，剩余的给 绘图区域
   _.each(componentOptions, (co: ComponentOption) => {
-    processor.cut(co.component.getBBox(), co.direction);
+    const bboxObject = co.component.getBBox();
+    const componentBBox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height);
+
+    bbox = bbox.cut(componentBBox, co.direction);
   });
 
   // 3. 获取最终的 Geometry 的 bbox 位置，坐标系位置
-  view.coordinateBBox = processor.value();
+  view.coordinateBBox = bbox;
 
   // 4. 给 axis 组件更新 coordinate: 调整 axis 的宽高：y axis height, x axis width = coordinateBBox width height
 }

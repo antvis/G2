@@ -1,6 +1,6 @@
 import { DIRECTION } from '../constant';
-import { BBox } from '../dependents';
 import { Position } from '../interface';
+import { BBox } from './bbox';
 
 /**
  * 方位常量转实际的 bbox 位置大小
