@@ -8,4 +8,4 @@ export { ICanvas, IGroup, IShape } from '@antv/g-base/lib/interfaces';
 // coordinate 全部引入即可
 export { getCoordinate, registerCoordinate, Coordinate, CoordinateCfg } from '@antv/coord';
 export { getScale, registerScale, Scale, ScaleConfig } from '@antv/scale';
-export { BBox, Canvas, Group, Shape } from '@antv/g-canvas';
+export { Canvas, Group, Shape } from '@antv/g-canvas';
