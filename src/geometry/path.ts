@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
 import { FIELD_ORIGIN } from '../constant';
-import { Data, Datum, Point, ShapeModel } from '../interface';
+import { Data, Datum, Point, ShapeInfo } from '../interface';
 import Geometry, { GeometryCfg } from './base';
 import Element from './element';
 /** 引入对应的 ShapeFactory */
@@ -40,11 +40,14 @@ export default class Path extends Geometry {
         theme: _.get(theme, this.shapeType, {}),
         shapeFactory,
         container,
+        animate: this.animateOption,
       });
     } else {
       // element 已经创建
       const preShapeCfg = result.model;
       if (!_.isEqual(preShapeCfg, shapeCfg)) {
+        // 更新动画配置，用户有可能在更新之前有对动画进行配置操作
+        result.animate = this.animateOption;
         // 通过绘制数据的变更来判断是否需要更新，因为用户有可能会修改图形属性映射
         result.update(shapeCfg); // 更新对应的 element
       }
@@ -57,7 +60,7 @@ export default class Path extends Geometry {
     return elements;
   }
 
-  protected getDrawCfg(mappedArray: Data): ShapeModel {
+  protected getDrawCfg(mappedArray: Data): ShapeInfo {
     const shapeCfg = super.getDrawCfg(mappedArray[0]);
 
     return {

@@ -43,7 +43,7 @@ describe('Element', () => {
       const shapeFactory = Shape.getShapeFactory('shapes');
       element = new Element({
         data: { x: 10, y: 10 },
-        model: { x: 1, y: 1, animate: true },
+        model: { x: 1, y: 1 },
         shapeType: 'circle',
         shapeFactory,
         theme: {
@@ -62,6 +62,7 @@ describe('Element', () => {
           },
         },
         container,
+        animate: true,
       });
 
       expect(element.shape.get('name')).toBe('circle');
@@ -73,7 +74,7 @@ describe('Element', () => {
 
     it('getModel', () => {
       const model = element.getModel();
-      expect(model).toEqual({ x: 1, y: 1, animate: true });
+      expect(model).toEqual({ x: 1, y: 1 });
     });
 
     it('getData()', () => {
@@ -195,12 +196,12 @@ describe('Element', () => {
             { x: 0.10714285714285714, y: 0.622 },
             { x: 0.10714285714285714, y: 1 },
           ],
-          animate: false,
         },
         shapeType: 'rect',
         shapeFactory,
         theme: Theme,
         container,
+        animate: false,
       });
 
       // @ts-ignore
@@ -208,7 +209,7 @@ describe('Element', () => {
     });
 
     it('model.animate is not empty', () => {
-      element.model.animate = {
+      element.animate = {
         update: {
           delay: 1000,
         },

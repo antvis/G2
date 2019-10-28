@@ -68,7 +68,7 @@ export interface AnimateOption {
 }
 
 // 绘制 Shape 需要的图形、样式、关键点等信息
-interface ShapeInfo {
+export interface ShapeInfo {
   /** x 坐标 */
   x: number;
   /** y 坐标 */
@@ -99,11 +99,6 @@ interface ShapeInfo {
   connectNulls?: boolean;
 }
 
-/** Element.model 的数据类型 */
-export interface ShapeModel extends ShapeInfo {
-  /** shape 所有的动画配置 */
-  animate?: AnimateOption | boolean;
-}
 /** 自定义 Shape 每个接口的 cfg 类型 */
 export interface ShapeDrawCFG extends ShapeInfo {
   animate?: AnimateCfg;
