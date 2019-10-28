@@ -1,5 +1,5 @@
-import { Event, View } from '../../../src';
-import { Event as GEvent } from '../../../src/dependents';
+import { Event, View } from '../../../../src';
+import { Event as GEvent } from '../../../../src/dependents';
 
 // @ts-ignore
 const v = {};

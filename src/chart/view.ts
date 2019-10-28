@@ -12,7 +12,7 @@ import Interaction from '../interaction';
 import { Point, Region } from '../interface';
 import { Data, Datum } from '../interface';
 import { BBox } from '../util/bbox';
-import { isFullCircle } from '../util/coordinate';
+import { isFullCircle, isPointInCoordinate } from '../util/coordinate';
 import { parsePadding } from '../util/padding';
 import { mergeTheme } from '../util/theme';
 import Chart from './chart';
@@ -85,6 +85,9 @@ export default class View extends EE {
   protected coordinateInstance: Coordinate;
   // 分面类实例
   protected facetInstance: Facet;
+
+  /** 当前鼠标是否在 plot 内（CoordinateBBox） */
+  private isPreMouseInPlot: boolean = false;
 
   constructor(props: ViewCfg) {
     super();
@@ -622,6 +625,7 @@ export default class View extends EE {
   private onEvents = (evt: GEvent): void => {
     // 阻止继续冒泡，防止重复事件触发
     evt.preventDefault();
+    console.log('onEvents', evt);
 
     const { type, shape } = evt;
 
@@ -630,7 +634,44 @@ export default class View extends EE {
 
     // 委托事件到 view 上
     this.emit(type, e);
+
+    // 根据事件的 x y 判断是否在 CoordinateBBox 中，然后处理 plot 事件
+    if (['mousemove', 'mouseleave'].includes(type)) {
+      this.doPlotEvent(e);
+    }
   };
+
+  /**
+   * 处理 PlotEvent（plot:mouseenter, plot:mouseout, plot:mouseleave）
+   * @param e
+   */
+  private doPlotEvent(e: Event) {
+    const { type, x, y } = e;
+    const pixelRatio = this.canvas.getPixelRatio();
+
+    const point = {
+      x: x / pixelRatio,
+      y: y / pixelRatio,
+    };
+
+    // 使用 mousemove 事件计算出 plotmove，plotenter、plotleave 事件
+    if (type === 'mousemove') {
+      const currentInPlot = isPointInCoordinate(this.coordinateInstance, point);
+
+      if (this.isPreMouseInPlot && currentInPlot) {
+        this.emit('plotmove', e);
+      } else if (this.isPreMouseInPlot && !currentInPlot) {
+        this.emit('plotleave', e);
+      } else if (!this.isPreMouseInPlot && currentInPlot) {
+        this.emit('plotenter', e);
+      }
+
+      // 赋新的值
+      this.isPreMouseInPlot = currentInPlot;
+    } else if (type === 'mouseleave' && this.isPreMouseInPlot) {
+      this.emit('plotleave', e);
+    }
+  }
 
   /**
    * 监听自己的 view 事件，然后向上传递，形成事件冒泡的机制
