@@ -225,7 +225,7 @@ export default class View extends EE {
     this.middleGroup.remove(true);
     this.foregroundGroup.remove(true);
 
-    // 取消是新建监听
+    // 取消所有事件监听
     this.off();
   }
   /* end 生命周期函数 */
@@ -614,8 +614,6 @@ export default class View extends EE {
     this.middleGroup.on('*', this.onEvents);
     this.backgroundGroup.on('*', this.onEvents);
 
-    this.foregroundGroup.on('mousemove', this.onEvents);
-
     // 自己监听事件，然后向上冒泡
     this.on('*', this.onViewEvents);
   }
@@ -648,7 +646,7 @@ export default class View extends EE {
    */
   private doPlotEvent(e: Event) {
     const { type, x, y } = e;
-    // @ts-ignore 上层没有定义这个 public 方法（也算是利用 interface 的确定，需要将 class 定义的方法全部用 interface 定义一遍）
+    // @ts-ignore 上层没有定义这个 public 方法（使用 interface 开发的缺点，需要将 class 定义的方法全部用 interface 定义一遍）
     const pixelRatio = this.canvas.getPixelRatio();
 
     const point = {

@@ -1,6 +1,5 @@
 import { Chart } from '../../../../src';
 import { CITY_SALE } from '../../../util/data';
-import { delay } from '../../../util/delay';
 import { createDiv } from '../../../util/dom';
 import { getClientPoint, simulateMouseEvent } from '../../../util/simulate';
 
@@ -21,6 +20,8 @@ chart
   .position('city*sale')
   .color('category');
 
+chart.animate(false);
+
 chart.render();
 
 // @ts-ignore
@@ -37,7 +38,7 @@ describe('Event', () => {
     expect(1).toBe(1);
   });
 
-  it('plot event', async () => {
+  it('plot event', () => {
     const mouseEnter = jest.fn();
     const mouseMove = jest.fn();
     const mouseLeave = jest.fn();
@@ -51,9 +52,6 @@ describe('Event', () => {
     chart.on('plot:mouseleave', (e) => {
       mouseLeave(e);
     });
-
-    // 可能是跟动画有关系？
-    await delay(500);
 
     simulateMouseEvent(chart.canvas.get('el'), 'mousemove', getClientPoint(chart.canvas, 300, 300));
     simulateMouseEvent(chart.canvas.get('el'), 'mousemove', getClientPoint(chart.canvas, 723, 526));
