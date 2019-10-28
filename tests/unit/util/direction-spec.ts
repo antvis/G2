@@ -1,5 +1,5 @@
 import { DIRECTION } from '../../../src';
-import { BBox } from '../../../src/dependents';
+import { BBox } from '../../../src/util/bbox';
 import { directionToPosition } from '../../../src/util/direction';
 
 const parentBBox = new BBox(10, 10, 100, 100);

@@ -19,6 +19,7 @@ export class BBox {
     this.width = width;
   }
 
+  // 计算属性
   public get minX(): number {
     return this.x;
   }
@@ -35,19 +36,19 @@ export class BBox {
     return this.y + this.height;
   }
 
-  public tl(): Point {
+  public get tl(): Point {
     return { x: this.x, y: this.y };
   }
 
-  public tr(): Point {
+  public get tr(): Point {
     return { x: this.maxX, y: this.y };
   }
 
-  public bl(): Point {
+  public get bl(): Point {
     return { x: this.x, y: this.maxY };
   }
 
-  public br(): Point {
+  public get br(): Point {
     return { x: this.maxX, y: this.maxY };
   }
 
@@ -76,6 +77,7 @@ export class BBox {
       y: this.y + this.height / 2,
     };
   }
+  // end 计算属性
 
   /**
    * 包围盒是否相等
@@ -132,15 +134,18 @@ export class BBox {
    * @param direction
    */
   public cut(subBBox: BBox, direction: DIRECTION): BBox {
+    const width = subBBox.width;
+    const height = subBBox.height;
+
     switch (direction) {
       case DIRECTION.TOP:
-        return BBox.fromRange(this.minX, subBBox.maxY, this.maxX, this.maxY);
+        return BBox.fromRange(this.minX, this.minY + height, this.maxX, this.maxY);
       case DIRECTION.RIGHT:
-        return BBox.fromRange(this.minX, this.minY, subBBox.minX, this.maxY);
+        return BBox.fromRange(this.minX, this.minY, this.maxX - width, this.maxY);
       case DIRECTION.BOTTOM:
-        return BBox.fromRange(this.minX, this.minY, this.maxX, subBBox.minY);
+        return BBox.fromRange(this.minX, this.minY, this.maxX, this.maxY - height);
       case DIRECTION.LEFT:
-        return BBox.fromRange(subBBox.maxX, this.minY, this.maxX, this.maxY);
+        return BBox.fromRange(this.minX + width, this.minY, this.maxX, this.maxY);
     }
 
     return this;

@@ -3,7 +3,7 @@ import { Axis, Text } from '../chart/__components__';
 import View from '../chart/view';
 import { DIRECTION, LAYER } from '../constant';
 import { Datum, Padding, Point, Position } from '../interface';
-import { BBoxProcessor, getRegionBBox } from '../util/bbox';
+import { BBox, getRegionBBox } from '../util/bbox';
 import Facet from './facet';
 import { FacetComponent, RectCfg, RectData } from './interface';
 
@@ -155,13 +155,14 @@ export default class Rect extends Facet<RectCfg, RectData> {
           : 3;
 
       const bbox = component.getBBox();
+
       const size = [DIRECTION.TOP, DIRECTION.BOTTOM].includes(direction) ? bbox.height : bbox.width;
 
       gap[idx] = Math.max(size, gap[idx]);
     });
 
     // 2. 更新 view 的 coordinate 位置大小
-    this.view.coordinateBBox = new BBoxProcessor(this.view.coordinateBBox).shrink(gap).value();
+    this.view.coordinateBBox = this.view.coordinateBBox.shrink(gap);
 
     // 3. 布局，移动组件位置
     _.each(this.components, (facetComponent: FacetComponent) => {
@@ -171,17 +172,16 @@ export default class Rect extends Facet<RectCfg, RectData> {
 
       const regionBBox = getRegionBBox(this.view.coordinateBBox, region);
 
-      const p = new BBoxProcessor(regionBBox);
       let point: Point;
 
       if (direction === DIRECTION.TOP) {
-        point = p.top;
+        point = regionBBox.top;
       } else if (direction === DIRECTION.RIGHT) {
-        point = p.right;
+        point = regionBBox.right;
       } else if (direction === DIRECTION.BOTTOM) {
-        point = p.bottom;
+        point = regionBBox.bottom;
       } else if (direction === DIRECTION.LEFT) {
-        point = p.left;
+        point = regionBBox.left;
       }
 
       const { x, y } = point;

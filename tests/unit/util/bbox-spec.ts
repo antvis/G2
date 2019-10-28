@@ -19,14 +19,14 @@ describe('util/ bbox', () => {
 
     expect(bbox.x).toBe(60);
     expect(bbox.y).toBe(60);
-    expect(bbox.width).toBe(80);
-    expect(bbox.height).toBe(80);
+    expect(bbox.width).toBe(130);
+    expect(bbox.height).toBe(130);
 
     bbox = bbox.shrink([10, 10, 10, 10]);
     expect(bbox.x).toBe(70);
     expect(bbox.y).toBe(70);
-    expect(bbox.width).toBe(60);
-    expect(bbox.height).toBe(60);
+    expect(bbox.width).toBe(110);
+    expect(bbox.height).toBe(110);
   });
 
   it('getRegionBBox', () => {

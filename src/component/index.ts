@@ -1,5 +1,6 @@
 import EE from '@antv/event-emitter';
-import { BBox, IGroup } from '../dependents';
+import { IGroup } from '../dependents';
+import { BBox } from '../util/bbox';
 import { translate } from '../util/transform';
 
 type Position = [number, number];
