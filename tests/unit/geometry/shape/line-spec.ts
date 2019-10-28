@@ -345,5 +345,8 @@ describe('Line shapes', () => {
     });
   });
 
-  afterAll(() => {});
+  afterAll(() => {
+    canvas.destroy();
+    removeDom(div);
+  });
 });
