@@ -1,7 +1,8 @@
-import { Chart, Event, View } from '../../../../src';
-import { Event as GEvent } from '../../../../src/dependents';
+import { Chart } from '../../../../src';
 import { CITY_SALE } from '../../../util/data';
+import { delay } from '../../../util/delay';
 import { createDiv } from '../../../util/dom';
+import { getClientPoint, simulateMouseEvent } from '../../../util/simulate';
 
 const div = createDiv();
 
@@ -22,6 +23,9 @@ chart
 
 chart.render();
 
+// @ts-ignore
+window.__chart = chart;
+
 describe('Event', () => {
   it('component event', () => {
     // 等待联调
@@ -33,20 +37,31 @@ describe('Event', () => {
     expect(1).toBe(1);
   });
 
-  it('plot event', () => {
-    chart.on('*', function(e) {
-      console.log(e);
-    });
-    chart.on('plotenter', (e) => {
-      console.log(1, e);
-    });
-    chart.on('plotmove', (e) => {
-      console.log(2, e);
-    });
-    chart.on('plotleave', (e) => {
-      console.log(3, e);
-    });
-  });
+  it('plot event', async () => {
+    const mouseEnter = jest.fn();
+    const mouseMove = jest.fn();
+    const mouseLeave = jest.fn();
 
-  it('event bubbling', () => {});
+    chart.on('plot:mouseenter', (e) => {
+      mouseEnter(e);
+    });
+    chart.on('plot:mousemove', (e) => {
+      mouseMove(e);
+    });
+    chart.on('plot:mouseleave', (e) => {
+      mouseLeave(e);
+    });
+
+    // 可能是跟动画有关系？
+    await delay(500);
+
+    simulateMouseEvent(chart.canvas.get('el'), 'mousemove', getClientPoint(chart.canvas, 300, 300));
+    simulateMouseEvent(chart.canvas.get('el'), 'mousemove', getClientPoint(chart.canvas, 723, 526));
+    simulateMouseEvent(chart.canvas.get('el'), 'mousemove', getClientPoint(chart.canvas, 730, 530));
+    simulateMouseEvent(chart.canvas.get('el'), 'mousemove', getClientPoint(chart.canvas, 1000, 700));
+
+    expect(mouseEnter).toBeCalled();
+    expect(mouseMove).toBeCalled();
+    expect(mouseLeave).toBeCalled();
+  });
 });

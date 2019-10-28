@@ -1,7 +1,7 @@
 import EE from '@antv/event-emitter';
 import * as _ from '@antv/util';
 import Component from '../component';
-import { COMPONENT_TYPE, DIRECTION, GROUP_Z_INDEX, LAYER, VIEW_LIFE_CIRCLE } from '../constant';
+import { COMPONENT_TYPE, DIRECTION, GROUP_Z_INDEX, LAYER, PLOT_EVENTS, VIEW_LIFE_CIRCLE } from '../constant';
 import { Coordinate, Scale } from '../dependents';
 import { Attribute } from '../dependents';
 import { Event as GEvent, ICanvas, IGroup } from '../dependents';
@@ -614,6 +614,8 @@ export default class View extends EE {
     this.middleGroup.on('*', this.onEvents);
     this.backgroundGroup.on('*', this.onEvents);
 
+    this.foregroundGroup.on('mousemove', this.onEvents);
+
     // 自己监听事件，然后向上冒泡
     this.on('*', this.onViewEvents);
   }
@@ -625,7 +627,6 @@ export default class View extends EE {
   private onEvents = (evt: GEvent): void => {
     // 阻止继续冒泡，防止重复事件触发
     evt.preventDefault();
-    console.log('onEvents', evt);
 
     const { type, shape } = evt;
 
@@ -647,6 +648,7 @@ export default class View extends EE {
    */
   private doPlotEvent(e: Event) {
     const { type, x, y } = e;
+    // @ts-ignore 上层没有定义这个 public 方法（也算是利用 interface 的确定，需要将 class 定义的方法全部用 interface 定义一遍）
     const pixelRatio = this.canvas.getPixelRatio();
 
     const point = {
@@ -659,17 +661,21 @@ export default class View extends EE {
       const currentInPlot = isPointInCoordinate(this.coordinateInstance, point);
 
       if (this.isPreMouseInPlot && currentInPlot) {
-        this.emit('plotmove', e);
+        e.type = PLOT_EVENTS.MOUSE_MOVE;
+        this.emit(PLOT_EVENTS.MOUSE_MOVE, e);
       } else if (this.isPreMouseInPlot && !currentInPlot) {
-        this.emit('plotleave', e);
+        e.type = PLOT_EVENTS.MOUSE_LEAVE;
+        this.emit(PLOT_EVENTS.MOUSE_LEAVE, e);
       } else if (!this.isPreMouseInPlot && currentInPlot) {
-        this.emit('plotenter', e);
+        e.type = PLOT_EVENTS.MOUSE_ENTER;
+        this.emit(PLOT_EVENTS.MOUSE_ENTER, e);
       }
 
       // 赋新的值
       this.isPreMouseInPlot = currentInPlot;
     } else if (type === 'mouseleave' && this.isPreMouseInPlot) {
-      this.emit('plotleave', e);
+      e.type = PLOT_EVENTS.MOUSE_LEAVE;
+      this.emit(PLOT_EVENTS.MOUSE_LEAVE, e);
     }
   }
 

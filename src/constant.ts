@@ -67,9 +67,9 @@ export enum VIEW_LIFE_CIRCLE {
  * 绘图区的事件列表
  */
 export enum PLOT_EVENTS {
-  PLOTENTER = 'plotenter',
-  PLOTMOVE = 'plotmove',
-  PLOTLEAVE = 'plotleave',
+  MOUSE_ENTER = 'plot:mouseenter',
+  MOUSE_MOVE = 'plot:mousemove',
+  MOUSE_LEAVE = 'plot:mouseleave',
 }
 
 /** 参与分组的图形属性名 */

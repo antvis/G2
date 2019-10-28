@@ -12,11 +12,15 @@ export default class Event {
   public gEvent: GEvent;
   /** the data for the event, such as original data point */
   public data?: Datum;
+  /** the type of event */
+  public type: string;
 
   constructor(view: View, gEvent: GEvent, data?: Datum) {
     this.view = view;
     this.gEvent = gEvent;
     this.data = data;
+
+    this.type = gEvent.type;
   }
 
   // below props are proxy props of G.event convenient
@@ -31,11 +35,6 @@ export default class Event {
   /** the original dom event object */
   public get event(): any {
     return this.gEvent.domEvent;
-  }
-
-  /** the type of event */
-  public get type(): string {
-    return this.gEvent.type;
   }
 
   /** the position x of canvas */
@@ -60,7 +59,6 @@ export default class Event {
   // end for proxy events
 
   public toString(): string {
-    const type = this.type;
-    return `[Event (type=${type})]`;
+    return `[Event (type=${this.type})]`;
   }
 }
