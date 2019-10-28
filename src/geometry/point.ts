@@ -14,7 +14,7 @@ export default class Point extends Geometry {
 
     return {
       ...shapeCfg,
-      isStack: !!this.getAdjust('adjust'),
+      isStack: !!this.getAdjust('adjust'), // 层叠点图
     };
   }
 }
