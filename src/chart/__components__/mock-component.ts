@@ -21,10 +21,10 @@ export class MockComponent extends Component {
     this.text = text;
     this.attributes = attributes;
 
-    this.initial();
+    this.init();
   }
 
-  protected initial() {
+  protected init() {
     this.container.addShape('text', {
       attrs: {
         x: 0,

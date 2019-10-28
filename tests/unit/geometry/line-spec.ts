@@ -28,7 +28,7 @@ describe('Line', () => {
     });
 
     line.position('x*y');
-    line.initial();
+    line.init();
     line.paint();
     canvas.draw();
 

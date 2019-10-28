@@ -24,10 +24,10 @@ export class Text extends Component {
     this.isHorizontal = isHorizontal;
     this.attributes = attributes;
 
-    this.initial();
+    this.init();
   }
 
-  protected initial() {
+  protected init() {
     let attrs: LooseObject = {
       x: 0,
       y: 0,

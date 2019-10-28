@@ -274,7 +274,7 @@ export default class Geometry {
    */
   public label() {}
 
-  public initial() {
+  public init() {
     // TODO: @simaq 是否可以移除设置矩阵这一步？
     // 需要修改 @antv/coord 模块，将点与当前矩阵相乘
     const coordinate = this.coordinate;

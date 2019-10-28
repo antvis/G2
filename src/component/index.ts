@@ -71,7 +71,7 @@ export default abstract class Component extends EE {
   }
 
   /** 初始化节点 */
-  protected abstract initial();
+  protected abstract init();
 
   // 代理 G.shape 事件，然后自己 emit 出来
   protected abstract proxyEvents();

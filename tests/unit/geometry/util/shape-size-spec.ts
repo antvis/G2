@@ -41,7 +41,7 @@ describe('Calculate shape size', () => {
     });
 
     interval.position('a*b').color('a');
-    interval.initial();
+    interval.init();
 
     test('default', () => {
       const normalizedSize = getDefaultSize(interval);
@@ -86,7 +86,7 @@ describe('Calculate shape size', () => {
         theme: Theme,
       });
       interval.position('a*b');
-      interval.initial();
+      interval.init();
       // interval.paint();
       // canvas.draw();
 
@@ -109,7 +109,7 @@ describe('Calculate shape size', () => {
         theme: Theme,
       });
       interval.position('a*b');
-      interval.initial();
+      interval.init();
       // interval.paint();
       // canvas.draw();
       expect(getDefaultSize(interval)).toBe(0.125);
@@ -151,7 +151,7 @@ describe('Calculate shape size', () => {
         type: 'dodge',
       });
 
-      interval.initial();
+      interval.init();
 
       const normalizedSize = getDefaultSize(interval);
       expect(normalizedSize).toBe(1 / 12);
@@ -164,7 +164,7 @@ describe('Calculate shape size', () => {
         dodgeBy: 'a',
       });
 
-      interval.initial();
+      interval.init();
       const normalizedSize = getDefaultSize(interval);
       expect(normalizedSize).toBe(1 / 18);
     });
@@ -188,7 +188,7 @@ describe('Calculate shape size', () => {
       },
     });
     interval.position('a*b');
-    interval.initial();
+    interval.init();
 
     test('polar interval', () => {
       const normalizedSize = getDefaultSize(interval);
@@ -230,7 +230,7 @@ describe('Calculate shape size', () => {
         .color('a')
         .adjust('stack');
 
-      interval.initial();
+      interval.init();
 
       const normalizedSize = getDefaultSize(interval);
       expect(normalizedSize).toBe(0.9999999);
@@ -266,7 +266,7 @@ describe('Calculate shape size', () => {
           fields: ['c'],
         });
 
-      interval.initial();
+      interval.init();
 
       const normalizedSize = getDefaultSize(interval);
       expect(normalizedSize).toBe((1 / 6) * Theme.roseWidthRatio);
@@ -307,7 +307,7 @@ describe('Calculate shape size', () => {
           fields: ['c'],
         });
 
-      interval.initial();
+      interval.init();
       // interval.paint();
       // canvas.draw();
 

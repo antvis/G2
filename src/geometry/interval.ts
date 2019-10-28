@@ -13,8 +13,8 @@ export default class Interval extends Geometry {
 
   private defaultSize: number;
 
-  public initial() {
-    super.initial();
+  public init() {
+    super.init();
     this.adjustYScale();
   }
 

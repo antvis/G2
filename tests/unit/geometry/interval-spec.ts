@@ -34,7 +34,7 @@ describe('Interval', () => {
       expect(interval.visible).toBe(true);
     });
 
-    test('initial()', () => {
+    test('init()', () => {
       interval = new Interval({
         data,
         scaleDefs: {
@@ -46,7 +46,7 @@ describe('Interval', () => {
       });
 
       interval.position('a*b').color('a');
-      interval.initial();
+      interval.init();
 
       const attributes = interval.attributes;
       expect(attributes).toContainKeys(['position', 'color']);
@@ -101,7 +101,7 @@ describe('Interval', () => {
     test('interval.size(20)', () => {
       interval.size(20); // 指定 interval 的宽度
 
-      interval.initial();
+      interval.init();
       interval.paint();
 
       expect(interval.defaultSize).toBe(undefined);
@@ -115,7 +115,7 @@ describe('Interval', () => {
       interval.theme.minColumnWidth = 40;
 
       interval.size(null);
-      interval.initial();
+      interval.init();
       interval.paint();
 
       canvas.draw();
@@ -131,7 +131,7 @@ describe('Interval', () => {
       interval.theme.maxColumnWidth = 10;
       interval.theme.minColumnWidth = null;
 
-      interval.initial();
+      interval.init();
       interval.paint();
 
       canvas.draw();
@@ -164,7 +164,7 @@ describe('Interval', () => {
     interval.position('a*b');
 
     it('yScale min adjust when user define min', () => {
-      interval.initial();
+      interval.init();
       // 为了观察最终的绘制结果
       interval.paint();
       canvas.draw();
