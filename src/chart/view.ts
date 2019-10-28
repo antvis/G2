@@ -147,7 +147,7 @@ export default class View extends EE {
     // 接受父 view 传入的参数
     this.options = { ...this.options, ...options };
 
-    this.initial();
+    this.init();
   }
 
   /**
@@ -190,13 +190,13 @@ export default class View extends EE {
   /**
    * 初始化
    */
-  public initial() {
+  public init() {
     // 事件委托机制
-    this.initialEvents();
+    this.initEvents();
 
     // 递归初始化子 view
     _.each(this.views, (view: View) => {
-      view.initial();
+      view.init();
     });
   }
 
@@ -214,7 +214,7 @@ export default class View extends EE {
   }
 
   /**
-   * 清空，之后可以再走 initial 流程，正常使用
+   * 清空，之后可以再走 init 流程，正常使用
    */
   public clear() {
     this.emit(ViewLifeCircle.BEFORE_CLEAR);
@@ -609,7 +609,7 @@ export default class View extends EE {
       this.createCoordinate();
     }
     // 4. 初始化 Geometry
-    this.initialGeometries();
+    this.initGeometries();
     // 5. 渲染组件 component
     this.renderComponents();
     // 6.  递归 views，进行布局
@@ -637,7 +637,7 @@ export default class View extends EE {
    * 当前 view 只委托自己 view 中的 Component 和 Geometry 事件，并向上冒泡
    * @private
    */
-  private initialEvents() {
+  private initEvents() {
     // 三层 group 中的 shape 事件都会通过 G 冒泡上来的
     this.foregroundGroup.on('*', this.onEvents);
     this.middleGroup.on('*', this.onEvents);
@@ -730,7 +730,7 @@ export default class View extends EE {
    * 初始化 Geometries
    * @private
    */
-  private initialGeometries() {
+  private initGeometries() {
     // 实例化 Geometry，然后 view 将所有的 scale 管理起来
     _.each(this.geometries, (geometry: Geometry) => {
       // 使用 coordinate 引用，可以保持 coordinate 的同步更新
@@ -741,7 +741,7 @@ export default class View extends EE {
       // 保持 scales 引用不要变化
       geometry.scales = this.scales;
 
-      geometry.initial();
+      geometry.init();
     });
 
     // Geometry 初始化之后，生成了 scale，然后进行调整 scale 配置
@@ -880,7 +880,7 @@ export default class View extends EE {
   private renderFacet() {
     if (this.facetInstance) {
       // 计算分面数据
-      this.facetInstance.initial();
+      this.facetInstance.init();
       // 渲染组件和 views
       this.facetInstance.render();
     }

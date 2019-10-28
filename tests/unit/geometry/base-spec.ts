@@ -376,7 +376,7 @@ describe('Geometry', () => {
     });
 
     it('init()', () => {
-      geometry.initial();
+      geometry.init();
 
       // attrs 的生成
       const attrs = geometry.attributes;

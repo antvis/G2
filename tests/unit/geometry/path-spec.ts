@@ -38,7 +38,7 @@ describe('Path', () => {
     });
 
     path.position('x*y').size(4);
-    path.initial();
+    path.init();
     path.paint();
     canvas.draw();
 
@@ -83,7 +83,7 @@ describe('Path', () => {
     });
 
     path.position('x*y').size(4);
-    path.initial();
+    path.init();
     path.paint();
     canvas.draw();
 

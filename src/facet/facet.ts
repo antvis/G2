@@ -12,7 +12,7 @@ import { FacetCfg, FacetComponent, FacetData } from './interface';
  *
  * 生命周期：
  *
- * 初始化 initial
+ * 初始化 init
  * 1. 初始化容器
  * 2. 数据分面，生成分面布局信息
  *
@@ -52,7 +52,7 @@ export default abstract class Facet<C extends FacetCfg = FacetCfg, F extends Fac
   /**
    * 初始化过程
    */
-  public initial() {
+  public init() {
     // 初始化容器
     this.container = this.createContainer();
 
