@@ -28,7 +28,7 @@ describe('Point', () => {
     });
 
     point.position('x*y');
-    point.initial();
+    point.init();
     point.paint();
     canvas.draw();
 
