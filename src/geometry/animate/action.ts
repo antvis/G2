@@ -1,6 +1,6 @@
 import { transform } from '@antv/matrix-util';
 import { Coordinate, IGroup, IShape } from '../../dependents';
-import { AnimateCfg, ShapeDrawCFG } from '../../interface';
+import { AnimateCfg, Point, ShapeDrawCFG } from '../../interface';
 import { getAngle, getCoordinateClipCfg, getSectorPath } from './util';
 
 /**
@@ -17,9 +17,9 @@ export function scaleInY(
 ) {
   const box = shape.getBBox();
   const x = (box.minX + box.maxX) / 2;
-  const { points } = shapeModel;
+  const points = shapeModel.points as Point[];
   // 数值如果为负值，那么应该从上往下生长，通过 shape 的关键点进行判断
-  const y = (points[0].y as number) - (points[1].y as number) <= 0 ? box.maxY : box.minY;
+  const y = points[0].y - points[1].y <= 0 ? box.maxY : box.minY;
 
   shape.applyToMatrix([x, y, 1]);
   const matrix = transform(shape.getMatrix(), [['t', -x, -y], ['s', 1, 0.01], ['t', x, y]]);
@@ -46,9 +46,9 @@ export function scaleInX(
   shapeModel: ShapeDrawCFG
 ) {
   const box = shape.getBBox();
-  const { points } = shapeModel;
+  const points = shapeModel.points as Point[];
   // x 数值如果为负值，那么应该从右往左生长
-  const x = (points[0].y as number) - (points[1].y as number) > 0 ? box.maxX : box.minX;
+  const x = points[0].y - points[1].y > 0 ? box.maxX : box.minX;
   const y = (box.minY + box.maxY) / 2;
 
   shape.applyToMatrix([x, y, 1]);

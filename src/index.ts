@@ -2,6 +2,7 @@ export * from './core';
 
 // 注册 G2 内置的 geometry
 import { registerGeometry } from './core';
+import Area from './geometry/area';
 import Interval from './geometry/interval';
 import Line from './geometry/line';
 import Path from './geometry/path';
@@ -13,6 +14,7 @@ registerGeometry('Interval', Interval);
 registerGeometry('Path', Path);
 registerGeometry('Point', Point);
 registerGeometry('Line', Line);
+registerGeometry('Area', Area);
 
 // 注册内置的 Facet
 import { registerFacet } from './core';

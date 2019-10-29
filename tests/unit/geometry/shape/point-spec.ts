@@ -5,8 +5,6 @@ import Theme from '../../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../../util/dom';
 
 const Rect = getCoordinate('rect');
-const Polar = getCoordinate('polar');
-
 const SHAPES = ['circle', 'square', 'bowtie', 'diamond', 'hexagon', 'triangle', 'triangleDown'];
 const HOLLOW_SHAPES = ['cross', 'tick', 'plus', 'hyphen', 'line'];
 
