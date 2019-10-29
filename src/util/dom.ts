@@ -3,7 +3,8 @@ import { Size } from '../interface';
 
 /**
  * get the element's bounding size
- * @param ele
+ * @param ele dom element
+ * @returns the element width and height
  */
 function getElementSize(ele: HTMLElement): Size {
   const { width, height } = ele.getBoundingClientRect();
@@ -12,7 +13,8 @@ function getElementSize(ele: HTMLElement): Size {
 
 /**
  * is value a valid number
- * @param v
+ * @param v the input value
+ * @returns whether it is a number
  */
 function isNumber(v: any): boolean {
   return typeof v === 'number' && !isNaN(v);
@@ -20,10 +22,11 @@ function isNumber(v: any): boolean {
 
 /**
  * calculate the chart size
- * @param ele
- * @param autoFit
- * @param width
- * @param height
+ * @param ele DOM element
+ * @param autoFit should auto fit
+ * @param width chart width which is set by user
+ * @param height chart height which is set by user
+ * @returns the chart width and height
  */
 export function getChartSize(ele: HTMLElement, autoFit: boolean, width: number, height: number): Size {
   const size = autoFit ? getElementSize(ele) : { width, height };

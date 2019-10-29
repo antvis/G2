@@ -58,8 +58,8 @@ export default class Chart extends View {
 
   /**
    * change the graph size, and render it with new size.
-   * @param width
-   * @param height
+   * @param width chart width
+   * @param height chart height
    */
   public changeSize(width: number, height: number) {
     this.width = width;
