@@ -50,7 +50,7 @@ function getStyle(shapeName: string, cfg: ShapeDrawCFG) {
   const attrs = {
     ...cfg.style,
   };
-  const isStroke = shapeName === 'line';
+  const isStroke = ['line', 'smoothLine'].includes(shapeName);
   if (cfg.color) {
     if (isStroke) {
       attrs.stroke = cfg.color;
