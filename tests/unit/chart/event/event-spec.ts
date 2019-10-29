@@ -10,6 +10,7 @@ const chart = new Chart({
   width: 800,
   height: 600,
   padding: 10,
+  autoFit: false,
 });
 
 chart.data(CITY_SALE);
@@ -23,9 +24,6 @@ chart
 chart.animate(false);
 
 chart.render();
-
-// @ts-ignore
-window.__chart = chart;
 
 describe('Event', () => {
   it('component event', () => {
