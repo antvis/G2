@@ -1,5 +1,4 @@
 import * as _ from '@antv/util';
-import ResizeObserver from 'resize-observer-polyfill';
 import { GROUP_Z_INDEX } from '../constant';
 import { Canvas } from '../dependents';
 import { getChartSize } from '../util/dom';
@@ -17,7 +16,6 @@ export default class Chart extends View {
   public height: number;
 
   public autoFit: boolean;
-  private resizeObserver: ResizeObserver;
 
   // @ts-ignore
   constructor(props: ChartCfg) {
@@ -83,16 +81,13 @@ export default class Chart extends View {
 
   private bindAutoFit() {
     if (this.autoFit) {
-      this.resizeObserver = new ResizeObserver(this.onResize);
-      this.resizeObserver.observe(this.ele);
+      window.addEventListener('resize', this.onResize);
     }
   }
 
   private unbindAutoFit() {
-    if (this.resizeObserver) {
-      this.resizeObserver.unobserve(this.ele);
-      this.resizeObserver.disconnect();
-      this.resizeObserver = undefined;
+    if (this.autoFit) {
+      window.removeEventListener('resize', this.onResize);
     }
   }
 
