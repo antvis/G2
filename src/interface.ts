@@ -88,7 +88,7 @@ export interface ShapeInfo {
   /** 进行图形映射后的数据记录 */
   origin?: Datum;
   /** 构成 shape 的关键点  */
-  points?: RangePoint[] | Point[];
+  points?: RangePoint[] | Point[] | Point[][];
   /** 下一个数据集对应的关键点 */
   nextPoints?: RangePoint[] | Point[];
   /** Geometry.Text 需要 */
