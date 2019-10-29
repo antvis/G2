@@ -7,7 +7,7 @@ minDiv.setAttribute('style', 'display: inline-block; width: 30px; height: 30px')
 const maxDiv = createDiv();
 maxDiv.setAttribute('style', 'display: inline-block; width: 500px; height: 500px');
 
-describe('util padding', () => {
+describe('util dom', () => {
   it('getChartSize', () => {
     expect(getChartSize(minDiv, false, 200, 200)).toEqual({ width: 200, height: 200 });
     expect(getChartSize(minDiv, false, 50, 50)).toEqual({ width: 100, height: 100 });
