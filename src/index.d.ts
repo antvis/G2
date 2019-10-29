@@ -17,6 +17,7 @@ declare namespace G2 {
     setTheme(option: 'default' | 'dark'): void;
     setTheme(option: string): void;
     setTheme(option: object): void;
+    registerTheme(name: string, option: object): void;
     version: string;
     trackable: boolean;
     animate: boolean;
