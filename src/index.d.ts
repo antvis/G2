@@ -15,6 +15,7 @@ declare namespace G2 {
 
   class Global {
     setTheme(option: 'default' | 'dark'): void;
+    setTheme(option: object): void;
     version: string;
     trackable: boolean;
     animate: boolean;
