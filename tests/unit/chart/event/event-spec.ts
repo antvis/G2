@@ -39,27 +39,23 @@ describe('Event', () => {
   });
 
   it('plot event', () => {
-    const mouseEnter = jest.fn();
-    const mouseMove = jest.fn();
-    const mouseLeave = jest.fn();
+    const plotEvent = jest.fn();
 
     chart.on('plot:mouseenter', (e) => {
-      mouseEnter(e);
+      plotEvent(e);
     });
     chart.on('plot:mousemove', (e) => {
-      mouseMove(e);
+      plotEvent(e);
     });
     chart.on('plot:mouseleave', (e) => {
-      mouseLeave(e);
+      plotEvent(e);
     });
 
-    simulateMouseEvent(chart.canvas.get('el'), 'mousemove', getClientPoint(chart.canvas, 300, 300));
+    simulateMouseEvent(chart.canvas.get('el'), 'mousemove', getClientPoint(chart.canvas, 200, 200));
     simulateMouseEvent(chart.canvas.get('el'), 'mousemove', getClientPoint(chart.canvas, 723, 526));
     simulateMouseEvent(chart.canvas.get('el'), 'mousemove', getClientPoint(chart.canvas, 730, 530));
     simulateMouseEvent(chart.canvas.get('el'), 'mousemove', getClientPoint(chart.canvas, 1000, 700));
 
-    expect(mouseEnter).toBeCalled();
-    expect(mouseMove).toBeCalled();
-    expect(mouseLeave).toBeCalled();
+    expect(plotEvent).toBeCalled();
   });
 });
