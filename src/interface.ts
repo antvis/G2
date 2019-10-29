@@ -39,6 +39,11 @@ export interface Point {
   readonly y: number;
 }
 
+export interface Size {
+  readonly width: number;
+  readonly height: number;
+}
+
 export interface RangePoint {
   readonly x: number | number[];
   readonly y: number | number[];

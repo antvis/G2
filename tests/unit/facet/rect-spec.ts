@@ -10,6 +10,7 @@ describe('facet rect', () => {
     width: 800,
     height: 600,
     padding: 10,
+    autoFit: false,
   });
 
   chart.data(DIAMOND);

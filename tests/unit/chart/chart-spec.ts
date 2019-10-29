@@ -12,6 +12,7 @@ describe('Chart', () => {
     width: 800,
     height: 600,
     padding: 10,
+    autoFit: false,
   });
 
   chart.data(CITY_SALE);

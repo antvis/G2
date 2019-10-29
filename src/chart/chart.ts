@@ -1,6 +1,8 @@
 import * as _ from '@antv/util';
+import ResizeObserver from 'resize-observer-polyfill';
 import { GROUP_Z_INDEX } from '../constant';
 import { Canvas } from '../dependents';
+import { getChartSize } from '../util/dom';
 import { ChartCfg } from './interface';
 import View from './view';
 
@@ -15,27 +17,29 @@ export default class Chart extends View {
   public height: number;
 
   public autoFit: boolean;
+  private resizeObserver: ResizeObserver;
 
+  // @ts-ignore
   constructor(props: ChartCfg) {
     const { container, width, height, autoFit = true, renderer, pixelRatio, padding = 0 } = props;
 
     const ele: HTMLElement = _.isString(container) ? document.querySelector(container) : container;
 
-    // todo @hustcc
-    // autoFit 为 true 的时候，应该设置 width height 为容器的大小，否则会有两次渲染和闪烁的过程。
+    // if autoFit, use the container size, to avoid the graph render twice.
+    const size = getChartSize(ele, autoFit, width, height);
+
     const canvas = new Canvas({
       container: ele,
-      width,
-      height,
       renderer,
       pixelRatio,
+      ...size,
     });
 
     // 调用 view 的创建
     super({
       parent: null,
       canvas,
-      // 创建三层 group
+      // create 3 group layers for views.
       backgroundGroup: canvas.addGroup({ zIndex: GROUP_Z_INDEX.BG }),
       middleGroup: canvas.addGroup({ zIndex: GROUP_Z_INDEX.MID }),
       foregroundGroup: canvas.addGroup({ zIndex: GROUP_Z_INDEX.FORE }),
@@ -44,22 +48,32 @@ export default class Chart extends View {
 
     this.ele = ele;
     this.canvas = canvas;
-    this.width = width;
-    this.height = height;
+    this.width = size.width;
+    this.height = size.height;
     this.autoFit = autoFit;
 
     // 自适应大小
     this.bindAutoFit();
   }
 
+  /**
+   * change the graph size, and render it with new size.
+   * @param width
+   * @param height
+   */
   public changeSize(width: number, height: number) {
     this.width = width;
     this.height = height;
+    this.canvas.changeSize(width, height);
 
     // 重新渲染
     this.render();
   }
 
+  /**
+   * destroy the chart.
+   * unbind event, and destroy G.Canvas
+   */
   public destroy() {
     super.destroy();
 
@@ -69,10 +83,24 @@ export default class Chart extends View {
 
   private bindAutoFit() {
     if (this.autoFit) {
-      // todo 监听容器大小，自动 changeSize
-      // ResizeObserver
+      this.resizeObserver = new ResizeObserver(this.onResize);
+      this.resizeObserver.observe(this.ele);
     }
   }
 
-  private unbindAutoFit() {}
+  private unbindAutoFit() {
+    if (this.resizeObserver) {
+      this.resizeObserver.unobserve(this.ele);
+      this.resizeObserver.disconnect();
+      this.resizeObserver = undefined;
+    }
+  }
+
+  /**
+   * when container size changed, change chart size props, and re-render.
+   */
+  private onResize = _.debounce(() => {
+    const { width, height } = this.ele.getBoundingClientRect();
+    this.changeSize(width, height);
+  }, 60);
 }

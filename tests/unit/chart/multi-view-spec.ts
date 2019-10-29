@@ -20,6 +20,7 @@ const chart = new Chart({
   height: 600,
   padding: 0,
   renderer: 'svg',
+  autoFit: false,
 });
 
 chart.data(data.slice(0, data.length - 2));
