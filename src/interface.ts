@@ -88,9 +88,9 @@ export interface ShapeInfo {
   /** 进行图形映射后的数据记录 */
   origin?: Datum;
   /** 构成 shape 的关键点  */
-  points?: RangePoint[] | Point[] | Point[][];
+  points?: ShapeVertices;
   /** 下一个数据集对应的关键点 */
-  nextPoints?: RangePoint[] | Point[];
+  nextPoints?: ShapeVertices;
   /** Geometry.Text 需要 */
   text?: string | null;
   /** 数据是否发生层叠 */
@@ -178,3 +178,4 @@ export type Position = [number, number];
 export type AttributeType = 'position' | 'size' | 'color' | 'shape';
 export type ScaleType = 'linear' | 'cat' | 'identity' | 'log' | 'pow' | 'time' | 'timeCat';
 export type AdjustType = 'stack' | 'jitter' | 'dodge' | 'symmetric';
+export type ShapeVertices = RangePoint[] | Point[] | Point[][];

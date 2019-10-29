@@ -93,6 +93,7 @@ function getConstraint(coordinate: Coordinate): Position[] {
 const AreaShapeFactory = registerShapeFactory('area', {
   defaultShapeType: 'area',
   getDefaultPoints(pointInfo: ShapePoint): Point[] {
+    // area 基本标记的绘制需要获取上下两边的顶点
     const { x, y0 } = pointInfo;
     const y = _.isArray(pointInfo.y) ? pointInfo.y : [y0, pointInfo.y];
 
