@@ -91,6 +91,22 @@ const DEFAULT_ANIMATE_CFG = {
       easing: 'easeQuadIn',
     },
   },
+  area: {
+    enter: {
+      animation: 'clipIn',
+      duration: 500,
+      easing: 'easeQuadOut',
+    },
+    update: {
+      duration: 450,
+      easing: 'easeQuadOut',
+    },
+    leave: {
+      animation: 'fadeOut',
+      duration: 400,
+      easing: 'easeQuadIn',
+    },
+  },
 };
 
 function getAnimateConfig(animateCfg: AnimateCfg, data: Data | Datum) {

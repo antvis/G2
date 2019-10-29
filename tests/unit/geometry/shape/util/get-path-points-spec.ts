@@ -24,7 +24,6 @@ describe('getPathPoints', () => {
       [{ x: 9, y: 34 }, { x: 1, y: 1 }],
     ];
     const result = getPathPoints(data, true);
-    console.log(JSON.stringify(result));
     expect(result).toEqual([[[{ x: 1, y: 10 }, { x: 2, y: 2 }], [{ x: 9, y: 34 }, { x: 1, y: 1 }]]]);
   });
 });
