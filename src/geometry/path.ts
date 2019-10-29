@@ -25,7 +25,7 @@ export default class Path extends Geometry {
   }
 
   protected createElements(mappedArray: Data): Element[] {
-    // path 的每个 element 对应一组数据， 由于数据分割，有可能一个 element 会包含多个 shape
+    // Path 的每个 element 对应一组数据
     const { lastElementsMap, elementsMap, elements, theme, container } = this;
     const elementId = this.getElementId(mappedArray[0]);
     const shapeCfg = this.getDrawCfg(mappedArray);
@@ -73,7 +73,7 @@ export default class Path extends Geometry {
     };
   }
 
-  private getPoints(mappedArray: Data): Point[] {
+  protected getPoints(mappedArray: Data): Point[] {
     return mappedArray.map((obj: Datum) => {
       return {
         x: obj.x,

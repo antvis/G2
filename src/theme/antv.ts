@@ -43,6 +43,12 @@ const FONT_FAMILY = `
   SimSun, "sans-serif"'`;
 
 const SHAPE_STYLE = {
+  hollowArea: {
+    fill: '#fff',
+    stroke: DEFAULT_COLOR,
+    fillOpacity: 0,
+    lineWidth: 2,
+  },
   area: {
     lineWidth: 0,
     fill: DEFAULT_COLOR,
@@ -216,6 +222,20 @@ export default {
     },
     line: {
       default: SHAPE_STYLE.hollowPoint,
+    },
+  },
+  area: {
+    area: {
+      default: SHAPE_STYLE.area,
+    },
+    smooth: {
+      default: SHAPE_STYLE.area,
+    },
+    line: {
+      default: SHAPE_STYLE.hollowArea,
+    },
+    smoothLine: {
+      default: SHAPE_STYLE.hollowArea,
     },
   },
 };
