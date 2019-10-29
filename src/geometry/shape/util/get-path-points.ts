@@ -1,8 +1,16 @@
 import * as _ from '@antv/util';
-import { RangePoint } from '../../../interface';
+import { Point, RangePoint } from '../../../interface';
 
-function isValueNil(value) {
-  return (_.isArray(value) && _.isNil(value[0])) || _.isNil(value);
+function isValueEmpty(value) {
+  return _.isNil(value) || isNaN(value);
+}
+
+function isYNil(point: Point[] | RangePoint) {
+  if (_.isArray(point)) {
+    return isValueEmpty(point[1].y);
+  }
+  const value = point.y;
+  return _.isArray(value) ? isValueEmpty(value[0]) : isValueEmpty(value);
 }
 
 /**
@@ -19,23 +27,23 @@ function isValueNil(value) {
  * @param field 判断空值的字段名
  * @param connectNulls 是否连接空值数据
  */
-export function getPathPoints(points: RangePoint[], connectNulls?: boolean) {
+export function getPathPoints(points: RangePoint[] | Point[][], connectNulls?: boolean) {
   if (!points.length) {
     return [];
   }
 
   if (connectNulls) {
     // 即 y 值为空的场景
-    const filtered = _.filter(points, (point: RangePoint) => {
-      return !isValueNil(point.y);
+    const filtered = _.filter(points, (point: RangePoint | Point[]) => {
+      return !isYNil(point);
     });
     return [filtered];
   }
 
   const result = [];
   let tmp = [];
-  points.forEach((point: RangePoint) => {
-    if (isValueNil(point.y)) {
+  points.forEach((point: RangePoint | Point[]) => {
+    if (isYNil(point)) {
       if (tmp.length) {
         result.push(tmp);
         tmp = [];
