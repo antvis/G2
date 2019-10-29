@@ -8,8 +8,8 @@ import View from './view';
 // chart 构造方法的入参
 export interface ChartCfg {
   readonly container: string | HTMLElement;
-  readonly width: number;
-  readonly height: number;
+  readonly width?: number;
+  readonly height?: number;
   readonly autoFit?: boolean;
   readonly renderer?: Renderer;
   readonly pixelRatio?: number;

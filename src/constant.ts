@@ -76,3 +76,6 @@ export enum PLOT_EVENTS {
 export const GROUP_ATTRS = ['color', 'shape', 'size'];
 /** 存储原始数据的字段名 */
 export const FIELD_ORIGIN = '_origin';
+
+export const MIN_CHART_WIDTH = 100;
+export const MIN_CHART_HEIGHT = 100;
