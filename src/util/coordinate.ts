@@ -1,5 +1,6 @@
 import { Coordinate } from '../dependents';
 import { Point } from '../interface';
+import { isBetween } from './helper';
 
 /**
  * Gets x dimension length
@@ -41,4 +42,26 @@ export function isFullCircle(coordinate: Coordinate): boolean {
 export function getDistanceToCenter(coordinate: Coordinate, point: Point): number {
   const center = coordinate.getCenter() as Point;
   return Math.sqrt((point.x - center.x) ** 2 + (point.y - center.y) ** 2);
+}
+
+/**
+ * 坐标点是否在坐标系中
+ * @param coordinate
+ * @param point
+ */
+export function isPointInCoordinate(coordinate: Coordinate, point: Point) {
+  let result = false;
+
+  if (coordinate) {
+    if (coordinate.type === 'theta') {
+      const { start, end } = coordinate;
+      result = isBetween(point.x, start.x, end.x) && isBetween(point.y, start.y, end.y);
+    } else {
+      const invertPoint = coordinate.invert(point);
+
+      result = isBetween(invertPoint.x, 0, 1) && isBetween(invertPoint.y, 0, 1);
+    }
+  }
+
+  return result;
 }

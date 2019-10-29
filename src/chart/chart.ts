@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-import { GroupZIndex } from '../constant';
+import { GROUP_Z_INDEX } from '../constant';
 import { Canvas } from '../dependents';
 import { ChartCfg } from './interface';
 import View from './view';
@@ -36,9 +36,9 @@ export default class Chart extends View {
       parent: null,
       canvas,
       // 创建三层 group
-      backgroundGroup: canvas.addGroup({ zIndex: GroupZIndex.BG }),
-      middleGroup: canvas.addGroup({ zIndex: GroupZIndex.MID }),
-      foregroundGroup: canvas.addGroup({ zIndex: GroupZIndex.FORE }),
+      backgroundGroup: canvas.addGroup({ zIndex: GROUP_Z_INDEX.BG }),
+      middleGroup: canvas.addGroup({ zIndex: GROUP_Z_INDEX.MID }),
+      foregroundGroup: canvas.addGroup({ zIndex: GROUP_Z_INDEX.FORE }),
       padding,
     });
 

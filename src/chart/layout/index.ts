@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-import { ComponentType } from '../../constant';
+import { COMPONENT_TYPE } from '../../constant';
 import { BBox } from '../../util/bbox';
 import { directionToPosition } from '../../util/direction';
 import { ComponentOption } from '../interface';
@@ -57,11 +57,11 @@ export default function defaultLayout(view: View): void {
   const componentOptions = this.getOptions().components;
 
   // 1. 计算出 legend 的 direction 位置 x, y
-  const legends = _.filter(componentOptions, (co: ComponentOption) => co.type === ComponentType.LEGEND);
+  const legends = _.filter(componentOptions, (co: ComponentOption) => co.type === COMPONENT_TYPE.LEGEND);
   layoutLegend(legends, viewBBox);
 
   // 2. 根据 axis 内容不遮挡原则，计算出 y axis 的 width，x axis 的 height；
-  const axes = _.filter(componentOptions, (co: ComponentOption) => co.type === ComponentType.AXIS);
+  const axes = _.filter(componentOptions, (co: ComponentOption) => co.type === COMPONENT_TYPE.AXIS);
   layoutAxis(axes, viewBBox);
 
   let bbox = viewBBox;

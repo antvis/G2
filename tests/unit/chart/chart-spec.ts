@@ -1,5 +1,5 @@
 import { Chart, LAYER } from '../../../src/';
-import { ViewLifeCircle } from '../../../src/constant';
+import { VIEW_LIFE_CIRCLE } from '../../../src/constant';
 import { Canvas, Group } from '../../../src/dependents';
 import { CITY_SALE } from '../../util/data';
 import { createDiv } from '../../util/dom';
@@ -48,8 +48,8 @@ describe('Chart', () => {
 
   it('render', () => {
     const renderEvent = jest.fn();
-    chart.on(ViewLifeCircle.BEFORE_RENDER, renderEvent);
-    chart.on(ViewLifeCircle.AFTER_RENDER, renderEvent);
+    chart.on(VIEW_LIFE_CIRCLE.BEFORE_RENDER, renderEvent);
+    chart.on(VIEW_LIFE_CIRCLE.AFTER_RENDER, renderEvent);
 
     chart.render();
     expect(renderEvent).toBeCalledTimes(2);
@@ -61,8 +61,8 @@ describe('Chart', () => {
 
   it('clear', () => {
     const clearEvent = jest.fn();
-    chart.on(ViewLifeCircle.BEFORE_CLEAR, clearEvent);
-    chart.on(ViewLifeCircle.AFTER_CLEAR, clearEvent);
+    chart.on(VIEW_LIFE_CIRCLE.BEFORE_CLEAR, clearEvent);
+    chart.on(VIEW_LIFE_CIRCLE.AFTER_CLEAR, clearEvent);
 
     chart.clear();
     expect(clearEvent).toBeCalledTimes(2);
@@ -81,7 +81,7 @@ describe('Chart', () => {
 
   it('destroy', () => {
     const destroyEvent = jest.fn();
-    chart.on(ViewLifeCircle.BEFORE_DESTROY, destroyEvent);
+    chart.on(VIEW_LIFE_CIRCLE.BEFORE_DESTROY, destroyEvent);
 
     chart.destroy();
     expect(destroyEvent).toBeCalledTimes(1);

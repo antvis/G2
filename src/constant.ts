@@ -28,7 +28,7 @@ export enum DIRECTION {
 /**
  * 组件的类型，可能会影响到布局算法
  */
-export enum ComponentType {
+export enum COMPONENT_TYPE {
   // axis 组件
   AXIS = 'axis',
   // legend 组件
@@ -40,7 +40,7 @@ export enum ComponentType {
 /**
  * 三层 group 的 z index
  */
-export const GroupZIndex = {
+export const GROUP_Z_INDEX = {
   FORE: 3,
   MID: 2,
   BG: 1,
@@ -50,7 +50,7 @@ export const GroupZIndex = {
  * View 的生命周期阶段（和 3.x 的生命周期略有不同）
  * 我们需要先确定在那写场景需要用到生命周期，如果只是为了在生命周期插入一下什么组件之类的，那么在现有架构就是不需要的
  */
-export enum ViewLifeCircle {
+export enum VIEW_LIFE_CIRCLE {
   BEFORE_RENDER = 'beforerender',
   AFTER_RENDER = 'afterrender',
 
@@ -61,6 +61,15 @@ export enum ViewLifeCircle {
   AFTER_CLEAR = 'afterclear',
 
   BEFORE_DESTROY = 'beforedestroy',
+}
+
+/**
+ * 绘图区的事件列表
+ */
+export enum PLOT_EVENTS {
+  MOUSE_ENTER = 'plot:mouseenter',
+  MOUSE_MOVE = 'plot:mousemove',
+  MOUSE_LEAVE = 'plot:mouseleave',
 }
 
 /** 参与分组的图形属性名 */

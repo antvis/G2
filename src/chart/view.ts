@@ -1,10 +1,10 @@
 import EE from '@antv/event-emitter';
 import * as _ from '@antv/util';
 import Component from '../component';
-import { ComponentType, DIRECTION, GroupZIndex, LAYER, ViewLifeCircle } from '../constant';
+import { COMPONENT_TYPE, DIRECTION, GROUP_Z_INDEX, LAYER, PLOT_EVENTS, VIEW_LIFE_CIRCLE } from '../constant';
 import { Coordinate, Scale } from '../dependents';
 import { Attribute } from '../dependents';
-import { ICanvas, IGroup } from '../dependents';
+import { Event as GEvent, ICanvas, IGroup } from '../dependents';
 import { Facet, getFacet } from '../facet';
 import { FacetCfgMap } from '../facet/interface';
 import Geometry from '../geometry/base';
@@ -12,13 +12,14 @@ import Interaction from '../interaction';
 import { Point, Region } from '../interface';
 import { Data, Datum } from '../interface';
 import { BBox } from '../util/bbox';
-import { isFullCircle } from '../util/coordinate';
+import { isFullCircle, isPointInCoordinate } from '../util/coordinate';
 import { parsePadding } from '../util/padding';
 import { mergeTheme } from '../util/theme';
 import Chart from './chart';
 import { createAxes } from './controller/axis';
 import { createCoordinate } from './controller/coordinate';
 import { createLegends } from './controller/legend';
+import Event from './event';
 import {
   AxisOption,
   ComponentOption,
@@ -32,44 +33,8 @@ import {
 } from './interface';
 import defaultLayout, { Layout } from './layout';
 
-/*
-          +-------------------------------------------------------------------------------------------------------------------------------------+
-          |                                                              top                                                                    |
-          |    +---------------------------------------------------------------------------------------------------------------------------+    |
-          |    |                                                                                                                           |    |
-  viewBBox|    |       +------------------------------------------------------------------------------------------------------------+      |    |
-     <---------+       +------------------------------------------------------------------------------------------------------------|      |    |
-          |    |        +----------------------------------------------------------------------------------------------------------------+ |    |
-          |    |   +--+ |                                                                                                                | |    |
-          |    |   |  | |    +---------------------------------------------------+   +------------------------------------------------+  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
-coordinateBBox |   |  | |    |                                                   |   |                                                |  | |    |
-        <-+-------------+    |                                                   |   |                                                |  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
-          |left|   |  | |    |                                                   |   |                                                |  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | | right
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
- subView  |    |   |  | |    |                                                   |   |                                                |  | |    |
-       <---------------------+                                                   |   |                                                |  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
-          |    |   |  | |    |                                                   |   |                                                |  | |    |
-          |    |   |  | |    +---------------------------------------------------+   +------------------------------------------------+  | |    |
-          |    |   |  | |                                                                                                                | |    |
-          |    |   |  | +----------------------------------------------------------------------------------------------------------------+ |    |
-          |    |   +--+    |--------------------------------------------------------------------------------------------------------|      |    |
-          |    |           |--------------------------------------------------------------------------------------------------------|      |    |
-          |    +---------------------------------------------------------------------------------------------------------------------------+    |
-          |                                                            buttom                                                                   |
-          +-------------------------------------------------------------------------------------------------------------------------------------+
+/**
+ * view container of G2
  */
 export default class View extends EE {
   /** 父级 view，如果没有父级，则为空 */
@@ -121,6 +86,9 @@ export default class View extends EE {
   // 分面类实例
   protected facetInstance: Facet;
 
+  /** 当前鼠标是否在 plot 内（CoordinateBBox） */
+  private isPreMouseInPlot: boolean = false;
+
   constructor(props: ViewCfg) {
     super();
 
@@ -161,7 +129,7 @@ export default class View extends EE {
     component: Component,
     layer: LAYER = LAYER.MID,
     direction: DIRECTION = DIRECTION.BOTTOM,
-    type: ComponentType = ComponentType.OTHER
+    type: COMPONENT_TYPE = COMPONENT_TYPE.OTHER
   ) {
     this.options.components.push({
       component,
@@ -205,10 +173,10 @@ export default class View extends EE {
    * render 函数仅仅会处理 view 和子 view
    */
   public render() {
-    this.emit(ViewLifeCircle.BEFORE_RENDER);
+    this.emit(VIEW_LIFE_CIRCLE.BEFORE_RENDER);
     // 递归渲染
     this.renderRecursive();
-    this.emit(ViewLifeCircle.AFTER_RENDER);
+    this.emit(VIEW_LIFE_CIRCLE.AFTER_RENDER);
     // 实际的绘图
     this.canvasDraw();
   }
@@ -217,7 +185,7 @@ export default class View extends EE {
    * 清空，之后可以再走 init 流程，正常使用
    */
   public clear() {
-    this.emit(ViewLifeCircle.BEFORE_CLEAR);
+    this.emit(VIEW_LIFE_CIRCLE.BEFORE_CLEAR);
     // 1. 清空缓存和计算数据
     this.scales = {};
     this.filteredData = [];
@@ -241,7 +209,7 @@ export default class View extends EE {
       view.clear();
     });
 
-    this.emit(ViewLifeCircle.AFTER_CLEAR);
+    this.emit(VIEW_LIFE_CIRCLE.AFTER_CLEAR);
   }
 
   /**
@@ -249,13 +217,16 @@ export default class View extends EE {
    */
   public destroy() {
     // 销毁前事件，销毁之后已经没有意义了，所以不抛出事件
-    this.emit(ViewLifeCircle.BEFORE_DESTROY);
+    this.emit(VIEW_LIFE_CIRCLE.BEFORE_DESTROY);
 
     this.clear();
 
     this.backgroundGroup.remove(true);
     this.middleGroup.remove(true);
     this.foregroundGroup.remove(true);
+
+    // 取消所有事件监听
+    this.off();
   }
   /* end 生命周期函数 */
 
@@ -421,7 +392,7 @@ export default class View extends EE {
    * @param data
    */
   public changeData(data: Data) {
-    this.emit(ViewLifeCircle.BEFORE_CHANGE_DATA);
+    this.emit(VIEW_LIFE_CIRCLE.BEFORE_CHANGE_DATA);
     // 1. 保存数据
     this.data(data);
     // 2. 过滤数据
@@ -445,7 +416,7 @@ export default class View extends EE {
       view.changeData(data);
     });
 
-    this.emit(ViewLifeCircle.AFTER_CHANGE_DATA);
+    this.emit(VIEW_LIFE_CIRCLE.AFTER_CHANGE_DATA);
     // 绘图
     this.canvasDraw();
   }
@@ -467,9 +438,9 @@ export default class View extends EE {
       parent: this,
       canvas: this.canvas,
       // 子 view 共用三层 group
-      backgroundGroup: this.middleGroup.addGroup({ zIndex: GroupZIndex.BG }),
-      middleGroup: this.middleGroup.addGroup({ zIndex: GroupZIndex.MID }),
-      foregroundGroup: this.middleGroup.addGroup({ zIndex: GroupZIndex.FORE }),
+      backgroundGroup: this.middleGroup.addGroup({ zIndex: GROUP_Z_INDEX.BG }),
+      middleGroup: this.middleGroup.addGroup({ zIndex: GROUP_Z_INDEX.MID }),
+      foregroundGroup: this.middleGroup.addGroup({ zIndex: GROUP_Z_INDEX.FORE }),
       theme: this.themeObject,
       ...cfg,
       options: {
@@ -642,23 +613,79 @@ export default class View extends EE {
     this.foregroundGroup.on('*', this.onEvents);
     this.middleGroup.on('*', this.onEvents);
     this.backgroundGroup.on('*', this.onEvents);
+
+    // 自己监听事件，然后向上冒泡
+    this.on('*', this.onViewEvents);
   }
 
   /**
    * 触发事件之后
    * @param evt
    */
-  private onEvents = (evt: Event): void => {
-    // 阻止继续冒泡
+  private onEvents = (evt: GEvent): void => {
+    // 阻止继续冒泡，防止重复事件触发
     evt.preventDefault();
 
-    const { type } = evt;
-    // 委托事件到 view 上
-    this.emit(type, evt);
+    const { type, shape } = evt;
 
-    if (this.parent) {
-      // 事件在 view 嵌套中冒泡（暂不提供阻止冒泡的机制）
-      this.parent.emit(type, evt);
+    const data = shape.get('origin');
+    const e = new Event(this, evt, data);
+
+    // 委托事件到 view 上
+    this.emit(type, e);
+
+    // 根据事件的 x y 判断是否在 CoordinateBBox 中，然后处理 plot 事件
+    if (['mousemove', 'mouseleave'].includes(type)) {
+      this.doPlotEvent(e);
+    }
+  };
+
+  /**
+   * 处理 PlotEvent（plot:mouseenter, plot:mouseout, plot:mouseleave）
+   * @param e
+   */
+  private doPlotEvent(e: Event) {
+    const { type, x, y } = e;
+
+    const point = { x, y };
+
+    // 使用 mousemove 事件计算出 plotmove，plotenter、plotleave 事件
+    if (type === 'mousemove') {
+      const currentInPlot = isPointInCoordinate(this.coordinateInstance, point);
+
+      if (this.isPreMouseInPlot && currentInPlot) {
+        e.type = PLOT_EVENTS.MOUSE_MOVE;
+        this.emit(PLOT_EVENTS.MOUSE_MOVE, e);
+      } else if (this.isPreMouseInPlot && !currentInPlot) {
+        e.type = PLOT_EVENTS.MOUSE_LEAVE;
+        this.emit(PLOT_EVENTS.MOUSE_LEAVE, e);
+      } else if (!this.isPreMouseInPlot && currentInPlot) {
+        e.type = PLOT_EVENTS.MOUSE_ENTER;
+        this.emit(PLOT_EVENTS.MOUSE_ENTER, e);
+      }
+
+      // 赋新的值
+      this.isPreMouseInPlot = currentInPlot;
+    } else if (type === 'mouseleave' && this.isPreMouseInPlot) {
+      e.type = PLOT_EVENTS.MOUSE_LEAVE;
+      this.emit(PLOT_EVENTS.MOUSE_LEAVE, e);
+    }
+  }
+
+  /**
+   * 监听自己的 view 事件，然后向上传递，形成事件冒泡的机制
+   * @param evt
+   */
+  private onViewEvents = (evt?: Event): void => {
+    // 存在事件的时候才冒泡，否则可能是生命周期事件，暂时不冒泡
+    // 因为 chart 上监听到很多的 view 生命周期事件，好像没有意义
+    if (evt) {
+      const { type } = evt;
+
+      if (this.parent) {
+        // 事件在 view 嵌套中冒泡（暂不提供阻止冒泡的机制）
+        this.parent.emit(type, evt);
+      }
     }
   };
 
