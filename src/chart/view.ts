@@ -248,9 +248,6 @@ export default class View extends EE {
     return this;
   }
 
-  /**
-   * 坐标轴配置
-   */
   public axis(field: boolean): View;
   public axis(field: string, axisOption: AxisOption): View;
   public axis(field: string | boolean, axisOption?: AxisOption): View {

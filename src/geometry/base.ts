@@ -116,10 +116,10 @@ export default class Geometry {
   public dataArray: Data[];
 
   // 配置项属性存储
+  /** tooltip 配置项 */
+  public tooltipOption: TooltipOption | boolean;
   /** 图形属性映射配置 */
   protected attributeOption: Record<string, AttributeOption> = {};
-  /** tooltip 配置项 */
-  protected tooltipOption: TooltipOption | boolean;
   /** adjust 配置项 */
   protected adjustOption: AdjustOption[];
   /** style 配置项 */

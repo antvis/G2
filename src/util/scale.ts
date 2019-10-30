@@ -112,3 +112,7 @@ export function syncScale(scale: Scale, newScale: Scale) {
     scale.change(obj);
   }
 }
+
+export function getName(scale: Scale): string {
+  return scale.alias || scale.field;
+}
