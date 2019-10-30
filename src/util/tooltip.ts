@@ -9,14 +9,10 @@ function snapEqual(v1: any, v2: any, scale: Scale) {
   const value1 = scale.translate(v1);
   const value2 = scale.translate(v2);
 
-  if (scale.isCategory) {
-    return value1 === value2;
-  }
   return _.isNumberEqual(value1, value2);
 }
 
 function getXValueByPoint(point: Point, geometry: Geometry): number {
-  let result = 0;
   const coordinate = geometry.coordinate;
   const xScale = geometry.getXScale();
   const range = xScale.range;
@@ -29,66 +25,43 @@ function getXValueByPoint(point: Point, geometry: Geometry): number {
   if (coordinate.isPolar && xValue > (1 + rangeMax) / 2) {
     xValue = rangeMin; // 极坐标下，scale 的 range 被做过特殊处理
   }
-
-  result = xScale.invert(xValue);
-  if (xScale.isCategory) {
-    // 分类类型，要将字符串类型转换成数字
-    result = xScale.translate(result);
-  }
-
-  return result;
+  return xScale.translate(xScale.invert(xValue));
 }
 
-function filterYValue(arr: Data, point: Point, geometry: Geometry) {
+function filterYValue(data: Data, point: Point, geometry: Geometry) {
   const coordinate = geometry.coordinate;
   const yScale = geometry.getYScale();
   const yField = yScale.field;
   const invertPoint = coordinate.invert(point);
-
   const yValue = yScale.invert(invertPoint.y);
-  let rst = arr[arr.length - 1];
 
-  _.each(arr, (obj) => {
+  const result = _.find(data, (obj: Datum) => {
     const origin = obj[FIELD_ORIGIN];
-    if (origin[yField][0] <= yValue && origin[yField][1] >= yValue) {
-      rst = obj;
-      return false;
+    return origin[yField][0] <= yValue && origin[yField][1] >= yValue;
+  });
+  return result || data[data.length - 1];
+}
+
+const getXDistance = _.memoize((scale: Scale) => {
+  if (scale.isCategory) {
+    return 1;
+  }
+  const values = scale.values; // values 是无序的
+  let min = scale.translate(values[0]);
+  let max = min;
+  _.each(values, (value) => {
+    // 时间类型需要 translate
+    const numericValue = scale.translate(value);
+    if (numericValue < min) {
+      min = numericValue;
+    }
+    if (numericValue > max) {
+      max = numericValue;
     }
   });
-  return rst;
-}
-
-function getXDistance(geometry: Geometry) {
-  // @ts-ignore 缓存，但是不对外暴露
-  let distance = geometry._xDistance;
-  if (!distance) {
-    const xScale = geometry.getXScale();
-    if (xScale.isCategory) {
-      distance = 1;
-    } else {
-      const values = xScale.values; // values 是无序的
-      let min = xScale.translate(values[0]);
-      let max = min;
-      _.each(values, (value) => {
-        // 时间类型需要 translate
-        const numericValue = xScale.translate(value);
-        if (numericValue < min) {
-          min = numericValue;
-        }
-        if (numericValue > max) {
-          max = numericValue;
-        }
-      });
-      const length = values.length;
-      // 应该是除以 length - 1
-      distance = (max - min) / (length - 1);
-    }
-    // @ts-ignore
-    geometry._xDistance = distance; // 缓存，防止重复计算
-  }
-
-  return distance;
-}
+  const length = values.length;
+  return (max - min) / (length - 1);
+});
 
 function getTooltipTitle(originData: Datum, geometry: Geometry) {
   const scales = geometry.scales;
@@ -290,7 +263,7 @@ export function findDataByPoint(point: Point, data: Data, geometry: Geometry) {
     }
   }
 
-  const distance = getXDistance(geometry); // 每个分类间的平均间距
+  const distance = getXDistance(geometry.getXScale()); // 每个分类间的平均间距
   if (!rst && Math.abs(xScale.translate(last[FIELD_ORIGIN][xField]) - xValue) <= distance / 2) {
     rst = last;
   }
