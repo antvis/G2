@@ -1,6 +1,7 @@
 import * as _ from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { Line as LineAxis, Scale } from '../../dependents';
+import { getAxisFactor, getAxisRegion } from '../../util/axis';
 import { AxisOption, ComponentOption } from '../interface';
 import View from '../view';
 
@@ -30,19 +31,20 @@ function createXAxes(axes: Record<string, AxisOption> | boolean, view: View): Co
     return axisArray;
   }
 
+  const direction = DIRECTION.BOTTOM;
+
   const xAxisOption = getAxisOption(axes, xScale.field);
 
   if (xAxisOption !== false) {
     const layer = LAYER.BG;
     const component = new LineAxis({
       container: view.getLayer(layer).addGroup(),
-      // 初始的位置大小方向，x 不同是水平方向的
-      start: { x: 0, y: 0 },
-      end: { x: 1, y: 0 },
+      ...getAxisRegion(view.getCoordinate(), direction),
       ticks: _.map(xScale.getTicks(), (tick) => ({ name: tick.text, value: tick.value })),
       title: {
         text: `${xScale.field}`,
       },
+      verticalFactor: getAxisFactor(direction),
     });
 
     component.render();
@@ -50,9 +52,8 @@ function createXAxes(axes: Record<string, AxisOption> | boolean, view: View): Co
     axisArray.push({
       // @ts-ignore
       component,
-      // component: new Axis(container, [0, 0], { text: `axis ${xScale.field}` }),
       layer,
-      direction: DIRECTION.BOTTOM,
+      direction,
       type: COMPONENT_TYPE.AXIS,
     });
   }
@@ -75,8 +76,8 @@ function createYAxes(axes: Record<string, AxisOption> | boolean, view: View): Co
       const component = new LineAxis({
         container: view.getLayer(layer).addGroup(),
         // 初始的位置大小方向，y 不同是垂直方向的
-        start: { x: 0, y: 0 },
-        end: { x: 0, y: 1 },
+        start: view.getCoordinate().convert({ x: 0, y: 0 }),
+        end: view.getCoordinate().convert({ x: 0, y: 1 }),
         ticks: _.map(yScale.getTicks(), (tick) => ({ name: tick.text, value: tick.value })),
         title: {
           text: `${yScale.field}`,

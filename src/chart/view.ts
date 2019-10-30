@@ -875,7 +875,7 @@ export default class View extends EE {
    * 调整 coordinate 的坐标范围
    * @private
    */
-  private adjustCoordinate() {
+  public adjustCoordinate() {
     this.coordinateInstance.update({
       start: this.coordinateBBox.bl,
       end: this.coordinateBBox.tr,

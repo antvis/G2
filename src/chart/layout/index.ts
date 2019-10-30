@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
 import { COMPONENT_TYPE } from '../../constant';
-import { Point } from '../../interface';
+import { getAxisRegion } from '../../util/axis';
 import { BBox } from '../../util/bbox';
 import { directionToPosition } from '../../util/direction';
 import { ComponentOption } from '../interface';
@@ -9,10 +9,6 @@ import View from '../view';
 // 布局函数的定义
 // 布局函数的职责：针对 view 中的 Component 和 geometry，调整组件和 x、y、width、height，以及图形的 coordinate 范围
 export type Layout = (view: View) => void;
-
-function isAxisVertical(start: Point, end: Point) {
-  return start.x === end.x;
-}
 
 /**
  * 计算出 legend 的 direction 位置 x, y
@@ -33,36 +29,14 @@ function layoutLegend(legends: ComponentOption[], viewBBox: BBox) {
  * 布局 axis
  * @param axes
  * @param viewBBox
+ * @param view
  */
-function layoutAxis(axes: ComponentOption[], viewBBox: BBox) {
+function layoutAxis(axes: ComponentOption[], viewBBox: BBox, view: View) {
   _.each(axes, (axis: ComponentOption) => {
     const { component, direction } = axis;
 
     // @ts-ignore
-    const start = component.get('start');
-    // @ts-ignore
-    const end = component.get('end');
-
-    const isVertical = isAxisVertical(start, end);
-
-    const bboxObject = component.getBBox();
-    const bbox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height);
-
-    const [x, y] = directionToPosition(viewBBox, bbox, direction);
-
-    // 移动到对应的位置
-    const newRegion = isVertical
-      ? {
-          start: { x, y },
-          end: { x, y: y + 1 },
-        }
-      : {
-          start: { x, y },
-          end: { x: x + 1, y },
-        };
-    // @ts-ignore
-    component.update(newRegion);
-    // component.move(...directionToPosition(viewBBox, component.getBBox(), direction));
+    component.update(getAxisRegion(view.getCoordinate(), direction));
   });
 }
 
@@ -88,7 +62,7 @@ export default function defaultLayout(view: View): void {
 
   // 2. 根据 axis 内容不遮挡原则，计算出 y axis 的 width，x axis 的 height；
   const axes = _.filter(componentOptions, (co: ComponentOption) => co.type === COMPONENT_TYPE.AXIS);
-  layoutAxis(axes, viewBBox);
+  layoutAxis(axes, viewBBox, view);
 
   let bbox = viewBBox;
 
@@ -102,30 +76,13 @@ export default function defaultLayout(view: View): void {
 
   // 3. 获取最终的 Geometry 的 bbox 位置，坐标系位置
   view.coordinateBBox = bbox;
+  // 根据 bbox 创建实例
+  view.adjustCoordinate();
 
   // 4. 给 axis 组件更新 coordinate: 调整 axis 的宽高：y axis height, x axis width = coordinateBBox width height
   _.each(axes, (co: ComponentOption) => {
-    const { component } = co;
-
+    const { component, direction } = co;
     // @ts-ignore
-    const start = component.get('start');
-    // @ts-ignore
-    const end = component.get('end');
-
-    // 垂直轴还是水平轴
-    const isVertical = isAxisVertical(start, end);
-
-    const newRegion = isVertical
-      ? {
-          start: { x: start.x, y: bbox.maxY },
-          end: { x: end.x, y: bbox.minY },
-        }
-      : {
-          start: { x: bbox.minX, y: start.y },
-          end: { x: bbox.maxX, y: end.y },
-        };
-
-    // @ts-ignore
-    component.update(newRegion);
+    component.update(getAxisRegion(view.getCoordinate(), direction));
   });
 }
