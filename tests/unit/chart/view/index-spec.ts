@@ -145,14 +145,14 @@ describe('View', () => {
     expect(view.getOptions().components.length).toEqual(3);
 
     const bbox = view.getOptions().components[0].component.getBBox();
-    expect(bbox.height).toEqual(54.5);
+    expect(bbox.height).toEqual(38.5);
   });
 
   it('layout result', () => {
-    expect(view.coordinateBBox.x).toBeWithin(55, 65);
+    expect(view.coordinateBBox.x).toBeWithin(30, 40);
     expect(view.coordinateBBox.y).toEqual(17);
-    expect(view.getCoordinate().getWidth()).toBeWithin(730, 740);
-    expect(view.coordinateBBox.height).toEqual(523.5);
+    expect(view.getCoordinate().getWidth()).toBeWithin(755, 765);
+    expect(view.coordinateBBox.height).toEqual(539.5);
   });
 
   it('getXScale', () => {

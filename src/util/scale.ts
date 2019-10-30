@@ -113,6 +113,11 @@ export function syncScale(scale: Scale, newScale: Scale) {
   }
 }
 
+/**
+ * get the scale name, if alias exist, return alias, or else field
+ * @param scale
+ * @returns the name of field
+ */
 export function getName(scale: Scale): string {
   return scale.alias || scale.field;
 }

@@ -1,3 +1,5 @@
+import * as _ from '@antv/util';
+
 /** antv 主题色 */
 const DEFAULT_COLOR = '#1890FF';
 /** 10 个分类以内的色板 */
@@ -86,6 +88,57 @@ const SHAPE_STYLE = {
     stroke: DEFAULT_COLOR,
     r: 3,
   },
+};
+
+const AXIS_STYLE = {
+  position: '',
+  title: {
+    autoRotate: true,
+    position: 'center', // start, center, end
+    style: {
+      fill: '#545454',
+      fontSize: 12,
+      lineHeight: 16,
+      textBaseline: 'middle',
+      fontFamily: FONT_FAMILY,
+    },
+    offset: 32,
+  },
+  label: {
+    autoRotate: true,
+    autoHide: true,
+    offset: 16,
+    style: {
+      fill: '#545454',
+      fontSize: 12,
+      lineHeight: 16,
+      textBaseline: 'middle',
+      fontFamily: FONT_FAMILY,
+    },
+  },
+  line: {
+    style: {
+      lineWidth: 1,
+      stroke: '#BFBFBF',
+    },
+  },
+  tickLine: {
+    style: {
+      lineWidth: 1,
+      stroke: '#BFBFBF',
+    },
+    alignTick: false,
+    length: 5,
+  },
+  subTickCount: {
+    style: {
+      lineWidth: 1,
+      stroke: '#BFBFBF',
+    },
+    count: 4,
+    length: 2,
+  },
+  verticalFactor: 1,
 };
 
 export default {
@@ -236,6 +289,26 @@ export default {
     },
     smoothLine: {
       default: SHAPE_STYLE.hollowArea,
+    },
+  },
+  components: {
+    axis: {
+      top: AXIS_STYLE,
+      bottom: AXIS_STYLE,
+      left: _.deepMix({}, AXIS_STYLE, {
+        label: {
+          offset: 8,
+        },
+        line: null,
+        tickLine: null,
+      }),
+      right: _.deepMix({}, AXIS_STYLE, {
+        label: {
+          offset: 8,
+        },
+        line: null,
+        tickLine: null,
+      }),
     },
   },
 };

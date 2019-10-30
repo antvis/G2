@@ -2,6 +2,7 @@ import * as _ from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { Line as LineAxis, Scale } from '../../dependents';
 import { getAxisFactor, getAxisRegion } from '../../util/axis';
+import { getName } from '../../util/scale';
 import { AxisOption, ComponentOption } from '../interface';
 import View from '../view';
 
@@ -19,6 +20,20 @@ function getAxisOption(axes: Record<string, AxisOption> | boolean, field: string
 }
 
 /**
+ * get axis component cfg
+ * @param view
+ * @param option
+ * @param baseAxisCfg
+ * @param direction
+ * @returns get the total axis cfg
+ */
+function getAxisCfg(view: View, option: AxisOption, baseAxisCfg: object, direction: DIRECTION): object {
+  const axisTheme = _.get(view.getTheme(), ['components', 'axis', direction], {});
+
+  return _.deepMix({}, axisTheme, baseAxisCfg, option);
+}
+
+/**
  * 创建 x axis 组件
  * @param axes axes 用户配置
  * @param view
@@ -31,21 +46,23 @@ function createXAxes(axes: Record<string, AxisOption> | boolean, view: View): Co
     return axisArray;
   }
 
-  const direction = DIRECTION.BOTTOM;
-
   const xAxisOption = getAxisOption(axes, xScale.field);
 
   if (xAxisOption !== false) {
+    const direction = DIRECTION.BOTTOM;
     const layer = LAYER.BG;
-    const component = new LineAxis({
+
+    const axisCfg = {
       container: view.getLayer(layer).addGroup(),
       ...getAxisRegion(view.getCoordinate(), direction),
       ticks: _.map(xScale.getTicks(), (tick) => ({ name: tick.text, value: tick.value })),
       title: {
-        text: `${xScale.field}`,
+        text: getName(xScale),
       },
       verticalFactor: getAxisFactor(direction),
-    });
+    };
+
+    const component = new LineAxis(getAxisCfg(view, xAxisOption, axisCfg, direction));
 
     component.render();
 
@@ -72,27 +89,28 @@ function createYAxes(axes: Record<string, AxisOption> | boolean, view: View): Co
 
     if (yAxisOption !== false) {
       const layer = LAYER.BG;
+      const direction = idx === 0 ? DIRECTION.LEFT : DIRECTION.RIGHT;
 
-      const component = new LineAxis({
+      const axisCfg = {
         container: view.getLayer(layer).addGroup(),
         // 初始的位置大小方向，y 不同是垂直方向的
-        start: view.getCoordinate().convert({ x: 0, y: 0 }),
-        end: view.getCoordinate().convert({ x: 0, y: 1 }),
+        ...getAxisRegion(view.getCoordinate(), direction),
         ticks: _.map(yScale.getTicks(), (tick) => ({ name: tick.text, value: tick.value })),
         title: {
-          text: `${yScale.field}`,
+          text: getName(yScale),
         },
-      });
+      };
+
+      const component = new LineAxis(getAxisCfg(view, yAxisOption, axisCfg, direction));
 
       component.render();
 
       axisArray.push({
         // @ts-ignore
         component,
-        // component: new Axis(view.getLayer(layer).addGroup(), [0, 0], { text: `axis ${yScale.field}` }),
         layer,
         // 如果有两个，则是双轴图
-        direction: idx === 0 ? DIRECTION.LEFT : DIRECTION.RIGHT,
+        direction,
         type: COMPONENT_TYPE.AXIS,
       });
     }
