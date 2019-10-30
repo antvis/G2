@@ -1,4 +1,4 @@
-import { createScaleByField, syncScale } from '../../../src/util/scale';
+import { createScaleByField, getName, syncScale } from '../../../src/util/scale';
 
 describe('ScaleUtil', () => {
   const data1 = [{ a: 1, b: '2', c: '2010-01-01', d: 1, e: null }];
@@ -86,5 +86,12 @@ describe('ScaleUtil', () => {
     const newScale = createScaleByField('name', newData);
     syncScale(oldScale, newScale);
     expect(oldScale.values).toEqual(['C', 'B']);
+  });
+
+  it('getName', () => {
+    const scale = createScaleByField('b', data1);
+    expect(getName(scale)).toBe('b');
+    const aliasScale = createScaleByField('b', data1, { alias: '字段 B' });
+    expect(getName(aliasScale)).toBe('字段 B');
   });
 });
