@@ -1,8 +1,10 @@
 import { Coordinate } from '@antv/coord';
 import { Group } from '@antv/g';
 
+type Func = (...args: any[]) => any;
+
 export interface CommonCfg {
-  [ k: string ]: any;
+  [k: string]: any;
 }
 
 export interface GuideCfg {
@@ -22,7 +24,7 @@ export interface GuideCfg {
   // readonly offset: [ number, number ];
   readonly offsetX?: number;
   readonly offsetY?: number;
-  readonly position?: [ number, number ];
+  readonly position?: [number, number];
   readonly visible?: boolean;
   readonly zIndex?: number;
   [key: string]: any;
@@ -34,31 +36,33 @@ export interface Attrs {
   [key: string]: any; // todo，需要等 Attrs 模块重构完毕才确定结构
 }
 
-export interface LabelType { // TODO G.Shape / DOM
+export interface LabelType {
+  // TODO G.Shape / DOM
   readonly tagName?: string;
   readonly innerHTML?: string;
   readonly id?: string;
-  readonly attr: Function;
-  readonly resetMatrix?: Function;
+  readonly attr: Func;
+  readonly resetMatrix?: Func;
   readonly textStyle?: {
-    [key:string]: any;
+    [key: string]: any;
   };
-  readonly getBBox: Function;
-  readonly remove: Function;
+  readonly getBBox: Func;
+  readonly remove: Func;
 }
 
 export interface ShapeType {
-  readonly getBBox: Function;
+  readonly getBBox: Func;
 }
 
 export interface TextType {
   readonly x: number;
   readonly y: number;
   readonly text: string;
+  readonly angle?: number;
   readonly fontSize?: number;
   readonly fontFamily?: string;
   readonly fontStyle?: string;
-  readonly fontWeight?: string|number;
+  readonly fontWeight?: string | number;
   readonly fontVariant?: string;
   readonly textAlign?: string;
   readonly textBaseline?: string;
@@ -66,22 +70,26 @@ export interface TextType {
   readonly textArr?: string;
 }
 
+export interface LabelItem extends TextType {
+  id: string;
+}
+
 export interface PointType {
   x: number;
   y: number;
 }
 export interface GroupType {
-  readonly getBBox: Function;
-  readonly move: Function;
-  readonly setSilent:Function;
-  readonly findBy: Function;
-  readonly get: Function;
-  readonly set: Function;
+  readonly getBBox: Func;
+  readonly move: Func;
+  readonly setSilent: Func;
+  readonly findBy: Func;
+  readonly get: Func;
+  readonly set: Func;
 }
 export interface LegendItem {
-  value:string;
-  checked:boolean;
-  marker:any;
+  value: string;
+  checked: boolean;
+  marker: any;
 }
 export interface EventType {
   x: number;
@@ -100,7 +108,7 @@ export interface EventType {
   defaultPrevented: boolean;
   propagationStopped: boolean; // 阻止冒泡
   event: any;
-  [key:string]:any;
+  [key: string]: any;
 }
 
 // 图例通用配置项
@@ -110,7 +118,7 @@ export interface LegendCfg extends GuideCfg {
   readonly x?: number;
   readonly y?: number;
   readonly items?: CommonCfg[]; // 图例项配置, TODO: 确定了分类和连续 item 的配置后再修改
-  readonly formatter?: Function; // 文本格式化函数
+  readonly formatter?: Func; // 文本格式化函数
 }
 
 // 分类图例通用配置
@@ -133,7 +141,7 @@ export interface CategoryLegendCfg extends LegendCfg {
 
 // Canvas 分类图例配置
 export interface CanvasCategoryLegendCfg extends CategoryLegendCfg {
-  readonly textStyle: CommonCfg;  // 图例项目文本样式
+  readonly textStyle: CommonCfg; // 图例项目文本样式
   readonly titleDistance: number; // 标题和图例项的间距
   readonly itemDistance?: number; // 图例项之间水平方向的间距
   readonly autoWrap: boolean; // 图例项是否自动换行
@@ -152,7 +160,7 @@ export interface HTMLCategoryLegendCfg extends CategoryLegendCfg {
   readonly maxWidth: number; // 图例最大宽度
   readonly maxHeight: number; // 图例最大高度
   readonly containerTpl?: string; // HTML 容器的模板
-  readonly itemTpl?: string | Function; // 图例项模板，支持回调函数自定义
+  readonly itemTpl?: string | Func; // 图例项模板，支持回调函数自定义
   readonly pagination: CommonCfg | false; // 分页器样式
   readonly prefixClassName?: string; // 样式类名前缀
   readonly itemStyle?: CommonCfg; // 图例项 dom css 样式
@@ -205,7 +213,7 @@ interface Tick {
 }
 interface TickLine {
   length?: number; // 刻度线的长度
-  [ key: string ]: any;
+  [key: string]: any;
 }
 type gridCallback = (text: string, index: number, total: number) => CommonCfg | null;
 interface AxisLabelOption {
