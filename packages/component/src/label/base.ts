@@ -1,53 +1,53 @@
-
-import * as Util from '@antv/util';
-import * as G from '@antv/g';
 import * as domUtil from '@antv/dom-util';
+import * as G from '@antv/g';
+import * as Util from '@antv/util';
 import Guide from '../base';
-import { GuideCfg, TextType } from '../interface';
+import { GuideCfg, LabelItem } from '../interface';
+import bboxAdjust from './adjust/bbox';
 import positionAdjust from './adjust/position';
 import spirialAdjust from './adjust/spiral';
-import bboxAdjust from './adjust/bbox';
+
+type Func = (...args: any[]) => any;
 
 interface Layouts {
-  [key: string]: Function|undefined;
+  [key: string]: Func | undefined;
 }
 
 interface LabelCfg extends GuideCfg {
-  readonly name?: string,
+  readonly name?: string;
   /**
    * label类型
    */
-  readonly type?: string,
+  readonly type?: string;
   /**
    * 显示的文本集合
    */
-  readonly items?: TextType[] | null,
+  readonly items?: LabelItem[] | null;
   /**
    * 是否使用html渲染label
    */
-  readonly useHtml?: boolean,
+  readonly useHtml?: boolean;
   /**
    * html 渲染时用的容器的模板，必须存在 class = "g-labels"
    */
-  readonly containerTpl?: string,
+  readonly containerTpl?: string;
   /**
    * html 渲染时单个 label 的模板，必须存在 class = "g-label"
    */
-  readonly itemTpl?: string,
+  readonly itemTpl?: string;
   /**
    * label牵引线容器
    */
-  readonly lineGroup?: object | null,
+  readonly lineGroup?: object | null;
   /**
    * 需添加label的shape
    */
-  readonly shapes?: object[] | null,
+  readonly shapes?: object[] | null;
   // 其他
   readonly group?: G.Group;
   readonly canvas?: G.Canvas;
   readonly coord?: any;
 }
-
 
 const LAYOUTS: Layouts = {
   scatter: positionAdjust,
@@ -56,7 +56,6 @@ const LAYOUTS: Layouts = {
 };
 
 class Label extends Guide<LabelCfg> {
-
   constructor(cfg?: LabelCfg) {
     super({
       name: 'label',
@@ -74,9 +73,9 @@ class Label extends Guide<LabelCfg> {
   }
 
   /**
-     * label绘制全过程
-     */
-  render() {
+   * label绘制全过程
+   */
+  public render() {
     this.clear();
     this._init();
     this.emit('beforerender');
@@ -91,7 +90,7 @@ class Label extends Guide<LabelCfg> {
    * 3. 画label连接线
    * 4. 绘制到画布
    */
-  draw(canvasDraw = true) {
+  public draw(canvasDraw = true) {
     this._dryDraw();
     canvasDraw && this.get('canvas').draw();
   }
@@ -99,7 +98,7 @@ class Label extends Guide<LabelCfg> {
   /*
    * 清空label容器
    */
-  clear() {
+  public clear() {
     const group = this.get('group');
     const container = this.get('container');
     if (group && !group.destroyed) {
@@ -113,7 +112,7 @@ class Label extends Guide<LabelCfg> {
   /**
    * 销毁group
    */
-  destroy() {
+  public destroy() {
     super.destroy();
     const group = this.get('group');
     const container = this.get('container');
@@ -125,46 +124,13 @@ class Label extends Guide<LabelCfg> {
     }
   }
 
-  // label 容器初始化
-  private _init() {
-    if (!this.get('group')) {
-      const group = this.get('canvas').addGroup({
-        id: 'label-group',
-      });
-      this.set('group', group);
-    }
-  }
-
-  private _dryDraw() {
-    const items = this.get('items');
-    const children = this.getLabels();
-    const count = children.length;
-    Util.each(items, (item:any, index:number) => {
-      if (index < count) {
-        const label = children[index];
-        this.changeLabel(label, item);
-      } else {
-        const labelShape = this._createText(item);
-        if (labelShape) {
-          labelShape.id = item.id;
-          labelShape.set('coord', item.coord);
-        }
-      }
-    });
-    for (let i = count - 1; i >= items.length; i -= 1) {
-      children[i].remove();
-    }
-    this._adjustLabels();
-    this.drawLines();
-  }
-
   /*
    * 更新label
    * oldLabel shape或label dom
    * newLabel label data
    * index items中的下标
    */
-  changeLabel(oldLabel:any, newLabel:any) {
+  public changeLabel(oldLabel: any, newLabel: any) {
     if (!oldLabel) {
       return;
     }
@@ -189,7 +155,7 @@ class Label extends Guide<LabelCfg> {
   /**
    * 显示label
    */
-  show() {
+  public show() {
     const group = this.get('group');
     const container = this.get('container');
     if (group) {
@@ -203,7 +169,7 @@ class Label extends Guide<LabelCfg> {
   /**
    * 隐藏label
    */
-  hide() {
+  public hide() {
     const group = this.get('group');
     const container = this.get('container');
     if (group) {
@@ -217,7 +183,7 @@ class Label extends Guide<LabelCfg> {
   /**
    * 画label连接线
    */
-  drawLines() {
+  public drawLines() {
     let lineGroup = this.get('lineGroup');
     if (!lineGroup || lineGroup.destroyed) {
       lineGroup = this.get('group').addGroup();
@@ -225,13 +191,14 @@ class Label extends Guide<LabelCfg> {
     } else {
       lineGroup.clear();
     }
-    Util.each(this.get('items'), (label:any) => {
+    Util.each(this.get('items'), (label: any) => {
       this._lineToLabel(label, lineGroup);
     });
   }
 
-  _lineToLabel(label:any, lineGroup:any) {
-    if (!label.labelLine) { // labelLine: null | false，关闭 label 对应的 labelLine
+  public _lineToLabel(label: any, lineGroup: any) {
+    if (!label.labelLine) {
+      // labelLine: null | false，关闭 label 对应的 labelLine
       return;
     }
     const lineStyle = Util.isBoolean(label.labelLine) ? {} : label.labelLine; // 兼容 labelLine: true，此时使用默认的样式
@@ -242,10 +209,7 @@ class Label extends Guide<LabelCfg> {
     }
     if (!path) {
       const start = label.start;
-      path = [
-        [ 'M', start.x, start.y ],
-        [ 'L', label.x, label.y ],
-      ];
+      path = [['M', start.x, start.y], ['L', label.x, label.y]];
     }
     let stroke = label.color;
     if (!stroke) {
@@ -263,7 +227,7 @@ class Label extends Guide<LabelCfg> {
           stroke,
           fill: null,
         },
-        lineStyle,
+        lineStyle
       ),
     });
     // label 对应线的动画关闭
@@ -274,7 +238,7 @@ class Label extends Guide<LabelCfg> {
   }
 
   // 根据type对label布局
-  _adjustLabels() {
+  public _adjustLabels() {
     const type = this.get('type');
     const labels = this.getLabels();
     const shapes = this.get('shapes');
@@ -289,7 +253,7 @@ class Label extends Guide<LabelCfg> {
    * 获取当前所有label实例
    * @return {Array} 当前label实例
    */
-  getLabels() {
+  public getLabels() {
     const container = this.get('container');
     if (container) {
       return Util.toArray(container.childNodes);
@@ -299,7 +263,7 @@ class Label extends Guide<LabelCfg> {
   }
 
   // 分html dom和G shape两种情况生成label实例
-  _createText(oldcfg: any) {
+  public _createText(oldcfg: any) {
     let cfg = oldcfg;
     let container = this.get('container');
     const capture = typeof cfg.capture === 'undefined' ? this.get('capture') : cfg.capture;
@@ -330,7 +294,7 @@ class Label extends Guide<LabelCfg> {
             textAlign: cfg.textAlign,
             text: cfg.text,
           },
-          cfg.textStyle,
+          cfg.textStyle
         );
       }
       labelShape = group.addShape('text', {
@@ -340,14 +304,10 @@ class Label extends Guide<LabelCfg> {
       if (rotate) {
         // rotate是用角度定义的，转换为弧度
         if (Math.abs(rotate) > Math.PI * 2) {
-          rotate = rotate / 180 * Math.PI;
+          rotate = (rotate / 180) * Math.PI;
         }
 
-        labelShape.transform([
-          [ 't', -cfg.x, -cfg.y ],
-          [ 'r', rotate ],
-          [ 't', cfg.x, cfg.y ],
-        ]);
+        labelShape.transform([['t', -cfg.x, -cfg.y], ['r', rotate], ['t', cfg.x, cfg.y]]);
       }
       labelShape.setSilent('origin', origin || cfg);
       labelShape.name = name; // 用于事件标注
@@ -356,7 +316,7 @@ class Label extends Guide<LabelCfg> {
     }
   }
 
-  _initHtmlContainer() {
+  public _initHtmlContainer() {
     let container = this.get('container');
     if (!container) {
       const containerTpl = this.get('containerTpl');
@@ -369,13 +329,13 @@ class Label extends Guide<LabelCfg> {
     return container;
   }
 
-  _createDom(cfg:any) {
+  public _createDom(cfg: any) {
     const itemTpl = this.get('itemTpl');
     const str = Util.substitute(itemTpl, { text: cfg.text });
     return domUtil.createDom(str);
   }
   // 根据文本对齐方式确定dom位置
-  _setCustomPosition(cfg:any, htmlDom:any) {
+  public _setCustomPosition(cfg: any, htmlDom: any) {
     const textAlign = cfg.textAlign || 'left';
     let top = cfg.y;
     let left = cfg.x;
@@ -391,6 +351,39 @@ class Label extends Guide<LabelCfg> {
 
     htmlDom.style.top = `${parseInt(top, 10)}px`;
     htmlDom.style.left = `${parseInt(left, 10)}px`;
+  }
+
+  // label 容器初始化
+  private _init() {
+    if (!this.get('group')) {
+      const group = this.get('canvas').addGroup({
+        id: 'label-group',
+      });
+      this.set('group', group);
+    }
+  }
+
+  private _dryDraw() {
+    const items = this.get('items');
+    const children = this.getLabels();
+    const count = children.length;
+    Util.each(items, (item: any, index: number) => {
+      if (index < count) {
+        const label = children[index];
+        this.changeLabel(label, item);
+      } else {
+        const labelShape = this._createText(item);
+        if (labelShape) {
+          labelShape.id = item.id;
+          labelShape.set('coord', item.coord);
+        }
+      }
+    });
+    for (let i = count - 1; i >= items.length; i -= 1) {
+      children[i].remove();
+    }
+    this._adjustLabels();
+    this.drawLines();
   }
 }
 

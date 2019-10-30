@@ -298,7 +298,7 @@ describe('StateController', () => {
     stateController._clearActiveShapes();
     stateController._clearSelectedShapes();
     stateController._clearInactiveShapes();
-    canvas.draw();
+    canvas && canvas.draw();
 
     stateController.unbind();
 

@@ -5,13 +5,10 @@ Label 是文本标签类，负责渲染图表相关的文本标签，包括坐�
 ```ts
 import { Label } from `@antv/guide`;
 
-const label:Label = new Label({
+const label: Label = new Label({
   name: 'point-label',
   type: 'scatter',
-  items: [
-    { x: 125, y: 124, text: 'test1' },
-    { x: 135, y: 134, text: 'test2' },
-  ],
+  items: [{ x: 125, y: 124, text: 'test1' }, { x: 135, y: 134, text: 'test2' }],
 });
 label.render();
 ```
@@ -22,35 +19,35 @@ label.render();
 
 ```ts
 interface LabelCfg extends GuideCfg {
-  readonly name?: string,
+  readonly name?: string;
   /**
    * label类型
    */
-  readonly type?: string,
+  readonly type?: string;
   /**
    * 显示的文本集合
    */
-  readonly items: TextType[] | null,
+  readonly items: LabelItem[] | null;
   /**
    * 是否使用html渲染label
    */
-  readonly useHtml?: boolean,
+  readonly useHtml?: boolean;
   /**
    * html 渲染时用的容器的模板，必须存在 class = "g-labels"
    */
-  readonly containerTpl?: string,
+  readonly containerTpl?: string;
   /**
    * html 渲染时单个 label 的模板，必须存在 class = "g-label"
    */
-  readonly itemTpl?: string,
+  readonly itemTpl?: string;
   /**
    * label牵引线容器
    */
-  readonly lineGroup?: object | null,
+  readonly lineGroup?: object | null;
   /**
    * 需添加label的shape
    */
-  readonly shapes?: object[] | null,
+  readonly shapes?: object[] | null;
 }
 ```
 
