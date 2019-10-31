@@ -65,7 +65,7 @@ describe('Element', () => {
         animate: true,
       });
 
-      expect(element.shape.get('name')).toBe('circle');
+      expect(element.shape.get('name')).toBe('shapes');
       expect(container.get('children').length).toBe(1);
       expect(container.get('children')[0]).toEqual(element.shape);
       expect(element.getOriginStyle().fill).toEqual('#333');
@@ -176,7 +176,7 @@ describe('Element', () => {
     });
   });
 
-  describe('getAnimateCfg()', () => {
+  describe('get animation configuration and event.', () => {
     const coordinate = new Rect({
       start: { x: 0, y: 0 },
       end: { x: 200, y: 200 },
@@ -223,6 +223,18 @@ describe('Element', () => {
       });
       // @ts-ignore
       expect(element.getAnimateCfg('destroy')).toBe(null);
+    });
+
+    it('event', () => {
+      const shape = element.shape;
+
+      let called = false;
+      element.container.on('element:click', () => {
+        called = true;
+      });
+
+      shape.emit('click', { type: 'click' });
+      expect(called).toBe(true);
     });
   });
 });

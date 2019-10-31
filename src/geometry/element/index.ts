@@ -1,3 +1,4 @@
+import EE from '@antv/event-emitter';
 import * as _ from '@antv/util';
 import { IGroup, IShape } from '../../dependents';
 import { AnimateOption, Datum, LooseObject, ShapeDrawCFG, ShapeFactory, ShapeInfo } from '../../interface';
@@ -21,7 +22,7 @@ interface ElementCfg {
 }
 
 /** @class Element 图形元素 */
-export default class Element {
+export default class Element extends EE {
   /** 绘制的 shape 类型 */
   public readonly shapeType: string;
   /** 原始数据 */
@@ -47,6 +48,7 @@ export default class Element {
   private originStyle: LooseObject = {};
 
   constructor(cfg: ElementCfg) {
+    super();
     const { data, model, shapeType, shapeFactory, theme, container, animate } = cfg;
     this.data = data;
     this.model = model;
@@ -62,6 +64,7 @@ export default class Element {
       this.drawShape();
       // 存储初始样式
       this.setOriginStyle();
+      this.initEvents();
     }
   }
 
@@ -108,6 +111,8 @@ export default class Element {
     this.states = [];
     this.originStyle = {};
     this.destroyed = true;
+
+    this.off();
   }
 
   /**
@@ -230,8 +235,8 @@ export default class Element {
     // 存储绘图数据
     shape.set('origin', drawCfg);
     if (!shape.get('name')) {
-      // 如果用户已设置 name 属性则忽略
-      shape.set('name', shapeType);
+      // 用于支持 name:eventName 事件，如果用户已设置 name 属性则忽略
+      shape.set('name', shapeFactory.geometryType);
     }
     this.shape = shape;
   }
@@ -251,6 +256,19 @@ export default class Element {
       this.originStyle = {
         ...shape.attr(),
       };
+    }
+  }
+
+  // bind events
+  private initEvents() {
+    const shape = this.shape;
+    const container = this.container;
+    // 抛出 element:eventName 事件
+    if (shape) {
+      shape.on('*', (ev) => {
+        // 当前 element 上的元素被捕获，抛出事件
+        container.emit(`element:${ev.type}`, ev);
+      });
     }
   }
 }
