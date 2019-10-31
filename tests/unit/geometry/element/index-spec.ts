@@ -228,13 +228,11 @@ describe('Element', () => {
     it('event', () => {
       const shape = element.shape;
 
-      let called = false;
-      element.container.on('element:click', () => {
-        called = true;
-      });
-
+      const fn = jest.fn();
+      element.container.on('element:click', fn);
       shape.emit('click', { type: 'click' });
-      expect(called).toBe(true);
+
+      expect(fn).toBeCalled();
     });
   });
 });
