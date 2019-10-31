@@ -10,7 +10,7 @@ describe('Chart', () => {
     container: div,
     width: 800,
     height: 600,
-    padding: 10,
+    padding: 16,
     autoFit: false,
   });
 
@@ -20,22 +20,17 @@ describe('Chart', () => {
     // @ts-ignore
     .interval()
     .position('city*sale')
-    .color('category');
+    .color('category')
+    .adjust({ type: 'dodge' });
 
   chart.render();
-  // chart.render();
 
-  it('axis component', () => {
-    const axes = chart.getOptions().components.filter((co) => co.type === COMPONENT_TYPE.AXIS);
-    expect(axes.length).toBe(2);
+  it('legend component', () => {
+    const legends = chart.getOptions().components.filter((co) => co.type === COMPONENT_TYPE.LEGEND);
+    expect(legends.length).toBe(1);
 
-    // test the component theme config
-    const [x, y] = axes;
+    // two legend items
     // @ts-ignore
-    expect(x.component.get('label').offset).toBe(16);
-    // @ts-ignore
-    expect(y.component.get('title').offset).toBe(32);
-    // @ts-ignore
-    expect(y.component.get('label').offset).toBe(8);
+    expect(legends[0].component.get('items').length).toBe(2);
   });
 });

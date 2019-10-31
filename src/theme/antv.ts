@@ -141,6 +141,21 @@ const AXIS_STYLE = {
   verticalFactor: 1,
 };
 
+const LEGEND_STYLE = {
+  title: null,
+  marker: { symbol: 'circle', r: 4, stroke: DEFAULT_COLOR, fill: DEFAULT_COLOR },
+  itemName: {
+    spacing: 5, // 如果右边有 value 使用这个间距
+    style: {
+      fill: '#545454',
+      fontFamily: FONT_FAMILY,
+      fontSize: 12,
+      textAlign: 'start',
+      textBaseline: 'middle',
+    },
+  },
+};
+
 export default {
   defaultColor: DEFAULT_COLOR,
   padding: 'auto',
@@ -308,6 +323,20 @@ export default {
         },
         line: null,
         tickLine: null,
+      }),
+    },
+    legend: {
+      right: _.deepMix({}, LEGEND_STYLE, {
+        layout: 'vertical',
+      }),
+      left: _.deepMix({}, LEGEND_STYLE, {
+        layout: 'vertical',
+      }),
+      top: _.deepMix({}, LEGEND_STYLE, {
+        layout: 'horizontal',
+      }),
+      bottom: _.deepMix({}, LEGEND_STYLE, {
+        layout: 'horizontal',
       }),
     },
   },

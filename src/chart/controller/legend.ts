@@ -1,7 +1,7 @@
 import * as _ from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
-import { Attribute } from '../../dependents';
-import { Legend } from '../__components__';
+import { Attribute, Category } from '../../dependents';
+import { getLegendItems, getLegendLayout } from '../../util/legend';
 import { ComponentOption, LegendOption } from '../interface';
 import View from '../view';
 
@@ -16,6 +16,19 @@ function getLegendOption(legends: Record<string, LegendOption> | boolean, field:
   } else {
     return _.get(legends, [field]);
   }
+}
+
+/**
+ * get legend config, use option > suggestion > theme
+ * @param view
+ * @param baseCfg
+ * @param legendOption
+ * @param direction
+ */
+function getLegendCfg(view: View, baseCfg: object, legendOption: LegendOption, direction: DIRECTION) {
+  const themeObject = _.get(view.getTheme(), ['components', 'legend', direction], {});
+
+  return _.deepMix({}, themeObject, baseCfg, legendOption);
 }
 
 /**
@@ -34,18 +47,42 @@ export function createLegends(legends: Record<string, LegendOption> | boolean, v
       // 如果在视觉通道上映射常量值则不会生成 scale，如 size(2) shape('circle')
       return;
     }
-    const legendCfg = getLegendOption(legends, scale.field);
+    const legendOption = getLegendOption(legends, scale.field);
+
+    const layer = LAYER.FORE;
+    const container = view.getLayer(layer);
+    // if position is not set, use top as default
+    const direction = _.get(legendOption, 'position', DIRECTION.TOP);
 
     // 如果配置中，用户没有关闭 legend，则添加组件
-    if (legendCfg !== false) {
-      const layer = LAYER.FORE;
-      const container = view.getLayer(layer);
-      legendArray.push({
-        component: new Legend(container.addGroup(), [0, 0], { text: `legend ${scale.field}` }),
-        layer,
-        direction: DIRECTION.TOP,
-        type: COMPONENT_TYPE.LEGEND,
-      });
+    if (legendOption !== false) {
+      if (scale.isCategory) {
+        const marker = _.get(
+          legendOption,
+          'marker',
+          _.get(view.getTheme(), ['components', 'legend', direction, 'marker'])
+        );
+
+        const baseCfg = {
+          container,
+          layout: getLegendLayout(direction),
+          items: getLegendItems(attr, marker),
+        };
+
+        const component = new Category(getLegendCfg(view, baseCfg, legendOption, direction));
+
+        component.render();
+
+        legendArray.push({
+          // @ts-ignore
+          component,
+          layer,
+          direction,
+          type: COMPONENT_TYPE.LEGEND,
+        });
+      } else if (scale.isLinear) {
+        // todo, when scale is linear, use continuous legend by the attribute instance.
+      }
     }
   });
 
