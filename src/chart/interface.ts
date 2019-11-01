@@ -1,7 +1,7 @@
 import Component from '../component';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../constant';
 import { ICanvas, IGroup } from '../dependents';
-import Interaction from '../interaction';
+import Interaction from '../interaction/base';
 import { Data, Datum, Padding, Region, Renderer } from '../interface';
 import View from './view';
 
