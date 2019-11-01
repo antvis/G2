@@ -18,7 +18,7 @@ export function getInteraction(name: string): InteractionConstructor {
  * @param interaction the interaction which extends [[Interaction]]
  */
 export function registerInteraction(name: string, interaction: InteractionConstructor) {
-  Interactions[name] = interaction;
+  Interactions[_.lowerCase(name)] = interaction;
 }
 
 export { default as Interaction, InteractionConstructor } from './base';
