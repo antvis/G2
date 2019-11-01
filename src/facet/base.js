@@ -153,9 +153,7 @@ class Base {
     const geoms = view.get('geoms');
     if ((!viewOptions.coord.type || viewOptions.coord.type === 'rect') && geoms.length) {
       const field = geoms[0].get('attrOptions').position.field;
-      const fields = isArray(field) ? field : field.split('*').map(function(str) {
-        return str.trim();
-      });
+      const fields = isArray(field) ? field : field.split('*').map(str => str.trim());
       const xField = fields[0];
       const yField = fields[1];
       if (isNil(viewOptions.axes)) {
@@ -229,9 +227,9 @@ class Base {
    * @return {Function} 过滤函数
    */
   getFilter(conditions) {
-    const filter = function(obj) {
+    const filter = obj => {
       let filtered = true;
-      conditions.forEach(function(cond) {
+      conditions.forEach(cond => {
         const field = cond.field;
         const value = cond.value;
         // const values = cond.values;

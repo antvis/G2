@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const Helix = require('@antv/coord/lib/helix');
 
-describe('Helix', function() {
+describe('Helix', () => {
   const coord = new Helix({
     start: {
       x: 0,
@@ -13,7 +13,7 @@ describe('Helix', function() {
     }
   });
 
-  it('constructor', function() {
+  it('constructor', () => {
     const center = coord.center;
 
     expect(center.x).to.equal(100);
@@ -25,7 +25,7 @@ describe('Helix', function() {
   });
 
   // TODO
-  it('convert & invert', function() {
+  it('convert & invert', () => {
     let point2 = {
       x: 0,
       y: 0

@@ -7,7 +7,7 @@ describe('#708', () => {
   document.body.appendChild(div);
   div.id = 'issue708';
 
-  it('the new legend will always be checked', function() {
+  it('the new legend will always be checked', () => {
     const chart = new G2.Chart({
       container: 'issue708',
       width: 500,

@@ -114,7 +114,7 @@ class PlotBack extends Group {
     if (Util.isString(val)) {
       if (val === AUTO_STR) {
         val = 0;
-      } else if (val.indexOf('%') !== -1) {
+      } else if (val.includes('%')) {
         const canvas = this.get('canvas');
         const width = this.get('width') || canvas.get('width');
         const height = this.get('height') || canvas.get('height');

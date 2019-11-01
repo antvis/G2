@@ -162,7 +162,7 @@ Shape.registerShape('point', 'rect', {
 });
 
 // 添加shapes
-Util.each(SHAPES, function(shape) {
+Util.each(SHAPES, shape => {
   Shape.registerShape('point', shape, {
     draw(cfg, container) {
       // cfg.points = this.parsePoints(cfg.points);
@@ -205,7 +205,7 @@ Util.each(SHAPES, function(shape) {
 });
 
 // 添加 hollowShapes
-Util.each(HOLLOW_SHAPES, function(shape) {
+Util.each(HOLLOW_SHAPES, shape => {
   Shape.registerShape('point', shape, {
     draw(cfg, container) {
       const attrs = getLineAttrs(cfg);

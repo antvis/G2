@@ -26,7 +26,7 @@ const coord = new Coord.Rect({
   }
 });
 
-describe('test view', function() {
+describe('test view', () => {
   const backPlot = canvas.addGroup();
   const group = canvas.addGroup();
   const view = new View({
@@ -68,23 +68,23 @@ describe('test view', function() {
     }
   });
 
-  it('init', function() {
+  it('init', () => {
     expect(view.get('scaleController')).not.equal(null);
     expect(view.get('axisController')).not.equal(null);
     expect(view.get('guideController')).not.equal(null);
   });
 
-  it('options', function() {
+  it('options', () => {
     expect(view.get('options').scales).not.equal(undefined);
     expect(view.get('options').axes).not.equal(undefined);
   });
 
-  it('geom method', function() {
+  it('geom method', () => {
     expect(view.line).to.be.a('function');
     expect(view.point).to.be.a('function');
   });
 
-  it('scale', function() {
+  it('scale', () => {
     view.scale('a', {
       type: 'linear',
       min: 0
@@ -92,7 +92,7 @@ describe('test view', function() {
     expect(view.get('options').scales.a.min).equal(0);
   });
 
-  it('axis', function() {
+  it('axis', () => {
     view.axis(false);
     expect(view.get('options').axes).to.be.false;
     view.axis(true);
@@ -108,7 +108,7 @@ describe('test view', function() {
     expect(view.get('options').axes.a.title).not.to.be.null;
   });
 
-  it('guide', function() {
+  it('guide', () => {
     view.guide().line({
       start: {
         a: 1,
@@ -128,7 +128,7 @@ describe('test view', function() {
     expect(guideController.options.line).not.to.be.null;
   });
 
-  it('source', function() {
+  it('source', () => {
     const data = [
       { a: 1, b: 2 },
       { a: 2, b: 5 },
@@ -138,13 +138,13 @@ describe('test view', function() {
     expect(view.get('data')).equal(data);
   });
 
-  it('add geom', function() {
+  it('add geom', () => {
     const line = view.line().position('a*b');
     expect(view.get('geoms').length).equal(1);
     expect(view.get('geoms')[0]).equal(line);
   });
 
-  it('render', function() {
+  it('render', () => {
     view.render();
     expect(group.getCount()).equal(1);
     const ascale = view.get('scales').a;
@@ -155,7 +155,7 @@ describe('test view', function() {
     canvas.draw();
   });
 
-  it('change data', function() {
+  it('change data', () => {
     const data = [
       { a: 1, b: 2 },
       { a: 2, b: 5 },
@@ -173,13 +173,13 @@ describe('test view', function() {
     canvas.draw();
   });
 
-  it('clear', function() {
+  it('clear', () => {
     view.clear();
     expect(view.get('geoms').length).equal(0);
     expect(group.getCount()).equal(0);
   });
 
-  it('destroy', function() {
+  it('destroy', () => {
     view.destroy();
     expect(view.destroyed).equal(true);
     group.remove();
@@ -187,7 +187,7 @@ describe('test view', function() {
   });
 });
 
-describe('test view all options', function() {
+describe('test view all options', () => {
   const backPlot = canvas.addGroup();
   const group = canvas.addGroup();
 
@@ -227,17 +227,17 @@ describe('test view all options', function() {
       ]
     }
   });
-  it('init', function() {
+  it('init', () => {
     expect(view.get('coordController').actions.length).equal(1);
   });
-  it('render', function() {
+  it('render', () => {
     view.render();
     expect(view.get('geoms').length).equal(2);
     const line = view.get('geoms')[0];
     expect(line.get('attrOptions').position.field).eqls('a*b');
     canvas.draw();
   });
-  it('getXY', function() {
+  it('getXY', () => {
     let data = {
       a: 1.5,
       c: '1'
@@ -258,11 +258,11 @@ describe('test view all options', function() {
     coord = view.getXY(data);
     expect(coord).eql({ x: 165, y: 420 });
   });
-  it('clear', function() {
+  it('clear', () => {
     view.clear();
     expect(view.get('geoms').length).equal(0);
   });
-  it('change', function() {
+  it('change', () => {
     view.changeOptions({
       coord: {
         type: 'rect'
@@ -277,7 +277,7 @@ describe('test view all options', function() {
   });
 });
 
-describe('view get shape and records', function() {
+describe('view get shape and records', () => {
   // canvas.destroy();
   const data = [
     { month: 0, tokyo: 7, newYork: -0.2, berlin: -0.9 },
@@ -304,7 +304,7 @@ describe('view get shape and records', function() {
   chart.point().position('month*tokyo');
   chart.render();
 
-  it('getSnapRecords point', function() {
+  it('getSnapRecords point', () => {
     let point = {
       x: 173,
       y: 253
@@ -322,7 +322,7 @@ describe('view get shape and records', function() {
     expect(records[0]._origin.month).equal(6);
   });
 
-  it('getSnapRecords line, sorted', function() {
+  it('getSnapRecords line, sorted', () => {
     chart.clear();
     chart.source([
       { month: 0, tem: 7, city: 'tokyo' },

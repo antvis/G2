@@ -64,7 +64,7 @@ class Tree extends Base {
     const rst = [];
     const field = fields[level - 1];
     const values = self.getFieldValues(field, data);
-    values.forEach(function(value, index) {
+    values.forEach((value, index) => {
       const conditions = [
         { field, value, values }
       ];
@@ -92,7 +92,7 @@ class Tree extends Base {
   setRegion(facets) {
     const self = this;
     self.forceColIndex(facets);
-    facets.forEach(function(facet) {
+    facets.forEach(facet => {
       facet.region = self.getRegion(facet.rows, facet.cols, facet.colIndex, facet.rowIndex);
     });
 
@@ -103,7 +103,7 @@ class Tree extends Base {
     const self = this;
     const leafs = [];
     let index = 0;
-    facets.forEach(function(facet) {
+    facets.forEach(facet => {
       if (self.isLeaf(facet)) {
         leafs.push(facet);
         facet.colIndex = index;
@@ -111,7 +111,7 @@ class Tree extends Base {
       }
     });
 
-    leafs.forEach(function(facet) {
+    leafs.forEach(facet => {
       facet.cols = leafs.length;
     });
     const maxLevel = self.fields.length;
@@ -133,7 +133,7 @@ class Tree extends Base {
   // get facet use level
   getFacetsByLevel(facets, level) {
     const rst = [];
-    facets.forEach(function(facet) {
+    facets.forEach(facet => {
       if (facet.rowIndex === level) {
         rst.push(facet);
       }
@@ -201,7 +201,7 @@ class Tree extends Base {
   drawLines(facets, group) {
     const self = this;
     const lineGroup = group.addGroup();
-    facets.forEach(function(facet) {
+    facets.forEach(facet => {
       if (!self.isLeaf(facet)) {
         const children = facet.children;
         self._addFacetLines(facet, children, lineGroup);
@@ -219,7 +219,7 @@ class Tree extends Base {
       y: region.start.y
     };
 
-    children.forEach(function(subFacet) {
+    children.forEach(subFacet => {
       const subRegion = subFacet.view.getViewRegion();
       const end = {
         x: subRegion.start.x + (subRegion.end.x - subRegion.start.x) / 2,
@@ -245,7 +245,7 @@ class Tree extends Base {
       path.push([ 'M', points[0].x, points[0].y ]);
       path.push([ 'C', points[1].x, points[1].y, points[2].x, points[2].y, points[3].x, points[3].y ]);
     } else {
-      points.forEach(function(point, index) {
+      points.forEach((point, index) => {
         if (index === 0) {
           path.push([ 'M', point.x, point.y ]);
         } else {

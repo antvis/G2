@@ -59,7 +59,7 @@ getPort().then(port => {
   const files = ls(src).filter(filename => (extname(filename) === '.html'));
   files.forEach(filename => {
     const name = basename(filename, '.html');
-    if (_.isString(commander.name) && filename.indexOf(commander.name) === -1) {
+    if (_.isString(commander.name) && !filename.includes(commander.name)) {
       debug(`>>>>>>>>> skipping because filename not matched: ${name}`);
       return;
     }

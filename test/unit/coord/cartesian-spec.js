@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const Util = require('../../../src/util');
 const Cartesian = require('@antv/coord/lib/cartesian');
 
-describe('Cartesian', function() {
+describe('Cartesian', () => {
   const coord = new Cartesian({
     start: {
       x: 0,
@@ -14,13 +14,13 @@ describe('Cartesian', function() {
     }
   });
 
-  it('construction', function() {
+  it('construction', () => {
     const center = coord.center;
     expect(center.x).to.equal(100);
     expect(center.y).to.equal(150);
   });
 
-  it('convert', function() {
+  it('convert', () => {
     let point = {
       x: 0.2,
       y: 0.7
@@ -30,7 +30,7 @@ describe('Cartesian', function() {
     expect(point.y).to.equal(90);
   });
 
-  it('invert', function() {
+  it('invert', () => {
     let point = {
       x: 40,
       y: 90
@@ -40,7 +40,7 @@ describe('Cartesian', function() {
     expect(point.y).to.equal(0.7);
   });
 
-  it('getWidth and getHeight', function() {
+  it('getWidth and getHeight', () => {
     const width = coord.getWidth();
     const height = coord.getHeight();
 
@@ -48,7 +48,7 @@ describe('Cartesian', function() {
     expect(height).to.equal(300);
   });
 
-  it('translate', function() {
+  it('translate', () => {
     let point = {
       x: 0.2,
       y: 0.7
@@ -60,7 +60,7 @@ describe('Cartesian', function() {
     coord.translate(-100, -20);
   });
 
-  it('rotate', function() {
+  it('rotate', () => {
     let point = {
       x: 0.5,
       y: 0.7
@@ -72,7 +72,7 @@ describe('Cartesian', function() {
     coord.rotate(-Math.PI / 2);
   });
 
-  it('scale', function() {
+  it('scale', () => {
     let point = {
       x: 0.5,
       y: 0.7
@@ -84,7 +84,7 @@ describe('Cartesian', function() {
     coord.scale(0.5, 0.5);
   });
 
-  it('reflect x', function() {
+  it('reflect x', () => {
     let point = {
       x: 0.5,
       y: 0.7
@@ -96,7 +96,7 @@ describe('Cartesian', function() {
     coord.reflect('x');
   });
 
-  it('reflect y', function() {
+  it('reflect y', () => {
     let point = {
       x: 0.3,
       y: 0.5
@@ -108,14 +108,14 @@ describe('Cartesian', function() {
     coord.reflect('y');
   });
 
-  it('trans', function() {
+  it('trans', () => {
     coord.rotate(Math.PI / 2);
     const vector = coord.applyMatrix(1, 0);
     expect(Util.snapEqual(vector[0], 0)).to.be.true;
     expect(Util.snapEqual(vector[1], 1)).to.be.true;
   });
 
-  it('reverse', function() {
+  it('reverse', () => {
     const vector = coord.invertMatrix(0, 1);
     expect(Util.snapEqual(vector[0], 1)).to.be.true;
     expect(Util.snapEqual(vector[1], 0)).to.be.true;

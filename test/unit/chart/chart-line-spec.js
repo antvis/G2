@@ -5,7 +5,7 @@ const div = document.createElement('div');
 div.id = 'cchartl';
 document.body.appendChild(div);
 
-describe('test line chart', function() {
+describe('test line chart', () => {
   const data = [
     { genre: 'Sports', sold: 275 },
     { genre: 'Strategy', sold: 115 },
@@ -38,7 +38,7 @@ describe('test line chart', function() {
   chart.render();
   let tmpPath;
 
-  it('line points', function() {
+  it('line points', () => {
     const group = chart.get('viewContainer').getFirst();
     expect(group.getCount()).equal(1);
     const path = group.getFirst().attr('path');
@@ -48,7 +48,7 @@ describe('test line chart', function() {
 
   });
 
-  it('line with null values', function() {
+  it('line with null values', () => {
     const newData = [
       { genre: 'Sports', sold: 275 },
       { genre: 'Strategy', sold: 115 },
@@ -61,7 +61,7 @@ describe('test line chart', function() {
     expect(group.getCount()).equal(2);
   });
 
-  it('line with null values and connectNulls', function() {
+  it('line with null values and connectNulls', () => {
     const newData = [
       { genre: 'Sports', sold: 275 },
       { genre: 'Strategy', sold: 115 },
@@ -76,7 +76,7 @@ describe('test line chart', function() {
     Global.connectNulls = false;
   });
 
-  it('change coord', function() {
+  it('change coord', () => {
     chart.coord().scale(1, -0.5);
     chart.changeData(data);
     const group = chart.get('viewContainer').getFirst();
@@ -86,14 +86,14 @@ describe('test line chart', function() {
     expect(group.attr('matrix')).not.eqls([ 1, 0, 0, 0, 1, 0, 0, 0, 1 ]);
   });
 
-  it('in polar', function() {
+  it('in polar', () => {
     chart.coord('polar');
     chart.repaint();
     const group = chart.get('viewContainer').getFirst();
     expect(group.getCount()).equal(1);
   });
 
-  it('stack', function() {
+  it('stack', () => {
     const data = [
       { genre: 'Sports', sold: 145, type: '2' },
       { genre: 'Strategy', sold: 415, type: '2' },
@@ -111,9 +111,7 @@ describe('test line chart', function() {
     chart.coord('rect');
     chart.lineStack().position('genre*sold')
       .color('type')
-      .label('type*sold', function(type, sold) {
-        return type + sold;
-      }, {
+      .label('type*sold', (type, sold) => type + sold, {
         textStyle: {
           fill: 'red'
         }
@@ -131,7 +129,7 @@ describe('test line chart', function() {
     expect(lastPath.length).equal(data.length / 2);
   });
 
-  it('destroy', function() {
+  it('destroy', () => {
     chart.destroy();
     document.body.removeChild(div);
   });

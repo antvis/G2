@@ -369,7 +369,7 @@ declare namespace G2 {
   /**
    * 坐标轴线
    */
-  interface AxisTile {
+  interface AxisTitle {
     /**
      * 是否需要自动旋转，默认为 `true`
      */
@@ -690,7 +690,7 @@ declare namespace G2 {
     position?: 'top' | 'bottom' | 'left' | 'right';
     line?: Styles.line;
     label?: AxisLabel;
-    title?: AxisTile;
+    title?: AxisTitle;
     tickLine?: Styles.tickLine | null;
     subTickCount?: number;
     subTickLine?: Styles.tickLine | null;
@@ -801,7 +801,7 @@ declare namespace G2 {
 
   class Chart extends BashView {
     constructor(config: Partial<ChartProps>);
-    legend(option: boolean): this;
+    legend(option: boolean | LegendConfig): this;
     legend(field: string, option: boolean): this;
     legend(field: string, legendConfig: LegendConfig): this;
     tooltip(tooltipConfig: TooltipConfig | boolean): this;

@@ -1,16 +1,16 @@
 const expect = require('chai').expect;
 const CoordController = require('../../../../src/chart/controller/coord.js');
 
-describe('test coord controller', function() {
+describe('test coord controller', () => {
 
   const controller = new CoordController({
     type: 'rect'
   });
-  it('init', function() {
+  it('init', () => {
     expect(controller.type).equal('rect');
     expect(controller.actions.length).equal(0);
   });
-  it('action method', function() {
+  it('action method', () => {
     const actions = controller.actions;
     controller.transpose();
     expect(actions.length).equal(1);
@@ -29,12 +29,12 @@ describe('test coord controller', function() {
     expect(actions[3]).eqls([ 'reflect', 'x' ]);
   });
 
-  it('create coord', function() {
+  it('create coord', () => {
     const coord = controller.createCoord({ x: 0, y: 0 }, { x: 500, y: 500 });
     expect(coord.isTransposed).equal(true);
   });
 
-  it('reset', function() {
+  it('reset', () => {
     controller.reset({
       type: 'polar'
     });
@@ -46,7 +46,7 @@ describe('test coord controller', function() {
     expect(coord.convert({ x: 0.5, y: 0.5 })).eqls({ x: 250, y: 375 });
   });
 
-  it('create theta', function() {
+  it('create theta', () => {
     controller.reset({
       type: 'theta',
       actions: [[ 'rotate', Math.PI ]]

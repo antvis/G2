@@ -22,7 +22,7 @@ function antiCollision(labels, lineHeight, plotRange, center, isRight) {
 
   let maxY = 0;
   let minY = Number.MIN_VALUE;
-  const boxes = labels.map(function(label) {
+  const boxes = labels.map(label => {
     if (label.y > maxY) {
       maxY = label.y;
     }
@@ -41,7 +41,7 @@ function antiCollision(labels, lineHeight, plotRange, center, isRight) {
 
   while (overlapping) {
     /* eslint no-loop-func: 0 */
-    boxes.forEach(function(box) {
+    boxes.forEach(box => {
       const target = (Math.min.apply(minY, box.targets) + Math.max.apply(minY, box.targets)) / 2;
       box.pos = Math.min(Math.max(minY, target - box.size / 2), totalHeight - box.size);
       // box.pos = Math.max(0, target - box.size / 2);
@@ -71,9 +71,9 @@ function antiCollision(labels, lineHeight, plotRange, center, isRight) {
 
   i = 0;
   // step 4: normalize y and adjust x
-  boxes.forEach(function(b) {
+  boxes.forEach(b => {
     let posInCompositeBox = startY + lineHeight / 2; // middle of the label
-    b.targets.forEach(function() {
+    b.targets.forEach(() => {
       labels[i].y = b.pos + posInCompositeBox;
       posInCompositeBox += lineHeight;
       i++;
@@ -81,9 +81,9 @@ function antiCollision(labels, lineHeight, plotRange, center, isRight) {
   });
 
   // (x - cx)^2 + (y - cy)^2 = totalR^2
-  labels.forEach(function(label) {
+  labels.forEach(label => {
     const rPow2 = label.r * label.r;
-    const dyPow2 = Math.pow(Math.abs(label.y - center.y), 2);
+    const dyPow2 = Math.abs(label.y - center.y) ** 2;
     if (rPow2 < dyPow2) {
       label.x = center.x;
     } else {
@@ -153,7 +153,7 @@ class PieLabels extends PolarLabels {
       [], // left
       [] // right
     ];
-    labels.forEach(function(label) {
+    labels.forEach(label => {
       if (!label) {
         return;
       }
@@ -164,18 +164,18 @@ class PieLabels extends PolarLabels {
       }
     });
 
-    halves.forEach(function(half, index) {
+    halves.forEach((half, index) => {
       // step 2: reduce labels
       const maxLabelsCountForOneSide = parseInt(totalHeight / lineHeight, 10);
       if (half.length > maxLabelsCountForOneSide) {
-        half.sort(function(a, b) { // sort by percentage DESC
+        half.sort((a, b) => { // sort by percentage DESC
           return b['..percent'] - a['..percent'];
         });
         half.splice(maxLabelsCountForOneSide, half.length - maxLabelsCountForOneSide);
       }
 
       // step 3: distribute position (x and y)
-      half.sort(function(a, b) { // sort by y ASC
+      half.sort((a, b) => { // sort by y ASC
         return a.y - b.y;
       });
       antiCollision(half, lineHeight, plotRange, center, index);

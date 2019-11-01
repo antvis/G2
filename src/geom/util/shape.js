@@ -10,7 +10,7 @@ const ShapeUtil = {
     const x = obj.x;
     let y = obj.y;
     y = Util.isArray(y) ? y : [ y ];
-    Util.each(y, function(yItem, index) {
+    Util.each(y, (yItem, index) => {
       const point = {
         x: Util.isArray(x) ? x[index] : x,
         y: yItem

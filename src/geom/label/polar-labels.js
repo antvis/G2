@@ -66,7 +66,7 @@ class PolarLabels extends Labels {
       x: 0,
       y: 0
     };
-    Util.each(points, function(point) {
+    Util.each(points, point => {
       middlePoint.x += point.x;
       middlePoint.y += point.y;
     });

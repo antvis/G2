@@ -45,7 +45,7 @@ class Circle extends Base {
     const values = self.getFieldValues(field, data);
     const count = values.length;
     const rst = [];
-    values.forEach(function(value, index) {
+    values.forEach((value, index) => {
       const conditions = [
         { field, value, values }
       ];

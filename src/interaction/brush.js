@@ -38,7 +38,7 @@ class Brush extends Interaction {
     me.type = me.type.toUpperCase();
     me.chart = view;
 
-    if (BRUSH_TYPES.indexOf(me.type) === -1) {
+    if (!BRUSH_TYPES.includes(me.type)) {
       me.type = DEFAULT_TYPE;
     }
     const canvas = me.canvas;
@@ -62,6 +62,7 @@ class Brush extends Interaction {
         start: coord.start,
         end: coord.end
       };
+      me.isTransposed = coord.isTransposed;
       const xScales = view._getScales('x');
       const yScales = view._getScales('y');
       me.xScale = me.xField ? xScales[me.xField] : view.getXScale();
@@ -255,9 +256,7 @@ class Brush extends Interaction {
     const { data, shapes, xValues, yValues } = me._getSelected();
     const eventObj = {
       data,
-      shapes,
-      x: currentPoint.x,
-      y: currentPoint.y
+      shapes
     };
 
     if (xScale) {
@@ -266,6 +265,13 @@ class Brush extends Interaction {
     if (yScale) {
       eventObj[yScale.field] = yValues;
     }
+
+    // 将框选的数据传递给 ev，供 onEnd 钩子使用
+    Util.mix(ev, eventObj);
+
+    eventObj.x = currentPoint.x;
+    eventObj.y = currentPoint.y;
+
     me.onDragmove && me.onDragmove(eventObj);
     me.onBrushmove && me.onBrushmove(eventObj);
   }
@@ -290,9 +296,7 @@ class Brush extends Interaction {
 
     const eventObj = {
       data,
-      shapes,
-      x: offsetX,
-      y: offsetY
+      shapes
     };
     if (xScale) {
       eventObj[xScale.field] = xValues;
@@ -300,6 +304,12 @@ class Brush extends Interaction {
     if (yScale) {
       eventObj[yScale.field] = yValues;
     }
+
+    // 将框选的数据传递给 ev，供 onEnd 钩子使用
+    Util.mix(ev, eventObj);
+
+    eventObj.x = offsetX;
+    eventObj.y = offsetY;
 
     if (me.dragging) {
       me.dragging = false;
@@ -325,11 +335,11 @@ class Brush extends Interaction {
       } else if (chart && me.filter) {
         container.clear(); // clear the brush
         // filter data
-        if (type === 'X') {
+        if ((!me.isTransposed && type === 'X') || (me.isTransposed && type === 'Y')) {
           xScale && chart.filter(xScale.field, val => {
             return xValues.indexOf(val) > -1;
           });
-        } else if (type === 'Y') {
+        } else if ((!me.isTransposed && type === 'Y') || (me.isTransposed && type === 'X')) {
           yScale && chart.filter(yScale.field, val => {
             return yValues.indexOf(val) > -1;
           });

@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const G2 = require('../../src/index');
 
-describe('sync bug', function() {
+describe('sync bug', () => {
   const div = document.createElement('div');
   document.body.appendChild(div);
   it('sync no effect', () => {

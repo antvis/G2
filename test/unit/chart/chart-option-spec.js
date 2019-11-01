@@ -3,7 +3,7 @@ const Chart = require('../../../src/index').Chart;
 const div = document.createElement('div');
 document.body.appendChild(div);
 
-describe('test chart options', function() {
+describe('test chart options', () => {
   let chart;
   const data = [
     { genre: 'Sports', sold: 275, type: '1' },
@@ -18,7 +18,7 @@ describe('test chart options', function() {
     { genre: 'Shooter', sold: 300, type: '2' },
     { genre: 'Other', sold: 100, type: '2' }
   ];
-  it('init', function() {
+  it('init', () => {
     chart = new Chart({
       width: 500,
       height: 500,
@@ -50,7 +50,7 @@ describe('test chart options', function() {
     expect(chart.get('geoms')[0].get('attrOptions').color.field).eql('type');
   });
 
-  xit('change', function() {
+  xit('change', () => {
     chart.clear();
     const options = {
       geoms: [{

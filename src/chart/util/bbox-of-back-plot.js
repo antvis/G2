@@ -45,19 +45,7 @@ module.exports = function BBoxOfBackPlot(backPlot, defaultBBox) {
           bbox = mergeBBox(bbox, element.getBBox());
         } else if (element instanceof G.Text) { // title
           const elementBBox = getTitleBBox(element);
-          const dx = Math.abs(elementBBox.maxX - elementBBox.minX);
-          const dy = Math.abs(elementBBox.maxY - elementBBox.minY);
-          if (dx < dy) {
-            bbox = mergeBBox(bbox, Util.mix(bbox, {
-              minX: Math.min(bbox.minX, elementBBox.minX),
-              maxX: Math.max(bbox.maxX, elementBBox.maxX)
-            }));
-          } else {
-            bbox = mergeBBox(bbox, Util.mix(bbox, {
-              minY: Math.min(bbox.minY, elementBBox.minY),
-              maxY: Math.max(bbox.maxY, elementBBox.maxY)
-            }));
-          }
+          bbox = mergeBBox(bbox, elementBBox);
         }
       });
     }
