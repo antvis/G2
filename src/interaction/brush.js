@@ -91,7 +91,7 @@ class Brush extends Interaction {
     if (!type) return;
 
     if (me.brushing) {
-      // 鼠标移动到图表外up, 回到图表内点击即结束绘制，mousedown的时候却正在绘制中, 
+      // 鼠标移动到图表外up, 回到图表内点击即结束绘制，mousedown的时候却正在绘制中
       me.end(ev);
     }
 
