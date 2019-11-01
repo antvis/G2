@@ -12,7 +12,7 @@ export { default as Geometry } from './geometry/base';
 export { Facet, getFacet, registerFacet } from './facet';
 // interaction API
 export { Interaction, getInteraction, registerInteraction } from './interaction';
-export { registerState } from './state';
+export { registerStateAction } from './state';
 
 // 类型定义导出
 export { ChartCfg, ViewCfg } from './chart';

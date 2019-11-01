@@ -1,8 +1,9 @@
 import * as _ from '@antv/util';
 import Element from '../geometry/element/index';
-import { registerState } from './index';
+import { registerStateAction } from './index';
 
-registerState('activeElements', {
+// 测试用
+registerStateAction('activeElements', {
   init(stateManager, view) {
     stateManager.on('activeElementschange', _.wrapBehavior(this, 'onChange'));
   },

@@ -11,7 +11,7 @@ import Geometry from '../geometry/base';
 import { getInteraction } from '../interaction/';
 import { Point, Region } from '../interface';
 import { Data, Datum } from '../interface';
-import { StateActionCfg, StateManager, STATES } from '../state';
+import { STATE_ACTIONS, StateActionCfg, StateManager } from '../state';
 import { BBox } from '../util/bbox';
 import { isFullCircle, isPointInCoordinate } from '../util/coordinate';
 import { parsePadding } from '../util/padding';
@@ -228,7 +228,7 @@ export default class View extends EE {
     this.middleGroup.remove(true);
     this.foregroundGroup.remove(true);
 
-    _.each(STATES, (stateAction) => {
+    _.each(STATE_ACTIONS, (stateAction) => {
       stateAction.destroy(this.stateManager, this);
     });
     this.stateManager.destroy();
@@ -633,7 +633,7 @@ export default class View extends EE {
     const stateManager = new StateManager();
     this.stateManager = stateManager;
 
-    _.each(STATES, (stateAction: StateActionCfg) => {
+    _.each(STATE_ACTIONS, (stateAction: StateActionCfg) => {
       stateAction.init(stateManager, this);
     });
   }

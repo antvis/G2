@@ -8,14 +8,14 @@ export interface StateActionCfg {
   [key: string]: any;
 }
 
-export const STATES: Record<string, StateActionCfg> = {};
+export const STATE_ACTIONS: Record<string, StateActionCfg> = {};
 
-export function getState(name: string) {
-  return STATES[name];
+export function getStateAction(name: string) {
+  return STATE_ACTIONS[_.lowerCase(name)];
 }
 
-export function registerState(name: string, cfg: StateActionCfg) {
-  STATES[name] = cfg;
+export function registerStateAction(name: string, cfg: StateActionCfg) {
+  STATE_ACTIONS[_.lowerCase(name)] = cfg;
 }
 
 export { default as StateManager } from './manager';
