@@ -20,6 +20,10 @@ jobs:
         run: |
           npm install
           npm run ci
-          npm run coveralls
         env:
           CI: true
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
