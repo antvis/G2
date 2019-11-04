@@ -60,6 +60,7 @@ typings/
 # dotenv environment variables file
 .env
 
+public
 build
 dist
 temp
