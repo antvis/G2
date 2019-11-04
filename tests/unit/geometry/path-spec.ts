@@ -45,7 +45,7 @@ describe('Path', () => {
     expect(path.shapeType).toBe('line');
     expect(path.connectNulls).toBe(false);
 
-    expect(path.container.get('children').length).toBe(1);
+    expect(path.elementsContainer.get('children').length).toBe(1);
 
     const elements = path.elements;
     expect(elements.length).toBe(1);
@@ -88,7 +88,7 @@ describe('Path', () => {
     canvas.draw();
 
     expect(path.connectNulls).toBe(true);
-    expect(path.container.get('children').length).toBe(1);
+    expect(path.elementsContainer.get('children').length).toBe(1);
 
     const elements = path.elements;
     expect(elements.length).toBe(1);

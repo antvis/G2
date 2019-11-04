@@ -133,6 +133,10 @@ export default class Geometry {
   protected lastElementsMap: Record<string, Element> = {};
   /** 是否生成多个点来绘制图形 */
   protected generatePoints: boolean = false;
+  /** 存储所有 elements 的图形容器 */
+  protected elementsContainer: IGroup;
+  /** 存储所有 Geometry label 的图形容器 */
+  protected labelsContainer: IGroup;
 
   private adjusts: Record<string, Adjust> = {};
 
@@ -147,6 +151,14 @@ export default class Geometry {
     this.visible = visible;
     this.theme = theme;
     this.scales = scales;
+
+    // initialize container
+    this.elementsContainer = container.addGroup({
+      name: 'element',
+    });
+    this.labelsContainer = container.addGroup({
+      name: 'label',
+    });
   }
 
   /**
@@ -345,8 +357,14 @@ export default class Geometry {
    * @override
    */
   public clear() {
-    const container = this.container;
-    container.clear();
+    const { elementsContainer, labelsContainer } = this;
+    if (elementsContainer) {
+      elementsContainer.clear();
+    }
+
+    if (labelsContainer) {
+      labelsContainer.clear();
+    }
 
     // 属性恢复至出厂状态
     this.attributes = {};
@@ -472,7 +490,7 @@ export default class Geometry {
 
   protected createElement(record: Datum, groupIndex: number): Element {
     const originData = record[FIELD_ORIGIN];
-    const { theme, container } = this;
+    const { theme, elementsContainer } = this;
 
     const shapeCfg = this.getDrawCfg(record); // 获取绘制图形的配置信息
     const shapeFactory = this.getShapeFactory();
@@ -484,7 +502,7 @@ export default class Geometry {
       shapeType: shape,
       theme: _.get(theme, this.shapeType, {}),
       shapeFactory,
-      container,
+      container: elementsContainer,
       animate: this.animateOption,
     });
 
