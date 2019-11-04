@@ -1,7 +1,7 @@
 import { getWrapBehavior, wrapBehavior } from '@antv/util';
 import { Chart } from '../../../src/index';
-import { getInteraction, Interaction, registerInteraction } from '../../../src/interaction/index';
-import { registerStateAction } from '../../../src/state/index';
+import { getInteraction, Interaction, registerInteraction } from '../../../src/interaction';
+import { registerStateAction } from '../../../src/state';
 import { createDiv } from '../../util/dom';
 import { getClientPoint, simulateMouseEvent } from '../../util/simulate';
 
@@ -41,8 +41,8 @@ describe('Interaction', () => {
     }
 
     public destroy() {
-      this.view.canvas.off('mouseenter', this.onMousedown);
-      this.view.canvas.off('mouseup', this.onMouseup);
+      this.view.off('mouseenter', this.onMousedown);
+      this.view.off('mouseup', this.onMouseup);
     }
   }
 
@@ -53,7 +53,7 @@ describe('Interaction', () => {
   it('registerInteraction', () => {
     registerInteraction('activeLine', AInteraction);
 
-    expect(getInteraction('activeLine')).not.toBeUndefined();
+    expect(getInteraction('activeLine')).toBeDefined();
   });
 
   it('call', () => {

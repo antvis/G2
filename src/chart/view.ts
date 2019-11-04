@@ -653,6 +653,9 @@ export default class View extends EE {
     // 事件在 view 嵌套中冒泡（暂不提供阻止冒泡的机制）
     const e = new Event(this, evt, data);
 
+    // emit 原始事件
+    this.emit(type, e.clone());
+
     // 组合 name:event 事件，G 层做不到，只能上层来包装
     // 不合理的地方是：
     // - 这层逻辑相当于上下层（G, G2）都感知，一次改动上下层都需要改动
@@ -660,13 +663,15 @@ export default class View extends EE {
     // @ts-ignore
     const name = target.get('name');
 
-    const evtName = getEventName(type, name);
+    if (name) {
+      const evtName = getEventName(type, name);
 
-    const ec = e.clone();
-    ec.type = evtName;
+      const ec = e.clone();
+      ec.type = evtName;
 
-    // 委托事件到 view 上
-    this.emit(evtName, ec);
+      // 委托事件到 view 上
+      this.emit(evtName, ec);
+    }
 
     // 根据事件的 x y 判断是否在 CoordinateBBox 中，然后处理 plot 事件
     if (['mousemove', 'mouseleave'].includes(type)) {
