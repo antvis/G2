@@ -5,6 +5,7 @@ import { Region } from '../interface';
 /**
  * get axis relative region ( 0 ~ 1) by direction
  * @param direction
+ * @returns axis coordinate region
  */
 export function getAxisRelativeRegion(direction: DIRECTION): Region {
   let start;

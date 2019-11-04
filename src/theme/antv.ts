@@ -130,7 +130,7 @@ const AXIS_STYLE = {
     alignTick: false,
     length: 5,
   },
-  subTickCount: {
+  subTickLine: {
     style: {
       lineWidth: 1,
       stroke: '#BFBFBF',
