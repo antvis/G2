@@ -16,15 +16,13 @@ module.exports = {
     title: 'G2',
     description: 'The Grammar of Graphics in JavaScript',
     githubUrl: repository.url,
-    docs: [
+    navs: [
       {
         slug: 'docs/tutorial',
         title: {
           zh: '使用教程',
           en: 'tutorial'
         }
-        // redirect: 'introduction',
-        // order: 0
       },
       {
         slug: 'docs/api',
@@ -32,7 +30,6 @@ module.exports = {
           zh: 'API 文档',
           en: 'API'
         }
-        // order: 3,
       },
       {
         slug: 'examples',
@@ -40,8 +37,9 @@ module.exports = {
           zh: '图表演示',
           en: 'Examples'
         }
-        // redirect: 'line/basic'
       }
+    ],
+    docs: [
     ],
     examples: [
       {

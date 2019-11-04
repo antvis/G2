@@ -9,6 +9,7 @@
         "loose": true,
         "modules": false
       }
-    ]
+    ],
+    "babel-preset-gatsby"
   ]
 }
