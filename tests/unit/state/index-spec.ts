@@ -25,7 +25,7 @@ describe('State', () => {
 
     it('setState()', () => {
       let stateChangeValue;
-      stateManager.on('activechange', (obj) => {
+      stateManager.on('active', (obj) => {
         stateChangeValue = obj;
       });
 
@@ -39,6 +39,11 @@ describe('State', () => {
 
     it('getState()', () => {
       expect(stateManager.getState('active')).toBe(1);
+    });
+
+    it('destroy', () => {
+      stateManager.destroy();
+      expect(stateManager.states).toBe(null);
     });
   });
 });

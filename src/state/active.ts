@@ -1,11 +1,10 @@
-import * as _ from '@antv/util';
 import Element from '../geometry/element/index';
 import { registerStateAction } from './index';
 
 // 测试用
 registerStateAction('activeElements', {
   init(stateManager, view) {
-    stateManager.on('activeElementschange', _.wrapBehavior(this, 'onChange'));
+    stateManager.on('activeElements', this.onChange);
   },
   onChange(ev) {
     const activedElements: Element[] = ev.preValue;
@@ -23,6 +22,6 @@ registerStateAction('activeElements', {
     }
   },
   destroy(stateManager, view) {
-    stateManager.off('activeElements', _.getWrapBehavior(this, 'onChange'));
+    stateManager.off('activeElements', this.onChange);
   },
 });

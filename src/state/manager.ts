@@ -38,6 +38,17 @@ export default class StateManager extends EE {
   }
 
   public destroy() {
-    this.off();
+    super.off();
+    this.states = null;
+  }
+
+  // tslint:disable-next-line: ban-types
+  public on(evtName: string, callback: Function, once?: boolean) {
+    return super.on(`${evtName}change`, callback, once);
+  }
+
+  // tslint:disable-next-line: ban-types
+  public off(evtName: string, callback?: Function) {
+    return super.off(`${evtName}change`, callback);
   }
 }

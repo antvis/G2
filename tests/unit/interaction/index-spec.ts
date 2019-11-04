@@ -8,10 +8,10 @@ import { getClientPoint, simulateMouseEvent } from '../../util/simulate';
 describe('Interaction', () => {
   registerStateAction('activeline', {
     init(stateManager) {
-      stateManager.on('activelinechange', wrapBehavior(this, 'activeLine'));
+      stateManager.on('activeline', this.activeLine);
     },
     destroy(stateManager) {
-      stateManager.off('activelinechange', getWrapBehavior(this, 'activeLine'));
+      stateManager.off('activeline', this.activeLine);
     },
     activeLine(obj) {
       const { value: currentShape, preValue: preShape } = obj;
@@ -27,12 +27,12 @@ describe('Interaction', () => {
 
   class AInteraction extends Interaction {
     protected initEvents() {
-      this.view.canvas.on('line:mousedown', wrapBehavior(this, 'onMousedown'));
-      this.view.canvas.on('line:mouseup', wrapBehavior(this, 'onMouseup'));
+      this.view.on('mousedown', this.onMousedown);
+      this.view.on('mouseup', this.onMouseup);
     }
 
     private onMousedown(e) {
-      const shape = e.shape;
+      const shape = e.target;
       this.stateManager.setState('activeline', shape);
     }
 
@@ -41,8 +41,8 @@ describe('Interaction', () => {
     }
 
     public destroy() {
-      this.view.canvas.off('line:mouseenter', getWrapBehavior(this, 'onMousedown'));
-      this.view.canvas.off('line:mouseup', getWrapBehavior(this, 'onMouseup'));
+      this.view.canvas.off('mouseenter', this.onMousedown);
+      this.view.canvas.off('mouseup', this.onMouseup);
     }
   }
 
