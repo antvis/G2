@@ -8,9 +8,10 @@ import { Event as GEvent, ICanvas, IGroup } from '../dependents';
 import { Facet, getFacet } from '../facet';
 import { FacetCfgMap } from '../facet/interface';
 import Geometry from '../geometry/base';
-import Interaction from '../interaction';
+import { getInteraction } from '../interaction/';
 import { Point, Region } from '../interface';
 import { Data, Datum } from '../interface';
+import { STATE_ACTIONS, StateActionCfg, StateManager } from '../state';
 import { BBox } from '../util/bbox';
 import { isFullCircle, isPointInCoordinate } from '../util/coordinate';
 import { parsePadding } from '../util/padding';
@@ -88,6 +89,7 @@ export default class View extends EE {
 
   /** 当前鼠标是否在 plot 内（CoordinateBBox） */
   private isPreMouseInPlot: boolean = false;
+  private stateManager: StateManager;
 
   constructor(props: ViewCfg) {
     super();
@@ -161,6 +163,7 @@ export default class View extends EE {
   public init() {
     // 事件委托机制
     this.initEvents();
+    this.initStates();
 
     // 递归初始化子 view
     _.each(this.views, (view: View) => {
@@ -224,6 +227,11 @@ export default class View extends EE {
     this.backgroundGroup.remove(true);
     this.middleGroup.remove(true);
     this.foregroundGroup.remove(true);
+
+    _.each(STATE_ACTIONS, (stateAction) => {
+      stateAction.destroy(this.stateManager, this);
+    });
+    this.stateManager.destroy();
 
     // 取消所有事件监听
     this.off();
@@ -364,21 +372,23 @@ export default class View extends EE {
   /* end 一系列传入配置的 API */
 
   /**
-   * 加载自定义交互
-   * @param name 交互的名称（唯一）
-   * @param interaction 交互类，view 中会对他们进行实例化和销毁
+   * Call the interaction based on the interaction name
+   * @param name interaction name
+   * @returns
    */
-  public interaction(name: string, interaction: Interaction): View {
-    const path = ['interactions', name];
-
-    const existInteraction = _.get(this.options, path) as Interaction;
+  public interaction(name: string): View {
+    const existInteraction = _.get(this.options, ['interactions', name]);
     // 存在则先销毁已有的
     if (existInteraction) {
       existInteraction.destroy();
     }
 
-    // 保存新的 interaction
-    _.set(this.options, ['interactions', name], interaction);
+    // 新建交互实例
+    const InteractionCtor = getInteraction(name);
+    if (InteractionCtor) {
+      const interaction = new InteractionCtor(this);
+      _.set(this.options, ['interactions', name], interaction);
+    }
 
     return this;
   }
@@ -519,6 +529,10 @@ export default class View extends EE {
     return this.filteredData;
   }
 
+  public getStateManager() {
+    return this.stateManager;
+  }
+
   /**
    * 获得绘制的层级 group
    * @param layer
@@ -613,6 +627,15 @@ export default class View extends EE {
 
     // 自己监听事件，然后向上冒泡
     this.on('*', this.onViewEvents);
+  }
+
+  private initStates() {
+    const stateManager = new StateManager();
+    this.stateManager = stateManager;
+
+    _.each(STATE_ACTIONS, (stateAction: StateActionCfg) => {
+      stateAction.init(stateManager, this);
+    });
   }
 
   /**

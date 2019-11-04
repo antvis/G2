@@ -10,6 +10,9 @@ export { default as Component } from './component'; // 组件基类
 export { default as Geometry } from './geometry/base';
 // facet 相关 API
 export { Facet, getFacet, registerFacet } from './facet';
+// interaction API
+export { Interaction, getInteraction, registerInteraction } from './interaction';
+export { registerStateAction } from './state';
 
 // 类型定义导出
 export { ChartCfg, ViewCfg } from './chart';

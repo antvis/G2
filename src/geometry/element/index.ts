@@ -64,7 +64,6 @@ export default class Element extends EE {
       this.drawShape();
       // 存储初始样式
       this.setOriginStyle();
-      this.initEvents();
     }
   }
 
@@ -256,19 +255,6 @@ export default class Element extends EE {
       this.originStyle = {
         ...shape.attr(),
       };
-    }
-  }
-
-  // bind events
-  private initEvents() {
-    const shape = this.shape;
-    const container = this.container;
-    // 抛出 element:eventName 事件
-    if (shape) {
-      shape.on('*', (ev) => {
-        // 当前 element 上的元素被捕获，抛出事件
-        container.emit(`element:${ev.type}`, ev);
-      });
     }
   }
 }

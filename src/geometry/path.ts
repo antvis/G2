@@ -26,7 +26,7 @@ export default class Path extends Geometry {
 
   protected createElements(mappedArray: Data): Element[] {
     // Path 的每个 element 对应一组数据
-    const { lastElementsMap, elementsMap, elements, theme, container } = this;
+    const { lastElementsMap, elementsMap, elements, theme, elementsContainer } = this;
     const elementId = this.getElementId(mappedArray[0]);
     const shapeCfg = this.getDrawCfg(mappedArray);
 
@@ -39,7 +39,7 @@ export default class Path extends Geometry {
         shapeType: shapeCfg.shape || shapeFactory.defaultShapeType,
         theme: _.get(theme, this.shapeType, {}),
         shapeFactory,
-        container,
+        container: elementsContainer,
         animate: this.animateOption,
       });
     } else {

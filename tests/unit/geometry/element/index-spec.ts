@@ -225,7 +225,7 @@ describe('Element', () => {
       expect(element.getAnimateCfg('destroy')).toBe(null);
     });
 
-    it('event', () => {
+    xit('event', () => {
       const shape = element.shape;
 
       const fn = jest.fn();
