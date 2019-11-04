@@ -38,7 +38,7 @@ export default class StateManager extends EE {
   }
 
   public destroy() {
-    super.off();
+    this.off();
     this.states = null;
   }
 
@@ -48,7 +48,7 @@ export default class StateManager extends EE {
   }
 
   // tslint:disable-next-line: ban-types
-  public off(evtName: string, callback?: Function) {
-    return super.off(`${evtName}change`, callback);
+  public off(evtName?: string, callback?: Function) {
+    return evtName ? super.off(`${evtName}change`, callback) : super.off();
   }
 }
