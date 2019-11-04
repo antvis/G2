@@ -32,8 +32,15 @@ describe('Event', () => {
   });
 
   it('geometry event', () => {
-    // 等待联调
-    expect(1).toBe(1);
+    const cb = jest.fn();
+    chart.on('interval:mousemove', (e) => {
+      cb(e.type);
+    });
+
+    simulateMouseEvent(chart.canvas.get('el'), 'mousemove', getClientPoint(chart.canvas, 520, 520));
+    simulateMouseEvent(chart.canvas.get('el'), 'mousemove', getClientPoint(chart.canvas, 530, 530));
+
+    expect(cb).toBeCalledWith('interval:mousemove');
   });
 
   it('plot event', () => {

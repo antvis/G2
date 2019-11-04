@@ -62,4 +62,11 @@ export default class Event {
   public toString(): string {
     return `[Event (type=${this.type})]`;
   }
+
+  /**
+   * clone a new event with same attributes
+   */
+  public clone(): Event {
+    return new Event(this.view, this.gEvent, this.data);
+  }
 }
