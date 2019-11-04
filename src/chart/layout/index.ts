@@ -1,5 +1,6 @@
 import * as _ from '@antv/util';
 import { COMPONENT_TYPE } from '../../constant';
+import { getAxisRegion } from '../../util/axis';
 import { BBox } from '../../util/bbox';
 import { directionToPosition } from '../../util/direction';
 import { ComponentOption } from '../interface';
@@ -28,15 +29,14 @@ function layoutLegend(legends: ComponentOption[], viewBBox: BBox) {
  * 布局 axis
  * @param axes
  * @param viewBBox
+ * @param view
  */
-function layoutAxis(axes: ComponentOption[], viewBBox: BBox) {
+function layoutAxis(axes: ComponentOption[], viewBBox: BBox, view: View) {
   _.each(axes, (axis: ComponentOption) => {
     const { component, direction } = axis;
 
-    const bboxObject = component.getBBox();
-    const bbox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height);
-
-    component.move(...directionToPosition(viewBBox, bbox, direction));
+    // @ts-ignore
+    component.update(getAxisRegion(view.getCoordinate(), direction));
   });
 }
 
@@ -62,7 +62,7 @@ export default function defaultLayout(view: View): void {
 
   // 2. 根据 axis 内容不遮挡原则，计算出 y axis 的 width，x axis 的 height；
   const axes = _.filter(componentOptions, (co: ComponentOption) => co.type === COMPONENT_TYPE.AXIS);
-  layoutAxis(axes, viewBBox);
+  layoutAxis(axes, viewBBox, view);
 
   let bbox = viewBBox;
 
@@ -76,6 +76,13 @@ export default function defaultLayout(view: View): void {
 
   // 3. 获取最终的 Geometry 的 bbox 位置，坐标系位置
   view.coordinateBBox = bbox;
+  // 根据 bbox 创建实例
+  view.adjustCoordinate();
 
   // 4. 给 axis 组件更新 coordinate: 调整 axis 的宽高：y axis height, x axis width = coordinateBBox width height
+  _.each(axes, (co: ComponentOption) => {
+    const { component, direction } = co;
+    // @ts-ignore
+    component.update(getAxisRegion(view.getCoordinate(), direction));
+  });
 }

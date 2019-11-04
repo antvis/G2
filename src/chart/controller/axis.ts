@@ -1,7 +1,8 @@
 import * as _ from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
-import { Scale } from '../../dependents';
-import { Axis } from '../__components__';
+import { Line as LineAxis, Scale } from '../../dependents';
+import { getAxisFactor, getAxisRegion } from '../../util/axis';
+import { getName } from '../../util/scale';
 import { AxisOption, ComponentOption } from '../interface';
 import View from '../view';
 
@@ -18,6 +19,25 @@ function getAxisOption(axes: Record<string, AxisOption> | boolean, field: string
   }
 }
 
+/**
+ * get axis component cfg
+ * @param view
+ * @param option
+ * @param baseAxisCfg
+ * @param direction
+ * @returns get the total axis cfg
+ */
+function getAxisCfg(view: View, option: AxisOption, baseAxisCfg: object, direction: DIRECTION): object {
+  const axisTheme = _.get(view.getTheme(), ['components', 'axis', direction], {});
+
+  return _.deepMix({}, axisTheme, baseAxisCfg, option);
+}
+
+/**
+ * 创建 x axis 组件
+ * @param axes axes 用户配置
+ * @param view
+ */
 function createXAxes(axes: Record<string, AxisOption> | boolean, view: View): ComponentOption[] {
   const axisArray: ComponentOption[] = [];
   // x axis
@@ -29,11 +49,28 @@ function createXAxes(axes: Record<string, AxisOption> | boolean, view: View): Co
   const xAxisOption = getAxisOption(axes, xScale.field);
 
   if (xAxisOption !== false) {
+    const direction = DIRECTION.BOTTOM;
     const layer = LAYER.BG;
+
+    const axisCfg = {
+      container: view.getLayer(layer).addGroup(),
+      ...getAxisRegion(view.getCoordinate(), direction),
+      ticks: _.map(xScale.getTicks(), (tick) => ({ name: tick.text, value: tick.value })),
+      title: {
+        text: getName(xScale),
+      },
+      verticalFactor: getAxisFactor(direction),
+    };
+
+    const component = new LineAxis(getAxisCfg(view, xAxisOption, axisCfg, direction));
+
+    component.render();
+
     axisArray.push({
-      component: new Axis(view.getLayer(layer).addGroup(), [0, 0], { text: `axis ${xScale.field}` }),
+      // @ts-ignore
+      component,
       layer,
-      direction: DIRECTION.BOTTOM,
+      direction,
       type: COMPONENT_TYPE.AXIS,
     });
   }
@@ -52,11 +89,28 @@ function createYAxes(axes: Record<string, AxisOption> | boolean, view: View): Co
 
     if (yAxisOption !== false) {
       const layer = LAYER.BG;
+      const direction = idx === 0 ? DIRECTION.LEFT : DIRECTION.RIGHT;
+
+      const axisCfg = {
+        container: view.getLayer(layer).addGroup(),
+        // 初始的位置大小方向，y 不同是垂直方向的
+        ...getAxisRegion(view.getCoordinate(), direction),
+        ticks: _.map(yScale.getTicks(), (tick) => ({ name: tick.text, value: tick.value })),
+        title: {
+          text: getName(yScale),
+        },
+      };
+
+      const component = new LineAxis(getAxisCfg(view, yAxisOption, axisCfg, direction));
+
+      component.render();
+
       axisArray.push({
-        component: new Axis(view.getLayer(layer).addGroup(), [0, 0], { text: `axis ${yScale.field}` }),
+        // @ts-ignore
+        component,
         layer,
         // 如果有两个，则是双轴图
-        direction: idx === 0 ? DIRECTION.LEFT : DIRECTION.RIGHT,
+        direction,
         type: COMPONENT_TYPE.AXIS,
       });
     }
