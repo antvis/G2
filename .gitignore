@@ -65,9 +65,11 @@ dist
 temp
 .DS_Store
 .idea
+.cache
 # demos/assets/screenshots
 demos/assets/screenshots-new
 lib
+esm
 stats.json
 tslint.json
 
