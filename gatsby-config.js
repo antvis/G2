@@ -18,28 +18,36 @@ module.exports = {
     githubUrl: repository.url,
     navs: [
       {
-        slug: 'docs/tutorial',
+        slug: 'docs/manual',
         title: {
-          zh: '使用教程',
-          en: 'tutorial'
-        }
-      },
-      {
-        slug: 'docs/api',
-        title: {
-          zh: 'API 文档',
-          en: 'API'
+          zh: '使用文档',
+          en: 'docs'
         }
       },
       {
         slug: 'examples',
         title: {
-          zh: '图表演示',
+          zh: '图表示例',
           en: 'Examples'
         }
       }
     ],
     docs: [
+      {
+        slug: 'manual/tutorial',
+        title: {
+          zh: '使用教程',
+          en: 'tutorial'
+        },
+        order: 1
+      }, {
+        slug: 'manual/api',
+        title: {
+          zh: 'API 文档',
+          en: 'API 文档'
+        },
+        order: 2
+      }
     ],
     examples: [
       {
