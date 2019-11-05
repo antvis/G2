@@ -1,4 +1,4 @@
-fetch('data/terrorism.json')
+fetch('../data/terrorism.json')
   .then(res => res.json())
   .then(data => {
     const ds = new DataSet();
