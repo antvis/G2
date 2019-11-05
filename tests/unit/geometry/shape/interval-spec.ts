@@ -17,6 +17,7 @@ describe('Interval shapes', () => {
     start: { x: 0, y: 500 },
     end: { x: 500, y: 0 },
   });
+  IntervalShapeFactory.theme = Theme.interval;
 
   describe('IntervalShapeFactory', () => {
     it('defaultShapeType', () => {
@@ -127,6 +128,23 @@ describe('Interval shapes', () => {
       expect(shape.attr('path').length).toBe(6);
       expect(shape.getBBox().width).toBe(250);
     });
+    it('getMarker', () => {
+      const markerCfg = IntervalShapeFactory.getMarker('rect', 'red', false);
+      expect(markerCfg).toEqual({
+        ...Theme.interval.rect.default,
+        symbol: 'square',
+        r: 4,
+        fill: 'red',
+      });
+
+      const polaeMarkerCfg = IntervalShapeFactory.getMarker('rect', 'red', true);
+      expect(polaeMarkerCfg).toEqual({
+        ...Theme.interval.rect.default,
+        symbol: 'circle',
+        r: 4.5,
+        fill: 'red',
+      });
+    });
   });
 
   describe('hollowRect', () => {
@@ -198,6 +216,23 @@ describe('Interval shapes', () => {
       expect(shape.attr('path').length).toBe(6);
       // FIXME: 需要 G 修复 https://github.com/antvis/g/issues/252
       // expect(shape.getBBox().width).toBe(104);
+    });
+    it('getMarker', () => {
+      const markerCfg = IntervalShapeFactory.getMarker('hollowRect', 'red', false);
+      expect(markerCfg).toEqual({
+        ...Theme.interval.hollowRect.default,
+        symbol: 'square',
+        r: 4,
+        stroke: 'red',
+      });
+
+      const polaeMarkerCfg = IntervalShapeFactory.getMarker('hollowRect', 'red', true);
+      expect(polaeMarkerCfg).toEqual({
+        ...Theme.interval.hollowRect.default,
+        symbol: 'circle',
+        r: 4.5,
+        stroke: 'red',
+      });
     });
   });
 
@@ -296,6 +331,11 @@ describe('Interval shapes', () => {
       // expect(shape.getBBox().width).toBe(10);
       expect(path[0][2] - path[1][2]).toBe(125);
     });
+    it('getMarker', () => {
+      const markerCfg = IntervalShapeFactory.getMarker('line', 'red', false);
+      expect(markerCfg.stroke).toBe('red');
+      expect(markerCfg.symbol(10, 10, 5)).toEqual([['M', 10, 5], ['L', 10, 15]]);
+    });
   });
 
   describe('tick', () => {
@@ -376,7 +416,7 @@ describe('Interval shapes', () => {
       expect(path[0][2] - path[1][2]).toBe(250);
     });
 
-    it('draw', () => {
+    it('update', () => {
       const cfg = {
         x: 0.5,
         y: 0.5,
@@ -404,6 +444,18 @@ describe('Interval shapes', () => {
       expect(path.length).toBe(6);
       expect(path[3][1] - path[2][1]).toBe(500);
       expect(path[0][2] - path[1][2]).toBe(250);
+    });
+    it('getMarker', () => {
+      const markerCfg = IntervalShapeFactory.getMarker('tick', 'red', false);
+      expect(markerCfg.stroke).toBe('red');
+      expect(markerCfg.symbol(10, 10, 4)).toEqual([
+        ['M', 8, 6],
+        ['L', 12, 6],
+        ['M', 10, 6],
+        ['L', 10, 14],
+        ['M', 8, 14],
+        ['L', 12, 14],
+      ]);
     });
   });
 
@@ -526,6 +578,15 @@ describe('Interval shapes', () => {
       expect(shape.attr('fill')).toBe('yellow');
       expect(path).toEqual([['M', 125, 400], ['L', 125, 250], ['L', 225, 300], ['L', 225, 350], ['Z']]);
     });
+    it('getMarker', () => {
+      const markerCfg = IntervalShapeFactory.getMarker('funnel', 'red', false);
+      expect(markerCfg).toEqual({
+        ...Theme.interval.funnel.default,
+        symbol: 'square',
+        r: 4,
+        fill: 'red',
+      });
+    });
   });
 
   describe('pyramid', () => {
@@ -640,6 +701,15 @@ describe('Interval shapes', () => {
       const path = shape.attr('path');
       expect(shape.attr('fill')).toBe('red');
       expect(path).toEqual([['M', 100, 200], ['L', 100, 100], ['L', 225, 125], ['L', 225, 175], ['Z']]);
+    });
+    it('getMarker', () => {
+      const markerCfg = IntervalShapeFactory.getMarker('pyramid', 'red', false);
+      expect(markerCfg).toEqual({
+        ...Theme.interval.pyramid.default,
+        symbol: 'square',
+        r: 4,
+        fill: 'red',
+      });
     });
   });
 

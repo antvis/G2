@@ -72,10 +72,12 @@ describe('Shape', () => {
       });
 
       GeometryShape.registerShape('circleFactory', 'hollowCircle', {
-        // @ts-ignore
-        // mock
-        getMarker() {
-          return 'marker';
+        getMarker(color, isInPolar) {
+          return {
+            symbol: 'circle',
+            r: 5,
+            stroke: color,
+          };
         },
         draw() {
           // @ts-ignore
@@ -89,6 +91,7 @@ describe('Shape', () => {
             },
           });
         },
+        update() {},
       });
       const circleFactory = GeometryShape.getShapeFactory('circleFactory');
       expect(circleFactory.getShape('circle')).not.toBe(undefined);
@@ -164,9 +167,22 @@ describe('Shape', () => {
 
     it('getMarker()', () => {
       const circleFactory = GeometryShape.getShapeFactory('circleFactory');
+      circleFactory.theme = {
+        hollowCircle: {
+          default: {
+            stroke: '#333',
+            lineWidth: 1,
+          },
+        },
+      };
 
-      expect(circleFactory.getMarker('circle', {})).toBe(undefined);
-      expect(circleFactory.getMarker('hollowCircle', {})).toBe('marker');
+      expect(circleFactory.getMarker('circle', 'red', false)).toBe(undefined);
+      expect(circleFactory.getMarker('hollowCircle', 'red', false)).toEqual({
+        symbol: 'circle',
+        r: 5,
+        stroke: 'red',
+        lineWidth: 1,
+      });
     });
 
     it('drawShape()', () => {
