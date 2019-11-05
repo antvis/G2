@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-import { Coordinate } from '../../dependents';
+import { Coordinate, PathCommand } from '../../dependents';
 import { Point, Position, Shape, ShapeDrawCFG, ShapePoint } from '../../interface';
 import { doAnimate } from '../animate/index';
 import Element from '../element';
@@ -13,7 +13,7 @@ function getPath(
   smooth: boolean,
   registeredShape: Shape,
   constraint?: Position[]
-) {
+): PathCommand[] {
   const topLinePoints = []; // area 区域上部分
   let bottomLinePoints = []; // area 区域下部分
   _.each(points, (point) => {

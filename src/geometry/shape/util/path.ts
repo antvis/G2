@@ -1,10 +1,10 @@
 import { vec2 } from '@antv/matrix-util';
 import * as _ from '@antv/util';
-import { Coordinate } from '../../../dependents';
+import { Coordinate, PathCommand } from '../../../dependents';
 import { Point, Position } from '../../../interface';
 import { getDistanceToCenter } from '../../../util/coordinate';
 
-function _points2path(points: Point[], isInCircle: boolean): any[] {
+function _points2path(points: Point[], isInCircle: boolean): PathCommand[] {
   const path = [];
   if (points.length) {
     for (let i = 0, length = points.length; i < length; i += 1) {
@@ -33,7 +33,7 @@ function _convertArr(arr: number[], coord: Coordinate): any[] {
   return tmp;
 }
 
-function _convertPolarPath(pre: any[], cur: any[], coord: Coordinate): any[] {
+function _convertPolarPath(pre: PathCommand, cur: PathCommand, coord: Coordinate): PathCommand[] {
   const { isTransposed, startAngle, endAngle } = coord;
 
   const prePoint = {
@@ -69,7 +69,7 @@ function _convertPolarPath(pre: any[], cur: any[], coord: Coordinate): any[] {
 }
 
 // 当存在整体的圆时，去除圆前面和后面的线，防止出现直线穿过整个圆的情形
-function _filterFullCirleLine(path: any[]): void {
+function _filterFullCirleLine(path: PathCommand[]) {
   _.each(path, (subPath, index) => {
     const cur = subPath;
     if (cur[0].toLowerCase() === 'a') {
@@ -166,7 +166,7 @@ export const smoothBezier = (
 };
 
 /** 贝塞尔曲线 */
-export function catmullRom2bezier(crp: number[], z: boolean, constraint: Position[]): any[] {
+export function catmullRom2bezier(crp: number[], z: boolean, constraint: Position[]): PathCommand[] {
   const isLoop = !!z;
   const pointList = [];
   for (let i = 0, l = crp.length; i < l; i += 2) {
@@ -200,12 +200,12 @@ export function catmullRom2bezier(crp: number[], z: boolean, constraint: Positio
 }
 
 /** 将点连接成路径 path */
-export function getLinePath(points: Point[], isInCircle?: boolean): any[] {
+export function getLinePath(points: Point[], isInCircle?: boolean): PathCommand[] {
   return _points2path(points, isInCircle);
 }
 
 /** 根据关键点获取限定了范围的平滑线 */
-export function getSplinePath(points: Point[], isInCircle?: boolean, constaint?: Position[]): any[] {
+export function getSplinePath(points: Point[], isInCircle?: boolean, constaint?: Position[]): PathCommand[] {
   const data = [];
   const first = points[0];
   let prePoint = null;
@@ -242,7 +242,7 @@ export function getPointAngle(coord, point: Point): number {
 }
 
 /** 将归一化后的路径数据转换成坐标 */
-export function convertNormalPath(coord, path: any[]): any[] {
+export function convertNormalPath(coord, path: PathCommand[]): PathCommand[] {
   const tmp = [];
   _.each(path, (subPath) => {
     const action = subPath[0];
@@ -262,10 +262,10 @@ export function convertNormalPath(coord, path: any[]): any[] {
 }
 
 /** 将路径转换为极坐标下的真实路径 */
-export function convertPolarPath(coord, path: any[]): any[] {
+export function convertPolarPath(coord, path: PathCommand[]): PathCommand[] {
   let tmp = [];
-  let pre: any[];
-  let cur: any[];
+  let pre: PathCommand;
+  let cur: PathCommand;
   let transposed: boolean;
   let equals: boolean;
   _.each(path, (subPath, index) => {
