@@ -206,6 +206,21 @@ registerShape('interval', 'rect', {
       shape.attr(attrs);
     }
   },
+  getMarker(color: string, isInPolar: boolean) {
+    if (isInPolar) {
+      return {
+        symbol: 'circle',
+        r: 4.5,
+        fill: color,
+      };
+    }
+
+    return {
+      symbol: 'square',
+      r: 4,
+      fill: color,
+    };
+  },
 });
 
 // 描边柱状图
@@ -246,6 +261,21 @@ registerShape('interval', 'hollowRect', {
     } else {
       shape.attr(attrs);
     }
+  },
+  getMarker(color: string, isInPolar: boolean) {
+    if (isInPolar) {
+      return {
+        symbol: 'circle',
+        r: 4.5,
+        stroke: color,
+      };
+    }
+
+    return {
+      symbol: 'square',
+      r: 4,
+      stroke: color,
+    };
   },
 });
 
@@ -297,6 +327,15 @@ registerShape('interval', 'line', {
       shape.attr(attrs);
     }
   },
+  getMarker(color: string, isInPolar: boolean) {
+    return {
+      symbol: (x: number, y: number, r: number) => {
+        return [['M', x, y - r], ['L', x, y + r]];
+      },
+      r: 5,
+      stroke: color,
+    };
+  },
 });
 
 // I 形状柱状图，常用于 error bar chart
@@ -339,6 +378,22 @@ registerShape('interval', 'tick', {
     } else {
       shape.attr(attrs);
     }
+  },
+  getMarker(color: string, isInPolar: boolean) {
+    return {
+      symbol: (x: number, y: number, r: number) => {
+        return [
+          ['M', x - r / 2, y - r],
+          ['L', x + r / 2, y - r],
+          ['M', x, y - r],
+          ['L', x, y + r],
+          ['M', x - r / 2, y + r],
+          ['L', x + r / 2, y + r],
+        ];
+      },
+      r: 5,
+      stroke: color,
+    };
   },
 });
 
@@ -385,6 +440,13 @@ registerShape('interval', 'funnel', {
       shape.attr(attrs);
     }
   },
+  getMarker(color: string, isInPolar: boolean) {
+    return {
+      symbol: 'square',
+      r: 4,
+      fill: color,
+    };
+  },
 });
 
 // 金字塔图，尖底漏斗图
@@ -429,6 +491,13 @@ registerShape('interval', 'pyramid', {
     } else {
       shape.attr(attrs);
     }
+  },
+  getMarker(color: string, isInPolar: boolean) {
+    return {
+      symbol: 'square',
+      r: 4,
+      fill: color,
+    };
   },
 });
 

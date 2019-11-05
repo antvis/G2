@@ -57,17 +57,23 @@ const ShapeFactoryBase = {
     return [];
   },
   /**
-   * 获取 shape 对应的缩略图
-   * @override
-   * @param shapeType shape 类型
-   * @param markerCfg 样式配置
-   * @returns
+   * get the shape's thumbnail configuration
+   * @param shapeType the shape type
+   * @param color the shape color
+   * @param isInPolar is polar coordinate
+   * @returns the thumbnail configuration
    */
-  getMarker(shapeType: string, markerCfg: LooseObject) {
+  getMarker(shapeType: string, color: string, isInPolar: boolean) {
     const shape = this.getShape(shapeType);
 
     if (shape.getMarker) {
-      return shape.getMarker(markerCfg);
+      const theme = this.theme;
+      const shapeStyle = _.get(theme, [shapeType, 'default'], {});
+      const markerStyle = shape.getMarker(color, isInPolar);
+      return {
+        ...shapeStyle,
+        ...markerStyle,
+      };
     }
   },
   /**

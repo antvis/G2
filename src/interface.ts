@@ -124,8 +124,8 @@ export interface RegisterShapeFactory {
   readonly defaultShapeType: string;
   /** 返回绘制 shape 所有的关键点集合 */
   readonly getDefaultPoints?: (pointInfo: ShapePoint) => Point[];
-  /** 获取 shape 对应的缩略图 */
-  readonly getMarker?: (shapeType: string, markerCfg: LooseObject) => IShape | IGroup;
+  /** 获取 shape 对应的缩略图配置 */
+  readonly getMarker?: (shapeType: string, color: string, isInPolar: boolean) => LooseObject;
   /** 创建具体的 G.Shape 实例 */
   readonly drawShape?: (shapeType: string, cfg: ShapeDrawCFG, element: Element) => IShape | IGroup;
   /** 更新 shape */
@@ -141,7 +141,7 @@ export interface RegisterShape {
   /** 计算绘制需要的关键点，在注册具体的 shape 时由开发者自己定义 */
   readonly getPoints?: (pointInfo: ShapePoint) => Point[];
   /** 获取 shape 对应的缩略图样式配置，在注册具体的 shape 时由开发者自己定义 */
-  readonly getMarker?: (markerCfg: LooseObject) => IShape | IGroup;
+  readonly getMarker?: (color: string, isInPolar: boolean) => LooseObject;
   /** 绘制 */
   readonly draw: (cfg: ShapeDrawCFG, container: Element) => IShape | IGroup;
   /** 更新 shape */

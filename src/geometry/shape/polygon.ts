@@ -80,6 +80,13 @@ registerShape('polygon', 'polygon', {
       });
     }
   },
+  getMarker(color: string, isInCircle) {
+    return {
+      symbol: 'square',
+      r: 4,
+      fill: color,
+    };
+  },
 });
 
 export default PolygonShapeFactory;
