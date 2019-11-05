@@ -169,9 +169,9 @@ _.each(HOLLOW_SHAPES, (shapeName: string) => {
     },
     getMarker(color: string, isInCircle: boolean) {
       return {
-        symbol: PointSymbols[shapeName] || shapeName,
+        symbol: PointSymbols[shapeName],
         r: 4.5,
-        fill: color,
+        stroke: color,
       };
     },
   });

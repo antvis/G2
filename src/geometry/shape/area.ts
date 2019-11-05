@@ -90,16 +90,6 @@ function getConstraint(coordinate: Coordinate): Position[] {
   return [[start.x, end.y], [end.x, start.y]];
 }
 
-function getMarkerCfg(color: string) {
-  return {
-    symbol(x: number, y: number, r: number = 5.5) {
-      return [['M', x - r, y - 4], ['L', x + r, y - 4], ['L', x + r, y + 4], ['L', x - r, y + 4], ['Z']];
-    },
-    r: 5,
-    fill: color,
-  };
-}
-
 const AreaShapeFactory = registerShapeFactory('area', {
   defaultShapeType: 'area',
   getDefaultPoints(pointInfo: ShapePoint): Point[] {
@@ -141,7 +131,13 @@ registerShape('area', 'area', {
     }
   },
   getMarker(color: string, isInCircle: boolean) {
-    return getMarkerCfg(color);
+    return {
+      symbol: (x: number, y: number, r: number = 5.5) => {
+        return [['M', x - r, y - 4], ['L', x + r, y - 4], ['L', x + r, y + 4], ['L', x - r, y + 4], ['Z']];
+      },
+      r: 5,
+      fill: color,
+    };
   },
 });
 
@@ -170,7 +166,13 @@ registerShape('area', 'line', {
     }
   },
   getMarker(color: string, isInCircle: boolean) {
-    return getMarkerCfg(color);
+    return {
+      symbol: (x: number, y: number, r: number = 5.5) => {
+        return [['M', x - r, y - 4], ['L', x + r, y - 4], ['L', x + r, y + 4], ['L', x - r, y + 4], ['Z']];
+      },
+      r: 5,
+      stroke: color,
+    };
   },
 });
 
@@ -201,7 +203,13 @@ registerShape('area', 'smooth', {
     }
   },
   getMarker(color: string, isInCircle: boolean) {
-    return getMarkerCfg(color);
+    return {
+      symbol: (x: number, y: number, r: number = 5.5) => {
+        return [['M', x - r, y - 4], ['L', x + r, y - 4], ['L', x + r, y + 4], ['L', x - r, y + 4], ['Z']];
+      },
+      r: 5,
+      fill: color,
+    };
   },
 });
 
@@ -232,7 +240,13 @@ registerShape('area', 'smoothLine', {
     }
   },
   getMarker(color: string, isInCircle: boolean) {
-    return getMarkerCfg(color);
+    return {
+      symbol: (x: number, y: number, r: number = 5.5) => {
+        return [['M', x - r, y - 4], ['L', x + r, y - 4], ['L', x + r, y + 4], ['L', x - r, y + 4], ['Z']];
+      },
+      r: 5,
+      stroke: color,
+    };
   },
 });
 
