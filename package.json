@@ -22,7 +22,6 @@
     "lib": "run-p lib:*",
     "build": "run-s clean lib",
     "ci": "run-s build coverage",
-    "coveralls": "cat ./coverage/lcov.info | coveralls",
     "doc": "rimraf -rf docs/api && typedoc"
   },
   "dependencies": {
@@ -41,7 +40,6 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.18",
-    "coveralls": "^3.0.6",
     "husky": "^3.0.4",
     "jest": "^24.9.0",
     "jest-electron": "^0.1.7",
