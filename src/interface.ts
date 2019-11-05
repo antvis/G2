@@ -1,4 +1,4 @@
-import { Coordinate, IGroup, IShape, ScaleConfig } from './dependents';
+import { Coordinate, IGroup, IShape, PathCommand, ScaleConfig } from './dependents';
 import Element from './geometry/element';
 
 /** G 的渲染类型 */
@@ -117,6 +117,12 @@ export interface ShapePoint {
   size?: number;
 }
 
+export interface ShapeMarkerCfg {
+  symbol: string | ShapeMarkerSymbol;
+  stroke?: string;
+  fill?: string;
+  r: number;
+}
 // Shape Module start
 /** 注册 ShapeFactory 需要实现的接口 */
 export interface RegisterShapeFactory {
@@ -125,7 +131,7 @@ export interface RegisterShapeFactory {
   /** 返回绘制 shape 所有的关键点集合 */
   readonly getDefaultPoints?: (pointInfo: ShapePoint) => Point[];
   /** 获取 shape 对应的缩略图配置 */
-  readonly getMarker?: (shapeType: string, color: string, isInPolar: boolean) => LooseObject;
+  readonly getMarker?: (shapeType: string, color: string, isInPolar: boolean) => ShapeMarkerCfg;
   /** 创建具体的 G.Shape 实例 */
   readonly drawShape?: (shapeType: string, cfg: ShapeDrawCFG, element: Element) => IShape | IGroup;
   /** 更新 shape */
@@ -141,7 +147,7 @@ export interface RegisterShape {
   /** 计算绘制需要的关键点，在注册具体的 shape 时由开发者自己定义 */
   readonly getPoints?: (pointInfo: ShapePoint) => Point[];
   /** 获取 shape 对应的缩略图样式配置，在注册具体的 shape 时由开发者自己定义 */
-  readonly getMarker?: (color: string, isInPolar: boolean) => LooseObject;
+  readonly getMarker?: (color: string, isInPolar: boolean) => ShapeMarkerCfg;
   /** 绘制 */
   readonly draw: (cfg: ShapeDrawCFG, container: Element) => IShape | IGroup;
   /** 更新 shape */
@@ -184,3 +190,4 @@ export type AttributeType = 'position' | 'size' | 'color' | 'shape';
 export type ScaleType = 'linear' | 'cat' | 'identity' | 'log' | 'pow' | 'time' | 'timeCat';
 export type AdjustType = 'stack' | 'jitter' | 'dodge' | 'symmetric';
 export type ShapeVertices = RangePoint[] | Point[] | Point[][];
+export type ShapeMarkerSymbol = (x: number, y: number, r: number) => PathCommand[];
