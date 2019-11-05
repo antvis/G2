@@ -22,7 +22,7 @@ const chart = new G2.Chart({
 });
 ```
 
-* 方式 2：调用 `chart.source(data)` 方法，每个字段的[列定义](https://www.yuque.com/antv/g2-docs/tutorial-scale)也可以在这里传入
+* 方式 2：调用 `chart.source(data)` 方法，每个字段的[列定义](/zh/docs/manual/tutorial/scale-def)也可以在这里传入
 
 ```js
 chart.source(data, {
@@ -40,7 +40,7 @@ chart.source(data, {
 G2 支持两种格式的数据源：
 
 1. JSON 数组
-2. [DataView 对象](https://www.yuque.com/antv/g2-docs/tutorial-dataset)
+2. [DataView 对象](/zh/docs/manual/tutorial/data-set)
 
 ### JSON 数组
 
@@ -59,7 +59,7 @@ chart.source(data);
 
 ### DataView 对象
 
-详见 [DataSet 教程](https://www.yuque.com/antv/g2-docs/tutorial-dataset)。
+详见 [DataSet 教程](/zh/docs/manual/tutorial/data-set)。
 
 ## 更新数据
 
@@ -103,4 +103,4 @@ chart.render();
 
 ### 使用 DataView  更新
 
-由于 `DataSet` 支持状态量 `state`，一旦更改状态量，图表即一起刷新，详情查看[ DataSet 教程](https://www.yuque.com/antv/g2-docs/tutorial-dataset)。
+由于 `DataSet` 支持状态量 `state`，一旦更改状态量，图表即一起刷新，详情查看[ DataSet 教程](/zh/docs/manual/tutorial/data-set)。

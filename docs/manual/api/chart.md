@@ -26,7 +26,7 @@ new G2.Chart({
 
 ## 属性
 
-### `container`
+### container
 
 对应图表的 DOM 容器，可以传入该 DOM 的 id 或者直接传入容器的 HTML 节点对象。
 
@@ -45,18 +45,18 @@ const chart = new G2.Chart({
 > !注意：可以使用 `id` 代替 `container`。
 
 
-### `width`
+### width
 
 指定图表的宽度，单位为 'px'，当 `forceFit: true` 时宽度配置不生效。
 
-### `height`
+### height
 
 指定图表的高度，单位为 'px'。
 
 > 宽和高未指定时，默认为 500px
 
 
-### `padding`
+### padding
 
 设置图表的内边距，支持如下几种设置方式：
 
@@ -78,7 +78,7 @@ const chart = new G2.Chart({
 - padding 中存在 'auto'，时会自动计算边框，目前仅考虑 axis 和 legend 占用的边框。
 
 
-### `background`
+### background
 
 设置图表整体的边框和背景样式，是一个对象，包含如下属性：
 
@@ -94,7 +94,7 @@ background: {
 }
 ```
 
-### `plotBackground`
+### plotBackground
 
 图表绘图区域的边框和背景样式，是一个对象，包含如下属性：
 
@@ -110,31 +110,31 @@ plotBackground: {
 }
 ```
 
-### `forceFit`
+### forceFit
 
 图表的宽度自适应开关，默认为 false，设置为 true 时表示自动取 dom（实例容器）的宽度。
 
-### `animate`
+### animate
 
 图表动画开关，默认为 true，即开启动画。
 
-### `pixelRatio`
+### pixelRatio
 
 设置设备像素比，默认取浏览器的值 `window.devicePixelRatio`。
 
-### `data`
+### data
 
 设置图表的数据源，`data` 是一个包含 JSON 对象的数组或者 DataSet.View 对象。
 
 建议使用 `chart.source(data)` 设置数据源。
 
-### `theme`
+### theme
 
-设置当前图表的主题，可以是字符串 `default` 或者 `dark`（这两个是目前 G2 支持的主题），也可以是一个包含主题配置项的对象，具体设置形式参考 [图表皮肤](https://www.yuque.com/antv/g2-docs/tutorial-theme)。这是“Chart 级别的主题样式配置”。
+设置当前图表的主题，可以是字符串 `default` 或者 `dark`（这两个是目前 G2 支持的主题），也可以是一个包含主题配置项的对象，具体设置形式参考 [图表皮肤](/zh/docs/manual/tutorial/theme)。这是“Chart 级别的主题样式配置”。
 
-### `renderer`
+### renderer
 
-设置当前图表的使用的渲染方案，可以是字符串 `canvas` 或者 `svg`（这两个是目前 G2 支持的渲染引擎）。具体两种渲染引擎的差异可以参考 选择[ Canvas 还是 SVG](https://www.yuque.com/antv/g2-docs/tutorial-renderers)。
+设置当前图表的使用的渲染方案，可以是字符串 `canvas` 或者 `svg`（这两个是目前 G2 支持的渲染引擎）。具体两种渲染引擎的差异可以参考 选择[ Canvas 还是 SVG](/zh/docs/manual/tutorial/renderers)。
 
 全局指定 renderer 的方法：
 
@@ -173,7 +173,7 @@ G2.Global.renderer = 'svg';
 - `scaleConfig`
 
 
-可选，用于数据字段的列定义，如设置数据的类型，显示别名，时间类型的展示格式等，不同的数字类型的配置项不同，详情可配置属性参考 [Scale](https://www.yuque.com/antv/g2-docs/api-scale)。
+可选，用于数据字段的列定义，如设置数据的类型，显示别名，时间类型的展示格式等，不同的数字类型的配置项不同，详情可配置属性参考 [Scale](/zh/docs/manual/api/scale)。
 
 ##### 示例
 
@@ -228,7 +228,7 @@ chart.source(data, {
 }
 ```
 
-!注意：除了以上属性外，不同的 type 还对应有各自的可配置属性，详见 [Scale 度量 API](https://www.yuque.com/antv/g2-docs/api-scale);
+!注意：除了以上属性外，不同的 type 还对应有各自的可配置属性，详见 [Scale 度量 API](/zh/docs/manual/api/scale);
 
 ##### 示例
 
@@ -462,7 +462,7 @@ label: {
 }
 ```
 
-- textStyle 的更详细的配置项 [绘图属性](https://www.yuque.com/antv/g2-docs/api-graphic)
+- textStyle 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
 
 
 1. `title`: object | null
@@ -491,7 +491,7 @@ title: {
 }
 ```
 
-- textStyle 的更详细的配置项 [绘图属性](https://www.yuque.com/antv/g2-docs/api-graphic)
+- textStyle 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
 
 
 1. `tickLine`: object | null
@@ -509,7 +509,7 @@ tickLine: {
 }
 ```
 
-- alignWithLabel的用法详情见教程 [axis](https://www.yuque.com/antv/g2-docs/tutorial-axes)
+- alignWithLabel的用法详情见教程 [axis](/zh/docs/manual/tutorial/axis)
 
 
 1. `subTickCount`: number
@@ -561,7 +561,7 @@ grid: {
 }
 ```
 
-- lineStyle 的更详细的配置项[ 绘图属性](https://www.yuque.com/antv/g2-docs/api-graphic)
+- lineStyle 的更详细的配置项[ 绘图属性](/zh/docs/manual/api/graphics)
 
 
 ### legend
@@ -1184,7 +1184,7 @@ crosshairs: {
 }
 ```
 
-- style 的更详细的配置项 [绘图属性](https://www.yuque.com/antv/g2-docs/api-graphic)
+- style 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
 
 
 > crosshairs.type 说明： `rect` 表示矩形框，`x` 表示水平辅助线，`y` 表示垂直辅助线，`cross` 表示十字辅助线。
@@ -1395,7 +1395,7 @@ chart.guide().line({
 - `lineStyle`: object
 
 
-用于设置辅助线的显示样式，`style` 的更详细的配置项 [绘图属性](https://www.yuque.com/antv/g2-docs/api-graphic)。
+用于设置辅助线的显示样式，`style` 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)。
 
 - `text`: object
 
@@ -1416,7 +1416,7 @@ text: {
 }
 ```
 
-`style` 的更详细的配置项 [绘图属性](https://www.yuque.com/antv/g2-docs/api-graphic)
+`style` 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
 
 #### chart.guide().text(cfg)
 
@@ -1477,7 +1477,7 @@ chart.guide().text({
 - `style`: object
 
 
-用于设置辅助文本的显示样式，`style` 的更详细的配置项 [绘图属性](https://www.yuque.com/antv/g2-docs/api-graphic)
+用于设置辅助文本的显示样式，`style` 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
 
 - `offsetX`: number
 
@@ -1627,7 +1627,7 @@ chart.guide().region({
 - `style`: object
 
 
-用于设置辅助背景框的样式，`style` 的更详细的配置项 [绘图属性](https://www.yuque.com/antv/g2-docs/api-graphic)。
+用于设置辅助背景框的样式，`style` 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)。
 
 #### chart.guide().html(cfg)
 
@@ -1761,7 +1761,7 @@ chart.guide().arc({
 - `style`: object
 
 
-设置圆弧的显示样式，`style` 的更详细的配置项 [绘图属性](https://www.yuque.com/antv/g2-docs/api-graphic)
+设置圆弧的显示样式，`style` 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
 
 #### chart.guide().regionFilter(cfg)
 
@@ -1831,7 +1831,7 @@ chart.guide().regionFilter({
 - `style`: object
 
 
-可选，为过滤区域的图形设置额外的样式，`style` 的更详细的配置项 [绘图属性](https://www.yuque.com/antv/g2-docs/api-graphic)。
+可选，为过滤区域的图形设置额外的样式，`style` 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)。
 
 #### chart.guide().dataMarker(cfg)
 
@@ -1901,7 +1901,7 @@ chart.guide().dataMarker({
 - `style`: object
 
 
-用于设置 point/line/text 样式，更详细的配置项 [绘图属性](https://www.yuque.com/antv/g2-docs/api-graphic)
+用于设置 point/line/text 样式，更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
 
 - `display`: object
 
@@ -1988,7 +1988,7 @@ chart.guide().dataRegion({
 - `style`: object
 
 
-region/text 的显示样式，更详细的配置项 [绘图属性](https://www.yuque.com/antv/g2-docs/api-graphic)
+region/text 的显示样式，更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
 
 - `lineLength`: number
 
@@ -2102,7 +2102,7 @@ colTitle: {
 }
 ```
 
-- style 的更详细的配置项 [绘图属性](https://www.yuque.com/antv/g2-docs/api-graphic)
+- style 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
 
 
 - `rowTitle`: object | null
@@ -2121,7 +2121,7 @@ rowTitle: {
 }
 ```
 
-- style 的更详细的配置项 [绘图属性](https://www.yuque.com/antv/g2-docs/api-graphic)
+- style 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
 
 
 !注意：`showTitle` 和 `autoSetAxis` 用于控制分面的默认行为；`colTitle` 和 `rowTitle` 是通过 `chart.guild().text()` 来实现的，所以所有 `chart.guild().text()` 的参数都生效。
@@ -2210,7 +2210,7 @@ chart.filter('x', val => {
 
 ### view
 
-创建视图，返回 view 对象（详见 [View](https://www.yuque.com/antv/g2-docs/api-view)）。
+创建视图，返回 view 对象（详见 [View](/zh/docs/manual/api/view)）。
 
 ```javascript
 chart.view({
@@ -2280,39 +2280,39 @@ padding 为数字以及数组类型时使用方法同 CSS 盒模型。
 
 ### line
 
-创建线图，返回一个 geom 对象，详见 [Geom](https://www.yuque.com/antv/g2-docs/api-geom)。
+创建线图，返回一个 geom 对象，详见 [Geometry](/zh/docs/manual/api/geometry)。
 
 ### point
 
-创建点图图，返回一个 geom 对象，详见 [Geom](https://www.yuque.com/antv/g2-docs/api-geom)。
+创建点图图，返回一个 geom 对象，详见 [Geometry](/zh/docs/manual/api/geometry)。
 
 ### path
 
-创建路径图，返回一个 geom 对象，详见 [Geom](https://www.yuque.com/antv/g2-docs/api-geom)。
+创建路径图，返回一个 geom 对象，详见 [Geometry](/zh/docs/manual/api/geometry)。
 
 ### area
 
-创建区域图，返回一个 geom 对象，详见 [Geom](https://www.yuque.com/antv/g2-docs/api-geom)。
+创建区域图，返回一个 geom 对象，详见 [Geometry](/zh/docs/manual/api/geometry)。
 
 ### interval
 
-创建柱图，返回一个 geom 对象，详见 [Geom](./geom.html)。
+创建柱图，返回一个 geom 对象，详见 [Geometry](./geom.html)。
 
 ### polygon
 
-创建多边形，返回一个 geom 对象，详见 [Geom](https://www.yuque.com/antv/g2-docs/api-geom)。
+创建多边形，返回一个 geom 对象，详见 [Geometry](/zh/docs/manual/api/geometry)。
 
 ### schema
 
-创建 K 线、箱型图，返回一个 geom 对象，详见 [Geom](https://www.yuque.com/antv/g2-docs/api-geom)。
+创建 K 线、箱型图，返回一个 geom 对象，详见 [Geometry](/zh/docs/manual/api/geometry)。
 
 ### edge
 
-创建树图、流程图、关系图，返回一个 geom 对象，详见 [Geom](https://www.yuque.com/antv/g2-docs/api-geom)。
+创建树图、流程图、关系图，返回一个 geom 对象，详见 [Geometry](/zh/docs/manual/api/geometry)。
 
 ### heatmap
 
-创建热力图，返回一个 geom 对象，详见 [Geom](https://www.yuque.com/antv/g2-docs/api-geom)。
+创建热力图，返回一个 geom 对象，详见 [Geometry](/zh/docs/manual/api/geometry)。
 
 ### render
 
@@ -2381,11 +2381,11 @@ padding 为数字以及数组类型时使用方法同 CSS 盒模型。
 
 ### getXScale
 
-返回图表 x 轴对应的度量[Scale](https://www.yuque.com/antv/g2-docs/api-scale)。
+返回图表 x 轴对应的度量[Scale](/zh/docs/manual/api/coordinate)。
 
 ### getYScales
 
-获取图表所有 y 轴的度量[Scale](https://www.yuque.com/antv/g2-docs/api-scale)，以数组的形式返回。
+获取图表所有 y 轴的度量[Scale](/zh/docs/manual/api/scale)，以数组的形式返回。
 
 ### getXY
 
@@ -2455,7 +2455,7 @@ chart.on('plotmove', ev => {
 
 ### getAllGeoms
 
-获取图表中所有的几何标记对象 [geom](https://www.yuque.com/antv/g2-docs/api-geom)，返回的结果是一个数组： [geom, geom, ...]。
+获取图表中所有的几何标记对象 [geometry](/zh/docs/manual/api/geometry)，返回的结果是一个数组： [geom, geom, ...]。
 
 ### changeVisible
 
@@ -2484,7 +2484,7 @@ chart.on('plotmove', ev => {
 
 (point: object)
 
-根据传入的坐标点显示对应的 tooltip 信息，这个方法通常同 [chart.getXY()](https://www.yuque.com/antv/g2-docs/api-chart#c5g4rf) 配合使用。
+根据传入的坐标点显示对应的 tooltip 信息，这个方法通常同 [chart.getXY()](/zh/docs/manual/api/chart/#getxy) 配合使用。
 
 point 是一个对象，代表画布上的坐标点，参数格式如下：
 
@@ -2603,7 +2603,7 @@ chart.on('guide-line-text:click', ev => {
 });
 ```
 
-- lineStyle, style 的更详细的配置项 [绘图属性](https://www.yuque.com/antv/g2-docs/api-graphic)
+- lineStyle, style 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
 
 - ![](https://gw.alipayobjects.com/zos/rmsportal/eFRpBGmvDRAhYnCcrnnh.png#align=left&display=inline&height=903&originHeight=1104&originWidth=880&status=done&width=720)
 
@@ -2699,9 +2699,9 @@ chart.on('interval:mouseleave', ev => {
 });
 ```
 
-- style 的更详细的配置项 [绘图属性](https://www.yuque.com/antv/g2-docs/api-graphic)
+- style 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
 
 
 ### 更多
 
-更多的信息可以查看[几何标记](https://www.yuque.com/antv/g2-docs/tutorial-geom)使用各种具体的图表
+更多的信息可以查看[几何标记](/zh/docs/manual/tutorial/geometry)使用各种具体的图表

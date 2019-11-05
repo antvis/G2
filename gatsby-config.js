@@ -41,12 +41,26 @@ module.exports = {
         },
         order: 1
       }, {
+        slug: 'manual/advanced',
+        title: {
+          zh: '高级教程',
+          en: 'advanced'
+        },
+        order: 2
+      }, {
         slug: 'manual/api',
         title: {
           zh: 'API 文档',
-          en: 'API 文档'
+          en: 'API'
         },
-        order: 2
+        order: 3
+      }, {
+        slug: 'manual/faq',
+        title: {
+          zh: 'G2 常见问题',
+          en: 'FAQ'
+        },
+        order: 4
       }
     ],
     examples: [

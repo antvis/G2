@@ -25,8 +25,8 @@ G2 是一套基于可视化编码的图形语法，以数据驱动，具有高�
 既可以通过将脚本下载到本地也可以直接引入在线资源；
 
 ```html
-<!-- 引入在线资源 -->
-<script src="https://gw.alipayobjects.com/os/lib/antv/g2/3.4.10/dist/g2.min.js"></script>
+<!-- 引入在线资源 选择你需要的 g2 版本以替换 version 变量 -->
+<script src="https://gw.alipayobjects.com/os/lib/antv/g2/{{version}}/dist/g2.min.js"></script>
 ```
 
 ```html
