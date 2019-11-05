@@ -14,6 +14,7 @@ import { Data, Datum } from '../interface';
 import { STATE_ACTIONS, StateActionCfg, StateManager } from '../state';
 import { BBox } from '../util/bbox';
 import { isFullCircle, isPointInCoordinate } from '../util/coordinate';
+import { getEventName } from '../util/event';
 import { parsePadding } from '../util/padding';
 import { mergeTheme } from '../util/theme';
 import Chart from './chart';
@@ -646,13 +647,31 @@ export default class View extends EE {
     // 阻止继续冒泡，防止重复事件触发
     evt.preventDefault();
 
-    const { type, shape } = evt;
+    const { type, shape, target } = evt;
 
     const data = shape.get('origin');
+    // 事件在 view 嵌套中冒泡（暂不提供阻止冒泡的机制）
     const e = new Event(this, evt, data);
 
-    // 委托事件到 view 上
-    this.emit(type, e);
+    // emit 原始事件
+    this.emit(type, e.clone());
+
+    // 组合 name:event 事件，G 层做不到，只能上层来包装
+    // 不合理的地方是：
+    // - 这层逻辑相当于上下层（G, G2）都感知，一次改动上下层都需要改动
+    // - 而且如果 G 层无法满足的话，G 层 name:event 事件的意义是什么
+    // @ts-ignore
+    const name = target.get('name');
+
+    if (name) {
+      const evtName = getEventName(type, name);
+
+      const ec = e.clone();
+      ec.type = evtName;
+
+      // 委托事件到 view 上
+      this.emit(evtName, ec);
+    }
 
     // 根据事件的 x y 判断是否在 CoordinateBBox 中，然后处理 plot 事件
     if (['mousemove', 'mouseleave'].includes(type)) {
