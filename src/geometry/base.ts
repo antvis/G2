@@ -615,6 +615,7 @@ export default class Geometry {
       const coordinate = this.coordinate;
       shapeFactory = getShapeFactory(shapeType);
       shapeFactory.coordinate = coordinate;
+      shapeFactory.theme = _.get(this.theme, shapeType, {});
       this.shapeFactory = shapeFactory;
     }
 
