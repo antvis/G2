@@ -170,8 +170,6 @@ export interface ShapeFactory extends RegisterShapeFactory {
   geometryType: string;
   /** 坐标系对象 */
   coordinate: Coordinate;
-  /** 设置坐标系 */
-  setCoordinate: (coord: Coordinate) => void;
   /** 根据名称获取具体的 shape 对象 */
   getShape: (shapeType: string | string[]) => Shape;
   /** 获取构成 shape 的关键点 */

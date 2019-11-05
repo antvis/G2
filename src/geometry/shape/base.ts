@@ -23,10 +23,6 @@ const ShapeFactoryBase = {
   coordinate: null,
   /** 默认绘制的 Shape 类型 */
   defaultShapeType: null,
-
-  setCoordinate(coordinate: Coordinate) {
-    this.coordinate = coordinate;
-  },
   /**
    * 获取 shape 绘制需要的关键点
    * @param shapeType shape 类型

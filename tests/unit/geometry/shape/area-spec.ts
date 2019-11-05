@@ -17,7 +17,7 @@ describe('Area shapes', () => {
     start: { x: 0, y: 500 },
     end: { x: 500, y: 0 },
   });
-  AreaShapeFactory.setCoordinate(rectCoord);
+  AreaShapeFactory.coordinate = rectCoord;
 
   const element = new Element({
     shapeType: 'area',

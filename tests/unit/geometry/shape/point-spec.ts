@@ -19,7 +19,7 @@ describe('Point shapes', () => {
     start: { x: 0, y: 500 },
     end: { x: 500, y: 0 },
   });
-  PointShapeFactory.setCoordinate(rectCoord);
+  PointShapeFactory.coordinate = rectCoord;
 
   const element = new Element({
     shapeType: 'point',

@@ -18,7 +18,7 @@ describe('Line shapes', () => {
     start: { x: 0, y: 500 },
     end: { x: 500, y: 0 },
   });
-  LineShapeFactory.setCoordinate(rectCoord);
+  LineShapeFactory.coordinate = rectCoord;
 
   const element = new Element({
     shapeType: 'line',
@@ -316,7 +316,7 @@ describe('Line shapes', () => {
       });
       // @ts-ignore
       element.shapeType = 'smooth';
-      LineShapeFactory.setCoordinate(polar);
+      LineShapeFactory.coordinate = polar;
       it('draw smooth line', () => {
         const shape = LineShapeFactory.drawShape(
           'smooth',

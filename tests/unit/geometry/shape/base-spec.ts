@@ -99,7 +99,7 @@ describe('Shape', () => {
   describe('ShapeFactory', () => {
     it('getShape()', () => {
       const circleFactory = GeometryShape.getShapeFactory('circleFactory');
-      circleFactory.setCoordinate(coordinate);
+      circleFactory.coordinate = coordinate;
 
       const shape = circleFactory.getShape('circle');
       expect(shape).toEqual(circleFactory[circleFactory.defaultShapeType]);
@@ -238,7 +238,8 @@ describe('Shape', () => {
         end: { x: 200, y: 200 },
       });
       const circleFactory = GeometryShape.getShapeFactory('circleFactory');
-      circleFactory.setCoordinate(polar);
+      circleFactory.coordinate = polar;
+
       const shape = circleFactory.getShape('circle');
       let path = [['M', 0, 0], ['L', 0, 1], ['L', 0.5, 1]];
       let toPath = shape.parsePath(path, true);

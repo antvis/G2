@@ -65,7 +65,7 @@ describe('Interval shapes', () => {
   });
 
   describe('rect', () => {
-    IntervalShapeFactory.setCoordinate(rectCoord);
+    IntervalShapeFactory.coordinate = rectCoord;
     const element = new Element({
       shapeType: 'rect',
       shapeFactory: IntervalShapeFactory,
@@ -130,7 +130,8 @@ describe('Interval shapes', () => {
   });
 
   describe('hollowRect', () => {
-    IntervalShapeFactory.setCoordinate(rectCoord);
+    IntervalShapeFactory.coordinate = rectCoord;
+
     const element = new Element({
       shapeType: 'hollowRect',
       shapeFactory: IntervalShapeFactory,
@@ -201,7 +202,8 @@ describe('Interval shapes', () => {
   });
 
   describe('line', () => {
-    IntervalShapeFactory.setCoordinate(rectCoord);
+    IntervalShapeFactory.coordinate = rectCoord;
+
     const element = new Element({
       shapeType: 'line',
       shapeFactory: IntervalShapeFactory,
@@ -297,7 +299,8 @@ describe('Interval shapes', () => {
   });
 
   describe('tick', () => {
-    IntervalShapeFactory.setCoordinate(rectCoord);
+    IntervalShapeFactory.coordinate = rectCoord;
+
     const element = new Element({
       shapeType: 'tick',
       shapeFactory: IntervalShapeFactory,
@@ -405,7 +408,8 @@ describe('Interval shapes', () => {
   });
 
   describe('funnel', () => {
-    IntervalShapeFactory.setCoordinate(rectCoord);
+    IntervalShapeFactory.coordinate = rectCoord;
+
     const element = new Element({
       shapeType: 'funnel',
       shapeFactory: IntervalShapeFactory,
@@ -525,7 +529,8 @@ describe('Interval shapes', () => {
   });
 
   describe('pyramid', () => {
-    IntervalShapeFactory.setCoordinate(rectCoord);
+    IntervalShapeFactory.coordinate = rectCoord;
+
     const element = new Element({
       shapeType: 'pyramid',
       shapeFactory: IntervalShapeFactory,

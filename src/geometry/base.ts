@@ -614,7 +614,7 @@ export default class Geometry {
       const shapeType = this.shapeType;
       const coordinate = this.coordinate;
       shapeFactory = getShapeFactory(shapeType);
-      shapeFactory.setCoordinate(coordinate);
+      shapeFactory.coordinate = coordinate;
       this.shapeFactory = shapeFactory;
     }
 
