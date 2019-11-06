@@ -122,6 +122,7 @@ export interface ShapeMarkerCfg {
   stroke?: string;
   fill?: string;
   r: number;
+  [key: string]: any;
 }
 // Shape Module start
 /** 注册 ShapeFactory 需要实现的接口 */

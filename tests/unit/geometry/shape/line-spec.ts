@@ -37,10 +37,12 @@ describe('Line shapes', () => {
     const dotMarker = LineShapeFactory.getMarker('dot', 'red', false);
     expect(dotMarker.lineDash).toBe(Theme.line.dot.default.lineDash);
     expect(dotMarker.stroke).toBe('red');
+    // @ts-ignore
     expect(dotMarker.symbol(10, 10, 5)).toEqual([['M', 5, 10], ['L', 15, 10]]);
 
     const vhMarker = LineShapeFactory.getMarker('vh', 'red', false);
     expect(vhMarker.stroke).toBe('red');
+    // @ts-ignore
     expect(vhMarker.symbol(10, 10, 5)).toEqual([['M', 4, 12.5], ['L', 10, 12.5], ['L', 10, 7.5], ['L', 16, 7.5]]);
   });
 

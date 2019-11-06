@@ -70,10 +70,12 @@ describe('Point shapes', () => {
     });
 
     const bowtieMarker = PointShapeFactory.getMarker('bowtie', 'red', false);
+    // @ts-ignore
     expect(bowtieMarker.symbol(11.5, 10, 3.5)).toEqual([['M', 8, 8], ['L', 15, 12], ['L', 15, 8], ['L', 8, 12], ['Z']]);
     expect(bowtieMarker.fill).toBe('red');
 
     const crossMarker = PointShapeFactory.getMarker('cross', 'red', false);
+    // @ts-ignore
     expect(crossMarker.symbol(10, 10, 5)).toEqual([['M', 5, 5], ['L', 15, 15], ['M', 15, 5], ['L', 5, 15]]);
     expect(crossMarker.stroke).toBe('red');
   });

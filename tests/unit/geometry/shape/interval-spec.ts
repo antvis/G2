@@ -334,6 +334,7 @@ describe('Interval shapes', () => {
     it('getMarker', () => {
       const markerCfg = IntervalShapeFactory.getMarker('line', 'red', false);
       expect(markerCfg.stroke).toBe('red');
+      // @ts-ignore
       expect(markerCfg.symbol(10, 10, 5)).toEqual([['M', 10, 5], ['L', 10, 15]]);
     });
   });
@@ -448,6 +449,7 @@ describe('Interval shapes', () => {
     it('getMarker', () => {
       const markerCfg = IntervalShapeFactory.getMarker('tick', 'red', false);
       expect(markerCfg.stroke).toBe('red');
+      // @ts-ignore
       expect(markerCfg.symbol(10, 10, 4)).toEqual([
         ['M', 8, 6],
         ['L', 12, 6],

@@ -1,4 +1,5 @@
 import { getCoordinate } from '@antv/coord';
+import { PathCommand } from '@antv/g-base/lib/types';
 import {
   convertNormalPath,
   convertPolarPath,
@@ -98,7 +99,7 @@ describe('PathUtil', () => {
       },
     });
 
-    const path = [['M', 0, 0], ['L', 1, 1]];
+    const path: PathCommand[] = [['M', 0, 0], ['L', 1, 1]];
     expect(convertNormalPath(coord, path)).toEqual([['M', 0, 0], ['L', 200, 200]]);
   });
 
@@ -113,7 +114,7 @@ describe('PathUtil', () => {
         y: 200,
       },
     });
-    const path = [['M', 0, 0], ['L', 0, 1], ['L', 0.25, 1]];
+    const path: PathCommand[] = [['M', 0, 0], ['L', 0, 1], ['L', 0.25, 1]];
     const toPath = convertPolarPath(coord, path);
     expect(toPath).toEqual([['M', 100, 100], ['L', 100, 0], ['A', 100, 100, 0, 0, 1, 200, 100]]);
   });
