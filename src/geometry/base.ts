@@ -453,6 +453,21 @@ export default class Geometry {
     return this.adjusts[adjustType];
   }
 
+  // 获取 element 对应 shape 的工厂对象
+  public getShapeFactory() {
+    let shapeFactory = this.shapeFactory;
+    if (!shapeFactory) {
+      const shapeType = this.shapeType;
+      const coordinate = this.coordinate;
+      shapeFactory = getShapeFactory(shapeType);
+      shapeFactory.coordinate = coordinate;
+      shapeFactory.theme = _.get(this.theme, shapeType, {});
+      this.shapeFactory = shapeFactory;
+    }
+
+    return shapeFactory;
+  }
+
   protected updateScales() {
     const { scaleDefs, scales, data } = this;
     _.each(scales, (scale) => {
@@ -605,20 +620,6 @@ export default class Geometry {
     }
 
     return id;
-  }
-
-  // 获取 element 对应 shape 的工厂对象
-  protected getShapeFactory() {
-    let shapeFactory = this.shapeFactory;
-    if (!shapeFactory) {
-      const shapeType = this.shapeType;
-      const coordinate = this.coordinate;
-      shapeFactory = getShapeFactory(shapeType);
-      shapeFactory.setCoordinate(coordinate);
-      this.shapeFactory = shapeFactory;
-    }
-
-    return shapeFactory;
   }
 
   // 创建图形属性相关的配置项

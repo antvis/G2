@@ -19,7 +19,8 @@ describe('Point shapes', () => {
     start: { x: 0, y: 500 },
     end: { x: 500, y: 0 },
   });
-  PointShapeFactory.setCoordinate(rectCoord);
+  PointShapeFactory.coordinate = rectCoord;
+  PointShapeFactory.theme = Theme.point;
 
   const element = new Element({
     shapeType: 'point',
@@ -49,6 +50,34 @@ describe('Point shapes', () => {
     });
     expect(point[0].x).toBe(0.4);
     expect(point[0].y).toBe(0.8);
+  });
+
+  it('getMarker', () => {
+    const circleMarker = PointShapeFactory.getMarker('circle', 'red', false);
+    expect(circleMarker).toEqual({
+      ...Theme.point.circle.default,
+      symbol: 'circle',
+      r: 4.5,
+      fill: 'red',
+    });
+
+    const hollowCircleMarker = PointShapeFactory.getMarker('hollowCircle', 'red', false);
+    expect(hollowCircleMarker).toEqual({
+      ...Theme.point.hollowCircle.default,
+      symbol: 'circle',
+      r: 4.5,
+      stroke: 'red',
+    });
+
+    const bowtieMarker = PointShapeFactory.getMarker('bowtie', 'red', false);
+    // @ts-ignore
+    expect(bowtieMarker.symbol(11.5, 10, 3.5)).toEqual([['M', 8, 8], ['L', 15, 12], ['L', 15, 8], ['L', 8, 12], ['Z']]);
+    expect(bowtieMarker.fill).toBe('red');
+
+    const crossMarker = PointShapeFactory.getMarker('cross', 'red', false);
+    // @ts-ignore
+    expect(crossMarker.symbol(10, 10, 5)).toEqual([['M', 5, 5], ['L', 15, 15], ['M', 15, 5], ['L', 5, 15]]);
+    expect(crossMarker.stroke).toBe('red');
   });
 
   it('draw shapes', () => {

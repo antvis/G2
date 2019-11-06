@@ -4,6 +4,8 @@ import AreaShapeFactory from '../../../../src/geometry/shape/area';
 import Theme from '../../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../../util/dom';
 
+import 'jest-extended';
+
 const Rect = getCoordinate('rect');
 
 describe('Area shapes', () => {
@@ -17,7 +19,8 @@ describe('Area shapes', () => {
     start: { x: 0, y: 500 },
     end: { x: 500, y: 0 },
   });
-  AreaShapeFactory.setCoordinate(rectCoord);
+  AreaShapeFactory.coordinate = rectCoord;
+  AreaShapeFactory.theme = Theme.area;
 
   const element = new Element({
     shapeType: 'area',
@@ -43,6 +46,24 @@ describe('Area shapes', () => {
       y0: 0.5,
     };
     expect(AreaShapeFactory.getDefaultPoints(pointInfo2)).toEqual([{ x: 1, y: 0.5 }, { x: 1, y: 1 }]);
+  });
+
+  it('getMarker()', () => {
+    const areaMarker = AreaShapeFactory.getMarker('area', 'red', false);
+    expect(areaMarker.fill).toBe('red');
+    expect(areaMarker.symbol).toBeFunction();
+
+    const lineMarker = AreaShapeFactory.getMarker('line', 'red', false);
+    expect(lineMarker.stroke).toBe('red');
+    expect(lineMarker.symbol).toBeFunction();
+
+    const smoothMarker = AreaShapeFactory.getMarker('smooth', 'red', false);
+    expect(smoothMarker.fill).toBe('red');
+    expect(smoothMarker.symbol).toBeFunction();
+
+    const smoothLineMarker = AreaShapeFactory.getMarker('smoothLine', 'red', false);
+    expect(smoothLineMarker.stroke).toBe('red');
+    expect(smoothLineMarker.symbol).toBeFunction();
   });
 
   describe('area', () => {

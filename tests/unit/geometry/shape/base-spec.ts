@@ -72,10 +72,12 @@ describe('Shape', () => {
       });
 
       GeometryShape.registerShape('circleFactory', 'hollowCircle', {
-        // @ts-ignore
-        // mock
-        getMarker() {
-          return 'marker';
+        getMarker(color, isInPolar) {
+          return {
+            symbol: 'circle',
+            r: 5,
+            stroke: color,
+          };
         },
         draw() {
           // @ts-ignore
@@ -89,6 +91,7 @@ describe('Shape', () => {
             },
           });
         },
+        update() {},
       });
       const circleFactory = GeometryShape.getShapeFactory('circleFactory');
       expect(circleFactory.getShape('circle')).not.toBe(undefined);
@@ -99,7 +102,7 @@ describe('Shape', () => {
   describe('ShapeFactory', () => {
     it('getShape()', () => {
       const circleFactory = GeometryShape.getShapeFactory('circleFactory');
-      circleFactory.setCoordinate(coordinate);
+      circleFactory.coordinate = coordinate;
 
       const shape = circleFactory.getShape('circle');
       expect(shape).toEqual(circleFactory[circleFactory.defaultShapeType]);
@@ -164,9 +167,22 @@ describe('Shape', () => {
 
     it('getMarker()', () => {
       const circleFactory = GeometryShape.getShapeFactory('circleFactory');
+      circleFactory.theme = {
+        hollowCircle: {
+          default: {
+            stroke: '#333',
+            lineWidth: 1,
+          },
+        },
+      };
 
-      expect(circleFactory.getMarker('circle', {})).toBe(undefined);
-      expect(circleFactory.getMarker('hollowCircle', {})).toBe('marker');
+      expect(circleFactory.getMarker('circle', 'red', false)).toBe(undefined);
+      expect(circleFactory.getMarker('hollowCircle', 'red', false)).toEqual({
+        symbol: 'circle',
+        r: 5,
+        stroke: 'red',
+        lineWidth: 1,
+      });
     });
 
     it('drawShape()', () => {
@@ -238,7 +254,8 @@ describe('Shape', () => {
         end: { x: 200, y: 200 },
       });
       const circleFactory = GeometryShape.getShapeFactory('circleFactory');
-      circleFactory.setCoordinate(polar);
+      circleFactory.coordinate = polar;
+
       const shape = circleFactory.getShape('circle');
       let path = [['M', 0, 0], ['L', 0, 1], ['L', 0.5, 1]];
       let toPath = shape.parsePath(path, true);

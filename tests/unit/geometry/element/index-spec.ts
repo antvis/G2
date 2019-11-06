@@ -182,7 +182,7 @@ describe('Element', () => {
       end: { x: 200, y: 200 },
     });
     const shapeFactory = Shape.getShapeFactory('interval');
-    shapeFactory.setCoordinate(coordinate);
+    shapeFactory.coordinate = coordinate;
 
     it('model.animate is false', () => {
       element = new Element({

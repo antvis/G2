@@ -1,3 +1,4 @@
+import { isGenericTypeAnnotation } from '@babel/types';
 import { getCoordinate } from '../../../../src/dependents';
 import Element from '../../../../src/geometry/element/index';
 import LineShapeFactory from '../../../../src/geometry/shape/line';
@@ -18,7 +19,8 @@ describe('Line shapes', () => {
     start: { x: 0, y: 500 },
     end: { x: 500, y: 0 },
   });
-  LineShapeFactory.setCoordinate(rectCoord);
+  LineShapeFactory.coordinate = rectCoord;
+  LineShapeFactory.theme = Theme.line;
 
   const element = new Element({
     shapeType: 'line',
@@ -29,6 +31,19 @@ describe('Line shapes', () => {
 
   it('defaultShapeType', () => {
     expect(LineShapeFactory.defaultShapeType).toBe('line');
+  });
+
+  it('getMarker', () => {
+    const dotMarker = LineShapeFactory.getMarker('dot', 'red', false);
+    expect(dotMarker.lineDash).toBe(Theme.line.dot.default.lineDash);
+    expect(dotMarker.stroke).toBe('red');
+    // @ts-ignore
+    expect(dotMarker.symbol(10, 10, 5)).toEqual([['M', 5, 10], ['L', 15, 10]]);
+
+    const vhMarker = LineShapeFactory.getMarker('vh', 'red', false);
+    expect(vhMarker.stroke).toBe('red');
+    // @ts-ignore
+    expect(vhMarker.symbol(10, 10, 5)).toEqual([['M', 4, 12.5], ['L', 10, 12.5], ['L', 10, 7.5], ['L', 16, 7.5]]);
   });
 
   describe('line', () => {
@@ -204,144 +219,144 @@ describe('Line shapes', () => {
       expect(shape.attr('path')[1].length).toBe(7);
       expect(shape.attr('path')[2].length).toBe(7);
     });
+  });
 
-    describe('hv', () => {
-      // @ts-ignore
-      element.shapeType = 'hv';
-      it('draw', () => {
-        const shape = LineShapeFactory.drawShape(
-          'hv',
-          {
-            x: 100,
-            y: 100,
-            points: [{ x: 100, y: 100 }, { x: 200, y: 200 }],
-            color: 'red',
-            style: {
-              ...Theme.line.hv.default,
-            },
+  describe('hv', () => {
+    // @ts-ignore
+    element.shapeType = 'hv';
+    it('draw', () => {
+      const shape = LineShapeFactory.drawShape(
+        'hv',
+        {
+          x: 100,
+          y: 100,
+          points: [{ x: 100, y: 100 }, { x: 200, y: 200 }],
+          color: 'red',
+          style: {
+            ...Theme.line.hv.default,
           },
-          element
-        );
-        expect(shape.attr('stroke')).toBe('red');
-        expect(shape.attr('path').length).toBe(3);
-        expect(shape.attr('path')[0]).toEqual(['M', 100, 100]);
-        expect(shape.attr('path')[1]).toEqual(['L', 200, 100]);
-        expect(shape.attr('path')[2]).toEqual(['L', 200, 200]);
-      });
+        },
+        element
+      );
+      expect(shape.attr('stroke')).toBe('red');
+      expect(shape.attr('path').length).toBe(3);
+      expect(shape.attr('path')[0]).toEqual(['M', 100, 100]);
+      expect(shape.attr('path')[1]).toEqual(['L', 200, 100]);
+      expect(shape.attr('path')[2]).toEqual(['L', 200, 200]);
     });
+  });
 
-    describe('vh', () => {
-      // @ts-ignore
-      element.shapeType = 'hv';
-      it('draw', () => {
-        const shape = LineShapeFactory.drawShape(
-          'vh',
-          {
-            x: 100,
-            y: 100,
-            points: [{ x: 100, y: 100 }, { x: 200, y: 200 }],
-            color: 'red',
-            style: {
-              ...Theme.line.vh.default,
-            },
+  describe('vh', () => {
+    // @ts-ignore
+    element.shapeType = 'hv';
+    it('draw', () => {
+      const shape = LineShapeFactory.drawShape(
+        'vh',
+        {
+          x: 100,
+          y: 100,
+          points: [{ x: 100, y: 100 }, { x: 200, y: 200 }],
+          color: 'red',
+          style: {
+            ...Theme.line.vh.default,
           },
-          element
-        );
+        },
+        element
+      );
 
-        expect(shape.attr('stroke')).toBe('red');
-        expect(shape.attr('path').length).toBe(3);
-        expect(shape.attr('path')[0]).toEqual(['M', 100, 100]);
-        expect(shape.attr('path')[1]).toEqual(['L', 100, 200]);
-        expect(shape.attr('path')[2]).toEqual(['L', 200, 200]);
-      });
+      expect(shape.attr('stroke')).toBe('red');
+      expect(shape.attr('path').length).toBe(3);
+      expect(shape.attr('path')[0]).toEqual(['M', 100, 100]);
+      expect(shape.attr('path')[1]).toEqual(['L', 100, 200]);
+      expect(shape.attr('path')[2]).toEqual(['L', 200, 200]);
     });
+  });
 
-    describe('hvh', () => {
-      // @ts-ignore
-      element.shapeType = 'hvh';
-      it('draw', () => {
-        const shape = LineShapeFactory.drawShape(
-          'hvh',
-          {
-            x: 100,
-            y: 100,
-            points: [{ x: 100, y: 100 }, { x: 200, y: 200 }],
-            color: 'red',
-            style: {
-              ...Theme.line.hvh.default,
-            },
+  describe('hvh', () => {
+    // @ts-ignore
+    element.shapeType = 'hvh';
+    it('draw', () => {
+      const shape = LineShapeFactory.drawShape(
+        'hvh',
+        {
+          x: 100,
+          y: 100,
+          points: [{ x: 100, y: 100 }, { x: 200, y: 200 }],
+          color: 'red',
+          style: {
+            ...Theme.line.hvh.default,
           },
-          element
-        );
+        },
+        element
+      );
 
-        expect(shape.attr('stroke')).toBe('red');
-        expect(shape.attr('path').length).toBe(4);
-        expect(shape.attr('path')[0]).toEqual(['M', 100, 100]);
-        expect(shape.attr('path')[1]).toEqual(['L', 150, 100]);
-        expect(shape.attr('path')[2]).toEqual(['L', 150, 200]);
-        expect(shape.attr('path')[3]).toEqual(['L', 200, 200]);
-      });
+      expect(shape.attr('stroke')).toBe('red');
+      expect(shape.attr('path').length).toBe(4);
+      expect(shape.attr('path')[0]).toEqual(['M', 100, 100]);
+      expect(shape.attr('path')[1]).toEqual(['L', 150, 100]);
+      expect(shape.attr('path')[2]).toEqual(['L', 150, 200]);
+      expect(shape.attr('path')[3]).toEqual(['L', 200, 200]);
     });
+  });
 
-    describe('vhv', () => {
-      // @ts-ignore
-      element.shapeType = 'vhv';
-      it('draw', () => {
-        const shape = LineShapeFactory.drawShape(
-          'vhv',
-          {
-            x: 100,
-            y: 100,
-            points: [{ x: 100, y: 100 }, { x: 200, y: 200 }],
-            color: 'red',
-            style: {
-              ...Theme.line.vhv.default,
-            },
+  describe('vhv', () => {
+    // @ts-ignore
+    element.shapeType = 'vhv';
+    it('draw', () => {
+      const shape = LineShapeFactory.drawShape(
+        'vhv',
+        {
+          x: 100,
+          y: 100,
+          points: [{ x: 100, y: 100 }, { x: 200, y: 200 }],
+          color: 'red',
+          style: {
+            ...Theme.line.vhv.default,
           },
-          element
-        );
-        expect(shape.attr('stroke')).toBe('red');
-        expect(shape.attr('path').length).toBe(4);
-        expect(shape.attr('path')[0].length).toBe(3);
-        expect(shape.attr('path')[1].length).toBe(3);
-        expect(shape.attr('path')[2].length).toBe(3);
-        expect(shape.attr('path')[3].length).toBe(3);
-      });
+        },
+        element
+      );
+      expect(shape.attr('stroke')).toBe('red');
+      expect(shape.attr('path').length).toBe(4);
+      expect(shape.attr('path')[0].length).toBe(3);
+      expect(shape.attr('path')[1].length).toBe(3);
+      expect(shape.attr('path')[2].length).toBe(3);
+      expect(shape.attr('path')[3].length).toBe(3);
     });
+  });
 
-    describe('polar coordinate', () => {
-      const polar = new Polar({
-        start: { x: 0, y: 500 },
-        end: { x: 500, y: 0 },
-      });
-      // @ts-ignore
-      element.shapeType = 'smooth';
-      LineShapeFactory.setCoordinate(polar);
-      it('draw smooth line', () => {
-        const shape = LineShapeFactory.drawShape(
-          'smooth',
-          {
-            x: 100,
-            y: 100,
-            points: [{ x: 20, y: 10 }, { x: 40, y: 10 }, { x: 60, y: 10 }, { x: 80, y: 10 }],
-            isInCircle: true,
-            color: '#1890ff',
-            style: {
-              ...Theme.line.smooth.default,
-            },
+  describe('polar coordinate', () => {
+    const polar = new Polar({
+      start: { x: 0, y: 500 },
+      end: { x: 500, y: 0 },
+    });
+    // @ts-ignore
+    element.shapeType = 'smooth';
+    LineShapeFactory.coordinate = polar;
+    it('draw smooth line', () => {
+      const shape = LineShapeFactory.drawShape(
+        'smooth',
+        {
+          x: 100,
+          y: 100,
+          points: [{ x: 20, y: 10 }, { x: 40, y: 10 }, { x: 60, y: 10 }, { x: 80, y: 10 }],
+          isInCircle: true,
+          color: '#1890ff',
+          style: {
+            ...Theme.line.smooth.default,
           },
-          element
-        );
+        },
+        element
+      );
 
-        expect(shape.attr('stroke')).toBe('#1890ff');
-        expect(shape.attr('path')).toEqual([
-          ['M', 20, 10],
-          ['C', 20, 10, 32, 10, 40, 10],
-          ['C', 48, 10, 52, 10, 60, 10],
-          ['C', 68, 10, 84, 10, 80, 10],
-          ['C', 68, 10, 20, 10, 20, 10],
-        ]);
-      });
+      expect(shape.attr('stroke')).toBe('#1890ff');
+      expect(shape.attr('path')).toEqual([
+        ['M', 20, 10],
+        ['C', 20, 10, 32, 10, 40, 10],
+        ['C', 48, 10, 52, 10, 60, 10],
+        ['C', 68, 10, 84, 10, 80, 10],
+        ['C', 68, 10, 20, 10, 20, 10],
+      ]);
     });
   });
 

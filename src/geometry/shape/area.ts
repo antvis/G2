@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-import { Coordinate } from '../../dependents';
+import { Coordinate, PathCommand } from '../../dependents';
 import { Point, Position, Shape, ShapeDrawCFG, ShapePoint } from '../../interface';
 import { doAnimate } from '../animate/index';
 import Element from '../element';
@@ -13,7 +13,7 @@ function getPath(
   smooth: boolean,
   registeredShape: Shape,
   constraint?: Position[]
-) {
+): PathCommand[] {
   const topLinePoints = []; // area 区域上部分
   let bottomLinePoints = []; // area 区域下部分
   _.each(points, (point) => {
@@ -65,7 +65,7 @@ function getStyle(shapeName: string, cfg: ShapeDrawCFG) {
   return attrs;
 }
 
-function getAttrs(
+function getShapeAttrs(
   shapeName: string,
   cfg: ShapeDrawCFG,
   smooth: boolean,
@@ -109,7 +109,7 @@ const AreaShapeFactory = registerShapeFactory('area', {
 // 填充的区域图
 registerShape('area', 'area', {
   draw(cfg: ShapeDrawCFG, element: Element) {
-    const attrs = getAttrs('area', cfg, false, this);
+    const attrs = getShapeAttrs('area', cfg, false, this);
     const shape = element.container.addShape({
       type: 'path',
       attrs,
@@ -123,19 +123,28 @@ registerShape('area', 'area', {
   },
   update(cfg: ShapeDrawCFG, element: Element) {
     const shape = element.shape;
-    const attrs = getAttrs('area', cfg, false, this);
+    const attrs = getShapeAttrs('area', cfg, false, this);
     if (cfg.animate) {
       doAnimate(shape, cfg, this.coordinate, attrs);
     } else {
       shape.attr(attrs);
     }
+  },
+  getMarker(color: string, isInCircle: boolean) {
+    return {
+      symbol: (x: number, y: number, r: number = 5.5) => {
+        return [['M', x - r, y - 4], ['L', x + r, y - 4], ['L', x + r, y + 4], ['L', x - r, y + 4], ['Z']];
+      },
+      r: 5,
+      fill: color,
+    };
   },
 });
 
 // 描边不填充的区域图
 registerShape('area', 'line', {
   draw(cfg: ShapeDrawCFG, element: Element) {
-    const attrs = getAttrs('line', cfg, false, this);
+    const attrs = getShapeAttrs('line', cfg, false, this);
     const shape = element.container.addShape({
       type: 'path',
       attrs,
@@ -149,12 +158,21 @@ registerShape('area', 'line', {
   },
   update(cfg: ShapeDrawCFG, element: Element) {
     const shape = element.shape;
-    const attrs = getAttrs('line', cfg, false, this);
+    const attrs = getShapeAttrs('line', cfg, false, this);
     if (cfg.animate) {
       doAnimate(shape, cfg, this.coordinate, attrs);
     } else {
       shape.attr(attrs);
     }
+  },
+  getMarker(color: string, isInCircle: boolean) {
+    return {
+      symbol: (x: number, y: number, r: number = 5.5) => {
+        return [['M', x - r, y - 4], ['L', x + r, y - 4], ['L', x + r, y + 4], ['L', x - r, y + 4], ['Z']];
+      },
+      r: 5,
+      stroke: color,
+    };
   },
 });
 
@@ -162,7 +180,7 @@ registerShape('area', 'line', {
 registerShape('area', 'smooth', {
   draw(cfg: ShapeDrawCFG, element: Element) {
     const coordinate = this.coordinate;
-    const attrs = getAttrs('smooth', cfg, true, this, getConstraint(coordinate));
+    const attrs = getShapeAttrs('smooth', cfg, true, this, getConstraint(coordinate));
     const shape = element.container.addShape({
       type: 'path',
       attrs,
@@ -177,12 +195,21 @@ registerShape('area', 'smooth', {
   update(cfg: ShapeDrawCFG, element: Element) {
     const shape = element.shape;
     const coordinate = this.coordinate;
-    const attrs = getAttrs('smooth', cfg, true, this, getConstraint(coordinate));
+    const attrs = getShapeAttrs('smooth', cfg, true, this, getConstraint(coordinate));
     if (cfg.animate) {
       doAnimate(shape, cfg, coordinate, attrs);
     } else {
       shape.attr(attrs);
     }
+  },
+  getMarker(color: string, isInCircle: boolean) {
+    return {
+      symbol: (x: number, y: number, r: number = 5.5) => {
+        return [['M', x - r, y - 4], ['L', x + r, y - 4], ['L', x + r, y + 4], ['L', x - r, y + 4], ['Z']];
+      },
+      r: 5,
+      fill: color,
+    };
   },
 });
 
@@ -190,7 +217,7 @@ registerShape('area', 'smooth', {
 registerShape('area', 'smoothLine', {
   draw(cfg: ShapeDrawCFG, element: Element) {
     const coordinate = this.coordinate;
-    const attrs = getAttrs('smoothLine', cfg, true, this, getConstraint(coordinate));
+    const attrs = getShapeAttrs('smoothLine', cfg, true, this, getConstraint(coordinate));
     const shape = element.container.addShape({
       type: 'path',
       attrs,
@@ -205,12 +232,21 @@ registerShape('area', 'smoothLine', {
   update(cfg: ShapeDrawCFG, element: Element) {
     const shape = element.shape;
     const coordinate = this.coordinate;
-    const attrs = getAttrs('smoothLine', cfg, true, this, getConstraint(coordinate));
+    const attrs = getShapeAttrs('smoothLine', cfg, true, this, getConstraint(coordinate));
     if (cfg.animate) {
       doAnimate(shape, cfg, coordinate, attrs);
     } else {
       shape.attr(attrs);
     }
+  },
+  getMarker(color: string, isInCircle: boolean) {
+    return {
+      symbol: (x: number, y: number, r: number = 5.5) => {
+        return [['M', x - r, y - 4], ['L', x + r, y - 4], ['L', x + r, y + 4], ['L', x - r, y + 4], ['Z']];
+      },
+      r: 5,
+      stroke: color,
+    };
   },
 });
 
