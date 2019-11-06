@@ -4,6 +4,30 @@
     "en": "Category"
   },
   "demos": [{
+    "filename": "curved.js",
+    "title": "曲线折线图",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*aFXQS7yyDyUAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "dash.js",
+    "title": "带虚线部分的折线图",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Tl12Trvw_5sAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "rain-and-flow.js",
+    "title": "雨量流量对比",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*WkrOQqUTNYcAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "line5.js",
+    "title": "某网站24小时UV趋势",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*5r3LRpp3ZQgAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "line6.js",
+    "title": "blockchain 和 NLP 全球搜索趋势对比",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*shU0Sq6Eq7sAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "line8.js",
+    "title": "CPU 占用率实时监控",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*2YcTT7guTxUAAAAAAAAAAABkARQnAQ"
+  }, {
     "filename": "series.js",
     "title": "双折线图",
     "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*1FpQQoQ1KsIAAAAAAAAAAABkARQnAQ"
