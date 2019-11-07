@@ -429,6 +429,7 @@ const Theme = {
         padding: 0
       },
       [`${LEGEND_LIST_ITEM_CLASS}`]: {
+        listStyleType: 'none',
         cursor: 'pointer',
         marginBottom: '5px',
         marginRight: '24px'
@@ -495,6 +496,7 @@ const Theme = {
       padding: 0
     },
     [`${TOOLTIP_LIST_ITEM_CLASS}`]: {
+      listStyleType: 'none',
       marginBottom: '4px'
     },
     [`${TOOLTIP_MARKER_CLASS}`]: {
