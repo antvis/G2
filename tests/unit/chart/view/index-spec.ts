@@ -76,6 +76,14 @@ describe('View', () => {
   it('tooltip', () => {
     view.tooltip(false);
     expect(view.getOptions().tooltip).toBe(false);
+
+    view.tooltip({
+      showTitle: false,
+    });
+
+    expect(view.getOptions().tooltip).toEqual({
+      showTitle: false,
+    });
   });
 
   it('filter', () => {

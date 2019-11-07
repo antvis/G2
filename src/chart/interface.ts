@@ -2,7 +2,7 @@ import Component from '../component';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../constant';
 import { CategoryLegendCfg, CircleAxisCfg, ICanvas, IGroup, LineAxisCfg } from '../dependents';
 import Interaction from '../interaction/base';
-import { Data, Datum, Padding, Region, Renderer } from '../interface';
+import { Data, Datum, LooseObject, Padding, Region, Renderer } from '../interface';
 import View from './view';
 
 // chart 构造方法的入参
@@ -54,6 +54,58 @@ export type LegendOption = LegendCfg | boolean;
 
 export interface ScaleOption {
   readonly type: string;
+}
+
+interface TooltipDomStyles {
+  'g2-tooltip'?: LooseObject;
+  'g2-tooltip-title'?: LooseObject;
+  'g2-tooltip-list'?: LooseObject;
+  'g2-tooltip-list-item'?: LooseObject;
+  'g2-tooltip-marker'?: LooseObject;
+  'g2-tooltip-value'?: LooseObject;
+  'g2-tooltip-name'?: LooseObject;
+  'g2-tooltip-crosshair-x'?: LooseObject;
+  'g2-tooltip-crosshair-y'?: LooseObject;
+}
+
+export interface TooltipOption {
+  /** 是否展示 tooltip 标题 */
+  showTitle?: boolean;
+  /**
+   * tooltip 触发方式
+   * 'none' 表示不在 'mousemove' 或 'click' 时触发，用户可以通过 chart.showTooltip() 和 chart.hideTooltip() 来手动触发和隐藏
+   */
+  triggerOn?: 'mousemove' | 'click' | 'none';
+  /** 设置 tooltip 的固定展示位置，相对于数据点 */
+  position?: 'top' | 'bottom' | 'left' | 'right';
+  /** true 表示展示一组数据，false 表示展示单条数据 */
+  shared?: boolean; // 是否只展示单条数据
+  /**
+   * 设置 tooltip 辅助线的类型
+   * 'x' 水平辅助线
+   * 'y' 垂直辅助线
+   * 'xy' 十字辅助线
+   */
+  crosshairs?: 'x' | 'y' | 'xy';
+  // title?: string;
+  /** 是否自动渲染 tooltipMarkers，目前 line、area、path 会默认渲染 */
+  showTooltipMarkers?: boolean;
+  /** 自定义 tooltip 的容器 */
+  container?: string | HTMLElement;
+  /** 用于指定图例容器的模板，自定义模板时必须包含各个 dom 节点的 class */
+  containerTpl?: string;
+  /** 每项记录的默认模板，自定义模板时必须包含各个 dom 节点的 class */
+  itemTpl?: string;
+  /** 根据 x 定位的 crosshair 的模板 */
+  xCrosshairTpl?: string;
+  /** 根据 y 定位的 crosshair 的模板 */
+  yCrosshairTpl?: string;
+  /** 是否允许鼠标进入 tooltip 内容框 */
+  enterable?: boolean;
+  /** 传入各个 dom 的样式 */
+  domStyles?: TooltipDomStyles;
+  /** tooltip 偏移量 */
+  offset?: number;
 }
 
 export interface CoordinateOption {

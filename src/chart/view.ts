@@ -2,9 +2,7 @@ import EE from '@antv/event-emitter';
 import * as _ from '@antv/util';
 import Component from '../component';
 import { COMPONENT_TYPE, DIRECTION, GROUP_Z_INDEX, LAYER, PLOT_EVENTS, VIEW_LIFE_CIRCLE } from '../constant';
-import { Coordinate, Scale } from '../dependents';
-import { Attribute } from '../dependents';
-import { Event as GEvent, ICanvas, IGroup } from '../dependents';
+import { Attribute, Coordinate, Event as GEvent, ICanvas, IGroup, Scale } from '../dependents';
 import { Facet, getFacet } from '../facet';
 import { FacetCfgMap } from '../facet/interface';
 import Geometry from '../geometry/base';
@@ -31,6 +29,7 @@ import {
   LegendOption,
   Options,
   ScaleOption,
+  TooltipOption,
   ViewCfg,
 } from './interface';
 import defaultLayout, { Layout } from './layout';
@@ -296,10 +295,21 @@ export default class View extends EE {
   }
 
   /**
-   * tooltip 配置
+   * tooltip configuration
+   *
+   * ```typescript
+   * chart.tooltip(false); // turn off tooltip
+   *
+   * chart.tooltip({
+   *   showTitle: false,
+   * }); // do not show title
+   * ```
+   *
+   * @param cfg
+   * @returns
    */
-  public tooltip(visible: boolean): View {
-    _.set(this.options, 'tooltip', visible);
+  public tooltip(cfg: boolean | TooltipOption): View {
+    _.set(this.options, 'tooltip', cfg);
 
     return this;
   }
