@@ -26,7 +26,7 @@ fetch('../data/terrorism.json')
     const chart = new G2.Chart({
       container: 'container',
       forceFit: true,
-      height: window.innerHeight,
+     height: 500,
       padding: [ 20, 20, 50, 50 ]
     });
     chart.tooltip({

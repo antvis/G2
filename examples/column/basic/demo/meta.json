@@ -1,0 +1,31 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [{
+    "filename": "basic.js",
+    "title": "基础柱状图",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*4JDKS4I7MvcAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "image-top.js",
+    "title": "自定义柱状图",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*luGdTrgw50oAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "marked.js",
+    "title": "带标识的柱状图",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*BN4xTZuodaQAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "helix-coordinate.js",
+    "title": "螺旋坐标系",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ZwIQQYi3H3wAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "ranged.js",
+    "title": "区间柱状图",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*l9Y6R43DMpUAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "waterfall.js",
+    "title": "瀑布图",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*4Q9PRIHjH2wAAAAAAAAAAABkARQnAQ"
+  }]
+}

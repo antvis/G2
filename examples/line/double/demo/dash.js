@@ -64,7 +64,7 @@ function pick(data, field) {
 const chart = new G2.Chart({
   container: 'container',
   forceFit: true,
-  height: window.innerHeight,
+  height: 500,
   padding: [ 20, 80, 80, 80 ]
 });
 chart.scale({
@@ -84,7 +84,7 @@ const scale = {
   },
   time: {
     alias: '平均时长',
-    formatter: (value) => {
+    formatter: value => {
       return humanizeDuration(value, 0);
     }
   },

@@ -4,7 +4,7 @@ fetch('../data/siteUV.json')
     const chart = new G2.Chart({
       container: 'container',
       forceFit: true,
-      height: window.innerHeight,
+     height: 500,
       padding: [ 20, 90, 50, 50 ]
     });
     const ds = new DataSet();

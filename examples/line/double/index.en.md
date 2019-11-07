@@ -1,4 +1,4 @@
 ---
-title: Line Chart
+title: Double Line Chart
 order: 1
 ---

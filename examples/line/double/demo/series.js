@@ -28,7 +28,7 @@ const data = [
 const chart = new G2.Chart({
   container: 'container',
   forceFit: true,
-  height: window.innerHeight
+  height: 500
 });
 chart.source(data, {
   month: {

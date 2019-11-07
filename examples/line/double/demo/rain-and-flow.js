@@ -1,4 +1,3 @@
-// $('<div id="slider"></div>').insertAfter('#mountNode');
 // 插入 Slider 滑块组件需要的 DOM
 const sliderDiv = document.createElement('div');
 sliderDiv.id = 'slider';
@@ -45,7 +44,7 @@ fetch('../data/rain-flow.json')
     const chart = new G2.Chart({
       container: 'container',
       forceFit: true,
-      height: window.innerHeight - 60,
+      height: 400,
       padding: [ 20, 20, 0, 80 ],
       animate: false
     });

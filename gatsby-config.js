@@ -65,11 +65,27 @@ module.exports = {
     ],
     examples: [
       {
+        slug: 'gallery',
+        icon: 'gallery', // 图标名可以去 https://antv.alipay.com/zh-cn/g2/3.x/demo/index.html 打开控制台查看图标类名
+        title: {
+          zh: '官方精品库',
+          en: 'Gallery'
+        }
+      },
+      {
         slug: 'line',
         icon: 'line', // 图标名可以去 https://antv.alipay.com/zh-cn/g2/3.x/demo/index.html 打开控制台查看图标类名
         title: {
           zh: '折线图',
           en: 'Line Charts'
+        }
+      },
+      {
+        slug: 'column',
+        icon: 'column', // 图标名可以去 https://antv.alipay.com/zh-cn/g2/3.x/demo/index.html 打开控制台查看图标类名
+        title: {
+          zh: '柱状图',
+          en: 'Column Charts'
         }
       }
     ]

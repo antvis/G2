@@ -4,7 +4,7 @@ fetch('../data/blockchain.json')
     const chart = new G2.Chart({
       container: 'container',
       forceFit: true,
-      height: window.innerHeight,
+      height: 500,
       padding: [ 30, 20, 70, 30 ]
     });
 

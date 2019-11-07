@@ -5,7 +5,7 @@ fetch('../data/salesTrend.json')
     const chart = new G2.Chart({
       container: 'container',
       forceFit: true,
-      height: window.innerHeight,
+     height: 500,
       padding: [ 50, 20, 50, 20 ]
     });
     chart.source(data, {
