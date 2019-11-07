@@ -1,7 +1,7 @@
 const G2 = require('../../src/index');
 const expect = require('chai').expect;
 
-describe('#472', () => {
+xdescribe('#472', () => {
   it('when legend on the left, padding of chart is not accurate', () => {
     const div = document.createElement('div');
     document.body.appendChild(div);
