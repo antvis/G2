@@ -23,14 +23,34 @@ describe('Chart', () => {
     .color('category')
     .adjust({ type: 'dodge' });
 
+  chart.legend('category', {
+    position: 'right',
+  });
+
   chart.render();
 
   it('legend component', () => {
     const legends = chart.getOptions().components.filter((co) => co.type === COMPONENT_TYPE.LEGEND);
     expect(legends.length).toBe(1);
 
-    // two legend items
+    const legend = legends[0].component;
     // @ts-ignore
-    expect(legends[0].component.get('items').length).toBe(2);
+    const items: any[] = legend.get('items');
+
+    // two legend items
+    expect(items.length).toBe(2);
+
+    // legend item style
+    expect(items[0].name).toBe('电脑');
+    expect(items[1].name).toBe('鼠标');
+    expect(items[0].marker.fill).toBe('#5B8FF9');
+    expect(items[1].marker.fill).toBe('#5AD8A6');
+
+    // position
+    // @ts-ignore
+    const x: any[] = legend.get('x');
+
+    // right
+    expect(x).toBeGreaterThan(700);
   });
 });

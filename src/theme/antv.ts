@@ -143,7 +143,7 @@ const AXIS_STYLE = {
 
 const LEGEND_STYLE = {
   title: null,
-  marker: { symbol: 'circle', r: 4, stroke: DEFAULT_COLOR, fill: DEFAULT_COLOR },
+  marker: { symbol: 'circle', r: 4, fill: DEFAULT_COLOR },
   itemName: {
     spacing: 5, // 如果右边有 value 使用这个间距
     style: {

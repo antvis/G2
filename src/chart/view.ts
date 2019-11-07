@@ -552,7 +552,6 @@ export default class View extends EE {
    * 获得所有的 legend 对应的 attribute 实例
    */
   public getLegendAttributes(): Attribute[] {
-    // FIXME util 中 flatten 的类型定义不正确
     return (_.flatten(_.map(this.geometries, (g: Geometry) => g.getLegendAttributes())) as unknown) as Attribute[];
   }
 
