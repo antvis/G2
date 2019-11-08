@@ -60,6 +60,9 @@ typings/
 # dotenv environment variables file
 .env
 
+public
+website
+.cache
 build
 dist
 temp

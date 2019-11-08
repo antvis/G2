@@ -12,6 +12,10 @@
     "LICENSE"
   ],
   "scripts": {
+    "start": "npm run site:develop",
+    "site:develop": "gatsby develop --open -H 0.0.0.0",
+    "site:build": "npm run site:clean && gatsby build --prefix-paths",
+    "site:clean": "gatsby clean",
     "clean": "rimraf lib esm",
     "lint": "lint-staged",
     "test": "jest",
@@ -39,7 +43,10 @@
     "tslib": "^1.10.0"
   },
   "devDependencies": {
+    "@antv/gatsby-theme-antv": "^0.9.25",
     "@types/jest": "^24.0.18",
+    "gatsby": "^2.17.9",
+    "gh-pages": "^2.1.1",
     "husky": "^3.0.4",
     "jest": "^24.9.0",
     "jest-electron": "^0.1.7",
@@ -47,6 +54,7 @@
     "lint-staged": "^9.2.3",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2",
+    "react-i18next": "^11.1.0",
     "rimraf": "^3.0.0",
     "ts-jest": "^24.1.0",
     "tslint": "^5.18.0",
