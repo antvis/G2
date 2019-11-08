@@ -165,6 +165,7 @@ export class BBox {
   /**
    * get the gap of two bbox, if not exceed, then 0
    * @param bbox
+   * @returns [top, right, bottom, left]
    */
   public exceed(bbox: BBox): number[] {
     return [
