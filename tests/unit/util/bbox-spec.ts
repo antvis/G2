@@ -2,7 +2,7 @@ import { DIRECTION } from '../../../src/constant';
 import { BBox, getRegionBBox } from '../../../src/util/bbox';
 
 describe('util/ bbox', () => {
-  it('BBoxProcessor', () => {
+  it('BBox', () => {
     let bbox = new BBox(0, 0, 100, 100);
 
     bbox = bbox
@@ -27,6 +27,9 @@ describe('util/ bbox', () => {
     expect(bbox.y).toBe(70);
     expect(bbox.width).toBe(110);
     expect(bbox.height).toBe(110);
+
+    const gap = bbox.exceed(new BBox(60, 80, 130, 90));
+    expect(gap).toEqual([10, 0, 10, 0]);
   });
 
   it('getRegionBBox', () => {

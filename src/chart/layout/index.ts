@@ -87,12 +87,14 @@ export default function defaultLayout(view: View): void {
   _.each(componentOptions, (co: ComponentOption) => {
     const { component, type } = co;
 
-    if (coordinate.isPolar && type === COMPONENT_TYPE.AXIS) {
-      // TODO update the coordinate radius
-    } else {
-      const bboxObject = component.getBBox();
-      const componentBBox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height);
+    const bboxObject = component.getBBox();
 
+    const componentBBox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height);
+
+    if (coordinate.isPolar && type === COMPONENT_TYPE.AXIS) {
+      const exceed = componentBBox.exceed(bbox);
+      bbox = bbox.shrink(exceed);
+    } else {
       bbox = bbox.cut(componentBBox, co.direction);
     }
   });

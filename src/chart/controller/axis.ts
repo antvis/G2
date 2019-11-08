@@ -20,20 +20,6 @@ function getAxisOption(axes: Record<string, AxisOption> | boolean, field: string
 }
 
 /**
- * get axis component cfg
- * @param view
- * @param option
- * @param baseAxisCfg
- * @param direction
- * @returns get the total axis cfg
- */
-function getAxisCfg(view: View, option: AxisOption, baseAxisCfg: object, direction: DIRECTION): object {
-  const axisTheme = _.get(view.getTheme(), ['components', 'axis', direction], {});
-
-  return _.deepMix({}, axisTheme, baseAxisCfg, option);
-}
-
-/**
  * generate line axis cfg
  * @param view
  * @param scale
@@ -126,7 +112,6 @@ function createXAxes(axes: Record<string, AxisOption> | boolean, view: View): Co
       C = LineAxis;
       cfg = getLineAxisCfg(view, scale, xAxisOption, direction, layer);
     } else if (coordinate.isPolar) {
-      // TODO
       C = CircleAxis;
       cfg = getCircleAxisCfg(view, scale, xAxisOption, direction, layer);
     } else {

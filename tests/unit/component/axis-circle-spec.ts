@@ -14,6 +14,7 @@ describe('Chart', () => {
     autoFit: false,
   });
 
+  chart.animate(false);
   chart.data(CITY_SALE);
 
   chart

@@ -99,12 +99,13 @@ export function getAxisFactor(coordinate: Coordinate, direction: DIRECTION): num
     return [DIRECTION.BOTTOM, DIRECTION.RIGHT].includes(direction) ? -1 : 1;
   }
 
-  if (coordinate.isPolar) {
-    const startAngle = coordinate.x.start;
-    return startAngle < 0 ? -1 : 1;
-  }
-
   return 1;
+  // if (coordinate.isPolar) {
+  //   const startAngle = coordinate.x.start;
+  //   return startAngle < 0 ? -1 : 1;
+  // }
+  //
+  // return 1;
 }
 
 /**
