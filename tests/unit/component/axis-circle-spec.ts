@@ -44,9 +44,10 @@ describe('Chart', () => {
     .color('category');
 
   chart.coordinate('polar');
-  chart.legend(false);
 
-  chart.axis('city', {});
+  chart.legend('category', {
+    position: 'bottom',
+  });
 
   chart.render();
 
