@@ -1,0 +1,24 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.js",
+      "title": {
+        "zh": "股票图",
+        "en": "K Chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*2nyBTL-HkvwAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "k-and-area.js",
+      "title": {
+        "zh": "股票图与范围区域图",
+        "en": "K Chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Mwu8QID77_cAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

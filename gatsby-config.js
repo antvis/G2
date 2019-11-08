@@ -111,6 +111,38 @@ module.exports = {
           zh: '点图',
           en: 'Point Charts'
         }
+      },
+      {
+        slug: 'area',
+        icon: 'area',
+        title: {
+          zh: '面积图',
+          en: 'Area Charts'
+        }
+      },
+      {
+        slug: 'box',
+        icon: 'box',
+        title: {
+          zh: '箱型图',
+          en: 'Box Charts'
+        }
+      },
+      {
+        slug: 'candlestick',
+        icon: 'candlestick',
+        title: {
+          zh: '烛形图',
+          en: 'K Charts'
+        }
+      },
+      {
+        slug: 'heatmap',
+        icon: 'heatmap',
+        title: {
+          zh: '热力图',
+          en: '热力图'
+        }
       }
     ]
   }

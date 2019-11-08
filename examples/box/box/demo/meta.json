@@ -1,0 +1,48 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.js",
+      "title": {
+        "zh": "基础箱型图",
+        "en": "Basic Box Chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*yVjmRKmCtcQAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "grouped.js",
+      "title": {
+        "zh": "分组箱型图",
+        "en": "Grouped Box Chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*vlftQIyPC-wAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "one-dim.js",
+      "title": {
+        "zh": "一维箱型图",
+        "en": "Basic Box Chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*i6ZOTq2atsoAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "radial-box.js",
+      "title": {
+        "zh": "极坐标系下箱型图",
+        "en": "Radial Box Chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*s6UkTLHjYqcAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "with-error.js",
+      "title": {
+        "zh": "基础箱型图（有异常值）",
+        "en": "Box Chart with error"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*cEuDTomS63IAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}
