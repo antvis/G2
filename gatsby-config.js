@@ -141,7 +141,39 @@ module.exports = {
         icon: 'heatmap',
         title: {
           zh: '热力图',
-          en: '热力图'
+          en: 'Heatmap'
+        }
+      },
+      {
+        slug: 'gauge',
+        icon: 'gauge',
+        title: {
+          zh: '仪表盘',
+          en: 'Gauges'
+        }
+      },
+      {
+        slug: 'funnel',
+        icon: 'funnel',
+        title: {
+          zh: '漏斗图',
+          en: 'Funnel Charts'
+        }
+      },
+      {
+        slug: 'map',
+        icon: 'map',
+        title: {
+          zh: '地图',
+          en: 'Maps'
+        }
+      },
+      {
+        slug: 'radar',
+        icon: 'radar',
+        title: {
+          zh: '雷达图',
+          en: 'Radar Charts'
         }
       }
     ]
