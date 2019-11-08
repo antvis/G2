@@ -21,7 +21,13 @@ function layoutLegend(legends: ComponentOption[], viewBBox: BBox) {
     const bboxObject = component.getBBox();
     const bbox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height);
 
-    component.move(...directionToPosition(viewBBox, bbox, direction));
+    const [x, y] = directionToPosition(viewBBox, bbox, direction);
+
+    // @ts-ignore
+    component.update({
+      x,
+      y,
+    });
   });
 }
 

@@ -11,6 +11,7 @@ describe('Chart', () => {
     width: 800,
     height: 600,
     padding: 10,
+    autoFit: false,
   });
 
   chart.data(CITY_SALE);
@@ -37,7 +38,4 @@ describe('Chart', () => {
     // @ts-ignore
     expect(y.component.get('label').offset).toBe(8);
   });
-
-  // @ts-ignore
-  window.__chart = chart;
 });

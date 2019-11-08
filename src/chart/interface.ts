@@ -1,6 +1,6 @@
 import Component from '../component';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../constant';
-import { ICanvas, IGroup } from '../dependents';
+import { CategoryLegendCfg, ICanvas, IGroup } from '../dependents';
 import Interaction from '../interaction/base';
 import { Data, Datum, Padding, Region, Renderer } from '../interface';
 import View from './view';
@@ -44,17 +44,17 @@ export interface ComponentOption {
 /* 筛选器函数类型定义 */
 export type FilterCondition = (value: any, datum: Datum) => boolean;
 
-export type AxisOption =
-  | {
-      readonly type: string;
-    }
-  | boolean;
+export interface AxisCfg {
+  readonly type: string;
+}
 
-export type LegendOption =
-  | {
-      readonly type: string;
-    }
-  | boolean;
+export type AxisOption = AxisCfg | boolean;
+
+export interface LegendCfg extends Partial<CategoryLegendCfg> {
+  readonly position?: string;
+}
+
+export type LegendOption = LegendCfg | boolean;
 
 export interface ScaleOption {
   readonly type: string;
