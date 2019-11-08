@@ -14,10 +14,11 @@ const chart = new Chart({
   autoFit: false,
 });
 chart.data(data);
-chart
-  .coordinate('rect')
-  .transpose()
-  .scale(1, -1);
+// 有 bug...
+// chart
+//   .coordinate('rect')
+//   .transpose()
+//   .scale(1, -1);
 // @ts-ignore
 chart
   .interval()

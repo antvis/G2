@@ -8,16 +8,16 @@ const IndexPage = () => {
   const { t } = useTranslation();
   return (
     <>
-    <SEO title= '蚂蚁数据可视化' lang = 'zh' />
-      <div style={ { margin: '0 auto', padding: '0 60px' } }>
-        { t('首页') }
-        <img src = { astronaut } alt = 'astronaut' height = '200' />
-          <Skeleton />
-          <Skeleton />
-          <Skeleton />
-          <Skeleton />
-          </div>
-          </>
+      <SEO title="蚂蚁数据可视化" lang="zh" />
+      <div style={{ margin: '0 auto', padding: '0 60px' }}>
+        {t('首页')}
+        <img src={astronaut} alt="astronaut" height="200" />
+        <Skeleton />
+        <Skeleton />
+        <Skeleton />
+        <Skeleton />
+      </div>
+    </>
   );
 };
 

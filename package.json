@@ -16,7 +16,6 @@
     "site:develop": "gatsby develop --open -H 0.0.0.0",
     "site:build": "npm run site:clean && gatsby build --prefix-paths",
     "site:clean": "gatsby clean",
-    "site:deploy": "npm run site:build && gh-pages -d public",
     "clean": "rimraf lib esm",
     "lint": "lint-staged",
     "test": "jest",

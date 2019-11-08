@@ -18,13 +18,6 @@ module.exports = {
     githubUrl: repository.url,
     navs: [
       {
-        slug: 'docs/manual',
-        title: {
-          zh: '使用文档',
-          en: 'docs',
-        },
-      },
-      {
         slug: 'examples',
         title: {
           zh: '图表示例',
@@ -32,7 +25,6 @@ module.exports = {
         },
       },
     ],
-    docs: [],
     examples: [
       {
         slug: 'gallery',
