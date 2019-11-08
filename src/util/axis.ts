@@ -95,17 +95,18 @@ export function getAxisRegion(coordinate: Coordinate, direction: DIRECTION): Reg
  * @returns factor
  */
 export function getAxisFactor(coordinate: Coordinate, direction: DIRECTION): number {
+  // rect coordinate, by direction
   if (coordinate.isRect) {
     return [DIRECTION.BOTTOM, DIRECTION.RIGHT].includes(direction) ? -1 : 1;
   }
 
+  // polar y axis, by angle
+  if (coordinate.isPolar) {
+    const startAngle = coordinate.x.start;
+    return startAngle < 0 ? -1 : 1;
+  }
+
   return 1;
-  // if (coordinate.isPolar) {
-  //   const startAngle = coordinate.x.start;
-  //   return startAngle < 0 ? -1 : 1;
-  // }
-  //
-  // return 1;
 }
 
 /**

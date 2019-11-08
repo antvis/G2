@@ -45,7 +45,13 @@ function layoutAxis(axes: ComponentOption[], viewBBox: BBox, view: View) {
 
     let updated;
     if (coordinate.isPolar) {
-      updated = getCircleAxisCenterRadius(coordinate);
+      // @ts-ignore
+      const type: string = component.get('type');
+      if (type === 'circle') {
+        updated = getCircleAxisCenterRadius(coordinate);
+      } else if (type === 'line') {
+        updated = getAxisRegion(coordinate, direction);
+      }
     } else {
       updated = getAxisRegion(coordinate, direction);
     }

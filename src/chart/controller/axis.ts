@@ -67,8 +67,6 @@ function getCircleAxisCfg(
 ): object {
   const container = view.getLayer(layer).addGroup();
 
-  const coordinate = view.getCoordinate();
-
   const baseAxisCfg = {
     container,
     ...getCircleAxisCenterRadius(view.getCoordinate()),
@@ -76,7 +74,7 @@ function getCircleAxisCfg(
     title: {
       text: getName(scale),
     },
-    verticalFactor: getAxisFactor(coordinate, direction),
+    verticalFactor: 1,
   };
 
   const axisThemeCfg = getAxisThemeCfg(view.getTheme(), 'circle');
@@ -161,8 +159,9 @@ function createYAxes(axes: Record<string, AxisOption> | boolean, view: View): Co
         C = LineAxis;
         cfg = getLineAxisCfg(view, scale, yAxisOption, direction, layer);
       } else if (coordinate.isPolar) {
-        // C = LineAxis;
-        // cfg = getLineAxisCfg(view, scale, yAxisOption, direction, layer);
+        C = LineAxis;
+        // @ts-ignore
+        cfg = getLineAxisCfg(view, scale, yAxisOption, 'radius', layer);
       } else {
         // nothing
       }
