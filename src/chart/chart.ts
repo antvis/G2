@@ -21,7 +21,7 @@ export default class Chart extends View {
   constructor(props: ChartCfg) {
     const { container, width, height, autoFit = true, renderer, pixelRatio, padding = 0 } = props;
 
-    const ele: HTMLElement = _.isString(container) ? document.querySelector(container) : container;
+    const ele: HTMLElement = _.isString(container) ? document.getElementById(container) : container;
 
     // if autoFit, use the container size, to avoid the graph render twice.
     const size = getChartSize(ele, autoFit, width, height);
