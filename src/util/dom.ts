@@ -38,3 +38,5 @@ export function getChartSize(ele: HTMLElement, autoFit: boolean, width: number, 
 
   return t;
 }
+
+export { createDom } from '@antv/dom-util';
