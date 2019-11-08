@@ -43,10 +43,10 @@ function getLineAxisCfg(view: View, scale: Scale, axisOption: AxisOption, direct
     verticalFactor: getAxisFactor(coordinate, direction),
   };
 
-  const axisThemeCfg = getAxisThemeCfg(view.getTheme(), 'line', direction);
+  const axisThemeCfg = getAxisThemeCfg(view.getTheme(), direction);
 
   // the cfg order should be ensure
-  return _.deepMix({}, axisThemeCfg, baseAxisCfg, axisOption);
+  return _.deepMix({}, baseAxisCfg, axisThemeCfg, axisOption);
 }
 
 /**
@@ -79,10 +79,10 @@ function getCircleAxisCfg(
     verticalFactor: getAxisFactor(coordinate, direction),
   };
 
-  const axisThemeCfg = getAxisThemeCfg(view.getTheme(), 'circle', direction);
+  const axisThemeCfg = getAxisThemeCfg(view.getTheme(), 'circle');
 
   // the cfg order should be ensure
-  return _.deepMix({}, axisThemeCfg, baseAxisCfg, axisOption);
+  return _.deepMix({}, baseAxisCfg, axisThemeCfg, axisOption);
 }
 
 /**

@@ -51,17 +51,12 @@ describe('Chart', () => {
   chart.render();
 
   it('circle axis component', () => {
-    expect(1).toBe(1);
-    // const axes = chart.getOptions().components.filter((co) => co.type === COMPONENT_TYPE.AXIS);
-    // expect(axes.length).toBe(2);
-    //
+    const axes = chart.getOptions().components.filter((co) => co.type === COMPONENT_TYPE.AXIS);
     // // test the component theme config
-    // const [x, y] = axes;
-    // // @ts-ignore
-    // expect(x.component.get('label').offset).toBe(16);
-    // // @ts-ignore
-    // expect(y.component.get('title').offset).toBe(32);
-    // // @ts-ignore
-    // expect(y.component.get('label').offset).toBe(8);
+    const [x] = axes;
+    // @ts-ignore
+    expect(x.component.get('title')).toBe(null);
+    // @ts-ignore
+    expect(x.component.get('label').offset).toBe(8);
   });
 });

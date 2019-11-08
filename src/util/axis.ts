@@ -111,11 +111,10 @@ export function getAxisFactor(coordinate: Coordinate, direction: DIRECTION): num
 /**
  * get the axis cfg from theme
  * @param theme view theme object
- * @param type axis type
  * @param direction axis direction
  * @returns axis theme cfg
  */
-export function getAxisThemeCfg(theme: object, type: string, direction): object {
+export function getAxisThemeCfg(theme: object, direction: string): object {
   return _.get(theme, ['components', 'axis', direction], {});
 }
 
