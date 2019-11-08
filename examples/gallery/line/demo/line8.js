@@ -146,7 +146,7 @@ fetch('../data/cpu-data.json')
     const chart = new G2.Chart({
       container: 'container',
       forceFit: true,
-     height: 500,
+      height: 500,
       padding: [ 20, 100, 50, 50 ]
     });
 

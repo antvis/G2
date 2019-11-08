@@ -4,7 +4,7 @@ fetch('../data/income.json')
     const chart = new G2.Chart({
       container: 'container',
       forceFit: true,
-     height: 500,
+      height: 500,
       padding: [ 20, 20, 70, 20 ]
     });
     chart.source(data);

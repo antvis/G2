@@ -1,4 +1,4 @@
 ---
-title: Line Chart
-order: 0
+title: Histogram
+order: 3
 ---

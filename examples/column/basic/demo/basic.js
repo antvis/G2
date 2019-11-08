@@ -6,7 +6,7 @@ const data = [
   { year: '1958 年', sales: 48 },
   { year: '1959 年', sales: 38 },
   { year: '1960 年', sales: 38 },
-  { year: '1962 年', sales: 38 },
+  { year: '1962 年', sales: 38 }
 ];
 const chart = new G2.Chart({
   container: 'container',

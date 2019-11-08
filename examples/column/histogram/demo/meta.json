@@ -4,8 +4,16 @@
     "en": "Category"
   },
   "demos": [{
-    "filename": "line1.js",
-    "title": "全球恐怖袭击致死人数趋势分析",
-    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*lfyJS4MckAoAAAAAAAAAAABkARQnAQ"
+    "filename": "histogram-binwidth.js",
+    "title": "直方图范围刻度",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*gF1PSq6H2GQAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "histogram-stacked.js",
+    "title": "层叠直方图",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Eoz8SbVvQ1AAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "histogram.js",
+    "title": "直方图",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*EHpuTqn-M2cAAAAAAAAAAABkARQnAQ"
   }]
 }

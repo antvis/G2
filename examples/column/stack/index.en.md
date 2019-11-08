@@ -1,4 +1,4 @@
 ---
-title: Line Chart
-order: 0
+title: Stacked Column Chart
+order: 2
 ---

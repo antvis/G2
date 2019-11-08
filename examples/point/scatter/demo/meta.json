@@ -1,0 +1,39 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [{
+    "filename": "scatter.js",
+    "title": "散点图",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*_i8FTa6k0_4AAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "scatter-shapes.js",
+    "title": "多形状散点图",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*H965QalW9GoAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "scatter-series.js",
+    "title": "多色散点图",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*CP_PT497E9MAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "bubble.js",
+    "title": "气泡图",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*RX9RRLw_ET8AAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "time-bubble.js",
+    "title": "时间序列气泡图",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*7htzS4l-SeUAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "bubble-text.js",
+    "title": "带文本的气泡图",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*jo3aQbPMoX4AAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "jitter.js",
+    "title": "扰动点图",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*l9szR4lpyFkAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "pizza.js",
+    "title": "Pizza Chart",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*nYyYQJf_lg4AAAAAAAAAAABkARQnAQ"
+  }]
+}

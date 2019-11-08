@@ -1,0 +1,19 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [{
+      "filename": "donut.js",
+      "title": "基础环图",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*3K-wRazv3PEAAAAAAAAAAABkARQnAQ"
+    }, {
+    "filename": "clock.js",
+    "title": "日常作息可视化",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*MonkT4iCyXcAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "pie-slice.js",
+    "title": "饼图-分割空白",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*jm-tQKob83EAAAAAAAAAAABkARQnAQ"
+  }]
+}

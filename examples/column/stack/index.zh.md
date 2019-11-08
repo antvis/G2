@@ -1,4 +1,4 @@
 ---
-title: Line Chart
-order: 0
+title: 堆叠柱状图
+order: 2
 ---

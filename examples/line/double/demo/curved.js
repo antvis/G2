@@ -26,7 +26,7 @@ dv.transform({
 const chart = new G2.Chart({
   container: 'container',
   forceFit: true,
- height: 500
+  height: 500
 });
 chart.source(dv, {
   month: {
@@ -57,7 +57,7 @@ chart
   .size(4)
   .shape('circle')
   .style({
-   stroke: '#fff',
+    stroke: '#fff',
     lineWidth: 1
   });
 chart.render();

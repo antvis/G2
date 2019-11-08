@@ -4,7 +4,7 @@ fetch('../data/basement.json')
     const chart = new G2.Chart({
       container: 'container',
       forceFit: true,
-     height: 500,
+      height: 500,
       padding: [ 20, 50, 50, 50 ]
     });
     chart.axis('time', {

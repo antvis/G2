@@ -60,7 +60,7 @@ fetch('../data/rain-flow.json')
       showTitle: false, // 显示标题
       padding: [ 0, 0, 40, 0 ],
       eachView(view, facet) {
-        const { colValue, data } = facet;
+        const { colValue } = facet;
         let color;
         let alias;
         if (colValue === 'rain') {
@@ -72,11 +72,11 @@ fetch('../data/rain-flow.json')
           alias = '流量(m^3/s)';
         }
 
-        // view.source(data, {
-        //   [`${colValue}`]: {
-        //     alias
-        //   }
-        // });
+        view.source(data, {
+          [`${colValue}`]: {
+            alias
+          }
+        });
         view.axis(colValue, {
           title: {
             autoRotate: false,

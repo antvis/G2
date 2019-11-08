@@ -1,0 +1,19 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [{
+      "filename": "stacked.js",
+      "title": "分组柱状图",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*0h6YQLcKhQ4AAAAAAAAAAABkARQnAQ"
+    }, {
+    "filename": "bar-percentage-stacked-marked.js",
+    "title": "带标识的百分比堆叠条形图",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*TBiuTY_EvN4AAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "bar-diverge.js",
+    "title": "条形图-diverging",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*NkcDQqik3oYAAAAAAAAAAABkARQnAQ"
+  }]
+}

@@ -1,0 +1,27 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [{
+    "filename": "basic.js",
+    "title": "基础条形图",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*xor3R6X2puIAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "radial-bar.js",
+    "title": "玉珏图",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*GTDCRYkg6V4AAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "radial-line.js",
+    "title": "Radial Bar Chart",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*36qSSZ8HGyMAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "ranged.js",
+    "title": "区间条形图",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*W7UaRYzGa2IAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "time-bar.js",
+    "title": "时间条形图",
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Vc8TTZHaxTkAAAAAAAAAAABkARQnAQ"
+  }]
+}

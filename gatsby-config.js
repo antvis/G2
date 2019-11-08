@@ -82,10 +82,34 @@ module.exports = {
       },
       {
         slug: 'column',
-        icon: 'column', // 图标名可以去 https://antv.alipay.com/zh-cn/g2/3.x/demo/index.html 打开控制台查看图标类名
+        icon: 'column',
         title: {
           zh: '柱状图',
           en: 'Column Charts'
+        }
+      },
+      {
+        slug: 'bar',
+        icon: 'bar',
+        title: {
+          zh: '条形图',
+          en: 'Bar Charts'
+        }
+      },
+      {
+        slug: 'pie',
+        icon: 'pie',
+        title: {
+          zh: '饼图',
+          en: 'Pie Charts'
+        }
+      },
+      {
+        slug: 'point',
+        icon: 'point',
+        title: {
+          zh: '点图',
+          en: 'Point Charts'
         }
       }
     ]

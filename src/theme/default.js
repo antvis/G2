@@ -497,7 +497,11 @@ const Theme = {
     },
     [`${TOOLTIP_LIST_ITEM_CLASS}`]: {
       listStyleType: 'none',
-      marginBottom: '4px'
+      marginBottom: '4px',
+      padding: 0,
+      marginTop: 0,
+      marginLeft: 0,
+      marginRight: 0
     },
     [`${TOOLTIP_MARKER_CLASS}`]: {
       width: '5px',
