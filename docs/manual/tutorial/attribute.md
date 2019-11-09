@@ -406,7 +406,7 @@ chart.point().position('name*value')
 
 ```
 
-查看[自定义气泡的示例](https://antv.alipay.com/zh-cn/g2/3.x/demo/other/bubble-image.html)
+查看[自定义气泡的示例](/zh/examples/other/other#bubble-image)
 
 ## size
 

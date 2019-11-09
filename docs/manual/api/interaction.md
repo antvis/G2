@@ -12,7 +12,7 @@ G2 提供一套交互机制，以达到通用交互行为的封装和复用。�
 
 
 ## Slider 滑块
-Demo: [https://antv.alipay.com/zh-cn/g2/3.x/demo/candlestick/basic.html](https://antv.alipay.com/zh-cn/g2/3.x/demo/candlestick/basic.html)
+Demo: [烛形图](/zh/examples/candlestick/demo#basic)
 
 ![basic-407c2.png](https://cdn.nlark.com/yuque/0/2019/png/98090/1566453968371-a66045b4-a540-499c-84ed-b8dcbb6b2eea.png#align=left&display=inline&height=332&name=basic-407c2.png&originHeight=538&originWidth=800&size=9235&status=done&width=494)
 
@@ -59,7 +59,7 @@ chart.interact('slider', {
 
 ## Zoom 缩放
 
-Demo: [https://antv.alipay.com/zh-cn/g2/3.x/demo/other/zoom-scatter.html#](https://antv.alipay.com/zh-cn/g2/3.x/demo/other/zoom-scatter.html#)
+[Demo](/zh/examples/other/other#zoom-scatter)
 
 ![1542262785863-e267eec2-3929-4664-badf-56bfdb82ca90.gif](https://cdn.nlark.com/yuque/0/2019/gif/98090/1566454073167-7c0f72e4-01c4-40bf-8e8f-bffe031f6787.gif#align=left&display=inline&height=359&name=1542262785863-e267eec2-3929-4664-badf-56bfdb82ca90.gif&originHeight=450&originWidth=600&size=2487072&status=done&width=479)
 
@@ -76,7 +76,8 @@ chart.interact('zoom', {
 ```
 
 ## Drag 拖拽
-Demo: [https://antv.alipay.com/zh-cn/g2/3.x/demo/other/zoom-scatter.html#](https://antv.alipay.com/zh-cn/g2/3.x/demo/other/zoom-scatter.html#)
+
+[Demo](/zh/examples/other/other#zoom-scatter)
 
 
 ### API
@@ -90,18 +91,18 @@ chart.interact('drag', {
 
 
 ## Brush 框选
-Demo: [https://antv.alipay.com/zh-cn/g2/3.x/demo/other/brush-filter-shape.html](https://antv.alipay.com/zh-cn/g2/3.x/demo/other/brush-filter-shape.html)
+[Demo](/zh/examples/other/other#brush-filter-shape)
 
 ### ![1542263223024-3472f33a-ea52-482b-bff7-797f62b5665c.gif](https://cdn.nlark.com/yuque/0/2019/gif/98090/1566454098868-bdd4904d-1a91-4cb3-8ac1-3b301ed785a7.gif#align=left&display=inline&height=381&name=1542263223024-3472f33a-ea52-482b-bff7-797f62b5665c.gif&originHeight=474&originWidth=600&size=417307&status=done&width=482)
 
 其他 Demo:
 
-- **brush interaction 结合 DataSet:** [https://antv.alipay.com/zh-cn/g2/3.x/demo/other/brush-ds-state.html](https://antv.alipay.com/zh-cn/g2/3.x/demo/other/brush-ds-state.html)
-- **brush interaction 过滤图形:** [https://antv.alipay.com/zh-cn/g2/3.x/demo/other/brush-filter-shape.html](https://antv.alipay.com/zh-cn/g2/3.x/demo/other/brush-filter-shape.html)
-- **brush interaction 高亮图形:** [https://antv.alipay.com/zh-cn/g2/3.x/demo/other/brush-highlight.html](https://antv.alipay.com/zh-cn/g2/3.x/demo/other/brush-highlight.html)
-- **brush interaction 柱状图:** [https://antv.alipay.com/zh-cn/g2/3.x/demo/other/brush-interval.html](https://antv.alipay.com/zh-cn/g2/3.x/demo/other/brush-interval.html)
-- **brush interaction 折线图:** [https://antv.alipay.com/zh-cn/g2/3.x/demo/other/brush-line.html](https://antv.alipay.com/zh-cn/g2/3.x/demo/other/brush-line.html)
-- **brush interaction 多边形:** [https://antv.alipay.com/zh-cn/g2/3.x/demo/other/brush-polygon.html](https://antv.alipay.com/zh-cn/g2/3.x/demo/other/brush-polygon.html)
+- [brush interaction 结合 DataSet](/zh/examples/other/other#brush-ds-state)
+- [brush interaction 过滤图形](/zh/examples/other/other#brush-filter-shape)
+- [brush interaction 高亮图形](/zh/examples/other/other#brush-highlight)
+- [brush interaction 柱状图](/zh/examples/other/other#brush-interval)
+- [brush interaction 折线图](/zh/examples/other/other#brush-line)
+- [brush interaction 多边形](/zh/examples/other/other#brush-polygon)
 
 ### API
 ```javascript

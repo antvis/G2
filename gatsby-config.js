@@ -175,6 +175,38 @@ module.exports = {
           zh: '雷达图',
           en: 'Radar Charts'
         }
+      },
+      {
+        slug: 'facet',
+        icon: 'facet',
+        title: {
+          zh: '分面',
+          en: 'Facets'
+        }
+      },
+      {
+        slug: 'relation',
+        icon: 'relation',
+        title: {
+          zh: '关系图',
+          en: 'Relation Charts'
+        }
+      },
+      {
+        slug: 'other',
+        icon: 'other',
+        title: {
+          zh: '其他图表',
+          en: 'Other Charts'
+        }
+      },
+      {
+        slug: 'component',
+        icon: 'component',
+        title: {
+          zh: '组件使用',
+          en: 'Chart Components'
+        }
       }
     ]
   }

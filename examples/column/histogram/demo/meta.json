@@ -5,15 +5,24 @@
   },
   "demos": [{
     "filename": "histogram-binwidth.js",
-    "title": "直方图范围刻度",
+    "title": {
+      "zh": "直方图范围刻度",
+      "en": "histogram"
+    },
     "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*gF1PSq6H2GQAAAAAAAAAAABkARQnAQ"
   }, {
     "filename": "histogram-stacked.js",
-    "title": "层叠直方图",
+    "title": {
+      "zh": "层叠直方图",
+      "en": "stacked histogram"
+    },
     "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Eoz8SbVvQ1AAAAAAAAAAAABkARQnAQ"
   }, {
     "filename": "histogram.js",
-    "title": "直方图",
+    "title": {
+      "zh": "直方图",
+      "en": "histogram"
+    },
     "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*EHpuTqn-M2cAAAAAAAAAAABkARQnAQ"
   }]
 }

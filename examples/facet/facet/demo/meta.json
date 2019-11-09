@@ -1,0 +1,87 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [{
+      "filename": "circle.js",
+      "title": {
+        "zh": "圆形分面",
+        "en": "circle facet"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Ag46TrkWa0sAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "column.js",
+      "title": {
+        "zh": "列分面",
+        "en": "column facet"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*QBGQSIviJ7YAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "facet-transpose.js",
+      "title": {
+        "zh": "镜像分面（transpose）",
+        "en": "mirror facet(transpose)"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*2ZEmS5SM_bkAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "list.js",
+      "title": {
+        "zh": "List 分面",
+        "en": "list facet"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*F8MKRZvTB1AAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "matrix.js",
+      "title": {
+        "zh": "散点矩阵",
+        "en": "matrix"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*RPPgTauPZLMAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "mirror.js",
+      "title": {
+        "zh": "镜像分面",
+        "en": "mirror facet"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Z7SlTLkNEVAAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "rect.js",
+      "title": {
+        "zh": "2 维行列分面",
+        "en": "rect facet"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*bYoPT7VqUZwAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "row.js",
+      "title": {
+        "zh": "列分面",
+        "en": "rect facet(row)"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*9XE6Qqc56mAAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "tree-column.js",
+      "title": {
+        "zh": "多级 tree 分面",
+        "en": "tree column facet"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*p3ILS783LrQAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "tree.js",
+      "title": {
+        "zh": "tree 分面",
+        "en": "tree facet"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*qD3PRJ10I7wAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

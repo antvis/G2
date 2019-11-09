@@ -130,7 +130,7 @@ chart.point().position('height*weight').color('gender');
 
 #### geom 选择
 
-[散点图](https://antv.alipay.com/zh-cn/g2/3.x/demo/point/scatter.html)也叫 X-Y 图，它将所有的数据以__点__的形式展现在笛卡尔坐标系上，以显示变量之间的相互影响程度，所以绘制时我们需要选择 `chart.point()` 来创建一个图层。如前面所述，Geom 决定了图表中图形的形状，包括点、线、面、多边形等。如柱状图的几何标记为 `interval`，散点图对应 `point`，折线图对应 `line`。下表展示了常见的图表对应的 geom，另外通过组合 geom 和 [数据调整方式](/zh/docs/manual/advanced/geom-and-adjust)，还可以绘制出更多的图表。
+[散点图](/zh/examples/point/scatter)也叫 X-Y 图，它将所有的数据以__点__的形式展现在笛卡尔坐标系上，以显示变量之间的相互影响程度，所以绘制时我们需要选择 `chart.point()` 来创建一个图层。如前面所述，Geom 决定了图表中图形的形状，包括点、线、面、多边形等。如柱状图的几何标记为 `interval`，散点图对应 `point`，折线图对应 `line`。下表展示了常见的图表对应的 geom，另外通过组合 geom 和 [数据调整方式](/zh/docs/manual/advanced/geom-and-adjust)，还可以绘制出更多的图表。
 
 | 图表 | geom |
 | :--- | :--- |

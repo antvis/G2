@@ -64,6 +64,7 @@ chart.legend({
 });
 chart.interval()
   .position('State*population')
+  .size(25)
   .color('age', function(age) {
     return colorMap[age];
   })

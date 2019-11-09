@@ -24,7 +24,7 @@ Shape.registerShape(geomName, shapeName, { // 向Shape工厂注册某个geom的�
 
 ## 1分钟上手自定义 Shape
 
-以[柱状图](https://antv.alipay.com/zh-cn/g2/3.x/demo/column/basic-column.html)举例，几何标记 interval 会给出四个关键点（即组成矩形的四个顶点），然后将这四个点依次连接，得到每个柱子的形状。__红色圆形__ 标记就是几何标记点。默认的柱状图就是通过四个几何标记点，依次相连后得到的。
+以[柱状图](/zh/examples/column/basic)举例，几何标记 interval 会给出四个关键点（即组成矩形的四个顶点），然后将这四个点依次连接，得到每个柱子的形状。__红色圆形__ 标记就是几何标记点。默认的柱状图就是通过四个几何标记点，依次相连后得到的。
 
 
 

@@ -38,7 +38,7 @@ const geom = chart.point().xx().xx(); // 这里使用了 point 类型的 geom，
 
 虽然 G2 没有特定的图表类型概念，**但是仍基本支持所有传统图表类型的绘制**。
 
-下表展示了 G2 中的 geom 几何标记类型和传统图表的对应关系，更多的图表详见 G2 官网的 [demo](https://antv.alipay.com/zh-cn/g2/3.x/demo/index.html)。
+下表展示了 G2 中的 geom 几何标记类型和传统图表的对应关系，更多的图表详见 G2 官网的 [demo](/zh/examples/line/basic)。
 
 | geom 类型 | 图表类型 | 备注 |
 | --- | --- | --- |

@@ -1,0 +1,264 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "area-rainfall.js",
+      "title": {
+        "zh": "雨量流量关系图",
+        "en": ""
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*7dxYRKmTnbwAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "brush-ds-state.js",
+      "title": {
+        "zh": "brush-ds-state",
+        "en": "brush interaction"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*4jCzR6gQEEsAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "brush-filter-shape.js",
+      "title": {
+        "zh": "brush interaction 过滤图形",
+        "en": "brush interaction"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*q27PRpGASNIAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "brush-highlight.js",
+      "title": {
+        "zh": "brush interaction 高亮图形",
+        "en": "brush interaction"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*VfwERojKEpkAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "brush-interval.js",
+      "title": {
+        "zh": "brush interaction 柱状图",
+        "en": "brush interaction"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*7HuFSKPBqWoAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "brush-line.js",
+      "title": {
+        "zh": "brush interaction 折线图",
+        "en": "brush interaction"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*N6tVTLlF81IAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "brush-polygon.js",
+      "title": {
+        "zh": "brush interaction 多边形",
+        "en": "brush interaction"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*izazSIYdpjQAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "bubble-image.js",
+      "title": {
+        "zh": "气泡图-自定义 shape",
+        "en": "bubble chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*jB6VTY-M2gIAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "bullet-graph.js",
+      "title": {
+        "zh": "子弹图",
+        "en": "bullet graph"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*1qjwRIw8CVsAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "column-error.js",
+      "title": {
+        "zh": "柱状图-ErrorBar",
+        "en": "error column chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*egE4Qp8F33QAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "double-axes.js",
+      "title": {
+        "zh": "双轴图表",
+        "en": "double axes"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*7ElNT4BLU_EAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "geo-projection.js",
+      "title": {
+        "zh": "地理映射",
+        "en": "geo projection"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*aTGDR7E1950AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "hexbin-size.js",
+      "title": {
+        "zh": "hexbin-size",
+        "en": ""
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*tX5lSazu4G8AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "kagi-chart.js",
+      "title": {
+        "zh": "卡吉图",
+        "en": "kagi chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*kJxhRomBRqMAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "line-realtime.js",
+      "title": {
+        "zh": "实时更新数据的折线图",
+        "en": "realtime line chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*FvlCR6GXUk0AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "liquid-fill-gauge.js",
+      "title": {
+        "zh": "水波图",
+        "en": "liquid gauge"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*05IbQJFHJlIAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "path.js",
+      "title": {
+        "zh": "路径图",
+        "en": "path chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*5hZ3Tb2LNyUAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "punch-card.js",
+      "title": {
+        "zh": "Punch Card",
+        "en": "Punch Card"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*E_xoSYVrPB4AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "rectbin-size.js",
+      "title": {
+        "zh": "矩形大小分箱图",
+        "en": ""
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*cC7LT6_AVqYAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "regression.js",
+      "title": {
+        "zh": "回归曲线",
+        "en": "regression line chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Qr1lR5J3XI8AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "scrollbar.js",
+      "title": {
+        "zh": "超市品类销售数据",
+        "en": "scrollbar"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*9lxORIxuVYsAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "stock-index.js",
+      "title": {
+        "zh": "Stock Index Chart",
+        "en": "Stock Index Chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*NGKvSo9PrTQAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "venn-hollow.js",
+      "title": {
+        "zh": "空心维恩图",
+        "en": "venn chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*IqMJR78j-PIAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "venn.js",
+      "title": {
+        "zh": "维恩图",
+        "en": "venn chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*mBlESrSGziAAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "violin.js",
+      "title": {
+        "zh": "小提琴图",
+        "en": "Violin Plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/rmsportal/KKyObkmAxInCPdSlCJmG.gif"
+    },
+    {
+      "filename": "waffle-grouped.js",
+      "title": {
+        "zh": "华夫图",
+        "en": "waffle chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*hXdZRK3uHscAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "waffle-image.js",
+      "title": {
+        "zh": "图片华夫图",
+        "en": "waffle chart fill with image"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*HwbqQ551CxwAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "waffle-path.js",
+      "title": {
+        "zh": "符号华夫图",
+        "en": "waffle chart fill with path"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*2t2pQ4GQNJ4AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "waffle.js",
+      "title": {
+        "zh": "华夫图",
+        "en": "waffle chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*EoRSRbRYiH8AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "word-cloud-mask.js",
+      "title": {
+        "zh": "带图片遮罩的词云",
+        "en": "word cloud with shape"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*2IEIQ7e-KAUAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "word-cloud.js",
+      "title": {
+        "zh": "词云",
+        "en": "word cloud"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*SEgST634CwUAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "zoom-scatter.js",
+      "title": {
+        "zh": "zoom - 散点图",
+        "en": "zoom scatter chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*6IcuTY7u5akAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

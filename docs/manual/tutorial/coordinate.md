@@ -137,6 +137,6 @@ chart.coord().rotate(90).scale(1.3, 5).reflect('x').transpose();
 
 ## 相关实例
 
-* [环图](https://antv.alipay.com/zh-cn/g2/3.x/demo/pie/clock.html)
-* [仪表盘](https://antv.alipay.com/zh-cn/g2/3.x/demo/gauge/basic.html)
+* [环图](/zh/examples/pie/donut#clock)
+* [仪表盘](/zh/examples/gauge/gauge)
 

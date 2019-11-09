@@ -97,7 +97,7 @@ chart.scale('aqi',  {
 
 类型：boolean
 
-当 chart 存在不同数据源的 view 时，用于统一相同数据属性的值域范围。效果参考 [demo](https://antv.alipay.com/zh-cn/g2/3.x/demo/area/range.html)。
+当 chart 存在不同数据源的 view 时，用于统一相同数据属性的值域范围。效果参考 [demo](/zh/examples/area/range)。
 
 ## 方法
 

@@ -1,4 +1,4 @@
 ---
-title: 柱状图
+title: Column Chart
 order: 1
 ---
