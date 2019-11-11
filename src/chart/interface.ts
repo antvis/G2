@@ -2,7 +2,7 @@ import Component from '../component';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../constant';
 import { CategoryLegendCfg, CircleAxisCfg, ICanvas, IGroup, LineAxisCfg } from '../dependents';
 import Interaction from '../interaction/base';
-import { Data, Datum, LooseObject, Padding, Region, Renderer } from '../interface';
+import { Data, Datum, LooseObject, Padding, Region, Renderer, ScaleOption } from '../interface';
 import View from './view';
 
 // chart 构造方法的入参
@@ -52,10 +52,6 @@ export interface LegendCfg extends Partial<CategoryLegendCfg> {
 
 export type LegendOption = LegendCfg | boolean;
 
-export interface ScaleOption {
-  readonly type: string;
-}
-
 interface TooltipDomStyles {
   'g2-tooltip'?: LooseObject;
   'g2-tooltip-title'?: LooseObject;
@@ -68,7 +64,7 @@ interface TooltipDomStyles {
   'g2-tooltip-crosshair-y'?: LooseObject;
 }
 
-export interface TooltipOption {
+export interface TooltipCfg {
   /** 是否展示 tooltip 标题 */
   showTitle?: boolean;
   /**
@@ -80,16 +76,21 @@ export interface TooltipOption {
   position?: 'top' | 'bottom' | 'left' | 'right';
   /** true 表示展示一组数据，false 表示展示单条数据 */
   shared?: boolean; // 是否只展示单条数据
+  /** 是否展示 crosshairs */
+  showCrosshairs?: boolean;
   /**
    * 设置 tooltip 辅助线的类型
    * 'x' 水平辅助线
    * 'y' 垂直辅助线
    * 'xy' 十字辅助线
+   *
    */
   crosshairs?: 'x' | 'y' | 'xy';
   // title?: string;
   /** 是否自动渲染 tooltipMarkers，目前 line、area、path 会默认渲染 */
   showTooltipMarkers?: boolean;
+  /** tooltipMarker 的样式 */
+  tooltipMarker?: object;
   /** 自定义 tooltip 的容器 */
   container?: string | HTMLElement;
   /** 用于指定图例容器的模板，自定义模板时必须包含各个 dom 节点的 class */
@@ -107,6 +108,8 @@ export interface TooltipOption {
   /** tooltip 偏移量 */
   offset?: number;
 }
+
+export type TooltipOption = TooltipCfg | boolean;
 
 export interface CoordinateOption {
   type?: 'polar' | 'theta' | 'rect' | 'cartesian' | 'helix' | 'geo'; // 坐标系类型
@@ -132,7 +135,7 @@ export interface Options {
   readonly axes?: Record<string, AxisOption> | boolean;
   readonly legends?: Record<string, LegendOption> | boolean;
   readonly scales?: Record<string, ScaleOption>;
-  readonly tooltip?: boolean; // tooltip visible or not
+  readonly tooltip?: TooltipOption;
   readonly coordinate?: CoordinateOption;
   readonly interactions?: Record<string, Interaction>;
   /** 所有的组件配置 */

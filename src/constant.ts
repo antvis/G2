@@ -33,6 +33,8 @@ export enum COMPONENT_TYPE {
   AXIS = 'axis',
   // legend 组件
   LEGEND = 'legend',
+  // tooltip 组件
+  TOOLTIP = 'tooltip',
   // 其他组件，自定义组件
   OTHER = 'other',
 }
