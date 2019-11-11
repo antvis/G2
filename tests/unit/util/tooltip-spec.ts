@@ -52,14 +52,12 @@ describe('Tooltip functions', () => {
       const data = findDataByPoint({ x: 100, y: 30 }, interval.dataArray[0], interval);
       const tooltipItems = getTooltipItems(data, interval);
       expect(tooltipItems.length).toBe(1);
-      expect(tooltipItems[0]).toEqual({
-        title: '上海',
-        data: { city: '上海', sale: 110, category: '电脑' },
-        name: '电脑',
-        value: '110',
-        color: '#5B8FF9',
-        marker: true,
-      });
+
+      const { color, name, value, mappingData } = tooltipItems[0];
+      expect(color).toBe('#5B8FF9');
+      expect(name).toBe('电脑');
+      expect(value).toBe('110');
+      expect(mappingData).toBeDefined();
 
       interval.destroy();
     });
@@ -119,14 +117,12 @@ describe('Tooltip functions', () => {
     it('getTooltipItems', () => {
       const data = findDataByPoint({ x: 100, y: 90 }, line.dataArray[0], line);
       const tooltipItems = getTooltipItems(data, line);
-      expect(tooltipItems[0]).toEqual({
-        title: '1995',
-        data: { year: 1995, value: 17000 },
-        name: 'value',
-        value: '17000',
-        color: '#1890FF',
-        marker: true,
-      });
+      const { color, name, value, title, mappingData } = tooltipItems[0];
+      expect(color).toBe('#1890FF');
+      expect(name).toBe('value');
+      expect(value).toBe('17000');
+      expect(title).toBe('1995');
+      expect(mappingData).toBeDefined();
     });
   });
 

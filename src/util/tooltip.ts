@@ -286,6 +286,7 @@ export function getTooltipItems(data: Datum, geometry: Geometry) {
       const item = {
         title: tooltipTitle,
         data: origin, // 原始数据
+        mappingData: data, // 映射后的数据
         name: itemName || tooltipTitle,
         value: itemValue,
         color: data.color || defaultColor,
@@ -306,6 +307,7 @@ export function getTooltipItems(data: Datum, geometry: Geometry) {
       const cfg = callback(...callbackParams);
       const itemCfg = {
         data: data[FIELD_ORIGIN], // 原始数据
+        mappingData: data, // 映射后的数据
         title: tooltipTitle,
         color: data.color || defaultColor,
         marker: true, // 默认展示 marker
