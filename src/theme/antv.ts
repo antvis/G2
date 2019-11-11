@@ -324,6 +324,18 @@ export default {
         line: null,
         tickLine: null,
       }),
+      circle: _.deepMix({}, AXIS_STYLE, {
+        title: null,
+        label: {
+          offset: 8,
+        },
+      }),
+      radius: _.deepMix({}, AXIS_STYLE, {
+        title: null,
+        label: {
+          offset: 8,
+        },
+      }),
     },
     legend: {
       right: _.deepMix({}, LEGEND_STYLE, {

@@ -17,4 +17,4 @@ export { Canvas, Group, Shape, Event } from '@antv/g-canvas';
 export { Line, Circle } from '@antv/component';
 // legend
 export { Category } from '@antv/component';
-export { CategoryLegendCfg } from '@antv/component/lib/types';
+export { CategoryLegendCfg, CircleAxisCfg, LineAxisCfg } from '@antv/component/lib/types';

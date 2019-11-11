@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
 import { COMPONENT_TYPE } from '../../constant';
-import { getAxisRegion } from '../../util/axis';
+import { getAxisRegion, getCircleAxisCenterRadius } from '../../util/axis';
 import { BBox } from '../../util/bbox';
 import { directionToPosition } from '../../util/direction';
 import { ComponentOption } from '../interface';
@@ -38,11 +38,26 @@ function layoutLegend(legends: ComponentOption[], viewBBox: BBox) {
  * @param view
  */
 function layoutAxis(axes: ComponentOption[], viewBBox: BBox, view: View) {
+  const coordinate = view.getCoordinate();
+
   _.each(axes, (axis: ComponentOption) => {
     const { component, direction } = axis;
 
+    let updated;
+    if (coordinate.isPolar) {
+      // @ts-ignore
+      const type: string = component.get('type');
+      if (type === 'circle') {
+        updated = getCircleAxisCenterRadius(coordinate);
+      } else if (type === 'line') {
+        updated = getAxisRegion(coordinate, direction);
+      }
+    } else {
+      updated = getAxisRegion(coordinate, direction);
+    }
+
     // @ts-ignore
-    component.update(getAxisRegion(view.getCoordinate(), direction));
+    component.update(updated);
   });
 }
 
@@ -60,6 +75,8 @@ function layoutAxis(axes: ComponentOption[], viewBBox: BBox, view: View) {
  */
 export default function defaultLayout(view: View): void {
   const { geometries, viewBBox } = view;
+  const coordinate = view.getCoordinate();
+
   const componentOptions = this.getOptions().components;
 
   // 1. 计算出 legend 的 direction 位置 x, y
@@ -74,10 +91,18 @@ export default function defaultLayout(view: View): void {
 
   // 剪裁掉组件的 bbox，剩余的给 绘图区域
   _.each(componentOptions, (co: ComponentOption) => {
-    const bboxObject = co.component.getBBox();
+    const { component, type } = co;
+
+    const bboxObject = component.getBBox();
+
     const componentBBox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height);
 
-    bbox = bbox.cut(componentBBox, co.direction);
+    if (coordinate.isPolar && type === COMPONENT_TYPE.AXIS) {
+      const exceed = componentBBox.exceed(bbox);
+      bbox = bbox.shrink(exceed);
+    } else {
+      bbox = bbox.cut(componentBBox, co.direction);
+    }
   });
 
   // 3. 获取最终的 Geometry 的 bbox 位置，坐标系位置
@@ -86,9 +111,5 @@ export default function defaultLayout(view: View): void {
   view.adjustCoordinate();
 
   // 4. 给 axis 组件更新 coordinate: 调整 axis 的宽高：y axis height, x axis width = coordinateBBox width height
-  _.each(axes, (co: ComponentOption) => {
-    const { component, direction } = co;
-    // @ts-ignore
-    component.update(getAxisRegion(view.getCoordinate(), direction));
-  });
+  layoutAxis(axes, viewBBox, view);
 }
