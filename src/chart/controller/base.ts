@@ -1,7 +1,9 @@
-import { IComponent, IGroup } from '../../dependents';
+import * as _ from '@antv/util';
+import { IGroup } from '../../dependents';
+import { ComponentOption } from '../interface';
 import View from '../view';
 
-export type ControllerCtor<O, E> = new (view: View, option?: O, extra?: E) => Controller<any, any>;
+export type ControllerCtor<O, E> = new (view: View) => Controller<any>;
 
 /**
  * Controller 规范需要定义的基类
@@ -10,20 +12,17 @@ export type ControllerCtor<O, E> = new (view: View, option?: O, extra?: E) => Co
  *    - 获取大小位置
  * 3. 明确定义的组件事件（名称、数据）
  */
-export abstract class Controller<O = any, E = any> {
+export abstract class Controller<O> {
   /** the component container group */
   protected container: IGroup;
   protected view: View;
   /** option 配置，不同组件有自己不同的配置结构 */
   protected option: O;
-  protected extra: E;
 
-  private components: IComponent[] = [];
+  protected components: ComponentOption[] = [];
 
-  constructor(view: View, option?: O, extra?: E) {
+  constructor(view: View) {
     this.view = view;
-    this.option = option;
-    this.extra = extra;
 
     this.container = this.getContainer();
   }
@@ -41,20 +40,38 @@ export abstract class Controller<O = any, E = any> {
   /**
    * update the components
    */
-  public abstract update();
+  // public abstract update();
+
+  /**
+   * do layout
+   */
+  public abstract layout();
+
+  /**
+   * clear
+   */
+  public clear() {
+    // destroy all components
+    _.each(this.components, (co: ComponentOption) => {
+      co.component.destroy();
+    });
+
+    this.components = [];
+  }
 
   /**
    * destroy the component
    */
   public destroy() {
-    this.container.remove();
-    this.container.destroy();
+    this.clear();
+    // destroy container
+    this.container.remove(true);
   }
 
   /**
    * get the bbox of component
    */
-  public getComponents(): IComponent[] {
+  public getComponents(): ComponentOption[] {
     return this.components;
   }
 
