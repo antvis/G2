@@ -18,18 +18,28 @@ module.exports = {
     githubUrl: homepage,
     navs: [
       {
-        slug: 'docs/manual',
-        title: {
-          zh: '使用文档',
-          en: 'docs'
-        }
-      },
-      {
         slug: 'examples',
         title: {
           zh: '图表示例',
           en: 'Examples'
-        }
+        },
+        order: 0
+      },
+      {
+        slug: 'docs/manual',
+        title: {
+          zh: '使用文档',
+          en: 'Tutorials'
+        },
+        order: 1
+      },
+      {
+        slug: 'docs/api',
+        title: {
+          zh: 'API 文档',
+          en: 'API'
+        },
+        order: 2
       }
     ],
     docs: [
@@ -37,30 +47,23 @@ module.exports = {
         slug: 'manual/tutorial',
         title: {
           zh: '使用教程',
-          en: 'tutorial'
+          en: 'Tutorial'
         },
         order: 1
       }, {
         slug: 'manual/advanced',
         title: {
           zh: '高级教程',
-          en: 'advanced'
+          en: 'Advanced'
         },
         order: 2
-      }, {
-        slug: 'manual/api',
-        title: {
-          zh: 'API 文档',
-          en: 'API'
-        },
-        order: 3
       }, {
         slug: 'manual/faq',
         title: {
           zh: 'G2 常见问题',
           en: 'FAQ'
         },
-        order: 4
+        order: 3
       }
     ],
     examples: [
@@ -77,7 +80,7 @@ module.exports = {
         icon: 'line', // 图标名可以去 https://antv.alipay.com/zh-cn/g2/3.x/demo/index.html 打开控制台查看图标类名
         title: {
           zh: '折线图',
-          en: 'Line Charts'
+          en: 'Line Chart'
         }
       },
       {
@@ -85,7 +88,7 @@ module.exports = {
         icon: 'column',
         title: {
           zh: '柱状图',
-          en: 'Column Charts'
+          en: 'Column Chart'
         }
       },
       {
@@ -93,7 +96,7 @@ module.exports = {
         icon: 'bar',
         title: {
           zh: '条形图',
-          en: 'Bar Charts'
+          en: 'Bar Chart'
         }
       },
       {
@@ -101,7 +104,7 @@ module.exports = {
         icon: 'pie',
         title: {
           zh: '饼图',
-          en: 'Pie Charts'
+          en: 'Pie Chart'
         }
       },
       {
@@ -109,7 +112,7 @@ module.exports = {
         icon: 'point',
         title: {
           zh: '点图',
-          en: 'Point Charts'
+          en: 'Point Chart'
         }
       },
       {
@@ -117,7 +120,7 @@ module.exports = {
         icon: 'area',
         title: {
           zh: '面积图',
-          en: 'Area Charts'
+          en: 'Area Chart'
         }
       },
       {
@@ -125,7 +128,7 @@ module.exports = {
         icon: 'box',
         title: {
           zh: '箱型图',
-          en: 'Box Charts'
+          en: 'Box Chart'
         }
       },
       {
@@ -133,7 +136,7 @@ module.exports = {
         icon: 'candlestick',
         title: {
           zh: '烛形图',
-          en: 'K Charts'
+          en: 'K Chart'
         }
       },
       {
@@ -157,7 +160,7 @@ module.exports = {
         icon: 'funnel',
         title: {
           zh: '漏斗图',
-          en: 'Funnel Charts'
+          en: 'Funnel Chart'
         }
       },
       {
@@ -173,7 +176,7 @@ module.exports = {
         icon: 'radar',
         title: {
           zh: '雷达图',
-          en: 'Radar Charts'
+          en: 'Radar Chart'
         }
       },
       {
@@ -189,7 +192,7 @@ module.exports = {
         icon: 'relation',
         title: {
           zh: '关系图',
-          en: 'Relation Charts'
+          en: 'Relation Chart'
         }
       },
       {
@@ -197,7 +200,7 @@ module.exports = {
         icon: 'other',
         title: {
           zh: '其他图表',
-          en: 'Other Charts'
+          en: 'Other Chart'
         }
       },
       {
