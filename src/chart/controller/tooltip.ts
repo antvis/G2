@@ -99,6 +99,9 @@ export default class Tooltip {
     const { view, cfg, tooltip } = this;
     const { coordinateBBox } = view;
     const items = this.getItems(point);
+    if (!items.length) {
+      return;
+    }
     const title = this.getTitle(items);
     const location = {
       x: items[0].x,
@@ -231,6 +234,9 @@ export default class Tooltip {
   private getItems(point: Point) {
     const view = this.view;
     const geometries = view.geometries;
+    if (!geometries.length) {
+      return [];
+    }
     const tooltipOption = _.get(view.getOptions(), 'tooltip', {});
     let items = [];
     const shared = tooltipOption.shared;
