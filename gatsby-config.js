@@ -1,4 +1,4 @@
-const { repository } = require('./package.json');
+const { homepage } = require('./package.json');
 
 module.exports = {
   plugins: [
@@ -15,7 +15,7 @@ module.exports = {
   siteMetadata: {
     title: 'G2',
     description: 'The Grammar of Graphics in JavaScript',
-    githubUrl: repository.url,
+    githubUrl: homepage,
     navs: [
       {
         slug: 'docs/manual',
