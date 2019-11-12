@@ -153,7 +153,7 @@ describe('View', () => {
     expect(view.getOptions().components.length).toEqual(2); // continuous legend to be continue
 
     const bbox = view.getOptions().components[0].component.getBBox();
-    expect(bbox.height).toEqual(38.5);
+    expect(bbox.height).toEqual(45.5);
   });
 
   it('layout result', () => {

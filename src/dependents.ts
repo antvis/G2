@@ -14,14 +14,14 @@ export { Tick } from '@antv/scale/lib/base';
 export { Canvas, Group, Shape, Event } from '@antv/g-canvas';
 
 // 内置的 Component 组件
+export { CategoryLegendCfg, CircleAxisCfg, LineAxisCfg } from '@antv/component/lib/types';
 // axis
 import { Axis, Legend, Tooltip } from '@antv/component';
-const { Line, Circle } = Axis;
-const { Category } = Legend;
-export { Line, Circle };
+const { Line: LineAxis, Circle: CircleAxis } = Axis;
+export { LineAxis, CircleAxis };
 // legend
-export { CategoryLegendCfg, CircleAxisCfg, LineAxisCfg } from '@antv/component/lib/types';
-export { Category };
+const { Category: CategoryLegend } = Legend;
+export { CategoryLegend };
 // Tooltip
 const { Html: HtmlTooltip } = Tooltip;
 export { HtmlTooltip };
