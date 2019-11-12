@@ -2,12 +2,16 @@ import { vec2 } from '@antv/matrix-util';
 import * as _ from '@antv/util';
 import { HtmlTooltip } from '../../dependents';
 import Geometry from '../../geometry/base';
+import { registerInteraction } from '../../interaction';
 // 引入 Tooltip 交互行为
 import TooltipInteraction from '../../interaction/tooltip';
 import { Data, Point } from '../../interface';
 import { findDataByPoint, getTooltipItems } from '../../util/tooltip';
 import { TooltipOption } from '../interface';
 import View from '../view';
+
+// register Tooltip interaction
+registerInteraction('showTooltip', TooltipInteraction);
 
 // TODO: @antv/util 中添加 uniqWith 方法
 // Filter duplicates, use `data` and `color` property values as condition
@@ -77,14 +81,13 @@ export default class Tooltip {
 
     if (this.isVisible && !this.tooltipInteraction) {
       // 用户开启 Tooltip
-      const stateManager = view.getStateManager();
-      const tooltipInteraction = new TooltipInteraction(view, stateManager, {
+      view.interaction('showTooltip', {
         trigger: cfg.triggerOn,
         enterable: cfg.enterable,
         tooltip,
       });
-      tooltipInteraction.init();
-      this.tooltipInteraction = tooltipInteraction;
+
+      this.tooltipInteraction = _.get(view.getOptions(), ['interactions', 'showTooltip']);
     }
   }
 

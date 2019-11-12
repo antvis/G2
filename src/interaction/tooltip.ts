@@ -1,7 +1,7 @@
 import * as _ from '@antv/util';
+import { PLOT_EVENTS } from '../constant';
 import { Point } from '../interface';
 import Interaction from './base';
-import { PLOT_EVENTS } from '../constant';
 
 export default class TooltipInteraction extends Interaction {
   public readonly type: string = 'tooltip';
@@ -22,7 +22,7 @@ export default class TooltipInteraction extends Interaction {
 
       if (enterable === false) {
         // 不允许进入
-        tooltipContainer.onmousemove = e => {
+        tooltipContainer.onmousemove = (e) => {
           // 避免 tooltip 频繁闪烁
           const canvas = view.getCanvas();
           const eventObj = {
@@ -77,7 +77,7 @@ export default class TooltipInteraction extends Interaction {
       this.timeStamp = timeStamp;
       this.location = curLoc;
     }
-  }
+  };
 
   private hideTooltip = (ev) => {
     const isTooltipLocked = this.stateManager.getState('_isTooltipLocked');
@@ -91,7 +91,7 @@ export default class TooltipInteraction extends Interaction {
     //   return;
     // }
     // this.hideTooltip();
-  }
+  };
 
   /**
    * destroy

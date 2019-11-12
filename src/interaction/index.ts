@@ -1,7 +1,7 @@
 import * as _ from '@antv/util';
 import { InteractionConstructor } from './base';
 
-const Interactions: Record<string, InteractionConstructor> = {};
+export const Interactions: Record<string, InteractionConstructor> = {};
 
 /**
  * Gets interaction by name
