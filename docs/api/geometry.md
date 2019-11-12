@@ -39,10 +39,9 @@ chart.interval().position('x*y').color('x');
 | `area` | 填充线图跟坐标系之间构成区域图，也可以指定上下范围。 |
 | `interval` | 使用矩形或者弧形，用面积来表示大小关系的图形，一般构成柱状图、饼图等图表。 |
 | `polygon` | 多边形，可以用于构建热力图、地图等图表类型。 |
-| `schema` | k线图，箱型图。 |
+| `schema` | k 线图，箱型图。 |
 | `edge` | 树图、流程图、关系图。 |
 | `heatmap` | 热力图。 |
-
 
 另外结合对数据的调整方式，G2 还默认提供了如下的类型：
 
@@ -57,7 +56,6 @@ chart.interval().position('x*y').color('x');
 | `areaStack` | 层叠区域图 |
 | `schemaDodge` | 分组箱型图 |
 
-
 当然几何标记和数据调整方式的组合不仅仅局限于上述几种，可以通过整合几何标记和数据调整方式来自由创建和组合图表：
 
 ```javascript
@@ -66,15 +64,13 @@ chart.area().position('x*y').adjust([ 'stack', 'symmetric' ]);
 
 > 关于数据调整和几何标记更详细的介绍请阅读 G2 高级教程: [几何标记和数据调整](/zh/docs/manual/advanced/geom-and-adjust)。
 
-
 Geom 支持的接口可以分为三大类：
 
-1. 数据映射相关的属性函数: `position`, `color`, `shape`, `size`, `opacity`；
+1. 数据映射相关的属性函数：`position`, `color`, `shape`, `size`, `opacity`；
 
-2. 显示辅助信息的函数:  `style`, `label`, `tooltip`；
+2. 显示辅助信息的函数：`style`, `label`, `tooltip`；
 
-3. 额外的控制函数: `adjust`, `select`, `active`，`show`, `hide`。
-
+3. 额外的控制函数：`adjust`, `select`, `active`，`show`, `hide`。
 
 ## 方法
 
@@ -129,7 +125,6 @@ line().color('type*value', (type, value) => { //多个参数，通过回调函�
 
 只支持接收一个参数，value 可以是：
 
-
   - 映射至颜色属性的数据源字段名，如果数据源中不存在这个字段名的话，则按照常量进行解析，这个时候会使用 G2 默认提供的颜色。
 
   - 也可以直接指定某一个具体的颜色值 color，如 '#fff', 'white' 等。
@@ -155,13 +150,11 @@ field 为映射至颜色属性的数据源字段名，也支持指定多个参�
 
 colors 的参数有以下情况：
 
-
   - 如果为空，即未指定颜色的数组，那么使用内置的全局的颜色；
 
   - 如果需要指定颜色，则需要以数组格式传入，那么分类的颜色按照数组中的颜色确定。对于颜色的分配顺序，会默认按照原始数据源中字段的顺序进行分配；
 
   - 还支持渐变颜色设置：'color1-color2'，用于指定一个渐变色，数据根据分类或者连续类型，在渐变的颜色区间内取颜色。
-
 
 ```javascript
 chart.point().position('x*y').color('z'); // 使用默认的颜色
@@ -170,7 +163,6 @@ chart.point().position('x*y').color('z', 'red-blue'); // 使用渐变色
 ```
 
   - colors 如果是回调函数，则该回调函数的参数为对应字段的数值，具体使用如下，当 color 映射为多个字段时，参数按照字段声明的顺序传入：
-
 
 ```javascript
 chart.point().position('x*y').color('z', (value) => {
@@ -213,8 +205,7 @@ point.shape('type', (type) => { // 回调函数
 | area | 'area','smooth','line','smoothLine' | -- |
 | interval | 'rect','hollowRect','line','tick' | hollowRect 是空心的矩形，line 和 tick 都是线段 |
 | polygon | 'polygon','hollow' | polygon 多边形、hollow 空心多边形。 |
-| schema | 'box','candle' | 目前仅支持箱型图、K线图 |
-
+| schema | 'box','candle' | 目前仅支持箱型图、K 线图 |
 
 ##### 代码示例
 
@@ -244,7 +235,6 @@ const shapes = {
 };
 ```
 
-
 ##### 代码示例
 
 ```javascript
@@ -260,7 +250,7 @@ chart.point().position('carat*price').shape('cut', [ 'cross', 'tick', 'plus', 'h
 
 #### shape(field, callback)
 
-通过回调函数设置图形类型.
+通过回调函数设置图形类型。
 
 ##### 参数
 
@@ -271,7 +261,6 @@ field 为映射至颜色属性的数据源字段名。
 - `callback`: function
 
 [Function] 回调函数
-
 
 ##### 代码示例
 
@@ -312,7 +301,6 @@ point.size('type', (type) => { // 回调函数
 
 - interval 的 size 影响柱状图的宽度。
 
-
 #### size(field)
 
 根据 field 字段的值映射大小，使用默认的`最大值 max:10` 和`最小值 min: 1`。
@@ -340,7 +328,6 @@ chart.point().position('x*y').size('z', [ 10, 100 ]); // 使用 z 字段的值�
 ##### 参数
 
 - `callback`: function
-
 
 回调函数。
 
@@ -430,13 +417,16 @@ chart.interval().position('x*y').color('z').adjust('stack');
 stack 类型支持的参数：
 
 - reverseOrder 控制层叠的顺序，默认是 true
+
 ```javascript
 chart.interval()
     .position('year*percent')
     .color('country')
   	.adjust({type: 'stack', reverseOrder: false});
 ```
+
 ![image.png](https://cdn.nlark.com/yuque/0/2019/png/89796/1565840035598-d6f443bf-ede5-4e70-8781-6d96fdd39906.png#align=left&display=inline&height=144&name=image.png&originHeight=361&originWidth=796&search=&size=21523&status=done&width=317)![image.png](https://cdn.nlark.com/yuque/0/2019/png/89796/1565840019162-2b4ebda8-f83c-4284-9bc8-f626b46fd7ac.png#align=left&display=inline&height=145&name=image.png&originHeight=370&originWidth=792&search=&size=21631&status=done&width=311)
+
 ### label
 
 将数据值映射到图形的文本上的方法。
@@ -457,7 +447,6 @@ line.label('x', {
 
 - textStyle 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
 
-
 #### label(field)
 
 使用默认配置渲染 field 字段对应的文本。
@@ -465,7 +454,6 @@ line.label('x', {
 ##### 参数
 
 - `field`: String
-
 
 代表数据源中的数据字段名。
 
@@ -495,7 +483,6 @@ chart.line().label('x', {
 
 - textStyle 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
 
-
 #### label(field, callback, cfg)
 
 使用回调函数控制文本显示效果。
@@ -504,16 +491,13 @@ chart.line().label('x', {
 
 - `field`: string
 
-
 代表数据源中的数据字段名。
 
 - `callback`: function
 
-
 回调函数。可以返回字符串，显示成文本；也可以返回对象，对象中的文本使用 "content" 字段。
 
 - `cfg`: object
-
 
 该配置用法同 `chart.geom().label(field, cfg)` 中的 cfg 属性。
 
@@ -543,13 +527,14 @@ chart.polygon()
 ```
 
 <br />
-#### label配置项
+
+#### label 配置项
 
 ##### 通用属性
 
 ###### `useHtml`: boolean
 
-是否使用html渲染，默认为`false`。
+是否使用 html 渲染，默认为`false`。
 
 ###### `formatter`: function
 
@@ -582,20 +567,17 @@ chart.point().position('x*y').label('x', {
 | --- | --- |
 | ![](https://gw.alipayobjects.com/zos/rmsportal/BtzyOFMEmKiyJOpXlQum.png#width=) | ![](https://gw.alipayobjects.com/zos/rmsportal/vXhXUgVsUHhRsTBgXRNe.png#width=) |
 
-
 - treemap: 剔除形状容纳不了的 label。
 
 | treemap 普通布局 | 指定 treemap label 布局 |
 | --- | --- |
 | ![](https://gw.alipayobjects.com/zos/rmsportal/UhtvMfssatoHEElcUqMQ.png#width=) | ![](https://gw.alipayobjects.com/zos/rmsportal/wCAAajFuoLPiZvptGLax.png#width=) |
 
-
 - map: label 将会初始定位到地图板块的可视中心，为了防止 label 之间相互覆盖布局，尝试向四周偏移，会剔除放不下的 label。
 
 | map 普通布局 | 指定 map label 布局 |
 | --- | --- |
 | ![](https://gw.alipayobjects.com/zos/rmsportal/MHQzrKAbIABmkEctrvDX.png#width=) | ![](https://gw.alipayobjects.com/zos/rmsportal/WTjMoJKlXJnlrxtvJxVR.png#width=) |
-
 
 ###### `labelLine`: { object | boolean }
 
@@ -615,11 +597,11 @@ chart.line().label('x', {
 
 注：为了更好的视觉效果，布局算法会忽略预设的`textAlign`和`textBaseline`。
 
-##### canvas专有配置属性
+##### canvas 专有配置属性
 
 offset: { array | number }
 
-设置坐标轴文本 label 距离坐标轴线的距离，可以是数值或数组。默认为`[0, 20]`。数组可指定当前坐标轴x,y方向上的偏移。单个数值指定y方向上的偏移
+设置坐标轴文本 label 距离坐标轴线的距离，可以是数值或数组。默认为`[0, 20]`。数组可指定当前坐标轴 x,y 方向上的偏移。单个数值指定 y 方向上的偏移
 
 textStyle
 
@@ -631,15 +613,16 @@ autoRotate: boolean
 
 position：string
 
-仅当chart的geom为`interval`时有效。指定当前label与当前图形的相对位置，可选参数为middle, top,bottom,left,right。默认为top。位置效果如下：
+仅当 chart 的 geom 为`interval`时有效。指定当前 label 与当前图形的相对位置，可选参数为 middle, top,bottom,left,right。默认为 top。位置效果如下：
 
 ![](https://gw.alipayobjects.com/zos/rmsportal/qmwKhVzMhjCmyMnxcTBe.png#align=left&display=inline&height=318&originHeight=318&originWidth=264&search=&status=done&width=264)
 
-##### html专有配置属性
+##### html 专有配置属性
 
 htmlTemplate: function
 
-与`useHtml`配合使用。当useHtml为true时，指定html渲染文本。
+与`useHtml`配合使用。当 useHtml 为 true 时，指定 html 渲染文本。
+
 ##### 代码示例
 
 ```javascript
@@ -682,7 +665,6 @@ chart.<geom>.tooltip('dim1*dim2...*dimN');
 
 ##### 代码示例
 
-
 ```javascript
 const data = [
   { gender: "female", height: 161.2, weight: 51.6 },
@@ -720,7 +702,7 @@ chart.render();
 
 (field: string, callback: function)
 
-geom.tooltip() 方法支持回调，使用方式如下，其返回的值必须为对象，该值中的属性同 `chart.tooltip()` 的 `itemTpl` 模板相对应，返回的变量可用于 `itemTpl` 的字符串模板:
+geom.tooltip() 方法支持回调，使用方式如下，其返回的值必须为对象，该值中的属性同 `chart.tooltip()` 的 `itemTpl` 模板相对应，返回的变量可用于 `itemTpl` 的字符串模板：
 
 ```javascript
 chart.tooltip({
@@ -737,7 +719,6 @@ chart.line()
 ```
 
 下面是一个实际 demo:
-
 
 ```javascript
 const { DataView } = DataSet;
@@ -800,7 +781,6 @@ chart.render();
 
 - style 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
 
-
 ### style
 
 用于配置几何标记显示的图形属性。
@@ -817,7 +797,6 @@ line().style('a*b', { // 使用回调函数设置属性
 ```
 
 - style 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
-
 
 ### select
 
@@ -836,7 +815,6 @@ geom.select([true,] {
 
 - select 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
 
-
 ### active
 
 开启以及关闭 shape 对于鼠标 hover 时的响应效果，G2 默认为各个 shape 内置了 active 效果 。
@@ -854,7 +832,6 @@ geom.active([true,] {
 ```
 
 - active 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
-
 
 ### animate
 
@@ -890,6 +867,7 @@ const line = chart.line({visible: false}).position('x*y');
 
 line.show();
 ```
+
 ### hide 隐藏
 
 ```javascript
@@ -897,6 +875,7 @@ const line = chart.line().position('x*y');
 
 line.hide();
 ```
+
 ### setSelected
 
 可以指定原始数据选中对应的图形
@@ -911,4 +890,3 @@ const interval = chart.intervalStack()
 chart.render();
 interval.setSelected(data[0]);
 ```
-

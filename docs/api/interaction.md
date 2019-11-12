@@ -10,8 +10,8 @@ G2 提供一套交互机制，以达到通用交互行为的封装和复用。�
 1. Drag 拖拽
 1. Brush 框选
 
-
 ## Slider 滑块
+
 Demo: [烛形图](/zh/examples/candlestick/demo#basic)
 
 ![basic-407c2.png](https://cdn.nlark.com/yuque/0/2019/png/98090/1566453968371-a66045b4-a540-499c-84ed-b8dcbb6b2eea.png#align=left&display=inline&height=332&name=basic-407c2.png&originHeight=538&originWidth=800&size=9235&status=done&width=494)
@@ -56,7 +56,6 @@ chart.interact('slider', {
 });
 ```
 
-
 ## Zoom 缩放
 
 [Demo](/zh/examples/other/other#zoom-scatter)
@@ -79,7 +78,6 @@ chart.interact('zoom', {
 
 [Demo](/zh/examples/other/other#zoom-scatter)
 
-
 ### API
 
 ```javascript
@@ -89,8 +87,8 @@ chart.interact('drag', {
 });
 ```
 
-
 ## Brush 框选
+
 [Demo](/zh/examples/other/other#brush-filter-shape)
 
 ### ![1542263223024-3472f33a-ea52-482b-bff7-797f62b5665c.gif](https://cdn.nlark.com/yuque/0/2019/gif/98090/1566454098868-bdd4904d-1a91-4cb3-8ac1-3b301ed785a7.gif#align=left&display=inline&height=381&name=1542263223024-3472f33a-ea52-482b-bff7-797f62b5665c.gif&originHeight=474&originWidth=600&size=417307&status=done&width=482)
@@ -105,6 +103,7 @@ chart.interact('drag', {
 - [brush interaction 多边形](/zh/examples/other/other#brush-polygon)
 
 ### API
+
 ```javascript
 chart.interact('brush', {
   type: 'X' | 'Y' | 'XY' | 'POLYGON', // 设置框选的类型，默认为 'XY'
@@ -124,4 +123,3 @@ chart.interact('brush', {
   onDragend: function, // 拖拽结束时的钩子
 });
 ```
-

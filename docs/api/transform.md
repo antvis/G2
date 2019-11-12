@@ -176,7 +176,7 @@ dv.transform({
 });
 ```
 
-## 数据形变/数据补全相关
+## 数据形变 / 数据补全相关
 
 ### fill-rows 补全行
 
@@ -255,7 +255,7 @@ console.log(dv.rows);
  */
 ```
 
-### impute 补全列/补全字段
+### impute 补全列 / 补全字段
 
 根据配置规则为某个字段补全缺失值。
 
@@ -314,7 +314,7 @@ dv.transform({
 
 ### fold 字段展开
 
-以指定字段集为key，展开数据。
+以指定字段集为 key，展开数据。
 
 具体用法见示例：
 
@@ -396,7 +396,7 @@ dv.transform({
 })
 ```
 
-> 以上fields/operations/as这三个数组元素一一对应。“对某个字段field进行某种统计操作operation结果存储在某个字段上as”
+> 以上 fields/operations/as 这三个数组元素一一对应。“对某个字段 field 进行某种统计操作 operation 结果存储在某个字段上 as”
 
 支持的operations: [详见simple-statistics](https://simplestatistics.org/)
 
@@ -799,4 +799,3 @@ imageMask.onload = () => {
   });
 };
 ```
-

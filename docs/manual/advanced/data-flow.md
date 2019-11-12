@@ -9,7 +9,6 @@ order: 1
 
 ![image | left](https://gw.alipayobjects.com/zos/rmsportal/oJubdhOQyIDUWXERNQhI.png "")
 
-
 原始数据如下：
 
 ```js
@@ -51,7 +50,6 @@ chart.render();
 | 一月 | 8 | 南京 |
 | 二月 | 14 | 南京 |
 
-
 ## 对数据进行分组
 
 默认我们会根据映射至 `size` `shape` `color` 这三个图形属性的数据属性对数据进行分组。
@@ -63,12 +61,10 @@ chart.render();
 | 一月 | 5 | 北京 |
 | 二月 | 10 | 北京 |
 
-
 | month | temperature | city |
 | :--- | :--- | :--- |
 | 一月 | 8 | 南京 |
 | 二月 | 14 | 南京 |
-
 
 ## 保存原始数据
 
@@ -81,12 +77,10 @@ chart.render();
 | 一月 | 5 | 北京 | {"month":"一月","temperature":5,"city":"北京"} |
 | 二月 | 10 | 北京 | {"month":"二月","temperature":10,"city":"北京"} |
 
-
 | month | temperature | city | \_origin |
 | :--- | :--- | :--- | :--- |
 | 一月 | 8 | 南京 | {"month":"一月","temperature":8,"city":"南京"} |
 | 二月 | 14 | 南京 | {"month":"二月","temperature":14,"city":"南京"} |
-
 
 ## 数据数值化
 
@@ -97,12 +91,10 @@ chart.render();
 | 0 | 5 | 0 | {month: '一月',temperature: 5,city: '北京'} |
 | 1 | 10 | 0 | {"month":"二月","temperature":10,"city":"北京"} |
 
-
 | month | temperature | city | \_origin |
 | :--- | :--- | :--- | :--- |
 | 0 | 8 | 1 | {"month":"一月","temperature":8,"city":"南京"} |
 | 1 | 14 | 1 | {"month":"二月","temperature":14,"city":"南京"} |
-
 
 ## 调整数据 adjust
 
@@ -121,12 +113,10 @@ chart.render();
 | 0.25 | 0.25 | 0 | {month: '一月',temperature: 5,city: '北京'} |
 | 0.75 | 0.5 | 0 | {"month":"二月","temperature":10,"city":"北京"} |
 
-
 | month | temperature | city | \_origin |
 | :--- | :--- | :--- | :--- |
 | 0.25 | 0.4 | 1 | {"month":"一月","temperature":8,"city":"南京"} |
 | 0.75 | 0.7 | 1 | {"month":"二月","temperature":14,"city":"南京"} |
-
 
 ## 计算绘制图形需要的点
 
@@ -137,33 +127,27 @@ chart.render();
 | [0.25] | [0.25] | 0 | {month: '一月',temperature: 5,city: '北京'} |
 | [0.75] | [0.5] | 0 | {"month":"二月","temperature":10,"city":"北京"} |
 
-
 | month | temperature | city | \_origin |
 | :--- | :--- | :--- | :--- |
 | [0.25] | [0.4] | 1 | {"month":"一月","temperature":8,"city":"南京"} |
 | [0.75] | [0.7] | 1 | {"month":"二月","temperature":14,"city":"南京"} |
 
-
 ## 映射至图形属性
 
-由于画布坐标的起始点为左上角，所以y轴上的 0.1 转换成画布坐标的结果为 200 - 200 \* 0.1
+由于画布坐标的起始点为左上角，所以 y 轴上的 0.1 转换成画布坐标的结果为 200 - 200 \* 0.1
 
 | x | y | color | \_origin |
 | :--- | :--- | :--- | :--- |
 | [100] | [150] | <span data-type="color" style="color:#1890FF">&#x27;#1890FF&#x27;</span> | {month: '一月',temperature: 5,city: '北京'} |
 | [300] | [100] | <span data-type="color" style="color:#1890FF">&#x27;#1890FF&#x27;</span> | {"month":"二月","temperature":10,"city":"北京"} |
 
-
 | x | y | color | \_origin |
 | :--- | :--- | :--- | :--- |
 | [100] | [120] | <span data-type="color" style="color:#2FC25B">&#x27;#2FC25B&#x27;</span> | {"month":"一月","temperature":8,"city":"南京"} |
 | [300] | [60] | <span data-type="color" style="color:#2FC25B">&#x27;#2FC25B&#x27;</span> | {"month":"二月","temperature":14,"city":"南京"} |
 
-
 ## 渲染绘制
 
 将最后处理的数据交由绘图库进行绘制渲染。
 
-
 ![image | left](https://gw.alipayobjects.com/zos/rmsportal/oJubdhOQyIDUWXERNQhI.png "")
-

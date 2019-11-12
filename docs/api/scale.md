@@ -13,16 +13,15 @@ order: 4
 
 - **linear**，连续的数字 [1,2,3,4,5]；
 
-- **cat**，分类, ['男','女']；
+- **cat**，分类，['男','女']；
 
 - **time**，连续的时间类型；
 
 - **timeCat**，非连续的时间，比如股票的时间不包括周末或者未开盘的日期；
 
-- **log**，连续非线性的 Log 数据 将 [1,10,100,1000] 转换成[0,1,2,3]；
+- **log**，连续非线性的 Log 数据 将 [1,10,100,1000] 转换成 [0,1,2,3]；
 
 - **pow**，连续非线性的 pow 数据 将 [2,4,8,16,32] 转换成 [1,2,3,4,5]。
-
 
 可以在 [Scale 度量](/zh/docs/manual/tutorial/scale)和[数据类型与度量](/zh/docs/manual/advanced/data-type-and-scale)中阅读我们对于数据类型和度量的详细介绍。
 
@@ -130,35 +129,34 @@ chart.scale('aqi',  {
 ## Scale 类型
 
 ### linear
+
 | 属性名 | 说明 |
 | --- | --- |
 | alias | 别名 |
 | nice | 默认为 true，用于优化数值范围，使绘制的坐标轴刻度线均匀分布。例如原始数据的范围为 [3, 97]，如果 nice 为 true，那么就会将数值范围调整为 [0, 100] |
 | min | 定义数值范围的最小值 |
 | max | 定义数值范围的最大值 |
-| range | 输出数据的范围，默认[0, 1]，格式为 [min, max]，min 和 max 均为 0 至 1 范围的数据。 |
+| range | 输出数据的范围，默认 [0, 1]，格式为 [min, max]，min 和 max 均为 0 至 1 范围的数据。 |
 | formatter | 回调函数，用于格式化坐标轴刻度点的文本显示，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示。 |
 | ticks | 用于指定坐标轴上刻度点的文本信息，当用户设置了 ticks 就会按照 ticks 的个数和文本来显示。 |
 | tickCount | 定义坐标轴刻度线的条数，默认为 5 |
 | tickInterval | 用于指定坐标轴各个标度点的间距，是原始数据之间的间距差值，**tickCount 和 tickInterval 不可以同时声明。** |
 | minTickInterval | 不明确指定 tickInterval 时，生成刻度的最小间距。例如不想出现 0.2, 0.4 这种情况下设置 minTickInterval: 2<br /> |
 
-
 ### cat
+
 | 属性名 | 说明 |
 | --- | --- |
 | alias | 别名 |
-| range | 输出数据的范围，默认[0, 1]，格式为 [min, max]，min 和 max 均为 0 至 1 范围的数据。 |
+| range | 输出数据的范围，默认 [0, 1]，格式为 [min, max]，min 和 max 均为 0 至 1 范围的数据。 |
 | formatter | 回调函数，用于格式化坐标轴刻度点的文本显示，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示。 |
 | ticks | 用于指定坐标轴上刻度点的文本信息，当用户设置了 ticks 就会按照 ticks 的个数和文本来显示。 |
 | tickCount | 定义坐标轴刻度线的条数，默认为 5 |
 | values | 具体的分类的值，一般用于指定具体的顺序和枚举的对应关系 |
 
-
 `values` 属性常用于 2 个场景：
 
-1. 需要制定分类的顺序时，例如：c 字段有'最大','最小'和'适中'3种类型，我们想指定这些数值在坐标轴或者图例上的显示顺序时：
-
+1. 需要制定分类的顺序时，例如：c 字段有'最大','最小'和'适中'3 种类型，我们想指定这些数值在坐标轴或者图例上的显示顺序时：
 
 ```javascript
 const defs = {
@@ -170,7 +168,6 @@ const defs = {
 ```
 
 1. 数据字段中的数据是数值类型，但是需要转换成分类类型，**这个时候需要注意原始数据必须是索引值**。
-
 
 ```javascript
 const data = [
@@ -202,23 +199,24 @@ chart.render();
 ![](https://zos.alipayobjects.com/skylark/97e5078a-45b9-4db6-8d51-db506eaa2444/attach/3378/1aea882afb2ef64d/image.png#align=left&display=inline&height=184&originHeight=184&originWidth=303&status=done&width=303)
 
 ### log
+
 | 属性名 | 说明 |
 | --- | --- |
 | nice | 是否将 ticks 进行优化，变更数据的最小值、最大值，使得每个 tick 都是用户易于理解的数据 |
 | min | 最小值 |
 | max | 最大值 |
-| base | Log 的基数，默认是2 |
+| base | Log 的基数，默认是 2 |
 | alias | 别名 |
-| range | 输出数据的范围，默认[0, 1]，格式为 [min, max]，min 和 max 均为 0 至 1 范围的数据。 |
+| range | 输出数据的范围，默认 [0, 1]，格式为 [min, max]，min 和 max 均为 0 至 1 范围的数据。 |
 | formatter | 回调函数，用于格式化坐标轴刻度点的文本显示，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示。 |
 | ticks | 用于指定坐标轴上刻度点的文本信息，当用户设置了 ticks 就会按照 ticks 的个数和文本来显示。 |
 | tickCount | 定义坐标轴刻度线的条数，默认为 5 |
 | tickInterval | 用于指定坐标轴各个标度点的间距，是原始数据之间的间距差值，**tickCount 和 tickInterval 不可以同时声明。** |
 
-
 注：最小值和最大值悬殊非常大时可以用 log 平滑一下数据。
 
 ### pow
+
 | 属性名 | 说明 |
 | --- | --- |
 | nice | 是否将 ticks 进行优化，变更数据的最小值、最大值，使得每个 tick 都是用户易于理解的数据 |
@@ -226,12 +224,11 @@ chart.render();
 | max | 最大值 |
 | exponent | 指数，默认 2 |
 | alias | 别名 |
-| range | 输出数据的范围，默认[0, 1]，格式为 [min, max]，min 和 max 均为 0 至 1 范围的数据。 |
+| range | 输出数据的范围，默认 [0, 1]，格式为 [min, max]，min 和 max 均为 0 至 1 范围的数据。 |
 | formatter | 回调函数，用于格式化坐标轴刻度点的文本显示，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示。 |
 | ticks | 用于指定坐标轴上刻度点的文本信息，当用户设置了 ticks 就会按照 ticks 的个数和文本来显示。 |
 | tickCount | 定义坐标轴刻度线的条数，默认为 5 |
 | tickInterval | 用于指定坐标轴各个标度点的间距，是原始数据之间的间距差值，**tickCount 和 tickInterval 不可以同时声明。** |
-
 
 注：最小值和最大值悬殊非常大时可以用 pow 平滑一下数据。
 
@@ -248,20 +245,17 @@ chart.render();
 | tickCount | 坐标点的个数，默认是 5，但不一定是准确值。 |
 | tickInterval | 用于指定坐标轴各个标度点的间距，是原始数据之间的间距差值，**time 类型需要转换成时间戳**，**tickCount 和 tickInterval 不可以同时声明。** |
 | alias | 别名 |
-| range | 输出数据的范围，默认[0, 1]，格式为 [min, max]，min 和 max 均为 0 至 1 范围的数据。 |
+| range | 输出数据的范围，默认 [0, 1]，格式为 [min, max]，min 和 max 均为 0 至 1 范围的数据。 |
 | formatter | 回调函数，用于格式化坐标轴刻度点的文本显示，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示。 |
 | ticks | 用于指定坐标轴上刻度点的文本信息，当用户设置了 ticks 就会按照 ticks 的个数和文本来显示。 |
 
-
 > 说明：mask 的占位符标准同 [moment](https://momentjs.com/docs/#/displaying/format/);
-
 
 目前 G2 会自动识别如下形式的时间格式，当用户需要生成 time 类型的度量时，建议将原始时间数据转换为如下形式：
 
 1. 时间戳，如 1436237115500；
 
 2. 时间字符串： '2015-03-01'，'2015-03-01 12:01:40'，'2015/01/05'，'2015-03-01T16:00:00.000Z'。
-
 
 ### timeCat
 
@@ -275,11 +269,9 @@ chart.render();
 | --- | --- |
 | nice | 是否将 ticks 进行优化，变更数据的最小值、最大值，使得每个 tick 都是用户易于理解的数据 |
 | mask | 数据的格式化格式 默认：'yyyy-mm-dd', |
-| tickCount | 坐标点的个数，默认是5。但不一定是准确值 |
+| tickCount | 坐标点的个数，默认是 5。但不一定是准确值 |
 | values | 具体的分类的值，一般用于指定具体的顺序和枚举的对应关系 |
 | alias | 别名 |
-| range | 输出数据的范围，默认[0, 1]，格式为 [min, max]，min 和 max 均为 0 至 1 范围的数据。 |
+| range | 输出数据的范围，默认 [0, 1]，格式为 [min, max]，min 和 max 均为 0 至 1 范围的数据。 |
 | formatter | 回调函数，用于格式化坐标轴刻度点的文本显示，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示。 |
 | ticks | 用于指定坐标轴上刻度点的文本信息，当用户设置了 ticks 就会按照 ticks 的个数和文本来显示。 |
-
-

@@ -62,7 +62,6 @@ chart.scale({
 | 连续 | linear、log、pow、time |
 | 分类（非连续） | cat、timeCat |
 
-
 另外 G2 还提供了 `identity` 类型的度量用于数据源中 __常量__ 数据的操作。
 
 对于 G2 生成的所有度量对象，均拥有以下属性，这些属性均可以由用户进行配置。
@@ -125,7 +124,7 @@ img,[object Object],
 `说明`
 * 默认生成的 score 分数的度量的范围是 50 - 95 ，这是 nice: true 的效果（让人看起来更清晰）
 
-我们知道学生分数的范围是 0 - 100 ,所以 50 - 90 并不满足我们的需求，我们可以限定 min,max 的范围
+我们知道学生分数的范围是 0 - 100 , 所以 50 - 90 并不满足我们的需求，我们可以限定 min,max 的范围
 
 ```js
 const data = [
@@ -143,10 +142,7 @@ chart.source(data, {
 chart.point().position('name*score').color('name');
 ```
 
-
-
 ![image.png | left | 747x359](https://cdn.nlark.com/yuque/0/2018/png/100996/1542716202559-4688f191-0875-48f1-a844-414ceef52e1d.png "")
-
 
 `说明`
 * 此时设置 minLimt 和 maxLimit 并不会改变生成数据度量的范围
@@ -180,8 +176,6 @@ chart.source(data, {
 
 ```
 
-
-
 ![VmjHloxSPGkaZJgThogv.png | center | 747x346](https://cdn.nlark.com/yuque/0/2018/png/100996/1542716153463-1c47f7a8-a13d-4f7d-a88b-8078f8b91d74.png "")
 
 ### log
@@ -200,10 +194,10 @@ log 度量是 linear 的子类，支持所有通用的属性和 linear 度量的
 
 对于以下场景，建议将数据的度量类型指定为 log 类型：
 
-1. 散点图中数据的分布非常广，同时数据分散在几个区间内是，例如分布在 0 - 100， 10000 - 100000，1千万 - 1亿内，这时候适合使用 log 度量；
+1. 散点图中数据的分布非常广，同时数据分散在几个区间内是，例如分布在 0 - 100， 10000 - 100000，1 千万 - 1 亿内，这时候适合使用 log 度量；
 2. 热力图中数据分布不均匀时也会出现只有非常高的数据点附近才有颜色，此时需要使用 log 度量，对数据进行 log 处理。
 
-对比使用未使用 log 和使用了log 后的效果
+对比使用未使用 log 和使用了 log 后的效果
 
 ```js
 // 数据
@@ -221,13 +215,9 @@ chart.source(data, {
 });
 ```
 
-
 ![image | left](https://gw.alipayobjects.com/zos/rmsportal/roMcstmrYembFWUHYelR.png "")
 
-
 ![image | left](https://gw.alipayobjects.com/zos/rmsportal/SETQeXddlxsqFNNPhiCR.png "")
-
-
 
 ### pow
 
@@ -284,7 +274,7 @@ chart.scale('type', {
 });
 ```
 
-如果不声明度量的values字段，那么默认的顺序是：‘最小’，‘最大’，‘适中’。
+如果不声明度量的 values 字段，那么默认的顺序是：‘最小’，‘最大’，‘适中’。
 
 * 如果数据中的分类类型使用枚举的方式表示，那么也需要指定 values。
 
@@ -308,7 +298,7 @@ chart.scale('type', {
 
 timeCat 度量对应时间数据，但是不是连续的时间类型，而是有序的分类数据。例如股票交易的日期，此时如果使用 time 类型，那么由于节假日没有数据，折线图、k 线图就会发生断裂，所以此时需要使用 timeCat 类型度量将日期转换为有序的分类数据，该度量默认会对数据做排序。
 
-timeCat 是 cat 度量的子类，除了支持所有通用的属性和 cat 度量的属性外也有自己的属性:
+timeCat 是 cat 度量的子类，除了支持所有通用的属性和 cat 度量的属性外也有自己的属性：
 
 ```js
 {
@@ -320,4 +310,3 @@ timeCat 和 time 类型度量的差别和应用场景
 
 * timeCat 是分类类型的度量，所以适合于显示 `柱状图` 或者固定时间内没有数据的场景（股票图）
 * time 是连续类型的度量，更适合显示折线图、面积图，表现数据的趋势
-

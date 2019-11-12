@@ -40,12 +40,9 @@ G2 的强大是由其背后的一套图形语法所支撑的，它基于[《The 
 | ... | ... | ... |
 | 男 | 180.3 | 82.8 |
 
-
 ### 绘制散点图
 
-
 ![屏幕快照 2018-10-18 下午2.14.04.png | center | 747x341](https://cdn.nlark.com/yuque/0/2018/png/100996/1539843257372-c8c4038c-57d8-4af9-8bd2-8a72b8240285.png "")
-
 
 ```javascript
   $.getJSON('/assets/data/scatter.json',function(data){
@@ -126,7 +123,7 @@ G2 的强大是由其背后的一套图形语法所支撑的，它基于[《The 
 chart.point().position('height*weight').color('gender');
 ```
 
-以下就对上句语法进行详细的说明:
+以下就对上句语法进行详细的说明：
 
 #### geom 选择
 
@@ -138,14 +135,13 @@ chart.point().position('height*weight').color('gender');
 | 折线图 | line |
 | 柱状图、饼图、玫瑰图 | interval |
 
-
 目前 G2 提供的 geom 支持的类型如下：
 
 `chart.<[geom](geom.html)>()`
 
 * point: 将数据展示成一个个的点；
 * path: 将数据连接成一条线，不保证数据的顺序；
-* line: 一种特殊的 path (路径)，x 轴上的数据进行排序；
+* line: 一种特殊的 path （路径），x 轴上的数据进行排序；
 * area: 将线图进行闭合，中间区域填充，构成区域图；
 * interval: 使用矩形、弧形表示数据的上下区间，可以用来生成柱状图、直方图、饼图等图表；
 * polygon: 用于绘制地图、treemap 等多边形的图表；
@@ -165,7 +161,6 @@ chart.point().position('height*weight').color('gender');
 | ... | ... | ... |
 | 男 | 180.3 | 82.8 |
 
-
 G2 中支持的图形属性映射如下；
 
 chart.<[geom](/zh/docs/manual/tutorial/geometry)>().<[attr](/zh/docs/manual/tutorial/attribute)>(fields[, cfg]):
@@ -173,7 +168,7 @@ chart.<[geom](/zh/docs/manual/tutorial/geometry)>().<[attr](/zh/docs/manual/tuto
 * position(field)：将对应字段的值映射到图形的位置；
 * color(field[, colors])：用对应字段的值或者常量来表示图形的颜色，如果传入 colors 会根据传入的颜色分配颜色；
 * shape(field[, shapes])：用对应字段的值或者常量来表示图形的形状，如果传入 shapes 会根据传入的图形集合分配图形类型；
-* size(field[, max[, min]])：用对应字段的值或者常量来表示图形的大小，如果同时传入max、min，则根据最大值、最小值的区间进行大小的自动计算；
+* size(field[, max[, min]])：用对应字段的值或者常量来表示图形的大小，如果同时传入 max、min，则根据最大值、最小值的区间进行大小的自动计算；
 * opacity(field)：用对应字段的值或者常量来表示图形的透明度。
 
 另外还提供了以下三种方法，虽然使用的方式同以上方法一致，但是需要注意的是它们并不是一种图形映射属性，可以将其理解为几何标记 geom 上的配置方法：
@@ -186,7 +181,6 @@ chart.<[geom](/zh/docs/manual/tutorial/geometry)>().<[attr](/zh/docs/manual/tuto
 
 ![image | left](https://gw.alipayobjects.com/zos/rmsportal/ysldOUuDazIoYnIaKibA.png "")
 
-
 #### coord 坐标系
 
 坐标系用于将数据对象的位置映射到图形平面上，位置通常由两个坐标 (x, y) 来决定，但是 G2 也支持一维坐标系。目前 G2 支持多种坐标系，其中笛卡尔坐标系是最常用的，当你传入图形属性 `position` 中的参数包含两个维度时，默认使用的就是笛卡尔坐标系。另外 G2 提供的坐标系中还包含坐标轴和网格线。以下是 G2 所支持的坐标系种类，另外用户还可以对坐标系进行各种变换操作，在 [Coord 坐标系](/zh/docs/manual/tutorial/coordinate) 章节有详细的介绍。
@@ -195,9 +189,7 @@ chart.<[geom](/zh/docs/manual/tutorial/geometry)>().<[attr](/zh/docs/manual/tuto
 
 分面在绘图时非常有用，通过设置分面，可以方便地展示数据的不同子集，如下图所示，我们通过设定以 'gender' 字段来分割数据，就可以很快得绘制出不同性别对应的身高和体重关系的散点图。
 
-
 ![屏幕快照 2018-10-18 下午2.15.32.png | center | 747x289](https://cdn.nlark.com/yuque/0/2018/png/100996/1539843347693-25651cf3-02cc-42dc-933a-27c6b0f48ecd.png "")
-
 
 ```javascript
   $.getJSON('/assets/data/scatter.json',function(data){
@@ -244,4 +236,3 @@ chart.<[geom](/zh/docs/manual/tutorial/geometry)>().<[attr](/zh/docs/manual/tuto
 * chart.tooltip([enable], cfg): 用于配置鼠标 hover 到图表图形显示提示信息；
 * chart.legend(field, cfg): 用于配置图表图例的展示样式；
 * chart.guide(): 添加辅助标记。
-

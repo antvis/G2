@@ -8,7 +8,6 @@ G2 默认内置的交互包括：
 1. active 激活；
 2. select 选中。
 
-
 ## 激活
 
 开启以及关闭 shape 对于鼠标 hover 时的响应效果，G2 默认为各个 shape 内置了 active 效果。

@@ -28,16 +28,13 @@ G2 生成的坐标轴由如下五部分组成：
 4. 刻度线 tickLine
 5. 网格 grid
 
-
-
 ![image | left](https://gw.alipayobjects.com/zos/rmsportal/XyHrQpWKgHCCbctRzwVT.png "")
-
 
 通常的图表都有 x 轴和 y 轴，默认情况下，x 轴显示在图表的底部，y 轴显示在左侧（多个 y 轴时可以是显示在左右两侧）。通过为坐标轴配置 `position` 属性可以改变坐标轴的显示位置，具体可详见 [api](/zh/docs/manual/api/chart#frgaiw)。
 
 ### 坐标轴标题 title
 
-默认情况下，我们会为每条坐标轴生成标题，标题名默认为该轴对应数据字段的属性名。通过如下代码，用户可以配置标题的显示样式或者关闭标题显示。在G2 3.0 中由于大多数场景下用户不显示 title 所以我们默认关闭了 title 的显示。
+默认情况下，我们会为每条坐标轴生成标题，标题名默认为该轴对应数据字段的属性名。通过如下代码，用户可以配置标题的显示样式或者关闭标题显示。在 G2 3.0 中由于大多数场景下用户不显示 title 所以我们默认关闭了 title 的显示。
 
 ```js
 chart.axis('xField', {
@@ -70,7 +67,7 @@ chart.scale('xField', {
 
 更多关于坐标轴 title 属性的配置请查看API文档相关内容 [axis 的 title 属性配置](/zh/docs/manual/api/chart#frgaiw)。
 
-### <a name="坐标轴线-line"></a>坐标轴线 line
+### <a name="坐标轴线 -line"></a>坐标轴线 line
 
 在 `line` 属性上进行坐标轴线的配置。
 
@@ -86,10 +83,7 @@ chart.axis('xField', {
 
 上述代码效果如下图所示：
 
-
-
 ![image | left](https://zos.alipayobjects.com/skylark/22344006-0c3b-48a6-910f-3ce03613c7c8/attach/2378/b48c3ca5d11a0421/image.png "")
-
 
 ### 坐标轴文本 label
 
@@ -155,9 +149,7 @@ chart.scale('xField', {
 
 ```
 
-
 ![屏幕快照 2018-10-18 下午1.08.40.png | center | 747x271](https://cdn.nlark.com/yuque/0/2018/png/100996/1539839365251-764b80a9-8638-4e4f-a117-f8dd3b554b1e.png "")
-
 
 ```javascript
 const data = [
@@ -280,7 +272,6 @@ chart.guide().line({
 chart.render();
 ```
 
-
 * 使用 html 自定义 label
 
 在一些比较个性化的可视化需求里，通常会使用可视化隐喻，比如会使用人物照片来代替人物名字，使得可视化更直观。
@@ -355,7 +346,7 @@ chart.axis('xField', {
 });
 ```
 
-* value 可以设置负值，使得tickLine的方向相反
+* value 可以设置负值，使得 tickLine 的方向相反
 
 ```js
 chart.axis('genre', {
@@ -365,11 +356,9 @@ chart.axis('genre', {
 });
 ```
 
-
 ![image.png | center | 747x119](https://cdn.nlark.com/yuque/0/2018/png/100996/1539839494029-1fa79c44-0943-4985-a8da-ba8fb80d2959.png "")
 
-
-* alignWithLabel 设置为负值，且数据类型为category时，tickLine的样式变为category数据专有样式。
+* alignWithLabel 设置为负值，且数据类型为 category 时，tickLine 的样式变为 category 数据专有样式。
 
 ```js
 chart.axis('genre', {
@@ -379,8 +368,6 @@ chart.axis('genre', {
 });
 img,[object Object],
 ```
-
-
 
 ![image.png | center | 747x450](https://cdn.nlark.com/yuque/0/2018/png/100996/1539839515091-4790c50c-7fb5-4b7d-b941-d6909b77db37.png "")
 
@@ -404,10 +391,7 @@ chart.axis('xField', {
 });
 ```
 
-
-
 ![image.png | center | 747x106](https://cdn.nlark.com/yuque/0/2018/png/100996/1539839535489-ca33c6da-9e96-4af7-974f-e5f373a1c495.png "")
-
 
 ### 网格 grid
 
@@ -482,10 +466,7 @@ chart.source(data, {
 
 对于分类数据的坐标轴两边默认会留下一定的空白，连续数据的坐标轴的两端没有空白刻度
 
-
-
 ![image | left](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791895682958949d755f/attach/4080/900/image.png "")
-
 
 是否两端有空白是列定义里面 range 属性决定的，分类列的 range 的默认值是 [ 1 / (count - 1), 1 - 1 / (count - 1) ]，可以修改这个值达到改变空白大小的目的。
 
@@ -505,4 +486,3 @@ chart.source(data, {
 * 极坐标下的坐标轴上栅格线有圆形和多边形两种；
 * theta、helix 坐标系默认不显示坐标轴；
 * polar 坐标系发生 transpose 时也不显示坐标轴。
-

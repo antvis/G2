@@ -52,10 +52,7 @@ chart.on('tooltip:change', ev => {}); // tooltip 内容发生变化的时候
 
 *  图形元素事件，即组成图表的各种图形元素；我们以 『图形元素名』+ 『基础事件名』 的方式来组合图形元素上的事件，帮助用户进行更精准的事件监听，同时也给交互提供了更大的可能性。
 
-
-
 ![image.png | center | 747x865](https://cdn.nlark.com/yuque/0/2018/png/100996/1539842016314-48282592-bbb6-4c54-a09e-a471ec91a11b.png "")
-
 
 ```js
 chart.on('point:click', ev => {});
@@ -67,7 +64,6 @@ img,[object Object],
 
 ![image | left](https://gw.alipayobjects.com/zos/rmsportal/IXRZJVKWYEdafYAzbsXO.png "")
 
-
 详细的使用详见 [api](/zh/docs/manual/api/chart#deduxh)。
 
 ## 如何使用
@@ -76,9 +72,7 @@ img,[object Object],
 
 先来看一个简单的点击饼图后跳转至相应页面的例子。
 
-
 ![屏幕快照 2018-10-18 下午1.54.00.png | center | 747x366](https://cdn.nlark.com/yuque/0/2018/png/100996/1539842054006-f8e88b8a-991f-419d-aef8-cc7179e49606.png "")
-
 
 通过监听 `interval:click` 事件，然后根据 `ev` 参数中的 data 字段的 `_origin` 属性值获取被点击区域的原始数据，以获取对应浏览器的名称。
 
@@ -149,6 +143,7 @@ chart.on('interval:click', ev => {
 通过监听 `tooltip:change` 事件，可以做到动态得改变 tooltip 的显示信息，以完成 tooltip 的高度个性化定制。
 
 `tooltip:change` 事件的参数格式如下：
+
 ```js
 {
   items: array, // tooltip 上显示的记录信息
@@ -159,8 +154,6 @@ chart.on('interval:click', ev => {
 ```
 
 通过 `ev.items[0]` 获取 tooltip 上的第一条记录数据，重复复制该记录的 `value` 属性。
-
-
 
 ![屏幕快照 2018-10-18 下午1.54.31.png | center | 373x316](https://cdn.nlark.com/yuque/0/2018/png/100996/1539842090104-ec6c5d1a-b9cf-4012-b1e9-720a3f03e741.png "")
 
@@ -204,4 +197,3 @@ chart.on('tooltip:change', ev => {
   item.value = '格式化-' + (item.value * 100).toFixed(2) + '%';
 });
 ```
-

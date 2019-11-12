@@ -3,7 +3,7 @@ title: Options 配置项声明
 order: 10
 ---
 
-G2除了支持函数调用方式外，也支持图形语法的配置项式声明方式。
+G2 除了支持函数调用方式外，也支持图形语法的配置项式声明方式。
 
 为 [Chart](/zh/docs/manual/api/chart) 对象新增 `options` 属性，用于支持配置项式声明。
 
@@ -23,7 +23,6 @@ chart.render();
 可以先通过以下几个例子来了解下：
 
 ## 实例 1：柱状图
-
 
 ```javascript
 const data = [
@@ -80,7 +79,6 @@ chart.render();
 ```
 
 ## 实例 2: 散点图
-
 
 ```javascript
 const { DataView } = DataSet;
@@ -181,7 +179,6 @@ chart.render(); // 图表渲染
 ```
 
 ## 实例 3：多 views
-
 
 ```javascript
 $.getJSON('/assets/data/world.geo.json', (mapData) => {
@@ -479,7 +476,8 @@ coord: {
   actions: {array} // 声明坐标系需要进行的变换操作
 }
 ```
-actions 属性的声明方式如下:
+
+actions 属性的声明方式如下：
 
 ```js
 actions: [
@@ -1000,4 +998,3 @@ const view = chart.view({
   }
 });
 ```
-

@@ -4,9 +4,11 @@ order: 15
 ---
 
 ## 简介
+
 G2 提供了一系列的全局配置项，一旦更改这些配置项会影响全局的图表展示，这里展示所有的全局配置项。
 
 ## 所有配置项
+
 ```javascript
 const DEFAULT_COLOR = '#1890FF';
 const COLOR_PLATE_8 = [
@@ -700,6 +702,7 @@ const Theme = {
 ```
 
 #### 其他
+
 还有其他几个配置项：
 
 ```javascript
@@ -718,14 +721,14 @@ const Theme = {
 ```
 
 ## 使用
+
 G2 全局的配置项有两种方式可以更改：
 
 - 通过 [theme](/zh/docs/manual/tutorial/theme)  更改全局样式
 - 单独调整单个样式
+
 ```javascript
 G2.widthRatio.column = 2 / 3;
 
 G2.legend.bottom = {} // 整体更改显示在下面的图例的配置项
 ```
-
-

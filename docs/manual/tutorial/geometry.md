@@ -33,7 +33,6 @@ const geom = chart.point().xx().xx(); // 这里使用了 point 类型的 geom，
 | `schema` | 自定义图形，用于构建箱型图（或者称箱须图）、蜡烛图（或者称 K 线图、股票图）等图表。 |
 | `heatmap` | 用于**热力图**的绘制。 |
 
-
 ## 几何标记和图表类型
 
 虽然 G2 没有特定的图表类型概念，**但是仍基本支持所有传统图表类型的绘制**。
@@ -52,13 +51,11 @@ const geom = chart.point().xx().xx(); // 这里使用了 point 类型的 geom，
 | edge | 树图、流程图、关系图 | 与点一起构建关系图。 |
 | heatmap | 热力图 | -- |
 
-
 ## geom 对象方法
 
 几何标记 geom 对象方法主要有两种：
 
 - 图形属性（attr）方法：用户设置数据到视觉通道的映射，详细信息查看 [图形属性](/zh/docs/manual/tutorial/attribute)
-
 
   - position
 
@@ -70,11 +67,9 @@ const geom = chart.point().xx().xx(); // 这里使用了 point 类型的 geom，
 
   - opacity
 
-
 - 属性方法之外的方法
 
-
-  - label(dims, [callback], cfg)几何标记上显示文本
+  - label(dims, [callback], cfg) 几何标记上显示文本
 
   - tooltip(dims) 映射到 tooltip 的字段
 
@@ -86,9 +81,7 @@ const geom = chart.point().xx().xx(); // 这里使用了 point 类型的 geom，
 
   - animate(cfg) 图形的动画
 
-
 > 具体 API 详见[文档](/zh/docs/manual/api/geometry)
-
 
 ## 几何标记和图形形状
 
@@ -100,22 +93,22 @@ const geom = chart.point().xx().xx(); // 这里使用了 point 类型的 geom，
 
 - 多边形，可以是实心的多边形，也可以是空心的仅有边框的多边形
 
-
 ![](https://zos.alipayobjects.com/rmsportal/WvfnQeKUnHGVSRg.png#align=left&display=inline&height=205&originHeight=205&originWidth=534&status=done&width=534)
 
 下面提供了 G2 中各个 geom 内置提供的 shape 类型，在后续图形属性章节，会详细介绍 shape 的使用方法。
 
 | geom 类型 | shape 类型 | 解释 |
 | --- | --- | --- |
-| point | 'circle','square','bowtie','diamond',<br />'hexagon','triangle','triangle-down','hollowCircle',<br />'hollowSquare','hollowBowtie',<br />'hollowDiamond','hollowHexagon',<br />'hollowTriangle','hollowTriangle-down','cross','tick',<br />'plus','hyphen','line' | hollow开头的图形都是空心的 |
+| point | 'circle','square','bowtie','diamond',<br />'hexagon','triangle','triangle-down','hollowCircle',<br />'hollowSquare','hollowBowtie',<br />'hollowDiamond','hollowHexagon',<br />'hollowTriangle','hollowTriangle-down','cross','tick',<br />'plus','hyphen','line' | hollow 开头的图形都是空心的 |
 | line | 'line','smooth','dot','dash',<br />'dotSmooth','spline' | dot ：点线，smooth： 平滑线 |
-| area | 'area','smooth','line','dotLine',<br />'smoothLine','dotSmoothLine' | [area]和[smooth]是填充内容的区域图，其他图表是空心的线图 |
-| interval | 'rect','hollowRect','line',<br />'tick','stroke','funnel', 'pyramid' | [hollowRect]是空心的矩形， [line]和 [tick] 都是线段,stroke：带边框的矩形, 'funnel' 漏斗图；'pyramid' 金字塔图 |
+| area | 'area','smooth','line','dotLine',<br />'smoothLine','dotSmoothLine' | [area] 和 [smooth] 是填充内容的区域图，其他图表是空心的线图 |
+| interval | 'rect','hollowRect','line',<br />'tick','stroke','funnel', 'pyramid' | [hollowRect] 是空心的矩形， [line] 和 [tick] 都是线段，stroke：带边框的矩形，'funnel' 漏斗图；'pyramid' 金字塔图 |
 | polygon | 'polygon','hollow','stroke' | polygon：多边形、hollow：空心多边形和 stroke：带边框的多边形 |
-| schema | 'box','candle' | 目前仅支持箱须图、K线图 |
+| schema | 'box','candle' | 目前仅支持箱须图、K 线图 |
 | edge | 'line','vhv','smooth','arc' | vhv：直角折线，arc：弧线，分为笛卡尔坐标系、极坐标系、带权重和不带权重四种情况。 |
 
 以折线图为例：
+
 ```javascript
 chart.line().position('x*y').shape('type', ['line', 'dot']);
 

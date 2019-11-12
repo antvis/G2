@@ -65,7 +65,6 @@ chart.point().position('cut*price');
 
 ![image | left](https://gw.alipayobjects.com/zos/rmsportal/EcuDeyeTOsztVOuxmZPe.png "")
 
-
 (x1, y1) 这样的数值对，最后就会被转换为画布上对应的坐标点。
 
 ## color
@@ -77,7 +76,7 @@ color 支持的映射语法如下：
 * `color('field')`，field 为数据属性，这时候 G2 会在内部调用默认的回调函数，读取默认提供的颜色进行数据值到颜色值的映射；
 * `color('field', colors)`，将数据值映射至指定的颜色值 colors（可以是字符串也可以是数组），此时用于通常映射分类数据；
 * `color('field', 'color1-color2-colorN')`，指定颜色的渐变路径，用于映射连续的数据；
-* `color('field', callback)`，使用回调函数进行颜色值的自定义；可以使用多个字段使用\*号连接
+* `color('field', callback)`，使用回调函数进行颜色值的自定义；可以使用多个字段使用、*号连接
 * `color('#ffffff')`， 直接指定颜色常量，不进行数据映射。
 
 ### 分类数据的颜色映射
@@ -86,10 +85,7 @@ color 支持的映射语法如下：
 
 `.color('city', [ '#1f77b4', '#ff7f0e', '#2ca02c' ])`
 
-
-
 ![屏幕快照 2018-10-18 下午1.01.35.png | center | 747x396](https://cdn.nlark.com/yuque/0/2018/png/100996/1539838914730-3a5e609e-94a7-4399-923b-d3586016b9a2.png "")
-
 
 完整的代码如下：
 
@@ -156,10 +152,7 @@ $.getJSON('/assets/data/avg-temp.json', function(data) {
 
 `.color('Population', '#e5f5e0-#31a354')`
 
-
-
 ![屏幕快照 2018-10-18 下午1.02.14.png | center | 747x383](https://cdn.nlark.com/yuque/0/2018/png/100996/1539838946792-0b46b047-128e-4c07-aeb2-13f1cea0b008.png "")
-
 
 完整代码如下：
 
@@ -297,10 +290,7 @@ chart.point().position('x*y').color('level*value', (level, value) => {
 
 `.shape('type', [ 'circle', 'triangle-down', 'square', 'diamond' ])`
 
-
-
 ![屏幕快照 2018-10-18 下午1.02.43.png | center | 747x338](https://cdn.nlark.com/yuque/0/2018/png/100996/1539838989130-fe3e7c4f-4864-494e-9034-fdc33b4c81b2.png "")
-
 
 完整代码：
 
@@ -416,7 +406,7 @@ chart.point().position('name*value')
 * 对于 line 线来说，size 对应着线的粗细；
 * 对于 interval 柱状图来说，size 对应着柱子的宽度。
 
-所以从可视化的角度分析，大小（size)是一个复杂的视觉通道。
+所以从可视化的角度分析，大小（size) 是一个复杂的视觉通道。
 
 在 G2 中，支持如下几种方式的映射语法：
 
@@ -429,10 +419,7 @@ chart.point().position('name*value')
 
 `.size('Population', [ 5, 35 ])`
 
-
-
 ![屏幕快照 2018-10-18 下午1.03.19.png | center | 747x342](https://cdn.nlark.com/yuque/0/2018/png/100996/1539839026761-aafb07c9-e21a-48a6-9558-bec86b632e6f.png "")
-
 
 完整代码：
 
@@ -484,7 +471,7 @@ $.getJSON('/assets/data/bubble-population.json', function(data) {
 
 ### 回调函数的使用
 
-size可以根据数据的字段值通过回调函数计算，可以指定多个字段
+size 可以根据数据的字段值通过回调函数计算，可以指定多个字段
 
 ```js
 chart.point().position('x*y').size('z', z => {
@@ -533,5 +520,3 @@ size 函数可以返回一个数组，特别对应[自定义shape](/zh/docs/manu
 | schema | 支持 | 支持 | 支持 | 支持 | 支持 |
 | contour | 支持 | 支持 | 支持 | `不支持` | 支持 |
 | heatmap | 支持 | 支持 | 支持 | `不支持` | `不支持` |
-
-

@@ -22,7 +22,6 @@ chart.intervalStack().position('x*y');
 | `areaStack` | 层叠区域图 |
 | `schemaDodge` | 分组箱型图 |
 
-
 另外也可以通过如下方式整合几何标记和数据调整方式来自由创建和组合图表，支持多种数据调整方式的组合。
 
 ```js
@@ -35,15 +34,9 @@ chart.area().position('x*y').adjust({
 
 数据映射到图形时必须进行视觉编码，视觉编码包括几何标记和视觉通道，几何标记对应着多种图表类型，视觉通道定义图形属性。视觉通道中最具区分度的通道是位置（position)，图形的位置在一些情况下会出现重叠：
 
-
-
 ![image | left](https://zos.alipayobjects.com/skylark/528124ab-44e3-4744-9996-283b331690a7/attach/900/9d685a74d48ecac5/image.png "")
 
-
-
-
 ![image | left](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791774987343584d17d3/attach/4080/900/image.png "")
-
 
 * 点图经常存在点重叠的情况。上图的点图有 2000 多条记录，大多数点重叠在一起；
 * 柱状图（interval) 在 x 轴是分类的情况下，同一个分类下有多条记录是也会重叠。上图的柱状图，每个分类下有 7 个柱状图，互相重叠，看不清晰各个分类的数据大小。
@@ -56,7 +49,6 @@ chart.area().position('x*y').adjust({
 | jitter | 扰动散开，将数据的位置轻微的调整，使得映射后的图形位置不再重叠。 |
 | dodge | 分组散开，将同一个分类的数据进行分组在一个范围内均匀分布，并排放置。 |
 | symmetric | 对称处理，使得生成的图形居中对齐。 |
-
 
 ## 数据调整类型
 
@@ -77,10 +69,7 @@ data = [{a: 1, b:[0,10]}, {a: 1, b: [10, 22]};
 
 生成的图形：
 
-
-
 ![image | left](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791777722933706d17d3/attach/4080/900/image.png "")
-
 
 #### 适合的几何标记
 
@@ -88,28 +77,21 @@ data = [{a: 1, b:[0,10]}, {a: 1, b: [10, 22]};
 
 * 层叠的点图
 
-
-
 ![image | left](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791777909622475d7565/attach/4080/900/image.png "")
 
 * 层叠的柱状图、玫瑰图
 
-
-
 ![image | left](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791778062043730d17d3/attach/4080/900/image.png "")
 
-* 饼图，饼图本质上就是数据层叠占满了整个0-360度的圆形空间
-
-
+* 饼图，饼图本质上就是数据层叠占满了整个 0-360 度的圆形空间
 
 ![image | left](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791779314022828d17cd/attach/4080/900/image.png "")
-
 
 ### jitter
 
 #### 适合的数据类型
 
-jitter，仅适合于分类数据,只能在同一个分类的范围内散开，这不会改变图形表现的分类值。但是连续数据不能进行散开，连续数据位置一旦变化，图形代表的数据值就会不准确，会带来误导。
+jitter，仅适合于分类数据，只能在同一个分类的范围内散开，这不会改变图形表现的分类值。但是连续数据不能进行散开，连续数据位置一旦变化，图形代表的数据值就会不准确，会带来误导。
 
 对数据进行 jitter 调整时，需要将分类数据转换成索引值，在索引值 [-0.5, 0.5] 的范围内进行随机分布，jitter 示例：
 
@@ -148,9 +130,7 @@ const data = [
 
 生成的图形：
 
-
 ![image | left](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791779492932835d17cd/attach/4080/900/image.png "")
-
 
 #### 适合的几何标记
 
@@ -158,15 +138,9 @@ const data = [
 
 * 散开的点图：
 
-
-
 ![image | left](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791779779402611d7565/attach/4080/900/image.png "")
 
-
-
-
 ![image | left](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791779940773856d17d3/attach/4080/900/image.png "")
-
 
 ### dodge
 
@@ -211,10 +185,7 @@ const data = [
 
 生成的图形：
 
-
-
 ![image | left](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791780408214082d7559/attach/4080/900/image.png "")
-
 
 #### 适合的几何标记
 
@@ -222,17 +193,11 @@ const data = [
 
 * 一维点图
 
-
-
 ![image | left](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791780586804104d7559/attach/4080/900/image.png "")
 
-
-* 二维的柱状图、玫瑰图(interval)
-
-
+* 二维的柱状图、玫瑰图 (interval)
 
 ![image | left](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791780727132919d17cd/attach/4080/900/image.png "")
-
 
 ### symmetric
 
@@ -250,7 +215,7 @@ const data = [
 ];
 ```
 
-对称处理数据，由于 b 的范围是 [0 - 20]，所以所有的数据都将在 0-20 之间对称,计算公式如下:
+对称处理数据，由于 b 的范围是 [0 - 20]，所以所有的数据都将在 0-20 之间对称，计算公式如下：
 
 offset = (max - min - value)/2;
 
@@ -268,10 +233,7 @@ data = [
 
 生成的图形：
 
-
-
 ![image | left](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791780889395220d755f/attach/4080/900/image.png "")
-
 
 #### 适合的几何标记
 
@@ -279,14 +241,8 @@ data = [
 
 * 漏斗图：将柱状图调整成对称柱状图，然后再连接柱状图的顶点，即可成为漏斗图
 
-
-
 ![image | left](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791781024552956d17cd/attach/4080/900/image.png "")
 
 * 数据流图：对称的层叠区域图
 
-
-
 ![image | left](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791781232692679d7565/attach/4080/900/image.png "")
-
-

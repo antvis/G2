@@ -5,7 +5,7 @@ order: 22
 
 G2 的图表可以由多个视图 View 构成，同时各个视图可以拥有各自的数据源，即支持异构数据。在结构上，视图和 chart 相同，拥有自己独立的数据源、坐标系和图层。
 
-Chart 是一种特殊的View，两者之间也有一定的差异：
+Chart 是一种特殊的 View，两者之间也有一定的差异：
 * View 的功能 Chart 都具有
 * Tooltip（提示信息）和 Legend（图例）仅在 Chart 上支持
 * Chart 上可以创建 View ，但是 View 不再支持创建子 View
@@ -63,10 +63,7 @@ chart.render(); // 由 chart 负责统一的渲染
 1. 首先绘制世界地图背景，使用包含世界地图经纬度的数据；
 2. 然后再可视化包含各个国家男女比例的用户数据。
 
-
-
 ![屏幕快照 2018-10-18 下午2.11.39.png | center | 747x346](https://cdn.nlark.com/yuque/0/2018/png/100996/1539843114352-086509d0-8f0c-40cb-b844-819940ff9317.png "")
-
 
 ```javascript
 $.getJSON('/assets/data/world.geo.json', function(mapData) {
@@ -166,4 +163,3 @@ $.getJSON('/assets/data/world.geo.json', function(mapData) {
   chart.render();
 });
 ```
-

@@ -7,13 +7,12 @@ order: 10
 
 * shape, color, size 这三个图形属性如果判断接收的参数是数据源的字段时，会自动生成不同的图例；
 * shape 属性，会根据不同的 shape 类型生成图例；
-* color 属性, 会赋予不同的图例项不同的颜色来区分图形；
-* size 属性, 在图例上显示图形的大小。
+* color 属性，会赋予不同的图例项不同的颜色来区分图形；
+* size 属性，在图例上显示图形的大小。
 
 通过 `chart.legend([field, ]false)` 可以关闭图例。
 
 ![image | left](https://gw.alipayobjects.com/zos/rmsportal/KNzuPncDjpmlchIzLnQM.png "")
-
 
 ## 如何配置图例
 
@@ -38,7 +37,7 @@ chart.legend(false); //所有的图例都不显示
 
 | 属性名 | 解释 | 默认值 |
 | :--- | :--- | :--- |
-| position | 图例的显示位置，支持12个定位位置，配置值 'left-top','left-center','left-bottom','right-top','right-top','right-bottom','top-left','top-center','top-bottom','bottom-left','bottom-center','bottom-right'。也可使用'left'(默认为left-bottom'),'right'(默认为'right-bottom'),'top'(默认为top-center'),'bottom'(默认为bottom-center')定位。 | 'bottom-center' |
+| position | 图例的显示位置，支持 12 个定位位置，配置值 'left-top','left-center','left-bottom','right-top','right-top','right-bottom','top-left','top-center','top-bottom','bottom-left','bottom-center','bottom-right'。也可使用'left'（默认为 left-bottom'),'right'（默认为'right-bottom'),'top'（默认为 top-center'),'bottom'（默认为 bottom-center') 定位。 | 'bottom-center' |
 | title | 用于图例标题的显示样式配置，如果值为 null 则不展示。 | 左右两侧图例默认展示标题，上下图例默认不展示标题 |
 | background | 用于图例背景色的配置 | 默认没有背景色 |
 | offsetX | 整个图例的水平偏移距离 | -- |
@@ -46,18 +45,15 @@ chart.legend(false); //所有的图例都不显示
 | width | 图例的整体宽度（用于连续图例） | 20 |
 | height | 图例的整体高度（用于连续图例） | 156 |
 | autoWrap | 图例项过多时是否自动换行（用于分类图例） | true，自动换行 |
-| marker | 配置图例 marker 的显示样式，支持指定 `point` 几何标记支持的所有 shape(除去 'rect')：'circle', 'square', 'bowtie', 'diamond', 'hexagon', 'triangle', 'triangle-down', 'hollowCircle', 'hollowSquare', 'hollowBowtie', 'hollowDiamond', 'hollowHexagon', 'hollowTriangle', 'hollowTriangle-down', 'cross', 'tick', 'plus', 'hyphen', 'line' | 不同的几何标记不同的 marker |
-| attachLast | 是否启用尾部跟随图例（适用于`line`、`lineStack`、`area`、`areaStack`图表类型) | false |
+| marker | 配置图例 marker 的显示样式，支持指定 `point` 几何标记支持的所有 shape（除去 'rect')：'circle', 'square', 'bowtie', 'diamond', 'hexagon', 'triangle', 'triangle-down', 'hollowCircle', 'hollowSquare', 'hollowBowtie', 'hollowDiamond', 'hollowHexagon', 'hollowTriangle', 'hollowTriangle-down', 'cross', 'tick', 'plus', 'hyphen', 'line' | 不同的几何标记不同的 marker |
+| attachLast | 是否启用尾部跟随图例（适用于`line`、`lineStack`、`area`、`areaStack`图表类型） | false |
 | clickable | 图例项是否可以点击 | true |
 | hoverable | 是否默认开启鼠标 hover 到图例项上的交互 | true |
 | selectedMode | clickable 为 true 时生效，图例的选中模式，单选或者多选 | 'multiple' 默认多选 |
 | onHover | 自定义图例项鼠标 hover 事件，hoverable 为 false 不生效 | -- |
 | onClick | 自定义图例项点击事件， clickable 为 false 不生效 | -- |
 
-
-
 ![屏幕快照 2018-10-18 下午1.16.14.png | center | 747x388](https://cdn.nlark.com/yuque/0/2018/png/100996/1539839790064-5cf3f1b9-a287-4c64-ac8a-cfc27d024753.png "")
-
 
 ```javascript
 const data = [
@@ -99,15 +95,13 @@ chart.render();
 
 ![image | left](https://gw.alipayobjects.com/zos/rmsportal/mzFuamQKWmDxGjkDmMkn.png "")
 
-
 | 属性名 | 解释 | 默认值 |
 | :--- | :--- | :--- |
-| allowAllCanceled | (分类图例)是否保留一项不能取消勾选，默认为 false，即最后一项不能取消勾选 | false |
-| unCheckColor | 未选中时marker的颜色 | '#bfbfbf' |
+| allowAllCanceled | （分类图例）是否保留一项不能取消勾选，默认为 false，即最后一项不能取消勾选 | false |
+| unCheckColor | 未选中时 marker 的颜色 | '#bfbfbf' |
 | textStyle | 图例项文本的样式配置 | {fill: '#3c3c3c'} |
 | itemWidth | 图例项的宽度，当图例有很多图例项，并且用户想要这些图例项在同一平面内垂直对齐，此时这个属性可帮用户实现此效果 | -- |
 | itemFormatter | 用于格式化图例每项的文本显示，是个回调函数 | -- |
-
 
 ## 图例的选择模式设置
 
@@ -133,10 +127,7 @@ chart.legend({
 });
 ```
 
-
-
 ![屏幕快照 2018-10-18 下午1.16.44.png | center | 747x326](https://cdn.nlark.com/yuque/0/2018/png/100996/1539839829152-d30d2582-b4de-40f6-8961-1a4292813c1b.png "")
-
 
 ```javascript
 const data = [
@@ -234,9 +225,7 @@ chart.render();
 
 G2 支持使用 html 渲染图例，方式非常简单，只要声明 `useHtml: true` 即可。
 
-
 ![屏幕快照 2018-10-18 下午1.17.23.png | center | 747x361](https://cdn.nlark.com/yuque/0/2018/png/100996/1539839863077-35d9173f-e89e-4152-853f-1384a7223d75.png "")
-
 
 ```js
 chart.legend({
@@ -245,7 +234,6 @@ chart.legend({
   itemTpl: {string} | {function}, // 可选，用户设置的图例项 html 模板，默认提供的模板不满足要求时使用
 });
 ```
-
 
 ```js+
 const data = [
@@ -339,14 +327,14 @@ chart.render();
 
 ## 常见问题
 
-* 1.隐藏图例
+* 1. 隐藏图例
 
 ```javascript
 chart.legend(false); // 隐藏全部图例
 chart.legend('x', false); // 只隐藏 x 维度对应的图例
 ```
 
-* 2.更改图例位置
+* 2. 更改图例位置
 
 ```javascript
 chart.legend('x', {
@@ -354,6 +342,6 @@ chart.legend('x', {
 }); // 只更改 x 维度对应的图例的显示位置
 ```
 
-* 3.图例显示位置不够
+* 3. 图例显示位置不够
 
 调整 padding 值（padding 的介绍详见[创建图表之图表样式](/zh/docs/manual/tutorial/creating-chart/#图表样式)）。

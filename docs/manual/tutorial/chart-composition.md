@@ -11,7 +11,6 @@ order: 0
 
 ![image | left](https://zos.alipayobjects.com/skylark/313254aa-ff97-4396-9192-3c0f8fc16867/attach/2378/da07b27fb885206a/image.png "")
 
-
 ## 坐标轴 AXES
 
 每个图表通常包含两个坐标轴，在直角坐标系（笛卡尔坐标系）下，分别为 x 轴和 y 轴，在极坐标轴下，则分别由角度和半径 2 个维度构成。

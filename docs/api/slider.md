@@ -3,7 +3,7 @@ title: Slider 滑块插件
 order: 11
 ---
 
-**提示**：Slider 滑块插件已经不再维护，请使用 [`chart.interaction('slider')`](/zh/docs/manual/api/interaction/#slider-滑块) 接口。
+**提示**：Slider 滑块插件已经不再维护，请使用 [`chart.interaction('slider')`](/zh/docs/manual/api/interaction/#slider- 滑块） 接口。
 
 __使用前提：__
 
@@ -138,7 +138,6 @@ onChange: (obj) => {
 
 ![image | left](https://gw.alipayobjects.com/zos/rmsportal/iYFxRgDjRSiCyVPFozik.png "")
 
-
 ### backgroundStyle
 
 (object)
@@ -191,8 +190,6 @@ slider 滑块的背景图表配置，可配置其图表类型以及颜色：
 * 示例
 
 点击更新数据
-
-
 
 ```js+
 $.getJSON('/assets/data/top2000-disc.json',function(data) {

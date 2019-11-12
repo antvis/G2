@@ -75,6 +75,7 @@ G2 更新数据的方式主要有三种：
 ```js
 chart.changeData(newData);
 ```
+
 * view 也支持 `view.changeData(data)`
 
 如果仅仅是更新数据，而不需要马上更新图表，可以调用 `chart.source(data)`，需要更新图表时调用 `chart.repaint()`

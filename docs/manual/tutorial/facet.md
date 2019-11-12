@@ -14,7 +14,6 @@ order: 13
 
 ![image | left](https://gw.alipayobjects.com/zos/rmsportal/HlUJdjfYCEeeOKsBREnp.png "")
 
-
 ## 如何设置分面
 
 ```js
@@ -59,6 +58,7 @@ chart.facet(type, {
 * `eachView` 回调函数中创建各个视图的图表类型；
 
 也可以设置每个分面之间的间距 padding
+
 ```js
 chart.facet('list', {
   fileds: [ 'cut', 'carat' ],
@@ -81,7 +81,6 @@ G2 支持的分面类型如下表所示：
 | [mirror](/zh/docs/manual/tutorial/facet/#mirror-镜像分面) | 指定一个维度，形成镜像图表。 |
 | [matrix](/zh/docs/manual/tutorial/facet/#matrix-矩阵分面) | 指定一个维度，形成矩阵分面。 |
 
-
 ### rect 矩形分面
 
 rect 矩形分面是 G2 的默认分面类型。支持按照一个或者两个维度的数据划分，按照先列后行的顺序。
@@ -97,10 +96,7 @@ chart.facet('rect', {
 
 分面矩阵每列按照 `cut` 字段划分，每行按照 `clarity` 字段划分。
 
-
-
 ![屏幕快照 2018-10-18 下午1.39.41.png | center | 747x554](https://cdn.nlark.com/yuque/0/2018/png/100996/1539841212578-0df8809e-9e26-4860-b171-88ecb7b645a7.png "")
-
 
 ```javascript
 $.getJSON('/assets/data/diamond.json', function(data) {
@@ -132,16 +128,13 @@ $.getJSON('/assets/data/diamond.json', function(data) {
 ```
 
 说明：
-* 可以将 `fields` 字段中表示行和列的字段名时，可以设置行或者列为 `null`,会变成单行或者单列的分面
+* 可以将 `fields` 字段中表示行和列的字段名时，可以设置行或者列为 `null`, 会变成单行或者单列的分面
 
 ### list 水平列表分面
 
 该类型分面可以通过设置 `cols` 属性来指定每行可显示分面的个数，超出时会自动换行。
 
-
-
 ![屏幕快照 2018-10-18 下午1.40.36.png | center | 747x392](https://cdn.nlark.com/yuque/0/2018/png/100996/1539841260411-db2c30cd-8de0-4f1a-b6af-3d70ac8f413c.png "")
-
 
 ```javascript
 $.getJSON('/assets/data/diamond.json', function(data) {
@@ -176,10 +169,7 @@ $.getJSON('/assets/data/diamond.json', function(data) {
 
 ### circle 圆形分面
 
-
-
 ![屏幕快照 2018-10-18 下午1.41.18.png | center | 747x696](https://cdn.nlark.com/yuque/0/2018/png/100996/1539841293253-3bb3c7c1-7278-4fc2-83fb-019c587ccde9.png "")
-
 
 ```javascript
 const DataView = DataSet.DataView;
@@ -231,13 +221,9 @@ $.getJSON('/assets/data/diamond.json',function (data) {
 * line，用于配置线的显示属性。
 * lineSmooth，各个树节点的连接线是否是平滑的曲线，默认为 false。
 
-
 下图展示了树形多层级的分面。
 
-
-
 ![屏幕快照 2018-10-18 下午1.41.44.png | center | 747x406](https://cdn.nlark.com/yuque/0/2018/png/100996/1539841321561-6d0b227b-f6d0-41b9-bf6d-54e66f8c5928.png "")
-
 
 ```javascript
 const data = [
@@ -301,11 +287,7 @@ chart.render();
 
 通过配置 `transpose` 属性为 true，可以将镜像分面翻转。
 
-
-
 ![屏幕快照 2018-10-18 下午1.42.20.png | center | 747x521](https://cdn.nlark.com/yuque/0/2018/png/100996/1539841360041-fd9983ef-05ff-4576-99a5-428b0d6cf61a.png "")
-
-
 
 ```javascript
 $.getJSON('/assets/data/population.json', function(data) {
@@ -389,9 +371,7 @@ $.getJSON('/assets/data/population.json', function(data) {
 
 矩阵分面主要对比数据中多个字段之间的关系，例如常见的散点矩阵图
 
-
 ![屏幕快照 2018-10-18 下午1.42.51.png | center | 747x509](https://cdn.nlark.com/yuque/0/2018/png/100996/1539841390750-797e948c-e603-4f44-a64e-38898989b792.png "")
-
 
 ```javascript
 const DataView = DataSet.DataView;
@@ -434,4 +414,3 @@ $.getJSON('/assets/data/iris.json', function(data) {
   chart.render();
 });
 ```
-

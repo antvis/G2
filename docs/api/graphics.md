@@ -23,9 +23,7 @@ G2 底层使用的 G 同时支持 Canvas 以及 SVG，因此绘制的所有图�
 
 - `globalCompositeOperation` 设置新图像如何绘制到已有的图像上。
 
-
 > **！注意：**
-
 
 G2 对图形属性进行了缩写
 
@@ -34,7 +32,6 @@ G2 对图形属性进行了缩写
 - stokeStyle 缩写为 `stroke`；
 
 - globalAlpha 缩写为 `opacity`。
-
 
 ## 线条样式
 
@@ -46,20 +43,15 @@ G2 对图形属性进行了缩写
 
 - [miterLimit](http://www.w3school.com.cn/tags/canvas_miterlimit.asp)  设置最大斜接长度。
 
-
 > **！注意：**
-
 
 1. G2 在现有线的样式基础上增加了虚线的支持：
 
-
 - `lineDash`：设置线的虚线样式，可以指定一个数组。一组描述交替绘制线段和间距（坐标空间单位）长度的数字。 如果数组元素的数量是奇数， 数组的元素会被复制并重复。例如， [5, 15, 25] 会变成 [5, 15, 25, 5, 15, 25]。
-
 
 这个属性取决于浏览器是否支持 setLineDash 函数，详情参考[setLineDash](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/setLineDash)。
 
 1. G2 在现有线的基础上增加了首尾箭头的绘制支持：
-
 
 - `startArrow`: true|boolean，是否渲染起点箭头
 
@@ -69,7 +61,6 @@ G2 对图形属性进行了缩写
 
 - `arrowRadius`: number，箭头长度
 
-
 ## 文本属性
 
 - [font](http://www.w3school.com.cn/tags/canvas_font.asp)  设置文本内容的当前字体属性；
@@ -77,7 +68,6 @@ G2 对图形属性进行了缩写
 - [textAlign](http://www.w3school.com.cn/tags/canvas_textalign.asp) 设置文本内容的当前对齐方式, 支持的属性：center|end|left|right|start；
 
 - [textBaseline](http://www.w3school.com.cn/tags/canvas_textbaseline.asp)  设置在绘制文本时使用的当前文本基线, 支持的属性:top|middle|bottom。
-
 
 **！注意：**
 
@@ -93,18 +83,15 @@ G2 提供了额外的几个文本属性，便于用户设置字体，具体的�
 
 - `fontFamily` 对应 font-family；
 
-
 ## 渐变色
 
-G2 中提供了线性渐变、放射状/环形渐变两种形式，使用方式如下：
+G2 中提供了线性渐变、放射状 / 环形渐变两种形式，使用方式如下：
 
 - 线性渐变
 
 - ![](https://gw.alipayobjects.com/zos/rmsportal/ieWkhtoHOijxweuNFWdz.png#width=)
 
-
 > 说明：`l` 表示使用线性渐变，绿色的字体为可变量，由用户自己填写。
-
 
 ```javascript
 // example
@@ -112,13 +99,11 @@ G2 中提供了线性渐变、放射状/环形渐变两种形式，使用方式�
 stroke: 'l(0) 0:#ffffff 0.5:#7ec2f3 1:#1890ff'
 ```
 
-- 放射状/环形渐变
+- 放射状 / 环形渐变
 
 - ![](https://gw.alipayobjects.com/zos/rmsportal/qnvmbtSBGxQlcuVOWkdu.png#width=)
 
-
 > 说明：`r` 表示使用放射状渐变，绿色的字体为可变量，由用户自己填写，开始圆的 x y r 值均为相对值，0 至 1 范围。
-
 
 ```javascript
 // example
@@ -130,7 +115,6 @@ fill: 'r(0.5, 0.5, 0.1) 0:#ffffff 1:#1890ff'
 
 > 说明：`p` 表示使用纹理，绿色的字体为可变量，由用户自己填写。
 
-
 - `a`: 该模式在水平和垂直方向重复；
 
 - `x`: 该模式只在水平方向重复；
@@ -139,7 +123,6 @@ fill: 'r(0.5, 0.5, 0.1) 0:#ffffff 1:#1890ff'
 
 - `n`: 该模式只显示一次（不重复）。
 
-
 纹理的内容可以直接是图片或者 [Data URLs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs)。
 
 ```javascript
@@ -147,4 +130,3 @@ fill: 'r(0.5, 0.5, 0.1) 0:#ffffff 1:#1890ff'
 // 使用纹理填充，在水平和垂直方向重复图片
 fill: 'p(a)https://gw.alipayobjects.com/zos/rmsportal/ibtwzHXSxomqbZCPMLqS.png'
 ```
-

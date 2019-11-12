@@ -169,4 +169,3 @@ chart.interval()
   });
 chart.render();
 ```
-

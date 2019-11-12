@@ -87,9 +87,7 @@ chart.scale({
 
 该实例为 x 轴和 y 轴的两个数据字段都进行了列定义，将 x 轴的数据指定为 time 类型并指定了时间的显示格式，而 y 轴格式化了显示形式，为其加上了单位 'k'，观察图表，tooltip 和 坐标轴都受了列定义的影响。
 
-
 ![屏幕快照 2018-10-18 下午12.27.43.png | center | 747x254](https://cdn.nlark.com/yuque/0/2018/png/100996/1539836888436-dbf027be-0863-4509-9b42-4fc98ae4e786.png "")
-
 
 完整代码：
 
@@ -125,4 +123,3 @@ chart.source(data, {
 chart.line().position('time*value').size(2);
 chart.render();
 ```
-

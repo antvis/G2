@@ -88,7 +88,7 @@ const shapeObj = Shape.registerShape('geomType', 'shapeName', {
           <div data-type="p">area</div>
         </td>
         <td rowspan="1" colSpan="1">
-          <div data-type="p">area 面其实是在 line 线的基础之上形成的, 它将折线图中折线与自变量坐标轴之间的区域使用颜色或者纹理填充。
+          <div data-type="p">area 面其实是在 line 线的基础之上形成的，它将折线图中折线与自变量坐标轴之间的区域使用颜色或者纹理填充。
             <div data-type="image" data-display="block" data-align="left" data-src="https://zos.alipayobjects.com/skylark/dbcd60f3-7662-4ebd-8e0e-85d7d754d0c7/attach/3378/f67277978d5d8e3e/image.png" data-width="">
               <img src="https://zos.alipayobjects.com/skylark/dbcd60f3-7662-4ebd-8e0e-85d7d754d0c7/attach/3378/f67277978d5d8e3e/image.png" width="" />
             </div>
@@ -146,7 +146,6 @@ const shapeObj = Shape.registerShape('geomType', 'shapeName', {
   </table>
 </div>
 
-
 ### draw
 
 `getPoints` 用于计算绘制 shape 的关键点，那么 `draw` 方法就是用来定义如何连接这些关键点的。
@@ -157,10 +156,7 @@ const shapeObj = Shape.registerShape('geomType', 'shapeName', {
 
 该参数包含经过图形映射后的所有数据以及该数据对应的原始数据，结构如下图所示：
 
-
-
 ![image | left](https://zos.alipayobjects.com/skylark/505c6cb1-fde7-4714-98b6-43cb77099f19/attach/3378/332f7e3e64bc48f5/image.png "")
-
 
 原始数据存储于 cfg.origin.\_origin 中，通过 getPoints 计算出的图形关键点都储存于 points 中。而 cfg 对象中的 color、size、shape 都是通过映射之后的图形属性数据，可以直接使用。
 
@@ -240,7 +236,6 @@ Shape.registerShape('interval', 'rect', {
 #### 代码示例
 
 下面通过一个例子来加深下理解。
-
 
 ```js+
 const Shape = G2.Shape;
@@ -323,4 +318,3 @@ Shape.registerShape('interval', 'triangle', {
   }
 });
 ```
-

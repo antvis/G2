@@ -24,7 +24,6 @@ chart.coord('coordType'[, cfg]);
 | `theta` | 一种特殊的极坐标系，半径长度固定，仅仅将数据映射到角度，常用于饼图的绘制。 |
 | `helix` | 螺旋坐标系，基于阿基米德螺旋线。 |
 
-
 ## 坐标系类型及配置
 
 坐标系可以分为笛卡尔坐标系和非笛卡尔坐标系，非笛卡尔坐标系即极坐标（helix 螺旋坐标系也是极坐标的一种），由角度和半径这两个维度来确定位置。
@@ -35,10 +34,7 @@ chart.coord('coordType'[, cfg]);
 
 例如下图展示的层叠柱状图，在不同坐标系下就变换成了其他的图表类型：
 
-
-
 ![image | left](https://zos.alipayobjects.com/skylark/fd9ba64b-b569-4c1d-acb9-d4dad3500258/attach/2378/44af7b435f0d3f88/image.png "")
-
 
 上图左侧为层叠柱状图，中间的饼图则是层叠柱状图在极坐标下对 x y 两个坐标轴进行转置后的结果，其中 x 轴被映射为半径，y 轴被映射成了角度。而最右边的牛眼图则相反，y 轴映射为半径。
 
@@ -61,10 +57,7 @@ chart.coord('polar' || 'theta' || 'helix', {
 
 `chart.coord('theta', { innerRadius: 0.5 });`
 
-
-
 ![image | left](https://gw.alipayobjects.com/zos/rmsportal/xQxbzqQTjELOvrKSFEkh.png "")
-
 
 ```javascript
 chart.coord('polar', {
@@ -74,10 +67,7 @@ chart.coord('polar', {
 });
 ```
 
-
-
 ![image | left](https://gw.alipayobjects.com/zos/rmsportal/YbxpoBRuIrNsaMNOCmcG.png "")
-
 
 ```javascript
 chart.coord('helix', {
@@ -87,17 +77,11 @@ chart.coord('helix', {
 });
 ```
 
-
-
 ![image | left](https://gw.alipayobjects.com/zos/rmsportal/EWHCatHynDfQTPByyfVp.png "")
-
 
 这里需要说明的是，G2 极坐标默认的起始角度和结束角度如下图所示：
 
-
-
 ![image | left](https://zos.alipayobjects.com/skylark/85950a42-9579-44cb-b656-8dd28c9a014a/attach/2378/d648679184c6977c/image.png "")
-
 
 ## 坐标系变换
 
@@ -110,24 +94,15 @@ G2 提供的坐标系支持一系列的变换操作：
 chart.coord('rect').scale(0.7, 1.2);
 ```
 
-
-
 ![image | left](https://zos.alipayobjects.com/rmsportal/bAISlaEvIUpqIFVBiXKo.gif "")
-
 
 * transpose: x，y 轴交换，例如柱状图转换成水平柱状图（条形图）；
 
-
-
 ![image | left](https://zos.alipayobjects.com/skylark/3b319bf7-f5ae-4165-9753-a1fbd58cc209/attach/2378/62bc082e8beb0f78/image.png "")
 
-
-* reflect: 镜像, 沿 x 方向镜像或者沿 y 轴方向映射。
-
-
+* reflect: 镜像，沿 x 方向镜像或者沿 y 轴方向映射。
 
 ![image | left](https://zos.alipayobjects.com/skylark/3e02d865-fcfc-4afd-9ffa-66a1299b31b5/attach/2378/4225fd7483f54155/image.png "")
-
 
 以下是 G2 中坐标系变换的使用语法，当需要进行多种坐标系变换时，可以直接进行链式调用，如下代码所示：
 
@@ -139,4 +114,3 @@ chart.coord().rotate(90).scale(1.3, 5).reflect('x').transpose();
 
 * [环图](/zh/examples/pie/donut#clock)
 * [仪表盘](/zh/examples/gauge/gauge)
-

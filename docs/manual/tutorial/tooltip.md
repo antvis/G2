@@ -3,16 +3,15 @@ title: Tooltip 提示信息
 order: 11
 ---
 
-提示信息(tooltip)，是指当鼠标悬停在图表上的某点时，以提示框的形式展示该点的数据，比如该点的值，数据单位等。tooltip 内显示的信息完全可以通过格式化函数动态指定；通过调用 `chart.tooltip(false)` 即可不启用提示信息功能。![](https://gw.alipayobjects.com/zos/rmsportal/VLNhkKRALafPtDCIZFqA.png#align=left&display=inline&height=377&originHeight=420&originWidth=830&status=done&width=746)
+提示信息 (tooltip)，是指当鼠标悬停在图表上的某点时，以提示框的形式展示该点的数据，比如该点的值，数据单位等。tooltip 内显示的信息完全可以通过格式化函数动态指定；通过调用 `chart.tooltip(false)` 即可不启用提示信息功能。![](https://gw.alipayobjects.com/zos/rmsportal/VLNhkKRALafPtDCIZFqA.png#align=left&display=inline&height=377&originHeight=420&originWidth=830&status=done&width=746)
 
 ## tooltip 配置语法
 
 在 G2 中提供了个层次的配置 tooltip 的方法，
 
-1. 设置在 chart 对象上的tooltip 样式、功能相关的配置，
+1. 设置在 chart 对象上的 tooltip 样式、功能相关的配置，
 
 2. 设置在每个几何标记对象上的 tooltip 配置，具体如下：
-
 
 （1） chart 上的 tooltip 方法
 
@@ -54,7 +53,6 @@ chart.tooltip({
 
 1. 可以在 geom 几何标记上配置 tooltip 的显示内容，如下语法所示：
 
-
 ```javascript
 chart.<geom>.tooltip('field1*field2...*fieldN');
 ```
@@ -63,16 +61,15 @@ chart.<geom>.tooltip('field1*field2...*fieldN');
 
 ![](https://zos.alipayobjects.com/skylark/a92d121a-5879-42ad-b12c-1b4cc3c79f69/attach/2378/b8013e9dd10fd634/image.png#align=left&display=inline&height=186&originHeight=186&originWidth=250&status=done&width=250)
 
-* 使用回调函数自定义 tooltip 信息, 默认情况下tooltip 的每一项包含以下信息：
+* 使用回调函数自定义 tooltip 信息，默认情况下 tooltip 的每一项包含以下信息：
 
-  - title 标题，默认tooltip 的标题取第一项的 title
+  - title 标题，默认 tooltip 的标题取第一项的 title
   - name 标题
   - value 值
   - color 图例项对应的颜色
   - index 索引值
 
-  在回调函数中可以通过修改这几个值，达到自定义tooltip 的目的
-
+  在回调函数中可以通过修改这几个值，达到自定义 tooltip 的目的
 
 ```javascript
 chart.<geom>.tooltip('a*b', (a, b) => {
@@ -84,7 +81,6 @@ chart.<geom>.tooltip('a*b', (a, b) => {
 ```
 
 * 除了调用 `chart.tooltip(false)` 关闭 tooltip 外，还可以在 geom 上关闭 tooltip。配置方法如下：
-
 
 ```javascript
 chart.point().tooltip(false);
@@ -150,7 +146,6 @@ chart.render();
 
 2. 对于复杂的场景，可以监听 chart 对象上的 `tooltip:change` 事件。这个事件会返回如下参数：
 
-
 ```javascript
 {
   x: 当前鼠标的 x 坐标,
@@ -162,7 +157,7 @@ chart.render();
 
 每一项的内容
 
-- title 标题，默认tooltip 的标题取第一项的 title
+- title 标题，默认 tooltip 的标题取第一项的 title
 
 - name 标题
 
@@ -171,7 +166,6 @@ chart.render();
 - color 图例项对应的颜色
 
 - index 索引值
-
 
 通过修改 items 的内容就可以修改 tooltip 的展示内容了。
 
@@ -307,7 +301,6 @@ chart.tooltip(true, {
 
 > `containerTpl` tooltip 容器模板 ，注意一定要包含以下 class:
 
-
 ```html
 <div class="g2-tooltip">
   <!-- tooltip 标题 -->
@@ -317,8 +310,7 @@ chart.tooltip(true, {
 </div>
 ```
 
-> `itemTpl` tooltip 每项记录的默认模板:
-
+> `itemTpl` tooltip 每项记录的默认模板：
 
 ```html
 <li data-index={index}>
@@ -335,7 +327,6 @@ chart.tooltip(true, {
 2. 在 html 页面的 style 标签内，为对应的 dom 标签设置样式；
 
 3. 在 `chart.tooltip(cfg)` 中设置属性，如下，具体的说明详见 [API](/zh/docs/manual/api/chart#tooltip)
-
 
 ```javascript
 chart.tooltip({
@@ -372,7 +363,6 @@ crosshairs: {
 
 > crosshairs.type 说明：
 
-
 - rect: 矩形框
 
 - x: 水平辅助线
@@ -380,7 +370,6 @@ crosshairs: {
 - y: 垂直辅助线
 
 - cross: 十字辅助线
-
 
 ‘line’, ‘area’, ‘path’ 默认会展示垂直辅助线；‘interval’， 默认会展示矩形背景框。
 
@@ -394,7 +383,6 @@ crosshairs: {
 
 - `none`: 不触发 tooltip，由用户调用 `chart.showTooltip(point)` 和 `chart.hideTooltip()` 来控制提示框的显示隐藏。
 
-
 当然在任何触发方式下，用户都可以通过调用 `chart.showTooltip(point)` 可以控制在固定的位置显示提示信息，参数 `point` 为画布上的坐标点，格式如下：
 
 ```javascript
@@ -407,6 +395,7 @@ const point = {
 另外还提供了 `chart.getXY({xField: value, yField: value})` 方法，用于获取数据对应在画布空间的坐标。
 
 ![](https://cdn.nlark.com/yuque/0/2018/png/100996/1539840191028-fded845c-8cdb-4112-8fbd-fe36bd588ab1.png#align=left&display=inline&height=301&originHeight=612&originWidth=1518&status=done&width=747)
+
 ```javascript
 const data = [
   { time: '2016-10-25 00:00:00', runCount: 4, type: 2, runTime: 2 },
@@ -465,4 +454,3 @@ chart.render();
 const lastPoint  = chart.get('plotRange').br;
 chart.showTooltip(lastPoint);
 ```
-

@@ -41,10 +41,9 @@ chart.interval().position('x*y').animate({
 
 ## 1 分钟上手自定义动画
 
-以柱状图为例:
+以柱状图为例：
 
 ![屏幕快照 2018-10-18 下午2.08.36.png | center | 747x364](https://cdn.nlark.com/yuque/0/2018/png/100996/1539842930283-af8e9ec3-f2bd-45f4-b3aa-0193e344b985.png "")
-
 
 ```javascript
     const Animate = G2.Animate;
@@ -214,4 +213,3 @@ chart.interval()
       }
   });
 ```
-

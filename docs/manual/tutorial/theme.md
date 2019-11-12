@@ -11,7 +11,6 @@ G2 默认提供了两种图表主题： default、dark。
 
 ![image | left](https://gw.alipayobjects.com/zos/rmsportal/EQadCjVFfaXjuPbSySJp.png "")
 
-
 ## 图表样式设置
 
 ### 新增主题
@@ -65,7 +64,6 @@ G2.Global.setTheme(theme); // 将主题设置为用户自定义的主题
 更多 Global 上关于主题的配置属性，可以直接查看 `G2.Global` 的返回值。
 
 #### demo 演示
-
 
 ![屏幕快照 2018-10-18 下午1.45.35.png | center | 747x522](https://cdn.nlark.com/yuque/0/2018/png/100996/1539841550760-19a8c7e3-0c69-4b1b-9597-9fe1d2ca0a5b.png "")
 
@@ -235,10 +233,7 @@ const Global = {
   });
 ```
 
-
-
 ![屏幕快照 2018-10-18 下午1.46.18.png | center | 747x568](https://cdn.nlark.com/yuque/0/2018/png/100996/1539841600561-4430eeb7-f78f-469f-af5e-731a44d925fc.png "")
-
 
 ```javascript
 const Util = G2.Util;
@@ -362,4 +357,3 @@ $.getJSON('/assets/data/world.geo.json', function(mapData) {
   chart2.render();
 });
 ```
-

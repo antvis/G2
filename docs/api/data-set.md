@@ -33,7 +33,6 @@ order: 12
 | :--- | :--- | :--- |
 | options | Object | 是 |
 
-
 ```js
 const ds = new DataSet({
   state: { // 指定初始化状态量
@@ -48,11 +47,11 @@ const ds = new DataSet({
 
 #### ds.views
 
-存储所有挂在数据集上的数据视图（key-value对）。
+存储所有挂在数据集上的数据视图（key-value 对）。
 
 #### ds.state
 
-存储数据集上的状态量（key-value对）。
+存储数据集上的状态量（key-value 对）。
 
 #### ds.createView()
 
@@ -64,7 +63,6 @@ const ds = new DataSet({
 | :--- | :--- | :--- |
 | name | String | 是 |
 | options | Object | 是 |
-
 
 ```js
 const dv0 = ds.createView();
@@ -86,7 +84,6 @@ const dv2 = ds.createView('bar', {
 | :--- | :--- | :--- |
 | name | String | 否 |
 
-
 ```js
 const dv = ds.getView('foo');
 ```
@@ -99,7 +96,6 @@ const dv = ds.getView('foo');
 | :--- | :--- | :--- |
 | name | String | 否 |
 | dv | DataSet.View | 否 |
-
 
 ```js
 ds.setView('foo', new DataSet.View());
@@ -118,7 +114,6 @@ ds.setView('foo', new DataSet.View());
 | name | String | 否 |
 | value | Any | 否 |
 
-
 ```js
 ds.setState('foo', 'bar');
 ```
@@ -131,7 +126,6 @@ ds.setState('foo', 'bar');
 | :--- | :--- | :--- |
 | name | String | 否 |
 | callback | Function | 否 |
-
 
 目前支持的事件有
 
@@ -156,7 +150,6 @@ ds.on('statechange', (name, value) => {
 | name | String | 否 |
 | params | Arguments | 是 |
 
-
 目前支持的事件有
 
 * `statechange` 状态量变化事件，触发后状态量关联的数据视图会重新执行所有数据处理流程。
@@ -175,7 +168,6 @@ ds.on('statechange', (name, value) => {
 | :--- | :--- | :--- |
 | ds | DataSet | 是 |
 | options | Object | 是 |
-
 
 ```js
 const dv0 = new DataSet.View();
@@ -217,19 +209,17 @@ const dv1 = new DataSet.View(ds, {
 | data | String / Array / Object / DataView | 否 |
 | options | Object | 是 |
 
-
 `data` 是原始数据，可能是字符串，也可能是数组、对象，或者另一个数据视图实例。`options` 里指定了载入数据使用的 `connector` 和载入时使用的配置项。
 
 详细文档见 [Connector API](/zh/docs/manual/api/connector)
 
 #### dv.transform()
 
-`dv.transform(options)` 执行数据处理数据。执行完这个函数后，transform会被
+`dv.transform(options)` 执行数据处理数据。执行完这个函数后，transform 会被
 
 | 参数 | 类型 | 是否可选 |
 | :--- | :--- | :--- |
 | options | Object | 否 |
-
 
 `options` 里指定了处理数据使用的 `transform` 和数据处理的配置项。
 
@@ -245,7 +235,6 @@ const dv1 = new DataSet.View(ds, {
 | :--- | :--- | :--- |
 | name | String | 否 |
 | callback | Function | 否 |
-
 
 `callback` 接受两个参数：原始数据和配置项。返回值就是 DataView 实例所需要的数据。举个简单例子，如果要注册一个接入 CSV 数据的 Connector，则实现如下：
 
@@ -293,7 +282,6 @@ console.log(dv.rows);
 | :--- | :--- | :--- |
 | name | String | 否 |
 
-
 ### DataSet.registerTransform()
 
 `DataSet.registerTransform(name, callback)` 注册一个数据处理函数，注册后所有数据视图都可以使用 `name` 来引用这个数据处理函数，从而进行某种数据处理。
@@ -302,7 +290,6 @@ console.log(dv.rows);
 | :--- | :--- | :--- |
 | name | String | 否 |
 | callback | Function | 否 |
-
 
 `callback` 接受两个参数：数据视图（DataSet.View）实例和配置项。举个简单例子，如果要注册一个过滤数据的 Transform，则实现如下：
 
@@ -337,5 +324,3 @@ console.log(dv.rows);
 | 参数 | 类型 | 是否可选 |
 | :--- | :--- | :--- |
 | name | String | 否 |
-
-

@@ -142,4 +142,3 @@ dv.source(graph, {
 ```
 
 > dv.dataType 会被变更为 'graph'，从而 dv 可以执行图相关的实例方法和 Transform。
-

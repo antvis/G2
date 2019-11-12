@@ -426,8 +426,6 @@ chart.on(&#x27;tooltiphide&#x27;)
     </tbody>
   </table>
 
-
-
 ## 废弃的类、接口、属性、事件
 
 * ~~G2.Frame~~
@@ -453,9 +451,9 @@ chart.on(&#x27;tooltiphide&#x27;)
 * ~~chart.getPosition()~~
     使用 `chart.getXY()` 替代。
 * ~~chart.contour()~~
-    通过ploygon 来实现。
+    通过 ploygon 来实现。
 * ~~syncXYScales~~
-    度量统一，3.0 中在列定义中进行声明:
+    度量统一，3.0 中在列定义中进行声明：
 
 ```javascript
 chart.scale('x', {
@@ -469,4 +467,3 @@ chart.scale('x', {
 * ~~chart.on(‘itemselectedchange’)~~
 * ~~chart.on(‘rangeselectstart’)~~
 * ~~chart.on(‘rangeselectend’)~~
-

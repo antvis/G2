@@ -3,8 +3,7 @@ title: Slider 滑块插件
 order: 18
 ---
 
-**提示**：Slider 滑块插件已经不再维护，请使用 [`chart.interaction('slider')`](/zh/docs/manual/api/interaction/#slider-滑块) 接口。
-
+**提示**：Slider 滑块插件已经不再维护，请使用 [`chart.interaction('slider')`](/zh/docs/manual/api/interaction/#slider- 滑块） 接口。
 
 ---
 
@@ -13,7 +12,6 @@ order: 18
 如下图所示：
 
 ![image | left](https://gw.alipayobjects.com/zos/rmsportal/XvhvibgjYpfyTDYHybjs.png "")
-
 
 ## Slider 工作原理
 
@@ -34,14 +32,14 @@ Slider 组件是完全基于数据的交互组件，同 chart 并无任何关联
 
 （2）方式 2：npm 模块引入。
 
-首先需要安装 Slider 模块: `npm install @antv/g2-plugin-slider`，然后按照如下代码引入
+首先需要安装 Slider 模块：`npm install @antv/g2-plugin-slider`，然后按照如下代码引入
 
 ```js
 import G2 from '@antv/g2';
 import '@antv/g2-plugin-slider';
 ```
 
-> !注意：Slider 组件作为 G2 的交互插件，必须在 G2 引入的前提下使用哦。
+> ! 注意：Slider 组件作为 G2 的交互插件，必须在 G2 引入的前提下使用哦。
 
 ### 创建 Slider 的 dom 容器
 
@@ -81,10 +79,7 @@ slider.render(); // 渲染
 
 当用户没有设置 `start` `end` 两个参数时（即数据的选择范围），slider 会使用默认的选择范围，即展示全部数据。
 
-
-
 ![屏幕快照 2018-10-18 下午2.00.19.png | center | 747x406](https://cdn.nlark.com/yuque/0/2018/png/100996/1539842435359-60af501d-ed38-459c-9bb3-2f3c0f042bc8.png "")
-
 
 完整的代码：
 
@@ -165,4 +160,3 @@ $.getJSON('/assets/data/peking-aqi.json', data => {
     slider.render();
 });
 ```
-

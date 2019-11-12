@@ -199,4 +199,3 @@ chart.intervalStack()
   });
 chart.render();
 ```
-
