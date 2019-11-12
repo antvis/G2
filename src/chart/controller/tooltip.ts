@@ -12,8 +12,8 @@ import View from '../view';
 // Filter duplicates, use `data` and `color` property values as condition
 function uniq(items) {
   const uniqItems = [];
-  _.each(items, item => {
-    const result = _.find(uniqItems, subItem => {
+  _.each(items, (item) => {
+    const result = _.find(uniqItems, (subItem) => {
       return _.isEqual(subItem.data, item.data) && subItem.color === item.color;
     });
     if (!result) {
@@ -109,7 +109,7 @@ export default class Tooltip {
       crosshairsRegion: {
         start: coordinateBBox.tl,
         end: coordinateBBox.br,
-      }
+      },
     });
     // @ts-ignore
     tooltip.show();
@@ -120,7 +120,6 @@ export default class Tooltip {
       title,
       ...point,
     });
-
 
     const lastItems = this.items;
     const lastTitle = this.title;
@@ -194,10 +193,6 @@ export default class Tooltip {
 
     this.items = null;
     this.title = null;
-
-    this.view.off('tooltip:show');
-    this.view.off('tooltip:hide');
-    this.view.off('tooltip:change');
 
     if (this.tooltipInteraction) {
       this.tooltipInteraction.destroy();
@@ -324,7 +319,7 @@ export default class Tooltip {
       this.markerGroup = markerGroup;
     }
 
-    _.each(items, item => {
+    _.each(items, (item) => {
       const { x, y } = item;
       const attrs = {
         fill: item.color,
