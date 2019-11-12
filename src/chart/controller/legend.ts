@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
-import { Attribute, Category, Scale, Tick } from '../../dependents';
+import { Attribute, CategoryLegend, Scale, Tick } from '../../dependents';
 import Geometry from '../../geometry/base';
 import { getLegendItems, getLegendLayout } from '../../util/legend';
 import { ComponentOption, LegendOption } from '../interface';
@@ -71,7 +71,7 @@ function createCategoryLegend(
     items: getLegendItems(view, geometry, attr, themeMarker, userMarker),
   };
 
-  const component = new Category(getLegendCfg(view, baseCfg, legendOption, direction));
+  const component = new CategoryLegend(getLegendCfg(view, baseCfg, legendOption, direction));
 
   component.render();
 
