@@ -89,9 +89,9 @@ export default class View extends EE {
   private isPreMouseInPlot: boolean = false;
   private stateManager: StateManager;
 
-  private tooltipController: TooltipController;
-  private axisController: AxisController;
-  private legendController: LegendController;
+  public tooltipController: TooltipController;
+  public axisController: AxisController;
+  public legendController: LegendController;
 
   constructor(props: ViewCfg) {
     super();

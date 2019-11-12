@@ -154,6 +154,17 @@ const AXIS_STYLE = {
   },
 };
 
+const GRID_STYLE = {
+  line: {
+    type: 'line',
+    style: {
+      stroke: '#E9E9E9',
+      lineWidth: 1,
+      lineDash: [3, 3],
+    },
+  },
+};
+
 const LEGEND_STYLE = {
   title: null,
   marker: { symbol: 'circle', r: 4, fill: DEFAULT_COLOR },
@@ -322,13 +333,16 @@ export default {
   components: {
     axis: {
       top: AXIS_STYLE,
-      bottom: AXIS_STYLE,
+      bottom: _.deepMix({}, AXIS_STYLE, {
+        grid: null,
+      }),
       left: _.deepMix({}, AXIS_STYLE, {
         label: {
           offset: 8,
         },
         line: null,
         tickLine: null,
+        grid: GRID_STYLE,
       }),
       right: _.deepMix({}, AXIS_STYLE, {
         label: {
@@ -336,18 +350,22 @@ export default {
         },
         line: null,
         tickLine: null,
+        grid: GRID_STYLE,
       }),
       circle: _.deepMix({}, AXIS_STYLE, {
         title: null,
         label: {
           offset: 8,
         },
+        grid: GRID_STYLE,
       }),
       radius: _.deepMix({}, AXIS_STYLE, {
         title: null,
         label: {
           offset: 8,
         },
+        grid: GRID_STYLE,
+        line: null,
       }),
     },
     legend: {

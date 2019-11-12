@@ -1,7 +1,8 @@
 import * as _ from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
-import { CircleAxis, IGroup, LineAxis, Scale } from '../../dependents';
+import { CircleAxis, CircleGrid, IGroup, LineAxis, LineGrid, Scale } from '../../dependents';
 import { getAxisFactor, getAxisRegion, getAxisThemeCfg, getCircleAxisCenterRadius } from '../../util/axis';
+import { getCircleGridItems, getGridThemeCfg, getLineGridItems, showGrid } from '../../util/grid';
 import { getName } from '../../util/scale';
 import { AxisOption, ComponentOption } from '../interface';
 import { Controller } from './base';
@@ -34,16 +35,44 @@ export class Axis extends Controller<Option> {
   public render() {
     this.option = this.view.getOptions().axes;
 
-    const x = this.createXAxis();
+    const xs = this.createXAxes();
     const ys = this.createYAxes();
-    if (x) {
-      this.components.push(x);
-    }
-
-    this.components.push(...ys);
+    this.components.push(...xs, ...ys);
   }
 
-  public layout() {}
+  /**
+   * 更新组件布局，位置大小
+   */
+  public layout() {
+    const coordinate = this.view.getCoordinate();
+
+    _.each(this.components, (co: ComponentOption) => {
+      const { component, direction, type, extra } = co;
+      const { dim, scale } = extra;
+
+      let updated;
+
+      if (type === COMPONENT_TYPE.AXIS) {
+        if (coordinate.isPolar) {
+          if (dim === 'x') {
+            updated = getCircleAxisCenterRadius(coordinate);
+          } else if (dim === 'y') {
+            updated = getAxisRegion(coordinate, direction);
+          }
+        } else {
+          updated = getAxisRegion(coordinate, direction);
+        }
+      } else if (type === COMPONENT_TYPE.GRID) {
+        if (coordinate.isPolar) {
+          updated = { items: getCircleGridItems(coordinate, this.view.getXScale(), scale, dim) };
+        } else {
+          updated = { items: getLineGridItems(coordinate, scale, dim) };
+        }
+      }
+
+      component.update(updated);
+    });
+  }
 
   public destroy() {
     super.destroy();
@@ -59,45 +88,74 @@ export class Axis extends Controller<Option> {
   /**
    * 创建 x axis 组件
    */
-  private createXAxis(): ComponentOption {
+  private createXAxes(): ComponentOption[] {
+    const axisArray: ComponentOption[] = [];
     // x axis
     const scale = this.view.getXScale();
     if (!scale) {
-      return undefined;
+      return axisArray;
     }
 
     const xAxisOption = getAxisOption(this.option, scale.field);
     if (xAxisOption !== false) {
       const direction = DIRECTION.BOTTOM;
       const layer = LAYER.BG;
+      const dim = 'x';
 
       const coordinate = this.view.getCoordinate();
 
-      let C;
-      let cfg;
-
       if (coordinate.isRect) {
-        C = LineAxis;
-        cfg = this.getLineAxisCfg(scale, xAxisOption, direction);
-      } else if (coordinate.isPolar) {
-        C = CircleAxis;
-        cfg = this.getCircleAxisCfg(scale, xAxisOption, direction);
-      } else {
-        // helix and other, do not draw axis
-      }
-
-      if (C) {
-        const component = new C(cfg);
-        component.render();
-
-        return {
-          component,
+        // axis
+        const axis = {
+          component: new LineAxis(this.getLineAxisCfg(scale, xAxisOption, direction)),
           layer,
           direction,
           type: COMPONENT_TYPE.AXIS,
+          extra: { dim: 'x', scale },
         };
+        axisArray.push(axis);
+
+        // grid
+        const cfg = this.getLineGridCfg(scale, xAxisOption, direction, dim);
+        if (cfg) {
+          const grid = {
+            component: new LineGrid(cfg),
+            layer,
+            direction: DIRECTION.NONE,
+            type: COMPONENT_TYPE.GRID,
+            extra: { dim, scale },
+          };
+          axisArray.push(grid);
+        }
+      } else if (coordinate.isPolar) {
+        const axis = {
+          component: new CircleAxis(this.getCircleAxisCfg(scale, xAxisOption, direction)),
+          layer,
+          direction,
+          type: COMPONENT_TYPE.AXIS,
+          extra: { dim: 'x', scale },
+        };
+        axisArray.push(axis);
+
+        // grid
+        // @ts-ignore
+        const cfg = this.getCircleGridCfg(scale, xAxisOption, 'radius', dim);
+        if (cfg) {
+          const grid = {
+            // @ts-ignore
+            component: new LineGrid(cfg),
+            layer,
+            direction: DIRECTION.NONE,
+            type: COMPONENT_TYPE.GRID,
+            extra: { dim: 'x', scale },
+          };
+          axisArray.push(grid);
+        }
+      } else {
+        // helix and other, do not draw axis
       }
     }
+    return axisArray;
   }
 
   /**
@@ -114,34 +172,61 @@ export class Axis extends Controller<Option> {
 
       if (yAxisOption !== false) {
         const layer = LAYER.BG;
-        const direction = idx === 0 ? DIRECTION.LEFT : DIRECTION.RIGHT;
+        const dim = 'y';
 
         const coordinate = this.view.getCoordinate();
 
-        let C;
-        let cfg;
-
         if (coordinate.isRect) {
-          C = LineAxis;
-          cfg = this.getLineAxisCfg(scale, yAxisOption, direction);
-        } else if (coordinate.isPolar) {
-          C = LineAxis;
-          // @ts-ignore
-          cfg = this.getLineAxisCfg(scale, yAxisOption, 'radius');
-        } else {
-          // nothing
-        }
-
-        if (C) {
-          const component = new C(cfg);
-          component.render();
-
-          axisArray.push({
-            component,
+          const direction = idx === 0 ? DIRECTION.LEFT : DIRECTION.RIGHT;
+          // axis
+          const axis = {
+            component: new LineAxis(this.getLineAxisCfg(scale, yAxisOption, direction)),
             layer,
             direction,
             type: COMPONENT_TYPE.AXIS,
-          });
+            extra: { dim, scale },
+          };
+          axisArray.push(axis);
+
+          // grid
+          const cfg = this.getLineGridCfg(scale, yAxisOption, direction, dim);
+          if (cfg) {
+            const grid = {
+              component: new LineGrid(cfg),
+              layer,
+              direction: DIRECTION.NONE,
+              type: COMPONENT_TYPE.GRID,
+              extra: { dim, scale },
+            };
+            axisArray.push(grid);
+          }
+        } else if (coordinate.isPolar) {
+          // axis
+          const axis = {
+            // @ts-ignore
+            component: new LineAxis(this.getLineAxisCfg(scale, yAxisOption, 'radius')),
+            layer,
+            direction: DIRECTION.NONE,
+            type: COMPONENT_TYPE.AXIS,
+            extra: { dim: 'y', scale },
+          };
+          axisArray.push(axis);
+
+          // grid
+          // @ts-ignore
+          const cfg = this.getCircleGridCfg(scale, yAxisOption, 'radius', dim);
+          if (cfg) {
+            const grid = {
+              component: new CircleGrid(cfg),
+              layer,
+              direction: DIRECTION.NONE,
+              type: COMPONENT_TYPE.GRID,
+              extra: { dim: 'y', scale },
+            };
+            axisArray.push(grid);
+          }
+        } else {
+          // nothing
         }
       }
     });
@@ -178,11 +263,37 @@ export class Axis extends Controller<Option> {
   }
 
   /**
+   * generate line grid cfg
+   * @param scale
+   * @param axisOption
+   * @param direction
+   * @param dim
+   * @return line grid cfg
+   */
+  private getLineGridCfg(scale: Scale, axisOption: AxisOption, direction: DIRECTION, dim: string): object {
+    if (!showGrid(getAxisThemeCfg(this.view.getTheme(), direction), axisOption)) {
+      return undefined;
+    }
+
+    const container = this.getContainer().addGroup();
+
+    const baseGridCfg = {
+      container,
+      items: getLineGridItems(this.view.getCoordinate(), scale, dim),
+    };
+
+    const gridThemeCfg = getGridThemeCfg(this.view.getTheme(), direction);
+
+    // the cfg order should be ensure
+    return _.deepMix({}, baseGridCfg, gridThemeCfg, _.get(axisOption, 'grid', {}));
+  }
+
+  /**
    * generate circle axis cfg
    * @param scale
    * @param axisOption
    * @param direction
-   * @return line axis cfg
+   * @return circle axis cfg
    */
   private getCircleAxisCfg(scale: Scale, axisOption: AxisOption, direction: DIRECTION): object {
     const container = this.getContainer().addGroup();
@@ -201,5 +312,31 @@ export class Axis extends Controller<Option> {
 
     // the cfg order should be ensure
     return _.deepMix({}, baseAxisCfg, axisThemeCfg, axisOption);
+  }
+
+  /**
+   * generate circle grid cfg
+   * @param scale
+   * @param axisOption
+   * @param direction
+   * @param dim
+   * @return circle grid cfg
+   */
+  private getCircleGridCfg(scale: Scale, axisOption: AxisOption, direction: DIRECTION, dim: string): object {
+    if (!showGrid(getAxisThemeCfg(this.view.getTheme(), direction), axisOption)) {
+      return undefined;
+    }
+
+    const container = this.getContainer().addGroup();
+
+    const baseGridCfg = {
+      container,
+      items: getCircleGridItems(this.view.getCoordinate(), this.view.getXScale(), scale, dim),
+    };
+
+    const gridThemeCfg = getGridThemeCfg(this.view.getTheme(), direction);
+
+    // the cfg order should be ensure
+    return _.deepMix({}, baseGridCfg, gridThemeCfg, _.get(axisOption, 'grid', {}));
   }
 }

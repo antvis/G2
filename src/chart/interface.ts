@@ -39,6 +39,8 @@ export interface ComponentOption {
   readonly layer: LAYER;
   readonly direction: DIRECTION;
   readonly type: COMPONENT_TYPE;
+  /* 其他的额外信息 */
+  readonly extra?: any;
 }
 
 /* 筛选器函数类型定义 */
