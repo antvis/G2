@@ -152,7 +152,6 @@ const AXIS_STYLE = {
     count: 4,
     length: 2,
   },
-  verticalFactor: 1,
 };
 
 const LEGEND_STYLE = {
@@ -378,7 +377,7 @@ export default {
         shadowOffSetY: 0,
         shadowColor: 'rgba(0,0,0,0.09)',
         lineWidth: 2,
-        r: 4
+        r: 4,
       },
       // css style for tooltip
       [`${HTML_COMPONENT_CLASS.tooltip.container}`]: {
@@ -436,6 +435,6 @@ export default {
         height: '1px',
         backgroundColor: 'rgba(0, 0, 0, 0.25)',
       },
-    }
+    },
   },
 };
