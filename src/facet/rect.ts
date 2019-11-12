@@ -1,9 +1,9 @@
 import * as _ from '@antv/util';
-import { Axis, Text } from '../chart/__components__';
 import View from '../chart/view';
+import { Axis, Text } from '../component';
 import { DIRECTION, LAYER } from '../constant';
 import { Datum, Padding, Point, Position } from '../interface';
-import { BBox, getRegionBBox } from '../util/bbox';
+import { getRegionBBox } from '../util/bbox';
 import Facet from './facet';
 import { FacetComponent, RectCfg, RectData } from './interface';
 
@@ -89,7 +89,8 @@ export default class Rect extends Facet<RectCfg, RectData> {
         // 上
         this.components.push({
           direction: DIRECTION.TOP,
-          component: new Text(this.view.getLayer(LAYER.FORE).addGroup(), zeroPosition, {
+          component: new Text({
+            container: this.view.getLayer(LAYER.FORE),
             text: columnValue,
             isHorizontal: true,
             attributes: { textBaseline: 'bottom' },
@@ -101,7 +102,8 @@ export default class Rect extends Facet<RectCfg, RectData> {
         // 右
         this.components.push({
           direction: DIRECTION.RIGHT,
-          component: new Text(this.view.getLayer(LAYER.FORE).addGroup(), zeroPosition, {
+          component: new Text({
+            container: this.view.getLayer(LAYER.FORE),
             text: rowValue,
             isHorizontal: false,
             attributes: { textAlign: 'left' },
@@ -113,7 +115,8 @@ export default class Rect extends Facet<RectCfg, RectData> {
         // 下
         this.components.push({
           direction: DIRECTION.BOTTOM,
-          component: new Axis(this.view.getLayer(LAYER.FORE).addGroup(), zeroPosition, {
+          component: new Axis({
+            container: this.view.getLayer(LAYER.FORE),
             text: 'x axis',
             attributes: { textAlign: 'center', textBaseline: 'top' },
           }),
@@ -124,7 +127,8 @@ export default class Rect extends Facet<RectCfg, RectData> {
         // 左
         this.components.push({
           direction: DIRECTION.LEFT,
-          component: new Axis(this.view.getLayer(LAYER.FORE).addGroup(), zeroPosition, {
+          component: new Axis({
+            container: this.view.getLayer(LAYER.FORE),
             text: 'y axis',
             attributes: { textAlign: 'right', textBaseline: 'center' },
           }),
@@ -186,7 +190,10 @@ export default class Rect extends Facet<RectCfg, RectData> {
 
       const { x, y } = point;
 
-      component.move(x, y);
+      component.update({
+        x,
+        y,
+      });
     });
   }
 }

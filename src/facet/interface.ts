@@ -1,6 +1,6 @@
 import View from '../chart/view';
-import Component from '../component';
 import { DIRECTION } from '../constant';
+import { GroupComponent } from '../dependents';
 import { Region } from '../interface';
 import Facet from './facet';
 
@@ -9,7 +9,7 @@ export type FacetCtor = new (view: View, cfg: any) => Facet;
 
 export interface FacetComponent {
   direction: DIRECTION;
-  component: Component;
+  component: GroupComponent;
   facetIndex: number;
 }
 

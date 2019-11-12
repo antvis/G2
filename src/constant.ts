@@ -23,6 +23,8 @@ export enum DIRECTION {
   BOTTOM = 'bottom',
   BOTTOM_LEFT = 'bottom-left',
   BOTTOM_RIGHT = 'bottom-right',
+  // no direction information
+  NONE = 'none',
 }
 
 /**

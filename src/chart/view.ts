@@ -1,14 +1,12 @@
 import EE from '@antv/event-emitter';
 import * as _ from '@antv/util';
-import Component from '../component';
 import { COMPONENT_TYPE, DIRECTION, GROUP_Z_INDEX, LAYER, PLOT_EVENTS, VIEW_LIFE_CIRCLE } from '../constant';
-import { Attribute, Coordinate, Event as GEvent, ICanvas, IGroup, Scale } from '../dependents';
+import { Attribute, Component, Coordinate, Event as GEvent, ICanvas, IGroup, Scale } from '../dependents';
 import { Facet, getFacet } from '../facet';
 import { FacetCfgMap } from '../facet/interface';
 import Geometry from '../geometry/base';
 import { getInteraction } from '../interaction/';
-import { LooseObject, Point, Region, ScaleOption } from '../interface';
-import { Data, Datum } from '../interface';
+import { Data, Datum, LooseObject, Point, Region, ScaleOption } from '../interface';
 import { STATE_ACTIONS, StateActionCfg, StateManager } from '../state';
 import { BBox } from '../util/bbox';
 import { isFullCircle, isPointInCoordinate } from '../util/coordinate';
@@ -16,9 +14,9 @@ import { getEventName } from '../util/event';
 import { parsePadding } from '../util/padding';
 import { mergeTheme } from '../util/theme';
 import Chart from './chart';
-import { createAxes } from './controller/axis';
+import { Axis as AxisController } from './controller/axis';
 import { createCoordinate } from './controller/coordinate';
-import { createLegends } from './controller/legend';
+import { Legend as LegendController } from './controller/legend';
 import { default as TooltipController } from './controller/tooltip';
 import Event from './event';
 import {
@@ -92,6 +90,8 @@ export default class View extends EE {
   private stateManager: StateManager;
 
   private tooltipController: TooltipController;
+  private axisController: AxisController;
+  private legendController: LegendController;
 
   constructor(props: ViewCfg) {
     super();
@@ -171,6 +171,8 @@ export default class View extends EE {
 
     // 初始化组件 controller
     this.tooltipController = new TooltipController(this);
+    this.axisController = new AxisController(this);
+    this.legendController = new LegendController(this);
 
     // 递归初始化子 view
     _.each(this.views, (view: View) => {
@@ -208,12 +210,13 @@ export default class View extends EE {
     this.geometries = [];
 
     // 3. 清空 components
-    _.each(this.options.components, (co: ComponentOption) => {
-      co.component.destroy();
-    });
     // 清空
     this.options.components.splice(0);
+
+    // destroy controller
     this.tooltipController.destroy(); // destroy TooltipController
+    this.axisController.destroy();
+    this.legendController.destroy();
 
     // 4. 递归处理子 view
     _.each(this.views, (view: View) => {
@@ -602,7 +605,7 @@ export default class View extends EE {
    * @returns
    */
   public getXY(data: Datum) {
-    const coordinate = this.getCoordinate()
+    const coordinate = this.getCoordinate();
     const xScales = this.getScalesByDim('x');
     const yScales = this.getScalesByDim('y');
     let x;
@@ -960,28 +963,35 @@ export default class View extends EE {
    * @private
    */
   private renderComponents() {
-    const { axes, legends, tooltip } = this.options;
-
-    // 清空 ComponentOptions 配置
-    this.options.components.splice(0);
+    const { legends, tooltip } = this.options;
 
     this.backgroundGroup.clear();
     this.foregroundGroup.clear();
 
+    // 清空 ComponentOptions 配置
+    this.options.components.splice(0);
+
     // 1. axis
     // 根据 Geometry 的字段来创建 axis
-    _.each(createAxes(axes, this), (axis: ComponentOption) => {
+    this.axisController.clear();
+    this.axisController.render();
+
+    _.each(this.axisController.getComponents(), (axis: ComponentOption) => {
       const { component, layer, direction, type } = axis;
       this.addComponent(component, layer, direction, type);
     });
 
     // 2. legend
     // 根据 Geometry 的字段来创建 legend
-    _.each(createLegends(legends, this), (legend: ComponentOption) => {
+    this.legendController.clear();
+    this.legendController.render();
+
+    _.each(this.legendController.getComponents(), (legend: ComponentOption) => {
       const { component, layer, direction, type } = legend;
       this.addComponent(component, layer, direction, type);
     });
 
+    // 3. tooltip
     const tooltipController = this.tooltipController;
     tooltipController.setCfg(tooltip);
     tooltipController.render();
@@ -1043,7 +1053,7 @@ export default class View extends EE {
     const scales = {};
 
     for (const geometry of geometries) {
-      const scale = (dimType === 'x') ? geometry.getXScale() : geometry.getYScale();
+      const scale = dimType === 'x' ? geometry.getXScale() : geometry.getYScale();
       if (scale && !scales[scale.field]) {
         scales[scale.field] = scale;
       }

@@ -3,7 +3,7 @@ import { COMPONENT_TYPE } from '../../../src/constant';
 import { CITY_SALE } from '../../util/data';
 import { createDiv } from '../../util/dom';
 
-describe('Chart', () => {
+describe('Component', () => {
   const div = createDiv();
 
   const chart = new Chart({
@@ -15,6 +15,8 @@ describe('Chart', () => {
   });
 
   chart.animate(false);
+  chart.coordinate('polar');
+
   chart.data(CITY_SALE);
 
   chart

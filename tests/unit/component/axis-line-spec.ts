@@ -3,7 +3,7 @@ import { COMPONENT_TYPE } from '../../../src/constant';
 import { CITY_SALE } from '../../util/data';
 import { createDiv } from '../../util/dom';
 
-describe('Chart', () => {
+describe('Component', () => {
   const div = createDiv();
 
   const chart = new Chart({
@@ -23,9 +23,8 @@ describe('Chart', () => {
     .color('category');
 
   chart.render();
-  // chart.render();
 
-  it('axis component', () => {
+  it('line axis component', () => {
     const axes = chart.getOptions().components.filter((co) => co.type === COMPONENT_TYPE.AXIS);
     expect(axes.length).toBe(2);
 
