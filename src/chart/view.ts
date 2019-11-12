@@ -244,10 +244,6 @@ export default class View extends EE {
     });
     this.stateManager.destroy();
 
-    this.tooltipController.destroy();
-    this.axisController.destroy();
-    this.legendController.destroy();
-
     // 取消所有事件监听
     this.off();
   }
