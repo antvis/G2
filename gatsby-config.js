@@ -44,6 +44,14 @@ module.exports = {
     ],
     docs: [
       {
+        slug: 'manual/getting-started',
+        title: {
+          zh: '快速开始',
+          en: 'Getting Started'
+        },
+        order: 0
+      },
+      {
         slug: 'manual/tutorial',
         title: {
           zh: '使用教程',
