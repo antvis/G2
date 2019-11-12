@@ -31,12 +31,12 @@ describe('Interaction', () => {
       this.view.on('mouseup', this.onMouseup);
     }
 
-    private onMousedown(e) {
+    private onMousedown = (e) => {
       const shape = e.target;
       this.stateManager.setState('activeline', shape);
     }
 
-    private onMouseup() {
+    private onMouseup = () => {
       this.stateManager.setState('activeline', null);
     }
 

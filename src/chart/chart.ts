@@ -1,7 +1,7 @@
 import * as _ from '@antv/util';
 import { GROUP_Z_INDEX } from '../constant';
 import { Canvas } from '../dependents';
-import { getChartSize } from '../util/dom';
+import { createDom, getChartSize } from '../util/dom';
 import { ChartCfg } from './interface';
 import View from './view';
 
@@ -17,6 +17,8 @@ export default class Chart extends View {
 
   public autoFit: boolean;
 
+  private wrapperElement: HTMLElement;
+
   // @ts-ignore
   constructor(props: ChartCfg) {
     const { container, width, height, autoFit = true, renderer, pixelRatio, padding = 0 } = props;
@@ -26,8 +28,11 @@ export default class Chart extends View {
     // if autoFit, use the container size, to avoid the graph render twice.
     const size = getChartSize(ele, autoFit, width, height);
 
+    const wrapperElement = createDom('<div style="position:relative;"></div>');
+    ele.appendChild(wrapperElement);
+
     const canvas = new Canvas({
-      container: ele,
+      container: wrapperElement,
       renderer,
       pixelRatio,
       ...size,
@@ -49,6 +54,7 @@ export default class Chart extends View {
     this.width = size.width;
     this.height = size.height;
     this.autoFit = autoFit;
+    this.wrapperElement = wrapperElement;
 
     // 自适应大小
     this.bindAutoFit();
@@ -77,6 +83,11 @@ export default class Chart extends View {
 
     this.unbindAutoFit();
     this.canvas.destroy();
+
+    // TODO: @atnv/dom-util 中加 removeDom() 方法
+    const wrapperElement = this.wrapperElement;
+    wrapperElement.parentNode.removeChild(wrapperElement);
+    this.wrapperElement = null;
   }
 
   private bindAutoFit() {

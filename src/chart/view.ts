@@ -2,14 +2,12 @@ import EE from '@antv/event-emitter';
 import * as _ from '@antv/util';
 import Component from '../component';
 import { COMPONENT_TYPE, DIRECTION, GROUP_Z_INDEX, LAYER, PLOT_EVENTS, VIEW_LIFE_CIRCLE } from '../constant';
-import { Coordinate, Scale } from '../dependents';
-import { Attribute } from '../dependents';
-import { Event as GEvent, ICanvas, IGroup } from '../dependents';
+import { Attribute, Coordinate, Event as GEvent, ICanvas, IGroup, Scale } from '../dependents';
 import { Facet, getFacet } from '../facet';
 import { FacetCfgMap } from '../facet/interface';
 import Geometry from '../geometry/base';
 import { getInteraction } from '../interaction/';
-import { Point, Region } from '../interface';
+import { LooseObject, Point, Region, ScaleOption } from '../interface';
 import { Data, Datum } from '../interface';
 import { STATE_ACTIONS, StateActionCfg, StateManager } from '../state';
 import { BBox } from '../util/bbox';
@@ -21,6 +19,7 @@ import Chart from './chart';
 import { createAxes } from './controller/axis';
 import { createCoordinate } from './controller/coordinate';
 import { createLegends } from './controller/legend';
+import { default as TooltipController } from './controller/tooltip';
 import Event from './event';
 import {
   AxisOption,
@@ -30,7 +29,7 @@ import {
   FilterCondition,
   LegendOption,
   Options,
-  ScaleOption,
+  TooltipOption,
   ViewCfg,
 } from './interface';
 import defaultLayout, { Layout } from './layout';
@@ -55,11 +54,11 @@ export default class View extends EE {
 
   // 三层 Group 图层
   /** 背景层 */
-  protected backgroundGroup: IGroup;
+  public backgroundGroup: IGroup;
   /** 中间层 */
-  protected middleGroup: IGroup;
+  public middleGroup: IGroup;
   /** 前景层 */
-  protected foregroundGroup: IGroup;
+  public foregroundGroup: IGroup;
 
   /** 标记 view 的大小位置范围，均是 0 ~ 1 范围，便于开发者使用 */
   protected region: Region;
@@ -91,6 +90,8 @@ export default class View extends EE {
   /** 当前鼠标是否在 plot 内（CoordinateBBox） */
   private isPreMouseInPlot: boolean = false;
   private stateManager: StateManager;
+
+  private tooltipController: TooltipController;
 
   constructor(props: ViewCfg) {
     super();
@@ -168,6 +169,9 @@ export default class View extends EE {
     this.initEvents();
     this.initStates();
 
+    // 初始化组件 controller
+    this.tooltipController = new TooltipController(this);
+
     // 递归初始化子 view
     _.each(this.views, (view: View) => {
       view.init();
@@ -209,6 +213,7 @@ export default class View extends EE {
     });
     // 清空
     this.options.components.splice(0);
+    this.tooltipController.destroy(); // destroy TooltipController
 
     // 4. 递归处理子 view
     _.each(this.views, (view: View) => {
@@ -296,10 +301,21 @@ export default class View extends EE {
   }
 
   /**
-   * tooltip 配置
+   * tooltip configuration
+   *
+   * ```typescript
+   * chart.tooltip(false); // turn off tooltip
+   *
+   * chart.tooltip({
+   *   showTitle: false,
+   * }); // do not show title
+   * ```
+   *
+   * @param cfg
+   * @returns
    */
-  public tooltip(visible: boolean): View {
-    _.set(this.options, 'tooltip', visible);
+  public tooltip(cfg: boolean | TooltipOption): View {
+    _.set(this.options, 'tooltip', cfg);
 
     return this;
   }
@@ -379,7 +395,7 @@ export default class View extends EE {
    * @param name interaction name
    * @returns
    */
-  public interaction(name: string): View {
+  public interaction(name: string, cfg?: LooseObject): View {
     const existInteraction = _.get(this.options, ['interactions', name]);
     // 存在则先销毁已有的
     if (existInteraction) {
@@ -389,7 +405,8 @@ export default class View extends EE {
     // 新建交互实例
     const InteractionCtor = getInteraction(name);
     if (InteractionCtor) {
-      const interaction = new InteractionCtor(this);
+      const interaction = new InteractionCtor(this, this.stateManager, cfg);
+      interaction.init();
       _.set(this.options, ['interactions', name], interaction);
     }
 
@@ -577,6 +594,64 @@ export default class View extends EE {
       break;
     }
     return ((v as unknown) as Chart).canvas;
+  }
+
+  /**
+   * get the canvas coordinate of the data
+   * @param data
+   * @returns
+   */
+  public getXY(data: Datum) {
+    const coordinate = this.getCoordinate()
+    const xScales = this.getScalesByDim('x');
+    const yScales = this.getScalesByDim('y');
+    let x;
+    let y;
+
+    _.each(data, (value, key) => {
+      if (xScales[key]) {
+        x = xScales[key].scale(value);
+      }
+      if (yScales[key]) {
+        y = yScales[key].scale(value);
+      }
+    });
+
+    if (!_.isNil(x) && !_.isNil(y)) {
+      return coordinate.convert({ x, y });
+    }
+  }
+
+  public showTooltip(point: Point): View {
+    this.tooltipController.showTooltip(point);
+    return this;
+  }
+
+  public hideTooltip(): View {
+    this.tooltipController.hideTooltip();
+    return this;
+  }
+
+  /**
+   * 将 tooltip 锁定到当前位置不能移动
+   * @returns
+   */
+  public lockTooltip(): View {
+    this.stateManager.setState('_isTooltipLocked', true);
+    return this;
+  }
+
+  /**
+   * 将 tooltip 锁定解除
+   * @returns
+   */
+  public unlockTooltip(): View {
+    this.stateManager.setState('_isTooltipLocked', false);
+    return this;
+  }
+
+  public getTooltipItems(point: Point) {
+    return this.tooltipController.getTooltipItems(point);
   }
 
   /**
@@ -885,7 +960,7 @@ export default class View extends EE {
    * @private
    */
   private renderComponents() {
-    const { axes, legends } = this.options;
+    const { axes, legends, tooltip } = this.options;
 
     // 清空 ComponentOptions 配置
     this.options.components.splice(0);
@@ -906,6 +981,10 @@ export default class View extends EE {
       const { component, layer, direction, type } = legend;
       this.addComponent(component, layer, direction, type);
     });
+
+    const tooltipController = this.tooltipController;
+    tooltipController.setCfg(tooltip);
+    tooltipController.render();
   }
 
   private doLayout() {
@@ -957,6 +1036,20 @@ export default class View extends EE {
    */
   private canvasDraw() {
     this.getCanvas().draw();
+  }
+
+  private getScalesByDim(dimType: string) {
+    const geometries = this.geometries;
+    const scales = {};
+
+    for (const geometry of geometries) {
+      const scale = (dimType === 'x') ? geometry.getXScale() : geometry.getYScale();
+      if (scale && !scales[scale.field]) {
+        scales[scale.field] = scale;
+      }
+    }
+
+    return scales;
   }
 }
 

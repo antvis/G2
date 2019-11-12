@@ -44,6 +44,20 @@ const FONT_FAMILY = `
   Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
   SimSun, "sans-serif"'`;
 
+const HTML_COMPONENT_CLASS = {
+  tooltip: {
+    container: 'g2-tooltip',
+    title: 'g2-tooltip-title',
+    list: 'g2-tooltip-list',
+    listItem: 'g2-tooltip-list-item',
+    marker: 'g2-tooltip-marker',
+    value: 'g2-tooltip-value',
+    name: 'g2-tooltip-name',
+    crosshaisX: 'g2-tooltip-crosshair-x',
+    crosshaisY: 'g2-tooltip-crosshair-y',
+  },
+};
+
 const SHAPE_STYLE = {
   hollowArea: {
     fill: '#fff',
@@ -138,7 +152,6 @@ const AXIS_STYLE = {
     count: 4,
     length: 2,
   },
-  verticalFactor: 1,
 };
 
 const LEGEND_STYLE = {
@@ -350,6 +363,78 @@ export default {
       bottom: _.deepMix({}, LEGEND_STYLE, {
         layout: 'horizontal',
       }),
+    },
+    tooltip: {
+      triggerOn: 'mousemove',
+      enterable: false,
+      showCrosshairs: true,
+      showTooltipMarkers: true,
+      tooltipMarker: {
+        symbol: 'circle',
+        stroke: '#fff',
+        shadowBlur: 10,
+        shadowOffsetX: 0,
+        shadowOffSetY: 0,
+        shadowColor: 'rgba(0,0,0,0.09)',
+        lineWidth: 2,
+        r: 4,
+      },
+      // css style for tooltip
+      [`${HTML_COMPONENT_CLASS.tooltip.container}`]: {
+        position: 'absolute',
+        visibility: 'visible',
+        zIndex: 8,
+        transition:
+          'visibility 0.2s cubic-bezier(0.23, 1, 0.32, 1), ' +
+          'left 0.4s cubic-bezier(0.23, 1, 0.32, 1), ' +
+          'top 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
+        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+        boxShadow: '0px 0px 10px #aeaeae',
+        borderRadius: '3px',
+        color: 'rgb(87, 87, 87)',
+        fontSize: '12px',
+        fontFamily: FONT_FAMILY,
+        lineHeight: '20px',
+        padding: '10px 10px 6px 10px',
+      },
+      [`${HTML_COMPONENT_CLASS.tooltip.title}`]: {
+        marginBottom: '4px',
+      },
+      [`${HTML_COMPONENT_CLASS.tooltip.list}`]: {
+        margin: 0,
+        listStyleType: 'none',
+        padding: 0,
+      },
+      [`${HTML_COMPONENT_CLASS.tooltip.listItem}`]: {
+        listStyleType: 'none',
+        padding: 0,
+        marginBottom: '4px',
+        marginLeft: 0,
+        marginRight: 0,
+        marginTop: 0,
+      },
+      [`${HTML_COMPONENT_CLASS.tooltip.marker}`]: {
+        width: '8px',
+        height: '8px',
+        borderRadius: '50%',
+        display: 'inline-block',
+        marginRight: '8px',
+      },
+      [`${HTML_COMPONENT_CLASS.tooltip.value}`]: {
+        display: 'inline-block',
+        float: 'right',
+        marginLeft: '30px',
+      },
+      [`${HTML_COMPONENT_CLASS.tooltip.crosshaisX}`]: {
+        position: 'absolute',
+        width: '1px',
+        backgroundColor: 'rgba(0, 0, 0, 0.25)',
+      },
+      [`${HTML_COMPONENT_CLASS.tooltip.crosshaisY}`]: {
+        position: 'absolute',
+        height: '1px',
+        backgroundColor: 'rgba(0, 0, 0, 0.25)',
+      },
     },
   },
 };

@@ -72,7 +72,7 @@ export interface GeometryCfg {
   container: IGroup;
   coordinate?: Coordinate;
   data?: Data;
-  scaleDefs?: ScaleOption;
+  scaleDefs?: Record<string, ScaleOption>;
   sortable?: boolean;
   visible?: boolean;
   theme?: LooseObject;
@@ -97,7 +97,7 @@ export default class Geometry {
   /** 图形容器 */
   public readonly container: IGroup;
   /** scale 配置 */
-  public scaleDefs: ScaleOption;
+  public scaleDefs: Record<string, ScaleOption>;
   /** 是否对数据进行排序 */
   public sortable: boolean;
   /** element 是否可见 */

@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
-import { Circle as CircleAxis, Line as LineAxis, Scale } from '../../dependents';
+import { CircleAxis, LineAxis, Scale } from '../../dependents';
 import { getAxisFactor, getAxisRegion, getAxisThemeCfg, getCircleAxisCenterRadius } from '../../util/axis';
 import { getName } from '../../util/scale';
 import { AxisOption, ComponentOption } from '../interface';

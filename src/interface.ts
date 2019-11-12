@@ -14,13 +14,9 @@ export interface LooseObject {
 }
 
 /** 列定义配置项 */
-export interface ScaleDef extends ScaleConfig {
+export interface ScaleOption extends ScaleConfig {
   /** 声明数据类型  */
   type?: ScaleType;
-}
-
-export interface ScaleOption {
-  [key: string]: ScaleDef;
 }
 
 /**

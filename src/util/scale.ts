@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
 import { getScale, Scale, ScaleConfig } from '../dependents';
-import { LooseObject, ScaleDef } from '../interface';
+import { LooseObject, ScaleOption } from '../interface';
 
 const dateRegex = /^(?:(?!0000)[0-9]{4}([-/.]+)(?:(?:0?[1-9]|1[0-2])\1(?:0?[1-9]|1[0-9]|2[0-8])|(?:0?[13-9]|1[0-2])\1(?:29|30)|(?:0?[13578]|1[02])\1(?:31))|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)([-/.]?)0?2\2(?:29))(\s+([01]|([01][0-9]|2[0-3])):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))?$/;
 
@@ -57,7 +57,7 @@ function getScaleCfg(type: string, field: string, data: LooseObject[]): ScaleCon
  * @param [scaleDef] 列定义，可为空
  * @returns scale 返回创建的 Scale 实例
  */
-export function createScaleByField(field: string | number, data?: LooseObject[] | [], scaleDef?: ScaleDef): Scale {
+export function createScaleByField(field: string | number, data?: LooseObject[] | [], scaleDef?: ScaleOption): Scale {
   let scale: Scale;
 
   if (!data || !data.length) {

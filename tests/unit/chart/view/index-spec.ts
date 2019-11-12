@@ -76,6 +76,14 @@ describe('View', () => {
   it('tooltip', () => {
     view.tooltip(false);
     expect(view.getOptions().tooltip).toBe(false);
+
+    view.tooltip({
+      showTitle: false,
+    });
+
+    expect(view.getOptions().tooltip).toEqual({
+      showTitle: false,
+    });
   });
 
   it('filter', () => {
@@ -145,7 +153,7 @@ describe('View', () => {
     expect(view.getOptions().components.length).toEqual(2); // continuous legend to be continue
 
     const bbox = view.getOptions().components[0].component.getBBox();
-    expect(bbox.height).toEqual(38.5);
+    expect(bbox.height).toEqual(45.5);
   });
 
   it('layout result', () => {
