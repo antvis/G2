@@ -25,7 +25,7 @@
     a: {
       attrs: {
         href: null, ping: null, type: null,
-        media: media,
+        media,
         target: targets,
         hreflang: langs
       }
@@ -37,7 +37,7 @@
     area: {
       attrs: {
         alt: null, coords: null, href: null, target: null, ping: null,
-        media: media, hreflang: langs, type: null,
+        media, hreflang: langs, type: null,
         shape: ["default", "rect", "circle", "poly"]
       }
     },
@@ -187,7 +187,7 @@
       attrs: {
         href: null, type: null,
         hreflang: langs,
-        media: media,
+        media,
         sizes: ["all", "16x16", "16x16 32x32", "16x16 32x32 64x64"]
       }
     },
@@ -224,7 +224,7 @@
     rp: s,
     rt: s,
     ruby: s,
-    s: s,
+    s,
     samp: s,
     script: {
       attrs: {
@@ -252,7 +252,7 @@
     style: {
       attrs: {
         type: ["text/css"],
-        media: media,
+        media,
         scoped: null
       }
     },

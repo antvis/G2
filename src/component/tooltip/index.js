@@ -455,6 +455,14 @@ class Tooltip extends Base {
 
   setPosition(x, y, target) {
     const container = this.get('container');
+    // 修复tooltip初始位置错误，是由于container隐藏时获取不到宽高导致
+    // 记住上次可见性
+    const lastVisibility = container.style.visibility;
+    const lastDisplay = container.style.display;
+    // 设为可见
+    container.style.visibility = 'visible';
+    container.style.display = 'block';
+
     const crossLineShapeX = this.get('crossLineShapeX');
     const crossLineShapeY = this.get('crossLineShapeY');
     const crosshairsRectShape = this.get('crosshairsRectShape');
@@ -545,6 +553,9 @@ class Tooltip extends Base {
       container.style.left = follow ? (x + 'px') : 0;
       container.style.top = follow ? (y + 'px') : 0;
     }
+    // 设为可见
+    container.style.visibility = lastVisibility;
+    container.style.display = lastDisplay;
   }
 
   show() {

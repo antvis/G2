@@ -4,6 +4,8 @@
  */
 const Util = require('../../util');
 const FIELD_ORIGIN = '_origin';
+const ZIndexUtil = require('./zindex-util');
+const ATTRS_ORIGIN_ACTIVE = '_originActiveAttrs';
 
 function isSameShape(shape1, shape2) {
   if (Util.isNil(shape1) || Util.isNil(shape2)) {
@@ -35,7 +37,7 @@ function isChange(preShapes, shapes) {
 
 function getOriginAttrs(activeCfg, shape) {
   const originAttrs = {};
-  Util.each(activeCfg, function(v, k) {
+  Util.each(activeCfg, (v, k) => {
     let originValue = shape.attr(k);
     if (Util.isArray(originValue)) {
       originValue = Util.cloneDeep(originValue);// 缓存原来的属性，由于 .attr('matrix') 是数组，所以此处需要深度复制
@@ -111,13 +113,13 @@ const ActiveMixin = {
       Util.mix(activeCfg, activedOptions.style);
     }
     const originAttrs = getOriginAttrs(activeCfg, shape);
-    shape.setSilent('_originAttrs', originAttrs);
+    shape.setSilent(ATTRS_ORIGIN_ACTIVE, originAttrs);
     if (activedOptions.animate) {
       shape.animate(activeCfg, 300);
     } else {
       shape.attr(activeCfg);
     }
-    shape.set('zIndex', 1); // 提前
+    ZIndexUtil.toFront(shape); // 提前
   },
   setShapesActived(shapes) {
     const self = this;
@@ -130,7 +132,6 @@ const ActiveMixin = {
     }
     const view = self.get('view');
     const canvas = view.get('canvas');
-    const shapeContainer = self.get('shapeContainer');
     const activedOptions = self.get('activedOptions');
     if (activedOptions && activedOptions.highlight) {
       // 上次的动画未完成，所以要停止掉动画
@@ -149,13 +150,13 @@ const ActiveMixin = {
         if (shape.get('animating')) {
           shape.stopAnimate();
         }
-        if (shape.get('visible') && !shape.get('selected')) {
+        if (shape.get('visible')) { // && !shape.get('selected')
           self._setActiveShape(shape);
         }
       });
     }
     self.set('activeShapes', shapes);
-    shapeContainer.sort();
+    // shapeContainer.sort(); // toFront, resetZIndex 不需要再排序
     canvas.draw();
   },
   clearActivedShapes() {
@@ -166,42 +167,42 @@ const ActiveMixin = {
     if (shapeContainer && !shapeContainer.get('destroyed')) {
       const activeShapes = self.get('activeShapes');
       Util.each(activeShapes, activeShape => {
-        if (!activeShape.get('selected')) {
-          const originAttrs = activeShape.get('_originAttrs');
-          if (activeAnimate) {
-            activeShape.stopAnimate();
-            activeShape.animate(originAttrs, 300);
-          } else {
-            activeShape.attr(originAttrs);
-          }
-          activeShape.setZIndex(0);
-          activeShape.set('_originAttrs', null);
+        // if (!activeShape.get('selected')) {
+        const originAttrs = activeShape.get(ATTRS_ORIGIN_ACTIVE);
+        if (activeAnimate) {
+          activeShape.stopAnimate();
+          activeShape.animate(originAttrs, 300);
+        } else {
+          activeShape.attr(originAttrs);
         }
+        ZIndexUtil.resetZIndex(activeShape);
+        activeShape.setSilent(ATTRS_ORIGIN_ACTIVE, null);
+        // }
       });
       const preHighlightShapes = self.get('preHighlightShapes');
       if (preHighlightShapes) {
         const shapes = shapeContainer.get('children');
         Util.each(shapes, shape => {
-          if (!shape.get('selected')) {
-            const originAttrs = shape.get('_originAttrs');
-            if (originAttrs) {
-              if (activeAnimate) {
-                shape.stopAnimate();
-                shape.animate(originAttrs, 300);
-              } else {
-                shape.attr(originAttrs);
-              }
-              shape.setZIndex(0);
-              shape.set('_originAttrs', null);
+          // if (!shape.get('selected')) {
+          const originAttrs = shape.get(ATTRS_ORIGIN_ACTIVE);
+          if (originAttrs) {
+            if (activeAnimate) {
+              shape.stopAnimate();
+              shape.animate(originAttrs, 300);
+            } else {
+              shape.attr(originAttrs);
             }
+            ZIndexUtil.resetZIndex(shape);
+            shape.setSilent(ATTRS_ORIGIN_ACTIVE, null);
           }
+          // }
         });
       }
       // 恢复原来排序
-      const children = shapeContainer.get('children');
-      children.sort((obj1, obj2) => {
-        return obj1._INDEX - obj2._INDEX;
-      });
+      // const children = shapeContainer.get('children');
+      // children.sort((obj1, obj2) => {
+      //   return obj1._INDEX - obj2._INDEX;
+      // });
 
       self.set('activeShapes', null);
       self.set('preHighlightShapes', null);
@@ -265,17 +266,18 @@ const ActiveMixin = {
       shape.stopAnimate();
       if (Util.indexOf(highlightShapes, shape) !== -1) {
         Util.mix(changeAttrs, activeStyle, highlightCfg);
-        shape.setZIndex(1); // 提前
+        // shape.setZIndex(1); // 提前
+        ZIndexUtil.toFront(shape);
       } else {
         Util.mix(changeAttrs, {
           fillOpacity: 0.3,
           // @2018-07-11 by blue.lb 由于线图只有stoke，fillOpacity不生效，最好还是直接改成整个图形透明度opacity
           opacity: 0.3
         });
-        shape.setZIndex(0);
+        ZIndexUtil.resetZIndex(shape);
       }
       const originAttrs = getOriginAttrs(changeAttrs, shape);
-      shape.setSilent('_originAttrs', originAttrs);
+      shape.setSilent(ATTRS_ORIGIN_ACTIVE, originAttrs);
       if (activeAnimate) {
         shape.animate(changeAttrs, 300);
       } else {

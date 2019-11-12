@@ -33,7 +33,7 @@ describe('shape path test', () => {
     expect(path.length).equal(4);
   });
 
-  it('get coord radius', function() {
+  it('get coord radius', () => {
     const coord = new Coord.Polar({
       start: {
         x: 0,
@@ -49,7 +49,7 @@ describe('shape path test', () => {
     expect(PathUtil.getPointRadius(coord, { x: 100, y: 0 })).equal(100);
   });
 
-  it('get Point Angle', function() {
+  it('get Point Angle', () => {
     const coord = new Coord.Polar({
       start: {
         x: 0,
@@ -64,7 +64,7 @@ describe('shape path test', () => {
     expect(PathUtil.getPointAngle(coord, { x: 0, y: 100 })).equal(Math.PI);
   });
 
-  it('convertNormalPath', function() {
+  it('convertNormalPath', () => {
     const coord = new Coord.Rect({
       start: {
         x: 0,
@@ -80,7 +80,7 @@ describe('shape path test', () => {
     expect(PathUtil.convertNormalPath(coord, path)).eqls([[ 'M', 0, 0 ], [ 'L', 200, 200 ]]);
   });
 
-  it('convertPolarPath', function() {
+  it('convertPolarPath', () => {
     const coord = new Coord.Polar({
       start: {
         x: 0,

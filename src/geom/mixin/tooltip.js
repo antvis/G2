@@ -94,7 +94,7 @@ const TooltipMixin = {
   _getTipValueScale() {
     const attrs = this.getAttrsForLegend();
     let scale;
-    Util.each(attrs, function(attr) {
+    Util.each(attrs, attr => {
       const tmpScale = attr.getScale(attr.type);
       if (tmpScale.isLinear) { // 如果指定字段是非position的，同时是连续的
         scale = tmpScale;
@@ -120,8 +120,8 @@ const TooltipMixin = {
     const position = self.getAttr('position');
     const fields = position.getFields();
     let tmpField;
-    Util.each(fields, function(field) {
-      if (field.indexOf('..') === -1) {
+    Util.each(fields, field => {
+      if (!field.includes('..')) {
         tmpField = field;
         return false;
       }
@@ -138,7 +138,7 @@ const TooltipMixin = {
     yValue = yScale.invert(yValue);
     let rst = arr[arr.length - 1];
 
-    Util.each(arr, function(obj) {
+    Util.each(arr, obj => {
       const origin = obj[FIELD_ORIGIN];
       if ((origin[yField][0] <= yValue) && (origin[yField][1] >= yValue)) {
         rst = obj;
@@ -194,8 +194,8 @@ const TooltipMixin = {
       const yValue = yScale.invert(invertPoint.y);
       let min = Infinity;
       Util.each(dataArray, obj => {
-        const distance = Math.pow((obj[FIELD_ORIGIN][xField] - xValue), 2) +
-          Math.pow((obj[FIELD_ORIGIN][yField] - yValue), 2);
+        const distance = (obj[FIELD_ORIGIN][xField] - xValue) ** 2 +
+          (obj[FIELD_ORIGIN][yField] - yValue) ** 2;
         if (distance < min) {
           min = distance;
           rst = obj;
@@ -219,7 +219,7 @@ const TooltipMixin = {
 
     // 如果x的值是数组
     if (Util.isArray(firstXValue)) {
-      Util.each(dataArray, function(record) {
+      Util.each(dataArray, record => {
         const origin = record[FIELD_ORIGIN];
         if (xScale.translate(origin[xField][0]) <= value && xScale.translate(origin[xField][1]) >= value) {
           if (isYRange) {
@@ -239,7 +239,7 @@ const TooltipMixin = {
     } else {
       let next;
       if (!xScale.isLinear && xScale.type !== 'timeCat') {
-        Util.each(dataArray, function(record, index) {
+        Util.each(dataArray, (record, index) => {
           const origin = record[FIELD_ORIGIN];
           if (self._snapEqual(origin[xField], value, xScale)) {
             if (isYRange) {
@@ -335,7 +335,7 @@ const TooltipMixin = {
 
     if (Util.isArray(value)) {
       const tmp = [];
-      Util.each(value, function(sub) {
+      Util.each(value, sub => {
         tmp.push(valueScale.getText(sub));
       });
       value = tmp.join('-');
@@ -355,7 +355,7 @@ const TooltipMixin = {
     let nameScale;
     const groupScales = this._getGroupScales();
     if (groupScales.length) { // 如果存在分组类型，取第一个分组类型
-      Util.each(groupScales, function(scale) {
+      Util.each(groupScales, scale => {
         nameScale = scale;
         return false;
       });
@@ -422,7 +422,7 @@ const TooltipMixin = {
         itemCfg.size = self._getIntervalSize(point);
         items.push(itemCfg);
       } else {
-        Util.each(fields, function(field) {
+        Util.each(fields, field => {
           if (!Util.isNil(origin[field])) { // 字段数据为null ,undefined时不显示
             const scale = self._getScale(field);
             name = getScaleName(scale);

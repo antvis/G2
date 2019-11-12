@@ -43,7 +43,7 @@ function isPointInCoord(coord, point) {
 }
 
 const ViewGeoms = {};
-Util.each(Geom, function(geomConstructor, className) {
+Util.each(Geom, (geomConstructor, className) => {
   const methodName = Util.lowerFirst(className);
   ViewGeoms[methodName] = function(cfg) {
     const geom = new geomConstructor(cfg);
@@ -85,9 +85,9 @@ class View extends Base {
     super(cfg);
     const self = this;
     self._setTheme();
-    Util.each(Geom, function(GeomConstructor, className) {
+    Util.each(Geom, (GeomConstructor, className) => {
       const methodName = Util.lowerFirst(className);
-      self[methodName] = function(cfg = {}) {
+      self[methodName] = (cfg = {}) => {
         cfg.viewTheme = self.get('viewTheme');
         const geom = new GeomConstructor(cfg);
         self.addGeom(geom);
@@ -146,7 +146,7 @@ class View extends Base {
     }
 
     if (options.geoms && options.geoms.length) {
-      Util.each(options.geoms, function(geomOption) {
+      Util.each(options.geoms, geomOption => {
         self._createGeom(geomOption);
       });
     }
@@ -166,7 +166,7 @@ class View extends Base {
     let geom;
     if (this[type]) {
       geom = this[type]();
-      Util.each(cfg, function(v, k) {
+      Util.each(cfg, (v, k) => {
         if (geom[k]) {
 
           if (Util.isObject(v) && v.field) { // 配置项传入
@@ -443,7 +443,7 @@ class View extends Base {
     const inFullCircle = coord.isPolar && isFullCircle(coord);
     const scaleController = self.get('scaleController');
     const colDefs = scaleController.defs;
-    Util.each(scales, function(scale) {
+    Util.each(scales, scale => {
       if ((scale.isCategory || scale.isIdentity) && scale.values && !(colDefs[scale.field] && colDefs[scale.field].range)) {
         const count = scale.values.length;
         let range;
@@ -545,7 +545,7 @@ class View extends Base {
     Util.each(geoms, geom => {
       const dataArray = geom.get('dataArray');
       let record;
-      Util.each(dataArray, function(data) {
+      Util.each(dataArray, data => {
         record = geom.findPoint(point, data);
         record && rst.push(record);
       });
@@ -590,7 +590,7 @@ class View extends Base {
       const legendFields = this._getFieldsForLegend();
       // 过滤导致数据为空时，需要使用全局数据
       // 参与过滤的字段的度量也根据全局数据来生成
-      if (filteredData.length && legendFields.indexOf(field) === -1) {
+      if (filteredData.length && !legendFields.includes(field)) {
         data = filteredData;
       } else {
         data = this.get('data');
@@ -709,9 +709,9 @@ class View extends Base {
     const self = this;
     const filters = self._getFilters();
     if (filters) {
-      data = data.filter(function(obj) {
+      data = data.filter(obj => {
         let rst = true;
-        Util.each(filters, function(fn, k) {
+        Util.each(filters, (fn, k) => {
           if (fn) {
             rst = fn(obj[k], obj);
             if (!rst) {
@@ -815,18 +815,16 @@ class View extends Base {
     const self = this;
     const views = self.get('views');
     const canvas = self.get('canvas');
-    Util.each(views, function(view) {
+    Util.each(views, view => {
       view.eachShape(fn);
     });
     const geoms = this.get('geoms');
-    Util.each(geoms, function(geom) {
+    Util.each(geoms, geom => {
       const shapes = geom.getShapes();
       Util.each(shapes, shape => {
         const origin = shape.get('origin');
         if (Util.isArray(origin)) {
-          const arr = origin.map(function(subOrigin) {
-            return subOrigin[FIELD_ORIGIN];
-          });
+          const arr = origin.map(subOrigin => subOrigin[FIELD_ORIGIN]);
           fn(arr, shape, geom, self);
         } else {
           const obj = origin[FIELD_ORIGIN];
@@ -844,7 +842,7 @@ class View extends Base {
    * @return {View} 当前视图
    */
   filterShape(fn) {
-    const callback = function(record, shape, geom, view) {
+    const callback = (record, shape, geom, view) => {
       if (!fn(record, shape, geom, view)) {
         shape.hide();
       } else {
@@ -952,7 +950,7 @@ class View extends Base {
   beforeRender() {
     const views = this.get('views');
     // 如果存在 views 则初始化子 view 的方法
-    Util.each(views, function(view) {
+    Util.each(views, view => {
       view.beforeRender();
     });
     this.initView();
@@ -962,7 +960,7 @@ class View extends Base {
   drawComponents() {
     const views = this.get('views');
     // 如果存在 views 则初始化子 view 的方法
-    Util.each(views, function(view) {
+    Util.each(views, view => {
       view.drawComponents();
     });
     this._renderAxes();
@@ -979,7 +977,7 @@ class View extends Base {
       const animate = this.get('animate');
       if (animate) {
         const isUpdate = this.get('isUpdate');
-        Util.each(views, function(view) {
+        Util.each(views, view => {
           Animate.execAnimation(view, isUpdate);
         });
         Animate.execAnimation(this, isUpdate);
@@ -1018,7 +1016,7 @@ class View extends Base {
   paint() {
     const views = this.get('views');
     // 绘制
-    Util.each(views, function(view) {
+    Util.each(views, view => {
       view.paint();
     });
     const data = this.get('data');
@@ -1033,7 +1031,7 @@ class View extends Base {
 
   changeVisible(visible, stopDraw) {
     const geoms = this.get('geoms');
-    Util.each(geoms, function(geom) {
+    Util.each(geoms, geom => {
       // if (geom.get('visible')) { // geom 隐藏时不受
       geom.changeVisible(visible, true);
       // }

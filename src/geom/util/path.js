@@ -28,7 +28,7 @@ function points2path(points, isInCircle) {
 
 function getPointRadius(coord, point) {
   const center = coord.getCenter();
-  const r = Math.sqrt(Math.pow(point.x - center.x, 2) + Math.pow(point.y - center.y, 2));
+  const r = Math.sqrt((point.x - center.x) ** 2 + (point.y - center.y) ** 2);
   return r;
 }
 
@@ -87,7 +87,7 @@ function convertPolarPath(pre, cur, coord) {
 
 // 当存在整体的圆时，去除圆前面和后面的线，防止出现直线穿过整个圆的情形
 function filterFullCirleLine(path) {
-  Util.each(path, function(subPath, index) {
+  Util.each(path, (subPath, index) => {
     const cur = subPath;
     if (cur[0].toLowerCase() === 'a') {
       const pre = path[index - 1];
@@ -118,7 +118,7 @@ const PathUtil = {
     if (points.length <= 2) {
       return PathUtil.getLinePath(points, isInCircle);
     }
-    Util.each(points, function(point) {
+    Util.each(points, point => {
       if (!prePoint || !(prePoint.x === point.x && prePoint.y === point.y)) {
         data.push(point.x);
         data.push(point.y);
@@ -144,7 +144,7 @@ const PathUtil = {
   },
   convertNormalPath(coord, path) {
     const tmp = [];
-    Util.each(path, function(subPath) {
+    Util.each(path, subPath => {
       const action = subPath[0];
       switch (action.toLowerCase()) {
         case 'm':
@@ -166,7 +166,7 @@ const PathUtil = {
     let cur;
     let transposed;
     let equals;
-    Util.each(path, function(subPath, index) {
+    Util.each(path, (subPath, index) => {
       const action = subPath[0];
 
       switch (action.toLowerCase()) {

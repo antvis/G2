@@ -71,7 +71,7 @@ class Drag extends Interaction {
       }
     });
 
-    if (DRAGGING_TYPES.indexOf(me.type) === -1) {
+    if (!DRAGGING_TYPES.includes(me.type)) {
       me.type = DEFAULT_TYPE;
     }
 

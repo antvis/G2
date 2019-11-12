@@ -1,4 +1,4 @@
-(function () {
+(() => {
   // filtering
   const $query = $('#query');
   function filter() {
@@ -9,7 +9,7 @@
       $('.demo-thumbnail').each(function () {
         const $thumbnail = $(this);
         const basename = $thumbnail.data('basename');
-        if (basename.indexOf(str) === -1) {
+        if (!basename.includes(str)) {
           $thumbnail.hide();
         } else {
           $thumbnail.show();

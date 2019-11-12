@@ -7,19 +7,19 @@ const PolarLabels = require('../../../../src/geom/label/polar-labels');
 const PieLabels = require('../../../../src/geom/label/pie-labels');
 const Coord = require('@antv/coord/lib/');
 
-describe('geom labels', function() {
-  describe('labels constructor', function() {
-    it('test default', function() {
+describe('geom labels', () => {
+  describe('labels constructor', () => {
+    it('test default', () => {
       expect(Labels.getLabelsClass()).to.equal(GeomLabels);
       expect(Labels.getLabelsClass('rect')).to.equal(GeomLabels);
       expect(Labels.getLabelsClass('rect', 'line')).to.equal(GeomLabels);
     });
 
-    it('test polar', function() {
+    it('test polar', () => {
       expect(Labels.getLabelsClass('polar')).to.equal(PolarLabels);
     });
 
-    it('test pie', function() {
+    it('test pie', () => {
       expect(Labels.getLabelsClass('theta')).to.equal(PieLabels);
     });
   });
@@ -63,7 +63,7 @@ describe('geom labels', function() {
     { x: 100, y: [ 30, 40 ], z: [ '3', '4' ], _origin: { x: 100, y: [ 30, 40 ], z: [ '3', '4' ] } }
   ];
 
-  describe('one point one label', function() {
+  describe('one point one label', () => {
     const gLabels = canvas.addGroup(GeomLabels, {
       coord,
       labelCfg: {
@@ -75,32 +75,32 @@ describe('geom labels', function() {
       geomType: 'point'
     });
 
-    it('get default label cfg', function() {
+    it('get default label cfg', () => {
       const cfg = gLabels.get('label');
       expect(cfg.offset).to.equal(10);
       expect(cfg.textStyle).not.to.equal(undefined);
     });
 
-    it('get label items', function() {
+    it('get label items', () => {
       const items = gLabels.getLabelsItems(points);
       const first = items[0];
       expect(first.x).to.equal(points[0].x);
       expect(first.y).to.equal(points[0].y - 10);
     });
 
-    it('show labels', function() {
+    it('show labels', () => {
       gLabels.showLabels(points);
       expect(gLabels.get('labelsGroup').get('children').length).to.equal(points.length);
       canvas.draw();
     });
-    it('destroy', function() {
+    it('destroy', () => {
       gLabels.remove();
       expect(gLabels.get('destroyed')).to.equal(true);
       expect(canvas.get('children').length).to.equal(0);
     });
   });
-  describe('one point one label with offsetX & offsetY', function() {
-    it('absolute offsetX & offsetY', function() {
+  describe('one point one label with offsetX & offsetY', () => {
+    it('absolute offsetX & offsetY', () => {
       const gLabels = canvas.addGroup(GeomLabels, {
         coord,
         labelCfg: {
@@ -124,8 +124,8 @@ describe('geom labels', function() {
     });
   });
 
-  describe('one point two labels', function() {
-    it('get label items', function() {
+  describe('one point two labels', () => {
+    it('get label items', () => {
       const gLabels = canvas.addGroup(GeomLabels, {
         coord,
         labelCfg: {
@@ -150,9 +150,9 @@ describe('geom labels', function() {
     });
   });
 
-  describe('one point inner label', function() {
+  describe('one point inner label', () => {
     let gLabels;
-    it('init', function() {
+    it('init', () => {
       gLabels = canvas.addGroup(GeomLabels, {
         coord,
         labelCfg: {
@@ -167,7 +167,7 @@ describe('geom labels', function() {
       expect(cfg.offset).to.equal(-10);
       expect(cfg.textStyle.fill).to.equal('#fff');
     });
-    it('get labels', function() {
+    it('get labels', () => {
       const items = gLabels.getLabelsItems(points);
       expect(items.length).to.equal(points.length);
       const first = items[0];
@@ -176,9 +176,9 @@ describe('geom labels', function() {
     });/**/
   });
 
-  describe('two point inner label', function() {
+  describe('two point inner label', () => {
     let gLabels;
-    it('init', function() {
+    it('init', () => {
       gLabels = canvas.addGroup(GeomLabels, {
         coord,
         labelCfg: {
@@ -199,7 +199,7 @@ describe('geom labels', function() {
       expect(cfg.textStyle.fill).to.equal('#fff');
     });
 
-    it('get labels', function() {
+    it('get labels', () => {
       const items = gLabels.getLabelsItems(points1);
       expect(items.length).to.equal(points1.length * 2);
       const first = items[0];
@@ -216,7 +216,7 @@ describe('geom labels', function() {
   });
 
 
-  describe('stack points', function() {
+  describe('stack points', () => {
     const scale = Scale.cat({
       field: 'text',
       values: [ 'a', 'b' ]
@@ -227,7 +227,7 @@ describe('geom labels', function() {
     ];
 
     let gLabels;
-    it('init', function() {
+    it('init', () => {
       gLabels = canvas.addGroup(GeomLabels, {
         coord,
         labelCfg: {
@@ -246,7 +246,7 @@ describe('geom labels', function() {
       expect(cfg.offset).to.equal(10);
     });
 
-    it('get labels', function() {
+    it('get labels', () => {
       const items = gLabels.getLabelsItems(points);
       expect(items.length).to.equal(points.length);
 
@@ -263,7 +263,7 @@ describe('geom labels', function() {
     });
   });
 
-  describe('transposed label', function() {
+  describe('transposed label', () => {
     const coord = new Coord.Cartesian({
       start: {
         x: 0,
@@ -277,7 +277,7 @@ describe('geom labels', function() {
     coord.transpose();
 
 
-    it('offset > 0', function() {
+    it('offset > 0', () => {
       const gLabels = canvas.addGroup(GeomLabels, {
         coord,
         labelCfg: {
@@ -294,7 +294,7 @@ describe('geom labels', function() {
       expect(first.y).to.equal(points[0].y);
     });
 
-    it('offset = 0', function() {
+    it('offset = 0', () => {
       const gLabels = canvas.addGroup(GeomLabels, {
         coord,
         labelCfg: {
@@ -311,7 +311,7 @@ describe('geom labels', function() {
       expect(first.y).to.equal(points[0].y);
     });
 
-    it('offset < 0', function() {
+    it('offset < 0', () => {
       const gLabels = canvas.addGroup(GeomLabels, {
         coord,
         labelCfg: {
@@ -328,7 +328,7 @@ describe('geom labels', function() {
       expect(first.y).to.equal(points[0].y);
     });
 
-    it('multiple labels', function() {
+    it('multiple labels', () => {
       const points = [{
         x: [ 90, 100 ],
         y: [ 20, 20 ],
@@ -371,7 +371,7 @@ describe('geom labels', function() {
       expect(second.y).to.equal(points[0].y[0]);
     });
 
-    it('multiple labels inner', function() {
+    it('multiple labels inner', () => {
 
       const points = [{
         x: [ 90, 100 ],
@@ -415,7 +415,7 @@ describe('geom labels', function() {
 
     });
 
-    it('clear', function() {
+    it('clear', () => {
       div.parentNode.removeChild(div);
     });
   });

@@ -17,9 +17,7 @@ module.exports = (data, scale) => {
     Util.each(values, (v, i) => {
       values[i] = TimeUtil.toTimeStamp(v);
     });
-    values.sort(function(v1, v2) {
-      return v1 - v2;
-    });
+    values.sort((v1, v2) => v1 - v2);
     result = values;
   } else {
     result = values;

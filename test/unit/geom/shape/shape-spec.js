@@ -18,7 +18,7 @@ describe('shape register', () => {
     expect(factory).equal(undefined);
   });
 
-  it('register factory && register shape', function() {
+  it('register factory && register shape', () => {
     let called = false;
     Shape.registerFactory('test', {
       defaultShapeType: 'test',
@@ -44,7 +44,7 @@ describe('shape register', () => {
     expect(called).equal(true);
   });
 
-  it('parse point', function() {
+  it('parse point', () => {
 
     const testFactory = Shape.getShapeFactory('test');
     testFactory.setCoord(coord);
@@ -54,7 +54,7 @@ describe('shape register', () => {
     expect(shape.parsePoint({ x: 1, y: 1 })).eqls({ x: 200, y: 200 });
   });
 
-  it('parse points', function() {
+  it('parse points', () => {
     const testFactory = Shape.getShapeFactory('test');
     testFactory.setCoord(coord);
     const shape = testFactory.getShape('test');
@@ -62,7 +62,7 @@ describe('shape register', () => {
     expect(shape.parsePoints(points)).eqls([{ x: 0, y: 0 }, { x: 100, y: 100 }, { x: 200, y: 200 }]);
   });
 
-  it('parse path in rect', function() {
+  it('parse path in rect', () => {
     const testFactory = Shape.getShapeFactory('test');
     testFactory.setCoord(coord);
     const shape = testFactory.getShape('test');
@@ -71,7 +71,7 @@ describe('shape register', () => {
 
   });
 
-  it('parse path in circle', function() {
+  it('parse path in circle', () => {
     const newCoord = new Coord.Polar({
       start: {
         x: 0,
@@ -98,7 +98,7 @@ describe('shape register', () => {
     expect(toPath[2]).eqls([ 'A', 100, 100, 0, 0, 1, 100, 200 ]);
   });
 
-  it('compatibility 2.x', function() {
+  it('compatibility 2.x', () => {
     let called = false;
     Shape.registerFactory('test1', {
       defaultShapeType: 'test1'

@@ -148,11 +148,11 @@
   });
   CodeMirror.findMatchingTag = function(cm, pos, range) {
     var iter = new Iter(cm, pos.line, pos.ch, range);
-    if (iter.text.indexOf(">") == -1 && iter.text.indexOf("<") == -1) return;
+    if (!iter.text.includes(">") && !iter.text.includes("<")) return;
     var end = toTagEnd(iter), to = end && Pos(iter.line, iter.ch);
     var start = end && toTagStart(iter);
     if (!end || !start || cmp(iter, pos) > 0) return;
-    var here = {from: Pos(iter.line, iter.ch), to: to, tag: start[2]};
+    var here = {from: Pos(iter.line, iter.ch), to, tag: start[2]};
     if (end == "selfClose") return {open: here, close: null, at: "open"};
 
     if (start[1]) { // closing tag
@@ -170,7 +170,7 @@
       if (!open) break;
       var forward = new Iter(cm, pos.line, pos.ch, range);
       var close = findMatchingClose(forward, open.tag);
-      if (close) return {open: open, close: close};
+      if (close) return {open, close};
     }
   };
 

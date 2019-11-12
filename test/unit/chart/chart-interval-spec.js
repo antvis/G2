@@ -6,7 +6,7 @@ const div = document.createElement('div');
 div.id = 'ccharti';
 document.body.appendChild(div);
 
-describe('interval chart', function() {
+describe('interval chart', () => {
   const data = [
     { genre: 'Sports', sold: 475, type: '1' },
     { genre: 'Strategy', sold: 115, type: '1' },
@@ -27,7 +27,7 @@ describe('interval chart', function() {
     allowAllCanceled: true
   });
 
-  it('init', function() {
+  it('init', () => {
     chart.interval().position('genre*sold').color('genre');
     chart.source(data);
     chart.render();
@@ -37,7 +37,7 @@ describe('interval chart', function() {
     expect(first.attr('path')[0]).eqls([ 'M', 97, 240 ]);
   });
 
-  it('transpose', function() {
+  it('transpose', () => {
     chart.coord().transpose();
     chart.repaint();
     const group = chart.get('viewContainer').getFirst();
@@ -46,7 +46,7 @@ describe('interval chart', function() {
     expect(first.attr('path')[0]).eqls([ 'M', 80, 229 ]);
   });
 
-  it('polar', function() {
+  it('polar', () => {
 
     chart.coord('polar');
     chart.repaint();
@@ -56,7 +56,7 @@ describe('interval chart', function() {
     expect(first.attr('path')[0]).eqls([ 'M', 250, 130 ]);
   });
 
-  it('polar transpose', function() {
+  it('polar transpose', () => {
     chart.coord('polar').transpose();
     chart.repaint();
     const group = chart.get('viewContainer').getFirst();
@@ -65,7 +65,7 @@ describe('interval chart', function() {
     expect(first.attr('path')[0]).eqls([ 'M', 250, 130 ]);
   });
 
-  it('stack', function() {
+  it('stack', () => {
     const newData = [
       { genre: 'Sports', sold: 475, type: '1' },
       { genre: 'Strategy', sold: 115, type: '1' },
@@ -95,7 +95,7 @@ describe('interval chart', function() {
     expect(nextPath[1][2]).eqls(firstPath[0][2]);
   });
 
-  it('dodge', function() {
+  it('dodge', () => {
     chart.clear();
     chart.interval().position('genre*sold')
       .adjust('dodge')
@@ -107,7 +107,7 @@ describe('interval chart', function() {
     expect(first.attr('path')[0]).eqls([ 'M', 92.75, 240 ]);
   });
 
-  it('symmetric', function() {
+  it('symmetric', () => {
     chart.clear();
     chart.source(data, {
       sold: {
@@ -128,7 +128,7 @@ describe('interval chart', function() {
     expect(first.get('origin').y[0] - second.get('origin').y[0]).equal(second.get('origin').y[1] - first.get('origin').y[1]);
   });
 
-  it('funnel', function() {
+  it('funnel', () => {
     chart.clear();
     chart.source(data, {
       sold: {
@@ -147,7 +147,7 @@ describe('interval chart', function() {
     expect(first.get('origin').y[0] - second.get('origin').y[0]).equal(second.get('origin').y[1] - first.get('origin').y[1]);
   });
 
-  it('pyramid', function() {
+  it('pyramid', () => {
     chart.clear();
     chart.source(data, {
       sold: {
@@ -165,7 +165,7 @@ describe('interval chart', function() {
     expect(first.get('origin').y[0] - second.get('origin').y[0]).equal(second.get('origin').y[1] - first.get('origin').y[1]);
   });
 
-  it('pie', function() {
+  it('pie', () => {
     chart.clear();
     chart.coord('theta');
     chart.source(data, {
@@ -185,7 +185,7 @@ describe('interval chart', function() {
     expect(Util.snapEqual(first.attr('path')[0][2], 130)).equal(true);
   });
 
-  it('ring', function() {
+  it('ring', () => {
     chart.clear();
     chart.coord('theta', { innerRadius: 0.5 });
     chart.source(data, {
@@ -205,16 +205,14 @@ describe('interval chart', function() {
     expect(Util.snapEqual(first.attr('path')[0][2], 75)).equal(true);
   });
 
-  it('stack and dodge', function() {
+  it('stack and dodge', () => {
 
   });
 
-  it('filter', function() {
+  it('filter', () => {
     chart.clear();
     chart.coord();
-    chart.filter('sold', function(sold) {
-      return sold > 200;
-    });
+    chart.filter('sold', sold => sold > 200);
     chart.interval().position('genre*sold').color('genre');
     chart.source(data);
     chart.render();
@@ -222,7 +220,7 @@ describe('interval chart', function() {
     expect(group.getCount()).equal(2);
   });
 
-  it('filter pie', function() {
+  it('filter pie', () => {
     chart.clear();
     chart.coord('theta');
     chart.filter('genre', genre => {
@@ -239,14 +237,14 @@ describe('interval chart', function() {
     expect(scale.max).equal(350);
   });
 
-  it('destroy', function() {
+  it('destroy', () => {
     chart.destroy();
     expect(chart.destroyed).equal(true);
   });
 
 });
 
-describe('interval chart with time', function() {
+describe('interval chart with time', () => {
   const data = [
     { date: '2014-08-01', value: 10 },
     { date: '2014-08-02', value: 100 }
@@ -261,13 +259,13 @@ describe('interval chart with time', function() {
 
   chart.source(data);
 
-  it('test width', function() {
+  it('test width', () => {
     const interval = chart.interval().position('date*value');
     chart.render();
     const width = interval.getSize();
     expect(width).equal(85);
   });
-  it('test time cat', function() {
+  it('test time cat', () => {
     chart.clear();
     chart.source(data, {
       date: {
@@ -279,13 +277,13 @@ describe('interval chart with time', function() {
     const width = interval.getSize();
     expect(width).equal(85);
   });
-  it('destroy', function() {
+  it('destroy', () => {
     chart.destroy();
     expect(chart.destroyed).equal(true);
   });
 });
 
-describe('interval hasDefaultAdjust', function() {
+describe('interval hasDefaultAdjust', () => {
   const data = [
     { genre: 'Sports', sold: 475, type: '1' },
     { genre: 'Strategy', sold: 115, type: '1' },
@@ -307,7 +305,7 @@ describe('interval hasDefaultAdjust', function() {
     padding: [ 20, 80, 60, 80 ]
   });
   chart.source(data);
-  it('stack', function() {
+  it('stack', () => {
     const geom = chart.intervalStack().position('genre*sold').color('type');
     chart.render();
     expect(geom.get('hasDefaultAdjust')).equal(true);
@@ -321,7 +319,7 @@ describe('interval hasDefaultAdjust', function() {
     expect(nextPath[1][2]).eqls(firstPath[0][2]);
   });
 
-  it('dodge', function() {
+  it('dodge', () => {
     chart.clear();
     const geom = chart.intervalDodge().position('genre*sold').color('type');
     chart.render();
@@ -334,7 +332,7 @@ describe('interval hasDefaultAdjust', function() {
     expect(first.attr('path')[0]).eqls([ 'M', 92.75, 240 ]);
   });
 
-  it('symmetric', function() {
+  it('symmetric', () => {
     const data = [
       { genre: 'Sports', sold: 475, type: '1' },
       { genre: 'Strategy', sold: 115, type: '1' },
@@ -362,7 +360,7 @@ describe('interval hasDefaultAdjust', function() {
     expect(first.get('origin').y[0] - second.get('origin').y[0]).not.eqls(0);
     expect(first.get('origin').y[0] - second.get('origin').y[0]).equal(second.get('origin').y[1] - first.get('origin').y[1]);
   });
-  it('destroy', function() {
+  it('destroy', () => {
     chart.destroy();
     expect(chart.destroyed).equal(true);
   });

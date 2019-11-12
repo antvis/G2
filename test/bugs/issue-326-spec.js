@@ -41,14 +41,14 @@ describe('#326', () => {
       num = 1;
     });
 
-    chart.on('interval:mouseenter', function(ev) {
+    chart.on('interval:mouseenter', ev => {
       num = 2;
       const shape = ev.shape;
       shape.set('originColor', shape.attr('fill')); // 记录颜色
       shape.attr('fill', 'red');
     });
 
-    chart.on('interval:mouseleave', function(ev) {
+    chart.on('interval:mouseleave', ev => {
       const shape = ev.shape;
       shape.attr('fill', shape.get('originColor'));
       shape.set('originColor', null);

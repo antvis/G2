@@ -6,7 +6,7 @@ const div = document.createElement('div');
 div.id = 'geom-violin';
 document.body.appendChild(div);
 
-describe('chart.violin', function() {
+describe('chart.violin', () => {
   const data = require('../../../demos/data/iris-flower.json');
   let dv;
   const fields = [ 'PetalWidth', 'PetalLength', 'SepalWidth', 'SepalLength' ];

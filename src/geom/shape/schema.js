@@ -29,7 +29,7 @@ function _parseValue(value) {
 }
 
 function addPoints(from, to) {
-  Util.each(from, function(subArr) {
+  Util.each(from, subArr => {
     to.push({
       x: subArr[0],
       y: subArr[1]
@@ -105,9 +105,7 @@ function _sortValue(value) {
     value = [ value ];
   }
   // 从大到小排序
-  const sorted = value.sort(function(a, b) {
-    return a < b ? 1 : -1;
-  });
+  const sorted = value.sort((a, b) => (a < b ? 1 : -1));
 
   const length = sorted.length;
   if (length < 4) {

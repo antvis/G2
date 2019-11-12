@@ -25,7 +25,7 @@
       }
       return false;
     }
-    return arr.indexOf(item) != -1;
+    return arr.includes(item);
   }
 
   function scriptHint(editor, keywords, getToken, options) {

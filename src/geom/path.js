@@ -37,7 +37,7 @@ class Path extends GeomBase {
     const cfg = this.getDrawCfg(data[0]);
     self._applyViewThemeShapeStyle(cfg, cfg.shape, shapeFactory);
     cfg.origin = data; // path,line 等图的origin 是整个序列
-    Util.each(splitArray, function(subData, splitedIndex) {
+    Util.each(splitArray, (subData, splitedIndex) => {
       if (!Util.isEmpty(subData)) {
         cfg.splitedIndex = splitedIndex; // 传入分割片段索引 用于生成id
         cfg.points = subData;

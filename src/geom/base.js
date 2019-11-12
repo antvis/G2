@@ -23,7 +23,7 @@ function parseAdjusts(adjusts) {
   if (Util.isString(adjusts) || Util.isPlainObject(adjusts)) {
     adjusts = [ adjusts ];
   }
-  Util.each(adjusts, function(adjust, index) {
+  Util.each(adjusts, (adjust, index) => {
     if (!Util.isObject(adjust)) {
       adjusts[index] = { type: adjust };
     }
@@ -411,7 +411,7 @@ class GeomBase extends Base {
       return false;
     }
     let rst = false;
-    Util.each(adjusts, function(adjust) {
+    Util.each(adjusts, adjust => {
       if (adjust.type === adjustType) {
         rst = true;
         return false;
@@ -536,8 +536,8 @@ class GeomBase extends Base {
     for (let i = 0; i < groupedArray.length; i++) {
       const subData = groupedArray[i];
       const tempData = self._saveOrigin(subData);
-      self._numberic(tempData);
-      dataArray.push(tempData);
+
+      dataArray.push(self._numberic(tempData));
     }
     return dataArray;
   }
@@ -545,9 +545,7 @@ class GeomBase extends Base {
   // step 2.1 数据分组
   _groupData(data) {
     const groupScales = this._getGroupScales();
-    const fields = groupScales.map(function(scale) {
-      return scale.field;
-    });
+    const fields = groupScales.map(scale => scale.field);
 
     return Util.Array.group(data, fields);
   }
@@ -572,16 +570,31 @@ class GeomBase extends Base {
   _numberic(data) {
     const positionAttr = this.getAttr('position');
     const scales = positionAttr.scales;
+    const result = [];
+
     for (let j = 0; j < data.length; j++) {
       const obj = data[j];
+      let isValidate = true;
+
       for (let i = 0; i < Math.min(2, scales.length); i++) {
         const scale = scales[i];
         if (scale.isCategory) {
           const field = scale.field;
           obj[field] = scale.translate(obj[field]);
+
+          if (Number.isNaN(obj[field])) {
+            // 当分类为 NaN 时，说明该条数据不在定义域内，需要过滤掉
+            isValidate = false;
+          }
         }
       }
+
+      if (isValidate) {
+        result.push(obj);
+      }
     }
+
+    return result;
   }
 
   _getGroupScales() {
@@ -590,10 +603,10 @@ class GeomBase extends Base {
     if (!scales) {
       scales = [];
       const attrs = self.get('attrs');
-      Util.each(attrs, function(attr) {
-        if (GROUP_ATTRS.indexOf(attr.type) !== -1) {
+      Util.each(attrs, attr => {
+        if (GROUP_ATTRS.includes(attr.type)) {
           const attrScales = attr.scales;
-          Util.each(attrScales, function(scale) {
+          Util.each(attrScales, scale => {
             if (scale.isCategory && Util.indexOf(scales, scale) === -1) {
               scales.push(scale);
             }
@@ -611,6 +624,11 @@ class GeomBase extends Base {
     let max = scale.max;
     for (let i = 0; i < mergeArray.length; i++) {
       const obj = mergeArray[i];
+
+      // 过滤掉非法数据
+      if (!Util.isArray(obj[field])) {
+        continue;
+      }
       const tmpMin = Math.min.apply(null, obj[field]);
       const tmpMax = Math.max.apply(null, obj[field]);
       if (tmpMin < min) {
@@ -630,6 +648,8 @@ class GeomBase extends Base {
 
   // step 2.2 调整数据
   _adjust(dataArray) {
+    // 当数据为空的时候，就不需要对数据进行调整了
+    if (!dataArray || !dataArray.length) { return; }
     const self = this;
     const adjusts = self.get('adjusts');
     const viewTheme = this.viewTheme || Global;
@@ -638,7 +658,7 @@ class GeomBase extends Base {
     const xScale = self.getXScale();
     const xField = xScale.field;
     const yField = yScale ? yScale.field : null;
-    Util.each(adjusts, function(adjust) {
+    Util.each(adjusts, adjust => {
       const adjustCfg = Util.mix({
         xField,
         yField
@@ -741,17 +761,15 @@ class GeomBase extends Base {
     if (self.get('sortable')) {
       const xScale = self.getXScale();
       const field = xScale.field;
-      Util.each(dataArray, function(data) {
-        data.sort(function(v1, v2) {
-          return xScale.translate(v1[field]) - xScale.translate(v2[field]);
-        });
+      Util.each(dataArray, data => {
+        data.sort((v1, v2) => xScale.translate(v1[field]) - xScale.translate(v2[field]));
       });
     }
     if (self.get('generatePoints')) {
-      Util.each(dataArray, function(data) {
+      Util.each(dataArray, data => {
         self._generatePoints(data);
       });
-      Util.each(dataArray, function(data, index) {
+      Util.each(dataArray, (data, index) => {
         const nextData = dataArray[index + 1];
         if (nextData) {
           data[0].nextPoints = nextData[0].points;
@@ -777,6 +795,7 @@ class GeomBase extends Base {
       coord,
       geom: self,
       geomType: type,
+      yScale: self.getYScale(),
       viewTheme,
       visible: self.get('visible')
     });
@@ -966,10 +985,8 @@ class GeomBase extends Base {
       return cfg;
     }
     const tmpCfg = {};
-    const params = fields.map(function(field) {
-      return origin[field];
-    });
-    Util.each(cfg, function(v, k) {
+    const params = fields.map(field => origin[field]);
+    Util.each(cfg, (v, k) => {
       if (Util.isFunction(v)) {
         tmpCfg[k] = v.apply(null, params);
       } else {
@@ -1128,7 +1145,7 @@ class GeomBase extends Base {
     const attrs = this.get('attrs');
     const rst = [];
     Util.each(attrs, attr => {
-      if (GROUP_ATTRS.indexOf(attr.type) !== -1) {
+      if (GROUP_ATTRS.includes(attr.type)) {
         rst.push(attr);
       }
     });

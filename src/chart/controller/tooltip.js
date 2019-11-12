@@ -19,10 +19,10 @@ const IGNORE_TOOLTIP_ITEM_PROPERTIES = [
 
 function _indexOfArray(items, item) {
   let rst = -1;
-  Util.each(items, function(sub, index) {
+  Util.each(items, (sub, index) => {
     let isEqual = true;
     for (const key in item) {
-      if (item.hasOwnProperty(key) && IGNORE_TOOLTIP_ITEM_PROPERTIES.indexOf(key) === -1) {
+      if (item.hasOwnProperty(key) && !IGNORE_TOOLTIP_ITEM_PROPERTIES.includes(key)) {
         if (!Util.isObject(item[key]) && item[key] !== sub[key]) {
           isEqual = false;
           break;
@@ -49,7 +49,7 @@ function _hasClass(dom, className) {
   } else {
     cls = dom.className;
   }
-  return cls.indexOf(className) !== -1;
+  return cls.includes(className);
 }
 
 function _isParent(dom, cls) {
@@ -68,7 +68,7 @@ function _isParent(dom, cls) {
 // 去除重复的值, 去除不同图形相同数据，只展示一份即可
 function _uniqItems(items) {
   const tmp = [];
-  Util.each(items, function(item) {
+  Util.each(items, item => {
     const index = _indexOfArray(tmp, item);
     if (index === -1) {
       tmp.push(item);
@@ -83,6 +83,8 @@ class TooltipController {
   constructor(cfg) {
     Util.assign(this, cfg);
     this.timeStamp = 0;
+    // tooltip 锁定不能移动
+    this.locked = false;
   }
 
   _normalizeEvent(event) {
@@ -123,11 +125,9 @@ class TooltipController {
     const viewTheme = self.viewTheme;
     const options = self.options;
     const defaultCfg = Util.mix({}, viewTheme.tooltip);
-    const geoms = chart.getAllGeoms().filter(function(geom) {
-      return geom.get('visible');
-    });
+    const geoms = chart.getAllGeoms().filter(geom => geom.get('visible'));
     const shapes = [];
-    Util.each(geoms, function(geom) {
+    Util.each(geoms, geom => {
       const type = geom.get('type');
       const adjusts = geom.get('adjusts');
       let isSymmetric = false;
@@ -253,7 +253,8 @@ class TooltipController {
   }
 
   onMouseMove(ev) {
-    if (Util.isEmpty(ev.views)) {
+    // 锁定时不移动 tooltip
+    if (Util.isEmpty(ev.views) || this.locked) {
       return;
     }
     const lastTimeStamp = this.timeStamp;
@@ -270,8 +271,8 @@ class TooltipController {
 
   onMouseOut(ev) {
     const tooltip = this.tooltip;
-    // const canvas = this._getCanvas();
-    if (!tooltip.get('visible') || !tooltip.get('follow')) {
+    // 锁定 tooltip 时不隐藏
+    if (!tooltip.get('visible') || !tooltip.get('follow') || this.locked) {
       return;
     }
     // 除非离开 plot 时鼠标依然在图形上，这段逻辑没有意义
@@ -325,8 +326,8 @@ class TooltipController {
     self.tooltip = tooltip;
 
     const triggerEvent = self._getTriggerEvent();
+    const tooltipContainer = tooltip.get('container');
     if (!tooltip.get('enterable') && triggerEvent === 'plotmove') { // 鼠标不允许进入 tooltip 容器
-      const tooltipContainer = tooltip.get('container');
       if (tooltipContainer) {
         tooltipContainer.onmousemove = e => {
           // 避免 tooltip 频繁闪烁
@@ -335,6 +336,16 @@ class TooltipController {
         };
       }
     }
+
+    // 优化：鼠标移入 tooltipContainer 然后再移出时，需要隐藏 tooltip
+    if (tooltipContainer) {
+      tooltipContainer.onmouseleave = () => {
+        if (!self.locked) {
+          self.hideTooltip();
+        }
+      };
+    }
+
     self._bindEvent();
   }
 
@@ -365,6 +376,14 @@ class TooltipController {
     return null;
   }
 
+  lockTooltip() {
+    this.locked = true;
+  }
+
+  unlockTooltip() {
+    this.locked = false;
+  }
+
   showTooltip(point, views, target) {
     const self = this;
     if (Util.isEmpty(views) || !point) {
@@ -387,9 +406,18 @@ class TooltipController {
         if (geom.get('visible') && geom.get('tooltipCfg') !== false) {
           const dataArray = geom.get('dataArray');
           if (geom.isShareTooltip() || (options.shared === false && Util.inArray([ 'area', 'line', 'path', 'polygon' ], type))) {
-            Util.each(dataArray, function(obj) {
-              const tmpPoint = geom.findPoint(point, obj);
-              if (tmpPoint) {
+
+            // 打补丁解决 bug: https://github.com/antvis/g2/issues/1248
+            // 当 interval 对应的 color 和 x 字段相同的时候，并且包含 dodge，items 取值逻辑不一样
+            // 这种情况下，每一个 x 字段分成一组
+            const xScale = geom.getXScale();
+            const colorAttr = geom.getAttr('color');
+            const colorField = colorAttr ? colorAttr.field : undefined;
+            if (type === 'interval' && xScale.field === colorField && geom.hasAdjust('dodge')) {
+              // 找不到不为空的
+              const points = Util.find(dataArray, obj => !!geom.findPoint(point, obj));
+              // 转为 tooltip items
+              Util.each(points, tmpPoint => {
                 const subItems = geom.getTipItems(tmpPoint, options.title);
                 Util.each(subItems, v => {
                   const markerItem = self._formatMarkerOfItem(coord, geom, v);
@@ -399,8 +427,23 @@ class TooltipController {
                   }
                 });
                 items = items.concat(subItems);
-              }
-            });
+              });
+            } else {
+              Util.each(dataArray, obj => {
+                const tmpPoint = geom.findPoint(point, obj);
+                if (tmpPoint) {
+                  const subItems = geom.getTipItems(tmpPoint, options.title);
+                  Util.each(subItems, v => {
+                    const markerItem = self._formatMarkerOfItem(coord, geom, v);
+
+                    if (markerItem) {
+                      markersItems.push(markerItem);
+                    }
+                  });
+                  items = items.concat(subItems);
+                }
+              });
+            }
           } else {
             const geomContainer = geom.get('shapeContainer');
             const canvas = geomContainer.get('canvas');
@@ -483,19 +526,23 @@ class TooltipController {
 
   _getItemMarker(geom, item) {
     const options = this.options;
-    const markerOption = options.marker;
-    const shapeType = geom.get('shapeType') || 'point';
-    const shape = geom.getDefaultValue('shape') || 'circle';
-    const shapeObject = Shape.getShapeFactory(shapeType);
-    const cfg = { color: item.color };
-    const marker = shapeObject.getMarkerCfg(shape, cfg);
+    const markerOption = options.marker || this.viewTheme.tooltip.marker;
 
     if (Util.isFunction(markerOption)) {
+      const shapeType = geom.get('shapeType') || 'point';
+      const shape = geom.getDefaultValue('shape') || 'circle';
+      const shapeObject = Shape.getShapeFactory(shapeType);
+      const cfg = {
+        color: item.color
+      };
+      const marker = shapeObject.getMarkerCfg(shape, cfg);
       return markerOption(marker, item);
-    } else if (Util.isObject(markerOption)) {
-      return { ...marker, markerOption };
     }
-    return marker;
+
+    return {
+      fill: item.color,
+      ...markerOption
+    };
   }
 
 }

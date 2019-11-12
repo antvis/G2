@@ -29,14 +29,14 @@ const canvas = new Canvas({
 const Point = Shape.getShapeFactory('point');
 Point._coord = coord;
 
-describe('Point shapes', function() {
-  describe('default', function() {
-    it('default shape type', function() {
+describe('Point shapes', () => {
+  describe('default', () => {
+    it('default shape type', () => {
       expect(Point.defaultShapeType).to.be.equal('hollowCircle');
     });
   });
-  describe('circle', function() {
-    it('getShapePoints && drawShape', function() {
+  describe('circle', () => {
+    it('getShapePoints && drawShape', () => {
       const type = 'point';
       const point = Point.getShapePoints(type, {
         x: 0.4,
@@ -52,7 +52,7 @@ describe('Point shapes', function() {
       expect(shape.attr('stroke')).eql('red');
       expect(shape.attr('symbol')).eql('circle');
     });
-    it('getMarkerCfg', function() {
+    it('getMarkerCfg', () => {
       const point = {
         x: 100,
         y: 300,
@@ -111,7 +111,7 @@ describe('Point shapes', function() {
     // });
   });
 
-  describe('rect', function() {
+  describe('rect', () => {
     // xit('getShapePoints && drawShape', function() {
     //   const type = 'rect';
     //   const point = Point.getShapePoints(type, {
@@ -138,7 +138,7 @@ describe('Point shapes', function() {
     //   );
     // });
 
-    it('getMarkerCfg', function() {
+    it('getMarkerCfg', () => {
       const point = {
         x: 100,
         y: 300,
@@ -153,8 +153,8 @@ describe('Point shapes', function() {
       expect(markerCfg.symbol).eql('rect');
     });
   });
-  describe('diamond', function() {
-    it('getShapePoints && drawShape', function() {
+  describe('diamond', () => {
+    it('getShapePoints && drawShape', () => {
       const type = 'diamond';
       const point = Point.getShapePoints(type, {
         x: 0.4,
@@ -173,8 +173,8 @@ describe('Point shapes', function() {
       expect(shape.attr('symbol')).eql('diamond');
     });
   });
-  describe('hexagon', function() {
-    it('getShapePoints && drawShape', function() {
+  describe('hexagon', () => {
+    it('getShapePoints && drawShape', () => {
       const type = 'hexagon';
       const point = Point.getShapePoints(type, {
         x: 0.4,
@@ -193,8 +193,8 @@ describe('Point shapes', function() {
       expect(shape.attr('symbol')).eql('hexagon');
     });
   });
-  describe('bowtie', function() {
-    it('getShapePoints && drawShape', function() {
+  describe('bowtie', () => {
+    it('getShapePoints && drawShape', () => {
       const type = 'bowtie';
       const point = Point.getShapePoints(type, {
         x: 0.4,
@@ -213,8 +213,8 @@ describe('Point shapes', function() {
       expect(shape.attr('symbol')).eql('bowtie');
     });
   });
-  describe('cross', function() {
-    it('getShapePoints && drawShape', function() {
+  describe('cross', () => {
+    it('getShapePoints && drawShape', () => {
       const type = 'cross';
       const point = Point.getShapePoints(type, {
         x: 0.4,
@@ -233,7 +233,7 @@ describe('Point shapes', function() {
       expect(shape.attr('symbol')).eql('cross');
     });
 
-    it('getMarkerCfg', function() {
+    it('getMarkerCfg', () => {
       const markerCfg = Point.getMarkerCfg('cross', {
         color: 'red'
       });
@@ -246,8 +246,8 @@ describe('Point shapes', function() {
       });
     });
   });
-  describe('tick', function() {
-    it('getShapePoints && drawShape', function() {
+  describe('tick', () => {
+    it('getShapePoints && drawShape', () => {
       const type = 'tick';
       const point = Point.getShapePoints(type, {
         x: 0.4,
@@ -266,8 +266,8 @@ describe('Point shapes', function() {
       expect(shape.attr('symbol')).eql('tick');
     });
   });
-  describe('plus', function() {
-    it('getShapePoints && drawShape', function() {
+  describe('plus', () => {
+    it('getShapePoints && drawShape', () => {
       const type = 'plus';
       const point = Point.getShapePoints(type, {
         x: 0.4,
@@ -286,8 +286,8 @@ describe('Point shapes', function() {
       expect(shape.attr('symbol')).eql('plus');
     });
   });
-  describe('hyphen', function() {
-    it('getShapePoints && drawShape', function() {
+  describe('hyphen', () => {
+    it('getShapePoints && drawShape', () => {
       const type = 'hyphen';
       const point = Point.getShapePoints(type, {
         x: 0.4,
@@ -306,8 +306,8 @@ describe('Point shapes', function() {
       expect(shape.attr('symbol')).eql('hyphen');
     });
   });
-  describe('line', function() {
-    it('getShapePoints && drawShape', function() {
+  describe('line', () => {
+    it('getShapePoints && drawShape', () => {
       const type = 'line';
       const point = Point.getShapePoints(type, {
         x: 0.4,
@@ -326,8 +326,8 @@ describe('Point shapes', function() {
       expect(shape.attr('symbol')).eql('line');
     });
   });
-  describe('hollowdiamond', function() {
-    it('getShapePoints && drawShape', function() {
+  describe('hollowdiamond', () => {
+    it('getShapePoints && drawShape', () => {
       const type = 'hollowDiamond';
       const point = Point.getShapePoints(type, {
         x: 0.4,
@@ -345,7 +345,7 @@ describe('Point shapes', function() {
       expect(shape.attr('stroke')).eql('red');
       expect(shape.attr('symbol')).eql('diamond');
     });
-    it('clear', function() {
+    it('clear', () => {
       canvas.destroy();
       document.body.removeChild(div);
     });

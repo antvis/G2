@@ -24,7 +24,7 @@ class RegionFilter extends Guide {
     const self = this;
     const layer = group.addGroup();
     layer.name = 'guide-region-filter';
-    view.once('afterpaint', function() {
+    view.once('afterpaint', () => {
       // 2018-08-08 by blue.lb padding为auto时，会导致重新绘制一次，这时候layer已经被销毁了
       if (layer.get('destroyed')) return;
       self._drawShapes(view, layer);

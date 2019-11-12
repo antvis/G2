@@ -23,7 +23,7 @@ describe('util test', () => {
     expect(util.toAllPadding([ 20, 30, 10 ])).eqls([ 20, 30, 10, 30 ]);
     expect(util.toAllPadding('20%')).eqls([ '20%', '20%', '20%', '20%' ]);
   });
-  it('group by', function() {
+  it('group by', () => {
     const data = [{ type: '2', value: 2 }, { type: '1', value: 2 }, { type: '1', value: 3 }];
     const groupMap = util.Array.groupToMap(data, [ 'type' ]);
     expect(groupMap._1.length).equal(2);
@@ -32,7 +32,7 @@ describe('util test', () => {
     expect(group.length).equal(2);
     expect(group[0][0].type).equal('2');
   });
-  it('group by numbers', function() {
+  it('group by numbers', () => {
     const groups = util.Array.groupToMap(data, [ 'month' ]);
     const ten = groups._10;
     expect(ten.length).equal(1);

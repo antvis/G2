@@ -46,7 +46,7 @@ describe('#325', () => {
     chart.clear();
   });
 
-  it('interval active', function(done) {
+  it('interval active', done => {
     chart.interval()
         .position('genre*sold')
         .color('genre')
@@ -58,7 +58,7 @@ describe('#325', () => {
     const geom = chart.get('geoms')[0];
     const shapes = geom.getShapes();
     geom.setShapesActived([ shapes[0] ]);
-    setTimeout(function() {
+    setTimeout(() => {
       expect(shapes[0].attr('fill')).equal('red');
       chart.clear();
       done();
@@ -66,7 +66,7 @@ describe('#325', () => {
 
   });
 
-  it('interval selected and active', function() {
+  it('interval selected and active', () => {
     chart.coord('theta');
     chart.intervalStack().position('sold').color('genre');
     chart.render();
@@ -76,7 +76,7 @@ describe('#325', () => {
     expect(shapes[0].get('selected')).equal(true);
   });
 
-  it('interval active highlight', function(done) {
+  it('interval active highlight', done => {
     const newData = [
       { genre: 'Sports', sold: 275, type: '1' },
       { genre: 'Strategy', sold: 115, type: '1' },
@@ -109,13 +109,13 @@ describe('#325', () => {
 
     const shapes = geom.getShapes();
     geom.setShapesActived([ shapes[0] ]);
-    setTimeout(function() {
+    setTimeout(() => {
       expect(shapes[0].attr('fillOpacity')).equal(0.9);
       done();
     }, 600);
   });
 
-  after(function() {
+  after(() => {
     chart.destroy();
   });
 

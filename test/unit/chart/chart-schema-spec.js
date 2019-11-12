@@ -4,7 +4,7 @@ const Chart = require('../../../src/chart/chart');
 const div = document.createElement('div');
 document.body.appendChild(div);
 
-describe('test schema', function() {
+describe('test schema', () => {
   const chart = new Chart({
     container: div,
     height: 300,
@@ -13,7 +13,7 @@ describe('test schema', function() {
     padding: [ 20, 80, 60, 80 ]
   });
 
-  it('test candle', function() {
+  it('test candle', () => {
     const data = [{ x: 'a', y: [ 10, 20, 15, 25 ] }, { x: 'b', y: [ 20, 10, 30, 18 ] }];
     chart.source(data);
     chart.schema().position('x*y').shape('candle');
@@ -25,7 +25,7 @@ describe('test schema', function() {
     expect(firstPath.length).equal(9);
   });
 
-  it('test box', function() {
+  it('test box', () => {
     chart.clear();
     const data = [{ x: 'a', y: [ 10, 15, 20, 25, 40 ] }, { x: 'b', y: [ 10, 18, 20, 30, 42 ] }];
     chart.source(data);
@@ -37,7 +37,7 @@ describe('test schema', function() {
     expect(firstPath.length).equal(16);
   });
 
-  it('test dodge', function() {
+  it('test dodge', () => {
     chart.clear();
     const data = [
       { x: 'a', y: [ 10, 20, 15, 25 ], type: '1' },
@@ -56,7 +56,7 @@ describe('test schema', function() {
     expect(geom.getSize()).equal(42.5);
   });
 
-  it('destroy', function() {
+  it('destroy', () => {
     chart.destroy();
     expect(chart.destroyed).equal(true);
   });

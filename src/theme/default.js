@@ -429,6 +429,7 @@ const Theme = {
         padding: 0
       },
       [`${LEGEND_LIST_ITEM_CLASS}`]: {
+        listStyleType: 'none',
         cursor: 'pointer',
         marginBottom: '5px',
         marginRight: '24px'
@@ -465,6 +466,10 @@ const Theme = {
     useHtml: true,
     crosshairs: false,
     offset: 15,
+    marker: {
+      symbol: 'circle',
+      activeSymbol: 'circle'
+    },
     // css style for tooltip
     [`${TOOLTIP_CONTAINER_CLASS}`]: {
       position: 'absolute',
@@ -491,6 +496,7 @@ const Theme = {
       padding: 0
     },
     [`${TOOLTIP_LIST_ITEM_CLASS}`]: {
+      listStyleType: 'none',
       marginBottom: '4px'
     },
     [`${TOOLTIP_MARKER_CLASS}`]: {
@@ -499,13 +505,11 @@ const Theme = {
       display: 'inline-block',
       marginRight: '8px'
     },
-
     [`${TOOLTIP_VALUE_CLASS}`]: {
       display: 'inline-block',
       float: 'right',
       marginLeft: '30px'
     }
-
   },
   tooltipMarker: {
     symbol: (x, y, r) => {

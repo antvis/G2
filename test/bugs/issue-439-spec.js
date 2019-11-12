@@ -43,7 +43,7 @@ describe('#439', () => {
 
     chart.render();
     let callback = false;
-    chart.on('line:click', function() {
+    chart.on('line:click', () => {
       chart.changeData(data1);
       callback = true;
     });

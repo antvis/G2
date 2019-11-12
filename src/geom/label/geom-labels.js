@@ -8,7 +8,7 @@ const ORIGIN = '_origin';
 
 function avg(arr) {
   let sum = 0;
-  Util.each(arr, function(value) {
+  Util.each(arr, value => {
     sum += value;
   });
   return sum / arr.length;
@@ -134,7 +134,7 @@ class GeomLabels extends Group {
       if (!Util.isArray(label.text)) {
         label.text = [ label.text ];
       }
-      const total = label.length;
+      const total = label.text.length;
 
       Util.each(label.text, (sub, subIndex) => {
         if (Util.isNil(sub) || sub === '') {
@@ -195,7 +195,7 @@ class GeomLabels extends Group {
   }
 */
   adjustItems(items) {
-    Util.each(items, function(item) {
+    Util.each(items, item => {
       if (!item) {
         return;
       }
@@ -215,7 +215,7 @@ class GeomLabels extends Group {
    */
   drawLines(items) {
     const self = this;
-    Util.each(items, function(point) {
+    Util.each(items, point => {
       if (!point) {
         return;
       }
@@ -286,7 +286,7 @@ class GeomLabels extends Group {
     if (point.shape === 'pyramid' && !point.nextPoints && point.points) {
       point.points.forEach(p => {
         p = coord.convert(p);
-        if ((Util.isArray(p.x) && point.x.indexOf(p.x) === -1) || (Util.isNumber(p.x) && point.x !== p.x)) {
+        if ((Util.isArray(p.x) && !point.x.includes(p.x)) || (Util.isNumber(p.x) && point.x !== p.x)) {
           label.x = (label.x + p.x) / 2;
         }
       });
@@ -343,6 +343,13 @@ class GeomLabels extends Group {
     } else { // 否则，偏转y
       offset = vector[1];
     }
+    const yScale = this.get('yScale');
+    if (yScale && point.point) { // 仅考虑 y 单值的情况，多值的情况在这里不考虑
+      const yValue = point.point[yScale.field];
+      if (yValue < 0) {
+        offset = offset * -1; // 如果 y 值是负值，则反向
+      }
+    }
     return offset;
   }
 
@@ -358,6 +365,7 @@ class GeomLabels extends Group {
       x: 0,
       y: 0
     };
+
     if (index > 0 || total === 1) { // 判断是否小于0
       offsetPoint[yField] = offset * factor;
     } else {
@@ -399,7 +407,7 @@ class GeomLabels extends Group {
       let value = origin[scale.field];
       if (Util.isArray(value)) {
         const tmp = [];
-        Util.each(value, function(subVal) {
+        Util.each(value, subVal => {
           tmp.push(scale.getText(subVal));
         });
         value = tmp;

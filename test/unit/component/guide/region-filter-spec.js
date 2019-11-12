@@ -109,7 +109,7 @@ describe('Guide.RegionFilter', () => {
   //   ]);
   // });
 
-  it('changeVisible', function() {
+  it('changeVisible', () => {
     expect(regionFilter.get('visible')).to.be.true;
 
     regionFilter.changeVisible(false);
@@ -121,10 +121,11 @@ describe('Guide.RegionFilter', () => {
 
   });
 
-  it('clear', function() {
-    regionFilter.clear();
-    expect(regionFilter.get('el').get('destroyed')).to.be.true;
+  it('clear', () => {
+    const el = regionFilter.get('el');
     const clip = regionFilter.get('clip');
+    regionFilter.clear();
+    expect(el.get('destroyed')).to.be.true;
     expect(clip.get('destroyed')).to.be.true;
     expect(group.get('children').length).to.equal(0);
 

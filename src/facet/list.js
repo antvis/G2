@@ -29,7 +29,7 @@ class List extends Base {
     const cols = self.cols || count;
     const rows = parseInt((count + cols - 1) / cols);
     const rst = [];
-    colValues.forEach(function(xVal, index) {
+    colValues.forEach((xVal, index) => {
       const row = parseInt(index / cols);
       const col = index % cols;
       const conditions = [

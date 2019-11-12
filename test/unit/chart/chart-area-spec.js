@@ -5,7 +5,7 @@ const div = document.createElement('div');
 div.id = 'ccharta';
 document.body.appendChild(div);
 
-describe('test area chart', function() {
+describe('test area chart', () => {
   const data = [
     { genre: 'Sports', sold: 275 },
     { genre: 'Strategy', sold: 115 },
@@ -35,7 +35,7 @@ describe('test area chart', function() {
       lineDash: [ 2, 2 ]
     });
   chart.render();
-  it('basic area', function() {
+  it('basic area', () => {
 
     const group = chart.get('viewContainer').getFirst();
     expect(group.getCount()).equal(1);
@@ -43,7 +43,7 @@ describe('test area chart', function() {
     expect(path.length).equal(data.length * 2 + 1);
   });
 
-  it('area range', function() {
+  it('area range', () => {
     const newData = [
       { genre: 'Sports', sold: [ 10, 275 ] },
       { genre: 'Strategy', sold: [ 50, 115 ] },
@@ -58,7 +58,7 @@ describe('test area chart', function() {
     expect(path.length).equal(data.length * 2 + 1);
   });
 
-  it('area with null', function() {
+  it('area with null', () => {
     const newData = [
       { genre: 'Sports', sold: 275 },
       { genre: 'Strategy', sold: 115 },
@@ -71,7 +71,7 @@ describe('test area chart', function() {
     expect(group.getCount()).equal(2);
   });
 
-  it('area with null and connectNulls', function() {
+  it('area with null and connectNulls', () => {
     const newData = [
       { genre: 'Sports', sold: 275 },
       { genre: 'Strategy', sold: 115 },
@@ -86,7 +86,7 @@ describe('test area chart', function() {
     Global.connectNulls = false;
   });
 
-  it('area in polar', function() {
+  it('area in polar', () => {
     chart.coord('polar');
     chart.changeData(data);
     const group = chart.get('viewContainer').getFirst();
@@ -96,13 +96,13 @@ describe('test area chart', function() {
     expect(path.length).equal(data.length * 2 + 3);
   });
 
-  it('destroy', function() {
+  it('destroy', () => {
     chart.destroy();
     document.body.removeChild(div);
   });
 });
 
-describe('test area adjusted', function() {
+describe('test area adjusted', () => {
   const data = [
     { genre: 'Sports', sold: 475, type: '1' },
     { genre: 'Strategy', sold: 115, type: '1' },
@@ -126,7 +126,7 @@ describe('test area adjusted', function() {
 
   chart.source(data);
 
-  it('stack', function() {
+  it('stack', () => {
     chart.areaStack().position('genre*sold').color('type');
     chart.render();
 
@@ -141,7 +141,7 @@ describe('test area adjusted', function() {
     expect(firstPath[1][1]).equal(lastPath[lastPath.length - 3][1]);
   });
 
-  it('destroy', function() {
+  it('destroy', () => {
     chart.destroy();
     expect(chart.destroyed).equal(true);
   });

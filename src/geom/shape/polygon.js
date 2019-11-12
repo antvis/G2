@@ -61,7 +61,7 @@ const Polygon = Shape.registerFactory('polygon', {
   defaultShapeType: 'polygon',
   getDefaultPoints(pointInfo) {
     const points = [];
-    Util.each(pointInfo.x, function(subX, index) {
+    Util.each(pointInfo.x, (subX, index) => {
       const subY = pointInfo.y[index];
       points.push({
         x: subX,
