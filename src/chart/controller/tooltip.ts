@@ -9,6 +9,7 @@ import { findDataByPoint, getTooltipItems } from '../../util/tooltip';
 import { TooltipOption } from '../interface';
 import View from '../view';
 
+// TODO: @antv/util 中添加 uniqWith 方法
 // Filter duplicates, use `data` and `color` property values as condition
 function uniq(items) {
   const uniqItems = [];

@@ -84,6 +84,7 @@ export default class Chart extends View {
     this.unbindAutoFit();
     this.canvas.destroy();
 
+    // TODO: @atnv/dom-util 中加 removeDom() 方法
     const wrapperElement = this.wrapperElement;
     wrapperElement.parentNode.removeChild(wrapperElement);
     this.wrapperElement = null;
