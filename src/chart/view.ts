@@ -1,7 +1,7 @@
 import EE from '@antv/event-emitter';
 import * as _ from '@antv/util';
-import Component from '../component';
 import { COMPONENT_TYPE, DIRECTION, GROUP_Z_INDEX, LAYER, PLOT_EVENTS, VIEW_LIFE_CIRCLE } from '../constant';
+import { Component } from '../dependents';
 import { Attribute, Coordinate, Event as GEvent, ICanvas, IGroup, Scale } from '../dependents';
 import { Facet, getFacet } from '../facet';
 import { FacetCfgMap } from '../facet/interface';
@@ -602,7 +602,7 @@ export default class View extends EE {
    * @returns
    */
   public getXY(data: Datum) {
-    const coordinate = this.getCoordinate()
+    const coordinate = this.getCoordinate();
     const xScales = this.getScalesByDim('x');
     const yScales = this.getScalesByDim('y');
     let x;
@@ -1043,7 +1043,7 @@ export default class View extends EE {
     const scales = {};
 
     for (const geometry of geometries) {
-      const scale = (dimType === 'x') ? geometry.getXScale() : geometry.getYScale();
+      const scale = dimType === 'x' ? geometry.getXScale() : geometry.getYScale();
       if (scale && !scales[scale.field]) {
         scales[scale.field] = scale;
       }
