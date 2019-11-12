@@ -16,7 +16,7 @@ import { mergeTheme } from '../util/theme';
 import Chart from './chart';
 import { Axis as AxisController } from './controller/axis';
 import { createCoordinate } from './controller/coordinate';
-import { createLegends } from './controller/legend';
+import { Legend as LegendController } from './controller/legend';
 import { default as TooltipController } from './controller/tooltip';
 import Event from './event';
 import {
@@ -91,6 +91,7 @@ export default class View extends EE {
 
   private tooltipController: TooltipController;
   private axisController: AxisController;
+  private legendController: LegendController;
 
   constructor(props: ViewCfg) {
     super();
@@ -171,6 +172,7 @@ export default class View extends EE {
     // 初始化组件 controller
     this.tooltipController = new TooltipController(this);
     this.axisController = new AxisController(this);
+    this.legendController = new LegendController(this);
 
     // 递归初始化子 view
     _.each(this.views, (view: View) => {
@@ -208,17 +210,13 @@ export default class View extends EE {
     this.geometries = [];
 
     // 3. 清空 components
-    _.each(this.options.components, (co: ComponentOption) => {
-      if (co.type !== COMPONENT_TYPE.AXIS) {
-        co.component.destroy();
-      }
-    });
     // 清空
     this.options.components.splice(0);
 
     // destroy controller
-    this.axisController.destroy();
     this.tooltipController.destroy(); // destroy TooltipController
+    this.axisController.destroy();
+    this.legendController.destroy();
 
     // 4. 递归处理子 view
     _.each(this.views, (view: View) => {
@@ -248,6 +246,7 @@ export default class View extends EE {
 
     this.tooltipController.destroy();
     this.axisController.destroy();
+    this.legendController.destroy();
 
     // 取消所有事件监听
     this.off();
@@ -988,11 +987,15 @@ export default class View extends EE {
 
     // 2. legend
     // 根据 Geometry 的字段来创建 legend
-    _.each(createLegends(legends, this), (legend: ComponentOption) => {
+    this.legendController.clear();
+    this.legendController.render();
+
+    _.each(this.legendController.getComponents(), (legend: ComponentOption) => {
       const { component, layer, direction, type } = legend;
       this.addComponent(component, layer, direction, type);
     });
 
+    // 3. tooltip
     const tooltipController = this.tooltipController;
     tooltipController.setCfg(tooltip);
     tooltipController.render();

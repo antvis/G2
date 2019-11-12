@@ -53,7 +53,7 @@ export class Axis extends Controller<Option> {
    * create component into which layer
    */
   protected getContainer(): IGroup {
-    return this.view.getLayer(LAYER.FORE);
+    return this.view.getLayer(LAYER.BG);
   }
 
   /**
@@ -78,10 +78,10 @@ export class Axis extends Controller<Option> {
 
       if (coordinate.isRect) {
         C = LineAxis;
-        cfg = this.getLineAxisCfg(scale, xAxisOption, direction, layer);
+        cfg = this.getLineAxisCfg(scale, xAxisOption, direction);
       } else if (coordinate.isPolar) {
         C = CircleAxis;
-        cfg = this.getCircleAxisCfg(scale, xAxisOption, direction, layer);
+        cfg = this.getCircleAxisCfg(scale, xAxisOption, direction);
       } else {
         // helix and other, do not draw axis
       }
@@ -123,11 +123,11 @@ export class Axis extends Controller<Option> {
 
         if (coordinate.isRect) {
           C = LineAxis;
-          cfg = this.getLineAxisCfg(scale, yAxisOption, direction, layer);
+          cfg = this.getLineAxisCfg(scale, yAxisOption, direction);
         } else if (coordinate.isPolar) {
           C = LineAxis;
           // @ts-ignore
-          cfg = this.getLineAxisCfg(scale, yAxisOption, 'radius', layer);
+          cfg = this.getLineAxisCfg(scale, yAxisOption, 'radius');
         } else {
           // nothing
         }
@@ -154,11 +154,10 @@ export class Axis extends Controller<Option> {
    * @param scale
    * @param axisOption
    * @param direction
-   * @param layer
    * @return line axis cfg
    */
-  private getLineAxisCfg(scale: Scale, axisOption: AxisOption, direction: DIRECTION, layer: LAYER): object {
-    const container = this.view.getLayer(layer).addGroup();
+  private getLineAxisCfg(scale: Scale, axisOption: AxisOption, direction: DIRECTION): object {
+    const container = this.getContainer().addGroup();
 
     const coordinate = this.view.getCoordinate();
 
@@ -183,11 +182,10 @@ export class Axis extends Controller<Option> {
    * @param scale
    * @param axisOption
    * @param direction
-   * @param layer
    * @return line axis cfg
    */
-  private getCircleAxisCfg(scale: Scale, axisOption: AxisOption, direction: DIRECTION, layer: LAYER): object {
-    const container = this.view.getLayer(layer).addGroup();
+  private getCircleAxisCfg(scale: Scale, axisOption: AxisOption, direction: DIRECTION): object {
+    const container = this.getContainer().addGroup();
 
     const baseAxisCfg = {
       container,
