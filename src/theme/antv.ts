@@ -89,6 +89,12 @@ const SHAPE_STYLE = {
     stroke: DEFAULT_COLOR,
     r: 3,
   },
+  hollowPolygon: {
+    fill: '#fff',
+    stroke: DEFAULT_COLOR,
+    fillOpacity: 0,
+    lineWidth: 2,
+  },
 };
 
 const AXIS_STYLE = {
@@ -242,6 +248,9 @@ export default {
   polygon: {
     polygon: {
       default: SHAPE_STYLE.polygon,
+    },
+    hollow: {
+      default: SHAPE_STYLE.hollowPolygon,
     },
   },
   point: {
