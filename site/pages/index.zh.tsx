@@ -13,21 +13,21 @@ const IndexPage = () => {
       icon: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*SuwdQI27GGsAAAAAAAAAAABkARQnAQ',
       title: t('千变万化，自由组合'),
       description: t(
-        '从数据出发，仅需几行代码就可以轻松获得想要的图表展示效果',
+        '任何图表，都可以基于图形语法灵活绘制，满足你无限的创意',
       ),
     },
     {
       icon: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*PbE0QpeVWZMAAAAAAAAAAABkARQnAQ',
-      title: t('生动、易实现'),
+      title: t('专业完备'),
       description: t(
         '大量产品实践之上，提供绘图引擎、完备图形语法、专业设计规范',
       ),
     },
     {
       icon: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*IrRpQKIyt6wAAAAAAAAAAABkARQnAQ',
-      title: t('强大的交互语法'),
+      title: t('生动，可交互'),
       description: t(
-        '任何图表，都可以基于图形语法灵活绘制，满足你无限的创意',
+        '强大的交互语法，助力可视分析，让图表栩栩如生',
       ),
     },
   ];
