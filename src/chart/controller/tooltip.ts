@@ -77,9 +77,10 @@ export default class Tooltip {
       region,
       crosshairsRegion,
       ...cfg,
+      visible: false,
     });
-    tooltip.hide();
     tooltip.render();
+    // tooltip.hide();
 
     this.tooltip = tooltip;
 
@@ -232,6 +233,10 @@ export default class Tooltip {
       tooltipCfg.crosshairs = !!coordinate.isTransposed ? 'y' : 'x';
     }
 
+    if (tooltipCfg.showCrosshairs === false) {
+      tooltipCfg.crosshairs = null;
+    }
+
     // set domStyles
     tooltipCfg.domStyles = {};
     _.each(TOOLTIP_CLASSNAMES, (classname) => {
@@ -309,7 +314,7 @@ export default class Tooltip {
     const { view, cfg, items } = this;
     const foregroundGroup = view.foregroundGroup;
     let markerGroup = this.markerGroup;
-    if (markerGroup) {
+    if (markerGroup && !markerGroup.destroyed) {
       markerGroup.clear();
       markerGroup.show();
     } else {

@@ -14,7 +14,8 @@ export default class TooltipInteraction extends Interaction {
     const eventName = this.getTriggerEvent();
     if (eventName) {
       view.on(eventName, this.showTooltip);
-      view.on(PLOT_EVENTS.MOUSE_LEAVE, this.hideTooltip);
+      // FIXME: 待事件问题解决再解除注释
+      // view.on(PLOT_EVENTS.MOUSE_LEAVE, this.hideTooltip);
 
       // enterable
       const { enterable, tooltip } = this.cfg;
