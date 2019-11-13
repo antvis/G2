@@ -381,8 +381,9 @@ export default {
     tooltip: {
       triggerOn: 'mousemove',
       enterable: false,
-      showCrosshairs: true,
-      showTooltipMarkers: true,
+      showCrosshairs: false,
+      showTooltipMarkers: false,
+      shared: false,
       tooltipMarker: {
         symbol: 'circle',
         stroke: '#fff',
@@ -396,7 +397,7 @@ export default {
       // css style for tooltip
       [`${TOOLTIP_CSS_CONST.CONTAINER_CLASS}`]: {
         position: 'absolute',
-        visibility: 'visible',
+        visibility: 'hidden',
         zIndex: 8,
         transition:
           'visibility 0.2s cubic-bezier(0.23, 1, 0.32, 1), ' +
