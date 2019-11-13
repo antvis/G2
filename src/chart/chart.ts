@@ -1,7 +1,7 @@
 import * as _ from '@antv/util';
 import { GROUP_Z_INDEX } from '../constant';
 import { Canvas } from '../dependents';
-import { createDom, getChartSize } from '../util/dom';
+import { createDom, getChartSize, removeDom } from '../util/dom';
 import { ChartCfg } from './interface';
 import View from './view';
 
@@ -84,9 +84,7 @@ export default class Chart extends View {
     this.unbindAutoFit();
     this.canvas.destroy();
 
-    // TODO: @atnv/dom-util 中加 removeDom() 方法
-    const wrapperElement = this.wrapperElement;
-    wrapperElement.parentNode.removeChild(wrapperElement);
+    removeDom(this.wrapperElement);
     this.wrapperElement = null;
   }
 

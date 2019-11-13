@@ -1,10 +1,11 @@
-import { getChartSize } from '../../../src/util/dom';
+import { getChartSize, removeDom } from '../../../src/util/dom';
 import { createDiv } from '../../util/dom';
 
 const minDiv = createDiv();
 minDiv.setAttribute('style', 'display: inline-block; width: 30px; height: 30px');
 
 const maxDiv = createDiv();
+maxDiv.id = 'max';
 maxDiv.setAttribute('style', 'display: inline-block; width: 500px; height: 500px');
 
 describe('util dom', () => {
@@ -17,5 +18,10 @@ describe('util dom', () => {
     expect(getChartSize(minDiv, true, 200, 50)).toEqual({ width: 100, height: 100 });
 
     expect(getChartSize(minDiv, false, NaN, undefined)).toEqual({ width: 100, height: 100 });
+  });
+
+  it('removeDom', () => {
+    removeDom(maxDiv);
+    expect(document.getElementById('max')).toBeNull();
   });
 });
