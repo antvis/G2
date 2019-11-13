@@ -75,11 +75,9 @@ describe('Chart', () => {
     expect(chart.scales).toEqual({});
     expect(!!chart.getCoordinate()).toBe(false);
 
-    // FIXME component.destroy do not remove the container
-    // expect(chart.getLayer(LAYER.BG).get('children').length).toBe(0);
-    // FIXME Geometry.destroy do not remove the container
-    // expect(_.size(chart.getLayer(LAYER.MID).get('children'))).toBe(0);
-    expect(_.size(chart.getLayer(LAYER.FORE).get('children'))).toBe(0);
+    expect(chart.getLayer(LAYER.BG).get('children').length).toBe(0);
+    expect(chart.getLayer(LAYER.MID).get('children').length).toBe(1);
+    expect(chart.getLayer(LAYER.FORE).get('children').length).toBe(0);
   });
 
   it('destroy', () => {
