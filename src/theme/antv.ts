@@ -382,7 +382,7 @@ export default {
       triggerOn: 'mousemove',
       enterable: false,
       showCrosshairs: false,
-      showTooltipMarkers: false,
+      showTooltipMarkers: true,
       shared: false,
       tooltipMarker: {
         symbol: 'circle',

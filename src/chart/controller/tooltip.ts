@@ -269,8 +269,15 @@ export default class Tooltip {
           const container = geometry.container;
           const shape = container.getShape(point.x, point.y);
           if (shape && shape.get('visible') && shape.get('origin')) {
-            const tooltipItems = getTooltipItems(shape.get('origin').origin, geometry);
-            items = items.concat(tooltipItems);
+            const origin = shape.get('origin').origin;
+            if (_.isArray(origin)) {
+              const record = findDataByPoint(point, origin, geometry);
+              if (record) {
+                items = items.concat(getTooltipItems(record, geometry));
+              }
+            } else {
+              items = items.concat(getTooltipItems(origin, geometry));
+            }
           }
         }
       }
