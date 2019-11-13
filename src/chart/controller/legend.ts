@@ -38,7 +38,7 @@ export class Legend extends Controller<Option> {
    * create component into which layer
    */
   protected getContainer(): IGroup {
-    return this.view.getLayer(LAYER.FORE);
+    return this.view.getLayer(LAYER.FORE).addGroup();
   }
 
   private createLegends() {
