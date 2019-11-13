@@ -2,8 +2,10 @@ import Attribute from '@antv/attr/lib/attributes/base';
 import Scale from '@antv/scale/lib/base';
 import * as _ from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
-import { CategoryLegend, IGroup } from '../../dependents';
+import { CategoryLegend, ContinuousLegend, IGroup } from '../../dependents';
 import Geometry from '../../geometry/base';
+import { BBox } from '../../util/bbox';
+import { directionToPosition } from '../../util/direction';
 import { getLegendItems, getLegendLayout } from '../../util/legend';
 import { ComponentOption, LegendOption } from '../interface';
 import { Controller } from './base';
@@ -26,12 +28,29 @@ function getLegendOption(legends: Record<string, LegendOption> | boolean, field:
 export class Legend extends Controller<Option> {
   public init() {}
 
-  public layout() {}
-
   public render() {
     this.option = this.view.getOptions().legends;
 
     this.components.push(...this.createLegends());
+  }
+
+  /**
+   * layout legend
+   * 计算出 legend 的 direction 位置 x, y
+   */
+  public layout() {
+    _.each(this.components, (co: ComponentOption) => {
+      const { component, direction } = co;
+      const bboxObject = component.getBBox();
+      const bbox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height);
+
+      const [x, y] = directionToPosition(this.view.viewBBox, bbox, direction);
+
+      component.update({
+        x,
+        y,
+      });
+    });
   }
 
   /**
@@ -65,7 +84,7 @@ export class Legend extends Controller<Option> {
         if (legendOption !== false && !legendMap[scale.field]) {
           if (scale.isLinear) {
             // linear field, create continuous legend
-            legend = this.createContinuousLegend();
+            legend = this.createContinuousLegend(geometry, attr, scale, legendOption);
           } else if (scale.isCategory) {
             // category field, create category legend
             legend = this.createCategoryLegend(geometry, attr, scale, legendOption);
@@ -82,7 +101,21 @@ export class Legend extends Controller<Option> {
     return legendArray;
   }
 
-  private createContinuousLegend() {}
+  /**
+   * create continuous legend(color, size)
+   * @param geometry
+   * @param attr
+   * @param scale
+   * @param legendOption
+   */
+  private createContinuousLegend(
+    geometry: Geometry,
+    attr: Attribute,
+    scale: Scale,
+    legendOption: any
+  ): ComponentOption {
+    return undefined;
+  }
 
   /**
    * create a category legend
@@ -113,7 +146,6 @@ export class Legend extends Controller<Option> {
     component.render();
 
     return {
-      // @ts-ignore
       component,
       layer,
       direction,
