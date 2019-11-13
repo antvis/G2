@@ -53,6 +53,7 @@ export abstract class Controller<O> {
   public clear() {
     // destroy all components
     _.each(this.components, (co: ComponentOption) => {
+      co.component.get('container')?.remove(true);
       co.component.destroy();
     });
 
@@ -64,8 +65,6 @@ export abstract class Controller<O> {
    */
   public destroy() {
     this.clear();
-    // destroy container
-    this.container.remove(true);
   }
 
   /**
@@ -76,7 +75,7 @@ export abstract class Controller<O> {
   }
 
   /**
-   * get G container group
+   * get G container group, means where are the components of the controller will be added to.
    * @returns container group
    */
   protected abstract getContainer(): IGroup;

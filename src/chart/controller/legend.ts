@@ -94,7 +94,7 @@ export class Legend extends Controller<Option> {
    */
   private createCategoryLegend(geometry: Geometry, attr: Attribute, scale: Scale, legendOption: any): ComponentOption {
     const layer = LAYER.FORE;
-    const container = this.view.getLayer(layer);
+    const container = this.getContainer().addGroup();
     // if position is not set, use top as default
     const direction = _.get(legendOption, 'position', DIRECTION.TOP);
 
