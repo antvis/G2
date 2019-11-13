@@ -24,14 +24,8 @@ const chart = new Chart({
   width: 500,
 });
 chart.data(data);
-// chart.axis(false);
-chart.legend(false);
-// chart.tooltip({
-//   position: 'bottom'
-// });
-// chart.coordinate('polar');
 // @ts-ignore
-const geometry = chart
+chart
   .interval()
   .position('月份*月均降雨量')
   .color('name')
