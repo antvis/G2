@@ -14,7 +14,7 @@ export default class TooltipInteraction extends Interaction {
     const eventName = this.getTriggerEvent();
     if (eventName) {
       view.on(eventName, this.showTooltip);
-      // view.on(PLOT_EVENTS.MOUSE_LEAVE, this.hideTooltip);
+      view.on(PLOT_EVENTS.MOUSE_LEAVE, this.hideTooltip);
 
       // enterable
       const { enterable, tooltip } = this.cfg;

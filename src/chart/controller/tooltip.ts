@@ -1,7 +1,6 @@
 import * as TOOLTIP_CLASSNAMES from '@antv/component/lib/tooltip/css-const';
-import { vec2 } from '@antv/matrix-util';
 import * as _ from '@antv/util';
-import { HtmlTooltip } from '../../dependents';
+import { HtmlTooltip, IGroup } from '../../dependents';
 import Geometry from '../../geometry/base';
 import { registerInteraction } from '../../interaction';
 // 引入 Tooltip 交互行为
@@ -14,13 +13,17 @@ import View from '../view';
 // register Tooltip interaction
 registerInteraction('showTooltip', TooltipInteraction);
 
-// TODO: @antv/util 中添加 uniqWith 方法
-// Filter duplicates, use `data` and `color` property values as condition
+// Filter duplicates, use `name`, `color`, `value` and `title` property values as condition
 function uniq(items) {
   const uniqItems = [];
   _.each(items, (item) => {
     const result = _.find(uniqItems, (subItem) => {
-      return _.isEqual(subItem.data, item.data) && subItem.color === item.color;
+      return (
+        subItem.color === item.color &&
+        subItem.name === item.name &&
+        subItem.value === item.value &&
+        subItem.title === item.value
+      );
     });
     if (!result) {
       uniqItems.push(item);
@@ -35,9 +38,9 @@ export default class Tooltip {
   public tooltip;
 
   private isVisible: boolean = true;
-  private markerGroup;
+  private markerGroup: IGroup;
   private items;
-  private title;
+  private title: string;
   private tooltipInteraction;
 
   constructor(view: View) {
@@ -75,8 +78,8 @@ export default class Tooltip {
       crosshairsRegion,
       ...cfg,
     });
-    tooltip.render();
     tooltip.hide();
+    tooltip.render();
 
     this.tooltip = tooltip;
 
@@ -241,14 +244,14 @@ export default class Tooltip {
   }
 
   private getItems(point: Point) {
-    const view = this.view;
+    const { view, cfg: tooltipCfg } = this;
     const geometries = view.geometries;
     if (!geometries.length) {
       return [];
     }
-    const tooltipOption = _.get(view.getOptions(), 'tooltip', {});
+
     let items = [];
-    const shared = tooltipOption.shared;
+    const shared = tooltipCfg.shared;
     _.each(geometries, (geometry: Geometry) => {
       if (geometry.visible && geometry.tooltipOption !== false) {
         // geometry 可见同时未关闭 tooltip
@@ -266,7 +269,7 @@ export default class Tooltip {
           const container = geometry.container;
           const shape = container.getShape(point.x, point.y);
           if (shape && shape.get('visible') && shape.get('origin')) {
-            const tooltipItems = getTooltipItems(shape.get('origin'), geometry);
+            const tooltipItems = getTooltipItems(shape.get('origin').origin, geometry);
             items = items.concat(tooltipItems);
           }
         }
@@ -284,35 +287,6 @@ export default class Tooltip {
       item.x = convertPoint[0];
       item.y = convertPoint[1];
     });
-
-    if (items.length) {
-      const first = items[0];
-      // bugfix: multiple tooltip items with different titles
-      if (!items.every((item) => item.title === first.title)) {
-        let nearestItem = first;
-        let nearestDistance = Infinity;
-        items.forEach((item) => {
-          const distance = vec2.distance([point.x, point.y], [item.x, item.y]);
-          if (distance < nearestDistance) {
-            nearestDistance = distance;
-            nearestItem = item;
-          }
-        });
-        items = items.filter((item) => item.title === nearestItem.title);
-      }
-
-      if (shared === false && items.length > 1) {
-        let snapItem = items[0];
-        let min = Math.abs(point.y - snapItem.y);
-        _.each(items, (aItem) => {
-          if (Math.abs(point.y - aItem.y) <= min) {
-            snapItem = aItem;
-            min = Math.abs(point.y - aItem.y);
-          }
-        });
-        items = [snapItem];
-      }
-    }
 
     return items;
   }
