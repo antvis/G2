@@ -66,7 +66,7 @@ export function getCircleGridItems(coordinate: Coordinate, xScale: Scale, yScale
     });
   }
 
-  return {};
+  return [];
 }
 
 /**
