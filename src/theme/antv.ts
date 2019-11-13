@@ -1,3 +1,4 @@
+import * as TOOLTIP_CSS_CONST from '@antv/component/lib/tooltip/css-const';
 import * as _ from '@antv/util';
 
 /** antv 主题色 */
@@ -43,20 +44,6 @@ const FONT_FAMILY = `
   "-apple-system", BlinkMacSystemFont, "Segoe UI", Roboto,"Helvetica Neue",
   Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
   SimSun, "sans-serif"'`;
-
-const HTML_COMPONENT_CLASS = {
-  tooltip: {
-    container: 'g2-tooltip',
-    title: 'g2-tooltip-title',
-    list: 'g2-tooltip-list',
-    listItem: 'g2-tooltip-list-item',
-    marker: 'g2-tooltip-marker',
-    value: 'g2-tooltip-value',
-    name: 'g2-tooltip-name',
-    crosshaisX: 'g2-tooltip-crosshair-x',
-    crosshaisY: 'g2-tooltip-crosshair-y',
-  },
-};
 
 const SHAPE_STYLE = {
   hollowArea: {
@@ -151,6 +138,17 @@ const AXIS_STYLE = {
     },
     count: 4,
     length: 2,
+  },
+};
+
+const GRID_STYLE = {
+  line: {
+    type: 'line',
+    style: {
+      stroke: '#E9E9E9',
+      lineWidth: 1,
+      lineDash: [3, 3],
+    },
   },
 };
 
@@ -322,13 +320,16 @@ export default {
   components: {
     axis: {
       top: AXIS_STYLE,
-      bottom: AXIS_STYLE,
+      bottom: _.deepMix({}, AXIS_STYLE, {
+        grid: null,
+      }),
       left: _.deepMix({}, AXIS_STYLE, {
         label: {
           offset: 8,
         },
         line: null,
         tickLine: null,
+        grid: GRID_STYLE,
       }),
       right: _.deepMix({}, AXIS_STYLE, {
         label: {
@@ -336,18 +337,22 @@ export default {
         },
         line: null,
         tickLine: null,
+        grid: GRID_STYLE,
       }),
       circle: _.deepMix({}, AXIS_STYLE, {
         title: null,
         label: {
           offset: 8,
         },
+        grid: GRID_STYLE,
       }),
       radius: _.deepMix({}, AXIS_STYLE, {
         title: null,
         label: {
           offset: 8,
         },
+        grid: GRID_STYLE,
+        line: null,
       }),
     },
     legend: {
@@ -380,7 +385,7 @@ export default {
         r: 4,
       },
       // css style for tooltip
-      [`${HTML_COMPONENT_CLASS.tooltip.container}`]: {
+      [`${TOOLTIP_CSS_CONST.CONTAINER_CLASS}`]: {
         position: 'absolute',
         visibility: 'visible',
         zIndex: 8,
@@ -397,15 +402,15 @@ export default {
         lineHeight: '20px',
         padding: '10px 10px 6px 10px',
       },
-      [`${HTML_COMPONENT_CLASS.tooltip.title}`]: {
+      [`${TOOLTIP_CSS_CONST.TITLE_CLASS}`]: {
         marginBottom: '4px',
       },
-      [`${HTML_COMPONENT_CLASS.tooltip.list}`]: {
+      [`${TOOLTIP_CSS_CONST.LIST_CLASS}`]: {
         margin: 0,
         listStyleType: 'none',
         padding: 0,
       },
-      [`${HTML_COMPONENT_CLASS.tooltip.listItem}`]: {
+      [`${TOOLTIP_CSS_CONST.LIST_ITEM_CLASS}`]: {
         listStyleType: 'none',
         padding: 0,
         marginBottom: '4px',
@@ -413,24 +418,24 @@ export default {
         marginRight: 0,
         marginTop: 0,
       },
-      [`${HTML_COMPONENT_CLASS.tooltip.marker}`]: {
+      [`${TOOLTIP_CSS_CONST.MARKER_CLASS}`]: {
         width: '8px',
         height: '8px',
         borderRadius: '50%',
         display: 'inline-block',
         marginRight: '8px',
       },
-      [`${HTML_COMPONENT_CLASS.tooltip.value}`]: {
+      [`${TOOLTIP_CSS_CONST.VALUE_CLASS}`]: {
         display: 'inline-block',
         float: 'right',
         marginLeft: '30px',
       },
-      [`${HTML_COMPONENT_CLASS.tooltip.crosshaisX}`]: {
+      [`${TOOLTIP_CSS_CONST.CROSSHAIR_X}`]: {
         position: 'absolute',
         width: '1px',
         backgroundColor: 'rgba(0, 0, 0, 0.25)',
       },
-      [`${HTML_COMPONENT_CLASS.tooltip.crosshaisY}`]: {
+      [`${TOOLTIP_CSS_CONST.CROSSHAIR_Y}`]: {
         position: 'absolute',
         height: '1px',
         backgroundColor: 'rgba(0, 0, 0, 0.25)',

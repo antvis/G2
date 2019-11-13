@@ -16,12 +16,15 @@ export { Canvas, Group, Shape, Event } from '@antv/g-canvas';
 // 内置的 Component 组件
 export { CategoryLegendCfg, CircleAxisCfg, LineAxisCfg, GroupComponentCfg } from '@antv/component/lib/types';
 
-import { Axis, Component, GroupComponent, Legend, Tooltip } from '@antv/component';
+import { Axis, Component, Grid, GroupComponent, Legend, Tooltip } from '@antv/component';
 // component
 export { GroupComponent, Component };
 // axis
 const { Line: LineAxis, Circle: CircleAxis } = Axis;
 export { LineAxis, CircleAxis };
+// grid
+const { Line: LineGrid, Circle: CircleGrid } = Grid;
+export { LineGrid, CircleGrid };
 // legend
 const { Category: CategoryLegend } = Legend;
 export { CategoryLegend };

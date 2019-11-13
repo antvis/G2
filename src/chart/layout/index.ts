@@ -84,8 +84,9 @@ export default function defaultLayout(view: View): void {
   layoutLegend(legends, viewBBox);
 
   // 2. 根据 axis 内容不遮挡原则，计算出 y axis 的 width，x axis 的 height；
-  const axes = _.filter(componentOptions, (co: ComponentOption) => co.type === COMPONENT_TYPE.AXIS);
-  layoutAxis(axes, viewBBox, view);
+  // const axes = _.filter(componentOptions, (co: ComponentOption) => co.type === COMPONENT_TYPE.AXIS);
+  // layoutAxis(axes, viewBBox, view);
+  view.axisController.layout();
 
   let bbox = viewBBox;
 
@@ -97,6 +98,10 @@ export default function defaultLayout(view: View): void {
 
     const componentBBox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height);
 
+    // grid, tooltip 不参入布局
+    if (type === COMPONENT_TYPE.GRID || type === COMPONENT_TYPE.TOOLTIP) {
+      return;
+    }
     if (coordinate.isPolar && type === COMPONENT_TYPE.AXIS) {
       const exceed = componentBBox.exceed(bbox);
       bbox = bbox.shrink(exceed);
@@ -111,5 +116,6 @@ export default function defaultLayout(view: View): void {
   view.adjustCoordinate();
 
   // 4. 给 axis 组件更新 coordinate: 调整 axis 的宽高：y axis height, x axis width = coordinateBBox width height
-  layoutAxis(axes, viewBBox, view);
+  // layoutAxis(axes, viewBBox, view);
+  view.axisController.layout();
 }

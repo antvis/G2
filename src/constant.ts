@@ -33,6 +33,8 @@ export enum DIRECTION {
 export enum COMPONENT_TYPE {
   // axis 组件
   AXIS = 'axis',
+  // grid 组件
+  GRID = 'grid',
   // legend 组件
   LEGEND = 'legend',
   // tooltip 组件

@@ -150,7 +150,7 @@ describe('View', () => {
     view.legend(true);
     view.render();
 
-    expect(view.getOptions().components.length).toEqual(2); // continuous legend to be continue
+    expect(view.getOptions().components.length).toEqual(3); // continuous legend to be continue
 
     const bbox = view.getOptions().components[0].component.getBBox();
     expect(bbox.height).toEqual(45.5);
