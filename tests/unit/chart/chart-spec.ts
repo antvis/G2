@@ -88,5 +88,6 @@ describe('Chart', () => {
     expect(destroyEvent).toBeCalledTimes(1);
 
     expect(chart.canvas.destroyed).toBe(true);
+    expect(div.childNodes.length).toBe(0);
   });
 });

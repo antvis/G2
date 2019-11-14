@@ -1,10 +1,7 @@
 /** @module Shape */
-import * as _ from '@antv/util';
-
 import { parsePathString } from '@antv/path-util';
-import { Coordinate } from '../../dependents';
+import * as _ from '@antv/util';
 import {
-  LooseObject,
   Point,
   RegisterShape,
   RegisterShapeFactory,

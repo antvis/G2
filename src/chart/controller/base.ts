@@ -53,7 +53,9 @@ export abstract class Controller<O> {
   public clear() {
     // destroy all components
     _.each(this.components, (co: ComponentOption) => {
-      co.component.get('container')?.remove(true);
+      if (co.component.get('container')) {
+        co.component.get('container').remove(true);
+      }
       co.component.destroy();
     });
 

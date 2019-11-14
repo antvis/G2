@@ -328,7 +328,10 @@ describe('Geometry', () => {
           const yMin = y0;
           const yMax = y as number;
 
-          return [{ x: x as number, y: yMin }, { x: x as number, y: yMax }];
+          return [
+            { x: x as number, y: yMin },
+            { x: x as number, y: yMax },
+          ];
         },
       });
 
@@ -440,6 +443,15 @@ describe('Geometry', () => {
     it('getYScale()', () => {
       const yScale = geometry.getYScale();
       expect(yScale.field).toBe('temperature');
+    });
+
+    it('getElementsBy', () => {
+      const result = geometry.getElementsBy((ele) => {
+        const data = ele.getData();
+        return data.month === '一月';
+      });
+
+      expect(result.length).toBe(2);
     });
 
     it('getDefaultValue()', () => {

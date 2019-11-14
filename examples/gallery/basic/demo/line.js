@@ -17,7 +17,9 @@ chart.data([
   { year: '1998', value: 90 },
   { year: '1999', value: 3 },
 ]);
-// 貌似动画出问题了，我要排除下
+chart.tooltip({
+  showCrosshairs: true,
+});
 chart
   .line()
   .position('year*value')

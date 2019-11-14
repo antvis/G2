@@ -14,11 +14,9 @@ const chart = new Chart({
   autoFit: false,
 });
 chart.data(data);
-// 有 bug...
-// chart
-//   .coordinate('rect')
-//   .transpose()
-//   .scale(1, -1);
+chart.tooltip({
+  showTooltipMarkers: false,
+});
 // @ts-ignore
 chart
   .interval()

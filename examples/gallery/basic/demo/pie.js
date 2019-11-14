@@ -28,7 +28,9 @@ const chart = new Chart({
 
 chart.data(data);
 chart.coordinate('theta');
-chart.legend(false);
+chart.tooltip({
+  showTooltipMarkers: false,
+});
 chart.axis(false);
 // @ts-ignore
 chart
@@ -44,13 +46,3 @@ chart
   });
 
 chart.render();
-
-setTimeout(() => {
-  chart.changeData([
-    { type: 'A', value: 10 },
-    { type: 'B', value: 43 },
-    { type: 'C', value: 32 },
-    // { type: 'D', value: 15 },
-    { type: 'E', value: 15 },
-  ]);
-}, 1000);

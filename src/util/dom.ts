@@ -39,4 +39,16 @@ export function getChartSize(ele: HTMLElement, autoFit: boolean, width: number, 
   return t;
 }
 
+/**
+ * remove html element from its parent
+ * @param dom
+ */
+export function removeDom(dom: HTMLElement) {
+  const parent = dom.parentNode;
+
+  if (parent) {
+    parent.removeChild(dom);
+  }
+}
+
 export { createDom } from '@antv/dom-util';

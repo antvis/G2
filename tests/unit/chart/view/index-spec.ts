@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
 import 'jest-extended';
-import { View } from '../../../../src';
+import { Chart, View } from '../../../../src';
 import { Canvas, Group } from '../../../../src/dependents';
 import { createCanvas, createDiv } from '../../../util/dom';
 
@@ -195,5 +195,51 @@ describe('View', () => {
     expect(view.filteredData.length).toEqual(4);
     // 几何标记是同一个实例
     expect(geometries[0] === view.geometries[0]).toEqual(true);
+  });
+
+  it('getXY', () => {
+    const position = view.getXY({ city: '杭州', sale: 40, category: '鼠标' });
+    expect(position).toEqual({ x: 230.25, y: 141.125 });
+  });
+
+  it('showTooltip', () => {
+    let result;
+    view.on('tooltip:show', (ev) => {
+      result = ev;
+    });
+    const position = view.getXY({ city: '杭州', sale: 40, category: '鼠标' });
+    view.showTooltip(position);
+
+    expect(result).toBeDefined();
+    expect(result.items[0].data).toEqual({ city: '杭州', sale: 40, category: '鼠标' });
+  });
+
+  it('tooltip:change', () => {
+    const fn = jest.fn();
+    view.on('tooltip:change', fn);
+
+    view.showTooltip(view.getXY({ city: '杭州', sale: 40, category: '鼠标' }));
+    expect(fn).not.toBeCalled();
+
+    view.showTooltip(view.getXY({ city: '广州', sale: 90, category: '鼠标' }));
+    expect(fn).toBeCalled();
+  });
+
+  it('hideTooltip', () => {
+    const fn = jest.fn();
+    view.on('tooltip:hide', fn);
+
+    view.hideTooltip();
+    expect(fn).toBeCalled();
+  });
+
+  it('lockTooltip', () => {
+    view.lockTooltip();
+    expect(view.getStateManager().getState('_isTooltipLocked')).toBeTrue();
+  });
+
+  it('unlockTooltip', () => {
+    view.unlockTooltip();
+    expect(view.getStateManager().getState('_isTooltipLocked')).toBeFalse();
   });
 });
