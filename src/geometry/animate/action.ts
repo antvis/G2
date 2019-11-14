@@ -1,7 +1,8 @@
 import { transform } from '@antv/matrix-util';
 import { Coordinate, IGroup, IShape } from '../../dependents';
 import { AnimateCfg, Point, ShapeDrawCFG } from '../../interface';
-import { getAngle, getCoordinateClipCfg, getSectorPath } from './util';
+import { getAngle, getSectorPath } from '../../util/graphics';
+import { getCoordinateClipCfg } from './util';
 
 /**
  * 垂直方向的缩放动画
@@ -22,12 +23,20 @@ export function scaleInY(
   const y = points[0].y - points[1].y <= 0 ? box.maxY : box.minY;
 
   shape.applyToMatrix([x, y, 1]);
-  const matrix = transform(shape.getMatrix(), [['t', -x, -y], ['s', 1, 0.01], ['t', x, y]]);
+  const matrix = transform(shape.getMatrix(), [
+    ['t', -x, -y],
+    ['s', 1, 0.01],
+    ['t', x, y],
+  ]);
   shape.setMatrix(matrix);
 
   shape.animate(
     {
-      matrix: transform(shape.getMatrix(), [['t', -x, -y], ['s', 1, 100], ['t', x, y]]),
+      matrix: transform(shape.getMatrix(), [
+        ['t', -x, -y],
+        ['s', 1, 100],
+        ['t', x, y],
+      ]),
     },
     animateCfg
   );
@@ -53,12 +62,20 @@ export function scaleInX(
 
   shape.applyToMatrix([x, y, 1]);
 
-  const matrix = transform(shape.getMatrix(), [['t', -x, -y], ['s', 0.01, 1], ['t', x, y]]);
+  const matrix = transform(shape.getMatrix(), [
+    ['t', -x, -y],
+    ['s', 0.01, 1],
+    ['t', x, y],
+  ]);
   shape.setMatrix(matrix);
 
   shape.animate(
     {
-      matrix: transform(shape.getMatrix(), [['t', -x, -y], ['s', 100, 1], ['t', x, y]]),
+      matrix: transform(shape.getMatrix(), [
+        ['t', -x, -y],
+        ['s', 100, 1],
+        ['t', x, y],
+      ]),
     },
     animateCfg
   );
@@ -113,12 +130,20 @@ export function zoomIn(
 ) {
   const { x, y } = coordinate.getCenter();
   shape.applyToMatrix([x, y, 1]);
-  const matrix = transform(shape.getMatrix(), [['t', -x, -y], ['s', 0.01, 0.01], ['t', x, y]]);
+  const matrix = transform(shape.getMatrix(), [
+    ['t', -x, -y],
+    ['s', 0.01, 0.01],
+    ['t', x, y],
+  ]);
   shape.setMatrix(matrix);
 
   shape.animate(
     {
-      matrix: transform(shape.getMatrix(), [['t', -x, -y], ['s', 100, 100], ['t', x, y]]),
+      matrix: transform(shape.getMatrix(), [
+        ['t', -x, -y],
+        ['s', 100, 100],
+        ['t', x, y],
+      ]),
     },
     animateCfg
   );
@@ -136,12 +161,20 @@ export function grow(shape: IShape | IGroup, animateCfg: AnimateCfg, coordinate:
   const x = (bbox.minX + bbox.maxX) / 2;
   const y = (bbox.minY + bbox.maxY) / 2;
   shape.applyToMatrix([x, y, 1]);
-  const matrix = transform(shape.getMatrix(), [['t', -x, -y], ['s', 0.01, 0.01], ['t', x, y]]);
+  const matrix = transform(shape.getMatrix(), [
+    ['t', -x, -y],
+    ['s', 0.01, 0.01],
+    ['t', x, y],
+  ]);
   shape.setMatrix(matrix);
 
   shape.animate(
     {
-      matrix: transform(shape.getMatrix(), [['t', -x, -y], ['s', 100, 100], ['t', x, y]]),
+      matrix: transform(shape.getMatrix(), [
+        ['t', -x, -y],
+        ['s', 100, 100],
+        ['t', x, y],
+      ]),
     },
     animateCfg
   );
@@ -168,7 +201,11 @@ export function shrink(
   const { easing, duration, delay } = animateCfg;
   shape.animate(
     {
-      matrix: transform(shape.getMatrix(), [['t', -x, -y], ['s', 0.01, 0.01], ['t', x, y]]),
+      matrix: transform(shape.getMatrix(), [
+        ['t', -x, -y],
+        ['s', 0.01, 0.01],
+        ['t', x, y],
+      ]),
     },
     duration,
     easing,
