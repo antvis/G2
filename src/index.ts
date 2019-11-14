@@ -21,3 +21,10 @@ import { registerFacet } from './core';
 import Rect from './facet/rect';
 
 registerFacet('rect', Rect);
+
+// 注册默认的交互行为
+import { registerInteraction } from './interaction';
+import Active from './interaction/active';
+import ActiveRegion from './interaction/active-region';
+registerInteraction('active', Active);
+registerInteraction('activeRegion', ActiveRegion);

@@ -1,10 +1,9 @@
 import Element from '../geometry/element/index';
 import { registerStateAction } from './index';
 
-// 测试用
-registerStateAction('activeElements', {
+registerStateAction('active-feedback', {
   init(stateManager, view) {
-    stateManager.on('activeElements', this.onChange);
+    stateManager.on('active', this.onChange);
   },
   onChange(ev) {
     const activedElements: Element[] = ev.preValue;

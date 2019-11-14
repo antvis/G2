@@ -237,6 +237,8 @@ export default class Element extends EE {
       // 用于支持 name:eventName 事件，如果用户已设置 name 属性则忽略
       shape.set('name', shapeFactory.geometryType);
     }
+    // FIXME: G 层事件改造后移除
+    shape.set('element', this);
     this.shape = shape;
   }
 
