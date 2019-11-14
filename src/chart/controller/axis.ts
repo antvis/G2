@@ -82,7 +82,7 @@ export class Axis extends Controller<Option> {
    * create component into which layer
    */
   protected getContainer(): IGroup {
-    return this.view.getLayer(LAYER.BG).addGroup();
+    return this.view.getLayer(LAYER.BG);
   }
 
   /**
