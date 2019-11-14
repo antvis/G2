@@ -65,7 +65,6 @@ registerShape('polygon', 'polygon', {
     }
   },
   update(cfg: ShapeDrawCFG, element: Element) {
-    // TODO: 可优化
     if (!_.isEmpty(cfg.points)) {
       const shapeAttrs: any = cfg.style;
       if (cfg.color) {
@@ -85,6 +84,47 @@ registerShape('polygon', 'polygon', {
       symbol: 'square',
       r: 4,
       fill: color,
+    };
+  },
+});
+
+registerShape('polygon', 'hollow', {
+  draw(cfg: ShapeDrawCFG, element: Element) {
+    if (!_.isEmpty(cfg.points)) {
+      const shapeAttrs: any = cfg.style;
+      if (cfg.color) {
+        shapeAttrs.stroke = cfg.color;
+      }
+      const path = this.parsePath(getPath(cfg.points));
+      const container = element.container;
+      return container.addShape('path', {
+        attrs: {
+          ...shapeAttrs,
+          path,
+        },
+      });
+    }
+  },
+  update(cfg: ShapeDrawCFG, element: Element) {
+    if (!_.isEmpty(cfg.points)) {
+      const shapeAttrs: any = cfg.style;
+      if (cfg.color) {
+        shapeAttrs.stroke = cfg.color;
+      }
+
+      const path = this.parsePath(getPath(cfg.points));
+      const shape = element.shape;
+      shape.attr({
+        ...shapeAttrs,
+        path,
+      });
+    }
+  },
+  getMarker(color: string, isInCircle) {
+    return {
+      symbol: 'square',
+      r: 4,
+      stroke: color,
     };
   },
 });
