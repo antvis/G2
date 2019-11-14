@@ -468,6 +468,17 @@ export default class Geometry {
     return shapeFactory;
   }
 
+  /**
+   * get elements which meet the user's condition
+   * @param condition
+   * @returns
+   */
+  public getElementsBy(condition: (element: Element) => boolean): Element[] {
+    return this.elements.filter((element) => {
+      return condition(element);
+    });
+  }
+
   protected updateScales() {
     const { scaleDefs, scales, data } = this;
     _.each(scales, (scale) => {
