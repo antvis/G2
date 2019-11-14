@@ -1,0 +1,63 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [{
+    "filename": "scatter.js",
+    "title": {
+      "zh": "散点图",
+      "en": "scatter chart"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*_i8FTa6k0_4AAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "scatter-shapes.js",
+    "title": {
+      "zh": "多形状散点图",
+      "en": "scatter chart with different shapes"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*H965QalW9GoAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "scatter-series.js",
+    "title": {
+      "zh": "多色散点图",
+      "en": "scatter chart with different colors"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*CP_PT497E9MAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "bubble.js",
+    "title": {
+      "zh": "气泡图",
+      "en": "bubble chart"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*RX9RRLw_ET8AAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "time-bubble.js",
+    "title": {
+      "zh": "时间序列气泡图",
+      "en": "time bubble chart"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*7htzS4l-SeUAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "bubble-text.js",
+    "title": {
+      "zh": "带文本的气泡图",
+      "en": "bubble chart with label"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*jo3aQbPMoX4AAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "jitter.js",
+    "title": {
+      "zh": "扰动点图",
+      "en": "jitter point chart"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*l9szR4lpyFkAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "pizza.js",
+    "title": {
+      "zh": "Pizza Chart",
+      "en": "pizza chart"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*nYyYQJf_lg4AAAAAAAAAAABkARQnAQ"
+  }]
+}

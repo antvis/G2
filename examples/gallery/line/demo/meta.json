@@ -1,0 +1,70 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [{
+    "filename": "line1.js",
+    "title": {
+      "zh": "全球恐怖袭击致死人数趋势分析",
+      "en": ""
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*lfyJS4MckAoAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "line2.js",
+    "title": {
+      "zh": "某产品国内销售趋势",
+      "en": ""
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ILc3Q76vLhUAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "line3.js",
+    "title": {
+      "zh": "余额宝七日年化收益率",
+      "en": ""
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*2EIxT5j0BlQAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "line4.js",
+    "title": {
+      "zh": "某网站访问趋势",
+      "en": ""
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*WTsLS5NJop4AAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "line5.js",
+    "title": {
+      "zh": "某网站24小时UV趋势",
+      "en": ""
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*5r3LRpp3ZQgAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "line6.js",
+    "title": {
+      "zh": "blockchain 和 NLP 全球搜索趋势对比",
+      "en": ""
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*shU0Sq6Eq7sAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "line7.js",
+    "title": {
+      "zh": "任天堂游戏销售趋势",
+      "en": ""
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ZLpZTbrMg5gAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "line8.js",
+    "title": {
+      "zh": "CPU 占用率实时监控",
+      "en": ""
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*2YcTT7guTxUAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "line9.js",
+    "title": {
+      "zh": "中美两国与国际原油价格走势对比",
+      "en": ""
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*1Id8QJtABpAAAAAAAAAAAABkARQnAQ"
+  }]
+}

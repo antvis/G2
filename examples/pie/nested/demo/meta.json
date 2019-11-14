@@ -1,0 +1,14 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [{
+      "filename": "multi-level.js",
+      "title": {
+        "zh": "多层饼图",
+        "en": "nested pie chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*AWN_Q4ovrZQAAAAAAAAAAABkARQnAQ"
+    }]
+}

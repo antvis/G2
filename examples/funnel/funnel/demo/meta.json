@@ -1,0 +1,40 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.js",
+      "title": {
+        "zh": "基础漏斗图",
+        "en": "Basic Funnel Chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*fMNcQ4-l9UYAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "comparision.js",
+      "title": {
+        "zh": "对比漏斗图",
+        "en": "Contrastive Funnel Chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*O1aGSYlV2RsAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "pyramid.js",
+      "title": {
+        "zh": "尖底漏斗图",
+        "en": "Funnel Chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*4l4QTa23LoYAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "symmetric.js",
+      "title": {
+        "zh": "对称漏斗图",
+        "en": "Symmetric Funnel Chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*i4LSRolYpXMAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

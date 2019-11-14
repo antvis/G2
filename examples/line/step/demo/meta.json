@@ -1,0 +1,21 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [{
+    "filename": "step.js",
+    "title": {
+      "en": "step line chart",
+      "zh": "阶梯折线图"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*qTJUT5mmXgkAAAAAAAAAAABkARQnAQ"
+    }, {
+    "filename": "step-series.js",
+    "title": {
+      "en": "step line chart",
+      "zh": "多条阶梯折线图"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*qpizTrPVB-IAAAAAAAAAAABkARQnAQ"
+  }]
+}

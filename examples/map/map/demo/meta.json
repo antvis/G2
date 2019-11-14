@@ -1,0 +1,56 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "bubble-map.js",
+      "title": {
+        "zh": "带气泡的地图",
+        "en": "Bubble Map"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*BvfoQouf81sAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "choropleth-map.js",
+      "title": {
+        "zh": "世界分级统计地图",
+        "en": "Choropleth Map"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*TzmtTLXIxOEAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "hex-choropleth-map.js",
+      "title": {
+        "zh": "六边形分箱示意地图",
+        "en": "Hexgin Choropleth"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*kr_LQqhKO70AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "us-states-hex.js",
+      "title": {
+        "zh": "美国地图六边形分割",
+        "en": "Hexgin Choropleth"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*nWwESKCkDTgAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "with-connection.js",
+      "title": {
+        "zh": "美国各个机场的航线图",
+        "en": "Bubble Map"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ebqmQ6NIVXsAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "with-heatmap.js",
+      "title": {
+        "zh": "带热力图的地图",
+        "en": "Map"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*g4FWR42ZMpAAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

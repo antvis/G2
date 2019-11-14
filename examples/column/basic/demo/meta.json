@@ -1,0 +1,49 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [{
+    "filename": "basic.js",
+    "title": {
+      "zh": "基础柱状图",
+      "en": "Column Chart"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*4JDKS4I7MvcAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "image-top.js",
+    "title": {
+      "zh": "自定义柱状图",
+      "en": "Column Chart"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*luGdTrgw50oAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "marked.js",
+    "title": {
+      "zh": "带标识的柱状图",
+      "en": "Column Chart"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*BN4xTZuodaQAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "helix-coordinate.js",
+    "title": {
+      "zh": "螺旋坐标系",
+      "en": "Spiral Column Chart"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ZwIQQYi3H3wAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "ranged.js",
+    "title": {
+      "zh": "区间柱状图",
+      "en": "Column Range"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*l9Y6R43DMpUAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "waterfall.js",
+    "title": {
+      "zh": "瀑布图",
+      "en": "Waterfall Chart"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*4Q9PRIHjH2wAAAAAAAAAAABkARQnAQ"
+  }]
+}

@@ -1,0 +1,28 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [{
+      "filename": "grouped.js",
+      "title": {
+        "zh": "分组条形图",
+        "en": "Grouped Bar Chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*WlX-SLH-0FQAAAAAAAAAAABkARQnAQ"
+    }, {
+    "filename": "bar4.js",
+    "title": {
+      "zh": "城市产品销售额 Top10",
+      "en": "Grouped Bar Chart"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*txCBRpED9RAAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "bar5.js",
+    "title": {
+      "zh": "2016 年全球十大转基因作物种植面积和耕地总面积对比",
+      "en": "Butterfly Chart"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*FhaLRItZu-oAAAAAAAAAAABkARQnAQ"
+  }]
+}

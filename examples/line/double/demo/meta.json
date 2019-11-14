@@ -1,0 +1,35 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [{
+    "filename": "curved.js",
+    "title": {
+      "en": "Curved Line Chart",
+      "zh": "曲线折线图"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*aFXQS7yyDyUAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "dash.js",
+    "title": {
+      "en": "Line Chart",
+      "zh": "带虚线部分的折线图"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Tl12Trvw_5sAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "rain-and-flow.js",
+    "title": {
+      "en": "Line Chart",
+      "zh": "雨量流量对比"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*WkrOQqUTNYcAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "series.js",
+    "title": {
+      "en": "Double Line Chart",
+      "zh": "双折线图"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*1FpQQoQ1KsIAAAAAAAAAAABkARQnAQ"
+  }]
+}

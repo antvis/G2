@@ -1,0 +1,35 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [{
+      "filename": "grouped.js",
+      "title": {
+        "zh": "分组柱状图",
+        "en": "grouped column"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*seGsQK2pQ30AAAAAAAAAAABkARQnAQ"
+    }, {
+    "filename": "circular-stacked.js",
+    "title": {
+      "zh": "极坐标系下分组层叠柱状图",
+      "en": "grouped stack column in Polar Coordinate"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*PwjLQr4h5t0AAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "column-clustered-stacked.js",
+    "title": {
+      "zh": "分组层叠柱状图",
+      "en": "column clustered stacked column"
+      },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*1uL3RrksVZAAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "column12.js",
+    "title": {
+      "zh": "美国科技三巨头女性员工比例",
+      "en": "grouped column"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*nHsUTLJ3tl8AAAAAAAAAAABkARQnAQ"
+  }]
+}

@@ -1,0 +1,21 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [{
+    "filename": "kernel-smooth-regression-1.js",
+    "title": {
+      "en": "kernel smooth regression line chart",
+      "zh": "核函数概率密度回归曲线"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*PfvqRIue7AwAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "kernel-smooth-regression-2.js",
+    "title": {
+      "en": "kernel smooth regression line chart",
+      "zh": "核函数概率密度回归曲线（两字段）"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*89jaRa5lyLIAAAAAAAAAAABkARQnAQ"
+  }]
+}

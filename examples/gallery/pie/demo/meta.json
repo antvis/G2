@@ -1,0 +1,63 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [{
+    "filename": "pie1.js",
+    "title": {
+      "zh": "某网站来访用户学历分布",
+      "en": ""
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*LhL3TItKfrUAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "pie2.js",
+    "title": {
+      "zh": "《战狼 3》关注度来源",
+      "en": ""
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*kiaxRq6B7lsAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "pie3.js",
+    "title": {
+      "zh": "2018 年第一季度不同等级城市的用户购买手机占比",
+      "en": ""
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*hYXNT5VVqDQAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "pie4.js",
+    "title": {
+      "zh": "outing 去哪玩投票结果分析",
+      "en": ""
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*S9krT6qTvHsAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "pie5.js",
+    "title": {
+      "zh": "项目整体监控",
+      "en": ""
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*mTnvS4L2Y_4AAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "pie6.js",
+    "title": {
+      "zh": "某部门人员星座分布",
+      "en": ""
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*hYXNT5VVqDQAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "pie7.js",
+    "title": {
+      "zh": "2018 年第一季度短视频用户性别分布",
+      "en": ""
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*hW3bR6rfq9gAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "pie8.js",
+    "title": {
+      "zh": "2017 年西安居民人均消费支出",
+      "en": ""
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*JQVKSa5jl74AAAAAAAAAAABkARQnAQ"
+  }]
+}

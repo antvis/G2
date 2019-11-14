@@ -1,0 +1,28 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [{
+      "filename": "donut.js",
+      "title": {
+        "zh": "基础环图",
+        "en": "donut chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*3K-wRazv3PEAAAAAAAAAAABkARQnAQ"
+    }, {
+    "filename": "clock.js",
+    "title": {
+      "zh": "日常作息可视化",
+      "en": "pie chart"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*MonkT4iCyXcAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "pie-slice.js",
+    "title": {
+      "zh": "饼图-分割空白",
+      "en": "customized pie chart"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*jm-tQKob83EAAAAAAAAAAABkARQnAQ"
+  }]
+}

@@ -1,0 +1,75 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.js",
+      "title": {
+        "zh": "色块图",
+        "en": "Basic Heatmap"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*sXU0S4xSx-UAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "calendar-horizontal.js",
+      "title": {
+        "zh": "水平日历色块图",
+        "en": "Calendar Heatmap"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*_GtkQo1vCHcAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "calendar.js",
+      "title": {
+        "zh": "日历色块图",
+        "en": "Calendar Heatmap"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*KA8TS4K_M98AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "hexagon.js",
+      "title": {
+        "zh": "六边形分箱",
+        "en": "Heatmap"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*m9VIT4xIQCgAAAAAAAAAAABkARQnAQ"
+    }, {
+      "filename": "hot-rect.js",
+      "title": {
+        "zh": "分块热力图",
+        "en": "Heatmap"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*NKIpTJ-eXQwAAAAAAAAAAABkARQnAQ"
+    }, {
+      "filename": "image.js",
+      "title": {
+        "zh": "热力图",
+        "en": "Heatmap on Geography"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*yjD8RqkM8bgAAAAAAAAAAABkARQnAQ"
+    }, {
+      "filename": "kernel-smooth-density.js",
+      "title": {
+        "zh": "核函数概率密度分布",
+        "en": "Heatmap"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*fwWrSLI-IZgAAAAAAAAAAABkARQnAQ"
+    }, {
+      "filename": "polar-heatmap.js",
+      "title": {
+        "zh": "极坐标下的色块图",
+        "en": "Polar Heatmap"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*6rHFRpquLT4AAAAAAAAAAABkARQnAQ"
+    }, {
+      "filename": "rectangle.js",
+      "title": {
+        "zh": "矩形分箱图",
+        "en": "Heatmap"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Vq87Qqej_PAAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

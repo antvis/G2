@@ -1,0 +1,14 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [{
+    "filename": "base.js",
+    "title": {
+      "en": "Line Chart",
+      "zh": "基础折线图"
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*aKqJT4RCVOcAAAAAAAAAAABkARQnAQ"
+  }]
+}

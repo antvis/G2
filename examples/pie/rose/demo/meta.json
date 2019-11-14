@@ -1,0 +1,35 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [{
+    "filename": "rose.js",
+    "title": {
+      "zh": "南丁格尔玫瑰图",
+      "en": ""
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*kjt6Ro31ugcAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "color-rose.js",
+    "title": {
+      "zh": "多色南丁格尔玫瑰图",
+      "en": ""
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*9NEvS7uOrUMAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "donut-rose.js",
+    "title": {
+      "zh": "南丁格尔玫瑰环图",
+      "en": ""
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*T62aT6hOD2MAAAAAAAAAAABkARQnAQ"
+  }, {
+    "filename": "rose-ranged.js",
+    "title": {
+      "zh": "玫瑰图-限定角度范围",
+      "en": ""
+    },
+    "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*tj_YSL7tCbAAAAAAAAAAAABkARQnAQ"
+  }]
+}
