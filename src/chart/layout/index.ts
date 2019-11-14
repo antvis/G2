@@ -25,7 +25,7 @@ export default function defaultLayout(view: View): void {
   const coordinate = view.getCoordinate();
 
   // 1. 计算出 legend 的 direction 位置 x, y
-  this.view.legendController.layout();
+  view.legendController.layout();
 
   // 2. 根据 axis 内容不遮挡原则，计算出 y axis 的 width，x axis 的 height；
   view.axisController.layout();

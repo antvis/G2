@@ -1,4 +1,3 @@
-import { getWrapBehavior, wrapBehavior } from '@antv/util';
 import { Chart } from '../../../src/index';
 import { getInteraction, Interaction, registerInteraction } from '../../../src/interaction';
 import { registerStateAction } from '../../../src/state';
@@ -34,11 +33,11 @@ describe('Interaction', () => {
     private onMousedown = (e) => {
       const shape = e.target;
       this.stateManager.setState('activeline', shape);
-    }
+    };
 
     private onMouseup = () => {
       this.stateManager.setState('activeline', null);
-    }
+    };
 
     public destroy() {
       this.view.off('mouseenter', this.onMousedown);
