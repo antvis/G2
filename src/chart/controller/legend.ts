@@ -1,8 +1,6 @@
-import Attribute from '@antv/attr/lib/attributes/base';
-import Scale from '@antv/scale/lib/base';
 import * as _ from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
-import { CategoryLegend, ContinuousLegend, IGroup } from '../../dependents';
+import { Attribute, CategoryLegend, ContinuousLegend, IGroup, Scale, Tick } from '../../dependents';
 import Geometry from '../../geometry/base';
 import { BBox } from '../../util/bbox';
 import { directionToPosition } from '../../util/direction';
@@ -114,7 +112,65 @@ export class Legend extends Controller<Option> {
     scale: Scale,
     legendOption: any
   ): ComponentOption {
-    return undefined;
+    const ticks = scale.getTicks();
+
+    const containMin = _.find(ticks, (tick: Tick) => tick.value === 0);
+    const containMax = _.find(ticks, (tick: Tick) => tick.value === 1);
+    const items = _.map(ticks, (tick: Tick) => {
+      const { value, text } = tick;
+      const attrValue = attr.mapping(scale.invert(value)).join('');
+
+      return {
+        value: text,
+        attrValue,
+        color: attrValue,
+        scaleValue: value,
+      };
+    });
+
+    if (!containMin) {
+      items.push({
+        value: scale.min,
+        attrValue: attr.mapping(0).join(''),
+        color: attr.mapping(0).join(''),
+        scaleValue: 0,
+      });
+    }
+    if (!containMax) {
+      items.push({
+        value: scale.max,
+        attrValue: attr.mapping(1).join(''),
+        color: attr.mapping(1).join(''),
+        scaleValue: 1,
+      });
+    }
+
+    const layer = LAYER.FORE;
+    const container = this.getContainer().addGroup();
+    // if position is not set, use top as default
+    const direction = _.get(legendOption, 'position', DIRECTION.BOTTOM);
+
+    // TODO 基础配置有哪些
+    const baseCfg = {
+      container,
+      items,
+      attr,
+      formatter: scale.formatter,
+    };
+
+    // TODO 主题配置
+    const cfg = this.getLegendCfg(baseCfg, legendOption, direction);
+
+    // TODO size color 配置的区别
+
+    const component = new ContinuousLegend(cfg);
+
+    return {
+      component,
+      layer,
+      direction,
+      type: COMPONENT_TYPE.LEGEND,
+    };
   }
 
   /**

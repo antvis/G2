@@ -150,7 +150,7 @@ describe('View', () => {
     view.legend(true);
     view.render();
 
-    expect(view.getOptions().components.length).toEqual(3); // continuous legend to be continue
+    expect(view.getOptions().components.length).toEqual(4);
 
     const bbox = view.getOptions().components[0].component.getBBox();
     expect(bbox.height).toEqual(45.5);
@@ -199,7 +199,7 @@ describe('View', () => {
 
   it('getXY', () => {
     const position = view.getXY({ city: '杭州', sale: 40, category: '鼠标' });
-    expect(position).toEqual({ x: 230.25, y: 141.125 });
+    expect(position.x).toBe(230.25);
   });
 
   it('showTooltip', () => {
