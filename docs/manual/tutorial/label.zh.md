@@ -23,7 +23,7 @@ chart.interval().position('x*y').label('x', {
     textBaseline: 'top' // 文本基准线，可取 top middle bottom，默认为middle
   } || {function}, // 支持回调
   rotate: 30,
-  autoRotate: {boolean} // 是否需要自动旋转，默认为 true
+  autoRotate: {boolean}, // 是否需要自动旋转，默认为 true
   formatter: {function}, // 回调函数，用于格式化坐标轴上显示的文本信息
   htmlTemplate: {function}, // 使用 html 自定义 label
 });

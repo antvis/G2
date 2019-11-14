@@ -706,6 +706,7 @@ const Theme = {
 还有其他几个配置项：
 
 ```javascript
+{
 	// 默认使用 canvas
 	renderer: 'canvas',
 	// 全局的配置项开关
@@ -718,6 +719,7 @@ const Theme = {
   // 折线图、区域图、path 当只有一个数据时，是否显示成点
   showSinglePoint: false,
   connectNulls: false, // 折线图存在 null 时是否忽视
+}
 ```
 
 ## 使用

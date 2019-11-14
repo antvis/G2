@@ -106,20 +106,20 @@ chart.interact('drag', {
 
 ```javascript
 chart.interact('brush', {
-  type: 'X' | 'Y' | 'XY' | 'POLYGON', // 设置框选的类型，默认为 'XY'
-  draggable: boolean, // 框选框是否允许拖拽，默认为 false
-  inPlot: boolean, // 是否将框选范围限制在绘图区域内，默认为 true
-  style: object, // 设置选择框的绘图属性样式
-  filter: boolean, // 框选结束后是否对数据进行过滤，，默认为 false
-  xField: string, // 设置 X 值对应的字段名
-  yField: string, // 设置 Y 轴对应的字段名
-  onStart: function, // 交互触发的回调
-  onEnd: function, // 交互结束的回调
-  onBrushstart: function, // 框选开始时的钩子
-  onBrushmove: function, // 框选过程中的钩子
-  onBrushend: function, // 框选结束时的钩子
-  onDragstart: function, // 拖拽开始时的钩子
-  onDragmove: function, // 拖拽过程中的钩子
-  onDragend: function, // 拖拽结束时的钩子
+  type, // string 类型，可选值为 'X' | 'Y' | 'XY' | 'POLYGON'，设置框选的类型，默认为 'XY'
+  draggable, // boolean, 框选框是否允许拖拽，默认为 false
+  inPlot, // boolean, 是否将框选范围限制在绘图区域内，默认为 true
+  style, // object, 设置选择框的绘图属性样式
+  filter, // boolean, 框选结束后是否对数据进行过滤，，默认为 false
+  xField, // string, 设置 X 值对应的字段名
+  yField, // string, 设置 Y 轴对应的字段名
+  onStart, // function, 交互触发的回调
+  onEnd, // function, 交互结束的回调
+  onBrushstart, // function, 框选开始时的钩子
+  onBrushmove, // function, 框选过程中的钩子
+  onBrushend, // function, 框选结束时的钩子
+  onDragstart, // function, 拖拽开始时的钩子
+  onDragmove, // function, 拖拽过程中的钩子
+  onDragend, // function, 拖拽结束时的钩子
 });
 ```

@@ -805,7 +805,7 @@ line().style('a*b', { // 使用回调函数设置属性
 ```javascript
 geom.select(false); // 关闭
 geom.select(true); // 打开
-geom.select([true,] {
+geom.select([true], {
   mode: 'single' | 'multiple', // 选中模式，单选、多选
   style: {}, // 选中后 shape 的样式
   cancelable: true | false, // 选中之后是否允许取消选中，默认允许取消选中
