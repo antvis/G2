@@ -1,7 +1,7 @@
 import EE from '@antv/event-emitter';
 import * as _ from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, GROUP_Z_INDEX, LAYER, PLOT_EVENTS, VIEW_LIFE_CIRCLE } from '../constant';
-import { Attribute, Component, Coordinate, Event as GEvent, ICanvas, IGroup, Scale } from '../dependents';
+import { Attribute, Component, Coordinate, Event as GEvent, ICanvas, IGroup, Scale, Shape } from '../dependents';
 import { Facet, getFacet } from '../facet';
 import { FacetCfgMap } from '../facet/interface';
 import Geometry from '../geometry/base';
@@ -64,6 +64,8 @@ export class View extends EE {
   protected padding: number[];
   /** 主题配置 */
   protected themeObject: object;
+
+  private eventCaptureRect: Shape.Rect;
 
   // 配置信息存储
   protected options: Options = {
@@ -165,6 +167,9 @@ export class View extends EE {
   public init() {
     // 计算画布的 viewBBox
     this.calculateViewBBox();
+    // 创建一个透明的背景 rect，用于捕获事件
+    this.createEventCaptureRect();
+
     // 事件委托机制
     this.initEvents();
     this.initStates();
@@ -218,7 +223,10 @@ export class View extends EE {
     this.axisController.destroy();
     this.legendController.destroy();
 
-    // 4. 递归处理子 view
+    // 4. clear eventCaptureRect
+    this.eventCaptureRect.remove(true);
+
+    // 递归处理子 view
     _.each(this.views, (view: View) => {
       view.clear();
     });
@@ -726,6 +734,23 @@ export class View extends EE {
   }
 
   /**
+   * create an rect with viewBBox, for capture event
+   */
+  private createEventCaptureRect() {
+    const { x, y, width, height } = this.viewBBox;
+
+    this.eventCaptureRect = this.backgroundGroup.addShape('rect', {
+      attrs: {
+        x,
+        y,
+        width,
+        height,
+        fill: 'rgba(255,255,255,0)',
+      },
+    }) as any;
+  }
+
+  /**
    * 初始化事件机制：G 4.0 底层内置支持 name:event 的机制，那么只要所有组件都有自己的 name 即可。
    *
    * G2 的事件只是获取事件委托，然后在 view 嵌套结构中，形成事件冒泡机制。
@@ -964,9 +989,6 @@ export class View extends EE {
    */
   private renderComponents() {
     const { legends, tooltip } = this.options;
-
-    this.backgroundGroup.clear();
-    this.foregroundGroup.clear();
 
     // 清空 ComponentOptions 配置
     this.options.components.splice(0);
