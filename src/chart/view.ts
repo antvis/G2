@@ -65,7 +65,8 @@ export class View extends EE {
   /** 主题配置 */
   protected themeObject: object;
 
-  private eventCaptureRect: Shape.Rect;
+  /** 用于捕获 view event 的 rect shape */
+  private viewEventCaptureRect: Shape.Rect;
 
   // 配置信息存储
   protected options: Options = {
@@ -168,7 +169,7 @@ export class View extends EE {
     // 计算画布的 viewBBox
     this.calculateViewBBox();
     // 创建一个透明的背景 rect，用于捕获事件
-    this.createEventCaptureRect();
+    this.createViewEventCaptureRect();
 
     // 事件委托机制
     this.initEvents();
@@ -224,7 +225,7 @@ export class View extends EE {
     this.legendController.destroy();
 
     // 4. clear eventCaptureRect
-    this.eventCaptureRect.remove(true);
+    this.viewEventCaptureRect.remove(true);
 
     // 递归处理子 view
     _.each(this.views, (view: View) => {
@@ -736,10 +737,10 @@ export class View extends EE {
   /**
    * create an rect with viewBBox, for capture event
    */
-  private createEventCaptureRect() {
+  private createViewEventCaptureRect() {
     const { x, y, width, height } = this.viewBBox;
 
-    this.eventCaptureRect = this.backgroundGroup.addShape('rect', {
+    this.viewEventCaptureRect = this.backgroundGroup.addShape('rect', {
       attrs: {
         x,
         y,
