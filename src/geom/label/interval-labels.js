@@ -1,7 +1,12 @@
 const Util = require('../../util');
 const GeomLabels = require('./geom-labels');
 
-class IntervalLabels extends GeomLabels {
+const IntervalLabels = function(cfg) {
+  IntervalLabels.superclass.constructor.call(this, cfg);
+};
+
+Util.extend(IntervalLabels, GeomLabels);
+Util.augment(IntervalLabels, {
   setLabelPosition(point, originPoint, index, position) {
     if (Util.isFunction(position)) {
       position = position(point.text, originPoint._origin, index);
@@ -65,6 +70,6 @@ class IntervalLabels extends GeomLabels {
         break;
     }
   }
-}
+});
 
 module.exports = IntervalLabels;

@@ -2,10 +2,15 @@ const Labels = require('./geom-labels');
 const PathUtil = require('../util/path');
 const Util = require('../../util');
 
-class PolarLabels extends Labels {
+const PolarLabels = function(cfg) {
+  PolarLabels.superclass.constructor.call(this, cfg);
+};
+
+Util.extend(PolarLabels, Labels);
+Util.augment(PolarLabels, {
   getPointRauis(coord, point) {
     return PathUtil.getPointRadius(coord, point);
-  }
+  },
 
   getCirclePoint(angle, offset, point) {
     const self = this;
@@ -30,7 +35,7 @@ class PolarLabels extends Labels {
       angle,
       r
     };
-  }
+  },
 
   getArcPoint(point, index) {
     const self = this;
@@ -48,14 +53,14 @@ class PolarLabels extends Labels {
     }
     self.transLabelPoint(outerPoint);
     return outerPoint;
-  }
+  },
 
   // 获取点所在的角度
   getPointAngle(point) {
     const self = this;
     const coord = self.get('coord');
     return PathUtil.getPointAngle(coord, point);
-  }
+  },
 
   // 获取中心的位置
   getMiddlePoint(points) {
@@ -75,12 +80,12 @@ class PolarLabels extends Labels {
 
     middlePoint = coord.convert(middlePoint);
     return middlePoint;
-  }
+  },
 
   // 是否居中
   _isToMiddle(point) {
     return point.x.length > 2;
-  }
+  },
 
   /**
    * @protected
@@ -130,12 +135,12 @@ class PolarLabels extends Labels {
       y: arcPoint.y
     };
     return labelPoint;
-  }
+  },
 
   _isEmitLabels() {
     const labels = this.get('label');
     return labels.labelEmit;
-  }
+  },
 
   /**
    * @protected
@@ -160,7 +165,7 @@ class PolarLabels extends Labels {
       }
     }
     return rotate / 180 * Math.PI;
-  }
+  },
 
   // override
   getLabelAlign(point) {
@@ -196,6 +201,6 @@ class PolarLabels extends Labels {
     }
     return align;
   }
-}
+});
 
 module.exports = PolarLabels;

@@ -37,7 +37,13 @@ function getCentroid(xs, ys) {
   return [ x / k, y / k ];
 }
 
-class GeomLabels extends Group {
+
+const GeomLabels = function(cfg) {
+  GeomLabels.superclass.constructor.call(this, cfg);
+};
+
+Util.extend(GeomLabels, Group);
+Util.augment(GeomLabels, {
   getDefaultCfg() {
     return {
       label: Global.label,
@@ -58,10 +64,10 @@ class GeomLabels extends Group {
       geomType: null,
       zIndex: 6
     };
-  }
-
+  },
   _renderUI() {
-    super._renderUI.call(this);
+    GeomLabels.superclass._renderUI.call(this);
+
     this.initLabelsCfg();
     const labelsGroup = this.addGroup();
     const lineGroup = this.addGroup({
@@ -73,8 +79,7 @@ class GeomLabels extends Group {
     this.get('labelRenderer').set('group', labelsGroup);
     labelRenderer.set('group', labelsGroup);
     labelRenderer.set('lineGroup', lineGroup);
-  }
-
+  },
   // 初始化labels的配置项
   initLabelsCfg() {
     const self = this;
@@ -90,8 +95,7 @@ class GeomLabels extends Group {
     labelRenderer.set('coord', self.get('coord'));
     this.set('labelRenderer', labelRenderer);
     self.set('label', labels);
-  }
-
+  },
   /**
    * @protected
    * 默认的文本样式
@@ -106,8 +110,7 @@ class GeomLabels extends Group {
       return Util.deepMix({}, self.get('label'), viewTheme.innerLabels, labelCfg);
     }
     return Util.deepMix({}, self.get('label'), viewTheme.label, labelCfg);
-  }
-
+  },
   /**
    * @protected
    * 获取labels
@@ -154,8 +157,7 @@ class GeomLabels extends Group {
       });
     });
     return items;
-  }
-
+  },
   /* /!*
    * @protected
    * 如果发生冲突则会调整文本的位置
@@ -207,7 +209,7 @@ class GeomLabels extends Group {
       }
     });
     return items;
-  }
+  },
   /**
    * drawing lines to labels
    * @param  {Array} items labels
@@ -223,10 +225,10 @@ class GeomLabels extends Group {
         self.lineToLabel(point);
       }
     });
-  }
+  },
 
   // 定义连接线
-  lineToLabel() {}
+  lineToLabel() {},
 
   /**
    * @protected
@@ -308,15 +310,15 @@ class GeomLabels extends Group {
     label.y += offsetPoint.y;
     label.color = point.color;
     return label;
-  }
-  setLabelPosition() {}
+  },
+  setLabelPosition() {},
   transLabelPoint(point) {
     const self = this;
     const coord = self.get('coord');
     const tmpPoint = coord.applyMatrix(point.x, point.y, 1);
     point.x = tmpPoint[0];
     point.y = tmpPoint[1];
-  }
+  },
 
   getOffsetVector(point) {
     const self = this;
@@ -329,7 +331,7 @@ class GeomLabels extends Group {
       vector = coord.applyMatrix(0, offset);
     }
     return vector;
-  }
+  },
 
   // 获取默认的偏移量
   getDefaultOffset(point) {
@@ -351,7 +353,7 @@ class GeomLabels extends Group {
       }
     }
     return offset;
-  }
+  },
 
   // 获取文本的偏移位置，x,y
   getLabelOffset(point, index, total) {
@@ -372,7 +374,7 @@ class GeomLabels extends Group {
       offsetPoint[yField] = offset * factor * -1;
     }
     return offsetPoint;
-  }
+  },
 
   getLabelAlign(point, index, total) {
     const self = this;
@@ -397,7 +399,7 @@ class GeomLabels extends Group {
       }
     }
     return align;
-  }
+  },
   _getLabelValue(origin, scales) {
     if (!Util.isArray(scales)) {
       scales = [ scales ];
@@ -420,7 +422,7 @@ class GeomLabels extends Group {
       text.push(value);
     });
     return text;
-  }
+  },
   // 获取每个label的配置
   _getLabelCfgs(points) {
     const self = this;
@@ -488,7 +490,7 @@ class GeomLabels extends Group {
       cfgs.push(cfg);
     });
     this.set('labelItemCfgs', cfgs);
-  }
+  },
   showLabels(points, shapes) {
     const self = this;
     const labelRenderer = self.get('labelRenderer');
@@ -511,13 +513,13 @@ class GeomLabels extends Group {
     }
     labelRenderer.set('canvas', this.get('canvas'));
     labelRenderer.draw();
-  }
+  },
 
   destroy() {
     this.get('labelRenderer').destroy(); // 清理文本
-    super.destroy.call(this);
+    GeomLabels.superclass.destroy.call(this);
   }
-}
+});
 
 // Util.assign(GeomLabels.prototype, Labels.LabelslabelRenderer);
 
