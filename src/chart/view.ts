@@ -825,11 +825,10 @@ export class View extends EE {
     const { type, x, y } = e;
 
     const point = { x, y };
+    const currentInPlot = isPointInCoordinate(this.coordinateInstance, point);
 
     // 使用 mousemove 事件计算出 plotmove，plotenter、plotleave 事件
     if (type === 'mousemove') {
-      const currentInPlot = isPointInCoordinate(this.coordinateInstance, point);
-
       if (this.isPreMouseInPlot && currentInPlot) {
         e.type = PLOT_EVENTS.MOUSE_MOVE;
         this.emit(PLOT_EVENTS.MOUSE_MOVE, e);
@@ -840,13 +839,13 @@ export class View extends EE {
         e.type = PLOT_EVENTS.MOUSE_ENTER;
         this.emit(PLOT_EVENTS.MOUSE_ENTER, e);
       }
-
-      // 赋新的值
-      this.isPreMouseInPlot = currentInPlot;
-    } else if (type === 'mouseleave' && this.isPreMouseInPlot) {
+    } else if (type === 'mouseleave' && this.isPreMouseInPlot && !currentInPlot) {
       e.type = PLOT_EVENTS.MOUSE_LEAVE;
       this.emit(PLOT_EVENTS.MOUSE_LEAVE, e);
     }
+
+    // 赋新的状态值
+    this.isPreMouseInPlot = currentInPlot;
   }
 
   /**
