@@ -46,13 +46,9 @@ export default class Crosshair extends Guide<CrosshairCfg> {
 
   public _init_() {
     const plot = this.get('plot');
-    let group;
-    if (this.get('type') === 'rect') {
-      group = plot.addGroup({
-        zIndex: 0,
-      });
-    } else {
-      group = plot.addGroup();
+    const group = plot.addGroup();
+    if (this.get('type') === 'rect') { 
+      group.toBack();
     }
     this.set('container', group);
   }
