@@ -5,7 +5,12 @@ const { Group } = G;
 const { DomUtil } = Util;
 const OFFSET = 5;
 
-class Range extends Group {
+const Range = function(cfg) {
+  Range.superclass.constructor.call(this, cfg);
+};
+
+Util.extend(Range, Group);
+Util.augment(Range, {
   getDefaultCfg() {
     return {
       /**
@@ -69,7 +74,7 @@ class Range extends Group {
        */
       pageY: null
     };
-  }
+  },
 
   _initHandle(type) {
     const self = this;
@@ -134,7 +139,7 @@ class Range extends Group {
     this.set(type + 'TextElement', text);
     this.set(type + 'IconElement', handleIcon);
     return handle;
-  }
+  },
 
   _initSliderBackground() {
     const backgroundElement = this.addGroup();
@@ -149,7 +154,7 @@ class Range extends Group {
       }, this.get('backgroundStyle'))
     });
     return backgroundElement;
-  }
+  },
 
   _beforeRenderUI() {
     const backgroundElement = this._initSliderBackground();
@@ -169,7 +174,7 @@ class Range extends Group {
     maxHandleElement.set('zIndex', 2);
     middleHandleElement.attr('cursor', 'move');
     this.sort();
-  }
+  },
 
   _renderUI() {
     if (this.get('layout') === 'horizontal') {
@@ -177,7 +182,7 @@ class Range extends Group {
     } else {
       this._renderVertical();
     }
-  }
+  },
 
   _transform(layout) {
     const range = this.get('range');
@@ -215,19 +220,19 @@ class Range extends Group {
       minHandleElement.translate(0, (1 - minRatio) * height);
       maxHandleElement.translate(0, (1 - maxRatio) * height);
     }
-  }
+  },
 
   _renderHorizontal() {
     this._transform('horizontal');
-  }
+  },
 
   _renderVertical() {
     this._transform('vertical');
-  }
+  },
 
   _bindUI() {
     this.on('mousedown', Util.wrapBehavior(this, '_onMouseDown'));
-  }
+  },
 
   _isElement(target, name) { // 判断是否是该元素
     const element = this.get(name);
@@ -239,14 +244,14 @@ class Range extends Group {
       return elementChildren.indexOf(target) > -1;
     }
     return false;
-  }
+  },
 
   _getRange(diff, range) {
     let rst = diff + range;
     rst = rst > 100 ? 100 : rst;
     rst = rst < 0 ? 0 : rst;
     return rst;
-  }
+  },
 
   _limitRange(diff, limit, range) {
     range[0] = this._getRange(diff, range[0]);
@@ -255,7 +260,7 @@ class Range extends Group {
       range[1] = 100;
       range[0] = range[1] - limit;
     }
-  }
+  },
 
   _updateStatus(dim, ev) {
     const totalLength = dim === 'x' ? this.get('width') : this.get('height');
@@ -324,7 +329,7 @@ class Range extends Group {
     this._renderUI();
     this.get('canvas').draw(); // need delete
     return;
-  }
+  },
 
   _onMouseDown(ev) {
     const currentTarget = ev.currentTarget;
@@ -337,7 +342,7 @@ class Range extends Group {
     this.set('currentTarget', currentTarget);
     this.set('rangeStash', [ range[0], range[1] ]);
     this._bindCanvasEvents();
-  }
+  },
 
   _bindCanvasEvents() {
     const containerDOM = this.get('canvas').get('containerDOM');
@@ -345,7 +350,7 @@ class Range extends Group {
     this.onMouseUpListener = DomUtil.addEventListener(containerDOM, 'mouseup', Util.wrapBehavior(this, '_onCanvasMouseUp'));
     // @2018-06-06 by blue.lb 添加mouseleave事件监听，让用户在操作出滑块区域后有一个“正常”的效果，可以正常重新触发滑块的操作流程
     this.onMouseLeaveListener = DomUtil.addEventListener(containerDOM, 'mouseleave', Util.wrapBehavior(this, '_onCanvasMouseUp'));
-  }
+  },
 
   _onCanvasMouseMove(ev) {
     const layout = this.get('layout');
@@ -354,17 +359,17 @@ class Range extends Group {
     } else {
       this._updateStatus('y', ev);
     }
-  }
+  },
 
   _onCanvasMouseUp() {
     this._removeDocumentEvents();
-  }
+  },
 
   _removeDocumentEvents() {
     this.onMouseMoveListener.remove();
     this.onMouseUpListener.remove();
     this.onMouseLeaveListener.remove();
   }
-}
+});
 
 module.exports = Range;

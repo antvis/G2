@@ -97,16 +97,22 @@ function antiCollision(labels, lineHeight, plotRange, center, isRight) {
   });
 }
 
-class PieLabels extends PolarLabels {
+
+const PieLabels = function(cfg) {
+  PieLabels.superclass.constructor.call(this, cfg);
+};
+
+Util.extend(PieLabels, PolarLabels);
+Util.augment(PieLabels, {
   getDefaultCfg() {
     return {
       label: Global.thetaLabels
     };
-  }
+  },
 
   getDefaultOffset(point) {
     return point.offset || 0;
-  }
+  },
 
   /**
    * @protected
@@ -120,8 +126,8 @@ class PieLabels extends PolarLabels {
     if (offset > 0) {
       items = self._distribute(items, offset);
     }
-    return super.adjustItems(items);
-  }
+    return PieLabels.superclass.adjustItems.call(this, items);
+  },
 
   /**
    * @private
@@ -182,7 +188,7 @@ class PieLabels extends PolarLabels {
     });
 
     return halves[0].concat(halves[1]);
-  }
+  },
 
   // 连接线
   lineToLabel(label) {
@@ -198,7 +204,7 @@ class PieLabels extends PolarLabels {
       label.labelLine = self.get('label').labelLine || {};
     }
     label.labelLine.path = [ 'M' + start.x, start.y + ' Q' + inner.x, inner.y + ' ' + label.x, label.y ].join(',');
-  }
+  },
 
   /**
    * @protected
@@ -219,7 +225,7 @@ class PieLabels extends PolarLabels {
       }
     }
     return rotate / 180 * Math.PI;
-  }
+  },
 
   /**
    * @protected
@@ -247,11 +253,11 @@ class PieLabels extends PolarLabels {
       }
     }
     return align;
-  }
+  },
 
   getArcPoint(point) {
     return point;
-  }
+  },
 
   getPointAngle(point) {
     const self = this;
@@ -278,7 +284,7 @@ class PieLabels extends PolarLabels {
       angle = startAngle + (endAngle - startAngle) / 2;
     }
     return angle;
-  }
+  },
 
   getCirclePoint(angle, offset) {
     const self = this;
@@ -290,6 +296,6 @@ class PieLabels extends PolarLabels {
     point.r = r;
     return point;
   }
-}
+});
 
 module.exports = PieLabels;

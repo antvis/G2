@@ -6,7 +6,13 @@ const Util = require('../util');
 const { Group } = require('../renderer');
 const AUTO_STR = 'auto';
 
-class PlotBack extends Group {
+
+const PlotBack = function(cfg) {
+  PlotBack.superclass.constructor.call(this, cfg);
+};
+
+Util.extend(PlotBack, Group);
+Util.augment(PlotBack, {
   getDefaultCfg() {
     return {
       /**
@@ -35,16 +41,16 @@ class PlotBack extends Group {
        */
       plotBackground: null
     };
-  }
+  },
 
   _beforeRenderUI() {
     this._calculateRange();
-  }
+  },
 
   _renderUI() {
     this._renderBackground();
     this._renderPlotBackground();
-  }
+  },
 
   _renderBackground() {
     const self = this;
@@ -72,7 +78,7 @@ class PlotBack extends Group {
     } else {
       return;
     }
-  }
+  },
 
   _renderPlotBackground() {
     const self = this;
@@ -108,7 +114,7 @@ class PlotBack extends Group {
     } else {
       return;
     }
-  }
+  },
 
   _convert(val, isHorizontal) {
     if (Util.isString(val)) {
@@ -124,7 +130,7 @@ class PlotBack extends Group {
     }
 
     return val;
-  }
+  },
 
   _calculateRange() {
     const self = this;
@@ -176,7 +182,7 @@ class PlotBack extends Group {
     };
 
     this.set('plotRange', plotRange);
-  }
+  },
 
   repaint() {
     this._calculateRange();
@@ -184,6 +190,6 @@ class PlotBack extends Group {
     this._renderPlotBackground();
     return this;
   }
-}
+});
 
 module.exports = PlotBack;
