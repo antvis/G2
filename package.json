@@ -62,8 +62,7 @@
     "tslint": "~5.10.0",
     "typescript": "~2.9.2",
     "uglify-js": "~3.1.10",
-    "webpack": "~3.10.0",
-    "insert-css": "^2.0.0"
+    "webpack": "~3.10.0"
   },
   "scripts": {
     "start": "npm run site:develop",
