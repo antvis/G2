@@ -27,8 +27,6 @@ chart.data(data);
 chart.scale('月均降雨量', {
   max: 150,
 });
-chart.animate(false);
-// chart.coordinate('polar');
 chart.tooltip({
   showTooltipMarkers: true,
   shared: true,

@@ -27,6 +27,10 @@ export default class ActiveInteraction extends Interaction {
   private onMouseenter = (ev) => {
     const shape = ev.shape;
     const stateManager = this.stateManager;
+    if (shape.get('animations').length !== 0) {
+      // hack: 如果动画就不触发，防止动画引起 element.getOriginStyle() 取值错误
+      return;
+    }
     // FIXME: 带 G 的事件委托机制 OK 后修改
     const element = shape.get('element');
     stateManager.setState('active', [element]);

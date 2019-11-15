@@ -45,7 +45,7 @@ export default class Element extends EE {
   // 存储当前开启的状态
   private states: string[] = [];
   // 存储 shape 的原始样式
-  private originStyle: LooseObject = {};
+  private originStyle: LooseObject;
 
   constructor(cfg: ElementCfg) {
     super();
@@ -62,8 +62,6 @@ export default class Element extends EE {
       // 只有有数据的时候才进行绘制
       // 绘制 shape
       this.drawShape();
-      // 存储初始样式
-      this.setOriginStyle();
     }
   }
 
@@ -88,11 +86,10 @@ export default class Element extends EE {
     // 更新图形
     shapeFactory.updateShape(shapeType, drawCfg, this);
     this.shape.set('origin', drawCfg);
-    // 更新原始状态
-    this.setOriginStyle();
     // 更新数据
     this.model = cfg;
     this.data = cfg.data;
+    this.originStyle = null;
   }
 
   public destroy() {
@@ -108,7 +105,7 @@ export default class Element extends EE {
     shapeFactory.destroyShape(shapeType, drawCfg, this);
 
     this.states = [];
-    this.originStyle = {};
+    this.originStyle = null;
     this.destroyed = true;
 
     this.off();
@@ -133,6 +130,10 @@ export default class Element extends EE {
    */
   public setState(stateName: string, stateStatus: boolean) {
     const { states, shapeFactory, shapeType } = this;
+    if (states.length === 0 && !this.originStyle) {
+      // 状态为空，则存储当前样式
+      this.setOriginStyle();
+    }
 
     const index = states.indexOf(stateName);
     if (stateStatus) {
@@ -196,6 +197,9 @@ export default class Element extends EE {
    * 获取初始化样式
    */
   public getOriginStyle(): LooseObject {
+    if (!this.originStyle) {
+      this.setOriginStyle();
+    }
     return this.originStyle;
   }
 
@@ -246,13 +250,15 @@ export default class Element extends EE {
   private setOriginStyle() {
     const shape = this.shape;
     if ((shape as IGroup).isGroup()) {
+      const originStyle = {};
       const children = shape.get('children');
       _.each(children, (child, index) => {
         const key = child.name || index;
-        this.originStyle[key] = {
+        originStyle[key] = {
           ...child.attr(),
         };
       });
+      this.originStyle = originStyle;
     } else {
       this.originStyle = {
         ...shape.attr(),

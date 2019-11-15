@@ -24,6 +24,7 @@ const chart = new Chart({
   width: 500,
 });
 chart.data(data);
+chart.interaction('active');
 // @ts-ignore
 chart
   .interval()
