@@ -1,6 +1,5 @@
 export * from './core';
 
-import { View } from './chart/view';
 import { GeometryCfg } from './geometry/base';
 import { PathCfg } from './geometry/path';
 
