@@ -3,7 +3,6 @@
 [![](https://img.shields.io/travis/antvis/g2.svg)](https://travis-ci.org/antvis/g2)
 ![](https://img.shields.io/badge/language-javascript-red.svg)
 ![](https://img.shields.io/badge/license-MIT-000000.svg)
-
 [![NPM Package](https://img.shields.io/npm/v/@antv/g2.svg)](https://www.npmjs.com/package/@antv/g2)
 [![NPM Downloads](http://img.shields.io/npm/dm/@antv/g2.svg)](https://npmjs.org/package/@antv/g2)
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/antvis/g2.svg)](http://isitmaintained.com/project/antvis/g2 "Percentage of issues still open")
@@ -12,9 +11,8 @@ G2 是一套基于可视化编码的图形语法，以数据驱动，具有高�
 
 **在此衷心感谢[《The Grammar of Graphics》](https://www.cs.uic.edu/~wilkinson/TheGrammarOfGraphics/GOG.html)的作者 [Leland Wilkinson](https://en.wikipedia.org/wiki/Leland_Wilkinson)，为 G2 的图形语法提供了理论基础！**
 
-[了解更多 G2 详情](https://antv.alipay.com/zh-cn/g2/3.x/index.html).
+<p align="center"><a href="https://antvis.github.io/g2/zh/examples/gallery/line"><img src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*57YySbmv6E0AAAAAAAAAAABkARQnAQ" /></a></p>
 
-<img src="https://gw.alipayobjects.com/zos/rmsportal/AOwgKIjknXfggPijmhym.gif" width="200"><img src="https://gw.alipayobjects.com/zos/rmsportal/nfiOREzMIsENrzUeLOGR.gif" width="200"><img src="https://gw.alipayobjects.com/zos/rmsportal/uZZmaudtKRnvUhmUdZSZ.gif" width="180"><img src="https://gw.alipayobjects.com/zos/rmsportal/ifSTXzrGbvtLRpnAvAiZ.gif" width="200">
 
 ## 安装
 
@@ -22,19 +20,7 @@ G2 是一套基于可视化编码的图形语法，以数据驱动，具有高�
 npm install @antv/g2
 ```
 
-## 特性
-
-- ✔︎ 简单、易用
-- ✔︎ 完备的可视化编码
-- ✔︎ 强大的扩展能力
-
-## 文档
-
-- [使用教程](https://antv.alipay.com/zh-cn/g2/3.x/tutorial/index.html)
-- [API 文档](https://antv.alipay.com/zh-cn/g2/3.x/api/index.html)
-- [图表示例](https://antv.alipay.com/zh-cn/g2/3.x/demo/index.html)
-
-### 快速开始
+## 快速开始
 
 <img src="https://gw.alipayobjects.com/zos/rmsportal/aHvVgFiBnGzzKCEjdVtL.png" width="450">
 
@@ -65,8 +51,6 @@ chart.render();
 ```
 
 [更多示例](https://antv.alipay.com/zh-cn/g2/3.x/demo/index.html)
-
-![demos](https://user-images.githubusercontent.com/1655789/34187141-d800fe94-e56a-11e7-878a-4dc0e4f538d9.png)
 
 ## 本地开发
 
