@@ -10,21 +10,21 @@ const IndexPage = () => {
   const { t, i18n } = useTranslation();
   const features = [
     {
-      icon: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*SuwdQI27GGsAAAAAAAAAAABkARQnAQ',
+      icon: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*lOy9RohQHK4AAAAAAAAAAABkARQnAQ',
       title: t('千变万化，自由组合'),
       description: t(
         '任何图表，都可以基于图形语法灵活绘制，满足你无限的创意',
       ),
     },
     {
-      icon: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*PbE0QpeVWZMAAAAAAAAAAABkARQnAQ',
+      icon: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*D_CMQ7GPtdwAAAAAAAAAAABkARQnAQ',
       title: t('专业完备'),
       description: t(
         '大量产品实践之上，提供绘图引擎、完备图形语法、专业设计规范',
       ),
     },
     {
-      icon: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*IrRpQKIyt6wAAAAAAAAAAABkARQnAQ',
+      icon: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*0VmfQ4KVAlEAAAAAAAAAAABkARQnAQ',
       title: t('生动，可交互'),
       description: t(
         '强大的交互语法，助力可视分析，让图表栩栩如生',
@@ -63,7 +63,7 @@ const IndexPage = () => {
 
   const cases = [
     {
-      logo: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ss2qSamSRSwAAAAAAAAAAABkARQnAQ',
+      logo: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*-dLnTIexOxwAAAAAAAAAAABkARQnAQ',
       title: t('精品 Gallery'),
       description: t('真实的数据可视化案例，我们将它们归纳为一个个故事性的设计模板，让用户达到开箱即用的效果。'),
       link: 'examples/gallery/line',
