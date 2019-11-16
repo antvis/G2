@@ -13,7 +13,7 @@ G2 is a visualization grammar, a data-driven visual language with a high level o
 
 **Special thanks to [Leland Wilkinson](https://en.wikipedia.org/wiki/Leland_Wilkinson), the author of [*The Grammar Of Graphics*](https://www.cs.uic.edu/~wilkinson/TheGrammarOfGraphics/GOG.html), whose book served as the foundation for G2.**
 
-<p align="center"><a href="https://antvis.github.io/g2/zh/examples/gallery/line"><img src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*57YySbmv6E0AAAAAAAAAAABkARQnAQ" /></a></p>
+<p align="center"><a href="https://antvis.github.io/g2/zh/examples/gallery/line"><img src="https://user-images.githubusercontent.com/6628666/68994104-1061b700-08ba-11ea-8017-3534fc85bc2f.jpeg" /></a></p>
 
 
 ## Installation
