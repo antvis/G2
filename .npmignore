@@ -77,3 +77,5 @@ webpack-dev.config.js
 webpack.config.js
 stats.json
 tslint.json
+.cache
+public
