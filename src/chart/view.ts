@@ -35,7 +35,7 @@ import defaultLayout, { Layout } from './layout';
 /**
  * view container of G2
  */
-export default class View extends EE {
+export class View extends EE {
   /** 父级 view，如果没有父级，则为空 */
   public parent: View;
   /** 所有的子 view */
@@ -1085,3 +1085,5 @@ export const registerGeometry = (name: string, Ctor: any) => {
     return geometry;
   };
 };
+
+export default View;

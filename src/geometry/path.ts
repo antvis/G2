@@ -6,7 +6,7 @@ import Element from './element';
 /** 引入对应的 ShapeFactory */
 import './shape/line';
 
-interface PathCfg extends GeometryCfg {
+export interface PathCfg extends GeometryCfg {
   /** 是否连接空值 */
   connectNulls?: boolean;
 }

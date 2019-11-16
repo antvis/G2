@@ -1,5 +1,8 @@
 export * from './core';
 
+import { GeometryCfg } from './geometry/base';
+import { PathCfg } from './geometry/path';
+
 // 注册 G2 内置的 geometry
 import { registerGeometry } from './core';
 import Area from './geometry/area';
@@ -8,6 +11,19 @@ import Line from './geometry/line';
 import Path from './geometry/path';
 import Point from './geometry/point';
 import Polygon from './geometry/polygon';
+
+// view module augmentation
+// detail: http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
+declare module './chart/view' {
+  interface View {
+    polygon(cfg?: Partial<GeometryCfg>): Polygon;
+    point(cfg?: Partial<GeometryCfg>): Point;
+    interval(cfg?: Partial<GeometryCfg>): Interval;
+    path(cfg?: Partial<PathCfg>): Path;
+    line(cfg?: Partial<PathCfg>): Line;
+    area(cfg?: Partial<PathCfg>): Area;
+  }
+}
 
 registerGeometry('Polygon', Polygon);
 registerGeometry('Interval', Interval);
