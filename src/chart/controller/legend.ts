@@ -117,11 +117,11 @@ export class Legend extends Controller<Option> {
     const containMin = _.find(ticks, (tick: Tick) => tick.value === 0);
     const containMax = _.find(ticks, (tick: Tick) => tick.value === 1);
     const items = _.map(ticks, (tick: Tick) => {
-      const { value, text } = tick;
+      const { value, tickValue } = tick;
       const attrValue = attr.mapping(scale.invert(value)).join('');
 
       return {
-        value: text,
+        value: tickValue,
         attrValue,
         color: attrValue,
         scaleValue: value,
@@ -145,23 +145,57 @@ export class Legend extends Controller<Option> {
       });
     }
 
+    // 排序
+    items.sort((a: any, b: any) => a.value - b.value);
+
+    // 跟 attr 相关的配置
+    // size color 区别的配置
+    let attrLegendCfg = {
+      min: _.head(items).value,
+      max: _.last(items).value,
+      colors: [],
+      rail: {
+        type: attr.type,
+      },
+      track: {},
+    };
+
+    if (attr.type === 'size') {
+      attrLegendCfg = {
+        ...attrLegendCfg,
+        track: {
+          style: {
+            // size 的选中前景色，对于 color，则直接使用 color 标识
+            // @ts-ignore
+            fill: attr.type === 'size' ? '#1890FF' : undefined,
+          },
+        },
+      };
+    }
+
+    if (attr.type === 'color') {
+      attrLegendCfg = {
+        ...attrLegendCfg,
+        colors: _.map(items, (item) => item.attrValue),
+      };
+    }
+
     const layer = LAYER.FORE;
     const container = this.getContainer().addGroup();
     // if position is not set, use top as default
     const direction = _.get(legendOption, 'position', DIRECTION.BOTTOM);
 
-    // TODO 基础配置有哪些
+    const layout = getLegendLayout(direction);
+
+    // 基础配置，从当前数据中读到的配置
     const baseCfg = {
       container,
-      items,
-      attr,
-      formatter: scale.formatter,
+      layout,
+      ...attrLegendCfg,
     };
 
-    // TODO 主题配置
-    const cfg = this.getLegendCfg(baseCfg, legendOption, direction);
-
-    // TODO size color 配置的区别
+    // @ts-ignore
+    const cfg = this.getLegendCfg(baseCfg, legendOption, 'continuous');
 
     const component = new ContinuousLegend(cfg);
 
