@@ -7,7 +7,7 @@ order: 1
 
 我们需要在 `400 px * 200 px` 像素区域绘制如下点图（该图只是用于数据流说明，并不具有可视化意义）：
 
-![image | left](https://gw.alipayobjects.com/zos/rmsportal/oJubdhOQyIDUWXERNQhI.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*XqHrRY9wX1AAAAAAAAAAAABkARQnAQ)
 
 原始数据如下：
 
@@ -150,4 +150,4 @@ chart.render();
 
 将最后处理的数据交由绘图库进行绘制渲染。
 
-![image | left](https://gw.alipayobjects.com/zos/rmsportal/oJubdhOQyIDUWXERNQhI.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*XqHrRY9wX1AAAAAAAAAAAABkARQnAQ)

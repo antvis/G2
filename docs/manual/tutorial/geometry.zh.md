@@ -7,7 +7,7 @@ order: 6
 
 即我们所说的点、线、面这些几何图形。G2 中并没有特定的图表类型（柱状图、散点图、折线图等）的概念，用户可以单独绘制某一种类型的图表，如饼图，也可以绘制混合图表，比如折线图和柱状图的组合。
 
-G2 生成的图表的类型，都是由几何标记决定的。可以通过下图直观得理解什么是几何标记：![](https://gw.alipayobjects.com/zos/rmsportal/ffXoDNzwnXNHoaxtjbfY.png#align=left&display=inline&height=300&originHeight=300&originWidth=1332&status=done&width=1332)
+G2 生成的图表的类型，都是由几何标记决定的。可以通过下图直观得理解什么是几何标记：![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*_r5_SIX-5FMAAAAAAAAAAABkARQnAQ)
 
 ## 如何声明几何标记
 
@@ -93,7 +93,7 @@ const geom = chart.point().xx().xx(); // 这里使用了 point 类型的 geom，
 
 - 多边形，可以是实心的多边形，也可以是空心的仅有边框的多边形
 
-![](https://zos.alipayobjects.com/rmsportal/WvfnQeKUnHGVSRg.png#align=left&display=inline&height=205&originHeight=205&originWidth=534&status=done&width=534)
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*IVY9T7Ht1BQAAAAAAAAAAABkARQnAQ)
 
 下面提供了 G2 中各个 geom 内置提供的 shape 类型，在后续图形属性章节，会详细介绍 shape 的使用方法。
 

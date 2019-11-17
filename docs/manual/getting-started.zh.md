@@ -109,7 +109,7 @@ chart.render();
 
 完成上述两步之后，保存文件并用浏览器打开，一张柱状图就绘制成功了：
 
-![](https://cdn.nlark.com/yuque/0/2018/png/100996/1539834475302-3e655fcb-0a0e-445f-8acd-eab2f6c467bf.png#align=left&display=inline&height=752&originHeight=752&originWidth=1620&search=&status=done&width=747)
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*fAinSZKwHWEAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 var data = [

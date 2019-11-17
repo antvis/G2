@@ -65,8 +65,8 @@ const shapeObj = Shape.registerShape('geomType', 'shapeName', {
         </td>
         <td rowspan="1" colSpan="1">
           <div data-type="p">点的绘制很简单，只要获取它的坐标以及大小即可，其中的 <code>size</code> 属性代表的是点的半径。
-            <div data-type="image" data-display="block" data-align="left" data-src="https://zos.alipayobjects.com/skylark/940c75cf-8400-415a-9e2d-040ce46e6a03/attach/3378/269e0e2c77a555a5/image.png" data-width="">
-              <img src="https://zos.alipayobjects.com/skylark/940c75cf-8400-415a-9e2d-040ce46e6a03/attach/3378/269e0e2c77a555a5/image.png" width="" />
+            <div data-type="image" data-display="block" data-align="left" data-src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*IF_yR6LCyw4AAAAAAAAAAABkARQnAQ" data-width="">
+              <img src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*IF_yR6LCyw4AAAAAAAAAAABkARQnAQ" width="" />
             </div>
           </div>
         </td>
@@ -77,8 +77,8 @@ const shapeObj = Shape.registerShape('geomType', 'shapeName', {
         </td>
         <td rowspan="1" colSpan="1">
           <div data-type="p">线其实是由无数个点组成，在 G2 中我们将参与绘制的各个数据转换成坐标上的点然后通过线将逐个点连接而成形成线图，其中的 <code>size</code> 属性代表的是线的粗细。
-            <div data-type="image" data-display="block" data-align="left" data-src="https://zos.alipayobjects.com/skylark/f9b84b83-1cc8-4b81-9319-f643ef0e280a/attach/3378/d49e02be2f48a136/image.png" data-width="">
-              <img src="https://zos.alipayobjects.com/skylark/f9b84b83-1cc8-4b81-9319-f643ef0e280a/attach/3378/d49e02be2f48a136/image.png" width="" />
+            <div data-type="image" data-display="block" data-align="left" data-src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8YQzSpmUnEAAAAAAAAAAAABkARQnAQ" data-width="">
+              <img src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8YQzSpmUnEAAAAAAAAAAAABkARQnAQ" width="" />
             </div>
           </div>
         </td>
@@ -89,8 +89,8 @@ const shapeObj = Shape.registerShape('geomType', 'shapeName', {
         </td>
         <td rowspan="1" colSpan="1">
           <div data-type="p">area 面其实是在 line 线的基础之上形成的，它将折线图中折线与自变量坐标轴之间的区域使用颜色或者纹理填充。
-            <div data-type="image" data-display="block" data-align="left" data-src="https://zos.alipayobjects.com/skylark/dbcd60f3-7662-4ebd-8e0e-85d7d754d0c7/attach/3378/f67277978d5d8e3e/image.png" data-width="">
-              <img src="https://zos.alipayobjects.com/skylark/dbcd60f3-7662-4ebd-8e0e-85d7d754d0c7/attach/3378/f67277978d5d8e3e/image.png" width="" />
+            <div data-type="image" data-display="block" data-align="left" data-src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*JRyMSIpRfRwAAAAAAAAAAABkARQnAQ" data-width="">
+              <img src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*JRyMSIpRfRwAAAAAAAAAAABkARQnAQ" width="" />
             </div>
           </div>
         </td>
@@ -101,8 +101,8 @@ const shapeObj = Shape.registerShape('geomType', 'shapeName', {
         </td>
         <td rowspan="1" colSpan="1">
           <div data-type="p">interval 默认的图形形状是矩形，而矩形实际是由四个点组成的，在 G2 中我们根据 pointInfo 中的 x、y、size 以及 y0 这四个值来计算出这四个点，然后顺时针连接而成。
-            <div data-type="image" data-display="block" data-align="left" data-src="https://zos.alipayobjects.com/skylark/f36a2e27-13e8-4d55-8c93-b698e15bcc1f/attach/3378/94a6515e2eb60265/image.png" data-width="">
-              <img src="https://zos.alipayobjects.com/skylark/f36a2e27-13e8-4d55-8c93-b698e15bcc1f/attach/3378/94a6515e2eb60265/image.png" width="" />
+            <div data-type="image" data-display="block" data-align="left" data-src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*soWnSLeska8AAAAAAAAAAABkARQnAQ" data-width="">
+              <img src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*soWnSLeska8AAAAAAAAAAABkARQnAQ" width="" />
             </div>
           </div>
         </td>
@@ -113,8 +113,8 @@ const shapeObj = Shape.registerShape('geomType', 'shapeName', {
         </td>
         <td rowspan="1" colSpan="1">
           <div data-type="p">polygon 多边形其实也是由多个点连接而成，在 pointInfo 中 x 和 y 都是数组结构。
-            <div data-type="image" data-display="block" data-align="left" data-src="https://zos.alipayobjects.com/skylark/b4f6981c-ccd3-4237-97bd-dd88950758ea/attach/3378/ed2b5c05a1ff3581/image.png" data-width="">
-              <img src="https://zos.alipayobjects.com/skylark/b4f6981c-ccd3-4237-97bd-dd88950758ea/attach/3378/ed2b5c05a1ff3581/image.png" width="" />
+            <div data-type="image" data-display="block" data-align="left" data-src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*anXLQ72bP78AAAAAAAAAAABkARQnAQ" data-width="">
+              <img src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*anXLQ72bP78AAAAAAAAAAABkARQnAQ" width="" />
             </div>
           </div>
         </td>
@@ -125,11 +125,11 @@ const shapeObj = Shape.registerShape('geomType', 'shapeName', {
         </td>
         <td rowspan="1" colSpan="1">
           <div data-type="p">schema 作为一种自定义的几何图形，在 G2 中默认提供了 box 和 candle 两种 shape，分别用于绘制箱型图和股票图，注意这两种形状的矩形部分四个点的连接顺序都是顺时针，并且起始点均为左下角，这样就可以无缝转换至极坐标。
-            <div data-type="image" data-display="block" data-align="left" data-src="https://zos.alipayobjects.com/skylark/340c229d-be30-4f98-8a2a-8d55c8422645/attach/3378/1bfed6f3f5f90e13/image.png" data-width="">
-              <img src="https://zos.alipayobjects.com/skylark/340c229d-be30-4f98-8a2a-8d55c8422645/attach/3378/1bfed6f3f5f90e13/image.png" width="" />
+            <div data-type="image" data-display="block" data-align="left" data-src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*USWRQ4MxENAAAAAAAAAAAABkARQnAQ" data-width="">
+              <img src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*USWRQ4MxENAAAAAAAAAAAABkARQnAQ" width="" />
             </div>
-            <div data-type="image" data-display="block" data-align="left" data-src="https://zos.alipayobjects.com/skylark/8afa13da-95d1-4282-a08b-f1c421b0d972/attach/3378/d82c45d3a526bd80/image.png" data-width="">
-              <img src="https://zos.alipayobjects.com/skylark/8afa13da-95d1-4282-a08b-f1c421b0d972/attach/3378/d82c45d3a526bd80/image.png" width="" />
+            <div data-type="image" data-display="block" data-align="left" data-src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*NxwVQqQsgHwAAAAAAAAAAABkARQnAQ" data-width="">
+              <img src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*NxwVQqQsgHwAAAAAAAAAAABkARQnAQ" width="" />
             </div>
           </div>
         </td>
@@ -156,7 +156,7 @@ const shapeObj = Shape.registerShape('geomType', 'shapeName', {
 
 该参数包含经过图形映射后的所有数据以及该数据对应的原始数据，结构如下图所示：
 
-![image | left](https://zos.alipayobjects.com/skylark/505c6cb1-fde7-4714-98b6-43cb77099f19/attach/3378/332f7e3e64bc48f5/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*GKK-SqjxOEYAAAAAAAAAAABkARQnAQ)
 
 原始数据存储于 cfg.origin.\_origin 中，通过 getPoints 计算出的图形关键点都储存于 points 中。而 cfg 对象中的 color、size、shape 都是通过映射之后的图形属性数据，可以直接使用。
 

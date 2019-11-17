@@ -12,7 +12,7 @@ order: 13
 
 对于探索型数据分析来说，分面是一个强大有力的工具，能帮你迅速地分析出数据各个子集模式的异同。
 
-![image | left](https://gw.alipayobjects.com/zos/rmsportal/HlUJdjfYCEeeOKsBREnp.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*JHpZQKUN1RgAAAAAAAAAAABkARQnAQ)
 
 ## 如何设置分面
 
@@ -96,7 +96,7 @@ chart.facet('rect', {
 
 分面矩阵每列按照 `cut` 字段划分，每行按照 `clarity` 字段划分。
 
-![屏幕快照 2018-10-18 下午1.39.41.png | center | 747x554](https://cdn.nlark.com/yuque/0/2018/png/100996/1539841212578-0df8809e-9e26-4860-b171-88ecb7b645a7.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ovnNRpASzaAAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 $.getJSON('/assets/data/diamond.json', function(data) {
@@ -134,7 +134,7 @@ $.getJSON('/assets/data/diamond.json', function(data) {
 
 该类型分面可以通过设置 `cols` 属性来指定每行可显示分面的个数，超出时会自动换行。
 
-![屏幕快照 2018-10-18 下午1.40.36.png | center | 747x392](https://cdn.nlark.com/yuque/0/2018/png/100996/1539841260411-db2c30cd-8de0-4f1a-b6af-3d70ac8f413c.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*_ttfRpze2_YAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 $.getJSON('/assets/data/diamond.json', function(data) {
@@ -169,7 +169,7 @@ $.getJSON('/assets/data/diamond.json', function(data) {
 
 ### circle 圆形分面
 
-![屏幕快照 2018-10-18 下午1.41.18.png | center | 747x696](https://cdn.nlark.com/yuque/0/2018/png/100996/1539841293253-3bb3c7c1-7278-4fc2-83fb-019c587ccde9.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*7yO0TKAAdyoAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const DataView = DataSet.DataView;
@@ -223,7 +223,7 @@ $.getJSON('/assets/data/diamond.json',function (data) {
 
 下图展示了树形多层级的分面。
 
-![屏幕快照 2018-10-18 下午1.41.44.png | center | 747x406](https://cdn.nlark.com/yuque/0/2018/png/100996/1539841321561-6d0b227b-f6d0-41b9-bf6d-54e66f8c5928.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*OMoxRLR_ZtQAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const data = [
@@ -287,7 +287,7 @@ chart.render();
 
 通过配置 `transpose` 属性为 true，可以将镜像分面翻转。
 
-![屏幕快照 2018-10-18 下午1.42.20.png | center | 747x521](https://cdn.nlark.com/yuque/0/2018/png/100996/1539841360041-fd9983ef-05ff-4576-99a5-428b0d6cf61a.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*zEZzTrtAh1EAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 $.getJSON('/assets/data/population.json', function(data) {
@@ -371,7 +371,7 @@ $.getJSON('/assets/data/population.json', function(data) {
 
 矩阵分面主要对比数据中多个字段之间的关系，例如常见的散点矩阵图
 
-![屏幕快照 2018-10-18 下午1.42.51.png | center | 747x509](https://cdn.nlark.com/yuque/0/2018/png/100996/1539841390750-797e948c-e603-4f44-a64e-38898989b792.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*vVI5R6iCkuMAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const DataView = DataSet.DataView;

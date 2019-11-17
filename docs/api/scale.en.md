@@ -196,7 +196,7 @@ chart.interval().position('month*tem').color('month');
 chart.render();
 ```
 
-![](https://zos.alipayobjects.com/skylark/97e5078a-45b9-4db6-8d51-db506eaa2444/attach/3378/1aea882afb2ef64d/image.png#align=left&display=inline&height=184&originHeight=184&originWidth=303&status=done&width=303)
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*P1wlQroZTm4AAAAAAAAAAABkARQnAQ)
 
 ### log
 
@@ -263,7 +263,7 @@ chart.render();
 
 例如股票交易的日期，此时如果使用 time 类型，那么由于节假日没有数据，折线图、k 线图就会发生断裂，所以此时需要使用 timeCat 类型度量将日期转换为有序的分类数据，该度量默认会对数据做排序，如下图所示：
 
-![](https://zos.alipayobjects.com/skylark/27036dff-5843-48a4-95f5-53b56f8b2d9a/attach/3378/0940215d294981b8/image.png#align=left&display=inline&height=215&originHeight=215&originWidth=785&status=done&width=785)
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*DOS8Q6MmfpMAAAAAAAAAAABkARQnAQ)
 
 | 属性名 | 说明 |
 | --- | --- |

@@ -38,7 +38,7 @@ chart.interval().position('genre*sold').color('genre');
 chart.render();
 ```
 
-![image | left](https://zos.alipayobjects.com/skylark/f8f8e93d-795f-448c-8266-2de812c9b6b1/attach/2378/b69c3a292a44a307/image.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ObsiTa_A_qcAAAAAAAAAAABkARQnAQ)
 
 当数据加载进来之后，再调用 chart.changeData(data); 即可绘制。
 
@@ -56,7 +56,7 @@ setTimeout(function() {
 }, 1000);
 ```
 
-![image | left](https://zos.alipayobjects.com/skylark/bd3effe5-d3c9-4227-afeb-f9393a5a9db4/attach/2378/c6e760a5197d9fb1/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*fQe3S7XnzUEAAAAAAAAAAABkARQnAQ)
 
 ## 动态更新数据 chart.changeData(data)
 
@@ -68,7 +68,7 @@ __注意__
 
 * 数据源定时载入的时候调用 `chart.changeData(data)` 方法实时更新即可，非常简单。
 
-![屏幕快照 2018-10-18 下午2.02.21.png | center | 747x321](https://cdn.nlark.com/yuque/0/2018/png/100996/1539842554879-da04b227-d071-48df-8ce6-82d49edcd38b.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*T7zJTbgwcF4AAAAAAAAAAABkARQnAQ)
 
 完整代码如下：
 

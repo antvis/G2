@@ -63,7 +63,7 @@ chart.render(); // 由 chart 负责统一的渲染
 1. 首先绘制世界地图背景，使用包含世界地图经纬度的数据；
 2. 然后再可视化包含各个国家男女比例的用户数据。
 
-![屏幕快照 2018-10-18 下午2.11.39.png | center | 747x346](https://cdn.nlark.com/yuque/0/2018/png/100996/1539843114352-086509d0-8f0c-40cb-b844-819940ff9317.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*RB5mSYfITHcAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 $.getJSON('/assets/data/world.geo.json', function(mapData) {

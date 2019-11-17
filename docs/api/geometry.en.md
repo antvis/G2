@@ -89,7 +89,7 @@ line().position([ 'x', 'y' ]);
 
 以 chart.point().position('x_y') 为例，point 代表图形，即最后需要生成点图，而 position 代表位置，position('x_y') 代表数据在图形中的位置由 x 和 y 这两个维度的变量决定，x * y 的数据处理结果可以理解为：
 
-![](https://gw.alipayobjects.com/zos/rmsportal/EcuDeyeTOsztVOuxmZPe.png#align=left&display=inline&height=144&originHeight=198&originWidth=1026&search=&status=done&width=746)
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*fqtvRZZ5FiQAAAAAAAAAAABkARQnAQ)
 
 (x1, y1) 这样的数值对，最后就会被转换为画布上对应的坐标点。
 
@@ -425,7 +425,7 @@ chart.interval()
   	.adjust({type: 'stack', reverseOrder: false});
 ```
 
-![image.png](https://cdn.nlark.com/yuque/0/2019/png/89796/1565840035598-d6f443bf-ede5-4e70-8781-6d96fdd39906.png#align=left&display=inline&height=144&name=image.png&originHeight=361&originWidth=796&search=&size=21523&status=done&width=317)![image.png](https://cdn.nlark.com/yuque/0/2019/png/89796/1565840019162-2b4ebda8-f83c-4284-9bc8-f626b46fd7ac.png#align=left&display=inline&height=145&name=image.png&originHeight=370&originWidth=792&search=&size=21631&status=done&width=311)
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*g3MNSp7JxLkAAAAAAAAAAABkARQnAQ)![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*28PNToHAiegAAAAAAAAAAABkARQnAQ)
 
 ### label
 
@@ -565,19 +565,19 @@ chart.point().position('x*y').label('x', {
 
 | 散点图普通 label 布局 | 散点图指定 scatter label 布局 |
 | --- | --- |
-| ![](https://gw.alipayobjects.com/zos/rmsportal/BtzyOFMEmKiyJOpXlQum.png#width=) | ![](https://gw.alipayobjects.com/zos/rmsportal/vXhXUgVsUHhRsTBgXRNe.png#width=) |
+| ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*6f-BRolsnUMAAAAAAAAAAABkARQnAQ) | ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*aRqHSqjJbqYAAAAAAAAAAABkARQnAQ) |
 
 - treemap: 剔除形状容纳不了的 label。
 
 | treemap 普通布局 | 指定 treemap label 布局 |
 | --- | --- |
-| ![](https://gw.alipayobjects.com/zos/rmsportal/UhtvMfssatoHEElcUqMQ.png#width=) | ![](https://gw.alipayobjects.com/zos/rmsportal/wCAAajFuoLPiZvptGLax.png#width=) |
+| ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Ncv3T5LAGf0AAAAAAAAAAABkARQnAQ) | ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*RxyqRryEEiAAAAAAAAAAAABkARQnAQ) |
 
 - map: label 将会初始定位到地图板块的可视中心，为了防止 label 之间相互覆盖布局，尝试向四周偏移，会剔除放不下的 label。
 
 | map 普通布局 | 指定 map label 布局 |
 | --- | --- |
-| ![](https://gw.alipayobjects.com/zos/rmsportal/MHQzrKAbIABmkEctrvDX.png#width=) | ![](https://gw.alipayobjects.com/zos/rmsportal/WTjMoJKlXJnlrxtvJxVR.png#width=) |
+| ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*am1WRpYxbnQAAAAAAAAAAABkARQnAQ) | ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*a_rWR4y6mEQAAAAAAAAAAABkARQnAQ) |
 
 ###### `labelLine`: { object | boolean }
 
@@ -615,7 +615,7 @@ position：string
 
 仅当 chart 的 geom 为`interval`时有效。指定当前 label 与当前图形的相对位置，可选参数为 middle, top,bottom,left,right。默认为 top。位置效果如下：
 
-![](https://gw.alipayobjects.com/zos/rmsportal/qmwKhVzMhjCmyMnxcTBe.png#align=left&display=inline&height=318&originHeight=318&originWidth=264&search=&status=done&width=264)
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*EJn2R7bsak4AAAAAAAAAAABkARQnAQ)
 
 ##### html 专有配置属性
 
@@ -661,7 +661,7 @@ chart.<geom>.tooltip('dim1*dim2...*dimN');
 
 这个时候 tooltip 的显示内容如下：
 
-![](https://zos.alipayobjects.com/skylark/a92d121a-5879-42ad-b12c-1b4cc3c79f69/attach/2378/b8013e9dd10fd634/image.png#align=left&display=inline&height=186&originHeight=186&originWidth=250&search=&status=done&width=250)
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*aM6mRJ4SBGEAAAAAAAAAAABkARQnAQ)
 
 ##### 代码示例
 

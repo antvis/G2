@@ -610,7 +610,7 @@ title: {
 
 针**对分类类型的图例**，设置图例项的宽度，当图例有很多图例项，并且用户想要这些图例项能垂直对齐时，此时这个属性可帮用户实现此效果。
 
-![](https://cdn.nlark.com/yuque/0/2018/png/100996/1543209841182-e84d4f78-fc8b-4ec0-a0b7-b2eb556b059a.png#align=left&display=inline&height=389&originHeight=894&originWidth=1718&status=done&width=747)
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*nDFpSoK-q_cAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const data = [{country:'中国',cost:96},{country:'德国',cost:121},{country:'美国',cost:100},{country:'日本',cost:111},{country:'韩国',cost:102},{country:'法国',cost:124},{country:'意大利',cost:123},{country:'荷兰',cost:111},{country:'比利时',cost:123},{country:'英国',cost:109},{country:'加拿大',cost:115},{country:'俄罗斯',cost:99},{country:'墨西哥',cost:91},{country:'印度',cost:87},{country:'瑞士',cost:125},{country:'澳大利亚',cost:130},{country:'西班牙',cost:109},{country:'巴西',cost:123},{country:'泰国',cost:91},{country:'印尼',cost:83},{country:'波兰',cost:101},{country:'瑞典',cost:116},{country:'奥地利',cost:111},{country:'捷克',cost:107}];
@@ -707,25 +707,25 @@ itemFormatter(val) {
 
 | **type** | **样式** | **是否支持 HTML** |
 | :---: | :---: | :---: |
-| 'circle' | ![](https://cdn.nlark.com/yuque/0/2018/png/100996/1543210024495-4f0b71f2-7d19-4967-aad8-a228feaf78fd.png#width=67) | 是 |
-| 'square' | ![](https://cdn.nlark.com/yuque/0/2018/png/100996/1543210041286-51bdc31a-fab6-48e1-a08d-a09e558f85fb.png#width=70) | 是 |
-| 'bowtie' | ![](https://cdn.nlark.com/yuque/0/2018/png/100996/1543210155591-b5e21daf-79bd-44bc-8b81-e8883fdfaf78.png#width=73) | 否 |
-| 'diamond' | ![](https://cdn.nlark.com/yuque/0/2018/png/100996/1543210170026-0f7fb963-0f62-4a11-8fc6-ba84189e2011.png#width=72) | 否 |
-| 'hexagon' | ![](https://cdn.nlark.com/yuque/0/2018/png/100996/1543210208456-d4c23407-c60b-4318-8d05-06bed00200f8.png#width=74) | 否 |
-| 'triangle' | ![](https://cdn.nlark.com/yuque/0/2018/png/100996/1543210220822-2d86203a-a48a-4f04-86d6-961a1022a894.png#width=82) | 否 |
-| 'triangle-down' | ![](https://cdn.nlark.com/yuque/0/2018/png/100996/1543210233143-38ebab00-773d-4d5e-8df2-061bbb61c873.png#width=88) | 否 |
-| 'cross' | ![](https://cdn.nlark.com/yuque/0/2018/png/100996/1543210248444-11980df1-7bd4-4733-a7a0-da2a46ceabc6.png#width=72) | 否 |
-| 'tick' | ![](https://cdn.nlark.com/yuque/0/2018/png/100996/1543210259514-4522e36a-b1c9-44e3-a5ed-20c525891005.png#width=76) | 否 |
-| 'plus' | ![](https://cdn.nlark.com/yuque/0/2018/png/100996/1543210271072-d6a6f1d4-2f4b-4b96-b130-1e3a78e2bd55.png#width=85) | 否 |
-| 'hyphen' | ![](https://cdn.nlark.com/yuque/0/2018/png/100996/1543210281940-1e075428-d6f0-41fa-aa94-a671d1e09d95.png#width=82) | 否 |
-| 'line' | ![](https://cdn.nlark.com/yuque/0/2018/png/100996/1543210295861-270830b4-6fa1-4cef-8895-0121be862ecf.png#width=69) | 否 |
-| hollowCircle | ![](https://cdn.nlark.com/yuque/0/2018/png/100996/1543210306497-7cfd32b5-0105-4d98-947b-8a3044211488.png#width=74) | 否 |
-| 'hollowSquare' | ![](https://cdn.nlark.com/yuque/0/2018/png/100996/1543210317063-caac8dd8-5e33-4cb7-a316-fda9d5333186.png#width=80) | 否 |
-| 'hollowBowtie' | ![](https://cdn.nlark.com/yuque/0/2018/png/100996/1543210330132-d042eb6d-c5d7-4485-a00e-3d4b85f2b2b2.png#width=88) | 否 |
-| 'hollowDiamond' | ![](https://cdn.nlark.com/yuque/0/2018/png/100996/1543210340430-844f30f3-4f22-4270-be26-5f7cdc09d5f8.png#width=88) | 否 |
-| 'hollowHexagon' | ![](https://cdn.nlark.com/yuque/0/2018/png/100996/1543210351419-f6bc6c29-f49a-4472-afb2-c6bc1611c11a.png#width=72) | 否 |
-| 'hollowTriangle' | ![](https://cdn.nlark.com/yuque/0/2018/png/100996/1543210362642-e8919479-4956-4641-bf9f-1882bb3a44a3.png#width=66) | 否 |
-| 'hollowTriangle-down' | ![](https://cdn.nlark.com/yuque/0/2018/png/100996/1543210372690-15f17d8e-0489-4834-ad18-8e8007b86cd2.png#width=98) | 否 |
+| 'circle' | ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*JMXTSrJ8C5EAAAAAAAAAAABkARQnAQ) | 是 |
+| 'square' | ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*TjaMQbS6dOEAAAAAAAAAAABkARQnAQ) | 是 |
+| 'bowtie' | ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*sySwT7tOwq4AAAAAAAAAAABkARQnAQ) | 否 |
+| 'diamond' | ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*3fjORIEQExcAAAAAAAAAAABkARQnAQ) | 否 |
+| 'hexagon' | ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*TkmrRZ7IYzAAAAAAAAAAAABkARQnAQ) | 否 |
+| 'triangle' | ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*R0OCS6z_FuUAAAAAAAAAAABkARQnAQ) | 否 |
+| 'triangle-down' | ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ieFFTadrXS0AAAAAAAAAAABkARQnAQ) | 否 |
+| 'cross' | ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*kKyZQKEop80AAAAAAAAAAABkARQnAQ) | 否 |
+| 'tick' | ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*VMP6SYj4DiAAAAAAAAAAAABkARQnAQ) | 否 |
+| 'plus' | ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*z4-OQY5NNV4AAAAAAAAAAABkARQnAQ) | 否 |
+| 'hyphen' | ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*JX6QRoleT_gAAAAAAAAAAABkARQnAQ) | 否 |
+| 'line' | ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*yPZ8TI--rm8AAAAAAAAAAABkARQnAQ) | 否 |
+| hollowCircle | ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*6dPmQL7ko4MAAAAAAAAAAABkARQnAQ) | 否 |
+| 'hollowSquare' | ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*2sfDR48-z60AAAAAAAAAAABkARQnAQ) | 否 |
+| 'hollowBowtie' | ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*vAYUT4s9dkwAAAAAAAAAAABkARQnAQ) | 否 |
+| 'hollowDiamond' | ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*h1pTTLjppRQAAAAAAAAAAABkARQnAQ) | 否 |
+| 'hollowHexagon' | ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*II28TZCn_IIAAAAAAAAAAABkARQnAQ) | 否 |
+| 'hollowTriangle' | ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*wf_AQaNchFcAAAAAAAAAAABkARQnAQ) | 否 |
+| 'hollowTriangle-down' | ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*b3TVR5DomK0AAAAAAAAAAABkARQnAQ) | 否 |
 
 - 非 HTML 版本的分类图例的 marker 也支持自定义 shape，使用方式如下，
 
@@ -740,7 +740,7 @@ itemFormatter(val) {
 marker(x, y, r) {}
 ```
 
-以下代码绘制了如图所示的 marker ：![](https://gw.alipayobjects.com/zos/rmsportal/WOOfsuIGEAPWdtgsdciZ.png#align=left&display=inline&height=32&originHeight=32&originWidth=40&status=done&width=40)
+以下代码绘制了如图所示的 marker ：![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*16DPRJ5G1PYAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 marker(x, y, r) {
@@ -884,9 +884,9 @@ itemTpl: '<li class="g2-legend-list-item item-{index} {checked}" data-color="{or
 1. `sizeType`: string
 
 **针对连续的大小图例**，设置图例是否是针对节点大小映射的样式。可选 'circle' | 'normal' | null, 默认为 null，即针对除节点以外的其他元素的大小映射。
-当 sizeType 为 'circle' 时的样式：![](https://gw.alipayobjects.com/zos/rmsportal/SvFuwFlbTMHGKaxCnFYa.png#align=left&display=inline&height=138&originHeight=138&originWidth=418&status=done&width=418)
+当 sizeType 为 'circle' 时的样式：![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*N-wyQYQc37gAAAAAAAAAAABkARQnAQ)
 
-当 sizeType 为 'normal' 或 null 时的样式：![](https://gw.alipayobjects.com/zos/rmsportal/MGbEMcquJGArjRtHAXAh.png#align=left&display=inline&height=116&originHeight=116&originWidth=442&status=done&width=442)
+当 sizeType 为 'normal' 或 null 时的样式：![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*L0lET6N2AMcAAAAAAAAAAABkARQnAQ)
 
 1. `custom`: boolean
 
@@ -1088,7 +1088,7 @@ tooltip 的触发方式，可配置的值为：'mousemove'、'click'、'none'，
 
 是一个对象类型，用于设置 tooltip 的辅助线或者辅助框。
 
-默认我们为 geom 为 ‘line’, ‘area’, ‘path’, ‘areaStack’ 开启了垂直辅助线；geom 为‘interval’ 默认会展示矩形背景框。如下图所示：![](https://gw.alipayobjects.com/zos/rmsportal/rCwHiXNfIVepGgMWKqdf.png#align=left&display=inline&height=210&originHeight=360&originWidth=1278&status=done&width=746)
+默认我们为 geom 为 ‘line’, ‘area’, ‘path’, ‘areaStack’ 开启了垂直辅助线；geom 为‘interval’ 默认会展示矩形背景框。如下图所示：![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*82wzS7ZmYP4AAAAAAAAAAABkARQnAQ)
 
 该属性可支持的配置如下：
 
@@ -1137,7 +1137,7 @@ crosshairs: {
 
 1. `hideMarkers`: boolean
 
-对于 line、area、path 这三种几何图形，我们在渲染 tooltip 时会自动渲染 tooltipMarker ![](https://gw.alipayobjects.com/zos/rmsportal/BlTPaZMgrTjZINmXExtm.png#align=left&display=inline&height=40&originHeight=40&originWidth=40&status=done&width=40)，通过声明该属性值为 `true` 来关闭 tooltipMarker。
+对于 line、area、path 这三种几何图形，我们在渲染 tooltip 时会自动渲染 tooltipMarker ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*WAohQIhuy5YAAAAAAAAAAABkARQnAQ)，通过声明该属性值为 `true` 来关闭 tooltipMarker。
 
 1. `containerTpl`: string
 
@@ -1187,7 +1187,7 @@ itemTpl: '<li data-index={index}>'
 
 除了使用配置上述属性来自定义 tooltip 的样式外，用户也可以直接为 html 定义 CSS 样式。
 
-自定义 html 模板示例<br />![](https://cdn.nlark.com/yuque/0/2018/png/100996/1543210537688-6d2bd6fd-0ff9-4450-affc-37098d2bb500.png#align=left&display=inline&height=237&originHeight=534&originWidth=1684&status=done&width=747)
+自定义 html 模板示例<br />![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*WSoXSJVwK-4AAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const data = [
@@ -2426,9 +2426,9 @@ chart.on('guide-line-text:click', ev => {
 
 - lineStyle, style 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
 
-- ![](https://gw.alipayobjects.com/zos/rmsportal/eFRpBGmvDRAhYnCcrnnh.png#align=left&display=inline&height=903&originHeight=1104&originWidth=880&status=done&width=720)
+- ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*2vr7RZwsLQ0AAAAAAAAAAABkARQnAQ)
 
-下图展示了图表各个组件的名称：![](https://gw.alipayobjects.com/zos/rmsportal/IXRZJVKWYEdafYAzbsXO.png#align=left&display=inline&height=400&originHeight=882&originWidth=1646&status=done&width=746)
+下图展示了图表各个组件的名称：![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*VuEuRqN8JTEAAAAAAAAAAABkARQnAQ)
 
 下图通过监听 `interval:mouseenter` 和 `interval:mouseleave` 事件，定义当鼠标 hover 的交互。
 

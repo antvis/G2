@@ -42,7 +42,7 @@ G2 的强大是由其背后的一套图形语法所支撑的，它基于[《The 
 
 ### 绘制散点图
 
-![屏幕快照 2018-10-18 下午2.14.04.png | center | 747x341](https://cdn.nlark.com/yuque/0/2018/png/100996/1539843257372-c8c4038c-57d8-4af9-8bd2-8a72b8240285.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*vfqgRaSuDmMAAAAAAAAAAABkARQnAQ)
 
 ```javascript
   $.getJSON('/assets/data/scatter.json',function(data){
@@ -179,7 +179,7 @@ chart.<[geom](/zh/docs/manual/tutorial/geometry)>().<[attr](/zh/docs/manual/tuto
 
 在 `chart.point().position('height*weight').color('gender').tooltip('gender*height*weight');` 这句语法的基础上，通过只改变 geom 几何标记类型，我们可以快速切换至折线图或者柱状图。
 
-![image | left](https://gw.alipayobjects.com/zos/rmsportal/ysldOUuDazIoYnIaKibA.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*kjpvRp0MfkoAAAAAAAAAAABkARQnAQ)
 
 #### coord 坐标系
 
@@ -189,7 +189,7 @@ chart.<[geom](/zh/docs/manual/tutorial/geometry)>().<[attr](/zh/docs/manual/tuto
 
 分面在绘图时非常有用，通过设置分面，可以方便地展示数据的不同子集，如下图所示，我们通过设定以 'gender' 字段来分割数据，就可以很快得绘制出不同性别对应的身高和体重关系的散点图。
 
-![屏幕快照 2018-10-18 下午2.15.32.png | center | 747x289](https://cdn.nlark.com/yuque/0/2018/png/100996/1539843347693-25651cf3-02cc-42dc-933a-27c6b0f48ecd.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*F1WqS6dIO6UAAAAAAAAAAABkARQnAQ)
 
 ```javascript
   $.getJSON('/assets/data/scatter.json',function(data){

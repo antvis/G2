@@ -11,13 +11,13 @@ Canvas 提供的绘图能力更底层，适合做到像素级的图形处理，�
 
 下图从通用层面描述不同渲染技术各自适合的场景。
 
-![Canvas vs SVG | left](https://gw.alipayobjects.com/zos/rmsportal/pqfukMDPRpEvIYNvddxN.jpg "")
+![Canvas vs SVG | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*2WKtTqXkMBMAAAAAAAAAAABkARQnAQ)
 
 ## 性能差异
 
 之前网上有不少 Canvas 和 SVG 性能对比的文章，得出的结论大体是“Canvas 性能更好，适合更大量数据的渲染”。其实这么说是有失偏颇的。性能对比要看场景。从底层来看，Canvas 的性能受画布尺寸影响更大，而 SVG 的性能受图形元素个数影响更大。下图是微软 MSDN 上给的一个对比图。
 
-![Canvas vs SVG: pref | left](https://gw.alipayobjects.com/zos/rmsportal/nNSsPFkNcAoxQTfHfZes.png "")
+![Canvas vs SVG: pref | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*7yoLQZTLlX4AAAAAAAAAAABkARQnAQ)
 
 而且在小数据量的情况下，SVG 的方案通常内存占用会更小，做缩放、平移等操作的时候往往帧率也更高。
 
@@ -44,7 +44,7 @@ const chart = new G2.Chart({
 
 ## SVG demo
 
-![屏幕快照 2018-10-18 下午2.26.16.png | center | 747x460](https://cdn.nlark.com/yuque/0/2018/png/100996/1539843991451-54cb2962-bbde-4457-b149-7006458f0d37.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*eiaYS5pNy2kAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const data = [{

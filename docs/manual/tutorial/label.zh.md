@@ -3,7 +3,7 @@ title: Label 图形文本
 order: 15
 ---
 
-恰当的文本标注可以提高可视化图表的可读性。除了提供文本标签标注的功能之外，G2 还支持文本的格式化以及自定义 html 文本标签的功能。![](https://gw.alipayobjects.com/zos/rmsportal/lSasYkLULFIHYIpEIeUw.png#align=left&display=inline&height=342&originHeight=342&originWidth=1064&status=done&width=1064)
+恰当的文本标注可以提高可视化图表的可读性。除了提供文本标签标注的功能之外，G2 还支持文本的格式化以及自定义 html 文本标签的功能。![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*P0BIR5aNH44AAAAAAAAAAABkARQnAQ)
 
 ## 如何使用
 
@@ -29,7 +29,7 @@ chart.interval().position('x*y').label('x', {
 });
 ```
 
-![](https://cdn.nlark.com/yuque/0/2018/png/100996/1539841763704-ec891d93-1a16-4eb7-aa55-3616b9f0e092.png#align=left&display=inline&height=576&originHeight=576&originWidth=1708&status=done&width=747)
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*KeGqTYKCXoEAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const data = [
@@ -78,7 +78,7 @@ chart.interval().position('x*y').label('x', {
 });
 ```
 
-![](https://cdn.nlark.com/yuque/0/2018/png/100996/1539841790486-6ef488aa-812c-4ddf-a9d1-1c6df32cd94a.png#align=left&display=inline&height=772&originHeight=772&originWidth=1688&status=done&width=747)
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ZUAeTZWsiXsAAAAAAAAAAABkARQnAQ)
 
 完整代码如下：
 
@@ -146,7 +146,7 @@ chart.interval().position('x*y').label('x', {
 });
 ```
 
-label 除了可以格式化文本的显示，也支持使用 html 自定义显示的样式。只需要定义 htmlTemplate 格式化文本的回调函数即可，如下例所示：<br />![](https://cdn.nlark.com/yuque/0/2018/png/100996/1539841824912-9d43e749-c68d-47bd-9d39-e8f4a405d8f1.png#align=left&display=inline&height=796&originHeight=796&originWidth=1004&status=done&width=404)
+label 除了可以格式化文本的显示，也支持使用 html 自定义显示的样式。只需要定义 htmlTemplate 格式化文本的回调函数即可，如下例所示：<br />![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*GKstTL7gOwwAAAAAAAAAAABkARQnAQ)
 
 完整代码：
 
