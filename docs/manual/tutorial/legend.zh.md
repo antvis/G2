@@ -12,7 +12,7 @@ order: 10
 
 通过 `chart.legend([field, ]false)` 可以关闭图例。
 
-![image | left](https://gw.alipayobjects.com/zos/rmsportal/KNzuPncDjpmlchIzLnQM.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*9ayTQLuZGm8AAAAAAAAAAABkARQnAQ)
 
 ## 如何配置图例
 
@@ -53,7 +53,7 @@ chart.legend(false); //所有的图例都不显示
 | onHover | 自定义图例项鼠标 hover 事件，hoverable 为 false 不生效 | -- |
 | onClick | 自定义图例项点击事件， clickable 为 false 不生效 | -- |
 
-![屏幕快照 2018-10-18 下午1.16.14.png | center | 747x388](https://cdn.nlark.com/yuque/0/2018/png/100996/1539839790064-5cf3f1b9-a287-4c64-ac8a-cfc27d024753.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*P-YLRIz37LYAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const data = [
@@ -93,7 +93,7 @@ chart.render();
 
 ## 各个图例项样式设置
 
-![image | left](https://gw.alipayobjects.com/zos/rmsportal/mzFuamQKWmDxGjkDmMkn.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ZzeWRbjP5G0AAAAAAAAAAABkARQnAQ)
 
 | 属性名 | 解释 | 默认值 |
 | :--- | :--- | :--- |
@@ -127,7 +127,7 @@ chart.legend({
 });
 ```
 
-![屏幕快照 2018-10-18 下午1.16.44.png | center | 747x326](https://cdn.nlark.com/yuque/0/2018/png/100996/1539839829152-d30d2582-b4de-40f6-8961-1a4292813c1b.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*eOg6QoQBF48AAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const data = [
@@ -225,7 +225,7 @@ chart.render();
 
 G2 支持使用 html 渲染图例，方式非常简单，只要声明 `useHtml: true` 即可。
 
-![屏幕快照 2018-10-18 下午1.17.23.png | center | 747x361](https://cdn.nlark.com/yuque/0/2018/png/100996/1539839863077-35d9173f-e89e-4152-853f-1384a7223d75.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*yM9ST7j9BfsAAAAAAAAAAABkARQnAQ)
 
 ```js
 chart.legend({

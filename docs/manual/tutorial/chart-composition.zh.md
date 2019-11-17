@@ -9,7 +9,7 @@ order: 0
 
 完整的 G2 图表组成如下图所示：
 
-![image | left](https://zos.alipayobjects.com/skylark/313254aa-ff97-4396-9192-3c0f8fc16867/attach/2378/da07b27fb885206a/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*M8fAR6Gcf1QAAAAAAAAAAABkARQnAQ)
 
 ## 坐标轴 AXES
 

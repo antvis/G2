@@ -1,8 +1,6 @@
 ---
 title: G2 常见问题
 order: 4
-redirect_from:
-  - /zh/docs/manual/faq
 ---
 
 ## 图表如何支持自适应宽度
@@ -73,7 +71,7 @@ chart.scale('y', {
 
 示例：
 
-![屏幕快照 2018-10-18 下午2.28.30.png | center | 747x263](https://cdn.nlark.com/yuque/0/2018/png/100996/1539844123393-74246f6e-45d2-408a-b0dc-ceb01e6eb6e1.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*K4_GTaobzPIAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const data = [
@@ -166,7 +164,7 @@ chart.scale('y', {
 
 示例：
 
-![屏幕快照 2018-10-18 下午2.28.59.png | center | 747x258](https://cdn.nlark.com/yuque/0/2018/png/100996/1539844149370-1fbff68d-2917-4ea0-b039-50b99390d805.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*EsKpSZwKO88AAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const data = [
@@ -212,7 +210,7 @@ chart.render();
 
 可以过滤指定字段的数据，其中 callback 是一个回调函数，回调函数的参数 field 字段对应的数值，参考下面 demo：
 
-![屏幕快照 2018-10-18 下午2.29.20.png | center | 747x312](https://cdn.nlark.com/yuque/0/2018/png/100996/1539844175224-1e08ac20-1f33-437c-81ec-746ca2915f70.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*5lABSJVB-qEAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const data = [
@@ -288,7 +286,7 @@ chart.line().position('month*temperature').color('#90ed7d').size(2).shape('smoot
 
 示例：
 
-![屏幕快照 2018-10-18 下午2.29.45.png | center | 747x241](https://cdn.nlark.com/yuque/0/2018/png/100996/1539844196449-09871a2f-eb56-48a8-b306-8c121145e9d1.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*12snTqeERyUAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const data = [
@@ -399,7 +397,7 @@ chart.render();
 
 G2 采用图层的设计，每一个几何标记 geom 对应一个图形，当需要绘制混合图表时，直接在 chart 对象上创建不同的 geom 几何对象即可。
 
-![](https://gw.alipayobjects.com/zos/rmsportal/jpAgivmGbFwUhULQyvUq.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*HVp4QIkgiGEAAAAAAAAAAABkARQnAQ)
 
 在这个例子中除了生成多 Y 轴之外还绘制了混合图表（柱状图、线图以及点图）。
 

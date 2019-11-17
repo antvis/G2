@@ -5,7 +5,7 @@ order: 12
 
 Guide 作为 G2 图表的辅助元素，主要用于在图表上标识额外的标记注解。
 
-![image | left](https://gw.alipayobjects.com/zos/rmsportal/ekrHtCkdfMttjnAXqApH.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*YaRgTpC4xKcAAAAAAAAAAABkARQnAQ)
 
 ## guide 类型
 
@@ -57,7 +57,7 @@ chart.guide().line({
 });
 ```
 
-![屏幕快照 2018-10-18 下午1.26.02.png | center | 747x350](https://cdn.nlark.com/yuque/0/2018/png/100996/1539840373775-8ae52cb7-b1b8-4ef3-9053-006721abf61c.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*u_RwS7n-LLoAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const DataView = DataSet.DataView;
@@ -129,7 +129,7 @@ chart.guide().image({
 });
 ```
 
-![屏幕快照 2018-10-18 下午1.26.24.png | center | 747x357](https://cdn.nlark.com/yuque/0/2018/png/100996/1539840397466-d3d5636d-aad3-4b51-bb25-83291c3523ec.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*L5oyRqECaJQAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const DataView = DataSet.DataView;
@@ -182,7 +182,7 @@ chart.guide().text({
 });
 ```
 
-![屏幕快照 2018-10-18 下午1.26.56.png | center | 747x425](https://cdn.nlark.com/yuque/0/2018/png/100996/1539840429277-53a8e36c-8a7e-41cf-93fd-43ca7c2ab444.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*B5SyQJjXuRgAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const colors = G2.Global.colors;
@@ -240,7 +240,7 @@ chart.guide().region({
 });
 ```
 
-![屏幕快照 2018-10-18 下午1.27.20.png | center | 747x388](https://cdn.nlark.com/yuque/0/2018/png/100996/1539840452881-05e46776-a498-4037-9741-9c2df36a665e.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*QtvhQZRgNMkAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const data = [
@@ -309,7 +309,7 @@ chart.guide().html({
 });
 ```
 
-![屏幕快照 2018-10-18 下午1.27.47.png | center | 747x358](https://cdn.nlark.com/yuque/0/2018/png/100996/1539840479814-39752f61-071c-4145-8705-efc0264e2c2e.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*D7sGQr3eoAkAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const DataView = DataSet.DataView;
@@ -356,7 +356,7 @@ chart.guide().regionFilter({
 });
 ```
 
-![屏幕快照 2018-10-18 下午1.28.09.png | center | 747x358](https://cdn.nlark.com/yuque/0/2018/png/100996/1539840527395-f4893edb-7867-43de-8b46-1ac0a9ff06a8.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*fxb8TpSCKz8AAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const data = [
@@ -453,7 +453,7 @@ chart.guide().dataMarker({
 `注意`：
 * dataMarker 特殊数据标注点，适用于折线图和面积图
 
-![屏幕快照 2018-10-18 下午1.29.59.png | center | 523x433](https://cdn.nlark.com/yuque/0/2018/png/100996/1539840618454-c50783aa-0717-4c18-b2c2-5a7c4da21dd0.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*DdTBSotGPhUAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 var data = [{ year: '1991',value: 3},
@@ -513,7 +513,7 @@ chart.guide().dataRegion({
 `注意`：
 * dataRegion 特殊数据区间标注，适用于折线图和面积图
 
-![屏幕快照 2018-10-18 下午1.30.42.png | center | 747x624](https://cdn.nlark.com/yuque/0/2018/png/100996/1539840654424-0c57efec-4c90-4994-a29b-5cf2404cbcd9.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*NLJyS6mlRgwAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 var data = [{ year: '1991',value: 3},
@@ -569,7 +569,7 @@ chart.render();
     * xScale, yScale 映射到 x 轴上的字段生成的度量，详情查看 [度量 api](/zh/docs/manual/api/scale);
     * 分类度量常用的值是 `values` 包含了所有的分类，连续度量常用的是 min, max
 
-![屏幕快照 2018-10-18 下午1.31.15.png | center | 747x367](https://cdn.nlark.com/yuque/0/2018/png/100996/1539840695501-71eaf8b1-ad9d-4bcc-9d84-46b2ca40671b.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8Y2GRqPspv0AAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const data = [];

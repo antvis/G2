@@ -7,7 +7,7 @@ order: 2
 
 ## 数据类型
 
-![image | left](https://zos.alipayobjects.com/rmsportal/ASkSHxRQSrlxwaB.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*yqUXSYlcQRUAAAAAAAAAAABkARQnAQ)
 
 数据的类型可以按照两种分类方式：
 
@@ -23,7 +23,7 @@ order: 2
 * 间隔：有间隔的数字，不考虑 0 的意义。例如温度，0 度不代表没有温度；
 * 比例：表示字段之间存在比例关系，0 必须有意义。
 
-![image | left](https://zos.alipayobjects.com/rmsportal/EnZPfmDjpVoigig.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*3K66QpcSqY4AAAAAAAAAAABkARQnAQ)
 
 ### 数据是否连续
 
@@ -59,11 +59,11 @@ order: 2
 
 (1) 分类信息展示在图例上
 
-![image | left](https://zos.alipayobjects.com/skylark/248c8c4d-1312-4949-869b-7c924167ac90/attach/1996/fd0e23a6193805bb/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*yPBWQLoxIrgAAAAAAAAAAABkARQnAQ)
 
 (2) 确定显示在坐标轴上坐标点 30，40，50，60，70
 
-![image | left](https://zos.alipayobjects.com/skylark/518327bc-2075-44aa-a2f2-17aeb1cc4f0d/attach/1996/edb205c7cbab6f6c/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*EkeCR7uWX2YAAAAAAAAAAABkARQnAQ)
 
 所以每种度量必须包含以下信息：
 
@@ -81,7 +81,7 @@ order: 2
 
 G2 中提供了下面几种度量
 
-![image | left](https://zos.alipayobjects.com/rmsportal/DFBiFeTgwdEnoRf.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*HKviRYZGG3kAAAAAAAAAAABkARQnAQ)
 
 * identity，常量类型的数值，也就是说数据的某个字段是不变的常量；
 * linear，连续的数字 [1, 2, 3, 4, 5]；
@@ -90,9 +90,9 @@ G2 中提供了下面几种度量
 * log，连续非线性的 Log 数据 将 [1, 10, 100, 1000] 转换成 [0, 1, 2, 3]；
 * pow，连续非线性的 pow 数据 将 [2, 4, 8, 16, 32] 转换成 [1, 2, 3, 4, 5]；
 * timeCat，非连续的时间，比如股票的时间不包括周末或者未开盘的日期。
-* ![image | left](https://zos.alipayobjects.com/rmsportal/rgqZNlpymTwZGYb.png "")
+* ![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*TBSmR4u3nYsAAAAAAAAAAABkARQnAQ)
 
-![image | left](https://zos.alipayobjects.com/skylark/740af1c0-651a-45e8-9c4f-452b50731018/attach/1996/f7ec64932a01e2ca/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*onRRTK4aywIAAAAAAAAAAABkARQnAQ)
 
 ### 属性和接口设计
 
@@ -236,7 +236,7 @@ timeCat 类型的数据，是一种日期数据，但是不是连续的日期。
 | tickCount | 此时需要设置坐标点的个数 |
 | mask | 数据的格式化格式 |
 
-![image | left](https://zos.alipayobjects.com/rmsportal/fDJwopwmrdlqTBs.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*dVEvRoLH-t4AAAAAAAAAAABkARQnAQ)
 
 ### 度量坐标点的计算
 
@@ -252,7 +252,7 @@ timeCat 类型的数据，是一种日期数据，但是不是连续的日期。
 
 但是当分类类型的数值过多，同时分类间有顺序关系时可以省略掉一些分类例如：
 
-![image | left](https://zos.alipayobjects.com/rmsportal/dEKVHgbcOwWWKzr.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*uRobSJl9ldgAAAAAAAAAAABkARQnAQ)
 
 计算时需要使用到的属性：
 

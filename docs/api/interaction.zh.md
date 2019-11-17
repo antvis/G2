@@ -14,7 +14,7 @@ G2 提供一套交互机制，以达到通用交互行为的封装和复用。�
 
 Demo: [烛形图](/zh/examples/candlestick/demo#basic)
 
-![basic-407c2.png](https://cdn.nlark.com/yuque/0/2019/png/98090/1566453968371-a66045b4-a540-499c-84ed-b8dcbb6b2eea.png#align=left&display=inline&height=332&name=basic-407c2.png&originHeight=538&originWidth=800&size=9235&status=done&width=494)
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8OL5QZ54CxsAAAAAAAAAAABkARQnAQ)
 
 ### API
 

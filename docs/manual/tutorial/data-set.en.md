@@ -270,6 +270,6 @@ c2.render();
 
 > 效果：
 
-![](https://cdn.nlark.com/yuque/0/2018/png/100996/1539836251480-4810daca-eb8b-4db9-bec9-7e27b8e5dd5f.png#width=747)
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*LaQ6SbVrOU4AAAAAAAAAAABkARQnAQ)
 
-![](https://cdn.nlark.com/yuque/0/2018/png/100996/1539836261852-2733925f-6d20-4144-8cd4-390103eb73dc.png#width=747)
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*YL8WSIlK9HkAAAAAAAAAAABkARQnAQ)

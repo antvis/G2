@@ -34,9 +34,9 @@ chart.area().position('x*y').adjust({
 
 数据映射到图形时必须进行视觉编码，视觉编码包括几何标记和视觉通道，几何标记对应着多种图表类型，视觉通道定义图形属性。视觉通道中最具区分度的通道是位置（position)，图形的位置在一些情况下会出现重叠：
 
-![image | left](https://zos.alipayobjects.com/skylark/528124ab-44e3-4744-9996-283b331690a7/attach/900/9d685a74d48ecac5/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*lyoNSotXSwwAAAAAAAAAAABkARQnAQ)
 
-![image | left](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791774987343584d17d3/attach/4080/900/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*g7xySpkL9FEAAAAAAAAAAABkARQnAQ)
 
 * 点图经常存在点重叠的情况。上图的点图有 2000 多条记录，大多数点重叠在一起；
 * 柱状图（interval) 在 x 轴是分类的情况下，同一个分类下有多条记录是也会重叠。上图的柱状图，每个分类下有 7 个柱状图，互相重叠，看不清晰各个分类的数据大小。
@@ -69,7 +69,7 @@ data = [{a: 1, b:[0,10]}, {a: 1, b: [10, 22]};
 
 生成的图形：
 
-![image | left](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791777722933706d17d3/attach/4080/900/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*bIlmQJuAuncAAAAAAAAAAABkARQnAQ)
 
 #### 适合的几何标记
 
@@ -77,15 +77,15 @@ data = [{a: 1, b:[0,10]}, {a: 1, b: [10, 22]};
 
 * 层叠的点图
 
-![image | left](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791777909622475d7565/attach/4080/900/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*IZYVTI5xdN8AAAAAAAAAAABkARQnAQ)
 
 * 层叠的柱状图、玫瑰图
 
-![image | left](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791778062043730d17d3/attach/4080/900/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*AezCRZ5cOtIAAAAAAAAAAABkARQnAQ)
 
 * 饼图，饼图本质上就是数据层叠占满了整个 0-360 度的圆形空间
 
-![image | left](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791779314022828d17cd/attach/4080/900/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*6bCYTaHhw_oAAAAAAAAAAABkARQnAQ)
 
 ### jitter
 
@@ -130,7 +130,7 @@ const data = [
 
 生成的图形：
 
-![image | left](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791779492932835d17cd/attach/4080/900/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*MQjZT7vSyDAAAAAAAAAAAABkARQnAQ)
 
 #### 适合的几何标记
 
@@ -138,9 +138,9 @@ const data = [
 
 * 散开的点图：
 
-![image | left](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791779779402611d7565/attach/4080/900/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*p2r5SrcdGoAAAAAAAAAAAABkARQnAQ)
 
-![image | left](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791779940773856d17d3/attach/4080/900/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*G_2bSKRAGMkAAAAAAAAAAABkARQnAQ)
 
 ### dodge
 
@@ -185,7 +185,7 @@ const data = [
 
 生成的图形：
 
-![image | left](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791780408214082d7559/attach/4080/900/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*3NciQ68Npy8AAAAAAAAAAABkARQnAQ)
 
 #### 适合的几何标记
 
@@ -193,11 +193,11 @@ const data = [
 
 * 一维点图
 
-![image | left](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791780586804104d7559/attach/4080/900/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ho3xRrZG_GIAAAAAAAAAAABkARQnAQ)
 
 * 二维的柱状图、玫瑰图 (interval)
 
-![image | left](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791780727132919d17cd/attach/4080/900/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*R25cTbsjP5cAAAAAAAAAAABkARQnAQ)
 
 ### symmetric
 
@@ -233,7 +233,7 @@ data = [
 
 生成的图形：
 
-![image | left](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791780889395220d755f/attach/4080/900/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ji7iS47NGFYAAAAAAAAAAABkARQnAQ)
 
 #### 适合的几何标记
 
@@ -241,8 +241,8 @@ data = [
 
 * 漏斗图：将柱状图调整成对称柱状图，然后再连接柱状图的顶点，即可成为漏斗图
 
-![image | left](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791781024552956d17cd/attach/4080/900/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Iu_MRqxhRrsAAAAAAAAAAABkARQnAQ)
 
 * 数据流图：对称的层叠区域图
 
-![image | left](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791781232692679d7565/attach/4080/900/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*uMY8RLc17MsAAAAAAAAAAABkARQnAQ)

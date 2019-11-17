@@ -136,7 +136,7 @@ onChange: (obj) => {
 
 图中红框框选区域：
 
-![image | left](https://gw.alipayobjects.com/zos/rmsportal/iYFxRgDjRSiCyVPFozik.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*xvMPSJGpy7AAAAAAAAAAAABkARQnAQ)
 
 ### backgroundStyle
 

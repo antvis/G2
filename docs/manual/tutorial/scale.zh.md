@@ -142,7 +142,7 @@ chart.source(data, {
 chart.point().position('name*score').color('name');
 ```
 
-![image.png | left | 747x359](https://cdn.nlark.com/yuque/0/2018/png/100996/1542716202559-4688f191-0875-48f1-a844-414ceef52e1d.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*exQESL5pg9kAAAAAAAAAAABkARQnAQ)
 
 `说明`
 * 此时设置 minLimt 和 maxLimit 并不会改变生成数据度量的范围
@@ -176,7 +176,7 @@ chart.source(data, {
 
 ```
 
-![VmjHloxSPGkaZJgThogv.png | center | 747x346](https://cdn.nlark.com/yuque/0/2018/png/100996/1542716153463-1c47f7a8-a13d-4f7d-a88b-8078f8b91d74.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Ntd1QYtmGH8AAAAAAAAAAABkARQnAQ)
 
 ### log
 
@@ -215,9 +215,9 @@ chart.source(data, {
 });
 ```
 
-![image | left](https://gw.alipayobjects.com/zos/rmsportal/roMcstmrYembFWUHYelR.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*eBUYQZraCggAAAAAAAAAAABkARQnAQ)
 
-![image | left](https://gw.alipayobjects.com/zos/rmsportal/SETQeXddlxsqFNNPhiCR.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*w-V1RZVkWUMAAAAAAAAAAABkARQnAQ)
 
 ### pow
 

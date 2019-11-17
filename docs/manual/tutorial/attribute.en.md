@@ -63,7 +63,7 @@ chart.point().position('cut*price');
 
 以 `chart.point().position('x*y')` 为例，point 代表图形，即最后需要生成点图，而 position 代表位置，`position('x*y')` 代表数据在图形中的位置由 x 和 y 这两个维度的变量决定，x \* y 的数据处理结果可以理解为：
 
-![image | left](https://gw.alipayobjects.com/zos/rmsportal/EcuDeyeTOsztVOuxmZPe.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*fqtvRZZ5FiQAAAAAAAAAAABkARQnAQ)
 
 (x1, y1) 这样的数值对，最后就会被转换为画布上对应的坐标点。
 
@@ -85,7 +85,7 @@ color 支持的映射语法如下：
 
 `.color('city', [ '#1f77b4', '#ff7f0e', '#2ca02c' ])`
 
-![屏幕快照 2018-10-18 下午1.01.35.png | center | 747x396](https://cdn.nlark.com/yuque/0/2018/png/100996/1539838914730-3a5e609e-94a7-4399-923b-d3586016b9a2.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*uDWTQ64Xu2MAAAAAAAAAAABkARQnAQ)
 
 完整的代码如下：
 
@@ -152,7 +152,7 @@ $.getJSON('/assets/data/avg-temp.json', function(data) {
 
 `.color('Population', '#e5f5e0-#31a354')`
 
-![屏幕快照 2018-10-18 下午1.02.14.png | center | 747x383](https://cdn.nlark.com/yuque/0/2018/png/100996/1539838946792-0b46b047-128e-4c07-aeb2-13f1cea0b008.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*cwiEQa7g4AQAAAAAAAAAAABkARQnAQ)
 
 完整代码如下：
 
@@ -290,7 +290,7 @@ chart.point().position('x*y').color('level*value', (level, value) => {
 
 `.shape('type', [ 'circle', 'triangle-down', 'square', 'diamond' ])`
 
-![屏幕快照 2018-10-18 下午1.02.43.png | center | 747x338](https://cdn.nlark.com/yuque/0/2018/png/100996/1539838989130-fe3e7c4f-4864-494e-9034-fdc33b4c81b2.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*0BE0QpdgGYUAAAAAAAAAAABkARQnAQ)
 
 完整代码：
 
@@ -419,7 +419,7 @@ chart.point().position('name*value')
 
 `.size('Population', [ 5, 35 ])`
 
-![屏幕快照 2018-10-18 下午1.03.19.png | center | 747x342](https://cdn.nlark.com/yuque/0/2018/png/100996/1539839026761-aafb07c9-e21a-48a6-9558-bec86b632e6f.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*NrP7TYbEju0AAAAAAAAAAABkARQnAQ)
 
 完整代码：
 

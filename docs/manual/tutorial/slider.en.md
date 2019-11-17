@@ -11,7 +11,7 @@ order: 18
 
 如下图所示：
 
-![image | left](https://gw.alipayobjects.com/zos/rmsportal/XvhvibgjYpfyTDYHybjs.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*FM0BR5rBJ90AAAAAAAAAAABkARQnAQ)
 
 ## Slider 工作原理
 
@@ -79,7 +79,7 @@ slider.render(); // 渲染
 
 当用户没有设置 `start` `end` 两个参数时（即数据的选择范围），slider 会使用默认的选择范围，即展示全部数据。
 
-![屏幕快照 2018-10-18 下午2.00.19.png | center | 747x406](https://cdn.nlark.com/yuque/0/2018/png/100996/1539842435359-60af501d-ed38-459c-9bb3-2f3c0f042bc8.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*NePWS6ARhj8AAAAAAAAAAABkARQnAQ)
 
 完整的代码：
 

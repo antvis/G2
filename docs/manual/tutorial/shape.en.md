@@ -26,13 +26,13 @@ Shape.registerShape(geomName, shapeName, { // 向Shape工厂注册某个geom的�
 
 以[柱状图](/zh/examples/column/basic)举例，几何标记 interval 会给出四个关键点（即组成矩形的四个顶点），然后将这四个点依次连接，得到每个柱子的形状。__红色圆形__ 标记就是几何标记点。默认的柱状图就是通过四个几何标记点，依次相连后得到的。
 
-![image | left](https://zos.alipayobjects.com/skylark/f56fb446-5395-48d5-9e20-8aa07d585c7f/attach/1996/198df5d694346bc9/image.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*MHASTo6s90oAAAAAAAAAAABkARQnAQ)
 
 下面的我们使用自定义 shape 的功能，把上面的柱状图的柱子变成三角形，即如下图所示：
 
-![image | left](https://zos.alipayobjects.com/skylark/c3da8dc1-6d42-49a4-a5e5-e10430cc8ec7/attach/1996/d0c46539b2a3e329/image.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8MCIS7hehZsAAAAAAAAAAABkARQnAQ)
 
-![屏幕快照 2018-10-18 下午2.04.53.png | center | 747x380](https://cdn.nlark.com/yuque/0/2018/png/100996/1539842710827-819f9f43-e338-4a23-bf1c-6e1d2bebfaf2.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*GHN3SY_oYXgAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const Shape = G2.Shape;

@@ -11,7 +11,7 @@ order: 5
 * 二维，二维平面
 * 三维，常见的立方体、圆柱体都是三维的几何标记
 
-![image | left](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791764763234581d755f/attach/4080/900/image.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*_3t-QoR9d9kAAAAAAAAAAABkARQnAQ)
 
 ## 几何标记自由度
 
@@ -22,7 +22,7 @@ order: 5
 * 面在二维空间内的自由度是 0，我们以一个多边形为示例，在不改变代表多边形的数据前提下，我们无法增加多边形的宽度或则高度
 * 面在三维空间的自由度是 1，我们可以更改面的厚度
 
-![image | left](https://zos.alipayobjects.com/rmsportal/UfRqvqQJZGiiwqY.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Kh1LTbX5WHsAAAAAAAAAAABkARQnAQ)
 
 几何标记的自由度与数据能够映射到图形的视觉通道 size（大小）相关，这个角度上来讲：
 
@@ -51,7 +51,7 @@ order: 5
 * 线图，可以有折线、曲线、点线等
 * 多边形，可以是实心的多边形，也可以是空心的仅有边框的多边形
 
-![image | left](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791771922383476d17d3/attach/4080/900/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*c_RtTbGrFfsAAAAAAAAAAABkARQnAQ)
 
 这就产生了我们在前面提到的视觉通道中 Shape（图形形状），图形形状决定了各个视觉通道和图形属性的映射，使用边框颜色还是填充颜色、使用点线还是实线，使用平滑线还是折线，都是由图形形状 Shape 决定的。
 
@@ -184,7 +184,7 @@ Shape 是 G2 中最灵活、内容最丰富的模块，下图是各个图表的 
     * x 是单个标量值，y 是一个数组 ，如 {name: '分类一',range: [10, 100]}
     * x 是数组，y 是单个标量值，例如学生成绩分布 {score: [70, 80],count: 90}
 
-![image | left](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791772321173794d7553/attach/4080/900/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*tRfUS7q3FysAAAAAAAAAAABkARQnAQ)
 
 * color 仅支持一个标量值字段
 * size 仅支持数字标量值
@@ -205,19 +205,19 @@ Shape 是 G2 中最灵活、内容最丰富的模块，下图是各个图表的 
     const data = [ { month: '一月', temperature: [ 0, 10 ] }, { month: '二月', temperature: [ 5, 15 ] } ];
     ```
 
-![image | left](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791772516552748d17c0/attach/4080/900/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*_XEvTKmX7TgAAAAAAAAAAABkARQnAQ)
 
 * line（线图）和 path（路径图），如果对应位置的映射字段 x,y 都是单个标量多条记录对应一条线，对应关系是 n:1。如果 y 是数组，那么会生成多条记录对应关系是 n: n。同上面 point 的数据：
 
-![image | left](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791772666152763d17c0/attach/4080/900/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*IMrwQLq9WBwAAAAAAAAAAABkARQnAQ)
 
 * interval 一条记录生成一个图形，1:1
 
-![image | left](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791772797452741d17cd/attach/4080/900/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*_ZKNR4GG2gwAAAAAAAAAAABkARQnAQ)
 
 * area（区域图）， 多条数据生成一个图形，无论对应位置的对应字段的格式如何
 
-![image | left](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791772949916082d17d9/attach/4080/900/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*MdmmTIinKmEAAAAAAAAAAABkARQnAQ)
 
 * polygon，一条数据对应一个图形，1: 1。
 * heatmap，多条记录生成一张图 n: 1
@@ -231,11 +231,11 @@ Shape 是 G2 中最灵活、内容最丰富的模块，下图是各个图表的 
 * line,path，绘制折线图 / 路径图时需要折线图上的多个点
 * area，绘制区域图时，需要代表数据的点与 x 轴上点
 
-![image | left](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791773113276092d17d9/attach/4080/900/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*eQ5kR5D8Az0AAAAAAAAAAABkARQnAQ)
 
 * interval, 绘制柱状图、玫瑰图、饼图时，需要知道四个顶点
 
-![image | left](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791773251113852d7553/attach/4080/900/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*wvPWSbUE9WYAAAAAAAAAAABkARQnAQ)
 
 * polygon，绘制多边形时，每个顶点都需要一个点
 * heatmap，绘制热力图时需要多个点

@@ -100,7 +100,7 @@ crosshairs 是一个对象类型，用于设置 tooltip 的辅助线或者辅助
 
 | tooltip 垂注辅助线应用于多条曲线图表 | tooltip 矩形背景辅助框应用于柱状图 |
 | --- | --- |
-| ![](https://cdn.nlark.com/lark/0/2018/png/101986/1537947058148-d5e187af-1523-4808-a82d-ee5a41726270.png#width=) | ![](https://cdn.nlark.com/lark/0/2018/png/101986/1537947203936-25bc6501-c2e0-4681-9884-5d178e970a9d.png#width=) |
+| ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ehqITpZNzJ8AAAAAAAAAAABkARQnAQ) | ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*xy-qQr1TgUAAAAAAAAAAAABkARQnAQ) |
 
 <br />crosshairs支持的配置如下：<br />
 
@@ -133,7 +133,7 @@ chart.tooltip({
 
 - `markerGroup`
 
-对于 `line`、`area`、`path` 这三种几何图形，G2在渲染 tooltip 时会自动渲染tooltipMarker![](https://gw.alipayobjects.com/zos/rmsportal/BlTPaZMgrTjZINmXExtm.png#align=left&display=inline&height=40&originHeight=40&originWidth=40&status=done&width=40)<br />
+对于 `line`、`area`、`path` 这三种几何图形，G2在渲染 tooltip 时会自动渲染tooltipMarker![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*WAohQIhuy5YAAAAAAAAAAABkARQnAQ)<br />
 
   - `hideMarkers`:boolean
 
@@ -261,7 +261,7 @@ mini tooltip 是一种极简的 tooltip 形式，只显示单个数据的数值�
 
 ## tooltip 属性脑图
 
-![](https://cdn.nlark.com/lark/0/2018/png/101986/1537956588552-32c0a0a8-1026-4df0-a258-f544934b616f.png#align=left&display=inline&height=2090&originHeight=2090&originWidth=1100&status=done&width=1100)
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*sLQ1SJiODCsAAAAAAAAAAABkARQnAQ)
 
 ## Geometry 中指定 tooltip 字段
 

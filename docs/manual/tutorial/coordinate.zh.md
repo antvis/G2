@@ -34,7 +34,7 @@ chart.coord('coordType'[, cfg]);
 
 例如下图展示的层叠柱状图，在不同坐标系下就变换成了其他的图表类型：
 
-![image | left](https://zos.alipayobjects.com/skylark/fd9ba64b-b569-4c1d-acb9-d4dad3500258/attach/2378/44af7b435f0d3f88/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*xC6mQIFfQ_0AAAAAAAAAAABkARQnAQ)
 
 上图左侧为层叠柱状图，中间的饼图则是层叠柱状图在极坐标下对 x y 两个坐标轴进行转置后的结果，其中 x 轴被映射为半径，y 轴被映射成了角度。而最右边的牛眼图则相反，y 轴映射为半径。
 
@@ -57,7 +57,7 @@ chart.coord('polar' || 'theta' || 'helix', {
 
 `chart.coord('theta', { innerRadius: 0.5 });`
 
-![image | left](https://gw.alipayobjects.com/zos/rmsportal/xQxbzqQTjELOvrKSFEkh.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*wtzWR5neDrIAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 chart.coord('polar', {
@@ -67,7 +67,7 @@ chart.coord('polar', {
 });
 ```
 
-![image | left](https://gw.alipayobjects.com/zos/rmsportal/YbxpoBRuIrNsaMNOCmcG.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*37k3RoxDDAsAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 chart.coord('helix', {
@@ -77,11 +77,11 @@ chart.coord('helix', {
 });
 ```
 
-![image | left](https://gw.alipayobjects.com/zos/rmsportal/EWHCatHynDfQTPByyfVp.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*zI3qTZyHHTYAAAAAAAAAAABkARQnAQ)
 
 这里需要说明的是，G2 极坐标默认的起始角度和结束角度如下图所示：
 
-![image | left](https://zos.alipayobjects.com/skylark/85950a42-9579-44cb-b656-8dd28c9a014a/attach/2378/d648679184c6977c/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*o6RYTpGnvdgAAAAAAAAAAABkARQnAQ)
 
 ## 坐标系变换
 
@@ -94,15 +94,15 @@ G2 提供的坐标系支持一系列的变换操作：
 chart.coord('rect').scale(0.7, 1.2);
 ```
 
-![image | left](https://zos.alipayobjects.com/rmsportal/bAISlaEvIUpqIFVBiXKo.gif "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*De4NR7ULUL4AAAAAAAAAAABkARQnAQ)
 
 * transpose: x，y 轴交换，例如柱状图转换成水平柱状图（条形图）；
 
-![image | left](https://zos.alipayobjects.com/skylark/3b319bf7-f5ae-4165-9753-a1fbd58cc209/attach/2378/62bc082e8beb0f78/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*zeCISaB3L_QAAAAAAAAAAABkARQnAQ)
 
 * reflect: 镜像，沿 x 方向镜像或者沿 y 轴方向映射。
 
-![image | left](https://zos.alipayobjects.com/skylark/3e02d865-fcfc-4afd-9ffa-66a1299b31b5/attach/2378/4225fd7483f54155/image.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*xoudRJG7T2kAAAAAAAAAAABkARQnAQ)
 
 以下是 G2 中坐标系变换的使用语法，当需要进行多种坐标系变换时，可以直接进行链式调用，如下代码所示：
 

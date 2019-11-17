@@ -9,7 +9,7 @@ order: 14
 
 G2 默认提供了两种图表主题： default、dark。
 
-![image | left](https://gw.alipayobjects.com/zos/rmsportal/EQadCjVFfaXjuPbSySJp.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*W1UxTqOosukAAAAAAAAAAABkARQnAQ)
 
 ## 图表样式设置
 
@@ -65,7 +65,7 @@ G2.Global.setTheme(theme); // 将主题设置为用户自定义的主题
 
 #### demo 演示
 
-![屏幕快照 2018-10-18 下午1.45.35.png | center | 747x522](https://cdn.nlark.com/yuque/0/2018/png/100996/1539841550760-19a8c7e3-0c69-4b1b-9597-9fe1d2ca0a5b.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*d8rIQr4rvA4AAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const Util = G2.Util;
@@ -233,7 +233,7 @@ const Global = {
   });
 ```
 
-![屏幕快照 2018-10-18 下午1.46.18.png | center | 747x568](https://cdn.nlark.com/yuque/0/2018/png/100996/1539841600561-4430eeb7-f78f-469f-af5e-731a44d925fc.png "")
+![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*vbEJQa70bDQAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const Util = G2.Util;

@@ -70,7 +70,7 @@ const chart = new G2.Chart({
 
 下图展示了 G2 的图表布局：
 
-![image | left](https://gw.alipayobjects.com/zos/rmsportal/PfnvrCQRfuPmJIqfKNkS.png "")
+![image | left](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*nVAkR5592PUAAAAAAAAAAABkARQnAQ)
 
 ## 其他配置
 
