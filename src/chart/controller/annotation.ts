@@ -100,8 +100,19 @@ export class Annotation extends Controller<undefined> {
 
   public clear() {
     super.clear();
+
+    this.foregroundContainer.clear();
+    this.backgroundContainer.clear();
+
     // clear all options
     this.options = [];
+  }
+
+  public destroy() {
+    super.destroy();
+
+    this.foregroundContainer.remove(true);
+    this.backgroundContainer.remove(true);
   }
 
   // APIs for creating annotation component
@@ -156,13 +167,7 @@ export class Annotation extends Controller<undefined> {
       ...option,
     });
   }
-
   // end API
-
-  protected getContainer(): IGroup {
-    // no usage
-    return undefined;
-  }
 
   /**
    * parse the point position to [x, y]

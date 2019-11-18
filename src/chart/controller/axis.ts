@@ -5,6 +5,7 @@ import { getAxisFactor, getAxisRegion, getAxisThemeCfg, getCircleAxisCenterRadiu
 import { getCircleGridItems, getGridThemeCfg, getLineGridItems, showGrid } from '../../util/grid';
 import { getName } from '../../util/scale';
 import { AxisOption, ComponentOption } from '../interface';
+import View from '../view';
 import { Controller } from './base';
 
 type Option = Record<string, AxisOption> | boolean;
@@ -31,6 +32,15 @@ function getAxisOption(axes: Record<string, AxisOption> | boolean, field: string
  *  - life circle
  */
 export class Axis extends Controller<Option> {
+  /** the draw group of axis */
+  private container: IGroup;
+
+  constructor(view: View) {
+    super(view);
+
+    this.container = this.view.getLayer(LAYER.BG).addGroup();
+  }
+
   public init() {}
 
   public render() {
@@ -75,15 +85,16 @@ export class Axis extends Controller<Option> {
     });
   }
 
-  public destroy() {
-    super.destroy();
+  public clear() {
+    super.clear();
+
+    this.container.clear();
   }
 
-  /**
-   * create component into which layer
-   */
-  protected getContainer(): IGroup {
-    return this.view.getLayer(LAYER.BG);
+  public destroy() {
+    super.destroy();
+
+    this.container.remove(true);
   }
 
   /**
@@ -243,7 +254,7 @@ export class Axis extends Controller<Option> {
    * @return line axis cfg
    */
   private getLineAxisCfg(scale: Scale, axisOption: AxisOption, direction: DIRECTION): object {
-    const container = this.getContainer().addGroup();
+    const container = this.container;
 
     const coordinate = this.view.getCoordinate();
 
@@ -276,7 +287,7 @@ export class Axis extends Controller<Option> {
       return undefined;
     }
 
-    const container = this.getContainer().addGroup();
+    const container = this.container;
 
     const baseGridCfg = {
       container,
@@ -297,7 +308,7 @@ export class Axis extends Controller<Option> {
    * @return circle axis cfg
    */
   private getCircleAxisCfg(scale: Scale, axisOption: AxisOption, direction: DIRECTION): object {
-    const container = this.getContainer().addGroup();
+    const container = this.container;
 
     const baseAxisCfg = {
       container,
@@ -328,7 +339,7 @@ export class Axis extends Controller<Option> {
       return undefined;
     }
 
-    const container = this.getContainer().addGroup();
+    const container = this.container;
 
     const baseGridCfg = {
       container,
