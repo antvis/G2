@@ -10,21 +10,21 @@ const IndexPage = () => {
   const { t, i18n } = useTranslation();
   const features = [
     {
-      icon: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*lOy9RohQHK4AAAAAAAAAAABkARQnAQ',
+      icon: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*4x_KTKyqwJgAAAAAAAAAAABkARQnAQ',
       title: t('千变万化，自由组合'),
       description: t(
         '任何图表，都可以基于图形语法灵活绘制，满足你无限的创意',
       ),
     },
     {
-      icon: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*D_CMQ7GPtdwAAAAAAAAAAABkARQnAQ',
+      icon: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ELYbTIVCgPoAAAAAAAAAAABkARQnAQ',
       title: t('专业完备'),
       description: t(
         '大量产品实践之上，提供绘图引擎、完备图形语法、专业设计规范',
       ),
     },
     {
-      icon: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*0VmfQ4KVAlEAAAAAAAAAAABkARQnAQ',
+      icon: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*_riSQZrgczgAAAAAAAAAAABkARQnAQ',
       title: t('生动，可交互'),
       description: t(
         '强大的交互语法，助力可视分析，让图表栩栩如生',
@@ -44,12 +44,12 @@ const IndexPage = () => {
   const bannerButtons = [
     {
       text: t('图表示例'),
-      link: '/zh/examples/gallery/line',
+      link: '/g2/zh/examples/gallery/line',
       type: 'primary',
     },
     {
       text: t('下载使用'),
-      link: '/zh/docs/manual/getting-started',
+      link: '/g2/zh/docs/manual/getting-started',
     },
   ];
   const notifications = [
@@ -67,7 +67,7 @@ const IndexPage = () => {
       title: t('精品 Gallery'),
       description: t('真实的数据可视化案例，我们将它们归纳为一个个故事性的设计模板，让用户达到开箱即用的效果。'),
       link: 'examples/gallery/line',
-      image: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*MYNsTKSKIVIAAAAAAAAAAABkARQnAQ',
+      image: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*hDrgRb7ma4EAAAAAAAAAAABkARQnAQ',
     },
   ];
 
@@ -76,7 +76,7 @@ const IndexPage = () => {
       <SEO title={t('蚂蚁数据可视化')} lang={i18n.language} />
       <Banner
         coverImage={
-          <img width="100%" class="Notification-module--number--31-3Z" style={{ marginLeft: '125px', marginTop: '50px' }}
+          <img width="100%" class="Notification-module--number--31-3Z" style={{ marginLeft: '125px', marginTop: '106px' }}
             src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*hT73QqjgYPcAAAAAAAAAAABkARQnAQ" />}
         title={t('G2 可视化图形语法')}
         description={t(
