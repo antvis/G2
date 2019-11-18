@@ -167,7 +167,7 @@ export class Legend extends Controller<Option> {
           style: {
             // size 的选中前景色，对于 color，则直接使用 color 标识
             // @ts-ignore
-            fill: attr.type === 'size' ? '#1890FF' : undefined,
+            fill: attr.type === 'size' ? this.view.getTheme().defaultColor : undefined,
           },
         },
       };

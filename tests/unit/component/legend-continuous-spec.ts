@@ -33,7 +33,6 @@ describe('Component', () => {
 
     const size = legends[0].component;
 
-    console.log(size);
     // @ts-ignore
     expect(size.get('rail').type).toBe('size');
     // @ts-ignore
