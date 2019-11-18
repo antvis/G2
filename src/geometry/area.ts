@@ -6,8 +6,10 @@ import './shape/area';
 export default class Area extends Path {
   public readonly type: string = 'area';
   public readonly shapeType: string = 'area';
-  public sortable: boolean = true;
-  public generatePoints: boolean = true;
+  /** Area 默认会对数据按照 x 轴字段进行正向排序 */
+  public readonly sortable: boolean = true;
+  /** 生成图形关键点 */
+  public readonly generatePoints: boolean = true;
 
   /**
    * get points for ShapeInfo

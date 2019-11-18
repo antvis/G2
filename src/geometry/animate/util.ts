@@ -2,6 +2,11 @@ import * as _ from '@antv/util';
 import { Coordinate, Shape } from '../../dependents';
 import { getSectorPath } from '../../util/graphics';
 
+/**
+ * 获取同坐标系范围相同的剪切区域
+ * @param coordinate
+ * @returns
+ */
 export function getCoordinateClipCfg(coordinate: Coordinate) {
   const { start, end } = coordinate;
   const width = coordinate.getWidth();

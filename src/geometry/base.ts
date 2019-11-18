@@ -84,39 +84,38 @@ export interface GeometryCfg {
  * @class
  */
 export default class Geometry {
-  /** Geometry 类型 */
+  /** Geometry type. */
   public readonly type: string = 'base';
-  /** Geometry 对应的 shapeFactory 类型 */
+  /** The shapeFactory type. */
   public readonly shapeType: string;
 
-  // 创建 Geometry 对象可传入的属性
-  /** 坐标系对象 */
+  // can be passed in when create geometry instance
+  /** [[Coordinate]] instance. */
   public coordinate: Coordinate;
-  /** data 数据 */
+  /** User data. */
   public data: Data;
-  /** 图形容器 */
+  /** Graphic drawing container. */
   public readonly container: IGroup;
-  /** scale 配置 */
+  /** Scale definiton. */
   public scaleDefs: Record<string, ScaleOption>;
-  /** 是否对数据进行排序 */
+  /** Whether to sort data, default is false.  */
   public sortable: boolean;
-  /** element 是否可见 */
+  /** Whether geometry is visible, default is true.  */
   public visible: boolean;
-  /** 配置主题 */
+  /** The theme of geometry.  */
   public theme: LooseObject;
-  /** scale·实例集合 */
+  /** Scale map. */
   public scales: Record<string, Scale>;
 
-  // 计算生成的属性
-  /** 图形属性对象 */
+  // Internally generated attributes
+  /** Attribute map  */
   public attributes: Record<string, Attribute> = {};
-  /** Element 实例集合 */
+  /** Element map */
   public elements: Element[] = [];
-  /** 分组、数字化、adjust 后的数据 */
+  /** Processed data set */
   public dataArray: Data[];
 
-  // 配置项属性存储
-  /** tooltip 配置项 */
+  /** Store tooltip configuration */
   public tooltipOption: TooltipOption | boolean;
   /** 图形属性映射配置 */
   protected attributeOption: Record<string, AttributeOption> = {};
@@ -140,6 +139,10 @@ export default class Geometry {
 
   private adjusts: Record<string, Adjust> = {};
 
+  /**
+   * Creates an instance of geometry.
+   * @param cfg
+   */
   constructor(cfg: GeometryCfg) {
     const { container, coordinate, data, scaleDefs = {}, sortable = false, visible = true, theme, scales = {} } = cfg;
 
@@ -162,8 +165,19 @@ export default class Geometry {
   }
 
   /**
-   * 位置通道的映射配置
-   * @param cfg 配置项
+   * Configuring position mapping rules
+   *
+   * @example
+   * ```typescript
+   * // data: [{ x: 'A', y: 10, color: 'red' }]
+   * position('x*y');
+   * position({
+   *   fields: [ 'x', 'y' ],
+   * });
+   * ```
+   *
+   * @param cfg data fields participating in the mapping
+   * @returns
    */
   public position(cfg: string | AttributeOption): Geometry {
     if (_.isString(cfg)) {
@@ -178,10 +192,49 @@ export default class Geometry {
   }
 
   /**
-   * 颜色通道的映射配置
-   * @param cfg 颜色通道的映射规则
+   * Configuring color mapping rules
+   *
+   * @example
+   * // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
+   *
+   * ```ts
+   * color({
+   *   fields: [ 'x' ],
+   *   values: [ '#1890ff', '#5AD8A6' ],
+   * });
+   * ```
+   *
+   * @param field mapping rule configuration
+   * @returns
    */
   public color(field: AttributeOption): Geometry;
+  /**
+   *
+   * * @example
+   * ```ts
+   * // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
+   *
+   * // use '#1890ff' rendering
+   * color('#1890ff');
+   *
+   * // color mapping based on field values, use default colors
+   * color('x');
+   *
+   * // color mapping based on field values, use the specified colors
+   * color('x', [ '#1890ff', '#5AD8A6' ]);
+   *
+   * color('x', (xVal) => {
+   *   if (fieldValue === 'a') {
+   *     return 'red';
+   *   }
+   *   return 'blue';
+   * });
+   * ```
+   *
+   * @param field data fields participating in the mapping or a color value
+   * @param cfg Optional, color mapping rules
+   * @returns
+   */
   public color(field: string, cfg?: string[] | ColorAttrCallback): Geometry;
   public color(field: AttributeOption | string, cfg?: string[] | ColorAttrCallback): Geometry {
     this.createAttrOption('color', field, cfg);
@@ -190,10 +243,48 @@ export default class Geometry {
   }
 
   /**
-   * 形状通道的映射配置
-   * @param cfg 形状通道的映射规则
+   * Configuring shape mapping rules
+   *
+   * @example
+   * // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
+   *
+   * ```ts
+   * shape({
+   *   fields: [ 'x' ],
+   * });
+   * ```
+   *
+   * @param field mapping rule configuration
+   * @returns
    */
   public shape(field: AttributeOption): Geometry;
+  /**
+   *
+   * * @example
+   * ```ts
+   * // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
+   *
+   * // use specified shape
+   * shape('circle');
+   *
+   * // shape mapping based on field values, use default shapes
+   * shape('x');
+   *
+   * // shape mapping based on field values, use the specified shapes
+   * shape('x', [ 'circle', 'diamond', 'square' ]);
+   *
+   * shape('x', (xVal) => {
+   *   if (fieldValue === 'a') {
+   *     return 'circle';
+   *   }
+   *   return 'diamond';
+   * });
+   * ```
+   *
+   * @param field data fields participating in the mapping or a shape value
+   * @param cfg Optional, shape mapping rules
+   * @returns
+   */
   public shape(field: string, cfg?: string[] | ShapeAttrCallback): Geometry;
   public shape(field: AttributeOption | string, cfg?: string[] | ShapeAttrCallback): Geometry {
     this.createAttrOption('shape', field, cfg);
@@ -202,10 +293,48 @@ export default class Geometry {
   }
 
   /**
-   * 大小通道的映射配置
-   * @param cfg 大小通道的映射规则
+   * Configuring size mapping rules
+   *
+   * @example
+   * // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
+   *
+   * ```ts
+   * size({
+   *   values: [ 10 ],
+   * })
+   * ```
+   *
+   * @param field mapping rule configuration
+   * @returns
    */
   public size(field: AttributeOption): Geometry;
+  /**
+   *
+   * * @example
+   * ```ts
+   * // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
+   *
+   * // use specified value, 10 means '10px'
+   * size(10);
+   *
+   * // size mapping based on field values, default size range: [1, 10]
+   * size('x');
+   *
+   * // size mapping based on field values, use the specified size range
+   * size('x', [ 5, 30 ]);
+   *
+   * size('x', (xVal) => {
+   *   if (fieldValue === 'a') {
+   *     return 10;
+   *   }
+   *   return 5;
+   * });
+   * ```
+   *
+   * @param field data fields participating in the mapping or a size value
+   * @param cfg Optional, size mapping rules
+   * @returns
+   */
   public size(field: number | string, cfg?: [number, number] | SizeAttrCallback): Geometry;
   public size(field: AttributeOption | number | string, cfg?: [number, number] | SizeAttrCallback): Geometry {
     this.createAttrOption('size', field, cfg);
@@ -214,8 +343,49 @@ export default class Geometry {
   }
 
   /**
-   * Adjust 数据调整配置
-   * @param cfg 数据调整配置项
+   * how to adjust data. Offer 4 types by defaut;
+   * 1. dodge
+   * 2. stack
+   * 3. symmetric
+   * 4. jitter
+   *
+   *
+   * **Tip**
+   * * When you use 'dodge' type, the following configurations are possible:
+   * ```ts
+   * adjust('dodge', {
+   *   marginRatio: 0, // used to adjust the spacing of individual columns in a group
+   *   dodgeBy: 'x', // declare which field to group by
+   * });
+   * ```
+   *
+   * * When you use 'stack' type, the following configurations are possible:
+   * ```ts
+   * adjust('stack', {
+   *   reverseOrder: false, // whether or not to reverse data
+   * });
+   * ```
+   *
+   * @example
+   * ```ts
+   * adjust('stack');
+   *
+   * adjust({
+   *   type: 'stack',
+   *   reverseOrder: false,
+   * });
+   *
+   * // combine multiple types
+   * adjust([ 'stack', 'dodge' ]);
+   *
+   * adjust([
+   *   { type: 'stack' },
+   *   { type: 'dodge', dodgeBy: 'x' },
+   * ]);
+   * ```
+   *
+   * @param adjustCfg adjust type and configuration
+   * @returns
    */
   public adjust(adjustCfg: string | string[] | AdjustOption | AdjustOption[]): Geometry {
     let adjusts: any = adjustCfg;
@@ -233,10 +403,49 @@ export default class Geometry {
   }
 
   /**
-   * style 图形样式属性配置
-   * @param cfg 图形样式配置
+   * Graphic style configuration
+   *
+   * @example
+   * ```ts
+   * // just configure graphics style
+   * style({
+   *   lineWidth: 2,
+   *   stroke: '#1890ff',
+   * });
+   *
+   * // or configure the detail rules
+   * style({
+   *   fields: [ 'x', 'y' ], // data fields of participating rules
+   *   callback: (xVal, yVal) => {
+   *     const style = { lineWidth: 2, stroke: '#1890ff' };
+   *     if (xVal === 'a') {
+   *       style.lineDash = [ 2, 2 ];
+   *     }
+   *     return style;
+   *   },
+   * });
+   * ```
+   *
+   * @param field style mapping rules or just style
+   * @returns
    */
   public style(field: StyleOption | LooseObject): Geometry;
+  /**
+   * @example
+   * ```ts
+   * style('x*y', (xVal, yVal) => {
+   *   const style = { lineWidth: 2, stroke: '#1890ff' };
+   *   if (xVal === 'a') {
+   *     style.lineDash = [ 2, 2 ];
+   *   }
+   *   return style;
+   * });
+   * ```
+   *
+   * @param field data fields of participating rules
+   * @param styleFunc Optional, a callback function that defines the mapping rule
+   * @returns
+   */
   public style(field: string, styleFunc: StyleCallback): Geometry;
   public style(field: StyleOption | LooseObject | string, styleFunc?: StyleCallback): Geometry {
     if (_.isString(field)) {
@@ -259,7 +468,81 @@ export default class Geometry {
     return this;
   }
 
+  /**
+   * configure gemoetry tooltip's content.
+   *
+   * `tooltip(false)` means close the tooltip
+   * `tooltip(true)` means close the tooltip
+   *
+   * The tooltip of geometry is open by default. So we can use this method to configure tootlip's content.
+   *
+   * @example
+   * ```ts
+   * // data: [{x: 'a', y: 10}]
+   * tooltip({
+   *   fields: [ 'x' ];
+   * });
+   * ```
+   * ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*268uQ50if60AAAAAAAAAAABkARQnAQ)
+   *
+   * ```ts
+   * tooltip({
+   *   fields: [ 'x', 'y' ];
+   * });
+   * ```
+   * ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*A_ujSa8QhtcAAAAAAAAAAABkARQnAQ)
+   *
+   * The tooltip() method supports callbacks in the following way:
+   *
+   * @example
+   * ```ts
+   * chart.tooltip({
+   *   itemTpl: '<li>{x}: {y}</li>',
+   * });
+   *
+   * chart.line()
+   *   .position('x*y')
+   *   .tooltip({
+   *     fields: [ 'x', 'y' ],
+   *     callback: (x, y) => {
+   *       return {
+   *         x,
+   *         y,
+   *       };
+   *     },
+   *   });
+   * ```
+   *
+   * the returned value must be an object whose attributes correspond to the `itemTpl` of chart.tooltip().
+   *
+   * @param field tooltip configuration
+   * @returns
+   */
   public tooltip(field: TooltipOption | boolean): Geometry;
+  /**
+   * @example
+   * ```ts
+   * // data: [{x: 'a', y: 10}]
+   *
+   * // same with `tooltip({ fields: [ 'x' ] });`
+   * tooltip('x');
+   *
+   * // same with `tooltip({ fields: [ 'x', 'y' ] });`
+   * tooltip('x*y');
+   *
+   * // same with `tooltip({ fields: [ 'x', 'y' ], callback: (x, y) => { x, y } });`
+   * tooltip('x*y', (x, y) => {
+   *   return {
+   *     x,
+   *     y,
+   *   };
+   * });
+   * ```
+   *
+   * @param field the data fields display in tooltip
+   * @param cfg Optional, callback function to define tooltip content
+   * @returns
+   */
   public tooltip(field: string, cfg?: TooltipCallback): Geometry;
   public tooltip(field: TooltipOption | boolean | string, cfg?: TooltipCallback): Geometry {
     if (_.isString(field)) {
@@ -275,6 +558,30 @@ export default class Geometry {
     return this;
   }
 
+  /**
+   * Animation configuration
+   *
+   * + `animate(false)` to close the animation
+   * + `animate(true)` to open the animation
+   *
+   * We divide animation into three types:
+   * 1. enter
+   * 2. update
+   * 3. leave
+   *
+   * @example
+   * ```ts
+   * animate({
+   *   enter: {
+   *     duration: 1000, // enter animation execution time
+   *   },
+   *   leave: false, // close leave animation
+   * });
+   * ```
+   *
+   * @param cfg animation configuration
+   * @returns
+   */
   public animate(cfg: AnimateOption | boolean): Geometry {
     this.animateOption = cfg;
     return this;
@@ -285,6 +592,10 @@ export default class Geometry {
    */
   public label() {}
 
+  /**
+   * Create [[Attribute]] and [[Scale]] instances, and data processing: group, numeric and adjust.
+   * Should be called after geometry instance created.
+   */
   public init() {
     // TODO: @simaq 是否可以移除设置矩阵这一步？
     // 需要修改 @antv/coord 模块，将点与当前矩阵相乘
@@ -318,7 +629,10 @@ export default class Geometry {
     this.processData(data);
   }
 
-  /** 进行数据到图形空间的映射同时绘制图形 */
+  /**
+   * Mapping raw data to graphics data, while create the shapes.
+   * Should be called after `init()` or `pdateData()`
+   */
   public paint() {
     this.elements = [];
     this.elementsMap = {};
@@ -376,7 +690,7 @@ export default class Geometry {
   }
 
   /**
-   * destroy
+   * Destroy the geometry
    */
   public destroy() {
     this.clear();
@@ -384,7 +698,11 @@ export default class Geometry {
     container.remove(true);
   }
 
-  public getGroupScales() {
+  /**
+   * Get scales from color, shape and size attributes which determine data grouping
+   * @returns
+   */
+  public getGroupScales(): Scale[] {
     const scales = [];
     const attributes = this.attributes;
     _.each(attributes, (attr: Attribute) => {
@@ -401,18 +719,26 @@ export default class Geometry {
     return scales;
   }
 
+  /**
+   * Get Attribute instance by name.
+   */
   public getAttribute(name: string): Attribute {
     return this.attributes[name];
   }
 
+  /** Get the scale corresponding to the x axis */
   public getXScale(): Scale {
     return this.getAttribute('position').scales[0];
   }
 
+  /** Get the scale corresponding to the y axis */
   public getYScale(): Scale {
     return this.getAttribute('position').scales[1];
   }
 
+  /**
+   * Get the attributes which will generate legends.
+   */
   public getLegendAttributes(): Attribute[] {
     const rst = [];
     _.each(this.attributes, (attr: Attribute) => {
@@ -453,7 +779,6 @@ export default class Geometry {
     return this.adjusts[adjustType];
   }
 
-  // 获取 element 对应 shape 的工厂对象
   public getShapeFactory() {
     let shapeFactory = this.shapeFactory;
     if (!shapeFactory) {
@@ -470,7 +795,16 @@ export default class Geometry {
 
   /**
    * get elements which meet the user's condition
-   * @param condition
+   *
+   * ```ts
+   * getElementsBy((element) => {
+   *   const data = element.getData();
+   *
+   *   return data.a === 'a';
+   * });
+   * ```
+   *
+   * @param condition callback function
    * @returns
    */
   public getElementsBy(condition: (element: Element) => boolean): Element[] {

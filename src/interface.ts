@@ -54,9 +54,8 @@ export interface AnimateCfg {
   readonly duration: number;
   /** 动画延迟时间 */
   readonly delay?: number;
-  // TODO: 完善 callback 的类型定义
   /** 动画执行结束后的回调函数 */
-  readonly callback?: (...args) => any;
+  readonly callback?: () => any;
 }
 
 export interface AnimateOption {
@@ -107,20 +106,28 @@ export interface ShapeDrawCFG extends ShapeInfo {
 
 /** shape 关键点信息 */
 export interface ShapePoint {
+  /** 数据点映射后对应 x 的值 */
   readonly x: number | number[];
+  /** 数据点映射后对应 y 的值 */
   readonly y: number | number[];
+  /** 数据在 y 方向的最小值 */
   readonly y0?: number;
   size?: number;
 }
 
+/** 图形 marker 的配置信息 */
 export interface ShapeMarkerCfg {
+  /** marker 的形状 */
   symbol: string | ShapeMarkerSymbol;
+  /** 描边的颜色 */
   stroke?: string;
+  /** 填充的颜色 */
   fill?: string;
+  /** marker 的大小 */
   r: number;
   [key: string]: any;
 }
-// Shape Module start
+
 /** 注册 ShapeFactory 需要实现的接口 */
 export interface RegisterShapeFactory {
   /** 默认的 shape 类型 */
@@ -160,7 +167,7 @@ export interface Shape extends RegisterShape {
   /** 坐标系对象 */
   coordinate: Coordinate;
   /** 工具函数，将 0～1 path 转化成实际画布 path */
-  parsePath: (path: any, islineToArc: boolean) => any[];
+  parsePath: (path: any, islineToArc: boolean) => PathCommand[];
   /** 工具函数，0～1 的坐标点转换成实际画布坐标点 */
   parsePoint: (point: Point) => Point;
   /** 工具函数，0～1 的坐标点集合转换成实际画布坐标点集合 */

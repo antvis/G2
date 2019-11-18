@@ -5,7 +5,7 @@ import { getAngle, getSectorPath } from '../../util/graphics';
 import { getCoordinateClipCfg } from './util';
 
 /**
- * 垂直方向的缩放动画
+ * Zoom animation in the y direction
  * @param shape
  * @param animateCfg
  * @param shapeModel
