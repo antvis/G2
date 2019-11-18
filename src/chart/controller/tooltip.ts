@@ -32,7 +32,7 @@ function uniq(items) {
   return uniqItems;
 }
 
-export default class Tooltip {
+export class Tooltip {
   public view: View;
   public cfg;
   public tooltip;

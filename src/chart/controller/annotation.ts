@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-import { LAYER } from '../../constant';
+import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { Annotation as AnnotationComponent, IGroup, Scale } from '../../dependents';
 import { Point } from '../../interface';
 import View from '../view';
@@ -24,20 +24,22 @@ export interface BaseOption {
   readonly style?: object;
 }
 
+export interface ArcOption extends BaseOption {
+  readonly startAngle?: number;
+  readonly endAngle?: number;
+}
+
 export interface ImageOption extends BaseOption {
-  width: number;
-  // 图片的高度
-  height: number;
   // 图片路径
-  src: string;
+  readonly src: string;
   // x 方向的偏移量
-  offsetX?: number;
+  readonly offsetX?: number;
   // y 方向偏移量
-  offsetY?: number;
+  readonly offsetY?: number;
 }
 
 export interface LineOption extends BaseOption {
-  text: TextOption;
+  readonly text?: TextOption;
 }
 
 export type RegionOption = BaseOption;
@@ -47,6 +49,7 @@ export interface TextOption {
   readonly top?: boolean;
   // 文本位置
   readonly position: Position;
+  readonly autoRotate?: boolean;
   // 显示的文本内容
   readonly content: string;
   // 文本的图形样式属性
@@ -87,29 +90,40 @@ export class Annotation extends Controller<undefined> {
 
     _.each(this.options, (option: BaseOption) => {
       const { type } = option;
-      const theme = _.get(viewTheme, ['annotation', type], {});
+      const theme = _.get(viewTheme, ['components', 'annotation', type], {});
 
       const Ctor = AnnotationComponent[_.upperFirst(type)];
       if (Ctor) {
         const cfg = this.getAnnotationCfg(type, option, theme);
         const annotation = new Ctor(cfg);
-        this.components.push(annotation);
+
+        annotation.render();
+
+        this.components.push({
+          component: annotation,
+          layer: this.isTop(option) ? LAYER.FORE : LAYER.BG,
+          direction: DIRECTION.NONE,
+          type: COMPONENT_TYPE.ANNOTATION,
+          extra: {},
+        });
       }
     });
   }
 
-  public clear() {
+  public clear(includeOptions = false) {
     super.clear();
 
     this.foregroundContainer.clear();
     this.backgroundContainer.clear();
 
     // clear all options
-    this.options = [];
+    if (includeOptions) {
+      this.options = [];
+    }
   }
 
   public destroy() {
-    super.destroy();
+    this.clear(true);
 
     this.foregroundContainer.remove(true);
     this.backgroundContainer.remove(true);
@@ -118,6 +132,20 @@ export class Annotation extends Controller<undefined> {
   // APIs for creating annotation component
   private annotation(option: any) {
     this.options.push(option);
+  }
+
+  /**
+   * create an arc
+   * @param option
+   * @returns AnnotationController
+   */
+  public arc(option: ArcOption) {
+    this.annotation({
+      type: 'arc',
+      ...option,
+    });
+
+    return this;
   }
 
   /**
@@ -130,6 +158,8 @@ export class Annotation extends Controller<undefined> {
       type: 'image',
       ...option,
     });
+
+    return this;
   }
 
   /**
@@ -142,6 +172,8 @@ export class Annotation extends Controller<undefined> {
       type: 'line',
       ...option,
     });
+
+    return this;
   }
 
   /**
@@ -154,6 +186,8 @@ export class Annotation extends Controller<undefined> {
       type: 'region',
       ...option,
     });
+
+    return this;
   }
 
   /**
@@ -166,6 +200,8 @@ export class Annotation extends Controller<undefined> {
       type: 'text',
       ...option,
     });
+
+    return this;
   }
   // end API
 
@@ -176,7 +212,15 @@ export class Annotation extends Controller<undefined> {
    */
   private parsePosition(p: Position): Point {
     const xScale = this.view.getXScale();
-    const yScales = this.view.getYScales();
+    // 转成 object
+    const yScales = _.reduce(
+      this.view.getYScales(),
+      (r: Record<string, Scale>, cur: Scale) => {
+        r[cur.field] = cur;
+        return r;
+      },
+      {}
+    );
 
     const position: Position = _.isFunction(p) ? p.call(null, xScale, yScales) : p;
 
@@ -271,12 +315,36 @@ export class Annotation extends Controller<undefined> {
    */
   private getAnnotationCfg(type: string, option: any, theme: object): object {
     let o = {};
-    if (type === 'image') {
-      // TODO Image Annotation width, height, offsetX, offsetY 需要处理
-      const { start, end, width, height, offsetX, offsetY, style } = option as ImageOption;
+
+    if (_.isNil(option)) {
+      return null;
+    }
+
+    if (type === 'arc') {
+      const { start, end, startAngle, endAngle, style } = option as ArcOption;
+      const sp = this.parsePosition(start);
+      const ep = this.parsePosition(end);
+
+      const center = this.view.getCoordinate().getCenter();
+      const radius = Math.sqrt((sp.x - center.x) ** 2 + (sp.y - center.y) ** 2);
+
+      console.log(center, radius);
+
+      o = {
+        center,
+        radius,
+        startAngle,
+        endAngle,
+        style,
+      };
+    } else if (type === 'image') {
+      const { start, end, src, offsetX, offsetY, style } = option as ImageOption;
       o = {
         start: this.parsePosition(start),
         end: this.parsePosition(end),
+        src,
+        offsetX,
+        offsetY,
         style,
       };
     } else if (type === 'line') {
@@ -296,10 +364,13 @@ export class Annotation extends Controller<undefined> {
         style,
       };
     } else if (type === 'text') {
-      const { position, content, offsetX, offsetY, style } = option;
+      const { position, autoRotate, content, offsetX, offsetY, style } = option;
       o = {
-        ...this.processOffset(this.parsePosition(position), offsetX, offsetY),
+        ...this.parsePosition(position),
         content,
+        autoRotate,
+        offsetX,
+        offsetY,
         style,
       };
     }
@@ -310,25 +381,21 @@ export class Annotation extends Controller<undefined> {
   }
 
   /**
+   * is annotation render on top
+   * @param option
+   * @return whethe on top
+   */
+  private isTop(option: any): boolean {
+    return _.get(option, 'top', true);
+  }
+
+  /**
    * get the container by option.top
    * default is on top
    * @param option
    * @returns the container
    */
   private getComponentContainer(option: any) {
-    return _.get(option, 'top', true) ? this.foregroundContainer : this.backgroundContainer;
-  }
-
-  /**
-   * process the offset
-   * @param p
-   * @param offsetX
-   * @param offsetY
-   * @returns new point
-   */
-  private processOffset(p: Point, offsetX: number = 0, offsetY: number = 0): Point {
-    const { x, y } = p;
-
-    return { x: x + offsetX, y: y + offsetY };
+    return this.isTop(option) ? this.foregroundContainer : this.backgroundContainer;
   }
 }

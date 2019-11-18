@@ -13,10 +13,11 @@ import { isFullCircle, isPointInCoordinate } from '../util/coordinate';
 import { parsePadding } from '../util/padding';
 import { mergeTheme } from '../util/theme';
 import Chart from './chart';
+import { Annotation as AnnotationController } from './controller/annotation';
 import { Axis as AxisController } from './controller/axis';
 import { createCoordinate } from './controller/coordinate';
 import { Legend as LegendController } from './controller/legend';
-import { default as TooltipController } from './controller/tooltip';
+import { Tooltip as TooltipController } from './controller/tooltip';
 import Event from './event';
 import {
   AxisOption,
@@ -94,6 +95,7 @@ export class View extends EE {
   public tooltipController: TooltipController;
   public axisController: AxisController;
   public legendController: LegendController;
+  public annotationController: AnnotationController;
 
   constructor(props: ViewCfg) {
     super();
@@ -225,9 +227,12 @@ export class View extends EE {
     this.options.components.splice(0);
 
     // destroy controller
-    this.tooltipController.destroy(); // destroy TooltipController
+    this.tooltipController.destroy();
     this.axisController.destroy();
     this.legendController.destroy();
+    if (this.annotationController) {
+      this.annotationController.destroy();
+    }
 
     // 4. clear eventCaptureRect
     this.viewEventCaptureRect.remove(true);
@@ -394,8 +399,12 @@ export class View extends EE {
   /**
    * 辅助标记配置
    */
-  public annotation(): View {
-    return this;
+  public annotation(): AnnotationController {
+    if (!this.annotationController) {
+      this.annotationController = new AnnotationController(this);
+    }
+
+    return this.annotationController;
   }
 
   /**
@@ -841,6 +850,7 @@ export class View extends EE {
     // 3. 初始化 Geometry
     this.initGeometries();
     // 4. 渲染组件 component
+
     this.renderComponents();
     // 5.  递归 views，进行布局
     this.doLayout();
@@ -1133,7 +1143,7 @@ export class View extends EE {
    * @private
    */
   private renderComponents() {
-    const { legends, tooltip } = this.options;
+    const { tooltip } = this.options;
 
     // 清空 ComponentOptions 配置
     this.options.components.splice(0);
@@ -1159,9 +1169,14 @@ export class View extends EE {
     });
 
     // 3. tooltip
-    const tooltipController = this.tooltipController;
-    tooltipController.setCfg(tooltip);
-    tooltipController.render();
+    this.tooltipController.setCfg(tooltip);
+    this.tooltipController.render();
+
+    // 4. annotation
+    if (this.annotationController) {
+      this.annotationController.clear();
+      this.annotationController.render();
+    }
   }
 
   private doLayout() {
