@@ -446,6 +446,11 @@ const Theme = {
     },
     [`${TOOLTIP_LIST_ITEM_CLASS}`]: {
       marginBottom: '4px',
+      listStyleType: 'none',
+      padding: 0,
+      marginTop: 0,
+      marginLeft: 0,
+      marginRight: 0,
     },
     [`${TOOLTIP_MARKER_CLASS}`]: {
       width: '5px',
@@ -462,7 +467,12 @@ const Theme = {
   },
   tooltipMarker: {
     symbol: (x, y, r) => {
-      return [['M', x, y], ['m', -r, 0], ['a', r, r, 0, 1, 0, r * 2, 0], ['a', r, r, 0, 1, 0, -r * 2, 0]];
+      return [
+        ['M', x, y],
+        ['m', -r, 0],
+        ['a', r, r, 0, 1, 0, r * 2, 0],
+        ['a', r, r, 0, 1, 0, -r * 2, 0],
+      ];
     },
     stroke: '#fff',
     shadowBlur: 10,
