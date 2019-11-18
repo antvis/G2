@@ -16,9 +16,11 @@ export { Canvas, Group, Shape, Event } from '@antv/g-canvas';
 // 内置的 Component 组件
 export { CategoryLegendCfg, CircleAxisCfg, LineAxisCfg, GroupComponentCfg } from '@antv/component/lib/types';
 
-import { Axis, Component, Grid, GroupComponent, Legend, Tooltip } from '@antv/component';
+import { Annotation, Axis, Component, Grid, GroupComponent, Legend, Tooltip } from '@antv/component';
 // component
 export { GroupComponent, Component };
+export { Annotation };
+
 // axis
 const { Line: LineAxis, Circle: CircleAxis } = Axis;
 export { LineAxis, CircleAxis };
