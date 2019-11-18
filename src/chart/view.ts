@@ -1,7 +1,7 @@
 import EE from '@antv/event-emitter';
 import * as _ from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, GROUP_Z_INDEX, LAYER, PLOT_EVENTS, VIEW_LIFE_CIRCLE } from '../constant';
-import { Attribute, Component, Coordinate, Event as GEvent, ICanvas, IGroup, Scale } from '../dependents';
+import { Attribute, Component, Coordinate, Event as GEvent, ICanvas, IGroup, Scale, Shape } from '../dependents';
 import { Facet, getFacet } from '../facet';
 import { FacetCfgMap } from '../facet/interface';
 import Geometry from '../geometry/base';
@@ -64,6 +64,9 @@ export class View extends EE {
   protected padding: number[];
   /** 主题配置 */
   protected themeObject: object;
+
+  /** 用于捕获 view event 的 rect shape */
+  private viewEventCaptureRect: Shape.Rect;
 
   // 配置信息存储
   protected options: Options = {
@@ -165,6 +168,9 @@ export class View extends EE {
   public init() {
     // 计算画布的 viewBBox
     this.calculateViewBBox();
+    // 创建一个透明的背景 rect，用于捕获事件
+    this.createViewEventCaptureRect();
+
     // 事件委托机制
     this.initEvents();
     this.initStates();
@@ -218,7 +224,10 @@ export class View extends EE {
     this.axisController.destroy();
     this.legendController.destroy();
 
-    // 4. 递归处理子 view
+    // 4. clear eventCaptureRect
+    this.viewEventCaptureRect.remove(true);
+
+    // 递归处理子 view
     _.each(this.views, (view: View) => {
       view.clear();
     });
@@ -726,6 +735,23 @@ export class View extends EE {
   }
 
   /**
+   * create an rect with viewBBox, for capture event
+   */
+  private createViewEventCaptureRect() {
+    const { x, y, width, height } = this.viewBBox;
+
+    this.viewEventCaptureRect = this.backgroundGroup.addShape('rect', {
+      attrs: {
+        x,
+        y,
+        width,
+        height,
+        fill: 'rgba(255,255,255,0)',
+      },
+    }) as any;
+  }
+
+  /**
    * 初始化事件机制：G 4.0 底层内置支持 name:event 的机制，那么只要所有组件都有自己的 name 即可。
    *
    * G2 的事件只是获取事件委托，然后在 view 嵌套结构中，形成事件冒泡机制。
@@ -759,31 +785,15 @@ export class View extends EE {
     // 阻止继续冒泡，防止重复事件触发
     evt.preventDefault();
 
-    const { type, shape, target } = evt;
+    const { type, shape, name } = evt;
 
     const data = shape.get('origin');
     // 事件在 view 嵌套中冒泡（暂不提供阻止冒泡的机制）
     const e = new Event(this, evt, data);
+    e.type = name;
 
-    // emit 原始事件
-    this.emit(type, e.clone());
-
-    // 组合 name:event 事件，G 层做不到，只能上层来包装
-    // 不合理的地方是：
-    // - 这层逻辑相当于上下层（G, G2）都感知，一次改动上下层都需要改动
-    // - 而且如果 G 层无法满足的话，G 层 name:event 事件的意义是什么
-    // @ts-ignore
-    const name = target.get('name');
-
-    if (name) {
-      const evtName = getEventName(type, name);
-
-      const ec = e.clone();
-      ec.type = evtName;
-
-      // 委托事件到 view 上
-      this.emit(evtName, ec);
-    }
+    // 包含有基本事件、组合事件
+    this.emit(name, e);
 
     // 根据事件的 x y 判断是否在 CoordinateBBox 中，然后处理 plot 事件
     if (['mousemove', 'mouseleave'].includes(type)) {
@@ -799,11 +809,10 @@ export class View extends EE {
     const { type, x, y } = e;
 
     const point = { x, y };
+    const currentInPlot = isPointInCoordinate(this.coordinateInstance, point);
 
-    // 使用 mousemove 事件计算出 plotmove，plotenter、plotleave 事件
+    // 使用 mousemove 事件计算出 plot:mousemove，plot:mouseenter、plot:mouseleave 事件
     if (type === 'mousemove') {
-      const currentInPlot = isPointInCoordinate(this.coordinateInstance, point);
-
       if (this.isPreMouseInPlot && currentInPlot) {
         e.type = PLOT_EVENTS.MOUSE_MOVE;
         this.emit(PLOT_EVENTS.MOUSE_MOVE, e);
@@ -814,13 +823,13 @@ export class View extends EE {
         e.type = PLOT_EVENTS.MOUSE_ENTER;
         this.emit(PLOT_EVENTS.MOUSE_ENTER, e);
       }
-
-      // 赋新的值
-      this.isPreMouseInPlot = currentInPlot;
-    } else if (type === 'mouseleave' && this.isPreMouseInPlot) {
+    } else if (type === 'mouseleave' && this.isPreMouseInPlot && !currentInPlot) {
       e.type = PLOT_EVENTS.MOUSE_LEAVE;
       this.emit(PLOT_EVENTS.MOUSE_LEAVE, e);
     }
+
+    // 赋新的状态值
+    this.isPreMouseInPlot = currentInPlot;
   }
 
   /**
@@ -964,9 +973,6 @@ export class View extends EE {
    */
   private renderComponents() {
     const { legends, tooltip } = this.options;
-
-    this.backgroundGroup.clear();
-    this.foregroundGroup.clear();
 
     // 清空 ComponentOptions 配置
     this.options.components.splice(0);

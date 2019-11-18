@@ -66,4 +66,23 @@ describe('Event', () => {
 
     expect(plotEvent).toBeCalled();
   });
+
+  it('view basic event', () => {
+    const mousemoveEvent = jest.fn();
+    chart.on('mousemove', () => {
+      mousemoveEvent();
+    });
+
+    const mousedownEvent = jest.fn();
+    chart.on('mousedown', (e) => {
+      mousedownEvent();
+    });
+
+    simulateMouseEvent(chart.canvas.get('el'), 'mousemove', getClientPoint(chart.canvas, 300, 150));
+    simulateMouseEvent(chart.canvas.get('el'), 'mousemove', getClientPoint(chart.canvas, 300, 160));
+    simulateMouseEvent(chart.canvas.get('el'), 'mousedown', getClientPoint(chart.canvas, 300, 150));
+
+    expect(mousemoveEvent).toBeCalled();
+    expect(mousedownEvent).toBeCalled();
+  });
 });
