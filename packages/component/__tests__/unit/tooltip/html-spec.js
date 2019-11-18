@@ -43,9 +43,9 @@ describe('HtmlTooltip测试', () => {
       frontgroundGroup: canvas.addGroup(),
     });
     tooltip.show();
-    const visibility = tooltip.get('container').style.visibility;
+    const display = tooltip.get('container').style.display;
     expect(tooltip).be.an.instanceof(HtmlTooltip);
-    expect(visibility).to.equal('visible');
+    expect(display).to.equal('block');
     tooltip.destroy();
   });
   it('initialize,show, not show title', () => {
@@ -62,9 +62,9 @@ describe('HtmlTooltip测试', () => {
       frontgroundGroup: canvas.addGroup(),
     });
     tooltip.show();
-    const visibility = tooltip.get('container').style.visibility;
+    const display = tooltip.get('container').style.display;
     expect(tooltip).be.an.instanceof(HtmlTooltip);
-    expect(visibility).to.equal('visible');
+    expect(display).to.equal('block');
     tooltip.destroy();
   });
   it('initialize,show with no items', () => {
@@ -81,9 +81,9 @@ describe('HtmlTooltip测试', () => {
       frontgroundGroup: canvas.addGroup(),
     });
     tooltip.show();
-    const visibility = tooltip.get('container').style.visibility;
+    const display = tooltip.get('container').style.display;
     expect(tooltip).be.an.instanceof(HtmlTooltip);
-    expect(visibility).to.equal('visible');
+    expect(display).to.equal('block');
     tooltip.destroy();
   });
 
@@ -102,8 +102,8 @@ describe('HtmlTooltip测试', () => {
       crosshairs: { type: 'cross' },
     });
     tooltip.hide();
-    const visibility = tooltip.get('container').style.visibility;
-    expect(visibility).to.equal('hidden');
+    const display = tooltip.get('container').style.display;
+    expect(display).to.equal('none');
     tooltip.destroy();
   });
 
@@ -181,9 +181,10 @@ describe('HtmlTooltip测试', () => {
       frontgroundGroup: canvas.addGroup(),
       enterable: true,
     });
-    tooltip.setPosition(50, 10);
-    tooltip.setPosition(50, 10);
     tooltip.show();
+    tooltip.setPosition(50, 10);
+    tooltip.setPosition(50, 10);
+
     expect(tooltip.get('x')).to.equal(51);
     expect(tooltip.get('y')).to.equal(-46);
     tooltip.destroy();
@@ -204,8 +205,9 @@ describe('HtmlTooltip测试', () => {
       frontgroundGroup: canvas.addGroup(),
       inPanel: false,
     });
-    tooltip.setPosition(-100, 600);
     tooltip.show();
+    tooltip.setPosition(-100, 600);
+
     const height = tooltip.get('container').clientHeight;
     expect(tooltip.get('x')).to.equal(20); // gap
     expect(tooltip.get('y')).to.equal(600 - height - 20);
@@ -259,8 +261,9 @@ describe('HtmlTooltip测试', () => {
       panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
     });
-    tooltip.setPosition(300, 20);
     tooltip.show();
+    tooltip.setPosition(300, 20);
+
     const width = tooltip.get('container').clientWidth;
     expect(tooltip.get('x')).to.equal(320 - width - 40);
     tooltip.destroy();
@@ -312,8 +315,9 @@ describe('HtmlTooltip测试', () => {
       panelGroup: canvas.addGroup(),
       frontgroundGroup: canvas.addGroup(),
     });
-    tooltip.setPosition(10, 300);
     tooltip.show();
+    tooltip.setPosition(10, 300);
+
     const height = tooltip.get('container').clientHeight;
     expect(tooltip.get('y')).to.equal(320 - height - 40);
     tooltip.destroy();
