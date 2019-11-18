@@ -8,7 +8,10 @@ import Annotation, { AnnotationCfg, Point } from './base';
 export interface HtmlCfg extends AnnotationCfg {
   alignX: 'left' | 'middle' | 'right';
   alignY: 'top' | 'middle' | 'bottom';
-  html: ((xScales: Scale[] | Record<string, Scale>, yScales: Scale[] | Record<string, Scale>) => string) | string | HTMLElement;
+  html:
+    | ((xScales: Scale[] | Record<string, Scale>, yScales: Scale[] | Record<string, Scale>) => string)
+    | string
+    | HTMLElement;
   el: HTMLElement;
 }
 
@@ -93,7 +96,6 @@ export default class Html extends Annotation<HtmlCfg> {
     domUtil.modifyCSS(parentDom, {
       top: `${Math.round(position.y)}px`,
       left: `${Math.round(position.x)}px`,
-      visibility: 'visible',
       zIndex: this.get('zIndex'),
     });
   }

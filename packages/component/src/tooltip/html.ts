@@ -159,7 +159,6 @@ export default class HtmlTooltip extends Tooltip<TooltipCfg> {
 
   public show() {
     const container = this.get('container');
-    container.style.visibility = 'visible';
     container.style.display = 'block';
     const crosshairGroup = this.get('crosshairGroup');
     if (crosshairGroup) {
@@ -175,7 +174,6 @@ export default class HtmlTooltip extends Tooltip<TooltipCfg> {
 
   public hide() {
     const container = this.get('container');
-    container.style.visibility = 'hidden';
     container.style.display = 'none';
     const crosshairGroup = this.get('crosshairGroup');
     if (crosshairGroup) {

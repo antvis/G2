@@ -420,7 +420,7 @@ const Theme = {
     // css style for tooltip
     [`${TOOLTIP_CONTAINER_CLASS}`]: {
       position: 'absolute',
-      visibility: 'hidden',
+      display: 'none',
       // @2018-07-25 by blue.lb 这里去掉浮动，火狐上存在样式错位
       // whiteSpace: 'nowrap',
       zIndex: 8,
