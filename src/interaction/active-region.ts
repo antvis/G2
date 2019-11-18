@@ -17,7 +17,6 @@ export default class ActiveRegion extends Interaction {
   private items;
 
   protected initEvents() {
-    // FIXME: 待事件 bug 修复后，监听 view 上的事件
     this.view.on('plot:mousemove', this.onMousemove);
     this.view.on('plot:mouseleave', this.onMouseleave);
   }
