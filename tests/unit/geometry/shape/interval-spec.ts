@@ -17,7 +17,7 @@ describe('Interval shapes', () => {
     start: { x: 0, y: 500 },
     end: { x: 500, y: 0 },
   });
-  IntervalShapeFactory.theme = Theme.interval;
+  IntervalShapeFactory.theme = Theme.geometries.interval;
 
   describe('IntervalShapeFactory', () => {
     it('defaultShapeType', () => {
@@ -32,7 +32,12 @@ describe('Interval shapes', () => {
         size: 10,
       };
       const points = IntervalShapeFactory.getDefaultPoints(cfg);
-      expect(points).toEqual([{ x: -4, y: 0 }, { x: -4, y: 2 }, { x: 6, y: 2 }, { x: 6, y: 0 }]);
+      expect(points).toEqual([
+        { x: -4, y: 0 },
+        { x: -4, y: 2 },
+        { x: 6, y: 2 },
+        { x: 6, y: 0 },
+      ]);
     });
 
     it('getDefaultPoints(), x is number, y is array', () => {
@@ -42,7 +47,12 @@ describe('Interval shapes', () => {
         size: 10,
       };
       const points = IntervalShapeFactory.getDefaultPoints(cfg);
-      expect(points).toEqual([{ x: -4, y: 2 }, { x: -4, y: 4 }, { x: 6, y: 4 }, { x: 6, y: 2 }]);
+      expect(points).toEqual([
+        { x: -4, y: 2 },
+        { x: -4, y: 4 },
+        { x: 6, y: 4 },
+        { x: 6, y: 2 },
+      ]);
     });
 
     it('getDefaultPoints(), x is array, y is number', () => {
@@ -52,7 +62,12 @@ describe('Interval shapes', () => {
         y0: 0,
       };
       const points = IntervalShapeFactory.getDefaultPoints(cfg);
-      expect(points).toEqual([{ x: 3, y: 0 }, { x: 3, y: 2 }, { x: 5, y: 2 }, { x: 5, y: 0 }]);
+      expect(points).toEqual([
+        { x: 3, y: 0 },
+        { x: 3, y: 2 },
+        { x: 5, y: 2 },
+        { x: 5, y: 0 },
+      ]);
     });
 
     it('getDefaultPoints(), x and y are array', () => {
@@ -61,7 +76,12 @@ describe('Interval shapes', () => {
         y: [2, 4],
       };
       const points = IntervalShapeFactory.getDefaultPoints(cfg);
-      expect(points).toEqual([{ x: 3, y: 2 }, { x: 3, y: 4 }, { x: 5, y: 4 }, { x: 5, y: 2 }]);
+      expect(points).toEqual([
+        { x: 3, y: 2 },
+        { x: 3, y: 4 },
+        { x: 5, y: 4 },
+        { x: 5, y: 2 },
+      ]);
     });
   });
 
@@ -71,7 +91,7 @@ describe('Interval shapes', () => {
       shapeType: 'rect',
       shapeFactory: IntervalShapeFactory,
       container: canvas.addGroup(),
-      theme: Theme.interval,
+      theme: Theme.geometries.interval,
     });
     it('draw', () => {
       const cfg = {
@@ -89,7 +109,7 @@ describe('Interval shapes', () => {
           points,
           color: 'red',
           style: {
-            ...Theme.interval.rect.default,
+            ...Theme.geometries.interval.rect.default,
           },
         },
         element
@@ -117,7 +137,7 @@ describe('Interval shapes', () => {
           points,
           color: 'yellow',
           style: {
-            ...Theme.interval.rect.default,
+            ...Theme.geometries.interval.rect.default,
           },
         },
         element
@@ -131,7 +151,7 @@ describe('Interval shapes', () => {
     it('getMarker', () => {
       const markerCfg = IntervalShapeFactory.getMarker('rect', 'red', false);
       expect(markerCfg).toEqual({
-        ...Theme.interval.rect.default,
+        ...Theme.geometries.interval.rect.default,
         symbol: 'square',
         r: 4,
         fill: 'red',
@@ -139,7 +159,7 @@ describe('Interval shapes', () => {
 
       const polaeMarkerCfg = IntervalShapeFactory.getMarker('rect', 'red', true);
       expect(polaeMarkerCfg).toEqual({
-        ...Theme.interval.rect.default,
+        ...Theme.geometries.interval.rect.default,
         symbol: 'circle',
         r: 4.5,
         fill: 'red',
@@ -154,7 +174,7 @@ describe('Interval shapes', () => {
       shapeType: 'hollowRect',
       shapeFactory: IntervalShapeFactory,
       container: canvas.addGroup(),
-      theme: Theme.interval,
+      theme: Theme.geometries.interval,
     });
     it('draw', () => {
       const cfg = {
@@ -172,7 +192,7 @@ describe('Interval shapes', () => {
           points,
           color: 'yellow',
           style: {
-            ...Theme.interval.hollowRect.default,
+            ...Theme.geometries.interval.hollowRect.default,
           },
         },
         element
@@ -202,7 +222,7 @@ describe('Interval shapes', () => {
           points,
           color: '#000',
           style: {
-            ...Theme.interval.hollowRect.default,
+            ...Theme.geometries.interval.hollowRect.default,
             lineWidth: 4,
           },
         },
@@ -220,7 +240,7 @@ describe('Interval shapes', () => {
     it('getMarker', () => {
       const markerCfg = IntervalShapeFactory.getMarker('hollowRect', 'red', false);
       expect(markerCfg).toEqual({
-        ...Theme.interval.hollowRect.default,
+        ...Theme.geometries.interval.hollowRect.default,
         symbol: 'square',
         r: 4,
         stroke: 'red',
@@ -228,7 +248,7 @@ describe('Interval shapes', () => {
 
       const polaeMarkerCfg = IntervalShapeFactory.getMarker('hollowRect', 'red', true);
       expect(polaeMarkerCfg).toEqual({
-        ...Theme.interval.hollowRect.default,
+        ...Theme.geometries.interval.hollowRect.default,
         symbol: 'circle',
         r: 4.5,
         stroke: 'red',
@@ -243,7 +263,7 @@ describe('Interval shapes', () => {
       shapeType: 'line',
       shapeFactory: IntervalShapeFactory,
       container: canvas.addGroup(),
-      theme: Theme.interval,
+      theme: Theme.geometries.interval,
     });
 
     it('get line shape points.', () => {
@@ -253,7 +273,10 @@ describe('Interval shapes', () => {
         y0: 0,
       };
       const points = IntervalShapeFactory.getShapePoints('line', cfg);
-      expect(points).toEqual([{ x: 0.6, y: 0 }, { x: 0.6, y: 0.5 }]);
+      expect(points).toEqual([
+        { x: 0.6, y: 0 },
+        { x: 0.6, y: 0.5 },
+      ]);
     });
 
     it('get line shape points, y is array', () => {
@@ -263,7 +286,10 @@ describe('Interval shapes', () => {
         y0: 0,
       };
       const points = IntervalShapeFactory.getShapePoints('line', cfg);
-      expect(points).toEqual([{ x: 0.6, y: 0.2 }, { x: 0.6, y: 0.5 }]);
+      expect(points).toEqual([
+        { x: 0.6, y: 0.2 },
+        { x: 0.6, y: 0.5 },
+      ]);
     });
 
     it('draw', () => {
@@ -283,7 +309,7 @@ describe('Interval shapes', () => {
           points,
           size: 5,
           style: {
-            ...Theme.interval.line.default,
+            ...Theme.geometries.interval.line.default,
           },
         },
         element
@@ -316,7 +342,7 @@ describe('Interval shapes', () => {
           points,
           size: 10,
           style: {
-            ...Theme.interval.line.default,
+            ...Theme.geometries.interval.line.default,
           },
         },
         element
@@ -335,7 +361,10 @@ describe('Interval shapes', () => {
       const markerCfg = IntervalShapeFactory.getMarker('line', 'red', false);
       expect(markerCfg.stroke).toBe('red');
       // @ts-ignore
-      expect(markerCfg.symbol(10, 10, 5)).toEqual([['M', 10, 5], ['L', 10, 15]]);
+      expect(markerCfg.symbol(10, 10, 5)).toEqual([
+        ['M', 10, 5],
+        ['L', 10, 15],
+      ]);
     });
   });
 
@@ -346,7 +375,7 @@ describe('Interval shapes', () => {
       shapeType: 'tick',
       shapeFactory: IntervalShapeFactory,
       container: canvas.addGroup(),
-      theme: Theme.interval,
+      theme: Theme.geometries.interval,
     });
 
     it('getPoints()', () => {
@@ -401,7 +430,7 @@ describe('Interval shapes', () => {
           points,
           color: 'pink',
           style: {
-            ...Theme.interval.tick.default,
+            ...Theme.geometries.interval.tick.default,
           },
         },
         element
@@ -433,7 +462,7 @@ describe('Interval shapes', () => {
           points,
           color: 'pink',
           style: {
-            ...Theme.interval.tick.default,
+            ...Theme.geometries.interval.tick.default,
           },
         },
         element
@@ -468,7 +497,7 @@ describe('Interval shapes', () => {
       shapeType: 'funnel',
       shapeFactory: IntervalShapeFactory,
       container: canvas.addGroup(),
-      theme: Theme.interval,
+      theme: Theme.geometries.interval,
     });
 
     it('getPoints()', () => {
@@ -479,7 +508,12 @@ describe('Interval shapes', () => {
         size: 0.05,
       };
       const points = IntervalShapeFactory.getShapePoints('funnel', cfg);
-      expect(points).toEqual([{ x: 0.25, y: 0.2 }, { x: 0.25, y: 0.5 }, { x: 0.35, y: 0.5 }, { x: 0.35, y: 0.2 }]);
+      expect(points).toEqual([
+        { x: 0.25, y: 0.2 },
+        { x: 0.25, y: 0.5 },
+        { x: 0.35, y: 0.5 },
+        { x: 0.35, y: 0.2 },
+      ]);
     });
 
     it('draw, nextPoints is null', () => {
@@ -498,7 +532,7 @@ describe('Interval shapes', () => {
           points,
           nextPoints: null,
           style: {
-            ...Theme.interval.funnel.default,
+            ...Theme.geometries.interval.funnel.default,
           },
         },
         element
@@ -530,7 +564,7 @@ describe('Interval shapes', () => {
           points,
           nextPoints: null,
           style: {
-            ...Theme.interval.funnel.default,
+            ...Theme.geometries.interval.funnel.default,
           },
           color: '#888',
         },
@@ -583,7 +617,7 @@ describe('Interval shapes', () => {
     it('getMarker', () => {
       const markerCfg = IntervalShapeFactory.getMarker('funnel', 'red', false);
       expect(markerCfg).toEqual({
-        ...Theme.interval.funnel.default,
+        ...Theme.geometries.interval.funnel.default,
         symbol: 'square',
         r: 4,
         fill: 'red',
@@ -598,7 +632,7 @@ describe('Interval shapes', () => {
       shapeType: 'pyramid',
       shapeFactory: IntervalShapeFactory,
       container: canvas.addGroup(),
-      theme: Theme.interval,
+      theme: Theme.geometries.interval,
     });
 
     it('getPoints()', () => {
@@ -609,7 +643,11 @@ describe('Interval shapes', () => {
         size: 0.05,
       };
       const points = IntervalShapeFactory.getShapePoints('pyramid', cfg);
-      expect(points).toEqual([{ x: 0.2, y: 0.6 }, { x: 0.2, y: 0.8 }, { x: 0.3, y: 0.7 }]);
+      expect(points).toEqual([
+        { x: 0.2, y: 0.6 },
+        { x: 0.2, y: 0.8 },
+        { x: 0.3, y: 0.7 },
+      ]);
     });
 
     it('draw, nextPoints is null', () => {
@@ -628,7 +666,7 @@ describe('Interval shapes', () => {
           points,
           nextPoints: null,
           style: {
-            ...Theme.interval.pyramid.default,
+            ...Theme.geometries.interval.pyramid.default,
           },
         },
         element
@@ -659,7 +697,7 @@ describe('Interval shapes', () => {
           nextPoints: null,
           color: 'red',
           style: {
-            ...Theme.interval.pyramid.default,
+            ...Theme.geometries.interval.pyramid.default,
           },
         },
         element
@@ -693,7 +731,7 @@ describe('Interval shapes', () => {
           nextPoints,
           color: 'red',
           style: {
-            ...Theme.interval.pyramid.default,
+            ...Theme.geometries.interval.pyramid.default,
           },
         },
         element
@@ -707,7 +745,7 @@ describe('Interval shapes', () => {
     it('getMarker', () => {
       const markerCfg = IntervalShapeFactory.getMarker('pyramid', 'red', false);
       expect(markerCfg).toEqual({
-        ...Theme.interval.pyramid.default,
+        ...Theme.geometries.interval.pyramid.default,
         symbol: 'square',
         r: 4,
         fill: 'red',

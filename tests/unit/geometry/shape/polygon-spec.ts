@@ -18,13 +18,13 @@ describe('Point shapes', () => {
     end: { x: 500, y: 0 },
   });
   PolygonShapeFactory.coordinate = rectCoord;
-  PolygonShapeFactory.theme = Theme.polygon;
+  PolygonShapeFactory.theme = Theme.geometries.polygon;
 
   const element = new Element({
     shapeType: 'polygon',
     shapeFactory: PolygonShapeFactory,
     container: canvas.addGroup(),
-    theme: Theme.point,
+    theme: Theme.geometries.point,
   });
 
   it('defaultShapeType', () => {
@@ -58,7 +58,7 @@ describe('Point shapes', () => {
           points,
           color: 'red',
           style: {
-            ...Theme.polygon.polygon.default,
+            ...Theme.geometries.polygon.polygon.default,
           },
         },
         element
@@ -89,7 +89,7 @@ describe('Point shapes', () => {
           points,
           color: 'red',
           style: {
-            ...Theme.polygon.polygon.default,
+            ...Theme.geometries.polygon.polygon.default,
             stroke: '#000',
           },
         },
@@ -128,7 +128,7 @@ describe('Point shapes', () => {
           points,
           color: 'red',
           style: {
-            ...Theme.polygon.polygon.default,
+            ...Theme.geometries.polygon.polygon.default,
           },
         },
         element
@@ -159,7 +159,7 @@ describe('Point shapes', () => {
           points,
           color: 'red',
           style: {
-            ...Theme.polygon.polygon.default,
+            ...Theme.geometries.polygon.polygon.default,
             lineWidth: 2,
           },
         },

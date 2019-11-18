@@ -20,13 +20,13 @@ describe('Area shapes', () => {
     end: { x: 500, y: 0 },
   });
   AreaShapeFactory.coordinate = rectCoord;
-  AreaShapeFactory.theme = Theme.area;
+  AreaShapeFactory.theme = Theme.geometries.area;
 
   const element = new Element({
     shapeType: 'area',
     shapeFactory: AreaShapeFactory,
     container: canvas.addGroup(),
-    theme: Theme.area,
+    theme: Theme.geometries.area,
   });
 
   it('defaultShapeType', () => {
@@ -38,14 +38,20 @@ describe('Area shapes', () => {
       x: 1,
       y: [0, 1],
     };
-    expect(AreaShapeFactory.getDefaultPoints(pointInfo1)).toEqual([{ x: 1, y: 0 }, { x: 1, y: 1 }]);
+    expect(AreaShapeFactory.getDefaultPoints(pointInfo1)).toEqual([
+      { x: 1, y: 0 },
+      { x: 1, y: 1 },
+    ]);
 
     const pointInfo2 = {
       x: 1,
       y: 1,
       y0: 0.5,
     };
-    expect(AreaShapeFactory.getDefaultPoints(pointInfo2)).toEqual([{ x: 1, y: 0.5 }, { x: 1, y: 1 }]);
+    expect(AreaShapeFactory.getDefaultPoints(pointInfo2)).toEqual([
+      { x: 1, y: 0.5 },
+      { x: 1, y: 1 },
+    ]);
   });
 
   it('getMarker()', () => {
@@ -76,12 +82,21 @@ describe('Area shapes', () => {
           x: 100,
           y: 100,
           style: {
-            ...Theme.area.area.default,
+            ...Theme.geometries.area.area.default,
           },
           points: [
-            [{ x: 0, y: 0.48 }, { x: 0, y: 0.88 }],
-            [{ x: 0.5, y: 0.26 }, { x: 0.5, y: 0.62 }],
-            [{ x: 1, y: 0.04 }, { x: 1, y: 0.52 }],
+            [
+              { x: 0, y: 0.48 },
+              { x: 0, y: 0.88 },
+            ],
+            [
+              { x: 0.5, y: 0.26 },
+              { x: 0.5, y: 0.62 },
+            ],
+            [
+              { x: 1, y: 0.04 },
+              { x: 1, y: 0.52 },
+            ],
           ],
         },
         element
@@ -100,14 +115,23 @@ describe('Area shapes', () => {
           x: 100,
           y: 100,
           style: {
-            ...Theme.area.area.default,
+            ...Theme.geometries.area.area.default,
             fillOpacity: 1,
           },
           color: 'red',
           points: [
-            [{ x: 0, y: 0.48 }, { x: 0, y: 0.88 }],
-            [{ x: 0.5, y: 0.26 }, { x: 0.5, y: 0.62 }],
-            [{ x: 1, y: 0.04 }, { x: 1, y: 0.52 }],
+            [
+              { x: 0, y: 0.48 },
+              { x: 0, y: 0.88 },
+            ],
+            [
+              { x: 0.5, y: 0.26 },
+              { x: 0.5, y: 0.62 },
+            ],
+            [
+              { x: 1, y: 0.04 },
+              { x: 1, y: 0.52 },
+            ],
           ],
         },
         element
@@ -142,14 +166,29 @@ describe('Area shapes', () => {
           x: 100,
           y: 100,
           style: {
-            ...Theme.area.line.default,
+            ...Theme.geometries.area.line.default,
           },
           points: [
-            [{ x: 0, y: 0.48 }, { x: 0, y: 0.88 }],
-            [{ x: 0.25, y: 0.26 }, { x: 0.25, y: 0.62 }],
-            [{ x: 0.5, y: 0 }, { x: 0.5, y: null }],
-            [{ x: 0.75, y: 0.08 }, { x: 0.75, y: 0.56 }],
-            [{ x: 1, y: 0.08 }, { x: 1, y: 0.56 }],
+            [
+              { x: 0, y: 0.48 },
+              { x: 0, y: 0.88 },
+            ],
+            [
+              { x: 0.25, y: 0.26 },
+              { x: 0.25, y: 0.62 },
+            ],
+            [
+              { x: 0.5, y: 0 },
+              { x: 0.5, y: null },
+            ],
+            [
+              { x: 0.75, y: 0.08 },
+              { x: 0.75, y: 0.56 },
+            ],
+            [
+              { x: 1, y: 0.08 },
+              { x: 1, y: 0.56 },
+            ],
           ],
           connectNulls: false,
         },
@@ -170,14 +209,29 @@ describe('Area shapes', () => {
           x: 100,
           y: 100,
           style: {
-            ...Theme.area.line.default,
+            ...Theme.geometries.area.line.default,
           },
           points: [
-            [{ x: 0, y: 0.48 }, { x: 0, y: 0.88 }],
-            [{ x: 0.25, y: 0.26 }, { x: 0.25, y: 0.62 }],
-            [{ x: 0.5, y: 0 }, { x: 0.5, y: null }],
-            [{ x: 0.75, y: 0.08 }, { x: 0.75, y: 0.56 }],
-            [{ x: 1, y: 0.08 }, { x: 1, y: 0.56 }],
+            [
+              { x: 0, y: 0.48 },
+              { x: 0, y: 0.88 },
+            ],
+            [
+              { x: 0.25, y: 0.26 },
+              { x: 0.25, y: 0.62 },
+            ],
+            [
+              { x: 0.5, y: 0 },
+              { x: 0.5, y: null },
+            ],
+            [
+              { x: 0.75, y: 0.08 },
+              { x: 0.75, y: 0.56 },
+            ],
+            [
+              { x: 1, y: 0.08 },
+              { x: 1, y: 0.56 },
+            ],
           ],
           connectNulls: true,
         },
@@ -212,12 +266,21 @@ describe('Area shapes', () => {
           x: 100,
           y: 100,
           style: {
-            ...Theme.area.smooth.default,
+            ...Theme.geometries.area.smooth.default,
           },
           points: [
-            [{ x: 0, y: 0.48 }, { x: 0, y: 0.88 }],
-            [{ x: 0.5, y: 0.26 }, { x: 0.5, y: 0.62 }],
-            [{ x: 1, y: 0.04 }, { x: 1, y: 0.52 }],
+            [
+              { x: 0, y: 0.48 },
+              { x: 0, y: 0.88 },
+            ],
+            [
+              { x: 0.5, y: 0.26 },
+              { x: 0.5, y: 0.62 },
+            ],
+            [
+              { x: 1, y: 0.04 },
+              { x: 1, y: 0.52 },
+            ],
           ],
         },
         element
@@ -238,14 +301,23 @@ describe('Area shapes', () => {
           x: 100,
           y: 100,
           style: {
-            ...Theme.area.area.default,
+            ...Theme.geometries.area.area.default,
             fillOpacity: 1,
           },
           color: 'red',
           points: [
-            [{ x: 0, y: 0.48 }, { x: 0, y: 0.88 }],
-            [{ x: 0.5, y: 0.26 }, { x: 0.5, y: 0.62 }],
-            [{ x: 1, y: 0.04 }, { x: 1, y: 0.52 }],
+            [
+              { x: 0, y: 0.48 },
+              { x: 0, y: 0.88 },
+            ],
+            [
+              { x: 0.5, y: 0.26 },
+              { x: 0.5, y: 0.62 },
+            ],
+            [
+              { x: 1, y: 0.04 },
+              { x: 1, y: 0.52 },
+            ],
           ],
         },
         element
@@ -280,12 +352,21 @@ describe('Area shapes', () => {
           x: 100,
           y: 100,
           style: {
-            ...Theme.area.smoothLine.default,
+            ...Theme.geometries.area.smoothLine.default,
           },
           points: [
-            [{ x: 0, y: 0.48 }, { x: 0, y: 0.88 }],
-            [{ x: 0.5, y: 0.26 }, { x: 0.5, y: 0.62 }],
-            [{ x: 1, y: 0.04 }, { x: 1, y: 0.52 }],
+            [
+              { x: 0, y: 0.48 },
+              { x: 0, y: 0.88 },
+            ],
+            [
+              { x: 0.5, y: 0.26 },
+              { x: 0.5, y: 0.62 },
+            ],
+            [
+              { x: 1, y: 0.04 },
+              { x: 1, y: 0.52 },
+            ],
           ],
           color: 'yellow',
         },
@@ -307,13 +388,22 @@ describe('Area shapes', () => {
           x: 100,
           y: 100,
           style: {
-            ...Theme.area.area.default,
+            ...Theme.geometries.area.area.default,
           },
           color: 'red',
           points: [
-            [{ x: 0, y: 0.48 }, { x: 0, y: 0.88 }],
-            [{ x: 0.5, y: 0.26 }, { x: 0.5, y: 0.62 }],
-            [{ x: 1, y: 0.04 }, { x: 1, y: 0.52 }],
+            [
+              { x: 0, y: 0.48 },
+              { x: 0, y: 0.88 },
+            ],
+            [
+              { x: 0.5, y: 0.26 },
+              { x: 0.5, y: 0.62 },
+            ],
+            [
+              { x: 1, y: 0.04 },
+              { x: 1, y: 0.52 },
+            ],
           ],
         },
         element

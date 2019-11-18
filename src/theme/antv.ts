@@ -207,178 +207,179 @@ export default {
     area: ['area'],
   },
   sizes: [1, 10],
-  /** 定义 interval 下各个 shape 的样式以及动画 */
-  interval: {
-    rect: {
-      default: SHAPE_STYLE.interval,
-      active: { fillOpacity: 0.5 },
-      inactive: {},
-      selected: {},
-    },
-    hollowRect: {
-      default: SHAPE_STYLE.hollowInterval,
-      active: { lineWidth: 4 },
+  geometries: {
+    interval: {
+      rect: {
+        default: SHAPE_STYLE.interval,
+        active: { fillOpacity: 0.5 },
+        inactive: {},
+        selected: {},
+      },
+      hollowRect: {
+        default: SHAPE_STYLE.hollowInterval,
+        active: { lineWidth: 4 },
+      },
+      line: {
+        default: SHAPE_STYLE.hollowInterval,
+        active: { lineWidth: 4 },
+      },
+      tick: {
+        default: SHAPE_STYLE.hollowInterval,
+        active: { lineWidth: 4 },
+      },
+      funnel: {
+        default: SHAPE_STYLE.interval,
+        active: { fillOpacity: 0.5 },
+      },
+      pyramid: {
+        default: SHAPE_STYLE.interval,
+        active: { fillOpacity: 0.5 },
+      },
     },
     line: {
-      default: SHAPE_STYLE.hollowInterval,
-      active: { lineWidth: 4 },
-    },
-    tick: {
-      default: SHAPE_STYLE.hollowInterval,
-      active: { lineWidth: 4 },
-    },
-    funnel: {
-      default: SHAPE_STYLE.interval,
-      active: { fillOpacity: 0.5 },
-    },
-    pyramid: {
-      default: SHAPE_STYLE.interval,
-      active: { fillOpacity: 0.5 },
-    },
-  },
-  line: {
-    line: {
-      default: SHAPE_STYLE.line,
-      active: { lineWidth: 4 },
-    },
-    dot: {
-      default: {
-        ...SHAPE_STYLE.line,
-        lineDash: [1, 1],
+      line: {
+        default: SHAPE_STYLE.line,
+        active: { lineWidth: 4 },
       },
-      active: { lineWidth: 4 },
-    },
-    dash: {
-      default: {
-        ...SHAPE_STYLE.line,
-        lineDash: [5.5, 1],
+      dot: {
+        default: {
+          ...SHAPE_STYLE.line,
+          lineDash: [1, 1],
+        },
+        active: { lineWidth: 4 },
       },
-      active: { lineWidth: 4 },
+      dash: {
+        default: {
+          ...SHAPE_STYLE.line,
+          lineDash: [5.5, 1],
+        },
+        active: { lineWidth: 4 },
+      },
+      smooth: {
+        default: SHAPE_STYLE.line,
+        active: { lineWidth: 4 },
+      },
+      hv: {
+        default: SHAPE_STYLE.line,
+        active: { lineWidth: 4 },
+      },
+      vh: {
+        default: SHAPE_STYLE.line,
+        active: { lineWidth: 4 },
+      },
+      hvh: {
+        default: SHAPE_STYLE.line,
+        active: { lineWidth: 4 },
+      },
+      vhv: {
+        default: SHAPE_STYLE.line,
+        active: { lineWidth: 4 },
+      },
     },
-    smooth: {
-      default: SHAPE_STYLE.line,
-      active: { lineWidth: 4 },
-    },
-    hv: {
-      default: SHAPE_STYLE.line,
-      active: { lineWidth: 4 },
-    },
-    vh: {
-      default: SHAPE_STYLE.line,
-      active: { lineWidth: 4 },
-    },
-    hvh: {
-      default: SHAPE_STYLE.line,
-      active: { lineWidth: 4 },
-    },
-    vhv: {
-      default: SHAPE_STYLE.line,
-      active: { lineWidth: 4 },
-    },
-  },
-  polygon: {
     polygon: {
-      default: SHAPE_STYLE.polygon,
-      active: { fillOpacity: 0.5 },
+      polygon: {
+        default: SHAPE_STYLE.polygon,
+        active: { fillOpacity: 0.5 },
+      },
+      hollow: {
+        default: SHAPE_STYLE.hollowPolygon,
+      },
     },
-    hollow: {
-      default: SHAPE_STYLE.hollowPolygon,
+    point: {
+      circle: {
+        default: SHAPE_STYLE.point,
+        active: { fillOpacity: 0.5 },
+      },
+      square: {
+        default: SHAPE_STYLE.point,
+        active: { fillOpacity: 0.5 },
+      },
+      bowtie: {
+        default: SHAPE_STYLE.point,
+        active: { fillOpacity: 0.5 },
+      },
+      diamond: {
+        default: SHAPE_STYLE.point,
+        active: { fillOpacity: 0.5 },
+      },
+      hexagon: {
+        default: SHAPE_STYLE.point,
+        active: { fillOpacity: 0.5 },
+      },
+      triangle: {
+        default: SHAPE_STYLE.point,
+        active: { fillOpacity: 0.5 },
+      },
+      triangleDown: {
+        default: SHAPE_STYLE.point,
+        active: { fillOpacity: 0.5 },
+      },
+      hollowCircle: {
+        default: SHAPE_STYLE.hollowPoint,
+        active: { r: 4 },
+      },
+      hollowSquare: {
+        default: SHAPE_STYLE.hollowPoint,
+        active: { r: 4 },
+      },
+      hollowBowtie: {
+        default: SHAPE_STYLE.hollowPoint,
+        active: { r: 4 },
+      },
+      hollowDiamond: {
+        default: SHAPE_STYLE.hollowPoint,
+        active: { r: 4 },
+      },
+      hollowHexagon: {
+        default: SHAPE_STYLE.hollowPoint,
+        active: { r: 4 },
+      },
+      hollowTriangle: {
+        default: SHAPE_STYLE.hollowPoint,
+        active: { r: 4 },
+      },
+      hollowTriangleDown: {
+        default: SHAPE_STYLE.hollowPoint,
+        active: { r: 4 },
+      },
+      cross: {
+        default: SHAPE_STYLE.hollowPoint,
+        active: { r: 4 },
+      },
+      tick: {
+        default: SHAPE_STYLE.hollowPoint,
+        active: { r: 4 },
+      },
+      plus: {
+        default: SHAPE_STYLE.hollowPoint,
+        active: { r: 4 },
+      },
+      hyphen: {
+        default: SHAPE_STYLE.hollowPoint,
+        active: { r: 4 },
+      },
+      line: {
+        default: SHAPE_STYLE.hollowPoint,
+        active: { r: 4 },
+      },
     },
-  },
-  point: {
-    circle: {
-      default: SHAPE_STYLE.point,
-      active: { fillOpacity: 0.5 },
-    },
-    square: {
-      default: SHAPE_STYLE.point,
-      active: { fillOpacity: 0.5 },
-    },
-    bowtie: {
-      default: SHAPE_STYLE.point,
-      active: { fillOpacity: 0.5 },
-    },
-    diamond: {
-      default: SHAPE_STYLE.point,
-      active: { fillOpacity: 0.5 },
-    },
-    hexagon: {
-      default: SHAPE_STYLE.point,
-      active: { fillOpacity: 0.5 },
-    },
-    triangle: {
-      default: SHAPE_STYLE.point,
-      active: { fillOpacity: 0.5 },
-    },
-    triangleDown: {
-      default: SHAPE_STYLE.point,
-      active: { fillOpacity: 0.5 },
-    },
-    hollowCircle: {
-      default: SHAPE_STYLE.hollowPoint,
-      active: { r: 4 },
-    },
-    hollowSquare: {
-      default: SHAPE_STYLE.hollowPoint,
-      active: { r: 4 },
-    },
-    hollowBowtie: {
-      default: SHAPE_STYLE.hollowPoint,
-      active: { r: 4 },
-    },
-    hollowDiamond: {
-      default: SHAPE_STYLE.hollowPoint,
-      active: { r: 4 },
-    },
-    hollowHexagon: {
-      default: SHAPE_STYLE.hollowPoint,
-      active: { r: 4 },
-    },
-    hollowTriangle: {
-      default: SHAPE_STYLE.hollowPoint,
-      active: { r: 4 },
-    },
-    hollowTriangleDown: {
-      default: SHAPE_STYLE.hollowPoint,
-      active: { r: 4 },
-    },
-    cross: {
-      default: SHAPE_STYLE.hollowPoint,
-      active: { r: 4 },
-    },
-    tick: {
-      default: SHAPE_STYLE.hollowPoint,
-      active: { r: 4 },
-    },
-    plus: {
-      default: SHAPE_STYLE.hollowPoint,
-      active: { r: 4 },
-    },
-    hyphen: {
-      default: SHAPE_STYLE.hollowPoint,
-      active: { r: 4 },
-    },
-    line: {
-      default: SHAPE_STYLE.hollowPoint,
-      active: { r: 4 },
-    },
-  },
-  area: {
     area: {
-      default: SHAPE_STYLE.area,
-      active: { fillOpacity: 0.3 },
-    },
-    smooth: {
-      default: SHAPE_STYLE.area,
-      active: { fillOpacity: 0.3 },
-    },
-    line: {
-      default: SHAPE_STYLE.hollowArea,
-      active: { lineWidth: 4 },
-    },
-    smoothLine: {
-      default: SHAPE_STYLE.hollowArea,
-      active: { lineWidth: 4 },
+      area: {
+        default: SHAPE_STYLE.area,
+        active: { fillOpacity: 0.3 },
+      },
+      smooth: {
+        default: SHAPE_STYLE.area,
+        active: { fillOpacity: 0.3 },
+      },
+      line: {
+        default: SHAPE_STYLE.hollowArea,
+        active: { lineWidth: 4 },
+      },
+      smoothLine: {
+        default: SHAPE_STYLE.hollowArea,
+        active: { lineWidth: 4 },
+      },
     },
   },
   components: {

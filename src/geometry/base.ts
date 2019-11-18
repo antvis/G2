@@ -461,7 +461,7 @@ export default class Geometry {
       const coordinate = this.coordinate;
       shapeFactory = getShapeFactory(shapeType);
       shapeFactory.coordinate = coordinate;
-      shapeFactory.theme = _.get(this.theme, shapeType, {});
+      shapeFactory.theme = _.get(this.theme, ['geometries', shapeType], {});
       this.shapeFactory = shapeFactory;
     }
 
@@ -526,7 +526,7 @@ export default class Geometry {
       data: originData,
       model: shapeCfg,
       shapeType: shape,
-      theme: _.get(theme, this.shapeType, {}),
+      theme: _.get(theme, ['geometries', this.shapeType], {}),
       shapeFactory,
       container: elementsContainer,
       animate: this.animateOption,
