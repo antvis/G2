@@ -189,6 +189,24 @@ export default {
   roseWidthRatio: 0.9999999,
   /** 多层饼图/环图占比 */
   multiplePieWidthRatio: 1 / 1.3,
+  shapes: {
+    point: [
+      'hollowCircle',
+      'hollowSquare',
+      'hollowDiamond',
+      'hollowBowtie',
+      'hollowTriangle',
+      'hollowHexagon',
+      'cross',
+      'tick',
+      'plus',
+      'hyphen',
+      'line',
+    ],
+    line: ['line', 'dash', 'dot'],
+    area: ['area'],
+  },
+  sizes: [1, 10],
   /** 定义 interval 下各个 shape 的样式以及动画 */
   interval: {
     rect: {
