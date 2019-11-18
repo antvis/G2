@@ -26,8 +26,8 @@ export { LineAxis, CircleAxis };
 const { Line: LineGrid, Circle: CircleGrid } = Grid;
 export { LineGrid, CircleGrid };
 // legend
-const { Category: CategoryLegend } = Legend;
-export { CategoryLegend };
+const { Category: CategoryLegend, Continuous: ContinuousLegend } = Legend;
+export { CategoryLegend, ContinuousLegend };
 // Tooltip
 const { Html: HtmlTooltip } = Tooltip;
 export { HtmlTooltip };

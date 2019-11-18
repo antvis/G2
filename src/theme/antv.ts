@@ -414,6 +414,37 @@ export default {
       bottom: _.deepMix({}, LEGEND_STYLE, {
         layout: 'horizontal',
       }),
+      continuous: {
+        title: null,
+        background: null,
+        track: {},
+        rail: {
+          type: 'color',
+          size: 16,
+          defaultLength: 100,
+          style: {},
+        },
+        label: {
+          align: 'rail',
+          spacing: 4, // 文本和 rail 的间距
+          formatter: null,
+          style: {
+            fill: '#545454',
+            fontSize: 12,
+            lineHeight: 16,
+            textBaseline: 'middle',
+            fontFamily: FONT_FAMILY,
+          },
+        },
+        handler: {
+          size: 8,
+          style: {
+            fill: '#fff',
+            stroke: '#333',
+          },
+        },
+        slidable: true,
+      },
     },
     tooltip: {
       triggerOn: 'mousemove',
