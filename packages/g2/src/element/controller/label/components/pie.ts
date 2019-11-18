@@ -1,9 +1,10 @@
 import * as _ from '@antv/util';
-import PolarElementLabels from './polar';
-import * as PathUtil from '../../../util/path';
 import { DataPointType } from '../../../../interface';
+import * as PathUtil from '../../../util/path';
+import PolarElementLabels from './polar';
 
-const MARGIN = 5;
+/** label text和line距离 4px */
+const MARGIN = 4;
 
 function getEndPoint(center, angle, r) {
   return {
@@ -32,11 +33,11 @@ function antiCollision(labels, lineHeight, plotRange, center, isRight) {
     }
     return {
       size: lineHeight,
-      targets: [ label.y - startY ],
+      targets: [label.y - startY],
     };
   });
   minY -= startY;
-  if ((maxY - startY) > totalHeight) {
+  if (maxY - startY > totalHeight) {
     totalHeight = maxY - startY;
   }
 
@@ -55,7 +56,8 @@ function antiCollision(labels, lineHeight, plotRange, center, isRight) {
       if (i > 0) {
         const previousBox = boxes[i - 1];
         const box = boxes[i];
-        if (previousBox.pos + previousBox.size > box.pos) { // overlapping
+        if (previousBox.pos + previousBox.size > box.pos) {
+          // overlapping
           previousBox.size += box.size;
           previousBox.targets = previousBox.targets.concat(box.targets);
 
@@ -89,9 +91,11 @@ function antiCollision(labels, lineHeight, plotRange, center, isRight) {
       label.x = center.x;
     } else {
       const dx = Math.sqrt(rPow2 - dyPow2);
-      if (!isRight) { // left
+      if (!isRight) {
+        // left
         label.x = center.x - dx;
-      } else { // right
+      } else {
+        // right
         label.x = center.x + dx;
       }
     }
@@ -107,7 +111,7 @@ export default class PieElementLabels extends PolarElementLabels {
     this.set('defaultLabelCfg', this.get('theme').thetaLabels);
   }
 
-  getDefaultOffset(point) {
+  public getDefaultOffset(point) {
     return point.offset || 0;
   }
 
@@ -117,7 +121,7 @@ export default class PieElementLabels extends PolarElementLabels {
    * @param {Array} items labels to be placed
    * @return {Array} items
    */
-  adjustItems(originItems) {
+  public adjustItems(originItems) {
     let items = originItems;
     const offset = items[0] ? items[0].offset : 0;
     if (offset > 0) {
@@ -127,23 +131,24 @@ export default class PieElementLabels extends PolarElementLabels {
   }
 
   // 连接线
-  lineToLabel(label) {
+  public lineToLabel(label) {
     const coord = this.get('coord');
     const r = coord.getRadius();
     const distance = label.offset;
     const angle = label.orignAngle || label.angle;
     const center = coord.getCenter();
-    const start = getEndPoint(center, angle, r + MARGIN / 2);
+    // 贴近圆周
+    const start = getEndPoint(center, angle, r);
     const inner = getEndPoint(center, angle, r + distance / 2);
-    if (!_.isObject(label.labelLine)) { // labelLine: true
+    const end = {
+      x: label.x - Math.cos(angle) * MARGIN,
+      y: label.y - Math.sin(angle) * MARGIN,
+    };
+    if (!_.isObject(label.labelLine)) {
+      // labelLine: true
       label.labelLine = {};
     }
-    label.labelLine.path = [
-      `M ${start.x}`,
-      `${start.y} Q${inner.x}`,
-      `${inner.y} ${label.x}`,
-      label.y,
-    ].join(',');
+    label.labelLine.path = [`M ${start.x}`, `${start.y} Q${inner.x}`, `${inner.y} ${end.x}`, end.y].join(',');
   }
 
   /**
@@ -153,10 +158,10 @@ export default class PieElementLabels extends PolarElementLabels {
    * @param {Number} offset offset
    * @return {Number} rotate
    */
-  getLabelRotate(angle, offset, isLabelLimit) {
+  public getLabelRotate(angle, offset, isLabelLimit) {
     let rotate;
     if (offset < 0) {
-      rotate = angle * 180 / Math.PI;
+      rotate = (angle * 180) / Math.PI;
       if (rotate > 90) {
         rotate = rotate - 180;
       }
@@ -164,7 +169,7 @@ export default class PieElementLabels extends PolarElementLabels {
         rotate = rotate + 180;
       }
     }
-    return rotate / 180 * Math.PI;
+    return (rotate / 180) * Math.PI;
   }
 
   /**
@@ -173,7 +178,7 @@ export default class PieElementLabels extends PolarElementLabels {
    * @param {Object} point point
    * @return {String} align
    */
-  getLabelAlign(point) {
+  public getLabelAlign(point) {
     const coord = this.get('coord');
     const center = coord.getCenter();
 
@@ -194,11 +199,11 @@ export default class PieElementLabels extends PolarElementLabels {
     return align;
   }
 
-  getArcPoint(point) {
+  public getArcPoint(point) {
     return point;
   }
 
-  getPointAngle(point) {
+  public getPointAngle(point) {
     const coord = this.get('coord');
     const startPoint = {
       x: _.isArray(point.x) ? point.x[0] : point.x,
@@ -216,7 +221,8 @@ export default class PieElementLabels extends PolarElementLabels {
       angle = startAngle;
     } else {
       let endAngle = PathUtil.getPointAngle(coord, endPoint);
-      if (startAngle >= endAngle) { // 100% pie slice
+      if (startAngle >= endAngle) {
+        // 100% pie slice
         endAngle = endAngle + Math.PI * 2;
       }
       angle = startAngle + (endAngle - startAngle) / 2;
@@ -224,7 +230,7 @@ export default class PieElementLabels extends PolarElementLabels {
     return angle;
   }
 
-  getCirclePoint(angle, offset, p?): DataPointType {
+  public getCirclePoint(angle, offset, p?): DataPointType {
     const coord = this.get('coord');
     const center = coord.getCenter();
     const r = coord.getRadius() + offset;
@@ -264,9 +270,11 @@ export default class PieElementLabels extends PolarElementLabels {
       if (!label) {
         return;
       }
-      if (label.textAlign === 'right') { // left
+      if (label.textAlign === 'right') {
+        // left
         halves[0].push(label);
-      } else { // right or center will be put on the right side
+      } else {
+        // right or center will be put on the right side
         halves[1].push(label);
       }
     });
@@ -275,14 +283,16 @@ export default class PieElementLabels extends PolarElementLabels {
       // step 2: reduce labels
       const maxLabelsCountForOneSide = totalHeight / lineHeight;
       if (half.length > maxLabelsCountForOneSide) {
-        half.sort((a, b) => { // sort by percentage DESC
+        half.sort((a, b) => {
+          // sort by percentage DESC
           return b['..percent'] - a['..percent'];
         });
         half.splice(maxLabelsCountForOneSide, half.length - maxLabelsCountForOneSide);
       }
 
       // step 3: distribute position (x and y)
-      half.sort((a, b) => { // sort by y ASC
+      half.sort((a, b) => {
+        // sort by y ASC
         return a.y - b.y;
       });
       antiCollision(half, lineHeight, plotRange, center, index);
