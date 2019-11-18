@@ -14,8 +14,7 @@ export default class TooltipInteraction extends Interaction {
     const eventName = this.getTriggerEvent();
     if (eventName) {
       view.on(eventName, this.showTooltip);
-      // FIXME: 待事件问题解决再解除注释
-      // view.on(PLOT_EVENTS.MOUSE_LEAVE, this.hideTooltip);
+      view.on(PLOT_EVENTS.MOUSE_LEAVE, this.hideTooltip);
 
       // enterable
       const { enterable, tooltip } = this.cfg;
@@ -80,7 +79,7 @@ export default class TooltipInteraction extends Interaction {
     }
   };
 
-  private hideTooltip = (ev) => {
+  private hideTooltip = () => {
     const isTooltipLocked = this.stateManager.getState('_isTooltipLocked');
     if (isTooltipLocked) {
       // 锁定 tooltip 时不隐藏
@@ -88,10 +87,6 @@ export default class TooltipInteraction extends Interaction {
     }
     this.view.hideTooltip();
     this.location = null;
-    // if (ev && ev.toElement && (_hasClass(ev.toElement, 'g2-tooltip') || _isParent(ev.toElement, 'g2-tooltip'))) {
-    //   return;
-    // }
-    // this.hideTooltip();
   };
 
   /**
