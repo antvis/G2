@@ -857,7 +857,7 @@ class LegendController {
     const items = [];
     Util.each(scales, scale => {
       const value = scale.alias || scale.field;
-      const fieldLegendOptions = legendOptions[value];
+      const fieldLegendOptions = legendOptions[scale.field];
       Util.each(geoms, geom => {
         if (geom.getYScale() === scale && scale.values && scale.values.length > 0 && fieldLegendOptions !== false) {
           const shapeType = geom.get('shapeType') || 'point';
