@@ -1,3 +1,17 @@
+#### 3.5.9 (2019-11-19)
+
+##### Chores
+
+* **site:**
+* new site, from now on, all documents and examples will be maintained in the same repository as the code.
+
+##### Bug Fixes
+
+*  use Util.extend to replace extends when extends G.Group. Related to [#1339](https://github.com/antvis/g2/pull/1339) ([f2214906](https://github.com/antvis/g2/commit/f2214906d596c3b95cb8b7c8f605c6d23377d3d1))
+*  brush startPonit; forcefie 新选区; 鼠标移出再回来; ([070f44e4](https://github.com/antvis/g2/commit/070f44e4b600f8351089a84aefedab4e71de5794))
+*  `registerTheme` 及 `setTheme` ts 声明 ([ba56bc15](https://github.com/antvis/g2/commit/ba56bc15ca0d5ca8580dc5cdddad640760b29bdd))
+*  多 y 轴无法隐藏指定 legend ([a552c9b9](https://github.com/antvis/g2/commit/a552c9b9426077c012edbdd982914ec90037cddf))
+
 #### 3.5.0 (2019-03-21)
 
 ##### New Features
@@ -30,7 +44,7 @@
 ##### New Features
 
 - chore(test): removing describe.only statement
-    
+
 ##### Bug Fixes
 
 - fix(chart): auto padding with more accurate backPlot range, Closes #1079
