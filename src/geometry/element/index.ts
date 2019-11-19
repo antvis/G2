@@ -21,13 +21,16 @@ interface ElementCfg {
   animate?: AnimateOption | boolean;
 }
 
-/** @class Element 图形元素 */
+/**
+ * Element 图形元素
+ * 定义：在 G2 中，我们会将数据通过图形语法映射成不同的图形，比如点图，数据集中的每条数据会对应一个点，柱状图每条数据对应一个柱子，线图则是一组数据对应一条折线，Element 即一条/一组数据对应的图形元素，它代表一条数据或者一个数据集，在图形层面，它可以是单个 Shape 也可以是多个 Shape，我们称之为图形元素。
+ */
 export default class Element extends EE {
   /** 绘制的 shape 类型 */
   public readonly shapeType: string;
   /** 原始数据 */
   public data: Datum;
-  /** shape 绘制数据 */
+  /** shape 绘制需要的数据 */
   public model: ShapeInfo;
   /** 用于创建各种 shape 的工厂对象 */
   public shapeFactory: ShapeFactory;
@@ -112,24 +115,39 @@ export default class Element extends EE {
   }
 
   /**
+   * @ignore
    * @todo
    * @param data
    */
   public updateData(data: Datum) {}
 
   /**
+   * @ignore
    * @todo 更新图形样式
    * @param attrs 图形属性配置
    */
   public style(attrs: LooseObject) {}
 
   /**
-   * Sets state
+   * 设置 Element 的状态。
+   * 目前 Element 开放三种状态：
+   * 1. active
+   * 2. selected
+   * 3. inactive
+   *
+   * 这三种状态的样式可在 [[Theme]] 主题中进行配置
+   *
+   * ```ts
+   * // 激活 active 状态
+   * setState('active', true);
+   * ```
+   *
    * @param stateName 状态名
    * @param stateStatus 是否开启状态
    */
   public setState(stateName: string, stateStatus: boolean) {
     const { states, shapeFactory, shapeType } = this;
+    // FIXME: 这个方法太 hack 了...
     if (states.length === 0 && !this.originStyle) {
       // 状态为空，则存储当前样式
       this.setOriginStyle();
@@ -156,7 +174,6 @@ export default class Element extends EE {
 
   /**
    * 清空状量态，恢复至初始状态
-   * @todo 是否应该提供一个 revert() 的方法直接回恢复至出厂状态？
    */
   public clearStates() {
     const states = this.states;
@@ -176,10 +193,12 @@ export default class Element extends EE {
     return this.states;
   }
 
+  /** 获取 Element 对应的原始数据 */
   public getData() {
     return this.data;
   }
 
+  /** 获取 Element 对应的图形绘制数据 */
   public getModel() {
     return this.model;
   }
@@ -195,6 +214,7 @@ export default class Element extends EE {
   }
   /**
    * 获取初始化样式
+   * @ignore
    */
   public getOriginStyle(): LooseObject {
     if (!this.originStyle) {

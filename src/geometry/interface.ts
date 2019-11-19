@@ -12,18 +12,21 @@ export interface AttributeOption {
 
 /** 数据调整配置项定义，`adjust({})` */
 export interface AdjustOption {
-  /** 调整类型 */
+  /** adjust type */
   readonly type: AdjustType;
   /**
-   * type 为 'dodge' 时生效，数值范围为 0 至 1，用于调整分组中各个柱子的间距
+   * only works when type is 'dodge', the value should between 0 and 1
+   * used to adjust the spacing of individual columns in a group
    */
   readonly marginRatio?: number;
   /**
-   * type 为 'dodge' 时生效, 按照声明的字段进行分组
+   * only works when type is 'dodge'
+   * declare which field to group by
    */
   readonly dodgeBy?: string;
   /**
-   * type 为 'stack' 时生效，控制层叠的顺序，默认是 true
+   * only works when type is 'stack'
+   * whether or not to reverse data
    */
   readonly reverseOrder?: boolean;
 }
