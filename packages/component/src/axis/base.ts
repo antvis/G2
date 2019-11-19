@@ -50,14 +50,14 @@ export default abstract class Axis extends Guide<AxisCfg> {
   }
 
   public render() {
+    const grid = this.get('grid');
+    grid && this._renderGrid(); // 渲染坐标轴网格线
+
     const line = this.get('line');
     line && this._renderLine(); // 渲染坐标轴线
 
     const tickLine = this.get('tickLine');
     tickLine && this._renderTicks(); // 渲染坐标轴刻度线
-
-    const grid = this.get('grid');
-    grid && this._renderGrid(); // 渲染坐标轴网格线
 
     const label = this.get('label');
     label && this._renderLabels(); // 渲染坐标轴文本
@@ -272,8 +272,10 @@ export default abstract class Axis extends Guide<AxisCfg> {
 
     const gridGroup = group.addGroup({
       class: 'axis-grid',
-      zIndex: 0, // 位于下层，line 下面
+      zIndex: 0,
     });
+    // 这边也可以用 gridGroup.setZIndex(0); 但在顶上直接管理好声明的顺序更好一点
+    // 最好不要用 gridGroup.toBack(); toBack 适合 zIndex 相同的 silbings 排序
     this.set('gridGroup', gridGroup);
 
     // 渲染网格线
