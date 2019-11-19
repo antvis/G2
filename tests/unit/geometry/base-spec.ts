@@ -33,16 +33,18 @@ describe('Geometry', () => {
         container: new Group({}),
         theme: {
           ...Theme,
-          myInterval: {
-            tick: {
-              default: {
-                lineWidth: 10,
-              },
-              active: {
-                stroke: 'red',
-              },
-              selected: {
-                stroke: 'blue',
+          geometries: {
+            myInterval: {
+              tick: {
+                default: {
+                  lineWidth: 10,
+                },
+                active: {
+                  stroke: 'red',
+                },
+                selected: {
+                  stroke: 'blue',
+                },
               },
             },
           },
@@ -277,16 +279,18 @@ describe('Geometry', () => {
         container,
         theme: {
           ...Theme,
-          myInterval: {
-            tick: {
-              default: {
-                lineWidth: 10,
-              },
-              active: {
-                stroke: 'red',
-              },
-              selected: {
-                stroke: 'blue',
+          geometries: {
+            myInterval: {
+              tick: {
+                default: {
+                  lineWidth: 10,
+                },
+                active: {
+                  stroke: 'red',
+                },
+                selected: {
+                  stroke: 'blue',
+                },
               },
             },
           },
