@@ -430,7 +430,9 @@ label: {
    */
   formatter(text, item, index) {},
   /**
+   * 当且仅当 `useHtml` 为 true 时生效
    * 使用 html 渲染文本
+   *
    * @param  {string} text  文本值
    * @param  {object} item  该文本值对应的原始数据记录
    * @param  {number} index 索引值
