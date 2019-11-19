@@ -62,6 +62,12 @@ class Brush extends Interaction {
         start: coord.start,
         end: coord.end
       };
+      view.on('afterrender', () => {
+        me.plot = {
+          start: coord.start,
+          end: coord.end
+        };
+      });
       me.isTransposed = coord.isTransposed;
       const xScales = view._getScales('x');
       const yScales = view._getScales('y');
@@ -77,11 +83,17 @@ class Brush extends Interaction {
   // onDragmove() {}
   // onDragend() {}
 
+
   start(ev) {
     const me = this;
     const { canvas, type, brushShape } = me;
 
     if (!type) return;
+
+    if (me.brushing) {
+      // 鼠标移动到图表外up, 回到图表内点击即结束绘制，mousedown的时候却正在绘制中
+      me.end(ev);
+    }
 
     const startPoint = { x: ev.offsetX, y: ev.offsetY };
     if (!startPoint.x) return;
@@ -286,6 +298,9 @@ class Brush extends Interaction {
     const canvasDOM = canvas.get('canvasDOM');
     canvasDOM.style.cursor = 'default';
 
+    if (startPoint === null) {
+      return;
+    }
     if (Math.abs(startPoint.x - offsetX) <= 1 && Math.abs(startPoint.y - offsetY) <= 1) { // 防止点击事件
       me.brushing = false;
       me.dragging = false;
@@ -359,6 +374,7 @@ class Brush extends Interaction {
   reset() {
     const me = this;
     const { chart, filter, brushShape, canvas } = me;
+    this._init(); // 重置各种参考值
     if (chart && filter) {
       chart.get('options').filters = {};
       chart.repaint();
