@@ -272,8 +272,10 @@ export default abstract class Axis extends Guide<AxisCfg> {
 
     const gridGroup = group.addGroup({
       class: 'axis-grid',
+      zIndex: 0,
     });
-    gridGroup.toBack();
+    // 这边也可以用 gridGroup.setZIndex(0); 但在顶上直接管理好声明的顺序更好一点
+    // 最好不要用 gridGroup.toBack(); toBack 适合 zIndex 相同的 silbings 排序
     this.set('gridGroup', gridGroup);
 
     // 渲染网格线
