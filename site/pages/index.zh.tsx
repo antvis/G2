@@ -44,12 +44,12 @@ const IndexPage = () => {
   const bannerButtons = [
     {
       text: t('图表示例'),
-      link: '/zh/examples/gallery/line',
+      link: `/${i18n.language}/examples/gallery/line`,
       type: 'primary',
     },
     {
       text: t('下载使用'),
-      link: 'zh/docs/manual/getting-started',
+      link: `/${i18n.language}/docs/manual/getting-started`,
     },
   ];
   const notifications = [
@@ -66,7 +66,7 @@ const IndexPage = () => {
       logo: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*-dLnTIexOxwAAAAAAAAAAABkARQnAQ',
       title: t('精品 Gallery'),
       description: t('真实的数据可视化案例，我们将它们归纳为一个个故事性的设计模板，让用户达到开箱即用的效果。'),
-      link: '/zh/examples/gallery/line',
+      link: `/${i18n.language}/examples/gallery/line`,
       image: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*hDrgRb7ma4EAAAAAAAAAAABkARQnAQ',
     },
   ];
