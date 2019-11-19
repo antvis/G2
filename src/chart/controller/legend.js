@@ -853,11 +853,13 @@ class LegendController {
 
   addMixedLegend(scales, geoms) {
     const self = this;
+    const legendOptions = self.options;
     const items = [];
     Util.each(scales, scale => {
       const value = scale.alias || scale.field;
+      const fieldLegendOptions = legendOptions[scale.field];
       Util.each(geoms, geom => {
-        if (geom.getYScale() === scale && scale.values && scale.values.length > 0) {
+        if (geom.getYScale() === scale && scale.values && scale.values.length > 0 && fieldLegendOptions !== false) {
           const shapeType = geom.get('shapeType') || 'point';
           const shape = geom.getDefaultValue('shape') || 'circle';
           const shapeObject = Shape.getShapeFactory(shapeType);
