@@ -1,3 +1,4 @@
+import 'jest-extended';
 import { Chart } from '../../../src/';
 import { createDiv } from '../../util/dom';
 
@@ -62,11 +63,11 @@ describe('annotation', () => {
     // theme
     expect(line.get('style').lineDash).toEqual([2, 2]);
     // pos
-    expect(line.get('start').x).toBeCloseTo(510, 0.5);
-    expect(line.get('start').y).toBeCloseTo(54.5, 0.5);
+    expect(line.get('start').x).toBeWithin(508, 512);
+    expect(line.get('start').y).toBeWithin(53, 56);
 
-    expect(line.get('end').x).toBeCloseTo(696.6, 0.5);
-    expect(line.get('end').y).toBeCloseTo(366.3, 0.5);
+    expect(line.get('end').x).toBeWithin(694, 697);
+    expect(line.get('end').y).toBeWithin(364, 368);
     // style
     expect(line.get('style').stroke).toBe('green');
   });
@@ -87,11 +88,11 @@ describe('annotation', () => {
     // theme
     expect(region.get('style').fillOpacity).toBe(0.04);
     // pos
-    expect(region.get('start').x).toBeCloseTo(510, 0.5);
-    expect(region.get('start').y).toBeCloseTo(544.5, 0.5);
+    expect(region.get('start').x).toBeWithin(508, 512);
+    expect(region.get('start').y).toBeWithin(542, 546);
 
-    expect(region.get('end').x).toBeCloseTo(696.6, 0.5);
-    expect(region.get('end').y).toBeCloseTo(10, 0.5);
+    expect(region.get('end').x).toBeWithin(694, 698);
+    expect(region.get('end').y).toBeWithin(8, 12);
     expect(region.get('style').fill).toBe('grey');
   });
 
@@ -113,8 +114,8 @@ describe('annotation', () => {
     // @ts-ignore
     expect(text.get('style').fontFamily).toEqual(chart.getTheme().fontFamily);
     // pos
-    expect(text.get('x')).toBeCloseTo(136.4, 0.5);
-    expect(text.get('y')).toBeCloseTo(99, 0.5);
+    expect(text.get('x')).toBeWithin(135, 139);
+    expect(text.get('y')).toBeWithin(97, 101);
     // style
     expect(text.get('style').fill).toBe('red');
   });
