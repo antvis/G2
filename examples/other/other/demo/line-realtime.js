@@ -8,7 +8,7 @@ chart.source(data, {
   time: {
     alias: '时间',
     type: 'time',
-    mask: 'MM:ss',
+    mask: 'HH:mm:ss',
     tickCount: 10,
     nice: false
   },
