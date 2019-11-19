@@ -1,9 +1,9 @@
 const { Chart, Shape, Util } = G2;
 function getFillAttrs(cfg) {
-  const attrs = Util.mix({
+  const attrs = Util.mix(cfg.style, {
     fill: cfg.color,
     fillOpacity: cfg.opacity
-  }, cfg.style);
+  });
   return attrs;
 }
 function getRectPath(points) {
