@@ -381,6 +381,22 @@ export default {
         active: { lineWidth: 4 },
       },
     },
+    schema: {
+      candle: {
+        default: {
+          stroke: DEFAULT_COLOR,
+          lineWidth: 1,
+          fill: null,
+        },
+      },
+      box: {
+        default: {
+          stroke: DEFAULT_COLOR,
+          lineWidth: 1,
+          fill: null,
+        },
+      },
+    },
   },
   components: {
     axis: {
