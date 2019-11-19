@@ -37,7 +37,7 @@ export default class Path extends Geometry {
         data: shapeCfg.data,
         model: shapeCfg,
         shapeType: shapeCfg.shape || shapeFactory.defaultShapeType,
-        theme: _.get(theme, this.shapeType, {}),
+        theme: _.get(theme, ['geometries', this.shapeType], {}),
         shapeFactory,
         container: elementsContainer,
         animate: this.animateOption,

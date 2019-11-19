@@ -20,13 +20,13 @@ describe('Point shapes', () => {
     end: { x: 500, y: 0 },
   });
   PointShapeFactory.coordinate = rectCoord;
-  PointShapeFactory.theme = Theme.point;
+  PointShapeFactory.theme = Theme.geometries.point;
 
   const element = new Element({
     shapeType: 'point',
     shapeFactory: PointShapeFactory,
     container: canvas.addGroup(),
-    theme: Theme.point,
+    theme: Theme.geometries.point,
   });
 
   it('defaultShapeType', () => {
@@ -55,7 +55,7 @@ describe('Point shapes', () => {
   it('getMarker', () => {
     const circleMarker = PointShapeFactory.getMarker('circle', 'red', false);
     expect(circleMarker).toEqual({
-      ...Theme.point.circle.default,
+      ...Theme.geometries.point.circle.default,
       symbol: 'circle',
       r: 4.5,
       fill: 'red',
@@ -63,7 +63,7 @@ describe('Point shapes', () => {
 
     const hollowCircleMarker = PointShapeFactory.getMarker('hollowCircle', 'red', false);
     expect(hollowCircleMarker).toEqual({
-      ...Theme.point.hollowCircle.default,
+      ...Theme.geometries.point.hollowCircle.default,
       symbol: 'circle',
       r: 4.5,
       stroke: 'red',
@@ -76,7 +76,12 @@ describe('Point shapes', () => {
 
     const crossMarker = PointShapeFactory.getMarker('cross', 'red', false);
     // @ts-ignore
-    expect(crossMarker.symbol(10, 10, 5)).toEqual([['M', 5, 5], ['L', 15, 15], ['M', 15, 5], ['L', 5, 15]]);
+    expect(crossMarker.symbol(10, 10, 5)).toEqual([
+      ['M', 5, 5],
+      ['L', 15, 15],
+      ['M', 15, 5],
+      ['L', 5, 15],
+    ]);
     expect(crossMarker.stroke).toBe('red');
   });
 
@@ -89,7 +94,7 @@ describe('Point shapes', () => {
         points: [{ x: 100, y: 100 }],
         color: 'red',
         style: {
-          ...Theme.point.circle.default,
+          ...Theme.geometries.point.circle.default,
         },
       },
       element
@@ -107,7 +112,7 @@ describe('Point shapes', () => {
         points: [{ x: 100, y: 100 }],
         color: 'red',
         style: {
-          ...Theme.point.hyphen.default,
+          ...Theme.geometries.point.hyphen.default,
         },
       },
       element
@@ -126,7 +131,7 @@ describe('Point shapes', () => {
         y: 100,
         color: 'blue',
         style: {
-          ...Theme.point.hyphen.default,
+          ...Theme.geometries.point.hyphen.default,
         },
       },
       element
