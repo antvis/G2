@@ -1,4 +1,11 @@
-#### 3.5.9 (2019-11-19)
+#### 3.5.11 (2019-11-20)
+
+##### Chores
+
+*  update .npmignore ([eeb99dac](https://github.com/antvis/g2/commit/eeb99dacbfcd2669de64491eaac46d202114302c))
+
+
+#### 3.5.10 (2019-11-19)
 
 ##### Chores
 
