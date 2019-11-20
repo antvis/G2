@@ -103,6 +103,7 @@ describe('View', () => {
   });
 
   it('coordinate', () => {
+    // @ts-ignore
     view.createCoordinate();
     expect(view.getCoordinate().type).toEqual('rect');
 
