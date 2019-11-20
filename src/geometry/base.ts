@@ -195,9 +195,9 @@ export default class Geometry {
    * Configuring color mapping rules
    *
    * @example
-   * // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
    *
-   * ```ts
+   * ```typescript
+   * // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
    * color({
    *   fields: [ 'x' ],
    *   values: [ '#1890ff', '#5AD8A6' ],
@@ -209,9 +209,8 @@ export default class Geometry {
    */
   public color(field: AttributeOption): Geometry;
   /**
-   *
-   * * @example
-   * ```ts
+   * @example
+   * ```typescript
    * // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
    *
    * // use '#1890ff' rendering
@@ -246,9 +245,9 @@ export default class Geometry {
    * Configuring shape mapping rules
    *
    * @example
-   * // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
    *
-   * ```ts
+   * ```typescript
+   * // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
    * shape({
    *   fields: [ 'x' ],
    * });
@@ -261,7 +260,7 @@ export default class Geometry {
   /**
    *
    * * @example
-   * ```ts
+   * ```typescript
    * // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
    *
    * // use specified shape
@@ -296,9 +295,8 @@ export default class Geometry {
    * Configuring size mapping rules
    *
    * @example
+   * ```typescript
    * // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
-   *
-   * ```ts
    * size({
    *   values: [ 10 ],
    * })
@@ -311,7 +309,7 @@ export default class Geometry {
   /**
    *
    * * @example
-   * ```ts
+   * ```typescript
    * // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
    *
    * // use specified value, 10 means '10px'
@@ -351,23 +349,23 @@ export default class Geometry {
    *
    *
    * **Tip**
-   * * When you use 'dodge' type, the following configurations are possible:
-   * ```ts
+   * + When you use 'dodge' type, the following configurations are possible:
+   * ```typescript
    * adjust('dodge', {
    *   marginRatio: 0, // used to adjust the spacing of individual columns in a group
    *   dodgeBy: 'x', // declare which field to group by
    * });
    * ```
    *
-   * * When you use 'stack' type, the following configurations are possible:
-   * ```ts
+   * + When you use 'stack' type, the following configurations are possible:
+   * ```typescript
    * adjust('stack', {
    *   reverseOrder: false, // whether or not to reverse data
    * });
    * ```
    *
    * @example
-   * ```ts
+   * ```typescript
    * adjust('stack');
    *
    * adjust({
@@ -406,7 +404,7 @@ export default class Geometry {
    * Graphic style configuration
    *
    * @example
-   * ```ts
+   * ```typescript
    * // just configure graphics style
    * style({
    *   lineWidth: 2,
@@ -432,7 +430,7 @@ export default class Geometry {
   public style(field: StyleOption | LooseObject): Geometry;
   /**
    * @example
-   * ```ts
+   * ```typescript
    * style('x*y', (xVal, yVal) => {
    *   const style = { lineWidth: 2, stroke: '#1890ff' };
    *   if (xVal === 'a') {
@@ -477,7 +475,7 @@ export default class Geometry {
    * The tooltip of geometry is open by default. So we can use this method to configure tootlip's content.
    *
    * @example
-   * ```ts
+   * ```typescript
    * // data: [{x: 'a', y: 10}]
    * tooltip({
    *   fields: [ 'x' ];
@@ -485,7 +483,7 @@ export default class Geometry {
    * ```
    * ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*268uQ50if60AAAAAAAAAAABkARQnAQ)
    *
-   * ```ts
+   * ```typescript
    * tooltip({
    *   fields: [ 'x', 'y' ];
    * });
@@ -495,7 +493,7 @@ export default class Geometry {
    * The tooltip() method supports callbacks in the following way:
    *
    * @example
-   * ```ts
+   * ```typescript
    * chart.tooltip({
    *   itemTpl: '<li>{x}: {y}</li>',
    * });
@@ -521,7 +519,7 @@ export default class Geometry {
   public tooltip(field: TooltipOption | boolean): Geometry;
   /**
    * @example
-   * ```ts
+   * ```typescript
    * // data: [{x: 'a', y: 10}]
    *
    * // same with `tooltip({ fields: [ 'x' ] });`
@@ -570,7 +568,7 @@ export default class Geometry {
    * 3. leave
    *
    * @example
-   * ```ts
+   * ```typescript
    * animate({
    *   enter: {
    *     duration: 1000, // enter animation execution time
@@ -796,7 +794,7 @@ export default class Geometry {
   /**
    * get elements which meet the user's condition
    *
-   * ```ts
+   * ```typescript
    * getElementsBy((element) => {
    *   const data = element.getData();
    *
