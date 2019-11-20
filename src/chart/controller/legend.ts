@@ -14,6 +14,7 @@ type Option = Record<string, LegendOption> | boolean;
  * 从配置中获取单个字段的 legend 配置
  * @param legends
  * @param field
+ * @returns the option of one legend field
  */
 function getLegendOption(legends: Record<string, LegendOption> | boolean, field: string) {
   if (_.isBoolean(legends)) {
@@ -23,9 +24,15 @@ function getLegendOption(legends: Record<string, LegendOption> | boolean, field:
   }
 }
 
+/**
+ * legend Controller
+ */
 export class Legend extends Controller<Option> {
   public init() {}
 
+  /**
+   * render the legend component by legend options
+   */
   public render() {
     this.option = this.view.getOptions().legends;
 

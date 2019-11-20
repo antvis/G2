@@ -10,7 +10,6 @@ import { Data, Datum, LooseObject, Point, Region, ScaleOption } from '../interfa
 import { STATE_ACTIONS, StateActionCfg, StateManager } from '../state';
 import { BBox } from '../util/bbox';
 import { isFullCircle, isPointInCoordinate } from '../util/coordinate';
-import { getEventName } from '../util/event';
 import { parsePadding } from '../util/padding';
 import { mergeTheme } from '../util/theme';
 import Chart from './chart';
@@ -131,6 +130,7 @@ export class View extends EE {
    * @param layer
    * @param direction
    * @param type
+   * @returns void
    */
   public addComponent(
     component: Component,
@@ -149,6 +149,7 @@ export class View extends EE {
   /**
    * 添加一个 geometry 到画布
    * @param geometry
+   * @return void
    */
   public addGeometry(geometry: Geometry) {
     this.geometries.push(geometry);
@@ -157,13 +158,15 @@ export class View extends EE {
   /**
    * 设置 layout 函数
    * @param layout
+   * @returns void
    */
   public setLayout(layout: Layout) {
     this.layoutFunc = layout;
   }
 
   /**
-   * 初始化
+   * 生命周期：初始化
+   * @returns voids
    */
   public init() {
     // 计算画布的 viewBBox
@@ -187,8 +190,9 @@ export class View extends EE {
   }
 
   /**
-   * 渲染流程，渲染过程需要处理数据更新的情况
+   * 生命周期：渲染流程，渲染过程需要处理数据更新的情况
    * render 函数仅仅会处理 view 和子 view
+   * @returns void
    */
   public render() {
     this.emit(VIEW_LIFE_CIRCLE.BEFORE_RENDER);
@@ -200,7 +204,8 @@ export class View extends EE {
   }
 
   /**
-   * 清空，之后可以再走 init 流程，正常使用
+   * 生命周期：清空，之后可以再走 init 流程，正常使用
+   * @returns void
    */
   public clear() {
     this.emit(VIEW_LIFE_CIRCLE.BEFORE_CLEAR);
@@ -236,7 +241,8 @@ export class View extends EE {
   }
 
   /**
-   * 销毁，完全无法使用
+   * 生命周期：销毁，完全无法使用
+   * @returns void
    */
   public destroy() {
     // 销毁前事件，销毁之后已经没有意义了，所以不抛出事件
@@ -259,7 +265,14 @@ export class View extends EE {
   /* end 生命周期函数 */
 
   /**
-   * 装载数据。
+   * 装载数据
+   *
+   * ```ts
+   * view.data([{ city: '杭州', sale: 100 }, { city: '上海', sale: 110 } ]);
+   * ```
+   *
+   * @param data
+   * @returns View
    */
   public data(data: Data): View {
     _.set(this.options, 'data', data);
@@ -268,7 +281,15 @@ export class View extends EE {
   }
 
   /**
-   * 数据筛选配置
+   * 设置数据筛选配置
+   *
+   * ```ts
+   * view.filter('city', (value: any, datum: Datum) => value !== '杭州');
+   * ```
+   *
+   * @param field
+   * @param condition
+   * @returns View
    */
   public filter(field: string, condition: FilterCondition): View {
     _.set(this.options, ['filters', field], condition);
@@ -276,6 +297,22 @@ export class View extends EE {
     return this;
   }
 
+  /**
+   * 设置 axis 组件的配置
+   *
+   * ```ts
+   * view.axis(false);
+   *
+   * view.axis('city', false);
+   *
+   * view.axis('city', {
+   *   title: false,
+   * });
+   * ```
+   *
+   * @param field
+   * @returns View
+   */
   public axis(field: boolean): View;
   public axis(field: string, axisOption: AxisOption): View;
   public axis(field: string | boolean, axisOption?: AxisOption): View {
@@ -289,7 +326,20 @@ export class View extends EE {
   }
 
   /**
-   * 图例配置
+   * 设置图例配置
+   *
+   * ```ts
+   * view.legend(false);
+   *
+   * view.legend('city', false);
+   *
+   * view.legend('city', {
+   *   position: 'right',
+   * });
+   * ```
+   *
+   * @param field
+   * @returns View
    */
   public legend(field: boolean): View;
   public legend(field: string, legendOption: LegendOption): View;
@@ -304,7 +354,16 @@ export class View extends EE {
   }
 
   /**
-   * scale 配置
+   * 设置scale 配置
+   *
+   * ```ts
+   * view.scale('sale', {
+   *   min: 0,
+   *   max: 100,
+   * });
+   * ```
+   *
+   * @returns void
    */
   public scale(field: string, scaleOption: ScaleOption): View {
     _.set(this.options, ['scales', field], scaleOption);
@@ -340,7 +399,14 @@ export class View extends EE {
   }
 
   /**
-   * 坐标系配置
+   * 设置坐标系配置
+   *
+   * ```ts
+   * view.coordinate('rect').transpose();
+   * ```
+   *
+   * @param option
+   * @returns [[Coordinate]]
    */
   public coordinate(option: CoordinateOption): Coordinate;
   public coordinate(type: string, coordinateCfg?: CoordinateCfg): Coordinate;
@@ -360,8 +426,20 @@ export class View extends EE {
 
   /**
    * view 分面绘制
+   *
+   * ```ts
+   * view.facet('rect', {
+   *   rowField: 'province',
+   *   columnField: 'category',
+   *   eachView: (innerView: View, facet?: FacetData) => {
+   *     innerView.line().position('city*sale');
+   *   },
+   * });
+   * ```
+   *
    * @param type
    * @param cfg
+   * @returns View
    */
   public facet<T extends keyof FacetCfgMap>(type: T, cfg: FacetCfgMap[T]) {
     // 先销毁掉之前的分面
@@ -383,8 +461,13 @@ export class View extends EE {
 
   /*
    * 开启或者关闭动画
+   *
+   * ```ts
+   * view.animate(false);
+   * ```
+   *
    * @param status 动画状态，true 表示开始，false 表示关闭
-   * @returns
+   * @returns View
    */
   public animate(status: boolean): View {
     _.set(this.options, 'animate', status);
@@ -393,6 +476,15 @@ export class View extends EE {
 
   /**
    * 设置主题
+   *
+   * ```ts
+   * view.theme('dark');
+   *
+   * view.theme({ defaultColor: 'red' });
+   * ```
+   *
+   * @param theme
+   * @returns View
    */
   public theme(theme: string | object): View {
     this.themeObject = mergeTheme(this.themeObject, theme);
@@ -404,7 +496,13 @@ export class View extends EE {
 
   /**
    * Call the interaction based on the interaction name
+   *
+   * ```ts
+   * view.interaction('my-interaction', { extra: 'hello world' });
+   * ```
+   *
    * @param name interaction name
+   * @param cfg interaction config
    * @returns
    */
   public interaction(name: string, cfg?: LooseObject): View {
@@ -426,9 +524,14 @@ export class View extends EE {
   }
 
   /**
-   * 修改数据，数据更新逻辑
-   * 因为数据更新仅仅影响当前这一层的 view
+   * 修改数据，数据更新逻辑，数据更新仅仅影响当前这一层的 view
+   *
+   * ```ts
+   * view.changeData([{ city: '北京', sale: '200' }]);
+   * ```
+   *
    * @param data
+   * @returns void
    */
   public changeData(data: Data) {
     this.emit(VIEW_LIFE_CIRCLE.BEFORE_CHANGE_DATA);
@@ -461,8 +564,20 @@ export class View extends EE {
   }
 
   /* View 管理相关的 API */
+
   /**
    * 创建子 view
+   *
+   * ```ts
+   * const innerView = view.createView({
+   *   start: { x: 0, y: 0 },
+   *   end: { x: 0.5, y: 0.5 },
+   *   padding: 8,
+   * });
+   * ```
+   *
+   * @param cfg
+   * @returns View
    */
   public createView(cfg?: Partial<ViewCfg>): View {
     // 子 view 共享 options 配置数据
@@ -494,8 +609,9 @@ export class View extends EE {
   }
 
   /**
-   * 删除一个 view
+   * 删除一个子 view
    * @param view
+   * @return removedView
    */
   public removeView(view: View): View {
     const removedView = _.remove(this.views, (v: View) => v === view)[0];
@@ -508,29 +624,27 @@ export class View extends EE {
   }
   /* end View 管理相关的 API */
 
-  /**
-   * 创建坐标系
-   * @private
-   */
-  public createCoordinate(bbox?: BBox) {
-    this.coordinateInstance = createCoordinate(this.options.coordinate, bbox || this.coordinateBBox);
-  }
-
   // 一些 get 方法
 
   /**
    * 获取坐标系
+   * @returns [[Coordinate]]
    */
   public getCoordinate() {
     return this.coordinateInstance;
   }
 
+  /**
+   * 获取当前 view 的主题配置
+   * @returns themeObject
+   */
   public getTheme(): object {
     return this.themeObject;
   }
 
   /**
    * 获得 x 轴字段的 scale 实例
+   * @returns view 中 Geometry 对于的 x scale
    */
   public getXScale(): Scale {
     // 拿第一个 Geometry 的 X scale
@@ -541,6 +655,7 @@ export class View extends EE {
 
   /**
    * 获取 y 轴字段的 scales 实例
+   * @returns view 中 Geometry 对于的 y scale 数组
    */
   public getYScales(): Scale[] {
     // 拿到所有的 Geometry 的 Y scale，然后去重
@@ -549,6 +664,7 @@ export class View extends EE {
 
   /**
    * 返回所有配置信息
+   * @returns 所有的 view API 配置
    */
   public getOptions(): Options {
     return this.options;
@@ -556,11 +672,16 @@ export class View extends EE {
 
   /**
    * 获取 view 的数据（过滤后的数据）
+   * @returns 处理过滤器之后的数据
    */
   public getData() {
     return this.filteredData;
   }
 
+  /**
+   * 获得状态量管理器
+   * returns [[StateManager]]
+   */
   public getStateManager() {
     return this.stateManager;
   }
@@ -568,6 +689,7 @@ export class View extends EE {
   /**
    * 获得绘制的层级 group
    * @param layer
+   * @returns 对应层级的 Group
    */
   public getLayer(layer: LAYER): IGroup {
     return layer === LAYER.BG
@@ -581,6 +703,7 @@ export class View extends EE {
 
   /**
    * 获得所有的 legend 对应的 attribute 实例
+   * @returns 维度字段的 Attribute 数组
    */
   public getLegendAttributes(): Attribute[] {
     return (_.flatten(_.map(this.geometries, (g: Geometry) => g.getLegendAttributes())) as unknown) as Attribute[];
@@ -588,6 +711,7 @@ export class View extends EE {
 
   /**
    * 获取所有的分组字段的 scales
+   * @returns 获得分组字段的 scales 数组
    */
   public getGroupScales(): Scale[] {
     // 拿到所有的 Geometry 的 分组字段 scale，然后打平去重
@@ -595,6 +719,10 @@ export class View extends EE {
     return _.uniq(_.flatten(scales));
   }
 
+  /**
+   * 获取 G.Canvas 实例
+   * @returns G.Canvas 画布实例
+   */
   public getCanvas(): ICanvas {
     let v = this as View;
 
@@ -613,7 +741,7 @@ export class View extends EE {
    * @param data
    * @returns
    */
-  public getXY(data: Datum) {
+  public getXY(data: Datum): Point {
     const coordinate = this.getCoordinate();
     const xScales = this.getScalesByDim('x');
     const yScales = this.getScalesByDim('y');
@@ -634,11 +762,20 @@ export class View extends EE {
     }
   }
 
+  /**
+   * 显示 tooltip
+   * @param point
+   * @returns View
+   */
   public showTooltip(point: Point): View {
     this.tooltipController.showTooltip(point);
     return this;
   }
 
+  /**
+   * 隐藏 tooltip
+   * @returns View
+   */
   public hideTooltip(): View {
     this.tooltipController.hideTooltip();
     return this;
@@ -646,7 +783,7 @@ export class View extends EE {
 
   /**
    * 将 tooltip 锁定到当前位置不能移动
-   * @returns
+   * @returns View
    */
   public lockTooltip(): View {
     this.stateManager.setState('_isTooltipLocked', true);
@@ -655,13 +792,18 @@ export class View extends EE {
 
   /**
    * 将 tooltip 锁定解除
-   * @returns
+   * @returns View
    */
   public unlockTooltip(): View {
     this.stateManager.setState('_isTooltipLocked', false);
     return this;
   }
 
+  /**
+   * 获取 tooltip 数据项
+   * @param point
+   * @returns items of tooltip
+   */
   public getTooltipItems(point: Point) {
     return this.tooltipController.getTooltipItems(point);
   }
@@ -1005,6 +1147,14 @@ export class View extends EE {
 
   private doLayout() {
     this.layoutFunc(this);
+  }
+
+  /**
+   * 创建坐标系
+   * @private
+   */
+  private createCoordinate(bbox?: BBox) {
+    this.coordinateInstance = createCoordinate(this.options.coordinate, bbox || this.coordinateBBox);
   }
 
   /**

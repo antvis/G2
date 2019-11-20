@@ -7,11 +7,17 @@ import { CoordinateOption } from '../interface';
  * 是否存在 action
  * @param actions
  * @param actionName
+ * @returns whether has action
  */
 function hasAction(actions, actionName) {
   return _.some(actions, (action) => action[0] === actionName);
 }
 
+/**
+ * 是够是 Theta 坐标系
+ * @param type
+ * @returns whether theta
+ */
 function isTheta(type: string): boolean {
   return type === 'theta';
 }
@@ -19,6 +25,7 @@ function isTheta(type: string): boolean {
  * 创建坐标系
  * @param coordinateOption
  * @param coordinateBBox
+ * @returns [[Coordinate]]
  */
 export function createCoordinate(
   coordinateOption: CoordinateOption = {},

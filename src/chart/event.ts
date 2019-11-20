@@ -59,12 +59,17 @@ export default class Event {
   }
   // end for proxy events
 
+  /**
+   * event string
+   * @returns string
+   */
   public toString(): string {
     return `[Event (type=${this.type})]`;
   }
 
   /**
    * clone a new event with same attributes
+   * @returns [[Event]]
    */
   public clone(): Event {
     return new Event(this.view, this.gEvent, this.data);

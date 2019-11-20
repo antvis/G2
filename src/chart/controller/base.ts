@@ -71,6 +71,7 @@ export abstract class Controller<O> {
 
   /**
    * get the bbox of component
+   * @returns components array
    */
   public getComponents(): ComponentOption[] {
     return this.components;

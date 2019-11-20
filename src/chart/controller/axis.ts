@@ -13,6 +13,7 @@ type Option = Record<string, AxisOption> | boolean;
  * 从配置中获取单个字段的 axis 配置
  * @param axes
  * @param field
+ * @returns the axis option of field
  */
 function getAxisOption(axes: Record<string, AxisOption> | boolean, field: string) {
   if (_.isBoolean(axes)) {
