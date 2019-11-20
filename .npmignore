@@ -71,10 +71,14 @@ test
 .idea
 bin
 demos
+examples
+site
 docs
 temp
 webpack-dev.config.js
 webpack.config.js
+gatsby-browser.js
+gatsby-config.js
 stats.json
 tslint.json
 .cache
