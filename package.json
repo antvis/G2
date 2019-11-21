@@ -6,7 +6,7 @@
   "main": "build/g2.js",
   "module": "lib/index.js",
   "types": "lib/index.d.ts",
-  "homepage": "https://github.com/antvis/g2",
+  "homepage": "https://g2.antv.vision",
   "repository": {
     "type": "git",
     "url": "git@github.com:antvis/g2.git"
@@ -22,7 +22,7 @@
   "license": "MIT",
   "devDependencies": {
     "@antv/data-set": "~0.9.6",
-    "@antv/gatsby-theme-antv": "^0.9.18",
+    "@antv/gatsby-theme-antv": "^0.9.92",
     "@babel/cli": "~7.0.0",
     "@babel/core": "~7.0.0",
     "@babel/preset-env": "~7.0.0",

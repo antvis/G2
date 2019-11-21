@@ -6,8 +6,7 @@ module.exports = {
       resolve: '@antv/gatsby-theme-antv',
       options: {
         // eslint-disable-next-line quotes
-        GATrackingId: `UA-148148901-5`,
-        pathPrefix: '/g2'
+        GATrackingId: `UA-148148901-5`
       }
     }
   ],
@@ -15,6 +14,7 @@ module.exports = {
   siteMetadata: {
     title: 'G2',
     description: 'The Grammar of Graphics in JavaScript',
+    siteUrl: 'https://g2.antv.vision',
     githubUrl: homepage,
     navs: [
       {
