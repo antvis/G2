@@ -1,4 +1,4 @@
-const { homepage } = require('./package.json');
+const { repository } = require('./package.json');
 
 module.exports = {
   plugins: [
@@ -15,7 +15,7 @@ module.exports = {
     title: 'G2',
     description: 'The Grammar of Graphics in JavaScript',
     siteUrl: 'https://g2.antv.vision',
-    githubUrl: homepage,
+    githubUrl: repository.url,
     navs: [
       {
         slug: 'examples',

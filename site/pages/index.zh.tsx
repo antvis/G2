@@ -59,8 +59,7 @@ const IndexPage = () => {
       title: t('精品 Gallery'),
       description: t('真实的数据可视化案例，我们将它们归纳为一个个故事性的设计模板，让用户达到开箱即用的效果。'),
       link: `/${i18n.language}/examples/gallery/line`,
-      image: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*hDrgRb7ma4EAAAAAAAAAAABkARQnAQ',
-      isAppLogo: true
+      image: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*hDrgRb7ma4EAAAAAAAAAAABkARQnAQ'
     },
   ];
 
