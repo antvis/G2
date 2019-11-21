@@ -786,9 +786,9 @@
 
 #### 2.3.1
 
-- feat：坐标轴网格线支持奇偶背景设置，[demo](http://antvis.github.io/g2/demo/14-radar/radar-line.html)
+- feat：坐标轴网格线支持奇偶背景设置，[demo](http://g2.antv.vision/demo/14-radar/radar-line.html)
 - feat：支持全局字体设置 `G2.Global.fontFamily`
-- feat: 统一层叠柱状图，层叠区域图的图形、tooltip 以及图例的顺序，[demo](http://antvis.github.io/g2/demo/03-area/area-percent.html)
+- feat: 统一层叠柱状图，层叠区域图的图形、tooltip 以及图例的顺序，[demo](http://g2.antv.vision/demo/03-area/area-percent.html)
 - fix: 修复饼图文本层叠、文本连接线交叉的问题
 - fix: 饼图文本线在动画时不显示，暂时停止动画
 - improve: 设置 labels 的属性 custom 为 true 时生成的 html 不再自动换行
@@ -796,8 +796,8 @@
 
 #### 2.3.0
 
-- feat: 添加动画自定义接口，详见 [api](http://antvis.github.io/g2/api/animate.html)
-- feat: 支持配置项式声明，详见 [api](http://antvis.github.io/g2/api/chart-options.html)
+- feat: 添加动画自定义接口，详见 [api](http://g2.antv.vision/api/animate.html)
+- feat: 支持配置项式声明，详见 [api](http://g2.antv.vision/api/chart-options.html)
 - improve: 动画效果优化
 - improve: 绘图底层性能优化
 
@@ -818,8 +818,8 @@
 
 #### 2.2.5
 
-* feat：`chart.legend()` 方法为**分类类型图例**新增 `formatter` 回调函数，用于图例文本的格式化，详见 [API](http://antvis.github.io/g2/api/chart.html#legend)，[使用实例](http://antvis.github.io/g2/demo/05-pie/pie.html)
-* feat：新增 `chart.cols()` 方法，用于一次性定义多个列定义操作，[API](http://antvis.github.io/g2/api/chart.html#cols)
+* feat：`chart.legend()` 方法为**分类类型图例**新增 `formatter` 回调函数，用于图例文本的格式化，详见 [API](http://g2.antv.vision/api/chart.html#legend)，[使用实例](http://g2.antv.vision/demo/05-pie/pie.html)
+* feat：新增 `chart.cols()` 方法，用于一次性定义多个列定义操作，[API](http://g2.antv.vision/api/chart.html#cols)
 * improve：优化 interval、schema 两种 geom 生成图形的默认宽度计算策略
 * fix：修复地理坐标系 tooltip 报错问题
 * fix：修复参与加法运算的数据字段无法通过列定义指定度量类型的问题
@@ -833,8 +833,8 @@
 
 #### 2.2.3
 
-* feat：`chart.legend()` 方法添加 `marker` 属性，支持指定 `point` 几何标记支持的所有 shape（除去'rect'），详见 [api](http://antvis.github.io/g2/api/chart.html#legend)，默认值为 `circle`
-* feat：`chart.guide()` 增加回调函数支持动态更新，[实例](http://antvis.github.io/g2/demo/18-other/dynamic-guide.html)
+* feat：`chart.legend()` 方法添加 `marker` 属性，支持指定 `point` 几何标记支持的所有 shape（除去'rect'），详见 [api](http://g2.antv.vision/api/chart.html#legend)，默认值为 `circle`
+* feat：`chart.guide()` 增加回调函数支持动态更新，[实例](http://g2.antv.vision/demo/18-other/dynamic-guide.html)
 * improve：完善功能，使绘制的柱状图的 y 轴刻度从 0 开始
 * improve：完善 log 度量，使其支持 `min: 0` 的设置
 * fix：修复某些场景（如线图、面积图等） `geom.getData()` 返回结果为空的错误
@@ -842,8 +842,8 @@
 
 #### 2.2.2
 
-* feat: 新增功能：chart 下创建的 view 默认共享[列定义](http://antvis.github.io/g2/doc/tutorial/start/col-defs.html)、坐标轴 axis 配置、坐标系 coord 配置，即如果 view 不自己定义则默认同 chart 的配置相同；（所以这里对于地理投影坐标来说，直接在 chart 上声明坐标系类型就可以全部统一了），如果 view 自己定义了相应的配置，则以自己的为准，详见 [view](http://antvis.github.io/g2/api/view.html)
-* feat: 新增 `syncXYScales` 属性，由用户选择是否需要统一所有视图的度量，使用详见 [chart API](http://antvis.github.io/g2/api/chart.html#syncxyscales)
+* feat: 新增功能：chart 下创建的 view 默认共享[列定义](http://g2.antv.vision/doc/tutorial/start/col-defs.html)、坐标轴 axis 配置、坐标系 coord 配置，即如果 view 不自己定义则默认同 chart 的配置相同；（所以这里对于地理投影坐标来说，直接在 chart 上声明坐标系类型就可以全部统一了），如果 view 自己定义了相应的配置，则以自己的为准，详见 [view](http://g2.antv.vision/api/view.html)
+* feat: 新增 `syncXYScales` 属性，由用户选择是否需要统一所有视图的度量，使用详见 [chart API](http://g2.antv.vision/api/chart.html#syncxyscales)
 * improve: 优化坐标轴刻度线个数计算
 * fix: 修复 tooltipmarker 覆盖 tooltip 的问题
 * fix: 修复线图层叠颜色的问题
@@ -853,21 +853,21 @@
 #### 2.2.1
 
 * improve: 优化鼠标当前位置所在图形的查找
-* improve: 优化几何标记 Geom 选中交互，增加 `animate` 和 `cancelable` 配置项，详见 [api](http://antvis.github.io/g2/api/geom.html#selected)
+* improve: 优化几何标记 Geom 选中交互，增加 `animate` 和 `cancelable` 配置项，详见 [api](http://g2.antv.vision/api/geom.html#selected)
 * improve: 支持图表数据源中字段名包含空格的情况，如 "an apple"
 * fix: 修复极坐标旋转圆心变化的问题
 * fix: 修复开启框选时鼠标点击以及高精屏下框选报错的问题
 
 #### 2.2.0
 
-* feat: 丰富图例交互，详见教程[图例筛选模式设置](http://antvis.github.io/g2/doc/tutorial/start/legend.html# 图例的选择模式设置)：
+* feat: 丰富图例交互，详见教程[图例筛选模式设置](http://g2.antv.vision/doc/tutorial/start/legend.html# 图例的选择模式设置)：
   1. 支持鼠标 hover 高亮相关图形
   2. 支持单选多选模式
   3. 支持混合图表的图例筛选
   4. 支持连续图例的筛选
-* feat: 支持鼠标框选交互，详见教程[图表框选交互](http://antvis.github.io/g2/doc/tutorial/start/action.html# 图表框选交互)
-* feat: 支持 geom 几何标记的选中交互，详见教程[geom 选择交互](http://antvis.github.io/g2/doc/tutorial/start/action.html# 几何标记 - geom - 的选中)
-* feat: 新增关系类图表：[弧长链接图](http://antvis.github.io/g2/demo/13-link/arcDiagram.html)、[和弦图](http://antvis.github.io/g2/demo/13-link/chordDiagram.html)、[桑基图](http://antvis.github.io/g2/demo/13-link/sankey.html)
+* feat: 支持鼠标框选交互，详见教程[图表框选交互](http://g2.antv.vision/doc/tutorial/start/action.html# 图表框选交互)
+* feat: 支持 geom 几何标记的选中交互，详见教程[geom 选择交互](http://g2.antv.vision/doc/tutorial/start/action.html# 几何标记 - geom - 的选中)
+* feat: 新增关系类图表：[弧长链接图](http://g2.antv.vision/demo/13-link/arcDiagram.html)、[和弦图](http://g2.antv.vision/demo/13-link/chordDiagram.html)、[桑基图](http://g2.antv.vision/demo/13-link/sankey.html)
 * feat: 新增 `chart.downloadImage()` 方法，提供图表下载功能
 * fix: 修复 getPosition 当原始数据 y 为零时失效的问题
 * fix: 修复 time 度量设置 min 和 max 不生效的问题
@@ -916,7 +916,7 @@
 
 #### 2.0.5
 
-* feat: 新添加 chart.guide().html() 方法，支持自定义 html，[详见](http://antvis.github.io/g2/doc/tutorial/start/guide.html# 辅助 html)
+* feat: 新添加 chart.guide().html() 方法，支持自定义 html，[详见](http://g2.antv.vision/doc/tutorial/start/guide.html# 辅助 html)
 * feat: 优化右侧边缘 tooltip 显示，当宽大于 plot 宽两倍的时候，顶左边
 * feat: tooltip 增加自定义 html 边距自动检测
 * fix: 双轴图例显示问题
@@ -936,7 +936,7 @@
 
 #### 2.0.3
 
-* feat: 新增螺旋坐标系，详见 [api](http://antvis.github.io/g2/api/chart.html#coord)
+* feat: 新增螺旋坐标系，详见 [api](http://g2.antv.vision/api/chart.html#coord)
 * feat: 根据边距自动计算自定义 html tooltip 位置
 * fix: 修复线图 tooltip 部分不展示的问题
 * fix: 修复饼图只有一项数据时 label 不展示的问题
@@ -944,9 +944,9 @@
 
 #### 2.0.2
 
-* feat: 多视图（view）图例支持，[demo](http://antvis.github.io/g2/demo/01-point/scatter-matrix.html)
+* feat: 多视图（view）图例支持，[demo](http://g2.antv.vision/demo/01-point/scatter-matrix.html)
 * feat: 支持数据源中记录包含不同属性值的场景，此时 chart.source() 的时候需要传入 names 数组，例如 chart.source(data,defs,names)
-* feat: 地理投影坐标系坐标轴平滑处理， [demo](http://antvis.github.io/g2/demo/10-map/world-albers.html)
+* feat: 地理投影坐标系坐标轴平滑处理， [demo](http://g2.antv.vision/demo/10-map/world-albers.html)
 * feat: 图例取消选择时字体置灰
 * optimize: 优化图表动画性能
 * fix: 修复图例列定义的别名不生效的问题，详见 [issue](https://github.com/antvis/feedback/issues/80)

@@ -11,7 +11,7 @@ G2 是一套基于可视化编码的图形语法，以数据驱动，具有高�
 
 **在此衷心感谢[《The Grammar of Graphics》](https://www.cs.uic.edu/~wilkinson/TheGrammarOfGraphics/GOG.html)的作者 [Leland Wilkinson](https://en.wikipedia.org/wiki/Leland_Wilkinson)，为 G2 的图形语法提供了理论基础！**
 
-<p align="center"><a href="https://antvis.github.io/g2/zh/examples/gallery/line"><img src="https://user-images.githubusercontent.com/6628666/68994104-1061b700-08ba-11ea-8017-3534fc85bc2f.jpeg" /></a></p>
+<p align="center"><a href="https://g2.antv.vision/zh/examples/gallery/line"><img src="https://user-images.githubusercontent.com/6628666/68994104-1061b700-08ba-11ea-8017-3534fc85bc2f.jpeg" /></a></p>
 
 
 ## 安装
