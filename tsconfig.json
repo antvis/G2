@@ -10,7 +10,8 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
-    "types": ["jest"]
+    "types": ["jest"],
+    "resolveJsonModule": true
   },
   "include": ["src"],
   "typedocOptions": {
