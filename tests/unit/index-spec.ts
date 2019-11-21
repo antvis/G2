@@ -1,7 +1,8 @@
-import { VER } from '../../src';
+import { version } from '../../package.json';
+import { VERSION } from '../../src';
 
 describe('G2', () => {
   it('export', () => {
-    expect(VER).toBe('4.0.0-beta.1');
+    expect(VERSION).toBe(version);
   });
 });
