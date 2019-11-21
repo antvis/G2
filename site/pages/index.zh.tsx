@@ -68,8 +68,8 @@ const IndexPage = () => {
       <SEO title={t('蚂蚁数据可视化')} lang={i18n.language} />
       <Banner
         coverImage={
-          <img width="100%" class="Notification-module--number--31-3Z" style={{ marginLeft: '125px', marginTop: '106px' }}
-            src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*hT73QqjgYPcAAAAAAAAAAABkARQnAQ" />}
+          <img width="100%" class="Notification-module--number--31-3Z" style={{ marginLeft: '100px', marginTop: '40px' }}
+            src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*wo_LToatmbwAAAAAAAAAAABkARQnAQ" />}
         title={t('G2 可视化底层引擎')}
         description={t(
           'G2 是一套基于图形语法理论的可视化底层引擎，以数据驱动，具有高度的易用性和扩展性。用户无需关注各种繁琐的实现细节，一条语句即可构建出各种各样的可交互的统计图表。',
@@ -83,7 +83,7 @@ const IndexPage = () => {
       />
       <Cases cases={cases} />
       <Companies
-        title={t('合作公司')}
+        title={t('感谢信赖')}
         companies={companies}
       />
     </>
