@@ -1,4 +1,5 @@
 import * as _ from '@antv/util';
+import { Datum } from '../interface';
 import Geometry from './base';
 /** 引入 Path 对应的 ShapeFactory */
 import './shape/polygon';
@@ -8,7 +9,7 @@ export default class Polygon extends Geometry {
   public readonly shapeType: string = 'polygon';
   protected generatePoints: boolean = true;
 
-  protected createShapePointsCfg(obj: object) {
+  protected createShapePointsCfg(obj: Datum) {
     const cfg: any = super.createShapePointsCfg(obj);
     let x = cfg.x;
     let y = cfg.y;

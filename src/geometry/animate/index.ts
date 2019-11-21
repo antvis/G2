@@ -142,14 +142,14 @@ export function getDefaultAnimateCfg(geometryType: string, animateType: string, 
  * @param [toAttrs] shape 最终状态的图形属性
  */
 export function doAnimate(shape: IGroup | IShape, cfg: ShapeDrawCFG, coordinate: Coordinate, toAttrs?: object) {
-  const { animate, data, origin } = cfg;
+  const { animate, data, mappingData } = cfg;
   const animation = animate.animation;
   const animateCfg = getAnimateConfig(animate, data);
   if (animation) {
     // 用户声明了动画执行函数
     const animateFunction = Action[animation];
     if (animateFunction) {
-      animateFunction(shape, animateCfg, coordinate, origin, toAttrs);
+      animateFunction(shape, animateCfg, coordinate, mappingData, toAttrs);
     }
   } else {
     // 没有声明，则根据 toAttrs 做差值动画

@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-import { LooseObject } from '../interface';
+import { Datum } from '../interface';
 import { getXDimensionLength } from '../util/coordinate';
 import Geometry from './base';
 /** 引入对应的 ShapeFactory */
@@ -28,14 +28,19 @@ export default class Interval extends Geometry {
     this.adjustYScale();
   }
 
-  protected createShapePointsCfg(record: LooseObject) {
-    const cfg = super.createShapePointsCfg(record);
+  /**
+   * Creates shape points cfg
+   * @param obj 经过分组 -> 数字化 -> adjust 调整后的数据记录
+   * @returns
+   */
+  protected createShapePointsCfg(obj: Datum) {
+    const cfg = super.createShapePointsCfg(obj);
 
     // 计算每个 shape 的 size
     let size;
     const sizeAttr = this.getAttribute('size');
     if (sizeAttr) {
-      size = this.getAttrValues(sizeAttr, record)[0];
+      size = this.getAttributeValues(sizeAttr, obj)[0];
       // 归一化
       const coordinate = this.coordinate;
       const coordinateWidth = getXDimensionLength(coordinate);

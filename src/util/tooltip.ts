@@ -2,7 +2,7 @@ import * as _ from '@antv/util';
 import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
 import { Attribute, Scale } from '../dependents';
 import Geometry from '../geometry/base';
-import { Data, Datum, Point } from '../interface';
+import { Data, Datum, MappingDatum, Point } from '../interface';
 import { getName } from './scale';
 
 function snapEqual(v1: any, v2: any, scale: Scale) {
@@ -36,8 +36,8 @@ function filterYValue(data: Data, point: Point, geometry: Geometry) {
   const yValue = yScale.invert(invertPoint.y);
 
   const result = _.find(data, (obj: Datum) => {
-    const origin = obj[FIELD_ORIGIN];
-    return origin[yField][0] <= yValue && origin[yField][1] >= yValue;
+    const originData = obj[FIELD_ORIGIN];
+    return originData[yField][0] <= yValue && originData[yField][1] >= yValue;
   });
   return result || data[data.length - 1];
 }
@@ -131,7 +131,14 @@ function getTooltipName(originData: Datum, geometry: Geometry) {
   return getName(valueScale);
 }
 
-export function findDataByPoint(point: Point, data: Data, geometry: Geometry) {
+/**
+ * Finds data from geometry by point
+ * @param point canvas point
+ * @param data an item of geometry.dataArray
+ * @param geometry
+ * @returns
+ */
+export function findDataByPoint(point: Point, data: MappingDatum[], geometry: Geometry) {
   if (data.length === 0) {
     return null;
   }
@@ -154,7 +161,7 @@ export function findDataByPoint(point: Point, data: Data, geometry: Geometry) {
     const y = yScale.invert(invertPoint.y); // 转换为原始值
 
     let min = Infinity;
-    _.each(data, (obj: Datum) => {
+    _.each(data, (obj: MappingDatum) => {
       const originData = obj[FIELD_ORIGIN];
       const range = (originData[xField] - x) ** 2 + (originData[yField] - y) ** 2;
       if (range < min) {
@@ -178,10 +185,10 @@ export function findDataByPoint(point: Point, data: Data, geometry: Geometry) {
 
   // 如果 x 的值是数组
   if (_.isArray(firstXValue)) {
-    _.each(data, (record: Datum) => {
-      const origin = record[FIELD_ORIGIN];
-      // xValue 在 origin[xField] 的数值区间内
-      if (xScale.translate(origin[xField][0]) <= xValue && xScale.translate(origin[xField][1]) >= xValue) {
+    _.each(data, (record: MappingDatum) => {
+      const originData = record[FIELD_ORIGIN];
+      // xValue 在 originData[xField] 的数值区间内
+      if (xScale.translate(originData[xField][0]) <= xValue && xScale.translate(originData[xField][1]) >= xValue) {
         if (isYArray) {
           // 层叠直方图场景，x 和 y 都是数组区间
           if (!_.isArray(rst)) {
@@ -201,9 +208,9 @@ export function findDataByPoint(point: Point, data: Data, geometry: Geometry) {
     let next;
     if (!xScale.isLinear && xScale.type !== 'timeCat') {
       // x 轴对应的数据为非线性以及非时间类型的数据采用遍历查找
-      _.each(data, (record: Datum, index: number) => {
-        const origin = record[FIELD_ORIGIN];
-        if (snapEqual(origin[xField], xValue, xScale)) {
+      _.each(data, (record: MappingDatum, index: number) => {
+        const originData = record[FIELD_ORIGIN];
+        if (snapEqual(originData[xField], xValue, xScale)) {
           if (isYArray) {
             if (!_.isArray(rst)) {
               rst = [];
@@ -213,7 +220,7 @@ export function findDataByPoint(point: Point, data: Data, geometry: Geometry) {
             rst = record;
             return false;
           }
-        } else if (xScale.translate(origin[xField]) <= xValue) {
+        } else if (xScale.translate(originData[xField]) <= xValue) {
           last = record;
           next = data[index + 1];
         }
@@ -271,9 +278,9 @@ export function findDataByPoint(point: Point, data: Data, geometry: Geometry) {
   return rst;
 }
 
-export function getTooltipItems(data: Datum, geometry: Geometry) {
-  const origin = data[FIELD_ORIGIN];
-  const tooltipTitle = getTooltipTitle(origin, geometry);
+export function getTooltipItems(data: MappingDatum, geometry: Geometry) {
+  const originData = data[FIELD_ORIGIN];
+  const tooltipTitle = getTooltipTitle(originData, geometry);
   const tooltipOption = geometry.tooltipOption;
   const { defaultColor } = geometry.theme;
   const items = [];
@@ -285,7 +292,7 @@ export function getTooltipItems(data: Datum, geometry: Geometry) {
       // 值为 null的时候，忽视
       const item = {
         title: tooltipTitle,
-        data: origin, // 原始数据
+        data: originData, // 原始数据
         mappingData: data, // 映射后的数据
         name: itemName || tooltipTitle,
         value: itemValue,
@@ -318,21 +325,21 @@ export function getTooltipItems(data: Datum, geometry: Geometry) {
     } else {
       const scales = geometry.scales;
       _.each(fields, (field: string) => {
-        if (!_.isNil(origin[field])) {
+        if (!_.isNil(originData[field])) {
           // 字段数据为null, undefined 时不显示
           const scale = scales[field];
           name = getName(scale);
-          value = scale.getText(origin[field]);
+          value = scale.getText(originData[field]);
           addItem(name, value);
         }
       });
     }
   } else {
     const valueScale = getTooltipValueScale(geometry);
-    if (!_.isNil(origin[valueScale.field])) {
+    if (!_.isNil(originData[valueScale.field])) {
       // 字段数据为null ,undefined时不显示
-      value = getTooltipValue(origin, valueScale);
-      name = getTooltipName(origin, geometry);
+      value = getTooltipValue(originData, valueScale);
+      name = getTooltipName(originData, geometry);
       addItem(name, value);
     }
   }

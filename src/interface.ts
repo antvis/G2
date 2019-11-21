@@ -67,10 +67,27 @@ export interface AnimateOption {
   leave?: AnimateCfg | false | null;
 }
 
+// 用户数据经过图形映射处理后的数据结构
+export interface MappingDatum {
+  /** raw data */
+  _origin: Datum;
+  /** the key points of the shape */
+  points?: ShapeVertices;
+  /** the key points of next shape */
+  nextPoints?: ShapeVertices;
+  /** value in the x direction */
+  x?: number[] | number;
+  /** value in the y direction */
+  y?: number[] | number;
+  color?: string;
+  shape?: string;
+  size?: number;
+}
+
 // 绘制 Shape 需要的图形、样式、关键点等信息
 export interface ShapeInfo {
   /** x 坐标 */
-  x: number;
+  x: number | number[];
   /** y 坐标 */
   y: number | number[];
   /** 映射的 shape 类型 */
@@ -85,8 +102,8 @@ export interface ShapeInfo {
   isInCircle?: boolean | undefined;
   /** 对应的原始数据记录 */
   data?: Datum | Data;
-  /** 进行图形映射后的数据记录 */
-  origin?: Datum;
+  /** 存储进行图形映射后的数据 */
+  mappingData?: MappingDatum | MappingDatum[];
   /** 构成 shape 的关键点  */
   points?: ShapeVertices;
   /** 下一个数据集对应的关键点 */
