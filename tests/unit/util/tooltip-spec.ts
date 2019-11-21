@@ -2,6 +2,7 @@ import { getCoordinate } from '@antv/coord';
 import Interval from '../../../src/geometry/interval';
 import Line from '../../../src/geometry/line';
 import Point from '../../../src/geometry/point';
+import { MappingDatum } from '../../../src/interface';
 import Theme from '../../../src/theme/antv';
 import { findDataByPoint, getTooltipItems } from '../../../src/util/tooltip';
 import { CITY_SALE, DIAMOND } from '../../util/data';
@@ -44,12 +45,12 @@ describe('Tooltip functions', () => {
 
       const point = { x: 100, y: 30 };
       const data = interval.dataArray[0];
-      const result = findDataByPoint(point, data, interval);
+      const result = findDataByPoint(point, data as MappingDatum[], interval);
       expect(result._origin).toEqual({ city: '上海', sale: 110, category: '电脑' });
     });
 
     it('getTooltipItems', () => {
-      const data = findDataByPoint({ x: 100, y: 30 }, interval.dataArray[0], interval);
+      const data = findDataByPoint({ x: 100, y: 30 }, interval.dataArray[0] as MappingDatum[], interval);
       const tooltipItems = getTooltipItems(data, interval);
       expect(tooltipItems.length).toBe(1);
 
@@ -77,7 +78,7 @@ describe('Tooltip functions', () => {
 
     it('findDataByPoint', () => {
       const data = point.dataArray[0];
-      const result = findDataByPoint({ x: 100, y: 90 }, data, point);
+      const result = findDataByPoint({ x: 100, y: 90 }, data as MappingDatum[], point);
       expect(result._origin.carat).toBe(1.5);
       expect(result._origin.price).toBe(9996);
       expect(result._origin.cut).toBe('Ideal');
@@ -110,12 +111,12 @@ describe('Tooltip functions', () => {
 
     it('findDataByPoint', () => {
       const data = line.dataArray[0];
-      const result = findDataByPoint({ x: 100, y: 90 }, data, line);
+      const result = findDataByPoint({ x: 100, y: 90 }, data as MappingDatum[], line);
       expect(result._origin).toEqual({ year: 1995, value: 17000 });
     });
 
     it('getTooltipItems', () => {
-      const data = findDataByPoint({ x: 100, y: 90 }, line.dataArray[0], line);
+      const data = findDataByPoint({ x: 100, y: 90 }, line.dataArray[0] as MappingDatum[], line);
       const tooltipItems = getTooltipItems(data, line);
       const { color, name, value, title, mappingData } = tooltipItems[0];
       expect(color).toBe('#1890FF');

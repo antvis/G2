@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-import { ShapeInfo } from '../interface';
+import { MappingDatum, ShapeInfo } from '../interface';
 import Geometry from './base';
 /** 引入 Point 对应的 ShapeFactory */
 import './shape/point';
@@ -9,8 +9,8 @@ export default class Point extends Geometry {
   public readonly shapeType: string = 'point';
   protected generatePoints: boolean = true;
 
-  protected getDrawCfg(obj): ShapeInfo {
-    const shapeCfg = super.getDrawCfg(obj);
+  protected getDrawCfg(mappingDatum: MappingDatum): ShapeInfo {
+    const shapeCfg = super.getDrawCfg(mappingDatum);
 
     return {
       ...shapeCfg,

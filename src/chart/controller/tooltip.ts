@@ -5,7 +5,7 @@ import Geometry from '../../geometry/base';
 import { registerInteraction } from '../../interaction';
 // 引入 Tooltip 交互行为
 import TooltipInteraction from '../../interaction/tooltip';
-import { Data, Point } from '../../interface';
+import { Data, MappingDatum, Point } from '../../interface';
 import { findDataByPoint, getTooltipItems } from '../../util/tooltip';
 import { TooltipOption } from '../interface';
 import View from '../view';
@@ -263,7 +263,7 @@ export default class Tooltip {
         const dataArray = geometry.dataArray;
         if (shared !== false) {
           // 用户未配置 share: false
-          _.each(dataArray, (data: Data) => {
+          _.each(dataArray, (data: MappingDatum[]) => {
             const record = findDataByPoint(point, data, geometry);
             if (record) {
               const tooltipItems = getTooltipItems(record, geometry);
@@ -274,14 +274,14 @@ export default class Tooltip {
           const container = geometry.container;
           const shape = container.getShape(point.x, point.y);
           if (shape && shape.get('visible') && shape.get('origin')) {
-            const origin = shape.get('origin').origin;
-            if (_.isArray(origin)) {
-              const record = findDataByPoint(point, origin, geometry);
+            const mappingData = shape.get('origin').mappingData;
+            if (_.isArray(mappingData)) {
+              const record = findDataByPoint(point, mappingData, geometry);
               if (record) {
                 items = items.concat(getTooltipItems(record, geometry));
               }
             } else {
-              items = items.concat(getTooltipItems(origin, geometry));
+              items = items.concat(getTooltipItems(mappingData, geometry));
             }
           }
         }

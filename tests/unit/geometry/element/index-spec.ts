@@ -141,7 +141,7 @@ describe('Element', () => {
           lineWidth: 20,
           fill: '#454545',
         },
-        origin: {
+        mappingData: {
           _origin: { x: 12 },
         },
         data: { x: 12 },
@@ -158,7 +158,7 @@ describe('Element', () => {
           lineWidth: 20,
           fill: '#454545',
         },
-        origin: {
+        mappingData: {
           _origin: { x: 12 },
         },
         data: { x: 12 },
