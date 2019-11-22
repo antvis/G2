@@ -37,7 +37,7 @@ chart.interval().position('x*y').animate({
 * update: 更新时的变化动画；
 * leave: 更新时的动画；
 
-上述方法更详细的使用说明详见： [G2 Animate API](/zh/docs/manual/api/animate)。
+上述方法更详细的使用说明详见： [G2 Animate API](/zh/docs/api/animate)。
 
 ## 1 分钟上手自定义动画
 

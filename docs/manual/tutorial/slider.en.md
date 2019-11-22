@@ -3,7 +3,7 @@ title: Slider 滑块插件
 order: 18
 ---
 
-**提示**：Slider 滑块插件已经不再维护，请使用 [`chart.interaction('slider')`](/zh/docs/manual/api/interaction/#slider- 滑块） 接口。
+**提示**：Slider 滑块插件已经不再维护，请使用 [`chart.interaction('slider')`](/zh/docs/api/interaction/#slider- 滑块） 接口。
 
 ---
 

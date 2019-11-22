@@ -166,7 +166,7 @@ G2.Global.renderer = 'svg';
 
 - `scaleConfig`
 
-可选，用于数据字段的列定义，如设置数据的类型，显示别名，时间类型的展示格式等，不同的数字类型的配置项不同，详情可配置属性参考 [Scale](/zh/docs/manual/api/scale)。
+可选，用于数据字段的列定义，如设置数据的类型，显示别名，时间类型的展示格式等，不同的数字类型的配置项不同，详情可配置属性参考 [Scale](/zh/docs/api/scale)。
 
 ##### 示例
 
@@ -219,7 +219,7 @@ chart.source(data, {
 }
 ```
 
-!注意：除了以上属性外，不同的 type 还对应有各自的可配置属性，详见 [Scale 度量 API](/zh/docs/manual/api/scale);
+!注意：除了以上属性外，不同的 type 还对应有各自的可配置属性，详见 [Scale 度量 API](/zh/docs/api/scale);
 
 ##### 示例
 
@@ -442,7 +442,7 @@ label: {
 }
 ```
 
-- textStyle 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
+- textStyle 的更详细的配置项 [绘图属性](/zh/docs/api/graphics)
 
 1. `title`: object | null
 
@@ -469,7 +469,7 @@ title: {
 }
 ```
 
-- textStyle 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
+- textStyle 的更详细的配置项 [绘图属性](/zh/docs/api/graphics)
 
 1. `tickLine`: object | null
 
@@ -533,7 +533,7 @@ grid: {
 }
 ```
 
-- lineStyle 的更详细的配置项[ 绘图属性](/zh/docs/manual/api/graphics)
+- lineStyle 的更详细的配置项[ 绘图属性](/zh/docs/api/graphics)
 
 ### legend
 
@@ -1109,7 +1109,7 @@ crosshairs: {
 }
 ```
 
-- style 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
+- style 的更详细的配置项 [绘图属性](/zh/docs/api/graphics)
 
 > crosshairs.type 说明： `rect` 表示矩形框，`x` 表示水平辅助线，`y` 表示垂直辅助线，`cross` 表示十字辅助线。
 
@@ -1299,7 +1299,7 @@ chart.guide().line({
 
 - `lineStyle`: object
 
-用于设置辅助线的显示样式，`style` 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)。
+用于设置辅助线的显示样式，`style` 的更详细的配置项 [绘图属性](/zh/docs/api/graphics)。
 
 - `text`: object
 
@@ -1319,7 +1319,7 @@ text: {
 }
 ```
 
-`style` 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
+`style` 的更详细的配置项 [绘图属性](/zh/docs/api/graphics)
 
 #### chart.guide().text(cfg)
 
@@ -1375,7 +1375,7 @@ chart.guide().text({
 
 - `style`: object
 
-用于设置辅助文本的显示样式，`style` 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
+用于设置辅助文本的显示样式，`style` 的更详细的配置项 [绘图属性](/zh/docs/api/graphics)
 
 - `offsetX`: number
 
@@ -1509,7 +1509,7 @@ chart.guide().region({
 
 - `style`: object
 
-用于设置辅助背景框的样式，`style` 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)。
+用于设置辅助背景框的样式，`style` 的更详细的配置项 [绘图属性](/zh/docs/api/graphics)。
 
 #### chart.guide().html(cfg)
 
@@ -1630,7 +1630,7 @@ chart.guide().arc({
 
 - `style`: object
 
-设置圆弧的显示样式，`style` 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
+设置圆弧的显示样式，`style` 的更详细的配置项 [绘图属性](/zh/docs/api/graphics)
 
 #### chart.guide().regionFilter(cfg)
 
@@ -1693,7 +1693,7 @@ chart.guide().regionFilter({
 
 - `style`: object
 
-可选，为过滤区域的图形设置额外的样式，`style` 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)。
+可选，为过滤区域的图形设置额外的样式，`style` 的更详细的配置项 [绘图属性](/zh/docs/api/graphics)。
 
 #### chart.guide().dataMarker(cfg)
 
@@ -1758,7 +1758,7 @@ chart.guide().dataMarker({
 
 - `style`: object
 
-用于设置 point/line/text 样式，更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
+用于设置 point/line/text 样式，更详细的配置项 [绘图属性](/zh/docs/api/graphics)
 
 - `display`: object
 
@@ -1836,7 +1836,7 @@ chart.guide().dataRegion({
 
 - `style`: object
 
-region/text 的显示样式，更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
+region/text 的显示样式，更详细的配置项 [绘图属性](/zh/docs/api/graphics)
 
 - `lineLength`: number
 
@@ -1944,7 +1944,7 @@ colTitle: {
 }
 ```
 
-- style 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
+- style 的更详细的配置项 [绘图属性](/zh/docs/api/graphics)
 
 - `rowTitle`: object | null
 
@@ -1961,7 +1961,7 @@ rowTitle: {
 }
 ```
 
-- style 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
+- style 的更详细的配置项 [绘图属性](/zh/docs/api/graphics)
 
 ! 注意：`showTitle` 和 `autoSetAxis` 用于控制分面的默认行为；`colTitle` 和 `rowTitle` 是通过 `chart.guild().text()` 来实现的，所以所有 `chart.guild().text()` 的参数都生效。
 
@@ -2047,7 +2047,7 @@ chart.filter('x', val => {
 
 ### view
 
-创建视图，返回 view 对象（详见 [View](/zh/docs/manual/api/view)）。
+创建视图，返回 view 对象（详见 [View](/zh/docs/api/view)）。
 
 ```javascript
 chart.view({
@@ -2112,19 +2112,19 @@ padding 为数字以及数组类型时使用方法同 CSS 盒模型。
 
 ### line
 
-创建线图，返回一个 geom 对象，详见 [Geometry](/zh/docs/manual/api/geometry)。
+创建线图，返回一个 geom 对象，详见 [Geometry](/zh/docs/api/geometry)。
 
 ### point
 
-创建点图图，返回一个 geom 对象，详见 [Geometry](/zh/docs/manual/api/geometry)。
+创建点图图，返回一个 geom 对象，详见 [Geometry](/zh/docs/api/geometry)。
 
 ### path
 
-创建路径图，返回一个 geom 对象，详见 [Geometry](/zh/docs/manual/api/geometry)。
+创建路径图，返回一个 geom 对象，详见 [Geometry](/zh/docs/api/geometry)。
 
 ### area
 
-创建区域图，返回一个 geom 对象，详见 [Geometry](/zh/docs/manual/api/geometry)。
+创建区域图，返回一个 geom 对象，详见 [Geometry](/zh/docs/api/geometry)。
 
 ### interval
 
@@ -2132,19 +2132,19 @@ padding 为数字以及数组类型时使用方法同 CSS 盒模型。
 
 ### polygon
 
-创建多边形，返回一个 geom 对象，详见 [Geometry](/zh/docs/manual/api/geometry)。
+创建多边形，返回一个 geom 对象，详见 [Geometry](/zh/docs/api/geometry)。
 
 ### schema
 
-创建 K 线、箱型图，返回一个 geom 对象，详见 [Geometry](/zh/docs/manual/api/geometry)。
+创建 K 线、箱型图，返回一个 geom 对象，详见 [Geometry](/zh/docs/api/geometry)。
 
 ### edge
 
-创建树图、流程图、关系图，返回一个 geom 对象，详见 [Geometry](/zh/docs/manual/api/geometry)。
+创建树图、流程图、关系图，返回一个 geom 对象，详见 [Geometry](/zh/docs/api/geometry)。
 
 ### heatmap
 
-创建热力图，返回一个 geom 对象，详见 [Geometry](/zh/docs/manual/api/geometry)。
+创建热力图，返回一个 geom 对象，详见 [Geometry](/zh/docs/api/geometry)。
 
 ### render
 
@@ -2210,11 +2210,11 @@ padding 为数字以及数组类型时使用方法同 CSS 盒模型。
 
 ### getXScale
 
-返回图表 x 轴对应的度量[Scale](/zh/docs/manual/api/coordinate)。
+返回图表 x 轴对应的度量[Scale](/zh/docs/api/coordinate)。
 
 ### getYScales
 
-获取图表所有 y 轴的度量[Scale](/zh/docs/manual/api/scale)，以数组的形式返回。
+获取图表所有 y 轴的度量[Scale](/zh/docs/api/scale)，以数组的形式返回。
 
 ### getXY
 
@@ -2284,7 +2284,7 @@ chart.on('plotmove', ev => {
 
 ### getAllGeoms
 
-获取图表中所有的几何标记对象 [geometry](/zh/docs/manual/api/geometry)，返回的结果是一个数组： [geom, geom, ...]。
+获取图表中所有的几何标记对象 [geometry](/zh/docs/api/geometry)，返回的结果是一个数组： [geom, geom, ...]。
 
 ### changeVisible
 
@@ -2312,7 +2312,7 @@ chart.on('plotmove', ev => {
 
 (point: object)
 
-根据传入的坐标点显示对应的 tooltip 信息，这个方法通常同 [chart.getXY()](/zh/docs/manual/api/chart/#getxy) 配合使用。
+根据传入的坐标点显示对应的 tooltip 信息，这个方法通常同 [chart.getXY()](/zh/docs/api/chart/#getxy) 配合使用。
 
 point 是一个对象，代表画布上的坐标点，参数格式如下：
 
@@ -2426,7 +2426,7 @@ chart.on('guide-line-text:click', ev => {
 });
 ```
 
-- lineStyle, style 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
+- lineStyle, style 的更详细的配置项 [绘图属性](/zh/docs/api/graphics)
 
 - ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*2vr7RZwsLQ0AAAAAAAAAAABkARQnAQ)
 
@@ -2520,7 +2520,7 @@ chart.on('interval:mouseleave', ev => {
 });
 ```
 
-- style 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
+- style 的更详细的配置项 [绘图属性](/zh/docs/api/graphics)
 
 ### 更多
 

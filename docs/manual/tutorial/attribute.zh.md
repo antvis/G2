@@ -502,7 +502,7 @@ size 函数可以返回一个数组，特别对应[自定义shape](/zh/docs/manu
 
 ## 更多图形属性的映射
 
-除了上面指定的视觉通道外，G2 3.0 还在 [geom.style()](/zh/docs/manual/api/geometry#3wvmyd) 方法中允许用户使用回调函数，可以对任何图形属性进行映射，但是不会自动生成图例
+除了上面指定的视觉通道外，G2 3.0 还在 [geom.style()](/zh/docs/api/geometry#3wvmyd) 方法中允许用户使用回调函数，可以对任何图形属性进行映射，但是不会自动生成图例
 
 ## Geom 支持的图形属性
 

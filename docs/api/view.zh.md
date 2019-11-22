@@ -138,39 +138,39 @@ chart.render();
 
 ### source
 
-同 [chart.source()](/zh/docs/manual/api/chart/#source)。
+同 [chart.source()](/zh/docs/api/chart/#source)。
 
 ### getXScale
 
-同 [chart.getXScale()](/zh/docs/manual/api/chart/#getxscale)，只是返回该视图 x 轴对应的度量。
+同 [chart.getXScale()](/zh/docs/api/chart/#getxscale)，只是返回该视图 x 轴对应的度量。
 
 ### getYScales
 
-同 [chart.getYScales()](/zh/docs/manual/api/chart/#getyscales)，只是返回该视图 y 轴对应的度量。
+同 [chart.getYScales()](/zh/docs/api/chart/#getyscales)，只是返回该视图 y 轴对应的度量。
 
 ### getXY
 
-同 [chart.getXY()](/zh/docs/manual/api/chart/#getxy)。
+同 [chart.getXY()](/zh/docs/api/chart/#getxy)。
 
 ### filter
 
-同 [chart.filter()](/zh/docs/manual/api/chart/#filter)。
+同 [chart.filter()](/zh/docs/api/chart/#filter)。
 
 ### axis
 
-同 [chart.axis()](/zh/docs/manual/api/chart/#axis)。
+同 [chart.axis()](/zh/docs/api/chart/#axis)。
 
 ### guide
 
-同 [chart.guide()](/zh/docs/manual/api/chart/#guide)。
+同 [chart.guide()](/zh/docs/api/chart/#guide)。
 
 ### scale
 
-同 [chart.scale()](/zh/docs/manual/api/chart/#scale)。
+同 [chart.scale()](/zh/docs/api/chart/#scale)。
 
 ### coord
 
-同 [chart.coord()](/zh/docs/manual/api/chart/#coord)。
+同 [chart.coord()](/zh/docs/api/chart/#coord)。
 
 ### tooltip
 
@@ -184,60 +184,60 @@ view.tooltip(false); // 关闭 view 上的 tooltip
 
 ### animate
 
-同 [chart.animate()](/zh/docs/manual/api/chart/#animate)。
+同 [chart.animate()](/zh/docs/api/chart/#animate)。
 
 ### clear
 
-同 [chart.clear()](/zh/docs/manual/api/chart/#clear)。
+同 [chart.clear()](/zh/docs/api/chart/#clear)。
 
 ### changeData
 
-同 [chart.changeData()](/zh/docs/manual/api/chart/#changedata)。
+同 [chart.changeData()](/zh/docs/api/chart/#changedata)。
 
 ### changeVisible
 
-同 [chart.changeVisible()](/zh/docs/manual/api/chart/#changevisible)。
+同 [chart.changeVisible()](/zh/docs/api/chart/#changevisible)。
 
 ### repaint
 
-同 [chart.repaint()](/zh/docs/manual/api/chart/#repaint)。
+同 [chart.repaint()](/zh/docs/api/chart/#repaint)。
 
 ### destroy
 
-同 [chart.destroy()](/zh/docs/manual/api/chart/#destroy)。
+同 [chart.destroy()](/zh/docs/api/chart/#destroy)。
 
 ### line
 
-同 [chart.line()](/zh/docs/manual/api/chart/#line)。
+同 [chart.line()](/zh/docs/api/chart/#line)。
 
 ### path
 
-同 [chart.path()](/zh/docs/manual/api/chart/#path)。
+同 [chart.path()](/zh/docs/api/chart/#path)。
 
 ### interval
 
-同 [chart.interval()](/zh/docs/manual/api/chart/#interval)。
+同 [chart.interval()](/zh/docs/api/chart/#interval)。
 
 ### area
 
-同 [chart.area()](/zh/docs/manual/api/chart/#area)。
+同 [chart.area()](/zh/docs/api/chart/#area)。
 
 ### point
 
-同 [chart.point()](/zh/docs/manual/api/chart/#point)。
+同 [chart.point()](/zh/docs/api/chart/#point)。
 
 ### polygon
 
-同 [chart.polygon()](/zh/docs/manual/api/chart/#polygon)。
+同 [chart.polygon()](/zh/docs/api/chart/#polygon)。
 
 ### edge
 
-同 [chart.edge()](/zh/docs/manual/api/chart/#edge)。
+同 [chart.edge()](/zh/docs/api/chart/#edge)。
 
 ### schema
 
-同 [chart.schema()](/zh/docs/manual/api/chart/#schema)。
+同 [chart.schema()](/zh/docs/api/chart/#schema)。
 
 ### heatmap
 
-同 [chart.heatmap()](/zh/docs/manual/api/chart/#heatmap)。
+同 [chart.heatmap()](/zh/docs/api/chart/#heatmap)。

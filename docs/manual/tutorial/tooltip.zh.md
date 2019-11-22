@@ -47,7 +47,7 @@ chart.tooltip({
 
 ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*EmOjSqE1J3cAAAAAAAAAAABkARQnAQ)
 
-更详细的配置请查看 [tooltip api](/zh/docs/manual/api/chart#tooltip)。
+更详细的配置请查看 [tooltip api](/zh/docs/api/chart#tooltip)。
 
 （2）geom 对象上的 tooltip 配置
 
@@ -326,7 +326,7 @@ chart.tooltip(true, {
 
 2. 在 html 页面的 style 标签内，为对应的 dom 标签设置样式；
 
-3. 在 `chart.tooltip(cfg)` 中设置属性，如下，具体的说明详见 [API](/zh/docs/manual/api/chart#tooltip)
+3. 在 `chart.tooltip(cfg)` 中设置属性，如下，具体的说明详见 [API](/zh/docs/api/chart#tooltip)
 
 ```javascript
 chart.tooltip({

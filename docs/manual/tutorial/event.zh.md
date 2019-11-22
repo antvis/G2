@@ -64,7 +64,7 @@ img,[object Object],
 
 ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*VuEuRqN8JTEAAAAAAAAAAABkARQnAQ)
 
-详细的使用详见 [api](/zh/docs/manual/api/chart#deduxh)。
+详细的使用详见 [api](/zh/docs/api/chart#deduxh)。
 
 ## 如何使用
 

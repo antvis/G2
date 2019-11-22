@@ -3,12 +3,12 @@ title: Slider 滑块插件
 order: 11
 ---
 
-**提示**：Slider 滑块插件已经不再维护，请使用 [`chart.interaction('slider')`](/zh/docs/manual/api/interaction/#slider- 滑块） 接口。
+**提示**：Slider 滑块插件已经不再维护，请使用 [`chart.interaction('slider')`](/zh/docs/api/interaction/#slider- 滑块） 接口。
 
 __使用前提：__
 
 1. Slider 组件作为 G2 的交互插件，必须在 G2 引入的前提下使用！
-2. 为了做到纯粹和解耦，Slider 组件是完全基于数据的筛选操作，需要配合 [DataSet](/zh/docs/manual/api/data-set) 以及[状态量](/zh/docs/manual/api/data-set/#dsstate)使用，当滑动条发生变化时，通过定义 `onChange` 更新状态量，来达到图表的自动更新。
+2. 为了做到纯粹和解耦，Slider 组件是完全基于数据的筛选操作，需要配合 [DataSet](/zh/docs/api/data-set) 以及[状态量](/zh/docs/api/data-set/#dsstate)使用，当滑动条发生变化时，通过定义 `onChange` 更新状态量，来达到图表的自动更新。
 
 创建 Slider 的方式如下：
 
