@@ -71,7 +71,7 @@ const IndexPage = () => {
         coverImage={
           <img width="100%" class="Notification-module--number--31-3Z" style={{ marginLeft: '100px', marginTop: '40px' }}
             src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*wo_LToatmbwAAAAAAAAAAABkARQnAQ" />}
-        title={t('G2 可视化底层引擎')}
+        title={t('G2 可视化引擎')}
         description={t(
           'G2 是一套基于图形语法理论的可视化底层引擎，以数据驱动，具有高度的易用性和扩展性。用户无需关注各种繁琐的实现细节，一条语句即可构建出各种各样的可交互的统计图表。',
         )}
