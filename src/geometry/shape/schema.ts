@@ -1,18 +1,19 @@
 import * as _ from '@antv/util';
-import { ShapeDrawCFG, ShapePoint } from '../../interface';
+import { PathCommand } from '../../dependents';
+import { Point, ShapeDrawCFG, ShapePoint } from '../../interface';
 import { padEnd } from '../../util/helper';
 import { doAnimate } from '../animate';
 import Element from '../element';
 import { registerShape, registerShapeFactory } from './base';
 
-function sortValue(value) {
+function getCandleYValues(value: number | number[]) {
   const array = !_.isArray(value) ? [value] : value;
   // 从大到小排序
   const sorted = array.sort((a, b) => b - a);
   return padEnd(sorted, 4, sorted[sorted.length - 1]);
 }
 
-function parseValue(value) {
+function parseValue(value: number[]) {
   const array = !_.isArray(value) ? [value] : value;
 
   const min = array[0]; // 最小值
@@ -31,8 +32,8 @@ function parseValue(value) {
 }
 
 // get candle shape's key points
-function getCandlePoints(x: number, y: number[], size: number) {
-  const yValues = sortValue(y);
+function getCandlePoints(x: number, y: number[], size: number): Point[] {
+  const yValues = getCandleYValues(y);
   return [
     { x, y: yValues[0] },
     { x, y: yValues[1] },
@@ -45,7 +46,7 @@ function getCandlePoints(x: number, y: number[], size: number) {
   ];
 }
 
-function getCandlePath(points) {
+function getCandlePath(points): PathCommand[] {
   return [
     ['M', points[0].x, points[0].y],
     ['L', points[1].x, points[1].y],
@@ -59,7 +60,7 @@ function getCandlePath(points) {
   ];
 }
 
-function getBoxPoints(x: number, y: number | number[], size: number) {
+function getBoxPoints(x: number, y: number | number[], size: number): Point[] {
   const halfSize = size / 2;
   let pointsArray;
   if (_.isArray(y)) {
@@ -84,7 +85,7 @@ function getBoxPoints(x: number, y: number | number[], size: number) {
   } else {
     // 只有一个维度
     y = y || 0.5;
-    const { min, max, median, min1, max1 } = parseValue(y);
+    const { min, max, median, min1, max1 } = parseValue([y]);
     pointsArray = [
       [min, y - halfSize],
       [min, y + halfSize],
@@ -111,7 +112,7 @@ function getBoxPoints(x: number, y: number | number[], size: number) {
   });
 }
 
-function getBoxPath(points) {
+function getBoxPath(points): PathCommand[] {
   return [
     ['M', points[0].x, points[0].y],
     ['L', points[1].x, points[1].y],
