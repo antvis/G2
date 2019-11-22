@@ -1,5 +1,6 @@
 import * as _ from '@antv/util';
 import { ShapeDrawCFG, ShapePoint } from '../../interface';
+import { padEnd } from '../../util/helper';
 import { doAnimate } from '../animate';
 import Element from '../element';
 import { registerShape, registerShapeFactory } from './base';
@@ -7,17 +8,8 @@ import { registerShape, registerShapeFactory } from './base';
 function sortValue(value) {
   const array = !_.isArray(value) ? [value] : value;
   // 从大到小排序
-  const sorted = array.sort((a, b) => (a < b ? 1 : -1));
-
-  const length = sorted.length;
-  if (length < 4) {
-    const min = sorted[length - 1];
-    for (let i = 0; i < 4 - length; i++) {
-      sorted.push(min);
-    }
-  }
-
-  return sorted;
+  const sorted = array.sort((a, b) => b - a);
+  return padEnd(sorted, 4, sorted[sorted.length - 1]);
 }
 
 function parseValue(value) {
