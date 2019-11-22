@@ -445,7 +445,7 @@ line.label('x', {
 });
 ```
 
-- textStyle 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
+- textStyle 的更详细的配置项 [绘图属性](/zh/docs/api/graphics)
 
 #### label(field)
 
@@ -481,7 +481,7 @@ chart.line().label('x', {
 })
 ```
 
-- textStyle 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
+- textStyle 的更详细的配置项 [绘图属性](/zh/docs/api/graphics)
 
 #### label(field, callback, cfg)
 
@@ -605,7 +605,7 @@ offset: { array | number }
 
 textStyle
 
-设置文本的显示样式，具体请见更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
+设置文本的显示样式，具体请见更详细的配置项 [绘图属性](/zh/docs/api/graphics)
 
 autoRotate: boolean
 
@@ -779,7 +779,7 @@ chart.intervalStack()
 chart.render();
 ```
 
-- style 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
+- style 的更详细的配置项 [绘图属性](/zh/docs/api/graphics)
 
 ### style
 
@@ -796,7 +796,7 @@ line().style('a*b', { // 使用回调函数设置属性
 });
 ```
 
-- style 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
+- style 的更详细的配置项 [绘图属性](/zh/docs/api/graphics)
 
 ### select
 
@@ -813,7 +813,7 @@ geom.select([true], {
 });
 ```
 
-- select 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
+- select 的更详细的配置项 [绘图属性](/zh/docs/api/graphics)
 
 ### active
 
@@ -831,7 +831,7 @@ geom.active([true,] {
 });
 ```
 
-- active 的更详细的配置项 [绘图属性](/zh/docs/manual/api/graphics)
+- active 的更详细的配置项 [绘图属性](/zh/docs/api/graphics)
 
 ### animate
 
@@ -854,7 +854,7 @@ geom().animate({
 });
 ```
 
-**更加详细的配置参见 **[G2 Animate API](/zh/docs/manual/api/animate)。
+**更加详细的配置参见 **[G2 Animate API](/zh/docs/api/animate)。
 
 ## 其他方法
 

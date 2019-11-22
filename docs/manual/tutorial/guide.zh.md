@@ -23,7 +23,7 @@ G2 目前支持 __9__ 种辅助标记类型：
 
 ## 如何使用
 
-下面列出了各个 guide 辅助标记类型的使用，更详细的配置项参见 [Guide API](/zh/docs/manual/api/chart/#guide)。
+下面列出了各个 guide 辅助标记类型的使用，更详细的配置项参见 [Guide API](/zh/docs/api/chart/#guide)。
 
 guide 辅助标记用于标示位置的方式主要有两种
 * 原始数据的值 如： {time: '2010-01-01', value: 100} 或者 ['2010-01-01', 100]
@@ -566,7 +566,7 @@ chart.render();
 
 * 可以使用'min', 'median', 'max' 字符串代表原始值的最小值、平均值、最大值，例如： [0, 'min'] 表示 x 轴上数值为 0，y 轴位置在数值的最小值上；
 * 表示位置的数组可以换成回调函数，函数原型： `function(xScale, yScale) {return [];}`
-    * xScale, yScale 映射到 x 轴上的字段生成的度量，详情查看 [度量 api](/zh/docs/manual/api/scale);
+    * xScale, yScale 映射到 x 轴上的字段生成的度量，详情查看 [度量 api](/zh/docs/api/scale);
     * 分类度量常用的值是 `values` 包含了所有的分类，连续度量常用的是 min, max
 
 ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8Y2GRqPspv0AAAAAAAAAAABkARQnAQ)

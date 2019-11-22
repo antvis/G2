@@ -66,7 +66,7 @@ chart.facet('list', {
 });
 ```
 
-更多配置信息，请查阅 [Facet API](/zh/docs/manual/api/chart#cizqmm)。
+更多配置信息，请查阅 [Facet API](/zh/docs/api/chart#cizqmm)。
 
 ## 分面的类型
 

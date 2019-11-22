@@ -59,7 +59,7 @@ chart.interval().position('genre*sold').color('genre').label('sold');
 chart.render();
 ```
 
-更多配置项请查看 [label](/zh/docs/manual/api/geometry#84ebds) api。
+更多配置项请查看 [label](/zh/docs/api/geometry#84ebds) api。
 
 ## 格式化文本
 

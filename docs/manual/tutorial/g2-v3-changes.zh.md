@@ -123,7 +123,7 @@ chart.cols({})
         </td>
         <td rowspan="1" colSpan="1">
           <div data-type="p">接口使用方式不变，但是对可配置的属性结构以及部分属性名做了变化，详见
-            <a target="_blank" rel="noopener noreferrer nofollow" href="/zh/docs/manual/api/chart#whc6bq" class="bi-link">chart.axis() API</a>, 这里说明下变化较大的属性。</div><pre data-syntax=""><code class="language-">chart.axis(&#x27;x&#x27;, {
+            <a target="_blank" rel="noopener noreferrer nofollow" href="/zh/docs/api/chart#whc6bq" class="bi-link">chart.axis() API</a>, 这里说明下变化较大的属性。</div><pre data-syntax=""><code class="language-">chart.axis(&#x27;x&#x27;, {
   label: {
     textStyle: {
       fill: &#x27;red&#x27;
@@ -152,7 +152,7 @@ chart.cols({})
         </td>
         <td rowspan="1" colSpan="1">
           <div data-type="p">接口使用方式不变，但是对可配置的属性结构以及部分属性名做了变化，并且新添加了更多的功能，详见
-            <a target="_blank" rel="noopener noreferrer nofollow" href="/zh/docs/manual/api/chart#h34mcz" class="bi-link">chart.legend() API</a>
+            <a target="_blank" rel="noopener noreferrer nofollow" href="/zh/docs/api/chart#h34mcz" class="bi-link">chart.legend() API</a>
           </div>
         </td>
         <td rowspan="1" colSpan="1">
@@ -187,7 +187,7 @@ chart.cols({})
             <div data-type="p">说明：</div>
           </blockquote>
           <div data-type="p">新增加了 matrix 分面，用于实现散点图矩阵。详见
-            <a target="_blank" rel="noopener noreferrer nofollow" href="/zh/docs/manual/api/chart#cizqmm" class="bi-link">chart.facet() API</a>。</div>
+            <a target="_blank" rel="noopener noreferrer nofollow" href="/zh/docs/api/chart#cizqmm" class="bi-link">chart.facet() API</a>。</div>
         </td>
         <td rowspan="1" colSpan="1"><pre data-syntax=""><code class="language-">chart.facet([field], {
   type: &#x27;list&#x27;
@@ -204,7 +204,7 @@ chart.point().position(&#x27;x*y&#x27;)
           <ol start="1" data-type="unordered-list">
             <li data-type="list-item" data-list-type="unordered-list">
               <div data-type="p">
-                <a target="_blank" rel="noopener noreferrer nofollow" href="/zh/docs/manual/api/tooltip" class="bi-link">chart.tooltip()</a>
+                <a target="_blank" rel="noopener noreferrer nofollow" href="/zh/docs/api/tooltip" class="bi-link">chart.tooltip()</a>
               </div>
             </li>
             <li data-type="list-item" data-list-type="unordered-list">
@@ -212,7 +212,7 @@ chart.point().position(&#x27;x*y&#x27;)
             </li>
             <li data-type="list-item" data-list-type="unordered-list">
               <div data-type="p">
-                <a target="_blank" rel="noopener noreferrer nofollow" href="/zh/docs/manual/api/geometry#dlu5rn" class="bi-link">geom.tooltip()</a>
+                <a target="_blank" rel="noopener noreferrer nofollow" href="/zh/docs/api/geometry#dlu5rn" class="bi-link">geom.tooltip()</a>
               </div>
             </li>
           </ol>
@@ -252,7 +252,7 @@ chart.point().position(&#x27;x*y&#x27;)
           </ol>
           <div data-type="p"></div>
           <div data-type="p">详见
-            <a target="_blank" rel="noopener noreferrer nofollow" href="/zh/docs/manual/api/chart#gokznc" class="bi-link">chart.guide() API</a>
+            <a target="_blank" rel="noopener noreferrer nofollow" href="/zh/docs/api/chart#gokznc" class="bi-link">chart.guide() API</a>
           </div>
         </td>
         <td rowspan="1" colSpan="1"><pre data-syntax=""><code class="language-">chart.guide().line([startXValue, startYValue], [endXValue, endYValue], {
@@ -269,7 +269,7 @@ chart.point().position(&#x27;x*y&#x27;)
         <td rowspan="1" colSpan="1"><pre data-syntax=""><code class="language-">chart.filter(&#x27;a&#x27;, val =&gt; {});
 </code></pre>
           <div data-type="p">详见
-            <a target="_blank" rel="noopener noreferrer nofollow" href="/zh/docs/manual/api/chart#ybmudb" class="bi-link">chart.filter() API</a>
+            <a target="_blank" rel="noopener noreferrer nofollow" href="/zh/docs/api/chart#ybmudb" class="bi-link">chart.filter() API</a>
           </div>
         </td>
         <td rowspan="1" colSpan="1"><pre data-syntax=""><code class="language-">chart.filter(&#x27;a&#x27;, []);
@@ -343,7 +343,7 @@ positon(Stat.summary.percent(&#x27;x*y&#x27;))
 </code></pre>
           <div data-type="p"></div>
           <div data-type="p">详见
-            <a target="_blank" rel="noopener noreferrer nofollow" href="/zh/docs/manual/api/geometry#84ebds" class="bi-link">geom.label() API</a>
+            <a target="_blank" rel="noopener noreferrer nofollow" href="/zh/docs/api/geometry#84ebds" class="bi-link">geom.label() API</a>
           </div>
         </td>
         <td rowspan="1" colSpan="1"><pre data-syntax=""><code class="language-">.label(&#x27;x&#x27;, {
@@ -429,9 +429,9 @@ chart.on(&#x27;tooltiphide&#x27;)
 ## 废弃的类、接口、属性、事件
 
 * ~~G2.Frame~~
-    废除 `Frame` ，由[ DataView](/zh/docs/manual/api/data-set) 替代。
+    废除 `Frame` ，由[ DataView](/zh/docs/api/data-set) 替代。
 * ~~G2.Stat~~
-    废除 `Stat`, 由 [DataView 的 transform](/zh/docs/manual/api/data-set/#datasettransforms) 替代。
+    废除 `Stat`, 由 [DataView 的 transform](/zh/docs/api/data-set/#datasettransforms) 替代。
 * ~~G2.Theme~~
     直接使用 `G2.Global`。
 * ~~G2.Canvas~~
@@ -440,7 +440,7 @@ chart.on(&#x27;tooltiphide&#x27;)
 * ~~G2.Base~~
 * ~~G2.ColorCalculate~~
 * ~~G2.Layout~~
-    由[ DataView 的 transform](/zh/docs/manual/api/data-set/#datasettransforms) 相应的方法替代。
+    由[ DataView 的 transform](/zh/docs/api/data-set/#datasettransforms) 相应的方法替代。
 * ~~chart.col() 以及 chart.cols()~~
     使用 `chart.scale()` 替代
 * ~~chart.guide().tag()~~

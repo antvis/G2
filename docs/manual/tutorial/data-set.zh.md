@@ -73,13 +73,13 @@ const dv = new View();
 
 DataSet 主要完成了以下功能：
 
-- 源数据的解析，将 CSV, DSV, GeoJSON 转成标准的JSON，查看 [Connector](/zh/docs/manual/api/connector)
+- 源数据的解析，将 CSV, DSV, GeoJSON 转成标准的JSON，查看 [Connector](/zh/docs/api/connector)
 
-- 加工数据，包括 filter, map, fold(补数据) 等操作，查看 [Transform](/zh/docs/manual/api/transform)
+- 加工数据，包括 filter, map, fold(补数据) 等操作，查看 [Transform](/zh/docs/api/transform)
 
-- 统计函数，汇总统计、百分比、封箱 等统计函数，查看 [Transform](/zh/docs/manual/api/transform)
+- 统计函数，汇总统计、百分比、封箱 等统计函数，查看 [Transform](/zh/docs/api/transform)
 
-- 特殊数据处理，包括 地理数据、矩形树图、桑基图、文字云 的数据处理，查看 [Transform](/zh/docs/manual/api/transform)
+- 特殊数据处理，包括 地理数据、矩形树图、桑基图、文字云 的数据处理，查看 [Transform](/zh/docs/api/transform)
 
 ## 使用示例
 

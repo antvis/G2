@@ -111,7 +111,7 @@ crosshairs 是一个对象类型，用于设置 tooltip 的辅助线或者辅助
 
   - `style`:object
 
-<br />用于控制crosshairs的显示样式，更详细见 [绘图属性](/zh/docs/manual/api/graphics)<br />
+<br />用于控制crosshairs的显示样式，更详细见 [绘图属性](/zh/docs/api/graphics)<br />
 <br />crosshairs 完整用法：
 
 ```javascript
@@ -221,19 +221,19 @@ itemTpl: '<li data-index={index}>'
 
 - `boardStyle`:object
 
-用于控制tooltip背景板的显示样式，更详细见 [绘图属性](/zh/docs/manual/api/graphics)
+用于控制tooltip背景板的显示样式，更详细见 [绘图属性](/zh/docs/api/graphics)
 
 - `titleStyle`:object
 
-用于控制tooltip标题的显示样式，更详细见 [绘图属性](/zh/docs/manual/api/graphics)
+用于控制tooltip标题的显示样式，更详细见 [绘图属性](/zh/docs/api/graphics)
 
 - `nameStyle`:object
 
-用于控制tooltip每一项 name 的显示样式，更详细见 [绘图属性](/zh/docs/manual/api/graphics)
+用于控制tooltip每一项 name 的显示样式，更详细见 [绘图属性](/zh/docs/api/graphics)
 
 - `valueStyle`:object
 
-用于控制tooltip每一项 value 的显示样式，更详细见 [绘图属性](/zh/docs/manual/api/graphics)
+用于控制tooltip每一项 value 的显示样式，更详细见 [绘图属性](/zh/docs/api/graphics)
 
 - `itemGap`:number
 
@@ -245,11 +245,11 @@ mini tooltip 是一种极简的 tooltip 形式，只显示单个数据的数值�
 
 - `boardStyle`:object
 
-用于控制tooltip背景板的显示样式，更详细见 [绘图属性](/zh/docs/manual/api/graphics)
+用于控制tooltip背景板的显示样式，更详细见 [绘图属性](/zh/docs/api/graphics)
 
 - `valueStyle`:object
 
-用于控制tooltip数值value 的显示样式，更详细见 [绘图属性](/zh/docs/manual/api/graphics)
+用于控制tooltip数值value 的显示样式，更详细见 [绘图属性](/zh/docs/api/graphics)
 
 - `triangleWidth`:number
 
@@ -272,4 +272,4 @@ chart.line().position('x*y').tooltip('a*b*c'); // 这时候 a,b,c 字段各占�
 chart.line().position('x*y').tooltip('a*b*c', (a,b,c) => {title: a, name: b, value: c});
 ```
 
-更多的方式参考：[geometry.tooltip()](/zh/docs/manual/api/geometry#tooltip)
+更多的方式参考：[geometry.tooltip()](/zh/docs/api/geometry#tooltip)

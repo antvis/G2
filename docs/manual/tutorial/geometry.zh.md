@@ -81,7 +81,7 @@ const geom = chart.point().xx().xx(); // 这里使用了 point 类型的 geom，
 
   - animate(cfg) 图形的动画
 
-> 具体 API 详见[文档](/zh/docs/manual/api/geometry)
+> 具体 API 详见[文档](/zh/docs/api/geometry)
 
 ## 几何标记和图形形状
 

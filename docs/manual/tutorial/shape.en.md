@@ -15,12 +15,12 @@ Shape.registerShape(geomName, shapeName, { // 向Shape工厂注册某个geom的�
 
 上述 7 行的代码片段即使自定义 Shape 的所有接口。
 
-* geomName [几何标记](/zh/docs/manual/api/geometry)名, 如 point, line 等
+* geomName [几何标记](/zh/docs/api/geometry)名, 如 point, line 等
 * shapeName 注册的具体图形名，自定义的图形的名称
 * getPoints 自定义形状绘制时需要的节点，比如柱状图需要 4 个节点
 * draw 执行图形绘制逻辑、调用绘图引擎
 
-上述方法更详细的使用说明详见： [Shape API](/zh/docs/manual/api/shape)。
+上述方法更详细的使用说明详见： [Shape API](/zh/docs/api/shape)。
 
 ## 1 分钟上手自定义 Shape
 

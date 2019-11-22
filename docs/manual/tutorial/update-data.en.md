@@ -125,4 +125,4 @@ setInterval(function () {
 
 ## 使用 DataSet 的状态量
 
-使用 DataSet 的状态量也可以动态的进行图表的更新、联动，查看 [DataSet 章节](/zh/docs/manual/api/data-set)
+使用 DataSet 的状态量也可以动态的进行图表的更新、联动，查看 [DataSet 章节](/zh/docs/api/data-set)

@@ -211,7 +211,7 @@ const dv1 = new DataSet.View(ds, {
 
 `data` 是原始数据，可能是字符串，也可能是数组、对象，或者另一个数据视图实例。`options` 里指定了载入数据使用的 `connector` 和载入时使用的配置项。
 
-详细文档见 [Connector API](/zh/docs/manual/api/connector)
+详细文档见 [Connector API](/zh/docs/api/connector)
 
 #### dv.transform()
 
@@ -223,7 +223,7 @@ const dv1 = new DataSet.View(ds, {
 
 `options` 里指定了处理数据使用的 `transform` 和数据处理的配置项。
 
-详细文档见 [Transform API](/zh/docs/manual/api/transform)
+详细文档见 [Transform API](/zh/docs/api/transform)
 
 ## 方法 Functions
 

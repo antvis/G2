@@ -5,7 +5,7 @@ order: 10
 
 G2 除了支持函数调用方式外，也支持图形语法的配置项式声明方式。
 
-为 [Chart](/zh/docs/manual/api/chart) 对象新增 `options` 属性，用于支持配置项式声明。
+为 [Chart](/zh/docs/api/chart) 对象新增 `options` 属性，用于支持配置项式声明。
 
 ```js
 const chart = new G2.Chart({
@@ -433,7 +433,7 @@ scales: {
 }
 ```
 
-具体列定义的参数 API： [Scale](/zh/docs/manual/api/scale)。
+具体列定义的参数 API： [Scale](/zh/docs/api/scale)。
 
 #### 示例
 
@@ -729,7 +729,7 @@ tooltip: {
 
 类型：`array`
 
-用于声明绘制图表的图形语法，可同时声明多种 geom 配置。对应函数式调用 api： [Geometry](/zh/docs/manual/api/geometry)。
+用于声明绘制图表的图形语法，可同时声明多种 geom 配置。对应函数式调用 api： [Geometry](/zh/docs/api/geometry)。
 
 ```js
 geoms: [
