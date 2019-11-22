@@ -73,7 +73,7 @@ export class Legend extends Controller<Option> {
     const legendMap: Record<string, any> = {};
 
     _.each(geometries, (geometry: Geometry) => {
-      const attributes = geometry.getLegendAttributes();
+      const attributes = geometry.getGroupAttributes();
 
       _.each(attributes, (attr: Attribute) => {
         const scale = attr.getScale(attr.type);

@@ -706,7 +706,7 @@ export class View extends EE {
    * @returns 维度字段的 Attribute 数组
    */
   public getLegendAttributes(): Attribute[] {
-    return (_.flatten(_.map(this.geometries, (g: Geometry) => g.getLegendAttributes())) as unknown) as Attribute[];
+    return (_.flatten(_.map(this.geometries, (g: Geometry) => g.getGroupAttributes())) as unknown) as Attribute[];
   }
 
   /**
