@@ -737,9 +737,9 @@ export default class Geometry {
   }
 
   /**
-   * Get the attributes which will generate legends.
+   * Get the [[Attribute]] instances that will cause the grouping
    */
-  public getLegendAttributes(): Attribute[] {
+  public getGroupAttributes(): Attribute[] {
     const rst = [];
     _.each(this.attributes, (attr: Attribute) => {
       if (GROUP_ATTRS.includes(attr.type)) {
