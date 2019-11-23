@@ -22,7 +22,7 @@
   "license": "MIT",
   "devDependencies": {
     "@antv/data-set": "~0.9.6",
-    "@antv/gatsby-theme-antv": "^0.9.92",
+    "@antv/gatsby-theme-antv": "^0.9.102",
     "@babel/cli": "~7.0.0",
     "@babel/core": "~7.0.0",
     "@babel/preset-env": "~7.0.0",
