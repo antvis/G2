@@ -69,7 +69,7 @@ const IndexPage = () => {
       <SEO title={t('G2 可视化引擎')} titleSuffix="AntV" lang={i18n.language} />
       <Banner
         coverImage={
-          <img width="100%" class="Notification-module--number--31-3Z" style={{ marginLeft: '100px', marginTop: '40px' }}
+          <img width="100%" style={{ marginLeft: '100px', marginTop: '40px' }}
             src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*wo_LToatmbwAAAAAAAAAAABkARQnAQ" />}
         title={t('G2 可视化引擎')}
         description={t(
