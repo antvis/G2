@@ -15,7 +15,7 @@
     "clean": "rimraf lib esm",
     "lint": "lint-staged",
     "test": "torch --renderer --compile --recursive ./__tests__/",
-    "test-live": "torch --compile --interactive --watch --recursive ./__tests__/",
+    "test-live": "torch --compile --interactive --watch --recursive ./__tests__",
     "coverage": "exit 0",
     "build:cjs": "tsc -p tsconfig.json --target ES5 --module commonjs --outDir lib",
     "build:esm": "tsc -p tsconfig.json --target ES5 --module ESNext --outDir esm",
