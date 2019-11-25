@@ -663,6 +663,25 @@ export class View extends EE {
   }
 
   /**
+   * get Scales object
+   * @param dimType x | y
+   * @returns scales object key by field
+   */
+  public getScalesByDim(dimType: 'x' | 'y'): Record<string, Scale> {
+    const geometries = this.geometries;
+    const scales = {};
+
+    for (const geometry of geometries) {
+      const scale = dimType === 'x' ? geometry.getXScale() : geometry.getYScale();
+      if (scale && !scales[scale.field]) {
+        scales[scale.field] = scale;
+      }
+    }
+
+    return scales;
+  }
+
+  /**
    * 返回所有配置信息
    * @returns 所有的 view API 配置
    */
@@ -1202,20 +1221,6 @@ export class View extends EE {
    */
   private canvasDraw() {
     this.getCanvas().draw();
-  }
-
-  private getScalesByDim(dimType: string) {
-    const geometries = this.geometries;
-    const scales = {};
-
-    for (const geometry of geometries) {
-      const scale = dimType === 'x' ? geometry.getXScale() : geometry.getYScale();
-      if (scale && !scales[scale.field]) {
-        scales[scale.field] = scale;
-      }
-    }
-
-    return scales;
   }
 }
 
