@@ -41,8 +41,8 @@ export interface Size {
 }
 
 export interface RangePoint {
-  readonly x: number | number[];
-  readonly y: number | number[];
+  readonly x?: number | number[];
+  readonly y?: number | number[];
 }
 
 export interface AnimateCfg {
@@ -109,7 +109,7 @@ export interface ShapePoint {
   /** 数据点映射后对应 x 的值 */
   readonly x: number | number[];
   /** 数据点映射后对应 y 的值 */
-  readonly y: number | number[];
+  readonly y?: number | number[];
   /** 数据在 y 方向的最小值 */
   readonly y0?: number;
   size?: number;

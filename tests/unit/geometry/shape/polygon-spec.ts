@@ -24,7 +24,7 @@ describe('Point shapes', () => {
     shapeType: 'polygon',
     shapeFactory: PolygonShapeFactory,
     container: canvas.addGroup(),
-    theme: Theme.geometries.point,
+    theme: Theme.geometries.polygon,
   });
 
   it('defaultShapeType', () => {

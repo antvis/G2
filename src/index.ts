@@ -11,6 +11,7 @@ import Line from './geometry/line';
 import Path from './geometry/path';
 import Point from './geometry/point';
 import Polygon from './geometry/polygon';
+import Schema from './geometry/schema';
 
 // view module augmentation
 // detail: http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
@@ -19,6 +20,7 @@ declare module './chart/view' {
     polygon(cfg?: Partial<GeometryCfg>): Polygon;
     point(cfg?: Partial<GeometryCfg>): Point;
     interval(cfg?: Partial<GeometryCfg>): Interval;
+    schema(cfg?: Partial<GeometryCfg>): Schema;
     path(cfg?: Partial<PathCfg>): Path;
     line(cfg?: Partial<PathCfg>): Line;
     area(cfg?: Partial<PathCfg>): Area;
@@ -27,6 +29,7 @@ declare module './chart/view' {
 
 registerGeometry('Polygon', Polygon);
 registerGeometry('Interval', Interval);
+registerGeometry('Schema', Schema);
 registerGeometry('Path', Path);
 registerGeometry('Point', Point);
 registerGeometry('Line', Line);
