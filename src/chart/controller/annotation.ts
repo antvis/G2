@@ -328,8 +328,6 @@ export class Annotation extends Controller<undefined> {
       const center = this.view.getCoordinate().getCenter();
       const radius = Math.sqrt((sp.x - center.x) ** 2 + (sp.y - center.y) ** 2);
 
-      console.log(center, radius);
-
       o = {
         center,
         radius,
