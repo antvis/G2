@@ -337,6 +337,7 @@ describe('HtmlTooltip测试', () => {
       frontgroundGroup: canvas.addGroup(),
       enterable: true,
     });
+    tooltip.show();
     tooltip.setPosition(300, 50);
     const width = tooltip.get('container').clientWidth;
     const height = tooltip.get('container').clientHeight;
