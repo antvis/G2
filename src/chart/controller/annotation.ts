@@ -226,11 +226,8 @@ export class Annotation extends Controller<undefined> {
 
     let x = 0;
     let y = 0;
-    // 入参是 ['50%', '50%'] 这类时
-    if (_.isArray(position) && _.includes(position[0] as any, '%')) {
-      return this.parsePercentPosition(position as [string, string]);
-    }
 
+    // 不再支持百分比位置
     // 入参是 [24, 24] 这类时
     if (_.isArray(position)) {
       x = this.getNormalizedValue(position[0], xScale);
