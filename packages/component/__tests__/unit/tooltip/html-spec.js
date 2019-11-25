@@ -337,9 +337,11 @@ describe('HtmlTooltip测试', () => {
       frontgroundGroup: canvas.addGroup(),
       enterable: true,
     });
+    tooltip.show();
     tooltip.setPosition(300, 50);
     const width = tooltip.get('container').clientWidth;
     const height = tooltip.get('container').clientHeight;
+    console.log(`enterable: ${width} ${height}`);
     expect(tooltip.get('y')).to.equal(50 - height / 2);
     expect(tooltip.get('x')).to.equal(300 - width - 1);
     tooltip.destroy();

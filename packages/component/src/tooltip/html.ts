@@ -159,6 +159,7 @@ export default class HtmlTooltip extends Tooltip<TooltipCfg> {
 
   public show() {
     const container = this.get('container');
+    container.style.visibility = 'visible';
     container.style.display = 'block';
     const crosshairGroup = this.get('crosshairGroup');
     if (crosshairGroup) {
@@ -174,6 +175,7 @@ export default class HtmlTooltip extends Tooltip<TooltipCfg> {
 
   public hide() {
     const container = this.get('container');
+    container.style.visibility = 'hidden';
     container.style.display = 'none';
     const crosshairGroup = this.get('crosshairGroup');
     if (crosshairGroup) {
@@ -253,14 +255,23 @@ export default class HtmlTooltip extends Tooltip<TooltipCfg> {
     const outterNode = this.get('canvas').get('el');
     const viewWidth = domUtil.getWidth(outterNode);
     const viewHeight = domUtil.getHeight(outterNode);
-    const containerWidth = container.clientWidth;
-    const containerHeight = container.clientHeight;
+    let containerWidth = container.clientWidth;
+    let containerHeight = container.clientHeight;
 
     let endx = x;
     let endy = y;
 
     let position;
     const prePosition = this.get('prePosition') || { x: 0, y: 0 };
+
+    // @2019-01-30 by blue.lb 由于display:none的元素获取clientWidth和clientHeight的值为0，这里强制显隐一下，其实直接在show和hide中去掉display设置最好，猜测为了更好的兼容浏览器
+    if (!containerWidth) {
+      container.style.display = 'block';
+      containerWidth = container.clientWidth;
+      containerHeight = container.clientHeight;
+      container.style.display = 'none';
+    }
+
     if (this.get('enterable')) {
       y = y - container.clientHeight / 2;
       position = [x, y];
