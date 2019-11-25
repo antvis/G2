@@ -413,7 +413,7 @@ declare namespace G2 {
       | 'bottom-left'
       | 'bottom-center'
       | 'bottom-right';
-    layout?: 'vertica' | 'horizontal';
+    layout?: 'vertical' | 'horizontal';
     title?: Styles.text;
     offsetX?: number;
     offsetY?: number;
