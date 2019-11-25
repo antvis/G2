@@ -71,7 +71,7 @@ export default class HtmlTooltip extends Tooltip<TooltipCfg> {
     // crosshair
     const crosshair = this.get('crosshairs');
     if (crosshair) {
-      const plot = this.get('frontgroundGroup');
+      const plot = crosshair.type === 'rect'? this.get('backgroundGroup') : this.get('frontgroundGroup');
       const crosshairGroup = new Crosshair(
         Util.mix(
           {
