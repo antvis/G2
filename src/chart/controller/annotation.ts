@@ -318,6 +318,7 @@ export class Annotation extends Controller<undefined> {
     }
 
     if (type === 'arc') {
+      // TODO arc 仅仅在 polar 才可用，API 配置可以再简化。
       const { start, end, startAngle, endAngle, style } = option as ArcOption;
       const sp = this.parsePosition(start);
       const ep = this.parsePosition(end);
