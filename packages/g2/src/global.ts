@@ -6,7 +6,7 @@ import { DataPointType } from './interface';
 import { getTheme } from './theme';
 
 const Global = {
-  version: '3.6.0-beta.5',
+  version: '3.6.0-beta.6',
   renderer: 'canvas',
   width: 640,
   height: 480,
