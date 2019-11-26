@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2",
-  "version": "3.6.0-beta.5",
+  "version": "3.6.0-beta.6",
   "description": "the Grammar of Graphics in Javascript",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -34,7 +34,7 @@
   "dependencies": {
     "@antv/adjust": "~0.2.0",
     "@antv/attr": "~0.2.0",
-    "@antv/component": "~0.4.0-beta.4",
+    "@antv/component": "~0.4.0-beta.5",
     "@antv/coord": "~0.2.1",
     "@antv/dom-util": "^2.0.1",
     "@antv/event-emitter": "~0.1.0",
