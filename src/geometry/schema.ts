@@ -25,7 +25,7 @@ export default class Schema extends Geometry {
     let size;
     const sizeAttr = this.getAttribute('size');
     if (sizeAttr) {
-      size = this.getAttrValues(sizeAttr, record)[0];
+      size = this.getAttributeValues(sizeAttr, record)[0];
       // 归一化
       const coordinate = this.coordinate;
       const coordinateWidth = getXDimensionLength(coordinate);
