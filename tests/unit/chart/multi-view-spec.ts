@@ -46,11 +46,9 @@ describe('chart multi view', () => {
     padding: 5,
   });
 
-  // @ts-ignore
   v1.polygon()
     .position('city*category')
     .color('sale');
-  // @ts-ignore
   v2.interval()
     .position('city*sale')
     .color('category')

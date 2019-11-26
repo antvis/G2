@@ -26,7 +26,6 @@ describe('Tooltip', () => {
     showTooltipMarkers: true,
   });
   chart
-    // @ts-ignore
     .interval()
     .position('月份*月均降雨量')
     .color('name')

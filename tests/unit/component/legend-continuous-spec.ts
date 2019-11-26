@@ -18,7 +18,6 @@ describe('Component', () => {
     chart.data(CITY_SALE);
 
     chart
-      // @ts-ignore
       .point()
       .position('city*sale')
       .size('sale', [4, 12]);
@@ -59,7 +58,6 @@ describe('Component', () => {
     chart.data(CITY_SALE);
 
     chart
-      // @ts-ignore
       .point()
       .position('city*sale')
       .color('sale');

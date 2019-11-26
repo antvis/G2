@@ -24,7 +24,6 @@ describe('facet rect', () => {
     fields: ['clarity', 'color'],
     eachView(view, facet) {
       view
-        // @ts-ignore
         .interval()
         .position('cut*price')
         .color('cut');
