@@ -43,7 +43,7 @@
     "tslib": "^1.10.0"
   },
   "devDependencies": {
-    "@antv/gatsby-theme-antv": "^0.9.25",
+    "@antv/gatsby-theme-antv": "^0.10.0",
     "@types/jest": "^24.0.18",
     "gatsby": "^2.17.9",
     "gh-pages": "^2.1.1",
