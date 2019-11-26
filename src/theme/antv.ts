@@ -554,5 +554,48 @@ export default {
         backgroundColor: 'rgba(0, 0, 0, 0.25)',
       },
     },
+    annotation: {
+      arc: {
+        style: {
+          stroke: 'rgba(0, 0, 0, .65)',
+          lineDash: [2, 2],
+          lineWidth: 1,
+        },
+      },
+      line: {
+        style: {
+          stroke: 'rgba(0, 0, 0, .65)',
+          lineDash: [2, 2],
+          lineWidth: 1,
+        },
+        text: {
+          position: 'start',
+          autoRotate: true,
+          style: {
+            fill: 'rgba(0, 0, 0, .45)',
+            fontSize: 12,
+            textAlign: 'start',
+            fontFamily: FONT_FAMILY,
+            textBaseline: 'bottom',
+          },
+        },
+      },
+      text: {
+        style: {
+          fill: 'rgba(0,0,0,.5)',
+          fontSize: 12,
+          textBaseline: 'middle',
+          textAlign: 'start',
+          fontFamily: FONT_FAMILY,
+        },
+      },
+      region: {
+        style: {
+          lineWidth: 0, // 辅助框的边框宽度
+          fill: '#000', // 辅助框填充的颜色
+          fillOpacity: 0.04, // 辅助框的背景透明度
+        }, // 辅助框的图形样式属性
+      },
+    },
   },
 };

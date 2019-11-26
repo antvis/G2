@@ -39,6 +39,8 @@ export enum COMPONENT_TYPE {
   LEGEND = 'legend',
   // tooltip 组件
   TOOLTIP = 'tooltip',
+  // annotation 组件
+  ANNOTATION = 'annotation',
   // 其他组件，自定义组件
   OTHER = 'other',
 }

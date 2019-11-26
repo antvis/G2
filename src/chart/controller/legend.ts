@@ -6,6 +6,7 @@ import { BBox } from '../../util/bbox';
 import { directionToPosition } from '../../util/direction';
 import { getLegendItems, getLegendLayout } from '../../util/legend';
 import { ComponentOption, LegendOption } from '../interface';
+import View from '../view';
 import { Controller } from './base';
 
 type Option = Record<string, LegendOption> | boolean;
@@ -28,6 +29,15 @@ function getLegendOption(legends: Record<string, LegendOption> | boolean, field:
  * legend Controller
  */
 export class Legend extends Controller<Option> {
+  /** the draw group of axis */
+  private container: IGroup;
+
+  constructor(view: View) {
+    super(view);
+
+    this.container = this.view.getLayer(LAYER.FORE).addGroup();
+  }
+
   public init() {}
 
   /**
@@ -58,11 +68,16 @@ export class Legend extends Controller<Option> {
     });
   }
 
-  /**
-   * create component into which layer
-   */
-  protected getContainer(): IGroup {
-    return this.view.getLayer(LAYER.FORE);
+  public clear() {
+    super.clear();
+
+    this.container.clear();
+  }
+
+  public destroy() {
+    super.destroy();
+
+    this.container.remove(true);
   }
 
   private createLegends() {
@@ -188,7 +203,7 @@ export class Legend extends Controller<Option> {
     }
 
     const layer = LAYER.FORE;
-    const container = this.getContainer().addGroup();
+    const container = this.container;
     // if position is not set, use top as default
     const direction = _.get(legendOption, 'position', DIRECTION.BOTTOM);
 
@@ -224,7 +239,7 @@ export class Legend extends Controller<Option> {
    */
   private createCategoryLegend(geometry: Geometry, attr: Attribute, scale: Scale, legendOption: any): ComponentOption {
     const layer = LAYER.FORE;
-    const container = this.getContainer().addGroup();
+    const container = this.container;
     // if position is not set, use top as default
     const direction = _.get(legendOption, 'position', DIRECTION.TOP);
 

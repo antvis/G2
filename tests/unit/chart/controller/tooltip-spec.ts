@@ -57,7 +57,7 @@ describe('Tooltip', () => {
     expect(crosshairs.length).toBe(1);
 
     const foregroundGroup = chart.foregroundGroup;
-    expect(foregroundGroup.getChildren().length).toBe(1);
+    expect(foregroundGroup.getChildren().length).toBe(2);
   });
 
   it('hideTooltip', () => {

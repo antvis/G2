@@ -1,5 +1,4 @@
 import * as _ from '@antv/util';
-import { IGroup } from '../../dependents';
 import { ComponentOption } from '../interface';
 import View from '../view';
 
@@ -13,8 +12,6 @@ export type ControllerCtor<O, E> = new (view: View) => Controller<any>;
  * 3. 明确定义的组件事件（名称、数据）
  */
 export abstract class Controller<O> {
-  /** the component container group */
-  protected container: IGroup;
   protected view: View;
   /** option 配置，不同组件有自己不同的配置结构 */
   protected option: O;
@@ -23,8 +20,6 @@ export abstract class Controller<O> {
 
   constructor(view: View) {
     this.view = view;
-
-    this.container = this.getContainer();
   }
 
   /**
@@ -53,12 +48,10 @@ export abstract class Controller<O> {
   public clear() {
     // destroy all components
     _.each(this.components, (co: ComponentOption) => {
-      if (co.component.get('container')) {
-        co.component.get('container').remove(true);
-      }
       co.component.destroy();
     });
 
+    // clear all component instance
     this.components = [];
   }
 
@@ -76,10 +69,4 @@ export abstract class Controller<O> {
   public getComponents(): ComponentOption[] {
     return this.components;
   }
-
-  /**
-   * get G container group, means where are the components of the controller will be added to.
-   * @returns container group
-   */
-  protected abstract getContainer(): IGroup;
 }
