@@ -693,4 +693,4 @@ const Theme = {
   pixelRatio: null
 };
 
-module.exports = Theme;
+export default Theme;

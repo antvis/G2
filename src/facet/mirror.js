@@ -3,7 +3,7 @@
  * @author dxq613@gmail.com
  */
 
-const List = require('./list');
+import List from './list';
 
 class Mirror extends List {
   getDefaultCfg() {
@@ -61,4 +61,4 @@ class Mirror extends List {
 
 }
 
-module.exports = Mirror;
+export default Mirror;

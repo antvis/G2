@@ -1,7 +1,7 @@
 
-const G = require('../../renderer');
-const Util = require('../../util');
-const mergeBBox = require('./merge-bbox');
+import G from '../../renderer';
+import Util from '../../util';
+import mergeBBox from './merge-bbox';
 
 function applyMatrix(point, matrix, tag = 1) {
   const vector = [ point.x, point.y, tag ];
@@ -34,7 +34,7 @@ function getTitleBBox(title) {
   };
 }
 
-module.exports = function BBoxOfBackPlot(backPlot, defaultBBox) {
+export default function BBoxOfBackPlot(backPlot, defaultBBox) {
   let bbox = defaultBBox;
   Util.each(backPlot.get('children'), group => {
     // 这段代码假设了子元素是 axis，同时 title 超出长度，

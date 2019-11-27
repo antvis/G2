@@ -3,8 +3,9 @@
  * @author dxq613@gmail.com
  */
 
-const Util = require('../../util');
-const PathUtil = require('../util/path');
+import Util from '../../util';
+
+import PathUtil from '../util/path';
 const GPath = Util.PathUtil;
 const Shape = {};
 
@@ -149,4 +150,4 @@ Shape.getShapeFactory = function(factoryName) {
   return self[className];
 };
 
-module.exports = Shape;
+export default Shape;

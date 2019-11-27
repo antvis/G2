@@ -1,7 +1,5 @@
 {
-  "extends": [
-    "egg"
-  ],
+  "extends": ["egg"],
   "globals": {
     "$": true,
     "AMap": true,
@@ -14,31 +12,18 @@
   "parserOptions": {
     "sourceType": "module"
   },
-  "plugins": [
-    "html"
-  ],
+  "plugins": ["html"],
   "rules": {
+    "comma-dangle": 0,
     "no-console": [
       "error",
       {
-        "allow": [
-          "warn",
-          "error"
-        ]
+        "allow": ["warn", "error"]
       }
     ],
-    "no-bitwise": [
-      0
-    ],
-    "experimentalDecorators": [
-      0
-    ],
-    "comma-dangle": [
-      "error",
-      "never"
-    ],
-    "linebreak-style": [
-      0
-    ]
+    "no-bitwise": [0],
+    "experimentalDecorators": [0],
+    "linebreak-style": [0],
+    "rray-bracket-spacing": 0
   }
 }

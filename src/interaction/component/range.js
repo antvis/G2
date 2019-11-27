@@ -1,5 +1,5 @@
-const Util = require('../../util');
-const G = require('../../renderer');
+import Util from '../../util';
+import G from '../../renderer';
 
 const { Group } = G;
 const { DomUtil } = Util;
@@ -372,4 +372,4 @@ Util.augment(Range, {
   }
 });
 
-module.exports = Range;
+export default Range;

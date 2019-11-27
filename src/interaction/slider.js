@@ -1,11 +1,11 @@
-const Range = require('./component/range');
-const Chart = require('../chart/chart');
-const Util = require('../util');
-const G = require('../renderer');
-const Global = require('../global');
-const Interaction = require('./base');
-const getColDef = require('./helper/get-col-def');
-const getColDefs = require('./helper/get-col-defs');
+import Range from './component/range';
+import Chart from '../chart/chart';
+import Util from '../util';
+import G from '../renderer';
+import Global from '../global';
+import Interaction from './base';
+import getColDef from './helper/get-col-def';
+import getColDefs from './helper/get-col-defs';
 
 const { Canvas } = G;
 const { DomUtil, isNumber } = Util;
@@ -398,4 +398,4 @@ class Slider extends Interaction {
   }
 }
 
-module.exports = Slider;
+export default Slider;

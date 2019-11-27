@@ -3,17 +3,18 @@
  * @author dxq613@gmail.com
  */
 
-const Util = require('../util');
-const View = require('./view');
-const G = require('../renderer');
+import Util from '../util';
+
+import View from './view';
+import G from '../renderer';
 const Canvas = G.Canvas;
 const DomUtil = Util.DomUtil;
-const Global = require('../global');
-const Plot = require('../component/plot');
-const Controller = require('./controller/index');
-const mergeBBox = require('./util/merge-bbox');
-const bboxOfBackPlot = require('./util/bbox-of-back-plot');
-const plotRange2BBox = require('./util/plot-range2bbox');
+import Global from '../global';
+import Plot from '../component/plot';
+import Controller from './controller/index';
+import mergeBBox from './util/merge-bbox';
+import bboxOfBackPlot from './util/bbox-of-back-plot';
+import plotRange2BBox from './util/plot-range2bbox';
 
 const AUTO_STR = 'auto';
 
@@ -705,4 +706,4 @@ class Chart extends View {
   }
 }
 
-module.exports = Chart;
+export default Chart;

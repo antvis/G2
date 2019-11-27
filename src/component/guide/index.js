@@ -1,5 +1,6 @@
-const { Guide } = require('@antv/component/lib');
-const RegionFilter = require('./region-filter');
+import Lib from '@antv/component/lib';
+const { Guide } = Lib;
+import RegionFilter from './region-filter';
 Guide.RegionFilter = RegionFilter;
 
-module.exports = Guide;
+export default Guide;

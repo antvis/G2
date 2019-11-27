@@ -1,6 +1,7 @@
-const Util = require('../../util');
-const Guide = require('@antv/component/lib/guide/base');
-const { Path } = require('@antv/g/lib');
+import Util from '../../util';
+import Guide from '@antv/component/lib/guide/base';
+import Lib from '@antv/g/lib';
+const { Path } = Lib;
 
 class RegionFilter extends Guide {
   getDefaultCfg() {
@@ -15,8 +16,8 @@ class RegionFilter extends Guide {
       color: null,
       apply: null,
       style: {
-        opacity: 1
-      }
+        opacity: 1,
+      },
     });
   }
 
@@ -51,7 +52,7 @@ class RegionFilter extends Guide {
           const shapeAttr = Util.cloneDeep(shape.attr());
           self._adjustDisplay(shapeAttr);
           const s = layer.addShape(shapeType, {
-            attrs: shapeAttr
+            attrs: shapeAttr,
           });
           output.push(s);
           return shape;
@@ -68,18 +69,18 @@ class RegionFilter extends Guide {
     const end = self.parsePoint(coord, self.get('end'));
 
     const path = [
-      [ 'M', start.x, start.y ],
-      [ 'L', end.x, start.y ],
-      [ 'L', end.x, end.y ],
-      [ 'L', start.x, end.y ],
-      [ 'z' ]
+      ['M', start.x, start.y],
+      ['L', end.x, start.y],
+      ['L', end.x, end.y],
+      ['L', start.x, end.y],
+      ['z'],
     ];
 
     const clip = new Path({
       attrs: {
         path,
-        opacity: 1
-      }
+        opacity: 1,
+      },
     });
     return clip;
   }
@@ -109,4 +110,4 @@ class RegionFilter extends Guide {
   }
 }
 
-module.exports = RegionFilter;
+export default RegionFilter;

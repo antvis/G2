@@ -4,10 +4,11 @@
  */
 
 
-const Util = require('../../util');
-const Global = require('../../global');
+import Util from '../../util';
 
-module.exports = {
+import Global from '../../global';
+
+export default {
   splitData(data) {
     const viewTheme = this.get('viewTheme') || Global;
     if (!data.length) return [];

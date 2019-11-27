@@ -2,10 +2,11 @@
  * @fileOverview venn shapes
  * @author leungwensen@gmail.com
  */
-const Util = require('../../util');
-const Shape = require('./shape');
-const ShapeUtil = require('../util/shape');
-const Global = require('../../global');
+import Util from '../../util';
+
+import Shape from './shape';
+import ShapeUtil from '../util/shape';
+import Global from '../../global';
 const PathUtil = Util.PathUtil;
 
 function getAttrs(cfg) {
@@ -91,4 +92,4 @@ Shape.registerShape('venn', 'hollow', {
   }
 });
 
-module.exports = Venn;
+export default Venn;

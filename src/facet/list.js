@@ -2,7 +2,7 @@
  * @fileOverview list facets, support cols
  */
 
-const Base = require('./base');
+import Base from './base';
 
 /**
  * 用于生成分面的类
@@ -74,4 +74,4 @@ class List extends Base {
   }
 }
 
-module.exports = List;
+export default List;

@@ -3,11 +3,12 @@
  * @author dxq613@gmail.com
  */
 
-const Util = require('../../util');
-const Shape = require('./shape');
-const ShapeUtil = require('../util/shape');
-const Global = require('../../global');
-const PathUtil = require('../util/path');
+import Util from '../../util';
+
+import Shape from './shape';
+import ShapeUtil from '../util/shape';
+import Global from '../../global';
+import PathUtil from '../util/path';
 const CORNER_PERCENT = 1 / 3;
 
 function getAttrs(cfg) {
@@ -252,4 +253,4 @@ Shape.registerShape('edge', 'arc', {
   }
 });
 
-module.exports = Edge;
+export default Edge;

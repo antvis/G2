@@ -2,7 +2,7 @@
  * @fileOverview The controller of chart's events
  * @author sima.zhang
  */
-const Util = require('../../util');
+import Util from '../../util';
 
 function isSameShape(shape1, shape2) {
   if (Util.isNil(shape1) || Util.isNil(shape2)) {
@@ -262,4 +262,4 @@ class EventController {
   }
 }
 
-module.exports = EventController;
+export default EventController;

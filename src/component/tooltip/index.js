@@ -2,9 +2,10 @@
  * @fileOverview The class of tooltip
  * @author sima.zhang
  */
-const Util = require('../../util');
-const Base = require('../../base');
-const Global = require('../../global');
+import Util from '../../util';
+
+import Base from '../../base';
+import Global from '../../global';
 const DomUtil = Util.DomUtil;
 
 const CONTAINER_CLASS = 'g2-tooltip';
@@ -616,4 +617,4 @@ class Tooltip extends Base {
   }
 }
 
-module.exports = Tooltip;
+export default Tooltip;

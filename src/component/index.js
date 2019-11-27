@@ -2,7 +2,7 @@
  * @fileOverview chart component module
  * @author sima.zhang1990@gmail.com
  */
-module.exports = {
+export default {
   Guide: require('./guide/index'),
   Legend: require('./legend/index'),
   Plot: require('./plot'),

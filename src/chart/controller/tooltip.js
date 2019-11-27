@@ -2,20 +2,19 @@
  * @fileOverview The controller of tooltip
  * @author sima.zhang
  */
-const Util = require('../../util');
-const Shape = require('../../geom/shape/shape');
-const { Tooltip } = require('@antv/component/lib');
+import Util from '../../util';
+
+import Shape from '../../geom/shape/shape';
+import Lib from '@antv/component/lib';
+const { Tooltip } = Lib;
 const MatrixUtil = Util.MatrixUtil;
 const Vector2 = MatrixUtil.vec2;
 
-const TYPE_SHOW_MARKERS = [ 'line', 'area', 'path', 'areaStack' ]; // 默认展示 tooltip marker 的几何图形
-const TYPE_SHOW_CROSSHAIRS = [ 'line', 'area' ]; // 默认展示十字瞄准线的几何图形
+const TYPE_SHOW_MARKERS = ['line', 'area', 'path', 'areaStack']; // 默认展示 tooltip marker 的几何图形
+const TYPE_SHOW_CROSSHAIRS = ['line', 'area']; // 默认展示十字瞄准线的几何图形
 
 // TODO FIXME this is HARD CODING
-const IGNORE_TOOLTIP_ITEM_PROPERTIES = [
-  'marker',
-  'showMarker'
-];
+const IGNORE_TOOLTIP_ITEM_PROPERTIES = ['marker', 'showMarker'];
 
 function _indexOfArray(items, item) {
   let rst = -1;
@@ -144,22 +143,24 @@ class TooltipController {
       }
     });
 
-    const isTransposed = geoms.length && geoms[0].get('coord') ? geoms[0].get('coord').isTransposed : false;
+    const isTransposed =
+      geoms.length && geoms[0].get('coord') ? geoms[0].get('coord').isTransposed : false;
 
     let crosshairsCfg;
     if (geoms.length && geoms[0].get('coord') && geoms[0].get('coord').type === 'cartesian') {
-      if (shapes[0] === 'interval' && options.shared !== false) { // 直角坐标系下 interval 的 crosshair 为矩形背景框
+      if (shapes[0] === 'interval' && options.shared !== false) {
+        // 直角坐标系下 interval 的 crosshair 为矩形背景框
         const crosshairs = Util.mix({}, viewTheme.tooltipCrosshairsRect);
         crosshairs.isTransposed = isTransposed;
         crosshairsCfg = {
           zIndex: 0, // 矩形背景框不可覆盖 geom
-          crosshairs
+          crosshairs,
         };
       } else if (Util.indexOf(TYPE_SHOW_CROSSHAIRS, shapes[0]) > -1) {
         const crosshairs = Util.mix({}, viewTheme.tooltipCrosshairsLine);
         crosshairs.isTransposed = isTransposed;
         crosshairsCfg = {
-          crosshairs
+          crosshairs,
         };
       }
     }
@@ -189,7 +190,7 @@ class TooltipController {
     const self = this;
     const tooltip = self.tooltip;
     const prePoint = self.prePoint;
-    if (!prePoint || (prePoint.x !== point.x || prePoint.y !== point.y)) {
+    if (!prePoint || prePoint.x !== point.x || prePoint.y !== point.y) {
       items = _uniqItems(items);
       self.prePoint = point;
 
@@ -201,7 +202,7 @@ class TooltipController {
         chart.emit('tooltip:show', {
           x,
           y,
-          tooltip
+          tooltip,
         });
       }
       const first = items[0];
@@ -211,13 +212,14 @@ class TooltipController {
           tooltip,
           x,
           y,
-          items
+          items,
         });
         // bugfix: when set the title in the tooltip:change event does not take effect.
         title = items[0].title || items[0].name;
         tooltip.setContent(title, items);
         if (!Util.isEmpty(markersItems)) {
-          if (self.options.hideMarkers === true) { // 不展示 tooltip marker
+          if (self.options.hideMarkers === true) {
+            // 不展示 tooltip marker
             tooltip.set('markerItems', markersItems); // 用于 tooltip 辅助线的定位
           } else {
             tooltip.setMarkers(markersItems, viewTheme.tooltipMarker);
@@ -231,7 +233,8 @@ class TooltipController {
         }
       }
       const canvas = this._getCanvas();
-      if (target === canvas && tooltip.get('type') === 'mini') { // filter mini tooltip
+      if (target === canvas && tooltip.get('type') === 'mini') {
+        // filter mini tooltip
         tooltip.hide();
       } else {
         tooltip.setPosition(x, y, target);
@@ -247,7 +250,7 @@ class TooltipController {
     this.prePoint = null;
     tooltip.hide();
     chart.emit('tooltip:hide', {
-      tooltip
+      tooltip,
     });
     canvas.draw();
   }
@@ -261,9 +264,9 @@ class TooltipController {
     const timeStamp = +new Date();
     const point = {
       x: ev.x,
-      y: ev.y
+      y: ev.y,
     };
-    if ((timeStamp - lastTimeStamp) > 16 && !this.chart.get('stopTooltip')) {
+    if (timeStamp - lastTimeStamp > 16 && !this.chart.get('stopTooltip')) {
       this.showTooltip(point, ev.views, ev.shape);
       this.timeStamp = timeStamp;
     }
@@ -279,7 +282,11 @@ class TooltipController {
     // if (ev && ev.target !== canvas) {
     //   return;
     // }
-    if (ev && ev.toElement && (_hasClass(ev.toElement, 'g2-tooltip') || _isParent(ev.toElement, 'g2-tooltip'))) {
+    if (
+      ev &&
+      ev.toElement &&
+      (_hasClass(ev.toElement, 'g2-tooltip') || _isParent(ev.toElement, 'g2-tooltip'))
+    ) {
       return;
     }
     this.hideTooltip();
@@ -287,7 +294,8 @@ class TooltipController {
 
   renderTooltip() {
     const self = this;
-    if (self.tooltip) { // tooltip 对象已经创建
+    if (self.tooltip) {
+      // tooltip 对象已经创建
       return;
     }
     const chart = self.chart;
@@ -295,14 +303,18 @@ class TooltipController {
     const canvas = self._getCanvas();
     const defaultCfg = self._getDefaultTooltipCfg();
     let options = self.options;
-    options = Util.deepMix({
-      plotRange: chart.get('plotRange'),
-      capture: false,
-      canvas,
-      frontPlot: chart.get('frontPlot'),
-      viewTheme: viewTheme.tooltip,
-      backPlot: chart.get('backPlot')
-    }, defaultCfg, options);
+    options = Util.deepMix(
+      {
+        plotRange: chart.get('plotRange'),
+        capture: false,
+        canvas,
+        frontPlot: chart.get('frontPlot'),
+        viewTheme: viewTheme.tooltip,
+        backPlot: chart.get('backPlot'),
+      },
+      defaultCfg,
+      options
+    );
     if (options.crosshairs && options.crosshairs.type === 'rect') {
       options.zIndex = 0; // toolip 背景框不可遮盖住 geom，防止用户配置了 crosshairs
     }
@@ -327,7 +339,8 @@ class TooltipController {
 
     const triggerEvent = self._getTriggerEvent();
     const tooltipContainer = tooltip.get('container');
-    if (!tooltip.get('enterable') && triggerEvent === 'plotmove') { // 鼠标不允许进入 tooltip 容器
+    if (!tooltip.get('enterable') && triggerEvent === 'plotmove') {
+      // 鼠标不允许进入 tooltip 容器
       if (tooltipContainer) {
         tooltipContainer.onmousemove = e => {
           // 避免 tooltip 频繁闪烁
@@ -353,7 +366,8 @@ class TooltipController {
     const self = this;
     const options = self.options;
     let point = item.point;
-    if (point && point.x && point.y) { // hotfix: make sure there is no null value
+    if (point && point.x && point.y) {
+      // hotfix: make sure there is no null value
       const x = Util.isArray(point.x) ? point.x[point.x.length - 1] : point.x;
       const y = Util.isArray(point.y) ? point.y[point.y.length - 1] : point.y;
       point = coord.applyMatrix(x, y, 1);
@@ -363,7 +377,10 @@ class TooltipController {
       // bugfix
       // 由于tooltip是DOM而不是Canvas，设置渐变色时，marker无法正常显示
       // 如果，设置的颜色是渐变色并且设置了tooltip使用html方式渲染，则取渐变色的起始颜色作为marker的颜色，暂时解决这个问题
-      if (item.color.substring(0, 2) === 'l(' && (!options.hasOwnProperty('useHtml') || options.useHtml)) {
+      if (
+        item.color.substring(0, 2) === 'l(' &&
+        (!options.hasOwnProperty('useHtml') || options.useHtml)
+      ) {
         item.color = item.color.split(' ')[1].substring(2);
       }
       const itemMarker = self._getItemMarker(geom, item);
@@ -396,7 +413,8 @@ class TooltipController {
     let markersItems = [];
     let items = [];
     Util.each(views, view => {
-      if (!view.get('tooltipEnable')) { // 如果不显示tooltip，则跳过
+      if (!view.get('tooltipEnable')) {
+        // 如果不显示tooltip，则跳过
         return true;
       }
       const geoms = view.get('geoms');
@@ -405,8 +423,10 @@ class TooltipController {
         const type = geom.get('type');
         if (geom.get('visible') && geom.get('tooltipCfg') !== false) {
           const dataArray = geom.get('dataArray');
-          if (geom.isShareTooltip() || (options.shared === false && Util.inArray([ 'area', 'line', 'path', 'polygon' ], type))) {
-
+          if (
+            geom.isShareTooltip() ||
+            (options.shared === false && Util.inArray(['area', 'line', 'path', 'polygon'], type))
+          ) {
             // 打补丁解决 bug: https://github.com/antvis/g2/issues/1248
             // 当 interval 对应的 color 和 x 字段相同的时候，并且包含 dodge，items 取值逻辑不一样
             // 这种情况下，每一个 x 字段分成一组
@@ -474,7 +494,6 @@ class TooltipController {
       });
     });
 
-
     if (items.length) {
       const first = items[0];
       // bugfix: multiple tooltip items with different titles
@@ -482,7 +501,7 @@ class TooltipController {
         let nearestItem = first;
         let nearestDistance = Infinity;
         items.forEach(item => {
-          const distance = Vector2.distance([ point.x, point.y ], [ item.x, item.y ]);
+          const distance = Vector2.distance([point.x, point.y], [item.x, item.y]);
           if (distance < nearestDistance) {
             nearestDistance = distance;
             nearestItem = item;
@@ -502,9 +521,9 @@ class TooltipController {
           }
         });
         if (snapItem && snapItem.x && snapItem.y) {
-          markersItems = [ snapItem ];
+          markersItems = [snapItem];
         }
-        items = [ snapItem ];
+        items = [snapItem];
       }
       // 3.0 采用当前鼠标位置作为 tooltip 的参考点
       // if (!Util.isEmpty(markersItems)) {
@@ -533,7 +552,7 @@ class TooltipController {
       const shape = geom.getDefaultValue('shape') || 'circle';
       const shapeObject = Shape.getShapeFactory(shapeType);
       const cfg = {
-        color: item.color
+        color: item.color,
       };
       const marker = shapeObject.getMarkerCfg(shape, cfg);
       return markerOption(marker, item);
@@ -541,10 +560,9 @@ class TooltipController {
 
     return {
       fill: item.color,
-      ...markerOption
+      ...markerOption,
     };
   }
-
 }
 
-module.exports = TooltipController;
+export default TooltipController;

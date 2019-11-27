@@ -3,11 +3,11 @@
  * @author dxq613@gmail.com
  */
 
-const EventEmitter = require('wolfy87-eventemitter');
-const Util = require('./util');
+import EventEmitter from 'wolfy87-eventemitter';
+
+import Util from './util';
 
 class Base extends EventEmitter {
-
   getDefaultCfg() {
     return {};
   }
@@ -15,7 +15,7 @@ class Base extends EventEmitter {
   constructor(cfg) {
     super();
     const attrs = {
-      visible: true
+      visible: true,
     };
     const defaultCfg = this.getDefaultCfg();
     this._attrs = attrs;
@@ -51,9 +51,7 @@ class Base extends EventEmitter {
    * @param {Boolean} visible 是否可见
    * 显示、隐藏
    */
-  changeVisible(/* visible */) {
-
-  }
+  changeVisible(/* visible */) {}
 
   destroy() {
     this._attrs = {};
@@ -62,4 +60,4 @@ class Base extends EventEmitter {
   }
 }
 
-module.exports = Base;
+export default Base;

@@ -1,10 +1,10 @@
-const Scale = require('@antv/scale/lib');
-const G = require('./renderer');
-const Animate = require('./animate/animate');
-const Chart = require('./chart/chart');
-const Global = require('./global');
-const Shape = require('./geom/shape/shape');
-const Util = require('./util');
+import Scale from '@antv/scale/lib';
+import G from './renderer';
+import Animate from './animate/animate';
+import Chart from './chart/chart';
+import Global from './global';
+import Shape from './geom/shape/shape';
+import Util from './util';
 
 const G2 = {
   // version
@@ -20,7 +20,7 @@ const G2 = {
   G,
   DomUtil: Util.DomUtil,
   MatrixUtil: Util.MatrixUtil,
-  PathUtil: Util.PathUtil
+  PathUtil: Util.PathUtil,
 };
 
 // G2.track = function(enable) {
@@ -34,10 +34,12 @@ G2.track = () => {
 // 保证两个版本共存
 if (typeof window !== 'undefined') {
   if (window.G2) {
-    console.warn(`There are multiple versions of G2. Version ${G2.version}'s reference is 'window.G2_3'`);
+    console.warn(
+      `There are multiple versions of G2. Version ${G2.version}'s reference is 'window.G2_3'`
+    );
   } else {
     window.G2 = G2;
   }
 }
 
-module.exports = G2;
+export default G2;

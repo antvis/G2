@@ -1,9 +1,13 @@
-const { Group } = require('../../renderer');
-const { Label } = require('@antv/component/lib');
+import Renderer from '../../renderer';
+import Lib from '@antv/component/lib';
+import Lib from '@antv/component/lib';
+const { Label } = Lib;
+const { Group } = Renderer;
 // const visualCenter = require('@antv/component/lib/label/utils/visual-center');
-const Global = require('../../global');
-const Util = require('../../util');
-const IGNORE_ARR = [ 'line', 'point', 'path' ];
+import Global from '../../global';
+
+import Util from '../../util';
+const IGNORE_ARR = ['line', 'point', 'path'];
 const ORIGIN = '_origin';
 
 function avg(arr) {
@@ -17,7 +21,7 @@ function avg(arr) {
 // 计算多边形重心: https://en.wikipedia.org/wiki/Centroid#Of_a_polygon
 function getCentroid(xs, ys) {
   if (Util.isNumber(xs) && Util.isNumber(ys)) {
-    return [ xs, ys ];
+    return [xs, ys];
   }
   let i = -1,
     x = 0,
@@ -34,9 +38,8 @@ function getCentroid(xs, ys) {
     y += (ys[former] + ys[current]) * diff;
   }
   k *= 3;
-  return [ x / k, y / k ];
+  return [x / k, y / k];
 }
-
 
 const GeomLabels = function(cfg) {
   GeomLabels.superclass.constructor.call(this, cfg);
@@ -62,7 +65,7 @@ Util.augment(GeomLabels, {
        * @type {String}
        */
       geomType: null,
-      zIndex: 6
+      zIndex: 6,
     };
   },
   _renderUI() {
@@ -71,7 +74,7 @@ Util.augment(GeomLabels, {
     this.initLabelsCfg();
     const labelsGroup = this.addGroup();
     const lineGroup = this.addGroup({
-      elCls: 'x-line-group'
+      elCls: 'x-line-group',
     });
     const labelRenderer = this.get('labelRenderer');
     this.set('labelsGroup', labelsGroup);
@@ -106,7 +109,10 @@ Util.augment(GeomLabels, {
     const labelCfg = self.get('labelCfg').cfg || self.get('labelCfg').globalCfg;
     const geomType = self.get('geomType');
     const viewTheme = self.get('viewTheme') || Global;
-    if (geomType === 'polygon' || (labelCfg && labelCfg.offset < 0 && Util.indexOf(IGNORE_ARR, geomType) === -1)) {
+    if (
+      geomType === 'polygon' ||
+      (labelCfg && labelCfg.offset < 0 && Util.indexOf(IGNORE_ARR, geomType) === -1)
+    ) {
       return Util.deepMix({}, self.get('label'), viewTheme.innerLabels, labelCfg);
     }
     return Util.deepMix({}, self.get('label'), viewTheme.label, labelCfg);
@@ -135,7 +141,7 @@ Util.augment(GeomLabels, {
         return;
       }
       if (!Util.isArray(label.text)) {
-        label.text = [ label.text ];
+        label.text = [label.text];
       }
       const total = label.text.length;
 
@@ -245,7 +251,8 @@ Util.augment(GeomLabels, {
 
     function getDimValue(value, idx) {
       if (Util.isArray(value)) {
-        if (labelCfg.text.length === 1) { // 如果仅一个label,多个y,取最后一个y
+        if (labelCfg.text.length === 1) {
+          // 如果仅一个label,多个y,取最后一个y
           if (value.length <= 2) {
             value = value[value.length - 1];
             // value = value[0];
@@ -260,7 +267,7 @@ Util.augment(GeomLabels, {
     }
 
     const label = {
-      text: labelCfg.text[index]
+      text: labelCfg.text[index],
     };
     // 多边形场景,多用于地图
     if (point && this.get('geomType') === 'polygon') {
@@ -288,7 +295,10 @@ Util.augment(GeomLabels, {
     if (point.shape === 'pyramid' && !point.nextPoints && point.points) {
       point.points.forEach(p => {
         p = coord.convert(p);
-        if ((Util.isArray(p.x) && !point.x.includes(p.x)) || (Util.isNumber(p.x) && point.x !== p.x)) {
+        if (
+          (Util.isArray(p.x) && !point.x.includes(p.x)) ||
+          (Util.isNumber(p.x) && point.x !== p.x)
+        ) {
           label.x = (label.x + p.x) / 2;
         }
       });
@@ -325,9 +335,11 @@ Util.augment(GeomLabels, {
     const offset = point.offset || 0;
     const coord = self.get('coord');
     let vector;
-    if (coord.isTransposed) { // 如果x,y翻转，则偏移x
+    if (coord.isTransposed) {
+      // 如果x,y翻转，则偏移x
       vector = coord.applyMatrix(offset, 0);
-    } else { // 否则，偏转y
+    } else {
+      // 否则，偏转y
       vector = coord.applyMatrix(0, offset);
     }
     return vector;
@@ -340,13 +352,16 @@ Util.augment(GeomLabels, {
 
     const coord = self.get('coord');
     const vector = self.getOffsetVector(point);
-    if (coord.isTransposed) { // 如果x,y翻转，则偏移x
+    if (coord.isTransposed) {
+      // 如果x,y翻转，则偏移x
       offset = vector[0];
-    } else { // 否则，偏转y
+    } else {
+      // 否则，偏转y
       offset = vector[1];
     }
     const yScale = this.get('yScale');
-    if (yScale && point.point) { // 仅考虑 y 单值的情况，多值的情况在这里不考虑
+    if (yScale && point.point) {
+      // 仅考虑 y 单值的情况，多值的情况在这里不考虑
       const yValue = point.point[yScale.field];
       if (yValue < 0) {
         offset = offset * -1; // 如果 y 值是负值，则反向
@@ -365,10 +380,11 @@ Util.augment(GeomLabels, {
     const factor = transposed ? 1 : -1; // y 方向上越大，像素的坐标越小，所以transposed时将系数变成
     const offsetPoint = {
       x: 0,
-      y: 0
+      y: 0,
     };
 
-    if (index > 0 || total === 1) { // 判断是否小于0
+    if (index > 0 || total === 1) {
+      // 判断是否小于0
       offsetPoint[yField] = offset * factor;
     } else {
       offsetPoint[yField] = offset * factor * -1;
@@ -402,7 +418,7 @@ Util.augment(GeomLabels, {
   },
   _getLabelValue(origin, scales) {
     if (!Util.isArray(scales)) {
-      scales = [ scales ];
+      scales = [scales];
     }
     const text = [];
     Util.each(scales, scale => {
@@ -442,7 +458,7 @@ Util.augment(GeomLabels, {
         // callback中应使用原始数据，而不是数据字符串
         const originValues = scales.map(scale => origin[scale.field]);
         // 将point信息以及index信息也返回，方便能够根据point以及index，返回不同的配置
-        cfg = labelCfg.callback.apply(null, [ ...originValues, point, i ]);
+        cfg = labelCfg.callback.apply(null, [...originValues, point, i]);
       }
       if (!cfg && cfg !== 0) {
         cfgs.push(null);
@@ -499,13 +515,16 @@ Util.augment(GeomLabels, {
     const type = self.get('type');
     items = self.adjustItems(items, shapes);
     self.drawLines(items);
-    labelRenderer.set('items', items.filter((item, i) => {
-      if (!item) {
-        shapes.splice(i, 1);
-        return false;
-      }
-      return true;
-    }));
+    labelRenderer.set(
+      'items',
+      items.filter((item, i) => {
+        if (!item) {
+          shapes.splice(i, 1);
+          return false;
+        }
+        return true;
+      })
+    );
     if (type) {
       labelRenderer.set('shapes', shapes);
       labelRenderer.set('type', type);
@@ -518,9 +537,9 @@ Util.augment(GeomLabels, {
   destroy() {
     this.get('labelRenderer').destroy(); // 清理文本
     GeomLabels.superclass.destroy.call(this);
-  }
+  },
 });
 
 // Util.assign(GeomLabels.prototype, Labels.LabelslabelRenderer);
 
-module.exports = GeomLabels;
+export default GeomLabels;

@@ -2,16 +2,11 @@
  * @fileOverview Venn Diagram
  * @author leungwensen@gmail.com
  */
-const GeomBase = require('./base');
-const Util = require('../util');
-const {
-  venn,
-  scaleSolution,
-  circlePath,
-  intersectionAreaPath,
-  computeTextCentres
-} = require('venn.js');
-require('./shape/venn');
+import GeomBase from './base';
+
+import Util from '../util';
+import { venn, scaleSolution, circlePath, intersectionAreaPath, computeTextCentres } from 'venn.js';
+import './shape/venn';
 
 class Venn extends GeomBase {
   /**
@@ -30,7 +25,7 @@ class Venn extends GeomBase {
 
   _getAttrValues(attr, record) {
     if (attr.type === 'position') {
-      return [ record.x, record.y ];
+      return [record.x, record.y];
     }
     return super._getAttrValues(attr, record);
   }
@@ -56,12 +51,13 @@ class Venn extends GeomBase {
     const solution = venn(data);
     // scaling
     const coord = self.get('coord');
-    const xRange = [ Math.min(coord.x.end, coord.x.start), Math.max(coord.x.end, coord.x.start) ];
-    const yRange = [ Math.min(coord.y.end, coord.y.start), Math.max(coord.y.end, coord.y.start) ];
+    const xRange = [Math.min(coord.x.end, coord.x.start), Math.max(coord.x.end, coord.x.start)];
+    const yRange = [Math.min(coord.y.end, coord.y.start), Math.max(coord.y.end, coord.y.start)];
     const width = xRange[1] - xRange[0];
     const height = yRange[1] - yRange[0];
     const styleOptions = self.get('styleOptions');
-    let padding = styleOptions && Util.isObject(styleOptions.style) ? styleOptions.style.padding : 0;
+    let padding =
+      styleOptions && Util.isObject(styleOptions.style) ? styleOptions.style.padding : 0;
     if (!Util.isFinite(padding)) {
       padding = 0;
     }
@@ -128,4 +124,4 @@ class Venn extends GeomBase {
 
 GeomBase.Venn = Venn;
 
-module.exports = Venn;
+export default Venn;

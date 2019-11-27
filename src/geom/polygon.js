@@ -2,9 +2,10 @@
  * @fileOverview 多边形
  * @author dxq613@gmail.com
  */
-const GeomBase = require('./base');
-const Util = require('../util');
-require('./shape/polygon');
+import GeomBase from './base';
+
+import Util from '../util';
+import './shape/polygon';
 
 class Polygon extends GeomBase {
   /**
@@ -54,4 +55,4 @@ class Polygon extends GeomBase {
 
 GeomBase.Polygon = Polygon;
 
-module.exports = Polygon;
+export default Polygon;

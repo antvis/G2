@@ -3,7 +3,7 @@
  * @author dxq613@gmail.com
  */
 
-const Base = require('./base');
+import Base from './base';
 
 /**
  * 矩形的 facet 有以下属性：
@@ -108,5 +108,5 @@ class Rect extends Base {
   }
 }
 
-module.exports = Rect;
+export default Rect;
 

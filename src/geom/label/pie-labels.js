@@ -1,7 +1,7 @@
-const Util = require('../../util');
-const PolarLabels = require('./polar-labels');
-const PathUtil = require('../util/path');
-const Global = require('../../global');
+import Util from '../../util';
+import PolarLabels from './polar-labels';
+import PathUtil from '../util/path';
+import Global from '../../global';
 const MARGIN = 5;
 
 function getEndPoint(center, angle, r) {
@@ -298,4 +298,4 @@ Util.augment(PieLabels, {
   }
 });
 
-module.exports = PieLabels;
+export default PieLabels;

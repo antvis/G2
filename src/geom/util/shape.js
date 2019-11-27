@@ -2,7 +2,7 @@
  * @fileOverview shape 的辅助方法
  * @author dxq613@gmail.com
  */
-const Util = require('../../util');
+import Util from '../../util';
 
 const ShapeUtil = {
   splitPoints(obj) {
@@ -37,4 +37,4 @@ const ShapeUtil = {
   }
 };
 
-module.exports = ShapeUtil;
+export default ShapeUtil;

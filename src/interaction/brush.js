@@ -1,5 +1,5 @@
-const Util = require('../util');
-const Interaction = require('./base');
+import Util from '../util';
+import Interaction from './base';
 // const G2 = require('../core.js');
 
 const BRUSH_TYPES = [ 'X', 'Y', 'XY', 'POLYGON' ];
@@ -455,4 +455,4 @@ class Brush extends Interaction {
 // G2.registerInteraction('brush', Brush);
 // G2.registerInteraction('Brush', Brush);
 
-module.exports = Brush;
+export default Brush;

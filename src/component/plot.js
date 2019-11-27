@@ -2,10 +2,12 @@
  * @fileOverview The class of canvas plot
  * @author sima.zhang
  */
-const Util = require('../util');
-const { Group } = require('../renderer');
-const AUTO_STR = 'auto';
+import Util from '../util';
 
+import Renderer from '../renderer';
+
+const AUTO_STR = 'auto';
+const { Group } = Renderer;
 
 const PlotBack = function(cfg) {
   PlotBack.superclass.constructor.call(this, cfg);
@@ -39,7 +41,7 @@ Util.augment(PlotBack, {
        * 绘图区域背景
        * @type {Object}
        */
-      plotBackground: null
+      plotBackground: null,
     };
   },
 
@@ -63,13 +65,13 @@ Util.augment(PlotBack, {
         x: 0,
         y: 0,
         width,
-        height
+        height,
       };
 
       let rect = self.get('backgroundShape');
       if (!rect) {
         rect = this.addShape('rect', {
-          attrs: Util.mix(cfg, background)
+          attrs: Util.mix(cfg, background),
         });
         this.set('backgroundShape', rect);
       } else {
@@ -92,19 +94,20 @@ Util.augment(PlotBack, {
         x: tl.x,
         y: tl.y,
         width,
-        height
+        height,
       };
       let plotBackShape = self.get('plotBackShape');
       if (!plotBackShape) {
         if (plotBackground.image) {
           cfg.img = plotBackground.image;
           plotBackShape = self.addShape('image', {
-            attrs: cfg
+            attrs: cfg,
           });
-        } else { // 矩形
+        } else {
+          // 矩形
           Util.mix(cfg, plotBackground);
           plotBackShape = self.addShape('rect', {
-            attrs: cfg
+            attrs: cfg,
           });
         }
         self.set('plotBackShape', plotBackShape);
@@ -158,27 +161,27 @@ Util.augment(PlotBack, {
 
     plotRange.tl = {
       x: minX,
-      y: minY
+      y: minY,
     }; // top-left
 
     plotRange.tr = {
       x: maxX,
-      y: minY
+      y: minY,
     }; // top-right
 
     plotRange.bl = {
       x: minX,
-      y: maxY
+      y: maxY,
     }; // bottom-left
 
     plotRange.br = {
       x: maxX,
-      y: maxY
+      y: maxY,
     }; // bottom-right
 
     plotRange.cc = {
       x: (maxX + minX) / 2,
-      y: (maxY + minY) / 2
+      y: (maxY + minY) / 2,
     };
 
     this.set('plotRange', plotRange);
@@ -189,7 +192,7 @@ Util.augment(PlotBack, {
     this._renderBackground();
     this._renderPlotBackground();
     return this;
-  }
+  },
 });
 
-module.exports = PlotBack;
+export default PlotBack;

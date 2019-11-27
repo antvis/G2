@@ -3,10 +3,12 @@
  * @author Ye Liu
  */
 
-const Util = require('../../util');
+import Util from '../../util';
+
 // const Category = require('./category');
-const Components = require('@antv/component/lib');
-const Global = require('../../global');
+import Components from '@antv/component/lib';
+
+import Global from '../../global';
 const { Legend } = Components;
 const { Category } = Legend;
 class Tail extends Category {
@@ -243,4 +245,4 @@ class Tail extends Category {
 
 }
 
-module.exports = Tail;
+export default Tail;

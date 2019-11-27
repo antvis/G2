@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   Scale: require('./scale'),
   Coord: require('./coord'),
   Axis: require('./axis'),

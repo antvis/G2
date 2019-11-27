@@ -2,8 +2,9 @@
  * @fileOverview Facet 的入口
  * @author dxq613@gmail.com
  */
-const Util = require('../util');
-const Chart = require('../chart/chart');
+import Util from '../util';
+
+import Chart from '../chart/chart';
 const Facets = {};
 
 Facets.Rect = require('./rect');
@@ -27,4 +28,4 @@ Chart.prototype.facet = function(type, cfg) {
   this.set('facets', facets);
 };
 
-module.exports = Facets;
+export default Facets;

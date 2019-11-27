@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   toFront(shape) {
     const parent = shape.get('parent');
     const originIndex = parent.get('children').indexOf(shape);

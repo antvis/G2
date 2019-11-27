@@ -5,12 +5,13 @@
  * @author huangtonger@aliyun.com
  */
 
-const Util = require('../../util');
-const Shape = require('./shape');
-const PathUtil = require('../util/path');
-const ShapeUtil = require('../util/shape');
-const Global = require('../../global');
-const G = require('../../renderer');
+import Util from '../../util';
+
+import Shape from './shape';
+import PathUtil from '../util/path';
+import ShapeUtil from '../util/shape';
+import Global from '../../global';
+import G from '../../renderer';
 
 const GPathUtil = Util.PathUtil;
 
@@ -765,4 +766,4 @@ Shape.registerShape('interval', 'top-line', {
   }
 });
 
-module.exports = Interval;
+export default Interval;

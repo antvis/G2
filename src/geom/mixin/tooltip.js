@@ -2,9 +2,11 @@
  * @fileOverview The tooltip handler
  * @author sima.zhang
  */
-const Util = require('../../util');
-const { defaultColor } = require('../../global');
+import Util from '../../util';
+
+import global from '../../global';
 const FIELD_ORIGIN = '_origin';
+const { defaultColor } = global;
 
 function getScaleName(scale) {
   return scale.alias || scale.field;
@@ -96,7 +98,8 @@ const TooltipMixin = {
     let scale;
     Util.each(attrs, attr => {
       const tmpScale = attr.getScale(attr.type);
-      if (tmpScale.isLinear) { // 如果指定字段是非position的，同时是连续的
+      if (tmpScale.isLinear) {
+        // 如果指定字段是非position的，同时是连续的
         scale = tmpScale;
         return false;
       }
@@ -140,7 +143,7 @@ const TooltipMixin = {
 
     Util.each(arr, obj => {
       const origin = obj[FIELD_ORIGIN];
-      if ((origin[yField][0] <= yValue) && (origin[yField][1] >= yValue)) {
+      if (origin[yField][0] <= yValue && origin[yField][1] >= yValue) {
         rst = obj;
         return false;
       }
@@ -159,7 +162,8 @@ const TooltipMixin = {
         const values = xScale.values; // values 是无序的
         let min = xScale.translate(values[0]);
         let max = min;
-        Util.each(values, value => { // 时间类型需要 translate
+        Util.each(values, value => {
+          // 时间类型需要 translate
           value = xScale.translate(value);
           if (value < min) {
             min = value;
@@ -187,15 +191,15 @@ const TooltipMixin = {
     const yField = yScale.field;
     let rst = null;
 
-    if (Util.indexOf([ 'heatmap', 'point' ], type) > -1) {
+    if (Util.indexOf(['heatmap', 'point'], type) > -1) {
       const coord = self.get('coord');
       const invertPoint = coord.invert(point);
       const xValue = xScale.invert(invertPoint.x);
       const yValue = yScale.invert(invertPoint.y);
       let min = Infinity;
       Util.each(dataArray, obj => {
-        const distance = (obj[FIELD_ORIGIN][xField] - xValue) ** 2 +
-          (obj[FIELD_ORIGIN][yField] - yValue) ** 2;
+        const distance =
+          (obj[FIELD_ORIGIN][xField] - xValue) ** 2 + (obj[FIELD_ORIGIN][yField] - yValue) ** 2;
         if (distance < min) {
           min = distance;
           rst = obj;
@@ -221,7 +225,10 @@ const TooltipMixin = {
     if (Util.isArray(firstXValue)) {
       Util.each(dataArray, record => {
         const origin = record[FIELD_ORIGIN];
-        if (xScale.translate(origin[xField][0]) <= value && xScale.translate(origin[xField][1]) >= value) {
+        if (
+          xScale.translate(origin[xField][0]) <= value &&
+          xScale.translate(origin[xField][1]) >= value
+        ) {
           if (isYRange) {
             if (!Util.isArray(rst)) {
               rst = [];
@@ -261,7 +268,10 @@ const TooltipMixin = {
           rst = this._filterValue(rst, point);
         }
       } else {
-        if ((value > xScale.translate(lastXValue) || value < xScale.translate(firstXValue)) && (value > xScale.max || value < xScale.min)) {
+        if (
+          (value > xScale.translate(lastXValue) || value < xScale.translate(firstXValue)) &&
+          (value > xScale.max || value < xScale.min)
+        ) {
           return null;
         }
 
@@ -288,8 +298,12 @@ const TooltipMixin = {
         }
       }
 
-      if (last && next) { // 计算最逼近的
-        if (Math.abs(xScale.translate(last[FIELD_ORIGIN][xField]) - value) > Math.abs(xScale.translate(next[FIELD_ORIGIN][xField]) - value)) {
+      if (last && next) {
+        // 计算最逼近的
+        if (
+          Math.abs(xScale.translate(last[FIELD_ORIGIN][xField]) - value) >
+          Math.abs(xScale.translate(next[FIELD_ORIGIN][xField]) - value)
+        ) {
           last = next;
         }
       }
@@ -316,7 +330,8 @@ const TooltipMixin = {
     if (titleScale) {
       const value = origin[titleScale.field];
       tipTitle = titleScale.getText(value);
-    } else if (this.get('type') === 'heatmap') { // 热力图在不存在 title 的时候特殊处理
+    } else if (this.get('type') === 'heatmap') {
+      // 热力图在不存在 title 的时候特殊处理
       const xScale = this.getXScale();
       const yScale = this.getYScale();
       const xValue = xScale.getText(origin[xScale.field]);
@@ -354,7 +369,8 @@ const TooltipMixin = {
     let name;
     let nameScale;
     const groupScales = this._getGroupScales();
-    if (groupScales.length) { // 如果存在分组类型，取第一个分组类型
+    if (groupScales.length) {
+      // 如果存在分组类型，取第一个分组类型
       Util.each(groupScales, scale => {
         nameScale = scale;
         return false;
@@ -386,14 +402,15 @@ const TooltipMixin = {
     let value;
 
     function addItem(itemName, itemValue, cfg) {
-      if (!Util.isNil(itemValue) && itemValue !== '') { // 值为null的时候，忽视
+      if (!Util.isNil(itemValue) && itemValue !== '') {
+        // 值为null的时候，忽视
         const item = {
           title: tipTitle,
           point,
           name: itemName || tipTitle,
           value: itemValue,
           color: point.color || defaultColor,
-          marker: true
+          marker: true,
         };
         item.size = self._getIntervalSize(point);
 
@@ -408,22 +425,28 @@ const TooltipMixin = {
       Util.each(fields, field => {
         callbackParams.push(origin[field]);
       });
-      if (cfg) { // 存在回调函数
+      if (cfg) {
+        // 存在回调函数
         if (Util.isFunction(cfg)) {
           cfg = cfg.apply(null, callbackParams);
         }
-        const itemCfg = Util.mix({}, {
-          point,
-          title: tipTitle,
-          color: point.color || defaultColor,
-          marker: true // 默认展示 marker
-        }, cfg);
+        const itemCfg = Util.mix(
+          {},
+          {
+            point,
+            title: tipTitle,
+            color: point.color || defaultColor,
+            marker: true, // 默认展示 marker
+          },
+          cfg
+        );
 
         itemCfg.size = self._getIntervalSize(point);
         items.push(itemCfg);
       } else {
         Util.each(fields, field => {
-          if (!Util.isNil(origin[field])) { // 字段数据为null ,undefined时不显示
+          if (!Util.isNil(origin[field])) {
+            // 字段数据为null ,undefined时不显示
             const scale = self._getScale(field);
             name = getScaleName(scale);
             value = scale.getText(origin[field]);
@@ -433,7 +456,8 @@ const TooltipMixin = {
       }
     } else {
       const valueScale = self._getTipValueScale();
-      if (!Util.isNil(origin[valueScale.field])) { // 字段数据为null ,undefined时不显示
+      if (!Util.isNil(origin[valueScale.field])) {
+        // 字段数据为null ,undefined时不显示
         value = self.getTipValue(origin, valueScale);
         name = self.getTipName(origin);
         addItem(name, value);
@@ -459,15 +483,16 @@ const TooltipMixin = {
       if (coordType === 'theta' || (coordType === 'polar' && coord.isTransposed)) {
         shareTooltip = false;
       }
-    } else if (!this.getYScale() || Util.inArray([ 'contour', 'point', 'polygon', 'edge' ], type)) {
+    } else if (!this.getYScale() || Util.inArray(['contour', 'point', 'polygon', 'edge'], type)) {
       shareTooltip = false;
     }
 
-    if (options.tooltip && Util.isBoolean(options.tooltip.shared)) { // 以用户设置的为准
+    if (options.tooltip && Util.isBoolean(options.tooltip.shared)) {
+      // 以用户设置的为准
       shareTooltip = options.tooltip.shared;
     }
     return shareTooltip;
-  }
+  },
 };
 
-module.exports = TooltipMixin;
+export default TooltipMixin;

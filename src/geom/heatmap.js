@@ -2,9 +2,12 @@
  * @fileOverview heatmap
  * @author leungwensen@gmail.com
  */
-const { ColorUtil } = require('@antv/attr/lib'); // TODO: ColorUtil 独立成包，从 attr 包中抽离
-const GeomBase = require('./base');
-const Util = require('../util');
+import Lib from '@antv/attr/lib';
+
+const { ColorUtil } = Lib; // TODO: ColorUtil 独立成包，从 attr 包中抽离
+
+import GeomBase from './base';
+import Util from '../util';
 
 const ORIGIN_FIELD = '_origin';
 const SHADOW_CANVAS = 'shadowCanvas';
@@ -50,7 +53,7 @@ class Heatmap extends GeomBase {
       min = max - 1;
     }
 
-    const range = [ min, max ];
+    const range = [min, max];
     self.set(VALUE_RANGE, range);
   }
 
@@ -67,7 +70,7 @@ class Heatmap extends GeomBase {
     }
     self.set(HEATMAP_SIZE, {
       blur,
-      radius
+      radius,
     });
   }
 
@@ -190,7 +193,9 @@ class Heatmap extends GeomBase {
     let data = self.get(MAPPED_DATA);
     if (range) {
       data = data.filter(row => {
-        return row[ORIGIN_FIELD][valueField] <= range[1] && row[ORIGIN_FIELD][valueField] >= range[0];
+        return (
+          row[ORIGIN_FIELD][valueField] <= range[1] && row[ORIGIN_FIELD][valueField] >= range[0]
+        );
       });
     }
 
@@ -200,7 +205,13 @@ class Heatmap extends GeomBase {
       const obj = data[i];
       const cfg = self.getDrawCfg(obj);
       const alpha = scale.scale(obj[ORIGIN_FIELD][valueField]);
-      self._drawGrayScaleBlurredCircle(cfg.x - start.x, cfg.y - end.y, size.radius + size.blur, alpha, ctx);
+      self._drawGrayScaleBlurredCircle(
+        cfg.x - start.x,
+        cfg.y - end.y,
+        size.radius + size.blur,
+        alpha,
+        ctx
+      );
     }
 
     // step2. convert pixels
@@ -234,4 +245,4 @@ class Heatmap extends GeomBase {
 
 GeomBase.Heatmap = Heatmap;
 
-module.exports = Heatmap;
+export default Heatmap;

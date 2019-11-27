@@ -4,10 +4,11 @@
  * @author sima.zhang1990@gmail.com
  */
 
-const Util = require('../../util');
-const Shape = require('./shape');
-const ShapeUtil = require('../util/shape');
-const Global = require('../../global');
+import Util from '../../util';
+
+import Shape from './shape';
+import ShapeUtil from '../util/shape';
+import Global from '../../global';
 
 function _parseValue(value) {
   if (!Util.isArray(value)) {
@@ -295,4 +296,4 @@ Shape.registerShape('schema', 'candle', {
   }
 });
 
-module.exports = Schema;
+export default Schema;

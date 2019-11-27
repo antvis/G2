@@ -2,9 +2,10 @@
  * @fileOverview the interaction when geom was actived
  * @author sima.zhang
  */
-const Util = require('../../util');
+import Util from '../../util';
+
 const FIELD_ORIGIN = '_origin';
-const ZIndexUtil = require('./zindex-util');
+import ZIndexUtil from './zindex-util';
 const ATTRS_ORIGIN_ACTIVE = '_originActiveAttrs';
 
 function isSameShape(shape1, shape2) {
@@ -289,4 +290,4 @@ const ActiveMixin = {
   }
 };
 
-module.exports = ActiveMixin;
+export default ActiveMixin;

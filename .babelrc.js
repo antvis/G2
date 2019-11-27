@@ -1,13 +1,9 @@
-
 module.exports = api => {
   api.cache(() => process.env.NODE_ENV);
 
   if (process.env.GATSBY === 'true') {
     return {
-      presets: [
-        '@babel/preset-env',
-        'babel-preset-gatsby'
-      ]
+      presets: ['@babel/preset-env', 'babel-preset-gatsby'],
     };
   }
   return {
@@ -16,9 +12,9 @@ module.exports = api => {
         '@babel/preset-env',
         {
           loose: true,
-          modules: false
-        }
-      ]
-    ]
+          modules: false,
+        },
+      ],
+    ],
   };
 };

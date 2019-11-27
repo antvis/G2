@@ -4,8 +4,9 @@
  * @author dxq613@gmail.com
  */
 
-const Global = require('../../global');
-const Util = require('../../util');
+import Global from '../../global';
+
+import Util from '../../util';
 
 // 已经排序后的数据查找距离最小的
 function findMinDistance(arr, scale) {
@@ -152,4 +153,4 @@ const SizeMixin = {
   }
 };
 
-module.exports = SizeMixin;
+export default SizeMixin;

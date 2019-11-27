@@ -1,4 +1,4 @@
-const Util = require('../util');
+import Util from '../util';
 const DomUtil = Util.DomUtil;
 
 const EVENT_TYPES = [
@@ -91,4 +91,4 @@ class Interaction {
   }
 }
 
-module.exports = Interaction;
+export default Interaction;

@@ -1,8 +1,8 @@
-const Util = require('../../util');
-const TimeUtil = require('@antv/scale/lib/time-util');
-const getColDefs = require('./get-col-defs');
+import Util from '../../util';
+import TimeUtil from '@antv/scale/lib/time-util';
+import getColDefs from './get-col-defs';
 
-module.exports = chart => {
+export default chart => {
   chart.on('beforeinitgeoms', () => {
     chart.set('limitInPlot', true);
     const data = chart.get('data');

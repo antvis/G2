@@ -2,8 +2,11 @@
  * @fileOverview The controller of axis
  * @author sima.zhang
  */
-const Util = require('../../util');
-const { Axis } = require('@antv/component/lib');
+import Util from '../../util';
+
+import lib from '@antv/component/lib';
+
+const { Axis } = lib;
 const { vec2 } = Util.MatrixUtil;
 
 function formatTicks(ticks) {
@@ -14,12 +17,12 @@ function formatTicks(ticks) {
     const last = tmp[tmp.length - 1];
     if (first.value !== 0) {
       tmp.unshift({
-        value: 0
+        value: 0,
       });
     }
     if (last.value !== 1) {
       tmp.push({
-        value: 1
+        value: 1,
       });
     }
   }
@@ -34,14 +37,14 @@ function fillAxisTicks(ticks, isLinear, gridCentering) {
     result.push({
       text: '',
       tickValue: '',
-      value: 0
+      value: 0,
     });
   }
   if (ticks[0].value !== 0) {
     result.push({
       text: '',
       tickValue: '',
-      value: 0
+      value: 0,
     });
   }
   result = result.concat(ticks);
@@ -49,7 +52,7 @@ function fillAxisTicks(ticks, isLinear, gridCentering) {
     result.push({
       text: '',
       tickValue: '',
-      value: 1
+      value: 1,
     });
   }
   return result;
@@ -76,7 +79,8 @@ class AxisController {
     Util.mix(this, cfg);
   }
 
-  _isHide(field) { // 对应的坐标轴是否隐藏
+  _isHide(field) {
+    // 对应的坐标轴是否隐藏
     const options = this.options;
 
     if (options && options[field] === false) {
@@ -111,40 +115,44 @@ class AxisController {
     }
 
     // TODO middle & percentage for position
-    if (dimType === 'x') { // x轴的坐标轴,底部的横坐标
-      let y = (position === 'top') ? 1 : 0;
+    if (dimType === 'x') {
+      // x轴的坐标轴,底部的横坐标
+      let y = position === 'top' ? 1 : 0;
       y = getDefaultValueFromPosition(position, y);
       start = {
         x: 0,
-        y
+        y,
       };
       end = {
         x: 1,
-        y
+        y,
       };
       isVertical = false;
-    } else { // y轴坐标轴
-      if (index) { // 多轴的情况
-        let x = (position === 'left') ? 0 : 1;
+    } else {
+      // y轴坐标轴
+      if (index) {
+        // 多轴的情况
+        let x = position === 'left' ? 0 : 1;
         x = getDefaultValueFromPosition(position, x);
         start = {
           x,
-          y: 0
+          y: 0,
         };
         end = {
           x,
-          y: 1
+          y: 1,
         };
-      } else { // 单个y轴，或者第一个y轴
-        let x = (position === 'right') ? 1 : 0;
+      } else {
+        // 单个y轴，或者第一个y轴
+        let x = position === 'right' ? 1 : 0;
         x = getDefaultValueFromPosition(position, x);
         start = {
           x,
-          y: 0
+          y: 0,
         };
         end = {
           x,
-          y: 1
+          y: 1,
         };
       }
       isVertical = true;
@@ -156,7 +164,7 @@ class AxisController {
     return {
       start,
       end,
-      isVertical
+      isVertical,
     };
   }
 
@@ -172,7 +180,7 @@ class AxisController {
       isVertical = !isVertical;
     }
 
-    if ((isVertical && (start.x > center.x)) || (!isVertical && (start.y > center.y))) {
+    if ((isVertical && start.x > center.x) || (!isVertical && start.y > center.y)) {
       factor = 1;
     } else {
       factor = -1;
@@ -182,7 +190,7 @@ class AxisController {
       isVertical,
       factor,
       start,
-      end
+      end,
     };
   }
 
@@ -196,19 +204,19 @@ class AxisController {
     if (coord.isTransposed) {
       start = {
         x: isReflectY ? 0 : 1,
-        y: 0
+        y: 0,
       };
     } else {
       start = {
         x: 0,
-        y: isReflectY ? 0 : 1
+        y: isReflectY ? 0 : 1,
       };
     }
 
     start = coord.convert(start);
     const center = coord.circleCentre;
-    const startVector = [ start.x - center.x, start.y - center.y ];
-    const normalVector = [ 1, 0 ];
+    const startVector = [start.x - center.x, start.y - center.y];
+    const normalVector = [1, 0];
     let startAngle;
     if (start.y > center.y) {
       startAngle = vec2.angle(startVector, normalVector);
@@ -233,26 +241,26 @@ class AxisController {
     if (coord.isTransposed) {
       start = {
         x: 0,
-        y: 0
+        y: 0,
       };
       end = {
         x: 1,
-        y: 0
+        y: 0,
       };
     } else {
       start = {
         x: 0,
-        y: 0
+        y: 0,
       };
       end = {
         x: 0,
-        y: 1
+        y: 1,
       };
     }
     return {
       factor,
       start: coord.convert(start),
-      end: coord.convert(end)
+      end: coord.convert(end),
     };
   }
 
@@ -310,7 +318,7 @@ class AxisController {
       const title = Util.isPlainObject(cfg.title) ? cfg.title : {};
       title.text = title.text || scale.alias || field;
       Util.deepMix(cfg, {
-        title
+        title,
       });
     }
 
@@ -341,7 +349,8 @@ class AxisController {
     const self = this;
     const position = self._getAxisPosition(coord, dimType, index, scale.field);
     const cfg = self._getAxisDefaultCfg(coord, scale, dimType, position);
-    if (!Util.isEmpty(cfg.grid) && verticalScale) { // 生成 gridPoints
+    if (!Util.isEmpty(cfg.grid) && verticalScale) {
+      // 生成 gridPoints
       const gridPoints = [];
       const tickValues = [];
       const verticalTicks = formatTicks(verticalScale.getTicks());
@@ -363,7 +372,7 @@ class AxisController {
               let y = dimType === 'x' ? verticalTick.value : value;
               const point = coord.convert({
                 x,
-                y
+                y,
               });
               if (coord.isPolar) {
                 const center = coord.circleCentre;
@@ -377,7 +386,7 @@ class AxisController {
             });
             gridPoints.push({
               _id: viewId + '-' + dimType + index + '-grid-' + tick.tickValue,
-              points: subPoints
+              points: subPoints,
             });
           }
         });
@@ -399,14 +408,14 @@ class AxisController {
     for (let i = 0; i <= index; i++) {
       const point = coord.convert({
         x: i / 100,
-        y: 0
+        y: 0,
       });
       crp.push(point.x);
       crp.push(point.y);
     }
     const axisStart = coord.convert({
       x: 0,
-      y: 0
+      y: 0,
     });
     helixCfg.a = a;
     helixCfg.startAngle = startAngle;
@@ -454,8 +463,8 @@ class AxisController {
       // 否则所有的 aixs 的文本都混在一起了
       // 同时无法知道是哪个坐标轴的事件
       group: container.addGroup({
-        viewId
-      })
+        viewId,
+      }),
     });
     const axis = new C(cfg);
     axis.render();
@@ -501,4 +510,4 @@ class AxisController {
   }
 }
 
-module.exports = AxisController;
+export default AxisController;

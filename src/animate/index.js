@@ -2,8 +2,9 @@
  * @fileOverview The entry of chart's animation
  * @author sima.zhang
  */
-const Util = require('../util');
-const Animate = require('./animate');
+import Util from '../util';
+
+import Animate from './animate';
 const MatrixUtil = Util.MatrixUtil;
 const { mat3 } = MatrixUtil;
 
@@ -152,7 +153,7 @@ function addAnimate(cache, shapes, canvas, isUpdate) {
   return canvasDrawn;
 }
 
-module.exports = {
+export default {
   execAnimation(view, isUpdate) {
     const viewContainer = view.get('middlePlot');
     const axisContainer = view.get('backPlot');

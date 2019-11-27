@@ -1,7 +1,7 @@
-const Util = require('../util');
-const Interaction = require('./base');
-const getFieldRange = require('./helper/get-field-range');
-const getLimitRange = require('./helper/get-limit-range');
+import Util from '../util';
+import Interaction from './base';
+import getFieldRange from './helper/get-field-range';
+import getLimitRange from './helper/get-limit-range';
 
 const DEFAULT_TYPE = 'X';
 
@@ -211,4 +211,4 @@ class ScrollBar extends Interaction {
   }
 }
 
-module.exports = ScrollBar;
+export default ScrollBar;

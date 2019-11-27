@@ -2,11 +2,12 @@
  * @fileOverview venn shapes
  * @author leungwensen@gmail.com
  */
-const Util = require('../../util');
-const Shape = require('./shape');
-const ShapeUtil = require('../util/shape');
-const Global = require('../../global');
-const PathUtil = require('../util/path');
+import Util from '../../util';
+
+import Shape from './shape';
+import ShapeUtil from '../util/shape';
+import Global from '../../global';
+import PathUtil from '../util/path';
 
 function getAttrs(cfg) {
   const defaultCfg = Global.shape.venn;
@@ -200,4 +201,4 @@ Shape.registerShape('violin', 'smoothHollow', {
 });
 
 
-module.exports = Violin;
+export default Violin;

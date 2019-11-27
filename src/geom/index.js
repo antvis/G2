@@ -1,5 +1,5 @@
 
-const Geom = require('./base');
+import Geom from './base';
 Geom.Point = require('./point');
 Geom.PointJitter = Geom.Point.Jitter;
 Geom.PointStack = Geom.Point.Stack;
@@ -21,4 +21,4 @@ Geom.Heatmap = require('./heatmap');
 Geom.Venn = require('./venn');
 Geom.Violin = require('./violin');
 
-module.exports = Geom;
+export default Geom;

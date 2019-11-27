@@ -2,17 +2,18 @@
  * @fileOverview 所有 Geometry 的基类
  * @author dxq613@gmail.com
  */
-const Attr = require('@antv/attr/lib');
-const Adjust = require('@antv/adjust/lib');
-const Base = require('../base');
-const Util = require('../util');
-const Global = require('../global');
-const Labels = require('./label/index');
-const Shape = require('./shape/shape');
-const TooltipMixin = require('./mixin/tooltip');
-const ActiveMixin = require('./mixin/active');
-const SelectMixin = require('./mixin/select');
-const parseFields = require('./util/parse-fields');
+import Attr from '@antv/attr/lib';
+
+import Adjust from '@antv/adjust/lib';
+import Base from '../base';
+import Util from '../util';
+import Global from '../global';
+import Labels from './label/index';
+import Shape from './shape/shape';
+import TooltipMixin from './mixin/tooltip';
+import ActiveMixin from './mixin/active';
+import SelectMixin from './mixin/select';
+import parseFields from './util/parse-fields';
 
 const GROUP_ATTRS = [ 'color', 'shape', 'size' ];
 const FIELD_ORIGIN = '_origin';
@@ -1233,4 +1234,4 @@ class GeomBase extends Base {
   }
 }
 
-module.exports = GeomBase;
+export default GeomBase;

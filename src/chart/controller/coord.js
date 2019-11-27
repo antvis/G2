@@ -2,8 +2,9 @@
  * @fileOverview The controller of coordinate
  * @author sima.zhang
  */
-const Util = require('../../util');
-const Coord = require('@antv/coord/lib/');
+import Util from '../../util';
+
+import Coord from '@antv/coord/lib/';
 
 class CoordController {
   constructor(option) {
@@ -100,4 +101,4 @@ class CoordController {
   }
 }
 
-module.exports = CoordController;
+export default CoordController;

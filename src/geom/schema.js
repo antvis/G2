@@ -2,10 +2,11 @@
  * @fileOverview 自定义图形
  * @author dxq613@gmail.com
  */
-const GeomBase = require('./base');
-const Util = require('../util');
-const SizeMixin = require('./mixin/size');
-require('./shape/schema');
+import GeomBase from './base';
+
+import Util from '../util';
+import SizeMixin from './mixin/size';
+import './shape/schema';
 
 class Schema extends GeomBase {
   /**
@@ -52,4 +53,4 @@ Schema.Dodge = SchemaDodge;
 GeomBase.Schema = Schema;
 GeomBase.SchemaDodge = SchemaDodge;
 
-module.exports = Schema;
+export default Schema;

@@ -1,5 +1,5 @@
 
-module.exports = function mergeBBox(box1, box2) {
+export default function mergeBBox(box1, box2) {
   return {
     minX: Math.min(box1.minX, box2.minX),
     minY: Math.min(box1.minY, box2.minY),

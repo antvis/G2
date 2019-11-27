@@ -1,8 +1,9 @@
-const G2 = require('./core');
+import G2 from './core';
 
 // geoms
-require('./geom/interval');
-require('./geom/line');
-require('./geom/point');
+import './geom/interval';
 
-module.exports = G2;
+import './geom/line';
+import './geom/point';
+
+export default G2;

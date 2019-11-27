@@ -3,14 +3,15 @@
  * @author dxq613@gmail.com
  */
 
-const Base = require('../base');
-const Geom = require('../geom/base');
-const Util = require('../util');
-const Controller = require('./controller/index');
-const Global = require('../global');
-const Theme = require('../theme/index');
+import Base from '../base';
+
+import Geom from '../geom/base';
+import Util from '../util';
+import Controller from './controller/index';
+import Global from '../global';
+import Theme from '../theme/index';
 const FIELD_ORIGIN = '_origin';
-const Animate = require('../animate/index');
+import Animate from '../animate/index';
 
 function isFullCircle(coord) {
   const startAngle = coord.startAngle;
@@ -1059,4 +1060,4 @@ class View extends Base {
   }
 }
 
-module.exports = View;
+export default View;

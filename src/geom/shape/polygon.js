@@ -6,10 +6,11 @@
  # @author liuye10@yahoo.com
  */
 
-const Util = require('../../util');
-const Shape = require('./shape');
-const ShapeUtil = require('../util/shape');
-const Global = require('../../global');
+import Util from '../../util';
+
+import Shape from './shape';
+import ShapeUtil from '../util/shape';
+import Global from '../../global';
 
 function getAttrs(cfg) {
   const defaultCfg = Global.shape.polygon;
@@ -136,4 +137,4 @@ Shape.registerShape('polygon', 'hollow', {
 });
 
 
-module.exports = Polygon;
+export default Polygon;

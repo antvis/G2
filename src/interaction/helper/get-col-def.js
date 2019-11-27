@@ -1,6 +1,6 @@
-const getColDefs = require('./get-col-defs');
+import getColDefs from './get-col-defs';
 
-module.exports = (chart, field) => {
+export default (chart, field) => {
   const colDefs = getColDefs(chart);
   if (colDefs && colDefs[field]) {
     return colDefs[field];

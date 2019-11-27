@@ -5,11 +5,12 @@
  * @author huangtonger@aliyun.com
  */
 
-const Util = require('../../util');
-const PathUtil = require('../util/path');
-const ShapeUtil = require('../util/shape');
-const Shape = require('./shape');
-const Global = require('../../global');
+import Util from '../../util';
+
+import PathUtil from '../util/path';
+import ShapeUtil from '../util/shape';
+import Shape from './shape';
+import Global from '../../global';
 const DOT_ARR = [ 1, 1 ];
 const DASH_ARR = [ 5.5, 1 ];
 
@@ -390,4 +391,4 @@ Shape.registerShape('line', 'vhv', {
 
 Line.spline = Line.smooth;
 
-module.exports = Line;
+export default Line;

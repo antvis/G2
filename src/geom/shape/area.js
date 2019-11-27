@@ -4,11 +4,12 @@
  * @author sima.zhang1990@gmail.com
  */
 
-const Util = require('../../util');
-const Shape = require('./shape');
-const PathUtil = require('../util/path');
-const ShapeUtil = require('../util/shape');
-const Global = require('../../global');
+import Util from '../../util';
+
+import Shape from './shape';
+import PathUtil from '../util/path';
+import ShapeUtil from '../util/shape';
+import Global from '../../global';
 
 function getLineAttrs(cfg) {
   const defaultAttrs = Global.shape.hollowArea;
@@ -242,5 +243,5 @@ Shape.registerShape('area', 'smoothLine', {
 
 Area.spline = Area.smooth;
 
-module.exports = Area;
+export default Area;
 

@@ -1,5 +1,5 @@
-const Util = require('../../util');
-const Guide = require('../../component/guide');
+import Util from '../../util';
+import Guide from '../../component/guide';
 
 class GuideController {
   constructor(cfg) {
@@ -155,4 +155,4 @@ class GuideController {
   }
 }
 
-module.exports = GuideController;
+export default GuideController;

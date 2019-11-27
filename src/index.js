@@ -1,22 +1,40 @@
-const G2 = require('./core');
+import G2 from './core';
 
 // geoms
-require('./geom/area');
-require('./geom/edge');
-require('./geom/heatmap');
-require('./geom/interval');
-require('./geom/line');
-require('./geom/path');
-require('./geom/point');
-require('./geom/polygon');
-require('./geom/schema');
-require('./geom/venn');
-require('./geom/violin');
+import area from './geom/area';
+
+import edge from './geom/edge';
+
+import heatmap from './geom/heatmap';
+import interval from './geom/interval';
+import line from './geom/line';
+import path from './geom/path';
+import point from './geom/point';
+import polygon from './geom/polygon';
+import schema from './geom/schema';
+import venn from './geom/venn';
+import violin from './geom/violin';
 
 // facets
-require('./facet/index');
+import facet from './facet/index';
 
 // interaction
-require('./interaction/index');
+import interaction from './interaction/index';
 
-module.exports = G2;
+export {
+  area,
+  edge,
+  heatmap,
+  interval,
+  line,
+  path,
+  point,
+  polygon,
+  schema,
+  venn,
+  violin,
+  facet,
+  interaction,
+};
+
+export default G2;

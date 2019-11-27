@@ -3,8 +3,9 @@
  * @author dxq613@gmail.com
  */
 
-const GeomBase = require('./base');
-require('./shape/edge');
+import GeomBase from './base';
+
+import './shape/edge';
 
 class Edge extends GeomBase {
   /**
@@ -23,4 +24,4 @@ class Edge extends GeomBase {
 
 GeomBase.Edge = Edge;
 
-module.exports = Edge;
+export default Edge;

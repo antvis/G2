@@ -2,8 +2,9 @@
  * @fileOverview Default animation funciton
  * @author sima.zhang
  */
-const Util = require('../util');
-const G = require('../renderer');
+import Util from '../util';
+
+import G from '../renderer';
 const PathUtil = Util.PathUtil;
 
 function getClip(coord) {
@@ -477,7 +478,7 @@ function areaSlideLeft(shape, animateCfg, coord) {
 }
 
 // 默认动画库
-module.exports = {
+export default {
   enter: {
     clipIn,
     zoomIn,

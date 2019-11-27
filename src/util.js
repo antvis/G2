@@ -3,8 +3,9 @@
  * @author dxq613@gmail.com
  * @see https://github.com/lodash/lodash
  */
-const Utils = require('@antv/util/lib');
-const G = require('./renderer');
+import Utils from '@antv/util/lib';
+
+import G from './renderer';
 
 const Util = Utils.mix({}, Utils, {
   assign: Utils.mix, // simple mix
@@ -39,7 +40,7 @@ const Util = Utils.mix({}, Utils, {
       bottom = padding.bottom || 0;
       left = padding.left || 0;
     }
-    return [ top, right, bottom, left ];
+    return [top, right, bottom, left];
   },
   getClipByRange(plotRange) {
     const { tl, br } = plotRange;
@@ -48,11 +49,11 @@ const Util = Utils.mix({}, Utils, {
         x: tl.x,
         y: tl.y,
         width: br.x - tl.x,
-        height: br.y - tl.y
-      }
+        height: br.y - tl.y,
+      },
     });
     return clip;
-  }
+  },
 });
 
 Util.Array = {
@@ -62,7 +63,7 @@ Util.Array = {
   values: Utils.valuesOfKey,
   getRange: Utils.getRange,
   firstValue: Utils.firstValue,
-  remove: Utils.pull
+  remove: Utils.pull,
 };
 
-module.exports = Util;
+export default Util;

@@ -1,8 +1,8 @@
 
-const Util = require('../util');
-const Interaction = require('./base');
-const getColDef = require('./helper/get-col-def');
-const getLimitRange = require('./helper/get-limit-range');
+import Util from '../util';
+import Interaction from './base';
+import getColDef from './helper/get-col-def';
+import getLimitRange from './helper/get-limit-range';
 
 const ZOOMING_TYPES = [ 'X', 'Y', 'XY' ];
 const DEFAULT_TYPE = 'X';
@@ -165,4 +165,4 @@ class Zoom extends Interaction {
 // G2.registerInteraction('zoom', Zoom);
 // G2.registerInteraction('Zoom', Zoom);
 
-module.exports = Zoom;
+export default Zoom;

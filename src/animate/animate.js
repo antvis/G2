@@ -2,8 +2,9 @@
  * @fileOverview Default animation configuration for geoms
  * @author sima.zhang
  */
-const Util = require('../util');
-const Action = require('./action');
+import Util from '../util';
+
+import Action from './action';
 
 const defaultAnimationCfg = {
   appear: {
@@ -265,4 +266,4 @@ Animate.registerAnimation = function(animationType, animationName, animationFun)
   this.Action[animationType][animationName] = animationFun;
 };
 
-module.exports = Animate;
+export default Animate;

@@ -3,10 +3,11 @@
  * @author dxq613@gmail.com
  */
 
-const GeomBase = require('./base');
-const SplitMixin = require('./mixin/split');
-const Util = require('../util');
-require('./shape/area');
+import GeomBase from './base';
+
+import SplitMixin from './mixin/split';
+import Util from '../util';
+import './shape/area';
 
 class Area extends GeomBase {
   /**
@@ -61,5 +62,5 @@ Area.Stack = AreaStack;
 GeomBase.Area = Area;
 GeomBase.AreaStack = AreaStack;
 
-module.exports = Area;
+export default Area;
 

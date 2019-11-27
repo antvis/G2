@@ -2,10 +2,11 @@
  * @fileOverview Venn Diagram
  * @author leungwensen@gmail.com
  */
-const GeomBase = require('./base');
-const Util = require('../util');
-const SizeMixin = require('./mixin/size');
-require('./shape/violin');
+import GeomBase from './base';
+
+import Util from '../util';
+import SizeMixin from './mixin/size';
+import './shape/violin';
 
 class Violin extends GeomBase {
   /**
@@ -65,4 +66,4 @@ Violin.Dodge = ViolinDodge;
 GeomBase.Violin = Violin;
 GeomBase.ViolinDodge = ViolinDodge;
 
-module.exports = Violin;
+export default Violin;

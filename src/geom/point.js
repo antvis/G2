@@ -2,9 +2,10 @@
  * @fileOverview 点图
  * @author dxq613@gmail.com
  */
-const GeomBase = require('./base');
-const Util = require('../util');
-require('./shape/point');
+import GeomBase from './base';
+
+import Util from '../util';
+import './shape/point';
 
 class Point extends GeomBase {
   /**
@@ -68,4 +69,4 @@ GeomBase.Point = Point;
 GeomBase.PointJitter = PointJitter;
 GeomBase.PointStack = PointStack;
 
-module.exports = Point;
+export default Point;

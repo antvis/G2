@@ -217,12 +217,7 @@ declare namespace G2 {
         }
       | number
       | string
-      | [
-          number | string,
-          number | string,
-          number | string,
-          number | string
-        ]
+      | [number | string, number | string, number | string, number | string]
       | [string, string];
     background?: Styles.background;
     plotBackground?: Styles.background;
@@ -390,12 +385,7 @@ declare namespace G2 {
     position?: 'start' | 'center' | 'end';
   }
 
-  const markerAction: (
-    x: number,
-    y: number,
-    r: number,
-    ctx: CanvasRenderingContext2D
-  ) => void;
+  const markerAction: (x: number, y: number, r: number, ctx: CanvasRenderingContext2D) => void;
 
   interface LegendConfig {
     position?:
@@ -470,10 +460,7 @@ declare namespace G2 {
     showMarker: boolean;
   }
 
-  type TooltipConfig =
-    | HtmlTooltipConfig
-    | CanvasTooltipConfig
-    | MiniTooltipConfig;
+  type TooltipConfig = HtmlTooltipConfig | CanvasTooltipConfig | MiniTooltipConfig;
 
   interface CommonTooltipConfig {
     triggerOn?: 'mousemove' | 'click' | 'none';
@@ -741,10 +728,7 @@ declare namespace G2 {
        */
       y: number;
     };
-    filter(
-      field: string,
-      callback: (value: string | number) => boolean
-    ): this;
+    filter(field: string, callback: (value: string | number) => boolean): this;
     axis(option: boolean): this;
     axis(field: string, option: boolean): this;
     axis(field: string, axisConfig: ChartAxisConfig): this;
@@ -870,14 +854,7 @@ declare namespace G2 {
    * config interface
    */
   class Scale<T> {
-    type?:
-      | 'identity'
-      | 'linear'
-      | 'cat'
-      | 'time'
-      | 'timeCat'
-      | 'log'
-      | 'pow';
+    type?: 'identity' | 'linear' | 'cat' | 'time' | 'timeCat' | 'log' | 'pow';
     formatter?(value: T): string;
     range?: [number, number];
     alias?: string | number;
@@ -958,11 +935,7 @@ declare namespace G2 {
   }
 
   interface Animate {
-    registerAnimation(
-      animationType: string,
-      animationName: string,
-      animationFun: any
-    ): void;
+    registerAnimation(animationType: string, animationName: string, animationFun: any): void;
   }
 
   type lodashFn = any;
@@ -994,11 +967,7 @@ declare namespace G2 {
       eventType: K,
       listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any
     ): void;
-    addEventListener(
-      target: HTMLElement,
-      eventType: string,
-      listener: (ev: Event) => any
-    ): void;
+    addEventListener(target: HTMLElement, eventType: string, listener: (ev: Event) => any): void;
     requestAnimationFrame(fn: () => void): void;
   }
 

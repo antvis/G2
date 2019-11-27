@@ -1,5 +1,5 @@
-const Util = require('../util');
-const Interaction = require('./base');
+import Util from '../util';
+import Interaction from './base';
 
 function getOriginalAttrs(attrs, styles) {
   const origin = {};
@@ -109,4 +109,4 @@ class Select extends Interaction {
   }
 }
 
-module.exports = Select;
+export default Select;

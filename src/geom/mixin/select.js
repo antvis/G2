@@ -3,9 +3,10 @@
  * @author sima.zhang
  */
 
-const Util = require('../../util');
+import Util from '../../util';
+
 const FIELD_ORIGIN = '_origin';
-const ZIndexUtil = require('./zindex-util');
+import ZIndexUtil from './zindex-util';
 
 function isSameShape(shape1, shape2) {
   if (Util.isNil(shape1) || Util.isNil(shape2)) {
@@ -197,4 +198,4 @@ const SelectMixin = {
   }
 };
 
-module.exports = SelectMixin;
+export default SelectMixin;

@@ -1,9 +1,9 @@
 
-const Util = require('../util');
-const Interaction = require('./base');
-const filterData = require('./helper/filter-data');
-const getColDef = require('./helper/get-col-def');
-const getLimitRange = require('./helper/get-limit-range');
+import Util from '../util';
+import Interaction from './base';
+import filterData from './helper/filter-data';
+import getColDef from './helper/get-col-def';
+import getLimitRange from './helper/get-limit-range';
 const DAY_TIMESTAMPS = 86400000;
 // const G2 = require('../core.js');
 
@@ -234,4 +234,4 @@ class Drag extends Interaction {
   }
 }
 
-module.exports = Drag;
+export default Drag;

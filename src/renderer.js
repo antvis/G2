@@ -1,4 +1,3 @@
+import G from '@antv/g/lib';
 
-const G = require('@antv/g/lib');
-
-module.exports = G;
+export default G;

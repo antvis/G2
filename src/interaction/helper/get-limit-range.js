@@ -1,7 +1,7 @@
-const Util = require('../../util');
-const TimeUtil = require('@antv/scale/lib/time-util');
+import Util from '../../util';
+import TimeUtil from '@antv/scale/lib/time-util';
 
-module.exports = (data, scale) => {
+export default (data, scale) => {
   let result;
   const { field, type } = scale;
   const values = Util.Array.values(data, field);

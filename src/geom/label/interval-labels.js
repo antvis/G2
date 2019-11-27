@@ -1,5 +1,5 @@
-const Util = require('../../util');
-const GeomLabels = require('./geom-labels');
+import Util from '../../util';
+import GeomLabels from './geom-labels';
 
 const IntervalLabels = function(cfg) {
   IntervalLabels.superclass.constructor.call(this, cfg);
@@ -72,4 +72,4 @@ Util.augment(IntervalLabels, {
   }
 });
 
-module.exports = IntervalLabels;
+export default IntervalLabels;

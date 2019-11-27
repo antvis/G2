@@ -1,6 +1,6 @@
-const Labels = require('./geom-labels');
-const PathUtil = require('../util/path');
-const Util = require('../../util');
+import Labels from './geom-labels';
+import PathUtil from '../util/path';
+import Util from '../../util';
 
 const PolarLabels = function(cfg) {
   PolarLabels.superclass.constructor.call(this, cfg);
@@ -203,4 +203,4 @@ Util.augment(PolarLabels, {
   }
 });
 
-module.exports = PolarLabels;
+export default PolarLabels;

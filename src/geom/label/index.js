@@ -1,7 +1,7 @@
-const GeomLabels = require('./geom-labels');
-const PolarLabels = require('./polar-labels');
-const PieLabels = require('./pie-labels');
-const IntervalLabels = require('./interval-labels');
+import GeomLabels from './geom-labels';
+import PolarLabels from './polar-labels';
+import PieLabels from './pie-labels';
+import IntervalLabels from './interval-labels';
 
 const Labels = {
   getLabelsClass(coordType, type) {
@@ -17,4 +17,4 @@ const Labels = {
   }
 };
 
-module.exports = Labels;
+export default Labels;

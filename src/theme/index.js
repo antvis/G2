@@ -1,10 +1,12 @@
+import defaultTheme from './default';
+import dark from './dark';
 /**
  * @fileOverview Theme entry
  * @author sima.zhang
  */
 const Theme = {
-  default: require('./default'),
-  dark: require('./dark')
+  default: defaultTheme,
+  dark,
 };
 
-module.exports = Theme;
+export default Theme;

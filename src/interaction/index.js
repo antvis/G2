@@ -2,18 +2,26 @@
  * @fileOverview Interaction
  * @author leungwensen@gmail.com
  */
-const G2 = require('../core');
-const Chart = require('../chart/chart');
-const Util = require('../util');
+import G2 from '../core';
+
+import Chart from '../chart/chart';
+import Util from '../util';
+import Base from './base';
+import Brush from './brush';
+import Drag from './drag';
+import ScrollBar from './scroll-bar';
+import ShapeSelect from './shape-select';
+import Slider from './slider';
+import Zoom from './zoom';
 
 const Interactions = {
-  Base: require('./base'),
-  Brush: require('./brush'),
-  Drag: require('./drag'),
-  ScrollBar: require('./scroll-bar'),
-  ShapeSelect: require('./shape-select'),
-  Slider: require('./slider'),
-  Zoom: require('./zoom')
+  Base,
+  Brush,
+  Drag,
+  ScrollBar,
+  ShapeSelect,
+  Slider,
+  Zoom
 };
 
 G2._Interactions = {};
@@ -76,4 +84,4 @@ G2.registerInteraction('ShapeSelect', Interactions.ShapeSelect);
 G2.registerInteraction('slider', Interactions.Slider);
 G2.registerInteraction('Slider', Interactions.Slider);
 
-module.exports = Interactions;
+export default Interactions;

@@ -3,7 +3,7 @@
  * @author dxq613@gmail.com
  */
 
-const Rect = require('./rect');
+import Rect from './rect';
 
 class Matrix extends Rect {
 
@@ -60,4 +60,4 @@ class Matrix extends Rect {
   }
 }
 
-module.exports = Matrix;
+export default Matrix;

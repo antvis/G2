@@ -1,7 +1,7 @@
 
-const Util = require('../../util');
+import Util from '../../util';
 
-module.exports = field => {
+export default field => {
   if (Util.isArray(field)) {
     return field;
   }

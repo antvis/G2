@@ -2,10 +2,11 @@
  * @fileOverview interval geometry
  * @author dxq613@gmail.com
  */
-const GeomBase = require('./base');
-const Util = require('../util');
-const SizeMixin = require('./mixin/size');
-require('./shape/interval');
+import GeomBase from './base';
+
+import Util from '../util';
+import SizeMixin from './mixin/size';
+import './shape/interval';
 
 class Interval extends GeomBase {
   /**
@@ -74,4 +75,4 @@ GeomBase.IntervalStack = IntervalStack;
 GeomBase.IntervalDodge = IntervalDodge;
 GeomBase.IntervalSymmetric = IntervalSymmetric;
 
-module.exports = Interval;
+export default Interval;

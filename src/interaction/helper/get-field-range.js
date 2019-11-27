@@ -1,4 +1,4 @@
-module.exports = (scale, limitRange, type) => {
+export default (scale, limitRange, type) => {
   if (!scale) return [ 0, 1 ];
 
   let minRatio = 0;

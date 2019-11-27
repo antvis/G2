@@ -3,8 +3,9 @@
  * @author dxq613@gmail.com
  */
 
-const Global = require('../global');
-const Util = require('../util');
+import Global from '../global';
+
+import Util from '../util';
 
 const assign = Util.assign;
 const isNil = Util.isNil;
@@ -361,4 +362,4 @@ class Base {
   }
 }
 
-module.exports = Base;
+export default Base;

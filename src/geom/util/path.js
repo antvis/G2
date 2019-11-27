@@ -2,8 +2,9 @@
  * @fileOverview 计算path 使用的工具方法
  * @author dxq613@gmail.com
  */
-const Util = require('../../util');
-const Spline = require('./spline');
+import Util from '../../util';
+
+import Spline from './spline';
 
 function points2path(points, isInCircle) {
   if (!points.length) {
@@ -198,4 +199,4 @@ const PathUtil = {
   }
 };
 
-module.exports = PathUtil;
+export default PathUtil;

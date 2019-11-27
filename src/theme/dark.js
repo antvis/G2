@@ -2,8 +2,9 @@
  * @fileOverview G2 3.0 dark theme
  * @author sima.zhang
  */
-const Util = require('../util');
-const BasicTheme = require('./default');
+import Util from '../util';
+
+import BasicTheme from './default';
 
 // tooltip 相关 dom 的 css 类名
 const TOOLTIP_CONTAINER_CLASS = 'g2-tooltip';
@@ -201,5 +202,5 @@ const DarkTheme = Util.deepMix({}, BasicTheme, {
   }
 });
 
-module.exports = DarkTheme;
+export default DarkTheme;
 

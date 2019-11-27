@@ -3,8 +3,9 @@
  * @author dxq613@gmail.com
  */
 
-const Base = require('./base');
-const Util = require('../util');
+import Base from './base';
+
+import Util from '../util';
 
 const assign = Util.assign;
 
@@ -270,4 +271,4 @@ class Tree extends Base {
   }
 }
 
-module.exports = Tree;
+export default Tree;

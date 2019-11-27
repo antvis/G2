@@ -3,7 +3,7 @@
  * @author dxq613@gmail.com
  */
 
-const Base = require('./base');
+import Base from './base';
 
 function getPoint(center, r, angle) {
   return {
@@ -68,4 +68,4 @@ class Circle extends Base {
   }
 }
 
-module.exports = Circle;
+export default Circle;
