@@ -29,14 +29,20 @@ function isNumber(v: any): boolean {
  * @returns the chart width and height
  */
 export function getChartSize(ele: HTMLElement, autoFit: boolean, width: number, height: number): Size {
-  const size = autoFit ? getElementSize(ele) : { width, height };
+  let w = width;
+  let h = height;
 
-  const t = {
-    width: Math.max(isNumber(size.width) ? size.width : MIN_CHART_WIDTH, MIN_CHART_WIDTH),
-    height: Math.max(isNumber(size.height) ? size.height : MIN_CHART_HEIGHT, MIN_CHART_HEIGHT),
+  if (autoFit) {
+    const size = getElementSize(ele);
+
+    w = size.width ? size.width : w;
+    h = size.height ? size.height : h;
+  }
+
+  return {
+    width: Math.max(isNumber(w) ? w : MIN_CHART_WIDTH, MIN_CHART_WIDTH),
+    height: Math.max(isNumber(h) ? h : MIN_CHART_HEIGHT, MIN_CHART_HEIGHT),
   };
-
-  return t;
 }
 
 /**
