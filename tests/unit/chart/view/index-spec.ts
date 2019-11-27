@@ -127,6 +127,13 @@ describe('View', () => {
     expect(view.options.animate).toBe(false);
   });
 
+  it('theme', () => {
+    view.theme({ xxx: 1 });
+
+    // @ts-ignore
+    expect(view.getTheme().xxx).toBe(1);
+  });
+
   it('geometry', () => {
     view
       // @ts-ignore
