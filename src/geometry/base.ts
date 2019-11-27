@@ -2,6 +2,7 @@ import * as _ from '@antv/util';
 import { createScaleByField, syncScale } from '../util/scale';
 import Element from './element';
 import { getShapeFactory } from './shape/base';
+import { isModelChange } from './util/is-model-change';
 import { parseFields } from './util/parse-fields';
 
 import { Adjust, getAdjust as getAdjustClass } from '@antv/adjust';
@@ -922,8 +923,7 @@ export default class Geometry {
         // element 已经创建
         const currentShapeCfg = this.getDrawCfg(mappingDatum);
         const preShapeCfg = result.model;
-        if (!_.isEqual(currentShapeCfg, preShapeCfg)) {
-          // TODO: 现在这么判断貌似有问题，待测试
+        if (isModelChange(currentShapeCfg, preShapeCfg)) {
           // 更新动画配置，用户有可能在更新之前有对动画进行配置操作
           result.animate = this.animateOption;
           // 通过绘制数据的变更来判断是否需要更新，因为用户有可能会修改图形属性映射
