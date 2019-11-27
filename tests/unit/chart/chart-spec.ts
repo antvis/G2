@@ -17,6 +17,10 @@ describe('Chart', () => {
   });
 
   chart.data(CITY_SALE);
+  chart.scale({
+    city: {},
+    sale: {},
+  });
 
   chart
     // @ts-ignore
