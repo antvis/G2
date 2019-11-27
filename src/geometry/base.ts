@@ -18,6 +18,7 @@ import {
   ScaleOption,
   ShapeFactory,
   ShapeInfo,
+  ShapeMarkerCfg,
   ShapePoint,
 } from '../interface';
 import {
@@ -781,18 +782,15 @@ export default class Geometry {
     return this.adjusts[adjustType];
   }
 
-  public getShapeFactory() {
-    let shapeFactory = this.shapeFactory;
-    if (!shapeFactory) {
-      const shapeType = this.shapeType;
-      const coordinate = this.coordinate;
-      shapeFactory = getShapeFactory(shapeType);
-      shapeFactory.coordinate = coordinate;
-      shapeFactory.theme = _.get(this.theme, ['geometries', shapeType], {});
-      this.shapeFactory = shapeFactory;
-    }
-
-    return shapeFactory;
+  /**
+   * Gets shape marker style
+   * @param shapeName
+   * @param cfg
+   * @returns
+   */
+  public getShapeMarker(shapeName: string, cfg: ShapeMarkerCfg) {
+    const shapeFactory = this.getShapeFactory();
+    return shapeFactory.getMarker(shapeName, cfg);
   }
 
   /**
@@ -813,6 +811,20 @@ export default class Geometry {
     return this.elements.filter((element) => {
       return condition(element);
     });
+  }
+
+  protected getShapeFactory() {
+    let shapeFactory = this.shapeFactory;
+    if (!shapeFactory) {
+      const shapeType = this.shapeType;
+      const coordinate = this.coordinate;
+      shapeFactory = getShapeFactory(shapeType);
+      shapeFactory.coordinate = coordinate;
+      shapeFactory.theme = _.get(this.theme, ['geometries', shapeType], {});
+      this.shapeFactory = shapeFactory;
+    }
+
+    return shapeFactory;
   }
 
   protected updateScales() {
