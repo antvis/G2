@@ -76,7 +76,6 @@ describe('Interaction', () => {
     ]);
     chart.animate(false);
     chart
-      // @ts-ignore
       .line()
       .position('year*value')
       .style({

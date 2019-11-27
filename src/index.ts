@@ -13,20 +13,6 @@ import Point from './geometry/point';
 import Polygon from './geometry/polygon';
 import Schema from './geometry/schema';
 
-// view module augmentation
-// detail: http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
-declare module './chart/view' {
-  interface View {
-    polygon(cfg?: Partial<GeometryCfg>): Polygon;
-    point(cfg?: Partial<GeometryCfg>): Point;
-    interval(cfg?: Partial<GeometryCfg>): Interval;
-    schema(cfg?: Partial<GeometryCfg>): Schema;
-    path(cfg?: Partial<PathCfg>): Path;
-    line(cfg?: Partial<PathCfg>): Line;
-    area(cfg?: Partial<PathCfg>): Area;
-  }
-}
-
 registerGeometry('Polygon', Polygon);
 registerGeometry('Interval', Interval);
 registerGeometry('Schema', Schema);
@@ -47,3 +33,17 @@ import Active from './interaction/active';
 import ActiveRegion from './interaction/active-region';
 registerInteraction('active', Active);
 registerInteraction('activeRegion', ActiveRegion);
+
+// view module augmentation
+// detail: http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
+declare module './chart/view' {
+  interface View {
+    polygon(cfg?: Partial<GeometryCfg>): Polygon;
+    point(cfg?: Partial<GeometryCfg>): Point;
+    interval(cfg?: Partial<GeometryCfg>): Interval;
+    schema(cfg?: Partial<GeometryCfg>): Schema;
+    path(cfg?: Partial<PathCfg>): Path;
+    line(cfg?: Partial<PathCfg>): Line;
+    area(cfg?: Partial<PathCfg>): Area;
+  }
+}

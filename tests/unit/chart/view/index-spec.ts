@@ -127,7 +127,6 @@ describe('View', () => {
 
   it('geometry', () => {
     view
-      // @ts-ignore
       .polygon()
       .position('city*category')
       .color('sale');

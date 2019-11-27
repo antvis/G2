@@ -16,7 +16,6 @@ const chart = new Chart({
 chart.data(CITY_SALE);
 
 chart
-  // @ts-ignore
   .interval()
   .position('city*sale')
   .color('category');

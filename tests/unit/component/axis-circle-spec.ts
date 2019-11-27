@@ -20,14 +20,12 @@ describe('Component', () => {
   chart.data(CITY_SALE);
 
   chart
-    // @ts-ignore
     .line()
     .position('city*sale')
     .color('category')
     .size(2);
 
   chart
-    // @ts-ignore
     .point()
     .position('city*sale')
     .color('category')
