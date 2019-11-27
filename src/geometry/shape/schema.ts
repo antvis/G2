@@ -1,9 +1,7 @@
 import * as _ from '@antv/util';
-import { PathCommand } from '../../dependents';
-import { Point, ShapeDrawCFG, ShapePoint } from '../../interface';
+import { IGroup, PathCommand } from '../../dependents';
+import { Point, ShapeInfo, ShapePoint } from '../../interface';
 import { padEnd } from '../../util/helper';
-import { doAnimate } from '../animate';
-import Element from '../element';
 import { registerShape, registerShapeFactory } from './base';
 
 function getCandleYValues(value: number | number[]) {
@@ -143,43 +141,21 @@ registerShape('schema', 'candle', {
     const { x, y, size } = shapePoint;
     return getCandlePoints(x as number, y as number[], size);
   },
-  draw(cfg: ShapeDrawCFG, element: Element) {
+  draw(cfg: ShapeInfo, container: IGroup) {
     const style = cfg.style;
     if (cfg.color) {
       style.fill = cfg.color;
     }
     const path = this.parsePath(getCandlePath(cfg.points));
-    const container = element.container;
     const shape = container.addShape('path', {
       attrs: {
         ...style,
         path,
+        name: 'schema',
       },
     });
 
-    if (cfg.animate) {
-      doAnimate(shape, cfg, this.coordinate);
-    }
-
     return shape;
-  },
-  update(cfg: ShapeDrawCFG, element: Element) {
-    const shape = element.shape;
-    const style = cfg.style;
-    if (cfg.color) {
-      style.fill = cfg.color;
-    }
-
-    const path = this.parsePath(getCandlePath(cfg.points));
-    const attrs = {
-      ...style,
-      path,
-    };
-    if (cfg.animate) {
-      doAnimate(shape, cfg, this.coordinate, attrs);
-    } else {
-      shape.attr(attrs);
-    }
   },
   getMarker(color: string, isInPolar: boolean) {
     return {
@@ -212,44 +188,21 @@ registerShape('schema', 'box', {
     const { x, y, size } = shapePoint;
     return getBoxPoints(x as number, y as number[], size);
   },
-  draw(cfg: ShapeDrawCFG, element: Element) {
+  draw(cfg: ShapeInfo, container: IGroup) {
     const style = cfg.style;
     if (cfg.color) {
       style.stroke = cfg.color;
     }
     const path = this.parsePath(getBoxPath(cfg.points));
-    const container = element.container;
     const shape = container.addShape('path', {
       attrs: {
         ...style,
         path,
+        name: 'schema',
       },
     });
 
-    if (cfg.animate) {
-      doAnimate(shape, cfg, this.coordinate);
-    }
-
     return shape;
-  },
-  update(cfg: ShapeDrawCFG, element: Element) {
-    const shape = element.shape;
-    const style = cfg.style;
-    if (cfg.color) {
-      style.stroke = cfg.color;
-    }
-
-    const path = this.parsePath(getBoxPath(cfg.points));
-    const attrs = {
-      ...style,
-      path,
-    };
-
-    if (cfg.animate) {
-      doAnimate(shape, cfg, this.coordinate, attrs);
-    } else {
-      shape.attr(attrs);
-    }
   },
   getMarker(color: string, isInPolar: boolean) {
     return {

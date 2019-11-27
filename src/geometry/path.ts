@@ -41,11 +41,13 @@ export default class Path extends Geometry {
         shapeFactory,
         container: elementsContainer,
         animate: this.animateOption,
+        offscreenGroup: this.getOffscreenGroup(elementsContainer),
       });
     } else {
       // element 已经创建
       const preShapeCfg = result.model;
       if (!_.isEqual(preShapeCfg, shapeCfg)) {
+        // TODO: 判断可能有问题，需要验证
         // 更新动画配置，用户有可能在更新之前有对动画进行配置操作
         result.animate = this.animateOption;
         // 通过绘制数据的变更来判断是否需要更新，因为用户有可能会修改图形属性映射

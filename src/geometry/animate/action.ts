@@ -1,6 +1,6 @@
 import { transform } from '@antv/matrix-util';
 import { Coordinate, IGroup, IShape } from '../../dependents';
-import { AnimateCfg, Point, ShapeDrawCFG } from '../../interface';
+import { AnimateCfg, Point, ShapeInfo } from '../../interface';
 import { getAngle, getSectorPath } from '../../util/graphics';
 import { getCoordinateClipCfg } from './util';
 
@@ -14,7 +14,7 @@ export function scaleInY(
   shape: IShape | IGroup,
   animateCfg: AnimateCfg,
   coordinate: Coordinate,
-  shapeModel: ShapeDrawCFG
+  shapeModel: ShapeInfo
 ) {
   const box = shape.getBBox();
   const x = (box.minX + box.maxX) / 2;
@@ -52,7 +52,7 @@ export function scaleInX(
   shape: IShape | IGroup,
   animateCfg: AnimateCfg,
   coordinate: Coordinate,
-  shapeModel: ShapeDrawCFG
+  shapeModel: ShapeInfo
 ) {
   const box = shape.getBBox();
   const points = shapeModel.points as Point[];
@@ -88,12 +88,7 @@ export function scaleInX(
  * @param coordinate
  * @param shapeModel
  */
-export function clipIn(
-  shape: IShape | IGroup,
-  animateCfg: AnimateCfg,
-  coordinate: Coordinate,
-  shapeModel: ShapeDrawCFG
-) {
+export function clipIn(shape: IShape | IGroup, animateCfg: AnimateCfg, coordinate: Coordinate, shapeModel: ShapeInfo) {
   const clipCfg = getCoordinateClipCfg(coordinate); // 根据坐标系类型获取整体的剪切区域配置信息
   const endState = clipCfg.endState;
   // 为 shape 设置剪切区域
@@ -122,12 +117,7 @@ export function clipIn(
  * @param coordinate
  * @param shapeModel
  */
-export function zoomIn(
-  shape: IShape | IGroup,
-  animateCfg: AnimateCfg,
-  coordinate: Coordinate,
-  shapeModel: ShapeDrawCFG
-) {
+export function zoomIn(shape: IShape | IGroup, animateCfg: AnimateCfg, coordinate: Coordinate, shapeModel: ShapeInfo) {
   const { x, y } = coordinate.getCenter();
   shape.applyToMatrix([x, y, 1]);
   const matrix = transform(shape.getMatrix(), [
@@ -156,7 +146,7 @@ export function zoomIn(
  * @param coordinate
  * @param shapeModel
  */
-export function grow(shape: IShape | IGroup, animateCfg: AnimateCfg, coordinate: Coordinate, shapeModel: ShapeDrawCFG) {
+export function grow(shape: IShape | IGroup, animateCfg: AnimateCfg, coordinate: Coordinate, shapeModel: ShapeInfo) {
   const bbox = shape.getBBox();
   const x = (bbox.minX + bbox.maxX) / 2;
   const y = (bbox.minY + bbox.maxY) / 2;
@@ -187,12 +177,7 @@ export function grow(shape: IShape | IGroup, animateCfg: AnimateCfg, coordinate:
  * @param coordinate
  * @param shapeModel
  */
-export function shrink(
-  shape: IShape | IGroup,
-  animateCfg: AnimateCfg,
-  coordinate: Coordinate,
-  shapeModel: ShapeDrawCFG
-) {
+export function shrink(shape: IShape | IGroup, animateCfg: AnimateCfg, coordinate: Coordinate, shapeModel: ShapeInfo) {
   const bbox = shape.getBBox();
   const x = (bbox.minX + bbox.maxX) / 2;
   const y = (bbox.minY + bbox.maxY) / 2;
@@ -222,12 +207,7 @@ export function shrink(
  * @param animateCfg
  * @param shapeModel
  */
-export function fadeOut(
-  shape: IShape | IGroup,
-  animateCfg: AnimateCfg,
-  coordinate: Coordinate,
-  shapeModel: ShapeDrawCFG
-) {
+export function fadeOut(shape: IShape | IGroup, animateCfg: AnimateCfg, coordinate: Coordinate, shapeModel: ShapeInfo) {
   const endState = {
     fillOpacity: 0,
     strokeOpacity: 0,
@@ -256,7 +236,7 @@ export function pieChartUpdate(
   shape: IShape | IGroup,
   animateCfg: AnimateCfg,
   coordinate: Coordinate,
-  shapeModel: ShapeDrawCFG,
+  shapeModel: ShapeInfo,
   toAttrs
 ) {
   const { startAngle: currentStartAngle, endAngle: currentEndAngle } = getAngle(shapeModel, coordinate);

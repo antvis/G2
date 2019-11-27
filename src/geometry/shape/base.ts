@@ -7,13 +7,11 @@ import {
   RegisterShape,
   RegisterShapeFactory,
   Shape,
-  ShapeDrawCFG,
   ShapeFactory,
+  ShapeInfo,
   ShapeMarkerCfg,
   ShapePoint,
 } from '../../interface';
-import { doAnimate } from '../animate/index';
-import Element from '../element';
 import { convertNormalPath, convertPolarPath } from './util/path';
 
 /** ShapeFactory 基类 */
@@ -84,41 +82,9 @@ const ShapeFactoryBase = {
    * @param element Element 实例
    * @returns
    */
-  drawShape(shapeType: string, cfg: ShapeDrawCFG, element: Element): IShape | IGroup {
+  drawShape(shapeType: string, cfg: ShapeInfo, container: IGroup): IShape | IGroup {
     const shape = this.getShape(shapeType);
-    return shape.draw(cfg, element);
-  },
-  /**
-   * 更新 shape
-   * @override
-   * @param shapeType shape 类型
-   * @param attrs 更新的图形属性配置
-   * @param element Element 实例
-   */
-  updateShape(shapeType: string, cfg: ShapeDrawCFG, element: Element) {
-    const shape = this.getShape(shapeType);
-    shape.update(cfg, element);
-  },
-  /**
-   * 销毁 shape
-   * @param shapeType shape 类型
-   * @param cfg
-   * @param element
-   */
-  destroyShape(shapeType: string, cfg: ShapeDrawCFG, element: Element) {
-    const shape = this.getShape(shapeType);
-    shape.destroy(cfg, element);
-  },
-  /**
-   * 设置 shape 状态
-   * @override
-   * @param shapeType shape 类型
-   * @param stateName 状态类型
-   * @param stateStatus 状态是否开启
-   */
-  setState(shapeType: string, stateName: string, stateStatus: boolean, element: Element) {
-    const shape = this.getShape(shapeType);
-    shape.setState(stateName, stateStatus, element);
+    return shape.draw(cfg, container);
   },
 };
 
@@ -166,64 +132,7 @@ const ShapeBase = {
    * 绘制 shape
    * @override
    */
-  draw(cfg: ShapeDrawCFG, element: Element) {},
-  /**
-   * 更新 shape
-   * @override
-   */
-  update(cfg: ShapeDrawCFG, element: Element) {},
-  /**
-   * 销毁
-   * @override
-   */
-  destroy(cfg: ShapeDrawCFG, element: Element) {
-    const shape = element.shape;
-    const animate = cfg.animate;
-    if (animate) {
-      // 指定了动画配置则执行动画
-      doAnimate(shape, cfg, this.coordinate);
-    } else {
-      // 否则直接销毁
-      shape.remove(true);
-    }
-  },
-  /**
-   * 响应具体的状态量
-   * @override
-   * @param stateName
-   * @param stateStatus
-   * @param element
-   */
-  setState(stateName: string, stateStatus: boolean, element: Element) {
-    const states = element.getStates(); // 获取当前的状态集合
-    const gShape = element.shape; // 默认 element 都只包含一个 shape，如果是 group 的场景用户自己定义 setState 方法
-
-    if (!gShape) {
-      return;
-    }
-
-    const stateStyle = element.getStateStyle(stateName);
-    if (stateStatus) {
-      // 进行状态的叠加
-      gShape.attr(stateStyle);
-    } else {
-      // 移除当前状态，依次叠加保留状态量的样式
-      const originStyle = element.getOriginStyle();
-      const currentStyle = {
-        ...originStyle,
-      };
-      _.each(states, (state) => {
-        _.mix(currentStyle, element.getStateStyle(state));
-      });
-      _.each(stateStyle, (value, attr) => {
-        if (!currentStyle.hasOwnProperty(attr)) {
-          currentStyle[attr] = null;
-        }
-      });
-
-      gShape.attr(currentStyle);
-    }
-  },
+  draw(cfg: ShapeInfo, container: IGroup) {},
 };
 
 const ShapeFactoryMap = {};

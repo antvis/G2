@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
 import { Coordinate, IGroup, IShape } from '../../dependents';
-import { AnimateCfg, Data, Datum, ShapeDrawCFG } from '../../interface';
+import { AnimateCfg, Data, Datum } from '../../interface';
 import * as Action from './action';
 
 // 默认动画配置
@@ -138,21 +138,22 @@ export function getDefaultAnimateCfg(geometryType: string, animateType: string, 
 /**
  * 工具函数根据用户传入的配置为 shape 执行动画
  * @param shape 执行动画的图形元素
- * @param cfg 图形配置
+ * @param animateCfg 动画配置
+ * @param coordinate 当前坐标系
  * @param [toAttrs] shape 最终状态的图形属性
  */
-export function doAnimate(shape: IGroup | IShape, cfg: ShapeDrawCFG, coordinate: Coordinate, toAttrs?: object) {
-  const { animate, data, mappingData } = cfg;
-  const animation = animate.animation;
-  const animateCfg = getAnimateConfig(animate, data);
+export function doAnimate(shape: IGroup | IShape, animateCfg: AnimateCfg, coordinate: Coordinate, toAttrs?: object) {
+  const { data, mappingData } = shape.get('origin');
+  const animation = animateCfg.animation;
+  const animateConfig = getAnimateConfig(animateCfg, data);
   if (animation) {
     // 用户声明了动画执行函数
     const animateFunction = Action[animation];
     if (animateFunction) {
-      animateFunction(shape, animateCfg, coordinate, mappingData, toAttrs);
+      animateFunction(shape, animateConfig, coordinate, mappingData, toAttrs);
     }
   } else {
     // 没有声明，则根据 toAttrs 做差值动画
-    shape.animate(toAttrs, animateCfg);
+    shape.animate(toAttrs, animateConfig);
   }
 }

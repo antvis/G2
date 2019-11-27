@@ -1,8 +1,6 @@
 import * as _ from '@antv/util';
-import { Coordinate, PathCommand } from '../../dependents';
-import { Point, Position, Shape, ShapeDrawCFG, ShapePoint } from '../../interface';
-import { doAnimate } from '../animate/index';
-import Element from '../element';
+import { Coordinate, IGroup, PathCommand } from '../../dependents';
+import { Point, Position, Shape, ShapeInfo, ShapePoint } from '../../interface';
 import { registerShape, registerShapeFactory } from './base';
 import { getPathPoints } from './util/get-path-points';
 import { getLinePath, getSplinePath } from './util/path';
@@ -46,7 +44,7 @@ function getPath(
   return path;
 }
 
-function getStyle(shapeName: string, cfg: ShapeDrawCFG) {
+function getStyle(shapeName: string, cfg: ShapeInfo) {
   const attrs = {
     ...cfg.style,
   };
@@ -67,7 +65,7 @@ function getStyle(shapeName: string, cfg: ShapeDrawCFG) {
 
 function getShapeAttrs(
   shapeName: string,
-  cfg: ShapeDrawCFG,
+  cfg: ShapeInfo,
   smooth: boolean,
   registeredShape: Shape,
   constraint?: Position[]
@@ -87,7 +85,10 @@ function getShapeAttrs(
 
 function getConstraint(coordinate: Coordinate): Position[] {
   const { start, end } = coordinate;
-  return [[start.x, end.y], [end.x, start.y]];
+  return [
+    [start.x, end.y],
+    [end.x, start.y],
+  ];
 }
 
 const AreaShapeFactory = registerShapeFactory('area', {
@@ -108,27 +109,15 @@ const AreaShapeFactory = registerShapeFactory('area', {
 
 // 填充的区域图
 registerShape('area', 'area', {
-  draw(cfg: ShapeDrawCFG, element: Element) {
+  draw(cfg: ShapeInfo, container: IGroup) {
     const attrs = getShapeAttrs('area', cfg, false, this);
-    const shape = element.container.addShape({
+    const shape = container.addShape({
       type: 'path',
       attrs,
+      name: 'area',
     });
 
-    if (cfg.animate) {
-      doAnimate(shape, cfg, this.coordinate);
-    }
-
     return shape;
-  },
-  update(cfg: ShapeDrawCFG, element: Element) {
-    const shape = element.shape;
-    const attrs = getShapeAttrs('area', cfg, false, this);
-    if (cfg.animate) {
-      doAnimate(shape, cfg, this.coordinate, attrs);
-    } else {
-      shape.attr(attrs);
-    }
   },
   getMarker(color: string, isInCircle: boolean) {
     return {
@@ -143,27 +132,15 @@ registerShape('area', 'area', {
 
 // 描边不填充的区域图
 registerShape('area', 'line', {
-  draw(cfg: ShapeDrawCFG, element: Element) {
+  draw(cfg: ShapeInfo, container: IGroup) {
     const attrs = getShapeAttrs('line', cfg, false, this);
-    const shape = element.container.addShape({
+    const shape = container.addShape({
       type: 'path',
       attrs,
+      name: 'area',
     });
 
-    if (cfg.animate) {
-      doAnimate(shape, cfg, this.coordinate);
-    }
-
     return shape;
-  },
-  update(cfg: ShapeDrawCFG, element: Element) {
-    const shape = element.shape;
-    const attrs = getShapeAttrs('line', cfg, false, this);
-    if (cfg.animate) {
-      doAnimate(shape, cfg, this.coordinate, attrs);
-    } else {
-      shape.attr(attrs);
-    }
   },
   getMarker(color: string, isInCircle: boolean) {
     return {
@@ -178,29 +155,16 @@ registerShape('area', 'line', {
 
 // 填充的平滑曲面图
 registerShape('area', 'smooth', {
-  draw(cfg: ShapeDrawCFG, element: Element) {
+  draw(cfg: ShapeInfo, container: IGroup) {
     const coordinate = this.coordinate;
     const attrs = getShapeAttrs('smooth', cfg, true, this, getConstraint(coordinate));
-    const shape = element.container.addShape({
+    const shape = container.addShape({
       type: 'path',
       attrs,
+      name: 'area',
     });
 
-    if (cfg.animate) {
-      doAnimate(shape, cfg, coordinate);
-    }
-
     return shape;
-  },
-  update(cfg: ShapeDrawCFG, element: Element) {
-    const shape = element.shape;
-    const coordinate = this.coordinate;
-    const attrs = getShapeAttrs('smooth', cfg, true, this, getConstraint(coordinate));
-    if (cfg.animate) {
-      doAnimate(shape, cfg, coordinate, attrs);
-    } else {
-      shape.attr(attrs);
-    }
   },
   getMarker(color: string, isInCircle: boolean) {
     return {
@@ -215,29 +179,16 @@ registerShape('area', 'smooth', {
 
 // 描边的平滑曲面图
 registerShape('area', 'smoothLine', {
-  draw(cfg: ShapeDrawCFG, element: Element) {
+  draw(cfg: ShapeInfo, container: IGroup) {
     const coordinate = this.coordinate;
     const attrs = getShapeAttrs('smoothLine', cfg, true, this, getConstraint(coordinate));
-    const shape = element.container.addShape({
+    const shape = container.addShape({
       type: 'path',
       attrs,
+      name: 'area',
     });
 
-    if (cfg.animate) {
-      doAnimate(shape, cfg, coordinate);
-    }
-
     return shape;
-  },
-  update(cfg: ShapeDrawCFG, element: Element) {
-    const shape = element.shape;
-    const coordinate = this.coordinate;
-    const attrs = getShapeAttrs('smoothLine', cfg, true, this, getConstraint(coordinate));
-    if (cfg.animate) {
-      doAnimate(shape, cfg, coordinate, attrs);
-    } else {
-      shape.attr(attrs);
-    }
   },
   getMarker(color: string, isInCircle: boolean) {
     return {

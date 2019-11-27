@@ -1,7 +1,6 @@
 import * as _ from '@antv/util';
-import { Point, ShapeDrawCFG, ShapePoint } from '../../interface';
-import { doAnimate } from '../animate';
-import Element from '../element/index';
+import { IGroup } from '../../dependents';
+import { Point, ShapeInfo, ShapePoint } from '../../interface';
 import { registerShape, registerShapeFactory } from './base';
 import { splitPoints } from './util/split-points';
 
@@ -25,7 +24,12 @@ const PointSymbols = {
     return [['M', x - r, y - diffY], ['L', x + r, y + diffY], ['L', x + r, y - diffY], ['L', x - r, y + diffY], ['Z']];
   },
   cross: (x: number, y: number, r: number) => {
-    return [['M', x - r, y - r], ['L', x + r, y + r], ['M', x + r, y - r], ['L', x - r, y + r]];
+    return [
+      ['M', x - r, y - r],
+      ['L', x + r, y + r],
+      ['M', x + r, y - r],
+      ['L', x - r, y + r],
+    ];
   },
   tick: (x: number, y: number, r: number) => {
     return [
@@ -38,13 +42,24 @@ const PointSymbols = {
     ];
   },
   plus: (x: number, y: number, r: number) => {
-    return [['M', x - r, y], ['L', x + r, y], ['M', x, y - r], ['L', x, y + r]];
+    return [
+      ['M', x - r, y],
+      ['L', x + r, y],
+      ['M', x, y - r],
+      ['L', x, y + r],
+    ];
   },
   hyphen: (x: number, y: number, r: number) => {
-    return [['M', x - r, y], ['L', x + r, y]];
+    return [
+      ['M', x - r, y],
+      ['L', x + r, y],
+    ];
   },
   line: (x: number, y: number, r: number) => {
-    return [['M', x, y - r], ['L', x, y + r]];
+    return [
+      ['M', x, y - r],
+      ['L', x, y + r],
+    ];
   },
 };
 
@@ -79,27 +94,15 @@ const PointShapeFactory = registerShapeFactory('point', {
 // 所有的 SHAPES 都注册一下
 _.each(SHAPES, (shapeName: string) => {
   registerShape('point', shapeName, {
-    draw(cfg: ShapeDrawCFG, element: Element) {
+    draw(cfg: ShapeInfo, container: IGroup) {
       const attrs = getAttributes(cfg, shapeName);
 
-      const shape = element.container.addShape('marker', {
+      const shape = container.addShape('marker', {
         attrs,
+        name: 'point',
       });
 
-      if (cfg.animate) {
-        doAnimate(shape, cfg, this.coordinate);
-      }
-
       return shape;
-    },
-    update(cfg: ShapeDrawCFG, element: Element) {
-      const attrs = getAttributes(cfg, shapeName);
-      const shape = element.shape;
-      if (cfg.animate) {
-        doAnimate(shape, cfg, this.coordinate, attrs);
-      } else {
-        shape.attr(attrs);
-      }
     },
     getMarker(color: string, isInCircle: boolean) {
       return {
@@ -111,27 +114,14 @@ _.each(SHAPES, (shapeName: string) => {
   });
   // 添加该 shape 对应的 hollow-shape
   registerShape('point', `hollow${_.upperFirst(shapeName)}`, {
-    draw(cfg: ShapeDrawCFG, element: Element) {
+    draw(cfg: ShapeInfo, container: IGroup) {
       const attrs = getAttributes(cfg, shapeName);
-      const shape = element.container.addShape('marker', {
+      const shape = container.addShape('marker', {
         attrs,
+        name: 'point',
       });
 
-      if (cfg.animate) {
-        doAnimate(shape, cfg, this.coordinate);
-      }
-
       return shape;
-    },
-    update(cfg: ShapeDrawCFG, element: Element) {
-      const attrs = getAttributes(cfg, shapeName);
-      const shape = element.shape;
-
-      if (cfg.animate) {
-        doAnimate(shape, cfg, this.coordinate, attrs);
-      } else {
-        shape.attr(attrs);
-      }
     },
     getMarker(color: string, isInCircle: boolean) {
       return {
@@ -146,26 +136,14 @@ _.each(SHAPES, (shapeName: string) => {
 // 添加 hollowShapes
 _.each(HOLLOW_SHAPES, (shapeName: string) => {
   registerShape('point', shapeName, {
-    draw(cfg: ShapeDrawCFG, element: Element) {
+    draw(cfg: ShapeInfo, container: IGroup) {
       const attrs = getAttributes(cfg, shapeName);
-      const shape = element.container.addShape('marker', {
+      const shape = container.addShape('marker', {
         attrs,
+        name: 'point',
       });
 
-      if (cfg.animate) {
-        doAnimate(shape, cfg, this.coordinate);
-      }
-
       return shape;
-    },
-    update(cfg: ShapeDrawCFG, element: Element) {
-      const attrs = getAttributes(cfg, shapeName);
-      const shape = element.shape;
-      if (cfg.animate) {
-        doAnimate(shape, cfg, this.coordinate, attrs);
-      } else {
-        shape.attr(attrs);
-      }
     },
     getMarker(color: string, isInCircle: boolean) {
       return {

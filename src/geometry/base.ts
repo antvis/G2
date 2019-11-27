@@ -126,6 +126,8 @@ export default class Geometry {
   protected elementsContainer: IGroup;
   /** 存储所有 Geometry label 的图形容器 */
   protected labelsContainer: IGroup;
+  // 虚拟 Group
+  protected offscreenGroup: IGroup;
 
   private adjusts: Record<string, Adjust> = {};
 
@@ -686,6 +688,10 @@ export default class Geometry {
     this.clear();
     const container = this.container;
     container.remove(true);
+    const offscreenGroup = this.offscreenGroup;
+    if (offscreenGroup) {
+      offscreenGroup.remove(true);
+    }
   }
 
   /**
@@ -859,6 +865,7 @@ export default class Geometry {
       theme: _.get(theme, ['geometries', this.shapeType], {}),
       shapeFactory,
       container: elementsContainer,
+      offscreenGroup: this.getOffscreenGroup(elementsContainer), // 传入虚拟 Group
       animate: this.animateOption,
     });
 
@@ -904,6 +911,7 @@ export default class Geometry {
         const currentShapeCfg = this.getDrawCfg(mappingDatum);
         const preShapeCfg = result.model;
         if (!_.isEqual(currentShapeCfg, preShapeCfg)) {
+          // TODO: 现在这么判断貌似有问题，待测试
           // 更新动画配置，用户有可能在更新之前有对动画进行配置操作
           result.animate = this.animateOption;
           // 通过绘制数据的变更来判断是否需要更新，因为用户有可能会修改图形属性映射
@@ -915,7 +923,6 @@ export default class Geometry {
       elements.push(result);
       elementsMap[id] = result;
     });
-
     return elements;
   }
 
@@ -962,6 +969,14 @@ export default class Geometry {
     }
 
     return id;
+  }
+
+  protected getOffscreenGroup(group: IGroup) {
+    if (!this.offscreenGroup) {
+      const GroupCtor = group.getGroupBase(); // 获取分组的构造函数
+      this.offscreenGroup = new GroupCtor({});
+    }
+    return this.offscreenGroup;
   }
 
   // 创建图形属性相关的配置项

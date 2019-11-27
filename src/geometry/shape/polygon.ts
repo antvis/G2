@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
-import { ShapeDrawCFG, ShapePoint } from '../../interface';
-import Element from '../element';
+import { IGroup } from '../../dependents';
+import { ShapeInfo, ShapePoint } from '../../interface';
 import { registerShape, registerShapeFactory } from './base';
 
 function getPath(points: any[]) {
@@ -48,34 +48,19 @@ const PolygonShapeFactory = registerShapeFactory('polygon', {
 });
 
 registerShape('polygon', 'polygon', {
-  draw(cfg: ShapeDrawCFG, element: Element) {
+  draw(cfg: ShapeInfo, container: IGroup) {
     if (!_.isEmpty(cfg.points)) {
       const shapeAttrs: any = cfg.style;
       if (cfg.color) {
         shapeAttrs.fill = cfg.color;
       }
       const path = this.parsePath(getPath(cfg.points));
-      const container = element.container;
       return container.addShape('path', {
         attrs: {
           ...shapeAttrs,
           path,
         },
-      });
-    }
-  },
-  update(cfg: ShapeDrawCFG, element: Element) {
-    if (!_.isEmpty(cfg.points)) {
-      const shapeAttrs: any = cfg.style;
-      if (cfg.color) {
-        shapeAttrs.fill = cfg.color;
-      }
-
-      const path = this.parsePath(getPath(cfg.points));
-      const shape = element.shape;
-      shape.attr({
-        ...shapeAttrs,
-        path,
+        name: 'polygon',
       });
     }
   },
@@ -89,34 +74,19 @@ registerShape('polygon', 'polygon', {
 });
 
 registerShape('polygon', 'hollow', {
-  draw(cfg: ShapeDrawCFG, element: Element) {
+  draw(cfg: ShapeInfo, container: IGroup) {
     if (!_.isEmpty(cfg.points)) {
       const shapeAttrs: any = cfg.style;
       if (cfg.color) {
         shapeAttrs.stroke = cfg.color;
       }
       const path = this.parsePath(getPath(cfg.points));
-      const container = element.container;
       return container.addShape('path', {
         attrs: {
           ...shapeAttrs,
           path,
         },
-      });
-    }
-  },
-  update(cfg: ShapeDrawCFG, element: Element) {
-    if (!_.isEmpty(cfg.points)) {
-      const shapeAttrs: any = cfg.style;
-      if (cfg.color) {
-        shapeAttrs.stroke = cfg.color;
-      }
-
-      const path = this.parsePath(getPath(cfg.points));
-      const shape = element.shape;
-      shape.attr({
-        ...shapeAttrs,
-        path,
+        name: 'polygon',
       });
     }
   },
