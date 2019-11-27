@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
 import { IGroup } from '../../dependents';
-import { Point, ShapeInfo, ShapePoint } from '../../interface';
+import { Point, ShapeInfo, ShapeMarkerCfg, ShapePoint } from '../../interface';
 import { registerShape, registerShapeFactory } from './base';
 import { splitPoints } from './util/split-points';
 
@@ -104,7 +104,8 @@ _.each(SHAPES, (shapeName: string) => {
 
       return shape;
     },
-    getMarker(color: string, isInCircle: boolean) {
+    getMarker(markerCfg: ShapeMarkerCfg) {
+      const { color } = markerCfg;
       return {
         symbol: PointSymbols[shapeName] || shapeName,
         r: 4.5,
@@ -123,7 +124,8 @@ _.each(SHAPES, (shapeName: string) => {
 
       return shape;
     },
-    getMarker(color: string, isInCircle: boolean) {
+    getMarker(markerCfg: ShapeMarkerCfg) {
+      const { color } = markerCfg;
       return {
         symbol: PointSymbols[shapeName] || shapeName,
         r: 4.5,
@@ -145,7 +147,8 @@ _.each(HOLLOW_SHAPES, (shapeName: string) => {
 
       return shape;
     },
-    getMarker(color: string, isInCircle: boolean) {
+    getMarker(markerCfg: ShapeMarkerCfg) {
+      const { color } = markerCfg;
       return {
         symbol: PointSymbols[shapeName],
         r: 4.5,

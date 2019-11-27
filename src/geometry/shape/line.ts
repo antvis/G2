@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
 import { IGroup } from '../../dependents';
-import { Point, Position, RangePoint, ShapeInfo } from '../../interface';
+import { Point, Position, RangePoint, ShapeInfo, ShapeMarkerCfg } from '../../interface';
 import { registerShape, registerShapeFactory } from './base';
 import { getPathPoints } from './util/get-path-points';
 import { getLinePath, getSplinePath } from './util/path';
@@ -256,7 +256,8 @@ _.each(['line', 'dot', 'dash', 'smooth'], (shapeType) => {
 
       return shape;
     },
-    getMarker(color: string, isInCircle: boolean) {
+    getMarker(markerCfg: ShapeMarkerCfg) {
+      const { color } = markerCfg;
       return {
         symbol: LineSymbols[shapeType],
         lineWidth: 2,
@@ -280,7 +281,8 @@ _.each(['hv', 'vh', 'hvh', 'vhv'], (shapeType) => {
 
       return shape;
     },
-    getMarker(color: string, isInCircle: boolean) {
+    getMarker(markerCfg: ShapeMarkerCfg) {
+      const { color } = markerCfg;
       return {
         symbol: LineSymbols[shapeType],
         lineWidth: 2,

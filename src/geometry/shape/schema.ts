@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
 import { IGroup, PathCommand } from '../../dependents';
-import { Point, ShapeInfo, ShapePoint } from '../../interface';
+import { Point, ShapeInfo, ShapeMarkerCfg, ShapePoint } from '../../interface';
 import { padEnd } from '../../util/helper';
 import { registerShape, registerShapeFactory } from './base';
 
@@ -157,7 +157,8 @@ registerShape('schema', 'candle', {
 
     return shape;
   },
-  getMarker(color: string, isInPolar: boolean) {
+  getMarker(markerCfg: ShapeMarkerCfg) {
+    const { color } = markerCfg;
     return {
       symbol(x: number, y: number, r: number) {
         const yValues = [y + 7.5, y + 3, y - 3, y - 7.5];
@@ -204,7 +205,8 @@ registerShape('schema', 'box', {
 
     return shape;
   },
-  getMarker(color: string, isInPolar: boolean) {
+  getMarker(markerCfg: ShapeMarkerCfg) {
+    const { color } = markerCfg;
     return {
       symbol(x: number, y: number, r: number) {
         const yValues = [y - 6, y - 3, y, y + 3, y + 6];

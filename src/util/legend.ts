@@ -47,7 +47,10 @@ export function getLegendItems(
 
       const shape = getMappingValue(shapeAttr, value, 'point');
 
-      let marker = geometry.getShapeFactory().getMarker(shape, color, geometry.coordinate.isPolar);
+      let marker = geometry.getShapeFactory().getMarker(shape, {
+        color,
+        isInPolar: geometry.coordinate.isPolar,
+      });
 
       // the marker configure order should be ensure
       marker = _.deepMix({}, themeMarker, marker, userMarker);

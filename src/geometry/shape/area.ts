@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
 import { Coordinate, IGroup, PathCommand } from '../../dependents';
-import { Point, Position, Shape, ShapeInfo, ShapePoint } from '../../interface';
+import { Point, Position, Shape, ShapeInfo, ShapeMarkerCfg, ShapePoint } from '../../interface';
 import { registerShape, registerShapeFactory } from './base';
 import { getPathPoints } from './util/get-path-points';
 import { getLinePath, getSplinePath } from './util/path';
@@ -119,7 +119,8 @@ registerShape('area', 'area', {
 
     return shape;
   },
-  getMarker(color: string, isInCircle: boolean) {
+  getMarker(markerCfg: ShapeMarkerCfg) {
+    const { color } = markerCfg;
     return {
       symbol: (x: number, y: number, r: number = 5.5) => {
         return [['M', x - r, y - 4], ['L', x + r, y - 4], ['L', x + r, y + 4], ['L', x - r, y + 4], ['Z']];
@@ -142,7 +143,8 @@ registerShape('area', 'line', {
 
     return shape;
   },
-  getMarker(color: string, isInCircle: boolean) {
+  getMarker(markerCfg: ShapeMarkerCfg) {
+    const { color } = markerCfg;
     return {
       symbol: (x: number, y: number, r: number = 5.5) => {
         return [['M', x - r, y - 4], ['L', x + r, y - 4], ['L', x + r, y + 4], ['L', x - r, y + 4], ['Z']];
@@ -166,7 +168,8 @@ registerShape('area', 'smooth', {
 
     return shape;
   },
-  getMarker(color: string, isInCircle: boolean) {
+  getMarker(markerCfg: ShapeMarkerCfg) {
+    const { color } = markerCfg;
     return {
       symbol: (x: number, y: number, r: number = 5.5) => {
         return [['M', x - r, y - 4], ['L', x + r, y - 4], ['L', x + r, y + 4], ['L', x - r, y + 4], ['Z']];
@@ -190,7 +193,8 @@ registerShape('area', 'smoothLine', {
 
     return shape;
   },
-  getMarker(color: string, isInCircle: boolean) {
+  getMarker(markerCfg: ShapeMarkerCfg) {
+    const { color } = markerCfg;
     return {
       symbol: (x: number, y: number, r: number = 5.5) => {
         return [['M', x - r, y - 4], ['L', x + r, y - 4], ['L', x + r, y + 4], ['L', x - r, y + 4], ['Z']];

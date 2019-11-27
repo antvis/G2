@@ -9,6 +9,7 @@ import {
   Shape,
   ShapeFactory,
   ShapeInfo,
+  ShapeMarkerAttrs,
   ShapeMarkerCfg,
   ShapePoint,
 } from '../../interface';
@@ -61,13 +62,14 @@ const ShapeFactoryBase = {
    * @param isInPolar is polar coordinate
    * @returns the thumbnail configuration
    */
-  getMarker(shapeType: string, color: string, isInPolar: boolean): ShapeMarkerCfg {
+  getMarker(shapeType: string, markerCfg: ShapeMarkerCfg): ShapeMarkerAttrs {
     const shape = this.getShape(shapeType);
 
     if (shape.getMarker) {
+      const { color, isInPolar } = markerCfg;
       const theme = this.theme;
       const shapeStyle = _.get(theme, [shapeType, 'default'], {});
-      const markerStyle = shape.getMarker(color, isInPolar);
+      const markerStyle = shape.getMarker(markerCfg);
       return {
         ...shapeStyle,
         ...markerStyle,

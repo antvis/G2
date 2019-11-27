@@ -53,7 +53,7 @@ describe('Point shapes', () => {
   });
 
   it('getMarker', () => {
-    const circleMarker = PointShapeFactory.getMarker('circle', 'red', false);
+    const circleMarker = PointShapeFactory.getMarker('circle', { color: 'red', isInPolar: false });
     expect(circleMarker).toEqual({
       ...Theme.geometries.point.circle.default,
       symbol: 'circle',
@@ -61,7 +61,7 @@ describe('Point shapes', () => {
       fill: 'red',
     });
 
-    const hollowCircleMarker = PointShapeFactory.getMarker('hollowCircle', 'red', false);
+    const hollowCircleMarker = PointShapeFactory.getMarker('hollowCircle', { color: 'red', isInPolar: false });
     expect(hollowCircleMarker).toEqual({
       ...Theme.geometries.point.hollowCircle.default,
       symbol: 'circle',
@@ -69,12 +69,12 @@ describe('Point shapes', () => {
       stroke: 'red',
     });
 
-    const bowtieMarker = PointShapeFactory.getMarker('bowtie', 'red', false);
+    const bowtieMarker = PointShapeFactory.getMarker('bowtie', { color: 'red', isInPolar: false });
     // @ts-ignore
     expect(bowtieMarker.symbol(11.5, 10, 3.5)).toEqual([['M', 8, 8], ['L', 15, 12], ['L', 15, 8], ['L', 8, 12], ['Z']]);
     expect(bowtieMarker.fill).toBe('red');
 
-    const crossMarker = PointShapeFactory.getMarker('cross', 'red', false);
+    const crossMarker = PointShapeFactory.getMarker('cross', { color: 'red', isInPolar: false });
     // @ts-ignore
     expect(crossMarker.symbol(10, 10, 5)).toEqual([
       ['M', 5, 5],

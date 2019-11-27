@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
 import { IGroup } from '../../dependents';
-import { ShapeInfo, ShapePoint } from '../../interface';
+import { ShapeInfo, ShapeMarkerCfg, ShapePoint } from '../../interface';
 import { registerShape, registerShapeFactory } from './base';
 
 function getPath(points: any[]) {
@@ -64,7 +64,8 @@ registerShape('polygon', 'polygon', {
       });
     }
   },
-  getMarker(color: string, isInCircle) {
+  getMarker(markerCfg: ShapeMarkerCfg) {
+    const { color } = markerCfg;
     return {
       symbol: 'square',
       r: 4,
@@ -90,7 +91,8 @@ registerShape('polygon', 'hollow', {
       });
     }
   },
-  getMarker(color: string, isInCircle) {
+  getMarker(markerCfg: ShapeMarkerCfg) {
+    const { color } = markerCfg;
     return {
       symbol: 'square',
       r: 4,
