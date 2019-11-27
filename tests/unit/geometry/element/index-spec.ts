@@ -107,6 +107,12 @@ describe('Element', () => {
       expect(shape.attr('fill')).toBe('red');
       expect(element.getStates()).toEqual(['selected']);
 
+      // 恢复至原始状态
+      element.setState('selected', false);
+      expect(element.getStates()).toEqual([]);
+      expect(shape.attr('fill')).toBe('#333');
+
+      element.setState('selected', true);
       element.setState('active', true);
       expect(shape.attr('fill')).toBe('red');
       expect(shape.attr('stroke')).toBe('#000');
