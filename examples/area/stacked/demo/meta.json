@@ -1,0 +1,32 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "stacked.js",
+      "title": {
+        "zh": "堆叠面积图",
+        "en": "Stacked Area Chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*uh4FQ7gN9fcAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "percentage.js",
+      "title": {
+        "zh": "百分比堆叠面积图",
+        "en": "100% Stacked Area Chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*zs_aRLBsuUYAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "streamgraph.js",
+      "title": {
+        "zh": "streamgraph",
+        "en": "streamgraph"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*YvemRYXtBOkAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

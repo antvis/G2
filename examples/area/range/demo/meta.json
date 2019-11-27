@@ -1,0 +1,16 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "range.js",
+      "title": {
+        "zh": "区间面积图",
+        "en": "Range Area Chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*w4QoTo3nNqYAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

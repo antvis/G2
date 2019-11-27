@@ -1,0 +1,40 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.js",
+      "title": {
+        "zh": "仪表盘",
+        "en": "Basic Gauge"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*aeUnRaj87bYAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "color.js",
+      "title": {
+        "zh": "仪表盘（多色）",
+        "en": "Gauge"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8ZxAQbSuuKkAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "text.js",
+      "title": {
+        "zh": "仪表盘（文字）",
+        "en": "Gauge"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*wrMlRbXlpG4AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "tick.js",
+      "title": {
+        "zh": "刻度仪表盘",
+        "en": "Gauge"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*7Db-Qa4OBbUAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

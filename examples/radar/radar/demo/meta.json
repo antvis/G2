@@ -1,0 +1,32 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.js",
+      "title": {
+        "zh": "基础雷达图",
+        "en": "Radar Chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*PuR9QaxZO6sAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "flower-line.js",
+      "title": {
+        "zh": "雷达图复杂曲线",
+        "en": "Radar Chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*jCN7SYKxuRcAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "with-line.js",
+      "title": {
+        "zh": "基础雷达图（线）",
+        "en": "Radar Chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*H8KKToIKak8AAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

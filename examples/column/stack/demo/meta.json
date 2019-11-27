@@ -1,0 +1,56 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "rounded.js",
+      "title": {
+        "en": "rounded column chart",
+        "zh": "圆角柱状图"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*3w5oQp71EEIAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "polar-stack.js",
+      "title": {
+        "en": "stacked column chart in polar coordinate",
+        "zh": "极坐标下的层叠柱状图"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*_SHeTbeHv-oAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "rounded-stacked.js",
+      "title": {
+        "en": "rounded stacked column chart",
+        "zh": "圆角堆叠柱状图"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8Ky7QLBFxqoAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "stacked.js",
+      "title": {
+        "en": "stacked column chart",
+        "zh": "堆叠柱状图"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Rh1-QaJIcx0AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "stacked-percentage.js",
+      "title": {
+        "en": "100% stacked column chart",
+        "zh": "百分比堆叠柱状图"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*oIKmQLZxqlEAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "wind-rose.js",
+      "title": {
+        "en": "Wind Rose",
+        "zh": "Wind Rose"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*N_MUSb3mF-MAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "guide-region-filter-realtime-data.js",
+      "title": {
+        "zh": "guide-region-filter-realtime-data.html",
+        "en": "guide region filter"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*0sydRIXBmu0AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "guide-region-filter1.js",
+      "title": {
+        "zh": "guide - 分段颜色1",
+        "en": "guide region filter"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Tk5gRqvyhzoAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "guide-region-filter2.js",
+      "title": {
+        "zh": "guide - 分段颜色2",
+        "en": "guide region filter"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*RO5WTbaDBPQAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "label-map.js",
+      "title": {
+        "zh": "label-地图",
+        "en": "map with label"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*rNrlT76k4z4AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "label-position.js",
+      "title": {
+        "zh": "label-位置",
+        "en": "label position"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*NxURS5x3VWUAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "label-scatter.js",
+      "title": {
+        "zh": "label - 散点图",
+        "en": "scatter label"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*hZQtS66JY8QAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "label-treemap.js",
+      "title": {
+        "zh": "矩形树图 label",
+        "en": "treemap label"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*SDAGRJkF20UAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "legend-color.js",
+      "title": {
+        "zh": "legend color",
+        "en": "legend color"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*fJc_TJRHLIoAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "legend-pagenation.js",
+      "title": {
+        "zh": "legend-翻页",
+        "en": "legend pagenation"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*eXnQTo8QTosAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "legend-size.js",
+      "title": {
+        "zh": "legend-size",
+        "en": "size legend"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*zo8yQp-k7hgAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "legend-tail.js",
+      "title": {
+        "zh": "tail legend",
+        "en": "tail legend"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*GF_nQ7ExmysAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "tooltip-canvastooltip.js",
+      "title": {
+        "zh": "canvas tooltip",
+        "en": "canvas tooltip"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*fWQuSYyhyx8AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "tooltip-customized.js",
+      "title": {
+        "zh": "自定义 tooltip",
+        "en": "customized tooltip"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*kxObRLXxmccAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "tooltip-fixed-position.js",
+      "title": {
+        "zh": "tooltip-固定位置",
+        "en": "fixed tooltip"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*xNidQ7xZJd0AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "tooltip-html-content.js",
+      "title": {
+        "zh": "tooltip-htmlContent",
+        "en": "customized html tooltip"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*DrWlSqS1j4sAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "tooltip-mini.js",
+      "title": {
+        "zh": "mini tooltip",
+        "en": "mini tooltip"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*83EzQoCvTPsAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}
