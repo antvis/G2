@@ -107,7 +107,9 @@ describe('View', () => {
     view.createCoordinate();
     expect(view.getCoordinate().type).toEqual('rect');
 
-    let c = view.coordinate('theta');
+    let c = view.coordinate({
+      type: 'theta',
+    });
     expect(c.type).toEqual('theta');
 
     c = view.coordinate('rect');
