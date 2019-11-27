@@ -578,7 +578,9 @@ export default class Geometry {
   /**
    * TODO: label() 如何实现
    */
-  public label() {}
+  public label() {
+    return this;
+  }
 
   /**
    * Create [[Attribute]] and [[Scale]] instances, and data processing: group, numeric and adjust.
