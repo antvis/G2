@@ -351,6 +351,13 @@ describe('Geometry', () => {
             },
           });
         },
+        getMarker(cfg) {
+          return {
+            symbol: 'rect',
+            fill: cfg.color,
+            r: 5,
+          };
+        },
       });
     });
 
@@ -452,6 +459,16 @@ describe('Geometry', () => {
       const defaultSize = geometry.getDefaultValue('size');
 
       expect(defaultSize).toBe(3);
+    });
+
+    it('getShapeMarker()', () => {
+      const markerCfg = geometry.getShapeMarker('tick', { color: 'red', isInPolar: false });
+      expect(markerCfg).toEqual({
+        fill: 'red',
+        symbol: 'rect',
+        r: 5,
+        lineWidth: 10,
+      });
     });
 
     it('update data and repaint', () => {
