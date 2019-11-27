@@ -359,7 +359,22 @@ export class View extends EE {
   }
 
   /**
-   * 设置scale 配置
+   * 批量设置 scale 配置
+   *
+   * ```ts
+   * view.scale({
+   *   sale: {
+   *     min: 0,
+   *     max: 100,
+   *   }
+   * });
+   * ```
+   *
+   * @returns void
+   */
+  public scale(field: Record<string, ScaleOption>): View;
+  /**
+   * 设置 scale 配置
    *
    * ```ts
    * view.scale('sale', {
@@ -370,8 +385,15 @@ export class View extends EE {
    *
    * @returns void
    */
-  public scale(field: string, scaleOption: ScaleOption): View {
-    _.set(this.options, ['scales', field], scaleOption);
+  public scale(field: string, scaleOption: ScaleOption): View;
+  public scale(field: string | Record<string, ScaleOption>, scaleOption?: ScaleOption): View {
+    if (_.isString(field)) {
+      _.set(this.options, ['scales', field], scaleOption);
+    } else if (_.isObject(field)) {
+      _.each(field, (v: ScaleOption, k: string) => {
+        _.set(this.options, ['scales', k], v);
+      });
+    }
 
     return this;
   }
