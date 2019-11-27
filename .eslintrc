@@ -24,6 +24,8 @@
     "no-bitwise": [0],
     "experimentalDecorators": [0],
     "linebreak-style": [0],
-    "rray-bracket-spacing": 0
+    "array-bracket-spacing": 0,
+    "curly": 0,
+    "one-var-declaration-per-line": 0
   }
 }

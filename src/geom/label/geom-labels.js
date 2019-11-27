@@ -1,6 +1,6 @@
 import Renderer from '../../renderer';
 import Lib from '@antv/component/lib';
-import Lib from '@antv/component/lib';
+
 const { Label } = Lib;
 const { Group } = Renderer;
 // const visualCenter = require('@antv/component/lib/label/utils/visual-center');
