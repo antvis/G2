@@ -1,0 +1,40 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.js",
+      "title": {
+        "zh": "基础面积图",
+        "en": "Basic Area Chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*9gcGSLUysf8AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "with-negative.js",
+      "title": {
+        "zh": "基础面积图（有负值）",
+        "en": "Area Chart with Negative Values"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*0tdhSK9qyT0AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "area-null.js",
+      "title": {
+        "zh": "区域图（存在空值）",
+        "en": "Area Chart with empty values"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*AViKSbpz_egAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "area-large.js",
+      "title": {
+        "zh": "大规模区域图",
+        "en": "Area Chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*DdETQb1OE2EAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

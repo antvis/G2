@@ -608,7 +608,7 @@ export class View extends EE {
       ...cfg,
       options: {
         ...sharedOptions,
-        ...cfg.options,
+        ..._.get(cfg, 'options', {}),
       },
     });
 

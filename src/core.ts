@@ -8,8 +8,13 @@ export { Chart, View, registerGeometry, Event } from './chart';
 export { getTheme, registerTheme } from './theme';
 export { default as Component } from './component'; // 组件基类
 export { default as Geometry } from './geometry/base';
+
+// geometry
+export { registerShape } from './geometry/shape/base';
+
 // facet 相关 API
 export { Facet, getFacet, registerFacet } from './facet';
+
 // interaction API
 export { Interaction, getInteraction, registerInteraction } from './interaction';
 export { registerStateAction } from './state';

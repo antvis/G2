@@ -1,0 +1,16 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.js",
+      "title": {
+        "zh": "基本交互",
+        "en": "basic interaction"
+      },
+      "screenshot": ""
+    }
+  ]
+}
