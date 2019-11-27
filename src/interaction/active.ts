@@ -24,10 +24,6 @@ export default class ActiveInteraction extends Interaction {
   private onMouseenter = (ev) => {
     const shape = ev.target;
     const stateManager = this.stateManager;
-    if (shape.get('animations').length !== 0) {
-      // hack: 如果动画就不触发，防止动画引起 element.getOriginStyle() 取值错误
-      return;
-    }
     const element = shape.get('element');
     stateManager.setState('active', [element]);
   };
