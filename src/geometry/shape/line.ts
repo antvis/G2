@@ -1,7 +1,6 @@
 import * as _ from '@antv/util';
-import { Point, Position, RangePoint, ShapeDrawCFG } from '../../interface';
-import { doAnimate } from '../animate/index';
-import Element from '../element';
+import { IGroup } from '../../dependents';
+import { Point, Position, RangePoint, ShapeInfo } from '../../interface';
 import { registerShape, registerShapeFactory } from './base';
 import { getPathPoints } from './util/get-path-points';
 import { getLinePath, getSplinePath } from './util/path';
@@ -9,22 +8,45 @@ import { splitPoints } from './util/split-points';
 
 const LineSymbols = {
   line: (x: number, y: number, r: number) => {
-    return [['M', x - r, y], ['L', x + r, y]];
+    return [
+      ['M', x - r, y],
+      ['L', x + r, y],
+    ];
   },
   dot: (x: number, y: number, r: number) => {
-    return [['M', x - r, y], ['L', x + r, y]];
+    return [
+      ['M', x - r, y],
+      ['L', x + r, y],
+    ];
   },
   dash: (x: number, y: number, r: number) => {
-    return [['M', x - r, y], ['L', x + r, y]];
+    return [
+      ['M', x - r, y],
+      ['L', x + r, y],
+    ];
   },
   smooth: (x: number, y: number, r: number) => {
-    return [['M', x - r, y], ['A', r / 2, r / 2, 0, 1, 1, x, y], ['A', r / 2, r / 2, 0, 1, 0, x + r, y]];
+    return [
+      ['M', x - r, y],
+      ['A', r / 2, r / 2, 0, 1, 1, x, y],
+      ['A', r / 2, r / 2, 0, 1, 0, x + r, y],
+    ];
   },
   hv: (x: number, y: number, r: number) => {
-    return [['M', x - r - 1, y - 2.5], ['L', x, y - 2.5], ['L', x, y + 2.5], ['L', x + r + 1, y + 2.5]];
+    return [
+      ['M', x - r - 1, y - 2.5],
+      ['L', x, y - 2.5],
+      ['L', x, y + 2.5],
+      ['L', x + r + 1, y + 2.5],
+    ];
   },
   vh: (x: number, y: number, r: number) => {
-    return [['M', x - r - 1, y + 2.5], ['L', x, y + 2.5], ['L', x, y - 2.5], ['L', x + r + 1, y - 2.5]];
+    return [
+      ['M', x - r - 1, y + 2.5],
+      ['L', x, y + 2.5],
+      ['L', x, y - 2.5],
+      ['L', x + r + 1, y - 2.5],
+    ];
   },
   hvh: (x: number, y: number, r: number) => {
     return [
@@ -49,7 +71,7 @@ const LineSymbols = {
   },
 };
 
-function getStyle(cfg: ShapeDrawCFG) {
+function getStyle(cfg: ShapeInfo) {
   const { style, color, size } = cfg;
   const result = {
     ...style,
@@ -64,7 +86,7 @@ function getStyle(cfg: ShapeDrawCFG) {
   return result;
 }
 
-function getShapeAttrs(cfg: ShapeDrawCFG, smooth?: boolean, constraint?: Position[]) {
+function getShapeAttrs(cfg: ShapeInfo, smooth?: boolean, constraint?: Position[]) {
   const { isStack, connectNulls, isInCircle } = cfg;
   const points = getPathPoints(cfg.points, connectNulls); // 根据 connectNulls 值处理 points
 
@@ -151,11 +173,17 @@ const interpolateCallback = (point: Point, nextPoint: Point, shapeType: string) 
       break;
     case 'hvh':
       const middleX = (nextX + x) / 2;
-      result = [{ x: middleX, y }, { x: middleX, y: nextY }];
+      result = [
+        { x: middleX, y },
+        { x: middleX, y: nextY },
+      ];
       break;
     case 'vhv':
       const middleY = (y + nextY) / 2;
-      result = [{ x, y: middleY }, { x: nextX, y: middleY }];
+      result = [
+        { x, y: middleY },
+        { x: nextX, y: middleY },
+      ];
       break;
     default:
       break;
@@ -185,7 +213,7 @@ function getInterpolatePath(points: Point[]) {
 }
 
 // 插值的图形
-function getInterpolateShapeAttrs(cfg: ShapeDrawCFG, shapeType: string) {
+function getInterpolateShapeAttrs(cfg: ShapeInfo, shapeType: string) {
   const points = getPathPoints(cfg.points, cfg.connectNulls); // 根据 connectNulls 值处理 points
   let path = [];
   _.each(points, (eachLinePoints) => {
@@ -208,40 +236,25 @@ const LineShapeFactory = registerShapeFactory('line', {
 // 'dash' 断线 - - -
 _.each(['line', 'dot', 'dash', 'smooth'], (shapeType) => {
   registerShape('line', shapeType, {
-    draw(cfg: ShapeDrawCFG, element: Element) {
-      const container = element.container;
+    draw(cfg: ShapeInfo, container: IGroup) {
       const smooth = shapeType === 'smooth';
       let constraint;
       if (smooth) {
         const { start, end } = this.coordinate;
-        constraint = [[start.x, end.y], [end.x, start.y]];
+        constraint = [
+          [start.x, end.y],
+          [end.x, start.y],
+        ];
       }
 
       const attrs = getShapeAttrs(cfg, smooth, constraint);
       const shape = container.addShape({
         type: 'path',
         attrs,
+        name: 'line',
       });
-      if (cfg.animate) {
-        doAnimate(shape, cfg, this.coordinate);
-      }
-      return shape;
-    },
-    update(cfg: ShapeDrawCFG, element: Element) {
-      const shape = element.shape;
-      const smooth = shapeType === 'smooth';
-      let constraint;
-      if (smooth) {
-        const { start, end } = this.coordinate;
-        constraint = [[start.x, end.y], [end.x, start.y]];
-      }
 
-      const attrs = getShapeAttrs(cfg, smooth, constraint);
-      if (cfg.animate) {
-        doAnimate(shape, cfg, this.coordinate, attrs);
-      } else {
-        shape.attr(attrs);
-      }
+      return shape;
     },
     getMarker(color: string, isInCircle: boolean) {
       return {
@@ -257,26 +270,15 @@ _.each(['line', 'dot', 'dash', 'smooth'], (shapeType) => {
 // step line
 _.each(['hv', 'vh', 'hvh', 'vhv'], (shapeType) => {
   registerShape('line', shapeType, {
-    draw(cfg: ShapeDrawCFG, element: Element) {
-      const container = element.container;
+    draw(cfg: ShapeInfo, container: IGroup) {
       const attrs = getInterpolateShapeAttrs(cfg, shapeType);
       const shape = container.addShape({
         type: 'path',
         attrs,
+        name: 'line',
       });
-      if (cfg.animate) {
-        doAnimate(shape, cfg, this.coordinate);
-      }
+
       return shape;
-    },
-    update(cfg: ShapeDrawCFG, element: Element) {
-      const shape = element.shape;
-      const attrs = getInterpolateShapeAttrs(cfg, shapeType);
-      if (cfg.animate) {
-        doAnimate(shape, cfg, this.coordinate, attrs);
-      } else {
-        shape.attr(attrs);
-      }
     },
     getMarker(color: string, isInCircle: boolean) {
       return {

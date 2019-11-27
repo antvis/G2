@@ -1,7 +1,6 @@
 import * as _ from '@antv/util';
-import { Point, ShapeDrawCFG, ShapePoint } from '../../interface';
-import { doAnimate } from '../animate/';
-import Element from '../element';
+import { IGroup } from '../../dependents';
+import { Point, ShapeInfo, ShapePoint } from '../../interface';
 import { registerShape, registerShapeFactory } from './base';
 
 // 根据数据点生成矩形的四个关键点
@@ -30,7 +29,10 @@ function getRectPoints(pointInfo: ShapePoint, isPyramid = false): Point[] {
     xMax = x + size / 2;
   }
 
-  const points = [{ x: xMin, y: yMin }, { x: xMin, y: yMax }];
+  const points = [
+    { x: xMin, y: yMin },
+    { x: xMin, y: yMax },
+  ];
 
   if (isPyramid) {
     // 绘制尖底漏斗图
@@ -80,7 +82,10 @@ function getLinePoints(pointInfo: ShapePoint): Point[] {
   }
 
   // 起始点从 y0 开始
-  return [{ x: x as number, y: y0 }, { x: x as number, y }];
+  return [
+    { x: x as number, y: y0 },
+    { x: x as number, y },
+  ];
 }
 
 // 根据数据点生成 tick shape 的 6 个关键点
@@ -168,43 +173,21 @@ const IntervalShapeFactory = registerShapeFactory('interval', {
 
 // 矩形柱图
 registerShape('interval', 'rect', {
-  draw(cfg: ShapeDrawCFG, element: Element) {
+  draw(cfg: ShapeInfo, container: IGroup) {
     const style = cfg.style;
     if (cfg.color) {
       style.fill = cfg.color;
     }
     const path = this.parsePath(getRectPath(cfg.points as Point[]));
-    const container = element.container;
     const shape = container.addShape('path', {
       attrs: {
         ...style,
         path,
       },
+      name: 'interval',
     });
 
-    if (cfg.animate) {
-      doAnimate(shape, cfg, this.coordinate);
-    }
-
     return shape;
-  },
-  update(cfg: ShapeDrawCFG, element: Element) {
-    const shape = element.shape;
-    const style = cfg.style;
-    if (cfg.color) {
-      style.fill = cfg.color;
-    }
-    const path = this.parsePath(getRectPath(cfg.points as Point[]));
-    const attrs = {
-      ...style,
-      path,
-    };
-
-    if (cfg.animate) {
-      doAnimate(shape, cfg, this.coordinate, attrs);
-    } else {
-      shape.attr(attrs);
-    }
   },
   getMarker(color: string, isInPolar: boolean) {
     if (isInPolar) {
@@ -225,42 +208,21 @@ registerShape('interval', 'rect', {
 
 // 描边柱状图
 registerShape('interval', 'hollowRect', {
-  draw(cfg: ShapeDrawCFG, element: Element) {
+  draw(cfg: ShapeInfo, container: IGroup) {
     const style = cfg.style;
     if (cfg.color) {
       style.stroke = cfg.color;
     }
     const path = this.parsePath(getRectPath(cfg.points as Point[]));
-    const container = element.container;
     const shape = container.addShape('path', {
       attrs: {
         ...style,
         path,
       },
+      name: 'interval',
     });
 
-    if (cfg.animate) {
-      doAnimate(shape, cfg, this.coordinate);
-    }
-
     return shape;
-  },
-  update(cfg: ShapeDrawCFG, element: Element) {
-    const shape = element.shape;
-    const style = cfg.style;
-    if (cfg.color) {
-      style.stroke = cfg.color;
-    }
-    const path = this.parsePath(getRectPath(cfg.points as Point[]));
-    const attrs = {
-      ...style,
-      path,
-    };
-    if (cfg.animate) {
-      doAnimate(shape, cfg, this.coordinate, attrs);
-    } else {
-      shape.attr(attrs);
-    }
   },
   getMarker(color: string, isInPolar: boolean) {
     if (isInPolar) {
@@ -284,7 +246,7 @@ registerShape('interval', 'line', {
   getPoints(shapePoint: ShapePoint) {
     return getLinePoints(shapePoint);
   },
-  draw(cfg: ShapeDrawCFG, element: Element) {
+  draw(cfg: ShapeInfo, container: IGroup) {
     const style = cfg.style;
     if (cfg.color) {
       style.stroke = cfg.color;
@@ -293,44 +255,23 @@ registerShape('interval', 'line', {
       style.lineWidth = cfg.size;
     }
     const path = this.parsePath(getRectPath(cfg.points as Point[]));
-    const container = element.container;
     const shape = container.addShape('path', {
       attrs: {
         ...style,
         path,
       },
+      name: 'interval',
     });
 
-    if (cfg.animate) {
-      doAnimate(shape, cfg, this.coordinate);
-    }
-
     return shape;
-  },
-  update(cfg: ShapeDrawCFG, element: Element) {
-    const shape = element.shape;
-    const style = cfg.style;
-    if (cfg.color) {
-      style.stroke = cfg.color;
-    }
-    if (cfg.size) {
-      style.lineWidth = cfg.size;
-    }
-    const path = this.parsePath(getRectPath(cfg.points as Point[]));
-    const attrs = {
-      ...style,
-      path,
-    };
-    if (cfg.animate) {
-      doAnimate(shape, cfg, this.coordinate, attrs);
-    } else {
-      shape.attr(attrs);
-    }
   },
   getMarker(color: string, isInPolar: boolean) {
     return {
       symbol: (x: number, y: number, r: number) => {
-        return [['M', x, y - r], ['L', x, y + r]];
+        return [
+          ['M', x, y - r],
+          ['L', x, y + r],
+        ];
       },
       r: 5,
       stroke: color,
@@ -343,41 +284,21 @@ registerShape('interval', 'tick', {
   getPoints(shapePoint: ShapePoint) {
     return getTickPoints(shapePoint);
   },
-  draw(cfg: ShapeDrawCFG, element: Element) {
+  draw(cfg: ShapeInfo, container: IGroup) {
     const style = cfg.style;
     if (cfg.color) {
       style.stroke = cfg.color;
     }
     const path = this.parsePath(getTickPath(cfg.points as Point[]));
-    const container = element.container;
     const shape = container.addShape('path', {
       attrs: {
         ...style,
         path,
       },
+      name: 'interval',
     });
-    if (cfg.animate) {
-      doAnimate(shape, cfg, this.coordinate);
-    }
 
     return shape;
-  },
-  update(cfg: ShapeDrawCFG, element: Element) {
-    const shape = element.shape;
-    const style = cfg.style;
-    if (cfg.color) {
-      style.stroke = cfg.color;
-    }
-    const path = this.parsePath(getTickPath(cfg.points as Point[]));
-    const attrs = {
-      ...style,
-      path,
-    };
-    if (cfg.animate) {
-      doAnimate(shape, cfg, this.coordinate, attrs);
-    } else {
-      shape.attr(attrs);
-    }
   },
   getMarker(color: string, isInPolar: boolean) {
     return {
@@ -403,42 +324,20 @@ registerShape('interval', 'funnel', {
     shapePoint.size = shapePoint.size * 2; // 漏斗图的 size 是柱状图的两倍
     return getRectPoints(shapePoint);
   },
-  draw(cfg: ShapeDrawCFG, element: Element) {
+  draw(cfg: ShapeInfo, container: IGroup) {
     const style = cfg.style;
     if (cfg.color) {
       style.fill = cfg.color;
     }
     const path = this.parsePath(getFunnelPath(cfg.points as Point[], cfg.nextPoints as Point[], true));
-    const container = element.container;
     const shape = container.addShape('path', {
       attrs: {
         ...style,
         path,
       },
+      name: 'interval',
     });
-
-    if (cfg.animate) {
-      doAnimate(shape, cfg, this.coordinate);
-    }
-
     return shape;
-  },
-  update(cfg: ShapeDrawCFG, element: Element) {
-    const shape = element.shape;
-    const style = cfg.style;
-    if (cfg.color) {
-      style.fill = cfg.color;
-    }
-    const path = this.parsePath(getFunnelPath(cfg.points as Point[], cfg.nextPoints as Point[], true));
-    const attrs = {
-      ...style,
-      path,
-    };
-    if (cfg.animate) {
-      doAnimate(shape, cfg, this.coordinate, attrs);
-    } else {
-      shape.attr(attrs);
-    }
   },
   getMarker(color: string, isInPolar: boolean) {
     return {
@@ -455,42 +354,21 @@ registerShape('interval', 'pyramid', {
     shapePoint.size = shapePoint.size * 2; // 漏斗图的 size 是柱状图的两倍
     return getRectPoints(shapePoint, true);
   },
-  draw(cfg: ShapeDrawCFG, element: Element) {
+  draw(cfg: ShapeInfo, container: IGroup) {
     const style = cfg.style;
     if (cfg.color) {
       style.fill = cfg.color;
     }
     const path = this.parsePath(getFunnelPath(cfg.points as Point[], cfg.nextPoints as Point[], false));
-    const container = element.container;
     const shape = container.addShape('path', {
       attrs: {
         ...style,
         path,
       },
+      name: 'interval',
     });
 
-    if (cfg.animate) {
-      doAnimate(shape, cfg, this.coordinate);
-    }
-
     return shape;
-  },
-  update(cfg: ShapeDrawCFG, element: Element) {
-    const shape = element.shape;
-    const style = cfg.style;
-    if (cfg.color) {
-      style.fill = cfg.color;
-    }
-    const path = this.parsePath(getFunnelPath(cfg.points as Point[], cfg.nextPoints as Point[], false));
-    const attrs = {
-      ...style,
-      path,
-    };
-    if (cfg.animate) {
-      doAnimate(shape, cfg, this.coordinate, attrs);
-    } else {
-      shape.attr(attrs);
-    }
   },
   getMarker(color: string, isInPolar: boolean) {
     return {

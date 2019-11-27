@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
 import { Coordinate, PathCommand, Shape } from '../dependents';
-import { ShapeDrawCFG } from '../interface';
+import { ShapeInfo } from '../interface';
 
 // 获取图形的包围盒
 function getPointsBox(points) {
@@ -87,7 +87,7 @@ export function getSectorPath(
  * @param coordinate
  * @returns
  */
-export function getAngle(shapeModel: ShapeDrawCFG, coordinate: Coordinate) {
+export function getAngle(shapeModel: ShapeInfo, coordinate: Coordinate) {
   const points = shapeModel.points;
   const box = getPointsBox(points);
   let endAngle;

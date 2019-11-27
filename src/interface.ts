@@ -1,5 +1,4 @@
 import { Coordinate, IGroup, IShape, PathCommand, ScaleConfig } from './dependents';
-import Element from './geometry/element';
 
 /** G 的渲染类型 */
 export type Renderer = 'svg' | 'canvas';
@@ -116,11 +115,6 @@ export interface ShapeInfo {
   connectNulls?: boolean;
 }
 
-/** 自定义 Shape 每个接口的 cfg 类型 */
-export interface ShapeDrawCFG extends ShapeInfo {
-  animate?: AnimateCfg;
-}
-
 /** shape 关键点信息 */
 export interface ShapePoint {
   /** 数据点映射后对应 x 的值 */
@@ -154,13 +148,7 @@ export interface RegisterShapeFactory {
   /** 获取 shape 对应的缩略图配置 */
   readonly getMarker?: (shapeType: string, color: string, isInPolar: boolean) => ShapeMarkerCfg;
   /** 创建具体的 G.Shape 实例 */
-  readonly drawShape?: (shapeType: string, cfg: ShapeDrawCFG, element: Element) => IShape | IGroup;
-  /** 更新 shape */
-  readonly updateShape?: (shapeType: string, cfg: ShapeDrawCFG, element: Element) => void;
-  /** 销毁 shape */
-  readonly destroyShape?: (shapeType: string, cfg: ShapeDrawCFG, element: Element) => void;
-  /** 设置 shape 状态 */
-  readonly setState?: (shapeType: string, stateName: string, stateStatus: boolean, element: Element) => void;
+  readonly drawShape?: (shapeType: string, cfg: ShapeInfo, container: IGroup) => IShape | IGroup;
 }
 
 /** 注册具体 shape 需要实现的接口 */
@@ -170,13 +158,7 @@ export interface RegisterShape {
   /** 获取 shape 对应的缩略图样式配置，在注册具体的 shape 时由开发者自己定义 */
   readonly getMarker?: (color: string, isInPolar: boolean) => ShapeMarkerCfg;
   /** 绘制 */
-  readonly draw: (cfg: ShapeDrawCFG, container: Element) => IShape | IGroup;
-  /** 更新 shape */
-  readonly update: (cfg: ShapeDrawCFG, container: Element) => void;
-  /** 销毁 */
-  readonly destroy?: (cfg: ShapeDrawCFG, container: Element) => void;
-  /** 响应状态量 */
-  readonly setState?: (stateName: string, stateStatus: boolean, element: Element) => void;
+  readonly draw: (cfg: ShapeInfo, container: IGroup) => IShape | IGroup;
 }
 
 /** Shape 接口定义 */

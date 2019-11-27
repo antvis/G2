@@ -1,8 +1,9 @@
 import EE from '@antv/event-emitter';
 import * as _ from '@antv/util';
 import { IGroup, IShape } from '../../dependents';
-import { AnimateOption, Datum, LooseObject, ShapeDrawCFG, ShapeFactory, ShapeInfo } from '../../interface';
+import { AnimateOption, Datum, LooseObject, ShapeFactory, ShapeInfo } from '../../interface';
 import { getDefaultAnimateCfg } from '../animate';
+import { doAnimate } from '../animate/index';
 
 interface ElementCfg {
   /** 原始数据 */
@@ -19,6 +20,8 @@ interface ElementCfg {
   container: IGroup;
   /** 动画配置 */
   animate?: AnimateOption | boolean;
+  /** 虚拟 group，用户可以不传入 */
+  offscreenGroup?: IGroup;
 }
 
 /**
@@ -47,12 +50,12 @@ export default class Element extends EE {
 
   // 存储当前开启的状态
   private states: string[] = [];
-  // 存储 shape 的原始样式
-  private originStyle: LooseObject;
+  // 虚拟 Group
+  private offscreenGroup: IGroup;
 
   constructor(cfg: ElementCfg) {
     super();
-    const { data, model, shapeType, shapeFactory, theme, container, animate } = cfg;
+    const { data, model, shapeType, shapeFactory, theme, container, animate, offscreenGroup } = cfg;
     this.data = data;
     this.model = model;
     this.shapeType = shapeType;
@@ -60,73 +63,57 @@ export default class Element extends EE {
     this.theme = theme;
     this.container = container;
     this.animate = animate;
+    this.offscreenGroup = offscreenGroup;
 
     if (model) {
-      // 只有有数据的时候才进行绘制
-      // 绘制 shape
+      // 只有有数据的时候才绘制 Shape
       this.drawShape();
     }
   }
 
   /**
    * Updates element
-   * @param cfg 更新的绘制数据
+   * @param model 更新的绘制数据
    */
-  public update(cfg: ShapeInfo) {
-    const { shapeType, shapeFactory } = this;
-    const drawCfg: ShapeDrawCFG = {
-      ...cfg,
-      style: {
-        ...this.getStateStyle('default'),
-        ...cfg.style,
-      },
-    };
-    const animateCfg = this.getAnimateCfg('update');
-    if (animateCfg) {
-      // 只有获取到动画配置才赋值 animate 属性
-      drawCfg.animate = animateCfg;
-    }
-    // 更新图形
-    shapeFactory.updateShape(shapeType, drawCfg, this);
-    this.shape.set('origin', drawCfg);
+  public update(model: ShapeInfo) {
+    const { shapeType, shapeFactory, shape } = this;
+    // step 1: 更新 shape 携带的信息
+    const drawCfg = this.getShapeDrawCfg(model);
+    this.setShapeInfo(shape, drawCfg);
+
+    // step 2: 使用虚拟 Group 重新绘制 shape，然后更新当前 shape
+    const offscreenGroup = this.getOffscreenGroup();
+    const newShape = shapeFactory.drawShape(shapeType, drawCfg, offscreenGroup);
+
+    // step 3: 同步 shape 样式
+    this.syncShapeStyle(shape, newShape, '', this.getAnimateCfg('update'));
+
     // 更新数据
-    this.model = cfg;
-    this.data = cfg.data;
-    this.originStyle = null;
+    this.model = model;
+    this.data = model.data;
+    newShape.remove(true); // 销毁，减少内存占用
   }
 
+  /**
+   * Destroys element
+   */
   public destroy() {
-    const { model, shapeFactory, shapeType } = this;
-    const drawCfg: ShapeDrawCFG = {
-      ...model,
-    };
+    const { shapeFactory, shape } = this;
+
     const animateCfg = this.getAnimateCfg('leave');
     if (animateCfg) {
-      // 只有获取到动画配置才赋值 animate 属性
-      drawCfg.animate = animateCfg;
+      // 指定了动画配置则执行销毁动画
+      doAnimate(shape, animateCfg, shapeFactory.coordinate);
+    } else {
+      // 否则直接销毁
+      shape.remove(true);
     }
-    shapeFactory.destroyShape(shapeType, drawCfg, this);
 
     this.states = [];
-    this.originStyle = null;
     this.destroyed = true;
 
     this.off();
   }
-
-  /**
-   * @ignore
-   * @todo
-   * @param data
-   */
-  public updateData(data: Datum) {}
-
-  /**
-   * @ignore
-   * @todo 更新图形样式
-   * @param attrs 图形属性配置
-   */
-  public style(attrs: LooseObject) {}
 
   /**
    * 设置 Element 的状态。
@@ -146,12 +133,7 @@ export default class Element extends EE {
    * @param stateStatus 是否开启状态
    */
   public setState(stateName: string, stateStatus: boolean) {
-    const { states, shapeFactory, shapeType } = this;
-    // FIXME: 这个方法太 hack 了...
-    if (states.length === 0 && !this.originStyle) {
-      // 状态为空，则存储当前样式
-      this.setOriginStyle();
-    }
+    const { states, shapeFactory, shapeType, model, shape } = this;
 
     const index = states.indexOf(stateName);
     if (stateStatus) {
@@ -169,7 +151,20 @@ export default class Element extends EE {
       states.splice(index, 1);
     }
 
-    shapeFactory.setState(shapeType, stateName, stateStatus, this);
+    // 使用虚拟 group 重新绘制 shape，然后对这个 shape 应用状态样式后，更新当前 shape。
+    const drawCfg = this.getShapeDrawCfg(model);
+    const offscreenShape = shapeFactory.drawShape(shapeType, drawCfg, this.getOffscreenGroup());
+    if (states.length) {
+      // 应用当前状态
+      states.forEach((state) => {
+        this.syncShapeStyle(shape, offscreenShape, state, null);
+      });
+    } else {
+      // 如果没有状态，则需要恢复至原始状态
+      this.syncShapeStyle(shape, offscreenShape, '', null);
+    }
+
+    offscreenShape.remove(true); // 销毁，减少内存占用
   }
 
   /**
@@ -202,33 +197,27 @@ export default class Element extends EE {
   public getModel() {
     return this.model;
   }
+
   /**
    * 从主题中获取对应状态量的样式
    * @param stateName 状态名
    * @returns  状态样式
    */
-  public getStateStyle(stateName: string): LooseObject {
+  private getStateStyle(stateName: string, shapeKey?: string): LooseObject {
     const { shapeType, theme } = this;
-
-    return _.get(theme, [shapeType, stateName], {});
-  }
-  /**
-   * 获取初始化样式
-   * @ignore
-   */
-  public getOriginStyle(): LooseObject {
-    if (!this.originStyle) {
-      this.setOriginStyle();
-    }
-    return this.originStyle;
+    const keys = shapeKey ? [shapeType, stateName, shapeKey] : [shapeType, stateName];
+    return _.get(theme, keys, {});
   }
 
+  // 获取动画配置
   private getAnimateCfg(animateType: string) {
     const animate = this.animate;
     const { geometryType, coordinate } = this.shapeFactory;
     const defaultCfg = getDefaultAnimateCfg(geometryType, animateType, coordinate);
 
-    // 如果动画开启，用户没有配置动画同时又没有默认的动画配置时，返回 null
+    // 1. animate === false, 用户关闭动画
+    // 2. 动画默认开启，用户没有对动画进行配置同时有没有内置的默认动画
+    // 3. 用户关闭对应的动画  animate: { enter: false }
     if (!animate || (animate === true && _.isEmpty(defaultCfg)) || animate[animateType] === false) {
       return null;
     }
@@ -239,49 +228,96 @@ export default class Element extends EE {
     };
   }
 
+  // 绘制图形
   private drawShape() {
-    const { shapeType, shapeFactory, model } = this;
+    const { shapeType, shapeFactory, model, container } = this;
+    const drawCfg = this.getShapeDrawCfg(model);
+    const shape = shapeFactory.drawShape(shapeType, drawCfg, container);
+    this.setShapeInfo(shape, drawCfg); // 存储绘图数据
+    this.shape = shape;
+    if (!shape.get('name')) {
+      shape.set('name', this.shapeFactory.geometryType);
+    }
 
-    const drawCfg: ShapeDrawCFG = {
-      ...model,
-      style: {
-        ...this.getStateStyle('default'),
-        ...model.style,
-      },
-    };
+    // 执行入场动画
     const animateCfg = this.getAnimateCfg('enter');
     if (animateCfg) {
-      // 只有获取到动画配置才赋值 animate 属性
-      drawCfg.animate = animateCfg;
+      doAnimate(shape, animateCfg, shapeFactory.coordinate);
     }
-    const shape = shapeFactory.drawShape(shapeType, drawCfg, this);
-    // 存储绘图数据
-    shape.set('origin', drawCfg);
-    if (!shape.get('name')) {
-      // 用于支持 name:eventName 事件，如果用户已设置 name 属性则忽略
-      shape.set('name', shapeFactory.geometryType);
-    }
-    shape.set('element', this);
-    this.shape = shape;
   }
 
-  // FIXME: 嵌套 Group 的场景
-  private setOriginStyle() {
-    const shape = this.shape;
-    if ((shape as IGroup).isGroup()) {
-      const originStyle = {};
-      const children = shape.get('children');
-      _.each(children, (child, index) => {
-        const key = child.name || index;
-        originStyle[key] = {
-          ...child.attr(),
-        };
-      });
-      this.originStyle = originStyle;
-    } else {
-      this.originStyle = {
-        ...shape.attr(),
-      };
+  // 获取虚拟 Group
+  private getOffscreenGroup() {
+    if (!this.offscreenGroup) {
+      const GroupCtor = this.container.getGroupBase(); // 获取分组的构造函数
+      this.offscreenGroup = new GroupCtor({});
     }
+
+    return this.offscreenGroup;
+  }
+
+  // 设置 shape 上需要携带的信息
+  private setShapeInfo(shape: IShape | IGroup, data: ShapeInfo) {
+    shape.set('origin', data);
+    shape.set('element', this); // 考虑是否可以使用 G 事件的 delegationObject
+    if (shape.isGroup()) {
+      const children = shape.get('children');
+      children.forEach((child) => {
+        this.setShapeInfo(child, data);
+      });
+    }
+  }
+
+  // 获取 shape 的绘制属性
+  private getShapeDrawCfg(cfg: ShapeInfo): ShapeInfo {
+    return {
+      ...cfg,
+      style: {
+        ...this.getStateStyle('default'),
+        ...cfg.style,
+      },
+    };
+  }
+
+  // 更新当前 shape 的样式
+  private syncShapeStyle(
+    shape: IGroup | IShape,
+    newShape: IGroup | IShape,
+    state: string = '',
+    animateCfg,
+    index: number = 0
+  ) {
+    if (shape.isGroup()) {
+      const children = shape.get('children');
+      const newChildren = newShape.get('children');
+      for (let i = 0; i < children.length; i++) {
+        this.syncShapeStyle(children[i], newChildren[i], state, animateCfg, index + i);
+      }
+    } else {
+      if (state) {
+        const stateStyle = this.getStateStyle(state, shape.get('name') || index); // 如果用户没有设置 name，则默认根据索引值
+        newShape.attr(stateStyle);
+      }
+      const newAttrs = this.getReplaceAttrs(shape as IShape, newShape as IShape);
+
+      if (animateCfg) {
+        // 需要进行动画
+        doAnimate(shape, animateCfg, this.shapeFactory.coordinate, newAttrs);
+      } else {
+        shape.attr(newAttrs);
+      }
+    }
+  }
+
+  // 获取需要替换的属性，如果原先图形元素存在，而新图形不存在，则设置 undefined
+  private getReplaceAttrs(shape: IShape, newShape: IShape) {
+    const originAttrs = shape.attr();
+    const newAttrs = newShape.attr();
+    _.each(originAttrs, (v, k) => {
+      if (newAttrs[k] === undefined) {
+        newAttrs[k] = undefined;
+      }
+    });
+    return newAttrs;
   }
 }
