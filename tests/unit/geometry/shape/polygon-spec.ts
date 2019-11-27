@@ -76,7 +76,7 @@ describe('Point shapes', () => {
     });
 
     it('getMarker', () => {
-      const markerCfg = PolygonShapeFactory.getMarker('polygon', 'red', false);
+      const markerCfg = PolygonShapeFactory.getMarker('polygon', { color: 'red', isInPolar: false });
       expect(markerCfg).toEqual({
         symbol: 'square',
         r: 4,
@@ -121,7 +121,7 @@ describe('Point shapes', () => {
     });
 
     it('getMarker', () => {
-      const markerCfg = PolygonShapeFactory.getMarker('hollow', 'red', false);
+      const markerCfg = PolygonShapeFactory.getMarker('hollow', { color: 'red', isInPolar: false });
       expect(markerCfg).toEqual({
         symbol: 'square',
         r: 4,

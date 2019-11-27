@@ -63,11 +63,11 @@ describe('Shape', () => {
       });
 
       GeometryShape.registerShape('circleFactory', 'hollowCircle', {
-        getMarker(color, isInPolar) {
+        getMarker(markerCfg) {
           return {
             symbol: 'circle',
             r: 5,
-            stroke: color,
+            stroke: markerCfg.color,
           };
         },
         draw() {
@@ -166,8 +166,8 @@ describe('Shape', () => {
         },
       };
 
-      expect(circleFactory.getMarker('circle', 'red', false)).toBe(undefined);
-      expect(circleFactory.getMarker('hollowCircle', 'red', false)).toEqual({
+      expect(circleFactory.getMarker('circle', { color: 'red', isInPolar: false })).toBe(undefined);
+      expect(circleFactory.getMarker('hollowCircle', { color: 'red', isInPolar: false })).toEqual({
         symbol: 'circle',
         r: 5,
         stroke: 'red',

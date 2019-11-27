@@ -55,19 +55,31 @@ describe('Area shapes', () => {
   });
 
   it('getMarker()', () => {
-    const areaMarker = AreaShapeFactory.getMarker('area', 'red', false);
+    const areaMarker = AreaShapeFactory.getMarker('area', {
+      color: 'red',
+      isInPolar: false,
+    });
     expect(areaMarker.fill).toBe('red');
     expect(areaMarker.symbol).toBeFunction();
 
-    const lineMarker = AreaShapeFactory.getMarker('line', 'red', false);
+    const lineMarker = AreaShapeFactory.getMarker('line', {
+      color: 'red',
+      isInPolar: false,
+    });
     expect(lineMarker.stroke).toBe('red');
     expect(lineMarker.symbol).toBeFunction();
 
-    const smoothMarker = AreaShapeFactory.getMarker('smooth', 'red', false);
+    const smoothMarker = AreaShapeFactory.getMarker('smooth', {
+      color: 'red',
+      isInPolar: false,
+    });
     expect(smoothMarker.fill).toBe('red');
     expect(smoothMarker.symbol).toBeFunction();
 
-    const smoothLineMarker = AreaShapeFactory.getMarker('smoothLine', 'red', false);
+    const smoothLineMarker = AreaShapeFactory.getMarker('smoothLine', {
+      color: 'red',
+      isInPolar: false,
+    });
     expect(smoothLineMarker.stroke).toBe('red');
     expect(smoothLineMarker.symbol).toBeFunction();
   });

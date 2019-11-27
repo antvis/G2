@@ -121,7 +121,7 @@ describe('Interval shapes', () => {
     });
 
     it('getMarker', () => {
-      const markerCfg = IntervalShapeFactory.getMarker('rect', 'red', false);
+      const markerCfg = IntervalShapeFactory.getMarker('rect', { color: 'red', isInPolar: false });
       expect(markerCfg).toEqual({
         ...Theme.geometries.interval.rect.default,
         symbol: 'square',
@@ -129,7 +129,7 @@ describe('Interval shapes', () => {
         fill: 'red',
       });
 
-      const polaeMarkerCfg = IntervalShapeFactory.getMarker('rect', 'red', true);
+      const polaeMarkerCfg = IntervalShapeFactory.getMarker('rect', { color: 'red', isInPolar: true });
       expect(polaeMarkerCfg).toEqual({
         ...Theme.geometries.interval.rect.default,
         symbol: 'circle',
@@ -176,7 +176,7 @@ describe('Interval shapes', () => {
       expect(shape.getBBox().width).toBe(102);
     });
     it('getMarker', () => {
-      const markerCfg = IntervalShapeFactory.getMarker('hollowRect', 'red', false);
+      const markerCfg = IntervalShapeFactory.getMarker('hollowRect', { color: 'red', isInPolar: false });
       expect(markerCfg).toEqual({
         ...Theme.geometries.interval.hollowRect.default,
         symbol: 'square',
@@ -184,7 +184,7 @@ describe('Interval shapes', () => {
         stroke: 'red',
       });
 
-      const polaeMarkerCfg = IntervalShapeFactory.getMarker('hollowRect', 'red', true);
+      const polaeMarkerCfg = IntervalShapeFactory.getMarker('hollowRect', { color: 'red', isInPolar: true });
       expect(polaeMarkerCfg).toEqual({
         ...Theme.geometries.interval.hollowRect.default,
         symbol: 'circle',
@@ -261,7 +261,7 @@ describe('Interval shapes', () => {
     });
 
     it('getMarker', () => {
-      const markerCfg = IntervalShapeFactory.getMarker('line', 'red', false);
+      const markerCfg = IntervalShapeFactory.getMarker('line', { color: 'red', isInPolar: false });
       expect(markerCfg.stroke).toBe('red');
       // @ts-ignore
       expect(markerCfg.symbol(10, 10, 5)).toEqual([
@@ -348,7 +348,7 @@ describe('Interval shapes', () => {
     });
 
     it('getMarker', () => {
-      const markerCfg = IntervalShapeFactory.getMarker('tick', 'red', false);
+      const markerCfg = IntervalShapeFactory.getMarker('tick', { color: 'red', isInPolar: false });
       expect(markerCfg.stroke).toBe('red');
       // @ts-ignore
       expect(markerCfg.symbol(10, 10, 4)).toEqual([
@@ -450,7 +450,7 @@ describe('Interval shapes', () => {
     });
 
     it('getMarker', () => {
-      const markerCfg = IntervalShapeFactory.getMarker('funnel', 'red', false);
+      const markerCfg = IntervalShapeFactory.getMarker('funnel', { color: 'red', isInPolar: false });
       expect(markerCfg).toEqual({
         ...Theme.geometries.interval.funnel.default,
         symbol: 'square',
@@ -546,7 +546,7 @@ describe('Interval shapes', () => {
       expect(path).toEqual([['M', 100, 200], ['L', 100, 100], ['L', 225, 125], ['L', 225, 175], ['Z']]);
     });
     it('getMarker', () => {
-      const markerCfg = IntervalShapeFactory.getMarker('pyramid', 'red', false);
+      const markerCfg = IntervalShapeFactory.getMarker('pyramid', { color: 'red', isInPolar: false });
       expect(markerCfg).toEqual({
         ...Theme.geometries.interval.pyramid.default,
         symbol: 'square',

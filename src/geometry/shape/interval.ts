@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
 import { IGroup } from '../../dependents';
-import { Point, ShapeInfo, ShapePoint } from '../../interface';
+import { Point, ShapeInfo, ShapeMarkerCfg, ShapePoint } from '../../interface';
 import { registerShape, registerShapeFactory } from './base';
 
 // 根据数据点生成矩形的四个关键点
@@ -189,7 +189,8 @@ registerShape('interval', 'rect', {
 
     return shape;
   },
-  getMarker(color: string, isInPolar: boolean) {
+  getMarker(markerCfg: ShapeMarkerCfg) {
+    const { color, isInPolar } = markerCfg;
     if (isInPolar) {
       return {
         symbol: 'circle',
@@ -224,7 +225,8 @@ registerShape('interval', 'hollowRect', {
 
     return shape;
   },
-  getMarker(color: string, isInPolar: boolean) {
+  getMarker(markerCfg: ShapeMarkerCfg) {
+    const { color, isInPolar } = markerCfg;
     if (isInPolar) {
       return {
         symbol: 'circle',
@@ -265,7 +267,8 @@ registerShape('interval', 'line', {
 
     return shape;
   },
-  getMarker(color: string, isInPolar: boolean) {
+  getMarker(markerCfg: ShapeMarkerCfg) {
+    const { color } = markerCfg;
     return {
       symbol: (x: number, y: number, r: number) => {
         return [
@@ -300,7 +303,8 @@ registerShape('interval', 'tick', {
 
     return shape;
   },
-  getMarker(color: string, isInPolar: boolean) {
+  getMarker(markerCfg: ShapeMarkerCfg) {
+    const { color } = markerCfg;
     return {
       symbol: (x: number, y: number, r: number) => {
         return [
@@ -339,7 +343,8 @@ registerShape('interval', 'funnel', {
     });
     return shape;
   },
-  getMarker(color: string, isInPolar: boolean) {
+  getMarker(markerCfg: ShapeMarkerCfg) {
+    const { color } = markerCfg;
     return {
       symbol: 'square',
       r: 4,
@@ -370,7 +375,8 @@ registerShape('interval', 'pyramid', {
 
     return shape;
   },
-  getMarker(color: string, isInPolar: boolean) {
+  getMarker(markerCfg: ShapeMarkerCfg) {
+    const { color } = markerCfg;
     return {
       symbol: 'square',
       r: 4,

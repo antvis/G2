@@ -34,7 +34,7 @@ describe('Line shapes', () => {
   });
 
   it('getMarker', () => {
-    const dotMarker = LineShapeFactory.getMarker('dot', 'red', false);
+    const dotMarker = LineShapeFactory.getMarker('dot', { color: 'red', isInPolar: false });
     expect(dotMarker.lineDash).toBe(Theme.geometries.line.dot.default.lineDash);
     expect(dotMarker.stroke).toBe('red');
     // @ts-ignore
@@ -43,7 +43,7 @@ describe('Line shapes', () => {
       ['L', 15, 10],
     ]);
 
-    const vhMarker = LineShapeFactory.getMarker('vh', 'red', false);
+    const vhMarker = LineShapeFactory.getMarker('vh', { color: 'red', isInPolar: false });
     expect(vhMarker.stroke).toBe('red');
     // @ts-ignore
     expect(vhMarker.symbol(10, 10, 5)).toEqual([

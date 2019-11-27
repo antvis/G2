@@ -126,8 +126,15 @@ export interface ShapePoint {
   size?: number;
 }
 
-/** 图形 marker 的配置信息 */
 export interface ShapeMarkerCfg {
+  /** 颜色 */
+  color: string;
+  /** 是否是极坐标 */
+  isInPolar: boolean;
+}
+
+/** 图形 marker 的配置信息 */
+export interface ShapeMarkerAttrs {
   /** marker 的形状 */
   symbol: string | ShapeMarkerSymbol;
   /** 描边的颜色 */
@@ -146,7 +153,7 @@ export interface RegisterShapeFactory {
   /** 返回绘制 shape 所有的关键点集合 */
   readonly getDefaultPoints?: (pointInfo: ShapePoint) => Point[];
   /** 获取 shape 对应的缩略图配置 */
-  readonly getMarker?: (shapeType: string, color: string, isInPolar: boolean) => ShapeMarkerCfg;
+  readonly getMarker?: (shapeType: string, markerCfg: ShapeMarkerCfg) => ShapeMarkerAttrs;
   /** 创建具体的 G.Shape 实例 */
   readonly drawShape?: (shapeType: string, cfg: ShapeInfo, container: IGroup) => IShape | IGroup;
 }
@@ -156,7 +163,7 @@ export interface RegisterShape {
   /** 计算绘制需要的关键点，在注册具体的 shape 时由开发者自己定义 */
   readonly getPoints?: (pointInfo: ShapePoint) => Point[];
   /** 获取 shape 对应的缩略图样式配置，在注册具体的 shape 时由开发者自己定义 */
-  readonly getMarker?: (color: string, isInPolar: boolean) => ShapeMarkerCfg;
+  readonly getMarker?: (markerCfg: ShapeMarkerCfg) => ShapeMarkerAttrs;
   /** 绘制 */
   readonly draw: (cfg: ShapeInfo, container: IGroup) => IShape | IGroup;
 }
