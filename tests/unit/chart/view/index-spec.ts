@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
 import 'jest-extended';
-import { Chart, View } from '../../../../src';
+import { View } from '../../../../src';
 import { Canvas, Group } from '../../../../src/dependents';
 import { createCanvas, createDiv } from '../../../util/dom';
 

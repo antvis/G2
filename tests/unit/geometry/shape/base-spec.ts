@@ -7,9 +7,9 @@ const Polar = getCoordinate('polar');
 
 describe('Shape', () => {
   let coordinate;
-  let updateCalled = false;
-  let setStateCalled = false;
-  let destroyCalled = false;
+  const updateCalled = false;
+  const setStateCalled = false;
+  const destroyCalled = false;
 
   beforeAll(() => {
     coordinate = new Rect({
@@ -55,19 +55,10 @@ describe('Shape', () => {
             },
           ];
         },
-        destroy() {
-          destroyCalled = true;
-        },
         // @ts-ignore
         // mock
         draw() {
           return 'circle draw';
-        },
-        update() {
-          updateCalled = true;
-        },
-        setState() {
-          setStateCalled = true;
         },
       });
 
@@ -91,7 +82,6 @@ describe('Shape', () => {
             },
           });
         },
-        update() {},
       });
       const circleFactory = GeometryShape.getShapeFactory('circleFactory');
       expect(circleFactory.getShape('circle')).not.toBe(undefined);
@@ -190,30 +180,6 @@ describe('Shape', () => {
       // @ts-ignore
       expect(circleFactory.drawShape('circle')).toBe('circle draw');
     });
-
-    it('updateShape()', () => {
-      const circleFactory = GeometryShape.getShapeFactory('circleFactory');
-      // @ts-ignore
-      circleFactory.updateShape('circle');
-
-      expect(updateCalled).toBe(true);
-    });
-
-    it('setState()', () => {
-      const circleFactory = GeometryShape.getShapeFactory('circleFactory');
-      // @ts-ignore
-      circleFactory.setState();
-
-      expect(setStateCalled).toBe(true);
-    });
-
-    it('destroy()', () => {
-      const circleFactory = GeometryShape.getShapeFactory('circleFactory');
-      // @ts-ignore
-      circleFactory.destroyShape();
-
-      expect(destroyCalled).toBe(true);
-    });
   });
 
   describe('Shape', () => {
@@ -236,16 +202,30 @@ describe('Shape', () => {
       const circleFactory = GeometryShape.getShapeFactory('circleFactory');
       const shape = circleFactory.getShape('circle');
 
-      const points = [{ x: 0, y: 0 }, { x: 0.5, y: 0.5 }, { x: 1, y: 1 }];
-      expect(shape.parsePoints(points)).toEqual([{ x: 0, y: 0 }, { x: 100, y: 100 }, { x: 200, y: 200 }]);
+      const points = [
+        { x: 0, y: 0 },
+        { x: 0.5, y: 0.5 },
+        { x: 1, y: 1 },
+      ];
+      expect(shape.parsePoints(points)).toEqual([
+        { x: 0, y: 0 },
+        { x: 100, y: 100 },
+        { x: 200, y: 200 },
+      ]);
     });
 
     it('parsePath at cartesian coordinate.', () => {
       const circleFactory = GeometryShape.getShapeFactory('circleFactory');
       const shape = circleFactory.getShape('circle');
 
-      const path = [['M', 0, 0], ['L', 1, 1]];
-      expect(shape.parsePath(path, false)).toEqual([['M', 0, 0], ['L', 200, 200]]);
+      const path = [
+        ['M', 0, 0],
+        ['L', 1, 1],
+      ];
+      expect(shape.parsePath(path, false)).toEqual([
+        ['M', 0, 0],
+        ['L', 200, 200],
+      ]);
     });
 
     it('parsePath at polar coordinate.', () => {
@@ -257,53 +237,26 @@ describe('Shape', () => {
       circleFactory.coordinate = polar;
 
       const shape = circleFactory.getShape('circle');
-      let path = [['M', 0, 0], ['L', 0, 1], ['L', 0.5, 1]];
+      let path = [
+        ['M', 0, 0],
+        ['L', 0, 1],
+        ['L', 0.5, 1],
+      ];
       let toPath = shape.parsePath(path, true);
       expect(toPath[0]).toEqual(['M', 100, 100]);
       expect(toPath[1]).toEqual(['L', 100, 0]);
       expect(toPath[2]).toEqual(['A', 100, 100, 0, 0, 1, 100, 200]);
 
-      path = [['M', 0, 0], ['L', 0, 1], ['L', 0.5, 1], ['L', 1, 1]];
+      path = [
+        ['M', 0, 0],
+        ['L', 0, 1],
+        ['L', 0.5, 1],
+        ['L', 1, 1],
+      ];
       toPath = shape.parsePath(path, true);
       expect(toPath[0]).toEqual(['M', 100, 100]);
       expect(toPath[1]).toEqual(['M', 100, 0]);
       expect(toPath[2]).toEqual(['A', 100, 100, 0, 0, 1, 100, 200]);
-    });
-
-    it('setState', () => {
-      const circleFactory = GeometryShape.getShapeFactory('circleFactory');
-      const element = new Element({
-        shapeType: 'hollowCircle',
-        shapeFactory: circleFactory,
-        data: { x: 10, y: 10 },
-        model: { x: 1, y: 1 },
-        theme: {
-          hollowCircle: {
-            default: {
-              fill: 'red',
-            },
-            active: {
-              fill: 'blue',
-            },
-            selected: {
-              fill: 'yellow',
-              stroke: '#000',
-              lineWidth: 1,
-            },
-          },
-        },
-        container: new Group({}),
-      });
-
-      circleFactory.setState('hollowCircle', 'active', true, element);
-      expect(element.shape.attr('fill')).toBe('blue');
-
-      element.setState('selected', true);
-
-      circleFactory.setState('hollowCircle', 'active', false, element);
-      expect(element.shape.attr('fill')).toBe('yellow');
-      expect(element.shape.attr('stroke')).toBe('#000');
-      expect(element.shape.attr('lineWidth')).toBe(1);
     });
   });
 });

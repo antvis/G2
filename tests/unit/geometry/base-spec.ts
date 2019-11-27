@@ -340,25 +340,15 @@ describe('Geometry', () => {
       });
 
       Shape.registerShape('myInterval', 'tick', {
-        draw(cfg, element) {
+        draw(cfg, groupScales) {
           const { style, points, color } = cfg;
           const path = this.parsePath(getPath(points));
-          return element.container.addShape('path', {
+          return groupScales.addShape('path', {
             attrs: {
               ...style,
               path,
               stroke: color,
             },
-          });
-        },
-        update(cfg, element) {
-          const { style, points, color } = cfg;
-          const path = this.parsePath(getPath(points));
-          const shape = element.shape;
-          shape.attr({
-            ...style,
-            path,
-            stroke: color,
           });
         },
       });

@@ -8,20 +8,20 @@ const Rect = getCoordinate('rect');
 
 describe('Element', () => {
   let container;
+  let offscreenContainer;
   let element;
 
   beforeAll(() => {
     container = new Group({});
+    offscreenContainer = new Group({});
 
     Shape.registerShapeFactory('shapes', {
       defaultShapeType: 'circle',
     });
 
     Shape.registerShape('shapes', 'circle', {
-      draw(cfg, ele) {
-        const shapeContainer = ele.container;
-
-        return shapeContainer.addShape('circle', {
+      draw(cfg, group) {
+        return group.addShape('circle', {
           attrs: {
             x: 20,
             y: 20,
@@ -29,11 +29,6 @@ describe('Element', () => {
             ...cfg.style,
           },
         });
-      },
-      update(cfg, ele) {
-        const shape = ele.shape;
-
-        shape.attr(cfg.style);
       },
     });
   });
@@ -53,22 +48,26 @@ describe('Element', () => {
               lineWidth: 0,
             },
             active: {
-              stroke: '#000',
-              lineWidth: 1,
+              shapes: {
+                stroke: '#000',
+                lineWidth: 1,
+              },
             },
             selected: {
-              fill: 'red',
+              shapes: {
+                fill: 'red',
+              },
             },
           },
         },
         container,
+        offscreenGroup: offscreenContainer,
         animate: true,
       });
 
       expect(element.shape.get('name')).toBe('shapes');
       expect(container.get('children').length).toBe(1);
       expect(container.get('children')[0]).toEqual(element.shape);
-      expect(element.getOriginStyle().fill).toEqual('#333');
       expect(element.getStates().length).toBe(0);
     });
 
@@ -83,10 +82,16 @@ describe('Element', () => {
     });
 
     it('getStateStyle()', () => {
-      const activeStyle = element.getStateStyle('active');
+      const activeStyle = element.getStateStyle('active', 'shapes');
       expect(activeStyle).toEqual({
         stroke: '#000',
         lineWidth: 1,
+      });
+
+      const defaultStyle = element.getStateStyle('default');
+      expect(defaultStyle).toEqual({
+        fill: '#333',
+        lineWidth: 0,
       });
     });
 
@@ -114,7 +119,7 @@ describe('Element', () => {
       element.setState('active', false);
       expect(element.getStates()).toEqual(['selected']);
       expect(shape.attr('fill')).toBe('red');
-      expect(shape.attr('stroke')).toBe(null);
+      expect(shape.attr('stroke')).toBe(undefined);
       expect(shape.attr('lineWidth')).toBe(0);
 
       element.setState('otherState', false);
@@ -131,7 +136,7 @@ describe('Element', () => {
 
       expect(element.getStates().length).toBe(0);
       expect(element.shape.attr('fill')).toBe('#333');
-      expect(element.shape.attr('stroke')).toBe(null);
+      expect(element.shape.attr('stroke')).toBe(undefined);
       expect(element.shape.attr('lineWidth')).toBe(0);
     });
 
@@ -151,8 +156,6 @@ describe('Element', () => {
       expect(shape.attr('lineWidth')).toBe(20);
       expect(shape.attr('fill')).toBe('#454545');
 
-      expect(element.getOriginStyle().lineWidth).toBe(20);
-      expect(element.getOriginStyle().fill).toBe('#454545');
       expect(element.getModel()).toEqual({
         style: {
           lineWidth: 20,
@@ -172,7 +175,6 @@ describe('Element', () => {
       expect(element.shape.destroyed).toBe(true);
       expect(container.get('children').length).toBe(0);
       expect(element.getStates().length).toBe(0);
-      expect(element.getOriginStyle()).toEqual({});
     });
   });
 

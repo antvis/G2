@@ -112,42 +112,14 @@ describe('Interval shapes', () => {
             ...Theme.geometries.interval.rect.default,
           },
         },
-        element
+        element.container
       );
       canvas.draw();
-      // mock, for test
-      element.shape = shape;
       expect(shape.attr('fill')).toBe('red');
       expect(shape.attr('path').length).toBe(6);
       expect(shape.getBBox().width).toBe(100);
     });
-    it('update', () => {
-      const cfg = {
-        x: 0.25,
-        y: 0.5,
-        y0: 0,
-        size: 0.5,
-      };
-      const points = IntervalShapeFactory.getShapePoints('rect', cfg);
-      IntervalShapeFactory.updateShape(
-        'rect',
-        {
-          x: 100,
-          y: 100,
-          points,
-          color: 'yellow',
-          style: {
-            ...Theme.geometries.interval.rect.default,
-          },
-        },
-        element
-      );
 
-      const shape = element.shape;
-      expect(shape.attr('fill')).toBe('yellow');
-      expect(shape.attr('path').length).toBe(6);
-      expect(shape.getBBox().width).toBe(250);
-    });
     it('getMarker', () => {
       const markerCfg = IntervalShapeFactory.getMarker('rect', 'red', false);
       expect(markerCfg).toEqual({
@@ -195,47 +167,13 @@ describe('Interval shapes', () => {
             ...Theme.geometries.interval.hollowRect.default,
           },
         },
-        element
+        element.container
       );
       canvas.draw();
-      // mock, for test
-      element.shape = shape;
 
       expect(shape.attr('stroke')).toBe('yellow');
       expect(shape.attr('path').length).toBe(6);
-      // FIXME: 需要 G 修复 https://github.com/antvis/g/issues/252
-      // expect(shape.getBBox().width).toBe(102);
-    });
-    it('update', () => {
-      const cfg = {
-        x: 0.25,
-        y: 0.8,
-        y0: 0.6,
-        size: 0.2,
-      };
-      const points = IntervalShapeFactory.getShapePoints('hollowRect', cfg);
-      IntervalShapeFactory.updateShape(
-        'hollowRect',
-        {
-          x: 100,
-          y: 100,
-          points,
-          color: '#000',
-          style: {
-            ...Theme.geometries.interval.hollowRect.default,
-            lineWidth: 4,
-          },
-        },
-        element
-      );
-      canvas.draw();
-
-      const shape = element.shape;
-      expect(shape.attr('stroke')).toBe('#000');
-      expect(shape.attr('lineWidth')).toBe(4);
-      expect(shape.attr('path').length).toBe(6);
-      // FIXME: 需要 G 修复 https://github.com/antvis/g/issues/252
-      // expect(shape.getBBox().width).toBe(104);
+      expect(shape.getBBox().width).toBe(102);
     });
     it('getMarker', () => {
       const markerCfg = IntervalShapeFactory.getMarker('hollowRect', 'red', false);
@@ -312,51 +250,16 @@ describe('Interval shapes', () => {
             ...Theme.geometries.interval.line.default,
           },
         },
-        element
+        element.container
       );
       canvas.draw();
-      // for test
-      element.shape = shape;
       const path = shape.attr('path');
       expect(shape.attr('stroke')).toBe('green');
       expect(path.length).toBe(4);
-      // FIXME: 需要 G 修复 https://github.com/antvis/g/issues/254
-      // expect(shape.getBBox().width).toBe(5);
+      expect(shape.getBBox().width).toBe(5);
       expect(path[0][2] - path[1][2]).toBe(125);
     });
 
-    it('update', () => {
-      const cfg = {
-        x: 0.6,
-        y: 0.25,
-        y0: 0,
-        size: 0.2,
-      };
-      const points = IntervalShapeFactory.getShapePoints('line', cfg);
-      IntervalShapeFactory.updateShape(
-        'line',
-        {
-          x: 100,
-          y: 100,
-          color: '#1890ff',
-          points,
-          size: 10,
-          style: {
-            ...Theme.geometries.interval.line.default,
-          },
-        },
-        element
-      );
-      canvas.draw();
-
-      const shape = element.shape;
-      const path = shape.attr('path');
-      expect(shape.attr('stroke')).toBe('#1890ff');
-      expect(path.length).toBe(4);
-      // FIXME: 需要 G 修复 https://github.com/antvis/g/issues/254
-      // expect(shape.getBBox().width).toBe(10);
-      expect(path[0][2] - path[1][2]).toBe(125);
-    });
     it('getMarker', () => {
       const markerCfg = IntervalShapeFactory.getMarker('line', 'red', false);
       expect(markerCfg.stroke).toBe('red');
@@ -433,11 +336,9 @@ describe('Interval shapes', () => {
             ...Theme.geometries.interval.tick.default,
           },
         },
-        element
+        element.container
       );
       canvas.draw();
-      // for test
-      element.shape = shape;
 
       const path = shape.attr('path');
       expect(shape.attr('stroke')).toBe('pink');
@@ -446,35 +347,6 @@ describe('Interval shapes', () => {
       expect(path[0][2] - path[1][2]).toBe(250);
     });
 
-    it('update', () => {
-      const cfg = {
-        x: 0.5,
-        y: 0.5,
-        y0: 0,
-        size: 1,
-      };
-      const points = IntervalShapeFactory.getShapePoints('tick', cfg);
-      IntervalShapeFactory.updateShape(
-        'tick',
-        {
-          x: 100,
-          y: 100,
-          points,
-          color: 'pink',
-          style: {
-            ...Theme.geometries.interval.tick.default,
-          },
-        },
-        element
-      );
-      canvas.draw();
-      const shape = element.shape;
-      const path = shape.attr('path');
-      expect(shape.attr('stroke')).toBe('pink');
-      expect(path.length).toBe(6);
-      expect(path[3][1] - path[2][1]).toBe(500);
-      expect(path[0][2] - path[1][2]).toBe(250);
-    });
     it('getMarker', () => {
       const markerCfg = IntervalShapeFactory.getMarker('tick', 'red', false);
       expect(markerCfg.stroke).toBe('red');
@@ -535,47 +407,12 @@ describe('Interval shapes', () => {
             ...Theme.geometries.interval.funnel.default,
           },
         },
-        element
+        element.container
       );
       canvas.draw();
-      // for test
-      element.shape = shape;
 
       const path = shape.attr('path');
       expect(shape.attr('fill')).toBe(Theme.defaultColor);
-      expect(path.length).toBe(5);
-      expect(path[2][1] - path[1][1]).toBe(50);
-      expect(path[0][2] - path[1][2]).toBe(150);
-    });
-
-    it('update', () => {
-      const cfg = {
-        x: 0.3,
-        y: [0.2, 0.5],
-        y0: 0,
-        size: 0.05,
-      };
-      const points = IntervalShapeFactory.getShapePoints('funnel', cfg);
-      IntervalShapeFactory.updateShape(
-        'funnel',
-        {
-          x: 100,
-          y: 100,
-          points,
-          nextPoints: null,
-          style: {
-            ...Theme.geometries.interval.funnel.default,
-          },
-          color: '#888',
-        },
-        element
-      );
-      canvas.draw();
-      // for test
-
-      const shape = element.shape;
-      const path = shape.attr('path');
-      expect(shape.attr('fill')).toBe('#888');
       expect(path.length).toBe(5);
       expect(path[2][1] - path[1][1]).toBe(50);
       expect(path[0][2] - path[1][2]).toBe(150);
@@ -603,17 +440,15 @@ describe('Interval shapes', () => {
           color: 'yellow',
           style: {},
         },
-        element
+        element.container
       );
       canvas.draw();
-
-      // for test
-      element.shape = shape;
 
       const path = shape.attr('path');
       expect(shape.attr('fill')).toBe('yellow');
       expect(path).toEqual([['M', 125, 400], ['L', 125, 250], ['L', 225, 300], ['L', 225, 350], ['Z']]);
     });
+
     it('getMarker', () => {
       const markerCfg = IntervalShapeFactory.getMarker('funnel', 'red', false);
       expect(markerCfg).toEqual({
@@ -669,44 +504,12 @@ describe('Interval shapes', () => {
             ...Theme.geometries.interval.pyramid.default,
           },
         },
-        element
+        element.container
       );
       canvas.draw();
-      // for test
-      element.shape = shape;
 
       const path = shape.attr('path');
       expect(shape.attr('fill')).toEqual(Theme.defaultColor);
-      expect(path).toEqual([['M', 100, 200], ['L', 100, 100], ['L', 150, 150], ['L', 150, 150], ['Z']]);
-    });
-
-    it('update, nextPoints is null', () => {
-      const cfg = {
-        x: 0.25,
-        y: [0.6, 0.8],
-        y0: 0,
-        size: 0.05,
-      };
-      const points = IntervalShapeFactory.getShapePoints('pyramid', cfg);
-      IntervalShapeFactory.updateShape(
-        'pyramid',
-        {
-          x: 100,
-          y: 100,
-          points,
-          nextPoints: null,
-          color: 'red',
-          style: {
-            ...Theme.geometries.interval.pyramid.default,
-          },
-        },
-        element
-      );
-      canvas.draw();
-
-      const shape = element.shape;
-      const path = shape.attr('path');
-      expect(shape.attr('fill')).toEqual('red');
       expect(path).toEqual([['M', 100, 200], ['L', 100, 100], ['L', 150, 150], ['L', 150, 150], ['Z']]);
     });
 
@@ -734,7 +537,7 @@ describe('Interval shapes', () => {
             ...Theme.geometries.interval.pyramid.default,
           },
         },
-        element
+        element.container
       );
       canvas.draw();
 

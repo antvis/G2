@@ -99,60 +99,11 @@ describe('Area shapes', () => {
             ],
           ],
         },
-        element
+        element.container
       );
-      // mock
-      element.shape = shape;
       // canvas.draw();
       expect(shape.attr('fill')).toBe(Theme.defaultColor);
       expect(shape.attr('path').length).toBe(7);
-    });
-
-    it('update', () => {
-      AreaShapeFactory.updateShape(
-        'area',
-        {
-          x: 100,
-          y: 100,
-          style: {
-            ...Theme.geometries.area.area.default,
-            fillOpacity: 1,
-          },
-          color: 'red',
-          points: [
-            [
-              { x: 0, y: 0.48 },
-              { x: 0, y: 0.88 },
-            ],
-            [
-              { x: 0.5, y: 0.26 },
-              { x: 0.5, y: 0.62 },
-            ],
-            [
-              { x: 1, y: 0.04 },
-              { x: 1, y: 0.52 },
-            ],
-          ],
-        },
-        element
-      );
-      canvas.draw();
-      const shape = element.shape;
-      expect(shape.attr('fill')).toBe('red');
-      expect(shape.attr('fillOpacity')).toBe(1);
-    });
-
-    it('destroy', () => {
-      AreaShapeFactory.destroyShape(
-        'area',
-        {
-          x: 100,
-          y: 100,
-        },
-        element
-      );
-
-      expect(element.container.getChildren().length).toBe(0);
     });
   });
 
@@ -192,67 +143,12 @@ describe('Area shapes', () => {
           ],
           connectNulls: false,
         },
-        element
+        element.container
       );
-      // mock
-      element.shape = shape;
       // canvas.draw();
       expect(shape.attr('stroke')).toBe(Theme.defaultColor);
       expect(shape.attr('path').length).toBe(10);
       expect(shape.attr('path')[5][0]).toBe('M');
-    });
-
-    it('update', () => {
-      AreaShapeFactory.updateShape(
-        'line',
-        {
-          x: 100,
-          y: 100,
-          style: {
-            ...Theme.geometries.area.line.default,
-          },
-          points: [
-            [
-              { x: 0, y: 0.48 },
-              { x: 0, y: 0.88 },
-            ],
-            [
-              { x: 0.25, y: 0.26 },
-              { x: 0.25, y: 0.62 },
-            ],
-            [
-              { x: 0.5, y: 0 },
-              { x: 0.5, y: null },
-            ],
-            [
-              { x: 0.75, y: 0.08 },
-              { x: 0.75, y: 0.56 },
-            ],
-            [
-              { x: 1, y: 0.08 },
-              { x: 1, y: 0.56 },
-            ],
-          ],
-          connectNulls: true,
-        },
-        element
-      );
-      // canvas.draw();
-      const shape = element.shape;
-      expect(shape.attr('path').length).toBe(9);
-    });
-
-    it('destroy', () => {
-      AreaShapeFactory.destroyShape(
-        'line',
-        {
-          x: 100,
-          y: 100,
-        },
-        element
-      );
-
-      expect(element.container.getChildren().length).toBe(0);
     });
   });
 
@@ -283,62 +179,13 @@ describe('Area shapes', () => {
             ],
           ],
         },
-        element
+        element.container
       );
-      // mock
-      element.shape = shape;
       // canvas.draw();
       expect(shape.attr('fill')).toBe(Theme.defaultColor);
       expect(shape.attr('path').length).toBe(7);
       expect(shape.attr('path')[1].length).toBe(7);
       expect(shape.attr('path')[3].length).toBe(3);
-    });
-
-    it('update', () => {
-      AreaShapeFactory.updateShape(
-        'smooth',
-        {
-          x: 100,
-          y: 100,
-          style: {
-            ...Theme.geometries.area.area.default,
-            fillOpacity: 1,
-          },
-          color: 'red',
-          points: [
-            [
-              { x: 0, y: 0.48 },
-              { x: 0, y: 0.88 },
-            ],
-            [
-              { x: 0.5, y: 0.26 },
-              { x: 0.5, y: 0.62 },
-            ],
-            [
-              { x: 1, y: 0.04 },
-              { x: 1, y: 0.52 },
-            ],
-          ],
-        },
-        element
-      );
-      canvas.draw();
-      const shape = element.shape;
-      expect(shape.attr('fill')).toBe('red');
-      expect(shape.attr('fillOpacity')).toBe(1);
-    });
-
-    it('destroy', () => {
-      AreaShapeFactory.destroyShape(
-        'smooth',
-        {
-          x: 100,
-          y: 100,
-        },
-        element
-      );
-
-      expect(element.container.getChildren().length).toBe(0);
     });
   });
 
@@ -370,60 +217,13 @@ describe('Area shapes', () => {
           ],
           color: 'yellow',
         },
-        element
+        element.container
       );
-      // mock
-      element.shape = shape;
       // canvas.draw();
       expect(shape.attr('stroke')).toBe('yellow');
       expect(shape.attr('path').length).toBe(7);
       expect(shape.attr('path')[1].length).toBe(7);
       expect(shape.attr('path')[3].length).toBe(3);
-    });
-
-    it('update', () => {
-      AreaShapeFactory.updateShape(
-        'smoothLine',
-        {
-          x: 100,
-          y: 100,
-          style: {
-            ...Theme.geometries.area.area.default,
-          },
-          color: 'red',
-          points: [
-            [
-              { x: 0, y: 0.48 },
-              { x: 0, y: 0.88 },
-            ],
-            [
-              { x: 0.5, y: 0.26 },
-              { x: 0.5, y: 0.62 },
-            ],
-            [
-              { x: 1, y: 0.04 },
-              { x: 1, y: 0.52 },
-            ],
-          ],
-        },
-        element
-      );
-      canvas.draw();
-      const shape = element.shape;
-      expect(shape.attr('stroke')).toBe('red');
-    });
-
-    it('destroy', () => {
-      AreaShapeFactory.destroyShape(
-        'smoothLine',
-        {
-          x: 100,
-          y: 100,
-        },
-        element
-      );
-
-      expect(element.container.getChildren().length).toBe(0);
     });
   });
 
