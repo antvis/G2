@@ -1,7 +1,8 @@
 import * as _ from '@antv/util';
 import { Coordinate, IGroup, IShape } from '../../dependents';
-import { AnimateCfg, Data, Datum } from '../../interface';
+import { Data, Datum } from '../../interface';
 import * as Action from './action';
+import { AnimateCfg } from './action';
 
 // 默认动画配置
 const DEFAULT_ANIMATE_CFG = {

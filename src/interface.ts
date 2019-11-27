@@ -44,13 +44,14 @@ export interface RangePoint {
   readonly y?: number | number[];
 }
 
+// 用户配置的动画，属性均可选
 export interface AnimateCfg {
   /** 动画缓动函数 */
-  readonly easing: string;
+  readonly easing?: string;
   /** 动画执行函数 */
-  readonly animation: string;
+  readonly animation?: string;
   /** 动画执行时间 */
-  readonly duration: number;
+  readonly duration?: number;
   /** 动画延迟时间 */
   readonly delay?: number;
   /** 动画执行结束后的回调函数 */
