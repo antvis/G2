@@ -137,14 +137,7 @@ const AXIS_STYLE = {
     alignTick: false,
     length: 5,
   },
-  subTickLine: {
-    style: {
-      lineWidth: 1,
-      stroke: '#BFBFBF',
-    },
-    count: 4,
-    length: 2,
-  },
+  subTickLine: null,
 };
 
 const GRID_STYLE = {
