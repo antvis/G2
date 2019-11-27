@@ -328,6 +328,8 @@ declare namespace G2 {
         animate: boolean;
       }
     ): this;
+    setSelected(record: any): this;
+    clearSelected(): void;
     active(open: boolean): Geom;
     animate(opt: any): Geom;
   }
