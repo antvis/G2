@@ -26,7 +26,8 @@
     "lib": "run-p lib:*",
     "build": "run-s clean lib",
     "ci": "run-s build coverage",
-    "doc": "rimraf -rf docs/api && typedoc"
+    "doc": "rimraf -rf docs/api && typedoc",
+    "changelog": "conventional-changelog -i CHANGELOG.md -a -s"
   },
   "dependencies": {
     "@antv/adjust": "^0.2.1",
@@ -44,7 +45,10 @@
   },
   "devDependencies": {
     "@antv/gatsby-theme-antv": "^0.10.0",
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-angular": "^8.2.0",
     "@types/jest": "^24.0.18",
+    "conventional-changelog-cli": "^2.0.28",
     "gatsby": "^2.17.9",
     "gh-pages": "^2.1.1",
     "husky": "^3.0.4",
@@ -65,7 +69,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "run-s lint build test"
+      "pre-commit": "run-s lint build test",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "lint-staged": {
