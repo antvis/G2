@@ -52,27 +52,10 @@ describe('Schema shapes', () => {
             ...Theme.geometries.schema.box.default,
           },
         },
-        element
+        element.container
       );
       expect(shape.attr('stroke')).toBe('red');
       expect(shape.attr('path').length).toBe(16);
-
-      // mock
-      element.shape = shape;
-      SchemaShapeFactory.updateShape(
-        type,
-        {
-          x: 100,
-          y: 100,
-          points,
-          color: 'blue',
-          style: {
-            ...Theme.geometries.schema.box.default,
-          },
-        },
-        element
-      );
-      expect(element.shape.attr('stroke')).toBe('blue');
     });
 
     it('only x && x = [], getShapePoints && drawShape', () => {
@@ -94,7 +77,7 @@ describe('Schema shapes', () => {
             ...Theme.geometries.schema.box.default,
           },
         },
-        element
+        element.container
       );
       expect(shape.attr('stroke')).toBe('red');
       expect(shape.attr('path').length).toBe(16);
@@ -121,7 +104,7 @@ describe('Schema shapes', () => {
             ...Theme.geometries.schema.box.default,
           },
         },
-        element
+        element.container
       );
       expect(shape.attr('stroke')).toBe('red');
       expect(shape.attr('path').length).toBe(16);
@@ -157,27 +140,10 @@ describe('Schema shapes', () => {
             ...Theme.geometries.schema.candle.default,
           },
         },
-        element
+        element.container
       );
       expect(shape.attr('fill')).toBe('red');
       expect(shape.attr('path').length).toBe(9);
-
-      // mock
-      element.shape = shape;
-      SchemaShapeFactory.updateShape(
-        type,
-        {
-          x: 100,
-          y: 100,
-          points,
-          color: 'blue',
-          style: {
-            ...Theme.geometries.schema.candle.default,
-          },
-        },
-        element
-      );
-      expect(element.shape.attr('fill')).toBe('blue');
     });
 
     it(' value = [], getShapePoints && drawShape', () => {
@@ -201,7 +167,7 @@ describe('Schema shapes', () => {
             ...Theme.geometries.schema.candle.default,
           },
         },
-        element
+        element.container
       );
       expect(shape.attr('fill')).toBe('blue');
       expect(shape.attr('path').length).toBe(9);
@@ -228,7 +194,7 @@ describe('Schema shapes', () => {
             ...Theme.geometries.schema.candle.default,
           },
         },
-        element
+        element.container
       );
       expect(shape.attr('fill')).toBe('blue');
       expect(shape.attr('path').length).toBe(9);

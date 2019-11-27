@@ -70,41 +70,13 @@ describe('Line shapes', () => {
             ...Theme.geometries.line.line.default,
           },
         },
-        element
+        element.container
       );
-      // mock
-      element.shape = shape;
+
       expect(shape.attr('stroke')).toBe('red');
       expect(shape.attr('path').length).toBe(2);
       expect(shape.attr('path')[0]).toEqual(['M', 100, 100]);
       expect(shape.attr('path')[1]).toEqual(['L', 200, 200]);
-    });
-
-    it('update', () => {
-      LineShapeFactory.updateShape(
-        'line',
-        {
-          x: 100,
-          y: 100,
-          points: [
-            { x: 300, y: 100 },
-            { x: 500, y: 200 },
-          ],
-          color: 'red',
-          size: 20,
-          style: {
-            ...Theme.geometries.line.line.default,
-          },
-        },
-        element
-      );
-
-      const shape = element.shape;
-      expect(shape.attr('stroke')).toBe('red');
-      expect(shape.attr('lineWidth')).toBe(20);
-      expect(shape.attr('path').length).toBe(2);
-      expect(shape.attr('path')[0]).toEqual(['M', 300, 100]);
-      expect(shape.attr('path')[1]).toEqual(['L', 500, 200]);
     });
   });
 
@@ -126,47 +98,14 @@ describe('Line shapes', () => {
             ...Theme.geometries.line.dot.default,
           },
         },
-        element
+        element.container
       );
-      // for test
-      element.shape = shape;
+
       expect(shape.attr('stroke')).toBe('red');
       expect(shape.attr('lineDash')).toEqual([1, 1]);
       expect(shape.attr('path').length).toBe(4);
       expect(shape.attr('path')[0]).toEqual(['M', 100, 100]);
       expect(shape.attr('path')[1]).toEqual(['L', 200, 200]);
-    });
-
-    it('update', () => {
-      LineShapeFactory.updateShape(
-        'dot',
-        {
-          x: 100,
-          y: 100,
-          points: [
-            { x: 100, y: 300 },
-            { x: 200, y: 300 },
-            { x: undefined, y: undefined },
-            { x: 300, y: 200 },
-            { x: 400, y: 200 },
-          ],
-          color: 'red',
-          style: {
-            ...Theme.geometries.line.dot.default,
-            lineDash: [2],
-          },
-        },
-        element
-      );
-      const shape = element.shape;
-      expect(shape.attr('stroke')).toBe('red');
-      expect(shape.attr('lineDash')).toEqual([2]);
-      expect(shape.attr('path')).toEqual([
-        ['M', 100, 300],
-        ['L', 200, 300],
-        ['M', 300, 200],
-        ['L', 400, 200],
-      ]);
     });
   });
 
@@ -189,9 +128,9 @@ describe('Line shapes', () => {
             ...Theme.geometries.line.dash.default,
           },
         },
-        element
+        element.container
       );
-      element.shape = shape;
+
       expect(shape.attr('stroke')).toBe('red');
       expect(shape.attr('path').length).toBe(4);
       expect(shape.attr('lineDash')).toEqual([5.5, 1]);
@@ -201,30 +140,6 @@ describe('Line shapes', () => {
         ['M', 50, 200],
         ['L', 80, 300],
       ]);
-    });
-
-    it('update', () => {
-      LineShapeFactory.updateShape(
-        'dash',
-        {
-          x: 100,
-          y: 100,
-          points: [
-            { x: [100, 50], y: [100, 200] },
-            { x: [200, 80], y: [200, 300] },
-          ],
-          color: '#1890ff',
-          size: 10,
-          style: {
-            ...Theme.geometries.line.dash.default,
-          },
-        },
-        element
-      );
-      const shape = element.shape;
-
-      expect(shape.attr('stroke')).toBe('#1890ff');
-      expect(shape.attr('lineWidth')).toBe(10);
     });
   });
 
@@ -247,7 +162,7 @@ describe('Line shapes', () => {
             ...Theme.geometries.line.smooth.default,
           },
         },
-        element
+        element.container
       );
 
       expect(shape.attr('stroke')).toBe('red');
@@ -276,7 +191,7 @@ describe('Line shapes', () => {
             ...Theme.geometries.line.hv.default,
           },
         },
-        element
+        element.container
       );
       expect(shape.attr('stroke')).toBe('red');
       expect(shape.attr('path').length).toBe(3);
@@ -304,7 +219,7 @@ describe('Line shapes', () => {
             ...Theme.geometries.line.vh.default,
           },
         },
-        element
+        element.container
       );
 
       expect(shape.attr('stroke')).toBe('red');
@@ -333,7 +248,7 @@ describe('Line shapes', () => {
             ...Theme.geometries.line.hvh.default,
           },
         },
-        element
+        element.container
       );
 
       expect(shape.attr('stroke')).toBe('red');
@@ -363,7 +278,7 @@ describe('Line shapes', () => {
             ...Theme.geometries.line.vhv.default,
           },
         },
-        element
+        element.container
       );
       expect(shape.attr('stroke')).toBe('red');
       expect(shape.attr('path').length).toBe(4);
@@ -400,7 +315,7 @@ describe('Line shapes', () => {
             ...Theme.geometries.line.smooth.default,
           },
         },
-        element
+        element.container
       );
 
       expect(shape.attr('stroke')).toBe('#1890ff');

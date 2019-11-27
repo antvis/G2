@@ -97,7 +97,7 @@ describe('Point shapes', () => {
           ...Theme.geometries.point.circle.default,
         },
       },
-      element
+      element.container
     );
     expect(shape.attr('symbol')).toBe('circle');
     expect(shape.attr('fill')).toBe('red');
@@ -115,30 +115,11 @@ describe('Point shapes', () => {
           ...Theme.geometries.point.hyphen.default,
         },
       },
-      element
+      element.container
     );
-    // for test
-    element.shape = shape;
+
     expect(shape.attr('symbol')).toBe('hyphen');
     expect(shape.attr('stroke')).toBe('red');
-  });
-
-  it('update shape', () => {
-    PointShapeFactory.updateShape(
-      'hyphen',
-      {
-        x: 100,
-        y: 100,
-        color: 'blue',
-        style: {
-          ...Theme.geometries.point.hyphen.default,
-        },
-      },
-      element
-    );
-
-    const shape = element.shape;
-    expect(shape.attr('stroke')).toBe('blue');
   });
 
   afterAll(() => {

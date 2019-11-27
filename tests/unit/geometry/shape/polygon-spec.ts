@@ -61,9 +61,8 @@ describe('Point shapes', () => {
             ...Theme.geometries.polygon.polygon.default,
           },
         },
-        element
+        element.container
       );
-      element.shape = shape;
 
       expect(shape.attr('fill')).toBe('red');
       expect(shape.attr('path')).toEqual([
@@ -74,30 +73,6 @@ describe('Point shapes', () => {
         ['L', 50, 400],
         ['Z'],
       ]);
-    });
-
-    it('update', () => {
-      const points = PolygonShapeFactory.getShapePoints('polygon', {
-        x: [0.1, 0.3, 0.3, 0.4],
-        y: [0.2, 0.5, 0.12, 0.88],
-      });
-      PolygonShapeFactory.updateShape(
-        'polygon',
-        {
-          x: 100,
-          y: 100,
-          points,
-          color: 'red',
-          style: {
-            ...Theme.geometries.polygon.polygon.default,
-            stroke: '#000',
-          },
-        },
-        element
-      );
-      const shape = element.shape;
-
-      expect(shape.attr('stroke')).toBe('#000');
     });
 
     it('getMarker', () => {
@@ -131,9 +106,8 @@ describe('Point shapes', () => {
             ...Theme.geometries.polygon.polygon.default,
           },
         },
-        element
+        element.container
       );
-      element.shape = shape;
 
       expect(shape.attr('stroke')).toBe('red');
       expect(shape.attr('path')).toEqual([
@@ -144,30 +118,6 @@ describe('Point shapes', () => {
         ['L', 50, 400],
         ['Z'],
       ]);
-    });
-
-    it('update', () => {
-      const points = PolygonShapeFactory.getShapePoints('hollow', {
-        x: [0.1, 0.3, 0.3, 0.4],
-        y: [0.2, 0.5, 0.12, 0.88],
-      });
-      PolygonShapeFactory.updateShape(
-        'hollow',
-        {
-          x: 100,
-          y: 100,
-          points,
-          color: 'red',
-          style: {
-            ...Theme.geometries.polygon.polygon.default,
-            lineWidth: 2,
-          },
-        },
-        element
-      );
-      const shape = element.shape;
-
-      expect(shape.attr('lineWidth')).toBe(2);
     });
 
     it('getMarker', () => {
