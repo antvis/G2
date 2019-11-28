@@ -21,15 +21,13 @@ chart.data(data);
 chart.scale('value', {
   min: 0,
 });
-
 chart.scale('year', {
   range: [0, 1],
 });
 
 chart.tooltip({
-  crosshairs: {
-    type: 'line',
-  },
+  showCrosshairs: true, // 展示 Tooltip 辅助线
+  shared: true,
 });
 
 chart.line().position('year*value');
