@@ -66,6 +66,9 @@ fetch('../data/diamond.json')
       'uniform',
     ].forEach((method, i) => {
       i && chart.axis(method, false);
+      chart.tooltip({
+        showCrosshairs: true,
+      });
       chart
         .line()
         .position(`x*${method}`)

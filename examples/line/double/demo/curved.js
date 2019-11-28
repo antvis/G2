@@ -39,15 +39,14 @@ chart.scale('month', {
 });
 
 chart.tooltip({
-  crosshairs: {
-    type: 'line',
-  },
+  showCrosshairs: true,
+  shared: true,
 });
 
 chart.axis('temperature', {
   label: {
     formatter: (val) => {
-      return val + '°C';
+      return val + ' °C';
     },
   },
 });

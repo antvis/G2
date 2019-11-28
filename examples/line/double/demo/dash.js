@@ -67,6 +67,7 @@ const chart = new Chart({
   container: 'container',
   height: 500,
 });
+chart.data(pick(data, ['pv', 'time', 'date']));
 
 chart.scale({
   time: {
@@ -94,10 +95,13 @@ const scale = {
   },
 };
 
-chart.data(pick(data, ['pv', 'time', 'date']));
 chart.scale(scale);
 chart.axis('time', {
   grid: null,
+});
+chart.tooltip({
+  showCrosshairs: true,
+  shared: true,
 });
 chart
   .line()
