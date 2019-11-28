@@ -2,7 +2,7 @@ import * as TOOLTIP_CSS_CONST from '@antv/component/lib/tooltip/css-const';
 import * as _ from '@antv/util';
 
 /** antv 主题色 */
-const DEFAULT_COLOR = '#1890FF';
+const DEFAULT_COLOR = '#5B8FF9';
 /** 10 个分类以内的色板 */
 const COLOR_PLATE_10 = [
   '#5B8FF9',
