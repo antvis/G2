@@ -21,34 +21,33 @@ fetch('../data/diamond.json')
       },
     });
 
-    // TODO 如何引入 dataset 模块
+    [
+      'boxcar',
+      'cosine',
+      'epanechnikov',
+      'gaussian',
+      'quartic',
+      'triangular',
+      'tricube',
+      'triweight',
+      'uniform',
+    ].forEach((method, i) => {
+      const dv = new DataSet.View().source(data);
+      dv.transform({
+        type: 'kernel-smooth.regression',
+        method,
+        field: 'depth',
+        extent: [50, 70],
+      });
 
-    // [
-    //   'boxcar',
-    //   'cosine',
-    //   'epanechnikov',
-    //   'gaussian',
-    //   'quartic',
-    //   'triangular',
-    //   'tricube',
-    //   'triweight',
-    //   'uniform'
-    // ].forEach((method, i) => {
-    //   const dv = new DataSet.View().source(data);
-    //   dv.transform({
-    //     type: 'kernel-smooth.regression',
-    //     method,
-    //     field: 'depth',
-    //     extent: [ 50, 70 ]
-    //   });
-    //
-    //   const view = chart.view();
-    //   !!i && view.axis(false);
-    //   view.data(dv.rows);
-    //   view.line()
-    //     .position('x*y')
-    //     .color(G2.Global.colors_16[i]);
-    // });
+      const view = chart.createView();
+      !!i && view.axis(false);
+      view.data(dv.rows);
+      view
+        .line()
+        .position('x*y')
+        .color(view.getTheme().colors[i]);
+    });
 
     chart.render();
   });

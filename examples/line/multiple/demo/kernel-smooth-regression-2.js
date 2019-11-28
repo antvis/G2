@@ -23,35 +23,35 @@ fetch('../data/diamond.json')
     });
     chart.point().position('carat*price');
 
-    // TODO 如何引入 dataset 模块！
-    // [
-    //   'boxcar',
-    //   'cosine',
-    //   'epanechnikov',
-    //   'gaussian',
-    //   'quartic',
-    //   'triangular',
-    //   'tricube',
-    //   'triweight',
-    //   'uniform'
-    // ].forEach((method, i) => {
-    //   const dv = new DataSet.View().source(data);
-    //   dv.transform({
-    //     type: 'kernel-smooth.regression',
-    //     method,
-    //     fields: [ 'carat', 'price' ],
-    //     as: [ 'carat', 'price' ],
-    //     bandwidth: 0.5,
-    //     extent: [ 0, 4 ]
-    //   });
-    //
-    //   const view = chart.createView();
-    //   view.axis(false);
-    //   view.data(dv.rows);
-    //   view.line()
-    //     .position('carat*price')
-    //     .color(view.getTheme().colors[i]);
-    // });
+    [
+      'boxcar',
+      'cosine',
+      'epanechnikov',
+      'gaussian',
+      'quartic',
+      'triangular',
+      'tricube',
+      'triweight',
+      'uniform',
+    ].forEach((method, i) => {
+      const dv = new DataSet.View().source(data);
+      dv.transform({
+        type: 'kernel-smooth.regression',
+        method,
+        fields: ['carat', 'price'],
+        as: ['carat', 'price'],
+        bandwidth: 0.5,
+        extent: [0, 4],
+      });
+
+      const view = chart.createView();
+      view.axis(false);
+      view.data(dv.rows);
+      view
+        .line()
+        .position('carat*price')
+        .color(view.getTheme().colors[i]);
+    });
 
     chart.render();
   });
