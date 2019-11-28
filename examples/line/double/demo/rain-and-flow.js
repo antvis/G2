@@ -5,10 +5,10 @@ fetch('../data/rain-flow.json')
   .then((data) => {
     const chart = new Chart({
       container: 'container',
-      animate: false,
       padding: 8,
     });
 
+    chart.animate(false);
     chart.scale('time', {
       type: 'time',
       tickCount: 10,
