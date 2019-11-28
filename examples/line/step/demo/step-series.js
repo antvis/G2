@@ -29,15 +29,10 @@ const data = [
 
 const chart = new Chart({
   container: 'container',
-  autoFit: true,
   height: 500,
 });
 
-chart.data(data, {
-  month: {
-    range: [0, 1],
-  },
-});
+chart.data(data);
 
 chart.scale('month', {
   range: [0, 1],

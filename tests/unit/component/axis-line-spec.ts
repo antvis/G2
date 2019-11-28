@@ -8,10 +8,8 @@ describe('Component', () => {
 
   const chart = new Chart({
     container: div,
-    width: 800,
     height: 600,
-    padding: 10,
-    autoFit: false,
+    autoFit: true,
   });
 
   chart.data(CITY_SALE);

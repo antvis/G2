@@ -359,7 +359,22 @@ export class View extends EE {
   }
 
   /**
-   * 设置scale 配置
+   * 批量设置 scale 配置
+   *
+   * ```ts
+   * view.scale({
+   *   sale: {
+   *     min: 0,
+   *     max: 100,
+   *   }
+   * });
+   * ```
+   *
+   * @returns void
+   */
+  public scale(field: Record<string, ScaleOption>): View;
+  /**
+   * 设置 scale 配置
    *
    * ```ts
    * view.scale('sale', {
@@ -370,8 +385,15 @@ export class View extends EE {
    *
    * @returns void
    */
-  public scale(field: string, scaleOption: ScaleOption): View {
-    _.set(this.options, ['scales', field], scaleOption);
+  public scale(field: string, scaleOption: ScaleOption): View;
+  public scale(field: string | Record<string, ScaleOption>, scaleOption?: ScaleOption): View {
+    if (_.isString(field)) {
+      _.set(this.options, ['scales', field], scaleOption);
+    } else if (_.isObject(field)) {
+      _.each(field, (v: ScaleOption, k: string) => {
+        _.set(this.options, ['scales', k], v);
+      });
+    }
 
     return this;
   }
@@ -841,6 +863,9 @@ export class View extends EE {
    * 步骤非常繁琐，因为之间有一些数据依赖，所以执行流程上有先后关系
    */
   protected renderRecursive() {
+    // 子 view 大小相对 coordinateBBox
+    this.calculateViewBBox();
+
     // 1. 处理数据
     this.filterData();
     // 2. 创建 coordinate 实例

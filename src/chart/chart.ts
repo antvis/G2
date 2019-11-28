@@ -106,7 +106,7 @@ export default class Chart extends View {
    * when container size changed, change chart size props, and re-render.
    */
   private onResize = _.debounce(() => {
-    const { width, height } = this.ele.getBoundingClientRect();
+    const { width, height } = getChartSize(this.ele, this.autoFit, this.width, this.height);
     this.changeSize(width, height);
-  }, 60);
+  }, 300);
 }

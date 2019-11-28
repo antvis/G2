@@ -107,7 +107,9 @@ describe('View', () => {
     view.createCoordinate();
     expect(view.getCoordinate().type).toEqual('rect');
 
-    let c = view.coordinate('theta');
+    let c = view.coordinate({
+      type: 'theta',
+    });
     expect(c.type).toEqual('theta');
 
     c = view.coordinate('rect');
@@ -123,6 +125,13 @@ describe('View', () => {
     view.animate(false);
     // @ts-ignore
     expect(view.options.animate).toBe(false);
+  });
+
+  it('theme', () => {
+    view.theme({ xxx: 1 });
+
+    // @ts-ignore
+    expect(view.getTheme().xxx).toBe(1);
   });
 
   it('geometry', () => {
