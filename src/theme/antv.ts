@@ -134,7 +134,7 @@ const AXIS_STYLE = {
       lineWidth: 1,
       stroke: '#BFBFBF',
     },
-    alignTick: false,
+    alignTick: true, // 默认刻度线和文本对齐
     length: 5,
   },
   subTickLine: null,
