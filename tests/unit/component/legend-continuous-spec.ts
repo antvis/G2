@@ -35,7 +35,7 @@ describe('Component', () => {
     // @ts-ignore
     expect(size.get('rail').type).toBe('size');
     // @ts-ignore
-    expect(size.get('track').style.fill).toBe('#1890FF');
+    expect(size.get('track').style.fill).toBe('#5B8FF9');
     // @ts-ignore
     expect(size.get('min')).toBe(0);
     // @ts-ignore

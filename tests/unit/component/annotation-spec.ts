@@ -66,7 +66,7 @@ describe('annotation', () => {
     expect(line.get('start').x).toBeWithin(508, 512);
     expect(line.get('start').y).toBeWithin(53, 56);
 
-    expect(line.get('end').x).toBeWithin(694, 697);
+    expect(line.get('end').x).toBeWithin(697, 698);
     expect(line.get('end').y).toBeWithin(364, 368);
     // style
     expect(line.get('style').stroke).toBe('green');
@@ -114,7 +114,7 @@ describe('annotation', () => {
     // @ts-ignore
     expect(text.get('style').fontFamily).toEqual(chart.getTheme().fontFamily);
     // pos
-    expect(text.get('x')).toBeWithin(135, 139);
+    expect(text.get('x')).toBeWithin(139, 140);
     expect(text.get('y')).toBeWithin(97, 101);
     // style
     expect(text.get('style').fill).toBe('red');

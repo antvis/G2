@@ -119,7 +119,7 @@ describe('Tooltip functions', () => {
       const data = findDataByPoint({ x: 100, y: 90 }, line.dataArray[0] as MappingDatum[], line);
       const tooltipItems = getTooltipItems(data, line);
       const { color, name, value, title, mappingData } = tooltipItems[0];
-      expect(color).toBe('#1890FF');
+      expect(color).toBe('#5B8FF9');
       expect(name).toBe('value');
       expect(value).toBe('17000');
       expect(title).toBe('1995');
