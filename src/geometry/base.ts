@@ -694,6 +694,7 @@ export default class Geometry {
     if (offscreenGroup) {
       offscreenGroup.remove(true);
     }
+    this.offscreenGroup = null;
   }
 
   /**

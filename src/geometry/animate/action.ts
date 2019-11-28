@@ -4,14 +4,14 @@ import { Point, ShapeInfo } from '../../interface';
 import { getAngle, getSectorPath } from '../../util/graphics';
 import { getCoordinateClipCfg } from './util';
 
-// 传递给 G 的动画配置，easing, animation, duration 必须提供
+// 传递给 G 的动画配置，duration 必须提供
 export interface AnimateCfg {
-  /** 动画缓动函数 */
-  readonly easing: string;
-  /** 动画执行函数 */
-  readonly animation: string;
   /** 动画执行时间 */
   readonly duration: number;
+  /** 动画缓动函数 */
+  readonly easing?: string;
+  /** 动画执行函数 */
+  readonly animation?: string;
   /** 动画延迟时间 */
   readonly delay?: number;
   /** 动画执行结束后的回调函数 */

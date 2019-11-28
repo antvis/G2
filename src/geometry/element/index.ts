@@ -2,8 +2,7 @@ import EE from '@antv/event-emitter';
 import * as _ from '@antv/util';
 import { IGroup, IShape } from '../../dependents';
 import { AnimateOption, Datum, LooseObject, ShapeFactory, ShapeInfo } from '../../interface';
-import { getDefaultAnimateCfg } from '../animate';
-import { doAnimate } from '../animate/index';
+import { doAnimate, getDefaultAnimateCfg } from '../animate';
 
 interface ElementCfg {
   /** 原始数据 */
@@ -280,38 +279,38 @@ export default class Element extends EE {
 
   // 更新当前 shape 的样式
   private syncShapeStyle(
-    shape: IGroup | IShape,
-    newShape: IGroup | IShape,
+    sourceShape: IGroup | IShape,
+    targetShape: IGroup | IShape,
     state: string = '',
     animateCfg,
     index: number = 0
   ) {
-    if (shape.isGroup()) {
-      const children = shape.get('children');
-      const newChildren = newShape.get('children');
+    if (sourceShape.isGroup()) {
+      const children = sourceShape.get('children');
+      const newChildren = targetShape.get('children');
       for (let i = 0; i < children.length; i++) {
         this.syncShapeStyle(children[i], newChildren[i], state, animateCfg, index + i);
       }
     } else {
       if (state) {
-        const stateStyle = this.getStateStyle(state, shape.get('name') || index); // 如果用户没有设置 name，则默认根据索引值
-        newShape.attr(stateStyle);
+        const stateStyle = this.getStateStyle(state, sourceShape.get('name') || index); // 如果用户没有设置 name，则默认根据索引值
+        targetShape.attr(stateStyle);
       }
-      const newAttrs = this.getReplaceAttrs(shape as IShape, newShape as IShape);
+      const newAttrs = this.getReplaceAttrs(sourceShape as IShape, targetShape as IShape);
 
       if (animateCfg) {
         // 需要进行动画
-        doAnimate(shape, animateCfg, this.shapeFactory.coordinate, newAttrs);
+        doAnimate(sourceShape, animateCfg, this.shapeFactory.coordinate, newAttrs);
       } else {
-        shape.attr(newAttrs);
+        sourceShape.attr(newAttrs);
       }
     }
   }
 
   // 获取需要替换的属性，如果原先图形元素存在，而新图形不存在，则设置 undefined
-  private getReplaceAttrs(shape: IShape, newShape: IShape) {
-    const originAttrs = shape.attr();
-    const newAttrs = newShape.attr();
+  private getReplaceAttrs(sourceShape: IShape, targetShape: IShape) {
+    const originAttrs = sourceShape.attr();
+    const newAttrs = targetShape.attr();
     _.each(originAttrs, (v, k) => {
       if (newAttrs[k] === undefined) {
         newAttrs[k] = undefined;
