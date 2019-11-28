@@ -1,5 +1,34 @@
 import { Chart } from '@antv/g2';
 
+function getStaticsData(data) {
+  const result = [
+    'boxcar',
+    'cosine',
+    'epanechnikov',
+    'gaussian',
+    'quartic',
+    'triangular',
+    'tricube',
+    'triweight',
+    'uniform',
+  ].map((method, i) => {
+    const dv = new DataSet.View().source(data);
+    dv.transform({
+      type: 'kernel-smooth.regression',
+      as: ['x', method],
+      method,
+      field: 'depth',
+      extent: [50, 70],
+    });
+
+    return dv.rows;
+  });
+
+  return _.zipWith(...result, (...args) => {
+    return _.assign({}, ...args);
+  });
+}
+
 fetch('../data/diamond.json')
   .then((res) => res.json())
   .then((data) => {
@@ -21,6 +50,10 @@ fetch('../data/diamond.json')
       },
     });
 
+    const statics = getStaticsData(data);
+
+    chart.data(statics);
+
     [
       'boxcar',
       'cosine',
@@ -32,21 +65,11 @@ fetch('../data/diamond.json')
       'triweight',
       'uniform',
     ].forEach((method, i) => {
-      const dv = new DataSet.View().source(data);
-      dv.transform({
-        type: 'kernel-smooth.regression',
-        method,
-        field: 'depth',
-        extent: [50, 70],
-      });
-
-      const view = chart.createView();
-      !!i && view.axis(false);
-      view.data(dv.rows);
-      view
+      i && chart.axis(method, false);
+      chart
         .line()
-        .position('x*y')
-        .color(view.getTheme().colors[i]);
+        .position(`x*${method}`)
+        .color(chart.getTheme().colors[i]);
     });
 
     chart.render();

@@ -863,6 +863,9 @@ export class View extends EE {
    * 步骤非常繁琐，因为之间有一些数据依赖，所以执行流程上有先后关系
    */
   protected renderRecursive() {
+    // 子 view 大小相对 coordinateBBox
+    this.calculateViewBBox();
+
     // 1. 处理数据
     this.filterData();
     // 2. 创建 coordinate 实例
