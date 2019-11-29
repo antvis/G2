@@ -11,7 +11,7 @@ export function getEngine(name: string): IG {
   const G = ENGINES[name];
 
   if (!G) {
-    console.error('G engine %s is not exist, please register it at first.', name);
+    throw new Error(`G engine '${name}' is not exist, please register it at first.`);
   }
 
   return G;
