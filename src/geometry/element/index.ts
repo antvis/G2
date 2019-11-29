@@ -315,6 +315,10 @@ export default class Element extends EE {
       if (newAttrs[k] === undefined) {
         newAttrs[k] = undefined;
       }
+      // TODO: MOCK
+      if (k === 'matrix' && k === null) {
+        newAttrs[k] = [1, 0, 0, 0, 1, 0, 0, 0, 1];
+      }
     });
     return newAttrs;
   }
