@@ -1,7 +1,7 @@
 import EE from '@antv/event-emitter';
 import * as _ from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, GROUP_Z_INDEX, LAYER, PLOT_EVENTS, VIEW_LIFE_CIRCLE } from '../constant';
-import { Attribute, Component, Coordinate, Event as GEvent, ICanvas, IGroup, Scale, Shape } from '../dependents';
+import { Attribute, Component, Coordinate, Event as GEvent, ICanvas, IGroup, IShape, Scale } from '../dependents';
 import { Facet, getFacet } from '../facet';
 import { FacetCfgMap } from '../facet/interface';
 import Geometry from '../geometry/base';
@@ -66,7 +66,7 @@ export class View extends EE {
   protected themeObject: object;
 
   /** 用于捕获 view event 的 rect shape */
-  private viewEventCaptureRect: Shape.Rect;
+  private viewEventCaptureRect: IShape;
 
   // 配置信息存储
   protected options: Options = {

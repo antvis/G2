@@ -1,4 +1,4 @@
-import { Chart } from '../../../src/index';
+import { Chart } from '../../../src';
 import { getInteraction, Interaction, registerInteraction } from '../../../src/interaction';
 import { registerStateAction } from '../../../src/state';
 import { createDiv } from '../../util/dom';

@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
 import { GROUP_Z_INDEX } from '../constant';
-import { Canvas } from '../dependents';
+import { getEngine } from '../engine';
 import { createDom, getChartSize, removeDom } from '../util/dom';
 import { ChartCfg } from './interface';
 import View from './view';
@@ -18,12 +18,16 @@ export default class Chart extends View {
   public localRefresh: boolean;
 
   public autoFit: boolean;
+  public renderer: 'canvas' | 'svg';
 
   private wrapperElement: HTMLElement;
 
   // @ts-ignore
   constructor(props: ChartCfg) {
-    const { container, width, height, autoFit = true, renderer, pixelRatio, padding = 0, localRefresh = true } = props;
+    const {
+      container, width, height, autoFit = true, padding = 0,
+      renderer = 'canvas', pixelRatio, localRefresh = true,
+    } = props;
 
     const ele: HTMLElement = _.isString(container) ? document.getElementById(container) : container;
 
@@ -33,9 +37,10 @@ export default class Chart extends View {
     const wrapperElement = createDom('<div style="position:relative;"></div>');
     ele.appendChild(wrapperElement);
 
-    const canvas = new Canvas({
+    const G = getEngine(renderer);
+
+    const canvas = new G.Canvas({
       container: wrapperElement,
-      renderer,
       pixelRatio,
       localRefresh,
       ...size,
@@ -58,6 +63,7 @@ export default class Chart extends View {
     this.height = size.height;
     this.autoFit = autoFit;
     this.localRefresh = localRefresh;
+    this.renderer = renderer;
     this.wrapperElement = wrapperElement;
 
     // 自适应大小

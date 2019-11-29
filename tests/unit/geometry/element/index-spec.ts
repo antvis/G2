@@ -1,4 +1,5 @@
-import { getCoordinate, Group } from '../../../../src/dependents';
+import { getEngine } from '../../../../src/';
+import { getCoordinate, IGroup } from '../../../../src/dependents';
 import Element from '../../../../src/geometry/element';
 import * as Shape from '../../../../src/geometry/shape/base';
 import '../../../../src/geometry/shape/interval';
@@ -6,14 +7,16 @@ import Theme from '../../../../src/theme/antv';
 
 const Rect = getCoordinate('rect');
 
+const G = getEngine('canvas');
+
 describe('Element', () => {
   let container;
   let offscreenContainer;
   let element;
 
   beforeAll(() => {
-    container = new Group({});
-    offscreenContainer = new Group({});
+    container = new G.Group({});
+    offscreenContainer = new G.Group({});
 
     Shape.registerShapeFactory('shapes', {
       defaultShapeType: 'circle',

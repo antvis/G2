@@ -1,9 +1,12 @@
-import { getCoordinate, Group, Shape } from '../../../../src/dependents';
-import Element from '../../../../src/geometry/element';
+import { getEngine } from '../../../../src';
+import { getCoordinate, IGroup, IShape } from '../../../../src/dependents';
 import * as GeometryShape from '../../../../src/geometry/shape/base';
 
 const Rect = getCoordinate('rect');
 const Polar = getCoordinate('polar');
+
+const renderer = 'canvas';
+const G = getEngine(renderer);
 
 describe('Shape', () => {
   let coordinate;
@@ -73,7 +76,7 @@ describe('Shape', () => {
         draw() {
           // @ts-ignore
           // FIXME: 带 g-canvas 发新版本
-          return new Shape.Circle({
+          return new G.Shape.Circle({
             attrs: {
               x: 50,
               y: 50,
