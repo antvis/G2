@@ -96,7 +96,7 @@
       "!**/node_modules/**",
       "!**/vendor/**"
     ],
-    "testRegex": "/tests/.*-spec\\.ts?$"
+    "testRegex": "/tests/unit/debug-spec.ts"
   },
   "repository": {
     "type": "git",

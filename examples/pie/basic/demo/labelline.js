@@ -10,8 +10,6 @@ const data = [
 
 const chart = new Chart({
   container: 'container',
-  forceFit: true,
-  height: 500,
 });
 
 chart.data(data);
