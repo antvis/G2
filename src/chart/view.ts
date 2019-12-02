@@ -196,10 +196,10 @@ export class View extends EE {
    * render 函数仅仅会处理 view 和子 view
    * @returns void
    */
-  public render() {
+  public render(isUpdate = false) {
     this.emit(VIEW_LIFE_CIRCLE.BEFORE_RENDER);
     // 递归渲染
-    this.renderRecursive();
+    this.renderRecursive(isUpdate);
     this.emit(VIEW_LIFE_CIRCLE.AFTER_RENDER);
     // 实际的绘图
     this.canvasDraw();
@@ -568,22 +568,11 @@ export class View extends EE {
     this.emit(VIEW_LIFE_CIRCLE.BEFORE_CHANGE_DATA);
     // 1. 保存数据
     this.data(data);
-    // 2. 过滤数据
-    this.filterData();
-    // 3. 更新 geom 元素数据
-    this.updateGeometries();
-    // 4. 调整 scale
-    this.adjustScales();
-    // 5. 更新组件
-    this.renderComponents();
-    // 6. 布局，计算每个组件的坐标、以及 coordinate 的范围
-    this.doLayout();
-    // 7. 布局之后，调整坐标系大小
-    this.adjustCoordinate();
-    // 8. 渲染几何标记
-    this.paintGeometries();
 
-    // 9. 遍历子 view 进行 change data
+    // 2. 渲染
+    this.paint(true);
+
+    // 3. 遍历子 view 进行 change data
     _.each(this.views, (view: View) => {
       // FIXME 子 view 有自己的数据的情况，该如何处理？
       view.changeData(data);
@@ -858,14 +847,7 @@ export class View extends EE {
     return this.tooltipController.getTooltipItems(point);
   }
 
-  /**
-   * 递归 render views
-   * 步骤非常繁琐，因为之间有一些数据依赖，所以执行流程上有先后关系
-   */
-  protected renderRecursive() {
-    // 子 view 大小相对 coordinateBBox
-    this.calculateViewBBox();
-
+  protected paint(isUpdate = false) {
     // 1. 处理数据
     this.filterData();
     // 2. 创建 coordinate 实例
@@ -873,9 +855,8 @@ export class View extends EE {
       this.createCoordinate();
     }
     // 3. 初始化 Geometry
-    this.initGeometries();
+    this.initGeometries(isUpdate);
     // 4. 渲染组件 component
-
     this.renderComponents();
     // 5.  递归 views，进行布局
     this.doLayout();
@@ -885,6 +866,18 @@ export class View extends EE {
     this.adjustCoordinate();
     // 8. 渲染几何标记
     this.paintGeometries();
+  }
+
+  /**
+   * 递归 render views
+   * 步骤非常繁琐，因为之间有一些数据依赖，所以执行流程上有先后关系
+   */
+  protected renderRecursive(isUpdate = false) {
+    // 子 view 大小相对 coordinateBBox
+    this.calculateViewBBox();
+
+    // 数据到完整图表的绘制
+    this.paint(isUpdate);
 
     // 同样递归处理子 views
     _.each(this.views, (view: View) => {
@@ -1078,32 +1071,26 @@ export class View extends EE {
    * 初始化 Geometries
    * @private
    */
-  private initGeometries() {
+  private initGeometries(isUpdate = false) {
     // 实例化 Geometry，然后 view 将所有的 scale 管理起来
     _.each(this.geometries, (geometry: Geometry) => {
-      // 使用 coordinate 引用，可以保持 coordinate 的同步更新
-      geometry.coordinate = this.getCoordinate();
-      geometry.scaleDefs = _.get(this.options, 'scales', {});
-      geometry.data = this.filteredData;
-      geometry.theme = this.themeObject;
       // 保持 scales 引用不要变化
       geometry.scales = this.scales;
-
-      geometry.init();
+      const cfg = {
+        coordinate: this.getCoordinate(), // 使用 coordinate 引用，可以保持 coordinate 的同步更新
+        scaleDefs: _.get(this.options, 'scales', {}),
+        data: this.filteredData,
+        theme: this.themeObject,
+      };
+      if (isUpdate) {
+        // 数据发生更新
+        geometry.update(cfg);
+      } else {
+        geometry.init(cfg);
+      }
     });
 
     // Geometry 初始化之后，生成了 scale，然后进行调整 scale 配置
-    this.adjustScales();
-  }
-
-  /**
-   * 更新 Geometry 数据
-   */
-  private updateGeometries() {
-    _.each(this.geometries, (geometry: Geometry) => {
-      geometry.updateData(this.filteredData);
-    });
-
     this.adjustScales();
   }
 

@@ -72,7 +72,7 @@ export default class Chart extends View {
     this.canvas.changeSize(width, height);
 
     // 重新渲染
-    this.render();
+    this.render(true);
   }
 
   /**

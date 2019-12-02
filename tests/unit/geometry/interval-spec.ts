@@ -20,7 +20,11 @@ describe('Interval', () => {
 
   describe('Default', () => {
     let interval;
-    const data = [{ a: 'A', b: 10 }, { a: 'B', b: 12 }, { a: 'C', b: 8 }];
+    const data = [
+      { a: 'A', b: 10 },
+      { a: 'B', b: 12 },
+      { a: 'C', b: 8 },
+    ];
 
     let dataArray;
 
@@ -51,7 +55,7 @@ describe('Interval', () => {
       const attributes = interval.attributes;
       expect(attributes).toContainKeys(['position', 'color']);
 
-      dataArray = interval.dataArray;
+      dataArray = interval.beforeMappingData;
       expect(dataArray.length).toBe(3);
       expect(dataArray[0][0].a).toBe(0);
       expect(dataArray[1][0].a).toBe(1);
@@ -71,7 +75,7 @@ describe('Interval', () => {
     });
 
     test('beforeMapping', () => {
-      interval.beforeMapping(dataArray);
+      dataArray = interval.beforeMapping(dataArray);
 
       // 会生成 nextPoints
       expect(dataArray[0][0].points).not.toBe(undefined);
@@ -152,7 +156,11 @@ describe('Interval', () => {
 
   describe('yScale adjust', () => {
     const interval = new Interval({
-      data: [{ a: 'A', b: 10 }, { a: 'B', b: 12 }, { a: 'C', b: 8 }],
+      data: [
+        { a: 'A', b: 10 },
+        { a: 'B', b: 12 },
+        { a: 'C', b: 8 },
+      ],
       scaleDefs: {
         a: { range: [0.25, 0.75] },
         b: { min: 7 },
@@ -175,8 +183,16 @@ describe('Interval', () => {
     });
 
     test('yScale max adjust when user do not define max', () => {
-      interval.scaleDefs.b = undefined;
-      interval.updateData([{ a: 'A', b: -10 }, { a: 'B', b: -12 }, { a: 'C', b: -8 }]);
+      interval.update({
+        data: [
+          { a: 'A', b: -10 },
+          { a: 'B', b: -12 },
+          { a: 'C', b: -8 },
+        ],
+        scaleDefs: {
+          a: { range: [0.25, 0.75] },
+        },
+      });
       // 为了观察最终的绘制结果
       interval.paint();
       canvas.draw();
@@ -185,10 +201,19 @@ describe('Interval', () => {
     });
 
     test('yScale max adjust when user define max', () => {
-      interval.scaleDefs.b = {
-        max: 5,
-      };
-      interval.updateData([{ a: 'A', b: -10 }, { a: 'B', b: -12 }, { a: 'C', b: -8 }]);
+      interval.update({
+        data: [
+          { a: 'A', b: -10 },
+          { a: 'B', b: -12 },
+          { a: 'C', b: -8 },
+        ],
+        scaleDefs: {
+          a: { range: [0.25, 0.75] },
+          b: {
+            max: 5,
+          },
+        },
+      });
       // 为了观察最终的绘制结果
       interval.paint();
       canvas.draw();
@@ -197,8 +222,17 @@ describe('Interval', () => {
     });
 
     test('yScale will not be adjusted when type is time', () => {
-      interval.scaleDefs.b = null;
-      interval.updateData([{ a: 'A', b: '2019-10-01' }, { a: 'B', b: '2019-10-02' }, { a: 'C', b: '2019-10-03' }]);
+      interval.update({
+        data: [
+          { a: 'A', b: '2019-10-01' },
+          { a: 'B', b: '2019-10-02' },
+          { a: 'C', b: '2019-10-03' },
+        ],
+        scaleDefs: {
+          a: { range: [0.25, 0.75] },
+          b: null,
+        },
+      });
 
       const yScale = interval.getYScale();
       expect(yScale.type).toBe('time');

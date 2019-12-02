@@ -60,9 +60,6 @@ describe('Shape', () => {
         draw() {
           return 'circle draw';
         },
-      });
-
-      GeometryShape.registerShape('circleFactory', 'hollowCircle', {
         getMarker(markerCfg) {
           return {
             symbol: 'circle',
@@ -70,6 +67,9 @@ describe('Shape', () => {
             stroke: markerCfg.color,
           };
         },
+      });
+
+      GeometryShape.registerShape('circleFactory', 'hollowCircle', {
         draw() {
           // @ts-ignore
           // FIXME: 带 g-canvas 发新版本
@@ -166,7 +166,11 @@ describe('Shape', () => {
         },
       };
 
-      expect(circleFactory.getMarker('circle', { color: 'red', isInPolar: false })).toBe(undefined);
+      expect(circleFactory.getMarker('circle', { color: 'red', isInPolar: false })).toEqual({
+        symbol: 'circle',
+        r: 5,
+        stroke: 'red',
+      });
       expect(circleFactory.getMarker('hollowCircle', { color: 'red', isInPolar: false })).toEqual({
         symbol: 'circle',
         r: 5,

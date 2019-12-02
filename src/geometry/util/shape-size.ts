@@ -36,7 +36,7 @@ export function getDefaultSize(geometry): number {
   const coordinate = geometry.coordinate;
   const xScale = geometry.getXScale();
   const xValues = xScale.values;
-  const dataArray = geometry.dataArray;
+  const dataArray = geometry.beforeMappingData;
   let count: number = xValues.length;
   if (xScale.isLinear && xValues.length > 1) {
     // Linear 类型用户有可能设置了 min, max 范围所以需要根据数据最小区间计算 count
