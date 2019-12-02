@@ -3,9 +3,8 @@ import { CITY_SALE } from '../../util/data';
 import { createDiv } from '../../util/dom';
 
 describe('multi-engine', () => {
-  const div = createDiv();
-
   it('canvas', () => {
+    const div = createDiv();
     const chart = new Chart({
       container: div,
       width: 800,
@@ -31,6 +30,7 @@ describe('multi-engine', () => {
   });
 
   it('svg', () => {
+    const div = createDiv();
     const chart = new Chart({
       container: div,
       width: 800,
