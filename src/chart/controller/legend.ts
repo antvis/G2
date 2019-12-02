@@ -92,8 +92,8 @@ export class Legend extends Controller<Option> {
 
       _.each(attributes, (attr: Attribute) => {
         const scale = attr.getScale(attr.type);
-        // 如果在视觉通道上映射常量值则不会生成 scale，如 size(2) shape('circle')
-        if (!scale) {
+        // 如果在视觉通道上映射常量值，如 size(2) shape('circle') 不创建 legend
+        if (!scale || scale.type === 'identity') {
           return;
         }
 
