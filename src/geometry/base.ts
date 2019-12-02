@@ -1044,11 +1044,9 @@ export default class Geometry {
       };
       const { callback, values, fields = [] } = attrCfg;
 
-      if (attrType === 'position') {
-        // 饼图坐标系下，填充一维
-        if (fields.length === 1 && coordinate.type === 'theta') {
-          fields.unshift('1');
-        }
+      if (attrType === 'position' && fields.length === 1) {
+        // 默认填充一维 1*xx
+        fields.unshift('1');
       }
 
       // 给每一个字段创建 scale

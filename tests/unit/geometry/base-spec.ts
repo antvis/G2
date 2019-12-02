@@ -10,6 +10,10 @@ import { createCanvas, createDiv, removeDom } from '../../util/dom';
 const Rect = getCoordinate('rect');
 
 describe('Geometry', () => {
+  const coordinate = new Rect({
+    start: { x: 0, y: 200 },
+    end: { x: 200, y: 0 },
+  });
   describe('Instantiation and setting', () => {
     let geometry;
 
@@ -22,11 +26,6 @@ describe('Geometry', () => {
         { month: '二月', temperature: 9, day: 2 },
         { month: '二月', temperature: 8, day: 3 },
       ];
-
-      const coordinate = new Rect({
-        start: { x: 0, y: 200 },
-        end: { x: 200, y: 0 },
-      });
       geometry = new Geometry({
         data,
         coordinate,
@@ -268,10 +267,6 @@ describe('Geometry', () => {
         { month: '一月', temperature: 8, city: '南京', year: '2018' },
         { month: '二月', temperature: 14, city: '南京', year: '2018' },
       ];
-      const coordinate = new Rect({
-        start: { x: 0, y: 200 },
-        end: { x: 200, y: 0 },
-      });
       const container = canvas.addGroup();
       geometry = new Geometry({
         data,
@@ -527,5 +522,29 @@ describe('Geometry', () => {
       canvas.destroy();
       removeDom(div);
     });
+  });
+
+  it('one dim position mapping', () => {
+    const geometry = new Geometry({
+      data: [
+        { year: '1991', value: 15468 },
+        { year: '1992', value: 16100 },
+        { year: '1993', value: 15900 },
+        { year: '1995', value: 17000 },
+        { year: '1996', value: 31056 },
+        { year: '1997', value: 31982 },
+        { year: '1998', value: 32040 },
+      ],
+      coordinate,
+      container: new Group({}),
+      theme: {
+        ...Theme,
+      },
+    });
+    geometry.position('value').init();
+
+    const positionScales = geometry.getAttribute('position').scales;
+    expect(positionScales.length).toBe(2);
+    expect(positionScales[0].type).toBe('identity');
   });
 });
