@@ -1,7 +1,7 @@
 import * as _ from '@antv/util';
 import { Datum } from '../interface';
 import { getXDimensionLength } from '../util/coordinate';
-import Geometry from './base';
+import Geometry, { InitCfg } from './base';
 /** 引入对应的 ShapeFactory */
 import './shape/interval';
 import { getDefaultSize } from './util/shape-size';
@@ -13,8 +13,8 @@ export default class Interval extends Geometry {
 
   private defaultSize: number;
 
-  public init() {
-    super.init();
+  public init(cfg: InitCfg = {}) {
+    super.init(cfg);
     this.adjustYScale();
   }
 

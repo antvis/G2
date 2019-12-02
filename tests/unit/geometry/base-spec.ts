@@ -388,7 +388,7 @@ describe('Geometry', () => {
       expect(scales.month.values).toEqual(['一月', '二月']);
 
       // 数据加工
-      const dataArray = geometry.dataArray;
+      const dataArray = geometry.beforeMappingData;
       expect(dataArray.length).toBe(2);
       expect(dataArray[0][0].city).toBe('北京');
       expect(dataArray[0][1].city).toBe('北京');
@@ -471,14 +471,16 @@ describe('Geometry', () => {
       const deleteElement = geometry.elements[0];
 
       geometry.animate(true);
-      geometry.updateData([
-        { month: '二月', temperature: 20, city: '北京', year: '2018' },
-        { month: '二月', temperature: 14, city: '南京', year: '2018' },
-        { month: '三月', temperature: 24, city: '南京', year: '2018' },
-      ]);
+      geometry.update({
+        data: [
+          { month: '二月', temperature: 20, city: '北京', year: '2018' },
+          { month: '二月', temperature: 14, city: '南京', year: '2018' },
+          { month: '三月', temperature: 24, city: '南京', year: '2018' },
+        ],
+      });
 
       expect(geometry.data.length).toBe(3);
-      expect(geometry.dataArray.length).toBe(2);
+      expect(geometry.beforeMappingData.length).toBe(2);
 
       const scales = geometry.scales;
       expect(scales.month.values).toEqual(['二月', '三月']);

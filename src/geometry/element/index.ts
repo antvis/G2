@@ -202,7 +202,13 @@ export default class Element extends EE {
    * @returns  状态样式
    */
   private getStateStyle(stateName: string, shapeKey?: string): LooseObject {
-    const { shapeType, theme } = this;
+    const { theme, shapeFactory } = this;
+    let shapeType = this.shapeType;
+    // 如果用户自定义 shape，则使用默认 shape 的配置
+    if (!theme[shapeType]) {
+      shapeType = shapeFactory.defaultShapeType;
+    }
+
     const keys = shapeKey ? [shapeType, stateName, shapeKey] : [shapeType, stateName];
     return _.get(theme, keys, {});
   }
@@ -314,10 +320,6 @@ export default class Element extends EE {
     _.each(originAttrs, (v, k) => {
       if (newAttrs[k] === undefined) {
         newAttrs[k] = undefined;
-      }
-      // TODO: MOCK
-      if (k === 'matrix' && k === null) {
-        newAttrs[k] = [1, 0, 0, 0, 1, 0, 0, 0, 1];
       }
     });
     return newAttrs;

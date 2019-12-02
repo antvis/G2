@@ -56,6 +56,13 @@ interface AdjustInstanceCfg {
   reverseOrder?: boolean;
 }
 
+export interface InitCfg {
+  coordinate?: Coordinate;
+  data?: Data;
+  scaleDefs?: Record<string, ScaleOption>;
+  theme?: LooseObject;
+}
+
 export interface GeometryCfg {
   container: IGroup;
   coordinate?: Coordinate;
@@ -105,7 +112,7 @@ export default class Geometry {
    * + After init() or updateData(), it is Data[]
    * + After paint(), it is MappingDatum[][]
    */
-  public dataArray: Data[] | MappingDatum[][];
+  public dataArray: MappingDatum[][];
 
   /** Store tooltip configuration */
   public tooltipOption: TooltipOption | boolean;
@@ -130,8 +137,10 @@ export default class Geometry {
   protected labelsContainer: IGroup;
   // 虚拟 Group
   protected offscreenGroup: IGroup;
+  protected beforeMappingData: Data[] = null;
 
   private adjusts: Record<string, Adjust> = {};
+  private lastAttributeOption;
 
   /**
    * Creates an instance of geometry.
@@ -590,12 +599,25 @@ export default class Geometry {
    * Create [[Attribute]] and [[Scale]] instances, and data processing: group, numeric and adjust.
    * Should be called after geometry instance created.
    */
-  public init() {
+  public init(cfg: InitCfg = {}) {
+    const { coordinate, data, scaleDefs, theme } = cfg;
+    if (coordinate) {
+      this.coordinate = coordinate;
+    }
+    if (data) {
+      this.data = data;
+    }
+    if (scaleDefs) {
+      this.scaleDefs = scaleDefs;
+    }
+    if (theme) {
+      this.theme = theme;
+    }
+
     // TODO: @simaq 是否可以移除设置矩阵这一步？
     // 需要修改 @antv/coord 模块，将点与当前矩阵相乘
-    const coordinate = this.coordinate;
     const container = this.container;
-    container.setMatrix(coordinate.matrix);
+    container.setMatrix(this.coordinate.matrix);
 
     this.initAttributes(); // 创建图形属性
 
@@ -610,17 +632,36 @@ export default class Geometry {
     // 数据加工：分组 -> 数字化 -> adjust
     this.processData(this.data);
   }
-  /**
-   * Updates data
-   * @param data
-   */
-  public updateData(data: Data) {
-    this.data = data;
 
-    // 更新 scale
-    this.updateScales();
-    // 数据加工：分组 -> 数字化 -> adjust
-    this.processData(data);
+  public update(cfg: InitCfg = {}) {
+    const { data, scaleDefs, coordinate, theme } = cfg;
+    const { attributeOption, lastAttributeOption } = this;
+
+    if (!_.isEqual(attributeOption, lastAttributeOption)) {
+      // 映射发生改变，则重新创建图形属性
+      this.init(cfg);
+    } else if ((data && !_.isEqual(data, this.data)) || (scaleDefs && !_.isEqual(scaleDefs, this.scaleDefs))) {
+      this.scaleDefs = scaleDefs || this.scaleDefs;
+      this.data = data || this.data;
+      // 数据或者列定义发生变化
+      // 更新 scale
+      this.updateScales();
+      // 数据加工：分组 -> 数字化 -> adjust
+      this.processData(this.data);
+    }
+
+    if (coordinate) {
+      this.coordinate = coordinate;
+    }
+    if (data) {
+      this.data = data;
+    }
+    if (scaleDefs) {
+      this.scaleDefs = scaleDefs;
+    }
+    if (theme) {
+      this.theme = theme;
+    }
   }
 
   /**
@@ -631,8 +672,8 @@ export default class Geometry {
     this.elements = [];
     this.elementsMap = {};
 
-    const dataArray = this.dataArray;
-    this.beforeMapping(dataArray);
+    const beforeMappingData = this.beforeMappingData;
+    const dataArray = this.beforeMapping(beforeMappingData);
 
     const mappingArray = [];
     for (const eachGroup of dataArray) {
@@ -658,6 +699,11 @@ export default class Geometry {
     });
 
     this.lastElementsMap = this.elementsMap;
+
+    // 缓存，用于更新
+    this.lastAttributeOption = {
+      ...this.attributeOption,
+    };
   }
 
   /**
@@ -681,6 +727,8 @@ export default class Geometry {
     this.lastElementsMap = {};
     this.elements = [];
     this.dataArray = null;
+    this.beforeMappingData = null;
+    this.lastAttributeOption = undefined;
   }
 
   /**
@@ -1095,7 +1143,7 @@ export default class Geometry {
     });
 
     const dataArray = this.adjustData(groupedArray); // 进行 adjust 数据调整
-    this.dataArray = dataArray;
+    this.beforeMappingData = dataArray;
 
     return dataArray;
   }
@@ -1214,11 +1262,12 @@ export default class Geometry {
   }
 
   // 将数据映射至图形空间前的操作：排序以及关键点的生成
-  private beforeMapping(dataArray: Data[]) {
+  private beforeMapping(beforeMappingData: Data[]) {
+    const source = _.clone(beforeMappingData);
     if (this.sortable) {
       const xScale = this.getXScale();
       const field = xScale.field;
-      _.each(dataArray, (data) => {
+      _.each(source, (data) => {
         data.sort((v1: Datum, v2: Datum) => {
           return xScale.translate(v1[field]) - xScale.translate(v2[field]);
         });
@@ -1226,19 +1275,21 @@ export default class Geometry {
     }
     if (this.generatePoints) {
       // 需要生成关键点
-      _.each(dataArray, (data) => {
+      _.each(source, (data) => {
         this.generateShapePoints(data);
       });
 
-      dataArray.reduce((preData: Data, currentData: Data) => {
+      source.reduce((preData: Data, currentData: Data) => {
         preData[0].nextPoints = currentData[0].points;
         return currentData;
-      }, dataArray[0]);
+      }, source[0]);
     }
+
+    return source;
   }
 
   // 映射完毕后，对最后的结果集进行排序，方便后续 tooltip 的数据查找
-  private afterMapping(mappingArray: Data[]) {
+  private afterMapping(mappingArray: MappingDatum[][]) {
     if (!this.sortable) {
       this.sort(mappingArray);
     }
