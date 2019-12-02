@@ -49,8 +49,7 @@ describe('multi-engine', () => {
       .position('city*sale')
       .color('category');
 
-    // TODO 切换成 svg 之后，出现 G 层 undefined 报错
-    // chart.render();
+    chart.render();
 
     expect(chart.renderer).toBe('svg');
     expect(div.querySelector('svg')).toBeDefined();
