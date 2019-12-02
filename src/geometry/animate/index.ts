@@ -25,13 +25,13 @@ const DEFAULT_ANIMATE_CFG = {
       };
     },
     update(coordinate: Coordinate) {
-      if (coordinate.type === 'theta') {
-        return {
-          animation: 'pieChartUpdate',
-          duration: 450,
-          easing: 'easeQuadInOut',
-        };
-      }
+      // if (coordinate.type === 'theta') {
+      //   return {
+      //     animation: 'pieChartUpdate',
+      //     duration: 600,
+      //     easing: 'easeQuadInOut',
+      //   };
+      // }
 
       return {
         duration: 450,
