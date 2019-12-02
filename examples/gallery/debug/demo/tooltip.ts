@@ -1,4 +1,4 @@
-import { Chart } from '@ant/g2';
+import { Chart } from '@antv/g2';
 
 const data = [
   { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },

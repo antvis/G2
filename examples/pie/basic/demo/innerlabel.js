@@ -1,3 +1,4 @@
+// FIXME：Label
 import { Chart } from '@antv/g2';
 
 const data = [
@@ -11,6 +12,7 @@ const data = [
 const chart = new Chart({
   container: 'container',
 });
+
 chart.data(data);
 chart.scale('percent', {
   formatter: (val) => {
@@ -21,15 +23,16 @@ chart.scale('percent', {
 chart.coordinate('theta');
 chart.tooltip({
   showTitle: false,
+  showTooltipMarkers: false,
 });
+chart.axis(false); // 关闭坐标轴
 chart
   .interval()
   .adjust('stack')
-  .position('1*percent')
+  .position('percent')
   .color('item')
   .label('percent', {
     offset: -40,
-    // autoRotate: false,
     textStyle: {
       textAlign: 'center',
       shadowBlur: 2,
@@ -48,4 +51,5 @@ chart
     lineWidth: 1,
     stroke: '#fff',
   });
+chart.interaction('active');
 chart.render();

@@ -1,57 +1,5 @@
-import { Chart, registerShape } from '@antv/g2';
-
-registerShape('interval', 'radiusPie', {
-  draw(cfg, container) {
-    // 将归一化后的数据转换为画布上的坐标
-    const points = cfg.mappingData.points;
-    let path = [];
-    for (let i = 0; i < cfg.origin.points.length; i += 4) {
-      path.push(['M', points[i].x, points[i].y]);
-      path.push(['L', points[i + 1].x, points[i + 1].y]);
-      path.push(['L', points[i + 2].x, points[i + 2].y]);
-      path.push(['L', points[i + 3].x, points[i + 3].y]);
-      path.push(['L', points[i].x, points[i].y]);
-      path.push(['z']);
-    }
-    path = this.parsePath(path, true);
-
-    const group = container.addGroup();
-
-    group.addShape('path', {
-      attrs: {
-        fill: cfg.color || '#00D9DF',
-        path,
-      },
-    });
-
-    const minH = Math.min(path[1][7], path[2][2]);
-    const minW = Math.min(path[1][6], path[2][1]);
-    const diffH = Math.abs(path[1][7] - path[2][2]);
-    const diffW = Math.abs(path[1][6] - path[2][1]);
-    group.addShape('circle', {
-      attrs: {
-        x: minW + diffW / 2,
-        y: minH + diffH / 2,
-        fill: cfg.color,
-        radius: diffH / 2,
-      },
-    });
-
-    const minHH = Math.min(path[3][7], path[4][2]);
-    const minWW = Math.min(path[3][6], path[4][1]);
-    const diffHH = Math.abs(path[3][7] - path[4][2]);
-    const diffWW = Math.abs(path[3][6] - path[4][1]);
-    group.addShape('circle', {
-      attrs: {
-        x: minWW + diffWW / 2,
-        y: minHH + diffHH / 2,
-        fill: cfg.color,
-        radius: diffH / 2,
-      },
-    });
-    return group;
-  },
-});
+// FIXME：自定义 HTML Label
+import { Chart } from '@antv/g2';
 
 const data = [
   { sex: '男', sold: 0.45 },
@@ -71,12 +19,13 @@ chart.coordinate('theta', {
 chart.data(data);
 chart.tooltip({
   showTitle: false,
+  showTooltipMarkers: false,
 });
+chart.axis(false);
 chart
   .interval()
   .adjust('stack')
   .position('sold')
-  .shape('radiusPie')
   .color('sex', COLORS)
   .label('sold', {
     useHtml: true,
@@ -90,5 +39,5 @@ chart
       return `<div style="text-align:center;color:${color}">${IMG}${(text * 100).toFixed(0)}%</div>`;
     },
   });
-
+chart.interaction('active');
 chart.render();

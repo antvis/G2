@@ -1,4 +1,4 @@
-import { Chart } from '@ant/g2';
+import { Chart } from '@antv/g2';
 
 const data = [
   { year: '1991', value: 3 },
