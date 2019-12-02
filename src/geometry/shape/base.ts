@@ -63,18 +63,20 @@ const ShapeFactoryBase = {
    * @returns the thumbnail configuration
    */
   getMarker(shapeType: string, markerCfg: ShapeMarkerCfg): ShapeMarkerAttrs {
-    const shape = this.getShape(shapeType);
+    let shape = this.getShape(shapeType);
 
-    if (shape.getMarker) {
-      const { color, isInPolar } = markerCfg;
-      const theme = this.theme;
-      const shapeStyle = _.get(theme, [shapeType, 'default'], {});
-      const markerStyle = shape.getMarker(markerCfg);
-      return {
-        ...shapeStyle,
-        ...markerStyle,
-      };
+    if (!shape.getMarker) {
+      const defaultShapeType = this.defaultShapeType;
+      shape = this.getShape(defaultShapeType);
     }
+
+    const theme = this.theme;
+    const shapeStyle = _.get(theme, [shapeType, 'default'], {});
+    const markerStyle = shape.getMarker(markerCfg);
+    return {
+      ...shapeStyle,
+      ...markerStyle,
+    };
   },
   /**
    * 绘制 shape
