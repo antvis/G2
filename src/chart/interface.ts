@@ -14,6 +14,7 @@ export interface ChartCfg {
   readonly renderer?: Renderer;
   readonly pixelRatio?: number;
   readonly padding?: number | number[];
+  readonly localRefresh?: boolean;
 }
 
 // view 构造参数

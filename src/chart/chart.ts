@@ -14,6 +14,8 @@ export default class Chart extends View {
   // 大小
   public width: number;
   public height: number;
+  /** 是否开启局部刷新 */
+  public localRefresh: boolean;
 
   public autoFit: boolean;
 
@@ -21,7 +23,7 @@ export default class Chart extends View {
 
   // @ts-ignore
   constructor(props: ChartCfg) {
-    const { container, width, height, autoFit = true, renderer, pixelRatio, padding = 0 } = props;
+    const { container, width, height, autoFit = true, renderer, pixelRatio, padding = 0, localRefresh = true } = props;
 
     const ele: HTMLElement = _.isString(container) ? document.getElementById(container) : container;
 
@@ -35,6 +37,7 @@ export default class Chart extends View {
       container: wrapperElement,
       renderer,
       pixelRatio,
+      localRefresh,
       ...size,
     });
 
@@ -54,6 +57,7 @@ export default class Chart extends View {
     this.width = size.width;
     this.height = size.height;
     this.autoFit = autoFit;
+    this.localRefresh = localRefresh;
     this.wrapperElement = wrapperElement;
 
     // 自适应大小

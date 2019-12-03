@@ -28,6 +28,8 @@ describe('Chart', () => {
     .color('category');
 
   it('constructor', () => {
+    expect(chart.autoFit).toBe(false);
+    expect(chart.localRefresh).toBe(true);
     expect(chart.width).toEqual(800);
     expect(chart.height).toEqual(600);
     expect(chart.canvas).toBeInstanceOf(Canvas);
