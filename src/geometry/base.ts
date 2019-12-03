@@ -600,19 +600,7 @@ export default class Geometry {
    * Should be called after geometry instance created.
    */
   public init(cfg: InitCfg = {}) {
-    const { coordinate, data, scaleDefs, theme } = cfg;
-    if (coordinate) {
-      this.coordinate = coordinate;
-    }
-    if (data) {
-      this.data = data;
-    }
-    if (scaleDefs) {
-      this.scaleDefs = scaleDefs;
-    }
-    if (theme) {
-      this.theme = theme;
-    }
+    this.setCfg(cfg);
 
     // TODO: @simaq 是否可以移除设置矩阵这一步？
     // 需要修改 @antv/coord 模块，将点与当前矩阵相乘
@@ -634,7 +622,7 @@ export default class Geometry {
   }
 
   public update(cfg: InitCfg = {}) {
-    const { data, scaleDefs, coordinate, theme } = cfg;
+    const { data, scaleDefs } = cfg;
     const { attributeOption, lastAttributeOption } = this;
 
     if (!_.isEqual(attributeOption, lastAttributeOption)) {
@@ -650,18 +638,7 @@ export default class Geometry {
       this.processData(this.data);
     }
 
-    if (coordinate) {
-      this.coordinate = coordinate;
-    }
-    if (data) {
-      this.data = data;
-    }
-    if (scaleDefs) {
-      this.scaleDefs = scaleDefs;
-    }
-    if (theme) {
-      this.theme = theme;
-    }
+    this.setCfg(cfg);
   }
 
   /**
@@ -1465,5 +1442,21 @@ export default class Geometry {
     });
 
     return callback(...params);
+  }
+
+  private setCfg(cfg: InitCfg) {
+    const { coordinate, data, scaleDefs, theme } = cfg;
+    if (coordinate) {
+      this.coordinate = coordinate;
+    }
+    if (data) {
+      this.data = data;
+    }
+    if (scaleDefs) {
+      this.scaleDefs = scaleDefs;
+    }
+    if (theme) {
+      this.theme = theme;
+    }
   }
 }
