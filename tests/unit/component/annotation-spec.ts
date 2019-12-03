@@ -1,6 +1,6 @@
 import 'jest-extended';
 import { Chart } from '../../../src/';
-import { createDiv } from '../../util/dom';
+import { createDiv, removeDom } from '../../util/dom';
 
 const IMAGE = 'https://img.alicdn.com/tfs/TB1M.wKkND1gK0jSZFyXXciOVXa-120-120.png';
 
@@ -23,7 +23,7 @@ describe('annotation', () => {
   });
 
   chart.data(DATA);
-
+  // chart.tooltip(false);
   chart.interval().position('city*sale');
 
   it('image', () => {
@@ -118,5 +118,50 @@ describe('annotation', () => {
     expect(text.get('y')).toBeWithin(97, 101);
     // style
     expect(text.get('style').fill).toBe('red');
+  });
+
+  it('use percentage position', () => {
+    chart.annotation().text({
+      position: ['50%', '50%'],
+      content: '坐标系中心点',
+      style: {
+        fill: 'red',
+        textBaseline: 'bottom',
+        textAlign: 'center',
+      },
+    });
+
+    chart.render();
+
+    const text = chart.annotationController.getComponents()[4].component;
+    const coordinateCenter = chart.getCoordinate().getCenter();
+    // pos
+    expect(text.get('x')).toBe(coordinateCenter.x);
+    expect(text.get('y')).toBe(coordinateCenter.y);
+  });
+
+  it('use array', () => {
+    chart.annotation().text({
+      position: ['杭州', 100],
+      content: '杭州杭州',
+      style: {
+        fill: 'red',
+        textBaseline: 'bottom',
+        textAlign: 'center',
+      },
+    });
+
+    chart.render();
+
+    const text = chart.annotationController.getComponents()[5].component;
+    const coordinateCenter = chart.getCoordinate().getCenter();
+    // // pos
+    expect(text.get('x')).toBeWithin(139, 140);
+    expect(text.get('y')).toBeWithin(97, 101);
+  });
+
+  afterAll(() => {
+    chart.destroy();
+    removeDom(div);
   });
 });
