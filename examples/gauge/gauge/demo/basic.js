@@ -1,3 +1,4 @@
+// FIXME: 确定 chart.annotation().arc() 的参数
 import { Chart, registerShape } from '@antv/g2';
 
 // 自定义Shape 部分
@@ -42,7 +43,7 @@ chart.data(data);
 chart.scale('value', {
   min: 0,
   max: 9,
-  tickInterval: 1,
+  minTickInterval: 1,
   nice: false,
 });
 chart.coordinate('polar', {
@@ -55,7 +56,7 @@ chart.axis('1', false);
 chart.axis('value', {
   line: null,
   label: {
-    offset: -16,
+    offset: -36,
     style: {
       fontSize: 18,
       textAlign: 'center',
@@ -64,18 +65,10 @@ chart.axis('value', {
   },
   subTickLine: {
     count: 4,
-    style: {
-      stroke: '#fff',
-      strokeOpacity: 1,
-    },
-    length: -8,
+    length: -15,
   },
   tickLine: {
-    length: -17,
-    style: {
-      stroke: '#fff',
-      strokeOpacity: 1,
-    },
+    length: -24,
   },
   grid: null,
 });
@@ -86,34 +79,53 @@ chart
   .shape('pointer')
   .color('#1890FF');
 
-// // 绘制仪表盘背景
-// chart.annotation().arc({
-//   top: false,
-//   start: [0, 0.945],
-//   end: [9, 0.945],
-//   style: { // 底灰色
-//     stroke: '#CBCBCB',
-//     lineWidth: 18
-//   }
-// });
-// // 绘制指标
-// chart.annotation().arc({
-//   zIndex: 1,
-//   start: [0, 0.945],
-//   end: [data[0].value, 0.945],
-//   style: {
-//     stroke: '#1890FF',
-//     lineWidth: 18
-//   }
-// });
-// // 绘制指标数字
-// chart.annotation().text({
-//   position: ['50%', '95%'],
-//   content: '合格率'
-//   // html: '<div style="width: 300px;text-align: center;">'
-//   //   + '<p style="font-size: 20px; color: #545454;margin: 0;">合格率</p>'
-//   //   + '<p style="font-size: 36px;color: #545454;margin: 0;">' + data[0].value * 10 + '%</p>'
-//   //   + '</div>'
-// });
+// 绘制仪表盘背景
+chart.annotation().arc({
+  top: false,
+  start: [0, 1],
+  // end: [9, 1],
+  startAngle: (-9 / 8) * Math.PI,
+  endAngle: (1 / 8) * Math.PI,
+  style: {
+    // 底灰色
+    stroke: '#CBCBCB',
+    lineWidth: 18,
+    lineDash: null,
+  },
+});
+
+// 绘制指标
+chart.annotation().arc({
+  zIndex: 1,
+  start: [0, 1],
+  // end: [data[0].value, 0.945],
+  startAngle: (-9 / 8) * Math.PI,
+  endAngle: (10 / 8) * Math.PI * (data[0].value / 9) + (-9 / 8) * Math.PI, // 根据当前数据占比计算对应的角度
+  style: {
+    stroke: '#1890FF',
+    lineWidth: 18,
+    lineDash: null,
+  },
+});
+// 绘制指标数字
+chart.annotation().text({
+  position: ['50%', '85%'],
+  content: '合格率',
+  style: {
+    fontSize: 20,
+    fill: '#545454',
+    textAlign: 'center',
+  },
+});
+chart.annotation().text({
+  position: ['50%', '90%'],
+  content: `${data[0].value * 10} %`,
+  style: {
+    fontSize: 36,
+    fill: '#545454',
+    textAlign: 'center',
+  },
+  offsetY: 15,
+});
 
 chart.render();

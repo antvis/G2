@@ -20,12 +20,11 @@ const chart = new Chart({
   height: 500,
 });
 chart.data(data);
-chart.coord('polar', {
+chart.coordinate('polar', {
   innerRadius: 0.2,
 });
 chart.legend('year', {
   position: 'right',
-  offsetX: -140,
 });
 chart.axis(false);
 chart
