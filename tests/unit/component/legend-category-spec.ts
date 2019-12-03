@@ -22,13 +22,19 @@ describe('Component', () => {
     .color('category')
     .adjust({ type: 'dodge' });
 
-  chart.legend('category', {
-    position: 'right',
+  it('close legend', () => {
+    chart.legend(false);
+    chart.render();
+    const legends = chart.getOptions().components.filter((co) => co.type === COMPONENT_TYPE.LEGEND);
+    expect(legends.length).toBe(0);
   });
 
-  chart.render();
-
   it('legend component', () => {
+    chart.legend('category', {
+      position: 'right',
+    });
+
+    chart.render();
     const legends = chart.getOptions().components.filter((co) => co.type === COMPONENT_TYPE.LEGEND);
     expect(legends.length).toBe(1);
 

@@ -45,7 +45,10 @@ export class Legend extends Controller<Option> {
    */
   public render() {
     this.option = this.view.getOptions().legends;
-
+    if (this.option === false) {
+      // 用户关闭 legend: chart.legend(false)
+      return;
+    }
     this.components.push(...this.createLegends());
   }
 
