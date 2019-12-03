@@ -1,4 +1,4 @@
-// FIXME：自定义 HTML Label
+// FIXME：自定义 HTML Label && Tooltip 交互
 import { Chart } from '@antv/g2';
 
 const data = [
