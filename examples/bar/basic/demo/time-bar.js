@@ -12,28 +12,31 @@ const data = [
   { task: 'task8', startTime: '2018-04-18 03:27:49', endTime: '2018-04-18 04:26:05', status: 0 },
   { task: 'task9', startTime: '2018-04-18 04:26:05', endTime: '2018-04-18 06:06:36', status: 0 },
   { task: 'task10', startTime: '2018-04-18 06:06:36', endTime: '2018-04-18 06:15:15', status: 0 },
-  { task: 'task11', startTime: '2018-04-18 03:27:49', endTime: '2018-04-18 03:34:50', status: 0 }
+  { task: 'task11', startTime: '2018-04-18 03:27:49', endTime: '2018-04-18 03:34:50', status: 0 },
 ];
 
-const values = [ '运行成功', '运行失败' ];
+const values = ['运行成功', '运行失败'];
 
 data.forEach(function(obj) {
-  obj.range = [ obj.startTime, obj.endTime ];
+  obj.range = [obj.startTime, obj.endTime];
   obj.status = values[obj.status];
 });
 
 const chart = new Chart({
   container: 'container',
-  height: 500
+  height: 500,
 });
 
 chart.data(data);
 
-chart.coordinate().transpose().scale(1, -1);
+chart
+  .coordinate()
+  .transpose()
+  .scale(1, -1);
 
 chart
   .interval()
   .position('task*range')
-  .color('status', [ '#2FC25B', '#F04864' ]);
+  .color('status', ['#2FC25B', '#F04864']);
 
 chart.render();

@@ -49,7 +49,12 @@ export default function defaultLayout(view: View): void {
       const exceed = componentBBox.exceed(bbox);
       bbox = bbox.shrink(exceed);
     } else {
-      bbox = bbox.cut(componentBBox, getTransposedDirection(co.direction, view.getCoordinate().isTransposed));
+      bbox = bbox.cut(
+        componentBBox,
+        type === COMPONENT_TYPE.AXIS
+          ? getTransposedDirection(co.direction, view.getCoordinate().isTransposed)
+          : co.direction
+      );
     }
   });
 

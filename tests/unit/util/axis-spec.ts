@@ -1,6 +1,11 @@
 import { getCoordinate } from '@antv/coord';
 import { DIRECTION } from '../../../src';
-import { getAxisFactor, getCircleAxisCenterRadius, getLineAxisRelativeRegion } from '../../../src/util/axis';
+import {
+  getAxisFactor,
+  getAxisFactorByRegion,
+  getCircleAxisCenterRadius,
+  getLineAxisRelativeRegion,
+} from '../../../src/util/axis';
 
 const Rect = getCoordinate('rect');
 
@@ -25,6 +30,86 @@ describe('util axis', () => {
     expect(getAxisFactor(rectWithTranspose, DIRECTION.BOTTOM)).toBe(1);
     expect(getAxisFactor(rectWithTranspose, DIRECTION.RIGHT)).toBe(1);
     expect(getAxisFactor(rectWithTranspose, DIRECTION.TOP)).toBe(-1);
+  });
+
+  it('getAxisFactorByRegion', () => {
+    const center = { x: 50, y: 50 };
+
+    // 顺时针
+    expect(
+      getAxisFactorByRegion(
+        {
+          start: { x: 0, y: 100 },
+          end: { x: 0, y: 0 },
+        },
+        center
+      )
+    ).toBe(1);
+    expect(
+      getAxisFactorByRegion(
+        {
+          start: { x: 0, y: 0 },
+          end: { x: 100, y: 0 },
+        },
+        center
+      )
+    ).toBe(1);
+    expect(
+      getAxisFactorByRegion(
+        {
+          start: { x: 100, y: 0 },
+          end: { x: 100, y: 100 },
+        },
+        center
+      )
+    ).toBe(1);
+    expect(
+      getAxisFactorByRegion(
+        {
+          start: { x: 100, y: 100 },
+          end: { x: 0, y: 100 },
+        },
+        center
+      )
+    ).toBe(1);
+
+    // 逆时针
+    expect(
+      getAxisFactorByRegion(
+        {
+          end: { x: 0, y: 100 },
+          start: { x: 0, y: 0 },
+        },
+        center
+      )
+    ).toBe(-1);
+    expect(
+      getAxisFactorByRegion(
+        {
+          end: { x: 0, y: 0 },
+          start: { x: 100, y: 0 },
+        },
+        center
+      )
+    ).toBe(-1);
+    expect(
+      getAxisFactorByRegion(
+        {
+          end: { x: 100, y: 0 },
+          start: { x: 100, y: 100 },
+        },
+        center
+      )
+    ).toBe(-1);
+    expect(
+      getAxisFactorByRegion(
+        {
+          end: { x: 100, y: 100 },
+          start: { x: 0, y: 100 },
+        },
+        center
+      )
+    ).toBe(-1);
   });
 
   it('getAxisRelativeRegion', () => {
