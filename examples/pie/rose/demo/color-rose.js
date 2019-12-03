@@ -1,3 +1,5 @@
+import { Chart, getTheme } from '@antv/g2';
+
 const data = [
   { year: '2001', population: 41.8 },
   { year: '2002', population: 38 },
@@ -13,23 +15,21 @@ const data = [
   { year: '2012', population: 30.3 },
 ];
 
-const chart = new G2.Chart({
+const chart = new Chart({
   container: 'container',
-  autoFit: true,
   height: 500,
 });
 chart.data(data);
-chart.coord('polar');
-chart.legend({
+chart.coordinate('polar');
+chart.legend('year', {
   position: 'right',
-  offsetY: -500 / 2 + 180,
   offsetX: -140,
 });
 chart.axis(false);
 chart
   .interval()
   .position('year*population')
-  .color('year', G2.Global.colors_pie_16)
+  .color('year', getTheme().colors_20)
   .style({
     lineWidth: 1,
     stroke: '#fff',

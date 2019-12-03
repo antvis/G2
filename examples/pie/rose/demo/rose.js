@@ -1,3 +1,6 @@
+// FIXME: label
+import { Chart } from '@antv/g2';
+
 const data = [
   { year: '2001', population: 41.8 },
   { year: '2002', population: 38 },
@@ -13,13 +16,12 @@ const data = [
   { year: '2012', population: 30.3 },
 ];
 
-const chart = new G2.Chart({
+const chart = new Chart({
   container: 'container',
-  autoFit: true,
   height: 500,
 });
 chart.data(data);
-chart.coord('polar');
+chart.coordinate('polar');
 chart.axis(false);
 chart
   .interval()

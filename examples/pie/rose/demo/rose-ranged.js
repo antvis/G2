@@ -1,3 +1,6 @@
+// FIXME: label && BUG
+import { Chart } from '@antv/g2';
+
 const data = [
   { type: '分类一', value: 27 },
   { type: '分类二', value: 25 },
@@ -7,7 +10,7 @@ const data = [
   { type: 'Other', value: 5 },
 ];
 
-const chart = new G2.Chart({
+const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 500,
@@ -15,7 +18,7 @@ const chart = new G2.Chart({
 });
 
 chart.data(data);
-chart.coord('polar', {
+chart.coordinate('polar', {
   startAngle: Math.PI, // 起始角度
   endAngle: Math.PI * (3 / 2), // 结束角度
 });
