@@ -607,7 +607,7 @@ export class View extends EE {
       axes: _.clone(this.options.axes),
       coordinate: _.clone(this.options.coordinate),
       tooltip: _.clone(this.options.tooltip),
-      legend: _.clone(this.options.legends),
+      legends: _.clone(this.options.legends),
       animate: this.options.animate,
     };
 
