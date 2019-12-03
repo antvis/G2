@@ -97,7 +97,13 @@ export function getAxisRegion(coordinate: Coordinate, direction: DIRECTION): Reg
 export function getAxisFactor(coordinate: Coordinate, direction: DIRECTION): number {
   // rect coordinate, by direction
   if (coordinate.isRect) {
-    return [DIRECTION.BOTTOM, DIRECTION.RIGHT].includes(direction) ? -1 : 1;
+    return coordinate.isTransposed
+      ? [DIRECTION.RIGHT, DIRECTION.BOTTOM].includes(direction)
+        ? 1
+        : -1
+      : [DIRECTION.BOTTOM, DIRECTION.RIGHT].includes(direction)
+      ? -1
+      : 1;
   }
 
   // polar y axis, by angle

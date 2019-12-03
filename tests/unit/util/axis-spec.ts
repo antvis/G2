@@ -15,6 +15,16 @@ describe('util axis', () => {
     expect(getAxisFactor(rect, DIRECTION.BOTTOM)).toBe(-1);
     expect(getAxisFactor(rect, DIRECTION.RIGHT)).toBe(-1);
     expect(getAxisFactor(rect, DIRECTION.TOP)).toBe(1);
+
+    const rectWithTranspose = new Rect({
+      start: { x: 0, y: 0 },
+      end: { x: 0, y: 0 },
+    }).transpose();
+
+    expect(getAxisFactor(rectWithTranspose, DIRECTION.LEFT)).toBe(-1);
+    expect(getAxisFactor(rectWithTranspose, DIRECTION.BOTTOM)).toBe(1);
+    expect(getAxisFactor(rectWithTranspose, DIRECTION.RIGHT)).toBe(1);
+    expect(getAxisFactor(rectWithTranspose, DIRECTION.TOP)).toBe(-1);
   });
 
   it('getAxisRelativeRegion', () => {
