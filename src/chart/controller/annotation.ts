@@ -227,11 +227,18 @@ export class Annotation extends Controller<undefined> {
     let x = 0;
     let y = 0;
 
-    // 不再支持百分比位置
     // 入参是 [24, 24] 这类时
     if (_.isArray(position)) {
-      x = this.getNormalizedValue(position[0], xScale);
-      y = this.getNormalizedValue(position[1], _.head(yScales));
+      const [xPos, yPos] = position;
+      // 如果数据格式是 ['50%', '50%'] 的格式
+      // fix: 原始数据中可能会包含 'xxx5%xxx' 这样的数据，需要判断下 https://github.com/antvis/f2/issues/590
+      // @ts-ignore
+      if (_.isString(xPos) && xPos.indexOf('%') !== -1 && !isNaN(xPos.slice(0, -1))) {
+        return this.parsePercentPosition(position as [string, string]);
+      }
+
+      x = this.getNormalizedValue(xPos, xScale);
+      y = this.getNormalizedValue(yPos, yScales[Object.keys(yScales)[0]]);
     } else if (!_.isNil(position)) {
       // 入参是 object 结构，数据点
       for (const key of _.keys(position)) {
