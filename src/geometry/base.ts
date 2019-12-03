@@ -629,16 +629,16 @@ export default class Geometry {
       // 映射发生改变，则重新创建图形属性
       this.init(cfg);
     } else if ((data && !_.isEqual(data, this.data)) || (scaleDefs && !_.isEqual(scaleDefs, this.scaleDefs))) {
-      this.scaleDefs = scaleDefs || this.scaleDefs;
-      this.data = data || this.data;
       // 数据或者列定义发生变化
+      this.setCfg(cfg);
       // 更新 scale
       this.updateScales();
       // 数据加工：分组 -> 数字化 -> adjust
       this.processData(this.data);
+    } else {
+      // 有可能 coordinate 变化
+      this.setCfg(cfg);
     }
-
-    this.setCfg(cfg);
   }
 
   /**
