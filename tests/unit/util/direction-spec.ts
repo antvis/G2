@@ -1,6 +1,6 @@
 import { DIRECTION } from '../../../src';
 import { BBox } from '../../../src/util/bbox';
-import { directionToPosition } from '../../../src/util/direction';
+import { directionToPosition, getTransposedDirection } from '../../../src/util/direction';
 
 const parentBBox = new BBox(10, 10, 100, 100);
 const bbox = new BBox(0, 0, 20, 20);
@@ -25,5 +25,17 @@ describe('util direction', () => {
 
     // @ts-ignore
     expect(directionToPosition(parentBBox, bbox, 'xxx')).toEqual([0, 0]);
+  });
+
+  it('getTransposedDirection', () => {
+    expect(getTransposedDirection(DIRECTION.BOTTOM, false)).toEqual(DIRECTION.BOTTOM);
+    expect(getTransposedDirection(DIRECTION.LEFT, false)).toEqual(DIRECTION.LEFT);
+    expect(getTransposedDirection(DIRECTION.RIGHT, false)).toEqual(DIRECTION.RIGHT);
+    expect(getTransposedDirection(DIRECTION.TOP, false)).toEqual(DIRECTION.TOP);
+
+    expect(getTransposedDirection(DIRECTION.BOTTOM, true)).toEqual(DIRECTION.LEFT);
+    expect(getTransposedDirection(DIRECTION.LEFT, true)).toEqual(DIRECTION.BOTTOM);
+    expect(getTransposedDirection(DIRECTION.RIGHT, true)).toEqual(DIRECTION.RIGHT);
+    expect(getTransposedDirection(DIRECTION.TOP, true)).toEqual(DIRECTION.TOP);
   });
 });
