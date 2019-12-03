@@ -240,6 +240,8 @@ export default class Element extends EE {
     this.setShapeInfo(shape, drawCfg); // 存储绘图数据
     this.shape = shape;
     if (!shape.get('name')) {
+      // TODO: 当用户设置了 name 后，为了保证 geometry:eventName 这样的事件能够正常触发，需要加一个 inheritName
+      // 等 G 事件改造完成后加上
       shape.set('name', this.shapeFactory.geometryType);
     }
 

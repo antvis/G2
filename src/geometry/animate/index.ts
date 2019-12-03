@@ -13,10 +13,10 @@ const DEFAULT_ANIMATE_CFG = {
         animation = coordinate.isTransposed ? 'scaleInX' : 'scaleInY';
       } else if (coordinate.isPolar) {
         animation = 'zoomIn';
-        if (coordinate.isTransposed) {
-          // pie chart
-          animation = 'clipIn';
-        }
+        // if (coordinate.isTransposed) {
+        //   // pie chart
+        //   animation = 'clipIn';
+        // }
       }
       return {
         animation,
