@@ -1,3 +1,4 @@
+import { View } from './chart';
 import { Coordinate, IGroup, IShape, PathCommand, ScaleConfig } from './dependents';
 
 /** G 的渲染类型 */
@@ -204,3 +205,60 @@ export type ScaleType = 'linear' | 'cat' | 'identity' | 'log' | 'pow' | 'time' |
 export type AdjustType = 'stack' | 'jitter' | 'dodge' | 'symmetric';
 export type ShapeVertices = RangePoint[] | Point[] | Point[][];
 export type ShapeMarkerSymbol = (x: number, y: number, r: number) => PathCommand[];
+
+/** 交互反馈的定义 */
+export interface IAction {
+  /**
+   * 交互 action (反馈)的名称
+   */
+  name: string;
+  /**
+   * 上下文
+   */
+  context: IInteractionContext;
+  /**
+   * 初始化
+   */
+  init();
+  /**
+   * 销毁函数
+   */
+  destroy();
+}
+
+/** 交互上下文的接口定义 */
+export interface IInteractionContext extends LooseObject {
+  /** 事件对象 */
+  event: LooseObject;
+  /**
+   * 当前的 view
+   */
+  view: View;
+  /** 交互相关的 Actions */
+  actions: IAction[];
+  /**
+   * 缓存属性，用于上下文传递信息
+   * @param key 键名
+   * @param value 值
+   */
+  cache(key: string, value?: any);
+  /**
+   * 获取 action
+   * @param name - action 的名称
+   * @returns 指定 name 的 Action
+   */
+  getAction(name): IAction;
+  /**
+   * 添加 action
+   * @param action 指定交互 action
+   */
+  addAction(action: IAction);
+  /**
+   * 移除 action
+   * @param action 移除的 action
+   */
+  removeAction(action: IAction);
+  destroy();
+}
+
+export type ActionCallback = (context: IInteractionContext) => void;
