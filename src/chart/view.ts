@@ -196,7 +196,7 @@ export class View extends EE {
    * render 函数仅仅会处理 view 和子 view
    * @returns void
    */
-  public render(isUpdate = false) {
+  public render(isUpdate: boolean = false) {
     this.emit(VIEW_LIFE_CIRCLE.BEFORE_RENDER);
     // 递归渲染
     this.renderRecursive(isUpdate);
@@ -850,7 +850,7 @@ export class View extends EE {
     return this.tooltipController.getTooltipItems(point);
   }
 
-  protected paint(isUpdate = false) {
+  protected paint(isUpdate: boolean) {
     // 1. 处理数据
     this.filterData();
     // 2. 创建 coordinate 实例
@@ -875,7 +875,7 @@ export class View extends EE {
    * 递归 render views
    * 步骤非常繁琐，因为之间有一些数据依赖，所以执行流程上有先后关系
    */
-  protected renderRecursive(isUpdate = false) {
+  protected renderRecursive(isUpdate: boolean) {
     // 子 view 大小相对 coordinateBBox
     this.calculateViewBBox();
 
@@ -884,7 +884,7 @@ export class View extends EE {
 
     // 同样递归处理子 views
     _.each(this.views, (view: View) => {
-      view.renderRecursive();
+      view.renderRecursive(isUpdate);
     });
   }
   // end Get 方法
@@ -1074,7 +1074,7 @@ export class View extends EE {
    * 初始化 Geometries
    * @private
    */
-  private initGeometries(isUpdate = false) {
+  private initGeometries(isUpdate: boolean) {
     // 实例化 Geometry，然后 view 将所有的 scale 管理起来
     _.each(this.geometries, (geometry: Geometry) => {
       // 保持 scales 引用不要变化
