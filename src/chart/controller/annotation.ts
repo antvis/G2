@@ -14,13 +14,13 @@ export type Position = [number | string, number | string] | Record<string, numbe
 
 export interface BaseOption {
   readonly type?: string;
-  // 指定 annotation 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层
+  /** 指定 annotation 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层 */
   readonly top?: boolean;
-  // 起始位置
+  /** 起始位置 */
   readonly start: Position;
-  // 结束位置
+  /** 结束位置 */
   readonly end: Position;
-  // 图形样式属性
+  /** 图形样式属性 */
   readonly style?: object;
 }
 
@@ -30,11 +30,11 @@ export interface ArcOption extends BaseOption {
 }
 
 export interface ImageOption extends BaseOption {
-  // 图片路径
+  /** 图片路径 */
   readonly src: string;
-  // x 方向的偏移量
+  /** x 方向的偏移量 */
   readonly offsetX?: number;
-  // y 方向偏移量
+  /** y 方向偏移量 */
   readonly offsetY?: number;
 }
 
@@ -45,18 +45,18 @@ export interface LineOption extends BaseOption {
 export type RegionOption = BaseOption;
 
 export interface TextOption {
-  // 指定 guide 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层
+  /** 指定 guide 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层 */
   readonly top?: boolean;
-  // 文本位置
+  /** 文本位置 */
   readonly position: Position;
   readonly autoRotate?: boolean;
-  // 显示的文本内容
+  /** 显示的文本内容 */
   readonly content: string;
-  // 文本的图形样式属性
+  /** 文本的图形样式属性 */
   readonly style?: object;
-  // x 方向的偏移量
+  /** x 方向的偏移量 */
   readonly offsetX?: number;
-  // y 方向偏移量
+  /** y 方向偏移量 */
   readonly offsetY?: number;
 }
 
@@ -322,7 +322,6 @@ export class Annotation extends Controller<undefined> {
       const { start, end, startAngle, endAngle, style } = option as ArcOption;
       const sp = this.parsePosition(start);
       const ep = this.parsePosition(end);
-
       const center = this.view.getCoordinate().getCenter();
       const radius = Math.sqrt((sp.x - center.x) ** 2 + (sp.y - center.y) ** 2);
 
