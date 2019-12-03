@@ -22,7 +22,7 @@ function uniq(items) {
         subItem.color === item.color &&
         subItem.name === item.name &&
         subItem.value === item.value &&
-        subItem.title === item.value
+        subItem.title === item.title
       );
     });
     if (!result) {
@@ -186,6 +186,8 @@ export class Tooltip {
       });
       rst = rst.concat(items);
     }
+
+    rst = uniq(rst);
 
     return rst;
   }
