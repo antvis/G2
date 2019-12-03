@@ -1097,7 +1097,7 @@ tooltip 的触发方式，可配置的值为：'mousemove'、'click'、'none'，
 ```javascript
 crosshairs: {
   type: 'rect' | 'x' | 'y' | 'cross',
-  style: {
+  rectStyle: {
     // 图形样式
     fill: {string}, // 填充的颜色
     stroke: {string}, // 边框的颜色
@@ -1105,7 +1105,10 @@ crosshairs: {
     fillOpacity: {number}, // 填充的颜色透明度，数值为 0 - 1 范围
     lineWidth: {number}, // 边框的粗细
     lineDash: {number} | {array} // 线的虚线样式
-  }
+  }, // type 为 'rect' 时，设置 'rect' 辅助框的样式
+  lineStyle: {
+    // 图形属性
+  }, // type 为 'x', 'y', 'cross' 时，辅助线的样式
 }
 ```
 
