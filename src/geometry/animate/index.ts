@@ -13,6 +13,7 @@ const DEFAULT_ANIMATE_CFG = {
         animation = coordinate.isTransposed ? 'scaleInX' : 'scaleInY';
       } else if (coordinate.isPolar) {
         animation = 'zoomIn';
+        // TODO: 饼图入场动画
         // if (coordinate.isTransposed) {
         //   // pie chart
         //   animation = 'clipIn';
@@ -25,6 +26,7 @@ const DEFAULT_ANIMATE_CFG = {
       };
     },
     update(coordinate: Coordinate) {
+      // TODO: 饼图更新动画
       // if (coordinate.type === 'theta') {
       //   return {
       //     animation: 'pieChartUpdate',
