@@ -171,11 +171,11 @@ export function getAxisThemeCfg(theme: object, direction: string): object {
  */
 export function getCircleAxisCenterRadius(coordinate: Coordinate) {
   // @ts-ignore
-  const center = coordinate.circleCenter;
-  // @ts-ignore
-  const radius = coordinate.polarRadius;
+  const { startAngle, endAngle, circleCenter: center, polarRadius: radius } = coordinate;
   return {
     center,
     radius,
+    startAngle,
+    endAngle,
   };
 }
