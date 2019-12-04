@@ -1,7 +1,7 @@
 import * as _ from '@antv/util';
 import { DIRECTION } from '../constant';
 import { Coordinate } from '../dependents';
-import { Region } from '../interface';
+import { Point, Region } from '../interface';
 
 /**
  * get axis relative region ( 0 ~ 1) by direction when coordinate is rect
@@ -97,7 +97,13 @@ export function getAxisRegion(coordinate: Coordinate, direction: DIRECTION): Reg
 export function getAxisFactor(coordinate: Coordinate, direction: DIRECTION): number {
   // rect coordinate, by direction
   if (coordinate.isRect) {
-    return [DIRECTION.BOTTOM, DIRECTION.RIGHT].includes(direction) ? -1 : 1;
+    return coordinate.isTransposed
+      ? [DIRECTION.RIGHT, DIRECTION.BOTTOM].includes(direction)
+        ? 1
+        : -1
+      : [DIRECTION.BOTTOM, DIRECTION.RIGHT].includes(direction)
+      ? -1
+      : 1;
   }
 
   // polar y axis, by angle
@@ -107,6 +113,46 @@ export function getAxisFactor(coordinate: Coordinate, direction: DIRECTION): num
   }
 
   return 1;
+}
+
+/**
+ * whether the axis isVertical
+ * @param region
+ * @returns isVertical
+ */
+export function isVertical(region: Region): boolean {
+  const { start, end } = region;
+
+  return start.x === end.x;
+}
+
+/**
+ * get factor by region (real position)
+ * @param region
+ * @param center
+ * @returns factor
+ */
+export function getAxisFactorByRegion(region: Region, center: Point): number {
+  const { start, end } = region;
+
+  const isAxisVertical = isVertical(region);
+
+  // 垂直
+  if (isAxisVertical) {
+    // 左方,从下到上、右方,从上到下
+    if ((start.y - end.y) * (center.x - start.x) > 0) {
+      return 1;
+    } else {
+      return -1;
+    }
+  } else {
+    // 下方,从左到右、上方,从右到做
+    if ((end.x - start.x) * (start.y - center.y) > 0) {
+      return -1;
+    } else {
+      return 1;
+    }
+  }
 }
 
 /**

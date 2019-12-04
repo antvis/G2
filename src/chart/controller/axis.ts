@@ -1,7 +1,7 @@
 import * as _ from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { CircleAxis, CircleGrid, IGroup, LineAxis, LineGrid, Scale } from '../../dependents';
-import { getAxisFactor, getAxisRegion, getAxisThemeCfg, getCircleAxisCenterRadius } from '../../util/axis';
+import { getAxisFactorByRegion, getAxisRegion, getAxisThemeCfg, getCircleAxisCenterRadius } from '../../util/axis';
 import { getCircleGridItems, getGridThemeCfg, getLineGridItems, showGrid } from '../../util/grid';
 import { getName } from '../../util/scale';
 import { AxisOption, ComponentOption } from '../interface';
@@ -258,14 +258,16 @@ export class Axis extends Controller<Option> {
 
     const coordinate = this.view.getCoordinate();
 
+    const region = getAxisRegion(coordinate, direction);
+
     const baseAxisCfg = {
       container,
-      ...getAxisRegion(this.view.getCoordinate(), direction),
+      ...region,
       ticks: _.map(scale.getTicks(), (tick) => ({ name: tick.text, value: tick.value })),
       title: {
         text: getName(scale),
       },
-      verticalFactor: getAxisFactor(coordinate, direction),
+      verticalFactor: getAxisFactorByRegion(region, coordinate.getCenter()),
     };
 
     const axisThemeCfg = getAxisThemeCfg(this.view.getTheme(), direction);

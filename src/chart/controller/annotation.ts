@@ -213,14 +213,7 @@ export class Annotation extends Controller<undefined> {
   private parsePosition(p: Position): Point {
     const xScale = this.view.getXScale();
     // 转成 object
-    const yScales = _.reduce(
-      this.view.getYScales(),
-      (r: Record<string, Scale>, cur: Scale) => {
-        r[cur.field] = cur;
-        return r;
-      },
-      {}
-    );
+    const yScales = this.view.getScalesByDim('y');
 
     const position: Position = _.isFunction(p) ? p.call(null, xScale, yScales) : p;
 
@@ -238,7 +231,7 @@ export class Annotation extends Controller<undefined> {
       }
 
       x = this.getNormalizedValue(xPos, xScale);
-      y = this.getNormalizedValue(yPos, yScales[Object.keys(yScales)[0]]);
+      y = this.getNormalizedValue(yPos, Object.values(yScales)[0]);
     } else if (!_.isNil(position)) {
       // 入参是 object 结构，数据点
       for (const key of _.keys(position)) {
