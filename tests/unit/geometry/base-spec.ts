@@ -541,7 +541,7 @@ describe('Geometry', () => {
         { year: '1998', value: 32040 },
       ],
       coordinate,
-      container: new Group({}),
+      container: new G.Group({}),
       theme: {
         ...Theme,
       },
