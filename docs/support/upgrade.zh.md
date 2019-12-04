@@ -17,17 +17,6 @@
 
 * `chart.source()` -> `chart.data()`，同时不再支持列定义，列定义统一通过 `chart.scale()` 方法
 * `chart.coord()` -> `chart.coordinate()`
-* 以下语法糖不再支持：
-
-  - `pointStack()` -> `point().adjust('stack')`
-  - `pointJitter()` -> `point().adjust('jitter')`
-  - `pointDodge()` -> `point().adjust('dodge')`
-  - `intervalStack()` -> `interval().adjust('stack')`
-  - `intervalDodge()` -> `interval().adjust('dodge')`
-  - `intervalSymmetric()` -> `interval().adjust('symmetric')`
-  - `areaStack()` -> `area().adjust('stack')`
-  - `schemaDodge()` -> `schema().adjust('stack')`
-
 * 一些针对特定图表的内置规则删除，比如饼图的坐标轴默认隐藏、Tooltip 的默认配置等，需要用户自行按需配置
 * `geometry().style()` 方法的回调函数写法变更：
 
@@ -55,3 +44,17 @@ style('a', (aVal) => {
   ```
 
 - `chart.scale()` 配置项变更说明： TODO
+
+- ❌`geometry.active()` 移除
+- ❌`geometry.select()` 移除
+- ❌`geometry.opacity()` 移除
+
+* 以下语法糖不再支持：
+  - `pointStack()` -> `point().adjust('stack')`
+  - `pointJitter()` -> `point().adjust('jitter')`
+  - `pointDodge()` -> `point().adjust('dodge')`
+  - `intervalStack()` -> `interval().adjust('stack')`
+  - `intervalDodge()` -> `interval().adjust('dodge')`
+  - `intervalSymmetric()` -> `interval().adjust('symmetric')`
+  - `areaStack()` -> `area().adjust('stack')`
+  - `schemaDodge()` -> `schema().adjust('stack')`
