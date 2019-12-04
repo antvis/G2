@@ -279,10 +279,7 @@ export default class Element extends EE {
   private getShapeDrawCfg(cfg: ShapeInfo): ShapeInfo {
     return {
       ...cfg,
-      style: {
-        ...this.getStateStyle('default'),
-        ...cfg.style,
-      },
+      defaultStyle: this.getStateStyle('default'),
     };
   }
 

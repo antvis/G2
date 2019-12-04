@@ -3,6 +3,7 @@ import { IGroup } from '../../dependents';
 import { Point, Position, RangePoint, ShapeInfo, ShapeMarkerCfg } from '../../interface';
 import { registerShape, registerShapeFactory } from './base';
 import { getPathPoints } from './util/get-path-points';
+import { getStyle } from './util/get-style';
 import { getLinePath, getSplinePath } from './util/path';
 import { splitPoints } from './util/split-points';
 
@@ -71,21 +72,6 @@ const LineSymbols = {
   },
 };
 
-function getStyle(cfg: ShapeInfo) {
-  const { style, color, size } = cfg;
-  const result = {
-    ...style,
-  };
-  if (color) {
-    result.stroke = color;
-  }
-  if (size) {
-    result.lineWidth = size;
-  }
-
-  return result;
-}
-
 function getShapeAttrs(cfg: ShapeInfo, smooth?: boolean, constraint?: Position[]) {
   const { isStack, connectNulls, isInCircle } = cfg;
   const points = getPathPoints(cfg.points, connectNulls); // 根据 connectNulls 值处理 points
@@ -96,7 +82,7 @@ function getShapeAttrs(cfg: ShapeInfo, smooth?: boolean, constraint?: Position[]
   });
 
   return {
-    ...getStyle(cfg),
+    ...getStyle(cfg, true, 'lineWidth'),
     path,
   };
 }
@@ -222,7 +208,7 @@ function getInterpolateShapeAttrs(cfg: ShapeInfo, shapeType: string) {
   });
 
   return {
-    ...getStyle(cfg),
+    ...getStyle(cfg, true, 'lineWidth'),
     path,
   };
 }

@@ -2,6 +2,7 @@ import * as _ from '@antv/util';
 import { IGroup } from '../../dependents';
 import { Point, ShapeInfo, ShapeMarkerCfg, ShapePoint } from '../../interface';
 import { registerShape, registerShapeFactory } from './base';
+import { getStyle } from './util/get-style';
 
 // 根据数据点生成矩形的四个关键点
 function getRectPoints(pointInfo: ShapePoint, isPyramid = false): Point[] {
@@ -174,10 +175,7 @@ const IntervalShapeFactory = registerShapeFactory('interval', {
 // 矩形柱图
 registerShape('interval', 'rect', {
   draw(cfg: ShapeInfo, container: IGroup) {
-    const style = cfg.style;
-    if (cfg.color) {
-      style.fill = cfg.color;
-    }
+    const style = getStyle(cfg, false);
     const path = this.parsePath(getRectPath(cfg.points as Point[]));
     const shape = container.addShape('path', {
       attrs: {
@@ -210,10 +208,7 @@ registerShape('interval', 'rect', {
 // 描边柱状图
 registerShape('interval', 'hollowRect', {
   draw(cfg: ShapeInfo, container: IGroup) {
-    const style = cfg.style;
-    if (cfg.color) {
-      style.stroke = cfg.color;
-    }
+    const style = getStyle(cfg, true);
     const path = this.parsePath(getRectPath(cfg.points as Point[]));
     const shape = container.addShape('path', {
       attrs: {
@@ -249,13 +244,7 @@ registerShape('interval', 'line', {
     return getLinePoints(shapePoint);
   },
   draw(cfg: ShapeInfo, container: IGroup) {
-    const style = cfg.style;
-    if (cfg.color) {
-      style.stroke = cfg.color;
-    }
-    if (cfg.size) {
-      style.lineWidth = cfg.size;
-    }
+    const style = getStyle(cfg, true, 'lineWidth');
     const path = this.parsePath(getRectPath(cfg.points as Point[]));
     const shape = container.addShape('path', {
       attrs: {
@@ -288,10 +277,7 @@ registerShape('interval', 'tick', {
     return getTickPoints(shapePoint);
   },
   draw(cfg: ShapeInfo, container: IGroup) {
-    const style = cfg.style;
-    if (cfg.color) {
-      style.stroke = cfg.color;
-    }
+    const style = getStyle(cfg, true);
     const path = this.parsePath(getTickPath(cfg.points as Point[]));
     const shape = container.addShape('path', {
       attrs: {
@@ -329,10 +315,7 @@ registerShape('interval', 'funnel', {
     return getRectPoints(shapePoint);
   },
   draw(cfg: ShapeInfo, container: IGroup) {
-    const style = cfg.style;
-    if (cfg.color) {
-      style.fill = cfg.color;
-    }
+    const style = getStyle(cfg, false);
     const path = this.parsePath(getFunnelPath(cfg.points as Point[], cfg.nextPoints as Point[], true));
     const shape = container.addShape('path', {
       attrs: {
@@ -360,10 +343,7 @@ registerShape('interval', 'pyramid', {
     return getRectPoints(shapePoint, true);
   },
   draw(cfg: ShapeInfo, container: IGroup) {
-    const style = cfg.style;
-    if (cfg.color) {
-      style.fill = cfg.color;
-    }
+    const style = getStyle(cfg, false);
     const path = this.parsePath(getFunnelPath(cfg.points as Point[], cfg.nextPoints as Point[], false));
     const shape = container.addShape('path', {
       attrs: {

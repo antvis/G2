@@ -57,7 +57,7 @@ describe('Point shapes', () => {
           y: 100,
           points,
           color: 'red',
-          style: {
+          defaultStyle: {
             ...Theme.geometries.polygon.polygon.default,
           },
         },
@@ -102,7 +102,7 @@ describe('Point shapes', () => {
           y: 100,
           points,
           color: 'red',
-          style: {
+          defaultStyle: {
             ...Theme.geometries.polygon.polygon.default,
           },
         },

@@ -2,6 +2,7 @@ import * as _ from '@antv/util';
 import { IGroup } from '../../dependents';
 import { Point, ShapeInfo, ShapeMarkerCfg, ShapePoint } from '../../interface';
 import { registerShape, registerShapeFactory } from './base';
+import { getStyle } from './util/get-style';
 import { splitPoints } from './util/split-points';
 
 const SHAPES = ['circle', 'square', 'bowtie', 'diamond', 'hexagon', 'triangle', 'triangleDown'];
@@ -63,19 +64,9 @@ const PointSymbols = {
   },
 };
 
-function getAttributes(cfg, shapeName) {
-  const style = cfg.style;
-  if (cfg.color) {
-    if (HOLLOW_SHAPES.includes(shapeName) || _.startsWith(shapeName, 'hollow')) {
-      // 描边图形
-      style.stroke = cfg.color;
-    } else {
-      style.fill = cfg.color;
-    }
-  }
-  if (cfg.size) {
-    style.r = cfg.size;
-  }
+function getAttributes(cfg, shapeName: string) {
+  const isStroke = HOLLOW_SHAPES.includes(shapeName) || _.startsWith(shapeName, 'hollow');
+  const style = getStyle(cfg, isStroke, 'r');
   return {
     ...style,
     x: cfg.x,

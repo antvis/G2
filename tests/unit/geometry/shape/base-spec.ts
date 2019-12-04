@@ -10,9 +10,6 @@ const G = getEngine(renderer);
 
 describe('Shape', () => {
   let coordinate;
-  const updateCalled = false;
-  const setStateCalled = false;
-  const destroyCalled = false;
 
   beforeAll(() => {
     coordinate = new Rect({

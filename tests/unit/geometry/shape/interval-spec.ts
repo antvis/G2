@@ -108,7 +108,7 @@ describe('Interval shapes', () => {
           y: 100,
           points,
           color: 'red',
-          style: {
+          defaultStyle: {
             ...Theme.geometries.interval.rect.default,
           },
         },
@@ -163,7 +163,7 @@ describe('Interval shapes', () => {
           y: 100,
           points,
           color: 'yellow',
-          style: {
+          defaultStyle: {
             ...Theme.geometries.interval.hollowRect.default,
           },
         },
@@ -246,8 +246,11 @@ describe('Interval shapes', () => {
           color: 'green',
           points,
           size: 5,
-          style: {
+          defaultStyle: {
             ...Theme.geometries.interval.line.default,
+          },
+          style: {
+            lineWidth: 10,
           },
         },
         element.container
@@ -256,7 +259,7 @@ describe('Interval shapes', () => {
       const path = shape.attr('path');
       expect(shape.attr('stroke')).toBe('green');
       expect(path.length).toBe(4);
-      expect(shape.getBBox().width).toBe(5);
+      expect(shape.getBBox().width).toBe(10);
       expect(path[0][2] - path[1][2]).toBe(125);
     });
 
@@ -332,7 +335,7 @@ describe('Interval shapes', () => {
           y: 100,
           points,
           color: 'pink',
-          style: {
+          defaultStyle: {
             ...Theme.geometries.interval.tick.default,
           },
         },
@@ -403,7 +406,7 @@ describe('Interval shapes', () => {
           y: 100,
           points,
           nextPoints: null,
-          style: {
+          defaultStyle: {
             ...Theme.geometries.interval.funnel.default,
           },
         },
@@ -438,14 +441,16 @@ describe('Interval shapes', () => {
           points,
           nextPoints,
           color: 'yellow',
-          style: {},
+          style: {
+            fill: '#334455',
+          },
         },
         element.container
       );
       canvas.draw();
 
       const path = shape.attr('path');
-      expect(shape.attr('fill')).toBe('yellow');
+      expect(shape.attr('fill')).toBe('#334455');
       expect(path).toEqual([['M', 125, 400], ['L', 125, 250], ['L', 225, 300], ['L', 225, 350], ['Z']]);
     });
 
@@ -500,7 +505,7 @@ describe('Interval shapes', () => {
           y: 100,
           points,
           nextPoints: null,
-          style: {
+          defaultStyle: {
             ...Theme.geometries.interval.pyramid.default,
           },
         },
@@ -533,7 +538,7 @@ describe('Interval shapes', () => {
           points,
           nextPoints,
           color: 'red',
-          style: {
+          defaultStyle: {
             ...Theme.geometries.interval.pyramid.default,
           },
         },
