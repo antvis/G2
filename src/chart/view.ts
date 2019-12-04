@@ -366,8 +366,11 @@ export class View extends EE {
   public legend(field: string | boolean, legendOption?: LegendOption): View {
     if (isBoolean(field)) {
       set(this.options, ['legends'], field);
-    } else {
+    } else if (isString(field)) {
       set(this.options, ['legends', field], legendOption);
+    } else {
+      // 设置全局的 legend 配置
+      set(this.options, ['legends'], field);
     }
 
     return this;

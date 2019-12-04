@@ -20,9 +20,9 @@ type Option = Record<string, LegendOption> | boolean;
 function getLegendOption(legends: Record<string, LegendOption> | boolean, field: string) {
   if (isBoolean(legends)) {
     return legends === false ? false : {};
-  } else {
-    return get(legends, [field]);
   }
+
+  return get(legends, [field], legends);
 }
 
 /**
