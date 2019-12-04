@@ -98,13 +98,15 @@ export default class Element extends EE {
   public destroy() {
     const { shapeFactory, shape } = this;
 
-    const animateCfg = this.getAnimateCfg('leave');
-    if (animateCfg) {
-      // 指定了动画配置则执行销毁动画
-      doAnimate(shape, animateCfg, shapeFactory.coordinate);
-    } else {
-      // 否则直接销毁
-      shape.remove(true);
+    if (shape) {
+      const animateCfg = this.getAnimateCfg('leave');
+      if (animateCfg) {
+        // 指定了动画配置则执行销毁动画
+        doAnimate(shape, animateCfg, shapeFactory.coordinate);
+      } else {
+        // 否则直接销毁
+        shape.remove(true);
+      }
     }
 
     this.states = [];
@@ -236,19 +238,22 @@ export default class Element extends EE {
   private drawShape() {
     const { shapeType, shapeFactory, model, container } = this;
     const drawCfg = this.getShapeDrawCfg(model);
-    const shape = shapeFactory.drawShape(shapeType, drawCfg, container);
-    this.setShapeInfo(shape, drawCfg); // 存储绘图数据
-    this.shape = shape;
-    if (!shape.get('name')) {
-      // TODO: 当用户设置了 name 后，为了保证 geometry:eventName 这样的事件能够正常触发，需要加一个 inheritName
-      // 等 G 事件改造完成后加上
-      shape.set('name', this.shapeFactory.geometryType);
-    }
+    // 自定义 shape 有可能返回空 shape
+    this.shape = shapeFactory.drawShape(shapeType, drawCfg, container);
 
-    // 执行入场动画
-    const animateCfg = this.getAnimateCfg('enter');
-    if (animateCfg) {
-      doAnimate(shape, animateCfg, shapeFactory.coordinate);
+    if (this.shape) {
+      this.setShapeInfo(this.shape, drawCfg); // 存储绘图数据
+      if (!this.shape.get('name')) {
+        // TODO: 当用户设置了 name 后，为了保证 geometry:eventName 这样的事件能够正常触发，需要加一个 inheritName
+        // 等 G 事件改造完成后加上
+        this.shape.set('name', this.shapeFactory.geometryType);
+      }
+
+      // 执行入场动画
+      const animateCfg = this.getAnimateCfg('enter');
+      if (animateCfg) {
+        doAnimate(this.shape, animateCfg, shapeFactory.coordinate);
+      }
     }
   }
 
