@@ -1,6 +1,7 @@
 import * as _ from '@antv/util';
 import 'jest-extended';
-import { getCoordinate, Group } from '../../../src/dependents';
+import { getEngine } from '../../../src';
+import { getCoordinate, IGroup } from '../../../src/dependents';
 import Geometry from '../../../src/geometry/base';
 import * as Shape from '../../../src/geometry/shape/base';
 import { LooseObject } from '../../../src/interface';
@@ -8,6 +9,8 @@ import Theme from '../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
 
 const Rect = getCoordinate('rect');
+
+const G = getEngine('canvas');
 
 describe('Geometry', () => {
   const coordinate = new Rect({
@@ -29,7 +32,7 @@ describe('Geometry', () => {
       geometry = new Geometry({
         data,
         coordinate,
-        container: new Group({}),
+        container: new G.Group({}),
         theme: {
           ...Theme,
           geometries: {
@@ -538,7 +541,7 @@ describe('Geometry', () => {
         { year: '1998', value: 32040 },
       ],
       coordinate,
-      container: new Group({}),
+      container: new G.Group({}),
       theme: {
         ...Theme,
       },

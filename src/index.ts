@@ -1,7 +1,11 @@
 export * from './core';
 
-import { GeometryCfg } from './geometry/base';
-import { PathCfg } from './geometry/path';
+// register G engine
+import * as CanvasEngine from '@antv/g-canvas';
+import * as SVGEngine from '@antv/g-svg';
+import { registerEngine } from './core';
+registerEngine('canvas', CanvasEngine);
+registerEngine('svg', SVGEngine);
 
 // 注册 G2 内置的 geometry
 import { registerGeometry } from './core';
@@ -36,6 +40,9 @@ registerInteraction('activeRegion', ActiveRegion);
 
 // view module augmentation
 // detail: http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
+import { GeometryCfg } from './geometry/base';
+import { PathCfg } from './geometry/path';
+
 declare module './chart/view' {
   interface View {
     polygon(cfg?: Partial<GeometryCfg>): Polygon;

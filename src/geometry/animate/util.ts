@@ -1,5 +1,4 @@
-import * as _ from '@antv/util';
-import { Coordinate, Shape } from '../../dependents';
+import { Coordinate, IShape } from '../../dependents';
 import { getSectorPath } from '../../util/graphics';
 
 /**
@@ -12,21 +11,12 @@ export function getCoordinateClipCfg(coordinate: Coordinate) {
   const width = coordinate.getWidth();
   const height = coordinate.getHeight();
   const margin = 20;
-  let clip;
 
   if (coordinate.isPolar) {
     const { startAngle, endAngle } = coordinate;
     const center = coordinate.getCenter();
     // @ts-ignore 需要 coordinate 基类上支持
     const radius = coordinate.getRadius();
-    // @ts-ignore 待 G 4.0 支持
-    // 初始状态
-    clip = new Shape.Path({
-      isClipShape: true,
-      attrs: {
-        path: getSectorPath(center.x, center.y, radius + margin, startAngle, startAngle),
-      },
-    });
 
     return {
       type: 'path',

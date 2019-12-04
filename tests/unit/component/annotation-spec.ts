@@ -114,7 +114,7 @@ describe('annotation', () => {
     // @ts-ignore
     expect(text.get('style').fontFamily).toEqual(chart.getTheme().fontFamily);
     // pos
-    expect(text.get('x')).toBeWithin(139, 140);
+    expect(text.get('x')).toBeWithin(138, 143);
     expect(text.get('y')).toBeWithin(97, 101);
     // style
     expect(text.get('style').fill).toBe('red');
@@ -156,7 +156,7 @@ describe('annotation', () => {
     const text = chart.annotationController.getComponents()[5].component;
     const coordinateCenter = chart.getCoordinate().getCenter();
     // // pos
-    expect(text.get('x')).toBeWithin(139, 140);
+    expect(text.get('x')).toBeWithin(138, 142);
     expect(text.get('y')).toBeWithin(97, 101);
   });
 

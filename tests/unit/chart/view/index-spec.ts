@@ -1,7 +1,6 @@
 import * as _ from '@antv/util';
 import 'jest-extended';
-import { View } from '../../../../src';
-import { Canvas, Group } from '../../../../src/dependents';
+import { getEngine, View } from '../../../../src';
 import { createCanvas, createDiv } from '../../../util/dom';
 
 const data = [
@@ -11,11 +10,14 @@ const data = [
   { city: '呼和浩特', sale: 10, category: '鼠标' },
 ];
 
+const renderer = 'canvas';
+
 describe('View', () => {
   const div = createDiv();
 
   const canvas = createCanvas({
     container: div,
+    renderer,
   });
 
   const backgroundGroup = canvas.addGroup();
@@ -32,13 +34,13 @@ describe('View', () => {
   });
 
   it('constructor', () => {
-    expect(view.canvas).toBeInstanceOf(Canvas);
+    expect(view.canvas).toBeInstanceOf(getEngine(renderer).Canvas);
     // @ts-ignore
-    expect(view.backgroundGroup).toBeInstanceOf(Group);
+    expect(view.backgroundGroup).toBeInstanceOf(getEngine(renderer).Group);
     // @ts-ignore
-    expect(view.middleGroup).toBeInstanceOf(Group);
+    expect(view.middleGroup).toBeInstanceOf(getEngine(renderer).Group);
     // @ts-ignore
-    expect(view.foregroundGroup).toBeInstanceOf(Group);
+    expect(view.foregroundGroup).toBeInstanceOf(getEngine(renderer).Group);
   });
 
   it('region', () => {

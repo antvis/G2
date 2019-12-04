@@ -19,6 +19,9 @@ export { Facet, getFacet, registerFacet } from './facet';
 export { Interaction, getInteraction, registerInteraction } from './interaction';
 export { registerStateAction } from './state';
 
+// G engine 管理相关
+export { registerEngine, getEngine } from './engine';
+
 // 类型定义导出
 export { ChartCfg, ViewCfg } from './chart';
 export { Data, Datum, Region, Point } from './interface';

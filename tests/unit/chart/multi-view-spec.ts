@@ -19,7 +19,6 @@ const chart = new Chart({
   width: 800,
   height: 600,
   padding: 0,
-  renderer: 'svg',
   autoFit: false,
 });
 

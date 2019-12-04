@@ -1,7 +1,6 @@
-import * as _ from '@antv/util';
-import { Chart, LAYER } from '../../../src/';
+import { Chart, getEngine, LAYER } from '../../../src/';
 import { VIEW_LIFE_CIRCLE } from '../../../src/constant';
-import { Canvas, Group } from '../../../src/dependents';
+import { ICanvas, IGroup } from '../../../src/dependents';
 import { CITY_SALE } from '../../util/data';
 import { createDiv } from '../../util/dom';
 
@@ -32,11 +31,11 @@ describe('Chart', () => {
     expect(chart.localRefresh).toBe(true);
     expect(chart.width).toEqual(800);
     expect(chart.height).toEqual(600);
-    expect(chart.canvas).toBeInstanceOf(Canvas);
+    expect(chart.canvas).toBeInstanceOf(getEngine(chart.renderer).Canvas);
 
-    expect(chart.getLayer(LAYER.BG)).toBeInstanceOf(Group);
-    expect(chart.getLayer(LAYER.MID)).toBeInstanceOf(Group);
-    expect(chart.getLayer(LAYER.FORE)).toBeInstanceOf(Group);
+    expect(chart.getLayer(LAYER.BG)).toBeInstanceOf(getEngine(chart.renderer).Group);
+    expect(chart.getLayer(LAYER.MID)).toBeInstanceOf(getEngine(chart.renderer).Group);
+    expect(chart.getLayer(LAYER.FORE)).toBeInstanceOf(getEngine(chart.renderer).Group);
 
     chart.render();
     // region -> view bbox
