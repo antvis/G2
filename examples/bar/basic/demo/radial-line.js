@@ -10,7 +10,7 @@ const data = [
   { term: 'ThunderCats', count: 4 },
   { term: 'The Taqwacores - Motion Picture', count: 4 },
   { term: 'The Shawshank Redemption', count: 2 },
-  { term: 'The Olivia Experiment', count: 1 }
+  { term: 'The Olivia Experiment', count: 1 },
 ];
 
 const chart = new Chart({
@@ -25,21 +25,22 @@ chart.scale('count', {
 
 chart.coordinate('theta', {
   innerRadius: 0.2,
-  endAngle: Math.PI
+  endAngle: Math.PI,
 });
 
 chart.axis(false);
 
-chart.interval()
+chart
+  .interval()
   .position('term*count')
   .color('#8543e0')
   .shape('line')
-  // .select(false)
   .style({
-    lineAppendWidth: 10
+    lineAppendWidth: 10,
   }); // 线状柱状图
 
-chart.point()
+chart
+  .point()
   .position('term*count')
   .color('#8543e0')
   .shape('circle');
@@ -47,22 +48,22 @@ chart.point()
 for (let i = 0, l = data.length; i < l; i++) {
   const obj = data[i];
   chart.annotation().text({
-    position: [ obj.term, 0 ],
+    position: [obj.term, 0],
     content: obj.term + ' ',
     style: {
-      textAlign: 'right'
-    }
+      textAlign: 'right',
+    },
   });
 }
 
 chart.annotation().text({
-  position: [ '50%', '50%' ],
+  position: ['50%', '50%'],
   content: 'Music',
   style: {
     textAlign: 'center',
     fontSize: 24,
-    fill: '#8543e0'
-  }
+    fill: '#8543e0',
+  },
 });
 
 chart.render();
