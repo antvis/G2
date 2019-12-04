@@ -615,9 +615,9 @@ export class View extends EE {
       parent: this,
       canvas: this.canvas,
       // 子 view 共用三层 group
-      backgroundGroup: this.middleGroup.addGroup({ zIndex: GROUP_Z_INDEX.BG }),
+      backgroundGroup: this.backgroundGroup.addGroup({ zIndex: GROUP_Z_INDEX.BG }),
       middleGroup: this.middleGroup.addGroup({ zIndex: GROUP_Z_INDEX.MID }),
-      foregroundGroup: this.middleGroup.addGroup({ zIndex: GROUP_Z_INDEX.FORE }),
+      foregroundGroup: this.foregroundGroup.addGroup({ zIndex: GROUP_Z_INDEX.FORE }),
       theme: this.themeObject,
       ...cfg,
       options: {
