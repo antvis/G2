@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix, isObject } from '@antv/util';
 import { getTheme } from '../theme';
 
 /**
@@ -7,7 +7,7 @@ import { getTheme } from '../theme';
  * @param theme
  */
 export function mergeTheme(themeObject: object, theme: string | object): object {
-  const newThemeObject: object = _.isObject(theme) ? theme : getTheme(theme);
+  const newThemeObject: object = isObject(theme) ? theme : getTheme(theme);
 
-  return _.deepMix(themeObject, newThemeObject);
+  return deepMix(themeObject, newThemeObject);
 }

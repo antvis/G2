@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { each, every, filter } from '@antv/util';
 import View from '../chart/view';
 import { Axis, Text } from '../component';
 import { DIRECTION, LAYER } from '../constant';
@@ -50,9 +50,9 @@ export default class Rect extends Facet<RectCfg, RectData> {
           { field: rowField, value: yVal, values: rowValues },
         ];
 
-        const facetData = _.filter(data, (datum: Datum) => {
+        const facetData = filter(data, (datum: Datum) => {
           // 过滤出全部满足条件的数据
-          return _.every(conditions, (condition) => {
+          return every(conditions, (condition) => {
             const { field, value } = condition;
             return datum[field] === value;
           });
@@ -80,7 +80,7 @@ export default class Rect extends Facet<RectCfg, RectData> {
   }
 
   protected renderFacetComponents(): void {
-    _.each(this.facets, (facet: RectData, facetIndex: number) => {
+    each(this.facets, (facet: RectData, facetIndex: number) => {
       const { columnIndex, rowIndex, columnValuesLength, rowValuesLength, columnValue, rowValue } = facet;
 
       const zeroPosition: Position = [0, 0];
@@ -145,7 +145,7 @@ export default class Rect extends Facet<RectCfg, RectData> {
     // 1. 上右下左的 gap
     const gap: Padding = [0, 0, 0, 0];
 
-    _.each(this.components, (facetComponent: FacetComponent) => {
+    each(this.components, (facetComponent: FacetComponent) => {
       const { component, direction } = facetComponent;
       const idx =
         direction === DIRECTION.TOP
@@ -169,7 +169,7 @@ export default class Rect extends Facet<RectCfg, RectData> {
     this.view.coordinateBBox = this.view.coordinateBBox.shrink(gap);
 
     // 3. 布局，移动组件位置
-    _.each(this.components, (facetComponent: FacetComponent) => {
+    each(this.components, (facetComponent: FacetComponent) => {
       const { component, facetIndex, direction } = facetComponent;
       const facet = this.facets[facetIndex];
       const { region } = facet;

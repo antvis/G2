@@ -1,10 +1,10 @@
-import * as _ from '@antv/util';
+import { each, isEmpty } from '@antv/util';
 import { Coordinate, IShape, PathCommand } from '../dependents';
 import { ShapeInfo } from '../interface';
 
 // 获取图形的包围盒
 function getPointsBox(points) {
-  if (_.isEmpty(points)) {
+  if (isEmpty(points)) {
     return null;
   }
 
@@ -12,7 +12,7 @@ function getPointsBox(points) {
   let maxX = points[0].x;
   let minY = points[0].y;
   let maxY = points[0].y;
-  _.each(points, (point) => {
+  each(points, (point) => {
     minX = minX > point.x ? point.x : minX;
     maxX = maxX < point.x ? point.x : maxX;
     minY = minY > point.y ? point.y : minY;

@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { each, isEmpty, isEqual, last } from '@antv/util';
 import { IGroup } from '../../dependents';
 import { ShapeInfo, ShapeMarkerCfg, ShapePoint } from '../../interface';
 import { registerShape, registerShapeFactory } from './base';
@@ -24,7 +24,7 @@ function getPath(points: any[]) {
     i++;
   }
 
-  if (!_.isEqual(_.last(path), flag)) {
+  if (!isEqual(last(path), flag)) {
     path.push(['L', flag.x, flag.y]);
   }
 
@@ -37,7 +37,7 @@ const PolygonShapeFactory = registerShapeFactory('polygon', {
   defaultShapeType: 'polygon',
   getDefaultPoints(pointInfo: ShapePoint) {
     const points = [];
-    _.each(pointInfo.x as number[], (subX, index) => {
+    each(pointInfo.x as number[], (subX, index) => {
       const subY = pointInfo.y[index];
       points.push({
         x: subX,
@@ -50,7 +50,7 @@ const PolygonShapeFactory = registerShapeFactory('polygon', {
 
 registerShape('polygon', 'polygon', {
   draw(cfg: ShapeInfo, container: IGroup) {
-    if (!_.isEmpty(cfg.points)) {
+    if (!isEmpty(cfg.points)) {
       const shapeAttrs = getStyle(cfg, false);
       const path = this.parsePath(getPath(cfg.points));
       return container.addShape('path', {
@@ -74,7 +74,7 @@ registerShape('polygon', 'polygon', {
 
 registerShape('polygon', 'hollow', {
   draw(cfg: ShapeInfo, container: IGroup) {
-    if (!_.isEmpty(cfg.points)) {
+    if (!isEmpty(cfg.points)) {
       const shapeAttrs = getStyle(cfg, true);
       const path = this.parsePath(getPath(cfg.points));
       return container.addShape('path', {

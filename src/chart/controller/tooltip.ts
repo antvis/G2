@@ -1,5 +1,5 @@
 import * as TOOLTIP_CLASSNAMES from '@antv/component/lib/tooltip/css-const';
-import * as _ from '@antv/util';
+import { each, find, get, isArray, isEqual, isObject } from '@antv/util';
 import { HtmlTooltip, IGroup } from '../../dependents';
 import Geometry from '../../geometry/base';
 import { registerInteraction } from '../../interaction';
@@ -16,8 +16,8 @@ registerInteraction('showTooltip', TooltipInteraction);
 // Filter duplicates, use `name`, `color`, `value` and `title` property values as condition
 function uniq(items) {
   const uniqItems = [];
-  _.each(items, (item) => {
-    const result = _.find(uniqItems, (subItem) => {
+  each(items, (item) => {
+    const result = find(uniqItems, (subItem) => {
       return (
         subItem.color === item.color &&
         subItem.name === item.name &&
@@ -92,7 +92,7 @@ export class Tooltip {
         tooltip,
       });
 
-      this.tooltipInteraction = _.get(view.getOptions(), ['interactions', 'showTooltip']);
+      this.tooltipInteraction = get(view.getOptions(), ['interactions', 'showTooltip']);
     }
   }
 
@@ -135,7 +135,7 @@ export class Tooltip {
 
     const lastItems = this.items;
     const lastTitle = this.title;
-    if (!_.isEqual(lastTitle, title) || !_.isEqual(lastItems, items)) {
+    if (!isEqual(lastTitle, title) || !isEqual(lastItems, items)) {
       // 内容发生变化
       view.emit('tooltip:change', {
         tooltip,
@@ -177,7 +177,7 @@ export class Tooltip {
     for (const geometry of geometries) {
       const dataArray = geometry.dataArray;
       let items = [];
-      _.each(dataArray, (data) => {
+      each(dataArray, (data) => {
         const record = findDataByPoint(point, data, geometry);
         if (record) {
           const subItems = getTooltipItems(record, geometry);
@@ -217,12 +217,12 @@ export class Tooltip {
   private initCfg(cfg) {
     const view = this.view;
     const theme = view.getTheme();
-    const defaultCfg = _.get(theme, ['components', 'tooltip'], {});
+    const defaultCfg = get(theme, ['components', 'tooltip'], {});
     let tooltipCfg = {
       ...defaultCfg,
     };
 
-    if (_.isObject(cfg)) {
+    if (isObject(cfg)) {
       tooltipCfg = {
         ...defaultCfg,
         ...cfg,
@@ -241,7 +241,7 @@ export class Tooltip {
 
     // set domStyles
     tooltipCfg.domStyles = {};
-    _.each(TOOLTIP_CLASSNAMES, (classname) => {
+    each(TOOLTIP_CLASSNAMES, (classname) => {
       if (tooltipCfg[classname]) {
         tooltipCfg.domStyles[classname] = tooltipCfg[classname];
       }
@@ -259,13 +259,13 @@ export class Tooltip {
 
     let items = [];
     const shared = tooltipCfg.shared;
-    _.each(geometries, (geometry: Geometry) => {
+    each(geometries, (geometry: Geometry) => {
       if (geometry.visible && geometry.tooltipOption !== false) {
         // geometry 可见同时未关闭 tooltip
         const dataArray = geometry.dataArray;
         if (shared !== false) {
           // 用户未配置 share: false
-          _.each(dataArray, (data: MappingDatum[]) => {
+          each(dataArray, (data: MappingDatum[]) => {
             const record = findDataByPoint(point, data, geometry);
             if (record) {
               const tooltipItems = getTooltipItems(record, geometry);
@@ -277,7 +277,7 @@ export class Tooltip {
           const shape = container.getShape(point.x, point.y);
           if (shape && shape.get('visible') && shape.get('origin')) {
             const mappingData = shape.get('origin').mappingData;
-            if (_.isArray(mappingData)) {
+            if (isArray(mappingData)) {
               const record = findDataByPoint(point, mappingData, geometry);
               if (record) {
                 items = items.concat(getTooltipItems(record, geometry));
@@ -293,10 +293,10 @@ export class Tooltip {
     items = uniq(items); // 去除重复值
 
     const coordinate = view.getCoordinate();
-    _.each(items, (item) => {
+    each(items, (item) => {
       let { x, y } = item.mappingData;
-      x = _.isArray(x) ? x[x.length - 1] : x;
-      y = _.isArray(y) ? y[y.length - 1] : y;
+      x = isArray(x) ? x[x.length - 1] : x;
+      y = isArray(y) ? y[y.length - 1] : y;
       const convertPoint = coordinate.applyMatrix(x, y, 1);
       item.x = convertPoint[0];
       item.y = convertPoint[1];
@@ -326,7 +326,7 @@ export class Tooltip {
       this.markerGroup = markerGroup;
     }
 
-    _.each(items, (item) => {
+    each(items, (item) => {
       const { x, y } = item;
       const attrs = {
         fill: item.color,

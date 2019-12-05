@@ -1,7 +1,7 @@
-import * as _ from '@antv/util';
-import { IShape, PathCommand } from '../dependents';
+import { each, isEqual } from '@antv/util';
+import { IShape } from '../dependents';
 import Element from '../geometry/element/index';
-import { LooseObject, Point } from '../interface';
+import { LooseObject } from '../interface';
 import { getAngle, getSectorPath } from '../util/graphics';
 import Interaction from './base';
 
@@ -33,7 +33,7 @@ export default class ActiveRegion extends Interaction {
     const view = this.view;
     const tooltipItems = view.getTooltipItems(ev);
 
-    if (_.isEqual(tooltipItems, this.items)) {
+    if (isEqual(tooltipItems, this.items)) {
       // 如果拾取数据同上次相同，则不重复绘制
       return;
     }
@@ -46,7 +46,7 @@ export default class ActiveRegion extends Interaction {
       // 根据 x 对应的值查找 elements
       let elements: Element[] = [];
       const geometries = this.view.geometries;
-      _.each(geometries, (geometry) => {
+      each(geometries, (geometry) => {
         const result = geometry.getElementsBy((ele) => {
           const eleData = ele.getData();
           return eleData[xField] === xValue;
@@ -60,7 +60,7 @@ export default class ActiveRegion extends Interaction {
         const firstBBox = elements[0].shape.getBBox();
         const lastBBox = elements[elements.length - 1].shape.getBBox();
         const groupBBox: LooseObject = firstBBox;
-        _.each(elements, (ele: Element) => {
+        each(elements, (ele: Element) => {
           const bbox = ele.shape.getBBox();
           groupBBox.x = Math.min(bbox.minX, groupBBox.minX);
           groupBBox.y = Math.min(bbox.minY, groupBBox.minY);

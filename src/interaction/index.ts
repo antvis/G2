@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { lowerCase } from '@antv/util';
 import { InteractionConstructor } from './base';
 
 export const Interactions: Record<string, InteractionConstructor> = {};
@@ -9,7 +9,7 @@ export const Interactions: Record<string, InteractionConstructor> = {};
  * @returns the interaction which extends [[Interaction]]
  */
 export function getInteraction(name: string): InteractionConstructor {
-  return Interactions[_.lowerCase(name)];
+  return Interactions[lowerCase(name)];
 }
 
 /**
@@ -18,7 +18,7 @@ export function getInteraction(name: string): InteractionConstructor {
  * @param interaction the interaction which extends [[Interaction]]
  */
 export function registerInteraction(name: string, interaction: InteractionConstructor) {
-  Interactions[_.lowerCase(name)] = interaction;
+  Interactions[lowerCase(name)] = interaction;
 }
 
 export { default as Interaction, InteractionConstructor } from './base';

@@ -1,5 +1,5 @@
 import EE from '@antv/event-emitter';
-import * as _ from '@antv/util';
+import { isEqual } from '@antv/util';
 
 /**
  * The states manager of chart
@@ -17,7 +17,7 @@ export default class StateManager extends EE {
     const preValue = this.states[name];
 
     // 状态量发生了变化
-    if (!_.isEqual(preValue, value)) {
+    if (!isEqual(preValue, value)) {
       this.emit(`${name}change`, {
         name,
         value,

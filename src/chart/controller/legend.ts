@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix, each, find, get, head, isBoolean, last, map, uniq } from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { Attribute, CategoryLegend, ContinuousLegend, IGroup, Scale, Tick } from '../../dependents';
 import Geometry from '../../geometry/base';
@@ -18,10 +18,10 @@ type Option = Record<string, LegendOption> | boolean;
  * @returns the option of one legend field
  */
 function getLegendOption(legends: Record<string, LegendOption> | boolean, field: string) {
-  if (_.isBoolean(legends)) {
+  if (isBoolean(legends)) {
     return legends === false ? false : {};
   } else {
-    return _.get(legends, [field]);
+    return get(legends, [field]);
   }
 }
 
@@ -53,7 +53,7 @@ export class Legend extends Controller<Option> {
    * 计算出 legend 的 direction 位置 x, y
    */
   public layout() {
-    _.each(this.components, (co: ComponentOption) => {
+    each(this.components, (co: ComponentOption) => {
       const { component, direction } = co;
       const bboxObject = component.getBBox();
       const bbox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height);
@@ -82,14 +82,14 @@ export class Legend extends Controller<Option> {
   private createLegends() {
     const legendArray: ComponentOption[] = [];
 
-    const geometries = _.uniq(this.view.geometries);
+    const geometries = uniq(this.view.geometries);
 
     const legendMap: Record<string, any> = {};
 
-    _.each(geometries, (geometry: Geometry) => {
+    each(geometries, (geometry: Geometry) => {
       const attributes = geometry.getGroupAttributes();
 
-      _.each(attributes, (attr: Attribute) => {
+      each(attributes, (attr: Attribute) => {
         const scale = attr.getScale(attr.type);
         // 如果在视觉通道上映射常量值，如 size(2) shape('circle') 不创建 legend
         if (!scale || scale.type === 'identity') {
@@ -135,9 +135,9 @@ export class Legend extends Controller<Option> {
   ): ComponentOption {
     const ticks = scale.getTicks();
 
-    const containMin = _.find(ticks, (tick: Tick) => tick.value === 0);
-    const containMax = _.find(ticks, (tick: Tick) => tick.value === 1);
-    const items = _.map(ticks, (tick: Tick) => {
+    const containMin = find(ticks, (tick: Tick) => tick.value === 0);
+    const containMax = find(ticks, (tick: Tick) => tick.value === 1);
+    const items = map(ticks, (tick: Tick) => {
       const { value, tickValue } = tick;
       const attrValue = attr.mapping(scale.invert(value)).join('');
 
@@ -172,8 +172,8 @@ export class Legend extends Controller<Option> {
     // 跟 attr 相关的配置
     // size color 区别的配置
     let attrLegendCfg = {
-      min: _.head(items).value,
-      max: _.last(items).value,
+      min: head(items).value,
+      max: last(items).value,
       colors: [],
       rail: {
         type: attr.type,
@@ -197,14 +197,14 @@ export class Legend extends Controller<Option> {
     if (attr.type === 'color') {
       attrLegendCfg = {
         ...attrLegendCfg,
-        colors: _.map(items, (item) => item.attrValue),
+        colors: map(items, (item) => item.attrValue),
       };
     }
 
     const layer = LAYER.FORE;
     const container = this.container;
     // if position is not set, use top as default
-    const direction = _.get(legendOption, 'position', DIRECTION.BOTTOM);
+    const direction = get(legendOption, 'position', DIRECTION.BOTTOM);
 
     const layout = getLegendLayout(direction);
 
@@ -240,11 +240,11 @@ export class Legend extends Controller<Option> {
     const layer = LAYER.FORE;
     const container = this.container;
     // if position is not set, use top as default
-    const direction = _.get(legendOption, 'position', DIRECTION.BOTTOM);
+    const direction = get(legendOption, 'position', DIRECTION.BOTTOM);
 
     // the default marker style
-    const themeMarker = _.get(this.view.getTheme(), ['components', 'legend', direction, 'marker']);
-    const userMarker = _.get(legendOption, 'marker');
+    const themeMarker = get(this.view.getTheme(), ['components', 'legend', direction, 'marker']);
+    const userMarker = get(legendOption, 'marker');
 
     const baseCfg = {
       container,
@@ -271,8 +271,8 @@ export class Legend extends Controller<Option> {
    * @param direction
    */
   private getLegendCfg(baseCfg: object, legendOption: LegendOption, direction: DIRECTION) {
-    const themeObject = _.get(this.view.getTheme(), ['components', 'legend', direction], {});
+    const themeObject = get(this.view.getTheme(), ['components', 'legend', direction], {});
 
-    return _.deepMix({}, themeObject, baseCfg, legendOption);
+    return deepMix({}, themeObject, baseCfg, legendOption);
   }
 }

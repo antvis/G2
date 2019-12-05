@@ -1,5 +1,5 @@
 import * as TOOLTIP_CSS_CONST from '@antv/component/lib/tooltip/css-const';
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 
 /** antv 主题色 */
 const DEFAULT_COLOR = '#5B8FF9';
@@ -480,10 +480,10 @@ export default {
   components: {
     axis: {
       top: AXIS_STYLE,
-      bottom: _.deepMix({}, AXIS_STYLE, {
+      bottom: deepMix({}, AXIS_STYLE, {
         grid: null,
       }),
-      left: _.deepMix({}, AXIS_STYLE, {
+      left: deepMix({}, AXIS_STYLE, {
         label: {
           offset: 8,
         },
@@ -491,7 +491,7 @@ export default {
         tickLine: null,
         grid: GRID_STYLE,
       }),
-      right: _.deepMix({}, AXIS_STYLE, {
+      right: deepMix({}, AXIS_STYLE, {
         label: {
           offset: 8,
         },
@@ -499,14 +499,14 @@ export default {
         tickLine: null,
         grid: GRID_STYLE,
       }),
-      circle: _.deepMix({}, AXIS_STYLE, {
+      circle: deepMix({}, AXIS_STYLE, {
         title: null,
         label: {
           offset: 8,
         },
         grid: GRID_STYLE,
       }),
-      radius: _.deepMix({}, AXIS_STYLE, {
+      radius: deepMix({}, AXIS_STYLE, {
         title: null,
         label: {
           offset: 8,
@@ -516,16 +516,16 @@ export default {
       }),
     },
     legend: {
-      right: _.deepMix({}, LEGEND_STYLE, {
+      right: deepMix({}, LEGEND_STYLE, {
         layout: 'vertical',
       }),
-      left: _.deepMix({}, LEGEND_STYLE, {
+      left: deepMix({}, LEGEND_STYLE, {
         layout: 'vertical',
       }),
-      top: _.deepMix({}, LEGEND_STYLE, {
+      top: deepMix({}, LEGEND_STYLE, {
         layout: 'horizontal',
       }),
-      bottom: _.deepMix({}, LEGEND_STYLE, {
+      bottom: deepMix({}, LEGEND_STYLE, {
         layout: 'horizontal',
       }),
       continuous: {

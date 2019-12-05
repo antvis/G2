@@ -1,4 +1,3 @@
-import * as _ from '@antv/util';
 import { MappingDatum, ShapeInfo } from '../interface';
 import Geometry from './base';
 /** 引入 Point 对应的 ShapeFactory */

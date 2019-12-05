@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { isArray } from '@antv/util';
 import { Datum } from '../interface';
 import Geometry from './base';
 /** 引入 Path 对应的 ShapeFactory */
@@ -15,7 +15,7 @@ export default class Polygon extends Geometry {
     let y = cfg.y;
     let temp;
     // x y 都是数组时，不做处理
-    if (!(_.isArray(x) && _.isArray(y))) {
+    if (!(isArray(x) && isArray(y))) {
       const xScale = this.getXScale();
       const yScale = this.getYScale();
       const xCount = xScale.values.length;
@@ -27,12 +27,12 @@ export default class Polygon extends Geometry {
         // 如果x,y都是分类
         x = [x - xOffset, x - xOffset, x + xOffset, x + xOffset];
         y = [y - yOffset, y + yOffset, y + yOffset, y - yOffset];
-      } else if (_.isArray(x)) {
+      } else if (isArray(x)) {
         // x 是数组
         temp = x;
         x = [temp[0], temp[0], temp[1], temp[1]];
         y = [y - yOffset / 2, y + yOffset / 2, y + yOffset / 2, y - yOffset / 2];
-      } else if (_.isArray(y)) {
+      } else if (isArray(y)) {
         // y 是数组
         temp = y;
         y = [temp[0], temp[1], temp[1], temp[0]];

@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { each, isArray } from '@antv/util';
 import { Coordinate, IGroup, PathCommand } from '../../dependents';
 import { Point, Position, Shape, ShapeInfo, ShapeMarkerCfg, ShapePoint } from '../../interface';
 import { registerShape, registerShapeFactory } from './base';
@@ -15,14 +15,14 @@ function getPath(
 ): PathCommand[] {
   const topLinePoints = []; // area 区域上部分
   let bottomLinePoints = []; // area 区域下部分
-  _.each(points, (point) => {
+  each(points, (point) => {
     topLinePoints.push(point[1]);
     bottomLinePoints.push(point[0]);
   });
   bottomLinePoints = bottomLinePoints.reverse();
 
   let path = [];
-  _.each([topLinePoints, bottomLinePoints], (pointsData, index) => {
+  each([topLinePoints, bottomLinePoints], (pointsData, index) => {
     let subPath = [];
     const parsedPoints = registeredShape.parsePoints(pointsData);
     const p1 = parsedPoints[0];
@@ -58,7 +58,7 @@ function getShapeAttrs(
   const pathPoints = getPathPoints(points, connectNulls); // 根据 connectNulls 配置获取图形关键点
 
   let path = [];
-  _.each(pathPoints, (eachPoints: Point[]) => {
+  each(pathPoints, (eachPoints: Point[]) => {
     path = path.concat(getPath(eachPoints, isInCircle, smooth, registeredShape, constraint));
   });
   attrs.path = path;
@@ -79,7 +79,7 @@ const AreaShapeFactory = registerShapeFactory('area', {
   getDefaultPoints(pointInfo: ShapePoint): Point[] {
     // area 基本标记的绘制需要获取上下两边的顶点
     const { x, y0 } = pointInfo;
-    const y = _.isArray(pointInfo.y) ? pointInfo.y : [y0, pointInfo.y];
+    const y = isArray(pointInfo.y) ? pointInfo.y : [y0, pointInfo.y];
 
     return y.map((yItem: number) => {
       return {

@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix, map } from '@antv/util';
 import View from '../chart/view';
 import { DIRECTION } from '../constant';
 import { Attribute, Scale, Tick } from '../dependents';
@@ -32,7 +32,7 @@ export function getLegendItems(
 ): any[] {
   const scale = attr.getScale(attr.type);
   if (scale.isCategory) {
-    return _.map(scale.getTicks(), (tick: Tick): object => {
+    return map(scale.getTicks(), (tick: Tick): object => {
       const { text, value: scaleValue } = tick;
       const name = text;
       const value = scale.invert(scaleValue);
@@ -50,7 +50,7 @@ export function getLegendItems(
         isInPolar: geometry.coordinate.isPolar,
       });
       // the marker configure order should be ensure
-      marker = _.deepMix({}, themeMarker, marker, userMarker);
+      marker = deepMix({}, themeMarker, marker, userMarker);
 
       return { id: value, name, value, marker };
     });

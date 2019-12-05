@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { size } from '@antv/util';
 import 'jest-extended';
 import { getEngine, View } from '../../../../src';
 import { createCanvas, createDiv } from '../../../util/dom';
@@ -92,7 +92,7 @@ describe('View', () => {
     view.filter('sale', (sale: number) => sale <= 150);
     view.filter('city', (city: string) => city.length <= 2);
 
-    expect(_.size(view.getOptions().filters)).toEqual(2);
+    expect(size(view.getOptions().filters)).toEqual(2);
 
     // @ts-ignore
     view.filterData();
@@ -144,7 +144,7 @@ describe('View', () => {
 
     view.render();
     expect(view.geometries.length).toEqual(1);
-    expect(_.size(view.geometries[0].scales)).toEqual(3);
+    expect(size(view.geometries[0].scales)).toEqual(3);
     expect(view.geometries[0].scales.city.ticks).toEqual(['杭州', '广州']);
     expect(view.geometries[0].scales.sale.values).toEqual([100, 30]);
     // @ts-ignore

@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { flatten } from '@antv/util';
 import 'jest-extended';
 import { getEngine } from '../../../src';
 import { getCoordinate, IGroup } from '../../../src/dependents';
@@ -399,7 +399,7 @@ describe('Geometry', () => {
       expect(dataArray[1][1].city).toBe('南京');
 
       // 确保原始数据被保存
-      _.flatten(dataArray).forEach((obj: LooseObject) => {
+      flatten(dataArray).forEach((obj: LooseObject) => {
         expect(obj._origin).not.toBe(undefined);
       });
 

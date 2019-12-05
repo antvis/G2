@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { each } from '@antv/util';
 import { DIRECTION } from '../constant';
 import { Padding, Point, Region } from '../interface';
 import { parsePadding } from './padding';
@@ -103,7 +103,7 @@ export class BBox {
    */
   public add(...subBBox: BBox[]): BBox {
     const bbox = this.clone();
-    _.each(subBBox, (b: BBox) => {
+    each(subBBox, (b: BBox) => {
       bbox.x = Math.min(b.x, bbox.x);
       bbox.y = Math.min(b.y, bbox.y);
       bbox.width = Math.max(b.maxX, bbox.maxX) - bbox.x;
@@ -119,7 +119,7 @@ export class BBox {
    */
   public merge(...subBBox: BBox[]): BBox {
     const bbox = this.clone();
-    _.each(subBBox, (b: BBox) => {
+    each(subBBox, (b: BBox) => {
       bbox.x = Math.max(b.x, bbox.x);
       bbox.y = Math.max(b.y, bbox.y);
       bbox.width = Math.min(b.maxX, bbox.maxX) - bbox.x;

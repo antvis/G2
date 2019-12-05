@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { contains, each, filter, find, isArray, isNil, isNumberEqual, isObject, memoize, values } from '@antv/util';
 import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
 import { Attribute, Scale } from '../dependents';
 import Geometry from '../geometry/base';
@@ -9,7 +9,7 @@ function snapEqual(v1: any, v2: any, scale: Scale) {
   const value1 = scale.translate(v1);
   const value2 = scale.translate(v2);
 
-  return _.isNumberEqual(value1, value2);
+  return isNumberEqual(value1, value2);
 }
 
 function getXValueByPoint(point: Point, geometry: Geometry): number {
@@ -35,21 +35,21 @@ function filterYValue(data: Data, point: Point, geometry: Geometry) {
   const invertPoint = coordinate.invert(point);
   const yValue = yScale.invert(invertPoint.y);
 
-  const result = _.find(data, (obj: Datum) => {
+  const result = find(data, (obj: Datum) => {
     const originData = obj[FIELD_ORIGIN];
     return originData[yField][0] <= yValue && originData[yField][1] >= yValue;
   });
   return result || data[data.length - 1];
 }
 
-const getXDistance = _.memoize((scale: Scale) => {
+const getXDistance = memoize((scale: Scale) => {
   if (scale.isCategory) {
     return 1;
   }
-  const values = scale.values; // values 是无序的
-  let min = scale.translate(values[0]);
+  const scaleValues = scale.values; // values 是无序的
+  let min = scale.translate(scaleValues[0]);
   let max = min;
-  _.each(values, (value) => {
+  each(scaleValues, (value) => {
     // 时间类型需要 translate
     const numericValue = scale.translate(value);
     if (numericValue < min) {
@@ -59,7 +59,7 @@ const getXDistance = _.memoize((scale: Scale) => {
       max = numericValue;
     }
   });
-  const length = values.length;
+  const length = scaleValues.length;
   return (max - min) / (length - 1);
 });
 
@@ -76,14 +76,14 @@ function getTooltipTitle(originData: Datum, geometry: Geometry) {
 }
 
 function getAttributesForLegend(geometry: Geometry) {
-  const attributes = _.values(geometry.attributes);
-  return _.filter(attributes, (attribute: Attribute) => _.contains(GROUP_ATTRS, attribute.type));
+  const attributes = values(geometry.attributes);
+  return filter(attributes, (attribute: Attribute) => contains(GROUP_ATTRS, attribute.type));
 }
 
 function getTooltipValueScale(geometry: Geometry) {
   const attributes = getAttributesForLegend(geometry);
   let scale;
-  _.each(attributes, (attribute: Attribute) => {
+  each(attributes, (attribute: Attribute) => {
     const tmpScale = attribute.getScale(attribute.type);
     if (tmpScale && tmpScale.isLinear) {
       // 如果指定字段是非 position 的，同时是连续的
@@ -102,11 +102,11 @@ function getTooltipValue(originData: Datum, valueScale: Scale) {
   const field = valueScale.field;
   const value = originData[field];
 
-  if (_.isArray(value)) {
-    const values = value.map((eachValue) => {
+  if (isArray(value)) {
+    const texts = value.map((eachValue) => {
       return valueScale.getText(eachValue);
     });
-    return values.join('-');
+    return texts.join('-');
   }
   return valueScale.getText(value);
 }
@@ -117,7 +117,7 @@ function getTooltipName(originData: Datum, geometry: Geometry) {
   const groupScales = geometry.getGroupScales();
   if (groupScales.length) {
     // 如果存在分组类型，取第一个分组类型
-    _.each(groupScales, (scale: Scale) => {
+    each(groupScales, (scale: Scale) => {
       nameScale = scale;
       return false;
     });
@@ -161,7 +161,7 @@ export function findDataByPoint(point: Point, data: MappingDatum[], geometry: Ge
     const y = yScale.invert(invertPoint.y); // 转换为原始值
 
     let min = Infinity;
-    _.each(data, (obj: MappingDatum) => {
+    each(data, (obj: MappingDatum) => {
       const originData = obj[FIELD_ORIGIN];
       const range = (originData[xField] - x) ** 2 + (originData[yField] - y) ** 2;
       if (range < min) {
@@ -181,17 +181,17 @@ export function findDataByPoint(point: Point, data: MappingDatum[], geometry: Ge
   const firstXValue = first[FIELD_ORIGIN][xField];
   const firstYValue = first[FIELD_ORIGIN][yField];
   const lastXValue = last[FIELD_ORIGIN][xField];
-  const isYArray = yScale.isLinear && _.isArray(firstYValue); // 考虑 x 维度相同，y 是数组区间的情况
+  const isYArray = yScale.isLinear && isArray(firstYValue); // 考虑 x 维度相同，y 是数组区间的情况
 
   // 如果 x 的值是数组
-  if (_.isArray(firstXValue)) {
-    _.each(data, (record: MappingDatum) => {
+  if (isArray(firstXValue)) {
+    each(data, (record: MappingDatum) => {
       const originData = record[FIELD_ORIGIN];
       // xValue 在 originData[xField] 的数值区间内
       if (xScale.translate(originData[xField][0]) <= xValue && xScale.translate(originData[xField][1]) >= xValue) {
         if (isYArray) {
           // 层叠直方图场景，x 和 y 都是数组区间
-          if (!_.isArray(rst)) {
+          if (!isArray(rst)) {
             rst = [];
           }
           rst.push(record);
@@ -201,18 +201,18 @@ export function findDataByPoint(point: Point, data: MappingDatum[], geometry: Ge
         }
       }
     });
-    if (_.isArray(rst)) {
+    if (isArray(rst)) {
       rst = filterYValue(rst, point, geometry);
     }
   } else {
     let next;
     if (!xScale.isLinear && xScale.type !== 'timeCat') {
       // x 轴对应的数据为非线性以及非时间类型的数据采用遍历查找
-      _.each(data, (record: MappingDatum, index: number) => {
+      each(data, (record: MappingDatum, index: number) => {
         const originData = record[FIELD_ORIGIN];
         if (snapEqual(originData[xField], xValue, xScale)) {
           if (isYArray) {
-            if (!_.isArray(rst)) {
+            if (!isArray(rst)) {
               rst = [];
             }
             rst.push(record);
@@ -226,7 +226,7 @@ export function findDataByPoint(point: Point, data: MappingDatum[], geometry: Ge
         }
       });
 
-      if (_.isArray(rst)) {
+      if (isArray(rst)) {
         rst = filterYValue(rst, point, geometry);
       }
     } else {
@@ -288,7 +288,7 @@ export function getTooltipItems(data: MappingDatum, geometry: Geometry) {
   let value;
 
   function addItem(itemName, itemValue) {
-    if (!_.isNil(itemValue) && itemValue !== '') {
+    if (!isNil(itemValue) && itemValue !== '') {
       // 值为 null的时候，忽视
       const item = {
         title: tooltipTitle,
@@ -304,7 +304,7 @@ export function getTooltipItems(data: MappingDatum, geometry: Geometry) {
     }
   }
 
-  if (_.isObject(tooltipOption)) {
+  if (isObject(tooltipOption)) {
     const { fields, callback } = tooltipOption;
     if (callback) {
       // 用户定义了回调函数
@@ -324,8 +324,8 @@ export function getTooltipItems(data: MappingDatum, geometry: Geometry) {
       items.push(itemCfg);
     } else {
       const scales = geometry.scales;
-      _.each(fields, (field: string) => {
-        if (!_.isNil(originData[field])) {
+      each(fields, (field: string) => {
+        if (!isNil(originData[field])) {
           // 字段数据为null, undefined 时不显示
           const scale = scales[field];
           name = getName(scale);
@@ -336,7 +336,7 @@ export function getTooltipItems(data: MappingDatum, geometry: Geometry) {
     }
   } else {
     const valueScale = getTooltipValueScale(geometry);
-    if (!_.isNil(originData[valueScale.field])) {
+    if (!isNil(originData[valueScale.field])) {
       // 字段数据为null ,undefined时不显示
       value = getTooltipValue(originData, valueScale);
       name = getTooltipName(originData, geometry);

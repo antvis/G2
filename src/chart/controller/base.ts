@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { each } from '@antv/util';
 import { ComponentOption } from '../interface';
 import View from '../view';
 
@@ -47,7 +47,7 @@ export abstract class Controller<O> {
    */
   public clear() {
     // destroy all components
-    _.each(this.components, (co: ComponentOption) => {
+    each(this.components, (co: ComponentOption) => {
       co.component.destroy();
     });
 

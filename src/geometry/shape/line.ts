@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { each, isArray } from '@antv/util';
 import { IGroup } from '../../dependents';
 import { Point, Position, RangePoint, ShapeInfo, ShapeMarkerCfg } from '../../interface';
 import { registerShape, registerShapeFactory } from './base';
@@ -77,7 +77,7 @@ function getShapeAttrs(cfg: ShapeInfo, smooth?: boolean, constraint?: Position[]
   const points = getPathPoints(cfg.points, connectNulls); // 根据 connectNulls 值处理 points
 
   let path = [];
-  _.each(points, (eachLinePoints: Point[] | RangePoint[]) => {
+  each(points, (eachLinePoints: Point[] | RangePoint[]) => {
     path = path.concat(getPath(eachLinePoints, isInCircle, isStack, smooth, constraint));
   });
 
@@ -115,7 +115,7 @@ function getRangePath(
 ) {
   const topPoints = [];
   const bottomPoints = [];
-  _.each(points, (point: RangePoint) => {
+  each(points, (point: RangePoint) => {
     const result = splitPoints(point);
     topPoints.push(result[0]); // 上边
     bottomPoints.push(result[1]); // 底边
@@ -138,7 +138,7 @@ function getPath(
 ) {
   const first = points[0];
 
-  return _.isArray(first.y)
+  return isArray(first.y)
     ? getRangePath(points as RangePoint[], isInCircle, isStack, smooth, constraint)
     : getSinglePath(points as Point[], isInCircle, smooth, constraint);
 }
@@ -180,7 +180,7 @@ const interpolateCallback = (point: Point, nextPoint: Point, shapeType: string) 
 
 function getInterpolatePoints(points: Point[], shapeType: string) {
   let result = [];
-  _.each(points, (point: Point, index) => {
+  each(points, (point: Point, index) => {
     const nextPoint = points[index + 1];
     result.push(point);
     if (nextPoint) {
@@ -202,7 +202,7 @@ function getInterpolatePath(points: Point[]) {
 function getInterpolateShapeAttrs(cfg: ShapeInfo, shapeType: string) {
   const points = getPathPoints(cfg.points, cfg.connectNulls); // 根据 connectNulls 值处理 points
   let path = [];
-  _.each(points, (eachLinePoints) => {
+  each(points, (eachLinePoints) => {
     const interpolatePoints = getInterpolatePoints(eachLinePoints, shapeType);
     path = path.concat(getInterpolatePath(interpolatePoints));
   });
@@ -220,7 +220,7 @@ const LineShapeFactory = registerShapeFactory('line', {
 // 'line' 默认折线
 // 'dot' 点线 ···
 // 'dash' 断线 - - -
-_.each(['line', 'dot', 'dash', 'smooth'], (shapeType) => {
+each(['line', 'dot', 'dash', 'smooth'], (shapeType) => {
   registerShape('line', shapeType, {
     draw(cfg: ShapeInfo, container: IGroup) {
       const smooth = shapeType === 'smooth';
@@ -255,7 +255,7 @@ _.each(['line', 'dot', 'dash', 'smooth'], (shapeType) => {
 });
 
 // step line
-_.each(['hv', 'vh', 'hvh', 'vhv'], (shapeType) => {
+each(['hv', 'vh', 'hvh', 'vhv'], (shapeType) => {
   registerShape('line', shapeType, {
     draw(cfg: ShapeInfo, container: IGroup) {
       const attrs = getInterpolateShapeAttrs(cfg, shapeType);

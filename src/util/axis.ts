@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { get } from '@antv/util';
 import { DIRECTION } from '../constant';
 import { Coordinate } from '../dependents';
 import { Point, Region } from '../interface';
@@ -162,7 +162,7 @@ export function getAxisFactorByRegion(region: Region, center: Point): number {
  * @returns axis theme cfg
  */
 export function getAxisThemeCfg(theme: object, direction: string): object {
-  return _.get(theme, ['components', 'axis', direction], {});
+  return get(theme, ['components', 'axis', direction], {});
 }
 
 /**
