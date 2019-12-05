@@ -43,7 +43,6 @@ chart
   .position('name*vote')
   .size(32)
   .shape('name', (name) => {
-    // TODO 现在不支持了
     return ['image', imageMap[name]];
   });
 

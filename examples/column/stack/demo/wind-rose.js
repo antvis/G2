@@ -1,7 +1,5 @@
 import { Chart } from '@antv/g2';
 
-// TODO hover 上去的时候，渲染会变化
-
 const data = [
   { direction: 'N', level: '< 0.5 m/s', value: 1.81 },
   { direction: 'N', level: '0.5-2 m/s', value: 1.78 },
@@ -127,8 +125,7 @@ const chart = new Chart({
 
 chart.data(data);
 chart.coordinate('polar', {
-  // TODO 开启之后，Axis circle 绘制样式错误
-  // radius: 0.85
+  radius: 0.85,
 });
 
 chart.axis('value', {
@@ -158,7 +155,7 @@ chart
   .interval()
   .position('direction*value')
   .color('level', colors)
-  // .size(35)
+  .size(35)
   .adjust('stack');
 
 chart.render();
