@@ -93,7 +93,7 @@ describe('Point shapes', () => {
         y: 100,
         points: [{ x: 100, y: 100 }],
         color: 'red',
-        style: {
+        defaultStyle: {
           ...Theme.geometries.point.circle.default,
         },
       },
@@ -111,7 +111,7 @@ describe('Point shapes', () => {
         y: 100,
         points: [{ x: 100, y: 100 }],
         color: 'red',
-        style: {
+        defaultStyle: {
           ...Theme.geometries.point.hyphen.default,
         },
       },

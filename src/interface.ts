@@ -96,7 +96,7 @@ export interface ShapeInfo {
   size?: number | undefined | null;
   /** 映射的颜色值 */
   color?: string | null | undefined;
-  /** 样式 */
+  /** 用户设置的图形样式 */
   style?: LooseObject | null;
   /** 是否在极坐标下 */
   isInCircle?: boolean | undefined;
@@ -114,6 +114,8 @@ export interface ShapeInfo {
   isStack?: boolean;
   /** 是否连接空值，对 Path Line Area 这三种 Geometry 生效 */
   connectNulls?: boolean;
+  /** 默认的 shape 样式 */
+  defaultStyle?: LooseObject;
 }
 
 /** shape 关键点信息 */

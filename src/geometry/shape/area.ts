@@ -3,6 +3,7 @@ import { Coordinate, IGroup, PathCommand } from '../../dependents';
 import { Point, Position, Shape, ShapeInfo, ShapeMarkerCfg, ShapePoint } from '../../interface';
 import { registerShape, registerShapeFactory } from './base';
 import { getPathPoints } from './util/get-path-points';
+import { getStyle } from './util/get-style';
 import { getLinePath, getSplinePath } from './util/path';
 
 function getPath(
@@ -44,25 +45,6 @@ function getPath(
   return path;
 }
 
-function getStyle(shapeName: string, cfg: ShapeInfo) {
-  const attrs = {
-    ...cfg.style,
-  };
-  const isStroke = ['line', 'smoothLine'].includes(shapeName);
-  if (cfg.color) {
-    if (isStroke) {
-      attrs.stroke = cfg.color;
-    } else {
-      attrs.fill = cfg.color;
-    }
-  }
-  if (isStroke && cfg.size) {
-    attrs.lineWidth = cfg.size;
-  }
-
-  return attrs;
-}
-
 function getShapeAttrs(
   shapeName: string,
   cfg: ShapeInfo,
@@ -70,7 +52,8 @@ function getShapeAttrs(
   registeredShape: Shape,
   constraint?: Position[]
 ) {
-  const attrs = getStyle(shapeName, cfg);
+  const isStroke = ['line', 'smoothLine'].includes(shapeName);
+  const attrs = getStyle(cfg, isStroke, 'lineWidth');
   const { connectNulls, isInCircle, points } = cfg;
   const pathPoints = getPathPoints(points, connectNulls); // 根据 connectNulls 配置获取图形关键点
 

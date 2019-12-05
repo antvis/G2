@@ -3,6 +3,7 @@ import { IGroup, PathCommand } from '../../dependents';
 import { Point, ShapeInfo, ShapeMarkerCfg, ShapePoint } from '../../interface';
 import { padEnd } from '../../util/helper';
 import { registerShape, registerShapeFactory } from './base';
+import { getStyle } from './util/get-style';
 
 function getCandleYValues(value: number | number[]) {
   const array = !_.isArray(value) ? [value] : value;
@@ -142,10 +143,7 @@ registerShape('schema', 'candle', {
     return getCandlePoints(x as number, y as number[], size);
   },
   draw(cfg: ShapeInfo, container: IGroup) {
-    const style = cfg.style;
-    if (cfg.color) {
-      style.fill = cfg.color;
-    }
+    const style = getStyle(cfg, false);
     const path = this.parsePath(getCandlePath(cfg.points));
     const shape = container.addShape('path', {
       attrs: {
@@ -190,10 +188,7 @@ registerShape('schema', 'box', {
     return getBoxPoints(x as number, y as number[], size);
   },
   draw(cfg: ShapeInfo, container: IGroup) {
-    const style = cfg.style;
-    if (cfg.color) {
-      style.stroke = cfg.color;
-    }
+    const style = getStyle(cfg, true);
     const path = this.parsePath(getBoxPath(cfg.points));
     const shape = container.addShape('path', {
       attrs: {

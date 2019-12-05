@@ -49,7 +49,12 @@ describe('Interval', () => {
         theme: Theme,
       });
 
-      interval.position('a*b').color('a');
+      interval
+        .position('a*b')
+        .color('a')
+        .style({
+          fill: 'red',
+        });
       interval.init();
 
       const attributes = interval.attributes;
@@ -96,6 +101,7 @@ describe('Interval', () => {
       const container = interval.container;
       expect(container.get('children').length).toBe(2);
       expect(interval.elementsContainer.get('children').length).toBe(3);
+      expect(interval.elementsContainer.get('children')[0].attr('fill')).toBe('red');
     });
 
     test('clear()', () => {

@@ -601,12 +601,6 @@ export default class Geometry {
    */
   public init(cfg: InitCfg = {}) {
     this.setCfg(cfg);
-
-    // TODO: @simaq 是否可以移除设置矩阵这一步？
-    // 需要修改 @antv/coord 模块，将点与当前矩阵相乘
-    const container = this.container;
-    container.setMatrix(this.coordinate.matrix);
-
     this.initAttributes(); // 创建图形属性
 
     // 为 tooltip 的字段创建对应的 scale 实例

@@ -29,6 +29,7 @@ describe('Element', () => {
             x: 20,
             y: 20,
             r: 20,
+            ...cfg.defaultStyle,
             ...cfg.style,
           },
         });

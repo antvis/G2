@@ -66,7 +66,7 @@ describe('Line shapes', () => {
             { x: 200, y: 200 },
           ],
           color: 'red',
-          style: {
+          defaultStyle: {
             ...Theme.geometries.line.line.default,
           },
         },
@@ -94,7 +94,7 @@ describe('Line shapes', () => {
             { x: 200, y: [200, 300] },
           ],
           color: 'red',
-          style: {
+          defaultStyle: {
             ...Theme.geometries.line.dot.default,
           },
         },
@@ -124,7 +124,7 @@ describe('Line shapes', () => {
             { x: [200, 80], y: [200, 300] },
           ],
           color: 'red',
-          style: {
+          defaultStyle: {
             ...Theme.geometries.line.dash.default,
           },
         },
@@ -158,7 +158,7 @@ describe('Line shapes', () => {
             { x: 50, y: 50 },
           ],
           color: 'red',
-          style: {
+          defaultStyle: {
             ...Theme.geometries.line.smooth.default,
           },
         },
@@ -187,7 +187,7 @@ describe('Line shapes', () => {
             { x: 200, y: 200 },
           ],
           color: 'red',
-          style: {
+          defaultStyle: {
             ...Theme.geometries.line.hv.default,
           },
         },
@@ -215,7 +215,7 @@ describe('Line shapes', () => {
             { x: 200, y: 200 },
           ],
           color: 'red',
-          style: {
+          defaultStyle: {
             ...Theme.geometries.line.vh.default,
           },
         },
@@ -244,7 +244,7 @@ describe('Line shapes', () => {
             { x: 200, y: 200 },
           ],
           color: 'red',
-          style: {
+          defaultStyle: {
             ...Theme.geometries.line.hvh.default,
           },
         },
@@ -274,7 +274,7 @@ describe('Line shapes', () => {
             { x: 200, y: 200 },
           ],
           color: 'red',
-          style: {
+          defaultStyle: {
             ...Theme.geometries.line.vhv.default,
           },
         },
@@ -311,7 +311,7 @@ describe('Line shapes', () => {
           ],
           isInCircle: true,
           color: '#1890ff',
-          style: {
+          defaultStyle: {
             ...Theme.geometries.line.smooth.default,
           },
         },

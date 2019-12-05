@@ -93,8 +93,11 @@ describe('Area shapes', () => {
         {
           x: 100,
           y: 100,
-          style: {
+          defaultStyle: {
             ...Theme.geometries.area.area.default,
+          },
+          style: {
+            fill: 'red',
           },
           points: [
             [
@@ -114,7 +117,7 @@ describe('Area shapes', () => {
         element.container
       );
       // canvas.draw();
-      expect(shape.attr('fill')).toBe(Theme.defaultColor);
+      expect(shape.attr('fill')).toBe('red');
       expect(shape.attr('path').length).toBe(7);
     });
   });
@@ -128,7 +131,7 @@ describe('Area shapes', () => {
         {
           x: 100,
           y: 100,
-          style: {
+          defaultStyle: {
             ...Theme.geometries.area.line.default,
           },
           points: [
@@ -173,7 +176,7 @@ describe('Area shapes', () => {
         {
           x: 100,
           y: 100,
-          style: {
+          defaultStyle: {
             ...Theme.geometries.area.smooth.default,
           },
           points: [
@@ -210,8 +213,11 @@ describe('Area shapes', () => {
         {
           x: 100,
           y: 100,
-          style: {
+          defaultStyle: {
             ...Theme.geometries.area.smoothLine.default,
+          },
+          style: {
+            stroke: 'red',
           },
           points: [
             [
@@ -232,7 +238,7 @@ describe('Area shapes', () => {
         element.container
       );
       // canvas.draw();
-      expect(shape.attr('stroke')).toBe('yellow');
+      expect(shape.attr('stroke')).toBe('red');
       expect(shape.attr('path').length).toBe(7);
       expect(shape.attr('path')[1].length).toBe(7);
       expect(shape.attr('path')[3].length).toBe(3);
