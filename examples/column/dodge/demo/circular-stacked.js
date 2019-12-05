@@ -153,9 +153,7 @@ chart
   .interval()
   .position('State*population')
   .size(25)
-  .color('age', function(age) {
-    return colorMap[age];
-  })
+  .color('age', (age) => colorMap[age])
   .tooltip('age*population', (age, population) => {
     return {
       name: age,

@@ -20,7 +20,7 @@ data.forEach(function(obj) {
 registerShape('interval', 'sliceShape', {
   draw(cfg, container) {
     const points = cfg.points;
-    const origin = cfg.mappingData._origin;
+    const origin = cfg.data;
     const percent = origin.value / max;
     const xWidth = points[2].x - points[1].x;
     const width = xWidth * percent;

@@ -15,7 +15,7 @@ const colorSet = {
 registerShape('interval', 'textInterval', {
   draw(cfg, container) {
     const points = this.parsePoints(cfg.points); // 将0-1空间的坐标转换为画布坐标
-    const origin = cfg.mappingData._origin;
+    const origin = cfg.data;
     const value = origin.value;
     container.addShape('text', {
       attrs: {
@@ -45,7 +45,7 @@ registerShape('interval', 'fallFlag', {
     ];
   },
   draw(cfg, container) {
-    const origin = cfg.mappingData._origin;
+    const origin = cfg.data;
     if (_.isEqual(origin, data[data.length - 1])) {
       return;
     }

@@ -115,7 +115,7 @@ const data = [
   { direction: 'NNW', level: '> 10 m/s', value: 0.07 },
 ];
 
-const colors = [/* '#FFF1B8', */ '#E3F4BF', '#BEF7C8', '#86E6C8', '#36CFC9', '#209BDD', '#1581E6', '#0860BF'];
+const colors = ['#E3F4BF', '#BEF7C8', '#86E6C8', '#36CFC9', '#209BDD', '#1581E6', '#0860BF'];
 
 const chart = new Chart({
   container: 'container',

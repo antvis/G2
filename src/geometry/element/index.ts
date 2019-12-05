@@ -75,6 +75,9 @@ export default class Element extends EE {
    */
   public update(model: ShapeInfo) {
     const { shapeType, shapeFactory, shape } = this;
+    if (!shape) {
+      return;
+    }
     // step 1: 更新 shape 携带的信息
     const drawCfg = this.getShapeDrawCfg(model);
     this.setShapeInfo(shape, drawCfg);
