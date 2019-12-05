@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { isEqual } from '@antv/util';
 import { PLOT_EVENTS } from '../constant';
 import { Point } from '../interface';
 import Interaction from './base';
@@ -70,7 +70,7 @@ export default class TooltipInteraction extends Interaction {
       const preLoc = this.location;
       const curLoc = { x: ev.x, y: ev.y };
 
-      if (!preLoc || !_.isEqual(preLoc, curLoc)) {
+      if (!preLoc || !isEqual(preLoc, curLoc)) {
         // 相同位置不重复展示
         this.view.showTooltip(curLoc);
       }

@@ -1,4 +1,3 @@
-import * as _ from '@antv/util';
 import { Data, Datum } from '../interface';
 import Path from './path';
 import './shape/area';

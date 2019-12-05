@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { isArray } from '@antv/util';
 import { IGroup, PathCommand } from '../../dependents';
 import { Point, ShapeInfo, ShapeMarkerCfg, ShapePoint } from '../../interface';
 import { padEnd } from '../../util/helper';
@@ -6,14 +6,14 @@ import { registerShape, registerShapeFactory } from './base';
 import { getStyle } from './util/get-style';
 
 function getCandleYValues(value: number | number[]) {
-  const array = !_.isArray(value) ? [value] : value;
+  const array = !isArray(value) ? [value] : value;
   // 从大到小排序
   const sorted = array.sort((a, b) => b - a);
   return padEnd(sorted, 4, sorted[sorted.length - 1]);
 }
 
 function parseValue(value: number[]) {
-  const array = !_.isArray(value) ? [value] : value;
+  const array = !isArray(value) ? [value] : value;
 
   const min = array[0]; // 最小值
   const max = array[array.length - 1]; // 最大值
@@ -62,7 +62,7 @@ function getCandlePath(points): PathCommand[] {
 function getBoxPoints(x: number, y: number | number[], size: number): Point[] {
   const halfSize = size / 2;
   let pointsArray;
-  if (_.isArray(y)) {
+  if (isArray(y)) {
     // 2维
     const { min, max, median, min1, max1 } = parseValue(y);
     pointsArray = [

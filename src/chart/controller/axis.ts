@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix, each, get, isBoolean, map } from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { CircleAxis, CircleGrid, IGroup, LineAxis, LineGrid, Scale } from '../../dependents';
 import { getAxisFactorByRegion, getAxisRegion, getAxisThemeCfg, getCircleAxisCenterRadius } from '../../util/axis';
@@ -17,10 +17,10 @@ type Option = Record<string, AxisOption> | boolean;
  * @returns the axis option of field
  */
 function getAxisOption(axes: Record<string, AxisOption> | boolean, field: string) {
-  if (_.isBoolean(axes)) {
+  if (isBoolean(axes)) {
     return axes === false ? false : {};
   } else {
-    return _.get(axes, [field]);
+    return get(axes, [field]);
   }
 }
 
@@ -57,7 +57,7 @@ export class Axis extends Controller<Option> {
   public layout() {
     const coordinate = this.view.getCoordinate();
 
-    _.each(this.components, (co: ComponentOption) => {
+    each(this.components, (co: ComponentOption) => {
       const { component, direction, type, extra } = co;
       const { dim, scale } = extra;
 
@@ -179,7 +179,7 @@ export class Axis extends Controller<Option> {
     // y axes
     const yScales = this.view.getYScales();
 
-    _.each(yScales, (scale: Scale, idx: number) => {
+    each(yScales, (scale: Scale, idx: number) => {
       const yAxisOption = getAxisOption(this.option, scale.field);
 
       if (yAxisOption !== false) {
@@ -263,7 +263,7 @@ export class Axis extends Controller<Option> {
     const baseAxisCfg = {
       container,
       ...region,
-      ticks: _.map(scale.getTicks(), (tick) => ({ name: tick.text, value: tick.value })),
+      ticks: map(scale.getTicks(), (tick) => ({ name: tick.text, value: tick.value })),
       title: {
         text: getName(scale),
       },
@@ -273,7 +273,7 @@ export class Axis extends Controller<Option> {
     const axisThemeCfg = getAxisThemeCfg(this.view.getTheme(), direction);
 
     // the cfg order should be ensure
-    return _.deepMix({}, baseAxisCfg, axisThemeCfg, axisOption);
+    return deepMix({}, baseAxisCfg, axisThemeCfg, axisOption);
   }
 
   /**
@@ -299,7 +299,7 @@ export class Axis extends Controller<Option> {
     const gridThemeCfg = getGridThemeCfg(this.view.getTheme(), direction);
 
     // the cfg order should be ensure
-    return _.deepMix({}, baseGridCfg, gridThemeCfg, _.get(axisOption, 'grid', {}));
+    return deepMix({}, baseGridCfg, gridThemeCfg, get(axisOption, 'grid', {}));
   }
 
   /**
@@ -315,7 +315,7 @@ export class Axis extends Controller<Option> {
     const baseAxisCfg = {
       container,
       ...getCircleAxisCenterRadius(this.view.getCoordinate()),
-      ticks: _.map(scale.getTicks(), (tick) => ({ name: tick.text, value: tick.value })),
+      ticks: map(scale.getTicks(), (tick) => ({ name: tick.text, value: tick.value })),
       title: {
         text: getName(scale),
       },
@@ -325,7 +325,7 @@ export class Axis extends Controller<Option> {
     const axisThemeCfg = getAxisThemeCfg(this.view.getTheme(), 'circle');
 
     // the cfg order should be ensure
-    return _.deepMix({}, baseAxisCfg, axisThemeCfg, axisOption);
+    return deepMix({}, baseAxisCfg, axisThemeCfg, axisOption);
   }
 
   /**
@@ -351,6 +351,6 @@ export class Axis extends Controller<Option> {
     const gridThemeCfg = getGridThemeCfg(this.view.getTheme(), direction);
 
     // the cfg order should be ensure
-    return _.deepMix({}, baseGridCfg, gridThemeCfg, _.get(axisOption, 'grid', {}));
+    return deepMix({}, baseGridCfg, gridThemeCfg, get(axisOption, 'grid', {}));
   }
 }

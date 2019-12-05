@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix, each, get, isArray, isFunction, isNil, isString, keys, upperFirst } from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { Annotation as AnnotationComponent, IGroup, Scale } from '../../dependents';
 import { Point } from '../../interface';
@@ -88,11 +88,11 @@ export class Annotation extends Controller<undefined> {
   public render() {
     const viewTheme = this.view.getTheme();
 
-    _.each(this.options, (option: BaseOption) => {
+    each(this.options, (option: BaseOption) => {
       const { type } = option;
-      const theme = _.get(viewTheme, ['components', 'annotation', type], {});
+      const theme = get(viewTheme, ['components', 'annotation', type], {});
 
-      const Ctor = AnnotationComponent[_.upperFirst(type)];
+      const Ctor = AnnotationComponent[upperFirst(type)];
       if (Ctor) {
         const cfg = this.getAnnotationCfg(type, option, theme);
         const annotation = new Ctor(cfg);
@@ -215,26 +215,26 @@ export class Annotation extends Controller<undefined> {
     // 转成 object
     const yScales = this.view.getScalesByDim('y');
 
-    const position: Position = _.isFunction(p) ? p.call(null, xScale, yScales) : p;
+    const position: Position = isFunction(p) ? p.call(null, xScale, yScales) : p;
 
     let x = 0;
     let y = 0;
 
     // 入参是 [24, 24] 这类时
-    if (_.isArray(position)) {
+    if (isArray(position)) {
       const [xPos, yPos] = position;
       // 如果数据格式是 ['50%', '50%'] 的格式
       // fix: 原始数据中可能会包含 'xxx5%xxx' 这样的数据，需要判断下 https://github.com/antvis/f2/issues/590
       // @ts-ignore
-      if (_.isString(xPos) && xPos.indexOf('%') !== -1 && !isNaN(xPos.slice(0, -1))) {
+      if (isString(xPos) && xPos.indexOf('%') !== -1 && !isNaN(xPos.slice(0, -1))) {
         return this.parsePercentPosition(position as [string, string]);
       }
 
       x = this.getNormalizedValue(xPos, xScale);
       y = this.getNormalizedValue(yPos, Object.values(yScales)[0]);
-    } else if (!_.isNil(position)) {
+    } else if (!isNil(position)) {
       // 入参是 object 结构，数据点
-      for (const key of _.keys(position)) {
+      for (const key of keys(position)) {
         const value = position[key];
         if (key === xScale.field) {
           x = this.getNormalizedValue(value, xScale);
@@ -313,7 +313,7 @@ export class Annotation extends Controller<undefined> {
   private getAnnotationCfg(type: string, option: any, theme: object): object {
     let o = {};
 
-    if (_.isNil(option)) {
+    if (isNil(option)) {
       return null;
     }
 
@@ -372,7 +372,7 @@ export class Annotation extends Controller<undefined> {
 
     const container = this.getComponentContainer(option);
     // 合并主题，用户配置优先级高于 主题
-    return _.deepMix({}, theme, { ...o, container });
+    return deepMix({}, theme, { ...o, container });
   }
 
   /**
@@ -381,7 +381,7 @@ export class Annotation extends Controller<undefined> {
    * @return whethe on top
    */
   private isTop(option: any): boolean {
-    return _.get(option, 'top', true);
+    return get(option, 'top', true);
   }
 
   /**

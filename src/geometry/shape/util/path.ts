@@ -1,5 +1,5 @@
 import { vec2 } from '@antv/matrix-util';
-import * as _ from '@antv/util';
+import { each } from '@antv/util';
 import { Coordinate, PathCommand } from '../../../dependents';
 import { Point, Position } from '../../../interface';
 import { getDistanceToCenter } from '../../../util/coordinate';
@@ -70,7 +70,7 @@ function _convertPolarPath(pre: PathCommand, cur: PathCommand, coord: Coordinate
 
 // 当存在整体的圆时，去除圆前面和后面的线，防止出现直线穿过整个圆的情形
 function _filterFullCirleLine(path: PathCommand[]) {
-  _.each(path, (subPath, index) => {
+  each(path, (subPath, index) => {
     const cur = subPath;
     if (cur[0].toLowerCase() === 'a') {
       const pre = path[index - 1];
@@ -213,7 +213,7 @@ export function getSplinePath(points: Point[], isInCircle?: boolean, constaint?:
     // 两点以内直接绘制成路径
     return getLinePath(points, isInCircle);
   }
-  _.each(points, (point) => {
+  each(points, (point) => {
     if (!prePoint || !(prePoint.x === point.x && prePoint.y === point.y)) {
       data.push(point.x);
       data.push(point.y);
@@ -244,7 +244,7 @@ export function getPointAngle(coord, point: Point): number {
 /** 将归一化后的路径数据转换成坐标 */
 export function convertNormalPath(coord, path: PathCommand[]): PathCommand[] {
   const tmp = [];
-  _.each(path, (subPath) => {
+  each(path, (subPath) => {
     const action = subPath[0];
     switch (action.toLowerCase()) {
       case 'm':
@@ -268,7 +268,7 @@ export function convertPolarPath(coord, path: PathCommand[]): PathCommand[] {
   let cur: PathCommand;
   let transposed: boolean;
   let equals: boolean;
-  _.each(path, (subPath, index) => {
+  each(path, (subPath, index) => {
     const action = subPath[0];
 
     switch (action.toLowerCase()) {

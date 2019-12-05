@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { isEqual, some } from '@antv/util';
 import { ShapeInfo } from '../../interface';
 
 /**
@@ -8,7 +8,7 @@ import { ShapeInfo } from '../../interface';
  * @returns
  */
 export function isModelChange(currentModel: ShapeInfo, preModel: ShapeInfo) {
-  return _.some(['color', 'shape', 'size', 'x', 'y', 'isInCircle', 'data', 'style'], (key: string) => {
-    return !_.isEqual(currentModel[key], preModel[key]);
+  return some(['color', 'shape', 'size', 'x', 'y', 'isInCircle', 'data', 'style'], (key: string) => {
+    return !isEqual(currentModel[key], preModel[key]);
   });
 }

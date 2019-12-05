@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { get } from '@antv/util';
 import { FIELD_ORIGIN } from '../constant';
 import { Data, Datum, MappingDatum, Point, RangePoint, ShapeInfo } from '../interface';
 import Geometry, { GeometryCfg } from './base';
@@ -38,7 +38,7 @@ export default class Path extends Geometry {
         data: shapeCfg.data,
         model: shapeCfg,
         shapeType: shapeCfg.shape || shapeFactory.defaultShapeType,
-        theme: _.get(theme, ['geometries', this.shapeType], {}),
+        theme: get(theme, ['geometries', this.shapeType], {}),
         shapeFactory,
         container: elementsContainer,
         animate: this.animateOption,

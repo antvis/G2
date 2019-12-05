@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { lowerCase } from '@antv/util';
 import { FacetCtor } from './interface';
 export { default as Facet } from './facet';
 
@@ -10,7 +10,7 @@ const Facets: Record<string, FacetCtor> = {};
  * @param type
  */
 export const getFacet = (type: string): FacetCtor => {
-  return Facets[_.lowerCase(type)];
+  return Facets[lowerCase(type)];
 };
 
 /**
@@ -19,5 +19,5 @@ export const getFacet = (type: string): FacetCtor => {
  * @param ctor
  */
 export const registerFacet = (type: string, ctor: FacetCtor) => {
-  Facets[_.lowerCase(type)] = ctor;
+  Facets[lowerCase(type)] = ctor;
 };

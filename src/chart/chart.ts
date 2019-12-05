@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { debounce, isString } from '@antv/util';
 import { GROUP_Z_INDEX } from '../constant';
 import { getEngine } from '../engine';
 import { createDom, getChartSize, removeDom } from '../util/dom';
@@ -25,11 +25,17 @@ export default class Chart extends View {
   // @ts-ignore
   constructor(props: ChartCfg) {
     const {
-      container, width, height, autoFit = true, padding = 0,
-      renderer = 'canvas', pixelRatio, localRefresh = true,
+      container,
+      width,
+      height,
+      autoFit = true,
+      padding = 0,
+      renderer = 'canvas',
+      pixelRatio,
+      localRefresh = true,
     } = props;
 
-    const ele: HTMLElement = _.isString(container) ? document.getElementById(container) : container;
+    const ele: HTMLElement = isString(container) ? document.getElementById(container) : container;
 
     // if autoFit, use the container size, to avoid the graph render twice.
     const size = getChartSize(ele, autoFit, width, height);
@@ -115,7 +121,7 @@ export default class Chart extends View {
   /**
    * when container size changed, change chart size props, and re-render.
    */
-  private onResize = _.debounce(() => {
+  private onResize = debounce(() => {
     const { width, height } = getChartSize(this.ele, this.autoFit, this.width, this.height);
     this.changeSize(width, height);
   }, 300);

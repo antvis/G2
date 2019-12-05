@@ -1,6 +1,6 @@
 /** @module Shape */
 import { parsePathString } from '@antv/path-util';
-import * as _ from '@antv/util';
+import { get, upperFirst } from '@antv/util';
 import { IGroup, IShape, PathCommand } from '../../dependents';
 import {
   Point,
@@ -71,7 +71,7 @@ const ShapeFactoryBase = {
     }
 
     const theme = this.theme;
-    const shapeStyle = _.get(theme, [shapeType, 'default'], {});
+    const shapeStyle = get(theme, [shapeType, 'default'], {});
     const markerStyle = shape.getMarker(markerCfg);
     return {
       ...shapeStyle,
@@ -143,7 +143,7 @@ const ShapeFactoryMap = {};
 
 /** 注册 ShapeFacroty 接口 */
 export function registerShapeFactory(factoryName: string, cfg: RegisterShapeFactory): ShapeFactory {
-  const className = _.upperFirst(factoryName);
+  const className = upperFirst(factoryName);
   const geomObj = {
     ...ShapeFactoryBase,
     ...cfg,
@@ -155,7 +155,7 @@ export function registerShapeFactory(factoryName: string, cfg: RegisterShapeFact
 
 /** 注册 Shape 接口 */
 export function registerShape(factoryName: string, shapeType: string, cfg: RegisterShape): Shape {
-  const className = _.upperFirst(factoryName);
+  const className = upperFirst(factoryName);
   const factory = ShapeFactoryMap[className];
   const shapeObj = {
     ...ShapeBase,
@@ -167,6 +167,6 @@ export function registerShape(factoryName: string, shapeType: string, cfg: Regis
 
 /** 获取 Geometry 对应的 shapeFactory */
 export function getShapeFactory(factoryName: string): ShapeFactory {
-  const className = _.upperFirst(factoryName);
+  const className = upperFirst(factoryName);
   return ShapeFactoryMap[className];
 }

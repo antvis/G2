@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { get } from '@antv/util';
 import { Datum } from '../interface';
 import { getXDimensionLength } from '../util/coordinate';
 import Geometry, { InitCfg } from './base';
@@ -64,13 +64,13 @@ export default class Interval extends Geometry {
     if (type !== 'time') {
       // time 类型不做调整
       // 柱状图的 Y 轴要从 0 开始生长，但是如果用户设置了则以用户的为准
-      if (min > 0 && !_.get(scaleDefs, [field, 'min'])) {
+      if (min > 0 && !get(scaleDefs, [field, 'min'])) {
         yScale.change({
           min: 0,
         });
       }
       // 柱当柱状图全为负值时也需要从 0 开始生长，但是如果用户设置了则以用户的为准
-      if (max <= 0 && !_.get(scaleDefs, [field, 'max'])) {
+      if (max <= 0 && !get(scaleDefs, [field, 'max'])) {
         yScale.change({
           max: 0,
         });

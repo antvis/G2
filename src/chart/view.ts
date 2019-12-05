@@ -1,5 +1,20 @@
 import EE from '@antv/event-emitter';
-import * as _ from '@antv/util';
+import {
+  clone,
+  each,
+  filter,
+  flatten,
+  get,
+  isBoolean,
+  isNil,
+  isObject,
+  isString,
+  map,
+  remove,
+  set,
+  size,
+  uniq,
+} from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, GROUP_Z_INDEX, LAYER, PLOT_EVENTS, VIEW_LIFE_CIRCLE } from '../constant';
 import { Attribute, Component, Coordinate, Event as GEvent, ICanvas, IGroup, IShape, Scale } from '../dependents';
 import { Facet, getFacet } from '../facet';
@@ -186,7 +201,7 @@ export class View extends EE {
     this.legendController = new LegendController(this);
 
     // 递归初始化子 view
-    _.each(this.views, (view: View) => {
+    each(this.views, (view: View) => {
       view.init();
     });
   }
@@ -217,7 +232,7 @@ export class View extends EE {
     this.coordinateInstance = undefined;
 
     // 2. 清空 geometries
-    _.each(this.geometries, (geometry: Geometry) => {
+    each(this.geometries, (geometry: Geometry) => {
       geometry.clear();
     });
     this.geometries = [];
@@ -238,7 +253,7 @@ export class View extends EE {
     this.viewEventCaptureRect.remove(true);
 
     // 递归处理子 view
-    _.each(this.views, (view: View) => {
+    each(this.views, (view: View) => {
       view.clear();
     });
 
@@ -259,7 +274,7 @@ export class View extends EE {
     this.middleGroup.remove(true);
     this.foregroundGroup.remove(true);
 
-    _.each(STATE_ACTIONS, (stateAction) => {
+    each(STATE_ACTIONS, (stateAction) => {
       stateAction.destroy(this.stateManager, this);
     });
     this.stateManager.destroy();
@@ -280,7 +295,7 @@ export class View extends EE {
    * @returns View
    */
   public data(data: Data): View {
-    _.set(this.options, 'data', data);
+    set(this.options, 'data', data);
 
     return this;
   }
@@ -297,7 +312,7 @@ export class View extends EE {
    * @returns View
    */
   public filter(field: string, condition: FilterCondition): View {
-    _.set(this.options, ['filters', field], condition);
+    set(this.options, ['filters', field], condition);
 
     return this;
   }
@@ -321,10 +336,10 @@ export class View extends EE {
   public axis(field: boolean): View;
   public axis(field: string, axisOption: AxisOption): View;
   public axis(field: string | boolean, axisOption?: AxisOption): View {
-    if (_.isBoolean(field)) {
-      _.set(this.options, ['axes'], field);
+    if (isBoolean(field)) {
+      set(this.options, ['axes'], field);
     } else {
-      _.set(this.options, ['axes', field], axisOption);
+      set(this.options, ['axes', field], axisOption);
     }
 
     return this;
@@ -349,10 +364,10 @@ export class View extends EE {
   public legend(field: boolean): View;
   public legend(field: string, legendOption: LegendOption): View;
   public legend(field: string | boolean, legendOption?: LegendOption): View {
-    if (_.isBoolean(field)) {
-      _.set(this.options, ['legends'], field);
+    if (isBoolean(field)) {
+      set(this.options, ['legends'], field);
     } else {
-      _.set(this.options, ['legends', field], legendOption);
+      set(this.options, ['legends', field], legendOption);
     }
 
     return this;
@@ -387,11 +402,11 @@ export class View extends EE {
    */
   public scale(field: string, scaleOption: ScaleOption): View;
   public scale(field: string | Record<string, ScaleOption>, scaleOption?: ScaleOption): View {
-    if (_.isString(field)) {
-      _.set(this.options, ['scales', field], scaleOption);
-    } else if (_.isObject(field)) {
-      _.each(field, (v: ScaleOption, k: string) => {
-        _.set(this.options, ['scales', k], v);
+    if (isString(field)) {
+      set(this.options, ['scales', field], scaleOption);
+    } else if (isObject(field)) {
+      each(field, (v: ScaleOption, k: string) => {
+        set(this.options, ['scales', k], v);
       });
     }
 
@@ -413,7 +428,7 @@ export class View extends EE {
    * @returns
    */
   public tooltip(cfg: boolean | TooltipOption): View {
-    _.set(this.options, 'tooltip', cfg);
+    set(this.options, 'tooltip', cfg);
 
     return this;
   }
@@ -443,10 +458,10 @@ export class View extends EE {
   public coordinate(type: string, coordinateCfg?: CoordinateCfg): Coordinate;
   public coordinate(type: string | CoordinateOption, coordinateCfg?: CoordinateCfg): Coordinate {
     // 提供语法糖，使用更简单
-    if (_.isString(type)) {
-      _.set(this.options, 'coordinate', { type, cfg: coordinateCfg } as CoordinateOption);
+    if (isString(type)) {
+      set(this.options, 'coordinate', { type, cfg: coordinateCfg } as CoordinateOption);
     } else {
-      _.set(this.options, 'coordinate', type);
+      set(this.options, 'coordinate', type);
     }
 
     // 创建一个 coordinate 实例
@@ -501,7 +516,7 @@ export class View extends EE {
    * @returns View
    */
   public animate(status: boolean): View {
-    _.set(this.options, 'animate', status);
+    set(this.options, 'animate', status);
     return this;
   }
 
@@ -537,7 +552,7 @@ export class View extends EE {
    * @returns
    */
   public interaction(name: string, cfg?: LooseObject): View {
-    const existInteraction = _.get(this.options, ['interactions', name]);
+    const existInteraction = get(this.options, ['interactions', name]);
     // 存在则先销毁已有的
     if (existInteraction) {
       existInteraction.destroy();
@@ -548,7 +563,7 @@ export class View extends EE {
     if (InteractionCtor) {
       const interaction = new InteractionCtor(this, this.stateManager, cfg);
       interaction.init();
-      _.set(this.options, ['interactions', name], interaction);
+      set(this.options, ['interactions', name], interaction);
     }
 
     return this;
@@ -573,7 +588,7 @@ export class View extends EE {
     this.paint(true);
 
     // 3. 遍历子 view 进行 change data
-    _.each(this.views, (view: View) => {
+    each(this.views, (view: View) => {
       // FIXME 子 view 有自己的数据的情况，该如何处理？
       view.changeData(data);
     });
@@ -603,11 +618,11 @@ export class View extends EE {
     // 子 view 共享 options 配置数据
     const sharedOptions = {
       data: this.options.data,
-      scales: _.clone(this.options.scales),
-      axes: _.clone(this.options.axes),
-      coordinate: _.clone(this.options.coordinate),
-      tooltip: _.clone(this.options.tooltip),
-      legends: _.clone(this.options.legends),
+      scales: clone(this.options.scales),
+      axes: clone(this.options.axes),
+      coordinate: clone(this.options.coordinate),
+      tooltip: clone(this.options.tooltip),
+      legends: clone(this.options.legends),
       animate: this.options.animate,
     };
 
@@ -622,7 +637,7 @@ export class View extends EE {
       ...cfg,
       options: {
         ...sharedOptions,
-        ..._.get(cfg, 'options', {}),
+        ...get(cfg, 'options', {}),
       },
     });
 
@@ -637,7 +652,7 @@ export class View extends EE {
    * @return removedView
    */
   public removeView(view: View): View {
-    const removedView = _.remove(this.views, (v: View) => v === view)[0];
+    const removedView = remove(this.views, (v: View) => v === view)[0];
 
     if (removedView) {
       removedView.destroy();
@@ -682,7 +697,7 @@ export class View extends EE {
    */
   public getYScales(): Scale[] {
     // 拿到所有的 Geometry 的 Y scale，然后去重
-    return _.uniq(_.map(this.geometries, (g: Geometry) => g.getYScale()));
+    return uniq(map(this.geometries, (g: Geometry) => g.getYScale()));
   }
 
   /**
@@ -748,7 +763,7 @@ export class View extends EE {
    * @returns 维度字段的 Attribute 数组
    */
   public getLegendAttributes(): Attribute[] {
-    return (_.flatten(_.map(this.geometries, (g: Geometry) => g.getGroupAttributes())) as unknown) as Attribute[];
+    return (flatten(map(this.geometries, (g: Geometry) => g.getGroupAttributes())) as unknown) as Attribute[];
   }
 
   /**
@@ -757,8 +772,8 @@ export class View extends EE {
    */
   public getGroupScales(): Scale[] {
     // 拿到所有的 Geometry 的 分组字段 scale，然后打平去重
-    const scales = _.map(this.geometries, (g: Geometry) => g.getGroupScales());
-    return _.uniq(_.flatten(scales));
+    const scales = map(this.geometries, (g: Geometry) => g.getGroupScales());
+    return uniq(flatten(scales));
   }
 
   /**
@@ -790,7 +805,7 @@ export class View extends EE {
     let x;
     let y;
 
-    _.each(data, (value, key) => {
+    each(data, (value, key) => {
       if (xScales[key]) {
         x = xScales[key].scale(value);
       }
@@ -799,7 +814,7 @@ export class View extends EE {
       }
     });
 
-    if (!_.isNil(x) && !_.isNil(y)) {
+    if (!isNil(x) && !isNil(y)) {
       return coordinate.convert({ x, y });
     }
   }
@@ -883,7 +898,7 @@ export class View extends EE {
     this.paint(isUpdate);
 
     // 同样递归处理子 views
-    _.each(this.views, (view: View) => {
+    each(this.views, (view: View) => {
       view.renderRecursive(isUpdate);
     });
   }
@@ -964,7 +979,7 @@ export class View extends EE {
     const stateManager = new StateManager();
     this.stateManager = stateManager;
 
-    _.each(STATE_ACTIONS, (stateAction: StateActionCfg) => {
+    each(STATE_ACTIONS, (stateAction: StateActionCfg) => {
       stateAction.init(stateManager, this);
     });
   }
@@ -1050,13 +1065,13 @@ export class View extends EE {
   private filterData() {
     const { data, filters } = this.options;
     // 不存在 filters，则不需要进行数据过滤
-    if (_.size(filters) === 0) {
+    if (size(filters) === 0) {
       this.filteredData = data;
       return;
     }
 
     // 存在过滤器，则逐个执行过滤，过滤器之间是 与 的关系
-    this.filteredData = _.filter(data, (datum: Datum) => {
+    this.filteredData = filter(data, (datum: Datum) => {
       // 所有的 filter 字段
       const fields = Object.keys(filters);
 
@@ -1076,12 +1091,12 @@ export class View extends EE {
    */
   private initGeometries(isUpdate: boolean) {
     // 实例化 Geometry，然后 view 将所有的 scale 管理起来
-    _.each(this.geometries, (geometry: Geometry) => {
+    each(this.geometries, (geometry: Geometry) => {
       // 保持 scales 引用不要变化
       geometry.scales = this.scales;
       const cfg = {
         coordinate: this.getCoordinate(), // 使用 coordinate 引用，可以保持 coordinate 的同步更新
-        scaleDefs: _.get(this.options, 'scales', {}),
+        scaleDefs: get(this.options, 'scales', {}),
         data: this.filteredData,
         theme: this.themeObject,
       };
@@ -1116,14 +1131,14 @@ export class View extends EE {
     const coordinate = this.getCoordinate();
     const scaleOptions = this.options.scales;
 
-    _.each(xyScales, (scale: Scale) => {
+    each(xyScales, (scale: Scale) => {
       // @ts-ignore
       const { field, values, isCategory, isIdentity } = scale;
 
       // 分类或者 identity 的 scale 才进行处理
       if (isCategory || isIdentity) {
         // 存在 value 值，且用户没有配置 range 配置
-        if (values && !_.get(scaleOptions, [field, 'range'])) {
+        if (values && !get(scaleOptions, [field, 'range'])) {
           const count = values.length;
           let range;
 
@@ -1137,7 +1152,7 @@ export class View extends EE {
               if (!coordinate.isTransposed) {
                 range = [0, 1 - 1 / count];
               } else {
-                widthRatio = _.get(this.theme, 'widthRatio.multiplePie', 1 / 1.3);
+                widthRatio = get(this.theme, 'widthRatio.multiplePie', 1 / 1.3);
                 offset = (1 / count) * widthRatio;
                 range = [offset / 2, 1 - offset / 2];
               }
@@ -1168,7 +1183,7 @@ export class View extends EE {
     this.axisController.clear();
     this.axisController.render();
 
-    _.each(this.axisController.getComponents(), (axis: ComponentOption) => {
+    each(this.axisController.getComponents(), (axis: ComponentOption) => {
       const { component, layer, direction, type } = axis;
       this.addComponent(component, layer, direction, type);
     });
@@ -1178,7 +1193,7 @@ export class View extends EE {
     this.legendController.clear();
     this.legendController.render();
 
-    _.each(this.legendController.getComponents(), (legend: ComponentOption) => {
+    each(this.legendController.getComponents(), (legend: ComponentOption) => {
       const { component, layer, direction, type } = legend;
       this.addComponent(component, layer, direction, type);
     });

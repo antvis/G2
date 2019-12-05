@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { each, some } from '@antv/util';
 import { Coordinate, getCoordinate } from '../../dependents';
 import { BBox } from '../../util/bbox';
 import { CoordinateOption } from '../interface';
@@ -10,7 +10,7 @@ import { CoordinateOption } from '../interface';
  * @returns whether has action
  */
 function hasAction(actions, actionName) {
-  return _.some(actions, (action) => action[0] === actionName);
+  return some(actions, (action) => action[0] === actionName);
 }
 
 /**
@@ -59,7 +59,7 @@ export function createCoordinate(
     }
   }
 
-  _.each(coordinateActions, (action: any[]) => {
+  each(coordinateActions, (action: any[]) => {
     const [act, ...args] = action;
     coordinate[act](...args);
   });

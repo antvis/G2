@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { isArray, isNil } from '@antv/util';
 import { IGroup } from '../../dependents';
 import { Point, ShapeInfo, ShapeMarkerCfg, ShapePoint } from '../../interface';
 import { registerShape, registerShapeFactory } from './base';
@@ -14,7 +14,7 @@ function getRectPoints(pointInfo: ShapePoint, isPyramid = false): Point[] {
   // 4. x, y 都是数组
   let yMin;
   let yMax;
-  if (_.isArray(y)) {
+  if (isArray(y)) {
     [yMin, yMax] = y;
   } else {
     yMin = y0;
@@ -23,7 +23,7 @@ function getRectPoints(pointInfo: ShapePoint, isPyramid = false): Point[] {
 
   let xMin;
   let xMax;
-  if (_.isArray(x)) {
+  if (isArray(x)) {
     [xMin, xMax] = x;
   } else {
     xMin = x - size / 2;
@@ -73,10 +73,10 @@ function getRectPath(points: Point[]) {
 function getLinePoints(pointInfo: ShapePoint): Point[] {
   const { x, y, y0 } = pointInfo;
 
-  if (_.isArray(y)) {
+  if (isArray(y)) {
     return y.map((yItem, idx) => {
       return {
-        x: _.isArray(x) ? x[idx] : x,
+        x: isArray(x) ? x[idx] : x,
         y: yItem,
       };
     });
@@ -94,7 +94,7 @@ function getTickPoints(pointInfo: ShapePoint): Point[] {
   const { x, y, y0, size } = pointInfo;
   let yMin;
   let yMax;
-  if (_.isArray(y)) {
+  if (isArray(y)) {
     [yMin, yMax] = y;
   } else {
     yMin = y0;
@@ -133,7 +133,7 @@ function getTickPath(points: Point[]) {
 // 根据 funnel 关键点绘制漏斗图的 path
 function getFunnelPath(points: Point[], nextPoints: Point[], isFunnel: boolean) {
   const path = [];
-  if (!_.isNil(nextPoints)) {
+  if (!isNil(nextPoints)) {
     path.push(
       ['M', points[0].x, points[0].y],
       ['L', points[1].x, points[1].y],

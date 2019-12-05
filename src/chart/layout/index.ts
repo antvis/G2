@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { each } from '@antv/util';
 import { COMPONENT_TYPE } from '../../constant';
 import { BBox } from '../../util/bbox';
 import { getTransposedDirection } from '../../util/direction';
@@ -34,7 +34,7 @@ export default function defaultLayout(view: View): void {
   let bbox = viewBBox;
 
   // 剪裁掉组件的 bbox，剩余的给 绘图区域
-  _.each(this.getOptions().components, (co: ComponentOption) => {
+  each(this.getOptions().components, (co: ComponentOption) => {
     const { component, type } = co;
 
     // grid, tooltip 不参入布局

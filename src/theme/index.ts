@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { get, lowerCase } from '@antv/util';
 import Default from './antv';
 
 // 所有已经存在的主题
@@ -11,7 +11,7 @@ const Themes: Record<string, object> = {
  * @param theme
  */
 export function getTheme(theme?: string): object {
-  return _.get(Themes, _.lowerCase(theme), Themes.default);
+  return get(Themes, lowerCase(theme), Themes.default);
 }
 
 /**
@@ -20,5 +20,5 @@ export function getTheme(theme?: string): object {
  * @param value
  */
 export function registerTheme(theme: string, value: object) {
-  Themes[_.lowerCase(theme)] = value;
+  Themes[lowerCase(theme)] = value;
 }

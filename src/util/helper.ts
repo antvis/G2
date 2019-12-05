@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { isArray, isString } from '@antv/util';
 
 export function isBetween(value: number, start: number, end: number): boolean {
   const min = Math.min(start, end);
@@ -17,9 +17,9 @@ export function isBetween(value: number, start: number, end: number): boolean {
  * @returns
  */
 export function padEnd(source: string | any[], targetLength: number, padValue: any) {
-  if (_.isString(source)) {
+  if (isString(source)) {
     return source.padEnd(targetLength, padValue);
-  } else if (_.isArray(source)) {
+  } else if (isArray(source)) {
     const sourceLength = source.length;
     if (sourceLength < targetLength) {
       const diff = targetLength - sourceLength;

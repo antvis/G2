@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { get, map } from '@antv/util';
 import { DIRECTION } from '../constant';
 import { Coordinate, Scale, Tick } from '../dependents';
 
@@ -9,7 +9,7 @@ import { Coordinate, Scale, Tick } from '../dependents';
  * @returns theme object
  */
 export function getGridThemeCfg(theme: object, direction: DIRECTION): object {
-  return _.get(theme, ['components', 'axis', direction, 'grid'], {});
+  return get(theme, ['components', 'axis', direction, 'grid'], {});
 }
 
 /**
@@ -20,7 +20,7 @@ export function getGridThemeCfg(theme: object, direction: DIRECTION): object {
  * @return items
  */
 export function getLineGridItems(coordinate: Coordinate, scale: Scale, dim: string) {
-  return _.map(scale.getTicks(), (tick: Tick) => {
+  return map(scale.getTicks(), (tick: Tick) => {
     const { value } = tick;
     return {
       points: [
@@ -44,7 +44,7 @@ export function getCircleGridItems(coordinate: Coordinate, xScale: Scale, yScale
 
   // x
   if (dim === 'x') {
-    return _.map(Array(count), (__: any, idx: number) => {
+    return map(Array(count), (__: any, idx: number) => {
       return {
         points: [coordinate.convert({ x: 0, y: 0 }), coordinate.convert({ x: idx / count, y: 1 })],
       };
@@ -53,10 +53,10 @@ export function getCircleGridItems(coordinate: Coordinate, xScale: Scale, yScale
 
   // y
   if (dim === 'y') {
-    return _.map(yScale.getTicks(), (tick: Tick) => {
+    return map(yScale.getTicks(), (tick: Tick) => {
       const { value } = tick;
 
-      const points = _.map(Array(count), (__: any, idx: number) => {
+      const points = map(Array(count), (__: any, idx: number) => {
         return coordinate.convert({
           x: idx / count,
           y: value,
@@ -75,12 +75,12 @@ export function getCircleGridItems(coordinate: Coordinate, xScale: Scale, yScale
  * @param axisOption
  */
 export function showGrid(axisTheme: any, axisOption: any): boolean {
-  const userGrid = _.get(axisOption, 'grid');
+  const userGrid = get(axisOption, 'grid');
   if (userGrid === null) {
     return false;
   }
 
-  const themeGrid = _.get(axisTheme, 'grid');
+  const themeGrid = get(axisTheme, 'grid');
 
   return !(userGrid === undefined && themeGrid === null);
 }

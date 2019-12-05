@@ -1,7 +1,7 @@
-import * as _ from '@antv/util';
+import { isArray } from '@antv/util';
 
 export function parseFields(field: string | string[]): string[] {
-  if (_.isArray(field)) {
+  if (isArray(field)) {
     return field;
   }
 

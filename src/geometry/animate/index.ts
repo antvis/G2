@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { get, isFunction } from '@antv/util';
 import { Coordinate, IGroup, IShape } from '../../dependents';
 import { Data, Datum } from '../../interface';
 import * as Action from './action';
@@ -114,9 +114,9 @@ const DEFAULT_ANIMATE_CFG = {
 
 function getAnimateConfig(animateCfg: AnimateCfg, data: Data | Datum) {
   return {
-    delay: _.isFunction(animateCfg.delay) ? animateCfg.delay(data) : animateCfg.delay,
-    easing: _.isFunction(animateCfg.easing) ? animateCfg.easing(data) : animateCfg.easing,
-    duration: _.isFunction(animateCfg.duration) ? animateCfg.duration(data) : animateCfg.duration,
+    delay: isFunction(animateCfg.delay) ? animateCfg.delay(data) : animateCfg.delay,
+    easing: isFunction(animateCfg.easing) ? animateCfg.easing(data) : animateCfg.easing,
+    duration: isFunction(animateCfg.duration) ? animateCfg.duration(data) : animateCfg.duration,
     callback: animateCfg.callback,
   };
 }
@@ -129,9 +129,9 @@ function getAnimateConfig(animateCfg: AnimateCfg, data: Data | Datum) {
  * @returns default animate cfg
  */
 export function getDefaultAnimateCfg(geometryType: string, animateType: string, coordinate: Coordinate): AnimateCfg {
-  const animateCfg = _.get(DEFAULT_ANIMATE_CFG, [geometryType, animateType], {});
+  const animateCfg = get(DEFAULT_ANIMATE_CFG, [geometryType, animateType], {});
 
-  if (_.isFunction(animateCfg)) {
+  if (isFunction(animateCfg)) {
     return animateCfg(coordinate);
   }
 

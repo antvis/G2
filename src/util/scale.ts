@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { firstValue, get, getRange, isArray, isNil, isNumber, isString, mix, valuesOfKey } from '@antv/util';
 import { getScale, Scale, ScaleConfig } from '../dependents';
 import { LooseObject, ScaleOption } from '../interface';
 
@@ -12,13 +12,13 @@ const dateRegex = /^(?:(?!0000)[0-9]{4}([-/.]+)(?:(?:0?[1-9]|1[0-2])\1(?:0?[1-9]
  */
 function getDefaultType(field: string, data: LooseObject[]): string {
   let type = 'linear';
-  let value = _.firstValue(data, field);
-  if (_.isArray(value)) {
+  let value = firstValue(data, field);
+  if (isArray(value)) {
     value = value[0];
   }
   if (dateRegex.test(value)) {
     type = 'time';
-  } else if (_.isString(value)) {
+  } else if (isString(value)) {
     type = 'cat';
   }
   return type;
@@ -32,13 +32,13 @@ function getDefaultType(field: string, data: LooseObject[]): string {
  * @returns scale cfg 返回数据字段对应的列定义配置
  */
 function getScaleCfg(type: string, field: string, data: LooseObject[]): ScaleConfig {
-  const values = _.valuesOfKey(data, field);
+  const values = valuesOfKey(data, field);
   const cfg: ScaleConfig = {
     field,
     values,
   };
   if (type !== 'cat' && type !== 'timeCat' && type !== 'time') {
-    const { min, max } = _.getRange(values);
+    const { min, max } = getRange(values);
     cfg.min = min;
     cfg.max = max;
     cfg.nice = true;
@@ -75,7 +75,7 @@ export function createScaleByField(field: string | number, data?: LooseObject[] 
     return scale;
   }
 
-  if (_.isNumber(field) || (_.isNil(_.firstValue(data, field)) && !scaleDef)) {
+  if (isNumber(field) || (isNil(firstValue(data, field)) && !scaleDef)) {
     const Identity = getScale('identity');
     scale = new Identity({
       field: field.toString(),
@@ -84,10 +84,10 @@ export function createScaleByField(field: string | number, data?: LooseObject[] 
   } else {
     // 如果已经定义过这个度量
     // TODO: scale 将用户设置的 min 和 max 转换成 maxLimit，minLimit，使得生成的 scale 以用户设置的 min 和 max 为准
-    const type = _.get(scaleDef, 'type', getDefaultType(field, data));
+    const type = get(scaleDef, 'type', getDefaultType(field, data));
     const cfg = getScaleCfg(type, field, data);
 
-    _.mix(cfg, scaleDef);
+    mix(cfg, scaleDef);
 
     const ScaleCtor = getScale(type);
     scale = new ScaleCtor(cfg);

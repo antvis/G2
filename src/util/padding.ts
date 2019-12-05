@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { isArray } from '@antv/util';
 import { Padding } from '../interface';
 
 /**
@@ -7,7 +7,7 @@ import { Padding } from '../interface';
  * @return [ top, right, bottom, left ]
  */
 export function parsePadding(padding: Padding = 0): [number, number, number, number] {
-  let paddingArray = _.isArray(padding) ? padding : [padding];
+  let paddingArray = isArray(padding) ? padding : [padding];
 
   switch (paddingArray.length) {
     case 0:

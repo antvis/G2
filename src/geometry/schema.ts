@@ -1,4 +1,3 @@
-import * as _ from '@antv/util';
 import { LooseObject } from '../interface';
 import { getXDimensionLength } from '../util/coordinate';
 import Geometry from './base';

@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { each, isNil } from '@antv/util';
 import View from '../chart/view';
 import { LAYER } from '../constant';
 import { IGroup } from '../dependents';
@@ -162,7 +162,7 @@ export default abstract class Facet<C extends FacetCfg = FacetCfg, F extends Fac
    */
   private clearFacetViews() {
     // 从 view 中移除分面 view
-    _.each(this.facets, (facet) => {
+    each(this.facets, (facet) => {
       if (facet.view) {
         this.view.removeView(facet.view);
         facet.view = undefined;
@@ -184,9 +184,9 @@ export default abstract class Facet<C extends FacetCfg = FacetCfg, F extends Fac
     const cache: Record<string, boolean> = {};
 
     // 去重、去除 Nil 值
-    _.each(data, (d: Datum) => {
+    each(data, (d: Datum) => {
       const value = d[field];
-      if (!_.isNil(value) && !cache[value]) {
+      if (!isNil(value) && !cache[value]) {
         rst.push(value);
         cache[value] = true;
       }

@@ -1,5 +1,5 @@
 import EE from '@antv/event-emitter';
-import * as _ from '@antv/util';
+import { each, get, isEmpty } from '@antv/util';
 import { IGroup, IShape } from '../../dependents';
 import { AnimateOption, Datum, LooseObject, ShapeFactory, ShapeInfo } from '../../interface';
 import { doAnimate, getDefaultAnimateCfg } from '../animate';
@@ -171,7 +171,7 @@ export default class Element extends EE {
   public clearStates() {
     const states = this.states;
 
-    _.each(states, (state) => {
+    each(states, (state) => {
       this.setState(state, false);
     });
 
@@ -210,7 +210,7 @@ export default class Element extends EE {
     }
 
     const keys = shapeKey ? [shapeType, stateName, shapeKey] : [shapeType, stateName];
-    return _.get(theme, keys, {});
+    return get(theme, keys, {});
   }
 
   // 获取动画配置
@@ -222,7 +222,7 @@ export default class Element extends EE {
     // 1. animate === false, 用户关闭动画
     // 2. 动画默认开启，用户没有对动画进行配置同时有没有内置的默认动画
     // 3. 用户关闭对应的动画  animate: { enter: false }
-    if (!animate || (animate === true && _.isEmpty(defaultCfg)) || animate[animateType] === false) {
+    if (!animate || (animate === true && isEmpty(defaultCfg)) || animate[animateType] === false) {
       return null;
     }
 
@@ -317,7 +317,7 @@ export default class Element extends EE {
   private getReplaceAttrs(sourceShape: IShape, targetShape: IShape) {
     const originAttrs = sourceShape.attr();
     const newAttrs = targetShape.attr();
-    _.each(originAttrs, (v, k) => {
+    each(originAttrs, (v, k) => {
       if (newAttrs[k] === undefined) {
         newAttrs[k] = undefined;
       }
