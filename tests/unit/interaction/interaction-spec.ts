@@ -1,10 +1,8 @@
 import { Chart } from '../../../src/index';
 import Action from '../../../src/new_interaction/action/base';
-import Context from '../../../src/new_interaction/context';
-import Interaction from '../../../src/new_interaction/interaction';
-
-import { isType } from '@antv/util';
 import { createAction, createCallbackAction, registerAction } from '../../../src/new_interaction/action/register';
+import Context from '../../../src/new_interaction/context';
+import Interaction from '../../../src/new_interaction/grammar-interaction';
 import { createDiv } from '../../util/dom';
 
 class CustomAction extends Action {
@@ -80,6 +78,7 @@ describe('Interaction test', () => {
     });
 
     it('init interaction', () => {
+      interaction.init();
       const context = interaction.context;
       expect(context.actions.length).toBe(1);
       expect(context.getAction('custom')).not.toBe(null);
@@ -137,6 +136,7 @@ describe('Interaction test', () => {
         start: [{ trigger: 'mouseenter', action: 'custom:start' }],
         rollback: [{ trigger: 'click', action: 'custom:reset' }],
       });
+      interaction.init();
       const context = interaction.context;
       const action = context.getAction('custom') as CustomAction;
       const eventObject = {};
@@ -157,6 +157,7 @@ describe('Interaction test', () => {
         end: [{ trigger: 'mouseleave', action: 'custom:end' }],
         rollback: [{ trigger: 'click', action: 'custom:reset' }],
       });
+      interaction.init();
       const context = interaction.context;
       const action = context.getAction('custom') as CustomAction;
       const eventObject = {};
@@ -195,6 +196,7 @@ describe('Interaction test', () => {
         ],
         end: [{ trigger: 'mouseleave', action: 'custom:end' }],
       });
+      interaction.init();
       const context = interaction.context;
       const action = context.getAction('custom') as CustomAction;
       const eventObject = {};
@@ -220,6 +222,7 @@ describe('Interaction test', () => {
           },
         ],
       });
+      interaction.init();
       const eventObject = {};
       chart.emit('mouseenter', eventObject);
       expect(called).toBe(false);
@@ -247,6 +250,7 @@ describe('Interaction test', () => {
           },
         ],
       });
+      interaction.init();
       const context = interaction.context;
       const eventObject = {};
       chart.emit('mouseenter', eventObject);
@@ -277,7 +281,7 @@ describe('Interaction test', () => {
     }
     registerAction('custom-active', CustomActive); // 注册
     // 手工测试
-    new Interaction(chart, {
+    const interaction = new Interaction(chart, {
       start: [
         {trigger: 'interval:mouseenter', action:'custom-active:active'}
       ],
@@ -285,6 +289,7 @@ describe('Interaction test', () => {
         {trigger: 'interval:mouseleave', action: 'custom-active:reset'}
       ],
     });
+    interaction.init();
   });
 */
   afterAll(() => {
