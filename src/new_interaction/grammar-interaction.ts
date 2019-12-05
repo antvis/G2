@@ -10,7 +10,7 @@ const STEP_NAMES = {
   SHOW_ENABLE: 'showEnable',
   END: 'end',
   ROLLBACK: 'rollback',
-  PROCESSING: 'processint',
+  PROCESSING: 'processing',
 };
 /** 交互环节的定义 */
 export interface InteractionStep {
@@ -205,9 +205,8 @@ class GrammarInteraction extends Interaction {
         };
       }
       return callbackCaches[key];
-    } else {
-      return null;
     }
+    return null;
   }
   // 清理绑定的事件
   protected clearEvents() {

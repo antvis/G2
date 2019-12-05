@@ -1,4 +1,4 @@
-import { each, isNil } from '@antv/util';
+import { each } from '@antv/util';
 import { View } from '../chart';
 import { IAction, IInteractionContext, LooseObject } from '../interface';
 class Context implements IInteractionContext {
@@ -10,11 +10,11 @@ class Context implements IInteractionContext {
     this.view = view;
   }
 
-  public cache(key: string, value?: any) {
-    if (isNil(value)) {
-      return this.cacheMap[key];
-    } else {
-      this.cacheMap[key] = value;
+  public cache(...params) {
+    if (params.length === 1) {
+      return this.cacheMap[params[0]];
+    } else if (params.length === 2) {
+      this.cacheMap[params[0]] = params[1];
     }
   }
 
