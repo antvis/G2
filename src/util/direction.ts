@@ -37,3 +37,20 @@ export function directionToPosition(parentBBox: BBox, bbox: BBox, direction: DIR
 
   return [0, 0];
 }
+
+/**
+ * get direction after coordinate transpose
+ * @param direction
+ * @param isTransposed
+ * @returns direction after transpose or not
+ */
+export function getTransposedDirection(direction: DIRECTION, isTransposed: boolean): DIRECTION {
+  if (isTransposed) {
+    return direction === DIRECTION.BOTTOM
+      ? DIRECTION.LEFT
+      : direction === DIRECTION.LEFT
+      ? DIRECTION.BOTTOM
+      : direction;
+  }
+  return direction;
+}

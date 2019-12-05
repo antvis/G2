@@ -23,7 +23,6 @@ chart.data(data);
 chart.coordinate('polar');
 chart.legend('year', {
   position: 'right',
-  offsetX: -140,
 });
 chart.axis(false);
 chart
