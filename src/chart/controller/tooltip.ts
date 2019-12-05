@@ -2,16 +2,10 @@ import * as TOOLTIP_CLASSNAMES from '@antv/component/lib/tooltip/css-const';
 import { each, find, get, isArray, isEqual, isObject } from '@antv/util';
 import { HtmlTooltip, IGroup } from '../../dependents';
 import Geometry from '../../geometry/base';
-import { registerInteraction } from '../../interaction';
-// 引入 Tooltip 交互行为
-import TooltipInteraction from '../../interaction/tooltip';
 import { Data, MappingDatum, Point } from '../../interface';
 import { findDataByPoint, getTooltipItems } from '../../util/tooltip';
 import { TooltipOption } from '../interface';
 import View from '../view';
-
-// register Tooltip interaction
-registerInteraction('showTooltip', TooltipInteraction);
 
 // Filter duplicates, use `name`, `color`, `value` and `title` property values as condition
 function uniq(items) {
@@ -86,13 +80,9 @@ export class Tooltip {
 
     if (this.isVisible && !this.tooltipInteraction) {
       // 用户开启 Tooltip
-      view.interaction('showTooltip', {
-        trigger: cfg.triggerOn,
-        enterable: cfg.enterable,
-        tooltip,
-      });
+      view.interaction('tooltip');
 
-      this.tooltipInteraction = get(view.getOptions(), ['interactions', 'showTooltip']);
+      this.tooltipInteraction = get(view.getOptions(), ['interactions', 'tooltip']);
     }
   }
 

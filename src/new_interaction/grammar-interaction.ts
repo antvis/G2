@@ -191,16 +191,19 @@ class GrammarInteraction extends Interaction {
       if (!callbackCaches[key]) {
         // 动态生成执行的方法，执行对应 action 的名称
         callbackCaches[key] = (event) => {
+          context.event = event;
           if (this.isAllowExcute(stepName, step)) {
-            context.event = event;
             const { action, methodName } = actionObject;
-            if (action[methodName]) {
+            if (action && action[methodName]) {
               action[methodName]();
             }
             this.afterExecute(stepName);
             if (step.callback) {
               step.callback(context);
             }
+          } else {
+            // 如果未通过验证，则事件不要绑定在上面
+            context.event = null;
           }
         };
       }
@@ -239,9 +242,12 @@ class GrammarInteraction extends Interaction {
   public destroy() {
     super.destroy(); // 先清理事件
     this.steps = null;
-    this.context.destroy();
+    if (this.context) {
+      this.context.destroy();
+      this.context = null;
+    }
+
     this.callbackCaches = null;
-    this.context = null;
     this.view = null;
   }
 }

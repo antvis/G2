@@ -8,10 +8,10 @@ import { createAction, registerAction } from './register';
 import TooltipAction from './tooltip';
 
 registerAction('tooltip', TooltipAction);
-registerAction('elment-active', ElmentActive);
+registerAction('element-active', ElmentActive);
 registerAction('active-region', ActiveRegion);
-registerAction('elment-selected', ElementSelected);
-registerAction('elment-multiple-selected', ElementMultipleSelected);
+registerAction('element-selected', ElementSelected);
+registerAction('element-multiple-selected', ElementMultipleSelected);
 registerAction('pie-selected', PieSelected);
 
 export { Action, registerAction, createAction };
