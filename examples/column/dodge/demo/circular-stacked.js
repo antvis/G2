@@ -127,14 +127,13 @@ const chart = new Chart({
 });
 
 chart.coordinate('polar', {
-  // TODO 开启后导致 Axis circle 绘制的问题
-  // innerRadius: 0.5
+  innerRadius: 0.5,
 });
 
 chart.data(dv.rows);
 chart.scale({
   population: {
-    minTickInterval: 2000000,
+    minTickInterval: 5000000,
   },
 });
 
