@@ -32,6 +32,9 @@ export function registerInteraction(name: string, interaction: InteractionSteps 
  */
 export function createInteraction(name: string, view: View, cfg?: LooseObject) {
   const interaciton = getInteraction(name);
+  if (!interaciton) {
+    return null;
+  }
   if (isObject(interaciton)) {
     const steps = interaciton as InteractionSteps;
     return new GrammarInteraction(view, steps);

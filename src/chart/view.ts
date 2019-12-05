@@ -20,8 +20,8 @@ import { Attribute, Component, Coordinate, Event as GEvent, ICanvas, IGroup, ISh
 import { Facet, getFacet } from '../facet';
 import { FacetCfgMap } from '../facet/interface';
 import Geometry from '../geometry/base';
-import { getInteraction } from '../interaction/';
 import { Data, Datum, LooseObject, Point, Region, ScaleOption } from '../interface';
+import { createInteraction } from '../new_interaction/';
 import { STATE_ACTIONS, StateActionCfg, StateManager } from '../state';
 import { BBox } from '../util/bbox';
 import { isFullCircle, isPointInCoordinate } from '../util/coordinate';
@@ -562,13 +562,11 @@ export class View extends EE {
     }
 
     // 新建交互实例
-    const InteractionCtor = getInteraction(name);
-    if (InteractionCtor) {
-      const interaction = new InteractionCtor(this, this.stateManager, cfg);
+    const interaction = createInteraction(name, this, cfg);
+    if (interaction) {
       interaction.init();
       set(this.options, ['interactions', name], interaction);
     }
-
     return this;
   }
 

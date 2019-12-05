@@ -1,57 +1,31 @@
 import { Chart } from '../../../src';
-import { getInteraction, Interaction, registerInteraction } from '../../../src/interaction';
-import { registerStateAction } from '../../../src/state';
+import { getInteraction, registerInteraction } from '../../../src/new_interaction';
 import { createDiv } from '../../util/dom';
 import { getClientPoint, simulateMouseEvent } from '../../util/simulate';
 
 describe('Interaction', () => {
-  registerStateAction('activeline', {
-    init(stateManager) {
-      stateManager.on('activeline', this.activeLine);
-    },
-    destroy(stateManager) {
-      stateManager.off('activeline', this.activeLine);
-    },
-    activeLine(obj) {
-      const { value: currentShape, preValue: preShape } = obj;
-      if (currentShape) {
-        currentShape.attr('strokeOpacity', 1);
-      }
-
-      if (preShape) {
-        preShape.attr('strokeOpacity', 0.2);
-      }
-    },
+  registerInteraction('activeLine', {
+    start: [{ trigger: 'mousedown', action: 'element-active:active' }],
+    end: [
+      {
+        trigger: 'click',
+        action: 'element-active:reset',
+        isEnable(context) {
+          const event = context.event;
+          if (event.target && event.target.get('element')) {
+            return false;
+          }
+          return true;
+        },
+      },
+    ],
   });
-
-  class AInteraction extends Interaction {
-    protected initEvents() {
-      this.view.on('mousedown', this.onMousedown);
-      this.view.on('mouseup', this.onMouseup);
-    }
-
-    private onMousedown = (e) => {
-      const shape = e.target;
-      this.stateManager.setState('activeline', shape);
-    };
-
-    private onMouseup = () => {
-      this.stateManager.setState('activeline', null);
-    };
-
-    public destroy() {
-      this.view.off('mouseenter', this.onMousedown);
-      this.view.off('mouseup', this.onMouseup);
-    }
-  }
 
   it('getInteraction', () => {
     expect(getInteraction('test')).toBe(undefined);
   });
 
   it('registerInteraction', () => {
-    registerInteraction('activeLine', AInteraction);
-
     expect(getInteraction('activeLine')).toBeDefined();
   });
 
@@ -76,7 +50,19 @@ describe('Interaction', () => {
     ]);
     chart.animate(false);
     chart
-      .line()
+      .line({
+        theme: {
+          geometries: {
+            line: {
+              line: {
+                active: {
+                  line: { lineWidth: 4 },
+                },
+              },
+            },
+          },
+        },
+      })
       .position('year*value')
       .style({
         strokeOpacity: 0.2,
@@ -84,11 +70,14 @@ describe('Interaction', () => {
       });
     chart.interaction('activeLine');
     chart.render();
-
     simulateMouseEvent(chart.canvas.get('el'), 'mousedown', getClientPoint(chart.canvas, 371, 249));
 
-    const stateManager = chart.getStateManager();
-    const shape = stateManager.getState('activeline');
-    expect(shape.attr('strokeOpacity')).toBe(1);
+    const shape = chart.geometries[0].elements[0].shape;
+    expect(shape.attr('lineWidth')).toBe(4);
+
+    chart.emit('click', {
+      target: chart.getCanvas(),
+    });
+    expect(shape.attr('lineWidth')).toBe(30);
   });
 });
