@@ -65,4 +65,8 @@ export default function defaultLayout(view: View): void {
 
   // 4. 给 axis 组件更新 coordinate: 调整 axis 的宽高：y axis height, x axis width = coordinateBBox width height
   view.axisController.layout();
+
+  if (view.annotationController) {
+    view.annotationController.layout();
+  }
 }

@@ -2,6 +2,7 @@ import { deepMix, each, get, isArray, isFunction, isNil, isString, keys, upperFi
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { Annotation as AnnotationComponent, IGroup, Scale } from '../../dependents';
 import { Point } from '../../interface';
+import { ComponentOption } from '../interface';
 import View from '../view';
 import { Controller } from './base';
 
@@ -82,15 +83,19 @@ export class Annotation extends Controller<undefined> {
   public init() {}
 
   public layout() {
-    // absolute layout, nothing should be done.
+    each(this.components, (co: ComponentOption) => {
+      const { component, extra } = co;
+      const { type } = extra;
+      const theme = this.getAnnotationTheme(type);
+
+      component.update(this.getAnnotationCfg(type, extra, theme));
+    });
   }
 
   public render() {
-    const viewTheme = this.view.getTheme();
-
     each(this.options, (option: BaseOption) => {
       const { type } = option;
-      const theme = get(viewTheme, ['components', 'annotation', type], {});
+      const theme = this.getAnnotationTheme(type);
 
       const Ctor = AnnotationComponent[upperFirst(type)];
       if (Ctor) {
@@ -104,7 +109,7 @@ export class Annotation extends Controller<undefined> {
           layer: this.isTop(option) ? LAYER.FORE : LAYER.BG,
           direction: DIRECTION.NONE,
           type: COMPONENT_TYPE.ANNOTATION,
-          extra: {},
+          extra: option,
         });
       }
     });
@@ -392,5 +397,9 @@ export class Annotation extends Controller<undefined> {
    */
   private getComponentContainer(option: any) {
     return this.isTop(option) ? this.foregroundContainer : this.backgroundContainer;
+  }
+
+  private getAnnotationTheme(type: string) {
+    return get(this.view.getTheme(), ['components', 'annotation', type], {});
   }
 }
