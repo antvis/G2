@@ -848,6 +848,13 @@ export class View extends EE {
   }
 
   /**
+   * 是否锁定 tooltip
+   * @returns 是否锁定
+   */
+  public isTooltipLocked() {
+    return this.stateManager.getState('_isTooltipLocked');
+  }
+  /**
    * 将 tooltip 锁定解除
    * @returns View
    */
