@@ -46,7 +46,7 @@ export function getCircleGridItems(coordinate: Coordinate, xScale: Scale, yScale
   if (dim === 'x') {
     return map(Array(count), (__: any, idx: number) => {
       return {
-        points: [coordinate.convert({ x: 0, y: 0 }), coordinate.convert({ x: idx / count, y: 1 })],
+        points: [coordinate.convert({ x: idx / count, y: 0 }), coordinate.convert({ x: idx / count, y: 1 })],
       };
     });
   }
