@@ -1,8 +1,8 @@
 import { Chart } from '../../../src/index';
-import Action from '../../../src/new_interaction/action/base';
-import { createAction, createCallbackAction, registerAction } from '../../../src/new_interaction/action/register';
-import Context from '../../../src/new_interaction/context';
-import Interaction from '../../../src/new_interaction/grammar-interaction';
+import Action from '../../../src/interaction/action/base';
+import { createAction, createCallbackAction, registerAction } from '../../../src/interaction/action/register';
+import Context from '../../../src/interaction/context';
+import Interaction from '../../../src/interaction/grammar-interaction';
 import { createDiv } from '../../util/dom';
 
 class CustomAction extends Action {

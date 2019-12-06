@@ -1,5 +1,5 @@
 import { Chart } from '../../../../src/index';
-import { createInteraction } from '../../../../src/new_interaction/index';
+import { createInteraction } from '../../../../src/interaction/index';
 import { createDiv } from '../../../util/dom';
 
 describe('test tooltip action', () => {
@@ -31,6 +31,11 @@ describe('test tooltip action', () => {
   const tooltipDom = dom.getElementsByClassName('g2-tooltip')[0] as HTMLElement;
   it('show', () => {
     expect(tooltipDom.style.visibility).toBe('hidden');
+    chart.emit('plot:mousemove', {
+      x: 53,
+      y: 330,
+    });
+    expect(tooltipDom.style.visibility).toBe('visible');
     chart.emit('plot:mousemove', {
       x: 53,
       y: 330,

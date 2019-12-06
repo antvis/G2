@@ -1,6 +1,6 @@
 import { Chart } from '../../../../src/index';
-import ActiveAction from '../../../../src/new_interaction/action/element-active';
-import Context from '../../../../src/new_interaction/context';
+import ActiveAction from '../../../../src/interaction/action/element-active';
+import Context from '../../../../src/interaction/context';
 import { createDiv } from '../../../util/dom';
 
 describe('test active action', () => {
@@ -60,6 +60,7 @@ describe('test active action', () => {
     expect(first.hasState('active')).toBe(false);
   });
   afterAll(() => {
+    action.destroy();
     chart.destroy();
   });
 });
