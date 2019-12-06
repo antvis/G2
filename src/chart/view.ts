@@ -20,8 +20,8 @@ import { Attribute, Component, Coordinate, Event as GEvent, ICanvas, IGroup, ISh
 import { Facet, getFacet } from '../facet';
 import { FacetCfgMap } from '../facet/interface';
 import Geometry from '../geometry/base';
+import { createInteraction } from '../interaction/';
 import { Data, Datum, LooseObject, Point, Region, ScaleOption } from '../interface';
-import { createInteraction } from '../new_interaction/';
 import { STATE_ACTIONS, StateActionCfg, StateManager } from '../state';
 import { BBox } from '../util/bbox';
 import { isFullCircle, isPointInCoordinate } from '../util/coordinate';
@@ -267,12 +267,18 @@ export class View extends EE {
   public destroy() {
     // 销毁前事件，销毁之后已经没有意义了，所以不抛出事件
     this.emit(VIEW_LIFE_CIRCLE.BEFORE_DESTROY);
-
+    const interactions = get(this.options, 'interactions');
     this.clear();
-
     this.backgroundGroup.remove(true);
     this.middleGroup.remove(true);
     this.foregroundGroup.remove(true);
+    // 销毁 interactions
+    each(interactions, (interaction) => {
+      if (interaction) {
+        // 有可能已经销毁，设置了 undefined
+        interaction.destroy();
+      }
+    });
 
     each(STATE_ACTIONS, (stateAction) => {
       stateAction.destroy(this.stateManager, this);
@@ -568,6 +574,22 @@ export class View extends EE {
       set(this.options, ['interactions', name], interaction);
     }
     return this;
+  }
+
+  /**
+   * 移除当前 View 的 interaction
+   * ```ts
+   * view.removeInteraction('my-interaction');
+   * ```
+   * @param name interaction name
+   */
+  public removeInteraction(name: string) {
+    const existInteraction = get(this.options, ['interactions', name]);
+    // 存在则先销毁已有的
+    if (existInteraction) {
+      existInteraction.destroy();
+      set(this.options, ['interactions', name], undefined);
+    }
   }
 
   /**
