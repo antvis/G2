@@ -1,52 +1,34 @@
-import { each, isEqual } from '@antv/util';
-import { IShape } from '../dependents';
-import Element from '../geometry/element/index';
-import { LooseObject } from '../interface';
-import { getAngle, getSectorPath } from '../util/graphics';
-import Interaction from './base';
+import { IShape } from '@antv/g-base/lib/interfaces';
+import * as _ from '@antv/util';
+import Element from '../../geometry/element/';
+import { LooseObject } from '../../interface';
+import { getAngle, getSectorPath } from '../../util/graphics';
+import Action from './base';
 
-/**
- * 交互反馈：鼠标 hover 到一组数据时，显示背景框以起到强调作用
- */
-export default class ActiveRegion extends Interaction {
-  public readonly type: string = 'activeRegion';
-
-  // 存储背景框
+class ActiveRegion extends Action {
+  public readonly name: string = 'active-region';
+  private items: any[];
   private regionPath: IShape;
-  // 存储上一次拾取到的数据
-  private items;
+  public show() {
+    const view = this.context.view;
+    const ev = this.context.event;
+    const tooltipItems = view.getTooltipItems({
+      x: ev.x,
+      y: ev.y,
+    });
 
-  protected initEvents() {
-    this.view.on('plot:mousemove', this.onMousemove);
-    this.view.on('plot:mouseleave', this.onMouseleave);
-  }
-
-  /**
-   * destroy
-   */
-  public destroy() {
-    this.view.off('plot:mousemove', this.onMousemove);
-    this.view.off('plot:mouseleave', this.onMouseleave);
-  }
-
-  private onMousemove = (ev) => {
-    const view = this.view;
-    const tooltipItems = view.getTooltipItems(ev);
-
-    if (isEqual(tooltipItems, this.items)) {
+    if (_.isEqual(tooltipItems, this.items)) {
       // 如果拾取数据同上次相同，则不重复绘制
       return;
     }
     this.items = tooltipItems;
-
     if (tooltipItems.length) {
       const xField = view.getXScale().field;
       const xValue = tooltipItems[0].data[xField];
-
       // 根据 x 对应的值查找 elements
       let elements: Element[] = [];
-      const geometries = this.view.geometries;
-      each(geometries, (geometry) => {
+      const geometries = view.geometries;
+      _.each(geometries, (geometry) => {
         const result = geometry.getElementsBy((ele) => {
           const eleData = ele.getData();
           return eleData[xField] === xValue;
@@ -60,7 +42,7 @@ export default class ActiveRegion extends Interaction {
         const firstBBox = elements[0].shape.getBBox();
         const lastBBox = elements[elements.length - 1].shape.getBBox();
         const groupBBox: LooseObject = firstBBox;
-        each(elements, (ele: Element) => {
+        _.each(elements, (ele: Element) => {
           const bbox = ele.shape.getBBox();
           groupBBox.x = Math.min(bbox.minX, groupBBox.minX);
           groupBBox.y = Math.min(bbox.minY, groupBBox.minY);
@@ -103,24 +85,39 @@ export default class ActiveRegion extends Interaction {
         }
 
         if (this.regionPath) {
-          this.regionPath.remove(true);
+          this.regionPath.attr('path', path);
+          this.regionPath.show();
+        } else {
+          this.regionPath = backgroundGroup.addShape({
+            type: 'path',
+            name: 'active-region',
+            capture: false,
+            attrs: {
+              path,
+              fill: '#CCD6EC',
+              opacity: 0.3,
+            },
+          });
         }
-
-        this.regionPath = backgroundGroup.addShape({
-          type: 'path',
-          attrs: {
-            path,
-            fill: '#CCD6EC',
-            opacity: 0.3,
-          },
-        });
       }
     }
-  };
+  }
 
-  private onMouseleave = (ev) => {
-    this.regionPath.remove(true);
-    this.regionPath = null;
+  public hide() {
+    if (this.regionPath) {
+      this.regionPath.hide();
+    }
+    // this.regionPath = null;
     this.items = null;
-  };
+  }
+
+  public destroy() {
+    this.hide();
+    if (this.regionPath) {
+      this.regionPath.remove(true);
+    }
+    super.destroy();
+  }
 }
+
+export default ActiveRegion;

@@ -1,5 +1,5 @@
 import { Chart } from '../../../src';
-import { getInteraction, registerInteraction } from '../../../src/new_interaction';
+import { createInteraction, getInteraction, Interaction, registerInteraction } from '../../../src/interaction';
 import { createDiv } from '../../util/dom';
 import { getClientPoint, simulateMouseEvent } from '../../util/simulate';
 
@@ -27,6 +27,15 @@ describe('Interaction', () => {
 
   it('registerInteraction', () => {
     expect(getInteraction('activeLine')).toBeDefined();
+  });
+
+  it('create interaction', () => {
+    expect(createInteraction('test', null)).toBe(null);
+    class MyInteraction extends Interaction {}
+    registerInteraction('my-interaction', MyInteraction);
+    expect(getInteraction('my-interaction')).toBe(MyInteraction);
+    expect(createInteraction('my-interaction', null)).not.toBe(null);
+    delete Interaction['my-interaction'];
   });
 
   it('call', () => {

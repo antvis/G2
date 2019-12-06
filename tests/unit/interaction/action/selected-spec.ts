@@ -1,8 +1,8 @@
 import { Chart } from '../../../../src/index';
-import ElementMultipleSelected from '../../../../src/new_interaction/action/element-multiple-selected';
-import ElementSelected from '../../../../src/new_interaction/action/element-selected';
-import PieSelected from '../../../../src/new_interaction/action/pie-selected';
-import Context from '../../../../src/new_interaction/context';
+import ElementMultipleSelected from '../../../../src/interaction/action/element-multiple-selected';
+import ElementSelected from '../../../../src/interaction/action/element-selected';
+import PieSelected from '../../../../src/interaction/action/pie-selected';
+import Context from '../../../../src/interaction/context';
 import { createDiv } from '../../../util/dom';
 
 describe('test selected action', () => {
@@ -93,6 +93,21 @@ describe('test selected action', () => {
     const second = elements[1];
 
     const action = new ElementMultipleSelected(context);
+    it('init', () => {
+      expect(action.name).toBe('element-multiple-selected');
+    });
+
+    it('no target', () => {
+      context.event = {
+        target: null,
+      };
+      action.selected();
+      expect(first.hasState('selected')).toBe(false);
+      action.unselected();
+      expect(first.hasState('selected')).toBe(false);
+      action.toggle();
+      expect(first.hasState('selected')).toBe(false);
+    });
 
     it('selected', () => {
       context.event = {
@@ -154,7 +169,7 @@ describe('test selected action', () => {
   });
 });
 
-describe.only('test pie selected', () => {
+describe('test pie selected', () => {
   const chart = new Chart({
     container: createDiv(),
     width: 400,
