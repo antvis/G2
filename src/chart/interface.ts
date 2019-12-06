@@ -1,7 +1,7 @@
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../constant';
 import { Component } from '../dependents';
 import { CategoryLegendCfg, CircleAxisCfg, ICanvas, IGroup, LineAxisCfg } from '../dependents';
-import Interaction from '../interaction/base';
+import { Interaction } from '../interaction/';
 import { Data, Datum, LooseObject, Padding, Region, Renderer, ScaleOption } from '../interface';
 import View from './view';
 
