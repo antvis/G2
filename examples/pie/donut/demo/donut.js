@@ -69,10 +69,12 @@ chart
   .adjust('stack')
   .position('percent')
   .color('item')
-  .label('percent', {
-    formatter: (val, item) => {
-      return item.point.item + ': ' + val;
-    },
+  .label('percent', (percent) => {
+    return {
+      content: (data) => {
+        return `${data.item}: ${percent * 100}%`;
+      },
+    };
   })
   .tooltip('item*percent', (item, percent) => {
     percent = percent * 100 + '%';

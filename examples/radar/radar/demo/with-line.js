@@ -25,6 +25,7 @@ const chart = new Chart({
   height: 500,
   padding: [20, 20, 95, 20],
 });
+chart.animate(false);
 chart.data(dv.rows);
 chart.scale('score', {
   min: 0,
@@ -56,10 +57,11 @@ chart.axis('score', {
     alternateColor: 'rgba(0, 0, 0, 0.04)',
   },
 });
-chart.legend('user', {
-  marker: 'circle',
-  offsetY: -30,
-});
+// FIXME: BUG
+// chart.legend('user', {
+//   marker: 'circle',
+//   offsetY: -30,
+// });
 chart
   .line()
   .position('item*score')

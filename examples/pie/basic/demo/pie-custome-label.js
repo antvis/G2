@@ -28,16 +28,17 @@ chart
   .position('sold')
   .color('sex', COLORS)
   .label('sold', {
-    useHtml: true,
-    htmlTemplate: (text, item) => {
-      const isFemale = item.sex === '女';
-      const src = isFemale
-        ? 'https://gw.alipayobjects.com/zos/rmsportal/mweUsJpBWucJRixSfWVP.png'
-        : 'https://gw.alipayobjects.com/zos/rmsportal/oeCxrAewtedMBYOETCln.png';
-      const color = isFemale ? COLORS[1] : COLORS[0];
-      const IMG = `<img style="width:40px" src="${src}" /><br/>`;
-      return `<div style="text-align:center;color:${color}">${IMG}${(text * 100).toFixed(0)}%</div>`;
-    },
+    // TODO: 要不直接支持 content 返回 shape / group?
+    // useHtml: true,
+    // htmlTemplate: (text, item) => {
+    //   const isFemale = item.sex === '女';
+    //   const src = isFemale
+    //     ? 'https://gw.alipayobjects.com/zos/rmsportal/mweUsJpBWucJRixSfWVP.png'
+    //     : 'https://gw.alipayobjects.com/zos/rmsportal/oeCxrAewtedMBYOETCln.png';
+    //   const color = isFemale ? COLORS[1] : COLORS[0];
+    //   const IMG = `<img style="width:40px" src="${src}" /><br/>`;
+    //   return `<div style="text-align:center;color:${color}">${IMG}${(text * 100).toFixed(0)}%</div>`;
+    // },
   });
 chart.interaction('active');
 chart.render();

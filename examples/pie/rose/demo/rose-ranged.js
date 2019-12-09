@@ -28,7 +28,7 @@ chart
   .color('type', 'rgb(252,143,72)-rgb(255,215,135)')
   .label('value', {
     offset: -15,
-    label: {
+    style: {
       textAlign: 'center',
       fill: '#000',
     },
