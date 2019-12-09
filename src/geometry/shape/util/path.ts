@@ -230,17 +230,6 @@ export function getSplinePath(points: Point[], isInCircle?: boolean, constaint?:
   return splinePath;
 }
 
-/** 获取点到圆心的距离 */
-export function getPointRadius(coord, point: Point): number {
-  return getDistanceToCenter(coord, point);
-}
-
-/** 获取点到圆心的夹角 */
-export function getPointAngle(coord, point: Point): number {
-  const center = coord.getCenter();
-  return Math.atan2(point.y - center.y, point.x - center.x);
-}
-
 /** 将归一化后的路径数据转换成坐标 */
 export function convertNormalPath(coord, path: PathCommand[]): PathCommand[] {
   const tmp = [];
