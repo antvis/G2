@@ -65,3 +65,9 @@ export function isPointInCoordinate(coordinate: Coordinate, point: Point) {
 
   return result;
 }
+
+/** 获取点到圆心的连线与水平方向的夹角 */
+export function getPointAngle(coordinate: Coordinate, point: Point): number {
+  const center = coordinate.getCenter();
+  return Math.atan2(point.y - center.y, point.x - center.x);
+}
