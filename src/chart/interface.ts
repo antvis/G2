@@ -141,9 +141,8 @@ export interface Options {
   readonly tooltip?: TooltipOption;
   readonly coordinate?: CoordinateOption;
   readonly animate?: boolean;
+
   // 下方的内容其实是衍生物，不应该放到 Option 中
-  /** 所有的组件配置 */
-  readonly components: ComponentOption[];
   /** 所有的 Interaction */
   readonly interactions?: Record<string, Interaction>;
 

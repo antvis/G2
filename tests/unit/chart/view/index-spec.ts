@@ -155,15 +155,15 @@ describe('View', () => {
   });
 
   it('component', () => {
-    expect(view.getOptions().components.length).toEqual(0);
+    expect(view.getComponents().length).toEqual(0);
 
     view.axis(true);
     view.legend(true);
     view.render();
 
-    expect(view.getOptions().components.length).toEqual(4);
+    expect(view.getComponents().length).toEqual(4);
 
-    const bbox = view.getOptions().components[0].component.getBBox();
+    const bbox = view.getComponents()[0].component.getBBox();
     expect(bbox.height).toEqual(45.5);
   });
 

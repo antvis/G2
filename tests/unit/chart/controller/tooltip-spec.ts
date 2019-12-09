@@ -1,4 +1,5 @@
 import { Chart } from '../../../../src/index';
+import { getTooltip } from '../../../../src/util/plugin';
 import { createDiv } from '../../../util/dom';
 
 describe('Tooltip', () => {
@@ -44,12 +45,12 @@ describe('Tooltip', () => {
     expect(items.length).toBe(2);
     expect(items[0].data).toEqual({ name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 });
 
-    const tooltipController = chart.tooltipController;
+    const tooltip = getTooltip(chart.componentPlugins);
     // @ts-ignore
-    expect(tooltipController.tooltip.get('visible')).toBe(true);
+    expect(tooltip.tooltip.get('visible')).toBe(true);
 
     // @ts-ignore
-    const markerGroup = tooltipController.markerGroup;
+    const markerGroup = tooltip.markerGroup;
     expect(markerGroup.getChildren().length).toBe(2);
 
     const crosshairs = container.getElementsByClassName('g2-tooltip-crosshair-x');
@@ -66,12 +67,12 @@ describe('Tooltip', () => {
     chart.hideTooltip();
     expect(fn).toBeCalled();
 
-    const tooltipController = chart.tooltipController;
+    const tooltip = getTooltip(chart.componentPlugins);
     // @ts-ignore
-    expect(tooltipController.tooltip.get('visible')).toBe(false);
+    expect(tooltip.tooltip.get('visible')).toBe(false);
 
     // @ts-ignore
-    const markerGroup = tooltipController.markerGroup;
+    const markerGroup = tooltip.markerGroup;
     expect(markerGroup.get('visible')).toBe(false);
 
     const crosshairs = container.getElementsByClassName('g2-tooltip-crosshair-x');

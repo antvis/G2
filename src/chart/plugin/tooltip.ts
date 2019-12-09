@@ -186,6 +186,13 @@ export class Tooltip extends Plugin<TooltipOption> {
     return rst;
   }
 
+  /**
+   * override 不做任何事情
+   */
+  public clear() {
+    // do nothing
+  }
+
   public destroy() {
     const { tooltip, markerGroup } = this;
 

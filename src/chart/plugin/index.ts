@@ -1,5 +1,9 @@
 import { find, findIndex } from '@antv/util';
+import { Annotation } from './annotation';
+import { Axis } from './axis';
 import { PluginCtor } from './base';
+import { Legend } from './legend';
+import { Tooltip } from './tooltip';
 
 const LOAD_COMPONENT_PLUGINS: Record<string, PluginCtor> = {};
 
@@ -37,3 +41,9 @@ export function getComponentNames(): string[] {
 export function getComponent(name: string): PluginCtor {
   return LOAD_COMPONENT_PLUGINS[name];
 }
+
+// register build-in plugins
+registerComponent('axis', Axis);
+registerComponent('legend', Legend);
+registerComponent('tooltip', Tooltip);
+registerComponent('annotation', Annotation);

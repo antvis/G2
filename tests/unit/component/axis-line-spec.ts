@@ -22,7 +22,7 @@ describe('Component', () => {
   chart.render();
 
   it('line axis component', () => {
-    const axes = chart.getOptions().components.filter((co) => co.type === COMPONENT_TYPE.AXIS);
+    const axes = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.AXIS);
     expect(axes.length).toBe(2);
 
     // test the component theme config

@@ -2,6 +2,7 @@ import { each } from '@antv/util';
 import { COMPONENT_TYPE } from '../../constant';
 import { BBox } from '../../util/bbox';
 import { getTransposedDirection } from '../../util/direction';
+import { getAnnotation, getAxis, getLegend } from '../../util/plugin';
 import { ComponentOption } from '../interface';
 import View from '../view';
 
@@ -25,16 +26,20 @@ export default function defaultLayout(view: View): void {
   const { viewBBox } = view;
   const coordinate = view.getCoordinate();
 
+  const axis = getAxis(view.componentPlugins);
+  const legend = getLegend(view.componentPlugins);
+  const annotation = getAnnotation(view.componentPlugins);
+
   // 1. 计算出 legend 的 direction 位置 x, y
-  view.legendController.layout();
+  axis.layout();
 
   // 2. 根据 axis 内容不遮挡原则，计算出 y axis 的 width，x axis 的 height；
-  view.axisController.layout();
+  legend.layout();
 
   let bbox = viewBBox;
 
   // 剪裁掉组件的 bbox，剩余的给 绘图区域
-  each(this.getOptions().components, (co: ComponentOption) => {
+  each(view.getComponents(), (co: ComponentOption) => {
     const { component, type } = co;
 
     // grid, tooltip 不参入布局
@@ -64,9 +69,7 @@ export default function defaultLayout(view: View): void {
   view.adjustCoordinate();
 
   // 4. 给 axis 组件更新 coordinate: 调整 axis 的宽高：y axis height, x axis width = coordinateBBox width height
-  view.axisController.layout();
+  axis.layout();
 
-  if (view.annotationController) {
-    view.annotationController.layout();
-  }
+  annotation.layout();
 }

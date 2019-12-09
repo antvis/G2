@@ -28,7 +28,7 @@ describe('Component', () => {
 
     chart.render();
 
-    const legends = chart.getOptions().components.filter((co) => co.type === COMPONENT_TYPE.LEGEND);
+    const legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
 
     const size = legends[0].component;
 
@@ -68,7 +68,7 @@ describe('Component', () => {
 
     chart.render();
 
-    const legends = chart.getOptions().components.filter((co) => co.type === COMPONENT_TYPE.LEGEND);
+    const legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
 
     const color = legends[0].component;
     // @ts-ignore

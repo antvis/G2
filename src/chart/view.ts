@@ -15,8 +15,8 @@ import {
   size,
   uniq,
 } from '@antv/util';
-import { COMPONENT_TYPE, DIRECTION, GROUP_Z_INDEX, LAYER, PLOT_EVENTS, VIEW_LIFE_CIRCLE } from '../constant';
-import { Attribute, Component, Coordinate, Event as GEvent, ICanvas, IGroup, IShape, Scale } from '../dependents';
+import { GROUP_Z_INDEX, LAYER, PLOT_EVENTS, VIEW_LIFE_CIRCLE } from '../constant';
+import { Attribute, Coordinate, Event as GEvent, ICanvas, IGroup, IShape, Scale } from '../dependents';
 import { Facet, getFacet } from '../facet';
 import { FacetCfgMap } from '../facet/interface';
 import Geometry from '../geometry/base';
@@ -27,6 +27,7 @@ import { BBox } from '../util/bbox';
 import { isFullCircle, isPointInCoordinate } from '../util/coordinate';
 import { createCoordinate } from '../util/coordinate';
 import { parsePadding } from '../util/padding';
+import { getAnnotation, getTooltip } from '../util/plugin';
 import { mergeTheme } from '../util/theme';
 import Chart from './chart';
 import Event from './event';
@@ -44,10 +45,7 @@ import {
 import defaultLayout, { Layout } from './layout';
 import { getComponent, getComponentNames } from './plugin';
 import { Annotation as AnnotationController } from './plugin/annotation';
-import { Axis as AxisController } from './plugin/axis';
 import { Plugin } from './plugin/base';
-import { Legend as LegendController } from './plugin/legend';
-import { Tooltip as TooltipController } from './plugin/tooltip';
 
 /**
  * view container of G2
@@ -59,7 +57,7 @@ export class View extends EE {
   public views: View[] = [];
   /** 所有的 geometry 实例 */
   public geometries: Geometry[] = [];
-  public componentPlugins: Plugin[];
+  public componentPlugins: Plugin[] = [];
 
   /** view 实际的绘图区域，除去 padding，出去组件占用空间 */
   public viewBBox: BBox;
@@ -91,7 +89,6 @@ export class View extends EE {
   // 配置信息存储
   protected options: Options = {
     data: [],
-    components: [],
     animate: true, // 默认开启动画
   }; // 初始化为空
 
@@ -111,11 +108,6 @@ export class View extends EE {
   /** 当前鼠标是否在 plot 内（CoordinateBBox） */
   private isPreMouseInPlot: boolean = false;
   private stateManager: StateManager;
-
-  public tooltipController: TooltipController;
-  public axisController: AxisController;
-  public legendController: LegendController;
-  public annotationController: AnnotationController;
 
   constructor(props: ViewCfg) {
     super();
@@ -144,28 +136,6 @@ export class View extends EE {
     this.options = { ...this.options, ...options };
 
     this.init();
-  }
-
-  /**
-   * 添加一个组件到画布
-   * @param component
-   * @param layer
-   * @param direction
-   * @param type
-   * @returns void
-   */
-  public addComponent(
-    component: Component,
-    layer: LAYER = LAYER.MID,
-    direction: DIRECTION = DIRECTION.BOTTOM,
-    type: COMPONENT_TYPE = COMPONENT_TYPE.OTHER
-  ) {
-    this.options.components.push({
-      component,
-      layer,
-      direction,
-      type,
-    });
   }
 
   /**
@@ -202,10 +172,6 @@ export class View extends EE {
 
     // 初始化组件 controller
     this.initComponentPlugins();
-
-    this.tooltipController = new TooltipController(this);
-    this.axisController = new AxisController(this);
-    this.legendController = new LegendController(this);
 
     // 递归初始化子 view
     each(this.views, (view: View) => {
@@ -245,16 +211,10 @@ export class View extends EE {
     this.geometries = [];
 
     // 3. 清空 components
-    // 清空
-    this.options.components.splice(0);
-
-    // destroy controller
-    this.tooltipController.destroy();
-    this.axisController.destroy();
-    this.legendController.destroy();
-    if (this.annotationController) {
-      this.annotationController.destroy();
-    }
+    // destroy plugins
+    each(this.componentPlugins, (plugin: Plugin) => {
+      plugin.destroy();
+    });
 
     // 4. clear eventCaptureRect
     this.viewEventCaptureRect.remove(true);
@@ -452,11 +412,7 @@ export class View extends EE {
    * 辅助标记配置
    */
   public annotation(): AnnotationController {
-    if (!this.annotationController) {
-      this.annotationController = new AnnotationController(this);
-    }
-
-    return this.annotationController;
+    return getAnnotation(this.componentPlugins);
   }
 
   /**
@@ -883,7 +839,10 @@ export class View extends EE {
    * @returns View
    */
   public showTooltip(point: Point): View {
-    this.tooltipController.showTooltip(point);
+    const tooltip = getTooltip(this.componentPlugins);
+    if (tooltip) {
+      tooltip.showTooltip(point);
+    }
     return this;
   }
 
@@ -892,7 +851,10 @@ export class View extends EE {
    * @returns View
    */
   public hideTooltip(): View {
-    this.tooltipController.hideTooltip();
+    const tooltip = getTooltip(this.componentPlugins);
+    if (tooltip) {
+      tooltip.hideTooltip();
+    }
     return this;
   }
 
@@ -927,7 +889,22 @@ export class View extends EE {
    * @returns items of tooltip
    */
   public getTooltipItems(point: Point) {
-    return this.tooltipController.getTooltipItems(point);
+    const tooltip = getTooltip(this.componentPlugins);
+
+    return tooltip ? tooltip.getTooltipItems(point) : [];
+  }
+
+  /**
+   * 获取所有的 pure component 组件，用于布局
+   */
+  public getComponents(): ComponentOption[] {
+    const components = [];
+
+    each(this.componentPlugins, (plugin: Plugin) => {
+      components.push(...plugin.getComponents());
+    });
+
+    return components;
   }
 
   protected paint(isUpdate: boolean) {
@@ -1250,39 +1227,11 @@ export class View extends EE {
    * @private
    */
   private renderComponents() {
-    const { tooltip } = this.options;
-
-    // 清空 ComponentOptions 配置
-    this.options.components.splice(0);
-
-    // 1. axis
-    // 根据 Geometry 的字段来创建 axis
-    this.axisController.clear();
-    this.axisController.render();
-
-    each(this.axisController.getComponents(), (axis: ComponentOption) => {
-      const { component, layer, direction, type } = axis;
-      this.addComponent(component, layer, direction, type);
+    // 先全部清空，然后 render
+    each(this.componentPlugins, (plugin: Plugin) => {
+      plugin.clear();
+      plugin.render();
     });
-
-    // 2. legend
-    // 根据 Geometry 的字段来创建 legend
-    this.legendController.clear();
-    this.legendController.render();
-
-    each(this.legendController.getComponents(), (legend: ComponentOption) => {
-      const { component, layer, direction, type } = legend;
-      this.addComponent(component, layer, direction, type);
-    });
-
-    // 3. tooltip
-    this.tooltipController.render();
-
-    // 4. annotation
-    if (this.annotationController) {
-      this.annotationController.clear();
-      this.annotationController.render();
-    }
   }
 
   private doLayout() {
