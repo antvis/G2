@@ -268,10 +268,6 @@ export class View extends EE {
     // 销毁前事件，销毁之后已经没有意义了，所以不抛出事件
     this.emit(VIEW_LIFE_CIRCLE.BEFORE_DESTROY);
     const interactions = get(this.options, 'interactions');
-    this.clear();
-    this.backgroundGroup.remove(true);
-    this.middleGroup.remove(true);
-    this.foregroundGroup.remove(true);
     // 销毁 interactions
     each(interactions, (interaction) => {
       if (interaction) {
@@ -279,7 +275,10 @@ export class View extends EE {
         interaction.destroy();
       }
     });
-
+    this.clear();
+    this.backgroundGroup.remove(true);
+    this.middleGroup.remove(true);
+    this.foregroundGroup.remove(true);
     each(STATE_ACTIONS, (stateAction) => {
       stateAction.destroy(this.stateManager, this);
     });

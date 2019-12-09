@@ -6,7 +6,6 @@ import { getAngle, getSectorPath } from '../../util/graphics';
 import Action from './base';
 
 class ActiveRegion extends Action {
-  public readonly name: string = 'active-region';
   private items: any[];
   private regionPath: IShape;
   public show() {

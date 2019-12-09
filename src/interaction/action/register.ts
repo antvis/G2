@@ -16,6 +16,7 @@ export function createAction(actionName: string, context: IInteractionContext): 
   let action = null;
   if (ActionClass) {
     action = new ActionClass(context);
+    action.name = actionName;
   }
   return action;
 }
@@ -31,12 +32,13 @@ export function registerAction(actionName: string, ActionClass: any) {
 
 /**
  * 根据回调函数获取 Action 实例
- * @param actionName - action 的名称
+ * @param callback - action 的回调函数
  * @param context 上下文
  * @returns Action 实例
  */
 export function createCallbackAction(callback: ActionCallback, context: IInteractionContext): CallbackAction {
   const action = new CallbackAction(context);
   action.callback = callback;
+  action.name = 'callback';
   return action;
 }

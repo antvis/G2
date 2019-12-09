@@ -3,7 +3,6 @@ import Element from '../../geometry/element/';
 import { getAngle } from '../../util/graphics';
 import ElementSelected from './element-selected';
 class PieSelected extends ElementSelected {
-  public readonly name: string = 'pie-selected';
   // 动画的配置项，可以直接从 element 上取
   private animateCfg = {
     duration: 300,

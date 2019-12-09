@@ -19,15 +19,7 @@ class Context implements IInteractionContext {
   }
 
   public getAction(name: string): IAction {
-    const actions = this.actions;
-    let rst = null;
-    each(actions, (action) => {
-      if (action.name === name) {
-        rst = action;
-        return false;
-      }
-    });
-    return rst;
+    return this.actions.find((action) => action.name === name);
   }
 
   public addAction(action: IAction) {

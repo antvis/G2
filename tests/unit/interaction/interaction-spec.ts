@@ -30,7 +30,7 @@ describe('create action test', () => {
     expect(action.context).toBe(context);
     expect(context.getAction('custom')).toBe(action);
     action.destroy();
-    expect(context.getAction('custom')).toBe(null);
+    expect(context.getAction('custom')).toBe(undefined);
     context.destroy();
   });
 
@@ -81,7 +81,7 @@ describe('Interaction test', () => {
       interaction.init();
       const context = interaction.context;
       expect(context.actions.length).toBe(1);
-      expect(context.getAction('custom')).not.toBe(null);
+      expect(context.getAction('custom')).not.toBe(undefined);
       expect(context.actions[0].name).toBe('custom');
     });
 

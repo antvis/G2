@@ -3,7 +3,6 @@ import * as _ from '@antv/util';
 import Action from './base';
 
 class TooltipAction extends Action {
-  public readonly name: string = 'tooltip';
   private timeStamp: number = 0;
   private location: Point;
 
