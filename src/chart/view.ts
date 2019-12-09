@@ -764,6 +764,10 @@ export class View extends Base {
     return scales;
   }
 
+  public getScaleByField(field: string): Scale {
+    return this.scales[field];
+  }
+
   /**
    * 返回所有配置信息
    * @returns 所有的 view API 配置
@@ -1246,6 +1250,20 @@ export class View extends Base {
         }
       }
     });
+  }
+
+  public getComponents(): Component[] {
+    const components = [];
+    if (this.axisController) {
+      components.push(...this.axisController.getComponents().map((el) => el.component));
+    }
+    if (this.legendController) {
+      components.push(...this.legendController.getComponents().map((el) => el.component));
+    }
+    if (this.annotationController) {
+      components.push(...this.annotationController.getComponents().map((el) => el.component));
+    }
+    return components;
   }
 
   /**

@@ -83,10 +83,5 @@ describe('Interaction', () => {
 
     const shape = chart.geometries[0].elements[0].shape;
     expect(shape.attr('lineWidth')).toBe(4);
-
-    chart.emit('click', {
-      target: chart.getCanvas(),
-    });
-    expect(shape.attr('lineWidth')).toBe(30);
   });
 });

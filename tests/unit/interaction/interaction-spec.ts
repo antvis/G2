@@ -261,37 +261,6 @@ describe('Interaction test', () => {
       interaction.destroy();
     });
   });
-  /*
-  describe('active', () => {
-    class CustomActive extends Action {
-      public active() {
-        const context = this.context;
-        const event = context.event;
-        const target = event.target;
-        const element = target.get('element');
-        element.setState('active', true);
-      }
-      public reset() {
-        const context = this.context;
-        const event = context.event;
-        const target = event.target;
-        const element = target.get('element');
-        element.setState('active', false);
-      }
-    }
-    registerAction('custom-active', CustomActive); // 注册
-    // 手工测试
-    const interaction = new Interaction(chart, {
-      start: [
-        {trigger: 'interval:mouseenter', action:'custom-active:active'}
-      ],
-      end: [
-        {trigger: 'interval:mouseleave', action: 'custom-active:reset'}
-      ],
-    });
-    interaction.init();
-  });
-*/
   afterAll(() => {
     chart.destroy();
   });
