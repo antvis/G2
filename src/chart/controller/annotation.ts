@@ -40,7 +40,22 @@ export interface ImageOption extends BaseOption {
 }
 
 export interface LineOption extends BaseOption {
-  readonly text?: TextOption;
+  readonly text?: {
+    /** 文本位置，除了制定 'start', 'center' 和 'end' 外，还可以使用百分比进行定位， 比如 '30%' */
+    readonly position: 'start' | 'center' | 'end' | string;
+    /** 是否自动旋转 */
+    readonly autoRotate?: boolean;
+    /** 显示的文本内容 */
+    readonly content: string;
+    /** 文本的图形样式属性 */
+    readonly style?: object;
+    /** x 方向的偏移量 */
+    readonly offsetX?: number;
+    /** y 方向偏移量 */
+    readonly offsetY?: number;
+    // /** 文本的旋转角度，弧度制 */
+    // readonly rotate?: number;
+  };
 }
 
 export type RegionOption = BaseOption;
@@ -353,7 +368,7 @@ export class Annotation extends Controller<undefined> {
         start: this.parsePosition(start),
         end: this.parsePosition(end),
         // 继续处理一下
-        text: this.getAnnotationCfg('text', text, theme),
+        text: this.getAnnotationCfg('text', text, get(theme, ['text'], {})),
         style,
       };
     } else if (type === 'region') {
