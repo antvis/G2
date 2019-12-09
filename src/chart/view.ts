@@ -178,15 +178,6 @@ export class View extends EE {
   }
 
   /**
-   * 添加一个 componentPlugin
-   * @param componentPlugin
-   * @returns void
-   */
-  public addComponentPlugin(componentPlugin: Plugin) {
-    this.componentPlugins.push(componentPlugin);
-  }
-
-  /**
    * 设置 layout 函数
    * @param layout
    * @returns void
@@ -1065,7 +1056,7 @@ export class View extends EE {
     each(this.usedPlugins, (pluginName: string) => {
       const Ctor = getComponent(pluginName);
       if (Ctor) {
-        this.addComponentPlugin(new Ctor(this));
+        this.componentPlugins.push(new Ctor(this));
       }
     });
   }
