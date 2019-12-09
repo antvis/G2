@@ -140,8 +140,13 @@ export interface Options {
   readonly scales?: Record<string, ScaleOption>;
   readonly tooltip?: TooltipOption;
   readonly coordinate?: CoordinateOption;
-  readonly interactions?: Record<string, Interaction>;
+  readonly animate?: boolean;
+  // 下方的内容其实是衍生物，不应该放到 Option 中
   /** 所有的组件配置 */
   readonly components: ComponentOption[];
-  readonly animate?: boolean;
+  /** 所有的 Interaction */
+  readonly interactions?: Record<string, Interaction>;
+
+  // 其他自定义的 option
+  readonly [name: string]: any;
 }

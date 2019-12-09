@@ -1,36 +1,39 @@
 import { find, findIndex } from '@antv/util';
 import { PluginCtor } from './base';
 
-const LOAD_COMPONENT_PLUGINS: PluginCtor[] = [];
+const LOAD_COMPONENT_PLUGINS: Record<string, PluginCtor> = {};
 
 /**
  * 全局注册插件
+ * @param name
  * @param plugin
+ * @returns void
  */
-export function registerComponent(plugin: PluginCtor) {
-  if (!find(LOAD_COMPONENT_PLUGINS, plugin)) {
-    LOAD_COMPONENT_PLUGINS.push(plugin);
-  }
+export function registerComponent(name: string, plugin: PluginCtor) {
+  LOAD_COMPONENT_PLUGINS[name] = plugin;
 }
 
 /**
  * 删除全局插件
- * @param plugin
+ * @param name
  * @returns void
  */
-export function removeComponent(plugin: PluginCtor) {
-  const idx = findIndex(LOAD_COMPONENT_PLUGINS, (p: PluginCtor) => p === plugin);
-
-  // 找到则移除
-  if (idx !== -1) {
-    LOAD_COMPONENT_PLUGINS.splice(idx, 1);
-  }
+export function unregisterComponent(name: string) {
+  delete LOAD_COMPONENT_PLUGINS[name];
 }
 
 /**
  * 获取全局插件
- * @returns PluginCtor[]
+ * @returns string[]
  */
-export function getComponents(): PluginCtor[] {
-  return LOAD_COMPONENT_PLUGINS;
+export function getComponentNames(): string[] {
+  return Object.keys(LOAD_COMPONENT_PLUGINS);
+}
+
+/**
+ * 获得组件插件
+ * @param name
+ */
+export function getComponent(name: string): PluginCtor {
+  return LOAD_COMPONENT_PLUGINS[name];
 }

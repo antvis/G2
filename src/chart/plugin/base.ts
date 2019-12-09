@@ -11,7 +11,7 @@ export type PluginCtor<O = any> = new (view: View) => Plugin<O>;
  * 2. 统一的信息获取 API
  * 3. 明确定义的组件事件（名称、数据）
  */
-export abstract class Plugin<O = any> {
+export abstract class Plugin<O = unknown> {
   protected view: View;
   /** option 配置，不同组件有自己不同的配置结构 */
   protected option: O;

@@ -42,6 +42,7 @@ import {
   ViewCfg,
 } from './interface';
 import defaultLayout, { Layout } from './layout';
+import { getComponent, getComponentNames } from './plugin';
 import { Annotation as AnnotationController } from './plugin/annotation';
 import { Axis as AxisController } from './plugin/axis';
 import { Plugin } from './plugin/base';
@@ -84,6 +85,8 @@ export class View extends EE {
 
   /** 用于捕获 view event 的 rect shape */
   private viewEventCaptureRect: IShape;
+  /** 配置开启的组件插件，默认为全局配置的组件 */
+  private usedPlugins: string[] = getComponentNames();
 
   // 配置信息存储
   protected options: Options = {
@@ -207,6 +210,8 @@ export class View extends EE {
     this.initStates();
 
     // 初始化组件 controller
+    this.initComponentPlugins();
+
     this.tooltipController = new TooltipController(this);
     this.axisController = new AxisController(this);
     this.legendController = new LegendController(this);
@@ -536,6 +541,33 @@ export class View extends EE {
    */
   public animate(status: boolean): View {
     set(this.options, 'animate', status);
+    return this;
+  }
+
+  /**
+   * 设置 option 配置
+   * @param name
+   * @param opt
+   * @returns view
+   */
+  public option(name: string, opt: any): View {
+    // 对于内置的 option，避免覆盖。
+    // name 在原型上，说明可能是内置 API，存在 option 被覆盖的风险，不处理
+    if (View.prototype[name]) {
+      throw new Error(`Can't built in variable name "${name}", please change another one.`);
+    }
+
+    // 存入到 option 中
+    set(this.options, name, opt);
+    return this;
+  }
+
+  /**
+   * 设置当前实例使用的组件插件
+   * @param plugins
+   */
+  public plugin(...plugins: string[]): View {
+    this.usedPlugins = plugins;
     return this;
   }
 
@@ -1027,6 +1059,18 @@ export class View extends EE {
   }
 
   /**
+   * 初始化插件
+   */
+  private initComponentPlugins() {
+    each(this.usedPlugins, (pluginName: string) => {
+      const Ctor = getComponent(pluginName);
+      if (Ctor) {
+        this.addComponentPlugin(new Ctor(this));
+      }
+    });
+  }
+
+  /**
    * 触发事件之后
    * @param evt
    */
@@ -1314,8 +1358,9 @@ export class View extends EE {
  * 注册 geometry 组件
  * @param name
  * @param Ctor
+ * @returns Geometry
  */
-export const registerGeometry = (name: string, Ctor: any) => {
+export function registerGeometry(name: string, Ctor: any) {
   // 语法糖，在 view API 上增加原型方法
   View.prototype[name.toLowerCase()] = function(cfg: any = {}) {
     const props = {
@@ -1332,4 +1377,6 @@ export const registerGeometry = (name: string, Ctor: any) => {
 
     return geometry;
   };
-};
+}
+
+export default View;

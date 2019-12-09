@@ -1,7 +1,7 @@
 export { default as Chart } from './chart';
-export { default as View } from './view';
+export { default as View, registerGeometry } from './view';
 export { default as Event } from './event';
 
-export { registerGeometry, registerComponent } from './register';
+export { registerComponent } from './plugin';
 
 export { ChartCfg, ViewCfg } from './interface';
