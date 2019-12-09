@@ -1,7 +1,7 @@
 import { IAction, IInteractionContext } from '../../interface';
 
 class Action implements IAction {
-  public readonly name: string = 'base';
+  public name;
   public context: IInteractionContext;
 
   constructor(context: IInteractionContext) {

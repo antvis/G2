@@ -3,8 +3,6 @@ import Element from '../../geometry/element/';
 import Action from './base';
 import { getCurrentElement, getElementsByState } from './util';
 class ElementSelected extends Action {
-  public readonly name: string = 'element-selected';
-
   protected setSelected(element: Element, selected: boolean) {
     element.setState('selected', selected);
   }

@@ -3,7 +3,6 @@ import Action from './base';
 
 /** 回调函数构建的 Action */
 export default class CallbackAction extends Action {
-  public readonly name: string = 'callback';
   public callback: ActionCallback;
   public execute() {
     if (this.callback) {

@@ -31,9 +31,6 @@ import Rect from './facet/rect';
 
 registerFacet('rect', Rect);
 
-// 注册默认的交互行为
-// import { registerInteraction } from './interaction';
-
 // view module augmentation
 // detail: http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
 import { GeometryCfg } from './geometry/base';

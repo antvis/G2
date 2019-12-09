@@ -93,10 +93,6 @@ describe('test selected action', () => {
     const second = elements[1];
 
     const action = new ElementMultipleSelected(context);
-    it('init', () => {
-      expect(action.name).toBe('element-multiple-selected');
-    });
-
     it('no target', () => {
       context.event = {
         target: null,

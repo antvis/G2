@@ -3,8 +3,6 @@ import Action from './base';
 import { getCurrentElement, getElementsByState } from './util';
 
 class ElementMultipleSelected extends Action {
-  public readonly name: string = 'element-multiple-selected';
-
   /**
    * 选中节点，允许多选
    */

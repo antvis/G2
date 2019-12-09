@@ -2,7 +2,6 @@ import Element from '../../geometry/element/';
 import Action from './base';
 import { getCurrentElement } from './util';
 class ElementActive extends Action {
-  public readonly name: string = 'element-active';
   private element: Element;
 
   public active() {
