@@ -10,7 +10,7 @@ import { getMappingValue } from './attr';
  * @param direction
  * @returns layout 'horizontal' | 'vertical'
  */
-export function getLegendLayout(direction: DIRECTION): string {
+export function getLegendLayout(direction: DIRECTION): 'vertical' | 'horizontal' {
   return direction.startsWith(DIRECTION.LEFT) || direction.startsWith(DIRECTION.RIGHT) ? 'vertical' : 'horizontal';
 }
 

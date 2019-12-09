@@ -87,3 +87,6 @@ export const FIELD_ORIGIN = '_origin';
 
 export const MIN_CHART_WIDTH = 100;
 export const MIN_CHART_HEIGHT = 100;
+
+/** 辅助组件占图表的尺寸的最大比例：如图表上方的图例最多占图表高度的25% */
+export const COMPONENT_MAX_VIEW_PERCENTAGE = 0.25;

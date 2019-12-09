@@ -1,5 +1,5 @@
 import { deepMix, each, filter, find, get, head, isBoolean, last, map, uniq } from '@antv/util';
-import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
+import { COMPONENT_MAX_VIEW_PERCENTAGE, COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { Attribute, CategoryLegend, ContinuousLegend, GroupComponent, IGroup, Scale, Tick } from '../../dependents';
 import Geometry from '../../geometry/base';
 import { BBox } from '../../util/bbox';
@@ -348,11 +348,13 @@ export default class Legend extends Controller<Option> {
     // the default marker style
     const themeMarker = get(this.view.getTheme(), ['components', 'legend', direction, 'marker']);
     const userMarker = get(legendOption, 'marker');
+    const layout = getLegendLayout(direction);
 
     const baseCfg = {
       container,
-      layout: getLegendLayout(direction),
+      layout,
       items: getLegendItems(this.view, geometry, attr, themeMarker, userMarker),
+      ...this.getCategoryLegendSizeCfg(layout),
     };
 
     return this.mergeLegendCfg(baseCfg, legendOption, direction);
@@ -384,5 +386,18 @@ export default class Legend extends Controller<Option> {
    */
   private getComponentById(id: string): ComponentOption {
     return find(this.components, (co) => co.id === id);
+  }
+
+  private getCategoryLegendSizeCfg(layout: 'horizontal' | 'vertical') {
+    const { width, height } = this.view.viewBBox;
+    return layout === 'vertical'
+      ? {
+          maxWidth: width * COMPONENT_MAX_VIEW_PERCENTAGE,
+          maxHeight: height,
+        }
+      : {
+          maxWidth: width,
+          maxHeight: height * COMPONENT_MAX_VIEW_PERCENTAGE,
+        };
   }
 }
