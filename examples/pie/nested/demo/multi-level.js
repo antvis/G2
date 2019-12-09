@@ -20,7 +20,8 @@ dv.source(data).transform({
 const chart = new Chart({
   container: 'container',
   height: 500,
-  padding: 0,
+  padding: 50,
+  localRefresh: false, // TODO: 局部刷新 BUG
 });
 chart.data(dv.rows);
 chart.axis(false);

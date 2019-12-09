@@ -76,14 +76,13 @@ intervalView
   .label(
     'type',
     (val) => {
-      if (val % 3 === 0) {
-        return text[val / 3];
-      }
-      return '';
+      return {
+        content: val % 3 === 0 ? text[val / 3] : '',
+      };
     },
     {
       offset: 15,
-      textStyle: {
+      style: {
         fontSize: 12,
         fontWeight: 'bold',
         fill: '#bfbfbf',

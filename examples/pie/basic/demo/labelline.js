@@ -34,8 +34,8 @@ chart
   .position('1*percent')
   .color('item')
   .label('percent', {
-    formatter: (val, item) => {
-      return item.point.item + ': ' + val;
+    content: (data) => {
+      return `${data.item}: ${data.percent * 100}%`;
     },
   })
   .style({
@@ -43,7 +43,4 @@ chart
     stroke: '#fff',
   })
   .adjust('stack');
-
-chart.interaction('active');
-
 chart.render();

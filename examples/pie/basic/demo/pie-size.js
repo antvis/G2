@@ -42,6 +42,9 @@ registerShape('interval', 'sliceShape', {
 
 const chart = new Chart({
   container: 'container',
+  autoFit: false,
+  width: 500,
+  height: 500,
 });
 
 chart.data(data);
@@ -58,6 +61,9 @@ chart
   .position('value')
   .color('type')
   .shape('sliceShape')
-  .label('type', { offset: -20 });
+  .label('type', {
+    offset: -130,
+    adjustType: 'treemap', // FIXME: adjustType 重命名后修改
+  });
 chart.interaction('active');
 chart.render();

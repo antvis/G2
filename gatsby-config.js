@@ -229,6 +229,14 @@ module.exports = {
           en: 'Chart Annotation',
         },
       },
+      {
+        slug: 'component',
+        icon: 'component',
+        title: {
+          zh: '组件使用',
+          en: 'Chart Components',
+        },
+      },
     ],
   },
 };

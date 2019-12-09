@@ -33,7 +33,7 @@ chart
   .color('item')
   .label('percent', {
     offset: -40,
-    textStyle: {
+    style: {
       textAlign: 'center',
       shadowBlur: 2,
       shadowColor: 'rgba(0, 0, 0, .45)',
