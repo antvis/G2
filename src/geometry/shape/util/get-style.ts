@@ -24,7 +24,7 @@ export function getStyle(cfg: ShapeInfo, isStroke: boolean, sizeName: string = '
       attrs.fill = color;
     }
   }
-  if (sizeName && isNil(get(style, sizeName)) && size) {
+  if (sizeName && isNil(get(style, sizeName)) && !isNil(size)) {
     // 如果用户在 style() 中配置了 lineWidth 或者 r 属性
     attrs[sizeName] = size;
   }

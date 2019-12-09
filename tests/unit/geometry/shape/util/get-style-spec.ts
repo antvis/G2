@@ -99,14 +99,14 @@ describe('getStyle()', () => {
           x: 100,
           y: 100,
           color: '#000',
-          size: 10,
+          size: 0,
         },
         false,
         'r'
       )
     ).toEqual({
       fill: '#000',
-      r: 10,
+      r: 0,
     });
   });
 });
