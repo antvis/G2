@@ -1,6 +1,6 @@
 # G2: The Grammar of Graphics in JavaScript
 
-[![](https://img.shields.io/travis/antvis/g2.svg)](https://travis-ci.org/antvis/g2)
+[![Financial Contributors on Open Collective](https://opencollective.com/antvis/all/badge.svg?label=financial+contributors)](https://opencollective.com/antvis) [![](https://img.shields.io/travis/antvis/g2.svg)](https://travis-ci.org/antvis/g2)
 ![](https://img.shields.io/badge/language-javascript-red.svg)
 ![](https://img.shields.io/badge/license-MIT-000000.svg)
 [![NPM Package](https://img.shields.io/npm/v/@antv/g2.svg)](https://www.npmjs.com/package/@antv/g2)
@@ -107,3 +107,33 @@ G2.track(false)
 This project follows the git-contributor [spec](https://github.com/xudafeng/git-contributor), auto updated at `Sat Jul 27 2019 14:06:08 GMT+0800`.
 
 <!-- GITCONTRIBUTOR_END -->
+
+## Contributors
+
+### Code Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/antvis/G2/graphs/contributors"><img src="https://opencollective.com/antvis/contributors.svg?width=890&button=false" /></a>
+
+### Financial Contributors
+
+Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/antvis/contribute)]
+
+#### Individuals
+
+<a href="https://opencollective.com/antvis"><img src="https://opencollective.com/antvis/individuals.svg?width=890"></a>
+
+#### Organizations
+
+Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/antvis/contribute)]
+
+<a href="https://opencollective.com/antvis/organization/0/website"><img src="https://opencollective.com/antvis/organization/0/avatar.svg"></a>
+<a href="https://opencollective.com/antvis/organization/1/website"><img src="https://opencollective.com/antvis/organization/1/avatar.svg"></a>
+<a href="https://opencollective.com/antvis/organization/2/website"><img src="https://opencollective.com/antvis/organization/2/avatar.svg"></a>
+<a href="https://opencollective.com/antvis/organization/3/website"><img src="https://opencollective.com/antvis/organization/3/avatar.svg"></a>
+<a href="https://opencollective.com/antvis/organization/4/website"><img src="https://opencollective.com/antvis/organization/4/avatar.svg"></a>
+<a href="https://opencollective.com/antvis/organization/5/website"><img src="https://opencollective.com/antvis/organization/5/avatar.svg"></a>
+<a href="https://opencollective.com/antvis/organization/6/website"><img src="https://opencollective.com/antvis/organization/6/avatar.svg"></a>
+<a href="https://opencollective.com/antvis/organization/7/website"><img src="https://opencollective.com/antvis/organization/7/avatar.svg"></a>
+<a href="https://opencollective.com/antvis/organization/8/website"><img src="https://opencollective.com/antvis/organization/8/avatar.svg"></a>
+<a href="https://opencollective.com/antvis/organization/9/website"><img src="https://opencollective.com/antvis/organization/9/avatar.svg"></a>
