@@ -25,15 +25,10 @@ import { Data, Datum, LooseObject, Point, Region, ScaleOption } from '../interfa
 import { STATE_ACTIONS, StateActionCfg, StateManager } from '../state';
 import { BBox } from '../util/bbox';
 import { isFullCircle, isPointInCoordinate } from '../util/coordinate';
+import { createCoordinate } from '../util/coordinate';
 import { parsePadding } from '../util/padding';
 import { mergeTheme } from '../util/theme';
 import Chart from './chart';
-import { Annotation as AnnotationController } from './controller/annotation';
-import { Axis as AxisController } from './controller/axis';
-import { Controller } from './controller/base';
-import { createCoordinate } from './controller/coordinate';
-import { Legend as LegendController } from './controller/legend';
-import { Tooltip as TooltipController } from './controller/tooltip';
 import Event from './event';
 import {
   AxisOption,
@@ -47,6 +42,11 @@ import {
   ViewCfg,
 } from './interface';
 import defaultLayout, { Layout } from './layout';
+import { Annotation as AnnotationController } from './plugin/annotation';
+import { Axis as AxisController } from './plugin/axis';
+import { Plugin } from './plugin/base';
+import { Legend as LegendController } from './plugin/legend';
+import { Tooltip as TooltipController } from './plugin/tooltip';
 
 /**
  * view container of G2
@@ -58,7 +58,7 @@ export class View extends EE {
   public views: View[] = [];
   /** 所有的 geometry 实例 */
   public geometries: Geometry[] = [];
-  public componentPlugins: Controller[];
+  public componentPlugins: Plugin[];
 
   /** view 实际的绘图区域，除去 padding，出去组件占用空间 */
   public viewBBox: BBox;
@@ -179,7 +179,7 @@ export class View extends EE {
    * @param componentPlugin
    * @returns void
    */
-  public addComponentPlugin(componentPlugin: Controller) {
+  public addComponentPlugin(componentPlugin: Plugin) {
     this.componentPlugins.push(componentPlugin);
   }
 
@@ -1241,7 +1241,6 @@ export class View extends EE {
     });
 
     // 3. tooltip
-    this.tooltipController.setCfg(tooltip);
     this.tooltipController.render();
 
     // 4. annotation

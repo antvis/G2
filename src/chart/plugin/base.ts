@@ -2,25 +2,27 @@ import { each } from '@antv/util';
 import { ComponentOption } from '../interface';
 import View from '../view';
 
-export type ControllerCtor<O, E> = new (view: View) => Controller<any>;
+/** plugin class type define */
+export type PluginCtor<O = any> = new (view: View) => Plugin<O>;
 
 /**
- * Controller 规范需要定义的基类
- * 1. 规范的 props 输入
+ * Plugin 规范需要定义的基类
+ * 1. 规范的 option 输入
  * 2. 统一的信息获取 API
- *    - 获取大小位置
  * 3. 明确定义的组件事件（名称、数据）
  */
-export abstract class Controller<O = any> {
+export abstract class Plugin<O = any> {
   protected view: View;
   /** option 配置，不同组件有自己不同的配置结构 */
   protected option: O;
-
+  /** 所有的 component */
   protected components: ComponentOption[] = [];
 
   constructor(view: View) {
     this.view = view;
   }
+
+  public abstract get name(): string;
 
   /**
    * init the component
@@ -63,7 +65,7 @@ export abstract class Controller<O = any> {
   }
 
   /**
-   * get the bbox of component
+   * get all components
    * @returns components array
    */
   public getComponents(): ComponentOption[] {
