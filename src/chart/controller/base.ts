@@ -11,7 +11,7 @@ export type ControllerCtor<O, E> = new (view: View) => Controller<any>;
  *    - 获取大小位置
  * 3. 明确定义的组件事件（名称、数据）
  */
-export abstract class Controller<O> {
+export abstract class Controller<O = any> {
   protected view: View;
   /** option 配置，不同组件有自己不同的配置结构 */
   protected option: O;

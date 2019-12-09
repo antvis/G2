@@ -30,6 +30,7 @@ import { mergeTheme } from '../util/theme';
 import Chart from './chart';
 import { Annotation as AnnotationController } from './controller/annotation';
 import { Axis as AxisController } from './controller/axis';
+import { Controller } from './controller/base';
 import { createCoordinate } from './controller/coordinate';
 import { Legend as LegendController } from './controller/legend';
 import { Tooltip as TooltipController } from './controller/tooltip';
@@ -57,6 +58,7 @@ export class View extends EE {
   public views: View[] = [];
   /** 所有的 geometry 实例 */
   public geometries: Geometry[] = [];
+  public componentPlugins: Controller[];
 
   /** view 实际的绘图区域，除去 padding，出去组件占用空间 */
   public viewBBox: BBox;
@@ -166,10 +168,19 @@ export class View extends EE {
   /**
    * 添加一个 geometry 到画布
    * @param geometry
-   * @return void
+   * @returns void
    */
   public addGeometry(geometry: Geometry) {
     this.geometries.push(geometry);
+  }
+
+  /**
+   * 添加一个 componentPlugin
+   * @param componentPlugin
+   * @returns void
+   */
+  public addComponentPlugin(componentPlugin: Controller) {
+    this.componentPlugins.push(componentPlugin);
   }
 
   /**
@@ -1323,5 +1334,3 @@ export const registerGeometry = (name: string, Ctor: any) => {
     return geometry;
   };
 };
-
-export default View;
