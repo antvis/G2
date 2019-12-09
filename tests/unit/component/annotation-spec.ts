@@ -54,6 +54,14 @@ describe('annotation', () => {
       style: {
         stroke: 'green',
       },
+      text: {
+        position: 'end',
+        content: '呼和浩特和上海',
+        style: {
+          fill: 'red',
+          fontSize: 14,
+        },
+      },
     });
 
     chart.render();
@@ -70,6 +78,9 @@ describe('annotation', () => {
     expect(line.get('end').y).toBeWithin(364, 368);
     // style
     expect(line.get('style').stroke).toBe('green');
+
+    expect(line.get('text').style.fill).toBe('red');
+    expect(line.get('text').style.fontSize).toBe(14);
   });
 
   it('region', () => {
