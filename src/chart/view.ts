@@ -1308,9 +1308,10 @@ export const registerGeometry = (name: string, Ctor: any) => {
   View.prototype[name.toLowerCase()] = function(cfg: any = {}) {
     const props = {
       /** 图形容器 */
-      container: this.middleGroup.addGroup(),
-      // 其他信息，不知道需不需要
-      canvas: this.canvas,
+      container: this.middleGroup.addGroup({
+        name: 'element',
+      }),
+      labelsContainer: this.foregroundGroup.addGroup(),
       ...cfg,
     };
 
