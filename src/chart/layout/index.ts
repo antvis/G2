@@ -2,7 +2,6 @@ import { each } from '@antv/util';
 import { COMPONENT_TYPE } from '../../constant';
 import { BBox } from '../../util/bbox';
 import { getTransposedDirection } from '../../util/direction';
-import { getAnnotation, getAxis, getLegend } from '../../util/plugin';
 import { ComponentOption } from '../interface';
 import View from '../view';
 
@@ -15,7 +14,7 @@ export type Layout = (view: View) => void;
  * 内置布局函数处理的逻辑：
  *
  * 1. 根据 view 的大小位置，以及 legend 的 direction，计算出 legend 的位置 x，y；
- * 2. 根据 axis 内容不遮挡原则，计算出 yaxis 的 width，xaxis 的 height；
+ * 2. 根据 axis 内容不遮挡原则，计算出 y axis 的 width，x axis 的 height；
  * 3. 剩余的位置给 Geometry，确定 Geometry 的 位置大小，然后可以反向计算出 yaxis 的 height、xaxis 的 width；以及他们的位置 x，y 信息；
  * 4. 递归计算子 views 的布局；
  *
@@ -26,9 +25,9 @@ export default function defaultLayout(view: View): void {
   const { viewBBox } = view;
   const coordinate = view.getCoordinate();
 
-  const axis = getAxis(view.componentPlugins);
-  const legend = getLegend(view.componentPlugins);
-  const annotation = getAnnotation(view.componentPlugins);
+  const axis = view.getPlugin('axis');
+  const legend = view.getPlugin('legend');
+  const annotation = view.getPlugin('annotation');
 
   // 1. 计算出 legend 的 direction 位置 x, y
   axis.layout();

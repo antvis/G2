@@ -1,4 +1,4 @@
-import { GroupComponent, GroupComponentCfg, IGroup } from '../dependents';
+import { GroupComponent, GroupComponentCfg, IGroup, IShape } from '../dependents';
 import { LooseObject } from '../interface';
 
 interface TextOption extends GroupComponentCfg {
@@ -11,6 +11,8 @@ interface TextOption extends GroupComponentCfg {
  * 纯文本组件
  */
 export class Text extends GroupComponent<TextOption> {
+  private text: IShape;
+
   public getDefaultCfg() {
     const cfg = super.getDefaultCfg();
     return {
@@ -19,6 +21,12 @@ export class Text extends GroupComponent<TextOption> {
       text: '',
       isHorizontal: true,
     };
+  }
+
+  public update(attrs: object) {
+    if (this.text) {
+      this.text.attr(attrs);
+    }
   }
 
   protected renderInner(group: IGroup): void {
@@ -47,9 +55,13 @@ export class Text extends GroupComponent<TextOption> {
     }
 
     // 添加文本
-    container.addShape('text', {
+    this.text = container.addShape('text', {
       attrs,
     });
   }
   public getEvents(): any {}
+
+  public getBBox() {
+    return this.get('container').getBBox();
+  }
 }

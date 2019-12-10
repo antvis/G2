@@ -3,6 +3,7 @@ import {
   clone,
   each,
   filter,
+  find,
   flatten,
   get,
   isBoolean,
@@ -27,7 +28,6 @@ import { BBox } from '../util/bbox';
 import { isFullCircle, isPointInCoordinate } from '../util/coordinate';
 import { createCoordinate } from '../util/coordinate';
 import { parsePadding } from '../util/padding';
-import { getAnnotation, getTooltip } from '../util/plugin';
 import { mergeTheme } from '../util/theme';
 import Chart from './chart';
 import Event from './event';
@@ -44,8 +44,9 @@ import {
 } from './interface';
 import defaultLayout, { Layout } from './layout';
 import { getComponent, getComponentNames } from './plugin';
-import { Annotation as AnnotationController } from './plugin/annotation';
+import { Annotation as AnnotationPlugin } from './plugin/annotation';
 import { Plugin } from './plugin/base';
+import { Tooltip as TooltipPlugin } from './plugin/tooltip';
 
 /**
  * view container of G2
@@ -411,8 +412,8 @@ export class View extends EE {
   /**
    * 辅助标记配置
    */
-  public annotation(): AnnotationController {
-    return getAnnotation(this.componentPlugins);
+  public annotation(): AnnotationPlugin {
+    return this.getPlugin('annotation') as AnnotationPlugin;
   }
 
   /**
@@ -834,12 +835,20 @@ export class View extends EE {
   }
 
   /**
+   * get Plugin
+   * @param name
+   */
+  public getPlugin(name: string): Plugin {
+    return find(this.componentPlugins, (p: Plugin) => p.name === name);
+  }
+
+  /**
    * 显示 tooltip
    * @param point
    * @returns View
    */
   public showTooltip(point: Point): View {
-    const tooltip = getTooltip(this.componentPlugins);
+    const tooltip = this.getPlugin('tooltip') as TooltipPlugin;
     if (tooltip) {
       tooltip.showTooltip(point);
     }
@@ -851,7 +860,7 @@ export class View extends EE {
    * @returns View
    */
   public hideTooltip(): View {
-    const tooltip = getTooltip(this.componentPlugins);
+    const tooltip = this.getPlugin('tooltip') as TooltipPlugin;
     if (tooltip) {
       tooltip.hideTooltip();
     }
@@ -889,7 +898,7 @@ export class View extends EE {
    * @returns items of tooltip
    */
   public getTooltipItems(point: Point) {
-    const tooltip = getTooltip(this.componentPlugins);
+    const tooltip = this.getPlugin('tooltip') as TooltipPlugin;
 
     return tooltip ? tooltip.getTooltipItems(point) : [];
   }
