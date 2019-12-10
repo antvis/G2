@@ -17,7 +17,9 @@ registerShape('interval', 'textInterval', {
     const points = this.parsePoints(cfg.points); // 将0-1空间的坐标转换为画布坐标
     const origin = cfg.data;
     const value = origin.value;
-    container.addShape('text', {
+
+    const group = container.addGroup();
+    group.addShape('text', {
       attrs: {
         text: value,
         textAlign: 'center',
@@ -28,12 +30,14 @@ registerShape('interval', 'textInterval', {
         fill: '#BBB',
       },
     });
-    return container.addShape('polygon', {
+    group.addShape('polygon', {
       attrs: {
         points: points.map((point) => [point.x, point.y]),
         fill: cfg.color,
       },
     });
+
+    return group;
   },
 });
 
@@ -54,7 +58,9 @@ registerShape('interval', 'fallFlag', {
     const p1 = points[0];
     const width = 9;
     const washaway = origin.washaway;
-    container.addShape('text', {
+
+    const group = container.addGroup();
+    group.addShape('text', {
       attrs: {
         text: `${(washaway * 100).toFixed(1)} %`,
         x: p1.x - width / 2 - 14,
@@ -64,7 +70,7 @@ registerShape('interval', 'fallFlag', {
         fill: '#BBB',
       },
     });
-    return container.addShape('image', {
+    group.addShape('image', {
       attrs: {
         x: p1.x - 16,
         y: p1.y - 16,
@@ -73,6 +79,8 @@ registerShape('interval', 'fallFlag', {
         height: 32,
       },
     });
+
+    return group;
   },
 });
 
