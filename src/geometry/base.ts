@@ -1,3 +1,5 @@
+import { Adjust, getAdjust as getAdjustClass } from '@antv/adjust';
+import { Attribute, getAttribute as getAttributeClass } from '@antv/attr';
 import {
   clone,
   each,
@@ -16,14 +18,7 @@ import {
   map,
   set,
 } from '@antv/util';
-import { createScaleByField, syncScale } from '../util/scale';
-import Element from './element';
-import { getShapeFactory } from './shape/base';
-import { isModelChange } from './util/is-model-change';
-import { parseFields } from './util/parse-fields';
-
-import { Adjust, getAdjust as getAdjustClass } from '@antv/adjust';
-import { Attribute, getAttribute as getAttributeClass } from '@antv/attr';
+import Labels from '../component/labels';
 import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
 import { Coordinate, IGroup, Scale } from '../dependents';
 import {
@@ -39,10 +34,15 @@ import {
   ShapeMarkerCfg,
   ShapePoint,
 } from '../interface';
+import { createScaleByField, syncScale } from '../util/scale';
+import Element from './element';
 import {
   AdjustOption,
   AttributeOption,
   ColorAttrCallback,
+  GeometryLabelCfg,
+  LabelCallback,
+  LabelOption,
   ShapeAttrCallback,
   SizeAttrCallback,
   StyleCallback,
@@ -50,6 +50,10 @@ import {
   TooltipCallback,
   TooltipOption,
 } from './interface';
+import { getGeometryLabels } from './label';
+import { getShapeFactory } from './shape/base';
+import { isModelChange } from './util/is-model-change';
+import { parseFields } from './util/parse-fields';
 
 interface AttributeInstanceCfg {
   fields?: string[];
@@ -82,6 +86,7 @@ export interface InitCfg {
 
 export interface GeometryCfg {
   container: IGroup;
+  labelsContainer?: IGroup;
   coordinate?: Coordinate;
   data?: Data;
   scaleDefs?: Record<string, ScaleOption>;
@@ -108,6 +113,8 @@ export default class Geometry {
   public data: Data;
   /** Graphic drawing container. */
   public readonly container: IGroup;
+  /** labels container. */
+  public readonly labelsContainer: IGroup;
   /** Scale definiton. */
   public scaleDefs: Record<string, ScaleOption>;
   /** Whether to sort data, default is false.  */
@@ -130,17 +137,16 @@ export default class Geometry {
    * + After paint(), it is MappingDatum[][]
    */
   public dataArray: MappingDatum[][];
-
   /** Store tooltip configuration */
   public tooltipOption: TooltipOption | boolean;
+  /** label 配置项 */
+  public labelOption: LabelOption | false;
   /** 图形属性映射配置 */
   protected attributeOption: Record<string, AttributeOption> = {};
   /** adjust 配置项 */
   protected adjustOption: AdjustOption[];
   /** style 配置项 */
   protected styleOption: StyleOption;
-  /** label 配置项 */
-  protected labelOption;
   /** animate 配置项 */
   protected animateOption: AnimateOption | boolean = true;
   protected shapeFactory: ShapeFactory;
@@ -148,25 +154,33 @@ export default class Geometry {
   protected lastElementsMap: Record<string, Element> = {};
   /** 是否生成多个点来绘制图形 */
   protected generatePoints: boolean = false;
-  /** 存储所有 elements 的图形容器 */
-  protected elementsContainer: IGroup;
-  /** 存储所有 Geometry label 的图形容器 */
-  protected labelsContainer: IGroup;
   // 虚拟 Group
   protected offscreenGroup: IGroup;
   protected beforeMappingData: Data[] = null;
 
   private adjusts: Record<string, Adjust> = {};
   private lastAttributeOption;
+  private labelsRenderer: Labels;
 
   /**
    * Creates an instance of geometry.
    * @param cfg
    */
   constructor(cfg: GeometryCfg) {
-    const { container, coordinate, data, scaleDefs = {}, sortable = false, visible = true, theme, scales = {} } = cfg;
+    const {
+      container,
+      labelsContainer,
+      coordinate,
+      data,
+      scaleDefs = {},
+      sortable = false,
+      visible = true,
+      theme,
+      scales = {},
+    } = cfg;
 
     this.container = container;
+    this.labelsContainer = labelsContainer;
     this.coordinate = coordinate;
     this.data = data;
     this.scaleDefs = scaleDefs;
@@ -174,14 +188,6 @@ export default class Geometry {
     this.visible = visible;
     this.theme = theme;
     this.scales = scales;
-
-    // initialize container
-    this.elementsContainer = container.addGroup({
-      name: 'element',
-    });
-    this.labelsContainer = container.addGroup({
-      name: 'label',
-    });
   }
 
   /**
@@ -606,9 +612,47 @@ export default class Geometry {
   }
 
   /**
-   * TODO: label() 如何实现
+   * configure gemoetry label
+   *
+   * @example
+   * ```ts
+   * // data: [ {x: 1, y: 2, z: 'a'}, {x: 2, y: 2, z: 'b'} ]
+   * label({
+   *   fields: [ 'z' ]
+   * });
+   *
+   * label(false); // do not show label
+   * ```
+   *
+   * @param field
+   * @returns label
    */
-  public label() {
+  public label(field: LabelOption | false | string): Geometry;
+  public label(field: string, secondParam: GeometryLabelCfg | LabelCallback): Geometry;
+  public label(field: string, secondParam: LabelCallback, thirdParam: GeometryLabelCfg): Geometry;
+  public label(
+    field: string | LabelOption | false,
+    secondParam?: GeometryLabelCfg | LabelCallback,
+    thirdParam?: GeometryLabelCfg
+  ): Geometry {
+    if (isString(field)) {
+      const labelOption: LabelOption = {};
+      const fields = parseFields(field);
+      labelOption.fields = fields;
+      if (isFunction(secondParam)) {
+        labelOption.callback = secondParam;
+      } else if (isPlainObject(secondParam)) {
+        labelOption.cfg = secondParam;
+      }
+
+      if (thirdParam) {
+        labelOption.cfg = thirdParam;
+      }
+      this.labelOption = labelOption;
+    } else {
+      this.labelOption = field;
+    }
+
     return this;
   }
 
@@ -671,11 +715,9 @@ export default class Geometry {
     }
 
     // 添加 label
-    // if (this.get('labelOptions')) {
-    //   const labelController = this.get('labelController');
-    //   const labels = labelController.addLabels(union(...mappingArray), shapeContainer.get('children'));
-    //   this.set('labels', labels);
-    // }
+    if (this.labelOption) {
+      this.renderLabels(flatten(mappingArray));
+    }
 
     this.afterMapping(mappingArray);
 
@@ -699,13 +741,13 @@ export default class Geometry {
    * @override
    */
   public clear() {
-    const { elementsContainer, labelsContainer } = this;
-    if (elementsContainer) {
-      elementsContainer.clear();
+    const { container, labelsRenderer } = this;
+    if (container) {
+      container.clear();
     }
 
-    if (labelsContainer) {
-      labelsContainer.clear();
+    if (labelsRenderer) {
+      labelsRenderer.clear();
     }
 
     // 属性恢复至出厂状态
@@ -726,11 +768,16 @@ export default class Geometry {
     this.clear();
     const container = this.container;
     container.remove(true);
-    const offscreenGroup = this.offscreenGroup;
-    if (offscreenGroup) {
-      offscreenGroup.remove(true);
+
+    if (this.offscreenGroup) {
+      this.offscreenGroup.remove(true);
+      this.offscreenGroup = null;
     }
-    this.offscreenGroup = null;
+
+    if (this.labelsRenderer) {
+      this.labelsRenderer.destroy();
+      this.labelsRenderer = null;
+    }
   }
 
   /**
@@ -851,6 +898,65 @@ export default class Geometry {
     });
   }
 
+  // 创建 scale 实例
+  public createScale(field: string) {
+    const scales = this.scales;
+    let scale = scales[field];
+    if (!scale) {
+      const data = this.data;
+      const scaleDefs = this.scaleDefs;
+      scale = createScaleByField(field, data, scaleDefs[field]);
+      scales[field] = scale;
+    }
+
+    return scale;
+  }
+
+  public getElementId(originData: Datum) {
+    const type = this.type;
+    const xScale = this.getXScale();
+    const yScale = this.getYScale();
+    const xField = xScale.field || 'x';
+    const yField = yScale.field || 'y';
+    const yVal = originData[yField];
+    let xVal;
+    if (xScale.type === 'identity') {
+      xVal = xScale.values[0];
+    } else {
+      xVal = originData[xField];
+    }
+
+    let id: string;
+    if (type === 'interval' || type === 'schema') {
+      id = xVal;
+    } else if (type === 'line' || type === 'area' || type === 'path') {
+      id = type;
+    } else {
+      id = `${xVal}-${yVal}`;
+    }
+
+    const groupScales = this.getGroupScales();
+    if (!isEmpty(groupScales)) {
+      each(groupScales, (groupScale: Scale) => {
+        const field = groupScale.field;
+        if (groupScale.type !== 'identity') {
+          id = `${id}-${originData[field]}`;
+        }
+      });
+    }
+
+    // 用户在进行 dodge 类型的 adjust 调整的时候设置了 dodgeBy 属性
+    const dodgeAdjust = this.getAdjust('dodge');
+    if (dodgeAdjust) {
+      const dodgeBy = dodgeAdjust.dodgeBy;
+      if (dodgeBy) {
+        id = `${id}-${originData[dodgeBy]}`;
+      }
+    }
+
+    return id;
+  }
+
   protected getShapeFactory() {
     let shapeFactory = this.shapeFactory;
     if (!shapeFactory) {
@@ -900,9 +1006,9 @@ export default class Geometry {
     };
   }
 
-  protected createElement(mappingDatum: MappingDatum, groupIndex: number): Element {
+  protected createElement(mappingDatum: MappingDatum): Element {
     const originData = mappingDatum[FIELD_ORIGIN];
-    const { theme, elementsContainer } = this;
+    const { theme, container } = this;
 
     const shapeCfg = this.getDrawCfg(mappingDatum); // 获取绘制图形的配置信息
     const shapeFactory = this.getShapeFactory();
@@ -914,10 +1020,11 @@ export default class Geometry {
       shapeType: shape,
       theme: get(theme, ['geometries', this.shapeType], {}),
       shapeFactory,
-      container: elementsContainer,
-      offscreenGroup: this.getOffscreenGroup(elementsContainer), // 传入虚拟 Group
+      container,
+      offscreenGroup: this.getOffscreenGroup(container), // 传入虚拟 Group
       animate: this.animateOption,
     });
+    element.geometry = this;
 
     return element;
   }
@@ -955,7 +1062,7 @@ export default class Geometry {
       let result = lastElementsMap[id];
       if (!result) {
         // 创建新的 element
-        result = this.createElement(mappingDatum, i);
+        result = this.createElement(mappingDatum);
       } else {
         // element 已经创建
         const currentShapeCfg = this.getDrawCfg(mappingDatum);
@@ -973,51 +1080,6 @@ export default class Geometry {
       elementsMap[id] = result;
     });
     return elements;
-  }
-
-  protected getElementId(originData: Datum) {
-    const type = this.type;
-    const xScale = this.getXScale();
-    const yScale = this.getYScale();
-    const xField = xScale.field || 'x';
-    const yField = yScale.field || 'y';
-    const yVal = originData[yField];
-    let xVal;
-    if (xScale.type === 'identity') {
-      xVal = xScale.values[0];
-    } else {
-      xVal = originData[xField];
-    }
-
-    let id: string;
-    if (type === 'interval' || type === 'schema') {
-      id = xVal;
-    } else if (type === 'line' || type === 'area' || type === 'path') {
-      id = type;
-    } else {
-      id = `${xVal}-${yVal}`;
-    }
-
-    const groupScales = this.getGroupScales();
-    if (!isEmpty(groupScales)) {
-      each(groupScales, (groupScale: Scale) => {
-        const field = groupScale.field;
-        if (groupScale.type !== 'identity') {
-          id = `${id}-${originData[field]}`;
-        }
-      });
-    }
-
-    // 用户在进行 dodge 类型的 adjust 调整的时候设置了 dodgeBy 属性
-    const dodgeAdjust = this.getAdjust('dodge');
-    if (dodgeAdjust) {
-      const dodgeBy = dodgeAdjust.dodgeBy;
-      if (dodgeBy) {
-        id = `${id}-${originData[dodgeBy]}`;
-      }
-    }
-
-    return id;
   }
 
   protected getOffscreenGroup(sourceGroup: IGroup) {
@@ -1051,20 +1113,6 @@ export default class Geometry {
 
       set(this.attributeOption, attrName, attrCfg);
     }
-  }
-
-  // 创建 scale 实例
-  private createScale(field: string) {
-    const scales = this.scales;
-    let scale = scales[field];
-    if (!scale) {
-      const data = this.data;
-      const scaleDefs = this.scaleDefs;
-      scale = createScaleByField(field, data, scaleDefs[field]);
-      scales[field] = scale;
-    }
-
-    return scale;
   }
 
   private initAttributes() {
@@ -1469,5 +1517,49 @@ export default class Geometry {
     if (theme) {
       this.theme = theme;
     }
+  }
+
+  private renderLabels(mappingArray: MappingDatum[]) {
+    const { labelOption, type, coordinate } = this;
+    const coordinateType = coordinate.type;
+
+    // 获取渲染的 label 类型
+    let labelType = get(labelOption, ['cfg', 'type']) || 'base';
+    if (labelType === 'base') {
+      if (coordinateType === 'polar') {
+        // 极坐标文本
+        labelType = 'polar';
+      } else if (coordinateType === 'theta') {
+        // 饼图文本
+        labelType = 'pie';
+      } else if (type === 'interval' || type === 'polygon') {
+        labelType = 'interval';
+      }
+    }
+
+    const GeometryLabelsCtor = getGeometryLabels(labelType);
+    const geometryLabels = new GeometryLabelsCtor(this);
+    const labelItems = geometryLabels.getLabelItems(mappingArray);
+
+    let labelsRenderer = this.labelsRenderer;
+    if (!labelsRenderer) {
+      labelsRenderer = new Labels({
+        container: this.labelsContainer,
+        adjustType: get(labelOption, ['cfg', 'adjustType']),
+      });
+      this.labelsRenderer = labelsRenderer;
+    }
+
+    const shapes = {};
+    each(this.elementsMap, (element: Element, id: string) => {
+      shapes[id] = element.shape;
+    });
+    // 渲染文本
+    labelsRenderer.render(labelItems, shapes);
+
+    const labelsMap = this.labelsRenderer.shapesMap;
+    each(this.elementsMap, (element: Element, id) => {
+      element.labelShape = labelsMap[id]; // element 实例同 label 进行绑定
+    });
   }
 }

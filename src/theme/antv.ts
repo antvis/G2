@@ -652,6 +652,7 @@ export default {
           autoRotate: true,
           style: {
             fill: 'rgba(0, 0, 0, .45)',
+            stroke: null,
             fontSize: 12,
             textAlign: 'start',
             fontFamily: FONT_FAMILY,
@@ -676,5 +677,34 @@ export default {
         }, // 辅助框的图形样式属性
       },
     },
+  },
+  labels: {
+    offset: 20,
+    style: {
+      fill: '#545454',
+      fontSize: 12,
+      textBaseline: 'middle',
+      fontFamily: FONT_FAMILY,
+    },
+    autoRotate: true,
+  },
+  innerLabels: {
+    style: {
+      fill: '#fff',
+      fontSize: 12,
+      textBaseline: 'middle',
+      fontFamily: FONT_FAMILY,
+    },
+    autoRotate: true,
+  },
+  thetaLabels: {
+    labelHeight: 14,
+    offset: 30,
+    labelLine: {
+      style: {
+        lineWidth: 1,
+      },
+    },
+    autoRotate: true,
   },
 };

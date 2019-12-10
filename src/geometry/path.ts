@@ -27,7 +27,7 @@ export default class Path extends Geometry {
 
   protected createElements(mappingData: MappingDatum[]): Element[] {
     // Path 的每个 element 对应一组数据
-    const { lastElementsMap, elementsMap, elements, theme, elementsContainer } = this;
+    const { lastElementsMap, elementsMap, elements, theme, container } = this;
     const elementId = this.getElementId(mappingData[0]);
     const shapeCfg = this.getShapeInfo(mappingData);
 
@@ -40,10 +40,11 @@ export default class Path extends Geometry {
         shapeType: shapeCfg.shape || shapeFactory.defaultShapeType,
         theme: get(theme, ['geometries', this.shapeType], {}),
         shapeFactory,
-        container: elementsContainer,
+        container,
         animate: this.animateOption,
-        offscreenGroup: this.getOffscreenGroup(elementsContainer),
+        offscreenGroup: this.getOffscreenGroup(container),
       });
+      result.geometry = this;
     } else {
       // element 已经创建
       const preShapeCfg = result.model;
