@@ -1,4 +1,4 @@
-import { each, isEmpty } from '@antv/util';
+import { each, isEmpty, isNumber } from '@antv/util';
 import { Coordinate, IShape, PathCommand } from '../dependents';
 import { ShapeInfo } from '../interface';
 
@@ -108,4 +108,40 @@ export function getAngle(shapeModel: ShapeInfo, coordinate: Coordinate) {
     startAngle,
     endAngle,
   };
+}
+
+// 计算多边形重心: https://en.wikipedia.org/wiki/Centroid#Of_a_polygon
+export function getPolygonCentroid(xs: number | number[], ys: number | number[]) {
+  if (isNumber(xs) && isNumber(ys)) {
+    // 普通色块图，xs 和 ys 是数值
+    return [xs, ys];
+  }
+  let i = -1;
+  let x = 0;
+  let y = 0;
+  let former;
+  let current = (xs as number[]).length - 1;
+  let diff;
+  let k = 0;
+  while (++i < (xs as number[]).length) {
+    former = current;
+    current = i;
+    k += diff = xs[former] * ys[current] - xs[current] * ys[former];
+    x += (xs[former] + xs[current]) * diff;
+    y += (ys[former] + ys[current]) * diff;
+  }
+  k *= 3;
+  return [x / k, y / k];
+}
+
+// 获取需要替换的属性，如果原先图形元素存在，而新图形不存在，则设置 undefined
+export function getReplaceAttrs(sourceShape: IShape, targetShape: IShape) {
+  const originAttrs = sourceShape.attr();
+  const newAttrs = targetShape.attr();
+  each(originAttrs, (v, k) => {
+    if (newAttrs[k] === undefined) {
+      newAttrs[k] = undefined;
+    }
+  });
+  return newAttrs;
 }

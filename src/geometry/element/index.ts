@@ -2,7 +2,9 @@ import EE from '@antv/event-emitter';
 import { each, get, isEmpty } from '@antv/util';
 import { IGroup, IShape } from '../../dependents';
 import { AnimateOption, Datum, LooseObject, ShapeFactory, ShapeInfo } from '../../interface';
+import { getReplaceAttrs } from '../../util/graphics';
 import { doAnimate, getDefaultAnimateCfg } from '../animate';
+import Geometry from '../base';
 
 interface ElementCfg {
   /** 原始数据 */
@@ -45,6 +47,10 @@ export default class Element extends EE {
   public animate: AnimateOption | boolean;
   /** 是否已经被销毁 */
   public destroyed: boolean = false;
+  /** element 对应的 Geometry 实例 */
+  public geometry: Geometry;
+  /** 保存 shape 对应的 label */
+  public labelShape: IGroup;
 
   // 存储当前开启的状态
   private states: string[] = [];
@@ -310,7 +316,7 @@ export default class Element extends EE {
         const stateStyle = this.getStateStyle(state, sourceShape.get('name') || index); // 如果用户没有设置 name，则默认根据索引值
         targetShape.attr(stateStyle);
       }
-      const newAttrs = this.getReplaceAttrs(sourceShape as IShape, targetShape as IShape);
+      const newAttrs = getReplaceAttrs(sourceShape as IShape, targetShape as IShape);
 
       if (animateCfg) {
         // 需要进行动画
@@ -319,17 +325,5 @@ export default class Element extends EE {
         sourceShape.attr(newAttrs);
       }
     }
-  }
-
-  // 获取需要替换的属性，如果原先图形元素存在，而新图形不存在，则设置 undefined
-  private getReplaceAttrs(sourceShape: IShape, targetShape: IShape) {
-    const originAttrs = sourceShape.attr();
-    const newAttrs = targetShape.attr();
-    each(originAttrs, (v, k) => {
-      if (newAttrs[k] === undefined) {
-        newAttrs[k] = undefined;
-      }
-    });
-    return newAttrs;
   }
 }
