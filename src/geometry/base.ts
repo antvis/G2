@@ -18,7 +18,6 @@ import {
   map,
   set,
 } from '@antv/util';
-import Labels from '../component/labels';
 import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
 import { Coordinate, IGroup, Scale } from '../dependents';
 import {
@@ -51,6 +50,7 @@ import {
   TooltipOption,
 } from './interface';
 import { getGeometryLabels } from './label';
+import Labels from './label/labels';
 import { getShapeFactory } from './shape/base';
 import { isModelChange } from './util/is-model-change';
 import { parseFields } from './util/parse-fields';
@@ -622,6 +622,20 @@ export default class Geometry {
    * });
    *
    * label(false); // do not show label
+   *
+   * label('x', {
+   *   style: {
+   *     fill: 'red',
+   *   },
+   * })
+   *
+   * label('x', (xValue) => {
+   *   return {
+   *     content: xValue + '%',
+   *   };
+   * }, {
+   *   type: 'base'
+   * })
    * ```
    *
    * @param field

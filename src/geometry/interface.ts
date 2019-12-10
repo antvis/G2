@@ -66,7 +66,7 @@ export interface GeometryLabelCfg {
   /** 展示的文本内容，如果不声明则按照参与映射的第一字段的值进行显示 */
   content?: string | GeometryLabelContentCallback;
   /** label 文本图形属性样式 */
-  style?: object;
+  style?: LooseObject;
   /** label 是否自动旋转，默认为 true */
   autoRotate?: boolean;
   /**
@@ -76,7 +76,7 @@ export interface GeometryLabelCfg {
   /**
    * 用于设置文本连接线的样式属性，null 表示不展示
    */
-  labelLine?: null | { style?: object };
+  labelLine?: null | boolean | { style?: object };
   /** 只对极坐标下的文本生效，表示文本是否按照角度进行放射状显示，true 表示开启，false 表示关闭 */
   labelEmit?: boolean;
   /**

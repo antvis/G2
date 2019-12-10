@@ -39,7 +39,7 @@ export interface LabelItem extends GeometryLabelCfg {
   rotate?: number;
   angle?: number;
   r?: number;
-  labelLine?: null | { style?: object; path?: string };
+  labelLine?: null | boolean | { style?: object; path?: string };
 }
 
 export type GeometryLabelsConstructor = new (cfg: any) => GeometryLabels;
@@ -67,7 +67,7 @@ export default class GeometryLabels {
   }
 
   public getLabelItems(mapppingArray: MappingDatum[]) {
-    const items = this.adjustItems(this.getLabelsItems(mapppingArray));
+    const items = this.adjustItems(this.getItems(mapppingArray));
     this.drawLines(items);
 
     return items;
@@ -238,7 +238,7 @@ export default class GeometryLabels {
     return align;
   }
 
-  private getLabelsItems(mapppingArray: MappingDatum[]): LabelItem[] {
+  private getItems(mapppingArray: MappingDatum[]): LabelItem[] {
     const items = [];
     const labelCfgs = this.getLabelCfgs(mapppingArray);
     // 获取 label 相关的 x，y 的值，获取具体的 x, y，防止存在数组
