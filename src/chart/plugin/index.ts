@@ -1,4 +1,4 @@
-import { find, findIndex } from '@antv/util';
+import { find } from '@antv/util';
 import { Annotation } from './annotation';
 import { Axis } from './axis';
 import { PluginCtor } from './base';
