@@ -11,3 +11,13 @@ export function translate(element: IGroup | IShape, x: number, y: number) {
   const matrix = transform(element.getMatrix(), [['t', x, y]]);
   element.setMatrix(matrix);
 }
+
+export function rotate(element: IGroup | IShape, rotateRadian: number) {
+  const { x, y } = element.attr();
+  const matrix = transform(element.getMatrix(), [
+    ['t', -x, -y],
+    ['r', rotateRadian],
+    ['t', x, y],
+  ]);
+  element.setMatrix(matrix);
+}
