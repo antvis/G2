@@ -37,7 +37,9 @@ registerShape('interval', 'waterfall', {
     const attrs = getFillAttrs(cfg);
     let rectPath = getRectPath(cfg.points);
     rectPath = this.parsePath(rectPath);
-    const interval = container.addShape('path', {
+
+    const group = container.addGroup();
+    group.addShape('path', {
       attrs: {
         ...attrs,
         path: rectPath,
@@ -54,7 +56,7 @@ registerShape('interval', 'waterfall', {
         linkPath[1] = ['L', cfg.nextPoints[1].x, cfg.nextPoints[1].y];
       }
       linkPath = this.parsePath(linkPath);
-      container.addShape('path', {
+      group.addShape('path', {
         attrs: {
           path: linkPath,
           stroke: '#8c8c8c',
@@ -63,7 +65,7 @@ registerShape('interval', 'waterfall', {
       });
     }
 
-    return interval;
+    return group;
   },
 });
 

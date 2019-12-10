@@ -37,12 +37,16 @@ registerShape('interval', 'top', {
     temp.push(['A', radius, radius, 90, 0, 1, path[2][1], path[2][2] + radius]);
     temp.push(['L', path[3][1], path[3][2]]);
     temp.push(['Z']);
-    return container.addShape('path', {
+
+    const group = container.addGroup();
+    group.addShape('path', {
       attrs: {
         ...attrs,
         path: temp,
       },
     });
+
+    return group;
   },
 });
 
@@ -61,12 +65,16 @@ registerShape('interval', 'bottom', {
     temp.push(['L', path[3][1], path[3][2] - radius]);
     temp.push(['A', radius, radius, 90, 0, 1, path[3][1] - radius, path[3][2]]);
     temp.push(['Z']);
-    return container.addShape('path', {
+
+    const group = container.addGroup();
+    group.addShape('path', {
       attrs: {
         ...attrs,
         path: temp,
       },
     });
+
+    return group;
   },
 });
 

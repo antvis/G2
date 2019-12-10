@@ -11,7 +11,9 @@ registerShape('interval', 'borderRadius', {
     path.push(['L', points[3].x, points[3].y]);
     path.push('Z');
     path = this.parsePath(path); // 将 0 - 1 转化为画布坐标
-    return container.addShape('rect', {
+
+    const group = container.addGroup();
+    group.addShape('rect', {
       attrs: {
         x: path[1][1], // 矩形起始点为左上角
         y: path[1][2],
@@ -21,6 +23,8 @@ registerShape('interval', 'borderRadius', {
         radius: (path[2][1] - path[1][1]) / 2,
       },
     });
+
+    return group;
   },
 });
 
