@@ -25,6 +25,18 @@ registerGeometry('Point', Point);
 registerGeometry('Line', Line);
 registerGeometry('Area', Area);
 
+// 注册 Geometry 内置的 label
+import { registerGeometryLabels } from './geometry/label';
+import GeometryLabels from './geometry/label/base';
+import IntervalLabels from './geometry/label/interval';
+import PieLabels from './geometry/label/pie';
+import PolarLabels from './geometry/label/polar';
+
+registerGeometryLabels('base', GeometryLabels);
+registerGeometryLabels('interval', IntervalLabels);
+registerGeometryLabels('pie', PieLabels);
+registerGeometryLabels('polar', PolarLabels);
+
 // 注册内置的 Facet
 import { registerFacet } from './core';
 import Rect from './facet/rect';

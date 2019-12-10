@@ -12,6 +12,9 @@ export { default as Geometry } from './geometry/base';
 // geometry
 export { registerShape } from './geometry/shape/base';
 
+// geometry label
+export { registerGeometryLabels } from './geometry/label';
+
 // facet 相关 API
 export { Facet, getFacet, registerFacet } from './facet';
 
