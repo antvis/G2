@@ -1,4 +1,5 @@
-import { BBox, IShape } from '../dependents';
+import { each } from '@antv/util';
+import { BBox, IGroup, IShape } from '../dependents';
 
 const MAX_TIMES = 100;
 
@@ -204,39 +205,43 @@ function adjustLabelPosition(label: IShape, x: number, y: number, index: number)
 /**
  * 根据 bbox 进行调整，如果 label 超出了 shape 的 bbox 则不展示
  */
-export function bboxAdjust(labels: IShape[], shapes: IShape[]) {
-  for (let i = 0; i < labels.length; i++) {
-    const labelShape = labels[i];
+export function bboxAdjust(labels: Record<string, IGroup>, shapes: Record<string, IShape | IGroup>) {
+  each(labels, (label, id) => {
+    const labelShape = label.find((shape) => shape.get('type') === 'text') as IShape;
     const labelBBox = labelShape.getCanvasBBox(); // 文本有可能发生旋转
-    const shapeBBox = shapes[i].getBBox();
+    const shapeBBox = shapes[id].getBBox();
     if (
       labelBBox.minX < shapeBBox.minX ||
       labelBBox.minY < shapeBBox.minY ||
       labelBBox.maxX > shapeBBox.maxX ||
       labelBBox.maxY > shapeBBox.maxY
     ) {
-      labelShape.remove(true); // 超出则不展示
+      label.remove(true); // 超出则不展示
+      delete labels[id];
     }
-  }
+  });
 }
 
-export function spiralAdjust(labels: IShape[], maxTimes: number = MAX_TIMES) {
+export function spiralAdjust(labels: Record<string, IGroup>, maxTimes: number = MAX_TIMES) {
   const greedy = new Greedy();
-  for (const label of labels) {
-    if (!spiralFill(label, greedy, maxTimes)) {
+  each(labels, (label: IGroup, id: string) => {
+    const labelShape = label.find((shape) => shape.get('type') === 'text') as IShape;
+    if (!spiralFill(labelShape, greedy, maxTimes)) {
       label.remove(true);
+      delete labels[id];
     }
-  }
+  });
   greedy.destroy();
 }
 
-export function positionAdjust(labels: IShape[]) {
+export function positionAdjust(labels: Record<string, IGroup>) {
   const greedy = new Greedy();
-  for (const label of labels) {
-    const { x, y } = label.attr();
+  each(labels, (label: IGroup, id: string) => {
+    const labelShape = label.find((shape) => shape.get('type') === 'text') as IShape;
+    const { x, y } = labelShape.attr();
     let canFill = false;
     for (let i = 0; i <= 8; i++) {
-      const bbox = adjustLabelPosition(label, x, y, i);
+      const bbox = adjustLabelPosition(labelShape, x, y, i);
       if (greedy.hasGap(bbox)) {
         greedy.fillGap(bbox);
         canFill = true;
@@ -245,8 +250,9 @@ export function positionAdjust(labels: IShape[]) {
     }
     if (!canFill) {
       label.remove(true);
+      delete labels[id];
     }
-  }
+  });
 
   greedy.destroy();
 }
