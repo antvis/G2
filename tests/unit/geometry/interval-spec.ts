@@ -98,10 +98,8 @@ describe('Interval', () => {
       const elements = interval.elements;
       expect(elements.length).toBe(3);
 
-      const container = interval.container;
-      expect(container.get('children').length).toBe(2);
-      expect(interval.elementsContainer.get('children').length).toBe(3);
-      expect(interval.elementsContainer.get('children')[0].attr('fill')).toBe('red');
+      expect(interval.container.get('children').length).toBe(3);
+      expect(interval.container.get('children')[0].attr('fill')).toBe('red');
     });
 
     test('clear()', () => {

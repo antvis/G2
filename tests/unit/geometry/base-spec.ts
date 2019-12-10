@@ -417,7 +417,7 @@ describe('Geometry', () => {
       expect(elements.length).toBe(4);
       expect(geometry.elementsMap).not.toBe(undefined);
       // @ts-ignore
-      expect(geometry.elementsContainer.get('children').length).toBe(4);
+      expect(geometry.container.get('children').length).toBe(4);
       expect(elements[0].animate).toBe(false);
     });
 
@@ -508,8 +508,7 @@ describe('Geometry', () => {
     it('clear()', () => {
       geometry.clear();
 
-      expect(geometry.container.get('children').length).toBe(2);
-      expect(geometry.elementsContainer.get('children').length).toBe(0);
+      expect(geometry.container.get('children').length).toBe(0);
       expect(geometry.attributes).toEqual({});
       expect(geometry.scales).toEqual({});
       expect(geometry.elementsMap).toEqual({});

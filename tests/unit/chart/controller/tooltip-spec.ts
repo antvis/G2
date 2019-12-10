@@ -56,7 +56,7 @@ describe('Tooltip', () => {
     expect(crosshairs.length).toBe(1);
 
     const foregroundGroup = chart.foregroundGroup;
-    expect(foregroundGroup.getChildren().length).toBe(2);
+    expect(foregroundGroup.getChildren().length).toBe(3);
   });
 
   it('hideTooltip', () => {
@@ -94,7 +94,7 @@ describe('Tooltip', () => {
     chart.clear();
 
     const foregroundGroup = chart.foregroundGroup;
-    expect(foregroundGroup.getChildren().length).toBe(0);
+    expect(foregroundGroup.getChildren().length).toBe(1);
 
     const tooltipDom = container.getElementsByClassName('g2-tooltip');
     expect(tooltipDom.length).toBe(0);
