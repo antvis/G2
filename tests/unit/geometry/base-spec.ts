@@ -152,6 +152,51 @@ describe('Geometry', () => {
       expect(geometry.attributeOption.size.fields).toEqual(['temperature']);
     });
 
+    it('label()', () => {
+      geometry.label(false);
+      expect(geometry.labelOption).toBe(false);
+
+      geometry.label({
+        fields: ['temperature'],
+        cfg: {
+          type: 'pie',
+        },
+      });
+      expect(geometry.labelOption).toEqual({
+        fields: ['temperature'],
+        cfg: {
+          type: 'pie',
+        },
+      });
+
+      geometry.label('temperature');
+      expect(geometry.labelOption).toEqual({
+        fields: ['temperature'],
+      });
+
+      geometry.label('temperature', {
+        type: 'base',
+      });
+      expect(geometry.labelOption).toEqual({
+        fields: ['temperature'],
+        cfg: {
+          type: 'base',
+        },
+      });
+
+      geometry.label('temperature', (val) => {});
+      expect(geometry.labelOption.callback).toBeInstanceOf(Function);
+      expect(geometry.labelOption.cfg).toBeUndefined();
+
+      geometry.label('temperature', (val) => {}, {
+        type: 'base',
+      });
+      expect(geometry.labelOption.callback).toBeInstanceOf(Function);
+      expect(geometry.labelOption.cfg).toEqual({
+        type: 'base',
+      });
+    });
+
     it('adjust()', () => {
       // 传入 object 类型
       geometry.adjust({

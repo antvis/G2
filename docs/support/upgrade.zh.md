@@ -48,6 +48,8 @@ style('a', (aVal) => {
 - ❌`geometry.active()` 移除
 - ❌`geometry.select()` 移除
 - ❌`geometry.opacity()` 移除
+- `geometry.label()` 配置项更新
+  - 不再支持 html 类型的 label
 
 * 以下语法糖不再支持：
   - `pointStack()` -> `point().adjust('stack')`
@@ -58,3 +60,6 @@ style('a', (aVal) => {
   - `intervalSymmetric()` -> `interval().adjust('symmetric')`
   - `areaStack()` -> `area().adjust('stack')`
   - `schemaDodge()` -> `schema().adjust('stack')`
+* ❌ Interval 的 'top-line' shape 移除
+
+- ❌ tail legend

@@ -1,0 +1,321 @@
+import { getCoordinate } from '@antv/coord';
+import Interval from '../../../../src/geometry/interval';
+import GeometryLabels from '../../../../src/geometry/label/base';
+import Point from '../../../../src/geometry/point';
+import Theme from '../../../../src/theme/antv';
+import { createCanvas, createDiv } from '../../../util/dom';
+
+const CartesianCoordinate = getCoordinate('rect');
+
+describe('GeometryLabels', () => {
+  const div = createDiv();
+  const canvas = createCanvas({
+    container: div,
+    width: 300,
+    height: 300,
+  });
+  const rectCoord = new CartesianCoordinate({
+    start: { x: 0, y: 100 },
+    end: { x: 100, y: 0 },
+  });
+
+  describe('Point Label', () => {
+    const point = new Point({
+      data: [
+        { x: 100, y: 10, z: '1' },
+        { x: 100, y: 20, z: '2' },
+      ],
+      container: canvas.addGroup(),
+      labelsContainer: canvas.addGroup(),
+      theme: Theme,
+      coordinate: rectCoord,
+    });
+    point.position('x*y').label('z', { offset: 10 });
+    point.init();
+
+    const geometryLabels = new GeometryLabels(point);
+
+    it('offset', () => {
+      const labelItems = geometryLabels.getLabelItems([
+        { x: 100, y: 10, _origin: { x: 100, y: 10, z: '1' } },
+        { x: 100, y: 20, _origin: { x: 100, y: 20, z: '2' } },
+      ]);
+      expect(labelItems[0].y).toBe(0);
+      expect(labelItems[1].y).toBe(10);
+      expect(labelItems[0].content).toBe('1');
+      expect(labelItems[1].content).toBe('2');
+      expect(labelItems[1].style).toEqual(Theme.labels.style);
+    });
+
+    it('offsetX, offsetY', () => {
+      point.label('z', {
+        offsetX: 10,
+        offsetY: 10,
+      });
+      const labelItems = geometryLabels.getLabelItems([
+        { x: 100, y: 10, _origin: { x: 100, y: 10, z: '1' } },
+        { x: 100, y: 20, _origin: { x: 100, y: 20, z: '2' } },
+      ]);
+      expect(labelItems[0].x).toBe(110);
+      expect(labelItems[0].y).toBe(0);
+    });
+
+    it('one point two labels', () => {
+      point.label(
+        'z',
+        (zVal) => {
+          return {
+            content: 'zzzz',
+          };
+        },
+        {
+          adjustType: 'scatter',
+          offset: 0,
+        }
+      );
+
+      const labelItems = geometryLabels.getLabelItems([
+        { x: 100, y: [10, 20], _origin: { x: 100, y: [10, 20], z: ['1', '2'] } },
+        { x: 100, y: [30, 40], _origin: { x: 100, y: [30, 40], z: ['3', '4'] } },
+      ]);
+      expect(labelItems.length).toBe(2);
+      expect(labelItems[0].content).toBe('zzzz');
+      expect(labelItems[0].y).toBe(20);
+      expect(labelItems[0].x).toBe(100);
+      expect(labelItems[1].content).toBe('zzzz');
+      expect(labelItems[1].y).toBe(40);
+      expect(labelItems[1].x).toBe(100);
+    });
+  });
+
+  describe('Interval Label', () => {
+    let interval = new Interval({
+      data: [
+        { x: 100, y: 10, z: '1' },
+        { x: 100, y: 20, z: '2' },
+      ],
+      container: canvas.addGroup(),
+      labelsContainer: canvas.addGroup(),
+      theme: Theme,
+      coordinate: rectCoord,
+    });
+    interval.position('x*y').label('z', { offset: -10 });
+    interval.init();
+
+    let geometryLabels = new GeometryLabels(interval);
+
+    it('inner label', () => {
+      const labelItems = geometryLabels.getLabelItems([
+        { x: 100, y: 10, _origin: { x: 100, y: 10, z: '1' } },
+        { x: 100, y: 20, _origin: { x: 100, y: 20, z: '2' } },
+      ]);
+      expect(labelItems.length).toBe(2);
+      expect(labelItems[0].style.fill).toBe('#fff');
+    });
+
+    it('two two point inner label', () => {
+      interval.label('z', {
+        offset: -10,
+        labelLine: true,
+      });
+      const labelItems = geometryLabels.getLabelItems([
+        { x: 100, y: [10, 20], _origin: { x: 100, y: [10, 20], z: ['1', '2'] } },
+        { x: 100, y: [30, 40], _origin: { x: 100, y: [30, 40], z: ['3', '4'] } },
+      ]);
+      expect(labelItems.length).toBe(4);
+    });
+
+    it('stack points', () => {
+      interval = new Interval({
+        data: [
+          { x: 0, y: 10, text: 'a' },
+          { x: 0, y: [10, 20], text: 'b' },
+        ],
+        container: canvas.addGroup(),
+        labelsContainer: canvas.addGroup(),
+        theme: Theme,
+        coordinate: rectCoord,
+      });
+      interval.position('x*y').label('text', {
+        offset: 10,
+        labelLine: true,
+      });
+      interval.init();
+
+      geometryLabels = new GeometryLabels(interval);
+      const items = geometryLabels.getLabelItems([
+        { x: 0, y: 10, _origin: { x: 0, y: 10, text: 'a' } },
+        { x: 0, y: [10, 20], _origin: { x: 0, y: [10, 20], text: 'b' } },
+      ]);
+      expect(items.length).toBe(2);
+
+      const first = items[0];
+      const second = items[1];
+      expect(first.x).toBe(0);
+      expect(first.y).toBe(0);
+      expect(second.x).toBe(0);
+      expect(second.y).toBe(10);
+    });
+  });
+
+  describe('transposed label', () => {
+    const coord = new CartesianCoordinate({
+      start: {
+        x: 0,
+        y: 100,
+      },
+      end: {
+        x: 100,
+        y: 0,
+      },
+    });
+    coord.transpose();
+
+    const points = [
+      { x: 100, y: 10, _origin: { x: 100, y: 10, z: '1' } },
+      { x: 100, y: 20, _origin: { x: 100, y: 20, z: '2' } },
+    ];
+
+    let interval = new Interval({
+      data: [
+        { x: 100, y: 10, z: '1' },
+        { x: 100, y: 20, z: '2' },
+      ],
+      container: canvas.addGroup(),
+      labelsContainer: canvas.addGroup(),
+      theme: Theme,
+      coordinate: coord,
+    });
+    interval.position('x*y').label('z', { offset: 10 });
+    interval.init();
+
+    let gLabels = new GeometryLabels(interval);
+
+    it('offset > 0', () => {
+      const items = gLabels.getLabelItems(points);
+      const first = items[0];
+      expect(first.x).toBe(points[0].x + 10);
+      expect(first.y).toBe(points[0].y);
+    });
+
+    it('offset = 0', () => {
+      interval.label('z', {
+        offset: 0,
+      });
+
+      const items = gLabels.getLabelItems(points);
+      const first = items[0];
+      expect(first.x).toBe(points[0].x);
+      expect(first.y).toBe(points[0].y);
+    });
+
+    it('offset < 0', () => {
+      interval.label('z', {
+        offset: -10,
+      });
+
+      const items = gLabels.getLabelItems(points);
+      const first = items[0];
+      expect(first.x).toBe(points[0].x - 10);
+      expect(first.y).toBe(points[0].y);
+    });
+
+    it('multiple labels', () => {
+      const points1 = [
+        {
+          x: [90, 100],
+          y: [20, 20],
+          _origin: {
+            x: [90, 100],
+            y: [20, 20],
+            z: ['1', '2'],
+          },
+        },
+        {
+          x: [30, 40],
+          y: [40, 40],
+          _origin: {
+            x: [30, 40],
+            y: [40, 40],
+            z: ['3', '4'],
+          },
+        },
+      ];
+
+      interval = new Interval({
+        data: [
+          { x: [90, 100], y: [20, 20], z: ['1', '2'] },
+          { x: [30, 40], y: [40, 40], z: ['3', '4'] },
+        ],
+        container: canvas.addGroup(),
+        labelsContainer: canvas.addGroup(),
+        theme: Theme,
+        coordinate: coord,
+      });
+      interval.position('x*y').label('z', { offset: 10 });
+      interval.init();
+
+      gLabels = new GeometryLabels(interval);
+
+      const items = gLabels.getLabelItems(points1);
+      const first = items[0];
+
+      expect(first.x).toBe(80);
+      expect(first.y).toBe(points1[0].y[0]);
+
+      const second = items[1];
+
+      expect(second.x).toBe(110);
+      expect(second.y).toBe(points1[0].y[0]);
+    });
+
+    it('multiple labels inner', () => {
+      const points3 = [
+        {
+          x: [90, 100],
+          y: [20, 20],
+          z: ['1', '2'],
+          _origin: {
+            x: [90, 100],
+            y: [20, 20],
+            z: ['1', '2'],
+          },
+        },
+        {
+          x: [30, 40],
+          y: [40, 40],
+          z: ['3', '4'],
+          _origin: {
+            x: [30, 40],
+            y: [40, 40],
+            z: ['3', '4'],
+          },
+        },
+      ];
+      interval = new Interval({
+        data: [
+          { x: [90, 100], y: [20, 20], z: ['1', '2'] },
+          { x: [30, 40], y: [40, 40], z: ['3', '4'] },
+        ],
+        container: canvas.addGroup(),
+        labelsContainer: canvas.addGroup(),
+        theme: Theme,
+        coordinate: coord,
+      });
+      interval.position('x*y').label('z', { offset: -10 });
+      interval.init();
+
+      gLabels = new GeometryLabels(interval);
+
+      const items = gLabels.getLabelItems(points3);
+      const first = items[0];
+
+      expect(first.x).toBe(100);
+      expect(first.y).toBe(points3[0].y[0]);
+
+      const second = items[1];
+      expect(second.x).toBe(90);
+      expect(second.y).toBe(points3[0].y[0]);
+    });
+  });
+});
