@@ -1,9 +1,9 @@
 import { each, get } from '@antv/util';
-import { IGroup, IShape } from '../dependents';
-import { LabelItem } from '../geometry/label/base';
-import { bboxAdjust, positionAdjust, spiralAdjust } from '../util/adjust-labels';
-import { getReplaceAttrs } from '../util/graphics';
-import { rotate } from '../util/transform';
+import { IGroup, IShape } from '../../dependents';
+import { bboxAdjust, positionAdjust, spiralAdjust } from '../../util/adjust-labels';
+import { getReplaceAttrs } from '../../util/graphics';
+import { rotate } from '../../util/transform';
+import { LabelItem } from './base';
 
 export interface LabelsGroupCfg {
   container: IGroup;
@@ -57,14 +57,19 @@ export default class Labels {
     each(shapesMap, (shape, id) => {
       if (lastShapesMap[id]) {
         // 图形发生更新
+        const data = shape.get('data');
+        const mappingData = shape.get('mappingData');
         const currentShape = lastShapesMap[id]; // 已经在渲染树上的 shape
         const currentChildren = currentShape.getChildren();
         shape.getChildren().map((child, index) => {
           const currentChild = currentChildren[index] as IShape;
           const newAttrs = getReplaceAttrs(currentChild, child);
           currentChild.attr(newAttrs);
+          currentChild.set('data', data);
+          currentChild.set('mappingData', mappingData);
         });
-
+        currentShape.set('data', data);
+        currentShape.set('mappingData', mappingData);
         this.shapesMap[id] = currentShape; // 保存引用
       } else {
         // 新生成的 shape
