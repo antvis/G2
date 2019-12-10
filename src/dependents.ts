@@ -1,8 +1,8 @@
 /* 依赖的模块，在这里统一引入，方便打包优化 */
 
 // G
-export { ICanvas, IGroup, IShape } from '@antv/g-base/lib/interfaces';
-export { PathCommand } from '@antv/g-base/lib/types';
+export { ICanvas, IElement, IGroup, IShape } from '@antv/g-base/lib/interfaces';
+export { PathCommand, BBox } from '@antv/g-base/lib/types';
 export { Event } from '@antv/g-base';
 // 需要有 G-base 提供 g engine 类型定义
 export type IG = any;
