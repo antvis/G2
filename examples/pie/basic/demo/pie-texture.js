@@ -24,6 +24,7 @@ chart
   .adjust('stack')
   .position('sold')
   .label('sex')
+  .color('sex')
   .style('sex', (sex) => {
     if (sex === '男') {
       return {
