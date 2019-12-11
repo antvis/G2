@@ -852,17 +852,16 @@ export default class Geometry {
   }
 
   protected getShapeFactory() {
-    let shapeFactory = this.shapeFactory;
-    if (!shapeFactory) {
-      const shapeType = this.shapeType;
-      shapeFactory = getShapeFactory(shapeType);
-      shapeFactory.theme = get(this.theme, ['geometries', shapeType], {});
-      this.shapeFactory = shapeFactory;
+    const shapeType = this.shapeType;
+    if (!this.shapeFactory) {
+      this.shapeFactory = getShapeFactory(shapeType);
     }
     // 因为这里缓存了 shapeFactory，但是外部可能会变更 coordinate，导致无法重新设置到 shapeFactory 中
-    shapeFactory.coordinate = this.coordinate;
+    this.shapeFactory.coordinate = this.coordinate;
+    // theme 原因同上
+    this.shapeFactory.theme = get(this.theme, ['geometries', shapeType], {});
 
-    return shapeFactory;
+    return this.shapeFactory;
   }
 
   protected updateScales() {
