@@ -26,7 +26,7 @@ chart.data(data.slice(0, data.length - 2));
 
 chart.scale('city', { type: 'cat' });
 chart.axis('city', { type: 'category' });
-chart.coordinate('rect');
+chart.coordinate('rect').scale(1, -1);
 
 describe('chart multi view', () => {
   // 左右平分
@@ -115,6 +115,9 @@ describe('chart multi view', () => {
     expect(v1.getOptions().axes).toEqual(v2.getOptions().axes);
 
     expect(v1.getOptions().coordinate.type).toBe('rect');
+
+    expect(v1.getCoordinate()).toEqual(chart.getCoordinate());
+    expect(v2.getCoordinate()).toEqual(chart.getCoordinate());
   });
 
   it('changeData', () => {
