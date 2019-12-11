@@ -1,4 +1,3 @@
-// FIXME: 确定 chart.annotation().arc() 的参数
 import { Chart, registerShape } from '@antv/g2';
 
 // 自定义Shape 部分
@@ -119,11 +118,8 @@ chart.annotation().line({
 chart.annotation().arc({
   top: false,
   start: [0, 1],
-  // end: [9, 1],
-  startAngle: (-9 / 8) * Math.PI,
-  endAngle: (1 / 8) * Math.PI,
+  end: [9, 1],
   style: {
-    // 底灰色
     stroke: '#CBCBCB',
     lineWidth: 18,
     lineDash: null,
@@ -134,9 +130,7 @@ chart.annotation().arc({
 chart.annotation().arc({
   zIndex: 1,
   start: [0, 1],
-  // end: [data[0].value, 0.945],
-  startAngle: (-9 / 8) * Math.PI,
-  endAngle: (10 / 8) * Math.PI * (data[0].value / 9) + (-9 / 8) * Math.PI, // 根据当前数据占比计算对应的角度
+  end: [data[0].value, 1],
   style: {
     stroke: '#1890FF',
     lineWidth: 20,

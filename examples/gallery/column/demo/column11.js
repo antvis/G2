@@ -51,7 +51,7 @@ chart.axis('time', {
 
 chart.axis('value', false);
 chart.legend({
-  position: 'right-center',
+  position: 'right',
 });
 chart
   .interval()

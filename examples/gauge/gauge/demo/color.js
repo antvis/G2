@@ -1,4 +1,3 @@
-// FIXME: 确定 chart.annotation().arc() 的参数
 import { Chart, registerShape } from '@antv/g2';
 
 function creatData() {
@@ -106,11 +105,8 @@ function draw(data) {
   chart.annotation().arc({
     top: false,
     start: [0, 1],
-    // end: [6, 1],
-    startAngle: (-9 / 8) * Math.PI,
-    endAngle: (1 / 8) * Math.PI,
+    end: [6, 1],
     style: {
-      // 底灰色
       stroke: '#CBCBCB',
       lineWidth,
       lineDash: null,
@@ -120,9 +116,7 @@ function draw(data) {
   val >= 2 &&
     chart.annotation().arc({
       start: [0, 1],
-      // end: [val, 1],
-      startAngle: (-9 / 8) * Math.PI,
-      endAngle: (10 / 8) * Math.PI * (val / 6) + (-9 / 8) * Math.PI, // 根据当前数据占比计算对应的角度
+      end: [val, 1],
       style: {
         stroke: color[0],
         lineWidth,
@@ -134,9 +128,7 @@ function draw(data) {
     chart.annotation().arc({
       zIndex: 1,
       start: [2, 1],
-      // end: [4, 1],
-      startAngle: (-9 / 8) * Math.PI,
-      endAngle: (10 / 8) * Math.PI * (4 / 6) + (-9 / 8) * Math.PI, // 根据当前数据占比计算对应的角度
+      end: [4, 1],
       style: {
         stroke: color[1],
         lineWidth,
@@ -149,9 +141,7 @@ function draw(data) {
     chart.annotation().arc({
       zIndex: 1,
       start: [4, 1],
-      // end: [val, 1],
-      startAngle: (-9 / 8) * Math.PI,
-      endAngle: (10 / 8) * Math.PI * (val / 6) + (-9 / 8) * Math.PI, // 根据当前数据占比计算对应的角度
+      end: [val, 1],
       style: {
         stroke: color[2],
         lineWidth,
@@ -164,9 +154,7 @@ function draw(data) {
     chart.annotation().arc({
       zIndex: 1,
       start: [2, 1],
-      // end: [val, 1],
-      startAngle: (-9 / 8) * Math.PI,
-      endAngle: (10 / 8) * Math.PI * (val / 6) + (-9 / 8) * Math.PI, // 根据当前数据占比计算对应的角度
+      end: [val, 1],
       style: {
         stroke: color[1],
         lineWidth,
@@ -178,9 +166,7 @@ function draw(data) {
     chart.annotation().arc({
       zIndex: 1,
       start: [0, 1],
-      // end: [val, 1],
-      startAngle: (-9 / 8) * Math.PI,
-      endAngle: (10 / 8) * Math.PI * (val / 6) + (-9 / 8) * Math.PI, // 根据当前数据占比计算对应的角度
+      end: [val, 1],
       style: {
         stroke: color[0],
         lineWidth,
