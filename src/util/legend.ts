@@ -11,7 +11,7 @@ import { getMappingValue } from './attr';
  * @returns layout 'horizontal' | 'vertical'
  */
 export function getLegendLayout(direction: DIRECTION): string {
-  return [DIRECTION.TOP, DIRECTION.BOTTOM].includes(direction) ? 'horizontal' : 'vertical';
+  return direction.startsWith(DIRECTION.TOP) || direction.startsWith(DIRECTION.BOTTOM) ? 'horizontal' : 'vertical';
 }
 
 /**
