@@ -30,10 +30,14 @@ export default function defaultLayout(view: View): void {
   const annotation = view.getPlugin('annotation');
 
   // 1. 计算出 legend 的 direction 位置 x, y
-  axis.layout();
+  if (axis) {
+    axis.layout();
+  }
 
   // 2. 根据 axis 内容不遮挡原则，计算出 y axis 的 width，x axis 的 height；
-  legend.layout();
+  if (legend) {
+    legend.layout();
+  }
 
   let bbox = viewBBox;
 
@@ -68,7 +72,11 @@ export default function defaultLayout(view: View): void {
   view.adjustCoordinate();
 
   // 4. 给 axis 组件更新 coordinate: 调整 axis 的宽高：y axis height, x axis width = coordinateBBox width height
-  axis.layout();
+  if (axis) {
+    axis.layout();
+  }
 
-  annotation.layout();
+  if (annotation) {
+    annotation.layout();
+  }
 }
