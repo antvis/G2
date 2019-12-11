@@ -1,4 +1,3 @@
-import { PathCommand } from '_@antv_g-base@0.1.1@@antv/g-base/lib/types';
 import { AdjustType, Datum, LooseObject, MappingDatum } from '../interface';
 
 /** 图形属性配置项定义，如 position({}) */
