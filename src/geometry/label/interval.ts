@@ -6,8 +6,8 @@ export default class IntervalLabels extends GeometryLabels {
     const coordinate = this.coordinate;
     const transposed = coordinate.isTransposed;
     const shapePoints = mappingData.points as Point[];
-    const point0 = coordinate.convertPoint(shapePoints[0]);
-    const point1 = coordinate.convertPoint(shapePoints[2]);
+    const point0 = coordinate.convert(shapePoints[0]);
+    const point1 = coordinate.convert(shapePoints[2]);
     const width = ((point0.x - point1.x) / 2) * (transposed ? -1 : 1);
     const height = ((point0.y - point1.y) / 2) * (transposed ? -1 : 1);
 

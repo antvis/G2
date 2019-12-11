@@ -30,7 +30,7 @@ describe('polar labels', () => {
     { x: 10, y: 50, z: 2, _origin: { x: 10, y: 50, z: '3' } },
   ];
 
-  const point = coord.convertPoint({
+  const point = coord.convert({
     x: 0.125,
     y: 0.8,
   });
@@ -103,7 +103,7 @@ describe('polar labels', () => {
     it('point rotate 45', () => {
       // tslint:disable-next-line: no-shadowed-variable
       const point = items[3];
-      const tmp = coord.convertPoint({
+      const tmp = coord.convert({
         x: 0.125,
         y: 1,
       });
@@ -158,7 +158,7 @@ describe('polar labels', () => {
     it('point rotate 45', () => {
       // tslint:disable-next-line: no-shadowed-variable
       const point = items[3];
-      const tmp = coord.convertPoint({
+      const tmp = coord.convert({
         x: 0.125,
         y: 0.6,
       });

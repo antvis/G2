@@ -108,13 +108,6 @@ export default class GeometryLabels {
     });
   }
 
-  protected transLabelPoint(labelPointCfg: LabelPointCfg) {
-    const coordinate = this.coordinate;
-    const tmpPoint = coordinate.applyMatrix(labelPointCfg.x, labelPointCfg.y, 1);
-    labelPointCfg.x = tmpPoint[0];
-    labelPointCfg.y = tmpPoint[1];
-  }
-
   protected getDefaultOffset(offset: number) {
     const coordinate = this.coordinate;
     const vector = this.getOffsetVector(offset);
@@ -207,7 +200,6 @@ export default class GeometryLabels {
       this.setLabelPosition(label, mappingData, index, labelCfg.position);
     }
     const offsetPoint = this.getLabelOffset(labelCfg, index, total);
-    this.transLabelPoint(label);
     label.start = { x: label.x, y: label.y };
     label.x += offsetPoint.x;
     label.y += offsetPoint.y;

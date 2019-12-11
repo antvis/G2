@@ -1438,7 +1438,7 @@ export default class Geometry {
       rstX = [];
       rstY = [];
       for (let i = 0, j = 0, xLen = x.length, yLen = y.length; i < xLen && j < yLen; i += 1, j += 1) {
-        obj = coordinate.convertPoint({
+        obj = coordinate.convert({
           x: x[i],
           y: y[j],
         });
@@ -1448,7 +1448,7 @@ export default class Geometry {
     } else if (isArray(y)) {
       rstY = [];
       y.forEach((yVal) => {
-        obj = coordinate.convertPoint({
+        obj = coordinate.convert({
           x: x as number,
           y: yVal,
         });
@@ -1465,7 +1465,7 @@ export default class Geometry {
     } else if (isArray(x)) {
       rstX = [];
       x.forEach((xVal) => {
-        obj = coordinate.convertPoint({
+        obj = coordinate.convert({
           x: xVal,
           y: y as number,
         });
@@ -1480,7 +1480,7 @@ export default class Geometry {
         rstX.push(obj.x);
       });
     } else {
-      const point = coordinate.convertPoint({
+      const point = coordinate.convert({
         x,
         y,
       });

@@ -24,7 +24,7 @@ function _points2path(points: Point[], isInCircle: boolean): PathCommand[] {
 function _convertArr(arr: number[], coord: Coordinate): any[] {
   const tmp = [arr[0]];
   for (let i = 1, len = arr.length; i < len; i = i + 2) {
-    const point = coord.convertPoint({
+    const point = coord.convert({
       x: arr[i],
       y: arr[i + 1],
     });
@@ -49,7 +49,7 @@ function _convertPolarPath(pre: PathCommand, cur: PathCommand, coord: Coordinate
   const angleRange = Math.abs(curPoint[xDim] - prePoint[xDim]) * (endAngle - startAngle);
   const direction = curPoint[xDim] >= prePoint[xDim] ? 1 : 0; // 圆弧的方向
   const flag = angleRange > Math.PI ? 1 : 0; // 大弧还是小弧标志位
-  const convertPoint = coord.convertPoint(curPoint);
+  const convertPoint = coord.convert(curPoint);
   const r = getDistanceToCenter(coord, convertPoint);
   if (r >= 0.5) {
     // 小于1像素的圆在图像上无法识别
@@ -58,7 +58,7 @@ function _convertPolarPath(pre: PathCommand, cur: PathCommand, coord: Coordinate
         x: (curPoint.x + prePoint.x) / 2,
         y: (curPoint.y + prePoint.y) / 2,
       };
-      const middleConvertPoint = coord.convertPoint(middlePoint);
+      const middleConvertPoint = coord.convert(middlePoint);
       rst.push(['A', r, r, 0, flag, direction, middleConvertPoint.x, middleConvertPoint.y]);
       rst.push(['A', r, r, 0, flag, direction, convertPoint.x, convertPoint.y]);
     } else {

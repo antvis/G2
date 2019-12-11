@@ -14,8 +14,8 @@ export function getXDimensionLength(coordinate): number {
   }
 
   // 直角坐标系
-  const start = coordinate.convertPoint({ x: 0, y: 0 });
-  const end = coordinate.convertPoint({ x: 1, y: 0 });
+  const start = coordinate.convert({ x: 0, y: 0 });
+  const end = coordinate.convert({ x: 1, y: 0 });
   // 坐标系有可能发生 transpose 等变换，所有通过两点之间的距离进行计算
   return Math.sqrt(Math.pow(end.x - start.x, 2) + Math.pow(end.y - start.y, 2));
 }
