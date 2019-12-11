@@ -1,5 +1,6 @@
 import 'jest-extended';
 import { Chart } from '../../../src/';
+import { COMPONENT_TYPE } from '../../../src/constant';
 import { createDiv, removeDom } from '../../util/dom';
 
 const IMAGE = 'https://img.alicdn.com/tfs/TB1M.wKkND1gK0jSZFyXXciOVXa-120-120.png';
@@ -40,7 +41,7 @@ describe('annotation', () => {
 
     chart.render();
 
-    const image = chart.annotationController.getComponents()[0].component;
+    const image = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[0].component;
 
     expect(image.get('src')).toBe(IMAGE);
     expect(image.get('offsetX')).toBe(-12);
@@ -66,7 +67,7 @@ describe('annotation', () => {
 
     chart.render();
 
-    const line = chart.annotationController.getComponents()[1].component;
+    const line = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[1].component;
 
     // theme
     expect(line.get('style').lineDash).toEqual([2, 2]);
@@ -94,7 +95,7 @@ describe('annotation', () => {
 
     chart.render();
 
-    const region = chart.annotationController.getComponents()[2].component;
+    const region = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[2].component;
 
     // theme
     expect(region.get('style').fillOpacity).toBe(0.04);
@@ -120,7 +121,7 @@ describe('annotation', () => {
 
     chart.render();
 
-    const text = chart.annotationController.getComponents()[3].component;
+    const text = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[3].component;
     // theme
     // @ts-ignore
     expect(text.get('style').fontFamily).toEqual(chart.getTheme().fontFamily);
@@ -144,7 +145,7 @@ describe('annotation', () => {
 
     chart.render();
 
-    const text = chart.annotationController.getComponents()[4].component;
+    const text = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[4].component;
     const coordinateCenter = chart.getCoordinate().getCenter();
     // pos
     expect(text.get('x')).toBe(coordinateCenter.x);
@@ -164,7 +165,7 @@ describe('annotation', () => {
 
     chart.render();
 
-    const text = chart.annotationController.getComponents()[5].component;
+    const text = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[5].component;
     const coordinateCenter = chart.getCoordinate().getCenter();
     // // pos
     expect(text.get('x')).toBeWithin(138, 142);

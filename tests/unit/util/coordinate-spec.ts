@@ -1,5 +1,6 @@
 import { getCoordinate } from '@antv/coord';
-import { getDistanceToCenter, getPointAngle, getXDimensionLength, isFullCircle } from '../../../src/util/coordinate';
+import { BBox } from '../../../src/util/bbox';
+import { createCoordinate, getDistanceToCenter, getPointAngle, getXDimensionLength, hasAction, isFullCircle, isTheta } from '../../../src/util/coordinate';
 
 const Polar = getCoordinate('polar');
 const Cartesian = getCoordinate('rect');
@@ -45,7 +46,7 @@ describe('CoordinateUtil', () => {
     expect(isFullCircle(cartesian)).toEqual(false);
   });
 
-  test('getDistanceToCenter()', () => {
+  it('getDistanceToCenter()', () => {
     const coord = new Polar({
       start: {
         x: 0,
@@ -70,7 +71,7 @@ describe('CoordinateUtil', () => {
     ).toBe(100);
   });
 
-  test('getPointAngle()', () => {
+  it('getPointAngle()', () => {
     const coord = new Polar({
       start: {
         x: 0,
@@ -93,5 +94,40 @@ describe('CoordinateUtil', () => {
         y: 100,
       })
     ).toBe(Math.PI);
+  });
+
+  it('hasAction', () => {
+    expect(hasAction(['a', 'b'], 'a')).toBe(true);
+    expect(hasAction(['a', 'b'], 'b')).toBe(true);
+    expect(hasAction(['a', 'b'], 'c')).toBe(false);
+  });
+
+  it('isTheta', () => {
+    expect(isTheta('theta')).toBe(true);
+    expect(isTheta('rect')).toBe(false);
+  });
+
+  it('createCoordinate', () => {
+
+    let coordinate = createCoordinate({
+      type: 'rect',
+    });
+    expect(coordinate.type).toBe('rect');
+
+    coordinate = createCoordinate({
+      type: 'theta',
+    });
+    expect(coordinate.type).toBe('theta');
+    expect(coordinate.isTransposed).toBe(true);
+
+    coordinate = createCoordinate({
+      type: 'polar',
+      cfg: {
+        startAngle: Math.PI,
+      },
+    }, new BBox(0, 0, 100, 100));
+    expect(coordinate.type).toBe('polar');
+    expect(coordinate.start).toEqual({ x: 0, y: 100 });
+    expect(coordinate.end).toEqual({ x: 100, y: 0 });
   });
 });

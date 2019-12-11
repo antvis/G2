@@ -4,7 +4,7 @@ import { Annotation as AnnotationComponent, IGroup, Scale } from '../../dependen
 import { Point } from '../../interface';
 import { ComponentOption } from '../interface';
 import View from '../view';
-import { Controller } from './base';
+import { Component } from './base';
 
 type PositionCallback = (
   xScales: Scale[] | Record<string, Scale>,
@@ -81,10 +81,7 @@ export interface TextOption {
  * 1. API for creating annotation: line、text、arc ...
  * 2. life circle: init、layout、render、clear、destroy
  */
-export class Annotation extends Controller<undefined> {
-  /** all annotation options passed by API */
-  private options: BaseOption[] = [];
-
+export default class Annotation extends Component<BaseOption[]> {
   private foregroundContainer: IGroup;
   private backgroundContainer: IGroup;
 
@@ -93,6 +90,12 @@ export class Annotation extends Controller<undefined> {
 
     this.foregroundContainer = this.view.getLayer(LAYER.FORE).addGroup();
     this.backgroundContainer = this.view.getLayer(LAYER.BG).addGroup();
+
+    this.option = [];
+  }
+
+  public get name(): string {
+    return 'annotation';
   }
 
   public init() {}
@@ -108,7 +111,7 @@ export class Annotation extends Controller<undefined> {
   }
 
   public render() {
-    each(this.options, (option: BaseOption) => {
+    each(this.option, (option: BaseOption) => {
       const { type } = option;
       const theme = this.getAnnotationTheme(type);
 
@@ -130,15 +133,15 @@ export class Annotation extends Controller<undefined> {
     });
   }
 
-  public clear(includeOptions = false) {
+  public clear(includeOption = false) {
     super.clear();
 
     this.foregroundContainer.clear();
     this.backgroundContainer.clear();
 
-    // clear all options
-    if (includeOptions) {
-      this.options = [];
+    // clear all option
+    if (includeOption) {
+      this.option = [];
     }
   }
 
@@ -151,7 +154,7 @@ export class Annotation extends Controller<undefined> {
 
   // APIs for creating annotation component
   private annotation(option: any) {
-    this.options.push(option);
+    this.option.push(option);
   }
 
   /**

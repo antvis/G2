@@ -7,7 +7,7 @@ import { directionToPosition } from '../../util/direction';
 import { getLegendItems, getLegendLayout } from '../../util/legend';
 import { ComponentOption, LegendOption } from '../interface';
 import View from '../view';
-import { Controller } from './base';
+import { Component } from './base';
 
 type Option = Record<string, LegendOption> | boolean;
 
@@ -28,7 +28,7 @@ function getLegendOption(legends: Record<string, LegendOption> | boolean, field:
 /**
  * legend Controller
  */
-export class Legend extends Controller<Option> {
+export default class Legend extends Component<Option> {
   /** the draw group of axis */
   private container: IGroup;
 
@@ -36,6 +36,10 @@ export class Legend extends Controller<Option> {
     super(view);
 
     this.container = this.view.getLayer(LAYER.FORE).addGroup();
+  }
+
+  public get name(): string {
+    return 'legend';
   }
 
   public init() {}

@@ -52,7 +52,7 @@ describe('Component', () => {
   chart.render();
 
   it('circle axis component', () => {
-    const axes = chart.getOptions().components.filter((co) => co.type === COMPONENT_TYPE.AXIS);
+    const axes = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.AXIS);
     // // test the component theme config
     const [x] = axes;
     // @ts-ignore

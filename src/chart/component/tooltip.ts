@@ -2,10 +2,10 @@ import * as TOOLTIP_CLASSNAMES from '@antv/component/lib/tooltip/css-const';
 import { each, find, get, isArray, isEqual, isObject } from '@antv/util';
 import { HtmlTooltip, IGroup } from '../../dependents';
 import Geometry from '../../geometry/base';
-import { Data, MappingDatum, Point } from '../../interface';
+import { MappingDatum, Point } from '../../interface';
 import { findDataByPoint, getTooltipItems } from '../../util/tooltip';
 import { TooltipOption } from '../interface';
-import View from '../view';
+import { Component } from './base';
 
 // Filter duplicates, use `name`, `color`, `value` and `title` property values as condition
 function uniq(items) {
@@ -26,10 +26,9 @@ function uniq(items) {
   return uniqItems;
 }
 
-export class Tooltip {
-  public view: View;
-  public cfg;
-  public tooltip;
+export default class Tooltip extends Component<TooltipOption> {
+  // public cfg;
+  private tooltip;
 
   private isVisible: boolean = true;
   private markerGroup: IGroup;
@@ -37,24 +36,22 @@ export class Tooltip {
   private title: string;
   private tooltipInteraction;
 
-  constructor(view: View) {
-    this.view = view;
+  public get name(): string {
+    return 'tooltip';
   }
 
-  public setCfg(cfg: TooltipOption) {
-    if (cfg === false) {
-      // 用户关闭 tooltip
-      this.isVisible = false;
-    }
-    this.initCfg(cfg);
-  }
+  public init() {}
 
   public render() {
     if (this.tooltip) {
       return;
     }
 
-    const { view, cfg } = this;
+    this.option = this.view.getOptions().tooltip;
+    this.isVisible = this.option !== false;
+
+    const view = this.view;
+
     const canvas = view.getCanvas();
     const coordinateBBox = view.coordinateBBox;
     const region = {
@@ -66,6 +63,8 @@ export class Tooltip {
       end: coordinateBBox.br,
     };
 
+    const cfg = this.getTooltipCfg();
+
     const tooltip = new HtmlTooltip({
       parent: canvas.get('el').parentNode,
       region,
@@ -73,6 +72,7 @@ export class Tooltip {
       ...cfg,
       visible: false,
     });
+
     tooltip.render();
     // tooltip.hide();
 
@@ -86,17 +86,21 @@ export class Tooltip {
     }
   }
 
+  public layout() {}
+
   /**
    * Shows tooltip
    * @param point
    */
   public showTooltip(point: Point) {
-    const { view, cfg, tooltip } = this;
+    const { view, tooltip } = this;
     const { coordinateBBox } = view;
     const items = this.getItems(point);
     if (!items.length) {
       return;
     }
+
+    const cfg = this.getTooltipCfg();
     const title = this.getTitle(items);
     const location = {
       x: items[0].x,
@@ -182,6 +186,13 @@ export class Tooltip {
     return rst;
   }
 
+  /**
+   * override 不做任何事情
+   */
+  public clear() {
+    // do nothing
+  }
+
   public destroy() {
     const { tooltip, markerGroup } = this;
 
@@ -204,18 +215,20 @@ export class Tooltip {
     }
   }
 
-  private initCfg(cfg) {
+  private getTooltipCfg() {
     const view = this.view;
+    const option = this.option;
     const theme = view.getTheme();
+
     const defaultCfg = get(theme, ['components', 'tooltip'], {});
     let tooltipCfg = {
       ...defaultCfg,
     };
 
-    if (isObject(cfg)) {
+    if (isObject(option)) {
       tooltipCfg = {
         ...defaultCfg,
-        ...cfg,
+        ...option,
       };
     }
     // set `crosshairs`
@@ -237,15 +250,17 @@ export class Tooltip {
       }
     });
 
-    this.cfg = tooltipCfg;
+    return tooltipCfg;
   }
 
   private getItems(point: Point) {
-    const { view, cfg: tooltipCfg } = this;
+    const { view } = this;
     const geometries = view.geometries;
     if (!geometries.length) {
       return [];
     }
+
+    const tooltipCfg = this.getTooltipCfg();
 
     let items = [];
     const shared = tooltipCfg.shared;
@@ -299,7 +314,10 @@ export class Tooltip {
   }
 
   private renderTooltipMarkers() {
-    const { view, cfg, items } = this;
+    const { view, items } = this;
+
+    const cfg = this.getTooltipCfg();
+
     const foregroundGroup = view.foregroundGroup;
     let markerGroup = this.markerGroup;
     if (markerGroup && !markerGroup.destroyed) {

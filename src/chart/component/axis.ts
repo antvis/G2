@@ -6,7 +6,7 @@ import { getCircleGridItems, getGridThemeCfg, getLineGridItems, showGrid } from 
 import { getName } from '../../util/scale';
 import { AxisOption, ComponentOption } from '../interface';
 import View from '../view';
-import { Controller } from './base';
+import { Component } from './base';
 
 type Option = Record<string, AxisOption> | boolean;
 
@@ -31,7 +31,7 @@ function getAxisOption(axes: Record<string, AxisOption> | boolean, field: string
  *    - grid
  *  - life circle
  */
-export class Axis extends Controller<Option> {
+export default class Axis extends Component<Option> {
   /** the draw group of axis */
   private container: IGroup;
 
@@ -39,6 +39,10 @@ export class Axis extends Controller<Option> {
     super(view);
 
     this.container = this.view.getLayer(LAYER.BG).addGroup();
+  }
+
+  public get name(): string {
+    return 'axis';
   }
 
   public init() {}

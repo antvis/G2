@@ -25,7 +25,7 @@ describe('Component', () => {
   it('close legend', () => {
     chart.legend(false);
     chart.render();
-    const legends = chart.getOptions().components.filter((co) => co.type === COMPONENT_TYPE.LEGEND);
+    const legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
     expect(legends.length).toBe(0);
   });
 
@@ -35,7 +35,7 @@ describe('Component', () => {
     });
 
     chart.render();
-    const legends = chart.getOptions().components.filter((co) => co.type === COMPONENT_TYPE.LEGEND);
+    const legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
     expect(legends.length).toBe(1);
 
     const legend = legends[0].component;
