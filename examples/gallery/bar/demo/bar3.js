@@ -70,7 +70,7 @@ chart.axis('value', {
   },
 });
 chart.legend({
-  position: 'top-center',
+  position: 'top',
 });
 chart.coordinate().transpose();
 chart

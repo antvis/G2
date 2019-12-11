@@ -36,7 +36,7 @@ chart.scale('value', {
 
 chart.axis('value', false);
 chart.legend({
-  position: 'top-center',
+  position: 'top',
 });
 chart.coordinate().transpose();
 // chart.facet('mirror', {
