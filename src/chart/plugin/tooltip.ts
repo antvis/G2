@@ -26,7 +26,7 @@ function uniq(items) {
   return uniqItems;
 }
 
-export class Tooltip extends Plugin<TooltipOption> {
+export default class Tooltip extends Plugin<TooltipOption> {
   // public cfg;
   private tooltip;
 

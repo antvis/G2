@@ -31,7 +31,7 @@ function getAxisOption(axes: Record<string, AxisOption> | boolean, field: string
  *    - grid
  *  - life circle
  */
-export class Axis extends Plugin<Option> {
+export default class Axis extends Plugin<Option> {
   /** the draw group of axis */
   private container: IGroup;
 

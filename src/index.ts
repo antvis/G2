@@ -43,6 +43,20 @@ import Rect from './facet/rect';
 
 registerFacet('rect', Rect);
 
+// 注册内置的 Component
+import { registerComponent } from './core';
+
+import Annotation from './chart/plugin/annotation';
+import Axis from './chart/plugin/axis';
+import Legend from './chart/plugin/legend';
+import Tooltip from './chart/plugin/tooltip';
+
+// register build-in components
+registerComponent('axis', Axis);
+registerComponent('legend', Legend);
+registerComponent('tooltip', Tooltip);
+registerComponent('annotation', Annotation);
+
 // view module augmentation
 // detail: http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
 import { GeometryCfg } from './geometry/base';

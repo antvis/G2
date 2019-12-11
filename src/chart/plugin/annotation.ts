@@ -81,7 +81,7 @@ export interface TextOption {
  * 1. API for creating annotation: line、text、arc ...
  * 2. life circle: init、layout、render、clear、destroy
  */
-export class Annotation extends Plugin<BaseOption[]> {
+export default class Annotation extends Plugin<BaseOption[]> {
   private foregroundContainer: IGroup;
   private backgroundContainer: IGroup;
 

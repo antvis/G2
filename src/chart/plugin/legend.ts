@@ -28,7 +28,7 @@ function getLegendOption(legends: Record<string, LegendOption> | boolean, field:
 /**
  * legend Controller
  */
-export class Legend extends Plugin<Option> {
+export default class Legend extends Plugin<Option> {
   /** the draw group of axis */
   private container: IGroup;
 

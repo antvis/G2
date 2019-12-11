@@ -44,9 +44,9 @@ import {
 } from './interface';
 import defaultLayout, { Layout } from './layout';
 import { getComponent, getComponentNames } from './plugin';
-import { Annotation as AnnotationPlugin } from './plugin/annotation';
+import AnnotationPlugin from './plugin/annotation';
 import { Plugin } from './plugin/base';
-import { Tooltip as TooltipPlugin } from './plugin/tooltip';
+import TooltipPlugin from './plugin/tooltip';
 
 /**
  * view container of G2
