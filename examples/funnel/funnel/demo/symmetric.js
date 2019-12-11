@@ -24,7 +24,7 @@ const chart = new Chart({
 chart.data(data);
 chart.axis(false);
 chart.tooltip({
-  showCrosshairs: false,
+  showTooltipMarkers: false,
   showTitle: false,
   itemTpl:
     '<li data-index={index} style="margin-bottom:4px;">' +
