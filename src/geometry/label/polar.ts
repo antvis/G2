@@ -91,7 +91,6 @@ export default class PolarLabels extends GeometryLabels {
       };
     }
 
-    this.transLabelPoint(arcPoint);
     return arcPoint;
   }
 

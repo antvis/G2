@@ -282,14 +282,10 @@ export class Tooltip {
 
     items = uniq(items); // 去除重复值
 
-    const coordinate = view.getCoordinate();
     each(items, (item) => {
-      let { x, y } = item.mappingData;
-      x = isArray(x) ? x[x.length - 1] : x;
-      y = isArray(y) ? y[y.length - 1] : y;
-      const convertPoint = coordinate.applyMatrix(x, y, 1);
-      item.x = convertPoint[0];
-      item.y = convertPoint[1];
+      const { x, y } = item.mappingData;
+      item.x = isArray(x) ? x[x.length - 1] : x;
+      item.y = isArray(y) ? y[y.length - 1] : y;
     });
 
     return items;

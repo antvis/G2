@@ -119,7 +119,7 @@ const ShapeBase = {
    */
   parsePoint(point: Point): Point {
     const coordinate = this.coordinate;
-    return coordinate.convertPoint(point);
+    return coordinate.convert(point);
   },
   /**
    * 0～1 points 转 画布 points
@@ -129,7 +129,7 @@ const ShapeBase = {
   parsePoints(points: Point[]): Point[] {
     const coordinate = this.coordinate;
     return points.map((point) => {
-      return coordinate.convertPoint(point);
+      return coordinate.convert(point);
     });
   },
   /**

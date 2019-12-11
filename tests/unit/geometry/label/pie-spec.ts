@@ -38,11 +38,11 @@ describe('pie labels', () => {
     const values = [];
     const data = [];
     for (let i = 0; i < 8; i++) {
-      const obj = coord.convertPoint({
+      const obj = coord.convert({
         x: 0.5,
         y: i / 8,
       });
-      const endPoint = coord.convertPoint({
+      const endPoint = coord.convert({
         x: 0.5,
         y: (i + 1) / 8,
       });
@@ -122,11 +122,11 @@ describe('pie labels', () => {
     const values = [];
     const data = [];
     for (let i = 0; i < 6; i++) {
-      const obj = coord.convertPoint({
+      const obj = coord.convert({
         x: 0.5,
         y: i / 6,
       });
-      const endPoint = coord.convertPoint({
+      const endPoint = coord.convert({
         x: 0.5,
         y: (i + 1) / 6,
       });

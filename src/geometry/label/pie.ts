@@ -187,12 +187,10 @@ export default class PieLabels extends PolarLabels {
       x: isArray(point.x) ? point.x[0] : point.x,
       y: point.y[0],
     };
-    this.transLabelPoint(startPoint); // 转换到画布坐标，如果坐标系发生改变
     const endPoint = {
       x: isArray(point.x) ? point.x[1] : point.x,
       y: point.y[1],
     };
-    this.transLabelPoint(endPoint); // 转换到画布坐标，如果坐标系发生改变
     let angle;
     const startAngle = getPointAngle(coordinate, startPoint);
     if (point.points && point.points[0].y === point.points[1].y) {
