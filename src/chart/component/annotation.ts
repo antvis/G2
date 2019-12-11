@@ -4,7 +4,7 @@ import { Annotation as AnnotationComponent, IGroup, Scale } from '../../dependen
 import { Point } from '../../interface';
 import { ComponentOption } from '../interface';
 import View from '../view';
-import { Plugin } from './base';
+import { Component } from './base';
 
 type PositionCallback = (
   xScales: Scale[] | Record<string, Scale>,
@@ -81,7 +81,7 @@ export interface TextOption {
  * 1. API for creating annotation: line、text、arc ...
  * 2. life circle: init、layout、render、clear、destroy
  */
-export default class Annotation extends Plugin<BaseOption[]> {
+export default class Annotation extends Component<BaseOption[]> {
   private foregroundContainer: IGroup;
   private backgroundContainer: IGroup;
 

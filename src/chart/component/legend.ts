@@ -7,7 +7,7 @@ import { directionToPosition } from '../../util/direction';
 import { getLegendItems, getLegendLayout } from '../../util/legend';
 import { ComponentOption, LegendOption } from '../interface';
 import View from '../view';
-import { Plugin } from './base';
+import { Component } from './base';
 
 type Option = Record<string, LegendOption> | boolean;
 
@@ -28,7 +28,7 @@ function getLegendOption(legends: Record<string, LegendOption> | boolean, field:
 /**
  * legend Controller
  */
-export default class Legend extends Plugin<Option> {
+export default class Legend extends Component<Option> {
   /** the draw group of axis */
   private container: IGroup;
 

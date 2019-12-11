@@ -30,6 +30,10 @@ import { createCoordinate } from '../util/coordinate';
 import { parsePadding } from '../util/padding';
 import { mergeTheme } from '../util/theme';
 import Chart from './chart';
+import { getComponent, getComponentNames } from './component';
+import AnnotationComponent from './component/annotation';
+import { Component } from './component/base';
+import TooltipComponent from './component/tooltip';
 import Event from './event';
 import {
   AxisOption,
@@ -43,10 +47,6 @@ import {
   ViewCfg,
 } from './interface';
 import defaultLayout, { Layout } from './layout';
-import { getComponent, getComponentNames } from './plugin';
-import AnnotationPlugin from './plugin/annotation';
-import { Plugin } from './plugin/base';
-import TooltipPlugin from './plugin/tooltip';
 
 /**
  * view container of G2
@@ -58,7 +58,7 @@ export class View extends EE {
   public views: View[] = [];
   /** 所有的 geometry 实例 */
   public geometries: Geometry[] = [];
-  public componentPlugins: Plugin[] = [];
+  public components: Component[] = [];
 
   /** view 实际的绘图区域，除去 padding，出去组件占用空间 */
   public viewBBox: BBox;
@@ -213,8 +213,8 @@ export class View extends EE {
 
     // 3. 清空 components
     // destroy plugins
-    each(this.componentPlugins, (plugin: Plugin) => {
-      plugin.destroy();
+    each(this.components, (component: Component) => {
+      component.destroy();
     });
 
     // 4. clear eventCaptureRect
@@ -412,8 +412,8 @@ export class View extends EE {
   /**
    * 辅助标记配置
    */
-  public annotation(): AnnotationPlugin {
-    return this.getPlugin('annotation') as AnnotationPlugin;
+  public annotation(): AnnotationComponent {
+    return this.getComponentPlugin('annotation') as AnnotationComponent;
   }
 
   /**
@@ -838,8 +838,8 @@ export class View extends EE {
    * get Plugin
    * @param name
    */
-  public getPlugin(name: string): Plugin {
-    return find(this.componentPlugins, (p: Plugin) => p.name === name);
+  public getComponentPlugin(name: string): Component {
+    return find(this.components, (p: Plugin) => p.name === name);
   }
 
   /**
@@ -848,7 +848,7 @@ export class View extends EE {
    * @returns View
    */
   public showTooltip(point: Point): View {
-    const tooltip = this.getPlugin('tooltip') as TooltipPlugin;
+    const tooltip = this.getComponentPlugin('tooltip') as TooltipComponent;
     if (tooltip) {
       tooltip.showTooltip(point);
     }
@@ -860,7 +860,7 @@ export class View extends EE {
    * @returns View
    */
   public hideTooltip(): View {
-    const tooltip = this.getPlugin('tooltip') as TooltipPlugin;
+    const tooltip = this.getComponentPlugin('tooltip') as TooltipComponent;
     if (tooltip) {
       tooltip.hideTooltip();
     }
@@ -898,7 +898,7 @@ export class View extends EE {
    * @returns items of tooltip
    */
   public getTooltipItems(point: Point) {
-    const tooltip = this.getPlugin('tooltip') as TooltipPlugin;
+    const tooltip = this.getComponentPlugin('tooltip') as TooltipComponent;
 
     return tooltip ? tooltip.getTooltipItems(point) : [];
   }
@@ -909,8 +909,8 @@ export class View extends EE {
   public getComponents(): ComponentOption[] {
     const components = [];
 
-    each(this.componentPlugins, (plugin: Plugin) => {
-      components.push(...plugin.getComponents());
+    each(this.components, (component: Component) => {
+      components.push(...component.getComponents());
     });
 
     return components;
@@ -1042,7 +1042,7 @@ export class View extends EE {
     each(this.usedPlugins, (pluginName: string) => {
       const Ctor = getComponent(pluginName);
       if (Ctor) {
-        this.componentPlugins.push(new Ctor(this));
+        this.components.push(new Ctor(this));
       }
     });
   }
@@ -1237,9 +1237,9 @@ export class View extends EE {
    */
   private renderComponents() {
     // 先全部清空，然后 render
-    each(this.componentPlugins, (plugin: Plugin) => {
-      plugin.clear();
-      plugin.render();
+    each(this.components, (component: Component) => {
+      component.clear();
+      component.render();
     });
   }
 

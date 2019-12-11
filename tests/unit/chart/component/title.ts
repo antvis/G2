@@ -1,6 +1,6 @@
 import { each } from '@antv/util';
 import { DIRECTION, LAYER } from '../../../../src';
-import { Plugin } from '../../../../src/chart/plugin/base';
+import { Component } from '../../../../src/chart/component/base';
 import View from '../../../../src/chart/view';
 import { Text } from '../../../../src/component';
 import { COMPONENT_TYPE } from '../../../../src/constant';
@@ -13,7 +13,7 @@ interface TitleOption {
   readonly padding: number[];
 }
 
-export class Title extends Plugin<TitleOption> {
+export class Title extends Component<TitleOption> {
   private container: IGroup;
 
   constructor(view: View) {

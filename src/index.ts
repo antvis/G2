@@ -46,10 +46,10 @@ registerFacet('rect', Rect);
 // 注册内置的 Component
 import { registerComponent } from './core';
 
-import Annotation from './chart/plugin/annotation';
-import Axis from './chart/plugin/axis';
-import Legend from './chart/plugin/legend';
-import Tooltip from './chart/plugin/tooltip';
+import Annotation from './chart/component/annotation';
+import Axis from './chart/component/axis';
+import Legend from './chart/component/legend';
+import Tooltip from './chart/component/tooltip';
 
 // register build-in components
 registerComponent('axis', Axis);

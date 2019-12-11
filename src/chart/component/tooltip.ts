@@ -5,7 +5,7 @@ import Geometry from '../../geometry/base';
 import { MappingDatum, Point } from '../../interface';
 import { findDataByPoint, getTooltipItems } from '../../util/tooltip';
 import { TooltipOption } from '../interface';
-import { Plugin } from './base';
+import { Component } from './base';
 
 // Filter duplicates, use `name`, `color`, `value` and `title` property values as condition
 function uniq(items) {
@@ -26,7 +26,7 @@ function uniq(items) {
   return uniqItems;
 }
 
-export default class Tooltip extends Plugin<TooltipOption> {
+export default class Tooltip extends Component<TooltipOption> {
   // public cfg;
   private tooltip;
 

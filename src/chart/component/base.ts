@@ -2,16 +2,16 @@ import { each } from '@antv/util';
 import { ComponentOption } from '../interface';
 import View from '../view';
 
-/** plugin class type define */
-export type PluginCtor<O = any> = new (view: View) => Plugin<O>;
+/** Component class type define */
+export type ComponentCtor<O = any> = new (view: View) => Component<O>;
 
 /**
- * Plugin 规范需要定义的基类
+ * Component plugin 规范需要定义的基类
  * 1. 规范的 option 输入
  * 2. 统一的信息获取 API
  * 3. 明确定义的组件事件（名称、数据）
  */
-export abstract class Plugin<O = unknown> {
+export abstract class Component<O = unknown> {
   protected view: View;
   /** option 配置，不同组件有自己不同的配置结构 */
   protected option: O;

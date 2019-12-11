@@ -25,9 +25,9 @@ export default function defaultLayout(view: View): void {
   const { viewBBox } = view;
   const coordinate = view.getCoordinate();
 
-  const axis = view.getPlugin('axis');
-  const legend = view.getPlugin('legend');
-  const annotation = view.getPlugin('annotation');
+  const axis = view.getComponentPlugin('axis');
+  const legend = view.getComponentPlugin('legend');
+  const annotation = view.getComponentPlugin('annotation');
 
   // 1. 计算出 legend 的 direction 位置 x, y
   if (axis) {

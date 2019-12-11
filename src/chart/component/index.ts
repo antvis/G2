@@ -1,7 +1,7 @@
 import { find } from '@antv/util';
-import { PluginCtor } from './base';
+import { ComponentCtor } from './base';
 
-const LOAD_COMPONENT_PLUGINS: Record<string, PluginCtor> = {};
+const LOAD_COMPONENT_PLUGINS: Record<string, ComponentCtor> = {};
 
 /**
  * 全局注册插件
@@ -9,7 +9,7 @@ const LOAD_COMPONENT_PLUGINS: Record<string, PluginCtor> = {};
  * @param plugin
  * @returns void
  */
-export function registerComponent(name: string, plugin: PluginCtor) {
+export function registerComponent(name: string, plugin: ComponentCtor) {
   LOAD_COMPONENT_PLUGINS[name] = plugin;
 }
 
@@ -34,6 +34,6 @@ export function getComponentNames(): string[] {
  * 获得组件插件
  * @param name
  */
-export function getComponent(name: string): PluginCtor {
+export function getComponent(name: string): ComponentCtor {
   return LOAD_COMPONENT_PLUGINS[name];
 }

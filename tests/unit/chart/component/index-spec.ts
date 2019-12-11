@@ -1,6 +1,6 @@
 import { registerComponent } from '../../../../src'; // 从 index.ts 引入，包含所有的 内置 Component
-import { getComponent, getComponentNames, unregisterComponent } from '../../../../src/chart/plugin';
-import Axis from '../../../../src/chart/plugin/axis';
+import { getComponent, getComponentNames, unregisterComponent } from '../../../../src/chart/component';
+import Axis from '../../../../src/chart/component/axis';
 import { Title } from './title';
 
 describe('plugin', () => {
