@@ -855,12 +855,12 @@ export default class Geometry {
     let shapeFactory = this.shapeFactory;
     if (!shapeFactory) {
       const shapeType = this.shapeType;
-      const coordinate = this.coordinate;
       shapeFactory = getShapeFactory(shapeType);
-      shapeFactory.coordinate = coordinate;
       shapeFactory.theme = get(this.theme, ['geometries', shapeType], {});
       this.shapeFactory = shapeFactory;
     }
+    // 因为这里缓存了 shapeFactory，但是外部可能会变更 coordinate，导致无法重新设置到 shapeFactory 中
+    shapeFactory.coordinate = this.coordinate;
 
     return shapeFactory;
   }
