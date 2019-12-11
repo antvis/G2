@@ -19,6 +19,9 @@ chart
   .coordinate('rect')
   .transpose()
   .scale(1, -1);
+chart.tooltip({
+  showTooltipMarkers: false,
+});
 chart
   .interval()
   .adjust('symmetric')
