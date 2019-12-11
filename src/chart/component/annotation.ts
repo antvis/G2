@@ -2,6 +2,7 @@ import { deepMix, each, get, isArray, isFunction, isNil, isString, keys, upperFi
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { Annotation as AnnotationComponent, IGroup, Scale } from '../../dependents';
 import { Point } from '../../interface';
+import { getDistanceToCenter, getPointAngle } from '../../util/coordinate';
 import { ComponentOption } from '../interface';
 import View from '../view';
 import { Component } from './base';
@@ -23,11 +24,6 @@ export interface BaseOption {
   readonly end: Position;
   /** 图形样式属性 */
   readonly style?: object;
-}
-
-export interface ArcOption extends BaseOption {
-  readonly startAngle?: number;
-  readonly endAngle?: number;
 }
 
 export interface ImageOption extends BaseOption {
@@ -162,7 +158,7 @@ export default class Annotation extends Component<BaseOption[]> {
    * @param option
    * @returns AnnotationController
    */
-  public arc(option: ArcOption) {
+  public arc(option: BaseOption) {
     this.annotation({
       type: 'arc',
       ...option,
@@ -341,16 +337,19 @@ export default class Annotation extends Component<BaseOption[]> {
     }
 
     if (type === 'arc') {
-      // TODO arc 仅仅在 polar 才可用，API 配置可以再简化。
-      const { start, end, startAngle, endAngle, style } = option as ArcOption;
+      const { start, end, style } = option as BaseOption;
       const sp = this.parsePosition(start);
       const ep = this.parsePosition(end);
-      const center = this.view.getCoordinate().getCenter();
-      const radius = Math.sqrt((sp.x - center.x) ** 2 + (sp.y - center.y) ** 2);
+      const coordinate = this.view.getCoordinate();
+      const startAngle = getPointAngle(coordinate, sp);
+      let endAngle = getPointAngle(coordinate, ep);
+      if (startAngle > endAngle) {
+        endAngle = Math.PI * 2 + endAngle;
+      }
 
       o = {
-        center,
-        radius,
+        center: coordinate.getCenter(),
+        radius: getDistanceToCenter(coordinate, sp),
         startAngle,
         endAngle,
         style,

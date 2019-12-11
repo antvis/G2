@@ -24,7 +24,6 @@ describe('annotation', () => {
   });
 
   chart.data(DATA);
-  // chart.tooltip(false);
   chart.interval().position('city*sale');
 
   it('image', () => {
@@ -166,10 +165,28 @@ describe('annotation', () => {
     chart.render();
 
     const text = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[5].component;
-    const coordinateCenter = chart.getCoordinate().getCenter();
     // // pos
     expect(text.get('x')).toBeWithin(138, 142);
     expect(text.get('y')).toBeWithin(97, 101);
+  });
+
+  it('arc', () => {
+    chart.coordinate('polar');
+    chart.annotation().arc({
+      start: { city: '杭州', sale: 100 },
+      end: { city: '上海', sale: 100 },
+      style: {
+        stroke: '#289990',
+        lineWidth: 4,
+      },
+    });
+    chart.render();
+
+    const arc = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[6].component;
+    expect(arc.get('startAngle')).toBe(-Math.PI / 2);
+    expect(arc.get('endAngle')).toBe(Math.PI / 2);
+    // @ts-ignore
+    expect(arc.get('radius')).toBeWithin(221, 222);
   });
 
   afterAll(() => {
