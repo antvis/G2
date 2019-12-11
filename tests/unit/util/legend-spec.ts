@@ -16,5 +16,9 @@ describe('util legend', () => {
     expect(getLegendLayout(DIRECTION.RIGHT)).toBe('vertical');
     expect(getLegendLayout(DIRECTION.RIGHT_TOP)).toBe('vertical');
     expect(getLegendLayout(DIRECTION.RIGHT_BOTTOM)).toBe('vertical');
+
+    // typo
+    // @ts-ignore
+    expect(getLegendLayout('xxx')).toBe('horizontal');
   });
 });

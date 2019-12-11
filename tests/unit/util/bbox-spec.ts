@@ -32,6 +32,23 @@ describe('util/ bbox', () => {
     expect(gap).toEqual([10, 0, 10, 0]);
   });
 
+  it('bbox.cut', () => {
+    const bbox = new BBox(0, 0, 100, 100);
+    const cutBbox = new BBox(30, 60, 10, 10);
+
+    expect(bbox.cut(cutBbox, DIRECTION.LEFT_BOTTOM)).toEqual(bbox.cut(cutBbox, DIRECTION.LEFT));
+    expect(bbox.cut(cutBbox, DIRECTION.LEFT_TOP)).toEqual(bbox.cut(cutBbox, DIRECTION.LEFT));
+
+    expect(bbox.cut(cutBbox, DIRECTION.RIGHT_BOTTOM)).toEqual(bbox.cut(cutBbox, DIRECTION.RIGHT));
+    expect(bbox.cut(cutBbox, DIRECTION.RIGHT_TOP)).toEqual(bbox.cut(cutBbox, DIRECTION.RIGHT));
+
+    expect(bbox.cut(cutBbox, DIRECTION.TOP_RIGHT)).toEqual(bbox.cut(cutBbox, DIRECTION.TOP));
+    expect(bbox.cut(cutBbox, DIRECTION.TOP_LEFT)).toEqual(bbox.cut(cutBbox, DIRECTION.TOP));
+
+    expect(bbox.cut(cutBbox, DIRECTION.BOTTOM_RIGHT)).toEqual(bbox.cut(cutBbox, DIRECTION.BOTTOM));
+    expect(bbox.cut(cutBbox, DIRECTION.BOTTOM_LEFT)).toEqual(bbox.cut(cutBbox, DIRECTION.BOTTOM));
+  });
+
   it('getRegionBBox', () => {
     const region = {
       start: { x: 0.1, y: 0.1 },
