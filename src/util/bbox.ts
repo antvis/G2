@@ -140,16 +140,25 @@ export class BBox {
 
     switch (direction) {
       case DIRECTION.TOP:
+      case DIRECTION.TOP_LEFT:
+      case DIRECTION.TOP_RIGHT:
         return BBox.fromRange(this.minX, this.minY + height, this.maxX, this.maxY);
+
       case DIRECTION.RIGHT:
+      case DIRECTION.RIGHT_TOP:
+      case DIRECTION.RIGHT_BOTTOM:
         return BBox.fromRange(this.minX, this.minY, this.maxX - width, this.maxY);
+
       case DIRECTION.BOTTOM:
+      case DIRECTION.BOTTOM_LEFT:
+      case DIRECTION.BOTTOM_RIGHT:
         return BBox.fromRange(this.minX, this.minY, this.maxX, this.maxY - height);
+
       case DIRECTION.LEFT:
+      case DIRECTION.LEFT_TOP:
+      case DIRECTION.LEFT_BOTTOM:
         return BBox.fromRange(this.minX + width, this.minY, this.maxX, this.maxY);
     }
-
-    return this;
   }
 
   /**
