@@ -1104,6 +1104,28 @@ export default class Geometry {
     return this.offscreenGroup;
   }
 
+  /**
+   * 获取渲染的 label 类型
+   */
+  protected getLabelType(): string {
+    const { labelOption, coordinate, type } = this;
+    const coordinateType = coordinate.type;
+    let labelType = get(labelOption, ['cfg', 'type']) || 'base';
+    if (labelType === 'base') {
+      if (coordinateType === 'polar') {
+        // 极坐标文本
+        labelType = 'polar';
+      } else if (coordinateType === 'theta') {
+        // 饼图文本
+        labelType = 'pie';
+      } else if (type === 'interval' || type === 'polygon') {
+        labelType = 'interval';
+      }
+    }
+
+    return labelType;
+  }
+
   // 创建图形属性相关的配置项
   private createAttrOption(attrName: string, field: AttributeOption | string | number, cfg?) {
     if (!field || isObject(field)) {
@@ -1534,22 +1556,8 @@ export default class Geometry {
   }
 
   private renderLabels(mappingArray: MappingDatum[]) {
-    const { labelOption, type, coordinate } = this;
-    const coordinateType = coordinate.type;
-
-    // 获取渲染的 label 类型
-    let labelType = get(labelOption, ['cfg', 'type']) || 'base';
-    if (labelType === 'base') {
-      if (coordinateType === 'polar') {
-        // 极坐标文本
-        labelType = 'polar';
-      } else if (coordinateType === 'theta') {
-        // 饼图文本
-        labelType = 'pie';
-      } else if (type === 'interval' || type === 'polygon') {
-        labelType = 'interval';
-      }
-    }
+    const { labelOption } = this;
+    const labelType = this.getLabelType();
 
     const GeometryLabelsCtor = getGeometryLabels(labelType);
     const geometryLabels = new GeometryLabelsCtor(this);
