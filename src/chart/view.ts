@@ -642,7 +642,7 @@ export class View extends EE {
       data: this.options.data,
       scales: clone(this.options.scales),
       axes: clone(this.options.axes),
-      coordinate: clone(this.options.coordinate),
+      coordinate: clone(this.options.coordinate), // 该配置不包含坐标系变换的操作
       tooltip: clone(this.options.tooltip),
       legends: clone(this.options.legends),
       animate: this.options.animate,
@@ -662,6 +662,8 @@ export class View extends EE {
         ...get(cfg, 'options', {}),
       },
     });
+    // 共享坐标系配置，如果用户未配置 coordinate，则直接使用父亲的 coordinate 实例
+    v.coordinateInstance = this.getCoordinate();
 
     this.views.push(v);
 
