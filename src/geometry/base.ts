@@ -18,6 +18,7 @@ import {
   map,
   set,
 } from '@antv/util';
+import Base from '../base';
 import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
 import { Coordinate, IGroup, Scale } from '../dependents';
 import {
@@ -100,7 +101,7 @@ export interface GeometryCfg {
  * Create a new Geometry
  * @class
  */
-export default class Geometry {
+export default class Geometry extends Base {
   /** Geometry type. */
   public readonly type: string = 'base';
   /** The shapeFactory type. */
@@ -119,8 +120,6 @@ export default class Geometry {
   public scaleDefs: Record<string, ScaleOption>;
   /** Whether to sort data, default is false.  */
   public sortable: boolean;
-  /** Whether geometry is visible, default is true.  */
-  public visible: boolean;
   /** The theme of geometry.  */
   public theme: LooseObject;
   /** Scale map. */
@@ -167,6 +166,8 @@ export default class Geometry {
    * @param cfg
    */
   constructor(cfg: GeometryCfg) {
+    super(cfg);
+
     const {
       container,
       labelsContainer,
@@ -748,6 +749,11 @@ export default class Geometry {
     this.lastAttributeOption = {
       ...this.attributeOption,
     };
+
+    if (!this.visible) {
+      // 用户在初始化的时候声明 visible: false
+      this.changeVisible(false);
+    }
   }
 
   /**
@@ -792,6 +798,7 @@ export default class Geometry {
       this.labelsRenderer.destroy();
       this.labelsRenderer = null;
     }
+    super.destroy();
   }
 
   /**
@@ -969,6 +976,19 @@ export default class Geometry {
     }
 
     return id;
+  }
+
+  public changeVisible(visible: boolean) {
+    super.changeVisible(visible);
+    this.elements.forEach((element: Element) => {
+      element.changeVisible(visible);
+    });
+    if (this.container) {
+      this.container.set('visible', visible);
+    }
+    if (this.labelsContainer) {
+      this.labelsContainer.set('visible', visible);
+    }
   }
 
   protected getShapeFactory() {

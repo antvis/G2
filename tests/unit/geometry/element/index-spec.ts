@@ -104,6 +104,20 @@ describe('Element', () => {
       expect(animateCfg).toEqual(null);
     });
 
+    it('changeVisible()', () => {
+      expect(element.visible).toBe(true);
+
+      element.changeVisible(false);
+      expect(element.visible).toBe(false);
+      expect(element.shape.get('visible')).toBe(false);
+    });
+
+    it('show()', () => {
+      element.show();
+      expect(element.visible).toBe(true);
+      expect(element.shape.get('visible')).toBe(true);
+    });
+
     it('setState()', () => {
       element.setState('selected', true);
 

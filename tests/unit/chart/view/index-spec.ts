@@ -31,6 +31,7 @@ describe('View', () => {
     middleGroup,
     backgroundGroup,
     padding: 5,
+    visible: false,
   });
 
   it('constructor', () => {
@@ -41,6 +42,7 @@ describe('View', () => {
     expect(view.middleGroup).toBeInstanceOf(getEngine(renderer).Group);
     // @ts-ignore
     expect(view.foregroundGroup).toBeInstanceOf(getEngine(renderer).Group);
+    expect(view.visible).toBeFalse();
   });
 
   it('region', () => {
@@ -152,6 +154,9 @@ describe('View', () => {
 
     expect(view.getCoordinate().getWidth()).toBeWithin(780, 800);
     expect(view.getCoordinate().getHeight()).toBeWithin(580, 600);
+
+    expect(view.geometries[0].visible).toBe(false);
+    expect(view.foregroundGroup.get('visible')).toBeFalse();
   });
 
   it('component', () => {
@@ -162,6 +167,7 @@ describe('View', () => {
     view.render();
 
     expect(view.getComponents().length).toEqual(4);
+    expect(view.components[2].visible).toBe(false);
 
     const bbox = view.getComponents()[0].component.getBBox();
     expect(bbox.height).toEqual(45.5);
@@ -206,6 +212,30 @@ describe('View', () => {
     expect(view.filteredData.length).toEqual(4);
     // 几何标记是同一个实例
     expect(geometries[0] === view.geometries[0]).toEqual(true);
+  });
+
+  it('show()', () => {
+    view.show();
+    expect(view.visible).toBe(true);
+    expect(view.geometries[0].visible).toBe(true);
+    expect(view.components[2].visible).toBe(true);
+    expect(view.foregroundGroup.get('visible')).toBeTrue();
+  });
+
+  it('hide()', () => {
+    view.hide();
+    expect(view.visible).toBe(false);
+    expect(view.geometries[0].visible).toBe(false);
+    expect(view.components[2].visible).toBe(false);
+    expect(view.foregroundGroup.get('visible')).toBe(false);
+  });
+
+  it('changeVisible', () => {
+    view.changeVisible(false);
+    expect(view.visible).toBe(false);
+
+    view.changeVisible(true);
+    expect(view.visible).toBe(true);
   });
 
   it('getXY', () => {

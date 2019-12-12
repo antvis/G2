@@ -215,6 +215,29 @@ export default class Tooltip extends Component<TooltipOption> {
     }
   }
 
+  public changeVisible(visible: boolean) {
+    if (this.visible === visible) {
+      return;
+    }
+    const { tooltip, markerGroup } = this;
+    if (visible) {
+      if (tooltip) {
+        tooltip.show();
+      }
+      if (markerGroup) {
+        markerGroup.show();
+      }
+    } else {
+      if (tooltip) {
+        tooltip.hide();
+      }
+      if (markerGroup) {
+        markerGroup.hide();
+      }
+    }
+    this.visible = visible;
+  }
+
   private getTooltipCfg() {
     const view = this.view;
     const option = this.option;

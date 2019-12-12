@@ -12,6 +12,7 @@ export type ComponentCtor<O = any> = new (view: View) => Component<O>;
  * 3. 明确定义的组件事件（名称、数据）
  */
 export abstract class Component<O = unknown> {
+  public visible: boolean = true;
   protected view: View;
   /** option 配置，不同组件有自己不同的配置结构 */
   protected option: O;
@@ -70,5 +71,19 @@ export abstract class Component<O = unknown> {
    */
   public getComponents(): ComponentOption[] {
     return this.components;
+  }
+
+  public changeVisible(visible: boolean) {
+    if (this.visible === visible) {
+      return;
+    }
+    this.components.forEach((co: ComponentOption) => {
+      if (visible) {
+        co.component.show();
+      } else {
+        co.component.hide();
+      }
+    });
+    this.visible = visible;
   }
 }

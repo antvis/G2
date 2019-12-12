@@ -1,4 +1,3 @@
-import EE from '@antv/event-emitter';
 import {
   clone,
   each,
@@ -16,6 +15,7 @@ import {
   size,
   uniq,
 } from '@antv/util';
+import Base from '../base';
 import { GROUP_Z_INDEX, LAYER, PLOT_EVENTS, VIEW_LIFE_CIRCLE } from '../constant';
 import { Attribute, Coordinate, Event as GEvent, ICanvas, IGroup, IShape, Scale } from '../dependents';
 import { Facet, getFacet } from '../facet';
@@ -51,7 +51,7 @@ import defaultLayout, { Layout } from './layout';
 /**
  * view container of G2
  */
-export class View extends EE {
+export class View extends Base {
   /** 父级 view，如果没有父级，则为空 */
   public parent: View;
   /** 所有的子 view */
@@ -111,7 +111,7 @@ export class View extends EE {
   private stateManager: StateManager;
 
   constructor(props: ViewCfg) {
-    super();
+    super(props);
 
     const {
       parent,
@@ -190,6 +190,11 @@ export class View extends EE {
     // 递归渲染
     this.renderRecursive(isUpdate);
     this.emit(VIEW_LIFE_CIRCLE.AFTER_RENDER);
+
+    if (!this.visible) {
+      // 用户在初始化的时候声明 visible: false
+      this.changeVisible(false);
+    }
     // 实际的绘图
     this.canvasDraw();
   }
@@ -252,10 +257,23 @@ export class View extends EE {
     });
     this.stateManager.destroy();
 
-    // 取消所有事件监听
-    this.off();
+    super.destroy();
   }
   /* end 生命周期函数 */
+
+  public changeVisible(visible: boolean) {
+    super.changeVisible(visible);
+    this.geometries.forEach((geometry: Geometry) => {
+      geometry.changeVisible(visible);
+    });
+    this.components.forEach((component: Component) => {
+      component.changeVisible(visible);
+    });
+
+    this.foregroundGroup.set('visible', visible);
+    this.middleGroup.set('visible', visible);
+    this.backgroundGroup.set('visible', visible);
+  }
 
   /**
    * 装载数据
@@ -637,6 +655,7 @@ export class View extends EE {
       tooltip: clone(this.options.tooltip),
       legends: clone(this.options.legends),
       animate: this.options.animate,
+      visible: this.visible,
     };
 
     const v = new View({

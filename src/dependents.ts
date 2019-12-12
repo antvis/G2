@@ -21,10 +21,10 @@ export { getScale, registerScale, Scale, ScaleConfig } from '@antv/scale';
 export { Tick } from '@antv/scale/lib/base';
 
 // component
-import { Annotation, Axis, Component, Grid, GroupComponent, Legend, Tooltip } from '@antv/component';
+import { Annotation, Axis, Component, Grid, GroupComponent, HtmlComponent, Legend, Tooltip } from '@antv/component';
 export { IComponent } from '@antv/component/lib/interfaces';
 export { CategoryLegendCfg, CircleAxisCfg, LineAxisCfg, GroupComponentCfg } from '@antv/component/lib/types';
-export { GroupComponent, Component };
+export { HtmlComponent, GroupComponent, Component };
 export { Annotation };
 // axis
 const { Line: LineAxis, Circle: CircleAxis } = Axis;
