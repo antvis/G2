@@ -750,7 +750,7 @@ export default class Geometry extends Base {
       ...this.attributeOption,
     };
 
-    if (!this.visible) {
+    if (this.visible === false) {
       // 用户在初始化的时候声明 visible: false
       this.changeVisible(false);
     }

@@ -72,6 +72,10 @@ export default class Element extends Base {
     if (model) {
       // 只有有数据的时候才绘制 Shape
       this.drawShape();
+      if (this.visible === false) {
+        // 用户在初始化的时候声明 visible: false
+        this.changeVisible(false);
+      }
     }
   }
 

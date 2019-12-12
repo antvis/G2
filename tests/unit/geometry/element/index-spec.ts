@@ -67,12 +67,15 @@ describe('Element', () => {
         container,
         offscreenGroup: offscreenContainer,
         animate: true,
+        visible: false,
       });
 
       expect(element.shape.get('name')).toBe('shapes');
       expect(container.get('children').length).toBe(1);
       expect(container.get('children')[0]).toEqual(element.shape);
       expect(element.getStates().length).toBe(0);
+      expect(element.visible).toBe(false);
+      expect(element.shape.get('visible')).toBe(false);
     });
 
     it('getModel', () => {
@@ -104,18 +107,16 @@ describe('Element', () => {
       expect(animateCfg).toEqual(null);
     });
 
-    it('changeVisible()', () => {
-      expect(element.visible).toBe(true);
-
-      element.changeVisible(false);
-      expect(element.visible).toBe(false);
-      expect(element.shape.get('visible')).toBe(false);
-    });
-
     it('show()', () => {
       element.show();
       expect(element.visible).toBe(true);
       expect(element.shape.get('visible')).toBe(true);
+    });
+
+    it('changeVisible()', () => {
+      element.changeVisible(false);
+      expect(element.visible).toBe(false);
+      expect(element.shape.get('visible')).toBe(false);
     });
 
     it('setState()', () => {

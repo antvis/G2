@@ -191,7 +191,7 @@ export class View extends Base {
     this.renderRecursive(isUpdate);
     this.emit(VIEW_LIFE_CIRCLE.AFTER_RENDER);
 
-    if (!this.visible) {
+    if (this.visible === false) {
       // 用户在初始化的时候声明 visible: false
       this.changeVisible(false);
     }
