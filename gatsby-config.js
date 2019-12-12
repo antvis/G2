@@ -219,6 +219,10 @@ module.exports = {
           en: 'Chart Components'
         }
       }
-    ]
+    ],
+    docsearchOptions: {
+      apiKey: '200ec461f4aa0bb4f0e761566f1a1336',
+      indexName: 'antv_g2'
+    }
   }
 };
