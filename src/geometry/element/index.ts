@@ -1,6 +1,6 @@
 import EE from '@antv/event-emitter';
 import { each, get, isEmpty } from '@antv/util';
-import { IGroup, IShape } from '../../dependents';
+import { BBox, IGroup, IShape } from '../../dependents';
 import { AnimateOption, Datum, LooseObject, ShapeFactory, ShapeInfo } from '../../interface';
 import { getReplaceAttrs } from '../../util/graphics';
 import { doAnimate, getDefaultAnimateCfg } from '../animate';
@@ -205,6 +205,40 @@ export default class Element extends EE {
   /** 获取 Element 对应的图形绘制数据 */
   public getModel() {
     return this.model;
+  }
+
+  /**
+   * 返回 Element 元素整体的 bbox，包含文本及文本连线（有的话）
+   */
+  public getBBox(): BBox {
+    const { shape, labelShape } = this;
+    let bbox = {
+      x: 0,
+      y: 0,
+      minX: 0,
+      minY: 0,
+      maxX: 0,
+      maxY: 0,
+      width: 0,
+      height: 0,
+    };
+    if (shape) {
+      bbox = shape.getCanvasBBox();
+    }
+    if (labelShape) {
+      const labelShapeBBox = labelShape.getCanvasBBox();
+      bbox.x = Math.min(labelShapeBBox.x, bbox.x);
+      bbox.y = Math.min(labelShapeBBox.y, bbox.y);
+      bbox.minX = Math.min(labelShapeBBox.minX, bbox.minX);
+      bbox.minY = Math.min(labelShapeBBox.minY, bbox.minY);
+      bbox.maxX = Math.max(labelShapeBBox.maxX, bbox.maxX);
+      bbox.maxY = Math.max(labelShapeBBox.maxY, bbox.maxY);
+    }
+
+    bbox.width = bbox.maxX - bbox.minX;
+    bbox.height = bbox.maxY - bbox.minY;
+
+    return bbox;
   }
 
   /**

@@ -179,6 +179,33 @@ describe('Element', () => {
       expect(element.getData()).toEqual({ x: 12 });
     });
 
+    it('getBBox()', () => {
+      expect(element.getBBox()).toEqual(element.shape.getCanvasBBox());
+
+      const labelGroup = new G.Group({});
+      labelGroup.addShape({
+        type: 'text',
+        attrs: {
+          x: 10,
+          y: 10,
+          text: '123',
+          fill: '#333',
+        },
+      });
+      // @ts-ignore
+      element.labelShape = labelGroup;
+      expect(element.getBBox()).toEqual({
+        height: 42,
+        maxX: 40,
+        maxY: 40,
+        minX: 0,
+        minY: -2,
+        width: 40,
+        x: 0,
+        y: -2,
+      });
+    });
+
     it('destroy()', () => {
       element.destroy();
 
