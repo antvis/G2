@@ -47,7 +47,6 @@ describe('title plugin', () => {
   chart.setLayout(layout);
 
   it('chart with title', () => {
-    debugger
     chart.render();
 
     const title = chart.getComponentPlugin('title');
