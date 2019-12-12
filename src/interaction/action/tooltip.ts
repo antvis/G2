@@ -1,5 +1,5 @@
-import { Point } from '@antv/g-base/lib/types';
-import * as _ from '@antv/util';
+import { isEqual } from '@antv/util';
+import { Point } from '../../interface';
 import Action from './base';
 
 class TooltipAction extends Action {
@@ -21,7 +21,7 @@ class TooltipAction extends Action {
     if (timeStamp - lastTimeStamp > 16) {
       const preLoc = this.location;
       const curLoc = { x: ev.x, y: ev.y };
-      if (!preLoc || !_.isEqual(preLoc, curLoc)) {
+      if (!preLoc || !isEqual(preLoc, curLoc)) {
         // 相同位置不重复展示
         view.showTooltip(curLoc);
       }

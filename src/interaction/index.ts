@@ -1,11 +1,13 @@
-import { LooseObject } from '../interface';
-import { Action, registerAction } from './action/';
-import Interaction from './interaction';
-const Interactions: LooseObject = {};
 import { isObject, lowerCase, mix } from '@antv/util';
 import { View } from '../chart';
+import { LooseObject } from '../interface';
+import { Action, registerAction } from './action/';
 import GrammarInteraction, { InteractionSteps } from './grammar-interaction';
+import Interaction from './interaction';
 import { InteractonConstructor } from './interaction';
+
+const Interactions: LooseObject = {};
+
 /**
  * Gets interaction by name
  * @param name the name of interaction
