@@ -63,6 +63,11 @@ registerInteraction('element-selected', {
   start: [{ trigger: 'element:click', action: 'element-seleted:toggle' }],
 });
 
+// 点击选中，允许取消
+registerInteraction('element-single-selected', {
+  start: [{ trigger: 'element:click', action: 'element-single-seleted:toggle' }],
+});
+
 // 饼图的选中
 registerInteraction('pie-selected', {
   start: [{ trigger: 'pie:click', action: 'element-seleted:toggle' }],

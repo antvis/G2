@@ -1,0 +1,13 @@
+import StateAction from './state';
+/**
+ * 元素 active 的 Action，允许多个元素同时 active
+ * @class
+ */
+class ElementActive extends StateAction {
+  protected stateName: string = 'active';
+  public active() {
+    this.setState();
+  }
+}
+
+export default ElementActive;

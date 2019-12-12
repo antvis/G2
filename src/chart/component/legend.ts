@@ -224,7 +224,7 @@ export default class Legend extends Component<Option> {
     const cfg = this.getLegendCfg(baseCfg, legendOption, 'continuous');
 
     const component = new ContinuousLegend(cfg);
-
+    component.set('field', scale.field);
     return {
       component,
       layer,
@@ -258,7 +258,7 @@ export default class Legend extends Component<Option> {
     };
 
     const component = new CategoryLegend(this.getLegendCfg(baseCfg, legendOption, direction));
-
+    component.set('field', scale.field);
     component.render();
 
     return {
@@ -266,6 +266,7 @@ export default class Legend extends Component<Option> {
       layer,
       direction,
       type: COMPONENT_TYPE.LEGEND,
+      extra: { scale },
     };
   }
 

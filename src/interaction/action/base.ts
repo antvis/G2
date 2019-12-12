@@ -1,6 +1,6 @@
 import { IAction, IInteractionContext } from '../../interface';
 
-class Action implements IAction {
+abstract class Action implements IAction {
   public name;
   public context: IInteractionContext;
 

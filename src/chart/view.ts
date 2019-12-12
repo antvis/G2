@@ -1251,14 +1251,33 @@ export class View extends Base {
       }
     });
   }
+  private setComponentField(el: ComponentOption) {
+    const { component, extra } = el;
+    if (extra && !component.get('field')) {
+      const scale = extra.scale;
+      if (scale) {
+        component.set('field', scale.field);
+      }
+    }
+  }
 
   public getComponents(): Component[] {
     const components = [];
     if (this.axisController) {
-      components.push(...this.axisController.getComponents().map((el) => el.component));
+      components.push(
+        ...this.axisController.getComponents().map((el) => {
+          this.setComponentField(el);
+          return el.component;
+        })
+      );
     }
     if (this.legendController) {
-      components.push(...this.legendController.getComponents().map((el) => el.component));
+      components.push(
+        ...this.legendController.getComponents().map((el) => {
+          this.setComponentField(el);
+          return el.component;
+        })
+      );
     }
     if (this.annotationController) {
       components.push(...this.annotationController.getComponents().map((el) => el.component));
