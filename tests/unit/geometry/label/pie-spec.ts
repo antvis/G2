@@ -78,6 +78,7 @@ describe('pie labels', () => {
     it('get items', () => {
       items = gLabels.getLabelItems(points);
       expect(items.length).toBe(points.length);
+      expect(items[0].labelLine).toBe(null);
     });
 
     it('first point rotate', () => {
@@ -159,6 +160,7 @@ describe('pie labels', () => {
       offset: 10,
       offsetX: 10,
       offsetY: -10,
+      labelLine: false,
     });
     pointGeom.init();
 
@@ -168,12 +170,15 @@ describe('pie labels', () => {
       const items = gLabels.getLabelItems(points);
       expect(items.length).toBe(points.length);
       expect(items[0].x).toBe(230);
+      expect(items[0].labelLine).toBe(false);
       expect(isNumberEqual(items[0].y, 48.03847577293368 - 10)).toBeTruthy();
 
       expect(items[1].x).toBe(200);
+      expect(items[1].labelLine).toBe(false);
       expect(isNumberEqual(items[1].y, 100 - 10)).toBeTruthy();
 
       expect(items[2].x).toBe(230.00000000000006);
+      expect(items[2].labelLine).toBe(false);
       expect(isNumberEqual(items[2].y, 151.96152422706632 - 10)).toBeTruthy();
 
       expect(items[5].x).toBe(290);

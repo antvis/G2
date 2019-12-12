@@ -102,7 +102,11 @@ export default class GeometryLabels {
       if (!item) {
         return;
       }
-      if (item.offset > 0 && item.labelLine) {
+
+      if (item.offset <= 0) {
+        // 内部文本不绘制 labelLine
+        item.labelLine = null;
+      } else if (item.labelLine) {
         this.lineToLabel(item);
       }
     });
