@@ -23,7 +23,6 @@ import { FacetCfgMap } from '../facet/interface';
 import Geometry from '../geometry/base';
 import { createInteraction } from '../interaction/';
 import { Data, Datum, LooseObject, Point, Region, ScaleOption } from '../interface';
-import { STATE_ACTIONS, StateActionCfg, StateManager } from '../state';
 import { BBox } from '../util/bbox';
 import { isFullCircle, isPointInCoordinate } from '../util/coordinate';
 import { createCoordinate } from '../util/coordinate';
@@ -47,6 +46,7 @@ import {
   ViewCfg,
 } from './interface';
 import defaultLayout, { Layout } from './layout';
+import StateManager from './state-manager';
 
 /**
  * view container of G2
@@ -169,7 +169,7 @@ export class View extends Base {
 
     // 事件委托机制
     this.initEvents();
-    this.initStates();
+    this.initStateManager();
 
     // 初始化组件 controller
     this.initComponentPlugins();
@@ -250,9 +250,7 @@ export class View extends Base {
     this.backgroundGroup.remove(true);
     this.middleGroup.remove(true);
     this.foregroundGroup.remove(true);
-    each(STATE_ACTIONS, (stateAction) => {
-      stateAction.destroy(this.stateManager, this);
-    });
+
     this.stateManager.destroy();
 
     super.destroy();
@@ -1041,13 +1039,9 @@ export class View extends Base {
     this.on('*', this.onViewEvents);
   }
 
-  private initStates() {
+  private initStateManager() {
     const stateManager = new StateManager();
     this.stateManager = stateManager;
-
-    each(STATE_ACTIONS, (stateAction: StateActionCfg) => {
-      stateAction.init(stateManager, this);
-    });
   }
 
   /**

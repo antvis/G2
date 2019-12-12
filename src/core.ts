@@ -20,7 +20,6 @@ export { Facet, getFacet, registerFacet } from './facet';
 
 // interaction API
 export { Interaction, getInteraction, registerInteraction } from './interaction';
-export { registerStateAction } from './state';
 
 // G engine 管理相关
 export { registerEngine, getEngine } from './engine';
