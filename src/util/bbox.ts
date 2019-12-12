@@ -158,6 +158,9 @@ export class BBox {
       case DIRECTION.LEFT_TOP:
       case DIRECTION.LEFT_BOTTOM:
         return BBox.fromRange(this.minX + width, this.minY, this.maxX, this.maxY);
+      default:
+        // 其他情况不裁剪，原样返回
+        return this;
     }
   }
 
