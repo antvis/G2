@@ -111,7 +111,7 @@ export class View extends Base {
   private stateManager: StateManager;
 
   constructor(props: ViewCfg) {
-    super(props);
+    super({ visible: props.visible });
 
     const {
       parent,

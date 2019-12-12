@@ -2,7 +2,6 @@ import EE from '@antv/event-emitter';
 
 interface BaseCfg {
   visible?: boolean;
-  [key: string]: any;
 }
 
 export default class Base extends EE {

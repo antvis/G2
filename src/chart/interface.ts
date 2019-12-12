@@ -34,7 +34,7 @@ export interface ViewCfg {
   readonly theme?: object | string;
   readonly options?: Options;
   /** 是否可见 */
-  visible?: boolean;
+  readonly visible?: boolean;
 }
 
 // 组件及布局的信息
