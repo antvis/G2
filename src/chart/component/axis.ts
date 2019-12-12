@@ -52,7 +52,12 @@ export default class Axis extends Component<Option> {
 
     const xs = this.createXAxes();
     const ys = this.createYAxes();
-    this.components.push(...xs, ...ys);
+
+    each([...xs, ...ys], (co: ComponentOption) => {
+      // @ts-ignore
+      co.component.render();
+      this.components.push(co);
+    });
   }
 
   /**

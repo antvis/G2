@@ -32,12 +32,7 @@ describe('test tooltip action', () => {
   it('show', () => {
     expect(tooltipDom.style.visibility).toBe('hidden');
     chart.emit('plot:mousemove', {
-      x: 53,
-      y: 330,
-    });
-    expect(tooltipDom.style.visibility).toBe('visible');
-    chart.emit('plot:mousemove', {
-      x: 53,
+      x: 63,
       y: 330,
     });
     expect(tooltipDom.style.visibility).toBe('visible');
