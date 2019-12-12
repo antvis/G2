@@ -482,6 +482,7 @@ export default {
       top: AXIS_STYLE,
       bottom: deepMix({}, AXIS_STYLE, {
         grid: null,
+        title: false,
       }),
       left: deepMix({}, AXIS_STYLE, {
         label: {

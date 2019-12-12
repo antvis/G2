@@ -29,7 +29,7 @@ export default class Chart extends View {
       width,
       height,
       autoFit = true,
-      padding = 0,
+      padding,
       renderer = 'canvas',
       pixelRatio,
       localRefresh = true,

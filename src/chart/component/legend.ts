@@ -115,6 +115,7 @@ export default class Legend extends Component<Option> {
         }
 
         if (legend) {
+          legend.component.render();
           legendMap[scale.field] = legend;
           legendArray.push(legend);
         }

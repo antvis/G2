@@ -39,8 +39,8 @@ describe('Event', () => {
       cb(e.type);
     });
 
-    simulateMouseEvent(chart.canvas.get('el'), 'mousemove', getClientPoint(chart.canvas, 520, 520));
-    simulateMouseEvent(chart.canvas.get('el'), 'mousemove', getClientPoint(chart.canvas, 530, 530));
+    simulateMouseEvent(chart.canvas.get('el'), 'mousemove', getClientPoint(chart.canvas, 520, 350));
+    simulateMouseEvent(chart.canvas.get('el'), 'mousemove', getClientPoint(chart.canvas, 530, 360));
 
     expect(cb).toBeCalledWith('interval:mousemove');
   });
