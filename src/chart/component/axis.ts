@@ -316,10 +316,17 @@ export default class Axis extends Component<Option> {
   private getCircleAxisCfg(scale: Scale, axisOption: AxisOption, direction: DIRECTION): object {
     const container = this.container;
 
+    const ticks = map(scale.getTicks(), (tick) => ({ name: tick.text, value: tick.value }));
+    const coordinate = this.view.getCoordinate();
+    if (!scale.isCategory && Math.abs(coordinate.endAngle - coordinate.startAngle) === Math.PI * 2) {
+      // x 轴如果是数值类型，在整圆的情况下坐标轴第一个和最后一个文本会重叠，默认只展示第一个文本
+      ticks.pop();
+    }
+
     const baseAxisCfg = {
       container,
       ...getCircleAxisCenterRadius(this.view.getCoordinate()),
-      ticks: map(scale.getTicks(), (tick) => ({ name: tick.text, value: tick.value })),
+      ticks,
       title: {
         text: getName(scale),
       },
