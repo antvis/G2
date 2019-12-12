@@ -1,5 +1,5 @@
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../constant';
-import { Component } from '../dependents';
+import { GroupComponent, HtmlComponent } from '../dependents';
 import { CategoryLegendCfg, CircleAxisCfg, ICanvas, IGroup, LineAxisCfg } from '../dependents';
 import { Interaction } from '../interaction/';
 import { Data, Datum, LooseObject, Padding, Region, Renderer, ScaleOption } from '../interface';
@@ -15,6 +15,7 @@ export interface ChartCfg {
   readonly pixelRatio?: number;
   readonly padding?: number | number[];
   readonly localRefresh?: boolean;
+  readonly visible?: boolean;
 }
 
 // view 构造参数
@@ -32,11 +33,13 @@ export interface ViewCfg {
   readonly padding?: Padding;
   readonly theme?: object | string;
   readonly options?: Options;
+  /** 是否可见 */
+  visible?: boolean;
 }
 
 // 组件及布局的信息
 export interface ComponentOption {
-  readonly component: Component;
+  readonly component: GroupComponent | HtmlComponent;
   readonly layer: LAYER;
   readonly direction: DIRECTION;
   readonly type: COMPONENT_TYPE;

@@ -1,5 +1,5 @@
-import EE from '@antv/event-emitter';
 import { each, get, isEmpty } from '@antv/util';
+import Base from '../../base';
 import { BBox, IGroup, IShape } from '../../dependents';
 import { AnimateOption, Datum, LooseObject, ShapeFactory, ShapeInfo } from '../../interface';
 import { getReplaceAttrs } from '../../util/graphics';
@@ -23,12 +23,13 @@ interface ElementCfg {
   animate?: AnimateOption | boolean;
   /** 虚拟 group，用户可以不传入 */
   offscreenGroup?: IGroup;
+  visible?: boolean;
 }
 /**
  * Element 图形元素
  * 定义：在 G2 中，我们会将数据通过图形语法映射成不同的图形，比如点图，数据集中的每条数据会对应一个点，柱状图每条数据对应一个柱子，线图则是一组数据对应一条折线，Element 即一条/一组数据对应的图形元素，它代表一条数据或者一个数据集，在图形层面，它可以是单个 Shape 也可以是多个 Shape，我们称之为图形元素。
  */
-export default class Element extends EE {
+export default class Element extends Base {
   /** 绘制的 shape 类型 */
   public readonly shapeType: string;
   /** 原始数据 */
@@ -45,8 +46,6 @@ export default class Element extends EE {
   public shape: IShape | IGroup;
   /** shape 的动画配置 */
   public animate: AnimateOption | boolean;
-  /** 是否已经被销毁 */
-  public destroyed: boolean = false;
   /** element 对应的 Geometry 实例 */
   public geometry: Geometry;
   /** 保存 shape 对应的 label */
@@ -58,8 +57,8 @@ export default class Element extends EE {
   private offscreenGroup: IGroup;
 
   constructor(cfg: ElementCfg) {
-    super();
-    const { data, model, shapeType, shapeFactory, theme, container, animate, offscreenGroup } = cfg;
+    super(cfg);
+    const { data, model, shapeType, shapeFactory, theme, container, animate, offscreenGroup, visible = true } = cfg;
     this.data = data;
     this.model = model;
     this.shapeType = shapeType;
@@ -68,10 +67,15 @@ export default class Element extends EE {
     this.container = container;
     this.animate = animate;
     this.offscreenGroup = offscreenGroup;
+    this.visible = visible;
 
     if (model) {
       // 只有有数据的时候才绘制 Shape
       this.drawShape();
+      if (this.visible === false) {
+        // 用户在初始化的时候声明 visible: false
+        this.changeVisible(false);
+      }
     }
   }
 
@@ -119,9 +123,19 @@ export default class Element extends EE {
     }
 
     this.states = [];
-    this.destroyed = true;
+    super.destroy();
+  }
 
-    this.off();
+  public changeVisible(visible: boolean) {
+    super.changeVisible(visible);
+
+    if (this.shape) {
+      this.shape.set('visible', visible);
+    }
+
+    if (this.labelShape) {
+      this.labelShape.set('visible', visible);
+    }
   }
 
   /**

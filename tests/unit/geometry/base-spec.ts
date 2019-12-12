@@ -514,10 +514,22 @@ describe('Geometry', () => {
       });
     });
 
+    it('changeVisible', () => {
+      expect(geometry.visible).toBe(true);
+
+      geometry.changeVisible(false);
+      expect(geometry.visible).toBe(false);
+      expect(geometry.container.get('visible')).toBe(false);
+
+      geometry.elements.forEach((element) => {
+        expect(element.visible).toBe(false);
+      });
+    });
+
     it('update data and repaint', () => {
       const updateElement = geometry.elements[1];
       const deleteElement = geometry.elements[0];
-
+      geometry.show();
       geometry.animate(true);
       geometry.update({
         data: [

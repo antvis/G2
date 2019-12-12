@@ -33,6 +33,7 @@ export default class Chart extends View {
       renderer = 'canvas',
       pixelRatio,
       localRefresh = true,
+      visible = true,
     } = props;
 
     const ele: HTMLElement = isString(container) ? document.getElementById(container) : container;
@@ -61,6 +62,7 @@ export default class Chart extends View {
       middleGroup: canvas.addGroup({ zIndex: GROUP_Z_INDEX.MID }),
       foregroundGroup: canvas.addGroup({ zIndex: GROUP_Z_INDEX.FORE }),
       padding,
+      visible,
     });
 
     this.ele = ele;
@@ -104,6 +106,12 @@ export default class Chart extends View {
 
     removeDom(this.wrapperElement);
     this.wrapperElement = null;
+  }
+
+  public changeVisible(visible: boolean) {
+    const wrapperEl = this.wrapperElement;
+    const visibleStr = visible ? '' : 'none';
+    wrapperEl.style.display = visibleStr;
   }
 
   private bindAutoFit() {

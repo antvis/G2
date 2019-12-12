@@ -13,6 +13,7 @@ describe('Chart', () => {
     height: 600,
     padding: 10,
     autoFit: false,
+    visible: false,
   });
 
   chart.data(CITY_SALE);
@@ -63,6 +64,30 @@ describe('Chart', () => {
     expect(chart.getLayer(LAYER.BG).get('children').length).not.toBe(0);
     expect(chart.getLayer(LAYER.MID).get('children').length).not.toBe(0);
     expect(chart.getLayer(LAYER.FORE).get('children').length).not.toBe(0);
+    // @ts-ignore
+    expect(chart.wrapperElement.style.display).toBe('none');
+    expect(chart.visible).toBe(false);
+  });
+
+  it('show()', () => {
+    chart.show();
+    expect(chart.visible).toBe(true);
+    // @ts-ignore
+    expect(chart.wrapperElement.style.display).toBe('');
+  });
+
+  it('hide()', () => {
+    chart.hide();
+    expect(chart.visible).toBe(false);
+    // @ts-ignore
+    expect(chart.wrapperElement.style.display).toBe('none');
+  });
+
+  it('changeVisible', () => {
+    chart.changeVisible(false);
+    expect(chart.visible).toBe(false);
+    // @ts-ignore
+    expect(chart.wrapperElement.style.display).toBe('none');
   });
 
   it('clear', () => {

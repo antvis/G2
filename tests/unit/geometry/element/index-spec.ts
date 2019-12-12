@@ -67,12 +67,15 @@ describe('Element', () => {
         container,
         offscreenGroup: offscreenContainer,
         animate: true,
+        visible: false,
       });
 
       expect(element.shape.get('name')).toBe('shapes');
       expect(container.get('children').length).toBe(1);
       expect(container.get('children')[0]).toEqual(element.shape);
       expect(element.getStates().length).toBe(0);
+      expect(element.visible).toBe(false);
+      expect(element.shape.get('visible')).toBe(false);
     });
 
     it('getModel', () => {
@@ -102,6 +105,18 @@ describe('Element', () => {
     it('getAnimateCfg(), model.animate is true but no default animate config.', () => {
       const animateCfg = element.getAnimateCfg('enter');
       expect(animateCfg).toEqual(null);
+    });
+
+    it('show()', () => {
+      element.show();
+      expect(element.visible).toBe(true);
+      expect(element.shape.get('visible')).toBe(true);
+    });
+
+    it('changeVisible()', () => {
+      element.changeVisible(false);
+      expect(element.visible).toBe(false);
+      expect(element.shape.get('visible')).toBe(false);
     });
 
     it('setState()', () => {
