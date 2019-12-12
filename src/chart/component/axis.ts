@@ -33,12 +33,15 @@ function getAxisOption(axes: Record<string, AxisOption> | boolean, field: string
  */
 export default class Axis extends Component<Option> {
   /** the draw group of axis */
-  private container: IGroup;
+  private axisContainer: IGroup;
+  private gridContainer: IGroup;
 
   constructor(view: View) {
     super(view);
 
-    this.container = this.view.getLayer(LAYER.BG).addGroup();
+    // 先创建 gridContainer，将 grid 放到 axis 底层
+    this.gridContainer = this.view.getLayer(LAYER.BG).addGroup();
+    this.axisContainer = this.view.getLayer(LAYER.BG).addGroup();
   }
 
   public get name(): string {
@@ -97,13 +100,15 @@ export default class Axis extends Component<Option> {
   public clear() {
     super.clear();
 
-    this.container.clear();
+    this.gridContainer.clear();
+    this.axisContainer.clear();
   }
 
   public destroy() {
     super.destroy();
 
-    this.container.remove(true);
+    this.gridContainer.remove(true);
+    this.axisContainer.remove(true);
   }
 
   /**
@@ -263,8 +268,9 @@ export default class Axis extends Component<Option> {
    * @return line axis cfg
    */
   private getLineAxisCfg(scale: Scale, axisOption: AxisOption, direction: DIRECTION): object {
-    const container = this.container;
+    const container = this.axisContainer;
     const coordinate = this.view.getCoordinate();
+
     const region = getAxisRegion(coordinate, direction);
 
     const baseAxisCfg = {
@@ -298,7 +304,7 @@ export default class Axis extends Component<Option> {
       return undefined;
     }
 
-    const container = this.container;
+    const container = this.gridContainer;
 
     const baseGridCfg = {
       container,
@@ -319,7 +325,7 @@ export default class Axis extends Component<Option> {
    * @return circle axis cfg
    */
   private getCircleAxisCfg(scale: Scale, axisOption: AxisOption, direction: DIRECTION): object {
-    const container = this.container;
+    const container = this.axisContainer;
 
     const ticks = map(scale.getTicks(), (tick) => ({ name: tick.text, value: tick.value }));
     const coordinate = this.view.getCoordinate();
@@ -357,7 +363,7 @@ export default class Axis extends Component<Option> {
       return undefined;
     }
 
-    const container = this.container;
+    const container = this.gridContainer;
 
     const baseGridCfg = {
       container,
