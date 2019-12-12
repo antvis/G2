@@ -195,8 +195,6 @@ export class View extends Base {
       // 用户在初始化的时候声明 visible: false
       this.changeVisible(false);
     }
-    // 实际的绘图
-    this.canvasDraw();
   }
 
   /**
@@ -625,8 +623,6 @@ export class View extends Base {
     });
 
     this.emit(VIEW_LIFE_CIRCLE.AFTER_CHANGE_DATA);
-    // 绘图
-    this.canvasDraw();
   }
 
   /* View 管理相关的 API */
@@ -1311,14 +1307,6 @@ export class View extends Base {
       // 渲染组件和 views
       this.facetInstance.render();
     }
-  }
-
-  /**
-   * canvas.draw 实际的绘制
-   * @private
-   */
-  private canvasDraw() {
-    this.getCanvas().draw();
   }
 }
 
