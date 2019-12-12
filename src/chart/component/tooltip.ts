@@ -322,9 +322,10 @@ export default class Tooltip extends Component<TooltipOption> {
         let snapItem = items[0];
         let min = Math.abs(point.y - snapItem.y);
         each(items, (aItem) => {
-          if (Math.abs(point.y - aItem.y) <= min) {
+          const yDistance = Math.abs(point.y - aItem.y);
+          if (yDistance <= min) {
             snapItem = aItem;
-            min = Math.abs(point.y - aItem.y);
+            min = yDistance;
           }
         });
         items = [snapItem];
