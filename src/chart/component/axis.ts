@@ -259,9 +259,7 @@ export default class Axis extends Component<Option> {
    */
   private getLineAxisCfg(scale: Scale, axisOption: AxisOption, direction: DIRECTION): object {
     const container = this.container;
-
     const coordinate = this.view.getCoordinate();
-
     const region = getAxisRegion(coordinate, direction);
 
     const baseAxisCfg = {
@@ -271,7 +269,9 @@ export default class Axis extends Component<Option> {
       title: {
         text: getName(scale),
       },
-      verticalFactor: getAxisFactorByRegion(region, coordinate.getCenter()),
+      verticalFactor: coordinate.isPolar
+        ? getAxisFactorByRegion(region, coordinate.getCenter()) * -1
+        : getAxisFactorByRegion(region, coordinate.getCenter()),
     };
 
     const axisThemeCfg = getAxisThemeCfg(this.view.getTheme(), direction);

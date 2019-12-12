@@ -81,7 +81,6 @@ describe('Component', () => {
       { x: 8, y: 0.6101 },
     ]);
     chart.coordinate('polar');
-    chart.axis('y', false); // 不显示 y 的坐标轴
     chart.axis('x', { grid: null });
     chart
       .line()
@@ -91,9 +90,11 @@ describe('Component', () => {
 
     chart.render();
     const axes = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.AXIS);
-    expect(axes.length).toBe(1);
+    expect(axes.length).toBe(2);
     // @ts-ignore
     expect(axes[0].component.cfg.ticks.length).toBe(4);
+    // @ts-ignore
+    expect(axes[1].component.cfg.verticalFactor).toBe(1);
   });
 
   afterAll(() => {
