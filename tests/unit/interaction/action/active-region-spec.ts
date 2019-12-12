@@ -27,12 +27,11 @@ describe('test active region', () => {
   chart.interaction('active-region');
   chart.interval().position('year*value');
   chart.render();
+
   let regionShape = null;
   it('show', () => {
-    chart.emit('plot:mousemove', {
-      x: 56,
-      y: 340,
-    });
+    const point = chart.getXY({ year: '1999', value: 3 });
+    chart.emit('plot:mousemove', point);
     regionShape = chart.backgroundGroup.findAll((el) => {
       return el.get('name') === 'active-region';
     })[0];
@@ -50,10 +49,9 @@ describe('test active region', () => {
   it('transpose', () => {
     chart.coordinate('rect').transpose();
     chart.render();
-    chart.emit('plot:mousemove', {
-      x: 56,
-      y: 340,
-    });
+
+    const point = chart.getXY({ year: '1999', value: 3 });
+    chart.emit('plot:mousemove', point);
     expect(regionShape.get('visible')).toBe(true);
     chart.emit('plot:mouseleave', {});
     expect(regionShape.get('visible')).toBe(false);
@@ -62,10 +60,9 @@ describe('test active region', () => {
   it('polar', () => {
     chart.coordinate('polar');
     chart.render();
-    chart.emit('plot:mousemove', {
-      x: 56,
-      y: 340,
-    });
+
+    const point = chart.getXY({ year: '1999', value: 3 });
+    chart.emit('plot:mousemove', point);
     expect(regionShape.get('visible')).toBe(true);
     chart.emit('plot:mouseleave', {});
     expect(regionShape.get('visible')).toBe(false);
@@ -74,6 +71,8 @@ describe('test active region', () => {
   it('change trigger', () => {
     chart.coordinate('rect');
     chart.render();
+
+    const point = chart.getXY({ year: '1999', value: 3 });
     chart.interaction('active-region', {
       start: [
         {
@@ -101,18 +100,12 @@ describe('test active region', () => {
       ],
     });
     expect(regionShape.destroyed).toBe(true);
-    chart.emit('plot:mousemove', {
-      x: 56,
-      y: 340,
-    });
+    chart.emit('plot:mousemove', point);
     regionShape = chart.backgroundGroup.findAll((el) => {
       return el.get('name') === 'active-region';
     })[0];
     expect(regionShape).toBe(undefined);
-    chart.emit('click', {
-      x: 56,
-      y: 340,
-    });
+    chart.emit('click', point);
     regionShape = chart.backgroundGroup.findAll((el) => {
       return el.get('name') === 'active-region';
     })[0];
