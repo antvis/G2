@@ -1,8 +1,8 @@
 /**
  * @description 分类图例的基类
  */
-import LegendBase from '../base';
 import { CategoryLegendCfg } from '../../interface';
+import LegendBase from '../base';
 
 const DEFAULT_THEME = {
   layout: 'horizontal', // 图例项布局方式
@@ -17,7 +17,6 @@ const DEFAULT_THEME = {
 };
 
 export default abstract class CategoryBase extends LegendBase {
-
   constructor(cfg: CategoryLegendCfg) {
     super({
       /**

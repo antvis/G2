@@ -373,6 +373,7 @@ const Theme = {
     bottom: _.deepMix({}, DEFAULT_LEGEND_CONFIG, {
       position: 'bottom',
       layout: 'horizontal',
+      itemDistance: 10,
     }),
     // 定义 html 渲染图例的样式
     html: {

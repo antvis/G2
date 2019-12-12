@@ -1,13 +1,12 @@
-#  Legend
+# Legend
 
-Legend 图例组件,包含连续图例和分类图例两大类，其中分类图例包括Html实现和Canvas实现。
+Legend 图例组件,包含连续图例和分类图例两大类，其中分类图例包括 Html 实现和 Canvas 实现。
 
 ```ts
 import { Legend } from `@antv/guide`;
 
 // todo 创建
 ```
-
 
 ## 通用的 cfg
 
@@ -33,13 +32,14 @@ interface LegendCfg {
 ```
 
 ## Category
+
 分类图例
 
 ### Canvas 版本
 
-``` ts
-import { Legend } from '@antv/guide'
-const catLegend:Category = new Legend.Canvas({
+```ts
+import { Legend } from '@antv/guide';
+const catLegend: Category = new Legend.Canvas({
   items,
   unSelectedColor: '#ccc',
   // layout: 'vertical',
@@ -66,42 +66,42 @@ const catLegend:Category = new Legend.Canvas({
     stroke: '#000',
     strokeWidth: 2,
     x: 0,
-    y: 0
+    y: 0,
   },
   autoWrap: true,
   itemWidth: 60,
   wordSpacing: 2,
   itemMarginBottom: 5,
-  backgroundPadding: [ 5, 5, 5, 5],
+  backgroundPadding: [5, 5, 5, 5],
   itemDistance: 5,
   maxLength: 300,
-  formatter: value => {
+  formatter: (value) => {
     return value + '格式化';
   },
 });
 legend.draw();
- ```
+```
 
 #### CFG 配置项
 
 ```ts
 export interface CategoryCfg extends LegendCfg {
-  readonly unSelectedColor:string; // 取消选中的颜色
-  readonly titleStyle:CommonCfg; // 图例标题样式
-  readonly textStyle:CommonCfg;  // 图例项目文本样式
-  readonly backgroundStyle:CommonCfg; // 背景样式
-  readonly titleDistance:number; // 标题和图例项的间距
-  readonly allowAllCanceled:boolean; // 图例项是否可以全部取消
-  readonly autoWrap:boolean; // 是否自动换行
-  readonly clickable:boolean; // 是否可点击
-  readonly selectedMode:SelectedMode; // 图例项的选择模式，支持 'multiple'、'single'，默认 'multiple'
+  readonly unSelectedColor: string; // 取消选中的颜色
+  readonly titleStyle: CommonCfg; // 图例标题样式
+  readonly textStyle: CommonCfg; // 图例项目文本样式
+  readonly backgroundStyle: CommonCfg; // 背景样式
+  readonly titleDistance: number; // 标题和图例项的间距
+  readonly allowAllCanceled: boolean; // 图例项是否可以全部取消
+  readonly autoWrap: boolean; // 是否自动换行
+  readonly clickable: boolean; // 是否可点击
+  readonly selectedMode: SelectedMode; // 图例项的选择模式，支持 'multiple'、'single'，默认 'multiple'
   readonly layout: LayoutMode; // 图例布局模式，支持 'vertical', 'horizontal', 默认 horizontal
-  readonly itemWidth:number; // 图例项目宽度
-  readonly wordSpacing:number; // 图例文本间隔
-  readonly itemMarginBottom:number; // 图例项 底部间距
-  readonly backgroundPadding:number | number[]; // 背景间距
-  readonly maxLength:number; // 图例的最大高度或者宽度
-  readonly formatter:Function; // 格式化图例文本
+  readonly itemWidth: number; // 图例项目宽度
+  readonly wordSpacing: number; // 图例文本间隔
+  readonly itemMarginBottom: number; // 图例项 底部间距
+  readonly backgroundPadding: number | number[]; // 背景间距
+  readonly maxLength: number; // 图例的最大高度或者宽度
+  readonly formatter: Function; // 格式化图例文本
 }
 ```
 
@@ -115,11 +115,12 @@ export interface CategoryCfg extends LegendCfg {
 
 绘制图例 `draw()`
 
-``` ts
+```ts
 legend.draw();
 ```
 
 ##### clear
+
 清空图例
 
 ```ts
@@ -127,6 +128,7 @@ legend.clear();
 ```
 
 ##### destroy
+
 销毁图例
 
 ```ts
@@ -134,6 +136,7 @@ legend.destroy();
 ```
 
 ##### Event
+
 1. itemhover
 
 鼠标移入图例项
@@ -147,7 +150,7 @@ legend.on('itemhover', (ev) => {});
 鼠标移入出图例项
 
 ```ts
-legend.on('itemunhover',(ev) => {});
+legend.on('itemunhover', (ev) => {});
 ```
 
 3. itemclick
@@ -155,7 +158,7 @@ legend.on('itemunhover',(ev) => {});
 图例项被点击
 
 ```ts
-legend.on('itemclick', ev =>{})
+legend.on('itemclick', (ev) => {});
 ```
 
 ### HTML 版本
@@ -206,24 +209,26 @@ const legend = new Legend.HTML({
 }
 ```
 
-* `containerTpl` HTML 图例的结构模板
+- `containerTpl` HTML 图例的结构模板
 
 默认值为：
 
 ```html
-`<div class="${prefixClassName}">
+`
+<div class="${prefixClassName}">
   <!-- 图例标题结构，需要按照要求提供 class -->
   <div class="${prefixClassName}-title"></div>
   <!-- 图例项容器结构，需要按照要求提供 class -->
   <ul class="${prefixClassName}-list"></ul>
-</div>`
+</div>
+`
 ```
 
 说明：如果需要自定义 `containerTpl`，需要按照要求，为对应的 dom 提供 `class` 属性，其中 `prefixClassName` 可由用户自定义，后面的结构需要按照要求定义，因为我们需要根据 dom 的 className 查找对应的元素以应用样式以及进行相应的交互操作。
 
 > TODO: 一张图介绍结构以及对应的 className 结构
 
-* `itemTpl` 图例项的结构模板
+- `itemTpl` 图例项的结构模板
 
 默认值:
 
@@ -233,7 +238,7 @@ const legend = new Legend.HTML({
   <span class="${prefixClassName}-item-marker"></span>
   <!-- text，按照要求定义 class -->
   <span class="${prefixClassName}-item-text"></span>
-</li>`
+</li>`;
 ```
 
 说明：如果为按照为相应的 dom 元素定义 className，点击以及 hover 交互将无法生效。
@@ -255,7 +260,7 @@ itemTpl(value, color, checked, index) {
 }
 ```
 
-* `pagination` 分页器的样式配置
+- `pagination` 分页器的样式配置
 
 默认开启分页，默认值为：
 
@@ -270,28 +275,30 @@ itemTpl(value, color, checked, index) {
 
 当 `pagination` 设置为 `false`，则表示关闭分页功能。
 
-* `highlight` 是否开启高亮效果
+- `highlight` 是否开启高亮效果
 
 默认为 false，当设置为 true 时，会默认为每一个图例项添加一下 className:
-  + `active` 代表当前被 hover 的元素，我们会默认在该图例项 dom 上添加 className: 'active'
-  + `inactive` highlight 开启时，未被 hover 的图例项都会默认添加上 className: 'inactive'
 
-由用户自己为对应的 className 定义具体的 css 样式来这是效果，因为内部通过动态修改 dom 的 style 属性的话无法恢复原始状态，而且不能保证样式能够一一对 marker  text 等 dom 都生效，故由用户自己定义样式，内部负责大表和动态增添 className。
+- `active` 代表当前被 hover 的元素，我们会默认在该图例项 dom 上添加 className: 'active'
+- `inactive` highlight 开启时，未被 hover 的图例项都会默认添加上 className: 'inactive'
+
+由用户自己为对应的 className 定义具体的 css 样式来这是效果，因为内部通过动态修改 dom 的 style 属性的话无法恢复原始状态，而且不能保证样式能够一一对 marker text 等 dom 都生效，故由用户自己定义样式，内部负责大表和动态增添 className。
 
 #### Methods
-* `getWidth()`
+
+- `getWidth()`
 
 获取图例的宽度。
 
-* `getHeight()`
+- `getHeight()`
 
 获取图例的高度。
 
-* `moveTo(x: number, y: number)`
+- `moveTo(x: number, y: number)`
 
 将图例移动至 (x, y）坐标点位置.
 
-* `destroy()`
+- `destroy()`
 
 销毁图例。
 
