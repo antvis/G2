@@ -1,4 +1,5 @@
 import * as TOOLTIP_CLASSNAMES from '@antv/component/lib/tooltip/css-const';
+import { vec2 } from '@antv/matrix-util';
 import { each, find, get, isArray, isEqual, isObject } from '@antv/util';
 import { HtmlTooltip, IGroup } from '../../dependents';
 import Geometry from '../../geometry/base';
@@ -95,7 +96,7 @@ export default class Tooltip extends Component<TooltipOption> {
   public showTooltip(point: Point) {
     const { view, tooltip } = this;
     const { coordinateBBox } = view;
-    const items = this.getItems(point);
+    const items = this.getTooltipItems(point);
     if (!items.length) {
       return;
     }
@@ -163,27 +164,6 @@ export default class Tooltip extends Component<TooltipOption> {
     view.emit('tooltip:hide', {
       tooltip: this.tooltip,
     });
-  }
-
-  public getTooltipItems(point: Point) {
-    let rst = [];
-    const geometries = this.view.geometries;
-    for (const geometry of geometries) {
-      const dataArray = geometry.dataArray;
-      let items = [];
-      each(dataArray, (data) => {
-        const record = findDataByPoint(point, data, geometry);
-        if (record) {
-          const subItems = getTooltipItems(record, geometry);
-          items = items.concat(subItems);
-        }
-      });
-      rst = rst.concat(items);
-    }
-
-    rst = uniq(rst);
-
-    return rst;
   }
 
   /**
@@ -276,17 +256,11 @@ export default class Tooltip extends Component<TooltipOption> {
     return tooltipCfg;
   }
 
-  private getItems(point: Point) {
-    const { view } = this;
-    const geometries = view.geometries;
-    if (!geometries.length) {
-      return [];
-    }
-
-    const tooltipCfg = this.getTooltipCfg();
-
+  public getTooltipItems(point: Point) {
     let items = [];
-    const shared = tooltipCfg.shared;
+
+    const geometries = this.view.geometries;
+    const shared = this.getTooltipCfg().shared;
     each(geometries, (geometry: Geometry) => {
       if (geometry.visible && geometry.tooltipOption !== false) {
         // geometry 可见同时未关闭 tooltip
@@ -325,6 +299,37 @@ export default class Tooltip extends Component<TooltipOption> {
       item.x = isArray(x) ? x[x.length - 1] : x;
       item.y = isArray(y) ? y[y.length - 1] : y;
     });
+
+    if (items.length) {
+      const first = items[0];
+      // bugfix: 由于点图的数据查找策略不同，所以有可能存在相同坐标点，查到的数据 x 字段不同的情况（即 title 不同）
+      // 比如带点的折线图
+      if (!items.every((item) => item.title === first.title)) {
+        let nearestItem = first;
+        let nearestDistance = Infinity;
+        items.forEach((item) => {
+          const distance = vec2.distance([point.x, point.y], [item.x, item.y]);
+          if (distance < nearestDistance) {
+            nearestDistance = distance;
+            nearestItem = item;
+          }
+        });
+        items = items.filter((item) => item.title === nearestItem.title);
+      }
+
+      // shared: false 代表只显示当前拾取到的 shape 的数据，但是一个 view 会有多个 Geometry，所以有可能会拾取到多个 shape
+      if (shared === false && items.length > 1) {
+        let snapItem = items[0];
+        let min = Math.abs(point.y - snapItem.y);
+        each(items, (aItem) => {
+          if (Math.abs(point.y - aItem.y) <= min) {
+            snapItem = aItem;
+            min = Math.abs(point.y - aItem.y);
+          }
+        });
+        items = [snapItem];
+      }
+    }
 
     return items;
   }

@@ -1,9 +1,9 @@
 import { Chart } from '../../../../src/index';
-import { createDiv } from '../../../util/dom';
+import { createDiv, removeDom } from '../../../util/dom';
 
 describe('Tooltip', () => {
   const container = createDiv();
-  const chart = new Chart({
+  let chart = new Chart({
     container,
     autoFit: false,
     width: 400,
@@ -152,5 +152,107 @@ describe('Tooltip', () => {
     const point = chart.getXY({ item: 'Technology', user: 'a', score: 50 });
     const tooltipItems = chart.getTooltipItems(point);
     expect(tooltipItems.length).toBe(2);
+  });
+
+  it('shared tooltip items with diffrent titles', () => {
+    chart.destroy();
+    chart = new Chart({
+      container,
+      autoFit: false,
+      width: 400,
+      height: 300,
+    });
+    chart.coordinate('rect');
+    chart.data([
+      { year: '1991', value: 3 },
+      { year: '1992', value: 4 },
+      { year: '1993', value: 3.5 },
+      { year: '1994', value: 5 },
+      { year: '1995', value: 4.9 },
+      { year: '1996', value: 6 },
+      { year: '1997', value: 7 },
+      { year: '1998', value: 9 },
+      { year: '1999', value: 13 },
+    ]);
+    chart.scale('value', {
+      min: 0,
+    });
+    chart.scale('year', {
+      range: [0, 1],
+    });
+    chart.tooltip({
+      showCrosshairs: true,
+      shared: true,
+    });
+    chart.line().position('year*value');
+    chart
+      .point()
+      .position('year*value')
+      .size(4)
+      .shape('circle')
+      .style({
+        stroke: '#fff',
+        lineWidth: 1,
+      });
+    chart.render();
+
+    // 构造两个数据点之间的位置
+    const point1 = chart.getXY({ year: '1998', value: 9 });
+    const point2 = chart.getXY({ year: '1999', value: 13 });
+    const point = {
+      x: (point2.x - point1.x) * 0.6 + point1.x,
+      y: (point2.y - point1.y) * 0.4 + point1.y,
+    };
+    const tooltipItems = chart.getTooltipItems(point);
+    expect(tooltipItems.length).toBe(1);
+    expect(tooltipItems[0].title).toBe('1998');
+    expect(tooltipItems[0].value).toBe('9');
+  });
+
+  it('view with multiple geometry overlap', () => {
+    chart.destroy();
+    chart = new Chart({
+      container,
+      autoFit: false,
+      width: 400,
+      height: 300,
+    });
+    chart.data([
+      { year: '1991', value: 3, value1: 34 },
+      { year: '1992', value: 4, value1: 3 },
+      { year: '1993', value: 3.5, value1: 14 },
+      { year: '1994', value: 5, value1: 9 },
+      { year: '1995', value: 4.9, value1: 17 },
+    ]);
+    chart.scale('value', {
+      min: 0,
+      max: 10,
+    });
+    chart.tooltip({
+      showCrosshairs: true,
+    });
+    chart
+      .point()
+      .position('year*value')
+      .size(4)
+      .shape('circle');
+    chart
+      .point()
+      .position('year*value1')
+      .size(5)
+      .shape('triangle');
+    chart.render();
+
+    // 构造两个数据点之间的位置
+    const point = chart.getXY({ year: '1993', value: 3.5, value1: 14 });
+    const tooltipItems = chart.getTooltipItems(point);
+    expect(tooltipItems.length).toBe(1);
+    expect(tooltipItems[0].title).toBe('1993');
+    expect(tooltipItems[0].value).toBe('14');
+  });
+
+  afterAll(() => {
+    chart.destroy();
+    removeDom(container);
   });
 });
