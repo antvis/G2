@@ -139,6 +139,7 @@ export default class Axis extends Component<Option> {
           type: COMPONENT_TYPE.AXIS,
           extra: { dim: 'x', scale },
         };
+        axis.component.set('field', scale.field);
         axisArray.push(axis);
 
         // grid
@@ -161,6 +162,7 @@ export default class Axis extends Component<Option> {
           type: COMPONENT_TYPE.AXIS,
           extra: { dim: 'x', scale },
         };
+        axis.component.set('field', scale.field);
         axisArray.push(axis);
 
         // grid
@@ -212,6 +214,7 @@ export default class Axis extends Component<Option> {
             type: COMPONENT_TYPE.AXIS,
             extra: { dim, scale },
           };
+          axis.component.set('field', scale.field);
           axisArray.push(axis);
 
           // grid
@@ -236,6 +239,7 @@ export default class Axis extends Component<Option> {
             type: COMPONENT_TYPE.AXIS,
             extra: { dim: 'y', scale },
           };
+          axis.component.set('field', scale.field);
           axisArray.push(axis);
 
           // grid

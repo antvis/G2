@@ -1,6 +1,6 @@
 import { isEqual } from '@antv/util';
-import { Point } from '../../interface';
-import Action from './base';
+import { Point } from '../../../interface';
+import Action from '../base';
 
 class TooltipAction extends Action {
   private timeStamp: number = 0;

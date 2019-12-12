@@ -1,5 +1,5 @@
 import { Chart } from '../../../../src/index';
-import ListActive from '../../../../src/interaction/action/list-active';
+import ListActive from '../../../../src/interaction/action/component/list-active';
 import Context from '../../../../src/interaction/context';
 import { createDiv } from '../../../util/dom';
 
@@ -31,11 +31,8 @@ describe('active test', () => {
   const legendItems = chart.foregroundGroup.findAll((el) => {
     return el.get('name') === 'legend-item';
   });
-  it('init', () => {
-    expect(action.name).toBe('list-active');
-  });
 
-  xit('no target', () => {
+  it('no target', () => {
     context.event = {
       target: null,
     };
@@ -63,6 +60,50 @@ describe('active test', () => {
     expect(item.active).toBe(false);
   });
 
+  it('toggle', () => {
+    const label = axisLabels[0];
+    const item = label.get('delegationObject').item;
+    const label1 = axisLabels[1];
+    const item1 = label1.get('delegationObject').item;
+    context.event = {
+      target: label,
+    };
+    action.active();
+    expect(item.active).toBe(true);
+
+    context.event = {
+      target: label1,
+    };
+    action.toggle();
+    expect(item.active).toBe(true);
+    expect(item1.active).toBe(true);
+    action.toggle();
+    expect(item1.active).toBe(false);
+    context.event = {
+      target: label,
+    };
+    action.reset();
+    expect(item.active).toBe(false);
+  });
+
+  it('clear', () => {
+    const label = axisLabels[0];
+    const item = label.get('delegationObject').item;
+    const label1 = axisLabels[1];
+    const item1 = label1.get('delegationObject').item;
+    context.event = {
+      target: label,
+    };
+    action.active();
+    context.event = {
+      target: label1,
+    };
+    action.active();
+    action.clear();
+    expect(item.active).toBe(false);
+    expect(item1.active).toBe(false);
+  });
+
   it('legend item active', () => {
     const legendItem = legendItems[0];
     const item = legendItem.get('delegationObject').item;
@@ -84,11 +125,21 @@ describe('active test', () => {
   });
 
   it('element trigger active', () => {
-    const elments = chart.geometries[0].elements;
-    const elment = elments[0];
+    const elements = chart.geometries[0].elements;
+    const element = elements[0];
+    const label = axisLabels[0];
+    const tickItem = label.get('delegationObject').item;
+    const legendItem = legendItems[0];
+    const item = legendItem.get('delegationObject').item;
+
     context.event = {
-      target: elment.shape,
+      target: element.shape,
     };
     action.active();
+    expect(item.active).toBe(true);
+    expect(tickItem.active).toBe(true);
+    action.reset();
+    expect(item.active).toBe(false);
+    expect(tickItem.active).toBe(false);
   });
 });

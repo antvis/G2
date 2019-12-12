@@ -207,7 +207,9 @@ export default {
         active: {
           interval: { fillOpacity: 0.5 },
         },
-        inactive: {},
+        inactive: {
+          interval: { fillOpacity: 0.3 },
+        },
         selected: {},
       },
       hollowRect: {
