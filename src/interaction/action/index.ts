@@ -19,6 +19,7 @@ import ListHighlight from './component/list-highlight';
 import ListSelected from './component/list-selected';
 import ListUnchecked from './component/list-unchecked';
 
+import CursorAction from './cursor';
 import { createAction, registerAction } from './register';
 
 registerAction('tooltip', TooltipAction);
@@ -41,4 +42,5 @@ registerAction('list-selected', ListSelected);
 registerAction('list-highlight', ListHighlight);
 registerAction('list-unchecked', ListUnchecked);
 
+registerAction('cursor', CursorAction);
 export { Action, registerAction, createAction };
