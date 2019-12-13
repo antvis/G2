@@ -23,7 +23,6 @@ import { FacetCfgMap } from '../facet/interface';
 import Geometry from '../geometry/base';
 import { createInteraction } from '../interaction/';
 import { Data, Datum, LooseObject, Point, Region, ScaleOption } from '../interface';
-import { STATE_ACTIONS, StateActionCfg, StateManager } from '../state';
 import { BBox } from '../util/bbox';
 import { isFullCircle, isPointInCoordinate } from '../util/coordinate';
 import { createCoordinate } from '../util/coordinate';
@@ -108,7 +107,8 @@ export class View extends Base {
 
   /** 当前鼠标是否在 plot 内（CoordinateBBox） */
   private isPreMouseInPlot: boolean = false;
-  private stateManager: StateManager;
+  // tooltip 是否被锁定
+  private tooltipLocked: boolean;
 
   constructor(props: ViewCfg) {
     super({ visible: props.visible });
@@ -169,7 +169,6 @@ export class View extends Base {
 
     // 事件委托机制
     this.initEvents();
-    this.initStates();
 
     // 初始化组件 controller
     this.initComponentPlugins();
@@ -250,10 +249,6 @@ export class View extends Base {
     this.backgroundGroup.remove(true);
     this.middleGroup.remove(true);
     this.foregroundGroup.remove(true);
-    each(STATE_ACTIONS, (stateAction) => {
-      stateAction.destroy(this.stateManager, this);
-    });
-    this.stateManager.destroy();
 
     super.destroy();
   }
@@ -766,14 +761,6 @@ export class View extends Base {
   }
 
   /**
-   * 获得状态量管理器
-   * returns [[StateManager]]
-   */
-  public getStateManager() {
-    return this.stateManager;
-  }
-
-  /**
    * 获得绘制的层级 group
    * @param layer
    * @returns 对应层级的 Group
@@ -887,7 +874,16 @@ export class View extends Base {
    * @returns View
    */
   public lockTooltip(): View {
-    this.stateManager.setState('_isTooltipLocked', true);
+    this.tooltipLocked = true;
+    return this;
+  }
+
+  /**
+   * 将 tooltip 锁定解除
+   * @returns View
+   */
+  public unlockTooltip(): View {
+    this.tooltipLocked = false;
     return this;
   }
 
@@ -896,15 +892,7 @@ export class View extends Base {
    * @returns 是否锁定
    */
   public isTooltipLocked() {
-    return this.stateManager.getState('_isTooltipLocked');
-  }
-  /**
-   * 将 tooltip 锁定解除
-   * @returns View
-   */
-  public unlockTooltip(): View {
-    this.stateManager.setState('_isTooltipLocked', false);
-    return this;
+    return this.tooltipLocked;
   }
 
   /**
@@ -1039,15 +1027,6 @@ export class View extends Base {
 
     // 自己监听事件，然后向上冒泡
     this.on('*', this.onViewEvents);
-  }
-
-  private initStates() {
-    const stateManager = new StateManager();
-    this.stateManager = stateManager;
-
-    each(STATE_ACTIONS, (stateAction: StateActionCfg) => {
-      stateAction.init(stateManager, this);
-    });
   }
 
   /**

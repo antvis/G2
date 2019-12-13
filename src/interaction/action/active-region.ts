@@ -1,5 +1,5 @@
-import { IShape } from '@antv/g-base/lib/interfaces';
-import * as _ from '@antv/util';
+import { each, isEqual } from '@antv/util';
+import { IShape } from '../../dependents';
 import Element from '../../geometry/element/';
 import { LooseObject } from '../../interface';
 import { getAngle, getSectorPath } from '../../util/graphics';
@@ -16,7 +16,7 @@ class ActiveRegion extends Action {
       y: ev.y,
     });
 
-    if (_.isEqual(tooltipItems, this.items)) {
+    if (isEqual(tooltipItems, this.items)) {
       // 如果拾取数据同上次相同，则不重复绘制
       return;
     }
@@ -27,7 +27,7 @@ class ActiveRegion extends Action {
       // 根据 x 对应的值查找 elements
       let elements: Element[] = [];
       const geometries = view.geometries;
-      _.each(geometries, (geometry) => {
+      each(geometries, (geometry) => {
         const result = geometry.getElementsBy((ele) => {
           const eleData = ele.getData();
           return eleData[xField] === xValue;
@@ -41,7 +41,7 @@ class ActiveRegion extends Action {
         const firstBBox = elements[0].shape.getBBox();
         const lastBBox = elements[elements.length - 1].shape.getBBox();
         const groupBBox: LooseObject = firstBBox;
-        _.each(elements, (ele: Element) => {
+        each(elements, (ele: Element) => {
           const bbox = ele.shape.getBBox();
           groupBBox.x = Math.min(bbox.minX, groupBBox.minX);
           groupBBox.y = Math.min(bbox.minY, groupBBox.minY);
