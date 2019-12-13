@@ -132,23 +132,25 @@ describe('test active action', () => {
     const elements = chart.geometries[0].elements;
     const first = elements[0];
     const second = elements[1];
+    const bbox1 = first.getBBox();
+    const bbox2 = second.getBBox();
     it('active', () => {
       context.event = {
-        x: 36,
-        y: 203,
+        x: bbox1.x - 5,
+        y: bbox1.y - 5,
       };
       action.start();
       context.event = {
-        x: 73,
-        y: 329,
+        x: bbox1.maxX + 5,
+        y: bbox1.y + 5,
       };
       action.active();
       expect(first.hasState('active')).toBe(true);
       expect(second.hasState('active')).toBe(false);
 
       context.event = {
-        x: 151,
-        y: 316,
+        x: bbox2.x + 5,
+        y: bbox1.y + 10,
       };
       action.active();
       expect(first.hasState('active')).toBe(true);
@@ -156,8 +158,8 @@ describe('test active action', () => {
       action.end();
 
       context.event = {
-        x: 36,
-        y: 203,
+        x: bbox1.x - 5,
+        y: bbox1.y - 5,
       };
       action.active();
       expect(first.hasState('active')).toBe(true);

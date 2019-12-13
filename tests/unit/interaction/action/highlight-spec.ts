@@ -197,44 +197,46 @@ describe('test active action', () => {
     const elements = chart.geometries[0].elements;
     const first = elements[0];
     const second = elements[1];
+    const bbox1 = first.getBBox();
+    const bbox2 = second.getBBox();
     it('highlight', () => {
       context.event = {
-        x: 36,
-        y: 203,
+        x: bbox1.x - 5,
+        y: bbox1.y - 5,
       };
       action.start();
       context.event = {
-        x: 73,
-        y: 329,
+        x: bbox1.maxX + 5,
+        y: bbox1.y + 5,
       };
       action.highlight();
       expect(first.hasState('active')).toBe(true);
       expect(second.hasState('inactive')).toBe(true);
 
       context.event = {
-        x: 151,
-        y: 316,
+        x: bbox2.x + 5,
+        y: bbox1.y + 10,
       };
       action.highlight();
       expect(first.hasState('active')).toBe(true);
       expect(second.hasState('active')).toBe(true);
       context.event = {
-        x: 36,
-        y: 203,
+        x: bbox1.x - 5,
+        y: bbox1.y - 5,
       };
       action.highlight();
       expect(first.hasState('active')).toBe(false);
       expect(second.hasState('active')).toBe(false);
 
       context.event = {
-        x: 73,
-        y: 319,
+        x: bbox1.maxX + 5,
+        y: bbox1.y + 15,
       };
       action.highlight();
       expect(first.hasState('active')).toBe(true);
       context.event = {
-        x: 114,
-        y: 286,
+        x: bbox2.x + 5,
+        y: bbox2.y + 5,
       };
       action.highlight();
       expect(first.hasState('active')).toBe(false);
@@ -242,8 +244,8 @@ describe('test active action', () => {
       action.end();
 
       context.event = {
-        x: 36,
-        y: 203,
+        x: bbox1.x - 5,
+        y: bbox1.y - 5,
       };
       action.highlight();
       expect(first.hasState('active')).toBe(false);
@@ -252,8 +254,8 @@ describe('test active action', () => {
 
     it('highlight again', () => {
       context.event = {
-        x: 36,
-        y: 203,
+        x: bbox1.x - 5,
+        y: bbox1.y - 5,
       };
       action.start();
       action.highlight();
@@ -261,8 +263,8 @@ describe('test active action', () => {
       expect(second.hasState('active')).toBe(false);
 
       context.event = {
-        x: 126,
-        y: 255,
+        x: bbox2.x + 5,
+        y: bbox2.y + 5,
       };
       action.highlight();
       expect(first.hasState('active')).toBe(false);
