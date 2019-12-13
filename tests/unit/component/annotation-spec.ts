@@ -71,10 +71,10 @@ describe('annotation', () => {
     // theme
     expect(line.get('style').lineDash).toEqual([2, 2]);
     // pos
-    expect(line.get('start').x).toBeWithin(508, 512);
+    expect(line.get('start').x).toBeWithin(503, 508);
     expect(line.get('start').y).toBeWithin(53, 60);
 
-    expect(line.get('end').x).toBeWithin(697, 698);
+    expect(line.get('end').x).toBeWithin(693, 697);
     expect(line.get('end').y).toBeWithin(378, 385);
     // style
     expect(line.get('style').stroke).toBe('green');
@@ -99,7 +99,7 @@ describe('annotation', () => {
     // theme
     expect(region.get('style').fillOpacity).toBe(0.04);
     // pos
-    expect(region.get('start').x).toBeWithin(508, 512);
+    expect(region.get('start').x).toBeWithin(503, 508);
     expect(region.get('start').y).toBeWithin(565, 570);
 
     expect(region.get('end').x).toBeWithin(694, 698);
@@ -125,7 +125,7 @@ describe('annotation', () => {
     // @ts-ignore
     expect(text.get('style').fontFamily).toEqual(chart.getTheme().fontFamily);
     // pos
-    expect(text.get('x')).toBeWithin(138, 142);
+    expect(text.get('x')).toBeWithin(122, 128);
     expect(text.get('y')).toBeWithin(97, 105);
     // style
     expect(text.get('style').fill).toBe('red');
@@ -166,7 +166,7 @@ describe('annotation', () => {
 
     const text = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[5].component;
     // // pos
-    expect(text.get('x')).toBeWithin(138, 142);
+    expect(text.get('x')).toBeWithin(122, 128);
     expect(text.get('y')).toBeWithin(97, 105);
   });
 
