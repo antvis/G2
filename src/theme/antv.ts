@@ -482,12 +482,13 @@ export default {
       top: AXIS_STYLE,
       bottom: deepMix({}, AXIS_STYLE, {
         grid: null,
-        title: false,
+        title: null,
       }),
       left: deepMix({}, AXIS_STYLE, {
         label: {
           offset: 8,
         },
+        title: null,
         line: null,
         tickLine: null,
         grid: GRID_STYLE,

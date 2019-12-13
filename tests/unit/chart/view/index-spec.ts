@@ -240,7 +240,7 @@ describe('View', () => {
 
   it('getXY', () => {
     const position = view.getXY({ city: '杭州', sale: 40, category: '鼠标' });
-    expect(position.x).toBe(233.25);
+    expect(position.x).toBe(220.5);
   });
 
   it('showTooltip', () => {
