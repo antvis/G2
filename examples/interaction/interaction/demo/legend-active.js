@@ -6,10 +6,6 @@ const data = [
   { year: '1993', value: 3.5 },
   { year: '1994', value: 5 },
   { year: '1995', value: 4.9 },
-  { year: '1996', value: 6 },
-  { year: '1997', value: 7 },
-  { year: '1998', value: 9 },
-  { year: '1999', value: 13 },
 ];
 const chart = new Chart({
   container: 'container',
@@ -18,6 +14,9 @@ const chart = new Chart({
 });
 
 chart.data(data);
-chart.interaction('element-active');
-chart.interval().position('year*value');
+chart.interaction('legend-active');
+chart
+  .interval()
+  .position('year*value')
+  .color('year');
 chart.render();

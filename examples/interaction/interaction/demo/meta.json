@@ -7,8 +7,24 @@
     {
       "filename": "basic.js",
       "title": {
-        "zh": "基本交互",
+        "zh": "基本交互, active",
         "en": "basic interaction"
+      },
+      "screenshot": ""
+    },
+    {
+      "filename": "highlight.js",
+      "title": {
+        "zh": "图表元素 highlight",
+        "en": "element highlight"
+      },
+      "screenshot": ""
+    },
+    {
+      "filename": "legend-active.js",
+      "title": {
+        "zh": "图例项 active",
+        "en": "legend active"
       },
       "screenshot": ""
     }
