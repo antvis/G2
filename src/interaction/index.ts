@@ -55,7 +55,7 @@ registerInteraction('tooltip', {
 // 移动到 elment 上 active
 registerInteraction('element-active', {
   start: [{ trigger: 'element:mouseenter', action: 'element-active:active' }],
-  end: [{ trigger: 'element:mouseenter', action: 'element-active:reset' }],
+  end: [{ trigger: 'element:mouseleave', action: 'element-active:reset' }],
 });
 
 // 点击选中，允许取消
