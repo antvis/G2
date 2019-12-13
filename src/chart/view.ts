@@ -1085,6 +1085,17 @@ export class View extends Base {
 
     // 包含有基本事件、组合事件
     this.emit(name, e);
+    if (evt.delegateObject) {
+      const events = this.getEvents();
+      const currentTarget = evt.currentTarget as IShape;
+      const inhertNames = currentTarget.get('inheritNames');
+      each(inhertNames, (subName) => {
+        const eventName = `${subName}:${type}`;
+        if (events[eventName]) {
+          this.emit(eventName, e);
+        }
+      });
+    }
 
     // 根据事件的 x y 判断是否在 CoordinateBBox 中，然后处理 plot 事件
     if (['mousemove', 'mouseleave'].includes(type)) {
@@ -1251,40 +1262,6 @@ export class View extends Base {
       }
     });
   }
-  private setComponentField(el: ComponentOption) {
-    const { component, extra } = el;
-    if (extra && !component.get('field')) {
-      const scale = extra.scale;
-      if (scale) {
-        component.set('field', scale.field);
-      }
-    }
-  }
-
-  public getComponents(): Component[] {
-    const components = [];
-    if (this.axisController) {
-      components.push(
-        ...this.axisController.getComponents().map((el) => {
-          this.setComponentField(el);
-          return el.component;
-        })
-      );
-    }
-    if (this.legendController) {
-      components.push(
-        ...this.legendController.getComponents().map((el) => {
-          this.setComponentField(el);
-          return el.component;
-        })
-      );
-    }
-    if (this.annotationController) {
-      components.push(...this.annotationController.getComponents().map((el) => el.component));
-    }
-    return components;
-  }
-
   /**
    * 根据 options 配置、Geometry 字段配置，自动渲染 components
    * @private

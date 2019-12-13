@@ -18,15 +18,15 @@ export function getCurrentElement(context: IInteractionContext): Element {
 export function getDelegationObject(context: IInteractionContext): LooseObject {
   const event = context.event;
   const target = event.target;
-  let delegationObject;
+  let delegateObject;
   if (target) {
-    delegationObject = target.get('delegationObject');
+    delegateObject = target.get('delegateObject');
   }
-  return delegationObject;
+  return delegateObject;
 }
 
-export function isList(delegationObject: LooseObject): boolean {
-  return delegationObject && delegationObject.component && delegationObject.component.isList();
+export function isList(delegateObject: LooseObject): boolean {
+  return delegateObject && delegateObject.component && delegateObject.component.isList();
 }
 
 export function getElements(view: View): Element[] {
@@ -75,4 +75,17 @@ export function getIntersectElements(view: View, box) {
     }
   });
   return rst;
+}
+
+export function getComponents(view) {
+  const controllers = view.components;
+  const components = [];
+  each(controllers, (c) => {
+    components.push(
+      ...c.getComponents().map((el) => {
+        return el.component;
+      })
+    );
+  });
+  return components;
 }

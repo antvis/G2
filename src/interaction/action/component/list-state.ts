@@ -2,24 +2,25 @@ import { each } from '@antv/util';
 import Element from '../../../geometry/element';
 import { LooseObject } from '../../../interface';
 import Action from '../base';
-
+import { getComponents } from '../util';
 import { getCurrentElement, getDelegationObject, getElementValue, isList } from '../util';
+
 class ListState extends Action {
   protected stateName: string = '';
   protected getTriggerListInfo() {
-    const delegationObject = getDelegationObject(this.context);
+    const delegateObject = getDelegationObject(this.context);
     let info: LooseObject = null;
-    if (isList(delegationObject)) {
+    if (isList(delegateObject)) {
       info = {
-        item: delegationObject.item,
-        list: delegationObject.component,
+        item: delegateObject.item,
+        list: delegateObject.component,
       };
     }
     return info;
   }
   protected getAllowComponents() {
     const view = this.context.view;
-    const components = view.getComponents();
+    const components = getComponents(view);
     const rst = [];
     each(components, (component) => {
       if (component.isList() && this.allowSetStateByElement(component)) {
@@ -73,9 +74,9 @@ class ListState extends Action {
       });
     } else {
       // 被组件触发
-      const delegationObject = getDelegationObject(this.context);
-      if (isList(delegationObject)) {
-        const { item, component } = delegationObject;
+      const delegateObject = getDelegationObject(this.context);
+      if (isList(delegateObject)) {
+        const { item, component } = delegateObject;
         this.setItemState(component, item, enable);
       }
     }

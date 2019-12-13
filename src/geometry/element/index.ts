@@ -305,7 +305,7 @@ export default class Element extends Base {
         // 等 G 事件改造完成后加上
         this.shape.set('name', this.shapeFactory.geometryType);
       }
-
+      this.shape.set('inheritNames', ['element']);
       // 执行入场动画
       const animateCfg = this.getAnimateCfg('enter');
       if (animateCfg) {
@@ -327,8 +327,8 @@ export default class Element extends Base {
   // 设置 shape 上需要携带的信息
   private setShapeInfo(shape: IShape | IGroup, data: ShapeInfo) {
     shape.set('origin', data);
-    // TODO: 加上 delegationObject 属性
-    shape.set('element', this); // 考虑是否可以使用 G 事件的 delegationObject
+    // TODO: 加上 delegateObject 属性
+    shape.set('element', this); // 考虑是否可以使用 G 事件的 delegateObject
     if (shape.isGroup()) {
       const children = shape.get('children');
       children.forEach((child) => {

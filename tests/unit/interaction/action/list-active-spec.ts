@@ -42,7 +42,7 @@ describe('active test', () => {
 
   it('axis label acitve, reset', () => {
     const label = axisLabels[0];
-    const item = label.get('delegationObject').item;
+    const item = label.get('delegateObject').item;
     context.event = {
       target: label,
     };
@@ -62,9 +62,9 @@ describe('active test', () => {
 
   it('toggle', () => {
     const label = axisLabels[0];
-    const item = label.get('delegationObject').item;
+    const item = label.get('delegateObject').item;
     const label1 = axisLabels[1];
-    const item1 = label1.get('delegationObject').item;
+    const item1 = label1.get('delegateObject').item;
     context.event = {
       target: label,
     };
@@ -88,9 +88,9 @@ describe('active test', () => {
 
   it('clear', () => {
     const label = axisLabels[0];
-    const item = label.get('delegationObject').item;
+    const item = label.get('delegateObject').item;
     const label1 = axisLabels[1];
-    const item1 = label1.get('delegationObject').item;
+    const item1 = label1.get('delegateObject').item;
     context.event = {
       target: label,
     };
@@ -106,7 +106,7 @@ describe('active test', () => {
 
   it('legend item active', () => {
     const legendItem = legendItems[0];
-    const item = legendItem.get('delegationObject').item;
+    const item = legendItem.get('delegateObject').item;
     context.event = {
       target: legendItem,
     };
@@ -128,9 +128,9 @@ describe('active test', () => {
     const elements = chart.geometries[0].elements;
     const element = elements[0];
     const label = axisLabels[0];
-    const tickItem = label.get('delegationObject').item;
+    const tickItem = label.get('delegateObject').item;
     const legendItem = legendItems[0];
-    const item = legendItem.get('delegationObject').item;
+    const item = legendItem.get('delegateObject').item;
 
     context.event = {
       target: element.shape,

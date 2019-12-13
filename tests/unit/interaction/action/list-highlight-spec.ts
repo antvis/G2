@@ -29,9 +29,9 @@ describe('list highlight test', () => {
     return el.get('name') === 'axis-label';
   });
   const label = axisLabels[0];
-  const item = label.get('delegationObject').item;
+  const item = label.get('delegateObject').item;
   const label1 = axisLabels[1];
-  const item1 = label1.get('delegationObject').item;
+  const item1 = label1.get('delegateObject').item;
 
   it('highlight', () => {
     context.event = {

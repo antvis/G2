@@ -20,7 +20,7 @@
     "clean": "rimraf lib esm",
     "lint": "lint-staged",
     "test": "jest",
-    "test-live": "DEBUG_MODE=1 jest --watch tests/unit/interaction/action/list-highlight-spec.ts",
+    "test-live": "DEBUG_MODE=1 jest --watch",
     "coverage": "jest --coverage",
     "lib:cjs": "tsc -p tsconfig.json --target ES5 --module commonjs --outDir lib",
     "lib:esm": "tsc -p tsconfig.json --target ES5 --module ESNext --outDir esm",
@@ -33,7 +33,7 @@
   "dependencies": {
     "@antv/adjust": "^0.2.1",
     "@antv/attr": "^0.2.0",
-    "@antv/component": "^0.5.0-beta.6",
+    "@antv/component": "^0.5.0-beta.8",
     "@antv/coord": "^0.2.1",
     "@antv/event-emitter": "~0.1.0",
     "@antv/g-base": "^0.1.0",
