@@ -18,6 +18,6 @@ const chart = new Chart({
 });
 
 chart.data(data);
-chart.interaction('element-active');
+chart.interaction('element-highlight');
 chart.interval().position('year*value');
 chart.render();
