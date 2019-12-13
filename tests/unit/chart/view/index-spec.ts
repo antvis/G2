@@ -276,11 +276,11 @@ describe('View', () => {
 
   it('lockTooltip', () => {
     view.lockTooltip();
-    expect(view.getStateManager().getState('_isTooltipLocked')).toBeTrue();
+    expect(view.isTooltipLocked()).toBeTrue();
   });
 
   it('unlockTooltip', () => {
     view.unlockTooltip();
-    expect(view.getStateManager().getState('_isTooltipLocked')).toBeFalse();
+    expect(view.isTooltipLocked()).toBeFalse();
   });
 });
