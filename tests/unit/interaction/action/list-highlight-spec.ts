@@ -122,4 +122,8 @@ describe('list highlight test', () => {
     expect(item.active).toBe(false);
     expect(item1.active).toBe(false);
   });
+  afterAll(() => {
+    context.destroy();
+    chart.destroy();
+  });
 });

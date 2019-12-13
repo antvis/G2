@@ -142,4 +142,8 @@ describe('active test', () => {
     expect(item.active).toBe(false);
     expect(tickItem.active).toBe(false);
   });
+  afterAll(() => {
+    context.destroy();
+    chart.destroy();
+  });
 });
