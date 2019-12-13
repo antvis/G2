@@ -118,6 +118,14 @@ registerInteraction('element-list-highlight', {
 });
 
 // 点击选中，允许取消
+registerInteraction('element-range-highlight', {
+  start: [{ trigger: 'mousedown', action: 'element-range-highlight:start' }],
+  processing: [{ trigger: 'mousemove', action: 'element-range-highlight:highlight' }],
+  end: [{ trigger: 'mouseup', action: 'element-range-highlight:end' }],
+  rollback: [{ trigger: 'dblclick', action: 'element-range-highlight:clear' }],
+});
+
+// 点击选中，允许取消
 registerInteraction('element-single-selected', {
   start: [{ trigger: 'element:click', action: 'element-single-seleted:toggle' }],
 });
