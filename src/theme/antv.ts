@@ -205,7 +205,7 @@ export default {
       rect: {
         default: SHAPE_STYLE.interval,
         active: {
-          interval: { fillOpacity: 0.5 },
+          interval: { fillOpacity: 1 },
         },
         inactive: {
           interval: { fillOpacity: 0.3 },
