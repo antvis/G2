@@ -64,6 +64,60 @@ registerInteraction('element-selected', {
 });
 
 // 点击选中，允许取消
+registerInteraction('element-highlight', {
+  start: [{ trigger: 'element:mouseenter', action: 'element-highlight:highlight' }],
+  end: [{ trigger: 'element:mouseleave', action: 'element-highlight:reset' }],
+});
+
+// legend hover，element active
+registerInteraction('legend-active', {
+  start: [
+    { trigger: 'legend-item:mouseenter', action: 'list-active:active' },
+    { trigger: 'legend-item:mouseenter', action: 'element-active:active' },
+  ],
+  end: [
+    { trigger: 'legend-item:mouseleave', action: 'list-active:reset' },
+    { trigger: 'legend-item:mouseleave', action: 'element-active:reset' },
+  ],
+});
+
+// legend hover，element active
+registerInteraction('legend-highlight', {
+  start: [
+    { trigger: 'legend-item:mouseenter', action: 'list-highlight:highlight' },
+    { trigger: 'legend-item:mouseenter', action: 'element-highlight:highlight' },
+  ],
+  end: [
+    { trigger: 'legend-item:mouseleave', action: 'list-highlight:reset' },
+    { trigger: 'legend-item:mouseleave', action: 'element-highlight:reset' },
+  ],
+});
+
+// legend hover，element active
+registerInteraction('axis-label-highlight', {
+  start: [
+    { trigger: 'axis-label:mouseenter', action: 'list-highlight:highlight' },
+    { trigger: 'axis-label:mouseenter', action: 'element-highlight:highlight' },
+  ],
+  end: [
+    { trigger: 'axis-label:mouseleave', action: 'list-highlight:reset' },
+    { trigger: 'axis-label:mouseleave', action: 'element-highlight:reset' },
+  ],
+});
+
+// legend hover，element active
+registerInteraction('element-list-highlight', {
+  start: [
+    { trigger: 'element:mouseenter', action: 'list-highlight:highlight' },
+    { trigger: 'element:mouseenter', action: 'element-highlight:highlight' },
+  ],
+  end: [
+    { trigger: 'element:mouseleave', action: 'list-highlight:reset' },
+    { trigger: 'element:mouseleave', action: 'element-highlight:reset' },
+  ],
+});
+
+// 点击选中，允许取消
 registerInteraction('element-single-selected', {
   start: [{ trigger: 'element:click', action: 'element-single-seleted:toggle' }],
 });

@@ -31,7 +31,7 @@ describe('list selected test', () => {
 
   it('selected', () => {
     const label = axisLabels[0];
-    const item = label.get('delegationObject').item;
+    const item = label.get('delegateObject').item;
     context.event = {
       target: label,
     };
@@ -48,8 +48,8 @@ describe('list selected test', () => {
   it('trigger by element', () => {
     const elements = chart.geometries[0].elements;
     const label = axisLabels[0];
-    const item = label.get('delegationObject').item;
-    const item1 = axisLabels[1].get('delegationObject').item;
+    const item = label.get('delegateObject').item;
+    const item1 = axisLabels[1].get('delegateObject').item;
     const first = elements[0];
     const second = elements[1];
     context.event = {

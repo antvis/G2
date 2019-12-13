@@ -39,10 +39,10 @@ class ElementState extends StateBase {
       this.setElementState(element, enable);
     } else {
       // 触发源由组件导致
-      const delegationObject = getDelegationObject(this.context);
+      const delegateObject = getDelegationObject(this.context);
       // 如果触发源时列表，图例、坐标轴
-      if (isList(delegationObject)) {
-        const { item, component } = delegationObject;
+      if (isList(delegateObject)) {
+        const { item, component } = delegateObject;
         if (item && component) {
           this.setStateByComponent(component, item, enable);
         }
