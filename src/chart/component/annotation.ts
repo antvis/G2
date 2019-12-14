@@ -120,7 +120,7 @@ export default class Annotation extends Component<BaseOption[]> {
 
         this.components.push({
           component: annotation,
-          layer: this.isTop(option) ? LAYER.FORE : LAYER.BG,
+          layer: this.isTop(cfg) ? LAYER.FORE : LAYER.BG,
           direction: DIRECTION.NONE,
           type: COMPONENT_TYPE.ANNOTATION,
           extra: option,
@@ -149,7 +149,7 @@ export default class Annotation extends Component<BaseOption[]> {
   }
 
   // APIs for creating annotation component
-  private annotation(option: any) {
+  public annotation(option: any) {
     this.option.push(option);
   }
 
@@ -353,6 +353,7 @@ export default class Annotation extends Component<BaseOption[]> {
         startAngle,
         endAngle,
         style,
+        top: option.top,
       };
     } else if (type === 'image') {
       const { start, end, src, offsetX, offsetY, style } = option as ImageOption;
@@ -363,6 +364,7 @@ export default class Annotation extends Component<BaseOption[]> {
         offsetX,
         offsetY,
         style,
+        top: option.top,
       };
     } else if (type === 'line') {
       const { start, end, text, style } = option as LineOption;
@@ -372,6 +374,7 @@ export default class Annotation extends Component<BaseOption[]> {
         // 继续处理一下
         text: this.getAnnotationCfg('text', text, get(theme, ['text'], {})),
         style,
+        top: option.top,
       };
     } else if (type === 'region') {
       const { start, end, style } = option as RegionOption;
@@ -379,6 +382,7 @@ export default class Annotation extends Component<BaseOption[]> {
         start: this.parsePosition(start),
         end: this.parsePosition(end),
         style,
+        top: option.top,
       };
     } else if (type === 'text') {
       const { position, autoRotate, content, offsetX, offsetY, style } = option;
@@ -389,12 +393,14 @@ export default class Annotation extends Component<BaseOption[]> {
         offsetX,
         offsetY,
         style,
+        top: option.top,
       };
     }
+    // 合并主题，用户配置优先级高于主题
+    const cfg = deepMix({}, theme, { ...o });
+    cfg.container = this.getComponentContainer(cfg);
 
-    const container = this.getComponentContainer(option);
-    // 合并主题，用户配置优先级高于 主题
-    return deepMix({}, theme, { ...o, container });
+    return cfg;
   }
 
   /**
