@@ -2,11 +2,13 @@
  * @description 全局变量
  */
 import * as _ from '@antv/util';
+// @ts-ignore
+import * as pkg from '../package.json';
 import { DataPointType } from './interface';
 import { getTheme } from './theme';
 
 const Global = {
-  version: '3.6.0-beta.6',
+  version: pkg.version,
   renderer: 'canvas',
   width: 640,
   height: 480,
