@@ -119,9 +119,9 @@ describe('test active region', () => {
   });
 
   it('remove interaction', () => {
-    expect(chart.getOptions().interactions['active-region']).not.toBe(undefined);
+    expect(chart.interactions['active-region']).not.toBe(undefined);
     chart.removeInteraction('active-region');
-    expect(chart.getOptions().interactions['active-region']).toBe(undefined);
+    expect(chart.interactions['active-region']).toBe(undefined);
     expect(regionShape.destroyed).toBe(true);
   });
   afterAll(() => {
