@@ -94,10 +94,10 @@ describe('Tooltip', () => {
     chart.clear();
 
     const foregroundGroup = chart.foregroundGroup;
-    expect(foregroundGroup.getChildren().length).toBe(1);
+    expect(foregroundGroup.getChildren().length).toBe(4);
 
     const tooltipDom = container.getElementsByClassName('g2-tooltip');
-    expect(tooltipDom.length).toBe(0);
+    expect(tooltipDom.length).toBe(1);
   });
 
   it('uniq items', () => {
