@@ -6,6 +6,7 @@ import {
   flatten,
   get,
   isBoolean,
+  isFunction,
   isNil,
   isObject,
   isString,
@@ -21,7 +22,7 @@ import { Attribute, Coordinate, Event as GEvent, ICanvas, IGroup, IShape, Scale 
 import { Facet, getFacet } from '../facet';
 import { FacetCfgMap } from '../facet/interface';
 import Geometry from '../geometry/base';
-import { createInteraction } from '../interaction/';
+import { createInteraction, Interaction } from '../interaction/';
 import { Data, Datum, LooseObject, Point, Region, ScaleOption } from '../interface';
 import { BBox } from '../util/bbox';
 import { isFullCircle, isPointInCoordinate } from '../util/coordinate';
@@ -30,7 +31,7 @@ import { parsePadding } from '../util/padding';
 import { mergeTheme } from '../util/theme';
 import Chart from './chart';
 import { getComponent, getComponentNames } from './component';
-import AnnotationComponent from './component/annotation';
+import AnnotationComponent, { BaseOption as AnnotationBaseOption } from './component/annotation';
 import { Component } from './component/base';
 import TooltipComponent from './component/tooltip';
 import Event from './event';
@@ -40,10 +41,13 @@ import {
   CoordinateCfg,
   CoordinateOption,
   FilterCondition,
+  GeometryOption,
+  InteractionOption,
   LegendOption,
   Options,
   TooltipOption,
   ViewCfg,
+  ViewOption,
 } from './interface';
 import defaultLayout, { Layout } from './layout';
 
@@ -58,6 +62,8 @@ export class View extends Base {
   /** 所有的 geometry 实例 */
   public geometries: Geometry[] = [];
   public components: Component[] = [];
+  /** 所有的 Interaction 实例 */
+  public interactions: Record<string, Interaction> = {};
 
   /** view 实际的绘图区域，除去 padding，出去组件占用空间 */
   public viewBBox: BBox;
@@ -173,6 +179,8 @@ export class View extends Base {
     // 初始化组件 controller
     this.initComponentPlugins();
 
+    this.initOptions();
+
     // 递归初始化子 view
     each(this.views, (view: View) => {
       view.init();
@@ -216,7 +224,7 @@ export class View extends Base {
     // 3. 清空 components
     // destroy plugins
     each(this.components, (component: Component) => {
-      component.destroy();
+      component.clear();
     });
 
     // 递归处理子 view
@@ -234,7 +242,7 @@ export class View extends Base {
   public destroy() {
     // 销毁前事件，销毁之后已经没有意义了，所以不抛出事件
     this.emit(VIEW_LIFE_CIRCLE.BEFORE_DESTROY);
-    const interactions = get(this.options, 'interactions');
+    const interactions = this.interactions;
     // 销毁 interactions
     each(interactions, (interaction) => {
       if (interaction) {
@@ -502,6 +510,20 @@ export class View extends Base {
   }
 
   /**
+   * 更新配置项，用于配置项式声明
+   * @param options 配置项
+   */
+  public updateOptions(options: Options) {
+    this.options = {
+      data: [],
+      animate: true, // 默认开启动画
+      ...options,
+    };
+    this.initOptions();
+    return this;
+  }
+
+  /**
    * 设置 option 配置
    * @param name
    * @param opt
@@ -560,7 +582,7 @@ export class View extends Base {
    * @returns
    */
   public interaction(name: string, cfg?: LooseObject): View {
-    const existInteraction = get(this.options, ['interactions', name]);
+    const existInteraction = this.interactions[name];
     // 存在则先销毁已有的
     if (existInteraction) {
       existInteraction.destroy();
@@ -570,7 +592,7 @@ export class View extends Base {
     const interaction = createInteraction(name, this, cfg);
     if (interaction) {
       interaction.init();
-      set(this.options, ['interactions', name], interaction);
+      this.interactions[name] = interaction;
     }
     return this;
   }
@@ -583,11 +605,11 @@ export class View extends Base {
    * @param name interaction name
    */
   public removeInteraction(name: string) {
-    const existInteraction = get(this.options, ['interactions', name]);
+    const existInteraction = this.interactions[name];
     // 存在则先销毁已有的
     if (existInteraction) {
       existInteraction.destroy();
-      set(this.options, ['interactions', name], undefined);
+      this.interactions[name] = undefined;
     }
   }
 
@@ -1286,6 +1308,47 @@ export class View extends Base {
       this.facetInstance.init();
       // 渲染组件和 views
       this.facetInstance.render();
+    }
+  }
+
+  private initOptions() {
+    const { geometries = [], interactions = [], views = [], plugins, annotations = [] } = this.options;
+
+    // 创建 geometry 实例
+    geometries.forEach((geometryOption: GeometryOption) => {
+      this.createGeometry(geometryOption);
+    });
+
+    // 创建 interactions 实例
+    interactions.forEach((interactionOption: InteractionOption) => {
+      const { type, cfg } = interactionOption;
+      this.interaction(type, cfg);
+    });
+
+    // 创建 view 实例
+    views.forEach((viewOption: ViewOption) => {
+      this.createView(viewOption);
+    });
+
+    // 设置当前实例使用的组件插件
+    this.plugin(plugins);
+
+    // 设置 annotation
+    const annotationComponent = this.getComponentPlugin('annotation') as AnnotationComponent;
+    annotations.forEach((annotationOption: AnnotationBaseOption) => {
+      annotationComponent.annotation(annotationOption);
+    });
+  }
+
+  private createGeometry(geometryOption: GeometryOption) {
+    const { type, cfg = {} } = geometryOption;
+    if (this[type]) {
+      const geometry = this[type](cfg);
+      each(geometryOption, (v, k) => {
+        if (isFunction(geometry[k])) {
+          geometry[k](v);
+        }
+      });
     }
   }
 }

@@ -34,6 +34,7 @@ export default class Chart extends View {
       pixelRatio,
       localRefresh = true,
       visible = true,
+      options,
     } = props;
 
     const ele: HTMLElement = isString(container) ? document.getElementById(container) : container;
@@ -63,6 +64,7 @@ export default class Chart extends View {
       foregroundGroup: canvas.addGroup({ zIndex: GROUP_Z_INDEX.FORE }),
       padding,
       visible,
+      options,
     });
 
     this.ele = ele;
