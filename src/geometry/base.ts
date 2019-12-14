@@ -192,7 +192,7 @@ export default class Geometry extends Base {
   }
 
   /**
-   * Configuring position mapping rules
+   * 配置 position 通道映射规则
    *
    * @example
    * ```typescript
@@ -203,7 +203,7 @@ export default class Geometry extends Base {
    * });
    * ```
    *
-   * @param cfg data fields participating in the mapping
+   * @param cfg 映射规则
    * @returns
    */
   public position(cfg: string | AttributeOption): Geometry {
@@ -219,10 +219,9 @@ export default class Geometry extends Base {
   }
 
   /**
-   * Configuring color mapping rules
+   * 配置 color 通道映射规则
    *
    * @example
-   *
    * ```typescript
    * // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
    * color({
@@ -231,7 +230,7 @@ export default class Geometry extends Base {
    * });
    * ```
    *
-   * @param field mapping rule configuration
+   * @param field 映射规则
    * @returns
    */
   public color(field: AttributeOption): Geometry;
