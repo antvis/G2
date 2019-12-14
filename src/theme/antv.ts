@@ -672,6 +672,7 @@ export default {
         },
       },
       region: {
+        top: false,
         style: {
           lineWidth: 0, // 辅助框的边框宽度
           fill: '#000', // 辅助框填充的颜色

@@ -95,6 +95,7 @@ describe('annotation', () => {
     chart.render();
 
     const region = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[2].component;
+    expect(chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[2].layer).toBe('bg');
 
     // theme
     expect(region.get('style').fillOpacity).toBe(0.04);
