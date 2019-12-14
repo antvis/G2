@@ -1,5 +1,7 @@
 # WIP：4.0 升级指南
 
+- `padding` 含义变更
+
 - 自适应属性 `forceFit` -> `autoFit`，策略变更为：
 
   - 默认 `autoFit` 为 true，根据容器宽高自适应，如果容器没有设置宽高，则按照设置默认的宽高
@@ -63,3 +65,4 @@ style('a', (aVal) => {
 * ❌ Interval 的 'top-line' shape 移除
 
 - ❌ tail legend
+- `chart.interaction()` 变更
