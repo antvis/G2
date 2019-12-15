@@ -93,6 +93,7 @@ for (let i = 0; i < data.length; i++) {
 
 const chart = new Chart({
   container: 'container',
+  autoFit: true,
   height: 500,
 });
 

@@ -33,6 +33,7 @@ const dv = ds
 
 const chart = new Chart({
   container: 'container',
+  autoFit: true,
   height: 500,
 });
 

@@ -33,6 +33,7 @@ registerShape('interval', 'sliceShape', {
 
 const chart = new Chart({
   container: 'container',
+  autoFit: true,
   height: 500,
 });
 

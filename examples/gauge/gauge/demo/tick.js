@@ -27,6 +27,7 @@ for (let i = 0; i < 50; i++) {
 
 const chart = new Chart({
   container: 'container',
+  autoFit: true,
   height: 500,
   padding: 0,
   localRefresh: false, // FIXME：等待 G 的 bug 修复后删除

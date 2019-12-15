@@ -5,6 +5,7 @@ fetch('../data/rain-flow.json')
   .then((data) => {
     const chart = new Chart({
       container: 'container',
+      autoFit: true,
       padding: 8,
     });
 

@@ -123,6 +123,7 @@ const colorMap = {
 
 const chart = new Chart({
   container: 'container',
+  autoFit: true,
   height: 500,
 });
 

@@ -35,6 +35,7 @@ fetch('../data/mobile.json')
     });
     const chart = new Chart({
       container: 'container',
+      autoFit: true,
       height: 500,
       padding: 0,
     });

@@ -6,6 +6,7 @@ fetch('../data/salesTrend.json')
     const TICKS = ['2012-09', '2013-05', '2014-01', '2014-09', '2015-05', '2016-01', '2016-09', '2017-05', '2018-02'];
     const chart = new Chart({
       container: 'container',
+      autoFit: true,
       height: 500,
       padding: [50, 20, 50, 20],
     });

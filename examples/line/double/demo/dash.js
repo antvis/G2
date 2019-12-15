@@ -65,6 +65,7 @@ function pick(data, field) {
 
 const chart = new Chart({
   container: 'container',
+  autoFit: true,
   height: 500,
 });
 chart.data(pick(data, ['pv', 'time', 'date']));

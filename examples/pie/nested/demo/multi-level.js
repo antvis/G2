@@ -19,6 +19,7 @@ dv.source(data).transform({
 });
 const chart = new Chart({
   container: 'container',
+  autoFit: true,
   height: 500,
   padding: 50,
   localRefresh: false, // TODO: 局部刷新 BUG

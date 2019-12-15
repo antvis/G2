@@ -21,6 +21,7 @@ dv.source(data).transform({
 
 const chart = new Chart({
   container: 'container',
+  autoFit: true,
   padding: 80,
 });
 chart.legend(false);
