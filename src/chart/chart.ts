@@ -28,7 +28,7 @@ export default class Chart extends View {
       container,
       width,
       height,
-      autoFit = true,
+      autoFit = false,
       padding,
       renderer = 'canvas',
       pixelRatio,
@@ -109,9 +109,7 @@ export default class Chart extends View {
   }
 
   public changeVisible(visible: boolean) {
-    const wrapperEl = this.wrapperElement;
-    const visibleStr = visible ? '' : 'none';
-    wrapperEl.style.display = visibleStr;
+    this.wrapperElement.style.display = visible ? '' : 'none';
   }
 
   private bindAutoFit() {

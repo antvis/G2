@@ -10,6 +10,7 @@ describe('multi-engine', () => {
       width: 800,
       height: 600,
       renderer: 'canvas',
+      autoFit: true,
     });
 
     chart.data(CITY_SALE);
@@ -36,6 +37,7 @@ describe('multi-engine', () => {
       width: 800,
       height: 600,
       renderer: 'svg',
+      autoFit: true,
     });
 
     chart.data(CITY_SALE);

@@ -9,7 +9,8 @@ describe('Axis', () => {
     const chart = new Chart({
       container,
       height: 500,
-      autoFit: true,
+      width: 600,
+      autoFit: false,
       padding: 0,
     });
     chart.data([
