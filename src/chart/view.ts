@@ -219,9 +219,6 @@ export class View extends Base {
       component.destroy();
     });
 
-    // 4. clear eventCaptureRect
-    this.viewEventCaptureRect.remove(true);
-
     // 递归处理子 view
     each(this.views, (view: View) => {
       view.clear();
@@ -246,6 +243,7 @@ export class View extends Base {
       }
     });
     this.clear();
+    this.viewEventCaptureRect.remove(true);
     this.backgroundGroup.remove(true);
     this.middleGroup.remove(true);
     this.foregroundGroup.remove(true);
@@ -938,6 +936,9 @@ export class View extends Base {
     this.adjustCoordinate();
     // 8. 渲染几何标记
     this.paintGeometries();
+    // 9. 更新 viewEventCaptureRect 大小
+    const { x, y, width, height } = this.viewBBox;
+    this.viewEventCaptureRect.attr({ x, y, width, height });
   }
 
   /**
@@ -1009,7 +1010,7 @@ export class View extends Base {
         height,
         fill: 'rgba(255,255,255,0)',
       },
-    }) as any;
+    }) as IShape;
   }
 
   /**
