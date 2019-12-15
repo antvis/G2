@@ -83,6 +83,27 @@ describe('Chart', () => {
     expect(chart.wrapperElement.style.display).toBe('none');
   });
 
+  it('changeSize', () => {
+    // @ts-ignore
+    let bbox = chart.viewEventCaptureRect.getBBox();
+    expect({ x: bbox.x, y: bbox.y, width: bbox.width, height: bbox.height }).toEqual({
+      x: 10,
+      y: 10,
+      width: 780,
+      height: 580,
+    });
+
+    chart.changeSize(700, 600);
+    // @ts-ignore
+    bbox = chart.viewEventCaptureRect.getBBox();
+    expect({ x: bbox.x, y: bbox.y, width: bbox.width, height: bbox.height }).toEqual({
+      x: 10,
+      y: 10,
+      width: 680,
+      height: 580,
+    });
+  });
+
   it('changeVisible', () => {
     chart.changeVisible(false);
     expect(chart.visible).toBe(false);
@@ -104,9 +125,12 @@ describe('Chart', () => {
     expect(chart.scales).toEqual({});
     expect(!!chart.getCoordinate()).toBe(false);
 
-    expect(chart.getLayer(LAYER.BG).get('children').length).toBe(0);
+    expect(chart.getLayer(LAYER.BG).get('children').length).toBe(1);
     expect(chart.getLayer(LAYER.MID).get('children').length).toBe(1);
     expect(chart.getLayer(LAYER.FORE).get('children').length).toBe(1);
+
+    // @ts-ignore
+    expect(chart.viewEventCaptureRect).not.toBeUndefined();
   });
 
   it('destroy', () => {
@@ -118,5 +142,8 @@ describe('Chart', () => {
 
     expect(chart.canvas.destroyed).toBe(true);
     expect(div.childNodes.length).toBe(0);
+
+    // @ts-ignore
+    expect(chart.viewEventCaptureRect.getParent()).toBeUndefined();
   });
 });
