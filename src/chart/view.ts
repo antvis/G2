@@ -30,10 +30,10 @@ import { createCoordinate } from '../util/coordinate';
 import { parsePadding } from '../util/padding';
 import { mergeTheme } from '../util/theme';
 import Chart from './chart';
-import { getComponent, getComponentNames } from './component';
-import AnnotationComponent, { BaseOption as AnnotationBaseOption } from './component/annotation';
-import { Component } from './component/base';
-import TooltipComponent from './component/tooltip';
+import { getController, getControllerNames } from './controller';
+import AnnotationComponent, { BaseOption as AnnotationBaseOption } from './controller/annotation';
+import { Controller } from './controller/base';
+import TooltipComponent from './controller/tooltip';
 import Event from './event';
 import {
   AxisOption,
@@ -61,7 +61,8 @@ export class View extends Base {
   public views: View[] = [];
   /** 所有的 geometry 实例 */
   public geometries: Geometry[] = [];
-  public components: Component[] = [];
+  /** 所有的组件 controllers */
+  public controllers: Controller[] = [];
   /** 所有的 Interaction 实例 */
   public interactions: Record<string, Interaction> = {};
 
@@ -90,7 +91,7 @@ export class View extends Base {
   /** 用于捕获 view event 的 rect shape */
   private viewEventCaptureRect: IShape;
   /** 配置开启的组件插件，默认为全局配置的组件 */
-  private usedPlugins: string[] = getComponentNames();
+  private usedControllers: string[] = getControllerNames();
 
   // 配置信息存储
   protected options: Options = {
@@ -177,7 +178,7 @@ export class View extends Base {
     this.initEvents();
 
     // 初始化组件 controller
-    this.initComponentPlugins();
+    this.initComponentController();
 
     this.initOptions();
 
@@ -221,10 +222,9 @@ export class View extends Base {
     });
     this.geometries = [];
 
-    // 3. 清空 components
-    // destroy plugins
-    each(this.components, (component: Component) => {
-      component.clear();
+    // 3. 清空 controllers
+    each(this.controllers, (controller: Controller) => {
+      controller.clear();
     });
 
     // 递归处理子 view
@@ -265,8 +265,8 @@ export class View extends Base {
     this.geometries.forEach((geometry: Geometry) => {
       geometry.changeVisible(visible);
     });
-    this.components.forEach((component: Component) => {
-      component.changeVisible(visible);
+    this.controllers.forEach((controller: Controller) => {
+      controller.changeVisible(visible);
     });
 
     this.foregroundGroup.set('visible', visible);
@@ -430,7 +430,7 @@ export class View extends Base {
    * 辅助标记配置
    */
   public annotation(): AnnotationComponent {
-    return this.getComponentPlugin('annotation') as AnnotationComponent;
+    return this.getController('annotation') as AnnotationComponent;
   }
 
   /**
@@ -538,15 +538,6 @@ export class View extends Base {
 
     // 存入到 option 中
     set(this.options, name, opt);
-    return this;
-  }
-
-  /**
-   * 设置当前实例使用的组件插件
-   * @param plugins
-   */
-  public plugin(...plugins: string[]): View {
-    this.usedPlugins = plugins;
     return this;
   }
 
@@ -861,11 +852,11 @@ export class View extends Base {
   }
 
   /**
-   * get Plugin
+   * get controller
    * @param name
    */
-  public getComponentPlugin(name: string): Component {
-    return find(this.components, (p: Plugin) => p.name === name);
+  public getController(name: string): Controller {
+    return find(this.controllers, (c: Controller) => c.name === name);
   }
 
   /**
@@ -874,7 +865,7 @@ export class View extends Base {
    * @returns View
    */
   public showTooltip(point: Point): View {
-    const tooltip = this.getComponentPlugin('tooltip') as TooltipComponent;
+    const tooltip = this.getController('tooltip') as TooltipComponent;
     if (tooltip) {
       tooltip.showTooltip(point);
     }
@@ -886,7 +877,7 @@ export class View extends Base {
    * @returns View
    */
   public hideTooltip(): View {
-    const tooltip = this.getComponentPlugin('tooltip') as TooltipComponent;
+    const tooltip = this.getController('tooltip') as TooltipComponent;
     if (tooltip) {
       tooltip.hideTooltip();
     }
@@ -925,7 +916,7 @@ export class View extends Base {
    * @returns items of tooltip
    */
   public getTooltipItems(point: Point) {
-    const tooltip = this.getComponentPlugin('tooltip') as TooltipComponent;
+    const tooltip = this.getController('tooltip') as TooltipComponent;
 
     return tooltip ? tooltip.getTooltipItems(point) : [];
   }
@@ -936,8 +927,8 @@ export class View extends Base {
   public getComponents(): ComponentOption[] {
     const components = [];
 
-    each(this.components, (component: Component) => {
-      components.push(...component.getComponents());
+    each(this.controllers, (controller: Controller) => {
+      components.push(...controller.getComponents());
     });
 
     return components;
@@ -1059,11 +1050,11 @@ export class View extends Base {
   /**
    * 初始化插件
    */
-  private initComponentPlugins() {
-    each(this.usedPlugins, (pluginName: string) => {
-      const Ctor = getComponent(pluginName);
+  private initComponentController() {
+    each(this.usedControllers, (controllerName: string) => {
+      const Ctor = getController(controllerName);
       if (Ctor) {
-        this.components.push(new Ctor(this));
+        this.controllers.push(new Ctor(this));
       }
     });
   }
@@ -1268,9 +1259,9 @@ export class View extends Base {
    */
   private renderComponents() {
     // 先全部清空，然后 render
-    each(this.components, (component: Component) => {
-      component.clear();
-      component.render();
+    each(this.controllers, (controller: Controller) => {
+      controller.clear();
+      controller.render();
     });
   }
 
@@ -1326,7 +1317,7 @@ export class View extends Base {
   }
 
   private initOptions() {
-    const { geometries = [], interactions = [], views = [], plugins, annotations = [] } = this.options;
+    const { geometries = [], interactions = [], views = [], annotations = [] } = this.options;
 
     // 创建 geometry 实例
     geometries.forEach((geometryOption: GeometryOption) => {
@@ -1344,11 +1335,8 @@ export class View extends Base {
       this.createView(viewOption);
     });
 
-    // 设置当前实例使用的组件插件
-    this.plugin(plugins);
-
     // 设置 annotation
-    const annotationComponent = this.getComponentPlugin('annotation') as AnnotationComponent;
+    const annotationComponent = this.getController('annotation') as AnnotationComponent;
     annotations.forEach((annotationOption: AnnotationBaseOption) => {
       annotationComponent.annotation(annotationOption);
     });

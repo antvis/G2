@@ -5,7 +5,7 @@ import { Point } from '../../interface';
 import { getDistanceToCenter, getPointAngle } from '../../util/coordinate';
 import { ComponentOption } from '../interface';
 import View from '../view';
-import { Component } from './base';
+import { Controller } from './base';
 
 type PositionCallback = (
   xScales: Scale[] | Record<string, Scale>,
@@ -77,7 +77,7 @@ export interface TextOption {
  * 1. API for creating annotation: line、text、arc ...
  * 2. life circle: init、layout、render、clear、destroy
  */
-export default class Annotation extends Component<BaseOption[]> {
+export default class Annotation extends Controller<BaseOption[]> {
   private foregroundContainer: IGroup;
   private backgroundContainer: IGroup;
 

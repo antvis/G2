@@ -167,7 +167,7 @@ describe('View', () => {
     view.render();
 
     expect(view.getComponents().length).toEqual(4);
-    expect(view.components[2].visible).toBe(false);
+    expect(view.controllers[2].visible).toBe(false);
 
     const bbox = view.getComponents()[0].component.getBBox();
     expect(bbox.height).toEqual(22.5);
@@ -218,7 +218,7 @@ describe('View', () => {
     view.show();
     expect(view.visible).toBe(true);
     expect(view.geometries[0].visible).toBe(true);
-    expect(view.components[2].visible).toBe(true);
+    expect(view.controllers[2].visible).toBe(true);
     expect(view.foregroundGroup.get('visible')).toBeTrue();
   });
 
@@ -226,7 +226,7 @@ describe('View', () => {
     view.hide();
     expect(view.visible).toBe(false);
     expect(view.geometries[0].visible).toBe(false);
-    expect(view.components[2].visible).toBe(false);
+    expect(view.controllers[2].visible).toBe(false);
     expect(view.foregroundGroup.get('visible')).toBe(false);
   });
 
