@@ -8,9 +8,8 @@ import {
   StyleOption,
   TooltipOption as GeometryTooltipOption,
 } from '../geometry/interface';
-import { Interaction } from '../interaction/';
 import { AnimateOption, Data, Datum, LooseObject, Padding, Region, Renderer, ScaleOption } from '../interface';
-import { BaseOption, ImageOption, LineOption, TextOption } from './component/annotation';
+import { BaseOption, ImageOption, LineOption, TextOption } from './controller/annotation';
 import View from './view';
 
 interface TooltipDomStyles {
@@ -258,8 +257,6 @@ export interface Options {
   readonly animate?: boolean;
   /** 配置需要使用的交互行为 */
   readonly interactions?: InteractionOption[];
-  /** 设置当前实例使用的组件插件 */
-  readonly plugins?: string;
 
   /** 其他自定义的 option */
   readonly [name: string]: any;

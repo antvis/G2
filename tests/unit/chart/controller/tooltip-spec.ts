@@ -44,7 +44,7 @@ describe('Tooltip', () => {
     expect(items.length).toBe(2);
     expect(items[0].data).toEqual({ name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 });
 
-    const tooltip = chart.getComponentPlugin('tooltip');
+    const tooltip = chart.getController('tooltip');
     // @ts-ignore
     expect(tooltip.tooltip.get('visible')).toBe(true);
 
@@ -66,7 +66,7 @@ describe('Tooltip', () => {
     chart.hideTooltip();
     expect(fn).toBeCalled();
 
-    const tooltip = chart.getComponentPlugin('tooltip');
+    const tooltip = chart.getController('tooltip');
     // @ts-ignore
     expect(tooltip.tooltip.get('visible')).toBe(false);
 

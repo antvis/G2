@@ -44,18 +44,18 @@ import Rect from './facet/rect';
 registerFacet('rect', Rect);
 
 // 注册内置的 Component
-import { registerComponent } from './core';
+import { registerController } from './core';
 
-import Annotation from './chart/component/annotation';
-import Axis from './chart/component/axis';
-import Legend from './chart/component/legend';
-import Tooltip from './chart/component/tooltip';
+import Annotation from './chart/controller/annotation';
+import Axis from './chart/controller/axis';
+import Legend from './chart/controller/legend';
+import Tooltip from './chart/controller/tooltip';
 
 // register build-in components
-registerComponent('axis', Axis);
-registerComponent('legend', Legend);
-registerComponent('tooltip', Tooltip);
-registerComponent('annotation', Annotation);
+registerController('axis', Axis);
+registerController('legend', Legend);
+registerController('tooltip', Tooltip);
+registerController('annotation', Annotation);
 
 // view module augmentation
 // detail: http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation

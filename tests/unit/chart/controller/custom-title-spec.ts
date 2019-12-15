@@ -1,5 +1,5 @@
 import { Chart } from '../../../../src/chart';
-import { registerComponent, unregisterComponent } from '../../../../src/chart/component';
+import { registerController, unregisterController } from '../../../../src/chart/controller';
 import defaultLayout from '../../../../src/chart/layout';
 import View from '../../../../src/chart/view';
 import { CITY_SALE } from '../../../util/data';
@@ -7,14 +7,14 @@ import { createDiv } from '../../../util/dom';
 import { Title } from './title';
 
 function layout(view: View) {
-  const title = view.getComponentPlugin('title');
+  const title = view.getController('title');
   title.layout();
 
   defaultLayout(view);
 }
 
 describe('title plugin', () => {
-  registerComponent('title', Title);
+  registerController('title', Title);
 
   const div = createDiv();
 
@@ -49,7 +49,7 @@ describe('title plugin', () => {
   it('chart with title', () => {
     chart.render();
 
-    const title = chart.getComponentPlugin('title');
+    const title = chart.getController('title');
     expect(title.getComponents().length).toBe(1);
 
     const { x, y } = title.getComponents()[0].component.getBBox();
@@ -59,6 +59,6 @@ describe('title plugin', () => {
   });
 
   afterAll(() => {
-    unregisterComponent('title');
+    unregisterController('title');
   });
 });
