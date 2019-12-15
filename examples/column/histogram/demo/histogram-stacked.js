@@ -15,6 +15,7 @@ fetch('../data/diamond.json')
 
     const chart = new Chart({
       container: 'container',
+      autoFit: true,
       height: 500,
     });
     chart.data(dv.rows);

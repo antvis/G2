@@ -366,6 +366,7 @@ const data = [
 
 const chart = new Chart({
   container: 'container',
+  autoFit: true,
   height: 500,
   padding: [30, 20, 95, 20],
 });

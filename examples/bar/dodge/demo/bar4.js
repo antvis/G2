@@ -36,6 +36,7 @@ const data = [
 
 const chart = new Chart({
   container: 'container',
+  autoFit: true,
   height: 500,
   padding: [0, 90, 20, 52],
 });

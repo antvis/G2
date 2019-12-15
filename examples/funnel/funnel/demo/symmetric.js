@@ -18,6 +18,7 @@ data.sort(function(obj1, obj2) {
 });
 const chart = new Chart({
   container: 'container',
+  autoFit: true,
   height: 500,
   padding: [30, 120, 95],
 });

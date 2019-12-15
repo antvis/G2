@@ -60,6 +60,7 @@ const activeData = [
 
 const chart = new Chart({
   container: 'container',
+  autoFit: true,
   height: 500,
   padding: [150, 80],
 });

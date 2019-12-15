@@ -36,6 +36,7 @@ registerShape('point', 'pointer', {
 const data = [{ value: 6 }];
 const chart = new Chart({
   container: 'container',
+  autoFit: true,
   height: 500,
   padding: [0, 0, 30, 0],
 });

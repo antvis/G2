@@ -18,6 +18,7 @@ for (let i = 0; i < 372; i++) {
 
 const chart = new Chart({
   container: 'container',
+  autoFit: true,
   height: 500,
 });
 

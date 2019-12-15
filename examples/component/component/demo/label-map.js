@@ -5,6 +5,7 @@ fetch('../data/world.geo.json')
   .then((mapData) => {
     const chart = new Chart({
       container: 'container',
+      autoFit: true,
       height: 500,
       padding: [55, 20],
     });

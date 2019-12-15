@@ -86,6 +86,7 @@ registerShape('interval', 'fallFlag', {
 
 const chart = new Chart({
   container: 'container',
+  autoFit: true,
   height: 500,
 });
 

@@ -70,7 +70,7 @@ const averages = [
 
 const chart = new Chart({
   container: 'container',
-  forceFit: true,
+  autoFit: true,
   height: 500,
 });
 

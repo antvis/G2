@@ -34,7 +34,7 @@ fetch('../data/diamond.json')
   .then((data) => {
     const chart = new Chart({
       container: 'container',
-      forceFit: true,
+      autoFit: true,
       height: 500,
     });
     chart.scale({
