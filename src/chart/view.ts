@@ -252,6 +252,12 @@ export class View extends Base {
     });
     this.clear();
     this.viewEventCaptureRect.remove(true);
+
+    // 销毁 controller 中的组件
+    each(this.controllers, (controller: Controller) => {
+      controller.destroy();
+    });
+
     this.backgroundGroup.remove(true);
     this.middleGroup.remove(true);
     this.foregroundGroup.remove(true);

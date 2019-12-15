@@ -124,6 +124,8 @@ describe('Chart', () => {
     expect(chart.scales).toEqual({});
     expect(!!chart.getCoordinate()).toBe(false);
 
+    // @ts-ignore
+    expect(chart.viewEventCaptureRect).not.toBeUndefined();
     expect(chart.getLayer(LAYER.BG).get('children').length).toBe(4);
     expect(chart.getLayer(LAYER.MID).get('children').length).toBe(1);
     expect(chart.getLayer(LAYER.FORE).get('children').length).toBe(3);
@@ -134,6 +136,9 @@ describe('Chart', () => {
     chart.on(VIEW_LIFE_CIRCLE.BEFORE_DESTROY, destroyEvent);
 
     chart.destroy();
+    expect(chart.getLayer(LAYER.BG).destroyed).toBe(true);
+    expect(chart.getLayer(LAYER.MID).destroyed).toBe(true);
+    expect(chart.getLayer(LAYER.FORE).destroyed).toBe(true);
     expect(destroyEvent).toBeCalledTimes(1);
 
     expect(chart.canvas.destroyed).toBe(true);
