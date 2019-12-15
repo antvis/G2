@@ -8,7 +8,8 @@ describe('Legend', () => {
     const chart = new Chart({
       container,
       height: 500,
-      autoFit: true,
+      width: 600,
+      autoFit: false,
     });
     chart.data([
       { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
@@ -41,7 +42,8 @@ describe('Legend', () => {
     const chart = new Chart({
       container,
       height: 500,
-      autoFit: true,
+      width: 600,
+      autoFit: false,
     });
     chart.data([
       { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
@@ -70,7 +72,8 @@ describe('Legend', () => {
     const chart = new Chart({
       container,
       height: 500,
-      autoFit: true,
+      width: 600,
+      autoFit: false,
     });
     chart.data([
       { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },

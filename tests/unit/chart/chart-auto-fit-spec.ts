@@ -17,6 +17,7 @@ describe('Chart autoFit', () => {
 
   const chart = new Chart({
     container: div,
+    autoFit: true,
   });
 
   chart.data(CITY_SALE);
