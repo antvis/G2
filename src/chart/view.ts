@@ -97,6 +97,7 @@ export class View extends Base {
   protected options: Options = {
     data: [],
     animate: true, // 默认开启动画
+    filters: {},
   }; // 初始化为空
 
   // 过滤之后的数据
@@ -301,14 +302,21 @@ export class View extends Base {
    *
    * ```ts
    * view.filter('city', (value: any, datum: Datum) => value !== '杭州');
+   *
+   * // delete the filter on city field
+   * view.filter('city', null);
    * ```
    *
    * @param field
    * @param condition
    * @returns View
    */
-  public filter(field: string, condition: FilterCondition): View {
-    set(this.options, ['filters', field], condition);
+  public filter(field: string, condition: FilterCondition | null): View {
+    if (isFunction(condition)) {
+      set(this.options, ['filters', field], condition);
+    } else {
+      delete this.options.filters[field];
+    }
 
     return this;
   }
