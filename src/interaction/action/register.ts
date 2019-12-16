@@ -2,8 +2,14 @@ import { ActionCallback, IInteractionContext, LooseObject } from '../../interfac
 import Action from './base';
 import CallbackAction from './callback';
 
+type ActionConstructor = new (context: IInteractionContext, cfg?: LooseObject) => Action;
+interface ActionOption {
+  ActionClass: ActionConstructor;
+  cfg: LooseObject;
+}
+
 // Action 类的缓存
-const ActionCache: LooseObject = {};
+const ActionCache: Record<string, ActionOption> = {};
 
 /**
  * 根据名称获取 Action 实例
@@ -12,10 +18,11 @@ const ActionCache: LooseObject = {};
  * @returns Action 实例
  */
 export function createAction(actionName: string, context: IInteractionContext): Action {
-  const ActionClass = ActionCache[actionName];
+  const actionOption = ActionCache[actionName];
   let action = null;
-  if (ActionClass) {
-    action = new ActionClass(context);
+  if (actionOption) {
+    const { ActionClass, cfg } = actionOption;
+    action = new ActionClass(context, cfg);
     action.name = actionName;
   }
   return action;
@@ -26,8 +33,11 @@ export function createAction(actionName: string, context: IInteractionContext): 
  * @param actionName - action 的名称
  * @param ActionClass - 继承自 action 的类
  */
-export function registerAction(actionName: string, ActionClass: any) {
-  ActionCache[actionName] = ActionClass;
+export function registerAction(actionName: string, ActionClass: ActionConstructor, cfg?: LooseObject) {
+  ActionCache[actionName] = {
+    ActionClass,
+    cfg,
+  };
 }
 
 /**
