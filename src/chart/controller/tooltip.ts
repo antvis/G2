@@ -89,6 +89,8 @@ export default class Tooltip extends Controller<TooltipOption> {
 
   public layout() {}
 
+  public update() {}
+
   /**
    * Shows tooltip
    * @param point

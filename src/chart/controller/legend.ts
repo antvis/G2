@@ -71,6 +71,10 @@ export default class Legend extends Controller<Option> {
     });
   }
 
+  public update() {
+    // TODO
+  }
+
   public clear() {
     super.clear();
 
