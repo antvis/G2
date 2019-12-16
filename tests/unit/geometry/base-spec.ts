@@ -630,10 +630,6 @@ describe('Geometry', () => {
     ];
     const geometry = new Geometry({
       data,
-<<<<<<< Updated upstream
-      originalData: data,
-=======
->>>>>>> Stashed changes
       coordinate,
       container: new G.Group({}),
       theme: {
