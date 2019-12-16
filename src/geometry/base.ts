@@ -17,6 +17,7 @@ import {
   isString,
   map,
   set,
+  uniq,
 } from '@antv/util';
 import Base from '../base';
 import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
@@ -81,6 +82,7 @@ interface AdjustInstanceCfg {
 export interface InitCfg {
   coordinate?: Coordinate;
   data?: Data;
+  originalData?: Data; // filter 之前的原始数据
   scaleDefs?: Record<string, ScaleOption>;
   theme?: LooseObject;
 }
@@ -90,6 +92,7 @@ export interface GeometryCfg {
   labelsContainer?: IGroup;
   coordinate?: Coordinate;
   data?: Data;
+  originalData?: Data;
   scaleDefs?: Record<string, ScaleOption>;
   sortable?: boolean;
   visible?: boolean;
@@ -112,6 +115,8 @@ export default class Geometry extends Base {
   public coordinate: Coordinate;
   /** User data. */
   public data: Data;
+  /** User data before filtered */
+  public originalData: Data;
   /** Graphic drawing container. */
   public readonly container: IGroup;
   /** labels container. */
@@ -173,6 +178,7 @@ export default class Geometry extends Base {
       labelsContainer,
       coordinate,
       data,
+      originalData,
       scaleDefs = {},
       sortable = false,
       visible = true,
@@ -184,6 +190,7 @@ export default class Geometry extends Base {
     this.labelsContainer = labelsContainer;
     this.coordinate = coordinate;
     this.data = data;
+    this.originalData = originalData;
     this.scaleDefs = scaleDefs;
     this.sortable = sortable;
     this.visible = visible;
@@ -923,9 +930,10 @@ export default class Geometry extends Base {
     const scales = this.scales;
     let scale = scales[field];
     if (!scale) {
-      const data = this.data;
-      const scaleDefs = this.scaleDefs;
-      scale = createScaleByField(field, data, scaleDefs[field]);
+      const groupedCategoryFields = this.getGroupedFields();
+      const { data, scaleDefs, originalData } = this;
+
+      scale = createScaleByField(field, groupedCategoryFields.includes(field) ? originalData : data, scaleDefs[field]);
       scales[field] = scale;
     }
 
@@ -1004,11 +1012,16 @@ export default class Geometry extends Base {
   }
 
   protected updateScales() {
-    const { scaleDefs, scales, data } = this;
+    const { scaleDefs, scales, data, originalData } = this;
+    const groupedCategoryFields = this.getGroupedFields();
     each(scales, (scale) => {
       const { type, field } = scale;
       if (type !== 'identity') {
-        const newScale = createScaleByField(field, data, scaleDefs[field]);
+        const newScale = createScaleByField(
+          field,
+          groupedCategoryFields.includes(field) ? originalData : data,
+          scaleDefs[field]
+        );
         syncScale(scale, newScale);
       }
     });
@@ -1558,12 +1571,15 @@ export default class Geometry extends Base {
   }
 
   private setCfg(cfg: InitCfg) {
-    const { coordinate, data, scaleDefs, theme } = cfg;
+    const { coordinate, data, originalData, scaleDefs, theme } = cfg;
     if (coordinate) {
       this.coordinate = coordinate;
     }
     if (data) {
       this.data = data;
+    }
+    if (originalData) {
+      this.originalData = originalData;
     }
     if (scaleDefs) {
       this.scaleDefs = scaleDefs;
@@ -1601,5 +1617,19 @@ export default class Geometry extends Base {
     each(this.elementsMap, (element: Element, id) => {
       element.labelShape = labelsMap[id]; // element 实例同 label 进行绑定
     });
+  }
+
+  /**
+   * 获取当前配置中的所有分组 & 分类的字段
+   * @return fields string[]
+   */
+  private getGroupedFields(): string[] {
+    const fields = [];
+    each(GROUP_ATTRS, (attributeName: string) => {
+      const cfg = this.attributeOption[attributeName];
+      fields.push(...get(cfg, 'fields', []));
+    });
+
+    return uniq(fields);
   }
 }
