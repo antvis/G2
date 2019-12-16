@@ -117,7 +117,7 @@ registerInteraction('element-list-highlight', {
   ],
 });
 
-// 点击选中，允许取消
+// 框选
 registerInteraction('element-range-highlight', {
   start: [{ trigger: 'mousedown', action: 'element-range-highlight:start' }],
   processing: [{ trigger: 'mousemove', action: 'element-range-highlight:highlight' }],
@@ -135,6 +135,23 @@ registerInteraction('pie-selected', {
   start: [{ trigger: 'pie:click', action: 'element-seleted:toggle' }],
 });
 
+// 筛选数据
+registerInteraction('legend-filter', {
+  start: [
+    { trigger: 'legend-item:click', action: 'list-unchecked:toggle' },
+    { trigger: 'legend-item:click', action: 'data-filter:filter' },
+  ],
+});
+
+// 筛选图形
+registerInteraction('legend-visible-filter', {
+  start: [
+    { trigger: 'legend-item:click', action: 'list-unchecked:toggle' },
+    { trigger: 'legend-item:click', action: 'element-filter:filter' },
+  ],
+});
+
+// 出现背景框
 registerInteraction('active-region', {
   start: [{ trigger: 'plot:mousemove', action: 'active-region:show' }],
   end: [{ trigger: 'plot:mouseleave', action: 'active-region:hide' }],

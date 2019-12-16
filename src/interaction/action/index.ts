@@ -20,6 +20,9 @@ import ListSelected from './component/list-selected';
 import ListUnchecked from './component/list-unchecked';
 
 import CursorAction from './cursor';
+import DataFilter from './data-filter';
+import ElementFilter from './element/filter';
+
 import { createAction, registerAction } from './register';
 
 registerAction('tooltip', TooltipAction);
@@ -43,4 +46,7 @@ registerAction('list-highlight', ListHighlight);
 registerAction('list-unchecked', ListUnchecked);
 
 registerAction('cursor', CursorAction);
+registerAction('data-filter', DataFilter);
+registerAction('element-filter', ElementFilter);
+
 export { Action, registerAction, createAction };

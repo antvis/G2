@@ -5,7 +5,11 @@ import Action from '../base';
 import { getComponents } from '../util';
 import { getCurrentElement, getDelegationObject, getElementValue, isList } from '../util';
 
-class ListState extends Action {
+interface ListStateCfg {
+  componentNames: string[];
+}
+
+class ListState extends Action<ListStateCfg> {
   protected stateName: string = '';
   protected getTriggerListInfo() {
     const delegateObject = getDelegationObject(this.context);
@@ -47,6 +51,13 @@ class ListState extends Action {
     if (!field) {
       return false;
     }
+    if (this.cfg && this.cfg.componentNames) {
+      const name = component.get('name');
+      // 如果配置了限制的 component name，则要进行检测
+      if (this.cfg.componentNames.indexOf(name) === -1) {
+        return false;
+      }
+    }
     const view = this.context.view;
     const scale = view.getScaleByField(field);
     return scale.isCategory;
@@ -67,7 +78,6 @@ class ListState extends Action {
     const element = getCurrentElement(this.context);
     if (element) {
       // trigger by element
-      const view = this.context.view;
       const components = this.getAllowComponents();
       each(components, (component) => {
         this.setStateByElement(component, element, enable);
@@ -77,7 +87,9 @@ class ListState extends Action {
       const delegateObject = getDelegationObject(this.context);
       if (isList(delegateObject)) {
         const { item, component } = delegateObject;
-        this.setItemState(component, item, enable);
+        if (this.allowSetStateByElement(component)) {
+          this.setItemState(component, item, enable);
+        }
       }
     }
   }

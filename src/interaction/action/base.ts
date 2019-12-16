@@ -1,11 +1,13 @@
-import { IAction, IInteractionContext } from '../../interface';
+import { IAction, IInteractionContext, LooseObject } from '../../interface';
 
-abstract class Action implements IAction {
+abstract class Action<T = LooseObject> implements IAction {
   public name;
   public context: IInteractionContext;
+  protected cfg: T;
 
-  constructor(context: IInteractionContext) {
+  constructor(context: IInteractionContext, cfg?: T) {
     this.context = context;
+    this.cfg = cfg;
     context.addAction(this);
     this.init();
   }
