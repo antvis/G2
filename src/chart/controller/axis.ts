@@ -97,6 +97,10 @@ export default class Axis extends Controller<Option> {
     });
   }
 
+  public update() {
+    // TODO
+  }
+
   public clear() {
     super.clear();
 

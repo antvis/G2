@@ -129,6 +129,10 @@ export default class Annotation extends Controller<BaseOption[]> {
     });
   }
 
+  public update() {
+    // TODO
+  }
+
   public clear(includeOption = false) {
     super.clear();
 

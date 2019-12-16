@@ -950,7 +950,7 @@ export class View extends Base {
     // 3. 初始化 Geometry
     this.initGeometries(isUpdate);
     // 4. 渲染组件 component
-    this.renderComponents();
+    this.renderComponents(isUpdate);
     // 5.  递归 views，进行布局
     this.doLayout();
     // 6. 渲染分面
@@ -1261,13 +1261,19 @@ export class View extends Base {
   }
   /**
    * 根据 options 配置、Geometry 字段配置，自动渲染 components
+   * @param isUpdate 是否是更新
    * @private
    */
-  private renderComponents() {
+  private renderComponents(isUpdate: boolean) {
     // 先全部清空，然后 render
     each(this.controllers, (controller: Controller) => {
-      controller.clear();
-      controller.render();
+      // 更新则走更新逻辑；否则清空载重绘
+      if (isUpdate) {
+        controller.update();
+      } else {
+        controller.clear();
+        controller.render();
+      }
     });
   }
 

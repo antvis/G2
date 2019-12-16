@@ -46,6 +46,11 @@ export abstract class Controller<O = unknown> {
   public abstract layout();
 
   /**
+   * update component
+   */
+  public abstract update();
+
+  /**
    * clear
    */
   public clear() {
