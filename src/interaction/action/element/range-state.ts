@@ -1,4 +1,5 @@
 import { each } from '@antv/util';
+import Element from '../../../geometry/element/';
 import { getIntersectElements } from '../util';
 import StateBase from './state-base';
 
@@ -43,7 +44,7 @@ class ElementRangeState extends StateBase {
     }
   }
 
-  protected setElementsState(elements, enable) {
+  protected setElementsState(elements: Element[], enable) {
     each(elements, (el) => {
       this.setElementState(el, enable);
     });

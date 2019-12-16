@@ -1,4 +1,6 @@
+import { ListItem } from '@antv/component/lib/types';
 import { each, isNil } from '@antv/util';
+import Element from '../../../geometry/element/';
 import { getCurrentElement, getDelegationObject, getElements, getElementValue, isList } from '../util';
 import StateBase from './state-base';
 /**
@@ -7,7 +9,7 @@ import StateBase from './state-base';
  */
 class ElementState extends StateBase {
   // 设置由组件选项导致的状态变化
-  private setStateByComponent(component, item, enable: boolean) {
+  private setStateByComponent(component, item: ListItem, enable: boolean) {
     const view = this.context.view;
     const field = component.get('field');
     const elements = getElements(view);
@@ -15,14 +17,14 @@ class ElementState extends StateBase {
   }
 
   /** 组件的选项是否同 element 匹配 */
-  protected isMathItem(element, field, item) {
+  protected isMathItem(element: Element, field: string, item: ListItem) {
     const view = this.context.view;
     const scale = view.getScaleByField(field);
     const value = getElementValue(element, field);
     return !isNil(value) && item.name === scale.getText(value);
   }
 
-  protected setElementsStateByItem(elements, field, item, enable) {
+  protected setElementsStateByItem(elements: Element[], field: string, item: ListItem, enable: boolean) {
     each(elements, (el) => {
       if (this.isMathItem(el, field, item)) {
         el.setState(this.stateName, enable);

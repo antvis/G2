@@ -1,9 +1,11 @@
 import { each } from '@antv/util';
-import Element from '../../../geometry/element/';
 import Action from '../base';
 import { getDelegationObject, getElements, getElementValue, isList } from '../util';
 
 class ElementFilter extends Action {
+  /**
+   * 过滤
+   */
   public filter() {
     const delegateObject = getDelegationObject(this.context);
     // 列表类的组件能够触发
@@ -29,7 +31,9 @@ class ElementFilter extends Action {
       }
     }
   }
-
+  /**
+   * 清除过滤
+   */
   public clear() {
     const elements = getElements(this.context.view);
     each(elements, (el) => {

@@ -1,3 +1,5 @@
+import { IList } from '@antv/component/lib/interfaces';
+import { ListItem } from '@antv/component/lib/types';
 import { each } from '@antv/util';
 import Element from '../../../geometry/element';
 import { LooseObject } from '../../../interface';
@@ -34,7 +36,7 @@ class ListState extends Action<ListStateCfg> {
     return rst;
   }
 
-  protected hasState(list, item) {
+  protected hasState(list: IList, item: ListItem) {
     return list.hasState(item, this.stateName);
   }
 
@@ -74,7 +76,7 @@ class ListState extends Action<ListStateCfg> {
   }
 
   // 设置状态
-  protected setStateEnable(enable) {
+  protected setStateEnable(enable: boolean) {
     const element = getCurrentElement(this.context);
     if (element) {
       // trigger by element
@@ -95,18 +97,18 @@ class ListState extends Action<ListStateCfg> {
   }
 
   // 多个 item 设置状态
-  protected setItemsState(component, name, enable) {
-    const items = component.getItems();
+  protected setItemsState(list: IList, name: string, enable: boolean) {
+    const items = list.getItems();
     each(items, (item) => {
       if (item.name === name) {
-        this.setItemState(component, item, enable);
+        this.setItemState(list, item, enable);
       }
     });
   }
 
   // 单个 item 设置状态
-  protected setItemState(component, item, enable) {
-    component.setItemState(item, this.stateName, enable);
+  protected setItemState(list: IList, item: ListItem, enable: boolean) {
+    list.setItemState(item, this.stateName, enable);
   }
 
   /**
