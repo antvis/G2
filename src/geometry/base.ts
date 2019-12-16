@@ -84,7 +84,6 @@ export interface InitCfg {
   data?: Data;
   theme?: LooseObject;
   scaleDefs?: Record<string, ScaleOption>;
-  scales?: Record<string, Scale>;
 }
 
 export interface GeometryCfg {
@@ -695,13 +694,13 @@ export default class Geometry extends Base {
   }
 
   public update(cfg: InitCfg = {}) {
-    const { data, scales } = cfg;
+    const { data } = cfg;
     const { attributeOption, lastAttributeOption } = this;
 
     if (!isEqual(attributeOption, lastAttributeOption)) {
       // 映射发生改变，则重新创建图形属性
       this.init(cfg);
-    } else if ((data && !isEqual(data, this.data)) || (scales && !isEqual(scales, this.scales))) {
+    } else if ((data && !isEqual(data, this.data))) {
       // 数据或者 scale 发生变化
       this.updateData(cfg);
     } else {
@@ -1550,7 +1549,7 @@ export default class Geometry extends Base {
   }
 
   private setCfg(cfg: InitCfg) {
-    const { coordinate, data, theme, scales, scaleDefs } = cfg;
+    const { coordinate, data, theme, scaleDefs } = cfg;
     if (coordinate) {
       this.coordinate = coordinate;
     }
@@ -1559,9 +1558,6 @@ export default class Geometry extends Base {
     }
     if (scaleDefs) {
       this.scaleDefs = scaleDefs;
-    }
-    if (scales) {
-      this.scales = scales;
     }
     if (theme) {
       this.theme = theme;
