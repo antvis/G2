@@ -137,7 +137,7 @@ export interface CoordinateCfg {
 
 export interface Options {
   readonly data: Data;
-  readonly filters?: Record<string, FilterCondition>;
+  readonly filters: Record<string, FilterCondition>;
   readonly axes?: Record<string, AxisOption> | boolean;
   readonly legends?: Record<string, LegendOption> | boolean;
   readonly scales?: Record<string, ScaleOption>;
