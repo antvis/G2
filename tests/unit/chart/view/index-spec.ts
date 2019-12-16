@@ -156,7 +156,7 @@ describe('View', () => {
     expect(view.geometries.length).toEqual(1);
     expect(size(view.geometries[0].scales)).toEqual(3);
     expect(view.geometries[0].scales.city.ticks).toEqual(['杭州', '广州']);
-    expect(view.geometries[0].scales.sale.values).toEqual([100, 30]);
+    expect(view.geometries[0].scales.sale.values).toEqual([100, 30, 200, 10]);
     // @ts-ignore
     expect(view.geometries[0].animateOption).toBe(false);
 
@@ -290,5 +290,45 @@ describe('View', () => {
   it('unlockTooltip', () => {
     view.unlockTooltip();
     expect(view.isTooltipLocked()).toBeFalse();
+  });
+
+  it('filtered group scale values', () => {
+    const dom = createDiv();
+
+    const canvas1 = createCanvas({
+      container: dom,
+      renderer,
+    });
+
+    const view1 = new View({
+      parent: null,
+      canvas: canvas1,
+      foregroundGroup: canvas.addGroup(),
+      middleGroup: canvas.addGroup(),
+      backgroundGroup: canvas.addGroup(),
+      padding: 5,
+      visible: false,
+    });
+
+    view1.data(data);
+    view1.filter('category', (category: string) => category === '电脑');
+    view1.filter('city', (category: string) => category === '杭州');
+
+    const geometry = view1
+      .line()
+      .position('city*sale')
+      .color('category');
+
+    view1.render();
+
+    expect(geometry.scales.category.values).toEqual(['电脑', '鼠标']);
+    expect(geometry.scales.city.values).toEqual(['杭州']);
+
+    view1.filter('category', null);
+    view1.filter('city', null);
+    view1.render(true);
+
+    expect(geometry.scales.category.values).toEqual(['电脑', '鼠标']);
+    expect(geometry.scales.city.values).toEqual(['杭州', '广州', '上海', '呼和浩特']);
   });
 });

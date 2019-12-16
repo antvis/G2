@@ -1165,6 +1165,7 @@ export class View extends Base {
         coordinate: this.getCoordinate(), // 使用 coordinate 引用，可以保持 coordinate 的同步更新
         scaleDefs: get(this.options, 'scales', {}),
         data: this.filteredData,
+        originalData: this.options.data, // filter 之前的数据
         theme: this.themeObject,
       };
       if (isUpdate) {
