@@ -1,25 +1,27 @@
 import { IList } from '@antv/component/lib/interfaces';
+import { ListItem } from '@antv/component/lib/types';
 import { each } from '@antv/util';
 import { clearList } from './list-highlight-util';
 import ListState from './list-state';
 const STATUS_UNACTIVE = 'inactive';
 const STATUS_ACTIVE = 'active';
+type MatchCallback = (item: ListItem) => boolean;
 
 class ListHighlight extends ListState {
   protected stateName: string = STATUS_ACTIVE;
   // 如果 item.name 匹配，则设置 highlight 以及取消
-  protected setItemsState(list: IList, name, enable) {
+  protected setItemsState(list: IList, name: string, enable: boolean) {
     this.setHighlightBy(list, (item) => item.name === name, enable);
   }
 
   // 单个 item 设置状态
-  protected setItemState(list: IList, item, enable) {
+  protected setItemState(list: IList, item: ListItem, enable: boolean) {
     const items = list.getItems();
     this.setHighlightBy(list, (el) => el === item, enable);
   }
 
   // 根据条件设置 highlight
-  private setHighlightBy(list: IList, callback, enable) {
+  private setHighlightBy(list: IList, callback: MatchCallback, enable: boolean) {
     const items = list.getItems();
     if (enable) {
       // 设置 highlight 时，保留之前已经 Highlight 的项

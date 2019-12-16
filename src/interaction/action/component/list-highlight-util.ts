@@ -1,8 +1,10 @@
+import { IList } from '@antv/component/lib/interfaces';
 import { each } from '@antv/util';
+
 const STATUS_UNACTIVE = 'inactive';
 const STATUS_ACTIVE = 'active';
 
-export function clearList(list) {
+export function clearList(list: IList) {
   const items = list.getItems();
   each(items, (item) => {
     if (list.hasState(item, STATUS_ACTIVE)) {

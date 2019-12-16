@@ -1,3 +1,4 @@
+import { ListItem } from '@antv/component/lib/types';
 import { each } from '@antv/util';
 import Element from '../../../geometry/element/';
 import { getElements, getElementsByState } from '../util';
@@ -13,7 +14,7 @@ class ElementHighlight extends StateAction {
   protected stateName: string = STATUS_ACTIVE;
 
   // 多个元素设置、取消 highlight
-  protected setElementsStateByItem(elements, field, item, enable) {
+  protected setElementsStateByItem(elements: Element[], field: string, item: ListItem, enable: boolean) {
     const callback = (el) => this.isMathItem(el, field, item);
     this.setHighlightBy(elements, callback, enable);
   }
@@ -30,7 +31,7 @@ class ElementHighlight extends StateAction {
     }
   }
 
-  private setHighlightBy(elements, callback: Callback, enable: boolean) {
+  private setHighlightBy(elements: Element[], callback: Callback, enable: boolean) {
     if (enable) {
       // 如果是设置 highlight ，则将匹配的 element 设置成 active，
       // 其他如果不是 active，则设置成 unactive
