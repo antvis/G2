@@ -92,6 +92,14 @@ describe('View', () => {
 
   it('filter', () => {
     view.filter('sale', (sale: number) => sale <= 150);
+    expect(size(view.getOptions().filters)).toBe(1);
+    expect(view.getOptions().filters.sale).toBeDefined();
+
+    view.filter('sale', null);
+    expect(size(view.getOptions().filters)).toBe(0);
+    expect(view.getOptions().filters.sale).toBeUndefined();
+
+    view.filter('sale', (sale: number) => sale <= 150);
     view.filter('city', (city: string) => city.length <= 2);
 
     expect(size(view.getOptions().filters)).toEqual(2);
