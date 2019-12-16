@@ -4,15 +4,6 @@ import Action from '../base';
 import { getDelegationObject, getElements, getElementValue, isList } from '../util';
 
 class ElementFilter extends Action {
-  // 合并 elment.show, element.hide 后，删除此方法
-  private setVisible(element: Element, visible: boolean) {
-    const shape = element.shape;
-    if (visible) {
-      shape.show();
-    } else {
-      shape.hide();
-    }
-  }
   public filter() {
     const delegateObject = getDelegationObject(this.context);
     // 列表类的组件能够触发
@@ -30,9 +21,9 @@ class ElementFilter extends Action {
           const value = getElementValue(el, field);
           const text = scale.getText(value);
           if (names.indexOf(text) >= 0) {
-            this.setVisible(el, false);
+            el.hide();
           } else {
-            this.setVisible(el, true);
+            el.show();
           }
         });
       }
@@ -42,7 +33,7 @@ class ElementFilter extends Action {
   public clear() {
     const elements = getElements(this.context.view);
     each(elements, (el) => {
-      this.setVisible(el, true);
+      el.show();
     });
   }
 }
