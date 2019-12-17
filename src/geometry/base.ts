@@ -82,22 +82,25 @@ interface AdjustInstanceCfg {
 export interface InitCfg {
   coordinate?: Coordinate;
   data?: Data;
-  originalData?: Data; // filter 之前的原始数据
-  scaleDefs?: Record<string, ScaleOption>;
   theme?: LooseObject;
+  scaleDefs?: Record<string, ScaleOption>;
+  scales?: Record<string, Scale>;
 }
 
 export interface GeometryCfg {
+  /** Geometry shape 的容器 */
   container: IGroup;
-  labelsContainer?: IGroup;
+  /** 绘制的坐标系对象 */
   coordinate?: Coordinate;
+  /** 绘制数据 */
   data?: Data;
-  originalData?: Data;
+  /** 需要的 scales */
+  scales?: Record<string, Scale>;
   scaleDefs?: Record<string, ScaleOption>;
+  labelsContainer?: IGroup;
   sortable?: boolean;
   visible?: boolean;
   theme?: LooseObject;
-  scales?: Record<string, Scale>;
 }
 
 /**
@@ -121,14 +124,13 @@ export default class Geometry extends Base {
   public readonly container: IGroup;
   /** labels container. */
   public readonly labelsContainer: IGroup;
-  /** Scale definiton. */
-  public scaleDefs: Record<string, ScaleOption>;
   /** Whether to sort data, default is false.  */
   public sortable: boolean;
   /** The theme of geometry.  */
   public theme: LooseObject;
-  /** Scale map. */
+  /** 存储 geometry 需要的 scales，需要外部传入 */
   public scales: Record<string, Scale>;
+  public scaleDefs: Record<string, ScaleOption>;
 
   // Internally generated attributes
   /** Attribute map  */
@@ -178,24 +180,22 @@ export default class Geometry extends Base {
       labelsContainer,
       coordinate,
       data,
-      originalData,
-      scaleDefs = {},
       sortable = false,
       visible = true,
       theme,
       scales = {},
+      scaleDefs = {},
     } = cfg;
 
     this.container = container;
     this.labelsContainer = labelsContainer;
     this.coordinate = coordinate;
     this.data = data;
-    this.originalData = originalData;
-    this.scaleDefs = scaleDefs;
     this.sortable = sortable;
     this.visible = visible;
     this.theme = theme;
     this.scales = scales;
+    this.scaleDefs = scaleDefs;
   }
 
   /**
@@ -215,8 +215,13 @@ export default class Geometry extends Base {
    */
   public position(cfg: string | AttributeOption): Geometry {
     if (isString(cfg)) {
+      const fields = parseFields(cfg);
+      if (fields.length === 1) {
+        // 默认填充一维 1*xx
+        fields.unshift('1');
+      }
       set(this.attributeOption, 'position', {
-        fields: parseFields(cfg),
+        fields,
       });
     } else {
       set(this.attributeOption, 'position', cfg);
@@ -685,32 +690,20 @@ export default class Geometry extends Base {
     this.setCfg(cfg);
     this.initAttributes(); // 创建图形属性
 
-    // 为 tooltip 的字段创建对应的 scale 实例
-    const tooltipOption = this.tooltipOption;
-    const tooltipFields = get(tooltipOption, 'fields');
-    if (tooltipFields) {
-      tooltipFields.forEach((field: string) => {
-        this.createScale(field);
-      });
-    }
     // 数据加工：分组 -> 数字化 -> adjust
     this.processData(this.data);
   }
 
   public update(cfg: InitCfg = {}) {
-    const { data, scaleDefs } = cfg;
+    const { data, scales } = cfg;
     const { attributeOption, lastAttributeOption } = this;
 
     if (!isEqual(attributeOption, lastAttributeOption)) {
       // 映射发生改变，则重新创建图形属性
       this.init(cfg);
-    } else if ((data && !isEqual(data, this.data)) || (scaleDefs && !isEqual(scaleDefs, this.scaleDefs))) {
-      // 数据或者列定义发生变化
-      this.setCfg(cfg);
-      // 更新 scale
-      this.updateScales();
-      // 数据加工：分组 -> 数字化 -> adjust
-      this.processData(this.data);
+    } else if ((data && !isEqual(data, this.data)) || (scales && !isEqual(scales, this.scales))) {
+      // 数据或者 scale 发生变化
+      this.updateData(cfg);
     } else {
       // 有可能 coordinate 变化
       this.setCfg(cfg);
@@ -925,21 +918,6 @@ export default class Geometry extends Base {
     });
   }
 
-  // 创建 scale 实例
-  public createScale(field: string) {
-    const scales = this.scales;
-    let scale = scales[field];
-    if (!scale) {
-      const groupedCategoryFields = this.getGroupedFields();
-      const { data, scaleDefs, originalData } = this;
-
-      scale = createScaleByField(field, groupedCategoryFields.includes(field) ? originalData : data, scaleDefs[field]);
-      scales[field] = scale;
-    }
-
-    return scale;
-  }
-
   public getElementId(originData: Datum) {
     const type = this.type;
     const xScale = this.getXScale();
@@ -985,6 +963,23 @@ export default class Geometry extends Base {
     return id;
   }
 
+  /**
+   * 获取所有需要创建 scale 的字段名称
+   */
+  public getScaleFields(): string[] {
+    let fields = [];
+    const { attributeOption, labelOption, tooltipOption } = this;
+    each(attributeOption, (eachOpt: AttributeOption) => {
+      // size(10)
+      fields = fields.concat(eachOpt.fields || eachOpt.values);
+    });
+
+    fields = fields.concat(get(labelOption, 'fields', []));
+    fields = fields.concat(get(tooltipOption, 'fields', []));
+
+    return uniq(fields);
+  }
+
   public changeVisible(visible: boolean) {
     super.changeVisible(visible);
     this.elements.forEach((element: Element) => {
@@ -998,6 +993,11 @@ export default class Geometry extends Base {
     }
   }
 
+  protected updateData(cfg: InitCfg) {
+    this.setCfg(cfg);
+    this.processData(this.data); // 数据加工：分组 -> 数字化 -> adjust
+  }
+
   protected getShapeFactory() {
     const shapeType = this.shapeType;
     if (!this.shapeFactory) {
@@ -1009,22 +1009,6 @@ export default class Geometry extends Base {
     this.shapeFactory.theme = get(this.theme, ['geometries', shapeType], {});
 
     return this.shapeFactory;
-  }
-
-  protected updateScales() {
-    const { scaleDefs, scales, data, originalData } = this;
-    const groupedCategoryFields = this.getGroupedFields();
-    each(scales, (scale) => {
-      const { type, field } = scale;
-      if (type !== 'identity') {
-        const newScale = createScaleByField(
-          field,
-          groupedCategoryFields.includes(field) ? originalData : data,
-          scaleDefs[field]
-        );
-        syncScale(scale, newScale);
-      }
-    });
   }
 
   /**
@@ -1195,14 +1179,9 @@ export default class Geometry extends Base {
       };
       const { callback, values, fields = [] } = attrCfg;
 
-      if (attrType === 'position' && fields.length === 1) {
-        // 默认填充一维 1*xx
-        fields.unshift('1');
-      }
-
-      // 给每一个字段创建 scale
+      // 获取每一个字段对应的 scale
       const scales = map(fields, (field) => {
-        return this.createScale(field);
+        return this.scales[field];
       });
 
       // 特殊逻辑：饼图需要填充满整个空间
@@ -1571,18 +1550,18 @@ export default class Geometry extends Base {
   }
 
   private setCfg(cfg: InitCfg) {
-    const { coordinate, data, originalData, scaleDefs, theme } = cfg;
+    const { coordinate, data, theme, scales, scaleDefs } = cfg;
     if (coordinate) {
       this.coordinate = coordinate;
     }
     if (data) {
       this.data = data;
     }
-    if (originalData) {
-      this.originalData = originalData;
-    }
     if (scaleDefs) {
       this.scaleDefs = scaleDefs;
+    }
+    if (scales) {
+      this.scales = scales;
     }
     if (theme) {
       this.theme = theme;
