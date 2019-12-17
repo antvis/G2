@@ -1,6 +1,7 @@
 import { each } from '@antv/util';
 import { DIRECTION, LAYER } from '../../../../src';
 import { Controller } from '../../../../src/chart/controller/base';
+import { ComponentOption } from '../../../../src/chart/interface';
 import View from '../../../../src/chart/view';
 import { Text } from '../../../../src/component';
 import { COMPONENT_TYPE } from '../../../../src/constant';
@@ -44,6 +45,7 @@ export class Title extends Controller<TitleOption> {
   public render() {
     this.option = this.view.getOptions().title;
 
+    console.log('render title');
     // 没有配置，则不处理
     if (!this.option) {
       return;
@@ -52,13 +54,22 @@ export class Title extends Controller<TitleOption> {
     this.components.push(this.drawTitle());
   }
 
-  private drawTitle() {
+  public update() {
+    this.option = this.view.getOptions().title;
+
+    console.log('update title');
+
+    each(this.getComponents(), (co: ComponentOption) => {
+      const { component } = co;
+      component.update(this.getTextOption());
+    });
+  }
+
+  private getTextOption() {
     const { style, title, padding } = this.option;
     const [top, right, bottom, left] = padding;
-
-    // 添加文本组件
-    const component = new Text({
-      container: this.container,
+    return {
+      id: 'title',
       text: title,
       attributes: {
         x: left,
@@ -67,6 +78,14 @@ export class Title extends Controller<TitleOption> {
         textAlign: 'left',
         textBaseline: 'top',
       },
+    };
+  }
+
+  private drawTitle() {
+    // 添加文本组件
+    const component = new Text({
+      container: this.container,
+      ...this.getTextOption(),
     });
 
     component.render();
