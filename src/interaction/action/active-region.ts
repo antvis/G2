@@ -5,9 +5,15 @@ import { LooseObject } from '../../interface';
 import { getAngle, getSectorPath } from '../../util/graphics';
 import Action from './base';
 
+/**
+ * 背景框的 Action
+ */
 class ActiveRegion extends Action {
   private items: any[];
   private regionPath: IShape;
+  /**
+   * 显示
+   */
   public show() {
     const view = this.context.view;
     const ev = this.context.event;
@@ -101,7 +107,9 @@ class ActiveRegion extends Action {
       }
     }
   }
-
+  /**
+   * 隐藏
+   */
   public hide() {
     if (this.regionPath) {
       this.regionPath.hide();
@@ -109,7 +117,9 @@ class ActiveRegion extends Action {
     // this.regionPath = null;
     this.items = null;
   }
-
+  /**
+   * 销毁
+   */
   public destroy() {
     this.hide();
     if (this.regionPath) {

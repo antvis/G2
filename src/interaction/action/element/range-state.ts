@@ -3,10 +3,14 @@ import Element from '../../../geometry/element/';
 import { getIntersectElements } from '../util';
 import StateBase from './state-base';
 
+/**
+ * 区域设置状态的基础 Action
+ */
 class ElementRangeState extends StateBase {
   private startPoint = null;
   private endPoint = null;
   private isStarted: boolean = false;
+  // 获取当前的位置
   private getCurrentPoint() {
     const event = this.context.event;
     return {

@@ -1,8 +1,12 @@
 /**
  * @fileoverview 设置画布的箭头，参看：https://www.w3school.com.cn/jsref/prop_style_cursor.asp
+ * @author dxq613
  */
 import Action from './base';
 
+/**
+ * 鼠标形状的 Action
+ */
 class CursorAction extends Action {
   private setCursor(cursor) {
     const view = this.context.view;
@@ -71,27 +75,40 @@ class CursorAction extends Action {
   public sResize() {
     this.setCursor('s-resize');
   }
-
+  /**
+   * 光标指示可移动的方向 右上方（东北）
+   */
   public neResize() {
     this.setCursor('ne-resize');
   }
-
+  /**
+   * 光标指示可移动的方向 左上方（西北）
+   */
   public nwResize() {
     this.setCursor('nw-resize');
   }
-
+  /**
+   * 光标指示可移动的方向右下方（东南）
+   */
   public seResize() {
     this.setCursor('se-resize');
   }
-
+  /**
+   * 光标指示可移动的方向左下方（西南）
+   */
   public swResize() {
     this.setCursor('sw-resize');
   }
 
+  /**
+   * 光标指示可以在上下方向移动
+   */
   public nsResize() {
     this.setCursor('ns-resize');
   }
-
+  /**
+   * 光标指示可以在左右方向移动
+   */
   public ewResize() {
     this.setCursor('ew-resize');
   }

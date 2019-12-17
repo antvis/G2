@@ -2,6 +2,10 @@ import { transform } from '@antv/matrix-util';
 import Element from '../../../geometry/element/';
 import { getAngle } from '../../../util/graphics';
 import SingleSelected from './single-selected';
+/**
+ * 饼图的选中 Action
+ * @class
+ */
 class PieSelected extends SingleSelected {
   // 动画的配置项，可以直接从 element 上取
   private animateCfg = {

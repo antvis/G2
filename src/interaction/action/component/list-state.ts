@@ -11,8 +11,13 @@ interface ListStateCfg {
   componentNames: string[];
 }
 
+/**
+ * 列表项状态 Action 的基础类
+ * @class
+ */
 class ListState extends Action<ListStateCfg> {
   protected stateName: string = '';
+  /** 获取触发的列表组件 */
   protected getTriggerListInfo() {
     const delegateObject = getDelegationObject(this.context);
     let info: LooseObject = null;
@@ -24,6 +29,7 @@ class ListState extends Action<ListStateCfg> {
     }
     return info;
   }
+  // 获取所有允许执行 Action 的组件
   protected getAllowComponents() {
     const view = this.context.view;
     const components = getComponents(view);
@@ -36,10 +42,12 @@ class ListState extends Action<ListStateCfg> {
     return rst;
   }
 
+  /** 是否存在指定的状态 */
   protected hasState(list: IList, item: ListItem) {
     return list.hasState(item, this.stateName);
   }
 
+  /** 清理组件的状态 */
   protected clearAllComponentsState() {
     const components = this.getAllowComponents();
     each(components, (component) => {

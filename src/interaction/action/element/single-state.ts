@@ -2,7 +2,7 @@ import { getCurrentElement, getElementsByState } from '../util';
 import StateBase from './state-base';
 
 /**
- * 单状态量的基类
+ * 单状态量的 Action 基类
  * @class
  */
 class ElementSingleState extends StateBase {

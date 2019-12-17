@@ -3,6 +3,9 @@ import { LooseObject } from '../interface';
 
 export type InteractonConstructor = new (view: View, cfg: LooseObject) => Interaction;
 
+/**
+ * 交互的基类
+ */
 class Interaction {
   /** view 或者 chart */
   protected view: View;

@@ -70,6 +70,9 @@ export interface InteractionSteps {
   rollback?: InteractionStep[];
 }
 
+/**
+ * 支持语法的交互类
+ */
 class GrammarInteraction extends Interaction {
   // 存储的交互环节
   private steps: InteractionSteps;

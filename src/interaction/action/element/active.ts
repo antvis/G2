@@ -5,6 +5,9 @@ import StateAction from './state';
  */
 class ElementActive extends StateAction {
   protected stateName: string = 'active';
+  /**
+   * Active Element
+   */
   public active() {
     this.setState();
   }
