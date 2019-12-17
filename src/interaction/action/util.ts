@@ -1,6 +1,7 @@
 import { Component } from '@antv/component';
-import { each, isArray } from '@antv/util';
+import { each, isArray, map } from '@antv/util';
 import { View } from '../../chart';
+import { ComponentOption } from '../../chart/interface';
 import Geometry from '../../geometry/base';
 import Element from '../../geometry/element/';
 import { IInteractionContext, LooseObject } from '../../interface';
@@ -118,14 +119,5 @@ export function getIntersectElements(view: View, box) {
  * @param view View/Chart
  */
 export function getComponents(view) {
-  const controllers = view.components;
-  const components = [];
-  each(controllers, (c) => {
-    components.push(
-      ...c.getComponents().map((el) => {
-        return el.component;
-      })
-    );
-  });
-  return components;
+  return map(view.getComponents(), (co: ComponentOption) => co.component);
 }
