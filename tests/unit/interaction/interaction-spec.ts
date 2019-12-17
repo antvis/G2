@@ -261,6 +261,23 @@ describe('Interaction test', () => {
       interaction.destroy();
     });
   });
+
+  describe('context test', () => {
+    const context = new Context(null);
+    it('cache', () => {
+      expect(context.cache('a')).toBe(undefined);
+      expect(context.cache('a', 'a1'));
+      expect(context.cache('a')).toBe('a1');
+      context.cache();
+    });
+    it('add, remove', () => {
+      const action = createAction('element-active', context);
+      expect(context.getAction('element-active')).toBe(action);
+      context.removeAction(action);
+      expect(context.getAction('element-active')).toBe(undefined);
+      context.removeAction(action);
+    });
+  });
   afterAll(() => {
     chart.destroy();
   });
