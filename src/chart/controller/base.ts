@@ -1,4 +1,4 @@
-import { each } from '@antv/util';
+import { each, find } from '@antv/util';
 import { ComponentOption } from '../interface';
 import View from '../view';
 
@@ -46,7 +46,12 @@ export abstract class Controller<O = unknown> {
   public abstract layout();
 
   /**
-   * update component
+   * 组件的更新逻辑
+   *  - 根据字段为标识，为每一个组件生成一个 id，放到 option 中
+   *  - 更新的时候按照 id 去做 diff，然后对同的做处理
+   *  - 创建增加的
+   *  - 更新已有的
+   *  - 销毁删除的
    */
   public abstract update();
 
@@ -78,6 +83,10 @@ export abstract class Controller<O = unknown> {
     return this.components;
   }
 
+  /**
+   * change visibility of component
+   * @param visible
+   */
   public changeVisible(visible: boolean) {
     if (this.visible === visible) {
       return;
@@ -90,5 +99,21 @@ export abstract class Controller<O = unknown> {
       }
     });
     this.visible = visible;
+  }
+
+  /**
+   * 生成 id
+   * @param key
+   */
+  protected getId(key: string): string {
+    return `${this.name}-${key}`;
+  }
+
+  /**
+   * 根据 id 来获取组件
+   * @param id
+   */
+  protected getComponentById(id: string): ComponentOption {
+    return find(this.components, (co) => co.id === id);
   }
 }

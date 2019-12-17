@@ -159,9 +159,10 @@ export interface ViewCfg {
 
 // 组件及布局的信息
 export interface ComponentOption {
+  readonly id?: string;
   readonly component: GroupComponent | HtmlComponent;
   readonly layer: LAYER;
-  readonly direction: DIRECTION;
+  direction: DIRECTION;
   readonly type: COMPONENT_TYPE;
   /* 其他的额外信息 */
   readonly extra?: any;
