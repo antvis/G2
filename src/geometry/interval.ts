@@ -23,8 +23,8 @@ export default class Interval extends Geometry {
     this.defaultSize = undefined;
   }
 
-  protected updateScales() {
-    super.updateScales();
+  protected updateData(cfg: InitCfg) {
+    super.updateData(cfg);
     this.adjustYScale();
   }
 
