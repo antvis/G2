@@ -7,6 +7,7 @@ import * as Shape from '../../../src/geometry/shape/base';
 import { LooseObject } from '../../../src/interface';
 import Theme from '../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
+import { createScale, updateScales } from '../../util/scale';
 
 const Rect = getCoordinate('rect');
 
@@ -31,7 +32,7 @@ describe('Geometry', () => {
       ];
       geometry = new Geometry({
         data,
-        originalData: data,
+        scales: {},
         coordinate,
         container: new G.Group({}),
         theme: {
@@ -73,6 +74,11 @@ describe('Geometry', () => {
     });
 
     it('position()', () => {
+      geometry.position('temperature');
+      expect(geometry.attributeOption.position).toEqual({
+        fields: ['1', 'temperature'],
+      });
+
       geometry.position('month*temperature');
       expect(geometry.attributeOption.position).toEqual({
         fields: ['month', 'temperature'],
@@ -130,11 +136,6 @@ describe('Geometry', () => {
     });
 
     it('size()', () => {
-      geometry.size(3);
-      expect(geometry.attributeOption.size).toEqual({
-        values: [3],
-      });
-
       geometry.size('temperature');
       expect(geometry.attributeOption.size).toEqual({
         fields: ['temperature'],
@@ -151,6 +152,11 @@ describe('Geometry', () => {
       });
       expect(geometry.attributeOption.size).toContainKeys(['fields', 'callback']);
       expect(geometry.attributeOption.size.fields).toEqual(['temperature']);
+
+      geometry.size(3);
+      expect(geometry.attributeOption.size).toEqual({
+        values: [3],
+      });
     });
 
     it('label()', () => {
@@ -298,12 +304,18 @@ describe('Geometry', () => {
         enter: null,
       });
     });
+
+    it('getScaleFields', () => {
+      const fields = geometry.getScaleFields();
+      expect(fields).toEqual([ 'month', 'temperature', 3 ]);
+    });
   });
 
   describe('Data mapping', () => {
     let geometry;
     let canvas;
     let div;
+    let scaleDefs;
     beforeAll(() => {
       div = createDiv();
 
@@ -316,10 +328,25 @@ describe('Geometry', () => {
         { month: '一月', temperature: 8, city: '南京', year: '2018' },
         { month: '二月', temperature: 14, city: '南京', year: '2018' },
       ];
+
+      scaleDefs = {
+        month: {
+          range: [0.25, 0.75],
+        },
+        temperature: {
+          min: 0,
+        },
+      };
+      const scales = {
+        month: createScale('month', data, scaleDefs),
+        temperature: createScale('temperature', data, scaleDefs),
+        city: createScale('city', data, scaleDefs),
+        year: createScale('year', data, scaleDefs),
+      };
       const container = canvas.addGroup();
       geometry = new Geometry({
         data,
-        originalData: data,
+        scales,
         coordinate,
         container,
         theme: {
@@ -340,14 +367,7 @@ describe('Geometry', () => {
             },
           },
         },
-        scaleDefs: {
-          month: {
-            range: [0.25, 0.75],
-          },
-          temperature: {
-            min: 0,
-          },
-        },
+        scaleDefs,
       });
 
       // @ts-ignore
@@ -533,12 +553,23 @@ describe('Geometry', () => {
       const deleteElement = geometry.elements[0];
       geometry.show();
       geometry.animate(true);
+
+      const newData = [
+        { month: '二月', temperature: 20, city: '北京', year: '2018' },
+        { month: '二月', temperature: 14, city: '南京', year: '2018' },
+        { month: '三月', temperature: 24, city: '南京', year: '2018' },
+      ];
+      const newScales = {
+        month: createScale('month', newData, scaleDefs),
+        temperature: createScale('temperature', newData, scaleDefs),
+        city: createScale('city', newData, scaleDefs),
+        year: createScale('year', newData, scaleDefs),
+      };
+      // 需要保持 scales 的引用
+      updateScales(geometry.scales, newScales);
+
       geometry.update({
-        data: [
-          { month: '二月', temperature: 20, city: '北京', year: '2018' },
-          { month: '二月', temperature: 14, city: '南京', year: '2018' },
-          { month: '三月', temperature: 24, city: '南京', year: '2018' },
-        ],
+        data: newData,
       });
 
       expect(geometry.data.length).toBe(3);
@@ -599,14 +630,26 @@ describe('Geometry', () => {
     ];
     const geometry = new Geometry({
       data,
+<<<<<<< Updated upstream
       originalData: data,
+=======
+>>>>>>> Stashed changes
       coordinate,
       container: new G.Group({}),
       theme: {
         ...Theme,
       },
     });
-    geometry.position('value').init();
+    geometry.position('value');
+
+    const fields = geometry.getScaleFields();
+    const scales = {};
+    fields.forEach((fieldName) => {
+      scales[fieldName] = createScale(fieldName, data);
+    });
+    geometry.scales = scales;
+
+    geometry.init();
 
     const positionScales = geometry.getAttribute('position').scales;
     expect(positionScales.length).toBe(2);

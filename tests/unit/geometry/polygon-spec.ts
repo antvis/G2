@@ -4,6 +4,7 @@ import Theme from '../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
 
 import 'jest-extended';
+import { createScale } from '../../util/scale';
 
 const CartesianCoordinate = getCoordinate('rect');
 
@@ -25,9 +26,16 @@ describe('Polygon', () => {
     { city: '呼和浩特', sale: 10, category: '鼠标' },
   ];
 
+  const scales = {
+    city: createScale('city', data),
+    sale: createScale('sale', data),
+    category: createScale('category', data),
+  };
+
   it('draw polygon', () => {
     const polygon = new Polygon({
       data,
+      scales,
       container: canvas.addGroup(),
       theme: Theme,
       coordinate: rectCoord,

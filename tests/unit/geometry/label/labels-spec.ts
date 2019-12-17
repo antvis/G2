@@ -1,9 +1,9 @@
 import { getCoordinate } from '@antv/coord';
 import { getScale } from '@antv/scale';
 import Interval from '../../../../src/geometry/interval';
-import LabelsRenderer from '../../../../src/geometry/label/labels';
 import Theme from '../../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../../util/dom';
+import { createScale, updateScales } from '../../../util/scale';
 
 const PolarCoordinate = getCoordinate('polar');
 const IdentityScale = getScale('identity');
@@ -34,17 +34,20 @@ describe('LabelsRenderer', () => {
     values: [1],
     range: [0.5, 1],
   });
+  const data = [
+    { a: '1', percent: 0.2 },
+    { a: '2', percent: 0.5 },
+    { a: '3', percent: 0.3 },
+  ];
   const interval = new Interval({
-    data: [
-      { a: '1', percent: 0.2 },
-      { a: '2', percent: 0.5 },
-      { a: '3', percent: 0.3 },
-    ],
+    data,
     coordinate: thetaCoord,
     container: canvas.addGroup(),
     labelsContainer: canvas.addGroup(),
     scales: {
       1: identityScale,
+      percent: createScale('percent', data),
+      a: createScale('a', data),
     },
     theme: Theme,
   });
@@ -67,11 +70,18 @@ describe('LabelsRenderer', () => {
   });
 
   it('update', () => {
+    const newData = [
+      { a: '1', percent: 0.5 },
+      { a: '2', percent: 0.5 },
+    ];
+    const newScales = {
+      a: createScale('a', newData),
+      percent: createScale('percent', newData),
+    }
+    // 保持引用，同步 scales
+    updateScales(interval.scales, newScales);
     interval.update({
-      data: [
-        { a: '1', percent: 0.5 },
-        { a: '2', percent: 0.5 },
-      ],
+      data: newData,
     });
     interval.paint();
 

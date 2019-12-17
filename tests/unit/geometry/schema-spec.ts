@@ -5,6 +5,7 @@ import Theme from '../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
 
 import 'jest-extended';
+import { createScale } from '../../util/scale';
 
 const CartesianCoordinate = getCoordinate('rect');
 const LinearScale = getScale('linear');
@@ -20,24 +21,32 @@ describe('Schema', () => {
     start: { x: 0, y: 300 },
     end: { x: 300, y: 0 },
   });
-  const data = [
-    {
-      x: 'x',
-      y: [1, 9, 16, 22, 24],
-    },
-  ];
 
   it('draw box', () => {
+    const data = [
+      {
+        x: 'x',
+        y: [1, 9, 16, 22, 24],
+      },
+    ];
+
+    const scaleDefs = {
+      x: {
+        range: [0.5, 0.75],
+      },
+    };
+    const scales = {
+      x: createScale('x', data, scaleDefs),
+      y: createScale('y', data, scaleDefs),
+      box: createScale('box', data, scaleDefs),
+    };
     const schema = new Schema({
       data,
+      scales,
       container: canvas.addGroup(),
       theme: Theme,
       coordinate: rectCoord,
-      scaleDefs: {
-        x: {
-          range: [0.5, 0.75],
-        },
-      },
+      scaleDefs,
     });
 
     schema.position('x*y').shape('box');
@@ -59,24 +68,28 @@ describe('Schema', () => {
 
   it('draw candle', () => {
     canvas.clear();
-    const scaleX = new LinearScale({
-      field: 'x',
-      min: 0,
-      values: [0, 1, 2, 3, 4, 5],
-      max: 10,
-    });
+    const data = [
+      { x: 1, y: [0, 1, 2, 3] },
+      { x: 2, y: [1, 2, 3, 4] },
+      { x: 3, y: [0, 4] },
+    ];
+
+    const scales = {
+      x: new LinearScale({
+        field: 'x',
+        min: 0,
+        values: [0, 1, 2, 3, 4, 5],
+        max: 10,
+      }),
+      y: createScale('y', data),
+      candle: createScale('candle', data),
+    };
     const schema = new Schema({
-      data: [
-        { x: 1, y: [0, 1, 2, 3] },
-        { x: 2, y: [1, 2, 3, 4] },
-        { x: 3, y: [0, 4] },
-      ],
+      data,
       container: canvas.addGroup(),
       theme: Theme,
       coordinate: rectCoord,
-      scales: {
-        x: scaleX,
-      },
+      scales,
     });
 
     schema.position('x*y').shape('candle');

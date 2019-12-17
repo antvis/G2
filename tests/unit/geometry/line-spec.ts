@@ -4,6 +4,7 @@ import Theme from '../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
 
 import 'jest-extended';
+import { createScale } from '../../util/scale';
 
 const CartesianCoordinate = getCoordinate('rect');
 
@@ -19,9 +20,20 @@ describe('Line', () => {
     end: { x: 300, y: 0 },
   });
 
+  const data = [
+    { x: 1996, y: 30 },
+    { x: 1990, y: 210 },
+    { x: 1993, y: 29 }
+  ];
+  const scales = {
+    x: createScale('x', data),
+    y: createScale('y', data),
+  };
+
   it('Data should be sorted.', () => {
     const line = new Line({
-      data: [{ x: 1996, y: 30 }, { x: 1990, y: 210 }, { x: 1993, y: 29 }],
+      data,
+      scales,
       container: canvas.addGroup(),
       theme: Theme,
       coordinate: rectCoord,
