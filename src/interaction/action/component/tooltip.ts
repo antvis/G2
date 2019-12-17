@@ -2,6 +2,9 @@ import { isEqual } from '@antv/util';
 import { Point } from '../../../interface';
 import Action from '../base';
 
+/**
+ * Tooltip 展示隐藏的 Action
+ */
 class TooltipAction extends Action {
   private timeStamp: number = 0;
   private location: Point;

@@ -2,6 +2,9 @@ import { each } from '@antv/util';
 import Action from '../base';
 import { getDelegationObject, getElements, getElementValue, isList } from '../util';
 
+/**
+ * 元素过滤的 Action，控制元素的显示隐藏
+ */
 class ElementFilter extends Action {
   /**
    * 过滤

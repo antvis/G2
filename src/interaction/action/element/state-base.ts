@@ -4,7 +4,7 @@ import Action from '../base';
 import { getElementsByState } from '../util';
 
 /**
- * 状态量的基类
+ * 状态量 Action 的基类
  * @abstract
  * @class
  */

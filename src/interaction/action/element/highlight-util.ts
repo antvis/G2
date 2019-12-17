@@ -6,6 +6,10 @@ import { getElements } from '../util';
 const STATUS_UNACTIVE = 'inactive';
 const STATUS_ACTIVE = 'active';
 
+/**
+ * 清理 highlight 效果
+ * @param view View 或者 Chart
+ */
 export function clearHighlight(view: View) {
   const elements = getElements(view);
   each(elements, (el) => {
@@ -20,6 +24,12 @@ export function clearHighlight(view: View) {
 
 type MatchCallback = (el: Element) => boolean;
 
+/**
+ * 设置多个元素的 highlight
+ * @param elements 元素集合
+ * @param callback 设置回调函数
+ * @param enable 设置或者取消
+ */
 export function setHighlightBy(elements: Element[], callback: MatchCallback, enable: boolean) {
   each(elements, (el) => {
     // 需要处理 active 和 unactive 的互斥

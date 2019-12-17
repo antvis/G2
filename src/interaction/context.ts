@@ -1,6 +1,9 @@
 import { each } from '@antv/util';
 import { View } from '../chart';
 import { IAction, IInteractionContext, LooseObject } from '../interface';
+/**
+ * 交互的上下文
+ */
 class Context implements IInteractionContext {
   public actions: IAction[] = [];
   public view: View;
@@ -10,6 +13,12 @@ class Context implements IInteractionContext {
     this.view = view;
   }
 
+  /**
+   * 缓存信息
+   * @param params 缓存的字段
+   *  - 如果一个字段则获取缓存
+   *  - 两个字段则设置缓存
+   */
   public cache(...params) {
     if (params.length === 1) {
       return this.cacheMap[params[0]];
@@ -17,15 +26,26 @@ class Context implements IInteractionContext {
       this.cacheMap[params[0]] = params[1];
     }
   }
-
+  /**
+   * 获取 Action
+   * @param name Action 的名称
+   */
   public getAction(name: string): IAction {
     return this.actions.find((action) => action.name === name);
   }
 
+  /**
+   * 获取 Action
+   * @param action Action 对象
+   */
   public addAction(action: IAction) {
     this.actions.push(action);
   }
 
+  /**
+   * 移除 Action
+   * @param action Action 对象
+   */
   public removeAction(action: IAction) {
     const actions = this.actions;
     const index = this.actions.indexOf(action);
@@ -33,7 +53,9 @@ class Context implements IInteractionContext {
       actions.splice(index, 1);
     }
   }
-
+  /**
+   * 销毁
+   */
   public destroy() {
     this.view = null;
     this.event = null;

@@ -7,6 +7,10 @@ const STATUS_UNACTIVE = 'inactive';
 const STATUS_ACTIVE = 'active';
 type MatchCallback = (item: ListItem) => boolean;
 
+/**
+ * highlight Action 的效果是 active 和 inactive 两个状态的组合
+ * @class
+ */
 class ListHighlight extends ListState {
   protected stateName: string = STATUS_ACTIVE;
   // 如果 item.name 匹配，则设置 highlight 以及取消
@@ -62,6 +66,9 @@ class ListHighlight extends ListState {
     }
   }
 
+  /**
+   * highlight 图例项（坐标轴文本）
+   */
   public highlight() {
     this.setState();
   }

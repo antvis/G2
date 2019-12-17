@@ -1,5 +1,8 @@
 import { IAction, IInteractionContext, LooseObject } from '../../interface';
 
+/**
+ * Action 的基类
+ */
 abstract class Action<T = LooseObject> implements IAction {
   public name;
   public context: IInteractionContext;

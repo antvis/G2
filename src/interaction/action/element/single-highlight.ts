@@ -3,9 +3,15 @@ import { getElements } from '../util';
 import { clearHighlight, setHighlightBy } from './highlight-util';
 import ElementSingleState from './single-state';
 
+/**
+ * 单个 Element Highlight 的 Action
+ */
 class ElementSingleHighlight extends ElementSingleState {
   protected stateName: string = 'active';
 
+  /**
+   * Element Highlight
+   */
   public highlight() {
     this.setState();
   }
