@@ -117,8 +117,6 @@ export default class Geometry extends Base {
   public coordinate: Coordinate;
   /** User data. */
   public data: Data;
-  /** User data before filtered */
-  public originalData: Data;
   /** Graphic drawing container. */
   public readonly container: IGroup;
   /** labels container. */
@@ -700,7 +698,7 @@ export default class Geometry extends Base {
     if (!isEqual(attributeOption, lastAttributeOption)) {
       // 映射发生改变，则重新创建图形属性
       this.init(cfg);
-    } else if ((data && !isEqual(data, this.data))) {
+    } else if (data && !isEqual(data, this.data)) {
       // 数据或者 scale 发生变化
       this.updateData(cfg);
     } else {
@@ -1598,23 +1596,11 @@ export default class Geometry extends Base {
    * 获取当前配置中的所有分组 & 分类的字段
    * @return fields string[]
    */
-  public getGroupedFields(): string[] {
+  public getGroupFields(): string[] {
     const fields = [];
     each(GROUP_ATTRS, (attributeName: string) => {
       const cfg = this.attributeOption[attributeName];
       fields.push(...get(cfg, 'fields', []));
-    });
-
-    return uniq(fields);
-  }
-
-  /**
-   * 获取 Geometry 中的所有字段
-   */
-  public getFields(): string[] {
-    const fields = [];
-    each(this.attributeOption, (attributeName: string, option: AttributeOption) => {
-      fields.push(...get(option, 'fields', []));
     });
 
     return uniq(fields);
