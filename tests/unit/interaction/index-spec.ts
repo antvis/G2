@@ -29,15 +29,6 @@ describe('Interaction', () => {
     expect(getInteraction('activeLine')).toBeDefined();
   });
 
-  it('create interaction', () => {
-    expect(createInteraction('test', null)).toBe(null);
-    class MyInteraction extends Interaction {}
-    registerInteraction('my-interaction', MyInteraction);
-    expect(getInteraction('my-interaction')).toBe(MyInteraction);
-    expect(createInteraction('my-interaction', null)).not.toBe(null);
-    delete Interaction['my-interaction'];
-  });
-
   it('call', () => {
     const chart = new Chart({
       container: createDiv(),
@@ -83,5 +74,19 @@ describe('Interaction', () => {
 
     const shape = chart.geometries[0].elements[0].shape;
     expect(shape.attr('lineWidth')).toBe(4);
+  });
+
+  it('new interaction by class', () => {
+    class MyInteraction extends Interaction {
+      public name = 'my-interaction';
+    }
+    const field = 'name';
+    expect(createInteraction('test', null)).toBe(null);
+    registerInteraction('my-interaction', MyInteraction);
+    expect(getInteraction('my-interaction')).toBe(MyInteraction);
+    const interaction = createInteraction('my-interaction', null);
+    expect(interaction instanceof MyInteraction).toBe(true);
+    expect(interaction[field]).toBe('my-interaction');
+    delete Interaction['my-interaction'];
   });
 });

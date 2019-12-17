@@ -1,4 +1,4 @@
-import { isObject, lowerCase, mix } from '@antv/util';
+import { isPlainObject, lowerCase, mix } from '@antv/util';
 import { View } from '../chart';
 import { LooseObject } from '../interface';
 import { Action, registerAction } from './action/';
@@ -37,7 +37,7 @@ export function createInteraction(name: string, view: View, cfg?: LooseObject) {
   if (!interaciton) {
     return null;
   }
-  if (isObject(interaciton)) {
+  if (isPlainObject(interaciton)) {
     const steps = mix({}, interaciton, cfg) as InteractionSteps;
     return new GrammarInteraction(view, steps);
   } else {
