@@ -97,7 +97,6 @@ export class View extends Base {
   protected options: Options = {
     data: [],
     animate: true, // 默认开启动画
-    filters: {},
   }; // 初始化为空
 
   // 过滤之后的数据
@@ -310,7 +309,9 @@ export class View extends Base {
     if (isFunction(condition)) {
       set(this.options, ['filters', field], condition);
     } else {
-      delete this.options.filters[field];
+      if (this.options.filters) {
+        delete this.options.filters[field];
+      }
     }
 
     return this;

@@ -239,7 +239,7 @@ export interface Options {
   /** 数据源 */
   readonly data: Data;
   /** 设置数据过滤条件，以 data 中的数据属性为 key */
-  readonly filters: Record<string, FilterCondition>;
+  readonly filters?: Record<string, FilterCondition>;
   /** 坐标轴配置，以 data 中的数据属性为 key */
   readonly axes?: Record<string, AxisOption> | boolean;
   /** 图例配置，以 data 中的数据属性为 key */
