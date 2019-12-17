@@ -3,6 +3,7 @@ import Interval from '../../../../src/geometry/interval';
 import IntervalLabels from '../../../../src/geometry/label/interval';
 import Theme from '../../../../src/theme/antv';
 import { createCanvas, createDiv } from '../../../util/dom';
+import { createScale } from '../../../util/scale';
 
 const CartesianCoordinate = getCoordinate('rect');
 
@@ -57,21 +58,29 @@ describe('interval labels', () => {
       color: '#FF6A84',
     },
   ];
+  const data = [
+    { country: 'Asia', year: '1750', value: 502, percent: 0.5169927909371782 },
+    { country: 'Asia', year: '1800', value: 635, percent: 0.5545851528384279 },
+  ];
+  const scaleDefs = {
+    percent: {
+      formatter: (val) => val.toFixed(4) * 100 + '%',
+    },
+  };
 
+  const scales = {
+    year: createScale('year', data, scaleDefs),
+    value: createScale('value', data, scaleDefs),
+    percent: createScale('percent', data, scaleDefs),
+  };
   const interval = new Interval({
-    data: [
-      { country: 'Asia', year: '1750', value: 502, percent: 0.5169927909371782 },
-      { country: 'Asia', year: '1800', value: 635, percent: 0.5545851528384279 },
-    ],
+    data,
+    scales,
     container: canvas.addGroup(),
     labelsContainer: canvas.addGroup(),
     theme: Theme,
     coordinate: coord,
-    scaleDefs: {
-      percent: {
-        formatter: (val) => val.toFixed(4) * 100 + '%',
-      },
-    },
+    scaleDefs,
   });
   interval.position('year*value').label('percent', {
     position: 'middle',

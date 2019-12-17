@@ -4,6 +4,7 @@ import GeometryLabels from '../../../../src/geometry/label/base';
 import Point from '../../../../src/geometry/point';
 import Theme from '../../../../src/theme/antv';
 import { createCanvas, createDiv } from '../../../util/dom';
+import { createScale } from '../../../util/scale';
 
 const CartesianCoordinate = getCoordinate('rect');
 
@@ -19,12 +20,21 @@ describe('GeometryLabels', () => {
     end: { x: 100, y: 0 },
   });
 
+
   describe('Point Label', () => {
+    const data = [
+      { x: 100, y: 10, z: '1' },
+      { x: 100, y: 20, z: '2' },
+    ];
+    const scales = {
+      x: createScale('x', data),
+      y: createScale('y', data),
+      z: createScale('z', data),
+    };
+
     const point = new Point({
-      data: [
-        { x: 100, y: 10, z: '1' },
-        { x: 100, y: 20, z: '2' },
-      ],
+      data,
+      scales,
       container: canvas.addGroup(),
       labelsContainer: canvas.addGroup(),
       theme: Theme,
@@ -89,11 +99,18 @@ describe('GeometryLabels', () => {
   });
 
   describe('Interval Label', () => {
+    const data = [
+      { x: 100, y: 10, z: '1' },
+      { x: 100, y: 20, z: '2' },
+    ];
+    const scales = {
+      x: createScale('x', data),
+      y: createScale('y', data),
+      z: createScale('z', data),
+    };
     let interval = new Interval({
-      data: [
-        { x: 100, y: 10, z: '1' },
-        { x: 100, y: 20, z: '2' },
-      ],
+      data,
+      scales,
       container: canvas.addGroup(),
       labelsContainer: canvas.addGroup(),
       theme: Theme,
@@ -126,11 +143,18 @@ describe('GeometryLabels', () => {
     });
 
     it('stack points', () => {
+      const data1 = [
+        { x: 0, y: 10, text: 'a' },
+        { x: 0, y: [10, 20], text: 'b' },
+      ];
+      const scales1 = {
+        x: createScale('x', data1),
+        y: createScale('y', data1),
+        text: createScale('text', data1),
+      };
       interval = new Interval({
-        data: [
-          { x: 0, y: 10, text: 'a' },
-          { x: 0, y: [10, 20], text: 'b' },
-        ],
+        data: data1,
+        scales: scales1,
         container: canvas.addGroup(),
         labelsContainer: canvas.addGroup(),
         theme: Theme,
@@ -176,11 +200,19 @@ describe('GeometryLabels', () => {
       { x: 100, y: 20, _origin: { x: 100, y: 20, z: '2' } },
     ];
 
+    const data = [
+      { x: 100, y: 10, z: '1' },
+      { x: 100, y: 20, z: '2' },
+    ];
+    const scales = {
+      x: createScale('x', data),
+      y: createScale('y', data),
+      z: createScale('z', data),
+    };
+
     let interval = new Interval({
-      data: [
-        { x: 100, y: 10, z: '1' },
-        { x: 100, y: 20, z: '2' },
-      ],
+      data,
+      scales,
       container: canvas.addGroup(),
       labelsContainer: canvas.addGroup(),
       theme: Theme,
@@ -241,12 +273,18 @@ describe('GeometryLabels', () => {
           },
         },
       ];
-
+      const data1 = [
+        { x: [90, 100], y: [20, 20], z: ['1', '2'] },
+        { x: [30, 40], y: [40, 40], z: ['3', '4'] },
+      ];
+      const scales1 = {
+        x: createScale('x', data1),
+        y: createScale('y', data1),
+        z: createScale('z', data1),
+      };
       interval = new Interval({
-        data: [
-          { x: [90, 100], y: [20, 20], z: ['1', '2'] },
-          { x: [30, 40], y: [40, 40], z: ['3', '4'] },
-        ],
+        data: data1,
+        scales: scales1,
         container: canvas.addGroup(),
         labelsContainer: canvas.addGroup(),
         theme: Theme,
@@ -292,11 +330,18 @@ describe('GeometryLabels', () => {
           },
         },
       ];
+      const data1 = [
+        { x: [90, 100], y: [20, 20], z: ['1', '2'] },
+        { x: [30, 40], y: [40, 40], z: ['3', '4'] },
+      ];
+      const scales1 = {
+        x: createScale('x', data1),
+        y: createScale('y', data1),
+        z: createScale('z', data1),
+      };
       interval = new Interval({
-        data: [
-          { x: [90, 100], y: [20, 20], z: ['1', '2'] },
-          { x: [30, 40], y: [40, 40], z: ['3', '4'] },
-        ],
+        data: data1,
+        scales: scales1,
         container: canvas.addGroup(),
         labelsContainer: canvas.addGroup(),
         theme: Theme,

@@ -2,6 +2,7 @@ import { getCoordinate } from '@antv/coord';
 import Area from '../../../src/geometry/area';
 import Theme from '../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
+import { createScale } from '../../util/scale';
 
 import 'jest-extended';
 import Geometry from '../../../src/geometry/base';
@@ -17,19 +18,26 @@ describe('Area', () => {
     start: { x: 0, y: 180 },
     end: { x: 180, y: 0 },
   });
+  const data = [
+    { year: '1994', value: 100, type: 'a' },
+    { year: '1995', value: 90, type: 'a' },
+    { year: '1996', value: 120, type: 'a' },
+    { year: '1994', value: 120, type: 'b' },
+    { year: '1995', value: 65, type: 'b' },
+    { year: '1996', value: 10, type: 'b' },
+  ];
+  const scales = {
+    year: createScale('year', data),
+    value: createScale('value', data),
+    type: createScale('type', data),
+  };
 
   let area: Geometry;
 
   it('constructor', () => {
     area = new Area({
-      data: [
-        { year: '1994', value: 100, type: 'a' },
-        { year: '1995', value: 90, type: 'a' },
-        { year: '1996', value: 120, type: 'a' },
-        { year: '1994', value: 120, type: 'b' },
-        { year: '1995', value: 65, type: 'b' },
-        { year: '1996', value: 10, type: 'b' },
-      ],
+      data,
+      scales,
       container: canvas.addGroup(),
       theme: Theme,
       coordinate: rectCoord,

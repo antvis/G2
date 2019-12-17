@@ -4,6 +4,7 @@ import PolarLabels from '../../../../src/geometry/label/polar';
 import Point from '../../../../src/geometry/point';
 import Theme from '../../../../src/theme/antv';
 import { createCanvas, createDiv } from '../../../util/dom';
+import { createScale } from '../../../util/scale';
 
 const PolarCoord = getCoordinate('polar');
 
@@ -61,8 +62,14 @@ describe('polar labels', () => {
   ];
 
   describe('one point one label', () => {
+    const scales = {
+      x: createScale('x', data),
+      y: createScale('y', data),
+      z: createScale('z', data),
+    };
     const pointGeom = new Point({
       data,
+      scales,
       container: canvas.addGroup(),
       labelsContainer: canvas.addGroup(),
       theme: Theme,
@@ -115,8 +122,14 @@ describe('polar labels', () => {
   });
 
   describe('one point one label,inner text', () => {
+    const scales = {
+      x: createScale('x', data),
+      y: createScale('y', data),
+      z: createScale('z', data),
+    };
     const pointGeom = new Point({
       data,
+      scales,
       container: canvas.addGroup(),
       labelsContainer: canvas.addGroup(),
       theme: Theme,
@@ -170,8 +183,14 @@ describe('polar labels', () => {
   });
 
   describe('one point two labels,outer text', () => {
+    const scales = {
+      x: createScale('x', data1),
+      y: createScale('y', data1),
+      z: createScale('z', data1),
+    };
     const pointGeom = new Point({
       data: data1,
+      scales,
       container: canvas.addGroup(),
       labelsContainer: canvas.addGroup(),
       theme: Theme,
@@ -215,8 +234,14 @@ describe('polar labels', () => {
   });
 
   describe('one point two label,inner text', () => {
+    const scales = {
+      x: createScale('x', data1),
+      y: createScale('y', data1),
+      z: createScale('z', data1),
+    };
     const pointGeom = new Point({
       data: data1,
+      scales,
       container: canvas.addGroup(),
       labelsContainer: canvas.addGroup(),
       theme: Theme,
@@ -273,8 +298,14 @@ describe('polar labels', () => {
     polarCoord.transpose();
 
     describe('offset < 0', () => {
+      const scales = {
+        x: createScale('x', data),
+        y: createScale('y', data),
+        z: createScale('z', data),
+      };
       const pointGeom = new Point({
         data,
+        scales,
         container: canvas.addGroup(),
         labelsContainer: canvas.addGroup(),
         theme: Theme,
@@ -316,8 +347,14 @@ describe('polar labels', () => {
     });
 
     describe('offset > 0', () => {
+      const scales = {
+        x: createScale('x', data),
+        y: createScale('y', data),
+        z: createScale('z', data),
+      };
       const pointGeom = new Point({
         data,
+        scales,
         container: canvas.addGroup(),
         labelsContainer: canvas.addGroup(),
         theme: Theme,

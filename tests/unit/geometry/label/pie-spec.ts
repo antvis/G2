@@ -8,6 +8,7 @@ import Point from '../../../../src/geometry/point';
 import { Chart } from '../../../../src/index';
 import Theme from '../../../../src/theme/antv';
 import { createCanvas, createDiv } from '../../../util/dom';
+import { createScale } from '../../../util/scale';
 
 const PolarCoord = getCoordinate('polar');
 
@@ -61,8 +62,15 @@ describe('pie labels', () => {
       data.push(point._origin);
     }
 
+    const scales = {
+      x: createScale('x', data),
+      y: createScale('y', data),
+      label: createScale('label', data),
+    };
+
     const pointGeom = new Point({
       data,
+      scales,
       container: canvas.addGroup(),
       labelsContainer: canvas.addGroup(),
       theme: Theme,
@@ -149,8 +157,15 @@ describe('pie labels', () => {
       data.push(point._origin);
     }
 
+    const scales = {
+      x: createScale('x', data),
+      y: createScale('y', data),
+      label: createScale('label', data),
+    };
+
     const pointGeom = new Point({
       data,
+      scales,
       container: canvas.addGroup(),
       labelsContainer: canvas.addGroup(),
       theme: Theme,

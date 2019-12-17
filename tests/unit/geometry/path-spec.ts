@@ -4,6 +4,7 @@ import Theme from '../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
 
 import 'jest-extended';
+import { createScale } from '../../util/scale';
 
 const CartesianCoordinate = getCoordinate('rect');
 
@@ -22,17 +23,23 @@ describe('Path', () => {
   let path;
 
   it('connectNulls is false.', () => {
+    const data = [
+      { x: 'Jan.', y: 18.9 },
+      { x: 'Feb.', y: 28.8 },
+      { x: 'Mar.', y: 39.3 },
+      { x: 'Apr.' },
+      { x: 'Jun.', y: 20.3 },
+      { x: 'Jul.', y: 24 },
+      { x: 'Aug.', y: 35.6 },
+    ];
+    const scales = {
+      x: createScale('x', data),
+      y: createScale('y', data),
+    };
     path = new Path({
       coordinate: rectCoord,
-      data: [
-        { x: 'Jan.', y: 18.9 },
-        { x: 'Feb.', y: 28.8 },
-        { x: 'Mar.', y: 39.3 },
-        { x: 'Apr.' },
-        { x: 'Jun.', y: 20.3 },
-        { x: 'Jul.', y: 24 },
-        { x: 'Aug.', y: 35.6 },
-      ],
+      data,
+      scales,
       container: canvas.addGroup(),
       theme: Theme,
     });
@@ -53,8 +60,8 @@ describe('Path', () => {
     const model = elements[0].model;
     expect(model.points.length).toBe(7);
 
-    const data = elements[0].data;
-    expect(data).toEqual([
+    const elementData = elements[0].data;
+    expect(elementData).toEqual([
       { x: 'Jan.', y: 18.9 },
       { x: 'Feb.', y: 28.8 },
       { x: 'Mar.', y: 39.3 },
@@ -66,17 +73,23 @@ describe('Path', () => {
   });
 
   it('connectNulls is true,', () => {
+    const data = [
+      { x: 'Jan.', y: 18.9 },
+      { x: 'Feb.', y: 28.8 },
+      { x: 'Mar.', y: 39.3 },
+      { x: 'Apr.' },
+      { x: 'Jun.' },
+      { x: 'Jul.', y: 24 },
+      { x: 'Aug.', y: 35.6 },
+    ];
+    const scales = {
+      x: createScale('x', data),
+      y: createScale('y', data),
+    };
     path = new Path({
       coordinate: rectCoord,
-      data: [
-        { x: 'Jan.', y: 18.9 },
-        { x: 'Feb.', y: 28.8 },
-        { x: 'Mar.', y: 39.3 },
-        { x: 'Apr.' },
-        { x: 'Jun.' },
-        { x: 'Jul.', y: 24 },
-        { x: 'Aug.', y: 35.6 },
-      ],
+      data,
+      scales,
       container: canvas.addGroup(),
       theme: Theme,
       connectNulls: true,

@@ -3,6 +3,7 @@ import { isNumberEqual } from '@antv/util';
 import Interval from '../../../src/geometry/interval';
 import Theme from '../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
+import { createScale, updateScales } from '../../util/scale';
 
 import 'jest-extended';
 
@@ -25,6 +26,14 @@ describe('Interval', () => {
       { a: 'B', b: 12 },
       { a: 'C', b: 8 },
     ];
+    const scaleDefs = {
+      a: { range: [0.25, 0.75] },
+    };
+    const scales = {
+      a: createScale('a', data, scaleDefs),
+      b: createScale('b', data, scaleDefs),
+      20: createScale(20, data, scaleDefs),
+    };
 
     let dataArray;
 
@@ -41,9 +50,8 @@ describe('Interval', () => {
     test('init()', () => {
       interval = new Interval({
         data,
-        scaleDefs: {
-          a: { range: [0.25, 0.75] },
-        },
+        scaleDefs,
+        scales,
         coordinate: rectCoord,
         container: canvas.addGroup(),
         theme: Theme,
@@ -110,7 +118,9 @@ describe('Interval', () => {
     test('interval.size(20)', () => {
       interval.size(20); // 指定 interval 的宽度
 
-      interval.init();
+      interval.init({
+        scales, // 需要传入 scales
+      });
       interval.paint();
 
       expect(interval.defaultSize).toBe(undefined);
@@ -124,7 +134,9 @@ describe('Interval', () => {
       interval.theme.minColumnWidth = 40;
 
       interval.size(null);
-      interval.init();
+      interval.init({
+        scales, // 需要传入 scales
+      });
       interval.paint();
 
       canvas.draw();
@@ -140,7 +152,9 @@ describe('Interval', () => {
       interval.theme.maxColumnWidth = 10;
       interval.theme.minColumnWidth = null;
 
-      interval.init();
+      interval.init({
+        scales, // 需要传入 scales
+      });
       interval.paint();
 
       canvas.draw();
@@ -159,16 +173,23 @@ describe('Interval', () => {
   });
 
   describe('yScale adjust', () => {
+    const data = [
+      { a: 'A', b: 10 },
+      { a: 'B', b: 12 },
+      { a: 'C', b: 8 },
+    ];
+    const scaleDefs = {
+      a: { range: [0.25, 0.75] },
+      b: { min: 7 },
+    };
+    const scales = {
+      a: createScale('a', data, scaleDefs),
+      b: createScale('b', data, scaleDefs),
+    };
     const interval = new Interval({
-      data: [
-        { a: 'A', b: 10 },
-        { a: 'B', b: 12 },
-        { a: 'C', b: 8 },
-      ],
-      scaleDefs: {
-        a: { range: [0.25, 0.75] },
-        b: { min: 7 },
-      },
+      data,
+      scaleDefs,
+      scales,
       coordinate: rectCoord,
       container: canvas.addGroup(),
       theme: Theme,
@@ -187,15 +208,23 @@ describe('Interval', () => {
     });
 
     test('yScale max adjust when user do not define max', () => {
+      const newData = [
+        { a: 'A', b: -10 },
+        { a: 'B', b: -12 },
+        { a: 'C', b: -8 },
+      ];
+      const newScaleDefs = {
+        a: { range: [0.25, 0.75] },
+      };
+      const newScales = {
+        a: createScale('a', newData, newScaleDefs),
+        b: createScale('b', newData, newScaleDefs),
+      };
+      updateScales(interval.scales, newScales);
+
       interval.update({
-        data: [
-          { a: 'A', b: -10 },
-          { a: 'B', b: -12 },
-          { a: 'C', b: -8 },
-        ],
-        scaleDefs: {
-          a: { range: [0.25, 0.75] },
-        },
+        data: newData,
+        scaleDefs: newScaleDefs,
       });
       // 为了观察最终的绘制结果
       interval.paint();
@@ -205,19 +234,28 @@ describe('Interval', () => {
     });
 
     test('yScale max adjust when user define max', () => {
-      interval.update({
-        data: [
-          { a: 'A', b: -10 },
-          { a: 'B', b: -12 },
-          { a: 'C', b: -8 },
-        ],
-        scaleDefs: {
-          a: { range: [0.25, 0.75] },
-          b: {
-            max: 5,
-          },
+      const newData = [
+        { a: 'A', b: -10 },
+        { a: 'B', b: -12 },
+        { a: 'C', b: -8 },
+      ];
+      const newScaleDefs = {
+        a: { range: [0.25, 0.75] },
+        b: {
+          max: 5,
         },
+      };
+      const newScales = {
+        a: createScale('a', newData, newScaleDefs),
+        b: createScale('b', newData, newScaleDefs),
+      };
+      updateScales(interval.scales, newScales);
+
+      interval.update({
+        data: newData,
+        scaleDefs: newScaleDefs,
       });
+
       // 为了观察最终的绘制结果
       interval.paint();
       canvas.draw();
@@ -226,16 +264,24 @@ describe('Interval', () => {
     });
 
     test('yScale will not be adjusted when type is time', () => {
+      const newData = [
+        { a: 'A', b: '2019-10-01' },
+        { a: 'B', b: '2019-10-02' },
+        { a: 'C', b: '2019-10-03' },
+      ];
+      const newScaleDefs = {
+        a: { range: [0.25, 0.75] },
+        b: null,
+      };
+      const newScales = {
+        a: createScale('a', newData, newScaleDefs),
+        b: createScale('b', newData, newScaleDefs),
+      };
+      updateScales(interval.scales, newScales);
+
       interval.update({
-        data: [
-          { a: 'A', b: '2019-10-01' },
-          { a: 'B', b: '2019-10-02' },
-          { a: 'C', b: '2019-10-03' },
-        ],
-        scaleDefs: {
-          a: { range: [0.25, 0.75] },
-          b: null,
-        },
+        data: newData,
+        scaleDefs: newScaleDefs,
       });
 
       const yScale = interval.getYScale();
