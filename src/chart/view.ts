@@ -1220,7 +1220,7 @@ export class View extends Base {
    * 如果存在，则更新，不存在则创建
    */
   private createOrUpdateScales() {
-    const fields = this.getFields();
+    const fields = this.getScaleFields();
     const groupedFields = this.getGroupedFields();
 
     const { data, scales } = this.getOptions();
@@ -1230,8 +1230,8 @@ export class View extends Base {
       const newScale = createScaleByField(
         field,
         // 分组字段的 scale 使用未过滤的数据创建
-        groupedFields.includes(field) ? filteredData : data,
-        get(scales, [field]),
+        groupedFields.includes(field) ? data : filteredData,
+        get(scales, [field])
       );
 
       // 之前已经创建了，那么就直接更新
@@ -1245,16 +1245,16 @@ export class View extends Base {
     });
   }
 
-  private getFields() {
+  private getScaleFields() {
     return this.geometries.reduce((r: string[], geometry: Geometry): string[] => {
-      r.push(...geometry.getFields());
+      r.push(...geometry.getScaleFields());
       return r;
     }, []);
   }
 
   private getGroupedFields() {
     return this.geometries.reduce((r: string[], geometry: Geometry): string[] => {
-      r.push(...geometry.getGroupedFields());
+      r.push(...geometry.getGroupFields());
       return r;
     }, []);
   }

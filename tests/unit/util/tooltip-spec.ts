@@ -7,6 +7,7 @@ import Theme from '../../../src/theme/antv';
 import { findDataByPoint, getTooltipItems } from '../../../src/util/tooltip';
 import { CITY_SALE, DIAMOND } from '../../util/data';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
+import { createScale } from '../../util/scale';
 
 const CartesianCoordinate = getCoordinate('rect');
 
@@ -21,15 +22,23 @@ describe('Tooltip functions', () => {
   });
 
   describe('x is category', () => {
+    const scaleDefs = {
+      city: {
+        range: [0.25, 0.75],
+      },
+    };
+    const scales = {
+      city: createScale('city', CITY_SALE, scaleDefs),
+      sale: createScale('sale', CITY_SALE, scaleDefs),
+      category: createScale('category', CITY_SALE, scaleDefs),
+    };
+
     const interval = new Interval({
       data: CITY_SALE,
       theme: Theme,
       coordinate: rectCoord,
-      scaleDefs: {
-        city: {
-          range: [0.25, 0.75],
-        },
-      },
+      scaleDefs,
+      scales,
       container: canvas.addGroup(),
     });
 
@@ -65,8 +74,15 @@ describe('Tooltip functions', () => {
   });
 
   describe('geometry is point', () => {
+    const scales = {
+      carat: createScale('carat', DIAMOND, {}),
+      price: createScale('price', DIAMOND, {}),
+      cut: createScale('cut', DIAMOND, {}),
+    };
+
     const point = new Point({
       data: DIAMOND,
+      scales,
       theme: Theme,
       coordinate: rectCoord,
       container: canvas.addGroup(),
@@ -88,18 +104,25 @@ describe('Tooltip functions', () => {
   });
 
   describe('x is linear', () => {
+    const DATA = [
+      { year: 1991, value: 15468 },
+      { year: 1992, value: 16100 },
+      { year: 1993, value: 15900 },
+      { year: 1994, value: 20000 },
+      { year: 1995, value: 17000 },
+      { year: 1996, value: 31056 },
+      { year: 1997, value: 31982 },
+      { year: 1998, value: 32040 },
+      { year: 1999, value: 33233 },
+    ];
+    const scales = {
+      year: createScale('year', DATA, {}),
+      value: createScale('value', DATA, {}),
+    };
+
     const line = new Line({
-      data: [
-        { year: 1991, value: 15468 },
-        { year: 1992, value: 16100 },
-        { year: 1993, value: 15900 },
-        { year: 1994, value: 20000 },
-        { year: 1995, value: 17000 },
-        { year: 1996, value: 31056 },
-        { year: 1997, value: 31982 },
-        { year: 1998, value: 32040 },
-        { year: 1999, value: 33233 },
-      ],
+      data: DATA,
+      scales,
       theme: Theme,
       coordinate: rectCoord,
       container: canvas.addGroup(),

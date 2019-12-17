@@ -118,9 +118,10 @@ describe('Interval', () => {
     test('interval.size(20)', () => {
       interval.size(20); // 指定 interval 的宽度
 
-      interval.init({
-        scales, // 需要传入 scales
-      });
+      // 需要传入 scales
+      interval.scales = scales;
+      interval.init();
+
       interval.paint();
 
       expect(interval.defaultSize).toBe(undefined);
@@ -134,9 +135,9 @@ describe('Interval', () => {
       interval.theme.minColumnWidth = 40;
 
       interval.size(null);
-      interval.init({
-        scales, // 需要传入 scales
-      });
+      interval.scales = scales;
+
+      interval.init();
       interval.paint();
 
       canvas.draw();
@@ -151,10 +152,9 @@ describe('Interval', () => {
       interval.clear();
       interval.theme.maxColumnWidth = 10;
       interval.theme.minColumnWidth = null;
+      interval.scales = scales;
 
-      interval.init({
-        scales, // 需要传入 scales
-      });
+      interval.init();
       interval.paint();
 
       canvas.draw();
