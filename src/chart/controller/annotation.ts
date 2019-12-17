@@ -1,4 +1,4 @@
-import { deepMix, each, get, isArray, isFunction, isNil, isString, keys, upperFirst } from '@antv/util';
+import { deepMix, each, filter, get, isArray, isFunction, isNil, isString, keys, upperFirst } from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { Annotation as AnnotationComponent, IGroup, Scale } from '../../dependents';
 import { Point } from '../../interface';
@@ -81,6 +81,12 @@ export default class Annotation extends Controller<BaseOption[]> {
   private foregroundContainer: IGroup;
   private backgroundContainer: IGroup;
 
+  /* 组件更新的 cache，组件配置 object : 组件 */
+  private cache = new Map<BaseOption, ComponentOption>();
+
+  // annotation 不用 components 属性，直接用 cache 存储。
+  protected components = undefined;
+
   constructor(view: View) {
     super(view);
 
@@ -97,7 +103,7 @@ export default class Annotation extends Controller<BaseOption[]> {
   public init() {}
 
   public layout() {
-    each(this.components, (co: ComponentOption) => {
+    each(this.getComponents(), (co: ComponentOption) => {
       const { component, extra } = co;
       const { type } = extra;
       const theme = this.getAnnotationTheme(type);
@@ -108,31 +114,77 @@ export default class Annotation extends Controller<BaseOption[]> {
 
   public render() {
     each(this.option, (option: BaseOption) => {
-      const { type } = option;
-      const theme = this.getAnnotationTheme(type);
-
-      const Ctor = AnnotationComponent[upperFirst(type)];
-      if (Ctor) {
-        const cfg = this.getAnnotationCfg(type, option, theme);
-        const annotation = new Ctor(cfg);
-
-        annotation.render();
-
-        this.components.push({
-          component: annotation,
-          layer: this.isTop(cfg) ? LAYER.FORE : LAYER.BG,
-          direction: DIRECTION.NONE,
-          type: COMPONENT_TYPE.ANNOTATION,
-          extra: option,
-        });
+      const co = this.createAnnotation(option);
+      if (co) {
+        co.component.render();
+        // 缓存起来
+        this.cache.set(option, co);
       }
     });
   }
 
+  /**
+   * 更新
+   */
   public update() {
-    // TODO
+    // 已经处理过的 legend
+    const updated = new WeakMap<BaseOption, true>();
+
+    each(this.option, (option: BaseOption) => {
+      const { type } = option;
+      const theme = this.getAnnotationTheme(type);
+      const cfg = this.getAnnotationCfg(type, option, theme);
+
+      const existCo = this.cache.get(option);
+
+      // 存在，则更新
+      if (existCo) {
+        // 忽略掉一些配置
+        ['container'].forEach((key: string) => {
+          delete cfg[key];
+        });
+
+        existCo.component.update(cfg);
+        updated.set(option, true);
+      } else {
+        // 不存在，则创建
+        const co = this.createAnnotation(option);
+        if (co) {
+          co.component.render();
+          // 缓存起来
+          this.cache.set(option, co);
+          updated.set(option, true);
+        }
+      }
+    });
+
+    // 处理完成之后，销毁删除的
+    // 不在处理中的
+    const deleted: ComponentOption[] = [];
+    const newCache = new Map<BaseOption, ComponentOption>();
+
+    this.cache.forEach((value: ComponentOption, key: BaseOption) => {
+      if (updated.has(key)) {
+        newCache.set(key, value);
+      } else {
+        // 不存在，则是所有需要被销毁的组件
+        deleted.push(value);
+      }
+    });
+
+    // 更新缓存
+    this.cache = newCache;
+
+    // 销毁
+    each(deleted, (co: ComponentOption) => {
+      co.component.destroy();
+    });
   }
 
+  /**
+   * 清空
+   * @param includeOption 是否清空 option 配置项
+   */
   public clear(includeOption = false) {
     super.clear();
 
@@ -150,6 +202,38 @@ export default class Annotation extends Controller<BaseOption[]> {
 
     this.foregroundContainer.remove(true);
     this.backgroundContainer.remove(true);
+  }
+
+  /**
+   * 复写基类的方法
+   */
+  public getComponents(): ComponentOption[] {
+    const co = [];
+
+    this.cache.forEach((value: ComponentOption) => {
+      co.push(value);
+    });
+
+    return co;
+  }
+
+  private createAnnotation(option: BaseOption) {
+    const { type } = option;
+
+    const Ctor = AnnotationComponent[upperFirst(type)];
+    if (Ctor) {
+      const theme = this.getAnnotationTheme(type);
+      const cfg = this.getAnnotationCfg(type, option, theme);
+      const annotation = new Ctor(cfg);
+
+      return {
+        component: annotation,
+        layer: this.isTop(cfg) ? LAYER.FORE : LAYER.BG,
+        direction: DIRECTION.NONE,
+        type: COMPONENT_TYPE.ANNOTATION,
+        extra: option,
+      };
+    }
   }
 
   // APIs for creating annotation component

@@ -365,4 +365,20 @@ export default class Legend extends Controller<Option> {
 
     return deepMix({}, themeObject, baseCfg, legendOption);
   }
+
+  /**
+   * 生成 id
+   * @param key
+   */
+  private getId(key: string): string {
+    return `${this.name}-${key}`;
+  }
+
+  /**
+   * 根据 id 来获取组件
+   * @param id
+   */
+  private getComponentById(id: string): ComponentOption {
+    return find(this.components, (co) => co.id === id);
+  }
 }

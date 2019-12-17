@@ -100,20 +100,4 @@ export abstract class Controller<O = unknown> {
     });
     this.visible = visible;
   }
-
-  /**
-   * 生成 id
-   * @param key
-   */
-  protected getId(key: string): string {
-    return `${this.name}-${key}`;
-  }
-
-  /**
-   * 根据 id 来获取组件
-   * @param id
-   */
-  protected getComponentById(id: string): ComponentOption {
-    return find(this.components, (co) => co.id === id);
-  }
 }
