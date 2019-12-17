@@ -1598,11 +1598,23 @@ export default class Geometry extends Base {
    * 获取当前配置中的所有分组 & 分类的字段
    * @return fields string[]
    */
-  private getGroupedFields(): string[] {
+  public getGroupedFields(): string[] {
     const fields = [];
     each(GROUP_ATTRS, (attributeName: string) => {
       const cfg = this.attributeOption[attributeName];
       fields.push(...get(cfg, 'fields', []));
+    });
+
+    return uniq(fields);
+  }
+
+  /**
+   * 获取 Geometry 中的所有字段
+   */
+  public getFields(): string[] {
+    const fields = [];
+    each(this.attributeOption, (attributeName: string, option: AttributeOption) => {
+      fields.push(...get(option, 'fields', []));
     });
 
     return uniq(fields);

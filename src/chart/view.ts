@@ -50,6 +50,7 @@ import {
   ViewOption,
 } from './interface';
 import defaultLayout, { Layout } from './layout';
+import { createScaleByField, syncScale } from '../util/scale';
 
 /**
  * view container of G2
@@ -1190,6 +1191,8 @@ export class View extends Base {
    * @private
    */
   private initGeometries(isUpdate: boolean) {
+    // 初始化图形的之前，先创建 / 更新 scales
+    this.createOrUpdateScales();
     // 实例化 Geometry，然后 view 将所有的 scale 管理起来
     each(this.geometries, (geometry: Geometry) => {
       // 保持 scales 引用不要变化
@@ -1198,7 +1201,6 @@ export class View extends Base {
         coordinate: this.getCoordinate(), // 使用 coordinate 引用，可以保持 coordinate 的同步更新
         scaleDefs: get(this.options, 'scales', {}),
         data: this.filteredData,
-        originalData: this.options.data, // filter 之前的数据
         theme: this.themeObject,
       };
       if (isUpdate) {
@@ -1211,6 +1213,50 @@ export class View extends Base {
 
     // Geometry 初始化之后，生成了 scale，然后进行调整 scale 配置
     this.adjustScales();
+  }
+
+  /**
+   * 根据 Geometry 的所有字段创建 scales
+   * 如果存在，则更新，不存在则创建
+   */
+  private createOrUpdateScales() {
+    const fields = this.getFields();
+    const groupedFields = this.getGroupedFields();
+
+    const { data, scales } = this.getOptions();
+    const filteredData = this.filteredData;
+
+    each(fields, (field: string) => {
+      const newScale = createScaleByField(
+        field,
+        // 分组字段的 scale 使用未过滤的数据创建
+        groupedFields.includes(field) ? filteredData : data,
+        get(scales, [field]),
+      );
+
+      // 之前已经创建了，那么就直接更新
+      if (this.scales[field]) {
+        syncScale(this.scales[field], newScale);
+      } else {
+        // scale 之前没有创建过，那么就创建新的
+        // 创建并缓存到 this.scales 中
+        this.scales[field] = newScale;
+      }
+    });
+  }
+
+  private getFields() {
+    return this.geometries.reduce((r: string[], geometry: Geometry): string[] => {
+      r.push(...geometry.getFields());
+      return r;
+    }, []);
+  }
+
+  private getGroupedFields() {
+    return this.geometries.reduce((r: string[], geometry: Geometry): string[] => {
+      r.push(...geometry.getGroupedFields());
+      return r;
+    }, []);
   }
 
   /**
