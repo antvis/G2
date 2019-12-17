@@ -1,9 +1,10 @@
 import { Chart } from '../../../src/';
 import { COMPONENT_TYPE } from '../../../src/constant';
-import { CITY_SALE } from '../../util/data';
+import { GroupComponent, GroupComponentCfg } from '../../../src/dependents';
+import { CITY_SALE, DIAMOND } from '../../util/data';
 import { createDiv } from '../../util/dom';
 
-describe('Component', () => {
+describe('Legend category', () => {
   const div = createDiv();
 
   const chart = new Chart({
@@ -57,5 +58,86 @@ describe('Component', () => {
 
     // right
     expect(x).toBeGreaterThan(700);
+  });
+});
+
+describe('Legend category navigation', () => {
+  const div = createDiv();
+  const legendId = '';
+
+  const chart = new Chart({
+    container: div,
+    width: 400,
+    height: 400,
+    padding: 16,
+    autoFit: false,
+  });
+
+  chart.data(DIAMOND);
+
+  chart
+    .interval()
+    .position('cut*price')
+    .color('clarity')
+    .adjust({ type: 'dodge' });
+
+  it('navigation horizontal', () => {
+    chart.legend('clarity', {
+      position: 'bottom',
+      flipPage: true,
+    });
+    chart.render();
+
+    const legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
+    const legend = legends[0].component as GroupComponent<GroupComponentCfg>;
+    const navigation = legend.getElementById(`${legendId}-legend-navigation-group`);
+    const children = navigation ? navigation.getChildren() : [];
+
+    expect(legends.length).toBe(1);
+    expect(children).toHaveLength(3);
+
+    // left arrow: /\
+    expect(children[0].get('type')).toBe('path');
+    expect(children[0].attr('matrix')).toBeNull();
+
+    // text
+    expect(children[1].get('type')).toBe('text');
+    expect(children[1].attr('text')).toEqual('1/2');
+  });
+
+  it('navigation off', () => {
+    chart.legend('clarity', {
+      position: 'bottom',
+      flipPage: false,
+    });
+    chart.render();
+
+    const legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
+    const legend = legends[0].component as GroupComponent<GroupComponentCfg>;
+    const navigation = legend.getElementById(`${legendId}-legend-navigation-group`);
+
+    expect(navigation).toBeUndefined();
+  });
+
+  it('navigation vertical', () => {
+    chart.legend('clarity', {
+      position: 'right',
+      flipPage: true,
+      maxHeight: 80,
+    });
+    chart.render(true);
+
+    const legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
+    const legend = legends[0].component as GroupComponent<GroupComponentCfg>;
+    const navigation = legend.getElementById(`${legendId}-legend-navigation-group`);
+
+    const children = navigation ? navigation.getChildren() : [];
+
+    expect(legends.length).toBe(1);
+    expect(children).toHaveLength(3);
+
+    // text
+    expect(children[1].get('type')).toBe('text');
+    expect(children[1].attr('text')).toEqual('1/3');
   });
 });
