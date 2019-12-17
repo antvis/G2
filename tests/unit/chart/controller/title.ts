@@ -45,7 +45,6 @@ export class Title extends Controller<TitleOption> {
   public render() {
     this.option = this.view.getOptions().title;
 
-    console.log('render title');
     // 没有配置，则不处理
     if (!this.option) {
       return;
@@ -56,8 +55,6 @@ export class Title extends Controller<TitleOption> {
 
   public update() {
     this.option = this.view.getOptions().title;
-
-    console.log('update title');
 
     each(this.getComponents(), (co: ComponentOption) => {
       const { component } = co;
