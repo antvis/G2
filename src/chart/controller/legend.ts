@@ -1,6 +1,6 @@
-import { deepMix, each, find, get, head, isBoolean, last, map, uniq } from '@antv/util';
+import { deepMix, each, filter, find, get, head, isBoolean, last, map, uniq } from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
-import { Attribute, CategoryLegend, ContinuousLegend, IGroup, Scale, Tick } from '../../dependents';
+import { Attribute, CategoryLegend, ContinuousLegend, GroupComponent, IGroup, Scale, Tick } from '../../dependents';
 import Geometry from '../../geometry/base';
 import { BBox } from '../../util/bbox';
 import { directionToPosition } from '../../util/direction';
@@ -10,6 +10,8 @@ import View from '../view';
 import { Controller } from './base';
 
 type Option = Record<string, LegendOption> | boolean;
+
+type DoEach = (geometry: Geometry, attr: Attribute, scale: Scale) => void;
 
 /**
  * 从配置中获取单个字段的 legend 配置
@@ -23,6 +25,10 @@ function getLegendOption(legends: Record<string, LegendOption> | boolean, field:
   }
 
   return get(legends, [field], legends);
+}
+
+function getDirection(legendOption: any): DIRECTION {
+  return get(legendOption, 'position', DIRECTION.BOTTOM);
 }
 
 /**
@@ -49,7 +55,18 @@ export default class Legend extends Controller<Option> {
    */
   public render() {
     this.option = this.view.getOptions().legends;
-    this.components.push(...this.createLegends());
+
+    const doEachLegend = (geometry: Geometry, attr: Attribute, scale: Scale) => {
+      const legend = this.createLegend(geometry, attr, scale);
+
+      if (legend) {
+        (legend.component as GroupComponent).render();
+        this.components.push(legend);
+      }
+    };
+
+    // 遍历处理每一个创建逻辑
+    this.loopLegends(doEachLegend);
   }
 
   /**
@@ -71,8 +88,75 @@ export default class Legend extends Controller<Option> {
     });
   }
 
+  /**
+   * legend 的更新逻辑
+   */
   public update() {
-    // TODO
+    this.option = this.view.getOptions().legends;
+
+    // 已经处理过的 legend
+    const updated: Record<string, true> = {};
+
+    const eachLegend = (geometry: Geometry, attr: Attribute, scale: Scale) => {
+      const id = this.getId(scale.field);
+
+      const existCo = this.getComponentById(id);
+
+      // 存在则 update
+      if (existCo) {
+        let cfg;
+        const legendOption = getLegendOption(this.option, scale.field);
+
+        // if the legend option is not false, means legend should be created.
+        if (legendOption !== false) {
+          if (scale.isLinear) {
+            // linear field, create continuous legend
+            cfg = this.getContinuousCfg(geometry, attr, scale, legendOption);
+          } else if (scale.isCategory) {
+            // category field, create category legend
+            cfg = this.getCategoryCfg(geometry, attr, scale, legendOption);
+          }
+        }
+
+        // 如果 cfg 为空，则不在 updated 标记，那么会在后面逻辑中删除
+        if (cfg) {
+          // omit 掉一些属性，比如 container 等
+          ['container'].forEach((key: string) => {
+            delete cfg[key];
+          });
+
+          existCo.direction = getDirection(legendOption);
+
+          existCo.component.update(cfg);
+
+          // 标记为新的
+          updated[id] = true;
+        }
+      } else {
+        // 不存在则 create
+        const legend = this.createLegend(geometry, attr, scale);
+
+        if (legend) {
+          (legend.component as GroupComponent).render();
+          this.components.push(legend);
+
+          // 标记为新的
+          updated[id] = true;
+        }
+      }
+    };
+
+    this.loopLegends(eachLegend);
+
+    // 处理完成之后，销毁删除的
+    // 不在处理中的
+    const deleted = filter(this.getComponents(), (co: ComponentOption) => !updated[co.id]);
+    // 更新 components
+    this.components = filter(this.getComponents(), (co: ComponentOption) => updated[co.id]);
+    // 销毁
+    each(deleted, (co: ComponentOption) => {
+      co.component.destroy();
+    });
   }
 
   public clear() {
@@ -87,12 +171,13 @@ export default class Legend extends Controller<Option> {
     this.container.remove(true);
   }
 
-  private createLegends() {
-    const legendArray: ComponentOption[] = [];
-
+  /**
+   * 遍历 Geometry，处理 legend 逻辑
+   * @param doEach 每个 loop 中的处理方法
+   */
+  private loopLegends(doEach: DoEach) {
     const geometries = uniq(this.view.geometries);
-
-    const legendMap: Record<string, any> = {};
+    const looped: Record<string, true> = {}; // 防止一个字段创建两个 legend
 
     each(geometries, (geometry: Geometry) => {
       const attributes = geometry.getGroupAttributes();
@@ -100,48 +185,65 @@ export default class Legend extends Controller<Option> {
       each(attributes, (attr: Attribute) => {
         const scale = attr.getScale(attr.type);
         // 如果在视觉通道上映射常量值，如 size(2) shape('circle') 不创建 legend
-        if (!scale || scale.type === 'identity') {
+        if (!scale || scale.type === 'identity' || looped[scale.field]) {
           return;
         }
 
-        const legendOption = getLegendOption(this.option, scale.field);
+        doEach(geometry, attr, scale);
 
-        // if the legend option is not false, means legend should be created.
-        let legend;
-        if (legendOption !== false && !legendMap[scale.field]) {
-          if (scale.isLinear) {
-            // linear field, create continuous legend
-            legend = this.createContinuousLegend(geometry, attr, scale, legendOption);
-          } else if (scale.isCategory) {
-            // category field, create category legend
-            legend = this.createCategoryLegend(geometry, attr, scale, legendOption);
-          }
-        }
-
-        if (legend) {
-          legend.component.render();
-          legendMap[scale.field] = legend;
-          legendArray.push(legend);
-        }
+        looped[scale.field] = true;
       });
     });
-
-    return legendArray;
   }
 
   /**
-   * create continuous legend(color, size)
+   * 创建一个 legend
+   * @param geometry
+   * @param attr
+   * @param scale
+   */
+  private createLegend(geometry: Geometry, attr: Attribute, scale: Scale): ComponentOption {
+    let component;
+
+    const legendOption = getLegendOption(this.option, scale.field);
+    const layer = LAYER.FORE;
+    const direction = getDirection(legendOption);
+
+    // if the legend option is not false, means legend should be created.
+    if (legendOption !== false) {
+      if (scale.isLinear) {
+        // linear field, create continuous legend
+        const cfg = this.getContinuousCfg(geometry, attr, scale, legendOption);
+        component = new ContinuousLegend(cfg);
+      } else if (scale.isCategory) {
+        // category field, create category legend
+        const cfg = this.getCategoryCfg(geometry, attr, scale, legendOption);
+        component = new CategoryLegend(cfg);
+      }
+    }
+
+    if (component) {
+      component.set('field', scale.field);
+
+      return {
+        id: this.getId(scale.field),
+        component,
+        layer,
+        direction,
+        type: COMPONENT_TYPE.LEGEND,
+        extra: { scale },
+      };
+    }
+  }
+
+  /**
+   * 获得连续图例的配置
    * @param geometry
    * @param attr
    * @param scale
    * @param legendOption
    */
-  private createContinuousLegend(
-    geometry: Geometry,
-    attr: Attribute,
-    scale: Scale,
-    legendOption: any
-  ): ComponentOption {
+  private getContinuousCfg(geometry: Geometry, attr: Attribute, scale: Scale, legendOption: any): object {
     const ticks = scale.getTicks();
 
     const containMin = find(ticks, (tick: Tick) => tick.value === 0);
@@ -210,10 +312,9 @@ export default class Legend extends Controller<Option> {
       };
     }
 
-    const layer = LAYER.FORE;
     const container = this.container;
     // if position is not set, use top as default
-    const direction = get(legendOption, 'position', DIRECTION.BOTTOM);
+    const direction = getDirection(legendOption);
 
     const layout = getLegendLayout(direction);
 
@@ -225,28 +326,17 @@ export default class Legend extends Controller<Option> {
     };
 
     // @ts-ignore
-    const cfg = this.getLegendCfg(baseCfg, legendOption, 'continuous');
-
-    const component = new ContinuousLegend(cfg);
-    component.set('field', scale.field);
-    return {
-      component,
-      layer,
-      direction,
-      type: COMPONENT_TYPE.LEGEND,
-    };
+    return this.mergeLegendCfg(baseCfg, legendOption, 'continuous');
   }
 
   /**
-   * create a category legend
+   * 获取分类图例的配置项
    * @param geometry
    * @param attr
    * @param scale
    * @param legendOption
-   * @returns void
    */
-  private createCategoryLegend(geometry: Geometry, attr: Attribute, scale: Scale, legendOption: any): ComponentOption {
-    const layer = LAYER.FORE;
+  private getCategoryCfg(geometry: Geometry, attr: Attribute, scale: Scale, legendOption: any): object {
     const container = this.container;
     // if position is not set, use top as default
     const direction = get(legendOption, 'position', DIRECTION.BOTTOM);
@@ -261,17 +351,7 @@ export default class Legend extends Controller<Option> {
       items: getLegendItems(this.view, geometry, attr, themeMarker, userMarker),
     };
 
-    const component = new CategoryLegend(this.getLegendCfg(baseCfg, legendOption, direction));
-    component.set('field', scale.field);
-    component.render();
-
-    return {
-      component,
-      layer,
-      direction,
-      type: COMPONENT_TYPE.LEGEND,
-      extra: { scale },
-    };
+    return this.mergeLegendCfg(baseCfg, legendOption, direction);
   }
 
   /**
@@ -280,7 +360,7 @@ export default class Legend extends Controller<Option> {
    * @param legendOption
    * @param direction
    */
-  private getLegendCfg(baseCfg: object, legendOption: LegendOption, direction: DIRECTION) {
+  private mergeLegendCfg(baseCfg: object, legendOption: LegendOption, direction: DIRECTION) {
     const themeObject = get(this.view.getTheme(), ['components', 'legend', direction], {});
 
     return deepMix({}, themeObject, baseCfg, legendOption);
