@@ -272,14 +272,17 @@ export default class GeometryLabels {
   private getLabelCfgs(mapppingArray: MappingDatum[]): LabelCfg[] {
     const geometry = this.geometry;
     const defaultLabelCfg = this.defaultLabelCfg;
-    const { type, theme, labelOption } = geometry;
+    const { type, theme, labelOption, scales } = geometry;
     const { fields, callback, cfg } = labelOption as LabelOption;
-    const scales = map(fields, (field: string) => geometry.createScale(field));
+
+    const labelScales = fields.map((field: string) => {
+      return scales[field];
+    });
 
     const labelCfgs: LabelCfg[] = [];
     each(mapppingArray, (mappingData: MappingDatum, index: number) => {
       const origin = mappingData[FIELD_ORIGIN]; // 原始数据
-      const originText = this.getLabelText(origin, scales);
+      const originText = this.getLabelText(origin, labelScales);
       let callbackCfg;
       if (callback) {
         // 当同时配置了 callback 和 cfg 时，以 callback 为准
