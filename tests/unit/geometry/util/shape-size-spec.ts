@@ -6,11 +6,11 @@ import Theme from '../../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../../util/dom';
 
 import 'jest-extended';
+import { createScale } from '../../../util/scale';
 
 const CartesianCoordinate = getCoordinate('rect');
 const PolarCoordinate = getCoordinate('polar');
 
-const LinearScale = getScale('linear');
 const CatScale = getScale('cat');
 const IdentityScale = getScale('identity');
 
@@ -29,8 +29,14 @@ describe('Calculate shape size', () => {
   });
 
   describe('Column chart', () => {
+    const data = [{ a: 'A', b: 10 }, { a: 'B', b: 12 }, { a: 'C', b: 8 }];
+    const scales = {
+      a: createScale('a', data),
+      b: createScale('b', data),
+    };
     let interval = new Interval({
-      data: [{ a: 'A', b: 10 }, { a: 'B', b: 12 }, { a: 'C', b: 8 }],
+      data,
+      scales,
       coordinate: rectCoord,
       container: canvas.addGroup(),
       theme: {
@@ -72,17 +78,24 @@ describe('Calculate shape size', () => {
 
     test('xScale is linear and min and max defined', () => {
       // 实际个数比 ((max - min) / 最小区间) 小
+      const data1 = [{ a: 3, b: 23 }, { a: 4, b: 15 }, { a: 6, b: 9 }];
+      const scaleDefs1 = {
+        a: {
+          min: 0,
+          max: 10,
+          nice: false,
+        },
+      };
+      const scales1 = {
+        a: createScale('a', data1, scaleDefs1),
+        b: createScale('b', data1, scaleDefs1),
+      };
       interval = new Interval({
-        data: [{ a: 3, b: 23 }, { a: 4, b: 15 }, { a: 6, b: 9 }],
+        data: data1,
+        scales: scales1,
         coordinate: rectCoord,
         container: canvas.addGroup(),
-        scaleDefs: {
-          a: {
-            min: 0,
-            max: 10,
-            nice: false,
-          },
-        },
+        scaleDefs: scaleDefs1,
         theme: Theme,
       });
       interval.position('a*b');
@@ -93,19 +106,26 @@ describe('Calculate shape size', () => {
       const normalizedSize = getDefaultSize(interval);
       expect(normalizedSize).toBe(0.05);
 
+      const data2 = [{ a: 2, b: 15 }, { a: 6, b: 9 }];
+      const scaleDefs = {
+        a: {
+          min: 2,
+          max: 7,
+          nice: false,
+          range: [0.25, 0.75],
+        },
+      };
+      const scales2 = {
+        a: createScale('a', data2, scaleDefs),
+        b: createScale('b', data2, scaleDefs),
+      };
       // 实际个数比 ((max - min) / 最小区间) 大
       interval = new Interval({
-        data: [{ a: 2, b: 15 }, { a: 6, b: 9 }],
+        data: data2,
+        scales: scales2,
         coordinate: rectCoord,
         container: canvas.addGroup(),
-        scaleDefs: {
-          a: {
-            min: 2,
-            max: 7,
-            nice: false,
-            range: [0.25, 0.75],
-          },
-        },
+        scaleDefs,
         theme: Theme,
       });
       interval.position('a*b');
@@ -125,21 +145,29 @@ describe('Calculate shape size', () => {
   });
 
   describe('Group Column Chart.', () => {
+    const data = [
+      { a: '1', b: 2, c: '1' },
+      { a: '2', b: 5, c: '1' },
+      { a: '3', b: 4, c: '1' },
+      { a: '1', b: 3, c: '2' },
+      { a: '2', b: 1, c: '2' },
+      { a: '3', b: 2, c: '2' },
+    ];
+    const scaleDefs = {
+      a: {
+        range: [0.2, 0.8],
+      },
+    };
+    const scales = {
+      a: createScale('a', data, scaleDefs),
+      b: createScale('b', data, scaleDefs),
+      c: createScale('c', data, scaleDefs),
+    };
     const interval = new Interval({
       coordinate: rectCoord,
-      data: [
-        { a: '1', b: 2, c: '1' },
-        { a: '2', b: 5, c: '1' },
-        { a: '3', b: 4, c: '1' },
-        { a: '1', b: 3, c: '2' },
-        { a: '2', b: 1, c: '2' },
-        { a: '3', b: 2, c: '2' },
-      ],
-      scaleDefs: {
-        a: {
-          range: [0.2, 0.8],
-        },
-      },
+      data,
+      scales,
+      scaleDefs,
       container: canvas.addGroup(),
       theme: Theme,
     });
@@ -163,7 +191,7 @@ describe('Calculate shape size', () => {
         type: 'dodge',
         dodgeBy: 'a',
       });
-
+      interval.scales = scales;
       interval.init();
       const normalizedSize = getDefaultSize(interval);
       expect(normalizedSize).toBe(1 / 18);
@@ -176,16 +204,22 @@ describe('Calculate shape size', () => {
 
   describe('Interval in polar coordinate', () => {
     const data = [{ a: '1', b: 2, c: '1' }, { a: '2', b: 5, c: '1' }, { a: '3', b: 4, c: '1' }];
+    const scaleDefs = {
+      a: {
+        range: [1 / 6, 1 - 1 / 6],
+      },
+    };
+    const scales = {
+      a: createScale('a', data, scaleDefs),
+      b: createScale('b', data, scaleDefs),
+    };
     let interval = new Interval({
       data,
       coordinate: polarCoord,
       container: canvas.addGroup(),
       theme: Theme,
-      scaleDefs: {
-        a: {
-          range: [1 / 6, 1 - 1 / 6],
-        },
-      },
+      scaleDefs,
+      scales,
     });
     interval.position('a*b');
     interval.init();
@@ -216,13 +250,17 @@ describe('Calculate shape size', () => {
         values: [1],
         range: [0.5, 1],
       });
+      const pieData = [{ a: '1', percent: 0.2 }, { a: '2', percent: 0.5 }, { a: '3', percent: 0.3 }];
+      const pieScales = {
+        percent: createScale('percent', pieData, pieData),
+        a: createScale('a', pieData, pieData),
+        '1': identityScale,
+      };
       interval = new Interval({
-        data: [{ a: '1', percent: 0.2 }, { a: '2', percent: 0.5 }, { a: '3', percent: 0.3 }],
+        data: pieData,
+        scales: pieScales,
         coordinate: thetaCoord,
         container: canvas.addGroup(),
-        scales: {
-          1: identityScale,
-        },
         theme: Theme,
       });
       interval
@@ -237,23 +275,31 @@ describe('Calculate shape size', () => {
     });
 
     test('polar dodge interval', () => {
+      const data1 = [
+        { a: '1', b: 2, c: '1' },
+        { a: '2', b: 5, c: '1' },
+        { a: '3', b: 4, c: '1' },
+        { a: '1', b: 3, c: '2' },
+        { a: '2', b: 1, c: '2' },
+        { a: '3', b: 2, c: '2' },
+      ];
+      const scaleDefs1 = {
+        a: {
+          range: [0, 1 - 1 / 3],
+        },
+      };
+      const scales1 = {
+        a: createScale('a', data1, scaleDefs1),
+        b: createScale('b', data1, scaleDefs1),
+        c: createScale('c', data1, scaleDefs1),
+      };
       interval = new Interval({
-        data: [
-          { a: '1', b: 2, c: '1' },
-          { a: '2', b: 5, c: '1' },
-          { a: '3', b: 4, c: '1' },
-          { a: '1', b: 3, c: '2' },
-          { a: '2', b: 1, c: '2' },
-          { a: '3', b: 2, c: '2' },
-        ],
+        data: data1,
         coordinate: polarCoord,
         container: canvas.addGroup(),
         theme: Theme,
-        scaleDefs: {
-          a: {
-            range: [0, 1 - 1 / 3],
-          },
-        },
+        scaleDefs: scaleDefs1,
+        scales: scales1,
       });
       interval
         .position({
@@ -280,19 +326,24 @@ describe('Calculate shape size', () => {
       });
       polarCoord.isTransposed = true;
 
+      const data1 = [
+        { a: '1', b: 2, c: '1' },
+        { a: '2', b: 5, c: '1' },
+        { a: '3', b: 4, c: '1' },
+        { a: '1', b: 3, c: '2' },
+        { a: '2', b: 1, c: '2' },
+        { a: '3', b: 2, c: '2' },
+      ];
+      const scales1 = {
+        a: aScale,
+        b: createScale('b', data1),
+        c: createScale('c', data1),
+      };
+
       interval = new Interval({
-        data: [
-          { a: '1', b: 2, c: '1' },
-          { a: '2', b: 5, c: '1' },
-          { a: '3', b: 4, c: '1' },
-          { a: '1', b: 3, c: '2' },
-          { a: '2', b: 1, c: '2' },
-          { a: '3', b: 2, c: '2' },
-        ],
+        data: data1,
         coordinate: polarCoord,
-        scales: {
-          a: aScale,
-        },
+        scales: scales1,
         container: canvas.addGroup(),
         theme: Theme,
       });
