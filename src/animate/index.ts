@@ -1,8 +1,8 @@
 import { deepMix, get, isFunction } from '@antv/util';
 import { Coordinate, IGroup, IShape } from '../dependents';
-import { Data, Datum, Point } from '../interface';
+import { AnimateCfg, Data, Datum, Point } from '../interface';
 import { getAnimation } from './animation';
-import { AnimateCfg, AnimateExtraCfg } from './interface';
+import { AnimateCfg as ParsedAnimateCfg, AnimateExtraCfg } from './interface';
 
 // 默认的动画参数配置
 const DEFAULT_ANIMATE_CFG = {
@@ -35,7 +35,7 @@ const GEOMETRY_ANIMATE_CFG = {
             ? 'scaleInX'
             : 'scaleInY'
           : coordinate.isPolar && coordinate.isTransposed
-          ? null
+          ? 'fadeIn'
           : 'zoomIn',
       },
       update: {
@@ -142,7 +142,7 @@ const GEOMETRY_GROUP_APPEAR_ANIMATION = {
 };
 
 // 解析用户的动画配置
-function getAnimateConfig(animateCfg: AnimateCfg, data: Data | Datum) {
+function getAnimateConfig(animateCfg: AnimateCfg, data: Data | Datum): ParsedAnimateCfg {
   return {
     delay: isFunction(animateCfg.delay) ? animateCfg.delay(data) : animateCfg.delay,
     easing: isFunction(animateCfg.easing) ? animateCfg.easing(data) : animateCfg.easing,
@@ -165,12 +165,15 @@ export function getDefaultAnimateCfg(elementName: string, coordinate: Coordinate
       animateCfg = animateCfg(coordinate);
     }
 
-    if (animateType && animateCfg[animateType]) {
+    if (animateType) {
       // 如果需要获取特定动画类型的配置
-      return {
-        ...DEFAULT_ANIMATE_CFG[animateType],
-        ...animateCfg[animateType],
-      };
+      if (animateCfg[animateType]) {
+        return {
+          ...DEFAULT_ANIMATE_CFG[animateType],
+          ...animateCfg[animateType],
+        };
+      }
+      return animateCfg[animateType];
     }
     // 返回完整的动画配置
     return deepMix({}, DEFAULT_ANIMATE_CFG, animateCfg);
@@ -183,8 +186,7 @@ export function getDefaultAnimateCfg(elementName: string, coordinate: Coordinate
  * 根据用户传入的配置为 shape 执行动画
  * @param shape 执行动画的图形元素
  * @param animateCfg 动画配置
- * @param coordinate 当前坐标系
- * @param [toAttrs] shape 最终状态的图形属性
+ * @param cfg 额外的信息
  */
 export function doAnimate(shape: IGroup | IShape, animateCfg: AnimateCfg, cfg: AnimateExtraCfg) {
   const { data } = shape.get('origin');
@@ -210,7 +212,7 @@ export function doAnimate(shape: IGroup | IShape, animateCfg: AnimateCfg, cfg: A
  * @param coordinate 坐标系对象
  * @param minYPoint y 轴最小值对应的画布坐标点
  */
-export function doGroupAnimate(
+export function doGroupAppearAnimate(
   container: IGroup,
   animateCfg: AnimateCfg,
   geometryType: string,
