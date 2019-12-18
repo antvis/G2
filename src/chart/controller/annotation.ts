@@ -160,7 +160,6 @@ export default class Annotation extends Controller<BaseOption[]> {
 
     // 处理完成之后，销毁删除的
     // 不在处理中的
-    const deleted: ComponentOption[] = [];
     const newCache = new Map<BaseOption, ComponentOption>();
 
     this.cache.forEach((value: ComponentOption, key: BaseOption) => {
@@ -168,17 +167,12 @@ export default class Annotation extends Controller<BaseOption[]> {
         newCache.set(key, value);
       } else {
         // 不存在，则是所有需要被销毁的组件
-        deleted.push(value);
+        value.component.destroy();
       }
     });
 
     // 更新缓存
     this.cache = newCache;
-
-    // 销毁
-    each(deleted, (co: ComponentOption) => {
-      co.component.destroy();
-    });
   }
 
   /**
