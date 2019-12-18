@@ -1,4 +1,4 @@
-import { get } from '@antv/util';
+import { get, isEmpty } from '@antv/util';
 import { FIELD_ORIGIN } from '../constant';
 import { Data, Datum, MappingDatum, Point, RangePoint, ShapeInfo } from '../interface';
 import Geometry, { GeometryCfg } from './base';
@@ -33,10 +33,9 @@ export default class Path extends Geometry {
 
     let result = lastElementsMap[elementId];
     if (!result) {
+      const animateType = isEmpty(this.lastElementsMap) ? 'appear' : 'enter';
       const shapeFactory = this.getShapeFactory();
       result = new Element({
-        data: shapeCfg.data,
-        model: shapeCfg,
         shapeType: shapeCfg.shape || shapeFactory.defaultShapeType,
         theme: get(theme, ['geometries', this.shapeType], {}),
         shapeFactory,
@@ -45,9 +44,10 @@ export default class Path extends Geometry {
         offscreenGroup: this.getOffscreenGroup(container),
       });
       result.geometry = this;
+      result.draw(shapeCfg, animateType); // 绘制 shape
     } else {
       // element 已经创建
-      const preShapeCfg = result.model;
+      const preShapeCfg = result.getModel();
       if (isModelChange(preShapeCfg, shapeCfg)) {
         // 更新动画配置，用户有可能在更新之前有对动画进行配置操作
         result.animate = this.animateOption;

@@ -1,16 +1,12 @@
 import { each, get, isEmpty } from '@antv/util';
+import { doAnimate, getDefaultAnimateCfg } from '../../animate';
 import Base from '../../base';
 import { BBox, IGroup, IShape } from '../../dependents';
 import { AnimateOption, Datum, LooseObject, ShapeFactory, ShapeInfo } from '../../interface';
 import { getReplaceAttrs } from '../../util/graphics';
-import { doAnimate, getDefaultAnimateCfg } from '../animate';
 import Geometry from '../base';
 
 interface ElementCfg {
-  /** 原始数据 */
-  data?: Datum;
-  /** 映射后的绘图数据 */
-  model?: ShapeInfo;
   /** 绘制的 shape 类型 */
   shapeType: string;
   /** 用于创建各种 shape 的工厂对象 */
@@ -32,25 +28,27 @@ interface ElementCfg {
 export default class Element extends Base {
   /** 绘制的 shape 类型 */
   public readonly shapeType: string;
-  /** 原始数据 */
-  public data: Datum;
-  /** shape 绘制需要的数据 */
-  public model: ShapeInfo;
   /** 用于创建各种 shape 的工厂对象 */
   public shapeFactory: ShapeFactory;
   /** 主题 */
   public theme: LooseObject;
   /** shape 容器 */
   public container: IGroup;
-  /** 最后创建的图形对象 todo: 重命名，因为有可能是 Group */
+  /** 最后创建的图形对象 */
   public shape: IShape | IGroup;
   /** shape 的动画配置 */
   public animate: AnimateOption | boolean;
+
+  // 非构造函数属性，需要外部赋值
   /** element 对应的 Geometry 实例 */
   public geometry: Geometry;
   /** 保存 shape 对应的 label */
   public labelShape: IGroup;
 
+  /** shape 绘制需要的数据 */
+  private model: ShapeInfo;
+  /** 原始数据 */
+  private data: Datum;
   // 存储当前开启的状态
   private states: string[] = [];
   // 虚拟 Group
@@ -58,9 +56,8 @@ export default class Element extends Base {
 
   constructor(cfg: ElementCfg) {
     super(cfg);
-    const { data, model, shapeType, shapeFactory, theme, container, animate, offscreenGroup, visible = true } = cfg;
-    this.data = data;
-    this.model = model;
+
+    const { shapeType, shapeFactory, theme, container, animate, offscreenGroup, visible = true } = cfg;
     this.shapeType = shapeType;
     this.shapeFactory = shapeFactory;
     this.theme = theme;
@@ -68,19 +65,28 @@ export default class Element extends Base {
     this.animate = animate;
     this.offscreenGroup = offscreenGroup;
     this.visible = visible;
+  }
 
-    if (model) {
-      // 只有有数据的时候才绘制 Shape
-      this.drawShape();
-      if (this.visible === false) {
-        // 用户在初始化的时候声明 visible: false
-        this.changeVisible(false);
-      }
+  /**
+   * 绘制图形
+   * @param model 绘制数据
+   * @param animateType 可选
+   */
+  public draw(model: ShapeInfo, animateType: string = 'enter') {
+    this.model = model;
+    this.data = model.data; // 存储原始数据
+
+    // 绘制图形
+    this.drawShape(model, animateType);
+
+    if (this.visible === false) {
+      // 用户在初始化的时候声明 visible: false
+      this.changeVisible(false);
     }
   }
 
   /**
-   * Updates element
+   * 更新图形
    * @param model 更新的绘制数据
    */
   public update(model: ShapeInfo) {
@@ -102,7 +108,8 @@ export default class Element extends Base {
     // 更新数据
     this.model = model;
     this.data = model.data;
-    newShape.remove(true); // 销毁，减少内存占用
+
+    newShape.remove(true); // newShape 不在当前渲染树上，销毁，减少内存占用
   }
 
   /**
@@ -115,7 +122,9 @@ export default class Element extends Base {
       const animateCfg = this.getAnimateCfg('leave');
       if (animateCfg) {
         // 指定了动画配置则执行销毁动画
-        doAnimate(shape, animateCfg, shapeFactory.coordinate);
+        doAnimate(shape, animateCfg, {
+          coordinate: shapeFactory.coordinate,
+        });
       } else {
         // 否则直接销毁
         shape.remove(true);
@@ -126,6 +135,10 @@ export default class Element extends Base {
     super.destroy();
   }
 
+  /**
+   * 显示或者隐藏 element
+   * @param visible 是否可见
+   */
   public changeVisible(visible: boolean) {
     super.changeVisible(visible);
 
@@ -148,12 +161,15 @@ export default class Element extends Base {
 
   /**
    * 设置 Element 的状态。
+   *
    * 目前 Element 开放三种状态：
    * 1. active
    * 2. selected
    * 3. inactive
    *
-   * 这三种状态的样式可在 [[Theme]] 主题中进行配置
+   * 这三种状态相互独立，可以进行叠加。
+   *
+   * 这三种状态的样式可在 [[Theme]] 主题中进行配置。
    *
    * ```ts
    * // 激活 active 状态
@@ -211,26 +227,42 @@ export default class Element extends Base {
     this.states = [];
   }
 
-  public hasState(stateName: string) {
+  /**
+   * 查询当前 Element 上是否已设置 `stateName` 对应的状态
+   * @param stateName 状态名称
+   * @returns true 表示存在，false 表示不存在
+   */
+  public hasState(stateName: string): boolean {
     return this.states.includes(stateName);
   }
 
-  public getStates() {
+  /**
+   * 获取当前 Element 上所有的状态
+   * @returns 当前 Element 上所有的状态数组
+   */
+  public getStates(): string[] {
     return this.states;
   }
 
-  /** 获取 Element 对应的原始数据 */
-  public getData() {
+  /**
+   * 获取 Element 对应的原始数据
+   * @returns 原始数据
+   */
+  public getData(): Datum {
     return this.data;
   }
 
-  /** 获取 Element 对应的图形绘制数据 */
-  public getModel() {
+  /**
+   * 获取 Element 对应的图形绘制数据
+   * @returns 图形绘制数据
+   */
+  public getModel(): ShapeInfo {
     return this.model;
   }
 
   /**
    * 返回 Element 元素整体的 bbox，包含文本及文本连线（有的话）
+   * @returns 整体包围盒
    */
   public getBBox(): BBox {
     const { shape, labelShape } = this;
@@ -263,11 +295,7 @@ export default class Element extends Base {
     return bbox;
   }
 
-  /**
-   * 从主题中获取对应状态量的样式
-   * @param stateName 状态名
-   * @returns  状态样式
-   */
+  // 从主题中获取对应状态量的样式
   private getStateStyle(stateName: string, shapeKey?: string): LooseObject {
     const { theme, shapeFactory } = this;
     let shapeType = this.shapeType;
@@ -284,7 +312,7 @@ export default class Element extends Base {
   private getAnimateCfg(animateType: string) {
     const animate = this.animate;
     const { geometryType, coordinate } = this.shapeFactory;
-    const defaultCfg = getDefaultAnimateCfg(geometryType, animateType, coordinate);
+    const defaultCfg = getDefaultAnimateCfg(geometryType, coordinate, animateType);
 
     // 1. animate === false, 用户关闭动画
     // 2. 动画默认开启，用户没有对动画进行配置同时有没有内置的默认动画
@@ -300,8 +328,8 @@ export default class Element extends Base {
   }
 
   // 绘制图形
-  private drawShape() {
-    const { shapeType, shapeFactory, model, container } = this;
+  private drawShape(model: ShapeInfo, animateType: string) {
+    const { shapeType, shapeFactory, container } = this;
     const drawCfg = this.getShapeDrawCfg(model);
     // 自定义 shape 有可能返回空 shape
     this.shape = shapeFactory.drawShape(shapeType, drawCfg, container);
@@ -315,9 +343,11 @@ export default class Element extends Base {
       }
       this.shape.set('inheritNames', ['element']);
       // 执行入场动画
-      const animateCfg = this.getAnimateCfg('enter');
+      const animateCfg = this.getAnimateCfg(animateType);
       if (animateCfg) {
-        doAnimate(this.shape, animateCfg, shapeFactory.coordinate);
+        doAnimate(this.shape, animateCfg, {
+          coordinate: shapeFactory.coordinate,
+        });
       }
     }
   }
@@ -376,7 +406,10 @@ export default class Element extends Base {
 
       if (animateCfg) {
         // 需要进行动画
-        doAnimate(sourceShape, animateCfg, this.shapeFactory.coordinate, newAttrs);
+        doAnimate(sourceShape, animateCfg, {
+          coordinate: this.shapeFactory.coordinate,
+          toAttrs: newAttrs,
+        });
       } else {
         sourceShape.attr(newAttrs);
       }
