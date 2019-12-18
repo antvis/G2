@@ -150,13 +150,17 @@ export default class Legend extends Controller<Option> {
 
     // 处理完成之后，销毁删除的
     // 不在处理中的
-    const deleted = filter(this.getComponents(), (co: ComponentOption) => !updated[co.id]);
-    // 更新 components
-    this.components = filter(this.getComponents(), (co: ComponentOption) => updated[co.id]);
-    // 销毁
-    each(deleted, (co: ComponentOption) => {
-      co.component.destroy();
+    const components = [];
+    each(this.getComponents(), (co: ComponentOption) => {
+      if (updated[co.id]) {
+        components.push(co);
+      } else {
+        co.component.destroy();
+      }
     });
+
+    // 更新当前已有的 components
+    this.components = components;
   }
 
   public clear() {
