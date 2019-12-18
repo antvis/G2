@@ -1,7 +1,7 @@
 import { get, isArray, isObject } from '@antv/util';
 import { getPointAngle } from '../../util/coordinate';
 import Geometry from '../base';
-import { LabelItem } from './base';
+import { LabelItem } from './interface';
 import PolarLabels from './polar';
 
 /** label text和line距离 4px */

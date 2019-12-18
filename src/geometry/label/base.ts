@@ -1,46 +1,11 @@
-import { deepMix, each, get, isArray, isFunction, isNil, isNumber, isUndefined, map } from '@antv/util';
+import { deepMix, each, get, isArray, isFunction, isNil, isNumber, isUndefined } from '@antv/util';
 import { FIELD_ORIGIN } from '../../constant';
 import { Coordinate, Scale } from '../../dependents';
 import { Datum, LooseObject, MappingDatum, Point } from '../../interface';
 import { getPolygonCentroid } from '../../util/graphics';
 import Geometry from '../base';
-import { GeometryLabelCfg, LabelOption } from '../interface';
-
-export interface LabelCfg extends GeometryLabelCfg {
-  content?: any;
-  position?: 'top' | 'bottom' | 'middle' | 'left' | 'right';
-  id: string;
-  data: Datum;
-  mappingData: MappingDatum;
-}
-
-export interface LabelPointCfg {
-  x?: number;
-  y?: number;
-  start?: Point;
-  color?: string;
-  content?: any;
-  textAlign?: string;
-  rotate?: number;
-  angle?: number;
-  r?: number;
-}
-
-export interface LabelItem extends GeometryLabelCfg {
-  id: string;
-  data: Datum;
-  mappingData: MappingDatum;
-  x?: number;
-  y?: number;
-  start?: Point;
-  color?: string;
-  content?: any;
-  textAlign?: string;
-  rotate?: number;
-  angle?: number;
-  r?: number;
-  labelLine?: null | boolean | { style?: object; path?: string };
-}
+import { LabelOption } from '../interface';
+import { LabelCfg, LabelItem, LabelPointCfg } from './interface';
 
 export type GeometryLabelsConstructor = new (cfg: any) => GeometryLabels;
 
