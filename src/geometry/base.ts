@@ -19,6 +19,7 @@ import {
   set,
   uniq,
 } from '@antv/util';
+import { doGroupAnimate } from '../animate';
 import Base from '../base';
 import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
 import { Coordinate, IGroup, Scale } from '../dependents';
@@ -722,6 +723,24 @@ export default class Geometry extends Base {
       const mappingData = this.mapping(eachGroup);
       mappingArray.push(mappingData);
       this.createElements(mappingData);
+    }
+
+    if (
+      this.animateOption &&
+      (get(this.animateOption, 'appear') === undefined ||
+        get(this.animateOption, ['appear', 'animation']) === undefined)
+    ) {
+      // 如果用户没有配置 appear，就默认走整体动画
+      const container = this.container;
+      const type = this.type;
+      const coordinate = this.coordinate;
+      const animateCfg = get(this.animateOption, 'appear');
+      const yScale = this.getYScale();
+      const yMinPoint = coordinate.convert({
+        x: 0,
+        y: yScale.scale(this.getYMinValue()),
+      });
+      doGroupAnimate(container, animateCfg, type, coordinate, yMinPoint);
     }
 
     // 添加 label
