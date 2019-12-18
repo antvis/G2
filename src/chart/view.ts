@@ -314,10 +314,11 @@ export class View extends Base {
   public filter(field: string, condition: FilterCondition | null): View {
     if (isFunction(condition)) {
       set(this.options, ['filters', field], condition);
-    } else {
-      if (this.options.filters) {
-        delete this.options.filters[field];
-      }
+      return this;
+    }
+    // condition 为空，则表示删除过滤条件
+    if (!condition && get(this.options, ['filters', field])) {
+      delete this.options.filters[field];
     }
 
     return this;
