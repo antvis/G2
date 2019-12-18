@@ -19,7 +19,7 @@ import {
   set,
   uniq,
 } from '@antv/util';
-import { doGroupAnimate, getDefaultAnimateCfg } from '../animate';
+import { doGroupAppearAnimate, getDefaultAnimateCfg } from '../animate';
 import Base from '../base';
 import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
 import { Coordinate, IGroup, Scale } from '../dependents';
@@ -740,7 +740,7 @@ export default class Geometry extends Base {
         x: 0,
         y: yScale.scale(this.getYMinValue()),
       });
-      doGroupAnimate(container, animateCfg, type, coordinate, yMinPoint);
+      doGroupAppearAnimate(container, animateCfg, type, coordinate, yMinPoint);
     }
 
     // 添加 label
