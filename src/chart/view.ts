@@ -279,6 +279,9 @@ export class View extends Base {
     this.foregroundGroup.set('visible', visible);
     this.middleGroup.set('visible', visible);
     this.backgroundGroup.set('visible', visible);
+
+    // set('visible', visible) 不会触发自动刷新
+    this.getCanvas().draw();
   }
 
   /**

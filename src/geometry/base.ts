@@ -982,11 +982,20 @@ export default class Geometry extends Base {
     this.elements.forEach((element: Element) => {
       element.changeVisible(visible);
     });
-    if (this.container) {
-      this.container.set('visible', visible);
-    }
-    if (this.labelsContainer) {
-      this.labelsContainer.set('visible', visible);
+    if (visible) {
+      if (this.container) {
+        this.container.show();
+      }
+      if (this.labelsContainer) {
+        this.labelsContainer.show();
+      }
+    } else {
+      if (this.container) {
+        this.container.hide();
+      }
+      if (this.labelsContainer) {
+        this.labelsContainer.hide();
+      }
     }
   }
 
