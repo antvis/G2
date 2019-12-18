@@ -24,6 +24,9 @@ export { Interaction, getInteraction, registerInteraction } from './interaction'
 // G engine 管理相关
 export { registerEngine, getEngine } from './engine';
 
+// 动画执行函数相关
+export { registerAnimation, getAnimation } from './animate/animation';
+
 // 类型定义导出
 export { ChartCfg, ViewCfg } from './chart';
 export { Data, Datum, Region, Point } from './interface';

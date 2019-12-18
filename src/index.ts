@@ -37,6 +37,24 @@ registerGeometryLabels('interval', IntervalLabels);
 registerGeometryLabels('pie', PieLabels);
 registerGeometryLabels('polar', PolarLabels);
 
+// 注册需要的动画执行函数
+import { registerAnimation } from './animate/animation';
+import { fadeIn, fadeOut } from './animate/animation/fade';
+import { growInX, growInXY, growInY } from './animate/animation/grow-in';
+import { scaleInX, scaleInY } from './animate/animation/scale-in';
+import { waveIn } from './animate/animation/wave-in';
+import { zoomIn, zoomOut } from './animate/animation/zoom';
+registerAnimation('fadeIn', fadeIn);
+registerAnimation('fadeOut', fadeOut);
+registerAnimation('growInX', growInX);
+registerAnimation('growInXY', growInXY);
+registerAnimation('growInY', growInY);
+registerAnimation('scaleInX', scaleInX);
+registerAnimation('scaleInY', scaleInY);
+registerAnimation('waveIn', waveIn);
+registerAnimation('zoomIn', zoomIn);
+registerAnimation('zoomOut', zoomOut);
+
 // 注册内置的 Facet
 import { registerFacet } from './core';
 import Rect from './facet/rect';
