@@ -1,4 +1,3 @@
-import { find } from '@antv/util';
 import { ControllerCtor } from './base';
 
 const LOAD_COMPONENT_CONTROLLERS: Record<string, ControllerCtor> = {};
@@ -9,7 +8,7 @@ const LOAD_COMPONENT_CONTROLLERS: Record<string, ControllerCtor> = {};
  * @param plugin
  * @returns void
  */
-export function registerController(name: string, plugin: ControllerCtor) {
+export function registerComponentController(name: string, plugin: ControllerCtor) {
   LOAD_COMPONENT_CONTROLLERS[name] = plugin;
 }
 
@@ -18,7 +17,7 @@ export function registerController(name: string, plugin: ControllerCtor) {
  * @param name
  * @returns void
  */
-export function unregisterController(name: string) {
+export function unregisterComponentController(name: string) {
   delete LOAD_COMPONENT_CONTROLLERS[name];
 }
 
@@ -26,7 +25,7 @@ export function unregisterController(name: string) {
  * 获取全局插件
  * @returns string[]
  */
-export function getControllerNames(): string[] {
+export function getComponentControllerNames(): string[] {
   return Object.keys(LOAD_COMPONENT_CONTROLLERS);
 }
 
@@ -34,6 +33,6 @@ export function getControllerNames(): string[] {
  * 获得组件插件
  * @param name
  */
-export function getController(name: string): ControllerCtor {
+export function getComponentController(name: string): ControllerCtor {
   return LOAD_COMPONENT_CONTROLLERS[name];
 }

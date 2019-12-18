@@ -30,7 +30,7 @@ import { createCoordinate } from '../util/coordinate';
 import { parsePadding } from '../util/padding';
 import { mergeTheme } from '../util/theme';
 import Chart from './chart';
-import { getController, getControllerNames } from './controller';
+import { getComponentController, getComponentControllerNames } from './controller';
 import AnnotationComponent, { BaseOption as AnnotationBaseOption } from './controller/annotation';
 import { Controller } from './controller/base';
 import TooltipComponent from './controller/tooltip';
@@ -91,7 +91,7 @@ export class View extends Base {
   /** 用于捕获 view event 的 rect shape */
   private viewEventCaptureRect: IShape;
   /** 配置开启的组件插件，默认为全局配置的组件 */
-  private usedControllers: string[] = getControllerNames();
+  private usedControllers: string[] = getComponentControllerNames();
 
   // 配置信息存储
   protected options: Options = {
@@ -1058,7 +1058,7 @@ export class View extends Base {
    */
   private initComponentController() {
     each(this.usedControllers, (controllerName: string) => {
-      const Ctor = getController(controllerName);
+      const Ctor = getComponentController(controllerName);
       if (Ctor) {
         this.controllers.push(new Ctor(this));
       }

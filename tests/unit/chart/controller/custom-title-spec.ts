@@ -1,5 +1,5 @@
 import { Chart } from '../../../../src/chart';
-import { registerController, unregisterController } from '../../../../src/chart/controller';
+import { registerComponentController, unregisterComponentController } from '../../../../src/chart/controller';
 import defaultLayout from '../../../../src/chart/layout';
 import View from '../../../../src/chart/view';
 import { CITY_SALE } from '../../../util/data';
@@ -14,7 +14,7 @@ function layout(view: View) {
 }
 
 describe('title controller', () => {
-  registerController('title', Title);
+  registerComponentController('title', Title);
 
   const div = createDiv();
 
@@ -85,6 +85,6 @@ describe('title controller', () => {
   });
 
   afterAll(() => {
-    unregisterController('title');
+    unregisterComponentController('title');
   });
 });
