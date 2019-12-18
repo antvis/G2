@@ -129,12 +129,20 @@ export default class Element extends Base {
   public changeVisible(visible: boolean) {
     super.changeVisible(visible);
 
-    if (this.shape) {
-      this.shape.set('visible', visible);
-    }
-
-    if (this.labelShape) {
-      this.labelShape.set('visible', visible);
+    if (visible) {
+      if (this.shape) {
+        this.shape.show();
+      }
+      if (this.labelShape) {
+        this.labelShape.show();
+      }
+    } else {
+      if (this.shape) {
+        this.shape.hide();
+      }
+      if (this.labelShape) {
+        this.labelShape.hide();
+      }
     }
   }
 
