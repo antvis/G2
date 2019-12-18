@@ -69,6 +69,7 @@ describe('LabelsRenderer', () => {
     expect(labelsRenderer.container.getCount()).toBe(3);
     // @ts-ignore
     expect(labelsRenderer.container.getFirst().getCount()).toBe(2);
+    expect(labelsRenderer.container.getFirst().get('animateCfg')).toBe(false);
   });
 
   it('update', () => {
@@ -82,38 +83,50 @@ describe('LabelsRenderer', () => {
     };
     // 保持引用，同步 scales
     updateScales(interval.scales, newScales);
-    interval.update({
-      data: newData,
-    });
+    interval
+      .label('percent', {
+        animate: {
+          update: false,
+        },
+      })
+      .update({
+        data: newData,
+      });
     interval.paint();
 
     // @ts-ignore
     const labelsRenderer = interval.labelsRenderer;
     expect(labelsRenderer.container.getCount()).toBe(2);
     expect(labelsRenderer.container.getFirst().get('data')).toEqual({ a: '1', percent: 0.5 });
+    expect(labelsRenderer.container.getFirst().get('animateCfg').update).toBe(false);
+
+    interval.animate(false).update();
+    interval.paint();
+    // @ts-ignore
+    expect(labelsRenderer.container.getFirst().get('animateCfg')).toBe(false);
   });
 
-  // it('clear', () => {
-  //   // @ts-ignore
-  //   const labelsRenderer = interval.labelsRenderer;
-  //   labelsRenderer.clear();
+  it('clear', () => {
+    // @ts-ignore
+    const labelsRenderer = interval.labelsRenderer;
+    labelsRenderer.clear();
 
-  //   expect(interval.labelsContainer.getCount()).toBe(0);
-  //   expect(labelsRenderer.shapesMap).toEqual({});
-  //   // @ts-ignore
-  //   expect(labelsRenderer.lastShapesMap).toEqual({});
-  // });
+    expect(interval.labelsContainer.getCount()).toBe(0);
+    expect(labelsRenderer.shapesMap).toEqual({});
+    // @ts-ignore
+    expect(labelsRenderer.lastShapesMap).toEqual({});
+  });
 
-  // it('destroy', () => {
-  //   // @ts-ignore
-  //   const labelsRenderer = interval.labelsRenderer;
-  //   labelsRenderer.destroy();
+  it('destroy', () => {
+    // @ts-ignore
+    const labelsRenderer = interval.labelsRenderer;
+    labelsRenderer.destroy();
 
-  //   expect(interval.labelsContainer.destroyed).toBe(true);
-  // });
+    expect(interval.labelsContainer.destroyed).toBe(true);
+  });
 
-  // afterAll(() => {
-  //   canvas.destroy();
-  //   removeDom(div);
-  // });
+  afterAll(() => {
+    canvas.destroy();
+    removeDom(div);
+  });
 });
