@@ -1,6 +1,7 @@
-import { each, get, isEmpty } from '@antv/util';
+import { deepMix, each, get, isEmpty } from '@antv/util';
 import { doAnimate } from '../../animate';
 import { IGroup, IShape } from '../../dependents';
+import { AnimateOption } from '../../interface';
 import { bboxAdjust, positionAdjust, spiralAdjust } from '../../util/adjust-labels';
 import { getReplaceAttrs } from '../../util/graphics';
 import { rotate } from '../../util/transform';
@@ -25,6 +26,8 @@ export default class Labels {
   public adjustType: string;
   /** 图形容器 */
   public container: IGroup;
+  /** 动画配置 */
+  public animate: AnimateOption | false;
 
   /** 存储当前 shape 的映射表，键值为 shape id */
   public shapesMap: Record<string, IGroup> = {};
@@ -61,15 +64,18 @@ export default class Labels {
         const data = shape.get('data');
         const mappingData = shape.get('mappingData');
         const currentShape = lastShapesMap[id]; // 已经在渲染树上的 shape
+        const currentAnimateCfg = shape.get('animateCfg');
         currentShape.set('data', data);
         currentShape.set('mappingData', mappingData);
+        currentShape.set('animateCfg', currentAnimateCfg);
 
-        const updateAnimateCfg = get(shape.get('animate'), 'update');
+        const updateAnimateCfg = get(currentAnimateCfg, 'update');
         const currentChildren = currentShape.getChildren();
         shape.getChildren().map((child, index) => {
           const currentChild = currentChildren[index] as IShape;
           currentChild.set('data', data);
           currentChild.set('mappingData', mappingData);
+          currentChild.set('animateCfg', currentAnimateCfg);
 
           const newAttrs = getReplaceAttrs(currentChild, child);
           if (updateAnimateCfg) {
@@ -84,7 +90,7 @@ export default class Labels {
         // 新生成的 shape
         container.add(shape);
 
-        const animateCfg = get(shape.get('animate'), isEmpty(this.lastShapesMap) ? 'appear' : 'enter');
+        const animateCfg = get(shape.get('animateCfg'), isEmpty(this.lastShapesMap) ? 'appear' : 'enter');
         if (animateCfg) {
           doAnimate(shape, animateCfg, {});
         }
@@ -94,7 +100,7 @@ export default class Labels {
 
     // 移除
     each(lastShapesMap, (deleteShape) => {
-      const animateCfg = get(deleteShape.get('animate'), 'leave');
+      const animateCfg = get(deleteShape.get('animateCfg'), 'leave');
       if (animateCfg) {
         doAnimate(deleteShape, animateCfg, {});
       } else {
@@ -125,7 +131,8 @@ export default class Labels {
       origin: mappingData,
       data,
       name: 'label',
-      animate: cfg.animate,
+      // 如果 this.animate === false 或者 cfg.animate === false 则不进行动画，否则进行动画配置的合并
+      animateCfg: !this.animate || !cfg.animate ? false : deepMix({}, this.animate, cfg.animate),
     });
     const labelShape = labelGroup.addShape('text', {
       capture: true,
