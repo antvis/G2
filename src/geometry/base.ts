@@ -35,7 +35,6 @@ import {
   ShapeMarkerCfg,
   ShapePoint,
 } from '../interface';
-import { createScaleByField, syncScale } from '../util/scale';
 import Element from './element';
 import {
   AdjustOption,
@@ -1042,16 +1041,14 @@ export default class Geometry extends Base {
   }
 
   protected createElement(mappingDatum: MappingDatum): Element {
-    const originData = mappingDatum[FIELD_ORIGIN];
     const { theme, container } = this;
 
     const shapeCfg = this.getDrawCfg(mappingDatum); // 获取绘制图形的配置信息
     const shapeFactory = this.getShapeFactory();
     const shape = mappingDatum.shape || shapeFactory.defaultShapeType;
+    const animateType = isEmpty(this.lastElementsMap) ? 'appear' : 'enter';
 
     const element = new Element({
-      data: originData,
-      model: shapeCfg,
       shapeType: shape,
       theme: get(theme, ['geometries', this.shapeType], {}),
       shapeFactory,
@@ -1060,6 +1057,7 @@ export default class Geometry extends Base {
       animate: this.animateOption,
     });
     element.geometry = this;
+    element.draw(shapeCfg, animateType); // 绘制
 
     return element;
   }
@@ -1101,7 +1099,7 @@ export default class Geometry extends Base {
       } else {
         // element 已经创建
         const currentShapeCfg = this.getDrawCfg(mappingDatum);
-        const preShapeCfg = result.model;
+        const preShapeCfg = result.getModel();
         if (isModelChange(currentShapeCfg, preShapeCfg)) {
           // 更新动画配置，用户有可能在更新之前有对动画进行配置操作
           result.animate = this.animateOption;
