@@ -1,5 +1,5 @@
 import { getEngine } from '../../../../src/';
-import { getCoordinate, IGroup } from '../../../../src/dependents';
+import { getCoordinate } from '../../../../src/dependents';
 import Element from '../../../../src/geometry/element';
 import * as Shape from '../../../../src/geometry/shape/base';
 import '../../../../src/geometry/shape/interval';
@@ -41,8 +41,6 @@ describe('Element', () => {
     it('Instantiation', () => {
       const shapeFactory = Shape.getShapeFactory('shapes');
       element = new Element({
-        data: { x: 10, y: 10 },
-        model: { x: 1, y: 1 },
         shapeType: 'circle',
         shapeFactory,
         theme: {
@@ -70,22 +68,35 @@ describe('Element', () => {
         visible: false,
       });
 
+      expect(element.getStates().length).toBe(0);
+      expect(element.visible).toBe(false);
+    });
+
+    it('draw()', () => {
+      element.draw({
+        x: 1,
+        y: 1,
+        data: { a: 1, b: 10 },
+      });
+
       expect(element.shape.get('name')).toBe('shapes');
       expect(container.get('children').length).toBe(1);
       expect(container.get('children')[0]).toEqual(element.shape);
-      expect(element.getStates().length).toBe(0);
-      expect(element.visible).toBe(false);
       expect(element.shape.get('visible')).toBe(false);
     });
 
     it('getModel', () => {
       const model = element.getModel();
-      expect(model).toEqual({ x: 1, y: 1 });
+      expect(model).toEqual({
+        x: 1,
+        y: 1,
+        data: { a: 1, b: 10 },
+      });
     });
 
     it('getData()', () => {
       const data = element.getData();
-      expect(data).toEqual({ x: 10, y: 10 });
+      expect(data).toEqual({ a: 1, b: 10 });
     });
 
     it('getStateStyle()', () => {
@@ -240,17 +251,6 @@ describe('Element', () => {
 
     it('model.animate is false', () => {
       element = new Element({
-        data: { x: 10, y: 10 },
-        model: {
-          x: 1,
-          y: 1,
-          points: [
-            { x: 0.03571428571428571, y: 1 },
-            { x: 0.03571428571428571, y: 0.622 },
-            { x: 0.10714285714285714, y: 0.622 },
-            { x: 0.10714285714285714, y: 1 },
-          ],
-        },
         shapeType: 'rect',
         shapeFactory,
         theme: Theme,
@@ -260,6 +260,7 @@ describe('Element', () => {
 
       // @ts-ignore
       expect(element.getAnimateCfg('update')).toBe(null);
+      expect(element.getAnimateCfg('appear')).toBe(null);
     });
 
     it('model.animate is not empty', () => {
@@ -267,16 +268,17 @@ describe('Element', () => {
         update: {
           delay: 1000,
         },
-        destroy: false,
+        leave: false,
       };
       // @ts-ignore
       expect(element.getAnimateCfg('update')).toEqual({
+        animation: null,
         duration: 450,
         easing: 'easeQuadInOut',
         delay: 1000,
       });
       // @ts-ignore
-      expect(element.getAnimateCfg('destroy')).toBe(null);
+      expect(element.getAnimateCfg('leave')).toBe(null);
     });
 
     xit('event', () => {
