@@ -44,7 +44,7 @@ import Rect from './facet/rect';
 registerFacet('rect', Rect);
 
 // 注册内置的 Component
-import { registerController } from './core';
+import { registerComponentController } from './core';
 
 import Annotation from './chart/controller/annotation';
 import Axis from './chart/controller/axis';
@@ -52,10 +52,10 @@ import Legend from './chart/controller/legend';
 import Tooltip from './chart/controller/tooltip';
 
 // register build-in components
-registerController('axis', Axis);
-registerController('legend', Legend);
-registerController('tooltip', Tooltip);
-registerController('annotation', Annotation);
+registerComponentController('axis', Axis);
+registerComponentController('legend', Legend);
+registerComponentController('tooltip', Tooltip);
+registerComponentController('annotation', Annotation);
 
 // view module augmentation
 // detail: http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
