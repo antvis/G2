@@ -326,7 +326,7 @@ describe('StateController', () => {
   });
 
   after(() => {
-    canvas.destroy();
-    document.body.removeChild(div);
+    // canvas.destroy();
+    // document.body.removeChild(div);
   });
 });
