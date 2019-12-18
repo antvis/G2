@@ -30,6 +30,7 @@ describe('StateController', () => {
       pixelRatio: 2,
     });
     const container = canvas.addGroup();
+    const frontgroundGroup = canvas.addGroup();
     const rectCoord = new Rect({
       start: {
         x: 0,
@@ -73,6 +74,7 @@ describe('StateController', () => {
       },
       coord: rectCoord,
       container,
+      frontgroundGroup,
       canvas,
       view,
       theme: {
