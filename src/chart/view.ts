@@ -28,6 +28,7 @@ import { BBox } from '../util/bbox';
 import { isFullCircle, isPointInCoordinate } from '../util/coordinate';
 import { createCoordinate } from '../util/coordinate';
 import { parsePadding } from '../util/padding';
+import { createScaleByField, syncScale } from '../util/scale';
 import { mergeTheme } from '../util/theme';
 import Chart from './chart';
 import { getComponentController, getComponentControllerNames } from './controller';
@@ -50,7 +51,6 @@ import {
   ViewOption,
 } from './interface';
 import defaultLayout, { Layout } from './layout';
-import { createScaleByField, syncScale } from '../util/scale';
 
 /**
  * view container of G2
@@ -1247,17 +1247,21 @@ export class View extends Base {
   }
 
   private getScaleFields() {
-    return this.geometries.reduce((r: string[], geometry: Geometry): string[] => {
+    const fields = this.geometries.reduce((r: string[], geometry: Geometry): string[] => {
       r.push(...geometry.getScaleFields());
       return r;
     }, []);
+
+    return uniq(fields);
   }
 
   private getGroupedFields() {
-    return this.geometries.reduce((r: string[], geometry: Geometry): string[] => {
+    const fields = this.geometries.reduce((r: string[], geometry: Geometry): string[] => {
       r.push(...geometry.getGroupFields());
       return r;
     }, []);
+
+    return uniq(fields);
   }
 
   /**
