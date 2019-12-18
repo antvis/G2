@@ -53,7 +53,10 @@ export default class Line extends Axis {
   public getLinePath() {
     const start = this.get('start');
     const end = this.get('end');
-    return [['M', start.x, start.y], ['L', end.x, end.y]];
+    return [
+      ['M', start.x, start.y],
+      ['L', end.x, end.y],
+    ];
   }
 
   public getTickEnd(start, value) {
@@ -77,6 +80,8 @@ export default class Line extends Axis {
 
   public renderTitle() {
     const title = this.get('title');
+    const label = this.get('label');
+    const rotate = Util.get(label, 'rotate');
     const autoRotateTitle = this.get('autoRotateTitle');
     const offsetPoint = this.getTickPoint(0.5);
     let titleOffset = title.offset ? title.offset : 20;
@@ -85,7 +90,13 @@ export default class Line extends Axis {
     if (labelRenderer) {
       const position = this.get('position');
       const property = position === 'bottom' || position === 'top' ? 'height' : 'width';
-      const labelLength = this.getMaxLabelWidthOrHeight(labelRenderer, property);
+      let labelLength = this.getMaxLabelWidthOrHeight(labelRenderer, property);
+      if (rotate) {
+        labelLength = Math.max(
+          labelLength,
+          this.getMaxLabelWidthOrHeight(labelRenderer, 'width') * Math.abs(Math.sin((rotate * Math.PI) / 180))
+        );
+      }
       const labelOffset = Util.get(this.get('label'), 'offset', 5);
       titleOffset += labelLength + labelOffset;
     }
@@ -176,13 +187,15 @@ export default class Line extends Axis {
 
       if (angle) {
         const factor = this.get('factor');
+        const offsetY = -3 * Math.abs(Math.sin(angle));
         Util.each(labels, (label) => {
           label.rotateAtStart(angle);
+          label.attr('y', label.attr('y') + offsetY);
           if (Util.isNumberEqual(vector[1], 0)) {
             if (factor > 0) {
-              label.attr('textAlign', 'left');
-            } else {
               label.attr('textAlign', 'right');
+            } else {
+              label.attr('textAlign', 'left');
             }
           }
         });
