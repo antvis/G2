@@ -1,5 +1,4 @@
 import { deepMix, each, get, isArray, isFunction, isNil, isNumber, isUndefined, map, mix } from '@antv/util';
-import { getDefaultAnimateCfg } from '../../animate';
 import { FIELD_ORIGIN } from '../../constant';
 import { Coordinate, Scale } from '../../dependents';
 import { Datum, LooseObject, MappingDatum, Point } from '../../interface';
@@ -238,12 +237,11 @@ export default class GeometryLabels {
   private getLabelCfgs(mapppingArray: MappingDatum[]): LabelCfg[] {
     const geometry = this.geometry;
     const defaultLabelCfg = this.defaultLabelCfg;
-    const { type, theme, labelOption, scales, coordinate } = geometry;
+    const { type, theme, labelOption, scales } = geometry;
     const { fields, callback, cfg } = labelOption as LabelOption;
     const labelScales = fields.map((field: string) => {
       return scales[field];
     });
-    const defaultAnimateCfg = getDefaultAnimateCfg('label', coordinate);
 
     const labelCfgs: LabelCfg[] = [];
     each(mapppingArray, (mappingData: MappingDatum, index: number) => {
@@ -260,16 +258,13 @@ export default class GeometryLabels {
         }
       }
 
-      let labelCfg = deepMix(
-        {
-          id: geometry.getElementId(origin), // 进行 ID 标记
-          data: origin, // 存储原始数据
-          mappingData, // 存储映射后的数据
-        },
-        { animate: defaultAnimateCfg },
-        cfg,
-        callbackCfg
-      );
+      let labelCfg = {
+        id: geometry.getElementId(origin), // 进行 ID 标记
+        data: origin, // 存储原始数据
+        mappingData, // 存储映射后的数据,
+        ...cfg,
+        ...callbackCfg,
+      };
 
       const content = labelCfg.content;
       if (isFunction(content)) {

@@ -19,7 +19,7 @@ import {
   set,
   uniq,
 } from '@antv/util';
-import { doGroupAnimate } from '../animate';
+import { doGroupAnimate, getDefaultAnimateCfg } from '../animate';
 import Base from '../base';
 import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
 import { Coordinate, IGroup, Scale } from '../dependents';
@@ -1589,7 +1589,7 @@ export default class Geometry extends Base {
   }
 
   private renderLabels(mappingArray: MappingDatum[]) {
-    const { labelOption } = this;
+    const { labelOption, animateOption, coordinate } = this;
     const labelType = this.getLabelType();
 
     const GeometryLabelsCtor = getGeometryLabels(labelType);
@@ -1609,6 +1609,9 @@ export default class Geometry extends Base {
     each(this.elementsMap, (element: Element, id: string) => {
       shapes[id] = element.shape;
     });
+    // 设置动画配置，如果 geometry 的动画关闭了，那么 label 的动画也会关闭
+    labelsRenderer.animate = animateOption ? getDefaultAnimateCfg('label', coordinate) : false;
+
     // 渲染文本
     labelsRenderer.render(labelItems, shapes);
 

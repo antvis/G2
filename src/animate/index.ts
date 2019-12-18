@@ -151,20 +151,13 @@ function getAnimateConfig(animateCfg: AnimateCfg, data: Data | Datum) {
   };
 }
 
-// /**
-//  * 获取默认的动画配置
-//  * @param elementName 参与动画的元素名称
-//  * @param animateType 动画类型
-//  * @param coordinate 坐标系
-//  * @returns default animate cfg
-//  */
 /**
  * 获取 elementName 对应的动画配置，当声明了 `animateType`，则返回 `animateType` 对应的动画配置
  * @param elementName 元素名称
  * @param coordinate 做表弟类型
  * @param animateType 可选，动画类型
  */
-export function getDefaultAnimateCfg(elementName: string, coordinate: Coordinate, animateType?: string): AnimateCfg {
+export function getDefaultAnimateCfg(elementName: string, coordinate: Coordinate, animateType?: string) {
   let animateCfg = GEOMETRY_ANIMATE_CFG[elementName];
 
   if (animateCfg) {
