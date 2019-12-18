@@ -23,7 +23,7 @@ describe('Line', () => {
   const data = [
     { x: 1996, y: 30 },
     { x: 1990, y: 210 },
-    { x: 1993, y: 29 }
+    { x: 1993, y: 29 },
   ];
   const scales = {
     x: createScale('x', data),
@@ -48,7 +48,11 @@ describe('Line', () => {
     expect(line.sortable).toBe(true);
 
     const element = line.elements[0];
-    expect(element.data).toEqual([{ x: 1990, y: 210 }, { x: 1993, y: 29 }, { x: 1996, y: 30 }]);
+    expect(element.getData()).toEqual([
+      { x: 1990, y: 210 },
+      { x: 1993, y: 29 },
+      { x: 1996, y: 30 },
+    ]);
   });
 
   afterAll(() => {
