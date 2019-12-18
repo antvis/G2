@@ -26,7 +26,7 @@ export default class LabelController {
     const coord = element.get('coord');
     const labelOptions = element.get('labelOptions');
     const Ctor = this._getElementLabelsConstructor(labelOptions.labelType, coord.type, elementType);
-    const container = element.get('container');
+    const container = element.get('frontgroundGroup');
     const scales = _.map(element.get('labelOptions').fields, (field: string) => element.createScale(field));
     const labelsContainer = container.addGroup(Ctor, {
       labelOptions: _.mix(
