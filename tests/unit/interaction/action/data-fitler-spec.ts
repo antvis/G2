@@ -19,7 +19,7 @@ describe('active test', () => {
     { year: '1994', value: 34 },
   ];
   chart.data(data);
-  // chart.animate(false);
+  chart.animate(false);
   chart.interaction('legend-visible-filter');
 
   chart.tooltip(false);
@@ -66,7 +66,8 @@ describe('active test', () => {
   });
 
   it('legend unchecked', () => {
-    const legendItem = getLegendItems()[0];
+    const items = getLegendItems();
+    const legendItem = items[0];
     const item = legendItem.get('delegateObject').item;
     context.event = {
       target: legendItem,

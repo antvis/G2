@@ -10,8 +10,7 @@ import Action from './base';
 class CursorAction extends Action {
   private setCursor(cursor) {
     const view = this.context.view;
-    const el = view.getCanvas().get('el');
-    el.style.cursor = cursor;
+    view.getCanvas().setCursor(cursor);
   }
 
   /**

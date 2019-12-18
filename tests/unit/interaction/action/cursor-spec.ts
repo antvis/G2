@@ -24,7 +24,7 @@ describe('active test', () => {
     .position('year*value')
     .color('year');
   chart.render();
-  const el = chart.getCanvas().get('el');
+  const canvas = chart.getCanvas();
   const context = new Context(chart);
   const elements = chart.geometries[0].elements;
   const first = elements[0];
@@ -35,10 +35,10 @@ describe('active test', () => {
 
   it('test cursors', () => {
     action.text();
-    expect(el.style.cursor).toBe('text');
+    expect(canvas.getCursor()).toBe('text');
     each(cursors, (cursor) => {
       action[cursor]();
-      expect(el.style.cursor).toBe(cursor);
+      expect(canvas.getCursor()).toBe(cursor);
     });
   });
 
@@ -47,8 +47,13 @@ describe('active test', () => {
       const method = name + 'Resize';
       const cursor = name + '-resize';
       action[method]();
-      expect(el.style.cursor).toBe(cursor);
+      expect(canvas.getCursor()).toBe(cursor);
     });
+  });
+
+  it('text cursor', () => {
+    action.text();
+    expect(canvas.getCursor()).toBe('text');
   });
 
   afterAll(() => {
