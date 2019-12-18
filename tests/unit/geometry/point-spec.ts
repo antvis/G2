@@ -24,7 +24,7 @@ describe('Point', () => {
     const data = [
       { x: 1996, y: 30 },
       { x: 1990, y: 210 },
-      { x: 1993, y: 29 }
+      { x: 1993, y: 29 },
     ];
     const scales = {
       x: createScale('x', data),
@@ -48,8 +48,8 @@ describe('Point', () => {
     expect(point.generatePoints).toBe(true);
 
     const element = point.elements[0];
-    expect(element.data).toEqual({ x: 1996, y: 30 });
-    expect(element.model.isStack).toBe(false);
+    expect(element.getData()).toEqual({ x: 1996, y: 30 });
+    expect(element.getModel().isStack).toBe(false);
   });
 
   afterAll(() => {
