@@ -137,6 +137,10 @@ registerInteraction('pie-selected', {
 
 // 筛选数据
 registerInteraction('legend-filter', {
+  showEnable: [
+    { trigger: 'legend-item:mouseenter', action: 'cursor:pointer' },
+    { trigger: 'legend-item:mouseleave', action: 'cursor:default' },
+  ],
   start: [
     { trigger: 'legend-item:click', action: 'list-unchecked:toggle' },
     { trigger: 'legend-item:click', action: 'data-filter:filter' },
@@ -145,6 +149,10 @@ registerInteraction('legend-filter', {
 
 // 筛选图形
 registerInteraction('legend-visible-filter', {
+  showEnable: [
+    { trigger: 'legend-item:mouseenter', action: 'cursor:pointer' },
+    { trigger: 'legend-item:mouseleave', action: 'cursor:default' },
+  ],
   start: [
     { trigger: 'legend-item:click', action: 'list-unchecked:toggle' },
     { trigger: 'legend-item:click', action: 'element-filter:filter' },
