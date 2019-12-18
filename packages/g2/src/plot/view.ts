@@ -917,6 +917,7 @@ export default class View extends Base {
       const elementCfg = {
         ...cfg,
         container: this.get('panelGroup').addGroup(),
+        frontgroundGroup: this.get('frontgroundGroup').addGroup(),
         view: this,
         canvas: this.get('canvas'),
         theme: this.get('theme'),
@@ -1253,6 +1254,7 @@ export const registerViewPrototype = (key: string, Ctor: ElementConstructor) => 
     cfg.view = this;
     cfg.theme = this.get('theme');
     cfg.container = this.get('panelGroup').addGroup();
+    cfg.frontgroundGroup = this.get('frontgroundGroup').addGroup();
     cfg.canvas = this.get('canvas');
     const element = new Ctor(cfg);
     this._addElement(element);
