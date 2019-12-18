@@ -1,5 +1,6 @@
 import { MappingDatum, Point } from '../../interface';
-import GeometryLabels, { LabelPointCfg } from './base';
+import GeometryLabels from './base';
+import { LabelPointCfg } from './interface';
 
 export default class IntervalLabels extends GeometryLabels {
   protected setLabelPosition(labelPointCfg: LabelPointCfg, mappingData: MappingDatum, index: number, position: string) {

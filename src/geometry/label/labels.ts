@@ -3,7 +3,7 @@ import { IGroup, IShape } from '../../dependents';
 import { bboxAdjust, positionAdjust, spiralAdjust } from '../../util/adjust-labels';
 import { getReplaceAttrs } from '../../util/graphics';
 import { rotate } from '../../util/transform';
-import { LabelItem } from './base';
+import { LabelItem } from './interface';
 
 export interface LabelsGroupCfg {
   container: IGroup;

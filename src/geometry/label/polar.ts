@@ -2,7 +2,8 @@ import { each, isArray } from '@antv/util';
 import { MappingDatum, Point } from '../../interface';
 import { getDistanceToCenter } from '../../util/coordinate';
 import { getPointAngle } from '../../util/coordinate';
-import GeometryLabels, { LabelCfg, LabelItem, LabelPointCfg } from './base';
+import GeometryLabels from './base';
+import { LabelCfg, LabelItem, LabelPointCfg } from './interface';
 
 const HALF_PI = Math.PI / 2;
 
