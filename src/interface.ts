@@ -60,7 +60,9 @@ export interface AnimateCfg {
 }
 
 export interface AnimateOption {
-  /** 入场动画配置，false/null 表示关闭入场动画 */
+  /** chart 初始化渲染时的入场动画，false/null 表示关闭入场动画 */
+  appear?: AnimateCfg | false | null;
+  /** chart 发生更新时，新增元素的入场动画，false/null 表示关闭入场动画 */
   enter?: AnimateCfg | false | null;
   /** 更新动画配置，false/null 表示关闭更新动画 */
   update?: AnimateCfg | false | null;
