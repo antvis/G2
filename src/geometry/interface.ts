@@ -1,4 +1,4 @@
-import { AdjustType, Datum, LooseObject, MappingDatum } from '../interface';
+import { AdjustType, AnimateOption, Datum, LooseObject, MappingDatum } from '../interface';
 
 /** 图形属性配置项定义，如 position({}) */
 export interface AttributeOption {
@@ -91,6 +91,8 @@ export interface GeometryLabelCfg {
   position?:
     | ((data: Datum, mappingData: MappingDatum, index: number) => IntervalGeometryLabelPosition)
     | IntervalGeometryLabelPosition;
+  /** 动画配置 */
+  animate?: AnimateOption | false | null;
 }
 
 /** `geometry().label({})` 配置定义 */

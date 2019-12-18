@@ -1,4 +1,5 @@
-import { each, get } from '@antv/util';
+import { each, get, isEmpty } from '@antv/util';
+import { doAnimate } from '../../animate';
 import { IGroup, IShape } from '../../dependents';
 import { bboxAdjust, positionAdjust, spiralAdjust } from '../../util/adjust-labels';
 import { getReplaceAttrs } from '../../util/graphics';
@@ -20,11 +21,12 @@ const LAYOUTS = {
  * Geometry labels 渲染组件
  */
 export default class Labels {
-  /** 用于指定 label 布局的类型 */
+  /** 用于指定 labels 布局的类型 */
   public adjustType: string;
   /** 图形容器 */
   public container: IGroup;
 
+  /** 存储当前 shape 的映射表，键值为 shape id */
   public shapesMap: Record<string, IGroup> = {};
   private lastShapesMap: Record<string, IGroup> = {};
 
@@ -36,8 +38,7 @@ export default class Labels {
   }
 
   /**
-   * TODO: 动画支持
-   * Renders labels group
+   * 渲染文本
    */
   public render(items: LabelItem[], shapes: Record<string, IShape | IGroup>) {
     this.shapesMap = {};
@@ -49,7 +50,7 @@ export default class Labels {
         this.renderLabel(item, offscreenGroup);
       }
     }
-    this.adjustLabels(shapes);
+    this.adjustLabels(shapes); // 调整 labels
 
     // 进行添加、更新、销毁操作
     const lastShapesMap = this.lastShapesMap;
@@ -60,27 +61,45 @@ export default class Labels {
         const data = shape.get('data');
         const mappingData = shape.get('mappingData');
         const currentShape = lastShapesMap[id]; // 已经在渲染树上的 shape
+        currentShape.set('data', data);
+        currentShape.set('mappingData', mappingData);
+
+        const updateAnimateCfg = get(shape.get('animate'), 'update');
         const currentChildren = currentShape.getChildren();
         shape.getChildren().map((child, index) => {
           const currentChild = currentChildren[index] as IShape;
-          const newAttrs = getReplaceAttrs(currentChild, child);
-          currentChild.attr(newAttrs);
           currentChild.set('data', data);
           currentChild.set('mappingData', mappingData);
+
+          const newAttrs = getReplaceAttrs(currentChild, child);
+          if (updateAnimateCfg) {
+            doAnimate(currentChild, updateAnimateCfg, { toAttrs: newAttrs });
+          } else {
+            currentChild.attr(newAttrs);
+          }
         });
-        currentShape.set('data', data);
-        currentShape.set('mappingData', mappingData);
+
         this.shapesMap[id] = currentShape; // 保存引用
       } else {
         // 新生成的 shape
         container.add(shape);
+
+        const animateCfg = get(shape.get('animate'), isEmpty(this.lastShapesMap) ? 'appear' : 'enter');
+        if (animateCfg) {
+          doAnimate(shape, animateCfg, {});
+        }
       }
       delete lastShapesMap[id];
     });
 
     // 移除
     each(lastShapesMap, (deleteShape) => {
-      deleteShape.remove(true); // 移除
+      const animateCfg = get(deleteShape.get('animate'), 'leave');
+      if (animateCfg) {
+        doAnimate(deleteShape, animateCfg, {});
+      } else {
+        deleteShape.remove(true); // 移除
+      }
     });
 
     this.lastShapesMap = shapesMap;
@@ -106,6 +125,7 @@ export default class Labels {
       origin: mappingData,
       data,
       name: 'label',
+      animate: cfg.animate,
     });
     const labelShape = labelGroup.addShape('text', {
       capture: true,
