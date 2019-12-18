@@ -495,6 +495,7 @@ describe('Element', () => {
       nice: false,
     });
     const container = canvas.addGroup();
+    const frontgroundGroup = canvas.addGroup();
 
     const data = [
       { year: 1997, value: 7 },
@@ -516,6 +517,7 @@ describe('Element', () => {
       coord,
       view,
       container,
+      frontgroundGroup,
       canvas,
       scales: {
         year: yearScale,
