@@ -13,7 +13,7 @@ export default class Point extends Geometry {
 
     return {
       ...shapeCfg,
-      isStack: !!this.getAdjust('adjust'), // 层叠点图
+      isStack: !!this.getAdjust('stack'), // 层叠点图
     };
   }
 }
