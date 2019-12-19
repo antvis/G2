@@ -11,13 +11,12 @@ const DEFAULT_ANIMATE_CFG = {
     easing: 'easeQuadOut',
   }, // 初始入场动画配置
   update: {
-    duration: 450,
+    duration: 400,
     easing: 'easeQuadInOut',
   }, // 更新时发生变更的动画配置
   enter: {
     duration: 400,
     easing: 'easeQuadInOut',
-    delay: 100,
   }, // 更新时新增元素的入场动画配置
   leave: {
     duration: 350,
@@ -39,7 +38,7 @@ const GEOMETRY_ANIMATE_CFG = {
           : 'zoomIn',
       },
       update: {
-        animation: coordinate.isPolar && coordinate.isTransposed ? null : null,
+        animation: coordinate.isPolar && coordinate.isTransposed ? 'sectorPathUpdate' : null,
       },
       leave: {
         animation: 'fadeOut',
@@ -88,7 +87,9 @@ const GEOMETRY_ANIMATE_CFG = {
     },
     enter: {
       animation: 'fadeIn',
-      delay: 500,
+    },
+    update: {
+      animation: 'textUpdate',
     },
     leave: {
       animation: 'fadeOut',
@@ -111,15 +112,6 @@ const GEOMETRY_GROUP_APPEAR_ANIMATION = {
   },
   interval(coordinate: Coordinate) {
     let animation;
-    if (coordinate.isPolar) {
-      animation = 'growInXY';
-      if (coordinate.isTransposed) {
-        // pie chart
-        animation = 'waveIn';
-      }
-    } else {
-      animation = coordinate.isTransposed ? 'growInX' : 'growInY';
-    }
 
     if (coordinate.isRect) {
       animation = coordinate.isTransposed ? 'growInX' : 'growInY';
@@ -132,6 +124,7 @@ const GEOMETRY_GROUP_APPEAR_ANIMATION = {
     }
     return {
       animation,
+      easing: 'easeSinOut',
     };
   },
   schema: () => {
@@ -164,19 +157,11 @@ export function getDefaultAnimateCfg(elementName: string, coordinate: Coordinate
     if (isFunction(animateCfg)) {
       animateCfg = animateCfg(coordinate);
     }
+    animateCfg = deepMix({}, DEFAULT_ANIMATE_CFG, animateCfg);
 
     if (animateType) {
-      // 如果需要获取特定动画类型的配置
-      if (animateCfg[animateType]) {
-        return {
-          ...DEFAULT_ANIMATE_CFG[animateType],
-          ...animateCfg[animateType],
-        };
-      }
       return animateCfg[animateType];
     }
-    // 返回完整的动画配置
-    return deepMix({}, DEFAULT_ANIMATE_CFG, animateCfg);
   }
   return animateCfg;
 }

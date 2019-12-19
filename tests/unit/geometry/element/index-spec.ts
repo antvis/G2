@@ -273,7 +273,7 @@ describe('Element', () => {
       // @ts-ignore
       expect(element.getAnimateCfg('update')).toEqual({
         animation: null,
-        duration: 450,
+        duration: 400,
         easing: 'easeQuadInOut',
         delay: 1000,
       });

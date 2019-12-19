@@ -39,54 +39,53 @@ describe('Animate', () => {
   it('getDefaultAnimateCfg', () => {
     expect(getDefaultAnimateCfg('interval', rectCoord)).toEqual({
       appear: { duration: 450, easing: 'easeQuadOut' },
-      update: { duration: 450, easing: 'easeQuadInOut', animation: null },
-      enter: { duration: 400, easing: 'easeQuadInOut', delay: 100, animation: 'scaleInY' },
+      update: { duration: 400, easing: 'easeQuadInOut', animation: null },
+      enter: { duration: 400, easing: 'easeQuadInOut', animation: 'scaleInY' },
       leave: { duration: 350, easing: 'easeQuadIn', animation: 'fadeOut' },
     });
 
     expect(getDefaultAnimateCfg('interval', rectCoord.transpose())).toEqual({
       appear: { duration: 450, easing: 'easeQuadOut' },
-      update: { duration: 450, easing: 'easeQuadInOut', animation: null },
-      enter: { duration: 400, easing: 'easeQuadInOut', delay: 100, animation: 'scaleInX' },
+      update: { duration: 400, easing: 'easeQuadInOut', animation: null },
+      enter: { duration: 400, easing: 'easeQuadInOut', animation: 'scaleInX' },
       leave: { duration: 350, easing: 'easeQuadIn', animation: 'fadeOut' },
     });
 
     expect(getDefaultAnimateCfg('interval', polarCoord)).toEqual({
       appear: { duration: 450, easing: 'easeQuadOut' },
-      update: { duration: 450, easing: 'easeQuadInOut', animation: null },
-      enter: { duration: 400, easing: 'easeQuadInOut', delay: 100, animation: 'zoomIn' },
+      update: { duration: 400, easing: 'easeQuadInOut', animation: null },
+      enter: { duration: 400, easing: 'easeQuadInOut', animation: 'zoomIn' },
       leave: { duration: 350, easing: 'easeQuadIn', animation: 'fadeOut' },
     });
 
     expect(getDefaultAnimateCfg('interval', helixCoord)).toEqual({
       appear: { duration: 450, easing: 'easeQuadOut' },
-      update: { duration: 450, easing: 'easeQuadInOut', animation: null },
-      enter: { duration: 400, easing: 'easeQuadInOut', delay: 100, animation: 'zoomIn' },
+      update: { duration: 400, easing: 'easeQuadInOut', animation: null },
+      enter: { duration: 400, easing: 'easeQuadInOut', animation: 'zoomIn' },
       leave: { duration: 350, easing: 'easeQuadIn', animation: 'fadeOut' },
     });
 
     expect(getDefaultAnimateCfg('interval', thetaCoord)).toEqual({
       appear: { duration: 450, easing: 'easeQuadOut' },
-      update: { duration: 450, easing: 'easeQuadInOut', animation: null },
-      enter: { duration: 400, easing: 'easeQuadInOut', delay: 100, animation: 'fadeIn' },
+      update: { duration: 400, easing: 'easeQuadInOut', animation: 'sectorPathUpdate' },
+      enter: { duration: 400, easing: 'easeQuadInOut', animation: 'fadeIn' },
       leave: { duration: 350, easing: 'easeQuadIn', animation: 'fadeOut' },
     });
 
     expect(getDefaultAnimateCfg('line', rectCoord)).toEqual({
       appear: { duration: 450, easing: 'easeQuadOut' },
-      update: { duration: 450, easing: 'easeQuadInOut' },
-      enter: { duration: 400, easing: 'easeQuadInOut', delay: 100, animation: 'fadeIn' },
+      update: { duration: 400, easing: 'easeQuadInOut' },
+      enter: { duration: 400, easing: 'easeQuadInOut', animation: 'fadeIn' },
       leave: { duration: 350, easing: 'easeQuadIn', animation: 'fadeOut' },
     });
 
     expect(getDefaultAnimateCfg('whatever', rectCoord)).toBeUndefined();
 
-    expect(getDefaultAnimateCfg('interval', rectCoord, 'appear')).toBeUndefined();
+    expect(getDefaultAnimateCfg('interval', rectCoord, 'appear')).toEqual({ duration: 450, easing: 'easeQuadOut' });
 
     expect(getDefaultAnimateCfg('interval', rectCoord, 'enter')).toEqual({
       duration: 400,
       easing: 'easeQuadInOut',
-      delay: 100,
       animation: 'scaleInX',
     });
   });
