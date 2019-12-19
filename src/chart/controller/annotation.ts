@@ -3,6 +3,7 @@ import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { Annotation as AnnotationComponent, IGroup, Scale } from '../../dependents';
 import { Point } from '../../interface';
 import { getDistanceToCenter, getPointAngle } from '../../util/coordinate';
+import { omit } from '../../util/helper';
 import { ComponentOption } from '../interface';
 import View from '../view';
 import { Controller } from './base';
@@ -137,9 +138,7 @@ export default class Annotation extends Controller<BaseOption[]> {
       // 存在，则更新
       if (existCo) {
         // 忽略掉一些配置
-        ['container'].forEach((key: string) => {
-          delete cfg[key];
-        });
+        omit(cfg, ['container']);
 
         existCo.component.update(cfg);
         updated.set(option, true);
