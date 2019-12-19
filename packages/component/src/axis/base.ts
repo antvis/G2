@@ -166,9 +166,25 @@ export default abstract class Axis extends Guide<AxisCfg> {
       labelCfg.x = newPoint.x;
       labelCfg.y = newPoint.y;
       labelCfg.point = newPoint;
-      labelCfg.textAlign = this.getTextAnchor(vector);
       if (!Util.isNil(point.rotate)) {
         labelCfg.rotate = point.rotate;
+      }
+      if (!Util.isNil(labelCfg.rotate)) {
+        labelCfg.textAlign =
+          labelCfg.rotate % 180 === 0
+            ? 'center'
+            : labelCfg.rotate > 0
+            ? labelCfg.rotate % 360 < 180
+              ? 'left'
+              : 'right'
+            : labelCfg.rotate % 360 > -180
+            ? 'right'
+            : 'left';
+        const offset = -6 * Math.abs(Math.sin((labelCfg.rotate * Math.PI) / 180));
+        labelCfg.y += offset;
+        labelCfg.point.y += offset;
+      } else {
+        labelCfg.textAlign = this.getTextAnchor(vector);
       }
 
       if (labelCfg.useHtml) {
