@@ -80,6 +80,22 @@ const GEOMETRY_ANIMATE_CFG = {
       animation: 'fadeOut',
     },
   },
+  polygon: {
+    enter: {
+      animation: 'fadeIn',
+    },
+    leave: {
+      animation: 'fadeOut',
+    },
+  },
+  schema: {
+    enter: {
+      animation: 'fadeIn',
+    },
+    leave: {
+      animation: 'fadeOut',
+    },
+  },
   label: {
     appear: {
       animation: 'fadeIn',
@@ -99,16 +115,20 @@ const GEOMETRY_ANIMATE_CFG = {
 
 // 各个 Geometry 默认的群组出场动画
 const GEOMETRY_GROUP_APPEAR_ANIMATION = {
-  line(coordinate: Coordinate) {
+  line: () => {
     return {
-      animation: coordinate.isPolar ? 'growInXY' : 'waveIn',
+      animation: 'waveIn',
     };
   },
-  area(coordinate: Coordinate) {
-    return this.line(coordinate);
+  area: () => {
+    return {
+      animation: 'waveIn',
+    };
   },
-  path(coordinate: Coordinate) {
-    return this.line(coordinate);
+  path: () => {
+    return {
+      animation: 'fadeIn',
+    };
   },
   interval(coordinate: Coordinate) {
     let animation;
@@ -124,12 +144,23 @@ const GEOMETRY_GROUP_APPEAR_ANIMATION = {
     }
     return {
       animation,
-      easing: 'easeSinOut',
     };
   },
-  schema: () => {
+  schema: (coordinate) => {
+    let animation;
+    if (coordinate.isRect) {
+      animation = coordinate.isTransposed ? 'growInX' : 'growInY';
+    } else {
+      animation = 'growInXY';
+    }
     return {
-      animation: 'waveIn',
+      animation,
+    };
+  },
+  polygon: () => {
+    return {
+      animation: 'fadeIn',
+      duration: 500,
     };
   },
 };
