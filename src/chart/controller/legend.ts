@@ -4,6 +4,7 @@ import { Attribute, CategoryLegend, ContinuousLegend, GroupComponent, IGroup, Sc
 import Geometry from '../../geometry/base';
 import { BBox } from '../../util/bbox';
 import { directionToPosition } from '../../util/direction';
+import { omit } from '../../util/helper';
 import { getLegendItems, getLegendLayout } from '../../util/legend';
 import { ComponentOption, LegendOption } from '../interface';
 import View from '../view';
@@ -121,9 +122,7 @@ export default class Legend extends Controller<Option> {
         // 如果 cfg 为空，则不在 updated 标记，那么会在后面逻辑中删除
         if (cfg) {
           // omit 掉一些属性，比如 container 等
-          ['container'].forEach((key: string) => {
-            delete cfg[key];
-          });
+          omit(cfg, ['container']);
 
           existCo.direction = getDirection(legendOption);
 

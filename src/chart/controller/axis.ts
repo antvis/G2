@@ -3,6 +3,7 @@ import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { CircleAxis, CircleGrid, IGroup, LineAxis, LineGrid, Scale } from '../../dependents';
 import { getAxisFactorByRegion, getAxisRegion, getAxisThemeCfg, getCircleAxisCenterRadius } from '../../util/axis';
 import { getCircleGridItems, getGridThemeCfg, getLineGridItems, showGrid } from '../../util/grid';
+import { omit } from '../../util/helper';
 import { getName } from '../../util/scale';
 import { AxisOption, ComponentOption } from '../interface';
 import View from '../view';
@@ -98,12 +99,27 @@ export default class Axis extends Controller<Option> {
    * 更新 axis 组件
    */
   public update() {
-    // this.option = this.view.getOptions().axes;
+    this.option = this.view.getOptions().axes;
+    const updatedCache = new Map<string, ComponentOption>();
 
-    // const updatedCache = new Map<string, ComponentOption>();
+    this.updateXAxes(updatedCache);
+    this.updateYAxes(updatedCache);
 
-    // this.updateXAxes(updatedCache);
-    // this.updateYAxes(updatedCache);
+    // 处理完成之后，销毁删除的
+    // 不在处理中的
+    const newCache = new Map<string, ComponentOption>();
+
+    this.cache.forEach((co: ComponentOption, key: string) => {
+      if (updatedCache.has(key)) {
+        newCache.set(key, co);
+      } else {
+        // 不存在，则是所有需要被销毁的组件
+        co.component.destroy();
+      }
+    });
+
+    // 更新缓存
+    this.cache = newCache;
   }
 
   public clear() {
@@ -146,6 +162,7 @@ export default class Axis extends Controller<Option> {
       return;
     }
 
+    const { field } = scale;
     const xAxisOption = getAxisOption(this.option, scale.field);
     if (xAxisOption === false) {
       return;
@@ -153,114 +170,173 @@ export default class Axis extends Controller<Option> {
 
     const coordinate = this.view.getCoordinate();
 
+    const axisId = this.getId('axis', field);
+    const gridId = this.getId('grid', field);
+
+    const direction = DIRECTION.BOTTOM;
+    const layer = LAYER.BG;
+    const dim = 'x';
+
     if (coordinate.isRect) {
+      // 1. do axis update
+      let axis = this.cache.get(axisId);
+      // 存在则更新
+      if (axis) {
+        const cfg = this.getLineAxisCfg(scale, xAxisOption, direction);
+        omit(cfg, ['container']);
+        axis.component.update(cfg);
+        updatedCache.set(axisId, axis);
+      } else {
+        // 不存在，则创建
+        axis = this.createLineAxis(scale, xAxisOption, layer, direction, dim);
+        this.cache.set(axisId, axis);
+        updatedCache.set(axisId, axis);
+      }
 
-    }  else if (coordinate.isPolar) {
+      // 2. do grid update
+      let grid = this.cache.get(gridId);
+      // 存在则更新
+      if (grid) {
+        const cfg = this.getLineGridCfg(scale, xAxisOption, direction, dim);
+        omit(cfg, ['container']);
+        grid.component.update(cfg);
+        updatedCache.set(gridId, grid);
+      } else {
+        // 不存在则创建
+        grid = this.createLineGrid(scale, xAxisOption, layer, direction, dim);
+        if (grid) {
+          this.cache.set(gridId, grid);
+          updatedCache.set(gridId, grid);
+        }
+      }
+    } else if (coordinate.isPolar) {
+      // 1. do axis update
+      let axis = this.cache.get(axisId);
+      // 存在则更新
+      if (axis) {
+        const cfg = this.getCircleAxisCfg(scale, xAxisOption, direction);
+        omit(cfg, ['container']);
+        axis.component.update(cfg);
+        updatedCache.set(axisId, axis);
+      } else {
+        // 不存在，则创建
+        axis = this.createCircleAxis(scale, xAxisOption, layer, direction, dim);
+        this.cache.set(axisId, axis);
+        updatedCache.set(axisId, axis);
+      }
 
+      // 2. do grid update
+      let grid = this.cache.get(gridId);
+      // 存在则更新
+      if (grid) {
+        const cfg = this.getCircleGridCfg(scale, xAxisOption, direction, dim);
+        omit(cfg, ['container']);
+        grid.component.update(cfg);
+        updatedCache.set(gridId, grid);
+      } else {
+        // 不存在则创建
+        grid = this.createCircleLineGrid(scale, xAxisOption, layer, direction, dim);
+        if (grid) {
+          this.cache.set(gridId, grid);
+          updatedCache.set(gridId, grid);
+        }
+      }
     } else {
       // helix and other, do not draw axis
     }
   }
 
   private updateYAxes(updatedCache: Map<string, ComponentOption>) {
+    // y axes
+    const yScales = this.view.getYScales();
 
-  }
+    each(yScales, (scale: Scale, idx: number) => {
+      const { field } = scale;
+      const yAxisOption = getAxisOption(this.option, field);
 
-  /**
-   * 创建 line axis
-   * @param scale
-   * @param option
-   * @param layer
-   * @param direction
-   * @param dim
-   */
-  private createLineAxis(
-    scale: Scale, option: AxisOption, layer: LAYER, direction: DIRECTION, dim: string
-  ): ComponentOption {
-    // axis
-    const axis = {
-      component: new LineAxis(this.getLineAxisCfg(scale, option, direction)),
-      layer,
-      // @ts-ignore
-      direction: direction === 'radius' ? DIRECTION.NONE : direction,
-      type: COMPONENT_TYPE.AXIS,
-      extra: { dim, scale },
-    };
-    axis.component.set('field', scale.field);
-    axis.component.render();
+      if (yAxisOption !== false) {
+        const layer = LAYER.BG;
+        const dim = 'y';
+        const axisId = this.getId('axis', field);
+        const gridId = this.getId('grid', field);
 
-    return axis;
-  }
+        const coordinate = this.view.getCoordinate();
 
-  private createLineGrid(
-    scale: Scale, option: AxisOption, layer: LAYER, direction: DIRECTION, dim: string
-  ): ComponentOption {
-    const cfg = this.getLineGridCfg(scale, option, direction, dim);
-    if (cfg) {
-      const grid = {
-        component: new LineGrid(cfg),
-        layer,
-        direction: DIRECTION.NONE,
-        type: COMPONENT_TYPE.GRID,
-        extra: { dim, scale },
-      };
-      grid.component.render();
+        if (coordinate.isRect) {
+          const direction = idx === 0 ? DIRECTION.LEFT : DIRECTION.RIGHT;
 
-      return grid;
-    }
-  }
+          // 1. do axis update
+          let axis = this.cache.get(axisId);
+          // 存在则更新
+          if (axis) {
+            const cfg = this.getLineAxisCfg(scale, yAxisOption, direction);
+            omit(cfg, ['container']);
+            axis.component.update(cfg);
+            updatedCache.set(axisId, axis);
+          } else {
+            // 不存在，则创建
+            axis = this.createLineAxis(scale, yAxisOption, layer, direction, dim);
+            this.cache.set(axisId, axis);
+            updatedCache.set(axisId, axis);
+          }
 
-  private createCircleAxis(
-    scale: Scale, option: AxisOption, layer: LAYER, direction: DIRECTION, dim: string
-  ): ComponentOption {
-    const axis = {
-      component: new CircleAxis(this.getCircleAxisCfg(scale, option, direction)),
-      layer,
-      direction,
-      type: COMPONENT_TYPE.AXIS,
-      extra: { dim, scale },
-    };
-    axis.component.set('field', scale.field);
+          // 2. do grid update
+          let grid = this.cache.get(gridId);
+          // 存在则更新
+          if (grid) {
+            const cfg = this.getLineGridCfg(scale, yAxisOption, direction, dim);
+            omit(cfg, ['container']);
+            grid.component.update(cfg);
+            updatedCache.set(gridId, grid);
+          } else {
+            // 不存在则创建
+            grid = this.createLineGrid(scale, yAxisOption, layer, direction, dim);
+            if (grid) {
+              this.cache.set(gridId, grid);
+              updatedCache.set(gridId, grid);
+            }
+          }
+        } else if (coordinate.isPolar) {
+          // 1. do axis update
+          let axis = this.cache.get(axisId);
+          // 存在则更新
+          if (axis) {
+            // @ts-ignore
+            const cfg = this.getLineAxisCfg(scale, yAxisOption, 'radius');
+            omit(cfg, ['container']);
+            axis.component.update(cfg);
+            updatedCache.set(axisId, axis);
+          } else {
+            // 不存在，则创建
+            // @ts-ignore
+            axis = this.createLineAxis(scale, yAxisOption, layer, 'radius', dim);
+            this.cache.set(axisId, axis);
+            updatedCache.set(axisId, axis);
+          }
 
-    axis.component.render();
-
-    return axis;
-  }
-
-  private createCircleGrid(
-    scale: Scale, option: AxisOption, layer: LAYER, direction: DIRECTION, dim: string
-  ): ComponentOption {
-    const cfg = this.getCircleGridCfg(scale, option, direction, dim);
-    if (cfg) {
-      const grid = {
-        component: new CircleGrid(cfg),
-        layer,
-        direction: DIRECTION.NONE,
-        type: COMPONENT_TYPE.GRID,
-        extra: { dim: 'y', scale },
-      };
-
-      grid.component.render();
-      return grid;
-    }
-  }
-
-  private createCircleLineGrid(
-    scale: Scale, option: AxisOption, layer: LAYER, direction: DIRECTION, dim: string
-  ): ComponentOption {
-    const cfg = this.getCircleGridCfg(scale, option, direction, dim);
-    if (cfg) {
-      const grid = {
-        component: new LineGrid(cfg),
-        layer,
-        direction: DIRECTION.NONE,
-        type: COMPONENT_TYPE.GRID,
-        extra: { dim: 'x', scale },
-      };
-
-      grid.component.render();
-      return grid;
-    }
+          // 2. do grid update
+          let grid = this.cache.get(gridId);
+          // 存在则更新
+          if (grid) {
+            // @ts-ignore
+            const cfg = this.getCircleGridCfg(scale, yAxisOption, 'radius', dim);
+            omit(cfg, ['container']);
+            grid.component.update(cfg);
+            updatedCache.set(gridId, grid);
+          } else {
+            // 不存在则创建
+            // @ts-ignore
+            grid = this.createCircleGrid(scale, yAxisOption, layer, 'radius', dim);
+            if (grid) {
+              this.cache.set(gridId, grid);
+              updatedCache.set(gridId, grid);
+            }
+          }
+        } else {
+          // helix and other, do not draw axis
+        }
+      }
+    });
   }
 
   /**
@@ -297,7 +373,7 @@ export default class Axis extends Controller<Option> {
       } else if (coordinate.isPolar) {
         // axis
         const axis = this.createCircleAxis(scale, xAxisOption, layer, direction, dim);
-        this.cache.set(this.getId('axis', scale.field), axis);
+        this.cache.set(axisId, axis);
 
         // grid
         const grid = this.createCircleLineGrid(scale, xAxisOption, layer, direction, dim);
@@ -357,6 +433,123 @@ export default class Axis extends Controller<Option> {
         }
       }
     });
+  }
+
+  /**
+   * 创建 line axis
+   * @param scale
+   * @param option
+   * @param layer
+   * @param direction
+   * @param dim
+   */
+  private createLineAxis(
+    scale: Scale,
+    option: AxisOption,
+    layer: LAYER,
+    direction: DIRECTION,
+    dim: string
+  ): ComponentOption {
+    // axis
+    const axis = {
+      component: new LineAxis(this.getLineAxisCfg(scale, option, direction)),
+      layer,
+      // @ts-ignore
+      direction: direction === 'radius' ? DIRECTION.NONE : direction,
+      type: COMPONENT_TYPE.AXIS,
+      extra: { dim, scale },
+    };
+    axis.component.set('field', scale.field);
+    axis.component.render();
+
+    return axis;
+  }
+
+  private createLineGrid(
+    scale: Scale,
+    option: AxisOption,
+    layer: LAYER,
+    direction: DIRECTION,
+    dim: string
+  ): ComponentOption {
+    const cfg = this.getLineGridCfg(scale, option, direction, dim);
+    if (cfg) {
+      const grid = {
+        component: new LineGrid(cfg),
+        layer,
+        direction: DIRECTION.NONE,
+        type: COMPONENT_TYPE.GRID,
+        extra: { dim, scale },
+      };
+      grid.component.render();
+
+      return grid;
+    }
+  }
+
+  private createCircleAxis(
+    scale: Scale,
+    option: AxisOption,
+    layer: LAYER,
+    direction: DIRECTION,
+    dim: string
+  ): ComponentOption {
+    const axis = {
+      component: new CircleAxis(this.getCircleAxisCfg(scale, option, direction)),
+      layer,
+      direction,
+      type: COMPONENT_TYPE.AXIS,
+      extra: { dim, scale },
+    };
+    axis.component.set('field', scale.field);
+
+    axis.component.render();
+
+    return axis;
+  }
+
+  private createCircleGrid(
+    scale: Scale,
+    option: AxisOption,
+    layer: LAYER,
+    direction: DIRECTION,
+    dim: string
+  ): ComponentOption {
+    const cfg = this.getCircleGridCfg(scale, option, direction, dim);
+    if (cfg) {
+      const grid = {
+        component: new CircleGrid(cfg),
+        layer,
+        direction: DIRECTION.NONE,
+        type: COMPONENT_TYPE.GRID,
+        extra: { dim: 'y', scale },
+      };
+
+      grid.component.render();
+      return grid;
+    }
+  }
+
+  private createCircleLineGrid(
+    scale: Scale,
+    option: AxisOption,
+    layer: LAYER,
+    direction: DIRECTION,
+    dim: string
+  ): ComponentOption {
+    const cfg = this.getCircleGridCfg(scale, option, direction, dim);
+    if (cfg) {
+      const grid = {
+        component: new LineGrid(cfg),
+        layer,
+        direction: DIRECTION.NONE,
+        type: COMPONENT_TYPE.GRID,
+        extra: { dim: 'x', scale },
+      };
+
+      grid.component.render();
+      return grid;
+    }
   }
 
   /**
