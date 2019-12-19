@@ -242,6 +242,8 @@ export default class GeometryLabels {
     const labelScales = fields.map((field: string) => {
       return scales[field];
     });
+    const xScale = geometry.getXScale();
+    const yScale = geometry.getYScale();
 
     const labelCfgs: LabelCfg[] = [];
     each(mapppingArray, (mappingData: MappingDatum, index: number) => {
@@ -258,8 +260,17 @@ export default class GeometryLabels {
         }
       }
 
+      let labelId = geometry.getElementId(origin);
+      if (type === 'line' || type === 'area') {
+        // 折线图以及区域图，一条线会对应一组数据，即多个 labels，为了区分这些 labels，需要在 line id 的前提下加上 x 字段值
+        labelId += ` ${origin[xScale.field]}`;
+      } else if (type === 'path') {
+        // path 路径图，无序，有可能存在相同 x 不同 y 的情况，需要通过 x y 来确定唯一 id
+        labelId += ` ${origin[xScale.field]}-${origin[yScale.field]}`;
+      }
+
       let labelCfg = {
-        id: geometry.getElementId(origin), // 进行 ID 标记
+        id: labelId, // 进行 ID 标记
         data: origin, // 存储原始数据
         mappingData, // 存储映射后的数据,
         ...cfg,
