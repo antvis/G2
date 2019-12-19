@@ -157,6 +157,11 @@ export default abstract class Axis extends Guide<AxisCfg> {
     if (labelCfg) {
       labelCfg = Util.deepMix({ text: tick.text }, Theme.label, labelCfg);
 
+      // 支持formatter配置
+      if (labelCfg.formatter) {
+        labelCfg.text = labelCfg.formatter(tick.text, index, tickCount);
+      }
+
       const vector = this.getSideVector(labelCfg.offset, point, index);
       const newPoint = {
         x: point.x + vector[0] + labelCfg.offsetX,

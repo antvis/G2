@@ -174,6 +174,7 @@ export default class Line extends Axis {
       if (angle) {
         const factor = this.get('factor');
         const offsetY = -6 * Math.abs(Math.sin(angle));
+        // const offsetY = (this.getMaxLabelWidthOrHeight(labelRenderer, 'width') * Math.abs(Math.sin(angle))) / 2;
         Util.each(labels, (label) => {
           label.rotateAtStart(angle);
           label.attr('y', label.attr('y') + offsetY);
