@@ -31,3 +31,16 @@ export function padEnd(source: string | any[], targetLength: number, padValue: a
 
   return source;
 }
+
+/**
+ * omit keys of an object.
+ * @param obj
+ * @param keys
+ */
+export function omit<T = any>(obj: T, keys: string[]): T {
+  keys.forEach((key: string) => {
+    delete obj[key];
+  });
+
+  return obj;
+}
