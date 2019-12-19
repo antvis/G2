@@ -102,6 +102,20 @@ export interface GeometryCfg {
   theme?: LooseObject;
 }
 
+// 根据 elementId 查找对应的 label，因为有可能一个 element 对应多个 labels，所以在给 labels 打标识时做了处理
+// 达标规则详见 ./label/base.ts#L263
+function findLabelsById(id: string, labelsMap: Record<string, IGroup>) {
+  const labels = [];
+  each(labelsMap, (label: IGroup, labelId: string) => {
+    const elementId = labelId.split(' ')[0];
+    if (elementId === id) {
+      labels.push(label);
+    }
+  });
+
+  return labels;
+}
+
 /**
  * Create a new Geometry
  * @class
@@ -263,14 +277,17 @@ export default class Geometry extends Base {
    *   }
    *   return 'blue';
    * });
+   *
+   * // 连续色值
+   * color('x', '#BAE7FF-#1890FF-#0050B3');
    * ```
    *
    * @param field data fields participating in the mapping or a color value
    * @param cfg Optional, color mapping rules
    * @returns
    */
-  public color(field: string, cfg?: string[] | ColorAttrCallback): Geometry;
-  public color(field: AttributeOption | string, cfg?: string[] | ColorAttrCallback): Geometry {
+  public color(field: string, cfg?: string | string[] | ColorAttrCallback): Geometry;
+  public color(field: AttributeOption | string, cfg?: string | string[] | ColorAttrCallback): Geometry {
     this.createAttrOption('color', field, cfg);
 
     return this;
@@ -711,7 +728,7 @@ export default class Geometry extends Base {
    * Mapping raw data to graphics data, while create the shapes.
    * Should be called after `init()` or `pdateData()`
    */
-  public paint() {
+  public paint(isUpdate: boolean = false) {
     this.elements = [];
     this.elementsMap = {};
 
@@ -722,15 +739,16 @@ export default class Geometry extends Base {
     for (const eachGroup of dataArray) {
       const mappingData = this.mapping(eachGroup);
       mappingArray.push(mappingData);
-      this.createElements(mappingData);
+      this.createElements(mappingData, isUpdate);
     }
 
     if (
+      !isUpdate &&
       this.animateOption &&
       (get(this.animateOption, 'appear') === undefined ||
-        get(this.animateOption, ['appear', 'animation']) === undefined)
+        (get(this.animateOption, 'appear') && get(this.animateOption, ['appear', 'animation']) === undefined))
     ) {
-      // 如果用户没有配置 appear，就默认走整体动画
+      // 如果用户没有配置 appear.animation，就默认走整体动画
       const container = this.container;
       const type = this.type;
       const coordinate = this.coordinate;
@@ -745,7 +763,7 @@ export default class Geometry extends Base {
 
     // 添加 label
     if (this.labelOption) {
-      this.renderLabels(flatten(mappingArray));
+      this.renderLabels(flatten(mappingArray), isUpdate);
     }
 
     this.afterMapping(mappingArray);
@@ -1017,6 +1035,20 @@ export default class Geometry extends Base {
     }
   }
 
+  /**
+   * 获取当前配置中的所有分组 & 分类的字段
+   * @return fields string[]
+   */
+  public getGroupFields(): string[] {
+    const fields = [];
+    each(GROUP_ATTRS, (attributeName: string) => {
+      const cfg = this.attributeOption[attributeName];
+      fields.push(...get(cfg, 'fields', []));
+    });
+
+    return uniq(fields);
+  }
+
   protected updateData(cfg: InitCfg) {
     this.setCfg(cfg);
     this.processData(this.data); // 数据加工：分组 -> 数字化 -> adjust
@@ -1059,13 +1091,12 @@ export default class Geometry extends Base {
     };
   }
 
-  protected createElement(mappingDatum: MappingDatum): Element {
+  protected createElement(mappingDatum: MappingDatum, isUpdate: boolean = false): Element {
     const { theme, container } = this;
 
     const shapeCfg = this.getDrawCfg(mappingDatum); // 获取绘制图形的配置信息
     const shapeFactory = this.getShapeFactory();
     const shape = mappingDatum.shape || shapeFactory.defaultShapeType;
-    const animateType = isEmpty(this.lastElementsMap) ? 'appear' : 'enter';
 
     const element = new Element({
       shapeType: shape,
@@ -1076,7 +1107,7 @@ export default class Geometry extends Base {
       animate: this.animateOption,
     });
     element.geometry = this;
-    element.draw(shapeCfg, animateType); // 绘制
+    element.draw(shapeCfg, isUpdate); // 绘制
 
     return element;
   }
@@ -1106,7 +1137,7 @@ export default class Geometry extends Base {
     return cfg;
   }
 
-  protected createElements(mappingData: MappingDatum[]): Element[] {
+  protected createElements(mappingData: MappingDatum[], isUpdate: boolean = false): Element[] {
     const { lastElementsMap, elementsMap, elements } = this;
     each(mappingData, (mappingDatum, i) => {
       const originData = mappingDatum[FIELD_ORIGIN];
@@ -1114,7 +1145,7 @@ export default class Geometry extends Base {
       let result = lastElementsMap[id];
       if (!result) {
         // 创建新的 element
-        result = this.createElement(mappingDatum);
+        result = this.createElement(mappingDatum, isUpdate);
       } else {
         // element 已经创建
         const currentShapeCfg = this.getDrawCfg(mappingDatum);
@@ -1588,7 +1619,7 @@ export default class Geometry extends Base {
     }
   }
 
-  private renderLabels(mappingArray: MappingDatum[]) {
+  private renderLabels(mappingArray: MappingDatum[], isUpdate: boolean = false) {
     const { labelOption, animateOption, coordinate } = this;
     const labelType = this.getLabelType();
 
@@ -1613,25 +1644,11 @@ export default class Geometry extends Base {
     labelsRenderer.animate = animateOption ? getDefaultAnimateCfg('label', coordinate) : false;
 
     // 渲染文本
-    labelsRenderer.render(labelItems, shapes);
+    labelsRenderer.render(labelItems, shapes, isUpdate);
 
     const labelsMap = this.labelsRenderer.shapesMap;
     each(this.elementsMap, (element: Element, id) => {
-      element.labelShape = labelsMap[id]; // element 实例同 label 进行绑定
+      element.labelShape = findLabelsById(id, labelsMap); // element 实例同 label 进行绑定
     });
-  }
-
-  /**
-   * 获取当前配置中的所有分组 & 分类的字段
-   * @return fields string[]
-   */
-  public getGroupFields(): string[] {
-    const fields = [];
-    each(GROUP_ATTRS, (attributeName: string) => {
-      const cfg = this.attributeOption[attributeName];
-      fields.push(...get(cfg, 'fields', []));
-    });
-
-    return uniq(fields);
   }
 }

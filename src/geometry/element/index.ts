@@ -43,7 +43,7 @@ export default class Element extends Base {
   /** element 对应的 Geometry 实例 */
   public geometry: Geometry;
   /** 保存 shape 对应的 label */
-  public labelShape: IGroup;
+  public labelShape: IGroup[];
 
   /** shape 绘制需要的数据 */
   private model: ShapeInfo;
@@ -70,14 +70,14 @@ export default class Element extends Base {
   /**
    * 绘制图形
    * @param model 绘制数据
-   * @param animateType 可选
+   * @param isUpdate 可选，是否是更新发生后的绘制
    */
-  public draw(model: ShapeInfo, animateType: string = 'enter') {
+  public draw(model: ShapeInfo, isUpdate: boolean = false) {
     this.model = model;
     this.data = model.data; // 存储原始数据
 
     // 绘制图形
-    this.drawShape(model, animateType);
+    this.drawShape(model, isUpdate);
 
     if (this.visible === false) {
       // 用户在初始化的时候声明 visible: false
@@ -147,14 +147,18 @@ export default class Element extends Base {
         this.shape.show();
       }
       if (this.labelShape) {
-        this.labelShape.show();
+        this.labelShape.forEach((label: IGroup) => {
+          label.show();
+        });
       }
     } else {
       if (this.shape) {
         this.shape.hide();
       }
       if (this.labelShape) {
-        this.labelShape.hide();
+        this.labelShape.forEach((label: IGroup) => {
+          label.hide();
+        });
       }
     }
   }
@@ -280,13 +284,15 @@ export default class Element extends Base {
       bbox = shape.getCanvasBBox();
     }
     if (labelShape) {
-      const labelShapeBBox = labelShape.getCanvasBBox();
-      bbox.x = Math.min(labelShapeBBox.x, bbox.x);
-      bbox.y = Math.min(labelShapeBBox.y, bbox.y);
-      bbox.minX = Math.min(labelShapeBBox.minX, bbox.minX);
-      bbox.minY = Math.min(labelShapeBBox.minY, bbox.minY);
-      bbox.maxX = Math.max(labelShapeBBox.maxX, bbox.maxX);
-      bbox.maxY = Math.max(labelShapeBBox.maxY, bbox.maxY);
+      labelShape.forEach((label: IGroup) => {
+        const labelBBox = label.getCanvasBBox();
+        bbox.x = Math.min(labelBBox.x, bbox.x);
+        bbox.y = Math.min(labelBBox.y, bbox.y);
+        bbox.minX = Math.min(labelBBox.minX, bbox.minX);
+        bbox.minY = Math.min(labelBBox.minY, bbox.minY);
+        bbox.maxX = Math.max(labelBBox.maxX, bbox.maxX);
+        bbox.maxY = Math.max(labelBBox.maxY, bbox.maxY);
+      });
     }
 
     bbox.width = bbox.maxX - bbox.minX;
@@ -328,7 +334,7 @@ export default class Element extends Base {
   }
 
   // 绘制图形
-  private drawShape(model: ShapeInfo, animateType: string) {
+  private drawShape(model: ShapeInfo, isUpdate: boolean = false) {
     const { shapeType, shapeFactory, container } = this;
     const drawCfg = this.getShapeDrawCfg(model);
     // 自定义 shape 有可能返回空 shape
@@ -343,6 +349,7 @@ export default class Element extends Base {
       }
       this.shape.set('inheritNames', ['element']);
       // 执行入场动画
+      const animateType = isUpdate ? 'enter' : 'appear';
       const animateCfg = this.getAnimateCfg(animateType);
       if (animateCfg) {
         doAnimate(this.shape, animateCfg, {

@@ -976,7 +976,7 @@ export class View extends Base {
     // 7. 布局完之后，coordinate 的范围确定了，调整 coordinate 组件
     this.adjustCoordinate();
     // 8. 渲染几何标记
-    this.paintGeometries();
+    this.paintGeometries(isUpdate);
     // 9. 更新 viewEventCaptureRect 大小
     const { x, y, width, height } = this.viewBBox;
     this.viewEventCaptureRect.attr({ x, y, width, height });
@@ -1372,7 +1372,7 @@ export class View extends Base {
    * 根据 options 配置自动渲染 geometry
    * @private
    */
-  private paintGeometries() {
+  private paintGeometries(isUpdate: boolean) {
     const doAnimation = this.options.animate;
     // geometry 的 paint 阶段
     this.geometries.map((geometry: Geometry) => {
@@ -1380,7 +1380,7 @@ export class View extends Base {
         // 如果 view 不执行动画，那么 view 下所有的 geometry 都不执行动画
         geometry.animate(false);
       }
-      geometry.paint();
+      geometry.paint(isUpdate);
     });
   }
 
