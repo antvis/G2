@@ -121,7 +121,7 @@ export function transformShape(shape: IShape | IGroup, vector: [number, number],
  * @param yMinPoint y 轴的最小值对应的图形坐标点
  * @param type 剪切动画的类型
  */
-export function doClipScaleAnimate(
+export function doScaleAnimate(
   element: IGroup | IShape,
   animateCfg: AnimateCfg,
   coordinate: Coordinate,
@@ -133,30 +133,6 @@ export function doClipScaleAnimate(
   const height = coordinate.getHeight();
   let x: number;
   let y: number;
-
-  let clipShape;
-  if (coordinate.isRect) {
-    clipShape = element.setClip({
-      type: 'rect',
-      attrs: {
-        x: start.x,
-        y: end.y,
-        width,
-        height,
-      },
-    }) as IShape;
-  } else {
-    // 如果非直角坐标系，则剪切图形为圆形
-    const center = coordinate.getCenter();
-    clipShape = element.setClip({
-      type: 'circle',
-      attrs: {
-        ...center,
-        // @ts-ignore
-        r: coordinate.getRadius(),
-      },
-    });
-  }
 
   if (type === 'y') {
     x = start.x + width / 2;
@@ -174,19 +150,11 @@ export function doClipScaleAnimate(
     }
   }
 
-  const endMatrix = transformShape(clipShape, [x, y], type);
-  clipShape.animate(
+  const endMatrix = transformShape(element, [x, y], type);
+  element.animate(
     {
       matrix: endMatrix,
     },
-    {
-      ...animateCfg,
-      callback: () => {
-        if (element && !element.get('destroyed')) {
-          element.set('clipShape', null);
-        }
-        clipShape.remove(true); // 动画结束需要将剪切图形销毁
-      },
-    }
+    animateCfg
   );
 }
