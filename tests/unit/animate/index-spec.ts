@@ -180,7 +180,7 @@ describe('Animate', () => {
     );
 
     setTimeout(() => {
-      expect(group.get('clipShape')).toBeNull();
+      expect(group.attr('matrix')).toEqual([1, 0, 0, 0, 1, 0, 0, 0, 1]);
       done();
     }, 550);
   });
