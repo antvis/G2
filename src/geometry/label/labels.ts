@@ -43,7 +43,7 @@ export default class Labels {
   /**
    * 渲染文本
    */
-  public render(items: LabelItem[], shapes: Record<string, IShape | IGroup>) {
+  public render(items: LabelItem[], shapes: Record<string, IShape | IGroup>, isUpdate: boolean = false) {
     this.shapesMap = {};
     const container = this.container;
     const offscreenGroup = this.createOffscreenGroup(); // 创建虚拟分组
@@ -90,7 +90,7 @@ export default class Labels {
         // 新生成的 shape
         container.add(shape);
 
-        const animateCfg = get(shape.get('animateCfg'), isEmpty(this.lastShapesMap) ? 'appear' : 'enter');
+        const animateCfg = get(shape.get('animateCfg'), isUpdate ? 'enter' : 'appear');
         if (animateCfg) {
           doAnimate(shape, animateCfg, {});
         }
@@ -131,8 +131,11 @@ export default class Labels {
       origin: mappingData,
       data,
       name: 'label',
-      // 如果 this.animate === false 或者 cfg.animate === false 则不进行动画，否则进行动画配置的合并
-      animateCfg: !this.animate || !cfg.animate ? false : deepMix({}, this.animate, cfg.animate),
+      // 如果 this.animate === false 或者 cfg.animate === false/null 则不进行动画，否则进行动画配置的合并
+      animateCfg:
+        this.animate === false || cfg.animate === null || cfg.animate === false
+          ? false
+          : deepMix({}, this.animate, cfg.animate),
     });
     const labelShape = labelGroup.addShape('text', {
       capture: true,

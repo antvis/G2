@@ -25,7 +25,7 @@ export default class Path extends Geometry {
     this.connectNulls = connectNulls;
   }
 
-  protected createElements(mappingData: MappingDatum[]): Element[] {
+  protected createElements(mappingData: MappingDatum[], isUpdate: boolean = false): Element[] {
     // Path 的每个 element 对应一组数据
     const { lastElementsMap, elementsMap, elements, theme, container } = this;
     const elementId = this.getElementId(mappingData[0][FIELD_ORIGIN]);
@@ -44,7 +44,7 @@ export default class Path extends Geometry {
         offscreenGroup: this.getOffscreenGroup(container),
       });
       result.geometry = this;
-      result.draw(shapeCfg, animateType); // 绘制 shape
+      result.draw(shapeCfg, isUpdate); // 绘制 shape
     } else {
       // element 已经创建
       const preShapeCfg = result.getModel();
