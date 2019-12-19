@@ -913,7 +913,7 @@ export default class View extends Base {
   private _createElement(cfg) {
     const type = cfg.type;
     let element;
-    if (this[type]) {
+    if (getElement(type)) {
       const elementCfg = {
         ...cfg,
         container: this.get('panelGroup').addGroup(),
