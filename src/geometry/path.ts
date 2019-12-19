@@ -79,7 +79,7 @@ export default class Path extends Geometry {
       ...shapeCfg,
       mappingData,
       data: this.getData(mappingData),
-      isStack: !!this.getAdjust('adjust'),
+      isStack: !!this.getAdjust('stack'),
       points: this.getPoints(mappingData),
       connectNulls: this.connectNulls,
     };

@@ -117,8 +117,8 @@ function getRangePath(
   const bottomPoints = [];
   each(points, (point: RangePoint) => {
     const result = splitPoints(point);
-    topPoints.push(result[0]); // 上边
-    bottomPoints.push(result[1]); // 底边
+    topPoints.push(result[1]); // 上边
+    bottomPoints.push(result[0]); // 底边
   });
 
   const topPath = getSinglePath(topPoints, isInCircle, smooth, constraint);

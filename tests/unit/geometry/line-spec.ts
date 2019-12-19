@@ -20,17 +20,16 @@ describe('Line', () => {
     end: { x: 300, y: 0 },
   });
 
-  const data = [
-    { x: 1996, y: 30 },
-    { x: 1990, y: 210 },
-    { x: 1993, y: 29 },
-  ];
-  const scales = {
-    x: createScale('x', data),
-    y: createScale('y', data),
-  };
-
-  it('Data should be sorted.', () => {
+  xit('Data should be sorted.', () => {
+    const data = [
+      { x: 1996, y: 30 },
+      { x: 1990, y: 210 },
+      { x: 1993, y: 29 },
+    ];
+    const scales = {
+      x: createScale('x', data),
+      y: createScale('y', data),
+    };
     const line = new Line({
       data,
       scales,
@@ -52,6 +51,46 @@ describe('Line', () => {
       { x: 1990, y: 210 },
       { x: 1993, y: 29 },
       { x: 1996, y: 30 },
+    ]);
+  });
+
+  it('stack line', () => {
+    const data = [
+      { x: 1990, y: 20, type: 'a' },
+      { x: 1993, y: 30, type: 'a' },
+      { x: 1996, y: 30, type: 'a' },
+      { x: 1990, y: 34, type: 'b' },
+      { x: 1993, y: 56, type: 'b' },
+      { x: 1996, y: 15, type: 'b' },
+    ];
+    const scales = {
+      x: createScale('x', data),
+      y: createScale('y', data),
+      type: createScale('type', data),
+    };
+    const line = new Line({
+      data,
+      scales,
+      container: canvas.addGroup(),
+      theme: Theme,
+      coordinate: rectCoord,
+    });
+
+    line
+      .position('x*y')
+      .color('type')
+      .adjust('stack');
+    line.init();
+    line.paint();
+    canvas.draw();
+
+    const element = line.elements[0];
+    const model = element.getModel();
+    expect(model.isStack).toBe(true);
+    expect(element.shape.attr('path')).toEqual([
+      ['M', 0, 138],
+      ['L', 150, 42],
+      ['L', 300, 165],
     ]);
   });
 

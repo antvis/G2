@@ -104,8 +104,8 @@ describe('Line shapes', () => {
       expect(shape.attr('stroke')).toBe('red');
       expect(shape.attr('lineDash')).toEqual([1, 1]);
       expect(shape.attr('path').length).toBe(4);
-      expect(shape.attr('path')[0]).toEqual(['M', 100, 100]);
-      expect(shape.attr('path')[1]).toEqual(['L', 200, 200]);
+      expect(shape.attr('path')[0]).toEqual(['M', 100, 200]);
+      expect(shape.attr('path')[1]).toEqual(['L', 200, 300]);
     });
   });
 
@@ -135,10 +135,10 @@ describe('Line shapes', () => {
       expect(shape.attr('path').length).toBe(4);
       expect(shape.attr('lineDash')).toEqual([5.5, 1]);
       expect(shape.attr('path')).toEqual([
-        ['M', 100, 100],
-        ['L', 200, 200],
         ['M', 50, 200],
         ['L', 80, 300],
+        ['M', 100, 100],
+        ['L', 200, 200],
       ]);
     });
   });
