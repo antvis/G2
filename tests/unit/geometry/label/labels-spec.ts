@@ -1,11 +1,13 @@
 import { getCoordinate } from '@antv/coord';
 import { getScale } from '@antv/scale';
 import Interval from '../../../../src/geometry/interval';
+import Path from '../../../../src/geometry/path';
 import Theme from '../../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../../util/dom';
 import { createScale, updateScales } from '../../../util/scale';
 
 const PolarCoordinate = getCoordinate('polar');
+const RectCoordinate = getCoordinate('rect');
 const IdentityScale = getScale('identity');
 
 describe('LabelsRenderer', () => {
@@ -29,100 +31,159 @@ describe('LabelsRenderer', () => {
   // @ts-ignore
   thetaCoord.type = 'theta';
 
-  const identityScale = new IdentityScale({
-    field: '1',
-    values: [1],
-    range: [0.5, 1],
-  });
-  const data = [
-    { a: '1', percent: 0.2 },
-    { a: '2', percent: 0.5 },
-    { a: '3', percent: 0.3 },
-  ];
-  const interval = new Interval({
-    data,
-    coordinate: thetaCoord,
-    container: canvas.addGroup(),
-    labelsContainer: canvas.addGroup(),
-    scales: {
-      1: identityScale,
-      percent: createScale('percent', data),
-      a: createScale('a', data),
+  const rectCoord = new RectCoordinate({
+    start: {
+      x: 0,
+      y: 180,
     },
-    theme: Theme,
-  });
-  interval
-    .position('1*percent')
-    .color('a')
-    .label('percent', {
-      animate: false,
-    })
-    .adjust('stack');
-
-  interval.init();
-  interval.paint();
-
-  it('render', () => {
-    expect(interval.labelsContainer.getCount()).toBe(3);
-    // @ts-ignore
-    const labelsRenderer = interval.labelsRenderer;
-    expect(labelsRenderer.container.getCount()).toBe(3);
-    // @ts-ignore
-    expect(labelsRenderer.container.getFirst().getCount()).toBe(2);
-    expect(labelsRenderer.container.getFirst().get('animateCfg')).toBe(false);
+    end: {
+      x: 180,
+      y: 0,
+    },
   });
 
-  it('update', () => {
-    const newData = [
-      { a: '1', percent: 0.5 },
+  describe('normal', () => {
+    const identityScale = new IdentityScale({
+      field: '1',
+      values: [1],
+      range: [0.5, 1],
+    });
+    const data = [
+      { a: '1', percent: 0.2 },
       { a: '2', percent: 0.5 },
+      { a: '3', percent: 0.3 },
     ];
-    const newScales = {
-      a: createScale('a', newData),
-      percent: createScale('percent', newData),
-    };
-    // 保持引用，同步 scales
-    updateScales(interval.scales, newScales);
+    const interval = new Interval({
+      data,
+      coordinate: thetaCoord,
+      container: canvas.addGroup(),
+      labelsContainer: canvas.addGroup(),
+      scales: {
+        1: identityScale,
+        percent: createScale('percent', data),
+        a: createScale('a', data),
+      },
+      theme: Theme,
+    });
     interval
+      .position('1*percent')
+      .color('a')
       .label('percent', {
-        animate: {
-          update: false,
-        },
+        animate: false,
       })
-      .update({
-        data: newData,
-      });
+      .adjust('stack');
+
+    interval.init();
     interval.paint();
 
-    // @ts-ignore
-    const labelsRenderer = interval.labelsRenderer;
-    expect(labelsRenderer.container.getCount()).toBe(2);
-    expect(labelsRenderer.container.getFirst().get('data')).toEqual({ a: '1', percent: 0.5 });
-    expect(labelsRenderer.container.getFirst().get('animateCfg').update).toBe(false);
+    it('render', () => {
+      expect(interval.labelsContainer.getCount()).toBe(3);
+      // @ts-ignore
+      const labelsRenderer = interval.labelsRenderer;
+      expect(labelsRenderer.container.getCount()).toBe(3);
+      // @ts-ignore
+      expect(labelsRenderer.container.getFirst().getCount()).toBe(2);
+      expect(labelsRenderer.container.getFirst().get('animateCfg')).toBe(false);
+    });
 
-    interval.animate(false).update();
-    interval.paint();
-    // @ts-ignore
-    expect(labelsRenderer.container.getFirst().get('animateCfg')).toBe(false);
+    it('update', () => {
+      const newData = [
+        { a: '1', percent: 0.5 },
+        { a: '2', percent: 0.5 },
+      ];
+      const newScales = {
+        a: createScale('a', newData),
+        percent: createScale('percent', newData),
+      };
+      // 保持引用，同步 scales
+      updateScales(interval.scales, newScales);
+      interval
+        .label('percent', {
+          animate: {
+            update: false,
+          },
+        })
+        .update({
+          data: newData,
+        });
+      interval.paint();
+
+      // @ts-ignore
+      const labelsRenderer = interval.labelsRenderer;
+      expect(labelsRenderer.container.getCount()).toBe(2);
+      expect(labelsRenderer.container.getFirst().get('data')).toEqual({ a: '1', percent: 0.5 });
+      expect(labelsRenderer.container.getFirst().get('animateCfg').update).toBe(false);
+
+      interval.animate(false).update();
+      interval.paint();
+      // @ts-ignore
+      expect(labelsRenderer.container.getFirst().get('animateCfg')).toBe(false);
+    });
+
+    it('clear', () => {
+      // @ts-ignore
+      const labelsRenderer = interval.labelsRenderer;
+      labelsRenderer.clear();
+
+      expect(interval.labelsContainer.getCount()).toBe(0);
+      expect(labelsRenderer.shapesMap).toEqual({});
+      // @ts-ignore
+      expect(labelsRenderer.lastShapesMap).toEqual({});
+    });
+
+    it('destroy', () => {
+      // @ts-ignore
+      const labelsRenderer = interval.labelsRenderer;
+      labelsRenderer.destroy();
+
+      expect(interval.labelsContainer.destroyed).toBe(true);
+    });
   });
 
-  it('clear', () => {
-    // @ts-ignore
-    const labelsRenderer = interval.labelsRenderer;
-    labelsRenderer.clear();
+  describe('path label', () => {
+    const data = [
+      { consumption: 0.65, price: 1, year: 1965 },
+      { consumption: 0.66, price: 1.05, year: 1966 },
+      { consumption: 0.64, price: 1.1, year: 1967 },
+      { consumption: 0.63, price: 1.12, year: 1968 },
+      { consumption: 0.55, price: 1.15, year: 1969 },
+      { consumption: 0.57, price: 1.19, year: 1970 },
+      { consumption: 0.58, price: 1.14, year: 1971 },
+      { consumption: 0.59, price: 1, year: 1972 },
+      { consumption: 0.57, price: 0.96, year: 1973 },
+      { consumption: 0.55, price: 0.92, year: 1974 },
+      { consumption: 0.54, price: 0.88, year: 1975 },
+      { consumption: 0.55, price: 0.87, year: 1976 },
+      { consumption: 0.42, price: 0.89, year: 1977 },
+      { consumption: 0.28, price: 1, year: 1978 },
+      { consumption: 0.15, price: 1.1, year: 1979 },
+    ];
 
-    expect(interval.labelsContainer.getCount()).toBe(0);
-    expect(labelsRenderer.shapesMap).toEqual({});
-    // @ts-ignore
-    expect(labelsRenderer.lastShapesMap).toEqual({});
-  });
+    const scales = {
+      price: createScale('price', data),
+      consumption: createScale('consumption', data),
+      year: createScale('year', data),
+    };
+    const path = new Path({
+      data,
+      coordinate: rectCoord,
+      container: canvas.addGroup(),
+      labelsContainer: canvas.addGroup(),
+      scales,
+      theme: Theme,
+    });
+    path.position('price*consumption').label('year');
+    path.init();
+    path.paint();
 
-  it('destroy', () => {
-    // @ts-ignore
-    const labelsRenderer = interval.labelsRenderer;
-    labelsRenderer.destroy();
+    it('render', () => {
+      expect(path.container.getCount()).toEqual(1);
+      expect(path.labelsContainer.getCount()).toEqual(data.length);
 
-    expect(interval.labelsContainer.destroyed).toBe(true);
+      path.hide();
+
+      expect(path.labelsContainer.getChildren()[4].get('visible')).toEqual(false);
+    });
   });
 
   afterAll(() => {
