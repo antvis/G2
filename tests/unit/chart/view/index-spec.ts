@@ -124,6 +124,9 @@ describe('View', () => {
     });
     expect(c.type).toEqual('theta');
 
+    c = view.coordinate();
+    expect(c.type).toBe('rect');
+
     c = view.coordinate('rect');
     expect(c.type).toEqual('rect');
 
