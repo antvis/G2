@@ -219,7 +219,7 @@ describe('Element', () => {
         },
       });
       // @ts-ignore
-      element.labelShape = labelGroup;
+      element.labelShape = [labelGroup];
       expect(element.getBBox()).toEqual({
         height: 42,
         maxX: 40,
