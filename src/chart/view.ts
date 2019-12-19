@@ -457,13 +457,17 @@ export class View extends Base {
    * 设置坐标系配置
    *
    * ```ts
+   * // 直角坐标系，并进行转置变换
    * view.coordinate('rect').transpose();
+   *
+   * // 默认创建直角坐标系
+   * view.coordinate();
    * ```
    *
    * @param option
    * @returns [[Coordinate]]
    */
-  public coordinate(option: CoordinateOption): Coordinate;
+  public coordinate(option?: CoordinateOption): Coordinate;
   public coordinate(type: string, coordinateCfg?: CoordinateCfg): Coordinate;
   public coordinate(type: string | CoordinateOption, coordinateCfg?: CoordinateCfg): Coordinate {
     // 提供语法糖，使用更简单
