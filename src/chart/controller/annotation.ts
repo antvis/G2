@@ -84,9 +84,6 @@ export default class Annotation extends Controller<BaseOption[]> {
   /* 组件更新的 cache，组件配置 object : 组件 */
   private cache = new Map<BaseOption, ComponentOption>();
 
-  // annotation 不用 components 属性，直接用 cache 存储。
-  protected components = undefined;
-
   constructor(view: View) {
     super(view);
 
@@ -181,6 +178,8 @@ export default class Annotation extends Controller<BaseOption[]> {
    */
   public clear(includeOption = false) {
     super.clear();
+
+    this.cache.clear();
 
     this.foregroundContainer.clear();
     this.backgroundContainer.clear();
