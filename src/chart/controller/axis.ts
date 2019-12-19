@@ -158,7 +158,8 @@ export default class Axis extends Controller<Option> {
   private updateXAxes(updatedCache: Map<string, ComponentOption>) {
     // x axis
     const scale = this.view.getXScale();
-    if (!scale) {
+    // @ts-ignore
+    if (!scale || scale.isIdentity) {
       return;
     }
 
@@ -251,6 +252,10 @@ export default class Axis extends Controller<Option> {
     const yScales = this.view.getYScales();
 
     each(yScales, (scale: Scale, idx: number) => {
+      // @ts-ignore
+      if (!scale || scale.isIdentity) {
+        return;
+      }
       const { field } = scale;
       const yAxisOption = getAxisOption(this.option, field);
 
@@ -345,7 +350,8 @@ export default class Axis extends Controller<Option> {
   private createXAxes() {
     // x axis
     const scale = this.view.getXScale();
-    if (!scale) {
+    // @ts-ignore
+    if (!scale || scale.isIdentity) {
       return;
     }
 
@@ -394,6 +400,10 @@ export default class Axis extends Controller<Option> {
     const yScales = this.view.getYScales();
 
     each(yScales, (scale: Scale, idx: number) => {
+      // @ts-ignore
+      if (!scale || scale.isIdentity) {
+        return;
+      }
       const { field } = scale;
       const yAxisOption = getAxisOption(this.option, field);
 
