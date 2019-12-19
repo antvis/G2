@@ -42,6 +42,8 @@ import { registerAnimation } from './animate/animation';
 import { fadeIn, fadeOut } from './animate/animation/fade';
 import { growInX, growInXY, growInY } from './animate/animation/grow-in';
 import { scaleInX, scaleInY } from './animate/animation/scale-in';
+import { sectorPathUpdate } from './animate/animation/sector-path-update';
+import { textUpdate } from './animate/animation/text-update';
 import { waveIn } from './animate/animation/wave-in';
 import { zoomIn, zoomOut } from './animate/animation/zoom';
 registerAnimation('fadeIn', fadeIn);
@@ -54,6 +56,8 @@ registerAnimation('scaleInY', scaleInY);
 registerAnimation('waveIn', waveIn);
 registerAnimation('zoomIn', zoomIn);
 registerAnimation('zoomOut', zoomOut);
+registerAnimation('textUpdate', textUpdate);
+registerAnimation('sectorPathUpdate', sectorPathUpdate);
 
 // 注册内置的 Facet
 import { registerFacet } from './core';
