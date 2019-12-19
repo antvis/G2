@@ -92,6 +92,8 @@ describe('Line', () => {
       ['L', 150, 42],
       ['L', 300, 165],
     ]);
+    // @ts-ignore
+    expect(Object.keys(line.elementsMap)).toEqual(['line-a', 'line-b']);
   });
 
   afterAll(() => {

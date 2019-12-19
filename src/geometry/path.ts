@@ -28,7 +28,7 @@ export default class Path extends Geometry {
   protected createElements(mappingData: MappingDatum[]): Element[] {
     // Path 的每个 element 对应一组数据
     const { lastElementsMap, elementsMap, elements, theme, container } = this;
-    const elementId = this.getElementId(mappingData[0]);
+    const elementId = this.getElementId(mappingData[0][FIELD_ORIGIN]);
     const shapeCfg = this.getShapeInfo(mappingData);
 
     let result = lastElementsMap[elementId];
