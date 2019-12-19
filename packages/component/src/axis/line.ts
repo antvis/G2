@@ -91,6 +91,15 @@ export default class Line extends Axis {
       const position = this.get('position');
       const property = position === 'bottom' || position === 'top' ? 'height' : 'width';
       let labelLength = this.getMaxLabelWidthOrHeight(labelRenderer, property);
+      if (this.get('autoRotateLabel')) {
+        const angle = this.getAutoRotateAngle();
+        if (angle) {
+          labelLength = Math.max(
+            labelLength,
+            this.getMaxLabelWidthOrHeight(labelRenderer, 'width') * Math.abs(Math.sin(angle))
+          );
+        }
+      }
       if (rotate) {
         labelLength = Math.max(
           labelLength,
@@ -157,37 +166,14 @@ export default class Line extends Axis {
 
   public autoRotateLabels() {
     const labelRenderer = this.get('labelRenderer');
-    const title = this.get('title');
     if (labelRenderer) {
       const labels: Shape[] = labelRenderer.getLabels();
-      const offset = this.get('label').offset;
-      const append = 12;
-      const titleOffset = title && title.offset ? title.offset : 20;
-      if (titleOffset < 0) {
-        // 如果是负的的话就不旋转
-        return;
-      }
       const vector = this.getAxisVector(); // 坐标轴的向量，仅处理水平或者垂直的场景
-      let angle;
-      let maxWidth;
-      if (Util.isNumberEqual(vector[0], 0) && title && title.text) {
-        // 坐标轴垂直，由于不知道边距，只能防止跟title重合，如果title不存在，则不自动旋转
-        maxWidth = this.getMaxLabelWidthOrHeight(labelRenderer, 'width');
-        if (maxWidth > titleOffset - offset - append) {
-          angle = Math.acos((titleOffset - offset - append) / maxWidth) * -1;
-        }
-      } else if (Util.isNumberEqual(vector[1], 0) && labels.length > 1) {
-        // 坐标轴水平，不考虑边距，根据最长的和平均值进行翻转
-        const avgWidth = Math.abs(this._getAvgLabelLength(labelRenderer));
-        maxWidth = this.getMaxLabelWidthOrHeight(labelRenderer, 'width');
-        if (maxWidth > avgWidth) {
-          angle = Math.asin(((titleOffset - offset - append) * 1.25) / maxWidth);
-        }
-      }
+      const angle = this.getAutoRotateAngle();
 
       if (angle) {
         const factor = this.get('factor');
-        const offsetY = -3 * Math.abs(Math.sin(angle));
+        const offsetY = -6 * Math.abs(Math.sin(angle));
         Util.each(labels, (label) => {
           label.rotateAtStart(angle);
           label.attr('y', label.attr('y') + offsetY);
@@ -261,5 +247,40 @@ export default class Line extends Axis {
   private _getAvgLabelHeightSpace(labelRenderer) {
     const labels = labelRenderer.getLabels();
     return labels[1].attr('y') - labels[0].attr('y');
+  }
+
+  private getAutoRotateAngle() {
+    const labelRenderer = this.get('labelRenderer');
+    const title = this.get('title');
+    let angle;
+    if (labelRenderer) {
+      const labels: Shape[] = labelRenderer.getLabels();
+      const offset = this.get('label').offset;
+      const append = 12;
+      const titleOffset = title && title.offset ? title.offset : 20;
+      if (titleOffset < 0) {
+        // 如果是负的的话就不旋转
+        return;
+      }
+      const vector = this.getAxisVector(); // 坐标轴的向量，仅处理水平或者垂直的场景
+
+      let maxWidth;
+      if (Util.isNumberEqual(vector[0], 0) && title && title.text) {
+        // 坐标轴垂直，由于不知道边距，只能防止跟title重合，如果title不存在，则不自动旋转
+        maxWidth = this.getMaxLabelWidthOrHeight(labelRenderer, 'width');
+        if (maxWidth > titleOffset - offset - append) {
+          angle = Math.acos((titleOffset - offset - append) / maxWidth) * -1;
+        }
+      } else if (Util.isNumberEqual(vector[1], 0) && labels.length > 1) {
+        // 坐标轴水平，不考虑边距，根据最长的和平均值进行翻转
+        const avgWidth = Math.abs(this._getAvgLabelLength(labelRenderer));
+        maxWidth = this.getMaxLabelWidthOrHeight(labelRenderer, 'width');
+        if (maxWidth > avgWidth) {
+          angle = Math.asin(((titleOffset - offset - append) * 1.25) / maxWidth);
+        }
+      }
+    }
+
+    return angle;
   }
 }
