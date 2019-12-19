@@ -35,7 +35,7 @@ export default class Event {
 
   /** the original dom event object */
   public get event(): any {
-    return this.gEvent.domEvent;
+    return this.gEvent.originalEvent;
   }
 
   /** the position x of canvas */
