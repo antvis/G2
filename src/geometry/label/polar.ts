@@ -59,9 +59,10 @@ export default class PolarLabels extends GeometryLabels {
     const offset = this.getDefaultOffset(labelCfg.offset) * factor;
     const middleAngle = this.getPointAngle(arcPoint);
     const isLabelEmit = labelCfg.labelEmit;
-    let labelPositionCfg: LabelPointCfg = this.getCirclePoint(middleAngle, offset, arcPoint, isLabelEmit);
-    if (!labelPositionCfg) {
-      labelPositionCfg = { content: '' };
+    const labelPositionCfg: LabelPointCfg = this.getCirclePoint(middleAngle, offset, arcPoint, isLabelEmit);
+    if (labelPositionCfg.r === 0) {
+      // 如果文本位置位于圆心，则不展示
+      labelPositionCfg.content = '';
     } else {
       labelPositionCfg.content = content;
       labelPositionCfg.angle = middleAngle;
@@ -105,7 +106,10 @@ export default class PolarLabels extends GeometryLabels {
     const center = coordinate.getCenter();
     let r = getDistanceToCenter(coordinate, point);
     if (r === 0) {
-      return null;
+      return {
+        ...center,
+        r,
+      };
     }
 
     let labelAngle = angle;
