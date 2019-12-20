@@ -706,6 +706,9 @@ export default class Geometry extends Base {
 
     // 数据加工：分组 -> 数字化 -> adjust
     this.processData(this.data);
+
+    // 调整 scale
+    this.adjustScale();
   }
 
   public update(cfg: InitCfg = {}) {
@@ -717,11 +720,15 @@ export default class Geometry extends Base {
       this.init(cfg);
     } else if (data && !isEqual(data, this.data)) {
       // 数据或者 scale 发生变化
-      this.updateData(cfg);
+      this.setCfg(cfg);
+      this.processData(this.data); // 数据加工：分组 -> 数字化 -> adjust
     } else {
       // 有可能 coordinate 变化
       this.setCfg(cfg);
     }
+
+    // 调整 scale
+    this.adjustScale();
   }
 
   /**
@@ -1049,9 +1056,12 @@ export default class Geometry extends Base {
     return uniq(fields);
   }
 
-  protected updateData(cfg: InitCfg) {
-    this.setCfg(cfg);
-    this.processData(this.data); // 数据加工：分组 -> 数字化 -> adjust
+  protected adjustScale() {
+    const yScale = this.getYScale();
+    // 如果数据发生过 stack adjust，需要调整下 yScale 的数据范围
+    if (this.getAdjust('stack') && yScale) {
+      this.updateStackRange(yScale, this.beforeMappingData);
+    }
   }
 
   protected getShapeFactory() {
@@ -1238,16 +1248,6 @@ export default class Geometry extends Base {
         return this.scales[field];
       });
 
-      // 特殊逻辑：饼图需要填充满整个空间
-      if (coordinate.type === 'theta' && attrType === 'position' && scales.length > 1) {
-        const yScale = scales[1];
-        yScale.change({
-          nice: false,
-          min: 0,
-          max: Math.max.apply(null, yScale.values),
-        });
-      }
-
       attrCfg.scales = scales;
 
       if (attrType !== 'position' && scales.length === 1 && scales[0].type === 'identity') {
@@ -1329,9 +1329,6 @@ export default class Geometry extends Base {
         const adjustInstance = new adjustCtor(adjustCfg);
 
         result = adjustInstance.process(result);
-        if (type === 'stack' && yScale) {
-          this.updateStackRange(yField, yScale, result);
-        }
 
         this.adjusts[type] = adjustInstance;
       });
@@ -1375,8 +1372,9 @@ export default class Geometry extends Base {
   }
 
   // 更新发生层叠后的数据对应的度量范围
-  private updateStackRange(field: string, scale: Scale, dataArray: Data[]) {
+  private updateStackRange(scale: Scale, dataArray: Data[]) {
     const mergeArray = flatten(dataArray);
+    const field = scale.field;
     let min = scale.min;
     let max = scale.max;
     for (const obj of mergeArray) {
