@@ -84,6 +84,7 @@ describe('LabelsRenderer', () => {
       // @ts-ignore
       expect(labelsRenderer.container.getFirst().getCount()).toBe(2);
       expect(labelsRenderer.container.getFirst().get('animateCfg')).toBe(false);
+      expect(labelsRenderer.container.getFirst().get('coordinate')).toEqual(interval.coordinate);
     });
 
     it('update', () => {

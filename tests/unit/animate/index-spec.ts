@@ -113,6 +113,7 @@ describe('Animate', () => {
     };
     doAnimate(rect, animateCfg, {
       coordinate: rectCoord,
+      toAttrs: null,
     });
 
     setTimeout(() => {
