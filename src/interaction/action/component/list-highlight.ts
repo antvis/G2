@@ -1,6 +1,5 @@
-import { IList } from '@antv/component/lib/interfaces';
-import { ListItem } from '@antv/component/lib/types';
 import { each } from '@antv/util';
+import { IList, ListItem } from '../../../dependents';
 import { clearList } from './list-highlight-util';
 import ListState from './list-state';
 const STATUS_UNACTIVE = 'inactive';

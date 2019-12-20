@@ -1,4 +1,4 @@
-import { getCurrentElement, getElementsByState } from '../util';
+import { getCurrentElement } from '../util';
 import StateBase from './state-base';
 
 /**

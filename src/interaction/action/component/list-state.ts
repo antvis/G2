@@ -1,6 +1,5 @@
-import { IList } from '@antv/component/lib/interfaces';
-import { ListItem } from '@antv/component/lib/types';
 import { each } from '@antv/util';
+import { IList, ListItem } from '../../../dependents';
 import Element from '../../../geometry/element';
 import { LooseObject } from '../../../interface';
 import Action from '../base';

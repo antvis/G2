@@ -1,7 +1,7 @@
-import { PathCommand, Point } from '@antv/g-base/lib/types';
 import { each, isArray, map } from '@antv/util';
 import { View } from '../../chart';
 import { ComponentOption } from '../../chart/interface';
+import { PathCommand, Point } from '../../dependents';
 import Geometry from '../../geometry/base';
 import Element from '../../geometry/element/';
 import { catmullRom2bezier, getLinePath } from '../../geometry/shape/util/path';
