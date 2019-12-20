@@ -2,7 +2,7 @@
 
 // G
 export { ICanvas, IElement, IGroup, IShape } from '@antv/g-base/lib/interfaces';
-export { PathCommand, BBox } from '@antv/g-base/lib/types';
+export { PathCommand, BBox, Point } from '@antv/g-base/lib/types';
 export { Event } from '@antv/g-base';
 // 需要有 G-base 提供 g engine 类型定义
 export type IG = any;
@@ -22,8 +22,8 @@ export { Tick } from '@antv/scale/lib/base';
 
 // component
 import { Annotation, Axis, Component, Grid, GroupComponent, HtmlComponent, Legend, Tooltip } from '@antv/component';
-export { IComponent } from '@antv/component/lib/interfaces';
-export { CategoryLegendCfg, CircleAxisCfg, LineAxisCfg, GroupComponentCfg } from '@antv/component/lib/types';
+export { IComponent, IList } from '@antv/component/lib/interfaces';
+export { CategoryLegendCfg, CircleAxisCfg, LineAxisCfg, GroupComponentCfg, ListItem } from '@antv/component/lib/types';
 export { HtmlComponent, GroupComponent, Component };
 export { Annotation };
 // axis

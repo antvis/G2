@@ -1,5 +1,5 @@
-import { ListItem } from '@antv/component/lib/types';
 import { each } from '@antv/util';
+import { ListItem } from '../../../dependents';
 import Element from '../../../geometry/element/';
 import { getElements, getElementsByState } from '../util';
 import { clearHighlight } from './highlight-util';

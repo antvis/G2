@@ -1,5 +1,5 @@
-import { ListItem } from '@antv/component/lib/types';
 import { each, isNil } from '@antv/util';
+import { ListItem } from '../../../dependents';
 import Element from '../../../geometry/element/';
 import { getCurrentElement, getDelegationObject, getElements, getElementValue, isList } from '../util';
 import StateBase from './state-base';
