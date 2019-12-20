@@ -119,10 +119,42 @@ registerInteraction('element-list-highlight', {
 
 // 框选
 registerInteraction('element-range-highlight', {
-  start: [{ trigger: 'mousedown', action: 'element-range-highlight:start' }],
-  processing: [{ trigger: 'mousemove', action: 'element-range-highlight:highlight' }],
-  end: [{ trigger: 'mouseup', action: 'element-range-highlight:end' }],
-  rollback: [{ trigger: 'dblclick', action: 'element-range-highlight:clear' }],
+  showEnable: [
+    { trigger: 'plot:mouseenter', action: 'cursor:crosshair' },
+    { trigger: 'plot:mouseleave', action: 'cursor:default' },
+  ],
+  start: [
+    { trigger: 'mousedown', action: 'element-range-highlight:start' },
+    { trigger: 'mousedown', action: 'rect-mask:start' },
+    { trigger: 'mousedown', action: 'rect-mask:show' },
+  ],
+  processing: [
+    { trigger: 'mousemove', action: 'element-range-highlight:highlight' },
+    { trigger: 'mousemove', action: 'rect-mask:resize' },
+  ],
+  end: [
+    { trigger: 'mouseup', action: 'element-range-highlight:end' },
+    { trigger: 'mouseup', action: 'rect-mask:end' },
+    { trigger: 'mouseup', action: 'data-filter:filter' },
+  ],
+  rollback: [
+    { trigger: 'dblclick', action: 'element-range-highlight:clear' },
+    { trigger: 'dblclick', action: 'rect-mask:hide' },
+  ],
+});
+
+registerInteraction('element-path-highlight', {
+  showEnable: [
+    { trigger: 'plot:mouseenter', action: 'cursor:crosshair' },
+    { trigger: 'plot:mouseleave', action: 'cursor:default' },
+  ],
+  start: [
+    { trigger: 'mousedown', action: 'path-mask:start' },
+    { trigger: 'mousedown', action: 'path-mask:show' },
+  ],
+  processing: [{ trigger: 'mousemove', action: 'path-mask:addPoint' }],
+  end: [{ trigger: 'mouseup', action: 'path-mask:end' }],
+  rollback: [{ trigger: 'dblclick', action: 'path-mask:hide' }],
 });
 
 // 点击选中，允许取消
@@ -145,6 +177,15 @@ registerInteraction('legend-filter', {
     { trigger: 'legend-item:click', action: 'list-unchecked:toggle' },
     { trigger: 'legend-item:click', action: 'data-filter:filter' },
   ],
+});
+
+// 筛选数据
+registerInteraction('continuous-filter', {
+  start: [{ trigger: 'legend:valuechanged', action: 'data-filter:filter' }],
+});
+// 筛选数据
+registerInteraction('continuous-visible-filter', {
+  start: [{ trigger: 'legend:valuechanged', action: 'element-filter:filter' }],
 });
 
 // 筛选图形

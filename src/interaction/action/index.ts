@@ -19,6 +19,11 @@ import ListHighlight from './component/list-highlight';
 import ListSelected from './component/list-selected';
 import ListUnchecked from './component/list-unchecked';
 
+import CircleMask from './mask/circle';
+import PathMask from './mask/path';
+import RectMask from './mask/rect';
+import SmoothPathMask from './mask/smooth-path';
+
 import CursorAction from './cursor';
 import DataFilter from './data-filter';
 import ElementFilter from './element/filter';
@@ -44,6 +49,11 @@ registerAction('list-active', ListActive);
 registerAction('list-selected', ListSelected);
 registerAction('list-highlight', ListHighlight);
 registerAction('list-unchecked', ListUnchecked);
+
+registerAction('rect-mask', RectMask);
+registerAction('circle-mask', CircleMask);
+registerAction('path-mask', PathMask);
+registerAction('smooth-path-mask', SmoothPathMask);
 
 registerAction('cursor', CursorAction);
 registerAction('data-filter', DataFilter);

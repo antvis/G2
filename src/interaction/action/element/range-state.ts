@@ -23,6 +23,7 @@ class ElementRangeState extends StateBase {
    * 开始，记录开始选中的位置
    */
   public start() {
+    this.clear(); // 开始的时候清理之前的状态
     this.startPoint = this.getCurrentPoint();
     this.isStarted = true;
   }

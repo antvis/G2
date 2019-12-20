@@ -1093,7 +1093,7 @@ export class View extends Base {
 
     const { type, shape, name } = evt;
 
-    const data = shape.get('origin');
+    const data = shape ? shape.get('origin') : null;
     // 事件在 view 嵌套中冒泡（暂不提供阻止冒泡的机制）
     const e = new Event(this, evt, data);
     e.type = name;
