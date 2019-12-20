@@ -29,7 +29,11 @@ describe('Calculate shape size', () => {
   });
 
   describe('Column chart', () => {
-    const data = [{ a: 'A', b: 10 }, { a: 'B', b: 12 }, { a: 'C', b: 8 }];
+    const data = [
+      { a: 'A', b: 10 },
+      { a: 'B', b: 12 },
+      { a: 'C', b: 8 },
+    ];
     const scales = {
       a: createScale('a', data),
       b: createScale('b', data),
@@ -78,7 +82,11 @@ describe('Calculate shape size', () => {
 
     test('xScale is linear and min and max defined', () => {
       // 实际个数比 ((max - min) / 最小区间) 小
-      const data1 = [{ a: 3, b: 23 }, { a: 4, b: 15 }, { a: 6, b: 9 }];
+      const data1 = [
+        { a: 3, b: 23 },
+        { a: 4, b: 15 },
+        { a: 6, b: 9 },
+      ];
       const scaleDefs1 = {
         a: {
           min: 0,
@@ -106,7 +114,10 @@ describe('Calculate shape size', () => {
       const normalizedSize = getDefaultSize(interval);
       expect(normalizedSize).toBe(0.05);
 
-      const data2 = [{ a: 2, b: 15 }, { a: 6, b: 9 }];
+      const data2 = [
+        { a: 2, b: 15 },
+        { a: 6, b: 9 },
+      ];
       const scaleDefs = {
         a: {
           min: 2,
@@ -203,7 +214,11 @@ describe('Calculate shape size', () => {
   });
 
   describe('Interval in polar coordinate', () => {
-    const data = [{ a: '1', b: 2, c: '1' }, { a: '2', b: 5, c: '1' }, { a: '3', b: 4, c: '1' }];
+    const data = [
+      { a: '1', b: 2, c: '1' },
+      { a: '2', b: 5, c: '1' },
+      { a: '3', b: 4, c: '1' },
+    ];
     const scaleDefs = {
       a: {
         range: [1 / 6, 1 - 1 / 6],
@@ -250,10 +265,14 @@ describe('Calculate shape size', () => {
         values: [1],
         range: [0.5, 1],
       });
-      const pieData = [{ a: '1', percent: 0.2 }, { a: '2', percent: 0.5 }, { a: '3', percent: 0.3 }];
+      const pieData = [
+        { a: '1', percent: 0.2 },
+        { a: '2', percent: 0.5 },
+        { a: '3', percent: 0.3 },
+      ];
       const pieScales = {
-        percent: createScale('percent', pieData, pieData),
-        a: createScale('a', pieData, pieData),
+        percent: createScale('percent', pieData),
+        a: createScale('a', pieData),
         '1': identityScale,
       };
       interval = new Interval({
