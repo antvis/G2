@@ -166,7 +166,7 @@ const GEOMETRY_GROUP_APPEAR_ANIMATION = {
 };
 
 // 解析用户的动画配置
-function getAnimateConfig(animateCfg: AnimateCfg, data: Data | Datum): ParsedAnimateCfg {
+function parseAnimateConfig(animateCfg: AnimateCfg, data: Data | Datum): ParsedAnimateCfg {
   return {
     delay: isFunction(animateCfg.delay) ? animateCfg.delay(data) : animateCfg.delay,
     easing: isFunction(animateCfg.easing) ? animateCfg.easing(data) : animateCfg.easing,
@@ -207,7 +207,7 @@ export function getDefaultAnimateCfg(elementName: string, coordinate: Coordinate
 export function doAnimate(shape: IGroup | IShape, animateCfg: AnimateCfg, cfg: AnimateExtraCfg) {
   const { data } = shape.get('origin');
   const animation = animateCfg.animation; // 获取动画执行函数
-  const parsedAnimateCfg = getAnimateConfig(animateCfg, data);
+  const parsedAnimateCfg = parseAnimateConfig(animateCfg, data);
   if (animation) {
     // 用户声明了动画执行函数
     const animateFunction = getAnimation(animation);

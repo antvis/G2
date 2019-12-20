@@ -103,8 +103,8 @@ export interface GeometryCfg {
 }
 
 // 根据 elementId 查找对应的 label，因为有可能一个 element 对应多个 labels，所以在给 labels 打标识时做了处理
-// 达标规则详见 ./label/base.ts#L263
-function findLabelsById(id: string, labelsMap: Record<string, IGroup>) {
+// 打标规则详见 ./label/base.ts#L263
+function filterLabelsById(id: string, labelsMap: Record<string, IGroup>) {
   const labels = [];
   each(labelsMap, (label: IGroup, labelId: string) => {
     const elementId = labelId.split(' ')[0];
@@ -749,12 +749,7 @@ export default class Geometry extends Base {
       this.createElements(mappingData, isUpdate);
     }
 
-    if (
-      !isUpdate &&
-      this.animateOption &&
-      (get(this.animateOption, 'appear') === undefined ||
-        (get(this.animateOption, 'appear') && get(this.animateOption, ['appear', 'animation']) === undefined))
-    ) {
+    if (this.canDoGroupAnimation(isUpdate)) {
       // 如果用户没有配置 appear.animation，就默认走整体动画
       const container = this.container;
       const type = this.type;
@@ -1646,7 +1641,23 @@ export default class Geometry extends Base {
 
     const labelsMap = this.labelsRenderer.shapesMap;
     each(this.elementsMap, (element: Element, id) => {
-      element.labelShape = findLabelsById(id, labelsMap); // element 实例同 label 进行绑定
+      element.labelShape = filterLabelsById(id, labelsMap); // element 实例同 label 进行绑定
     });
+  }
+  /**
+   * 是否需要进行群组入场动画
+   * 规则：
+   * 1. 如果发生更新，则不进行
+   * 2. 如果用户关闭 geometry 动画，则不进行
+   * 3. 如果用户关闭了 appear 动画，则不进行
+   * 4. 如果用户配置了 appear.animation，则不进行
+   */
+  private canDoGroupAnimation(isUpdate: boolean) {
+    return (
+      !isUpdate &&
+      this.animateOption &&
+      (get(this.animateOption, 'appear') === undefined ||
+        (get(this.animateOption, 'appear') && get(this.animateOption, ['appear', 'animation']) === undefined))
+    );
   }
 }
