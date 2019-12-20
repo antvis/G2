@@ -28,7 +28,7 @@ describe('Event', () => {
 
     expect(e.data).toEqual({ data: 1 });
     expect(e.target).toEqual({ target: 2 });
-    expect(e.event).toEqual({});
+    expect(e.event).toEqual({ event: 3 });
 
     expect(e.toString()).toBe('[Event (type=test-event)]');
   });
