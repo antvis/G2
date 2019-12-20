@@ -264,6 +264,9 @@ export interface IInteractionContext extends LooseObject {
 }
 
 export type ActionCallback = (context: IInteractionContext) => void;
+/** easing 的回调函数， 入参 data 为对应的原始数据记录 */
 export type AnimateEasingCallback = (data: Datum) => string;
+/** delay 的回调函数， 入参 data 为对应的原始数据记录 */
 export type AnimateDelayCallback = (data: Datum) => number;
+/** duration 的回调函数， 入参 data 为对应的原始数据记录 */
 export type AnimateDurationCallback = (data: Datum) => number;
