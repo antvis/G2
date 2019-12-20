@@ -247,6 +247,7 @@ export function doGroupAppearAnimate(
       animation(container, cfg, {
         coordinate,
         minYPoint,
+        toAttrs: null,
       });
     }
   }

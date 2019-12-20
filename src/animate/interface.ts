@@ -17,9 +17,9 @@ export interface AnimateCfg {
 
 export interface AnimateExtraCfg {
   /** 当前坐标系 */
-  coordinate?: Coordinate;
+  coordinate: Coordinate;
   /** 图形最终样式 */
-  toAttrs?: object;
+  toAttrs: object;
   /** 其他信息 */
   [key: string]: any;
 }

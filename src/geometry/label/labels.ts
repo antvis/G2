@@ -1,4 +1,4 @@
-import { deepMix, each, get, isEmpty } from '@antv/util';
+import { deepMix, each, get } from '@antv/util';
 import { doAnimate } from '../../animate';
 import { IGroup, IShape } from '../../dependents';
 import { AnimateOption } from '../../interface';
@@ -62,24 +62,30 @@ export default class Labels {
       if (lastShapesMap[id]) {
         // 图形发生更新
         const data = shape.get('data');
-        const mappingData = shape.get('mappingData');
+        const orogin = shape.get('origin');
+        const coordinate = shape.get('coordinate');
         const currentShape = lastShapesMap[id]; // 已经在渲染树上的 shape
         const currentAnimateCfg = shape.get('animateCfg');
         currentShape.set('data', data);
-        currentShape.set('mappingData', mappingData);
+        currentShape.set('orogin', orogin);
         currentShape.set('animateCfg', currentAnimateCfg);
+        currentShape.set('coordinate', coordinate);
 
         const updateAnimateCfg = get(currentAnimateCfg, 'update');
         const currentChildren = currentShape.getChildren();
         shape.getChildren().map((child, index) => {
           const currentChild = currentChildren[index] as IShape;
           currentChild.set('data', data);
-          currentChild.set('mappingData', mappingData);
+          currentChild.set('orogin', orogin);
           currentChild.set('animateCfg', currentAnimateCfg);
+          currentChild.set('coordinate', coordinate);
 
           const newAttrs = getReplaceAttrs(currentChild, child);
           if (updateAnimateCfg) {
-            doAnimate(currentChild, updateAnimateCfg, { toAttrs: newAttrs });
+            doAnimate(currentChild, updateAnimateCfg, {
+              toAttrs: newAttrs,
+              coordinate,
+            });
           } else {
             currentChild.attr(newAttrs);
           }
@@ -92,7 +98,12 @@ export default class Labels {
 
         const animateCfg = get(shape.get('animateCfg'), isUpdate ? 'enter' : 'appear');
         if (animateCfg) {
-          doAnimate(shape, animateCfg, {});
+          doAnimate(shape, animateCfg, {
+            toAttrs: {
+              ...shape.attr(),
+            },
+            coordinate: shape.get('coordinate'),
+          });
         }
       }
       delete lastShapesMap[id];
@@ -102,7 +113,10 @@ export default class Labels {
     each(lastShapesMap, (deleteShape) => {
       const animateCfg = get(deleteShape.get('animateCfg'), 'leave');
       if (animateCfg) {
-        doAnimate(deleteShape, animateCfg, {});
+        doAnimate(deleteShape, animateCfg, {
+          toAttrs: null,
+          coordinate: deleteShape.get('coordinate'),
+        });
       } else {
         deleteShape.remove(true); // 移除
       }
@@ -125,17 +139,19 @@ export default class Labels {
   }
 
   private renderLabel(cfg: LabelItem, container: IGroup) {
-    const { id, data, mappingData } = cfg;
-    const labelGroup = container.addGroup({
+    const { id, data, mappingData, coordinate, animate } = cfg;
+    const shapeAppendCfg = {
       id,
-      origin: mappingData,
       data,
+      origin: mappingData,
+      coordinate,
+    };
+    const labelGroup = container.addGroup({
       name: 'label',
       // 如果 this.animate === false 或者 cfg.animate === false/null 则不进行动画，否则进行动画配置的合并
       animateCfg:
-        this.animate === false || cfg.animate === null || cfg.animate === false
-          ? false
-          : deepMix({}, this.animate, cfg.animate),
+        this.animate === false || animate === null || animate === false ? false : deepMix({}, this.animate, animate),
+      ...shapeAppendCfg,
     });
     const labelShape = labelGroup.addShape('text', {
       capture: true,
@@ -146,10 +162,8 @@ export default class Labels {
         text: cfg.content,
         ...cfg.style,
       },
-      id,
-      origin: mappingData,
-      data,
       name: 'label',
+      ...shapeAppendCfg,
     });
 
     if (cfg.rotate) {
@@ -191,10 +205,11 @@ export default class Labels {
         fill: null,
         ...labelLineCfg.style,
       },
+      name: 'labelLine',
       id: labelCfg.id,
       origin: labelCfg.mappingData,
       data: labelCfg.data,
-      name: 'labelLine',
+      coordinate: labelCfg.coordinate,
     });
   }
 
