@@ -13,19 +13,9 @@ export default class Interval extends Geometry {
 
   private defaultSize: number;
 
-  public init(cfg: InitCfg = {}) {
-    super.init(cfg);
-    this.adjustYScale();
-  }
-
   public clear() {
     super.clear();
     this.defaultSize = undefined;
-  }
-
-  protected updateData(cfg: InitCfg) {
-    super.updateData(cfg);
-    this.adjustYScale();
   }
 
   /**
@@ -56,24 +46,35 @@ export default class Interval extends Geometry {
     return cfg;
   }
 
-  // 柱状图数值轴默认从 0 开始
-  private adjustYScale() {
-    const scaleDefs = this.scaleDefs;
+  protected adjustScale() {
+    super.adjustScale();
     const yScale = this.getYScale();
-    const { field, min, max, type } = yScale;
-    if (type !== 'time') {
-      // time 类型不做调整
-      // 柱状图的 Y 轴要从 0 开始生长，但是如果用户设置了则以用户的为准
-      if (min > 0 && !get(scaleDefs, [field, 'min'])) {
-        yScale.change({
-          min: 0,
-        });
-      }
-      // 柱当柱状图全为负值时也需要从 0 开始生长，但是如果用户设置了则以用户的为准
-      if (max <= 0 && !get(scaleDefs, [field, 'max'])) {
-        yScale.change({
-          max: 0,
-        });
+    // 特殊逻辑：饼图需要填充满整个空间
+    if (this.coordinate.type === 'theta') {
+      yScale.change({
+        nice: false,
+        min: 0,
+        // 发生过 stack 调整，yScale 的 max 被调整过，this.updateStackRange()
+        max: Math.max(Math.max.apply(null, yScale.values), yScale.max),
+      });
+    } else {
+      // 柱状图数值轴默认从 0 开始
+      const scaleDefs = this.scaleDefs;
+      const { field, min, max, type } = yScale;
+      if (type !== 'time') {
+        // time 类型不做调整
+        // 柱状图的 Y 轴要从 0 开始生长，但是如果用户设置了则以用户的为准
+        if (min > 0 && !get(scaleDefs, [field, 'min'])) {
+          yScale.change({
+            min: 0,
+          });
+        }
+        // 柱当柱状图全为负值时也需要从 0 开始生长，但是如果用户设置了则以用户的为准
+        if (max <= 0 && !get(scaleDefs, [field, 'max'])) {
+          yScale.change({
+            max: 0,
+          });
+        }
       }
     }
   }

@@ -1,5 +1,5 @@
 import { each, isEmpty, isNumber } from '@antv/util';
-import { Coordinate, IShape, PathCommand } from '../dependents';
+import { Coordinate, IShape } from '../dependents';
 import { ShapeInfo } from '../interface';
 
 // 获取图形的包围盒
