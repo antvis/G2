@@ -1,3 +1,4 @@
+import { Coordinate } from '../../dependents';
 import { Datum, MappingDatum, Point } from '../../interface';
 import { GeometryLabelCfg } from '../interface';
 
@@ -7,6 +8,7 @@ export interface LabelCfg extends GeometryLabelCfg {
   id: string;
   data: Datum;
   mappingData: MappingDatum;
+  coordinate: Coordinate;
 }
 
 export interface LabelPointCfg {
@@ -25,6 +27,7 @@ export interface LabelItem extends GeometryLabelCfg {
   id: string;
   data: Datum;
   mappingData: MappingDatum;
+  coordinate: Coordinate;
   x?: number;
   y?: number;
   start?: Point;

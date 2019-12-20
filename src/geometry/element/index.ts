@@ -124,6 +124,9 @@ export default class Element extends Base {
         // 指定了动画配置则执行销毁动画
         doAnimate(shape, animateCfg, {
           coordinate: shapeFactory.coordinate,
+          toAttrs: {
+            ...shape.attr(),
+          },
         });
       } else {
         // 否则直接销毁
@@ -354,6 +357,9 @@ export default class Element extends Base {
       if (animateCfg) {
         doAnimate(this.shape, animateCfg, {
           coordinate: shapeFactory.coordinate,
+          toAttrs: {
+            ...this.shape.attr(),
+          },
         });
       }
     }

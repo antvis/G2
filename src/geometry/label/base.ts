@@ -237,7 +237,7 @@ export default class GeometryLabels {
   private getLabelCfgs(mapppingArray: MappingDatum[]): LabelCfg[] {
     const geometry = this.geometry;
     const defaultLabelCfg = this.defaultLabelCfg;
-    const { type, theme, labelOption, scales } = geometry;
+    const { type, theme, labelOption, scales, coordinate } = geometry;
     const { fields, callback, cfg } = labelOption as LabelOption;
     const labelScales = fields.map((field: string) => {
       return scales[field];
@@ -273,6 +273,7 @@ export default class GeometryLabels {
         id: labelId, // 进行 ID 标记
         data: origin, // 存储原始数据
         mappingData, // 存储映射后的数据,
+        coordinate, // 坐标系
         ...cfg,
         ...callbackCfg,
       };
