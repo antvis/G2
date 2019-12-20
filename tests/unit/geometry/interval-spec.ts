@@ -1,4 +1,5 @@
 import { getCoordinate } from '@antv/coord';
+import { getScale } from '@antv/scale';
 import { isNumberEqual } from '@antv/util';
 import Interval from '../../../src/geometry/interval';
 import Theme from '../../../src/theme/antv';
@@ -6,8 +7,11 @@ import { createCanvas, createDiv, removeDom } from '../../util/dom';
 import { createScale, updateScales } from '../../util/scale';
 
 import 'jest-extended';
+import { syncScale } from '../../../src/util/scale';
 
 const CartesianCoordinate = getCoordinate('rect');
+const PolarCoordinate = getCoordinate('polar');
+const IdentityScale = getScale('identity');
 
 describe('Interval', () => {
   const div = createDiv();
@@ -287,6 +291,59 @@ describe('Interval', () => {
       const yScale = interval.getYScale();
       expect(yScale.type).toBe('time');
       expect(yScale.min).not.toBe(0);
+    });
+
+    test('pie chart', () => {
+      const thetaCoord = new PolarCoordinate({
+        start: { x: 0, y: 180 },
+        end: { x: 180, y: 0 },
+      });
+      thetaCoord.transpose();
+      // @ts-ignore
+      thetaCoord.type = 'theta';
+      const pieData = [
+        { type: '分类一', value: 27 },
+        { type: '分类二', value: 25 },
+        { type: '分类三', value: 18 },
+        { type: '分类四', value: 15 },
+        { type: '分类五', value: 10 },
+        { type: 'Other', value: 5 },
+      ];
+      const pieScales = {
+        type: createScale('type', pieData),
+        value: createScale('value', pieData),
+        '1': new IdentityScale({
+          field: '1',
+          values: [1],
+          range: [0.5, 1],
+        }),
+      };
+
+      const pie = new Interval({
+        data: pieData,
+        scales: pieScales,
+        coordinate: thetaCoord,
+        container: canvas.addGroup(),
+        theme: Theme,
+      });
+
+      pie
+        .position('value')
+        .color('type')
+        .adjust('stack');
+      pie.init();
+
+      expect(pie.getYScale().min).toBe(0);
+      expect(pie.getYScale().max).toBe(100);
+
+      syncScale(pie.getYScale(), createScale('value', pieData));
+
+      expect(pie.getYScale().min).toBe(5);
+      expect(pie.getYScale().max).toBe(30);
+
+      pie.update();
+      expect(pie.getYScale().min).toBe(0);
+      expect(pie.getYScale().max).toBe(100);
     });
   });
 
