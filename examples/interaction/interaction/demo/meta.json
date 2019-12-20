@@ -35,6 +35,22 @@
         "en": "legend filter"
       },
       "screenshot": ""
+    },
+    {
+      "filename": "range-highlight.js",
+      "title": {
+        "zh": "框选高亮",
+        "en": "range highlight"
+      },
+      "screenshot": ""
+    },
+    {
+      "filename": "continue-legend-filter.js",
+      "title": {
+        "zh": "连续图例过滤",
+        "en": "continue legend filter"
+      },
+      "screenshot": ""
     }
   ]
 }

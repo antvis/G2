@@ -12,7 +12,7 @@ gEvent.clientY = 4;
 gEvent.target = { target: 2 };
 
 // @ts-ignore
-gEvent.domEvent = { event: 3 };
+gEvent.originalEvent = { event: 3 };
 
 describe('Event', () => {
   it('constructor', () => {

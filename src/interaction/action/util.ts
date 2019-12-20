@@ -1,11 +1,11 @@
-import { Component } from '@antv/component';
+import { PathCommand, Point } from '@antv/g-base/lib/types';
 import { each, isArray, map } from '@antv/util';
 import { View } from '../../chart';
 import { ComponentOption } from '../../chart/interface';
 import Geometry from '../../geometry/base';
 import Element from '../../geometry/element/';
+import { catmullRom2bezier, getLinePath } from '../../geometry/shape/util/path';
 import { IInteractionContext, LooseObject } from '../../interface';
-
 /**
  * 获取当前事件相关的图表元素
  * @param context 交互的上下文
@@ -40,6 +40,14 @@ export function getDelegationObject(context: IInteractionContext): LooseObject {
  */
 export function isList(delegateObject: LooseObject): boolean {
   return delegateObject && delegateObject.component && delegateObject.component.isList();
+}
+
+/**
+ * 是否是滑块组件
+ * @param delegateObject 委托对象
+ */
+export function isSlider(delegateObject: LooseObject): boolean {
+  return delegateObject && delegateObject.component && delegateObject.component.isSlider();
 }
 
 /**
@@ -120,4 +128,25 @@ export function getIntersectElements(view: View, box) {
  */
 export function getComponents(view) {
   return map(view.getComponents(), (co: ComponentOption) => co.component);
+}
+
+export function distance(p1: Point, p2: Point) {
+  const dx = p2.x - p1.x;
+  const dy = p2.y - p1.y;
+  return Math.sqrt(dx * dx + dy * dy);
+}
+
+export function getSpline(points: Point[], z: boolean): PathCommand[] {
+  if (points.length <= 2) {
+    return getLinePath(points, false);
+  }
+  const first = points[0];
+  const arr = [];
+  each(points, (point) => {
+    arr.push(point.x);
+    arr.push(point.y);
+  });
+  const path = catmullRom2bezier(arr, z, null);
+  path.unshift(['M', first.x, first.y]);
+  return path;
 }
