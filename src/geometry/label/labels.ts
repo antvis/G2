@@ -162,7 +162,6 @@ export default class Labels {
         text: cfg.content,
         ...cfg.style,
       },
-      name: 'label',
       ...shapeAppendCfg,
     });
 
@@ -205,7 +204,6 @@ export default class Labels {
         fill: null,
         ...labelLineCfg.style,
       },
-      name: 'labelLine',
       id: labelCfg.id,
       origin: labelCfg.mappingData,
       data: labelCfg.data,
