@@ -5,7 +5,7 @@
   },
   "demos": [
     {
-      "filename": "base.js",
+      "filename": "base.ts",
       "title": {
         "en": "Line Chart",
         "zh": "基础折线图"

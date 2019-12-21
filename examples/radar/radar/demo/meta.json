@@ -5,7 +5,7 @@
   },
   "demos": [
     {
-      "filename": "basic.js",
+      "filename": "basic.ts",
       "title": {
         "zh": "基础雷达图",
         "en": "Radar Chart"
@@ -13,7 +13,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*PuR9QaxZO6sAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "flower-line.js",
+      "filename": "flower-line.ts",
       "title": {
         "zh": "雷达图复杂曲线",
         "en": "Radar Chart"
@@ -21,7 +21,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*jCN7SYKxuRcAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "with-line.js",
+      "filename": "with-line.ts",
       "title": {
         "zh": "基础雷达图（线）",
         "en": "Radar Chart"

@@ -5,7 +5,7 @@
   },
   "demos": [
     {
-      "filename": "area1.js",
+      "filename": "area1.ts",
       "title": {
         "zh": "某公司烟花国内累计销售额趋势",
         "en": "Area Chart"
@@ -13,7 +13,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*R1-zSLdBp8IAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "area2.js",
+      "filename": "area2.ts",
       "title": {
         "zh": "某水产公司 2017 年月盈利变化",
         "en": "Area Chart"
@@ -21,7 +21,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*k-6pQIKtWnMAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "area4.js",
+      "filename": "area4.ts",
       "title": {
         "zh": "美国天然气进出口情况，2015 - 2040 年",
         "en": "Stacked Area Chart"
@@ -29,7 +29,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*sVovQYvOgCQAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "area5.js",
+      "filename": "area5.ts",
       "title": {
         "zh": "世界人口在各政体中的分步情况",
         "en": "100% Stacked Area Chart"
@@ -37,7 +37,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*xHp5T4-i_1AAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "area6.js",
+      "filename": "area6.ts",
       "title": {
         "zh": "丹麦-挪威王国 1700-1780 的进出口贸易",
         "en": "Range Area Chart"
@@ -45,7 +45,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*IUe6QZT4K44AAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "area7.js",
+      "filename": "area7.ts",
       "title": {
         "zh": "某频道视频订阅数和月收入关系",
         "en": "Range Area Chart"

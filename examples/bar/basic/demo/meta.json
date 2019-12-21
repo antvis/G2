@@ -5,7 +5,7 @@
   },
   "demos": [
     {
-      "filename": "basic.js",
+      "filename": "basic.ts",
       "title": {
         "zh": "基础条形图",
         "en": "basic bar chart"
@@ -13,7 +13,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*xor3R6X2puIAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "radial-bar.js",
+      "filename": "radial-bar.ts",
       "title": {
         "zh": "玉珏图",
         "en": "radial bar chart"
@@ -21,12 +21,12 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*GTDCRYkg6V4AAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "radial-line.js",
+      "filename": "radial-line.ts",
       "title": "Radial Bar Chart",
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*36qSSZ8HGyMAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "ranged.js",
+      "filename": "ranged.ts",
       "title": {
         "zh": "区间条形图",
         "en": "range bar chart"
@@ -34,7 +34,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*W7UaRYzGa2IAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "time-bar.js",
+      "filename": "time-bar.ts",
       "title": {
         "zh": "时间条形图",
         "en": "time bar chart"

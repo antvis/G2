@@ -5,7 +5,7 @@
   },
   "demos": [
     {
-      "filename": "multi-level.js",
+      "filename": "multi-level.ts",
       "title": {
         "zh": "多层饼图",
         "en": "nested pie chart"

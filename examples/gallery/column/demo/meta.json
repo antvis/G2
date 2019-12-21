@@ -5,7 +5,7 @@
   },
   "demos": [
     {
-      "filename": "column2.js",
+      "filename": "column2.ts",
       "title": {
         "en": "column chart",
         "zh": "某 APP 活跃用户年龄分布"
@@ -13,7 +13,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*lA3WTaF7uvIAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "column3.js",
+      "filename": "column3.ts",
       "title": {
         "en": "column chart",
         "zh": "Netflix 公司市值增长"
@@ -21,7 +21,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*pe6AQoHt4swAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "column4.js",
+      "filename": "column4.ts",
       "title": {
         "en": "column chart",
         "zh": "生鲜销售趋势"
@@ -29,7 +29,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*42btQqk8AGsAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "column5.js",
+      "filename": "column5.ts",
       "title": {
         "en": "column chart",
         "zh": "2018-08 A组售前咨询单次通话时长分布"
@@ -37,7 +37,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*cwakQ7zNM9QAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "column8.js",
+      "filename": "column8.ts",
       "title": {
         "en": "column chart",
         "zh": "某企业经营现金流（5年报趋势）"
@@ -45,7 +45,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*7YOrT64KI5MAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "column9.js",
+      "filename": "column9.ts",
       "title": {
         "en": "column chart",
         "zh": "体能指标评分表"
@@ -53,7 +53,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8Sk-TKcmewIAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "column10.js",
+      "filename": "column10.ts",
       "title": {
         "en": "stacked column chart",
         "zh": "零钱管家 APP 收支占比趋势分析"
@@ -61,7 +61,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*9kBMQYsDS38AAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "column11.js",
+      "filename": "column11.ts",
       "title": {
         "en": "100% stacked column chart",
         "zh": "中国移动互联网细分结构占比"

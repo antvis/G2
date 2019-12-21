@@ -5,7 +5,7 @@
   },
   "demos": [
     {
-      "filename": "bar1.js",
+      "filename": "bar1.ts",
       "title": {
         "zh": "某产品行业销量分布 Top10",
         "en": "bar chart"
@@ -13,7 +13,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*dwbMT7lqA0gAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "bar2.js",
+      "filename": "bar2.ts",
       "title": {
         "zh": "产品类别销售额对比",
         "en": "bar chart"
@@ -21,7 +21,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*lpF3QJvH8jAAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "bar3.js",
+      "filename": "bar3.ts",
       "title": {
         "zh": "谁住在首都？",
         "en": "bar chart"
