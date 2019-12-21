@@ -5,7 +5,7 @@
   },
   "demos": [
     {
-      "filename": "circle.js",
+      "filename": "circle.ts",
       "title": {
         "zh": "圆形分面",
         "en": "circle facet"
@@ -13,7 +13,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Ag46TrkWa0sAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "column.js",
+      "filename": "column.ts",
       "title": {
         "zh": "列分面",
         "en": "column facet"
@@ -21,7 +21,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*QBGQSIviJ7YAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "facet-transpose.js",
+      "filename": "facet-transpose.ts",
       "title": {
         "zh": "镜像分面（transpose）",
         "en": "mirror facet(transpose)"
@@ -29,7 +29,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*2ZEmS5SM_bkAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "list.js",
+      "filename": "list.ts",
       "title": {
         "zh": "List 分面",
         "en": "list facet"
@@ -37,7 +37,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*F8MKRZvTB1AAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "matrix.js",
+      "filename": "matrix.ts",
       "title": {
         "zh": "散点矩阵",
         "en": "matrix"
@@ -45,7 +45,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*RPPgTauPZLMAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "mirror.js",
+      "filename": "mirror.ts",
       "title": {
         "zh": "镜像分面",
         "en": "mirror facet"
@@ -53,7 +53,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Z7SlTLkNEVAAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "rect.js",
+      "filename": "rect.ts",
       "title": {
         "zh": "2 维行列分面",
         "en": "rect facet"
@@ -61,7 +61,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*bYoPT7VqUZwAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "row.js",
+      "filename": "row.ts",
       "title": {
         "zh": "列分面",
         "en": "rect facet(row)"
@@ -69,7 +69,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*9XE6Qqc56mAAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "tree-column.js",
+      "filename": "tree-column.ts",
       "title": {
         "zh": "多级 tree 分面",
         "en": "tree column facet"
@@ -77,7 +77,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*p3ILS783LrQAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "tree.js",
+      "filename": "tree.ts",
       "title": {
         "zh": "tree 分面",
         "en": "tree facet"

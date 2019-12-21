@@ -5,7 +5,7 @@
   },
   "demos": [
     {
-      "filename": "basic.js",
+      "filename": "basic.ts",
       "title": {
         "zh": "基础环图",
         "en": "donut chart"
@@ -13,7 +13,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*3K-wRazv3PEAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "donut.js",
+      "filename": "donut.ts",
       "title": {
         "zh": "带中心文本基础环图",
         "en": "donut chart with text"
@@ -21,7 +21,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*3K-wRazv3PEAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "clock.js",
+      "filename": "clock.ts",
       "title": {
         "zh": "日常作息可视化",
         "en": "pie chart"
@@ -29,7 +29,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*MonkT4iCyXcAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "pie-slice.js",
+      "filename": "pie-slice.ts",
       "title": {
         "zh": "饼图-分割空白",
         "en": "customized pie chart"

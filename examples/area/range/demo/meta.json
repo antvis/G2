@@ -5,7 +5,7 @@
   },
   "demos": [
     {
-      "filename": "range.js",
+      "filename": "range.ts",
       "title": {
         "zh": "区间面积图",
         "en": "Range Area Chart"

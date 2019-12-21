@@ -5,7 +5,7 @@
   },
   "demos": [
     {
-      "filename": "adjacency.js",
+      "filename": "adjacency.ts",
       "title": {
         "zh": "相邻层次图",
         "en": "adjacency"
@@ -13,7 +13,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*17lLTZn5DKIAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "arc-polar.js",
+      "filename": "arc-polar.ts",
       "title": {
         "zh": "极坐标弧长链接图",
         "en": "polar arc diagram"
@@ -21,7 +21,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*osoCSYsvR6cAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "arc.js",
+      "filename": "arc.ts",
       "title": {
         "zh": "弧长链接图",
         "en": "arc diagram"
@@ -29,7 +29,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*1M9VQLUpXBIAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "chord.js",
+      "filename": "chord.ts",
       "title": {
         "zh": "和弦图",
         "en": "chord diagram"
@@ -37,7 +37,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*EsSaSZXorsIAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "circle-packing.js",
+      "filename": "circle-packing.ts",
       "title": {
         "zh": "Circle Packing",
         "en": "circle packing"
@@ -45,7 +45,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*sVjYTZjWuegAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "polar-treemap.js",
+      "filename": "polar-treemap.ts",
       "title": {
         "zh": "极坐标系下的矩形树图",
         "en": "polar treemap"
@@ -53,7 +53,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*cu7DQ7FCx2wAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "radial-dendrogram.js",
+      "filename": "radial-dendrogram.ts",
       "title": {
         "zh": "径向系统树图",
         "en": "radial tree"
@@ -61,7 +61,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*kOM2QZY15fsAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "radial-tidy-tree.js",
+      "filename": "radial-tidy-tree.ts",
       "title": {
         "zh": "径向紧凑树图",
         "en": "radial tidy tree"
@@ -69,7 +69,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*AX-wT4J7B5oAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "sankey.js",
+      "filename": "sankey.ts",
       "title": {
         "zh": "桑基图",
         "en": "sankey diagram"
@@ -77,7 +77,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*A0z9R7Qn8ScAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "sunburst.js",
+      "filename": "sunburst.ts",
       "title": {
         "zh": "旭日图",
         "en": "sunburst chart"
@@ -85,7 +85,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ZzfeQpS8oE8AAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "treemap-children.js",
+      "filename": "treemap-children.ts",
       "title": {
         "zh": "treemap-children",
         "en": "treemap"
@@ -93,7 +93,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*E-eMTqVsqXwAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "treemap.js",
+      "filename": "treemap.ts",
       "title": {
         "zh": "矩形树图",
         "en": "treemap"
@@ -101,7 +101,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*C8aIQIYh4C0AAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "voronoi-polar.js",
+      "filename": "voronoi-polar.ts",
       "title": {
         "zh": "极坐标 voronoi 图",
         "en": "polar voronoi"
@@ -109,7 +109,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*6ronSLcWb_sAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "voronoi.js",
+      "filename": "voronoi.ts",
       "title": {
         "zh": "voronoi 图",
         "en": "voronoi"

@@ -5,7 +5,7 @@
   },
   "demos": [
     {
-      "filename": "facet1.js",
+      "filename": "facet1.ts",
       "title": {
         "zh": "各国人口出生率",
         "en": "column facet"
@@ -13,7 +13,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*yRI3QYLprt8AAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "facet2.js",
+      "filename": "facet2.ts",
       "title": {
         "zh": "各国人口出生率",
         "en": "row facet"
@@ -21,7 +21,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*hR7HSYWHockAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "facet3.js",
+      "filename": "facet3.ts",
       "title": {
         "zh": "2016 年全球十大转基因作物种植面积和耕地总面积对比",
         "en": "row facet"

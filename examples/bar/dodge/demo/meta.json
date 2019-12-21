@@ -5,7 +5,7 @@
   },
   "demos": [
     {
-      "filename": "grouped.js",
+      "filename": "grouped.ts",
       "title": {
         "zh": "分组条形图",
         "en": "Grouped Bar Chart"
@@ -13,7 +13,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*WlX-SLH-0FQAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "bar4.js",
+      "filename": "bar4.ts",
       "title": {
         "zh": "城市产品销售额 Top10",
         "en": "Grouped Bar Chart"
@@ -21,7 +21,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*txCBRpED9RAAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "bar5.js",
+      "filename": "bar5.ts",
       "title": {
         "zh": "2016 年全球十大转基因作物种植面积和耕地总面积对比",
         "en": "Butterfly Chart"

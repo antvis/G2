@@ -5,7 +5,7 @@
   },
   "demos": [
     {
-      "filename": "histogram-binwidth.js",
+      "filename": "histogram-binwidth.ts",
       "title": {
         "zh": "直方图范围刻度",
         "en": "histogram"
@@ -13,7 +13,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*gF1PSq6H2GQAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "histogram-stacked.js",
+      "filename": "histogram-stacked.ts",
       "title": {
         "zh": "层叠直方图",
         "en": "stacked histogram"
@@ -21,7 +21,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Eoz8SbVvQ1AAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "histogram.js",
+      "filename": "histogram.ts",
       "title": {
         "zh": "直方图",
         "en": "histogram"

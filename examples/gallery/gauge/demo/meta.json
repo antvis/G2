@@ -5,7 +5,7 @@
   },
   "demos": [
     {
-      "filename": "multi.js",
+      "filename": "multi.ts",
       "title": {
         "zh": "某产品新老用户对比分析",
         "en": "Gauge"

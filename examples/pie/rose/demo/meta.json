@@ -5,7 +5,7 @@
   },
   "demos": [
     {
-      "filename": "rose.js",
+      "filename": "rose.ts",
       "title": {
         "zh": "南丁格尔玫瑰图",
         "en": ""
@@ -13,7 +13,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*kjt6Ro31ugcAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "color-rose.js",
+      "filename": "color-rose.ts",
       "title": {
         "zh": "多色南丁格尔玫瑰图",
         "en": ""
@@ -21,7 +21,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*9NEvS7uOrUMAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "donut-rose.js",
+      "filename": "donut-rose.ts",
       "title": {
         "zh": "南丁格尔玫瑰环图",
         "en": ""
@@ -29,7 +29,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*T62aT6hOD2MAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "rose-ranged.js",
+      "filename": "rose-ranged.ts",
       "title": {
         "zh": "玫瑰图-限定角度范围",
         "en": ""

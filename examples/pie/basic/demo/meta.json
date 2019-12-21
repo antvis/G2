@@ -5,7 +5,7 @@
   },
   "demos": [
     {
-      "filename": "labelline.js",
+      "filename": "labelline.ts",
       "title": {
         "en": "pie chart with label",
         "zh": "基础饼图"
@@ -13,7 +13,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*kTAySKCuiw0AAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "innerlabel.js",
+      "filename": "innerlabel.ts",
       "title": {
         "en": "pie chart with label inner",
         "zh": "基础饼图-内部文本"
@@ -21,7 +21,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*FIX6SIOqQgEAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "pie-custome-label.js",
+      "filename": "pie-custome-label.ts",
       "title": {
         "en": "customize pie chart",
         "zh": "个性化标签饼图"
@@ -29,7 +29,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*f1FkR5DeVJ4AAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "pie-ranged.js",
+      "filename": "pie-ranged.ts",
       "title": {
         "en": "pie chart with range angle",
         "zh": "饼图-限定角度范围"
@@ -37,7 +37,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*o0GvS7hd-vYAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "pie-size.js",
+      "filename": "pie-size.ts",
       "title": {
         "en": "pie chart with radius",
         "zh": "饼图-半径大小"
@@ -45,7 +45,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*DE_sRaTSxsAAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "pie-texture.js",
+      "filename": "pie-texture.ts",
       "title": {
         "en": "pie chart fill with texture",
         "zh": "饼图-带纹理"

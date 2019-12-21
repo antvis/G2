@@ -5,7 +5,7 @@
   },
   "demos": [
     {
-      "filename": "basic.js",
+      "filename": "basic.ts",
       "title": {
         "zh": "股票图",
         "en": "K Chart"
@@ -13,7 +13,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*2nyBTL-HkvwAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "k-and-area.js",
+      "filename": "k-and-area.ts",
       "title": {
         "zh": "股票图与范围区域图",
         "en": "K Chart"

@@ -5,7 +5,7 @@
   },
   "demos": [
     {
-      "filename": "basic.js",
+      "filename": "basic.ts",
       "title": {
         "zh": "基本交互, active",
         "en": "basic interaction"
@@ -13,7 +13,7 @@
       "screenshot": ""
     },
     {
-      "filename": "highlight.js",
+      "filename": "highlight.ts",
       "title": {
         "zh": "图表元素 highlight",
         "en": "element highlight"
@@ -21,7 +21,7 @@
       "screenshot": ""
     },
     {
-      "filename": "legend-active.js",
+      "filename": "legend-active.ts",
       "title": {
         "zh": "图例项 active",
         "en": "legend active"
@@ -29,7 +29,7 @@
       "screenshot": ""
     },
     {
-      "filename": "legend-filter.js",
+      "filename": "legend-filter.ts",
       "title": {
         "zh": "图例项过滤",
         "en": "legend filter"
@@ -37,7 +37,7 @@
       "screenshot": ""
     },
     {
-      "filename": "range-highlight.js",
+      "filename": "range-highlight.ts",
       "title": {
         "zh": "框选高亮",
         "en": "range highlight"
@@ -45,7 +45,7 @@
       "screenshot": ""
     },
     {
-      "filename": "continue-legend-filter.js",
+      "filename": "continue-legend-filter.ts",
       "title": {
         "zh": "连续图例过滤",
         "en": "continue legend filter"

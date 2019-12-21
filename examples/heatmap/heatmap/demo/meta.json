@@ -5,7 +5,7 @@
   },
   "demos": [
     {
-      "filename": "basic.js",
+      "filename": "basic.ts",
       "title": {
         "zh": "色块图",
         "en": "Basic Heatmap"
@@ -13,7 +13,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*sXU0S4xSx-UAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "calendar-horizontal.js",
+      "filename": "calendar-horizontal.ts",
       "title": {
         "zh": "水平日历色块图",
         "en": "Calendar Heatmap"
@@ -21,7 +21,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*_GtkQo1vCHcAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "calendar.js",
+      "filename": "calendar.ts",
       "title": {
         "zh": "日历色块图",
         "en": "Calendar Heatmap"
@@ -29,7 +29,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*KA8TS4K_M98AAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "hexagon.js",
+      "filename": "hexagon.ts",
       "title": {
         "zh": "六边形分箱",
         "en": "Heatmap"
@@ -37,7 +37,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*m9VIT4xIQCgAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "hot-rect.js",
+      "filename": "hot-rect.ts",
       "title": {
         "zh": "分块热力图",
         "en": "Heatmap"
@@ -45,7 +45,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*NKIpTJ-eXQwAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "image.js",
+      "filename": "image.ts",
       "title": {
         "zh": "热力图",
         "en": "Heatmap on Geography"
@@ -53,7 +53,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*yjD8RqkM8bgAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "kernel-smooth-density.js",
+      "filename": "kernel-smooth-density.ts",
       "title": {
         "zh": "核函数概率密度分布",
         "en": "Heatmap"
@@ -61,7 +61,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*fwWrSLI-IZgAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "polar-heatmap.js",
+      "filename": "polar-heatmap.ts",
       "title": {
         "zh": "极坐标下的色块图",
         "en": "Polar Heatmap"
@@ -69,7 +69,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*6rHFRpquLT4AAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "rectangle.js",
+      "filename": "rectangle.ts",
       "title": {
         "zh": "矩形分箱图",
         "en": "Heatmap"

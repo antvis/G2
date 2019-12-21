@@ -5,7 +5,7 @@
   },
   "demos": [
     {
-      "filename": "kernel-smooth-regression-1.js",
+      "filename": "kernel-smooth-regression-1.ts",
       "title": {
         "en": "kernel smooth regression line chart",
         "zh": "核函数概率密度回归曲线"
@@ -13,7 +13,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*PfvqRIue7AwAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "kernel-smooth-regression-2.js",
+      "filename": "kernel-smooth-regression-2.ts",
       "title": {
         "en": "kernel smooth regression line chart",
         "zh": "核函数概率密度回归曲线（两字段）"

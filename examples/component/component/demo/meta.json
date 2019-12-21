@@ -5,7 +5,7 @@
   },
   "demos": [
     {
-      "filename": "guide-region-filter-realtime-data.js",
+      "filename": "guide-region-filter-realtime-data.ts",
       "title": {
         "zh": "guide-region-filter-realtime-data.html",
         "en": "guide region filter"
@@ -13,7 +13,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*0sydRIXBmu0AAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "guide-region-filter1.js",
+      "filename": "guide-region-filter1.ts",
       "title": {
         "zh": "guide - 分段颜色1",
         "en": "guide region filter"
@@ -21,7 +21,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Tk5gRqvyhzoAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "guide-region-filter2.js",
+      "filename": "guide-region-filter2.ts",
       "title": {
         "zh": "guide - 分段颜色2",
         "en": "guide region filter"
@@ -29,7 +29,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*RO5WTbaDBPQAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "label-map.js",
+      "filename": "label-map.ts",
       "title": {
         "zh": "label-地图",
         "en": "map with label"
@@ -37,7 +37,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*rNrlT76k4z4AAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "label-position.js",
+      "filename": "label-position.ts",
       "title": {
         "zh": "label-位置",
         "en": "label position"
@@ -45,7 +45,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*NxURS5x3VWUAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "label-scatter.js",
+      "filename": "label-scatter.ts",
       "title": {
         "zh": "label - 散点图",
         "en": "scatter label"
@@ -53,7 +53,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*hZQtS66JY8QAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "label-treemap.js",
+      "filename": "label-treemap.ts",
       "title": {
         "zh": "矩形树图 label",
         "en": "treemap label"
@@ -61,7 +61,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*SDAGRJkF20UAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "legend-color.js",
+      "filename": "legend-color.ts",
       "title": {
         "zh": "legend color",
         "en": "legend color"
@@ -69,7 +69,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*fJc_TJRHLIoAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "legend-pagenation.js",
+      "filename": "legend-pagenation.ts",
       "title": {
         "zh": "legend-翻页",
         "en": "legend pagenation"
@@ -77,7 +77,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*eXnQTo8QTosAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "legend-size.js",
+      "filename": "legend-size.ts",
       "title": {
         "zh": "legend-size",
         "en": "size legend"
@@ -85,7 +85,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*zo8yQp-k7hgAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "tooltip-canvastooltip.js",
+      "filename": "tooltip-canvastooltip.ts",
       "title": {
         "zh": "canvas tooltip",
         "en": "canvas tooltip"
@@ -93,7 +93,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*fWQuSYyhyx8AAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "tooltip-customized.js",
+      "filename": "tooltip-customized.ts",
       "title": {
         "zh": "自定义 tooltip",
         "en": "customized tooltip"
@@ -101,7 +101,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*kxObRLXxmccAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "tooltip-fixed-position.js",
+      "filename": "tooltip-fixed-position.ts",
       "title": {
         "zh": "tooltip-固定位置",
         "en": "fixed tooltip"
@@ -109,7 +109,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*xNidQ7xZJd0AAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "tooltip-html-content.js",
+      "filename": "tooltip-html-content.ts",
       "title": {
         "zh": "tooltip-htmlContent",
         "en": "customized html tooltip"
