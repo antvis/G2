@@ -25,7 +25,7 @@ const chart = new Chart({
 chart.data(data.slice(0, data.length - 2));
 
 chart.scale('city', { type: 'cat' });
-chart.axis('city', { type: 'category' });
+chart.axis('city', { title: null });
 chart.coordinate('rect').scale(1, -1);
 
 describe('chart multi view', () => {

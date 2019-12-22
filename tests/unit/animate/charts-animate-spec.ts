@@ -534,32 +534,6 @@ describe('Test charts animate', () => {
       type: 'cat',
       values: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
     });
-
-    chart.axis('name', {
-      tickLine: null,
-      grid: {
-        align: 'center',
-        lineStyle: {
-          lineWidth: 1,
-          lineDash: null,
-          stroke: '#f0f0f0',
-        },
-      },
-    });
-
-    chart.axis('day', {
-      title: null,
-      grid: {
-        align: 'center',
-        lineStyle: {
-          lineWidth: 1,
-          lineDash: null,
-          stroke: '#f0f0f0',
-        },
-        showFirstLine: true,
-      },
-    });
-
     chart.coordinate('polar');
     chart
       .polygon()

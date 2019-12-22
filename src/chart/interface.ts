@@ -1,6 +1,17 @@
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../constant';
-import { GroupComponent, HtmlComponent } from '../dependents';
-import { CategoryLegendCfg, CircleAxisCfg, ICanvas, IGroup, LineAxisCfg } from '../dependents';
+import {
+  AxisLabelCfg,
+  AxisLineCfg,
+  AxisSubTickLineCfg,
+  AxisTickLineCfg,
+  AxisTitleCfg,
+  CategoryLegendCfg,
+  GridLineCfg,
+  GroupComponent,
+  HtmlComponent,
+  ICanvas,
+  IGroup,
+} from '../dependents';
 import {
   AdjustOption,
   AttributeOption,
@@ -96,7 +107,6 @@ export interface ChartCfg {
   /** 图表高度 */
   readonly height?: number;
   /**
-   * TODO: 规则需要确认
    * 图表是否自适应容器宽高，默认为 false
    */
   readonly autoFit?: boolean;
@@ -235,6 +245,44 @@ export interface CoordinateCfg {
   center?: [number, number]; // 中心经纬度设置，比如 [ 120, 20 ]
 }
 
+export interface AxisGridCfg {
+  /**
+   * 线的样式
+   */
+  line?: GridLineCfg;
+  /**
+   * 两个栅格线间的填充色，必须是一个数组
+   */
+  alternateColor?: string | string[];
+}
+
+export interface AxisCfg {
+  /**
+   * 坐标轴线的配置项，null 表示不展示
+   */
+  line?: AxisLineCfg | null;
+  /**
+   * 坐标轴刻度线线的配置项，null 表示不展示
+   */
+  tickLine?: AxisTickLineCfg | null;
+  /**
+   * 坐标轴子刻度线的配置项，null 表示不展示
+   */
+  subTickLine?: AxisSubTickLineCfg | null;
+  /**
+   * 标题的配置项，null 表示不展示
+   */
+  title?: AxisTitleCfg | null;
+  /**
+   * 文本标签的配置项，null 表示不展示
+   */
+  label?: AxisLabelCfg | null;
+  /** 坐标轴网格线的配置项，null 表示不展示 */
+  grid?: AxisGridCfg | null;
+  /** 是否开启坐标轴动画，默认开启 */
+  animate?: boolean;
+}
+
 export interface Options {
   /** 数据源 */
   readonly data: Data;
@@ -269,5 +317,5 @@ export interface Options {
 export type TooltipOption = TooltipCfg | boolean;
 /* 筛选器函数类型定义 */
 export type FilterCondition = (value: any, datum: Datum) => boolean;
-export type AxisOption = Partial<LineAxisCfg> | Partial<CircleAxisCfg> | boolean;
+export type AxisOption = AxisCfg | boolean;
 export type LegendOption = LegendCfg | boolean;
