@@ -23,7 +23,19 @@ export { Tick } from '@antv/scale/lib/base';
 // component
 import { Annotation, Axis, Component, Grid, GroupComponent, HtmlComponent, Legend, Tooltip } from '@antv/component';
 export { IComponent, IList } from '@antv/component/lib/interfaces';
-export { CategoryLegendCfg, CircleAxisCfg, LineAxisCfg, GroupComponentCfg, ListItem } from '@antv/component/lib/types';
+export {
+  CategoryLegendCfg,
+  CircleAxisCfg,
+  LineAxisCfg,
+  GroupComponentCfg,
+  ListItem,
+  AxisLineCfg,
+  AxisTickLineCfg,
+  AxisSubTickLineCfg,
+  AxisTitleCfg,
+  AxisLabelCfg,
+  GridLineCfg,
+} from '@antv/component/lib/types';
 export { HtmlComponent, GroupComponent, Component };
 export { Annotation };
 // axis
