@@ -4,6 +4,8 @@ import * as Util from '@antv/util';
 import { LineAxisCfg } from '../interface';
 import Axis from './base';
 
+const AUTO_ROTATE_DEGREES = [0, -45, -90];
+
 export default class Line extends Axis {
   constructor(cfg = {} as LineAxisCfg) {
     super({
@@ -94,17 +96,11 @@ export default class Line extends Axis {
       if (this.get('autoRotateLabel')) {
         const angle = this.getAutoRotateAngle();
         if (angle) {
-          labelLength = Math.max(
-            labelLength,
-            this.getMaxLabelWidthOrHeight(labelRenderer, 'width') * Math.abs(Math.sin(angle))
-          );
+          labelLength = this.getOffsetByRotateAngle(angle);
         }
       }
       if (rotate) {
-        labelLength = Math.max(
-          labelLength,
-          this.getMaxLabelWidthOrHeight(labelRenderer, 'width') * Math.abs(Math.sin((rotate * Math.PI) / 180))
-        );
+        labelLength = this.getOffsetByRotateAngle((rotate * Math.PI) / 180);
       }
       const labelOffset = Util.get(this.get('label'), 'offset', 5);
       titleOffset += labelLength + labelOffset;
@@ -172,19 +168,23 @@ export default class Line extends Axis {
       const angle = this.getAutoRotateAngle();
 
       if (angle) {
-        const factor = this.get('factor');
+        this.set('autoRotateAngle', angle);
         const offsetY = -6 * Math.abs(Math.sin(angle));
         // const offsetY = (this.getMaxLabelWidthOrHeight(labelRenderer, 'width') * Math.abs(Math.sin(angle))) / 2;
+        const textAlign =
+          angle % Math.PI === 0
+            ? 'center'
+            : angle > 0
+            ? angle % (Math.PI * 2) < Math.PI
+              ? 'left'
+              : 'right'
+            : angle % (Math.PI * 2) > -Math.PI
+            ? 'right'
+            : 'left';
         Util.each(labels, (label) => {
+          label.attr('textAlign', textAlign);
           label.rotateAtStart(angle);
           label.attr('y', label.attr('y') + offsetY);
-          if (Util.isNumberEqual(vector[1], 0)) {
-            if (factor > 0) {
-              label.attr('textAlign', 'right');
-            } else {
-              label.attr('textAlign', 'left');
-            }
-          }
         });
       }
     }
@@ -240,17 +240,8 @@ export default class Line extends Axis {
     }
   }
 
-  private _getAvgLabelLength(labelRenderer) {
-    const labels = labelRenderer.getLabels();
-    return labels[1].attr('x') - labels[0].attr('x');
-  }
-
-  private _getAvgLabelHeightSpace(labelRenderer) {
-    const labels = labelRenderer.getLabels();
-    return labels[1].attr('y') - labels[0].attr('y');
-  }
-
-  private getAutoRotateAngle() {
+  public getAutoRotateAngleByAvgWidth(avgWidth: number) {
+    const autoRotate = this.get('autoRotateLabel');
     const labelRenderer = this.get('labelRenderer');
     const title = this.get('title');
     let angle;
@@ -266,6 +257,7 @@ export default class Line extends Axis {
       const vector = this.getAxisVector(); // 坐标轴的向量，仅处理水平或者垂直的场景
 
       let maxWidth;
+      let maxHeight;
       if (Util.isNumberEqual(vector[0], 0) && title && title.text) {
         // 坐标轴垂直，由于不知道边距，只能防止跟title重合，如果title不存在，则不自动旋转
         maxWidth = this.getMaxLabelWidthOrHeight(labelRenderer, 'width');
@@ -274,14 +266,52 @@ export default class Line extends Axis {
         }
       } else if (Util.isNumberEqual(vector[1], 0) && labels.length > 1) {
         // 坐标轴水平，不考虑边距，根据最长的和平均值进行翻转
-        const avgWidth = Math.abs(this._getAvgLabelLength(labelRenderer));
         maxWidth = this.getMaxLabelWidthOrHeight(labelRenderer, 'width');
+        maxHeight = this.getMaxLabelWidthOrHeight(labelRenderer, 'height');
         if (maxWidth > avgWidth) {
-          angle = Math.asin(((titleOffset - offset - append) * 1.25) / maxWidth);
+          const degrees = Util.isArray(autoRotate) ? autoRotate : AUTO_ROTATE_DEGREES;
+          for (const degree of degrees) {
+            angle = (degree * Math.PI) / 180;
+            if (avgWidth * Math.abs(Math.sin(angle)) > maxHeight + 4) {
+              break;
+            }
+          }
         }
       }
     }
 
     return angle;
+  }
+
+  public getOffsetByRotateAngle(angle: number) {
+    const labelRenderer = this.get('labelRenderer');
+    const position = this.get('position');
+    const property = position === 'bottom' || position === 'top' ? 'height' : 'width';
+    const labelLength = this.getMaxLabelWidthOrHeight(labelRenderer, property);
+
+    return angle
+      ? Math.max(labelLength, this.getMaxLabelWidthOrHeight(labelRenderer, 'width') * Math.abs(Math.sin(angle)))
+      : labelLength;
+  }
+
+  private _getAvgLabelLength(labelRenderer) {
+    const labels = labelRenderer.getLabels();
+    return labels[1].attr('x') - labels[0].attr('x');
+  }
+
+  private _getAvgLabelHeightSpace(labelRenderer) {
+    const labels = labelRenderer.getLabels();
+    return labels[1].attr('y') - labels[0].attr('y');
+  }
+
+  private getAutoRotateAngle() {
+    const labelRenderer = this.get('labelRenderer');
+    const labels = labelRenderer.get('labels');
+    if (!labels || labels.length < 2) {
+      return;
+    }
+    const avgWidth = Math.abs(this._getAvgLabelLength(labelRenderer));
+
+    return this.getAutoRotateAngleByAvgWidth(avgWidth);
   }
 }
