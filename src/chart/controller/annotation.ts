@@ -1,4 +1,16 @@
-import { deepMix, each, filter, get, isArray, isFunction, isNil, isString, keys, upperFirst } from '@antv/util';
+import {
+  deepMix,
+  each,
+  filter,
+  get,
+  isArray,
+  isFunction,
+  isNil,
+  isString,
+  isUndefined,
+  keys,
+  upperFirst,
+} from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { Annotation as AnnotationComponent, IGroup, Scale } from '../../dependents';
 import { Point } from '../../interface';
@@ -25,6 +37,8 @@ export interface BaseOption {
   readonly end: Position;
   /** 图形样式属性 */
   readonly style?: object;
+  /** 是否进行动画 */
+  readonly animate?: boolean;
 }
 
 export interface ImageOption extends BaseOption {
@@ -64,14 +78,35 @@ export interface TextOption {
   readonly position: Position;
   readonly autoRotate?: boolean;
   /** 显示的文本内容 */
-  readonly content: string;
+  readonly content: string | number;
   /** 文本的图形样式属性 */
   readonly style?: object;
   /** x 方向的偏移量 */
   readonly offsetX?: number;
   /** y 方向偏移量 */
   readonly offsetY?: number;
+  /** 是否进行动画 */
+  readonly animate?: boolean;
 }
+
+const default_animation_cfg = {
+  appear: {
+    duration: 450,
+    easing: 'easeQuadOut',
+  }, // 初始入场动画配置
+  update: {
+    duration: 400,
+    easing: 'easeQuadInOut',
+  }, // 更新时发生变更的动画配置
+  enter: {
+    duration: 400,
+    easing: 'easeQuadInOut',
+  }, // 更新时新增元素的入场动画配置
+  leave: {
+    duration: 350,
+    easing: 'easeQuadIn',
+  }, // 更新时销毁动画配置
+};
 
 /**
  * annotation controller, supply:
@@ -79,6 +114,7 @@ export interface TextOption {
  * 2. life circle: init、layout、render、clear、destroy
  */
 export default class Annotation extends Controller<BaseOption[]> {
+  protected animate: boolean = true;
   private foregroundContainer: IGroup;
   private backgroundContainer: IGroup;
 
@@ -101,24 +137,29 @@ export default class Annotation extends Controller<BaseOption[]> {
   public init() {}
 
   public layout() {
-    each(this.getComponents(), (co: ComponentOption) => {
-      const { component, extra } = co;
-      const { type } = extra;
-      const theme = this.getAnnotationTheme(type);
+    const components = this.getComponents();
+    if (components.length) {
+      each(components, (co: ComponentOption) => {
+        const { component, extra } = co;
+        const { type } = extra;
+        const theme = this.getAnnotationTheme(type);
 
-      component.update(this.getAnnotationCfg(type, extra, theme));
-    });
+        component.update(this.getAnnotationCfg(type, extra, theme));
+      });
+    } else {
+      each(this.option, (option: BaseOption) => {
+        const co = this.createAnnotation(option);
+        if (co) {
+          co.component.render();
+          // 缓存起来
+          this.cache.set(option, co);
+        }
+      });
+    }
   }
 
   public render() {
-    each(this.option, (option: BaseOption) => {
-      const co = this.createAnnotation(option);
-      if (co) {
-        co.component.render();
-        // 缓存起来
-        this.cache.set(option, co);
-      }
-    });
+    // 因为 Annotation 不参与布局，但是渲染的位置依赖于坐标系，所以可以将绘制阶段延迟到 layout() 进行
   }
 
   /**
@@ -406,7 +447,7 @@ export default class Annotation extends Controller<BaseOption[]> {
   /**
    * get annotation component config by different type
    * @param type
-   * @param option
+   * @param option 用户的配置
    * @param theme
    */
   private getAnnotationCfg(type: string, option: any, theme: object): object {
@@ -479,6 +520,8 @@ export default class Annotation extends Controller<BaseOption[]> {
     // 合并主题，用户配置优先级高于主题
     const cfg = deepMix({}, theme, { ...o });
     cfg.container = this.getComponentContainer(cfg);
+    cfg.animate = this.animate && cfg.animate && get(option, 'animate', cfg.animate);
+    cfg.animateOption = default_animation_cfg;
 
     return cfg;
   }

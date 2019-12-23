@@ -37,6 +37,8 @@ describe('annotation update', () => {
     let annotations = getAnnotations();
     expect(annotations.length).toBe(1);
     expect(annotations[0].component.get('type')).toBe('text');
+    expect(annotations[0].component.get('animate')).toBe(true);
+    expect(annotations[0].component.get('animateOption')).toBeDefined();
 
     const [text] = annotations;
 
@@ -45,6 +47,7 @@ describe('annotation update', () => {
     chart.annotation().line({
       start: { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
       end: { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
+      animate: false,
     });
     chart.render(true);
 
@@ -53,7 +56,10 @@ describe('annotation update', () => {
 
     // 更新逻辑保持引用
     expect(annotations[0]).toBe(text);
+    expect(annotations[0].component.get('animate')).toBe(true);
     expect(annotations[1].component.get('type')).toBe('line');
+    expect(annotations[1].component.get('animate')).toBe(false);
+    expect(annotations[1].component.get('animateOption')).toBeDefined();
   });
 
   it('legend update', async () => {
