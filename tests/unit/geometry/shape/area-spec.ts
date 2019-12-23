@@ -59,28 +59,28 @@ describe('Area shapes', () => {
       color: 'red',
       isInPolar: false,
     });
-    expect(areaMarker.fill).toBe('red');
+    expect(areaMarker.style.fill).toBe('red');
     expect(areaMarker.symbol).toBeFunction();
 
     const lineMarker = AreaShapeFactory.getMarker('line', {
       color: 'red',
       isInPolar: false,
     });
-    expect(lineMarker.stroke).toBe('red');
+    expect(lineMarker.style.stroke).toBe('red');
     expect(lineMarker.symbol).toBeFunction();
 
     const smoothMarker = AreaShapeFactory.getMarker('smooth', {
       color: 'red',
       isInPolar: false,
     });
-    expect(smoothMarker.fill).toBe('red');
+    expect(smoothMarker.style.fill).toBe('red');
     expect(smoothMarker.symbol).toBeFunction();
 
     const smoothLineMarker = AreaShapeFactory.getMarker('smoothLine', {
       color: 'red',
       isInPolar: false,
     });
-    expect(smoothLineMarker.stroke).toBe('red');
+    expect(smoothLineMarker.style.stroke).toBe('red');
     expect(smoothLineMarker.symbol).toBeFunction();
   });
 
