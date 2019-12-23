@@ -1,4 +1,5 @@
 import { deepMix, each, filter, find, get, head, isBoolean, last, map, uniq } from '@antv/util';
+import { DEFAULT_ANIMATE_CFG } from '../../animate';
 import { COMPONENT_MAX_VIEW_PERCENTAGE, COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { Attribute, CategoryLegend, ContinuousLegend, GroupComponent, IGroup, Scale, Tick } from '../../dependents';
 import Geometry from '../../geometry/base';
@@ -368,7 +369,9 @@ export default class Legend extends Controller<Option> {
   private mergeLegendCfg(baseCfg: object, legendOption: LegendOption, direction: DIRECTION) {
     const themeObject = get(this.view.getTheme(), ['components', 'legend', direction], {});
 
-    return deepMix({}, themeObject, baseCfg, legendOption);
+    return deepMix({}, themeObject, baseCfg, legendOption, {
+      animateOption: DEFAULT_ANIMATE_CFG,
+    });
   }
 
   /**

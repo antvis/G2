@@ -52,6 +52,8 @@ export default class Axis extends Controller<Option> {
   /** the draw group of axis */
   private axisContainer: IGroup;
   private gridContainer: IGroup;
+  /** 动画标识 */
+  private animate: boolean;
 
   /** 使用 object 存储组件 */
   private cache = new Map<string, ComponentOption>();
