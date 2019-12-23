@@ -40,6 +40,10 @@ export function registerAction(actionName: string, ActionClass: ActionConstructo
   };
 }
 
+export function unregisterAction(actionName: string) {
+  delete ActionCache[actionName];
+}
+
 /**
  * 根据回调函数获取 Action 实例
  * @param callback - action 的回调函数

@@ -265,6 +265,18 @@ export interface IInteractionContext extends LooseObject {
    * @param action 移除的 action
    */
   removeAction(action: IAction);
+  /**
+   * 事件触发时是否在 view 内部
+   */
+  isInView();
+  /**
+   * 是否在组件的包围盒内
+   * @param name 组件名，可省略
+   */
+  isInComponent(name?: string);
+  /**
+   * 销毁
+   */
   destroy();
 }
 

@@ -150,3 +150,7 @@ export function getSpline(points: Point[], z: boolean): PathCommand[] {
   path.unshift(['M', first.x, first.y]);
   return path;
 }
+
+export function isInBox(box, point: Point) {
+  return box.x <= point.x && box.maxX >= point.x && box.y <= point.y && box.maxY > point.y;
+}

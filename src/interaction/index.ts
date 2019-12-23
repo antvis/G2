@@ -1,6 +1,6 @@
 import { isPlainObject, lowerCase, mix } from '@antv/util';
 import { View } from '../chart';
-import { LooseObject } from '../interface';
+import { IInteractionContext, LooseObject } from '../interface';
 import { Action, registerAction } from './action/';
 import GrammarInteraction, { InteractionSteps } from './grammar-interaction';
 import Interaction from './interaction';
@@ -71,52 +71,31 @@ registerInteraction('element-highlight', {
 
 // legend hover，element active
 registerInteraction('legend-active', {
-  start: [
-    { trigger: 'legend-item:mouseenter', action: 'list-active:active' },
-    { trigger: 'legend-item:mouseenter', action: 'element-active:active' },
-  ],
-  end: [
-    { trigger: 'legend-item:mouseleave', action: 'list-active:reset' },
-    { trigger: 'legend-item:mouseleave', action: 'element-active:reset' },
-  ],
+  start: [{ trigger: 'legend-item:mouseenter', action: ['list-active:active', 'element-active:active'] }],
+  end: [{ trigger: 'legend-item:mouseleave', action: ['list-active:reset', 'element-active:reset'] }],
 });
 
 // legend hover，element active
 registerInteraction('legend-highlight', {
-  start: [
-    { trigger: 'legend-item:mouseenter', action: 'list-highlight:highlight' },
-    { trigger: 'legend-item:mouseenter', action: 'element-highlight:highlight' },
-  ],
-  end: [
-    { trigger: 'legend-item:mouseleave', action: 'list-highlight:reset' },
-    { trigger: 'legend-item:mouseleave', action: 'element-highlight:reset' },
-  ],
+  start: [{ trigger: 'legend-item:mouseenter', action: ['list-highlight:highlight', 'element-highlight:highlight'] }],
+  end: [{ trigger: 'legend-item:mouseleave', action: ['list-highlight:reset', 'element-highlight:reset'] }],
 });
 
 // legend hover，element active
 registerInteraction('axis-label-highlight', {
-  start: [
-    { trigger: 'axis-label:mouseenter', action: 'list-highlight:highlight' },
-    { trigger: 'axis-label:mouseenter', action: 'element-highlight:highlight' },
-  ],
-  end: [
-    { trigger: 'axis-label:mouseleave', action: 'list-highlight:reset' },
-    { trigger: 'axis-label:mouseleave', action: 'element-highlight:reset' },
-  ],
+  start: [{ trigger: 'axis-label:mouseenter', action: ['list-highlight:highlight', 'element-highlight:highlight'] }],
+  end: [{ trigger: 'axis-label:mouseleave', action: ['list-highlight:reset', 'element-highlight:reset'] }],
 });
 
 // legend hover，element active
 registerInteraction('element-list-highlight', {
-  start: [
-    { trigger: 'element:mouseenter', action: 'list-highlight:highlight' },
-    { trigger: 'element:mouseenter', action: 'element-highlight:highlight' },
-  ],
-  end: [
-    { trigger: 'element:mouseleave', action: 'list-highlight:reset' },
-    { trigger: 'element:mouseleave', action: 'element-highlight:reset' },
-  ],
+  start: [{ trigger: 'element:mouseenter', action: ['list-highlight:highlight', 'element-highlight:highlight'] }],
+  end: [{ trigger: 'element:mouseleave', action: ['list-highlight:reset', 'element-highlight:reset'] }],
 });
 
+function isPointInView(context: IInteractionContext) {
+  return context.isInView();
+}
 // 框选
 registerInteraction('element-range-highlight', {
   showEnable: [
@@ -124,23 +103,21 @@ registerInteraction('element-range-highlight', {
     { trigger: 'plot:mouseleave', action: 'cursor:default' },
   ],
   start: [
-    { trigger: 'mousedown', action: 'element-range-highlight:start' },
-    { trigger: 'mousedown', action: 'rect-mask:start' },
-    { trigger: 'mousedown', action: 'rect-mask:show' },
+    {
+      trigger: 'mousedown',
+      isEnable: isPointInView,
+      action: ['element-range-highlight:start', 'rect-mask:start', 'rect-mask:show'],
+    },
   ],
   processing: [
-    { trigger: 'mousemove', action: 'element-range-highlight:highlight' },
-    { trigger: 'mousemove', action: 'rect-mask:resize' },
+    {
+      trigger: 'mousemove',
+      isEnable: isPointInView,
+      action: ['element-range-highlight:highlight', 'rect-mask:resize'],
+    },
   ],
-  end: [
-    { trigger: 'mouseup', action: 'element-range-highlight:end' },
-    { trigger: 'mouseup', action: 'rect-mask:end' },
-    { trigger: 'mouseup', action: 'data-filter:filter' },
-  ],
-  rollback: [
-    { trigger: 'dblclick', action: 'element-range-highlight:clear' },
-    { trigger: 'dblclick', action: 'rect-mask:hide' },
-  ],
+  end: [{ trigger: 'mouseup', isEnable: isPointInView, action: ['element-range-highlight:end', 'rect-mask:end'] }],
+  rollback: [{ trigger: 'dblclick', action: ['element-range-highlight:clear', 'rect-mask:hide'] }],
 });
 
 registerInteraction('element-path-highlight', {
@@ -149,8 +126,8 @@ registerInteraction('element-path-highlight', {
     { trigger: 'plot:mouseleave', action: 'cursor:default' },
   ],
   start: [
-    { trigger: 'mousedown', action: 'path-mask:start' },
-    { trigger: 'mousedown', action: 'path-mask:show' },
+    { trigger: 'mousedown', isEnable: isPointInView, action: 'path-mask:start' },
+    { trigger: 'mousedown', isEnable: isPointInView, action: 'path-mask:show' },
   ],
   processing: [{ trigger: 'mousemove', action: 'path-mask:addPoint' }],
   end: [{ trigger: 'mouseup', action: 'path-mask:end' }],

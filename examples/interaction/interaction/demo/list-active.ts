@@ -17,7 +17,7 @@ chart.data(data);
 chart.interaction('element-highlight');
 chart.interaction('element-list-highlight');
 chart.interaction('legend-highlight');
-chart.interaction('axis-highlight');
+chart.interaction('axis-label-highlight');
 chart
   .interval()
   .position('year*value')
