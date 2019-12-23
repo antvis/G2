@@ -306,7 +306,7 @@ export default class Line extends Axis {
 
   private getAutoRotateAngle() {
     const labelRenderer = this.get('labelRenderer');
-    const labels = labelRenderer.get('labels');
+    const labels = labelRenderer.getLabels();
     if (!labels || labels.length < 2) {
       return;
     }
