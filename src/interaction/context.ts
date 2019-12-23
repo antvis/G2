@@ -1,6 +1,9 @@
 import { each } from '@antv/util';
 import { View } from '../chart';
+import { Point } from '../dependents';
 import { IAction, IInteractionContext, LooseObject } from '../interface';
+import { isPointInCoordinate } from '../util/coordinate';
+import { getComponents, isInBox } from './action/util';
 /**
  * 交互的上下文
  */
@@ -53,6 +56,54 @@ class Context implements IInteractionContext {
       actions.splice(index, 1);
     }
   }
+
+  /**
+   * 获取当前的点
+   */
+  public getCurrentPoint(): Point {
+    const event = this.event;
+    if (event) {
+      return {
+        x: event.x,
+        y: event.y,
+      };
+    }
+    return null;
+  }
+
+  /**
+   * 当前的触发是否在 View 内
+   */
+  public isInView() {
+    const view = this.view;
+    const coord = view.getCoordinate();
+    const point = this.getCurrentPoint();
+    if (point) {
+      return isPointInCoordinate(coord, point);
+    }
+    return false;
+  }
+
+  /**
+   * 当前的触发是组件内部
+   * @param name 组件名，可以为空
+   */
+  public isInComponent(name?: string) {
+    const components = getComponents(this.view);
+    const point = this.getCurrentPoint();
+    if (point) {
+      return !!components.find((component) => {
+        const bbox = component.getBBox();
+        if (name) {
+          return component.get('name') === name && isInBox(bbox, point);
+        } else {
+          return isInBox(bbox, point);
+        }
+      });
+    }
+    return false;
+  }
+
   /**
    * 销毁
    */

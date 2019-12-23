@@ -1,9 +1,34 @@
-import { each, isFunction, isString } from '@antv/util';
+import { each, isArray, isFunction, isString } from '@antv/util';
 import { View } from '../chart';
 import { ActionCallback, IAction, IInteractionContext, LooseObject } from '../interface';
 import { createAction, createCallbackAction } from './action/register';
 import InteractionContext from './context';
 import Interaction from './interaction';
+
+// 将字符串转换成 action
+function parseAction(actionStr: string, context: IInteractionContext): ActionObject {
+  const arr = actionStr.split(':');
+  const actionName = arr[0];
+  // 如果已经初始化过 action ，则直接引用之前的 action
+  const action = context.getAction(actionName) || createAction(actionName, context);
+  if (!action) {
+    throw new Error(`There is no action named ${actionName}`);
+  }
+  const methodName = arr[1];
+  return {
+    action,
+    methodName,
+  };
+}
+
+function executeAction(actionObject: ActionObject) {
+  const { action, methodName } = actionObject;
+  if (action[methodName]) {
+    action[methodName]();
+  } else {
+    throw new Error(`Action("${action.name}") doesn't have a method called "${methodName}"`);
+  }
+}
 
 const STEP_NAMES = {
   START: 'start',
@@ -24,11 +49,12 @@ export interface InteractionStep {
    */
   isEnable?: (context: IInteractionContext) => boolean;
   /**
-   * 反馈，支持两种方式：
+   * 反馈，支持三种方式：
    * - action:method : action 的名字和方法的组合
+   * - [’action1:method1‘, ’action2:method‘]
    * - ActionCallback: 回调函数
    */
-  action: string | ActionCallback;
+  action: string | string[] | ActionCallback;
   /**
    * 回调函数，action 执行后执行
    */
@@ -37,7 +63,7 @@ export interface InteractionStep {
    * @private
    * 不需要用户传入，通过上面的属性计算出来的属性
    */
-  actionObject?: ActionObject;
+  actionObject?: ActionObject | ActionObject[];
 }
 
 // 缓存 action 对象
@@ -109,17 +135,17 @@ class GrammarInteraction extends Interaction {
             methodName: 'execute',
           };
         } else if (isString(step.action)) {
-          // 如果是字符串，则根据名称生成对应的 Action
-          const arr = step.action.split(':');
-          const actionName = arr[0];
-          // 如果已经初始化过 action ，则直接引用之前的 action
-          const action = context.getAction(actionName) || createAction(actionName, context);
-          const methodName = arr[1];
-          step.actionObject = {
-            action,
-            methodName,
-          };
-        } // 如果 action 既不是字符串，也不是函数，则不会生成 actionObject
+          // 如果是字符串
+          step.actionObject = parseAction(step.action, context);
+        } else if (isArray(step.action)) {
+          // 如果是数组
+          const actionArr = step.action;
+          step.actionObject = [];
+          each(actionArr, (actionStr) => {
+            step.actionObject.push(parseAction(actionStr, context));
+          });
+        }
+        // 如果 action 既不是字符串，也不是函数，则不会生成 actionObject
       });
     });
   }
@@ -196,9 +222,13 @@ class GrammarInteraction extends Interaction {
         callbackCaches[key] = (event) => {
           context.event = event;
           if (this.isAllowExcute(stepName, step)) {
-            const { action, methodName } = actionObject;
-            if (action && action[methodName]) {
-              action[methodName]();
+            // 如果是数组时，则依次执行
+            if (isArray(actionObject)) {
+              each(actionObject, (obj: ActionObject) => {
+                executeAction(obj);
+              });
+            } else {
+              executeAction(actionObject);
             }
             this.afterExecute(stepName);
             if (step.callback) {

@@ -1,6 +1,11 @@
 import { Chart } from '../../../src/index';
 import Action from '../../../src/interaction/action/base';
-import { createAction, createCallbackAction, registerAction } from '../../../src/interaction/action/register';
+import {
+  createAction,
+  createCallbackAction,
+  registerAction,
+  unregisterAction,
+} from '../../../src/interaction/action/register';
 import Context from '../../../src/interaction/context';
 import Interaction from '../../../src/interaction/grammar-interaction';
 import { createDiv } from '../../util/dom';
@@ -67,10 +72,16 @@ describe('Interaction test', () => {
     { year: '1999', value: 3 },
   ]);
   chart.animate(false);
+  chart.legend('year', {
+    position: 'right-bottom',
+  });
   chart.tooltip(false);
-  chart.interval().position('year*value');
-  chart.render();
+  chart
+    .interval()
+    .position('year*value')
+    .color('year');
 
+  chart.render();
   describe('test simple interaction', () => {
     const interaction = new Interaction(chart, {
       start: [{ trigger: 'mouseenter', action: 'custom:start' }],
@@ -84,7 +95,6 @@ describe('Interaction test', () => {
       expect(context.getAction('custom')).not.toBe(undefined);
       expect(context.actions[0].name).toBe('custom');
     });
-
     it('start', () => {
       const context = interaction.context;
       const action = context.getAction('custom') as CustomAction;
@@ -129,7 +139,6 @@ describe('Interaction test', () => {
       expect(action.context).toBe(null);
     });
   });
-
   describe('with rollback', () => {
     it('no end', () => {
       const interaction = new Interaction(chart, {
@@ -263,13 +272,14 @@ describe('Interaction test', () => {
   });
 
   describe('context test', () => {
-    const context = new Context(null);
+    const context = new Context(chart);
     it('cache', () => {
       expect(context.cache('a')).toBe(undefined);
       expect(context.cache('a', 'a1'));
       expect(context.cache('a')).toBe('a1');
       context.cache();
     });
+
     it('add, remove', () => {
       const action = createAction('element-active', context);
       expect(context.getAction('element-active')).toBe(action);
@@ -277,8 +287,106 @@ describe('Interaction test', () => {
       expect(context.getAction('element-active')).toBe(undefined);
       context.removeAction(action);
     });
+
+    it('isInView', () => {
+      context.event = {
+        x: 61,
+        y: 308,
+      };
+      expect(context.isInView()).toBe(true);
+
+      context.event = {
+        x: 61,
+        y: 384,
+      };
+      expect(context.isInView()).toBe(false);
+    });
+
+    it('isInComponent', () => {
+      context.event = {
+        x: 61,
+        y: 308,
+      };
+      expect(context.isInComponent('axis')).toBe(false);
+      context.event = {
+        x: 61,
+        y: 384,
+      };
+      expect(context.isInComponent('axis')).toBe(true);
+      expect(context.isInComponent('legend')).toBe(false);
+      context.event = {
+        x: 374,
+        y: 281,
+      };
+      expect(context.isInComponent('legend')).toBe(true);
+    });
+  });
+
+  describe('test complex action', () => {
+    it('no action', () => {
+      const interaction = new Interaction(chart, {
+        start: [{ trigger: 'mouseenter', action: 'test:start' }],
+      });
+      expect(() => {
+        interaction.init();
+      }).toThrow();
+    });
+
+    it('no method', () => {
+      const interaction = new Interaction(chart, {
+        start: [{ trigger: 'mouseenter', action: 'custom:test' }],
+      });
+      interaction.init();
+
+      const context = interaction.context;
+      expect(context.actions.length).toBe(1);
+      const eventObject = {
+        x: 332,
+        y: 337,
+      };
+      expect(() => {
+        chart.emit('mouseenter', eventObject);
+      }).toThrow();
+    });
+
+    it('action is array error', () => {
+      const interaction = new Interaction(chart, {
+        start: [{ trigger: 'mouseenter', action: ['test:start', 'custom:start'] }],
+      });
+      expect(() => {
+        interaction.init();
+      }).toThrow();
+      interaction.destroy();
+    });
+
+    it('action array, method error', () => {
+      const interaction = new Interaction(chart, {
+        start: [{ trigger: 'mouseenter', action: ['custom:start', 'custom:test'] }],
+      });
+      interaction.init();
+      const eventObject = {
+        x: 332,
+        y: 337,
+      };
+      expect(() => {
+        chart.emit('mouseenter', eventObject);
+      }).toThrow();
+      interaction.destroy();
+    });
+
+    it('action array, no error', () => {
+      const interaction = new Interaction(chart, {
+        start: [{ trigger: 'mouseenter', action: ['custom:start', 'custom:end'] }],
+      });
+      interaction.init();
+      const context = interaction.context;
+      const action = context.getAction('custom') as CustomAction;
+      expect(action.running).toBe(false);
+      interaction.destroy();
+    });
   });
   afterAll(() => {
+    unregisterAction('custom');
     chart.destroy();
   });
 });
