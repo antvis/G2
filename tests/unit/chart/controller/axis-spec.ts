@@ -44,5 +44,17 @@ describe('Axis', () => {
     expect(y.component.getBBox().minX).toBeWithin(-8 - GAP, -8 + GAP);
 
     expect(axes.length).toBe(2);
+
+    // 图表初始化加载的时候不做 axis 动画
+    expect(x.component.get('animate')).toBe(false);
+    expect(x.component.get('animateOption')).toBeDefined();
+    expect(y.component.get('animate')).toBe(false);
+    expect(y.component.get('animateOption')).toBeDefined();
+
+    // 默认 Y 轴生成 grid
+    const grids = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.GRID);
+    expect(grids.length).toBe(1);
+    expect(grids[0].component.get('animate')).toBe(false);
+    expect(grids[0].component.get('animateOption')).toBeDefined();
   });
 });

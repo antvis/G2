@@ -138,6 +138,7 @@ const AXIS_STYLE = {
     length: 5,
   },
   subTickLine: null,
+  animate: true,
 };
 
 const GRID_STYLE = {
@@ -164,6 +165,7 @@ const LEGEND_STYLE = {
       textBaseline: 'middle',
     },
   },
+  animate: false,
 };
 
 export default {
@@ -644,6 +646,7 @@ export default {
           lineDash: [2, 2],
           lineWidth: 1,
         },
+        animate: true,
       },
       line: {
         style: {
@@ -663,6 +666,7 @@ export default {
             textBaseline: 'bottom',
           },
         },
+        animate: true,
       },
       text: {
         style: {
@@ -672,6 +676,7 @@ export default {
           textAlign: 'start',
           fontFamily: FONT_FAMILY,
         },
+        animate: true,
       },
       region: {
         top: false,
@@ -680,6 +685,7 @@ export default {
           fill: '#000', // 辅助框填充的颜色
           fillOpacity: 0.04, // 辅助框的背景透明度
         }, // 辅助框的图形样式属性
+        animate: true,
       },
     },
   },

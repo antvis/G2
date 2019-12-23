@@ -1,4 +1,4 @@
-import { each, find } from '@antv/util';
+import { each } from '@antv/util';
 import { ComponentOption } from '../interface';
 import View from '../view';
 
@@ -18,6 +18,7 @@ export abstract class Controller<O = unknown> {
   protected option: O;
   /** 所有的 component */
   protected components: ComponentOption[] = [];
+  protected animate: boolean = false;
 
   constructor(view: View) {
     this.view = view;
