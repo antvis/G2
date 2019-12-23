@@ -5,7 +5,7 @@ import { delay } from '../../../util/delay';
 import { createDiv } from '../../../util/dom';
 
 // rect
-describe.skip('axis rect update', () => {
+describe('axis rect update', () => {
   const container = createDiv();
   const data = [
     { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
@@ -43,10 +43,17 @@ describe.skip('axis rect update', () => {
 
   it('axis update', async () => {
     let axes = getAxes();
+    let grids = getGrids();
+
     expect(axes.length).toBe(2);
+    expect(grids.length).toBe(1);
 
     const [x, y] = axes;
     expect(x.component.get('ticks').length).toBe(3);
+
+    expect(x.component.get('animate')).toBe(false);
+    expect(y.component.get('animate')).toBe(false);
+    expect(grids[0].component.get('animate')).toBe(false);
 
     await delay(100);
 
@@ -60,13 +67,18 @@ describe.skip('axis rect update', () => {
         autoRotate: true,
       },
     });
+    chart.axis('月均降雨量', {
+      animate: false, // 关闭该轴动画
+    });
 
     chart.changeData(data.slice(0, 2));
 
     chart.render(true);
 
     axes = getAxes();
+    grids = getGrids();
     expect(axes.length).toBe(2);
+    expect(grids.length).toBe(1);
 
     // 更新逻辑保持引用
     expect(axes[0]).toBe(x);
@@ -74,6 +86,11 @@ describe.skip('axis rect update', () => {
     // 修改配置生效
     expect(axes[0].component.get('title').style.fill).toBe('red');
     expect(axes[0].component.get('ticks').length).toBe(2);
+
+    // 更新时动画开启
+    expect(axes[0].component.get('animate')).toBe(true);
+    expect(axes[1].component.get('animate')).toBe(false);
+    expect(grids[0].component.get('animate')).toBe(false);
   });
 
   it('axis delete', async () => {
@@ -118,7 +135,9 @@ describe('axis polar update', () => {
   chart.data(data);
 
   const interval = chart
-    .interval()
+    .interval({
+      visible: false,
+    })
     .position('value')
     .color('type')
     .adjust('stack');
@@ -137,10 +156,16 @@ describe('axis polar update', () => {
 
   it('axis update', async () => {
     let axes = getAxes();
+    let grids = getGrids();
+
     expect(axes.length).toBe(1);
+    expect(grids.length).toBe(1);
 
     const [y] = axes;
     expect(y.component.get('ticks').length).toBe(5);
+    expect(y.component.get('animate')).toBe(false);
+    expect(grids[0].component.get('animate')).toBe(false);
+    expect(grids[0].component.get('animateOption')).toEqual(y.component.get('animateOption'));
 
     await delay(100);
 
@@ -153,18 +178,25 @@ describe('axis polar update', () => {
         offset: 0,
         autoRotate: true,
       },
+      animate: false, // 关闭动画
     });
 
     chart.render(true);
 
     axes = getAxes();
+    grids = getGrids();
     expect(axes.length).toBe(1);
+    expect(grids.length).toBe(1);
 
     // 更新逻辑保持引用
     expect(axes[0]).toBe(y);
     // 修改配置生效
     expect(axes[0].component.get('title').style.fill).toBe('red');
     expect(axes[0].component.get('title').style.text).toBe('value');
+
+    // y 轴动画被用户关闭
+    expect(axes[0].component.get('animate')).toBe(false);
+    expect(grids[0].component.get('animate')).toBe(false);
   });
 
   it('axis delete', async () => {

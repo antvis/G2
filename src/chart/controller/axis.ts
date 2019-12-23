@@ -1,11 +1,11 @@
-import { deepMix, each, get, isBoolean, map } from '@antv/util';
+import { deepMix, each, get, isBoolean, map, mix } from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { CircleAxis, CircleGrid, IGroup, LineAxis, LineGrid, Scale } from '../../dependents';
 import { getAxisFactorByRegion, getAxisRegion, getAxisThemeCfg, getCircleAxisCenterRadius } from '../../util/axis';
 import { getCircleGridItems, getGridThemeCfg, getLineGridItems, showGrid } from '../../util/grid';
 import { omit } from '../../util/helper';
 import { getName } from '../../util/scale';
-import { AxisOption, ComponentOption } from '../interface';
+import { AxisCfg, AxisOption, ComponentOption } from '../interface';
 import View from '../view';
 import { Controller } from './base';
 
@@ -24,6 +24,22 @@ function getAxisOption(axes: Record<string, AxisOption> | boolean, field: string
     return get(axes, [field]);
   }
 }
+
+const default_animate_cfg = {
+  appear: null,
+  update: {
+    duration: 400,
+    easing: 'easeQuadInOut',
+  }, // 更新时发生变更的动画配置
+  enter: {
+    duration: 400,
+    easing: 'easeQuadInOut',
+  }, // 更新时新增元素的入场动画配置
+  leave: {
+    duration: 300,
+    easing: 'easeQuadIn',
+  }, // 更新时销毁动画配置
+};
 
 /**
  * G2 Axis controller, will:
@@ -56,6 +72,7 @@ export default class Axis extends Controller<Option> {
 
   public render() {
     this.option = this.view.getOptions().axes;
+    this.animate = false; // 初始化图表时，axis 不参与动画
 
     this.createXAxes();
     this.createYAxes();
@@ -100,6 +117,7 @@ export default class Axis extends Controller<Option> {
    */
   public update() {
     this.option = this.view.getOptions().axes;
+    this.animate = true; // 发生更新时，开启动画，但是最后是否进行动画，还是以用户配置为准
     const updatedCache = new Map<string, ComponentOption>();
 
     this.updateXAxes(updatedCache);
@@ -455,7 +473,7 @@ export default class Axis extends Controller<Option> {
    */
   private createLineAxis(
     scale: Scale,
-    option: AxisOption,
+    option: AxisCfg,
     layer: LAYER,
     direction: DIRECTION,
     dim: string
@@ -477,7 +495,7 @@ export default class Axis extends Controller<Option> {
 
   private createLineGrid(
     scale: Scale,
-    option: AxisOption,
+    option: AxisCfg,
     layer: LAYER,
     direction: DIRECTION,
     dim: string
@@ -499,7 +517,7 @@ export default class Axis extends Controller<Option> {
 
   private createCircleAxis(
     scale: Scale,
-    option: AxisOption,
+    option: AxisCfg,
     layer: LAYER,
     direction: DIRECTION,
     dim: string
@@ -520,7 +538,7 @@ export default class Axis extends Controller<Option> {
 
   private createCircleGrid(
     scale: Scale,
-    option: AxisOption,
+    option: AxisCfg,
     layer: LAYER,
     direction: DIRECTION,
     dim: string
@@ -542,7 +560,7 @@ export default class Axis extends Controller<Option> {
 
   private createCircleLineGrid(
     scale: Scale,
-    option: AxisOption,
+    option: AxisCfg,
     layer: LAYER,
     direction: DIRECTION,
     dim: string
@@ -569,7 +587,7 @@ export default class Axis extends Controller<Option> {
    * @param direction
    * @return line axis cfg
    */
-  private getLineAxisCfg(scale: Scale, axisOption: AxisOption, direction: DIRECTION): object {
+  private getLineAxisCfg(scale: Scale, axisOption: AxisCfg, direction: DIRECTION): object {
     const container = this.axisContainer;
     const coordinate = this.view.getCoordinate();
 
@@ -588,9 +606,9 @@ export default class Axis extends Controller<Option> {
     };
 
     const axisThemeCfg = getAxisThemeCfg(this.view.getTheme(), direction);
-
     // the cfg order should be ensure
-    return deepMix({}, baseAxisCfg, axisThemeCfg, axisOption);
+    const cfg = deepMix({}, baseAxisCfg, axisThemeCfg, axisOption);
+    return mix(cfg, this.getAnimateCfg(cfg));
   }
 
   /**
@@ -601,7 +619,7 @@ export default class Axis extends Controller<Option> {
    * @param dim
    * @return line grid cfg
    */
-  private getLineGridCfg(scale: Scale, axisOption: AxisOption, direction: DIRECTION, dim: string): object {
+  private getLineGridCfg(scale: Scale, axisOption: AxisCfg, direction: DIRECTION, dim: string): object {
     if (!showGrid(getAxisThemeCfg(this.view.getTheme(), direction), axisOption)) {
       return undefined;
     }
@@ -614,9 +632,9 @@ export default class Axis extends Controller<Option> {
     };
 
     const gridThemeCfg = getGridThemeCfg(this.view.getTheme(), direction);
-
     // the cfg order should be ensure
-    return deepMix({}, baseGridCfg, gridThemeCfg, get(axisOption, 'grid', {}));
+    // grid 动画以 axis 为准
+    return deepMix({}, baseGridCfg, gridThemeCfg, get(axisOption, 'grid', {}), this.getAnimateCfg(axisOption));
   }
 
   /**
@@ -626,7 +644,7 @@ export default class Axis extends Controller<Option> {
    * @param direction
    * @return circle axis cfg
    */
-  private getCircleAxisCfg(scale: Scale, axisOption: AxisOption, direction: DIRECTION): object {
+  private getCircleAxisCfg(scale: Scale, axisOption: AxisCfg, direction: DIRECTION): object {
     const container = this.axisContainer;
 
     const ticks = map(scale.getTicks(), (tick) => ({ name: tick.text, value: tick.value }));
@@ -647,9 +665,10 @@ export default class Axis extends Controller<Option> {
     };
 
     const axisThemeCfg = getAxisThemeCfg(this.view.getTheme(), 'circle');
-
     // the cfg order should be ensure
-    return deepMix({}, baseAxisCfg, axisThemeCfg, axisOption);
+    const cfg = deepMix({}, baseAxisCfg, axisThemeCfg, axisOption);
+
+    return mix(cfg, this.getAnimateCfg(cfg));
   }
 
   /**
@@ -660,7 +679,7 @@ export default class Axis extends Controller<Option> {
    * @param dim
    * @return circle grid cfg
    */
-  private getCircleGridCfg(scale: Scale, axisOption: AxisOption, direction: DIRECTION, dim: string): object {
+  private getCircleGridCfg(scale: Scale, axisOption: AxisCfg, direction: DIRECTION, dim: string): object {
     if (!showGrid(getAxisThemeCfg(this.view.getTheme(), direction), axisOption)) {
       return undefined;
     }
@@ -675,18 +694,18 @@ export default class Axis extends Controller<Option> {
     const gridThemeCfg = getGridThemeCfg(this.view.getTheme(), direction);
 
     // the cfg order should be ensure
-    return deepMix({}, baseGridCfg, gridThemeCfg, get(axisOption, 'grid', {}));
+    // grid 动画以 axis 为准
+    return deepMix({}, baseGridCfg, gridThemeCfg, get(axisOption, 'grid', {}), this.getAnimateCfg(axisOption));
   }
 
   private getId(name: string, key: string): string {
     return `${name}-${key}`;
   }
 
-  /**
-   * 根据 id 来获取组件
-   * @param id
-   */
-  private getComponentById(id: string): ComponentOption {
-    return this.cache.get(id);
+  private getAnimateCfg(cfg: object) {
+    return {
+      animate: this.animate && get(cfg, 'animate'),
+      animateOption: default_animate_cfg,
+    };
   }
 }
