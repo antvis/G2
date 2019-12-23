@@ -420,8 +420,10 @@ describe('Geometry', () => {
         getMarker(cfg) {
           return {
             symbol: 'rect',
-            fill: cfg.color,
-            r: 5,
+            style: {
+              fill: cfg.color,
+              r: 5,
+            },
           };
         },
       });
@@ -530,10 +532,12 @@ describe('Geometry', () => {
     it('getShapeMarker()', () => {
       const markerCfg = geometry.getShapeMarker('tick', { color: 'red', isInPolar: false });
       expect(markerCfg).toEqual({
-        fill: 'red',
         symbol: 'rect',
-        r: 5,
-        lineWidth: 10,
+        style: {
+          fill: 'red',
+          r: 5,
+          lineWidth: 10,
+        },
       });
     });
 

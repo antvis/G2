@@ -49,8 +49,8 @@ describe('Legend category', () => {
     // legend item style
     expect(items[0].name).toBe('电脑');
     expect(items[1].name).toBe('鼠标');
-    expect(items[0].marker.fill).toBe('#5B8FF9');
-    expect(items[1].marker.fill).toBe('#5AD8A6');
+    expect(items[0].marker.style.fill).toBe('#5B8FF9');
+    expect(items[1].marker.style.fill).toBe('#5AD8A6');
 
     // position
     // @ts-ignore

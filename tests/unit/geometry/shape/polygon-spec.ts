@@ -79,10 +79,12 @@ describe('Point shapes', () => {
       const markerCfg = PolygonShapeFactory.getMarker('polygon', { color: 'red', isInPolar: false });
       expect(markerCfg).toEqual({
         symbol: 'square',
-        r: 4,
-        fill: 'red',
-        fillOpacity: 1,
-        lineWidth: 0,
+        style: {
+          r: 4,
+          fill: 'red',
+          fillOpacity: 1,
+          lineWidth: 0,
+        },
       });
     });
   });
@@ -124,11 +126,13 @@ describe('Point shapes', () => {
       const markerCfg = PolygonShapeFactory.getMarker('hollow', { color: 'red', isInPolar: false });
       expect(markerCfg).toEqual({
         symbol: 'square',
-        r: 4,
-        stroke: 'red',
-        fill: '#fff',
-        fillOpacity: 0,
-        lineWidth: 2,
+        style: {
+          r: 4,
+          stroke: 'red',
+          fill: '#fff',
+          fillOpacity: 0,
+          lineWidth: 2,
+        },
       });
     });
   });

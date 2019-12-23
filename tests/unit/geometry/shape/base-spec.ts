@@ -63,8 +63,10 @@ describe('Shape', () => {
         getMarker(markerCfg) {
           return {
             symbol: 'circle',
-            r: 5,
-            stroke: markerCfg.color,
+            style: {
+              r: 5,
+              stroke: markerCfg.color,
+            },
           };
         },
       });
@@ -168,14 +170,18 @@ describe('Shape', () => {
 
       expect(circleFactory.getMarker('circle', { color: 'red', isInPolar: false })).toEqual({
         symbol: 'circle',
-        r: 5,
-        stroke: 'red',
+        style: {
+          r: 5,
+          stroke: 'red',
+        },
       });
       expect(circleFactory.getMarker('hollowCircle', { color: 'red', isInPolar: false })).toEqual({
         symbol: 'circle',
-        r: 5,
-        stroke: 'red',
-        lineWidth: 1,
+        style: {
+          r: 5,
+          stroke: 'red',
+          lineWidth: 1,
+        },
       });
     });
 

@@ -112,7 +112,7 @@ describe('Schema shapes', () => {
     it('getMarker', () => {
       const marker = SchemaShapeFactory.getMarker('box', { color: 'red', isInPolar: false });
       expect(marker.symbol).toBeInstanceOf(Function);
-      expect(marker.stroke).toBe('red');
+      expect(marker.style.stroke).toBe('red');
     });
   });
 
@@ -203,7 +203,7 @@ describe('Schema shapes', () => {
     it('getMarker', () => {
       const marker = SchemaShapeFactory.getMarker('candle', { color: 'red', isInPolar: false });
       expect(marker.symbol).toBeInstanceOf(Function);
-      expect(marker.fill).toBe('red');
+      expect(marker.style.fill).toBe('red');
     });
   });
 
