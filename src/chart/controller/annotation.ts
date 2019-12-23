@@ -1,16 +1,5 @@
-import {
-  deepMix,
-  each,
-  filter,
-  get,
-  isArray,
-  isFunction,
-  isNil,
-  isString,
-  isUndefined,
-  keys,
-  upperFirst,
-} from '@antv/util';
+import { deepMix, each, get, isArray, isFunction, isNil, isString, keys, upperFirst } from '@antv/util';
+import { DEFAULT_ANIMATE_CFG } from '../../animate/';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { Annotation as AnnotationComponent, IGroup, Scale } from '../../dependents';
 import { Point } from '../../interface';
@@ -89,32 +78,12 @@ export interface TextOption {
   readonly animate?: boolean;
 }
 
-const default_animation_cfg = {
-  appear: {
-    duration: 450,
-    easing: 'easeQuadOut',
-  }, // 初始入场动画配置
-  update: {
-    duration: 400,
-    easing: 'easeQuadInOut',
-  }, // 更新时发生变更的动画配置
-  enter: {
-    duration: 400,
-    easing: 'easeQuadInOut',
-  }, // 更新时新增元素的入场动画配置
-  leave: {
-    duration: 350,
-    easing: 'easeQuadIn',
-  }, // 更新时销毁动画配置
-};
-
 /**
  * annotation controller, supply:
  * 1. API for creating annotation: line、text、arc ...
  * 2. life circle: init、layout、render、clear、destroy
  */
 export default class Annotation extends Controller<BaseOption[]> {
-  protected animate: boolean = true;
   private foregroundContainer: IGroup;
   private backgroundContainer: IGroup;
 
@@ -520,8 +489,8 @@ export default class Annotation extends Controller<BaseOption[]> {
     // 合并主题，用户配置优先级高于主题
     const cfg = deepMix({}, theme, { ...o });
     cfg.container = this.getComponentContainer(cfg);
-    cfg.animate = this.animate && cfg.animate && get(option, 'animate', cfg.animate);
-    cfg.animateOption = default_animation_cfg;
+    cfg.animate = cfg.animate && get(option, 'animate', cfg.animate);
+    cfg.animateOption = DEFAULT_ANIMATE_CFG;
 
     return cfg;
   }

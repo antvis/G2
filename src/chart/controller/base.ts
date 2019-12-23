@@ -18,7 +18,6 @@ export abstract class Controller<O = unknown> {
   protected option: O;
   /** 所有的 component */
   protected components: ComponentOption[] = [];
-  protected animate: boolean = false;
 
   constructor(view: View) {
     this.view = view;

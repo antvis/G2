@@ -5,7 +5,7 @@ import { getAnimation } from './animation';
 import { AnimateCfg as ParsedAnimateCfg, AnimateExtraCfg } from './interface';
 
 // 默认的动画参数配置
-const DEFAULT_ANIMATE_CFG = {
+export const DEFAULT_ANIMATE_CFG = {
   appear: {
     duration: 450,
     easing: 'easeQuadOut',

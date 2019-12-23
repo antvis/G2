@@ -35,6 +35,7 @@ describe('Legend', () => {
     expect(legends.length).toBe(1);
     // @ts-ignore
     expect(legends[0].component.getBBox().maxX).toBeLessThanOrEqual(chart.width);
+    expect(legends[0].component.get('animate')).toBe(false);
   });
 
   it('continuous color', () => {
@@ -65,6 +66,7 @@ describe('Legend', () => {
     expect(legends.length).toBe(1);
     // @ts-ignore
     expect(legends[0].component.getBBox().maxY).toBeLessThanOrEqual(chart.height);
+    expect(legends[0].component.get('animate')).toBe(false);
   });
 
   it('continuous size', () => {
@@ -86,6 +88,7 @@ describe('Legend', () => {
 
     chart.legend('月均降雨量', {
       position: 'top',
+      animate: true,
     });
 
     chart
@@ -99,5 +102,6 @@ describe('Legend', () => {
     expect(legends.length).toBe(1);
     // @ts-ignore
     expect(legends[0].component.getBBox().minX).toBeGreaterThanOrEqual(0);
+    expect(legends[0].component.get('animate')).toBe(true);
   });
 });
