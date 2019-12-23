@@ -108,8 +108,10 @@ registerShape('area', 'area', {
       symbol: (x: number, y: number, r: number = 5.5) => {
         return [['M', x - r, y - 4], ['L', x + r, y - 4], ['L', x + r, y + 4], ['L', x - r, y + 4], ['Z']];
       },
-      r: 5,
-      fill: color,
+      style: {
+        r: 5,
+        fill: color,
+      },
     };
   },
 });
@@ -132,8 +134,10 @@ registerShape('area', 'line', {
       symbol: (x: number, y: number, r: number = 5.5) => {
         return [['M', x - r, y - 4], ['L', x + r, y - 4], ['L', x + r, y + 4], ['L', x - r, y + 4], ['Z']];
       },
-      r: 5,
-      stroke: color,
+      style: {
+        r: 5,
+        stroke: color,
+      },
     };
   },
 });
@@ -157,8 +161,10 @@ registerShape('area', 'smooth', {
       symbol: (x: number, y: number, r: number = 5.5) => {
         return [['M', x - r, y - 4], ['L', x + r, y - 4], ['L', x + r, y + 4], ['L', x - r, y + 4], ['Z']];
       },
-      r: 5,
-      fill: color,
+      style: {
+        r: 5,
+        fill: color,
+      },
     };
   },
 });
@@ -182,8 +188,10 @@ registerShape('area', 'smoothLine', {
       symbol: (x: number, y: number, r: number = 5.5) => {
         return [['M', x - r, y - 4], ['L', x + r, y - 4], ['L', x + r, y + 4], ['L', x - r, y + 4], ['Z']];
       },
-      r: 5,
-      stroke: color,
+      style: {
+        r: 5,
+        stroke: color,
+      },
     };
   },
 });

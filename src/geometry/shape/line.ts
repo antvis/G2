@@ -246,9 +246,11 @@ each(['line', 'dot', 'dash', 'smooth'], (shapeType) => {
       const { color } = markerCfg;
       return {
         symbol: LineSymbols[shapeType],
-        lineWidth: 2,
-        r: 6,
-        stroke: color,
+        style: {
+          lineWidth: 2,
+          r: 6,
+          stroke: color,
+        },
       };
     },
   });
@@ -271,9 +273,11 @@ each(['hv', 'vh', 'hvh', 'vhv'], (shapeType) => {
       const { color } = markerCfg;
       return {
         symbol: LineSymbols[shapeType],
-        lineWidth: 2,
-        r: 6,
-        stroke: color,
+        style: {
+          lineWidth: 2,
+          r: 6,
+          stroke: color,
+        },
       };
     },
   });

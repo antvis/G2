@@ -1,5 +1,5 @@
 import { View } from './chart';
-import { Coordinate, IGroup, IShape, PathCommand, ScaleConfig } from './dependents';
+import { Coordinate, IGroup, IShape, PathCommand, ScaleConfig, ShapeAttrs } from './dependents';
 
 /** G 的渲染类型 */
 export type Renderer = 'svg' | 'canvas';
@@ -143,13 +143,8 @@ export interface ShapeMarkerCfg {
 export interface ShapeMarkerAttrs {
   /** marker 的形状 */
   symbol: string | ShapeMarkerSymbol;
-  /** 描边的颜色 */
-  stroke?: string;
-  /** 填充的颜色 */
-  fill?: string;
-  /** marker 的大小 */
-  r: number;
-  [key: string]: any;
+  /** marker 的样式 */
+  style: ShapeAttrs;
 }
 
 /** 注册 ShapeFactory 需要实现的接口 */

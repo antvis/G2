@@ -192,15 +192,19 @@ registerShape('interval', 'rect', {
     if (isInPolar) {
       return {
         symbol: 'circle',
-        r: 4.5,
-        fill: color,
+        style: {
+          r: 4.5,
+          fill: color,
+        },
       };
     }
 
     return {
       symbol: 'square',
-      r: 4,
-      fill: color,
+      style: {
+        r: 4,
+        fill: color,
+      },
     };
   },
 });
@@ -225,15 +229,19 @@ registerShape('interval', 'hollowRect', {
     if (isInPolar) {
       return {
         symbol: 'circle',
-        r: 4.5,
-        stroke: color,
+        style: {
+          r: 4.5,
+          stroke: color,
+        },
       };
     }
 
     return {
       symbol: 'square',
-      r: 4,
-      stroke: color,
+      style: {
+        r: 4,
+        stroke: color,
+      },
     };
   },
 });
@@ -265,8 +273,10 @@ registerShape('interval', 'line', {
           ['L', x, y + r],
         ];
       },
-      r: 5,
-      stroke: color,
+      style: {
+        r: 5,
+        stroke: color,
+      },
     };
   },
 });
@@ -302,8 +312,10 @@ registerShape('interval', 'tick', {
           ['L', x + r / 2, y + r],
         ];
       },
-      r: 5,
-      stroke: color,
+      style: {
+        r: 5,
+        stroke: color,
+      },
     };
   },
 });
@@ -330,8 +342,10 @@ registerShape('interval', 'funnel', {
     const { color } = markerCfg;
     return {
       symbol: 'square',
-      r: 4,
-      fill: color,
+      style: {
+        r: 4,
+        fill: color,
+      },
     };
   },
 });
@@ -359,8 +373,10 @@ registerShape('interval', 'pyramid', {
     const { color } = markerCfg;
     return {
       symbol: 'square',
-      r: 4,
-      fill: color,
+      style: {
+        r: 4,
+        fill: color,
+      },
     };
   },
 });
