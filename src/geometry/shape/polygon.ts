@@ -66,8 +66,10 @@ registerShape('polygon', 'polygon', {
     const { color } = markerCfg;
     return {
       symbol: 'square',
-      r: 4,
-      fill: color,
+      style: {
+        r: 4,
+        fill: color,
+      },
     };
   },
 });
@@ -90,8 +92,10 @@ registerShape('polygon', 'hollow', {
     const { color } = markerCfg;
     return {
       symbol: 'square',
-      r: 4,
-      stroke: color,
+      style: {
+        r: 4,
+        stroke: color,
+      },
     };
   },
 });

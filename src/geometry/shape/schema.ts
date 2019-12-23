@@ -173,10 +173,12 @@ registerShape('schema', 'candle', {
           ['L', points[7].x, points[7].y],
         ];
       },
-      lineWidth: 1,
-      stroke: color,
-      fill: color,
-      r: 6,
+      style: {
+        lineWidth: 1,
+        stroke: color,
+        fill: color,
+        r: 6,
+      },
     };
   },
 });
@@ -225,9 +227,11 @@ registerShape('schema', 'box', {
           ['L', points[13].x, points[13].y],
         ];
       },
-      r: 6,
-      lineWidth: 1,
-      stroke: color,
+      style: {
+        r: 6,
+        lineWidth: 1,
+        stroke: color,
+      },
     };
   },
 });

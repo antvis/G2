@@ -99,8 +99,10 @@ each(SHAPES, (shapeName: string) => {
       const { color } = markerCfg;
       return {
         symbol: PointSymbols[shapeName] || shapeName,
-        r: 4.5,
-        fill: color,
+        style: {
+          r: 4.5,
+          fill: color,
+        },
       };
     },
   });
@@ -119,8 +121,10 @@ each(SHAPES, (shapeName: string) => {
       const { color } = markerCfg;
       return {
         symbol: PointSymbols[shapeName] || shapeName,
-        r: 4.5,
-        stroke: color,
+        style: {
+          r: 4.5,
+          stroke: color,
+        },
       };
     },
   });
@@ -142,8 +146,10 @@ each(HOLLOW_SHAPES, (shapeName: string) => {
       const { color } = markerCfg;
       return {
         symbol: PointSymbols[shapeName],
-        r: 4.5,
-        stroke: color,
+        style: {
+          r: 4.5,
+          stroke: color,
+        },
       };
     },
   });
