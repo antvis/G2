@@ -5,12 +5,20 @@ import {
   AxisSubTickLineCfg,
   AxisTickLineCfg,
   AxisTitleCfg,
-  CategoryLegendCfg,
+  ContinueLegendHandlerCfg,
+  ContinueLegendLabelCfg,
+  ContinueLegendRailCfg,
+  ContinueLegendTrackCfg,
   GridLineCfg,
   GroupComponent,
   HtmlComponent,
   ICanvas,
   IGroup,
+  LegendBackgroundCfg,
+  LegendItemNameCfg,
+  LegendItemValueCfg,
+  LegendMarkerCfg,
+  LegendTitleCfg,
 } from '../dependents';
 import {
   AdjustOption,
@@ -178,8 +186,109 @@ export interface ComponentOption {
   readonly extra?: any;
 }
 
-export interface LegendCfg extends Partial<CategoryLegendCfg> {
-  readonly position?: string;
+interface MarkerCfg extends LegendMarkerCfg {
+  symbol?: Marker | MarkerCallback; // marker 的形状
+}
+
+/**
+ * 图例项配置
+ */
+export interface LegendCfg {
+  /**
+   * 布局方式： horizontal，vertical
+   */
+  layout?: 'horizontal' | 'svertical';
+  /**
+   * 标题
+   */
+  title?: LegendTitleCfg;
+  /**
+   * 背景框配置项
+   */
+  background?: LegendBackgroundCfg;
+  /** 图例的位置 */
+  position?:
+    | 'top'
+    | 'top-left'
+    | 'top-right'
+    | 'right'
+    | 'right-top'
+    | 'right-bottom'
+    | 'left'
+    | 'left-top'
+    | 'left-bottom'
+    | 'bottom'
+    | 'bottom-left'
+    | 'bottom-right';
+  /** 动画配置 */
+  animate?: boolean;
+  /** 分类图例适用，图例项水平方向的间距 */
+  itemSpacing?: number;
+  /**
+   * 分类图例适用，图例项的宽度, 默认为 null，自动计算
+   */
+  itemWidth?: number;
+  /**
+   * 分类图例适用，图例的高度，默认为 null
+   */
+  itemHeight?: number;
+  /**
+   * 分类图例适用，图例项 name 文本的配置
+   */
+  itemName?: LegendItemNameCfg;
+  /**
+   * 分类图例适用，图例项 value 附加值的配置项
+   */
+  itemValue?: LegendItemValueCfg;
+  /**
+   * 分类图例适用，最大宽度
+   * @type {number}
+   */
+  maxWidth?: number;
+  /**
+   * 分类图例适用，最大高度
+   * @type {number}
+   */
+  maxHeight?: number;
+  /**
+   * 分类图例适用，图例项的 marker 图标的配置
+   */
+  marker?: MarkerCfg;
+  /** 适用于分类图例，当图例项过多时是否进行分页 */
+  flipPage?: boolean;
+
+  /**
+   * 连续图例适用，选择范围的最小值
+   */
+  min?: number;
+  /**
+   * 连续图例适用，选择范围的最大值
+   */
+  max?: number;
+  /**
+   * 连续图例适用，选择的值
+   */
+  value?: number[];
+  /**
+   * 连续图例适用，选择范围的色块配置项
+   */
+  track?: ContinueLegendTrackCfg;
+  /**
+   * 连续图例适用，图例滑轨（背景）的配置项
+   */
+  rail?: ContinueLegendRailCfg;
+  /**
+   * 连续图例适用，文本的配置项
+   */
+  label?: ContinueLegendLabelCfg;
+  /**
+   * 连续图例适用，滑块的配置项
+   */
+  handler?: ContinueLegendHandlerCfg;
+  /**
+   * 连续图例适用，是否可以滑动
+   */
+  slidable?: boolean;
 }
 
 export interface TooltipCfg {
@@ -314,6 +423,20 @@ export interface Options {
   readonly views?: ViewOption[];
 }
 
+type Marker =
+  | 'circle'
+  | 'square'
+  | 'diamond'
+  | 'triangle'
+  | 'triangleDown'
+  | 'hexagon'
+  | 'bowtie'
+  | 'cross'
+  | 'tick'
+  | 'plus'
+  | 'hyphen'
+  | 'line';
+type MarkerCallback = (x: number, y: number, r: number) => any[][];
 export type TooltipOption = TooltipCfg | boolean;
 /* 筛选器函数类型定义 */
 export type FilterCondition = (value: any, datum: Datum) => boolean;

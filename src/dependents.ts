@@ -35,6 +35,16 @@ export {
   AxisTitleCfg,
   AxisLabelCfg,
   GridLineCfg,
+  LegendMarkerCfg,
+  LegendTitleCfg,
+  LegendBackgroundCfg,
+  LegendItemNameCfg,
+  LegendItemValueCfg,
+  ContinueLegendCfg,
+  ContinueLegendTrackCfg,
+  ContinueLegendRailCfg,
+  ContinueLegendLabelCfg,
+  ContinueLegendHandlerCfg,
 } from '@antv/component/lib/types';
 export { HtmlComponent, GroupComponent, Component };
 export { Annotation };

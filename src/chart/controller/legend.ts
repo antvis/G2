@@ -1,4 +1,4 @@
-import { deepMix, each, filter, find, get, head, isBoolean, last, map, uniq } from '@antv/util';
+import { deepMix, each, find, get, head, isBoolean, last, map, uniq } from '@antv/util';
 import { DEFAULT_ANIMATE_CFG } from '../../animate';
 import { COMPONENT_MAX_VIEW_PERCENTAGE, COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { Attribute, CategoryLegend, ContinuousLegend, GroupComponent, IGroup, Scale, Tick } from '../../dependents';
