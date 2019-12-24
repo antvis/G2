@@ -269,6 +269,7 @@ describe('Element', () => {
           delay: 1000,
         },
         leave: false,
+        appear: null,
       };
       // @ts-ignore
       expect(element.getAnimateCfg('update')).toEqual({
@@ -279,6 +280,8 @@ describe('Element', () => {
       });
       // @ts-ignore
       expect(element.getAnimateCfg('leave')).toBe(null);
+      // @ts-ignore
+      expect(element.getAnimateCfg('appear')).toBe(null);
     });
 
     xit('event', () => {
