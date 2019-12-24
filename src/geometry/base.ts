@@ -1202,7 +1202,7 @@ export default class Geometry extends Base {
 
   // 创建图形属性相关的配置项
   private createAttrOption(attrName: string, field: AttributeOption | string | number, cfg?) {
-    if (!field || isObject(field)) {
+    if (isNil(field) || isObject(field)) {
       set(this.attributeOption, attrName, field);
     } else {
       const attrCfg: AttributeOption = {};

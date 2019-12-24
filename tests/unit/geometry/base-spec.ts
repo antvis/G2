@@ -158,6 +158,11 @@ describe('Geometry', () => {
       expect(geometry.attributeOption.size).toEqual({
         values: [3],
       });
+
+      geometry.size(0);
+      expect(geometry.attributeOption.size).toEqual({
+        values: [0],
+      });
     });
 
     it('label()', () => {
@@ -308,7 +313,7 @@ describe('Geometry', () => {
 
     it('getScaleFields', () => {
       const fields = geometry.getScaleFields();
-      expect(fields).toEqual(['month', 'temperature', 3]);
+      expect(fields).toEqual(['month', 'temperature', 0]);
     });
   });
 
