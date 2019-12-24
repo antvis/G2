@@ -224,20 +224,22 @@ module.exports = {
       apiKey: '200ec461f4aa0bb4f0e761566f1a1336',
       indexName: 'antv_g2'
     },
-    htmlCodeTemplate: `<!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="UTF-8">
-          <title>{{title}}</title>
-        </head>
-        <body>
-          <div id="container" />
-          <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.g2-3.5.1/dist/g2.min.js"></script>
-          <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.data-set-0.10.1/dist/data-set.min.js"></script>
-          <script>
-      {{code}}
-          </script>
-        </body>
-      </html>`
+    playground: {
+      htmlCodeTemplate: `<!DOCTYPE html>
+        <html>
+          <head>
+            <meta charset="UTF-8">
+            <title>{{title}}</title>
+          </head>
+          <body>
+            <div id="container" />
+            <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.g2-3.5.11/dist/g2.min.js"></script>
+            <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.data-set-0.10.2/dist/data-set.min.js"></script>
+            <script>
+        {{code}}
+            </script>
+          </body>
+        </html>`
+    }
   }
 };
