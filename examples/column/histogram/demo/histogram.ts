@@ -1,4 +1,5 @@
 import { Chart } from '@antv/g2';
+import DataSet from '@antv/data-set';
 
 const values = [
   1.2,

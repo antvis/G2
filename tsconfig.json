@@ -11,9 +11,13 @@
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
     "types": ["jest"],
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "jsx": "preserve",
+    "paths": {
+      "@antv/g2": ["src"]
+    }
   },
-  "include": ["src"],
   "typedocOptions": {
     "mode": "modules",
     "out": "docs/api",
