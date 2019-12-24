@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@antv/data-set": "^0.10.2",
-    "@antv/gatsby-theme-antv": "^0.10.0",
+    "@antv/gatsby-theme-antv": "^0.10.20",
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-angular": "^8.2.0",
     "@types/jest": "^24.0.18",
