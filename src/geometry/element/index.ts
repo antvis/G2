@@ -326,7 +326,12 @@ export default class Element extends Base {
     // 1. animate === false, 用户关闭动画
     // 2. 动画默认开启，用户没有对动画进行配置同时有没有内置的默认动画
     // 3. 用户关闭对应的动画  animate: { enter: false }
-    if (!animate || (animate === true && isEmpty(defaultCfg)) || animate[animateType] === false) {
+    if (
+      !animate ||
+      (animate === true && isEmpty(defaultCfg)) ||
+      animate[animateType] === false ||
+      animate[animateType] === null
+    ) {
       return null;
     }
 
