@@ -29,7 +29,7 @@ export function createAction(actionName: string, context: IInteractionContext): 
 }
 
 /**
- *
+ * 注册 Action
  * @param actionName - action 的名称
  * @param ActionClass - 继承自 action 的类
  */
@@ -40,6 +40,10 @@ export function registerAction(actionName: string, ActionClass: ActionConstructo
   };
 }
 
+/**
+ * 取消注册 Action
+ * @param actionName action 名称
+ */
 export function unregisterAction(actionName: string) {
   delete ActionCache[actionName];
 }

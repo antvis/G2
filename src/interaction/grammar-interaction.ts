@@ -21,6 +21,7 @@ function parseAction(actionStr: string, context: IInteractionContext): ActionObj
   };
 }
 
+// 执行 Action
 function executeAction(actionObject: ActionObject) {
   const { action, methodName } = actionObject;
   if (action[methodName]) {

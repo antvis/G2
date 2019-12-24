@@ -27,5 +27,6 @@
     "excludeExternals": true,
     "plugin": "typedoc-plugin-markdown",
     "theme": "docusaurus2"
-  }
+  },
+  "include": ["src"]
 }
