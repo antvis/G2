@@ -1,4 +1,4 @@
-import { isPlainObject, lowerCase, mix } from '@antv/util';
+import { clone, isPlainObject, lowerCase, mix } from '@antv/util';
 import { View } from '../chart';
 import { IInteractionContext, LooseObject } from '../interface';
 import { Action, registerAction } from './action/';
@@ -38,7 +38,8 @@ export function createInteraction(name: string, view: View, cfg?: LooseObject) {
     return null;
   }
   if (isPlainObject(interaciton)) {
-    const steps = mix({}, interaciton, cfg) as InteractionSteps;
+    // 如果不 clone 则会多个 interaction 实例共享 step 的定义
+    const steps = mix(clone(interaciton), cfg) as InteractionSteps;
     return new GrammarInteraction(view, steps);
   } else {
     const cls = interaciton as InteractonConstructor;

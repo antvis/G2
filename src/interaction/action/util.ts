@@ -1,7 +1,7 @@
 import { each, isArray, map } from '@antv/util';
 import { View } from '../../chart';
 import { ComponentOption } from '../../chart/interface';
-import { PathCommand, Point } from '../../dependents';
+import { BBox, PathCommand, Point } from '../../dependents';
 import Geometry from '../../geometry/base';
 import Element from '../../geometry/element/';
 import { catmullRom2bezier, getLinePath } from '../../geometry/shape/util/path';
@@ -151,6 +151,11 @@ export function getSpline(points: Point[], z: boolean): PathCommand[] {
   return path;
 }
 
-export function isInBox(box, point: Point) {
+/**
+ * 检测点是否在包围盒内
+ * @param box 包围盒
+ * @param point 点
+ */
+export function isInBox(box: BBox, point: Point) {
   return box.x <= point.x && box.maxX >= point.x && box.y <= point.y && box.maxY > point.y;
 }
