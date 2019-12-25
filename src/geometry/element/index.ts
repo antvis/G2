@@ -94,6 +94,11 @@ export default class Element extends Base {
     if (!shape) {
       return;
     }
+
+    // 更新数据
+    this.model = model;
+    this.data = model.data;
+
     // step 1: 更新 shape 携带的信息
     const drawCfg = this.getShapeDrawCfg(model);
     this.setShapeInfo(shape, drawCfg);
@@ -104,10 +109,6 @@ export default class Element extends Base {
 
     // step 3: 同步 shape 样式
     this.syncShapeStyle(shape, newShape, '', this.getAnimateCfg('update'));
-
-    // 更新数据
-    this.model = model;
-    this.data = model.data;
 
     newShape.remove(true); // newShape 不在当前渲染树上，销毁，减少内存占用
   }
@@ -427,6 +428,7 @@ export default class Element extends Base {
         doAnimate(sourceShape, animateCfg, {
           coordinate: this.shapeFactory.coordinate,
           toAttrs: newAttrs,
+          shapeModel: this.model,
         });
       } else {
         sourceShape.attr(newAttrs);
