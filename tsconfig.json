@@ -18,6 +18,7 @@
       "@antv/g2": ["src"]
     }
   },
+  "include": ["src"],
   "typedocOptions": {
     "mode": "modules",
     "out": "docs/api",
