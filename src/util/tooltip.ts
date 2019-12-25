@@ -1,4 +1,16 @@
-import { contains, each, filter, find, isArray, isNil, isNumberEqual, isObject, memoize, values } from '@antv/util';
+import {
+  contains,
+  each,
+  filter,
+  find,
+  hasKey,
+  isArray,
+  isNil,
+  isNumberEqual,
+  isObject,
+  memoize,
+  values,
+} from '@antv/util';
 import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
 import { Attribute, Scale } from '../dependents';
 import Geometry from '../geometry/base';
@@ -63,15 +75,25 @@ const getXDistance = memoize((scale: Scale) => {
   return (max - min) / (length - 1);
 });
 
-function getTooltipTitle(originData: Datum, geometry: Geometry) {
+function getTooltipTitle(originData: Datum, geometry: Geometry, title: string) {
   const scales = geometry.scales;
+
+  if (title) {
+    // 用户配置了 title 字段
+    if (scales[title]) {
+      // 如果创建了该字段对应的 scale，则通过 scale.getText() 方式取值，因为用户可能对数据进行了格式化
+      return scales[title].getText(originData[title]);
+    }
+    // 如果没有对应的 scale，则从原始数据中取值，如果原始数据中仍不存在，则直接放回 title 值
+    return hasKey(originData, title) ? originData[title] : title;
+  }
   const positionAttr = geometry.getAttribute('position');
   const fields = positionAttr.getFields();
   const titleScale = scales[fields[0]];
-
   if (titleScale) {
     return titleScale.getText(originData[titleScale.field]);
   }
+
   return '';
 }
 
@@ -278,9 +300,9 @@ export function findDataByPoint(point: Point, data: MappingDatum[], geometry: Ge
   return rst;
 }
 
-export function getTooltipItems(data: MappingDatum, geometry: Geometry) {
+export function getTooltipItems(data: MappingDatum, geometry: Geometry, title: string = '') {
   const originData = data[FIELD_ORIGIN];
-  const tooltipTitle = getTooltipTitle(originData, geometry);
+  const tooltipTitle = getTooltipTitle(originData, geometry, title);
   const tooltipOption = geometry.tooltipOption;
   const { defaultColor } = geometry.theme;
   const items = [];

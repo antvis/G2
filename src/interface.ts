@@ -18,6 +18,7 @@ export interface ScaleOption extends ScaleConfig {
   /** 声明数据类型  */
   type?: ScaleType;
   /**
+   * todo: 待支持 @hustcc
    * 同步 scale
    * 我们会对所有做了 sync: boolean 达标的 scale 进行范围同步
    */

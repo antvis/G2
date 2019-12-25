@@ -296,6 +296,11 @@ export interface TooltipCfg {
   /** 是否展示 tooltip 标题 */
   showTitle?: boolean;
   /**
+   * 设置 tooltip 的标题
+   * 如果值为数据字段名，则会展示数据中对应该字段的数值，如果数据中不存在该字段，则直接展示 title 值。
+   */
+  title?: string;
+  /**
    * tooltip 触发方式
    * 'none' 表示不在 'mousemove' 或 'click' 时触发，用户可以通过 chart.showTooltip() 和 chart.hideTooltip() 来手动触发和隐藏
    */
