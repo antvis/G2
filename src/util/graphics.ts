@@ -1,4 +1,4 @@
-import { each, isEmpty, isNumber } from '@antv/util';
+import { each, isEmpty, isNumber, isNumberEqual } from '@antv/util';
 import { Coordinate, IShape } from '../dependents';
 import { ShapeInfo } from '../interface';
 
@@ -58,26 +58,67 @@ export function getSectorPath(
   centerY: number,
   radius: number,
   startAngleInRadian: number,
-  endAngleInRadian: number
+  endAngleInRadian: number,
+  innerRadius: number = 0
 ) {
-  const start = polarToCartesian(centerX, centerY, radius, endAngleInRadian);
-  const end = polarToCartesian(centerX, centerY, radius, startAngleInRadian);
+  const start = polarToCartesian(centerX, centerY, radius, startAngleInRadian);
+  const end = polarToCartesian(centerX, centerY, radius, endAngleInRadian);
+
+  const innerStart = polarToCartesian(centerX, centerY, innerRadius, startAngleInRadian);
+  const innerEnd = polarToCartesian(centerX, centerY, innerRadius, endAngleInRadian);
 
   if (endAngleInRadian - startAngleInRadian === Math.PI * 2) {
+    // 整个圆是分割成两个圆
+    const middlePoint = polarToCartesian(centerX, centerY, radius, startAngleInRadian + Math.PI);
+    const innerMiddlePoint = polarToCartesian(centerX, centerY, innerRadius, startAngleInRadian + Math.PI);
     return [
-      ['M', centerX, centerY],
-      ['m', -radius, 0],
-      ['a', radius, radius, 0, 1, 0, radius * 2, 0],
-      ['a', radius, radius, 0, 1, 0, -radius * 2, 0],
+      ['M', start.x, start.y],
+      ['A', radius, radius, 0, 1, 1, middlePoint.x, middlePoint.y],
+      ['A', radius, radius, 0, 1, 1, end.x, end.y],
+      ['M', innerStart.x, innerStart.y],
+      ['A', innerRadius, innerRadius, 0, 1, 0, innerMiddlePoint.x, innerMiddlePoint.y],
+      ['A', innerRadius, innerRadius, 0, 1, 0, innerEnd.x, innerEnd.y],
+      ['M', start.x, start.y],
+      ['Z'],
     ];
   }
 
   const arcSweep = endAngleInRadian - startAngleInRadian <= Math.PI ? 0 : 1;
   return [
     ['M', start.x, start.y],
-    ['A', radius, radius, 0, arcSweep, 0, end.x, end.y],
-    ['L', centerX, centerY],
+    ['A', radius, radius, 0, arcSweep, 1, end.x, end.y],
+    ['L', innerEnd.x, innerEnd.y],
+    ['A', innerRadius, innerRadius, 0, arcSweep, 0, innerStart.x, innerStart.y],
     ['L', start.x, start.y],
+    ['Z'],
+  ];
+}
+
+export function getArcPath(
+  centerX: number,
+  centerY: number,
+  radius: number,
+  startAngleInRadian: number,
+  endAngleInRadian: number
+) {
+  const start = polarToCartesian(centerX, centerY, radius, startAngleInRadian);
+  const end = polarToCartesian(centerX, centerY, radius, endAngleInRadian);
+
+  if (isNumberEqual(endAngleInRadian - startAngleInRadian, Math.PI * 2)) {
+    const middlePoint = polarToCartesian(centerX, centerY, radius, startAngleInRadian + Math.PI);
+    return [
+      ['M', start.x, start.y],
+      ['A', radius, radius, 0, 1, 1, middlePoint.x, middlePoint.y],
+      ['A', radius, radius, 0, 1, 1, start.x, start.y],
+      ['A', radius, radius, 0, 1, 0, middlePoint.x, middlePoint.y],
+      ['A', radius, radius, 0, 1, 0, start.x, start.y],
+      ['Z'],
+    ];
+  }
+  const arcSweep = endAngleInRadian - startAngleInRadian <= Math.PI ? 0 : 1;
+  return [
+    ['M', start.x, start.y],
+    ['A', radius, radius, 0, arcSweep, 1, end.x, end.y],
   ];
 }
 
