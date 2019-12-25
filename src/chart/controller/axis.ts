@@ -25,7 +25,7 @@ function getAxisOption(axes: Record<string, AxisOption> | boolean, field: string
   }
 }
 
-const default_animate_cfg = {
+const DEFAULT_ANIMATE_CFG = {
   appear: null,
   update: {
     duration: 400,
@@ -707,7 +707,7 @@ export default class Axis extends Controller<Option> {
   private getAnimateCfg(cfg: object) {
     return {
       animate: this.animate && get(cfg, 'animate'),
-      animateOption: default_animate_cfg,
+      animateOption: DEFAULT_ANIMATE_CFG,
     };
   }
 }
