@@ -118,55 +118,55 @@ describe('Tooltip functions', () => {
     });
   });
 
-  // describe('x is linear', () => {
-  //   const DATA = [
-  //     { year: 1991, value: 15468 },
-  //     { year: 1992, value: 16100 },
-  //     { year: 1993, value: 15900 },
-  //     { year: 1994, value: 20000 },
-  //     { year: 1995, value: 17000 },
-  //     { year: 1996, value: 31056 },
-  //     { year: 1997, value: 31982 },
-  //     { year: 1998, value: 32040 },
-  //     { year: 1999, value: 33233 },
-  //   ];
-  //   const scales = {
-  //     year: createScale('year', DATA, {}),
-  //     value: createScale('value', DATA, {}),
-  //   };
+  describe('x is linear', () => {
+    const DATA = [
+      { year: 1991, value: 15468 },
+      { year: 1992, value: 16100 },
+      { year: 1993, value: 15900 },
+      { year: 1994, value: 20000 },
+      { year: 1995, value: 17000 },
+      { year: 1996, value: 31056 },
+      { year: 1997, value: 31982 },
+      { year: 1998, value: 32040 },
+      { year: 1999, value: 33233 },
+    ];
+    const scales = {
+      year: createScale('year', DATA, {}),
+      value: createScale('value', DATA, {}),
+    };
 
-  //   const line = new Line({
-  //     data: DATA,
-  //     scales,
-  //     theme: Theme,
-  //     coordinate: rectCoord,
-  //     container: canvas.addGroup(),
-  //   });
+    const line = new Line({
+      data: DATA,
+      scales,
+      theme: Theme,
+      coordinate: rectCoord,
+      container: canvas.addGroup(),
+    });
 
-  //   line.position('year*value');
-  //   line.init();
-  //   line.paint();
+    line.position('year*value');
+    line.init();
+    line.paint();
 
-  //   it('findDataByPoint', () => {
-  //     const data = line.dataArray[0];
-  //     const result = findDataByPoint({ x: 100, y: 90 }, data as MappingDatum[], line);
-  //     expect(result._origin).toEqual({ year: 1995, value: 17000 });
-  //   });
+    it('findDataByPoint', () => {
+      const data = line.dataArray[0];
+      const result = findDataByPoint({ x: 100, y: 90 }, data as MappingDatum[], line);
+      expect(result._origin).toEqual({ year: 1995, value: 17000 });
+    });
 
-  //   it('getTooltipItems', () => {
-  //     const data = findDataByPoint({ x: 100, y: 90 }, line.dataArray[0] as MappingDatum[], line);
-  //     const tooltipItems = getTooltipItems(data, line);
-  //     const { color, name, value, title, mappingData } = tooltipItems[0];
-  //     expect(color).toBe('#5B8FF9');
-  //     expect(name).toBe('value');
-  //     expect(value).toBe('17000');
-  //     expect(title).toBe('1995');
-  //     expect(mappingData).toBeDefined();
-  //   });
-  // });
+    it('getTooltipItems', () => {
+      const data = findDataByPoint({ x: 100, y: 90 }, line.dataArray[0] as MappingDatum[], line);
+      const tooltipItems = getTooltipItems(data, line);
+      const { color, name, value, title, mappingData } = tooltipItems[0];
+      expect(color).toBe('#5B8FF9');
+      expect(name).toBe('value');
+      expect(value).toBe('17000');
+      expect(title).toBe('1995');
+      expect(mappingData).toBeDefined();
+    });
+  });
 
-  // afterAll(() => {
-  //   canvas.destroy();
-  //   removeDom(div);
-  // });
+  afterAll(() => {
+    canvas.destroy();
+    removeDom(div);
+  });
 });
