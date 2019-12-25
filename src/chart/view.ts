@@ -371,9 +371,9 @@ export class View extends Base {
    * @param field
    * @returns View
    */
-  public legend(field: boolean): View;
+  public legend(field: LegendOption): View;
   public legend(field: string, legendOption: LegendOption): View;
-  public legend(field: string | boolean, legendOption?: LegendOption): View {
+  public legend(field: string | LegendOption, legendOption?: LegendOption): View {
     if (isBoolean(field)) {
       set(this.options, ['legends'], field);
     } else if (isString(field)) {

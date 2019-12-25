@@ -73,6 +73,13 @@ describe('View', () => {
   });
 
   it('legend', () => {
+    view.legend({
+      position: 'right',
+    });
+    expect(view.getOptions().legends).toEqual({
+      position: 'right',
+    });
+
     view.legend(false);
     expect(view.getOptions().legends).toBe(false);
   });
