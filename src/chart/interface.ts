@@ -191,6 +191,19 @@ interface MarkerCfg extends LegendMarkerCfg {
   symbol?: Marker | MarkerCallback; // marker 的形状
 }
 
+interface LegendItem {
+  /**
+   * 唯一值，用于动画或者查找
+   */
+  id?: string;
+  /** 名称 */
+  name: string;
+  /** 值 */
+  value: any;
+  /** 图形标记 */
+  marker?: MarkerCfg;
+}
+
 /**
  * 图例项配置
  */
@@ -257,6 +270,8 @@ export interface LegendCfg {
   marker?: MarkerCfg;
   /** 适用于分类图例，当图例项过多时是否进行分页 */
   flipPage?: boolean;
+  /** 分类图例适用，用户自己配置图例项的内容 */
+  items?: LegendItem[];
 
   /**
    * 连续图例适用，选择范围的最小值
@@ -290,6 +305,10 @@ export interface LegendCfg {
    * 连续图例适用，是否可以滑动
    */
   slidable?: boolean;
+  /** 图例 x 方向的偏移 */
+  offsetX?: number;
+  /** 图例 y 方向的偏移 */
+  offsetY?: number;
 }
 
 export interface TooltipCfg {
@@ -372,6 +391,11 @@ export interface AxisGridCfg {
 }
 
 export interface AxisCfg {
+  /**
+   * todo: @hustcc
+   * 适用于直角坐标系，设置坐标轴的位置
+   */
+  position?: 'top' | 'bottom' | 'right' | 'left';
   /**
    * 坐标轴线的配置项，null 表示不展示
    */
