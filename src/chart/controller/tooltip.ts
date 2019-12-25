@@ -262,7 +262,7 @@ export default class Tooltip extends Controller<TooltipOption> {
     let items = [];
 
     const geometries = this.view.geometries;
-    const shared = this.getTooltipCfg().shared;
+    const { shared, title } = this.getTooltipCfg();
     each(geometries, (geometry: Geometry) => {
       if (geometry.visible && geometry.tooltipOption !== false) {
         // geometry 可见同时未关闭 tooltip
@@ -272,7 +272,7 @@ export default class Tooltip extends Controller<TooltipOption> {
           each(dataArray, (data: MappingDatum[]) => {
             const record = findDataByPoint(point, data, geometry);
             if (record) {
-              const tooltipItems = getTooltipItems(record, geometry);
+              const tooltipItems = getTooltipItems(record, geometry, title);
               items = items.concat(tooltipItems);
             }
           });
@@ -284,10 +284,10 @@ export default class Tooltip extends Controller<TooltipOption> {
             if (isArray(mappingData)) {
               const record = findDataByPoint(point, mappingData, geometry);
               if (record) {
-                items = items.concat(getTooltipItems(record, geometry));
+                items = items.concat(getTooltipItems(record, geometry, title));
               }
             } else {
-              items = items.concat(getTooltipItems(mappingData, geometry));
+              items = items.concat(getTooltipItems(mappingData, geometry, title));
             }
           }
         }
