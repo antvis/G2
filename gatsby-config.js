@@ -18,7 +18,7 @@ module.exports = {
     githubUrl: repository.url,
     navs: [
       {
-        slug: 'examples/gallery',
+        slug: 'examples',
         title: {
           zh: '图表示例',
           en: 'Examples'
