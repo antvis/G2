@@ -122,7 +122,11 @@ function zoomOut(shape, animateCfg, coord) {
   const v = [x, y, 1];
   shape.apply(v);
   const endState = {
-    transform: [['t', -x, -y], ['s', 0.01, 0.01], ['t', x, y]],
+    transform: [
+      ['t', -x, -y],
+      ['s', 0.01, 0.01],
+      ['t', x, y],
+    ],
   };
 
   animateCfg.callback = () => shape.remove();
@@ -237,7 +241,7 @@ function groupWaveIn(container, animateCfg, coord) {
 }
 
 // 默认动画库
-export default {
+const Action = {
   enter: {
     clipIn,
     zoomIn,
@@ -272,3 +276,13 @@ export default {
     fanIn,
   },
 };
+
+// 给每一个方法增加 name 属性，防止 function name 被 uglify 改掉。
+_.each(Action, (v: object) => {
+  _.each(v, (animate: any, name: string) => {
+    // @ts-ignore
+    animate.animationName = name;
+  });
+});
+
+export default Action;

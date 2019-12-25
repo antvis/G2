@@ -1,16 +1,12 @@
 /*
  * The entry of chart's animation
  */
-import * as _ from '@antv/util';
+import { Element as GElement, Group, Shape } from '@antv/g';
 import { mat3 } from '@antv/matrix-util';
-import {
-  Group,
-  Shape,
-  Element as GElement,
-} from '@antv/g';
-import Animate from './animate';
+import * as _ from '@antv/util';
 import Element from '../element/base';
-import { CacheType, AnimateCFG } from './interface';
+import Animate from './animate';
+import { AnimateCFG, CacheType } from './interface';
 
 /*
  * 获取图组内所有的shapes
@@ -46,7 +42,9 @@ function getShapes(container: Group, viewId: string): Shape[] {
 function cache(shapes: Shape[]): CacheType {
   const rst = {};
   _.each(shapes, (shape) => {
-    if (!shape.id || shape.get('isClip')) return;
+    if (!shape.id || shape.get('isClip')) {
+      return;
+    }
     const id = shape.id;
     rst[id] = {
       id,
@@ -74,16 +72,12 @@ function getAnimate(elementType: string, coord, animationType, animationName) {
 
 function getAnimateCfg(elementType: string, animationType, animateCfg): AnimateCFG {
   // .animate(false) 或者 .animate({ appear: false });
-  if (animateCfg === false || (_.isObject(animateCfg) && (animateCfg[animationType] === false))) {
+  if (animateCfg === false || (_.isObject(animateCfg) && animateCfg[animationType] === false)) {
     return null;
   }
   const defaultCfg = Animate.getAnimateCfg(elementType, animationType);
   if (animateCfg && animateCfg[animationType]) {
-    return _.deepMix(
-      {},
-      defaultCfg,
-      animateCfg[animationType],
-    );
+    return _.deepMix({}, defaultCfg, animateCfg[animationType]);
   }
   return defaultCfg;
 }
@@ -92,7 +86,7 @@ function getAnimateCfg(elementType: string, animationType, animateCfg): AnimateC
  * canvas draw之前将动画配置添加到动画队列中。
  * @return canvasDrawn(boolean) 是否添加绘制成功
  */
-function addAnimate(cache: CacheType, shapes: Shape[], canvas) {
+function addAnimate(shapeCache: CacheType, shapes: Shape[], canvas) {
   let animate;
   let animateCfg;
   let canvasDrawn = false;
@@ -101,27 +95,22 @@ function addAnimate(cache: CacheType, shapes: Shape[], canvas) {
   const updateShapes = []; // 存储的是 shapes
   const newShapes = []; // 存储的是 shapes
   _.each(shapes, (shape) => {
-    const result = cache[shape.id];
+    const result = shapeCache[shape.id];
     if (!result) {
       newShapes.push(shape);
     } else {
       shape.setSilent('cacheShape', result);
       updateShapes.push(shape);
-      delete cache[shape.id];
+      delete shapeCache[shape.id];
     }
   });
 
-  _.each(cache, (deletedShape) => {
-    const {
-      name,
-      coord,
-      id,
-      attrs,
-      index,
-      type,
-    } = deletedShape;
+  _.each(shapeCache, (deletedShape) => {
+    const { name, coord, id, attrs, index, type } = deletedShape;
     animateCfg = getAnimateCfg(name, 'leave', deletedShape.animateCfg);
-    if (!animateCfg) return true; // 用户关闭动画
+    if (!animateCfg) {
+      return true;
+    } // 用户关闭动画
 
     animate = getAnimate(name, coord, 'leave', animateCfg.animation);
     if (_.isFunction(animate)) {
@@ -145,7 +134,9 @@ function addAnimate(cache: CacheType, shapes: Shape[], canvas) {
     const name = updateShape.name;
 
     animateCfg = getAnimateCfg(name, 'update', updateShape.get('animateOptions'));
-    if (!animateCfg) return true; // 用户关闭动画
+    if (!animateCfg) {
+      return true;
+    } // 用户关闭动画
 
     const coord = updateShape.get('coord');
     const cacheAttrs = updateShape.get('cacheShape').attrs;
@@ -170,7 +161,9 @@ function addAnimate(cache: CacheType, shapes: Shape[], canvas) {
     const coord = newShape.get('coord');
 
     animateCfg = getAnimateCfg(name, 'enter', newShape.get('animateOptions'));
-    if (!animateCfg) return true; // 用户关闭动画
+    if (!animateCfg) {
+      return true;
+    } // 用户关闭动画
 
     animate = getAnimate(name, coord, 'enter', animateCfg.animation);
     if (_.isFunction(animate)) {
@@ -204,9 +197,11 @@ function execAnimation(view, isUpdate?: boolean) {
   canvas.setSilent(`${viewId}caches`, cache(cacheShapes));
   let drawn;
 
-  if (newIsUpdate) { // 执行更新动画
+  if (newIsUpdate) {
+    // 执行更新动画
     drawn = addAnimate(caches, cacheShapes, canvas);
-  } else { // 初入场动画
+  } else {
+    // 初入场动画
     // drawn = addAnimate(caches, shapes, canvas, newIsUpdate);
     let animateCfg;
     let animate;
@@ -215,13 +210,17 @@ function execAnimation(view, isUpdate?: boolean) {
     _.each(elements, (element: Element) => {
       const type = element.get('type');
       const elementAnimateOption = element.get('animateOptions');
-      if (elementAnimateOption !== false) { // 用户为关闭动画
+      if (elementAnimateOption !== false) {
+        // 用户为关闭动画
         animateCfg = getAnimateCfg(type, 'appear', elementAnimateOption);
-        if (!animateCfg) return true; // 用户关闭了初始动画
+        if (!animateCfg) {
+          return true;
+        } // 用户关闭了初始动画
 
         animate = getAnimate(type, coord, 'appear', animateCfg.animation);
         if (_.isFunction(animate)) {
-          if ((animate.name).indexOf('group') === 0) { // 执行全局动画
+          if (animate.animationName.indexOf('group') === 0) {
+            // 执行全局动画
             const yScale = element.getYScale();
             const zeroY = coord.convertPoint({
               x: 0,
@@ -231,9 +230,10 @@ function execAnimation(view, isUpdate?: boolean) {
             const container = element.get('container');
             animate && animate(container, animateCfg, coord, zeroY);
           } else {
-            const shapes = getShapes(element.get('container'), viewId);
-            _.each(shapes, (shape) => {
-              if (shape.name === type) { // element shapes 上的动画
+            const shapeArr = getShapes(element.get('container'), viewId);
+            _.each(shapeArr, (shape) => {
+              if (shape.name === type) {
+                // element shapes 上的动画
                 animate(shape, animateCfg, coord);
               } else if (shape.name === 'label') {
                 animateCfg = getAnimateCfg('label', 'appear', null);
