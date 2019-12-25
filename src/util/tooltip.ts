@@ -76,25 +76,19 @@ const getXDistance = memoize((scale: Scale) => {
 });
 
 function getTooltipTitle(originData: Datum, geometry: Geometry, title: string) {
+  let titleField = title;
+  if (!title) {
+    const positionAttr = geometry.getAttribute('position');
+    const fields = positionAttr.getFields();
+    titleField = fields[0];
+  }
   const scales = geometry.scales;
-
-  if (title) {
-    // 用户配置了 title 字段
-    if (scales[title]) {
-      // 如果创建了该字段对应的 scale，则通过 scale.getText() 方式取值，因为用户可能对数据进行了格式化
-      return scales[title].getText(originData[title]);
-    }
-    // 如果没有对应的 scale，则从原始数据中取值，如果原始数据中仍不存在，则直接放回 title 值
-    return hasKey(originData, title) ? originData[title] : title;
+  if (scales[titleField]) {
+    // 如果创建了该字段对应的 scale，则通过 scale.getText() 方式取值，因为用户可能对数据进行了格式化
+    return scales[titleField].getText(originData[titleField]);
   }
-  const positionAttr = geometry.getAttribute('position');
-  const fields = positionAttr.getFields();
-  const titleScale = scales[fields[0]];
-  if (titleScale) {
-    return titleScale.getText(originData[titleScale.field]);
-  }
-
-  return '';
+  // 如果没有对应的 scale，则从原始数据中取值，如果原始数据中仍不存在，则直接放回 title 值
+  return hasKey(originData, titleField) ? originData[titleField] : titleField;
 }
 
 function getAttributesForLegend(geometry: Geometry) {
