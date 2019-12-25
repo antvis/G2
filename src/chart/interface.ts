@@ -19,6 +19,7 @@ import {
   LegendItemValueCfg,
   LegendMarkerCfg,
   LegendTitleCfg,
+  PathCommand,
 } from '../dependents';
 import {
   AdjustOption,
@@ -436,7 +437,7 @@ type Marker =
   | 'plus'
   | 'hyphen'
   | 'line';
-type MarkerCallback = (x: number, y: number, r: number) => any[][];
+type MarkerCallback = (x: number, y: number, r: number) => PathCommand;
 export type TooltipOption = TooltipCfg | boolean;
 /* 筛选器函数类型定义 */
 export type FilterCondition = (value: any, datum: Datum) => boolean;
