@@ -18,7 +18,8 @@ chart.data(CITY_SALE);
 chart
   .interval()
   .position('city*sale')
-  .color('category');
+  .color('category')
+  .adjust('stack');
 
 chart.animate(false);
 
@@ -46,24 +47,66 @@ describe('Event', () => {
   });
 
   it('plot event', () => {
-    const plotEvent = jest.fn();
+    const mouseenter = jest.fn();
+    const mouseleave = jest.fn();
+    const mousedown = jest.fn();
+    const mousemove = jest.fn();
+    const mouseup = jest.fn();
 
-    chart.on('plot:mouseenter', (e) => {
-      plotEvent(e);
-    });
-    chart.on('plot:mousemove', (e) => {
-      plotEvent(e);
-    });
-    chart.on('plot:mouseleave', (e) => {
-      plotEvent(e);
-    });
+    const touchstart = jest.fn();
+    const touchmove = jest.fn();
+    const touchend = jest.fn();
+    const touchcancel = jest.fn();
 
-    simulateMouseEvent(chart.canvas.get('el'), 'mousemove', getClientPoint(chart.canvas, 200, 200));
-    simulateMouseEvent(chart.canvas.get('el'), 'mousemove', getClientPoint(chart.canvas, 723, 526));
-    simulateMouseEvent(chart.canvas.get('el'), 'mousemove', getClientPoint(chart.canvas, 730, 530));
-    simulateMouseEvent(chart.canvas.get('el'), 'mousemove', getClientPoint(chart.canvas, 1000, 700));
+    const click = jest.fn();
 
-    expect(plotEvent).toBeCalled();
+    chart.on('plot:mouseenter', mouseenter);
+    chart.on('plot:mouseleave', mouseleave);
+    chart.on('plot:mousedown', mousedown);
+    chart.on('plot:mousemove', mousemove);
+    chart.on('plot:mouseup', mouseup);
+
+    chart.on('plot:touchstart', touchstart);
+    chart.on('plot:touchmove', touchmove);
+    chart.on('plot:touchend', touchend);
+    chart.on('plot:touchcancel', touchcancel);
+
+    chart.on('plot:click', click);
+
+    const el = chart.canvas.get('el');
+
+    simulateMouseEvent(el, 'mousemove', getClientPoint(chart.canvas, 16, 16));
+    simulateMouseEvent(el, 'mousemove', getClientPoint(chart.canvas, 130, 400)); // mouseenter
+
+    const X = 130;
+    const Y = 410;
+
+    simulateMouseEvent(el, 'mousemove', getClientPoint(chart.canvas, X, Y));
+
+    simulateMouseEvent(el, 'mousedown', getClientPoint(chart.canvas, X, Y)); // mousedown
+    simulateMouseEvent(el, 'mouseup', getClientPoint(chart.canvas, X, Y)); // mouseup
+    simulateMouseEvent(el, 'click', getClientPoint(chart.canvas, X, Y)); // click
+
+    simulateMouseEvent(el, 'touchstart', getClientPoint(chart.canvas, X, Y)); // touchstart
+    simulateMouseEvent(el, 'touchmove', getClientPoint(chart.canvas, X, Y)); // touchmove
+    simulateMouseEvent(el, 'touchend', getClientPoint(chart.canvas, X, Y)); // touchend
+    simulateMouseEvent(el, 'touchcancel', getClientPoint(chart.canvas, X, Y)); // touchcancel
+
+    simulateMouseEvent(el, 'mousemove', getClientPoint(chart.canvas, 20, 20)); // mouseout
+
+    expect(mouseenter).toBeCalled();
+    expect(mouseleave).toBeCalled();
+    expect(mousedown).toBeCalled();
+    expect(mousemove).toBeCalled();
+    expect(mouseup).toBeCalled();
+
+    expect(touchstart).toBeCalled();
+    expect(touchmove).toBeCalled();
+    expect(touchend).toBeCalled();
+    // FIXME G 4.0 不支持 touchcancel 事件
+    // expect(touchcancel).toBeCalled();
+
+    expect(click).toBeCalled();
   });
 
   it('view basic event', () => {
