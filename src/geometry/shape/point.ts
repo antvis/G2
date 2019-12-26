@@ -155,4 +155,30 @@ each(HOLLOW_SHAPES, (shapeName: string) => {
   });
 });
 
+registerShape('point', 'image', {
+  draw(cfg: ShapeInfo, container: IGroup) {
+    const { r: size } = getStyle(cfg, false, false, 'r');
+
+    return container.addShape('image', {
+      attrs: {
+        x: (cfg.x as number) - size / 2,
+        y: (cfg.y as number) - size,
+        width: size,
+        height: size,
+        img: cfg.shape[1],
+      },
+    });
+  },
+  getMarker(markerCfg: ShapeMarkerCfg) {
+    const { color } = markerCfg;
+    return {
+      symbol: 'circle',
+      style: {
+        r: 4.5,
+        fill: color,
+      },
+    };
+  },
+});
+
 export default PointShapeFactory;
