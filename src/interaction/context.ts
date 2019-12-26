@@ -1,6 +1,6 @@
 import { each } from '@antv/util';
 import { View } from '../chart';
-import { Point } from '../dependents';
+import { BBox, Point } from '../dependents';
 import { IAction, IInteractionContext, LooseObject } from '../interface';
 import { isPointInCoordinate } from '../util/coordinate';
 import { getComponents, isInBox } from './action/util';
@@ -93,7 +93,7 @@ class Context implements IInteractionContext {
     const point = this.getCurrentPoint();
     if (point) {
       return !!components.find((component) => {
-        const bbox = component.getBBox();
+        const bbox = component.getBBox() as BBox;
         if (name) {
           return component.get('name') === name && isInBox(bbox, point);
         } else {

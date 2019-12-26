@@ -1253,12 +1253,20 @@ export class View extends Base {
     const { data, scales } = this.getOptions();
     const filteredData = this.filteredData;
 
+    // 需要 sync 的 scales
+    const syncScales = [];
+    // sync 的 最大最小值
+    let max = Number.MIN_SAFE_INTEGER;
+    let min = Number.MAX_SAFE_INTEGER;
+
     each(fields, (field: string) => {
+      const scaleDef = get(scales, [field]);
+
       const newScale = createScaleByField(
         field,
         // 分组字段的 scale 使用未过滤的数据创建
         groupedFields.includes(field) ? data : filteredData,
-        get(scales, [field])
+        scaleDef
       );
 
       // 之前已经创建了，那么就直接更新
@@ -1269,6 +1277,25 @@ export class View extends Base {
         // 创建并缓存到 this.scales 中
         this.scales[field] = newScale;
       }
+
+      // 在遍历过程中，找到 sync 配置的 scale，并获取最大最小值
+      if (get(scaleDef, 'sync') === true && newScale.isLinear) {
+        max = Math.max(max, newScale.max);
+        min = Math.min(min, newScale.min);
+
+        syncScales.push(newScale);
+      }
+    });
+
+    // 同步 sync scales 的 min max
+    each(syncScales, (s: Scale) => {
+      s.change({
+        min,
+        max,
+      });
+
+      // FIXME: scale.change 使用 this.constructor 去更新，带来一些问题，所以需要重新设置一下
+      this.scales[s.field] = s;
     });
   }
 

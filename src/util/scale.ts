@@ -109,6 +109,7 @@ export function syncScale(scale: Scale, newScale: Scale) {
         obj[k] = newScale[k];
       }
     }
+
     scale.change(obj);
   }
 }
