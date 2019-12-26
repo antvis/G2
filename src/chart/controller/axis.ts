@@ -230,7 +230,7 @@ export default class Axis extends Controller<Option> {
           updatedCache.set(gridId, grid);
         }
       }
-    } else if (coordinate.isPolar) {
+    } else if (coordinate.isPolar && coordinate.isTransposed) {
       // 1. do axis update
       let axis = this.cache.get(axisId);
       // 存在则更新
@@ -321,7 +321,7 @@ export default class Axis extends Controller<Option> {
               updatedCache.set(gridId, grid);
             }
           }
-        } else if (coordinate.isPolar) {
+        } else if (coordinate.isPolar && !coordinate.isTransposed) {
           // 1. do axis update
           let axis = this.cache.get(axisId);
           // 存在则更新
@@ -396,7 +396,7 @@ export default class Axis extends Controller<Option> {
         if (grid) {
           this.cache.set(gridId, grid);
         }
-      } else if (coordinate.isPolar) {
+      } else if (coordinate.isPolar && !coordinate.isTransposed) {
         // axis
         const axis = this.createCircleAxis(scale, xAxisOption, layer, direction, dim);
         this.cache.set(axisId, axis);
@@ -446,7 +446,7 @@ export default class Axis extends Controller<Option> {
           if (grid) {
             this.cache.set(gridId, grid);
           }
-        } else if (coordinate.isPolar) {
+        } else if (coordinate.isPolar && !coordinate.isTransposed) {
           // axis
           // @ts-ignore
           const axis = this.createLineAxis(scale, yAxisOption, layer, 'radius', dim);
