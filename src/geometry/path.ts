@@ -1,10 +1,11 @@
-import { get, isEmpty } from '@antv/util';
+import { get } from '@antv/util';
 import { FIELD_ORIGIN } from '../constant';
 import { Data, Datum, MappingDatum, Point, RangePoint, ShapeInfo } from '../interface';
 import Geometry, { GeometryCfg } from './base';
 import Element from './element';
 /** 引入对应的 ShapeFactory */
 import './shape/line';
+import { getShapeType } from './util/get-shape-type';
 import { isModelChange } from './util/is-model-change';
 
 export interface PathCfg extends GeometryCfg {
@@ -33,10 +34,10 @@ export default class Path extends Geometry {
 
     let result = lastElementsMap[elementId];
     if (!result) {
-      const animateType = isEmpty(this.lastElementsMap) ? 'appear' : 'enter';
       const shapeFactory = this.getShapeFactory();
+
       result = new Element({
-        shapeType: shapeCfg.shape || shapeFactory.defaultShapeType,
+        shapeType: getShapeType(shapeCfg, shapeFactory.defaultShapeType),
         theme: get(theme, ['geometries', this.shapeType], {}),
         shapeFactory,
         container,

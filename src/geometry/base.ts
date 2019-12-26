@@ -54,6 +54,7 @@ import {
 import { getGeometryLabels } from './label';
 import Labels from './label/labels';
 import { getShapeFactory } from './shape/base';
+import { getShapeType } from './util/get-shape-type';
 import { isModelChange } from './util/is-model-change';
 import { parseFields } from './util/parse-fields';
 
@@ -1101,10 +1102,9 @@ export default class Geometry extends Base {
 
     const shapeCfg = this.getDrawCfg(mappingDatum); // 获取绘制图形的配置信息
     const shapeFactory = this.getShapeFactory();
-    const shape = mappingDatum.shape || shapeFactory.defaultShapeType;
 
     const element = new Element({
-      shapeType: shape,
+      shapeType: getShapeType(mappingDatum, shapeFactory.defaultShapeType),
       theme: get(theme, ['geometries', this.shapeType], {}),
       shapeFactory,
       container,

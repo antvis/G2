@@ -93,7 +93,7 @@ export interface MappingDatum {
   /** value in the y direction */
   y?: number[] | number;
   color?: string;
-  shape?: string;
+  shape?: string | string[];
   size?: number;
 }
 
@@ -104,15 +104,15 @@ export interface ShapeInfo {
   /** y 坐标 */
   y: number | number[];
   /** 映射的 shape 类型 */
-  shape?: string | undefined | null;
+  shape?: string | string[];
   /** size 映射值 */
-  size?: number | undefined | null;
+  size?: number;
   /** 映射的颜色值 */
-  color?: string | null | undefined;
+  color?: string;
   /** 用户设置的图形样式 */
-  style?: LooseObject | null;
+  style?: LooseObject;
   /** 是否在极坐标下 */
-  isInCircle?: boolean | undefined;
+  isInCircle?: boolean;
   /** 对应的原始数据记录 */
   data?: Datum | Data;
   /** 存储进行图形映射后的数据 */
@@ -122,7 +122,7 @@ export interface ShapeInfo {
   /** 下一个数据集对应的关键点 */
   nextPoints?: ShapeVertices;
   /** Geometry.Text 需要 */
-  text?: string | null;
+  text?: string;
   /** 数据是否发生层叠 */
   isStack?: boolean;
   /** 是否连接空值，对 Path Line Area 这三种 Geometry 生效 */

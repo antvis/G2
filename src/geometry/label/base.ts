@@ -142,7 +142,11 @@ export default class GeometryLabels {
     }
 
     // get nearest point of the shape as the label line start point
-    if (mappingData && mappingData.nextPoints && ['funnel', 'pyramid'].includes(mappingData.shape)) {
+    if (
+      mappingData &&
+      mappingData.nextPoints &&
+      ['funnel', 'pyramid'].includes(isArray(mappingData.shape) ? mappingData.shape[0] : mappingData.shape)
+    ) {
       let maxX = -Infinity;
       mappingData.nextPoints.forEach((p) => {
         const p1 = coordinate.convert(p);
