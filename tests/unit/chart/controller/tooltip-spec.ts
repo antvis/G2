@@ -47,6 +47,10 @@ describe('Tooltip', () => {
     const tooltip = chart.getController('tooltip');
     // @ts-ignore
     expect(tooltip.tooltip.get('visible')).toBe(true);
+    // @ts-ignore
+    expect(tooltip.tooltip.get('x')).toBe(items[0].x);
+    // @ts-ignore
+    expect(tooltip.tooltip.get('y')).toBe(items[0].y);
 
     // @ts-ignore
     const markerGroup = tooltip.markerGroup;
@@ -183,6 +187,7 @@ describe('Tooltip', () => {
     chart.tooltip({
       showCrosshairs: true,
       shared: true,
+      follow: true,
     });
     chart.line().position('year*value');
     chart
@@ -207,6 +212,12 @@ describe('Tooltip', () => {
     expect(tooltipItems.length).toBe(1);
     expect(tooltipItems[0].title).toBe('1998');
     expect(tooltipItems[0].value).toBe('9');
+
+    chart.showTooltip(point);
+    // @ts-ignore
+    expect(chart.getController('tooltip').tooltip.get('x')).toBe(point.x);
+    // @ts-ignore
+    expect(chart.getController('tooltip').tooltip.get('y')).toBe(point.y);
   });
 
   it('view with multiple geometry overlap', () => {
