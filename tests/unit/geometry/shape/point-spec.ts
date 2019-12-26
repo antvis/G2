@@ -126,6 +126,31 @@ describe('Point shapes', () => {
     expect(shape.attr('stroke')).toBe('red');
   });
 
+  it('draw image point', () => {
+    const shape = PointShapeFactory.drawShape(
+      'image',
+      {
+        x: 100,
+        y: 100,
+        points: [{ x: 100, y: 100 }],
+        color: 'red',
+        size: 40,
+        shape: ['image', 'hh'],
+        defaultStyle: {
+          ...Theme.geometries.point.circle.default,
+        },
+      },
+      element.container
+    );
+
+    expect(shape.get('type')).toBe('image');
+    expect(shape.attr('x')).toBe(80);
+    expect(shape.attr('y')).toBe(60);
+    expect(shape.attr('width')).toBe(40);
+    expect(shape.attr('height')).toBe(40);
+    expect(shape.attr('img')).toBe('hh');
+  });
+
   afterAll(() => {
     canvas.destroy();
     removeDom(div);
