@@ -75,9 +75,19 @@ export enum VIEW_LIFE_CIRCLE {
  * 绘图区的事件列表
  */
 export enum PLOT_EVENTS {
+  // mouse 事件
   MOUSE_ENTER = 'plot:mouseenter',
+  MOUSE_DOWN = 'plot:mousedown',
   MOUSE_MOVE = 'plot:mousemove',
+  MOUSE_UP = 'plot:mouseup',
   MOUSE_LEAVE = 'plot:mouseleave',
+  // 移动端事件
+  TOUCH_START = 'plot:touchstart',
+  TOUCH_MOVE = 'plot:touchmove',
+  TOUCH_END = 'plot:touchend',
+  TOUCH_CANCEL = 'plot:touchcancel',
+  // click 事件
+  CLICK = 'plot:click',
 }
 
 /** 参与分组的图形属性名 */
