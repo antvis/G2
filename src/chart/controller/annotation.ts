@@ -28,15 +28,15 @@ export interface BaseOption {
   readonly style?: object;
   /** 是否进行动画 */
   readonly animate?: boolean;
+  /** x 方向的偏移量 */
+  readonly offsetX?: number;
+  /** y 方向的偏移量 */
+  readonly offsetY?: number;
 }
 
 export interface ImageOption extends BaseOption {
   /** 图片路径 */
   readonly src: string;
-  /** x 方向的偏移量 */
-  readonly offsetX?: number;
-  /** y 方向偏移量 */
-  readonly offsetY?: number;
 }
 
 export interface LineOption extends BaseOption {
@@ -70,12 +70,12 @@ export interface TextOption {
   readonly content: string | number;
   /** 文本的图形样式属性 */
   readonly style?: object;
+  /** 是否进行动画 */
+  readonly animate?: boolean;
   /** x 方向的偏移量 */
   readonly offsetX?: number;
   /** y 方向偏移量 */
   readonly offsetY?: number;
-  /** 是否进行动画 */
-  readonly animate?: boolean;
 }
 
 /**
@@ -427,7 +427,7 @@ export default class Annotation extends Controller<BaseOption[]> {
     }
 
     if (type === 'arc') {
-      const { start, end, style } = option as BaseOption;
+      const { start, end } = option as BaseOption;
       const sp = this.parsePosition(start);
       const ep = this.parsePosition(end);
       const coordinate = this.view.getCoordinate();
@@ -438,52 +438,38 @@ export default class Annotation extends Controller<BaseOption[]> {
       }
 
       o = {
+        ...option,
         center: coordinate.getCenter(),
         radius: getDistanceToCenter(coordinate, sp),
         startAngle,
         endAngle,
-        style,
-        top: option.top,
       };
     } else if (type === 'image') {
-      const { start, end, src, offsetX, offsetY, style } = option as ImageOption;
+      const { start, end } = option as ImageOption;
       o = {
+        ...option,
         start: this.parsePosition(start),
         end: this.parsePosition(end),
-        src,
-        offsetX,
-        offsetY,
-        style,
-        top: option.top,
       };
     } else if (type === 'line') {
-      const { start, end, text, style } = option as LineOption;
+      const { start, end } = option as LineOption;
       o = {
+        ...option,
         start: this.parsePosition(start),
         end: this.parsePosition(end),
-        // 继续处理一下
-        text: this.getAnnotationCfg('text', text, get(theme, ['text'], {})),
-        style,
-        top: option.top,
       };
     } else if (type === 'region') {
-      const { start, end, style } = option as RegionOption;
+      const { start, end } = option as RegionOption;
       o = {
+        ...option,
         start: this.parsePosition(start),
         end: this.parsePosition(end),
-        style,
-        top: option.top,
       };
     } else if (type === 'text') {
-      const { position, autoRotate, content, offsetX, offsetY, style } = option;
+      const { position } = option;
       o = {
+        ...option,
         ...this.parsePosition(position),
-        content,
-        autoRotate,
-        offsetX,
-        offsetY,
-        style,
-        top: option.top,
       };
     }
     // 合并主题，用户配置优先级高于主题
