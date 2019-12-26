@@ -433,8 +433,8 @@ export class View extends Base {
    * chart.tooltip(false); // turn off tooltip
    *
    * chart.tooltip({
-   *   showTitle: false,
-   * }); // do not show title
+   *   shared: true
+   * });
    * ```
    *
    * @param cfg

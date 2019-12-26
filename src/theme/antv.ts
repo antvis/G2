@@ -567,8 +567,7 @@ export default {
       },
     },
     tooltip: {
-      triggerOn: 'mousemove',
-      enterable: false,
+      follow: false,
       showCrosshairs: false,
       showTooltipMarkers: true,
       shared: false,

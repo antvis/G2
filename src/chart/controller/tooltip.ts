@@ -105,10 +105,20 @@ export default class Tooltip extends Controller<TooltipOption> {
 
     const cfg = this.getTooltipCfg();
     const title = this.getTitle(items);
-    const location = {
-      x: items[0].x,
-      y: items[0].y,
-    }; // 定位到数据点
+
+    const follow = cfg.follow;
+    let location;
+    if (follow) {
+      // 跟随鼠标
+      location = point;
+    } else {
+      // 定位到数据点
+      location = {
+        x: items[0].x,
+        y: items[0].y,
+      };
+    }
+
     // @ts-ignore
     tooltip.update({
       ...cfg,

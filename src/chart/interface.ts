@@ -315,16 +315,13 @@ export interface LegendCfg {
 export interface TooltipCfg {
   /** 是否展示 tooltip 标题 */
   showTitle?: boolean;
+  /** 设置 tooltip 是否跟随鼠标移动，默认为 false, 定位到数据点 */
+  follow?: boolean;
   /**
    * 设置 tooltip 的标题
    * 如果值为数据字段名，则会展示数据中对应该字段的数值，如果数据中不存在该字段，则直接展示 title 值。
    */
   title?: string;
-  /**
-   * tooltip 触发方式
-   * 'none' 表示不在 'mousemove' 或 'click' 时触发，用户可以通过 chart.showTooltip() 和 chart.hideTooltip() 来手动触发和隐藏
-   */
-  triggerOn?: 'mousemove' | 'click' | 'none';
   /** 设置 tooltip 的固定展示位置，相对于数据点 */
   position?: 'top' | 'bottom' | 'left' | 'right';
   /** true 表示展示一组数据，false 表示展示单条数据 */
@@ -354,8 +351,6 @@ export interface TooltipCfg {
   xCrosshairTpl?: string;
   /** 根据 y 定位的 crosshair 的模板 */
   yCrosshairTpl?: string;
-  /** 是否允许鼠标进入 tooltip 内容框 */
-  enterable?: boolean;
   /** 传入各个 dom 的样式 */
   domStyles?: TooltipDomStyles;
   /** tooltip 偏移量 */
