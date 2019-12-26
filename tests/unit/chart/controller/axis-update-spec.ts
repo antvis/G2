@@ -142,7 +142,7 @@ describe('axis polar update', () => {
     .color('type')
     .adjust('stack');
 
-  chart.coordinate('theta');
+  chart.coordinate('polar');
 
   chart.render();
 

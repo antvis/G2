@@ -454,7 +454,7 @@ export default class Axis extends Controller<Option> {
 
           // grid
           // @ts-ignore
-          const grid = this.createCircleGrid(scale, yAxisOption, 'radius', dim);
+          const grid = this.createCircleGrid(scale, yAxisOption, layer, 'radius', dim);
           if (grid) {
             this.cache.set(gridId, grid);
           }
