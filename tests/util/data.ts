@@ -14,6 +14,17 @@ export const CITY_SALE = [
   { city: '广州', sale: 90, category: '鼠标' },
 ];
 
+export const CITY_SALE_PROFIT = [
+  { city: '杭州', sale: 100, profit: 30 },
+  { city: '广州', sale: 30, profit: 10 },
+  { city: '上海', sale: 110, profit: 60 },
+  { city: '呼和浩特', sale: 40, profit: 10 },
+  { city: '背景', sale: 200, profit: 120 },
+  { city: '郑州', sale: 10, profit: 1 },
+  { city: '东莞', sale: 40, profit: 5 },
+  { city: '深圳', sale: 90, profit: 70 },
+];
+
 // 宝石数据
 export const DIAMOND = [
   {
