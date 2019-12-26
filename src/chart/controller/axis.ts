@@ -230,7 +230,7 @@ export default class Axis extends Controller<Option> {
           updatedCache.set(gridId, grid);
         }
       }
-    } else if (coordinate.isPolar && coordinate.isTransposed) {
+    } else if (coordinate.isPolar && !coordinate.isTransposed) {
       // 1. do axis update
       let axis = this.cache.get(axisId);
       // 存在则更新
