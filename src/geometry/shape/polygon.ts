@@ -51,7 +51,7 @@ const PolygonShapeFactory = registerShapeFactory('polygon', {
 registerShape('polygon', 'polygon', {
   draw(cfg: ShapeInfo, container: IGroup) {
     if (!isEmpty(cfg.points)) {
-      const shapeAttrs = getStyle(cfg, false);
+      const shapeAttrs = getStyle(cfg, true, true);
       const path = this.parsePath(getPath(cfg.points));
       return container.addShape('path', {
         attrs: {
@@ -77,7 +77,7 @@ registerShape('polygon', 'polygon', {
 registerShape('polygon', 'hollow', {
   draw(cfg: ShapeInfo, container: IGroup) {
     if (!isEmpty(cfg.points)) {
-      const shapeAttrs = getStyle(cfg, true);
+      const shapeAttrs = getStyle(cfg, true, false);
       const path = this.parsePath(getPath(cfg.points));
       return container.addShape('path', {
         attrs: {

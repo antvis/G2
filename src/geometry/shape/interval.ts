@@ -175,7 +175,7 @@ const IntervalShapeFactory = registerShapeFactory('interval', {
 // 矩形柱图
 registerShape('interval', 'rect', {
   draw(cfg: ShapeInfo, container: IGroup) {
-    const style = getStyle(cfg, false);
+    const style = getStyle(cfg, false, true);
     const path = this.parsePath(getRectPath(cfg.points as Point[]));
     const shape = container.addShape('path', {
       attrs: {
@@ -212,7 +212,7 @@ registerShape('interval', 'rect', {
 // 描边柱状图
 registerShape('interval', 'hollowRect', {
   draw(cfg: ShapeInfo, container: IGroup) {
-    const style = getStyle(cfg, true);
+    const style = getStyle(cfg, true, false);
     const path = this.parsePath(getRectPath(cfg.points as Point[]));
     const shape = container.addShape('path', {
       attrs: {
@@ -252,7 +252,7 @@ registerShape('interval', 'line', {
     return getLinePoints(shapePoint);
   },
   draw(cfg: ShapeInfo, container: IGroup) {
-    const style = getStyle(cfg, true, 'lineWidth');
+    const style = getStyle(cfg, true, false, 'lineWidth');
     const path = this.parsePath(getRectPath(cfg.points as Point[]));
     const shape = container.addShape('path', {
       attrs: {
@@ -287,7 +287,7 @@ registerShape('interval', 'tick', {
     return getTickPoints(shapePoint);
   },
   draw(cfg: ShapeInfo, container: IGroup) {
-    const style = getStyle(cfg, true);
+    const style = getStyle(cfg, true, false);
     const path = this.parsePath(getTickPath(cfg.points as Point[]));
     const shape = container.addShape('path', {
       attrs: {
@@ -327,7 +327,7 @@ registerShape('interval', 'funnel', {
     return getRectPoints(shapePoint);
   },
   draw(cfg: ShapeInfo, container: IGroup) {
-    const style = getStyle(cfg, false);
+    const style = getStyle(cfg, false, true);
     const path = this.parsePath(getFunnelPath(cfg.points as Point[], cfg.nextPoints as Point[], true));
     const shape = container.addShape('path', {
       attrs: {
@@ -357,7 +357,7 @@ registerShape('interval', 'pyramid', {
     return getRectPoints(shapePoint, true);
   },
   draw(cfg: ShapeInfo, container: IGroup) {
-    const style = getStyle(cfg, false);
+    const style = getStyle(cfg, false, true);
     const path = this.parsePath(getFunnelPath(cfg.points as Point[], cfg.nextPoints as Point[], false));
     const shape = container.addShape('path', {
       attrs: {

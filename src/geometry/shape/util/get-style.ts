@@ -2,12 +2,14 @@ import { get, isNil } from '@antv/util';
 import { ShapeInfo } from '../../../interface';
 
 /**
- * 根据条件返回图形的 style 样式
+ * 获取 Shape 的图形属性
  * @param cfg
- * @param isStroke 是否是描边 shape
- * @param sizeName shape 的size 对应的图形属性
+ * @param isStroke 是否需要描边
+ * @param isFill 是否需要填充
+ * @param [sizeName] 可选，表示图形大小的属性，lineWidth 或者 r
+ * @returns
  */
-export function getStyle(cfg: ShapeInfo, isStroke: boolean, sizeName: string = '') {
+export function getStyle(cfg: ShapeInfo, isStroke: boolean, isFill: boolean, sizeName: string = '') {
   const { style, defaultStyle, color, size } = cfg;
   const attrs = {
     ...defaultStyle,
@@ -19,9 +21,13 @@ export function getStyle(cfg: ShapeInfo, isStroke: boolean, sizeName: string = '
         // 如果用户在 style() 中配置了 stroke，则以用户配置的为准
         attrs.stroke = color;
       }
-    } else if (!get(style, 'fill')) {
-      // 如果用户在 style() 中配置了 fill
-      attrs.fill = color;
+    }
+
+    if (isFill) {
+      if (!get(style, 'fill')) {
+        // 如果用户在 style() 中配置了 fill
+        attrs.fill = color;
+      }
     }
   }
   if (sizeName && isNil(get(style, sizeName)) && !isNil(size)) {

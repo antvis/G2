@@ -66,7 +66,7 @@ const PointSymbols = {
 
 function getAttributes(cfg, shapeName: string) {
   const isStroke = HOLLOW_SHAPES.includes(shapeName) || startsWith(shapeName, 'hollow');
-  const style = getStyle(cfg, isStroke, 'r');
+  const style = getStyle(cfg, isStroke, !isStroke, 'r');
   return {
     ...style,
     x: cfg.x,
