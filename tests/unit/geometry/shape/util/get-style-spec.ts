@@ -12,7 +12,8 @@ describe('getStyle()', () => {
             fill: 'red',
           },
         },
-        true
+        true,
+        false
       )
     ).toEqual({
       stroke: '#000',
@@ -29,10 +30,12 @@ describe('getStyle()', () => {
             stroke: 'red',
           },
         },
+        true,
         true
       )
     ).toEqual({
       stroke: 'red',
+      fill: '#000',
     });
 
     expect(
@@ -48,6 +51,7 @@ describe('getStyle()', () => {
           },
         },
         true,
+        false,
         'lineWidth'
       )
     ).toEqual({
@@ -67,6 +71,7 @@ describe('getStyle()', () => {
           },
         },
         true,
+        false,
         'lineWidth'
       )
     ).toEqual({
@@ -86,6 +91,7 @@ describe('getStyle()', () => {
           },
         },
         false,
+        true,
         'lineWidth'
       )
     ).toEqual({
@@ -102,6 +108,7 @@ describe('getStyle()', () => {
           size: 0,
         },
         false,
+        true,
         'r'
       )
     ).toEqual({

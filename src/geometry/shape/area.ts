@@ -53,7 +53,7 @@ function getShapeAttrs(
   constraint?: Position[]
 ) {
   const isStroke = ['line', 'smoothLine'].includes(shapeName);
-  const attrs = getStyle(cfg, isStroke, 'lineWidth');
+  const attrs = getStyle(cfg, isStroke, !isStroke, 'lineWidth');
   const { connectNulls, isInCircle, points } = cfg;
   const pathPoints = getPathPoints(points, connectNulls); // 根据 connectNulls 配置获取图形关键点
 

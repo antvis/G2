@@ -143,7 +143,7 @@ registerShape('schema', 'candle', {
     return getCandlePoints(x as number, y as number[], size);
   },
   draw(cfg: ShapeInfo, container: IGroup) {
-    const style = getStyle(cfg, false);
+    const style = getStyle(cfg, true, true);
     const path = this.parsePath(getCandlePath(cfg.points));
     const shape = container.addShape('path', {
       attrs: {
@@ -190,7 +190,7 @@ registerShape('schema', 'box', {
     return getBoxPoints(x as number, y as number[], size);
   },
   draw(cfg: ShapeInfo, container: IGroup) {
-    const style = getStyle(cfg, true);
+    const style = getStyle(cfg, true, false);
     const path = this.parsePath(getBoxPath(cfg.points));
     const shape = container.addShape('path', {
       attrs: {

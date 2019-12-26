@@ -82,7 +82,7 @@ function getShapeAttrs(cfg: ShapeInfo, smooth?: boolean, constraint?: Position[]
   });
 
   return {
-    ...getStyle(cfg, true, 'lineWidth'),
+    ...getStyle(cfg, true, false, 'lineWidth'),
     path,
   };
 }
@@ -208,7 +208,7 @@ function getInterpolateShapeAttrs(cfg: ShapeInfo, shapeType: string) {
   });
 
   return {
-    ...getStyle(cfg, true, 'lineWidth'),
+    ...getStyle(cfg, true, false, 'lineWidth'),
     path,
   };
 }
