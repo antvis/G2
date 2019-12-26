@@ -101,6 +101,9 @@ describe('Shape', () => {
 
       // shape 不存在，则返回默认的 shape
       expect(circleFactory.getShape('empty')).toEqual(circleFactory.getShape('test'));
+
+      // shapes 数组
+      expect(circleFactory.getShape(['circle', 'haha'])).toEqual(circleFactory[circleFactory.defaultShapeType]);
     });
 
     it('getShapePoints()', () => {
