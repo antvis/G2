@@ -815,6 +815,14 @@ export class View extends Base {
   }
 
   /**
+   * 对外暴露方法，判断一个点是否在 plot 内部
+   * @param point
+   */
+  public isPointInPlot(point: Point): boolean {
+    return isPointInCoordinate(this.getCoordinate(), point);
+  }
+
+  /**
    * 获得所有的 legend 对应的 attribute 实例
    * @returns 维度字段的 Attribute 数组
    */
@@ -1112,41 +1120,50 @@ export class View extends Base {
       });
     }
 
-    // 根据事件的 x y 判断是否在 CoordinateBBox 中，然后处理 plot 事件
-    if (['mousemove', 'mouseleave'].includes(type)) {
-      this.doPlotEvent(e);
-    }
+    // 处理 plot 事件
+    this.doPlotEvent(e);
   };
 
   /**
-   * 处理 PlotEvent（plot:mouseenter, plot:mouseout, plot:mouseleave）
+   * 处理 PLOT_EVENTS
+   * plot event 需要处理所有的基础事件，并判断是否在画布中，然后再决定是否要 emit。
+   * 对于 mouseenter、mouseleave 比较特殊，需要做一下数学比较。
    * @param e
    */
   private doPlotEvent(e: Event) {
     const { type, x, y } = e;
 
     const point = { x, y };
-    const currentInPlot = isPointInCoordinate(this.coordinateInstance, point);
 
-    // 使用 mousemove 事件计算出 plot:mousemove，plot:mouseenter、plot:mouseleave 事件
-    if (type === 'mousemove') {
-      if (this.isPreMouseInPlot && currentInPlot) {
-        e.type = PLOT_EVENTS.MOUSE_MOVE;
-        this.emit(PLOT_EVENTS.MOUSE_MOVE, e);
-      } else if (this.isPreMouseInPlot && !currentInPlot) {
-        e.type = PLOT_EVENTS.MOUSE_LEAVE;
-        this.emit(PLOT_EVENTS.MOUSE_LEAVE, e);
-      } else if (!this.isPreMouseInPlot && currentInPlot) {
-        e.type = PLOT_EVENTS.MOUSE_ENTER;
-        this.emit(PLOT_EVENTS.MOUSE_ENTER, e);
+    const ALL_EVENTS = [
+      'mousedown', 'mouseup', 'mousemove', 'mouseenter', 'mouseleave',
+      'touchstart', 'touchmove', 'touchend', 'touchcancel',
+      'click',
+    ];
+
+    if (ALL_EVENTS.includes(type)) {
+
+      const currentInPlot = this.isPointInPlot(point);
+
+      if (currentInPlot) {
+        const TYPE = `plot:${type}`; // 组合 plot 事件
+        e.type = TYPE;
+        this.emit(TYPE, e);
       }
-    } else if (type === 'mouseleave' && this.isPreMouseInPlot && !currentInPlot) {
-      e.type = PLOT_EVENTS.MOUSE_LEAVE;
-      this.emit(PLOT_EVENTS.MOUSE_LEAVE, e);
-    }
 
-    // 赋新的状态值
-    this.isPreMouseInPlot = currentInPlot;
+      // 对于 mouseenter, mouseleave 的计算处理
+      if (type === 'mousemove') {
+        if (this.isPreMouseInPlot && !currentInPlot) {
+          e.type = PLOT_EVENTS.MOUSE_LEAVE;
+          this.emit(PLOT_EVENTS.MOUSE_LEAVE, e);
+        } else if (!this.isPreMouseInPlot && currentInPlot) {
+          e.type = PLOT_EVENTS.MOUSE_ENTER;
+          this.emit(PLOT_EVENTS.MOUSE_ENTER, e);
+        }
+        // 赋新的状态值
+        this.isPreMouseInPlot = currentInPlot;
+      }
+    }
   }
 
   /**
