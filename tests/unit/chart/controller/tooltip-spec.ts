@@ -20,7 +20,6 @@ describe('Tooltip', () => {
   chart.axis(false);
   chart.legend(false);
   chart.tooltip({
-    triggerOn: 'none',
     shared: true,
     showCrosshairs: true,
     showTooltipMarkers: true,
