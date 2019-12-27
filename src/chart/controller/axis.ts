@@ -706,7 +706,8 @@ export default class Axis extends Controller<Option> {
       center: this.view.getCoordinate().getCenter(),
     };
 
-    const gridThemeCfg = getGridThemeCfg(this.view.getTheme(), direction);
+    // @ts-ignore
+    const gridThemeCfg = getGridThemeCfg(this.view.getTheme(), 'circle');
 
     // the cfg order should be ensure
     // grid 动画以 axis 为准
