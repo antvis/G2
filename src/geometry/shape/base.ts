@@ -42,12 +42,8 @@ const ShapeFactoryBase = {
    * @param shapeType string shape 的类型
    * @returns
    */
-  getShape(shapeType: string | string[]): Shape {
-    let shapeName = shapeType;
-    if (isArray(shapeName)) {
-      shapeName = shapeName[0];
-    }
-    const shape = this[shapeName] || this[this.defaultShapeType];
+  getShape(shapeType: string): Shape {
+    const shape = this[shapeType] || this[this.defaultShapeType];
     shape.coordinate = this.coordinate;
 
     return shape;

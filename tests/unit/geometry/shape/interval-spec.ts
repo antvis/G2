@@ -88,7 +88,6 @@ describe('Interval shapes', () => {
   describe('rect', () => {
     IntervalShapeFactory.coordinate = rectCoord;
     const element = new Element({
-      shapeType: 'rect',
       shapeFactory: IntervalShapeFactory,
       container: canvas.addGroup(),
       theme: Theme.geometries.interval,
@@ -147,7 +146,6 @@ describe('Interval shapes', () => {
     IntervalShapeFactory.coordinate = rectCoord;
 
     const element = new Element({
-      shapeType: 'hollowRect',
       shapeFactory: IntervalShapeFactory,
       container: canvas.addGroup(),
       theme: Theme.geometries.interval,
@@ -167,6 +165,7 @@ describe('Interval shapes', () => {
           y: 100,
           points,
           color: 'yellow',
+          shape: 'hollowRect',
           defaultStyle: {
             ...Theme.geometries.interval.hollowRect.default,
           },
@@ -206,7 +205,6 @@ describe('Interval shapes', () => {
     IntervalShapeFactory.coordinate = rectCoord;
 
     const element = new Element({
-      shapeType: 'line',
       shapeFactory: IntervalShapeFactory,
       container: canvas.addGroup(),
       theme: Theme.geometries.interval,
@@ -286,7 +284,6 @@ describe('Interval shapes', () => {
     IntervalShapeFactory.coordinate = rectCoord;
 
     const element = new Element({
-      shapeType: 'tick',
       shapeFactory: IntervalShapeFactory,
       container: canvas.addGroup(),
       theme: Theme.geometries.interval,
@@ -377,7 +374,6 @@ describe('Interval shapes', () => {
     IntervalShapeFactory.coordinate = rectCoord;
 
     const element = new Element({
-      shapeType: 'funnel',
       shapeFactory: IntervalShapeFactory,
       container: canvas.addGroup(),
       theme: Theme.geometries.interval,
@@ -479,7 +475,6 @@ describe('Interval shapes', () => {
     IntervalShapeFactory.coordinate = rectCoord;
 
     const element = new Element({
-      shapeType: 'pyramid',
       shapeFactory: IntervalShapeFactory,
       container: canvas.addGroup(),
       theme: Theme.geometries.interval,

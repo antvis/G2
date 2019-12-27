@@ -5,7 +5,6 @@ import Geometry, { GeometryCfg } from './base';
 import Element from './element';
 /** 引入对应的 ShapeFactory */
 import './shape/line';
-import { getShapeType } from './util/get-shape-type';
 import { isModelChange } from './util/is-model-change';
 
 export interface PathCfg extends GeometryCfg {
@@ -37,7 +36,6 @@ export default class Path extends Geometry {
       const shapeFactory = this.getShapeFactory();
 
       result = new Element({
-        shapeType: getShapeType(shapeCfg, shapeFactory.defaultShapeType),
         theme: get(theme, ['geometries', this.shapeType], {}),
         shapeFactory,
         container,

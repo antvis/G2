@@ -21,7 +21,6 @@ describe('Schema shapes', () => {
   SchemaShapeFactory.theme = Theme.geometries.schema;
 
   const element = new Element({
-    shapeType: 'polygon',
     shapeFactory: SchemaShapeFactory,
     container: canvas.addGroup(),
     theme: Theme.geometries.schema,
@@ -117,8 +116,6 @@ describe('Schema shapes', () => {
   });
 
   describe('candle', () => {
-    // @ts-ignore
-    element.shapeType = 'candle';
     it('getShapePoints && drawShape & updateShape', () => {
       const type = 'candle';
       const points = SchemaShapeFactory.getShapePoints(type, {

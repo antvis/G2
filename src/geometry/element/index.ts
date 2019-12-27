@@ -1,4 +1,4 @@
-import { each, get, isEmpty } from '@antv/util';
+import { each, get, isArray, isEmpty } from '@antv/util';
 import { doAnimate, getDefaultAnimateCfg } from '../../animate';
 import Base from '../../base';
 import { BBox, IGroup, IShape } from '../../dependents';
@@ -7,8 +7,6 @@ import { getReplaceAttrs } from '../../util/graphics';
 import Geometry from '../base';
 
 interface ElementCfg {
-  /** 绘制的 shape 类型 */
-  shapeType: string;
   /** 用于创建各种 shape 的工厂对象 */
   shapeFactory: ShapeFactory;
   /** 主题 */
@@ -21,13 +19,12 @@ interface ElementCfg {
   offscreenGroup?: IGroup;
   visible?: boolean;
 }
+
 /**
  * Element 图形元素
  * 定义：在 G2 中，我们会将数据通过图形语法映射成不同的图形，比如点图，数据集中的每条数据会对应一个点，柱状图每条数据对应一个柱子，线图则是一组数据对应一条折线，Element 即一条/一组数据对应的图形元素，它代表一条数据或者一个数据集，在图形层面，它可以是单个 Shape 也可以是多个 Shape，我们称之为图形元素。
  */
 export default class Element extends Base {
-  /** 绘制的 shape 类型 */
-  public readonly shapeType: string;
   /** 用于创建各种 shape 的工厂对象 */
   public shapeFactory: ShapeFactory;
   /** 主题 */
@@ -45,6 +42,9 @@ export default class Element extends Base {
   /** 保存 shape 对应的 label */
   public labelShape: IGroup[];
 
+  /** 绘制的 shape 类型 */
+  private shapeType: string;
+
   /** shape 绘制需要的数据 */
   private model: ShapeInfo;
   /** 原始数据 */
@@ -57,8 +57,7 @@ export default class Element extends Base {
   constructor(cfg: ElementCfg) {
     super(cfg);
 
-    const { shapeType, shapeFactory, theme, container, animate, offscreenGroup, visible = true } = cfg;
-    this.shapeType = shapeType;
+    const { shapeFactory, theme, container, animate, offscreenGroup, visible = true } = cfg;
     this.shapeFactory = shapeFactory;
     this.theme = theme;
     this.container = container;
@@ -75,6 +74,7 @@ export default class Element extends Base {
   public draw(model: ShapeInfo, isUpdate: boolean = false) {
     this.model = model;
     this.data = model.data; // 存储原始数据
+    this.shapeType = this.getShapeType(model);
 
     // 绘制图形
     this.drawShape(model, isUpdate);
@@ -90,7 +90,7 @@ export default class Element extends Base {
    * @param model 更新的绘制数据
    */
   public update(model: ShapeInfo) {
-    const { shapeType, shapeFactory, shape } = this;
+    const { shapeFactory, shape } = this;
     if (!shape) {
       return;
     }
@@ -98,6 +98,7 @@ export default class Element extends Base {
     // 更新数据
     this.model = model;
     this.data = model.data;
+    this.shapeType = this.getShapeType(model);
 
     // step 1: 更新 shape 携带的信息
     const drawCfg = this.getShapeDrawCfg(model);
@@ -105,7 +106,7 @@ export default class Element extends Base {
 
     // step 2: 使用虚拟 Group 重新绘制 shape，然后更新当前 shape
     const offscreenGroup = this.getOffscreenGroup();
-    const newShape = shapeFactory.drawShape(shapeType, drawCfg, offscreenGroup);
+    const newShape = shapeFactory.drawShape(this.shapeType, drawCfg, offscreenGroup);
 
     // step 3: 同步 shape 样式
     this.syncShapeStyle(shape, newShape, '', this.getAnimateCfg('update'));
@@ -188,7 +189,7 @@ export default class Element extends Base {
    * @param stateStatus 是否开启状态
    */
   public setState(stateName: string, stateStatus: boolean) {
-    const { states, shapeFactory, shapeType, model, shape } = this;
+    const { states, shapeFactory, model, shape, shapeType } = this;
 
     const index = states.indexOf(stateName);
     if (stateStatus) {
@@ -344,8 +345,9 @@ export default class Element extends Base {
 
   // 绘制图形
   private drawShape(model: ShapeInfo, isUpdate: boolean = false) {
-    const { shapeType, shapeFactory, container } = this;
+    const { shapeFactory, container, shapeType } = this;
     const drawCfg = this.getShapeDrawCfg(model);
+
     // 自定义 shape 有可能返回空 shape
     this.shape = shapeFactory.drawShape(shapeType, drawCfg, container);
 
@@ -434,5 +436,10 @@ export default class Element extends Base {
         sourceShape.attr(newAttrs);
       }
     }
+  }
+
+  private getShapeType(model: ShapeInfo) {
+    const shape = get(model, 'shape');
+    return isArray(shape) ? shape[0] : shape;
   }
 }

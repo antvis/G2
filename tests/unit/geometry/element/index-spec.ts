@@ -41,7 +41,6 @@ describe('Element', () => {
     it('Instantiation', () => {
       const shapeFactory = Shape.getShapeFactory('shapes');
       element = new Element({
-        shapeType: 'circle',
         shapeFactory,
         theme: {
           circle: {
@@ -77,12 +76,15 @@ describe('Element', () => {
         x: 1,
         y: 1,
         data: { a: 1, b: 10 },
+        shape: ['circle', 'dadada'],
       });
 
       expect(element.shape.get('name')).toBe('shapes');
       expect(container.get('children').length).toBe(1);
       expect(container.get('children')[0]).toEqual(element.shape);
       expect(element.shape.get('visible')).toBe(false);
+      // @ts-ignore
+      expect(element.shapeType).toBe('circle');
     });
 
     it('getModel', () => {
@@ -91,6 +93,7 @@ describe('Element', () => {
         x: 1,
         y: 1,
         data: { a: 1, b: 10 },
+        shape: ['circle', 'dadada'],
       });
     });
 
@@ -251,7 +254,6 @@ describe('Element', () => {
 
     it('model.animate is false', () => {
       element = new Element({
-        shapeType: 'rect',
         shapeFactory,
         theme: Theme,
         container,
