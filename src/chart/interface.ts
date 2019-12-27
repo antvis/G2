@@ -273,6 +273,8 @@ export interface LegendCfg {
   flipPage?: boolean;
   /** 分类图例适用，用户自己配置图例项的内容 */
   items?: LegendItem[];
+  /** 分类图例适用，是否将图例项逆序展示 */
+  reversed?: boolean;
 
   /**
    * 连续图例适用，选择范围的最小值

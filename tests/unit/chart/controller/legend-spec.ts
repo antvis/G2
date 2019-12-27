@@ -22,6 +22,7 @@ describe('Legend', () => {
 
     chart.legend('name', {
       position: 'right',
+      reversed: true,
     });
 
     chart
@@ -36,6 +37,8 @@ describe('Legend', () => {
     // @ts-ignore
     expect(legends[0].component.getBBox().maxX).toBeLessThanOrEqual(chart.width);
     expect(legends[0].component.get('animate')).toBe(false);
+    expect(legends[0].component.get('items')[0].name).toBe('Berlin');
+    expect(legends[0].component.get('items')[1].name).toBe('London');
   });
 
   it('continuous color', () => {

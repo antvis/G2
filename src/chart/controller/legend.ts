@@ -357,7 +357,13 @@ export default class Legend extends Controller<Option> {
       ...this.getCategoryLegendSizeCfg(layout),
     };
 
-    return this.mergeLegendCfg(baseCfg, legendOption, direction);
+    const categoryCfg = this.mergeLegendCfg(baseCfg, legendOption, direction);
+    if (categoryCfg.reversed) {
+      // 图例项需要逆序
+      categoryCfg.items = categoryCfg.items.reverse();
+    }
+
+    return categoryCfg;
   }
 
   /**
