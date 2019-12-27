@@ -46,8 +46,8 @@ chart.axis('time', {
   },
   tickLine: {
     length: 0,
+    alignTick: true,
   },
-  alignTick: true,
 });
 
 chart.axis('value', false);
@@ -72,8 +72,8 @@ chart
         shadowBlur: 2,
         shadowColor: 'rgba(0, 0, 0, .45)',
       },
-      content: (data) => {
-        return data.value + '%';
+      content: (originData) => {
+        return originData.value + '%';
       },
     };
   });

@@ -17,7 +17,14 @@ const chart = new Chart({
   autoFit: true,
   height: 500,
 });
+
 chart.data(data);
+
+chart
+  .coordinate()
+  .transpose()
+  .scale(1, -1);
+
 chart.axis('value', {
   position: 'right',
 });
@@ -26,10 +33,12 @@ chart.axis('label', {
     offset: 12,
   },
 });
-chart
-  .coordinate()
-  .transpose()
-  .scale(1, -1);
+
+chart.tooltip({
+  shared: true,
+  showTooltipMarkers: false,
+});
+
 chart
   .interval()
   .position('label*value')

@@ -12,10 +12,6 @@ const data = [
   { company: 'Apple', type: '技术岗', value: 23 },
   { company: 'Facebook', type: '技术岗', value: 18 },
   { company: 'Google', type: '技术岗', value: 20 },
-
-  { company: 'Apple', type: '技术岗', value: 35 },
-  { company: 'Facebook', type: '技术岗', value: 30 },
-  { company: 'Google', type: '技术岗', value: 25 },
 ];
 
 const chart = new Chart({
@@ -33,6 +29,11 @@ chart.scale('value', {
 
 chart.legend({
   position: 'top',
+});
+
+chart.tooltip({
+  showTooltipMarkers: false,
+  shared: true,
 });
 
 chart

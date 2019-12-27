@@ -2,9 +2,8 @@ import { Chart, registerShape } from '@antv/g2';
 
 function creatData() {
   const data = [];
-  let val = Math.random() * 6;
-  val = val.toFixed(1);
-  data.push({ value: val * 1 });
+  const val = (Math.random() * 6).toFixed(1);
+  data.push({ value: +val });
   return data;
 }
 
@@ -114,7 +113,7 @@ function draw(data) {
     },
   });
 
-  val >= 2 &&
+  if (val >= 2) {
     chart.annotation().arc({
       start: [0, 1],
       end: [val, 1],
@@ -124,10 +123,10 @@ function draw(data) {
         lineDash: null,
       },
     });
+  }
 
-  val >= 4 &&
+  if (val >= 4) {
     chart.annotation().arc({
-      zIndex: 1,
       start: [2, 1],
       end: [4, 1],
       style: {
@@ -136,11 +135,10 @@ function draw(data) {
         lineDash: null,
       },
     });
+  }
 
-  val > 4 &&
-    val <= 6 &&
+  if (val > 4 && val <= 6) {
     chart.annotation().arc({
-      zIndex: 1,
       start: [4, 1],
       end: [val, 1],
       style: {
@@ -149,11 +147,10 @@ function draw(data) {
         lineDash: null,
       },
     });
+  }
 
-  val > 2 &&
-    val <= 4 &&
+  if (val > 2 && val <= 4) {
     chart.annotation().arc({
-      zIndex: 1,
       start: [2, 1],
       end: [val, 1],
       style: {
@@ -162,10 +159,10 @@ function draw(data) {
         lineDash: null,
       },
     });
+  }
 
-  val < 2 &&
+  if (val < 2) {
     chart.annotation().arc({
-      zIndex: 1,
       start: [0, 1],
       end: [val, 1],
       style: {
@@ -174,6 +171,7 @@ function draw(data) {
         lineDash: null,
       },
     });
+  }
 
   // 绘制指标数字
   chart.annotation().text({

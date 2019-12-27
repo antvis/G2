@@ -17,6 +17,7 @@ const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 500,
+  padding: 30,
 });
 
 chart.data(data);
@@ -42,7 +43,7 @@ chart
 chart
   .point()
   .position('name*vote')
-  .size(32)
+  .size(60)
   .shape('name', (name) => {
     return ['image', imageMap[name]];
   });

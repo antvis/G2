@@ -27,7 +27,8 @@ chart.data(data);
 chart.scale({
   time: {
     type: 'timeCat',
-    mask: 'YYYY.MM.DD',
+    // FIXME
+    // mask: 'YYYY.MM.DD',
   },
   value: {
     min: 0,
@@ -47,6 +48,11 @@ chart
   .interval()
   .position('time*value')
   .color('value', '#ffffff-#1890FF')
-  .size(0.45);
+  .size(0.45)
+  .animate({
+    appear: {
+      animation: 'fadeIn'
+    }
+  });
 
 chart.render();

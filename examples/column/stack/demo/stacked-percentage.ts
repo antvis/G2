@@ -1,3 +1,4 @@
+import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
 const data = [
@@ -46,6 +47,12 @@ chart.scale({
     },
   },
 });
+
+chart.tooltip({
+  shared: true,
+  showTooltipMarkers: false,
+});
+
 
 chart
   .interval()

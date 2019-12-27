@@ -77,7 +77,12 @@ chart
   .point()
   .position('value*1')
   .shape('pointer')
-  .color('#1890FF');
+  .color('#1890FF')
+  .animate({
+    appear: {
+      animation: 'fadeIn'
+    }
+  });
 
 // 绘制仪表盘背景
 chart.annotation().arc({
@@ -94,7 +99,6 @@ chart.annotation().arc({
 
 // 绘制指标
 chart.annotation().arc({
-  zIndex: 1,
   start: [0, 1],
   end: [data[0].value, 1],
   style: {

@@ -1,3 +1,4 @@
+import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
 const { DataView } = DataSet;
@@ -68,10 +69,15 @@ chart
   .tooltip('action*pv*percent', (action, pv, percent) => {
     return {
       name: action,
-      percent: parseInt(percent * 100) + '%',
+      percent: +percent * 100 + '%',
       pv,
     };
-  });
+  })
+  .animate({
+    appear: {
+      animation: 'fadeIn'
+    }
+  });;
 
 // 中间标签文本
 data.forEach((obj) => {
@@ -81,7 +87,7 @@ data.forEach((obj) => {
       action: obj.action,
       percent: 'median',
     },
-    content: parseInt(obj.percent * 100) + '%', // 显示的文本内容
+    content: +obj.percent * 100 + '%', // 显示的文本内容
     style: {
       fill: '#fff',
       fontSize: '12',

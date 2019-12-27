@@ -29,7 +29,7 @@ chart.legend(false);
 chart.tooltip({
   showTitle: false,
   showTooltipMarkers: false,
-  itemTpl: '<li><span style="background-color:{color};" class="g2-tooltip-marker"></span>{name}: {value}</li>',
+  itemTpl: '<li class="g2-tooltip-list-item"><span style="background-color:{color};" class="g2-tooltip-marker"></span>{name}: {value}</li>',
 });
 
 const expectView = chart.createView();
@@ -54,7 +54,12 @@ expectView
         stroke: 'rgba(0, 0, 0, 0.15)',
       },
     },
-  });
+  })
+  .animate({
+    appear: {
+      animation: 'fadeIn'
+    }
+  });;
 
 const actualView = chart.createView();
 actualView.data(actualData);
@@ -73,6 +78,11 @@ actualView
   .style({
     lineWidth: 1,
     stroke: '#fff',
-  });
+  })
+  .animate({
+    appear: {
+      animation: 'fadeIn'
+    }
+  });;
 
 chart.render();

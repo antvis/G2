@@ -12,24 +12,27 @@ const data = [
 const chart = new Chart({
   container: 'container',
   autoFit: true,
-  height: 300,
+  height: 500,
+});
+
+chart.coordinate('theta', {
+  radius: 0.75,
 });
 
 chart.data(data);
+
 chart.scale('percent', {
   formatter: (val) => {
     val = val * 100 + '%';
     return val;
   },
 });
-chart.coordinate('theta', {
-  radius: 0.75,
-});
+
 chart.tooltip({
   showTitle: false,
   showTooltipMarkers: false,
 });
-chart.axis(false); // 关闭坐标轴
+
 chart
   .interval()
   .position('1*percent')

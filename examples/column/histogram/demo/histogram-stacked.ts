@@ -1,3 +1,4 @@
+import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
 fetch('../data/diamond.json')
@@ -21,8 +22,9 @@ fetch('../data/diamond.json')
     chart.data(dv.rows);
 
     chart.tooltip({
-      showCrosshairs: false,
       position: 'top',
+      shared: true,
+      showTooltipMarkers: false,
     });
 
     chart

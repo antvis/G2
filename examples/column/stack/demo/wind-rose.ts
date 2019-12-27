@@ -152,6 +152,11 @@ chart.axis('value', {
   }, // 设置坐标系栅格样式
 });
 
+chart.tooltip({
+  shared: true,
+  showTooltipMarkers: false,
+});
+
 chart
   .interval()
   .position('direction*value')

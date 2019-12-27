@@ -42,19 +42,21 @@ registerShape('interval', 'sliceShape', {
 
 const chart = new Chart({
   container: 'container',
-  autoFit: false,
-  width: 500,
+  autoFit: true,
   height: 500,
 });
 
-chart.data(data);
 chart.coordinate('theta', {
   radius: 0.8,
 });
-chart.axis(false);
+
+chart.data(data);
+
 chart.tooltip({
+  showTitle: false,
   showTooltipMarkers: false,
 });
+
 chart
   .interval()
   .adjust('stack')

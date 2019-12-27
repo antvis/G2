@@ -43,9 +43,8 @@ chart.scale('year', {
 });
 
 chart.tooltip({
-  crosshairs: {
-    type: 'line',
-  },
+  showCrosshairs: true,
+  shared: true,
 });
 
 chart

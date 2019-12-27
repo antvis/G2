@@ -1,5 +1,5 @@
-import { Chart } from '@antv/g2';
 import DataSet from '@antv/data-set';
+import { Chart } from '@antv/g2';
 
 const values = [
   1.2,
@@ -57,13 +57,12 @@ const values = [
   21,
   23.4,
 ];
-const data = [];
-for (let i = 0; i < values.length; i++) {
-  const obj = {};
-  obj.value = values[i];
-  data.push(obj);
-}
 
+const data = values.map((value) => {
+  return {
+    value,
+  };
+});
 const ds = new DataSet();
 const dv = ds.createView().source(data);
 dv.transform({
@@ -92,14 +91,14 @@ chart.scale({
 });
 
 chart.tooltip({
-  showCrosshairs: false,
+  showTooltipMarkers: false,
   position: 'top',
 });
 
 chart.axis('value', {
   label: {
     formatter: (val) => {
-      if (val % 2) {
+      if (+val % 2) {
         return val;
       }
       return '';

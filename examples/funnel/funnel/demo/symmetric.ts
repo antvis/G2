@@ -28,55 +28,60 @@ chart.tooltip({
   showTooltipMarkers: false,
   showTitle: false,
   itemTpl:
-    '<li data-index={index} style="margin-bottom:4px;">' +
+    '<li class="g2-tooltip-list-item" data-index={index} style="margin-bottom:4px;">' +
     '<span style="background-color:{color};" class="g2-tooltip-marker"></span>' +
     '{name}<br/>' +
     '<span style="padding-left: 16px">{value}</span>' +
     '</li>',
 });
-chart.legend({
-  reversed: true,
-});
-chart.facet('mirror', {
-  fields: ['site'],
-  transpose: true,
-  padding: 0,
-  eachView(view, facet) {
-    view
-      .interval()
-      .position('action*visitor')
-      .color('action', ['#BAE7FF', '#69C0FF', '#40A9FF', '#1890FF', '#0050B3'])
-      .shape('funnel')
-      .tooltip('site*action*visitor', (site, action, visitor) => {
-        return {
-          name: site,
-          value: action + ': ' + visitor,
-        };
-      })
-      .style({
-        lineWidth: 1,
-        stroke: '#fff',
-      });
 
-    data.map((obj) => {
-      if (obj.site === facet.colValue) {
-        view.annotation().text({
-          top: true,
-          position: [obj.action, 'min'],
-          content: obj.visitor,
-          style: {
-            fill: '#fff',
-            fontSize: '12',
-            textAlign: facet.colIndex ? 'start' : 'end',
-            shadowBlur: 2,
-            shadowColor: 'rgba(0, 0, 0, .45)',
-          },
-          offsetX: facet.colIndex ? 10 : -10,
-        });
-      }
+// TOD0
+// chart.facet('mirror', {
+//   fields: ['site'],
+//   transpose: true,
+//   padding: 0,
+//   eachView(view, facet) {
+//     view
+//       .interval()
+//       .position('action*visitor')
+//       .color('action', ['#BAE7FF', '#69C0FF', '#40A9FF', '#1890FF', '#0050B3'])
+//       .shape('funnel')
+//       .tooltip('site*action*visitor', (site, action, visitor) => {
+//         return {
+//           name: site,
+//           value: action + ': ' + visitor,
+//         };
+//       })
+//       .style({
+//         lineWidth: 1,
+//         stroke: '#fff',
+//       })
+//       .animate({
+//         appear: {
+//           animation: 'fadeIn'
+//         }
+//       });
 
-      return null;
-    });
-  },
-});
+//     data.map((obj) => {
+//       if (obj.site === facet.colValue) {
+//         view.annotation().text({
+//           top: true,
+//           position: [obj.action, 'min'],
+//           content: obj.visitor,
+//           style: {
+//             fill: '#fff',
+//             fontSize: '12',
+//             textAlign: facet.colIndex ? 'start' : 'end',
+//             shadowBlur: 2,
+//             shadowColor: 'rgba(0, 0, 0, .45)',
+//           },
+//           offsetX: facet.colIndex ? 10 : -10,
+//         });
+//       }
+
+//       return null;
+//     });
+//   },
+// });
+
 chart.render();

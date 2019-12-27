@@ -1,3 +1,4 @@
+import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
 function getStaticsData(data) {
@@ -65,13 +66,16 @@ fetch('../data/diamond.json')
       'triweight',
       'uniform',
     ].forEach((method, i) => {
-      i && chart.axis(method, false);
+      if (i) {
+        chart.axis(method, false);
+      }
       chart.tooltip({
         showCrosshairs: true,
       });
       chart
         .line()
         .position(`x*${method}`)
+        // @ts-ignore
         .color(chart.getTheme().colors[i]);
     });
 

@@ -85,14 +85,6 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*zo8yQp-k7hgAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "tooltip-canvastooltip.ts",
-      "title": {
-        "zh": "canvas tooltip",
-        "en": "canvas tooltip"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*fWQuSYyhyx8AAAAAAAAAAABkARQnAQ"
-    },
-    {
       "filename": "tooltip-customized.ts",
       "title": {
         "zh": "自定义 tooltip",

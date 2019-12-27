@@ -1,4 +1,5 @@
 import { Chart, registerShape } from '@antv/g2';
+import { isArray } from 'lodash';
 
 function getRectPath(points) {
   const path = [];
@@ -83,7 +84,7 @@ const data = [
 for (let i = 0; i < data.length; i++) {
   const item = data[i];
   if (i > 0 && i < data.length - 1) {
-    if (_.isArray(data[i - 1].money)) {
+    if (isArray(data[i - 1].money)) {
       item.money = [data[i - 1].money[1], item.money + data[i - 1].money[1]];
     } else {
       item.money = [data[i - 1].money, item.money + data[i - 1].money];
@@ -101,11 +102,13 @@ chart.data(data);
 // 自定义图例
 chart.legend({
   items: [
-    { name: '各项花销', value: '各项花销', marker: { symbol: 'square', fill: '#1890FF', radius: 5 } },
-    { name: '总费用', value: '总费用', marker: { symbol: 'square', fill: '#8c8c8c', radius: 5 } },
+    { name: '各项花销', value: '各项花销', marker: { symbol: 'square', style: { fill: '#1890FF', radius: 5 } } },
+    { name: '总费用', value: '总费用', marker: { symbol: 'square', style: { fill: '#8c8c8c', radius: 5 } } },
   ],
 });
-
+chart.tooltip({
+  showTooltipMarkers: false,
+});
 chart
   .interval()
   .position('type*money')
@@ -116,7 +119,7 @@ chart
     return '#1890FF';
   })
   .tooltip('type*money', (type, money) => {
-    if (_.isArray(money)) {
+    if (isArray(money)) {
       return {
         name: '生活费',
         value: money[1] - money[0],

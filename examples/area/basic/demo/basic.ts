@@ -26,25 +26,20 @@ chart.scale({
     range: [0, 1],
   },
 });
+chart.tooltip({
+  showCrosshairs: true,
+  shared: true,
+});
 
 chart.axis('value', {
   label: {
     formatter: (val) => {
-      return (val / 10000).toFixed(1) + 'k';
+      return (+val / 10000).toFixed(1) + 'k';
     },
   },
 });
 
-chart.tooltip({
-  crosshairs: {
-    type: 'line',
-  },
-});
-
 chart.area().position('year*value');
-chart
-  .line()
-  .position('year*value')
-  .size(2);
+chart.line().position('year*value');
 
 chart.render();

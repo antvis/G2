@@ -36,17 +36,20 @@ chart.axis('type', {
   },
   tickLine: {
     length: 0,
+    alignTick: true,
   },
   line: {
-    lineWidth: 0,
+    style: {
+      lineWidth: 0,
+    },
   },
-  alignTick: true,
 });
+
 chart.axis('value', {
   label: null,
   title: {
     offset: 30,
-    textStyle: {
+    style: {
       fontSize: 12,
       fontWeight: 300,
     },

@@ -17,7 +17,7 @@ const data = [
 
 const values = ['运行成功', '运行失败'];
 
-data.forEach(function(obj) {
+data.forEach((obj: any) => {
   obj.range = [obj.startTime, obj.endTime];
   obj.status = values[obj.status];
 });
@@ -35,9 +35,19 @@ chart
   .transpose()
   .scale(1, -1);
 
+chart.tooltip({
+  follow: true,
+  showTooltipMarkers: false,
+});
+
 chart
   .interval()
   .position('task*range')
-  .color('status', ['#2FC25B', '#F04864']);
+  .color('status', ['#2FC25B', '#F04864'])
+  .animate({
+    appear: {
+      animation: 'scaleInX',
+    },
+  });
 
 chart.render();

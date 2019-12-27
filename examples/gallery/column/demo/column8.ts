@@ -1,5 +1,6 @@
 import { Chart } from '@antv/g2';
 
+// @ts-ignore
 insertCss(`
   .g2-label-spec {
     font-size: 12px;
@@ -40,8 +41,8 @@ chart.axis('year', {
   },
   tickLine: {
     length: 0,
+    alignTick: true,
   },
-  alignTick: true,
 });
 
 chart.axis('value', {
@@ -62,8 +63,8 @@ chart
   })
   .label('year*value', (year, value) => {
     return {
-      content: (data) => {
-        if (data.year === '2014') {
+      content: (originData) => {
+        if (originData.year === '2014') {
           return null;
         }
         return value;

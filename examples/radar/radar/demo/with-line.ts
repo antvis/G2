@@ -1,3 +1,4 @@
+import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
 const { DataView } = DataSet;
@@ -26,7 +27,6 @@ const chart = new Chart({
   height: 500,
   padding: [20, 20, 95, 20],
 });
-chart.animate(false);
 chart.data(dv.rows);
 chart.scale('score', {
   min: 0,
@@ -51,6 +51,7 @@ chart.axis('score', {
   tickLine: null,
   grid: {
     line: {
+      type: 'circle',
       style: {
         lineDash: null,
       },

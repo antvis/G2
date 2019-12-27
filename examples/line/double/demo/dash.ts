@@ -14,7 +14,7 @@ function toInteger(number, fix = 1) {
 
 function humanizeDuration(duration, fix = 1) {
   if (duration === 0) {
-    return 0;
+    return '0';
   }
   if (duration < minute) {
     return toInteger(duration / second, fix) + ' 秒';
@@ -51,8 +51,8 @@ const dash = [
   { count: 2, date: 1490284800000, time: 0 },
 ];
 
-function pick(data, field) {
-  return data.map(function(item) {
+function pick(originData, field) {
+  return originData.map(function(item) {
     const result = {};
     for (const key in item) {
       if (item.hasOwnProperty(key) && field.indexOf(key) !== -1) {
@@ -71,12 +71,6 @@ const chart = new Chart({
 chart.data(pick(data, ['pv', 'time', 'date']));
 
 chart.scale({
-  time: {
-    sync: true,
-  },
-});
-
-const scale = {
   date: {
     alias: '日期',
     type: 'time',
@@ -84,19 +78,19 @@ const scale = {
   pv: {
     alias: '进入次数',
     min: 0,
+    sync: true,
   },
   time: {
     alias: '平均时长',
     formatter: (value) => {
       return humanizeDuration(value, 0);
     },
+    sync: true,
   },
   count: {
     alias: '次数',
   },
-};
-
-chart.scale(scale);
+});
 chart.axis('time', {
   grid: null,
 });

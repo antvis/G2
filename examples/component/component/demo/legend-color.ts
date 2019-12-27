@@ -51,15 +51,15 @@ const data = [
   [9, 3, 48],
   [9, 4, 91],
 ];
-const source = [];
-for (let i = 0; i < data.length; i++) {
-  const item = data[i];
-  const obj = {};
-  obj.name = item[0];
-  obj.day = item[1];
-  obj.sales = item[2];
-  source.push(obj);
-}
+
+const source = data.map((arr) => {
+  return {
+    name: arr[0],
+    day: arr[1],
+    sales: arr[2],
+  };
+});
+
 const chart = new Chart({
   container: 'container',
   autoFit: true,

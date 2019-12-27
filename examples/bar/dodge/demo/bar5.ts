@@ -1,3 +1,4 @@
+// TODO: mirror 分面
 import { Chart } from '@antv/g2';
 
 const data = [
@@ -27,7 +28,6 @@ const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 500,
-  padding: 'auto',
 });
 chart.data(data);
 chart.scale('value', {

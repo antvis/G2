@@ -28,8 +28,8 @@ chart.axis('type', {
   },
   tickLine: {
     length: 0,
+    alignTick: true,
   },
-  alignTick: true,
 });
 chart.axis('value', false);
 chart.tooltip({
@@ -66,7 +66,7 @@ data.forEach((item) => {
     })
     .text({
       position: [item.type, item.value],
-      content: parseInt(item.percent * 100) + '%',
+      content: (item.percent * 100).toFixed(0) + '%',
       style: {
         fill: '#8c8c8c',
         textAlign: 'center',

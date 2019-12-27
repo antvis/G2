@@ -5,15 +5,15 @@ import { Chart } from '@antv/g2';
 // 构造数据
 const data1 = [];
 for (let i = 0; i < 50; i++) {
-  const item = {};
-  item.type = i + '';
-  item.value = 10;
-  data1.push(item);
+  data1.push({
+    type: i + '',
+    value: 10,
+  });
 }
 
 const data2 = [];
 for (let i = 0; i < 50; i++) {
-  const item = {};
+  const item: any = {};
   item.type = i + '';
   item.value = 10;
   if (i === 25) {
@@ -73,7 +73,7 @@ view2.axis('type', {
       fontSize: 18,
     },
     formatter: (val) => {
-      if (val % 7 !== 0) {
+      if (+val % 7 !== 0) {
         return '';
       }
 

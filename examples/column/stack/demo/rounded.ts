@@ -1,4 +1,4 @@
-import { registerShape, Chart } from '@antv/g2';
+import { Chart, registerShape } from '@antv/g2';
 
 // 自定义 shape, 支持图片形式的气泡
 registerShape('interval', 'borderRadius', {
@@ -89,6 +89,10 @@ chart.axis('expected', {
   },
 });
 chart.legend(false);
+chart.tooltip({
+  shared: true,
+  showTooltipMarkers: false,
+});
 
 chart
   .interval()

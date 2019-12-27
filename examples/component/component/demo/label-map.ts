@@ -1,3 +1,4 @@
+import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
 fetch('../data/world.geo.json')
@@ -29,7 +30,7 @@ fetch('../data/world.geo.json')
         style: {
           fill: 'black',
           stroke: '#fff',
-          // lineWidth: 2
+          lineWidth: 2
         },
       })
       .style({

@@ -5,12 +5,12 @@
   },
   "demos": [
     {
-      "filename": "scatter.ts",
+      "filename": "scatter-series.ts",
       "title": {
         "zh": "散点图",
-        "en": "scatter chart"
+        "en": "scatter chart with different colors"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*_i8FTa6k0_4AAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*CP_PT497E9MAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "scatter-shapes.ts",
@@ -19,14 +19,6 @@
         "en": "scatter chart with different shapes"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*H965QalW9GoAAAAAAAAAAABkARQnAQ"
-    },
-    {
-      "filename": "scatter-series.ts",
-      "title": {
-        "zh": "多色散点图",
-        "en": "scatter chart with different colors"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*CP_PT497E9MAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "bubble.ts",

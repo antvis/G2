@@ -1,4 +1,5 @@
 import { Chart } from '@antv/g2';
+
 const data = [
   { city: '石家庄', type: '水果', value: 14500 },
   { city: '石家庄', type: '米面', value: 8500 },
@@ -38,9 +39,12 @@ const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 500,
-  padding: [0, 90, 20, 52],
 });
+
+chart.coordinate().transpose();
+
 chart.data(data);
+
 chart.scale({
   value: {
     max: 20000,
@@ -49,6 +53,7 @@ chart.scale({
     alias: '销售额（万）',
   },
 });
+
 chart.axis('city', {
   label: {
     style: {
@@ -56,9 +61,9 @@ chart.axis('city', {
       fontSize: 12,
     },
   },
-  alignTick: false, // 默认刻度线和文本对齐
   tickLine: {
     length: 0,
+    alignTick: false, // 默认刻度线和文本对齐
   },
   title: null,
 });
@@ -77,10 +82,16 @@ chart.axis('value', {
     },
   },
 });
+
 chart.legend({
   position: 'right-bottom',
 });
-chart.coordinate().transpose();
+
+chart.tooltip({
+  shared: true,
+  showTooltipMarkers: false,
+});
+
 chart
   .interval()
   .position('city*value')
