@@ -1136,7 +1136,7 @@ export class View extends Base {
     const point = { x, y };
 
     const ALL_EVENTS = [
-      'mousedown', 'mouseup', 'mousemove', 'mouseenter', 'mouseleave',
+      'mousedown', 'mouseup', 'mousemove',
       'touchstart', 'touchmove', 'touchend', 'touchcancel',
       'click', 'dblclick',
       'contextmenu',
