@@ -145,7 +145,7 @@ const GRID_STYLE = {
   line: {
     type: 'line',
     style: {
-      stroke: '#E9E9E9',
+      stroke: '#BFBFBF',
       lineWidth: 1,
       lineDash: [3, 3],
     },
