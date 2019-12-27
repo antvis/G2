@@ -385,7 +385,8 @@ export interface AxisGridCfg {
    */
   alternateColor?: string | string[];
   /**
-   * 对于 circle 是否关闭 grid（可以考虑去掉这个配置项）
+   * 对于 circle 是否关闭 grid
+   * TODO 可以考虑去掉这个配置项，等 component 改造完成之后修复
    */
   closed?: boolean;
 }
