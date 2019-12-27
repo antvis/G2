@@ -4,6 +4,7 @@ export * from './core';
 import * as CanvasEngine from '@antv/g-canvas';
 import * as SVGEngine from '@antv/g-svg';
 import { registerEngine } from './core';
+export { registerInteraction, registerAction } from './interaction';
 registerEngine('canvas', CanvasEngine);
 registerEngine('svg', SVGEngine);
 
