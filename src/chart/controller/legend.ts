@@ -360,7 +360,7 @@ export default class Legend extends Controller<Option> {
     const categoryCfg = this.mergeLegendCfg(baseCfg, legendOption, direction);
     if (categoryCfg.reversed) {
       // 图例项需要逆序
-      categoryCfg.items = categoryCfg.items.reverse();
+      categoryCfg.items.reverse();
     }
 
     return categoryCfg;
