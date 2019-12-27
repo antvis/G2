@@ -454,7 +454,7 @@ export default class Annotation extends Controller<BaseOption[]> {
       o = {
         start: this.parsePosition(start),
         end: this.parsePosition(end),
-        text: option.text,
+        text: get(option, 'text', null),
       };
     } else if (type === 'region') {
       const { start, end } = option as RegionOption;
