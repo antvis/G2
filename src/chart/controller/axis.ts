@@ -594,13 +594,14 @@ export default class Axis extends Controller<Option> {
     const coordinate = this.view.getCoordinate();
 
     const region = getAxisRegion(coordinate, direction);
+    const titleText = getName(scale);
 
     const baseAxisCfg = {
       container,
       ...region,
       ticks: map(scale.getTicks(), (tick) => ({ name: tick.text, value: tick.value })),
       title: {
-        text: getName(scale),
+        text: titleText,
       },
       verticalFactor: coordinate.isPolar
         ? getAxisFactorByRegion(region, coordinate.getCenter()) * -1
@@ -609,7 +610,11 @@ export default class Axis extends Controller<Option> {
 
     const axisThemeCfg = getAxisThemeCfg(this.view.getTheme(), direction);
     // the cfg order should be ensure
-    const cfg = deepMix({}, baseAxisCfg, axisThemeCfg, axisOption);
+    const optionWithTitle = get(axisOption, ['title'])
+      ? deepMix({}, { title: { style: { text: titleText } } }, axisOption)
+      : axisOption;
+
+    const cfg = deepMix({}, baseAxisCfg, axisThemeCfg, optionWithTitle);
     return mix(cfg, this.getAnimateCfg(cfg));
   }
 
@@ -656,6 +661,8 @@ export default class Axis extends Controller<Option> {
       ticks.pop();
     }
 
+    const titleText = getName(scale);
+
     const baseAxisCfg = {
       container,
       ...getCircleAxisCenterRadius(this.view.getCoordinate()),
@@ -667,8 +674,13 @@ export default class Axis extends Controller<Option> {
     };
 
     const axisThemeCfg = getAxisThemeCfg(this.view.getTheme(), 'circle');
+
     // the cfg order should be ensure
-    const cfg = deepMix({}, baseAxisCfg, axisThemeCfg, axisOption);
+    const optionWithTitle = get(axisOption, ['title'])
+      ? deepMix({}, { title: { style: { text: titleText } } }, axisOption)
+      : axisOption;
+
+    const cfg = deepMix({}, baseAxisCfg, axisThemeCfg, optionWithTitle);
 
     return mix(cfg, this.getAnimateCfg(cfg));
   }
