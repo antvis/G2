@@ -1138,7 +1138,8 @@ export class View extends Base {
     const ALL_EVENTS = [
       'mousedown', 'mouseup', 'mousemove', 'mouseenter', 'mouseleave',
       'touchstart', 'touchmove', 'touchend', 'touchcancel',
-      'click',
+      'click', 'dblclick',
+      'contextmenu',
     ];
 
     if (ALL_EVENTS.includes(type)) {

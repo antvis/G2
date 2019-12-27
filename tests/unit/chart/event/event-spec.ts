@@ -59,6 +59,8 @@ describe('Event', () => {
     const touchcancel = jest.fn();
 
     const click = jest.fn();
+    const dblclick = jest.fn();
+    const contextmenu = jest.fn();
 
     chart.on('plot:mouseenter', mouseenter);
     chart.on('plot:mouseleave', mouseleave);
@@ -72,6 +74,8 @@ describe('Event', () => {
     chart.on('plot:touchcancel', touchcancel);
 
     chart.on('plot:click', click);
+    chart.on('plot:dblclick', click);
+    chart.on('plot:contextmenu', click);
 
     const el = chart.canvas.get('el');
 
@@ -86,6 +90,8 @@ describe('Event', () => {
     simulateMouseEvent(el, 'mousedown', getClientPoint(chart.canvas, X, Y)); // mousedown
     simulateMouseEvent(el, 'mouseup', getClientPoint(chart.canvas, X, Y)); // mouseup
     simulateMouseEvent(el, 'click', getClientPoint(chart.canvas, X, Y)); // click
+    simulateMouseEvent(el, 'dblclick', getClientPoint(chart.canvas, X, Y)); // dblclick
+    simulateMouseEvent(el, 'contextmenu', getClientPoint(chart.canvas, X, Y)); // contextmenu
 
     simulateMouseEvent(el, 'touchstart', getClientPoint(chart.canvas, X, Y)); // touchstart
     simulateMouseEvent(el, 'touchmove', getClientPoint(chart.canvas, X, Y)); // touchmove

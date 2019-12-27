@@ -88,6 +88,8 @@ export enum PLOT_EVENTS {
   TOUCH_CANCEL = 'plot:touchcancel',
   // click 事件
   CLICK = 'plot:click',
+  DBLCLICK = 'plot:dblclick',
+  CONTEXTMENU = 'plot:contextmenu'
 }
 
 /** 参与分组的图形属性名 */
