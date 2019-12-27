@@ -1,6 +1,7 @@
 import { getCoordinate } from '@antv/coord';
 import { isNumberEqual } from '@antv/util';
 import { doAnimate, doGroupAppearAnimate, getDefaultAnimateCfg } from '../../../src/animate/index';
+import { delay } from '../../util/delay';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
 
 const CartesianCoordinate = getCoordinate('rect');
@@ -90,7 +91,7 @@ describe('Animate', () => {
     });
   });
 
-  it('doAnimate', (done) => {
+  it('doAnimate', async () => {
     const rect = canvas.addShape({
       type: 'rect',
       attrs: {
@@ -116,12 +117,11 @@ describe('Animate', () => {
       toAttrs: null,
     });
 
-    setTimeout(() => {
-      expect(isNumberEqual(rect.attr('strokeOpacity'), 1)).toBeTruthy();
-      expect(isNumberEqual(rect.attr('fillOpacity'), 0.5)).toBeTruthy();
-      expect(isNumberEqual(rect.attr('opacity'), 1)).toBeTruthy();
-      done();
-    }, 400);
+    await delay(500);
+
+    expect(isNumberEqual(rect.attr('strokeOpacity'), 1)).toBeTruthy();
+    expect(isNumberEqual(rect.attr('fillOpacity'), 0.5)).toBeTruthy();
+    expect(isNumberEqual(rect.attr('opacity'), 1)).toBeTruthy();
   });
 
   it('doAnimate, update', (done) => {
