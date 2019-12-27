@@ -39,13 +39,13 @@ const chart = new Chart({
 
 chart.data(data);
 chart.coordinate('theta', {
-  innerRadius: 0.75,
+  radius: 0.75,
+  innerRadius: 0.6,
 });
 chart.tooltip({
   showTitle: false,
   showTooltipMarkers: false,
 });
-chart.axis(false);
 chart
   .interval()
   .adjust('stack')

@@ -26,6 +26,7 @@ chart.scale('percent', {
 
 chart.tooltip({
   title: 'question',
+  follow: true,
 });
 
 chart.legend(false);

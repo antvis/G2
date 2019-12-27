@@ -32,8 +32,8 @@ chart.axis('name', {
   },
   tickLine: {
     length: 0,
+    alignTick: true,
   },
-  alignTick: true,
 });
 chart.axis('value', {
   label: null,

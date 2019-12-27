@@ -49,11 +49,13 @@ chart.axis('city', {
   },
   tickLine: {
     length: 0,
+    alignTick: true,
   },
   line: {
-    lineWidth: 0,
+    style: {
+      lineWidth: 0,
+    },
   },
-  alignTick: true,
 });
 chart.axis('value', {
   label: null,
@@ -65,8 +67,10 @@ chart.axis('value', {
     },
   },
   grid: {
-    style: {
-      lineWidth: 0,
+    line: {
+      style: {
+        lineWidth: 0,
+      },
     },
   },
 });
@@ -80,10 +84,18 @@ chart
   .position('city*value')
   .color('type*city', (type, city) => {
     let color;
-    if (type === '首都人口') color = '#1890ff';
-    if (type === '城市人口') color = '#ced4d9';
-    if (type === '农村人口') color = '#f0f2f3';
-    if (type === '首都人口' && city === '中国（北京）') color = '#f5222d';
+    if (type === '首都人口') {
+      color = '#1890ff';
+    }
+    if (type === '城市人口') {
+      color = '#ced4d9';
+    }
+    if (type === '农村人口') {
+      color = '#f0f2f3';
+    }
+    if (type === '首都人口' && city === '中国（北京）') {
+      color = '#f5222d';
+    }
     return color;
   })
   .size(26)

@@ -19,7 +19,7 @@ chart.tooltip({
   showTitle: false,
   showTooltipMarkers: false,
 });
-chart.axis(false);
+chart.legend(false);
 chart
   .interval()
   .adjust('stack')

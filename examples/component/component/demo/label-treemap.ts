@@ -1,4 +1,5 @@
 // TODO: 绘制出错
+import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
 fetch('../data/mobile.json')

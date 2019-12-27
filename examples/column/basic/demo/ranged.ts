@@ -18,6 +18,13 @@ const chart = new Chart({
 });
 
 chart.data(data);
-chart.interval().position('x*y');
+chart.tooltip({
+  showTooltipMarkers: false,
+});
+chart.interval().position('x*y').animate({
+  appear: {
+    animation: 'zoomIn'
+  }
+});;
 
 chart.render();

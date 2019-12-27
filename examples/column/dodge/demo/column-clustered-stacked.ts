@@ -1,5 +1,5 @@
+import { DataView } from '@antv/data-set';
 import { Chart } from '@antv/g2';
-const { DataView } = DataSet;
 
 const data = [
   {
@@ -138,13 +138,18 @@ chart.scale({
 chart.axis('population', {
   label: {
     formatter: (val) => {
-      return val / 1000000 + 'M';
+      return +val / 1000000 + 'M';
     },
   },
 });
 
 chart.legend({
   position: 'right',
+});
+
+chart.tooltip({
+  showTooltipMarkers: false,
+  shared: true,
 });
 
 chart

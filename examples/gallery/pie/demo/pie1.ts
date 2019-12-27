@@ -1,3 +1,4 @@
+import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
 const data = [
@@ -33,15 +34,15 @@ chart.coordinate('theta', {
 chart
   .interval()
   .adjust('stack')
-  .position('value')
+  .position('percent')
   .color('type', ['#2593fc', '#38c060', '#27c1c1', '#705dc8', '#3b4771', '#f9cb34'])
-  .label('value', function(val) {
+  .label('percent', function(val) {
     const offset = val > 0.02 ? -30 : 30;
     return {
       offset,
-      content: (data) => {
-        const percent = String(parseInt(data.percent * 100)) + '%';
-        return `${data.type} ${percent}`;
+      content: (originData) => {
+        const percent = (originData.percent * 100).toFixed(2) + '%';
+        return `${originData.type} ${percent}`;
       },
     };
   });

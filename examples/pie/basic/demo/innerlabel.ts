@@ -12,21 +12,27 @@ const data = [
 const chart = new Chart({
   container: 'container',
   autoFit: true,
+  height: 500,
+});
+
+chart.coordinate('theta', {
+  radius: 0.75,
 });
 
 chart.data(data);
+
 chart.scale('percent', {
   formatter: (val) => {
     val = val * 100 + '%';
     return val;
   },
 });
-chart.coordinate('theta');
+
 chart.tooltip({
   showTitle: false,
   showTooltipMarkers: false,
 });
-chart.axis(false); // 关闭坐标轴
+
 chart
   .interval()
   .adjust('stack')
@@ -36,6 +42,7 @@ chart
     offset: -40,
     style: {
       textAlign: 'center',
+      fontSize: 16,
       shadowBlur: 2,
       shadowColor: 'rgba(0, 0, 0, .45)',
       fill: '#fff',

@@ -36,11 +36,13 @@ chart.axis('type', {
   },
   tickLine: {
     length: 0,
+    alignTick: true,
   },
   line: {
-    lineWidth: 0,
+    style: {
+      lineWidth: 0,
+    },
   },
-  alignTick: true,
 });
 chart.axis('value', {
   label: null,
@@ -52,8 +54,10 @@ chart.axis('value', {
     },
   },
   grid: {
-    style: {
-      lineWidth: 0,
+    line: {
+      style: {
+        lineWidth: 0,
+      },
     },
   },
 });
@@ -69,8 +73,8 @@ chart
       fill: '#8d8d8d',
     },
     offset: 10,
-    content: (data) => {
-      return (data.value + '').replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+    content: (originData) => {
+      return (originData.value + '').replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
     },
   });
 

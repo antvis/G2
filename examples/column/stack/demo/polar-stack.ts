@@ -1,3 +1,4 @@
+import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
 const data = [
@@ -38,6 +39,11 @@ chart.coordinate('polar', { innerRadius: 0.1 });
 
 chart.legend('难民类型', {
   position: 'bottom',
+});
+
+chart.tooltip({
+  shared: true,
+  showTooltipMarkers: false,
 });
 
 chart

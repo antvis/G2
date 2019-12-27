@@ -1,3 +1,4 @@
+import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
 fetch('../data/diamond.json')
@@ -27,6 +28,7 @@ fetch('../data/diamond.json')
 
     chart.tooltip({
       position: 'top',
+      showTooltipMarkers: false,
     });
 
     chart.interval().position('depth*count');

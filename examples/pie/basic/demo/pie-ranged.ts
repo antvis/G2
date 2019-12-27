@@ -17,11 +17,18 @@ const chart = new Chart({
   padding: [40, 0],
 });
 
-chart.data(data);
 chart.coordinate('theta', {
   startAngle: Math.PI, // 起始角度
   endAngle: Math.PI * (3 / 2), // 结束角度
 });
+
+chart.data(data);
+
+chart.tooltip({
+  showTitle: false,
+  showTooltipMarkers: false,
+});
+
 chart
   .interval()
   .adjust('stack')

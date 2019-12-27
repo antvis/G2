@@ -26,8 +26,8 @@ chart.axis('type', {
   },
   tickLine: {
     length: 0,
+    alignTick: true,
   },
-  alignTick: true,
 });
 
 chart.axis('value', {
@@ -36,7 +36,7 @@ chart.axis('value', {
       fill: '#aaaaaa',
     },
     formatter: (val) => {
-      return String(parseFloat(val * 100)) + '%';
+      return +val * 100 + '%';
     },
   },
 });
@@ -51,8 +51,8 @@ chart
     return '#2194ff';
   })
   .label('value', {
-    content: (data) => {
-      const val = parseFloat(data.value);
+    content: (originData) => {
+      const val = parseFloat(originData.value);
       if (val < 0.05) {
         return (val * 100).toFixed(1) + '%';
       }

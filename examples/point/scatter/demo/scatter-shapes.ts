@@ -10,11 +10,15 @@ fetch('../data/scatter.json')
     });
     chart.data(data);
 
+    chart.tooltip({
+      showCrosshairs: true,
+      crosshairs: 'xy',
+    });
+
     chart
       .point()
       .position('height*weight')
       .color('gender')
-      .size(4)
       .shape('gender', ['circle', 'square'])
       .tooltip('gender*height*weight');
 

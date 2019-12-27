@@ -1,3 +1,4 @@
+import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
 const data = [
@@ -27,7 +28,18 @@ const chart = new Chart({
 });
 chart.data(dv.rows);
 chart.coordinate().transpose();
+chart.tooltip({
+  follow: true,
+  showTooltipMarkers: false,
+});
 
-chart.interval().position('profession*range');
+chart
+  .interval()
+  .position('profession*range')
+  .animate({
+    appear: {
+      animation: 'fadeIn',
+    },
+  });
 
 chart.render();

@@ -1,6 +1,8 @@
 // FIXME：自定义 HTML Label && Tooltip 交互
 import { Chart } from '@antv/g2';
 
+const COLORS = ['#1890ff', '#f04864'];
+
 const data = [
   { sex: '男', sold: 0.45 },
   { sex: '女', sold: 0.55 },
@@ -9,20 +11,21 @@ const data = [
 const chart = new Chart({
   container: 'container',
   autoFit: true,
+  height: 500,
   padding: [20, 30, 30, 20],
 });
-
-const COLORS = ['#1890ff', '#f04864'];
 
 chart.coordinate('theta', {
   radius: 0.8,
 });
+
 chart.data(data);
+
 chart.tooltip({
   showTitle: false,
   showTooltipMarkers: false,
 });
-chart.axis(false);
+
 chart
   .interval()
   .adjust('stack')

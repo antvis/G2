@@ -26,6 +26,10 @@ const chart = new Chart({
 });
 
 chart.data(data);
+chart.tooltip({
+  showTooltipMarkers: false,
+  shared: true,
+});
 
 chart
   .interval()

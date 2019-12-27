@@ -1,5 +1,6 @@
+// TODO: 多 view 的 tooltip 交互
+import { DataView } from '@antv/data-set';
 import { Chart } from '@antv/g2';
-const { DataView } = DataSet;
 
 const data = [
   { value: 251, type: '大事例一', name: '子事例一' },
@@ -22,10 +23,8 @@ const chart = new Chart({
   autoFit: true,
   height: 500,
   padding: 50,
-  localRefresh: false, // TODO: 局部刷新 BUG
 });
 chart.data(dv.rows);
-chart.axis(false);
 chart.scale({
   percent: {
     formatter: (val) => {

@@ -74,19 +74,15 @@ const chart = new Chart({
   height: 500,
 });
 
-chart.scale('temperature', {
-  sync: true,
-});
-
-chart.scale('time', {
-  type: 'time',
-  mask: 'MM-DD',
-  tickInterval: 24 * 3600 * 1000 * 2,
-});
-
-chart.tooltip({
-  crosshairs: {
-    type: 'line',
+chart.scale({
+  temperature: {
+    sync: true,
+  },
+  time: {
+    type: 'time',
+    // FIXME
+    // mask: 'MM-DD',
+    tickInterval: 24 * 3600 * 1000 * 2,
   },
 });
 
@@ -99,9 +95,7 @@ v1.area()
 const v2 = chart.createView();
 v2.data(averages);
 v2.axis(false);
-v2.line()
-  .position('time*temperature')
-  .size(2);
+v2.line().position('time*temperature');
 v2.point()
   .position('time*temperature')
   .size(4)

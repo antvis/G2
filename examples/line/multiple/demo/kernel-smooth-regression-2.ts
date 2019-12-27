@@ -1,3 +1,4 @@
+import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
 fetch('../data/diamond.json')
@@ -51,6 +52,7 @@ fetch('../data/diamond.json')
       view
         .line()
         .position('carat*price')
+        // @ts-ignore
         .color(view.getTheme().colors[i]);
     });
 

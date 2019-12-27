@@ -1,14 +1,14 @@
-// FIXME: 饼图、柱状图的 label
+import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
 // 构造数据
 const text = ['MIDNIGHT', '3 AM', '6 AM', '9 AM', 'NOON', '3 PM', '6 PM', '9 PM'];
 const data = [];
 for (let i = 0; i < 24; i++) {
-  const item = {};
-  item.type = i + '';
-  item.value = 10;
-  data.push(item);
+  data.push({
+    type: i + '',
+    value: 10,
+  });
 }
 const { DataView } = DataSet;
 const dv = new DataView();
@@ -22,10 +22,10 @@ dv.source(data).transform({
 const chart = new Chart({
   container: 'container',
   autoFit: true,
+  height: 500,
   padding: 80,
 });
 chart.legend(false);
-chart.axis(false);
 chart.tooltip({
   showTitle: false,
   showTooltipMarkers: false,

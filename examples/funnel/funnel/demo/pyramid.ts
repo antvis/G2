@@ -45,5 +45,10 @@ chart
         },
       },
     }
-  );
+  )
+  .animate({
+    appear: {
+      animation: 'fadeIn'
+    }
+  });;
 chart.render();
