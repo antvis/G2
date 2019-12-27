@@ -21,3 +21,7 @@ export function rotate(element: IGroup | IShape, rotateRadian: number) {
   ]);
   element.setMatrix(matrix);
 }
+
+export function getIdentityMatrix(): number[] {
+  return [1, 0, 0, 0, 1, 0, 0, 0, 1];
+}

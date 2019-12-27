@@ -224,10 +224,6 @@ export interface IAction {
    */
   context: IInteractionContext;
   /**
-   * 初始化
-   */
-  init();
-  /**
    * 销毁函数
    */
   destroy();
@@ -255,6 +251,11 @@ export interface IInteractionContext extends LooseObject {
    * @returns 指定 name 的 Action
    */
   getAction(name): IAction;
+  /**
+   * 获取当前的点
+   * @returns 返回当前的点
+   */
+  getCurrentPoint(): Point;
   /**
    * 添加 action
    * @param action 指定交互 action
