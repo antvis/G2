@@ -55,13 +55,15 @@ describe('axis rect update', () => {
     expect(y.component.get('animate')).toBe(false);
     expect(grids[0].component.get('animate')).toBe(false);
 
+    // 未设置，直接跟随主题的配置
+    expect(y.component.get('title')).toBe(null);
+
     await delay(100);
 
     chart.axis('月份', {
       title: {
         style: {
           fill: 'red',
-          text: '月份',
         },
         offset: 0,
         autoRotate: true,
@@ -85,12 +87,29 @@ describe('axis rect update', () => {
     expect(axes[1]).toBe(y);
     // 修改配置生效
     expect(axes[0].component.get('title').style.fill).toBe('red');
+    expect(axes[0].component.get('title').style.text).toBe('月份');
     expect(axes[0].component.get('ticks').length).toBe(2);
 
     // 更新时动画开启
     expect(axes[0].component.get('animate')).toBe(true);
     expect(axes[1].component.get('animate')).toBe(false);
     expect(grids[0].component.get('animate')).toBe(false);
+
+    // 设置 title text
+    chart.axis('月份', {
+      title: {
+        style: {
+          fill: 'red',
+          text: 'Month',
+        },
+        offset: 0,
+        autoRotate: true,
+      },
+    });
+
+    chart.render(true);
+    // 使用设置的 title
+    expect(axes[0].component.get('title').style.text).toBe('Month');
   });
 
   it('axis delete', async () => {
@@ -164,6 +183,7 @@ describe('axis polar update', () => {
     const [y] = axes;
     expect(y.component.get('ticks').length).toBe(5);
     expect(y.component.get('animate')).toBe(false);
+    expect(y.component.get('title')).toBe(null);
     expect(grids[0].component.get('animate')).toBe(false);
     expect(grids[0].component.get('animateOption')).toEqual(y.component.get('animateOption'));
 
@@ -173,7 +193,6 @@ describe('axis polar update', () => {
       title: {
         style: {
           fill: 'red',
-          text: 'value',
         },
         offset: 0,
         autoRotate: true,
@@ -192,11 +211,27 @@ describe('axis polar update', () => {
     expect(axes[0]).toBe(y);
     // 修改配置生效
     expect(axes[0].component.get('title').style.fill).toBe('red');
-    expect(axes[0].component.get('title').style.text).toBe('value');
+    expect(axes[0].component.get('title').style.text).toBe('value'); // 自动使用字段名
 
     // y 轴动画被用户关闭
     expect(axes[0].component.get('animate')).toBe(false);
     expect(grids[0].component.get('animate')).toBe(false);
+
+    chart.axis('value', {
+      title: {
+        style: {
+          fill: 'red',
+          text: 'VALUE',
+        },
+        offset: 0,
+        autoRotate: true,
+      },
+      animate: false, // 关闭动画
+    });
+
+    chart.render(true);
+
+    expect(axes[0].component.get('title').style.text).toBe('VALUE'); // 使用设置的字段名
   });
 
   it('axis delete', async () => {
