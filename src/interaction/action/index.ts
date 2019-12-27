@@ -25,7 +25,9 @@ import RectMask from './mask/rect';
 import SmoothPathMask from './mask/smooth-path';
 
 import CursorAction from './cursor';
-import DataFilter from './data-filter';
+import DataFilter from './data/filter';
+import DataRangeFilter from './data/range-filter';
+
 import ElementFilter from './element/filter';
 
 import { createAction, registerAction } from './register';
@@ -57,6 +59,9 @@ registerAction('smooth-path-mask', SmoothPathMask);
 
 registerAction('cursor', CursorAction);
 registerAction('data-filter', DataFilter);
+registerAction('brush', DataRangeFilter);
+registerAction('brush-x', DataRangeFilter, { dims: ['x'] });
+registerAction('brush-y', DataRangeFilter, { dims: ['y'] });
 registerAction('element-filter', ElementFilter);
 
 export { Action, registerAction, createAction };

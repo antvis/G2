@@ -1,6 +1,7 @@
 import { transform } from '@antv/matrix-util';
 import Element from '../../../geometry/element/';
 import { getAngle } from '../../../util/graphics';
+import { getIdentityMatrix } from '../../../util/transform';
 import SingleSelected from './single-selected';
 /**
  * 饼图的选中 Action
@@ -39,7 +40,7 @@ class PieSelected extends SingleSelected {
       if (element.animate) {
         shape.animate(
           {
-            matrix: null,
+            matrix: getIdentityMatrix(),
           },
           this.animateCfg
         );

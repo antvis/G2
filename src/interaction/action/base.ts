@@ -15,7 +15,7 @@ abstract class Action<T = LooseObject> implements IAction {
     this.init();
   }
   // 提供给子类用于继承
-  public init() {}
+  protected init() {}
 
   public destroy() {
     // 移除 action

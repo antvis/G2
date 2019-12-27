@@ -51,6 +51,22 @@
         "en": "continue legend filter"
       },
       "screenshot": ""
+    },
+    {
+      "filename": "pie-selected.ts",
+      "title": {
+        "zh": "饼图选中",
+        "en": "pie selected"
+      },
+      "screenshot": ""
+    },
+    {
+      "filename": "element-brush.ts",
+      "title": {
+        "zh": "框选过滤",
+        "en": "brush"
+      },
+      "screenshot": ""
     }
   ]
 }

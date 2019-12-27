@@ -23,10 +23,10 @@ describe('test element interaction', () => {
   chart.animate(false);
   chart.tooltip(false);
   chart.interaction('element-active');
-  chart
-    .interval()
-    .position('year*value')
-    .color('year');
+  chart.interaction('element-brush');
+
+  chart.interval().position('year*value');
+  // .color('year');
   chart.render();
   const elements = chart.geometries[0].elements;
   const first = elements[0];
@@ -47,7 +47,7 @@ describe('test element interaction', () => {
     });
     expect(first.hasState('active')).toBe(false);
   });
-  afterAll(() => {
-    chart.destroy();
-  });
+  // afterAll(() => {
+  //   chart.destroy();
+  // });
 });
