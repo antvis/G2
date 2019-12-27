@@ -691,6 +691,7 @@ export default class Axis extends Controller<Option> {
     const baseGridCfg = {
       container,
       items: getCircleGridItems(this.view.getCoordinate(), this.view.getXScale(), scale, dim),
+      center: this.view.getCoordinate().getCenter(),
     };
 
     const gridThemeCfg = getGridThemeCfg(this.view.getTheme(), direction);
