@@ -74,8 +74,8 @@ describe('Event', () => {
     chart.on('plot:touchcancel', touchcancel);
 
     chart.on('plot:click', click);
-    chart.on('plot:dblclick', click);
-    chart.on('plot:contextmenu', click);
+    chart.on('plot:dblclick', dblclick);
+    chart.on('plot:contextmenu', contextmenu);
 
     const el = chart.canvas.get('el');
 
@@ -113,6 +113,8 @@ describe('Event', () => {
     // expect(touchcancel).toBeCalled();
 
     expect(click).toBeCalled();
+    expect(dblclick).toBeCalled();
+    expect(contextmenu).toBeCalled();
   });
 
   it('view basic event', () => {
