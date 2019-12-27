@@ -1253,12 +1253,6 @@ export class View extends Base {
     const { data, scales } = this.getOptions();
     const filteredData = this.filteredData;
 
-    // 需要 sync 的 scales
-    const syncScales = [];
-    // sync 的 最大最小值
-    let max = Number.MIN_SAFE_INTEGER;
-    let min = Number.MAX_SAFE_INTEGER;
-
     each(fields, (field: string) => {
       const scaleDef = get(scales, [field]);
 
@@ -1277,25 +1271,6 @@ export class View extends Base {
         // 创建并缓存到 this.scales 中
         this.scales[field] = newScale;
       }
-
-      // 在遍历过程中，找到 sync 配置的 scale，并获取最大最小值
-      if (get(scaleDef, 'sync') === true && newScale.isLinear) {
-        max = Math.max(max, newScale.max);
-        min = Math.min(min, newScale.min);
-
-        syncScales.push(newScale);
-      }
-    });
-
-    // 同步 sync scales 的 min max
-    each(syncScales, (s: Scale) => {
-      s.change({
-        min,
-        max,
-      });
-
-      // FIXME: scale.change 使用 this.constructor 去更新，带来一些问题，所以需要重新设置一下
-      this.scales[s.field] = s;
     });
   }
 
@@ -1325,6 +1300,8 @@ export class View extends Base {
     // 调整目前包括：
     // 分类 scale，调整 range 范围
     this.adjustCategoryScaleRange();
+    // 处理 sync scale 的逻辑
+    this.adjustLinearScaleSync();
   }
 
   /**
@@ -1372,6 +1349,40 @@ export class View extends Base {
       }
     });
   }
+
+  /**
+   * 处理 linear scale 同步 sync 的问题
+   */
+  private adjustLinearScaleSync() {
+    // 需要 sync 的 scales
+    const syncScales = [];
+    // sync 的 最大最小值
+    let max = Number.MIN_SAFE_INTEGER;
+    let min = Number.MAX_SAFE_INTEGER;
+
+    const { scales: scaleDefs } = this.getOptions();
+
+    each(this.scales, (scale: Scale, field: string) => {
+      const scaleDef = get(scaleDefs, [field]);
+
+      // 在遍历过程中，找到 sync 配置的 scale，并获取最大最小值
+      if (get(scaleDef, 'sync') === true && scale.isLinear) {
+        max = Math.max(max, scale.max);
+        min = Math.min(min, scale.min);
+
+        syncScales.push(scale);
+      }
+    });
+
+    // 同步 sync scales 的 min max
+    each(syncScales, (s: Scale) => {
+      s.change({
+        min,
+        max,
+      });
+    });
+  }
+
   /**
    * 根据 options 配置、Geometry 字段配置，自动渲染 components
    * @param isUpdate 是否是更新

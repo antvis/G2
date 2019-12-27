@@ -13,8 +13,15 @@ describe('sync scale', () => {
   });
   chart.data(CITY_SALE_PROFIT);
 
-  chart.interval().position('city*sale');
-  chart.line().position('city*profit');
+  chart
+    .interval()
+    .position('city*sale')
+    .color('category')
+    .adjust('stack');
+  chart
+    .line()
+    .position('city*profit')
+    .color('category');
 
   it('no sync', () => {
     chart.render();
@@ -23,9 +30,9 @@ describe('sync scale', () => {
 
     // 未同步，不相同
     expect(sale.min).toBe(0);
-    expect(sale.max).toBe(200);
+    expect(sale.max).toBe(320);
     expect(profit.min).toBe(0);
-    expect(profit.max).toBe(120);
+    expect(profit.max).toBe(150);
   });
 
   it('sync scale, and update', () => {
@@ -49,8 +56,8 @@ describe('sync scale', () => {
 
     // 相等的 min max
     expect(sale.min).toBe(0);
-    expect(sale.max).toBe(200);
+    expect(sale.max).toBe(320);
     expect(profit.min).toBe(0);
-    expect(profit.max).toBe(200);
+    expect(profit.max).toBe(320);
   });
 });
