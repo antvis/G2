@@ -61,7 +61,7 @@ registerInteraction('element-active', {
 
 // 点击选中，允许取消
 registerInteraction('element-selected', {
-  start: [{ trigger: 'element:click', action: 'element-seleted:toggle' }],
+  start: [{ trigger: 'element:click', action: 'element-selected:toggle' }],
 });
 
 // 点击选中，允许取消
@@ -121,6 +121,64 @@ registerInteraction('element-range-highlight', {
   rollback: [{ trigger: 'dblclick', action: ['element-range-highlight:clear', 'rect-mask:hide'] }],
 });
 
+registerInteraction('element-brush', {
+  showEnable: [
+    { trigger: 'plot:mouseenter', action: 'cursor:crosshair' },
+    { trigger: 'plot:mouseleave', action: 'cursor:default' },
+  ],
+  start: [
+    {
+      trigger: 'mousedown',
+      isEnable: isPointInView,
+      action: ['brush:start', 'rect-mask:start', 'rect-mask:show'],
+    },
+  ],
+  processing: [
+    {
+      trigger: 'mousemove',
+      isEnable: isPointInView,
+      action: ['rect-mask:resize'],
+    },
+  ],
+  end: [
+    {
+      trigger: 'mouseup',
+      isEnable: isPointInView,
+      action: ['brush:filter', 'brush:end', 'rect-mask:end', 'rect-mask:hide'],
+    },
+  ],
+  rollback: [{ trigger: 'dblclick', action: ['brush:reset'] }],
+});
+
+registerInteraction('element-brush-x', {
+  showEnable: [
+    { trigger: 'plot:mouseenter', action: 'cursor:crosshair' },
+    { trigger: 'plot:mouseleave', action: 'cursor:default' },
+  ],
+  start: [
+    {
+      trigger: 'mousedown',
+      isEnable: isPointInView,
+      action: ['brush-x:start', 'rect-mask:start', 'rect-mask:show'],
+    },
+  ],
+  processing: [
+    {
+      trigger: 'mousemove',
+      isEnable: isPointInView,
+      action: ['rect-mask:resize'],
+    },
+  ],
+  end: [
+    {
+      trigger: 'mouseup',
+      isEnable: isPointInView,
+      action: ['brush-x:filter', 'brush-x:end', 'rect-mask:end', 'rect-mask:hide'],
+    },
+  ],
+  rollback: [{ trigger: 'dblclick', action: ['brush-x:reset'] }],
+});
+
 registerInteraction('element-path-highlight', {
   showEnable: [
     { trigger: 'plot:mouseenter', action: 'cursor:crosshair' },
@@ -137,12 +195,21 @@ registerInteraction('element-path-highlight', {
 
 // 点击选中，允许取消
 registerInteraction('element-single-selected', {
-  start: [{ trigger: 'element:click', action: 'element-single-seleted:toggle' }],
+  start: [{ trigger: 'element:click', action: 'element-single-selected:toggle' }],
 });
 
 // 饼图的选中
 registerInteraction('pie-selected', {
-  start: [{ trigger: 'pie:click', action: 'element-seleted:toggle' }],
+  start: [
+    {
+      trigger: 'interval:click',
+      isEnable(context) {
+        const coord = context.view.getCoordinate();
+        return coord.type === 'theta';
+      },
+      action: 'pie-selected:toggle',
+    },
+  ],
 });
 
 // 筛选数据

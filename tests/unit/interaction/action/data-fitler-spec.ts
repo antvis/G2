@@ -1,5 +1,5 @@
 import { Chart } from '../../../../src/index';
-import DataFilter from '../../../../src/interaction/action/data-filter';
+import DataFilter from '../../../../src/interaction/action/data/filter';
 import ElementFilter from '../../../../src/interaction/action/element/filter';
 
 import Context from '../../../../src/interaction/context';
