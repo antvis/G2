@@ -65,7 +65,6 @@ export interface TextOption {
   readonly top?: boolean;
   /** 文本位置 */
   readonly position: Position;
-  readonly autoRotate?: boolean;
   /** 显示的文本内容 */
   readonly content: string | number;
   /** 文本的图形样式属性 */
@@ -438,7 +437,6 @@ export default class Annotation extends Controller<BaseOption[]> {
       }
 
       o = {
-        ...option,
         center: coordinate.getCenter(),
         radius: getDistanceToCenter(coordinate, sp),
         startAngle,
@@ -447,33 +445,39 @@ export default class Annotation extends Controller<BaseOption[]> {
     } else if (type === 'image') {
       const { start, end } = option as ImageOption;
       o = {
-        ...option,
         start: this.parsePosition(start),
         end: this.parsePosition(end),
+        src: option.src,
       };
     } else if (type === 'line') {
       const { start, end } = option as LineOption;
       o = {
-        ...option,
         start: this.parsePosition(start),
         end: this.parsePosition(end),
+        text: option.text,
       };
     } else if (type === 'region') {
       const { start, end } = option as RegionOption;
       o = {
-        ...option,
         start: this.parsePosition(start),
         end: this.parsePosition(end),
       };
     } else if (type === 'text') {
-      const { position } = option;
+      const { position } = option as TextOption;
       o = {
-        ...option,
         ...this.parsePosition(position),
+        content: option.content,
       };
     }
     // 合并主题，用户配置优先级高于主题
-    const cfg = deepMix({}, theme, { ...o });
+    const cfg = deepMix({}, theme, {
+      ...o,
+      top: option.top,
+      style: option.style,
+      offsetX: option.offsetX,
+      offsetY: option.offsetY,
+      animate: option.animate,
+    });
     cfg.container = this.getComponentContainer(cfg);
     cfg.animate = cfg.animate && get(option, 'animate', cfg.animate);
     cfg.animateOption = DEFAULT_ANIMATE_CFG;
