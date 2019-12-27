@@ -510,7 +510,7 @@ export default {
         label: {
           offset: 8,
         },
-        grid: GRID_STYLE,
+        grid: deepMix({}, GRID_STYLE, { line: { type: 'line' } }), // 'line' | 'circle'
       }),
       radius: deepMix({}, AXIS_STYLE, {
         title: null,

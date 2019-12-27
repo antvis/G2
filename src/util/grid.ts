@@ -56,7 +56,7 @@ export function getCircleGridItems(coordinate: Coordinate, xScale: Scale, yScale
     return map(yScale.getTicks(), (tick: Tick) => {
       const { value } = tick;
 
-      const points = map(Array(count), (__: any, idx: number) => {
+      const points = map(Array(count + 1), (__: any, idx: number) => {
         return coordinate.convert({
           x: idx / count,
           y: value,

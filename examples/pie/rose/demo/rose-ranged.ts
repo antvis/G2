@@ -22,6 +22,21 @@ chart.coordinate('polar', {
   startAngle: Math.PI, // 起始角度
   endAngle: Math.PI * (3 / 2), // 结束角度
 });
+
+chart.scale('value', {
+  tickCount: 6,
+});
+
+chart.axis('value', {
+  grid: {
+    line: {
+      type: 'circle',
+    },
+    closed: false,
+  },
+  verticalFactor: 1,
+});
+
 chart
   .interval()
   .position('type*value')

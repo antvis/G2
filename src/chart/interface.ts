@@ -384,6 +384,10 @@ export interface AxisGridCfg {
    * 两个栅格线间的填充色，必须是一个数组
    */
   alternateColor?: string | string[];
+  /**
+   * 对于 circle 是否关闭 grid（可以考虑去掉这个配置项）
+   */
+  closed?: boolean;
 }
 
 export interface AxisCfg {
@@ -416,6 +420,8 @@ export interface AxisCfg {
   grid?: AxisGridCfg | null;
   /** 是否开启坐标轴动画，默认开启 */
   animate?: boolean;
+  /** 标记坐标轴 label 的方向，左侧为 1，右侧为 -1 */
+  verticalFactor?: number;
 }
 
 export interface Options {
