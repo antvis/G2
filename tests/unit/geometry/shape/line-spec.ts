@@ -23,7 +23,6 @@ describe('Line shapes', () => {
   LineShapeFactory.theme = Theme.geometries.line;
 
   const element = new Element({
-    shapeType: 'line',
     shapeFactory: LineShapeFactory,
     container: canvas.addGroup(),
     theme: Theme.geometries.line,
@@ -81,8 +80,6 @@ describe('Line shapes', () => {
   });
 
   describe('dot', () => {
-    // @ts-ignore for test
-    element.shapeType = 'dot';
     it('draw', () => {
       const shape = LineShapeFactory.drawShape(
         'dot',
@@ -110,9 +107,6 @@ describe('Line shapes', () => {
   });
 
   describe('dash', () => {
-    // @ts-ignore
-    element.shapeType = 'dash';
-
     it('draw', () => {
       const shape = LineShapeFactory.drawShape(
         'dash',
@@ -144,8 +138,6 @@ describe('Line shapes', () => {
   });
 
   describe('smooth', () => {
-    // @ts-ignore
-    element.shapeType = 'smooth';
     it('draw', () => {
       const shape = LineShapeFactory.drawShape(
         'smooth',
@@ -174,8 +166,6 @@ describe('Line shapes', () => {
   });
 
   describe('hv', () => {
-    // @ts-ignore
-    element.shapeType = 'hv';
     it('draw', () => {
       const shape = LineShapeFactory.drawShape(
         'hv',
@@ -202,8 +192,6 @@ describe('Line shapes', () => {
   });
 
   describe('vh', () => {
-    // @ts-ignore
-    element.shapeType = 'hv';
     it('draw', () => {
       const shape = LineShapeFactory.drawShape(
         'vh',
@@ -231,8 +219,6 @@ describe('Line shapes', () => {
   });
 
   describe('hvh', () => {
-    // @ts-ignore
-    element.shapeType = 'hvh';
     it('draw', () => {
       const shape = LineShapeFactory.drawShape(
         'hvh',
@@ -261,8 +247,6 @@ describe('Line shapes', () => {
   });
 
   describe('vhv', () => {
-    // @ts-ignore
-    element.shapeType = 'vhv';
     it('draw', () => {
       const shape = LineShapeFactory.drawShape(
         'vhv',
@@ -294,8 +278,6 @@ describe('Line shapes', () => {
       start: { x: 0, y: 500 },
       end: { x: 500, y: 0 },
     });
-    // @ts-ignore
-    element.shapeType = 'smooth';
     LineShapeFactory.coordinate = polar;
     it('draw smooth line', () => {
       const shape = LineShapeFactory.drawShape(

@@ -21,7 +21,6 @@ describe('Point shapes', () => {
   PolygonShapeFactory.theme = Theme.geometries.polygon;
 
   const element = new Element({
-    shapeType: 'polygon',
     shapeFactory: PolygonShapeFactory,
     container: canvas.addGroup(),
     theme: Theme.geometries.polygon,
@@ -90,8 +89,6 @@ describe('Point shapes', () => {
   });
 
   describe('hollow', () => {
-    // @ts-ignore
-    element.shapeType = 'hollow';
     it('draw', () => {
       const points = PolygonShapeFactory.getShapePoints('hollow', {
         x: [0.1, 0.3, 0.3, 0.4],

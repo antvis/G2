@@ -54,7 +54,6 @@ import {
 import { getGeometryLabels } from './label';
 import Labels from './label/labels';
 import { getShapeFactory } from './shape/base';
-import { getShapeType } from './util/get-shape-type';
 import { isModelChange } from './util/is-model-change';
 import { parseFields } from './util/parse-fields';
 
@@ -1104,7 +1103,6 @@ export default class Geometry extends Base {
     const shapeFactory = this.getShapeFactory();
 
     const element = new Element({
-      shapeType: getShapeType(mappingDatum, shapeFactory.defaultShapeType),
       theme: get(theme, ['geometries', this.shapeType], {}),
       shapeFactory,
       container,

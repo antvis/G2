@@ -23,7 +23,6 @@ describe('Area shapes', () => {
   AreaShapeFactory.theme = Theme.geometries.area;
 
   const element = new Element({
-    shapeType: 'area',
     shapeFactory: AreaShapeFactory,
     container: canvas.addGroup(),
     theme: Theme.geometries.area,
@@ -85,8 +84,6 @@ describe('Area shapes', () => {
   });
 
   describe('area', () => {
-    // @ts-ignore
-    element.shapeType = 'area';
     it('draw', () => {
       const shape = AreaShapeFactory.drawShape(
         'area',
@@ -123,14 +120,13 @@ describe('Area shapes', () => {
   });
 
   describe('line', () => {
-    // @ts-ignore
-    element.shapeType = 'line';
     it('draw, points contain empty', () => {
       const shape = AreaShapeFactory.drawShape(
         'line',
         {
           x: 100,
           y: 100,
+          shape: 'line',
           defaultStyle: {
             ...Theme.geometries.area.line.default,
           },
@@ -168,14 +164,13 @@ describe('Area shapes', () => {
   });
 
   describe('smooth', () => {
-    // @ts-ignore
-    element.shapeType = 'smooth';
     it('draw', () => {
       const shape = AreaShapeFactory.drawShape(
         'smooth',
         {
           x: 100,
           y: 100,
+          shape: 'smooth',
           defaultStyle: {
             ...Theme.geometries.area.smooth.default,
           },
@@ -205,14 +200,13 @@ describe('Area shapes', () => {
   });
 
   describe('smoothLine', () => {
-    // @ts-ignore
-    element.shapeType = 'smoothLine';
     it('draw', () => {
       const shape = AreaShapeFactory.drawShape(
         'smoothLine',
         {
           x: 100,
           y: 100,
+          shape: 'smoothLine',
           defaultStyle: {
             ...Theme.geometries.area.smoothLine.default,
           },

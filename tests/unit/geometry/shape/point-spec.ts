@@ -23,7 +23,6 @@ describe('Point shapes', () => {
   PointShapeFactory.theme = Theme.geometries.point;
 
   const element = new Element({
-    shapeType: 'point',
     shapeFactory: PointShapeFactory,
     container: canvas.addGroup(),
     theme: Theme.geometries.point,
