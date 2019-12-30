@@ -1,6 +1,6 @@
 import { Chart } from '../../src';
 import { COMPONENT_TYPE } from '../../src/constant';
-import { createCanvas, createDiv, removeDom } from '../util/dom';
+import { createDiv, removeDom } from '../util/dom';
 
 describe('Schema', () => {
   const div = createDiv();

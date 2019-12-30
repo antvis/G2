@@ -1,4 +1,4 @@
-import { isArray } from '@antv/util';
+import { isArray, isNil } from '@antv/util';
 import { IGroup, PathCommand } from '../../dependents';
 import { Point, ShapeInfo, ShapeMarkerCfg, ShapePoint } from '../../interface';
 import { padEnd } from '../../util/helper';
@@ -59,32 +59,32 @@ function getCandlePath(points): PathCommand[] {
   ];
 }
 
-function getBoxPoints(x: number, y: number | number[], size: number): Point[] {
+function getBoxPoints(x: number | number[], y: number | number[], size: number): Point[] {
   const halfSize = size / 2;
   let pointsArray;
   if (isArray(y)) {
     // 2维
     const { min, max, median, min1, max1 } = parseValue(y);
     pointsArray = [
-      [x - halfSize, max],
-      [x + halfSize, max],
-      [x, max],
-      [x, max1],
-      [x - halfSize, min1],
-      [x - halfSize, max1],
-      [x + halfSize, max1],
-      [x + halfSize, min1],
-      [x, min1],
-      [x, min],
-      [x - halfSize, min],
-      [x + halfSize, min],
-      [x - halfSize, median],
-      [x + halfSize, median],
+      [(x as number) - halfSize, max],
+      [(x as number) + halfSize, max],
+      [x as number, max],
+      [x as number, max1],
+      [(x as number) - halfSize, min1],
+      [(x as number) - halfSize, max1],
+      [(x as number) + halfSize, max1],
+      [(x as number) + halfSize, min1],
+      [x as number, min1],
+      [x as number, min],
+      [(x as number) - halfSize, min],
+      [(x as number) + halfSize, min],
+      [(x as number) - halfSize, median],
+      [(x as number) + halfSize, median],
     ];
   } else {
     // 只有一个维度
-    y = y || 0.5;
-    const { min, max, median, min1, max1 } = parseValue([y]);
+    y = isNil(y) ? 0.5 : y;
+    const { min, max, median, min1, max1 } = parseValue(x as number[]);
     pointsArray = [
       [min, y - halfSize],
       [min, y + halfSize],

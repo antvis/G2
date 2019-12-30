@@ -39,6 +39,10 @@ describe('Schema shapes', () => {
         size: 0.5,
       });
       expect(points.length).toBe(14);
+      expect(points[0].y).toBe(0.25);
+      expect(points[1].y).toBe(0.75);
+      expect(points[2].y).toBe(0.5);
+      expect(points[3].y).toBe(0.5);
 
       const shape = SchemaShapeFactory.drawShape(
         type,
@@ -61,10 +65,14 @@ describe('Schema shapes', () => {
       const type = 'box';
       const points = SchemaShapeFactory.getShapePoints(type, {
         x: [0.2, 0.5, 0.12, 0.88],
-        y0: 0,
+        y: 0,
         size: 0.5,
       });
       expect(points.length).toBe(14);
+      expect(points[0].y).toBe(-0.25);
+      expect(points[1].y).toBe(0.25);
+      expect(points[2].y).toBe(0);
+      expect(points[3].y).toBe(0);
       const shape = SchemaShapeFactory.drawShape(
         type,
         {
