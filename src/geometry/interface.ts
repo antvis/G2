@@ -79,12 +79,12 @@ export interface GeometryLabelCfg {
   /** 只对极坐标下的文本生效，表示文本是否按照角度进行放射状显示，true 表示开启，false 表示关闭 */
   labelEmit?: boolean;
   /**
-   * 文本布局类型，目前提供了三种：'scatter'，'treemap'，'map'
-   * 1. scatter: 适用于散点图，按照散点图 label 布局算法对所有 label 进行二次布局。数据过于密集的情况下会剔除放不下的 label。
-   * 2. treemap: 适用于 treemap，剔除形状容纳不了的 label。
-   * 3. map: 适用于地图，label 将会初始定位到地图板块的可视中心，为了防止 label 之间相互覆盖布局，尝试向四周偏移，会剔除放不下的 label。
+   * 文本布局类型，目前提供了三种：'overlap'，'fixedOverlap'，'limitInShape'
+   * 1. overlap: label 防遮挡，为了防止 label 之间相互覆盖，通过尝试向**四周偏移**来剔除放不下的 label
+   * 2. fixedOverlap: 不改变 label 位置的情况下对相互重叠的 label 进行调整
+   * 3. limitInShape: 剔除 shape 容纳不了的 label
    */
-  adjustType?: 'default' | 'scatter' | 'treemap' | 'map';
+  adjustType?: string;
   /**
    * 仅当 geometry 为 interval 时生效，指定当前 label 与当前图形的相对位置
    */
