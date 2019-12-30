@@ -599,7 +599,7 @@ export default class Axis extends Controller<Option> {
     const baseAxisCfg = {
       container,
       ...region,
-      ticks: map(scale.getTicks(), (tick) => ({ name: tick.text, value: tick.value })),
+      ticks: map(scale.getTicks(), (tick) => ({ id: `${tick.tickValue}`, name: tick.text, value: tick.value })),
       title: {
         text: titleText,
       },
@@ -654,7 +654,7 @@ export default class Axis extends Controller<Option> {
   private getCircleAxisCfg(scale: Scale, axisOption: AxisCfg, direction: DIRECTION): object {
     const container = this.axisContainer;
 
-    const ticks = map(scale.getTicks(), (tick) => ({ name: tick.text, value: tick.value }));
+    const ticks = map(scale.getTicks(), (tick) => ({ id: `${tick.tickValue}`, name: tick.text, value: tick.value }));
     const coordinate = this.view.getCoordinate();
     if (!scale.isCategory && Math.abs(coordinate.endAngle - coordinate.startAngle) === Math.PI * 2) {
       // x 轴对应的值如果是非 cat 类型，在整圆的情况下坐标轴第一个和最后一个文本会重叠，默认只展示第一个文本
