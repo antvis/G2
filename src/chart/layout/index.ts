@@ -77,4 +77,9 @@ export default function defaultLayout(view: View): void {
   if (annotation) {
     annotation.layout();
   }
+
+  // 因为 legend 的位置也和 coordinate 有关系（比如 right-bottom 的时候），所以在确定 coordinate 之后需要再次 layout
+  if (legend) {
+    legend.layout();
+  }
 }

@@ -81,7 +81,20 @@ export default class Legend extends Controller<Option> {
       const bboxObject = component.getBBox();
       const bbox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height);
 
-      const [x, y] = directionToPosition(this.view.viewBBox, bbox, direction);
+      const [x1, y1] = directionToPosition(this.view.coordinateBBox, bbox, direction);
+      const [x2, y2] = directionToPosition(this.view.viewBBox, bbox, direction);
+
+      let x = 0;
+      let y = 0;
+
+      // 因为 legend x y 要和 coordinateBBox 对齐，所以要做一个简单的判断
+      if (direction.startsWith('top') || direction.startsWith('bottom')) {
+        x = x1;
+        y = y2;
+      } else {
+        x = x2;
+        y = y1;
+      }
 
       component.update({
         x,
