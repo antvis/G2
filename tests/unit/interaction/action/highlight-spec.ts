@@ -29,7 +29,6 @@ describe('test active action', () => {
   chart.tooltip(false);
   chart.interval().position('year*value');
   chart.render();
-  chart.on('click', (ev) => console.log(ev));
   describe('single highlight', () => {
     const context = new Context(chart);
     const action = new SingleHighlightAction(context);

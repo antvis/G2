@@ -37,3 +37,14 @@ export function removeDom(dom: HTMLElement) {
     parent.removeChild(dom);
   }
 }
+
+/**
+ * 模拟触发事件
+ * @param dom HTML DOM元素
+ * @param type 事件名
+ * @param cfg 事件对象
+ */
+export function simulateMouseEvent(dom, type, cfg) {
+  const event = new MouseEvent(type, cfg);
+  dom.dispatchEvent(event);
+}

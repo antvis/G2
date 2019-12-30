@@ -269,7 +269,7 @@ export interface IInteractionContext extends LooseObject {
   /**
    * 事件触发时是否在 view 内部
    */
-  isInView();
+  isInPlot();
   /**
    * 是否在组件的包围盒内
    * @param name 组件名，可省略

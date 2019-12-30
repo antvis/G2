@@ -1,3 +1,4 @@
+import { get } from '@antv/util';
 import { FilterCondition } from '../../../chart/interface';
 import { Point, Scale } from '../../../dependents';
 import Action from '../base';
@@ -26,7 +27,7 @@ function getFilter(scale: Scale, dim: string, point1: Point, point2: Point): Fil
     const maxIndex = scale.values.indexOf(maxValue);
     const arr = scale.values.slice(minIndex, maxIndex + 1);
     return (value) => {
-      return arr.indexOf(value) >= 0;
+      return arr.includes(value);
     };
   } else {
     return (value) => {
@@ -52,13 +53,14 @@ class RangeFilter extends Action {
 
   // x,y 是否生效
   private hasDim(dim: string) {
-    return this.dims.indexOf(dim) >= 0;
+    return this.dims.includes(dim);
   }
 
   // 提供给子类用于继承
   protected init() {
-    if (this.cfg && this.cfg.dims) {
-      this.dims = this.cfg.dims;
+    const defDims = get(this.cfg, 'dims');
+    if (defDims) {
+      this.dims = defDims;
     }
   }
 

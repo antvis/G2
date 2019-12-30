@@ -8,7 +8,7 @@ import {
 } from '../../../src/interaction/action/register';
 import Context from '../../../src/interaction/context';
 import Interaction from '../../../src/interaction/grammar-interaction';
-import { createDiv } from '../../util/dom';
+import { createDiv, simulateMouseEvent } from '../../util/dom';
 
 class CustomAction extends Action {
   public readonly name = 'custom';
@@ -53,8 +53,9 @@ describe('create action test', () => {
   });
 });
 describe('Interaction test', () => {
+  const div = createDiv();
   const chart = new Chart({
-    container: createDiv(),
+    container: div,
     width: 400,
     height: 400,
     autoFit: false,
@@ -293,13 +294,31 @@ describe('Interaction test', () => {
         x: 61,
         y: 308,
       };
-      expect(context.isInView()).toBe(true);
-
+      expect(context.isInPlot()).toBe(true);
       context.event = {
         x: 61,
         y: 384,
       };
-      expect(context.isInView()).toBe(false);
+      expect(context.isInPlot()).toBe(false);
+      const rect = div.getBoundingClientRect();
+      context.event = {
+        target: div,
+        clientX: rect.left - 10,
+        clientY: rect.top - 10,
+      };
+      expect(context.isInPlot()).toBe(false);
+      context.event = {
+        target: div,
+        clientX: rect.left + 61,
+        clientY: rect.top + 308,
+      };
+      expect(context.isInPlot()).toBe(true);
+      context.event = {
+        target: div,
+        clientX: rect.left + 61,
+        clientY: rect.top + 384,
+      };
+      expect(context.isInPlot()).toBe(false);
     });
 
     it('isInComponent', () => {
@@ -323,6 +342,83 @@ describe('Interaction test', () => {
   });
 
   describe('test complex action', () => {
+    it('action array, no error', () => {
+      const interaction = new Interaction(chart, {
+        start: [{ trigger: 'mouseenter', action: ['custom:start', 'custom:end'] }],
+      });
+      interaction.init();
+      const context = interaction.context;
+      const action = context.getAction('custom') as CustomAction;
+      expect(action.running).toBe(false);
+      const eventObject = {
+        x: 332,
+        y: 337,
+      };
+      chart.emit('mouseenter', eventObject);
+      expect(action.running).toBe(false);
+      interaction.destroy();
+    });
+
+    it('trigger is window', () => {
+      let called = false;
+      const interaction = new Interaction(chart, {
+        start: [
+          {
+            trigger: 'mouseenter',
+            action() {
+              called = true;
+            },
+          },
+        ],
+        end: [
+          {
+            trigger: 'window:mouseup',
+            action() {
+              called = false;
+            },
+          },
+        ],
+        rollback: [
+          {
+            trigger: 'document:click',
+            action() {
+              called = true;
+            },
+          },
+        ],
+      });
+
+      interaction.init();
+      const eventObject = {
+        x: 332,
+        y: 337,
+      };
+      chart.emit('mouseenter', eventObject);
+      expect(called).toBe(true);
+      const el = chart.getCanvas().get('el') as HTMLElement;
+      const rect = el.getBoundingClientRect();
+      simulateMouseEvent(window, 'mouseup', {
+        clientX: rect.top + 10,
+        clientY: rect.left + 10,
+      });
+      expect(called).toBe(false);
+
+      simulateMouseEvent(document, 'click', {
+        target: div,
+        clientX: rect.top + 10,
+        clientY: rect.left + 10,
+      });
+      expect(called).toBe(true);
+      interaction.destroy();
+      // 测试事件是否已经移除
+      simulateMouseEvent(window, 'mouseup', {
+        target: div,
+        clientX: rect.top + 10,
+        clientY: rect.left + 10,
+      });
+      expect(called).toBe(true);
+    });
+
     it('no action', () => {
       const interaction = new Interaction(chart, {
         start: [{ trigger: 'mouseenter', action: 'test:start' }],
@@ -330,6 +426,7 @@ describe('Interaction test', () => {
       expect(() => {
         interaction.init();
       }).toThrow();
+      interaction.destroy();
     });
 
     it('no method', () => {
@@ -347,6 +444,7 @@ describe('Interaction test', () => {
       expect(() => {
         chart.emit('mouseenter', eventObject);
       }).toThrow();
+      interaction.destroy();
     });
 
     it('action is array error', () => {
@@ -371,17 +469,6 @@ describe('Interaction test', () => {
       expect(() => {
         chart.emit('mouseenter', eventObject);
       }).toThrow();
-      interaction.destroy();
-    });
-
-    it('action array, no error', () => {
-      const interaction = new Interaction(chart, {
-        start: [{ trigger: 'mouseenter', action: ['custom:start', 'custom:end'] }],
-      });
-      interaction.init();
-      const context = interaction.context;
-      const action = context.getAction('custom') as CustomAction;
-      expect(action.running).toBe(false);
       interaction.destroy();
     });
   });

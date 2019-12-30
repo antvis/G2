@@ -63,10 +63,16 @@ class Context implements IInteractionContext {
   public getCurrentPoint(): Point {
     const event = this.event;
     if (event) {
-      return {
-        x: event.x,
-        y: event.y,
-      };
+      if (event.target instanceof HTMLElement) {
+        const canvas = this.view.getCanvas();
+        const point = canvas.getPointByClient(event.clientX, event.clientY);
+        return point;
+      } else {
+        return {
+          x: event.x,
+          y: event.y,
+        };
+      }
     }
     return null;
   }
@@ -74,12 +80,10 @@ class Context implements IInteractionContext {
   /**
    * 当前的触发是否在 View 内
    */
-  public isInView() {
-    const view = this.view;
-    const coord = view.getCoordinate();
+  public isInPlot() {
     const point = this.getCurrentPoint();
     if (point) {
-      return isPointInCoordinate(coord, point);
+      return this.view.isPointInPlot(point);
     }
     return false;
   }

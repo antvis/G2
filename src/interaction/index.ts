@@ -95,7 +95,7 @@ registerInteraction('element-list-highlight', {
 });
 
 function isPointInView(context: IInteractionContext) {
-  return context.isInView();
+  return context.isInPlot();
 }
 // 框选
 registerInteraction('element-range-highlight', {
@@ -117,7 +117,16 @@ registerInteraction('element-range-highlight', {
       action: ['element-range-highlight:highlight', 'rect-mask:resize'],
     },
   ],
-  end: [{ trigger: 'mouseup', isEnable: isPointInView, action: ['element-range-highlight:end', 'rect-mask:end'] }],
+  end: [
+    { trigger: 'mouseup', isEnable: isPointInView, action: ['element-range-highlight:end', 'rect-mask:end'] },
+    {
+      trigger: 'document:mouseup',
+      isEnable(context) {
+        return !context.isInPlot();
+      },
+      action: ['element-range-highlight:clear', 'rect-mask:end', 'rect-mask:hide'],
+    },
+  ],
   rollback: [{ trigger: 'dblclick', action: ['element-range-highlight:clear', 'rect-mask:hide'] }],
 });
 
