@@ -64,15 +64,34 @@ const PointSymbols = {
   },
 };
 
-function getAttributes(cfg, shapeName: string) {
+function drawPoints(shape, cfg: ShapeInfo, container: IGroup, shapeName) {
   const isStroke = HOLLOW_SHAPES.includes(shapeName) || startsWith(shapeName, 'hollow');
   const style = getStyle(cfg, isStroke, !isStroke, 'r');
-  return {
-    ...style,
-    x: cfg.x,
-    y: cfg.y,
-    symbol: shapeName,
-  };
+  const points = shape.parsePoints(cfg.points);
+
+  if (points.length > 1) {
+    const group = container.addGroup();
+    for (const point of points) {
+      group.addShape({
+        type: 'marker',
+        attrs: {
+          ...style,
+          symbol: shapeName,
+          ...point,
+        },
+      });
+    }
+    return group;
+  }
+
+  return container.addShape({
+    type: 'marker',
+    attrs: {
+      ...style,
+      symbol: shapeName,
+      ...points[0],
+    },
+  });
 }
 
 const PointShapeFactory = registerShapeFactory('point', {
@@ -86,14 +105,7 @@ const PointShapeFactory = registerShapeFactory('point', {
 each(SHAPES, (shapeName: string) => {
   registerShape('point', shapeName, {
     draw(cfg: ShapeInfo, container: IGroup) {
-      const attrs = getAttributes(cfg, shapeName);
-
-      const shape = container.addShape('marker', {
-        attrs,
-        name: 'point',
-      });
-
-      return shape;
+      return drawPoints(this, cfg, container, shapeName);
     },
     getMarker(markerCfg: ShapeMarkerCfg) {
       const { color } = markerCfg;
@@ -109,13 +121,7 @@ each(SHAPES, (shapeName: string) => {
   // 添加该 shape 对应的 hollow-shape
   registerShape('point', `hollow${upperFirst(shapeName)}`, {
     draw(cfg: ShapeInfo, container: IGroup) {
-      const attrs = getAttributes(cfg, shapeName);
-      const shape = container.addShape('marker', {
-        attrs,
-        name: 'point',
-      });
-
-      return shape;
+      return drawPoints(this, cfg, container, shapeName);
     },
     getMarker(markerCfg: ShapeMarkerCfg) {
       const { color } = markerCfg;
@@ -130,17 +136,11 @@ each(SHAPES, (shapeName: string) => {
   });
 });
 
-// 添加 hollowShapes
+// 添加 hollowShape
 each(HOLLOW_SHAPES, (shapeName: string) => {
   registerShape('point', shapeName, {
     draw(cfg: ShapeInfo, container: IGroup) {
-      const attrs = getAttributes(cfg, shapeName);
-      const shape = container.addShape('marker', {
-        attrs,
-        name: 'point',
-      });
-
-      return shape;
+      return drawPoints(this, cfg, container, shapeName);
     },
     getMarker(markerCfg: ShapeMarkerCfg) {
       const { color } = markerCfg;
@@ -158,11 +158,28 @@ each(HOLLOW_SHAPES, (shapeName: string) => {
 registerShape('point', 'image', {
   draw(cfg: ShapeInfo, container: IGroup) {
     const { r: size } = getStyle(cfg, false, false, 'r');
+    const points = this.parsePoints(cfg.points);
+    if (points.length > 1) {
+      const group = container.addGroup();
+      for (const point of points) {
+        group.addShape('marker', {
+          attrs: {
+            x: (point.x as number) - size / 2,
+            y: (point.y as number) - size,
+            width: size,
+            height: size,
+            img: cfg.shape[1],
+          },
+        });
+      }
+
+      return group;
+    }
 
     return container.addShape('image', {
       attrs: {
-        x: (cfg.x as number) - size / 2,
-        y: (cfg.y as number) - size,
+        x: (points[0].x as number) - size / 2,
+        y: (points[0].y as number) - size,
         width: size,
         height: size,
         img: cfg.shape[1],
