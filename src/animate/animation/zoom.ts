@@ -1,6 +1,56 @@
 import { transform } from '@antv/matrix-util';
+import { each } from '@antv/util';
 import { IGroup, IShape } from '../../dependents';
 import { AnimateCfg, AnimateExtraCfg } from '../interface';
+
+function doShapeZoom(shape: IShape | IGroup, animateCfg: AnimateCfg, type) {
+  if (shape.isGroup()) {
+    each((shape as IGroup).getChildren(), (child) => {
+      doShapeZoom(child, animateCfg, type);
+    });
+  } else {
+    const bbox = shape.getBBox();
+    const x = (bbox.minX + bbox.maxX) / 2;
+    const y = (bbox.minY + bbox.maxY) / 2;
+    shape.applyToMatrix([x, y, 1]);
+
+    if (type === 'zoomIn') {
+      // 放大
+      const matrix = transform(shape.getMatrix(), [
+        ['t', -x, -y],
+        ['s', 0.01, 0.01],
+        ['t', x, y],
+      ]);
+      shape.setMatrix(matrix);
+      shape.animate(
+        {
+          matrix: transform(shape.getMatrix(), [
+            ['t', -x, -y],
+            ['s', 100, 100],
+            ['t', x, y],
+          ]),
+        },
+        animateCfg
+      );
+    } else {
+      shape.animate(
+        {
+          matrix: transform(shape.getMatrix(), [
+            ['t', -x, -y],
+            ['s', 0.01, 0.01],
+            ['t', x, y],
+          ]),
+        },
+        {
+          ...animateCfg,
+          callback: () => {
+            shape.remove(true);
+          },
+        }
+      );
+    }
+  }
+}
 
 /**
  * 单个 shape 动画
@@ -10,27 +60,7 @@ import { AnimateCfg, AnimateExtraCfg } from '../interface';
  * @param cfg 额外信息
  */
 export function zoomIn(shape: IShape | IGroup, animateCfg: AnimateCfg, cfg: AnimateExtraCfg) {
-  const bbox = shape.getBBox();
-  const x = (bbox.minX + bbox.maxX) / 2;
-  const y = (bbox.minY + bbox.maxY) / 2;
-  shape.applyToMatrix([x, y, 1]);
-  const matrix = transform(shape.getMatrix(), [
-    ['t', -x, -y],
-    ['s', 0.01, 0.01],
-    ['t', x, y],
-  ]);
-  shape.setMatrix(matrix);
-
-  shape.animate(
-    {
-      matrix: transform(shape.getMatrix(), [
-        ['t', -x, -y],
-        ['s', 100, 100],
-        ['t', x, y],
-      ]),
-    },
-    animateCfg
-  );
+  doShapeZoom(shape, animateCfg, 'zoomIn');
 }
 
 /**
@@ -41,25 +71,5 @@ export function zoomIn(shape: IShape | IGroup, animateCfg: AnimateCfg, cfg: Anim
  * @param cfg 额外信息
  */
 export function zoomOut(shape: IShape | IGroup, animateCfg: AnimateCfg, cfg: AnimateExtraCfg) {
-  const bbox = shape.getBBox();
-  const x = (bbox.minX + bbox.maxX) / 2;
-  const y = (bbox.minY + bbox.maxY) / 2;
-  shape.applyToMatrix([x, y, 1]);
-
-  const { easing, duration, delay } = animateCfg;
-  shape.animate(
-    {
-      matrix: transform(shape.getMatrix(), [
-        ['t', -x, -y],
-        ['s', 0.01, 0.01],
-        ['t', x, y],
-      ]),
-    },
-    duration,
-    easing,
-    () => {
-      shape.remove(true);
-    },
-    delay
-  );
+  doShapeZoom(shape, animateCfg, 'zoomOut');
 }
