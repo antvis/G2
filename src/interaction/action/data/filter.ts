@@ -16,11 +16,11 @@ class DataFilter extends Action {
         if (field) {
           const unCheckedItems = component.getItemsByState('unchecked');
           const scale = view.getScaleByField(field);
-          const names = unCheckedItems.map((item) => item.name);
+          const names: string[] = unCheckedItems.map((item) => item.name);
           if (names.length) {
             view.filter(field, (value) => {
               const text = scale.getText(value);
-              return names.indexOf(text) === -1;
+              return !names.includes(text);
             });
           } else {
             view.filter(field, null);

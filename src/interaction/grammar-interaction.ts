@@ -1,3 +1,4 @@
+import { addEventListener } from '@antv/dom-util';
 import { each, isArray, isFunction, isString } from '@antv/util';
 import { View } from '../chart';
 import { ActionCallback, IAction, IInteractionContext, LooseObject } from '../interface';
@@ -247,26 +248,45 @@ class GrammarInteraction extends Interaction {
   }
   // 清理绑定的事件
   protected clearEvents() {
-    const view = this.view;
     each(this.steps, (stepArr, stepName) => {
       each(stepArr, (step) => {
         const callback = this.getActionCallback(stepName, step);
         if (callback) {
-          view.off(step.trigger, callback);
+          this.offEvent(step.trigger, callback);
         }
       });
     });
   }
 
+  private bindEvent(eventName, callback) {
+    const nameArr = eventName.split(':');
+    if (nameArr[0] === 'window') {
+      window.addEventListener(nameArr[1], callback);
+    } else if (nameArr[0] === 'document') {
+      document.addEventListener(nameArr[1], callback);
+    } else {
+      this.view.on(eventName, callback);
+    }
+  }
+  private offEvent(eventName, callback) {
+    const nameArr = eventName.split(':');
+    if (nameArr[0] === 'window') {
+      window.removeEventListener(nameArr[1], callback);
+    } else if (nameArr[0] === 'document') {
+      document.removeEventListener(nameArr[1], callback);
+    } else {
+      this.view.off(eventName, callback);
+    }
+  }
+
   // 绑定事件
   protected initEvents() {
-    const view = this.view;
     each(this.steps, (stepArr, stepName) => {
       each(stepArr, (step) => {
         const callback = this.getActionCallback(stepName, step);
         if (callback) {
           // 如果存在 callback，才绑定，有时候会出现无 callback 的情况
-          view.on(step.trigger, callback);
+          this.bindEvent(step.trigger, callback);
         }
       });
     });

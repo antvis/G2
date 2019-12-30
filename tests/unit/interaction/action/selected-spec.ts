@@ -101,8 +101,6 @@ describe('test selected action', () => {
   chart.interval().position('year*value');
   chart.render();
   const context = new Context(chart);
-  chart.on('click', (ev) => console.log(ev));
-
   describe('test single selected', () => {
     const elements = chart.geometries[0].elements;
     const first = elements[0];
