@@ -1,4 +1,5 @@
 import { DIRECTION } from '../constant';
+import { Coordinate } from '../dependents';
 import { Position } from '../interface';
 import { BBox } from './bbox';
 
@@ -41,16 +42,57 @@ export function directionToPosition(parentBBox: BBox, bbox: BBox, direction: DIR
 /**
  * get direction after coordinate transpose
  * @param direction
- * @param isTransposed
+ * @param coordinate
  * @returns direction after transpose or not
  */
-export function getTransposedDirection(direction: DIRECTION, isTransposed: boolean): DIRECTION {
-  if (isTransposed) {
-    return direction === DIRECTION.BOTTOM
-      ? DIRECTION.LEFT
-      : direction === DIRECTION.LEFT
-      ? DIRECTION.BOTTOM
-      : direction;
+function getTransposedDirection(direction: DIRECTION, coordinate: Coordinate): DIRECTION {
+  if (coordinate.isTransposed) {
+    switch (direction) {
+      case DIRECTION.BOTTOM:
+        return DIRECTION.LEFT;
+      case DIRECTION.LEFT:
+        return DIRECTION.BOTTOM;
+      case DIRECTION.RIGHT:
+        return DIRECTION.TOP;
+      case DIRECTION.TOP:
+        return DIRECTION.RIGHT;
+    }
   }
   return direction;
+}
+
+/**
+ * get direction after coordinate.scale
+ * @param direction
+ * @param coordinate
+ */
+function getScaleDirection(direction: DIRECTION, coordinate: Coordinate): DIRECTION {
+  const x = coordinate.matrix[0];
+  const y = coordinate.matrix[4];
+
+  let d = direction;
+  if (x < 0) {
+    if (d === DIRECTION.LEFT) {
+      d = DIRECTION.RIGHT;
+    } else if (d === DIRECTION.RIGHT) {
+      d = DIRECTION.LEFT;
+    }
+  }
+  if (y < 0) {
+    if (d === DIRECTION.TOP) {
+      d = DIRECTION.BOTTOM;
+    } else if (d === DIRECTION.BOTTOM) {
+      d = DIRECTION.TOP;
+    }
+  }
+  return d;
+}
+
+/**
+ * get direction after coordinate translate
+ * @param direction
+ * @param coordinate
+ */
+export function getTranslateDirection(direction: DIRECTION, coordinate: Coordinate): DIRECTION {
+  return getScaleDirection(getTransposedDirection(direction, coordinate), coordinate);
 }

@@ -1,7 +1,7 @@
 import { each } from '@antv/util';
 import { COMPONENT_TYPE } from '../../constant';
 import { BBox } from '../../util/bbox';
-import { getTransposedDirection } from '../../util/direction';
+import { getTranslateDirection } from '../../util/direction';
 import { ComponentOption } from '../interface';
 import View from '../view';
 
@@ -59,9 +59,7 @@ export default function defaultLayout(view: View): void {
     } else {
       bbox = bbox.cut(
         componentBBox,
-        type === COMPONENT_TYPE.AXIS
-          ? getTransposedDirection(co.direction, view.getCoordinate().isTransposed)
-          : co.direction
+        type === COMPONENT_TYPE.AXIS ? getTranslateDirection(co.direction, view.getCoordinate()) : co.direction
       );
     }
   });
