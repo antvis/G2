@@ -79,7 +79,7 @@ fetch('../data/mobile.json')
           return null;
         },
         {
-          adjustType: 'treemap',
+          adjustType: 'limitInShape',
         }
       );
     chart.render();

@@ -25,12 +25,12 @@ fetch('../data/world.geo.json')
       .polygon()
       .position('longitude*latitude')
       .label('name', {
-        adjustType: 'map',
+        adjustType: 'fixedOverlap',
         offset: 0,
         style: {
           fill: 'black',
           stroke: '#fff',
-          lineWidth: 2
+          lineWidth: 2,
         },
       })
       .style({

@@ -3,13 +3,12 @@ import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
 fetch('../data/world.geo.json')
-  .then(res => res.json())
-  .then(data => {
+  .then((res) => res.json())
+  .then((data) => {
     const ds = new DataSet();
-    const dv = ds.createView('back')
-      .source(data, {
-        type: 'GeoJSON'
-      });
+    const dv = ds.createView('back').source(data, {
+      type: 'GeoJSON',
+    });
     const userData = [
       { name: 'Russia', value: 86.8 },
       { name: 'China', value: 106.3 },
@@ -20,7 +19,7 @@ fetch('../data/world.geo.json')
       { name: 'United States of America', value: 98.3 },
       { name: 'Brazil', value: 96.7 },
       { name: 'Argentina', value: 95.8 },
-      { name: 'Algeria', valsue: 101.3 },
+      { name: 'Algeria', value: 101.3 },
       { name: 'France', value: 94.8 },
       { name: 'Germany', value: 96.6 },
       { name: 'Ukraine', value: 86.3 },
@@ -31,15 +30,16 @@ fetch('../data/world.geo.json')
       { name: 'Saudi Arabia', value: 130.1 },
       { name: 'Afghanistan', value: 106.5 },
       { name: 'Kazakhstan', value: 93.4 },
-      { name: 'Indonesia', value: 101.4 }
+      { name: 'Indonesia', value: 101.4 },
     ];
-    const userDv = ds.createView()
+    const userDv = ds
+      .createView()
       .source(userData)
       .transform({
         geoDataView: dv,
         field: 'name',
         type: 'geo.centroid',
-        as: ['longitude', 'latitude']
+        as: ['longitude', 'latitude'],
       });
     const chart = new Chart({
       container: 'container',
@@ -48,41 +48,41 @@ fetch('../data/world.geo.json')
     });
     chart.scale({
       longitude: {
-        sync: true
+        sync: true,
       },
       latitude: {
-        sync: true
-      }
+        sync: true,
+      },
     });
     chart.axis(false);
-    chart.legend({
-      rail: {
-        type: 'size'
-      }
-    });
-    /* chart.legend({ position: 'right-center' });*/
+
+    chart.legend({ position: 'right' });
     chart.tooltip({
-      showTitle: false
+      showTitle: false,
     });
     const bgView = chart.createView();
     bgView.data(dv.rows);
     bgView.tooltip(false);
-    bgView.polygon().position('longitude*latitude')
+    bgView
+      .polygon()
+      .position('longitude*latitude')
       .color('#ebedf0')
       .style({
         lineWidth: 1,
-        stroke: '#fafbfc'
+        stroke: '#fafbfc',
       });
 
     const userView = chart.createView();
     userView.data(userDv.rows);
-    userView.point().position('longitude*latitude')
+    userView
+      .point()
+      .position('longitude*latitude')
       .color('#1890ff')
       .size('value', [5, 15])
       .style({
         lineWidth: 1,
-        stroke: '#1890ff'
-      })
-      .shape('circle');
+        stroke: '#1890ff',
+      });
     chart.render();
+    console.log(userView);
   });

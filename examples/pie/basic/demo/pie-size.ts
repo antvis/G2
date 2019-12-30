@@ -65,7 +65,7 @@ chart
   .shape('sliceShape')
   .label('type', {
     offset: -130,
-    adjustType: 'treemap', // FIXME: adjustType 重命名后修改
+    adjustType: 'limitInShape',
   });
 chart.interaction('active');
 chart.render();
