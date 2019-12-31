@@ -61,6 +61,29 @@ function getTransposedDirection(direction: DIRECTION, coordinate: Coordinate): D
   return direction;
 }
 
+function reflectX(direct: DIRECTION): DIRECTION {
+  if (direct === DIRECTION.LEFT) {
+    return DIRECTION.RIGHT;
+  }
+
+  if (direct === DIRECTION.RIGHT) {
+    return DIRECTION.LEFT;
+  }
+
+  return direct;
+}
+
+function reflectY(direct: DIRECTION): DIRECTION {
+  if (direct === DIRECTION.TOP) {
+    return DIRECTION.BOTTOM;
+  }
+  if (direct === DIRECTION.BOTTOM) {
+    return DIRECTION.TOP;
+  }
+
+  return direct;
+}
+
 /**
  * get direction after coordinate.scale
  * @param direction
@@ -72,19 +95,29 @@ function getScaleDirection(direction: DIRECTION, coordinate: Coordinate): DIRECT
 
   let d = direction;
   if (x < 0) {
-    if (d === DIRECTION.LEFT) {
-      d = DIRECTION.RIGHT;
-    } else if (d === DIRECTION.RIGHT) {
-      d = DIRECTION.LEFT;
-    }
+    d = reflectX(d);
   }
   if (y < 0) {
-    if (d === DIRECTION.TOP) {
-      d = DIRECTION.BOTTOM;
-    } else if (d === DIRECTION.BOTTOM) {
-      d = DIRECTION.TOP;
-    }
+    d = reflectY(d);
   }
+  return d;
+}
+
+/**
+ *
+ * @param direction
+ * @param coordinate
+ */
+function getReflectDirection(direction: DIRECTION, coordinate: Coordinate): DIRECTION {
+  let d = direction;
+
+  if (coordinate.isReflect('x')) {
+    d = reflectX(d);
+  }
+  if (coordinate.isReflect('y')) {
+    d = reflectY(d);
+  }
+
   return d;
 }
 
@@ -94,5 +127,10 @@ function getScaleDirection(direction: DIRECTION, coordinate: Coordinate): DIRECT
  * @param coordinate
  */
 export function getTranslateDirection(direction: DIRECTION, coordinate: Coordinate): DIRECTION {
-  return getScaleDirection(getTransposedDirection(direction, coordinate), coordinate);
+  let d = direction;
+  d = getTransposedDirection(d, coordinate);
+  d = getScaleDirection(d, coordinate);
+  d = getReflectDirection(d, coordinate);
+
+  return d;
 }
