@@ -2,7 +2,7 @@ import { deepMix, each, get } from '@antv/util';
 import { doAnimate } from '../../animate';
 import { IGroup, IShape } from '../../dependents';
 import { AnimateOption } from '../../interface';
-import { bboxAdjust, positionAdjust, spiralAdjust } from '../../util/adjust-labels';
+import { fixedOverlapAdjust, limitInShapeAdjust, overlapAdjust } from '../../util/adjust-labels';
 import { getReplaceAttrs } from '../../util/graphics';
 import { rotate } from '../../util/transform';
 import { LabelItem } from './interface';
@@ -13,9 +13,9 @@ export interface LabelsGroupCfg {
 }
 
 const LAYOUTS = {
-  overlap: positionAdjust, // 为了防止 label 之间相互覆盖布局，通过尝试向四周偏移来剔除放不下的 label
-  fixedOverlap: spiralAdjust, // 不改变 label 位置的情况下对相互重叠的 label 进行调整
-  limitInShape: bboxAdjust, // 剔除 shape 容纳不了的 label
+  overlap: overlapAdjust, // 为了防止 label 之间相互覆盖布局，通过尝试向四周偏移来剔除放不下的 label
+  fixedOverlap: fixedOverlapAdjust, // 不改变 label 位置的情况下对相互重叠的 label 进行调整
+  limitInShape: limitInShapeAdjust, // 剔除 shape 容纳不了的 label
 };
 
 /**

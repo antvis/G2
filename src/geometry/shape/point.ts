@@ -162,7 +162,7 @@ registerShape('point', 'image', {
     if (points.length > 1) {
       const group = container.addGroup();
       for (const point of points) {
-        group.addShape('marker', {
+        group.addShape('image', {
           attrs: {
             x: (point.x as number) - size / 2,
             y: (point.y as number) - size,

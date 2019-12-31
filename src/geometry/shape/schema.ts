@@ -65,41 +65,45 @@ function getBoxPoints(x: number | number[], y: number | number[], size: number):
   if (isArray(y)) {
     // 2维
     const { min, max, median, min1, max1 } = parseValue(y);
+    const minX = (x as number) - halfSize;
+    const maxX = (x as number) + halfSize;
     pointsArray = [
-      [(x as number) - halfSize, max],
-      [(x as number) + halfSize, max],
+      [minX, max],
+      [maxX, max],
       [x as number, max],
       [x as number, max1],
-      [(x as number) - halfSize, min1],
-      [(x as number) - halfSize, max1],
-      [(x as number) + halfSize, max1],
-      [(x as number) + halfSize, min1],
+      [minX, min1],
+      [minX, max1],
+      [maxX, max1],
+      [maxX, min1],
       [x as number, min1],
       [x as number, min],
-      [(x as number) - halfSize, min],
-      [(x as number) + halfSize, min],
-      [(x as number) - halfSize, median],
-      [(x as number) + halfSize, median],
+      [minX, min],
+      [maxX, min],
+      [minX, median],
+      [maxX, median],
     ];
   } else {
     // 只有一个维度
     y = isNil(y) ? 0.5 : y;
     const { min, max, median, min1, max1 } = parseValue(x as number[]);
+    const minY = y - halfSize;
+    const maxY = y + halfSize;
     pointsArray = [
-      [min, y - halfSize],
-      [min, y + halfSize],
+      [min, minY],
+      [min, maxY],
       [min, y],
       [min1, y],
-      [min1, y - halfSize],
-      [min1, y + halfSize],
-      [max1, y + halfSize],
-      [max1, y - halfSize],
+      [min1, minY],
+      [min1, maxY],
+      [max1, maxY],
+      [max1, minY],
       [max1, y],
       [max, y],
-      [max, y - halfSize],
-      [max, y + halfSize],
-      [median, y - halfSize],
-      [median, y + halfSize],
+      [max, minY],
+      [max, maxY],
+      [median, minY],
+      [median, maxY],
     ];
   }
 
