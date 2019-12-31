@@ -3,7 +3,7 @@ import { each } from '@antv/util';
 import { IGroup, IShape } from '../../dependents';
 import { AnimateCfg, AnimateExtraCfg } from '../interface';
 
-function doShapeZoom(shape: IShape | IGroup, animateCfg: AnimateCfg, type) {
+function doShapeZoom(shape: IShape | IGroup, animateCfg: AnimateCfg, type: 'zoomIn' | 'zoomOut') {
   if (shape.isGroup()) {
     each((shape as IGroup).getChildren(), (child) => {
       doShapeZoom(child, animateCfg, type);

@@ -205,7 +205,7 @@ function adjustLabelPosition(label: IShape, x: number, y: number, index: number)
 /**
  * 根据 bbox 进行调整，如果 label 超出了 shape 的 bbox 则不展示
  */
-export function bboxAdjust(labels: Record<string, IGroup>, shapes: Record<string, IShape | IGroup>) {
+export function limitInShapeAdjust(labels: Record<string, IGroup>, shapes: Record<string, IShape | IGroup>) {
   each(labels, (label, id) => {
     const labelShape = label.find((shape) => shape.get('type') === 'text') as IShape;
     const labelBBox = labelShape.getCanvasBBox(); // 文本有可能发生旋转
@@ -222,7 +222,7 @@ export function bboxAdjust(labels: Record<string, IGroup>, shapes: Record<string
   });
 }
 
-export function spiralAdjust(labels: Record<string, IGroup>, maxTimes: number = MAX_TIMES) {
+export function fixedOverlapAdjust(labels: Record<string, IGroup>, maxTimes: number = MAX_TIMES) {
   const greedy = new Greedy();
   each(labels, (label: IGroup, id: string) => {
     const labelShape = label.find((shape) => shape.get('type') === 'text') as IShape;
@@ -234,7 +234,7 @@ export function spiralAdjust(labels: Record<string, IGroup>, maxTimes: number = 
   greedy.destroy();
 }
 
-export function positionAdjust(labels: Record<string, IGroup>) {
+export function overlapAdjust(labels: Record<string, IGroup>) {
   const greedy = new Greedy();
   each(labels, (label: IGroup, id: string) => {
     const labelShape = label.find((shape) => shape.get('type') === 'text') as IShape;

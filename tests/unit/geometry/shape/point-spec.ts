@@ -203,6 +203,7 @@ describe('Point shapes', () => {
 
     expect(shape.isGroup()).toBe(true);
     expect((shape as IGroup).getCount()).toBe(2);
+    expect((shape as IGroup).getChildren()[0].get('type')).toBe('image');
     expect((shape as IGroup).getChildren()[0].attr('img')).toBe((shape as IGroup).getChildren()[1].attr('img'));
   });
 
