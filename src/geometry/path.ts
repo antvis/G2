@@ -40,7 +40,7 @@ export default class Path extends Geometry {
         shapeFactory,
         container,
         animate: this.animateOption,
-        offscreenGroup: this.getOffscreenGroup(container),
+        offscreenGroup: this.getOffscreenGroup(),
       });
       result.geometry = this;
       result.draw(shapeCfg, isUpdate); // 绘制 shape

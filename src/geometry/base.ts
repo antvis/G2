@@ -738,6 +738,8 @@ export default class Geometry extends Base {
   public paint(isUpdate: boolean = false) {
     this.elements = [];
     this.elementsMap = {};
+    const offscreenGroup = this.getOffscreenGroup();
+    offscreenGroup.clear();
 
     const beforeMappingData = this.beforeMappingData;
     const dataArray = this.beforeMapping(beforeMappingData);
@@ -1106,8 +1108,8 @@ export default class Geometry extends Base {
       theme: get(theme, ['geometries', this.shapeType], {}),
       shapeFactory,
       container,
-      offscreenGroup: this.getOffscreenGroup(container), // 传入虚拟 Group
       animate: this.animateOption,
+      offscreenGroup: this.getOffscreenGroup(),
     });
     element.geometry = this;
     element.draw(shapeCfg, isUpdate); // 绘制
@@ -1168,9 +1170,9 @@ export default class Geometry extends Base {
     return elements;
   }
 
-  protected getOffscreenGroup(sourceGroup: IGroup) {
+  protected getOffscreenGroup() {
     if (!this.offscreenGroup) {
-      const GroupCtor = sourceGroup.getGroupBase(); // 获取分组的构造函数
+      const GroupCtor = this.container.getGroupBase(); // 获取分组的构造函数
       this.offscreenGroup = new GroupCtor({});
     }
     return this.offscreenGroup;
@@ -1631,6 +1633,13 @@ export default class Geometry extends Base {
     each(this.elementsMap, (element: Element, id: string) => {
       shapes[id] = element.shape;
     });
+    // 因为有可能 shape 还在进行动画，导致 shape.getBBox() 获取到的值不是最终态，所以需要从 offscreenGroup 获取
+    each(this.offscreenGroup.getChildren(), (child) => {
+      const data = child.get('data');
+      const id = this.getElementId(data);
+      shapes[id] = child;
+    });
+
     // 设置动画配置，如果 geometry 的动画关闭了，那么 label 的动画也会关闭
     labelsRenderer.animate = animateOption ? getDefaultAnimateCfg('label', coordinate) : false;
 

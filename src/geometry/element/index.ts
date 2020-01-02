@@ -107,11 +107,10 @@ export default class Element extends Base {
     // step 2: 使用虚拟 Group 重新绘制 shape，然后更新当前 shape
     const offscreenGroup = this.getOffscreenGroup();
     const newShape = shapeFactory.drawShape(this.shapeType, drawCfg, offscreenGroup);
+    newShape.set('data', this.data);
 
     // step 3: 同步 shape 样式
     this.syncShapeStyle(shape, newShape, '', this.getAnimateCfg('update'));
-
-    newShape.remove(true); // newShape 不在当前渲染树上，销毁，减少内存占用
   }
 
   /**
