@@ -15,6 +15,7 @@ import {
   set,
   size,
   uniq,
+  uniqueId,
 } from '@antv/util';
 import Base from '../base';
 import { GROUP_Z_INDEX, LAYER, PLOT_EVENTS, VIEW_LIFE_CIRCLE } from '../constant';
@@ -56,6 +57,8 @@ import defaultLayout, { Layout } from './layout';
  * view container of G2
  */
 export class View extends Base {
+  /** view id，全局唯一 */
+  public id: string = uniqueId('view');
   /** 父级 view，如果没有父级，则为空 */
   public parent: View;
   /** 所有的子 view */
@@ -1136,14 +1139,19 @@ export class View extends Base {
     const point = { x, y };
 
     const ALL_EVENTS = [
-      'mousedown', 'mouseup', 'mousemove',
-      'touchstart', 'touchmove', 'touchend', 'touchcancel',
-      'click', 'dblclick',
+      'mousedown',
+      'mouseup',
+      'mousemove',
+      'touchstart',
+      'touchmove',
+      'touchend',
+      'touchcancel',
+      'click',
+      'dblclick',
       'contextmenu',
     ];
 
     if (ALL_EVENTS.includes(type)) {
-
       const currentInPlot = this.isPointInPlot(point);
 
       if (currentInPlot) {
