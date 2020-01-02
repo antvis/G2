@@ -328,20 +328,6 @@ export default class Tooltip extends Controller<TooltipOption> {
         });
         items = items.filter((item) => item.title === nearestItem.title);
       }
-
-      // shared: false 代表只显示当前拾取到的 shape 的数据，但是一个 view 会有多个 Geometry，所以有可能会拾取到多个 shape
-      if (shared === false && items.length > 1) {
-        let snapItem = items[0];
-        let min = Math.abs(point.y - snapItem.y);
-        each(items, (aItem) => {
-          const yDistance = Math.abs(point.y - aItem.y);
-          if (yDistance <= min) {
-            snapItem = aItem;
-            min = yDistance;
-          }
-        });
-        items = [snapItem];
-      }
     }
 
     return items;
