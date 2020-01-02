@@ -73,6 +73,8 @@ describe('Path', () => {
   });
 
   it('connectNulls is true,', () => {
+    canvas.clear();
+
     const data = [
       { x: 'Jan.', y: 18.9 },
       { x: 'Feb.', y: 28.8 },
@@ -108,6 +110,22 @@ describe('Path', () => {
 
     const model = elements[0].model;
     expect(model.points.length).toBe(7);
+  });
+
+  it('update', () => {
+    const prePath = path.elements[0].shape.attr('path');
+    path.update({
+      coordinate: new CartesianCoordinate({
+        start: { x: 0, y: 300 },
+        end: { x: 200, y: 0 },
+      }),
+    });
+
+    path.animate(false).paint();
+    canvas.draw();
+
+    const curPath = path.elements[0].shape.attr('path');
+    expect(prePath.toString()).not.toBe(curPath.toString());
   });
 
   afterAll(() => {

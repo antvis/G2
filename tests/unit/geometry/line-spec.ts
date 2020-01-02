@@ -20,7 +20,7 @@ describe('Line', () => {
     end: { x: 300, y: 0 },
   });
 
-  xit('Data should be sorted.', () => {
+  it('Data should be sorted.', () => {
     const data = [
       { x: 1996, y: 30 },
       { x: 1990, y: 210 },
