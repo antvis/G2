@@ -1,4 +1,3 @@
-// TODO: 绘制出错
 import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
@@ -23,22 +22,33 @@ fetch('../data/mobile.json')
       tile: 'treemapResquarify',
       as: ['x', 'y'],
     });
-    const nodes = dv.getAllNodes();
-    nodes.map(function(node) {
-      node.name = node.data.name;
-      if (!node.data.brand && node.parent) {
-        node.brand = node.parent.data.brand;
-      } else {
-        node.brand = node.data.brand;
+    // 将 DataSet 处理后的结果转换为 G2 接受的数据
+    const nodes = [];
+    for (const node of dv.getAllNodes()) {
+      if (!node.children || node.children.length > 1) {
+        const eachNode: any = {
+          name: node.data.name,
+          x: node.x,
+          y: node.y,
+          depth: node.depth,
+          value: node.value,
+        };
+        if (!node.data.brand && node.parent) {
+          eachNode.brand = node.parent.data.brand;
+        } else {
+          eachNode.brand = node.data.brand;
+        }
+
+        nodes.push(eachNode);
       }
-      // node.value = node.data.value;
-      return node;
-    });
+    }
+
     const chart = new Chart({
       container: 'container',
       autoFit: true,
       height: 500,
       padding: 0,
+      localRefresh: false,
     });
     chart.coordinate().scale(1, -1); // 习惯性最小的在最下面
     chart.data(nodes);
@@ -52,8 +62,9 @@ fetch('../data/mobile.json')
     });
     chart.axis(false);
     chart.legend(false);
-    chart.tooltip(false);
-    chart.animate(false);
+    chart.tooltip({
+      showTitle: false,
+    });
     chart
       .polygon()
       .position('x*y')
@@ -62,10 +73,11 @@ fetch('../data/mobile.json')
         lineWidth: 0.5,
         stroke: 'rgba(255,255,255,0.65)',
       })
+      .tooltip('name*brand*value')
       .label(
         'brand*depth*name',
         (brand, depth, name) => {
-          if (depth !== 1 || name === '其他') {
+          if (depth > 1 || name === '其他') {
             // 只有第一级显示文本，数值太小时不显示文本
             return {
               content: name,
