@@ -1,3 +1,4 @@
+import { each, isNil } from '@antv/util';
 import { IAction, IInteractionContext, LooseObject } from '../../interface';
 
 /**
@@ -7,15 +8,29 @@ abstract class Action<T = LooseObject> implements IAction {
   public name;
   public context: IInteractionContext;
   protected cfg: T;
+  protected cfgFields: string[]; // 配置项的字段，自动负值到 this 上
 
   constructor(context: IInteractionContext, cfg?: T) {
     this.context = context;
     this.cfg = cfg;
     context.addAction(this);
-    this.init();
   }
+
+  // 设置配置项传入的值
+  protected applyCfg(cfg) {
+    if (this.cfgFields && cfg) {
+      each(this.cfgFields, (field) => {
+        if (!isNil(cfg[field])) {
+          this[field] = cfg[field];
+        }
+      });
+    }
+  }
+
   // 提供给子类用于继承
-  protected init() {}
+  public init() {
+    this.applyCfg(this.cfg);
+  }
 
   public destroy() {
     // 移除 action

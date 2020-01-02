@@ -24,6 +24,7 @@ export function createAction(actionName: string, context: IInteractionContext): 
     const { ActionClass, cfg } = actionOption;
     action = new ActionClass(context, cfg);
     action.name = actionName;
+    action.init();
   }
   return action;
 }

@@ -40,6 +40,8 @@ function getFilter(scale: Scale, dim: string, point1: Point, point2: Point): Fil
  * 范围过滤的 Action
  */
 class RangeFilter extends Action {
+  // 允许外部传入 dims
+  protected cfgFields: ['dims'];
   /**
    * 范围过滤生效的字段/维度，可以是 x, y
    */
@@ -54,14 +56,6 @@ class RangeFilter extends Action {
   // x,y 是否生效
   private hasDim(dim: string) {
     return this.dims.includes(dim);
-  }
-
-  // 提供给子类用于继承
-  protected init() {
-    const defDims = get(this.cfg, 'dims');
-    if (defDims) {
-      this.dims = defDims;
-    }
   }
 
   /**

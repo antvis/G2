@@ -1,6 +1,22 @@
-import { Chart } from '../../../src/index';
+import { Chart, registerInteraction } from '../../../src/index';
 import { createDiv } from '../../util/dom';
 
+registerInteraction('drag-view', {
+  start: [{ trigger: 'plot:mousedown', action: 'view-drag:start' }],
+  processing: [{ trigger: 'plot:mousemove', action: 'view-drag:drag' }],
+  end: [{ trigger: 'plot:mouseup', action: 'view-drag:end' }],
+});
+
+registerInteraction('drag-move', {
+  start: [{ trigger: 'dragstart', action: 'view-move:start' }],
+  processing: [{ trigger: 'drag', action: 'view-move:move' }],
+  end: [{ trigger: 'dragend', action: 'view-move:end' }],
+});
+registerInteraction('drag-scale', {
+  start: [{ trigger: 'dragstart', action: 'scale-translate:start' }],
+  processing: [{ trigger: 'drag', action: 'scale-translate:translate' }],
+  end: [{ trigger: 'dragend', action: 'scale-translate:end' }],
+});
 describe('test element interaction', () => {
   const chart = new Chart({
     container: createDiv(),
@@ -23,7 +39,8 @@ describe('test element interaction', () => {
   chart.animate(false);
   chart.tooltip(false);
   chart.interaction('element-active');
-  chart.interaction('element-brush');
+  chart.interaction('drag-view');
+  chart.interaction('drag-move');
 
   chart.interval().position('year*value');
   // .color('year');
@@ -47,7 +64,7 @@ describe('test element interaction', () => {
     });
     expect(first.hasState('active')).toBe(false);
   });
-  afterAll(() => {
-    chart.destroy();
-  });
+  // afterAll(() => {
+  //   chart.destroy();
+  // });
 });

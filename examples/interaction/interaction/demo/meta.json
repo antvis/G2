@@ -67,6 +67,22 @@
         "en": "brush"
       },
       "screenshot": ""
+    },
+    {
+      "filename": "drag-move.ts",
+      "title": {
+        "zh": "拖拽",
+        "en": "drag move"
+      },
+      "screenshot": ""
+    },
+    {
+      "filename": "zoom.ts",
+      "title": {
+        "zh": "缩放",
+        "en": "zoom"
+      },
+      "screenshot": ""
     }
   ]
 }

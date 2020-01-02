@@ -215,6 +215,10 @@ export type ShapeMarkerSymbol = (x: number, y: number, r: number) => PathCommand
 /** 交互反馈的定义 */
 export interface IAction {
   /**
+   * 初始化
+   */
+  init();
+  /**
    * 交互 action (反馈)的名称
    */
   name: string;
