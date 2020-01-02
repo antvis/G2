@@ -786,8 +786,19 @@ export class View extends Base {
     return scales;
   }
 
-  public getScaleByField(field: string): Scale {
-    return this.scales[field];
+  /**
+   * 根据字段名递归的去获取 scale
+   * @param field
+   * @param key
+   */
+  public getScaleByField(field: string, key?: string): Scale {
+    const defaultKey = key ? key : `${this.id}-${field}`;
+
+    if (this.parent) {
+      return this.parent.getScaleByField(field, defaultKey);
+    }
+
+    return this.scales[defaultKey];
   }
 
   /**
@@ -1235,7 +1246,7 @@ export class View extends Base {
     // 实例化 Geometry，然后 view 将所有的 scale 管理起来
     each(this.geometries, (geometry: Geometry) => {
       // 保持 scales 引用不要变化
-      geometry.scales = this.scales;
+      geometry.scales = this.getGeometryScales();
       const cfg = {
         coordinate: this.getCoordinate(), // 使用 coordinate 引用，可以保持 coordinate 的同步更新
         scaleDefs: get(this.options, 'scales', {}),
@@ -1268,21 +1279,13 @@ export class View extends Base {
     each(fields, (field: string) => {
       const scaleDef = get(scales, [field]);
 
-      const newScale = createScaleByField(
+      // 调用方法，递归去创建
+      this.createScale(
         field,
         // 分组字段的 scale 使用未过滤的数据创建
         groupedFields.includes(field) ? data : filteredData,
-        scaleDef
+        scaleDef,
       );
-
-      // 之前已经创建了，那么就直接更新
-      if (this.scales[field]) {
-        syncScale(this.scales[field], newScale);
-      } else {
-        // scale 之前没有创建过，那么就创建新的
-        // 创建并缓存到 this.scales 中
-        this.scales[field] = newScale;
-      }
     });
   }
 
@@ -1293,7 +1296,7 @@ export class View extends Base {
    * @param scaleDef
    * @param key
    */
-  protected createScale(field: string, data: Data, scaleDef: ScaleOption, key: string): Scale {
+  protected createScale(field: string, data: Data, scaleDef: ScaleOption, key?: string): Scale {
     // 1. 合并 field 对应的 scaleDef，合并原则是底层覆盖顶层（就近原则）
     const currentScaleDef = get(this.options.scales, [field]);
     const mergedScaleDef = { ...currentScaleDef, ...scaleDef };
@@ -1308,8 +1311,15 @@ export class View extends Base {
 
     const scale = createScaleByField(field, data, mergedScaleDef);
 
-    // 4. 缓存 scale 结构：Record<key, Scale>,
-    this.scales[defaultKey] = scale;
+    // ===================================
+    // 4. 缓存 scale 结构：Record<key, Scale>
+    // 如果存在则更新，否则就直接放入
+    const existScale = this.scales[defaultKey];
+    if (existScale) {
+      syncScale(existScale, scale);
+    } else {
+      this.scales[defaultKey] = scale;
+    }
 
     // 5. 构造 Record<sync, Scale[]> 数据结构
     const sync = get(mergedScaleDef, ['sync']);
@@ -1323,21 +1333,9 @@ export class View extends Base {
       }
       this.syncScales[syncKey].push(scale);
     }
-  }
+    // ===================================
 
-  /**
-   * 根据字段名递归的去获取 scale
-   * @param field
-   * @param key
-   */
-  public getScale(field: string, key?: string): Scale {
-    const defaultKey = key ? key : `${this.id}-${field}`;
-
-    if (this.parent) {
-      return this.parent.getScale(field, defaultKey);
-    }
-
-    return this.scales[defaultKey];
+    return scale;
   }
 
   /**
@@ -1378,6 +1376,21 @@ export class View extends Base {
     });
   }
 
+  /**
+   * 获得 Geometry 中的 scale 对象
+   */
+  private getGeometryScales(): Record<string, Scale> {
+    const fields = this.getScaleFields();
+
+    const scales = {};
+
+    each(fields, (field: string) => {
+      scales[field] = this.getScaleByField(field);
+    });
+
+    return scales;
+  }
+
   private getScaleFields() {
     const fields = this.geometries.reduce((r: string[], geometry: Geometry): string[] => {
       r.push(...geometry.getScaleFields());
@@ -1405,7 +1418,7 @@ export class View extends Base {
     // 分类 scale，调整 range 范围
     this.adjustCategoryScaleRange();
     // 处理 sync scale 的逻辑
-    this.adjustLinearScaleSync();
+    this.syncScale();
   }
 
   /**
@@ -1451,39 +1464,6 @@ export class View extends Base {
           scale.range = range;
         }
       }
-    });
-  }
-
-  /**
-   * 处理 linear scale 同步 sync 的问题
-   */
-  private adjustLinearScaleSync() {
-    // 需要 sync 的 scales
-    const syncScales = [];
-    // sync 的 最大最小值
-    let max = Number.MIN_SAFE_INTEGER;
-    let min = Number.MAX_SAFE_INTEGER;
-
-    const { scales: scaleDefs } = this.getOptions();
-
-    each(this.scales, (scale: Scale, field: string) => {
-      const scaleDef = get(scaleDefs, [field]);
-
-      // 在遍历过程中，找到 sync 配置的 scale，并获取最大最小值
-      if (get(scaleDef, 'sync') === true && scale.isLinear) {
-        max = Math.max(max, scale.max);
-        min = Math.min(min, scale.min);
-
-        syncScales.push(scale);
-      }
-    });
-
-    // 同步 sync scales 的 min max
-    each(syncScales, (s: Scale) => {
-      s.change({
-        min,
-        max,
-      });
     });
   }
 
