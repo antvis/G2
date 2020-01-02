@@ -25,8 +25,8 @@ describe('sync scale', () => {
 
   it('no sync', () => {
     chart.render();
-    // @ts-ignore
-    const { sale, profit } = chart.scales;
+    const sale = chart.getScaleByField('sale');
+    const profit = chart.getScaleByField('profit');
 
     // 未同步，不相同
     expect(sale.min).toBe(0);
@@ -38,21 +38,17 @@ describe('sync scale', () => {
   it('sync scale, and update', () => {
     chart.scale({
       sale: {
-        sync: true,
+        sync: 'value',
       },
       profit: {
-        sync: true,
-      },
-      // 分类的 sync 不会处理
-      city: {
-        sync: true,
+        sync: 'value',
       },
     });
 
     chart.render();
 
-    // @ts-ignore
-    const { sale, profit } = chart.scales;
+    const sale = chart.getScaleByField('sale');
+    const profit = chart.getScaleByField('profit');
 
     // 相等的 min max
     expect(sale.min).toBe(0);
