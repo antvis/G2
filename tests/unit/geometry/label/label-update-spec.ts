@@ -1,4 +1,3 @@
-import { isGenericTypeAnnotation } from '_@babel_types@7.7.4@@babel/types/lib';
 import { Chart } from '../.../../../../../src';
 import { createDiv } from '../../../util/dom';
 
