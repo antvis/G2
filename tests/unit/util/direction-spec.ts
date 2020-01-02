@@ -75,5 +75,21 @@ describe('util direction', () => {
     expect(getTranslateDirection(DIRECTION.RIGHT, coordinate)).toEqual(DIRECTION.BOTTOM);
     expect(getTranslateDirection(DIRECTION.TOP, coordinate)).toEqual(DIRECTION.LEFT);
     expect(getTranslateDirection(DIRECTION.BOTTOM, coordinate)).toEqual(DIRECTION.RIGHT);
+
+    // 还原
+    coordinate.transpose();
+    coordinate.scale(-2, -2);
+
+    coordinate.reflect('x');
+    expect(getTranslateDirection(DIRECTION.LEFT, coordinate)).toEqual(DIRECTION.RIGHT);
+    expect(getTranslateDirection(DIRECTION.RIGHT, coordinate)).toEqual(DIRECTION.LEFT);
+    expect(getTranslateDirection(DIRECTION.TOP, coordinate)).toEqual(DIRECTION.TOP);
+    expect(getTranslateDirection(DIRECTION.BOTTOM, coordinate)).toEqual(DIRECTION.BOTTOM);
+
+    coordinate.reflect('y');
+    expect(getTranslateDirection(DIRECTION.LEFT, coordinate)).toEqual(DIRECTION.RIGHT);
+    expect(getTranslateDirection(DIRECTION.RIGHT, coordinate)).toEqual(DIRECTION.LEFT);
+    expect(getTranslateDirection(DIRECTION.TOP, coordinate)).toEqual(DIRECTION.BOTTOM);
+    expect(getTranslateDirection(DIRECTION.BOTTOM, coordinate)).toEqual(DIRECTION.TOP);
   });
 });
