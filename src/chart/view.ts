@@ -53,6 +53,7 @@ import {
   ViewOption,
 } from './interface';
 import defaultLayout, { Layout } from './layout';
+import { ScalePool } from './util/scale-pool';
 
 /**
  * view container of G2
@@ -108,9 +109,10 @@ export class View extends Base {
   protected filteredData: Data;
 
   /** 所有的 scales */
-  protected scales: Record<string, Scale> = {};
+  private scalePool: ScalePool = new ScalePool();
+  // protected scales: Record<string, Scale> = {};
   /** 所有同步 scales 的信息 */
-  protected syncScales: Record<string, Scale[]> = {};
+  // protected syncScales: Record<string, Scale[]> = {};
 
   // 布局函数
   protected layoutFunc: Layout = defaultLayout;
@@ -219,8 +221,7 @@ export class View extends Base {
   public clear() {
     this.emit(VIEW_LIFE_CIRCLE.BEFORE_CLEAR);
     // 1. 清空缓存和计算数据
-    this.scales = {};
-    this.syncScales = {};
+    this.scalePool.clear();
     this.filteredData = [];
     this.coordinateInstance = undefined;
 
@@ -787,18 +788,14 @@ export class View extends Base {
   }
 
   /**
-   * 根据字段名递归的去获取 scale
+   * 根据字段名去获取 scale
    * @param field
    * @param key
    */
   public getScaleByField(field: string, key?: string): Scale {
     const defaultKey = key ? key : `${this.id}-${field}`;
-
-    if (this.parent) {
-      return this.parent.getScaleByField(field, defaultKey);
-    }
-
-    return this.scales[defaultKey];
+    // 调用根节点 view 的方法获取
+    return this.getRootView().scalePool.getScale(defaultKey);
   }
 
   /**
@@ -863,6 +860,13 @@ export class View extends Base {
    * @returns G.Canvas 画布实例
    */
   public getCanvas(): ICanvas {
+    return ((this.getRootView() as unknown) as Chart).canvas;
+  }
+
+  /**
+   * 获得根节点 view
+   */
+  public getRootView(): View {
     let v = this as View;
 
     while (true) {
@@ -872,7 +876,7 @@ export class View extends Base {
       }
       break;
     }
-    return ((v as unknown) as Chart).canvas;
+    return v;
   }
 
   /**
@@ -1284,7 +1288,7 @@ export class View extends Base {
         field,
         // 分组字段的 scale 使用未过滤的数据创建
         groupedFields.includes(field) ? data : filteredData,
-        scaleDef,
+        scaleDef
       );
     });
   }
@@ -1309,71 +1313,16 @@ export class View extends Base {
       return this.parent.createScale(field, data, mergedScaleDef, defaultKey);
     }
 
-    const scale = createScaleByField(field, data, mergedScaleDef);
-
-    // ===================================
-    // 4. 缓存 scale 结构：Record<key, Scale>
-    // 如果存在则更新，否则就直接放入
-    const existScale = this.scales[defaultKey];
-    if (existScale) {
-      syncScale(existScale, scale);
-    } else {
-      this.scales[defaultKey] = scale;
-    }
-
-    // 5. 构造 Record<sync, Scale[]> 数据结构
-    const sync = get(mergedScaleDef, ['sync']);
-
-    const syncKey = sync === true ? field : sync === false ? undefined : sync;
-    // 存在 sync 标记才进行 sync
-    if (syncKey) {
-      // 不存在这个 syncKey，则创建一个空数组
-      if (!this.syncScales[syncKey]) {
-        this.syncScales[syncKey] = [];
-      }
-      this.syncScales[syncKey].push(scale);
-    }
-    // ===================================
-
-    return scale;
+    // 4. 在根节点 view 通过 scalePool 创建
+    return this.scalePool.createScale(field, data, mergedScaleDef, defaultKey);
   }
 
   /**
    * 处理 scale 同步逻辑
    */
   private syncScale() {
-    if (this.parent) {
-      return this.parent.syncScale();
-    }
-
-    // 对于 syncScales 中每一个 syncKey 下面的 scale 数组进行同步处理
-    each(this.syncScales, (scales: Scale[], syncKey: string) => {
-      // min, max, values
-      let min = Number.MAX_SAFE_INTEGER;
-      let max = Number.MIN_SAFE_INTEGER;
-      const values = [];
-
-      // 1. 遍历求得最大最小值，values 等
-      each(scales, (scale: Scale) => {
-        max = isNumber(scale.max) ? Math.max(max, scale.max) : max;
-        min = isNumber(scale.min) ? Math.min(min, scale.min) : min;
-
-        each(scale.values, (v: any) => {
-          if (!values.includes(v)) {
-            values.push(v);
-          }
-        });
-      });
-
-      // 2. 同步
-      each(scales, (scale: Scale) => {
-        scale.change({
-          min,
-          max,
-          values,
-        });
-      });
-    });
+    // 最终调用 root view 的
+    this.getRootView().scalePool.sync();
   }
 
   /**

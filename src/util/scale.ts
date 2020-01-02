@@ -1,4 +1,4 @@
-import { firstValue, get, getRange, isArray, isNil, isNumber, isString, mix, valuesOfKey } from '@antv/util';
+import { firstValue, get, getRange, isArray, isEmpty, isNil, isNumber, isString, mix, valuesOfKey } from '@antv/util';
 import { getScale, Scale, ScaleConfig } from '../dependents';
 import { LooseObject, ScaleOption } from '../interface';
 
@@ -75,7 +75,7 @@ export function createScaleByField(field: string | number, data?: LooseObject[] 
     return scale;
   }
 
-  if (isNumber(field) || (isNil(firstValue(data, field)) && !scaleDef)) {
+  if (isNumber(field) || (isNil(firstValue(data, field)) && isEmpty(scaleDef))) {
     const Identity = getScale('identity');
     scale = new Identity({
       field: field.toString(),

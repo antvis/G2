@@ -121,7 +121,7 @@ describe('Chart', () => {
     // @ts-ignore
     expect(chart.filteredData).toEqual([]);
     // @ts-ignore
-    expect(chart.scales).toEqual({});
+    expect(chart.scalePool.scales).toEqual({});
     expect(!!chart.getCoordinate()).toBe(false);
 
     // @ts-ignore
