@@ -29,6 +29,10 @@ import DataFilter from './data/filter';
 import DataRangeFilter from './data/range-filter';
 
 import ElementFilter from './element/filter';
+import ViewDrag from './view/drag';
+import ViewMove from './view/move';
+import ScaleTranslate from './view/scale-translate';
+import ScaleZoom from './view/scale-zoom';
 
 import { createAction, registerAction } from './register';
 
@@ -63,5 +67,10 @@ registerAction('brush', DataRangeFilter);
 registerAction('brush-x', DataRangeFilter, { dims: ['x'] });
 registerAction('brush-y', DataRangeFilter, { dims: ['y'] });
 registerAction('element-filter', ElementFilter);
+registerAction('view-drag', ViewDrag);
+registerAction('view-move', ViewMove);
+
+registerAction('scale-translate', ScaleTranslate);
+registerAction('scale-zoom', ScaleZoom);
 
 export { Action, registerAction, createAction };
