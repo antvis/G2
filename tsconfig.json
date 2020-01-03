@@ -20,12 +20,12 @@
   },
   "include": ["src"],
   "typedocOptions": {
-    "mode": "modules",
+    "mode": "file",
     "out": "docs/api",
     "excludePrivate": true,
     "excludeProtected": true,
     "excludeExternals": true,
     "plugin": "typedoc-plugin-markdown",
-    "theme": "docusaurus2"
+    "theme": "./bin/typedoc-theme",
   }
 }
