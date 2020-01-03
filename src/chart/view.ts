@@ -30,7 +30,6 @@ import { BBox } from '../util/bbox';
 import { isFullCircle, isPointInCoordinate } from '../util/coordinate';
 import { createCoordinate } from '../util/coordinate';
 import { parsePadding } from '../util/padding';
-import { createScaleByField, syncScale } from '../util/scale';
 import { mergeTheme } from '../util/theme';
 import Chart from './chart';
 import { getComponentController, getComponentControllerNames } from './controller';
