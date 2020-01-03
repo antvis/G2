@@ -1447,7 +1447,6 @@ export class View extends Base {
 
   /**
    * 调整 coordinate 的坐标范围
-   * @private
    */
   public adjustCoordinate() {
     this.coordinateInstance.update({
