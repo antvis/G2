@@ -28,7 +28,7 @@
     "build": "run-s clean lib",
     "ci": "run-s build coverage",
     "doc": "rimraf -rf docs/api && typedoc",
-    "changelog": "conventional-changelog -i CHANGELOG.md -a -s"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },
   "dependencies": {
     "@antv/adjust": "^0.2.1",
