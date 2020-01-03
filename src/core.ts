@@ -1,6 +1,6 @@
 /* G2 的一个壳子，不包含 Geometry，由开发者自己定义和引入 */
 
-export const VERSION = '4.0.0-alpha.1';
+export const VERSION = '4.0.0-beta.1';
 
 // API、组件 导出
 export { LAYER, DIRECTION } from './constant';
