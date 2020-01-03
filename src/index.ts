@@ -80,19 +80,58 @@ registerComponentController('legend', Legend);
 registerComponentController('tooltip', Tooltip);
 registerComponentController('annotation', Annotation);
 
-// view module augmentation
-// detail: http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
 import { GeometryCfg } from './geometry/base';
 import { PathCfg } from './geometry/path';
 
+/**
+ * 往 View 原型上添加的创建 Geometry 的方法
+ *
+ * Tips:
+ * view module augmentation, detail: http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
+ */
 declare module './chart/view' {
   interface View {
+    /**
+     * 创建 Polygon 几何标记
+     * @param [cfg] 传入 Polygon 构造函数的配置
+     * @returns polygon 返回 Polygon 实例
+     */
     polygon(cfg?: Partial<GeometryCfg>): Polygon;
+    /**
+     * 创建 Point 几何标记
+     * @param [cfg] 传入 Point 构造函数的配置
+     * @returns point 返回 Point 实例
+     */
     point(cfg?: Partial<GeometryCfg>): Point;
+    /**
+     * 创建 Interval 几何标记
+     * @param [cfg] 传入 Interval 构造函数的配置
+     * @returns interval 返回 Interval 实例
+     */
     interval(cfg?: Partial<GeometryCfg>): Interval;
+    /**
+     * 创建 Schema 几何标记
+     * @param [cfg] 传入 Schema 构造函数的配置
+     * @returns schema 返回 Schema 实例
+     */
     schema(cfg?: Partial<GeometryCfg>): Schema;
+    /**
+     * 创建 Path 几何标记
+     * @param [cfg] 传入 Path 构造函数的配置
+     * @returns path 返回 Path 实例
+     */
     path(cfg?: Partial<PathCfg>): Path;
+    /**
+     * 创建 Line 几何标记
+     * @param [cfg] 传入 Line 构造函数的配置
+     * @returns line 返回 Line 实例
+     */
     line(cfg?: Partial<PathCfg>): Line;
+    /**
+     * 创建 Area 几何标记
+     * @param [cfg] 传入 Area 构造函数的配置
+     * @returns area 返回 Area 实例
+     */
     area(cfg?: Partial<PathCfg>): Area;
   }
 }
