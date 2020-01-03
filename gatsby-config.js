@@ -42,7 +42,48 @@ module.exports = {
         order: 2,
       },
     ],
-    docs: [],
+    docs: [
+      {
+        slug: 'api/index',
+        title: {
+          zh: 'Index',
+          en: 'Index',
+        },
+        order: 0,
+      },
+      {
+        slug: 'api/classes',
+        title: {
+          zh: 'Classes',
+          en: 'Classes',
+        },
+        order: 1,
+      },
+      {
+        slug: 'api/enums',
+        title: {
+          zh: 'Enums',
+          en: 'Enums',
+        },
+        order: 2,
+      },
+      {
+        slug: 'api/interfaces',
+        title: {
+          zh: 'Interfaces',
+          en: 'Interfaces',
+        },
+        order: 3,
+      },
+      {
+        slug: 'api/modules',
+        title: {
+          zh: 'Modules',
+          en: 'Modules',
+        },
+        order: 4,
+      },
+    ],
     examples: [
       {
         slug: 'gallery',
