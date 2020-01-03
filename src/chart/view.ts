@@ -73,6 +73,8 @@ export class View extends Base {
 
   /** view 实际的绘图区域，除去 padding，出去组件占用空间 */
   public viewBBox: BBox;
+  /** 图形区域的大小 */
+  public plotBBox: BBox;
   /** 坐标系的位置大小 */
   public coordinateBBox: BBox;
 
@@ -1032,37 +1034,37 @@ export class View extends Base {
   // 生命周期子流程——初始化流程
 
   /**
-   * 计算 region，计算实际的像素范围坐标，去除 padding 之后的
+   * 计算 region，计算实际的像素范围坐标
    * @private
    */
   private calculateViewBBox() {
-    // 存在 parent， 那么就是通过父容器大小计算
+    let x;
+    let y;
     let width;
     let height;
-    let start: Point;
 
     if (this.parent) {
-      start = this.parent.coordinateBBox.tl;
-      width = this.parent.coordinateBBox.width;
-      height = this.parent.coordinateBBox.height;
+      // 存在 parent， 那么就是通过父容器大小计算
+      x = this.parent.plotBBox.x;
+      y = this.parent.plotBBox.y;
+      width = this.parent.plotBBox.width;
+      height = this.parent.plotBBox.height;
     } else {
       // 顶层容器，从 canvas 中取值 宽高
+      x = 0;
+      y = 0;
       width = this.canvas.get('width');
       height = this.canvas.get('height');
-      start = { x: 0, y: 0 };
     }
 
-    const region = this.region;
+    const { start, end }  = this.region;
 
-    const [top, right, bottom, left] = this.padding;
-
-    // 计算 bbox 除去 padding 之后的
-    // 初始 coordinateBBox = viewBBox
-    this.viewBBox = this.coordinateBBox = new BBox(
-      start.x + width * region.start.x + left,
-      start.y + height * region.start.y + top,
-      width * (region.end.x - region.start.x) - left - right,
-      height * (region.end.y - region.start.y) - top - bottom
+    // 根据 region 计算当前 view 的 bbox 大小。
+    this.viewBBox = new BBox(
+      x + width * start.x,
+      y + height * start.y,
+      width * (end.x - start.x),
+      height * (end.y - start.y),
     );
   }
 
