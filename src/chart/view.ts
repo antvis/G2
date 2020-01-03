@@ -793,7 +793,7 @@ export class View extends Base {
    * @param key
    */
   public getScaleByField(field: string, key?: string): Scale {
-    const defaultKey = key ? key : `${this.id}-${field}`;
+    const defaultKey = key ? key : this.getScaleKey(field);
     // 调用根节点 view 的方法获取
     return this.getRootView().scalePool.getScale(defaultKey);
   }
@@ -1306,7 +1306,7 @@ export class View extends Base {
     const mergedScaleDef = { ...currentScaleDef, ...scaleDef };
 
     // 2. 生成默认的 key
-    const defaultKey = key ? key : `${this.id}-${field}`;
+    const defaultKey = key ? key : this.getScaleKey(field);
 
     // 3. 是否存在父 view，在则递归，否则创建
     if (this.parent) {
@@ -1521,6 +1521,14 @@ export class View extends Base {
         }
       });
     }
+  }
+
+  /**
+   * scale key 的创建方式
+   * @param field
+   */
+  private getScaleKey(field: string): string {
+    return `${this.id}-${field}`;
   }
 }
 
