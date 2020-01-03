@@ -74,3 +74,4 @@ esm
 
 *.sw*
 *.un~
+docs/api
