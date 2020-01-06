@@ -36,14 +36,16 @@ describe('test element interaction', () => {
     { year: '1998', value: 90 },
     { year: '1999', value: 3 },
   ]);
-  chart.animate(false);
+  chart.animate(true);
   chart.tooltip(false);
   chart.interaction('element-active');
   chart.interaction('drag-view');
   chart.interaction('drag-move');
-
-  chart.interval().position('year*value');
-  // .color('year');
+  chart.interaction('legend-filter');
+  chart
+    .interval()
+    .position('year*value')
+    .color('year');
   chart.render();
   const elements = chart.geometries[0].elements;
   const first = elements[0];

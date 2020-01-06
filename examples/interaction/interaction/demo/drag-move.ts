@@ -1,17 +1,14 @@
 import { Chart, registerInteraction } from '@antv/g2';
+registerInteraction('drag-view', {
+  start: [{ trigger: 'plot:mousedown', action: 'view-drag:start' }],
+  processing: [{ trigger: 'plot:mousemove', action: 'view-drag:drag' }],
+  end: [{ trigger: 'plot:mouseup', action: 'view-drag:end' }],
+});
+
 registerInteraction('drag-move', {
-  start: [
-    { trigger: 'plot:mousedown', action: 'view-drag:start' },
-    { trigger: 'dragstart', action: 'view-move:start' },
-  ],
-  processing: [
-    { trigger: 'plot:mousemove', action: 'view-drag:drag' },
-    { trigger: 'drag', action: 'view-move:move' },
-  ],
-  end: [
-    { trigger: 'plot:mouseup', action: 'view-drag:end' },
-    { trigger: 'dragend', action: 'view-move:end' },
-  ],
+  start: [{ trigger: 'dragstart', action: 'view-move:start' }],
+  processing: [{ trigger: 'drag', action: 'view-move:move' }],
+  end: [{ trigger: 'dragend', action: 'view-move:end' }],
 });
 
 fetch('../data/scatter.json')
