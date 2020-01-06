@@ -11,7 +11,7 @@ describe('Axis', () => {
       height: 500,
       width: 600,
       autoFit: false,
-      padding: 0,
+      padding: 'auto',
     });
     chart.data([
       { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },

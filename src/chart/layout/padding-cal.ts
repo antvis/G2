@@ -8,6 +8,13 @@ export class PaddingCal {
   private bottom: number;
   private left: number;
 
+  /**
+   * 初始的 padding 数据
+   * @param top
+   * @param right
+   * @param bottom
+   * @param left
+   */
   constructor(top: number = 0, right: number = 0, bottom: number = 0, left: number = 0) {
     this.top = top;
     this.right = right;
@@ -16,7 +23,7 @@ export class PaddingCal {
   }
 
   /**
-   * 增加 padding
+   * 四周增加 padding
    * @param padding
    */
   public shrink(padding: number[]): PaddingCal {

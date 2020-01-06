@@ -57,7 +57,7 @@ describe('facet rect', () => {
     // facet views
     expect(chart.views.length).toBe(49);
     // @ts-ignore
-    expect(chart.views[0].padding).toEqual([8, 8, 8, 8]);
+    expect(chart.views[0].padding).toEqual(8);
     // @ts-ignore
     expect(chart.views[0].region).toEqual({
       start: { x: 0, y: 0 },

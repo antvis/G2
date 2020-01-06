@@ -19,7 +19,7 @@ describe('annotation', () => {
     container: div,
     width: 800,
     height: 600,
-    padding: 10,
+    padding: 24,
     autoFit: false,
   });
 
@@ -71,11 +71,11 @@ describe('annotation', () => {
     // theme
     expect(line.get('style').lineDash).toEqual([2, 2]);
     // pos
-    expect(line.get('start').x).toBeWithin(503, 508);
-    expect(line.get('start').y).toBeWithin(53, 60);
+    expect(line.get('start').x).toBe(494);
+    expect(line.get('start').y).toBe(70);
 
-    expect(line.get('end').x).toBeWithin(693, 697);
-    expect(line.get('end').y).toBeWithin(378, 385);
+    expect(line.get('end').x).toBe(682);
+    expect(line.get('end').y).toBe(392);
     // style
     expect(line.get('style').stroke).toBe('green');
 
@@ -100,11 +100,11 @@ describe('annotation', () => {
     // theme
     expect(region.get('style').fillOpacity).toBe(0.04);
     // pos
-    expect(region.get('start').x).toBeWithin(503, 508);
-    expect(region.get('start').y).toBeWithin(565, 570);
+    expect(region.get('start').x).toBe(494);
+    expect(region.get('start').y).toBe(576);
 
-    expect(region.get('end').x).toBeWithin(694, 698);
-    expect(region.get('end').y).toBeWithin(8, 12);
+    expect(region.get('end').x).toBe(682);
+    expect(region.get('end').y).toBe(24);
     expect(region.get('style').fill).toBe('grey');
   });
 
@@ -126,8 +126,8 @@ describe('annotation', () => {
     // @ts-ignore
     expect(text.get('style').fontFamily).toEqual(chart.getTheme().fontFamily);
     // pos
-    expect(text.get('x')).toBeWithin(122, 128);
-    expect(text.get('y')).toBeWithin(97, 105);
+    expect(text.get('x')).toBe(118);
+    expect(text.get('y')).toBe(116);
     // style
     expect(text.get('style').fill).toBe('red');
   });
@@ -167,8 +167,8 @@ describe('annotation', () => {
 
     const text = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[5].component;
     // // pos
-    expect(text.get('x')).toBeWithin(122, 128);
-    expect(text.get('y')).toBeWithin(97, 105);
+    expect(text.get('x')).toBe(118);
+    expect(text.get('y')).toBe(116);
   });
 
   it('arc', () => {
@@ -187,7 +187,7 @@ describe('annotation', () => {
     expect(arc.get('startAngle')).toBe(-Math.PI / 2);
     expect(arc.get('endAngle')).toBe(Math.PI / 2);
     // @ts-ignore
-    expect(arc.get('radius')).toBeWithin(221, 222);
+    expect(arc.get('radius')).toBe(230);
   });
 
   afterAll(() => {

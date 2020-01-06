@@ -54,6 +54,17 @@ describe('View', () => {
       width: view.viewBBox.width,
       height: view.viewBBox.height,
     }).toEqual({
+      x: 0,
+      y: 0,
+      width: 800,
+      height: 600,
+    });
+    expect({
+      x: view.coordinateBBox.x,
+      y: view.coordinateBBox.y,
+      width: view.coordinateBBox.width,
+      height: view.coordinateBBox.height,
+    }).toEqual({
       x: 5,
       y: 5,
       width: 790,
@@ -137,6 +148,7 @@ describe('View', () => {
     c = view.coordinate('rect');
     expect(c.type).toEqual('rect');
 
+    view.render();
     expect(view.getCoordinate().getWidth()).toEqual(790);
     expect(view.getCoordinate().getHeight()).toEqual(590);
   });
@@ -258,7 +270,7 @@ describe('View', () => {
 
   it('getXY', () => {
     const position = view.getXY({ city: '杭州', sale: 40, category: '鼠标' });
-    expect(position.x).toBe(220.5);
+    expect(position.x).toBe(202.5);
   });
 
   it('showTooltip', () => {
