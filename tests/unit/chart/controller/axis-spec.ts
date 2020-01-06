@@ -56,5 +56,9 @@ describe('Axis', () => {
     expect(grids.length).toBe(1);
     expect(grids[0].component.get('animate')).toBe(false);
     expect(grids[0].component.get('animateOption')).toBeDefined();
+
+
+    chart.changeSize(100, 100);
+    expect(chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.GRID)[0].component.get('animate')).toBe(true);
   });
 });
