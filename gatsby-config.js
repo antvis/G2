@@ -28,7 +28,7 @@ module.exports = {
       {
         slug: 'docs/tutorial',
         title: {
-          zh: '使用文档',
+          zh: '教程',
           en: 'Tutorials',
         },
         order: 1,
@@ -87,7 +87,7 @@ module.exports = {
     examples: [
       {
         slug: 'gallery',
-        icon: 'gallery', // 图标名可以去 https://antv.alipay.com/zh-cn/g2/3.x/demo/index.html 打开控制台查看图标类名
+        icon: 'gallery',
         title: {
           zh: '官方精品库',
           en: 'Gallery',
@@ -95,7 +95,7 @@ module.exports = {
       },
       {
         slug: 'line',
-        icon: 'line', // 图标名可以去 https://antv.alipay.com/zh-cn/g2/3.x/demo/index.html 打开控制台查看图标类名
+        icon: 'line',
         title: {
           zh: '折线图',
           en: 'Line Chart',
@@ -246,5 +246,27 @@ module.exports = {
         },
       },
     ],
+    docsearchOptions: {
+      apiKey: '200ec461f4aa0bb4f0e761566f1a1336',
+      indexName: 'antv_g2',
+    },
+    playground: {
+      htmlCodeTemplate: `<!DOCTYPE html>
+        <html>
+          <head>
+            <meta charset="UTF-8">
+            <title>{{title}}</title>
+          </head>
+          <body>
+            <div id="container" />
+            <!-- todo: url 更新 4.0.0 -->
+            <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.g2-3.5.11/dist/g2.min.js"></script>
+            <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.data-set-0.10.2/dist/data-set.min.js"></script>
+            <script>
+        {{code}}
+            </script>
+          </body>
+        </html>`,
+    },
   },
 };
