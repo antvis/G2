@@ -21,7 +21,7 @@ fetch('../data/gaussion-distribution.json')
       container: 'container',
       autoFit: true,
       height: 500,
-      padding: 20,
+      padding: [40, 40, 50, 40],
     });
     chart.data(dv.rows);
     chart.tooltip({
