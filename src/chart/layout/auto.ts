@@ -17,7 +17,7 @@ export function calculatePadding(view: View): Padding {
 
   // 如果不是 auto padding，那么直接解析之后返回
   if (!isAutoPadding(padding)) {
-    return parsePadding(padding as Padding);
+    return parsePadding(padding);
   }
 
   // 是 auto padding，根据组件的情况，来计算 padding

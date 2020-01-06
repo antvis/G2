@@ -5,7 +5,7 @@ import { Padding, ViewPadding } from '../interface';
  * 是否是自动 padding
  * @param padding
  */
-export function isAutoPadding(padding: ViewPadding): boolean {
+export function isAutoPadding(padding: ViewPadding): padding is 'auto' {
   return !isNumber(padding) && !isArray(padding);
 }
 
