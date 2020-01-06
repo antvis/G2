@@ -69,12 +69,14 @@ export class View extends Base {
   /** 所有的 Interaction 实例 */
   public interactions: Record<string, Interaction> = {};
 
-  /** view 实际的绘图区域，除去 padding，出去组件占用空间 */
+  /** view 区域空间 ViewBBox - padding = coordinateBBox */
   public viewBBox: BBox;
   /** 图形区域的大小 */
   // public plotBBox: BBox;
   /** 坐标系的位置大小 */
   public coordinateBBox: BBox;
+  /** view 的 padding 大小，传入的配置（不是解析之后的值） */
+  public padding: ViewPadding;
 
   public canvas: ICanvas;
 
@@ -85,8 +87,6 @@ export class View extends Base {
   public middleGroup: IGroup;
   /** 前景层 */
   public foregroundGroup: IGroup;
-  /** view 的 padding 大小，传入的配置（不是解析之后的值） */
-  public padding: ViewPadding;
 
   /** 标记 view 的大小位置范围，均是 0 ~ 1 范围，便于开发者使用 */
   protected region: Region;
