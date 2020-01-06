@@ -85,7 +85,7 @@ export class View extends Base {
   public middleGroup: IGroup;
   /** 前景层 */
   public foregroundGroup: IGroup;
-  /** view 的 padding 大小 */
+  /** view 的 padding 大小，传入的配置（不是解析之后的值） */
   public padding: ViewPadding;
 
   /** 标记 view 的大小位置范围，均是 0 ~ 1 范围，便于开发者使用 */
@@ -696,7 +696,6 @@ export class View extends Base {
       middleGroup: this.middleGroup.addGroup({ zIndex: GROUP_Z_INDEX.MID }),
       foregroundGroup: this.foregroundGroup.addGroup({ zIndex: GROUP_Z_INDEX.FORE }),
       theme: this.themeObject,
-      padding: this.padding,
       ...cfg,
       options: {
         ...sharedOptions,
