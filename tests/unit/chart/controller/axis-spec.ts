@@ -25,6 +25,11 @@ describe('Axis', () => {
     chart.legend('name', {
       position: 'top',
     });
+    chart.axis('月份', {
+      animateOption: {
+        update: null,
+      },
+    });
 
     chart
       .interval()
@@ -48,6 +53,7 @@ describe('Axis', () => {
     // 图表初始化加载的时候不做 axis 动画
     expect(x.component.get('animate')).toBe(false);
     expect(x.component.get('animateOption')).toBeDefined();
+    expect(x.component.get('animateOption').update).toBe(null);
     expect(y.component.get('animate')).toBe(false);
     expect(y.component.get('animateOption')).toBeDefined();
 

@@ -44,6 +44,27 @@ interface TooltipDomStyles {
   'g2-tooltip-crosshair-y'?: LooseObject;
 }
 
+// 目前组件动画只允许以下参数的配置
+interface ComponentAnimateCfg {
+  /** 动画执行时间 */
+  readonly duration?: number;
+  /** 动画缓动函数 */
+  readonly easing?: string;
+  /** 动画延迟时间 */
+  readonly delay?: number;
+}
+
+interface ComponentAnimateOption {
+  /** 初入场动画配置 */
+  appear?: ComponentAnimateCfg;
+  /** 更新动画配置 */
+  update?: ComponentAnimateCfg;
+  /** 更新后新入场的动画配置 */
+  enter?: ComponentAnimateCfg;
+  /** 离场动画配置 */
+  leave?: ComponentAnimateCfg;
+}
+
 // 用于配置项式的创建方式
 export interface GeometryOption {
   /** Geometry 的类型 */
@@ -235,8 +256,10 @@ export interface LegendCfg {
     | 'bottom'
     | 'bottom-left'
     | 'bottom-right';
-  /** 动画配置 */
+  /** 动画开关 */
   animate?: boolean;
+  /** 动画参数配置 */
+  animateOption?: ComponentAnimateOption;
   /** 分类图例适用，图例项水平方向的间距 */
   itemSpacing?: number;
   /**
@@ -421,8 +444,10 @@ export interface AxisCfg {
   label?: AxisLabelCfg | null;
   /** 坐标轴网格线的配置项，null 表示不展示 */
   grid?: AxisGridCfg | null;
-  /** 是否开启坐标轴动画，默认开启 */
+  /** 动画开关，默认开启 */
   animate?: boolean;
+  /** 动画参数配置 */
+  animateOption?: ComponentAnimateOption;
   /** 标记坐标轴 label 的方向，左侧为 1，右侧为 -1 */
   verticalFactor?: number;
 }

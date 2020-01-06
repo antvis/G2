@@ -388,9 +388,9 @@ export default class Legend extends Controller<Option> {
   private mergeLegendCfg(baseCfg: object, legendOption: LegendOption, direction: DIRECTION) {
     const themeObject = get(this.view.getTheme(), ['components', 'legend', direction], {});
 
-    return deepMix({}, themeObject, baseCfg, legendOption, {
+    return deepMix({}, themeObject, baseCfg, {
       animateOption: DEFAULT_ANIMATE_CFG,
-    });
+    }, legendOption);
   }
 
   /**
