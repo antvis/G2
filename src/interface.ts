@@ -204,7 +204,8 @@ export interface ShapeFactory extends RegisterShapeFactory {
   getShapePoints: (shapeType: string | string[], pointInfo: ShapePoint) => Point[];
 }
 
-export type Padding = number | number[];
+export type Padding = number[];
+export type ViewPadding = number | number[] | 'auto';
 export type Position = [number, number];
 export type AttributeType = 'position' | 'size' | 'color' | 'shape';
 export type ScaleType = 'linear' | 'cat' | 'identity' | 'log' | 'pow' | 'time' | 'timeCat';

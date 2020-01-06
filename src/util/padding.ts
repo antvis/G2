@@ -1,12 +1,20 @@
-import { isArray } from '@antv/util';
-import { Padding } from '../interface';
+import { isArray, isNumber, isString } from '@antv/util';
+import { Padding, ViewPadding } from '../interface';
+
+/**
+ * 是否是自动 padding
+ * @param padding
+ */
+export function isAutoPadding(padding: ViewPadding): boolean {
+  return !isNumber(padding) && !isArray(padding);
+}
 
 /**
  * padding 的解析逻辑
  * @param padding
  * @return [ top, right, bottom, left ]
  */
-export function parsePadding(padding: Padding = 0): [number, number, number, number] {
+export function parsePadding(padding: number[] | number = 0): Padding {
   let paddingArray = isArray(padding) ? padding : [padding];
 
   switch (paddingArray.length) {
