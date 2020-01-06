@@ -150,6 +150,7 @@ const GRID_STYLE = {
       lineDash: [3, 3],
     },
   },
+  animate: true,
 };
 
 const LEGEND_STYLE = {
