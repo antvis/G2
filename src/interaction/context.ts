@@ -1,8 +1,7 @@
-import { each } from '@antv/util';
+import { each, get } from '@antv/util';
 import { View } from '../chart';
-import { BBox, Point } from '../dependents';
+import { BBox, IShape, Point } from '../dependents';
 import { IAction, IInteractionContext, LooseObject } from '../interface';
-import { isPointInCoordinate } from '../util/coordinate';
 import { getComponents, isInBox } from './action/util';
 /**
  * 交互的上下文
@@ -77,6 +76,10 @@ class Context implements IInteractionContext {
     return null;
   }
 
+  public getCurrentShape(): IShape {
+    return get(this.event, ['gEvent', 'shape']);
+  }
+
   /**
    * 当前的触发是否在 View 内
    */
@@ -84,6 +87,27 @@ class Context implements IInteractionContext {
     const point = this.getCurrentPoint();
     if (point) {
       return this.view.isPointInPlot(point);
+    }
+    return false;
+  }
+
+  /**
+   * 是否在指定的图形内
+   * @param name shape 的 name
+   */
+  public isInShape(name) {
+    const shape = this.getCurrentShape();
+    if (shape) {
+      let inShape = shape.get('name') === name;
+      let parent = shape.getParent();
+      while (!inShape && parent && !parent.isCanvas()) {
+        if (parent.get('name') === name) {
+          inShape = true;
+          break;
+        }
+        parent = parent.getParent();
+      }
+      return inShape;
     }
     return false;
   }

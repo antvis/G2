@@ -380,7 +380,7 @@ describe('Interaction test', () => {
         ],
         rollback: [
           {
-            trigger: 'document:click',
+            trigger: 'document:dblclick',
             action() {
               called = true;
             },
@@ -403,7 +403,7 @@ describe('Interaction test', () => {
       });
       expect(called).toBe(false);
 
-      simulateMouseEvent(document, 'click', {
+      simulateMouseEvent(document, 'dblclick', {
         target: div,
         clientX: rect.top + 10,
         clientY: rect.left + 10,

@@ -20,7 +20,6 @@ export default class Event {
     this.view = view;
     this.gEvent = gEvent;
     this.data = data;
-
     this.type = gEvent.type;
   }
 

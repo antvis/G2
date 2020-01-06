@@ -29,6 +29,7 @@ import DataFilter from './data/filter';
 import DataRangeFilter from './data/range-filter';
 
 import ElementFilter from './element/filter';
+import ButtonAction from './view/button';
 import ViewDrag from './view/drag';
 import ViewMove from './view/move';
 import ScaleTranslate from './view/scale-translate';
@@ -72,5 +73,9 @@ registerAction('view-move', ViewMove);
 
 registerAction('scale-translate', ScaleTranslate);
 registerAction('scale-zoom', ScaleZoom);
+registerAction('reset-button', ButtonAction, {
+  name: 'reset-button',
+  text: 'reset',
+});
 
 export { Action, registerAction, createAction };

@@ -153,10 +153,10 @@ registerInteraction('element-brush', {
     {
       trigger: 'mouseup',
       isEnable: isPointInView,
-      action: ['brush:filter', 'brush:end', 'rect-mask:end', 'rect-mask:hide'],
+      action: ['brush:filter', 'brush:end', 'rect-mask:end', 'rect-mask:hide', 'reset-button:show'],
     },
   ],
-  rollback: [{ trigger: 'dblclick', action: ['brush:reset'] }],
+  rollback: [{ trigger: 'reset-button:click', action: ['brush:reset', 'reset-button:hide', 'cursor:crosshair'] }],
 });
 
 registerInteraction('element-brush-x', {

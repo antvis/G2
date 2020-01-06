@@ -260,6 +260,10 @@ export interface IInteractionContext extends LooseObject {
    */
   getCurrentPoint(): Point;
   /**
+   * 获取当前的图形
+   */
+  getCurrentShape(): IShape;
+  /**
    * 添加 action
    * @param action 指定交互 action
    */
@@ -278,6 +282,11 @@ export interface IInteractionContext extends LooseObject {
    * @param name 组件名，可省略
    */
   isInComponent(name?: string);
+  /**
+   * 是否在指定的图形内
+   * @param name shape 的名称
+   */
+  isInShape(name);
   /**
    * 销毁
    */
