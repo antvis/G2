@@ -1014,6 +1014,8 @@ export class View extends Base {
    * 步骤非常繁琐，因为之间有一些数据依赖，所以执行流程上有先后关系
    */
   protected renderRecursive(isUpdate: boolean) {
+    // 子 view 大小相对 coordinateBBox，changeSize 的时候需要重新计算
+    this.calculateViewBBox();
     // 数据到完整图表的绘制
     this.paint(isUpdate);
 

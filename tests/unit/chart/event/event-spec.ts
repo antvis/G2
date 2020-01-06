@@ -9,7 +9,7 @@ const chart = new Chart({
   container: div,
   width: 800,
   height: 600,
-  padding: 10,
+  padding: 'auto',
   autoFit: false,
 });
 
@@ -24,9 +24,6 @@ chart
 chart.animate(false);
 
 chart.render();
-
-// @ts-ignore
-window.__chart = chart;
 
 describe('Event', () => {
   it('component event', () => {

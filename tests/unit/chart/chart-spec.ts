@@ -45,6 +45,18 @@ describe('Chart', () => {
       width: chart.viewBBox.width,
       height: chart.viewBBox.height,
     }).toEqual({
+      x: 0,
+      y: 0,
+      width: 800,
+      height: 600,
+    });
+
+    expect({
+      x: chart.coordinateBBox.x,
+      y: chart.coordinateBBox.y,
+      width: chart.coordinateBBox.width,
+      height: chart.coordinateBBox.height,
+    }).toEqual({
       x: 10,
       y: 10,
       width: 780,
@@ -86,20 +98,20 @@ describe('Chart', () => {
     // @ts-ignore
     let bbox = chart.viewEventCaptureRect.getBBox();
     expect({ x: bbox.x, y: bbox.y, width: bbox.width, height: bbox.height }).toEqual({
-      x: 10,
-      y: 10,
-      width: 780,
-      height: 580,
+      x: 0,
+      y: 0,
+      width: 800,
+      height: 600,
     });
 
     chart.changeSize(700, 600);
     // @ts-ignore
     bbox = chart.viewEventCaptureRect.getBBox();
     expect({ x: bbox.x, y: bbox.y, width: bbox.width, height: bbox.height }).toEqual({
-      x: 10,
-      y: 10,
-      width: 680,
-      height: 580,
+      x: 0,
+      y: 0,
+      width: 700,
+      height: 600,
     });
   });
 

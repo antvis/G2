@@ -162,7 +162,7 @@ export interface ChartCfg {
    * 1. padding: 20
    * 2. padding: [ 10, 30, 30 ]
    */
-  readonly padding?: Padding;
+  readonly padding?: ViewPadding;
   /**
    * 是否开启局部刷新，默认开启
    */

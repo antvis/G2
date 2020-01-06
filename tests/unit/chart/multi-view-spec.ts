@@ -35,14 +35,14 @@ describe('chart multi view', () => {
       start: { x: 0, y: 0 },
       end: { x: 0.5, y: 1 },
     },
-    padding: 5,
+    padding: 20,
   });
   const v2 = chart.createView({
     region: {
       start: { x: 0.5, y: 0 },
       end: { x: 1, y: 1 },
     },
-    padding: 5,
+    padding: 30,
   });
 
   v1.polygon()
@@ -83,10 +83,22 @@ describe('chart multi view', () => {
       width: v1.viewBBox.width,
       height: v1.viewBBox.height,
     }).toEqual({
-      x: 5,
-      y: 5,
-      width: 390,
-      height: 590,
+      x: 0,
+      y: 0,
+      width: 400,
+      height: 600,
+    });
+
+    expect({
+      x: v1.coordinateBBox.x,
+      y: v1.coordinateBBox.y,
+      width: v1.coordinateBBox.width,
+      height: v1.coordinateBBox.height,
+    }).toEqual({
+      x: 20,
+      y: 20,
+      width: 360,
+      height: 560,
     });
 
     expect({
@@ -95,10 +107,22 @@ describe('chart multi view', () => {
       width: v2.viewBBox.width,
       height: v2.viewBBox.height,
     }).toEqual({
-      x: 405,
-      y: 5,
-      width: 390,
-      height: 590,
+      x: 400,
+      y: 0,
+      width: 400,
+      height: 600,
+    });
+
+    expect({
+      x: v2.coordinateBBox.x,
+      y: v2.coordinateBBox.y,
+      width: v2.coordinateBBox.width,
+      height: v2.coordinateBBox.height,
+    }).toEqual({
+      x: 430,
+      y: 30,
+      width: 340,
+      height: 540,
     });
   });
 

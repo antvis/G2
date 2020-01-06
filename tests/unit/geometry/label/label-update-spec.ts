@@ -1,4 +1,5 @@
 import { Chart } from '../.../../../../../src';
+import { delay } from '../../../util/delay';
 import { createDiv } from '../../../util/dom';
 
 describe('Label update', () => {
@@ -38,14 +39,12 @@ describe('Label update', () => {
     expect(labelContainer.getCount()).toBe(8);
   });
 
-  it('changeSize', (done) => {
+  it('changeSize', async () => {
     chart.changeSize(300, 250);
 
-    setTimeout(() => {
-      const labelContainer = interval.labelsContainer;
-      expect(labelContainer.getCount()).toBe(7);
+    await delay(600);
 
-      done();
-    }, 600);
+    const labelContainer = interval.labelsContainer;
+    expect(labelContainer.getCount()).toBe(7);
   });
 });
