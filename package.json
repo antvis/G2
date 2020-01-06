@@ -100,9 +100,10 @@
     ],
     "testRegex": "/tests/.*-spec\\.ts?$"
   },
+  "homepage": "https://g2.antv.vision",
   "repository": {
     "type": "git",
-    "url": "git@github.com:antvis/g2.git"
+    "url": "https://github.com/antvis/g2"
   },
   "bugs": {
     "url": "https://github.com/antvis/g2/issues"
