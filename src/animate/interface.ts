@@ -1,5 +1,4 @@
 import { Coordinate } from '../dependents';
-import { ShapeInfo } from '../interface';
 
 // 传递给 G 的动画配置，duration 必须提供
 export interface AnimateCfg {

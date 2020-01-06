@@ -476,11 +476,10 @@ export default class Annotation extends Controller<BaseOption[]> {
       style: option.style,
       offsetX: option.offsetX,
       offsetY: option.offsetY,
-      animate: option.animate,
     });
     cfg.container = this.getComponentContainer(cfg);
     cfg.animate = cfg.animate && get(option, 'animate', cfg.animate);
-    cfg.animateOption = DEFAULT_ANIMATE_CFG;
+    cfg.animateOption = deepMix({}, DEFAULT_ANIMATE_CFG, cfg.animateOption);
 
     return cfg;
   }

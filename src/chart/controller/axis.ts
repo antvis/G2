@@ -721,7 +721,7 @@ export default class Axis extends Controller<Option> {
   private getAnimateCfg(cfg: object) {
     return {
       animate: this.animate && get(cfg, 'animate'),
-      animateOption: DEFAULT_ANIMATE_CFG,
+      animateOption: deepMix({}, DEFAULT_ANIMATE_CFG, get(cfg, 'animateOption', {})),
     };
   }
 }
