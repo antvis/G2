@@ -14,6 +14,7 @@ const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 500,
+  padding: 32,
 });
 
 // FIXME: 目前 scale 不支持 timeCat
@@ -58,7 +59,7 @@ const dv = ds
   });
 const view1 = chart.createView();
 view1.data(dv.rows);
-// view1.axis(false);
+view1.axis(false);
 view1.tooltip(false);
 view1
   .area()
