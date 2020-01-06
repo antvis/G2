@@ -72,7 +72,6 @@ const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 500,
-  padding: 32,
 });
 
 chart.scale({
@@ -87,13 +86,17 @@ chart.scale({
   },
 });
 
-const v1 = chart.createView();
+const v1 = chart.createView({
+  padding: 32,
+});
 v1.data(data);
 v1.area()
   .position('time*temperature')
   .tooltip(false);
 
-const v2 = chart.createView();
+const v2 = chart.createView({
+  padding: 32,
+});
 v2.data(averages);
 v2.axis(false);
 v2.line().position('time*temperature');
