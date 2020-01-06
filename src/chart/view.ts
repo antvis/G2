@@ -8,7 +8,6 @@ import {
   isBoolean,
   isFunction,
   isNil,
-  isNumber,
   isObject,
   isString,
   map,
@@ -25,11 +24,10 @@ import { Facet, getFacet } from '../facet';
 import { FacetCfgMap } from '../facet/interface';
 import Geometry from '../geometry/base';
 import { createInteraction, Interaction } from '../interaction/';
-import { Data, Datum, LooseObject, Point, Region, ScaleOption } from '../interface';
+import { Data, Datum, LooseObject, Padding, Point, Region, ScaleOption, ViewPadding } from '../interface';
 import { BBox } from '../util/bbox';
 import { isFullCircle, isPointInCoordinate } from '../util/coordinate';
 import { createCoordinate } from '../util/coordinate';
-import { parsePadding } from '../util/padding';
 import { mergeTheme } from '../util/theme';
 import Chart from './chart';
 import { getComponentController, getComponentControllerNames } from './controller';
@@ -74,7 +72,7 @@ export class View extends Base {
   /** view 实际的绘图区域，除去 padding，出去组件占用空间 */
   public viewBBox: BBox;
   /** 图形区域的大小 */
-  public plotBBox: BBox;
+  // public plotBBox: BBox;
   /** 坐标系的位置大小 */
   public coordinateBBox: BBox;
 
@@ -87,11 +85,11 @@ export class View extends Base {
   public middleGroup: IGroup;
   /** 前景层 */
   public foregroundGroup: IGroup;
+  /** view 的 padding 大小 */
+  public padding: ViewPadding;
 
   /** 标记 view 的大小位置范围，均是 0 ~ 1 范围，便于开发者使用 */
   protected region: Region;
-  /** view 的 padding 大小 */
-  protected padding: number[];
   /** 主题配置 */
   protected themeObject: object;
 
@@ -111,9 +109,6 @@ export class View extends Base {
 
   /** 所有的 scales */
   private scalePool: ScalePool = new ScalePool();
-  // protected scales: Record<string, Scale> = {};
-  /** 所有同步 scales 的信息 */
-  // protected syncScales: Record<string, Scale[]> = {};
 
   // 布局函数
   protected layoutFunc: Layout = defaultLayout;
@@ -137,7 +132,7 @@ export class View extends Base {
       middleGroup,
       foregroundGroup,
       region = { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
-      padding = 8,
+      padding,
       theme,
       options,
     } = props;
@@ -148,7 +143,7 @@ export class View extends Base {
     this.middleGroup = middleGroup;
     this.foregroundGroup = foregroundGroup;
     this.region = region;
-    this.padding = parsePadding(padding);
+    this.padding = padding;
     this.themeObject = mergeTheme({}, theme);
     // 接受父 view 传入的参数
     this.options = { ...this.options, ...options };
@@ -701,6 +696,7 @@ export class View extends Base {
       middleGroup: this.middleGroup.addGroup({ zIndex: GROUP_Z_INDEX.MID }),
       foregroundGroup: this.foregroundGroup.addGroup({ zIndex: GROUP_Z_INDEX.FORE }),
       theme: this.themeObject,
+      padding: this.padding,
       ...cfg,
       options: {
         ...sharedOptions,
@@ -1018,9 +1014,6 @@ export class View extends Base {
    * 步骤非常繁琐，因为之间有一些数据依赖，所以执行流程上有先后关系
    */
   protected renderRecursive(isUpdate: boolean) {
-    // 子 view 大小相对 coordinateBBox
-    this.calculateViewBBox();
-
     // 数据到完整图表的绘制
     this.paint(isUpdate);
 
@@ -1044,11 +1037,12 @@ export class View extends Base {
     let height;
 
     if (this.parent) {
+      const bbox = this.parent.coordinateBBox;
       // 存在 parent， 那么就是通过父容器大小计算
-      x = this.parent.plotBBox.x;
-      y = this.parent.plotBBox.y;
-      width = this.parent.plotBBox.width;
-      height = this.parent.plotBBox.height;
+      x = bbox.x;
+      y = bbox.y;
+      width = bbox.width;
+      height = bbox.height;
     } else {
       // 顶层容器，从 canvas 中取值 宽高
       x = 0;
@@ -1057,15 +1051,18 @@ export class View extends Base {
       height = this.canvas.get('height');
     }
 
-    const { start, end }  = this.region;
+    const { start, end } = this.region;
 
     // 根据 region 计算当前 view 的 bbox 大小。
     this.viewBBox = new BBox(
       x + width * start.x,
       y + height * start.y,
       width * (end.x - start.x),
-      height * (end.y - start.y),
+      height * (end.y - start.y)
     );
+
+    // 初始的 coordinate bbox 大小
+    this.coordinateBBox = this.viewBBox;
   }
 
   /**

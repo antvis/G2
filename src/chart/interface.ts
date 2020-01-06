@@ -28,7 +28,17 @@ import {
   StyleOption,
   TooltipOption as GeometryTooltipOption,
 } from '../geometry/interface';
-import { AnimateOption, Data, Datum, LooseObject, Padding, Region, Renderer, ScaleOption } from '../interface';
+import {
+  AnimateOption,
+  Data,
+  Datum,
+  LooseObject,
+  Padding,
+  Region,
+  Renderer,
+  ScaleOption,
+  ViewPadding,
+} from '../interface';
 import { BaseOption, ImageOption, LineOption, TextOption } from './controller/annotation';
 import View from './view';
 
@@ -187,7 +197,7 @@ export interface ViewCfg {
    * 1. padding: 20
    * 2. padding: [ 10, 30, 30 ]
    */
-  readonly padding?: Padding;
+  readonly padding?: ViewPadding;
   /** 设置主题 */
   readonly theme?: object | string;
   /**
