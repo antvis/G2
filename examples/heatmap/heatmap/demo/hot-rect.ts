@@ -15,7 +15,7 @@ fetch('../data/diamond.json')
       container: 'container',
       autoFit: true,
       height: 500,
-      padding: [20, 80, 120, 85]
+      padding: [20, 20, 50, 80]
     });
     chart.data(dv.rows);
     chart.tooltip({

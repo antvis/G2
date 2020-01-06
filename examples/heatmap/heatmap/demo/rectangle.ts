@@ -20,7 +20,8 @@ fetch('../data/gaussion-distribution.json')
     const chart = new Chart({
       container: 'container',
       autoFit: true,
-      height: 500
+      height: 500,
+      padding: [32, 32, 48, 32],
     });
     chart.data(dv.rows);
 
