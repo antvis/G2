@@ -237,7 +237,7 @@ Shape.registerShape('interval', 'rect', {
 
 下面通过一个例子来加深下理解。
 
-```js+
+```js
 const Shape = G2.Shape;
 Shape.registerShape('interval', 'triangle', {
   getPoints(cfg) {
