@@ -27,7 +27,6 @@ fetch('../data/salesTrend.json')
     chart
       .point()
       .position('date*buyin')
-      .shape('hollowCircle')
       .size('date', (val) => {
         if (TICKS.indexOf(val) >= 0) {
           return 3;

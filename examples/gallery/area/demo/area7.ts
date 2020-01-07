@@ -89,6 +89,7 @@ view2
 view2
   .point()
   .position('Date*value')
-  .color('type');
+  .color('type')
+  .shape('circle');
 
 chart.render();

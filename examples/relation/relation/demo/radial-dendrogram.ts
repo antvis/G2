@@ -49,7 +49,6 @@ fetch('../data/flare.json')
     nodeView.point()
       .position('x*y')
       .color('hasChildren')
-      .shape('hollowCircle')
       .label('name', {
         offset: 5,
         labelEmit: true,
