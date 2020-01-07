@@ -23,7 +23,7 @@ fetch('../data/diamond.json')
         sync: true,
       },
     });
-    chart.point().position('carat*price');
+    chart.point().position('carat*price').shape('circle');
 
     [
       'boxcar',

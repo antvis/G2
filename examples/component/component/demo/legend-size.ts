@@ -78,6 +78,7 @@ fetch('../data/world.geo.json')
       .point()
       .position('longitude*latitude')
       .color('#1890ff')
+      .shape('circle')
       .size('value', [5, 15])
       .style({
         lineWidth: 1,
