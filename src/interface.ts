@@ -183,7 +183,7 @@ export interface Shape extends RegisterShape {
   /** 坐标系对象 */
   coordinate: Coordinate;
   /** 工具函数，将 0～1 path 转化成实际画布 path */
-  parsePath: (path: any, islineToArc: boolean) => PathCommand[];
+  parsePath: (path: any) => PathCommand[];
   /** 工具函数，0～1 的坐标点转换成实际画布坐标点 */
   parsePoint: (point: Point) => Point;
   /** 工具函数，0～1 的坐标点集合转换成实际画布坐标点集合 */
