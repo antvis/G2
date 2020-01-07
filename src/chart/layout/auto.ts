@@ -22,9 +22,7 @@ export function calculatePadding(view: View): Padding {
 
   // 是 auto padding，根据组件的情况，来计算 padding
   const { viewBBox } = view;
-  const coordinate = view.getCoordinate();
 
-  let bbox = viewBBox;
   const paddingCal = new PaddingCal();
 
   each(view.getComponents(), (co: ComponentOption) => {
@@ -35,18 +33,19 @@ export function calculatePadding(view: View): Padding {
       return;
     }
 
-    const bboxObject = component.getBBox();
+    const bboxObject = component.getLayoutBBox();
     const componentBBox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height);
 
-    if (coordinate.isPolar && type === COMPONENT_TYPE.AXIS) {
-      const exceed = componentBBox.exceed(bbox);
-      bbox = bbox.shrink(exceed);
+    if (type === COMPONENT_TYPE.AXIS) {
+      const exceed = componentBBox.exceed(viewBBox);
       paddingCal.shrink(exceed);
     } else {
-      const direction =
-        type === COMPONENT_TYPE.AXIS ? getTranslateDirection(co.direction, view.getCoordinate()) : co.direction;
+      // 按照方向计算 padding
+      const direction = co.direction;
+
+      // const direction =
+      //   type === COMPONENT_TYPE.AXIS ? getTranslateDirection(co.direction, view.getCoordinate()) : co.direction;
       paddingCal.inc(componentBBox, direction);
-      bbox = bbox.cut(componentBBox, direction);
     }
   });
 
