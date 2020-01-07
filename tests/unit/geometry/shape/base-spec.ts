@@ -235,7 +235,7 @@ describe('Shape', () => {
         ['M', 0, 0],
         ['L', 1, 1],
       ];
-      expect(shape.parsePath(path, false)).toEqual([
+      expect(shape.parsePath(path)).toEqual([
         ['M', 0, 0],
         ['L', 200, 200],
       ]);
@@ -255,7 +255,7 @@ describe('Shape', () => {
         ['L', 0, 1],
         ['L', 0.5, 1],
       ];
-      let toPath = shape.parsePath(path, true);
+      let toPath = shape.parsePath(path);
       expect(toPath[0]).toEqual(['M', 100, 100]);
       expect(toPath[1]).toEqual(['L', 100, 0]);
       expect(toPath[2]).toEqual(['A', 100, 100, 0, 0, 1, 100, 200]);
@@ -266,7 +266,7 @@ describe('Shape', () => {
         ['L', 0.5, 1],
         ['L', 1, 1],
       ];
-      toPath = shape.parsePath(path, true);
+      toPath = shape.parsePath(path);
       expect(toPath[0]).toEqual(['M', 100, 100]);
       expect(toPath[1]).toEqual(['M', 100, 0]);
       expect(toPath[2]).toEqual(['A', 100, 100, 0, 0, 1, 100, 200]);

@@ -97,13 +97,12 @@ const ShapeBase = {
   /**
    * 将归一化的 path 转换成坐标系下的 path
    * @param path 归一化的路径
-   * @param isLineToArc 是否转换成圆弧
    * @returns
    */
-  parsePath(path: string, isLineToArc: boolean = true): PathCommand[] {
+  parsePath(path: string): PathCommand[] {
     const coordinate = this.coordinate;
     let parsedPath = parsePathString(path);
-    if (coordinate.isPolar && isLineToArc !== false) {
+    if (coordinate.isPolar) {
       parsedPath = convertPolarPath(coordinate, parsedPath);
     } else {
       parsedPath = convertNormalPath(coordinate, parsedPath);
