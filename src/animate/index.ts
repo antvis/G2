@@ -96,6 +96,14 @@ const GEOMETRY_ANIMATE_CFG = {
       animation: 'fadeOut',
     },
   },
+  edge: {
+    enter: {
+      animation: 'fadeIn',
+    },
+    leave: {
+      animation: 'fadeOut',
+    },
+  },
   label: {
     appear: {
       animation: 'fadeIn',
@@ -161,6 +169,11 @@ const GEOMETRY_GROUP_APPEAR_ANIMATION = {
     return {
       animation: 'fadeIn',
       duration: 500,
+    };
+  },
+  edge: () => {
+    return {
+      animation: 'fadeIn',
     };
   },
 };

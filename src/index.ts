@@ -11,6 +11,7 @@ registerEngine('svg', SVGEngine);
 // 注册 G2 内置的 geometry
 import { registerGeometry } from './core';
 import Area from './geometry/area';
+import Edge from './geometry/edge';
 import Interval from './geometry/interval';
 import Line from './geometry/line';
 import Path from './geometry/path';
@@ -25,6 +26,7 @@ registerGeometry('Path', Path);
 registerGeometry('Point', Point);
 registerGeometry('Line', Line);
 registerGeometry('Area', Area);
+registerGeometry('Edge', Edge);
 
 // 注册 Geometry 内置的 label
 import { registerGeometryLabels } from './geometry/label';
@@ -133,5 +135,11 @@ declare module './chart/view' {
      * @returns area 返回 Area 实例
      */
     area(cfg?: Partial<PathCfg>): Area;
+    /**
+     * 创建 Edge 几何标记
+     * @param [cfg] 传入 Edge 构造函数的配置
+     * @returns schema 返回 Edge 实例
+     */
+    edge(cfg?: Partial<GeometryCfg>): Edge;
   }
 }

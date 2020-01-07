@@ -95,6 +95,16 @@ const SHAPE_STYLE = {
     fillOpacity: 0,
     lineWidth: 2,
   },
+  edge: {
+    stroke: DEFAULT_COLOR,
+    lineWidth: 1,
+    fill: null
+  },
+  schema: {
+    stroke: DEFAULT_COLOR,
+    lineWidth: 1,
+    fill: null,
+  },
 };
 
 const AXIS_STYLE = {
@@ -457,11 +467,7 @@ export default {
     },
     schema: {
       candle: {
-        default: {
-          stroke: DEFAULT_COLOR,
-          lineWidth: 1,
-          fill: null,
-        },
+        default: SHAPE_STYLE.schema,
         active: {
           schema: {
             lineWidth: 2,
@@ -469,11 +475,7 @@ export default {
         },
       },
       box: {
-        default: {
-          stroke: DEFAULT_COLOR,
-          lineWidth: 1,
-          fill: null,
-        },
+        default: SHAPE_STYLE.schema,
         active: {
           schema: {
             lineWidth: 2,
@@ -481,6 +483,32 @@ export default {
         },
       },
     },
+    edge: {
+      line: {
+        default: SHAPE_STYLE.edge,
+        active: {
+          lineWidth: 2,
+        },
+      },
+      vhv: {
+        default: SHAPE_STYLE.edge,
+        active: {
+          lineWidth: 2,
+        },
+      },
+      smooth: {
+        default: SHAPE_STYLE.edge,
+        active: {
+          lineWidth: 2,
+        },
+      },
+      arc: {
+        default: SHAPE_STYLE.edge,
+        active: {
+          lineWidth: 2,
+        },
+      },
+    }
   },
   components: {
     axis: {
