@@ -1,4 +1,4 @@
-import { each, startsWith, upperFirst } from '@antv/util';
+import { each, upperFirst } from '@antv/util';
 import { IGroup } from '../../dependents';
 import { Point, ShapeInfo, ShapeMarkerCfg, ShapePoint } from '../../interface';
 import { registerShape, registerShapeFactory } from './base';
@@ -64,8 +64,7 @@ const PointSymbols = {
   },
 };
 
-function drawPoints(shape, cfg: ShapeInfo, container: IGroup, shapeName) {
-  const isStroke = HOLLOW_SHAPES.includes(shapeName) || startsWith(shapeName, 'hollow');
+function drawPoints(shape, cfg: ShapeInfo, container: IGroup, shapeName: string, isStroke: boolean) {
   const style = getStyle(cfg, isStroke, !isStroke, 'r');
   const points = shape.parsePoints(cfg.points);
 
@@ -105,7 +104,7 @@ const PointShapeFactory = registerShapeFactory('point', {
 each(SHAPES, (shapeName: string) => {
   registerShape('point', shapeName, {
     draw(cfg: ShapeInfo, container: IGroup) {
-      return drawPoints(this, cfg, container, shapeName);
+      return drawPoints(this, cfg, container, shapeName, false);
     },
     getMarker(markerCfg: ShapeMarkerCfg) {
       const { color } = markerCfg;
@@ -121,7 +120,7 @@ each(SHAPES, (shapeName: string) => {
   // 添加该 shape 对应的 hollow-shape
   registerShape('point', `hollow${upperFirst(shapeName)}`, {
     draw(cfg: ShapeInfo, container: IGroup) {
-      return drawPoints(this, cfg, container, shapeName);
+      return drawPoints(this, cfg, container, shapeName, true);
     },
     getMarker(markerCfg: ShapeMarkerCfg) {
       const { color } = markerCfg;
@@ -140,7 +139,7 @@ each(SHAPES, (shapeName: string) => {
 each(HOLLOW_SHAPES, (shapeName: string) => {
   registerShape('point', shapeName, {
     draw(cfg: ShapeInfo, container: IGroup) {
-      return drawPoints(this, cfg, container, shapeName);
+      return drawPoints(this, cfg, container, shapeName, true);
     },
     getMarker(markerCfg: ShapeMarkerCfg) {
       const { color } = markerCfg;
