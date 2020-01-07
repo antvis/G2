@@ -139,7 +139,7 @@ describe('Point shapes', () => {
 
   it('draw hollow shapes', () => {
     const shape = PointShapeFactory.drawShape(
-      'hyphen',
+      'hollowCircle',
       {
         x: 100,
         y: 100,
@@ -152,8 +152,9 @@ describe('Point shapes', () => {
       element.container
     );
 
-    expect(shape.attr('symbol')).toBe('hyphen');
+    expect(shape.attr('symbol')).toBe('circle');
     expect(shape.attr('stroke')).toBe('red');
+    expect(shape.attr('fill')).toBe('#fff');
   });
 
   it('draw image point', () => {
