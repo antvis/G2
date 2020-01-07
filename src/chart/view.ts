@@ -990,6 +990,8 @@ export class View extends Base {
     // 2. 创建 coordinate 实例
     if (!this.coordinateInstance) {
       this.createCoordinate();
+    } else {
+      this.adjustCoordinate();
     }
     // 3. 初始化 Geometry
     this.initGeometries(isUpdate);

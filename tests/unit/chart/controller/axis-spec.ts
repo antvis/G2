@@ -43,10 +43,10 @@ describe('Axis', () => {
 
     const GAP = 1;
 
-    expect(x.component.getBBox().maxY).toBeWithin(chart.height - GAP, chart.height + GAP);
+    expect(x.component.getBBox().maxY).toBe(494);
 
     // y axis 绘制的锚点有 8px 的偏移
-    expect(y.component.getBBox().minX).toBeWithin(-8 - GAP, -8 + GAP);
+    expect(y.component.getBBox().minX).toBe(0.5);
 
     expect(axes.length).toBe(2);
 

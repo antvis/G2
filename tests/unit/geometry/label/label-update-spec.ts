@@ -27,6 +27,7 @@ describe('Label update', () => {
   const interval = chart
     .interval()
     .position('year*sales')
+    .color('year')
     .label('sales', {
       adjustType: 'limitInShape',
       offset: -10,
