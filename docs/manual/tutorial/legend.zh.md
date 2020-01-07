@@ -235,7 +235,7 @@ chart.legend({
 });
 ```
 
-```js+
+```js
 const data = [
   { country: 'Lithuania', litres: 501.9 },
   { country: 'Czech Republic', litres: 301.9 },

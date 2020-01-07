@@ -191,7 +191,7 @@ slider 滑块的背景图表配置，可配置其图表类型以及颜色：
 
 点击更新数据
 
-```js+
+```js
 $.getJSON('/assets/data/top2000-disc.json',function(data) {
   const ds = new DataSet({
     state: {
