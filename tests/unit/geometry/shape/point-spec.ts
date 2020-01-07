@@ -29,7 +29,7 @@ describe('Point shapes', () => {
   });
 
   it('defaultShapeType', () => {
-    expect(PointShapeFactory.defaultShapeType).toBe('circle');
+    expect(PointShapeFactory.defaultShapeType).toBe('hollowCircle');
   });
 
   it('getShapes', () => {
