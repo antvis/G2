@@ -94,7 +94,7 @@ function drawPoints(shape, cfg: ShapeInfo, container: IGroup, shapeName: string,
 }
 
 const PointShapeFactory = registerShapeFactory('point', {
-  defaultShapeType: 'circle',
+  defaultShapeType: 'hollowCircle',
   getDefaultPoints(pointInfo: ShapePoint): Point[] {
     return splitPoints(pointInfo);
   },
