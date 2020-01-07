@@ -52,7 +52,7 @@ describe('test button action', () => {
     expect(buttonGroup).not.toBe(null);
     const matrix = buttonGroup.getMatrix();
     expect(matrix).not.toBe(null);
-    expect(matrix[6]).toBeLessThan(310);
+    expect(matrix[6]).toBeLessThan(320);
     expect(matrix[6]).toBeGreaterThan(300);
     expect(buttonGroup.get('visible')).toBe(true);
     const text = buttonGroup.getLast();
@@ -83,7 +83,7 @@ describe('test button action', () => {
     action.show();
     const matrix = buttonGroup.getMatrix();
     expect(matrix).not.toBe(null);
-    expect(matrix[6]).toBeLessThan(410);
+    expect(matrix[6]).toBeLessThan(420);
     expect(matrix[6]).toBeGreaterThan(400);
   });
 
