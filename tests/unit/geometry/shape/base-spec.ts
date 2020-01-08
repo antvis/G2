@@ -1,5 +1,5 @@
 import { getEngine } from '../../../../src';
-import { getCoordinate, IGroup, IShape } from '../../../../src/dependents';
+import { getCoordinate } from '../../../../src/dependents';
 import * as GeometryShape from '../../../../src/geometry/shape/base';
 
 const Rect = getCoordinate('rect');

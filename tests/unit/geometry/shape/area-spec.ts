@@ -1,6 +1,9 @@
 import { getCoordinate } from '../../../../src/dependents';
 import Element from '../../../../src/geometry/element/index';
 import AreaShapeFactory from '../../../../src/geometry/shape/area';
+import '../../../../src/geometry/shape/area/line';
+import '../../../../src/geometry/shape/area/smooth';
+import '../../../../src/geometry/shape/area/smooth-line';
 import Theme from '../../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../../util/dom';
 

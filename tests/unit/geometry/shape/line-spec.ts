@@ -1,7 +1,7 @@
-import { isGenericTypeAnnotation } from '@babel/types';
 import { getCoordinate } from '../../../../src/dependents';
 import Element from '../../../../src/geometry/element/index';
 import LineShapeFactory from '../../../../src/geometry/shape/line';
+import '../../../../src/geometry/shape/line/step';
 import Theme from '../../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../../util/dom';
 

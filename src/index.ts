@@ -30,6 +30,30 @@ registerGeometry('Line', Line);
 registerGeometry('Area', Area);
 registerGeometry('Edge', Edge);
 
+// 引入所有内置的 shapes
+import './geometry/shape/area/line';
+import './geometry/shape/area/smooth';
+import './geometry/shape/area/smooth-line';
+
+import './geometry/shape/edge/arc';
+import './geometry/shape/edge/smooth';
+import './geometry/shape/edge/vhv';
+
+import './geometry/shape/interval/funnel';
+import './geometry/shape/interval/hollow-rect';
+import './geometry/shape/interval/line';
+import './geometry/shape/interval/pyramid';
+import './geometry/shape/interval/tick';
+
+import './geometry/shape/line/step';
+
+import './geometry/shape/point/hollow';
+import './geometry/shape/point/image';
+import './geometry/shape/point/solid';
+
+import './geometry/shape/schema/box';
+import './geometry/shape/schema/candle';
+
 // 注册 Geometry 内置的 label
 import { registerGeometryLabel } from './core';
 import GeometryLabel from './geometry/label/base';
