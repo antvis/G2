@@ -1,6 +1,8 @@
 import { getCoordinate } from '@antv/coord';
 import { getScale } from '@antv/scale';
 import Schema from '../../../src/geometry/schema';
+import '../../../src/geometry/shape/schema/box';
+import '../../../src/geometry/shape/schema/candle';
 import Theme from '../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
 

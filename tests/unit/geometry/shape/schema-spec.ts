@@ -1,8 +1,11 @@
 import { getCoordinate } from '../../../../src/dependents';
 import Element from '../../../../src/geometry/element/index';
 import SchemaShapeFactory from '../../../../src/geometry/shape/schema';
+import '../../../../src/geometry/shape/schema/box';
+import '../../../../src/geometry/shape/schema/candle';
 import Theme from '../../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../../util/dom';
+
 
 const Rect = getCoordinate('rect');
 

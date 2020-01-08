@@ -1,6 +1,7 @@
 import { getCoordinate } from '@antv/coord';
 import { getScale } from '@antv/scale';
 import Edge from '../../../src/geometry/edge';
+import '../../../src/geometry/shape/edge/vhv';
 import Theme from '../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
 

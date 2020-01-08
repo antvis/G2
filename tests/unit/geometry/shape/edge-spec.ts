@@ -1,7 +1,8 @@
 import { getCoordinate } from '../../../../src/dependents';
-import Element from '../../../../src/geometry/element/index';
 import EdgeShapeFactory from '../../../../src/geometry/shape/edge';
-import Theme from '../../../../src/theme/antv';
+import '../../../../src/geometry/shape/edge/arc';
+import '../../../../src/geometry/shape/edge/smooth';
+import '../../../../src/geometry/shape/edge/vhv';
 import { createCanvas, createDiv, removeDom } from '../../../util/dom';
 
 const RectCoordinate = getCoordinate('rect');
@@ -205,5 +206,10 @@ describe('Edge Shapes', () => {
         ]
       );
     });
+  });
+
+  afterAll(() => {
+    canvas.destroy();
+    removeDom(div);
   });
 });

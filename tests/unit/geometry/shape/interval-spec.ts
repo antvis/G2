@@ -1,6 +1,11 @@
 import { getCoordinate } from '../../../../src/dependents';
 import Element from '../../../../src/geometry/element/index';
 import IntervalShapeFactory from '../../../../src/geometry/shape/interval';
+import '../../../../src/geometry/shape/interval/funnel';
+import '../../../../src/geometry/shape/interval/hollow-rect';
+import '../../../../src/geometry/shape/interval/line';
+import '../../../../src/geometry/shape/interval/pyramid';
+import '../../../../src/geometry/shape/interval/tick';
 import Theme from '../../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../../util/dom';
 

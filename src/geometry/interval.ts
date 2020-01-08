@@ -1,7 +1,7 @@
 import { get } from '@antv/util';
 import { Datum } from '../interface';
 import { getXDimensionLength } from '../util/coordinate';
-import Geometry, { InitCfg } from './base';
+import Geometry from './base';
 /** 引入对应的 ShapeFactory */
 import './shape/interval';
 import { getDefaultSize } from './util/shape-size';

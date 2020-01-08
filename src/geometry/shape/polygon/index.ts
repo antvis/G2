@@ -1,8 +1,8 @@
 import { each, isEmpty, isEqual, last } from '@antv/util';
-import { IGroup } from '../../dependents';
-import { ShapeInfo, ShapeMarkerCfg, ShapePoint } from '../../interface';
-import { registerShape, registerShapeFactory } from './base';
-import { getStyle } from './util/get-style';
+import { IGroup } from '../../../dependents';
+import { ShapeInfo, ShapeMarkerCfg, ShapePoint } from '../../../interface';
+import { registerShape, registerShapeFactory } from '../base';
+import { getStyle } from '../util/get-style';
 
 function getPath(points: any[]) {
   let flag: any = points[0];
@@ -69,32 +69,6 @@ registerShape('polygon', 'polygon', {
       style: {
         r: 4,
         fill: color,
-      },
-    };
-  },
-});
-
-registerShape('polygon', 'hollow', {
-  draw(cfg: ShapeInfo, container: IGroup) {
-    if (!isEmpty(cfg.points)) {
-      const shapeAttrs = getStyle(cfg, true, false);
-      const path = this.parsePath(getPath(cfg.points));
-      return container.addShape('path', {
-        attrs: {
-          ...shapeAttrs,
-          path,
-        },
-        name: 'polygon',
-      });
-    }
-  },
-  getMarker(markerCfg: ShapeMarkerCfg) {
-    const { color } = markerCfg;
-    return {
-      symbol: 'square',
-      style: {
-        r: 4,
-        stroke: color,
       },
     };
   },

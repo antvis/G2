@@ -1,6 +1,9 @@
 import { getCoordinate, IGroup } from '../../../../src/dependents';
 import Element from '../../../../src/geometry/element/index';
 import PointShapeFactory from '../../../../src/geometry/shape/point';
+import '../../../../src/geometry/shape/point/hollow';
+import '../../../../src/geometry/shape/point/image';
+import '../../../../src/geometry/shape/point/solid';
 import Theme from '../../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../../util/dom';
 
