@@ -201,9 +201,7 @@ export class View extends Base {
   public render(isUpdate: boolean = false) {
     this.emit(VIEW_LIFE_CIRCLE.BEFORE_RENDER);
     // 递归渲染
-    this.renderDataRecursive(isUpdate);
-    this.renderLayoutRecursive(isUpdate);
-    this.renderPaintRecursive(isUpdate);
+    this.paint(isUpdate);
 
     this.emit(VIEW_LIFE_CIRCLE.AFTER_RENDER);
 
@@ -1006,10 +1004,9 @@ export class View extends Base {
     } else {
       this.adjustCoordinate();
     }
-    // 2. 初始化 Geometry
+    // 3. 初始化 Geometry
     this.initGeometries(isUpdate);
-
-    // 3. 处理分面逻辑，最终都是生成子 view 和 geometry
+    // 4. 处理分面逻辑，最终都是生成子 view 和 geometry
     this.renderFacet();
 
     // 同样递归处理子 views
@@ -1052,17 +1049,6 @@ export class View extends Base {
     // 2. 更新 viewEventCaptureRect 大小
     const { x, y, width, height } = this.viewBBox;
     this.viewEventCaptureRect.attr({ x, y, width, height });
-  }
-
-  /**
-   * 递归 render views
-   * 步骤非常繁琐，因为之间有一些数据依赖，所以执行流程上有先后关系
-   */
-  protected renderRecursive(isUpdate: boolean) {
-    // 子 view 大小相对 coordinateBBox，changeSize 的时候需要重新计算
-    this.calculateViewBBox();
-    // 数据到完整图表的绘制
-    this.paint(isUpdate);
 
     // 同样递归处理子 views
     each(this.views, (view: View) => {
