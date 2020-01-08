@@ -1,15 +1,15 @@
-import { GeometryLabelsConstructor } from './base';
+import { GeometryLabelConstructor } from './base';
 
 interface GeometryLabelsMapCfg {
-  [type: string]: GeometryLabelsConstructor;
+  [type: string]: GeometryLabelConstructor;
 }
 
 const GEOMETRY_LABELS_MAP: GeometryLabelsMapCfg = {};
 
-export function getGeometryLabels(type: string) {
+export function getGeometryLabel(type: string) {
   return GEOMETRY_LABELS_MAP[type.toLowerCase()];
 }
 
-export function registerGeometryLabels(type: string, ctor: GeometryLabelsConstructor) {
+export function registerGeometryLabel(type: string, ctor: GeometryLabelConstructor) {
   GEOMETRY_LABELS_MAP[type.toLowerCase()] = ctor;
 }

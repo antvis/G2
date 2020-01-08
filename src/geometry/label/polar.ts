@@ -2,12 +2,12 @@ import { each, isArray } from '@antv/util';
 import { MappingDatum, Point } from '../../interface';
 import { getDistanceToCenter } from '../../util/coordinate';
 import { getPointAngle } from '../../util/coordinate';
-import GeometryLabels from './base';
+import GeometryLabel from './base';
 import { LabelCfg, LabelItem, LabelPointCfg } from './interface';
 
 const HALF_PI = Math.PI / 2;
 
-export default class PolarLabels extends GeometryLabels {
+export default class PolarLabel extends GeometryLabel {
   protected getLabelAlign(point: LabelItem) {
     const coordinate = this.coordinate;
     let align;

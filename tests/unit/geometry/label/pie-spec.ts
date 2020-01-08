@@ -1,11 +1,8 @@
 import { getCoordinate } from '@antv/coord';
-import DataSet from '@antv/data-set';
 import { isNumberEqual } from '@antv/util';
 import 'jest-extended';
-import { IGroup } from '../../../../src/dependents';
-import PieLabels from '../../../../src/geometry/label/pie';
+import PieLabel from '../../../../src/geometry/label/pie';
 import Point from '../../../../src/geometry/point';
-import { Chart } from '../../../../src/index';
 import Theme from '../../../../src/theme/antv';
 import { createCanvas, createDiv } from '../../../util/dom';
 import { createScale } from '../../../util/scale';
@@ -13,8 +10,6 @@ import { createScale } from '../../../util/scale';
 const PolarCoord = getCoordinate('polar');
 
 describe('pie labels', () => {
-  const ds = new DataSet();
-
   const div = createDiv();
   const canvas = createCanvas({
     container: div,
@@ -79,7 +74,7 @@ describe('pie labels', () => {
     pointGeom.position('x*y').label('label', { offset: -10 });
     pointGeom.init();
 
-    const gLabels = new PieLabels(pointGeom);
+    const gLabels = new PieLabel(pointGeom);
 
     let items;
 
@@ -179,7 +174,7 @@ describe('pie labels', () => {
     });
     pointGeom.init();
 
-    const gLabels = new PieLabels(pointGeom);
+    const gLabels = new PieLabel(pointGeom);
 
     it('points', () => {
       const items = gLabels.getLabelItems(points);

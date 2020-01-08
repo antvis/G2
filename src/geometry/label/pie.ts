@@ -2,7 +2,7 @@ import { get, isArray, isObject } from '@antv/util';
 import { getPointAngle } from '../../util/coordinate';
 import Geometry from '../base';
 import { LabelItem } from './interface';
-import PolarLabels from './polar';
+import PolarLabel from './polar';
 
 /** label text和line距离 4px */
 const MARGIN = 4;
@@ -103,7 +103,7 @@ function antiCollision(labels, lineHeight, plotRange, center, isRight) {
   });
 }
 
-export default class PieLabels extends PolarLabels {
+export default class PieLabel extends PolarLabel {
   constructor(geometry: Geometry) {
     super(geometry);
     this.defaultLabelCfg = get(geometry.theme, 'thetaLabels', {});

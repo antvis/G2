@@ -29,16 +29,16 @@ registerGeometry('Area', Area);
 registerGeometry('Edge', Edge);
 
 // 注册 Geometry 内置的 label
-import { registerGeometryLabels } from './geometry/label';
-import GeometryLabels from './geometry/label/base';
-import IntervalLabels from './geometry/label/interval';
-import PieLabels from './geometry/label/pie';
-import PolarLabels from './geometry/label/polar';
+import { registerGeometryLabel } from './geometry/label';
+import GeometryLabel from './geometry/label/base';
+import IntervalLabel from './geometry/label/interval';
+import PieLabel from './geometry/label/pie';
+import PolarLabel from './geometry/label/polar';
 
-registerGeometryLabels('base', GeometryLabels);
-registerGeometryLabels('interval', IntervalLabels);
-registerGeometryLabels('pie', PieLabels);
-registerGeometryLabels('polar', PolarLabels);
+registerGeometryLabel('base', GeometryLabel);
+registerGeometryLabel('interval', IntervalLabel);
+registerGeometryLabel('pie', PieLabel);
+registerGeometryLabel('polar', PolarLabel);
 
 // 注册需要的动画执行函数
 import { registerAnimation } from './animate/animation';
