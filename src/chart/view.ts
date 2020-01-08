@@ -201,7 +201,10 @@ export class View extends Base {
   public render(isUpdate: boolean = false) {
     this.emit(VIEW_LIFE_CIRCLE.BEFORE_RENDER);
     // 递归渲染
-    this.renderRecursive(isUpdate);
+    this.renderDataRecursive(isUpdate);
+    this.renderLayoutRecursive(isUpdate);
+    this.renderPaintRecursive(isUpdate);
+
     this.emit(VIEW_LIFE_CIRCLE.AFTER_RENDER);
 
     if (this.visible === false) {
@@ -985,27 +988,68 @@ export class View extends Base {
   }
 
   protected paint(isUpdate: boolean) {
+    this.renderDataRecursive(isUpdate);
+    this.renderLayoutRecursive(isUpdate);
+    this.renderPaintRecursive(isUpdate);
+  }
+
+  /**
+   * 递归渲染中的数据处理
+   * @param isUpdate
+   */
+  private renderDataRecursive(isUpdate: boolean) {
     // 1. 处理数据
     this.filterData();
-    // 2. 创建 coordinate 实例
-    if (!this.coordinateInstance) {
+    // 2. 实例化或者更新 coordinate
+    if (!this.getCoordinate()) {
       this.createCoordinate();
     } else {
       this.adjustCoordinate();
     }
-    // 3. 初始化 Geometry
+    // 2. 初始化 Geometry
     this.initGeometries(isUpdate);
-    // 4. 渲染组件 component
-    this.renderComponents(isUpdate);
-    // 5.  递归 views，进行布局
-    this.doLayout();
-    // 6. 渲染分面
+
+    // 3. 处理分面逻辑，最终都是生成子 view 和 geometry
     this.renderFacet();
-    // 7. 布局完之后，coordinate 的范围确定了，调整 coordinate 组件
+
+    // 同样递归处理子 views
+    each(this.views, (view: View) => {
+      view.renderDataRecursive(isUpdate);
+    });
+  }
+
+  /**
+   * 替换处理 view 的布局，最终是计算各个 view 的 coordinateBBox 和 coordinateInstance
+   * @param isUpdate
+   */
+  protected renderLayoutRecursive(isUpdate: boolean) {
+    // 1. 子 view 大小相对 coordinateBBox，changeSize 的时候需要重新计算
+    this.calculateViewBBox();
+    // 2. 更新 coordinate
     this.adjustCoordinate();
-    // 8. 渲染几何标记
+    // 3. 渲染组件 component
+    this.renderComponents(isUpdate);
+    // 4. 进行布局，计算 coordinateBBox
+    this.doLayout();
+    // 5. 布局完之后，coordinate 的范围确定了，调整 coordinate 组件
+    this.adjustCoordinate();
+
+    // 同样递归处理子 views
+    each(this.views, (view: View) => {
+      view.renderLayoutRecursive(isUpdate);
+    });
+  }
+
+  /**
+   * 最终递归绘制组件和图形
+   * @param isUpdate
+   */
+  protected renderPaintRecursive(isUpdate: boolean) {
+    // 更新组件，利用 controller 的 layout（从原 layout 中挪出来）
+
+    // 1. 渲染几何标记
     this.paintGeometries(isUpdate);
-    // 9. 更新 viewEventCaptureRect 大小
+    // 2. 更新 viewEventCaptureRect 大小
     const { x, y, width, height } = this.viewBBox;
     this.viewEventCaptureRect.attr({ x, y, width, height });
   }
@@ -1022,9 +1066,10 @@ export class View extends Base {
 
     // 同样递归处理子 views
     each(this.views, (view: View) => {
-      view.renderRecursive(isUpdate);
+      view.renderPaintRecursive(isUpdate);
     });
   }
+
   // end Get 方法
 
   // 生命周期子流程——初始化流程
@@ -1465,6 +1510,7 @@ export class View extends Base {
     const doAnimation = this.options.animate;
     // geometry 的 paint 阶段
     this.geometries.map((geometry: Geometry) => {
+      geometry.coordinate = this.getCoordinate();
       if (!doAnimation) {
         // 如果 view 不执行动画，那么 view 下所有的 geometry 都不执行动画
         geometry.animate(false);

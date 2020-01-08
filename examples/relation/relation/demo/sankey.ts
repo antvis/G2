@@ -84,5 +84,4 @@ fetch('../data/energy.json')
         stroke: '#ccc'
       });
     chart.render();
-    chart.render();// FIXME: 初次加载时，scale 同步没有生效，调用两次 chart.render() 才生效
   });
