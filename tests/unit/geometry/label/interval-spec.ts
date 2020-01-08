@@ -1,6 +1,6 @@
 import { getCoordinate } from '@antv/coord';
 import Interval from '../../../../src/geometry/interval';
-import IntervalLabels from '../../../../src/geometry/label/interval';
+import IntervalLabel from '../../../../src/geometry/label/interval';
 import Theme from '../../../../src/theme/antv';
 import { createCanvas, createDiv } from '../../../util/dom';
 import { createScale } from '../../../util/scale';
@@ -88,7 +88,7 @@ describe('interval labels', () => {
   });
   interval.init();
 
-  const gLabels = new IntervalLabels(interval);
+  const gLabels = new IntervalLabel(interval);
 
   it('single label position middle', () => {
     const items = gLabels.getLabelItems(points);

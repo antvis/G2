@@ -1,6 +1,6 @@
 import { getCoordinate } from '@antv/coord';
 import Interval from '../../../../src/geometry/interval';
-import GeometryLabels from '../../../../src/geometry/label/base';
+import GeometryLabel from '../../../../src/geometry/label/base';
 import Point from '../../../../src/geometry/point';
 import Theme from '../../../../src/theme/antv';
 import { createCanvas, createDiv } from '../../../util/dom';
@@ -8,7 +8,7 @@ import { createScale } from '../../../util/scale';
 
 const CartesianCoordinate = getCoordinate('rect');
 
-describe('GeometryLabels', () => {
+describe('GeometryLabel', () => {
   const div = createDiv();
   const canvas = createCanvas({
     container: div,
@@ -43,10 +43,10 @@ describe('GeometryLabels', () => {
     point.position('x*y').label('z', { offset: 10 });
     point.init();
 
-    const geometryLabels = new GeometryLabels(point);
+    const geometryLabel = new GeometryLabel(point);
 
     it('offset', () => {
-      const labelItems = geometryLabels.getLabelItems([
+      const labelItems = geometryLabel.getLabelItems([
         { x: 100, y: 10, _origin: { x: 100, y: 10, z: '1' } },
         { x: 100, y: 20, _origin: { x: 100, y: 20, z: '2' } },
       ]);
@@ -62,7 +62,7 @@ describe('GeometryLabels', () => {
         offsetX: 10,
         offsetY: 10,
       });
-      const labelItems = geometryLabels.getLabelItems([
+      const labelItems = geometryLabel.getLabelItems([
         { x: 100, y: 10, _origin: { x: 100, y: 10, z: '1' } },
         { x: 100, y: 20, _origin: { x: 100, y: 20, z: '2' } },
       ]);
@@ -84,7 +84,7 @@ describe('GeometryLabels', () => {
         }
       );
 
-      const labelItems = geometryLabels.getLabelItems([
+      const labelItems = geometryLabel.getLabelItems([
         { x: 100, y: [10, 20], _origin: { x: 100, y: [10, 20], z: ['1', '2'] } },
         { x: 100, y: [30, 40], _origin: { x: 100, y: [30, 40], z: ['3', '4'] } },
       ]);
@@ -119,10 +119,10 @@ describe('GeometryLabels', () => {
     interval.position('x*y').label('z', { offset: -10 });
     interval.init();
 
-    let geometryLabels = new GeometryLabels(interval);
+    let geometryLabel = new GeometryLabel(interval);
 
     it('inner label', () => {
-      const labelItems = geometryLabels.getLabelItems([
+      const labelItems = geometryLabel.getLabelItems([
         { x: 100, y: 10, _origin: { x: 100, y: 10, z: '1' } },
         { x: 100, y: 20, _origin: { x: 100, y: 20, z: '2' } },
       ]);
@@ -135,7 +135,7 @@ describe('GeometryLabels', () => {
         offset: -10,
         labelLine: true,
       });
-      const labelItems = geometryLabels.getLabelItems([
+      const labelItems = geometryLabel.getLabelItems([
         { x: 100, y: [10, 20], _origin: { x: 100, y: [10, 20], z: ['1', '2'] } },
         { x: 100, y: [30, 40], _origin: { x: 100, y: [30, 40], z: ['3', '4'] } },
       ]);
@@ -166,8 +166,8 @@ describe('GeometryLabels', () => {
       });
       interval.init();
 
-      geometryLabels = new GeometryLabels(interval);
-      const items = geometryLabels.getLabelItems([
+      geometryLabel = new GeometryLabel(interval);
+      const items = geometryLabel.getLabelItems([
         { x: 0, y: 10, _origin: { x: 0, y: 10, text: 'a' } },
         { x: 0, y: [10, 20], _origin: { x: 0, y: [10, 20], text: 'b' } },
       ]);
@@ -221,7 +221,7 @@ describe('GeometryLabels', () => {
     interval.position('x*y').label('z', { offset: 10 });
     interval.init();
 
-    let gLabels = new GeometryLabels(interval);
+    let gLabels = new GeometryLabel(interval);
 
     it('offset > 0', () => {
       const items = gLabels.getLabelItems(points);
@@ -293,7 +293,7 @@ describe('GeometryLabels', () => {
       interval.position('x*y').label('z', { offset: 10 });
       interval.init();
 
-      gLabels = new GeometryLabels(interval);
+      gLabels = new GeometryLabel(interval);
 
       const items = gLabels.getLabelItems(points1);
       const first = items[0];
@@ -350,7 +350,7 @@ describe('GeometryLabels', () => {
       interval.position('x*y').label('z', { offset: -10 });
       interval.init();
 
-      gLabels = new GeometryLabels(interval);
+      gLabels = new GeometryLabel(interval);
 
       const items = gLabels.getLabelItems(points3);
       const first = items[0];

@@ -51,7 +51,7 @@ import {
   TooltipCallback,
   TooltipOption,
 } from './interface';
-import { getGeometryLabels } from './label';
+import { getGeometryLabel } from './label';
 import Labels from './label/labels';
 import { getShapeFactory } from './shape/base';
 import { isModelChange } from './util/is-model-change';
@@ -1616,7 +1616,7 @@ export default class Geometry extends Base {
     const { labelOption, animateOption, coordinate } = this;
     const labelType = this.getLabelType();
 
-    const GeometryLabelsCtor = getGeometryLabels(labelType);
+    const GeometryLabelsCtor = getGeometryLabel(labelType);
     const geometryLabels = new GeometryLabelsCtor(this);
     const labelItems = geometryLabels.getLabelItems(mappingArray);
 

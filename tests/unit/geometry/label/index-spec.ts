@@ -1,15 +1,15 @@
-import { getGeometryLabels, registerGeometryLabels } from '../../../../src/geometry/label';
+import { getGeometryLabel, registerGeometryLabel } from '../../../../src/geometry/label';
 import GeometryLabels from '../../../../src/geometry/label/base';
 
 describe('Geometry label', () => {
-  it('getGeometryLabels', () => {
-    expect(getGeometryLabels('default')).toBeUndefined();
+  it('getGeometryLabel', () => {
+    expect(getGeometryLabel('default')).toBeUndefined();
   });
 
-  it('registerGeometryLabels', () => {
+  it('registerGeometryLabel', () => {
     class CustomeLabels extends GeometryLabels {}
 
-    registerGeometryLabels('custom', CustomeLabels);
-    expect(getGeometryLabels('custom')).toBeDefined();
+    registerGeometryLabel('custom', CustomeLabels);
+    expect(getGeometryLabel('custom')).toBeDefined();
   });
 });

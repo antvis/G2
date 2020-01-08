@@ -1,8 +1,8 @@
 import { MappingDatum, Point } from '../../interface';
-import GeometryLabels from './base';
+import GeometryLabel from './base';
 import { LabelPointCfg } from './interface';
 
-export default class IntervalLabels extends GeometryLabels {
+export default class IntervalLabel extends GeometryLabel {
   protected setLabelPosition(labelPointCfg: LabelPointCfg, mappingData: MappingDatum, index: number, position: string) {
     const coordinate = this.coordinate;
     const transposed = coordinate.isTransposed;

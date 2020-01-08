@@ -1,6 +1,6 @@
 import { getCoordinate } from '@antv/coord';
 import { isNumberEqual } from '@antv/util';
-import PolarLabels from '../../../../src/geometry/label/polar';
+import PolarLabel from '../../../../src/geometry/label/polar';
 import Point from '../../../../src/geometry/point';
 import Theme from '../../../../src/theme/antv';
 import { createCanvas, createDiv } from '../../../util/dom';
@@ -78,7 +78,7 @@ describe('polar labels', () => {
     pointGeom.position('x*y').label('z', { offset: 10 });
     pointGeom.init();
 
-    const gLabels = new PolarLabels(pointGeom);
+    const gLabels = new PolarLabel(pointGeom);
     let items;
     it('get items', () => {
       items = gLabels.getLabelItems(points);
@@ -138,7 +138,7 @@ describe('polar labels', () => {
     pointGeom.position('x*y').label('z', { offset: -10 });
     pointGeom.init();
 
-    const gLabels = new PolarLabels(pointGeom);
+    const gLabels = new PolarLabel(pointGeom);
 
     let items;
     it('get items', () => {
@@ -199,7 +199,7 @@ describe('polar labels', () => {
     pointGeom.position('x*y').label('z', { offset: 10 });
     pointGeom.init();
 
-    const gLabels = new PolarLabels(pointGeom);
+    const gLabels = new PolarLabel(pointGeom);
 
     let items;
     it('get items', () => {
@@ -250,7 +250,7 @@ describe('polar labels', () => {
     pointGeom.position('x*y').label('z', { offset: -10 });
     pointGeom.init();
 
-    const gLabels = new PolarLabels(pointGeom);
+    const gLabels = new PolarLabel(pointGeom);
 
     let items;
     it('get items', () => {
@@ -314,7 +314,7 @@ describe('polar labels', () => {
       pointGeom.position('x*y').label('z', { offset: -10 });
       pointGeom.init();
 
-      const gLabels = new PolarLabels(pointGeom);
+      const gLabels = new PolarLabel(pointGeom);
 
       let items;
       it('get items', () => {
@@ -363,7 +363,7 @@ describe('polar labels', () => {
       pointGeom.position('x*y').label('z', { offset: 10 });
       pointGeom.init();
 
-      const gLabels = new PolarLabels(pointGeom);
+      const gLabels = new PolarLabel(pointGeom);
       let items;
       it('get items', () => {
         items = gLabels.getLabelItems(points);

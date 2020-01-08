@@ -7,7 +7,7 @@ import Geometry from '../base';
 import { LabelOption } from '../interface';
 import { LabelCfg, LabelItem, LabelPointCfg } from './interface';
 
-export type GeometryLabelsConstructor = new (cfg: any) => GeometryLabels;
+export type GeometryLabelConstructor = new (cfg: any) => GeometryLabel;
 
 function avg(arr: number[]) {
   let sum = 0;
@@ -17,7 +17,7 @@ function avg(arr: number[]) {
   return sum / arr.length;
 }
 
-export default class GeometryLabels {
+export default class GeometryLabel {
   public readonly geometry: Geometry;
 
   protected coordinate: Coordinate;
