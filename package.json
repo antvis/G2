@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@antv/adjust": "^0.2.1",
-    "@antv/attr": "^0.2.0",
+    "@antv/attr": "^0.2.1",
     "@antv/component": "^0.5.0-beta.20",
     "@antv/coord": "^0.2.1",
     "@antv/event-emitter": "~0.1.0",
