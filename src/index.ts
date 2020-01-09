@@ -14,6 +14,7 @@ registerEngine('svg', SVGEngine);
 import { registerGeometry } from './core';
 import Area from './geometry/area';
 import Edge from './geometry/edge';
+import Heatmap from './geometry/heatmap';
 import Interval from './geometry/interval';
 import Line from './geometry/line';
 import Path from './geometry/path';
@@ -29,6 +30,7 @@ registerGeometry('Point', Point);
 registerGeometry('Line', Line);
 registerGeometry('Area', Area);
 registerGeometry('Edge', Edge);
+registerGeometry('Heatmap', Heatmap);
 
 // 引入所有内置的 shapes
 import './geometry/shape/area/line';
@@ -463,6 +465,12 @@ declare module './chart/view' {
      * @returns schema 返回 Edge 实例
      */
     edge(cfg?: Partial<GeometryCfg>): Edge;
+    /**
+     * 创建 Heatmap 几何标记
+     * @param [cfg] 传入 Heatmap 构造函数的配置
+     * @returns heatmap 返回 Heatmap 实例
+     */
+    heatmap(cfg?: Partial<GeometryCfg>): Heatmap;
   }
 }
 
