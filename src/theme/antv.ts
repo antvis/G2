@@ -715,6 +715,9 @@ export default {
         }, // 辅助框的图形样式属性
         animate: true,
       },
+      image: {
+        top: false,
+      }
     },
   },
   labels: {
