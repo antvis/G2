@@ -1396,10 +1396,10 @@ export class View extends Base {
    */
   private adjustScales() {
     // 调整目前包括：
-    // 分类 scale，调整 range 范围
-    this.adjustCategoryScaleRange();
     // 处理 sync scale 的逻辑
     this.syncScale();
+    // 分类 scale，调整 range 范围
+    this.adjustCategoryScaleRange();
   }
 
   /**

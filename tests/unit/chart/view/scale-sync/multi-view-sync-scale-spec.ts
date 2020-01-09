@@ -1,5 +1,5 @@
 import 'jest-extended';
-import { Chart } from '../../../../../src';
+import { Chart, Point } from '../../../../../src';
 import { CITY_SALE_PROFIT } from '../../../../util/data';
 import { createDiv } from '../../../../util/dom';
 
@@ -9,14 +9,20 @@ describe('sync scale with multi-view', () => {
     container,
     height: 500,
     width: 600,
-    padding: 32,
+    padding: 0,
   });
 
-  const v1 = chart.createView({
-    region: { start: { x: 0, y: 0 }, end: { x: 0.5, y: 1 } },
-  });
+  chart.animate(false);
+
+  // 右边
   const v2 = chart.createView({
     region: { start: { x: 0.5, y: 0 }, end: { x: 1, y: 1 } },
+    padding: [8, 48, 48, 48],
+  });
+  // 左边
+  const v1 = chart.createView({
+    region: { start: { x: 0, y: 0 }, end: { x: 0.5, y: 1 } },
+    padding: [8, 16, 48, 48],
   });
 
   v1.interval()
@@ -33,7 +39,10 @@ describe('sync scale with multi-view', () => {
     .color('category');
 
   v1.data(CITY_SALE_PROFIT);
-  v2.data(CITY_SALE_PROFIT.slice(0, 4));
+  v2.data(CITY_SALE_PROFIT.slice(0, 3)); // x 枚举缺失的情况下，scale 同步
+
+  // @ts-ignore
+  window.chart = chart;
 
   it('no sync', () => {
     chart.render();
@@ -100,14 +109,24 @@ describe('sync scale with multi-view', () => {
     // v1sale 和 v2sale 不同步
     expect(v1Sale.max).not.toBe(v2Sale.max);
     // @ts-ignore
-    expect(Object.keys(chart.scalePool.syncScales)).toStrictEqual(['city', 'value', 'sale']);
+    expect(Object.keys(chart.scalePool.syncScales)).toStrictEqual(['city', 'sale', 'value']);
     // @ts-ignore
     expect(chart.scalePool.syncScales.value.length).toBe(2);
 
     // @ts-ignore
-    expect(chart.scalePool.getScaleMeta('view2-sale').scaleDef.sync).toBe('value');
+    expect(chart.scalePool.getScaleMeta('view2-sale').scaleDef.sync).toBe(true);
+
     // @ts-ignore
-    expect(chart.scalePool.getScaleMeta('view3-sale').scaleDef.sync).toBe(true);
+    expect(chart.scalePool.getScaleMeta('view3-sale').scaleDef.sync).toBe('value');
+
+    // 第一个 view 的图形也应该是渲染之后的大小
+    const linePoints = chart.views[0].geometries[1].elements[0].getModel().points as Point[];
+    // 找不到一个 y 在上方的情况，因为 scale 同步成功，图形绘制到底部
+    expect(linePoints.find((p: Point) => p.y < 340)).toBe(undefined);
+
+    // 分类 scale 在同步之后，进行调整左右 range
+    // @ts-ignore
+    expect(chart.scalePool.scales['view3-city'].scale.range).toEqual([0.125, 0.875]);
   });
 
   it('sync = false', () => {
@@ -145,6 +164,6 @@ describe('sync scale with multi-view', () => {
     // @ts-ignore
     expect(Object.keys(chart.scalePool.syncScales).length).toBe(0);
     // @ts-ignore
-    expect(chart.scalePool.getScaleMeta('view3-sale').scaleDef.sync).toBe(false);
+    expect(chart.scalePool.getScaleMeta('view2-sale').scaleDef.sync).toBe(false);
   });
 });
