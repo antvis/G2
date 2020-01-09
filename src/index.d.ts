@@ -547,7 +547,7 @@ declare namespace G2 {
         /**
          * 文本的显示位置
          */
-        position?: 'start' | 'center' | 'end' | '39%' | 0.5;
+        position?: 'start' | 'center' | 'end' | string | number;
         /**
          * 是否沿线的角度排布，默认为 true
          */
@@ -726,7 +726,7 @@ declare namespace G2 {
     source(data: any, scaleConfig: any): this;
     getXScale<T>(): T;
     getYScales<T>(): T[];
-    getXY(): {
+    getXY(dataItem: any): {
       /**
        * 画布上的横坐标
        */
