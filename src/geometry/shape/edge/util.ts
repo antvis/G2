@@ -1,5 +1,5 @@
 import { each } from '@antv/util';
-import { Point } from "../../../interface";
+import { Point } from '../../../interface';
 
 export function getCPath(from: Point, to: Point) {
   const points = [];
