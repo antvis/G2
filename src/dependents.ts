@@ -11,7 +11,7 @@ export type IG = any;
 export { registerAdjust, getAdjust, Adjust } from '@antv/adjust/lib/factory';
 
 // attr
-export { getAttribute, Attribute, colorUtil } from '@antv/attr/lib/factory';
+export { getAttribute, Attribute } from '@antv/attr/lib/factory';
 export { Color } from '@antv/attr';
 
 // coordinate
