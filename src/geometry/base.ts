@@ -1200,6 +1200,23 @@ export default class Geometry extends Base {
     return labelType;
   }
 
+  // 获取 Y 轴上的最小值
+  protected getYMinValue(): number {
+    const yScale = this.getYScale();
+    const { min, max } = yScale;
+    let value: number;
+
+    if (min >= 0) {
+      value = min;
+    } else if (max <= 0) {
+      // 当值全位于负区间时，需要保证 ymin 在区域内，不可为 0
+      value = max;
+    } else {
+      value = 0;
+    }
+    return value;
+  }
+
   // 创建图形属性相关的配置项
   private createAttrOption(attrName: string, field: AttributeOption | string | number, cfg?) {
     if (isNil(field) || isObject(field)) {
@@ -1446,23 +1463,6 @@ export default class Geometry extends Base {
       rst = scale.scale(values);
     }
     return rst;
-  }
-
-  // 获取 Y 轴上的最小值
-  private getYMinValue(): number {
-    const yScale = this.getYScale();
-    const { min, max } = yScale;
-    let value: number;
-
-    if (min >= 0) {
-      value = min;
-    } else if (max <= 0) {
-      // 当值全位于负区间时，需要保证 ymin 在区域内，不可为 0
-      value = max;
-    } else {
-      value = 0;
-    }
-    return value;
   }
 
   // 将数据映射至图形空间
