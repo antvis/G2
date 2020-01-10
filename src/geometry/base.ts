@@ -5,7 +5,6 @@ import {
   each,
   flatten,
   get,
-  group,
   isArray,
   isEmpty,
   isEqual,
@@ -54,6 +53,7 @@ import {
 import { getGeometryLabel } from './label';
 import Labels from './label/labels';
 import { getShapeFactory } from './shape/base';
+import { group } from './util/group-data';
 import { isModelChange } from './util/is-model-change';
 import { parseFields } from './util/parse-fields';
 
@@ -1352,9 +1352,19 @@ export default class Geometry extends Base {
   // 对数据进行分组
   private groupData(data: Data): Data[] {
     const groupScales = this.getGroupScales();
-    const fields = groupScales.map((scale) => scale.field);
+    const scaleDefs = this.scaleDefs;
+    const appendConditions = {};
+    const groupFields = [];
+    for (const scale of groupScales) {
+      const field = scale.field;
+      groupFields.push(field);
+      if (get(scaleDefs, [field, 'values'])) {
+        // 用户通过 view.scale() 接口指定了 values 属性
+        appendConditions[field] = scaleDefs[field].values;
+      }
+    }
 
-    return group(data, fields);
+    return group(data, groupFields, appendConditions);
   }
 
   // 数据调整前保存原始数据
