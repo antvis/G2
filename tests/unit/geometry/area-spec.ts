@@ -32,7 +32,7 @@ describe('Area', () => {
     type: createScale('type', data),
   };
 
-  let area: Geometry;
+  let area: Area;
 
   it('constructor', () => {
     area = new Area({
@@ -46,6 +46,7 @@ describe('Area', () => {
     // @ts-ignore
     expect(area.generatePoints).toBe(true);
     expect(area.sortable).toBe(true);
+    expect(area.startOnZero).toBe(true);
     // @ts-ignore
     expect(area.connectNulls).toBe(false);
   });
@@ -64,6 +65,42 @@ describe('Area', () => {
     // check shape point
     // @ts-ignore
     expect(elements[0].model.points[0]).toBeArrayOfSize(2);
+  });
+
+  it('startOnZero = false', () => {
+    const newData = [
+      { month: 'Jan.', value: 6.06 },
+      { month: 'Feb.', value: 82.2 },
+      { month: 'Mar.', value: -22.11 },
+      { month: 'Apr.', value: 21.53 },
+      { month: 'May.', value: -21.74 },
+      { month: 'Jun.', value: 73.61 },
+      { month: 'Jul.', value: 53.75 },
+      { month: 'Aug.', value: 60.32 },
+    ];
+    const newScales = {
+      month: createScale('month', newData),
+      value: createScale('value', newData),
+    };
+    area = new Area({
+      data: newData,
+      scales: newScales,
+      container: canvas.addGroup(),
+      theme: Theme,
+      coordinate: rectCoord,
+      startOnZero: false,
+      sortable: false,
+    });
+
+    area
+      .position('month*value');
+    area.init();
+    area.paint();
+
+    canvas.draw()
+    expect(area.sortable).toBe(false);
+    expect(area.startOnZero).toBe(false);
+    expect(area.elements[0].shape.attr('path')[15][2]).toBe(180);
   });
 
   afterAll(() => {

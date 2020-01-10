@@ -68,12 +68,14 @@ describe('Line', () => {
       y: createScale('y', data),
       type: createScale('type', data),
     };
+
     const line = new Line({
       data,
       scales,
       container: canvas.addGroup(),
       theme: Theme,
       coordinate: rectCoord,
+      sortable: false,
     });
 
     line
@@ -84,6 +86,7 @@ describe('Line', () => {
     line.paint();
     canvas.draw();
 
+    expect(line.sortable).toBe(false);
     const element = line.elements[0];
     const model = element.getModel();
     expect(model.isStack).toBe(true);

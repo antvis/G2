@@ -12,7 +12,7 @@ registerEngine('svg', SVGEngine);
 
 // 注册 G2 内置的 geometry
 import { registerGeometry } from './core';
-import Area from './geometry/area';
+import Area, { AreaCfg } from './geometry/area';
 import Edge from './geometry/edge';
 import Heatmap from './geometry/heatmap';
 import Interval from './geometry/interval';
@@ -458,7 +458,7 @@ declare module './chart/view' {
      * @param [cfg] 传入 Area 构造函数的配置
      * @returns area 返回 Area 实例
      */
-    area(cfg?: Partial<PathCfg>): Area;
+    area(cfg?: Partial<AreaCfg>): Area;
     /**
      * 创建 Edge 几何标记
      * @param [cfg] 传入 Edge 构造函数的配置
