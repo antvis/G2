@@ -14,7 +14,7 @@ const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 500,
-  padding: 32,
+  padding: 0,
 });
 
 // FIXME: 目前 scale 不支持 timeCat
@@ -57,7 +57,9 @@ const dv = ds
       return row;
     },
   });
-const view1 = chart.createView();
+const view1 = chart.createView({
+  padding: [8, 8, 48, 64],
+});
 view1.data(dv.rows);
 view1.axis(false);
 view1.tooltip(false);
@@ -80,7 +82,9 @@ const dv2 = ds
     value: 'value',
     retains: ['Date'],
   });
-const view2 = chart.createView();
+const view2 = chart.createView({
+  padding: [8, 8, 48, 64],
+});
 view2.data(dv2.rows);
 view2
   .line()

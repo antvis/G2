@@ -150,4 +150,20 @@ describe('chart multi view', () => {
     expect(v1.getOptions().data).toBe(data);
     expect(v1.getOptions().data.length).toBe(8);
   });
+
+  it('view padding', () => {
+    const chart1 = new Chart({
+      container: div,
+      padding: 30,
+    });
+
+    const va = chart1.createView();
+    const vb = chart1.createView({
+      padding: 'auto',
+    });
+
+    // 继承父级的 padding
+    expect(va.padding).toBe(30);
+    expect(vb.padding).toBe('auto');
+  });
 });
