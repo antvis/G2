@@ -697,6 +697,7 @@ export class View extends Base {
       middleGroup: this.middleGroup.addGroup({ zIndex: GROUP_Z_INDEX.MID }),
       foregroundGroup: this.foregroundGroup.addGroup({ zIndex: GROUP_Z_INDEX.FORE }),
       theme: this.themeObject,
+      padding: this.padding,
       ...cfg,
       options: {
         ...sharedOptions,
