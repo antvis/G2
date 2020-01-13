@@ -205,11 +205,10 @@ function adjustLabelPosition(label: IShape, x: number, y: number, index: number)
 /**
  * 根据 bbox 进行调整，如果 label 超出了 shape 的 bbox 则不展示
  */
-export function limitInShapeAdjust(labels: Record<string, IGroup>, shapes: Record<string, IShape | IGroup>) {
-  each(labels, (label, id) => {
-    const labelShape = label.find((shape) => shape.get('type') === 'text') as IShape;
-    const labelBBox = labelShape.getCanvasBBox(); // 文本有可能发生旋转
-    const shapeBBox = shapes[id].getBBox();
+export function limitInShapeAdjust(labels: IGroup[], shapes: IShape[] | IGroup[]) {
+  each(labels, (label, index) => {
+    const labelBBox = label.getCanvasBBox(); // 文本有可能发生旋转
+    const shapeBBox = shapes[index].getBBox();
     if (
       labelBBox.minX < shapeBBox.minX ||
       labelBBox.minY < shapeBBox.minY ||
@@ -217,26 +216,24 @@ export function limitInShapeAdjust(labels: Record<string, IGroup>, shapes: Recor
       labelBBox.maxY > shapeBBox.maxY
     ) {
       label.remove(true); // 超出则不展示
-      delete labels[id];
     }
   });
 }
 
-export function fixedOverlapAdjust(labels: Record<string, IGroup>, maxTimes: number = MAX_TIMES) {
+export function fixedOverlapAdjust(labels: IGroup[], maxTimes: number = MAX_TIMES) {
   const greedy = new Greedy();
-  each(labels, (label: IGroup, id: string) => {
+  each(labels, (label: IGroup) => {
     const labelShape = label.find((shape) => shape.get('type') === 'text') as IShape;
     if (!spiralFill(labelShape, greedy, maxTimes)) {
       label.remove(true);
-      delete labels[id];
     }
   });
   greedy.destroy();
 }
 
-export function overlapAdjust(labels: Record<string, IGroup>) {
+export function overlapAdjust(labels: IGroup[]) {
   const greedy = new Greedy();
-  each(labels, (label: IGroup, id: string) => {
+  each(labels, (label: IGroup) => {
     const labelShape = label.find((shape) => shape.get('type') === 'text') as IShape;
     const { x, y } = labelShape.attr();
     let canFill = false;
@@ -250,7 +247,6 @@ export function overlapAdjust(labels: Record<string, IGroup>) {
     }
     if (!canFill) {
       label.remove(true);
-      delete labels[id];
     }
   });
 

@@ -59,54 +59,59 @@ export default class Labels {
     const lastShapesMap = this.lastShapesMap;
     const shapesMap = this.shapesMap;
     each(shapesMap, (shape, id) => {
-      if (lastShapesMap[id]) {
-        // 图形发生更新
-        const data = shape.get('data');
-        const orogin = shape.get('origin');
-        const coordinate = shape.get('coordinate');
-        const currentShape = lastShapesMap[id]; // 已经在渲染树上的 shape
-        const currentAnimateCfg = shape.get('animateCfg');
-        currentShape.set('data', data);
-        currentShape.set('orogin', orogin);
-        currentShape.set('animateCfg', currentAnimateCfg);
-        currentShape.set('coordinate', coordinate);
-
-        const updateAnimateCfg = get(currentAnimateCfg, 'update');
-        const currentChildren = currentShape.getChildren();
-        shape.getChildren().map((child, index) => {
-          const currentChild = currentChildren[index] as IShape;
-          currentChild.set('data', data);
-          currentChild.set('orogin', orogin);
-          currentChild.set('animateCfg', currentAnimateCfg);
-          currentChild.set('coordinate', coordinate);
-
-          const newAttrs = getReplaceAttrs(currentChild, child);
-          if (updateAnimateCfg) {
-            doAnimate(currentChild, updateAnimateCfg, {
-              toAttrs: newAttrs,
-              coordinate,
-            });
-          } else {
-            currentChild.attr(newAttrs);
-          }
-        });
-
-        this.shapesMap[id] = currentShape; // 保存引用
+      if (shape.destroyed) {
+        // label 在布局调整环节被删除了（adjustLabels）
+        delete shapesMap[id];
       } else {
-        // 新生成的 shape
-        container.add(shape);
+        if (lastShapesMap[id]) {
+          // 图形发生更新
+          const data = shape.get('data');
+          const orogin = shape.get('origin');
+          const coordinate = shape.get('coordinate');
+          const currentShape = lastShapesMap[id]; // 已经在渲染树上的 shape
+          const currentAnimateCfg = shape.get('animateCfg');
+          currentShape.set('data', data);
+          currentShape.set('orogin', orogin);
+          currentShape.set('animateCfg', currentAnimateCfg);
+          currentShape.set('coordinate', coordinate);
 
-        const animateCfg = get(shape.get('animateCfg'), isUpdate ? 'enter' : 'appear');
-        if (animateCfg) {
-          doAnimate(shape, animateCfg, {
-            toAttrs: {
-              ...shape.attr(),
-            },
-            coordinate: shape.get('coordinate'),
+          const updateAnimateCfg = get(currentAnimateCfg, 'update');
+          const currentChildren = currentShape.getChildren();
+          shape.getChildren().map((child, index) => {
+            const currentChild = currentChildren[index] as IShape;
+            currentChild.set('data', data);
+            currentChild.set('orogin', orogin);
+            currentChild.set('animateCfg', currentAnimateCfg);
+            currentChild.set('coordinate', coordinate);
+
+            const newAttrs = getReplaceAttrs(currentChild, child);
+            if (updateAnimateCfg) {
+              doAnimate(currentChild, updateAnimateCfg, {
+                toAttrs: newAttrs,
+                coordinate,
+              });
+            } else {
+              currentChild.attr(newAttrs);
+            }
           });
+
+          this.shapesMap[id] = currentShape; // 保存引用
+        } else {
+          // 新生成的 shape
+          container.add(shape);
+
+          const animateCfg = get(shape.get('animateCfg'), isUpdate ? 'enter' : 'appear');
+          if (animateCfg) {
+            doAnimate(shape, animateCfg, {
+              toAttrs: {
+                ...shape.attr(),
+              },
+              coordinate: shape.get('coordinate'),
+            });
+          }
         }
+        delete lastShapesMap[id];
       }
-      delete lastShapesMap[id];
     });
 
     // 移除
@@ -179,7 +184,15 @@ export default class Labels {
     if (!layout) {
       return;
     }
-    layout(this.shapesMap, shapes);
+
+    const labelShapes = [];
+    const geometryShapes = [];
+    each(this.shapesMap, (labelShape, id) => {
+      labelShapes.push(labelShape);
+      geometryShapes.push(shapes[id]);
+    });
+
+    layout(labelShapes, geometryShapes);
   }
 
   private drawLabelLine(labelCfg: LabelItem, container: IGroup) {
