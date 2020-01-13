@@ -5,6 +5,7 @@ import Point from '../../../../src/geometry/point';
 import Theme from '../../../../src/theme/antv';
 import { createCanvas, createDiv } from '../../../util/dom';
 import { createScale } from '../../../util/scale';
+import { deepMix } from '@antv/util';
 
 const CartesianCoordinate = getCoordinate('rect');
 
@@ -37,7 +38,11 @@ describe('GeometryLabel', () => {
       scales,
       container: canvas.addGroup(),
       labelsContainer: canvas.addGroup(),
-      theme: Theme,
+      theme: deepMix({}, Theme, {
+        labels: {
+          offset: 20,
+        },
+      }),
       coordinate: rectCoord,
     });
     point.position('x*y').label('z', { offset: 10 });
@@ -113,7 +118,11 @@ describe('GeometryLabel', () => {
       scales,
       container: canvas.addGroup(),
       labelsContainer: canvas.addGroup(),
-      theme: Theme,
+      theme: deepMix({}, Theme, {
+        labels: {
+          offset: 20,
+        },
+      }),
       coordinate: rectCoord,
     });
     interval.position('x*y').label('z', { offset: -10 });
@@ -157,7 +166,11 @@ describe('GeometryLabel', () => {
         scales: scales1,
         container: canvas.addGroup(),
         labelsContainer: canvas.addGroup(),
-        theme: Theme,
+        theme: deepMix({}, Theme, {
+          labels: {
+            offset: 20,
+          },
+        }),
         coordinate: rectCoord,
       });
       interval.position('x*y').label('text', {
@@ -215,7 +228,11 @@ describe('GeometryLabel', () => {
       scales,
       container: canvas.addGroup(),
       labelsContainer: canvas.addGroup(),
-      theme: Theme,
+      theme: deepMix({}, Theme, {
+        labels: {
+          offset: 20,
+        },
+      }),
       coordinate: coord,
     });
     interval.position('x*y').label('z', { offset: 10 });
@@ -287,7 +304,11 @@ describe('GeometryLabel', () => {
         scales: scales1,
         container: canvas.addGroup(),
         labelsContainer: canvas.addGroup(),
-        theme: Theme,
+        theme: deepMix({}, Theme, {
+          labels: {
+            offset: 20,
+          },
+        }),
         coordinate: coord,
       });
       interval.position('x*y').label('z', { offset: 10 });
@@ -344,7 +365,11 @@ describe('GeometryLabel', () => {
         scales: scales1,
         container: canvas.addGroup(),
         labelsContainer: canvas.addGroup(),
-        theme: Theme,
+        theme: deepMix({}, Theme, {
+          labels: {
+            offset: 20,
+          },
+        }),
         coordinate: coord,
       });
       interval.position('x*y').label('z', { offset: -10 });
