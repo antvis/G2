@@ -1,22 +1,16 @@
 import { deepMix, each, get } from '@antv/util';
-import { doAnimate } from '../../animate';
-import { IGroup, IShape } from '../../dependents';
-import { AnimateOption } from '../../interface';
-import { fixedOverlapAdjust, limitInShapeAdjust, overlapAdjust } from '../../util/adjust-labels';
-import { getReplaceAttrs } from '../../util/graphics';
-import { rotate } from '../../util/transform';
-import { LabelItem } from './interface';
+import { doAnimate } from '../animate';
+import { IGroup, IShape } from '../dependents';
+import { getGeometryLabelLayout } from '../geometry/label';
+import { LabelItem } from '../geometry/label/interface';
+import { AnimateOption } from '../interface';
+import { getReplaceAttrs } from '../util/graphics';
+import { rotate } from '../util/transform';
 
 export interface LabelsGroupCfg {
   container: IGroup;
   adjustType?: string;
 }
-
-const LAYOUTS = {
-  overlap: overlapAdjust, // 为了防止 label 之间相互覆盖布局，通过尝试向四周偏移来剔除放不下的 label
-  fixedOverlap: fixedOverlapAdjust, // 不改变 label 位置的情况下对相互重叠的 label 进行调整
-  limitInShape: limitInShapeAdjust, // 剔除 shape 容纳不了的 label
-};
 
 /**
  * Geometry labels 渲染组件
@@ -179,20 +173,18 @@ export default class Labels {
 
   // 根据type对label布局
   private adjustLabels(shapes) {
-    const type = this.adjustType;
-    const layout = LAYOUTS[type];
-    if (!layout) {
-      return;
+    const adjustType = this.adjustType;
+    const layoutFn = getGeometryLabelLayout(adjustType);
+    if (layoutFn) {
+      const labelShapes = [];
+      const geometryShapes = [];
+      each(this.shapesMap, (labelShape, id) => {
+        labelShapes.push(labelShape);
+        geometryShapes.push(shapes[id]);
+      });
+
+      layoutFn(labelShapes, geometryShapes);
     }
-
-    const labelShapes = [];
-    const geometryShapes = [];
-    each(this.shapesMap, (labelShape, id) => {
-      labelShapes.push(labelShape);
-      geometryShapes.push(shapes[id]);
-    });
-
-    layout(labelShapes, geometryShapes);
   }
 
   private drawLabelLine(labelCfg: LabelItem, container: IGroup) {

@@ -20,8 +20,8 @@ export { registerGeometry } from './chart';
 // 注册 Geometry Shape
 export { registerShape, registerShapeFactory } from './geometry/shape/base';
 
-// 注册 Geometry label
-export { registerGeometryLabel } from './geometry/label';
+// 注册 Geometry label 以及 Geometry Label 布局函数
+export { registerGeometryLabel, registerGeometryLabelLayout } from './geometry/label';
 
 // 注册 interaction
 export { getInteraction, registerInteraction, registerAction } from './interaction';
