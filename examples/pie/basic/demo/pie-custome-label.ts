@@ -1,7 +1,5 @@
-// FIXME：自定义 HTML Label && Tooltip 交互
-import { Chart } from '@antv/g2';
-
-const COLORS = ['#1890ff', '#f04864'];
+import { Chart, getEngine } from '@antv/g2';
+const G = getEngine('canvas');
 
 const data = [
   { sex: '男', sold: 0.45 },
@@ -30,19 +28,36 @@ chart
   .interval()
   .adjust('stack')
   .position('sold')
-  .color('sex', COLORS)
+  .color('sex', ['#1890ff', '#f04864'])
   .label('sold', {
-    // TODO: 要不直接支持 content 返回 shape / group?
-    // useHtml: true,
-    // htmlTemplate: (text, item) => {
-    //   const isFemale = item.sex === '女';
-    //   const src = isFemale
-    //     ? 'https://gw.alipayobjects.com/zos/rmsportal/mweUsJpBWucJRixSfWVP.png'
-    //     : 'https://gw.alipayobjects.com/zos/rmsportal/oeCxrAewtedMBYOETCln.png';
-    //   const color = isFemale ? COLORS[1] : COLORS[0];
-    //   const IMG = `<img style="width:40px" src="${src}" /><br/>`;
-    //   return `<div style="text-align:center;color:${color}">${IMG}${(text * 100).toFixed(0)}%</div>`;
-    // },
+    content: (obj) => {
+      const group = new G.Group({});
+      group.addShape({
+        type: 'image',
+        attrs: {
+          x: 0,
+          y: 0,
+          width: 40,
+          height: 50,
+          img: obj.sex === '男' ?
+            'https://gw.alipayobjects.com/zos/rmsportal/oeCxrAewtedMBYOETCln.png' :
+            'https://gw.alipayobjects.com/zos/rmsportal/mweUsJpBWucJRixSfWVP.png',
+        },
+      });
+
+      group.addShape({
+        type: 'text',
+        attrs: {
+          x: 20,
+          y: 54,
+          text: obj.sex,
+          textAlign: 'center',
+          textBaseline: 'top',
+          fill: obj.sex === '男' ? '#1890ff' : '#f04864',
+        },
+      });
+      return group;
+    }
   });
 chart.interaction('active');
 chart.render();
