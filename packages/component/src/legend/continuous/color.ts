@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
 import { Group, Shape, Rect } from '@antv/g';
-import { colorUtil } from '@antv/attr';
+import colorUtil from '@antv/color-util';
 import Continuous from './base';
 import { CreateBgType } from './interface';
 import { ColorItemType } from '../../interface';
