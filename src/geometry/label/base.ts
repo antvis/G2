@@ -1,4 +1,4 @@
-import { deepMix, each, get, isArray, isFunction, isNil, isNumber, isUndefined, map, mix } from '@antv/util';
+import { deepMix, each, get, isArray, isFunction, isNil, isNumber, isUndefined } from '@antv/util';
 import { FIELD_ORIGIN } from '../../constant';
 import { Coordinate, Scale } from '../../dependents';
 import { Datum, LooseObject, MappingDatum, Point } from '../../interface';

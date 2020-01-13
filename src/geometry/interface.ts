@@ -1,3 +1,4 @@
+import { IGroup, IShape } from '../dependents';
 import { AdjustType, AnimateOption, Datum, LooseObject, MappingDatum } from '../interface';
 
 /** 图形属性配置项定义，如 position({}) */
@@ -62,8 +63,11 @@ export interface GeometryLabelCfg {
   offsetX?: number;
   /** label 相对于数据点在 Y 方向的偏移距离 */
   offsetY?: number;
-  /** 展示的文本内容，如果不声明则按照参与映射的第一字段的值进行显示 */
-  content?: string | GeometryLabelContentCallback;
+  /**
+   * 展示的文本内容，如果不声明则按照参与映射的第一字段的值进行显示。
+   * 当 content 为 IGroup 或者 IShape 类型时，请使用相对定位，即 x 和 y 坐标都设为 0, G2 内部会对最后的 label 进行定位的。
+   */
+  content?: string | IGroup | IShape | GeometryLabelContentCallback;
   /** label 文本图形属性样式 */
   style?: LooseObject;
   /** label 是否自动旋转，默认为 true */
@@ -117,4 +121,4 @@ export type TooltipCallback = (...args) => LooseObject;
 export type StyleCallback = (...args) => LooseObject;
 export type LabelCallback = (...args) => GeometryLabelCfg | null | undefined;
 /** geometry label 中 content 属性的回调函数类型定义 */
-export type GeometryLabelContentCallback = (data: Datum, mappingData: MappingDatum, index: number) => string;
+export type GeometryLabelContentCallback = (data: Datum, mappingData: MappingDatum, index: number) => string | IShape | IGroup;

@@ -3,7 +3,7 @@
 // G
 export { ICanvas, IElement, IGroup, IShape } from '@antv/g-base/lib/interfaces';
 export { PathCommand, BBox, Point, ShapeAttrs } from '@antv/g-base/lib/types';
-export { Event } from '@antv/g-base';
+export { Event, AbstractGroup, AbstractShape } from '@antv/g-base';
 // 需要有 G-base 提供 g engine 类型定义
 export type IG = any;
 
