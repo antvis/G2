@@ -1,13 +1,15 @@
 {
   "name": "@antv/g2",
-  "version": "4.0.0-beta.1",
+  "version": "4.0.0-beta.5",
   "description": "the Grammar of Graphics in Javascript",
   "main": "lib/index.js",
   "module": "esm/index.js",
+  "browser": "dist/g2.min.js",
   "types": "lib/index.d.ts",
   "files": [
     "lib",
     "esm",
+    "dist",
     "README.md",
     "LICENSE"
   ],
@@ -17,7 +19,7 @@
     "site:build": "npm run site:clean && gatsby build --prefix-paths",
     "site:clean": "gatsby clean",
     "site:deploy": "npm run site:build && gh-pages -d public",
-    "clean": "rimraf lib esm",
+    "clean": "rimraf lib esm dist",
     "lint": "lint-staged",
     "test": "jest",
     "test-live": "DEBUG_MODE=1 jest --watch tests/unit",
@@ -26,9 +28,12 @@
     "lib:esm": "tsc -p tsconfig.json --target ES5 --module ESNext --outDir esm",
     "lib": "run-p lib:*",
     "build": "run-s clean lib",
+    "dist": "webpack --config webpack.config.js --mode production",
     "ci": "run-s build coverage",
+    "prepublishOnly": "npm-run-all --parallel lint test clean lib dist",
     "doc": "rimraf -rf docs/api && typedoc",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
+    "analyz": "webpack --profile --json > stats.json && webpack-bundle-analyzer ./stats.json"
   },
   "dependencies": {
     "@antv/adjust": "^0.2.1",
@@ -66,11 +71,15 @@
     "react-i18next": "^11.1.0",
     "rimraf": "^3.0.0",
     "ts-jest": "^24.1.0",
+    "ts-loader": "^6.2.1",
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
     "typedoc": "^0.15.0",
     "typedoc-plugin-markdown": "^2.2.11",
-    "typescript": "^3.5.3"
+    "typescript": "^3.5.3",
+    "webpack": "^4.41.5",
+    "webpack-bundle-analyzer": "^3.6.0",
+    "webpack-cli": "^3.3.10"
   },
   "husky": {
     "hooks": {

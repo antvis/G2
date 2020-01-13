@@ -75,3 +75,4 @@ esm
 *.sw*
 *.un~
 docs/api
+stats.json
