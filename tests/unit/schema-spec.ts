@@ -165,10 +165,6 @@ describe('Schema', () => {
     expect(annotations.length).toBe(2);
   });
 
-  it('plugins', () => {
-    // TODO
-  });
-
   afterAll(() => {
     chart.destroy();
     removeDom(div);
