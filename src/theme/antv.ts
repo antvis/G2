@@ -721,7 +721,7 @@ export default {
     },
   },
   labels: {
-    offset: 20,
+    offset: 16,
     style: {
       fill: '#545454',
       fontSize: 12,
