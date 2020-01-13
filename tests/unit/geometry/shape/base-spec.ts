@@ -73,8 +73,6 @@ describe('Shape', () => {
 
       GeometryShape.registerShape('circleFactory', 'hollowCircle', {
         draw() {
-          // @ts-ignore
-          // FIXME: 带 g-canvas 发新版本
           return new G.Shape.Circle({
             attrs: {
               x: 50,

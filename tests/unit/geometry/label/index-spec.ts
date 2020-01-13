@@ -1,4 +1,4 @@
-import { getGeometryLabel, registerGeometryLabel } from '../../../../src/geometry/label';
+import { getGeometryLabel, getGeometryLabelLayout, registerGeometryLabel, registerGeometryLabelLayout } from '../../../../src/geometry/label';
 import GeometryLabels from '../../../../src/geometry/label/base';
 
 describe('Geometry label', () => {
@@ -11,5 +11,14 @@ describe('Geometry label', () => {
 
     registerGeometryLabel('custom', CustomeLabels);
     expect(getGeometryLabel('custom')).toBeDefined();
+  });
+
+  it('getGeometryLabelLayout', () => {
+    expect(getGeometryLabelLayout('default')).toBeUndefined();
+  });
+
+  it('registerGeometryLabelLayout', () => {
+    registerGeometryLabelLayout('labelAdjust', (labels, shapes) => {});
+    expect(getGeometryLabelLayout('labelAdjust')).toBeDefined();
   });
 });
