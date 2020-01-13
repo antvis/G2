@@ -1,7 +1,7 @@
 import { flatten } from '@antv/util';
 import 'jest-extended';
 import { getEngine } from '../../../src';
-import { getCoordinate, IGroup } from '../../../src/dependents';
+import { getCoordinate } from '../../../src/dependents';
 import Geometry from '../../../src/geometry/base';
 import * as Shape from '../../../src/geometry/shape/base';
 import { LooseObject } from '../../../src/interface';
