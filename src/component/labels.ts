@@ -1,11 +1,11 @@
 import { deepMix, each, get } from '@antv/util';
 import { doAnimate } from '../animate';
-import { IGroup, IShape } from '../dependents';
+import { AbstractGroup, AbstractShape, IGroup, IShape } from '../dependents';
 import { getGeometryLabelLayout } from '../geometry/label';
 import { LabelItem } from '../geometry/label/interface';
 import { AnimateOption } from '../interface';
 import { getReplaceAttrs } from '../util/graphics';
-import { rotate } from '../util/transform';
+import { rotate, translate } from '../util/transform';
 
 export interface LabelsGroupCfg {
   container: IGroup;
@@ -138,7 +138,7 @@ export default class Labels {
   }
 
   private renderLabel(cfg: LabelItem, container: IGroup) {
-    const { id, data, mappingData, coordinate, animate } = cfg;
+    const { id, data, mappingData, coordinate, animate, content } = cfg;
     const shapeAppendCfg = {
       id,
       data,
@@ -152,17 +152,36 @@ export default class Labels {
         this.animate === false || animate === null || animate === false ? false : deepMix({}, this.animate, animate),
       ...shapeAppendCfg,
     });
-    const labelShape = labelGroup.addShape('text', {
-      capture: true,
-      attrs: {
-        x: cfg.x,
-        y: cfg.y,
-        textAlign: cfg.textAlign,
-        text: cfg.content,
-        ...cfg.style,
-      },
-      ...shapeAppendCfg,
-    });
+    let labelShape;
+    if (content instanceof AbstractShape || content instanceof AbstractGroup) {
+      // 如果 content 是 Group 或者 Shape，根据 textAlign 调整位置后，直接将其加入 labelGroup
+      const { width, height } = content.getCanvasBBox();
+      const textAlign = cfg.textAlign || 'left';
+
+      let x = cfg.x;
+      const y = cfg.y - (height / 2);
+
+      if (textAlign === 'center') {
+        x = x - (width / 2);
+      } else if (textAlign === 'right' || textAlign === 'end') {
+        x = x - width;
+      }
+
+      translate(content, x, y); // 将 label 平移至 x, y 指定的位置
+      labelShape = content;
+      labelGroup.add(content);
+    } else {
+      labelShape = labelGroup.addShape('text', {
+        attrs: {
+          x: cfg.x,
+          y: cfg.y,
+          textAlign: cfg.textAlign,
+          text: cfg.content,
+          ...cfg.style,
+        },
+        ...shapeAppendCfg,
+      });
+    }
 
     if (cfg.rotate) {
       rotate(labelShape, cfg.rotate);
