@@ -1,5 +1,5 @@
 import { each } from '@antv/util';
-import { BBox, IGroup, IShape } from '../dependents';
+import { BBox, IGroup, IShape } from '../../../dependents';
 
 const MAX_TIMES = 100;
 
@@ -203,35 +203,26 @@ function adjustLabelPosition(label: IShape, x: number, y: number, index: number)
 }
 
 /**
- * 根据 bbox 进行调整，如果 label 超出了 shape 的 bbox 则不展示
+ * label 防遮挡布局：在不改变 label 位置的情况下对相互重叠的 label 进行调整。
+ * 不同于 'overlap' 类型的布局，该布局不会对 label 的位置进行偏移调整。
+ * @param labels 参与布局调整的 label 数组集合
  */
-export function limitInShapeAdjust(labels: IGroup[], shapes: IShape[] | IGroup[]) {
-  each(labels, (label, index) => {
-    const labelBBox = label.getCanvasBBox(); // 文本有可能发生旋转
-    const shapeBBox = shapes[index].getBBox();
-    if (
-      labelBBox.minX < shapeBBox.minX ||
-      labelBBox.minY < shapeBBox.minY ||
-      labelBBox.maxX > shapeBBox.maxX ||
-      labelBBox.maxY > shapeBBox.maxY
-    ) {
-      label.remove(true); // 超出则不展示
-    }
-  });
-}
-
-export function fixedOverlapAdjust(labels: IGroup[], maxTimes: number = MAX_TIMES) {
+export function fixedOverlap(labels: IGroup[], shapes: IShape[] | IGroup[]) {
   const greedy = new Greedy();
   each(labels, (label: IGroup) => {
     const labelShape = label.find((shape) => shape.get('type') === 'text') as IShape;
-    if (!spiralFill(labelShape, greedy, maxTimes)) {
+    if (!spiralFill(labelShape, greedy)) {
       label.remove(true);
     }
   });
   greedy.destroy();
 }
 
-export function overlapAdjust(labels: IGroup[]) {
+/**
+ * label 防遮挡布局：为了防止 label 之间相互覆盖同时保证尽可能多 的 label 展示，通过尝试将 label 向**四周偏移**来剔除放不下的 label
+ * @param labels 参与布局调整的 label 数组集合
+ */
+export function overlap(labels: IGroup[], shapes: IShape[] | IGroup[]) {
   const greedy = new Greedy();
   each(labels, (label: IGroup) => {
     const labelShape = label.find((shape) => shape.get('type') === 'text') as IShape;

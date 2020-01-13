@@ -68,6 +68,15 @@ registerGeometryLabel('interval', IntervalLabel);
 registerGeometryLabel('pie', PieLabel);
 registerGeometryLabel('polar', PolarLabel);
 
+// 注册 Geometry label 内置的布局函数
+import { registerGeometryLabelLayout } from './core';
+import { limitInShape } from './geometry/label/layout/limit-in-shape';
+import { fixedOverlap, overlap } from './geometry/label/layout/overlap';
+
+registerGeometryLabelLayout('overlap', overlap);
+registerGeometryLabelLayout('fixedOverlap', fixedOverlap);
+registerGeometryLabelLayout('limitInShape', limitInShape);
+
 // 注册需要的动画执行函数
 import { fadeIn, fadeOut } from './animate/animation/fade';
 import { growInX, growInXY, growInY } from './animate/animation/grow-in';

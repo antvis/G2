@@ -20,6 +20,7 @@ import {
 } from '@antv/util';
 import { doGroupAppearAnimate, getDefaultAnimateCfg } from '../animate';
 import Base from '../base';
+import Labels from '../component/labels';
 import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
 import { Coordinate, IGroup, Scale } from '../dependents';
 import {
@@ -51,7 +52,6 @@ import {
   TooltipOption,
 } from './interface';
 import { getGeometryLabel } from './label';
-import Labels from './label/labels';
 import { getShapeFactory } from './shape/base';
 import { group } from './util/group-data';
 import { isModelChange } from './util/is-model-change';
