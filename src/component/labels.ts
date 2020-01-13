@@ -9,7 +9,7 @@ import { rotate } from '../util/transform';
 
 export interface LabelsGroupCfg {
   container: IGroup;
-  adjustType?: string;
+  layout?: string;
 }
 
 /**
@@ -17,7 +17,7 @@ export interface LabelsGroupCfg {
  */
 export default class Labels {
   /** 用于指定 labels 布局的类型 */
-  public adjustType: string;
+  public layout: string;
   /** 图形容器 */
   public container: IGroup;
   /** 动画配置 */
@@ -28,9 +28,9 @@ export default class Labels {
   private lastShapesMap: Record<string, IGroup> = {};
 
   constructor(cfg: LabelsGroupCfg) {
-    const { adjustType = 'default', container } = cfg;
+    const { layout = 'default', container } = cfg;
 
-    this.adjustType = adjustType;
+    this.layout = layout;
     this.container = container;
   }
 
@@ -173,8 +173,8 @@ export default class Labels {
 
   // 根据type对label布局
   private adjustLabels(shapes) {
-    const adjustType = this.adjustType;
-    const layoutFn = getGeometryLabelLayout(adjustType);
+    const layout = this.layout;
+    const layoutFn = getGeometryLabelLayout(layout);
     if (layoutFn) {
       const labelShapes = [];
       const geometryShapes = [];
