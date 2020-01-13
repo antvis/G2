@@ -1634,7 +1634,7 @@ export default class Geometry extends Base {
     if (!labelsRenderer) {
       labelsRenderer = new Labels({
         container: this.labelsContainer,
-        adjustType: get(labelOption, ['cfg', 'adjustType']),
+        layout: get(labelOption, ['cfg', 'layout']),
       });
       this.labelsRenderer = labelsRenderer;
     }

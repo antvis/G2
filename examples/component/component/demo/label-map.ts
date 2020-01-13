@@ -25,7 +25,7 @@ fetch('../data/world.geo.json')
       .polygon()
       .position('longitude*latitude')
       .label('name', {
-        adjustType: 'fixedOverlap',
+        layout: 'fixedOverlap',
         offset: 0,
         style: {
           fill: 'black',

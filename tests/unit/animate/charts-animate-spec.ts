@@ -70,7 +70,7 @@ describe('Test charts animate', () => {
       .label('sales', {
         offset: -20,
         // labelEmit: true,
-        adjustType: 'treemap',
+        layout: 'limitInShape',
       });
     chart.render();
 

@@ -29,7 +29,7 @@ describe('Label update', () => {
     .position('year*sales')
     .color('year')
     .label('sales', {
-      adjustType: 'limitInShape',
+      layout: 'limitInShape',
       offset: -10,
     });
 

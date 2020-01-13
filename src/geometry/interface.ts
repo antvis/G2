@@ -84,7 +84,7 @@ export interface GeometryLabelCfg {
    * 2. fixedOverlap: 不改变 label 位置的情况下对相互重叠的 label 进行调整
    * 3. limitInShape: 剔除 shape 容纳不了的 label
    */
-  adjustType?: string;
+  layout?: string;
   /**
    * 仅当 geometry 为 interval 时生效，指定当前 label 与当前图形的相对位置
    */

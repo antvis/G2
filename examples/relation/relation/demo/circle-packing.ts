@@ -55,7 +55,7 @@ fetch('../data/flare.json')
           fontSize: 9,
           textAlign: 'center',
         },
-        adjustType: 'fixedOverlap',
+        layout: 'fixedOverlap',
       });
     chart.render();
   });
