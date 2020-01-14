@@ -118,6 +118,27 @@ describe('Legend category navigation', () => {
 
     expect(navigation).toBeUndefined();
   });
+});
+
+describe('Legend Category Vertical', () => {
+  const div = createDiv();
+  const legendId = '';
+
+  const chart = new Chart({
+    container: div,
+    width: 400,
+    height: 400,
+    padding: 16,
+    autoFit: false,
+  });
+
+  chart.data(DIAMOND);
+
+  chart
+    .interval()
+    .position('cut*price')
+    .color('clarity')
+    .adjust({ type: 'dodge' });
 
   it('navigation vertical', () => {
     chart.legend('clarity', {
