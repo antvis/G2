@@ -1,12 +1,13 @@
-import { IGroup, IShape } from 'src/dependents';
+import { IGroup } from 'src/dependents';
 import { GeometryLabelConstructor } from './base';
+import { GeometryLabelLayoutCfg } from './interface';
 
 /**
  * label 布局函数定义
  * @param labels 所有的 label shape
  * @param shapes 所有 label 对应的图形元素
  */
-type GeometryLabelsLayoutFn = (labels: IGroup[], shapes: IShape[] | IGroup[]) => void;
+type GeometryLabelsLayoutFn = (labels: IGroup[], cfg: GeometryLabelLayoutCfg) => void;
 
 const GEOMETRY_LABELS_MAP: Record<string, GeometryLabelConstructor> = {};
 const GEOMETRY_LABELS_LAYOUT_MAP: Record<string, GeometryLabelsLayoutFn>  = {};

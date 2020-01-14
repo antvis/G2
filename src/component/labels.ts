@@ -3,7 +3,7 @@ import { doAnimate } from '../animate';
 import { AbstractGroup, AbstractShape, IGroup, IShape } from '../dependents';
 import { getGeometryLabelLayout } from '../geometry/label';
 import { LabelItem } from '../geometry/label/interface';
-import { AnimateOption } from '../interface';
+import { AnimateOption, Region } from '../interface';
 import { getReplaceAttrs } from '../util/graphics';
 import { rotate, translate } from '../util/transform';
 
@@ -22,6 +22,7 @@ export default class Labels {
   public container: IGroup;
   /** 动画配置 */
   public animate: AnimateOption | false;
+  public region: Region;
 
   /** 存储当前 shape 的映射表，键值为 shape id */
   public shapesMap: Record<string, IGroup> = {};
@@ -192,8 +193,7 @@ export default class Labels {
 
   // 根据type对label布局
   private adjustLabels(shapes) {
-    const layout = this.layout;
-    const layoutFn = getGeometryLabelLayout(layout);
+    const layoutFn = getGeometryLabelLayout(this.layout);
     if (layoutFn) {
       const labelShapes = [];
       const geometryShapes = [];
@@ -202,7 +202,10 @@ export default class Labels {
         geometryShapes.push(shapes[id]);
       });
 
-      layoutFn(labelShapes, geometryShapes);
+      layoutFn(labelShapes, {
+        shapes: geometryShapes,
+        region: this.region,
+      });
     }
   }
 
