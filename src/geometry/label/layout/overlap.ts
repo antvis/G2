@@ -1,5 +1,6 @@
 import { each } from '@antv/util';
 import { BBox, IGroup, IShape } from '../../../dependents';
+import { GeometryLabelLayoutCfg } from '../interface';
 
 const MAX_TIMES = 100;
 
@@ -207,7 +208,7 @@ function adjustLabelPosition(label: IShape, x: number, y: number, index: number)
  * 不同于 'overlap' 类型的布局，该布局不会对 label 的位置进行偏移调整。
  * @param labels 参与布局调整的 label 数组集合
  */
-export function fixedOverlap(labels: IGroup[], shapes: IShape[] | IGroup[]) {
+export function fixedOverlap(labels: IGroup[], cfg: GeometryLabelLayoutCfg) {
   const greedy = new Greedy();
   each(labels, (label: IGroup) => {
     const labelShape = label.find((shape) => shape.get('type') === 'text') as IShape;
@@ -222,7 +223,7 @@ export function fixedOverlap(labels: IGroup[], shapes: IShape[] | IGroup[]) {
  * label 防遮挡布局：为了防止 label 之间相互覆盖同时保证尽可能多 的 label 展示，通过尝试将 label 向**四周偏移**来剔除放不下的 label
  * @param labels 参与布局调整的 label 数组集合
  */
-export function overlap(labels: IGroup[], shapes: IShape[] | IGroup[]) {
+export function overlap(labels: IGroup[], cfg: GeometryLabelLayoutCfg) {
   const greedy = new Greedy();
   each(labels, (label: IGroup) => {
     const labelShape = label.find((shape) => shape.get('type') === 'text') as IShape;
