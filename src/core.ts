@@ -38,6 +38,13 @@ export { registerEngine, getEngine } from './engine';
 // 注册动画函数
 export { registerAnimation, getAnimation } from './animate/animation';
 
+// 一些工具方法导出
+import { rotate, translate } from './util/transform';
+export const Util = {
+  translate,
+  rotate,
+};
+
 // 类型定义导出
 export { ChartCfg, ViewCfg } from './chart';
 export { Data, Datum, Region, Point } from './interface';
