@@ -1498,6 +1498,16 @@ export class View extends Base {
     // geometry 的 paint 阶段
     this.geometries.map((geometry: Geometry) => {
       geometry.coordinate = this.getCoordinate();
+      geometry.canvasRegion = {
+        start: {
+          x: this.viewBBox.minX,
+          y: this.viewBBox.minY,
+        },
+        end: {
+          x: this.viewBBox.maxX,
+          y: this.viewBBox.maxY,
+        },
+      };
       if (!doAnimation) {
         // 如果 view 不执行动画，那么 view 下所有的 geometry 都不执行动画
         geometry.animate(false);

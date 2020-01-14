@@ -30,6 +30,7 @@ import {
   Datum,
   LooseObject,
   MappingDatum,
+  Region,
   ScaleOption,
   ShapeFactory,
   ShapeInfo,
@@ -142,6 +143,8 @@ export default class Geometry extends Base {
   /** 存储 geometry 需要的 scales，需要外部传入 */
   public scales: Record<string, Scale>;
   public scaleDefs: Record<string, ScaleOption>;
+  /** 画布区域，用于 label 布局 */
+  public canvasRegion: Region;
 
   // Internally generated attributes
   /** Attribute map  */
@@ -1638,6 +1641,7 @@ export default class Geometry extends Base {
       });
       this.labelsRenderer = labelsRenderer;
     }
+    labelsRenderer.region = this.canvasRegion;
 
     const shapes = {};
     each(this.elementsMap, (element: Element, id: string) => {
