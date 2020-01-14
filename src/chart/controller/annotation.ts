@@ -1,8 +1,10 @@
-import { deepMix, each, get, isArray, isFunction, isNil, isString, keys, upperFirst } from '@antv/util';
+import { contains, deepMix, each, get, isArray, isFunction, isNil, isString, keys, upperFirst } from '@antv/util';
+import Geometry from 'src/geometry/base';
+import Element from 'src/geometry/element';
 import { DEFAULT_ANIMATE_CFG } from '../../animate/';
-import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
+import { COMPONENT_TYPE, DIRECTION, LAYER, VIEW_LIFE_CIRCLE } from '../../constant';
 import { Annotation as AnnotationComponent, IGroup, Scale } from '../../dependents';
-import { Point } from '../../interface';
+import { Data, Point } from '../../interface';
 import { getDistanceToCenter, getPointAngle } from '../../util/coordinate';
 import { omit } from '../../util/helper';
 import { ComponentOption } from '../interface';
@@ -77,6 +79,51 @@ export interface TextOption {
   readonly offsetY?: number;
 }
 
+export interface DataMarkerOption {
+  /** 文本位置 */
+  readonly position: Position;
+  /** 显示的文本内容 */
+  readonly content: string | number;
+  /** 文本的图形样式属性 */
+  readonly style?: object;
+  /** 是否进行动画 */
+  readonly animate?: boolean;
+  /** x 方向的偏移量 */
+  readonly offsetX?: number;
+  /** y 方向的偏移量 */
+  readonly offsetY?: number;
+}
+
+export interface DataRegionOption {
+  /** 起始位置 */
+  readonly start: Position;
+  /** 结束位置 */
+  readonly end: Position;
+  /** 显示的文本内容 */
+  readonly content: string | number;
+  /** 文本的图形样式属性 */
+  readonly style?: object;
+  /** 是否进行动画 */
+  readonly animate?: boolean;
+  /** x 方向的偏移量 */
+  readonly offsetX?: number;
+  /** y 方向的偏移量 */
+  readonly offsetY?: number;
+}
+
+export interface RegionFilterOption {
+  /** 起始位置 */
+  readonly start: Position;
+  /** 结束位置 */
+  readonly end: Position;
+  /** 染色色值 */
+  readonly color: string;
+  /* 可选,设定regionFilter只对特定geom类型起作用，如apply:['area'] */
+  readonly apply?: string[];
+  /* 指定 guide 是否绘制在 canvas 最上层，默认为 true, 即绘制在最上层 */
+  readonly top?: boolean;
+}
+
 /**
  * annotation controller, supply:
  * 1. API for creating annotation: line、text、arc ...
@@ -106,21 +153,44 @@ export default class Annotation extends Controller<BaseOption[]> {
 
   public layout() {
     const components = this.getComponents();
+    const updateComponentFn = (co: ComponentOption) => {
+      const { component, extra } = co;
+      const { type } = extra;
+      const theme = this.getAnnotationTheme(type);
+
+      component.update(this.getAnnotationCfg(type, extra, theme));
+    };
+    const createComponentFn = (option: BaseOption) => {
+      const co = this.createAnnotation(option);
+      if (co) {
+        co.component.render();
+        // 缓存起来
+        this.cache.set(option, co);
+      }
+    };
+
     if (components.length) {
       each(components, (co: ComponentOption) => {
-        const { component, extra } = co;
-        const { type } = extra;
-        const theme = this.getAnnotationTheme(type);
+        const { component } = co;
 
-        component.update(this.getAnnotationCfg(type, extra, theme));
+        if (component.get('type') === 'regionFilter') {
+          // regionFilter 依赖绘制后的 Geometry Shapes
+          this.view.once(VIEW_LIFE_CIRCLE.AFTER_RENDER, () => {
+            updateComponentFn(co);
+          });
+        } else {
+          updateComponentFn(co);
+        }
       });
     } else {
       each(this.option, (option: BaseOption) => {
-        const co = this.createAnnotation(option);
-        if (co) {
-          co.component.render();
-          // 缓存起来
-          this.cache.set(option, co);
+        if (option.type === 'regionFilter') {
+          this.view.once(VIEW_LIFE_CIRCLE.AFTER_RENDER, () => {
+            // regionFilter 依赖绘制后的 Geometry Shapes
+            createComponentFn(option);
+          });
+        } else {
+          createComponentFn(option);
         }
       });
     }
@@ -137,7 +207,7 @@ export default class Annotation extends Controller<BaseOption[]> {
     // 已经处理过的 legend
     const updated = new WeakMap<BaseOption, true>();
 
-    each(this.option, (option: BaseOption) => {
+    const updateComponentFn = (option: BaseOption) => {
       const { type } = option;
       const theme = this.getAnnotationTheme(type);
       const cfg = this.getAnnotationCfg(type, option, theme);
@@ -161,23 +231,38 @@ export default class Annotation extends Controller<BaseOption[]> {
           updated.set(option, true);
         }
       }
+    };
+
+    this.view.once(VIEW_LIFE_CIRCLE.AFTER_RENDER, () => {
+      // 先看是否有 regionFilter 要更新
+      each(this.option, (option: BaseOption) => {
+        if (option.type === 'regionFilter') {
+          updateComponentFn(option);
+        }
+      });
+
+      // 处理完成之后，销毁删除的
+      // 不在处理中的
+      const newCache = new Map<BaseOption, ComponentOption>();
+
+      this.cache.forEach((value: ComponentOption, key: BaseOption) => {
+        if (updated.has(key)) {
+          newCache.set(key, value);
+        } else {
+          // 不存在，则是所有需要被销毁的组件
+          value.component.destroy();
+        }
+      });
+
+      // 更新缓存
+      this.cache = newCache;
     });
 
-    // 处理完成之后，销毁删除的
-    // 不在处理中的
-    const newCache = new Map<BaseOption, ComponentOption>();
-
-    this.cache.forEach((value: ComponentOption, key: BaseOption) => {
-      if (updated.has(key)) {
-        newCache.set(key, value);
-      } else {
-        // 不存在，则是所有需要被销毁的组件
-        value.component.destroy();
+    each(this.option, (option: BaseOption) => {
+      if (option.type !== 'regionFilter') {
+        updateComponentFn(option);
       }
     });
-
-    // 更新缓存
-    this.cache = newCache;
   }
 
   /**
@@ -311,6 +396,44 @@ export default class Annotation extends Controller<BaseOption[]> {
 
     return this;
   }
+
+  /**
+   * create a data marker
+   * @param option
+   * @returns AnnotationController
+   */
+  public dataMaker(option: DataMarkerOption) {
+    this.annotation({
+      type: 'dataMarker',
+      ...option,
+    });
+
+    return this;
+  }
+
+  /**
+   * create a data region
+   * @param option
+   * @returns AnnotationController
+   */
+  public dataRegion(option: DataRegionOption) {
+    this.annotation({
+      type: 'dataRegion',
+      ...option,
+    });
+  }
+
+  /**
+   * create a region filter
+   * @param option
+   * @returns AnnotationController
+   */
+  public regionFilter(option: RegionFilterOption) {
+    this.annotation({
+      type: 'regionFilter',
+      ...option,
+    });
+  }
   // end API
 
   /**
@@ -354,6 +477,41 @@ export default class Annotation extends Controller<BaseOption[]> {
     }
 
     return this.view.getCoordinate().convert({ x, y });
+  }
+
+  /**
+   * parse all the points between start and end
+   * @param start
+   * @param end
+   * @return Point[]
+   */
+  private getRegionPoints(start: Position | Data, end: Position | Data): Point[] {
+    const xScale = this.view.getXScale();
+    const yScales = this.view.getScalesByDim('y');
+    const yScale = Object.values(yScales)[0];
+    const xField = xScale.field;
+    const viewData = this.view.getData();
+    const startXValue = isArray(start) ? start[0] : start[xField];
+    const endXValue = isArray(end) ? end[0] : end[xField];
+    const arr = [];
+
+    let startIndex;
+    each(viewData, (item, idx) => {
+      if (item[xField] === startXValue) {
+        startIndex = idx;
+      }
+      if (idx >= startIndex) {
+        const point = this.parsePosition([item[xField], item[yScale.field]]);
+        if (point) {
+          arr.push(point);
+        }
+      }
+      if (item[xField] === endXValue) {
+        return false;
+      }
+    });
+
+    return arr;
   }
 
   /**
@@ -413,12 +571,39 @@ export default class Annotation extends Controller<BaseOption[]> {
   }
 
   /**
+   * get coordinate bbox
+   */
+  private getCoordinateBBox() {
+    const coordinate = this.view.getCoordinate();
+    const { start, end } = coordinate;
+
+    const width = coordinate.getWidth();
+    const height = coordinate.getHeight();
+    const topLeft = {
+      x: Math.min(start.x, end.x),
+      y: Math.min(start.y, end.y),
+    };
+
+    return {
+      x: topLeft.x,
+      y: topLeft.y,
+      minX: topLeft.x,
+      minY: topLeft.y,
+      maxX: topLeft.x + width,
+      maxY: topLeft.y + height,
+      width,
+      height,
+    };
+  }
+
+  /**
    * get annotation component config by different type
    * @param type
    * @param option 用户的配置
    * @param theme
    */
   private getAnnotationCfg(type: string, option: any, theme: object): object {
+    const coordinate = this.view.getCoordinate();
     let o = {};
 
     if (isNil(option)) {
@@ -429,7 +614,6 @@ export default class Annotation extends Controller<BaseOption[]> {
       const { start, end } = option as BaseOption;
       const sp = this.parsePosition(start);
       const ep = this.parsePosition(end);
-      const coordinate = this.view.getCoordinate();
       const startAngle = getPointAngle(coordinate, sp);
       let endAngle = getPointAngle(coordinate, ep);
       if (startAngle > endAngle) {
@@ -467,6 +651,42 @@ export default class Annotation extends Controller<BaseOption[]> {
       o = {
         ...this.parsePosition(position),
         content: option.content,
+      };
+    } else if (type === 'dataMarker') {
+      const { position } = option as DataMarkerOption;
+      o = {
+        ...this.parsePosition(position),
+        coordinateBBox: this.getCoordinateBBox(),
+        content: option.content,
+      };
+    } else if (type === 'dataRegion') {
+      const { start, end } = option as DataRegionOption;
+      o = {
+        points: this.getRegionPoints(start, end),
+        content: option.content,
+      };
+    } else if (type === 'regionFilter') {
+      const { start, end, apply, color } = option as RegionFilterOption;
+      const geometries: Geometry[] = this.view.geometries;
+      const shapes = [];
+      each(geometries, (geom: Geometry) => {
+        if (apply) {
+          if (contains(apply, geom.type)) {
+            each(geom.elements, (elem: Element) => {
+              shapes.push(elem.shape);
+            });
+          }
+        } else {
+          each(geom.elements, (elem: Element) => {
+            shapes.push(elem.shape);
+          });
+        }
+      });
+      o = {
+        color,
+        shapes,
+        start: this.parsePosition(start),
+        end: this.parsePosition(end),
       };
     }
     // 合并主题，用户配置优先级高于主题

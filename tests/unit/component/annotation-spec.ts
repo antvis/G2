@@ -27,6 +27,7 @@ describe('annotation', () => {
   chart.scale('sale', { nice: true });
   chart.animate(false);
   chart.interval().position('city*sale');
+  chart.animate(false);
 
   it('image', () => {
     chart.annotation().image({
@@ -194,6 +195,52 @@ describe('annotation', () => {
     expect(arc.get('endAngle')).toBe(Math.PI / 2);
     // @ts-ignore
     expect(arc.get('radius')).toBe(230);
+  });
+
+  it('dataMarker', () => {
+    chart.coordinate('rect');
+    chart.annotation().dataMaker({
+      position: { city: '上海', sale: 110 },
+      content: 'data marker test',
+    });
+    chart.render();
+
+    const dataMaker = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[7].component;
+    expect(dataMaker.get('type')).toEqual('dataMarker');
+    expect(dataMaker.get('x')).toEqual(494);
+    expect(dataMaker.get('y')).toEqual(70);
+  });
+
+  it('dataRegion', () => {
+    chart.annotation().dataRegion({
+      start: { city: '杭州', sale: 100 },
+      end: { city: '上海', sale: 110 },
+      content: 'data region test',
+    });
+    chart.render();
+
+    const dataRegion = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[8].component;
+    expect(dataRegion.get('type')).toEqual('dataRegion');
+    expect(dataRegion.get('points')).toEqual([
+      { x: 118, y: 116 },
+      { x: 306, y: 438 },
+      { x: 494, y: 70 },
+    ]);
+  });
+
+  it('regionFilter', () => {
+    chart.line().position('city*sale');
+    chart.annotation().regionFilter({
+      start: { city: '广州', sale: 30 },
+      end: { city: '上海', sale: 110 },
+      color: '#ff0000',
+      apply: ['line'],
+    });
+    chart.render();
+
+    const regionFilter = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[9].component;
+    expect(regionFilter.get('type')).toEqual('regionFilter');
+    expect(regionFilter.get('shapes')).toHaveLength(1);
   });
 
   afterAll(() => {
