@@ -25,6 +25,7 @@ describe('annotation', () => {
 
   chart.data(DATA);
   chart.scale('sale', { nice: true });
+  chart.animate(false);
   chart.interval().position('city*sale');
 
   it('image', () => {
@@ -46,9 +47,11 @@ describe('annotation', () => {
     expect(image.get('src')).toBe(IMAGE);
     expect(image.get('offsetX')).toBe(-12);
     expect(image.get('style').width).toBe(24);
+    expect(image.get('animate')).toBe(false);
   });
 
   it('line', () => {
+    chart.animate(true);
     chart.annotation().line({
       start: { city: '上海', sale: 110 },
       end: { city: '呼和浩特', sale: 40 },
@@ -82,6 +85,8 @@ describe('annotation', () => {
 
     expect(line.get('text').style.fill).toBe('red');
     expect(line.get('text').style.fontSize).toBe(14);
+
+    expect(line.get('animate')).toBe(true);
   });
 
   it('region', () => {

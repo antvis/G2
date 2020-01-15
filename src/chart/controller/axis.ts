@@ -720,7 +720,7 @@ export default class Axis extends Controller<Option> {
 
   private getAnimateCfg(cfg: object) {
     return {
-      animate: this.animate && get(cfg, 'animate'),
+      animate: this.view.getOptions().animate && this.animate && get(cfg, 'animate'), // 如果 view 关闭动画，则不执行动画
       animateOption: deepMix({}, DEFAULT_ANIMATE_CFG, get(cfg, 'animateOption', {})),
     };
   }
