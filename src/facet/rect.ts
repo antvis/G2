@@ -4,7 +4,7 @@ import { Axis, Text } from '../component';
 import { DIRECTION, LAYER } from '../constant';
 import { Datum, Padding, Point, Position } from '../interface';
 import { getRegionBBox } from '../util/bbox';
-import Facet from './facet';
+import { Facet } from './facet';
 import { FacetComponent, RectCfg, RectData } from './interface';
 
 /**
