@@ -1,5 +1,5 @@
-import { firstValue, get, getRange, isArray, isEmpty, isNil, isNumber, isString, mix, valuesOfKey } from '@antv/util';
-import { getScale, Scale, ScaleConfig } from '../dependents';
+import { firstValue, get, isArray, isEmpty, isNil, isNumber, isString, mix, valuesOfKey } from '@antv/util';
+import { getScale, Scale } from '../dependents';
 import { LooseObject, ScaleOption } from '../interface';
 
 const dateRegex = /^(?:(?!0000)[0-9]{4}([-/.]+)(?:(?:0?[1-9]|1[0-2])\1(?:0?[1-9]|1[0-9]|2[0-8])|(?:0?[13-9]|1[0-2])\1(?:29|30)|(?:0?[13578]|1[02])\1(?:31))|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)([-/.]?)0?2\2(?:29))(\s+([01]|([01][0-9]|2[0-3])):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))?$/;
@@ -22,32 +22,6 @@ function getDefaultType(field: string, data: LooseObject[]): string {
     type = 'cat';
   }
   return type;
-}
-
-/**
- * 获取 scale 的配置项信息
- * @param type 数据类型
- * @param field 数据字段名
- * @param data 数据源
- * @returns scale cfg 返回数据字段对应的列定义配置
- */
-function getScaleCfg(type: string, field: string, data: LooseObject[]): ScaleConfig {
-  const values = valuesOfKey(data, field);
-  const cfg: ScaleConfig = {
-    field,
-    values,
-  };
-  if (type !== 'cat' && type !== 'timeCat' && type !== 'time') {
-    const { min, max } = getRange(values);
-    cfg.min = min;
-    cfg.max = max;
-    cfg.nice = true;
-  }
-
-  if (type === 'time') {
-    cfg.nice = false;
-  }
-  return cfg;
 }
 
 /**
@@ -83,9 +57,11 @@ export function createScaleByField(field: string | number, data?: LooseObject[] 
     });
   } else {
     // 如果已经定义过这个度量
-    // TODO: scale 将用户设置的 min 和 max 转换成 maxLimit，minLimit，使得生成的 scale 以用户设置的 min 和 max 为准
     const type = get(scaleDef, 'type', getDefaultType(field, data));
-    const cfg = getScaleCfg(type, field, data);
+    const cfg = {
+      field,
+      values: valuesOfKey(data, field),
+    };
 
     mix(cfg, scaleDef);
 

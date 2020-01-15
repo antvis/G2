@@ -41,10 +41,10 @@ describe('ScaleUtil', () => {
     const scale = createScaleByField('a', data1, { max: 10 });
     expect(scale.type).toBe('linear');
     expect(scale.field).toBe('a');
-    expect(scale.min).toBe(0);
+    expect(scale.min).toBe(1);
     expect(scale.max).toBe(10);
     // @ts-ignore
-    expect(scale.nice).toBe(true);
+    expect(scale.nice).toBe(false);
   });
 
   it('create time scale', () => {

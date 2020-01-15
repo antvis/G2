@@ -1,7 +1,7 @@
 import 'jest-extended';
 import { Chart } from '../../../../../src';
 import { CITY_SALE_PROFIT } from '../../../../util/data';
-import { createDiv } from '../../../../util/dom';
+import { createDiv, removeDom } from '../../../../util/dom';
 
 describe('sync scale', () => {
   const container = createDiv();
@@ -30,9 +30,9 @@ describe('sync scale', () => {
 
     // 未同步，不相同
     expect(sale.min).toBe(0);
-    expect(sale.max).toBe(320);
-    expect(profit.min).toBe(0);
-    expect(profit.max).toBe(150);
+    expect(sale.max).toBe(310);
+    expect(profit.min).toBe(3);
+    expect(profit.max).toBe(130);
     // @ts-ignore
     expect(Object.keys(chart.scalePool.scales).length).toBe(4);
     // @ts-ignore
@@ -56,9 +56,9 @@ describe('sync scale', () => {
 
     // 相等的 min max
     expect(sale.min).toBe(0);
-    expect(sale.max).toBe(320);
+    expect(sale.max).toBe(310);
     expect(profit.min).toBe(0);
-    expect(profit.max).toBe(320);
+    expect(profit.max).toBe(310);
     // @ts-ignore
     expect(Object.keys(chart.scalePool.syncScales).length).toBe(1);
     // @ts-ignore
@@ -82,12 +82,17 @@ describe('sync scale', () => {
 
     // 未同步，不相同
     expect(sale.min).toBe(0);
-    expect(sale.max).toBe(320);
-    expect(profit.min).toBe(0);
-    expect(profit.max).toBe(150);
+    expect(sale.max).toBe(310);
+    expect(profit.min).toBe(3);
+    expect(profit.max).toBe(130);
     // @ts-ignore
     expect(Object.keys(chart.scalePool.scales).length).toBe(4);
     // @ts-ignore
     expect(Object.keys(chart.scalePool.syncScales).length).toBe(0);
+  });
+
+  afterAll(() => {
+    chart.destroy();
+    removeDom(container);
   });
 });

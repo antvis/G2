@@ -339,7 +339,7 @@ describe('Interval', () => {
       syncScale(pie.getYScale(), createScale('value', pieData));
 
       expect(pie.getYScale().min).toBe(5);
-      expect(pie.getYScale().max).toBe(30);
+      expect(pie.getYScale().max).toBe(27);
 
       pie.update();
       expect(pie.getYScale().min).toBe(0);
