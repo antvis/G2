@@ -1,9 +1,9 @@
 import { deepMix, each, get } from '@antv/util';
 import { doAnimate } from '../animate';
-import { AbstractGroup, AbstractShape, IGroup, IShape } from '../dependents';
+import { AbstractGroup, AbstractShape, BBox, IGroup, IShape } from '../dependents';
 import { getGeometryLabelLayout } from '../geometry/label';
 import { LabelItem } from '../geometry/label/interface';
-import { AnimateOption, Region } from '../interface';
+import { AnimateOption } from '../interface';
 import { getReplaceAttrs } from '../util/graphics';
 import { rotate, translate } from '../util/transform';
 
@@ -22,7 +22,7 @@ export default class Labels {
   public container: IGroup;
   /** 动画配置 */
   public animate: AnimateOption | false;
-  public region: Region;
+  public region: BBox;
 
   /** 存储当前 shape 的映射表，键值为 shape id */
   public shapesMap: Record<string, IGroup> = {};
@@ -202,10 +202,7 @@ export default class Labels {
         geometryShapes.push(shapes[id]);
       });
 
-      layoutFn(labelShapes, {
-        shapes: geometryShapes,
-        region: this.region,
-      });
+      layoutFn(labelShapes, geometryShapes, this.region);
     }
   }
 

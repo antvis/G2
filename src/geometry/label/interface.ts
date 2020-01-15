@@ -39,10 +39,3 @@ export interface LabelItem extends GeometryLabelCfg {
   r?: number;
   labelLine?: null | boolean | { style?: object; path?: string };
 }
-
-export interface GeometryLabelLayoutCfg {
-  /** 所有 label 对应的图形元素 */
-  shapes: IShape[] | IGroup[];
-  /** 画布区域 */
-  region: Region;
-}

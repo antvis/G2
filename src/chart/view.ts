@@ -24,7 +24,7 @@ import { Facet, getFacet } from '../facet';
 import { FacetCfgMap } from '../facet/interface';
 import Geometry from '../geometry/base';
 import { createInteraction, Interaction } from '../interaction/';
-import { Data, Datum, LooseObject, Padding, Point, Region, ScaleOption, ViewPadding } from '../interface';
+import { Data, Datum, LooseObject, Point, Region, ScaleOption, ViewPadding } from '../interface';
 import { BBox } from '../util/bbox';
 import { isFullCircle, isPointInCoordinate } from '../util/coordinate';
 import { createCoordinate } from '../util/coordinate';
@@ -1499,14 +1499,14 @@ export class View extends Base {
     this.geometries.map((geometry: Geometry) => {
       geometry.coordinate = this.getCoordinate();
       geometry.canvasRegion = {
-        start: {
-          x: this.viewBBox.minX,
-          y: this.viewBBox.minY,
-        },
-        end: {
-          x: this.viewBBox.maxX,
-          y: this.viewBBox.maxY,
-        },
+        x: this.viewBBox.x,
+        y: this.viewBBox.y,
+        minX: this.viewBBox.minX,
+        minY: this.viewBBox.minY,
+        maxX: this.viewBBox.maxX,
+        maxY: this.viewBBox.maxY,
+        width: this.viewBBox.width,
+        height: this.viewBBox.height,
       };
       if (!doAnimation) {
         // 如果 view 不执行动画，那么 view 下所有的 geometry 都不执行动画
