@@ -43,9 +43,7 @@ fetch('../data/candle-sticks.json')
     });
     chart.scale({
       time: {
-        // FIXME: timeCat 目前不支持
         type: 'timeCat',
-        nice: false,
         range: [0, 1],
         tickCount: 4,
       },
@@ -150,7 +148,6 @@ fetch('../data/candle-sticks.json')
     //   scales: {
     //     time: {
     //       type: 'timeCat',
-    //       nice: false
     //     }
     //   },
     //   onChange: ({ startText, endText }) => {

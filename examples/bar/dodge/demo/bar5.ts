@@ -31,7 +31,6 @@ const chart = new Chart({
 });
 chart.data(data);
 chart.scale('value', {
-  nice: false,
   alias: '销售额（万）',
 });
 

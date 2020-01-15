@@ -24,9 +24,6 @@ const chart = new Chart({
   padding: [20, 120, 95],
 });
 chart.data(data);
-chart.scale('percent', {
-  nice: false,
-});
 chart.axis(false);
 chart.tooltip({
   showTitle: false,

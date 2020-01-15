@@ -22,25 +22,21 @@ fetch('../data/stock-03.json')
     chart.scale({
       date: {
         type: 'time',
-        nice: false,
         // mask: 'MM-DD',
         tickCount: 10
       },
       range: {
         min: 20,
         max: 35,
-        nice: false,
         tickInterval: 2
       },
       mean: {
         min: 20,
         max: 35,
-        nice: false
       },
       stockRange: {
         min: 20,
         max: 35,
-        nice: false
       }
     });
     chart.axis('mean', false);

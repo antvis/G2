@@ -27,8 +27,8 @@ describe('Line', () => {
       { x: 1993, y: 29 },
     ];
     const scales = {
-      x: createScale('x', data),
-      y: createScale('y', data),
+      x: createScale('x', data, { x: { nice: true } }),
+      y: createScale('y', data, { y: { nice: true } }),
     };
     const line = new Line({
       data,
@@ -64,8 +64,8 @@ describe('Line', () => {
       { x: 1996, y: 15, type: 'b' },
     ];
     const scales = {
-      x: createScale('x', data),
-      y: createScale('y', data),
+      x: createScale('x', data, { x: { nice: true } }),
+      y: createScale('y', data, { y: { nice: true } }),
       type: createScale('type', data),
     };
 

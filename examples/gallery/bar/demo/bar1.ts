@@ -22,7 +22,6 @@ chart.scale({
   value: {
     max: 1300,
     min: 0,
-    nice: false,
     alias: '销量（百万）',
   },
 });

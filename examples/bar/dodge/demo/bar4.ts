@@ -49,7 +49,6 @@ chart.scale({
   value: {
     max: 20000,
     min: 0.0,
-    nice: false,
     alias: '销售额（万）',
   },
 });

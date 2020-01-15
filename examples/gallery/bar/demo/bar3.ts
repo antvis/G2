@@ -36,7 +36,6 @@ chart.data(data);
 chart.scale('value', {
   max: 1.0,
   min: 0.0,
-  nice: false,
   alias: '占比（%）',
 });
 chart.axis('city', {

@@ -26,6 +26,9 @@ describe('Tooltip functions', () => {
       city: {
         range: [0.25, 0.75],
       },
+      sale: {
+        nice: true,
+      },
     };
     const scales = {
       city: createScale('city', CITY_SALE, scaleDefs),
@@ -77,7 +80,11 @@ describe('Tooltip functions', () => {
   describe('geometry is point', () => {
     const scales = {
       carat: createScale('carat', DIAMOND, {}),
-      price: createScale('price', DIAMOND, {}),
+      price: createScale('price', DIAMOND, {
+        price: {
+          nice: true,
+        },
+      }),
       cut: createScale('cut', DIAMOND, {}),
     };
 
@@ -131,8 +138,12 @@ describe('Tooltip functions', () => {
       { year: 1999, value: 33233 },
     ];
     const scales = {
-      year: createScale('year', DATA, {}),
-      value: createScale('value', DATA, {}),
+      year: createScale('year', DATA, {
+        year: { nice: true },
+      }),
+      value: createScale('value', DATA, {
+        value: { nice: true },
+      }),
     };
 
     const line = new Line({

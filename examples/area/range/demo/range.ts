@@ -80,8 +80,8 @@ chart.scale({
   },
   time: {
     type: 'time',
-    // FIXME
-    // mask: 'MM-DD',
+    mask: 'MM-DD',
+    nice: true,
     tickInterval: 24 * 3600 * 1000 * 2,
   },
 });

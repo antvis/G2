@@ -6,7 +6,7 @@ import Geometry from '../../../src/geometry/base';
 import * as Shape from '../../../src/geometry/shape/base';
 import { LooseObject } from '../../../src/interface';
 import Theme from '../../../src/theme/antv';
-import { syncScale, createScaleByField } from '../../../src/util/scale';
+import { createScaleByField, syncScale } from '../../../src/util/scale';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
 import { createScale, updateScales } from '../../util/scale';
 
@@ -684,7 +684,11 @@ describe('Geometry', () => {
     const scales = {
       name: createScale('name', data),
       月份: createScale('月份', data),
-      月均降雨量: createScale('月均降雨量', data),
+      月均降雨量: createScale('月均降雨量', data, {
+        月均降雨量: {
+          nice: true,
+        },
+      }),
     };
 
     const geometry = new Geometry({
@@ -694,7 +698,6 @@ describe('Geometry', () => {
       container: new G.Group({}),
       theme: Theme,
     });
-
     geometry
       .position('月份*月均降雨量')
       .color('name')
@@ -703,7 +706,11 @@ describe('Geometry', () => {
     expect(geometry.getYScale().min).toBe(0);
     expect(geometry.getYScale().max).toBe(200);
 
-    syncScale(geometry.getYScale(), createScale('月均降雨量', data));
+    syncScale(geometry.getYScale(), createScale('月均降雨量', data, {
+      月均降雨量: {
+        nice: true,
+      },
+    }));
     geometry.update();
     expect(geometry.getYScale().min).toBe(0);
     expect(geometry.getYScale().max).toBe(200);

@@ -17,12 +17,12 @@ const chart = new Chart({
   padding: 0,
 });
 
-// FIXME: 目前 scale 不支持 timeCat
-// chart.scale('Date', {
-//   range: [0, 1],
-//   tickCount: 10,
-//   type: 'timeCat'
-// });
+chart.scale('Date', {
+  range: [0, 1],
+  tickCount: 10,
+  type: 'timeCat',
+  mask: 'MM-DD',
+});
 chart.axis('Date', {
   label: {
     style: {

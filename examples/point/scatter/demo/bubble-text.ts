@@ -29,14 +29,12 @@ chart.scale({
   x: {
     alias: 'Daily fat intake', // 定义别名
     tickInterval: 5, // 自定义刻度间距
-    nice: false, // 不对最大最小值优化
     max: 96, // 自定义最大值
     min: 62 // 自定义最小是
   },
   y: {
     alias: 'Daily sugar intake',
     tickInterval: 50,
-    nice: false,
     max: 165,
     min: 0
   },

@@ -17,11 +17,9 @@ fetch('../data/us-states.hex.json')
     });
     chart.scale({
       x: {
-        nice: false,
         sync: true
       },
       y: {
-        nice: false,
         sync: true
       }
     });

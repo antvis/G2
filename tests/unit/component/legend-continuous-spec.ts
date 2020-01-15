@@ -1,13 +1,13 @@
 import { Chart, DIRECTION } from '../../../src/';
 import { COMPONENT_TYPE } from '../../../src/constant';
 import { CITY_SALE } from '../../util/data';
-import { createDiv } from '../../util/dom';
+import { createDiv, removeDom } from '../../util/dom';
 
 describe('Component', () => {
+  const div = createDiv();
+  let chart;
   it('legend size', () => {
-    const div = createDiv();
-
-    const chart = new Chart({
+    chart = new Chart({
       container: div,
       width: 800,
       height: 600,
@@ -16,6 +16,9 @@ describe('Component', () => {
     });
 
     chart.data(CITY_SALE);
+    chart.scale('sale', {
+      nice: true,
+    });
 
     chart
       .point()
@@ -45,9 +48,7 @@ describe('Component', () => {
   });
 
   it('legend color', () => {
-    const div = createDiv();
-
-    const chart = new Chart({
+    chart = new Chart({
       container: div,
       width: 800,
       height: 600,
@@ -65,6 +66,9 @@ describe('Component', () => {
     chart.legend('sale', {
       position: DIRECTION.TOP,
     });
+    chart.scale('sale', {
+      nice: true,
+    });
 
     chart.render();
 
@@ -77,5 +81,13 @@ describe('Component', () => {
     expect(color.get('colors')).toEqual(['#5b8ff9', '#838373', '#ab989b', '#e4926c', '#ff99c3']);
     // @ts-ignore
     expect(color.get('layout')).toBe('horizontal');
+  });
+
+  afterEach(() => {
+    chart.destroy();
+  });
+
+  afterAll(() => {
+    removeDom(div);
   });
 });

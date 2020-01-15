@@ -1,7 +1,7 @@
 import 'jest-extended';
 import { Chart, Point } from '../../../../../src';
 import { CITY_SALE_PROFIT } from '../../../../util/data';
-import { createDiv } from '../../../../util/dom';
+import { createDiv, removeDom } from '../../../../util/dom';
 
 describe('sync scale with multi-view', () => {
   const container = createDiv();
@@ -13,6 +13,12 @@ describe('sync scale with multi-view', () => {
   });
 
   chart.animate(false);
+  chart.scale('sale', {
+    nice: true,
+  });
+  chart.scale('profit', {
+    nice: true,
+  });
 
   // 右边
   const v2 = chart.createView({
@@ -40,9 +46,6 @@ describe('sync scale with multi-view', () => {
 
   v1.data(CITY_SALE_PROFIT);
   v2.data(CITY_SALE_PROFIT.slice(0, 3)); // x 枚举缺失的情况下，scale 同步
-
-  // @ts-ignore
-  window.chart = chart;
 
   it('no sync', () => {
     chart.render();
@@ -85,6 +88,7 @@ describe('sync scale with multi-view', () => {
       },
       sale: {
         sync: true,
+        nice: true,
       },
     });
 
@@ -165,5 +169,10 @@ describe('sync scale with multi-view', () => {
     expect(Object.keys(chart.scalePool.syncScales).length).toBe(0);
     // @ts-ignore
     expect(chart.scalePool.getScaleMeta('view2-sale').scaleDef.sync).toBe(false);
+  });
+
+  afterAll(() => {
+    chart.destroy();
+    removeDom(container);
   });
 });

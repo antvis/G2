@@ -17,8 +17,8 @@ fetch('../data/world.geo.json')
         });
         // force sync scales
         chart.scale({
-          x: { sync: true, nice: false },
-          y: { sync: true, nice: false }
+          x: { sync: true },
+          y: { sync: true }
         });
         chart.coordinate('rect').reflect('y');
         chart.legend(false);

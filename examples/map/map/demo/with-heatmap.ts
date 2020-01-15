@@ -27,8 +27,8 @@ fetch('../data/usa.geo.json')
       padding: 0
     });
     chart.scale({
-      latitude: { sync: true, nice: false },
-      longitude: { sync: true, nice: false }
+      latitude: { sync: true },
+      longitude: { sync: true }
     });
     chart.legend(false);
     chart.axis(false);

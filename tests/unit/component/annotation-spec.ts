@@ -24,6 +24,7 @@ describe('annotation', () => {
   });
 
   chart.data(DATA);
+  chart.scale('sale', { nice: true });
   chart.interval().position('city*sale');
 
   it('image', () => {

@@ -19,6 +19,7 @@ describe('active test', () => {
     { year: '1994', value: 34 },
   ];
   chart.data(data);
+  chart.scale('value', { nice: true });
   chart.animate(false);
   chart.interaction('element-path-highlight');
 

@@ -19,7 +19,7 @@ export { getCoordinate, registerCoordinate, Coordinate, CoordinateCfg } from '@a
 
 // scale
 export { getScale, registerScale, Scale, ScaleConfig } from '@antv/scale';
-export { Tick } from '@antv/scale/lib/base';
+export { Tick } from '@antv/scale/lib/types';
 
 // component
 import { Annotation, Axis, Component, Grid, GroupComponent, HtmlComponent, Legend, Tooltip } from '@antv/component';

@@ -81,7 +81,6 @@ const chart = new Chart({
 chart.data(dv.rows);
 chart.scale({
   value: {
-    nice: false,
     min: 0,
     minTickInterval: 1,
   },
