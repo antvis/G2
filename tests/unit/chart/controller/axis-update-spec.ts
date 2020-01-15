@@ -1,6 +1,7 @@
 import 'jest-extended';
 import { COMPONENT_TYPE } from '../../../../src/constant';
 import { Chart } from '../../../../src/index';
+import { removeDom } from '../../../../src/util/dom';
 import { delay } from '../../../util/delay';
 import { createDiv } from '../../../util/dom';
 
@@ -26,7 +27,7 @@ describe('axis rect update', () => {
 
   chart.data(data);
 
-  const interval = chart
+  chart
     .interval()
     .position('月份*月均降雨量')
     .color('name')
@@ -128,6 +129,11 @@ describe('axis rect update', () => {
     // 因为删除了，所以不保持引用
     expect(axes[0]).not.toBe(x);
     expect(axes[0]).toBe(y);
+  });
+
+  afterAll(() => {
+    chart.destroy();
+    removeDom(container);
   });
 });
 
@@ -247,5 +253,10 @@ describe('axis polar update', () => {
 
     const axes = getAxes();
     expect(axes.length).toBe(0);
+  });
+
+  afterAll(() => {
+    chart.destroy();
+    removeDom(container);
   });
 });

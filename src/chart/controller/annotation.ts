@@ -478,7 +478,7 @@ export default class Annotation extends Controller<BaseOption[]> {
       offsetY: option.offsetY,
     });
     cfg.container = this.getComponentContainer(cfg);
-    cfg.animate = cfg.animate && get(option, 'animate', cfg.animate);
+    cfg.animate = this.view.getOptions().animate && cfg.animate && get(option, 'animate', cfg.animate); // 如果 view 关闭动画，则不执行
     cfg.animateOption = deepMix({}, DEFAULT_ANIMATE_CFG, cfg.animateOption);
 
     return cfg;
