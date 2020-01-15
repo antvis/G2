@@ -704,8 +704,6 @@ export class View extends Base {
         ...get(cfg, 'options', {}),
       },
     });
-    // 共享坐标系配置，如果用户未配置 coordinate，则直接使用父亲的 coordinate 实例
-    v.coordinateInstance = this.getCoordinate();
 
     this.views.push(v);
 

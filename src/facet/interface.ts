@@ -2,7 +2,7 @@ import View from '../chart/view';
 import { DIRECTION } from '../constant';
 import { GroupComponent } from '../dependents';
 import { Region } from '../interface';
-import Facet from './facet';
+import { Facet } from './facet';
 
 // 分面基类
 export type FacetCtor = new (view: View, cfg: any) => Facet;

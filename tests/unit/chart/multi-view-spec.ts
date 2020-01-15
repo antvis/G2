@@ -139,9 +139,6 @@ describe('chart multi view', () => {
     expect(v1.getOptions().axes).toEqual(v2.getOptions().axes);
 
     expect(v1.getOptions().coordinate.type).toBe('rect');
-
-    expect(v1.getCoordinate()).toEqual(chart.getCoordinate());
-    expect(v2.getCoordinate()).toEqual(chart.getCoordinate());
   });
 
   it('changeData', () => {
