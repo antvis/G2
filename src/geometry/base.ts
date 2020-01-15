@@ -22,7 +22,7 @@ import { doGroupAppearAnimate, getDefaultAnimateCfg } from '../animate';
 import Base from '../base';
 import Labels from '../component/labels';
 import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
-import { Coordinate, IGroup, Scale } from '../dependents';
+import { BBox, Coordinate, IGroup, Scale } from '../dependents';
 import {
   AdjustType,
   AnimateOption,
@@ -30,7 +30,6 @@ import {
   Datum,
   LooseObject,
   MappingDatum,
-  Region,
   ScaleOption,
   ShapeFactory,
   ShapeInfo,
@@ -144,7 +143,7 @@ export default class Geometry extends Base {
   public scales: Record<string, Scale>;
   public scaleDefs: Record<string, ScaleOption>;
   /** 画布区域，用于 label 布局 */
-  public canvasRegion: Region;
+  public canvasRegion: BBox;
 
   // Internally generated attributes
   /** Attribute map  */

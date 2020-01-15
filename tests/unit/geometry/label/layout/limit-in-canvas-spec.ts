@@ -76,16 +76,20 @@ describe('GeometryLabel layout', () => {
     });
 
     const region = {
-      start: { x: 0, y: 0 },
-      end: { x: 100, y: 100 },
+      x: 0,
+      y: 0,
+      minX: 0,
+      minY: 0,
+      maxX: 100,
+      maxY: 100,
+      width: 100,
+      height: 100,
     };
 
     expect(canvas.getCanvasBBox().minX).toBeLessThan(0);
 
     // @ts-ignore
-    limitInCanvas(canvas.getChildren(), {
-      region,
-    });
+    limitInCanvas(canvas.getChildren(), [], region);
     canvas.draw();
     expect(canvas.getChildren().length).toBe(7);
     expect(canvas.getCanvasBBox().minX).toBe(0);

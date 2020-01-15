@@ -1,43 +1,42 @@
 import { each } from '@antv/util';
-import { IGroup } from '../../../dependents';
+import { BBox, IGroup, IShape } from '../../../dependents';
 import { translate } from '../../../util/transform';
-import { GeometryLabelLayoutCfg } from '../interface';
 
 /**
  * 将 label 限制在画布范围内，简单得将超出画布的 label 往画布内调整
  * @param labels
  * @param cfg
  */
-export function limitInCanvas(labels: IGroup[], cfg: GeometryLabelLayoutCfg) {
+export function limitInCanvas(labels: IGroup[], shapes: IShape[] | IGroup[], region: BBox) {
   each(labels, (label: IGroup) => {
-    const { start, end } = cfg.region;
+    const { minX: regionMinX, minY: regionMinY, maxX: regionMaxX, maxY: regionMaxY } = region;
     const { minX, minY, maxX, maxY, x, y, width, height } = label.getCanvasBBox();
 
     let finalX = x;
     let finalY = y;
-    if (minX < start.x || maxX < start.x) {
+    if (minX < regionMinX || maxX < regionMinX) {
       // 超出左侧
-      finalX = start.x;
+      finalX =regionMinX;
     }
-    if (minY < start.y || maxY < start.y ) {
+    if (minY < regionMinY || maxY < regionMinY ) {
       // 超出顶部
-      finalY = start.y;
+      finalY = regionMinY;
     }
 
-    if (minX > end.x) {
+    if (minX > regionMaxX) {
       // 整体超出右侧
-      finalX = end.x - width;
-    } else if (maxX > end.x) {
+      finalX = regionMaxX - width;
+    } else if (maxX > regionMaxX) {
       // 超出右侧
-      finalX = finalX - (maxX - end.x);
+      finalX = finalX - (maxX - regionMaxX);
     }
 
-    if (minY > end.y) {
+    if (minY > regionMaxY) {
       // 整体超出顶部
-      finalY = end.y - height;
-    } else if (maxY > end.y) {
+      finalY = regionMaxY - height;
+    } else if (maxY > regionMaxY) {
       // 超出底部
-      finalY = finalY - (maxY - end.y);
+      finalY = finalY - (maxY - regionMaxY);
     }
 
     if (finalX !== x || finalY !== y) {

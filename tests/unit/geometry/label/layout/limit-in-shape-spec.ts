@@ -23,10 +23,7 @@ describe('GeometryLabel layout', () => {
     ];
 
     // @ts-ignore
-    limitInShape(labels, {
-      shapes,
-      region: {},
-    });
+    limitInShape(labels, shapes, {});
 
     expect(removedCount).toBe(2);
   });
