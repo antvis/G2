@@ -1,7 +1,8 @@
-import { get } from '@antv/util';
+import { get, isBoolean } from '@antv/util';
 import { DIRECTION } from '../constant';
 import { Coordinate } from '../dependents';
 import { Point, Region } from '../interface';
+import { AxisOption } from '../chart/interface';
 
 /**
  * get axis relative region ( 0 ~ 1) by direction when coordinate is rect
@@ -178,4 +179,18 @@ export function getCircleAxisCenterRadius(coordinate: Coordinate) {
     startAngle,
     endAngle,
   };
+}
+
+/**
+ * 从配置中获取单个字段的 axis 配置
+ * @param axes
+ * @param field
+ * @returns the axis option of field
+ */
+export function getAxisOption(axes: Record<string, AxisOption> | boolean, field: string) {
+  if (isBoolean(axes)) {
+    return axes === false ? false : {};
+  } else {
+    return get(axes, [field]);
+  }
 }
