@@ -1,4 +1,5 @@
 import { BBox, IGroup, IShape } from '../../dependents';
+import { LooseObject } from '../../interface';
 import { GeometryLabelConstructor } from './base';
 
 /**
@@ -6,8 +7,9 @@ import { GeometryLabelConstructor } from './base';
  * @param labels 所有的 label shape
  * @param shapes 所有 label 对应的图形元素
  * @param region 画布区域
+ * @param cfg 用于存储各个布局函数开放给用户的配置数据
  */
-type GeometryLabelsLayoutFn = (labels: IGroup[], shapes: IShape[] | IGroup[], region: BBox) => void;
+type GeometryLabelsLayoutFn = (labels: IGroup[], shapes: IShape[] | IGroup[], region: BBox, cfg?: LooseObject) => void;
 
 const GEOMETRY_LABELS_MAP: Record<string, GeometryLabelConstructor> = {};
 const GEOMETRY_LABELS_LAYOUT_MAP: Record<string, GeometryLabelsLayoutFn>  = {};

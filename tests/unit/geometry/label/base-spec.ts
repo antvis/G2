@@ -84,7 +84,9 @@ describe('GeometryLabel', () => {
           };
         },
         {
-          layout: 'scatter',
+          layout: {
+            type: 'scatter',
+          },
           offset: 0,
         }
       );
