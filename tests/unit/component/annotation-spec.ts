@@ -201,7 +201,9 @@ describe('annotation', () => {
     chart.coordinate('rect');
     chart.annotation().dataMaker({
       position: { city: '上海', sale: 110 },
-      content: 'data marker test',
+      text: {
+        content: 'data marker test',
+      },
     });
     chart.render();
 

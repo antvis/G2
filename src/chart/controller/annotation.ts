@@ -22,10 +22,6 @@ export interface BaseOption {
   readonly type?: string;
   /** 指定 annotation 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层 */
   readonly top?: boolean;
-  /** 起始位置 */
-  readonly start: Position;
-  /** 结束位置 */
-  readonly end: Position;
   /** 图形样式属性 */
   readonly style?: object;
   /** 是否进行动画 */
@@ -36,12 +32,26 @@ export interface BaseOption {
   readonly offsetY?: number;
 }
 
-export interface ImageOption extends BaseOption {
+/** 使用 RegionPosition 定位的组件配置 */
+export interface RegionPositionBaseOption extends BaseOption {
+  /** 起始位置 */
+  readonly start: Position;
+  /** 结束位置 */
+  readonly end: Position;
+}
+
+/** 使用 PointPosition 定位的组件配置 */
+export interface PointPositionBaseOption extends BaseOption {
+  /** Point 定位位置 */
+  readonly position: Position;
+}
+
+export interface ImageOption extends RegionPositionBaseOption {
   /** 图片路径 */
   readonly src: string;
 }
 
-export interface LineOption extends BaseOption {
+export interface LineOption extends RegionPositionBaseOption {
   readonly text?: {
     /** 文本位置，除了制定 'start', 'center' 和 'end' 外，还可以使用百分比进行定位， 比如 '30%' */
     readonly position: 'start' | 'center' | 'end' | string;
@@ -60,68 +70,34 @@ export interface LineOption extends BaseOption {
   };
 }
 
-export type RegionOption = BaseOption;
+export type ArcOption = RegionPositionBaseOption;
 
-export interface TextOption {
-  /** 指定 guide 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层 */
-  readonly top?: boolean;
-  /** 文本位置 */
-  readonly position: Position;
+export type RegionOption = RegionPositionBaseOption;
+
+export interface TextOption extends PointPositionBaseOption {
   /** 显示的文本内容 */
   readonly content: string | number;
-  /** 文本的图形样式属性 */
-  readonly style?: object;
-  /** 是否进行动画 */
-  readonly animate?: boolean;
-  /** x 方向的偏移量 */
-  readonly offsetX?: number;
-  /** y 方向偏移量 */
-  readonly offsetY?: number;
 }
 
-export interface DataMarkerOption {
-  /** 文本位置 */
-  readonly position: Position;
+export interface DataMarkerOption extends PointPositionBaseOption {
+  /** point 设置 */
+  readonly point?: null | { style?: object };
+  /** line 设置 */
+  readonly line?: null | { style?: object; length?: number };
+  /** text 设置 */
+  readonly text: null | { style?: object; content: string };
+}
+
+export interface DataRegionOption extends RegionPositionBaseOption {
   /** 显示的文本内容 */
   readonly content: string | number;
-  /** 文本的图形样式属性 */
-  readonly style?: object;
-  /** 是否进行动画 */
-  readonly animate?: boolean;
-  /** x 方向的偏移量 */
-  readonly offsetX?: number;
-  /** y 方向的偏移量 */
-  readonly offsetY?: number;
 }
 
-export interface DataRegionOption {
-  /** 起始位置 */
-  readonly start: Position;
-  /** 结束位置 */
-  readonly end: Position;
-  /** 显示的文本内容 */
-  readonly content: string | number;
-  /** 文本的图形样式属性 */
-  readonly style?: object;
-  /** 是否进行动画 */
-  readonly animate?: boolean;
-  /** x 方向的偏移量 */
-  readonly offsetX?: number;
-  /** y 方向的偏移量 */
-  readonly offsetY?: number;
-}
-
-export interface RegionFilterOption {
-  /** 起始位置 */
-  readonly start: Position;
-  /** 结束位置 */
-  readonly end: Position;
+export interface RegionFilterOption extends RegionPositionBaseOption {
   /** 染色色值 */
   readonly color: string;
   /* 可选,设定regionFilter只对特定geom类型起作用，如apply:['area'] */
   readonly apply?: string[];
-  /* 指定 guide 是否绘制在 canvas 最上层，默认为 true, 即绘制在最上层 */
-  readonly top?: boolean;
 }
 
 /**
@@ -332,7 +308,7 @@ export default class Annotation extends Controller<BaseOption[]> {
    * @param option
    * @returns AnnotationController
    */
-  public arc(option: BaseOption) {
+  public arc(option: ArcOption) {
     this.annotation({
       type: 'arc',
       ...option,
@@ -611,7 +587,7 @@ export default class Annotation extends Controller<BaseOption[]> {
     }
 
     if (type === 'arc') {
-      const { start, end } = option as BaseOption;
+      const { start, end } = option as ArcOption;
       const sp = this.parsePosition(start);
       const ep = this.parsePosition(end);
       const startAngle = getPointAngle(coordinate, sp);
@@ -641,7 +617,7 @@ export default class Annotation extends Controller<BaseOption[]> {
         text: get(option, 'text', null),
       };
     } else if (type === 'region') {
-      const { start, end } = option as RegionOption;
+      const { start, end } = option as RegionPositionBaseOption;
       o = {
         start: this.parsePosition(start),
         end: this.parsePosition(end),
@@ -653,11 +629,13 @@ export default class Annotation extends Controller<BaseOption[]> {
         content: option.content,
       };
     } else if (type === 'dataMarker') {
-      const { position } = option as DataMarkerOption;
+      const { position, point, line, text } = option as DataMarkerOption;
       o = {
         ...this.parsePosition(position),
         coordinateBBox: this.getCoordinateBBox(),
-        content: option.content,
+        point,
+        line,
+        text,
       };
     } else if (type === 'dataRegion') {
       const { start, end } = option as DataRegionOption;
