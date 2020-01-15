@@ -40,7 +40,9 @@ fetch('../data/voronoi.json')
           shadowBlur: 2,
           shadowColor: 'rgba(0, 0, 0, .45)',
         },
-        layout: 'limitInShape',
+        layout: {
+          type: 'limitInShape',
+        },
       });
 
     chart.render();

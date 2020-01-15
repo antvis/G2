@@ -65,7 +65,9 @@ chart
   .shape('sliceShape')
   .label('type', {
     offset: -130,
-    layout: 'limitInShape',
+    layout: {
+      type: 'limitInShape',
+    },
   });
 chart.interaction('active');
 chart.render();
