@@ -22,7 +22,7 @@ describe('axis rect update', () => {
     height: 500,
     width: 600,
     autoFit: false,
-    padding: 10,
+    padding: 64,
   });
 
   chart.data(data);
