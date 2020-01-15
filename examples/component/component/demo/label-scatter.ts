@@ -15,7 +15,9 @@ fetch('../data/scatter.json')
       .size(4)
       .shape('circle')
       .label('weight', {
-        layout: 'overlap',
+        layout: {
+          type: 'overlap',
+        },
         offset: 0,
         style: {
           fill: 'rgba(0, 0, 0, 0.65)',

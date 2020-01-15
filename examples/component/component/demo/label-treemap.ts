@@ -83,7 +83,9 @@ fetch('../data/mobile.json')
           return null;
         },
         {
-          layout: 'limitInShape',
+          layout: {
+            type: 'limitInShape',
+          },
         }
       );
     chart.render();

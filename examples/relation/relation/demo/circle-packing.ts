@@ -36,6 +36,10 @@ fetch('../data/flare.json')
     }));
 
     chart.data(nodes);
+    chart.scale({
+      x: { nice: true },
+      y: { nice: true },
+    });
     chart
       .point()
       .position('x*y')
@@ -55,7 +59,9 @@ fetch('../data/flare.json')
           fontSize: 9,
           textAlign: 'center',
         },
-        layout: 'fixedOverlap',
+        layout: {
+          type: 'fixedOverlap',
+        },
       });
     chart.render();
   });
