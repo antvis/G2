@@ -50,7 +50,6 @@ chart.coordinate('polar', {
 chart.scale('value', {
   min: 0,
   max: 9,
-  nice: false,
   ticks: [2.25, 3.75, 5.25, 6.75],
 });
 

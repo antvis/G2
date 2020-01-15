@@ -27,8 +27,7 @@ chart.data(data);
 chart.scale({
   time: {
     type: 'timeCat',
-    // FIXME
-    // mask: 'YYYY.MM.DD',
+    mask: 'YYYY.MM.DD',
   },
   value: {
     min: 0,

@@ -55,11 +55,6 @@ const chart = new Chart({
   height: 500,
 });
 chart.data(nodes);
-chart.scale({
-  value: {
-    nice: false,
-  },
-});
 chart.axis(false);
 chart.legend(false);
 chart.tooltip({

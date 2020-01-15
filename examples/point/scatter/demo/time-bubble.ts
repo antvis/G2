@@ -25,12 +25,12 @@ fetch('../data/time-scatter.json')
     chart.scale({
       exp_dat: {
         type: 'time',
-        // mask: 'M/YY',
+        mask: 'M/YY',
         tickCount: 14
       },
       exp_amo: {
         type: 'log',
-        // ticks: [225, 1000000, 2000000, 4000000, 6000000]
+        ticks: [225, 1000000, 2000000, 4000000, 6000000]
       }
     });
     chart.legend(false);

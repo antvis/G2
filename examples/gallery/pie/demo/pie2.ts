@@ -68,9 +68,6 @@ const view2 = chart.createView({
 });
 view2.axis(false);
 view2.data(other);
-view2.scale('value', {
-  nice: false,
-});
 view2
   .interval()
   .adjust('stack')

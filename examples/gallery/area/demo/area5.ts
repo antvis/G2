@@ -32,7 +32,6 @@ fetch('../data/area.json')
       percent: {
         max: 1.0,
         min: 0.0,
-        nice: false,
         formatter: function formatter(value) {
           value = value || 0;
           value = value * 100;
@@ -43,7 +42,6 @@ fetch('../data/area.json')
 
     chart.scale('Year', {
       tickCount: 10,
-      nice: false
     });
 
     chart.axis('Year', {

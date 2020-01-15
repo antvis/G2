@@ -40,7 +40,7 @@ fetch('../data/rain-flow.json')
       time: {
         type: 'time',
         tickCount: 8,
-        // mask: 'm/dd hh:MM'
+        mask: 'm/dd hh:MM'
       },
       flow: {
         alias: '流量(m^3/s)',

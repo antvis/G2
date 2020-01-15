@@ -51,14 +51,6 @@ fetch('../data/mobile.json')
     });
     chart.coordinate().scale(1, -1); // 习惯性最小的在最下面
     chart.data(nodes);
-    chart.scale({
-      x: {
-        nice: false,
-      },
-      y: {
-        nice: false,
-      },
-    });
     chart.axis(false);
     chart.legend(false);
     chart.tooltip({

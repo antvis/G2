@@ -22,7 +22,6 @@ chart.scale({
   value: {
     max: 55000,
     min: 0,
-    nice: false,
     alias: '金额（元）',
   },
 });

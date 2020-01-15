@@ -20,12 +20,6 @@ const data = [
   { year: '2017', value: 800 },
   { year: '2018', value: 1000 }
 ];
-
-const chart = new Chart({
-  container: 'container',
-  autoFit: true,
-  height: 500,
-});
 const ds = new DataSet();
 const dv = ds.createView().source(data);
 dv.transform({
@@ -41,6 +35,14 @@ dv.transform({
   bandwidth: 0.1,
   as: ['Year', 'Value']
 });
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+  height: 500,
+  padding: [ 20, 40 ],
+});
+
 chart.scale('value', {
   alias: '市值 (亿美元)'
 });

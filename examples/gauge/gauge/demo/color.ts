@@ -57,7 +57,6 @@ chart.scale('value', {
   min: 0,
   max: 6,
   minTickInterval: 1,
-  nice: false,
 });
 
 chart.axis('1', false);
