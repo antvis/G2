@@ -69,8 +69,9 @@ describe('Test charts animate', () => {
       .position('year*sales')
       .label('sales', {
         offset: -20,
-        // labelEmit: true,
-        layout: 'limitInShape',
+        layout: {
+          type: 'limitInShape',
+        },
       });
     chart.render();
 

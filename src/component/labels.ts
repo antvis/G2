@@ -1,6 +1,7 @@
-import { deepMix, each, get } from '@antv/util';
+import { deepMix, each, get, isArray } from '@antv/util';
 import { doAnimate } from '../animate';
 import { AbstractGroup, AbstractShape, BBox, IGroup, IShape } from '../dependents';
+import { GeometryLabelLayoutCfg } from '../geometry/interface';
 import { getGeometryLabelLayout } from '../geometry/label';
 import { LabelItem } from '../geometry/label/interface';
 import { AnimateOption } from '../interface';
@@ -9,7 +10,7 @@ import { rotate, translate } from '../util/transform';
 
 export interface LabelsGroupCfg {
   container: IGroup;
-  layout?: string;
+  layout?: GeometryLabelLayoutCfg | GeometryLabelLayoutCfg[];
 }
 
 /**
@@ -17,7 +18,7 @@ export interface LabelsGroupCfg {
  */
 export default class Labels {
   /** 用于指定 labels 布局的类型 */
-  public layout: string;
+  public layout: GeometryLabelLayoutCfg | GeometryLabelLayoutCfg[];
   /** 图形容器 */
   public container: IGroup;
   /** 动画配置 */
@@ -29,7 +30,7 @@ export default class Labels {
   private lastShapesMap: Record<string, IGroup> = {};
 
   constructor(cfg: LabelsGroupCfg) {
-    const { layout = 'default', container } = cfg;
+    const { layout, container } = cfg;
 
     this.layout = layout;
     this.container = container;
@@ -193,16 +194,21 @@ export default class Labels {
 
   // 根据type对label布局
   private adjustLabels(shapes) {
-    const layoutFn = getGeometryLabelLayout(this.layout);
-    if (layoutFn) {
-      const labelShapes = [];
-      const geometryShapes = [];
-      each(this.shapesMap, (labelShape, id) => {
-        labelShapes.push(labelShape);
-        geometryShapes.push(shapes[id]);
-      });
+    if (this.layout) {
+      const layouts = isArray(this.layout) ? this.layout : [this.layout];
+      each(layouts, (layout: GeometryLabelLayoutCfg) => {
+        const layoutFn = getGeometryLabelLayout(get(layout, 'type', ''));
+        if (layoutFn) {
+          const labelShapes = [];
+          const geometryShapes = [];
+          each(this.shapesMap, (labelShape, id) => {
+            labelShapes.push(labelShape);
+            geometryShapes.push(shapes[id]);
+          });
 
-      layoutFn(labelShapes, geometryShapes, this.region);
+          layoutFn(labelShapes, geometryShapes, this.region, layout.cfg);
+        }
+      });
     }
   }
 

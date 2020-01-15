@@ -50,6 +50,13 @@ export interface TooltipOption {
   readonly callback?: (...args) => LooseObject;
 }
 
+export interface GeometryLabelLayoutCfg {
+  /** label 布局类型 */
+  type: string;
+  /** 各个布局函数开放给用户的配置 */
+  cfg?: LooseObject;
+}
+
 /** geometry label 配置属性 */
 export interface GeometryLabelCfg {
   /**
@@ -83,12 +90,21 @@ export interface GeometryLabelCfg {
   /** 只对极坐标下的文本生效，表示文本是否按照角度进行放射状显示，true 表示开启，false 表示关闭 */
   labelEmit?: boolean;
   /**
-   * 文本布局类型，目前提供了三种：'overlap'，'fixedOverlap'，'limitInShape'
+   * 文本布局类型，支持多种布局函数组合使用
+   *
+   * 目前提供了三种：'overlap'，'fixedOverlap'，'limitInShape'
    * 1. overlap: label 防遮挡，为了防止 label 之间相互覆盖，通过尝试向**四周偏移**来剔除放不下的 label
    * 2. fixedOverlap: 不改变 label 位置的情况下对相互重叠的 label 进行调整
    * 3. limitInShape: 剔除 shape 容纳不了的 label
+   *
+   * @example
+   * ```ts
+   * layout: {
+   *   type: 'overlap',
+   * },
+   * ```
    */
-  layout?: string;
+  layout?: GeometryLabelLayoutCfg | GeometryLabelLayoutCfg[];
   /**
    * 仅当 geometry 为 interval 时生效，指定当前 label 与当前图形的相对位置
    */
