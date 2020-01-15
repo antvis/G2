@@ -109,7 +109,12 @@
       "!**/node_modules/**",
       "!**/vendor/**"
     ],
-    "testRegex": "/tests/.*-spec\\.ts?$"
+    "testRegex": "/tests/.*-spec\\.ts?$",
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json"
+    ]
   },
   "homepage": "https://g2.antv.vision",
   "repository": {

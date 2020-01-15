@@ -72,9 +72,7 @@ export abstract class Facet<C extends FacetCfg = FacetCfg, F extends FacetData =
   public render() {
     // 1. add facet component into parent view
     this.renderFacetComponents();
-    // 2. layout facet components
-    this.layoutFacetComponents();
-    // 3. render facet children views
+    // 2. render facet children views
     this.renderViews();
   }
 
@@ -247,9 +245,4 @@ export abstract class Facet<C extends FacetCfg = FacetCfg, F extends FacetData =
    * 根据 facets 数据，生成 facet Component 内容
    */
   protected abstract renderFacetComponents(): void;
-
-  /**
-   * 布局 facets components 内容
-   */
-  protected abstract layoutFacetComponents(): void;
 }

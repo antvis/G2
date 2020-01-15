@@ -2,6 +2,7 @@ import { deepMix, each, get, isBoolean, map, mix } from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { CircleAxis, CircleGrid, IGroup, LineAxis, LineGrid, Scale } from '../../dependents';
 import { getAxisFactorByRegion, getAxisRegion, getAxisThemeCfg, getCircleAxisCenterRadius } from '../../util/axis';
+import { getAxisOption } from '../../util/axis';
 import { getCircleGridItems, getGridThemeCfg, getLineGridItems, showGrid } from '../../util/grid';
 import { omit } from '../../util/helper';
 import { getName } from '../../util/scale';
@@ -11,19 +12,6 @@ import { Controller } from './base';
 
 type Option = Record<string, AxisOption> | boolean;
 
-/**
- * 从配置中获取单个字段的 axis 配置
- * @param axes
- * @param field
- * @returns the axis option of field
- */
-function getAxisOption(axes: Record<string, AxisOption> | boolean, field: string) {
-  if (isBoolean(axes)) {
-    return axes === false ? false : {};
-  } else {
-    return get(axes, [field]);
-  }
-}
 
 const DEFAULT_ANIMATE_CFG = {
   appear: null,
@@ -374,6 +362,7 @@ export default class Axis extends Controller<Option> {
   private createXAxes() {
     // x axis
     const scale = this.view.getXScale();
+
     // @ts-ignore
     if (!scale || scale.isIdentity) {
       return;

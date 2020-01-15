@@ -1,8 +1,9 @@
-import { each, every, filter } from '@antv/util';
+import { each, every, filter, get, isNil } from '@antv/util';
 import View from '../chart/view';
 import { Axis, Text } from '../component';
 import { DIRECTION, LAYER } from '../constant';
 import { Datum, Padding, Point, Position } from '../interface';
+import { getAxisOption } from '../util/axis';
 import { getRegionBBox } from '../util/bbox';
 import { Facet } from './facet';
 import { FacetComponent, RectCfg, RectData } from './interface';
@@ -12,7 +13,7 @@ import { FacetComponent, RectCfg, RectData } from './interface';
  */
 export default class Rect extends Facet<RectCfg, RectData> {
   protected afterEachView(view: View, facet: RectData) {
-    // do nothing
+    this.processAxis(view, facet);
   }
 
   protected beforeEachView(view: View, facet: RectData) {
@@ -139,61 +140,84 @@ export default class Rect extends Facet<RectCfg, RectData> {
   }
 
   /**
-   * 布局 facet 组件
+   * 设置 x 坐标轴的文本、title 是否显示
+   * @param x
+   * @param axes
+   * @param facet
    */
-  protected layoutFacetComponents(): void {
-    // 1. 上右下左的 gap
-    const gap: Padding = [0, 0, 0, 0];
+  private getXAxisOption(x: string, axes: any, facet: RectData): object {
+    // 非最后一行
+    if (facet.rowIndex !== facet.rowValuesLength - 1) {
+      return {
+        title: null,
+        label: null,
+      };
+    } else if (facet.columnIndex !== Math.floor((facet.columnValuesLength - 1) / 2)) {
+      // 不是中间列
+      return {
+        title: null,
+      }
+    }
+  }
 
-    each(this.components, (facetComponent: FacetComponent) => {
-      const { component, direction } = facetComponent;
-      const idx =
-        direction === DIRECTION.TOP
-          ? 0
-          : direction === DIRECTION.RIGHT
-          ? 1
-          : direction === DIRECTION.BOTTOM
-          ? 2
-          : direction === DIRECTION.LEFT
-          ? 3
-          : 3;
+  /**
+   * 设置 y 坐标轴的文本、title 是否显示
+   * @param y
+   * @param axes
+   * @param facet
+   */
+  private getYAxisOption(y: string, axes: any, facet: RectData): object {
+    if (facet.columnIndex !== 0) {
+      return {
+        title: null,
+        label: null,
+      };
+    } else if (facet.rowIndex !== Math.floor((facet.rowValuesLength - 1) / 2)) {
+      return {
+        title: null,
+      }
+    }
+  }
 
-      const bbox = component.getBBox();
+  /**
+   * 处理 axis 的默认配置
+   * @param view
+   * @param facet
+   */
+  private processAxis(view: View, facet: RectData) {
+    const options = view.getOptions();
 
-      const size = [DIRECTION.TOP, DIRECTION.BOTTOM].includes(direction) ? bbox.height : bbox.width;
+    const coordinateOption = options.coordinate;
+    const geometries = view.geometries;
 
-      gap[idx] = Math.max(size, gap[idx]);
-    });
+    const coordinateType = get(coordinateOption, 'type', 'rect');
 
-    // 2. 更新 view 的 coordinate 位置大小
-    this.view.coordinateBBox = this.view.coordinateBBox.shrink(gap);
+    if (coordinateType === 'rect' && geometries.length) {
 
-    // 3. 布局，移动组件位置
-    each(this.components, (facetComponent: FacetComponent) => {
-      const { component, facetIndex, direction } = facetComponent;
-      const facet = this.facets[facetIndex];
-      const { region } = facet;
+      if (isNil(options.axes)) {
+        // @ts-ignore
+        options.axes = {};
+      }
+      const axes = options.axes;
 
-      const regionBBox = getRegionBBox(this.view.coordinateBBox, region);
+      const [x, y] = geometries[0].getXYFields();
 
-      let point: Point;
+      const xOption = getAxisOption(axes, x);
+      const yOption = getAxisOption(axes, y);
 
-      if (direction === DIRECTION.TOP) {
-        point = regionBBox.top;
-      } else if (direction === DIRECTION.RIGHT) {
-        point = regionBBox.right;
-      } else if (direction === DIRECTION.BOTTOM) {
-        point = regionBBox.bottom;
-      } else if (direction === DIRECTION.LEFT) {
-        point = regionBBox.left;
+      if (xOption !== false) {
+        options.axes[x] = {
+          ...this.getXAxisOption(x, axes, facet),
+          ...xOption,
+        }
       }
 
-      const { x, y } = point;
-
-      component.update({
-        x,
-        y,
-      });
-    });
+      if (yOption !== false) {
+        options.axes[y] = {
+          ...this.getYAxisOption(y, axes, facet),
+          ...yOption,
+        }
+      }
+    }
   }
 }

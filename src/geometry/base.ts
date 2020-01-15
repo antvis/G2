@@ -1055,6 +1055,14 @@ export default class Geometry extends Base {
     return uniq(fields);
   }
 
+  /**
+   * 获得图形的 x y 字段
+   */
+  public getXYFields() {
+    const [x, y] = this.attributeOption.position.fields;
+    return [x, y];
+  }
+
   protected adjustScale() {
     const yScale = this.getYScale();
     // 如果数据发生过 stack adjust，需要调整下 yScale 的数据范围
