@@ -610,6 +610,23 @@ export default {
         lineWidth: 2,
         r: 4,
       },
+      crosshairs: {
+        line: {
+          style: {
+            stroke: '#BFBFBF',
+            lineWidth: 1,
+          },
+        },
+        text: null,
+        textBackground: {
+          padding: 2,
+          style: {
+            fill: 'rgba(0, 0, 0, 0.25)',
+            lineWidth: 0,
+            stroke: null,
+          },
+        },
+      },
       // tooltip dom 样式
       domStyles: {
         [`${TOOLTIP_CSS_CONST.CONTAINER_CLASS}`]: {
@@ -656,18 +673,6 @@ export default {
           display: 'inline-block',
           float: 'right',
           marginLeft: '30px',
-        },
-        // TODO: 移至 crosshairs 中
-        [`${TOOLTIP_CSS_CONST.CROSSHAIR_X}`]: {
-          position: 'absolute',
-          width: '1px',
-          backgroundColor: 'rgba(0, 0, 0, 0.25)',
-        },
-        // TODO: 移至 crosshairs 中
-        [`${TOOLTIP_CSS_CONST.CROSSHAIR_Y}`]: {
-          position: 'absolute',
-          height: '1px',
-          backgroundColor: 'rgba(0, 0, 0, 0.25)',
         },
       },
     },

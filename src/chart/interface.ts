@@ -9,6 +9,9 @@ import {
   ContinueLegendLabelCfg,
   ContinueLegendRailCfg,
   ContinueLegendTrackCfg,
+  CrosshairLineCfg,
+  CrosshairTextBackgroundCfg,
+  CrosshairTextCfg,
   GridLineCfg,
   GroupComponent,
   HtmlComponent,
@@ -20,6 +23,7 @@ import {
   LegendMarkerCfg,
   LegendTitleCfg,
   PathCommand,
+  Point,
 } from '../dependents';
 import {
   AdjustOption,
@@ -347,6 +351,21 @@ export interface LegendCfg {
   offsetY?: number;
 }
 
+interface TooltipCrosshairsText extends CrosshairTextCfg {
+  content?: string;
+}
+
+type TooltipCrosshairsTextCallback = (type: string, defaultContent: any, items: any[], currentPoint: Point) => TooltipCrosshairsText;
+export interface TooltipCrosshairs {
+  /**
+   * crosshairs 的类型
+   */
+  type?: 'x' | 'y' | 'xy';
+  line?: CrosshairLineCfg;
+  text?: TooltipCrosshairsText | TooltipCrosshairsTextCallback;
+  textBackground?: CrosshairTextBackgroundCfg;
+}
+
 export interface TooltipCfg {
   /** 设置 tooltip 是否跟随鼠标移动，默认为 false, 定位到数据点 */
   follow?: boolean;
@@ -361,16 +380,14 @@ export interface TooltipCfg {
   position?: 'top' | 'bottom' | 'left' | 'right';
   /** true 表示展示一组数据，false 表示展示单条数据 */
   shared?: boolean; // 是否只展示单条数据
+
+
   /** 是否展示 crosshairs */
   showCrosshairs?: boolean;
-  /**
-   * 设置 tooltip 辅助线的类型
-   * 'x' 水平辅助线
-   * 'y' 垂直辅助线
-   * 'xy' 十字辅助线
-   *
-   */
-  crosshairs?: 'x' | 'y' | 'xy';
+  /** 配置 tooltip 的 crosshairs */
+  crosshairs?: TooltipCrosshairs;
+
+
   /** 是否渲染 tooltipMarkers */
   showTooltipMarkers?: boolean;
   /** tooltipMarker 的样式 */
