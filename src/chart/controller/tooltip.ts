@@ -1,6 +1,5 @@
-import * as TOOLTIP_CLASSNAMES from '@antv/component/lib/tooltip/css-const';
 import { vec2 } from '@antv/matrix-util';
-import { each, find, get, isArray, isEqual, isObject } from '@antv/util';
+import { deepMix, each, find, get, isArray, isEqual, isObject } from '@antv/util';
 import { HtmlTooltip, IGroup } from '../../dependents';
 import Geometry from '../../geometry/base';
 import { MappingDatum, Point } from '../../interface';
@@ -28,7 +27,6 @@ function uniq(items) {
 }
 
 export default class Tooltip extends Controller<TooltipOption> {
-  // public cfg;
   private tooltip;
 
   private isVisible: boolean = true;
@@ -75,7 +73,6 @@ export default class Tooltip extends Controller<TooltipOption> {
     });
 
     tooltip.render();
-    // tooltip.hide();
 
     this.tooltip = tooltip;
 
@@ -234,18 +231,9 @@ export default class Tooltip extends Controller<TooltipOption> {
     const view = this.view;
     const option = this.option;
     const theme = view.getTheme();
-
     const defaultCfg = get(theme, ['components', 'tooltip'], {});
-    let tooltipCfg = {
-      ...defaultCfg,
-    };
+    const tooltipCfg = deepMix({}, defaultCfg, option);
 
-    if (isObject(option)) {
-      tooltipCfg = {
-        ...defaultCfg,
-        ...option,
-      };
-    }
     // set `crosshairs`
     const coordinate = view.getCoordinate();
     if (tooltipCfg.showCrosshairs && !tooltipCfg.crosshairs && coordinate.isRect) {
@@ -256,14 +244,6 @@ export default class Tooltip extends Controller<TooltipOption> {
     if (tooltipCfg.showCrosshairs === false) {
       tooltipCfg.crosshairs = null;
     }
-
-    // set domStyles
-    tooltipCfg.domStyles = {};
-    each(TOOLTIP_CLASSNAMES, (classname) => {
-      if (tooltipCfg[classname]) {
-        tooltipCfg.domStyles[classname] = tooltipCfg[classname];
-      }
-    });
 
     return tooltipCfg;
   }
