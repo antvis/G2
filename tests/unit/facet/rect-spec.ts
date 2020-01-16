@@ -1,4 +1,4 @@
-import { Chart, Datum } from '../../../src';
+import { Chart } from '../../../src';
 import DIAMOND from '../../../examples/data/diamond.json';
 
 import { createDiv } from '../../util/dom';
@@ -10,7 +10,7 @@ describe('facet rect', () => {
     container: div,
     width: 800,
     height: 600,
-    padding: [0, 0, 16, 72],
+    padding: [16, 48, 16, 72],
   });
 
   chart.data(DIAMOND);

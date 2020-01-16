@@ -4,6 +4,4 @@
 
 import { Text } from './text';
 
-const Axis = Text;
-
-export { Text, Axis };
+export { Text };

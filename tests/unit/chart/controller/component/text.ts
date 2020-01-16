@@ -1,6 +1,6 @@
 import { deepMix, each, isObject } from '@antv/util';
-import { GroupComponent, GroupComponentCfg, IGroup, IShape } from '../dependents';
-import { LooseObject } from '../interface';
+import { GroupComponent, GroupComponentCfg, IGroup, IShape } from '../../../../../src/dependents';
+import { LooseObject } from '../../../../../src/interface';
 
 interface TextOption extends GroupComponentCfg {
   readonly isHorizontal?: boolean;

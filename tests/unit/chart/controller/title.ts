@@ -3,10 +3,10 @@ import { DIRECTION, LAYER } from '../../../../src';
 import { Controller } from '../../../../src/chart/controller/base';
 import { ComponentOption } from '../../../../src/chart/interface';
 import View from '../../../../src/chart/view';
-import { Text } from '../../../../src/component';
 import { COMPONENT_TYPE } from '../../../../src/constant';
 import { IGroup, IShape } from '../../../../src/dependents';
 import { BBox } from '../../../../src/util/bbox';
+import { Text } from './component';
 
 interface TitleOption {
   readonly title: string;

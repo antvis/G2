@@ -36,6 +36,8 @@ export interface FacetData {
   readonly region: Region;
   // 当前分面的 padding
   readonly padding?: number;
+  // 当前 facet 对应生成的 view
+  view?: View;
 }
 
 /**
