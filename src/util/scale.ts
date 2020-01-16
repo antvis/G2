@@ -46,7 +46,7 @@ export function createScaleByField(field: string | number, data?: LooseObject[] 
   const type = get(scaleDef, 'type', getDefaultType(field, validData));
   const cfg = {
     field,
-    values: valuesOfKey(data, field),
+    values: valuesOfKey(validData, field),
   };
 
   mix(cfg, scaleDef);
