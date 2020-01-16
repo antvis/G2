@@ -23,6 +23,14 @@ export interface FacetCfg {
   readonly eachView: (innerView: View, facet?: FacetData) => any;
   // 间距
   readonly padding?: number;
+  // 是否显示标题
+  readonly showTitle?: boolean;
+}
+
+export interface FacetTitle {
+  readonly offsetX?: number;
+  readonly offsetY?: number;
+  readonly style?: object;
 }
 
 /**
@@ -46,6 +54,9 @@ export interface FacetData {
 export interface RectCfg extends FacetCfg {
   // column, row
   readonly fields: string[];
+  // 行列标题的样式
+  readonly columnTitle?: FacetTitle,
+  readonly rowTitle?: FacetTitle,
 }
 
 export interface RectData extends FacetData {

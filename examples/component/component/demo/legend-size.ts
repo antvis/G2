@@ -85,5 +85,4 @@ fetch('../data/world.geo.json')
         stroke: '#1890ff',
       });
     chart.render();
-    console.log(userView);
   });

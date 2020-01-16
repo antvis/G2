@@ -1,4 +1,5 @@
-import { each, every, filter, get, isNil } from '@antv/util';
+import { deepMix, each, every, filter, get, isNil } from '@antv/util';
+import { AxisCfg } from '../chart/interface';
 import View from '../chart/view';
 import { Datum } from '../interface';
 import { getAxisOption } from '../util/axis';
@@ -15,6 +16,35 @@ export default class Rect extends Facet<RectCfg, RectData> {
 
   protected beforeEachView(view: View, facet: RectData) {
     // do nothing
+  }
+
+  protected getDefaultCfg() {
+    // @ts-ignore
+    const fontFamily = this.view.getTheme().fontFamily;
+    return deepMix({}, super.getDefaultCfg(), {
+      columnTitle: {
+        offsetX: 0,
+        offsetY: -8,
+        style: {
+          fontSize: 14,
+          textAlign: 'center',
+          textBaseline: 'bottom',
+          fill: '#666',
+          fontFamily,
+        }
+      },
+      rowTitle: {
+        offsetX: 8,
+        offsetY: 0,
+        style: {
+          fontSize: 14,
+          textAlign: 'left',
+          rotate: 90,
+          fill: '#666',
+          fontFamily,
+        }
+      }
+    })
   }
 
   public render() {
@@ -95,10 +125,7 @@ export default class Rect extends Facet<RectCfg, RectData> {
         const config = {
           position: [ '50%', '0%' ] as [string, string],
           content: columnValue,
-          style: {
-            textBaseline: 'bottom',
-          },
-          offsetY: -8,
+          ...this.cfg.columnTitle,
         };
 
         view.annotation().text(config);
@@ -112,7 +139,7 @@ export default class Rect extends Facet<RectCfg, RectData> {
             textAlign: 'left',
             rotate: -Math.PI / 2,
           },
-          offsetX: 8,
+          ...this.cfg.rowTitle,
         };
 
         view.annotation().text(config);
@@ -124,40 +151,48 @@ export default class Rect extends Facet<RectCfg, RectData> {
    * 设置 x 坐标轴的文本、title 是否显示
    * @param x
    * @param axes
+   * @param option
    * @param facet
    */
-  private getXAxisOption(x: string, axes: any, facet: RectData): object {
+  private getXAxisOption(x: string, axes: any, option: AxisCfg, facet: RectData): object {
     // 非最后一行
     if (facet.rowIndex !== facet.rowValuesLength - 1) {
       return {
+        ...option,
         title: null,
         label: null,
       };
     } else if (facet.columnIndex !== Math.floor((facet.columnValuesLength - 1) / 2)) {
       // 不是中间列
       return {
+        ...option,
         title: null,
       }
     }
+    return option
   }
 
   /**
    * 设置 y 坐标轴的文本、title 是否显示
    * @param y
    * @param axes
+   * @param option
    * @param facet
    */
-  private getYAxisOption(y: string, axes: any, facet: RectData): object {
+  private getYAxisOption(y: string, axes: any, option: AxisCfg, facet: RectData): object {
     if (facet.columnIndex !== 0) {
       return {
+        ...option,
         title: null,
         label: null,
       };
     } else if (facet.rowIndex !== Math.floor((facet.rowValuesLength - 1) / 2)) {
       return {
+        ...option,
         title: null,
       }
     }
+    return option;
   }
 
   /**
@@ -187,17 +222,11 @@ export default class Rect extends Facet<RectCfg, RectData> {
       const yOption = getAxisOption(axes, y);
 
       if (xOption !== false) {
-        options.axes[x] = {
-          ...this.getXAxisOption(x, axes, facet),
-          ...xOption,
-        }
+        options.axes[x] = this.getXAxisOption(x, axes, xOption, facet);
       }
 
       if (yOption !== false) {
-        options.axes[y] = {
-          ...this.getYAxisOption(y, axes, facet),
-          ...yOption,
-        }
+        options.axes[y] = this.getYAxisOption(y, axes, yOption, facet);
       }
     }
   }
