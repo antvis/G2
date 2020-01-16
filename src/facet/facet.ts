@@ -1,4 +1,4 @@
-import { each, isNil } from '@antv/util';
+import { deepMix, each, isNil } from '@antv/util';
 import View from '../chart/view';
 import { LAYER } from '../constant';
 import { IGroup } from '../dependents';
@@ -46,7 +46,7 @@ export abstract class Facet<C extends FacetCfg = FacetCfg, F extends FacetData =
 
   constructor(view: View, cfg: C) {
     this.view = view;
-    this.cfg = cfg;
+    this.cfg = deepMix({}, this.getDefaultCfg(), cfg);
   }
 
   /**
@@ -218,6 +218,15 @@ export abstract class Facet<C extends FacetCfg = FacetCfg, F extends FacetData =
       start,
       end,
     };
+  }
+
+  protected getDefaultCfg() {
+    return {
+      eachView: undefined,
+      showTitle: true,
+      padding: 10,
+      fields: [],
+    }
   }
 
   /**

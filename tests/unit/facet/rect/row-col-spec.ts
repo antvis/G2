@@ -2,6 +2,7 @@ import { Chart } from '../../../../src';
 import DIAMOND from '../../../../examples/data/diamond.json';
 
 import { createDiv } from '../../../util/dom';
+import { RectCfg } from '../../../../src/facet/interface';
 
 describe('facet rect', () => {
   const div = createDiv();
@@ -35,7 +36,13 @@ describe('facet rect', () => {
   // 使用分面
   chart.facet('rect', {
     fields: [ 'clarity', 'cut' ],
-    eachView(view, facet) {
+    columnTitle: {
+      offsetY: -16,
+      style: {
+        fontSize: 12,
+      }
+    },
+    eachView(view, f) {
       view.point()
         .position('carat*price')
         .color('cut')
@@ -52,13 +59,24 @@ describe('facet rect', () => {
 
   // @ts-ignore
   window.chart = chart;
+  // @ts-ignore
+  const facet = chart.facetInstance;
 
   it('rect instance', () => {
     // facet view padding
     // @ts-ignore
-    expect(chart.facetInstance.cfg.type).toBe('rect');
+    const cfg = facet.cfg as RectCfg;
+
+    expect(cfg.type).toBe('rect');
+    expect(cfg.padding).toBe(12);
+    expect(cfg.showTitle).toBe(true);
+    expect(cfg.rowTitle.offsetX).toBe(8);
+    expect(cfg.columnTitle.offsetY).toBe(-16);
+
     // @ts-ignore
-    expect(chart.facetInstance.cfg.padding).toBe(12);
+    expect(cfg.columnTitle.style.fontSize).toBe(12);
+    // @ts-ignore
+    expect(cfg.columnTitle.style.textAlign).toBe('center');
   });
 
   it('use filter data', () => {
