@@ -10,7 +10,7 @@ describe('facet rect', () => {
     container: div,
     width: 800,
     height: 600,
-    padding: [16, 48, 16, 72],
+    padding: [48, 48, 48, 72],
   });
 
   chart.data(DIAMOND);
@@ -28,6 +28,10 @@ describe('facet rect', () => {
     }
   });
 
+  chart.legend('price', {
+    position: 'top',
+  });
+
   // 使用分面
   chart.facet('rect', {
     fields: [ 'clarity', 'cut' ],
@@ -39,12 +43,11 @@ describe('facet rect', () => {
         .style({
           opacity: 0.8
         })
-        .size(3);
-
-      view.legend('cut', false);
+        .size('price');
     },
     padding: 12,
   });
+
   chart.render();
 
   // @ts-ignore
@@ -85,10 +88,6 @@ describe('facet rect', () => {
       price: {
         title: null,
       }
-    });
-
-    expect(chart.views[0].getOptions().legends).toEqual({
-      cut: false,
     });
   });
 });

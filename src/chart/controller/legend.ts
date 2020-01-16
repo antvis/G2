@@ -189,11 +189,32 @@ export default class Legend extends Controller<Option> {
   }
 
   /**
+   * 递归获取所有的 Geometry
+   */
+  private getGeometries(view: View, geometries: Geometry[] = []): Geometry[] {
+    // 首先获得当前 view 的 Geometries
+    geometries.push(...view.geometries);
+
+    // 然后递归
+    each(view.views, (v: View) => {
+      return this.getGeometries(v, geometries);
+    });
+
+    return geometries;
+  }
+
+  /**
    * 遍历 Geometry，处理 legend 逻辑
    * @param doEach 每个 loop 中的处理方法
    */
   private loopLegends(doEach: DoEach) {
-    const geometries = uniq(this.view.geometries);
+    const isRootView = this.view.getRootView() === this.view;
+    // 非根 view，不处理 legend
+    if (!isRootView) { return; }
+
+    // 递归 view 中所有的 Geometry，进行创建 legend
+    const geometries = this.getGeometries(this.view);
+
     const looped: Record<string, true> = {}; // 防止一个字段创建两个 legend
 
     each(geometries, (geometry: Geometry) => {
