@@ -70,9 +70,6 @@ export abstract class Facet<C extends FacetCfg = FacetCfg, F extends FacetData =
    *  子类可以复写，添加一些其他组件，比如滚动条等
    */
   public render() {
-    // 1. add facet component into parent view
-    this.renderFacetComponents();
-    // 2. render facet children views
     this.renderViews();
   }
 
@@ -114,6 +111,7 @@ export abstract class Facet<C extends FacetCfg = FacetCfg, F extends FacetData =
 
     // 设置分面的数据
     view.data(data || []);
+    facet.view = view;
 
     // 前置钩子
     this.beforeEachView(view, facet);
@@ -122,6 +120,7 @@ export abstract class Facet<C extends FacetCfg = FacetCfg, F extends FacetData =
     if (eachView) {
       eachView(view, facet);
     }
+
     // 后置钩子
     this.afterEachView(view, facet);
 
@@ -240,9 +239,4 @@ export abstract class Facet<C extends FacetCfg = FacetCfg, F extends FacetData =
    * @param data
    */
   protected abstract generateFacets(data: Datum[]): F[];
-
-  /**
-   * 根据 facets 数据，生成 facet Component 内容
-   */
-  protected abstract renderFacetComponents(): void;
 }

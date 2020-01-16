@@ -1,12 +1,9 @@
 import { each, every, filter, get, isNil } from '@antv/util';
 import View from '../chart/view';
-import { Axis, Text } from '../component';
-import { DIRECTION, LAYER } from '../constant';
-import { Datum, Padding, Point, Position } from '../interface';
+import { Datum } from '../interface';
 import { getAxisOption } from '../util/axis';
-import { getRegionBBox } from '../util/bbox';
 import { Facet } from './facet';
-import { FacetComponent, RectCfg, RectData } from './interface';
+import { RectCfg, RectData } from './interface';
 
 /**
  * 矩阵分面
@@ -18,6 +15,12 @@ export default class Rect extends Facet<RectCfg, RectData> {
 
   protected beforeEachView(view: View, facet: RectData) {
     // do nothing
+  }
+
+  public render() {
+    super.render();
+
+    this.renderTitle();
   }
 
   /**
@@ -80,61 +83,35 @@ export default class Rect extends Facet<RectCfg, RectData> {
     return rst;
   }
 
-  protected renderFacetComponents(): void {
+  private renderTitle(): void {
     each(this.facets, (facet: RectData, facetIndex: number) => {
-      const { columnIndex, rowIndex, columnValuesLength, rowValuesLength, columnValue, rowValue } = facet;
-
-      const zeroPosition: Position = [0, 0];
+      const { columnIndex, rowIndex, columnValuesLength, rowValuesLength, columnValue, rowValue, view } = facet;
 
       if (rowIndex === 0) {
-        // 上
-        this.components.push({
-          direction: DIRECTION.TOP,
-          component: new Text({
-            container: this.view.getLayer(LAYER.FORE),
-            text: columnValue,
-            isHorizontal: true,
-            attributes: { textBaseline: 'bottom' },
-          }),
-          facetIndex,
-        });
+        const config = {
+          position: [ '50%', '0%' ] as [string, string],
+          content: columnValue,
+          style: {
+            textBaseline: 'bottom',
+          },
+          offsetY: -8,
+        };
+
+        view.annotation().text(config);
       }
       if (columnIndex === columnValuesLength - 1) {
-        // 右
-        this.components.push({
-          direction: DIRECTION.RIGHT,
-          component: new Text({
-            container: this.view.getLayer(LAYER.FORE),
-            text: rowValue,
-            isHorizontal: false,
-            attributes: { textAlign: 'left' },
-          }),
-          facetIndex,
-        });
-      }
-      if (rowIndex === rowValuesLength - 1) {
-        // 下
-        this.components.push({
-          direction: DIRECTION.BOTTOM,
-          component: new Axis({
-            container: this.view.getLayer(LAYER.FORE),
-            text: 'x axis',
-            attributes: { textAlign: 'center', textBaseline: 'top' },
-          }),
-          facetIndex,
-        });
-      }
-      if (columnIndex === 0) {
-        // 左
-        this.components.push({
-          direction: DIRECTION.LEFT,
-          component: new Axis({
-            container: this.view.getLayer(LAYER.FORE),
-            text: 'y axis',
-            attributes: { textAlign: 'right', textBaseline: 'center' },
-          }),
-          facetIndex,
-        });
+        // 右方的 title
+        const config = {
+          position: [ '100%', '50%' ] as [string, string],
+          content: rowValue,
+          style: {
+            textAlign: 'left',
+            rotate: -Math.PI / 2,
+          },
+          offsetX: 8,
+        };
+
+        view.annotation().text(config);
       }
     });
   }
