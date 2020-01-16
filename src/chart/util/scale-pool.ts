@@ -63,11 +63,18 @@ export class ScalePool {
       // 2. 同步
       each(scaleKeys, (key: string) => {
         const scale = this.getScale(key);
-        scale.change({
-          min,
-          max,
-          values,
-        });
+
+        if (scale.isContinuous) {
+          scale.change({
+            min,
+            max,
+            values,
+          });
+        } else if (scale.isCategory) {
+          scale.change({
+            values,
+          });
+        }
       });
     });
   }
