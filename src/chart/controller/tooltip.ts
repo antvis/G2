@@ -1,8 +1,10 @@
 import { vec2 } from '@antv/matrix-util';
-import { deepMix, each, find, get, isArray, isEqual, isObject } from '@antv/util';
-import { HtmlTooltip, IGroup } from '../../dependents';
+import { deepMix, each, find, get, isArray, isEqual, isFunction, set } from '@antv/util';
+import { Crosshair, HtmlTooltip, IGroup } from '../../dependents';
 import Geometry from '../../geometry/base';
 import { MappingDatum, Point } from '../../interface';
+import { getDistanceToCenter, getPointAngle } from '../../util/coordinate';
+import { polarToCartesian } from '../../util/graphics';
 import { findDataByPoint, getTooltipItems } from '../../util/tooltip';
 import { TooltipOption } from '../interface';
 import { Controller } from './base';
@@ -28,10 +30,13 @@ function uniq(items) {
 
 export default class Tooltip extends Controller<TooltipOption> {
   private tooltip;
+  private tooltipMarkersGroup: IGroup;
+  private tooltipCrosshairsGroup: IGroup;
+  private xCrosshair;
+  private yCrosshair;
+  private guideGroup: IGroup;
 
-  private tooltipCfg;
   private isVisible: boolean = true;
-  private markerGroup: IGroup;
   private items;
   private title: string;
   private tooltipInteraction;
@@ -40,7 +45,7 @@ export default class Tooltip extends Controller<TooltipOption> {
     return 'tooltip';
   }
 
-  public init() {}
+  public init() { }
 
   public render() {
     if (this.tooltip) {
@@ -53,24 +58,18 @@ export default class Tooltip extends Controller<TooltipOption> {
     const view = this.view;
 
     const canvas = view.getCanvas();
-    const coordinateBBox = view.coordinateBBox;
     const region = {
       start: { x: 0, y: 0 },
       end: { x: canvas.get('width'), y: canvas.get('height') },
     };
-    const crosshairsRegion = {
-      start: coordinateBBox.tl,
-      end: coordinateBBox.br,
-    };
 
     const cfg = this.getTooltipCfg();
-
     const tooltip = new HtmlTooltip({
       parent: canvas.get('el').parentNode,
       region,
-      crosshairsRegion,
       ...cfg,
       visible: false,
+      crosshairs: null,
     });
 
     tooltip.render();
@@ -80,14 +79,9 @@ export default class Tooltip extends Controller<TooltipOption> {
     if (this.isVisible && !this.tooltipInteraction) {
       // 用户开启 Tooltip
       view.interaction('tooltip');
-
       this.tooltipInteraction = get(view.getOptions(), ['interactions', 'tooltip']);
     }
   }
-
-  public layout() {}
-
-  public update() {}
 
   /**
    * Shows tooltip
@@ -95,7 +89,6 @@ export default class Tooltip extends Controller<TooltipOption> {
    */
   public showTooltip(point: Point) {
     const { view, tooltip } = this;
-    const { coordinateBBox } = view;
     const items = this.getTooltipItems(point);
     if (!items.length) {
       return;
@@ -117,18 +110,12 @@ export default class Tooltip extends Controller<TooltipOption> {
       };
     }
 
-    // @ts-ignore
     tooltip.update({
       ...cfg,
       items,
       title,
       ...location,
-      crosshairsRegion: {
-        start: coordinateBBox.tl,
-        end: coordinateBBox.br,
-      },
     });
-    // @ts-ignore
     tooltip.show();
 
     view.emit('tooltip:show', {
@@ -152,10 +139,14 @@ export default class Tooltip extends Controller<TooltipOption> {
     this.items = items;
     this.title = title;
 
-    // show the tooltip markers
-    const { showTooltipMarkers } = cfg;
+    const { showTooltipMarkers, showCrosshairs } = cfg;
     if (showTooltipMarkers) {
-      this.renderTooltipMarkers();
+      // 展示 tooltipMarkers
+      this.renderTooltipMarkers(cfg);
+    }
+    if (showCrosshairs) {
+      // 展示 tooltip 辅助线
+      this.renderCrosshairs(location, cfg);
     }
   }
 
@@ -163,9 +154,19 @@ export default class Tooltip extends Controller<TooltipOption> {
     const { view, tooltip } = this;
 
     // hide the tooltipMarkers
-    const markerGroup = this.markerGroup;
-    if (markerGroup) {
-      markerGroup.hide();
+    const tooltipMarkersGroup = this.tooltipMarkersGroup;
+    if (tooltipMarkersGroup) {
+      tooltipMarkersGroup.hide();
+    }
+
+    // hide crosshairs
+    const xCrosshair = this.xCrosshair;
+    const yCrosshair = this.yCrosshair;
+    if (xCrosshair) {
+      xCrosshair.hide();
+    }
+    if (yCrosshair) {
+      yCrosshair.hide();
     }
 
     // @ts-ignore
@@ -176,29 +177,45 @@ export default class Tooltip extends Controller<TooltipOption> {
     });
   }
 
-  /**
-   * override 不做任何事情
-   */
   public clear() {
-    this.tooltipCfg = null;
+    const { tooltip, xCrosshair, yCrosshair } = this;
+    if (tooltip) {
+      tooltip.clear();
+      tooltip.hide();
+    }
+
+    if (xCrosshair) {
+      xCrosshair.clear();
+    }
+
+    if (yCrosshair) {
+      yCrosshair.clear();
+    }
   }
 
   public destroy() {
-    this.clear();
-    const { tooltip, markerGroup } = this;
-
-    if (tooltip) {
-      tooltip.destroy();
-      this.tooltip = null;
+    if (this.tooltip) {
+      this.tooltip.destroy();
+    }
+    if (this.xCrosshair) {
+      this.xCrosshair.destroy();
+    }
+    if (this.yCrosshair) {
+      this.yCrosshair.destroy();
     }
 
-    if (markerGroup) {
-      markerGroup.remove(true);
-      this.markerGroup = null;
+    if (this.guideGroup) {
+      this.guideGroup.remove(true);
     }
 
     this.items = null;
     this.title = null;
+    this.tooltipMarkersGroup = null;
+    this.tooltipCrosshairsGroup = null;
+    this.xCrosshair = null;
+    this.yCrosshair = null;
+    this.tooltip = null;
+    this.guideGroup = null;
 
     if (this.tooltipInteraction) {
       this.tooltipInteraction.destroy();
@@ -210,47 +227,35 @@ export default class Tooltip extends Controller<TooltipOption> {
     if (this.visible === visible) {
       return;
     }
-    const { tooltip, markerGroup } = this;
+    const { tooltip, tooltipMarkersGroup, xCrosshair, yCrosshair } = this;
     if (visible) {
       if (tooltip) {
         tooltip.show();
       }
-      if (markerGroup) {
-        markerGroup.show();
+      if (tooltipMarkersGroup) {
+        tooltipMarkersGroup.show();
+      }
+      if (xCrosshair) {
+        xCrosshair.show();
+      }
+      if (yCrosshair) {
+        yCrosshair.show();
       }
     } else {
       if (tooltip) {
         tooltip.hide();
       }
-      if (markerGroup) {
-        markerGroup.hide();
+      if (tooltipMarkersGroup) {
+        tooltipMarkersGroup.hide();
+      }
+      if (xCrosshair) {
+        xCrosshair.hide();
+      }
+      if (yCrosshair) {
+        yCrosshair.hide();
       }
     }
     this.visible = visible;
-  }
-
-  private getTooltipCfg() {
-    if (!this.tooltipCfg) {
-      const view = this.view;
-      const option = this.option;
-      const theme = view.getTheme();
-      const defaultCfg = get(theme, ['components', 'tooltip'], {});
-      const tooltipCfg = deepMix({}, defaultCfg, option);
-
-      // set `crosshairs`
-      const coordinate = view.getCoordinate();
-      if (tooltipCfg.showCrosshairs && !tooltipCfg.crosshairs && coordinate.isRect) {
-        // 目前 Tooltip 辅助线只在直角坐标系下展示
-        tooltipCfg.crosshairs = !!coordinate.isTransposed ? 'y' : 'x';
-      }
-
-      if (tooltipCfg.showCrosshairs === false) {
-        tooltipCfg.crosshairs = null;
-      }
-      this.tooltipCfg = tooltipCfg;
-    }
-
-    return this.tooltipCfg;
   }
 
   public getTooltipItems(point: Point) {
@@ -258,6 +263,7 @@ export default class Tooltip extends Controller<TooltipOption> {
 
     const geometries = this.view.geometries;
     const { shared, title } = this.getTooltipCfg();
+    // TODO: 对于 shared 的处理有问题
     each(geometries, (geometry: Geometry) => {
       if (geometry.visible && geometry.tooltipOption !== false) {
         // geometry 可见同时未关闭 tooltip
@@ -318,6 +324,23 @@ export default class Tooltip extends Controller<TooltipOption> {
     return items;
   }
 
+  public layout() { }
+  public update() {
+    this.clear();
+    // 更新 tooltip 配置
+    this.option = this.view.getOptions().tooltip;
+  }
+
+
+  // 获取 tooltip 配置，因为用户可能会通过 view.tooltip() 重新配置 tooltip，所以就不做缓存，每次直接读取
+  private getTooltipCfg() {
+      const view = this.view;
+      const option = this.option;
+      const theme = view.getTheme();
+      const defaultCfg = get(theme, ['components', 'tooltip'], {});
+      return deepMix({}, defaultCfg, option);
+  }
+
   private getTitle(items) {
     const title = items[0].title || items[0].name;
     this.title = title;
@@ -325,24 +348,9 @@ export default class Tooltip extends Controller<TooltipOption> {
     return title;
   }
 
-  private renderTooltipMarkers() {
-    const { view, items } = this;
-
-    const cfg = this.getTooltipCfg();
-
-    const foregroundGroup = view.foregroundGroup;
-    let markerGroup = this.markerGroup;
-    if (markerGroup && !markerGroup.destroyed) {
-      markerGroup.clear();
-      markerGroup.show();
-    } else {
-      markerGroup = foregroundGroup.addGroup({
-        name: 'tooltipMarkersGroup',
-      });
-      this.markerGroup = markerGroup;
-    }
-
-    each(items, (item) => {
+  private renderTooltipMarkers(cfg) {
+    const tooltipMarkersGroup = this.getTooltipMarkersGroup();
+    each(this.items, (item) => {
       const { x, y } = item;
       const attrs = {
         fill: item.color,
@@ -353,9 +361,225 @@ export default class Tooltip extends Controller<TooltipOption> {
         y,
       };
 
-      markerGroup.addShape('marker', {
+      tooltipMarkersGroup.addShape('marker', {
         attrs,
       });
     });
+  }
+
+  private renderCrosshairs(point: Point, cfg) {
+    const crosshairsType = get(cfg, ['crosshairs', 'type'], 'x'); // 默认展示 x 轴上的辅助线
+    if (crosshairsType === 'x') {
+      if (this.yCrosshair) {
+        this.yCrosshair.hide();
+      }
+      this.renderXCrosshairs(point, cfg);
+    } else if (crosshairsType === 'y') {
+      if (this.xCrosshair) {
+        this.xCrosshair.hide();
+      }
+      this.renderYCrosshairs(point, cfg);
+    } else if (crosshairsType === 'xy') {
+      this.renderXCrosshairs(point, cfg);
+      this.renderYCrosshairs(point, cfg);
+    }
+  }
+
+  // 渲染 x 轴上的 tooltip 辅助线
+  private renderXCrosshairs(point: Point, tooltipCfg) {
+    const coordinate = this.view.getCoordinate();
+    let start;
+    let end;
+    if (coordinate.isRect) {
+      if (coordinate.isTransposed) {
+        start = {
+          x: coordinate.start.x,
+          y: point.y,
+        };
+        end = {
+          x: coordinate.end.x,
+          y: point.y,
+        };
+      } else {
+        start = {
+          x: point.x,
+          y: coordinate.end.y,
+        };
+        end = {
+          x: point.x,
+          y: coordinate.start.y,
+        };
+      }
+    } else {
+      // 极坐标下 x 轴上的 crosshairs 表现为半径
+      const angle = getPointAngle(coordinate, point);
+      const center = coordinate.getCenter();
+      // @ts-ignore
+      const radius = coordinate.getRadius();
+      end = polarToCartesian(center.x, center.y, radius, angle);
+      start = center;
+    }
+
+    const cfg = deepMix({
+      start,
+      end,
+      container: this.getTooltipCrosshairsGroup(),
+    }, get(tooltipCfg, 'crosshairs', {}), this.getCrosshairsText('x', point, tooltipCfg));
+    delete cfg.type; // 与 Crosshairs 组件的 type 冲突故删除
+
+    let xCrosshair = this.xCrosshair;
+    if (xCrosshair) {
+      xCrosshair.update(cfg);
+    } else {
+      xCrosshair = new Crosshair.Line(cfg);
+      xCrosshair.render();
+    }
+    xCrosshair.show();
+    this.xCrosshair = xCrosshair;
+  }
+
+  // 渲染 y 轴上的辅助线
+  private renderYCrosshairs(point: Point, tooltipCfg) {
+    const coordinate = this.view.getCoordinate();
+    let cfg;
+    let type;
+    if (coordinate.isRect) {
+      let start;
+      let end;
+      if (coordinate.isTransposed) {
+        start = {
+          x: point.x,
+          y: coordinate.end.y,
+        };
+        end = {
+          x: point.x,
+          y: coordinate.start.y,
+        };
+      } else {
+        start = {
+          x: coordinate.start.x,
+          y: point.y,
+        };
+        end = {
+          x: coordinate.end.x,
+          y: point.y,
+        };
+      }
+      cfg = {
+        start,
+        end,
+      };
+      type = 'Line';
+    } else {
+      // 极坐标下 y 轴上的 crosshairs 表现为圆弧
+      cfg = {
+        center: coordinate.getCenter(),
+        // @ts-ignore
+        radius: getDistanceToCenter(coordinate, point),
+        startAngle: coordinate.startAngle,
+        endAngle: coordinate.endAngle,
+      };
+      type = 'Circle';
+    }
+
+    cfg = deepMix({
+      container: this.getTooltipCrosshairsGroup()
+    }, cfg, get(tooltipCfg, 'crosshairs', {}), this.getCrosshairsText('y', point, tooltipCfg));
+    delete cfg.type; // 与 Crosshairs 组件的 type 冲突故删除
+
+    let yCrosshair = this.yCrosshair;
+    if (yCrosshair) {
+      // 如果坐标系发生直角坐标系与极坐标的切换操作
+      if ((coordinate.isRect && yCrosshair.get('type') === 'circle')
+        || (!coordinate.isRect && yCrosshair.get('type') === 'line')) {
+        yCrosshair = new Crosshair[type](cfg);
+        yCrosshair.render();
+      } else {
+        yCrosshair.update(cfg);
+      }
+    } else {
+      yCrosshair = new Crosshair[type](cfg);
+      yCrosshair.render();
+    }
+
+    yCrosshair.show();
+    this.yCrosshair = yCrosshair;
+  }
+
+  private getCrosshairsText(type, point: Point, tooltipCfg) {
+    let textCfg = get(tooltipCfg, ['crosshairs', 'text']);
+    const follow = tooltipCfg.follow;
+    const items = this.items;
+
+    if (textCfg) {
+      // 需要展示文本
+      const firstItem = items[0];
+      const xScale = this.view.getXScale();
+      const yScale = this.view.getYScales()[0];
+      let xValue;
+      let yValue;
+      if (follow) {
+        // 如果需要跟随鼠标移动，就需要将当前鼠标坐标点转换为对应的数值
+        const invertPoint = this.view.getCoordinate().invert(point);
+        xValue = xScale.invert(invertPoint.x); // 转换为原始值
+        yValue = yScale.invert(invertPoint.y); // 转换为原始值
+      } else {
+        xValue = firstItem.data[xScale.field];
+        yValue = firstItem.data[yScale.field];
+      }
+
+      const content = type === 'x' ? xValue : yValue;
+      if (isFunction(textCfg)) {
+        textCfg = textCfg(type, content, items, point);
+      } else {
+        textCfg.content = content;
+      }
+
+      return {
+        text: textCfg,
+      };
+    }
+  }
+
+  // 获取存储 tooltipMarkers 和 crosshairs 的容器
+  private getGuideGroup() {
+    if (!this.guideGroup) {
+      const foregroundGroup = this.view.foregroundGroup;
+      this.guideGroup = foregroundGroup.addGroup({
+        name: 'tooltipGuide',
+      });
+    }
+
+    return this.guideGroup;
+  }
+
+  // 获取 tooltipMarkers 存储的容器
+  private getTooltipMarkersGroup() {
+    let tooltipMarkersGroup = this.tooltipMarkersGroup;
+    if (tooltipMarkersGroup && !tooltipMarkersGroup.destroyed) {
+      tooltipMarkersGroup.clear();
+      tooltipMarkersGroup.show();
+    } else {
+      tooltipMarkersGroup = this.getGuideGroup().addGroup({
+        name: 'tooltipMarkersGroup',
+      });
+      tooltipMarkersGroup.toFront();
+      this.tooltipMarkersGroup = tooltipMarkersGroup;
+    }
+    return tooltipMarkersGroup;
+  }
+
+  // 获取 tooltip crosshairs 存储的容器
+  private getTooltipCrosshairsGroup() {
+    let tooltipCrosshairsGroup = this.tooltipCrosshairsGroup;
+    if (!tooltipCrosshairsGroup) {
+      tooltipCrosshairsGroup = this.getGuideGroup().addGroup({
+        name: 'tooltipCrosshairsGroup',
+        capture: false,
+      });
+      tooltipCrosshairsGroup.toBack();
+      this.tooltipCrosshairsGroup = tooltipCrosshairsGroup;
+    }
+    return tooltipCrosshairsGroup;
   }
 }

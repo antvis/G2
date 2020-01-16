@@ -22,7 +22,17 @@ export { getScale, registerScale, Scale, ScaleConfig } from '@antv/scale';
 export { Tick } from '@antv/scale/lib/types';
 
 // component
-import { Annotation, Axis, Component, Grid, GroupComponent, HtmlComponent, Legend, Tooltip } from '@antv/component';
+import {
+  Annotation,
+  Axis,
+  Component,
+  Crosshair,
+  Grid,
+  GroupComponent,
+  HtmlComponent,
+  Legend,
+  Tooltip,
+ } from '@antv/component';
 export { IComponent, IList } from '@antv/component/lib/interfaces';
 export {
   CategoryLegendCfg,
@@ -46,8 +56,11 @@ export {
   ContinueLegendRailCfg,
   ContinueLegendLabelCfg,
   ContinueLegendHandlerCfg,
+  CrosshairLineCfg,
+  CrosshairTextCfg,
+  CrosshairTextBackgroundCfg,
 } from '@antv/component/lib/types';
-export { HtmlComponent, GroupComponent, Component };
+export { HtmlComponent, GroupComponent, Component, Crosshair };
 export { Annotation };
 // axis
 const { Line: LineAxis, Circle: CircleAxis } = Axis;
