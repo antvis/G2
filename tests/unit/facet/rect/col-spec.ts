@@ -10,7 +10,7 @@ describe('facet rect', () => {
     container: div,
     width: 800,
     height: 600,
-    padding: [16, 48, 16, 72],
+    padding: [16, 48, 48, 72],
   });
 
   chart.data(DIAMOND);
@@ -40,8 +40,6 @@ describe('facet rect', () => {
           opacity: 0.8
         })
         .size(3);
-
-      view.legend('cut', false);
     },
     padding: 12,
   });
