@@ -32,43 +32,27 @@ function getDefaultType(field: string, data: LooseObject[]): string {
  * @returns scale 返回创建的 Scale 实例
  */
 export function createScaleByField(field: string | number, data?: LooseObject[] | [], scaleDef?: ScaleOption): Scale {
-  let scale: Scale;
+  const validData = data || [];
 
-  if (!data || !data.length) {
-    // 如果数据为空直接返回常量度量
-    if (scaleDef && scaleDef.type) {
-      const ScaleCtor = getScale(scaleDef.type);
-      scale = new ScaleCtor(scaleDef);
-    } else {
-      const Identity = getScale('identity');
-      scale = new Identity({
-        field: field.toString(),
-        values: [field],
-      });
-    }
-    return scale;
-  }
-
-  if (isNumber(field) || (isNil(firstValue(data, field)) && isEmpty(scaleDef))) {
+  if (isNumber(field) || (isNil(firstValue(validData, field)) && isEmpty(scaleDef))) {
     const Identity = getScale('identity');
-    scale = new Identity({
+    return new Identity({
       field: field.toString(),
       values: [field],
     });
-  } else {
-    // 如果已经定义过这个度量
-    const type = get(scaleDef, 'type', getDefaultType(field, data));
-    const cfg = {
-      field,
-      values: valuesOfKey(data, field),
-    };
-
-    mix(cfg, scaleDef);
-
-    const ScaleCtor = getScale(type);
-    scale = new ScaleCtor(cfg);
   }
-  return scale;
+
+  // 如果已经定义过这个度量
+  const type = get(scaleDef, 'type', getDefaultType(field, validData));
+  const cfg = {
+    field,
+    values: valuesOfKey(data, field),
+  };
+
+  mix(cfg, scaleDef);
+
+  const ScaleCtor = getScale(type);
+  return new ScaleCtor(cfg);
 }
 
 /**

@@ -17,14 +17,14 @@ describe('facet rect', () => {
 
   chart.scale({
     carat: {
-      sync: true
+      sync: true,
     },
     price: {
       sync: true,
-      tickCount: 3
+      tickCount: 3,
     },
     cut: {
-      sync: true
+      sync: true,
     }
   });
 
@@ -46,6 +46,9 @@ describe('facet rect', () => {
     padding: 12,
   });
   chart.render();
+
+  // @ts-ignore
+  window.chart = chart;
 
   it('rect instance', () => {
     // facet view padding
