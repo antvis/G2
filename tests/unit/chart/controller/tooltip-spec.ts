@@ -23,6 +23,12 @@ describe('Tooltip', () => {
     shared: true,
     showCrosshairs: true,
     showTooltipMarkers: true,
+    domStyles: {
+      'g2-tooltip': {
+        border: '1px solid #000',
+        boxShadow: null,
+      },
+    },
   });
   chart
     .interval()
@@ -30,6 +36,16 @@ describe('Tooltip', () => {
     .color('name')
     .adjust('dodge');
   chart.render();
+
+  it('tooltip config', () => {
+    const tooltipDom = container.getElementsByClassName('g2-tooltip')[0];
+    // @ts-ignore
+    expect(tooltipDom.style.border).toBe('1px solid rgb(0, 0, 0)');
+    // @ts-ignore
+    expect(tooltipDom.style.boxShadow).toBe('');
+    // @ts-ignore
+    expect(tooltipDom.style.backgroundColor).toBe(chart.getTheme().components.tooltip.domStyles['g2-tooltip'].backgroundColor);
+  });
 
   it('showTooltip', () => {
     let items;

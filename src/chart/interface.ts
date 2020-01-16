@@ -348,13 +348,13 @@ export interface LegendCfg {
 }
 
 export interface TooltipCfg {
-  /** 是否展示 tooltip 标题 */
-  showTitle?: boolean;
   /** 设置 tooltip 是否跟随鼠标移动，默认为 false, 定位到数据点 */
   follow?: boolean;
+  /** 是否展示 tooltip 标题 */
+  showTitle?: boolean;
   /**
    * 设置 tooltip 的标题
-   * 如果值为数据字段名，则会展示数据中对应该字段的数值，如果数据中不存在该字段，则直接展示 title 值。
+   * 如果值为数据字段名，则会展示数据中对应该字段的数值，如果数据中不存在该字段，则直接展示 title 值
    */
   title?: string;
   /** 设置 tooltip 的固定展示位置，相对于数据点 */
@@ -371,8 +371,7 @@ export interface TooltipCfg {
    *
    */
   crosshairs?: 'x' | 'y' | 'xy';
-  // title?: string;
-  /** 是否自动渲染 tooltipMarkers，目前 line、area、path 会默认渲染 */
+  /** 是否渲染 tooltipMarkers */
   showTooltipMarkers?: boolean;
   /** tooltipMarker 的样式 */
   tooltipMarker?: object;
@@ -382,10 +381,6 @@ export interface TooltipCfg {
   containerTpl?: string;
   /** 每项记录的默认模板，自定义模板时必须包含各个 dom 节点的 class */
   itemTpl?: string;
-  /** 根据 x 定位的 crosshair 的模板 */
-  xCrosshairTpl?: string;
-  /** 根据 y 定位的 crosshair 的模板 */
-  yCrosshairTpl?: string;
   /** 传入各个 dom 的样式 */
   domStyles?: TooltipDomStyles;
   /** tooltip 偏移量 */
