@@ -1,7 +1,7 @@
-import { Chart } from '../../../src';
-import DIAMOND from '../../../examples/data/diamond.json';
+import { Chart } from '../../../../src';
+import DIAMOND from '../../../../examples/data/diamond.json';
 
-import { createDiv } from '../../util/dom';
+import { createDiv } from '../../../util/dom';
 
 describe('facet rect', () => {
   const div = createDiv();

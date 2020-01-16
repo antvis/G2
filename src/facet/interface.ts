@@ -45,7 +45,7 @@ export interface FacetData {
  */
 export interface RectCfg extends FacetCfg {
   // column, row
-  readonly fields: [string, string];
+  readonly fields: string[];
 }
 
 export interface RectData extends FacetData {
