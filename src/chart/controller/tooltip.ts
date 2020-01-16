@@ -29,6 +29,7 @@ function uniq(items) {
 export default class Tooltip extends Controller<TooltipOption> {
   private tooltip;
 
+  private tooltipCfg;
   private isVisible: boolean = true;
   private markerGroup: IGroup;
   private items;
@@ -179,10 +180,11 @@ export default class Tooltip extends Controller<TooltipOption> {
    * override 不做任何事情
    */
   public clear() {
-    // do nothing
+    this.tooltipCfg = null;
   }
 
   public destroy() {
+    this.clear();
     const { tooltip, markerGroup } = this;
 
     if (tooltip) {
@@ -228,24 +230,27 @@ export default class Tooltip extends Controller<TooltipOption> {
   }
 
   private getTooltipCfg() {
-    const view = this.view;
-    const option = this.option;
-    const theme = view.getTheme();
-    const defaultCfg = get(theme, ['components', 'tooltip'], {});
-    const tooltipCfg = deepMix({}, defaultCfg, option);
+    if (!this.tooltipCfg) {
+      const view = this.view;
+      const option = this.option;
+      const theme = view.getTheme();
+      const defaultCfg = get(theme, ['components', 'tooltip'], {});
+      const tooltipCfg = deepMix({}, defaultCfg, option);
 
-    // set `crosshairs`
-    const coordinate = view.getCoordinate();
-    if (tooltipCfg.showCrosshairs && !tooltipCfg.crosshairs && coordinate.isRect) {
-      // 目前 Tooltip 辅助线只在直角坐标系下展示
-      tooltipCfg.crosshairs = !!coordinate.isTransposed ? 'y' : 'x';
+      // set `crosshairs`
+      const coordinate = view.getCoordinate();
+      if (tooltipCfg.showCrosshairs && !tooltipCfg.crosshairs && coordinate.isRect) {
+        // 目前 Tooltip 辅助线只在直角坐标系下展示
+        tooltipCfg.crosshairs = !!coordinate.isTransposed ? 'y' : 'x';
+      }
+
+      if (tooltipCfg.showCrosshairs === false) {
+        tooltipCfg.crosshairs = null;
+      }
+      this.tooltipCfg = tooltipCfg;
     }
 
-    if (tooltipCfg.showCrosshairs === false) {
-      tooltipCfg.crosshairs = null;
-    }
-
-    return tooltipCfg;
+    return this.tooltipCfg;
   }
 
   public getTooltipItems(point: Point) {
