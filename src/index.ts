@@ -104,9 +104,11 @@ registerAnimation('sectorPathUpdate', sectorPathUpdate);
 
 // 注册内置的 Facet
 import { registerFacet } from './core';
+import Mirror from './facet/mirror';
 import Rect from './facet/rect';
 
 registerFacet('rect', Rect);
+registerFacet('mirror', Mirror);
 
 // 注册内置的 Component
 import { registerComponentController } from './core';
