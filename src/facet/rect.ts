@@ -31,11 +31,11 @@ export default class Rect extends Facet<RectCfg, RectData> {
     const [columnField, rowField] = this.cfg.fields;
 
     const rst = [];
-    let columnValuesLength = 0;
-    let rowValuesLength = 0;
+    let columnValuesLength = 1;
+    let rowValuesLength = 1;
 
-    let columnValues: string[] = [];
-    let rowValues: string[] = [];
+    let columnValues: string[] = [''];
+    let rowValues: string[] = [''];
 
     if (columnField) {
       columnValues = this.getFieldValues(data, columnField);
@@ -58,7 +58,11 @@ export default class Rect extends Facet<RectCfg, RectData> {
           // 过滤出全部满足条件的数据
           return every(conditions, (condition) => {
             const { field, value } = condition;
-            return datum[field] === value;
+
+            if (!isNil(value) && field) {
+              return datum[field] === value;
+            }
+            return true;
           });
         });
 
