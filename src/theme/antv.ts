@@ -754,7 +754,22 @@ export default {
         },
         direction: 'upward',
         autoAdjust: true
-      }
+      },
+      dataRegion: {
+        style: {
+          region: {
+            lineWidth: 0,
+            fill: '#000000',
+            opacity: 0.04
+          },
+          text: {
+            textAlign: 'center',
+            textBaseline: 'bottom',
+            fontSize: 12,
+            fill: 'rgba(0, 0, 0, .65)'
+          }
+        }
+      },
     },
   },
   labels: {
