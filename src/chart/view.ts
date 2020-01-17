@@ -16,6 +16,7 @@ import {
   size,
   uniq,
   uniqueId,
+  deepMix,
 } from '@antv/util';
 import Base from '../base';
 import { GROUP_Z_INDEX, LAYER, PLOT_EVENTS, VIEW_LIFE_CIRCLE } from '../constant';
@@ -1286,7 +1287,7 @@ export class View extends Base {
         coordinate: this.getCoordinate(), // 使用 coordinate 引用，可以保持 coordinate 的同步更新
         scaleDefs: get(this.options, 'scales', {}),
         data: this.filteredData,
-        theme: this.themeObject,
+        theme: deepMix({}, this.themeObject, geometry.theme), // 支持 geometry 层级的主题设置
       };
       if (isUpdate) {
         // 数据发生更新
