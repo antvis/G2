@@ -36,3 +36,31 @@ describe('Component', () => {
     expect(y.component.get('label').offset).toBe(8);
   });
 });
+
+describe('line position', () => {
+  const chart = new Chart({
+    container: createDiv(),
+    height: 600,
+    autoFit: true,
+  });
+
+  chart.data(CITY_SALE);
+
+  chart
+    .interval()
+    .position('city*sale')
+    .color('category');
+
+  chart.axis('sale', {
+    position: 'right',
+  });
+
+  it('line position right', () => {
+    chart.render();
+
+    const [x, y] = chart.getComponents().filter(co => co.type === COMPONENT_TYPE.AXIS);
+
+    // y 轴在右侧
+    expect(y.component.get('start').x).toBeGreaterThan(500);
+  })
+});
