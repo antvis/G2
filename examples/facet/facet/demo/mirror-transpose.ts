@@ -48,7 +48,7 @@ fetch('../data/population.json')
       container: 'container',
       autoFit: true,
       height: 500,
-      padding: [16, 48, 0, 48]
+      padding: [32, 16, 48, 16]
     });
 
     chart.data(getData(data));
@@ -70,11 +70,11 @@ fetch('../data/population.json')
 
     chart.facet('mirror', {
       fields: [ 'gender' ],
-      transpose: false,
-      padding: [ 0, 0, 32, 0 ],
+      transpose: true,
+      padding: [ 0, 48, 0, 0 ],
       title: {
-        offsetX: 16,
-        offsetY: 0,
+        offsetX: 0,
+        offsetY: -16,
       },
       eachView(view) {
         view.interval()
