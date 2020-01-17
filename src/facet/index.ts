@@ -2,7 +2,9 @@ import { lowerCase } from '@antv/util';
 import { FacetCtor } from './interface';
 export { Facet } from './facet';
 
-// 所有的 Facet 类
+/**
+ * 所有的 Facet 类
+ */
 const Facets: Record<string, FacetCtor> = {};
 
 /**
