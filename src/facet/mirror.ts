@@ -1,8 +1,9 @@
-import { deepMix, every, filter, isNil } from '@antv/util';
+import { deepMix, each, every, filter, isNil } from '@antv/util';
+import { AxisCfg } from '../chart/interface';
 import View from '../chart/view';
 import { Datum } from '../interface';
 import { Facet } from './facet';
-import { MirrorCfg, MirrorData, RectData } from './interface';
+import { MirrorCfg, MirrorData } from './interface';
 
 export default class Mirror extends Facet<MirrorCfg, MirrorData> {
   protected getDefaultCfg() {
@@ -23,6 +24,12 @@ export default class Mirror extends Facet<MirrorCfg, MirrorData> {
       },
       transpose: false,
     });
+  }
+
+  public render() {
+    super.render();
+
+    this.renderTitle();
   }
 
   protected beforeEachView(view: View, facet: MirrorData) {
@@ -88,7 +95,7 @@ export default class Mirror extends Facet<MirrorCfg, MirrorData> {
           });
         });
 
-        const facet: RectData = {
+        const facet: MirrorData = {
           type: this.cfg.type,
           data: facetData,
           region: this.getRegion(rowValuesLength, columnValuesLength, xIndex, yIndex),
@@ -109,10 +116,61 @@ export default class Mirror extends Facet<MirrorCfg, MirrorData> {
     return rst;
   }
 
-  private processAxis(view: View, facet: MirrorData) {
+  /**
+   * 设置 x 坐标轴的文本、title 是否显示
+   * @param x
+   * @param axes
+   * @param option
+   * @param facet
+   */
+  protected getXAxisOption(x: string, axes: any, option: AxisCfg, facet: MirrorData): object {
+    // 非最后一行
     // 当是最后一行或者下面没有 view 时文本不显示
     if (facet.columnIndex === 1 || facet.rowIndex === 1) {
-      // todo 复用逻辑。
+      return {
+        ...option,
+        label: null,
+        title: null,
+      };
     }
+
+    return option
+  }
+
+
+  /**
+   * 设置 y 坐标轴的文本、title 是否显示
+   * @param y
+   * @param axes
+   * @param option
+   * @param facet
+   */
+  protected getYAxisOption(y: string, axes: any, option: AxisCfg, facet: MirrorData): object {
+    // do nothing
+    return option;
+  }
+
+  private renderTitle() {
+    each(this.facets, (facet: MirrorData, facetIndex: number) => {
+      const { columnValue, rowValue, view } = facet;
+
+      // column title
+      if (this.cfg.transpose) {
+        const config = deepMix({
+          position: [ '50%', '0%' ] as [string, string],
+          content: columnValue,
+        }, this.cfg.title);
+
+        view.annotation().text(config);
+      } else {
+        // 右方的 title
+        const config = deepMix({
+          position: [ '100%', '50%' ] as [string, string],
+          content: rowValue,
+        }, this.cfg. title);
+
+        view.annotation().text(config);
+      }
+    });
   }
 }

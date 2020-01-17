@@ -2,7 +2,6 @@ import { deepMix, each, every, filter, get, isNil } from '@antv/util';
 import { AxisCfg } from '../chart/interface';
 import View from '../chart/view';
 import { Datum } from '../interface';
-import { getAxisOption } from '../util/axis';
 import { Facet } from './facet';
 import { RectCfg, RectData } from './interface';
 
@@ -122,25 +121,23 @@ export default class Rect extends Facet<RectCfg, RectData> {
       const { columnIndex, rowIndex, columnValuesLength, rowValuesLength, columnValue, rowValue, view } = facet;
 
       if (rowIndex === 0) {
-        const config = {
+        const config = deepMix({
           position: [ '50%', '0%' ] as [string, string],
           content: columnValue,
-          ...this.cfg.columnTitle,
-        };
+        }, this.cfg.columnTitle);
 
         view.annotation().text(config);
       }
       if (columnIndex === columnValuesLength - 1) {
         // 右方的 title
-        const config = {
+        const config = deepMix({
           position: [ '100%', '50%' ] as [string, string],
           content: rowValue,
           style: {
             textAlign: 'left',
             rotate: -Math.PI / 2,
           },
-          ...this.cfg.rowTitle,
-        };
+        }, this.cfg.rowTitle);
 
         view.annotation().text(config);
       }
@@ -154,7 +151,7 @@ export default class Rect extends Facet<RectCfg, RectData> {
    * @param option
    * @param facet
    */
-  private getXAxisOption(x: string, axes: any, option: AxisCfg, facet: RectData): object {
+  protected getXAxisOption(x: string, axes: any, option: AxisCfg, facet: RectData): object {
     // 非最后一行
     if (facet.rowIndex !== facet.rowValuesLength - 1) {
       return {
@@ -179,7 +176,7 @@ export default class Rect extends Facet<RectCfg, RectData> {
    * @param option
    * @param facet
    */
-  private getYAxisOption(y: string, axes: any, option: AxisCfg, facet: RectData): object {
+  protected getYAxisOption(y: string, axes: any, option: AxisCfg, facet: RectData): object {
     if (facet.columnIndex !== 0) {
       return {
         ...option,
@@ -193,41 +190,5 @@ export default class Rect extends Facet<RectCfg, RectData> {
       }
     }
     return option;
-  }
-
-  /**
-   * 处理 axis 的默认配置
-   * @param view
-   * @param facet
-   */
-  private processAxis(view: View, facet: RectData) {
-    const options = view.getOptions();
-
-    const coordinateOption = options.coordinate;
-    const geometries = view.geometries;
-
-    const coordinateType = get(coordinateOption, 'type', 'rect');
-
-    if (coordinateType === 'rect' && geometries.length) {
-
-      if (isNil(options.axes)) {
-        // @ts-ignore
-        options.axes = {};
-      }
-      const axes = options.axes;
-
-      const [x, y] = geometries[0].getXYFields();
-
-      const xOption = getAxisOption(axes, x);
-      const yOption = getAxisOption(axes, y);
-
-      if (xOption !== false) {
-        options.axes[x] = this.getXAxisOption(x, axes, xOption, facet);
-      }
-
-      if (yOption !== false) {
-        options.axes[y] = this.getYAxisOption(y, axes, yOption, facet);
-      }
-    }
   }
 }
