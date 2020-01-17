@@ -65,8 +65,6 @@ export interface LineOption extends RegionPositionBaseOption {
     readonly offsetX?: number;
     /** y 方向偏移量 */
     readonly offsetY?: number;
-    // /** 文本的旋转角度，弧度制 */
-    // readonly rotate?: number;
   };
 }
 
@@ -77,6 +75,8 @@ export type RegionOption = RegionPositionBaseOption;
 export interface TextOption extends PointPositionBaseOption {
   /** 显示的文本内容 */
   readonly content: string | number;
+  /** 文本的旋转角度，弧度制 */
+  readonly rotate?: number;
 }
 
 export interface DataMarkerOption extends PointPositionBaseOption {
@@ -86,6 +86,10 @@ export interface DataMarkerOption extends PointPositionBaseOption {
   readonly line?: null | { style?: object; length?: number };
   /** text 设置 */
   readonly text: null | { style?: object; content: string };
+  /** 文本超出绘制区域时，是否自动调节文本方向，默认为 true */
+  readonly autoAdjust?: boolean;
+  /** 朝向，默认为 upward，可选值为 'upward' 或者 'downward' */
+  readonly direction?: 'upward' | 'downward';
 }
 
 export interface DataRegionOption extends RegionPositionBaseOption {
@@ -378,7 +382,7 @@ export default class Annotation extends Controller<BaseOption[]> {
    * @param option
    * @returns AnnotationController
    */
-  public dataMaker(option: DataMarkerOption) {
+  public dataMarker(option: DataMarkerOption) {
     this.annotation({
       type: 'dataMarker',
       ...option,
@@ -629,13 +633,15 @@ export default class Annotation extends Controller<BaseOption[]> {
         content: option.content,
       };
     } else if (type === 'dataMarker') {
-      const { position, point, line, text } = option as DataMarkerOption;
+      const { position, point, line, text, autoAdjust, direction } = option as DataMarkerOption;
       o = {
         ...this.parsePosition(position),
         coordinateBBox: this.getCoordinateBBox(),
         point,
         line,
         text,
+        autoAdjust,
+        direction,
       };
     } else if (type === 'dataRegion') {
       const { start, end } = option as DataRegionOption;

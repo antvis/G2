@@ -199,7 +199,7 @@ describe('annotation', () => {
 
   it('dataMarker', () => {
     chart.coordinate('rect');
-    chart.annotation().dataMaker({
+    chart.annotation().dataMarker({
       position: { city: '上海', sale: 110 },
       text: {
         content: 'data marker test',
@@ -207,10 +207,10 @@ describe('annotation', () => {
     });
     chart.render();
 
-    const dataMaker = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[7].component;
-    expect(dataMaker.get('type')).toEqual('dataMarker');
-    expect(dataMaker.get('x')).toEqual(494);
-    expect(dataMaker.get('y')).toEqual(70);
+    const dataMarker = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[7].component;
+    expect(dataMarker.get('type')).toEqual('dataMarker');
+    expect(dataMarker.get('x')).toEqual(494);
+    expect(dataMarker.get('y')).toEqual(70);
   });
 
   it('dataRegion', () => {

@@ -726,6 +726,34 @@ export default {
       },
       image: {
         top: false,
+      },
+      dataMarker: {
+        top: true,
+        point: {
+          style: {
+            r: 3,
+            fill: '#FFFFFF',
+            stroke: '#1890FF',
+            lineWidth: 2,
+          },
+        },
+        line: {
+          style: {
+            stroke: '#A3B1BF',
+            lineWidth: 1,
+          },
+          length: 20,
+        },
+        text: {
+          style: {
+            fill: 'rgba(0, 0, 0, .65)',
+            opacity: 1,
+            fontSize: 12,
+            textAlign: 'start'
+          },
+        },
+        direction: 'upward',
+        autoAdjust: true
       }
     },
   },
