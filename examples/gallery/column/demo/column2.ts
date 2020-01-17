@@ -36,19 +36,6 @@ chart.tooltip({
   shared: true,
 });
 
-// TODO: 待支持
-// chart.annotation().dataMarker({
-//   top: true,
-//   content: '因政策调整导致销量下滑',
-//   position: ['2014-01', 1750],
-//   style: {
-//     text: {
-//       fontSize: 13
-//     }
-//   },
-//   lineLength: 30
-// });
-
 chart.interval().position('type*value');
 
 // 添加文本标注

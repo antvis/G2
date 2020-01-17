@@ -91,11 +91,11 @@ module.exports = {
     ],
     examples: [
       {
-        slug: 'gallery',
+        slug: 'Featured',
         icon: 'gallery',
         title: {
           zh: '官方精品库',
-          en: 'Gallery',
+          en: 'Featured',
         },
       },
       {
