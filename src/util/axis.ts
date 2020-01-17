@@ -194,3 +194,12 @@ export function getAxisOption(axes: Record<string, AxisOption> | boolean, field:
     return get(axes, [field]);
   }
 }
+
+/**
+ * 如果配置了 position，则使用配置
+ * @param axisOption
+ * @param def
+ */
+export function getAxisDirection(axisOption: AxisOption, def: DIRECTION): DIRECTION {
+  return get(axisOption, 'position', def);
+}

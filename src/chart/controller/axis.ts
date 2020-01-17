@@ -1,7 +1,13 @@
 import { deepMix, each, get, isBoolean, map, mix } from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { CircleAxis, CircleGrid, IGroup, LineAxis, LineGrid, Scale } from '../../dependents';
-import { getAxisFactorByRegion, getAxisRegion, getAxisThemeCfg, getCircleAxisCenterRadius } from '../../util/axis';
+import {
+  getAxisDirection,
+  getAxisFactorByRegion,
+  getAxisRegion,
+  getAxisThemeCfg,
+  getCircleAxisCenterRadius
+} from '../../util/axis';
 import { getAxisOption } from '../../util/axis';
 import { getCircleGridItems, getGridThemeCfg, getLineGridItems, showGrid } from '../../util/grid';
 import { omit } from '../../util/helper';
@@ -186,7 +192,7 @@ export default class Axis extends Controller<Option> {
     const axisId = this.getId('axis', field);
     const gridId = this.getId('grid', field);
 
-    const direction = DIRECTION.BOTTOM;
+    const direction = getAxisDirection(xAxisOption, DIRECTION.BOTTOM);
     const layer = LAYER.BG;
     const dim = 'x';
 
@@ -280,7 +286,7 @@ export default class Axis extends Controller<Option> {
         const coordinate = this.view.getCoordinate();
 
         if (coordinate.isRect) {
-          const direction = idx === 0 ? DIRECTION.LEFT : DIRECTION.RIGHT;
+          const direction = getAxisDirection(yAxisOption, idx === 0 ? DIRECTION.LEFT : DIRECTION.RIGHT);
 
           // 1. do axis update
           let axis = this.cache.get(axisId);
@@ -370,7 +376,7 @@ export default class Axis extends Controller<Option> {
 
     const xAxisOption = getAxisOption(this.option, scale.field);
     if (xAxisOption !== false) {
-      const direction = DIRECTION.BOTTOM;
+      const direction = getAxisDirection(xAxisOption, DIRECTION.BOTTOM);
       const layer = LAYER.BG;
       const dim = 'x';
 
@@ -429,7 +435,7 @@ export default class Axis extends Controller<Option> {
         const coordinate = this.view.getCoordinate();
 
         if (coordinate.isRect) {
-          const direction = idx === 0 ? DIRECTION.LEFT : DIRECTION.RIGHT;
+          const direction = getAxisDirection(yAxisOption, idx === 0 ? DIRECTION.LEFT : DIRECTION.RIGHT);
           // axis
           const axis = this.createLineAxis(scale, yAxisOption, layer, direction, dim);
           this.cache.set(axisId, axis);

@@ -1,9 +1,9 @@
 import { getCoordinate } from '@antv/coord';
 import { DIRECTION } from '../../../src';
 import {
+  getAxisDirection,
   getAxisFactor,
   getAxisFactorByRegion,
-  getCircleAxisCenterRadius,
   getLineAxisRelativeRegion,
 } from '../../../src/util/axis';
 
@@ -134,5 +134,13 @@ describe('util axis', () => {
       start: { x: 0, y: 0 },
       end: { x: 0, y: 0 },
     });
+  });
+
+  it('getAxisDirection', () => {
+    expect(getAxisDirection(false, DIRECTION.BOTTOM)).toBe(DIRECTION.BOTTOM);
+    expect(getAxisDirection({}, DIRECTION.TOP)).toBe(DIRECTION.TOP);
+    expect(getAxisDirection({ position: 'top' }, DIRECTION.BOTTOM)).toBe(DIRECTION.TOP);
+    // @ts-ignore
+    expect(getAxisDirection({ position: 'xxx' }, DIRECTION.BOTTOM)).toBe('xxx');
   });
 });

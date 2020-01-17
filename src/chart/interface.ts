@@ -455,7 +455,6 @@ export interface AxisGridCfg {
 
 export interface AxisCfg {
   /**
-   * todo: @hustcc
    * 适用于直角坐标系，设置坐标轴的位置
    */
   position?: 'top' | 'bottom' | 'right' | 'left';
