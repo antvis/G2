@@ -30,6 +30,7 @@ fetch('../data/terrorism.json')
       container: 'container',
       autoFit: true,
       height: 500,
+      padding: [ 20, 40 ],
     });
 
     const view1 = chart.createView();
