@@ -10,7 +10,7 @@ describe('Component', () => {
     container: div,
     width: 800,
     height: 600,
-    padding: 10,
+    padding: 'auto',
     autoFit: false,
   });
 
@@ -48,6 +48,14 @@ describe('Component', () => {
     position: 'bottom',
   });
 
+  chart.axis('sale', {
+    grid: {
+      line: {
+        type: 'circle',
+      }
+    },
+  });
+
   chart.render();
 
   it('circle axis component', () => {
@@ -58,6 +66,10 @@ describe('Component', () => {
     expect(x.component.get('title')).toBe(null);
     // @ts-ignore
     expect(x.component.get('label').offset).toBe(8);
+
+    const grids = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.GRID);
+    // circle grid 需要传入 coordinate 的 center
+    expect(grids[0].component.get('center')).toEqual({ x: 400, y: 293 });
   });
 
   it('linear x axis ticks', () => {
