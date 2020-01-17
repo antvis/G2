@@ -1,6 +1,6 @@
 /* G2 的一个壳子，不包含 Geometry，由开发者自己定义和引入 */
 
-export const VERSION = '4.0.0-beta.6';
+export const VERSION = '4.0.0-beta.7';
 
 // 核心基类导出
 export { Chart, View, Event } from './chart'; // Chart, View 类
