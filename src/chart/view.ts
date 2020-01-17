@@ -1519,6 +1519,7 @@ export class View extends Base {
    */
   private renderFacet() {
     if (this.facetInstance) {
+      this.facetInstance.clear();
       // 计算分面数据
       this.facetInstance.init();
       // 渲染组件和 views
