@@ -1,6 +1,6 @@
-import { deepMix, each, get, isArray } from '@antv/util';
+import { deepMix, each, get, isArray, isString } from '@antv/util';
 import { doAnimate } from '../animate';
-import { AbstractGroup, AbstractShape, BBox, IGroup, IShape } from '../dependents';
+import { BBox, IGroup, IShape } from '../dependents';
 import { GeometryLabelLayoutCfg } from '../geometry/interface';
 import { getGeometryLabelLayout } from '../geometry/label';
 import { LabelItem } from '../geometry/label/interface';
@@ -155,7 +155,18 @@ export default class Labels {
       ...shapeAppendCfg,
     });
     let labelShape;
-    if (content instanceof AbstractShape || content instanceof AbstractGroup) {
+    if (isString(content)) {
+      labelShape = labelGroup.addShape('text', {
+        attrs: {
+          x: cfg.x,
+          y: cfg.y,
+          textAlign: cfg.textAlign,
+          text: cfg.content,
+          ...cfg.style,
+        },
+        ...shapeAppendCfg,
+      });
+    } else {
       // 如果 content 是 Group 或者 Shape，根据 textAlign 调整位置后，直接将其加入 labelGroup
       const { width, height } = content.getCanvasBBox();
       const textAlign = cfg.textAlign || 'left';
@@ -172,17 +183,6 @@ export default class Labels {
       translate(content, x, y); // 将 label 平移至 x, y 指定的位置
       labelShape = content;
       labelGroup.add(content);
-    } else {
-      labelShape = labelGroup.addShape('text', {
-        attrs: {
-          x: cfg.x,
-          y: cfg.y,
-          textAlign: cfg.textAlign,
-          text: cfg.content,
-          ...cfg.style,
-        },
-        ...shapeAppendCfg,
-      });
     }
 
     if (cfg.rotate) {
