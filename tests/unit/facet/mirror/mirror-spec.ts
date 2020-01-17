@@ -55,7 +55,7 @@ describe('facet mirror', () => {
       container: div,
       width: 600,
       height: 500,
-      padding: [16, 16, 0, 48]
+      padding: [16, 48, 0, 48]
     });
 
     chart.data(getData());
@@ -79,6 +79,10 @@ describe('facet mirror', () => {
       fields: [ 'gender' ],
       transpose: false,
       padding: [ 0, 0, 32, 0 ],
+      title: {
+        offsetX: 16,
+        offsetY: 0,
+      },
       eachView(view) {
         view.interval()
           .position('age*total_percentage')
@@ -87,7 +91,54 @@ describe('facet mirror', () => {
     });
     chart.render();
 
-    expect(1).toBe(1);
+    // @ts-ignore
+    const facetInstance = chart.facetInstance;
+    // @ts-ignore
+    const facets = facetInstance.facets;
+    // facet data
+    expect(facets.length).toBe(2);
+    const [top, bottom] = facets;
+    expect(top.rowIndex).toBe(0);
+    expect(top.columnIndex).toBe(0);
+
+    expect(bottom.rowIndex).toBe(1);
+    expect(bottom.columnIndex).toBe(0);
+
+    // axis 处理逻辑
+    expect(top.view.getOptions().axes).toEqual({
+      age: undefined,
+      total_percentage: undefined,
+    });
+    expect(bottom.view.getOptions().axes).toEqual({
+      age: {
+        label: null,
+        title: null,
+      },
+      total_percentage: undefined,
+    });
+
+    // annotation
+    // @ts-ignore
+    const topOption = top.view.getController('annotation').option[0];
+    // @ts-ignore
+    expect(topOption.type).toEqual('text');
+    // @ts-ignore
+    expect(topOption.position).toEqual(['100%', '50%']);
+    // @ts-ignore
+    expect(topOption.offsetX).toEqual(16);
+    // @ts-ignore
+    expect(topOption.offsetY).toEqual(0);
+
+    // @ts-ignore
+    const bottomOption = bottom.view.getController('annotation').option[0];
+    // @ts-ignore
+    expect(bottomOption.type).toEqual('text');
+    // @ts-ignore
+    expect(bottomOption.position).toEqual(['100%', '50%']);
+    // @ts-ignore
+    expect(bottomOption.offsetX).toEqual(16);
+    // @ts-ignore
+    expect(bottomOption.offsetY).toEqual(0);
   });
 
   it('transpose = true', () => {
@@ -97,7 +148,7 @@ describe('facet mirror', () => {
       container: div,
       width: 600,
       height: 500,
-      padding: [16, 16, 48, 16]
+      padding: [32, 16, 48, 16]
     });
 
     chart.data(getData());
@@ -121,6 +172,10 @@ describe('facet mirror', () => {
       fields: [ 'gender' ],
       transpose: true,
       padding: [ 0, 48, 0, 0 ],
+      title: {
+        offsetX: 0,
+        offsetY: -16,
+      },
       eachView(view) {
         view.interval()
           .position('age*total_percentage')
@@ -129,6 +184,54 @@ describe('facet mirror', () => {
     });
     chart.render();
 
-    expect(1).toBe(1);
+
+    // @ts-ignore
+    const facetInstance = chart.facetInstance;
+    // @ts-ignore
+    const facets = facetInstance.facets;
+    // facet data
+    expect(facets.length).toBe(2);
+    const [left, right] = facets;
+    expect(left.rowIndex).toBe(0);
+    expect(left.columnIndex).toBe(0);
+
+    expect(right.rowIndex).toBe(0);
+    expect(right.columnIndex).toBe(1);
+
+    // axis 处理逻辑
+    expect(left.view.getOptions().axes).toEqual({
+      age: undefined,
+      total_percentage: undefined,
+    });
+    expect(right.view.getOptions().axes).toEqual({
+      age: {
+        label: null,
+        title: null,
+      },
+      total_percentage: undefined,
+    });
+
+    // annotation
+    // @ts-ignore
+    const leftOption = left.view.getController('annotation').option[0];
+    // @ts-ignore
+    expect(leftOption.type).toEqual('text');
+    // @ts-ignore
+    expect(leftOption.position).toEqual(['50%', '0%']);
+    // @ts-ignore
+    expect(leftOption.offsetX).toEqual(0);
+    // @ts-ignore
+    expect(leftOption.offsetY).toEqual(-16);
+
+    // @ts-ignore
+    const rightOption = right.view.getController('annotation').option[0];
+    // @ts-ignore
+    expect(rightOption.type).toEqual('text');
+    // @ts-ignore
+    expect(rightOption.position).toEqual(['50%', '0%']);
+    // @ts-ignore
+    expect(rightOption.offsetX).toEqual(0);
+    // @ts-ignore
+    expect(rightOption.offsetY).toEqual(-16);
   });
 });

@@ -1,8 +1,7 @@
 import { Chart } from '../../../../src';
 import DIAMOND from '../../../../examples/data/diamond.json';
-
-import { createDiv } from '../../../util/dom';
 import { RectCfg } from '../../../../src/facet/interface';
+import { createDiv } from '../../../util/dom';
 
 describe('facet rect', () => {
   const div = createDiv();
@@ -57,8 +56,6 @@ describe('facet rect', () => {
 
   chart.render();
 
-  // @ts-ignore
-  window.chart = chart;
   // @ts-ignore
   const facet = chart.facetInstance;
 

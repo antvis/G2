@@ -1,9 +1,11 @@
-import { deepMix, each, isNil } from '@antv/util';
+import { deepMix, each, get, isNil } from '@antv/util';
+import { AxisCfg } from '../chart/interface';
 import View from '../chart/view';
 import { LAYER } from '../constant';
 import { IGroup } from '../dependents';
 import { Datum, Region } from '../interface';
-import { FacetCfg, FacetComponent, FacetData } from './interface';
+import { getAxisOption } from '../util/axis';
+import { FacetCfg, FacetData, RectData } from './interface';
 
 /**
  * facet 基类
@@ -39,8 +41,6 @@ export abstract class Facet<C extends FacetCfg = FacetCfg, F extends FacetData =
   protected cfg: C;
   /** 分面之后的所有分面数据结构 */
   protected facets: F[] = [];
-  /** 存储四个方向的组件 */
-  protected components: FacetComponent[] = [];
   /** 是否销毁 */
   protected destroyed: boolean = false;
 
@@ -230,6 +230,42 @@ export abstract class Facet<C extends FacetCfg = FacetCfg, F extends FacetData =
   }
 
   /**
+   * 处理 axis 的默认配置
+   * @param view
+   * @param facet
+   */
+  protected processAxis(view: View, facet: F) {
+    const options = view.getOptions();
+
+    const coordinateOption = options.coordinate;
+    const geometries = view.geometries;
+
+    const coordinateType = get(coordinateOption, 'type', 'rect');
+
+    if (coordinateType === 'rect' && geometries.length) {
+
+      if (isNil(options.axes)) {
+        // @ts-ignore
+        options.axes = {};
+      }
+      const axes = options.axes;
+
+      const [x, y] = geometries[0].getXYFields();
+
+      const xOption = getAxisOption(axes, x);
+      const yOption = getAxisOption(axes, y);
+
+      if (xOption !== false) {
+        options.axes[x] = this.getXAxisOption(x, axes, xOption, facet);
+      }
+
+      if (yOption !== false) {
+        options.axes[y] = this.getYAxisOption(y, axes, yOption, facet);
+      }
+    }
+  }
+
+  /**
    * @override 开始处理 eachView
    * @param view
    * @param facet
@@ -248,4 +284,23 @@ export abstract class Facet<C extends FacetCfg = FacetCfg, F extends FacetData =
    * @param data
    */
   protected abstract generateFacets(data: Datum[]): F[];
+
+  /**
+   * 获取 x 轴的配置
+   * @param x
+   * @param axes
+   * @param option
+   * @param facet
+   */
+  protected abstract getXAxisOption(x: string, axes: any, option: AxisCfg, facet: F): object;
+
+  /**
+   * 获取 y 轴的配置
+   * @param y
+   * @param axes
+   * @param option
+   * @param facet
+   */
+  protected abstract getYAxisOption(y: string, axes: any, option: AxisCfg, facet: F): object;
 }
+
