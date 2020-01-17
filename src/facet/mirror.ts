@@ -5,6 +5,9 @@ import { Datum } from '../interface';
 import { Facet } from './facet';
 import { MirrorCfg, MirrorData } from './interface';
 
+/**
+ * 镜像分面
+ */
 export default class Mirror extends Facet<MirrorCfg, MirrorData> {
   protected getDefaultCfg() {
     // @ts-ignore
