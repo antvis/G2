@@ -355,14 +355,33 @@ interface TooltipCrosshairsText extends CrosshairTextCfg {
   content?: string;
 }
 
+/**
+ * 辅助线文本回调函数
+ * @param type 对应当前 crosshairs 的类型，值为 'x' 或者 'x'
+ * @param defaultContent 对应当前 crosshairs 默认的文本内容
+ * @param items 对应当前 tooltip 内容框中的数据
+ * @param currentPoint 对应当前坐标点
+ * @returns 返回当前 crosshairs 对应的辅助线文本配置
+ */
 type TooltipCrosshairsTextCallback = (type: string, defaultContent: any, items: any[], currentPoint: Point) => TooltipCrosshairsText;
 export interface TooltipCrosshairs {
   /**
-   * crosshairs 的类型
+   * crosshairs 的类型: `x` 表示 x 轴上的辅助线，`y` 表示 y 轴上的辅助项。
+   * 以下是在不同坐标系下，crosshairs 各个类型的表现
+   *
+   * 坐标系 | type = 'x' | type = 'xy' | type = 'y'
+   * ------------ | ------------- | -------------
+   * 直角坐标系  | ![image](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*jmUBQ4nbtXsAAAAAAAAAAABkARQnAQ) | ![image](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*RpWXT76ZSQgAAAAAAAAAAABkARQnAQ) | ![image](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Xjl8TLIJLuUAAAAAAAAAAABkARQnAQ)
+   * 极坐标 | ![image](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*zbMVSoKTyFsAAAAAAAAAAABkARQnAQ) | ![image](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*k5EYRJspET0AAAAAAAAAAABkARQnAQ) | ![image](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*n_TKQpUaXWEAAAAAAAAAAABkARQnAQ)
    */
   type?: 'x' | 'y' | 'xy';
+  /** 辅助线的样式配置 */
   line?: CrosshairLineCfg;
+  /**
+   * 辅助线文本配置，支持回调
+   */
   text?: TooltipCrosshairsText | TooltipCrosshairsTextCallback;
+  /** 辅助线文本背景配置 */
   textBackground?: CrosshairTextBackgroundCfg;
 }
 
@@ -380,14 +399,10 @@ export interface TooltipCfg {
   position?: 'top' | 'bottom' | 'left' | 'right';
   /** true 表示展示一组数据，false 表示展示单条数据 */
   shared?: boolean; // 是否只展示单条数据
-
-
   /** 是否展示 crosshairs */
   showCrosshairs?: boolean;
   /** 配置 tooltip 的 crosshairs */
   crosshairs?: TooltipCrosshairs;
-
-
   /** 是否渲染 tooltipMarkers */
   showTooltipMarkers?: boolean;
   /** tooltipMarker 的样式 */
