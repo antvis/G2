@@ -57,9 +57,6 @@ fetch('../data/candle-sticks.json')
       min: { alias: '最低价' },
       range: { alias: '股票价格' }
     });
-    chart.legend({
-      offsetY: 20
-    });
     chart.tooltip({
       showTitle: false,
       showTooltipMarkers: false,
