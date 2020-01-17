@@ -104,7 +104,11 @@ export default class Axis extends Controller<Option> {
         }
       } else if (type === COMPONENT_TYPE.GRID) {
         if (coordinate.isPolar) {
-          updated = { items: getCircleGridItems(coordinate, this.view.getXScale(), scale, dim) };
+          updated = {
+            items: getCircleGridItems(coordinate, this.view.getXScale(), scale, dim),
+            // coordinate 更新之后，center 也变化了
+            center: this.view.getCoordinate().getCenter(),
+          };
         } else {
           updated = { items: getLineGridItems(coordinate, scale, dim) };
         }
