@@ -36,13 +36,13 @@ export abstract class Facet<C extends FacetCfg = FacetCfg, F extends FacetData =
   public view: View;
   /** 分面容器 */
   public container: IGroup;
+  /** 是否销毁 */
+  public destroyed: boolean = false;
 
   /** 分面的配置项 */
   protected cfg: C;
   /** 分面之后的所有分面数据结构 */
   protected facets: F[] = [];
-  /** 是否销毁 */
-  protected destroyed: boolean = false;
 
   constructor(view: View, cfg: C) {
     this.view = view;
@@ -54,7 +54,9 @@ export abstract class Facet<C extends FacetCfg = FacetCfg, F extends FacetData =
    */
   public init() {
     // 初始化容器
-    this.container = this.createContainer();
+    if (!this.container) {
+      this.container = this.createContainer();
+    }
 
     // 生成分面布局信息
     const data = this.view.getData();
@@ -137,8 +139,6 @@ export abstract class Facet<C extends FacetCfg = FacetCfg, F extends FacetData =
    * 初始化 view
    */
   private renderViews() {
-    // 先清空，再绘制
-    this.clearFacetViews();
     this.createFacetViews();
   }
 

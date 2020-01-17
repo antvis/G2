@@ -46,49 +46,49 @@ function getData() {
   return dv.rows;
 }
 
-describe('facet mirror', () => {
+describe('facet mirror transpose = false', () => {
+  const div = createDiv();
 
-  it('transpose = false', () => {
-    const div = createDiv();
+  const chart = new Chart({
+    container: div,
+    width: 600,
+    height: 500,
+    padding: [16, 48, 0, 48]
+  });
 
-    const chart = new Chart({
-      container: div,
-      width: 600,
-      height: 500,
-      padding: [16, 48, 0, 48]
-    });
-
-    chart.data(getData());
-    chart.scale({
-      age: {
-        sync: true,
-        tickCount: 11
-      },
-      total_percentage: {
-        sync: true,
-        formatter(v) {
-          return v + '%';
-        }
-      },
-      gender: {
-        sync: true
+  chart.data(getData());
+  chart.scale({
+    age: {
+      sync: true,
+      tickCount: 11
+    },
+    total_percentage: {
+      sync: true,
+      formatter(v) {
+        return v + '%';
       }
-    });
+    },
+    gender: {
+      sync: true
+    }
+  });
 
-    chart.facet('mirror', {
-      fields: [ 'gender' ],
-      transpose: false,
-      padding: [ 0, 0, 32, 0 ],
-      title: {
-        offsetX: 16,
-        offsetY: 0,
-      },
-      eachView(view) {
-        view.interval()
-          .position('age*total_percentage')
-          .color('gender', [ '#1890ff', '#f04864' ]);
-      }
-    });
+  chart.facet('mirror', {
+    fields: [ 'gender' ],
+    transpose: false,
+    padding: [ 0, 0, 32, 0 ],
+    title: {
+      offsetX: 16,
+      offsetY: 0,
+    },
+    eachView(view) {
+      view.interval()
+        .position('age*total_percentage')
+        .color('gender', [ '#1890ff', '#f04864' ]);
+    }
+  });
+
+  it('render', () => {
     chart.render();
 
     // @ts-ignore
@@ -140,50 +140,52 @@ describe('facet mirror', () => {
     // @ts-ignore
     expect(bottomOption.offsetY).toEqual(0);
   });
+});
 
-  it('transpose = true', () => {
-    const div = createDiv();
+describe('facet mirror transpose = true', () => {
+  const div = createDiv();
 
-    const chart = new Chart({
-      container: div,
-      width: 600,
-      height: 500,
-      padding: [32, 16, 48, 16]
-    });
+  const chart = new Chart({
+    container: div,
+    width: 600,
+    height: 500,
+    padding: [32, 16, 48, 16]
+  });
 
-    chart.data(getData());
-    chart.scale({
-      age: {
-        sync: true,
-        tickCount: 11
-      },
-      total_percentage: {
-        sync: true,
-        formatter(v) {
-          return v + '%';
-        }
-      },
-      gender: {
-        sync: true
+  chart.data(getData());
+  chart.scale({
+    age: {
+      sync: true,
+      tickCount: 11
+    },
+    total_percentage: {
+      sync: true,
+      formatter(v) {
+        return v + '%';
       }
-    });
+    },
+    gender: {
+      sync: true
+    }
+  });
 
-    chart.facet('mirror', {
-      fields: [ 'gender' ],
-      transpose: true,
-      padding: [ 0, 48, 0, 0 ],
-      title: {
-        offsetX: 0,
-        offsetY: -16,
-      },
-      eachView(view) {
-        view.interval()
-          .position('age*total_percentage')
-          .color('gender', [ '#1890ff', '#f04864' ]);
-      }
-    });
+  chart.facet('mirror', {
+    fields: [ 'gender' ],
+    transpose: true,
+    padding: [ 0, 48, 0, 0 ],
+    title: {
+      offsetX: 0,
+      offsetY: -16,
+    },
+    eachView(view) {
+      view.interval()
+        .position('age*total_percentage')
+        .color('gender', [ '#1890ff', '#f04864' ]);
+    }
+  });
+
+  it('render', () => {
     chart.render();
-
 
     // @ts-ignore
     const facetInstance = chart.facetInstance;
@@ -233,5 +235,42 @@ describe('facet mirror', () => {
     expect(rightOption.offsetX).toEqual(0);
     // @ts-ignore
     expect(rightOption.offsetY).toEqual(-16);
+  });
+
+  it('rerender', () => {
+    chart.render();
+    // @ts-ignore
+    const facetInstance = chart.facetInstance;
+
+    // @ts-ignore
+    expect(facetInstance.facets.length).toBe(2);
+    expect(facetInstance.destroyed).toBe(false);
+  });
+
+  it('clear', () => {
+    // @ts-ignore
+    const facetInstance = chart.facetInstance;
+    facetInstance.clear();
+
+    // @ts-ignore
+    expect(facetInstance.facets.length).toBe(2);
+    // @ts-ignore
+    expect(facetInstance.facets[0].view).toBe(undefined);
+    expect(facetInstance.destroyed).toBe(false);
+
+    expect(facetInstance.container).toBeDefined();
+
+    expect(chart.views.length).toBe(0);
+  });
+
+  it('destroy', () => {
+    // @ts-ignore
+    const facetInstance = chart.facetInstance;
+    facetInstance.destroy();
+
+    // @ts-ignore
+    expect(facetInstance.facets).toEqual([]);
+    expect(facetInstance.destroyed).toBe(true);
+    expect(chart.views.length).toBe(0);
   });
 });
