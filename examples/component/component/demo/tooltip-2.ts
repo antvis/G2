@@ -35,6 +35,7 @@ chart.scale('score', {
 chart.coordinate('polar', {
   radius: 0.8,
 });
+chart.axis(false);
 chart.axis('item', {
   line: null,
   tickLine: null,
@@ -42,6 +43,7 @@ chart.axis('item', {
     line: {
       style: {
         lineDash: null,
+        strokeOpacity: 0.3
       },
     },
   },
@@ -54,10 +56,25 @@ chart.axis('score', {
       type: 'circle',
       style: {
         lineDash: null,
+        strokeOpacity: 0.3
       },
     },
-    alternateColor: 'rgba(0, 0, 0, 0.04)',
   },
+});
+
+chart.tooltip({
+  shared: true,
+  follow: true,
+  showCrosshairs: true,
+  crosshairs: {
+    type: 'xy',
+    line: {
+      style: {
+        stroke: '#565656',
+        lineDash: [4],
+      },
+    },
+  }
 });
 
 chart

@@ -85,26 +85,26 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*zo8yQp-k7hgAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "tooltip-customized.ts",
+      "filename": "tooltip-1.ts",
       "title": {
-        "zh": "自定义 tooltip",
-        "en": "customized tooltip"
+        "zh": "极坐标下的半径轴 crosshairs",
+        "en": ""
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*kxObRLXxmccAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*DrWlSqS1j4sAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "tooltip-fixed-position.ts",
+      "filename": "tooltip-2.ts",
       "title": {
-        "zh": "tooltip-固定位置",
-        "en": "fixed tooltip"
+        "zh": "极坐标下的 xy crosshairs",
+        "en": ""
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*xNidQ7xZJd0AAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*DrWlSqS1j4sAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "tooltip-html-content.ts",
+      "filename": "tooltip-3.ts",
       "title": {
-        "zh": "tooltip-htmlContent",
-        "en": "customized html tooltip"
+        "zh": "xy crosshairs，带文本",
+        "en": ""
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*DrWlSqS1j4sAAAAAAAAAAABkARQnAQ"
     }
