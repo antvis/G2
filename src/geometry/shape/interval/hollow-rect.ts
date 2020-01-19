@@ -5,7 +5,7 @@ import { getStyle } from '../util/get-style';
 import { getRectPath } from './util';
 
 /** 描边柱状图 */
-registerShape('interval', 'hollowRect', {
+registerShape('interval', 'hollow-rect', {
   draw(cfg: ShapeInfo, container: IGroup) {
     const style = getStyle(cfg, true, false);
     const path = this.parsePath(getRectPath(cfg.points as Point[]));

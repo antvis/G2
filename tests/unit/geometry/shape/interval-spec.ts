@@ -147,7 +147,7 @@ describe('Interval shapes', () => {
     });
   });
 
-  describe('hollowRect', () => {
+  describe('hollow-rect', () => {
     IntervalShapeFactory.coordinate = rectCoord;
 
     const element = new Element({
@@ -162,17 +162,17 @@ describe('Interval shapes', () => {
         y0: 0.6,
         size: 0.2,
       };
-      const points = IntervalShapeFactory.getShapePoints('hollowRect', cfg);
+      const points = IntervalShapeFactory.getShapePoints('hollow-rect', cfg);
       const shape = IntervalShapeFactory.drawShape(
-        'hollowRect',
+        'hollow-rect',
         {
           x: 100,
           y: 100,
           points,
           color: 'yellow',
-          shape: 'hollowRect',
+          shape: 'hollow-rect',
           defaultStyle: {
-            ...Theme.geometries.interval.hollowRect.default,
+            ...Theme.geometries.interval['hollow-rect'].default,
           },
         },
         element.container
@@ -184,21 +184,21 @@ describe('Interval shapes', () => {
       expect(shape.getBBox().width).toBe(102);
     });
     it('getMarker', () => {
-      const markerCfg = IntervalShapeFactory.getMarker('hollowRect', { color: 'red', isInPolar: false });
+      const markerCfg = IntervalShapeFactory.getMarker('hollow-rect', { color: 'red', isInPolar: false });
       expect(markerCfg).toEqual({
         symbol: 'square',
         style: {
-          ...Theme.geometries.interval.hollowRect.default,
+          ...Theme.geometries.interval['hollow-rect'].default,
           r: 4,
           stroke: 'red',
         },
       });
 
-      const polaeMarkerCfg = IntervalShapeFactory.getMarker('hollowRect', { color: 'red', isInPolar: true });
+      const polaeMarkerCfg = IntervalShapeFactory.getMarker('hollow-rect', { color: 'red', isInPolar: true });
       expect(polaeMarkerCfg).toEqual({
         symbol: 'circle',
         style: {
-          ...Theme.geometries.interval.hollowRect.default,
+          ...Theme.geometries.interval['hollow-rect'].default,
           r: 4.5,
           stroke: 'red',
         },

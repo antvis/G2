@@ -8,7 +8,7 @@ import { getShapeAttrs } from './util';
  */
 registerShape('area', 'line', {
   draw(cfg: ShapeInfo, container: IGroup) {
-    const attrs = getShapeAttrs('line', cfg, false, this);
+    const attrs = getShapeAttrs(cfg, true, false, this);
     const shape = container.addShape({
       type: 'path',
       attrs,

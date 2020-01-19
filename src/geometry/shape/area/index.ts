@@ -23,7 +23,7 @@ const AreaShapeFactory = registerShapeFactory('area', {
 // Area 几何标记默认的 shape：填充的区域图
 registerShape('area', 'area', {
   draw(cfg: ShapeInfo, container: IGroup) {
-    const attrs = getShapeAttrs('area', cfg, false, this);
+    const attrs = getShapeAttrs(cfg, false, false, this);
     const shape = container.addShape({
       type: 'path',
       attrs,

@@ -75,9 +75,9 @@ import { limitInShape } from './geometry/label/layout/limit-in-shape';
 import { fixedOverlap, overlap } from './geometry/label/layout/overlap';
 
 registerGeometryLabelLayout('overlap', overlap);
-registerGeometryLabelLayout('fixedOverlap', fixedOverlap);
-registerGeometryLabelLayout('limitInShape', limitInShape);
-registerGeometryLabelLayout('limitInCanvas', limitInCanvas);
+registerGeometryLabelLayout('fixed-overlap', fixedOverlap);
+registerGeometryLabelLayout('limit-in-shape', limitInShape);
+registerGeometryLabelLayout('limit-in-canvas', limitInCanvas);
 
 // 注册需要的动画执行函数
 import { fadeIn, fadeOut } from './animate/animation/fade';
@@ -89,18 +89,18 @@ import { waveIn } from './animate/animation/wave-in';
 import { zoomIn, zoomOut } from './animate/animation/zoom';
 import { registerAnimation } from './core';
 
-registerAnimation('fadeIn', fadeIn);
-registerAnimation('fadeOut', fadeOut);
-registerAnimation('growInX', growInX);
-registerAnimation('growInXY', growInXY);
-registerAnimation('growInY', growInY);
-registerAnimation('scaleInX', scaleInX);
-registerAnimation('scaleInY', scaleInY);
-registerAnimation('waveIn', waveIn);
-registerAnimation('zoomIn', zoomIn);
-registerAnimation('zoomOut', zoomOut);
-registerAnimation('textUpdate', textUpdate);
-registerAnimation('sectorPathUpdate', sectorPathUpdate);
+registerAnimation('fade-in', fadeIn);
+registerAnimation('fade-out', fadeOut);
+registerAnimation('grow-in-x', growInX);
+registerAnimation('grow-in-xy', growInXY);
+registerAnimation('grow-in-y', growInY);
+registerAnimation('scale-in-x', scaleInX);
+registerAnimation('scale-in-y', scaleInY);
+registerAnimation('wave-in', waveIn);
+registerAnimation('zoom-in', zoomIn);
+registerAnimation('zoom-out', zoomOut);
+registerAnimation('text-update', textUpdate);
+registerAnimation('sector-path-update', sectorPathUpdate);
 
 // 注册内置的 Facet
 import { registerFacet } from './core';
