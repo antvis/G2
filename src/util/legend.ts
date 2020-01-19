@@ -4,6 +4,7 @@ import { DIRECTION } from '../constant';
 import { Attribute, Scale, Tick } from '../dependents';
 import Geometry from '../geometry/base';
 import { getMappingValue } from './attr';
+import { LegendItem } from '../chart/interface';
 
 /**
  * get the legend layout from direction
@@ -21,6 +22,7 @@ export function getLegendLayout(direction: DIRECTION): 'vertical' | 'horizontal'
  * @param attr
  * @param themeMarker
  * @param userMarker
+ * @param customItems
  * @returns legend items
  */
 export function getLegendItems(
@@ -28,8 +30,21 @@ export function getLegendItems(
   geometry: Geometry,
   attr: Attribute,
   themeMarker: object,
-  userMarker
+  userMarker,
+  customItems?: LegendItem[],
 ): any[] {
+  // 如果有自定义的 item，那么就直接使用，并合并主题的 marker 配置
+  if (customItems) {
+    return map(customItems, (item: LegendItem) => {
+      const { marker } = item;
+
+      return {
+        ...item,
+        marker: deepMix({}, themeMarker, userMarker, marker), // 顺序优先级需要保证
+      };
+    });
+  }
+
   const scale = attr.getScale(attr.type);
   if (scale.isCategory) {
     return map(scale.getTicks(), (tick: Tick): object => {
