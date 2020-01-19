@@ -2,7 +2,7 @@
 import { Chart, registerAnimation } from '@antv/g2';
 
 registerAnimation('label-appear', (element, animateCfg, cfg) => {
-  const label = (element as IGroup).getChildren()[0];
+  const label = element.getChildren()[0];
   const coordinate = cfg.coordinate;
   const startX = coordinate.start.x;
   const finalX = label.attr('x');

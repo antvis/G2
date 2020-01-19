@@ -5,7 +5,7 @@ import { LAYER } from '../constant';
 import { IGroup } from '../dependents';
 import { Datum, Region } from '../interface';
 import { getAxisOption } from '../util/axis';
-import { FacetCfg, FacetData, RectData } from './interface';
+import { FacetCfg, FacetData } from './interface';
 
 /**
  * facet 基类
