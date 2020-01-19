@@ -91,7 +91,7 @@ module.exports = {
     ],
     examples: [
       {
-        slug: 'Featured',
+        slug: 'gallery',
         icon: 'gallery',
         title: {
           zh: '官方精品库',
