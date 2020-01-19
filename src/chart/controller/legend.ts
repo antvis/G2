@@ -1,4 +1,4 @@
-import { deepMix, each, find, get, head, isBoolean, last, map, uniq } from '@antv/util';
+import { deepMix, each, find, get, head, isBoolean, last, map, size, uniq } from '@antv/util';
 import { DEFAULT_ANIMATE_CFG } from '../../animate';
 import { COMPONENT_MAX_VIEW_PERCENTAGE, COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { Attribute, CategoryLegend, ContinuousLegend, GroupComponent, IGroup, Scale, Tick } from '../../dependents';
@@ -7,7 +7,7 @@ import { BBox } from '../../util/bbox';
 import { directionToPosition } from '../../util/direction';
 import { omit } from '../../util/helper';
 import { getLegendItems, getLegendLayout } from '../../util/legend';
-import { ComponentOption, LegendOption } from '../interface';
+import { ComponentOption, LegendCfg, LegendOption } from '../interface';
 import View from '../view';
 import { Controller } from './base';
 
@@ -59,7 +59,7 @@ export default class Legend extends Controller<Option> {
     this.option = this.view.getOptions().legends;
 
     const doEachLegend = (geometry: Geometry, attr: Attribute, scale: Scale) => {
-      const legend = this.createLegend(geometry, attr, scale);
+      const legend = this.createFieldLegend(geometry, attr, scale);
 
       if (legend) {
         (legend.component as GroupComponent).render();
@@ -67,8 +67,31 @@ export default class Legend extends Controller<Option> {
       }
     };
 
-    // 遍历处理每一个创建逻辑
-    this.loopLegends(doEachLegend);
+    // 全局自定义图例
+    if (get(this.option, 'custom')) {
+      const component = this.createCustomLegend(
+        undefined, undefined, undefined,
+        this.option as LegendCfg,
+      );
+      if (component) {
+        component.render();
+
+        const layer = LAYER.FORE;
+        const direction = getDirection(this.option);
+
+        this.components.push({
+          id: 'global-custom',
+          component,
+          layer,
+          direction,
+          type: COMPONENT_TYPE.LEGEND,
+          extra: undefined,
+        });
+      }
+    } else {
+      // 遍历处理每一个创建逻辑
+      this.loopLegends(doEachLegend);
+    }
   }
 
   /**
@@ -147,7 +170,7 @@ export default class Legend extends Controller<Option> {
         }
       } else {
         // 不存在则 create
-        const legend = this.createLegend(geometry, attr, scale);
+        const legend = this.createFieldLegend(geometry, attr, scale);
 
         if (legend) {
           (legend.component as GroupComponent).render();
@@ -240,7 +263,7 @@ export default class Legend extends Controller<Option> {
    * @param attr
    * @param scale
    */
-  private createLegend(geometry: Geometry, attr: Attribute, scale: Scale): ComponentOption {
+  private createFieldLegend(geometry: Geometry, attr: Attribute, scale: Scale): ComponentOption {
     let component;
 
     const legendOption = getLegendOption(this.option, scale.field);
@@ -249,14 +272,16 @@ export default class Legend extends Controller<Option> {
 
     // if the legend option is not false, means legend should be created.
     if (legendOption !== false) {
-      if (scale.isLinear) {
-        // linear field, create continuous legend
-        const cfg = this.getContinuousCfg(geometry, attr, scale, legendOption);
-        component = new ContinuousLegend(cfg);
-      } else if (scale.isCategory) {
-        // category field, create category legend
-        const cfg = this.getCategoryCfg(geometry, attr, scale, legendOption);
-        component = new CategoryLegend(cfg);
+      if (get(legendOption, 'custom')) {
+        component = this.createCustomLegend(geometry, attr, scale, legendOption);
+      } else {
+        if (scale.isLinear) {
+          // linear field, create continuous legend
+          component = this.createContinuousLegend(geometry, attr, scale, legendOption);
+        } else if (scale.isCategory) {
+          // category field, create category legend
+          component = this.createCategoryLegend(geometry, attr, scale, legendOption);
+        }
       }
     }
 
@@ -272,6 +297,50 @@ export default class Legend extends Controller<Option> {
         extra: { scale },
       };
     }
+  }
+
+  /**
+   * 自定义图例使用 category 图例去渲染
+   * @param geometry
+   * @param attr
+   * @param scale
+   * @param legendOption
+   */
+  private createCustomLegend(geometry: Geometry, attr: Attribute, scale: Scale, legendOption: LegendCfg) {
+    const { items } = legendOption;
+
+    // 没有传入 items，直接跳过
+    if (size(items) === 0) {
+      return;
+    }
+
+    // 直接使用 分类图例渲染
+    const cfg = this.getCategoryCfg(geometry, attr, scale, legendOption, true);
+    return new CategoryLegend(cfg);
+  }
+
+  /**
+   * 创建连续图例
+   * @param geometry
+   * @param attr
+   * @param scale
+   * @param legendOption
+   */
+  private createContinuousLegend(geometry: Geometry, attr: Attribute, scale: Scale, legendOption: any) {
+    const cfg = this.getContinuousCfg(geometry, attr, scale, legendOption);
+    return new ContinuousLegend(cfg);
+  }
+
+  /**
+   * 创建分类图例
+   * @param geometry
+   * @param attr
+   * @param scale
+   * @param legendOption
+   */
+  private createCategoryLegend(geometry: Geometry, attr: Attribute, scale: Scale, legendOption: any) {
+    const cfg = this.getCategoryCfg(geometry, attr, scale, legendOption);
+    return new CategoryLegend(cfg);
   }
 
   /**
@@ -372,9 +441,10 @@ export default class Legend extends Controller<Option> {
    * @param geometry
    * @param attr
    * @param scale
+   * @param custom
    * @param legendOption
    */
-  private getCategoryCfg(geometry: Geometry, attr: Attribute, scale: Scale, legendOption: any): object {
+  private getCategoryCfg(geometry: Geometry, attr: Attribute, scale: Scale, legendOption: any, custom?: boolean): object {
     const container = this.container;
     // if position is not set, use top as default
     const direction = get(legendOption, 'position', DIRECTION.BOTTOM);
@@ -384,10 +454,12 @@ export default class Legend extends Controller<Option> {
     const userMarker = get(legendOption, 'marker');
     const layout = getLegendLayout(direction);
 
+    const customItems = custom ? legendOption.items : undefined;
+
     const baseCfg = {
       container,
       layout,
-      items: getLegendItems(this.view, geometry, attr, themeMarker, userMarker),
+      items: getLegendItems(this.view, geometry, attr, themeMarker, userMarker, customItems),
       ...this.getCategoryLegendSizeCfg(layout),
     };
 

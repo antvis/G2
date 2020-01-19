@@ -227,7 +227,7 @@ interface MarkerCfg extends LegendMarkerCfg {
   symbol?: Marker | MarkerCallback; // marker 的形状
 }
 
-interface LegendItem {
+export interface LegendItem {
   /**
    * 唯一值，用于动画或者查找
    */
@@ -244,6 +244,10 @@ interface LegendItem {
  * 图例项配置
  */
 export interface LegendCfg {
+  /**
+   * 是否为自定义图例
+   */
+  readonly custom?: boolean;
   /**
    * 布局方式： horizontal，vertical
    */
