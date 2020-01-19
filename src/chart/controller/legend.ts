@@ -6,7 +6,7 @@ import Geometry from '../../geometry/base';
 import { BBox } from '../../util/bbox';
 import { directionToPosition } from '../../util/direction';
 import { omit } from '../../util/helper';
-import { getLegendItems, getLegendLayout } from '../../util/legend';
+import { getCustomLegendItems, getLegendItems, getLegendLayout } from '../../util/legend';
 import { ComponentOption, LegendCfg, LegendOption } from '../interface';
 import View from '../view';
 import { Controller } from './base';
@@ -488,12 +488,14 @@ export default class Legend extends Controller<Option> {
     const userMarker = get(legendOption, 'marker');
     const layout = getLegendLayout(direction);
 
-    const customItems = custom ? legendOption.items : undefined;
+    const items = custom ?
+      getCustomLegendItems(themeMarker, userMarker, legendOption.items) :
+      getLegendItems(this.view, geometry, attr, themeMarker, userMarker);
 
     const baseCfg = {
       container,
       layout,
-      items: getLegendItems(this.view, geometry, attr, themeMarker, userMarker, customItems),
+      items,
       ...this.getCategoryLegendSizeCfg(layout),
     };
 
