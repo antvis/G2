@@ -1,9 +1,7 @@
 import { DIRECTION } from '../../../src';
-import { getLegendItems, getLegendLayout } from '../../../src/util/legend';
-import View from '../../../src/chart/view';
-import Geometry from '../../../src/geometry/base';
-import { Attribute } from '../../../src/dependents';
 import { LegendItem } from '../../../src/chart/interface';
+import { Attribute } from '../../../src/dependents';
+import { getCustomLegendItems, getLegendLayout } from '../../../src/util/legend';
 
 describe('util legend', () => {
   it('getLegendLayout', () => {
@@ -35,10 +33,7 @@ describe('util legend', () => {
       { name: 'b', value: 'bb', marker: { symbol: 'square', style: { r: 6 } } },
     ] as LegendItem[];
 
-    const items = getLegendItems(
-      undefined, undefined, undefined,
-      themeMarker, userMarker, customItems,
-    );
+    const items = getCustomLegendItems(themeMarker, userMarker, customItems);
 
     expect(items).toEqual([
       { name: 'a', value: 'aa', marker: { symbol: 'circle', spacing: 8, style: { fill: 'green', r: 5 } } },
