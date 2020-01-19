@@ -8,7 +8,7 @@ import Theme from '../../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../../util/dom';
 
 const Rect = getCoordinate('rect');
-const SHAPES = ['circle', 'square', 'bowtie', 'diamond', 'hexagon', 'triangle', 'triangleDown'];
+const SHAPES = ['circle', 'square', 'bowtie', 'diamond', 'hexagon', 'triangle', 'triangle-down'];
 const HOLLOW_SHAPES = ['cross', 'tick', 'plus', 'hyphen', 'line'];
 
 describe('Point shapes', () => {
@@ -32,7 +32,7 @@ describe('Point shapes', () => {
   });
 
   it('defaultShapeType', () => {
-    expect(PointShapeFactory.defaultShapeType).toBe('hollowCircle');
+    expect(PointShapeFactory.defaultShapeType).toBe('hollow-circle');
   });
 
   it('getShapes', () => {
@@ -73,11 +73,11 @@ describe('Point shapes', () => {
       },
     });
 
-    const hollowCircleMarker = PointShapeFactory.getMarker('hollowCircle', { color: 'red', isInPolar: false });
+    const hollowCircleMarker = PointShapeFactory.getMarker('hollow-circle', { color: 'red', isInPolar: false });
     expect(hollowCircleMarker).toEqual({
       symbol: 'circle',
       style: {
-        ...Theme.geometries.point.hollowCircle.default,
+        ...Theme.geometries.point['hollow-circle'].default,
         r: 4.5,
         stroke: 'red',
       },
@@ -142,7 +142,7 @@ describe('Point shapes', () => {
 
   it('draw hollow shapes', () => {
     const shape = PointShapeFactory.drawShape(
-      'hollowCircle',
+      'hollow-circle',
       {
         x: 100,
         y: 100,

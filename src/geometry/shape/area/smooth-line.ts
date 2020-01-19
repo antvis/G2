@@ -3,12 +3,11 @@ import { ShapeInfo, ShapeMarkerCfg } from '../../../interface';
 import { registerShape } from '../base';
 import { getConstraint, getShapeAttrs } from './util';
 
-
 /** 描边的平滑曲面图 */
-registerShape('area', 'smoothLine', {
+registerShape('area', 'smooth-line', {
   draw(cfg: ShapeInfo, container: IGroup) {
     const coordinate = this.coordinate;
-    const attrs = getShapeAttrs('smoothLine', cfg, true, this, getConstraint(coordinate));
+    const attrs = getShapeAttrs(cfg, true, true, this, getConstraint(coordinate));
     const shape = container.addShape({
       type: 'path',
       attrs,

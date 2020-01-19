@@ -70,7 +70,7 @@ describe('Test charts animate', () => {
       .label('sales', {
         offset: -20,
         layout: {
-          type: 'limitInShape',
+          type: 'limit-in-shape',
         },
       });
     chart.render();
@@ -708,7 +708,7 @@ describe('Test charts animate', () => {
       .path()
       .animate({
         appear: {
-          animation: 'pathIn',
+          animation: 'path-in',
         },
       })
       .position('price*consumption')

@@ -31,92 +31,92 @@ const GEOMETRY_ANIMATE_CFG = {
       enter: {
         animation: coordinate.isRect
           ? coordinate.isTransposed
-            ? 'scaleInX'
-            : 'scaleInY'
+            ? 'scale-in-x'
+            : 'scale-in-y'
           : coordinate.isPolar && coordinate.isTransposed
-          ? 'fadeIn'
-          : 'zoomIn',
+          ? 'fade-in'
+          : 'zoom-in',
       },
       update: {
-        animation: coordinate.isPolar && coordinate.isTransposed ? 'sectorPathUpdate' : null,
+        animation: coordinate.isPolar && coordinate.isTransposed ? 'sector-path-update' : null,
       },
       leave: {
-        animation: 'fadeOut',
+        animation: 'fade-out',
       },
     };
   },
   line: {
     enter: {
-      animation: 'fadeIn',
+      animation: 'fade-in',
     },
     leave: {
-      animation: 'fadeOut',
+      animation: 'fade-out',
     },
   },
   path: {
     enter: {
-      animation: 'fadeIn',
+      animation: 'fade-in',
     },
     leave: {
-      animation: 'fadeOut',
+      animation: 'fade-out',
     },
   },
   point: {
     appear: {
-      animation: 'zoomIn',
+      animation: 'zoom-in',
     },
     enter: {
-      animation: 'zoomIn',
+      animation: 'zoom-in',
     },
     leave: {
-      animation: 'zoomOut',
+      animation: 'zoom-out',
     },
   },
   area: {
     enter: {
-      animation: 'fadeIn',
+      animation: 'fade-in',
     },
     leave: {
-      animation: 'fadeOut',
+      animation: 'fade-out',
     },
   },
   polygon: {
     enter: {
-      animation: 'fadeIn',
+      animation: 'fade-in',
     },
     leave: {
-      animation: 'fadeOut',
+      animation: 'fade-out',
     },
   },
   schema: {
     enter: {
-      animation: 'fadeIn',
+      animation: 'fade-in',
     },
     leave: {
-      animation: 'fadeOut',
+      animation: 'fade-out',
     },
   },
   edge: {
     enter: {
-      animation: 'fadeIn',
+      animation: 'fade-in',
     },
     leave: {
-      animation: 'fadeOut',
+      animation: 'fade-out',
     },
   },
   label: {
     appear: {
-      animation: 'fadeIn',
+      animation: 'fade-in',
       delay: 450,
     },
     enter: {
-      animation: 'fadeIn',
+      animation: 'fade-in',
     },
     update: {
-      animation: 'textUpdate',
+      animation: 'text-update',
     },
     leave: {
-      animation: 'fadeOut',
+      animation: 'fade-out',
     },
   },
 };
@@ -125,29 +125,29 @@ const GEOMETRY_ANIMATE_CFG = {
 const GEOMETRY_GROUP_APPEAR_ANIMATION = {
   line: () => {
     return {
-      animation: 'waveIn',
+      animation: 'wave-in',
     };
   },
   area: () => {
     return {
-      animation: 'waveIn',
+      animation: 'wave-in',
     };
   },
   path: () => {
     return {
-      animation: 'fadeIn',
+      animation: 'fade-in',
     };
   },
   interval(coordinate: Coordinate) {
     let animation;
 
     if (coordinate.isRect) {
-      animation = coordinate.isTransposed ? 'growInX' : 'growInY';
+      animation = coordinate.isTransposed ? 'grow-in-x' : 'grow-in-y';
     } else {
-      animation = 'growInXY';
+      animation = 'grow-in-xy';
       if (coordinate.isPolar && coordinate.isTransposed) {
         // pie chart
-        animation = 'waveIn';
+        animation = 'wave-in';
       }
     }
     return {
@@ -157,9 +157,9 @@ const GEOMETRY_GROUP_APPEAR_ANIMATION = {
   schema: (coordinate) => {
     let animation;
     if (coordinate.isRect) {
-      animation = coordinate.isTransposed ? 'growInX' : 'growInY';
+      animation = coordinate.isTransposed ? 'grow-in-x' : 'grow-in-y';
     } else {
-      animation = 'growInXY';
+      animation = 'grow-in-xy';
     }
     return {
       animation,
@@ -167,13 +167,13 @@ const GEOMETRY_GROUP_APPEAR_ANIMATION = {
   },
   polygon: () => {
     return {
-      animation: 'fadeIn',
+      animation: 'fade-in',
       duration: 500,
     };
   },
   edge: () => {
     return {
-      animation: 'fadeIn',
+      animation: 'fade-in',
     };
   },
 };

@@ -2,7 +2,7 @@ import { IGroup, IShape } from '../../../dependents';
 import { ShapeInfo } from '../../../interface';
 import { getStyle } from '../util/get-style';
 
-export const SHAPES = ['circle', 'square', 'bowtie', 'diamond', 'hexagon', 'triangle', 'triangleDown'];
+export const SHAPES = ['circle', 'square', 'bowtie', 'diamond', 'hexagon', 'triangle', 'triangle-down'];
 export const HOLLOW_SHAPES = ['cross', 'tick', 'plus', 'hyphen', 'line'];
 
 export const PointSymbols = {

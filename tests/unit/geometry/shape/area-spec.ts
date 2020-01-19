@@ -78,7 +78,7 @@ describe('Area shapes', () => {
     expect(smoothMarker.style.fill).toBe('red');
     expect(smoothMarker.symbol).toBeFunction();
 
-    const smoothLineMarker = AreaShapeFactory.getMarker('smoothLine', {
+    const smoothLineMarker = AreaShapeFactory.getMarker('smooth-line', {
       color: 'red',
       isInPolar: false,
     });
@@ -202,16 +202,16 @@ describe('Area shapes', () => {
     });
   });
 
-  describe('smoothLine', () => {
+  describe('smooth-line', () => {
     it('draw', () => {
       const shape = AreaShapeFactory.drawShape(
-        'smoothLine',
+        'smooth-line',
         {
           x: 100,
           y: 100,
-          shape: 'smoothLine',
+          shape: 'smooth-line',
           defaultStyle: {
-            ...Theme.geometries.area.smoothLine.default,
+            ...Theme.geometries.area['smooth-line'].default,
           },
           style: {
             stroke: 'red',

@@ -197,12 +197,12 @@ export default {
   multiplePieWidthRatio: 1 / 1.3,
   shapes: {
     point: [
-      'hollowCircle',
-      'hollowSquare',
-      'hollowDiamond',
-      'hollowBowtie',
-      'hollowTriangle',
-      'hollowHexagon',
+      'hollow-circle',
+      'hollow-square',
+      'hollow-diamond',
+      'hollow-bowtie',
+      'hollow-triangle',
+      'hollow-hexagon',
       'cross',
       'tick',
       'plus',
@@ -225,7 +225,7 @@ export default {
         },
         selected: {},
       },
-      hollowRect: {
+      'hollow-rect': {
         default: SHAPE_STYLE.hollowInterval,
         active: {
           interval: { lineWidth: 4 },
@@ -360,49 +360,49 @@ export default {
           point: { fillOpacity: 0.5 },
         },
       },
-      triangleDown: {
+      'triangle-down': {
         default: SHAPE_STYLE.point,
         active: {
           point: { fillOpacity: 0.5 },
         },
       },
-      hollowCircle: {
+      'hollow-circle': {
         default: SHAPE_STYLE.hollowPoint,
         active: {
           point: { r: 4 },
         },
       },
-      hollowSquare: {
+      'hollow-square': {
         default: SHAPE_STYLE.hollowPoint,
         active: {
           point: { r: 4 },
         },
       },
-      hollowBowtie: {
+      'hollow-bowtie': {
         default: SHAPE_STYLE.hollowPoint,
         active: {
           point: { r: 4 },
         },
       },
-      hollowDiamond: {
+      'hollow-diamond': {
         default: SHAPE_STYLE.hollowPoint,
         active: {
           point: { r: 4 },
         },
       },
-      hollowHexagon: {
+      'hollow-hexagon': {
         default: SHAPE_STYLE.hollowPoint,
         active: {
           point: { r: 4 },
         },
       },
-      hollowTriangle: {
+      'hollow-triangle': {
         default: SHAPE_STYLE.hollowPoint,
         active: {
           point: { r: 4 },
         },
       },
-      hollowTriangleDown: {
+      'hollow-triangle-down': {
         default: SHAPE_STYLE.hollowPoint,
         active: {
           point: { r: 4 },
@@ -458,7 +458,7 @@ export default {
           area: { lineWidth: 4 },
         },
       },
-      smoothLine: {
+      'smooth-line': {
         default: SHAPE_STYLE.hollowArea,
         active: {
           area: { lineWidth: 4 },

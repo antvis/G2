@@ -9,7 +9,7 @@ import { getConstraint, getShapeAttrs } from './util';
 registerShape('area', 'smooth', {
   draw(cfg: ShapeInfo, container: IGroup) {
     const coordinate = this.coordinate;
-    const attrs = getShapeAttrs('smooth', cfg, true, this, getConstraint(coordinate));
+    const attrs = getShapeAttrs(cfg, false, true, this, getConstraint(coordinate));
     const shape = container.addShape({
       type: 'path',
       attrs,
