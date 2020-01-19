@@ -247,7 +247,7 @@ export interface LegendCfg {
   /**
    * 布局方式： horizontal，vertical
    */
-  layout?: 'horizontal' | 'svertical';
+  layout?: 'horizontal' | 'vertical';
   /**
    * 标题
    */
