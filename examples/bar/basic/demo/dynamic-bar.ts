@@ -67,7 +67,6 @@ fetch('../data/china-gdp.json')
     let count = 0;
     let chart;
 
-
     function countUp() {
       if (count === 0) {
         chart = new Chart({
@@ -153,19 +152,6 @@ fetch('../data/china-gdp.json')
 
       if (count === Object.keys(data).length) {
         clearInterval(this);
-        countDown();
-        setInterval(countDown, 1200);
-      }
-    }
-    function countDown() {
-      count--;
-      // @ts-ignore
-      chart.changeData(handleData(Object.values(data)[count]));
-
-      if (count === 0) {
-        clearInterval(this);
-        countUp();
-        setInterval(countUp, 1200);
       }
     }
 
