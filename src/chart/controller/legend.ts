@@ -147,12 +147,16 @@ export default class Legend extends Controller<Option> {
 
         // if the legend option is not false, means legend should be created.
         if (legendOption !== false) {
-          if (scale.isLinear) {
-            // linear field, create continuous legend
-            cfg = this.getContinuousCfg(geometry, attr, scale, legendOption);
-          } else if (scale.isCategory) {
-            // category field, create category legend
-            cfg = this.getCategoryCfg(geometry, attr, scale, legendOption);
+          if (get(legendOption, 'custom')) {
+            cfg = this.getCategoryCfg(geometry, attr, scale, legendOption, true);
+          } else {
+            if (scale.isLinear) {
+              // linear field, create continuous legend
+              cfg = this.getContinuousCfg(geometry, attr, scale, legendOption);
+            } else if (scale.isCategory) {
+              // category field, create category legend
+              cfg = this.getCategoryCfg(geometry, attr, scale, legendOption);
+            }
           }
         }
 
@@ -182,7 +186,44 @@ export default class Legend extends Controller<Option> {
       }
     };
 
-    this.loopLegends(eachLegend);
+    // 全局自定义图例
+    if (get(this.option, 'custom')) {
+      const id = 'global-custom';
+      const existCo = this.getComponentById(id);
+      if (existCo) {
+        const customCfg = this.getCategoryCfg(undefined, undefined, undefined, this.option, true);
+        omit(customCfg, ['container']);
+        existCo.component.update(customCfg);
+
+        updated[id] = true;
+      } else {
+        const component = this.createCustomLegend(
+          undefined, undefined, undefined,
+          this.option as LegendCfg,
+        );
+        if (component) {
+          component.render();
+
+          const layer = LAYER.FORE;
+          const direction = getDirection(this.option);
+
+          this.components.push({
+            id,
+            component,
+            layer,
+            direction,
+            type: COMPONENT_TYPE.LEGEND,
+            extra: undefined,
+          });
+
+          // 标记为更新
+          updated[id] = true;
+        }
+      }
+    } else {
+      // 遍历处理每一个创建逻辑
+      this.loopLegends(eachLegend);
+    }
 
     // 处理完成之后，销毁删除的
     // 不在处理中的
@@ -307,13 +348,6 @@ export default class Legend extends Controller<Option> {
    * @param legendOption
    */
   private createCustomLegend(geometry: Geometry, attr: Attribute, scale: Scale, legendOption: LegendCfg) {
-    const { items } = legendOption;
-
-    // 没有传入 items，直接跳过
-    if (size(items) === 0) {
-      return;
-    }
-
     // 直接使用 分类图例渲染
     const cfg = this.getCategoryCfg(geometry, attr, scale, legendOption, true);
     return new CategoryLegend(cfg);
