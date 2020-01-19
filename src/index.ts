@@ -82,6 +82,7 @@ registerGeometryLabelLayout('limit-in-canvas', limitInCanvas);
 // 注册需要的动画执行函数
 import { fadeIn, fadeOut } from './animate/animation/fade';
 import { growInX, growInXY, growInY } from './animate/animation/grow-in';
+import { pathIn } from './animate/animation/path-in';
 import { scaleInX, scaleInY } from './animate/animation/scale-in';
 import { sectorPathUpdate } from './animate/animation/sector-path-update';
 import { textUpdate } from './animate/animation/text-update';
@@ -101,6 +102,7 @@ registerAnimation('zoom-in', zoomIn);
 registerAnimation('zoom-out', zoomOut);
 registerAnimation('text-update', textUpdate);
 registerAnimation('sector-path-update', sectorPathUpdate);
+registerAnimation('path-in', pathIn);
 
 // 注册内置的 Facet
 import { registerFacet } from './core';
