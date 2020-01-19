@@ -1,5 +1,6 @@
 import {
   clone,
+  deepMix,
   each,
   filter,
   find,
@@ -16,7 +17,6 @@ import {
   size,
   uniq,
   uniqueId,
-  deepMix,
 } from '@antv/util';
 import Base from '../base';
 import { GROUP_Z_INDEX, LAYER, PLOT_EVENTS, VIEW_LIFE_CIRCLE } from '../constant';

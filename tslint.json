@@ -9,9 +9,11 @@
     "only-arrow-functions": false,
     "object-literal-sort-keys": false,
     "no-empty": false,
-    "no-console": false,
     "member-ordering": false,
-    "no-empty-interface": false
+    "no-empty-interface": false,
+    "no-console": [true, "debug", "info", "log", "time", "timeEnd", "trace"],
+    "no-unused-expression": [true, "allow-fast-null-checks"],
+    "no-debugger": true
   },
   "rulesDirectory": []
 }

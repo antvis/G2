@@ -1,4 +1,4 @@
-import { deepMix, each, get, isBoolean, map, mix } from '@antv/util';
+import { deepMix, each, get, map, mix } from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { CircleAxis, CircleGrid, IGroup, LineAxis, LineGrid, Scale } from '../../dependents';
 import {

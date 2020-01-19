@@ -26,6 +26,6 @@
     "excludeProtected": true,
     "excludeExternals": true,
     "plugin": "typedoc-plugin-markdown",
-    "theme": "./bin/typedoc-theme",
+    "theme": "./bin/typedoc-theme"
   }
 }

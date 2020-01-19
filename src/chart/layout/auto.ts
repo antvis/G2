@@ -2,7 +2,6 @@ import { each } from '@antv/util';
 import { COMPONENT_TYPE } from '../../constant';
 import { Padding } from '../../interface';
 import { BBox } from '../../util/bbox';
-import { getTranslateDirection } from '../../util/direction';
 import { isAutoPadding, parsePadding } from '../../util/padding';
 import { ComponentOption } from '../interface';
 import View from '../view';

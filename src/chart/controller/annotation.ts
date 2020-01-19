@@ -1,9 +1,9 @@
 import { contains, deepMix, each, get, isArray, isFunction, isNil, isString, keys, upperFirst } from '@antv/util';
-import Geometry from 'src/geometry/base';
-import Element from 'src/geometry/element';
 import { DEFAULT_ANIMATE_CFG } from '../../animate/';
 import { COMPONENT_TYPE, DIRECTION, LAYER, VIEW_LIFE_CIRCLE } from '../../constant';
 import { Annotation as AnnotationComponent, IGroup, Scale } from '../../dependents';
+import Geometry from '../../geometry/base';
+import Element from '../../geometry/element';
 import { Data, Point } from '../../interface';
 import { getDistanceToCenter, getPointAngle } from '../../util/coordinate';
 import { omit } from '../../util/helper';
