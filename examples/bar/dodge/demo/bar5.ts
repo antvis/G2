@@ -28,6 +28,7 @@ const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 500,
+  padding: [10, 0, 0, 60],
 });
 chart.data(data);
 chart.scale('value', {
@@ -39,61 +40,57 @@ chart.legend({
   position: 'top',
 });
 chart.coordinate().transpose();
-// chart.facet('mirror', {
-//   fields: ['type'],
-//   autoSetAxis: false,
-//   transpose: true,
-//   showTitle: false,
-//   padding: [0, 10, 0, 0],
-//   eachView: function eachView(view, facet) {
-//     const facetIndex = facet.colIndex;
-//     if (facetIndex === 0) {
-//       view.axis('country', {
-//         position: 'top',
-//         label: {
-//           textStyle: {
-//             fill: '#aaaaaa',
-//             fontSize: 12
-//           }
-//         },
-//         tickLine: {
-//           alignWithLabel: false,
-//           length: 0
-//         },
-//         line: {
-//           lineWidth: 0
-//         }
-//       });
-//     } else {
-//       view.axis('country', false);
-//     }
-//     const color = (facetIndex === 0) ? '#1890ff' : '#2fc25b';
-//     view.interval().position('country*value').color(color)
-//       .size(30)
-//       .opacity(1)
-//       .label('value', function (val) {
-//         let offset = -4;
-//         let shadowBlur = 2;
-//         let textAlign = (facetIndex === 1) ? 'end' : 'start';
-//         let fill = 'white';
-//         if (val < 15) {
-//           offset = 4;
-//           textAlign = (facetIndex === 1) ? 'start' : 'end';
-//           fill = '#666666';
-//           shadowBlur = 0;
-//         }
-//         return {
-//           // position: 'middle',
-//           offset,
-//           textStyle: {
-//             fill,
-//             shadowBlur,
-//             shadowColor: 'rgba(0, 0, 0, .45)',
-//             textAlign
-//           }
-//         };
-//       });
-//   }
-// });
+chart.facet('mirror', {
+  fields: ['type'],
+  autoSetAxis: false,
+  transpose: true,
+  showTitle: false,
+  eachView: function eachView(view, facet) {
+    const facetIndex = facet.columnIndex;
+    if (facetIndex === 0) {
+      view.axis('country', {
+        position: 'top',
+        label: {
+          style: {
+            fill: '#aaaaaa',
+            fontSize: 12
+          }
+        },
+        tickLine: {
+          alignTick: false,
+          length: 0
+        },
+        line: null,
+      });
+    } else {
+      view.axis('country', false);
+    }
+    const color = (facetIndex === 0) ? '#1890ff' : '#2fc25b';
+    view.interval().position('country*value').color(color)
+      .size(30)
+      .label('value', function (val) {
+        let offset = (facetIndex === 1) ? -4 : 4;
+        let shadowBlur = 2;
+        let textAlign = (facetIndex === 1) ? 'end' : 'start';
+        let fill = 'white';
+        if (val < 15) {
+          offset = (facetIndex === 1) ? 4 : -4;
+          textAlign = (facetIndex === 1) ? 'start' : 'end';
+          fill = '#666666';
+          shadowBlur = 0;
+        }
+        return {
+          // position: 'middle',
+          offset,
+          style: {
+            fill,
+            shadowBlur,
+            shadowColor: 'rgba(0, 0, 0, .45)',
+            textAlign
+          }
+        };
+      });
+  }
+});
 
 chart.render();
