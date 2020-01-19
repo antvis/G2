@@ -26,7 +26,7 @@ fetch('../data/gas-import-export.json')
       }
     });
     chart.tooltip({
-      crosshairs: 'y',
+      showCrosshairs: true,
       shared: true
     });
     // Y轴单位

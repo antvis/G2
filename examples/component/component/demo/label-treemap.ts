@@ -84,7 +84,7 @@ fetch('../data/mobile.json')
         },
         {
           layout: {
-            type: 'limitInShape',
+            type: 'limit-in-shape',
           },
         }
       );

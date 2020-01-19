@@ -50,7 +50,7 @@ chart
   .size(0.45)
   .animate({
     appear: {
-      animation: 'fadeIn'
+      animation: 'fade-in'
     }
   });
 

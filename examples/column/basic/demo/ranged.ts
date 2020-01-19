@@ -23,7 +23,7 @@ chart.tooltip({
 });
 chart.interval().position('x*y').animate({
   appear: {
-    animation: 'zoomIn'
+    animation: 'zoom-in'
   }
 });;
 

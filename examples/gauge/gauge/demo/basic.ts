@@ -79,7 +79,7 @@ chart
   .color('#1890FF')
   .animate({
     appear: {
-      animation: 'fadeIn'
+      animation: 'fade-in'
     }
   });
 

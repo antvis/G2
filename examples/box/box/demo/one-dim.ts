@@ -35,7 +35,7 @@ chart
   })
   .animate({
     appear: {
-      animation: 'scaleInX',
+      animation: 'scale-in-x',
     },
   });
 chart.render();

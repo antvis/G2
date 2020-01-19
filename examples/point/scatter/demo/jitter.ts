@@ -11,7 +11,9 @@ fetch('../data/dv-grades.json')
     chart.data(data);
     chart.tooltip({
       showCrosshairs: true,
-      crosshairs: 'xy',
+      crosshairs: {
+        type: 'xy',
+      },
     });
     chart.legend({
       reversed: true // 图例项逆序显示

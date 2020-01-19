@@ -60,7 +60,7 @@ fetch('../data/flare.json')
           textAlign: 'center',
         },
         layout: {
-          type: 'fixedOverlap',
+          type: 'fixed-overlap',
         },
       });
     chart.render();

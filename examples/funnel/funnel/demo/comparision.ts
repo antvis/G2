@@ -57,7 +57,7 @@ expectView
   })
   .animate({
     appear: {
-      animation: 'fadeIn'
+      animation: 'fade-in'
     }
   });;
 
@@ -81,7 +81,7 @@ actualView
   })
   .animate({
     appear: {
-      animation: 'fadeIn'
+      animation: 'fade-in'
     }
   });;
 

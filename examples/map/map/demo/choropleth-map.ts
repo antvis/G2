@@ -96,7 +96,7 @@ fetch('../data/world.geo.json')
       .tooltip('name*trend')
       .animate({
         leave: {
-          animation: 'fadeOut'
+          animation: 'fade-out'
         }
       });
     chart.render();

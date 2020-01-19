@@ -13,7 +13,9 @@ fetch('../data/scatter.json')
     chart.tooltip({
       showTitle: false,
       showCrosshairs: true,
-      crosshairs: 'xy',
+      crosshairs: {
+        type: 'xy',
+      },
       itemTpl: '<li class="g2-tooltip-list-item" data-index={index} style="margin-bottom:4px;">'
         + '<span style="background-color:{color};" class="g2-tooltip-marker"></span>'
         + '{name}<br/>'

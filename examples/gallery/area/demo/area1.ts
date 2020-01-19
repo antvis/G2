@@ -33,7 +33,7 @@ fetch('../data/fireworks-sales.json')
       }
     });
     chart.tooltip({
-      crosshairs: 'y', // TODO: 分支合并后修改
+      showCrosshairs: true,
       shared: true
     });
 

@@ -17,7 +17,7 @@ data.forEach(function(obj) {
 });
 
 // 自定义 other 的图形，增加两条线
-registerShape('interval', 'sliceShape', {
+registerShape('interval', 'slice-shape', {
   draw(cfg, container) {
     const points = cfg.points;
     const origin = cfg.data;
@@ -62,11 +62,11 @@ chart
   .adjust('stack')
   .position('value')
   .color('type')
-  .shape('sliceShape')
+  .shape('slice-shape')
   .label('type', {
     offset: -130,
     layout: {
-      type: 'limitInShape',
+      type: 'limit-in-shape',
     },
   });
 chart.interaction('active');

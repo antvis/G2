@@ -46,7 +46,7 @@ chart
   .color('status', ['#2FC25B', '#F04864'])
   .animate({
     appear: {
-      animation: 'scaleInX',
+      animation: 'scale-in-x',
     },
   });
 

@@ -17,7 +17,7 @@ function splitData(data) {
   return [data1, data2];
 }
 
-registerShape('line', 'splitLine', {
+registerShape('line', 'split-line', {
   draw(cfg, container) {
     const type = cfg.mappingData[0]._origin.date;
     if (type === 'today') {
@@ -70,7 +70,7 @@ registerShape('line', 'splitLine', {
   }
 });
 
-registerShape('point', 'breathPoint', {
+registerShape('point', 'breath-point', {
   draw(cfg, container) {
     const data = cfg.data;
     const point = { x: cfg.x, y: cfg.y };
@@ -175,9 +175,9 @@ fetch('../data/cpu-data.json')
         min: 0
       }
     });
-    chart.line().position('time*cpu').shape('splitLine')
+    chart.line().position('time*cpu').shape('split-line')
       .color('date', ['#1890ff', '#ced4d9']);
-    chart.point().position('time*cpu').shape('breathPoint');
+    chart.point().position('time*cpu').shape('breath-point');
     chart.annotation().regionFilter({
       top: true,
       start: ['min', 105],

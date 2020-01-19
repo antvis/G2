@@ -41,7 +41,7 @@ fetch('../data/voronoi.json')
           shadowColor: 'rgba(0, 0, 0, .45)',
         },
         layout: {
-          type: 'limitInShape',
+          type: 'limit-in-shape',
         },
       });
 
