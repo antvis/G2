@@ -512,7 +512,10 @@ export default {
   },
   components: {
     axis: {
-      top: AXIS_STYLE,
+      top: deepMix({}, AXIS_STYLE, {
+        grid: null,
+        title: null,
+      }),
       bottom: deepMix({}, AXIS_STYLE, {
         grid: null,
         title: null,
