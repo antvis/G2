@@ -13,7 +13,7 @@ const colorSet = {
   RELEASING: '#FED46B',
 };
 
-registerShape('interval', 'textInterval', {
+registerShape('interval', 'text-interval', {
   draw(cfg, container) {
     const points = this.parsePoints(cfg.points); // 将0-1空间的坐标转换为画布坐标
     const origin = cfg.data;
@@ -43,7 +43,7 @@ registerShape('interval', 'textInterval', {
   },
 });
 
-registerShape('interval', 'fallFlag', {
+registerShape('interval', 'fall-flag', {
   // @ts-ignore
   getPoints(shapeInfo) {
     const { x, y, y0, size } = shapeInfo;
@@ -114,7 +114,7 @@ chart.axis('name', {
 chart
   .interval()
   .position('name*value')
-  .shape('textInterval')
+  .shape('text-interval')
   .color('name', (value) => colorSet[value])
   .size(30);
 
@@ -122,6 +122,6 @@ chart
   .interval()
   .position('name*value')
   .color('#E4E4E4')
-  .shape('fallFlag');
+  .shape('fall-flag');
 
 chart.render();

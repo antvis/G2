@@ -1,7 +1,7 @@
 import { Chart, registerShape } from '@antv/g2';
 
 // 自定义 shape, 支持图片形式的气泡
-registerShape('interval', 'borderRadius', {
+registerShape('interval', 'border-radius', {
   draw(cfg, container) {
     const points = cfg.points;
     let path = [];
@@ -98,7 +98,7 @@ chart
   .interval()
   .position('date*expected')
   .color('#752136')
-  .shape('borderRadius')
+  .shape('border-radius')
   .tooltip('expected')
   .style({
     opacity: 0.6,
@@ -112,7 +112,7 @@ chart
     if (val === 0) {
       return;
     }
-    return 'borderRadius';
+    return 'border-radius';
   });
 
 chart.annotation().text({

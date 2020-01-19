@@ -61,7 +61,7 @@ fetch('../data/stock-03.json')
       .tooltip('start*end*highest*lowest')
       .animate({
         appear: {
-          animation: 'waveIn'
+          animation: 'wave-in'
         }
       });
     chart.line().position('date*mean').color('#FACC14');

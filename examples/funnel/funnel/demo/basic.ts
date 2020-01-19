@@ -72,7 +72,7 @@ chart
   })
   .animate({
     appear: {
-      animation: 'fadeIn'
+      animation: 'fade-in'
     }
   });;
 

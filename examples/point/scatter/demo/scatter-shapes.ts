@@ -12,7 +12,9 @@ fetch('../data/scatter.json')
 
     chart.tooltip({
       showCrosshairs: true,
-      crosshairs: 'xy',
+      crosshairs: {
+        type: 'xy',
+      },
     });
 
     chart

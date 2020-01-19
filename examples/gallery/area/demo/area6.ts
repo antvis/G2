@@ -41,7 +41,7 @@ chart.axis('value', {
   },
 });
 chart.tooltip({
-  crosshairs: 'y',
+  showCrosshairs: true,
 });
 
 const ds = new DataSet();

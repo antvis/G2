@@ -12,7 +12,7 @@ const data = [
 const sliceNumber = 0.01;
 
 // 自定义 other 的图形，增加两条线
-registerShape('interval', 'sliceShape', {
+registerShape('interval', 'slice-shape', {
   draw(cfg, container) {
     const points = cfg.points;
     let path = [];
@@ -51,6 +51,6 @@ chart
   .adjust('stack')
   .position('value')
   .color('type')
-  .shape('sliceShape');
+  .shape('slice-shape');
 
 chart.render();

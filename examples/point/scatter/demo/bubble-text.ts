@@ -76,7 +76,9 @@ chart.tooltip({
   title: 'country',
   showTooltipMarkers: false,
   showCrosshairs: true,
-  crosshairs: 'xy'
+  crosshairs: {
+    type: 'xy',
+  },
 });
 chart
   .point()

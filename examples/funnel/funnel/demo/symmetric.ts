@@ -58,7 +58,7 @@ chart.tooltip({
 //       })
 //       .animate({
 //         appear: {
-//           animation: 'fadeIn'
+//           animation: 'fade-in'
 //         }
 //       });
 

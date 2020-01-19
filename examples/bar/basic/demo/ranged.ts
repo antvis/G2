@@ -38,7 +38,7 @@ chart
   .position('profession*range')
   .animate({
     appear: {
-      animation: 'fadeIn',
+      animation: 'fade-in',
     },
   });
 

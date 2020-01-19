@@ -1,7 +1,7 @@
 // TODO: 优化效果
 import { Chart, registerAnimation } from '@antv/g2';
 
-registerAnimation('labelAppear', (element, animateCfg, cfg) => {
+registerAnimation('label-appear', (element, animateCfg, cfg) => {
   const label = (element as IGroup).getChildren()[0];
   const coordinate = cfg.coordinate;
   const startX = coordinate.start.x;
@@ -23,7 +23,7 @@ registerAnimation('labelAppear', (element, animateCfg, cfg) => {
   }, animateCfg);
 });
 
-registerAnimation('labelUpdate', (element, animateCfg, cfg) => {
+registerAnimation('label-update', (element, animateCfg, cfg) => {
   const startX = element.attr('x');
   const startY = element.attr('y');
   // @ts-ignore
@@ -107,13 +107,13 @@ fetch('../data/china-gdp.json')
               return {
                 animate: {
                   appear: {
-                    animation: 'labelAppear',
+                    animation: 'label-appear',
                     delay: 0,
                     duration: 1000,
                     easing: 'easeLinear'
                   },
                   update: {
-                    animation: 'labelUpdate',
+                    animation: 'label-update',
                     duration: 1000,
                     easing: 'easeLinear'
                   }
