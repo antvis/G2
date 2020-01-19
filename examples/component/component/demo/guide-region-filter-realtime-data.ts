@@ -17,7 +17,6 @@ data.push({
   value: value1,
   type: 'today'
 });
-console.log(data)
 
 const chart = new Chart({
   container: 'container',

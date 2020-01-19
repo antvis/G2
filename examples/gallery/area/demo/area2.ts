@@ -84,6 +84,7 @@ chart.annotation().dataMarker({
   },
   point: {
     style: {
+      fill: '#f5222d',
       stroke: '#f5222d',
     },
   },
@@ -105,7 +106,8 @@ chart.annotation().dataMarker({
   },
   point: {
     style: {
-      stroke: '#f5222d'
+      fill: '#f5222d',
+      stroke: '#f5222d',
     }
   },
   autoAdjust: false,
@@ -127,6 +129,7 @@ chart.annotation().dataMarker({
   },
   point: {
     style: {
+      fill: '#2fc25b',
       stroke: '#2fc25b',
     },
   },
