@@ -1,7 +1,9 @@
-import { deepMix, each, every, filter, get, isNil } from '@antv/util';
+import { deepMix, each, every, filter, isNil } from '@antv/util';
 import { AxisCfg } from '../chart/interface';
 import View from '../chart/view';
+import { DIRECTION } from '../constant';
 import { Datum } from '../interface';
+import { getFactTitleConfig } from '../util/facet';
 import { Facet } from './facet';
 import { RectCfg, RectData } from './interface';
 
@@ -22,23 +24,15 @@ export default class Rect extends Facet<RectCfg, RectData> {
     const fontFamily = this.view.getTheme().fontFamily;
     return deepMix({}, super.getDefaultCfg(), {
       columnTitle: {
-        offsetX: 0,
-        offsetY: -8,
         style: {
           fontSize: 14,
-          textAlign: 'center',
-          textBaseline: 'bottom',
           fill: '#666',
           fontFamily,
         }
       },
       rowTitle: {
-        offsetX: 8,
-        offsetY: 0,
         style: {
           fontSize: 14,
-          textAlign: 'left',
-          rotate: 90,
           fill: '#666',
           fontFamily,
         }
@@ -122,24 +116,21 @@ export default class Rect extends Facet<RectCfg, RectData> {
     each(this.facets, (facet: RectData, facetIndex: number) => {
       const { columnIndex, rowIndex, columnValuesLength, rowValuesLength, columnValue, rowValue, view } = facet;
 
+      // top
       if (rowIndex === 0) {
         const config = deepMix({
           position: [ '50%', '0%' ] as [string, string],
           content: columnValue,
-        }, this.cfg.columnTitle);
+        }, getFactTitleConfig(DIRECTION.TOP), this.cfg.columnTitle);
 
         view.annotation().text(config);
       }
+      // right
       if (columnIndex === columnValuesLength - 1) {
-        // 右方的 title
         const config = deepMix({
           position: [ '100%', '50%' ] as [string, string],
           content: rowValue,
-          style: {
-            textAlign: 'left',
-            rotate: -Math.PI / 2,
-          },
-        }, this.cfg.rowTitle);
+        }, getFactTitleConfig(DIRECTION.RIGHT), this.cfg.rowTitle);
 
         view.annotation().text(config);
       }

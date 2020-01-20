@@ -77,10 +77,6 @@ describe('facet mirror transpose = false', () => {
     fields: [ 'gender' ],
     transpose: false,
     padding: [ 0, 0, 32, 0 ],
-    title: {
-      offsetX: 16,
-      offsetY: 0,
-    },
     eachView(view) {
       view.interval()
         .position('age*total_percentage')
@@ -125,7 +121,7 @@ describe('facet mirror transpose = false', () => {
     // @ts-ignore
     expect(topOption.position).toEqual(['100%', '50%']);
     // @ts-ignore
-    expect(topOption.offsetX).toEqual(16);
+    expect(topOption.offsetX).toEqual(8);
     // @ts-ignore
     expect(topOption.offsetY).toEqual(0);
 
@@ -136,7 +132,7 @@ describe('facet mirror transpose = false', () => {
     // @ts-ignore
     expect(bottomOption.position).toEqual(['100%', '50%']);
     // @ts-ignore
-    expect(bottomOption.offsetX).toEqual(16);
+    expect(bottomOption.offsetX).toEqual(8);
     // @ts-ignore
     expect(bottomOption.offsetY).toEqual(0);
   });
@@ -173,10 +169,6 @@ describe('facet mirror transpose = true', () => {
     fields: [ 'gender' ],
     transpose: true,
     padding: [ 0, 48, 0, 0 ],
-    title: {
-      offsetX: 0,
-      offsetY: -16,
-    },
     eachView(view) {
       view.interval()
         .position('age*total_percentage')
@@ -223,7 +215,7 @@ describe('facet mirror transpose = true', () => {
     // @ts-ignore
     expect(leftOption.offsetX).toEqual(0);
     // @ts-ignore
-    expect(leftOption.offsetY).toEqual(-16);
+    expect(leftOption.offsetY).toEqual(-8);
 
     // @ts-ignore
     const rightOption = right.view.getController('annotation').option[0];
@@ -234,7 +226,7 @@ describe('facet mirror transpose = true', () => {
     // @ts-ignore
     expect(rightOption.offsetX).toEqual(0);
     // @ts-ignore
-    expect(rightOption.offsetY).toEqual(-16);
+    expect(rightOption.offsetY).toEqual(-8);
   });
 
   it('rerender', () => {

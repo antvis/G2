@@ -36,7 +36,6 @@ describe('facet rect', () => {
   chart.facet('rect', {
     fields: [ 'clarity', 'cut' ],
     columnTitle: {
-      offsetY: -16,
       style: {
         fontSize: 12,
       }
@@ -55,6 +54,8 @@ describe('facet rect', () => {
   });
 
   chart.render();
+  // @ts-ignore
+  window.chart = chart;;
 
   // @ts-ignore
   const facet = chart.facetInstance;
@@ -67,13 +68,19 @@ describe('facet rect', () => {
     expect(cfg.type).toBe('rect');
     expect(cfg.padding).toBe(12);
     expect(cfg.showTitle).toBe(true);
-    expect(cfg.rowTitle.offsetX).toBe(8);
-    expect(cfg.columnTitle.offsetY).toBe(-16);
+
+    const views = chart.views;
+    const top = views[0];
+    const right = views[36]; // 右 1
+
+    expect(top.getController('annotation').getComponents()[0].component.get('offsetY')).toBe(-8);
+    expect(top.getController('annotation').getComponents()[0].component.get('style').textBaseline).toBe('bottom');
+
+    expect(right.getController('annotation').getComponents()[0].component.get('offsetX')).toBe(8);
+    expect(right.getController('annotation').getComponents()[0].component.get('style').textAlign).toBe('left');
 
     // @ts-ignore
     expect(cfg.columnTitle.style.fontSize).toBe(12);
-    // @ts-ignore
-    expect(cfg.columnTitle.style.textAlign).toBe('center');
   });
 
   it('use filter data', () => {

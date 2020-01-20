@@ -1,7 +1,9 @@
 import { deepMix, each, every, filter, isNil } from '@antv/util';
 import { AxisCfg } from '../chart/interface';
 import View from '../chart/view';
+import { DIRECTION } from '../constant';
 import { Datum } from '../interface';
+import { getFactTitleConfig } from '../util/facet';
 import { Facet } from './facet';
 import { MirrorCfg, MirrorData } from './interface';
 
@@ -15,12 +17,8 @@ export default class Mirror extends Facet<MirrorCfg, MirrorData> {
     return deepMix({}, super.getDefaultCfg(), {
       showTitle: true,
       title: {
-        offsetX: 8,
-        offsetY: 8,
         style: {
           fontSize: 14,
-          textAlign: 'center',
-          textBaseline: 'center',
           fill: '#666',
           fontFamily,
         }
@@ -159,20 +157,18 @@ export default class Mirror extends Facet<MirrorCfg, MirrorData> {
     each(this.facets, (facet: MirrorData, facetIndex: number) => {
       const { columnValue, rowValue, view } = facet;
 
-      // column title
       if (this.cfg.transpose) {
         const config = deepMix({
           position: [ '50%', '0%' ] as [string, string],
           content: columnValue,
-        }, this.cfg.title);
+        }, getFactTitleConfig(DIRECTION.TOP), this.cfg.title);
 
         view.annotation().text(config);
       } else {
-        // 右方的 title
         const config = deepMix({
           position: [ '100%', '50%' ] as [string, string],
           content: rowValue,
-        }, this.cfg. title);
+        }, getFactTitleConfig(DIRECTION.RIGHT), this.cfg.title);
 
         view.annotation().text(config);
       }
