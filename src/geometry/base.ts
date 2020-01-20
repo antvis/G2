@@ -532,14 +532,14 @@ export default class Geometry extends Base {
    * ```typescript
    * // data: [{x: 'a', y: 10}]
    * tooltip({
-   *   fields: [ 'x' ];
+   *   fields: [ 'x' ],
    * });
    * ```
    * ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*268uQ50if60AAAAAAAAAAABkARQnAQ)
    *
    * ```typescript
    * tooltip({
-   *   fields: [ 'x', 'y' ];
+   *   fields: [ 'x', 'y' ],
    * });
    * ```
    * ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*A_ujSa8QhtcAAAAAAAAAAABkARQnAQ)
