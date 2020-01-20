@@ -729,6 +729,7 @@ export default {
       },
       image: {
         top: false,
+        animate: true,
       },
       dataMarker: {
         top: true,
@@ -756,22 +757,24 @@ export default {
           },
         },
         direction: 'upward',
-        autoAdjust: true
+        autoAdjust: true,
+        animate: true,
       },
       dataRegion: {
         style: {
           region: {
             lineWidth: 0,
             fill: '#000000',
-            opacity: 0.04
+            opacity: 0.04,
           },
           text: {
             textAlign: 'center',
             textBaseline: 'bottom',
             fontSize: 12,
-            fill: 'rgba(0, 0, 0, .65)'
-          }
-        }
+            fill: 'rgba(0, 0, 0, .65)',
+          },
+        },
+        animate: true,
       },
     },
   },
