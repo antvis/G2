@@ -32,7 +32,7 @@ fetch('../data/rain-flow.json')
       container: 'container',
       autoFit: true,
       height: 440,
-      padding: [40, 40, 40, 80],
+      padding: [40, 40, 50, 80],
     });
 
     chart.data(dv.rows);
@@ -58,6 +58,8 @@ fetch('../data/rain-flow.json')
     });
 
     chart.legend({
+      custom: true, // 自定义图例
+      offsetY: 4,
       items: [
         {
           name: 'flow',

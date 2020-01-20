@@ -25,7 +25,11 @@ chart
   .adjust('stack')
   .position('sold')
   .label('sex')
-  .color('sex')
+  .color('sex', (sex) => {
+    return sex === '男' ?
+      'p(a)https://gw.alipayobjects.com/zos/rmsportal/nASTPWDPJDMgkDRlAUmw.jpeg' :
+      'p(a)https://gw.alipayobjects.com/zos/rmsportal/ziMWHpHSTlTzURSzCarw.jpeg';
+  })
   .style('sex', (sex) => {
     if (sex === '男') {
       return {
