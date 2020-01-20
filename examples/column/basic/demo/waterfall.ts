@@ -99,7 +99,6 @@ const chart = new Chart({
 });
 
 chart.data(data);
-// 自定义图例
 chart.legend({
   items: [
     { name: '各项花销', value: '各项花销', marker: { symbol: 'square', style: { fill: '#1890FF', radius: 5 } } },
