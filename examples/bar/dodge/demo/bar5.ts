@@ -1,4 +1,3 @@
-// TODO: mirror 分面
 import { Chart } from '@antv/g2';
 
 const data = [
@@ -42,7 +41,6 @@ chart.legend({
 chart.coordinate().transpose();
 chart.facet('mirror', {
   fields: ['type'],
-  autoSetAxis: false,
   transpose: true,
   showTitle: false,
   eachView: function eachView(view, facet) {

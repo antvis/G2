@@ -1,4 +1,3 @@
-// TODO: 优化效果
 import { Chart, registerAnimation } from '@antv/g2';
 
 registerAnimation('label-appear', (element, animateCfg, cfg) => {
