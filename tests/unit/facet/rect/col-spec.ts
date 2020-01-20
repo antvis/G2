@@ -59,5 +59,6 @@ describe('facet rect', () => {
 
     // @ts-ignore
     expect(chart.facetInstance.cfg.showTitle).toBe(false);
+    expect(chart.getController('annotation').getComponents()).toEqual([]);
   });
 });
