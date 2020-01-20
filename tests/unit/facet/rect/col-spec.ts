@@ -1,5 +1,5 @@
-import { Chart } from '../../../../src';
 import DIAMOND from '../../../../examples/data/diamond.json';
+import { Chart } from '../../../../src';
 
 import { createDiv } from '../../../util/dom';
 
@@ -41,6 +41,7 @@ describe('facet rect', () => {
         })
         .size(3);
     },
+    showTitle: false,
     padding: 12,
   });
   chart.render();
@@ -55,5 +56,8 @@ describe('facet rect', () => {
       start: { x: 3 / 8, y: 0 },
       end: { x: 4 / 8, y: 1 },
     });
+
+    // @ts-ignore
+    expect(chart.facetInstance.cfg.showTitle).toBe(false);
   });
 });

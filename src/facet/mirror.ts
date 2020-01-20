@@ -32,7 +32,9 @@ export default class Mirror extends Facet<MirrorCfg, MirrorData> {
   public render() {
     super.render();
 
-    this.renderTitle();
+    if (this.cfg.showTitle) {
+      this.renderTitle();
+    }
   }
 
   protected beforeEachView(view: View, facet: MirrorData) {

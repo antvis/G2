@@ -1,5 +1,5 @@
-import { Chart } from '../../../../src';
 import DIAMOND from '../../../../examples/data/diamond.json';
+import { Chart } from '../../../../src';
 import { RectCfg } from '../../../../src/facet/interface';
 import { createDiv } from '../../../util/dom';
 
