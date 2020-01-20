@@ -124,6 +124,7 @@ describe('annotation', () => {
         textBaseline: 'bottom',
         textAlign: 'center',
       },
+      rotate: Math.PI * 0.25,
     });
 
     chart.render();
@@ -137,6 +138,8 @@ describe('annotation', () => {
     expect(text.get('y')).toBe(116);
     // style
     expect(text.get('style').fill).toBe('red');
+    expect(text.get('rotate')).toBeCloseTo(Math.PI * 0.25);
+    expect(text.get('group').getFirst().attr('matrix')).not.toEqual([1, 0, 0, 0, 1, 0, 0, 0, 1]);
   });
 
   it('use percentage position', () => {
