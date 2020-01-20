@@ -49,7 +49,9 @@ export default class Rect extends Facet<RectCfg, RectData> {
   public render() {
     super.render();
 
-    this.renderTitle();
+    if (this.cfg.showTitle) {
+      this.renderTitle();
+    }
   }
 
   /**
