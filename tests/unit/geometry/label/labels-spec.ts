@@ -221,32 +221,36 @@ describe('LabelsRenderer', () => {
       .color('sex', ['#1890ff', '#f04864'])
       .label('sold', {
         content: (obj) => {
-          const group = new G.Group({});
-          group.addShape({
-            type: 'image',
-            attrs: {
-              x: 0,
-              y: 0,
-              width: 40,
-              height: 50,
-              img: obj.sex === '男' ?
-                'https://gw.alipayobjects.com/zos/rmsportal/oeCxrAewtedMBYOETCln.png' :
-                'https://gw.alipayobjects.com/zos/rmsportal/mweUsJpBWucJRixSfWVP.png',
-            },
-          });
+          if (obj.sex === '男') {
+            const group = new G.Group({});
+            group.addShape({
+              type: 'image',
+              attrs: {
+                x: 0,
+                y: 0,
+                width: 40,
+                height: 50,
+                img: obj.sex === '男' ?
+                  'https://gw.alipayobjects.com/zos/rmsportal/oeCxrAewtedMBYOETCln.png' :
+                  'https://gw.alipayobjects.com/zos/rmsportal/mweUsJpBWucJRixSfWVP.png',
+              },
+            });
 
-          group.addShape({
-            type: 'text',
-            attrs: {
-              x: 20,
-              y: 54,
-              text: obj.sex,
-              textAlign: 'center',
-              textBaseline: 'top',
-              fill: obj.sex === '男' ? '#1890ff' : '#f04864',
-            },
-          });
-          return group;
+            group.addShape({
+              type: 'text',
+              attrs: {
+                x: 20,
+                y: 54,
+                text: obj.sex,
+                textAlign: 'center',
+                textBaseline: 'top',
+                fill: obj.sex === '男' ? '#1890ff' : '#f04864',
+              },
+            });
+            return group;
+          }
+
+          return obj.sold;
         }
       });
     chart.interaction('active');
@@ -257,11 +261,11 @@ describe('LabelsRenderer', () => {
     const femaleLabel = labelsContainer.getChildren()[0];
     const maleLabel = labelsContainer.getChildren()[1];
     // @ts-ignore
-    expect(femaleLabel.getFirst().getCount()).toBe(2);
+    expect(femaleLabel.getFirst().get('type')).toBe('text');
     // @ts-ignore
-    expect(femaleLabel.getFirst().attr('matrix')[6]).toBeGreaterThan(1);
+    expect(femaleLabel.getFirst().attr('matrix')).toBe(null);
     // @ts-ignore
-    expect(femaleLabel.getFirst().attr('matrix')[7]).toBeGreaterThan(1);
+    expect(femaleLabel.getFirst().attr('text')).toBe(0.55);
 
     // @ts-ignore
     expect(maleLabel.getFirst().getCount()).toBe(2);
@@ -271,8 +275,8 @@ describe('LabelsRenderer', () => {
     expect(maleLabel.getFirst().attr('matrix')[7]).toBeGreaterThan(1);
   });
 
-  afterAll(() => {
-    canvas.destroy();
-    removeDom(div);
-  });
+  // afterAll(() => {
+  //   canvas.destroy();
+  //   removeDom(div);
+  // });
 });
