@@ -72,10 +72,6 @@ fetch('../data/population.json')
       fields: [ 'gender' ],
       transpose: false,
       padding: [ 0, 0, 32, 0 ],
-      title: {
-        offsetX: 16,
-        offsetY: 0,
-      },
       eachView(view) {
         view.interval()
           .position('age*total_percentage')
