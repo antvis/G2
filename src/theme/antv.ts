@@ -542,15 +542,14 @@ export default {
         label: {
           offset: 8,
         },
-        grid: deepMix({}, GRID_STYLE, { line: { type: 'line' } }), // 'line' | 'circle'
+        grid: deepMix({}, GRID_STYLE, { line: { type: 'line' } }),
       }),
       radius: deepMix({}, AXIS_STYLE, {
         title: null,
         label: {
           offset: 8,
         },
-        grid: GRID_STYLE,
-        line: null,
+        grid: deepMix({}, GRID_STYLE, { line: { type: 'circle' } }),
       }),
     },
     legend: {
@@ -683,7 +682,6 @@ export default {
       arc: {
         style: {
           stroke: 'rgba(0, 0, 0, .65)',
-          lineDash: [2, 2],
           lineWidth: 1,
         },
         animate: true,

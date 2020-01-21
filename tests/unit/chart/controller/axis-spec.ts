@@ -69,6 +69,40 @@ describe('Axis', () => {
     expect(chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.GRID)[0].component.get('animate')).toBe(true);
   });
 
+  it('polar', () => {
+    chart = new Chart({
+      container: div,
+      height: 500,
+      width: 600,
+      autoFit: false,
+      padding: 'auto',
+    });
+    chart.data([
+      { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
+      { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
+      { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
+      { name: 'Berlin', 月份: 'Jan.', 月均降雨量: 12.4 },
+      { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
+      { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
+    ]);
+    chart.coordinate('polar');
+    chart
+      .interval()
+      .position('月份*月均降雨量')
+      .color('name')
+      .adjust('dodge')
+      .size(5);
+    chart.render();
+
+    const axes = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.AXIS);
+    const grids = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.GRID);
+    expect(grids.length).toBe(2);
+    expect(axes.length).toBe(2);
+
+    expect(grids[0].component.get('type')).toBe('line');
+    expect(grids[1].component.get('type')).toBe('circle');
+  });
+
   it('view close animation', () => {
     chart = new Chart({
       container: div,
