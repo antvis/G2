@@ -248,13 +248,15 @@ export default class Axis extends Controller<Option> {
       let grid = this.cache.get(gridId);
       // 存在则更新
       if (grid) {
-        const cfg = this.getCircleGridCfg(scale, xAxisOption, direction, dim);
+        // @ts-ignore
+        const cfg = this.getLineGridCfg(scale, xAxisOption, 'circle', dim);
         omit(cfg, ['container']);
         grid.component.update(cfg);
         updatedCache.set(gridId, grid);
       } else {
         // 不存在则创建
-        grid = this.createCircleLineGrid(scale, xAxisOption, layer, direction, dim);
+        // @ts-ignore
+        grid = this.createLineGrid(scale, xAxisOption, layer, 'circle', dim);
         if (grid) {
           this.cache.set(gridId, grid);
           updatedCache.set(gridId, grid);
@@ -400,8 +402,9 @@ export default class Axis extends Controller<Option> {
         const axis = this.createCircleAxis(scale, xAxisOption, layer, direction, dim);
         this.cache.set(axisId, axis);
 
-        // grid
-        const grid = this.createCircleLineGrid(scale, xAxisOption, layer, direction, dim);
+        // grid，极坐标下的 x 轴网格线沿着半径方向绘制
+        // @ts-ignore
+        const grid = this.createLineGrid(scale, xAxisOption, layer, 'circle', dim);
         if (grid) {
           this.cache.set(gridId, grid);
         }
@@ -706,7 +709,7 @@ export default class Axis extends Controller<Option> {
     };
 
     // @ts-ignore
-    const gridThemeCfg = getGridThemeCfg(this.view.getTheme(), 'circle');
+    const gridThemeCfg = getGridThemeCfg(this.view.getTheme(), 'radius');
 
     // the cfg order should be ensure
     // grid 动画以 axis 为准

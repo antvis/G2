@@ -179,6 +179,15 @@ describe('axis polar update', () => {
     return chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.GRID);
   }
 
+  it('axis render', () => {
+    const axes = getAxes();
+    const grids = getGrids();
+
+    expect(axes.length).toBe(1);
+    expect(grids.length).toBe(1);
+    expect(grids[0].component.get('type')).toBe('circle');
+  });
+
   it('axis update', async () => {
     let axes = getAxes();
     let grids = getGrids();
