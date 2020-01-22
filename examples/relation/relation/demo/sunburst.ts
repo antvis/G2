@@ -36,6 +36,15 @@ fetch('../data/sunburst.json')
       height: 500,
     });
     chart.data(source);
+    chart.scale({
+      x: {
+        nice: true,
+      },
+      y: {
+        nice: true,
+      },
+    });
+
     chart.coordinate('polar', {
       innerRadius: 0.3,
     });

@@ -18,6 +18,9 @@ fetch('../data/diamond.json')
       padding: [20, 20, 50, 80]
     });
     chart.data(dv.rows);
+    chart.scale({
+      y: { nice: true },
+    });
     chart.tooltip({
       showTitle: false,
       showTooltipMarkers: false,

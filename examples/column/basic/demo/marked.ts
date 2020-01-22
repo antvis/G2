@@ -101,6 +101,7 @@ chart.data(data);
 chart.scale({
   value: {
     alias: '访问数',
+    nice: true,
   },
   name: {
     alias: '步骤名称',

@@ -27,6 +27,10 @@ fetch('../data/flare.json')
         y: node.y,
       }))
     );
+    chart.scale({
+      x: { nice: true },
+      y: { nice: true },
+    });
     chart.tooltip({
       showTitle: false,
       showTooltipMarkers: false,

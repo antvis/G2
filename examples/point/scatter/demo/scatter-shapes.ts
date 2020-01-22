@@ -9,7 +9,10 @@ fetch('../data/scatter.json')
       height: 500,
     });
     chart.data(data);
-
+    chart.scale({
+      height: { nice: true },
+      weight: { nice: true },
+    });
     chart.tooltip({
       showCrosshairs: true,
       crosshairs: {
@@ -22,7 +25,10 @@ fetch('../data/scatter.json')
       .position('height*weight')
       .color('gender')
       .shape('gender', ['circle', 'square'])
-      .tooltip('gender*height*weight');
+      .tooltip('gender*height*weight')
+      .style({
+        fillOpacity: 0.6
+      });
 
     chart.render();
   });

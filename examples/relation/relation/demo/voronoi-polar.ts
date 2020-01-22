@@ -27,6 +27,15 @@ fetch('../data/voronoi.json')
     });
 
     chart.data(dv.rows);
+    chart.scale({
+      _x: {
+        nice: true,
+      },
+      _y: {
+        nice: true,
+      },
+    });
+
     chart
       .polygon()
       .position('_x*_y')

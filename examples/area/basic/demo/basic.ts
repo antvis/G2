@@ -21,6 +21,7 @@ chart.data(data);
 chart.scale({
   value: {
     min: 10000,
+    nice: true,
   },
   year: {
     range: [0, 1],

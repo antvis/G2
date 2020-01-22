@@ -23,7 +23,7 @@ const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 500,
-  padding: 80,
+  padding: 40,
 });
 chart.legend(false);
 chart.tooltip({

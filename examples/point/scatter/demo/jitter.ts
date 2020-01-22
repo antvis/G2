@@ -9,6 +9,9 @@ fetch('../data/dv-grades.json')
       height: 500
     });
     chart.data(data);
+    chart.scale('Score', {
+      nice: true,
+    });
     chart.tooltip({
       showCrosshairs: true,
       crosshairs: {

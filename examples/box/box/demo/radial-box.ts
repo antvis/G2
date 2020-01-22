@@ -27,13 +27,7 @@ const chart = new Chart({
 chart.data(dv.rows);
 chart.scale('range', {
   max: 35,
-});
-chart.axis('range', {
-  grid: {
-    line: {
-      type: 'circle',
-    },
-  },
+  nice: true,
 });
 chart.tooltip({
   showTitle: false,

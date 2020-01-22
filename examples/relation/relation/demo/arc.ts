@@ -19,14 +19,22 @@ fetch('../data/relationship-with-weight.json')
       container: 'container',
       autoFit: true,
       height: 500,
-      padding: [20, 20, 95, 80],
+      padding: [20, 20, 95],
     });
     chart.legend(false);
     chart.tooltip({
       showTitle: false
     });
-    chart.scale('y', {
-      max: 1,    // FIXME: 待 scale 改造后删除
+    chart.scale({
+      x: {
+        sync: true,
+        nice: true,
+      },
+      y: {
+        sync: true,
+        nice: true,
+        max: 1,
+      }
     });
 
     const edgeView = chart.createView();

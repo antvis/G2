@@ -18,13 +18,16 @@ fetch('../data/diamond.json')
     });
 
     chart.data(data);
-    chart.legend({
-      offset: 45
+    chart.scale({
+      price: { nice: true },
     });
+
     chart.point()
       .position('carat*price');
 
-    const view = chart.createView();
+    const view = chart.createView({
+      padding: 0,
+    });
     view.axis(false);
     view.data(dv.rows);
     view.heatmap()

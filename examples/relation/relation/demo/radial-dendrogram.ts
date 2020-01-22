@@ -20,6 +20,16 @@ fetch('../data/flare.json')
     chart.axis(false);
     chart.legend(false);
     chart.coordinate('polar');
+    chart.scale({
+      x: {
+        nice: true,
+        sync: true,
+      },
+      y: {
+        nice: true,
+        sync: true,
+      },
+    });
 
     const edgeView = chart.createView();
     edgeView.data(dv.getAllLinks().map(link => ({

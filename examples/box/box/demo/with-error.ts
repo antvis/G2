@@ -20,6 +20,7 @@ dv.transform({
     return obj;
   },
 });
+
 const chart = new Chart({
   container: 'container',
   autoFit: true,
@@ -30,10 +31,13 @@ chart.scale({
   range: {
     min: 0,
     max: 240000,
+    nice: true,
+    sync: 'value',
   },
   outliers: {
     min: 0,
     max: 240000,
+    sync: 'value',
   },
 });
 chart.tooltip({
@@ -69,7 +73,9 @@ chart
     fillOpacity: 0.3,
   });
 
-const errorPointView = chart.createView();
+const errorPointView = chart.createView({
+  padding: 0,
+});
 errorPointView.data(data);
 errorPointView.axis(false);
 errorPointView.tooltip(false);

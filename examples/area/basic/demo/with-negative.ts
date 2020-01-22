@@ -42,6 +42,9 @@ chart.data(dv.rows);
 chart.scale('year', {
   range: [0, 1],
 });
+chart.scale('value', {
+  nice: true,
+});
 chart.tooltip({
   shared: true,
   showCrosshairs: true,

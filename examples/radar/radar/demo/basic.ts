@@ -55,6 +55,7 @@ chart.axis('score', {
   tickLine: null,
   grid: {
     line: {
+      type: 'line',
       style: {
         lineDash: null,
       },

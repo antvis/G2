@@ -21,6 +21,7 @@ fetch('../data/relationship-with-weight.json')
       container: 'container',
       autoFit: true,
       height: 500,
+      padding: 30,
     });
     chart.legend(false);
     chart.tooltip({
@@ -28,11 +29,13 @@ fetch('../data/relationship-with-weight.json')
     });
     chart.scale({
       x: {
-        sync: true
+        sync: true,
+        nice: true,
       },
       y: {
         sync: true,
-        max: 1, // FIXME: 待 scale 改造后删除
+        nice: true,
+        max: 1,
       }
     });
 

@@ -14,6 +14,9 @@ fetch('../data/salesTrend.json')
     chart.scale('date', {
       ticks: TICKS,
     });
+    chart.scale('buyin', {
+      nice: true,
+    });
     chart.legend(false);
     chart.axis('buyin', false);
     chart.axis('date', {
@@ -23,7 +26,9 @@ fetch('../data/salesTrend.json')
         },
       },
     });
-    chart.line().position('date*buyin');
+    chart
+      .line()
+      .position('date*buyin');
     chart
       .point()
       .position('date*buyin')
