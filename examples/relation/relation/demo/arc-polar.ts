@@ -29,10 +29,21 @@ fetch('../data/relationship-with-weight.json')
       container: 'container',
       autoFit: true,
       height: 500,
+      padding: 50,
     });
     chart.legend(false);
     chart.tooltip({
       showTitle: false
+    });
+    chart.scale({
+      x: {
+        nice: true,
+        sync: true,
+      },
+      y: {
+        nice: true,
+        sync: true,
+      },
     });
 
     const edgeView = chart.createView();

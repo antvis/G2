@@ -19,7 +19,8 @@ fetch('../data/bubble.json')
     // 为各个字段设置别名
     chart.scale({
       LifeExpectancy: {
-        alias: '人均寿命（年）'
+        alias: '人均寿命（年）',
+        nice: true,
       },
       Population: {
         type: 'pow',

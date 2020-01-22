@@ -15,7 +15,8 @@ fetch('../data/basement.json')
         tickCount: 5
       },
       UV: {
-        tickCount: 5
+        tickCount: 5,
+        nice: true,
       }
     });
     chart.axis('time', {

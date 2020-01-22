@@ -24,6 +24,9 @@ fetch('../data/gaussion-distribution.json')
       padding: [32, 32, 48, 32],
     });
     chart.data(dv.rows);
+    chart.scale({
+      y: { nice: true },
+    });
 
     chart.tooltip({
       showTooltipMarkers: false,

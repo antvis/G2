@@ -71,6 +71,7 @@ fetch('../data/diamond.json')
       }
       chart.tooltip({
         showCrosshairs: true,
+        shared: true,
       });
       chart
         .line()

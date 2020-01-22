@@ -19,7 +19,7 @@ function splitData(data) {
 
 registerShape('line', 'split-line', {
   draw(cfg, container) {
-    const type = cfg.mappingData[0]._origin.date;
+    const type = cfg.data[0].date;
     if (type === 'today') {
       const pointArrs = splitData(cfg.points);
       const path1 = [];
@@ -145,7 +145,15 @@ fetch('../data/cpu-data.json')
       container: 'container',
       autoFit: true,
       height: 500,
-      padding: [20, 100, 50, 50]
+    });
+
+    chart.data(data);
+
+    chart.scale({
+      cpu: {
+        max: 100,
+        min: 0
+      }
     });
 
     chart.axis('time', {
@@ -155,6 +163,7 @@ fetch('../data/cpu-data.json')
         }
       }
     });
+
     chart.axis('cpu', {
       label: {
         style: {
@@ -164,26 +173,15 @@ fetch('../data/cpu-data.json')
     });
 
 
-    chart.data(data);
-    chart.scale({
-      time: {
-        min: 13.00,
-        max: 15.00
-      },
-      cpu: {
-        max: 100,
-        min: 0
-      }
-    });
-    chart.line().position('time*cpu').shape('split-line')
-      .color('date', ['#1890ff', '#ced4d9']);
+    chart.line().position('time*cpu').color('date', ['#1890ff', '#ced4d9']).shape('split-line');
     chart.point().position('time*cpu').shape('breath-point');
-    chart.annotation().regionFilter({
-      top: true,
-      start: ['min', 105],
-      end: ['max', 85],
-      color: '#ff4d4f'
-    });
+    // FIXME: 有 bug
+    // chart.annotation().regionFilter({
+    //   top: true,
+    //   start: ['min', 105],
+    //   end: ['max', 85],
+    //   color: '#ff4d4f'
+    // });
     chart.annotation().line({
       start: ['min', 85],
       end: ['max', 85],

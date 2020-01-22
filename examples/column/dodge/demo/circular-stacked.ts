@@ -1,3 +1,4 @@
+// TODO: 圆弧 grid
 import { DataView } from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
@@ -135,6 +136,7 @@ chart.data(dv.rows);
 chart.scale({
   population: {
     minTickInterval: 5000000,
+    nice: true,
   },
 });
 
@@ -144,6 +146,18 @@ chart.axis('population', {
       return +val / 1000000 + 'M';
     },
   },
+});
+
+chart.axis('State', {
+  grid: {
+    line: {
+      style: {
+        stroke: '#BFBFBF',
+        lineWidth: 1,
+        lineDash: [3, 3],
+      }
+    }
+  }
 });
 
 chart.legend({

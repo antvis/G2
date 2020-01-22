@@ -23,6 +23,14 @@ dv.source(data).transform({
   dimension: 'type',
   as: 'percent',
 });
+
+const colorMap = {
+  火象星座: '#1890ff',
+  风向星座: '#13c2c2',
+  土象星座: '#ffc53d',
+  水象星座: '#73d13d',
+};
+
 const chart = new Chart({
   container: 'container',
   autoFit: true,
@@ -38,7 +46,7 @@ chart
   .interval()
   .adjust('stack')
   .position('percent')
-  .color('type', ['#1890ff', '#13c2c2', '#ffc53d', '#73d13d'])
+  .color('type', (val) => colorMap[val])
   .style({
     stroke: 'white',
     lineWidth: 1,
@@ -69,7 +77,7 @@ outterView
   .interval()
   .adjust('stack')
   .position('percent')
-  .color('type', ['#1890ff', '#13c2c2', '#ffc53d', '#73d13d'])
+  .color('type*name', (type, name) => colorMap[type])
   .style({
     stroke: 'white',
     lineWidth: 1,

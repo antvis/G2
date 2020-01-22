@@ -77,6 +77,7 @@ const chart = new Chart({
 chart.scale({
   temperature: {
     sync: true,
+    nice: true,
   },
   time: {
     type: 'time',

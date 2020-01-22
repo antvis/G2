@@ -1,6 +1,5 @@
 import { Chart } from '@antv/g2';
 
-// @ts-ignore
 insertCss(`
   .g2-label-spec {
     font-size: 12px;
@@ -32,6 +31,7 @@ const chart = new Chart({
 chart.data(data);
 chart.scale('value', {
   alias: '现金流(亿)',
+  nice: true,
 });
 chart.axis('year', {
   label: {

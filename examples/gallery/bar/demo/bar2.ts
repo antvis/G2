@@ -15,7 +15,7 @@ const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 500,
-  padding: [20, 0, 50, 80],
+  padding: [20, 0, 50, 100],
 });
 chart.data(data);
 chart.scale({

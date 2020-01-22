@@ -24,6 +24,7 @@ chart.data(data);
 
 chart.scale('vote', {
   min: 0,
+  nice: true,
 });
 
 chart.legend(false);

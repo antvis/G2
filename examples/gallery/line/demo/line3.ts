@@ -13,6 +13,9 @@ fetch('../data/income.json')
     chart.scale('time', {
       range: [0, 1]
     });
+    chart.scale('rate', {
+      nice: true,
+    });
     chart.axis('time', {
       label: {
         style: {
@@ -28,6 +31,8 @@ fetch('../data/income.json')
       }
     });
     chart.line().position('time*rate');
+
+    // 开始添加辅助标记
     chart.annotation().dataMarker({
       position: ['2014-01-03', 6.763],
       text: {

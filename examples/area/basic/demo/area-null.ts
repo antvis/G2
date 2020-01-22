@@ -44,6 +44,7 @@ chart.scale({
     formatter: (val) => {
       return '$' + val;
     },
+    nice: true,
   },
   year: {
     range: [0, 1],

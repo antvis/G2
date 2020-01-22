@@ -53,6 +53,25 @@ chart.scale('Year', {
   range: [0, 1],
   type: 'timeCat'
 });
+
+chart.scale({
+  year: {
+    type: 'cat'
+  },
+  Year: {
+    range: [0, 1],
+    type: 'timeCat',
+  },
+  value: {
+    alias: '市值 (亿美元)',
+    sync: true,
+    nice: true
+  },
+  Value: {
+    sync: true,
+    nice: true
+  },
+});
 chart.axis('year', {
   label: {
     style: {
@@ -81,17 +100,23 @@ chart.tooltip({
 
 const view1 = chart.createView();
 view1.data(data);
-view1.interval().position('year*value').style({
-  fillOpacity: 1,
-});
+view1
+  .interval()
+  .position('year*value')
+  .style({
+    fillOpacity: 1,
+  });
 
 const view2 = chart.createView();
 view2.axis(false);
 view2.data(dv.rows);
-view2.line().position('Year*Value').style({
-  stroke: '#969696',
-  lineDash: [3, 3]
-})
+view2
+  .line()
+  .position('Year*Value')
+  .style({
+    stroke: '#969696',
+    lineDash: [3, 3]
+  })
   .tooltip(false);
 view2.annotation().text({
   content: '趋势线',

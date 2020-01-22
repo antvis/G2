@@ -29,6 +29,9 @@ fetch('../data/iris.json')
       height: 500
     });
     chart.data(dv.rows);
+    chart.scale('_bin', {
+      nice: true,
+    });
     chart.tooltip({
       showTooltipMarkers: false,
       shared: true,

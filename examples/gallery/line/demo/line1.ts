@@ -5,10 +5,30 @@ fetch('../data/terrorism.json')
   .then(res => res.json())
   .then(data => {
     const ds = new DataSet();
+
+    const chart = new Chart({
+      container: 'container',
+      autoFit: true,
+      height: 500,
+      padding: [ 20, 40 ],
+    });
+
+    chart.scale({
+      Deaths: {
+        sync: true,
+        nice: true,
+      },
+      death: {
+        sync: true,
+        nice: true,
+      },
+    });
+
+
     const dv1 = ds.createView().source(data);
     dv1.transform({
       type: 'map',
-      callback: function callback(row) {
+      callback: (row) => {
         if (typeof (row.Deaths) === 'string') {
           row.Deaths = row.Deaths.replace(',', '');
         }
@@ -18,21 +38,6 @@ fetch('../data/terrorism.json')
         return row;
       }
     });
-    const dv2 = ds.createView().source(dv1.rows);
-    dv2.transform({
-      type: 'regression',
-      method: 'polynomial',
-      fields: ['year', 'death'],
-      bandwidth: 0.1,
-      as: ['year', 'death']
-    });
-    const chart = new Chart({
-      container: 'container',
-      autoFit: true,
-      height: 500,
-      padding: [ 20, 40 ],
-    });
-
     const view1 = chart.createView();
     view1.data(dv1.rows);
     view1.axis('Year', {
@@ -68,6 +73,17 @@ fetch('../data/terrorism.json')
       }
     });
     view1.line().position('Year*Deaths');
+
+
+    const dv2 = ds.createView().source(dv1.rows);
+    dv2.transform({
+      type: 'regression',
+      method: 'polynomial',
+      fields: ['year', 'death'],
+      bandwidth: 0.1,
+      as: ['year', 'death']
+    });
+
     const view2 = chart.createView();
     view2.axis(false);
     view2.data(dv2.rows);
@@ -76,7 +92,6 @@ fetch('../data/terrorism.json')
       lineDash: [3, 3]
     })
       .tooltip(false);
-    // add guide
     view1.annotation().text({
       content: '趋势线',
       position: ['1970', 2500],

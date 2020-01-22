@@ -8,6 +8,7 @@ fetch('../data/time-scatter.json')
       container: 'container',
       autoFit: true,
       height: 500,
+      padding: [ 30, 80 ]
     });
 
     const dv = new DataView();
@@ -30,7 +31,8 @@ fetch('../data/time-scatter.json')
       },
       exp_amo: {
         type: 'log',
-        ticks: [225, 1000000, 2000000, 4000000, 6000000]
+        ticks: [225, 1000000, 2000000, 4000000, 6000000],
+        nice: true,
       }
     });
     chart.legend(false);
@@ -68,10 +70,14 @@ fetch('../data/time-scatter.json')
         }
       }
     });
-    chart.point()
+    chart
+      .point()
       .position('exp_dat*exp_amo')
       .size('exp_amo', [1, 10])
       .shape('circle')
-      .tooltip('exp_dat*can_nam*spe_nam*exp_amo');
+      .tooltip('exp_dat*can_nam*spe_nam*exp_amo')
+      .style({
+        opacity: 0.6,
+      });
     chart.render();
   });

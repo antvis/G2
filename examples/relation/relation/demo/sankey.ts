@@ -26,8 +26,8 @@ fetch('../data/energy.json')
     });
     chart.axis(false);
     chart.scale({
-      x: { sync: true },
-      y: { sync: true }
+      x: { sync: true, nice: true },
+      y: { sync: true, nice: true }
     });
 
     // edge view

@@ -20,7 +20,7 @@ const chart = new Chart({
 chart.data(data);
 chart.scale({
   value: {
-    max: 1300,
+    max: 1400,
     min: 0,
     alias: '销量（百万）',
   },

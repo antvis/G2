@@ -22,7 +22,7 @@ const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 500,
-  padding: 50,
+  padding: 0,
 });
 chart.data(dv.rows);
 chart.scale({

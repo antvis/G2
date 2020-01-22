@@ -29,6 +29,9 @@ fetch('../data/siteUV.json')
       },
       date: {
         type: 'cat'
+      },
+      Count: {
+        nice: true,
       }
     });
     chart.axis('time', {
@@ -50,6 +53,7 @@ fetch('../data/siteUV.json')
     });
 
     chart.line().position('time*Count').color('date', ['#d9d9d9', '#1890ff']);
+
     chart.annotation().dataMarker({
       position: ['13:00', 0],
       text: {

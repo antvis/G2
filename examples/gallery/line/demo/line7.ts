@@ -13,6 +13,9 @@ fetch('../data/nintendo.json')
     chart.scale({
       Date: {
         tickCount: 10
+      },
+      Close: {
+        nice: true,
       }
     });
     chart.axis('Date', {

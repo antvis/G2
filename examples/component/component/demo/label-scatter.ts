@@ -9,6 +9,10 @@ fetch('../data/scatter.json')
       height: 500,
     });
     chart.data(data);
+    chart.scale({
+      height: { nice: true },
+      weight: { nice: true },
+    });
     chart
       .point()
       .position('height*weight')

@@ -109,6 +109,8 @@ chart
       style: {
         fontSize: 12,
         fill: color,
+        lineWidth: 0,
+        stroke: null,
         shadowBlur: 2,
         shadowColor: 'rgba(0, 0, 0, .45)',
       },

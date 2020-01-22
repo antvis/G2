@@ -18,6 +18,7 @@ const chart = new Chart({
 chart.data(dv.rows);
 chart.scale('range', {
   max: 35,
+  nice: true,
 });
 chart.tooltip({
   showTooltipMarkers: false,

@@ -10,6 +10,10 @@ fetch('../data/scatter.json')
     });
     // 数据格式： [{"gender":"female","height":161.2,"weight":51.6}]
     chart.data(data);
+    chart.scale({
+      height: { nice: true },
+      weight: { nice: true },
+    });
     chart.tooltip({
       showTitle: false,
       showCrosshairs: true,
@@ -22,7 +26,9 @@ fetch('../data/scatter.json')
         + '{value}'
         + '</li>'
     });
-    chart.point().position('height*weight')
+    chart
+      .point()
+      .position('height*weight')
       .color('gender')
       .shape('circle')
       .tooltip('gender*height*weight', (gender, height, weight) => {
@@ -30,6 +36,9 @@ fetch('../data/scatter.json')
           name: gender,
           value: height + '(cm), ' + weight + '(kg)'
         };
+      })
+      .style({
+        fillOpacity: 0.6
       });
     chart.render();
   });
