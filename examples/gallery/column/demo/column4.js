@@ -12,10 +12,12 @@ const chart = new G2.Chart({
   height: 500,
   padding: [ 20, 20, 50, 30 ]
 });
+
 chart.source(data);
 chart.scale('value', {
   alias: '销售额(万)'
 });
+
 chart.axis('time', {
   label: {
     textStyle: {
@@ -27,7 +29,6 @@ chart.axis('time', {
     length: 0
   }
 });
-
 chart.axis('value', {
   label: {
     textStyle: {
@@ -36,9 +37,6 @@ chart.axis('value', {
   }
 });
 
-chart.tooltip({
-  share: true
-});
 chart.interval().position('time*value')
   .opacity('time', val => {
     if (val === '13:00-14:00') {
