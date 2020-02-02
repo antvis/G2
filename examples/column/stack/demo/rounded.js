@@ -58,7 +58,11 @@ const chart = new G2.Chart({
 });
 chart.source(activeData, {
   expected: {
-    ticks: [ 0, 900, 1200 ]
+    ticks: [ 0, 900, 1200 ],
+    max: 1200 // 同步 expected 和 actual 的数值范围
+  },
+  actual: {
+    max: 1200 // 同步 expected 和 actual 的数值范围
   }
 });
 chart.axis('date', false);
