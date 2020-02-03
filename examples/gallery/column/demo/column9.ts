@@ -30,26 +30,23 @@ chart.axis('name', {
       fill: '#aaaaaa',
     },
   },
-  tickLine: {
-    length: 0,
-    alignTick: true,
-  },
+  tickLine: null,
 });
 chart.axis('value', {
   label: null,
   title: {
     offset: 20,
+    style: {
+      fill: '#aaa'
+    }
   },
 });
-chart.legend(false);
 chart.annotation().region({
   start: ['start', 'max'],
   end: ['end', 80],
   style: {
-    lineWidth: 0,
     fill: '#dcdcdc',
     fillOpacity: 0.3,
-    stroke: '#ccc',
   },
 });
 chart.annotation().text({

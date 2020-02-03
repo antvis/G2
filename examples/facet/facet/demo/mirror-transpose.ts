@@ -4,25 +4,21 @@ import { Chart } from '@antv/g2';
 function getData(data) {
   const tmp = [];
   const dates = [];
-  // @ts-ignore
+
   data.male.values.forEach(function(obj) {
     if (dates.indexOf(obj.date) === -1) {
       dates.push(obj.date);
     }
     obj.age_groups.forEach(function(subObject) {
-      // @ts-ignore
       subObject.gender = 'male';
-      // @ts-ignore
       subObject.date = obj.date;
       tmp.push(subObject);
     });
   });
-  // @ts-ignore
+
   data.female.values.forEach(function(obj) {
     obj.age_groups.forEach(function(subObject) {
-      // @ts-ignore
       subObject.gender = 'female';
-      // @ts-ignore
       subObject.date = obj.date;
       tmp.push(subObject);
     });

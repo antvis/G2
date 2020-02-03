@@ -35,15 +35,12 @@ chart.scale('value', {
 });
 
 chart.axis('value', false);
-chart.legend({
-  position: 'top',
-});
 chart.coordinate().transpose();
 chart.facet('mirror', {
   fields: ['type'],
   transpose: true,
   showTitle: false,
-  eachView: function eachView(view, facet) {
+  eachView: (view, facet) => {
     const facetIndex = facet.columnIndex;
     if (facetIndex === 0) {
       view.axis('country', {
@@ -66,7 +63,7 @@ chart.facet('mirror', {
     const color = (facetIndex === 0) ? '#1890ff' : '#2fc25b';
     view.interval().position('country*value').color(color)
       .size(30)
-      .label('value', function (val) {
+      .label('value', (val) => {
         let offset = (facetIndex === 1) ? -4 : 4;
         let shadowBlur = 2;
         let textAlign = (facetIndex === 1) ? 'end' : 'start';

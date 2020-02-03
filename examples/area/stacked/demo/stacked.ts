@@ -41,6 +41,9 @@ chart.scale('year', {
   type: 'linear',
   tickInterval: 50,
 });
+chart.scale('value', {
+  nice: true,
+});
 
 chart.tooltip({
   showCrosshairs: true,

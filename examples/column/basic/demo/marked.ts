@@ -17,9 +17,7 @@ registerShape('interval', 'text-interval', {
   draw(cfg, container) {
     const points = this.parsePoints(cfg.points); // 将0-1空间的坐标转换为画布坐标
     const origin = cfg.data;
-    // @ts-ignore
     const value = origin.value;
-
     const group = container.addGroup();
     group.addShape('text', {
       attrs: {
@@ -44,11 +42,9 @@ registerShape('interval', 'text-interval', {
 });
 
 registerShape('interval', 'fall-flag', {
-  // @ts-ignore
   getPoints(shapeInfo) {
     const { x, y, y0, size } = shapeInfo;
     return [
-      // @ts-ignore
       { x: x + size, y: y0 + size },
       { x, y },
     ];
@@ -62,7 +58,6 @@ registerShape('interval', 'fall-flag', {
     const points = this.parsePoints(cfg.points); // 将0-1空间的坐标转换为画布坐标
     const p1 = points[0];
     const width = 9;
-    // @ts-ignore
     const washaway = origin.washaway;
 
     const group = container.addGroup();
@@ -96,7 +91,6 @@ const chart = new Chart({
   height: 500,
 });
 
-chart.legend(false);
 chart.data(data);
 chart.scale({
   value: {
@@ -111,6 +105,7 @@ chart.scale({
 chart.axis('name', {
   title: null,
 });
+chart.legend(false);
 
 chart
   .interval()

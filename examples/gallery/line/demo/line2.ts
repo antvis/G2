@@ -8,7 +8,7 @@ fetch('../data/salesTrend.json')
       container: 'container',
       autoFit: true,
       height: 500,
-      padding: [50, 20, 50, 20],
+      padding: [50, 20],
     });
     chart.data(data);
     chart.scale('date', {

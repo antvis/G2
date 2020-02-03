@@ -18,7 +18,6 @@ const chart = new Chart({
 
 chart.data(data);
 chart.scale('sales', {
-  tickInterval: 20,
   nice: true,
 });
 

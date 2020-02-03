@@ -27,14 +27,10 @@ chart.axis('type', {
     },
   },
   tickLine: {
-    length: 0,
-    alignTick: true,
+    alignTick: false,
   },
 });
 chart.axis('value', false);
-chart.tooltip({
-  shared: true,
-});
 
 chart.interval().position('type*value');
 

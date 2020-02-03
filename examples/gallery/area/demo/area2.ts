@@ -26,9 +26,6 @@ chart.scale({
     max: 2000,
     min: -1000
   },
-  month: {
-    type: 'cat'
-  }
 });
 
 chart.axis('month', {
@@ -53,7 +50,7 @@ chart.axis('value', {
 chart.area().position('month*value').color('white').style({
   fillOpacity: 0.3,
 });
-chart.line().position('month*value').color('white').size(2);
+chart.line().position('month*value').color('white');
 // 分段颜色
 chart.annotation().regionFilter({
   top: true,

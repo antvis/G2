@@ -1,4 +1,4 @@
-// TODO: 默认选中
+// TODO: 默认选中交互
 import { Chart } from '@antv/g2';
 
 const data = [
@@ -17,7 +17,7 @@ chart.legend(false);
 chart.coordinate('theta', {
   radius: 0.75,
 });
-const pie = chart
+chart
   .interval()
   .adjust('stack')
   .position('value')

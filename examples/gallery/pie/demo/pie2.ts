@@ -22,6 +22,7 @@ const chart = new Chart({
   height: 500,
 });
 chart.legend(false);
+
 const view1 = chart.createView({
   region: {
     start: {
@@ -45,7 +46,7 @@ view1
   .adjust('stack')
   .position('value')
   .color('type', ['#38c060', '#2593fc'])
-  .label('value', function() {
+  .label('value', function () {
     return {
       offset: -10,
       content: (obj) => {
@@ -83,7 +84,7 @@ view2
   });
 chart.render();
 drawLinkArea();
-chart.on('afterpaint', function() {
+chart.on('afterpaint', function () {
   drawLinkArea();
 });
 
@@ -93,7 +94,6 @@ function drawLinkArea() {
   const container = chart.backgroundGroup;
   const view1_coord = view1.getCoordinate();
   const center = view1_coord.getCenter();
-  // @ts-ignore
   const radius = view1_coord.getRadius();
   const interval_geom = view2.geometries[0];
   const interval_container = interval_geom.container;

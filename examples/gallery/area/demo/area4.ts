@@ -7,8 +7,14 @@ fetch('../data/gas-import-export.json')
       container: 'container',
       autoFit: true,
       height: 500,
+      padding: [50, 20, 30, 30]
     });
     chart.data(data);
+    chart.scale({
+      value: {
+        nice: true,
+      }
+    });
 
     chart.axis('year', {
       label: {
@@ -43,7 +49,6 @@ fetch('../data/gas-import-export.json')
     });
     // export mexico
     chart.annotation().text({
-      top: true,
       position: [2040, 6.3],
       content: '出口至墨西哥',
       style: {
@@ -57,7 +62,6 @@ fetch('../data/gas-import-export.json')
     });
     // export canada
     chart.annotation().text({
-      top: true,
       position: [2040, 5],
       content: '出口至加拿大',
       style: {
@@ -85,7 +89,6 @@ fetch('../data/gas-import-export.json')
     });
     // import canada
     chart.annotation().text({
-      top: true,
       position: [2015, -1.5],
       content: '从加拿大进口',
       style: {
@@ -99,17 +102,15 @@ fetch('../data/gas-import-export.json')
     });
     // import nature
     chart.annotation().text({
-      top: true,
       position: [2019, -3.5],
       content: '从其他国家进口',
       style: {
         fill: '#6b6b6b',
         fontSize: 12,
         fontWeight: 300,
-        textAlign: 'center',
+        textAlign: 'start',
         textBaseline: 'center'
       },
-      offsetX: 10
     });
 
     chart.annotation().region({

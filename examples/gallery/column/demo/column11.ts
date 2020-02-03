@@ -33,23 +33,6 @@ const chart = new Chart({
   height: 500,
 });
 chart.data(data);
-chart.scale('value', {
-  max: 100,
-  min: 0,
-  nice: true,
-});
-chart.axis('time', {
-  label: {
-    style: {
-      fill: '#aaaaaa',
-    },
-  },
-  tickLine: {
-    length: 0,
-    alignTick: true,
-  },
-});
-
 chart.axis('value', false);
 chart.legend({
   position: 'right',

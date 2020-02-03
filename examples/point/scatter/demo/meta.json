@@ -59,6 +59,14 @@
         "en": "pizza chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*nYyYQJf_lg4AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "bubble-image.ts",
+      "title": {
+        "zh": "气泡图-自定义 shape",
+        "en": "bubble chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*jB6VTY-M2gIAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

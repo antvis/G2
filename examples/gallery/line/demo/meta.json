@@ -67,6 +67,14 @@
         "en": ""
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*2YcTT7guTxUAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "line-realtime.ts",
+      "title": {
+        "zh": "实时更新数据的折线图",
+        "en": "realtime line chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*FvlCR6GXUk0AAAAAAAAAAABkARQnAQ"
     }
   ]
 }

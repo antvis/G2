@@ -1,4 +1,3 @@
-// TODO: @hustcc 坐标系变换未生效
 import { Chart } from '@antv/g2';
 
 const expectData = [

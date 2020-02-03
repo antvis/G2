@@ -1,5 +1,10 @@
-import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
+
+function getTypeColor(type) {
+  if (type === '转基因作物种植面积') { return '#1890ff'; }
+  if (type === '耕地总面积') { return '#2fc25b'; }
+  if (type === '转基因作物种植占比（%）') { return '#facc14'; }
+}
 
 const data = [
   { class: '转基因作物种植面积', country: '印度', type: '1', value: 10.8 },
@@ -93,10 +98,7 @@ chart.facet('rect', {
             fontSize: 12
           }
         },
-        tickLine: {
-          alignTick: false,
-          length: 0
-        },
+        tickLine: null,
         line: null,
       });
 
@@ -136,9 +138,3 @@ chart.facet('rect', {
   }
 });
 chart.render();
-
-function getTypeColor(type) {
-  if (type === '转基因作物种植面积') { return '#1890ff'; }
-  if (type === '耕地总面积') { return '#2fc25b'; }
-  if (type === '转基因作物种植占比（%）') { return '#facc14'; }
-}

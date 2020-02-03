@@ -1,4 +1,3 @@
-// FIXME: label && tooltip 交互
 import { Chart } from '@antv/g2';
 
 const data = [

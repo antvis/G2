@@ -36,7 +36,6 @@ fetch('../data/dv-grades.json')
         }
       },
       grid: {
-        // align: 'center', // 网格顶点从两个刻度中间开始
         line: {
           style: {
             stroke: '#8C8C8C',

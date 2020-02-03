@@ -1,5 +1,23 @@
 import { Chart } from '@antv/g2';
 
+function findMaxMin(data) {
+  let maxValue = 0;
+  let minValue = 50000;
+  let maxObj = null;
+  let minObj = null;
+  for (const d of data) {
+    if (d.Close > maxValue) {
+      maxValue = d.Close;
+      maxObj = d;
+    }
+    if (d.Close < minValue) {
+      minValue = d.Close;
+      minObj = d;
+    }
+  }
+  return { max: maxObj, min: minObj };
+}
+
 fetch('../data/nintendo.json')
   .then(res => res.json())
   .then(data => {
@@ -7,7 +25,6 @@ fetch('../data/nintendo.json')
       container: 'container',
       autoFit: true,
       height: 500,
-      padding: [30, 20, 50, 30]
     });
     chart.data(data);
     chart.scale({
@@ -39,9 +56,7 @@ fetch('../data/nintendo.json')
 
     chart.line().position('Date*Close');
     // guide
-    const max_min = findMaxMin();
-    const max = max_min.max;
-    const min = max_min.min;
+    const { min, max } = findMaxMin(data);
     chart.annotation().dataMarker({
       top: true,
       position: [max.Date, max.Close],
@@ -69,24 +84,4 @@ fetch('../data/nintendo.json')
       }
     });
     chart.render();
-
-    function findMaxMin() {
-      let maxValue = 0;
-      let minValue = 50000;
-      let maxObj = null;
-      let minObj = null;
-      for (let i = 0; i < data.length; i++) {
-        const d = data[i];
-        if (d.Close > maxValue) {
-          maxValue = d.Close;
-          maxObj = d;
-        }
-        if (d.Close < minValue) {
-          minValue = d.Close;
-          minObj = d;
-        }
-      }
-      return { max: maxObj, min: minObj };
-    }
-
   });

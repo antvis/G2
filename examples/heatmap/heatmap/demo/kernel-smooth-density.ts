@@ -20,6 +20,7 @@ fetch('../data/diamond.json')
     chart.data(data);
     chart.scale({
       price: { nice: true },
+      carat: { nice: true },
     });
 
     chart.point()

@@ -1,4 +1,3 @@
-// TODO: 圆弧 grid
 import { DataView } from '@antv/data-set';
 import { Chart } from '@antv/g2';
 

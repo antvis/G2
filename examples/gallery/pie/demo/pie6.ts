@@ -59,7 +59,7 @@ chart
       shadowColor: 'rgba(0, 0, 0, .45)',
     },
   });
-const outterView = chart.createView();
+
 const ds2 = new DataSet();
 const dv2 = ds2.createView();
 dv2.source(data).transform({
@@ -68,6 +68,7 @@ dv2.source(data).transform({
   dimension: 'name',
   as: 'percent',
 });
+const outterView = chart.createView();
 outterView.data(dv2.rows);
 outterView.coordinate('theta', {
   innerRadius: 0.5 / 0.8,

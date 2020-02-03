@@ -7,13 +7,16 @@ fetch('../data/fireworks-sales.json')
       container: 'container',
       autoFit: true,
       height: 500,
-      padding: [20, 40, 50, 50]
+      //padding: [20, 40, 50, 50]
     });
     chart.data(data);
     chart.scale('Data', {
       range: [0, 1],
       tickCount: 10,
       type: 'timeCat'
+    });
+    chart.scale('sales', {
+      nice: true,
     });
     chart.axis('Data', {
       label: {
@@ -34,7 +37,6 @@ fetch('../data/fireworks-sales.json')
     });
     chart.tooltip({
       showCrosshairs: true,
-      shared: true
     });
 
     chart.annotation().dataMarker({

@@ -7,12 +7,8 @@ fetch('../data/income.json')
       container: 'container',
       autoFit: true,
       height: 500,
-      padding: [20, 20, 70, 20],
     });
     chart.data(data);
-    chart.scale('time', {
-      range: [0, 1]
-    });
     chart.scale('rate', {
       nice: true,
     });
@@ -38,9 +34,9 @@ fetch('../data/income.json')
       text: {
         content: '受稳健货币政策影响，协定存款利\n率居高不下,收益率达6.763%',
         style: {
-            textAlign: 'left',
-            stroke: '#fff',
-            lineWidth: 2
+          textAlign: 'left',
+          stroke: '#fff',
+          lineWidth: 2
         }
       }
     });
@@ -49,9 +45,9 @@ fetch('../data/income.json')
       text: {
         content: '余额宝刚成立时，并未达到目标资产\n配置，故收益率较低',
         style: {
-            textAlign: 'left',
-            stroke: '#fff',
-            lineWidth: 2
+          textAlign: 'left',
+          stroke: '#fff',
+          lineWidth: 2
         }
       }
     });

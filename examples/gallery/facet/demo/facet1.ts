@@ -16,7 +16,7 @@ fetch('../data/fertility.json')
       container: 'container',
       autoFit: true,
       height: 500,
-      padding: [ 50, 20, 50, 50 ]
+      padding: [50, 20, 50, 50]
     });
     chart.data(dv.rows);
 
@@ -26,7 +26,7 @@ fetch('../data/fertility.json')
         min: 1
       },
       year: {
-        range: [ 0, 1 ],
+        range: [0, 1],
         ticks: ['1950', '2015']
       }
     });
@@ -43,20 +43,19 @@ fetch('../data/fertility.json')
       grid: {
         line: {
           style: {
-            lineDash: [ 0, 0 ],
+            lineDash: [0, 0],
             lineWidth: 1,
             stroke: '#e9e9e9'
           }
         }
       },
       label: {
-        autoHide: false,
         rotate: Math.PI / 4,
       }
     });
 
     chart.facet('rect', {
-      fields: [ 'country' ],
+      fields: ['country'],
       columnTitle: {
         style: {
           fontSize: 12,
@@ -66,7 +65,7 @@ fetch('../data/fertility.json')
         }
       },
       padding: 8,
-      eachView: function eachView(view, facet) {
+      eachView: (view, facet) => {
         view.line()
           .position('year*value')
           .shape('smooth')

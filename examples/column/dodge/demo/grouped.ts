@@ -26,6 +26,9 @@ const chart = new Chart({
 });
 
 chart.data(data);
+chart.scale('月均降雨量', {
+  nice: true,
+});
 chart.tooltip({
   showTooltipMarkers: false,
   shared: true,

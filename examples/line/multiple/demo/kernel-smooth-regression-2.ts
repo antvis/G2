@@ -21,6 +21,7 @@ fetch('../data/diamond.json')
       price: {
         alias: '价格',
         sync: true,
+        nice: true,
       },
     });
     chart.point().position('carat*price').shape('circle');
@@ -52,7 +53,6 @@ fetch('../data/diamond.json')
       view
         .line()
         .position('carat*price')
-        // @ts-ignore
         .color(view.getTheme().colors[i]);
     });
 

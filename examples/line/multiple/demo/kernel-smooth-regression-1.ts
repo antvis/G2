@@ -1,5 +1,6 @@
 import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
+import * as _ from 'lodash';
 
 function getStaticsData(data) {
   const result = [
@@ -12,7 +13,7 @@ function getStaticsData(data) {
     'tricube',
     'triweight',
     'uniform',
-  ].map((method, i) => {
+  ].map((method) => {
     const dv = new DataSet.View().source(data);
     dv.transform({
       type: 'kernel-smooth.regression',
@@ -76,7 +77,6 @@ fetch('../data/diamond.json')
       chart
         .line()
         .position(`x*${method}`)
-        // @ts-ignore
         .color(chart.getTheme().colors[i]);
     });
 

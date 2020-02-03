@@ -23,11 +23,9 @@ const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 500,
-  padding: 14,
 });
 chart.data(dv.rows);
 chart.legend(false);
-chart.axis(false);
 chart.coordinate('theta', {
   radius: 0.75,
 });
@@ -36,7 +34,7 @@ chart
   .adjust('stack')
   .position('percent')
   .color('type', ['#2593fc', '#38c060', '#27c1c1', '#705dc8', '#3b4771', '#f9cb34'])
-  .label('percent', function(val) {
+  .label('percent', function (val) {
     const offset = val > 0.02 ? -30 : 30;
     return {
       offset,

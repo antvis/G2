@@ -1,3 +1,4 @@
+// TODO: slider
 import { Chart } from '@antv/g2';
 
 fetch('../data/rain-flow.json')

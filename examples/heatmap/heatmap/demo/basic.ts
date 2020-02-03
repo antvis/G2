@@ -102,7 +102,6 @@ chart.axis('day', {
         stroke: '#f0f0f0',
       },
     },
-    // showFirstLine: true,
   },
 });
 

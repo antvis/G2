@@ -38,6 +38,9 @@ chart.data(data);
 chart.scale('month', {
   range: [0, 1],
 });
+chart.scale('value', {
+  nice: true,
+});
 
 chart
   .line()

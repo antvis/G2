@@ -86,6 +86,7 @@ chart.scale({
   },
   count: {
     max: 14,
+    nice: true,
   },
 });
 

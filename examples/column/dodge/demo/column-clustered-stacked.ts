@@ -144,7 +144,7 @@ chart.axis('population', {
 });
 
 chart.legend({
-  position: 'right',
+  position: 'right-bottom',
 });
 
 chart.tooltip({

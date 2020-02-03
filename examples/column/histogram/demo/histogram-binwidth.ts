@@ -24,6 +24,9 @@ fetch('../data/diamond.json')
       depth: {
         tickInterval: 4,
       },
+      count: {
+        nice: true,
+      }
     });
 
     chart.tooltip({
