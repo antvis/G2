@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2",
-  "version": "3.6.0-beta.15",
+  "version": "3.6.0-beta.16",
   "description": "the Grammar of Graphics in Javascript",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -34,7 +34,7 @@
   "dependencies": {
     "@antv/adjust": "~0.2.0",
     "@antv/attr": "~0.3.1",
-    "@antv/component": "~0.4.0-beta.10",
+    "@antv/component": "~0.4.0-beta.11",
     "@antv/coord": "~0.2.1",
     "@antv/dom-util": "^2.0.1",
     "@antv/event-emitter": "~0.1.0",
@@ -42,7 +42,7 @@
     "@antv/matrix-util": "^2.0.2",
     "@antv/color-util": "^2.0.2",
     "@antv/path-util": "^2.0.2",
-    "@antv/scale": "~0.2.0",
+    "@antv/scale": "^0.3.0-beta.5",
     "@antv/util": "~2.0.4"
   },
   "devDependencies": {

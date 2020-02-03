@@ -229,7 +229,7 @@ export default class AxisController {
 
   // 获取圆弧坐标轴配置项信息
   private _getCircleCfg(coord): CircleCFG {
-    const { x: rangeX, y: rangeY, isTransposed, circleCenter: center, innerRadius } = coord;
+    const { x: rangeX, y: rangeY, isTransposed, circleCenter: center, innerRadius} = coord;
     const isReflectY = rangeY.start > rangeY.end;
     let start;
     if (isTransposed) {
@@ -237,7 +237,6 @@ export default class AxisController {
     } else {
       start = { x: 0, y: isReflectY ? 0 : 1 };
     }
-
     start = coord.convert(start);
     const startVector = [ start.x - center.x, start.y - center.y ];
     const normalVector = [ 1, 0 ];
