@@ -4,11 +4,6 @@ import { Chart } from '@antv/g2';
 fetch('../data/area.json')
   .then(res => res.json())
   .then(data => {
-    const chart = new Chart({
-      container: 'container',
-      autoFit: true,
-      height: 500,
-    });
     const ds = new DataSet();
     const dv = ds.createView()
       .source(data)
@@ -27,12 +22,17 @@ fetch('../data/area.json')
         as: 'percent'
       });
 
+    const chart = new Chart({
+      container: 'container',
+      autoFit: true,
+      height: 500,
+    });
     chart.data(dv.rows);
     chart.scale({
       percent: {
         max: 1.0,
         min: 0.0,
-        formatter: function formatter(value) {
+        formatter: (value) => {
           value = value || 0;
           value = value * 100;
           return parseInt(value, 10) + '%';
@@ -67,7 +67,10 @@ fetch('../data/area.json')
       .area()
       .adjust('stack')
       .position('Year*percent')
-      .color('type');
+      .color('type')
+      .style({
+        fillOpacity: 0.8,
+      });
 
     chart.render();
   });

@@ -40,27 +40,12 @@ const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 500,
-  padding: [ 20, 40 ],
-});
-
-chart.scale('value', {
-  alias: '市值 (亿美元)'
-});
-chart.scale('year', {
-  type: 'cat'
-});
-chart.scale('Year', {
-  range: [0, 1],
-  type: 'timeCat'
+  padding: [20, 40],
 });
 
 chart.scale({
-  year: {
-    type: 'cat'
-  },
   Year: {
     range: [0, 1],
-    type: 'timeCat',
   },
   value: {
     alias: '市值 (亿美元)',
@@ -78,10 +63,7 @@ chart.axis('year', {
       fill: '#aaaaaa'
     }
   },
-  tickLine: {
-    alignTick: false,
-    length: 0
-  }
+  tickLine: null
 });
 chart.axis('value', {
   label: {
@@ -90,13 +72,11 @@ chart.axis('value', {
     }
   },
   title: {
-    offset: 50
+    style: {
+      fill: '#aaaaaa'
+    }
   }
 });
-chart.tooltip({
-  shared: true
-});
-
 
 const view1 = chart.createView();
 view1.data(data);

@@ -17,24 +17,15 @@ const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 500,
-  padding: 30,
 });
 
 chart.data(data);
 
 chart.scale('vote', {
-  min: 0,
   nice: true,
 });
 
 chart.legend(false);
-
-chart.axis('vote', {
-  label: null,
-  title: null,
-  line: null,
-  tickLine: null,
-});
 
 chart
   .interval()

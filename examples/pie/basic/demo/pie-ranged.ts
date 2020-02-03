@@ -1,4 +1,3 @@
-// FIXME：未绘制成功
 import { Chart } from '@antv/g2';
 
 const data = [

@@ -30,22 +30,20 @@ registerShape('polygon', 'boundary-polygon', {
         ];
         // 最后一周的多边形添加右侧边框
         group.addShape('path', {
-          zIndex: 1,
           attrs: {
             path: this.parsePath(linePath),
-            lineWidth: 1,
+            lineWidth: 4,
             stroke: '#404040'
           }
         });
         if (cfg.data.lastDay) {
           group.addShape('path', {
-            zIndex: 1,
             attrs: {
               path: this.parsePath([
                 ['M', points[1].x, points[1].y],
                 ['L', points[2].x, points[2].y]
               ]),
-              lineWidth: 1,
+              lineWidth: 4,
               stroke: '#404040'
             }
           });

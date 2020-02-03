@@ -35,6 +35,9 @@ chart.axis('value', {
     closed: false,
   },
   verticalFactor: 1,
+  label: {
+    offset: 15,
+  }
 });
 
 chart

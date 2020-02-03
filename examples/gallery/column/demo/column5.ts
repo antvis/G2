@@ -15,19 +15,18 @@ const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 500,
-  padding: [20, 20, 50, 40],
 });
 chart.data(data);
+chart.scale('value', {
+  nice: true,
+});
 chart.axis('type', {
   label: {
     style: {
       fill: '#aaaaaa',
     },
   },
-  tickLine: {
-    length: 0,
-    alignTick: true,
-  },
+  tickLine: null,
 });
 
 chart.axis('value', {

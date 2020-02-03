@@ -39,10 +39,7 @@ chart.axis('year', {
       fill: '#aaaaaa',
     },
   },
-  tickLine: {
-    length: 0,
-    alignTick: true,
-  },
+  tickLine: null,
 });
 
 chart.axis('value', {

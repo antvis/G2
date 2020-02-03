@@ -1,4 +1,3 @@
-// FIXME：Label && Tooltip 交互
 import { Chart } from '@antv/g2';
 
 const data = [
@@ -59,5 +58,4 @@ chart
     lineWidth: 1,
     stroke: '#fff',
   });
-chart.interaction('active');
 chart.render();

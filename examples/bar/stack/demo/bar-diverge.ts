@@ -54,6 +54,9 @@ const chart = new Chart({
 chart.coordinate('rect').transpose();
 
 chart.data(dv.rows);
+chart.scale('value', {
+  nice: true,
+});
 
 chart.axis('type', {
   title: null,

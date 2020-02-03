@@ -21,6 +21,7 @@ fetch('../data/blockchain.json')
         max: 100
       }
     });
+
     chart.axis('date', {
       label: {
         style: {
@@ -36,8 +37,19 @@ fetch('../data/blockchain.json')
       }
     });
     chart.axis('nlp', false);
+
+    // FIXME: 自定义图例，导致整个画布绘制有问题
+    chart.legend({
+      custom: true,
+      items: [
+        { name: 'blockchain', value: 'blockchain', marker: { symbol: 'line', style: { stroke: '#1890ff', lineWidth: 2 } } },
+        { name: 'nlp', value: 'nlp', marker: { symbol: 'line', style: { stroke: '#2fc25b', lineWidth: 2 } } },
+      ],
+    });
+
     chart.line().position('date*blockchain').color('#1890ff');
     chart.line().position('date*nlp').color('#2fc25b');
+
     chart.annotation().dataMarker({
       top: true,
       position: ['2016-02-28', 9],
@@ -87,5 +99,6 @@ fetch('../data/blockchain.json')
         }
       },
     });
+
     chart.render();
   });

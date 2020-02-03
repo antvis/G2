@@ -42,6 +42,7 @@ chart.axis('value', {
 });
 chart.tooltip({
   showCrosshairs: true,
+  shared: true,
 });
 
 const ds = new DataSet();

@@ -34,8 +34,7 @@ const chart = new Chart({
 });
 chart.data(data);
 chart.scale('value', {
-  max: 1.0,
-  min: 0.0,
+
   alias: '占比（%）',
 });
 chart.axis('city', {
@@ -46,15 +45,8 @@ chart.axis('city', {
       fontSize: 12,
     },
   },
-  tickLine: {
-    length: 0,
-    alignTick: true,
-  },
-  line: {
-    style: {
-      lineWidth: 0,
-    },
-  },
+  tickLine: null,
+  line: null,
 });
 chart.axis('value', {
   label: null,
@@ -65,37 +57,29 @@ chart.axis('value', {
       fontWeight: 300,
     },
   },
-  grid: {
-    line: {
-      style: {
-        lineWidth: 0,
-      },
-    },
-  },
+  grid: null,
 });
 chart.legend({
   position: 'top',
 });
-chart.coordinate().transpose();
+chart.coordinate('rect').transpose();
 chart
   .interval()
   .adjust('stack')
   .position('city*value')
   .color('type*city', (type, city) => {
-    let color;
     if (type === '首都人口') {
-      color = '#1890ff';
+      return '#1890ff';
     }
     if (type === '城市人口') {
-      color = '#ced4d9';
+      return '#ced4d9';
     }
     if (type === '农村人口') {
-      color = '#f0f2f3';
+      return '#f0f2f3';
     }
     if (type === '首都人口' && city === '中国（北京）') {
-      color = '#f5222d';
+      return '#f5222d';
     }
-    return color;
   })
   .size(26)
   .label('value*type', (val, t) => {

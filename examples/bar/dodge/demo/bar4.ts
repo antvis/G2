@@ -48,7 +48,7 @@ chart.data(data);
 chart.scale({
   value: {
     max: 20000,
-    min: 0.0,
+    min: 0,
     alias: '销售额（万）',
   },
 });
@@ -60,10 +60,7 @@ chart.axis('city', {
       fontSize: 12,
     },
   },
-  tickLine: {
-    length: 0,
-    alignTick: false, // 默认刻度线和文本对齐
-  },
+  tickLine: null,
   title: null,
 });
 chart.axis('value', {

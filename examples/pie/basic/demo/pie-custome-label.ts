@@ -59,5 +59,4 @@ chart
       return group;
     }
   });
-chart.interaction('active');
 chart.render();

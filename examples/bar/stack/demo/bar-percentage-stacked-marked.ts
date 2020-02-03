@@ -37,7 +37,6 @@ const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 400,
-  padding: 30,
 });
 
 chart.data(dv.rows);

@@ -69,5 +69,4 @@ chart
       type: 'limit-in-shape',
     },
   });
-chart.interaction('active');
 chart.render();

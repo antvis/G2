@@ -31,7 +31,7 @@ fetch('../data/fertility.json')
         }
       },
       year: {
-        range: [ 0, 1 ],
+        range: [0, 1],
       },
     });
 
@@ -46,9 +46,7 @@ fetch('../data/fertility.json')
     });
 
     chart.axis('year', {
-      tickLine: {
-        length: 0
-      },
+      tickLine: null,
       label: {
         style: {
           fill: '#aaaaaa'
@@ -61,14 +59,13 @@ fetch('../data/fertility.json')
         style: {
           fontSize: 12,
           textAlign: 'end',
-          rotate: 0,
           fontWeight: 300,
           fill: '#8d8d8d'
         }
       },
-      fields: [ null, 'country' ],
+      fields: [null, 'country'],
       padding: 10,
-      eachView: function eachView(view) {
+      eachView: (view) => {
         view.line().position('year*value');
       }
     });

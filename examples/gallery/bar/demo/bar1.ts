@@ -33,15 +33,8 @@ chart.axis('type', {
       fontSize: 12,
     },
   },
-  tickLine: {
-    length: 0,
-    alignTick: true,
-  },
-  line: {
-    style: {
-      lineWidth: 0,
-    },
-  },
+  tickLine: null,
+  line: null,
 });
 
 chart.axis('value', {

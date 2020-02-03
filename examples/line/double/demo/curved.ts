@@ -38,6 +38,9 @@ chart.data(data);
 chart.scale('month', {
   range: [0, 1],
 });
+chart.scale('temperature', {
+  nice: true,
+});
 
 chart.tooltip({
   showCrosshairs: true,

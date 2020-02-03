@@ -7,7 +7,7 @@ const data = [
 const chart = new Chart({
   container: 'container',
   autoFit: true,
-  padding: 'auto'
+  height: 500
 });
 chart.data(data);
 chart.legend(false);
@@ -15,7 +15,7 @@ chart.facet('rect', {
   fields: ['type'],
   padding: 20,
   showTitle: false,
-  eachView: function eachView(view, facet) {
+  eachView: (view, facet) => {
     const data = facet.data;
     let color;
     if (data[0].type === '男性') {

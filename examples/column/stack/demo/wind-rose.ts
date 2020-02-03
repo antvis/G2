@@ -146,7 +146,7 @@ chart.axis('value', {
   grid: {
     line: {
       style: {
-        lineDash: [0, 0],
+        lineDash: [3, 3],
       },
     },
   }, // 设置坐标系栅格样式

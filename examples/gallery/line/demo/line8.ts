@@ -105,18 +105,29 @@ registerShape('point', 'breath-point', {
       decorator1.animate({
         r: 20,
         opacity: 0,
-        repeat: true
-      }, 1800, 'easeLinear');
+      }, {
+        duration: 1800,
+        easing: 'easeLinear',
+        repeat: true,
+      });
       decorator2.animate({
         r: 20,
         opacity: 0,
-        repeat: true
-      }, 1800, 'easeLinear', () => { }, 600);
+      }, {
+        duration: 1800,
+        easing: 'easeLinear',
+        repeat: true,
+        delay: 600,
+      });
       decorator3.animate({
         r: 20,
         opacity: 0,
-        repeat: true
-      }, 1800, 'easeLinear', () => { }, 1200);
+      }, {
+        duration: 1800,
+        easing: 'easeLinear',
+        repeat: true,
+        delay: 1200,
+      });
       container.addShape('circle', {
         attrs: {
           x: point.x,

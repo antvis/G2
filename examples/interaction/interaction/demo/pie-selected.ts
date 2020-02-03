@@ -52,7 +52,5 @@ chart
     lineWidth: 1,
     stroke: '#fff',
   });
-chart.interaction('active');
-chart.interaction('pie-selected');
 
 chart.render();

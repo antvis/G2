@@ -12,11 +12,11 @@ const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 500,
-  padding: [20, 20, 50, 30]
 });
 chart.data(data);
 chart.scale('value', {
-  alias: '销售额(万)'
+  alias: '销售额(万)',
+  nice: true,
 });
 chart.axis('time', {
   label: {
@@ -24,10 +24,7 @@ chart.axis('time', {
       fill: '#aaaaaa'
     }
   },
-  tickLine: {
-    alignTick: false,
-    length: 0
-  }
+  tickLine: null
 });
 
 chart.axis('value', {
@@ -38,9 +35,6 @@ chart.axis('value', {
   }
 });
 
-chart.tooltip({
-  shared: true
-});
 chart.interval().position('time*value')
   .style('time', val => {
     if (val === '13:00-14:00') {

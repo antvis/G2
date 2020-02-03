@@ -69,6 +69,10 @@ chart.scale({
   expected: {
     min: 0,
     max: 1200,
+    sync: 'value',
+  },
+  actual: {
+    sync: 'value',
   },
 });
 

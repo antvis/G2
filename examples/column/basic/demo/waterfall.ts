@@ -101,8 +101,8 @@ const chart = new Chart({
 chart.data(data);
 chart.legend({
   items: [
-    { name: '各项花销', value: '各项花销', marker: { symbol: 'square', style: { fill: '#1890FF', radius: 5 } } },
-    { name: '总费用', value: '总费用', marker: { symbol: 'square', style: { fill: '#8c8c8c', radius: 5 } } },
+    { name: '各项花销', value: '各项花销', marker: { symbol: 'square', style: { fill: '#1890FF', r: 5 } } },
+    { name: '总费用', value: '总费用', marker: { symbol: 'square', style: { fill: '#8c8c8c', r: 5 } } },
   ],
 });
 chart.tooltip({

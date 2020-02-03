@@ -5,6 +5,78 @@
   },
   "demos": [
     {
+      "filename": "area-rainfall.ts",
+      "title": {
+        "zh": "雨量流量关系图",
+        "en": ""
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*7dxYRKmTnbwAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "brush-ds-state.ts",
+      "title": {
+        "zh": "brush-ds-state",
+        "en": "brush interaction"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*4jCzR6gQEEsAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "brush-filter-shape.ts",
+      "title": {
+        "zh": "brush interaction 过滤图形",
+        "en": "brush interaction"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*q27PRpGASNIAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "brush-highlight.ts",
+      "title": {
+        "zh": "brush interaction 高亮图形",
+        "en": "brush interaction"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*VfwERojKEpkAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "brush-interval.ts",
+      "title": {
+        "zh": "brush interaction 柱状图",
+        "en": "brush interaction"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*7HuFSKPBqWoAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "brush-line.ts",
+      "title": {
+        "zh": "brush interaction 折线图",
+        "en": "brush interaction"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*N6tVTLlF81IAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "brush-polygon.ts",
+      "title": {
+        "zh": "brush interaction 多边形",
+        "en": "brush interaction"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*izazSIYdpjQAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "scrollbar.ts",
+      "title": {
+        "zh": "超市品类销售数据",
+        "en": "scrollbar"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*9lxORIxuVYsAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "zoom-scatter.ts",
+      "title": {
+        "zh": "zoom - 散点图",
+        "en": "zoom scatter chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*6IcuTY7u5akAAAAAAAAAAABkARQnAQ"
+    },
+    {
       "filename": "basic.ts",
       "title": {
         "zh": "基本交互, active",

@@ -33,15 +33,8 @@ chart.axis('type', {
       fontSize: 12,
     },
   },
-  tickLine: {
-    length: 0,
-    alignTick: true,
-  },
-  line: {
-    style: {
-      lineWidth: 0,
-    },
-  },
+  tickLine: null,
+  line: null,
 });
 chart.axis('value', {
   label: null,
@@ -52,16 +45,10 @@ chart.axis('value', {
       fontWeight: 300,
     },
   },
-  grid: {
-    line: {
-      style: {
-        lineWidth: 0,
-      },
-    },
-  },
+  grid: null,
 });
 chart.legend(false);
-chart.coordinate().transpose();
+chart.coordinate('rect').transpose();
 chart
   .interval()
   .position('type*value')
@@ -82,39 +69,39 @@ chart.annotation().text({
   position: ['椅子', 'min'],
   content: '家具',
   style: {
-    fill: '#c0c0c0', // 文本颜色
-    fontSize: 12, // 文本大小
+    fill: '#c0c0c0',
+    fontSize: 12,
     fontWeight: '300',
     textAlign: 'center',
-    // rotate: -90
   },
   offsetX: -70,
+  rotate: Math.PI * -0.5
 });
 chart.annotation().text({
   top: true,
   position: ['电话', 'min'],
   content: '技术',
   style: {
-    fill: '#c0c0c0', // 文本颜色
-    fontSize: 12, // 文本大小
+    fill: '#c0c0c0',
+    fontSize: 12,
     fontWeight: '300',
     textAlign: 'center',
-    // rotate: -90
   },
   offsetX: -70,
+  rotate: Math.PI * -0.5
 });
 chart.annotation().text({
   top: true,
   position: ['笔', 'min'],
   content: '办公用品',
   style: {
-    fill: '#c0c0c0', // 文本颜色
-    fontSize: 12, // 文本大小
+    fill: '#c0c0c0',
+    fontSize: 12,
     fontWeight: '300',
     textAlign: 'center',
-    // rotate: -90
   },
   offsetX: -70,
+  rotate: Math.PI * -0.5
 });
 chart.annotation().line({
   start: ['-20%', '33.2%'],

@@ -127,5 +127,4 @@ pieView
     offset: 40,
   });
 
-chart.interaction('active'); // FIXME: 需要移除
 chart.render();

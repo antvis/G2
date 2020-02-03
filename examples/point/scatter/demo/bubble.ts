@@ -27,7 +27,8 @@ fetch('../data/bubble.json')
         alias: '人口总数'
       },
       GDP: {
-        alias: '人均国内生产总值($)'
+        alias: '人均国内生产总值($)',
+        nice: true,
       },
       Country: {
         alias: '国家/地区'

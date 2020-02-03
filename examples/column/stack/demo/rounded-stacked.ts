@@ -1,4 +1,5 @@
 import { Chart, registerShape } from '@antv/g2';
+import { trimEnd } from '_@types_lodash-es@4.17.3@@types/lodash-es';
 
 function getFillAttrs(cfg) {
   return {
@@ -105,6 +106,7 @@ chart.scale({
   sales: {
     max: 2400,
     tickInterval: 600,
+    nice: true,
   },
 });
 
@@ -121,14 +123,14 @@ const axisCfg = {
   grid: {
     line: {
       style: {
-        lineDash: [0, 0],
+        lineDash: null,
         stroke: '#545454',
       },
     },
   },
   line: {
     style: {
-      lineDash: [0, 0],
+      lineDash: null,
       stroke: '#545454',
     },
   },

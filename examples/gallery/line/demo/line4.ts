@@ -1,5 +1,23 @@
 import { Chart } from '@antv/g2';
 
+function findMaxMin(data) {
+  let maxValue = 0;
+  let minValue = 50000;
+  let maxObj = null;
+  let minObj = null;
+  for (const d of data) {
+    if (d.UV > maxValue) {
+      maxValue = d.UV;
+      maxObj = d;
+    }
+    if (d.UV < minValue) {
+      minValue = d.UV;
+      minObj = d;
+    }
+  }
+  return { max: maxObj, min: minObj };
+}
+
 fetch('../data/basement.json')
   .then(res => res.json())
   .then(data => {
@@ -7,7 +25,6 @@ fetch('../data/basement.json')
       container: 'container',
       autoFit: true,
       height: 500,
-      padding: [20, 50, 50, 50]
     });
     chart.data(data);
     chart.scale({
@@ -35,9 +52,7 @@ fetch('../data/basement.json')
     });
     chart.line().position('time*UV');
     // annotation
-    const max_min = findMaxMin();
-    const max = max_min.max;
-    const min = max_min.min;
+    const { min, max } = findMaxMin(data);
     chart.annotation().dataMarker({
       top: true,
       position: [max.time, max.UV],
@@ -85,23 +100,4 @@ fetch('../data/basement.json')
       end: ['2018-09-24', 'max']
     });
     chart.render();
-
-    function findMaxMin() {
-      let maxValue = 0;
-      let minValue = 50000;
-      let maxObj = null;
-      let minObj = null;
-      for (let i = 0; i < data.length; i++) {
-        const d = data[i];
-        if (d.UV > maxValue) {
-          maxValue = d.UV;
-          maxObj = d;
-        }
-        if (d.UV < minValue) {
-          minValue = d.UV;
-          minObj = d;
-        }
-      }
-      return { max: maxObj, min: minObj };
-    }
   });
