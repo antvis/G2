@@ -533,6 +533,7 @@ export default {
         label: {
           offset: 8,
         },
+        title: null,
         line: null,
         tickLine: null,
         grid: GRID_STYLE,
