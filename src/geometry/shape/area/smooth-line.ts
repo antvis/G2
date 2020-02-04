@@ -25,6 +25,7 @@ registerShape('area', 'smooth-line', {
       style: {
         r: 5,
         stroke: color,
+        fill: null,
       },
     };
   },

@@ -80,6 +80,7 @@ describe('Point shapes', () => {
         ...Theme.geometries.point['hollow-circle'].default,
         r: 4.5,
         stroke: 'red',
+        fill: null,
       },
     });
 

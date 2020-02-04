@@ -191,6 +191,7 @@ describe('Interval shapes', () => {
           ...Theme.geometries.interval['hollow-rect'].default,
           r: 4,
           stroke: 'red',
+          fill: null,
         },
       });
 
@@ -201,6 +202,7 @@ describe('Interval shapes', () => {
           ...Theme.geometries.interval['hollow-rect'].default,
           r: 4.5,
           stroke: 'red',
+          fill: null,
         },
       });
     });
