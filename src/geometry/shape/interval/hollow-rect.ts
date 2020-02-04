@@ -27,6 +27,7 @@ registerShape('interval', 'hollow-rect', {
         style: {
           r: 4.5,
           stroke: color,
+          fill: null,
         },
       };
     }
@@ -36,6 +37,7 @@ registerShape('interval', 'hollow-rect', {
       style: {
         r: 4,
         stroke: color,
+        fill: null,
       },
     };
   },

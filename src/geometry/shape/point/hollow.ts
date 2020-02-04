@@ -18,6 +18,7 @@ each(HOLLOW_SHAPES, (shapeName: string) => {
         style: {
           r: 4.5,
           stroke: color,
+          fill: null,
         },
       };
     },
