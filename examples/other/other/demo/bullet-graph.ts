@@ -1,4 +1,3 @@
-// FIXME: 有 bug
 import { Chart } from '@antv/g2';
 
 const data = [
@@ -12,7 +11,6 @@ const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 500,
-  padding: [ 0, 60 ]
 });
 chart.legend(false); // 不展示图例
 
@@ -30,9 +28,10 @@ for (let i = 0, l = data.length; i < l; i++) {
         x: 1,
         y: y + yGap
       }
-    }
+    },
+    padding: [15, 120, 10]
   });
-  view.data([data[i]])
+  view.data([data[i]]);
   view.scale({
     actual: {
       min: 0,
@@ -43,27 +42,27 @@ for (let i = 0, l = data.length; i < l; i++) {
       max: ranges[2],
     }
   });
-  // view.coordinate().transpose();
+  view.coordinate().transpose();
   view.axis('target', false);
   view.axis('actual', {
     position: 'right'
   });
-  // view.point()
-  //   .position('title*target')
-  //   .color('#square')
-  //   .shape('line')
-  //   .size(12)
-  //   .style({
-  //     lineWidth: 2
-  //   });
+  view.point()
+    .position('title*target')
+    .color('#square')
+    .shape('line')
+    .size(12)
+    .style({
+      lineWidth: 2
+    });
   view.interval()
     .position('title*actual')
     .color('#223273')
     .size(15);
   // 差
   view.annotation().region({
-    start: [-1, 0],
-    end: [1, ranges[0]],
+    start: ['start', 0],
+    end: ['end', ranges[0]],
     style: {
       fill: '#FFA39E',
       fillOpacity: 0.85
@@ -71,8 +70,8 @@ for (let i = 0, l = data.length; i < l; i++) {
   });
   // 良
   view.annotation().region({
-    start: [-1, ranges[0]],
-    end: [1, ranges[1]],
+    start: ['start', ranges[0]],
+    end: ['end', ranges[1]],
     style: {
       fill: '#FFD591',
       fillOpacity: 0.85
@@ -80,8 +79,8 @@ for (let i = 0, l = data.length; i < l; i++) {
   });
   // 优
   view.annotation().region({
-    start: [-1, ranges[1]],
-    end: [1, ranges[2]],
+    start: ['start', ranges[1]],
+    end: ['end', ranges[2]],
     style: {
       fill: '#A7E8B4',
       fillOpacity: 0.85
@@ -89,34 +88,34 @@ for (let i = 0, l = data.length; i < l; i++) {
   });
   y += yGap + 0.125;
 }
-/* chart.legend({
+chart.legend({
   custom: true,
   items: [
     {
       value: '差',
       name: '差',
-      marker: { symbol: 'square', style: {fill: '#FFA39E', r: 5} }
+      marker: { symbol: 'square', style: { fill: '#FFA39E', r: 5 } }
     },
     {
       value: '良',
       name: '良',
-      marker: { symbol: 'square', style: {fill: '#FFD591', r: 5} }
+      marker: { symbol: 'square', style: { fill: '#FFD591', r: 5 } }
     },
     {
       value: '优',
       name: '优',
-      marker: { symbol: 'square', style: {fill: '#A7E8B4', r: 5} }
+      marker: { symbol: 'square', style: { fill: '#A7E8B4', r: 5 } }
     },
     {
       value: '实际值',
       name: '实际值',
-      marker: { symbol: 'square', style: {fill: '#223273', r: 5} }
+      marker: { symbol: 'square', style: { fill: '#223273', r: 5 } }
     },
     {
       value: '目标值',
       name: '目标值',
-      marker: { symbol: 'line', style: {stroke: '#262626', r: 5} }
+      marker: { symbol: 'line', style: { stroke: '#262626', r: 5 } }
     }
   ]
-}); */
+});
 chart.render();
