@@ -72,6 +72,7 @@ const SHAPE_STYLE = {
     stroke: DEFAULT_COLOR,
     lineWidth: 2,
     fill: null,
+    lineAppendWidth: 10,
   },
   polygon: {
     lineWidth: 0,
@@ -261,6 +262,9 @@ export default {
         default: SHAPE_STYLE.line,
         active: {
           line: { lineWidth: 4 },
+        },
+        inactive: {
+          line: { strokeOpacity: 0.3 },
         },
       },
       dot: {
