@@ -1,9 +1,10 @@
 import { each } from '@antv/util';
 import { IGroup } from '../../../dependents';
 import { Point, ShapeInfo, ShapeMarkerCfg, ShapePoint } from '../../../interface';
+import { MarkerSymbols } from '../../../util/marker';
 import { registerShape, registerShapeFactory } from '../base';
 import { splitPoints } from '../util/split-points';
-import { drawPoints, PointSymbols, SHAPES } from './util';
+import { drawPoints, SHAPES } from './util';
 
 const PointShapeFactory = registerShapeFactory('point', {
   defaultShapeType: 'hollow-circle',
@@ -21,7 +22,7 @@ each(SHAPES, (shapeName: string) => {
     getMarker(markerCfg: ShapeMarkerCfg) {
       const { color } = markerCfg;
       return {
-        symbol: PointSymbols[shapeName] || shapeName,
+        symbol: MarkerSymbols[shapeName] || shapeName,
         style: {
           r: 4.5,
           stroke: color,

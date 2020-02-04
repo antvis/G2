@@ -44,10 +44,9 @@ describe('Legend', () => {
     chart.render();
 
     const [legend] = chart.getComponents().filter(co => co.type === COMPONENT_TYPE.LEGEND);
-
     expect(legend.component.get('items')).toEqual([
-      { id: 'buy', name: 'buy', value: 'buy', marker: { symbol: 'square', spacing: 100, style: { fill: 'blue' } } },
-      { id: 'sold', name: 'sold', value: 'sold', marker: { symbol: 'circle', spacing: 100, style: { fill: 'red' } } }
+      { id: 'buy', name: 'buy', value: 'buy', marker: { symbol: 'square', spacing: 100, style: { fill: 'blue', r: 3 } } },
+      { id: 'sold', name: 'sold', value: 'sold', marker: { symbol: 'circle', spacing: 100, style: { fill: 'red', r: 3 } } }
     ]);
 
     expect(legend.direction).toBe('top');
@@ -68,8 +67,8 @@ describe('Legend', () => {
     expect(newLegend.component).toBe(legend.component);
 
     expect(newLegend.component.get('items')).toEqual([
-      { id: 'buy1', name: 'buy1', value: 'buy1', marker: { symbol: 'square', spacing: 100, style: { fill: 'blue' } } },
-      { id: 'sold', name: 'sold', value: 'sold', marker: { symbol: 'circle', spacing: 100, style: { fill: 'red' } } }
+      { id: 'buy1', name: 'buy1', value: 'buy1', marker: { symbol: 'square', spacing: 100, style: { fill: 'blue', r: 4 } } },
+      { id: 'sold', name: 'sold', value: 'sold', marker: { symbol: 'circle', spacing: 100, style: { fill: 'red', r: 4 } } }
     ]);
   });
 
@@ -115,8 +114,8 @@ describe('Legend', () => {
     const [legend] = chart.getComponents().filter(co => co.type === COMPONENT_TYPE.LEGEND);
 
     expect(legend.component.get('items')).toEqual([
-      { id: 'Action', name: 'Action', value: 'Action', marker: { symbol: 'square', spacing: 100, style: { fill: 'blue' } } },
-      { id: 'Sports', name: 'Sports', value: 'Sports', marker: { symbol: 'circle', spacing: 100, style: { fill: 'red' } } }
+      { id: 'Action', name: 'Action', value: 'Action', marker: { symbol: 'square', spacing: 100, style: { fill: 'blue', r: 3 } } },
+      { id: 'Sports', name: 'Sports', value: 'Sports', marker: { symbol: 'circle', spacing: 100, style: { fill: 'red', r: 3 } } }
     ]);
 
     expect(legend.direction).toBe('bottom');
@@ -137,9 +136,9 @@ describe('Legend', () => {
     expect(newLegend.component).toBe(legend.component);
 
     expect(newLegend.component.get('items')).toEqual([
-      { id: 'Action', name: 'Action', value: 'Action', marker: { symbol: 'square', spacing: 100, style: { fill: 'blue' } } },
-      { id: 'Sports', name: 'Sports', value: 'Sports', marker: { symbol: 'circle', spacing: 100, style: { fill: 'red' } } },
-      { id: 'Other', name: 'Other', value: 'Other', marker: { symbol: 'circle', spacing: 100, style: { fill: 'red' } } }
+      { id: 'Action', name: 'Action', value: 'Action', marker: { symbol: 'square', spacing: 100, style: { fill: 'blue', r: 4 } } },
+      { id: 'Sports', name: 'Sports', value: 'Sports', marker: { symbol: 'circle', spacing: 100, style: { fill: 'red', r: 4 } } },
+      { id: 'Other', name: 'Other', value: 'Other', marker: { symbol: 'circle', spacing: 100, style: { fill: 'red', r: 4 } } }
     ]);
   });
 });
