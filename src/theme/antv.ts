@@ -491,25 +491,25 @@ export default {
       line: {
         default: SHAPE_STYLE.edge,
         active: {
-          lineWidth: 2,
+          edge: { lineWidth: 2 },
         },
       },
       vhv: {
         default: SHAPE_STYLE.edge,
         active: {
-          lineWidth: 2,
+          edge: { lineWidth: 2 },
         },
       },
       smooth: {
         default: SHAPE_STYLE.edge,
         active: {
-          lineWidth: 2,
+          edge: { lineWidth: 2 },
         },
       },
       arc: {
         default: SHAPE_STYLE.edge,
         active: {
-          lineWidth: 2,
+          edge: { lineWidth: 2 },
         },
       },
     }
