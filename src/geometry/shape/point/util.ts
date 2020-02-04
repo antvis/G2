@@ -1,5 +1,6 @@
 import { IGroup, IShape } from '../../../dependents';
 import { ShapeInfo } from '../../../interface';
+import { MarkerSymbols } from '../../../util/marker';
 import { getStyle } from '../util/get-style';
 
 export const SHAPES = ['circle', 'square', 'bowtie', 'diamond', 'hexagon', 'triangle', 'triangle-down'];
@@ -16,7 +17,7 @@ export function drawPoints(shape, cfg: ShapeInfo, container: IGroup, shapeName: 
         type: 'marker',
         attrs: {
           ...style,
-          symbol: shapeName,
+          symbol: MarkerSymbols[shapeName] || shapeName,
           ...point,
         },
       });
@@ -28,7 +29,7 @@ export function drawPoints(shape, cfg: ShapeInfo, container: IGroup, shapeName: 
     type: 'marker',
     attrs: {
       ...style,
-      symbol: shapeName,
+      symbol: MarkerSymbols[shapeName] || shapeName,
       ...points[0],
     },
   });
