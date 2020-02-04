@@ -271,8 +271,13 @@ export default class Tooltip extends Controller<TooltipOption> {
       if (geometry.visible && geometry.tooltipOption !== false) {
         // geometry 可见同时未关闭 tooltip
         const dataArray = geometry.dataArray;
-        if (shared !== false) {
-          // 用户未配置 share: false
+        const geometryType = geometry.type;
+
+        if ([ 'point', 'edge', 'polygon' ].includes(geometryType)) {
+          // 始终通过图形拾取
+          items = this.getTooltipItemsByHitShape(geometry, point, items, title);
+        } else if (['area', 'line', 'path', 'heatmap' ].includes(geometry.type) || shared !== false) {
+          // 如果是 'area', 'line', 'path'，始终通过数据查找方法查找 tooltip
           each(dataArray, (data: MappingDatum[]) => {
             const record = findDataByPoint(point, data, geometry);
             if (record) {
@@ -281,19 +286,7 @@ export default class Tooltip extends Controller<TooltipOption> {
             }
           });
         } else {
-          const container = geometry.container;
-          const shape = container.getShape(point.x, point.y);
-          if (shape && shape.get('visible') && shape.get('origin')) {
-            const mappingData = shape.get('origin').mappingData;
-            if (isArray(mappingData)) {
-              const record = findDataByPoint(point, mappingData, geometry);
-              if (record) {
-                items = items.concat(getTooltipItems(record, geometry, title));
-              }
-            } else {
-              items = items.concat(getTooltipItems(mappingData, geometry, title));
-            }
-          }
+          items = this.getTooltipItemsByHitShape(geometry, point, items, title);
         }
       }
     });
@@ -324,6 +317,20 @@ export default class Tooltip extends Controller<TooltipOption> {
       }
     }
 
+    // shared: false 代表只显示当前拾取到的 shape 的数据，但是一个 view 会有多个 Geometry，所以有可能会拾取到多个 shape
+    if (shared === false && items.length > 1) {
+      let snapItem = items[0];
+      let min = Math.abs(point.y - snapItem.y);
+      each(items, (aItem) => {
+        const yDistance = Math.abs(point.y - aItem.y);
+        if (yDistance <= min) {
+          snapItem = aItem;
+          min = yDistance;
+        }
+      });
+      items = [snapItem];
+    }
+
     return items;
   }
 
@@ -337,11 +344,11 @@ export default class Tooltip extends Controller<TooltipOption> {
 
   // 获取 tooltip 配置，因为用户可能会通过 view.tooltip() 重新配置 tooltip，所以就不做缓存，每次直接读取
   private getTooltipCfg() {
-      const view = this.view;
-      const option = this.option;
-      const theme = view.getTheme();
-      const defaultCfg = get(theme, ['components', 'tooltip'], {});
-      return deepMix({}, defaultCfg, option);
+    const view = this.view;
+    const option = this.option;
+    const theme = view.getTheme();
+    const defaultCfg = get(theme, ['components', 'tooltip'], {});
+    return deepMix({}, defaultCfg, option);
   }
 
   private getTitle(items) {
@@ -584,5 +591,16 @@ export default class Tooltip extends Controller<TooltipOption> {
       this.tooltipCrosshairsGroup = tooltipCrosshairsGroup;
     }
     return tooltipCrosshairsGroup;
+  }
+
+  private getTooltipItemsByHitShape(geometry, point, items, title) {
+    const container = geometry.container;
+    const shape = container.getShape(point.x, point.y);
+    if (shape && shape.get('visible') && shape.get('origin')) {
+      const mappingData = shape.get('origin').mappingData;
+      items = items.concat(getTooltipItems(mappingData, geometry, title));
+    }
+
+    return items;
   }
 }

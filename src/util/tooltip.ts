@@ -168,8 +168,8 @@ export function findDataByPoint(point: Point, data: MappingDatum[], geometry: Ge
 
   let rst = null;
 
-  // 点图以及热力图采用最小逼近策略查找 point 击中的数据
-  if (geometryType === 'point' || geometryType === 'heatmap') {
+  // 热力图采用最小逼近策略查找 point 击中的数据
+  if (geometryType === 'heatmap') {
     // 将 point 画布坐标转换为原始数据值
     const coordinate = geometry.coordinate;
     const invertPoint = coordinate.invert(point); // 转换成归一化的数据
