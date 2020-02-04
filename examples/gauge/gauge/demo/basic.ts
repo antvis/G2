@@ -43,7 +43,7 @@ chart.data(data);
 chart.scale('value', {
   min: 0,
   max: 9,
-  minTickInterval: 1,
+  tickInterval: 1,
 });
 chart.coordinate('polar', {
   startAngle: (-9 / 8) * Math.PI,

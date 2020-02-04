@@ -82,7 +82,7 @@ chart.data(dv.rows);
 chart.scale({
   value: {
     min: 0,
-    minTickInterval: 1,
+    tickInterval: 2,
   },
   count: {
     max: 14,
@@ -93,17 +93,6 @@ chart.scale({
 chart.tooltip({
   showTooltipMarkers: false,
   position: 'top',
-});
-
-chart.axis('value', {
-  label: {
-    formatter: (val) => {
-      if (+val % 2) {
-        return val;
-      }
-      return '';
-    },
-  },
 });
 
 chart.interval().position('value*count');

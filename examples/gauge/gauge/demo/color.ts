@@ -56,7 +56,7 @@ chart.coordinate('polar', {
 chart.scale('value', {
   min: 0,
   max: 6,
-  minTickInterval: 1,
+  tickInterval: 1,
 });
 
 chart.axis('1', false);

@@ -134,7 +134,7 @@ chart.coordinate('polar', {
 chart.data(dv.rows);
 chart.scale({
   population: {
-    minTickInterval: 5000000,
+    tickInterval: 5000000,
     nice: true,
   },
 });

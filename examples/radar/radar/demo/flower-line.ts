@@ -372,7 +372,7 @@ const chart = new Chart({
 });
 chart.data(data);
 chart.scale('x', {
-  minTickInterval: 30,
+  tickInterval: 30,
 });
 chart.coordinate('polar');
 chart.axis('y', false); // 不显示 y 的坐标轴
