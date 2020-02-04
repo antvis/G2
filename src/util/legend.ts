@@ -1,10 +1,11 @@
-import { deepMix, map } from '@antv/util';
+import { deepMix, map, get, isString } from '@antv/util';
+import { LegendItem } from '../chart/interface';
 import View from '../chart/view';
 import { DIRECTION } from '../constant';
-import { Attribute, Scale, Tick } from '../dependents';
+import { Attribute, Tick } from '../dependents';
 import Geometry from '../geometry/base';
 import { getMappingValue } from './attr';
-import { LegendItem } from '../chart/interface';
+import { MarkerSymbols } from './marker';
 
 /**
  * get the legend layout from direction
@@ -53,6 +54,11 @@ export function getLegendItems(
       // the marker configure order should be ensure
       marker = deepMix({}, themeMarker, marker, userMarker);
 
+      const symbol = marker.symbol;
+      if (isString(symbol) && MarkerSymbols[symbol]) {
+        marker.symbol = MarkerSymbols[symbol];
+      }
+
       return { id: value, name, value, marker };
     });
   }
@@ -68,11 +74,13 @@ export function getLegendItems(
 export function getCustomLegendItems(themeMarker: object, userMarker: object, customItems: LegendItem[]) {
   // 如果有自定义的 item，那么就直接使用，并合并主题的 marker 配置
   return map(customItems, (item: LegendItem) => {
-    const { marker } = item;
+    const marker = deepMix({}, themeMarker, userMarker, item.marker);
+    const symbol = marker.symbol;
+    if (isString(symbol) && MarkerSymbols[symbol]) {
+      marker.symbol = MarkerSymbols[symbol];
+    }
 
-    return {
-      ...item,
-      marker: deepMix({}, themeMarker, userMarker, marker), // 顺序优先级需要保证
-    };
+    item.marker = marker;
+    return item;
   });
 }

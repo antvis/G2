@@ -1,8 +1,9 @@
 import { each } from '@antv/util';
 import { IGroup } from '../../../dependents';
 import { ShapeInfo, ShapeMarkerCfg } from '../../../interface';
+import { MarkerSymbols } from '../../../util/marker';
 import { registerShape } from '../base';
-import { drawPoints, HOLLOW_SHAPES, PointSymbols } from './util';
+import { drawPoints, HOLLOW_SHAPES } from './util';
 
 // 添加 hollowShape
 each(HOLLOW_SHAPES, (shapeName: string) => {
@@ -13,7 +14,7 @@ each(HOLLOW_SHAPES, (shapeName: string) => {
     getMarker(markerCfg: ShapeMarkerCfg) {
       const { color } = markerCfg;
       return {
-        symbol: PointSymbols[shapeName],
+        symbol: MarkerSymbols[shapeName],
         style: {
           r: 4.5,
           stroke: color,
