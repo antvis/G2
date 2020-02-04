@@ -27,14 +27,13 @@ chart.scale({
     min: 0
   }
 });
-// FIXME： 自定义图例有 BUG
-// chart.legend({
-//   custom: true,
-//   items: [
-//     { value: 'waiting', name: 'waiting', marker: { symbol: 'square', style: {fill: '#3182bd', r: 5} } },
-//     { value: 'people', name: 'people', marker: { symbol: 'hyphen', style: {stroke: '#fdae6b', r: 5, lineWidth: 3} } }
-//   ],
-// });
+chart.legend({
+  custom: true,
+  items: [
+    { value: 'waiting', name: 'waiting', marker: { symbol: 'square', style: {fill: '#3182bd', r: 5} } },
+    { value: 'people', name: 'people', marker: { symbol: 'hyphen', style: {stroke: '#fdae6b', r: 5, lineWidth: 3} } }
+  ],
+});
 chart.axis('people', {
   grid: null,
   label: {
