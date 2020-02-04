@@ -20,8 +20,14 @@ fetch('../data/diamond.json')
       height: 500,
     });
     chart.data(dv.rows);
-    chart.scale('count', {
-      nice: true,
+
+    chart.scale({
+      depth: {
+        tickInterval: 1,
+      },
+      count: {
+        nice: true,
+      }
     });
 
     chart.tooltip({
