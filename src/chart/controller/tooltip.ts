@@ -270,23 +270,20 @@ export default class Tooltip extends Controller<TooltipOption> {
     each(geometries, (geometry: Geometry) => {
       if (geometry.visible && geometry.tooltipOption !== false) {
         // geometry 可见同时未关闭 tooltip
-        const dataArray = geometry.dataArray;
         const geometryType = geometry.type;
 
         if ([ 'point', 'edge', 'polygon' ].includes(geometryType)) {
           // 始终通过图形拾取
           items = this.getTooltipItemsByHitShape(geometry, point, items, title);
-        } else if (['area', 'line', 'path', 'heatmap' ].includes(geometry.type) || shared !== false) {
+        } else if (['area', 'line', 'path', 'heatmap'].includes(geometryType)) {
           // 如果是 'area', 'line', 'path'，始终通过数据查找方法查找 tooltip
-          each(dataArray, (data: MappingDatum[]) => {
-            const record = findDataByPoint(point, data, geometry);
-            if (record) {
-              const tooltipItems = getTooltipItems(record, geometry, title);
-              items = items.concat(tooltipItems);
-            }
-          });
+          items = this.getTooltipItemsByFindData(geometry, point, items, title);
         } else {
-          items = this.getTooltipItemsByHitShape(geometry, point, items, title);
+          if (shared !== false) {
+            items = this.getTooltipItemsByFindData(geometry, point, items, title);
+          } else {
+            items = this.getTooltipItemsByHitShape(geometry, point, items, title);
+          }
         }
       }
     });
@@ -600,6 +597,19 @@ export default class Tooltip extends Controller<TooltipOption> {
       const mappingData = shape.get('origin').mappingData;
       items = items.concat(getTooltipItems(mappingData, geometry, title));
     }
+
+    return items;
+  }
+
+  private getTooltipItemsByFindData(geometry, point, items, title) {
+    const dataArray = geometry.dataArray;
+    each(dataArray, (data: MappingDatum[]) => {
+      const record = findDataByPoint(point, data, geometry);
+      if (record) {
+        const tooltipItems = getTooltipItems(record, geometry, title);
+        items = items.concat(tooltipItems);
+      }
+    });
 
     return items;
   }
