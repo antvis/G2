@@ -1,13 +1,5 @@
 import { Chart, registerAnimation } from '@antv/g2';
 
-function delay(ms: number) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve();
-    }, ms);
-  });
-}
-
 registerAnimation('label-appear', (element, animateCfg, cfg) => {
   const label = element.getChildren()[0];
   const coordinate = cfg.coordinate;
@@ -60,7 +52,7 @@ registerAnimation('label-update', (element, animateCfg, cfg) => {
 
 });
 
-function sortDataDesc(source) {
+function handleData(source) {
   source.sort((a, b) => {
     return a.value - b.value;
   });
@@ -70,79 +62,100 @@ function sortDataDesc(source) {
 
 fetch('../data/china-gdp.json')
   .then(res => res.json())
-  .then(async data => {
-    const chart = new Chart({
-      container: 'container',
-      autoFit: true,
-      height: 500
-    });
-    chart.data([]);
-    chart.coordinate('rect').transpose();
-    chart.legend(false);
-    // chart.axis('value', false);
-    chart.axis('city', {
-      animateOption: {
-        update: {
-          duration: 1000,
-          easing: 'easeLinear'
-        }
-      }
-    });
-    chart
-      .interval()
-      .position('city*value')
-      .color('city')
-      .label('value', (value) => {
-        // if (value !== 0) {
-        return {
-          animate: {
+  .then(data => {
+    let count = 0;
+    let chart;
+    let interval;
+
+    function countUp() {
+      if (count === 0) {
+        chart = new Chart({
+          container: 'container',
+          autoFit: true,
+          height: 500,
+          padding: [ 20, 60 ]
+        });
+        // @ts-ignore
+        chart.data(handleData(Object.values(data)[count]));
+        chart.coordinate('rect').transpose();
+        chart.legend(false);
+        // chart.axis('value', false);
+        chart.axis('city', {
+          animateOption: {
+            update: {
+              duration: 1000,
+              easing: 'easeLinear'
+            }
+          }
+        });
+        chart.annotation().text({
+          position: ['95%', '90%'],
+          content: Object.keys(data)[count],
+          style: {
+            fontSize: 40,
+            fontWeight: 'bold',
+            fill: '#ddd',
+            textAlign: 'end'
+          },
+        });
+        chart
+          .interval()
+          .position('city*value')
+          .color('city')
+          .label('value', (value) => {
+            // if (value !== 0) {
+            return {
+              animate: {
+                appear: {
+                  animation: 'label-appear',
+                  delay: 0,
+                  duration: 1000,
+                  easing: 'easeLinear'
+                },
+                update: {
+                  animation: 'label-update',
+                  duration: 1000,
+                  easing: 'easeLinear'
+                }
+              },
+              offset: 5,
+            };
+            // }
+          }).animate({
             appear: {
-              animation: 'label-appear',
-              delay: 0,
               duration: 1000,
               easing: 'easeLinear'
             },
             update: {
-              animation: 'label-update',
               duration: 1000,
               easing: 'easeLinear'
             }
+          });
+
+        chart.render();
+      } else {
+        chart.annotation().clear(true);
+        chart.annotation().text({
+          position: ['95%', '90%'],
+          content: Object.keys(data)[count],
+          style: {
+            fontSize: 40,
+            fontWeight: 'bold',
+            fill: '#ddd',
+            textAlign: 'end'
           },
-          offset: 5,
-        };
-        // }
-      }).animate({
-      appear: {
-        duration: 1000,
-        easing: 'easeLinear'
-      },
-      update: {
-        duration: 1000,
-        easing: 'easeLinear'
+        });
+        // @ts-ignore
+        chart.changeData(handleData(Object.values(data)[count]));
       }
-    });
 
-    // 1949 ~ 2017 的数据动态播放
-    const years = Array(2017-1949 + 1).fill(0).map((o, idx) => idx + 1949);
+      ++count;
 
-    for (const year of years) {
-      chart.data(sortDataDesc(data[year]));
-
-      chart.annotation().clear(true);
-      chart.annotation().text({
-        position: ['95%', '90%'],
-        content: year,
-        style: {
-          fontSize: 40,
-          fontWeight: 'bold',
-          fill: '#ddd',
-          textAlign: 'end'
-        },
-      });
-
-      chart.render();
-
-      // 下一个数据，延迟 1200ms
-      await delay(1200);
+      if (count === Object.keys(data).length) {
+        clearInterval(interval);
+      }
     }
+
+    countUp();
+    interval = setInterval(countUp, 1200);
   });
