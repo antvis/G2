@@ -39,7 +39,7 @@
   "dependencies": {
     "@antv/adjust": "^0.2.1",
     "@antv/attr": "^0.3.1",
-    "@antv/component": "^0.5.0-beta.22",
+    "@antv/component": "^0.5.0-beta.25",
     "@antv/coord": "^0.2.1",
     "@antv/event-emitter": "~0.1.0",
     "@antv/g-base": "^0.3.1",
