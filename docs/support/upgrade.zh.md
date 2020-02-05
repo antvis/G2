@@ -67,3 +67,4 @@ style('a', (aVal) => {
 - ❌ tail legend
 - `chart.interaction()` 变更
 - 常量重命名，使用小写 + '-' 命名规则，比如 `shape('hollowCircle')` 变更为 `shape('hollow-circle')`
+- ❌ chart.repaint() 直接调用 chart.render()
