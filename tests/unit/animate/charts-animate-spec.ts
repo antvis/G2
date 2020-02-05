@@ -183,7 +183,7 @@ describe('Test charts animate', () => {
     });
     chart.tooltip({
       showTitle: false,
-      showTooltipMarkers: false,
+      showMarkers: false,
     });
     chart.axis(false); // 关闭坐标轴
     chart

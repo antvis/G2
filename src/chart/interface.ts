@@ -412,9 +412,9 @@ export interface TooltipCfg {
   /** 配置 tooltip 的 crosshairs */
   crosshairs?: TooltipCrosshairs;
   /** 是否渲染 tooltipMarkers */
-  showTooltipMarkers?: boolean;
+  showMarkers?: boolean;
   /** tooltipMarker 的样式 */
-  tooltipMarker?: object;
+  marker?: object;
   /** 自定义 tooltip 的容器 */
   container?: string | HTMLElement;
   /** 用于指定图例容器的模板，自定义模板时必须包含各个 dom 节点的 class */

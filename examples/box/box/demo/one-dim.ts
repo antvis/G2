@@ -21,7 +21,7 @@ chart.scale('range', {
   nice: true,
 });
 chart.tooltip({
-  showTooltipMarkers: false,
+  showMarkers: false,
 });
 
 chart

@@ -31,7 +31,7 @@ chart.scale('range', {
 });
 chart.tooltip({
   showTitle: false,
-  showTooltipMarkers: false,
+  showMarkers: false,
   itemTpl: '<li class="g2-tooltip-list-item" data-index={index} style="margin-bottom:4px;">'
     + '<span style="background-color:{color};" class="g2-tooltip-marker"></span>'
     + '{name}<br/>'

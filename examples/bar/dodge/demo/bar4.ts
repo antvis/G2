@@ -85,7 +85,7 @@ chart.legend({
 
 chart.tooltip({
   shared: true,
-  showTooltipMarkers: false,
+  showMarkers: false,
 });
 
 chart

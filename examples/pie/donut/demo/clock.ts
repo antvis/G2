@@ -28,7 +28,7 @@ const chart = new Chart({
 chart.legend(false);
 chart.tooltip({
   showTitle: false,
-  showTooltipMarkers: false,
+  showMarkers: false,
 });
 
 const bgView = chart.createView();

@@ -23,7 +23,7 @@ fetch('../data/diamond.json')
     });
     chart.tooltip({
       showTitle: false,
-      showTooltipMarkers: false,
+      showMarkers: false,
     });
     chart.polygon()
       .position('x*y')

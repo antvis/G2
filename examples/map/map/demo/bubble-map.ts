@@ -29,7 +29,7 @@ fetch('../data/world.geo.json')
         chart.tooltip({
           showTitle: false,
           shared: true,
-          showTooltipMarkers: false,
+          showMarkers: false,
           containerTpl: '<div class="g2-tooltip"><table class="g2-tooltip-list"></table></div>',
           itemTpl: '<tr data-index="{index}"><td style="padding:5px;background-color:#545454;">{name}</td><td style="padding:5px;background-color:#fff;color:#000;">{value}</td></tr>',
           domStyles: {

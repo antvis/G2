@@ -38,7 +38,7 @@ chart.axis('State', {
 
 chart.tooltip({
   shared: true,
-  showTooltipMarkers: false,
+  showMarkers: false,
   follow: true,
 });
 

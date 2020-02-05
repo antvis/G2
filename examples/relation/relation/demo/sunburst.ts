@@ -50,7 +50,7 @@ fetch('../data/sunburst.json')
     });
     chart.tooltip({
       showTitle: false,
-      showTooltipMarkers: false,
+      showMarkers: false,
     });
     chart.axis(false);
     chart.legend(false);

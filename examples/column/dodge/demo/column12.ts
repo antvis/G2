@@ -32,7 +32,7 @@ chart.legend({
 });
 
 chart.tooltip({
-  showTooltipMarkers: false,
+  showMarkers: false,
   shared: true,
 });
 

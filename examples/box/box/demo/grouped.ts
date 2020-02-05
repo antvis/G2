@@ -33,7 +33,7 @@ fetch('../data/iris.json')
       nice: true,
     });
     chart.tooltip({
-      showTooltipMarkers: false,
+      showMarkers: false,
       shared: true,
     });
 

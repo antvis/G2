@@ -211,7 +211,7 @@ describe('LabelsRenderer', () => {
 
     chart.tooltip({
       showTitle: false,
-      showTooltipMarkers: false,
+      showMarkers: false,
     });
 
     const interval = chart

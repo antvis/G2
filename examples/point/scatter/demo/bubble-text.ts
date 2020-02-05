@@ -74,7 +74,7 @@ chart.axis('y', {
 chart.legend(false);
 chart.tooltip({
   title: 'country',
-  showTooltipMarkers: false,
+  showMarkers: false,
   showCrosshairs: true,
   crosshairs: {
     type: 'xy',

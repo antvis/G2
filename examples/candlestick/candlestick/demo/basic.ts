@@ -59,7 +59,7 @@ fetch('../data/candle-sticks.json')
     });
     chart.tooltip({
       showTitle: false,
-      showTooltipMarkers: false,
+      showMarkers: false,
       itemTpl: '<li class="g2-tooltip-list-item" data-index={index}>'
         + '<span style="background-color:{color};" class="g2-tooltip-marker"></span>'
         + '{name}{value}</li>'

@@ -33,7 +33,7 @@ fetch('../data/diamond.json')
     chart.tooltip({
       position: 'top',
       shared: true,
-      showTooltipMarkers: false,
+      showMarkers: false,
     });
 
     chart

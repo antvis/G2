@@ -54,7 +54,7 @@ chart.data(data);
 
 chart.tooltip({
   showTitle: false,
-  showTooltipMarkers: false,
+  showMarkers: false,
 });
 
 chart

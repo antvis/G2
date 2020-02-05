@@ -106,7 +106,7 @@ chart.axis('day', {
 });
 
 chart.tooltip({
-  showTooltipMarkers: false,
+  showMarkers: false,
 });
 
 chart

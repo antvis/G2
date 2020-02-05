@@ -29,7 +29,7 @@ chart.scale('percent', {
 
 chart.tooltip({
   showTitle: false,
-  showTooltipMarkers: false,
+  showMarkers: false,
 });
 
 chart

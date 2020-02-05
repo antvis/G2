@@ -116,7 +116,7 @@ fetch('../data/github-commit.json')
     chart.legend(false);
     chart.tooltip({
       title: 'date',
-      showTooltipMarkers: false,
+      showMarkers: false,
     });
     chart.coordinate().reflect('y');
     chart.polygon().position('week*day*date')
