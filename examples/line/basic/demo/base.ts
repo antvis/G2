@@ -20,6 +20,7 @@ const chart = new Chart({
 chart.data(data);
 chart.scale('value', {
   min: 0,
+  nice: true,
 });
 chart.scale('year', {
   range: [0, 1],

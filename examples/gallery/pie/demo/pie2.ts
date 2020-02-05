@@ -72,7 +72,7 @@ view2.data(other);
 view2
   .interval()
   .adjust('stack')
-  .position('1*value')
+  .position('value')
   .color('type', ['#063d8a', '#0b53b0', '#1770d6', '#2593fc', '#47abfc', '#6dc1fc', '#94d6fd', '#bbe7fe'])
   .label('value', {
     position: 'right',

@@ -34,7 +34,7 @@ chart.tooltip({
 
 chart
   .interval()
-  .position('1*percent')
+  .position('percent')
   .color('item')
   .label('percent', {
     content: (data) => {

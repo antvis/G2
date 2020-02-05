@@ -74,7 +74,7 @@ chart
     appear: {
       animation: 'fade-in'
     }
-  });;
+  });
 
 // 中间标签文本
 data.forEach((obj) => {
