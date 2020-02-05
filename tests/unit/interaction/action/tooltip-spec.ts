@@ -9,6 +9,7 @@ describe('test tooltip action', () => {
     width: 400,
     height: 400,
     autoFit: false,
+    defaultInteractions: []
   });
 
   chart.data([
@@ -23,7 +24,7 @@ describe('test tooltip action', () => {
     { year: '1999', value: 3 },
   ]);
   chart.animate(false);
-  chart.tooltip(false);
+  //chart.tooltip(false);
   chart.interval().position('year*value');
   chart.render();
   const interaction = createInteraction('tooltip', chart);
