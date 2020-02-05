@@ -28,12 +28,12 @@ import { createInteraction, Interaction } from '../interaction/';
 import { Data, Datum, LooseObject, Point, Region, ScaleOption, ViewPadding } from '../interface';
 import { BBox } from '../util/bbox';
 import { isFullCircle, isPointInCoordinate } from '../util/coordinate';
-import { createCoordinate } from '../util/coordinate';
 import { mergeTheme } from '../util/theme';
 import Chart from './chart';
 import { getComponentController, getComponentControllerNames } from './controller';
 import AnnotationComponent, { BaseOption as AnnotationBaseOption } from './controller/annotation';
 import { Controller } from './controller/base';
+import CoordinateController from './controller/coordinate';
 import TooltipComponent from './controller/tooltip';
 import Event from './event';
 import {
@@ -115,6 +115,7 @@ export class View extends Base {
   protected layoutFunc: Layout = defaultLayout;
   // 生成的坐标系实例
   protected coordinateInstance: Coordinate;
+  protected coordinateController: CoordinateController;
   // 分面类实例
   protected facetInstance: Facet;
 
@@ -185,6 +186,9 @@ export class View extends Base {
 
     // 初始化组件 controller
     this.initComponentController();
+
+    // 创建 coordinate controller
+    this.coordinateController = new CoordinateController(this.options.coordinate);
 
     this.initOptions();
 
@@ -473,9 +477,9 @@ export class View extends Base {
    * @param option
    * @returns [[Coordinate]]
    */
-  public coordinate(option?: CoordinateOption): Coordinate;
-  public coordinate(type: string, coordinateCfg?: CoordinateCfg): Coordinate;
-  public coordinate(type: string | CoordinateOption, coordinateCfg?: CoordinateCfg): Coordinate {
+  public coordinate(option?: CoordinateOption): CoordinateController;
+  public coordinate(type: string, coordinateCfg?: CoordinateCfg): CoordinateController;
+  public coordinate(type: string | CoordinateOption, coordinateCfg?: CoordinateCfg): CoordinateController {
     // 提供语法糖，使用更简单
     if (isString(type)) {
       set(this.options, 'coordinate', { type, cfg: coordinateCfg } as CoordinateOption);
@@ -483,10 +487,10 @@ export class View extends Base {
       set(this.options, 'coordinate', type);
     }
 
-    // 创建一个 coordinate 实例
-    this.createCoordinate(this.viewBBox);
+    // 更新 coordinate 配置
+    this.coordinateController.update(this.options.coordinate);
 
-    return this.coordinateInstance;
+    return this.coordinateController;
   }
 
   /**
@@ -998,12 +1002,8 @@ export class View extends Base {
   private renderDataRecursive(isUpdate: boolean) {
     // 1. 处理数据
     this.filterData();
-    // 2. 实例化或者更新 coordinate
-    if (!this.getCoordinate()) {
-      this.createCoordinate();
-    } else {
-      this.adjustCoordinate();
-    }
+    // 2. 创建实例
+    this.createCoordinate();
     // 3. 初始化 Geometry
     this.initGeometries(isUpdate);
     // 4. 处理分面逻辑，最终都是生成子 view 和 geometry
@@ -1476,18 +1476,19 @@ export class View extends Base {
    * 创建坐标系
    * @private
    */
-  private createCoordinate(bbox?: BBox) {
-    this.coordinateInstance = createCoordinate(this.options.coordinate, bbox || this.coordinateBBox);
+  private createCoordinate() {
+    const start = this.coordinateBBox.bl;
+    const end = this.coordinateBBox.tr;
+    this.coordinateInstance = this.coordinateController.create(start, end);
   }
 
   /**
    * 调整 coordinate 的坐标范围
    */
   public adjustCoordinate() {
-    this.coordinateInstance.update({
-      start: this.coordinateBBox.bl,
-      end: this.coordinateBBox.tr,
-    });
+    const start = this.coordinateBBox.bl;
+    const end = this.coordinateBBox.tr;
+    this.coordinateInstance = this.coordinateController.adjust(start, end);
   }
 
   /**
