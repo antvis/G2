@@ -163,4 +163,9 @@ describe('chart multi view', () => {
     expect(va.padding).toBe(30);
     expect(vb.padding).toBe('auto');
   });
+
+  it('sub view coordinate extends parent', () => {
+    expect(v1.getOptions().coordinate.actions).toEqual([['scale', 1, -1]]);
+    expect(v2.getOptions().coordinate.actions).toEqual([['scale', 1, -1]]);
+  })
 });
