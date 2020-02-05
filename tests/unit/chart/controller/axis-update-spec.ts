@@ -52,9 +52,9 @@ describe('axis rect update', () => {
     const [x, y] = axes;
     expect(x.component.get('ticks').length).toBe(3);
 
-    expect(x.component.get('animate')).toBe(false);
-    expect(y.component.get('animate')).toBe(false);
-    expect(grids[0].component.get('animate')).toBe(false);
+    expect(x.component.get('animate')).toBe(true);
+    expect(y.component.get('animate')).toBe(true);
+    expect(grids[0].component.get('animate')).toBe(true);
 
     // 未设置，直接跟随主题的配置
     expect(y.component.get('title')).toBe(null);
@@ -197,9 +197,9 @@ describe('axis polar update', () => {
 
     const [y] = axes;
     expect(y.component.get('ticks').length).toBe(5);
-    expect(y.component.get('animate')).toBe(false);
+    expect(y.component.get('animate')).toBe(true);
     expect(y.component.get('title')).toBe(null);
-    expect(grids[0].component.get('animate')).toBe(false);
+    expect(grids[0].component.get('animate')).toBe(true);
     expect(grids[0].component.get('animateOption')).toEqual(y.component.get('animateOption'));
 
     await delay(100);

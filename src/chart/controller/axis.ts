@@ -49,8 +49,6 @@ export default class Axis extends Controller<Option> {
   /** the draw group of axis */
   private axisContainer: IGroup;
   private gridContainer: IGroup;
-  /** 动画标识 */
-  private animate: boolean;
 
   /** 使用 object 存储组件 */
   private cache = new Map<string, ComponentOption>();
@@ -71,7 +69,6 @@ export default class Axis extends Controller<Option> {
 
   public render() {
     this.option = this.view.getOptions().axes;
-    this.animate = false; // 初始化图表时，axis 不参与动画
 
     this.createXAxes();
     this.createYAxes();
@@ -120,7 +117,6 @@ export default class Axis extends Controller<Option> {
    */
   public update() {
     this.option = this.view.getOptions().axes;
-    this.animate = true; // 发生更新时，开启动画，但是最后是否进行动画，还是以用户配置为准
     const updatedCache = new Map<string, ComponentOption>();
 
     this.updateXAxes(updatedCache);
@@ -725,7 +721,7 @@ export default class Axis extends Controller<Option> {
 
   private getAnimateCfg(cfg: object) {
     return {
-      animate: this.view.getOptions().animate && this.animate && get(cfg, 'animate'), // 如果 view 关闭动画，则不执行动画
+      animate: this.view.getOptions().animate && get(cfg, 'animate'), // 如果 view 关闭动画，则不执行动画
       animateOption: deepMix({}, DEFAULT_ANIMATE_CFG, get(cfg, 'animateOption', {})),
     };
   }
