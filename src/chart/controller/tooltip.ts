@@ -72,7 +72,7 @@ export default class Tooltip extends Controller<TooltipOption> {
       crosshairs: null,
     });
 
-    tooltip.render();
+    tooltip.init();
 
     this.tooltip = tooltip;
 
@@ -435,7 +435,7 @@ export default class Tooltip extends Controller<TooltipOption> {
       xCrosshair.update(cfg);
     } else {
       xCrosshair = new Crosshair.Line(cfg);
-      xCrosshair.render();
+      xCrosshair.init();
     }
     xCrosshair.show();
     this.xCrosshair = xCrosshair;
@@ -496,13 +496,13 @@ export default class Tooltip extends Controller<TooltipOption> {
       if ((coordinate.isRect && yCrosshair.get('type') === 'circle')
         || (!coordinate.isRect && yCrosshair.get('type') === 'line')) {
         yCrosshair = new Crosshair[type](cfg);
-        yCrosshair.render();
+        yCrosshair.init();
       } else {
         yCrosshair.update(cfg);
       }
     } else {
       yCrosshair = new Crosshair[type](cfg);
-      yCrosshair.render();
+      yCrosshair.init();
     }
 
     yCrosshair.show();

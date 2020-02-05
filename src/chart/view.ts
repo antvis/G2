@@ -20,7 +20,7 @@ import {
 } from '@antv/util';
 import Base from '../base';
 import { GROUP_Z_INDEX, LAYER, PLOT_EVENTS, VIEW_LIFE_CIRCLE } from '../constant';
-import { Attribute, Coordinate, Event as GEvent, ICanvas, IGroup, IShape, Scale } from '../dependents';
+import { Attribute, Coordinate, Event as GEvent, GroupComponent, ICanvas, IGroup, IShape, Scale } from '../dependents';
 import { Facet, getFacet } from '../facet';
 import { FacetCfgMap } from '../facet/interface';
 import Geometry from '../geometry/base';
@@ -1024,9 +1024,9 @@ export class View extends Base {
     this.calculateViewBBox();
     // 2. 更新 coordinate
     this.adjustCoordinate();
-    // 3. 渲染组件 component
-    this.renderComponents(isUpdate);
-    // 4. 进行布局，计算 coordinateBBox
+    // 3. 初始化组件 component
+    this.initComponents(isUpdate);
+    // 4. 进行布局，计算 coordinateBBox，进行组件布局，update 位置
     this.doLayout();
     // 5. 布局完之后，coordinate 的范围确定了，调整 coordinate 组件
     this.adjustCoordinate();
@@ -1046,6 +1046,8 @@ export class View extends Base {
 
     // 1. 渲染几何标记
     this.paintGeometries(isUpdate);
+    // 2. 绘制组件
+    this.renderComponents(isUpdate);
     // 2. 更新 viewEventCaptureRect 大小
     const { x, y, width, height } = this.viewBBox;
     this.viewEventCaptureRect.attr({ x, y, width, height });
@@ -1449,11 +1451,11 @@ export class View extends Base {
   }
 
   /**
-   * 根据 options 配置、Geometry 字段配置，自动渲染 components
+   * 根据 options 配置、Geometry 字段配置，自动生成 components
    * @param isUpdate 是否是更新
    * @private
    */
-  private renderComponents(isUpdate: boolean) {
+  private initComponents(isUpdate: boolean) {
     // 先全部清空，然后 render
     each(this.controllers, (controller: Controller) => {
       // 更新则走更新逻辑；否则清空载重绘
@@ -1512,6 +1514,17 @@ export class View extends Base {
         geometry.animate(false);
       }
       geometry.paint(isUpdate);
+    });
+  }
+
+  /**
+   * 最后的绘制组件
+   * @param isUpdate
+   */
+  private renderComponents(isUpdate: boolean) {
+    // 先全部清空，然后 render
+    each(this.getComponents(), (co: ComponentOption) => {
+      (co.component as GroupComponent).render();
     });
   }
 

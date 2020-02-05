@@ -39,11 +39,8 @@ describe('axis changeSize update', () => {
   }
 
   it('changeSize', async () => {
-    await delay(100);
-    chart.scale('月均降雨量', {
-      min: 0,
-      max: 100,
-    });
+    await delay(1000);
+
     chart.changeSize(400, 300);
 
     const [x, y] = getAxes();

@@ -85,7 +85,7 @@ export class Title extends Controller<TitleOption> {
       ...this.getTextOption(),
     });
 
-    component.render();
+    component.init();
 
     return {
       component,

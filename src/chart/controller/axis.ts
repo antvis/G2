@@ -36,7 +36,7 @@ const DEFAULT_ANIMATE_CFG = {
 };
 
 // update 组件的时候，忽略的数据更新
-const OMIT_CFG = ['container', 'start', 'end'];
+const OMIT_CFG = ['container'];
 
 /**
  * G2 Axis controller, will:
@@ -495,7 +495,7 @@ export default class Axis extends Controller<Option> {
       extra: { dim, scale },
     };
     axis.component.set('field', scale.field);
-    axis.component.render();
+    axis.component.init();
 
     return axis;
   }
@@ -516,7 +516,7 @@ export default class Axis extends Controller<Option> {
         type: COMPONENT_TYPE.GRID,
         extra: { dim, scale },
       };
-      grid.component.render();
+      grid.component.init();
 
       return grid;
     }
@@ -538,7 +538,7 @@ export default class Axis extends Controller<Option> {
     };
     axis.component.set('field', scale.field);
 
-    axis.component.render();
+    axis.component.init();
 
     return axis;
   }
@@ -560,7 +560,7 @@ export default class Axis extends Controller<Option> {
         extra: { dim: 'y', scale },
       };
 
-      grid.component.render();
+      grid.component.init();
       return grid;
     }
   }
@@ -582,7 +582,7 @@ export default class Axis extends Controller<Option> {
         extra: { dim: 'x', scale },
       };
 
-      grid.component.render();
+      grid.component.init();
       return grid;
     }
   }
