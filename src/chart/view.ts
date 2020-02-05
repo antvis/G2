@@ -687,7 +687,7 @@ export class View extends Base {
       data: this.options.data,
       scales: clone(this.options.scales),
       axes: clone(this.options.axes),
-      coordinate: clone(this.options.coordinate), // 该配置不包含坐标系变换的操作
+      coordinate: clone(this.coordinateController.getOption()),
       tooltip: clone(this.options.tooltip),
       legends: clone(this.options.legends),
       animate: this.options.animate,
