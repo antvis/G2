@@ -18,7 +18,7 @@ const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 500,
-  padding: [20, 120, 95],
+  padding: [20, 60, 40],
 });
 chart
   .coordinate('rect')
