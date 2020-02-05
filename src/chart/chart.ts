@@ -1,4 +1,4 @@
-import { debounce, isString } from '@antv/util';
+import { debounce, isString, each } from '@antv/util';
 import { GROUP_Z_INDEX } from '../constant';
 import { getEngine } from '../engine';
 import { createDom, getChartSize, removeDom } from '../util/dom';
@@ -21,7 +21,6 @@ export default class Chart extends View {
   public renderer: 'canvas' | 'svg';
 
   private wrapperElement: HTMLElement;
-
   // @ts-ignore
   constructor(props: ChartCfg) {
     const {
@@ -34,6 +33,7 @@ export default class Chart extends View {
       pixelRatio,
       localRefresh = true,
       visible = true,
+      defaultInteractions = ['tooltip'],
       options,
     } = props;
 
@@ -78,6 +78,13 @@ export default class Chart extends View {
 
     // 自适应大小
     this.bindAutoFit();
+    this.initDefaultInteractions(defaultInteractions);
+  }
+
+  private initDefaultInteractions(interactions) {
+    each(interactions, interaction => {
+      this.interaction(interaction)
+    });
   }
 
   /**

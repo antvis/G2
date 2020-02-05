@@ -62,6 +62,7 @@ describe('Chart', () => {
       width: 780,
       height: 580,
     });
+    expect(chart.interactions.length).not.toBe(0);
   });
 
   it('render', () => {

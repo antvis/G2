@@ -76,11 +76,11 @@ export default class Tooltip extends Controller<TooltipOption> {
 
     this.tooltip = tooltip;
 
-    if (this.isVisible && !this.tooltipInteraction) {
-      // 用户开启 Tooltip
-      view.interaction('tooltip');
-      this.tooltipInteraction = get(view.getOptions(), ['interactions', 'tooltip']);
-    }
+    // if (this.isVisible && !this.tooltipInteraction) {
+    //   // 用户开启 Tooltip
+    //   view.interaction('tooltip');
+    //   this.tooltipInteraction = get(view.getOptions(), ['interactions', 'tooltip']);
+    // }
   }
 
   /**
@@ -88,6 +88,9 @@ export default class Tooltip extends Controller<TooltipOption> {
    * @param point
    */
   public showTooltip(point: Point) {
+    if (!this.isVisible) { // 如果设置 tooltip(false) 则始终不显示
+      return;
+    }
     const { view, tooltip } = this;
     const items = this.getTooltipItems(point);
     if (!items.length) {
@@ -217,10 +220,10 @@ export default class Tooltip extends Controller<TooltipOption> {
     this.tooltip = null;
     this.guideGroup = null;
 
-    if (this.tooltipInteraction) {
-      this.tooltipInteraction.destroy();
-      this.tooltipInteraction = null;
-    }
+    // if (this.tooltipInteraction) {
+    //   this.tooltipInteraction.destroy();
+    //   this.tooltipInteraction = null;
+    // }
   }
 
   public changeVisible(visible: boolean) {

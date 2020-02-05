@@ -179,6 +179,10 @@ export interface ChartCfg {
    * 当使用配置项式创建 chart 时使用，详见 [配置项式创建图表教程](docs/tutorial/schema)
    */
   readonly options?: Options;
+  /**
+   * 默认的交互，仅支持字符串形式
+   */
+  defaultInteractions?: string[];
 }
 
 // view 构造参数
