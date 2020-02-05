@@ -459,11 +459,19 @@ export default class Legend extends Controller<Option> {
 
     const layout = getLegendLayout(direction);
 
+    let title = get(legendOption, 'title');
+    if (title) {
+      title = deepMix({
+        text: scale.alias || scale.field,
+      }, title);
+    }
+
     // 基础配置，从当前数据中读到的配置
     const baseCfg = {
       container,
       layout,
       ...attrLegendCfg,
+      title,
     };
 
     // @ts-ignore
@@ -492,10 +500,18 @@ export default class Legend extends Controller<Option> {
       getCustomLegendItems(themeMarker, userMarker, legendOption.items) :
       getLegendItems(this.view, geometry, attr, themeMarker, userMarker);
 
+    let title = get(legendOption, 'title');
+    if (title) {
+      title = deepMix({
+        text: scale ? scale.alias || scale.field : '',
+      }, title);
+    }
+
     const baseCfg = {
       container,
       layout,
       items,
+      title,
       ...this.getCategoryLegendSizeCfg(layout),
     };
 

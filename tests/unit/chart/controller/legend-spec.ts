@@ -24,6 +24,11 @@ describe('Legend', () => {
     chart.legend('name', {
       position: 'right',
       reversed: true,
+      title: {
+        style: {
+          fontSize: 16,
+        },
+      },
     });
 
     chart
@@ -39,6 +44,7 @@ describe('Legend', () => {
     expect(legends[0].component.get('animate')).toBe(false);
     expect(legends[0].component.get('items')[0].name).toBe('Berlin');
     expect(legends[0].component.get('items')[1].name).toBe('London');
+    expect(legends[0].component.get('title').text).toBe('name');
   });
 
   it('continuous color', () => {
@@ -57,6 +63,13 @@ describe('Legend', () => {
       { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
       { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
     ]);
+    chart.legend({
+      title: {
+        style: {
+          fontSize: 16,
+        },
+      },
+    });
 
     chart
       .interval()
@@ -70,6 +83,7 @@ describe('Legend', () => {
     // @ts-ignore
     expect(legends[0].component.getBBox().maxY).toBeLessThanOrEqual(chart.height);
     expect(legends[0].component.get('animate')).toBe(false);
+    expect(legends[0].component.get('title').text).toBe('月均降雨量');
   });
 
   it('continuous size', () => {
@@ -131,6 +145,9 @@ describe('Legend', () => {
           { name: 'London', value: 'London', marker: { symbol: 'tick', style: { r: 10 } } },
           { name: 'Berlin', value: 'Berlin', marker: { symbol: 'circle', style: { r: 10 } } },
         ],
+        title: {
+          text: '城市',
+        },
       });
 
       chart
@@ -143,6 +160,7 @@ describe('Legend', () => {
     const legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
     expect(legends[0].component.get('items')[0].marker.symbol).toBeInstanceOf(Function);
     expect(legends[0].component.get('items')[1].marker.symbol).toBe('circle');
+    expect(legends[0].component.get('title').text).toBe('城市');
   });
 
   it('category legend, use hexagon marker', () => {
