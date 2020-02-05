@@ -62,7 +62,7 @@ export default class Legend extends Controller<Option> {
       const legend = this.createFieldLegend(geometry, attr, scale);
 
       if (legend) {
-        (legend.component as GroupComponent).render();
+        (legend.component as GroupComponent).init();
         this.components.push(legend);
       }
     };
@@ -74,7 +74,7 @@ export default class Legend extends Controller<Option> {
         this.option as LegendCfg,
       );
       if (component) {
-        component.render();
+        component.init();
 
         const layer = LAYER.FORE;
         const direction = getDirection(this.option);
@@ -177,7 +177,7 @@ export default class Legend extends Controller<Option> {
         const legend = this.createFieldLegend(geometry, attr, scale);
 
         if (legend) {
-          (legend.component as GroupComponent).render();
+          (legend.component as GroupComponent).init();
           this.components.push(legend);
 
           // 标记为新的
@@ -202,7 +202,7 @@ export default class Legend extends Controller<Option> {
           this.option as LegendCfg,
         );
         if (component) {
-          component.render();
+          component.init();
 
           const layer = LAYER.FORE;
           const direction = getDirection(this.option);

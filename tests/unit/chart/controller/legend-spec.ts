@@ -35,7 +35,6 @@ describe('Legend', () => {
 
     const legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
     expect(legends.length).toBe(1);
-    // @ts-ignore
     expect(legends[0].component.getBBox().maxX).toBeLessThanOrEqual(chart.width);
     expect(legends[0].component.get('animate')).toBe(false);
     expect(legends[0].component.get('items')[0].name).toBe('Berlin');

@@ -152,7 +152,7 @@ export default class Annotation extends Controller<BaseOption[]> {
     const createComponentFn = (option: BaseOption) => {
       const co = this.createAnnotation(option);
       if (co) {
-        co.component.render();
+        co.component.init();
         // 缓存起来
         this.cache.set(option, co);
       }
@@ -214,7 +214,7 @@ export default class Annotation extends Controller<BaseOption[]> {
         // 不存在，则创建
         const co = this.createAnnotation(option);
         if (co) {
-          co.component.render();
+          co.component.init();
           // 缓存起来
           this.cache.set(option, co);
           updated.set(option, true);
