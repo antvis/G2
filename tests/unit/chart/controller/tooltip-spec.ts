@@ -22,7 +22,7 @@ describe('Tooltip', () => {
   chart.tooltip({
     shared: true,
     showCrosshairs: true,
-    showTooltipMarkers: true,
+    showMarkers: true,
     domStyles: {
       'g2-tooltip': {
         border: '1px solid #000',

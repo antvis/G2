@@ -28,7 +28,7 @@ chart.axis(false);
 chart.legend(false);
 chart.tooltip({
   showTitle: false,
-  showTooltipMarkers: false,
+  showMarkers: false,
   itemTpl: '<li class="g2-tooltip-list-item"><span style="background-color:{color};" class="g2-tooltip-marker"></span>{name}: {value}</li>',
 });
 

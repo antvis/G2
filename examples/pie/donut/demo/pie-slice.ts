@@ -44,7 +44,7 @@ chart.coordinate('theta', {
 });
 chart.tooltip({
   showTitle: false,
-  showTooltipMarkers: false,
+  showMarkers: false,
 });
 chart
   .interval()

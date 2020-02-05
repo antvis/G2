@@ -91,7 +91,7 @@ chart.scale({
 });
 
 chart.tooltip({
-  showTooltipMarkers: false,
+  showMarkers: false,
   position: 'top',
 });
 

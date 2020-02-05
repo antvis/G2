@@ -142,8 +142,8 @@ export default class Tooltip extends Controller<TooltipOption> {
     this.items = items;
     this.title = title;
 
-    const { showTooltipMarkers, showCrosshairs } = cfg;
-    if (showTooltipMarkers) {
+    const { showMarkers, showCrosshairs } = cfg;
+    if (showMarkers) {
       // 展示 tooltipMarkers
       this.renderTooltipMarkers(cfg);
     }
@@ -359,7 +359,7 @@ export default class Tooltip extends Controller<TooltipOption> {
         fill: item.color,
         symbol: 'circle',
         shadowColor: item.color,
-        ...cfg.tooltipMarker,
+        ...cfg.marker,
         x,
         y,
       };

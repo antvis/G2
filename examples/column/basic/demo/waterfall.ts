@@ -106,7 +106,7 @@ chart.legend({
   ],
 });
 chart.tooltip({
-  showTooltipMarkers: false,
+  showMarkers: false,
 });
 chart
   .interval()

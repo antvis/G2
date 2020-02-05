@@ -43,7 +43,7 @@ fetch('../data/bubble.json')
     });
     chart.tooltip({
       showTitle: false,
-      showTooltipMarkers: false,
+      showMarkers: false,
     });
     chart.legend('Population', false); // 该图表默认会生成多个图例，设置不展示 Population 和 Country 两个维度的图例
     chart.point().position('GDP*LifeExpectancy')

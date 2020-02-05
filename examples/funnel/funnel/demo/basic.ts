@@ -27,7 +27,7 @@ chart.data(data);
 chart.axis(false);
 chart.tooltip({
   showTitle: false,
-  showTooltipMarkers: false,
+  showMarkers: false,
   itemTpl:
     '<li data-index={index} style="margin-bottom:4px;">' +
     '<span style="background-color:{color};" class="g2-tooltip-marker"></span>' +

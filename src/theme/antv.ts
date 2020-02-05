@@ -605,9 +605,9 @@ export default {
     tooltip: {
       follow: false,
       showCrosshairs: false,
-      showTooltipMarkers: true,
+      showMarkers: true,
       shared: false,
-      tooltipMarker: {
+      marker: {
         symbol: 'circle',
         stroke: '#fff',
         shadowBlur: 10,

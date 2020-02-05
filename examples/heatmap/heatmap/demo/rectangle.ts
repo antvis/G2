@@ -29,7 +29,7 @@ fetch('../data/gaussion-distribution.json')
     });
 
     chart.tooltip({
-      showTooltipMarkers: false,
+      showMarkers: false,
       showTitle: false,
     });
     chart.polygon()

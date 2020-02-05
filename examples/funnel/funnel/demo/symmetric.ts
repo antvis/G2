@@ -25,7 +25,7 @@ const chart = new Chart({
 chart.data(data);
 chart.axis(false);
 chart.tooltip({
-  showTooltipMarkers: false,
+  showMarkers: false,
   showTitle: false,
   itemTpl:
     '<li class="g2-tooltip-list-item" data-index={index} style="margin-bottom:4px;">' +

@@ -23,7 +23,7 @@ fetch('../data/voronoi.json')
     chart.coordinate('polar');
     chart.tooltip({
       showTitle: false,
-      showTooltipMarkers: false,
+      showMarkers: false,
     });
 
     chart.data(dv.rows);

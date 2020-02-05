@@ -31,7 +31,7 @@ fetch('../data/diamond.json')
 
     chart.tooltip({
       position: 'top',
-      showTooltipMarkers: false,
+      showMarkers: false,
     });
 
     chart.interval().position('depth*count');

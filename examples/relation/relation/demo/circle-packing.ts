@@ -22,7 +22,7 @@ fetch('../data/flare.json')
     chart.legend(false);
     chart.tooltip({
       showTitle: false,
-      showTooltipMarkers: false,
+      showMarkers: false,
     });
 
     const nodes = dv.getAllNodes().map((node) => ({

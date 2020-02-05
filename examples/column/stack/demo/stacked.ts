@@ -31,7 +31,7 @@ chart.scale('月均降雨量', {
 });
 chart.tooltip({
   shared: true,
-  showTooltipMarkers: false,
+  showMarkers: false,
 });
 
 chart

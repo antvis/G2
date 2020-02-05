@@ -50,7 +50,7 @@ chart.scale({
 
 chart.tooltip({
   shared: true,
-  showTooltipMarkers: false,
+  showMarkers: false,
 });
 
 

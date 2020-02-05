@@ -19,7 +19,7 @@ const chart = new Chart({
 
 chart.data(data);
 chart.tooltip({
-  showTooltipMarkers: false,
+  showMarkers: false,
 });
 chart.interval().position('x*y').animate({
   appear: {

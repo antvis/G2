@@ -22,7 +22,7 @@ fetch('../data/voronoi.json')
     chart.legend(false);
     chart.tooltip({
       showTitle: false,
-      showTooltipMarkers: false,
+      showMarkers: false,
     });
 
     chart.data(dv.rows);

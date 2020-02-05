@@ -73,7 +73,7 @@ chart.axis('value', {
 
 chart.tooltip({
   shared: true,
-  showTooltipMarkers: false,
+  showMarkers: false,
 });
 
 chart

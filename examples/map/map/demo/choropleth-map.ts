@@ -12,7 +12,7 @@ fetch('../data/world.geo.json')
     });
     chart.tooltip({
       showTitle: false,
-      showTooltipMarkers: false,
+      showMarkers: false,
       shared: true,
     });
     // 同步度量

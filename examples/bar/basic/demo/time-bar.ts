@@ -37,7 +37,7 @@ chart
 
 chart.tooltip({
   follow: true,
-  showTooltipMarkers: false,
+  showMarkers: false,
 });
 
 chart

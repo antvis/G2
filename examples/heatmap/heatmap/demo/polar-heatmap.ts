@@ -12,7 +12,7 @@ fetch('../data/polar-heatmap.json')
     chart.data(data);
     chart.tooltip({
       showTitle: null,
-      showTooltipMarkers: false
+      showMarkers: false
     });
     chart.coordinate('polar', {
       innerRadius: 0.2

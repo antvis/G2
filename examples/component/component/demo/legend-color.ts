@@ -87,7 +87,7 @@ chart.axis('day', {
   title: null,
 });
 chart.tooltip({
-  showTooltipMarkers: false,
+  showMarkers: false,
 });
 chart
   .polygon()

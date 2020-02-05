@@ -30,7 +30,7 @@ chart.data(dv.rows);
 chart.coordinate().transpose();
 chart.tooltip({
   follow: true,
-  showTooltipMarkers: false,
+  showMarkers: false,
 });
 
 chart

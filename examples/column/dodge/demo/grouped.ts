@@ -30,7 +30,7 @@ chart.scale('月均降雨量', {
   nice: true,
 });
 chart.tooltip({
-  showTooltipMarkers: false,
+  showMarkers: false,
   shared: true,
 });
 

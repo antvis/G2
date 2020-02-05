@@ -21,7 +21,7 @@ chart
   .transpose()
   .scale(1, -1);
 chart.tooltip({
-  showTooltipMarkers: false,
+  showMarkers: false,
 });
 chart
   .interval()

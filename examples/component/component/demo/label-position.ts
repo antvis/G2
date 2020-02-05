@@ -59,7 +59,7 @@ chart.scale({
   },
 });
 chart.tooltip({
-  showTooltipMarkers: false,
+  showMarkers: false,
   shared: true,
 });
 chart
