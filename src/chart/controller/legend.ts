@@ -1,4 +1,4 @@
-import { deepMix, each, find, get, head, isBoolean, last, map, size, uniq } from '@antv/util';
+import { deepMix, each, find, get, head, isBoolean, last, map } from '@antv/util';
 import { DEFAULT_ANIMATE_CFG } from '../../animate';
 import { COMPONENT_MAX_VIEW_PERCENTAGE, COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { Attribute, CategoryLegend, ContinuousLegend, GroupComponent, IGroup, Scale, Tick } from '../../dependents';
@@ -7,6 +7,7 @@ import { BBox } from '../../util/bbox';
 import { directionToPosition } from '../../util/direction';
 import { omit } from '../../util/helper';
 import { getCustomLegendItems, getLegendItems, getLegendLayout } from '../../util/legend';
+import { getName } from '../../util/scale';
 import { ComponentOption, LegendCfg, LegendOption } from '../interface';
 import View from '../view';
 import { Controller } from './base';
@@ -462,7 +463,7 @@ export default class Legend extends Controller<Option> {
     let title = get(legendOption, 'title');
     if (title) {
       title = deepMix({
-        text: scale.alias || scale.field,
+        text: getName(scale),
       }, title);
     }
 
@@ -503,7 +504,7 @@ export default class Legend extends Controller<Option> {
     let title = get(legendOption, 'title');
     if (title) {
       title = deepMix({
-        text: scale ? scale.alias || scale.field : '',
+        text: scale ? getName(scale) : '',
       }, title);
     }
 
