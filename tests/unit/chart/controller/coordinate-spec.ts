@@ -18,7 +18,7 @@ describe('test coordinate controller', () => {
     expect(actions.length).toBe(1);
     expect(actions[0]).toEqual([ 'transpose' ]);
 
-    controller.rotate(180);
+    controller.rotate(Math.PI);
     expect(actions.length).toBe(2);
     expect(actions[1]).toEqual([ 'rotate', Math.PI ]);
 
@@ -31,7 +31,7 @@ describe('test coordinate controller', () => {
     expect(actions[3]).toEqual([ 'reflect', 'x' ]);
   });
 
-  it('create coord', () => {
+  it('create coordinate', () => {
     const coordinate = controller.create({ x: 0, y: 0 }, { x: 500, y: 500 });
     expect(coordinate.isTransposed).toBe(true);
   });
