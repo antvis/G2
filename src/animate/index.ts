@@ -257,6 +257,7 @@ export function doGroupAppearAnimate(
         ...defaultCfg,
         ...animateCfg,
       };
+      container.stopAnimate(); // 先结束当前 container 动画
       animation(container, cfg, {
         coordinate,
         minYPoint,
