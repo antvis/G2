@@ -106,7 +106,7 @@ function antiCollision(labels, lineHeight, plotRange, center, isRight) {
 export default class PieLabel extends PolarLabel {
   constructor(geometry: Geometry) {
     super(geometry);
-    this.defaultLabelCfg = get(geometry.theme, 'thetaLabels', {});
+    this.defaultLabelCfg = get(geometry.theme, 'pieLabels', {});
   }
   protected getDefaultOffset(offset) {
     return offset || 0;
@@ -223,7 +223,7 @@ export default class PieLabel extends PolarLabel {
     const coordinate = this.coordinate;
     // @ts-ignore
     const radius = coordinate.getRadius();
-    const lineHeight = get(this.geometry.theme, ['thetaLabels', 'labelHeight'], 14);
+    const lineHeight = get(this.geometry.theme, ['pieLabels', 'labelHeight'], 14);
     const center = coordinate.getCenter();
     const totalR = radius + offset;
     const totalHeight = totalR * 2 + lineHeight * 2;

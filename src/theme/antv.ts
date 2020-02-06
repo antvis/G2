@@ -805,7 +805,7 @@ export default {
     },
     autoRotate: true,
   },
-  thetaLabels: {
+  pieLabels: {
     labelHeight: 14,
     offset: 30,
     labelLine: {
