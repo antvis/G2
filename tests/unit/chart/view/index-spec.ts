@@ -123,7 +123,7 @@ describe('View', () => {
     expect(size(view.getOptions().filters)).toEqual(2);
 
     // @ts-ignore
-    view.filterData();
+    view.doFilterData();
 
     // @ts-ignore
     expect(view.filteredData).toEqual([
@@ -334,7 +334,12 @@ describe('View', () => {
 
     view1.data(data);
     view1.filter('category', (category: string) => category === '电脑');
-    view1.filter('city', (category: string) => category === '杭州');
+    view1.filter('city', (city: string) => city === '杭州');
+
+    // 测试 filterData API
+    expect(view1.filterData([{ city: '杭州', category: '电脑' }, { city: '杭州', category: 'xx' }])).toEqual(
+      [{ city: '杭州', category: '电脑' }]
+    );
 
     const geometry = view1
       .line()

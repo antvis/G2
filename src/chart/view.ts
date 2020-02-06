@@ -989,6 +989,33 @@ export class View extends Base {
     return components;
   }
 
+  /**
+   * 将 data 数据进行过滤
+   * @param data
+   * @returns 过滤之后的数据
+   */
+  public filterData(data: Data): Data {
+    const { filters } = this.options;
+    // 不存在 filters，则不需要进行数据过滤
+    if (size(filters) === 0) {
+      return data;
+    }
+
+    // 存在过滤器，则逐个执行过滤，过滤器之间是 与 的关系
+    return filter(data, (datum: Datum) => {
+      // 所有的 filter 字段
+      const fields = Object.keys(filters);
+
+      // 所有的条件都通过，才算通过
+      return fields.every((field: string) => {
+        const condition = filters[field];
+
+        // condition 返回 true，则保留
+        return condition(datum[field], datum);
+      });
+    });
+  }
+
   protected paint(isUpdate: boolean) {
     this.renderDataRecursive(isUpdate);
     this.renderLayoutRecursive(isUpdate);
@@ -1001,7 +1028,7 @@ export class View extends Base {
    */
   private renderDataRecursive(isUpdate: boolean) {
     // 1. 处理数据
-    this.filterData();
+    this.doFilterData();
     // 2. 创建实例
     this.createCoordinate();
     // 3. 初始化 Geometry
@@ -1251,27 +1278,9 @@ export class View extends Base {
    * 处理筛选器，筛选数据
    * @private
    */
-  private filterData() {
-    const { data, filters } = this.options;
-    // 不存在 filters，则不需要进行数据过滤
-    if (size(filters) === 0) {
-      this.filteredData = data;
-      return;
-    }
-
-    // 存在过滤器，则逐个执行过滤，过滤器之间是 与 的关系
-    this.filteredData = filter(data, (datum: Datum) => {
-      // 所有的 filter 字段
-      const fields = Object.keys(filters);
-
-      // 所有的条件都通过，才算通过
-      return fields.every((field: string) => {
-        const condition = filters[field];
-
-        // condition 返回 true，则保留
-        return condition(datum[field], datum);
-      });
-    });
+  private doFilterData() {
+    const { data } = this.options;
+    this.filteredData = this.filterData(data);
   }
 
   /**
