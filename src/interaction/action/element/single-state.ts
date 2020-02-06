@@ -26,7 +26,9 @@ class ElementSingleState extends StateBase {
     const element = getCurrentElement(this.context);
     if (element) {
       const hasState = this.hasState(element); // 提前获取状态
-      this.clear();
+      if (!hasState) {
+        this.clear();
+      }
       this.setElementState(element, !hasState);
     }
   }
