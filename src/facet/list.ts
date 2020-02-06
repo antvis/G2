@@ -1,7 +1,7 @@
-import { DIRECTION } from '@antv/g2';
 import { deepMix, each, every, filter, isNil } from '@antv/util';
 import { AxisCfg } from '../chart/interface';
 import View from '../chart/view';
+import { DIRECTION } from '../constant';
 import { Datum } from '../interface';
 import { getFactTitleConfig } from '../util/facet';
 import { Facet } from './facet';
