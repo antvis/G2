@@ -62,7 +62,7 @@ export function createScaleByField(field: string | number, data?: LooseObject[] 
  * @param newScale 同步源 Scale
  */
 export function syncScale(scale: Scale, newScale: Scale) {
-  if (scale.type !== 'identity') {
+  if (scale.type !== 'identity' && newScale.type !== 'identity') {
     const obj = {};
     for (const k in newScale) {
       if (Object.prototype.hasOwnProperty.call(newScale, k)) {
