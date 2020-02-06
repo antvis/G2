@@ -1,4 +1,4 @@
-import { deepMix, map, get, isString } from '@antv/util';
+import { deepMix, isString, map, size } from '@antv/util';
 import { LegendItem } from '../chart/interface';
 import View from '../chart/view';
 import { DIRECTION } from '../constant';
@@ -34,12 +34,15 @@ export function getLegendItems(
 ): any[] {
   const scale = attr.getScale(attr.type);
   if (scale.isCategory) {
+    const field = scale.field;
+
     return map(scale.getTicks(), (tick: Tick): object => {
       const { text, value: scaleValue } = tick;
       const name = text;
       const value = scale.invert(scaleValue);
 
-      // const checked = filterVals ? self._isFiltered(scale, filterVals, scaleValue) : true;
+      // 通过过滤图例项的数据，来看是否乣 unchecked
+      const unchecked = !size(view.filterFieldData(field, [{ [field]: value }]));
 
       const colorAttr = geometry.getAttribute('color');
       const shapeAttr = geometry.getAttribute('shape');
@@ -59,7 +62,7 @@ export function getLegendItems(
         marker.symbol = MarkerSymbols[symbol];
       }
 
-      return { id: value, name, value, marker };
+      return { id: value, name, value, marker, unchecked };
     });
   }
   return [];

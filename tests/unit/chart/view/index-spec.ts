@@ -341,6 +341,10 @@ describe('View', () => {
       [{ city: '杭州', category: '电脑' }]
     );
 
+    expect(view1.filterFieldData('city', [{ city: '杭州' }])).toEqual(
+      [{ city: '杭州' }]
+    );
+
     const geometry = view1
       .line()
       .position('city*sale')

@@ -11,6 +11,7 @@ import {
   isNil,
   isObject,
   isString,
+  isUndefined,
   map,
   remove,
   set,
@@ -1014,6 +1015,22 @@ export class View extends Base {
         return condition(datum[field], datum);
       });
     });
+  }
+
+  /**
+   * 对某一个字段进行过滤
+   * @param field
+   * @param data
+   */
+  public filterFieldData(field: string, data: Data): Data {
+    const { filters } = this.options;
+    const condition = get(filters, field);
+
+    if (isUndefined(condition)) {
+      return data;
+    }
+
+    return filter(data, (datum: Datum) => condition(datum[field], datum));
   }
 
   protected paint(isUpdate: boolean) {
