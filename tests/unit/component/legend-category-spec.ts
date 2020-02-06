@@ -11,9 +11,10 @@ describe('Legend category', () => {
     container: div,
     width: 800,
     height: 600,
-    padding: 16,
     autoFit: false,
   });
+
+  chart.animate(false);
 
   chart.data(CITY_SALE);
 
@@ -61,7 +62,7 @@ describe('Legend category', () => {
   });
 });
 
-describe('Legend category navigation', () => {
+describe.skip('Legend category navigation', () => {
   const div = createDiv();
   const legendId = '';
 
@@ -69,7 +70,6 @@ describe('Legend category navigation', () => {
     container: div,
     width: 400,
     height: 400,
-    padding: 16,
     autoFit: false,
   });
 
@@ -120,7 +120,7 @@ describe('Legend category navigation', () => {
   });
 });
 
-describe('Legend Category Vertical', () => {
+describe.skip('Legend Category Vertical', () => {
   const div = createDiv();
   const legendId = '';
 
