@@ -139,7 +139,12 @@ describe('annotation', () => {
     // style
     expect(text.get('style').fill).toBe('red');
     expect(text.get('rotate')).toBeCloseTo(Math.PI * 0.25);
-    expect(text.get('group').getFirst().attr('matrix')).not.toEqual([1, 0, 0, 0, 1, 0, 0, 0, 1]);
+    expect(
+      text
+        .get('group')
+        .getFirst()
+        .attr('matrix')
+    ).not.toEqual([1, 0, 0, 0, 1, 0, 0, 0, 1]);
   });
 
   it('use percentage position', () => {
@@ -220,7 +225,9 @@ describe('annotation', () => {
     chart.annotation().dataRegion({
       start: { city: '杭州', sale: 100 },
       end: { city: '上海', sale: 110 },
-      content: 'data region test',
+      text: {
+        content: 'data region test',
+      },
     });
     chart.render();
 

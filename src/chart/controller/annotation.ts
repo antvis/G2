@@ -93,17 +93,12 @@ export interface DataMarkerOption extends PointPositionBaseOption {
 }
 
 export interface DataRegionOption extends RegionPositionBaseOption {
-  /** 显示的文本内容 */
-  readonly content: string | number;
   /** line长度，default为 0 */
   readonly lineLength?: number;
-  /** 样式配置 */
-  readonly style?: {
-    /** 标注区间的样式配置 */
-    region?: object;
-    /** 文本的样式配置 */
-    text?: object;
-  };
+  /** 标注区间的配置 */
+  readonly region?: null | { style?: object };
+  /** 文本的配置 */
+  readonly text?: null | { style?: object; content: string };
 }
 
 export interface RegionFilterOption extends RegionPositionBaseOption {
@@ -654,11 +649,11 @@ export default class Annotation extends Controller<BaseOption[]> {
         direction,
       };
     } else if (type === 'dataRegion') {
-      const { start, end, style, content, lineLength } = option as DataRegionOption;
+      const { start, end, region, text, lineLength } = option as DataRegionOption;
       o = {
         points: this.getRegionPoints(start, end),
-        content,
-        style,
+        region,
+        text,
         lineLength,
       };
     } else if (type === 'regionFilter') {
