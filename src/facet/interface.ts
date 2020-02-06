@@ -87,6 +87,17 @@ export interface MirrorCfg extends FacetCfg {
 export interface MirrorData extends FacetData {
 }
 
+// ===================== list 相关类型定义 =====================
+
+export interface ListCfg extends FacetCfg {
+  readonly cols?: number;
+  readonly title?: FacetTitle;
+}
+
+export interface ListData extends FacetData {
+  readonly total: number;
+}
+
 
 /**
  * facet object map
@@ -95,5 +106,7 @@ export interface FacetCfgMap {
   /** rect */
   readonly rect: RectCfg;
   /** mirror */
-  readonly mirror: MirrorCfg,
+  readonly mirror: MirrorCfg;
+  /** list */
+  readonly list: ListCfg;
 }

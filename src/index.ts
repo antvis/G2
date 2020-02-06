@@ -106,11 +106,13 @@ registerAnimation('path-in', pathIn);
 
 // 注册内置的 Facet
 import { registerFacet } from './core';
+import List from './facet/list';
 import Mirror from './facet/mirror';
 import Rect from './facet/rect';
 
 registerFacet('rect', Rect);
 registerFacet('mirror', Mirror);
+registerFacet('list', List);
 
 // 注册内置的 Component
 import { registerComponentController } from './core';
