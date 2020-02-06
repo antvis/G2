@@ -200,7 +200,7 @@ describe('Legend', () => {
     expect(legends[0].component.get('items')[1].marker.symbol).toBeInstanceOf(Function);
   });
 
-  it.only('legend maxWidth', () => {
+  it('legend maxWidth', () => {
     const data = [
       { genre: 'Sports', sold: 275 },
       { genre: 'Strategy', sold: 115 },
@@ -221,9 +221,19 @@ describe('Legend', () => {
       max: 3600,
       nice: false,
     });
-    // chart.coordinate().transpose();
+    chart.coordinate().transpose();
     chart.interval().position('genre*sold').color('genre').label('sold');
 
     chart.render();
+
+    const legend = chart.getComponents().filter(co => co.type === COMPONENT_TYPE.LEGEND)[0].component;
+
+    expect(legend.get('flipPage')).toBe(true);
+    expect(legend.totalPagesCnt).toBe(2);
+    expect(legend.pageHeight).toBe(20);
+  });
+
+  afterAll(() => {
+    chart.destroy();
   });
 });
