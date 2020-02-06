@@ -111,6 +111,9 @@ export default class Legend extends Controller<Option> {
       const layout = getLegendLayout(direction);
       const maxSize = this.getCategoryLegendSizeCfg(layout);
 
+      const maxWidth = component.get('maxWidth');
+      const maxHeight = component.get('maxHeight');
+
       let x = 0;
       let y = 0;
 
@@ -126,8 +129,8 @@ export default class Legend extends Controller<Option> {
       component.update({
         x,
         y,
-        ...maxSize,
-        flipPage: true,
+        maxWidth: Math.min(maxSize.maxWidth, maxWidth || 0),
+        maxHeight: Math.min(maxSize.maxHeight, maxHeight || 0),
       });
     });
   }

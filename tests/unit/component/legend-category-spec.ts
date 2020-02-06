@@ -62,7 +62,7 @@ describe('Legend category', () => {
   });
 });
 
-describe.skip('Legend category navigation', () => {
+describe('Legend category navigation', () => {
   const div = createDiv();
   const legendId = '';
 
@@ -120,7 +120,7 @@ describe.skip('Legend category navigation', () => {
   });
 });
 
-describe.skip('Legend Category Vertical', () => {
+describe('Legend Category Vertical', () => {
   const div = createDiv();
   const legendId = '';
 
@@ -128,8 +128,6 @@ describe.skip('Legend Category Vertical', () => {
     container: div,
     width: 400,
     height: 400,
-    padding: 16,
-    autoFit: false,
   });
 
   chart.data(DIAMOND);
@@ -146,10 +144,13 @@ describe.skip('Legend Category Vertical', () => {
       flipPage: true,
       maxHeight: 80,
     });
-    chart.render(true);
+    chart.render();
 
     const legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
     const legend = legends[0].component as GroupComponent<GroupComponentCfg>;
+
+    expect(legend.get('maxHeight')).toBe(80);
+
     const navigation = legend.getElementById(`${legendId}-legend-navigation-group`);
 
     const children = navigation ? navigation.getChildren() : [];
