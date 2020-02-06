@@ -88,22 +88,37 @@ export default class {
     return this.coordinate;
   }
 
+  /**
+   * 旋转弧度
+   * @param angle
+   */
   public rotate(angle: number) {
-    angle = angle * Math.PI / 180;
     this.option.actions.push([ 'rotate', angle ]);
     return this;
   }
 
+  /**
+   * 镜像
+   * @param dim
+   */
   public reflect(dim: string) {
     this.option.actions.push([ 'reflect', dim ]);
     return this;
   }
 
+  /**
+   * scale
+   * @param sx
+   * @param sy
+   */
   public scale(sx: number, sy: number) {
     this.option.actions.push([ 'scale', sx, sy ]);
     return this;
   }
 
+  /**
+   * 对角变换
+   */
   public transpose() {
     this.option.actions.push([ 'transpose' ]);
     return this;
