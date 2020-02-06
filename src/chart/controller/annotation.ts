@@ -1,7 +1,7 @@
 import { contains, deepMix, each, get, isArray, isFunction, isNil, isString, keys, upperFirst } from '@antv/util';
 import { DEFAULT_ANIMATE_CFG } from '../../animate/';
 import { COMPONENT_TYPE, DIRECTION, LAYER, VIEW_LIFE_CIRCLE } from '../../constant';
-import { Annotation as AnnotationComponent, IGroup, Scale } from '../../dependents';
+import { Annotation as AnnotationComponent, IElement, IGroup, Scale } from '../../dependents';
 import Geometry from '../../geometry/base';
 import Element from '../../geometry/element';
 import { Data, Point } from '../../interface';
@@ -148,6 +148,9 @@ export default class Annotation extends Controller<BaseOption[]> {
       const co = this.createAnnotation(option);
       if (co) {
         co.component.init();
+        if (option.type === 'regionFilter') {
+          co.component.render();
+        }
         // 缓存起来
         this.cache.set(option, co);
       }
@@ -210,6 +213,9 @@ export default class Annotation extends Controller<BaseOption[]> {
         const co = this.createAnnotation(option);
         if (co) {
           co.component.init();
+          if (option.type === 'regionFilter') {
+            co.component.render();
+          }
           // 缓存起来
           this.cache.set(option, co);
           updated.set(option, true);
@@ -660,16 +666,26 @@ export default class Annotation extends Controller<BaseOption[]> {
       const { start, end, apply, color } = option as RegionFilterOption;
       const geometries: Geometry[] = this.view.geometries;
       const shapes = [];
+      const addShapes = (item?: IElement) => {
+        if (!item) {
+          return;
+        }
+        if (item.isGroup()) {
+          (item as IGroup).getChildren().forEach((child) => addShapes(child));
+        } else {
+          shapes.push(item);
+        }
+      };
       each(geometries, (geom: Geometry) => {
         if (apply) {
           if (contains(apply, geom.type)) {
             each(geom.elements, (elem: Element) => {
-              shapes.push(elem.shape);
+              addShapes(elem.shape);
             });
           }
         } else {
           each(geom.elements, (elem: Element) => {
-            shapes.push(elem.shape);
+            addShapes(elem.shape);
           });
         }
       });
