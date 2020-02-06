@@ -49,7 +49,7 @@ export default class List extends Facet<ListCfg, ListData> {
 
     const [columnField] = fields;
     if (!columnField) {
-      throw new Error('Please specify for the field for facet!');
+      throw new Error('No `fields` specified!');
     }
 
     const colValues = this.getFieldValues(data, columnField);
