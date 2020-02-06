@@ -1,8 +1,8 @@
 import { Chart } from '@antv/g2';
 
 fetch('../data/income.json')
-  .then(res => res.json())
-  .then(data => {
+  .then((res) => res.json())
+  .then((data) => {
     const chart = new Chart({
       container: 'container',
       autoFit: true,
@@ -15,16 +15,16 @@ fetch('../data/income.json')
     chart.axis('time', {
       label: {
         style: {
-          fill: '#aaaaaa'
-        }
-      }
+          fill: '#aaaaaa',
+        },
+      },
     });
     chart.axis('rate', {
       label: {
         style: {
-          fill: '#aaaaaa'
-        }
-      }
+          fill: '#aaaaaa',
+        },
+      },
     });
     chart.line().position('time*rate');
 
@@ -36,9 +36,9 @@ fetch('../data/income.json')
         style: {
           textAlign: 'left',
           stroke: '#fff',
-          lineWidth: 2
-        }
-      }
+          lineWidth: 2,
+        },
+      },
     });
     chart.annotation().dataMarker({
       position: ['2013-05-31', 2.093],
@@ -47,9 +47,9 @@ fetch('../data/income.json')
         style: {
           textAlign: 'left',
           stroke: '#fff',
-          lineWidth: 2
-        }
-      }
+          lineWidth: 2,
+        },
+      },
     });
     chart.annotation().dataMarker({
       position: ['2016-09-04', 2.321],
@@ -59,8 +59,8 @@ fetch('../data/income.json')
         style: {
           textAlign: 'right',
           stroke: '#fff',
-          lineWidth: 2
-        }
+          lineWidth: 2,
+        },
       },
       line: {
         length: 30,
@@ -69,8 +69,10 @@ fetch('../data/income.json')
     chart.annotation().dataRegion({
       start: ['2016-12-02', 2.517],
       end: ['2017-03-24', 3.83],
-      content: '',
-      lineLength: 50
+      text: {
+        content: '',
+      },
+      lineLength: 50,
     });
     chart.annotation().dataMarker({
       position: ['2016-12-02', 2.517],
@@ -83,14 +85,14 @@ fetch('../data/income.json')
       },
       line: {
         length: 130,
-      }
+      },
     });
     chart.annotation().dataMarker({
       position: ['2017-03-24', 3.83],
       text: null,
       line: {
         length: 50,
-      }
+      },
     });
 
     chart.render();
