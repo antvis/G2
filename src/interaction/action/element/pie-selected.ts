@@ -21,7 +21,7 @@ class PieSelected extends SingleSelected {
    * @param selected 是否选中
    */
   protected setElementState(element: Element, selected: boolean) {
-    element.setState('selected', selected);
+    
     const shape = element.shape;
     if (selected) {
       const coord = this.context.view.getCoordinate();
@@ -48,7 +48,9 @@ class PieSelected extends SingleSelected {
         shape.resetMatrix();
       }
     }
+    element.setState('selected', selected);
   }
+  
 }
 
 export default PieSelected;
