@@ -1,5 +1,5 @@
 import { vec2 } from '@antv/matrix-util';
-import { deepMix, each, find, get, isArray, isEqual, isFunction, set } from '@antv/util';
+import { deepMix, each, find, get, isArray, isEqual, isFunction } from '@antv/util';
 import { Crosshair, HtmlTooltip, IGroup } from '../../dependents';
 import Geometry from '../../geometry/base';
 import { MappingDatum, Point } from '../../interface';
@@ -441,6 +441,7 @@ export default class Tooltip extends Controller<TooltipOption> {
       xCrosshair = new Crosshair.Line(cfg);
       xCrosshair.init();
     }
+    xCrosshair.render();
     xCrosshair.show();
     this.xCrosshair = xCrosshair;
   }
@@ -508,7 +509,7 @@ export default class Tooltip extends Controller<TooltipOption> {
       yCrosshair = new Crosshair[type](cfg);
       yCrosshair.init();
     }
-
+    yCrosshair.render();
     yCrosshair.show();
     this.yCrosshair = yCrosshair;
   }
