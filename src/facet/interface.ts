@@ -121,5 +121,5 @@ export interface FacetCfgMap {
   /** list */
   readonly list: ListCfg;
   /** matrix */
-  readonly matrix: MirrorCfg;
+  readonly matrix: MatrixCfg;
 }
