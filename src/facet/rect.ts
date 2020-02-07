@@ -20,23 +20,13 @@ export default class Rect extends Facet<RectCfg, RectData> {
   }
 
   protected getDefaultCfg() {
-    // @ts-ignore
-    const fontFamily = this.view.getTheme().fontFamily;
     return deepMix({}, super.getDefaultCfg(), {
       type: 'rect',
       columnTitle: {
-        style: {
-          fontSize: 14,
-          fill: '#666',
-          fontFamily,
-        }
+        ...super.getDefaultTitleCfg(),
       },
       rowTitle: {
-        style: {
-          fontSize: 14,
-          fill: '#666',
-          fontFamily,
-        }
+        ...super.getDefaultTitleCfg(),
       }
     })
   }

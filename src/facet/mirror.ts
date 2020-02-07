@@ -12,18 +12,10 @@ import { MirrorCfg, MirrorData } from './interface';
  */
 export default class Mirror extends Facet<MirrorCfg, MirrorData> {
   protected getDefaultCfg() {
-    // @ts-ignore
-    const fontFamily = this.view.getTheme().fontFamily;
     return deepMix({}, super.getDefaultCfg(), {
       type: 'mirror',
       showTitle: true,
-      title: {
-        style: {
-          fontSize: 14,
-          fill: '#666',
-          fontFamily,
-        }
-      },
+      title: super.getDefaultTitleCfg(),
       transpose: false,
     });
   }

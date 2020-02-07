@@ -12,19 +12,11 @@ import { ListCfg, ListData } from './interface';
  */
 export default class List extends Facet<ListCfg, ListData> {
   protected getDefaultCfg() {
-    // @ts-ignore
-    const fontFamily = this.view.getTheme().fontFamily;
     return deepMix({}, super.getDefaultCfg(), {
       type: 'list',
       cols: null, // 默认显示一列
       showTitle: true,
-      title: {
-        style: {
-          fontSize: 14,
-          fill: '#666',
-          fontFamily,
-        }
-      },
+      title: super.getDefaultTitleCfg(),
     });
   }
 
