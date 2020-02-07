@@ -31,7 +31,7 @@ import { Condition, FacetCfg, FacetData, FacetDataFilter } from './interface';
  * 2. 清除事件
  * 3. 清除 group
  */
-export abstract class Facet<C extends FacetCfg = FacetCfg, F extends FacetData = FacetData> {
+export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>, F extends FacetData = FacetData> {
   /** 分面所在的 view */
   public view: View;
   /** 分面容器 */
