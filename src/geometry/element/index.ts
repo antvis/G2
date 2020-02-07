@@ -1,10 +1,11 @@
-import { each, get, isArray, isEmpty } from '@antv/util';
+import { each, get, isArray, isEmpty, deepMix, isFunction } from '@antv/util';
 import { doAnimate, getDefaultAnimateCfg } from '../../animate';
 import Base from '../../base';
 import { BBox, IGroup, IShape } from '../../dependents';
 import { AnimateOption, Datum, LooseObject, ShapeFactory, ShapeInfo } from '../../interface';
 import { getReplaceAttrs } from '../../util/graphics';
 import Geometry from '../base';
+import { StateCfg } from '../interface';
 
 interface ElementCfg {
   /** 用于创建各种 shape 的工厂对象 */
@@ -13,8 +14,6 @@ interface ElementCfg {
   theme: LooseObject;
   /** shape 容器 */
   container: IGroup;
-  /** 动画配置 */
-  animate?: AnimateOption | boolean;
   /** 虚拟 group，用户可以不传入 */
   offscreenGroup?: IGroup;
   visible?: boolean;
@@ -57,11 +56,10 @@ export default class Element extends Base {
   constructor(cfg: ElementCfg) {
     super(cfg);
 
-    const { shapeFactory, theme, container, animate, offscreenGroup, visible = true } = cfg;
+    const { shapeFactory, theme, container, offscreenGroup, visible = true } = cfg;
     this.shapeFactory = shapeFactory;
     this.theme = theme;
     this.container = container;
-    this.animate = animate;
     this.offscreenGroup = offscreenGroup;
     this.visible = visible;
   }
@@ -306,21 +304,34 @@ export default class Element extends Base {
   }
 
   // 从主题中获取对应状态量的样式
-  private getStateStyle(stateName: string, shapeKey?: string): LooseObject {
+  private getStateStyle(stateName: string, shapeKey?: string): StateCfg {
     const { theme, shapeFactory } = this;
     let shapeType = this.shapeType;
     // 如果用户自定义 shape，则使用默认 shape 的配置
     if (!theme[shapeType]) {
       shapeType = shapeFactory.defaultShapeType;
     }
+    // 用户通过 geometry.state() 接口定义了状态样式
+    const stateOption = get(this.geometry.stateOption, stateName, {});
+    const stateCfg = deepMix({}, get(theme, [shapeType, stateName], {}), stateOption);
 
-    const keys = shapeKey ? [shapeType, stateName, shapeKey] : [shapeType, stateName];
-    return get(theme, keys, {});
+    let shapeStyle = get(stateCfg.style, [shapeKey]) ?
+      get(stateCfg.style, [shapeKey]) :
+      stateCfg.style;
+
+    if (isFunction(shapeStyle)) {
+      shapeStyle = shapeStyle(this);
+    }
+
+    return {
+      animate: stateCfg.animate,
+      style: shapeStyle,
+    };
   }
 
   // 获取动画配置
   private getAnimateCfg(animateType: string) {
-    const animate = this.animate;
+    const animate = this.geometry.animateOption;
     const { geometryType, coordinate } = this.shapeFactory;
     const defaultCfg = getDefaultAnimateCfg(geometryType, coordinate, animateType);
 
@@ -399,7 +410,7 @@ export default class Element extends Base {
   private getShapeDrawCfg(cfg: ShapeInfo): ShapeInfo {
     return {
       ...cfg,
-      defaultStyle: this.getStateStyle('default'),
+      defaultStyle: this.getStateStyle('default').style,
     };
   }
 
@@ -418,9 +429,11 @@ export default class Element extends Base {
         this.syncShapeStyle(children[i], newChildren[i], state, animateCfg, index + i);
       }
     } else {
+      let stateAnimate;
       if (state) {
-        const stateStyle = this.getStateStyle(state, sourceShape.get('name') || index); // 如果用户没有设置 name，则默认根据索引值
-        targetShape.attr(stateStyle);
+        const { animate, style } = this.getStateStyle(state, sourceShape.get('name') || index); // 如果用户没有设置 name，则默认根据索引值
+        targetShape.attr(style);
+        stateAnimate = animate;
       }
       const newAttrs = getReplaceAttrs(sourceShape as IShape, targetShape as IShape);
 
@@ -430,6 +443,14 @@ export default class Element extends Base {
           coordinate: this.shapeFactory.coordinate,
           toAttrs: newAttrs,
           shapeModel: this.model,
+        });
+      } else if (stateAnimate === null) {
+        // 用户关闭了 state 动画
+        sourceShape.attr(newAttrs);
+      } else if (this.geometry.animateOption) {
+        sourceShape.stopAnimate();
+        sourceShape.animate(newAttrs, {
+          duration: 300,
         });
       } else {
         sourceShape.attr(newAttrs);

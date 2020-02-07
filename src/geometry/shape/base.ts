@@ -1,6 +1,6 @@
 /** @module Shape */
 import { parsePathString } from '@antv/path-util';
-import { deepMix, get, isArray, upperFirst } from '@antv/util';
+import { deepMix, get, upperFirst } from '@antv/util';
 import { IGroup, IShape, PathCommand } from '../../dependents';
 import {
   Point,
@@ -74,7 +74,7 @@ const ShapeFactoryBase = {
     const shapeStyle = get(theme, [shapeType, 'default'], {});
     const markerStyle = shape.getMarker(markerCfg);
 
-    return deepMix({}, { style: shapeStyle }, markerStyle);
+    return deepMix({}, shapeStyle, markerStyle);
   },
   /**
    * 绘制 shape

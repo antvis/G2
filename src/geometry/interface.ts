@@ -1,5 +1,7 @@
+import { AnimateCfg } from '../animate/interface';
 import { IGroup, IShape } from '../dependents';
 import { AdjustType, AnimateOption, Datum, LooseObject, MappingDatum } from '../interface';
+import Element from './element';
 
 /** 图形属性配置项定义，如 position({}) */
 export interface AttributeOption {
@@ -124,6 +126,24 @@ export interface LabelOption {
   cfg?: GeometryLabelCfg;
 }
 
+export interface StateCfg {
+  /** 动画参数配置，null 表示关闭动画 */
+  animate?: AnimateCfg | null;
+  /** 状态样式配置 */
+  style?: object | StateStyleCallback;
+}
+
+export interface StateOption {
+  /** 默认状态样式 */
+  default?: StateCfg;
+  /** active 状态配置 */
+  active?: StateCfg;
+  /** inactive 状态配置 */
+  inactive?: StateCfg;
+  /** selected 状态配置 */
+  selected?: StateCfg;
+}
+
 type IntervalGeometryLabelPosition = 'top' | 'bottom' | 'middle' | 'left' | 'right';
 /** color() 图形属性回调函数定义 */
 export type ColorAttrCallback = (...args) => string;
@@ -138,3 +158,5 @@ export type StyleCallback = (...args) => LooseObject;
 export type LabelCallback = (...args) => GeometryLabelCfg | null | undefined;
 /** geometry label 中 content 属性的回调函数类型定义 */
 export type GeometryLabelContentCallback = (data: Datum, mappingData: MappingDatum, index: number) => string | IShape | IGroup;
+/** state 下 style 回调函数定义 */
+export type StateStyleCallback = (element: Element) => object;
