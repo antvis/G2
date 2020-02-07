@@ -161,6 +161,7 @@ const GRID_STYLE = {
       lineDash: [3, 3],
     },
   },
+  alignTick: true,
   animate: true,
 };
 

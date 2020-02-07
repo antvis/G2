@@ -456,9 +456,12 @@ export interface AxisGridCfg {
   alternateColor?: string | string[];
   /**
    * 对于 circle 是否关闭 grid
-   * TODO 可以考虑去掉这个配置项，等 component 改造完成之后修复
    */
   closed?: boolean;
+  /**
+   * 是否同刻度线对齐，如果值为 false，则会显示在两个刻度中间
+   */
+  alignTick?: boolean;
 }
 
 export interface AxisCfg {

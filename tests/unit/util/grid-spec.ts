@@ -32,19 +32,18 @@ describe('util grid', () => {
       max: 100,
     });
 
-    const xItems = getLineGridItems(coordinate, scale, 'x');
-    const yItems = getLineGridItems(coordinate, scale, 'y');
-
+    const xItems = getLineGridItems(coordinate, scale, 'x', true);
+    const yItems = getLineGridItems(coordinate, scale, 'y', false);
     expect(xItems.length).toBe(scale.getTicks().length);
-    expect(yItems.length).toBe(scale.getTicks().length);
+    expect(yItems.length).toBe(scale.getTicks().length - 1);
 
     expect(xItems[1].points).toEqual([
       { x: 25, y: 100 },
       { x: 25, y: 0 },
     ]);
     expect(yItems[1].points).toEqual([
-      { x: 0, y: 75 },
-      { x: 100, y: 75 },
+      { x: 0, y: 62.5 },
+      { x: 100, y: 62.5 },
     ]);
   });
 
@@ -68,16 +67,12 @@ describe('util grid', () => {
       max: 100,
     });
 
-    const xItems = getCircleGridItems(coordinate, xScale, yScale, 'x');
-    const yItems = getCircleGridItems(coordinate, xScale, yScale, 'y');
+    const items1 = getCircleGridItems(coordinate, xScale, yScale, false);
+    const items2 = getCircleGridItems(coordinate, xScale, yScale, true);
+    expect(items1.length).toBe(xScale.values.length - 1);
+    expect(items2.length).toBe(yScale.getTicks().length);
 
-    expect(xItems.length).toBe(xScale.values.length);
-    expect(yItems.length).toBe(yScale.getTicks().length);
-
-    expect(xItems[2].points[0]).toEqual({ x: 50, y: 50 });
-
-    expect(yItems[2].points[0]).toEqual({ x: 50, y: 25 });
-
-    expect(getCircleGridItems(coordinate, xScale, yScale, 'z')).toEqual([]);
+    expect(items1[2].points[0]).toEqual({ x: 50, y: 31.25 });
+    expect(items2[2].points[0]).toEqual({ x: 50, y: 25 });
   });
 });

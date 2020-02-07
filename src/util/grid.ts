@@ -19,16 +19,42 @@ export function getGridThemeCfg(theme: object, direction: DIRECTION): object {
  * @param dim
  * @return items
  */
-export function getLineGridItems(coordinate: Coordinate, scale: Scale, dim: string) {
-  return map(scale.getTicks(), (tick: Tick) => {
-    const { value } = tick;
-    return {
-      points: [
-        coordinate.convert(dim === 'y' ? { x: 0, y: value } : { x: value, y: 0 }),
-        coordinate.convert(dim === 'y' ? { x: 1, y: value } : { x: value, y: 1 }),
-      ],
-    };
-  });
+export function getLineGridItems(coordinate: Coordinate, scale: Scale, dim: string, alignTick?: boolean) {
+  const items = [];
+  const ticks = scale.getTicks();
+  if (coordinate.isPolar) {
+    // 补全 ticks
+    ticks.push({
+      value: 1,
+      text: '',
+      tickValue: '',
+    });
+  }
+  ticks.reduce((preTick: Tick, currentTick: Tick, currentIndex) => {
+    const currentValue = currentTick.value;
+    if (alignTick) {
+      items.push({
+        points: [
+          coordinate.convert(dim === 'y' ? { x: 0, y: currentValue } : { x: currentValue, y: 0 }),
+          coordinate.convert(dim === 'y' ? { x: 1, y: currentValue } : { x: currentValue, y: 1 }),
+        ],
+      });
+    } else {
+      if (currentIndex) {
+        const preValue = preTick.value;
+        const middleValue = (preValue + currentValue) / 2;
+        items.push({
+          points: [
+            coordinate.convert(dim === 'y' ? { x: 0, y: middleValue } : { x: middleValue, y: 0 }),
+            coordinate.convert(dim === 'y' ? { x: 1, y: middleValue } : { x: middleValue, y: 1 }),
+          ],
+        });
+      }
+    }
+    return currentTick;
+  }, ticks[0]);
+  return items;
+
 }
 
 /**
@@ -39,34 +65,25 @@ export function getLineGridItems(coordinate: Coordinate, scale: Scale, dim: stri
  * @param dim
  * @returns items
  */
-export function getCircleGridItems(coordinate: Coordinate, xScale: Scale, yScale: Scale, dim: string) {
+export function getCircleGridItems(coordinate: Coordinate, xScale: Scale, yScale: Scale, alignTick: boolean) {
   const count = xScale.values.length;
-
-  // x
-  if (dim === 'x') {
-    return map(Array(count), (__: any, idx: number) => {
-      return {
-        points: [coordinate.convert({ x: idx / count, y: 0 }), coordinate.convert({ x: idx / count, y: 1 })],
-      };
-    });
-  }
-
-  // y
-  if (dim === 'y') {
-    return map(yScale.getTicks(), (tick: Tick) => {
-      const { value } = tick;
-
-      const points = map(Array(count + 1), (__: any, idx: number) => {
+  const items = [];
+  const ticks = yScale.getTicks();
+  ticks.reduce((preTick: Tick, currentTick: Tick) => {
+    const preValue = preTick ? preTick.value : currentTick.value; // 只有一项数据时取当前值
+    const currentValue = currentTick.value;
+    const middleValue = (preValue + currentValue) / 2;
+    items.push({
+      points: map(Array(count + 1), (__: any, idx: number) => {
         return coordinate.convert({
           x: idx / count,
-          y: value,
+          y: alignTick ? currentValue : middleValue,
         });
-      });
-      return { points };
+      }),
     });
-  }
-
-  return [];
+    return currentTick;
+  }, ticks[0]);
+  return items;
 }
 
 /**
