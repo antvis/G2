@@ -67,7 +67,7 @@ describe('Point shapes', () => {
     expect(circleMarker).toEqual({
       symbol: 'circle',
       style: {
-        ...Theme.geometries.point.circle.default,
+        ...Theme.geometries.point.circle.default.style,
         r: 4.5,
         fill: 'red',
       },
@@ -77,7 +77,7 @@ describe('Point shapes', () => {
     expect(hollowCircleMarker).toEqual({
       symbol: 'circle',
       style: {
-        ...Theme.geometries.point['hollow-circle'].default,
+        ...Theme.geometries.point['hollow-circle'].default.style,
         r: 4.5,
         stroke: 'red',
         fill: null,
@@ -109,7 +109,7 @@ describe('Point shapes', () => {
         points: [{ x: 100, y: 100 }],
         color: 'red',
         defaultStyle: {
-          ...Theme.geometries.point.circle.default,
+          ...Theme.geometries.point.circle.default.style,
         },
       },
       element.container
@@ -130,7 +130,7 @@ describe('Point shapes', () => {
         ],
         color: 'red',
         defaultStyle: {
-          ...Theme.geometries.point.circle.default,
+          ...Theme.geometries.point.circle.default.style,
         },
       },
       element.container
@@ -150,7 +150,7 @@ describe('Point shapes', () => {
         points: [{ x: 100, y: 100 }],
         color: 'red',
         defaultStyle: {
-          ...Theme.geometries.point.hyphen.default,
+          ...Theme.geometries.point.hyphen.default.style,
         },
       },
       element.container
@@ -172,7 +172,7 @@ describe('Point shapes', () => {
         size: 40,
         shape: ['image', 'hh'],
         defaultStyle: {
-          ...Theme.geometries.point.circle.default,
+          ...Theme.geometries.point.circle.default.style,
         },
       },
       element.container
@@ -200,7 +200,7 @@ describe('Point shapes', () => {
         size: 40,
         shape: ['image', 'hh'],
         defaultStyle: {
-          ...Theme.geometries.point.circle.default,
+          ...Theme.geometries.point.circle.default.style,
         },
       },
       element.container

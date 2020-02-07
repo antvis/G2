@@ -1,0 +1,156 @@
+import { getCoordinate } from '@antv/coord';
+import { getScale } from '@antv/scale';
+import { isNumberEqual } from '@antv/util';
+import Interval from '../../../src/geometry/interval';
+import Theme from '../../../src/theme/antv';
+import { createCanvas, createDiv, removeDom } from '../../util/dom';
+import { createScale, updateScales } from '../../util/scale';
+
+import 'jest-extended';
+import { syncScale } from '../../../src/util/scale';
+
+const CartesianCoordinate = getCoordinate('rect');
+const PolarCoordinate = getCoordinate('polar');
+const IdentityScale = getScale('identity');
+
+describe('State setting', () => {
+  const div = createDiv();
+  const canvas = createCanvas({
+    container: div,
+  });
+  const rectCoord = new CartesianCoordinate({
+    start: { x: 0, y: 180 },
+    end: { x: 180, y: 0 },
+  });
+
+
+  it('default', () => {
+    const data = [
+      { a: 'A', b: 10 },
+      { a: 'B', b: 12 },
+      { a: 'C', b: 8 },
+    ];
+    const scaleDefs = {
+      a: { range: [0.25, 0.75] },
+      b: { min: 7 },
+    };
+    const scales = {
+      a: createScale('a', data, scaleDefs),
+      b: createScale('b', data, scaleDefs),
+    };
+    const interval = new Interval({
+      data,
+      scaleDefs,
+      scales,
+      coordinate: rectCoord,
+      container: canvas.addGroup(),
+      theme: Theme,
+    });
+
+    interval.position('a*b').animate(false);
+
+    interval.init();
+    interval.paint();
+
+    const activeElement = interval.elements[0];
+    activeElement.setState('active', true);
+
+    expect(activeElement.hasState('active')).toBeTrue();
+    expect(activeElement.shape.attr('fillOpacity')).toBe(1);
+
+    expect(interval.elements[1].hasState('active')).toBeFalse();
+  });
+
+  it('state()', () => {
+    const data = [
+      { a: 'A', b: 10 },
+      { a: 'B', b: 12 },
+      { a: 'C', b: 8 },
+    ];
+    const scaleDefs = {
+      a: { range: [0.25, 0.75] },
+      b: { min: 7 },
+    };
+    const scales = {
+      a: createScale('a', data, scaleDefs),
+      b: createScale('b', data, scaleDefs),
+    };
+    const interval = new Interval({
+      data,
+      scaleDefs,
+      scales,
+      coordinate: rectCoord,
+      container: canvas.addGroup(),
+      theme: Theme,
+    });
+
+    interval.position('a*b').state({
+      selected: {
+        style: {
+          stroke: '#000',
+          lineWidth: 2,
+        },
+        animate: null,
+      },
+    });
+
+    interval.init();
+    interval.paint();
+
+    const selectedElement = interval.elements[0];
+    selectedElement.setState('selected', true);
+
+    expect(selectedElement.hasState('selected')).toBeTrue();
+    expect(selectedElement.shape.attr('stroke')).toBe('#000');
+    expect(selectedElement.shape.attr('lineWidth')).toBe(2);
+
+    expect(interval.elements[1].hasState('selected')).toBeFalse();
+  });
+
+  it('pie selected', () => {
+    const thetaCoord = new PolarCoordinate({
+      start: { x: 0, y: 180 },
+      end: { x: 180, y: 0 },
+    });
+    thetaCoord.transpose();
+    // @ts-ignore
+    thetaCoord.type = 'theta';
+    const pieData = [
+      { type: '分类一', value: 27 },
+      { type: '分类二', value: 25 },
+      { type: '分类三', value: 18 },
+      { type: '分类四', value: 15 },
+      { type: '分类五', value: 10 },
+      { type: 'Other', value: 5 },
+    ];
+    const pieScales = {
+      type: createScale('type', pieData),
+      value: createScale('value', pieData),
+      '1': new IdentityScale({
+        field: '1',
+        values: [1],
+        range: [0.5, 1],
+      }),
+    };
+
+    const pie = new Interval({
+      data: pieData,
+      scales: pieScales,
+      coordinate: thetaCoord,
+      container: canvas.addGroup(),
+      theme: Theme,
+    });
+
+    pie
+      .position('value')
+      .color('type')
+      .adjust('stack')
+      .animate(false);
+    pie.init();
+    pie.paint();
+
+    pie.elements[0].setState('selected', true);
+
+    expect(pie.elements[0].shape.attr('matrx')).not.toEqual([1, 0, 0, 0, 1, 0, 0, 0, 1]);
+  });
+});

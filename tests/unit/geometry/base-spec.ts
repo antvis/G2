@@ -361,13 +361,13 @@ describe('Geometry', () => {
             myInterval: {
               tick: {
                 default: {
-                  lineWidth: 10,
+                  style: { lineWidth: 10},
                 },
                 active: {
-                  stroke: 'red',
+                  style: { stroke: 'red'},
                 },
                 selected: {
-                  stroke: 'blue',
+                  style: {stroke: 'blue',}
                 },
               },
             },
@@ -493,7 +493,6 @@ describe('Geometry', () => {
       expect(geometry.elementsMap).not.toBe(undefined);
       // @ts-ignore
       expect(geometry.container.get('children').length).toBe(4);
-      expect(elements[0].animate).toBe(false);
     });
 
     it('getGroupScales()', () => {
@@ -599,10 +598,8 @@ describe('Geometry', () => {
       const xScale = geometry.getXScale();
       expect(xScale.values).toEqual(['二月', '三月']);
       expect(deleteElement.destroyed).toBe(true);
-      expect(deleteElement.animate).toBe(true);
 
       expect(updateElement.getData()).toEqual({ month: '二月', temperature: 20, city: '北京', year: '2018' });
-      expect(updateElement.animate).toBe(true);
     });
 
     it('clear()', () => {

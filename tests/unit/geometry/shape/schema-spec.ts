@@ -66,7 +66,7 @@ describe('Schema shapes', () => {
           points,
           color: 'red',
           defaultStyle: {
-            ...Theme.geometries.schema.box.default,
+            ...Theme.geometries.schema.box.default.style,
           },
         },
         element.container
@@ -95,7 +95,7 @@ describe('Schema shapes', () => {
           points,
           color: 'red',
           defaultStyle: {
-            ...Theme.geometries.schema.box.default,
+            ...Theme.geometries.schema.box.default.style,
           },
         },
         element.container
@@ -122,7 +122,7 @@ describe('Schema shapes', () => {
           points,
           color: 'red',
           defaultStyle: {
-            ...Theme.geometries.schema.box.default,
+            ...Theme.geometries.schema.box.default.style,
           },
         },
         element.container
@@ -156,7 +156,7 @@ describe('Schema shapes', () => {
           points,
           color: 'red',
           defaultStyle: {
-            ...Theme.geometries.schema.candle.default,
+            ...Theme.geometries.schema.candle.default.style,
           },
         },
         element.container
@@ -183,7 +183,7 @@ describe('Schema shapes', () => {
           points,
           color: 'blue',
           defaultStyle: {
-            ...Theme.geometries.schema.candle.default,
+            ...Theme.geometries.schema.candle.default.style,
           },
         },
         element.container
@@ -210,7 +210,7 @@ describe('Schema shapes', () => {
           points,
           color: 'blue',
           defaultStyle: {
-            ...Theme.geometries.schema.candle.default,
+            ...Theme.geometries.schema.candle.default.style,
           },
         },
         element.container
