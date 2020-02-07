@@ -97,7 +97,8 @@ describe('Chart', () => {
 
   it('changeSize', () => {
     // @ts-ignore
-    let bbox = chart.viewEventCaptureRect.getBBox();
+    
+    let bbox = chart.viewBBox;
     expect({ x: bbox.x, y: bbox.y, width: bbox.width, height: bbox.height }).toEqual({
       x: 0,
       y: 0,
@@ -107,7 +108,7 @@ describe('Chart', () => {
 
     chart.changeSize(700, 600);
     // @ts-ignore
-    bbox = chart.viewEventCaptureRect.getBBox();
+    bbox = chart.viewBBox;
     expect({ x: bbox.x, y: bbox.y, width: bbox.width, height: bbox.height }).toEqual({
       x: 0,
       y: 0,
@@ -138,8 +139,8 @@ describe('Chart', () => {
     expect(!!chart.getCoordinate()).toBe(false);
 
     // @ts-ignore
-    expect(chart.viewEventCaptureRect).not.toBeUndefined();
-    expect(chart.getLayer(LAYER.BG).get('children').length).toBe(4);
+    // expect(chart.viewEventCaptureRect).not.toBeUndefined();
+    expect(chart.getLayer(LAYER.BG).get('children').length).toBe(3);
     expect(chart.getLayer(LAYER.MID).get('children').length).toBe(1);
     expect(chart.getLayer(LAYER.FORE).get('children').length).toBe(3);
   });
@@ -158,6 +159,6 @@ describe('Chart', () => {
     expect(div.childNodes.length).toBe(0);
 
     // @ts-ignore
-    expect(chart.viewEventCaptureRect.getParent()).toBeUndefined();
+    // expect(chart.viewEventCaptureRect.getParent()).toBeUndefined();
   });
 });

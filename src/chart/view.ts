@@ -180,7 +180,7 @@ export class View extends Base {
     // 计算画布的 viewBBox
     this.calculateViewBBox();
     // 创建一个透明的背景 rect，用于捕获事件
-    this.createViewEventCaptureRect();
+    // this.createViewEventCaptureRect();
 
     // 事件委托机制
     this.initEvents();
@@ -263,7 +263,7 @@ export class View extends Base {
       }
     });
     this.clear();
-    this.viewEventCaptureRect.remove(true);
+    // this.viewEventCaptureRect.remove(true);
 
     // 销毁 controller 中的组件
     each(this.controllers, (controller: Controller) => {
@@ -1093,8 +1093,8 @@ export class View extends Base {
     // 2. 绘制组件
     this.renderComponents(isUpdate);
     // 2. 更新 viewEventCaptureRect 大小
-    const { x, y, width, height } = this.viewBBox;
-    this.viewEventCaptureRect.attr({ x, y, width, height });
+    // const { x, y, width, height } = this.viewBBox;
+    // this.viewEventCaptureRect.attr({ x, y, width, height });
 
     // 同样递归处理子 views
     each(this.views, (view: View) => {
@@ -1171,12 +1171,24 @@ export class View extends Base {
    */
   private initEvents() {
     // 三层 group 中的 shape 事件都会通过 G 冒泡上来的
-    this.foregroundGroup.on('*', this.onEvents);
-    this.middleGroup.on('*', this.onEvents);
-    this.backgroundGroup.on('*', this.onEvents);
+    this.foregroundGroup.on('*', this.onDelegateEvents);
+    this.middleGroup.on('*', this.onDelegateEvents);
+    this.backgroundGroup.on('*', this.onDelegateEvents);
 
     // 自己监听事件，然后向上冒泡
-    this.on('*', this.onViewEvents);
+    // 不冒泡，自己监听自己的
+    // this.on('*', this.onViewEvents);
+    this.canvas.on('*', this.onCanvasEvent);
+  }
+
+  private onCanvasEvent = (evt: GEvent): void => {
+    const name = evt.name;
+    if (!name.includes(':')) {// 非委托事件
+      const e = this.createViewEvent(evt);
+      // 处理 plot 事件
+      this.doPlotEvent(e);
+      this.emit(name, e);
+    }
   }
 
   /**
@@ -1191,20 +1203,28 @@ export class View extends Base {
     });
   }
 
-  /**
-   * 触发事件之后
-   * @param evt
-   */
-  private onEvents = (evt: GEvent): void => {
-    // 阻止继续冒泡，防止重复事件触发
-    evt.preventDefault();
-
-    const { type, shape, name } = evt;
+  private createViewEvent(evt: GEvent) {
+    const { shape, name } = evt;
 
     const data = shape ? shape.get('origin') : null;
     // 事件在 view 嵌套中冒泡（暂不提供阻止冒泡的机制）
     const e = new Event(this, evt, data);
     e.type = name;
+    return e;
+  }
+  /**
+   * 触发事件之后
+   * @param evt
+   */
+  private onDelegateEvents = (evt: GEvent): void => {
+    // 阻止继续冒泡，防止重复事件触发
+    evt.preventDefault();
+    const { type, name } = evt;
+    if (!name.includes(':')) {
+      return;
+    }
+    // 事件在 view 嵌套中冒泡（暂不提供阻止冒泡的机制）
+    const e = this.createViewEvent(evt);
 
     // 包含有基本事件、组合事件
     this.emit(name, e);
@@ -1219,9 +1239,6 @@ export class View extends Base {
         }
       });
     }
-
-    // 处理 plot 事件
-    this.doPlotEvent(e);
   };
 
   /**
@@ -1239,6 +1256,7 @@ export class View extends Base {
       'mousedown',
       'mouseup',
       'mousemove',
+      'mouseleave',
       'touchstart',
       'touchmove',
       'touchend',
@@ -1255,6 +1273,9 @@ export class View extends Base {
         const TYPE = `plot:${type}`; // 组合 plot 事件
         e.type = TYPE;
         this.emit(TYPE, e);
+        if (type === 'mouseleave') { // 在plot 内部却离开画布
+          this.isPreMouseInPlot = false;
+        }
       }
 
       // 对于 mouseenter, mouseleave 的计算处理
@@ -1268,6 +1289,12 @@ export class View extends Base {
         }
         // 赋新的状态值
         this.isPreMouseInPlot = currentInPlot;
+      } else if (type === 'mouseleave') { // 可能不在 currentInPlot 中
+        if (this.isPreMouseInPlot) {
+          e.type == PLOT_EVENTS.MOUSE_LEAVE;
+          this.emit(PLOT_EVENTS.MOUSE_LEAVE, e);
+          this.isPreMouseInPlot = false;
+        }
       }
     }
   }
