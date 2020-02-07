@@ -91,6 +91,11 @@ describe('Geometry', () => {
       expect(geometry.attributeOption.position).toEqual({
         fields: ['month', 'temperature'],
       });
+
+      geometry.position(['month', 'temperature']);
+      expect(geometry.attributeOption.position).toEqual({
+        fields: ['month', 'temperature'],
+      });
     });
 
     it('color()', () => {

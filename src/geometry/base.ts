@@ -226,8 +226,12 @@ export default class Geometry extends Base {
    * @param cfg 映射规则
    * @returns
    */
-  public position(cfg: string | AttributeOption): Geometry {
-    if (isString(cfg)) {
+  public position(cfg: string | string [] | AttributeOption): Geometry {
+    // 完整结构
+    if (isPlainObject(cfg)) {
+      set(this.attributeOption, 'position', cfg);
+    } else {
+      // 字符串字段或者数组字段
       const fields = parseFields(cfg);
       if (fields.length === 1) {
         // 默认填充一维 1*xx
@@ -236,8 +240,6 @@ export default class Geometry extends Base {
       set(this.attributeOption, 'position', {
         fields,
       });
-    } else {
-      set(this.attributeOption, 'position', cfg);
     }
 
     return this;
