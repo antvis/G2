@@ -14,7 +14,7 @@ const chart = new Chart({
 });
 
 chart.data(data);
-chart.interaction('continue-legend-filter');
+chart.interaction('continuous-filter');
 chart
   .interval()
   .position('year*value')
