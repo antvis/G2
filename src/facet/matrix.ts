@@ -12,24 +12,14 @@ import { MatrixCfg, MatrixData } from './interface';
  */
 export default class Matrix extends Facet<MatrixCfg, MatrixData> {
   protected getDefaultCfg() {
-    // @ts-ignore
-    const fontFamily = this.view.getTheme().fontFamily;
     return deepMix({}, super.getDefaultCfg(), {
       type: 'matrix',
       showTitle: false,
       columnTitle: {
-        style: {
-          fontSize: 14,
-          fill: '#666',
-          fontFamily,
-        }
+        ...super.getDefaultTitleCfg(),
       },
       rowTitle: {
-        style: {
-          fontSize: 14,
-          fill: '#666',
-          fontFamily,
-        }
+        ...super.getDefaultTitleCfg(),
       }
     });
   }

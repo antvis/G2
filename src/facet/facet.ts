@@ -230,6 +230,21 @@ export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>,
   }
 
   /**
+   * 默认的 title 样式，因为有的分面是 title，有的分面配置是 columnTitle、rowTitle
+   */
+  protected getDefaultTitleCfg() {
+    // @ts-ignore
+    const fontFamily = this.view.getTheme().fontFamily;
+    return {
+      style: {
+        fontSize: 14,
+        fill: '#666',
+        fontFamily,
+      }
+    };
+  }
+
+  /**
    * 处理 axis 的默认配置
    * @param view
    * @param facet

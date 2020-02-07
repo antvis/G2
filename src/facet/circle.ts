@@ -12,18 +12,10 @@ import { CircleCfg, CircleData, ListData } from './interface';
  */
 export default class Circle extends Facet<CircleCfg, CircleData> {
   protected getDefaultCfg() {
-    // @ts-ignore
-    const fontFamily = this.view.getTheme().fontFamily;
     return deepMix({}, super.getDefaultCfg(), {
       type: 'circle',
       showTitle: true,
-      title: {
-        style: {
-          fontSize: 14,
-          fill: '#666',
-          fontFamily,
-        }
-      },
+      title: super.getDefaultTitleCfg(),
     });
   }
 
