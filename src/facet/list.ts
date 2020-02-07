@@ -5,7 +5,7 @@ import { DIRECTION } from '../constant';
 import { Datum } from '../interface';
 import { getFactTitleConfig } from '../util/facet';
 import { Facet } from './facet';
-import { ListCfg, ListData, MirrorData } from './interface';
+import { ListCfg, ListData } from './interface';
 
 /**
  * 镜像分面
@@ -123,6 +123,7 @@ export default class List extends Facet<ListCfg, ListData> {
         title: null,
       };
     }
+    return option;
   }
 
 
@@ -148,7 +149,7 @@ export default class List extends Facet<ListCfg, ListData> {
    * facet title
    */
   private renderTitle() {
-    each(this.facets, (facet: MirrorData) => {
+    each(this.facets, (facet: ListData) => {
       const { columnValue, view } = facet;
 
       const config = deepMix({

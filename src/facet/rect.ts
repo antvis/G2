@@ -23,6 +23,7 @@ export default class Rect extends Facet<RectCfg, RectData> {
     // @ts-ignore
     const fontFamily = this.view.getTheme().fontFamily;
     return deepMix({}, super.getDefaultCfg(), {
+      type: 'rect',
       columnTitle: {
         style: {
           fontSize: 14,

@@ -194,10 +194,10 @@ export abstract class Facet<C extends FacetCfg = FacetCfg, F extends FacetData =
 
   /**
    * 获得每个分面的 region，平分区域
-   * @param rows
-   * @param cols
-   * @param xIndex
-   * @param yIndex
+   * @param rows row 总数
+   * @param cols col 总数
+   * @param xIndex x 方向 index
+   * @param yIndex y 方向 index
    */
   protected getRegion(rows: number, cols: number, xIndex: number, yIndex: number): Region {
     // x, y 方向均分 100% 宽高
