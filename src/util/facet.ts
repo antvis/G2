@@ -1,5 +1,6 @@
 import { DIRECTION } from '../constant';
 import { FacetTitle } from '../facet/interface';
+import { Point } from '../dependents';
 
 /**
  * 获取 facet title 的最佳默认配置，防止
@@ -29,4 +30,17 @@ export function getFactTitleConfig(direction: DIRECTION): FacetTitle {
   }
 
   return {};
+}
+
+/**
+ * 根据角度，获取 ○ 上的点
+ * @param center
+ * @param r
+ * @param angle
+ */
+export function getAnglePoint(center: Point, r: number, angle: number): Point {
+  return {
+    x: center.x + r * Math.cos(angle),
+    y: center.y + r * Math.sin(angle)
+  };
 }

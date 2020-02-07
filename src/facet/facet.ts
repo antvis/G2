@@ -1,11 +1,11 @@
-import { deepMix, each, get, isNil } from '@antv/util';
+import { deepMix, each, every, get, isNil } from '@antv/util';
 import { AxisCfg } from '../chart/interface';
 import View from '../chart/view';
 import { LAYER } from '../constant';
 import { IGroup } from '../dependents';
 import { Datum, Region } from '../interface';
 import { getAxisOption } from '../util/axis';
-import { FacetCfg, FacetData } from './interface';
+import { Condition, FacetCfg, FacetData, FacetDataFilter } from './interface';
 
 /**
  * facet 基类
@@ -263,6 +263,24 @@ export abstract class Facet<C extends FacetCfg = FacetCfg, F extends FacetData =
         options.axes[y] = this.getYAxisOption(y, axes, yOption, facet);
       }
     }
+  }
+
+  /**
+   * 获取分面数据
+   * @param conditions
+   */
+  protected getFacetDataFilter(conditions: Condition[]): FacetDataFilter {
+    return (datum: Datum) => {
+      // 过滤出全部满足条件的数据
+      return every(conditions, (condition) => {
+        const { field, value } = condition;
+
+        if (!isNil(value) && field) {
+          return datum[field] === value;
+        }
+        return true;
+      });
+    };
   }
 
   /**

@@ -106,6 +106,7 @@ registerAnimation('path-in', pathIn);
 
 // 注册内置的 Facet
 import { registerFacet } from './core';
+import Circle from './facet/circle';
 import List from './facet/list';
 import Matrix from './facet/matrix';
 import Mirror from './facet/mirror';
@@ -115,6 +116,7 @@ registerFacet('rect', Rect);
 registerFacet('mirror', Mirror);
 registerFacet('list', List);
 registerFacet('matrix', Matrix);
+registerFacet('circle', Circle);
 
 // 注册内置的 Component
 import { registerComponentController } from './core';
