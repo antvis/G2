@@ -140,7 +140,6 @@ import ElmentHighlight from './interaction/action/element/highlight';
 import ElmentRangeHighlight from './interaction/action/element/range-highlight';
 import ElmentSingleHighlight from './interaction/action/element/single-highlight';
 
-import PieSelected from './interaction/action/element/pie-selected';
 import ElementRangeSelected from './interaction/action/element/range-selected';
 import ElementSelected from './interaction/action/element/selected';
 import ElementSingleSelected from './interaction/action/element/single-selected';
@@ -178,7 +177,6 @@ registerAction('element-range-highlight', ElmentRangeHighlight);
 registerAction('element-selected', ElementSelected);
 registerAction('element-single-selected', ElementSingleSelected);
 registerAction('element-range-selected', ElementRangeSelected);
-registerAction('pie-selected', PieSelected);
 
 registerAction('active-region', ActiveRegion);
 registerAction('list-active', ListActive);
@@ -369,20 +367,6 @@ registerInteraction('element-path-highlight', {
 // 点击选中，允许取消
 registerInteraction('element-single-selected', {
   start: [{ trigger: 'element:click', action: 'element-single-selected:toggle' }],
-});
-
-// 饼图的选中
-registerInteraction('pie-selected', {
-  start: [
-    {
-      trigger: 'interval:click',
-      isEnable(context) {
-        const coord = context.view.getCoordinate();
-        return coord.type === 'theta';
-      },
-      action: 'pie-selected:toggle',
-    },
-  ],
 });
 
 // 筛选数据
