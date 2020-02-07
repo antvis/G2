@@ -16,11 +16,11 @@ export type FacetDataFilter = (data: Datum[]) => boolean;
 /**
  * 默认的基础配置
  */
-export interface FacetCfg {
+export interface FacetCfg<D> {
   /** 布局类型 */
   readonly type?: string;
   /** view 创建回调 */
-  readonly eachView: (innerView: View, facet?: FacetData) => any;
+  readonly eachView: (innerView: View, facet?: D) => any;
   /** facet view padding */
   readonly padding?: ViewPadding;
   /** 是否显示标题 */
@@ -73,7 +73,7 @@ export interface FacetData {
 
 // ===================== rect 相关类型定义 =====================
 
-export interface RectCfg extends FacetCfg {
+export interface RectCfg extends FacetCfg<RectData> {
   /** 行列标题的样式 */
   readonly columnTitle?: FacetTitle,
   readonly rowTitle?: FacetTitle,
@@ -85,7 +85,7 @@ export interface RectData extends FacetData {
 
 // ===================== mirror 相关类型定义 =====================
 
-export interface MirrorCfg extends FacetCfg {
+export interface MirrorCfg extends FacetCfg<MirrorData> {
   /** 是否转置 */
   readonly transpose?: boolean;
   /** 标题样式 */
@@ -97,7 +97,7 @@ export interface MirrorData extends FacetData {
 
 // ===================== list 相关类型定义 =====================
 
-export interface ListCfg extends FacetCfg {
+export interface ListCfg extends FacetCfg<ListData> {
   readonly cols?: number;
   readonly title?: FacetTitle;
 }
@@ -108,7 +108,7 @@ export interface ListData extends FacetData {
 
 // ===================== matrix 相关类型定义 =====================
 
-export interface MatrixCfg extends FacetCfg {
+export interface MatrixCfg extends FacetCfg<MirrorData> {
   /** 行列标题的样式 */
   readonly columnTitle?: FacetTitle,
   readonly rowTitle?: FacetTitle,
@@ -119,7 +119,7 @@ export interface MatrixData extends FacetData {
 
 // ===================== circle 相关类型定义 =====================
 
-export interface CircleCfg extends FacetCfg {
+export interface CircleCfg extends FacetCfg<CircleData> {
   readonly title?: FacetTitle;
 }
 
