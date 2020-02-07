@@ -80,7 +80,7 @@ chart.scale('day', {
 chart.axis('name', {
   tickLine: null,
   grid: {
-    // align: 'center',
+    alignTick: false,
     line: {
       style: {
         lineWidth: 1,
@@ -94,7 +94,7 @@ chart.axis('name', {
 chart.axis('day', {
   title: null,
   grid: {
-    // align: 'center',
+    alignTick: false,
     line: {
       style: {
         lineWidth: 1,

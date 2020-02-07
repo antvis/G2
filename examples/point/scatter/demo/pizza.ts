@@ -20,7 +20,7 @@ fetch('../data/diamond.json')
     chart.legend(false);
     chart.axis('clarity', {
       grid: {
-        // align: 'center',
+        alignTick: false,
         line: {
           style: {
             lineDash: [0, 0]
