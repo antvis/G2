@@ -1,7 +1,6 @@
 import { DataView } from '@antv/data-set';
 import DIAMOND from '../../../../examples/data/diamond.json';
 import { Chart } from '../../../../src';
-import { CircleData, ListData } from '../../../../src/facet/interface';
 import { createDiv } from '../../../util/dom';
 
 function eachView(view, facet) {
@@ -66,6 +65,7 @@ describe('facet circle', () => {
     // @ts-ignore
     const facetCfg = chart.facetInstance.cfg;
     expect(facetCfg.showTitle).toBe(true);
+    // @ts-ignore
     expect(facetCfg.title.style.fill).toBe('red');
   });
 
@@ -91,6 +91,7 @@ describe('facet circle', () => {
     // @ts-ignore
     const facetCfg = chart.facetInstance.cfg;
     expect(facetCfg.showTitle).toBe(false);
+    // @ts-ignore
     expect(facetCfg.title.style.fill).toBe('#666');
   });
 });
