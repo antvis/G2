@@ -98,6 +98,17 @@ export interface ListData extends FacetData {
   readonly total: number;
 }
 
+// ===================== matrix 相关类型定义 =====================
+
+export interface MatrixCfg extends FacetCfg {
+  /** 行列标题的样式 */
+  readonly columnTitle?: FacetTitle,
+  readonly rowTitle?: FacetTitle,
+}
+
+export interface MatrixData extends FacetData {
+}
+
 
 /**
  * facet object map
@@ -109,4 +120,6 @@ export interface FacetCfgMap {
   readonly mirror: MirrorCfg;
   /** list */
   readonly list: ListCfg;
+  /** matrix */
+  readonly matrix: MirrorCfg;
 }

@@ -15,6 +15,7 @@ export default class Mirror extends Facet<MirrorCfg, MirrorData> {
     // @ts-ignore
     const fontFamily = this.view.getTheme().fontFamily;
     return deepMix({}, super.getDefaultCfg(), {
+      type: 'mirror',
       showTitle: true,
       title: {
         style: {
