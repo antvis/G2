@@ -186,13 +186,12 @@ fetch('../data/cpu-data.json')
 
     chart.line().position('time*cpu').color('date', ['#1890ff', '#ced4d9']).shape('split-line');
     chart.point().position('time*cpu').shape('breath-point');
-    // FIXME: 有 bug
-    // chart.annotation().regionFilter({
-    //   top: true,
-    //   start: ['min', 105],
-    //   end: ['max', 85],
-    //   color: '#ff4d4f'
-    // });
+    chart.annotation().regionFilter({
+      top: true,
+      start: ['min', 105],
+      end: ['max', 85],
+      color: '#ff4d4f'
+    });
     chart.annotation().line({
       start: ['min', 85],
       end: ['max', 85],
