@@ -82,7 +82,7 @@ export default class Axis extends Controller<Option> {
 
     each(this.getComponents(), (co: ComponentOption) => {
       const { component, direction, type, extra } = co;
-      const { dim, scale } = extra;
+      const { dim, scale, alignTick } = extra;
 
       let updated;
 
@@ -99,12 +99,16 @@ export default class Axis extends Controller<Option> {
       } else if (type === COMPONENT_TYPE.GRID) {
         if (coordinate.isPolar) {
           updated = {
-            items: getCircleGridItems(coordinate, this.view.getXScale(), scale, dim),
+            items: dim === 'x' ?
+              // 半径 grid
+              getLineGridItems(coordinate, scale, dim, alignTick) :
+              // 圆弧 grid
+              getCircleGridItems(coordinate, this.view.getXScale(), scale, alignTick),
             // coordinate 更新之后，center 也变化了
             center: this.view.getCoordinate().getCenter(),
           };
         } else {
-          updated = { items: getLineGridItems(coordinate, scale, dim) };
+          updated = { items: getLineGridItems(coordinate, scale, dim, alignTick) };
         }
       }
 
@@ -350,7 +354,7 @@ export default class Axis extends Controller<Option> {
           } else {
             // 不存在则创建
             // @ts-ignore
-            grid = this.createCircleGrid(scale, yAxisOption, layer, 'radius', dim);
+            grid = this.createCircleGrid(scale, yAxisOption, layer, 'radius');
             if (grid) {
               this.cache.set(gridId, grid);
               updatedCache.set(gridId, grid);
@@ -455,7 +459,7 @@ export default class Axis extends Controller<Option> {
 
           // grid
           // @ts-ignore
-          const grid = this.createCircleGrid(scale, yAxisOption, layer, 'radius', dim);
+          const grid = this.createCircleGrid(scale, yAxisOption, layer, 'radius');
           if (grid) {
             this.cache.set(gridId, grid);
           }
@@ -510,7 +514,11 @@ export default class Axis extends Controller<Option> {
         layer,
         direction: DIRECTION.NONE,
         type: COMPONENT_TYPE.GRID,
-        extra: { dim, scale },
+        extra: {
+          dim,
+          scale,
+          alignTick: get(cfg, 'alignTick', true),
+        },
       };
       grid.component.init();
 
@@ -543,39 +551,20 @@ export default class Axis extends Controller<Option> {
     scale: Scale,
     option: AxisCfg,
     layer: LAYER,
-    direction: DIRECTION,
-    dim: string
+    direction: DIRECTION
   ): ComponentOption {
-    const cfg = this.getCircleGridCfg(scale, option, direction, dim);
+    const cfg = this.getCircleGridCfg(scale, option, direction);
     if (cfg) {
       const grid = {
         component: new CircleGrid(cfg),
         layer,
         direction: DIRECTION.NONE,
         type: COMPONENT_TYPE.GRID,
-        extra: { dim: 'y', scale },
-      };
-
-      grid.component.init();
-      return grid;
-    }
-  }
-
-  private createCircleLineGrid(
-    scale: Scale,
-    option: AxisCfg,
-    layer: LAYER,
-    direction: DIRECTION,
-    dim: string
-  ): ComponentOption {
-    const cfg = this.getCircleGridCfg(scale, option, direction, dim);
-    if (cfg) {
-      const grid = {
-        component: new LineGrid(cfg),
-        layer,
-        direction: DIRECTION.NONE,
-        type: COMPONENT_TYPE.GRID,
-        extra: { dim: 'x', scale },
+        extra: {
+          dim: 'y',
+          scale,
+          alignTick: get(cfg, 'alignTick', true),
+         },
       };
 
       grid.component.init();
@@ -631,18 +620,15 @@ export default class Axis extends Controller<Option> {
     if (!showGrid(getAxisThemeCfg(this.view.getTheme(), direction), axisOption)) {
       return undefined;
     }
-
-    const container = this.gridContainer;
-
-    const baseGridCfg = {
-      container,
-      items: getLineGridItems(this.view.getCoordinate(), scale, dim),
-    };
-
     const gridThemeCfg = getGridThemeCfg(this.view.getTheme(), direction);
     // the cfg order should be ensure
     // grid 动画以 axis 为准
-    return deepMix({}, baseGridCfg, gridThemeCfg, get(axisOption, 'grid', {}), this.getAnimateCfg(axisOption));
+    const gridCfg = deepMix({
+      container: this.gridContainer,
+    }, gridThemeCfg, get(axisOption, 'grid', {}), this.getAnimateCfg(axisOption));
+    gridCfg.items = getLineGridItems(this.view.getCoordinate(), scale, dim, get(gridCfg, 'alignTick', true));
+
+    return gridCfg;
   }
 
   /**
@@ -694,25 +680,25 @@ export default class Axis extends Controller<Option> {
    * @param dim
    * @return circle grid cfg
    */
-  private getCircleGridCfg(scale: Scale, axisOption: AxisCfg, direction: DIRECTION, dim: string): object {
+  private getCircleGridCfg(scale: Scale, axisOption: AxisCfg, direction: DIRECTION): object {
     if (!showGrid(getAxisThemeCfg(this.view.getTheme(), direction), axisOption)) {
       return undefined;
     }
 
-    const container = this.gridContainer;
-
-    const baseGridCfg = {
-      container,
-      items: getCircleGridItems(this.view.getCoordinate(), this.view.getXScale(), scale, dim),
-      center: this.view.getCoordinate().getCenter(),
-    };
-
+    // the cfg order should be ensure
+    // grid 动画以 axis 为准
     // @ts-ignore
     const gridThemeCfg = getGridThemeCfg(this.view.getTheme(), 'radius');
+    const gridCfg = deepMix({
+      container: this.gridContainer,
+      center: this.view.getCoordinate().getCenter(),
+    }, gridThemeCfg, get(axisOption, 'grid', {}), this.getAnimateCfg(axisOption));
+    const alignTick = get(gridCfg, 'alignTick', true);
+    gridCfg.items = getCircleGridItems(this.view.getCoordinate(), this.view.getXScale(), scale, alignTick);
 
     // the cfg order should be ensure
     // grid 动画以 axis 为准
-    return deepMix({}, baseGridCfg, gridThemeCfg, get(axisOption, 'grid', {}), this.getAnimateCfg(axisOption));
+    return gridCfg;
   }
 
   private getId(name: string, key: string): string {
