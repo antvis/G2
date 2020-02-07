@@ -148,6 +148,8 @@ export default class Annotation extends Controller<BaseOption[]> {
       const co = this.createAnnotation(option);
       if (co) {
         co.component.init();
+        // Note：regionFilter 特殊处理，regionFilter需要取到 Geometry 中的 Shape，需要在 view render 之后处理
+        // 其他组件使用外层的统一 render 逻辑
         if (option.type === 'regionFilter') {
           co.component.render();
         }
@@ -213,6 +215,8 @@ export default class Annotation extends Controller<BaseOption[]> {
         const co = this.createAnnotation(option);
         if (co) {
           co.component.init();
+          // Note：regionFilter 特殊处理，regionFilter需要取到 Geometry 中的 Shape，需要在 view render 之后处理
+          // 其他组件使用外层的统一 render 逻辑
           if (option.type === 'regionFilter') {
             co.component.render();
           }
