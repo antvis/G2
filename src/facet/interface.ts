@@ -1,9 +1,17 @@
 import View from '../chart/view';
-import { Region, ViewPadding } from '../interface';
+import { Datum, Region, ViewPadding } from '../interface';
 import { Facet } from './facet';
 
 // 分面基类
 export type FacetCtor = new (view: View, cfg: any) => Facet;
+
+export interface Condition {
+  readonly field: string;
+  readonly value: any;
+  readonly values: any[];
+}
+
+export type FacetDataFilter = (data: Datum[]) => boolean;
 
 /**
  * 默认的基础配置
@@ -109,6 +117,15 @@ export interface MatrixCfg extends FacetCfg {
 export interface MatrixData extends FacetData {
 }
 
+// ===================== circle 相关类型定义 =====================
+
+export interface CircleCfg extends FacetCfg {
+  readonly title?: FacetTitle;
+}
+
+export interface CircleData extends FacetData {
+}
+
 
 /**
  * facet object map
@@ -122,4 +139,6 @@ export interface FacetCfgMap {
   readonly list: ListCfg;
   /** matrix */
   readonly matrix: MatrixCfg;
+  /** circle */
+  readonly circle: CircleCfg;
 }

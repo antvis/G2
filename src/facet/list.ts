@@ -69,17 +69,7 @@ export default class List extends Facet<ListCfg, ListData> {
         { field: columnField, value: val, values: colValues }
       ];
 
-      const facetData = filter(data, (datum: Datum) => {
-        // 过滤出全部满足条件的数据
-        return every(conditions, (condition) => {
-          const { field, value } = condition;
-
-          if (!isNil(value) && field) {
-            return datum[field] === value;
-          }
-          return true;
-        });
-      });
+      const facetData = filter(data, this.getFacetDataFilter(conditions));
 
       const facet: ListData = {
         type: this.cfg.type,
