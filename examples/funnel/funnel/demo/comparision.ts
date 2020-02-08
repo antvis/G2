@@ -29,6 +29,7 @@ chart.legend(false);
 chart.tooltip({
   showTitle: false,
   showMarkers: false,
+  shared: true,
   itemTpl: '<li class="g2-tooltip-list-item"><span style="background-color:{color};" class="g2-tooltip-marker"></span>{name}: {value}</li>',
 });
 
@@ -59,7 +60,7 @@ expectView
     appear: {
       animation: 'fade-in'
     }
-  });;
+  });
 
 const actualView = chart.createView();
 actualView.data(actualData);
@@ -83,6 +84,6 @@ actualView
     appear: {
       animation: 'fade-in'
     }
-  });;
+  });
 
 chart.render();
