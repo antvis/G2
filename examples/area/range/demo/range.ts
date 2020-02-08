@@ -86,14 +86,16 @@ chart.scale({
     tickInterval: 24 * 3600 * 1000 * 2,
   },
 });
+chart.tooltip({
+  shared: true,
+});
 
 const v1 = chart.createView({
   padding: 32,
 });
 v1.data(data);
 v1.area()
-  .position('time*temperature')
-  .tooltip(false);
+  .position('time*temperature');
 
 const v2 = chart.createView({
   padding: 32,
