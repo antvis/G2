@@ -5,7 +5,7 @@ import { DIRECTION } from '../constant';
 import { Datum } from '../interface';
 import { getAnglePoint, getFactTitleConfig } from '../util/facet';
 import { Facet } from './facet';
-import { CircleCfg, CircleData, ListData } from './interface';
+import { CircleCfg, CircleData } from './interface';
 
 /**
  * 镜像分面
