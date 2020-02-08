@@ -282,3 +282,70 @@ describe('Tooltip', () => {
     removeDom(container);
   });
 });
+
+describe('Multiple views tooltip', () => {
+  const container = createDiv();
+  const expectData = [
+    { value: 100, name: '展现' },
+    { value: 80, name: '点击' },
+    { value: 60, name: '访问' },
+    { value: 40, name: '咨询' },
+    { value: 30, name: '订单' },
+  ];
+  const actualData = [
+    { value: 80, name: '展现' },
+    { value: 50, name: '点击' },
+    { value: 30, name: '访问' },
+    { value: 10, name: '咨询' },
+    { value: 5, name: '订单' },
+  ];
+  const chart = new Chart({
+    container,
+    autoFit: false,
+    width: 400,
+    height: 300,
+  });
+  chart
+    .coordinate('rect')
+    .transpose()
+    .scale(1, -1);
+  chart.axis(false);
+  chart.legend(false);
+  chart.tooltip({
+    showTitle: false,
+    showMarkers: false,
+    shared: true,
+  });
+
+  const expectView = chart.createView();
+  expectView.data(expectData);
+  expectView
+    .interval()
+    .adjust('symmetric')
+    .position('name*value')
+    .color('name', ['#0050B3', '#1890FF', '#40A9FF', '#69C0FF', '#BAE7FF'])
+    .shape('pyramid');
+
+  const actualView = chart.createView();
+  actualView.data(actualData);
+  actualView
+    .interval()
+    .adjust('symmetric')
+    .position('name*value')
+    .color('name', ['#0050B3', '#1890FF', '#40A9FF', '#69C0FF', '#BAE7FF'])
+    .shape('pyramid');
+
+  chart.render();
+
+  it('showTooltip', () => {
+    const position = expectView.getXY({ value: 60, name: '访问' });
+    const tooltipItems = chart.getTooltipItems(position);
+
+    expect(tooltipItems.length).toBe(2);
+  });
+
+  afterAll(() => {
+    chart.destroy();
+    removeDom(container);
+  });
+});

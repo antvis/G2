@@ -39,7 +39,6 @@ export default class Tooltip extends Controller<TooltipOption> {
   private isVisible: boolean = true;
   private items;
   private title: string;
-  private tooltipInteraction;
 
   public get name(): string {
     return 'tooltip';
@@ -75,12 +74,6 @@ export default class Tooltip extends Controller<TooltipOption> {
     tooltip.init();
 
     this.tooltip = tooltip;
-
-    // if (this.isVisible && !this.tooltipInteraction) {
-    //   // 用户开启 Tooltip
-    //   view.interaction('tooltip');
-    //   this.tooltipInteraction = get(view.getOptions(), ['interactions', 'tooltip']);
-    // }
   }
 
   /**
@@ -219,11 +212,6 @@ export default class Tooltip extends Controller<TooltipOption> {
     this.yCrosshair = null;
     this.tooltip = null;
     this.guideGroup = null;
-
-    // if (this.tooltipInteraction) {
-    //   this.tooltipInteraction.destroy();
-    //   this.tooltipInteraction = null;
-    // }
   }
 
   public changeVisible(visible: boolean) {
@@ -262,33 +250,7 @@ export default class Tooltip extends Controller<TooltipOption> {
   }
 
   public getTooltipItems(point: Point) {
-    let items = [];
-
-    const geometries = this.view.geometries;
-    const { shared, title } = this.getTooltipCfg();
-    // TODO: 对于 shared 的处理有问题
-    each(geometries, (geometry: Geometry) => {
-      if (geometry.visible && geometry.tooltipOption !== false) {
-        // geometry 可见同时未关闭 tooltip
-        const geometryType = geometry.type;
-
-        if ([ 'point', 'edge', 'polygon' ].includes(geometryType)) {
-          // 始终通过图形拾取
-          items = this.getTooltipItemsByHitShape(geometry, point, items, title);
-        } else if (['area', 'line', 'path', 'heatmap'].includes(geometryType)) {
-          // 如果是 'area', 'line', 'path'，始终通过数据查找方法查找 tooltip
-          items = this.getTooltipItemsByFindData(geometry, point, items, title);
-        } else {
-          if (shared !== false) {
-            items = this.getTooltipItemsByFindData(geometry, point, items, title);
-          } else {
-            items = this.getTooltipItemsByHitShape(geometry, point, items, title);
-          }
-        }
-      }
-    });
-
-    items = uniq(items); // 去除重复值
+    let items = this.findItemsFromView(this.view, point, []);
 
     each(items, (item) => {
       const { x, y } = item.mappingData;
@@ -313,7 +275,7 @@ export default class Tooltip extends Controller<TooltipOption> {
         items = items.filter((item) => item.title === nearestItem.title);
       }
     }
-
+    const { shared } = this.getTooltipCfg();
     // shared: false 代表只显示当前拾取到的 shape 的数据，但是一个 view 会有多个 Geometry，所以有可能会拾取到多个 shape
     if (shared === false && items.length > 1) {
       let snapItem = items[0];
@@ -612,6 +574,40 @@ export default class Tooltip extends Controller<TooltipOption> {
       }
     });
 
+    return items;
+  }
+
+  private findItemsFromView(view, point, items) {
+    // 先从 view 本身查找
+    const geometries = view.geometries;
+    const { shared, title } = this.getTooltipCfg();
+    each(geometries, (geometry: Geometry) => {
+      if (geometry.visible && geometry.tooltipOption !== false) {
+        // geometry 可见同时未关闭 tooltip
+        const geometryType = geometry.type;
+
+        if (['point', 'edge', 'polygon'].includes(geometryType)) {
+          // 始终通过图形拾取
+          items = this.getTooltipItemsByHitShape(geometry, point, items, title);
+        } else if (['area', 'line', 'path', 'heatmap'].includes(geometryType)) {
+          // 如果是 'area', 'line', 'path'，始终通过数据查找方法查找 tooltip
+          items = this.getTooltipItemsByFindData(geometry, point, items, title);
+        } else {
+          if (shared !== false) {
+            items = this.getTooltipItemsByFindData(geometry, point, items, title);
+          } else {
+            items = this.getTooltipItemsByHitShape(geometry, point, items, title);
+          }
+        }
+      }
+    });
+
+    // 递归查找
+    each(view.views, (childView) => {
+      items = this.findItemsFromView(childView, point, items);
+    });
+
+    items = uniq(items); // 去除重复值
     return items;
   }
 }
