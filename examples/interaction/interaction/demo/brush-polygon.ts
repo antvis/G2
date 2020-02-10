@@ -123,6 +123,19 @@ chart
   .style({
     lineWidth: 1,
     stroke: '#fff',
-  });
+  }).state({
+    active: {
+      style: {
+        fillOpacity: 0.9
+      },
+      animate: false
+    },
+    inactive: {
+      style: {
+        fillOpacity: 0.4
+      },
+      animate: false
+    }
+  });;
 
 chart.render();

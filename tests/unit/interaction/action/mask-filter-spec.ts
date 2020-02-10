@@ -23,7 +23,19 @@ describe('test mask filter', () => {
  const interval = chart
     .interval()
     .position('year*value')
-    .color('year');
+    .color('year')
+    .state({
+      active: {
+        style: {
+          opacity: 0.9
+        }
+      },
+      inactive: {
+        style: {
+          opacity: 0.4
+        }
+      }
+    });
   chart.render();
 
   const context = new Context(chart);
