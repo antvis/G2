@@ -1,82 +1,9 @@
 import { Chart } from '../../../../src/index';
-import PieSelected from '../../../../src/interaction/action/element/pie-selected';
 import RangeSelected from '../../../../src/interaction/action/element/range-selected';
 import ElementMultipleSelected from '../../../../src/interaction/action/element/selected';
 import ElementSingleSelected from '../../../../src/interaction/action/element/single-selected';
 import Context from '../../../../src/interaction/context';
 import { createDiv } from '../../../util/dom';
-
-describe('test pie selected', () => {
-  const chart = new Chart({
-    container: createDiv(),
-    width: 400,
-    height: 400,
-    autoFit: false,
-    localRefresh: false,
-  });
-  chart.data([
-    { year: '1991', value: 13 },
-    { year: '1992', value: 34 },
-    { year: '1993', value: 5 },
-    { year: '1994', value: 34 },
-  ]);
-  chart.animate(false);
-  chart.tooltip(false);
-  chart.coordinate('theta');
-  chart
-    .interval()
-    .position('1*value')
-    .color('year')
-    .adjust('stack');
-  chart.render();
-
-  const context = new Context(chart);
-  const elements = chart.geometries[0].elements;
-  const first = elements[0];
-  const second = elements[1];
-
-  const action = new PieSelected(context);
-  it('selected', () => {
-    context.event = {
-      target: first.shape,
-    };
-    action.selected();
-    expect(first.hasState('selected')).toBe(true);
-    context.event = {
-      target: second.shape,
-    };
-    action.selected();
-    expect(first.hasState('selected')).toBe(false);
-    expect(second.hasState('selected')).toBe(true);
-  });
-
-  it('toggle', () => {
-    context.event = {
-      target: first.shape,
-    };
-    action.selected();
-    expect(first.hasState('selected')).toBe(true);
-    action.toggle();
-    expect(first.hasState('selected')).toBe(false);
-    action.toggle();
-    expect(first.hasState('selected')).toBe(true);
-  });
-
-  it('clear', () => {
-    context.event = {
-      target: first.shape,
-    };
-    action.selected();
-    expect(first.hasState('selected')).toBe(true);
-    action.clear();
-    expect(first.hasState('selected')).toBe(false);
-  });
-
-  afterAll(() => {
-    context.destroy();
-    chart.destroy();
-  });
-});
 
 describe('test selected action', () => {
   const chart = new Chart({

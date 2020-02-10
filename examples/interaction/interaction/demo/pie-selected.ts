@@ -27,7 +27,7 @@ chart.tooltip({
   showMarkers: false,
 });
 chart.axis(false); // 关闭坐标轴
-chart
+const interval = chart
   .interval()
   .adjust('stack')
   .position('percent')
@@ -52,5 +52,8 @@ chart
     lineWidth: 1,
     stroke: '#fff',
   });
-
+chart.interaction('element-single-selected');
 chart.render();
+
+// 默认选择
+interval.elements[0].setState('selected', true);

@@ -94,7 +94,7 @@ describe('Area shapes', () => {
           x: 100,
           y: 100,
           defaultStyle: {
-            ...Theme.geometries.area.area.default,
+            ...Theme.geometries.area.area.default.style,
           },
           style: {
             fill: 'red',
@@ -131,7 +131,7 @@ describe('Area shapes', () => {
           y: 100,
           shape: 'line',
           defaultStyle: {
-            ...Theme.geometries.area.line.default,
+            ...Theme.geometries.area.line.default.style,
           },
           points: [
             [
@@ -175,7 +175,7 @@ describe('Area shapes', () => {
           y: 100,
           shape: 'smooth',
           defaultStyle: {
-            ...Theme.geometries.area.smooth.default,
+            ...Theme.geometries.area.smooth.default.style,
           },
           points: [
             [
@@ -211,7 +211,7 @@ describe('Area shapes', () => {
           y: 100,
           shape: 'smooth-line',
           defaultStyle: {
-            ...Theme.geometries.area['smooth-line'].default,
+            ...Theme.geometries.area['smooth-line'].default.style,
           },
           style: {
             stroke: 'red',

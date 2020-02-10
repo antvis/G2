@@ -163,8 +163,10 @@ describe('Shape', () => {
       circleFactory.theme = {
         hollowCircle: {
           default: {
-            stroke: '#333',
-            lineWidth: 1,
+            style: {
+              stroke: '#333',
+              lineWidth: 1,
+            },
           },
         },
       };

@@ -57,7 +57,7 @@ describe('Point shapes', () => {
           points,
           color: 'red',
           defaultStyle: {
-            ...Theme.geometries.polygon.polygon.default,
+            ...Theme.geometries.polygon.polygon.default.style,
           },
         },
         element.container

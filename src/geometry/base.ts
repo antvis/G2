@@ -46,6 +46,7 @@ import {
   LabelOption,
   ShapeAttrCallback,
   SizeAttrCallback,
+  StateOption,
   StyleCallback,
   StyleOption,
   TooltipCallback,
@@ -160,14 +161,16 @@ export default class Geometry extends Base {
   public tooltipOption: TooltipOption | boolean;
   /** label 配置项 */
   public labelOption: LabelOption | false;
+  /** 状态量相关的配置项 */
+  public stateOption: StateOption;
+  /** animate 配置项 */
+  public animateOption: AnimateOption | boolean = true;
   /** 图形属性映射配置 */
   protected attributeOption: Record<string, AttributeOption> = {};
   /** adjust 配置项 */
   protected adjustOption: AdjustOption[];
   /** style 配置项 */
   protected styleOption: StyleOption;
-  /** animate 配置项 */
-  protected animateOption: AnimateOption | boolean = true;
   protected shapeFactory: ShapeFactory;
   protected elementsMap: Record<string, Element> = {};
   protected lastElementsMap: Record<string, Element> = {};
@@ -701,6 +704,43 @@ export default class Geometry extends Base {
   }
 
   /**
+   * 设置状态对应的样式
+   *
+   * @example
+   * ```ts
+   * chart.interval().state({
+   *   selected: {
+   *     animate: { duration: 100, easing: 'easeLinear' },
+   *     style: {
+   *       lineWidth: 2,
+   *       stroke: '#000',
+   *     },
+   *   },
+   * });
+   * ```
+   *
+   * 如果图形 shape 是由多个 shape 组成，即为一个 G.Group 对象，那么针对 group 中的每个 shape，我们需要使用下列方式进行状态样式设置：
+   * 如果我们为 group 中的每个 shape 设置了 'name' 属性(shape.set('name', 'xx'))，则以 'name' 作为 key，否则默认以索引值（即 shape 的 添加顺序）为 key。
+   *
+   * ```ts
+   * chart.interval().shape('groupShape').state({
+   *   selected: {
+   *     style: {
+   *       0: { lineWidth: 2 },
+   *       1: { fillOpacity: 1 },
+   *     }
+   *   }
+   * });
+   * ```
+   *
+   * @param cfg 状态样式
+   */
+  public state(cfg: StateOption) {
+    this.stateOption = cfg;
+    return this;
+  }
+
+  /**
    * Create [[Attribute]] and [[Scale]] instances, and data processing: group, numeric and adjust.
    * Should be called after geometry instance created.
    */
@@ -1120,7 +1160,6 @@ export default class Geometry extends Base {
       theme: get(theme, ['geometries', this.shapeType], {}),
       shapeFactory,
       container,
-      animate: this.animateOption,
       offscreenGroup: this.getOffscreenGroup(),
     });
     element.geometry = this;
@@ -1168,8 +1207,6 @@ export default class Geometry extends Base {
         const currentShapeCfg = this.getDrawCfg(mappingDatum);
         const preShapeCfg = result.getModel();
         if (isModelChange(currentShapeCfg, preShapeCfg)) {
-          // 更新动画配置，用户有可能在更新之前有对动画进行配置操作
-          result.animate = this.animateOption;
           // 通过绘制数据的变更来判断是否需要更新，因为用户有可能会修改图形属性映射
           result.update(currentShapeCfg); // 更新对应的 element
         }

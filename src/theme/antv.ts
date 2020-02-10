@@ -1,5 +1,8 @@
 import * as TOOLTIP_CSS_CONST from '@antv/component/lib/tooltip/css-const';
+import { transform } from '@antv/matrix-util';
 import { deepMix } from '@antv/util';
+import Element from '../geometry/element';
+import { getAngle } from '../util/graphics';
 
 /** antv 主题色 */
 const DEFAULT_COLOR = '#5B8FF9';
@@ -219,299 +222,397 @@ export default {
   geometries: {
     interval: {
       rect: {
-        default: SHAPE_STYLE.interval,
+        default: {
+          style: SHAPE_STYLE.interval,
+        },
         active: {
-          interval: { fillOpacity: 1 },
+          style: { fillOpacity: 1 }
         },
         inactive: {
-          interval: { fillOpacity: 0.3 },
+          style: { fillOpacity: 0.3 },
         },
-        selected: {},
+        selected: {
+          animateCfg: {
+            duration: 300,
+          },
+          style: (element: Element) => {
+            const coordinate = element.geometry.coordinate;
+            if (coordinate.isPolar && coordinate.isTransposed) {
+              const { startAngle, endAngle } = getAngle(element.getModel(), coordinate);
+              const middleAngle = (startAngle + endAngle) / 2;
+              const r = 7.5;
+              const x = r * Math.cos(middleAngle);
+              const y = r * Math.sin(middleAngle);
+              return {
+                matrix: transform(null, [['t', x, y]]),
+              };
+            }
+          }
+        },
       },
       'hollow-rect': {
-        default: SHAPE_STYLE.hollowInterval,
+        default: {
+          style: SHAPE_STYLE.hollowInterval,
+        },
         active: {
-          interval: { lineWidth: 4 },
+          style: { lineWidth: 4 },
         },
       },
       line: {
-        default: SHAPE_STYLE.hollowInterval,
+        default: {
+          style: SHAPE_STYLE.hollowInterval,
+        },
         active: {
-          interval: { lineWidth: 4 },
+          style: { lineWidth: 4 },
         },
       },
       tick: {
-        default: SHAPE_STYLE.hollowInterval,
+        default: {
+          style: SHAPE_STYLE.hollowInterval,
+        },
         active: {
-          interval: { lineWidth: 4 },
+          style: { lineWidth: 4 },
         },
       },
       funnel: {
-        default: SHAPE_STYLE.interval,
+        default: {
+          style: SHAPE_STYLE.interval,
+        },
         active: {
-          interval: { fillOpacity: 0.5 },
+          style: { fillOpacity: 0.5 },
         },
       },
       pyramid: {
-        default: SHAPE_STYLE.interval,
+        default: {
+          style: SHAPE_STYLE.interval,
+        },
         active: {
-          interval: { fillOpacity: 0.5 },
+          style: { fillOpacity: 0.5 },
         },
       },
     },
     line: {
       line: {
-        default: SHAPE_STYLE.line,
+        default: {
+          style: SHAPE_STYLE.line,
+        },
         active: {
-          line: { lineWidth: 4 },
+          style: { lineWidth: 4 },
         },
         inactive: {
-          line: { strokeOpacity: 0.3 },
+          style: { strokeOpacity: 0.3 },
         },
       },
       dot: {
         default: {
-          ...SHAPE_STYLE.line,
-          lineDash: [1, 1],
+          style: {
+            ...SHAPE_STYLE.line,
+            lineDash: [1, 1],
+          },
         },
         active: {
-          line: { lineWidth: 4 },
+          style: { lineWidth: 4 },
         },
       },
       dash: {
         default: {
-          ...SHAPE_STYLE.line,
-          lineDash: [5.5, 1],
+          style: {
+            ...SHAPE_STYLE.line,
+            lineDash: [5.5, 1],
+          },
         },
         active: {
-          line: { lineWidth: 4 },
+          style: { lineWidth: 4 },
         },
       },
       smooth: {
-        default: SHAPE_STYLE.line,
+        default: {
+          style: SHAPE_STYLE.line,
+        },
         active: {
-          line: { lineWidth: 4 },
+          style: { lineWidth: 4 },
         },
       },
       hv: {
-        default: SHAPE_STYLE.line,
+        default: {
+          style: SHAPE_STYLE.line,
+        },
         active: {
-          line: { lineWidth: 4 },
+          style: { lineWidth: 4 },
         },
       },
       vh: {
-        default: SHAPE_STYLE.line,
+        default: {
+          style: SHAPE_STYLE.line,
+        },
         active: {
-          line: { lineWidth: 4 },
+          style: { lineWidth: 4 },
         },
       },
       hvh: {
-        default: SHAPE_STYLE.line,
+        default: {
+          style: SHAPE_STYLE.line,
+        },
         active: {
-          line: { lineWidth: 4 },
+          style: { lineWidth: 4 },
         },
       },
       vhv: {
-        default: SHAPE_STYLE.line,
+        default: {
+          style: SHAPE_STYLE.line,
+        },
         active: {
-          line: { lineWidth: 4 },
+          style: { lineWidth: 4 },
         },
       },
     },
     polygon: {
       polygon: {
-        default: SHAPE_STYLE.polygon,
-        active: {
-          polygon: { fillOpacity: 0.5 },
+        default: {
+          style: SHAPE_STYLE.polygon,
         },
-      },
-      hollow: {
-        default: SHAPE_STYLE.hollowPolygon,
+        active: {
+          style: { fillOpacity: 0.5 },
+        },
       },
     },
     point: {
       circle: {
-        default: SHAPE_STYLE.point,
+        default: {
+          style: SHAPE_STYLE.point,
+        },
         active: {
-          point: { fillOpacity: 0.5 },
+          style: { fillOpacity: 0.5 },
         },
       },
       square: {
-        default: SHAPE_STYLE.point,
+        default: {
+          style: SHAPE_STYLE.point,
+        },
         active: {
-          point: { fillOpacity: 0.5 },
+          style: { fillOpacity: 0.5 },
         },
       },
       bowtie: {
-        default: SHAPE_STYLE.point,
+        default: {
+          style: SHAPE_STYLE.point,
+        },
         active: {
-          point: { fillOpacity: 0.5 },
+          style: { fillOpacity: 0.5 },
         },
       },
       diamond: {
-        default: SHAPE_STYLE.point,
+        default: {
+          style: SHAPE_STYLE.point,
+        },
         active: {
-          point: { fillOpacity: 0.5 },
+          style: { fillOpacity: 0.5 },
         },
       },
       hexagon: {
-        default: SHAPE_STYLE.point,
+        default: {
+          style: SHAPE_STYLE.point,
+        },
         active: {
-          point: { fillOpacity: 0.5 },
+          style: { fillOpacity: 0.5 },
         },
       },
       triangle: {
-        default: SHAPE_STYLE.point,
+        default: {
+          style: SHAPE_STYLE.point,
+        },
         active: {
-          point: { fillOpacity: 0.5 },
+          style: { fillOpacity: 0.5 },
         },
       },
       'triangle-down': {
-        default: SHAPE_STYLE.point,
+        default: {
+          style: SHAPE_STYLE.point,
+        },
         active: {
-          point: { fillOpacity: 0.5 },
+          style: { fillOpacity: 0.5 },
         },
       },
       'hollow-circle': {
-        default: SHAPE_STYLE.hollowPoint,
+        default: {
+          style: SHAPE_STYLE.hollowPoint
+        },
         active: {
-          point: { r: 4 },
+          style: { r: 4 },
         },
       },
       'hollow-square': {
-        default: SHAPE_STYLE.hollowPoint,
+        default: {
+          style: SHAPE_STYLE.hollowPoint
+        },
         active: {
-          point: { r: 4 },
+          style: { r: 4 },
         },
       },
       'hollow-bowtie': {
-        default: SHAPE_STYLE.hollowPoint,
+        default: {
+          style: SHAPE_STYLE.hollowPoint
+        },
         active: {
-          point: { r: 4 },
+          style: { r: 4 },
         },
       },
       'hollow-diamond': {
-        default: SHAPE_STYLE.hollowPoint,
+        default: {
+          style: SHAPE_STYLE.hollowPoint
+        },
         active: {
-          point: { r: 4 },
+          style: { r: 4 },
         },
       },
       'hollow-hexagon': {
-        default: SHAPE_STYLE.hollowPoint,
+        default: {
+          style: SHAPE_STYLE.hollowPoint
+        },
         active: {
-          point: { r: 4 },
+          style: { r: 4 },
         },
       },
       'hollow-triangle': {
-        default: SHAPE_STYLE.hollowPoint,
+        default: {
+          style: SHAPE_STYLE.hollowPoint
+        },
         active: {
-          point: { r: 4 },
+          style: { r: 4 },
         },
       },
       'hollow-triangle-down': {
-        default: SHAPE_STYLE.hollowPoint,
+        default: {
+          style: SHAPE_STYLE.hollowPoint
+        },
         active: {
-          point: { r: 4 },
+          style: { r: 4 },
         },
       },
       cross: {
-        default: SHAPE_STYLE.hollowPoint,
+        default: {
+          style: SHAPE_STYLE.hollowPoint
+        },
         active: {
-          point: { r: 4 },
+          style: { r: 4 },
         },
       },
       tick: {
-        default: SHAPE_STYLE.hollowPoint,
+        default: {
+          style: SHAPE_STYLE.hollowPoint
+        },
         active: {
-          point: { r: 4 },
+          style: { r: 4 },
         },
       },
       plus: {
-        default: SHAPE_STYLE.hollowPoint,
+        default: {
+          style: SHAPE_STYLE.hollowPoint
+        },
         active: {
-          point: { r: 4 },
+          style: { r: 4 },
         },
       },
       hyphen: {
-        default: SHAPE_STYLE.hollowPoint,
+        default: {
+          style: SHAPE_STYLE.hollowPoint
+        },
         active: {
-          point: { r: 4 },
+          style: { r: 4 },
         },
       },
       line: {
-        default: SHAPE_STYLE.hollowPoint,
+        default: {
+          style: SHAPE_STYLE.hollowPoint
+        },
         active: {
-          point: { r: 4 },
+          style: { r: 4 },
         },
       },
     },
     area: {
       area: {
-        default: SHAPE_STYLE.area,
+        default: {
+          style: SHAPE_STYLE.area,
+        },
         active: {
-          area: { fillOpacity: 0.3 },
+          style: { fillOpacity: 0.3 },
         },
       },
       smooth: {
-        default: SHAPE_STYLE.area,
+        default: {
+          style: SHAPE_STYLE.area,
+        },
         active: {
-          area: { fillOpacity: 0.3 },
+          style: { fillOpacity: 0.3 },
         },
       },
       line: {
-        default: SHAPE_STYLE.hollowArea,
+        default: {
+          style: SHAPE_STYLE.hollowArea,
+        },
         active: {
-          area: { lineWidth: 4 },
+          style: { lineWidth: 4 },
         },
       },
       'smooth-line': {
-        default: SHAPE_STYLE.hollowArea,
+        default: {
+          style: SHAPE_STYLE.hollowArea,
+        },
         active: {
-          area: { lineWidth: 4 },
+          style: { lineWidth: 4 },
         },
       },
     },
     schema: {
       candle: {
-        default: SHAPE_STYLE.schema,
+        default: {
+          style: SHAPE_STYLE.schema,
+        },
         active: {
-          schema: {
-            lineWidth: 2,
-          },
+          style: { lineWidth: 2 },
         },
       },
       box: {
-        default: SHAPE_STYLE.schema,
+        default: {
+          style: SHAPE_STYLE.schema,
+        },
         active: {
-          schema: {
-            lineWidth: 2,
-          },
+          style: { lineWidth: 2 },
         },
       },
     },
     edge: {
       line: {
-        default: SHAPE_STYLE.edge,
+        default: {
+          style: SHAPE_STYLE.edge,
+        },
         active: {
-          edge: { lineWidth: 2 },
+          style: { lineWidth: 2 },
         },
       },
       vhv: {
-        default: SHAPE_STYLE.edge,
+        default: {
+          style: SHAPE_STYLE.edge,
+        },
         active: {
-          edge: { lineWidth: 2 },
+          style: { lineWidth: 2 },
         },
       },
       smooth: {
-        default: SHAPE_STYLE.edge,
+        default: {
+          style: SHAPE_STYLE.edge,
+        },
         active: {
-          edge: { lineWidth: 2 },
+          style: { lineWidth: 2 },
         },
       },
       arc: {
-        default: SHAPE_STYLE.edge,
+        default: {
+          style: SHAPE_STYLE.edge,
+        },
         active: {
-          edge: { lineWidth: 2 },
+          style: { lineWidth: 2 },
         },
       },
     }

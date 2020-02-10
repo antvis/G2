@@ -45,30 +45,36 @@ describe('Element', () => {
         theme: {
           circle: {
             default: {
-              fill: '#333',
-              lineWidth: 0,
-            },
-            active: {
-              shapes: {
-                stroke: '#000',
-                lineWidth: 1,
+              style: {
+                fill: '#333',
+                lineWidth: 0,
               },
             },
+            active: {
+                style: {
+                  shapes: {
+                    stroke: '#000',
+                    lineWidth: 1,
+                  },
+                },
+            },
             selected: {
-              shapes: {
-                fill: 'red',
+              style: {
+                shapes: {
+                  fill: 'red',
+                }
               },
             },
           },
         },
         container,
         offscreenGroup: offscreenContainer,
-        animate: true,
         visible: false,
       });
-
+      element.geometry = {
+        animateOption: false,
+      };
       expect(element.getStates().length).toBe(0);
-      expect(element.visible).toBe(false);
     });
 
     it('draw()', () => {
@@ -105,14 +111,18 @@ describe('Element', () => {
     it('getStateStyle()', () => {
       const activeStyle = element.getStateStyle('active', 'shapes');
       expect(activeStyle).toEqual({
-        stroke: '#000',
-        lineWidth: 1,
+        style: {
+          stroke: '#000',
+          lineWidth: 1,
+        },
       });
 
       const defaultStyle = element.getStateStyle('default');
       expect(defaultStyle).toEqual({
-        fill: '#333',
-        lineWidth: 0,
+        style: {
+          fill: '#333',
+          lineWidth: 0,
+        }
       });
     });
 
@@ -257,21 +267,24 @@ describe('Element', () => {
         shapeFactory,
         theme: Theme,
         container,
-        animate: false,
       });
-
+      element.geometry = {
+        animateOption: false,
+      }
       // @ts-ignore
       expect(element.getAnimateCfg('update')).toBe(null);
       expect(element.getAnimateCfg('appear')).toBe(null);
     });
 
     it('model.animate is not empty', () => {
-      element.animate = {
-        update: {
-          delay: 1000,
+      element.geometry = {
+        animateOption: {
+          update: {
+            delay: 1000,
+          },
+          leave: false,
+          appear: null,
         },
-        leave: false,
-        appear: null,
       };
       // @ts-ignore
       expect(element.getAnimateCfg('update')).toEqual({

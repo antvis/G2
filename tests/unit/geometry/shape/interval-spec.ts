@@ -113,7 +113,7 @@ describe('Interval shapes', () => {
           points,
           color: 'red',
           defaultStyle: {
-            ...Theme.geometries.interval.rect.default,
+            ...Theme.geometries.interval.rect.default.style,
           },
         },
         element.container
@@ -129,7 +129,7 @@ describe('Interval shapes', () => {
       expect(markerCfg).toEqual({
         symbol: 'square',
         style: {
-          ...Theme.geometries.interval.rect.default,
+          ...Theme.geometries.interval.rect.default.style,
           r: 4,
           fill: 'red',
         },
@@ -139,7 +139,7 @@ describe('Interval shapes', () => {
       expect(polaeMarkerCfg).toEqual({
         symbol: 'circle',
         style: {
-          ...Theme.geometries.interval.rect.default,
+          ...Theme.geometries.interval.rect.default.style,
           r: 4.5,
           fill: 'red',
         },
@@ -172,7 +172,7 @@ describe('Interval shapes', () => {
           color: 'yellow',
           shape: 'hollow-rect',
           defaultStyle: {
-            ...Theme.geometries.interval['hollow-rect'].default,
+            ...Theme.geometries.interval['hollow-rect'].default.style,
           },
         },
         element.container
@@ -188,7 +188,7 @@ describe('Interval shapes', () => {
       expect(markerCfg).toEqual({
         symbol: 'square',
         style: {
-          ...Theme.geometries.interval['hollow-rect'].default,
+          ...Theme.geometries.interval['hollow-rect'].default.style,
           r: 4,
           stroke: 'red',
           fill: null,
@@ -199,7 +199,7 @@ describe('Interval shapes', () => {
       expect(polaeMarkerCfg).toEqual({
         symbol: 'circle',
         style: {
-          ...Theme.geometries.interval['hollow-rect'].default,
+          ...Theme.geometries.interval['hollow-rect'].default.style,
           r: 4.5,
           stroke: 'red',
           fill: null,
@@ -260,7 +260,7 @@ describe('Interval shapes', () => {
           points,
           size: 5,
           defaultStyle: {
-            ...Theme.geometries.interval.line.default,
+            ...Theme.geometries.interval.line.default.style,
           },
           style: {
             lineWidth: 10,
@@ -348,7 +348,7 @@ describe('Interval shapes', () => {
           points,
           color: 'pink',
           defaultStyle: {
-            ...Theme.geometries.interval.tick.default,
+            ...Theme.geometries.interval.tick.default.style,
           },
         },
         element.container
@@ -418,7 +418,7 @@ describe('Interval shapes', () => {
           points,
           nextPoints: null,
           defaultStyle: {
-            ...Theme.geometries.interval.funnel.default,
+            ...Theme.geometries.interval.funnel.default.style,
           },
         },
         element.container
@@ -470,7 +470,7 @@ describe('Interval shapes', () => {
       expect(markerCfg).toEqual({
         symbol: 'square',
         style: {
-          ...Theme.geometries.interval.funnel.default,
+          ...Theme.geometries.interval.funnel.default.style,
           r: 4,
           fill: 'red',
         },
@@ -518,7 +518,7 @@ describe('Interval shapes', () => {
           points,
           nextPoints: null,
           defaultStyle: {
-            ...Theme.geometries.interval.pyramid.default,
+            ...Theme.geometries.interval.pyramid.default.style,
           },
         },
         element.container
@@ -551,7 +551,7 @@ describe('Interval shapes', () => {
           nextPoints,
           color: 'red',
           defaultStyle: {
-            ...Theme.geometries.interval.pyramid.default,
+            ...Theme.geometries.interval.pyramid.default.style,
           },
         },
         element.container
@@ -567,7 +567,7 @@ describe('Interval shapes', () => {
       expect(markerCfg).toEqual({
         symbol: 'square',
         style: {
-          ...Theme.geometries.interval.pyramid.default,
+          ...Theme.geometries.interval.pyramid.default.style,
           r: 4,
           fill: 'red',
         },

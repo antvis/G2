@@ -34,7 +34,7 @@ describe('Line shapes', () => {
 
   it('getMarker', () => {
     const dotMarker = LineShapeFactory.getMarker('dot', { color: 'red', isInPolar: false });
-    expect(dotMarker.style.lineDash).toEqual(Theme.geometries.line.dot.default.lineDash);
+    expect(dotMarker.style.lineDash).toEqual(Theme.geometries.line.dot.default.style.lineDash);
     expect(dotMarker.style.stroke).toBe('red');
     // @ts-ignore
     expect(dotMarker.symbol(10, 10, 5)).toEqual([
@@ -66,7 +66,7 @@ describe('Line shapes', () => {
           ],
           color: 'red',
           defaultStyle: {
-            ...Theme.geometries.line.line.default,
+            ...Theme.geometries.line.line.default.style,
           },
         },
         element.container
@@ -92,7 +92,7 @@ describe('Line shapes', () => {
           ],
           color: 'red',
           defaultStyle: {
-            ...Theme.geometries.line.dot.default,
+            ...Theme.geometries.line.dot.default.style,
           },
         },
         element.container
@@ -119,7 +119,7 @@ describe('Line shapes', () => {
           ],
           color: 'red',
           defaultStyle: {
-            ...Theme.geometries.line.dash.default,
+            ...Theme.geometries.line.dash.default.style,
           },
         },
         element.container
@@ -151,7 +151,7 @@ describe('Line shapes', () => {
           ],
           color: 'red',
           defaultStyle: {
-            ...Theme.geometries.line.smooth.default,
+            ...Theme.geometries.line.smooth.default.style,
           },
         },
         element.container
@@ -178,7 +178,7 @@ describe('Line shapes', () => {
           ],
           color: 'red',
           defaultStyle: {
-            ...Theme.geometries.line.hv.default,
+            ...Theme.geometries.line.hv.default.style,
           },
         },
         element.container
@@ -204,7 +204,7 @@ describe('Line shapes', () => {
           ],
           color: 'red',
           defaultStyle: {
-            ...Theme.geometries.line.vh.default,
+            ...Theme.geometries.line.vh.default.style,
           },
         },
         element.container
@@ -231,7 +231,7 @@ describe('Line shapes', () => {
           ],
           color: 'red',
           defaultStyle: {
-            ...Theme.geometries.line.hvh.default,
+            ...Theme.geometries.line.hvh.default.style,
           },
         },
         element.container
@@ -259,7 +259,7 @@ describe('Line shapes', () => {
           ],
           color: 'red',
           defaultStyle: {
-            ...Theme.geometries.line.vhv.default,
+            ...Theme.geometries.line.vhv.default.style,
           },
         },
         element.container
@@ -294,7 +294,7 @@ describe('Line shapes', () => {
           isInCircle: true,
           color: '#1890ff',
           defaultStyle: {
-            ...Theme.geometries.line.smooth.default,
+            ...Theme.geometries.line.smooth.default.style,
           },
         },
         element.container
