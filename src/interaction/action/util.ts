@@ -49,6 +49,15 @@ export function isList(delegateObject: LooseObject): boolean {
 export function isSlider(delegateObject: LooseObject): boolean {
   return delegateObject && delegateObject.component && delegateObject.component.isSlider();
 }
+/**
+ * 是否由 mask 触发
+ * @param context 上下文
+ */
+export function isMask(context: IInteractionContext): boolean {
+  const event = context.event;
+  const target = event.target;
+  return target && target.get('name') === 'mask';
+}
 
 /**
  * 获取所有的图表元素

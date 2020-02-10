@@ -18,6 +18,9 @@ const chart = new Chart({
 });
 
 chart.data(data);
+chart.tooltip({
+  showMarkers: false
+});
 chart.interaction('element-brush');
 chart.interval().position('year*value');
 chart.render();
