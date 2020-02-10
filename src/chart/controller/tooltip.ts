@@ -250,7 +250,7 @@ export default class Tooltip extends Controller<TooltipOption> {
   }
 
   public getTooltipItems(point: Point) {
-    let items = this.findItemsFromView(this.view, point, []);
+    let items = this.findItemsFromView(this.view, point);
 
     each(items, (item) => {
       const { x, y } = item.mappingData;
@@ -553,31 +553,32 @@ export default class Tooltip extends Controller<TooltipOption> {
     return tooltipCrosshairsGroup;
   }
 
-  private getTooltipItemsByHitShape(geometry, point, items, title) {
+  private getTooltipItemsByHitShape(geometry, point, title) {
+    let result = [];
     const container = geometry.container;
     const shape = container.getShape(point.x, point.y);
     if (shape && shape.get('visible') && shape.get('origin')) {
       const mappingData = shape.get('origin').mappingData;
-      items = items.concat(getTooltipItems(mappingData, geometry, title));
+      result = getTooltipItems(mappingData, geometry, title);
     }
 
-    return items;
+    return result;
   }
 
-  private getTooltipItemsByFindData(geometry, point, items, title) {
-    const dataArray = geometry.dataArray;
-    each(dataArray, (data: MappingDatum[]) => {
+  private getTooltipItemsByFindData(geometry, point, title) {
+    let result = [];
+    each(geometry.dataArray, (data: MappingDatum[]) => {
       const record = findDataByPoint(point, data, geometry);
       if (record) {
-        const tooltipItems = getTooltipItems(record, geometry, title);
-        items = items.concat(tooltipItems);
+        result = result.concat(getTooltipItems(record, geometry, title));
       }
     });
 
-    return items;
+    return result;
   }
 
-  private findItemsFromView(view, point, items) {
+  private findItemsFromView(view, point) {
+    let result = [];
     // 先从 view 本身查找
     const geometries = view.geometries;
     const { shared, title } = this.getTooltipCfg();
@@ -585,29 +586,29 @@ export default class Tooltip extends Controller<TooltipOption> {
       if (geometry.visible && geometry.tooltipOption !== false) {
         // geometry 可见同时未关闭 tooltip
         const geometryType = geometry.type;
-
+        let tooltipItems;
         if (['point', 'edge', 'polygon'].includes(geometryType)) {
           // 始终通过图形拾取
-          items = this.getTooltipItemsByHitShape(geometry, point, items, title);
+          tooltipItems = this.getTooltipItemsByHitShape(geometry, point, title);
         } else if (['area', 'line', 'path', 'heatmap'].includes(geometryType)) {
           // 如果是 'area', 'line', 'path'，始终通过数据查找方法查找 tooltip
-          items = this.getTooltipItemsByFindData(geometry, point, items, title);
+          tooltipItems = this.getTooltipItemsByFindData(geometry, point, title);
         } else {
           if (shared !== false) {
-            items = this.getTooltipItemsByFindData(geometry, point, items, title);
+            tooltipItems = this.getTooltipItemsByFindData(geometry, point, title);
           } else {
-            items = this.getTooltipItemsByHitShape(geometry, point, items, title);
+            tooltipItems = this.getTooltipItemsByHitShape(geometry, point, title);
           }
         }
+        result = result.concat(tooltipItems);
       }
     });
 
     // 递归查找
     each(view.views, (childView) => {
-      items = this.findItemsFromView(childView, point, items);
+      result = result.concat(this.findItemsFromView(childView, point));
     });
 
-    items = uniq(items); // 去除重复值
-    return items;
+    return uniq(result); // 去除重复值
   }
 }
