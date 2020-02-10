@@ -325,6 +325,39 @@ registerInteraction('element-brush', {
   rollback: [{ trigger: 'reset-button:click', action: ['brush:reset', 'reset-button:hide', 'cursor:crosshair'] }],
 });
 
+registerInteraction('brush-visible', {
+  showEnable: [
+    { trigger: 'plot:mouseenter', action: 'cursor:crosshair' },
+    { trigger: 'plot:mouseleave', action: 'cursor:default' },
+  ],
+  start: [
+    {
+      trigger: 'plot:mousedown',
+      action: ['rect-mask:start', 'rect-mask:show'],
+    },
+  ],
+  processing: [
+    {
+      trigger: 'plot:mousemove',
+      action: ['rect-mask:resize'],
+    },
+    {trigger: 'mask:end',action: ['element-filter:filter']}
+  ],
+  end: [
+    {
+      trigger: 'mouseup',
+      isEnable: isPointInView,
+      action: ['rect-mask:end', 'rect-mask:hide'],
+    },
+  ],
+  rollback: [
+    {
+      trigger: 'dblclick',
+      action: ['element-filter:clear']
+    }
+  ]
+});
+
 registerInteraction('element-brush-x', {
   showEnable: [
     { trigger: 'plot:mouseenter', action: 'cursor:crosshair' },

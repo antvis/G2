@@ -85,6 +85,7 @@ class ScaleTranslate extends TransformAction {
       };
     }
     view.scale(scale.field, {
+      // @ts-ignore
       nice: false,
       min: min + d,
       max: max + d,

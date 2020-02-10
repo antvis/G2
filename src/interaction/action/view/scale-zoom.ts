@@ -57,6 +57,7 @@ class ScaleTranslate extends TransformAction {
     const { min, max } = scale;
     const d = dRatio * range;
     view.scale(scale.field, {
+      // @ts-ignore
       nice: false,
       min: min - d,
       max: max + d,
