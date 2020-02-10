@@ -24,23 +24,24 @@ import {
   LegendTitleCfg,
   PathCommand,
   Point,
+  ScaleConfig,
 } from '../dependents';
 import {
   AdjustOption,
   AttributeOption,
   LabelOption,
+  StateOption,
   StyleOption,
   TooltipOption as GeometryTooltipOption,
 } from '../geometry/interface';
 import {
-  AnimateOption,
+  AnimateCfg,
   Data,
   Datum,
   LooseObject,
   Padding,
   Region,
   Renderer,
-  ScaleOption,
   ViewPadding,
 } from '../interface';
 import { BaseOption, ImageOption, LineOption, TextOption } from './controller/annotation';
@@ -79,6 +80,33 @@ interface ComponentAnimateOption {
   leave?: ComponentAnimateCfg;
 }
 
+/** 列定义配置项 */
+export interface ScaleOption extends ScaleConfig {
+  /** 声明数据类型  */
+  type?: ScaleType;
+  /**
+   * 同步 scale
+   * 我们会对所有做了 sync: boolean 达标的 scale 进行范围同步
+   */
+  sync?: boolean | string;
+  /**
+   * 只对 type: 'time' 的 scale 生效，强制显示最后的日期tick
+   */
+  showLast?: boolean;
+}
+
+export interface AnimateOption {
+  /** chart 初始化渲染时的入场动画，false/null 表示关闭入场动画 */
+  appear?: AnimateCfg | false | null;
+  /** chart 发生更新时，新增元素的入场动画，false/null 表示关闭入场动画 */
+  enter?: AnimateCfg | false | null;
+  /** 更新动画配置，false/null 表示关闭更新动画 */
+  update?: AnimateCfg | false | null;
+  /** 销毁动画配置，false/null 表示关闭销毁动画 */
+  leave?: AnimateCfg | false | null;
+}
+
+
 // 用于配置项式的创建方式
 export interface GeometryOption {
   /** Geometry 的类型 */
@@ -101,6 +129,8 @@ export interface GeometryOption {
   animate?: AnimateOption | boolean;
   /** Label 配置 */
   label?: LabelOption | false | string;
+  /** state 样式配置 */
+  state?: StateOption;
   /** 其他配置 */
   cfg?: {
     /** 是否对数据进行排序 */
@@ -549,3 +579,4 @@ export type TooltipOption = TooltipCfg | boolean;
 export type FilterCondition = (value: any, datum: Datum) => boolean;
 export type AxisOption = AxisCfg | boolean;
 export type LegendOption = LegendCfg | boolean;
+export type ScaleType = 'linear' | 'cat' | 'identity' | 'log' | 'pow' | 'time' | 'timeCat';

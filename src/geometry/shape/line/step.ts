@@ -1,6 +1,8 @@
 import { each } from '@antv/util';
 import { IGroup } from '../../../dependents';
-import { Point, ShapeInfo, ShapeMarkerCfg } from '../../../interface';
+import { Point, ShapeInfo } from '../../../interface';
+import { ShapeMarkerCfg } from '../interface';
+
 import { registerShape } from '../base';
 import { getPathPoints } from '../util/get-path-points';
 import { getStyle } from '../util/get-style';

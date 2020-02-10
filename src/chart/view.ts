@@ -26,7 +26,7 @@ import { Facet, getFacet } from '../facet';
 import { FacetCfgMap } from '../facet/interface';
 import Geometry from '../geometry/base';
 import { createInteraction, Interaction } from '../interaction/';
-import { Data, Datum, LooseObject, Point, Region, ScaleOption, ViewPadding } from '../interface';
+import { Data, Datum, LooseObject, Point, Region, ViewPadding } from '../interface';
 import { BBox } from '../util/bbox';
 import { isFullCircle, isPointInCoordinate } from '../util/coordinate';
 import { mergeTheme } from '../util/theme';
@@ -47,6 +47,7 @@ import {
   InteractionOption,
   LegendOption,
   Options,
+  ScaleOption,
   TooltipOption,
   ViewCfg,
   ViewOption,

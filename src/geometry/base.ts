@@ -20,25 +20,21 @@ import {
 } from '@antv/util';
 import { doGroupAppearAnimate, getDefaultAnimateCfg } from '../animate';
 import Base from '../base';
+import { AnimateOption, ScaleOption } from '../chart/interface';
 import Labels from '../component/labels';
 import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
 import { BBox, Coordinate, IGroup, Scale } from '../dependents';
 import {
-  AdjustType,
-  AnimateOption,
   Data,
   Datum,
   LooseObject,
   MappingDatum,
-  ScaleOption,
-  ShapeFactory,
   ShapeInfo,
-  ShapeMarkerCfg,
-  ShapePoint,
 } from '../interface';
 import Element from './element';
 import {
   AdjustOption,
+  AdjustType,
   AttributeOption,
   ColorAttrCallback,
   GeometryLabelCfg,
@@ -54,6 +50,7 @@ import {
 } from './interface';
 import { getGeometryLabel } from './label';
 import { getShapeFactory } from './shape/base';
+import { ShapeFactory, ShapeMarkerCfg, ShapePoint } from './shape/interface';
 import { group } from './util/group-data';
 import { isModelChange } from './util/is-model-change';
 import { parseFields } from './util/parse-fields';

@@ -1,11 +1,13 @@
-import { each, get, isArray, isEmpty, deepMix, isFunction } from '@antv/util';
+import { deepMix, each, get, isArray, isEmpty, isFunction } from '@antv/util';
 import { doAnimate, getDefaultAnimateCfg } from '../../animate';
 import Base from '../../base';
+import { AnimateOption } from '../../chart/interface';
 import { BBox, IGroup, IShape } from '../../dependents';
-import { AnimateOption, Datum, LooseObject, ShapeFactory, ShapeInfo } from '../../interface';
+import { Datum, LooseObject, ShapeInfo } from '../../interface';
 import { getReplaceAttrs } from '../../util/graphics';
 import Geometry from '../base';
 import { StateCfg } from '../interface';
+import { ShapeFactory } from '../shape/interface';
 
 interface ElementCfg {
   /** 用于创建各种 shape 的工厂对象 */
