@@ -101,7 +101,7 @@ export default class {
    * 镜像
    * @param dim
    */
-  public reflect(dim: string) {
+  public reflect(dim: 'x' | 'y') {
     this.option.actions.push([ 'reflect', dim ]);
     return this;
   }

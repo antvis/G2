@@ -14,6 +14,9 @@ export default class Base extends EE {
     this.visible = visible;
   }
 
+  /**
+   * 显示。
+   */
   public show() {
     const visible = this.visible;
     if (!visible) {
@@ -22,6 +25,9 @@ export default class Base extends EE {
     }
   }
 
+  /**
+   * 隐藏。
+   */
   public hide() {
     const visible = this.visible;
     if (visible) {
@@ -35,6 +41,11 @@ export default class Base extends EE {
     this.destroyed = true;
   }
 
+  /**
+   * 显示或者隐藏。
+   * @param visible
+   * @returns
+   */
   public changeVisible(visible: boolean) {
     if (this.visible === visible) {
       return;

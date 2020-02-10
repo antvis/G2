@@ -4,7 +4,7 @@ import { Point } from '../../interface';
 import { AnimateCfg, AnimateExtraCfg } from '../interface';
 
 /**
- * x 方向的缩放动画
+ * 沿着 x 方向放大的动画
  * @param shape
  * @param animateCfg
  * @param shapeModel
@@ -39,7 +39,7 @@ export function scaleInX(shape: IShape | IGroup, animateCfg: AnimateCfg, cfg: An
 }
 
 /**
- * Zoom animation in the y direction
+ * 沿着 y 方向放大的动画
  * @param shape
  * @param animateCfg
  * @param shapeModel

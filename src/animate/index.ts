@@ -1,8 +1,9 @@
 import { deepMix, get, isFunction } from '@antv/util';
 import { Coordinate, IGroup, IShape } from '../dependents';
 import { AnimateCfg, Data, Datum, Point } from '../interface';
-import { getAnimation } from './animation';
 import { AnimateCfg as ParsedAnimateCfg, AnimateExtraCfg } from './interface';
+
+import { getAnimation } from './animation';
 
 // 默认的动画参数配置
 export const DEFAULT_ANIMATE_CFG = {

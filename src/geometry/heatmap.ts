@@ -5,6 +5,9 @@ import { Color, IShape } from '../dependents';
 import { Data, Datum, MappingDatum, ShapeInfo } from '../interface';
 import Geometry from './base';
 
+/**
+ * 用于绘制热力图。
+ */
 export default class Heatmap extends Geometry {
   public readonly type: string = 'heatmap';
 
