@@ -151,8 +151,8 @@ export interface ChartCfg {
   /** 图表高度 */
   readonly height?: number;
   /**
-   * 1. 图表是否自适应容器宽高，默认为 false，用户需要手动设置 width 和 height
-   * 2. autoFit: true 时，会取图表容器的宽高，如果用户设置了 height，那么会以用户设置的 height 为准
+   * 图表是否自适应容器宽高，默认为 false，用户需要手动设置 width 和 height。
+   * 当 `autoFit: true` 时，会自动取图表容器的宽高，如果用户设置了 height，那么会以用户设置的 height 为准。
    */
   readonly autoFit?: boolean;
   /** 指定渲染引擎 */
