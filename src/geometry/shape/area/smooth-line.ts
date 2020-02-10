@@ -1,5 +1,7 @@
 import { IGroup } from '../../../dependents';
-import { ShapeInfo, ShapeMarkerCfg } from '../../../interface';
+import { ShapeInfo } from '../../../interface';
+import { ShapeMarkerCfg } from '../interface';
+
 import { registerShape } from '../base';
 import { getConstraint, getShapeAttrs } from './util';
 

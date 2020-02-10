@@ -1,6 +1,8 @@
 import { isArray, isNil } from '@antv/util';
 import { PathCommand } from '../../../dependents';
-import { Point, ShapePoint } from '../../../interface';
+import { Point } from '../../../interface';
+import { ShapePoint } from '../interface';
+
 
 /**
  * 根据数据点生成矩形的四个关键点

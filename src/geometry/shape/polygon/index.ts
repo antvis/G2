@@ -1,6 +1,8 @@
 import { each, isEmpty, isEqual, last } from '@antv/util';
 import { IGroup } from '../../../dependents';
-import { ShapeInfo, ShapeMarkerCfg, ShapePoint } from '../../../interface';
+import { ShapeInfo } from '../../../interface';
+import { ShapeMarkerCfg, ShapePoint } from '../interface';
+
 import { registerShape, registerShapeFactory } from '../base';
 import { getStyle } from '../util/get-style';
 
