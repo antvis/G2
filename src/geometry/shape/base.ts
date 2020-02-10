@@ -58,11 +58,11 @@ const ShapeFactoryBase = {
     return [];
   },
   /**
-   * get the shape's thumbnail configuration
-   * @param shapeType the shape type
-   * @param color the shape color
-   * @param isInPolar is polar coordinate
-   * @returns the thumbnail configuration
+   * 获取 shape 对应的缩略图配置信息。
+   * @param shapeType shape 类型
+   * @param color 颜色
+   * @param isInPolar 是否在极坐标系下
+   * @returns 返回缩略图 marker 配置。
    */
   getMarker(shapeType: string, markerCfg: ShapeMarkerCfg): ShapeMarkerAttrs {
     let shape = this.getShape(shapeType);
@@ -140,7 +140,12 @@ const ShapeBase = {
 
 const ShapeFactoryMap = {};
 
-/** 注册 ShapeFacroty 接口 */
+/**
+ * 注册 ShapeFactory。
+ * @param factoryName  ShapeFactory 名称，对应 Geometry 几何标记名称。
+ * @param cfg 注册 ShapeFactory 需要覆写定义的属性。
+ * @returns 返回 ShapeFactory 对象。
+ */
 export function registerShapeFactory(factoryName: string, cfg: RegisterShapeFactory): ShapeFactory {
   const className = upperFirst(factoryName);
   const geomObj = {
@@ -152,7 +157,13 @@ export function registerShapeFactory(factoryName: string, cfg: RegisterShapeFact
   return geomObj;
 }
 
-/** 注册 Shape 接口 */
+/**
+ * 注册 Shape。
+ * @param factoryName 对应的 ShapeFactory 名称。
+ * @param shapeType 注册的 shape 名称。
+ * @param cfg 注册 Shape 需要覆写定义的属性。
+ * @returns shape 返回注册的 shape 对象。
+ */
 export function registerShape(factoryName: string, shapeType: string, cfg: RegisterShape): Shape {
   const className = upperFirst(factoryName);
   const factory = ShapeFactoryMap[className];
@@ -164,7 +175,11 @@ export function registerShape(factoryName: string, shapeType: string, cfg: Regis
   return shapeObj;
 }
 
-/** 获取 Geometry 对应的 shapeFactory */
+/**
+ * 获取 factoryName 对应的 shapeFactory
+ * @param factoryName
+ * @returns shape factory
+ */
 export function getShapeFactory(factoryName: string): ShapeFactory {
   const className = upperFirst(factoryName);
   return ShapeFactoryMap[className];

@@ -85,13 +85,13 @@ export interface InitCfg {
 }
 
 export interface GeometryCfg {
-  /** Geometry shape 的容器 */
+  /** Geometry shape 的容器。 */
   container: IGroup;
-  /** 绘制的坐标系对象 */
+  /** 绘制的坐标系对象。 */
   coordinate?: Coordinate;
-  /** 绘制数据 */
+  /** 绘制数据。 */
   data?: Data;
-  /** 需要的 scales */
+  /** 需要的 scales。 */
   scales?: Record<string, Scale>;
   scaleDefs?: Record<string, ScaleOption>;
   labelsContainer?: IGroup;
@@ -115,48 +115,48 @@ function filterLabelsById(id: string, labelsMap: Record<string, IGroup>) {
 }
 
 /**
- * Create a new Geometry
- * @class
+ * Geometry 几何标记基类，主要负责数据到图形属性的映射以及绘制逻辑。
  */
 export default class Geometry extends Base {
-  /** Geometry type. */
+  /** Geometry 几何标记类型。 */
   public readonly type: string = 'base';
-  /** The shapeFactory type. */
+  /** ShapeFactory 对应的类型。 */
   public readonly shapeType: string;
 
-  // can be passed in when create geometry instance
-  /** [[Coordinate]] instance. */
+  // 在创建 Geometry 实例时可以传入的属性
+  /** Coordinate 坐标系实例。 */
   public coordinate: Coordinate;
-  /** User data. */
+  /** 用户绘制数据。 */
   public data: Data;
-  /** Graphic drawing container. */
+  /** 图形绘制容器。 */
   public readonly container: IGroup;
-  /** labels container. */
+  /** label 绘制容器。 */
   public readonly labelsContainer: IGroup;
-  /** Whether to sort data, default is false.  */
+  /** 是否对数据进行排序，默认为 false。  */
   public sortable: boolean;
-  /** The theme of geometry.  */
+  /** 当前 Geometry 实例主题。  */
   public theme: LooseObject;
-  /** 存储 geometry 需要的 scales，需要外部传入 */
+  /** 存储 geometry 需要的 scales，需要外部传入。 */
   public scales: Record<string, Scale>;
+  /** scale 定义，需要外部传入。 */
   public scaleDefs: Record<string, ScaleOption>;
-  /** 画布区域，用于 label 布局 */
+  /** 画布区域，用于 label 布局。 */
   public canvasRegion: BBox;
 
-  // Internally generated attributes
+  // 内部产生的属性
   /** Attribute map  */
   public attributes: Record<string, Attribute> = {};
   /** Element map */
   public elements: Element[] = [];
   /**
-   * Processed data set
-   * + After init() or updateData(), it is Data[]
-   * + After paint(), it is MappingDatum[][]
+   * 存储处理后的数据，
+   * + init() 及 updateData() 逻辑后, 结构为 Data[]；
+   * + paint() 逻辑后，结构为 MappingDatum[][]。
    */
   public dataArray: MappingDatum[][];
-  /** Store tooltip configuration */
+  /** 存储 tooltip 配置信息。 */
   public tooltipOption: TooltipOption | boolean;
-  /** label 配置项 */
+  /** 存储 label 配置信息。 */
   public labelOption: LabelOption | false;
   /** 状态量相关的配置项 */
   public stateOption: StateOption;
@@ -171,7 +171,7 @@ export default class Geometry extends Base {
   protected shapeFactory: ShapeFactory;
   protected elementsMap: Record<string, Element> = {};
   protected lastElementsMap: Record<string, Element> = {};
-  /** 是否生成多个点来绘制图形 */
+  /** 是否生成多个点来绘制图形。 */
   protected generatePoints: boolean = false;
   // 虚拟 Group
   protected offscreenGroup: IGroup;
@@ -182,7 +182,7 @@ export default class Geometry extends Base {
   private labelsRenderer: Labels;
 
   /**
-   * Creates an instance of geometry.
+   * 创建 Geometry 实例。
    * @param cfg
    */
   constructor(cfg: GeometryCfg) {
@@ -212,13 +212,14 @@ export default class Geometry extends Base {
   }
 
   /**
-   * 配置 position 通道映射规则
+   * 配置 position 通道映射规则。
    *
    * @example
    * ```typescript
-   * // data: [{ x: 'A', y: 10, color: 'red' }]
-   * position('x*y');
-   * position({
+   * // 数据结构: [{ x: 'A', y: 10, color: 'red' }]
+   * geometry.position('x*y');
+   * geometry.position([ 'x', 'y' ]);
+   * geometry.position({
    *   fields: [ 'x', 'y' ],
    * });
    * ```
@@ -246,12 +247,12 @@ export default class Geometry extends Base {
   }
 
   /**
-   * 配置 color 通道映射规则
+   * 配置 color 通道映射规则。
    *
    * @example
    * ```typescript
    * // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
-   * color({
+   * geometry.color({
    *   fields: [ 'x' ],
    *   values: [ '#1890ff', '#5AD8A6' ],
    * });
@@ -266,28 +267,29 @@ export default class Geometry extends Base {
    * ```typescript
    * // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
    *
-   * // use '#1890ff' rendering
-   * color('#1890ff');
+   * // 使用 '#1890ff' 颜色渲染图形
+   * geometry.color('#1890ff');
    *
-   * // color mapping based on field values, use default colors
-   * color('x');
+   * // 根据 x 字段的数据值进行颜色的映射，这时候 G2 会在内部调用默认的回调函数，读取默认提供的颜色进行数据值到颜色值的映射。
+   * geometry.color('x');
    *
-   * // color mapping based on field values, use the specified colors
-   * color('x', [ '#1890ff', '#5AD8A6' ]);
+   * // 将 'x' 字段的数据值映射至指定的颜色值 colors（可以是字符串也可以是数组），此时用于通常映射分类数据
+   * geometry.color('x', [ '#1890ff', '#5AD8A6' ]);
    *
-   * color('x', (xVal) => {
-   *   if (fieldValue === 'a') {
+   * // 使用回调函数进行颜色值的自定义；可以使用多个字段使用、*号连接
+   * geometry.color('x', (xVal) => {
+   *   if (xVal === 'a') {
    *     return 'red';
    *   }
    *   return 'blue';
    * });
    *
-   * // 连续色值
-   * color('x', '#BAE7FF-#1890FF-#0050B3');
+   * // 指定颜色的渐变路径，用于映射连续的数据
+   * geometry.color('x', '#BAE7FF-#1890FF-#0050B3');
    * ```
    *
-   * @param field data fields participating in the mapping or a color value
-   * @param cfg Optional, color mapping rules
+   * @param field 参与颜色映射的数据字段，多个字段使用 '*' 连接符进行连接。
+   * @param cfg Optional, color 映射规则。
    * @returns
    */
   public color(field: string, cfg?: string | string[] | ColorAttrCallback): Geometry;
@@ -298,18 +300,18 @@ export default class Geometry extends Base {
   }
 
   /**
-   * Configuring shape mapping rules
+   * 配置 shape 通道映射规则。
    *
    * @example
    *
    * ```typescript
    * // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
-   * shape({
+   * geometry.shape({
    *   fields: [ 'x' ],
    * });
    * ```
    *
-   * @param field mapping rule configuration
+   * @param field 映射规则配置。
    * @returns
    */
   public shape(field: AttributeOption): Geometry;
@@ -319,25 +321,26 @@ export default class Geometry extends Base {
    * ```typescript
    * // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
    *
-   * // use specified shape
-   * shape('circle');
+   * // 指定常量，将所有数据值映射到固定的 shape
+   * geometry.shape('circle');
    *
-   * // shape mapping based on field values, use default shapes
-   * shape('x');
+   * // 将指定的字段映射到内置的 shapes 数组中
+   * geometry.shape('x');
    *
-   * // shape mapping based on field values, use the specified shapes
-   * shape('x', [ 'circle', 'diamond', 'square' ]);
+   * // 将指定的字段映射到指定的 shapes 数组中
+   * geometry.shape('x', [ 'circle', 'diamond', 'square' ]);
    *
-   * shape('x', (xVal) => {
-   *   if (fieldValue === 'a') {
+   * // 使用回调函数获取 shape，用于个性化的 shape 定制，可以根据单个或者多个字段确定
+   * geometry.shape('x', (xVal) => {
+   *   if (xVal === 'a') {
    *     return 'circle';
    *   }
    *   return 'diamond';
    * });
    * ```
    *
-   * @param field data fields participating in the mapping or a shape value
-   * @param cfg Optional, shape mapping rules
+   * @param field 参与 shape 映射的数据字段，多个字段使用 '*' 连接符进行连接。
+   * @param cfg Optional, shape 映射规则。
    * @returns
    */
   public shape(field: string, cfg?: string[] | ShapeAttrCallback): Geometry;
@@ -348,17 +351,17 @@ export default class Geometry extends Base {
   }
 
   /**
-   * Configuring size mapping rules
+   * 配置 size 通道映射规则。
    *
    * @example
    * ```typescript
    * // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
-   * size({
+   * geometry.size({
    *   values: [ 10 ],
    * })
    * ```
    *
-   * @param field mapping rule configuration
+   * @param field 映射规则。
    * @returns
    */
   public size(field: AttributeOption): Geometry;
@@ -368,25 +371,26 @@ export default class Geometry extends Base {
    * ```typescript
    * // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
    *
-   * // use specified value, 10 means '10px'
-   * size(10);
+   * // 直接指定像素大小
+   * geometry.size(10);
    *
-   * // size mapping based on field values, default size range: [1, 10]
-   * size('x');
+   * // 指定映射到 size 的字段，使用内置的默认大小范围为 [1, 10]
+   * geometry.size('x');
    *
-   * // size mapping based on field values, use the specified size range
-   * size('x', [ 5, 30 ]);
+   * // 指定映射到 size 字段外，还提供了 size 的最大值和最小值范围
+   * geometry.size('x', [ 5, 30 ]);
    *
-   * size('x', (xVal) => {
-   *   if (fieldValue === 'a') {
+   * // 使用回调函数映射 size，用于个性化的 size 定制，可以使用多个字段进行映射
+   * geometry.size('x', (xVal) => {
+   *   if (xVal === 'a') {
    *     return 10;
    *   }
    *   return 5;
    * });
    * ```
    *
-   * @param field data fields participating in the mapping or a size value
-   * @param cfg Optional, size mapping rules
+   * @param field 参与 size 映射的数据字段，多个字段使用 '*' 连接符进行连接。
+   * @param cfg Optional, size 映射规则
    * @returns
    */
   public size(field: number | string, cfg?: [number, number] | SizeAttrCallback): Geometry;
@@ -397,7 +401,7 @@ export default class Geometry extends Base {
   }
 
   /**
-   * how to adjust data. Offer 4 types by defaut;
+   * 设置数据调整方式。G2 目前内置了四种类型：
    * 1. dodge
    * 2. stack
    * 3. symmetric
@@ -405,40 +409,40 @@ export default class Geometry extends Base {
    *
    *
    * **Tip**
-   * + When you use 'dodge' type, the following configurations are possible:
+   * + 对于 'dodge' 类型，可以额外进行如下属性的配置:
    * ```typescript
-   * adjust('dodge', {
-   *   marginRatio: 0, // used to adjust the spacing of individual columns in a group
-   *   dodgeBy: 'x', // declare which field to group by
+   * geometry.adjust('dodge', {
+   *   marginRatio: 0, // 取 0 到 1 范围的值（相对于每个柱子宽度），用于控制一个分组中柱子之间的间距
+   *   dodgeBy: 'x', // 该属性只对 'dodge' 类型生效，声明以哪个数据字段为分组依据
    * });
    * ```
    *
-   * + When you use 'stack' type, the following configurations are possible:
+   * + 对于 'stack' 类型，可以额外进行如下属性的配置:
    * ```typescript
-   * adjust('stack', {
-   *   reverseOrder: false, // whether or not to reverse data
+   * geometry.adjust('stack', {
+   *   reverseOrder: false, // 用于控制是否对数据进行反序操作
    * });
    * ```
    *
    * @example
    * ```typescript
-   * adjust('stack');
+   * geometry.adjust('stack');
    *
-   * adjust({
+   * geometry.adjust({
    *   type: 'stack',
    *   reverseOrder: false,
    * });
    *
-   * // combine multiple types
-   * adjust([ 'stack', 'dodge' ]);
+   * // 组合使用 adjust
+   * geometry.adjust([ 'stack', 'dodge' ]);
    *
-   * adjust([
+   * geometry.adjust([
    *   { type: 'stack' },
    *   { type: 'dodge', dodgeBy: 'x' },
    * ]);
    * ```
    *
-   * @param adjustCfg adjust type and configuration
+   * @param adjustCfg 数据调整配置
    * @returns
    */
   public adjust(adjustCfg: string | string[] | AdjustOption | AdjustOption[]): Geometry {
@@ -457,19 +461,19 @@ export default class Geometry extends Base {
   }
 
   /**
-   * Graphic style configuration
+   * 图形样式配置。
    *
    * @example
    * ```typescript
-   * // just configure graphics style
+   * // 配置图形样式
    * style({
    *   lineWidth: 2,
    *   stroke: '#1890ff',
    * });
    *
-   * // or configure the detail rules
+   * // 根据具体的数据进行详细配置
    * style({
-   *   fields: [ 'x', 'y' ], // data fields of participating rules
+   *   fields: [ 'x', 'y' ], // 数据字段
    *   callback: (xVal, yVal) => {
    *     const style = { lineWidth: 2, stroke: '#1890ff' };
    *     if (xVal === 'a') {
@@ -480,7 +484,7 @@ export default class Geometry extends Base {
    * });
    * ```
    *
-   * @param field style mapping rules or just style
+   * @param field 配置样式属性或者样式规则。
    * @returns
    */
   public style(field: StyleOption | LooseObject): Geometry;
@@ -496,8 +500,8 @@ export default class Geometry extends Base {
    * });
    * ```
    *
-   * @param field data fields of participating rules
-   * @param styleFunc Optional, a callback function that defines the mapping rule
+   * @param field 数据字段或者样式配置规则。
+   * @param styleFunc Optional, 样式配置回调函数。
    * @returns
    */
   public style(field: string, styleFunc: StyleCallback): Geometry;
@@ -523,12 +527,12 @@ export default class Geometry extends Base {
   }
 
   /**
-   * configure gemoetry tooltip's content.
+   * 配置 Geometry 显示的 tooltip 内容。
    *
-   * `tooltip(false)` means close the tooltip
-   * `tooltip(true)` means close the tooltip
+   * `tooltip(false)` 代表关闭 tooltip。
+   * `tooltip(true)` 代表开启 tooltip。
    *
-   * The tooltip of geometry is open by default. So we can use this method to configure tootlip's content.
+   * Geometry 默认允许 tooltip 展示，我们可以使用以下方法对 tooltip 的展示内容进行配置：
    *
    * @example
    * ```typescript
@@ -546,7 +550,7 @@ export default class Geometry extends Base {
    * ```
    * ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*A_ujSa8QhtcAAAAAAAAAAABkARQnAQ)
    *
-   * The tooltip() method supports callbacks in the following way:
+   * tooltip() 方法同样支持数据映射及回调用法：
    *
    * @example
    * ```typescript
@@ -567,9 +571,9 @@ export default class Geometry extends Base {
    *   });
    * ```
    *
-   * the returned value must be an object whose attributes correspond to the `itemTpl` of chart.tooltip().
+   * 其返回的值必须为对象，该值中的属性同 chart.tooltip() 的 itemTpl 模板相对应，返回的变量可用于 itemTpl 的字符串模板。
    *
-   * @param field tooltip configuration
+   * @param field tooltip 配置信息。
    * @returns
    */
   public tooltip(field: TooltipOption | boolean): Geometry;
@@ -578,13 +582,13 @@ export default class Geometry extends Base {
    * ```typescript
    * // data: [{x: 'a', y: 10}]
    *
-   * // same with `tooltip({ fields: [ 'x' ] });`
+   * // 等同于 tooltip({ fields: [ 'x' ] })
    * tooltip('x');
    *
-   * // same with `tooltip({ fields: [ 'x', 'y' ] });`
+   * // 等同于 tooltip({ fields: [ 'x', 'y' ] })
    * tooltip('x*y');
    *
-   * // same with `tooltip({ fields: [ 'x', 'y' ], callback: (x, y) => { x, y } });`
+   * // 等同于 tooltip({ fields: [ 'x', 'y' ], callback: (x, y) => { x, y } })
    * tooltip('x*y', (x, y) => {
    *   return {
    *     x,
@@ -593,8 +597,8 @@ export default class Geometry extends Base {
    * });
    * ```
    *
-   * @param field the data fields display in tooltip
-   * @param cfg Optional, callback function to define tooltip content
+   * @param field 参与映射的字段。
+   * @param cfg Optional, 回调函数
    * @returns
    */
   public tooltip(field: string, cfg?: TooltipCallback): Geometry;
@@ -613,27 +617,28 @@ export default class Geometry extends Base {
   }
 
   /**
-   * Animation configuration
+   * Geometry 动画配置。
    *
-   * + `animate(false)` to close the animation
-   * + `animate(true)` to open the animation
+   * + `animate(false)` 关闭动画
+   * + `animate(true)` 开启动画，默认开启。
    *
-   * We divide animation into three types:
-   * 1. enter
-   * 2. update
-   * 3. leave
+   * 我们将动画分为四个场景：
+   * 1. appear: 图表第一次加载时的入场动画；
+   * 2. enter: 图表绘制完成，发生更新后，产生的新图形的进场动画；
+   * 3. update: 图表绘制完成，数据发生变更后，有状态变更的图形的更新动画；
+   * 4. leave: 图表绘制完成，数据发生变更后，被销毁图形的销毁动画。
    *
    * @example
    * ```typescript
    * animate({
    *   enter: {
-   *     duration: 1000, // enter animation execution time
+   *     duration: 1000, // enter 动画执行时间
    *   },
-   *   leave: false, // close leave animation
+   *   leave: false, // 关闭 leave 销毁动画
    * });
    * ```
    *
-   * @param cfg animation configuration
+   * @param cfg 动画配置
    * @returns
    */
   public animate(cfg: AnimateOption | boolean): Geometry {
@@ -642,29 +647,32 @@ export default class Geometry extends Base {
   }
 
   /**
-   * configure gemoetry label
+   * Geometry label 配置。
    *
    * @example
    * ```ts
    * // data: [ {x: 1, y: 2, z: 'a'}, {x: 2, y: 2, z: 'b'} ]
+   * // 在每个图形上显示 z 字段对应的数值
    * label({
    *   fields: [ 'z' ]
    * });
    *
-   * label(false); // do not show label
+   * label(false); // 不展示 label
    *
+   * // 在每个图形上显示 x 字段对应的数值，同时配置文本颜色为红色
    * label('x', {
    *   style: {
    *     fill: 'red',
    *   },
    * })
    *
+   * // 以 type 类型的 label 渲染每个图形上显示 x 字段对应的数值，同时格式化文本内容
    * label('x', (xValue) => {
    *   return {
    *     content: xValue + '%',
    *   };
    * }, {
-   *   type: 'base'
+   *   type: 'base' // 声明 label 类型
    * })
    * ```
    *
@@ -701,7 +709,7 @@ export default class Geometry extends Base {
   }
 
   /**
-   * 设置状态对应的样式
+   * 设置状态对应的样式。
    *
    * @example
    * ```ts
@@ -738,8 +746,8 @@ export default class Geometry extends Base {
   }
 
   /**
-   * Create [[Attribute]] and [[Scale]] instances, and data processing: group, numeric and adjust.
-   * Should be called after geometry instance created.
+   * 初始化 Geomtry 实例：
+   * 创建 [[Attribute]] and [[Scale]] 实例，进行数据处理，包括分组、数值化以及数据调整。
    */
   public init(cfg: InitCfg = {}) {
     this.setCfg(cfg);
@@ -752,6 +760,10 @@ export default class Geometry extends Base {
     this.adjustScale();
   }
 
+  /**
+   * Geometry 更新。
+   * @param [cfg] 更新的配置
+   */
   public update(cfg: InitCfg = {}) {
     const { data } = cfg;
     const { attributeOption, lastAttributeOption } = this;
@@ -773,8 +785,7 @@ export default class Geometry extends Base {
   }
 
   /**
-   * Mapping raw data to graphics data, while create the shapes.
-   * Should be called after `init()` or `pdateData()`
+   * 将原始数据映射至图形空间，同时创建图形对象。
    */
   public paint(isUpdate: boolean = false) {
     this.elements = [];
@@ -859,7 +870,7 @@ export default class Geometry extends Base {
   }
 
   /**
-   * Destroy the geometry
+   * 销毁 Geometry 实例。
    */
   public destroy() {
     this.clear();
@@ -879,7 +890,7 @@ export default class Geometry extends Base {
   }
 
   /**
-   * Get scales from color, shape and size attributes which determine data grouping
+   * 获取决定分组的图形属性对应的 scale 实例。
    * @returns
    */
   public getGroupScales(): Scale[] {
@@ -900,24 +911,24 @@ export default class Geometry extends Base {
   }
 
   /**
-   * Get Attribute instance by name.
+   * 根据名字获取图形属性实例。
    */
   public getAttribute(name: string): Attribute {
     return this.attributes[name];
   }
 
-  /** Get the scale corresponding to the x axis */
+  /** 获取 x 轴对应的 scale 实例。 */
   public getXScale(): Scale {
     return this.getAttribute('position').scales[0];
   }
 
-  /** Get the scale corresponding to the y axis */
+  /** 获取 y 轴对应的 scale 实例。 */
   public getYScale(): Scale {
     return this.getAttribute('position').scales[1];
   }
 
   /**
-   * Get the [[Attribute]] instances that will cause the grouping
+   * 获取决定分组的图形属性实例。
    */
   public getGroupAttributes(): Attribute[] {
     const rst = [];
@@ -929,6 +940,7 @@ export default class Geometry extends Base {
     return rst;
   }
 
+  /** 获取图形属性默认的映射值。 */
   public getDefaultValue(attrName: string) {
     let value: any;
     const attr = this.getAttribute(attrName);
@@ -940,9 +952,9 @@ export default class Geometry extends Base {
   }
 
   /**
-   * Gets attribute values from a data object
-   * @param attr the [[Attribute]] instance
-   * @param obj a raw data
+   * 获取该数据发生图形映射后对应的 Attribute 图形空间数据。
+   * @param attr Attribute 图形属性实例。
+   * @param obj 需要进行映射的原始数据。
    * @returns
    */
   public getAttributeValues(attr: Attribute, obj: Datum) {
@@ -966,9 +978,9 @@ export default class Geometry extends Base {
   }
 
   /**
-   * Gets shape marker style
-   * @param shapeName
-   * @param cfg
+   * 获取 shape 对应的 marker 样式
+   * @param shapeName shape 具体名字
+   * @param cfg marker 信息
    * @returns
    */
   public getShapeMarker(shapeName: string, cfg: ShapeMarkerCfg) {
@@ -977,7 +989,7 @@ export default class Geometry extends Base {
   }
 
   /**
-   * get elements which meet the user's condition
+   * 根据一定的规则查找 Geometry 的 Elements。
    *
    * ```typescript
    * getElementsBy((element) => {
@@ -987,7 +999,7 @@ export default class Geometry extends Base {
    * });
    * ```
    *
-   * @param condition callback function
+   * @param condition 定义查找规则的回调函数。
    * @returns
    */
   public getElementsBy(condition: (element: Element) => boolean): Element[] {
@@ -996,6 +1008,11 @@ export default class Geometry extends Base {
     });
   }
 
+  /**
+   * 获取数据对应的唯一 id。
+   * @param originData 原始数据。
+   * @returns
+   */
   public getElementId(originData: Datum) {
     const type = this.type;
     const xScale = this.getXScale();
@@ -1042,7 +1059,7 @@ export default class Geometry extends Base {
   }
 
   /**
-   * 获取所有需要创建 scale 的字段名称
+   * 获取所有需要创建 scale 的字段名称。
    */
   public getScaleFields(): string[] {
     let fields = [];
@@ -1058,6 +1075,10 @@ export default class Geometry extends Base {
     return uniq(fields);
   }
 
+  /**
+   * 显示或者隐藏 geometry。
+   * @param visible
+   */
   public changeVisible(visible: boolean) {
     super.changeVisible(visible);
     this.elements.forEach((element: Element) => {
@@ -1081,7 +1102,7 @@ export default class Geometry extends Base {
   }
 
   /**
-   * 获取当前配置中的所有分组 & 分类的字段
+   * 获取当前配置中的所有分组 & 分类的字段。
    * @return fields string[]
    */
   public getGroupFields(): string[] {
@@ -1095,13 +1116,14 @@ export default class Geometry extends Base {
   }
 
   /**
-   * 获得图形的 x y 字段
+   * 获得图形的 x y 字段。
    */
   public getXYFields() {
     const [x, y] = this.attributeOption.position.fields;
     return [x, y];
   }
 
+  // 训练度量
   protected adjustScale() {
     const yScale = this.getYScale();
     // 如果数据发生过 stack adjust，需要调整下 yScale 的数据范围

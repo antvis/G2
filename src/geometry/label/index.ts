@@ -4,8 +4,8 @@ import { GeometryLabelConstructor } from './base';
 
 /**
  * label 布局函数定义
- * @param labels 所有的 label shape
- * @param shapes 所有 label 对应的图形元素
+ * @param labels 所有的 labels 图形实例
+ * @param shapes 所有 label 对应的图形元素实例
  * @param region 画布区域
  * @param cfg 用于存储各个布局函数开放给用户的配置数据
  */

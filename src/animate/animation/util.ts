@@ -1,8 +1,9 @@
 import { transform } from '@antv/matrix-util';
 import { Coordinate, IGroup, IShape } from '../../dependents';
 import { Point } from '../../interface';
-import { getSectorPath } from '../../util/graphics';
 import { AnimateCfg } from '../interface';
+
+import { getSectorPath } from '../../util/graphics';
 
 /**
  * 获取同坐标系范围相同的剪切区域

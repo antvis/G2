@@ -3,9 +3,9 @@ import { ControllerCtor } from './base';
 const LOAD_COMPONENT_CONTROLLERS: Record<string, ControllerCtor> = {};
 
 /**
- * 全局注册插件
- * @param name
- * @param plugin
+ * 全局注册组件。
+ * @param name 组件名称
+ * @param plugin 注册的组件类
  * @returns void
  */
 export function registerComponentController(name: string, plugin: ControllerCtor) {
@@ -13,8 +13,8 @@ export function registerComponentController(name: string, plugin: ControllerCtor
 }
 
 /**
- * 删除全局插件
- * @param name
+ * 删除全局组件。
+ * @param name 组件名
  * @returns void
  */
 export function unregisterComponentController(name: string) {
@@ -22,16 +22,17 @@ export function unregisterComponentController(name: string) {
 }
 
 /**
- * 获取全局插件
- * @returns string[]
+ * 获取以注册的组件名。
+ * @returns string[] 返回已注册的组件名称
  */
 export function getComponentControllerNames(): string[] {
   return Object.keys(LOAD_COMPONENT_CONTROLLERS);
 }
 
 /**
- * 获得组件插件
- * @param name
+ * 根据组件名获取组件类。
+ * @param name 组件名
+ * @returns 返回组件类
  */
 export function getComponentController(name: string): ControllerCtor {
   return LOAD_COMPONENT_CONTROLLERS[name];

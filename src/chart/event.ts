@@ -3,17 +3,17 @@ import { Datum } from '../interface';
 import View from './view';
 
 /**
- * TODO Whether it can(or necessary to) keep consistent with the structure of G.Event or directly use the structure of G.Event
- * The event wrapper of G2 event, wrapper from G.Event
+ * @todo Whether it can(or necessary to) keep consistent with the structure of G.Event or directly use the structure of G.Event
+ * G2 事件的事件包装类，基于 G.Event
  */
 export default class Event {
-  /** the view which the target belongs to */
+  /** 当前 target 归属的 view 实例 */
   public view: View;
-  /** the event which G wrapped */
+  /** 被包装的原声 G 事件 */
   public gEvent: GEvent;
-  /** the data for the event, such as original data point */
+  /** 原始数据 */
   public data?: Datum;
-  /** the type of event */
+  /** 事件类型 */
   public type: string;
 
   constructor(view: View, gEvent: GEvent, data?: Datum) {
@@ -27,32 +27,32 @@ export default class Event {
 
   /** the real trigger shape of the event */
   public get target(): IShape {
-    // TODO G 中事件定义为 object 不正确，这里先 ignore
+    // @todo G 中事件定义为 object 不正确，这里先 ignore
     // @ts-ignore
     return this.gEvent.target;
   }
 
-  /** the original dom event object */
+  /** 获取对应的 dom 原生时间 */
   public get event(): any {
     return this.gEvent.originalEvent;
   }
 
-  /** the position x of canvas */
+  /** x 画布坐标 */
   public get x(): number {
     return this.gEvent.x;
   }
 
-  /** the position y of canvas */
+  /** y 画布坐标 */
   public get y(): number {
     return this.gEvent.y;
   }
 
-  /** the position x of window */
+  /** x 窗口坐标 */
   public get clientX(): number {
     return this.gEvent.clientX;
   }
 
-  /** the position y of window */
+  /** y 窗口坐标 */
   public get clientY(): number {
     return this.gEvent.clientY;
   }

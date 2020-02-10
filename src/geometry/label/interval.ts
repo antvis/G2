@@ -2,6 +2,9 @@ import { MappingDatum, Point } from '../../interface';
 import GeometryLabel from './base';
 import { LabelPointCfg } from './interface';
 
+/**
+ * 柱状图 label
+ */
 export default class IntervalLabel extends GeometryLabel {
   protected setLabelPosition(labelPointCfg: LabelPointCfg, mappingData: MappingDatum, index: number, position: string) {
     const coordinate = this.coordinate;

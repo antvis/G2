@@ -1,8 +1,9 @@
 import getArcParams from '@antv/g-canvas/lib/util/arc-params';
 import { isNumberEqual } from '@antv/util';
 import { IShape, PathCommand } from '../../dependents';
-import { getArcPath, getSectorPath } from '../../util/graphics';
 import { AnimateCfg, AnimateExtraCfg } from '../interface';
+
+import { getArcPath, getSectorPath } from '../../util/graphics';
 
 function getAngle(startPoint: number[], arcPath: PathCommand) {
   let { startAngle, endAngle } = getArcParams(startPoint, arcPath);
@@ -98,7 +99,7 @@ function getArcInfo(path: PathCommand[]) {
 }
 
 /**
- * 文本的更新动画，只会更新位移
+ * 饼图更新动画
  * @param shape 文本图形
  * @param animateCfg
  * @param cfg

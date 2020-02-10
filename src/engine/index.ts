@@ -4,7 +4,7 @@ const ENGINES: Record<string, IG> = {};
 
 /**
  * 通过名字获取渲染 engine
- * @param name
+ * @param name 渲染引擎名字
  * @returns G engine
  */
 export function getEngine(name: string): IG {
