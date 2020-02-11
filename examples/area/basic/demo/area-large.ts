@@ -75,7 +75,10 @@ fetch('../data/rain-flow.json')
 
     chart.option('slider', {
       start: 0.1,
-      end: 0.9,
+      end: 0.8,
+      trendCfg: {
+        isArea: false,
+      },
     });
 
     chart
