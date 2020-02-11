@@ -344,6 +344,54 @@ describe('Multiple views tooltip', () => {
     expect(tooltipItems.length).toBe(2);
   });
 
+  it('view.tooltip(false)', () => {
+    expectView.tooltip(false);
+
+    const position = expectView.getXY({ value: 60, name: '访问' });
+    const tooltipItems = chart.getTooltipItems(position);
+
+    expect(tooltipItems.length).toBe(1);
+  });
+
+  afterAll(() => {
+    chart.destroy();
+    removeDom(container);
+  });
+});
+
+describe('geometry.tooltip()', () => {
+  const container = createDiv();
+  const chart = new Chart({
+    container: container,
+    width: 400,
+    height: 300,
+  });
+  chart.data([
+    { year: '1991', value: 3 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 3.5 },
+    { year: '1994', value: 5 },
+    { year: '1995', value: 4.9 },
+  ]);
+  chart.scale('value', {
+    min: 0,
+    max: 10,
+  });
+  chart
+    .point()
+    .position('year*value')
+    .size(4)
+    .shape('circle')
+    .tooltip('year*value');
+  chart.render();
+
+  it('tooltip items', () => {
+    const point = chart.getXY({ year: '1994', value: 5 });
+    const tooltipItems = chart.getTooltipItems(point);
+
+    expect(tooltipItems.length).toBe(2);
+  });
+
   afterAll(() => {
     chart.destroy();
     removeDom(container);
