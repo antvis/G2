@@ -7,6 +7,9 @@ import { LabelCfg, LabelItem, LabelPointCfg } from './interface';
 
 const HALF_PI = Math.PI / 2;
 
+/**
+ * 极坐标下的图形 label
+ */
 export default class PolarLabel extends GeometryLabel {
   protected getLabelAlign(point: LabelItem) {
     const coordinate = this.coordinate;

@@ -103,6 +103,9 @@ function antiCollision(labels, lineHeight, plotRange, center, isRight) {
   });
 }
 
+/**
+ * 饼图 label
+ */
 export default class PieLabel extends PolarLabel {
   constructor(geometry: Geometry) {
     super(geometry);

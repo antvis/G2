@@ -1,5 +1,7 @@
 import { IGroup } from '../../../dependents';
-import { Point, ShapeInfo, ShapeMarkerCfg, ShapePoint } from '../../../interface';
+import { Point, ShapeInfo } from '../../../interface';
+import { ShapeMarkerCfg, ShapePoint } from '../interface';
+
 import { registerShape, registerShapeFactory } from '../base';
 import { getStyle } from '../util/get-style';
 import { getRectPath, getRectPoints } from './util';

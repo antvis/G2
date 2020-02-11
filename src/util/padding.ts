@@ -1,4 +1,4 @@
-import { isArray, isNumber, isString } from '@antv/util';
+import { isArray, isNumber } from '@antv/util';
 import { Padding, ViewPadding } from '../interface';
 
 /**

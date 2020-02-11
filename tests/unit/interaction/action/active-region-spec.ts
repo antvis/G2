@@ -23,7 +23,6 @@ describe('test active region', () => {
     { year: '1999', value: 3 },
   ]);
   chart.animate(false);
-  chart.tooltip(false);
   chart.interaction('active-region');
   chart.interval().position('year*value');
   chart.render();

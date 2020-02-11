@@ -17,9 +17,13 @@ function avg(arr: number[]) {
   return sum / arr.length;
 }
 
+/**
+ * Geometry Label 基类，用于解析 Geometry 下所有 label 的配置项信息
+ */
 export default class GeometryLabel {
+  /** geometry 实例 */
   public readonly geometry: Geometry;
-
+  // 坐标系
   protected coordinate: Coordinate;
   // 默认的 label 配置
   protected defaultLabelCfg: LooseObject;
@@ -31,6 +35,11 @@ export default class GeometryLabel {
     this.defaultLabelCfg = get(geometry.theme, 'labels', {}); // 默认样式
   }
 
+  /**
+   * 根据当前 shape 对应的映射数据获取对应的 label 配置信息。
+   * @param mapppingArray 映射后的绘制数据
+   * @returns
+   */
   public getLabelItems(mapppingArray: MappingDatum[]) {
     const items = this.adjustItems(this.getItems(mapppingArray));
     this.drawLines(items);

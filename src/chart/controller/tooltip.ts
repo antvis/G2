@@ -1,5 +1,5 @@
 import { vec2 } from '@antv/matrix-util';
-import { deepMix, each, find, get, isArray, isEqual, isFunction } from '@antv/util';
+import { deepMix, each, find, flatten, get, isArray, isEqual, isFunction } from '@antv/util';
 import { Crosshair, HtmlTooltip, IGroup } from '../../dependents';
 import Geometry from '../../geometry/base';
 import { MappingDatum, Point } from '../../interface';
@@ -8,6 +8,10 @@ import { polarToCartesian } from '../../util/graphics';
 import { findDataByPoint, getTooltipItems } from '../../util/tooltip';
 import { TooltipOption } from '../interface';
 import { Controller } from './base';
+
+function getFirstItem(item) {
+  return isArray(item) ? item[0] : item;
+}
 
 // Filter duplicates, use `name`, `color`, `value` and `title` property values as condition
 function uniq(items) {
@@ -251,46 +255,33 @@ export default class Tooltip extends Controller<TooltipOption> {
 
   public getTooltipItems(point: Point) {
     let items = this.findItemsFromView(this.view, point);
-
-    each(items, (item) => {
-      const { x, y } = item.mappingData;
-      item.x = isArray(x) ? x[x.length - 1] : x;
-      item.y = isArray(y) ? y[y.length - 1] : y;
-    });
-
     if (items.length) {
-      const first = items[0];
-      // bugfix: 由于点图的数据查找策略不同，所以有可能存在相同坐标点，查到的数据 x 字段不同的情况（即 title 不同）
-      // 比如带点的折线图
-      if (!items.every((item) => item.title === first.title)) {
-        let nearestItem = first;
-        let nearestDistance = Infinity;
-        items.forEach((item) => {
-          const distance = vec2.distance([point.x, point.y], [item.x, item.y]);
-          if (distance < nearestDistance) {
-            nearestDistance = distance;
-            nearestItem = item;
+      each(flatten(items), (item) => {
+        const { x, y } = item.mappingData;
+        item.x = isArray(x) ? x[x.length - 1] : x;
+        item.y = isArray(y) ? y[y.length - 1] : y;
+      });
+
+      const { shared } = this.getTooltipCfg();
+      // shared: false 代表只显示当前拾取到的 shape 的数据，但是一个 view 会有多个 Geometry，所以有可能会拾取到多个 shape
+      if (shared === false && items.length > 1) {
+        let snapItem = getFirstItem(items[0]);
+        let min = Math.abs(point.y - snapItem.y);
+        each(items, (aItem) => {
+          const firstAItem = getFirstItem(aItem);
+          const yDistance = Math.abs(point.y - firstAItem.y);
+          if (yDistance <= min) {
+            snapItem = firstAItem;
+            min = yDistance;
           }
         });
-        items = items.filter((item) => item.title === nearestItem.title);
+        items = [snapItem];
       }
-    }
-    const { shared } = this.getTooltipCfg();
-    // shared: false 代表只显示当前拾取到的 shape 的数据，但是一个 view 会有多个 Geometry，所以有可能会拾取到多个 shape
-    if (shared === false && items.length > 1) {
-      let snapItem = items[0];
-      let min = Math.abs(point.y - snapItem.y);
-      each(items, (aItem) => {
-        const yDistance = Math.abs(point.y - aItem.y);
-        if (yDistance <= min) {
-          snapItem = aItem;
-          min = yDistance;
-        }
-      });
-      items = [snapItem];
+
+      return uniq(flatten(items));
     }
 
-    return items;
+    return [];
   }
 
   public layout() { }
@@ -578,6 +569,11 @@ export default class Tooltip extends Controller<TooltipOption> {
   }
 
   private findItemsFromView(view, point) {
+    if (view.getOptions().tooltip === false) {
+      // 如果 view 关闭了 tooltip
+      return [];
+    }
+
     let result = [];
     // 先从 view 本身查找
     const geometries = view.geometries;
@@ -600,15 +596,18 @@ export default class Tooltip extends Controller<TooltipOption> {
             tooltipItems = this.getTooltipItemsByHitShape(geometry, point, title);
           }
         }
-        result = result.concat(tooltipItems);
+        if (tooltipItems.length) {
+          // geometry 有可能会有多个 item，因为用户可以设置 geometry.tooltip('x*y*z')
+          result.push(tooltipItems);
+        }
       }
     });
 
-    // 递归查找
+    // 递归查找，并合并结果
     each(view.views, (childView) => {
       result = result.concat(this.findItemsFromView(childView, point));
     });
 
-    return uniq(result); // 去除重复值
+    return result;
   }
 }

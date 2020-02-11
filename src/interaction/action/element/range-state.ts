@@ -1,6 +1,6 @@
 import { each } from '@antv/util';
 import Element from '../../../geometry/element/';
-import { getIntersectElements } from '../util';
+import { getIntersectElements, getElements } from '../util';
 import StateBase from './state-base';
 
 /**
@@ -41,17 +41,24 @@ class ElementRangeState extends StateBase {
       maxX: Math.max(startPoint.x, endPoint.x),
       maxY: Math.max(startPoint.y, endPoint.y),
     };
-    this.clear(); // 区域设置状态，要清理之前的状态
+    // this.clear(); // 不全部清理，会导致闪烁
     const view = this.context.view;
+    const allElements = getElements(view);
     const elements = getIntersectElements(view, box);
     if (elements.length) {
-      this.setElementsState(elements, enable);
+      this.setElementsState(elements, enable, allElements);
+    } else {
+      this.clear();
     }
   }
 
-  protected setElementsState(elements: Element[], enable) {
-    each(elements, (el) => {
-      this.setElementState(el, enable);
+  protected setElementsState(elements: Element[], enable, allElements: Element[]) {
+    each(allElements, (el) => {
+      if (!elements.includes(el)) {
+        this.setElementState(el, false);
+      } else {
+        this.setElementState(el, enable);
+      }
     });
   }
 

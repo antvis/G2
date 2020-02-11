@@ -19,24 +19,9 @@ import {
   uniq,
   uniqueId,
 } from '@antv/util';
-import Base from '../base';
-import { GROUP_Z_INDEX, LAYER, PLOT_EVENTS, VIEW_LIFE_CIRCLE } from '../constant';
 import { Attribute, Coordinate, Event as GEvent, GroupComponent, ICanvas, IGroup, IShape, Scale } from '../dependents';
-import { Facet, getFacet } from '../facet';
 import { FacetCfgMap } from '../facet/interface';
-import Geometry from '../geometry/base';
-import { createInteraction, Interaction } from '../interaction/';
-import { Data, Datum, LooseObject, Point, Region, ScaleOption, ViewPadding } from '../interface';
-import { BBox } from '../util/bbox';
-import { isFullCircle, isPointInCoordinate } from '../util/coordinate';
-import { mergeTheme } from '../util/theme';
-import Chart from './chart';
-import { getComponentController, getComponentControllerNames } from './controller';
-import AnnotationComponent, { BaseOption as AnnotationBaseOption } from './controller/annotation';
-import { Controller } from './controller/base';
-import CoordinateController from './controller/coordinate';
-import TooltipComponent from './controller/tooltip';
-import Event from './event';
+import { Data, Datum, LooseObject, Point, Region, ViewPadding } from '../interface';
 import {
   AxisOption,
   ComponentOption,
@@ -47,58 +32,70 @@ import {
   InteractionOption,
   LegendOption,
   Options,
+  ScaleOption,
   TooltipOption,
   ViewCfg,
   ViewOption,
 } from './interface';
+
+import { GROUP_Z_INDEX, LAYER, PLOT_EVENTS, VIEW_LIFE_CIRCLE } from '../constant';
+
+import Base from '../base';
+import { Facet, getFacet } from '../facet';
+import Geometry from '../geometry/base';
+import { createInteraction, Interaction } from '../interaction';
+import { BBox } from '../util/bbox';
+import { isFullCircle, isPointInCoordinate } from '../util/coordinate';
+import { mergeTheme } from '../util/theme';
+import Chart from './chart';
+import { getComponentController, getComponentControllerNames } from './controller';
+import AnnotationComponent, { BaseOption as AnnotationBaseOption } from './controller/annotation';
+import { Controller } from './controller/base';
+import CoordinateController from './controller/coordinate';
+import TooltipComponent from './controller/tooltip';
+import Event from './event';
 import defaultLayout, { Layout } from './layout';
 import { ScalePool } from './util/scale-pool';
 
 /**
- * view container of G2
+ * G2 视图 View 类
  */
 export class View extends Base {
-  /** view id，全局唯一 */
+  /** view id，全局唯一。 */
   public id: string = uniqueId('view');
-  /** 父级 view，如果没有父级，则为空 */
+  /** 父级 view，如果没有父级，则为空。 */
   public parent: View;
-  /** 所有的子 view */
+  /** 所有的子 view。 */
   public views: View[] = [];
-  /** 所有的 geometry 实例 */
+  /** 所有的 geometry 实例。 */
   public geometries: Geometry[] = [];
-  /** 所有的组件 controllers */
+  /** 所有的组件 controllers。 */
   public controllers: Controller[] = [];
-  /** 所有的 Interaction 实例 */
+  /** 所有的 Interaction 实例。 */
   public interactions: Record<string, Interaction> = {};
 
-  /** view 区域空间 ViewBBox - padding = coordinateBBox */
+  /** view 区域空间。 */
   public viewBBox: BBox;
-  /** 图形区域的大小 */
-  // public plotBBox: BBox;
-  /** 坐标系的位置大小 */
+  /** 坐标系的位置大小，ViewBBox - padding = coordinateBBox。 */
   public coordinateBBox: BBox;
-  /** view 的 padding 大小，传入的配置（不是解析之后的值） */
+  /** view 的 padding 大小，传入的配置（不是解析之后的值）。 */
   public padding: ViewPadding;
-
+  /** G.Canvas 实例。 */
   public canvas: ICanvas;
 
-  // 三层 Group 图层
-  /** 背景层 */
+  /** 三层 Group 图形中的背景层。 */
   public backgroundGroup: IGroup;
-  /** 中间层 */
+  /** 三层 Group 图形中的中间层。 */
   public middleGroup: IGroup;
-  /** 前景层 */
+  /** 三层 Group 图形中的前景层。 */
   public foregroundGroup: IGroup;
 
-  /** 标记 view 的大小位置范围，均是 0 ~ 1 范围，便于开发者使用 */
+  /**
+   * 标记 view 的大小位置范围，均是 0 ~ 1 范围，便于开发者使用，起始点为左上角。
+   */
   protected region: Region;
-  /** 主题配置 */
+  /** 主题配置，存储当前主题配置。 */
   protected themeObject: object;
-
-  /** 用于捕获 view event 的 rect shape */
-  private viewEventCaptureRect: IShape;
-  /** 配置开启的组件插件，默认为全局配置的组件 */
-  private usedControllers: string[] = getComponentControllerNames();
 
   // 配置信息存储
   protected options: Options = {
@@ -106,23 +103,28 @@ export class View extends Base {
     animate: true, // 默认开启动画
   }; // 初始化为空
 
-  // 过滤之后的数据
+  /** 过滤之后的数据 */
   protected filteredData: Data;
+
+  /** 用于捕获 view event 的 rect shape。 */
+  private viewEventCaptureRect: IShape;
+  /** 配置开启的组件插件，默认为全局配置的组件。 */
+  private usedControllers: string[] = getComponentControllerNames();
 
   /** 所有的 scales */
   private scalePool: ScalePool = new ScalePool();
 
-  // 布局函数
+  /** 布局函数 */
   protected layoutFunc: Layout = defaultLayout;
-  // 生成的坐标系实例
+  /** 生成的坐标系实例 */
   protected coordinateInstance: Coordinate;
   protected coordinateController: CoordinateController;
-  // 分面类实例
+  /** 分面类实例 */
   protected facetInstance: Facet;
 
   /** 当前鼠标是否在 plot 内（CoordinateBBox） */
   private isPreMouseInPlot: boolean = false;
-  // tooltip 是否被锁定
+  /** tooltip 是否被锁定 */
   private tooltipLocked: boolean;
 
   constructor(props: ViewCfg) {
@@ -155,17 +157,8 @@ export class View extends Base {
   }
 
   /**
-   * 添加一个 geometry 到画布
-   * @param geometry
-   * @returns void
-   */
-  public addGeometry(geometry: Geometry) {
-    this.geometries.push(geometry);
-  }
-
-  /**
-   * 设置 layout 函数
-   * @param layout
+   * 设置 layout 布局函数
+   * @param layout 布局函数
    * @returns void
    */
   public setLayout(layout: Layout) {
@@ -200,9 +193,9 @@ export class View extends Base {
   }
 
   /**
-   * 生命周期：渲染流程，渲染过程需要处理数据更新的情况
-   * render 函数仅仅会处理 view 和子 view
-   * @returns void
+   * 生命周期：渲染流程，渲染过程需要处理数据更新的情况。
+   * render 函数仅仅会处理 view 和子 view。
+   * @param isUpdate 是否触发更新流程。
    */
   public render(isUpdate: boolean = false) {
     this.emit(VIEW_LIFE_CIRCLE.BEFORE_RENDER);
@@ -218,7 +211,7 @@ export class View extends Base {
   }
 
   /**
-   * 生命周期：清空，之后可以再走 init 流程，正常使用
+   * 生命周期：清空图表上所有的绘制内容，但是不销毁图表，chart 仍可使用。
    * @returns void
    */
   public clear() {
@@ -248,7 +241,7 @@ export class View extends Base {
   }
 
   /**
-   * 生命周期：销毁，完全无法使用
+   * 生命周期：销毁，完全无法使用。
    * @returns void
    */
   public destroy() {
@@ -278,7 +271,12 @@ export class View extends Base {
   }
   /* end 生命周期函数 */
 
-  public changeVisible(visible: boolean) {
+  /**
+   * 显示或者隐藏整个 view。
+   * @param visible 是否可见
+   * @returns View
+   */
+  public changeVisible(visible: boolean): View {
     super.changeVisible(visible);
     this.geometries.forEach((geometry: Geometry) => {
       geometry.changeVisible(visible);
@@ -291,18 +289,20 @@ export class View extends Base {
     this.middleGroup.set('visible', visible);
     this.backgroundGroup.set('visible', visible);
 
-    // set('visible', visible) 不会触发自动刷新
+    // group.set('visible', visible) 不会触发自动刷新
     this.getCanvas().draw();
+
+    return this;
   }
 
   /**
-   * 装载数据
+   * 装载数据源。
    *
    * ```ts
    * view.data([{ city: '杭州', sale: 100 }, { city: '上海', sale: 110 } ]);
    * ```
    *
-   * @param data
+   * @param data 数据源，json 数组。
    * @returns View
    */
   public data(data: Data): View {
@@ -312,17 +312,17 @@ export class View extends Base {
   }
 
   /**
-   * 设置数据筛选配置
+   * 设置数据筛选规则。
    *
    * ```ts
    * view.filter('city', (value: any, datum: Datum) => value !== '杭州');
    *
-   * // delete the filter on city field
+   * // 删除 'city' 字段对应的筛选规则。
    * view.filter('city', null);
    * ```
    *
-   * @param field
-   * @param condition
+   * @param field 数据字段
+   * @param condition 筛选规则
    * @returns View
    */
   public filter(field: string, condition: FilterCondition | null): View {
@@ -339,22 +339,30 @@ export class View extends Base {
   }
 
   /**
-   * 设置 axis 组件的配置
+   * 开启或者关闭坐标轴。
    *
    * ```ts
-   * view.axis(false);
+   *  view.axis(false); // 不展示坐标轴
+   * ```
+   * @param field 坐标轴开关
+   */
+  public axis(field: boolean): View;
+  /**
+   * 对特定的某条坐标轴进行配置。
    *
-   * view.axis('city', false);
+   * @example
+   * ```ts
+   * view.axis('city', false); // 不展示 'city' 字段对应的坐标轴
    *
+   * // 将 'city' 字段对应的坐标轴的标题隐藏
    * view.axis('city', {
-   *   title: false,
+   *   title: null,
    * });
    * ```
    *
-   * @param field
-   * @returns View
+   * @param field 要配置的坐标轴对应的字段名称
+   * @param axisOption 坐标轴具体配置
    */
-  public axis(field: boolean): View;
   public axis(field: string, axisOption: AxisOption): View;
   public axis(field: string | boolean, axisOption?: AxisOption): View {
     if (isBoolean(field)) {
@@ -367,22 +375,36 @@ export class View extends Base {
   }
 
   /**
-   * 设置图例配置
+   * 对图例进行整体配置。
    *
    * ```ts
-   * view.legend(false);
+   * view.legend(false); // 关闭图例
    *
-   * view.legend('city', false);
+   * view.legend({
+   *   position: 'right',
+   * }); // 图例进行整体配置
+   * ```
+   * @param field
+   * @returns View
+   */
+  public legend(field: LegendOption): View;
+  /**
+   * 对特定的图例进行配置。
    *
+   * @example
+   * ```ts
+   * view.legend('city', false); // 关闭某个图例，通过数据字段名进行关联
+   *
+   * // 对特定的图例进行配置
    * view.legend('city', {
    *   position: 'right',
    * });
    * ```
    *
-   * @param field
+   * @param field 图例对应的数据字段名称
+   * @param legendOption 图例配置
    * @returns View
    */
-  public legend(field: LegendOption): View;
   public legend(field: string, legendOption: LegendOption): View;
   public legend(field: string | LegendOption, legendOption?: LegendOption): View {
     if (isBoolean(field)) {
@@ -398,7 +420,7 @@ export class View extends Base {
   }
 
   /**
-   * 批量设置 scale 配置
+   * 批量设置 scale 配置。
    *
    * ```ts
    * view.scale({
@@ -409,11 +431,11 @@ export class View extends Base {
    * });
    * ```
    *
-   * @returns void
+   * @returns View
    */
   public scale(field: Record<string, ScaleOption>): View;
   /**
-   * 设置 scale 配置
+   * 为特性的数据字段进行 scale 配置。
    *
    * ```ts
    * view.scale('sale', {
@@ -422,7 +444,7 @@ export class View extends Base {
    * });
    * ```
    *
-   * @returns void
+   * @returns View
    */
   public scale(field: string, scaleOption: ScaleOption): View;
   public scale(field: string | Record<string, ScaleOption>, scaleOption?: ScaleOption): View {
@@ -438,18 +460,18 @@ export class View extends Base {
   }
 
   /**
-   * tooltip configuration
+   * tooltip 提示信息配置。
    *
-   * ```typescript
-   * chart.tooltip(false); // turn off tooltip
+   * ```ts
+   * view.tooltip(false); // 关闭 tooltip
    *
-   * chart.tooltip({
+   * view.tooltip({
    *   shared: true
    * });
    * ```
    *
-   * @param cfg
-   * @returns
+   * @param cfg Tooltip 配置
+   * @returns View
    */
   public tooltip(cfg: boolean | TooltipOption): View {
     set(this.options, 'tooltip', cfg);
@@ -458,14 +480,48 @@ export class View extends Base {
   }
 
   /**
-   * 辅助标记配置
+   * 辅助标记配置。
+   *
+   * ```ts
+   * view.annotation().line({
+   *   start: ['min', 85],
+   *   end: ['max', 85],
+   *   style: {
+   *     stroke: '#595959',
+   *     lineWidth: 1,
+   *     lineDash: [3, 3],
+   *   },
+   * });
+   * ```
+   *
+   * @returns
    */
   public annotation(): AnnotationComponent {
     return this.getController('annotation') as AnnotationComponent;
   }
 
   /**
-   * 设置坐标系配置
+   * 坐标系配置。
+   *
+   * @example
+   * ```ts
+   * view.coordinate({
+   *   type: 'polar',
+   *   cfg: {
+   *     radius: 0.85,
+   *   },
+   *   actions: [
+   *     [ 'transpose' ],
+   *   ],
+   * });
+   * ```
+   *
+   * @param option
+   * @returns
+   */
+  public coordinate(option?: CoordinateOption): CoordinateController;
+  /**
+   * 声明坐标系类型，并进行配置。
    *
    * ```ts
    * // 直角坐标系，并进行转置变换
@@ -475,10 +531,10 @@ export class View extends Base {
    * view.coordinate();
    * ```
    *
-   * @param option
-   * @returns [[Coordinate]]
+   * @param type 坐标系类型
+   * @param [coordinateCfg] 坐标系配置
+   * @returns
    */
-  public coordinate(option?: CoordinateOption): CoordinateController;
   public coordinate(type: string, coordinateCfg?: CoordinateCfg): CoordinateController;
   public coordinate(type: string | CoordinateOption, coordinateCfg?: CoordinateCfg): CoordinateController {
     // 提供语法糖，使用更简单
@@ -495,7 +551,7 @@ export class View extends Base {
   }
 
   /**
-   * view 分面绘制
+   * view 分面绘制。
    *
    * ```ts
    * view.facet('rect', {
@@ -507,8 +563,8 @@ export class View extends Base {
    * });
    * ```
    *
-   * @param type
-   * @param cfg
+   * @param type 分面类型
+   * @param cfg 分面配置
    * @returns View
    */
   public facet<T extends keyof FacetCfgMap>(type: T, cfg: FacetCfgMap[T]) {
@@ -530,7 +586,7 @@ export class View extends Base {
   }
 
   /*
-   * 开启或者关闭动画
+   * 开启或者关闭动画。
    *
    * ```ts
    * view.animate(false);
@@ -545,7 +601,7 @@ export class View extends Base {
   }
 
   /**
-   * 更新配置项，用于配置项式声明
+   * 更新配置项，用于配置项式声明。
    * @param options 配置项
    */
   public updateOptions(options: Options) {
@@ -559,9 +615,9 @@ export class View extends Base {
   }
 
   /**
-   * 设置 option 配置
-   * @param name
-   * @param opt
+   * 往 `view.options` 属性中存储配置项。
+   * @param name 属性名称
+   * @param opt 属性值
    * @returns view
    */
   public option(name: string, opt: any): View {
@@ -577,15 +633,15 @@ export class View extends Base {
   }
 
   /**
-   * 设置主题
+   * 设置主题。
    *
    * ```ts
-   * view.theme('dark');
+   * view.theme('dark'); // 'dark' 需要事先通过 `registerTheme()` 接口注册完成
    *
    * view.theme({ defaultColor: 'red' });
    * ```
    *
-   * @param theme
+   * @param theme 主题名或者主题配置
    * @returns View
    */
   public theme(theme: string | object): View {
@@ -735,7 +791,7 @@ export class View extends Base {
   // 一些 get 方法
 
   /**
-   * 获取坐标系
+   * 获取当前坐标系实例。
    * @returns [[Coordinate]]
    */
   public getCoordinate() {
@@ -743,7 +799,7 @@ export class View extends Base {
   }
 
   /**
-   * 获取当前 view 的主题配置
+   * 获取当前 view 的主题配置。
    * @returns themeObject
    */
   public getTheme(): object {
@@ -751,7 +807,7 @@ export class View extends Base {
   }
 
   /**
-   * 获得 x 轴字段的 scale 实例
+   * 获得 x 轴字段的 scale 实例。
    * @returns view 中 Geometry 对于的 x scale
    */
   public getXScale(): Scale {
@@ -762,7 +818,7 @@ export class View extends Base {
   }
 
   /**
-   * 获取 y 轴字段的 scales 实例
+   * 获取 y 轴字段的 scales 实例。
    * @returns view 中 Geometry 对于的 y scale 数组
    */
   public getYScales(): Scale[] {
@@ -771,9 +827,9 @@ export class View extends Base {
   }
 
   /**
-   * get Scales object
+   * 获取 x 轴或者 y 轴对应的所有 scale 实例。
    * @param dimType x | y
-   * @returns scales object key by field
+   * @returns x 轴或者 y 轴对应的所有 scale 实例。
    */
   public getScalesByDim(dimType: 'x' | 'y'): Record<string, Scale> {
     const geometries = this.geometries;
@@ -790,9 +846,9 @@ export class View extends Base {
   }
 
   /**
-   * 根据字段名去获取 scale
-   * @param field
-   * @param key
+   * 根据字段名去获取 scale 实例。
+   * @param field 数据字段名称
+   * @param key id
    */
   public getScaleByField(field: string, key?: string): Scale {
     const defaultKey = key ? key : this.getScaleKey(field);
@@ -801,46 +857,46 @@ export class View extends Base {
   }
 
   /**
-   * 返回所有配置信息
-   * @returns 所有的 view API 配置
+   * 返回所有配置信息。
+   * @returns 所有的 view API 配置。
    */
   public getOptions(): Options {
     return this.options;
   }
 
   /**
-   * 获取 view 的数据（过滤后的数据）
-   * @returns 处理过滤器之后的数据
+   * 获取 view 的数据（过滤后的数据）。
+   * @returns 处理过滤器之后的数据。
    */
   public getData() {
     return this.filteredData;
   }
 
   /**
-   * 获得绘制的层级 group
-   * @param layer
-   * @returns 对应层级的 Group
+   * 获得绘制的层级 group。
+   * @param layer 层级名称。
+   * @returns 对应层级的 Group。
    */
   public getLayer(layer: LAYER): IGroup {
     return layer === LAYER.BG
       ? this.backgroundGroup
       : layer === LAYER.MID
-      ? this.middleGroup
-      : layer === LAYER.FORE
-      ? this.foregroundGroup
-      : this.foregroundGroup;
+        ? this.middleGroup
+        : layer === LAYER.FORE
+          ? this.foregroundGroup
+          : this.foregroundGroup;
   }
 
   /**
-   * 对外暴露方法，判断一个点是否在 plot 内部
-   * @param point
+   * 对外暴露方法，判断一个点是否在绘图区域（即坐标系范围）内部。
+   * @param point 坐标点
    */
   public isPointInPlot(point: Point): boolean {
     return isPointInCoordinate(this.getCoordinate(), point);
   }
 
   /**
-   * 获得所有的 legend 对应的 attribute 实例
+   * 获得所有的 legend 对应的 attribute 实例。
    * @returns 维度字段的 Attribute 数组
    */
   public getLegendAttributes(): Attribute[] {
@@ -848,8 +904,8 @@ export class View extends Base {
   }
 
   /**
-   * 获取所有的分组字段的 scales
-   * @returns 获得分组字段的 scales 数组
+   * 获取所有的分组字段的 scale 实例。
+   * @returns 获得分组字段的 scale 实例数组。
    */
   public getGroupScales(): Scale[] {
     // 拿到所有的 Geometry 的 分组字段 scale，然后打平去重
@@ -858,15 +914,15 @@ export class View extends Base {
   }
 
   /**
-   * 获取 G.Canvas 实例
-   * @returns G.Canvas 画布实例
+   * 获取 G.Canvas 实例。
+   * @returns G.Canvas 画布实例。
    */
   public getCanvas(): ICanvas {
     return ((this.getRootView() as unknown) as Chart).canvas;
   }
 
   /**
-   * 获得根节点 view
+   * 获得根节点 view。
    */
   public getRootView(): View {
     let v = this as View;
@@ -882,9 +938,9 @@ export class View extends Base {
   }
 
   /**
-   * get the canvas coordinate of the data
-   * @param data
-   * @returns
+   * 获取该数据在可视化后，对应的画布坐标点。
+   * @param data 原始数据记录
+   * @returns 对应的画布坐标点
    */
   public getXY(data: Datum): Point {
     const coordinate = this.getCoordinate();
@@ -908,7 +964,7 @@ export class View extends Base {
   }
 
   /**
-   * get controller
+   * 获取 name 对应的 controller 实例
    * @param name
    */
   public getController(name: string): Controller {
@@ -916,8 +972,8 @@ export class View extends Base {
   }
 
   /**
-   * 显示 tooltip
-   * @param point
+   * 显示 point 坐标点对应的 tooltip。
+   * @param point 画布坐标点
    * @returns View
    */
   public showTooltip(point: Point): View {
@@ -929,7 +985,7 @@ export class View extends Base {
   }
 
   /**
-   * 隐藏 tooltip
+   * 隐藏 tooltip。
    * @returns View
    */
   public hideTooltip(): View {
@@ -941,7 +997,7 @@ export class View extends Base {
   }
 
   /**
-   * 将 tooltip 锁定到当前位置不能移动
+   * 将 tooltip 锁定到当前位置不能移动。
    * @returns View
    */
   public lockTooltip(): View {
@@ -950,7 +1006,7 @@ export class View extends Base {
   }
 
   /**
-   * 将 tooltip 锁定解除
+   * 将 tooltip 锁定解除。
    * @returns View
    */
   public unlockTooltip(): View {
@@ -959,7 +1015,7 @@ export class View extends Base {
   }
 
   /**
-   * 是否锁定 tooltip
+   * 是否锁定 tooltip。
    * @returns 是否锁定
    */
   public isTooltipLocked() {
@@ -967,9 +1023,9 @@ export class View extends Base {
   }
 
   /**
-   * 获取 tooltip 数据项
-   * @param point
-   * @returns items of tooltip
+   * 获取当前 point 对应的 tooltip 数据项。
+   * @param point 坐标点
+   * @returns tooltip 数据项
    */
   public getTooltipItems(point: Point) {
     const tooltip = this.getController('tooltip') as TooltipComponent;
@@ -978,7 +1034,7 @@ export class View extends Base {
   }
 
   /**
-   * 获取所有的 pure component 组件，用于布局
+   * 获取所有的 pure component 组件，用于布局。
    */
   public getComponents(): ComponentOption[] {
     const components = [];
@@ -991,7 +1047,7 @@ export class View extends Base {
   }
 
   /**
-   * 将 data 数据进行过滤
+   * 将 data 数据进行过滤。
    * @param data
    * @returns 过滤之后的数据
    */
@@ -1031,6 +1087,15 @@ export class View extends Base {
     }
 
     return filter(data, (datum: Datum) => condition(datum[field], datum));
+  }
+
+  /**
+   * 调整 coordinate 的坐标范围。
+   */
+  public adjustCoordinate() {
+    const start = this.coordinateBBox.bl;
+    const end = this.coordinateBBox.tr;
+    this.coordinateInstance = this.coordinateController.adjust(start, end);
   }
 
   protected paint(isUpdate: boolean) {
@@ -1104,7 +1169,29 @@ export class View extends Base {
 
   // end Get 方法
 
-  // 生命周期子流程——初始化流程
+  /**
+   * 创建 scale，递归到顶层 view 去创建和缓存 scale
+   * @param field
+   * @param data
+   * @param scaleDef
+   * @param key
+   */
+  protected createScale(field: string, data: Data, scaleDef: ScaleOption, key?: string): Scale {
+    // 1. 合并 field 对应的 scaleDef，合并原则是底层覆盖顶层（就近原则）
+    const currentScaleDef = get(this.options.scales, [field]);
+    const mergedScaleDef = { ...currentScaleDef, ...scaleDef };
+
+    // 2. 生成默认的 key
+    const defaultKey = key ? key : this.getScaleKey(field);
+
+    // 3. 是否存在父 view，在则递归，否则创建
+    if (this.parent) {
+      return this.parent.createScale(field, data, mergedScaleDef, defaultKey);
+    }
+
+    // 4. 在根节点 view 通过 scalePool 创建
+    return this.scalePool.createScale(field, data, mergedScaleDef, defaultKey);
+  }
 
   /**
    * 计算 region，计算实际的像素范围坐标
@@ -1291,7 +1378,7 @@ export class View extends Base {
         this.isPreMouseInPlot = currentInPlot;
       } else if (type === 'mouseleave') { // 可能不在 currentInPlot 中
         if (this.isPreMouseInPlot) {
-          e.type == PLOT_EVENTS.MOUSE_LEAVE;
+          e.type = PLOT_EVENTS.MOUSE_LEAVE;
           this.emit(PLOT_EVENTS.MOUSE_LEAVE, e);
           this.isPreMouseInPlot = false;
         }
@@ -1378,30 +1465,6 @@ export class View extends Base {
         scaleDef
       );
     });
-  }
-
-  /**
-   * 创建 scale，递归到顶层 view 去创建和缓存 scale
-   * @param field
-   * @param data
-   * @param scaleDef
-   * @param key
-   */
-  protected createScale(field: string, data: Data, scaleDef: ScaleOption, key?: string): Scale {
-    // 1. 合并 field 对应的 scaleDef，合并原则是底层覆盖顶层（就近原则）
-    const currentScaleDef = get(this.options.scales, [field]);
-    const mergedScaleDef = { ...currentScaleDef, ...scaleDef };
-
-    // 2. 生成默认的 key
-    const defaultKey = key ? key : this.getScaleKey(field);
-
-    // 3. 是否存在父 view，在则递归，否则创建
-    if (this.parent) {
-      return this.parent.createScale(field, data, mergedScaleDef, defaultKey);
-    }
-
-    // 4. 在根节点 view 通过 scalePool 创建
-    return this.scalePool.createScale(field, data, mergedScaleDef, defaultKey);
   }
 
   /**
@@ -1536,15 +1599,6 @@ export class View extends Base {
   }
 
   /**
-   * 调整 coordinate 的坐标范围
-   */
-  public adjustCoordinate() {
-    const start = this.coordinateBBox.bl;
-    const end = this.coordinateBBox.tr;
-    this.coordinateInstance = this.coordinateController.adjust(start, end);
-  }
-
-  /**
    * 根据 options 配置自动渲染 geometry
    * @private
    */
@@ -1640,6 +1694,15 @@ export class View extends Base {
   private getScaleKey(field: string): string {
     return `${this.id}-${field}`;
   }
+
+  /**
+   * 添加一个 geometry 到画布。
+   * @param geometry geometry 实例
+   * @returns void
+   */
+  private addGeometry(geometry: Geometry) {
+    this.geometries.push(geometry);
+  }
 }
 
 /**
@@ -1650,7 +1713,7 @@ export class View extends Base {
  */
 export function registerGeometry(name: string, Ctor: any) {
   // 语法糖，在 view API 上增加原型方法
-  View.prototype[name.toLowerCase()] = function(cfg: any = {}) {
+  View.prototype[name.toLowerCase()] = function (cfg: any = {}) {
     const props = {
       /** 图形容器 */
       container: this.middleGroup.addGroup({

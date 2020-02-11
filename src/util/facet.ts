@@ -1,6 +1,6 @@
 import { DIRECTION } from '../constant';
-import { FacetTitle } from '../facet/interface';
 import { Point } from '../dependents';
+import { FacetTitle } from '../facet/interface';
 
 /**
  * 获取 facet title 的最佳默认配置，防止

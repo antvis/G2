@@ -32,6 +32,7 @@ abstract class StateBase extends Action {
    * @param enable 状态值
    */
   protected setElementState(element: Element, enable: boolean) {
+    // 防止闪烁
     element.setState(this.stateName, enable);
   }
 

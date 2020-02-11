@@ -34,8 +34,14 @@ export function setHighlightBy(elements: Element[], callback: MatchCallback, ena
   each(elements, (el) => {
     // 需要处理 active 和 unactive 的互斥
     if (callback(el)) {
+      if (el.hasState(STATUS_UNACTIVE)) {
+        el.setState(STATUS_UNACTIVE, false);
+      }
       el.setState(STATUS_ACTIVE, enable);
     } else {
+      if (el.hasState(STATUS_ACTIVE)) {
+        el.setState(STATUS_ACTIVE, false);
+      }
       el.setState(STATUS_UNACTIVE, enable);
     }
   });

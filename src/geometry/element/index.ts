@@ -1,11 +1,13 @@
-import { each, get, isArray, isEmpty, deepMix, isFunction } from '@antv/util';
+import { deepMix, each, get, isArray, isEmpty, isFunction } from '@antv/util';
 import { doAnimate, getDefaultAnimateCfg } from '../../animate';
 import Base from '../../base';
+import { AnimateOption } from '../../chart/interface';
 import { BBox, IGroup, IShape } from '../../dependents';
-import { AnimateOption, Datum, LooseObject, ShapeFactory, ShapeInfo } from '../../interface';
+import { Datum, LooseObject, ShapeInfo } from '../../interface';
 import { getReplaceAttrs } from '../../util/graphics';
 import Geometry from '../base';
 import { StateCfg } from '../interface';
+import { ShapeFactory } from '../shape/interface';
 
 interface ElementCfg {
   /** 用于创建各种 shape 的工厂对象 */
@@ -20,7 +22,7 @@ interface ElementCfg {
 }
 
 /**
- * Element 图形元素
+ * Element 图形元素。
  * 定义：在 G2 中，我们会将数据通过图形语法映射成不同的图形，比如点图，数据集中的每条数据会对应一个点，柱状图每条数据对应一个柱子，线图则是一组数据对应一条折线，Element 即一条/一组数据对应的图形元素，它代表一条数据或者一个数据集，在图形层面，它可以是单个 Shape 也可以是多个 Shape，我们称之为图形元素。
  */
 export default class Element extends Base {
@@ -65,9 +67,9 @@ export default class Element extends Base {
   }
 
   /**
-   * 绘制图形
-   * @param model 绘制数据
-   * @param isUpdate 可选，是否是更新发生后的绘制
+   * 绘制图形。
+   * @param model 绘制数据。
+   * @param isUpdate 可选，是否是更新发生后的绘制。
    */
   public draw(model: ShapeInfo, isUpdate: boolean = false) {
     this.model = model;
@@ -84,8 +86,8 @@ export default class Element extends Base {
   }
 
   /**
-   * 更新图形
-   * @param model 更新的绘制数据
+   * 更新图形。
+   * @param model 更新的绘制数据。
    */
   public update(model: ShapeInfo) {
     const { shapeFactory, shape } = this;
@@ -112,7 +114,7 @@ export default class Element extends Base {
   }
 
   /**
-   * Destroys element
+   * 销毁 element 实例。
    */
   public destroy() {
     const { shapeFactory, shape } = this;
@@ -138,8 +140,8 @@ export default class Element extends Base {
   }
 
   /**
-   * 显示或者隐藏 element
-   * @param visible 是否可见
+   * 显示或者隐藏 element。
+   * @param visible 是否可见。
    */
   public changeVisible(visible: boolean) {
     super.changeVisible(visible);
@@ -175,7 +177,7 @@ export default class Element extends Base {
    *
    * 这三种状态相互独立，可以进行叠加。
    *
-   * 这三种状态的样式可在 [[Theme]] 主题中进行配置。
+   * 这三种状态的样式可在 [[Theme]] 主题中或者通过 `geometry.state()` 接口进行配置。
    *
    * ```ts
    * // 激活 active 状态
@@ -221,7 +223,7 @@ export default class Element extends Base {
   }
 
   /**
-   * 清空状量态，恢复至初始状态
+   * 清空状量态，恢复至初始状态。
    */
   public clearStates() {
     const states = this.states;
@@ -234,41 +236,41 @@ export default class Element extends Base {
   }
 
   /**
-   * 查询当前 Element 上是否已设置 `stateName` 对应的状态
-   * @param stateName 状态名称
-   * @returns true 表示存在，false 表示不存在
+   * 查询当前 Element 上是否已设置 `stateName` 对应的状态。
+   * @param stateName 状态名称。
+   * @returns true 表示存在，false 表示不存在。
    */
   public hasState(stateName: string): boolean {
     return this.states.includes(stateName);
   }
 
   /**
-   * 获取当前 Element 上所有的状态
-   * @returns 当前 Element 上所有的状态数组
+   * 获取当前 Element 上所有的状态。
+   * @returns 当前 Element 上所有的状态数组。
    */
   public getStates(): string[] {
     return this.states;
   }
 
   /**
-   * 获取 Element 对应的原始数据
-   * @returns 原始数据
+   * 获取 Element 对应的原始数据。
+   * @returns 原始数据。
    */
   public getData(): Datum {
     return this.data;
   }
 
   /**
-   * 获取 Element 对应的图形绘制数据
-   * @returns 图形绘制数据
+   * 获取 Element 对应的图形绘制数据。
+   * @returns 图形绘制数据。
    */
   public getModel(): ShapeInfo {
     return this.model;
   }
 
   /**
-   * 返回 Element 元素整体的 bbox，包含文本及文本连线（有的话）
-   * @returns 整体包围盒
+   * 返回 Element 元素整体的 bbox，包含文本及文本连线（有的话）。
+   * @returns 整体包围盒。
    */
   public getBBox(): BBox {
     const { shape, labelShape } = this;

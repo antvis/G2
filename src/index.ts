@@ -2,7 +2,7 @@ import { GeometryCfg } from './geometry/base';
 import { PathCfg } from './geometry/path';
 import { IInteractionContext } from './interface';
 
-// register G engine
+// 注册 G 渲染引擎
 import * as CanvasEngine from '@antv/g-canvas';
 import * as SVGEngine from '@antv/g-svg';
 import { registerEngine } from './core';
@@ -327,6 +327,39 @@ registerInteraction('element-brush', {
   rollback: [{ trigger: 'reset-button:click', action: ['brush:reset', 'reset-button:hide', 'cursor:crosshair'] }],
 });
 
+registerInteraction('brush-visible', {
+  showEnable: [
+    { trigger: 'plot:mouseenter', action: 'cursor:crosshair' },
+    { trigger: 'plot:mouseleave', action: 'cursor:default' },
+  ],
+  start: [
+    {
+      trigger: 'plot:mousedown',
+      action: ['rect-mask:start', 'rect-mask:show', 'element-range-highlight:start'],
+    },
+  ],
+  processing: [
+    {
+      trigger: 'plot:mousemove',
+      action: ['rect-mask:resize','element-range-highlight:highlight'],
+    },
+    {trigger: 'mask:end',action: ['element-filter:filter']}
+  ],
+  end: [
+    {
+      trigger: 'mouseup',
+      isEnable: isPointInView,
+      action: ['rect-mask:end', 'rect-mask:hide', 'element-range-highlight:end', 'element-range-highlight:clear'],
+    },
+  ],
+  rollback: [
+    {
+      trigger: 'dblclick',
+      action: ['element-filter:clear']
+    }
+  ]
+});
+
 registerInteraction('element-brush-x', {
   showEnable: [
     { trigger: 'plot:mouseenter', action: 'cursor:crosshair' },
@@ -425,57 +458,57 @@ registerInteraction('active-region', {
 declare module './chart/view' {
   interface View {
     /**
-     * 创建 Polygon 几何标记
-     * @param [cfg] 传入 Polygon 构造函数的配置
-     * @returns polygon 返回 Polygon 实例
+     * 创建 Polygon 几何标记。
+     * @param [cfg] 传入 Polygon 构造函数的配置。
+     * @returns polygon 返回 Polygon 实例。
      */
     polygon(cfg?: Partial<GeometryCfg>): Polygon;
     /**
-     * 创建 Point 几何标记
-     * @param [cfg] 传入 Point 构造函数的配置
-     * @returns point 返回 Point 实例
+     * 创建 Point 几何标记。
+     * @param [cfg] 传入 Point 构造函数的配置。
+     * @returns point 返回 Point 实例。
      */
     point(cfg?: Partial<GeometryCfg>): Point;
     /**
-     * 创建 Interval 几何标记
-     * @param [cfg] 传入 Interval 构造函数的配置
-     * @returns interval 返回 Interval 实例
+     * 创建 Interval 几何标记。
+     * @param [cfg] 传入 Interval 构造函数的配置。
+     * @returns interval 返回 Interval 实例。
      */
     interval(cfg?: Partial<GeometryCfg>): Interval;
     /**
-     * 创建 Schema 几何标记
-     * @param [cfg] 传入 Schema 构造函数的配置
-     * @returns schema 返回 Schema 实例
+     * 创建 Schema 几何标记。
+     * @param [cfg] 传入 Schema 构造函数的配置。
+     * @returns schema 返回 Schema 实例。
      */
     schema(cfg?: Partial<GeometryCfg>): Schema;
     /**
-     * 创建 Path 几何标记
-     * @param [cfg] 传入 Path 构造函数的配置
-     * @returns path 返回 Path 实例
+     * 创建 Path 几何标记。
+     * @param [cfg] 传入 Path 构造函数的配置。
+     * @returns path 返回 Path 实例。
      */
     path(cfg?: Partial<PathCfg>): Path;
     /**
-     * 创建 Line 几何标记
-     * @param [cfg] 传入 Line 构造函数的配置
-     * @returns line 返回 Line 实例
+     * 创建 Line 几何标记。
+     * @param [cfg] 传入 Line 构造函数的配置。
+     * @returns line 返回 Line 实例。
      */
     line(cfg?: Partial<PathCfg>): Line;
     /**
-     * 创建 Area 几何标记
-     * @param [cfg] 传入 Area 构造函数的配置
-     * @returns area 返回 Area 实例
+     * 创建 Area 几何标记。
+     * @param [cfg] 传入 Area 构造函数的配置。
+     * @returns area 返回 Area 实例。
      */
     area(cfg?: Partial<AreaCfg>): Area;
     /**
-     * 创建 Edge 几何标记
-     * @param [cfg] 传入 Edge 构造函数的配置
-     * @returns schema 返回 Edge 实例
+     * 创建 Edge 几何标记。
+     * @param [cfg] 传入 Edge 构造函数的配置。
+     * @returns schema 返回 Edge 实例。
      */
     edge(cfg?: Partial<GeometryCfg>): Edge;
     /**
-     * 创建 Heatmap 几何标记
-     * @param [cfg] 传入 Heatmap 构造函数的配置
-     * @returns heatmap 返回 Heatmap 实例
+     * 创建 Heatmap 几何标记。
+     * @param [cfg] 传入 Heatmap 构造函数的配置。
+     * @returns heatmap 返回 Heatmap 实例。
      */
     heatmap(cfg?: Partial<GeometryCfg>): Heatmap;
   }

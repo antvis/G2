@@ -1,4 +1,4 @@
-import { debounce, isString, each } from '@antv/util';
+import { debounce, each, isString } from '@antv/util';
 import { GROUP_Z_INDEX } from '../constant';
 import { getEngine } from '../engine';
 import { createDom, getChartSize, removeDom } from '../util/dom';
@@ -88,10 +88,10 @@ export default class Chart extends View {
   }
 
   /**
-   * change the graph size, and render it with new size.
-   * @param width chart width
-   * @param height chart height
-   * @returns void
+   * 改变图表大小，同时重新渲染。
+   * @param width 图表宽度
+   * @param height 图表高度
+   * @returns
    */
   public changeSize(width: number, height: number) {
     this.width = width;
@@ -100,11 +100,12 @@ export default class Chart extends View {
 
     // 重新渲染
     this.render(true);
+
+    return this;
   }
 
   /**
-   * destroy the chart.
-   * unbind event, and destroy G.Canvas
+   * 销毁图表，同时解绑事件，销毁创建的 G.Canvas 实例。
    * @returns void
    */
   public destroy() {
@@ -117,8 +118,15 @@ export default class Chart extends View {
     this.wrapperElement = null;
   }
 
+  /**
+   * 显示或隐藏图表
+   * @param visible 是否可见，true 表示显示，false 表示隐藏
+   * @returns
+   */
   public changeVisible(visible: boolean) {
     this.wrapperElement.style.display = visible ? '' : 'none';
+
+    return this;
   }
 
   private bindAutoFit() {
