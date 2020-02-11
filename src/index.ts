@@ -267,24 +267,40 @@ registerInteraction('element-list-highlight', {
 registerInteraction('element-range-highlight', {
   showEnable: [
     { trigger: 'plot:mouseenter', action: 'cursor:crosshair' },
+    { trigger: 'mask:mouseenter', action: 'cursor:move' },
     { trigger: 'plot:mouseleave', action: 'cursor:default' },
+    { trigger: 'mask:mouseleave', action: 'cursor:crosshair' },
   ],
   start: [
     {
-      trigger: 'mousedown',
-      isEnable: isPointInView,
-      action: ['element-range-highlight:start', 'rect-mask:start', 'rect-mask:show'],
+      trigger: 'plot:mousedown',
+      isEnable(context) { // 不要点击在 mask 上重新开始
+        return !context.isInShape('mask');
+      },
+      action: ['rect-mask:start', 'rect-mask:show'],
     },
+    {
+      trigger: 'mask:dragstart',
+      action: ['rect-mask:moveStart']
+    }
   ],
   processing: [
     {
-      trigger: 'mousemove',
-      isEnable: isPointInView,
-      action: ['element-range-highlight:highlight', 'rect-mask:resize'],
+      trigger: 'plot:mousemove',
+      action: ['rect-mask:resize'],
     },
+    {
+      trigger: 'mask:drag',action: ['rect-mask:move']
+    },
+    {
+      trigger: 'mask:change', action: ['element-range-highlight:highlight']
+    }
   ],
   end: [
-    { trigger: 'mouseup', isEnable: isPointInView, action: ['element-range-highlight:end', 'rect-mask:end'] },
+    { trigger: 'plot:mouseup', 
+      action: ['rect-mask:end'] 
+    },
+    { trigger: 'mask:dragend', action: ['rect-mask:moveEnd']},
     {
       trigger: 'document:mouseup',
       isEnable(context) {

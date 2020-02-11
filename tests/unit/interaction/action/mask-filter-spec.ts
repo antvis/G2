@@ -94,4 +94,9 @@ describe('test mask filter', () => {
     mask.hide();
     expect(elements[0].visible).toBe(true);
   });
+
+  afterAll(() => {
+    context.destroy();
+    chart.destroy();
+  });
 });

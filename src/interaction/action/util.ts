@@ -60,6 +60,26 @@ export function isMask(context: IInteractionContext): boolean {
 }
 
 /**
+ * 获取被遮挡的 elements
+ * @param context 上下文
+ */
+export function getMaskedElements(context: IInteractionContext, tolerance: number): Element[]{
+  const event = context.event;
+  const maskShape = event.target;
+  const maskBBox = maskShape.getCanvasBBox();
+  // 如果 bbox 过小则不返回
+  if (!(maskBBox.width >= tolerance || maskBBox.height >= tolerance)) {
+    return [];
+  }
+  const view = context.view;
+  const elements = getElements(view);
+  return elements.filter(el => {
+    const elBBox = el.getBBox(); // 临时以 bbox 相交进行判定，后面可以改成 path 判定
+    return intersectRect(maskBBox, elBBox);
+  });
+}
+
+/**
  * 获取所有的图表元素
  * @param view View/Chart
  */

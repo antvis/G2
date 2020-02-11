@@ -1,7 +1,7 @@
 import { each } from '@antv/util';
 import Action from '../base';
 import {IShape} from '../../../dependents';
-import { getDelegationObject, getElements, getElementValue, isList, isSlider, isMask, intersectRect } from '../util';
+import { getDelegationObject, getElements, getElementValue, isList, isSlider, isMask, getMaskedElements } from '../util';
 const CONST_DISTANCE = 10;
 /**
  * 元素过滤的 Action，控制元素的显示隐藏
@@ -15,13 +15,10 @@ class ElementFilter extends Action {
     const view = this.context.view;
     const elements = getElements(view);
     if(isMask(this.context)) {
-      const maskShape = this.context.event.target as IShape;
-      const maskBBox = maskShape.getCanvasBBox();
-      // 限定一个最小的 mask 大小，否则会出现交互不流畅
-      if (maskBBox.width >= CONST_DISTANCE || maskBBox.height >= CONST_DISTANCE) {
+      const maskElements = getMaskedElements(this.context, 10);
+      if (maskElements.length) {
         each(elements, (el) => {
-          const elBBox = el.getBBox();
-          if (intersectRect(maskBBox, elBBox)) {
+          if (maskElements.includes(el)) {
             el.show();
           } else {
             el.hide();

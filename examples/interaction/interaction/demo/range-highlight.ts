@@ -14,6 +14,7 @@ const chart = new Chart({
 });
 
 chart.data(data);
+chart.tooltip(false);
 chart.interaction('element-range-highlight');
 chart
   .interval()
