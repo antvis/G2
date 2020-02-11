@@ -41,6 +41,10 @@ export interface FacetTitle {
   readonly style?: object;
 }
 
+export interface Line {
+  readonly lineWidth?: number;
+  readonly stroke?: string;
+}
 /**
  * 分面数据
  */
@@ -126,6 +130,17 @@ export interface CircleCfg extends FacetCfg<CircleData> {
 export interface CircleData extends FacetData {
 }
 
+// ===================== tree 相关类型定义 =====================
+export interface TreeCfg extends FacetCfg<TreeData> {
+  readonly lineSmooth?: boolean;
+  readonly line?: Line;
+  readonly rootTitle?: string;
+}
+
+export interface TreeData extends FacetData {
+  children?: TreeData[];
+  originColIndex?: number;
+}
 
 /**
  * facet object map
@@ -141,4 +156,6 @@ export interface FacetCfgMap {
   readonly matrix: MatrixCfg;
   /** circle */
   readonly circle: CircleCfg;
+  /** tree */
+  readonly tree: TreeCfg;
 }
