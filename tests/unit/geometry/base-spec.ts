@@ -500,6 +500,10 @@ describe('Geometry', () => {
       expect(geometry.container.get('children').length).toBe(4);
     });
 
+    it('getShapes()', () => {
+      expect(geometry.getShapes().length).toBe(4);
+    });
+
     it('getGroupScales()', () => {
       const groupScales = geometry.getGroupScales();
       expect(groupScales.length).toBe(1);
