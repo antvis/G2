@@ -578,7 +578,13 @@ export default class Tooltip extends Controller<TooltipOption> {
   }
 
   private findItemsFromView(view, point) {
+    if (view.getOptions().tooltip === false) {
+      // 如果 view 关闭了 tooltip
+      return [];
+    }
+
     let result = [];
+
     // 先从 view 本身查找
     const geometries = view.geometries;
     const { shared, title } = this.getTooltipCfg();
