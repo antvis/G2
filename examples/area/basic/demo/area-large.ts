@@ -1,14 +1,7 @@
 // TODO
-// 1. Slider 组件
-// 2. 自定义图例交互
+// 1. 自定义图例交互
 import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
-
-// 插入 Slider 滑块组件需要的 DOM
-// const sliderDiv = document.createElement('div');
-// sliderDiv.id = 'slider';
-// const container = document.getElementById('container');
-// container.parentNode.appendChild(sliderDiv);
 
 fetch('../data/rain-flow.json')
   .then((res) => res.json())
@@ -32,7 +25,7 @@ fetch('../data/rain-flow.json')
       container: 'container',
       autoFit: true,
       height: 440,
-      padding: [40, 40, 50, 80],
+      padding: [16, 32, 64, 32],
     });
 
     chart.data(dv.rows);
@@ -59,6 +52,7 @@ fetch('../data/rain-flow.json')
 
     chart.legend({
       custom: true, // 自定义图例
+      position: 'top',
       offsetY: 4,
       items: [
         {
@@ -79,6 +73,11 @@ fetch('../data/rain-flow.json')
       shared: true,
     });
 
+    chart.option('slider', {
+      start: 0.1,
+      end: 0.9,
+    });
+
     chart
       .area()
       .position('time*flow')
@@ -87,14 +86,6 @@ fetch('../data/rain-flow.json')
       .area()
       .position('time*rain')
       .color('l(100) 0:#293c55 1:#f7f7f7');
-    chart.render();
 
-    // chart.interact('slider', {
-    //   container: 'slider',
-    //   onChange(ev) {
-    //     const { startValue, endValue } = ev;
-    //     ds.setState('start', startValue);
-    //     ds.setState('end', endValue);
-    //   }
-    // });
+    chart.render();
   });

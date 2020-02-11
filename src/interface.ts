@@ -1067,7 +1067,7 @@ type Marker =
 type MarkerCallback = (x: number, y: number, r: number) => PathCommand;
 export type TooltipOption = TooltipCfg | boolean;
 /* 筛选器函数类型定义 */
-export type FilterCondition = (value: any, datum: Datum) => boolean;
+export type FilterCondition = (value: any, datum: Datum, idx?: number) => boolean;
 export type AxisOption = AxisCfg | boolean;
 export type LegendOption = LegendCfg | boolean;
 export type ScaleType =

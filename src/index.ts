@@ -126,6 +126,7 @@ import { registerComponentController } from './core';
 import Annotation from './chart/controller/annotation';
 import Axis from './chart/controller/axis';
 import Legend from './chart/controller/legend';
+import Slider from './chart/controller/slider';
 import Tooltip from './chart/controller/tooltip';
 
 // register build-in components
@@ -133,6 +134,7 @@ registerComponentController('axis', Axis);
 registerComponentController('legend', Legend);
 registerComponentController('tooltip', Tooltip);
 registerComponentController('annotation', Annotation);
+registerComponentController('slider', Slider);
 
 // 注册 Interaction Action
 import { registerAction } from './core';

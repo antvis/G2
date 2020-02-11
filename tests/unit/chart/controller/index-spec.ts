@@ -9,7 +9,7 @@ import { Title } from './title';
 
 describe('plugin', () => {
   it('API', () => {
-    expect(getComponentControllerNames()).toEqual(['axis', 'legend', 'tooltip', 'annotation']);
+    expect(getComponentControllerNames()).toEqual(['axis', 'legend', 'tooltip', 'annotation', 'slider']);
 
     expect(getComponentController('title')).toBe(undefined);
     expect(getComponentController('axis')).toBe(Axis);

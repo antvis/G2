@@ -1064,7 +1064,7 @@ export class View extends Base {
     }
 
     // 存在过滤器，则逐个执行过滤，过滤器之间是 与 的关系
-    return filter(data, (datum: Datum) => {
+    return filter(data, (datum: Datum, idx: number) => {
       // 所有的 filter 字段
       const fields = Object.keys(filters);
 
@@ -1073,7 +1073,7 @@ export class View extends Base {
         const condition = filters[field];
 
         // condition 返回 true，则保留
-        return condition(datum[field], datum);
+        return condition(datum[field], datum, idx);
       });
     });
   }
