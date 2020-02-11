@@ -1,4 +1,5 @@
 import MaskBase from './base';
+import { last } from '@antv/util';
 
 /**
  * 矩形的辅助框 Action
@@ -8,7 +9,7 @@ class RectMask extends MaskBase {
   protected getMaskPath() {
     const path = [];
     const points = this.points;
-    const currentPoint = this.getCurrentPoint();
+    const currentPoint = last(this.points);
     if (points.length) {
       const first = points[0];
       path.push(['M', first.x, first.y]);

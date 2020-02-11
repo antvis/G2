@@ -24,12 +24,7 @@ class PathMask extends MaskBase {
    * 添加一个点
    */
   public addPoint() {
-    if (this.starting && this.maskShape) {
-      this.points.push(this.getCurrentPoint());
-      const path = this.getMaskPath();
-      this.maskShape.attr('path', path);
-      this.emitEvent('change');
-    }
+    this.resize();
   }
 }
 

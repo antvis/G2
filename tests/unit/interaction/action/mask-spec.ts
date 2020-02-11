@@ -92,6 +92,158 @@ describe('test mask', () => {
       expect(maskAction.maskShape.attr('path')).toEqual(path);
     });
 
+    it('move', () => {
+      context.event = {
+        x: 100,
+        y: 100,
+      };
+      maskAction.start();
+
+      context.event = {
+        x: 200,
+        y: 200,
+      };
+      maskAction.resize();
+      maskAction.end();
+      context.event = {
+        x: 150,
+        y: 150,
+      };
+      maskAction.moveStart();
+      context.event = {
+        x: 160,
+        y: 160,
+      };
+      maskAction.move();
+      // @ts-ignore
+      expect(maskAction.maskShape.attr('path')).toEqual([
+        ['M', 110, 110],
+        ['L', 210, 110],
+        ['L', 210, 210],
+        ['L', 110, 210],
+        ['Z'],
+      ]);
+
+      context.event = {
+        x: 170,
+        y: 170,
+      };
+      maskAction.move();
+
+      // @ts-ignore
+      expect(maskAction.maskShape.attr('path')).toEqual([
+        ['M', 120, 120],
+        ['L', 220, 120],
+        ['L', 220, 220],
+        ['L', 120, 220],
+        ['Z'],
+      ]);
+      maskAction.moveEnd();
+
+      // move again
+      context.event = {
+        x: 150,
+        y: 150,
+      };
+      maskAction.moveStart();
+      context.event = {
+        x: 160,
+        y: 160,
+      };
+      maskAction.move();
+      // @ts-ignore
+      expect(maskAction.maskShape.attr('path')).toEqual([
+        ['M', 130, 130],
+        ['L', 230, 130],
+        ['L', 230, 230],
+        ['L', 130, 230],
+        ['Z'],
+      ]);
+
+      context.event = {
+        x: 170,
+        y: 170,
+      };
+      maskAction.move();
+      // @ts-ignore
+      expect(maskAction.maskShape.attr('path')).toEqual([
+        ['M', 140, 140],
+        ['L', 240, 140],
+        ['L', 240, 240],
+        ['L', 140, 240],
+        ['Z'],
+      ]);
+
+      context.event = {
+        x: 150,
+        y: 150,
+      };
+      maskAction.move();
+      // @ts-ignore
+      expect(maskAction.maskShape.attr('path')).toEqual([
+        ['M', 120, 120],
+        ['L', 220, 120],
+        ['L', 220, 220],
+        ['L', 120, 220],
+        ['Z'],
+      ]);
+      maskAction.moveEnd();
+    });
+
+    it('move not correct', () => {
+      context.event = {
+        x: 100,
+        y: 100,
+      };
+      maskAction.start();
+      context.event = {
+        x: 200,
+        y: 200,
+      };
+      maskAction.resize();
+
+      // move again
+      context.event = {
+        x: 150,
+        y: 150,
+      };
+      // not move start, but move
+      maskAction.move();
+
+      // @ts-ignore
+      expect(maskAction.maskShape.attr('path')).toEqual([
+        ['M', 100, 100],
+        ['L', 200, 100],
+        ['L', 200, 200],
+        ['L', 100, 200],
+        ['Z'],
+      ]);
+      maskAction.end();
+
+      // move again
+      context.event = {
+        x: 100,
+        y: 100,
+      };
+      maskAction.moveStart();
+      maskAction.start();
+
+      context.event = {
+        x: 200,
+        y: 200,
+      };
+      maskAction.resize();
+      // @ts-ignore
+      expect(maskAction.maskShape.attr('path')).toEqual([
+        ['M', 100, 100],
+        ['L', 200, 100],
+        ['L', 200, 200],
+        ['L', 100, 200],
+        ['Z'],
+      ]);
+
+    });
+
     it('hide', () => {
       maskAction.hide();
       // @ts-ignore

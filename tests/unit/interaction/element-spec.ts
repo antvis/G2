@@ -39,9 +39,7 @@ describe('test element interaction', () => {
   chart.animate(true);
   chart.tooltip(false);
   chart.interaction('element-active');
-  chart.interaction('drag-view');
-  chart.interaction('drag-move');
-  chart.interaction('legend-filter');
+  chart.interaction('element-range-highlight');
   chart
     .interval()
     .position('year*value')
