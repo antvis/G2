@@ -23,7 +23,7 @@ import Base from '../base';
 import { AnimateOption, ScaleOption } from '../chart/interface';
 import Labels from '../component/labels';
 import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
-import { BBox, Coordinate, IGroup, Scale } from '../dependents';
+import { BBox, Coordinate, IGroup, Scale, IShape } from '../dependents';
 import {
   Data,
   Datum,
@@ -1121,6 +1121,10 @@ export default class Geometry extends Base {
   public getXYFields() {
     const [x, y] = this.attributeOption.position.fields;
     return [x, y];
+  }
+
+  public getShapes(): Array<IShape | IGroup> {
+    return this.elements.map((element: Element) => element.shape);
   }
 
   // 训练度量
