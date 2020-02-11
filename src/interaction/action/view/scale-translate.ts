@@ -52,7 +52,7 @@ class ScaleTranslate extends TransformAction {
     const view = this.context.view;
     const dims = this.dims;
     each(dims, (dim) => {
-      this.translateDim(dim, { x: dx, y: dy * -1 });
+      this.translateDim(dim, { x: dx * -1, y: dy * -1 });
     });
     view.render(true);
   }

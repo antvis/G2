@@ -64,7 +64,7 @@ describe('test element interaction', () => {
     });
     expect(first.hasState('active')).toBe(false);
   });
-  // afterAll(() => {
-  //   chart.destroy();
-  // });
+  afterAll(() => {
+    chart.destroy();
+  });
 });

@@ -461,6 +461,20 @@ registerInteraction('active-region', {
   end: [{ trigger: 'plot:mouseleave', action: 'active-region:hide' }],
 });
 
+function isWhellDown(event) {
+  event.gEvent.preventDefault();
+  return event.gEvent.originalEvent.deltaY > 0;
+}
+registerInteraction('view-zoom', {
+  start: [
+    { trigger: 'plot:mousewheel', isEnable(context) {
+      return isWhellDown(context.event);
+    }, action: 'scale-zoom:zoomOut' },
+    { trigger: 'plot:mousewheel',isEnable(context) {
+      return !isWhellDown(context.event);
+    }, action: 'scale-zoom:zoomIn' }
+  ]
+});
 
 // 让 TS 支持 View 原型上添加的创建 Geometry 方法的智能提示
 /**

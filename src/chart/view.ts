@@ -1344,6 +1344,7 @@ export class View extends Base {
       'mouseup',
       'mousemove',
       'mouseleave',
+      'mousewheel',
       'touchstart',
       'touchmove',
       'touchend',
