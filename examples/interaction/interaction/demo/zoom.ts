@@ -1,27 +1,4 @@
 import { Chart, registerInteraction } from '@antv/g2';
-registerInteraction('move-zoom', {
-  start: [
-    {
-      trigger: 'wheel',
-      isEnable(context) {
-        const event = context.event;
-        const delt = event.gEvent.originalEvent.deltaY;
-        return delt > 0;
-      },
-      action: 'scale-zoom:zoomIn',
-    },
-    {
-      trigger: 'wheel',
-      isEnable(context) {
-        const event = context.event;
-        const delt = event.gEvent.originalEvent.deltaY;
-        return delt < 0;
-      },
-      action: 'scale-zoom:zoomOut',
-    },
-  ],
-});
-
 fetch('../data/scatter.json')
   .then((res) => res.json())
   .then((data) => {
@@ -32,7 +9,7 @@ fetch('../data/scatter.json')
     });
     // 数据格式： [{"gender":"female","height":161.2,"weight":51.6}]
     chart.data(data);
-
+    chart.interaction('view-zoom');
     chart
       .point()
       .position('height*weight')
