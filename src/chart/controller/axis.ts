@@ -18,6 +18,7 @@ import { Controller } from './base';
 
 type Option = Record<string, AxisOption> | boolean;
 
+type Cache = Map<string, ComponentOption>;
 
 const DEFAULT_ANIMATE_CFG = {
   appear: null,
@@ -51,7 +52,7 @@ export default class Axis extends Controller<Option> {
   private gridContainer: IGroup;
 
   /** 使用 object 存储组件 */
-  private cache = new Map<string, ComponentOption>();
+  private cache: Cache = new Map<string, ComponentOption>();
 
   constructor(view: View) {
     super(view);
@@ -176,7 +177,7 @@ export default class Axis extends Controller<Option> {
    * 更新 x axis
    * @param updatedCache
    */
-  private updateXAxes(updatedCache: Map<string, ComponentOption>) {
+  private updateXAxes(updatedCache: Cache) {
     // x axis
     const scale = this.view.getXScale();
     // @ts-ignore
@@ -270,7 +271,7 @@ export default class Axis extends Controller<Option> {
     }
   }
 
-  private updateYAxes(updatedCache: Map<string, ComponentOption>) {
+  private updateYAxes(updatedCache: Cache) {
     // y axes
     const yScales = this.view.getYScales();
 
@@ -677,7 +678,6 @@ export default class Axis extends Controller<Option> {
    * @param scale
    * @param axisOption
    * @param direction
-   * @param dim
    * @return circle grid cfg
    */
   private getCircleGridCfg(scale: Scale, axisOption: AxisCfg, direction: DIRECTION): object {
@@ -702,7 +702,9 @@ export default class Axis extends Controller<Option> {
   }
 
   private getId(name: string, key: string): string {
-    return `${name}-${key}`;
+    const coordinate = this.view.getCoordinate();
+    // 坐标系类型也作为组件的 key
+    return `${name}-${key}-${coordinate.type}`;
   }
 
   private getAnimateCfg(cfg: object) {
