@@ -19,29 +19,7 @@ const COLOR_PLATE_10 = [
   '#269A99',
   '#FF99C3',
 ];
-/** 20 个分类以内的色板 */
-const COLOR_PLATE_20 = [
-  '#5B8FF9',
-  '#BDD2FD',
-  '#5AD8A6',
-  '#BDEFDB',
-  '#5D7092',
-  '#C2C8D5',
-  '#F6BD16',
-  '#FBE5A2',
-  '#E8684A',
-  '#F6C3B7',
-  '#6DC8EC',
-  '#B6E3F5',
-  '#9270CA',
-  '#D3C6EA',
-  '#FF9D4D',
-  '#FFD8B8',
-  '#269A99',
-  '#AAD8D8',
-  '#FF99C3',
-  '#FFD6E7',
-];
+
 /** antv 默认字体 */
 const FONT_FAMILY = `
   "-apple-system", "Segoe UI", Roboto,"Helvetica Neue",
@@ -189,8 +167,6 @@ export default {
   defaultColor: DEFAULT_COLOR,
   padding: 'auto',
   fontFamily: FONT_FAMILY,
-  colors: COLOR_PLATE_10,
-  colors_20: COLOR_PLATE_20,
   /** 一般柱状图宽度占比 */
   columnWidthRatio: 1 / 2,
   /** 柱状图最大宽度 */
@@ -201,22 +177,32 @@ export default {
   roseWidthRatio: 0.9999999,
   /** 多层饼图/环图占比 */
   multiplePieWidthRatio: 1 / 1.3,
+  colors: COLOR_PLATE_10,
   shapes: {
     point: [
       'hollow-circle',
       'hollow-square',
-      'hollow-diamond',
       'hollow-bowtie',
-      'hollow-triangle',
+      'hollow-diamond',
       'hollow-hexagon',
+      'hollow-triangle',
+      'hollow-triangle-down',
+      'circle',
+      'square',
+      'bowtie',
+      'diamond',
+      'hexagon',
+      'triangle',
+      'triangle-down',
       'cross',
       'tick',
       'plus',
       'hyphen',
       'line',
     ],
-    line: ['line', 'dash', 'dot'],
-    area: ['area'],
+    line: ['line', 'dash', 'dot', 'smooth'],
+    area: ['area', 'smooth', 'line', 'smooth-line'],
+    interval: ['rect', 'hollow-rect', 'line', 'tick' ],
   },
   sizes: [1, 10],
   geometries: {
