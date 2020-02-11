@@ -1,10 +1,10 @@
-import { deepMix, get, head, isObject, last, map } from '@antv/util';
+import { deepMix, get, isObject, map, size } from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
-import { IGroup, Slider, TrendCfg } from '../../dependents';
+import { IGroup, Slider as SliderComponent, TrendCfg } from '../../dependents';
 import { Datum } from '../../interface';
 import { BBox } from '../../util/bbox';
 import { directionToPosition } from '../../util/direction';
-import { isBetween } from '../../util/helper';
+import { isBetween, omit } from '../../util/helper';
 import { ComponentOption } from '../interface';
 import View from '../view';
 import { Controller } from './base';
@@ -24,9 +24,6 @@ export interface SliderOption {
   // 初始位置
   readonly start?: number;
   readonly end?: number;
-  // 滑块文本
-  readonly minText?: string;
-  readonly maxText?: string;
 }
 
 type Option = SliderOption | boolean;
@@ -34,7 +31,7 @@ type Option = SliderOption | boolean;
 /**
  * slider Controller
  */
-export default class extends Controller<Option> {
+export default class Slider extends Controller<Option> {
   private slider: ComponentOption;
   private container: IGroup;
 
@@ -67,6 +64,15 @@ export default class extends Controller<Option> {
       } else {
         // not exist, create
         this.slider = this.createSlider();
+
+        // 设置初始的 text
+        const min = this.slider.component.get('start');
+        const max = this.slider.component.get('end');
+
+        this.changeMinMaxText(min, max);
+
+        // 监听事件，绑定交互
+        this.slider.component.on('sliderchange', this.onValueChanged);
       }
     } else {
       if (this.slider) {
@@ -85,19 +91,21 @@ export default class extends Controller<Option> {
    */
   public layout() {
     if (this.slider) {
+
+      const width = this.view.coordinateBBox.width;
       // 获取组件的 layout bbox
       const bboxObject = this.slider.component.getLayoutBBox();
-      const bbox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height);
+      const bbox = new BBox(bboxObject.x, bboxObject.y, Math.min(bboxObject.width, width), bboxObject.height);
 
-      const [x, y] = directionToPosition(this.view.coordinateBBox, bbox, DIRECTION.BOTTOM);
-      const width = this.view.coordinateBBox.width;
+      const [x1, y1] = directionToPosition(this.view.viewBBox, bbox, DIRECTION.BOTTOM);
+      const [x2, y2] = directionToPosition(this.view.coordinateBBox, bbox, DIRECTION.BOTTOM);
 
-      // todo component 暂时有 bug，无法更新
-      // this.slider.component.update({
-      //   x,
-      //   y,
-      //   width,
-      // });
+      // 默认放在 bottom
+      this.slider.component.update({
+        x: x2,
+        y: y1,
+        width,
+      });
     }
   }
 
@@ -115,19 +123,13 @@ export default class extends Controller<Option> {
   private createSlider(): ComponentOption {
     const cfg = this.getSliderCfg();
     // 添加 slider 组件
-    const component = new Slider({
+    const component = new SliderComponent({
       container: this.container,
       ...cfg,
+
     });
 
     component.init();
-
-    // 监听事件，绑定交互
-    component.on('valuechanged', this.onValueChanged);
-
-    // const { start = 0, end = 1 } = cfg;
-    // todo 默认触发一次
-    // this.changeMinMaxText(start, end);
 
     return {
       component,
@@ -141,7 +143,10 @@ export default class extends Controller<Option> {
    * 更新配置
    */
   private updateSlider() {
-    this.slider.component.update(this.getSliderCfg());
+    const cfg = this.getSliderCfg();
+    omit(cfg, ['x', 'y', 'width', 'start', 'end', 'minText', 'maxText']);
+
+    this.slider.component.update(cfg);
 
     return this.slider;
   }
@@ -173,11 +178,10 @@ export default class extends Controller<Option> {
   }
 
   /**
-   * 从 view 中获取数据
+   * 从 view 中获取数据，缩略轴使用全量的数据
    */
   private getData(): number[] {
-    // @ts-ignore
-    const data = this.view.filteredData;
+    const data = this.view.getOptions().data;
     const [yScale] = this.view.getYScales();
 
     return map(data, (datum) => datum[yScale.field] || 0);
@@ -188,18 +192,17 @@ export default class extends Controller<Option> {
    * @param v
    */
   private onValueChanged = (v: any) => {
-    const { value } = v;
-    const [min, max] = value;
+    const [min, max] = v;
 
     this.changeMinMaxText(min, max);
   };
 
   private changeMinMaxText(min: number, max: number) {
-    // @ts-ignore
-    const data = this.view.filteredData;
+    const data = this.view.getOptions().data;
+    const dataSize = size(data);
     const xScale = this.view.getXScale();
 
-    if (!xScale) {
+    if (!xScale || !dataSize) {
       return;
     }
 
@@ -208,24 +211,27 @@ export default class extends Controller<Option> {
     // x 轴数据
     const xData = map(data, (datum) => datum[x] || '');
 
-    const size = xData.length;
+    const minIndex = Math.floor(min * (dataSize - 1));
+    const maxIndex = Math.floor(max * (dataSize - 1));
 
-    const minIndex = Math.floor(min * size);
-    const maxIndex = Math.floor(max * size);
-
-    const minText = get(xData, [minIndex], head(xData));
-    const maxText = get(xData, [maxIndex], last(xData));
+    const minText = get(xData, [minIndex]);
+    const maxText = get(xData, [maxIndex]);
 
     // 更新文本
     this.slider.component.update({
       minText,
       maxText,
+      start: min,
+      end: max,
     });
 
     // 增加 x 轴的过滤器
-    this.view.filter(x, (value: any, datum: Datum, idx: number) => isBetween(idx / size, min, max));
+    this.view.filter(
+      xScale.field,
+      (value: any, datum: Datum, idx: number) => isBetween(idx, minIndex, maxIndex),
+    );
 
-    this.view.render();
+    this.view.render(true);
   }
 
   /**
