@@ -1,7 +1,7 @@
-import RangeFilter from './range-filter';
-import { View } from '../../../chart';
-import { FilterCondition } from '../../../chart/interface';
 import { each } from '@antv/util';
+import { View } from '../../../chart';
+import { FilterCondition } from '../../../interface';
+import RangeFilter from './range-filter';
 
 class SiblingFilter extends RangeFilter {
   // 获取同一级的 views
@@ -20,7 +20,7 @@ class SiblingFilter extends RangeFilter {
       sibling.filter(field, filter);
     });
   }
-  
+
   // 重新渲染
   protected reRender(view: View) {
     const siblings = this.getSilbings(view);
