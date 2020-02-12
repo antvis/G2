@@ -1,10 +1,10 @@
 import { each } from '@antv/util';
 import { DIRECTION, LAYER } from '../../../../src';
 import { Controller } from '../../../../src/chart/controller/base';
-import { ComponentOption } from '../../../../src/chart/interface';
 import View from '../../../../src/chart/view';
 import { COMPONENT_TYPE } from '../../../../src/constant';
-import { IGroup, IShape } from '../../../../src/dependents';
+import { IGroup } from '../../../../src/dependents';
+import { ComponentOption } from '../../../../src/interface';
 import { BBox } from '../../../../src/util/bbox';
 import { Text } from './component';
 

@@ -1,5 +1,6 @@
 import 'jest-extended';
-import { Chart, Point } from '../../../../../src';
+import { Chart } from '../../../../../src';
+import { Point } from '../../../../../src/interface';
 import { CITY_SALE_PROFIT } from '../../../../util/data';
 import { createDiv, removeDom } from '../../../../util/dom';
 
