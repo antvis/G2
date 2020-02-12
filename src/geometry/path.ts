@@ -31,7 +31,7 @@ export default class Path extends Geometry {
     const elementId = this.getElementId(mappingData[0][FIELD_ORIGIN]);
     const shapeCfg = this.getShapeInfo(mappingData);
 
-    let result = lastElementsMap[elementId];
+    let result = lastElementsMap[elementId] || elementsMap[elementId];
     if (!result) {
       const shapeFactory = this.getShapeFactory();
 
@@ -53,8 +53,10 @@ export default class Path extends Geometry {
       delete lastElementsMap[elementId];
     }
 
-    elements.push(result);
-    elementsMap[elementId] = result;
+    if (!elementsMap[elementId]) {
+      elements.push(result);
+      elementsMap[elementId] = result;
+    }
 
     return elements;
   }
