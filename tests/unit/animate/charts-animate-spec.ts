@@ -1,4 +1,4 @@
-import { DataView } from '@antv/data-set';
+import DataSet from '@antv/data-set';
 import { Chart } from '../../../src';
 import { createDiv } from '../../util/dom';
 
@@ -590,7 +590,7 @@ describe('Test charts animate', () => {
       { x: 'West Europe', low: 1, q1: 7, median: 10, q3: 17, high: 22 },
       { x: 'West Africa', low: 1, q1: 6, median: 8, q3: 13, high: 16 },
     ];
-    const dv = new DataView().source(data);
+    const dv = new DataSet.DataView().source(data);
     dv.transform({
       type: 'map',
       callback: (obj) => {
@@ -631,7 +631,7 @@ describe('Test charts animate', () => {
         { x: 'West Europe', low: 1, q1: 7, median: 10, q3: 17, high: 22 },
         { x: 'West Africa', low: 1, q1: 6, median: 8, q3: 13, high: 16 },
       ];
-      const dv1 = new DataView().source(newData);
+      const dv1 = new DataSet.DataView().source(newData);
       dv1.transform({
         type: 'map',
         callback: (obj) => {

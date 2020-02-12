@@ -1,11 +1,11 @@
-import { DataView } from '@antv/data-set';
+import DataSet from '@antv/data-set';
 import DIAMOND from '../../../../examples/data/diamond.json';
 import { Chart } from '../../../../src';
 import { createDiv } from '../../../util/dom';
 
 function eachView(view, facet) {
   const facetData = facet.data;
-  const dv = new DataView();
+  const dv = new DataSet.DataView();
   dv.source(facetData).transform({
     type: 'aggregate',
     fields: [ 'price' ],
