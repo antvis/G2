@@ -1,4 +1,4 @@
-import { DataView } from '@antv/data-set';
+import DataSet from '@antv/data-set';
 import { Chart } from '../../../../src';
 import { ListData } from '../../../../src/facet/interface';
 import { createDiv } from '../../../util/dom';
@@ -30,7 +30,7 @@ describe('facet matrix', () => {
     eachView(view, facet) {
       if (facet.rowIndex === facet.columnIndex) {
         // 对角线的图形，做数据封箱之后绘制图形
-        const dv = new DataView();
+        const dv = new DataSet.DataView();
         dv.source(facet.data)
           .transform({
             type: 'bin.histogram',
@@ -90,7 +90,7 @@ describe('facet matrix', () => {
       eachView(view, facet) {
         if (facet.rowIndex === facet.columnIndex) {
           // 对角线的图形，做数据封箱之后绘制图形
-          const dv = new DataView();
+          const dv = new DataSet.DataView();
           dv.source(facet.data)
             .transform({
               type: 'bin.histogram',
