@@ -49,16 +49,21 @@ describe('facet tree', () => {
         dimension: 'gender',
         as: 'percent'
       });
-      view.data(dv);
-      // view.source(dv, {
-      //   percent: {
-      //     formatter(val) {
-      //       return (val * 100).toFixed(2) + '%';
-      //     }
-      //   }
-      // });
-      view.interval().position('percent').color('gender');
+
+      view.data(dv.rows);
+      view.scale({
+        percent: {
+          formatter(val) {
+            return (val * 100).toFixed(2) + '%';
+          }
+        }
+      });
+      view.interval().position('percent').color('gender').adjust('stack');
     }
   });
   chart.render();
+
+  // it('multiple tree nodes', () => {
+  //   expect(chart.views.length).toBe(1);
+  // });
 });
