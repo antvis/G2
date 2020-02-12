@@ -1,14 +1,6 @@
 import { Chart } from '../../../src/';
 import { CITY_SALE } from '../../util/data';
-import { delay } from '../../util/delay';
 import { createDiv } from '../../util/dom';
-
-const data = [
-  { city: '杭州', sale: 100, category: '电脑' },
-  { city: '广州', sale: 30, category: '电脑' },
-  { city: '上海', sale: 200, category: '鼠标' },
-  { city: '呼和浩特', sale: 10, category: '鼠标' },
-];
 
 describe('Chart autoFit', () => {
   const div = createDiv();
