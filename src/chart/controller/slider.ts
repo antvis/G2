@@ -69,7 +69,7 @@ export default class Slider extends Controller<Option> {
         const min = this.slider.component.get('start');
         const max = this.slider.component.get('end');
 
-        this.changeMinMaxText(min, max);
+        this.updateMinMaxText(min, max);
 
         // 监听事件，绑定交互
         this.slider.component.on('sliderchange', this.onValueChanged);
@@ -194,10 +194,12 @@ export default class Slider extends Controller<Option> {
   private onValueChanged = (v: any) => {
     const [min, max] = v;
 
-    this.changeMinMaxText(min, max);
+    this.updateMinMaxText(min, max);
+
+    this.view.render(true);
   };
 
-  private changeMinMaxText(min: number, max: number) {
+  private updateMinMaxText(min: number, max: number) {
     const data = this.view.getOptions().data;
     const dataSize = size(data);
     const xScale = this.view.getXScale();
@@ -230,8 +232,6 @@ export default class Slider extends Controller<Option> {
       xScale.field,
       (value: any, datum: Datum, idx: number) => isBetween(idx, minIndex, maxIndex),
     );
-
-    this.view.render(true);
   }
 
   /**
