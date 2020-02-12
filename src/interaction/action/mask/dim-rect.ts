@@ -1,22 +1,15 @@
 import RectMask from './rect';
-import { last, head } from '@antv/util';
-function camp(value) {
-  if (value < 0) {
-    value = 0;
-  }
-  if (value > 1) {
-    value = 1;
-  }
-  return value;
-}
-function campPoint(point) {
-  point.x = camp(point.x);
-  point.y = camp(point.y);
+import { last, head, clamp } from '@antv/util';
+import { Region } from '../../../interface';
+
+function clampPoint(point) {
+  point.x = clamp(point.x, 0, 1);
+  point.y = clamp(point.y, 0, 1);
 }
 class DimRect extends RectMask {
   protected dim = 'x';
   protected inPlot = true;
-  protected getRange() {
+  protected getRegion(): Region {
     let start = null;
     let end = null;
     const points = this.points;
@@ -25,8 +18,8 @@ class DimRect extends RectMask {
     const normalStart = coord.invert(head(points));
     const normalEnd = coord.invert(last(points));
     if (this.inPlot) { // 约束到 0 - 1 范围内
-      campPoint(normalStart);
-      campPoint(normalEnd);
+      clampPoint(normalStart);
+      clampPoint(normalEnd);
     }
     if (dim === 'x') { // x 轴方向扩展, y 轴方向占满全部
       start = coord.convert({
