@@ -1,6 +1,5 @@
 import { DIRECTION } from '../../../src';
-import { LegendItem } from '../../../src/chart/interface';
-import { Attribute } from '../../../src/dependents';
+import { LegendItem } from '../../../src/interface';
 import { getCustomLegendItems, getLegendLayout } from '../../../src/util/legend';
 
 describe('util legend', () => {

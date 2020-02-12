@@ -1,6 +1,6 @@
 import DataSet from '@antv/data-set';
 import { Chart } from '../../../../src';
-import { ListData } from '../../../../src/facet/interface';
+import { ListData } from '../../../../src/interface';
 import { createDiv } from '../../../util/dom';
 import IRIS from '../../../../examples/data/iris.json';
 import Matrix from '../../../../src/facet/matrix';

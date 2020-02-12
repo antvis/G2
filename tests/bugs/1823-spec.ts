@@ -1,6 +1,6 @@
 import { Chart } from '../../src';
-import { ComponentOption } from '../../src/chart/interface';
 import { COMPONENT_TYPE } from '../../src/constant';
+import { ComponentOption } from '../../src/interface';
 import { createDiv } from '../util/dom';
 
 describe('#1823', () => {

@@ -1,6 +1,6 @@
 import DIAMOND from '../../../../examples/data/diamond.json';
 import { Chart } from '../../../../src';
-import { RectCfg } from '../../../../src/facet/interface';
+import { RectCfg } from '../../../../src/interface';
 import { createDiv } from '../../../util/dom';
 
 describe('facet rect', () => {
