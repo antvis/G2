@@ -18,7 +18,7 @@
       "@antv/g2": ["src"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "tests"],
   "typedocOptions": {
     "mode": "file",
     "out": "docs/api",
