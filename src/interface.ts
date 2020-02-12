@@ -660,7 +660,9 @@ export interface ChartCfg {
   /**
    * 配置图表默认交互，仅支持字符串形式。
    */
-  defaultInteractions?: string[];
+  readonly defaultInteractions?: string[];
+  /** 是否对超出坐标系范围的 Geometry 进行剪切 */
+  readonly limitInPlot?: boolean;
 }
 
 // view 构造参数
@@ -677,6 +679,8 @@ export interface ViewCfg {
   readonly backgroundGroup: IGroup;
   /** view 的绘制范围 */
   readonly region?: Region;
+  /** 是否对超出坐标系范围的 Geometry 进行剪切 */
+  readonly limitInPlot?: boolean;
   /**
    * 设置图表的内边距，使用方式参考 CSS 盒模型。
    * 下图黄色区域即为 padding 的范围。
