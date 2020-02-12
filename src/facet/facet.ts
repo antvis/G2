@@ -1,11 +1,10 @@
 import { deepMix, each, every, get, isNil } from '@antv/util';
-import { AxisCfg } from '../chart/interface';
-import View from '../chart/view';
 import { LAYER } from '../constant';
 import { IGroup } from '../dependents';
-import { Datum, Region } from '../interface';
+import { AxisCfg, Condition, Datum, FacetCfg, FacetData, FacetDataFilter, Region } from '../interface';
+
+import View from '../chart/view';
 import { getAxisOption } from '../util/axis';
-import { Condition, FacetCfg, FacetData, FacetDataFilter } from './interface';
 
 /**
  * facet 基类

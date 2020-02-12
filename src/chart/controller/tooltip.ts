@@ -2,11 +2,10 @@ import { vec2 } from '@antv/matrix-util';
 import { deepMix, each, find, flatten, get, isArray, isEqual, isFunction } from '@antv/util';
 import { Crosshair, HtmlTooltip, IGroup } from '../../dependents';
 import Geometry from '../../geometry/base';
-import { MappingDatum, Point } from '../../interface';
+import { MappingDatum, Point, TooltipOption } from '../../interface';
 import { getDistanceToCenter, getPointAngle } from '../../util/coordinate';
 import { polarToCartesian } from '../../util/graphics';
 import { findDataByPoint, getTooltipItems } from '../../util/tooltip';
-import { TooltipOption } from '../interface';
 import { Controller } from './base';
 
 function getFirstItem(item) {

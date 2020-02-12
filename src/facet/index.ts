@@ -1,5 +1,5 @@
 import { lowerCase } from '@antv/util';
-import { FacetCtor } from './interface';
+import { FacetCtor } from '../interface';
 export { Facet } from './facet';
 
 /**

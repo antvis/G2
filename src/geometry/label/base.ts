@@ -1,10 +1,9 @@
 import { deepMix, each, get, isArray, isFunction, isNil, isNumber, isUndefined } from '@antv/util';
 import { FIELD_ORIGIN } from '../../constant';
 import { Coordinate, Scale } from '../../dependents';
-import { Datum, LooseObject, MappingDatum, Point } from '../../interface';
+import { Datum, LabelOption, LooseObject, MappingDatum, Point } from '../../interface';
 import { getPolygonCentroid } from '../../util/graphics';
 import Geometry from '../base';
-import { LabelOption } from '../interface';
 import { LabelCfg, LabelItem, LabelPointCfg } from './interface';
 
 export type GeometryLabelConstructor = new (cfg: any) => GeometryLabel;

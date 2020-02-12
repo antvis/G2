@@ -1,112 +1,32 @@
 import { contains, deepMix, each, get, isArray, isFunction, isNil, isString, keys, upperFirst } from '@antv/util';
+
+import { Annotation as AnnotationComponent, IElement, IGroup, Scale } from '../../dependents';
+import {
+  AnnotationBaseOption as　BaseOption,
+  AnnotationPosition as Position,
+  ArcOption,
+  ComponentOption,
+  Data,
+  DataMarkerOption,
+  DataRegionOption,
+  ImageOption,
+  LineOption,
+  Point,
+  RegionFilterOption,
+  RegionOption,
+  RegionPositionBaseOption,
+  TextOption,
+} from '../../interface';
+
 import { DEFAULT_ANIMATE_CFG } from '../../animate/';
 import { COMPONENT_TYPE, DIRECTION, LAYER, VIEW_LIFE_CIRCLE } from '../../constant';
-import { Annotation as AnnotationComponent, IElement, IGroup, Scale } from '../../dependents';
+
 import Geometry from '../../geometry/base';
 import Element from '../../geometry/element';
-import { Data, Point } from '../../interface';
 import { getDistanceToCenter, getPointAngle } from '../../util/coordinate';
 import { omit } from '../../util/helper';
-import { ComponentOption } from '../interface';
 import View from '../view';
 import { Controller } from './base';
-
-type PositionCallback = (
-  xScales: Scale[] | Record<string, Scale>,
-  yScales: Scale[] | Record<string, Scale>
-) => [number, number];
-
-export type Position = [number | string, number | string] | Record<string, number | string> | PositionCallback;
-
-export interface BaseOption {
-  readonly type?: string;
-  /** 指定 annotation 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层 */
-  readonly top?: boolean;
-  /** 图形样式属性 */
-  readonly style?: object;
-  /** 是否进行动画 */
-  readonly animate?: boolean;
-  /** x 方向的偏移量 */
-  readonly offsetX?: number;
-  /** y 方向的偏移量 */
-  readonly offsetY?: number;
-}
-
-/** 使用 RegionPosition 定位的组件配置 */
-export interface RegionPositionBaseOption extends BaseOption {
-  /** 起始位置 */
-  readonly start: Position;
-  /** 结束位置 */
-  readonly end: Position;
-}
-
-/** 使用 PointPosition 定位的组件配置 */
-export interface PointPositionBaseOption extends BaseOption {
-  /** Point 定位位置 */
-  readonly position: Position;
-}
-
-export interface ImageOption extends RegionPositionBaseOption {
-  /** 图片路径 */
-  readonly src: string;
-}
-
-export interface LineOption extends RegionPositionBaseOption {
-  readonly text?: {
-    /** 文本位置，除了制定 'start', 'center' 和 'end' 外，还可以使用百分比进行定位， 比如 '30%' */
-    readonly position: 'start' | 'center' | 'end' | string;
-    /** 是否自动旋转 */
-    readonly autoRotate?: boolean;
-    /** 显示的文本内容 */
-    readonly content: string;
-    /** 文本的图形样式属性 */
-    readonly style?: object;
-    /** x 方向的偏移量 */
-    readonly offsetX?: number;
-    /** y 方向偏移量 */
-    readonly offsetY?: number;
-  };
-}
-
-export type ArcOption = RegionPositionBaseOption;
-
-export type RegionOption = RegionPositionBaseOption;
-
-export interface TextOption extends PointPositionBaseOption {
-  /** 显示的文本内容 */
-  readonly content: string | number;
-  /** 文本的旋转角度，弧度制 */
-  readonly rotate?: number;
-}
-
-export interface DataMarkerOption extends PointPositionBaseOption {
-  /** point 设置 */
-  readonly point?: null | { style?: object };
-  /** line 设置 */
-  readonly line?: null | { style?: object; length?: number };
-  /** text 设置 */
-  readonly text: null | { style?: object; content: string };
-  /** 文本超出绘制区域时，是否自动调节文本方向，默认为 true */
-  readonly autoAdjust?: boolean;
-  /** 朝向，默认为 upward，可选值为 'upward' 或者 'downward' */
-  readonly direction?: 'upward' | 'downward';
-}
-
-export interface DataRegionOption extends RegionPositionBaseOption {
-  /** line长度，default为 0 */
-  readonly lineLength?: number;
-  /** 标注区间的配置 */
-  readonly region?: null | { style?: object };
-  /** 文本的配置 */
-  readonly text?: null | { style?: object; content: string };
-}
-
-export interface RegionFilterOption extends RegionPositionBaseOption {
-  /** 染色色值 */
-  readonly color: string;
-  /* 可选,设定regionFilter只对特定geom类型起作用，如apply:['area'] */
-  readonly apply?: string[];
-}
 
 /**
  * annotation controller, supply:

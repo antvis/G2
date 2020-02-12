@@ -1,11 +1,10 @@
 import { each, isArray, map } from '@antv/util';
 import { View } from '../../chart';
-import { ComponentOption } from '../../chart/interface';
 import { BBox, PathCommand, Point } from '../../dependents';
 import Geometry from '../../geometry/base';
 import Element from '../../geometry/element/';
 import { catmullRom2bezier, getLinePath } from '../../geometry/shape/util/path';
-import { IInteractionContext, LooseObject } from '../../interface';
+import { ComponentOption, IInteractionContext, LooseObject } from '../../interface';
 /**
  * 获取当前事件相关的图表元素
  * @param context 交互的上下文

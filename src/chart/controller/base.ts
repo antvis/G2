@@ -1,5 +1,5 @@
 import { each } from '@antv/util';
-import { ComponentOption } from '../interface';
+import { ComponentOption } from '../../interface';
 import View from '../view';
 
 /** Component controller class type define */

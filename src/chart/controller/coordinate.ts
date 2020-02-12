@@ -1,6 +1,6 @@
 import { each, some } from '@antv/util';
 import { Coordinate, getCoordinate, Point } from '../../dependents';
-import { CoordinateOption } from '../interface';
+import { CoordinateOption } from '../../interface';
 
 /**
  * coordinate controller，职责：

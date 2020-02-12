@@ -1,11 +1,12 @@
 import { IGroup, IShape } from '../../dependents';
-import { AnimateCfg, AnimateExtraCfg } from '../interface';
+import { GAnimateCfg } from '../../interface';
+import { AnimateExtraCfg } from '../interface';
 
 interface AnimationMap {
   [key: string]: Animation;
 }
 
-type Animation = (element: IGroup | IShape, animateCfg: AnimateCfg, cfg: AnimateExtraCfg) => void;
+type Animation = (element: IGroup | IShape, animateCfg: GAnimateCfg, cfg: AnimateExtraCfg) => void;
 
 const ANIMATIONS_MAP: AnimationMap = {};
 

@@ -1,11 +1,10 @@
 import { deepMix, each, filter } from '@antv/util';
-import { AxisCfg } from '../chart/interface';
-import View from '../chart/view';
 import { DIRECTION } from '../constant';
-import { Datum } from '../interface';
+import { AxisCfg, Datum, MirrorCfg, MirrorData } from '../interface';
+
+import View from '../chart/view';
 import { getFactTitleConfig } from '../util/facet';
 import { Facet } from './facet';
-import { MirrorCfg, MirrorData } from './interface';
 
 /**
  * 镜像分面

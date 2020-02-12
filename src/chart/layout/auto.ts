@@ -1,9 +1,8 @@
 import { each } from '@antv/util';
 import { COMPONENT_TYPE } from '../../constant';
-import { Padding } from '../../interface';
+import { ComponentOption, Padding } from '../../interface';
 import { BBox } from '../../util/bbox';
 import { isAutoPadding, parsePadding } from '../../util/padding';
-import { ComponentOption } from '../interface';
 import View from '../view';
 import { PaddingCal } from './padding-cal';
 

@@ -1,10 +1,11 @@
 import { deepMix, each, get, isArray } from '@antv/util';
-import { doAnimate } from '../animate';
-import { AnimateOption } from '../chart/interface';
+
 import { BBox, IGroup, IShape } from '../dependents';
-import { GeometryLabelLayoutCfg } from '../geometry/interface';
-import { getGeometryLabelLayout } from '../geometry/label';
 import { LabelItem } from '../geometry/label/interface';
+import { AnimateOption, GeometryLabelLayoutCfg } from '../interface';
+
+import { doAnimate } from '../animate';
+import { getGeometryLabelLayout } from '../geometry/label';
 import { getReplaceAttrs } from '../util/graphics';
 import { rotate, translate } from '../util/transform';
 

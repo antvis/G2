@@ -1,11 +1,10 @@
 import { deepMix, each, filter } from '@antv/util';
-import { AxisCfg } from '../chart/interface';
+import { AxisCfg, CircleCfg, CircleData, Datum } from '../interface';
+
 import View from '../chart/view';
 import { DIRECTION } from '../constant';
-import { Datum } from '../interface';
 import { getAnglePoint, getFactTitleConfig } from '../util/facet';
 import { Facet } from './facet';
-import { CircleCfg, CircleData } from './interface';
 
 /**
  * 镜像分面

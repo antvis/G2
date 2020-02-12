@@ -3,17 +3,15 @@ import { deepMix, get, upperFirst } from '@antv/util';
 import { IGroup, IShape, PathCommand } from '../../dependents';
 import {
   Point,
-  ShapeInfo,
-} from '../../interface';
-import {
   RegisterShape,
   RegisterShapeFactory,
   Shape,
   ShapeFactory,
+  ShapeInfo,
   ShapeMarkerAttrs,
   ShapeMarkerCfg,
   ShapePoint,
-} from './interface';
+} from '../../interface';
 
 import { convertNormalPath, convertPolarPath } from './util/path';
 

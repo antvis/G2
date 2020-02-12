@@ -1,7 +1,6 @@
 import { transform } from '@antv/matrix-util';
 import { Coordinate, IGroup, IShape } from '../../dependents';
-import { Point } from '../../interface';
-import { AnimateCfg } from '../interface';
+import { GAnimateCfg, Point } from '../../interface';
 
 import { getSectorPath } from '../../util/graphics';
 
@@ -124,7 +123,7 @@ export function transformShape(shape: IShape | IGroup, vector: [number, number],
  */
 export function doScaleAnimate(
   element: IGroup | IShape,
-  animateCfg: AnimateCfg,
+  animateCfg: GAnimateCfg,
   coordinate: Coordinate,
   yMinPoint: Point,
   type: string

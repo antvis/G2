@@ -1,6 +1,5 @@
-import { Coordinate, IGroup, IShape } from '../../dependents';
-import { Datum, MappingDatum, Point, Region } from '../../interface';
-import { GeometryLabelCfg } from '../interface';
+import { Coordinate } from '../../dependents';
+import { Datum, GeometryLabelCfg, MappingDatum, Point } from '../../interface';
 
 export interface LabelCfg extends GeometryLabelCfg {
   content?: any;

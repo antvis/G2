@@ -1,7 +1,6 @@
 import { each } from '@antv/util';
 import { IGroup } from '../../../dependents';
-import { Point, ShapeInfo } from '../../../interface';
-import { ShapeMarkerCfg, ShapePoint } from '../interface';
+import { Point, ShapeInfo, ShapeMarkerCfg, ShapePoint } from '../../../interface';
 
 import { MarkerSymbols } from '../../../util/marker';
 import { registerShape, registerShapeFactory } from '../base';

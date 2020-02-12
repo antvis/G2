@@ -1,6 +1,5 @@
 import { IGroup } from '../../../dependents';
-import { Point, ShapeInfo } from '../../../interface';
-import { ShapeMarkerCfg } from '../interface';
+import { Point, ShapeInfo, ShapeMarkerCfg } from '../../../interface';
 
 import { getArcPath } from '../../../util/graphics';
 import { registerShape } from '../base';

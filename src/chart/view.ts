@@ -20,23 +20,29 @@ import {
   uniqueId,
 } from '@antv/util';
 import { Attribute, Coordinate, Event as GEvent, GroupComponent, ICanvas, IGroup, IShape, Scale } from '../dependents';
-import { FacetCfgMap } from '../facet/interface';
-import { Data, Datum, LooseObject, Point, Region, ViewPadding } from '../interface';
 import {
+  AnnotationBaseOption,
   AxisOption,
   ComponentOption,
   CoordinateCfg,
   CoordinateOption,
+  Data,
+  Datum,
+  FacetCfgMap,
   FilterCondition,
   GeometryOption,
   InteractionOption,
   LegendOption,
+  LooseObject,
   Options,
+  Point,
+  Region,
   ScaleOption,
   TooltipOption,
   ViewCfg,
   ViewOption,
-} from './interface';
+  ViewPadding,
+} from '../interface';
 
 import { GROUP_Z_INDEX, LAYER, PLOT_EVENTS, VIEW_LIFE_CIRCLE } from '../constant';
 
@@ -49,7 +55,7 @@ import { isFullCircle, isPointInCoordinate } from '../util/coordinate';
 import { mergeTheme } from '../util/theme';
 import Chart from './chart';
 import { getComponentController, getComponentControllerNames } from './controller';
-import AnnotationComponent, { BaseOption as AnnotationBaseOption } from './controller/annotation';
+import AnnotationComponent from './controller/annotation';
 import { Controller } from './controller/base';
 import CoordinateController from './controller/coordinate';
 import TooltipComponent from './controller/tooltip';

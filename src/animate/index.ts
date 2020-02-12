@@ -1,7 +1,7 @@
 import { deepMix, get, isFunction } from '@antv/util';
 import { Coordinate, IGroup, IShape } from '../dependents';
-import { AnimateCfg, Data, Datum, Point } from '../interface';
-import { AnimateCfg as ParsedAnimateCfg, AnimateExtraCfg } from './interface';
+import { AnimateCfg, Data, Datum, GAnimateCfg, Point } from '../interface';
+import { AnimateExtraCfg } from './interface';
 
 import { getAnimation } from './animation';
 
@@ -180,7 +180,7 @@ const GEOMETRY_GROUP_APPEAR_ANIMATION = {
 };
 
 // 解析用户的动画配置
-function parseAnimateConfig(animateCfg: AnimateCfg, data: Data | Datum): ParsedAnimateCfg {
+function parseAnimateConfig(animateCfg: AnimateCfg, data: Data | Datum): GAnimateCfg {
   return {
     delay: isFunction(animateCfg.delay) ? animateCfg.delay(data) : animateCfg.delay,
     easing: isFunction(animateCfg.easing) ? animateCfg.easing(data) : animateCfg.easing,

@@ -1,8 +1,9 @@
-import { FilterCondition } from '../../../chart/interface';
 import { Point, Scale } from '../../../dependents';
+import { FilterCondition } from '../../../interface';
+
+import { View } from '../../../chart';
 import Action from '../base';
 import { distance, isMask } from '../util';
-import { View } from '../../../chart';
 
 // 获取对应的 scale
 function getFilter(scale: Scale, dim: string, point1: Point, point2: Point): FilterCondition {
