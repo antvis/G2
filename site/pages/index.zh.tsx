@@ -49,7 +49,7 @@ const IndexPage = () => {
       type: 'primary',
     },
     {
-      text: t('下载使用'),
+      text: t('开始使用'),
       link: `/${i18n.language}/docs/manual/getting-started`,
     },
   ];
