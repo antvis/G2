@@ -3,6 +3,8 @@ import CircleMask from '../../../../src/interaction/action/mask/circle';
 import PathMask from '../../../../src/interaction/action/mask/path';
 import RectMask from '../../../../src/interaction/action/mask/rect';
 import SmoothMask from '../../../../src/interaction/action/mask/smooth-path';
+import DimMask from '../../../../src/interaction/action/mask/dim-rect';
+
 import Context from '../../../../src/interaction/context';
 import { createDiv } from '../../../util/dom';
 
@@ -413,11 +415,87 @@ describe('test mask', () => {
     });
   });
 
-  // describe('test vertical rect mask', () => {
+  describe('test vertical rect mask', () => {
+    let maskAction;
+    const coord = chart.getCoordinate();
+    const {start, end} = coord;
+    let maskShape;
+    
+    it('start and resize', () => {
+      maskAction = new DimMask(context);
+      maskAction.init();
+      context.event = {
+        x: 100,
+        y: 100,
+      };
+      maskAction.start();
+      // @ts-ignore
+      maskShape = maskAction.maskShape;
+      context.event = {
+        x: 200,
+        y: 200,
+      };
+      maskAction.resize();
+      const path = maskShape.attr('path');
+      expect(path[0]).toEqual(['M', 100, start.y]);
+      expect(path[2]).toEqual(['L', 200, end.y]);
+      maskAction.end();
+    });
+    it('move', () => {
+      context.event = {
+        x: 150,
+        y: 150,
+      };
+      maskAction.moveStart();
+      context.event = {
+        x: 160,
+        y: 160,
+      };
+      maskAction.move();
+      const path = maskShape.attr('path');
+      expect(path[0]).toEqual(['M', 110, start.y]);
+      expect(path[2]).toEqual(['L', 210, end.y]);
+      maskAction.moveEnd();
+    });
 
-  // });
+    it('inPlot', () => {
+      context.event = {
+        x: 300,
+        y: 300,
+      };
+      maskAction.start();
 
-  // describe('test horizontal rect mask', () => {
+      context.event = {
+        x: 500,
+        y: 500,
+      };
 
-  // });
+      maskAction.resize();
+      const path = maskShape.attr('path');
+      expect(path[0]).toEqual(['M', 300, start.y]);
+      expect(path[2]).toEqual(['L', end.x, end.y]);
+
+    });
+
+    it('horizontal', () => {
+      maskAction = new DimMask(context, {dim: 'y'});
+      maskAction.init();
+      context.event = {
+        x: 100,
+        y: 100,
+      };
+      maskAction.start();
+      // @ts-ignore
+      maskShape = maskAction.maskShape;
+      context.event = {
+        x: 200,
+        y: 200,
+      };
+      maskAction.resize();
+      const path = maskShape.attr('path');
+      expect(path[0]).toEqual(['M',start.x, 100]);
+      expect(path[2]).toEqual(['L',end.x, 200]);
+      maskAction.end();
+    });
+  });
 });

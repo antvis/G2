@@ -238,6 +238,7 @@ export interface ChartCfg {
 
 // view 构造参数
 export interface ViewCfg {
+
   /** 当前 view 的父级 view。 */
   readonly parent: View;
   /** canvas 实例。 */
@@ -268,6 +269,8 @@ export interface ViewCfg {
   readonly options?: Options;
   /** 是否可见。 */
   readonly visible?: boolean;
+  readonly start?: Point;
+  readonly end?: Point;
 }
 
 /**

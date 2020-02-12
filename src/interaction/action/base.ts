@@ -1,4 +1,4 @@
-import { each, isNil } from '@antv/util';
+import { each, isNil, assign } from '@antv/util';
 import { IAction, IInteractionContext, LooseObject } from '../../interface';
 
 /**
@@ -18,13 +18,14 @@ abstract class Action<T = LooseObject> implements IAction {
 
   // 设置配置项传入的值
   protected applyCfg(cfg) {
-    if (this.cfgFields && cfg) {
-      each(this.cfgFields, (field) => {
-        if (!isNil(cfg[field])) {
-          this[field] = cfg[field];
-        }
-      });
-    }
+    // if (this.cfgFields && cfg) {
+    //   each(this.cfgFields, (field) => {
+    //     if (!isNil(cfg[field])) {
+    //       this[field] = cfg[field];
+    //     }
+    //   });
+    // }
+    assign(this, cfg);
   }
 
   // 提供给子类用于继承

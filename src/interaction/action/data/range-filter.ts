@@ -1,8 +1,8 @@
-import { get } from '@antv/util';
 import { FilterCondition } from '../../../chart/interface';
 import { Point, Scale } from '../../../dependents';
 import Action from '../base';
-import { distance } from '../util';
+import { distance, isMask } from '../util';
+import { View } from '../../../chart';
 
 // 获取对应的 scale
 function getFilter(scale: Scale, dim: string, point1: Point, point2: Point): FilterCondition {
@@ -71,12 +71,21 @@ class RangeFilter extends Action {
    * 过滤，以开始的点和当前点对数据进行过滤
    */
   public filter() {
-    if (!this.isStarted) {
-      // 如果没有开始，则不执行过滤
-      return;
+    let startPoint;
+    let currentPoint;
+    if (isMask(this.context)) {
+      const maskShape = this.context.event.target;
+      const bbox = maskShape.getCanvasBBox();
+      startPoint = {x: bbox.x, y: bbox.y};
+      currentPoint = {x: bbox.maxX, y: bbox.maxY};
+    } else {
+      if (!this.isStarted) {
+        // 如果没有开始，则不执行过滤
+        return;
+      }
+      startPoint = this.startPoint;
+      currentPoint = this.context.getCurrentPoint();
     }
-    const startPoint = this.startPoint;
-    const currentPoint = this.context.getCurrentPoint();
     if (distance(startPoint, currentPoint) < 5) {
       // 距离过小也不生效
       return;
@@ -89,14 +98,24 @@ class RangeFilter extends Action {
     if (this.hasDim('x')) {
       const xScale = view.getXScale();
       const filter = getFilter(xScale, 'x', normalCurrent, normalStart);
-      view.filter(xScale.field, filter);
+      this.filterView(view, xScale.field, filter);
     }
     // 设置 y 方向的 filter
     if (this.hasDim('y')) {
       const yScale = view.getYScales()[0];
       const filter = getFilter(yScale, 'y', normalCurrent, normalStart);
-      view.filter(yScale.field, filter);
+      this.filterView(view, yScale.field, filter);
     }
+    this.reRender(view);
+  }
+
+  // 对 view 进行过滤
+  protected filterView(view: View, field: string, filter: FilterCondition) {
+    view.filter(field, filter);
+  }
+
+  // 重新渲染
+  protected reRender(view: View) {
     view.render(true);
   }
 
@@ -115,14 +134,14 @@ class RangeFilter extends Action {
     this.isStarted = false;
     if (this.hasDim('x')) {
       const xScale = view.getXScale();
-      view.filter(xScale.field, null); // 取消过滤
+      this.filterView(view, xScale.field, null); // 取消过滤
     }
     if (this.hasDim('y')) {
       // y 轴过滤仅取第一个 yScale
       const yScale = view.getYScales()[0];
-      view.filter(yScale.field, null); // 取消过滤
+      this.filterView(view, yScale.field, null); // 取消过滤
     }
-    view.render(true);
+    this.reRender(view);
   }
 }
 
