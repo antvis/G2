@@ -156,11 +156,14 @@ import ListUnchecked from './interaction/action/component/list-unchecked';
 import CircleMask from './interaction/action/mask/circle';
 import PathMask from './interaction/action/mask/path';
 import RectMask from './interaction/action/mask/rect';
+import DimMask from './interaction/action/mask/dim-rect';
 import SmoothPathMask from './interaction/action/mask/smooth-path';
 
 import CursorAction from './interaction/action/cursor';
 import DataFilter from './interaction/action/data/filter';
 import DataRangeFilter from './interaction/action/data/range-filter';
+import SiblingFilter from './interaction/action/data/sibling-filter';
+
 
 import ElementFilter from './interaction/action/element/filter';
 import ButtonAction from './interaction/action/view/button';
@@ -189,15 +192,22 @@ registerAction('list-highlight', ListHighlight);
 registerAction('list-unchecked', ListUnchecked);
 
 registerAction('rect-mask', RectMask);
+registerAction('x-rect-mask', DimMask, {dim: 'x'});
+registerAction('y-rect-mask', DimMask, {dim: 'y'});
 registerAction('circle-mask', CircleMask);
 registerAction('path-mask', PathMask);
 registerAction('smooth-path-mask', SmoothPathMask);
 
 registerAction('cursor', CursorAction);
 registerAction('data-filter', DataFilter);
+
 registerAction('brush', DataRangeFilter);
 registerAction('brush-x', DataRangeFilter, { dims: ['x'] });
 registerAction('brush-y', DataRangeFilter, { dims: ['y'] });
+registerAction('sibling-filter', SiblingFilter);
+registerAction('sibling-x-filter', SiblingFilter);
+registerAction('sibling-y-filter', SiblingFilter);
+
 registerAction('element-filter', ElementFilter);
 registerAction('view-drag', ViewDrag);
 registerAction('view-move', ViewMove);
