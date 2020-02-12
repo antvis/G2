@@ -38,6 +38,7 @@ export default class Chart extends View {
       visible = true,
       defaultInteractions = ['tooltip'],
       options,
+      limitInPlot,
     } = props;
 
     const ele: HTMLElement = isString(container) ? document.getElementById(container) : container;
@@ -68,6 +69,7 @@ export default class Chart extends View {
       padding,
       visible,
       options,
+      limitInPlot,
     });
 
     this.ele = ele;

@@ -51,7 +51,7 @@ import { Facet, getFacet } from '../facet';
 import Geometry from '../geometry/base';
 import { createInteraction, Interaction } from '../interaction';
 import { BBox } from '../util/bbox';
-import { isFullCircle, isPointInCoordinate } from '../util/coordinate';
+import { getCoordinateClipCfg, isFullCircle, isPointInCoordinate } from '../util/coordinate';
 import { mergeTheme } from '../util/theme';
 import Chart from './chart';
 import { getComponentController, getComponentControllerNames } from './controller';
@@ -95,6 +95,8 @@ export class View extends Base {
   public middleGroup: IGroup;
   /** 三层 Group 图形中的前景层。 */
   public foregroundGroup: IGroup;
+  /** 是否对超出坐标系范围的 Geometry 进行剪切 */
+  public limitInPlot: boolean = false;
 
   /**
    * 标记 view 的大小位置范围，均是 0 ~ 1 范围，便于开发者使用，起始点为左上角。
@@ -112,8 +114,6 @@ export class View extends Base {
   /** 过滤之后的数据 */
   protected filteredData: Data;
 
-  /** 用于捕获 view event 的 rect shape。 */
-  private viewEventCaptureRect: IShape;
   /** 配置开启的组件插件，默认为全局配置的组件。 */
   private usedControllers: string[] = getComponentControllerNames();
 
@@ -146,6 +146,7 @@ export class View extends Base {
       padding,
       theme,
       options,
+      limitInPlot,
     } = props;
 
     this.parent = parent;
@@ -158,6 +159,7 @@ export class View extends Base {
     this.themeObject = mergeTheme({}, theme);
     // 接受父 view 传入的参数
     this.options = { ...this.options, ...options };
+    this.limitInPlot = limitInPlot;
 
     this.init();
   }
@@ -178,8 +180,6 @@ export class View extends Base {
   public init() {
     // 计算画布的 viewBBox
     this.calculateViewBBox();
-    // 创建一个透明的背景 rect，用于捕获事件
-    // this.createViewEventCaptureRect();
 
     // 事件委托机制
     this.initEvents();
@@ -262,7 +262,6 @@ export class View extends Base {
       }
     });
     this.clear();
-    // this.viewEventCaptureRect.remove(true);
 
     // 销毁 controller 中的组件
     each(this.controllers, (controller: Controller) => {
@@ -1157,15 +1156,19 @@ export class View extends Base {
    * @param isUpdate
    */
   protected renderPaintRecursive(isUpdate: boolean) {
-    // 更新组件，利用 controller 的 layout（从原 layout 中挪出来）
+    if (this.limitInPlot) {
+      const middleGroup = this.middleGroup;
+      const { type, attrs } = getCoordinateClipCfg(this.coordinateInstance);
+      middleGroup.setClip({
+        type,
+        attrs,
+      });
+    }
 
     // 1. 渲染几何标记
     this.paintGeometries(isUpdate);
     // 2. 绘制组件
     this.renderComponents(isUpdate);
-    // 2. 更新 viewEventCaptureRect 大小
-    // const { x, y, width, height } = this.viewBBox;
-    // this.viewEventCaptureRect.attr({ x, y, width, height });
 
     // 同样递归处理子 views
     each(this.views, (view: View) => {
@@ -1236,23 +1239,6 @@ export class View extends Base {
 
     // 初始的 coordinate bbox 大小
     this.coordinateBBox = this.viewBBox;
-  }
-
-  /**
-   * create an rect with viewBBox, for capture event
-   */
-  private createViewEventCaptureRect() {
-    const { x, y, width, height } = this.viewBBox;
-
-    this.viewEventCaptureRect = this.backgroundGroup.addShape('rect', {
-      attrs: {
-        x,
-        y,
-        width,
-        height,
-        fill: 'rgba(255,255,255,0)',
-      },
-    }) as IShape;
   }
 
   /**
