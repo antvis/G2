@@ -1,7 +1,7 @@
 import { transform } from '@antv/matrix-util';
 import { IGroup, IShape } from '../../dependents';
-import { Point } from '../../interface';
-import { AnimateCfg, AnimateExtraCfg } from '../interface';
+import { GAnimateCfg, Point } from '../../interface';
+import { AnimateExtraCfg } from '../interface';
 
 /**
  * 沿着 x 方向放大的动画
@@ -9,7 +9,7 @@ import { AnimateCfg, AnimateExtraCfg } from '../interface';
  * @param animateCfg
  * @param shapeModel
  */
-export function scaleInX(shape: IShape | IGroup, animateCfg: AnimateCfg, cfg: AnimateExtraCfg) {
+export function scaleInX(shape: IShape | IGroup, animateCfg: GAnimateCfg, cfg: AnimateExtraCfg) {
   const box = shape.getBBox();
   const { mappingData } = shape.get('origin');
   const points = mappingData.points as Point[];
@@ -44,7 +44,7 @@ export function scaleInX(shape: IShape | IGroup, animateCfg: AnimateCfg, cfg: An
  * @param animateCfg
  * @param shapeModel
  */
-export function scaleInY(shape: IShape | IGroup, animateCfg: AnimateCfg, cfg: AnimateExtraCfg) {
+export function scaleInY(shape: IShape | IGroup, animateCfg: GAnimateCfg, cfg: AnimateExtraCfg) {
   const box = shape.getBBox();
   const { mappingData } = shape.get('origin');
   const x = (box.minX + box.maxX) / 2;

@@ -1,7 +1,6 @@
 import { each } from '@antv/util';
 import { Coordinate, PathCommand } from '../../../dependents';
-import { Point, Position, ShapeInfo } from '../../../interface';
-import { Shape } from '../interface';
+import { Point, Position, Shape, ShapeInfo } from '../../../interface';
 
 import { getPathPoints } from '../util/get-path-points';
 import { getStyle } from '../util/get-style';

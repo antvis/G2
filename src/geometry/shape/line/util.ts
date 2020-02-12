@@ -1,4 +1,4 @@
-import { ShapeMarkerCfg } from '../interface';
+import { ShapeMarkerCfg } from '../../../interface';
 
 const LineSymbols = {
   line: (x: number, y: number, r: number) => {

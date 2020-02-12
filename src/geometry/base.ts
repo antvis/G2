@@ -20,37 +20,38 @@ import {
 } from '@antv/util';
 import { doGroupAppearAnimate, getDefaultAnimateCfg } from '../animate';
 import Base from '../base';
-import { AnimateOption, ScaleOption } from '../chart/interface';
 import Labels from '../component/labels';
 import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
-import { BBox, Coordinate, IGroup, Scale, IShape } from '../dependents';
-import {
-  Data,
-  Datum,
-  LooseObject,
-  MappingDatum,
-  ShapeInfo,
-} from '../interface';
-import Element from './element';
+import { BBox, Coordinate, IGroup, IShape, Scale } from '../dependents';
 import {
   AdjustOption,
   AdjustType,
+  AnimateOption,
   AttributeOption,
   ColorAttrCallback,
+  Data,
+  Datum,
   GeometryLabelCfg,
+  GeometryTooltipOption,
   LabelCallback,
   LabelOption,
+  LooseObject,
+  MappingDatum,
+  ScaleOption,
   ShapeAttrCallback,
+  ShapeFactory,
+  ShapeInfo,
+  ShapeMarkerCfg,
+  ShapePoint,
   SizeAttrCallback,
   StateOption,
   StyleCallback,
   StyleOption,
   TooltipCallback,
-  TooltipOption,
-} from './interface';
+} from '../interface';
+import Element from './element';
 import { getGeometryLabel } from './label';
 import { getShapeFactory } from './shape/base';
-import { ShapeFactory, ShapeMarkerCfg, ShapePoint } from './shape/interface';
 import { group } from './util/group-data';
 import { isModelChange } from './util/is-model-change';
 import { parseFields } from './util/parse-fields';
@@ -155,7 +156,7 @@ export default class Geometry extends Base {
    */
   public dataArray: MappingDatum[][];
   /** 存储 tooltip 配置信息。 */
-  public tooltipOption: TooltipOption | boolean;
+  public tooltipOption: GeometryTooltipOption | boolean;
   /** 存储 label 配置信息。 */
   public labelOption: LabelOption | false;
   /** 状态量相关的配置项 */
@@ -576,7 +577,7 @@ export default class Geometry extends Base {
    * @param field tooltip 配置信息。
    * @returns
    */
-  public tooltip(field: TooltipOption | boolean): Geometry;
+  public tooltip(field: GeometryTooltipOption | boolean): Geometry;
   /**
    * @example
    * ```typescript
@@ -602,7 +603,7 @@ export default class Geometry extends Base {
    * @returns
    */
   public tooltip(field: string, cfg?: TooltipCallback): Geometry;
-  public tooltip(field: TooltipOption | boolean | string, cfg?: TooltipCallback): Geometry {
+  public tooltip(field: GeometryTooltipOption | boolean | string, cfg?: TooltipCallback): Geometry {
     if (isString(field)) {
       const fields = parseFields(field);
       this.tooltipOption = {

@@ -1,5 +1,6 @@
 import { IShape } from '../../dependents';
-import { AnimateCfg, AnimateExtraCfg } from '../interface';
+import { GAnimateCfg } from '../../interface';
+import { AnimateExtraCfg } from '../interface';
 
 /**
  * 入场动画
@@ -8,7 +9,7 @@ import { AnimateCfg, AnimateExtraCfg } from '../interface';
  * @param animateCfg 动画配置
  * @param cfg 额外信息
  */
-export function pathIn(element: IShape, animateCfg: AnimateCfg, cfg: AnimateExtraCfg) {
+export function pathIn(element: IShape, animateCfg: GAnimateCfg, cfg: AnimateExtraCfg) {
   // @ts-ignore
   const length = element.getTotalLength();
   // 设置虚线样式

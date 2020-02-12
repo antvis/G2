@@ -1,5 +1,7 @@
 import { IGroup, IShape } from '../../dependents';
-import { AnimateCfg, AnimateExtraCfg } from '../interface';
+import { GAnimateCfg } from '../../interface';
+import { AnimateExtraCfg } from '../interface';
+
 import { doScaleAnimate } from './util';
 
 /**
@@ -9,7 +11,7 @@ import { doScaleAnimate } from './util';
  * @param animateCfg 动画配置
  * @param cfg 额外信息
  */
-export function growInX(element: IShape | IGroup, animateCfg: AnimateCfg, cfg: AnimateExtraCfg) {
+export function growInX(element: IShape | IGroup, animateCfg: GAnimateCfg, cfg: AnimateExtraCfg) {
   const { coordinate, minYPoint } = cfg;
   doScaleAnimate(element, animateCfg, coordinate, minYPoint, 'x');
 }
@@ -21,7 +23,7 @@ export function growInX(element: IShape | IGroup, animateCfg: AnimateCfg, cfg: A
  * @param animateCfg 动画配置
  * @param cfg 额外信息
  */
-export function growInY(element: IShape | IGroup, animateCfg: AnimateCfg, cfg: AnimateExtraCfg) {
+export function growInY(element: IShape | IGroup, animateCfg: GAnimateCfg, cfg: AnimateExtraCfg) {
   const { coordinate, minYPoint } = cfg;
   doScaleAnimate(element, animateCfg, coordinate, minYPoint, 'y');
 }
@@ -33,7 +35,7 @@ export function growInY(element: IShape | IGroup, animateCfg: AnimateCfg, cfg: A
  * @param animateCfg 动画配置
  * @param cfg 额外信息
  */
-export function growInXY(element: IShape | IGroup, animateCfg: AnimateCfg, cfg: AnimateExtraCfg) {
+export function growInXY(element: IShape | IGroup, animateCfg: GAnimateCfg, cfg: AnimateExtraCfg) {
   const { coordinate, minYPoint } = cfg;
   doScaleAnimate(element, animateCfg, coordinate, minYPoint, 'xy');
 }

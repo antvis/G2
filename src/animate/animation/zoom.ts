@@ -1,9 +1,10 @@
 import { transform } from '@antv/matrix-util';
 import { each } from '@antv/util';
 import { IGroup, IShape } from '../../dependents';
-import { AnimateCfg, AnimateExtraCfg } from '../interface';
+import { GAnimateCfg } from '../../interface';
+import { AnimateExtraCfg } from '../interface';
 
-function doShapeZoom(shape: IShape | IGroup, animateCfg: AnimateCfg, type: 'zoomIn' | 'zoomOut') {
+function doShapeZoom(shape: IShape | IGroup, animateCfg: GAnimateCfg, type: 'zoomIn' | 'zoomOut') {
   if (shape.isGroup()) {
     each((shape as IGroup).getChildren(), (child) => {
       doShapeZoom(child, animateCfg, type);
@@ -59,7 +60,7 @@ function doShapeZoom(shape: IShape | IGroup, animateCfg: AnimateCfg, type: 'zoom
  * @param animateCfg 动画配置
  * @param cfg 额外信息
  */
-export function zoomIn(shape: IShape | IGroup, animateCfg: AnimateCfg, cfg: AnimateExtraCfg) {
+export function zoomIn(shape: IShape | IGroup, animateCfg: GAnimateCfg, cfg: AnimateExtraCfg) {
   doShapeZoom(shape, animateCfg, 'zoomIn');
 }
 
@@ -70,6 +71,6 @@ export function zoomIn(shape: IShape | IGroup, animateCfg: AnimateCfg, cfg: Anim
  * @param animateCfg 动画配置
  * @param cfg 额外信息
  */
-export function zoomOut(shape: IShape | IGroup, animateCfg: AnimateCfg, cfg: AnimateExtraCfg) {
+export function zoomOut(shape: IShape | IGroup, animateCfg: GAnimateCfg, cfg: AnimateExtraCfg) {
   doShapeZoom(shape, animateCfg, 'zoomOut');
 }

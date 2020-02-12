@@ -1,6 +1,8 @@
 import { deepMix, each, get, map, mix } from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { CircleAxis, CircleGrid, IGroup, LineAxis, LineGrid, Scale } from '../../dependents';
+import { AxisCfg, AxisOption, ComponentOption } from '../../interface';
+
 import {
   getAxisDirection,
   getAxisFactorByRegion,
@@ -12,7 +14,6 @@ import { getAxisOption } from '../../util/axis';
 import { getCircleGridItems, getGridThemeCfg, getLineGridItems, showGrid } from '../../util/grid';
 import { omit } from '../../util/helper';
 import { getName } from '../../util/scale';
-import { AxisCfg, AxisOption, ComponentOption } from '../interface';
 import View from '../view';
 import { Controller } from './base';
 

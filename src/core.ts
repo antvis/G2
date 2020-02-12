@@ -45,8 +45,4 @@ export const Util = {
   rotate,
 };
 
-// 类型定义导出
-export { ChartCfg, ViewCfg } from './chart';
-export { Data, Datum, Region, Point } from './interface';
-export { FacetCfg, FacetData } from './facet/interface';
 export { LAYER, DIRECTION } from './constant';

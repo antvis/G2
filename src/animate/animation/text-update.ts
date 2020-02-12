@@ -1,5 +1,6 @@
 import { IShape } from '../../dependents';
-import { AnimateCfg, AnimateExtraCfg } from '../interface';
+import { GAnimateCfg } from '../../interface';
+import { AnimateExtraCfg } from '../interface';
 
 /**
  * 文本的更新动画，只会更新位移
@@ -7,7 +8,7 @@ import { AnimateCfg, AnimateExtraCfg } from '../interface';
  * @param animateCfg
  * @param cfg
  */
-export function textUpdate(shape: IShape, animateCfg: AnimateCfg, cfg: AnimateExtraCfg) {
+export function textUpdate(shape: IShape, animateCfg: GAnimateCfg, cfg: AnimateExtraCfg) {
   const { toAttrs } = cfg;
   // @ts-ignore
   const x = toAttrs.x;

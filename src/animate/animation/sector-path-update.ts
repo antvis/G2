@@ -1,7 +1,9 @@
 import getArcParams from '@antv/g-canvas/lib/util/arc-params';
 import { isNumberEqual } from '@antv/util';
+
 import { IShape, PathCommand } from '../../dependents';
-import { AnimateCfg, AnimateExtraCfg } from '../interface';
+import { GAnimateCfg } from '../../interface';
+import { AnimateExtraCfg } from '../interface';
 
 import { getArcPath, getSectorPath } from '../../util/graphics';
 
@@ -104,7 +106,7 @@ function getArcInfo(path: PathCommand[]) {
  * @param animateCfg
  * @param cfg
  */
-export function sectorPathUpdate(shape: IShape, animateCfg: AnimateCfg, cfg: AnimateExtraCfg) {
+export function sectorPathUpdate(shape: IShape, animateCfg: GAnimateCfg, cfg: AnimateExtraCfg) {
   const { toAttrs, coordinate } = cfg;
   // @ts-ignore
   const path = toAttrs.path;

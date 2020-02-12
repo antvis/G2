@@ -1,7 +1,6 @@
 import { each, isArray } from '@antv/util';
 import { IGroup } from '../../../dependents';
-import { Point, Position, RangePoint, ShapeInfo } from '../../../interface';
-import { ShapeMarkerCfg } from '../interface';
+import { Point, Position, RangePoint, ShapeInfo, ShapeMarkerCfg } from '../../../interface';
 
 import { registerShape, registerShapeFactory } from '../base';
 import { getPathPoints } from '../util/get-path-points';

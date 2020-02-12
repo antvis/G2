@@ -1,8 +1,7 @@
 import { get, isBoolean } from '@antv/util';
 import { DIRECTION } from '../constant';
 import { Coordinate } from '../dependents';
-import { Point, Region } from '../interface';
-import { AxisOption } from '../chart/interface';
+import { AxisOption, Point, Region } from '../interface';
 
 /**
  * get axis relative region ( 0 ~ 1) by direction when coordinate is rect

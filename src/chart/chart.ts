@@ -1,8 +1,11 @@
 import { debounce, each, isString } from '@antv/util';
+
+import { ChartCfg } from '../interface';
+
 import { GROUP_Z_INDEX } from '../constant';
+
 import { getEngine } from '../engine';
 import { createDom, getChartSize, removeDom } from '../util/dom';
-import { ChartCfg } from './interface';
 import View from './view';
 
 /**

@@ -3,9 +3,8 @@
  */
 import { each, get, isNumber } from '@antv/util';
 import { Scale } from '../../dependents';
-import { Data } from '../../interface';
+import { Data, ScaleOption } from '../../interface';
 import { createScaleByField, syncScale } from '../../util/scale';
-import { ScaleOption } from '../interface';
 
 interface ScaleMeta {
   readonly key: string;

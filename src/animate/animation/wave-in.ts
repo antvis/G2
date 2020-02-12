@@ -1,5 +1,6 @@
 import { IGroup, IShape } from '../../dependents';
-import { AnimateCfg, AnimateExtraCfg } from '../interface';
+import { GAnimateCfg } from '../../interface';
+import { AnimateExtraCfg } from '../interface';
 import { getCoordinateClipCfg } from './util';
 
 /**
@@ -10,7 +11,7 @@ import { getCoordinateClipCfg } from './util';
  * @param animateCfg 动画配置
  * @param cfg 额外信息
  */
-export function waveIn(element: IShape | IGroup, animateCfg: AnimateCfg, cfg: AnimateExtraCfg) {
+export function waveIn(element: IShape | IGroup, animateCfg: GAnimateCfg, cfg: AnimateExtraCfg) {
   const clipCfg = getCoordinateClipCfg(cfg.coordinate); // 根据坐标系类型获取整体的剪切区域配置信息
   const endState = clipCfg.endState;
   const clipShape = element.setClip(clipCfg) as IShape; // 为 shape 设置剪切区域

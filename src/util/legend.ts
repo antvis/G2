@@ -1,9 +1,9 @@
 import { deepMix, isString, map, size } from '@antv/util';
-import { LegendItem } from '../chart/interface';
 import View from '../chart/view';
 import { DIRECTION } from '../constant';
 import { Attribute, Tick } from '../dependents';
 import Geometry from '../geometry/base';
+import { LegendItem } from '../interface';
 import { getMappingValue } from './attr';
 import { MarkerSymbols } from './marker';
 
