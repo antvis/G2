@@ -5,16 +5,23 @@
 import * as _ from '@antv/util';
 import { AxisCfg } from '../chart/interface';
 import View from '../chart/view';
+import { DIRECTION, VIEW_LIFE_CIRCLE } from '../constant';
 import { Datum } from '../interface';
+import { getFactTitleConfig } from '../util/facet';
 import { Facet } from './facet';
 import { Condition, TreeCfg, TreeData } from './interface';
 
-export default class Tree extends Facet<TreeCfg, TreeData>{
+export default class Tree extends Facet<TreeCfg, TreeData> {
 
   protected afterEachView(view: View, facet: TreeData) {
   }
 
   protected beforeEachView(view: View, facet: TreeData) {
+  }
+
+  public init() {
+    super.init();
+    this.view.on(VIEW_LIFE_CIRCLE.AFTER_RENDER, this.afterChartRender);
   }
 
   protected getDefaultCfg() {
@@ -25,7 +32,8 @@ export default class Tree extends Facet<TreeCfg, TreeData>{
         stroke: '#ddd'
       },
       lineSmooth: false,
-      rootTitle: ''
+      showTitle: true,
+      title: super.getDefaultTitleCfg(),
     });
   }
 
@@ -46,7 +54,7 @@ export default class Tree extends Facet<TreeCfg, TreeData>{
       rowField: '',
       columnField: '',
       rowValue: '',
-      columnValue: this.cfg.rootTitle,
+      columnValue: '',
     };
     rst.push(rootFacet);
     rootFacet.children = this.getChildFacets(data, 1, rst);
@@ -61,6 +69,25 @@ export default class Tree extends Facet<TreeCfg, TreeData>{
       facet.region = this.getRegion(facet.rowValuesLength, facet.columnValuesLength,
         facet.columnIndex, facet.rowIndex);
     });
+  }
+
+  protected getRegion(rows: number, cols: number, xIndex: number, yIndex: number) {
+    const xWidth = 1 / cols; // x轴方向的每个分面的偏移
+    const yWidth = 1 / rows; // y轴方向的每个分面的偏移
+
+    const start = {
+      x: xWidth * xIndex,
+      y: yWidth * yIndex
+    };
+
+    const end = {
+      x: start.x + xWidth,
+      y: start.y + yWidth * 2 / 3 // 预留1/3的空隙，方便添加连接线
+    };
+    return {
+      start,
+      end
+    };
   }
 
   private forceColIndex(facets: TreeData[]) {
@@ -97,7 +124,7 @@ export default class Tree extends Facet<TreeCfg, TreeData>{
 
   // get facet use level
   private getFacetsByLevel(facets: TreeData[], level: number) {
-    const rst:TreeData[] = [];
+    const rst: TreeData[] = [];
     facets.forEach(facet => {
       if (facet.rowIndex === level) {
         rst.push(facet);
@@ -137,7 +164,7 @@ export default class Tree extends Facet<TreeCfg, TreeData>{
     const values = this.getFieldValues(data, field);
     values.forEach((value, index) => {
       const conditions = [
-        { field, value, values } as Condition
+        {field, value, values} as Condition
       ];
       const subData = data.filter(this.getFacetDataFilter(conditions));
       if (subData.length) {
@@ -164,9 +191,29 @@ export default class Tree extends Facet<TreeCfg, TreeData>{
 
   public render() {
     super.render();
+    if (this.cfg.showTitle) {
+      this.renderTitle();
+    }
+  }
+
+  private afterChartRender = () => {
     if (this.facets && this.cfg.line) {
+      this.container.clear();
       this.drawLines(this.facets);
     }
+  };
+
+  private renderTitle() {
+    _.each(this.facets, (facet: TreeData) => {
+      const { columnValue, view } = facet;
+
+      const config = _.deepMix({
+        position: [ '50%', '0%' ] as [string, string],
+        content: columnValue,
+      }, getFactTitleConfig(DIRECTION.TOP), this.cfg.title);
+
+      view.annotation().text(config);
+    });
   }
 
   private drawLines(facets: TreeData[]) {
@@ -181,20 +228,20 @@ export default class Tree extends Facet<TreeCfg, TreeData>{
   // add lines with it's children
   private addFacetLines(facet: TreeData, children: TreeData[]) {
     const view = facet.view;
-    // @ts-ignore
-    const region = view.region;
+    const region = view.coordinateBBox;
+    // top, right, bottom, left
     const start = {
-      x: region.start.x + (region.end.x - region.start.x) / 2,
-      y: region.start.y
+      x: region.x + region.width / 2,
+      y: region.y + region.height
     };
 
     children.forEach(subFacet => {
-      // @ts-ignore
-      const subRegion = subFacet.view.region;
+      const subRegion = subFacet.view.coordinateBBox;
       const end = {
-        x: subRegion.start.x + (subRegion.end.x - subRegion.start.x) / 2,
-        y: subRegion.end.y
+        x: subRegion.bl.x + (subRegion.tr.x - subRegion.bl.x) / 2,
+        y: subRegion.tr.y
       };
+
       const middle1 = {
         x: start.x,
         y: start.y + (end.y - start.y) / 2
@@ -203,7 +250,7 @@ export default class Tree extends Facet<TreeCfg, TreeData>{
         x: end.x,
         y: middle1.y
       };
-      this.drawLine([ start, middle1, middle2, end ]);
+      this.drawLine([start, middle1, middle2, end]);
     });
   }
 
@@ -211,14 +258,14 @@ export default class Tree extends Facet<TreeCfg, TreeData>{
     const path = [];
     const smooth = this.cfg.lineSmooth;
     if (smooth) {
-      path.push([ 'M', points[0].x, points[0].y ]);
-      path.push([ 'C', points[1].x, points[1].y, points[2].x, points[2].y, points[3].x, points[3].y ]);
+      path.push(['M', points[0].x, points[0].y]);
+      path.push(['C', points[1].x, points[1].y, points[2].x, points[2].y, points[3].x, points[3].y]);
     } else {
       points.forEach((point, index) => {
         if (index === 0) {
-          path.push([ 'M', point.x, point.y ]);
+          path.push(['M', point.x, point.y]);
         } else {
-          path.push([ 'L', point.x, point.y ]);
+          path.push(['L', point.x, point.y]);
         }
       });
     }
@@ -234,7 +281,7 @@ export default class Tree extends Facet<TreeCfg, TreeData>{
       attrs: _.assign({
         // @ts-ignore
         path
-      }, line)
+      }, line),
     });
   }
 

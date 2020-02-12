@@ -135,6 +135,7 @@ export interface TreeCfg extends FacetCfg<TreeData> {
   readonly lineSmooth?: boolean;
   readonly line?: Line;
   readonly rootTitle?: string;
+  readonly title?: FacetTitle;
 }
 
 export interface TreeData extends FacetData {
