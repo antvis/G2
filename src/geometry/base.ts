@@ -1223,7 +1223,7 @@ export default class Geometry extends Base {
     each(mappingData, (mappingDatum, i) => {
       const originData = mappingDatum[FIELD_ORIGIN];
       const id = this.getElementId(originData);
-      let result = lastElementsMap[id];
+      let result = lastElementsMap[id] || elementsMap[id];
       if (!result) {
         // 创建新的 element
         result = this.createElement(mappingDatum, isUpdate);
@@ -1238,8 +1238,12 @@ export default class Geometry extends Base {
 
         delete lastElementsMap[id];
       }
-      elements.push(result);
-      elementsMap[id] = result;
+
+      if (!elementsMap[id]) {
+        // 保证唯一性
+        elements.push(result);
+        elementsMap[id] = result;
+      }
     });
     return elements;
   }
