@@ -1,6 +1,6 @@
 {
   "感谢信赖": "WE ARE TRUSTED BY",
-  "下载使用": "Download",
+  "开始使用": "Getting Started",
   "G2 是一套基于图形语法理论的可视化底层引擎，以数据驱动，具有高度的易用性和扩展性。用户无需关注各种繁琐的实现细节，一条语句即可构建出各种各样的可交互的统计图表。": "G2 is a library based on visual encoding for manipulating the grammar of graphics. It is data-driven, highly user-friendly and extensible. Users can easily build a variety of interactive statistical graphics without struggling with various complicated details of implementation.",
   "精品 Gallery": "Gallery",
   "真实的数据可视化案例，我们将它们归纳为一个个故事性的设计模板，让用户达到开箱即用的效果。": "We have summarized a series of story design templates from lots of real data visualization cases, so that users can use them directly.",
