@@ -1091,7 +1091,7 @@ export class View extends Base {
       return data;
     }
 
-    return filter(data, (datum: Datum) => condition(datum[field], datum));
+    return filter(data, (datum: Datum, idx: number) => condition(datum[field], datum, idx));
   }
 
   /**
