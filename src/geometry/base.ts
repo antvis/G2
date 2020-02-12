@@ -229,20 +229,21 @@ export default class Geometry extends Base {
    * @returns
    */
   public position(cfg: string | string [] | AttributeOption): Geometry {
-    // 完整结构
-    if (isPlainObject(cfg)) {
-      set(this.attributeOption, 'position', cfg);
-    } else {
+    let positionCfg = cfg;
+    if (!isPlainObject(cfg)) {
       // 字符串字段或者数组字段
-      const fields = parseFields(cfg);
-      if (fields.length === 1) {
-        // 默认填充一维 1*xx
-        fields.unshift('1');
-      }
-      set(this.attributeOption, 'position', {
-        fields,
-      });
+      positionCfg = {
+        fields: parseFields(cfg),
+      };
     }
+
+    const fields = get(positionCfg, 'fields');
+    if (fields.length === 1) {
+      // 默认填充一维 1*xx
+      fields.unshift('1');
+      set(positionCfg, 'fields', fields);
+    }
+    set(this.attributeOption, 'position', positionCfg);
 
     return this;
   }
