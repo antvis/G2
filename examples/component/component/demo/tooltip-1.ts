@@ -48,11 +48,7 @@ chart.tooltip({
         fontSize: 14,
       }
     },
-    textBackground: {
-      style: {
-        fill: null
-      }
-    }
+    textBackground: null
   },
 });
 chart.interval().position('year*population').color('year').size(100);

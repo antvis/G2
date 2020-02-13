@@ -35,7 +35,6 @@ chart.scale('score', {
 chart.coordinate('polar', {
   radius: 0.8,
 });
-chart.axis(false);
 chart.axis('item', {
   line: null,
   tickLine: null,

@@ -7,7 +7,7 @@ fetch('../data/scatter.json')
       container: 'container',
       autoFit: true,
       height: 500,
-      padding: [ 50, 70 ],
+      padding: [50, 70],
       localRefresh: false,
     });
     // 数据格式： [{"gender":"female","height":161.2,"weight":51.6}]
@@ -38,28 +38,21 @@ fetch('../data/scatter.json')
                 lineWidth: 2,
               },
             };
-          } else {
-            return {
-              offset: 5,
-              content: defaultText + ' kg',
-              style: {
-                textAlign: 'end',
-                fill: color,
-                fontSize: 14,
-                fontWeight: 'bold',
-                stroke: '#333',
-                lineWidth: 2,
-              },
-            };
           }
+          return {
+            offset: 5,
+            content: defaultText + ' kg',
+            style: {
+              textAlign: 'end',
+              fill: color,
+              fontSize: 14,
+              fontWeight: 'bold',
+              stroke: '#333',
+              lineWidth: 2,
+            },
+          };
         },
-        // FIXME: textBackground 应该可以支持关闭
-        textBackground: {
-          padding: 0,
-          style: {
-            fill: null,
-          }
-        }
+        textBackground: null,
       },
       itemTpl: '<li class="g2-tooltip-list-item" data-index={index} style="margin-bottom:4px;">'
         + '<span style="background-color:{color};" class="g2-tooltip-marker"></span>'
