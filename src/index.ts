@@ -210,6 +210,7 @@ registerAction('sibling-y-filter', SiblingFilter);
 
 registerAction('element-filter', ElementFilter);
 registerAction('element-sibling-filter', ElementSiblingFilter);
+registerAction('element-sibling-filter-record', ElementSiblingFilter, {byRecord: true});
 
 registerAction('view-drag', ViewDrag);
 registerAction('view-move', ViewMove);
