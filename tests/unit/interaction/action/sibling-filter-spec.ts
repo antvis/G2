@@ -52,13 +52,7 @@ describe('active test', () => {
     .area()
     .position('year*value');
   chart.render();
-
-  // const arr = ['1994', '1995', '1996', '1997'];
-  // view1.filter('year', (value) => {
-  //   return arr.includes(value);
-  // });
-  // view1.render(true);
-  view2.on('plot:click', ev=> console.log(ev));
+  
   const context = new Context(view2);
   const action = new SiblingFilter(context, {
     dims: ['x']

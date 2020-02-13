@@ -1,8 +1,6 @@
 import { each } from '@antv/util';
 import Action from '../base';
-import {IShape} from '../../../dependents';
 import { getDelegationObject, getElements, getElementValue, isList, isSlider, isMask, getMaskedElements } from '../util';
-const CONST_DISTANCE = 10;
 /**
  * 元素过滤的 Action，控制元素的显示隐藏
  */
@@ -16,7 +14,7 @@ class ElementFilter extends Action {
     const elements = getElements(view);
     if(isMask(this.context)) {
       const maskElements = getMaskedElements(this.context, 10);
-      if (maskElements.length) {
+      if (maskElements) {
         each(elements, (el) => {
           if (maskElements.includes(el)) {
             el.show();
@@ -67,6 +65,13 @@ class ElementFilter extends Action {
     each(elements, (el) => {
       el.show();
     });
+  }
+
+  /**
+   * 恢复发生的过滤，保持同 data-filter 命名的一致
+   */
+  public reset() {
+    this.clear();
   }
 }
 

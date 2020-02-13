@@ -96,18 +96,9 @@ class Context implements IInteractionContext {
    * @param name shape 的 name
    */
   public isInShape(name) {
-    const shape = this.getCurrentShape();
+    const shape = this.getCurrentShape();// 不再考虑在 shape 的 parent 内的情况
     if (shape) {
-      let inShape = shape.get('name') === name;
-      let parent = shape.getParent();
-      while (!inShape && parent && !parent.isCanvas()) {
-        if (parent.get('name') === name) {
-          inShape = true;
-          break;
-        }
-        parent = parent.getParent();
-      }
-      return inShape;
+      return shape.get('name') === name;
     }
     return false;
   }

@@ -319,6 +319,12 @@ describe('Interaction test', () => {
         clientY: rect.top + 384,
       };
       expect(context.isInPlot()).toBe(false);
+      context.event = {
+        
+      };
+      expect(context.isInPlot()).toBe(false);
+      context.event = null;
+      expect(context.isInPlot()).toBe(false);
     });
 
     it('isInComponent', () => {
@@ -338,6 +344,37 @@ describe('Interaction test', () => {
         y: 281,
       };
       expect(context.isInComponent('legend')).toBe(true);
+    });
+
+    it('isInShape', () => {
+      context.event = {
+        x: 374,
+        y: 281,
+        target: null
+      };
+      expect(context.isInShape('mask')).toBe(false);
+      const canvas = chart.getCanvas();
+      const shape = canvas.addShape('circle', {
+        name: 'mask',
+        attrs: {
+          x: 374,
+          y: 281,
+          r: 10
+        }
+      });
+      context.event = {
+        x: 374,
+        y: 281,
+        gEvent: {
+          shape: shape
+        }
+      };
+      expect(context.getCurrentShape()).toBe(shape);
+      expect(context.getCurrentPoint()).toEqual({
+        x: 374,
+        y: 281,
+      });
+      expect(context.isInShape('mask')).toBe(true);
     });
   });
 

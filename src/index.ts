@@ -164,8 +164,8 @@ import DataFilter from './interaction/action/data/filter';
 import DataRangeFilter from './interaction/action/data/range-filter';
 import SiblingFilter from './interaction/action/data/sibling-filter';
 
-
 import ElementFilter from './interaction/action/element/filter';
+import ElementSiblingFilter from './interaction/action/element/sibling-filter';
 import ButtonAction from './interaction/action/view/button';
 import ViewDrag from './interaction/action/view/drag';
 import ViewMove from './interaction/action/view/move';
@@ -209,6 +209,8 @@ registerAction('sibling-x-filter', SiblingFilter);
 registerAction('sibling-y-filter', SiblingFilter);
 
 registerAction('element-filter', ElementFilter);
+registerAction('element-sibling-filter', ElementSiblingFilter);
+
 registerAction('view-drag', ViewDrag);
 registerAction('view-move', ViewMove);
 
