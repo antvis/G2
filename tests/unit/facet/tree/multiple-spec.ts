@@ -1,6 +1,7 @@
 import DataSet from '@antv/data-set';
 import { Chart, View } from '../../../../src';
 import { createDiv } from '../../../util/dom';
+import { RectCfg, TreeCfg } from '../../../../src/interface';
 
 /**
  * Create By Bruce Too
@@ -63,7 +64,16 @@ describe('facet tree', () => {
   });
   chart.render();
 
-  // it('multiple tree nodes', () => {
-  //   expect(chart.views.length).toBe(1);
-  // });
+  it('multiple level tree', () => {
+    // @ts-ignore
+    expect(chart.facetInstance.cfg.type).toBe('tree');
+
+    expect(chart.views.length).toBe(9);
+
+    expect(chart.views[0].geometries[0].type).toBe('interval');
+    // @ts-ignore
+    expect(chart.facetInstance.cfg.lineSmooth).toEqual(true);
+
+    expect(chart.getController('annotation').getComponents()).toEqual([]);
+  })
 });

@@ -37,7 +37,7 @@ describe('facet tree', () => {
       stroke: '#c0d0e0'
     },
     lineSmooth: true,
-    // padding: 0,
+    padding: 5,
     eachView: (view, facet) => {
       const data = facet.data;
       const dv = new DataSet.DataView();
@@ -56,4 +56,14 @@ describe('facet tree', () => {
     }
   });
   chart.render();
+
+  it('single level tree', () => {
+    expect(chart.views.length).toBe(9);
+    // @ts-ignore
+    expect(chart.facetInstance.cfg.padding).toEqual(5);
+    // @ts-ignore
+    expect(chart.facetInstance.cfg.lineSmooth).toEqual(true);
+
+    expect(chart.getController('annotation').getComponents()).toEqual([]);
+  })
 });
