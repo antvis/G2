@@ -14,6 +14,7 @@ import { Condition, TreeCfg, TreeData } from './interface';
 export default class Tree extends Facet<TreeCfg, TreeData> {
 
   protected afterEachView(view: View, facet: TreeData) {
+    this.processAxis(view, facet);
   }
 
   protected beforeEachView(view: View, facet: TreeData) {
@@ -286,18 +287,24 @@ export default class Tree extends Facet<TreeCfg, TreeData> {
   }
 
   protected getXAxisOption(x: string, axes: any, option: AxisCfg, facet: TreeData): object {
-    // if (facet.rowIndex !== facet.rowValuesLength - 1) {
-    //   axes[x].label = null;
-    //   axes[x].title = null;
-    // }
+    if (facet.rowIndex !== facet.rowValuesLength - 1) {
+      return {
+        ...option,
+        title: null,
+        label: null,
+      };
+    }
     return option;
   }
 
   protected getYAxisOption(y: string, axes: any, option: AxisCfg, facet: TreeData): object {
-    // if (facet.originColIndex !== 0 && facet.columnIndex !== 0) {
-    //   axes[y].title = null;
-    //   axes[y].label = null;
-    // }
+    if (facet.originColIndex !== 0 && facet.columnIndex !== 0) {
+      return {
+        ...option,
+        title: null,
+        label: null,
+      };
+    }
     return option;
   }
 
