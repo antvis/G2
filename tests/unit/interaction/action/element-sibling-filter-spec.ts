@@ -48,12 +48,12 @@ describe('active test', () => {
   });
   view2.data(data);
   view2
-    .area()
+    .point()
     .position('year*value');
   chart.render();
-  
+
   const context = new Context(view2);
-  const action = new SiblingFilter(context);
+  let action = new SiblingFilter(context);
   const mask = new Mask(context);
   function getVisibleElements(elements) {
     return elements.filter(el =>  el.visible);
@@ -159,6 +159,70 @@ describe('active test', () => {
     action.filter();
     expect(getVisibleElements(interval.elements).length).toBe(0);
     action.reset();
+    expect(getVisibleElements(interval.elements).length).toBe(data.length);
+    mask.end();
+    mask.hide();
+  });
+
+  it('filter by record', () => {
+    action = new SiblingFilter(context, {
+      byRecord: true
+    });
+    action.init();
+    // 调整 view 的 x 轴的范围，用于测试过滤
+    view1.scale('year', {
+      range: [0.2, 0.8]
+    });
+    view1.render(true);
+
+    context.event = {
+      x: 200,
+      y: 200
+    };
+    mask.start();
+    mask.show();
+    // @ts-ignore
+    const maskShape = mask.maskShape;
+
+    // 过滤非常小时
+    context.event = {
+      x: 209,
+      y: 209
+    };
+    mask.resize();
+    context.event = {
+      target: maskShape
+    };
+    action.filter();
+    expect(getVisibleElements(interval.elements).length).toBe(data.length);
+
+    context.event = {
+      x: 300,
+      y: 400
+    };
+    mask.resize();
+    context.event = {
+      target: maskShape
+    };
+    action.filter();
+    expect(getVisibleElements(interval.elements).length).toBe(4);
+    expect(interval.elements[0].visible).toBe(false);
+    // 未框选中元素
+    context.event = {
+      x: 300,
+      y: 300
+    };
+    mask.resize();
+
+    context.event = {
+      target: maskShape
+    };
+    action.filter();
+    expect(getVisibleElements(interval.elements).length).toBe(0);
+
+    mask.end();
+    action.reset();
+    mask.hide();
     expect(getVisibleElements(interval.elements).length).toBe(data.length);
   });
   afterAll(() => {
