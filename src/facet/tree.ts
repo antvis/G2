@@ -3,13 +3,13 @@
  * On 2020-02-10
  */
 import * as _ from '@antv/util';
-import { AxisCfg } from '../chart/interface';
 import View from '../chart/view';
 import { DIRECTION, VIEW_LIFE_CIRCLE } from '../constant';
+import { AxisCfg } from '../interface';
 import { Datum } from '../interface';
+import { Condition, TreeCfg, TreeData } from '../interface';
 import { getFactTitleConfig } from '../util/facet';
 import { Facet } from './facet';
-import { Condition, TreeCfg, TreeData } from './interface';
 
 export default class Tree extends Facet<TreeCfg, TreeData> {
 
