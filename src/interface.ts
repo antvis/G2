@@ -1250,6 +1250,8 @@ export interface FacetCfgMap {
   readonly matrix: MatrixCfg;
   /** circle 类型分面配置 */
   readonly circle: CircleCfg;
+  /** tree 类型分面配置 */
+  readonly tree: TreeCfg;
 }
 
 
