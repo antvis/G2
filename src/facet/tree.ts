@@ -27,10 +27,12 @@ export default class Tree extends Facet<TreeCfg, TreeData> {
     return deepMix({}, super.getDefaultCfg(), {
       type: 'tree',
       line: {
-        lineWidth: 1,
-        stroke: '#ddd'
+        style: {
+          lineWidth: 1,
+          stroke: '#ddd'
+        },
+        smooth: false,
       },
-      lineSmooth: false,
       showTitle: true,
       title: super.getDefaultTitleCfg(),
     });

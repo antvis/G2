@@ -1221,10 +1221,7 @@ export interface CircleData extends FacetData {
 // ===================== tree 相关类型定义 =====================
 
 export interface Line {
-  readonly style?: {
-    readonly lineWidth?: number;
-    readonly stroke?: string;
-  }
+  readonly style?: ShapeAttrs,
   readonly smooth?: boolean;
 }
 
