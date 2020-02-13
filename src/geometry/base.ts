@@ -1487,12 +1487,18 @@ export default class Geometry extends Base {
         max = tmpMax;
       }
     }
-    if (min < scale.min || max > scale.max) {
-      scale.change({
-        min,
-        max,
-      });
+    const scaleDefs = this.scaleDefs;
+    const cfg: LooseObject = {};
+    if ((min < scale.min) && !get(scaleDefs, [field, 'min'])) {
+      // 用户如果在列定义中定义了 min，则以用户定义的为准
+      cfg.min = min;
     }
+    if ((max > scale.max) && !get(scaleDefs, [field, 'max'])) {
+      // 用户如果在列定义中定义了 max
+      cfg.max = max;
+    }
+
+    scale.change(cfg);
   }
 
   // 将数据映射至图形空间前的操作：排序以及关键点的生成
