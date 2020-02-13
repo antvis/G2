@@ -14,15 +14,33 @@ registerInteraction('highlight-view', {
   ],
   processing: [
     { trigger: 'plot:mousemove', action: 'rect-mask:resize' },
-    { trigger: 'mask:drag', action: 'rect-mask:move'},
-    { trigger: 'mask:change', action: 'element-sibling-highlight:highlight' }
+    { trigger: 'mask:drag', isEnable(context) {
+      return context.isInPlot();
+    }, action: 'rect-mask:move'},
+    { trigger: 'mask:change', action: ['element-sibling-highlight:highlight', 'element-range-highlight:highlight'] }
   ],
   end: [
     { trigger: 'plot:mouseup', action: 'rect-mask:end' },
-    { trigger: 'mask:dragend', action: 'rect-mask:moveEnd' }
+    { trigger: 'mask:dragend', action: 'rect-mask:moveEnd' },
+    {
+      trigger: 'document:mousedown',
+      isEnable(context) {
+        return !context.isInPlot();
+      },
+      action: ['element-sibling-highlight:clear','element-range-highlight:clear', 'rect-mask:end', 'rect-mask:hide'],
+      once: true,
+    },
+    {
+      trigger: 'document:mouseup',
+      isEnable(context) {
+        return !context.isInPlot();
+      },
+      action: ['rect-mask:end'],
+      once: true,
+    }
   ],
   rollback: [
-    { trigger: 'dblclick', action: ['rect-mask:hide', 'element-sibling-highlight:clear']}
+    { trigger: 'dblclick', action: ['rect-mask:hide', 'element-sibling-highlight:clear', 'element-range-highlight:clear']}
   ]
 });
 fetch('../data/iris.json')
@@ -37,6 +55,7 @@ fetch('../data/iris.json')
     });
 
     chart.data(data);
+    chart.animate(false);
     chart.scale({
       Species: {
         sync: true

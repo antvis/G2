@@ -140,6 +140,7 @@ describe('Interaction test', () => {
       expect(action.context).toBe(null);
     });
   });
+
   describe('with rollback', () => {
     it('no end', () => {
       const interaction = new Interaction(chart, {
@@ -155,6 +156,9 @@ describe('Interaction test', () => {
       expect(action.isReset).toBe(false);
       chart.emit('mouseenter', eventObject);
       expect(context.event).toBe(eventObject);
+      expect(action.running).toBe(true);
+      action.running = false; // 反复执行
+      chart.emit('mouseenter', eventObject);
       expect(action.running).toBe(true);
       expect(action.isReset).toBe(false);
       chart.emit('click', eventObject);
@@ -269,6 +273,75 @@ describe('Interaction test', () => {
       chart.emit('mouseleave', eventObject);
       expect(context.cache('test')).toBe(false);
       interaction.destroy();
+    });
+  });
+
+  describe.only('once', () => {
+    it('single start', () => {
+      const interaction = new Interaction(chart, {
+        start: [{ trigger: 'mouseenter', action: 'custom:start', once: true }],
+      });
+      interaction.init();
+     
+      const context = interaction.context;
+      const action = context.getAction('custom') as CustomAction;
+      const eventObject = {};
+      chart.emit('mouseenter', eventObject);
+      expect(action.running).toBe(true);
+      action.running = false;
+      chart.emit('mouseenter', eventObject);
+      expect(action.running).toBe(false);
+      interaction.destroy();
+    });
+    it('start and end', () => {
+      const interaction = new Interaction(chart, {
+        start: [{ trigger: 'mouseenter', action: 'custom:start', once: true }],
+        end: [{ trigger: 'mouseleave', action: 'custom:end', once: true }],
+      });
+      interaction.init();
+      const context = interaction.context;
+      const action = context.getAction('custom') as CustomAction;
+      const eventObject = {};
+      chart.emit('mouseenter', eventObject);
+      expect(action.running).toBe(true);
+      chart.emit('mouseleave', eventObject);
+      expect(action.running).toBe(false);
+      chart.emit('mouseenter', eventObject);
+      expect(action.running).toBe(true);
+      // 反复执行
+      chart.emit('mouseleave', eventObject);
+      expect(action.running).toBe(false);
+      action.running = true;
+      chart.emit('mouseleave', eventObject);
+      expect(action.running).toBe(true);
+    });
+
+    it('start, end, rollback', () => {
+      const interaction = new Interaction(chart, {
+        start: [{ trigger: 'mouseenter', action: 'custom:start'}],
+        end: [{ trigger: 'mouseleave', action: 'custom:end', once: true }],
+        rollback: [{trigger: 'click', action: 'custom:reset', once: true}]
+      });
+      
+      interaction.init();
+      const context = interaction.context;
+      const action = context.getAction('custom') as CustomAction;
+      const eventObject = {};
+      chart.emit('mouseenter', eventObject);
+      expect(action.running).toBe(true);
+      action.running = false;
+      chart.emit('mouseenter', eventObject);
+      expect(action.running).toBe(true);
+      chart.emit('click', eventObject);
+      expect(action.isReset).toBe(false);
+
+      chart.emit('mouseleave', eventObject);
+      expect(action.running).toBe(false);
+      chart.emit('click', eventObject);
+      expect(action.isReset).toBe(true);
+      action.isReset = false;
+      chart.emit('click', eventObject);
+      expect(action.isReset).toBe(false);
     });
   });
 

@@ -1,10 +1,9 @@
-import { Chart } from '../../../../src/index';
+import { Chart, registerInteraction } from '../../../../src/index';
 import RangeHighlight from '../../../../src/interaction/action/element/range-highlight';
 import Mask from '../../../../src/interaction/action/mask/rect';
 
 import Context from '../../../../src/interaction/context';
 import { createDiv } from '../../../util/dom';
-
 
 describe('active test', () => {
   const chart = new Chart({
@@ -36,6 +35,7 @@ describe('active test', () => {
     padding: [20, 20, 40, 80]
   });
   view1.data(data);
+  view1.interaction('highlight-view');
   view1.scale('year', {
     range: [0.2,0.8]
   });
@@ -51,9 +51,23 @@ describe('active test', () => {
     padding: [20, 20, 40, 80]
   });
   view2.data(data);
+  view2.interaction('highlight-view');
   view2
     .point()
-    .position('year*value');
+    .position('year*value')
+    .state({
+      active: {
+        style: {
+          opacity: 1
+        }
+      },
+      inactive: {
+        style: {
+          opacity: 0.4
+        }
+      }
+      
+    });
   chart.render();
   
   const context = new Context(view2);
