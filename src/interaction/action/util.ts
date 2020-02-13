@@ -58,24 +58,46 @@ export function isMask(context: IInteractionContext): boolean {
   return target && target.get('name') === 'mask';
 }
 
-/**
- * 获取被遮挡的 elements
- * @param context 上下文
- */
-export function getMaskedElements(context: IInteractionContext, tolerance: number): Element[]{
+function getMaskBBox(context: IInteractionContext, tolerance: number) {
   const event = context.event;
   const maskShape = event.target;
   const maskBBox = maskShape.getCanvasBBox();
   // 如果 bbox 过小则不返回
   if (!(maskBBox.width >= tolerance || maskBBox.height >= tolerance)) {
-    return [];
+    return null;
+  }
+  return maskBBox;
+}
+
+/**
+ * 获取被遮挡的 elements
+ * @param context 上下文
+ */
+export function getMaskedElements(context: IInteractionContext, tolerance: number): Element[]{
+  const maskBBox = getMaskBBox(context, tolerance);
+  // 如果 bbox 过小则不返回
+  if (!maskBBox) {
+    return null;
+  }
+  return getIntersectElements(context.view, maskBBox);
+}
+
+export function getSiblingMaskElements(context: IInteractionContext, sibling: View, tolerance: number) {
+  const maskBBox = getMaskBBox(context, tolerance);
+  // 如果 bbox 过小则不返回
+  if (!maskBBox) {
+    return null;
   }
   const view = context.view;
-  const elements = getElements(view);
-  return elements.filter(el => {
-    const elBBox = el.getBBox(); // 临时以 bbox 相交进行判定，后面可以改成 path 判定
-    return intersectRect(maskBBox, elBBox);
-  });
+  const start = getSiblingPoint(view, sibling, {x: maskBBox.x, y: maskBBox.y});
+  const end = getSiblingPoint(view, sibling, {x: maskBBox.maxX, y: maskBBox.maxY});
+  const box = {
+    minX: start.x,
+    minY: start.y,
+    maxX: end.x,
+    maxY: end.y
+  };
+  return getIntersectElements(sibling, box);
 }
 
 /**
@@ -186,4 +208,33 @@ export function getSpline(points: Point[], z: boolean): PathCommand[] {
  */
 export function isInBox(box: BBox, point: Point) {
   return box.x <= point.x && box.maxX >= point.x && box.y <= point.y && box.maxY > point.y;
+}
+
+/**
+ * 获取同 view 同一级的 views
+ * @param view 当前 view
+ * @returns 同一级的 views
+ */
+export function getSilbings(view: View): View[] {
+  const parent = view.parent;
+  let siblings = null;
+  if (parent) {
+    siblings = parent.views.filter(sub => sub !== view);
+  }
+  return siblings;
+}
+
+function point2Normalize(view: View, point: Point): Point {
+  const coord = view.getCoordinate();
+  return coord.invert(point);
+}
+/**
+ * 将 view 上的一点转换成另一个 view 的点
+ * @param view 当前的 view
+ * @param sibling 同一层级的 view
+ * @param point 指定点
+ */
+export function getSiblingPoint(view: View, sibling: View, point: Point): Point {
+  const normalPoint = point2Normalize(view, point);
+  return sibling.getCoordinate().convert(normalPoint);
 }

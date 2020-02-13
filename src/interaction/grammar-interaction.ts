@@ -28,7 +28,7 @@ function executeAction(actionObject: ActionObject) {
   if (action[methodName]) {
     action[methodName]();
   } else {
-    throw new Error(`Action("${action.name}") doesn't have a method called "${methodName}"`);
+    throw new Error(`Action(${action.name}) doesn't have a method called ${methodName}`);
   }
 }
 

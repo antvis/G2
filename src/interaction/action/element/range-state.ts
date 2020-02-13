@@ -54,7 +54,7 @@ class ElementRangeState extends StateBase {
   public setStateEnable(enable: boolean) {
     const allElements = getElements(this.context.view);
     const elements = this.getIntersectElements();
-    if (elements.length) {
+    if (elements && elements.length) {
       this.setElementsState(elements, enable, allElements);
     } else {
       this.clear();
