@@ -1,4 +1,4 @@
-import { DataView } from '@antv/data-set';
+import DataSet from '@antv/data-set';
 import { Chart, View } from '../../../../src';
 import { createDiv } from '../../../util/dom';
 
@@ -42,7 +42,7 @@ describe('facet tree', () => {
     },
     lineSmooth: true,
     eachView(view: View, facet) {
-      const dv = new DataView();
+      const dv = new DataSet.DataView();
       dv.source(facet.data).transform({
         type: 'percent',
         field: 'count',

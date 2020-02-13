@@ -1,4 +1,4 @@
-import { DataView } from '@antv/data-set';
+import DataSet from '@antv/data-set';
 import DIAMOND from '../../../../examples/data/diamond.json';
 import { Chart } from '../../../../src';
 import { createDiv } from '../../../util/dom';
@@ -40,7 +40,7 @@ describe('facet tree', () => {
     // padding: 0,
     eachView: (view, facet) => {
       const data = facet.data;
-      const dv = new DataView();
+      const dv = new DataSet.DataView();
       dv.source(data)
         .transform({
           type: 'aggregate',
