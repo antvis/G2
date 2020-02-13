@@ -111,12 +111,14 @@ import List from './facet/list';
 import Matrix from './facet/matrix';
 import Mirror from './facet/mirror';
 import Rect from './facet/rect';
+import Tree from './facet/tree';
 
 registerFacet('rect', Rect);
 registerFacet('mirror', Mirror);
 registerFacet('list', List);
 registerFacet('matrix', Matrix);
 registerFacet('circle', Circle);
+registerFacet('tree', Tree);
 
 // 注册内置的 Component
 import { registerComponentController } from './core';

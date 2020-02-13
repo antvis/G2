@@ -1222,6 +1222,23 @@ export interface CircleCfg extends FacetCfg<CircleData> {
 export interface CircleData extends FacetData {
 }
 
+// ===================== tree 相关类型定义 =====================
+
+export interface Line {
+  readonly style?: ShapeAttrs,
+  readonly smooth?: boolean;
+}
+
+export interface TreeCfg extends FacetCfg<TreeData> {
+  readonly line?: Line;
+  readonly title?: FacetTitle;
+}
+
+export interface TreeData extends FacetData {
+  children?: TreeData[];
+  originColIndex?: number;
+}
+
 /**
  * facet object map
  */
@@ -1236,6 +1253,8 @@ export interface FacetCfgMap {
   readonly matrix: MatrixCfg;
   /** circle 类型分面配置 */
   readonly circle: CircleCfg;
+  /** tree 类型分面配置 */
+  readonly tree: TreeCfg;
 }
 
 
