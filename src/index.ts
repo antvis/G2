@@ -184,6 +184,10 @@ registerAction('element-range-active', ElmentRangeActive);
 registerAction('element-highlight', ElmentHighlight);
 registerAction('element-single-highlight', ElmentSingleHighlight);
 registerAction('element-range-highlight', ElmentRangeHighlight);
+registerAction('element-sibling-highlight', ElmentRangeHighlight, {
+  effectSiblings: true,
+  effectByRecord: true
+});
 
 registerAction('element-selected', ElementSelected);
 registerAction('element-single-selected', ElementSingleSelected);

@@ -1,6 +1,6 @@
 import { each } from '@antv/util';
 import Element from '../../../geometry/element/';
-import { getIntersectElements, getElements, isMask, getMaskedElements } from '../util';
+import { getIntersectElements, getElements, isMask, getMaskedElements, getSilbings, isInRecords, getSiblingMaskElements } from '../util';
 import StateBase from './state-base';
 
 /**
@@ -10,6 +10,14 @@ class ElementRangeState extends StateBase {
   private startPoint = null;
   private endPoint = null;
   private isStarted: boolean = false;
+  /**
+   * 是否作用于当前 view 的 siblings，默认是 false 仅作用于自己
+   */
+  protected effectSiblings = false;
+  /**
+   * 是否受 element 的数据影响，还是受包围盒的影响
+   */
+  protected effectByRecord = false;
   // 获取当前的位置
   private getCurrentPoint() {
     const event = this.context.event;
@@ -52,12 +60,55 @@ class ElementRangeState extends StateBase {
    * 选中
    */
   public setStateEnable(enable: boolean) {
-    const allElements = getElements(this.context.view);
-    const elements = this.getIntersectElements();
-    if (elements && elements.length) {
-      this.setElementsState(elements, enable, allElements);
+    if (this.effectSiblings && !this.effectByRecord) {
+      this.setSiblingsState(enable);
     } else {
-      this.clear();
+      const allElements = getElements(this.context.view);
+      const elements = this.getIntersectElements();
+      if (elements && elements.length) {
+        if (this.effectByRecord) {
+          this.setSiblingsStateByRecord(elements, enable);
+        } else {
+          this.setElementsState(elements, enable, allElements);
+        }
+      } else {
+        this.clear();
+      }
+    }
+  }
+  // 根据选中的 element 的数据进行设置状态
+  private setSiblingsStateByRecord(elements, enable) {
+    const view = this.context.view;
+    const siblings = getSilbings(view);
+    const records = elements.map(el => {
+      return el.getModel().data;
+    });
+    const xFiled = view.getXScale().field;
+    const yField = view.getYScales()[0].field;
+    each(siblings, sibling => {
+      const allElements = getElements(sibling);
+      const effectElements = allElements.filter(el => {
+        const record = el.getModel().data;
+        return isInRecords(records, record, xFiled, yField);
+      });
+      this.setElementsState(effectElements, enable, allElements);
+    });
+  }
+
+  // 设置兄弟 view 的状态
+  private setSiblingsState(enable: boolean) {
+    const view = this.context.view;
+    const siblings = getSilbings(view);
+    if(isMask(this.context)) { // 受 mask 影响
+      each(siblings, sibling => {
+        const allElements = getElements(sibling);
+        const effectElements = getSiblingMaskElements(this.context, sibling, 10);
+        if (effectElements && effectElements.length) {
+          this.setElementsState(effectElements, enable, allElements);
+        } else {
+          this.clearViewState(sibling);
+        }
+      });
     }
   }
 
@@ -77,6 +128,20 @@ class ElementRangeState extends StateBase {
   public end() {
     this.isStarted = false;
     this.endPoint = this.getCurrentPoint();
+  }
+
+  // 复写 clear
+  public clear() {
+    const view = this.context.view;
+    // 判断是否影响 siblings
+    if (this.effectSiblings) {
+      const siblings = getSilbings(view);
+      each(siblings, sibling => {
+        this.clearViewState(sibling);
+      });
+    } else {
+      this.clearViewState(view);
+    }
   }
 }
 

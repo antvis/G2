@@ -8,11 +8,12 @@ import ElementRangeState from './range-state';
  */
 class ElementRangeHighlight extends ElementRangeState {
   protected stateName: string = 'active';
+  
   // 清理掉所有的 active， unactive 状态
-  public clear() {
-    const view = this.context.view;
+  protected clearViewState(view) {
     clearHighlight(view);
   }
+
   /**
    * 设置 highlight
    */
@@ -20,10 +21,8 @@ class ElementRangeHighlight extends ElementRangeState {
     this.setState();
   }
 
-  protected setElementsState(elements: Element[], enable) {
-    const view = this.context.view;
-    const AllElements = getElements(view);
-    setHighlightBy(AllElements, (el) => elements.indexOf(el) >= 0, enable);
+  protected setElementsState(elements: Element[], enable: boolean, allElements:Element[]) {
+    setHighlightBy(allElements, (el) => elements.indexOf(el) >= 0, enable);
   }
 }
 
