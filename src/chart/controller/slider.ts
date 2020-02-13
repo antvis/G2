@@ -1,8 +1,7 @@
 import { deepMix, get, isObject, map, size } from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { IGroup, Slider as SliderComponent, TrendCfg } from '../../dependents';
-import { Datum } from '../../interface';
-import { ComponentOption } from '../../interface';
+import { ComponentOption, Datum } from '../../interface';
 import { BBox } from '../../util/bbox';
 import { directionToPosition } from '../../util/direction';
 import { isBetween, omit } from '../../util/helper';
