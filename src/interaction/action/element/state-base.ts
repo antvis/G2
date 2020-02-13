@@ -48,6 +48,10 @@ abstract class StateBase extends Action {
    */
   public clear() {
     const view = this.context.view;
+    this.clearViewState(view);
+  }
+
+  protected clearViewState(view) {
     const elements = getElementsByState(view, this.stateName);
     each(elements, (el: Element) => {
       this.setElementState(el, false);

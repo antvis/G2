@@ -1,5 +1,5 @@
 import Action from "../base";
-import { isMask, getSilbings , getElements, getSiblingMaskElements, getMaskedElements} from "../util";
+import { isMask, getSilbings , getElements, getSiblingMaskElements, getMaskedElements, isInRecords} from "../util";
 import {each} from '@antv/util';
 class SiblingFilter extends Action {
   protected byRecord = false;
@@ -15,19 +15,6 @@ class SiblingFilter extends Action {
         this.filterByBBox();
       }
     }
-  }
-  // 不同 view 上对数据的引用不相等，导致无法直接用 includes
-  // 假设 x, y 值相等时是同一条数据，这个假设不完全正确，而改成 isEqual 则成本太高
-  // 后面改成同一个引用时可以修改回来
-  private isInRecords(records, record, xFiled, yField) {
-    let isIn = false;
-    each(records, r => {
-      if (r[xFiled] === record[xFiled] && r[yField] === record[yField]) {
-        isIn = true;
-        return false;
-      }
-    });
-    return isIn;
   }
   // 根据框选的记录来做过滤
   private filterByRecord() {
@@ -47,7 +34,7 @@ class SiblingFilter extends Action {
       each(elements, (el) => {
         const record = el.getModel().data;
         // records.includes(record) 不生效，应该是数据的引用被改了
-        if (this.isInRecords(records, record, xFiled, yField)) {
+        if (isInRecords(records, record, xFiled, yField)) {
           el.show();
         } else {
           el.hide();

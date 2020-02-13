@@ -238,3 +238,18 @@ export function getSiblingPoint(view: View, sibling: View, point: Point): Point 
   const normalPoint = point2Normalize(view, point);
   return sibling.getCoordinate().convert(normalPoint);
 }
+
+// 是否在记录中，临时因为所有的 view 中的数据不是引用，而使用的方法
+// 不同 view 上对数据的引用不相等，导致无法直接用 includes
+// 假设 x, y 值相等时是同一条数据，这个假设不完全正确，而改成 isEqual 则成本太高
+// 后面改成同一个引用时可以修改回来
+export function isInRecords(records: object[], record: object, xFiled: string, yField: string) {
+  let isIn = false;
+  each(records, r => {
+    if (r[xFiled] === record[xFiled] && r[yField] === record[yField]) {
+      isIn = true;
+      return false;
+    }
+  });
+  return isIn;
+}
