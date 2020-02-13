@@ -31,9 +31,11 @@ chart.tooltip({
 chart.facet('tree', {
   fields: [ 'grade', 'class' ],
   line: {
-    stroke: '#00a3d7',
+    style: {
+      stroke: '#00a3d7',
+    },
+    smooth: true,
   },
-  lineSmooth: true,
   eachView(view, facet) {
     const dv = new DataView();
     dv.source(facet.data)

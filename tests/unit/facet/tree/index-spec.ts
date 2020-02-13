@@ -34,9 +34,11 @@ describe('facet tree', () => {
   chart.facet('tree', {
     fields: [ 'clarity' ],
     line: {
-      stroke: '#c0d0e0'
+      style: {
+        stroke: '#c0d0e0',
+      },
+      smooth: true,
     },
-    lineSmooth: true,
     padding: 5,
     eachView: (view, facet) => {
       const data = facet.data;
@@ -62,7 +64,7 @@ describe('facet tree', () => {
     // @ts-ignore
     expect(chart.facetInstance.cfg.padding).toEqual(5);
     // @ts-ignore
-    expect(chart.facetInstance.cfg.lineSmooth).toEqual(true);
+    expect(chart.facetInstance.cfg.line.smooth).toEqual(true);
 
     expect(chart.getController('annotation').getComponents()).toEqual([]);
   })

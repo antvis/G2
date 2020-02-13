@@ -30,9 +30,11 @@ fetch('../data/diamond.json')
     chart.facet('tree', {
       fields: [ 'clarity' ],
       line: {
-        stroke: '#c0d0e0'
+        style: {
+          stroke: '#00a3d7',
+        },
+        smooth: true,
       },
-      lineSmooth: true,
       // padding: 0,
       eachView: (view, facet) => {
         const dv = new DataView();

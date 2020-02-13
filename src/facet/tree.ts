@@ -2,12 +2,10 @@
  * Create By Bruce Too
  * On 2020-02-10
  */
-import * as _ from '@antv/util';
+import { assign, deepMix, each } from '@antv/util';
 import View from '../chart/view';
 import { DIRECTION, VIEW_LIFE_CIRCLE } from '../constant';
-import { AxisCfg } from '../interface';
-import { Datum } from '../interface';
-import { Condition, TreeCfg, TreeData } from '../interface';
+import { AxisCfg, Condition, Datum, TreeCfg, TreeData } from '../interface';
 import { getFactTitleConfig } from '../util/facet';
 import { Facet } from './facet';
 
@@ -26,7 +24,7 @@ export default class Tree extends Facet<TreeCfg, TreeData> {
   }
 
   protected getDefaultCfg() {
-    return _.deepMix({}, super.getDefaultCfg(), {
+    return deepMix({}, super.getDefaultCfg(), {
       type: 'tree',
       line: {
         lineWidth: 1,
@@ -205,10 +203,10 @@ export default class Tree extends Facet<TreeCfg, TreeData> {
   };
 
   private renderTitle() {
-    _.each(this.facets, (facet: TreeData) => {
+    each(this.facets, (facet: TreeData) => {
       const { columnValue, view } = facet;
 
-      const config = _.deepMix({
+      const config = deepMix({
         position: [ '50%', '0%' ] as [string, string],
         content: columnValue,
       }, getFactTitleConfig(DIRECTION.TOP), this.cfg.title);
@@ -257,7 +255,7 @@ export default class Tree extends Facet<TreeCfg, TreeData> {
 
   private getPath(points) {
     const path = [];
-    const smooth = this.cfg.lineSmooth;
+    const smooth = this.cfg.line.smooth;
     if (smooth) {
       path.push(['M', points[0].x, points[0].y]);
       path.push(['C', points[1].x, points[1].y, points[2].x, points[2].y, points[3].x, points[3].y]);
@@ -277,9 +275,9 @@ export default class Tree extends Facet<TreeCfg, TreeData> {
   // draw line width points
   private drawLine(points) {
     const path = this.getPath(points);
-    const line = this.cfg.line;
+    const line = this.cfg.line.style;
     this.container.addShape('path', {
-      attrs: _.assign({
+      attrs: assign({
         // @ts-ignore
         path
       }, line),

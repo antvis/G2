@@ -39,9 +39,11 @@ describe('facet tree', () => {
   chart.facet('tree', {
     fields: [ 'grade', 'class' ],
     line: {
-      stroke: '#00a3d7',
+      style: {
+        stroke: '#00a3d7',
+      },
+      smooth: true,
     },
-    lineSmooth: true,
     eachView(view: View, facet) {
       const dv = new DataSet.DataView();
       dv.source(facet.data).transform({
@@ -72,7 +74,7 @@ describe('facet tree', () => {
 
     expect(chart.views[0].geometries[0].type).toBe('interval');
     // @ts-ignore
-    expect(chart.facetInstance.cfg.lineSmooth).toEqual(true);
+    expect(chart.facetInstance.cfg.line.smooth).toEqual(true);
 
     expect(chart.getController('annotation').getComponents()).toEqual([]);
   })
