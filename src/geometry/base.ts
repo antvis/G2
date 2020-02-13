@@ -1141,7 +1141,7 @@ export default class Geometry extends Base {
   protected getShapeFactory() {
     const shapeType = this.shapeType;
     if (!this.shapeFactory) {
-      this.shapeFactory = getShapeFactory(shapeType);
+      this.shapeFactory = clone(getShapeFactory(shapeType)); // 防止多个 view 共享一个 shapeFactory 实例，导致 coordinate 被篡改
     }
     // 因为这里缓存了 shapeFactory，但是外部可能会变更 coordinate，导致无法重新设置到 shapeFactory 中
     this.shapeFactory.coordinate = this.coordinate;
