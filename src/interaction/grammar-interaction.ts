@@ -66,6 +66,10 @@ export interface InteractionStep {
    * 不需要用户传入，通过上面的属性计算出来的属性
    */
   actionObject?: ActionObject | ActionObject[];
+  /**
+   * 在一个环节内是否只允许执行一次
+   */
+  once?: boolean;
 }
 
 // 缓存 action 对象
@@ -107,6 +111,8 @@ class GrammarInteraction extends Interaction {
   /** 当前执行到的阶段 */
   public currentStepName: string;
   private callbackCaches: LooseObject = {};
+  // 某个触发和反馈在本环节是否执行或
+  private emitCaches: LooseObject = {};
   /**
    * 当前交互的上下文
    */
@@ -195,6 +201,11 @@ class GrammarInteraction extends Interaction {
   // 具体的指定阶段是否允许执行
   private isAllowExcute(stepName: string, step: InteractionStep): boolean {
     if (this.isAllowStep(stepName)) {
+      const key = this.getKey(stepName, step);
+      // 如果是在本环节内仅允许触发一次，同时已经触发过，则不允许再触发
+      if (step.once && this.emitCaches[key]) {
+        return false;
+      }
       // 如果是允许的阶段，则验证 isEnable 方法
       if (step.isEnable) {
         return step.isEnable(this.context);
@@ -204,12 +215,24 @@ class GrammarInteraction extends Interaction {
     return false;
   }
 
-  // 执行完某个环节后
-  private afterExecute(stepName: string) {
+  private enterStep(stepName: string) {
+    this.currentStepName = stepName;
+    this.emitCaches = {};// 清除所有本环节触发的缓存
+  }
+
+  // 执行完某个触发和反馈（子环节）
+  private afterExecute(stepName: string, step) {
     // show enable 不计入正常的流程，其他情况则设置当前的 step
-    if (stepName !== STEP_NAMES.SHOW_ENABLE) {
-      this.currentStepName = stepName;
+    if (stepName !== STEP_NAMES.SHOW_ENABLE && this.currentStepName !== stepName) {
+      this.enterStep(stepName);
     }
+    const key = this.getKey(stepName, step);
+    // 一旦执行，则缓存标记为，一直保持到跳出改环节
+    this.emitCaches[key] = true;
+  }
+  // 获取某个环节的唯一的键值
+  private getKey(stepName, step) {
+    return stepName + step.trigger + step.action;
   }
 
   // 获取 step 的回调函数，如果已经生成，则直接返回，如果未生成，则创建
@@ -218,7 +241,7 @@ class GrammarInteraction extends Interaction {
     const callbackCaches = this.callbackCaches;
     const actionObject = step.actionObject;
     if (step.action && actionObject) {
-      const key = stepName + step.trigger + step.action;
+      const key = this.getKey(stepName, step);
       if (!callbackCaches[key]) {
         // 动态生成执行的方法，执行对应 action 的名称
         callbackCaches[key] = (event) => {
@@ -232,7 +255,7 @@ class GrammarInteraction extends Interaction {
             } else {
               executeAction(actionObject);
             }
-            this.afterExecute(stepName);
+            this.afterExecute(stepName, step);
             if (step.callback) {
               step.callback(context);
             }
