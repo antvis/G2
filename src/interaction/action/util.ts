@@ -111,6 +111,11 @@ export function getElements(view: View): Element[] {
     const elements = geom.elements;
     rst = rst.concat(elements);
   });
+  if (view.views && view.views.length) {
+    each(view.views, subView => {
+      rst = rst.concat(getElements(subView));
+    });
+  }
   return rst;
 }
 /**

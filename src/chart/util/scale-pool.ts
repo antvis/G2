@@ -1,7 +1,7 @@
 /**
  * view 中缓存 scale 的类
  */
-import { each, get, isNumber } from '@antv/util';
+import { each, get, isNumber, last } from '@antv/util';
 import { Scale } from '../../dependents';
 import { Data, ScaleOption } from '../../interface';
 import { createScaleByField, syncScale } from '../../util/scale';
@@ -125,7 +125,14 @@ export class ScalePool {
    * @param key
    */
   public getScale(key: string): Scale {
-    return this.getScaleMeta(key).scale;
+    let scaleMeta = this.getScaleMeta(key);
+    if (!scaleMeta) {
+      const field = last(key.split('-'));
+      if (this.syncScales[field] && this.syncScales[field].length) {
+        scaleMeta = this.getScaleMeta(this.syncScales[field][0]);
+      }
+    }
+    return scaleMeta && scaleMeta.scale;
   }
 
   /**

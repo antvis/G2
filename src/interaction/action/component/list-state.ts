@@ -69,7 +69,7 @@ class ListState extends Action<ListStateCfg> {
     }
     const view = this.context.view;
     const scale = view.getScaleByField(field);
-    return scale.isCategory;
+    return scale && scale.isCategory;
   }
 
   // 设置组件的 item active
