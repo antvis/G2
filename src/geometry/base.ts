@@ -1508,7 +1508,9 @@ export default class Geometry extends Base {
 
   // 将数据映射至图形空间前的操作：排序以及关键点的生成
   private beforeMapping(beforeMappingData: Data[]) {
-    const source = clone(beforeMappingData);
+    // 当初加 clone 是因为 points 的引用关系，导致更新失败，可是现在貌似复现不出来了，所以暂时不进行 clone
+    // const source = clone(beforeMappingData);
+    const source = beforeMappingData;
     if (this.sortable) {
       const xScale = this.getXScale();
       const field = xScale.field;
