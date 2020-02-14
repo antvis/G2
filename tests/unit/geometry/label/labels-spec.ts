@@ -1,11 +1,11 @@
 import { getCoordinate } from '@antv/coord';
 import { getScale } from '@antv/scale';
+import { Chart, getEngine } from '../../../../src/';
 import Interval from '../../../../src/geometry/interval';
 import Path from '../../../../src/geometry/path';
 import Theme from '../../../../src/theme/antv';
 import { createCanvas, createDiv, removeDom } from '../../../util/dom';
 import { createScale, updateScales } from '../../../util/scale';
-import { getEngine, Chart } from '../../../../src/';
 
 const PolarCoordinate = getCoordinate('polar');
 const RectCoordinate = getCoordinate('rect');
@@ -275,8 +275,8 @@ describe('LabelsRenderer', () => {
     expect(maleLabel.getFirst().attr('matrix')[7]).toBeGreaterThan(1);
   });
 
-  // afterAll(() => {
-  //   canvas.destroy();
-  //   removeDom(div);
-  // });
+  afterAll(() => {
+    canvas.destroy();
+    removeDom(div);
+  });
 });
