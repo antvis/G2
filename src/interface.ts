@@ -910,6 +910,8 @@ export interface TooltipCfg {
   showMarkers?: boolean;
   /** tooltipMarker 的样式配置。 */
   marker?: object;
+  /** 是否展示 tooltip 内容框 */
+  showContent?: boolean;
   /** 自定义 tooltip 的容器。 */
   container?: string | HTMLElement;
   /** 用于指定图例容器的模板，自定义模板时必须包含各个 dom 节点的 class。 */

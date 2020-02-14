@@ -50,33 +50,8 @@ export default class Tooltip extends Controller<TooltipOption> {
   public init() { }
 
   public render() {
-    if (this.tooltip) {
-      return;
-    }
-
     this.option = this.view.getOptions().tooltip;
     this.isVisible = this.option !== false;
-
-    const view = this.view;
-
-    const canvas = view.getCanvas();
-    const region = {
-      start: { x: 0, y: 0 },
-      end: { x: canvas.get('width'), y: canvas.get('height') },
-    };
-
-    const cfg = this.getTooltipCfg();
-    const tooltip = new HtmlTooltip({
-      parent: canvas.get('el').parentNode,
-      region,
-      ...cfg,
-      visible: false,
-      crosshairs: null,
-    });
-
-    tooltip.init();
-
-    this.tooltip = tooltip;
   }
 
   /**
@@ -87,16 +62,17 @@ export default class Tooltip extends Controller<TooltipOption> {
     if (!this.isVisible) { // 如果设置 tooltip(false) 则始终不显示
       return;
     }
-    const { view, tooltip } = this;
+
     const items = this.getTooltipItems(point);
     if (!items.length) {
       return;
     }
 
+    const view = this.view;
     const cfg = this.getTooltipCfg();
+    const { follow, showMarkers, showCrosshairs, showContent } = cfg;
     const title = this.getTitle(items);
 
-    const follow = cfg.follow;
     let location;
     if (follow) {
       // 跟随鼠标
@@ -109,16 +85,23 @@ export default class Tooltip extends Controller<TooltipOption> {
       };
     }
 
-    tooltip.update({
-      ...cfg,
-      items,
-      title,
-      ...location,
-    });
-    tooltip.show();
+    if (showContent) {
+      // 延迟生成
+      // 展示 tooltip 内容框
+      if (!this.tooltip) {
+        this.renderTooltip();
+      }
+      this.tooltip.update({
+        ...cfg,
+        items,
+        title,
+        ...location,
+      });
+
+      this.tooltip.show();
+    }
 
     view.emit('tooltip:show', {
-      tooltip,
       items,
       title,
       ...point,
@@ -129,7 +112,6 @@ export default class Tooltip extends Controller<TooltipOption> {
     if (!isEqual(lastTitle, title) || !isEqual(lastItems, items)) {
       // 内容发生变化
       view.emit('tooltip:change', {
-        tooltip,
         items,
         title,
         ...point,
@@ -138,11 +120,11 @@ export default class Tooltip extends Controller<TooltipOption> {
     this.items = items;
     this.title = title;
 
-    const { showMarkers, showCrosshairs } = cfg;
     if (showMarkers) {
       // 展示 tooltipMarkers
       this.renderTooltipMarkers(cfg);
     }
+
     if (showCrosshairs) {
       // 展示 tooltip 辅助线
       this.renderCrosshairs(location, cfg);
@@ -150,8 +132,6 @@ export default class Tooltip extends Controller<TooltipOption> {
   }
 
   public hideTooltip() {
-    const { view, tooltip } = this;
-
     // hide the tooltipMarkers
     const tooltipMarkersGroup = this.tooltipMarkersGroup;
     if (tooltipMarkersGroup) {
@@ -168,12 +148,12 @@ export default class Tooltip extends Controller<TooltipOption> {
       yCrosshair.hide();
     }
 
-    // @ts-ignore
-    tooltip.hide();
+    const tooltip = this.tooltip;
+    if (tooltip) {
+      tooltip.hide();
+    }
 
-    view.emit('tooltip:hide', {
-      tooltip: this.tooltip,
-    });
+    this.view.emit('tooltip:hide', {});
   }
 
   public clear() {
@@ -305,6 +285,26 @@ export default class Tooltip extends Controller<TooltipOption> {
     this.title = title;
 
     return title;
+  }
+
+  private renderTooltip() {
+    const canvas = this.view.getCanvas();
+    const region = {
+      start: { x: 0, y: 0 },
+      end: { x: canvas.get('width'), y: canvas.get('height') },
+    };
+
+    const cfg = this.getTooltipCfg();
+    const tooltip = new HtmlTooltip({
+      parent: canvas.get('el').parentNode,
+      region,
+      ...cfg,
+      visible: false,
+      crosshairs: null,
+    });
+
+    tooltip.init();
+    this.tooltip = tooltip;
   }
 
   private renderTooltipMarkers(cfg) {

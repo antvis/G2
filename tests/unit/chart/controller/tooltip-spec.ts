@@ -37,16 +37,6 @@ describe('Tooltip', () => {
     .adjust('dodge');
   chart.render();
 
-  it('tooltip config', () => {
-    const tooltipDom = container.getElementsByClassName('g2-tooltip')[0];
-    // @ts-ignore
-    expect(tooltipDom.style.border).toBe('1px solid rgb(0, 0, 0)');
-    // @ts-ignore
-    expect(tooltipDom.style.boxShadow).toBe('');
-    // @ts-ignore
-    expect(tooltipDom.style.backgroundColor).toBe(chart.getTheme().components.tooltip.domStyles['g2-tooltip'].backgroundColor);
-  });
-
   it('showTooltip', () => {
     let items;
     chart.on('tooltip:show', (e) => {
@@ -71,11 +61,17 @@ describe('Tooltip', () => {
     const markerGroup = tooltip.tooltipMarkersGroup;
     expect(markerGroup.getChildren().length).toBe(2);
 
-    // const crosshairs = container.getElementsByClassName('g2-tooltip-crosshair-x');
-    // expect(crosshairs.length).toBe(1);
-
     const foregroundGroup = chart.foregroundGroup;
     expect(foregroundGroup.getChildren().length).toBe(5);
+
+    // 延迟生成
+    const tooltipDom = container.getElementsByClassName('g2-tooltip')[0];
+    // @ts-ignore
+    expect(tooltipDom.style.border).toBe('1px solid rgb(0, 0, 0)');
+    // @ts-ignore
+    expect(tooltipDom.style.boxShadow).toBe('');
+    // @ts-ignore
+    expect(tooltipDom.style.backgroundColor).toBe(chart.getTheme().components.tooltip.domStyles['g2-tooltip'].backgroundColor);
   });
 
   it('hideTooltip', () => {
@@ -92,10 +88,6 @@ describe('Tooltip', () => {
     // @ts-ignore
     const markerGroup = tooltip.tooltipMarkersGroup;
     expect(markerGroup.get('visible')).toBe(false);
-
-    // const crosshairs = container.getElementsByClassName('g2-tooltip-crosshair-x');
-    // // @ts-ignore
-    // expect(crosshairs[0].style.display).toBe('none');
   });
 
   it('getTooltipItems', () => {
@@ -362,7 +354,7 @@ describe('Multiple views tooltip', () => {
 describe('geometry.tooltip()', () => {
   const container = createDiv();
   const chart = new Chart({
-    container: container,
+    container,
     width: 400,
     height: 300,
   });
@@ -390,6 +382,78 @@ describe('geometry.tooltip()', () => {
     const tooltipItems = chart.getTooltipItems(point);
 
     expect(tooltipItems.length).toBe(2);
+  });
+
+  afterAll(() => {
+    chart.destroy();
+    removeDom(container);
+  });
+});
+
+describe('showContent', () => {
+  const container = createDiv();
+  const data = [
+    { year: '2001', population: 41.8 },
+    { year: '2002', population: 38 },
+    { year: '2003', population: 33.7 },
+    { year: '2004', population: 30.7 },
+    { year: '2005', population: 25.8 },
+    { year: '2006', population: 31.7 },
+    { year: '2007', population: 33 },
+    { year: '2008', population: 46 },
+    { year: '2009', population: 38.3 },
+    { year: '2010', population: 28 },
+    { year: '2011', population: 42.5 },
+    { year: '2012', population: 30.3 },
+  ];
+
+  const chart = new Chart({
+    container,
+    width: 400,
+    height: 300,
+  });
+
+  chart.data(data);
+  chart.scale('population', {
+    nice: true,
+  });
+  chart.coordinate('polar', {
+    innerRadius: 0.4,
+  });
+  chart.axis(false);
+  chart.legend(false);
+  chart.tooltip({
+    showContent: false,
+    showCrosshairs: true,
+    crosshairs: {
+      line: {
+        style: {
+          lineDash: [2],
+        }
+      },
+      text: {
+        position: 'end',
+        offset: 5,
+        autoRotate: true,
+        style: {
+          fontSize: 14,
+        }
+      },
+      textBackground: null
+    },
+  });
+  chart.interval().position('year*population').color('year').size(100);
+  chart.render();
+
+  it('showContent: false', () => {
+    const point = chart.getXY({ year: '2004', population: 30.7 });
+    chart.showTooltip(point);
+
+    const tooltip = chart.getController('tooltip');
+    // @ts-ignore
+    expect(tooltip.tooltip).toBeUndefined();
+    const tooltipDom = container.getElementsByClassName('g2-tooltip');
+    expect(tooltipDom.length).toBe(0);
   });
 
   afterAll(() => {

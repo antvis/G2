@@ -692,6 +692,7 @@ export default {
       },
     },
     tooltip: {
+      showContent: true,
       follow: false,
       showCrosshairs: false,
       showMarkers: true,
