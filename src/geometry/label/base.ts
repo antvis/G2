@@ -272,7 +272,7 @@ export default class GeometryLabel {
         }
       }
 
-      let labelId = geometry.getElementId(origin);
+      let labelId = geometry.getElementId(mappingData);
       if (type === 'line' || type === 'area') {
         // 折线图以及区域图，一条线会对应一组数据，即多个 labels，为了区分这些 labels，需要在 line id 的前提下加上 x 字段值
         labelId += ` ${origin[xScale.field]}`;
