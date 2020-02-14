@@ -11,13 +11,6 @@ export default class Interval extends Geometry {
   public readonly shapeType: string = 'interval';
   protected generatePoints: boolean = true;
 
-  private defaultSize: number;
-
-  public clear() {
-    super.clear();
-    this.defaultSize = undefined;
-  }
-
   /**
    * Creates shape points cfg
    * @param obj 经过分组 -> 数字化 -> adjust 调整后的数据记录
