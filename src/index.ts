@@ -140,6 +140,8 @@ registerComponentController('slider', Slider);
 import { registerAction } from './core';
 import ActiveRegion from './interaction/action/active-region';
 import TooltipAction from './interaction/action/component/tooltip';
+import SiblingTooltip from './interaction/action/component/sibling-tooltp';
+
 import ElmentActive from './interaction/action/element/active';
 import ElmentRangeActive from './interaction/action/element/range-active';
 import ElmentSingleActive from './interaction/action/element/single-active';
@@ -177,6 +179,7 @@ import ScaleTranslate from './interaction/action/view/scale-translate';
 import ScaleZoom from './interaction/action/view/scale-zoom';
 
 registerAction('tooltip', TooltipAction);
+registerAction('sibling-tooltip', SiblingTooltip);
 registerAction('element-active', ElmentActive);
 registerAction('element-single-active', ElmentSingleActive);
 registerAction('element-range-active', ElmentRangeActive);
@@ -495,6 +498,11 @@ registerInteraction('view-zoom', {
       return !isWheelDown(context.event);
     }, action: 'scale-zoom:zoomIn' }
   ]
+});
+
+registerInteraction('sibling-tooltip', {
+  start: [{ trigger: 'plot:mousemove', action: 'sibling-tooltip:show' }],
+  end: [{ trigger: 'plot:mouseleave', action: 'sibling-tooltip:hide' }],
 });
 
 // 让 TS 支持 View 原型上添加的创建 Geometry 方法的智能提示

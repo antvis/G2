@@ -27,7 +27,7 @@ describe('active test', () => {
   ];
 
   chart.animate(false);
-  chart.tooltip(false);
+  chart.tooltip(true);
   chart.scale('year', {
     sync: true
   });
@@ -118,5 +118,5 @@ describe('active test', () => {
     context.destroy();
     chart.destroy();
   });
-  
+
 });

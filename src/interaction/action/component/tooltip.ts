@@ -1,6 +1,7 @@
 import { isEqual } from '@antv/util';
 import { Point } from '../../../interface';
 import Action from '../base';
+import { View } from '../../../chart';
 
 /**
  * Tooltip 展示隐藏的 Action
@@ -8,6 +9,15 @@ import Action from '../base';
 class TooltipAction extends Action {
   private timeStamp: number = 0;
   private location: Point;
+
+  protected showTooltip(view: View, point: Point) {
+    // 相同位置不重复展示
+    view.showTooltip(point);
+  }
+
+  protected hideTooltip(view) {
+    view.hideTooltip();
+  }
 
   public show() {
     const context = this.context;
@@ -25,8 +35,7 @@ class TooltipAction extends Action {
       const preLoc = this.location;
       const curLoc = { x: ev.x, y: ev.y };
       if (!preLoc || !isEqual(preLoc, curLoc)) {
-        // 相同位置不重复展示
-        view.showTooltip(curLoc);
+        this.showTooltip(view, curLoc);
       }
       this.timeStamp = timeStamp;
       this.location = curLoc;
@@ -40,7 +49,7 @@ class TooltipAction extends Action {
       // 锁定 tooltip 时不隐藏
       return;
     }
-    view.hideTooltip();
+    this.hideTooltip(view);
     this.location = null;
   }
 }
