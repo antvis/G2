@@ -54,7 +54,7 @@ describe('test tooltip action', () => {
   });
 });
 
-describe.only('test sibling tooltip', () => {
+describe('test sibling tooltip', () => {
   const dom = createDiv();
   const chart = new Chart({
     container: dom,
