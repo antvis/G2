@@ -14,6 +14,9 @@ function getAttrs(cfg) {
   const defaultCfg = Global.shape.edge;
   const lineAttrs = Util.mix({}, defaultCfg, cfg.style);
   ShapeUtil.addStrokeAttrs(lineAttrs, cfg);
+  if (cfg.size) {
+    lineAttrs.lineWidth = cfg.size;
+  }
   return lineAttrs;
 }
 
