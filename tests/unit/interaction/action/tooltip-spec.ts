@@ -143,17 +143,15 @@ describe('test sibling tooltip', () => {
     };
     action.show();
     const firstDom = tooltipDoms[0] as HTMLElement;
-    expect(tooltipDoms.length).toBe(3);
-    expect(firstDom.style.visibility).toBe('hidden');
-    expect((tooltipDoms[1] as HTMLElement).style.visibility).toBe('visible');
-    expect((tooltipDoms[2] as HTMLElement).style.visibility).toBe('hidden');
+    expect(tooltipDoms.length).toBe(1);
+    expect((tooltipDoms[0] as HTMLElement).style.visibility).toBe('visible');
   });
 
   it('hide', () => {
     context.event = {
     };
     action.hide();
-    expect((tooltipDoms[1] as HTMLElement).style.visibility).toBe('hidden');
+    expect((tooltipDoms[0] as HTMLElement).style.visibility).toBe('hidden');
   });
   afterAll(() => {
     context.destroy();
