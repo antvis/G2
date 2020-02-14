@@ -36,7 +36,7 @@ export default class Chart extends View {
       pixelRatio,
       localRefresh = true,
       visible = true,
-      defaultInteractions = ['tooltip'],
+      defaultInteractions = ['tooltip', 'legend-filter', 'legend-active', 'element-active','continuous-filter'],
       options,
       limitInPlot,
     } = props;

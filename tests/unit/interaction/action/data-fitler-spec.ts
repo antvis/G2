@@ -22,7 +22,7 @@ describe('active test', () => {
   chart.scale('value', { nice: true });
   chart.animate(false);
   chart.interaction('element-path-highlight');
-
+  chart.removeInteraction('continuous-filter');
   chart.tooltip(false);
   const interval = chart
     .interval()
