@@ -10,13 +10,6 @@ export default class Schema extends Geometry {
   public readonly shapeType: string = 'schema';
   protected generatePoints: boolean = true;
 
-  private defaultSize: number;
-
-  public clear() {
-    super.clear();
-    this.defaultSize = undefined;
-  }
-
   protected createShapePointsCfg(record: LooseObject) {
     const cfg = super.createShapePointsCfg(record);
 

@@ -177,6 +177,7 @@ export default class Geometry extends Base {
   // 虚拟 Group
   protected offscreenGroup: IGroup;
   protected beforeMappingData: Data[] = null;
+  protected defaultSize: number;
 
   private adjusts: Record<string, Adjust> = {};
   private lastAttributeOption;
@@ -790,6 +791,7 @@ export default class Geometry extends Base {
    * 将原始数据映射至图形空间，同时创建图形对象。
    */
   public paint(isUpdate: boolean = false) {
+    this.defaultSize = undefined;
     this.elements = [];
     this.elementsMap = {};
     const offscreenGroup = this.getOffscreenGroup();
@@ -869,6 +871,7 @@ export default class Geometry extends Base {
     this.dataArray = null;
     this.beforeMappingData = null;
     this.lastAttributeOption = undefined;
+    this.defaultSize = undefined;
   }
 
   /**
