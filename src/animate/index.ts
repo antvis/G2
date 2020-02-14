@@ -114,7 +114,7 @@ const GEOMETRY_ANIMATE_CFG = {
       animation: 'fade-in',
     },
     update: {
-      animation: 'text-update',
+      animation: 'position-update',
     },
     leave: {
       animation: 'fade-out',

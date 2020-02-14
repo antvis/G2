@@ -85,7 +85,7 @@ import { growInX, growInXY, growInY } from './animate/animation/grow-in';
 import { pathIn } from './animate/animation/path-in';
 import { scaleInX, scaleInY } from './animate/animation/scale-in';
 import { sectorPathUpdate } from './animate/animation/sector-path-update';
-import { textUpdate } from './animate/animation/text-update';
+import { positionUpdate } from './animate/animation/position-update';
 import { waveIn } from './animate/animation/wave-in';
 import { zoomIn, zoomOut } from './animate/animation/zoom';
 import { registerAnimation } from './core';
@@ -100,7 +100,7 @@ registerAnimation('scale-in-y', scaleInY);
 registerAnimation('wave-in', waveIn);
 registerAnimation('zoom-in', zoomIn);
 registerAnimation('zoom-out', zoomOut);
-registerAnimation('text-update', textUpdate);
+registerAnimation('position-update', positionUpdate);
 registerAnimation('sector-path-update', sectorPathUpdate);
 registerAnimation('path-in', pathIn);
 
@@ -321,8 +321,8 @@ registerInteraction('element-range-highlight', {
     }
   ],
   end: [
-    { trigger: 'plot:mouseup', 
-      action: ['rect-mask:end'] 
+    { trigger: 'plot:mouseup',
+      action: ['rect-mask:end']
     },
     { trigger: 'mask:dragend', action: ['rect-mask:moveEnd']},
     {
