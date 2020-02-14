@@ -10,7 +10,6 @@ describe('legend update', () => {
     container,
     height: 500,
     width: 600,
-    autoFit: false,
     padding: 0,
   });
 
