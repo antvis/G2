@@ -1015,7 +1015,9 @@ export default class Geometry extends Base {
    * @param originData 原始数据。
    * @returns
    */
-  public getElementId(originData: Datum) {
+  public getElementId(data: MappingDatum | MappingDatum[]) {
+    data = isArray(data) ? data[0] : data;
+    const originData = data[FIELD_ORIGIN];
     const type = this.type;
     const xScale = this.getXScale();
     const yScale = this.getYScale();
@@ -1055,6 +1057,10 @@ export default class Geometry extends Base {
       if (dodgeBy) {
         id = `${id}-${originData[dodgeBy]}`;
       }
+    }
+
+    if (this.getAdjust('jitter')) {
+      id = `${id}-${data.x}-${data.y}`;
     }
 
     return id;
@@ -1220,9 +1226,8 @@ export default class Geometry extends Base {
 
   protected createElements(mappingData: MappingDatum[], isUpdate: boolean = false): Element[] {
     const { lastElementsMap, elementsMap, elements } = this;
-    each(mappingData, (mappingDatum, i) => {
-      const originData = mappingDatum[FIELD_ORIGIN];
-      const id = this.getElementId(originData);
+    each(mappingData, (mappingDatum) => {
+      const id = this.getElementId(mappingDatum);
       let result = lastElementsMap[id] || elementsMap[id];
       if (!result) {
         // 创建新的 element
@@ -1730,8 +1735,7 @@ export default class Geometry extends Base {
     });
     // 因为有可能 shape 还在进行动画，导致 shape.getBBox() 获取到的值不是最终态，所以需要从 offscreenGroup 获取
     each(this.offscreenGroup.getChildren(), (child) => {
-      const data = child.get('data');
-      const id = this.getElementId(data);
+      const id = this.getElementId(child.get('origin').mappingData);
       shapes[id] = child;
     });
 

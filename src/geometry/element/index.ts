@@ -105,6 +105,7 @@ export default class Element extends Base {
     const offscreenGroup = this.getOffscreenGroup();
     const newShape = shapeFactory.drawShape(this.shapeType, drawCfg, offscreenGroup);
     newShape.set('data', this.data);
+    newShape.set('origin', drawCfg);
 
     // step 3: 同步 shape 样式
     this.syncShapeStyle(shape, newShape, '', this.getAnimateCfg('update'));
