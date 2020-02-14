@@ -24,18 +24,17 @@ describe('test tooltip action', () => {
     { year: '1999', value: 3 },
   ]);
   chart.animate(false);
-  //chart.tooltip(false);
   chart.interval().position('year*value');
   chart.render();
   const interaction = createInteraction('tooltip', chart);
   interaction.init();
-  const tooltipDom = dom.getElementsByClassName('g2-tooltip')[0] as HTMLElement;
   it('show', () => {
-    expect(tooltipDom.style.visibility).toBe('hidden');
+    // expect(tooltipDom.style.visibility).toBe('hidden');
     chart.emit('plot:mousemove', {
       x: 50,
       y: 330,
     });
+    const tooltipDom = dom.getElementsByClassName('g2-tooltip')[0] as HTMLElement;
     expect(tooltipDom.style.visibility).toBe('visible');
   });
 
@@ -44,6 +43,7 @@ describe('test tooltip action', () => {
       x: 138,
       y: 383,
     });
+    const tooltipDom = dom.getElementsByClassName('g2-tooltip')[0] as HTMLElement;
     expect(tooltipDom.style.visibility).toBe('hidden');
   });
 
