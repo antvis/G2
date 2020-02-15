@@ -70,15 +70,15 @@ export default class CanvasLegend extends CategoryBase {
 
   public isNeedFlip(): boolean {
     const maxWidth = this.get('maxWidth');
-    const maxItemHeight = this.get('maxItemHeight');
+    const maxHeight = this.get('maxHeight');
     const itemsBBox = this.get('itemsGroup').getBBox();
     const layout = this.get('layout');
     if (this.get('flipPage')) {
-      if (layout === 'vertical' && maxWidth < itemsBBox.width) {
+      if (layout === 'vertical' && maxHeight < itemsBBox.height) {
         return true;
       }
 
-      if (layout === 'horizontal' && maxItemHeight < itemsBBox.height) {
+      if (layout === 'horizontal' && maxWidth < itemsBBox.width) {
         return true;
       }
     }
