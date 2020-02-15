@@ -11,6 +11,22 @@
         "zh": "基础折线图"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*aKqJT4RCVOcAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "curved.ts",
+      "title": {
+        "en": "Curved Line Chart",
+        "zh": "曲线折线图"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*aFXQS7yyDyUAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "double-y-axes.ts",
+      "title": {
+        "en": "Double Y Axes",
+        "zh": "双 Y 轴折线图"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Tl12Trvw_5sAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

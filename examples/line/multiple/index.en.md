@@ -1,4 +1,4 @@
 ---
-title: multiple line chart
-order: 2
+title: kernel smooth regression line chart
+order: 3
 ---

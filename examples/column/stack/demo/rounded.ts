@@ -101,7 +101,7 @@ chart.tooltip({
 chart
   .interval()
   .position('date*expected')
-  .color('#752136')
+  .color('#cbcbcb')
   .shape('border-radius')
   .tooltip('expected')
   .style({
@@ -110,7 +110,7 @@ chart
 chart
   .interval()
   .position('date*actual')
-  .color('#db0d2d')
+  .color('#6DC8EC')
   .tooltip('actual')
   .shape('date*actual', (date, val) => {
     if (val === 0) {
@@ -123,7 +123,7 @@ chart.annotation().text({
   position: ['min', 'max'],
   content: '活动',
   style: {
-    fill: '#ff2c55',
+    fill: '#6DC8EC',
     fontSize: 20,
     fontWeight: 'bold',
     textBaseline: 'top',
@@ -141,4 +141,5 @@ chart.annotation().text({
   },
 });
 
+chart.interaction('active-region');
 chart.render();

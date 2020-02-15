@@ -18,12 +18,14 @@ const chart = new Chart({
 });
 
 chart.data(data);
-chart.scale('value', {
-  min: 0,
-  nice: true,
-});
-chart.scale('year', {
-  range: [0, 1],
+chart.scale({
+  year: {
+    range: [0, 1],
+  },
+  value: {
+    min: 0,
+    nice: true,
+  },
 });
 
 chart.tooltip({
@@ -31,15 +33,7 @@ chart.tooltip({
   shared: true,
 });
 
-chart.line().position('year*value');
-chart
-  .point()
-  .position('year*value')
-  .size(4)
-  .shape('circle')
-  .style({
-    stroke: '#fff',
-    lineWidth: 1,
-  });
+chart.line().position('year*value').label('value');
+chart.point().position('year*value');
 
 chart.render();

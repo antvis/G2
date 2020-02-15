@@ -34,11 +34,16 @@ function getStaticsData(data) {
 fetch('../data/diamond.json')
   .then((res) => res.json())
   .then((data) => {
+    const statics = getStaticsData(data);
+
     const chart = new Chart({
       container: 'container',
       autoFit: true,
       height: 500,
     });
+
+    chart.data(statics);
+
     chart.scale({
       x: {
         alias: 'depth',
@@ -51,10 +56,6 @@ fetch('../data/diamond.json')
         sync: true,
       },
     });
-
-    const statics = getStaticsData(data);
-
-    chart.data(statics);
 
     [
       'boxcar',

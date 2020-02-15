@@ -42,5 +42,7 @@ fetch('../data/diamond.json')
       .color('cut')
       .adjust('stack');
 
+    chart.interaction('active-region');
+
     chart.render();
   });

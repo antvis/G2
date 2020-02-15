@@ -45,4 +45,6 @@ chart
     },
   ]);
 
+chart.interaction('active-reigon');
+
 chart.render();

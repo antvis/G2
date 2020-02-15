@@ -45,7 +45,7 @@ chart.scale({
     formatter(val) {
       return (val * 100).toFixed(2) + '%';
     },
-  },
+  }
 });
 
 chart.tooltip({
@@ -53,11 +53,12 @@ chart.tooltip({
   showMarkers: false,
 });
 
-
 chart
   .interval()
   .position('year*percent')
   .color('country')
   .adjust('stack');
+
+chart.interaction('active-region');
 
 chart.render();

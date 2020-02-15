@@ -175,4 +175,6 @@ chart
     },
   ]);
 
+chart.interaction('active-region');
+
 chart.render();

@@ -1,8 +1,8 @@
 import { Chart, registerShape } from '@antv/g2';
-import { trimEnd } from '_@types_lodash-es@4.17.3@@types/lodash-es';
 
 function getFillAttrs(cfg) {
   return {
+    ...cfg.defaultStyle,
     ...cfg.style,
     fill: cfg.color,
     fillOpacity: cfg.opacity,
@@ -139,6 +139,10 @@ const axisCfg = {
 chart.axis('year', axisCfg);
 chart.axis('sales', { ...axisCfg, line: null });
 
+chart.tooltip({
+  showMarkers: false
+});
+
 chart
   .interval()
   .position('year*sales')
@@ -158,5 +162,7 @@ chart
     lineWidth: 2,
   })
   .adjust('stack');
+
+chart.interaction('element-highlight');
 
 chart.render();

@@ -18,9 +18,12 @@ const chart = new Chart({
 });
 
 chart.data(data);
+chart.scale('y', { nice: true });
+
 chart.tooltip({
   showMarkers: false,
 });
+
 chart.interval().position('x*y').animate({
   appear: {
     animation: 'zoom-in'

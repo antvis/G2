@@ -1,4 +1,4 @@
 ---
 title: Path Chart
-order: 4
+order: 2
 ---

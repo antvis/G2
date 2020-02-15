@@ -164,4 +164,6 @@ chart
   .size(35)
   .adjust('stack');
 
+chart.interaction('active-region');
+
 chart.render();

@@ -1,5 +1,6 @@
 import { Chart } from '@antv/g2';
 
+// 构造数据
 const data = [];
 const n = 31;
 for (let i = 0; i < 372; i++) {
@@ -31,6 +32,7 @@ chart.scale({
   },
   value: {
     min: 0,
+    nice: true,
   },
 });
 
