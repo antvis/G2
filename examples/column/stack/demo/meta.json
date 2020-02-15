@@ -5,30 +5,6 @@
   },
   "demos": [
     {
-      "filename": "rounded.ts",
-      "title": {
-        "en": "rounded column chart",
-        "zh": "圆角柱状图"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*3w5oQp71EEIAAAAAAAAAAABkARQnAQ"
-    },
-    {
-      "filename": "polar-stack.ts",
-      "title": {
-        "en": "stacked column chart in polar coordinate",
-        "zh": "极坐标下的层叠柱状图"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*_SHeTbeHv-oAAAAAAAAAAABkARQnAQ"
-    },
-    {
-      "filename": "rounded-stacked.ts",
-      "title": {
-        "en": "rounded stacked column chart",
-        "zh": "圆角堆叠柱状图"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8Ky7QLBFxqoAAAAAAAAAAABkARQnAQ"
-    },
-    {
       "filename": "stacked.ts",
       "title": {
         "en": "stacked column chart",
@@ -43,6 +19,30 @@
         "zh": "百分比堆叠柱状图"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*oIKmQLZxqlEAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "rounded.ts",
+      "title": {
+        "en": "rounded column chart",
+        "zh": "圆角柱状图"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*3w5oQp71EEIAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "rounded-stacked.ts",
+      "title": {
+        "en": "rounded stacked column chart",
+        "zh": "圆角堆叠柱状图"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8Ky7QLBFxqoAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "polar-stack.ts",
+      "title": {
+        "en": "stacked column chart in polar coordinate",
+        "zh": "极坐标下的层叠柱状图"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*_SHeTbeHv-oAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "wind-rose.ts",

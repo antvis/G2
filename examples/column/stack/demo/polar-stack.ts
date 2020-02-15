@@ -42,7 +42,6 @@ chart.legend('难民类型', {
 });
 
 chart.tooltip({
-  shared: true,
   showMarkers: false,
 });
 

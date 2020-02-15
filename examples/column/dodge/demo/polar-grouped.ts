@@ -25,21 +25,40 @@ const chart = new Chart({
   height: 500,
 });
 
+chart.coordinate('polar');
+
 chart.data(data);
 chart.scale('月均降雨量', {
   nice: true,
 });
-chart.tooltip({
-  shared: true,
-  showMarkers: false,
+
+chart.axis('月份', {
+  grid: {
+    alignTick: false,
+    line: {
+      style: {
+        lineDash: null
+      }
+    }
+  }
+});
+chart.axis('月均降雨量', {
+  line: null,
+  tickLine: null,
+  label: null
 });
 
 chart
   .interval()
   .position('月份*月均降雨量')
   .color('name')
-  .adjust('stack');
+  .adjust([
+    {
+      type: 'dodge',
+      marginRatio: 1,
+    },
+  ]);
 
-chart.interaction('active-region');
+chart.interaction('active-reigon');
 
 chart.render();

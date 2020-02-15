@@ -13,12 +13,20 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*4JDKS4I7MvcAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "image-top.ts",
+      "filename": "ranged.ts",
       "title": {
-        "zh": "自定义柱状图",
-        "en": "Column Chart"
+        "zh": "区间柱状图",
+        "en": "Column Range"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*luGdTrgw50oAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*l9Y6R43DMpUAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "waterfall.ts",
+      "title": {
+        "zh": "瀑布图",
+        "en": "Waterfall Chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*4Q9PRIHjH2wAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "marked.ts",
@@ -35,22 +43,6 @@
         "en": "Spiral Column Chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ZwIQQYi3H3wAAAAAAAAAAABkARQnAQ"
-    },
-    {
-      "filename": "ranged.ts",
-      "title": {
-        "zh": "区间柱状图",
-        "en": "Column Range"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*l9Y6R43DMpUAAAAAAAAAAABkARQnAQ"
-    },
-    {
-      "filename": "waterfall.ts",
-      "title": {
-        "zh": "瀑布图",
-        "en": "Waterfall Chart"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*4Q9PRIHjH2wAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

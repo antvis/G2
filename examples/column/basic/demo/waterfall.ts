@@ -33,6 +33,7 @@ function getFillAttrs(cfg) {
   };
 }
 
+// 自定义 Shape
 registerShape('interval', 'waterfall', {
   draw(cfg, container) {
     const attrs = getFillAttrs(cfg);
@@ -99,15 +100,20 @@ const chart = new Chart({
 });
 
 chart.data(data);
+chart.scale('money', { nice: true });
+
+// 自定义 legend
 chart.legend({
   items: [
     { name: '各项花销', value: '各项花销', marker: { symbol: 'square', style: { fill: '#1890FF', r: 5 } } },
     { name: '总费用', value: '总费用', marker: { symbol: 'square', style: { fill: '#8c8c8c', r: 5 } } },
   ],
 });
+
 chart.tooltip({
   showMarkers: false,
 });
+
 chart
   .interval()
   .position('type*money')
@@ -131,5 +137,7 @@ chart
     };
   })
   .shape('waterfall');
+
+chart.removeInteraction('legend-filter'); // 移除图例过滤交互
 
 chart.render();

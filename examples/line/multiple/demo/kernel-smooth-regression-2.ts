@@ -24,6 +24,7 @@ fetch('../data/diamond.json')
         nice: true,
       },
     });
+
     chart.point().position('carat*price').shape('circle');
 
     [
@@ -48,8 +49,8 @@ fetch('../data/diamond.json')
       });
 
       const view = chart.createView();
-      view.axis(false);
       view.data(dv.rows);
+      view.axis(false);
       view
         .line()
         .position('carat*price')

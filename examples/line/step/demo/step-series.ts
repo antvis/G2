@@ -42,6 +42,10 @@ chart.scale('value', {
   nice: true,
 });
 
+chart.tooltip({
+  showCrosshairs: true,
+});
+
 chart
   .line()
   .position('month*value')

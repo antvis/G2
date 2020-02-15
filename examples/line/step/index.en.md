@@ -1,4 +1,4 @@
 ---
 title: Step Line Chart
-order: 3
+order: 1
 ---

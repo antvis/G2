@@ -34,12 +34,13 @@ const chart = new Chart({
 });
 
 chart.data(data);
-
-chart.scale('month', {
-  range: [0, 1],
-});
-chart.scale('temperature', {
-  nice: true,
+chart.scale({
+  month: {
+    range: [0, 1],
+  },
+  temperature: {
+    nice: true,
+  },
 });
 
 chart.tooltip({
@@ -65,7 +66,6 @@ chart
   .point()
   .position('month*temperature')
   .color('city')
-  .size(4)
   .shape('circle')
   .style({
     stroke: '#fff',

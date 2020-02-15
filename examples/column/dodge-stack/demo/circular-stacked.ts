@@ -145,10 +145,13 @@ chart.axis('population', {
       return +val / 1000000 + 'M';
     },
   },
+  line: null
 });
 
 chart.axis('State', {
+  tickLine: null,
   grid: {
+    alignTick: false,
     line: {
       style: {
         stroke: '#BFBFBF',
@@ -171,7 +174,6 @@ chart.tooltip({
 chart
   .interval()
   .position('State*population')
-  .size(25)
   .color('age', (age) => colorMap[age])
   .tooltip('age*population', (age, population) => {
     return {
@@ -183,10 +185,13 @@ chart
     {
       type: 'dodge',
       dodgeBy: 'type', // 按照 type 字段进行分组
-      marginRatio: 0, // 分组中各个柱子之间不留空隙
+      marginRatio: 1, // 分组中各个柱子之间不留空隙
     },
     {
       type: 'stack',
     },
   ]);
+
+chart.interaction('active-region');
+
 chart.render();
