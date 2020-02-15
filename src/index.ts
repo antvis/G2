@@ -139,8 +139,8 @@ registerComponentController('slider', Slider);
 // 注册 Interaction Action
 import { registerAction } from './core';
 import ActiveRegion from './interaction/action/active-region';
-import TooltipAction from './interaction/action/component/tooltip';
 import SiblingTooltip from './interaction/action/component/sibling-tooltp';
+import TooltipAction from './interaction/action/component/tooltip';
 
 import ElmentActive from './interaction/action/element/active';
 import ElmentRangeActive from './interaction/action/element/range-active';
@@ -160,9 +160,9 @@ import ListSelected from './interaction/action/component/list-selected';
 import ListUnchecked from './interaction/action/component/list-unchecked';
 
 import CircleMask from './interaction/action/mask/circle';
+import DimMask from './interaction/action/mask/dim-rect';
 import PathMask from './interaction/action/mask/path';
 import RectMask from './interaction/action/mask/rect';
-import DimMask from './interaction/action/mask/dim-rect';
 import SmoothPathMask from './interaction/action/mask/smooth-path';
 
 import CursorAction from './interaction/action/cursor';
