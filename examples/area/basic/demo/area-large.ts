@@ -1,5 +1,3 @@
-// TODO
-// 1. 自定义图例交互
 import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
@@ -25,7 +23,7 @@ fetch('../data/rain-flow.json')
       container: 'container',
       autoFit: true,
       height: 440,
-      padding: [16, 32, 64, 32],
+      padding: [16, 50, 64],
     });
 
     chart.data(dv.rows);
@@ -37,14 +35,21 @@ fetch('../data/rain-flow.json')
       },
       flow: {
         alias: '流量(m^3/s)',
+        tickInterval: 50,
+        max: 300,
+        min: 0
       },
       rain: {
         alias: '降雨量(mm)',
+        min: 0,
+        max: 12,
+        tickInterval: 2,
       },
     });
 
     chart.axis('rain', {
       grid: null,
+      title: {},
     });
     chart.axis('flow', {
       title: {},
@@ -52,7 +57,6 @@ fetch('../data/rain-flow.json')
 
     chart.legend({
       custom: true, // 自定义图例
-      position: 'top',
       offsetY: 4,
       items: [
         {
@@ -89,6 +93,8 @@ fetch('../data/rain-flow.json')
       .area()
       .position('time*rain')
       .color('l(100) 0:#293c55 1:#f7f7f7');
+
+    chart.interaction('element-visible-filter');
 
     chart.render();
   });

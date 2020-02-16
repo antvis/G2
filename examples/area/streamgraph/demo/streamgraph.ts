@@ -38,11 +38,16 @@ fetch('../data/baby-names.json')
       tickInterval: 20,
     });
     chart.legend({
-      flipPage: true,
       position: 'right',
     });
     chart.tooltip({
-      showCrosshairs: false,
+      showCrosshairs: true,
+      domStyles: {
+        'g2-tooltip': {
+          height: '300px',
+          overflow: 'scroll'
+        }
+      }
     });
     chart.axis('count', {
       line: {

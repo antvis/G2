@@ -1,0 +1,16 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "streamgraph.ts",
+      "title": {
+        "zh": "Streamgraph",
+        "en": "Streamgraph"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*DdETQb1OE2EAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}
