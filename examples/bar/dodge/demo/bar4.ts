@@ -98,4 +98,7 @@ chart
       marginRatio: 0.3,
     },
   ]);
+
+chart.interaction('active-region');
+
 chart.render();

@@ -17,12 +17,10 @@ const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 500,
+  padding: 50,
 });
 
 chart.data(data);
-chart.scale('count', {
-  max: 12,
-});
 
 chart.coordinate('theta', {
   innerRadius: 0.2,
@@ -34,7 +32,6 @@ chart.axis(false);
 chart
   .interval()
   .position('term*count')
-  .color('#8543e0')
   .shape('line')
   .style({
     lineAppendWidth: 10,
@@ -43,7 +40,6 @@ chart
 chart
   .point()
   .position('term*count')
-  .color('#8543e0')
   .shape('circle');
 
 for (let i = 0, l = data.length; i < l; i++) {
@@ -63,7 +59,6 @@ chart.annotation().text({
   style: {
     textAlign: 'center',
     fontSize: 24,
-    fill: '#8543e0',
   },
 });
 

@@ -49,4 +49,7 @@ chart
       marginRatio: 1 / 32,
     },
   ]);
+
+chart.interaction('active-region');
+
 chart.render();

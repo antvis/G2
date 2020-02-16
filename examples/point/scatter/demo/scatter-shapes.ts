@@ -7,6 +7,7 @@ fetch('../data/scatter.json')
       container: 'container',
       autoFit: true,
       height: 500,
+      padding: [20, 20, 50, 80]
     });
     chart.data(data);
     chart.scale({
@@ -15,8 +16,35 @@ fetch('../data/scatter.json')
     });
     chart.tooltip({
       showCrosshairs: true,
+      showContent: false,
       crosshairs: {
         type: 'xy',
+        text: (type, defaultText, items) => {
+          const color = items[0].color;
+          if (type === 'x') {
+            return {
+              offset: 5,
+              position: 'end',
+              content: defaultText + ' cm',
+              style: {
+                textAlign: 'center',
+                textBaseline: 'top',
+                fontSize: 14,
+                fontWeight: 'bold',
+              },
+            };
+          }
+          return {
+            offset: 5,
+            content: defaultText + ' kg',
+            style: {
+              textAlign: 'end',
+              fontSize: 14,
+              fontWeight: 'bold',
+            },
+          };
+        },
+        textBackground: null,
       },
     });
 
@@ -25,7 +53,7 @@ fetch('../data/scatter.json')
       .position('height*weight')
       .color('gender')
       .shape('gender', ['circle', 'square'])
-      .tooltip('gender*height*weight')
+      .tooltip('gender')
       .style({
         fillOpacity: 0.6
       });

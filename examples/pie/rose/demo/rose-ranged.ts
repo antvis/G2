@@ -40,6 +40,15 @@ chart.axis('value', {
   }
 });
 
+chart.axis('type', {
+  tickLine: {
+    alignTick: false
+  },
+  grid: {
+    alignTick: false
+  }
+});
+
 chart
   .interval()
   .position('type*value')

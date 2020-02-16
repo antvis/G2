@@ -29,6 +29,7 @@ const chart = new Chart({
 chart.coordinate().transpose();
 
 chart.data(dv.rows);
+chart.scale('人口人数', { nice: true });
 
 chart.axis('State', {
   label: {
@@ -47,4 +48,7 @@ chart
   .adjust('stack')
   .position('State*人口数量')
   .color('年龄段');
+
+chart.interaction('active-region');
+
 chart.render();
