@@ -37,7 +37,9 @@ fetch('../data/iris.json')
       shared: true,
     });
 
-    chart.schema().position('type*_bin')
+    chart
+      .schema()
+      .position('type*_bin')
       .color('Species', val => colorMap[val])
       .shape('box')
       .style('Species', (val) => {
@@ -48,5 +50,8 @@ fetch('../data/iris.json')
         };
       })
       .adjust('dodge');
+
+    chart.interaction('active-region');
+
     chart.render();
   });
