@@ -71,7 +71,7 @@ const averages = [
 const chart = new Chart({
   container: 'container',
   autoFit: true,
-  height: 500,
+  height: 500
 });
 
 chart.scale({
@@ -88,20 +88,28 @@ chart.scale({
 });
 chart.tooltip({
   shared: true,
+  showMarkers: false,
+  showCrosshairs: true
 });
 
 const v1 = chart.createView({
-  padding: 32,
+  padding: 32
 });
 v1.data(data);
+v1.scale('temperature', {
+  alias: '温度区间'
+});
 v1.area()
   .position('time*temperature');
 
 const v2 = chart.createView({
-  padding: 32,
+  padding: 32
 });
 v2.data(averages);
 v2.axis(false);
+v2.scale('temperature', {
+  alias: '平均温度'
+});
 v2.line().position('time*temperature');
 v2.point()
   .position('time*temperature')
