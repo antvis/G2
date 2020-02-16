@@ -41,6 +41,7 @@ chart.scale({
   },
 });
 chart.tooltip({
+  showMarkers: false,
   showTitle: false,
   itemTpl:
     '<li class="g2-tooltip-list-item" data-index={index} style="margin-bottom:4px;">' +

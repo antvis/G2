@@ -24,12 +24,18 @@ const chart = new Chart({
   autoFit: true,
   height: 500,
 });
+
+chart.coordinate('polar', { innerRadius: 0.5 });
+
 chart.data(dv.rows);
 chart.scale('range', {
   max: 35,
   nice: true,
 });
+
 chart.tooltip({
+  shared: true,
+  showMarkers: false,
   showTitle: false,
   itemTpl:
     '<li class="g2-tooltip-list-item" data-index={index} style="margin-bottom:4px;">' +
@@ -42,7 +48,11 @@ chart.tooltip({
     '<span style="padding-left: 16px">最小值：{low}</span><br/>' +
     '</li>',
 });
-chart.coordinate('polar', { innerRadius: 0.5 });
+
+chart.legend({
+  position: 'right'
+});
+
 chart
   .schema()
   .position('x*range')
@@ -59,4 +69,5 @@ chart
       high,
     };
   });
+chart.interaction('active-region');
 chart.render();
