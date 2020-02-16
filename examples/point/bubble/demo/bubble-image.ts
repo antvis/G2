@@ -55,6 +55,9 @@ chart.scale('value', {
 });
 chart.legend(false);
 chart.axis('value', false);
+chart.tooltip({
+  showMarkers: false,
+});
 chart.point().position('name*value')
   .size('value')
   .color('name')

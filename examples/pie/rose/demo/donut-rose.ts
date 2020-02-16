@@ -26,13 +26,12 @@ chart.coordinate('polar', {
 });
 chart.legend('year', {
   position: 'right',
-  offsetX: -80,
 });
 chart.axis(false);
 chart
   .interval()
   .position('year*population')
-  .color('year', getTheme().colors_20)
+  .color('year')
   .style({
     lineWidth: 1,
     stroke: '#fff',

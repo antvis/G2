@@ -75,7 +75,6 @@ chart.facet('mirror', {
           shadowBlur = 0;
         }
         return {
-          // position: 'middle',
           offset,
           style: {
             fill,

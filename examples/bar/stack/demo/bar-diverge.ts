@@ -12,7 +12,6 @@ const data = [
   { group: 'Race', type: 'White', total: 400, 'Strongly Agree': 50.0, Agree: 41.8, 'No Opinion': 4.5, Disagree: 2.8, 'Strongly Disagree': 1.0 },
   { group: 'Race', type: 'Asian', total: 122, 'Strongly Agree': 53.3, Agree: 40.2, 'No Opinion': 3.3, Disagree: 3.3, 'Strongly Disagree': 0.0 },
   { group: 'Race', type: 'Black or African American', total: 10, 'Strongly Agree': 40.0, Agree: 30.0, 'No Opinion': 20.0, Disagree: 10.0, 'Strongly Disagree': 0.0 },
-  { group: 'Race', type: 'Other', total: 17, 'Strongly Agree': 47.1, Agree: 35.3, 'No Opinion': 5.9, Disagree: 11.8, 'Strongly Disagree': 0.7 },
   { group: 'Education', type: "Associate's and Bachelor's", total: 175, 'Strongly Agree': 37.1, Agree: 49.1, 'No Opinion': 5.7, Disagree: 6.9, 'Strongly Disagree': 1.1 },
   { group: 'Education', type: "Master's and Above", total: 388, 'Strongly Agree': 55.9, Agree: 36.9, 'No Opinion': 4.4, Disagree: 2.3, 'Strongly Disagree': 0.5 },
   { group: 'Gender', type: 'Male', total: 356, 'Strongly Agree': 50.6, Agree: 41, 'No Opinion': 4.2, Disagree: 3.4, 'Strongly Disagree': 0.8 },
@@ -76,6 +75,10 @@ chart.tooltip({
   showMarkers: false,
 });
 
+chart.legend({
+  position: 'right-bottom'
+});
+
 chart
   .interval()
   .adjust('stack')
@@ -83,4 +86,7 @@ chart
   .color('opinion', (opinion) => {
     return colorMap[opinion];
   });
+
+chart.interaction('active-region');
+
 chart.render();

@@ -46,6 +46,9 @@ chart
   })
   .label('percent', {
     offset: -5,
+    content: (data) => {
+      return data.percent * 100 + '%';
+    }
   });
 
 data.map((obj) => {
