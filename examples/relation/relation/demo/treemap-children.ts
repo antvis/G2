@@ -55,6 +55,7 @@ fetch('../data/mobile.json')
     chart.legend(false);
     chart.tooltip({
       showTitle: false,
+      showMarkers: false
     });
     chart
       .polygon()
