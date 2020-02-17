@@ -91,6 +91,14 @@ module.exports = {
     ],
     examples: [
       {
+        slug: 'interaction',
+        icon: 'interaction',
+        title: {
+          zh: '图表交互',
+          en: 'Interaction Grammar',
+        },
+      },
+      {
         slug: 'gallery',
         icon: 'gallery',
         title: {
@@ -200,14 +208,6 @@ module.exports = {
         title: {
           zh: '雷达图',
           en: 'Radar Chart',
-        },
-      },
-      {
-        slug: 'interaction',
-        icon: 'interaction',
-        title: {
-          zh: '交互语法',
-          en: 'Interaction Grammar',
         },
       },
       {

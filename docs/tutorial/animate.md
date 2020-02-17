@@ -90,10 +90,10 @@ export interface AnimateOption {
 }
 
 // Geometry shapes 动画配置
-<geometryType>().animate(AnimateOption | false);
+geometry.animate(AnimateOption | false);
 
 // Geometry labels 动画配置
-<geometryType>().label('labelField', {
+geometry.label('labelField', {
   animate: AnimateOption | false,
 });
 ```
