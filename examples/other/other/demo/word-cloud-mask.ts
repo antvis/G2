@@ -76,13 +76,21 @@ fetch('../data/antv-keywords.json')
       chart.legend(false);
       chart.axis(false);
       chart.tooltip({
-        showTitle: false
+        showTitle: false,
+        showMarkers: false
       });
       chart.coordinate().reflect();
       chart.point()
         .position('x*y')
         .color('text')
-        .shape('cloud');
+        .shape('cloud')
+        .state({
+          active: {
+            style: {
+              fillOpacity: 0.4
+            }
+          }
+        });
       chart.render();
     };
   });

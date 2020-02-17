@@ -37,14 +37,6 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*aTGDR7E1950AAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "hexbin-size.ts",
-      "title": {
-        "zh": "hexbin-size",
-        "en": ""
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*tX5lSazu4G8AAAAAAAAAAABkARQnAQ"
-    },
-    {
       "filename": "kagi-chart.ts",
       "title": {
         "zh": "卡吉图",
@@ -59,6 +51,14 @@
         "en": "Punch Card"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*E_xoSYVrPB4AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "hexbin-size.ts",
+      "title": {
+        "zh": "hexbin-size",
+        "en": ""
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*tX5lSazu4G8AAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "rectbin-size.ts",

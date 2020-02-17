@@ -29,7 +29,8 @@ chart.scale({
   }
 });
 chart.tooltip({
-  showTitle: false
+  showTitle: false,
+  showMarkers: false
 });
 chart.legend(false);
 chart.axis('weekday', {

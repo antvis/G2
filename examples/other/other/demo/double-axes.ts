@@ -17,30 +17,37 @@ const chart = new Chart({
 });
 chart.data(data);
 chart.scale({
-  call: {
-    min: 0
-  },
   people: {
-    min: 0
+    min: 0,
+    max: 10,
   },
   waiting: {
-    min: 0
+    min: 0,
+    max: 10
   }
 });
 chart.legend({
   custom: true,
   items: [
-    { value: 'waiting', name: 'waiting', marker: { symbol: 'square', style: {fill: '#3182bd', r: 5} } },
-    { value: 'people', name: 'people', marker: { symbol: 'hyphen', style: {stroke: '#fdae6b', r: 5, lineWidth: 3} } }
+    { value: 'waiting', name: 'waiting', marker: { symbol: 'square', style: { fill: '#3182bd', r: 5 } } },
+    { value: 'people', name: 'people', marker: { symbol: 'hyphen', style: { stroke: '#fdae6b', r: 5, lineWidth: 3 } } }
   ],
 });
 chart.axis('people', {
   grid: null,
+  title: {
+    style: {
+      fill: '#fdae6b'
+    }
+  },
   label: {
     style: {
       fill: '#fdae6b'
     }
   }
+});
+chart.axis('waiting', {
+  title: {}
 });
 chart.interval()
   .position('time*waiting')
