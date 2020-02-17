@@ -13,7 +13,7 @@ fetch('../data/us-states.hex.json')
       container: 'container',
       autoFit: true,
       height: 500,
-      padding: 500 / 24
+      padding: 20
     });
     chart.scale({
       x: {
@@ -25,7 +25,8 @@ fetch('../data/us-states.hex.json')
     });
     chart.coordinate('rect').reflect('y'); // 视数据而定要不要翻转 Y 轴。
     chart.tooltip({
-      showTitle: false
+      showTitle: false,
+      showMarkers: false
     });
     chart.axis(false);
 
@@ -53,7 +54,7 @@ fetch('../data/us-states.hex.json')
       .label('key', {
         offset: 0,
         style: {
-          fontSize: 500 / 18,
+          fontSize: 18,
           fontWeight: 500
         }
       })

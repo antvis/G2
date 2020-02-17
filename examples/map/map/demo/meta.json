@@ -37,14 +37,6 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*nWwESKCkDTgAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "with-connection.ts",
-      "title": {
-        "zh": "美国各个机场的航线图",
-        "en": "Bubble Map"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ebqmQ6NIVXsAAAAAAAAAAABkARQnAQ"
-    },
-    {
       "filename": "with-heatmap.ts",
       "title": {
         "zh": "带热力图的地图",

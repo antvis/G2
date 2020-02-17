@@ -1,4 +1,3 @@
-// TODO: @hustcc 坐标系变换未生效
 import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
