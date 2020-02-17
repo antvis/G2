@@ -16,16 +16,12 @@ fetch('../data/candle-sticks.json')
           return obj;
         }
       });
-
     const chart = new Chart({
       container: 'container',
       autoFit: true,
       height: 400,
       padding: [10, 40, 40, 40]
     });
-
-    chart.data(dv.rows);
-
     chart.scale({
       time: {
         type: 'timeCat',
@@ -50,7 +46,14 @@ fetch('../data/candle-sticks.json')
         + '{name}{value}</li>'
     });
 
-    chart.schema()
+    const kView = chart.createView({
+      region: {
+        start: { x: 0, y: 0 },
+        end: { x: 1, y: 0.7 },
+      }
+    });
+    kView.data(dv.rows);
+    kView.schema()
       .position('time*range')
       .color('trend', val => {
         if (val === '上涨') {
@@ -69,6 +72,45 @@ fetch('../data/candle-sticks.json')
             + '<span style="padding-left: 16px">收盘价：' + end + '</span><br/>'
             + '<span style="padding-left: 16px">最高价：' + max + '</span><br/>'
             + '<span style="padding-left: 16px">最低价：' + min + '</span>'
+        };
+      });
+
+    const barView = chart.createView({
+      region: {
+        start: { x: 0, y: 0.7 },
+        end: { x: 1, y: 1 },
+      }
+    });
+    barView.data(dv.rows);
+    barView.scale('volumn', {
+      tickCount: 2,
+    })
+    barView.axis('time', {
+      tickLine: null,
+      label: null
+    });
+    barView.axis('volumn', {
+      label: {
+        formatter: val => {
+          return +val / 1000 + 'k';
+        }
+      }
+    });
+    barView.interval()
+      .position('time*volumn')
+      .color('trend', val => {
+        if (val === '上涨') {
+          return '#f04864';
+        }
+
+        if (val === '下跌') {
+          return '#2fc25b';
+        }
+      })
+      .tooltip('time*volumn', (time, volumn) => {
+        return {
+          name: time,
+          value: '<br/><span style="padding-left: 16px">成交量：' + volumn + '</span><br/>'
         };
       });
 
