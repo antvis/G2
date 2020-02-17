@@ -22,6 +22,9 @@ const chart = new Chart({
   height: 500,
 });
 chart.legend(false);
+chart.tooltip({
+  showMarkers: false
+});
 
 const view1 = chart.createView({
   region: {

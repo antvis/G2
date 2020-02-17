@@ -63,6 +63,10 @@ fetch('../data/area.json')
       position: 'top'
     });
 
+    chart.tooltip({
+      showCrosshairs: true
+    });
+
     chart
       .area()
       .adjust('stack')

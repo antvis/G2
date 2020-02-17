@@ -68,7 +68,15 @@ chart.axis('value', {
 chart.legend({
   position: 'right',
 });
+
+chart.tooltip({
+  shared: true,
+  showMarkers: false,
+});
+chart.interaction('active-region');
+
 chart.interval()
   .position('time*value')
   .color('type', ['#40a9ff', '#1890ff', '#096dd9', '#0050b3']);
+
 chart.render();

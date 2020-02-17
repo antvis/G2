@@ -5,14 +5,6 @@
   },
   "demos": [
     {
-      "filename": "pie1.ts",
-      "title": {
-        "zh": "某网站来访用户学历分布",
-        "en": ""
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*LhL3TItKfrUAAAAAAAAAAABkARQnAQ"
-    },
-    {
       "filename": "pie2.ts",
       "title": {
         "zh": "《战狼 3》关注度来源",
@@ -43,14 +35,6 @@
         "en": ""
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*hW3bR6rfq9gAAAAAAAAAAABkARQnAQ"
-    },
-    {
-      "filename": "pie8.ts",
-      "title": {
-        "zh": "2017 年西安居民人均消费支出",
-        "en": ""
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*JQVKSa5jl74AAAAAAAAAAABkARQnAQ"
     }
   ]
 }

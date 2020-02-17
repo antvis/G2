@@ -63,6 +63,11 @@ chart.legend({
   position: 'top',
 });
 chart.coordinate('rect').transpose();
+chart.tooltip({
+  shared: true,
+  showMarkers: false,
+});
+chart.interaction('active-region');
 chart
   .interval()
   .adjust('stack')

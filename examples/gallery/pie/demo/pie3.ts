@@ -17,6 +17,9 @@ chart.legend(false);
 chart.coordinate('theta', {
   radius: 0.75,
 });
+chart.tooltip({
+  showMarkers: false
+});
 chart
   .interval()
   .adjust('stack')

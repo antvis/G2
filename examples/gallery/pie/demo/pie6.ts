@@ -42,6 +42,9 @@ chart.coordinate('theta', {
   radius: 0.5,
   innerRadius: 0.3,
 });
+chart.tooltip({
+  showMarkers: false
+});
 chart
   .interval()
   .adjust('stack')
