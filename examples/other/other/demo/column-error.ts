@@ -29,6 +29,10 @@ chart.scale({
   }
 });
 
+chart.tooltip({
+  showMarkers: false
+});
+
 chart.interval()
   .position('name*value')
   .color('name')
@@ -41,4 +45,6 @@ chart.interval()
   .color('name')
   .size(40)
   .shape('tick');
+
+chart.interaction('active-region');
 chart.render();

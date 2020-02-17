@@ -2,13 +2,15 @@ import DataSet from '@antv/data-set';
 import { Chart, registerShape, Util } from '@antv/g2';
 
 function getTextAttrs(cfg) {
+  console.log(cfg);
   return {
+    ...cfg.defaultStyle,
     ...cfg.style,
     fontSize: cfg.data.size,
     text: cfg.data.text,
     textAlign: 'center',
     fontFamily: cfg.data.font,
-    fill: cfg.color,
+    fill: cfg.color || cfg.defaultStyle.stroke,
     textBaseline: 'Alphabetic'
   };
 }
@@ -41,7 +43,7 @@ fetch('../data/world-population.json')
     dv.transform({
       type: 'tag-cloud',
       fields: ['x', 'value'],
-      size: [600, 400],
+      size: [600, 500],
       font: 'Verdana',
       padding: 0,
       timeInterval: 5000, // max execute time
@@ -63,7 +65,7 @@ fetch('../data/world-population.json')
       container: 'container',
       autoFit: false,
       width: 600,
-      height: 400,
+      height: 500,
       padding: 0
     });
     chart.data(dv.rows);
@@ -74,12 +76,12 @@ fetch('../data/world-population.json')
     chart.legend(false);
     chart.axis(false);
     chart.tooltip({
-      showTitle: false
+      showTitle: false,
+      showMarkers: false
     });
     chart.coordinate().reflect();
     chart.point()
       .position('x*y')
-      .color('category')
       .shape('cloud')
       .tooltip('value*category');
     chart.render();
