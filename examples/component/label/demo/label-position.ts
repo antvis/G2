@@ -69,7 +69,10 @@ chart
   .label('percent', {
     position: 'middle',
     offset: 0,
-    style: { fill: '#fff' },
+    style: {
+      fill: '#fff',
+      stroke: null
+    },
   })
   .color('country', ['#FF6A84', '#30A4EB', '#45BFC0', '#FFCC55']);
 chart.render();

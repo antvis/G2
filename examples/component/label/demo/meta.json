@@ -1,0 +1,64 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "line2.ts",
+      "title": {
+        "zh": "折线图 label",
+        "en": "line chart with label"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ILc3Q76vLhUAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "column9.ts",
+      "title": {
+        "en": "column chart with label",
+        "zh": "柱状图文本"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8Sk-TKcmewIAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "pie1.ts",
+      "title": {
+        "zh": "饼图文本",
+        "en": "pie chart with label"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*LhL3TItKfrUAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "label-map.ts",
+      "title": {
+        "zh": "地图文本",
+        "en": "map with label"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*rNrlT76k4z4AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "label-position.ts",
+      "title": {
+        "zh": "label-位置",
+        "en": "label position"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*NxURS5x3VWUAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "label-scatter.ts",
+      "title": {
+        "zh": "散点图文本",
+        "en": "scatter label"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*hZQtS66JY8QAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "label-treemap.ts",
+      "title": {
+        "zh": "矩形树图文本",
+        "en": "treemap label"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*SDAGRJkF20UAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}
