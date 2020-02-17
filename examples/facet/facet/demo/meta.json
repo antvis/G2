@@ -5,28 +5,12 @@
   },
   "demos": [
     {
-      "filename": "circle.ts",
-      "title": {
-        "zh": "圆形分面",
-        "en": "circle facet"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Ag46TrkWa0sAAAAAAAAAAABkARQnAQ"
-    },
-    {
       "filename": "column.ts",
       "title": {
         "zh": "列分面",
         "en": "column facet"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*QBGQSIviJ7YAAAAAAAAAAABkARQnAQ"
-    },
-    {
-      "filename": "mirror-transpose.ts",
-      "title": {
-        "zh": "镜像分面（transpose）",
-        "en": "mirror facet(transpose)"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*2ZEmS5SM_bkAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "list.ts",
@@ -45,14 +29,6 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*RPPgTauPZLMAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "mirror.ts",
-      "title": {
-        "zh": "镜像分面",
-        "en": "mirror facet"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Z7SlTLkNEVAAAAAAAAAAAABkARQnAQ"
-    },
-    {
       "filename": "rect.ts",
       "title": {
         "zh": "2 维行列分面",
@@ -67,6 +43,30 @@
         "en": "rect facet(row)"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*9XE6Qqc56mAAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "mirror-transpose.ts",
+      "title": {
+        "zh": "镜像分面（transpose）",
+        "en": "mirror facet(transpose)"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*2ZEmS5SM_bkAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "mirror.ts",
+      "title": {
+        "zh": "镜像分面",
+        "en": "mirror facet"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Z7SlTLkNEVAAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "circle.ts",
+      "title": {
+        "zh": "圆形分面",
+        "en": "circle facet"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Ag46TrkWa0sAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "tree-column.ts",
