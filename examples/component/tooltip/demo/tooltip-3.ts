@@ -17,7 +17,7 @@ fetch('../data/scatter.json')
       weight: { nice: true },
     });
     chart.tooltip({
-      showTitle: false,
+      showContent: false,
       showCrosshairs: true,
       crosshairs: {
         type: 'xy',

@@ -1,0 +1,32 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "tooltip-1.ts",
+      "title": {
+        "zh": "极坐标下的半径轴 crosshairs",
+        "en": ""
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*DrWlSqS1j4sAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "tooltip-2.ts",
+      "title": {
+        "zh": "极坐标下的 xy crosshairs",
+        "en": ""
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*DrWlSqS1j4sAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "tooltip-3.ts",
+      "title": {
+        "zh": "xy crosshairs，带文本",
+        "en": ""
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*DrWlSqS1j4sAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}
