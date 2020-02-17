@@ -44,11 +44,11 @@ class ActiveRegion extends Action {
 
       // 根据 bbox 计算背景框的面积区域
       if (elements.length) {
-        const firstBBox = elements[0].shape.getBBox();
-        const lastBBox = elements[elements.length - 1].shape.getBBox();
+        const firstBBox = elements[0].shape.getCanvasBBox();
+        const lastBBox = elements[elements.length - 1].shape.getCanvasBBox();
         const groupBBox: LooseObject = firstBBox;
         each(elements, (ele: Element) => {
-          const bbox = ele.shape.getBBox();
+          const bbox = ele.shape.getCanvasBBox();
           groupBBox.x = Math.min(bbox.minX, groupBBox.minX);
           groupBBox.y = Math.min(bbox.minY, groupBBox.minY);
           groupBBox.width = Math.max(bbox.maxX, groupBBox.maxX) - groupBBox.x;
@@ -67,12 +67,12 @@ class ActiveRegion extends Action {
           let height: number;
           if (coordinate.isTransposed) {
             minX = coordinateBBox.minX;
-            minY = lastBBox.minY - appendRatio * lastBBox.height;
+            minY = Math.min(lastBBox.minY, firstBBox.minY) - appendRatio * lastBBox.height;
             width = coordinateBBox.width;
             height = groupBBox.height + appendRatio * 2 * lastBBox.height;
           } else {
-            minX = firstBBox.minX - appendRatio * firstBBox.width;
-            minY = coordinateBBox.minY;
+            minX = Math.min(firstBBox.minX, lastBBox.minX) - appendRatio * firstBBox.width;
+            minY = Math.min(coordinateBBox.minY, firstBBox.minY);
             width = groupBBox.width + appendRatio * 2 * firstBBox.width;
             height = coordinateBBox.height;
           }
