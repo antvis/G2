@@ -79,6 +79,7 @@ fetch('../data/china-gdp.json')
         chart.data(handleData(Object.values(data)[count]));
         chart.coordinate('rect').transpose();
         chart.legend(false);
+        chart.tooltip(false);
         // chart.axis('value', false);
         chart.axis('city', {
           animateOption: {

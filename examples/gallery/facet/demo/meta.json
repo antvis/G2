@@ -27,6 +27,14 @@
         "en": "row facet"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*CcFlQ7se_sAAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "multi-gauge.ts",
+      "title": {
+        "zh": "某产品新老用户对比分析",
+        "en": "Gauge"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*-v4HQL0usscAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

@@ -37,6 +37,11 @@ chart.axis('value', false);
 chart.legend({
   position: 'right',
 });
+chart.tooltip({
+  shared: true,
+  showMarkers: false,
+});
+chart.interaction('active-region');
 chart
   .interval()
   .adjust('stack')
