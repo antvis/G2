@@ -48,6 +48,10 @@ chart.axis('月均降雨量', {
   label: null
 });
 
+chart.tooltip({
+  showMarkers: false
+});
+
 chart
   .interval()
   .position('月份*月均降雨量')
@@ -59,6 +63,6 @@ chart
     },
   ]);
 
-chart.interaction('active-reigon');
+chart.interaction('active-region');
 
 chart.render();
