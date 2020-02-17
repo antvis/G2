@@ -94,16 +94,8 @@ module.exports = {
         slug: 'interaction',
         icon: 'interaction',
         title: {
-          zh: '图表交互',
+          zh: '交互语法',
           en: 'Interaction Grammar',
-        },
-      },
-      {
-        slug: 'gallery',
-        icon: 'gallery',
-        title: {
-          zh: '官方精品库',
-          en: 'Featured',
         },
       },
       {
@@ -248,6 +240,14 @@ module.exports = {
         title: {
           zh: '组件使用',
           en: 'Chart Components',
+        },
+      },
+      {
+        slug: 'gallery',
+        icon: 'gallery',
+        title: {
+          zh: '官方精品库',
+          en: 'Featured',
         },
       },
     ],
