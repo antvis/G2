@@ -59,19 +59,21 @@ class ActiveRegion extends Action {
         const coordinate = view.getCoordinate();
         let path;
         if (coordinate.isRect) {
+          const xScale = view.getXScale();
+          const appendRatio = xScale.isLinear ? 0 : 0.25; // 如果 x 轴是数值类型，如直方图，不需要家额外的宽度
           let minX: number;
           let minY: number;
           let width: number;
           let height: number;
           if (coordinate.isTransposed) {
             minX = coordinateBBox.minX;
-            minY = lastBBox.minY - 0.25 * lastBBox.height;
+            minY = lastBBox.minY - appendRatio * lastBBox.height;
             width = coordinateBBox.width;
-            height = groupBBox.height + 0.5 * lastBBox.height;
+            height = groupBBox.height + appendRatio * 2 * lastBBox.height;
           } else {
-            minX = firstBBox.minX - 0.25 * firstBBox.width;
+            minX = firstBBox.minX - appendRatio * firstBBox.width;
             minY = coordinateBBox.minY;
-            width = groupBBox.width + 0.5 * firstBBox.width;
+            width = groupBBox.width + appendRatio * 2 * firstBBox.width;
             height = coordinateBBox.height;
           }
           path = [
