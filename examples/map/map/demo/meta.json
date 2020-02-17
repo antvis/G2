@@ -43,6 +43,14 @@
         "en": "Map"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*g4FWR42ZMpAAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "legend-size.ts",
+      "title": {
+        "zh": "legend-size",
+        "en": "size legend"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*zo8yQp-k7hgAAAAAAAAAAABkARQnAQ"
     }
   ]
 }
