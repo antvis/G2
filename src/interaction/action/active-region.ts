@@ -1,4 +1,4 @@
-import { each, isEqual } from '@antv/util';
+import { each, head, isEqual, last } from '@antv/util';
 import { IShape } from '../../dependents';
 import Element from '../../geometry/element/';
 import { LooseObject } from '../../interface';
@@ -82,11 +82,15 @@ class ActiveRegion extends Action {
             ['Z'],
           ];
         } else {
-          const { startAngle, endAngle } = getAngle(elements[0].getModel(), coordinate);
+          const firstElement = head(elements);
+          const lastElement = last(elements);
+          const { startAngle } = getAngle(firstElement.getModel(), coordinate);
+          const { endAngle } = getAngle(lastElement.getModel(), coordinate);
           const center = coordinate.getCenter();
           // @ts-ignore
           const radius = coordinate.getRadius();
-          path = getSectorPath(center.x, center.y, radius, startAngle, endAngle);
+          const innterRadius = coordinate.innerRadius * radius;
+          path = getSectorPath(center.x, center.y, radius, startAngle, endAngle, innterRadius);
         }
 
         if (this.regionPath) {
