@@ -77,6 +77,7 @@ chart.axis('value', {
   grid: null,
 });
 chart.legend(false);
+chart.tooltip(false);
 chart
   .point()
   .position('value*1')
