@@ -45,6 +45,6 @@ chart
     },
   ]);
 
-chart.interaction('active-reigon');
+chart.interaction('active-region');
 
 chart.render();
