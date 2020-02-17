@@ -34,9 +34,7 @@ const GEOMETRY_ANIMATE_CFG = {
           ? coordinate.isTransposed
             ? 'scale-in-x'
             : 'scale-in-y'
-          : coordinate.isPolar && coordinate.isTransposed
-          ? 'fade-in'
-          : 'zoom-in',
+          : 'fade-in',
       },
       update: {
         animation: coordinate.isPolar && coordinate.isTransposed ? 'sector-path-update' : null,

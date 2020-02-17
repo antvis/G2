@@ -55,14 +55,14 @@ describe('Animate', () => {
     expect(getDefaultAnimateCfg('interval', polarCoord)).toEqual({
       appear: { duration: 450, easing: 'easeQuadOut' },
       update: { duration: 400, easing: 'easeQuadInOut', animation: null },
-      enter: { duration: 400, easing: 'easeQuadInOut', animation: 'zoom-in' },
+      enter: { duration: 400, easing: 'easeQuadInOut', animation: 'fade-in' },
       leave: { duration: 350, easing: 'easeQuadIn', animation: 'fade-out' },
     });
 
     expect(getDefaultAnimateCfg('interval', helixCoord)).toEqual({
       appear: { duration: 450, easing: 'easeQuadOut' },
       update: { duration: 400, easing: 'easeQuadInOut', animation: null },
-      enter: { duration: 400, easing: 'easeQuadInOut', animation: 'zoom-in' },
+      enter: { duration: 400, easing: 'easeQuadInOut', animation: 'fade-in' },
       leave: { duration: 350, easing: 'easeQuadIn', animation: 'fade-out' },
     });
 
