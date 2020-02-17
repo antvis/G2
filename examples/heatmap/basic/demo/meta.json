@@ -1,0 +1,48 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.ts",
+      "title": {
+        "zh": "色块图",
+        "en": "Basic Heatmap"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*sXU0S4xSx-UAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "polar-heatmap.ts",
+      "title": {
+        "zh": "极坐标下的色块图",
+        "en": "Polar Heatmap"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*6rHFRpquLT4AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "hexagon.ts",
+      "title": {
+        "zh": "六边形分箱",
+        "en": "Heatmap"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*m9VIT4xIQCgAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "hot-rect.ts",
+      "title": {
+        "zh": "分块热力图",
+        "en": "Heatmap"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*NKIpTJ-eXQwAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "rectangle.ts",
+      "title": {
+        "zh": "矩形分箱图",
+        "en": "Heatmap"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Vq87Qqej_PAAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

@@ -60,6 +60,7 @@ const source = data.map((arr) => {
     sales: arr[2],
   };
 });
+
 const chart = new Chart({
   container: 'container',
   autoFit: true,
