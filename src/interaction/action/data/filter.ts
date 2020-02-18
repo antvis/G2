@@ -1,5 +1,5 @@
 import Action from '../base';
-import { getDelegationObject, isList, isSlider } from '../util';
+import { getDelegationObject, isList, isSlider, getScaleByField } from '../util';
 import { View } from 'src/chart';
 import { each } from '@antv/util';
 
@@ -25,7 +25,7 @@ class DataFilter extends Action {
       if (isList(delegateObject)) {
         if (field) {
           const unCheckedItems = component.getItemsByState('unchecked');
-          const scale = view.getScaleByField(field);
+          const scale = getScaleByField(view, field);
           const names: string[] = unCheckedItems.map((item) => item.name);
           if (names.length) {
             this.filterView(view, field, (value) => {

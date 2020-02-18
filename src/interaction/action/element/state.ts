@@ -1,7 +1,7 @@
 import { each, isNil } from '@antv/util';
 import { ListItem } from '../../../dependents';
 import Element from '../../../geometry/element/';
-import { getCurrentElement, getDelegationObject, getElements, getElementValue, isList } from '../util';
+import { getCurrentElement, getDelegationObject, getElements, getElementValue, isList, getScaleByField} from '../util';
 import StateBase from './state-base';
 /**
  * 状态量 Action 的基类，允许多个 Element 同时拥有某个状态
@@ -25,7 +25,7 @@ class ElementState extends StateBase {
   /** 组件的选项是否同 element 匹配 */
   protected isMathItem(element: Element, field: string, item: ListItem) {
     const view = this.context.view;
-    const scale = view.getScaleByField(field);
+    const scale = getScaleByField(view, field);
     const value = getElementValue(element, field);
     return !isNil(value) && item.name === scale.getText(value);
   }
