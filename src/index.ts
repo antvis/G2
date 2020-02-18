@@ -147,6 +147,9 @@ import ElmentRangeActive from './interaction/action/element/range-active';
 import ElmentSingleActive from './interaction/action/element/single-active';
 
 import ElmentHighlight from './interaction/action/element/highlight';
+import ElmentHighlightByX from './interaction/action/element/highlight-by-x';
+import ElmentHighlightByColor from './interaction/action/element/highlight-by-color';
+
 import ElmentRangeHighlight from './interaction/action/element/range-highlight';
 import ElmentSingleHighlight from './interaction/action/element/single-highlight';
 
@@ -185,6 +188,9 @@ registerAction('element-single-active', ElmentSingleActive);
 registerAction('element-range-active', ElmentRangeActive);
 
 registerAction('element-highlight', ElmentHighlight);
+registerAction('element-highlight-by-x', ElmentHighlightByX);
+registerAction('element-highlight-by-color', ElmentHighlightByColor);
+
 registerAction('element-single-highlight', ElmentSingleHighlight);
 registerAction('element-range-highlight', ElmentRangeHighlight);
 registerAction('element-sibling-highlight', ElmentRangeHighlight, {
@@ -257,10 +263,22 @@ registerInteraction('element-selected', {
   start: [{ trigger: 'element:click', action: 'element-selected:toggle' }],
 });
 
-// 点击选中，允许取消
+// hover highlight，允许取消
 registerInteraction('element-highlight', {
   start: [{ trigger: 'element:mouseenter', action: 'element-highlight:highlight' }],
   end: [{ trigger: 'element:mouseleave', action: 'element-highlight:reset' }],
+});
+
+// hover highlight by x，允许取消
+registerInteraction('element-highlight-by-x', {
+  start: [{ trigger: 'element:mouseenter', action: 'element-highlight-by-x:highlight' }],
+  end: [{ trigger: 'element:mouseleave', action: 'element-highlight-by-x:reset' }],
+});
+
+// hover highlight by y，允许取消
+registerInteraction('element-highlight-by-color', {
+  start: [{ trigger: 'element:mouseenter', action: 'element-highlight-by-color:highlight' }],
+  end: [{ trigger: 'element:mouseleave', action: 'element-highlight-by-color:reset' }],
 });
 
 // legend hover，element active

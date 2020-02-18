@@ -2,11 +2,12 @@ import { Chart } from '../../../../src/index';
 import HighlightAction from '../../../../src/interaction/action/element/highlight';
 import RangeHighlightAction from '../../../../src/interaction/action/element/range-highlight';
 import SingleHighlightAction from '../../../../src/interaction/action/element/single-highlight';
-
+import HighlightX from '../../../../src/interaction/action/element/highlight-by-x';
+import HighlightColor from '../../../../src/interaction/action/element/highlight-by-color';
 import Context from '../../../../src/interaction/context';
 import { createDiv } from '../../../util/dom';
 
-describe('test active action', () => {
+describe('test highlight action', () => {
   const chart = new Chart({
     container: createDiv(),
     width: 400,
@@ -286,6 +287,79 @@ describe('test active action', () => {
     });
   });
   afterAll(() => {
+    chart.destroy();
+  });
+});
+
+describe('test hilightBy', () => {
+  const chart = new Chart({
+    container: createDiv(),
+    width: 400,
+    height: 400,
+    autoFit: false,
+  });
+  const data = [
+    { year: '1991', value: 13, type: '1' },
+    { year: '1992', value: 34, type: '1' },
+    { year: '1993', value: 5, type: '1' },
+    { year: '1994', value: 34, type: '1' },
+    { year: '1995', value: 20, type: '1' },
+    { year: '1996', value: 7, type: '1' },
+    { year: '1997', value: 23, type: '1' },
+    { year: '1998', value: 90, type: '1' },
+    { year: '1999', value: 3, type: '1' },
+
+    { year: '1991', value: 3, type: '2' },
+    { year: '1992', value: 24, type: '2' },
+    { year: '1993', value: 51, type: '2' },
+    { year: '1994', value: 14, type: '2' },
+    { year: '1995', value: 30, type: '2' },
+    { year: '1996', value: 70, type: '2' },
+    { year: '1997', value: 3, type: '2' },
+    { year: '1998', value: 50, type: '2' },
+    { year: '1999', value: 32, type: '2' },
+  ];
+  chart.data(data);
+
+  const interval = chart.interval().position('year*value').color('type').adjust('dodge');
+  chart.render();
+  const context = new Context(chart);
+
+  it('highlight by x', () => {
+    const highlight = new HighlightX(context);
+    const shape = interval.elements[0].shape;
+    context.event = {
+      target: shape
+    };
+    highlight.highlight();
+    expect(interval.getElementsBy(el => el.hasState('active')).length).toBe(2);
+    highlight.reset();
+    expect(interval.getElementsBy(el => el.hasState('active')).length).toBe(0);
+    context.event = {
+      target: interval.elements[1].shape
+    };
+    highlight.highlight();
+    expect(interval.getElementsBy(el => el.hasState('active')).length).toBe(2);
+
+    highlight.clear();
+    expect(interval.getElementsBy(el => el.hasState('active')).length).toBe(0);
+    highlight.destroy();
+  });
+
+  it('highlight by color', () => {
+    const highlight = new HighlightColor(context);
+    const shape = interval.elements[0].shape;
+    context.event = {
+      target: shape
+    };
+    highlight.highlight();
+    expect(interval.getElementsBy(el => el.hasState('active')).length).toBe(data.length / 2);
+    highlight.clear();
+    expect(interval.getElementsBy(el => el.hasState('active')).length).toBe(0);
+    highlight.destroy();
+  });
+  afterAll(() => {
+    context.destroy();
     chart.destroy();
   });
 });

@@ -31,7 +31,7 @@ class ElementHighlight extends StateAction {
     }
   }
 
-  private setHighlightBy(elements: Element[], callback: Callback, enable: boolean) {
+  protected setHighlightBy(elements: Element[], callback: Callback, enable: boolean) {
     if (enable) {
       // 如果是设置 highlight ，则将匹配的 element 设置成 active，
       // 其他如果不是 active，则设置成 unactive

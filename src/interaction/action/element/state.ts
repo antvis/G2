@@ -8,12 +8,18 @@ import StateBase from './state-base';
  * @class
  */
 class ElementState extends StateBase {
+
   // 设置由组件选项导致的状态变化
   private setStateByComponent(component, item: ListItem, enable: boolean) {
     const view = this.context.view;
     const field = component.get('field');
     const elements = getElements(view);
     this.setElementsStateByItem(elements, field, item, enable);
+  }
+
+  // 处理触发源由 element 导致的状态变化
+  protected setStateByElement(element: Element, enable: boolean) {
+    this.setElementState(element, enable);
   }
 
   /** 组件的选项是否同 element 匹配 */
@@ -35,10 +41,8 @@ class ElementState extends StateBase {
   /** 设置状态是否激活 */
   protected setStateEnable(enable: boolean) {
     const element = getCurrentElement(this.context);
-    const stateName = this.stateName;
-    if (element) {
-      // 触发源由于 element 导致
-      this.setElementState(element, enable);
+    if (element) { // 触发源由于 element 导致
+      this.setStateByElement(element, enable);
     } else {
       // 触发源由组件导致
       const delegateObject = getDelegationObject(this.context);
