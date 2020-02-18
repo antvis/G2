@@ -127,7 +127,6 @@ export default class Legend extends Controller<Option> {
         x = x2;
         y = y1;
       }
-
       component.update({
         x,
         y,
