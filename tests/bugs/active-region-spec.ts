@@ -237,7 +237,7 @@ describe('active-region', () => {
       return el.get('name') === 'active-region';
     })[0];
 
-    expect(regionShape.getBBox().minY).toBeCloseTo(203.23046875);
+    expect(regionShape.getBBox().minY).toBeCloseTo(169.23046875);
   });
 
   afterEach(() => {
