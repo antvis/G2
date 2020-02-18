@@ -231,6 +231,14 @@ describe('View', () => {
     ).toEqual(['sale']);
   });
 
+  it('getSnapRecords()', () => {
+    const point = view.getXY({ city: '杭州', sale: 100, category: '电脑' });
+    const snapRecords = view.getSnapRecords(point);
+
+    expect(snapRecords.length).toBe(1);
+    expect(snapRecords[0]._origin).toEqual({ city: '杭州', sale: 100, category: '电脑' });
+  });
+
   it('changeData', () => {
     const geometries = view.geometries;
     view.changeData([

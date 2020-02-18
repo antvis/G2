@@ -34,6 +34,7 @@ import {
   InteractionOption,
   LegendOption,
   LooseObject,
+  MappingDatum,
   Options,
   Point,
   Region,
@@ -53,6 +54,7 @@ import { createInteraction, Interaction } from '../interaction';
 import { BBox } from '../util/bbox';
 import { getCoordinateClipCfg, isFullCircle, isPointInCoordinate } from '../util/coordinate';
 import { mergeTheme } from '../util/theme';
+import { findDataByPoint } from '../util/tooltip';
 import Chart from './chart';
 import { getComponentController, getComponentControllerNames } from './controller';
 import AnnotationComponent from './controller/annotation';
@@ -1036,6 +1038,34 @@ export class View extends Base {
     const tooltip = this.getController('tooltip') as TooltipComponent;
 
     return tooltip ? tooltip.getTooltipItems(point) : [];
+  }
+
+  /**
+   * 获取逼近的点的数据集合
+   * @param point 当前坐标点
+   * @returns  数据
+   */
+  public getSnapRecords(point: Point) {
+    const geometries = this.geometries;
+    let rst = [];
+    each(geometries, (geom: Geometry) => {
+      const dataArray = geom.dataArray;
+      let record;
+      each(dataArray, (data: MappingDatum[]) => {
+        record = findDataByPoint(point, data, geom);
+        if (record) {
+          rst.push(record);
+        }
+      });
+    });
+
+    // 同样递归处理子 views
+    each(this.views, (view: View) => {
+      const snapRecords = view.getSnapRecords(point);
+      rst = rst.concat(snapRecords);
+    });
+
+    return rst;
   }
 
   /**
