@@ -1,4 +1,3 @@
-import { vec2 } from '@antv/matrix-util';
 import { deepMix, each, find, flatten, get, isArray, isEqual, isFunction } from '@antv/util';
 import { Crosshair, HtmlTooltip, IGroup } from '../../dependents';
 import Geometry from '../../geometry/base';
@@ -346,7 +345,7 @@ export default class Tooltip extends Controller<TooltipOption> {
 
   // 渲染 x 轴上的 tooltip 辅助线
   private renderXCrosshairs(point: Point, tooltipCfg) {
-    const coordinate = this.view.getCoordinate();
+    const coordinate = this.getViewWithGeometry(this.view).getCoordinate();
     let start;
     let end;
     if (coordinate.isRect) {
@@ -400,7 +399,7 @@ export default class Tooltip extends Controller<TooltipOption> {
 
   // 渲染 y 轴上的辅助线
   private renderYCrosshairs(point: Point, tooltipCfg) {
-    const coordinate = this.view.getCoordinate();
+    const coordinate = this.getViewWithGeometry(this.view).getCoordinate();
     let cfg;
     let type;
     if (coordinate.isRect) {
@@ -472,10 +471,11 @@ export default class Tooltip extends Controller<TooltipOption> {
     const items = this.items;
 
     if (textCfg) {
+      const view = this.getViewWithGeometry(this.view);
       // 需要展示文本
       const firstItem = items[0];
-      const xScale = this.view.getXScale();
-      const yScale = this.view.getYScales()[0];
+      const xScale = view.getXScale();
+      const yScale = view.getYScales()[0];
       let xValue;
       let yValue;
       if (follow) {
@@ -607,6 +607,23 @@ export default class Tooltip extends Controller<TooltipOption> {
       result = result.concat(this.findItemsFromView(childView, point));
     });
 
+    return result;
+  }
+
+  // FIXME: hack 方法
+  // 因为 tooltip 的交互是挂载在 Chart 上，所以当chart 上没有绘制 Geometry 的时候，就查找不到数据，并且绘图区域同子 View 的区域不同
+  private getViewWithGeometry(view) {
+    if (view.geometries.length) {
+      return view;
+    }
+
+    let result;
+    each(view.views, (childView) => {
+      result = this.getViewWithGeometry(childView);
+      if (result) {
+        return false;
+      }
+    });
     return result;
   }
 }
