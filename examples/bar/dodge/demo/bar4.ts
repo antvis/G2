@@ -41,7 +41,7 @@ const chart = new Chart({
   height: 500,
 });
 
-chart.coordinate().transpose();
+chart.coordinate().transpose().scale(1, -1);
 
 chart.data(data);
 
@@ -71,11 +71,11 @@ chart.axis('value', {
     },
   },
   title: {
-    offset: 30,
     style: {
-      fontSize: 14,
+      fontSize: 12,
       fontWeight: 300,
     },
+    position: 'end'
   },
 });
 

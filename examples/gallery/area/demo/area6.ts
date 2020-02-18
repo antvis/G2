@@ -23,6 +23,16 @@ chart.scale('Date', {
   type: 'timeCat',
   mask: 'MM-DD',
 });
+chart.scale({
+  range: {
+    nice: true,
+    sync: true,
+  },
+  value: {
+    nice: true,
+    sync: true,
+  }
+});
 chart.axis('Date', {
   label: {
     style: {
