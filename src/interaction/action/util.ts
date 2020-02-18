@@ -290,3 +290,17 @@ export function isInRecords(records: object[], record: object, xFiled: string, y
   });
   return isIn;
 }
+
+// 级联获取 field 对应的 scale，如果 view 上没有，遍历子 view
+export function getScaleByField(view: View, field: string) {
+  let scale = view.getScaleByField(field);
+  if (!scale && view.views) {
+    each(view.views, subView => {
+      scale = getScaleByField(subView, field);
+      if (scale) {
+        return false; // 终止循环
+      }
+    });
+  }
+  return scale;
+}
