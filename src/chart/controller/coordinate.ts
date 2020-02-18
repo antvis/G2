@@ -1,4 +1,4 @@
-import { each, some } from '@antv/util';
+import { each, isNil, some } from '@antv/util';
 import { Coordinate, getCoordinate, Point } from '../../dependents';
 import { CoordinateOption } from '../../interface';
 
@@ -85,6 +85,12 @@ export default class {
       end,
     });
 
+    // 更新坐标系大小的时候，需要：
+    // 1. 重置 matrix
+    // 2. 重新执行作用于 matrix 的 action
+    this.coordinate.resetMatrix();
+    this.execActions(['scale', 'rotate', 'translate']);
+
     return this.coordinate;
   }
 
@@ -139,6 +145,13 @@ export default class {
   }
 
   /**
+   * 获得 coordinate 实例
+   */
+  public getCoordinate() {
+    return this.coordinate;
+  }
+
+  /**
    * 包装配置的默认值
    * @param option
    */
@@ -153,14 +166,19 @@ export default class {
 
   /**
    * coordinate 实例执行 actions
+   * @params includeActions 如果没有指定，则执行全部，否则，执行指定的 action
    */
-  private execActions() {
+  private execActions(includeActions?: string[]) {
     const { actions } = this.option;
 
     each(actions, action => {
       const [actionName, ...args] = action;
 
-      this.coordinate[actionName](...args);
+      const shouldExec = isNil(includeActions) ? true : includeActions.includes(actionName);
+
+      if (shouldExec) {
+        this.coordinate[actionName](...args);
+      }
     });
   }
 }
