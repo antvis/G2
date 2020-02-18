@@ -77,7 +77,7 @@ describe('Tooltip functions', () => {
     });
   });
 
-  xdescribe('geometry is point', () => {
+  describe('geometry is point', () => {
     const scales = {
       carat: createScale('carat', DIAMOND, {}),
       price: createScale('price', DIAMOND, {
