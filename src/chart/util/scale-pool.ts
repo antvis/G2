@@ -89,8 +89,8 @@ export class ScalePool {
     // 1. 缓存到 scales
 
     let sm = this.getScaleMeta(key);
-    // 存在则更新
-    if (sm) {
+    // 存在则更新，同时检测类型是否一致
+    if (sm && sm.scale.type === scale.type) {
       syncScale(sm.scale, scale);
       sm.scaleDef = scaleDef;
       // 更新 scaleDef
