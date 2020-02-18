@@ -10,7 +10,10 @@ export function group(data: Data, fields: string[], appendConditions: Record<str
   if (fields.length === 1 && appendConditions[fields[0]]) {
     const values = appendConditions[fields[0]];
     for (const value of values) {
-      array.push(groups[`_${value}`]);
+      const arr = groups[`_${value}`];
+      if (arr) { // 可能存在用户设置 values ，但是数据中没有对应的字段，则这时候 arr 就为 null
+        array.push(arr);
+      }
     }
   } else {
     each(groups, (eachGroup: any[]) => {
