@@ -16,9 +16,11 @@ fetch('../data/iris.json')
     chart.data(data);
 
     chart.scale({
-      Species: {
-        sync: true,
-      }
+      Species: { sync: true },
+      SepalLength: { nice: true },
+      SepalWidth: { nice: true },
+      PetalLength: { nice: true },
+      PetalWidth: { nice: true }
     });
 
     chart.facet('matrix', {
