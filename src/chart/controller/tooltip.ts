@@ -617,13 +617,6 @@ export default class Tooltip extends Controller<TooltipOption> {
       return view;
     }
 
-    let result;
-    each(view.views, (childView) => {
-      result = this.getViewWithGeometry(childView);
-      if (result) {
-        return false;
-      }
-    });
-    return result;
+    return find(view.views, (childView) => this.getViewWithGeometry(childView));
   }
 }
