@@ -95,7 +95,7 @@ module.exports = {
         icon: 'interaction',
         title: {
           zh: '交互语法',
-          en: 'Interaction Grammar',
+          en: 'Grammar of Interaction',
         },
       },
       {
