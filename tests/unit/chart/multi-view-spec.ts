@@ -148,6 +148,14 @@ describe('chart multi view', () => {
     expect(v1.getOptions().data.length).toBe(8);
   });
 
+  it('getSnapRecords()', () => {
+    const point = v1.getXY({ city: '呼和浩特', sale: 40, category: '电脑' });
+    const records = chart.getSnapRecords(point);
+
+    expect(records.length).toBe(1);
+    expect(records[0]._origin).toEqual({ city: '呼和浩特', sale: 40, category: '电脑' });
+  });
+
   it('view padding', () => {
     const chart1 = new Chart({
       container: div,
@@ -167,5 +175,5 @@ describe('chart multi view', () => {
   it('sub view coordinate extends parent', () => {
     expect(v1.getOptions().coordinate.actions).toEqual([['scale', 1, -1]]);
     expect(v2.getOptions().coordinate.actions).toEqual([['scale', 1, -1]]);
-  })
+  });
 });
