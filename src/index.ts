@@ -354,7 +354,7 @@ registerInteraction('element-range-highlight', {
   rollback: [{ trigger: 'dblclick', action: ['element-range-highlight:clear', 'rect-mask:hide'] }],
 });
 
-registerInteraction('element-brush', {
+registerInteraction('brush', {
   showEnable: [
     { trigger: 'plot:mouseenter', action: 'cursor:crosshair' },
     { trigger: 'plot:mouseleave', action: 'cursor:default' },
@@ -416,7 +416,7 @@ registerInteraction('brush-visible', {
   ]
 });
 
-registerInteraction('element-brush-x', {
+registerInteraction('brush-x', {
   showEnable: [
     { trigger: 'plot:mouseenter', action: 'cursor:crosshair' },
     { trigger: 'plot:mouseleave', action: 'cursor:default' },
