@@ -26,7 +26,7 @@ module.exports = class GatsbyMarkdownTheme extends MarkdownTheme {
   constructor(renderer, basePath) {
     super(renderer, basePath);
 
-    this.indexName = 'index';
+    this.indexName = 'g2';
     this.fileExt = FILE_EXT;
 
     renderer.removeComponent('breadcrumbs');

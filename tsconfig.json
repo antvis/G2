@@ -23,8 +23,8 @@
     "mode": "file",
     "out": "docs/api",
     "excludePrivate": true,
-    "excludeProtected": true,
     "excludeExternals": true,
+    "excludeNotExported": true,
     "plugin": "typedoc-plugin-markdown",
     "theme": "./bin/typedoc-theme"
   }
