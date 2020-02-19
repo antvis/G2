@@ -5,7 +5,10 @@ import { each } from '@antv/util';
 
 class DataFilter extends Action {
   private filterView(view: View, field, filter) {
-    view.filter(field, filter);
+    // 只有存在这个 scale 时才生效
+    if (view.getScaleByField(field)) {
+      view.filter(field, filter);
+    }
     if (view.views && view.views.length) {
       each(view.views, subView => {
         this.filterView(subView, field, filter);
