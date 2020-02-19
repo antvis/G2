@@ -1,6 +1,6 @@
 ---
 title: G2 4.0 升级指南
-order: 8
+order: 9
 ---
 
 ## 概述
@@ -64,8 +64,6 @@ const theme = chart.getTheme();
 - ❌ 移除 Interval 几何标记以下两个 shape: 'top-line' 及  'liquid-fill-gauge'，用户可以通过自定义 Shape 机制自己实现。
 - ❌ 移除 tail 类型的图例。
 - 内置常量重命名，一致使用小写 + '-' 命名规则，比如 `shape('hollowCircle')` 变更为 `shape('hollow-circle')`
-
-####
 
 #### 配置项变更的接口
 

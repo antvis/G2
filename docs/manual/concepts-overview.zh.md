@@ -47,7 +47,7 @@ G2 的图形语法本质上是将数据映射到图形的过程拆解成为一�
 
 ![](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*iv-ESoJg8noAAAAAAAAAAABkARQnAQ)
 
-更多交互语法细节，请阅读[交互语法](/concepts/grammar-of-interaction)。
+更多交互语法细节，请阅读[交互语法](./concepts/interaction)。
 
 ## View 视图
 
@@ -79,7 +79,7 @@ View 是拥有独立数据源，并且能够绘制多个图形的容器，里面
 
 几何标记（Geometry），即我们所说的点、线、面这些几何图形，在 G2 中几何标记的类型决定了生成图表的类型，也就是数据被可视化后的实际表现，不同的几何标记都包含对应的图形属性 Attribute。
 
-查看 [Geometry 教程](concepts/geometry)获取更多信息。
+查看 [Geometry 教程](./concepts/geometry/)获取更多信息。
 
 ### 提示信息 Tooltip
 

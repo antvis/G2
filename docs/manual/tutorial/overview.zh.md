@@ -5,7 +5,7 @@ order: 0
 
 在本篇中，将为你介绍 G2 的基本用法，文章可能有点长，但是可以帮助你更好得理解图形语法，入门 G2，请花点时间耐心阅读。通过本篇，你讲学到：
 
-1. 如何将数据变量映射到[图形属性](#)上
+1. 如何将数据变量映射到[图形属性](../concepts/visual-channel)上
 1. 如何通过指定不同的几何标记来创建不同类型的图表
 1. 如何使用分面
 1. 如何调整图表外观
@@ -94,7 +94,7 @@ chart.point().position('feature*value'); // highlight-line
 chart.render();
 ```
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580805696366-3f38fd1a-2bc4-4cda-9883-a121fb0e815c.png#align=left&display=inline&height=322&name=image.png&originHeight=644&originWidth=1260&size=39096&status=done&style=none&width=630)
+![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*M1QdTpv9Ei4AAAAAAAAAAABkARQnAQ)
 
 ## 颜色、大小、形状等图形属性映射
 
@@ -113,7 +113,7 @@ chart
 
 这个时候，G2 会根据 `phone`  字段数值类型，自动生成一张图例，用以展示数据取值与图形属性之间的对应关系。
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580810664518-85dfcc59-d681-4707-b7d4-2108af9afe7e.png#align=left&display=inline&height=345&name=image.png&originHeight=690&originWidth=1256&size=51445&status=done&style=none&width=628)
+![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*CTV2RIsYQvMAAAAAAAAAAABkARQnAQ)
 
 ### 形状
 
@@ -129,7 +129,7 @@ chart
 // highlight-end
 ```
 
-这个时候你会发现，图例的 marker 样式也发生了变化：![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580811186806-57cf7bf2-b763-4690-8101-aa496224e28f.png#align=left&display=inline&height=333&name=image.png&originHeight=666&originWidth=1270&size=41568&status=done&style=none&width=635)
+这个时候你会发现，图例的 marker 样式也发生了变化：![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*7YScQ5cRDY8AAAAAAAAAAABkARQnAQ)
 
 ### 大小
 
@@ -146,7 +146,7 @@ chart
 // highlight-end
 ```
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580811507295-a99ec160-bda6-44d4-8816-44558564cbbd.png#align=left&display=inline&height=328&name=image.png&originHeight=656&originWidth=1250&size=43522&status=done&style=none&width=625)
+![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*tIZaR68ivQsAAAAAAAAAAABkARQnAQ)
 
 ## 几何标记
 
@@ -169,7 +169,7 @@ chart
   .color('phone');
 ```
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580813282016-7a355f2a-aa6b-422f-825e-6a838167b59a.png#align=left&display=inline&height=317&name=image.png&originHeight=634&originWidth=1292&size=84843&status=done&style=none&width=646)
+![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*p3FdS7MIlJIAAAAAAAAAAABkARQnAQ)
 
 > 你会发现图例发生了细微的变化，G2 的图例会根据 Geometry 的类型来生成对应的缩略图。
 
@@ -186,7 +186,7 @@ chart
   .color('phone');
 ```
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580814698939-2b2f6b37-6225-40c7-8de9-b884cec67e69.png#align=left&display=inline&height=322&name=image.png&originHeight=644&originWidth=1236&size=67179&status=done&style=none&width=618)
+![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*GT_URJHlEI4AAAAAAAAAAABkARQnAQ)
 
 ### 叠加几何标记
 
@@ -208,7 +208,7 @@ chart
   .shape('circle');
 ```
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580814729925-534fe2c1-3019-49f2-9471-08b7324ca374.png#align=left&display=inline&height=333&name=image.png&originHeight=666&originWidth=1296&size=92136&status=done&style=none&width=648)
+![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*M4JvSbo_n_EAAAAAAAAAAABkARQnAQ)
 
 我们还可以通过 `adjust()`  接口将数据进行调整，让数据以层叠的方式进行展示，即绘制层叠面积图：
 
@@ -237,7 +237,7 @@ chart
   .shape('circle');
 ```
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580814759264-5a9abca5-524e-40f7-b271-f10473550a90.png#align=left&display=inline&height=335&name=image.png&originHeight=670&originWidth=1222&size=87865&status=done&style=none&width=611)
+![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*bs8YTLj2uqsAAAAAAAAAAABkARQnAQ)
 
 ## 坐标系变化
 
@@ -247,13 +247,13 @@ chart
 chart.coordinate('polar');
 ```
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580814796593-202bfa45-91c8-4219-89da-c05a02b1f84f.png#align=left&display=inline&height=336&name=image.png&originHeight=672&originWidth=822&size=80798&status=done&style=none&width=411)
+![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*Vn16S4y68BQAAAAAAAAAAABkARQnAQ)
 
 这样就变成了雷达图。
 
 ## 分面
 
-上面我们已经介绍了使用图形属性（颜色和形状）类比较不同分组的方法，它可以帮助我们将所有的数据组都绘制在同一张图表上。而分面提供了另外一种方法：将一份数据按照某个维度分隔成若干子集，然后创建一个图表的矩阵，将每一个数据子集绘制到图形矩阵的窗格中。G2 提供了多种分面类型，在这里我们使用 `rect`  分面类型，对上述数据进行分割绘制：![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580815503922-67f2e218-ddaa-4e19-8e9b-868c05263734.png#align=left&display=inline&height=327&name=image.png&originHeight=654&originWidth=1198&size=65245&status=done&style=none&width=599)
+上面我们已经介绍了使用图形属性（颜色和形状）类比较不同分组的方法，它可以帮助我们将所有的数据组都绘制在同一张图表上。而分面提供了另外一种方法：将一份数据按照某个维度分隔成若干子集，然后创建一个图表的矩阵，将每一个数据子集绘制到图形矩阵的窗格中。G2 提供了多种分面类型，在这里我们使用 `rect`  分面类型，对上述数据进行分割绘制：![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*xQnuRJeG0JIAAAAAAAAAAABkARQnAQ)
 
 > 在这个例子中，我们以 `phone`  字段为分割维度，使用 `rect`  分面类型，以列分面的性质展示三个手机的各自的数据集。
 
@@ -290,7 +290,7 @@ chart.facet('rect', {
       .shape('circle');
   },
 });
-// highlight-start
+// highlight-end
 chart.render();
 ```
 
@@ -298,7 +298,7 @@ chart.render();
 
 G2 绘制的图表由以下基本元素组成：
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580818453978-fb6d909d-b4b8-4ef7-8ad5-43cec2d5f870.png#align=left&display=inline&height=562&name=image.png&originHeight=1124&originWidth=1770&size=126113&status=done&style=none&width=885)
+![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*7yM9TZK9FU4AAAAAAAAAAABkARQnAQ)
 
 - Axis 坐标轴可以通过 `chart.axis()`  接口进行配置
 - Tooltip 提示信息可以通过 `chart.tooltip()`  接口进行配置
@@ -312,6 +312,6 @@ chart.legend({
 });
 ```
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580818873633-54124d57-9a7e-4397-9a93-5ace787e210c.png#align=left&display=inline&height=321&name=image.png&originHeight=642&originWidth=1228&size=87560&status=done&style=none&width=614)
+![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*cEnUSYejBNEAAAAAAAAAAABkARQnAQ)
 
 在这里我们只做一个大体的介绍，更详细的使用方式详见其他教程篇章。
