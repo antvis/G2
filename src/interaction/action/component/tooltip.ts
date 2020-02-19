@@ -1,24 +1,20 @@
 import { isEqual } from '@antv/util';
+import { View } from '../../../chart';
 import { Point } from '../../../interface';
 import Action from '../base';
-import { View } from '../../../chart';
 
 /**
  * Tooltip 展示隐藏的 Action
+ * @ignore
  */
 class TooltipAction extends Action {
   private timeStamp: number = 0;
   private location: Point;
 
-  protected showTooltip(view: View, point: Point) {
-    // 相同位置不重复展示
-    view.showTooltip(point);
-  }
-
-  protected hideTooltip(view) {
-    view.hideTooltip();
-  }
-
+  /**
+   * 显示 Tooltip
+   * @returns
+   */
   public show() {
     const context = this.context;
     const ev = context.event;
@@ -42,6 +38,10 @@ class TooltipAction extends Action {
     }
   }
 
+  /**
+   * 隐藏 Tooltip。
+   * @returns
+   */
   public hide() {
     const view = this.context.view;
     const isTooltipLocked = view.isTooltipLocked();
@@ -51,6 +51,15 @@ class TooltipAction extends Action {
     }
     this.hideTooltip(view);
     this.location = null;
+  }
+
+  protected showTooltip(view: View, point: Point) {
+    // 相同位置不重复展示
+    view.showTooltip(point);
+  }
+
+  protected hideTooltip(view) {
+    view.hideTooltip();
   }
 }
 

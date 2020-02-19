@@ -4,6 +4,7 @@ import { clearHighlight, setHighlightBy } from './highlight-util';
 import ElementSingleState from './single-state';
 
 /**
+ * @ignore
  * 单个 Element Highlight 的 Action
  */
 class ElementSingleHighlight extends ElementSingleState {

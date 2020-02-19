@@ -1,4 +1,5 @@
 /**
+ * @ignore
  * get view event name, with name:event
  * @param type original event type
  * @param name event trigger shape name

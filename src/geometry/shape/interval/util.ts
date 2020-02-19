@@ -3,6 +3,7 @@ import { PathCommand } from '../../../dependents';
 import { Point, ShapePoint } from '../../../interface';
 
 /**
+ * @ignore
  * 根据数据点生成矩形的四个关键点
  * @param pointInfo 数据点信息
  * @param [isPyramid] 是否为尖底漏斗图
@@ -60,6 +61,7 @@ export function getRectPoints(pointInfo: ShapePoint, isPyramid = false): Point[]
 }
 
 /**
+ * @ignore
  * 根据矩形关键点绘制 path
  * @param points 关键点数组
  * @returns 返回矩形的 path
@@ -77,6 +79,7 @@ export function getRectPath(points: Point[]): PathCommand[] {
 }
 
 /**
+ * @ignore
  * 根据 funnel 关键点绘制漏斗图的 path
  * @param points 图形关键点信息
  * @param nextPoints 下一个数据的图形关键点信息

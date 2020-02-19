@@ -1,3 +1,4 @@
+/** @ignore */
 export const MarkerSymbols = {
   hexagon: (x: number, y: number, r: number) => {
     const diffX = (r / 2) * Math.sqrt(3);

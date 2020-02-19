@@ -1,9 +1,10 @@
 import { each } from '@antv/util';
 import Element from '../../../geometry/element/';
-import { getIntersectElements, getElements, isMask, getMaskedElements, getSilbings, isInRecords, getSiblingMaskElements } from '../util';
+import { getElements, getIntersectElements, getMaskedElements, getSiblingMaskElements, getSilbings, isInRecords, isMask } from '../util';
 import StateBase from './state-base';
 
 /**
+ * @ignore
  * 区域设置状态的基础 Action
  */
 class ElementRangeState extends StateBase {

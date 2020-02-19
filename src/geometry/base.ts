@@ -56,6 +56,7 @@ import { group } from './util/group-data';
 import { isModelChange } from './util/is-model-change';
 import { parseFields } from './util/parse-fields';
 
+/** @ignore */
 interface AttributeInstanceCfg {
   fields?: string[];
   callback?: (...args) => any;
@@ -63,6 +64,7 @@ interface AttributeInstanceCfg {
   scales?: Scale[];
 }
 
+/** @ignore */
 interface AdjustInstanceCfg {
   type: AdjustType;
   adjustNames?: string[];
@@ -78,13 +80,19 @@ interface AdjustInstanceCfg {
   reverseOrder?: boolean;
 }
 
+/** geometry.init() 传入参数 */
 export interface InitCfg {
+  /** 坐标系 */
   coordinate?: Coordinate;
+  /** 数据 */
   data?: Data;
+  /** 主题对象 */
   theme?: LooseObject;
+  /** 列定义 */
   scaleDefs?: Record<string, ScaleOption>;
 }
 
+/** Geometry 构造函数参数 */
 export interface GeometryCfg {
   /** Geometry shape 的容器。 */
   container: IGroup;
@@ -94,10 +102,15 @@ export interface GeometryCfg {
   data?: Data;
   /** 需要的 scales。 */
   scales?: Record<string, Scale>;
+  /** 列定义 */
   scaleDefs?: Record<string, ScaleOption>;
+  /** Geometry labels 的容器 */
   labelsContainer?: IGroup;
+  /** 是否对数据进行排序 */
   sortable?: boolean;
+  /** 是否可见 */
   visible?: boolean;
+  /** 主题配置 */
   theme?: LooseObject;
 }
 
@@ -169,14 +182,19 @@ export default class Geometry extends Base {
   protected adjustOption: AdjustOption[];
   /** style 配置项 */
   protected styleOption: StyleOption;
+  /** 每个 Geometry 对应的 Shape 工厂实例，用于创建各个 Shape */
   protected shapeFactory: ShapeFactory;
+  /** 使用 key-value 结构存储 Element，key 为每个 Element 实例对应的唯一 ID */
   protected elementsMap: Record<string, Element> = {};
+  /** 存储上一次渲染时的 element 映射表，用于更新逻辑 */
   protected lastElementsMap: Record<string, Element> = {};
   /** 是否生成多个点来绘制图形。 */
   protected generatePoints: boolean = false;
-  // 虚拟 Group
+  /** 虚拟 Group，用于图形更新 */
   protected offscreenGroup: IGroup;
+  /** 存储发生图形属性映射前的数据 */
   protected beforeMappingData: Data[] = null;
+  /** 存储每个 shape 的默认 size，用于 Interval、Schema 几何标记 */
   protected defaultSize: number;
 
   private adjusts: Record<string, Adjust> = {};
@@ -849,7 +867,7 @@ export default class Geometry extends Base {
   }
 
   /**
-   * Clears geometry
+   * 清空当前 Geometry，配置项仍保留，但是内部创建的对象全部清空。
    * @override
    */
   public clear() {
@@ -983,7 +1001,7 @@ export default class Geometry extends Base {
   }
 
   /**
-   * 获取 shape 对应的 marker 样式
+   * 获取 shape 对应的 marker 样式。
    * @param shapeName shape 具体名字
    * @param cfg marker 信息
    * @returns
@@ -1015,7 +1033,7 @@ export default class Geometry extends Base {
 
   /**
    * 获取数据对应的唯一 id。
-   * @param originData 原始数据。
+   * @param data Element 对应的绘制数据
    * @returns
    */
   public getElementId(data: MappingDatum | MappingDatum[]) {
@@ -1134,11 +1152,17 @@ export default class Geometry extends Base {
     return [x, y];
   }
 
+  /**
+   * 获取该 Geometry 下所有生成的 shapes。
+   * @returns shapes
+   */
   public getShapes(): Array<IShape | IGroup> {
     return this.elements.map((element: Element) => element.shape);
   }
 
-  // 训练度量
+  /**
+   * 调整度量范围。主要针对发生层叠以及一些特殊需求的 Geometry，比如 Interval 下的柱状图 Y 轴默认从 0 开始。
+   */
   protected adjustScale() {
     const yScale = this.getYScale();
     // 如果数据发生过 stack adjust，需要调整下 yScale 的数据范围
@@ -1147,6 +1171,9 @@ export default class Geometry extends Base {
     }
   }
 
+  /**
+   * 获取当前 Geometry 对应的 Shape 工厂实例。
+   */
   protected getShapeFactory() {
     const shapeType = this.shapeType;
     if (!this.shapeFactory) {
@@ -1161,7 +1188,7 @@ export default class Geometry extends Base {
   }
 
   /**
-   * Creates shape points cfg
+   * 获取每个 Shape 对应的关键点数据。
    * @param obj 经过分组 -> 数字化 -> adjust 调整后的数据记录
    * @returns
    */
@@ -1184,6 +1211,12 @@ export default class Geometry extends Base {
     };
   }
 
+  /**
+   * 创建 Element 实例。
+   * @param mappingDatum Element 对应的绘制数据
+   * @param [isUpdate] 是否处于更新阶段
+   * @returns element 返回创建的 Element 实例
+   */
   protected createElement(mappingDatum: MappingDatum, isUpdate: boolean = false): Element {
     const { theme, container } = this;
 
@@ -1202,6 +1235,11 @@ export default class Geometry extends Base {
     return element;
   }
 
+  /**
+   * 获取每条数据对应的图形绘制数据。
+   * @param mappingDatum 映射后的数据
+   * @returns draw cfg
+   */
   protected getDrawCfg(mappingDatum: MappingDatum): ShapeInfo {
     const originData = mappingDatum[FIELD_ORIGIN]; // 原始数据
     const cfg: ShapeInfo = {
@@ -1227,6 +1265,12 @@ export default class Geometry extends Base {
     return cfg;
   }
 
+  /**
+   * 创建所有的 Elements。
+   * @param mappingData
+   * @param [isUpdate]
+   * @returns elements
+   */
   protected createElements(mappingData: MappingDatum[], isUpdate: boolean = false): Element[] {
     const { lastElementsMap, elementsMap, elements } = this;
     each(mappingData, (mappingDatum) => {
@@ -1256,6 +1300,10 @@ export default class Geometry extends Base {
     return elements;
   }
 
+  /**
+   * 获取虚拟 Group。
+   * @returns
+   */
   protected getOffscreenGroup() {
     if (!this.offscreenGroup) {
       const GroupCtor = this.container.getGroupBase(); // 获取分组的构造函数
@@ -1265,7 +1313,7 @@ export default class Geometry extends Base {
   }
 
   /**
-   * 获取渲染的 label 类型
+   * 获取渲染的 label 类型。
    */
   protected getLabelType(): string {
     const { labelOption, coordinate, type } = this;
@@ -1286,7 +1334,9 @@ export default class Geometry extends Base {
     return labelType;
   }
 
-  // 获取 Y 轴上的最小值
+  /**
+   * 获取 Y 轴上的最小值。
+   */
   protected getYMinValue(): number {
     const yScale = this.getYScale();
     const { min, max } = yScale;

@@ -7,6 +7,7 @@ import { getFactTitleConfig } from '../util/facet';
 import { Facet } from './facet';
 
 /**
+ * @ignore
  * 矩阵分面
  */
 export default class Rect extends Facet<RectCfg, RectData> {

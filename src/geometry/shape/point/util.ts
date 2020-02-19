@@ -6,6 +6,16 @@ import { getStyle } from '../util/get-style';
 export const SHAPES = ['circle', 'square', 'bowtie', 'diamond', 'hexagon', 'triangle', 'triangle-down'];
 export const HOLLOW_SHAPES = ['cross', 'tick', 'plus', 'hyphen', 'line'];
 
+/**
+ * @ignore
+ * Draws points
+ * @param shape
+ * @param cfg
+ * @param container
+ * @param shapeName
+ * @param isStroke
+ * @returns points
+ */
 export function drawPoints(shape, cfg: ShapeInfo, container: IGroup, shapeName: string, isStroke: boolean): IShape | IGroup {
   const style = getStyle(cfg, isStroke, !isStroke, 'r');
   const points = shape.parsePoints(cfg.points);

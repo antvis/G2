@@ -4,6 +4,7 @@ import { GAnimateCfg } from '../../interface';
 import { AnimateExtraCfg } from '../interface';
 
 /**
+ * @ignore
  * 单个 shape 动画
  * 渐现动画
  * @param shape 执行动画的图形元素
@@ -25,6 +26,7 @@ export function fadeIn(shape: IShape | IGroup, animateCfg: GAnimateCfg, cfg: Ani
 }
 
 /**
+ * @ignore
  * 单个 shape 动画
  * 渐隐动画
  * @param shape 执行动画的图形元素

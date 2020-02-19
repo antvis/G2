@@ -1,6 +1,11 @@
-import Action from "../base";
-import { isMask, getSilbings , getElements, getSiblingMaskElements, getMaskedElements, isInRecords} from "../util";
 import {each} from '@antv/util';
+import Action from "../base";
+import { getElements, getMaskedElements , getSiblingMaskElements, getSilbings, isInRecords, isMask} from "../util";
+
+/**
+ * Sibling filter
+ * @ignore
+ */
 class SiblingFilter extends Action {
   protected byRecord = false;
   /**
@@ -29,7 +34,7 @@ class SiblingFilter extends Action {
       return el.getModel().data;
     });
     const siblings = getSilbings(view);
-    each(siblings, sibling => { 
+    each(siblings, sibling => {
       const elements = getElements(sibling);
       each(elements, (el) => {
         const record = el.getModel().data;

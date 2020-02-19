@@ -25,6 +25,7 @@ function getDefaultType(field: string, data: LooseObject[]): string {
 }
 
 /**
+ * @ignore
  * 为指定的 `field` 字段数据创建 scale
  * @param field 字段名
  * @param [data] 数据集，可为空
@@ -56,6 +57,7 @@ export function createScaleByField(field: string | number, data?: LooseObject[] 
 }
 
 /**
+ * @ignore
  * 同步 scale
  * @todo 是否可以通过 scale.update() 方法进行更新
  * @param scale 需要同步的 scale 实例
@@ -75,6 +77,7 @@ export function syncScale(scale: Scale, newScale: Scale) {
 }
 
 /**
+ * @ignore
  * get the scale name, if alias exist, return alias, or else field
  * @param scale
  * @returns the name of field

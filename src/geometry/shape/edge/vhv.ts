@@ -6,6 +6,7 @@ import { registerShape } from '../base';
 import { getStyle } from '../util/get-style';
 
 const CORNER_PERCENT = 1 / 3;
+
 function getVHVPath(from: Point, to: Point) {
   const points = [];
   points.push({

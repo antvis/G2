@@ -4,6 +4,7 @@ import { Coordinate } from '../dependents';
 import { AxisOption, Point, Region } from '../interface';
 
 /**
+ * @ignore
  * get axis relative region ( 0 ~ 1) by direction when coordinate is rect
  * @param direction
  * @returns axis coordinate region
@@ -37,6 +38,7 @@ export function getLineAxisRelativeRegion(direction: DIRECTION): Region {
 }
 
 /**
+ * @ignore
  * get axis relative region ( 0 ~ 1) by direction when coordinate is polar
  * @param coordinate
  * @returns axis coordinate region
@@ -68,6 +70,7 @@ export function getCircleAxisRelativeRegion(coordinate: Coordinate) {
 }
 
 /**
+ * @ignore
  * get the axis region from coordinate
  * @param coordinate
  * @param direction
@@ -89,6 +92,7 @@ export function getAxisRegion(coordinate: Coordinate, direction: DIRECTION): Reg
 }
 
 /**
+ * @ignore
  * get axis factor
  * @param coordinate
  * @param direction
@@ -116,6 +120,7 @@ export function getAxisFactor(coordinate: Coordinate, direction: DIRECTION): num
 }
 
 /**
+ * @ignore
  * whether the axis isVertical
  * @param region
  * @returns isVertical
@@ -127,6 +132,7 @@ export function isVertical(region: Region): boolean {
 }
 
 /**
+ * @ignore
  * get factor by region (real position)
  * @param region
  * @param center
@@ -156,6 +162,7 @@ export function getAxisFactorByRegion(region: Region, center: Point): number {
 }
 
 /**
+ * @ignore
  * get the axis cfg from theme
  * @param theme view theme object
  * @param direction axis direction
@@ -166,6 +173,7 @@ export function getAxisThemeCfg(theme: object, direction: string): object {
 }
 
 /**
+ * @ignore
  * get circle axis center and radius
  * @param coordinate
  */
@@ -181,6 +189,7 @@ export function getCircleAxisCenterRadius(coordinate: Coordinate) {
 }
 
 /**
+ * @ignore
  * 从配置中获取单个字段的 axis 配置
  * @param axes
  * @param field
@@ -195,6 +204,7 @@ export function getAxisOption(axes: Record<string, AxisOption> | boolean, field:
 }
 
 /**
+ * @ignore
  * 如果配置了 position，则使用配置
  * @param axisOption
  * @param def

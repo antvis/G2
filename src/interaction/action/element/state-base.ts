@@ -7,6 +7,7 @@ import { getElementsByState } from '../util';
  * 状态量 Action 的基类
  * @abstract
  * @class
+ * @ignore
  */
 abstract class StateBase extends Action {
   /**

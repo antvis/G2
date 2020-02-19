@@ -8,26 +8,35 @@ import { isBetween, omit } from '../../util/helper';
 import View from '../view';
 import { Controller } from './base';
 
+/** Slider 配置 */
 export interface SliderOption {
+  /** slider 高度 */
   readonly height?: number;
 
-  // style
+  /** 滑块背景区域配置 */
   readonly trendCfg?: TrendCfg;
+  /** 滑块背景样式 */
   readonly backgroundStyle?: any;
+  /** 滑块前景样式 */
   readonly foregroundStyle?: any;
+  /** 滑块两个操作块样式 */
   readonly handlerStyle?: any;
+  /** 文本样式 */
   readonly textStyle?: any;
-  // 允许滑动位置
+  /** 允许滑动位置的最小值 */
   readonly minLimit?: number;
+  /** 允许滑动位置的最大值 */
   readonly maxLimit?: number;
-  // 初始位置
+  /** 滑块初始化的起始位置 */
   readonly start?: number;
+  /** 滑块初始化的结束位置 */
   readonly end?: number;
 }
 
 type Option = SliderOption | boolean;
 
 /**
+ * @ignore
  * slider Controller
  */
 export default class Slider extends Controller<Option> {

@@ -1,6 +1,7 @@
 import { Attribute } from '../dependents';
 
 /**
+ * @ignore
  * get the mapping value by attribute, if mapping value is nil, return def
  * @param attr
  * @param value

@@ -3,9 +3,11 @@ import { ListItem } from '../../../dependents';
 import Element from '../../../geometry/element/';
 import { getCurrentElement, getDelegationObject, getElements, getElementValue, isList } from '../util';
 import StateBase from './state-base';
+
 /**
  * 状态量 Action 的基类，允许多个 Element 同时拥有某个状态
  * @class
+ * @ignore
  */
 class ElementState extends StateBase {
 

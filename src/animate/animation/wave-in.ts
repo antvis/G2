@@ -4,6 +4,7 @@ import { getCoordinateClipCfg } from '../../util/coordinate';
 import { AnimateExtraCfg } from '../interface';
 
 /**
+ * @ignore
  * 整体动画
  * 划入入场动画效果
  * @todo 放两张直角坐标系和极坐标系的图

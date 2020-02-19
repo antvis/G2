@@ -12,6 +12,7 @@ export type ControllerCtor<O = any> = new (view: View) => Controller<O>;
  * 3. 明确定义的组件事件（名称、数据）
  */
 export abstract class Controller<O = unknown> {
+  /** 是否可见 */
   public visible: boolean = true;
   protected view: View;
   /** option 配置，不同组件有自己不同的配置结构 */

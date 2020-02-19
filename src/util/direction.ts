@@ -4,6 +4,7 @@ import { Position } from '../interface';
 import { BBox } from './bbox';
 
 /**
+ * @ignore
  * 方位常量转实际的 bbox 位置大小
  * @param parentBBox
  * @param bbox
@@ -122,6 +123,7 @@ function getReflectDirection(direction: DIRECTION, coordinate: Coordinate): DIRE
 }
 
 /**
+ * @ignore
  * get direction after coordinate translate
  * @param direction
  * @param coordinate

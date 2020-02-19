@@ -7,6 +7,10 @@ import Action from '../base';
 const PADDING_RIGHT = 10;
 const PADDING_TOP = 5;
 
+/**
+ * Button action
+ * @ignore
+ */
 class ButtonAction extends Action {
   private buttonGroup: IGroup = null;
   private buttonCfg = {

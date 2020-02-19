@@ -1,17 +1,13 @@
+import { each } from '@antv/util';
+import { View } from 'src/chart';
 import Action from '../base';
 import { getDelegationObject, isList, isSlider } from '../util';
-import { View } from 'src/chart';
-import { each } from '@antv/util';
 
+/**
+ * 数据过滤。
+ * @ignore
+ */
 class DataFilter extends Action {
-  private filterView(view: View, field, filter) {
-    view.filter(field, filter);
-    if (view.views && view.views.length) {
-      each(view.views, subView => {
-        this.filterView(subView, field, filter);
-      });
-    }
-  }
   /**
    * 过滤数据
    */
@@ -45,6 +41,15 @@ class DataFilter extends Action {
         });
         view.render(true);
       }
+    }
+  }
+
+  private filterView(view: View, field, filter) {
+    view.filter(field, filter);
+    if (view.views && view.views.length) {
+      each(view.views, subView => {
+        this.filterView(subView, field, filter);
+      });
     }
   }
 }

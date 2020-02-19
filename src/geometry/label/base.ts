@@ -22,9 +22,9 @@ function avg(arr: number[]) {
 export default class GeometryLabel {
   /** geometry 实例 */
   public readonly geometry: Geometry;
-  // 坐标系
+  /** 坐标系实例 */
   protected coordinate: Coordinate;
-  // 默认的 label 配置
+  /** 默认的 label 配置 */
   protected defaultLabelCfg: LooseObject;
 
   constructor(geometry: Geometry) {
@@ -46,6 +46,13 @@ export default class GeometryLabel {
     return items;
   }
 
+  /**
+   * 设置 label 位置
+   * @param labelPointCfg
+   * @param mappingData
+   * @param index
+   * @param position
+   */
   protected setLabelPosition(
     labelPointCfg: LabelPointCfg,
     mappingData: MappingDatum,
@@ -53,8 +60,17 @@ export default class GeometryLabel {
     position: string
   ) {}
 
+  /**
+   * 生成文本线配置
+   * @param item
+   */
   protected lineToLabel(item: LabelItem) {}
 
+  /**
+   * 调整 labels
+   * @param items
+   * @returns
+   */
   protected adjustItems(items: LabelItem[]) {
     each(items, (item) => {
       if (!item) {
@@ -70,6 +86,10 @@ export default class GeometryLabel {
     return items;
   }
 
+  /**
+   * 绘制文本线
+   * @param items
+   */
   protected drawLines(items: LabelItem[]) {
     each(items, (item) => {
       if (!item) {
@@ -86,12 +106,24 @@ export default class GeometryLabel {
     });
   }
 
+  /**
+   * 获取文本默认偏移量
+   * @param offset
+   * @returns
+   */
   protected getDefaultOffset(offset: number) {
     const coordinate = this.coordinate;
     const vector = this.getOffsetVector(offset);
     return coordinate.isTransposed ? vector[0] : vector[1];
   }
 
+  /**
+   * 获取每个 label 的偏移量
+   * @param labelCfg
+   * @param index
+   * @param total
+   * @returns
+   */
   protected getLabelOffset(labelCfg: LabelCfg, index: number, total: number) {
     const offset = this.getDefaultOffset(labelCfg.offset);
     const coordinate = this.coordinate;
@@ -111,6 +143,13 @@ export default class GeometryLabel {
     return offsetPoint;
   }
 
+  /**
+   * 获取每个 label 的位置
+   * @param labelCfg
+   * @param mappingData
+   * @param index
+   * @returns label point
+   */
   protected getLabelPoint(labelCfg: LabelCfg, mappingData: MappingDatum, index: number): LabelPointCfg {
     const coordinate = this.coordinate;
     const total = labelCfg.content.length;
@@ -189,6 +228,13 @@ export default class GeometryLabel {
     return label;
   }
 
+  /**
+   * 获取文本的对齐方式
+   * @param item
+   * @param index
+   * @param total
+   * @returns
+   */
   protected getLabelAlign(item: LabelItem, index: number, total: number) {
     let align = 'center';
     const coordinate = this.coordinate;

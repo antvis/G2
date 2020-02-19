@@ -3,6 +3,7 @@ import { DIRECTION } from '../constant';
 import { Coordinate, Scale, Tick } from '../dependents';
 
 /**
+ * @ignore
  * get the grid theme by type
  * @param theme
  * @param direction
@@ -13,6 +14,7 @@ export function getGridThemeCfg(theme: object, direction: DIRECTION): object {
 }
 
 /**
+ * @ignore
  * get axis grid items
  * @param coordinate
  * @param scale
@@ -58,6 +60,7 @@ export function getLineGridItems(coordinate: Coordinate, scale: Scale, dim: stri
 }
 
 /**
+ * @ignore
  * get
  * @param coordinate
  * @param xScale
@@ -87,6 +90,7 @@ export function getCircleGridItems(coordinate: Coordinate, xScale: Scale, yScale
 }
 
 /**
+ * @ignore
  * show grid or not
  * @param axisTheme
  * @param axisOption

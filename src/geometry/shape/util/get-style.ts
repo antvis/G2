@@ -2,6 +2,7 @@ import { get, isNil } from '@antv/util';
 import { ShapeInfo } from '../../../interface';
 
 /**
+ * @ignore
  * 获取 Shape 的图形属性
  * @param cfg
  * @param isStroke 是否需要描边

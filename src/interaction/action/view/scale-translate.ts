@@ -1,8 +1,11 @@
 import { each } from '@antv/util';
 import { Point } from '../../../dependents';
 import TransformAction from './scale-transform';
+
+
 /**
  * 拖拽 Scale 的 Action
+ * @ignore
  */
 class ScaleTranslate extends TransformAction {
   protected startPoint: Point = null;

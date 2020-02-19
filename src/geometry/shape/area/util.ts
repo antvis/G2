@@ -45,6 +45,16 @@ function getPath(
   return path;
 }
 
+/**
+ * @ignore
+ * Gets shape attrs
+ * @param cfg
+ * @param isStroke
+ * @param smooth
+ * @param registeredShape
+ * @param [constraint]
+ * @returns
+ */
 export function getShapeAttrs(
   cfg: ShapeInfo,
   isStroke: boolean,
@@ -65,6 +75,12 @@ export function getShapeAttrs(
   return attrs;
 }
 
+/**
+ * @ignore
+ * Gets constraint
+ * @param coordinate
+ * @returns constraint
+ */
 export function getConstraint(coordinate: Coordinate): Position[] {
   const { start, end } = coordinate;
   return [
