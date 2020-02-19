@@ -3,6 +3,7 @@ import { BBox, IGroup, IShape } from '../../../dependents';
 import { translate } from '../../../util/transform';
 
 /**
+ * @ignore
  * 将 label 限制在画布范围内，简单得将超出画布的 label 往画布内调整
  * @param labels
  * @param cfg

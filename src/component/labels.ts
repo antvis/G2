@@ -9,8 +9,13 @@ import { getGeometryLabelLayout } from '../geometry/label';
 import { getReplaceAttrs } from '../util/graphics';
 import { rotate, translate } from '../util/transform';
 
+/**
+ * Labels 实例创建时，传入构造函数的参数定义
+ */
 export interface LabelsGroupCfg {
+  /** label 容器 */
   container: IGroup;
+  /** label 布局配置 */
   layout?: GeometryLabelLayoutCfg | GeometryLabelLayoutCfg[];
 }
 
@@ -24,6 +29,7 @@ export default class Labels {
   public container: IGroup;
   /** 动画配置 */
   public animate: AnimateOption | false;
+  /** label 绘制的区域 */
   public region: BBox;
 
   /** 存储当前 shape 的映射表，键值为 shape id */
@@ -128,12 +134,14 @@ export default class Labels {
     offscreenGroup.destroy();
   }
 
+  /** 清楚当前 labels */
   public clear() {
     this.container.clear();
     this.shapesMap = {};
     this.lastShapesMap = {};
   }
 
+  /** 销毁 */
   public destroy() {
     this.container.destroy();
     this.shapesMap = null;

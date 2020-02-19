@@ -7,6 +7,7 @@ const STATUS_ACTIVE = 'active';
 /**
  * 清理图例的 Highlight 效果
  * @param list 列表组件，图例或者坐标轴
+ * @ignore
  */
 export function clearList(list: IList) {
   const items = list.getItems();

@@ -2,8 +2,11 @@
  * view 中三层 group 分层 key
  */
 export enum LAYER {
+  /** 前景层 */
   FORE = 'fore',
+  /** 中间层 */
   MID = 'mid',
+  /** 背景层 */
   BG = 'bg',
 }
 
@@ -31,17 +34,17 @@ export enum DIRECTION {
  * 组件的类型，可能会影响到布局算法
  */
 export enum COMPONENT_TYPE {
-  // axis 组件
+  /** axis 组件 */
   AXIS = 'axis',
-  // grid 组件
+  /** grid 组件 */
   GRID = 'grid',
-  // legend 组件
+  /** legend 组件 */
   LEGEND = 'legend',
-  // tooltip 组件
+  /** tooltip 组件 */
   TOOLTIP = 'tooltip',
-  // annotation 组件
+  /** annotation 组件 */
   ANNOTATION = 'annotation',
-  // 其他组件，自定义组件
+  /** 其他组件，自定义组件 */
   OTHER = 'other',
 }
 
@@ -96,9 +99,9 @@ export enum PLOT_EVENTS {
 export const GROUP_ATTRS = ['color', 'shape', 'size'];
 /** 存储原始数据的字段名 */
 export const FIELD_ORIGIN = '_origin';
-
+/** 最小的图表宽度 */
 export const MIN_CHART_WIDTH = 100;
+/** 最小的图表高度 */
 export const MIN_CHART_HEIGHT = 100;
-
 /** 辅助组件占图表的尺寸的最大比例：如图表上方的图例最多占图表高度的25% */
 export const COMPONENT_MAX_VIEW_PERCENTAGE = 0.25;

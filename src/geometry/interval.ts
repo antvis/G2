@@ -6,13 +6,17 @@ import Geometry from './base';
 import './shape/interval';
 import { getDefaultSize } from './util/shape-size';
 
+/**
+ * Interval 几何标记。
+ * 用于绘制柱状图、饼图、条形图、玫瑰图等。
+ */
 export default class Interval extends Geometry {
   public readonly type: string = 'interval';
   public readonly shapeType: string = 'interval';
   protected generatePoints: boolean = true;
 
   /**
-   * Creates shape points cfg
+   * 获取每条数据的 Shape 绘制信息
    * @param obj 经过分组 -> 数字化 -> adjust 调整后的数据记录
    * @returns
    */
@@ -39,6 +43,10 @@ export default class Interval extends Geometry {
     return cfg;
   }
 
+  /**
+   * 调整 y 轴的 scale 范围。
+   * 对于 Y 轴为数值轴柱状图，默认从 0 开始 生长。
+   */
   protected adjustScale() {
     super.adjustScale();
     const yScale = this.getYScale();

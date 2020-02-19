@@ -3,6 +3,7 @@ import TransformAction from './scale-transform';
 
 /**
  * 缩放 Scale 的 Action
+ * @ignore
  */
 class ScaleTranslate extends TransformAction {
   /**

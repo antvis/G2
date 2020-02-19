@@ -5,11 +5,19 @@ import Geometry from './base';
 import './shape/schema';
 import { getDefaultSize } from './util/shape-size';
 
+/**
+ * Schema 几何标记，用于一些自定义图形的绘制，比如箱型图、股票图等。
+ */
 export default class Schema extends Geometry {
   public readonly type: string = 'schema';
   public readonly shapeType: string = 'schema';
   protected generatePoints: boolean = true;
 
+  /**
+   * 获取 Shape 的关键点数据。
+   * @param record
+   * @returns
+   */
   protected createShapePointsCfg(record: LooseObject) {
     const cfg = super.createShapePointsCfg(record);
 

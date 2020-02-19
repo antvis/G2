@@ -30,6 +30,7 @@ function uniq(items) {
   return uniqItems;
 }
 
+/** @ignore */
 export default class Tooltip extends Controller<TooltipOption> {
   private tooltip;
   private tooltipMarkersGroup: IGroup;

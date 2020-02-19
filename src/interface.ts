@@ -36,7 +36,7 @@ import { Facet } from './facet';
 import Element from './geometry/element';
 
 // ============================ 基础类型 ============================
-/** 对象 */
+/** 通用对象 */
 export interface LooseObject {
   [key: string]: any;
 }
@@ -59,29 +59,33 @@ export interface Size {
   readonly height: number;
 }
 
+/** 带范围的点结构 */
 export interface RangePoint {
   readonly x?: number | number[];
   readonly y?: number | number[];
 }
 
-// 用户数据经过图形映射处理后的数据结构
+/** 用户数据经过图形映射处理后的数据结构 */
 export interface MappingDatum {
-  /** raw data */
+  /** 原始数据 */
   _origin: Datum;
-  /** the key points of the shape */
+  /** shape 的关键点信息 */
   points?: ShapeVertices;
-  /** the key points of next shape */
+  /** 相对于当前 shape 的下一个 shape 的关键点信息 */
   nextPoints?: ShapeVertices;
-  /** value in the x direction */
+  /** x 轴的坐标 */
   x?: number[] | number;
-  /** value in the y direction */
+  /** y 轴的坐标 */
   y?: number[] | number;
+  /** 颜色 */
   color?: string;
+  /** 渲染的 shape 类型 */
   shape?: string | string[];
+  /** 大小 */
   size?: number;
 }
 
-// 绘制 Shape 需要的图形、样式、关键点等信息
+/** 绘制 Shape 需要的图形、样式、关键点等信息 */
 export interface ShapeInfo {
   /** x 坐标 */
   x: number | number[];
@@ -115,7 +119,7 @@ export interface ShapeInfo {
   defaultStyle?: LooseObject;
 }
 
-// 用户配置的动画，属性均可选
+/** 用户配置的动画，属性均可选 */
 export interface AnimateCfg {
   /** 动画缓动函数 */
   readonly easing?: string | AnimateEasingCallback;
@@ -129,7 +133,7 @@ export interface AnimateCfg {
   readonly callback?: () => any;
 }
 
-// 传递给 G 的动画配置，duration 必须提供
+/** 传递给 G 的动画配置，duration 必须提供 */
 export interface GAnimateCfg {
   /** 动画执行时间 */
   readonly duration: number;
@@ -267,6 +271,7 @@ export interface LabelOption {
   cfg?: GeometryLabelCfg;
 }
 
+/** Geometry 下每个 state 的配置结构 */
 export interface StateCfg {
   /** 动画参数配置，null 表示关闭动画。 */
   animate?: GAnimateCfg | null;
@@ -286,7 +291,9 @@ export interface StateOption {
   selected?: StateCfg;
 };
 
+/** interval label 的位置 */
 type IntervalGeometryLabelPosition = 'top' | 'bottom' | 'middle' | 'left' | 'right';
+/** G2 提供的 adjust 类型 */
 export type AdjustType = 'stack' | 'jitter' | 'dodge' | 'symmetric';
 /** geometry.color() 图形属性回调函数定义 */
 export type ColorAttrCallback = (...args) => string;
@@ -307,6 +314,7 @@ export type StateStyleCallback = (element: Element) => LooseObject;
 
 
 // ============================ Geometry Shape 接口相关的类型定义 ============================
+/** 获取 shape marker 时需要的信息 */
 export interface ShapeMarkerCfg {
   /** 颜色。 */
   color: string;
@@ -382,16 +390,20 @@ export interface ShapeFactory extends RegisterShapeFactory {
   getShapePoints: (shapeType: string | string[], pointInfo: ShapePoint) => Point[];
 }
 
+/** 自定义 Shape marker 的函数 */
 export type ShapeMarkerSymbol = (x: number, y: number, r: number) => PathCommand[];
 
 
 // ============================ Annotation 类型定义 ============================
+/** Annotation position 回调函数 */
 type AnnotationPositionCallback = (
   xScales: Scale[] | Record<string, Scale>,
   yScales: Scale[] | Record<string, Scale>
 ) => [number, number];
+/** Annotation 位置相关属性的类型定义 */
 export type AnnotationPosition = [number | string, number | string] | Record<string, number | string> | AnnotationPositionCallback;
 
+/** Annotation 定义的通用属性，chart.annotation().line({}) */
 export interface AnnotationBaseOption {
   readonly type?: string;
   /** 指定 annotation 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层 */
@@ -420,12 +432,15 @@ export interface PointPositionBaseOption extends AnnotationBaseOption {
   readonly position: AnnotationPosition;
 }
 
+/** 使用 Image Annotation 组件的配置定义 */
 export interface ImageOption extends RegionPositionBaseOption {
   /** 图片路径 */
   readonly src: string;
 }
 
+/** 使用 Line Annotation 组件的配置定义 */
 export interface LineOption extends RegionPositionBaseOption {
+  /** 文本配置定义 */
   readonly text?: {
     /** 文本位置，除了制定 'start', 'center' 和 'end' 外，还可以使用百分比进行定位， 比如 '30%' */
     readonly position: 'start' | 'center' | 'end' | string;
@@ -441,18 +456,18 @@ export interface LineOption extends RegionPositionBaseOption {
     readonly offsetY?: number;
   };
 }
-
+/** 使用 Arc Annotation 组件的配置定义 */
 export type ArcOption = RegionPositionBaseOption;
-
+/** 使用 Region Annotation 组件的配置定义 */
 export type RegionOption = RegionPositionBaseOption;
-
+/** 使用 Text Annotation 组件的配置定义 */
 export interface TextOption extends PointPositionBaseOption {
   /** 显示的文本内容 */
   readonly content: string | number;
   /** 文本的旋转角度，弧度制 */
   readonly rotate?: number;
 }
-
+/** 使用 DataMarker Annotation 组件的配置定义 */
 export interface DataMarkerOption extends PointPositionBaseOption {
   /** point 设置 */
   readonly point?: null | { style?: object };
@@ -465,7 +480,7 @@ export interface DataMarkerOption extends PointPositionBaseOption {
   /** 朝向，默认为 upward，可选值为 'upward' 或者 'downward' */
   readonly direction?: 'upward' | 'downward';
 }
-
+/** 使用 DataRegion Annotation 组件的配置定义 */
 export interface DataRegionOption extends RegionPositionBaseOption {
   /** line长度，default为 0 */
   readonly lineLength?: number;
@@ -474,7 +489,7 @@ export interface DataRegionOption extends RegionPositionBaseOption {
   /** 文本的配置 */
   readonly text?: null | { style?: object; content: string };
 }
-
+/** 使用 RegionFilter Annotation 组件的配置定义 */
 export interface RegionFilterOption extends RegionPositionBaseOption {
   /** 染色色值 */
   readonly color: string;
@@ -483,6 +498,7 @@ export interface RegionFilterOption extends RegionPositionBaseOption {
 }
 
 // ============================ Chart && View 上的类型定义 ============================
+/** Tooltip 内容框的 css 样式定义 */
 interface TooltipDomStyles {
   'g2-tooltip'?: LooseObject;
   'g2-tooltip-title'?: LooseObject;
@@ -493,7 +509,7 @@ interface TooltipDomStyles {
   'g2-tooltip-name'?: LooseObject;
 }
 
-// 目前组件动画只允许以下参数的配置
+/** 目前组件动画允许的参数配置 */
 interface ComponentAnimateCfg {
   /** 动画执行时间 */
   readonly duration?: number;
@@ -502,7 +518,7 @@ interface ComponentAnimateCfg {
   /** 动画延迟时间 */
   readonly delay?: number;
 }
-
+/** 组件各个动画类型配置 */
 interface ComponentAnimateOption {
   /** 初入场动画配置 */
   appear?: ComponentAnimateCfg;
@@ -540,6 +556,7 @@ export interface ScaleOption extends ScaleConfig {
   showLast?: boolean;
 }
 
+/** Geometry 动画参数配置。geometry.animate() */
 export interface AnimateOption {
   /** chart 初始化渲染时的入场动画，false/null 表示关闭入场动画。 */
   appear?: AnimateCfg | false | null;
@@ -551,7 +568,7 @@ export interface AnimateOption {
   leave?: AnimateCfg | false | null;
 }
 
-// 用于配置项式声明交互行为
+/** 用于配置项式声明交互行为 */
 export interface InteractionOption {
   /** 交互名称 */
   type: string;
@@ -559,7 +576,7 @@ export interface InteractionOption {
   cfg?: LooseObject;
 }
 
-// 用于配置项式的创建方式
+/** 用于配置项式的 Geometry 创建方式 */
 export interface GeometryOption {
   /** Geometry 的类型。 */
   type: 'interval' | 'line' | 'path' | 'point' | 'area' | 'polygon' | 'schema' | 'edge' | 'heatmap' | string;
@@ -594,7 +611,7 @@ export interface GeometryOption {
   };
 }
 
-// 用于配置型式的声明方式
+/** 用于配置型式的 View 声明方式 */
 export interface ViewOption {
   /** view 的绘制范围，起始点为左上角。 */
   readonly region?: Region;
@@ -618,7 +635,7 @@ export interface ViewOption {
   readonly options?: Options;
 }
 
-// chart 构造方法的入参
+/** Chart 构造方法的入参 */
 export interface ChartCfg {
   /** 指定 chart 绘制的 DOM，可以传入 DOM id，也可以直接传入 dom 实例。 */
   readonly container: string | HTMLElement;
@@ -665,7 +682,7 @@ export interface ChartCfg {
   readonly limitInPlot?: boolean;
 }
 
-// view 构造参数
+/** View 构造参数 */
 export interface ViewCfg {
   /** 当前 view 的父级 view。 */
   readonly parent: View;
@@ -715,11 +732,13 @@ export interface ComponentOption {
   readonly extra?: any;
 }
 
+/** Legend marker 的配置结构 */
 interface MarkerCfg extends LegendMarkerCfg {
   /** 配置图例 marker 的 symbol 形状。 */
   symbol?: Marker | MarkerCallback;
 }
 
+/** Legend item 各个图例项的数据结构 */
 export interface LegendItem {
   /**
    * 唯一值，用于动画或者查找
@@ -854,6 +873,7 @@ export interface LegendCfg {
   offsetY?: number;
 }
 
+/** Tooltip Crosshairs 的文本数据结构 */
 interface TooltipCrosshairsText extends CrosshairTextCfg {
   /** crosshairs 文本内容 */
   content?: string;
@@ -868,6 +888,7 @@ interface TooltipCrosshairsText extends CrosshairTextCfg {
  * @returns 返回当前 crosshairs 对应的辅助线文本配置
  */
 type TooltipCrosshairsTextCallback = (type: string, defaultContent: any, items: any[], currentPoint: Point) => TooltipCrosshairsText;
+/** Tooltip crosshairs 配置结构 */
 export interface TooltipCrosshairs {
   /**
    * crosshairs 的类型: `x` 表示 x 轴上的辅助线，`y` 表示 y 轴上的辅助项。
@@ -889,6 +910,7 @@ export interface TooltipCrosshairs {
   textBackground?: CrosshairTextBackgroundCfg;
 }
 
+/** chart.tooltip() 接口配置属性 */
 export interface TooltipCfg {
   /** 设置 tooltip 是否跟随鼠标移动，默认为 false, 定位到数据点。 */
   follow?: boolean;
@@ -940,6 +962,7 @@ export interface CoordinateOption {
   actions?: CoordinateActions[];
 }
 
+/** 极坐标系支持的配置属性 */
 export interface CoordinateCfg {
   /**
    * 用于极坐标，配置起始弧度。
@@ -959,6 +982,7 @@ export interface CoordinateCfg {
   innerRadius?: number;
 }
 
+/** 坐标轴网格线的配置属性 */
 export interface AxisGridCfg {
   /**
    * 线的样式。
@@ -979,6 +1003,7 @@ export interface AxisGridCfg {
   alignTick?: boolean;
 }
 
+/** 坐标轴配置属性，chart.axis() */
 export interface AxisCfg {
   /**
    * 适用于直角坐标系，设置坐标轴的位置。
@@ -1014,6 +1039,7 @@ export interface AxisCfg {
   verticalFactor?: number;
 }
 
+/** 配置项声明式 */
 export interface Options {
   /** 数据源配置。 */
   readonly data: Data;
@@ -1053,6 +1079,7 @@ export interface Options {
   readonly views?: ViewOption[];
 }
 
+/** 支持的 Marker 类型 */
 type Marker =
   | 'circle'
   | 'square'
@@ -1066,12 +1093,17 @@ type Marker =
   | 'plus'
   | 'hyphen'
   | 'line';
+/** 自定义 Marker 的回调函数定义 */
 type MarkerCallback = (x: number, y: number, r: number) => PathCommand;
+/** chart.tooltip() 参数类型 */
 export type TooltipOption = TooltipCfg | boolean;
 /* 筛选器函数类型定义 */
 export type FilterCondition = (value: any, datum: Datum, idx?: number) => boolean;
+/** chart.axis() 参数类型 */
 export type AxisOption = AxisCfg | boolean;
+/** chart.legend() 参数类型 */
 export type LegendOption = LegendCfg | boolean;
+/** G2 支持的度量类型 */
 export type ScaleType =
   'linear' |
   'cat' |
@@ -1088,6 +1120,7 @@ type CoordinateRotate = ['rotate', number];
 type CoordinateReflect = ['reflect', 'x' | 'y'];
 type CoordinateScale = ['scale', number, number];
 type CoordinateTranspose = ['transpose'];
+/** 坐标系支持的 action 配置 */
 export type CoordinateActions = CoordinateRotate | CoordinateReflect | CoordinateScale | CoordinateTranspose;
 
 // ============================ Facet 分面相关类型定义 ============================
@@ -1165,7 +1198,7 @@ export interface FacetData {
 }
 
 // ===================== rect 相关类型定义 =====================
-
+/** rect 分面类型配置 */
 export interface RectCfg extends FacetCfg<RectData> {
   /** 行标题的样式。 */
   readonly columnTitle?: FacetTitle,
@@ -1178,7 +1211,7 @@ export interface RectData extends FacetData {
 }
 
 // ===================== mirror 相关类型定义 =====================
-
+/** mirror 分面类型配置 */
 export interface MirrorCfg extends FacetCfg<MirrorData> {
   /** 是否转置。 */
   readonly transpose?: boolean;
@@ -1190,7 +1223,7 @@ export interface MirrorData extends FacetData {
 }
 
 // ===================== list 相关类型定义 =====================
-
+/** list 分面类型配置 */
 export interface ListCfg extends FacetCfg<ListData> {
   /** 指定每行可显示分面的个数，超出时会自动换行。 */
   readonly cols?: number;
@@ -1203,7 +1236,7 @@ export interface ListData extends FacetData {
 }
 
 // ===================== matrix 相关类型定义 =====================
-
+/** matrix 分面类型配置 */
 export interface MatrixCfg extends FacetCfg<MirrorData> {
   /** 列标题的样式 */
   readonly columnTitle?: FacetTitle,
@@ -1215,7 +1248,7 @@ export interface MatrixData extends FacetData {
 }
 
 // ===================== circle 相关类型定义 =====================
-
+/** circle 分面类型配置 */
 export interface CircleCfg extends FacetCfg<CircleData> {
   /** 分面标题配置。 */
   readonly title?: FacetTitle;
@@ -1230,7 +1263,7 @@ export interface Line {
   readonly style?: ShapeAttrs,
   readonly smooth?: boolean;
 }
-
+/** tree 分面类型配置 */
 export interface TreeCfg extends FacetCfg<TreeData> {
   readonly line?: Line;
   readonly title?: FacetTitle;

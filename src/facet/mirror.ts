@@ -7,6 +7,7 @@ import { getFactTitleConfig } from '../util/facet';
 import { Facet } from './facet';
 
 /**
+ * @ignore
  * 镜像分面
  */
 export default class Mirror extends Facet<MirrorCfg, MirrorData> {

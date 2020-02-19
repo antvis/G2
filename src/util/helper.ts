@@ -1,5 +1,13 @@
 import { isArray, isString } from '@antv/util';
 
+/**
+ * @ignore
+ * Determines whether between is
+ * @param value
+ * @param start
+ * @param end
+ * @returns true if between
+ */
 export function isBetween(value: number, start: number, end: number): boolean {
   const min = Math.min(start, end);
   const max = Math.max(start, end);
@@ -8,6 +16,7 @@ export function isBetween(value: number, start: number, end: number): boolean {
 }
 
 /**
+ * @ignore
  * pads the current string/array with a given value (repeated, if needed) so that the resulting reaches a given length.
  * The padding is applied from the end of the current value.
  *
@@ -33,6 +42,7 @@ export function padEnd(source: string | any[], targetLength: number, padValue: a
 }
 
 /**
+ * @ignore
  * omit keys of an object.
  * @param obj
  * @param keys

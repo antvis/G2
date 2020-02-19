@@ -2,6 +2,7 @@ import { isArray } from '@antv/util';
 import { Point, RangePoint } from '../../../interface';
 
 /**
+ * @ignore
  * 拆分点数据
  * @example
  * // result: [{x: 20, y: 20}, {x: 20, y: 30}]

@@ -6,6 +6,7 @@ import { AnimateOption, Datum, LooseObject, ShapeFactory, ShapeInfo, StateCfg } 
 import { getReplaceAttrs } from '../../util/graphics';
 import Geometry from '../base';
 
+/** Element 构造函数传入参数类型 */
 interface ElementCfg {
   /** 用于创建各种 shape 的工厂对象 */
   shapeFactory: ShapeFactory;
@@ -15,6 +16,7 @@ interface ElementCfg {
   container: IGroup;
   /** 虚拟 group，用户可以不传入 */
   offscreenGroup?: IGroup;
+  /** 是否可见 */
   visible?: boolean;
 }
 

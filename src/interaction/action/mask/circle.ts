@@ -1,8 +1,9 @@
+import { last } from '@antv/util';
 import { distance } from '../util';
 import MaskBase from './base';
-import { last } from '@antv/util';
 
 /**
+ * @ignore
  * 圆形辅助框 Action
  */
 class CircleMask extends MaskBase {

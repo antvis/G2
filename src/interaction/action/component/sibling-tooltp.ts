@@ -1,13 +1,19 @@
-import TooltipAction from './tooltip';
+import { each } from '@antv/util';
 import { View } from '../../../chart';
 import { Point } from '../../../interface';
 import {getSiblingPoint, getSilbings} from '../util'
-import { each } from '@antv/util';
+import TooltipAction from './tooltip';
+
 /**
  * 存在多个 view 时，控制其他 view 上的 tooltip 显示
+ * @ignore
  */
 class SiblingTooltip extends TooltipAction {
-  // 所有同一层级的 tooltip 显示
+  /**
+   * 所有同一层级的 tooltip 显示
+   * @param view
+   * @param point
+   */
   protected showTooltip(view: View, point: Point) {
     const siblings = getSilbings(view);
     each(siblings, sibling => {
@@ -15,7 +21,10 @@ class SiblingTooltip extends TooltipAction {
       sibling.showTooltip(siblingPoint);
     });
   }
-  // 隐藏同一层级的 tooltip
+  /**
+   * 隐藏同一层级的 tooltip
+   * @param view
+   */
   protected hideTooltip(view) {
     const siblings = getSilbings(view);
     each(siblings, sibling => {

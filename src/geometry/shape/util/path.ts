@@ -88,7 +88,10 @@ function _filterFullCirleLine(path: PathCommand[]) {
   });
 }
 
-/** 计算光滑的贝塞尔曲线 */
+/**
+ * @ignore
+ * 计算光滑的贝塞尔曲线
+ */
 export const smoothBezier = (
   points: Position[],
   smooth: number,
@@ -165,7 +168,10 @@ export const smoothBezier = (
   return cps;
 };
 
-/** 贝塞尔曲线 */
+/**
+ * @ignore
+ * 贝塞尔曲线
+ */
 export function catmullRom2bezier(crp: number[], z: boolean, constraint: Position[]): PathCommand[] {
   const isLoop = !!z;
   const pointList = [];
@@ -199,12 +205,18 @@ export function catmullRom2bezier(crp: number[], z: boolean, constraint: Positio
   return d1;
 }
 
-/** 将点连接成路径 path */
+/**
+ * @ignore
+ * 将点连接成路径 path
+ */
 export function getLinePath(points: Point[], isInCircle?: boolean): PathCommand[] {
   return _points2path(points, isInCircle);
 }
 
-/** 根据关键点获取限定了范围的平滑线 */
+/**
+ * @ignore
+ * 根据关键点获取限定了范围的平滑线
+ */
 export function getSplinePath(points: Point[], isInCircle?: boolean, constaint?: Position[]): PathCommand[] {
   const data = [];
   const first = points[0];
@@ -230,7 +242,10 @@ export function getSplinePath(points: Point[], isInCircle?: boolean, constaint?:
   return splinePath;
 }
 
-/** 将归一化后的路径数据转换成坐标 */
+/**
+ * @ignore
+ * 将归一化后的路径数据转换成坐标
+ */
 export function convertNormalPath(coord, path: PathCommand[]): PathCommand[] {
   const tmp = [];
   each(path, (subPath) => {
@@ -250,7 +265,10 @@ export function convertNormalPath(coord, path: PathCommand[]): PathCommand[] {
   return tmp;
 }
 
-/** 将路径转换为极坐标下的真实路径 */
+/**
+ * @ignore
+ * 将路径转换为极坐标下的真实路径
+ */
 export function convertPolarPath(coord, path: PathCommand[]): PathCommand[] {
   let tmp = [];
   let pre: PathCommand;

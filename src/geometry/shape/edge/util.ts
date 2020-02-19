@@ -1,6 +1,13 @@
 import { each } from '@antv/util';
 import { Point } from '../../../interface';
 
+/**
+ * @ignore
+ * Gets cpath
+ * @param from
+ * @param to
+ * @returns
+ */
 export function getCPath(from: Point, to: Point) {
   const points = [];
   points.push({
@@ -22,6 +29,13 @@ export function getCPath(from: Point, to: Point) {
   return sub;
 }
 
+/**
+ * @ignore
+ * Gets qpath
+ * @param to
+ * @param center
+ * @returns
+ */
 export function getQPath(to: Point, center: Point) {
   const points = [];
   points.push({

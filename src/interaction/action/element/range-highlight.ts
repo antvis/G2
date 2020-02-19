@@ -1,14 +1,14 @@
 import Element from '../../../geometry/element/';
-import { getElements } from '../util';
 import { clearHighlight, setHighlightBy } from './highlight-util';
 import ElementRangeState from './range-state';
 
 /**
+ * @ignore
  * 区域 highlight 的 Action
  */
 class ElementRangeHighlight extends ElementRangeState {
   protected stateName: string = 'active';
-  
+
   // 清理掉所有的 active， unactive 状态
   protected clearViewState(view) {
     clearHighlight(view);

@@ -29,6 +29,7 @@ import View from '../view';
 import { Controller } from './base';
 
 /**
+ * @ignore
  * annotation controller, supply:
  * 1. API for creating annotation: line、text、arc ...
  * 2. life circle: init、layout、render、clear、destroy

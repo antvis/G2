@@ -8,6 +8,7 @@ import { getMappingValue } from './attr';
 import { MarkerSymbols } from './marker';
 
 /**
+ * @ignore
  * get the legend layout from direction
  * @param direction
  * @returns layout 'horizontal' | 'vertical'
@@ -17,6 +18,7 @@ export function getLegendLayout(direction: DIRECTION): 'vertical' | 'horizontal'
 }
 
 /**
+ * @ignore
  * get the legend items
  * @param view
  * @param geometry
@@ -69,6 +71,7 @@ export function getLegendItems(
 }
 
 /**
+ * @ignore
  * custom legend 的 items 获取
  * @param themeMarker
  * @param userMarker

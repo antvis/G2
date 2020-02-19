@@ -7,11 +7,16 @@ import Element from './element';
 import './shape/line';
 import { isModelChange } from './util/is-model-change';
 
+/** Path 构造函数参数类型 */
 export interface PathCfg extends GeometryCfg {
   /** 是否连接空值 */
   connectNulls?: boolean;
 }
 
+/**
+ * Path 几何标记。
+ * 用于绘制路径图等。
+ */
 export default class Path extends Geometry {
   public readonly type: string = 'path';
   public readonly shapeType: string = 'line';
@@ -25,6 +30,12 @@ export default class Path extends Geometry {
     this.connectNulls = connectNulls;
   }
 
+  /**
+   * 创建所有的 Element 实例，对于 Path、Line、Area，一组数据对应一个 Element。
+   * @param mappingData
+   * @param [isUpdate]
+   * @returns elements
+   */
   protected createElements(mappingData: MappingDatum[], isUpdate: boolean = false): Element[] {
     // Path 的每个 element 对应一组数据
     const { lastElementsMap, elementsMap, elements, theme, container } = this;
@@ -61,6 +72,11 @@ export default class Path extends Geometry {
     return elements;
   }
 
+  /**
+   * 获取组成一条线（一组数据）的所有点数据。
+   * @param mappingData
+   * @returns points
+   */
   protected getPoints(mappingData: MappingDatum[]): Point[] | RangePoint[] {
     return mappingData.map((obj: MappingDatum) => {
       return {

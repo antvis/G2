@@ -1,8 +1,11 @@
 import { Point } from '../../../dependents';
 import Action from '../base';
 import { distance } from '../util';
+
 const DISTANCE = 4; // 移动的最小距离
+
 /**
+ * @ignore
  * View 支持 Drag 的 Action
  */
 class Drag extends Action {

@@ -9,6 +9,10 @@ import { AxisCfg, Condition, Datum, TreeCfg, TreeData } from '../interface';
 import { getFactTitleConfig } from '../util/facet';
 import { Facet } from './facet';
 
+/**
+ * @ignore
+ * Tree Facet
+ */
 export default class Tree extends Facet<TreeCfg, TreeData> {
 
   protected afterEachView(view: View, facet: TreeData) {

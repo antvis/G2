@@ -148,6 +148,7 @@ function getTooltipName(originData: Datum, geometry: Geometry) {
 }
 
 /**
+ * @ignore
  * Finds data from geometry by point
  * @param point canvas point
  * @param data an item of geometry.dataArray
@@ -294,6 +295,14 @@ export function findDataByPoint(point: Point, data: MappingDatum[], geometry: Ge
   return rst;
 }
 
+/**
+ * @ignore
+ * Gets tooltip items
+ * @param data
+ * @param geometry
+ * @param [title]
+ * @returns
+ */
 export function getTooltipItems(data: MappingDatum, geometry: Geometry, title: string = '') {
   const originData = data[FIELD_ORIGIN];
   const tooltipTitle = getTooltipTitle(originData, geometry, title);

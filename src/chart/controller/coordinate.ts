@@ -3,6 +3,7 @@ import { Coordinate, getCoordinate, Point } from '../../dependents';
 import { CoordinateOption } from '../../interface';
 
 /**
+ * @ignore
  * coordinate controller，职责：
  * 1. 创建实例
  * 2. 暂存配置

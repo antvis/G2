@@ -4,6 +4,7 @@ import { GAnimateCfg, Point } from '../../interface';
 import { AnimateExtraCfg } from '../interface';
 
 /**
+ * @ignore
  * 沿着 x 方向放大的动画
  * @param shape
  * @param animateCfg
@@ -39,6 +40,7 @@ export function scaleInX(shape: IShape | IGroup, animateCfg: GAnimateCfg, cfg: A
 }
 
 /**
+ * @ignore
  * 沿着 y 方向放大的动画
  * @param shape
  * @param animateCfg

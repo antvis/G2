@@ -4,11 +4,20 @@ import Geometry from './base';
 /** 引入 Path 对应的 ShapeFactory */
 import './shape/polygon';
 
+/**
+ * Polygon 几何标记。
+ * 常用于绘制色块图、日历图等。
+ */
 export default class Polygon extends Geometry {
   public readonly type: string = 'polygon';
   public readonly shapeType: string = 'polygon';
   protected generatePoints: boolean = true;
 
+  /**
+   * 获取 Shape 的关键点数据。
+   * @param obj
+   * @returns
+   */
   protected createShapePointsCfg(obj: Datum) {
     const cfg: any = super.createShapePointsCfg(obj);
     let x = cfg.x;

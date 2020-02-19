@@ -1,4 +1,3 @@
-import { addEventListener } from '@antv/dom-util';
 import { each, isArray, isFunction, isString } from '@antv/util';
 import { View } from '../chart';
 import { ActionCallback, IAction, IInteractionContext, LooseObject } from '../interface';
@@ -39,6 +38,7 @@ const STEP_NAMES = {
   ROLLBACK: 'rollback',
   PROCESSING: 'processing',
 };
+
 /** 交互环节的定义 */
 export interface InteractionStep {
   /**
@@ -72,7 +72,7 @@ export interface InteractionStep {
   once?: boolean;
 }
 
-// 缓存 action 对象
+/** 缓存 action 对象 */
 interface ActionObject {
   action: IAction;
   methodName: string;
@@ -110,21 +110,70 @@ class GrammarInteraction extends Interaction {
   private steps: InteractionSteps;
   /** 当前执行到的阶段 */
   public currentStepName: string;
-  private callbackCaches: LooseObject = {};
-  // 某个触发和反馈在本环节是否执行或
-  private emitCaches: LooseObject = {};
   /**
    * 当前交互的上下文
    */
   public context: IInteractionContext;
+
+  private callbackCaches: LooseObject = {};
+  // 某个触发和反馈在本环节是否执行或
+  private emitCaches: LooseObject = {};
+
   constructor(view: View, steps: InteractionSteps) {
     super(view, steps);
     this.steps = steps;
   }
 
+  /**
+   * 初始化
+   */
   public init() {
     this.initContext();
     super.init();
+  }
+
+  /**
+   * 清理资源
+   */
+  public destroy() {
+    super.destroy(); // 先清理事件
+    this.steps = null;
+    if (this.context) {
+      this.context.destroy();
+      this.context = null;
+    }
+
+    this.callbackCaches = null;
+    this.view = null;
+  }
+
+  /**
+   * 绑定事件
+   */
+  protected initEvents() {
+    each(this.steps, (stepArr, stepName) => {
+      each(stepArr, (step) => {
+        const callback = this.getActionCallback(stepName, step);
+        if (callback) {
+          // 如果存在 callback，才绑定，有时候会出现无 callback 的情况
+          this.bindEvent(step.trigger, callback);
+        }
+      });
+    });
+  }
+
+  /**
+   * 清理绑定的事件
+   */
+  protected clearEvents() {
+    each(this.steps, (stepArr, stepName) => {
+      each(stepArr, (step) => {
+        const callback = this.getActionCallback(stepName, step);
+        if (callback) {
+          this.offEvent(step.trigger, callback);
+        }
+      });
+    });
   }
 
   // 初始化上下文，并初始化 action
@@ -269,17 +318,6 @@ class GrammarInteraction extends Interaction {
     }
     return null;
   }
-  // 清理绑定的事件
-  protected clearEvents() {
-    each(this.steps, (stepArr, stepName) => {
-      each(stepArr, (step) => {
-        const callback = this.getActionCallback(stepName, step);
-        if (callback) {
-          this.offEvent(step.trigger, callback);
-        }
-      });
-    });
-  }
 
   private bindEvent(eventName, callback) {
     const nameArr = eventName.split(':');
@@ -291,6 +329,7 @@ class GrammarInteraction extends Interaction {
       this.view.on(eventName, callback);
     }
   }
+
   private offEvent(eventName, callback) {
     const nameArr = eventName.split(':');
     if (nameArr[0] === 'window') {
@@ -300,32 +339,6 @@ class GrammarInteraction extends Interaction {
     } else {
       this.view.off(eventName, callback);
     }
-  }
-
-  // 绑定事件
-  protected initEvents() {
-    each(this.steps, (stepArr, stepName) => {
-      each(stepArr, (step) => {
-        const callback = this.getActionCallback(stepName, step);
-        if (callback) {
-          // 如果存在 callback，才绑定，有时候会出现无 callback 的情况
-          this.bindEvent(step.trigger, callback);
-        }
-      });
-    });
-  }
-
-  // 清理资源
-  public destroy() {
-    super.destroy(); // 先清理事件
-    this.steps = null;
-    if (this.context) {
-      this.context.destroy();
-      this.context = null;
-    }
-
-    this.callbackCaches = null;
-    this.view = null;
   }
 }
 

@@ -1,8 +1,10 @@
 import { each } from '@antv/util';
 import Action from '../base';
-import { getDelegationObject, getElements, getElementValue, isList, isSlider, isMask, getMaskedElements } from '../util';
+import { getDelegationObject, getElements, getElementValue, getMaskedElements, isList, isMask, isSlider } from '../util';
+
 /**
  * 元素过滤的 Action，控制元素的显示隐藏
+ * @ignore
  */
 class ElementFilter extends Action {
   /**

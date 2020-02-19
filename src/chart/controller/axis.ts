@@ -41,6 +41,7 @@ const DEFAULT_ANIMATE_CFG = {
 const OMIT_CFG = ['container'];
 
 /**
+ * @ignore
  * G2 Axis controller, will:
  *  - create component
  *    - axis

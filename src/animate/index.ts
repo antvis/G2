@@ -188,6 +188,7 @@ function parseAnimateConfig(animateCfg: AnimateCfg, data: Data | Datum): GAnimat
 }
 
 /**
+ * @ignore
  * 获取 elementName 对应的动画配置，当声明了 `animateType`，则返回 `animateType` 对应的动画配置
  * @param elementName 元素名称
  * @param coordinate 做表弟类型
@@ -210,6 +211,7 @@ export function getDefaultAnimateCfg(elementName: string, coordinate: Coordinate
 }
 
 /**
+ * @ignore
  * 工具函数
  * 根据用户传入的配置为 shape 执行动画
  * @param shape 执行动画的图形元素
@@ -233,6 +235,7 @@ export function doAnimate(shape: IGroup | IShape, animateCfg: AnimateCfg, cfg: A
 }
 
 /**
+ * @ignore
  * 执行 Geometry 群组入场动画
  * @param container 执行群组动画的图形元素
  * @param animateCfg 动画配置

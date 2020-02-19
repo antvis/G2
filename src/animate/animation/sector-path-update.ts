@@ -101,6 +101,7 @@ function getArcInfo(path: PathCommand[]) {
 }
 
 /**
+ * @ignore
  * 饼图更新动画
  * @param shape 文本图形
  * @param animateCfg

@@ -5,9 +5,22 @@ import Geometry from '../../geometry/base';
 import Element from '../../geometry/element/';
 import { catmullRom2bezier, getLinePath } from '../../geometry/shape/util/path';
 import { ComponentOption, IInteractionContext, LooseObject } from '../../interface';
+
+function getMaskBBox(context: IInteractionContext, tolerance: number) {
+  const event = context.event;
+  const maskShape = event.target;
+  const maskBBox = maskShape.getCanvasBBox();
+  // 如果 bbox 过小则不返回
+  if (!(maskBBox.width >= tolerance || maskBBox.height >= tolerance)) {
+    return null;
+  }
+  return maskBBox;
+}
+
 /**
  * 获取当前事件相关的图表元素
  * @param context 交互的上下文
+ * @ignore
  */
 export function getCurrentElement(context: IInteractionContext): Element {
   const event = context.event;
@@ -22,6 +35,7 @@ export function getCurrentElement(context: IInteractionContext): Element {
 /**
  * 获取委托对象
  * @param context 上下文
+ * @ignore
  */
 export function getDelegationObject(context: IInteractionContext): LooseObject {
   const event = context.event;
@@ -36,6 +50,7 @@ export function getDelegationObject(context: IInteractionContext): LooseObject {
 /**
  * 是否是列表组件
  * @param delegateObject 委托对象
+ * @ignore
  */
 export function isList(delegateObject: LooseObject): boolean {
   return delegateObject && delegateObject.component && delegateObject.component.isList();
@@ -44,13 +59,16 @@ export function isList(delegateObject: LooseObject): boolean {
 /**
  * 是否是滑块组件
  * @param delegateObject 委托对象
+ * @ignore
  */
 export function isSlider(delegateObject: LooseObject): boolean {
   return delegateObject && delegateObject.component && delegateObject.component.isSlider();
 }
+
 /**
  * 是否由 mask 触发
  * @param context 上下文
+ * @ignore
  */
 export function isMask(context: IInteractionContext): boolean {
   const event = context.event;
@@ -58,20 +76,10 @@ export function isMask(context: IInteractionContext): boolean {
   return target && target.get('name') === 'mask';
 }
 
-function getMaskBBox(context: IInteractionContext, tolerance: number) {
-  const event = context.event;
-  const maskShape = event.target;
-  const maskBBox = maskShape.getCanvasBBox();
-  // 如果 bbox 过小则不返回
-  if (!(maskBBox.width >= tolerance || maskBBox.height >= tolerance)) {
-    return null;
-  }
-  return maskBBox;
-}
-
 /**
  * 获取被遮挡的 elements
  * @param context 上下文
+ * @ignore
  */
 export function getMaskedElements(context: IInteractionContext, tolerance: number): Element[]{
   const maskBBox = getMaskBBox(context, tolerance);
@@ -82,6 +90,9 @@ export function getMaskedElements(context: IInteractionContext, tolerance: numbe
   return getIntersectElements(context.view, maskBBox);
 }
 
+/**
+ * @ignore
+ */
 export function getSiblingMaskElements(context: IInteractionContext, sibling: View, tolerance: number) {
   const maskBBox = getMaskBBox(context, tolerance);
   // 如果 bbox 过小则不返回
@@ -103,6 +114,7 @@ export function getSiblingMaskElements(context: IInteractionContext, sibling: Vi
 /**
  * 获取所有的图表元素
  * @param view View/Chart
+ * @ignore
  */
 export function getElements(view: View): Element[] {
   const geometries = view.geometries;
@@ -118,10 +130,12 @@ export function getElements(view: View): Element[] {
   }
   return rst;
 }
+
 /**
  * 根据状态名获取图表元素
  * @param view View/Chart
  * @param stateName 状态名
+ * @ignore
  */
 export function getElementsByState(view: View, stateName: string): Element[] {
   const geometries = view.geometries;
@@ -137,6 +151,7 @@ export function getElementsByState(view: View, stateName: string): Element[] {
  * 获取图表元素对应字段的值
  * @param element 图表元素
  * @param field 字段名
+ * @ignore
  */
 export function getElementValue(element: Element, field) {
   const model = element.getModel();
@@ -154,6 +169,7 @@ export function getElementValue(element: Element, field) {
  * 两个包围盒是否相交
  * @param box1 包围盒1
  * @param box2 包围盒2
+ * @ignore
  */
 export function intersectRect(box1, box2) {
   return !(box2.minX > box1.maxX || box2.maxX < box1.minX || box2.minY > box1.maxY || box2.maxY < box1.minY);
@@ -163,6 +179,7 @@ export function intersectRect(box1, box2) {
  * 获取包围盒内的图表元素
  * @param view View/Chart
  * @param box 包围盒
+ * @ignore
  */
 export function getIntersectElements(view: View, box) {
   const elements = getElements(view);
@@ -180,17 +197,20 @@ export function getIntersectElements(view: View, box) {
 /**
  * 获取当前 View 的所有组件
  * @param view View/Chart
+ * @ignore
  */
 export function getComponents(view) {
   return map(view.getComponents(), (co: ComponentOption) => co.component);
 }
 
+/** @ignore */
 export function distance(p1: Point, p2: Point) {
   const dx = p2.x - p1.x;
   const dy = p2.y - p1.y;
   return Math.sqrt(dx * dx + dy * dy);
 }
 
+/** @ignore */
 export function getSpline(points: Point[], z: boolean): PathCommand[] {
   if (points.length <= 2) {
     return getLinePath(points, false);
@@ -210,6 +230,7 @@ export function getSpline(points: Point[], z: boolean): PathCommand[] {
  * 检测点是否在包围盒内
  * @param box 包围盒
  * @param point 点
+ * @ignore
  */
 export function isInBox(box: BBox, point: Point) {
   return box.x <= point.x && box.maxX >= point.x && box.y <= point.y && box.maxY > point.y;
@@ -219,6 +240,7 @@ export function isInBox(box: BBox, point: Point) {
  * 获取同 view 同一级的 views
  * @param view 当前 view
  * @returns 同一级的 views
+ * @ignore
  */
 export function getSilbings(view: View): View[] {
   const parent = view.parent;
@@ -238,16 +260,26 @@ function point2Normalize(view: View, point: Point): Point {
  * @param view 当前的 view
  * @param sibling 同一层级的 view
  * @param point 指定点
+ * @ignore
  */
 export function getSiblingPoint(view: View, sibling: View, point: Point): Point {
   const normalPoint = point2Normalize(view, point);
   return sibling.getCoordinate().convert(normalPoint);
 }
 
-// 是否在记录中，临时因为所有的 view 中的数据不是引用，而使用的方法
-// 不同 view 上对数据的引用不相等，导致无法直接用 includes
-// 假设 x, y 值相等时是同一条数据，这个假设不完全正确，而改成 isEqual 则成本太高
-// 后面改成同一个引用时可以修改回来
+
+/**
+ * 是否在记录中，临时因为所有的 view 中的数据不是引用，而使用的方法
+ * 不同 view 上对数据的引用不相等，导致无法直接用 includes
+ * 假设 x, y 值相等时是同一条数据，这个假设不完全正确，而改成 isEqual 则成本太高
+ * 后面改成同一个引用时可以修改回来
+ * @param records
+ * @param record
+ * @param xFiled
+ * @param yField
+ * @returns
+ * @ignore
+ */
 export function isInRecords(records: object[], record: object, xFiled: string, yField: string) {
   let isIn = false;
   each(records, r => {

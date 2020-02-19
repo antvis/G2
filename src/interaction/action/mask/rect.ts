@@ -1,7 +1,9 @@
-import MaskBase from './base';
-import { last, head } from '@antv/util';
+import { head, last } from '@antv/util';
 import { Region } from '../../../interface';
+import MaskBase from './base';
+
 /**
+ * @ignore
  * 矩形的辅助框 Action
  */
 class RectMask extends MaskBase {

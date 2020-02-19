@@ -126,6 +126,7 @@ export class View extends Base {
   protected layoutFunc: Layout = defaultLayout;
   /** 生成的坐标系实例 */
   protected coordinateInstance: Coordinate;
+  /** Coordinate 相关的控制器类，负责坐标系实例的创建、更新、变换等 */
   protected coordinateController: CoordinateController;
   /** 分面类实例 */
   protected facetInstance: Facet;
@@ -1140,26 +1141,6 @@ export class View extends Base {
   }
 
   /**
-   * 递归渲染中的数据处理
-   * @param isUpdate
-   */
-  private renderDataRecursive(isUpdate: boolean) {
-    // 1. 处理数据
-    this.doFilterData();
-    // 2. 创建实例
-    this.createCoordinate();
-    // 3. 初始化 Geometry
-    this.initGeometries(isUpdate);
-    // 4. 处理分面逻辑，最终都是生成子 view 和 geometry
-    this.renderFacet();
-
-    // 同样递归处理子 views
-    each(this.views, (view: View) => {
-      view.renderDataRecursive(isUpdate);
-    });
-  }
-
-  /**
    * 替换处理 view 的布局，最终是计算各个 view 的 coordinateBBox 和 coordinateInstance
    * @param isUpdate
    */
@@ -1230,6 +1211,26 @@ export class View extends Base {
 
     // 4. 在根节点 view 通过 scalePool 创建
     return this.scalePool.createScale(field, data, mergedScaleDef, defaultKey);
+  }
+
+  /**
+   * 递归渲染中的数据处理
+   * @param isUpdate
+   */
+  private renderDataRecursive(isUpdate: boolean) {
+    // 1. 处理数据
+    this.doFilterData();
+    // 2. 创建实例
+    this.createCoordinate();
+    // 3. 初始化 Geometry
+    this.initGeometries(isUpdate);
+    // 4. 处理分面逻辑，最终都是生成子 view 和 geometry
+    this.renderFacet();
+
+    // 同样递归处理子 views
+    each(this.views, (view: View) => {
+      view.renderDataRecursive(isUpdate);
+    });
   }
 
   /**

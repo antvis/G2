@@ -6,6 +6,7 @@ import Action from './base';
 
 /**
  * 鼠标形状的 Action
+ * @ignore
  */
 class CursorAction extends Action {
   private setCursor(cursor) {

@@ -39,17 +39,16 @@ function getFilter(scale: Scale, dim: string, point1: Point, point2: Point): Fil
 
 /**
  * 范围过滤的 Action
+ * @ignore
  */
 class RangeFilter extends Action {
-  // 允许外部传入 dims
+  /** 允许外部传入 dims */
   protected cfgFields: ['dims'];
   /**
    * 范围过滤生效的字段/维度，可以是 x, y
    */
   protected dims: string[] = ['x', 'y'];
-  /**
-   *
-   */
+  /** 起始点 */
   protected startPoint: Point = null;
 
   private isStarted: boolean = false;
@@ -110,16 +109,6 @@ class RangeFilter extends Action {
     this.reRender(view);
   }
 
-  // 对 view 进行过滤
-  protected filterView(view: View, field: string, filter: FilterCondition) {
-    view.filter(field, filter);
-  }
-
-  // 重新渲染
-  protected reRender(view: View) {
-    view.render(true);
-  }
-
   /**
    * 结束
    */
@@ -143,6 +132,21 @@ class RangeFilter extends Action {
       this.filterView(view, yScale.field, null); // 取消过滤
     }
     this.reRender(view);
+  }
+
+  /**
+   * 对 view 进行过滤
+   */
+  protected filterView(view: View, field: string, filter: FilterCondition) {
+    view.filter(field, filter);
+  }
+
+  /**
+   * 重新渲染
+   * @param view
+   */
+  protected reRender(view: View) {
+    view.render(true);
   }
 }
 

@@ -1,7 +1,11 @@
-import Highlight from './highlight';
 import Element from '../../../geometry/element/';
-import { getElementValue, getElements } from '../util';
+import { getElements, getElementValue } from '../util';
+import Highlight from './highlight';
 
+/**
+ * Highlight x
+ * @ignore
+ */
 class HighlightX extends Highlight {
   protected setStateByElement(element: Element, enable: boolean) {
     const view = this.context.view;

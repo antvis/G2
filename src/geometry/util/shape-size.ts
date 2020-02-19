@@ -31,6 +31,7 @@ function getDodgeCount(dataArray, dodgeBy) {
   return dataArray.length;
 }
 
+/** @ignore */
 export function getDefaultSize(geometry): number {
   const theme = geometry.theme;
   const coordinate = geometry.coordinate;

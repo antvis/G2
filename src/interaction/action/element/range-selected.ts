@@ -1,5 +1,7 @@
 import ElementRangeState from './range-state';
+
 /**
+ * @ignore
  * 区域选中的 Action
  */
 class ElementRangeSelected extends ElementRangeState {

@@ -5,6 +5,7 @@ import { isBetween } from './helper';
 
 
 /**
+ * @ignore
  * Gets x dimension length
  * @param coordinate
  * @returns x dimension length
@@ -23,6 +24,7 @@ export function getXDimensionLength(coordinate): number {
 }
 
 /**
+ * @ignore
  * Determines whether full circle is
  * @param coordinate
  * @returns true if full circle
@@ -36,9 +38,10 @@ export function isFullCircle(coordinate: Coordinate): boolean {
 }
 
 /**
- * Gets distance to center
- * @param coordinate
- * @param point
+ * @ignore
+ * 获取当前点到坐标系圆心的距离
+ * @param coordinate 坐标系
+ * @param point 当前点
  * @returns distance to center
  */
 export function getDistanceToCenter(coordinate: Coordinate, point: Point): number {
@@ -47,6 +50,7 @@ export function getDistanceToCenter(coordinate: Coordinate, point: Point): numbe
 }
 
 /**
+ * @ignore
  * 坐标点是否在坐标系中
  * @param coordinate
  * @param point
@@ -68,13 +72,17 @@ export function isPointInCoordinate(coordinate: Coordinate, point: Point) {
   return result;
 }
 
-/** 获取点到圆心的连线与水平方向的夹角 */
+/**
+ * @ignore
+ * 获取点到圆心的连线与水平方向的夹角
+ */
 export function getPointAngle(coordinate: Coordinate, point: Point): number {
   const center = coordinate.getCenter();
   return Math.atan2(point.y - center.y, point.x - center.x);
 }
 
 /**
+ * @ignore
  * 获取同坐标系范围相同的剪切区域
  * @param coordinate
  * @returns

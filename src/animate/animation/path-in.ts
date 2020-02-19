@@ -3,6 +3,7 @@ import { GAnimateCfg } from '../../interface';
 import { AnimateExtraCfg } from '../interface';
 
 /**
+ * @ignore
  * 入场动画
  * path 的入场动画
  * @param element 执行动画的元素

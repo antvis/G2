@@ -1,11 +1,15 @@
-import RectMask from './rect';
-import { last, head, clamp } from '@antv/util';
+import { clamp, head, last } from '@antv/util';
 import { Region } from '../../../interface';
+import RectMask from './rect';
 
 function clampPoint(point) {
   point.x = clamp(point.x, 0, 1);
   point.y = clamp(point.y, 0, 1);
 }
+
+/**
+ * @ignore
+ */
 class DimRect extends RectMask {
   protected dim = 'x';
   protected inPlot = true;

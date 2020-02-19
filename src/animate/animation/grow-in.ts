@@ -5,6 +5,7 @@ import { AnimateExtraCfg } from '../interface';
 import { doScaleAnimate } from './util';
 
 /**
+ * @ignore
  * 入场动画
  * x 方向的生长
  * @param element 执行动画的元素
@@ -17,6 +18,7 @@ export function growInX(element: IShape | IGroup, animateCfg: GAnimateCfg, cfg: 
 }
 
 /**
+ * @ignore
  * 入场动画
  * y 轴方向上的生长
  * @param element 执行动画的元素
@@ -29,6 +31,7 @@ export function growInY(element: IShape | IGroup, animateCfg: GAnimateCfg, cfg: 
 }
 
 /**
+ * @ignore
  * 入场
  * 中心点的向四周的生长动画
  * @param element 执行动画的元素

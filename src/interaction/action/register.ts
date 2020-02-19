@@ -2,7 +2,10 @@ import { ActionCallback, IInteractionContext, LooseObject } from '../../interfac
 import Action from './base';
 import CallbackAction from './callback';
 
+/** Action 构造函数 */
 type ActionConstructor = new (context: IInteractionContext, cfg?: LooseObject) => Action;
+
+/** @ignore */
 interface ActionOption {
   ActionClass: ActionConstructor;
   cfg: LooseObject;

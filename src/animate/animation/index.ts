@@ -2,6 +2,7 @@ import { IGroup, IShape } from '../../dependents';
 import { GAnimateCfg } from '../../interface';
 import { AnimateExtraCfg } from '../interface';
 
+/** @ignore */
 interface AnimationMap {
   [key: string]: Animation;
 }

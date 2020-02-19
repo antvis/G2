@@ -9,21 +9,25 @@ import { createDom, getChartSize, removeDom } from '../util/dom';
 import View from './view';
 
 /**
- * Chart 类，是使用 G2 进行绘图的入口
+ * Chart 类，是使用 G2 进行绘图的入口。
  */
 export default class Chart extends View {
+  /** Chart 的 DOM 容器 */
   public ele: HTMLElement;
 
-  // 大小
+  /** 图表宽度 */
   public width: number;
+  /** 图表高度 */
   public height: number;
   /** 是否开启局部刷新 */
   public localRefresh: boolean;
-
+  /** 是否自适应 DOM 容器宽高，默认为 false，需要用户手动指定宽高 */
   public autoFit: boolean;
+  /** 图表渲染引擎 */
   public renderer: 'canvas' | 'svg';
 
   private wrapperElement: HTMLElement;
+
   // @ts-ignore
   constructor(props: ChartCfg) {
     const {
