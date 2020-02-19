@@ -18,7 +18,9 @@ fetch('../data/diamond.json')
     ],
     processing: [
       { trigger: 'plot:mousemove', action: 'rect-mask:resize' },
-      { trigger: 'mask:drag', action: 'rect-mask:move'},
+      { trigger: 'mask:drag', isEnable(context) {
+        return context.isInPlot();
+      }, action: 'rect-mask:move'},
       { trigger: 'mask:change', action: 'element-sibling-filter-record:filter' }
     ],
     end: [

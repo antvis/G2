@@ -21,6 +21,6 @@ chart.data(data);
 chart.tooltip({
   showMarkers: false
 });
-chart.interaction('element-brush');
+chart.interaction('brush');
 chart.interval().position('year*value');
 chart.render();
