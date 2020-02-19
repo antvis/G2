@@ -104,17 +104,23 @@ export default class Legend extends Controller<Option> {
   public layout() {
     each(this.components, (co: ComponentOption) => {
       const { component, direction } = co;
-      const bboxObject = component.getLayoutBBox(); // 这里只需要他的 width、height 信息做位置调整
-      const bbox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height);
-
-      const [x1, y1] = directionToPosition(this.view.coordinateBBox, bbox, direction);
-      const [x2, y2] = directionToPosition(this.view.viewBBox, bbox, direction);
-
       const layout = getLegendLayout(direction);
       const maxSize = this.getCategoryLegendSizeCfg(layout);
 
       const maxWidth = component.get('maxWidth');
       const maxHeight = component.get('maxHeight');
+
+      // 先更新 maxSize，更新 layoutBBox，以便计算正确的 x y
+      component.update({
+        maxWidth: Math.min(maxSize.maxWidth, maxWidth || 0),
+        maxHeight: Math.min(maxSize.maxHeight, maxHeight || 0),
+      });
+
+      const bboxObject = component.getLayoutBBox(); // 这里只需要他的 width、height 信息做位置调整
+      const bbox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height);
+
+      const [x1, y1] = directionToPosition(this.view.coordinateBBox, bbox, direction);
+      const [x2, y2] = directionToPosition(this.view.viewBBox, bbox, direction);
 
       let x = 0;
       let y = 0;
@@ -127,11 +133,11 @@ export default class Legend extends Controller<Option> {
         x = x2;
         y = y1;
       }
+
+      // 更新位置
       component.update({
         x,
         y,
-        maxWidth: Math.min(maxSize.maxWidth, maxWidth || 0),
-        maxHeight: Math.min(maxSize.maxHeight, maxHeight || 0),
       });
     });
   }

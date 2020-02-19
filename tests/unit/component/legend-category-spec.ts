@@ -150,6 +150,7 @@ describe('Legend Category Vertical', () => {
     const legend = legends[0].component as GroupComponent<GroupComponentCfg>;
 
     expect(legend.get('maxHeight')).toBe(80);
+    expect(legend.get('y')).toBeGreaterThan(0);
 
     const navigation = legend.getElementById(`${legendId}-legend-navigation-group`);
 
