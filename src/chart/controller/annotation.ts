@@ -29,10 +29,9 @@ import View from '../view';
 import { Controller } from './base';
 
 /**
- * @ignore
- * annotation controller, supply:
- * 1. API for creating annotation: line、text、arc ...
- * 2. life circle: init、layout、render、clear、destroy
+ * Annotation controller, 主要作用:
+ * 1. 创建 Annotation: line、text、arc ...
+ * 2. 生命周期: init、layout、render、clear、destroy
  */
 export default class Annotation extends Controller<BaseOption[]> {
   private foregroundContainer: IGroup;
@@ -243,7 +242,7 @@ export default class Annotation extends Controller<BaseOption[]> {
   }
 
   /**
-   * create an arc
+   * 创建 Arc
    * @param option
    * @returns AnnotationController
    */
@@ -257,7 +256,7 @@ export default class Annotation extends Controller<BaseOption[]> {
   }
 
   /**
-   * create an image
+   * 创建 image
    * @param option
    * @returns AnnotationController
    */
@@ -271,7 +270,7 @@ export default class Annotation extends Controller<BaseOption[]> {
   }
 
   /**
-   * create a line
+   * 创建 Line
    * @param option
    * @returns AnnotationController
    */
@@ -285,7 +284,7 @@ export default class Annotation extends Controller<BaseOption[]> {
   }
 
   /**
-   * create a region
+   * 创建 Region
    * @param option
    * @returns AnnotationController
    */
@@ -299,7 +298,7 @@ export default class Annotation extends Controller<BaseOption[]> {
   }
 
   /**
-   * create a text
+   * 创建 Text
    * @param option
    * @returns AnnotationController
    */
@@ -313,7 +312,7 @@ export default class Annotation extends Controller<BaseOption[]> {
   }
 
   /**
-   * create a data marker
+   * 创建 DataMarker
    * @param option
    * @returns AnnotationController
    */
@@ -327,7 +326,7 @@ export default class Annotation extends Controller<BaseOption[]> {
   }
 
   /**
-   * create a data region
+   * 创建 DataRegion
    * @param option
    * @returns AnnotationController
    */
@@ -339,7 +338,7 @@ export default class Annotation extends Controller<BaseOption[]> {
   }
 
   /**
-   * create a region filter
+   * 创建 RegionFilter
    * @param option
    * @returns AnnotationController
    */
