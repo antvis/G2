@@ -52,9 +52,41 @@ module.exports = {
         slug: 'manual/tutorial',
         title: {
           zh: '基础教程',
-          en: 'Tutorial',
+          en: 'Tutorials',
         },
         order: 3,
+      },
+      {
+        slug: 'manual/dataset',
+        title: {
+          zh: 'DataSet',
+          en: 'DataSet',
+        },
+        order: 5,
+      },
+      {
+        slug: 'manual/concepts',
+        title: {
+          zh: '核心概念',
+          en: 'Main Concepts',
+        },
+        order: 6,
+      },
+      {
+        slug: 'manual/concepts/geometry',
+        title: {
+          zh: '几何标记与图表类型',
+          en: 'Geometry and Charts',
+        },
+        order: 6,
+      },
+      {
+        slug: 'manual/developer',
+        title: {
+          zh: '开发者教程',
+          en: 'For Developers',
+        },
+        order: 7,
       },
       {
         slug: 'api',
