@@ -39,7 +39,7 @@ module.exports = {
         order: 1,
       },
       {
-        slug: 'docs/api',
+        slug: 'docs/api/g2',
         title: {
           zh: 'API 文档',
           en: 'API',
@@ -49,12 +49,11 @@ module.exports = {
     ],
     docs: [
       {
-        slug: 'api/index',
+        slug: 'api',
         title: {
-          zh: 'Index',
-          en: 'Index',
+          zh: 'API 文档',
+          en: 'API Doc',
         },
-        order: 0,
       },
       {
         slug: 'api/classes',
