@@ -1,5 +1,5 @@
 import getArcParams from '@antv/g-canvas/lib/util/arc-params';
-import { isNumberEqual } from '@antv/util';
+import { isNumberEqual, isEqual } from '@antv/util';
 
 import { IShape, PathCommand } from '../../dependents';
 import { GAnimateCfg } from '../../interface';
@@ -110,6 +110,7 @@ export function sectorPathUpdate(shape: IShape, animateCfg: GAnimateCfg, cfg: An
   const { toAttrs, coordinate } = cfg;
   // @ts-ignore
   const path = toAttrs.path;
+  const pathCommands = path.map(command => command[0]);
 
   const { startAngle: curStartAngle, endAngle: curEndAngle, radius, innerRadius } = getArcInfo(path);
   const { startAngle: preStartAngle, endAngle: preEndAngle } = getArcInfo(shape.attr('path'));
@@ -124,8 +125,8 @@ export function sectorPathUpdate(shape: IShape, animateCfg: GAnimateCfg, cfg: An
     return {
       ...toAttrs,
       path:
-        // /examples/bar/basic/demo/radial-line.ts
-        path.length === 4 || shape.attr('path').length === 4
+        // hack, 兼容 /examples/bar/basic/demo/radial-line.ts 动画
+        isEqual(pathCommands, ['M', 'A', 'A', 'Z'])
           ? getArcPath(center.x, center.y, radius, onFrameStartAngle, onFrameEndAngle)
           : getSectorPath(center.x, center.y, radius, onFrameStartAngle, onFrameEndAngle, innerRadius),
     };
