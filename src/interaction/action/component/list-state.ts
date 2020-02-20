@@ -4,7 +4,7 @@ import Element from '../../../geometry/element';
 import { LooseObject } from '../../../interface';
 import Action from '../base';
 import { getComponents } from '../util';
-import { getCurrentElement, getDelegationObject, getElementValue, isList } from '../util';
+import { getCurrentElement, getDelegationObject, getElementValue, isList, getScaleByField } from '../util';
 
 /** @ignore */
 interface ListStateCfg {
@@ -70,7 +70,7 @@ class ListState extends Action<ListStateCfg> {
       }
     }
     const view = this.context.view;
-    const scale = view.getScaleByField(field);
+    const scale = getScaleByField(view, field);
     return scale && scale.isCategory;
   }
 
@@ -78,7 +78,7 @@ class ListState extends Action<ListStateCfg> {
   private setStateByElement(component, element: Element, enable: boolean) {
     const field = component.get('field');
     const view = this.context.view;
-    const scale = view.getScaleByField(field);
+    const scale = getScaleByField(view, field);
     const value = getElementValue(element, field);
     const text = scale.getText(value);
     this.setItemsState(component, text, enable);
