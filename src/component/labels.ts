@@ -69,12 +69,12 @@ export default class Labels {
         if (lastShapesMap[id]) {
           // 图形发生更新
           const data = shape.get('data');
-          const orogin = shape.get('origin');
+          const origin = shape.get('origin');
           const coordinate = shape.get('coordinate');
           const currentShape = lastShapesMap[id]; // 已经在渲染树上的 shape
           const currentAnimateCfg = shape.get('animateCfg');
           currentShape.set('data', data);
-          currentShape.set('orogin', orogin);
+          currentShape.set('origin', origin);
           currentShape.set('animateCfg', currentAnimateCfg);
           currentShape.set('coordinate', coordinate);
 
@@ -83,7 +83,7 @@ export default class Labels {
           shape.getChildren().map((child, index) => {
             const currentChild = currentChildren[index] as IShape;
             currentChild.set('data', data);
-            currentChild.set('orogin', orogin);
+            currentChild.set('origin', origin);
             currentChild.set('animateCfg', currentAnimateCfg);
             currentChild.set('coordinate', coordinate);
 
