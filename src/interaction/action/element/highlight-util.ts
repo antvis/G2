@@ -7,6 +7,7 @@ const STATUS_UNACTIVE = 'inactive';
 const STATUS_ACTIVE = 'active';
 
 /**
+ * @ignore
  * 清理 highlight 效果
  * @param view View 或者 Chart
  */
@@ -25,6 +26,7 @@ export function clearHighlight(view: View) {
 type MatchCallback = (el: Element) => boolean;
 
 /**
+ * @ignore
  * 设置多个元素的 highlight
  * @param elements 元素集合
  * @param callback 设置回调函数

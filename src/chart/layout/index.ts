@@ -7,6 +7,7 @@ import { calculatePadding } from './auto';
 export type Layout = (view: View) => void;
 
 /**
+ * @ignore
  * G2 默认提供的 layout 函数
  * 内置布局函数处理的逻辑：
  *

@@ -3,14 +3,20 @@ import { View } from '../chart';
 import { BBox, IShape, Point } from '../dependents';
 import { IAction, IInteractionContext, LooseObject } from '../interface';
 import { getComponents, isInBox } from './action/util';
+
 /**
  * 交互的上下文
  */
 class Context implements IInteractionContext {
+  /** 当前所有的 Action */
   public actions: IAction[] = [];
+  /** 当前 View 实例 */
   public view: View;
+  /** 当前事件对象 */
   public event: LooseObject = null;
+
   private cacheMap: LooseObject = {};
+
   constructor(view: View) {
     this.view = view;
   }
@@ -28,6 +34,7 @@ class Context implements IInteractionContext {
       this.cacheMap[params[0]] = params[1];
     }
   }
+
   /**
    * 获取 Action
    * @param name Action 的名称
@@ -76,6 +83,10 @@ class Context implements IInteractionContext {
     return null;
   }
 
+  /**
+   * 获取当前 shape
+   * @returns current shape
+   */
   public getCurrentShape(): IShape {
     return get(this.event, ['gEvent', 'shape']);
   }

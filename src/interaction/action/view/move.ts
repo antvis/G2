@@ -1,8 +1,11 @@
 import { transform } from '@antv/matrix-util';
 import { Action } from '..';
 import { distance } from '../util';
+
 const MIN_DISTANCE = 5;
+
 /**
+ * @ignore
  * View 移动的 Action
  */
 class Move extends Action {

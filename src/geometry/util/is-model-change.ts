@@ -2,6 +2,7 @@ import { isEqual, some } from '@antv/util';
 import { ShapeInfo } from '../../interface';
 
 /**
+ * @ignore
  * Determines whether model is change
  * @param currentModel
  * @param preModel

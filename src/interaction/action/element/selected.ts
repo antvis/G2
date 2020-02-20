@@ -1,5 +1,7 @@
 import StateAction from './state';
+
 /**
+ * @ignore
  * 允许多选的 Action
  * @class
  */

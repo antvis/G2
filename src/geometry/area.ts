@@ -2,6 +2,7 @@ import { Data, Datum } from '../interface';
 import Path, { PathCfg } from './path';
 import './shape/area';
 
+/** Area 几何标记构造函数参数 */
 export interface AreaCfg extends PathCfg {
   /**
    * 面积图是否从 0 基准线开始填充。
@@ -12,6 +13,11 @@ export interface AreaCfg extends PathCfg {
    */
   startOnZero?: boolean;
 }
+
+/**
+ * Area 几何标记类。
+ * 常用于绘制面积图。
+ */
 export default class Area extends Path {
   public readonly type: string = 'area';
   public readonly shapeType: string = 'area';
@@ -46,7 +52,10 @@ export default class Area extends Path {
     });
   }
 
-  // 获取 Y 轴上的最小值
+  /**
+   * 获取 Y 轴上的最小值
+   * @returns y 字段最小值
+   */
   protected getYMinValue(): number {
     if (this.startOnZero) {
       return super.getYMinValue();

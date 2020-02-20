@@ -1,8 +1,12 @@
+import { each } from '@antv/util';
+import { View } from 'src/chart';
 import Action from '../base';
 import { getDelegationObject, isList, isSlider, getScaleByField } from '../util';
-import { View } from 'src/chart';
-import { each } from '@antv/util';
 
+/**
+ * 数据过滤。
+ * @ignore
+ */
 class DataFilter extends Action {
   private filterView(view: View, field, filter) {
     // 只有存在这个 scale 时才生效

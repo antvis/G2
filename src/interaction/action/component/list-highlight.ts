@@ -9,6 +9,7 @@ type MatchCallback = (item: ListItem) => boolean;
 /**
  * highlight Action 的效果是 active 和 inactive 两个状态的组合
  * @class
+ * @ignore
  */
 class ListHighlight extends ListState {
   protected stateName: string = STATUS_ACTIVE;

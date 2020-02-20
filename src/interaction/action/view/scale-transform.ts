@@ -1,6 +1,12 @@
 import { Action } from '..';
+
 const DIM_X = 'x';
 const DIM_Y = 'y';
+
+/**
+ * Scale translate
+ * @ignore
+ */
 class ScaleTranslate extends Action {
   protected dims = [DIM_X, DIM_Y];
   protected cfgFields = ['dims'];

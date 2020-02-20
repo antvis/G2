@@ -37,6 +37,7 @@ function getDirection(legendOption: any): DIRECTION {
 }
 
 /**
+ * @ignore
  * legend Controller
  */
 export default class Legend extends Controller<Option> {

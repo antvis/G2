@@ -1,7 +1,8 @@
-import Action from '../base';
 import { each } from '@antv/util';
+import Action from '../base';
 
 /**
+ * @ignore
  * 辅助框 Action 的基类
  */
 abstract class MaskBase extends Action {

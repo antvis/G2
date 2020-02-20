@@ -1,6 +1,7 @@
 import { isArray } from 'util';
 
 /**
+ * @ignore
  * 从图形数据中获取 shape 类型
  * @param shapeCfg
  * @param defaultShapeType

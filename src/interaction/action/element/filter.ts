@@ -3,6 +3,7 @@ import Action from '../base';
 import { getDelegationObject, getElements, getElementValue, getScaleByField, isList, isSlider, isMask, getMaskedElements } from '../util';
 /**
  * 元素过滤的 Action，控制元素的显示隐藏
+ * @ignore
  */
 class ElementFilter extends Action {
   /**

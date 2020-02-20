@@ -1,6 +1,7 @@
 import ElementSingleState from './single-state';
 
 /**
+ * @ignore
  * 单选的 Action
  */
 class ElementSingleSelected extends ElementSingleState {

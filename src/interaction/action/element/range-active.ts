@@ -1,6 +1,7 @@
 import ElementRangeState from './range-state';
 
 /**
+ * @ignore
  * 图表元素区域 Active 的 Action
  */
 class ElementRangeActive extends ElementRangeState {

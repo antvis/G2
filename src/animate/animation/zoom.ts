@@ -54,6 +54,7 @@ function doShapeZoom(shape: IShape | IGroup, animateCfg: GAnimateCfg, type: 'zoo
 }
 
 /**
+ * @ignore
  * 单个 shape 动画
  * shape 以自身中心点逐渐放大的进入动画
  * @param shape 参与动画的图形元素
@@ -65,6 +66,7 @@ export function zoomIn(shape: IShape | IGroup, animateCfg: GAnimateCfg, cfg: Ani
 }
 
 /**
+ * @ignore
  * 单个 shape 动画
  * 消失动画，shape 以自身为中心点的逐渐缩小
  * @param shape 参与动画的图形元素

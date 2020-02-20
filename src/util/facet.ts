@@ -3,6 +3,7 @@ import { Point } from '../dependents';
 import { FacetTitle } from '../interface';
 
 /**
+ * @ignore
  * 获取 facet title 的最佳默认配置，防止
  */
 export function getFactTitleConfig(direction: DIRECTION): FacetTitle {
@@ -33,6 +34,7 @@ export function getFactTitleConfig(direction: DIRECTION): FacetTitle {
 }
 
 /**
+ * @ignore
  * 根据角度，获取 ○ 上的点
  * @param center
  * @param r

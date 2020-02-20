@@ -4,6 +4,7 @@ import StateBase from './state-base';
 /**
  * 单状态量的 Action 基类
  * @class
+ * @ignore
  */
 class ElementSingleState extends StateBase {
   protected setStateEnable(enable: boolean) {

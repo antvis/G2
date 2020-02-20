@@ -7,6 +7,7 @@ import { getAnglePoint, getFactTitleConfig } from '../util/facet';
 import { Facet } from './facet';
 
 /**
+ * @ignore
  * 镜像分面
  */
 export default class Circle extends Facet<CircleCfg, CircleData> {

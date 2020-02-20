@@ -3,10 +3,17 @@ import { DIRECTION } from '../constant';
 import { Padding, Point, Region } from '../interface';
 import { parsePadding } from './padding';
 
+/**
+ * 用于包围盒计算。
+ */
 export class BBox {
+  /** x 轴坐标系 */
   public x: number;
+  /** y 轴坐标系 */
   public y: number;
+  /** 包围盒高度 */
   public height: number;
+  /** 包围盒宽度 */
   public width: number;
 
   public static fromRange(minX: number, minY: number, maxX: number, maxY: number) {
@@ -20,7 +27,6 @@ export class BBox {
     this.width = width;
   }
 
-  // 计算属性
   public get minX(): number {
     return this.x;
   }

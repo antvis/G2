@@ -30,6 +30,7 @@ function getPointsBox(points) {
 }
 
 /**
+ * @ignore
  * 根据弧度计算极坐标系下的坐标点
  * @param centerX
  * @param centerY
@@ -45,6 +46,7 @@ export function polarToCartesian(centerX: number, centerY: number, radius: numbe
 }
 
 /**
+ * @ignore
  * 根据起始角度计算绘制扇形的 path
  * @param centerX
  * @param centerY
@@ -94,6 +96,16 @@ export function getSectorPath(
   ];
 }
 
+/**
+ * @ignore
+ * Gets arc path
+ * @param centerX
+ * @param centerY
+ * @param radius
+ * @param startAngleInRadian
+ * @param endAngleInRadian
+ * @returns
+ */
 export function getArcPath(
   centerX: number,
   centerY: number,
@@ -123,6 +135,7 @@ export function getArcPath(
 }
 
 /**
+ * @ignore
  * 从数据模型中的 points 换算角度
  * @param shapeModel
  * @param coordinate
@@ -151,7 +164,10 @@ export function getAngle(shapeModel: ShapeInfo, coordinate: Coordinate) {
   };
 }
 
-// 计算多边形重心: https://en.wikipedia.org/wiki/Centroid#Of_a_polygon
+/**
+ * @ignore
+ * 计算多边形重心: https://en.wikipedia.org/wiki/Centroid#Of_a_polygon
+ */
 export function getPolygonCentroid(xs: number | number[], ys: number | number[]) {
   if (isNumber(xs) && isNumber(ys)) {
     // 普通色块图，xs 和 ys 是数值
@@ -175,7 +191,10 @@ export function getPolygonCentroid(xs: number | number[], ys: number | number[])
   return [x / k, y / k];
 }
 
-// 获取需要替换的属性，如果原先图形元素存在，而新图形不存在，则设置 undefined
+/**
+ * @ignore
+ * 获取需要替换的属性，如果原先图形元素存在，而新图形不存在，则设置 undefined
+ */
 export function getReplaceAttrs(sourceShape: IShape, targetShape: IShape) {
   const originAttrs = sourceShape.attr();
   const newAttrs = targetShape.attr();

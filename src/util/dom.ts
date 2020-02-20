@@ -21,6 +21,7 @@ function isNumber(v: any): boolean {
 }
 
 /**
+ * @ignore
  * calculate the chart size
  * @param ele DOM element
  * @param autoFit should auto fit
@@ -46,6 +47,7 @@ export function getChartSize(ele: HTMLElement, autoFit: boolean, width: number, 
 }
 
 /**
+ * @ignore
  * remove html element from its parent
  * @param dom
  */
@@ -57,4 +59,5 @@ export function removeDom(dom: HTMLElement) {
   }
 }
 
+/** @ignore */
 export { createDom } from '@antv/dom-util';

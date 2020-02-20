@@ -3,6 +3,7 @@ import { Coordinate, IGroup, IShape } from '../../dependents';
 import { GAnimateCfg, Point } from '../../interface';
 
 /**
+ * @ignore
  * 对图形元素进行矩阵变换，同时返回变换前的图形矩阵
  * @param shape 进行矩阵变换的图形
  * @param vector 矩阵变换的中心点

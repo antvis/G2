@@ -4,8 +4,13 @@ interface BaseCfg {
   visible?: boolean;
 }
 
+/**
+ * G2 Chart、View、Geometry 以及 Element 等的基类，提供事件以及一些通用的方法。
+ */
 export default class Base extends EE {
+  /** 是否可见 */
   public visible: boolean;
+  /** 标识对象是否已销毁 */
   public destroyed: boolean = false;
 
   constructor(cfg: BaseCfg) {
@@ -36,6 +41,9 @@ export default class Base extends EE {
     }
   }
 
+  /**
+   * 销毁。
+   */
   public destroy() {
     this.off();
     this.destroyed = true;

@@ -3,18 +3,21 @@ import { BBox, IGroup, IShape } from '../../../dependents';
 
 const MAX_TIMES = 100;
 
+/** @ignore */
 interface Bitmap {
   [key: number]: {
     [key: number]: boolean;
   };
 }
 
+/** @ignore */
 interface GreedyCfg {
   readonly xGap?: number;
   readonly yGap?: number;
 }
 
 /**
+ * @ignore
  * Greedy 贪婪算法
  */
 class Greedy {
@@ -203,6 +206,7 @@ function adjustLabelPosition(label: IShape, x: number, y: number, index: number)
 }
 
 /**
+ * @ignore
  * label 防遮挡布局：在不改变 label 位置的情况下对相互重叠的 label 进行调整。
  * 不同于 'overlap' 类型的布局，该布局不会对 label 的位置进行偏移调整。
  * @param labels 参与布局调整的 label 数组集合
@@ -219,6 +223,7 @@ export function fixedOverlap(labels: IGroup[], shapes: IShape[] | IGroup[], regi
 }
 
 /**
+ * @ignore
  * label 防遮挡布局：为了防止 label 之间相互覆盖同时保证尽可能多 的 label 展示，通过尝试将 label 向**四周偏移**来剔除放不下的 label
  * @param labels 参与布局调整的 label 数组集合
  */

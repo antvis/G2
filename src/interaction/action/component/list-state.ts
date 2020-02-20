@@ -6,6 +6,7 @@ import Action from '../base';
 import { getComponents } from '../util';
 import { getCurrentElement, getDelegationObject, getElementValue, isList, getScaleByField } from '../util';
 
+/** @ignore */
 interface ListStateCfg {
   componentNames: string[];
 }
@@ -13,6 +14,7 @@ interface ListStateCfg {
 /**
  * 列表项状态 Action 的基础类
  * @class
+ * @ignore
  */
 class ListState extends Action<ListStateCfg> {
   protected stateName: string = '';

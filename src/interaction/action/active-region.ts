@@ -7,6 +7,7 @@ import Action from './base';
 
 /**
  * 背景框的 Action
+ * @ignore
  */
 class ActiveRegion extends Action {
   private items: any[];

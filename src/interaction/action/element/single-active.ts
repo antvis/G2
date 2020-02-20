@@ -1,6 +1,7 @@
 import ElementSingleState from './single-state';
 
 /**
+ * @ignore
  * 仅允许单个 Element Active 的 Action
  */
 class ElementSingleActive extends ElementSingleState {

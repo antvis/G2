@@ -6,12 +6,14 @@ import { Scale } from '../../dependents';
 import { Data, ScaleOption } from '../../interface';
 import { createScaleByField, syncScale } from '../../util/scale';
 
+/** @ignore */
 interface ScaleMeta {
   readonly key: string;
   readonly scale: Scale;
   scaleDef: ScaleOption;
 }
 
+/** @ignore */
 export class ScalePool {
   /** 所有的 scales */
   private scales: Record<string, ScaleMeta> = {};

@@ -2,6 +2,7 @@ import { deepMix, isObject } from '@antv/util';
 import { getTheme } from '../theme';
 
 /**
+ * @ignore
  * 合并成行的 theme 主题配置
  * @param themeObject
  * @param theme

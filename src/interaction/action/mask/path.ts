@@ -2,6 +2,7 @@ import { each } from '@antv/util';
 import MaskBase from './base';
 
 /**
+ * @ignore
  * 多个点构成的 Path 辅助框 Action
  */
 class PathMask extends MaskBase {

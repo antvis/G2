@@ -2,6 +2,7 @@ import { DIRECTION } from '../../constant';
 import { BBox } from '../../dependents';
 import { Padding } from '../../interface';
 
+/** @ignore */
 export class PaddingCal {
   private top: number;
   private right: number;

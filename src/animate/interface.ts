@@ -1,5 +1,8 @@
 import { Coordinate } from '../dependents';
 
+/**
+ * @ignore
+ */
 export interface AnimateExtraCfg {
   /** 当前坐标系 */
   coordinate: Coordinate;

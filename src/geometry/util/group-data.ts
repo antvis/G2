@@ -1,6 +1,7 @@
 import { each, groupToMap } from '@antv/util';
 import { Data } from '../../interface';
 
+/** @ignore */
 export function group(data: Data, fields: string[], appendConditions: Record<string, any[]> = {}) {
   if (!fields) {
     return [ data ];
