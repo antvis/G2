@@ -1,4 +1,5 @@
 import { deepMix, get, isFunction } from '@antv/util';
+import { FIELD_ORIGIN } from '../constant';
 import { Coordinate, IGroup, IShape } from '../dependents';
 import { AnimateCfg, Data, Datum, GAnimateCfg, Point } from '../interface';
 import { AnimateExtraCfg } from './interface';
@@ -219,7 +220,7 @@ export function getDefaultAnimateCfg(elementName: string, coordinate: Coordinate
  * @param cfg 额外的信息
  */
 export function doAnimate(shape: IGroup | IShape, animateCfg: AnimateCfg, cfg: AnimateExtraCfg) {
-  const { data } = shape.get('origin');
+  const data = get(shape.get('origin'), 'data', FIELD_ORIGIN);
   const animation = animateCfg.animation; // 获取动画执行函数
   const parsedAnimateCfg = parseAnimateConfig(animateCfg, data);
   if (animation) {
