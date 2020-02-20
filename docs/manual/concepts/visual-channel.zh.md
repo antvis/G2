@@ -121,7 +121,7 @@ G2 中的视觉通道作为标记的属性存在，需要支持以下功能：
 
 chart.<geom><attr>(dims,[callback])
 
-- geom，[图表类型](#)，在后面的章节中介绍。
+- geom，[图表类型](./geometry/overview)，在后面的章节中介绍。
 - attr，图表类型的属性，对应视觉通道。
 - dims，参与单个视觉通道映射的字段。
 - callback，如何解析视觉通道，可以不提供，G2 提供了默认的视觉通道解析方式。
@@ -198,8 +198,7 @@ size 的快捷方式：
 - shape('dim')，将指定的字段映射到内置的 shapes 数组中。
 - shape('dim',shapes)，用户自己提供 shapes 数据，来进行数据映射。
 - shape('circle')，指定常量，映射到固定的 shape。
-  | 点图形状 | ![](https://zos.alipayobjects.com/rmsportal/dvPRCjZYYexnETW.png#align=left&display=inline&height=427&originHeight=427&originWidth=1000&status=done&style=none&width=1000) |
-  | --- | --- |
-  | 柱状图形状 | ![](https://zos.alipayobjects.com/rmsportal/egrgZHmbhXtjyiI.png#align=left&display=inline&height=480&originHeight=480&originWidth=974&status=done&style=none&width=974) |
 
-###
+| 点图形状   | ![](https://zos.alipayobjects.com/rmsportal/dvPRCjZYYexnETW.png#align=left&display=inline&height=427&originHeight=427&originWidth=1000&status=done&style=none&width=1000) |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 柱状图形状 | ![](https://zos.alipayobjects.com/rmsportal/egrgZHmbhXtjyiI.png#align=left&display=inline&height=480&originHeight=480&originWidth=974&status=done&style=none&width=974)   |

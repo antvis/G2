@@ -1,6 +1,6 @@
 ---
 title: 多边形 Polygon
-order: 4
+order: 5
 ---
 
 ## 简介
@@ -44,7 +44,9 @@ chart
   });
 ```
 
-from 和 to 字段都是分类类型，多边形会自动转换成一个区间数组。![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791834913405347d7559/attach/4080/900/image.png#align=left&display=inline&height=458&originHeight=458&originWidth=902&status=done&style=none&width=902)
+from 和 to 字段都是分类类型，多边形会自动转换成一个区间数组。
+
+![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791834913405347d7559/attach/4080/900/image.png#align=left&display=inline&height=458&originHeight=458&originWidth=902&status=done&style=none&width=902)
 
 ## 支持的视觉通道
 
@@ -88,5 +90,3 @@ chart
 在直角坐标系下多边形的各个边都是直线，在极坐标系下，多边形同半径的边会转换成圆弧，会自动生成很多特殊的图表，下面是一些示例：
 
 ![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791835854894028d17c0/attach/4080/900/image.png#align=left&display=inline&height=304&originHeight=304&originWidth=895&status=done&style=none&width=895)
-
-##

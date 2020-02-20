@@ -16,7 +16,9 @@ order: 1
 
 ## G2 的框架结构
 
-G2 实现了上面的四个模块，并且对着四个模块做了更进一步的细分，另外还针对图表交互，实现了交互语法模块。![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1581592166807-48b40d61-34c7-4ef0-9db1-2e9be7ccd48b.png#align=left&display=inline&height=726&name=image.png&originHeight=1452&originWidth=1252&size=118701&status=done&style=none&width=626)
+G2 实现了上面的四个模块，并且对着四个模块做了更进一步的细分，另外还针对图表交互，实现了交互语法模块。
+
+![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*o-mzRZeZf30AAAAAAAAAAABkARQnAQ)
 
 ### 数据处理模块
 
@@ -31,18 +33,18 @@ G2 实现了上面的四个模块，并且对着四个模块做了更进一步�
 
 图形映射模块完成了将数据映射到数学空间[0-1]，再从数学空间映射到画布空间的整个过程，主要包括三个模块：
 
-- [Scale](#)， 将数据映射到 0-1 之间，方便映射到画布上。
-- [Attribute](#)，图形属性，数据映射到图形的属性（视觉通道），包括位置、颜色、大小、形状等。
-- [Coordinate](#)，展示图形需用到的坐标系，将数据映射到位置的属性（视觉通道）。
+- [Scale](./data-and-scales)， 将数据映射到 0-1 之间，方便映射到画布上。
+- [Attribute](./visual-channel)，图形属性，数据映射到图形的属性（视觉通道），包括位置、颜色、大小、形状等。
+- [Coordinate](./coordinate)，展示图形需用到的坐标系，将数据映射到位置的属性（视觉通道）。
 
 ### 辅助信息
 
 辅助信息用于标示数据在各种图形属性上的映射，使得用户更容易的理解数据，主要包括下面几个模块：
 
-- [Axis](#) 坐标轴，辅助用户识别图形所在的位置，判断数据大小的辅助元素。
-- [Tooltip](#) 提示信息，用户鼠标在画布上移动时，实时出现的鼠标附近的数据信息。
-- [Annotation](#) 其他辅助元素，可以在图上添加辅助的文本、辅助图片、辅助线等，增强用户对图形的认知。
-- [Legend](#) 图例，辅助用户识别图形的大小、颜色、形状，通常用于判断数据对应图形的分类。
+- [Axis](../tutorial/axis) 坐标轴，辅助用户识别图形所在的位置，判断数据大小的辅助元素。
+- [Tooltip](../tutorial/tooltip) 提示信息，用户鼠标在画布上移动时，实时出现的鼠标附近的数据信息。
+- [Annotation](../tutorial/annotation) 其他辅助元素，可以在图上添加辅助的文本、辅助图片、辅助线等，增强用户对图形的认知。
+- [Legend](../tutorial/legend) 图例，辅助用户识别图形的大小、颜色、形状，通常用于判断数据对应图形的分类。
 
 ### 图形展示
 
@@ -54,7 +56,9 @@ G2 实现了上面的四个模块，并且对着四个模块做了更进一步�
 
 ## 数据到图形映射的流程
 
-可视化从数据映射到图形需要以下流程：![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14787609599995617d17cd/attach/4080/900/image.png#align=left&display=inline&height=770&originHeight=770&originWidth=1998&status=done&style=none&width=1998)
+可视化从数据映射到图形需要以下流程：
+
+![](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*bLfDQZIoUG0AAAAAAAAAAABkARQnAQ)
 
 - 原始数据：加载到页面上的 JSON 数组。
 - 统计分析：统计函数加工数据。
@@ -69,7 +73,7 @@ G2 实现了上面的四个模块，并且对着四个模块做了更进一步�
 
 G2 的数据映射到图形的过程整体上遵循这个流程，但是细节上有所增加：
 
-![](https://gw.alipayobjects.com/zos/rmsportal/PJhhvRtPjpEspyWwVnBQ.png#align=left&display=inline&height=1072&originHeight=1072&originWidth=1352&status=done&style=none&width=1352)
+![](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*IcIKQZRr854AAAAAAAAAAABkARQnAQ)
 
 几个大的流程：
 
@@ -85,7 +89,10 @@ G2 的数据映射到图形的过程整体上遵循这个流程，但是细节�
 - 数据调整，为了更清晰的展示数据，图形有时候需要层叠、分组、散开等，此时需要对数据进行调整 。
 - 统一度量，度量包含了数据字段的信息，例如连续字段的最大值、最小值等信息，分类字段包含的分类，数据一旦进行调整，那么度量中的信息不再准确，所以需要进行度量的调整，同时存在多层图表的情况，例如在地图上显示点图时，这是需要多个数据源，但是用于表示位置的经纬度信息的范围必须进行统一。
 - 归一化，将数据的值映射到数学空间 0-1 空间内，方便数据到图形属性（视觉通道）的映射。
-- 计算图形需要的点，绘制图形时需要多个点，例如绘制一个柱状图，需要 4 个点，如果将坐标系转换，仍然是这 4 个点，仅仅是连接点的方式不同，就会生成不同的图表 。![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14787608176668453d17c0/attach/4080/900/image.png#align=left&display=inline&height=188&originHeight=522&originWidth=816&status=done&style=none&width=293)
+- 计算图形需要的点，绘制图形时需要多个点，例如绘制一个柱状图，需要 4 个点，如果将坐标系转换，仍然是这 4 个点，仅仅是连接点的方式不同，就会生成不同的图表。
+
+![](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*LhjDR6oEdPkAAAAAAAAAAABkARQnAQ)
+
 - 映射，将数据映射到图形空间的视觉通道。
 - 绘制，绘制完成所有的图形。
 

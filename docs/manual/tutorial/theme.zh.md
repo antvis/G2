@@ -91,4 +91,4 @@ registerTheme('themeName', {}); // 注册名为 'themeName' 的主题
 chart.theme('themeName');
 ```
 
-关于自定义主题的具体使用，请阅读[自定义主题]()。
+关于自定义主题的具体使用，请阅读[自定义主题](../developer/registertheme)。

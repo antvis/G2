@@ -41,7 +41,7 @@ chart = new Chart({
 chart.render();
 ```
 
-关于各个属性的使用，详见 [API]();
+关于各个属性的使用，详见 [API](../../api/interfaces/chartcfg);
 
 ## 配置项更新
 
@@ -50,13 +50,13 @@ chart.updateOptions(options);
 chart.render();
 ```
 
-Options 参见[类型定义]()。
+Options 参见[类型定义](../../api/interfaces/options)。
 
 ## 实例
 
 ### 绘制柱状图
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1581672887774-afcab254-3c4d-4b00-bec3-57f9ec5ac807.png#align=left&display=inline&height=321&name=image.png&originHeight=642&originWidth=866&size=35110&status=done&style=none&width=433)
+![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*BICkRbG2I4YAAAAAAAAAAABkARQnAQ)
 
 ```typescript
 const chart = new Chart({
@@ -91,7 +91,7 @@ chart.render();
 
 ### 绘制多 View
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1581673004216-aefea522-30a4-40a8-95e8-a1ce31f97dd8.png#align=left&display=inline&height=315&name=image.png&originHeight=630&originWidth=842&size=47213&status=done&style=none&width=421)
+![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*wWeWSJGhKqAAAAAAAAAAAABkARQnAQ)
 
 ```typescript
 const chart = new Chart({

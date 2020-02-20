@@ -15,7 +15,11 @@ chart
 
 ## 为什么进行数据调整
 
-数据映射到图形时必须进行视觉编码，视觉编码包括几何标记和视觉通道，几何标记对应着多种图表类型，视觉通道定义图形属性。视觉通道中最具区分度的通道是位置（position)，图形的位置在一些情况下会出现重叠：![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1581583226007-85bb45d4-9ca2-4616-b5d8-de69cd0b889e.png#align=left&display=inline&height=245&name=image.png&originHeight=490&originWidth=1464&size=108355&status=done&style=none&width=732)点图经常存在点重叠的情况。上图（1）中的点图有 2000 多条记录，大多数点重叠在一起，（2）中柱状图（interval)  在 x 轴是分类的情况下，同一个分类下有多条记录是也会重叠。上图的柱状图，每个分类下有 7 个柱状图，互相重叠，看不清晰各个分类的数据大小。
+数据映射到图形时必须进行视觉编码，视觉编码包括几何标记和视觉通道，几何标记对应着多种图表类型，视觉通道定义图形属性。视觉通道中最具区分度的通道是位置（position)，图形的位置在一些情况下会出现重叠：
+
+![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*Tx_pTrx1WB8AAAAAAAAAAABkARQnAQ)
+
+点图经常存在点重叠的情况。上图（1）中的点图有 2000 多条记录，大多数点重叠在一起，（2）中柱状图（interval)  在 x 轴是分类的情况下，同一个分类下有多条记录是也会重叠。上图的柱状图，每个分类下有 7 个柱状图，互相重叠，看不清晰各个分类的数据大小。
 
 所以我们需要对数据进行调整，使得图形在画布上不互相重叠。
 
@@ -37,11 +41,11 @@ G2 中支持以下几种数据调整：
 - 数据调整的界限要清晰，不能混淆不同类别的数据。
 - 定量（连续）数据只能进行数据的累加和对称，分类数据只能在当前分类的范围内调整数据。
 
-![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791777075666209d17d9/attach/4080/900/image.png#align=left&display=inline&height=267&originHeight=267&originWidth=942&status=done&style=none&width=942)
+![](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*lfKURbSCZGcAAAAAAAAAAABkARQnAQ)
 
 > 点图本来在一个分类下是折叠在一起的，可以在这个分类占有的画布空间内抖开数据。
 
-![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791777275124012d7559/attach/4080/900/image.png#align=left&display=inline&height=271&originHeight=271&originWidth=987&status=done&style=none&width=987)
+![](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*rDm9QJG90gMAAAAAAAAAAABkARQnAQ)
 
 > 同一个分类下的柱状图可以均匀分布在分类占有的画布空间实现分组的效果。
 
@@ -76,16 +80,16 @@ a 映射的 x 轴方向，b 映射到 y 轴方向，发生层叠处理后：
 
 生成的图形：
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1581584460245-9ba45803-dd44-49b4-bb94-b4b8c190059a.png#align=left&display=inline&height=288&name=image.png&originHeight=576&originWidth=812&size=20112&status=done&style=none&width=406)
+![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*-b18Q45PEwYAAAAAAAAAAABkARQnAQ)
 
 #### 适合的几何标记
 
-| 几何标记 |                                                                                                             描述                                                                                                              |              配置               |
-| :------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------: |
-|  point   | 层叠的点图![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791777909622475d7565/attach/4080/900/image.png#align=left&display=inline&height=479&originHeight=479&originWidth=923&status=done&style=none&width=923) | `chart.point().adjust('stack')` |
-| interval |                                                                                                     层叠的柱状图、玫瑰图                                                                                                      |
+| 几何标记 |                                                 描述                                                 |              配置               |
+| :------: | :--------------------------------------------------------------------------------------------------: | :-----------------------------: |
+|  point   | 层叠的点图![](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*6md_T59nZRsAAAAAAAAAAABkARQnAQ) | `chart.point().adjust('stack')` |
+| interval |                                         层叠的柱状图、玫瑰图                                         |
 
-![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791778062043730d17d3/attach/4080/900/image.png#align=left&display=inline&height=457&originHeight=457&originWidth=926&status=done&style=none&width=926) | `chart.interval().adjust('stack')` |
+![](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*cQm8QJhL8D8AAAAAAAAAAABkARQnAQ) | `chart.interval().adjust('stack')` |
 
 ### jitter
 
@@ -128,13 +132,13 @@ const data = [
 
 生成的图形：
 
-![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791779492932835d17cd/attach/4080/900/image.png#align=left&display=inline&height=221&originHeight=329&originWidth=395&status=done&style=none&width=265)
+![](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*pKmHT5vJuHoAAAAAAAAAAABkARQnAQ)
 
 #### 适合的几何标记
 
-| 几何标记 |                                                                                                             描述                                                                                                              |               配置               |
-| :------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------: |
-|  point   | 散开的点图![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791779779402611d7565/attach/4080/900/image.png#align=left&display=inline&height=464&originHeight=464&originWidth=907&status=done&style=none&width=907) | `chart.point().adjust('jitter')` |
+| 几何标记 |                                                 描述                                                 |               配置               |
+| :------: | :--------------------------------------------------------------------------------------------------: | :------------------------------: |
+|  point   | 散开的点图![](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*2j63QZp75NUAAAAAAAAAAABkARQnAQ) | `chart.point().adjust('jitter')` |
 
 ### dodge
 
@@ -178,16 +182,16 @@ const data = [
 
 生成的图形：
 
-![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791780408214082d7559/attach/4080/900/image.png#align=left&display=inline&height=272&originHeight=315&originWidth=389&status=done&style=none&width=336)
+![](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*ZhFqQY41AlEAAAAAAAAAAABkARQnAQ)
 
 #### 适合的几何标记
 
-| 几何标记 |                                                                                                            描述                                                                                                             |              配置               |
-| :------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------: |
-|  point   | 一维点图![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791780586804104d7559/attach/4080/900/image.png#align=left&display=inline&height=475&originHeight=475&originWidth=908&status=done&style=none&width=908) | `chart.point().adjust('dodge')` |
-| interval |                                                                                               二维的柱状图、玫瑰图(interval)                                                                                                |
+| 几何标记 |                                                描述                                                |              配置               |
+| :------: | :------------------------------------------------------------------------------------------------: | :-----------------------------: |
+|  point   | 一维点图![](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*rQ_uTaCvtSgAAAAAAAAAAABkARQnAQ) | `chart.point().adjust('dodge')` |
+| interval |                                   二维的柱状图、玫瑰图(interval)                                   |
 
-![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791780727132919d17cd/attach/4080/900/image.png#align=left&display=inline&height=303&originHeight=303&originWidth=922&status=done&style=none&width=922) | `chart.interval().adjust('dodge')` |
+![](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*EkXSQ6WpPnkAAAAAAAAAAABkARQnAQ) | `chart.interval().adjust('dodge')` |
 
 ### symmetric
 
@@ -221,22 +225,24 @@ offset = (max - min - value)/2;
 
 生成的图形：
 
-![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791780889395220d755f/attach/4080/900/image.png#align=left&display=inline&height=497&originHeight=497&originWidth=904&status=done&style=none&width=904)
+![](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*lfKURbSCZGcAAAAAAAAAAABkARQnAQ)
 
 #### 适合的几何标记
 
-| 几何标记 |                                                                                                           描述                                                                                                            |                  配置                  |
-| :------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------: |
-| interval | 漏斗图![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791781024552956d17cd/attach/4080/900/image.png#align=left&display=inline&height=259&originHeight=259&originWidth=828&status=done&style=none&width=828) | `chart.interval().adjust('symmetric')` |
-|   area   |                                                                                                数据流图：对称的层叠区域图                                                                                                 |
+| 几何标记 |                                               描述                                               |                  配置                  |
+| :------: | :----------------------------------------------------------------------------------------------: | :------------------------------------: |
+| interval | 漏斗图![](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*DXsdRLiaPhcAAAAAAAAAAABkARQnAQ) | `chart.interval().adjust('symmetric')` |
+|   area   |                                    数据流图：对称的层叠区域图                                    |
 
-![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791781232692679d7565/attach/4080/900/image.png#align=left&display=inline&height=192&originHeight=192&originWidth=834&status=done&style=none&width=834) | `chart.area().adjust('symmetric')` |
+![](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*igxpSIu_xngAAAAAAAAAAABkARQnAQ) | `chart.area().adjust('symmetric')` |
 
 ## 组合使用
 
 我们还可以对数据调整类型进行组合使用，如下图所示，通过组合 stack 和 dodge 以绘制分组层叠柱状图。
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580893621828-5d51cdfc-c376-40ba-a636-9b57321fb66c.png#align=left&display=inline&height=537&name=image.png&originHeight=1074&originWidth=1392&size=94089&status=done&style=none&width=696)实例地址：[http://localhost:8000/zh/examples/column/dodge#column-clustered-stacked](http://localhost:8000/zh/examples/column/dodge#column-clustered-stacked)
+![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*BMG_QZAETuoAAAAAAAAAAABkARQnAQ)
+
+实例地址：[分组层叠柱状图](../../../examples/column/dodge-stack)
 
 关键代码：
 

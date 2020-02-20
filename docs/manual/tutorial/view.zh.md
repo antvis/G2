@@ -3,7 +3,9 @@ title: 绘制视图 View
 order: 13
 ---
 
-G2 的图表 Chart，可以创建多个视图 View，每个 View 各自又可以创建其子 View，即在 G2 4.0 中，View 是支持嵌套的。每个 View 同 Chart 一样，拥有自己独立的数据源、坐标系、几何标记、Tooltip 以及图例，你可以这样理解，其实 Chart 也是一种特殊的 View，在类结构设计上，Chart 和 View 的关系如下：![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580895248263-571931a7-b29f-4cc0-ba35-288f97c4f137.png#align=left&display=inline&height=136&name=image.png&originHeight=272&originWidth=182&size=7789&status=done&style=none&width=91)
+G2 的图表 Chart，可以创建多个视图 View，每个 View 各自又可以创建其子 View，即在 G2 4.0 中，View 是支持嵌套的。每个 View 同 Chart 一样，拥有自己独立的数据源、坐标系、几何标记、Tooltip 以及图例，你可以这样理解，其实 Chart 也是一种特殊的 View，在类结构设计上，Chart 和 View 的关系如下：
+
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*EZAaR7tdFlAAAAAAAAAAAABkARQnAQ" style="width:91px;">
 
 ## 如何创建视图
 
@@ -46,7 +48,7 @@ view
 chart.render(); // 由 chart 负责统一的渲染
 ```
 
-关于 view 的更多方法请查看 [view api]()。
+关于 view 的更多方法请查看 [view api](../../api/classes/view)。
 
 ## 示例
 
@@ -59,7 +61,7 @@ chart.render(); // 由 chart 负责统一的渲染
 1. 首先绘制世界地图背景，使用包含世界地图经纬度的数据；
 1. 然后再可视化包含各个国家男女比例的用户数据。
 
-![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*RB5mSYfITHcAAAAAAAAAAABkARQnAQ#align=left&display=inline&height=704&originHeight=704&originWidth=1520&status=done&style=none&width=1520)
+![](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*jmHsQbtcJIYAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 import DataSet from '@antv/data-set';
@@ -178,4 +180,4 @@ fetch('../data/world.geo.json')
   });
 ```
 
-实例链接：[http://localhost:8000/zh/examples/map/map#choropleth-map](http://localhost:8000/zh/examples/map/map#choropleth-map)
+[实例链接](../../../examples/map/map#choropleth-map)

@@ -16,8 +16,10 @@ G2 4.0 在交互方面做了非常大的调整，所有的交互代码都是插�
 - legend-filter：分类图例的勾选
 - continuous-filter: 连续图例的过滤
 
-![tooltip.gif](https://cdn.nlark.com/yuque/0/2020/gif/89796/1581670999391-206e5dfd-48a4-4c6c-a083-5fca82e141e4.gif#align=left&display=inline&height=255&name=tooltip.gif&originHeight=512&originWidth=678&size=176190&status=done&style=none&width=338)![active1.gif](https://cdn.nlark.com/yuque/0/2020/gif/89796/1581671279792-271fc84d-bad8-488e-9b14-efabaa8c92e7.gif#align=left&display=inline&height=276&name=active1.gif&originHeight=534&originWidth=684&size=604946&status=done&style=none&width=353)
-![check.gif](https://cdn.nlark.com/yuque/0/2020/gif/89796/1581671347827-e0ea95fa-1ede-4e34-ad16-16bba9dcc90e.gif#align=left&display=inline&height=272&name=check.gif&originHeight=534&originWidth=684&size=968975&status=done&style=none&width=348)![legend-error1.gif](https://cdn.nlark.com/yuque/0/2020/gif/89796/1581671491185-0064d76b-bb08-40a9-917a-2f31b639a4b9.gif#align=left&display=inline&height=252&name=legend-error1.gif&originHeight=512&originWidth=678&size=1226056&status=done&style=none&width=334)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*UMsFRZwIDvMAAAAAAAAAAABkARQnAQ" style="width: 339px;">
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*fjkTR70h9YAAAAAAAAAAAABkARQnAQ" style="width: 339px;">
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*qKwJTbpJLyUAAAAAAAAAAABkARQnAQ" style="width: 339px;">
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*pe97RKJM_XAAAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
 可以通过 Chart 上的配置项 defaultInteractions 更改内置的交互
 
@@ -37,14 +39,14 @@ new Chart({
 - chart.interaction(name, [cfg]) 添加或者修改交互
 - chart.removeInteraction(name) 移除交互
 
-添加或者修改交互时的第二个参数 cfg 是来修改已经定义好的交互的行为，G2 4.0 中的交互全部由交互语法组装而成，可以参考 [交互的环节](https://www.yuque.com/antv/g2-v4-docs/interaction-grammar)，我们在这里不对交互语法进行详细的介绍。
+添加或者修改交互时的第二个参数 cfg 是来修改已经定义好的交互的行为，G2 4.0 中的交互全部由交互语法组装而成，可以参考 [交互的环节](../concepts/interaction)，我们在这里不对交互语法进行详细的介绍。
 
 ```javascript
-chart.interaction('tooltip');
+chart.interaction('tooltip'); // 使用交互
 chart.interaction('element-active');
 chart.interaction('legend-visible-filter');
 
-chart.removeInteraction('element-active');
+chart.removeInteraction('element-active'); // 移除某个交互
 ```
 
 在交互语法中一个交互可以由多个交互环节组成，每个交互环节可以有多个触发和反馈，所以在配置交互时可以配置每个环节，每个环节都是数组，都有 trigger 和 action
@@ -77,7 +79,7 @@ chart.interaction('tooltip', {
 其中：
 
 - trigger 触发一个交互环节的事件名，是所有 Chart 支持的事件
-- action 触发的反馈，可以是字符串也可以是数组，是所有内置和用户自定义的 Action，参考 [交互反馈 Action 列表](#rQHCf) 。
+- action 触发的反馈，可以是字符串也可以是数组，是所有内置和用户自定义的 Action，参考 [交互反馈 Action 列表](#交互反馈-action-列表) 。
   - 字符串由 ’actionName:method‘ 组成
   - 列表时可以使用相同的 action ，也可以使用不同的 action ，例如: ['element-active:clear', 'element-active:active', 'mask:clear']
 
@@ -201,7 +203,7 @@ registerInteraction('tooltip', {
 - 触发对象 plot，图表的绘图区域
 - action 是 tooltip
 
-![tooltip.gif](https://cdn.nlark.com/yuque/0/2020/gif/89796/1581670999391-206e5dfd-48a4-4c6c-a083-5fca82e141e4.gif#align=left&display=inline&height=378&name=tooltip.gif&originHeight=512&originWidth=678&size=176190&status=done&style=none&width=501)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*kdSLTaAiTB0AAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
 ### active-region
 
@@ -218,7 +220,7 @@ registerInteraction('active-region', {
 - 触发对象 plot，图表的绘图区域
 - action 是 active-region
 
-![region.gif](https://cdn.nlark.com/yuque/0/2020/gif/89796/1581673783631-e7401eea-a3f5-42f1-a018-a3c37644fe2f.gif#align=left&display=inline&height=394&name=region.gif&originHeight=534&originWidth=684&size=245080&status=done&style=none&width=505)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*aSJMTYFmTvUAAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
 ### element-active
 
@@ -235,7 +237,7 @@ registerInteraction('element-active', {
 - 触发对象是图表元素 Element
 - action 是 element-active
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/89796/1581674042055-5b476153-1a2e-44f3-bda1-f24858f974ea.png#align=left&display=inline&height=265&name=image.png&originHeight=529&originWidth=679&size=19683&status=done&style=none&width=339.5)![active2.gif](https://cdn.nlark.com/yuque/0/2020/gif/89796/1581674109917-49c0b632-88c9-45a2-bf52-61dd3b4cf3b0.gif#align=left&display=inline&height=266&name=active2.gif&originHeight=534&originWidth=684&size=189068&status=done&style=none&width=341)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*qAjhQ5jwuOYAAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
 ### element-selected
 
@@ -248,7 +250,7 @@ registerInteraction('element-selected', {
 });
 ```
 
-![selected1.gif](https://cdn.nlark.com/yuque/0/2020/gif/89796/1581932895417-74ca7adb-64cb-41c4-8927-97403bb79b7a.gif#align=left&display=inline&height=357&name=selected1.gif&originHeight=534&originWidth=684&size=750295&status=done&style=none&width=457)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*yRjfQaYtF-0AAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
 ### element-single-selected
 
@@ -261,7 +263,7 @@ registerInteraction('element-single-selected', {
 });
 ```
 
-![selected.gif](https://cdn.nlark.com/yuque/0/2020/gif/89796/1581932836159-e27aea1e-5bc7-478b-bae3-3b3e8ada5d95.gif#align=left&display=inline&height=337&name=selected.gif&originHeight=534&originWidth=684&size=454341&status=done&style=none&width=432)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*DDoLT5_cCTQAAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
 ### element-highlight
 
@@ -277,7 +279,7 @@ registerInteraction('element-highlight', {
 - 触发对象是图表元素 element
 - action 是 element-highlight
 
-![highlight1.gif](https://cdn.nlark.com/yuque/0/2020/gif/89796/1581933309755-c9d02922-ca01-47ac-96b7-8973a359312a.gif#align=left&display=inline&height=332&name=highlight1.gif&originHeight=534&originWidth=684&size=433306&status=done&style=none&width=425)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*wr2XTJmoHfkAAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
 ### element-highlight-by-x
 
@@ -290,7 +292,7 @@ registerInteraction('element-highlight', {
 });
 ```
 
-![highlight2.gif](https://cdn.nlark.com/yuque/0/2020/gif/89796/1581998918628-c94d8e72-6225-470b-910c-7294b84d1212.gif#align=left&display=inline&height=357&name=highlight2.gif&originHeight=534&originWidth=684&size=905333&status=done&style=none&width=457)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*7eKNRrht53EAAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
 ### element-highlight-by-color
 
@@ -303,7 +305,8 @@ registerInteraction('element-highlight', {
 });
 ```
 
-![highlight3.gif](https://cdn.nlark.com/yuque/0/2020/gif/89796/1581998936567-005c7a0b-903b-4118-86af-fb3b56af7894.gif#align=left&display=inline&height=261&name=highlight3.gif&originHeight=534&originWidth=684&size=387858&status=done&style=none&width=334)![highlight4.gif](https://cdn.nlark.com/yuque/0/2020/gif/89796/1581998950236-43ad02b7-4bd6-44f8-8041-cb3f7fdbd47b.gif#align=left&display=inline&height=315&name=highlight4.gif&originHeight=534&originWidth=684&size=192453&status=done&style=none&width=404)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*SbLVQpbiiKsAAAAAAAAAAABkARQnAQ" style="width: 339px;">
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*Hv3yTJ7QD5kAAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
 ### legend-filter
 
@@ -329,7 +332,7 @@ registerInteraction('legend-filter', {
   - 列表取消选中：list-unchecked
   - 数据过滤：data-filter
 
-![legend-filter.gif](https://cdn.nlark.com/yuque/0/2020/gif/89796/1581933409211-55bcb87d-7a13-43b9-bed8-d3deae46f530.gif#align=left&display=inline&height=375&name=legend-filter.gif&originHeight=534&originWidth=684&size=438419&status=done&style=none&width=480)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*6RfZTr4ytVYAAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
 ### legend-visible-filter
 
@@ -355,7 +358,8 @@ registerInteraction('legend-visible-filter', {
   - 列表取消选中：list-unchecked
   - 数据过滤：data-filter
 
-![legend-filter2.gif](https://cdn.nlark.com/yuque/0/2020/gif/89796/1581933596525-15166500-b373-4f68-b1d1-c1322a0b43cc.gif#align=left&display=inline&height=383&name=legend-filter2.gif&originHeight=534&originWidth=684&size=210440&status=done&style=none&width=490)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*QH0LR42VJiYAAAAAAAAAAABkARQnAQ" style="width: 339px;">
+
 注意：由于内置了 legend-filter 交互，所以使用该交互时移除掉  legend-filter 交互
 
 ```javascript
@@ -375,7 +379,10 @@ registerInteraction('continuous-filter', {
 ```
 
 - 触发的对象：图例 legend
-- 触发事件：valuechanged![legend-error1.gif](https://cdn.nlark.com/yuque/0/2020/gif/89796/1581933664794-80e9b525-496f-4756-aa72-cebb7e2a5328.gif#align=left&display=inline&height=512&name=legend-error1.gif&originHeight=512&originWidth=678&size=1226056&status=done&style=none&width=678)
+- 触发事件：valuechanged
+
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*FUwdSJGCL-oAAAAAAAAAAABkARQnAQ" style="width: 339px;">
+
 - action 是数据过滤的 data-filter
 
 ### continuous-visible-filter
@@ -391,7 +398,8 @@ registerInteraction('continuous-visible-filter', {
 
 - action 是数据过滤的 element-filter
 
-![legend-filter4.gif](https://cdn.nlark.com/yuque/0/2020/gif/89796/1581933889386-3069b630-f607-4b7e-ac96-b39530dd929a.gif#align=left&display=inline&height=365&name=legend-filter4.gif&originHeight=534&originWidth=684&size=252686&status=done&style=none&width=468)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*SC02SJHZ_BYAAAAAAAAAAABkARQnAQ" style="width: 339px;">
+
 注意：由于内置了 continuous-filter 交互，所以使用该交互时移除掉  continuous-filter  交互
 
 ```javascript
@@ -411,7 +419,7 @@ registerInteraction('legend-active', {
 });
 ```
 
-![legend-active1.gif](https://cdn.nlark.com/yuque/0/2020/gif/89796/1581934022921-47d5c9a9-0dc6-4ac3-ab4a-bfc34d937234.gif#align=left&display=inline&height=399&name=legend-active1.gif&originHeight=534&originWidth=684&size=463095&status=done&style=none&width=511)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*D1VMTYFFPTcAAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
 ### legend-highlight
 
@@ -425,7 +433,7 @@ registerInteraction('legend-highlight', {
 });
 ```
 
-![legend-highlight1.gif](https://cdn.nlark.com/yuque/0/2020/gif/89796/1581934181717-707bfd29-1272-4f97-ba32-a39dd0e832e3.gif#align=left&display=inline&height=361&name=legend-highlight1.gif&originHeight=534&originWidth=684&size=642317&status=done&style=none&width=463)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*k_HTQa-iszoAAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
 ### axis-label-highlight
 
@@ -439,7 +447,7 @@ registerInteraction('axis-label-highlight', {
 });
 ```
 
-![axis-highlight1.gif](https://cdn.nlark.com/yuque/0/2020/gif/89796/1581935279884-639a1621-2444-44f1-b27c-9fd40346a616.gif#align=left&display=inline&height=407&name=axis-highlight1.gif&originHeight=534&originWidth=684&size=275867&status=done&style=none&width=521)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*_JebQZWT-40AAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
 ### element-list-highlight
 
@@ -453,7 +461,7 @@ registerInteraction('element-list-highlight', {
 });
 ```
 
-![axis-highlight2.gif](https://cdn.nlark.com/yuque/0/2020/gif/89796/1581935338571-cf47b328-7d4a-4181-8cde-b2ba972706ef.gif#align=left&display=inline&height=422&name=axis-highlight2.gif&originHeight=534&originWidth=684&size=732073&status=done&style=none&width=541)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*7MrDT5qjPAgAAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
 ### brush
 
@@ -493,7 +501,7 @@ registerInteraction('brush', {
 - 触发对象都是 plot
 - 相关的 Action 有 cursor, brush, rect-mask
 
-![brush1.gif](https://cdn.nlark.com/yuque/0/2020/gif/89796/1581935435388-bc929e72-3af8-462f-91ec-b6756dbdd30e.gif#align=left&display=inline&height=332&name=brush1.gif&originHeight=534&originWidth=684&size=646154&status=done&style=none&width=425)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*tKSkR6peM2MAAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
 ### brush-x
 
@@ -869,4 +877,4 @@ registerInteraction('element-brush', {
 
 ## 更多
 
-本文中仅介绍了如何使用交互，而所有交互都是通过交互语法搭配而成的，需要自定义交互的用户可以参考 [交互语法](https://www.yuque.com/antv/g2-v4-docs/interaction-grammar)  和 [自定义交互](https://www.yuque.com/antv/g2-v4-docs/qsrt5x)
+本文中仅介绍了如何使用交互，而所有交互都是通过交互语法搭配而成的，需要自定义交互的用户可以参考 [交互语法](../concepts/interaction)  和 [自定义交互](../developer/registerinteraction)

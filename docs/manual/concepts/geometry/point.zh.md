@@ -1,6 +1,6 @@
 ---
 title: 点图 point
-order: 0
+order: 1
 ---
 
 ## 简介
@@ -69,11 +69,13 @@ chart.point().position('month*temperature');
 
 自由度 = 所在的空间维数 - 图形的维度。
 
-我们知道点图本身仅仅是 0 维的图形，所以其自由度是 2，从理论上说 size 可以映射到两个视觉通道，但是实际上我们不会这样做。![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791792288604206d7553/attach/4080/900/image.png#align=left&display=inline&height=123&originHeight=123&originWidth=385&status=done&style=none&width=385)
+我们知道点图本身仅仅是 0 维的图形，所以其自由度是 2，从理论上说 size 可以映射到两个视觉通道，但是实际上我们不会这样做。
+
+<img src="https://zos.alipayobjects.com/basement/skylark/0ad6383d14791792288604206d7553/attach/4080/900/image.png" style="width: 385px;">
 
 人的视觉对图形在两个方向上进行大小的扩展，两个方向的视觉通道会耦合、干扰，导致识别度不高，所以对于点图 size 视觉通道的映射，G2 仅仅支持一个字段的映射，数据字段的大小映射到图形的半径（如果是正方形 1/2 边长）。
 
-![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791792474912863d7565/attach/4080/900/image.png#align=left&display=inline&height=151&originHeight=151&originWidth=302&status=done&style=none&width=302)
+<img src="https://zos.alipayobjects.com/basement/skylark/0ad6383d14791792474912863d7565/attach/4080/900/image.png" style="width: 302px;">
 
 在项目中使用最多的是气泡图：
 
@@ -113,7 +115,7 @@ shape 视觉通道支持的形状主要有两大类：
 
 ## 点图跟坐标系
 
-由于点图是 0 维的，所以点图在不同[坐标系](#)内的图形是完全一致的，接下来的图形类型中你会认识到图表的形状受坐标系的影响。
+由于点图是 0 维的，所以点图在不同[坐标系](../coordinate)内的图形是完全一致的，接下来的图形类型中你会认识到图表的形状受坐标系的影响。
 
 ## 点图和其他图
 

@@ -41,4 +41,4 @@ chart.theme('newTheme');
 |      `innerLabels`      |  object  |           配置 Geometry 下展示在图形内部的 labels 的主题样式            |
 |       `pieLabels`       |  object  |                       配置饼图 labels 的主题样式                        |
 
-关于以上每个属性的结构及内容，详见[G2 主题配置项详解]()。
+关于以上每个属性的结构及内容，详见[G2 主题配置项详解](./dive-into-theme)。

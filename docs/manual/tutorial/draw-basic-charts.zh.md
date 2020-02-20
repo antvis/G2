@@ -29,7 +29,7 @@ G2 中并没有特定的图表类型（柱状图、散点图、折线图等）�
 - 线图，可以有折线、曲线、点线等
 - 多边形，可以是实心的多边形，也可以是空心的仅有边框的多边形
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580885622670-351e7c56-de89-4126-8301-54c904e25d85.png#align=left&display=inline&height=103&name=image.png&originHeight=205&originWidth=534&size=13632&status=done&style=none&width=267)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*HD1lQKSvKHUAAAAAAAAAAABkARQnAQ" style="width: 50%;">
 
 下表罗列了 G2 中各个 geometry 内置提供的 shape 类型:
 
@@ -47,7 +47,9 @@ G2 中并没有特定的图表类型（柱状图、散点图、折线图等）�
 
 ### 基础实例
 
-链接：[http://localhost:8000/zh/examples/line/basic](http://localhost:8000/zh/examples/line/basic)![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580886908285-c9db444b-5b5c-4d5b-93bf-ad35eb78497d.png#align=left&display=inline&height=529&name=image.png&originHeight=1104&originWidth=1372&size=71346&status=done&style=none&width=657)
+链接：[https://g2.antv.vision/zh/examples/line/basic](https://g2.antv.vision/zh/examples/line/basic)
+
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*sawJQpa3IHQAAAAAAAAAAABkARQnAQ" style="width: 50%;">
 
 ### 核心语法
 
@@ -57,7 +59,9 @@ G2 中并没有特定的图表类型（柱状图、散点图、折线图等）�
 
 ### 基础实例
 
-链接：[http://localhost:8000/zh/examples/area/basic](http://localhost:8000/zh/examples/area/basic)![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580887468018-668ae2b4-5441-4bbf-bd65-9f0f25853774.png#align=left&display=inline&height=533&name=image.png&originHeight=1066&originWidth=1404&size=84442&status=done&style=none&width=702)
+链接：[https://g2.antv.vision/zh/examples/area/basic](https://g2.antv.vision/zh/examples/area/basic)
+
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*aC4uRb3mPzoAAAAAAAAAAABkARQnAQ" style="width: 50%;">
 
 ### 核心语法
 
@@ -69,7 +73,9 @@ chart.area().position('year*value');
 
 ### 基础实例
 
-链接：[http://localhost:8000/zh/examples/column/basic](http://localhost:8000/zh/examples/column/basic)![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580887507415-44fa9176-e179-4b3b-ab14-3db276851bf0.png#align=left&display=inline&height=542&name=image.png&originHeight=1084&originWidth=1398&size=68176&status=done&style=none&width=699)
+链接：[https://g2.antv.vision/zh/examples/column/basic](https://g2.antv.vision/zh/examples/column/basic)
+
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*5EBZQI2YjX0AAAAAAAAAAABkARQnAQ" style="width: 50%;">
 
 ### 核心语法
 
@@ -81,7 +87,9 @@ chart.interval().position('year*sales');
 
 ### 基础实例
 
-链接：[http://localhost:8000/zh/examples/bar/basic](http://localhost:8000/zh/examples/bar/basic)![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580887538786-7050a9cd-8d44-4f2f-87e9-cebbaba63814.png#align=left&display=inline&height=546&name=image.png&originHeight=1092&originWidth=1394&size=74199&status=done&style=none&width=697)
+链接：[https://g2.antv.vision/zh/examples/bar/basic](https://g2.antv.vision/zh/examples/bar/basic)
+
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*MMeSTLWvzp4AAAAAAAAAAABkARQnAQ" style="width: 50%;">
 
 ### 核心语法
 
@@ -94,7 +102,9 @@ chart.interval().position('country*population');
 
 ### 基础实例
 
-链接：[http://localhost:8000/zh/examples/pie/basic](http://localhost:8000/zh/examples/pie/basic)![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580887635655-bfbf1981-37c1-4ec8-9787-46d5a7a85c45.png#align=left&display=inline&height=513&name=image.png&originHeight=1026&originWidth=1128&size=97138&status=done&style=none&width=564)
+链接：[https://g2.antv.vision/zh/examples/pie/basic](https://g2.antv.vision/zh/examples/pie/basic)
+
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*Rae2R43KhQsAAAAAAAAAAABkARQnAQ" style="width: 50%;">
 
 ### 核心语法
 
@@ -111,7 +121,9 @@ chart
 
 ### 基础实例
 
-链接：[http://localhost:8000/zh/examples/point/scatter](http://localhost:8000/zh/examples/point/scatter)![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580887928360-37a193da-a775-4f72-b79d-e0399a199e70.png#align=left&display=inline&height=540&name=image.png&originHeight=1080&originWidth=1374&size=187367&status=done&style=none&width=687)
+链接：[https://g2.antv.vision/zh/examples/point/scatter](https://g2.antv.vision/zh/examples/point/scatter)
+
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*bZLwQZ1yJTwAAAAAAAAAAABkARQnAQ" style="width: 50%;">
 
 ### 核心语法
 
@@ -130,7 +142,9 @@ chart
 
 ### 基础实例
 
-链接：[http://localhost:8000/zh/examples/funnel/funnel](http://localhost:8000/zh/examples/funnel/funnel)![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580888147493-c57b804f-98ec-48c9-9436-3beaad09cf8f.png#align=left&display=inline&height=484&name=image.png&originHeight=968&originWidth=1216&size=94147&status=done&style=none&width=608)
+链接：[https://g2.antv.vision/zh/examples/funnel/funnel](https://g2.antv.vision/zh/examples/funnel/funnel)
+
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*LnLvQJTv-VMAAAAAAAAAAABkARQnAQ" style="width: 50%;">
 
 ### 核心语法
 
@@ -151,7 +165,9 @@ chart
 
 ### 基础实例
 
-链接：[http://localhost:8000/zh/examples/radar/radar](http://localhost:8000/zh/examples/radar/radar)![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580888209324-d5d398dc-29d5-413b-8994-4c1dbec6dac0.png#align=left&display=inline&height=520&name=image.png&originHeight=1040&originWidth=960&size=148786&status=done&style=none&width=480)
+链接：[https://g2.antv.vision/zh/examples/radar/radar](https://g2.antv.vision/zh/examples/radar/radar)
+
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*_tPRTZPyNpwAAAAAAAAAAABkARQnAQ" style="width: 50%;">
 
 ### 核心语法
 
@@ -181,6 +197,6 @@ chart
   .color('user');
 ```
 
-## 更多图表
+## 更多
 
-更多图表类型，请访问 [demos 页面]()。
+更多关于 Geometry 几何标记和图表类型的信息，可以翻阅[几何标记与图表类型](../concepts/geometry/overview)章节。

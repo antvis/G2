@@ -1,6 +1,6 @@
 ---
 title: 路径和线（path && line）
-order: 1
+order: 2
 ---
 
 ## 简介
@@ -69,8 +69,11 @@ size 的视觉通道跟图形的自由度相关，自由度 = 空间维度 - 图
 ![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791814488053451d7565/attach/4080/900/image.png#align=left&display=inline&height=495&originHeight=495&originWidth=962&status=done&style=none&width=962)
 
 - 信号相关的折线图：vh hv hvh vhv
-  ![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791814670683470d7565/attach/4080/900/image.png#align=left&display=inline&height=490&originHeight=490&originWidth=949&status=done&style=none&width=949)
+
+![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791814670683470d7565/attach/4080/900/image.png#align=left&display=inline&height=490&originHeight=490&originWidth=949&status=done&style=none&width=949)
 
 ## 线图和坐标系
 
-线图在直角坐标系和极坐标系下有所差别，在极坐标下线图需要进行闭合，![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791814858303483d7565/attach/4080/900/image.png#align=left&display=inline&height=476&originHeight=476&originWidth=771&status=done&style=none&width=771)
+线图在直角坐标系和极坐标系下有所差别，在极坐标下线图需要进行闭合。
+
+![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791814858303483d7565/attach/4080/900/image.png#align=left&display=inline&height=476&originHeight=476&originWidth=771&status=done&style=none&width=771)

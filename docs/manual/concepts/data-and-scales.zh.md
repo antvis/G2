@@ -72,17 +72,22 @@ order: 3
 - 坐标点（ticks），用于显示在图例或者坐标轴上，对于分类度量，坐标点就是分类类型；连续的数据类型，需要计算出对人比较友好的坐标点、友好的坐标间距，例如：
   - 1，2，3，4，5
   - 0, 5,10,15,20
-  - 0.001, 0.005,0.010<br />
-    而不是：
-  - 1.1，2.1，3.1，4.1
-  - 12，22，32，42，52
+  - 0.001, 0.005,0.010
+
+而不是：
+
+- 1.1，2.1，3.1，4.1
+- 12，22，32，42，52
 
 ## G2 的度量类型
 
 度量的类结构图：
 
 - Scale 和 Continuous 是抽象的类没有具体的实现，其他每种类都对应一种类型
-  ![](https://cdn.nlark.com/yuque/__puml/869b763447fbfa1f07ff5287ae4de8e0.svg#lake_card_v2=eyJjb2RlIjoiQHN0YXJ0dW1sXG5cbmNsYXNzIFNjYWxlIHtcblxufVxuXG5TY2FsZSA8fC0tIENvbnRpbnVvdXNcbkNvbnRpbnVvdXMgPHwtLSBMaW5lYXJcbkxpbmVhciA8fC0tIFRpbWVcbkNvbnRpbnVvdXMgPHwtLSBMb2dcbkNvbnRpbnVvdXMgPHwtLSBQb3dcbkNvbnRpbnVvdXMgPHwtLSBRdWFudGl6ZVxuQ29udGludW91cyA8fC0tIFF1YW50aWxlXG5TY2FsZSA8fC0tIENhdGVnb3J5XG5DYXRlZ29yeSA8fC0tIFRpbWVDYXRcblNjYWxlIDx8LS0gSWRlbnRpdHlcblxuQGVuZHVtbCIsInR5cGUiOiJwdW1sIiwiaWQiOiJxRGxnWSIsInVybCI6Imh0dHBzOi8vY2RuLm5sYXJrLmNvbS95dXF1ZS9fX3B1bWwvODY5Yjc2MzQ0N2ZiZmExZjA3ZmY1Mjg3YWU0ZGU4ZTAuc3ZnIiwiY2FyZCI6ImRpYWdyYW0ifQ==)G2 中提供了下面几种度量
+
+  ![](https://gw.alipayobjects.com/zos/basement_prod/1bd9a0f0-49f8-43e6-b324-9f3f557e7dd2.svg)
+
+  G2 中提供了下面几种度量
 
 - identity，常量类型的数值，也就是说数据的某个字段是不变的常量；
 - linear，连续的数字 [1, 2, 3, 4, 5]；
@@ -243,7 +248,7 @@ timeCat 类型的数据，是一种日期数据，但是不是连续的日期。
 | tickCount | 此时需要设置坐标点的个数 |
 | mask      | 数据的格式化格式         |
 
-![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*dVEvRoLH-t4AAAAAAAAAAABkARQnAQ#align=left&display=inline&height=220&originHeight=220&originWidth=149&status=done&style=none&width=149)
+<img src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*dVEvRoLH-t4AAAAAAAAAAABkARQnAQ" style="width:149px;">
 
 ### 度量坐标点的计算
 
@@ -255,7 +260,9 @@ timeCat 类型的数据，是一种日期数据，但是不是连续的日期。
 
 ### 度量 ticks 的计算
 
-度量的信息需要在图例、坐标轴上显示时，不可能全部显示所有的数据，那么就需要选取一些代表性的数据显示在图例、坐标轴上，我们称这些数据为`ticks`（坐标点），使用图表中经常会遇到 ticks 刻度计算不合适的情况，G2 4.0 的 Scale 不但内置了大量计算 ticks 的算法，也提供了扩展机制，自己实现 ticks 的计算。<br />可以通过 tickMethod 属性配置计算 ticks 的方法，默认内置的 ticks 方法有：
+度量的信息需要在图例、坐标轴上显示时，不可能全部显示所有的数据，那么就需要选取一些代表性的数据显示在图例、坐标轴上，我们称这些数据为`ticks`（坐标点），使用图表中经常会遇到 ticks 刻度计算不合适的情况，G2 4.0 的 Scale 不但内置了大量计算 ticks 的算法，也提供了扩展机制，自己实现 ticks 的计算。
+
+可以通过 tickMethod 属性配置计算 ticks 的方法，默认内置的 ticks 方法有：
 
 - `wilkinson-extended` ：计算数字 ticks 的方法，linear 类型度量内置的计算方法
 - `r-pretty`: 计算数字 ticks 的方法， ticks 的 nice 效果很好，但是 tickCount 的精度太差
@@ -297,7 +304,7 @@ chart.scale('x', {
 
 但是当分类类型的数值过多，同时分类间有顺序关系时可以省略掉一些分类例如：
 
-![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*uRobSJl9ldgAAAAAAAAAAABkARQnAQ#align=left&display=inline&height=232&originHeight=232&originWidth=405&status=done&style=none&width=405)
+<img src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*uRobSJl9ldgAAAAAAAAAAABkARQnAQ" style="width:405px;">
 
 计算时需要使用到的属性：
 
@@ -336,8 +343,10 @@ const ticks = ['第一周', '第二周', '第三周', '第五周'];
 
 连续数据类型计算坐标点需要考虑以下问题：
 
-- 坐标点必须是对人友好的数据 (nice numbers)，不能简单的均分的方式计算坐标点。<br />
+- 坐标点必须是对人友好的数据 (nice numbers)，不能简单的均分的方式计算坐标点。
+
   例如 min: 3,max: 97,tickCount: 6，如果平均划分则会生成 ticks: [3, 21.888,...,78.111,97]，我们理想的方式是 ticks: [0, 20, 40, 60, 80, 100]
+
 - 计算的数值范围不确定，有可能是 0, 100, 1000 也有可能是 0.01，0.02，0.03
 
 连续数据坐标点的计算方式如下：

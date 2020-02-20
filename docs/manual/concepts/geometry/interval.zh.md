@@ -1,6 +1,6 @@
 ---
 title: 区间图 interval
-order: 3
+order: 4
 ---
 
 ## 简介
@@ -15,7 +15,7 @@ order: 3
 
 ![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791888765785398d7565/attach/4080/900/image.png#align=left&display=inline&height=465&originHeight=465&originWidth=608&status=done&style=none&width=608)
 
-区间图可以进行[数据调整](#)，当 x 轴上同一个分类下有多个分组的数据时可以进行：
+区间图可以进行[数据调整](../../tutorial/adjust)，当 x 轴上同一个分类下有多个分组的数据时可以进行：
 
 - 层叠，构成层叠柱状图、层叠玫瑰图、嵌套饼图、层叠条形环图。
 
@@ -128,10 +128,17 @@ size 视觉通道对于区间图来说一般仅设置常量，应用到区间图
 
 ## 区间图跟坐标系
 
-前面的章节中，我们介绍过[坐标系](#)，在不同的坐标系中图形标记有不同的表现方式，下面我们介绍 interval 受坐标系的影响：
+前面的章节中，我们介绍过[坐标系](../coordinate)，在不同的坐标系中图形标记有不同的表现方式，下面我们介绍 interval 受坐标系的影响：
 
 - interval（区间）在直角坐标系中表现为柱状图，在极坐标下表现为玫瑰图。
-- interval（区间）在直角坐标系 transpose（转置）后，表现为条形图,在极坐标系 transpose（转置）后表现为条形环图 。![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791892201206684d17cd/attach/4080/900/image.png#align=left&display=inline&height=178&originHeight=178&originWidth=710&status=done&style=none&width=710)
+- interval（区间）在直角坐标系 transpose（转置）后，表现为条形图,在极坐标系 transpose（转置）后表现为条形环图 。
+
+![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791892201206684d17cd/attach/4080/900/image.png#align=left&display=inline&height=178&originHeight=178&originWidth=710&status=done&style=none&width=710)
+
 - 层叠 interval（区间）在直角坐标系 transpose（转置）后，表现为层叠条形图，在极坐标系 transpose（转置）后是层叠的条形环图。当展示百分百的层叠 Interval 时，在极坐标系 transpose（转置）后是嵌套饼图，仅有一个分类时，则是单个饼图。
-  ![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791892367025489d7565/attach/4080/900/image.png#align=left&display=inline&height=372&originHeight=372&originWidth=654&status=done&style=none&width=654)
-- 当 interval(区间）的 shape 是`line`,`tick`，在极坐标系下会做相应的弯曲 。![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791892532527554d17d3/attach/4080/900/image.png#align=left&display=inline&height=499&originHeight=499&originWidth=568&status=done&style=none&width=568)
+
+![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791892367025489d7565/attach/4080/900/image.png#align=left&display=inline&height=372&originHeight=372&originWidth=654&status=done&style=none&width=654)
+
+- 当 interval(区间）的 shape 是`line`,`tick`，在极坐标系下会做相应的弯曲 。
+
+![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791892532527554d17d3/attach/4080/900/image.png#align=left&display=inline&height=499&originHeight=499&originWidth=568&status=done&style=none&width=568)

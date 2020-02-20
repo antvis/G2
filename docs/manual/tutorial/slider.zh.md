@@ -7,7 +7,7 @@ order: 19
 
 如下图所示：
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/86342/1581584641902-2898713e-0da9-41ae-91c7-ebd91d2d50cf.png#align=left&display=inline&height=311&name=image.png&originHeight=622&originWidth=1024&size=172124&status=done&style=none&width=512)
+![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*dJbXTrNo2qcAAAAAAAAAAABkARQnAQ)
 
 Slider 在 G2 4.0 中作为内置组件，方便使用。
 
@@ -100,4 +100,4 @@ export interface SliderOption {
 
 ## 实例
 
-> TODO 网站 DEMO 地址。
+[线上地址](../../../examples/area/basic#area-large)。

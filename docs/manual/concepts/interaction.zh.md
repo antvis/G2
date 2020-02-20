@@ -24,7 +24,7 @@ _
 - 作为高级语法，它们的模型倾向于简洁。默认情况下无法表达高度专业化的技术，例如通过宽松的选择查询时间序列数据。（但是提供了 Selection 公式可以进行扩展）。
 - 尚未提供跨视图的标记。例如，使用线段在视觉上链接多个散点图中相同的点（产生类似平行坐标的效果）。
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/156681/1581911832435-1de9b121-3456-4724-97df-ecb515f2f93c.png#align=left&display=inline&height=432&name=image.png&originHeight=864&originWidth=2456&size=1147802&status=done&style=none&width=1228)
+![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*XKkKTrIxHDcAAAAAAAAAAABkARQnAQ)
 
 另外，Vega-Lite  基于数据映射，通过改变数据映射，通过改变状态量，达到效果。专业的、懂可视化的人去做的。一般人难以理解。Vega-Lite 只能做基于数据交互（只能做现有数据的探索），但有些交互不是数据驱动的。比如 hover 的时候，可以重新走一遍数据映射，但是无法满足交互的中间态的处理。
 
@@ -122,7 +122,9 @@ _
 
 在一个交互中，可以存在多个相同的环节；而一个环节中也可以同时存在多个触发和反馈。例如，上面的例子中，存在了两个持续环节；结束环节中有两个反馈：数据被过滤，mask 消失。
 
-但交互中，不同环节的发生是遵循一定顺序的。如下图所示的 pipeline，交互持续与结束是在交互开始之后，才能够发生；回滚发生在结束之后。因此，我们需要定义同一交互中的环节顺序约束<br />![image.png](https://cdn.nlark.com/yuque/0/2020/png/156681/1581911832228-ab19839b-c310-4a90-ba05-29dc7702b801.png#align=left&display=inline&height=415&name=image.png&originHeight=404&originWidth=251&size=21279&status=done&style=none&width=258)
+但交互中，不同环节的发生是遵循一定顺序的。如下图所示的 pipeline，交互持续与结束是在交互开始之后，才能够发生；回滚发生在结束之后。因此，我们需要定义同一交互中的环节顺序约束
+
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*kH3lSr3T1PIAAAAAAAAAAABkARQnAQ" style="width: 251px;">
 
 #### 不同交互间的冲突约束
 
@@ -161,7 +163,7 @@ _
 
 ## Specification
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/156681/1581911832238-060efcb3-16fa-4b9a-916f-c9b298aea7d4.png#align=left&display=inline&height=210&name=image.png&originHeight=283&originWidth=199&size=13084&status=done&style=none&width=148)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*IZf6R5mKF24AAAAAAAAAAABkARQnAQ" style="width: 199px;">
 
 ### Definition
 

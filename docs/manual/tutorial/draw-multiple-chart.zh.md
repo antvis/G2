@@ -7,7 +7,9 @@ order: 17
 
 ## 带均值线的区间面积图
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580966501100-1cd2a5ea-39dd-4d7a-8ba5-3be92fd904fc.png#align=left&display=inline&height=325&name=image.png&originHeight=650&originWidth=846&size=48166&status=done&style=none&width=423)上图由面积图 + 折线图 + 点图组合而成，其中面积区域可视化的是这段时间的温度范围，即每日的最高和最低气温，而折线图表示的是每日的平均温度变化，该图表的数据结构如下，其中 `time`  字段代表的是日期，以时间戳的格式存储， `rangeTemp`  代表每日温度区间， `averageTemp`  代表该日的平均温度。
+![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*UfNRQKvL1DkAAAAAAAAAAABkARQnAQ)
+
+上图由面积图 + 折线图 + 点图组合而成，其中面积区域可视化的是这段时间的温度范围，即每日的最高和最低气温，而折线图表示的是每日的平均温度变化，该图表的数据结构如下，其中 `time`  字段代表的是日期，以时间戳的格式存储， `rangeTemp`  代表每日温度区间， `averageTemp`  代表该日的平均温度。
 
 ```typescript
 [
@@ -88,7 +90,7 @@ chart
 chart.render();
 ```
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580967571685-ad1aa2df-de32-4009-ae81-b8b513837ad6.png#align=left&display=inline&height=324&name=image.png&originHeight=648&originWidth=842&size=64088&status=done&style=none&width=421)
+![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*nFqKTJkZuBQAAAAAAAAAAABkARQnAQ)
 
 #### 外观调整
 
@@ -108,7 +110,7 @@ chart.scale({
 });
 ```
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580968853274-7a57af0f-7846-45d5-95c9-22bf2d66c23c.png#align=left&display=inline&height=328&name=image.png&originHeight=656&originWidth=842&size=65354&status=done&style=none&width=421)
+![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*3SXNQJ3VgjYAAAAAAAAAAABkARQnAQ)
 
 ##### 同步双 Y 轴数值范围
 
@@ -132,7 +134,7 @@ chart.scale({
 });
 ```
 
-**![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580969314325-e83ec70b-5ea5-4990-aa9b-0ba07507905b.png#align=left&display=inline&height=328&name=image.png&originHeight=656&originWidth=790&size=58783&status=done&style=none&width=395)\*\***
+![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*oqPvSpZtrr0AAAAAAAAAAABkARQnAQ)
 
 ##### 隐藏一条坐标轴
 
@@ -142,7 +144,7 @@ chart.scale({
 chart.axis('averageTemp', false);
 ```
 
-\***\*![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580971348331-062f732a-f1ec-4737-8376-ec4c06edb5bb.png#align=left&display=inline&height=326&name=image.png&originHeight=652&originWidth=798&size=76854&status=done&style=none&width=399)**
+![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*jFcOQa0RyjYAAAAAAAAAAABkARQnAQ)
 
 ##### 配置 tooltip
 
@@ -182,7 +184,7 @@ view2
   });
 ```
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580970898763-1b6b6576-c71a-4f77-9b87-021ecc5d1738.png#align=left&display=inline&height=310&name=image.png&originHeight=620&originWidth=852&size=66304&status=done&style=none&width=426)
+![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*E94IQJUDFBYAAAAAAAAAAABkARQnAQ)
 
 #### 外观调整
 
@@ -204,4 +206,4 @@ chart.scale({
 });
 ```
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1580971041720-ef39832c-5774-4e97-8b6b-d0f5d6e0b712.png#align=left&display=inline&height=338&name=image.png&originHeight=676&originWidth=824&size=56703&status=done&style=none&width=412)
+![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*_vwcRIy60GIAAAAAAAAAAABkARQnAQ)

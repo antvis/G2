@@ -1,9 +1,10 @@
 ---
+
 title: 自定义交互
 order: 5
 ---## 简介
 
-G2 4.0 最大的一个变化是所有的交互不再内置，全部通过交互语法搭配而成，前面章节介绍了[交互的使用](https://www.yuque.com/antv/g2-v4-docs/lcp6cd)  本章介绍如何自定义交互。
+G2 4.0 最大的一个变化是所有的交互不再内置，全部通过交互语法搭配而成，前面章节介绍了[交互的使用](../tutorial/interaction)  本章介绍如何自定义交互。
 
 ## 自定义交互
 
@@ -98,7 +99,7 @@ G2.registerInteraction('my-interaction', MyInteraction);
 其中：
 
 - trigger 触发一个交互环节的事件名，是所有 Chart 支持的事件
-- action 触发的反馈，可以是字符串也可以是数组，是所有内置和用户自定义的 Action，参考 [交互反馈 Action 列表](#rQHCf) 。
+- action 触发的反馈，可以是字符串也可以是数组，是所有内置和用户自定义的 Action，参考 [交互反馈 Action 列表](../tutorial/interaction/#交互反馈-action-列表) 。
   - 字符串由 ’actionName:method‘ 组成
   - 列表时可以使用相同的 action ，也可以使用不同的 action ，例如: ['element-active:clear', 'element-active:active', 'mask:clear']
 
@@ -158,7 +159,7 @@ registerInteraction('locked-tooltip', {
 });
 ```
 
-- context 上的方法在[下面定义](#UhEZv)
+- context 上的方法在[下面定义](#context-上下文)
 
 #### active 坐标轴文本
 
@@ -259,7 +260,7 @@ export interface IInteractionContext extends LooseObject {
 
 ## 自定义 Action
 
-使用交互语法搭配交互时，需要使用到 Action，你可以从 G2 已经内置的 [Action 列表](https://www.yuque.com/antv/g2-v4-docs/lcp6cd#rQHCf)  中选取，也可以选择自定义 Action。<br />自定义 Action 有两个步骤：
+使用交互语法搭配交互时，需要使用到 Action，你可以从 G2 已经内置的 [Action 列表](../tutorial/interaction/#交互反馈-action-列表)  中选取，也可以选择自定义 Action。<br />自定义 Action 有两个步骤：
 
 - 实现 Action 的继承类
 - 注册 Action
@@ -289,7 +290,7 @@ export interface IAction {
 - name 名称即在交互组合中使用的名称
 - destroy 方法销毁在 Action 实现中的资源（图形、数组等）
 
-自定义 Action 时可以基于 [Action 的基类](https://github.com/antvis/G2/blob/4.x/src/interaction/action/base.ts) 继承，也可以基于现有的任何 Action 继承，Action 中的每个方法代表一个反馈行为，实现为无参数的函数，我们来看一下 cursor Action 的实现：
+自定义 Action 时可以基于 [Action 的基类](https://github.com/antvis/G2/blob/master/src/interaction/action/base.ts) 继承，也可以基于现有的任何 Action 继承，Action 中的每个方法代表一个反馈行为，实现为无参数的函数，我们来看一下 cursor Action 的实现：
 
 ```javascript
 /**

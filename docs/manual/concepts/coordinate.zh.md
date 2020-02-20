@@ -23,7 +23,7 @@ G2 中主要实现了直角坐标系和极坐标系，坐标系主要完成了�
 - theta 一种特殊的极坐标系，半径长度固定，仅仅将数据映射到角度，常用于实现饼图。
 - helix 螺旋坐标系，螺旋坐标系，基于阿基米德螺旋线。
 
-![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14790905900681748d17d9/attach/4080/900/image.png#align=left&display=inline&height=679&originHeight=679&originWidth=904&status=done&style=none&width=904)
+<img src="https://zos.alipayobjects.com/basement/skylark/0ad680ae14790905900681748d17d9/attach/4080/900/image.png" style="width: 800px;">
 
 ## 坐标系和图形
 
@@ -33,21 +33,21 @@ G2 中主要实现了直角坐标系和极坐标系，坐标系主要完成了�
 
 柱状图在直角坐标系下，由四个点构建成的矩形构成：
 
-![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14790906774093416d755f/attach/4080/900/image.png#align=left&display=inline&height=250&originHeight=250&originWidth=185&status=done&style=none&width=185)
+<img src="https://zos.alipayobjects.com/basement/skylark/0ad6383d14790906774093416d755f/attach/4080/900/image.png" style="width: 185px;">
 
 在直角坐标系下，柱状图一般使用 x 轴方向映射数据的分类，y 轴方向映射数据的大小。
 
-![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14790906987441831d17d3/attach/4080/900/image.png#align=left&display=inline&height=212&originHeight=212&originWidth=396&status=done&style=none&width=396)
+<img src="https://zos.alipayobjects.com/basement/skylark/0ad680ae14790906987441831d17d3/attach/4080/900/image.png" style="width: 396px;">
 
 ### 极坐标系
 
 柱状图到了极坐标下，依然由四个点连接而成，变化仅仅在于到圆心距离相等的两个点间的直线变成圆弧：
 
-![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14790907557403462d755f/attach/4080/900/image.png#align=left&display=inline&height=186&originHeight=186&originWidth=214&status=done&style=none&width=214)
+<img src="https://zos.alipayobjects.com/basement/skylark/0ad6383d14790907557403462d755f/attach/4080/900/image.png" style="width: 214px;">
 
 在极坐标系下，柱状图就自然而然的转换成为了玫瑰图。
 
-![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14790908648391844d17d9/attach/4080/900/image.png#align=left&display=inline&height=304&originHeight=304&originWidth=337&status=done&style=none&width=337)
+<img src="https://zos.alipayobjects.com/basement/skylark/0ad680ae14790908648391844d17d9/attach/4080/900/image.png" style="width: 337px;">
 
 可视化的过程是数据到图形的映射过程，只要数据映射的通道一致，那么我们就可以使用统一的方式将图形在不同的坐标系下绘制出来。
 
@@ -55,13 +55,13 @@ G2 中主要实现了直角坐标系和极坐标系，坐标系主要完成了�
 
 我们来看一下下面的柱状图所有的项累加起来是 100%，占用了全部的高度，各项层叠。
 
-![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14790908984276710d7559/attach/4080/900/image.png#align=left&display=inline&height=352&originHeight=352&originWidth=686&status=done&style=none&width=686)
+<img src="https://zos.alipayobjects.com/basement/skylark/0ad6383d14790908984276710d7559/attach/4080/900/image.png" style="width: 686px;">
 
 > 分类只有一个，x 轴用于区分分类，y 轴表示数据的大小
 
 此时我们将坐标系转换成极坐标系:
 
-![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14790909146141973d17d3/attach/4080/900/image.png#align=left&display=inline&height=338&originHeight=338&originWidth=353&status=done&style=none&width=353)
+<img src="https://zos.alipayobjects.com/basement/skylark/0ad680ae14790909146141973d17d3/attach/4080/900/image.png" style="width: 353px;">
 
 > 由于分类只有一个，所以占有了整个圆环，y 轴表示数据的大小
 
@@ -69,17 +69,16 @@ G2 中主要实现了直角坐标系和极坐标系，坐标系主要完成了�
 
 依然是上面的示例，我们将 x 轴、y 轴置换，y 轴表示数据的分类，x 轴表示数据的大小：
 
-![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14790909320201915d17d9/attach/4080/900/image.png#align=left&display=inline&height=351&originHeight=351&originWidth=655&status=done&style=none&width=655)
+<img src="https://zos.alipayobjects.com/basement/skylark/0ad680ae14790909320201915d17d9/attach/4080/900/image.png" style="width: 655px;">
 
 此时我们将坐标系转换成极坐标系：
 
-![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14790909482501932d17d9/attach/4080/900/image.png#align=left&display=inline&height=340&originHeight=340&originWidth=341&status=done&style=none&width=341)
+<img src="https://zos.alipayobjects.com/basement/skylark/0ad680ae14790909482501932d17d9/attach/4080/900/image.png" style="width: 341px;">
 
 饼图就生成了，此时如果我们使用两个分类的数据，会出现什么效果？看下图：
 
-![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14790909644247959d17cd/attach/4080/900/image.png#align=left&display=inline&height=354&originHeight=354&originWidth=744&status=done&style=none&width=744)
-
-![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14790909800453557d755f/attach/4080/900/image.png#align=left&display=inline&height=354&originHeight=354&originWidth=353&status=done&style=none&width=353)
+<img src="https://zos.alipayobjects.com/basement/skylark/0ad680ae14790909644247959d17cd/attach/4080/900/image.png" style="width: 350px;">
+<img src="https://zos.alipayobjects.com/basement/skylark/0ad6383d14790909800453557d755f/attach/4080/900/image.png" style="width: 350px;">
 
 此时就生成了嵌套的饼图。
 
@@ -87,7 +86,7 @@ G2 中主要实现了直角坐标系和极坐标系，坐标系主要完成了�
 
 上面我们讲解了相同的图形在不同坐标系下的不同展示效果，由于直角坐标系是两个垂直向量构建而成的，视觉通道都是 postion 的两个子通道（x,y)，而极坐标，是由角度和长度两个维度构建而成，角度和位置在视觉通道中的表现力有所差异：
 
-![](https://zos.alipayobjects.com/rmsportal/SbFIAczdQaCpyKV.png#align=left&display=inline&height=697&originHeight=697&originWidth=932&status=done&style=none&width=932)
+<img src="https://zos.alipayobjects.com/rmsportal/SbFIAczdQaCpyKV.png" style="width: 500px;">
 
 所以在使用图形和坐标系时需要理解清晰数据字段和视觉通道的映射关系，在合适的场景选择合适的视觉通道。
 
@@ -98,18 +97,27 @@ G2 中主要实现了直角坐标系和极坐标系，坐标系主要完成了�
 - translate: 平移，沿 x、y 轴方向移动。
 - rotate: 旋转，默认按照坐标系中心旋转。
 - scale: 放大、缩小，默认按照坐标系中心放大、缩小。
-- transpose: x、y 轴交换，例如柱状图转换成水平柱状图（条形图） 。![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14790910260966753d7559/attach/4080/900/image.png#align=left&display=inline&height=342&originHeight=342&originWidth=736&status=done&style=none&width=736)
+- transpose: x、y 轴交换，例如柱状图转换成水平柱状图（条形图） 。
+
+<img src="https://zos.alipayobjects.com/basement/skylark/0ad6383d14790910260966753d7559/attach/4080/900/image.png" style="width: 500px;">
+
 - reflect: 镜像, 沿 x 方向镜像或者沿 y 轴方向映射。
   - x 轴方向镜像
-    ![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14790910476297984d17cd/attach/4080/900/image.png#align=left&display=inline&height=404&originHeight=404&originWidth=802&status=done&style=none&width=802)
-  - y 轴方向镜像
-    ![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14790910692892085d17d3/attach/4080/900/image.png#align=left&display=inline&height=404&originHeight=404&originWidth=814&status=done&style=none&width=814)
+
+<img src="https://zos.alipayobjects.com/basement/skylark/0ad680ae14790910476297984d17cd/attach/4080/900/image.png" style="width: 500px;">
+
+- y 轴方向镜像
+
+<img src="https://zos.alipayobjects.com/basement/skylark/0ad680ae14790910692892085d17d3/attach/4080/900/image.png" style="width: 500px;">
 
 ## 坐标系的接口设计
 
 结合上面的内容，直角坐标系和极坐标系必须具有的属性或接口：
 
-- 在画布上的范围，需要指定起始点、结束点。![](https://os.alipayobjects.com/rmsportal/uDqMRYlwVbfsdJb.png#align=left&display=inline&height=746&originHeight=746&originWidth=818&status=done&style=none&width=818)
+- 在画布上的范围，需要指定起始点、结束点。
+
+<img src="https://os.alipayobjects.com/rmsportal/uDqMRYlwVbfsdJb.png" style="width: 500px;">
+
 - 将数据从 0-1 映射到画布坐标，将画布上的坐标反转回数据 0-1 的范围内。
 - 坐标系的平移、旋转、放大缩小、镜像等转置功能。
 
@@ -147,4 +155,4 @@ G2 中主要实现了直角坐标系和极坐标系，坐标系主要完成了�
 
 下图为指定了起始角度、结束角度的玫瑰图：
 
-![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14790910901892109d17d3/attach/4080/900/image.png#align=left&display=inline&height=550&originHeight=550&originWidth=620&status=done&style=none&width=620)
+<img src="https://zos.alipayobjects.com/basement/skylark/0ad680ae14790910901892109d17d3/attach/4080/900/image.png" style="width: 500px;">

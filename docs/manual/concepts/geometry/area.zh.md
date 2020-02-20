@@ -1,6 +1,6 @@
 ---
 title: 区域图 area
-order: 2
+order: 3
 ---
 
 ## 简介
@@ -12,7 +12,7 @@ order: 2
 - 一般区域图：所有的数据都从相同的零轴开始。
 - 区间区域图：y 轴对应的数据存在区间值。例如展示每天温度的区域图有最大值、最小值
 - 层叠区域图：展示几个数据集，每一个数据集的起点不同，都是基于前一个数据集，形成的区域图互相层叠。
-- 对称层叠区域图：对层叠的区域图进行对称处理，主要体现不同时期各类数据的对比，常见的[stream graph](#)就是对称层叠区域图。
+- 对称层叠区域图：对层叠的区域图进行对称处理，主要体现不同时期各类数据的对比，常见的[stream graph](../../../../examples/area/streamgraph)就是对称层叠区域图。
 
 ![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791824077205215d7559/attach/4080/900/image.png#align=left&display=inline&height=198&originHeight=198&originWidth=984&status=done&style=none&width=984)
 
@@ -32,7 +32,7 @@ order: 2
 | 数值 | 数值 | 一般的区域图           |
 | 数值 | 数组 | 层叠区域图和区间区域图 |
 
-- 层叠区域图不需要用户传入 y 轴对应的值是数据，G2 提供了[数据调整](#)的功能
+- 层叠区域图不需要用户传入 y 轴对应的值是数据，G2 提供了[数据调整](../../tutorial/adjust)的功能。
 
 ## 支持的视觉通道
 
@@ -79,6 +79,5 @@ size 视觉通道，我们前面讲过这个视觉通道跟图形标记的自由
 ## 区域图和坐标系
 
 区域图在直角坐标系和极坐标系下有所差别，在极坐标下线区域图需要进行闭合。
-![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791830001437639d17d9/attach/4080/900/image.png#align=left&display=inline&height=457&originHeight=457&originWidth=518&status=done&style=none&width=518)
 
-##
+![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791830001437639d17d9/attach/4080/900/image.png#align=left&display=inline&height=457&originHeight=457&originWidth=518&status=done&style=none&width=518)

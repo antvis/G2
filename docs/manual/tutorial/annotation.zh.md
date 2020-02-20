@@ -22,8 +22,18 @@ G2 提供了丰富的图形标注类型：
 |  dataMarker  |             特殊数据点标注，多用于折线图和面积图。![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*h-e2TLivyI4AAAAAAAAAAABkARQnAQ)             |  `chart.annotation().dataMarker({})`  |
 |  dataRegion  |            特殊数据区间标注，多用于折线图和面积图。![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*NHbSRKacUesAAAAAAAAAAABkARQnAQ)            |  `chart.annotation().dataRegion({})`  |
 
-TODO:
-各个标注类型的详细配置详见 [API]()。
+## 配置
+
+各个标注类型的详细配置详见 API：
+
+- `chart.annotation().arc(cfg)`: cfg 配置详见 [API](../../api/classes/annotation#arc)。
+- `chart.annotation().line(cfg)`: cfg 配置详见 [API](../../api/classes/annotation#line)。
+- `chart.annotation().text(cfg)`: cfg 配置详见 [API](../../api/classes/annotation#text)。
+- `chart.annotation().image(cfg)`: cfg 配置详见 [API](../../api/classes/annotation#image)。
+- `chart.annotation().region(cfg)`: cfg 配置详见 [API](../../api/classes/annotation#region)。
+- `chart.annotation().dataMarker(cfg)`: cfg 配置详见 [API](../../api/classes/annotation#datamarker)。
+- `chart.annotation().dataRegion(cfg)`: cfg 配置详见 [API](../../api/classes/annotation#dataregion)。
+- `chart.annotation().regionFilter(cfg)`: cfg 配置详见 [API](../../api/classes/annotation#regionfilter)。
 
 ## 清空图形标注
 

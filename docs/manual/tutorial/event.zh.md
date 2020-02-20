@@ -12,20 +12,20 @@ G2 4.0 提供了丰富的事件机制，包括几大类：
 - 数据映射到图形 Element 上的事件
 - 组件上的事件
 
-这些事件都可以在 Chart 和 View 上进行绑定和移除绑定
+这些事件都可以在 Chart 和 View 上进行绑定和移除绑定。
 
 ## 绑定和解除绑定
 
 在 Chart 和 View 上提供几个方法用于绑定事件、移除绑定事件：
 
-- on('eventName', callback(event) {}); 绑定事件
-- off('eventName', [callback]) 移除事件
+- `on('eventName', callback(event) {})` 绑定事件
+- `off('eventName', [callback])` 移除事件
 
 ```javascript
 chart.on('click', (ev) => {
   const shape = eve.shape;
   if (shape) {
-    // TO DO
+    // do something
   }
 });
 ```
@@ -117,7 +117,7 @@ chart.on('click', (ev) => {
 
 ## 图形 Element 上的事件
 
-所有的图表绘图区域的图形都会响应各种事件，我们将这些图形封装成图表元素 [Element](https://www.yuque.com/antv/g2-v4-docs/element) ，所有的基础画布事件都可以支持，为了便于使用，我们提供了委托事件的方式来方便用户绑定事件，其形式为 name:eventName，主要有三种 name：
+所有的图表绘图区域的图形都会响应各种事件，我们将这些图形封装成图表元素 [Element](../concepts/element) ，所有的基础画布事件都可以支持，为了便于使用，我们提供了委托事件的方式来方便用户绑定事件，其形式为 name:eventName，主要有三种 name：
 
 - 所有的 Element 都支持 'element:eventName' 的方式绑定事件，如 'element:click'
 - 不同的 geometry 各自支持不同的前缀，等同于 geometry.type，例如：'line', 'area', 'point', 'interval' 等

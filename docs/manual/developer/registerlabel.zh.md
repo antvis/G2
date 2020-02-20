@@ -31,7 +31,7 @@ chart
   });
 ```
 
-自定义 Label 需要继承  GeometryLabel 基类，通过覆写相应的方法来定义 label 的渲染配置，关于  GeometryLabel 类的详细介绍请阅读 [API 文档]()。
+自定义 Label 需要继承  GeometryLabel 基类，通过覆写相应的方法来定义 label 的渲染配置，关于  GeometryLabel 类的详细介绍请阅读 [API 文档](../../api/g2/#registergeometrylabel)。
 
 ## 自定义 Label 布局函数
 
@@ -75,4 +75,4 @@ chart
   });
 ```
 
-关于 `registerGeometryLabelLayout(type: string, layoutFn: GeometryLabelsLayoutFn)`  接口的详细使用，请阅读 [API 文档]()。
+关于 `registerGeometryLabelLayout(type: string, layoutFn: GeometryLabelsLayoutFn)`  接口的详细使用，请阅读 [API 文档](../../api/g2/#registergeometrylabellayout)。

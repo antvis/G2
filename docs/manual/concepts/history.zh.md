@@ -13,15 +13,17 @@ G2 自 2014 年以来已经发展到 4.0，回顾过去，我们发现每一个�
 - G2 v3.0 通用场景的支持
 - G2 v4.0 交互语法和多维分析
 
-![image.png](https://cdn.nlark.com/yuque/0/2019/png/89796/1576218487697-25bcb360-6483-496c-9ae9-6a0bb26d8324.png#align=left&display=inline&height=116&name=image.png&originHeight=116&originWidth=638&size=7959&status=done&style=none&width=638)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*LAbKQ6SHtTQAAAAAAAAAAABkARQnAQ">
 
 ## G2 之前的图表
 
 在 2014 年上半年，由于业务上的要求，我参考了苹果在 keynote 和 numbers 的设计风格，实现了一套常见图表的图表库 Acharts，在配置项上参考了 highcharts ，实现了十几种图表，能够满足常见的数据展示需求：
 
-![image.png](https://cdn.nlark.com/yuque/0/2019/png/89796/1576208419684-082d943b-af2c-48d6-9c5e-92d06556a9bc.png#align=left&display=inline&height=345&name=image.png&originHeight=337&originWidth=508&size=97335&status=done&style=none&width=520)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*gtUlTKfmFNoAAAAAAAAAAABkARQnAQ">
 
-这个图表库在架构上非常简单，底层基于 Rapheal.js，兼容当时所有的浏览器，在公司内部的一些系统上得到了使用，整体思路还是按照做前端组件库的思路，一个个图表的进行开发，在动画、交互、渲染方面进行独立的优化。![image.png](https://cdn.nlark.com/yuque/0/2019/png/89796/1576209133354-72aca53a-4e1d-4726-bec6-b6d498e95b3f.png#align=left&display=inline&height=242&name=image.png&originHeight=242&originWidth=469&size=11815&status=done&style=none&width=469)
+这个图表库在架构上非常简单，底层基于 Rapheal.js，兼容当时所有的浏览器，在公司内部的一些系统上得到了使用，整体思路还是按照做前端组件库的思路，一个个图表的进行开发，在动画、交互、渲染方面进行独立的优化。
+
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*NLreT4bvVRIAAAAAAAAAAABkARQnAQ">
 
 这个版本开发了大概半年多，遇到了一些问题：
 
@@ -41,7 +43,11 @@ chart.line(A.position('x*y'), A.color.hue('z'));
 chart.render();
 ```
 
-通过这些工作图形语法在前端的可行性得到验证，接下来三个月我在 G2 中支持了统计函数、数据列处理（参考 R 语言的 DataFrame)，秉持着 “一句话一个图表的理念”，疯狂的进入编码阶段，实现了折柱饼、直方图、色块热力图、k 线图 等常见的图表，于 2015 年 3 月份正式发布了 v1.0 版本。G2 的 v1.x 版本包含三个版本：v1.0、v1.1 和 v1.2，这三个版本的架构并没有发生变化，核心部分是完成 `数据到图形的映射` ，一直到现在正在开发的 G2 4.0 版本这些模块都很稳定。![image.png](https://cdn.nlark.com/yuque/0/2019/png/89796/1576216689662-56abe562-c5bf-42b5-baff-ad06da3b6e17.png#align=left&display=inline&height=397&name=image.png&originHeight=397&originWidth=536&size=23092&status=done&style=none&width=536)模块的说明：
+通过这些工作图形语法在前端的可行性得到验证，接下来三个月我在 G2 中支持了统计函数、数据列处理（参考 R 语言的 DataFrame)，秉持着 “一句话一个图表的理念”，疯狂的进入编码阶段，实现了折柱饼、直方图、色块热力图、k 线图 等常见的图表，于 2015 年 3 月份正式发布了 v1.0 版本。G2 的 v1.x 版本包含三个版本：v1.0、v1.1 和 v1.2，这三个版本的架构并没有发生变化，核心部分是完成 `数据到图形的映射` ，一直到现在正在开发的 G2 4.0 版本这些模块都很稳定。
+
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*jxGbToxJz2IAAAAAAAAAAABkARQnAQ">
+
+模块的说明：
 
 - 最底层是绘图引擎 G，实现了图形的绘制和拾取
 - 中间是完成可视化语法的一些模块
@@ -77,7 +83,8 @@ chart
   .color(Stat.summary.count());
 ```
 
-![image.png](https://cdn.nlark.com/yuque/0/2019/png/89796/1576216359558-fbadc575-2963-46a7-96eb-7d924ce2f8fb.png#align=left&display=inline&height=220&name=image.png&originHeight=220&originWidth=372&size=6620&status=done&style=none&width=372)![image.png](https://cdn.nlark.com/yuque/0/2019/png/89796/1576216381175-11d7e63d-f2ea-45f3-af9b-baa7fa22201c.png#align=left&display=inline&height=220&name=image.png&originHeight=220&originWidth=374&size=21422&status=done&style=none&width=374)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*hevdQZa81f4AAAAAAAAAAABkARQnAQ" style="width: 250px;">
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*x2v1TYVSVqIAAAAAAAAAAABkARQnAQ" style="width: 250px;">
 
 1.x 版本并没有开源，迭代了 3 个小版本，这个版本同样开发了 1 年的时间，仅在蚂蚁和阿里内部 10 几个系统上使用，这些系统都有以下特点：
 
@@ -95,7 +102,7 @@ v2.0 版本是在 2016 年 3 月正式发布的，这个版本依然秉持着 `�
 - 支持多 View，增加分面机制，支持多维数据的展示
 - 重构了底层的绘图引擎 G ，将 3 层 Canvas 结果改成 1 层，提升了渲染、交互性能
 
-![image.png](https://cdn.nlark.com/yuque/0/2019/png/89796/1576208480816-b1d2b81d-212e-4106-83eb-4ee135ece56f.png#align=left&display=inline&height=384&name=image.png&originHeight=384&originWidth=516&size=24610&status=done&style=none&width=516)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*E3n9SJh-eXMAAAAAAAAAAABkARQnAQ">
 
 从架构图上来看 G2 v2.0 和 G2 v1.0 是一个兼容的版本，仅增加了 View 和 分面的支持，但是基本所有模块都进行了重构，这些模块一直到稳定到现在。G2 v2.x 从 2016 年 3 月 到 2017 年 11 月发展了 4 个版本，在阿里集团内部的系统数增长到 400+，这时候使用的场景已经多样化，用户对图表的设计、易用性、组件细节都有了大量的要求，同一时期 Echarts 已经非常完备，我们开始在组件、交互、图表的细节展示等多方面进行改造，同 G2 定位于 ”数据分析的图形语法“ 的方向越来越不一致。这期间我们也做了在后来看来使用不多的一些功能，这些需求并非来自真实的需求，而是受 ggplot2 的影响，以为我们的业务可以用得到，例如：
 
@@ -116,9 +123,15 @@ chart
   .color('tmp', '#233284-#FCE89A-#8A1D25');
 ```
 
-![image.png](https://cdn.nlark.com/yuque/0/2019/png/89796/1576218253985-5332688a-fa1c-4255-90c3-e508a73d08f3.png#align=left&display=inline&height=208&name=image.png&originHeight=226&originWidth=378&size=67440&status=done&style=none&width=348)![image.png](https://cdn.nlark.com/yuque/0/2019/png/89796/1576757614648-b3044a3a-4051-4429-acaf-ad001c1494ca.png#align=left&display=inline&height=211&name=image.png&originHeight=226&originWidth=378&size=42469&status=done&style=none&width=353)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*WsZLSrmCRcUAAAAAAAAAAABkARQnAQ" style="width: 250px;">
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*JcnbTqVLz4QAAAAAAAAAAABkARQnAQ" style="width: 250px;">
 
-可以看到在 G2 2.x 中一些图标的绘制需要使用各种统计函数，从理论上说你可以通过 坐标系*度量*几何标记\*统计函数 生成无数的图表，但是具体在业务上的价值那就在这里讨论，看看这些图表有什么应用场景：![image.png](https://cdn.nlark.com/yuque/0/2019/png/89796/1576218817705-f084605a-bfe6-40d7-9540-4c3ea820aee8.png#align=left&display=inline&height=255&name=image.png&originHeight=376&originWidth=507&size=46805&status=done&style=none&width=344)![image.png](https://cdn.nlark.com/yuque/0/2019/png/89796/1576218859461-a9cc9dca-eb6e-4147-9697-93fe107d38d8.png#align=left&display=inline&height=220&name=image.png&originHeight=220&originWidth=375&size=25993&status=done&style=none&width=375)`仔细想来这些功能并非没有应用场景，而是我们自己做的并不够专业，细节实现的并不好，也没有进行步道，真所谓努力了好久，没有得到什么掌声`
+可以看到在 G2 2.x 中一些图标的绘制需要使用各种统计函数，从理论上说你可以通过 坐标系*度量*几何标记\*统计函数 生成无数的图表，但是具体在业务上的价值那就在这里讨论，看看这些图表有什么应用场景：
+
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*jE6TQZNsM1UAAAAAAAAAAABkARQnAQ" style="width: 250px;">
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*kx6rRadE2ZYAAAAAAAAAAABkARQnAQ" style="width: 250px;">
+
+> 仔细想来这些功能并非没有应用场景，而是我们自己做的并不够专业，细节实现的并不好，也没有进行步道，真所谓努力了好久，没有得到什么掌声。
 
 ## v3.0 通用场景的支持
 
@@ -138,9 +151,15 @@ chart
 
 从 G2 3.0 的架构图，我们可以清晰的看到架构上的调整，这个版本最大的变化就是 `面向一般图表展示场景的易用性` 。
 
-![image.png](https://cdn.nlark.com/yuque/0/2019/png/89796/1576208496503-0fe55b30-4bed-41c7-ad80-5bcdc4de6cc1.png#align=left&display=inline&height=389&name=image.png&originHeight=389&originWidth=704&size=33094&status=done&style=none&width=704)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*scnbQrDvfYYAAAAAAAAAAABkARQnAQ">
 
-G2 3.0 于 2017 年 11 月 22 正式发布，整个项目周期迭代了 2 年，这个版本有 6 个迭代，前两个迭代依然在图表覆盖范围的增强，支持了一些新的图表类型：![image.png](https://cdn.nlark.com/yuque/0/2019/png/89796/1576466559833-2ea16ddc-fb06-4c8c-a9a7-6924ee758ce1.png#align=left&display=inline&height=190&name=image.png&originHeight=538&originWidth=800&size=23302&status=done&style=none&width=283)![image.png](https://cdn.nlark.com/yuque/0/2019/png/89796/1576466588311-5029cb62-1223-44e5-b42f-0f405d0cdf45.png#align=left&display=inline&height=230&name=image.png&originHeight=538&originWidth=800&size=25328&status=done&style=none&width=342)![image.png](https://cdn.nlark.com/yuque/0/2019/png/89796/1576466626147-1269aafb-a07a-4885-8f22-97f721bcd36e.png#align=left&display=inline&height=231&name=image.png&originHeight=538&originWidth=800&size=76417&status=done&style=none&width=344)![image.png](https://cdn.nlark.com/yuque/0/2019/png/89796/1576466643414-483281fa-b151-4574-9475-7c8fb80c2202.png#align=left&display=inline&height=256&name=image.png&originHeight=538&originWidth=800&size=118113&status=done&style=none&width=381)![image.png](https://cdn.nlark.com/yuque/0/2019/png/89796/1576466674466-e256e5f7-2295-4c96-888d-126524c34444.png#align=left&display=inline&height=232&name=image.png&originHeight=538&originWidth=800&size=35909&status=done&style=none&width=345)![image.png](https://cdn.nlark.com/yuque/0/2019/png/89796/1576466698336-bdd9c811-9d98-420e-ba50-de96c55849a8.png#align=left&display=inline&height=234&name=image.png&originHeight=538&originWidth=800&size=20922&status=done&style=none&width=348)中间的两个版本设计师对基础图表进行了大量优化，推出了一些经典案例：![image.png](https://cdn.nlark.com/yuque/0/2019/png/89796/1576466799931-b3afc071-0ff0-44b1-99ae-c5cad64a0c78.png#align=left&display=inline&height=1122&name=image.png&originHeight=1122&originWidth=2184&size=373676&status=done&style=none&width=2184)
+G2 3.0 于 2017 年 11 月 22 正式发布，整个项目周期迭代了 2 年，这个版本有 6 个迭代，前两个迭代依然在图表覆盖范围的增强，支持了一些新的图表类型：
+
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*UFEESoLy9SwAAAAAAAAAAABkARQnAQ">
+
+中间的两个版本设计师对基础图表进行了大量优化，推出了一些经典案例：
+
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*X9WnSIYCxjcAAAAAAAAAAABkARQnAQ">
 
 G2 3.x 版本贯穿了 2 年 6 个版本，内外部系统的使用量超过 20000 个，从一个面向数据分析的图形语法，转变为支持通用场景的图表库，我们投入了大量的开发和设计资源。在发展壮大的同时，我们遇到了一些问题：
 
@@ -164,7 +183,7 @@ G2 3.x 版本贯穿了 2 年 6 个版本，内外部系统的使用量超过 200
 - G2 同 F2 重新融合，F2 可以通过 G2 打包产出，G2 同时支持移动端
 - 支持交互语法，可以自由拼装出所有交互
 
-![image.png](https://cdn.nlark.com/yuque/0/2019/png/89796/1576481128019-0f8ab827-810e-4d32-98d6-52cd5de1e202.png#align=left&display=inline&height=648&name=image.png&originHeight=648&originWidth=914&size=60535&status=done&style=none&width=914)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*FVf3SJg5FyAAAAAAAAAAAABkARQnAQ">
 
 G2 的最终形态一定是多种语法的组合：
 
@@ -173,7 +192,9 @@ G2 的最终形态一定是多种语法的组合：
 - 统计语法：对数据进行聚合、归回、拟合等计算，帮助用户从不同层面认知数据
 - 动画语法：让数据栩栩如生、交互顺滑
 
-所以在 G2 4.0 正式版发布后，我们会继续对改进 G2，可能在未来 2-3 年都是 v4.x 的时代，最终的架构如下：![image.png](https://cdn.nlark.com/yuque/0/2019/png/89796/1576481191675-a68e7459-8038-49bb-99d1-a101dc23349a.png#align=left&display=inline&height=546&name=image.png&originHeight=546&originWidth=889&size=60657&status=done&style=none&width=889)
+所以在 G2 4.0 正式版发布后，我们会继续对改进 G2，可能在未来 2-3 年都是 v4.x 的时代，最终的架构如下：!
+
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*AXGOTZ2GATAAAAAAAAAAAABkARQnAQ">
 
 ## 总结
 

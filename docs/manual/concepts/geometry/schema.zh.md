@@ -1,6 +1,6 @@
 ---
 title: 自定义图 schema
-order: 5
+order: 6
 ---
 
 ## 简介
