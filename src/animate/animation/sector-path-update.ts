@@ -85,7 +85,6 @@ function getArcInfo(path: PathCommand[]) {
 
   let radius = firstArcPathCommand[1];
   let innerRadius = arcPaths[arcPaths.length - 1][1];
-
   if (radius < innerRadius) {
     [radius, innerRadius] = [innerRadius, radius];
   } else if (radius === innerRadius) {
@@ -130,5 +129,11 @@ export function sectorPathUpdate(shape: IShape, animateCfg: GAnimateCfg, cfg: An
           ? getArcPath(center.x, center.y, radius, onFrameStartAngle, onFrameEndAngle)
           : getSectorPath(center.x, center.y, radius, onFrameStartAngle, onFrameEndAngle, innerRadius),
     };
-  }, animateCfg);
+  }, {
+    ...animateCfg,
+    callback: () => {
+      // 将 path 保持原始态，否则会影响 setState() 的动画
+      shape.attr('path', path);
+    }
+  });
 }
