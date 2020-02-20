@@ -47,7 +47,7 @@ describe('title controller', () => {
   // 指定 layout
   chart.setLayout(layout);
 
-  it('chart with title', () => {
+  xit('chart with title', () => {
     chart.render();
 
     const title = chart.getController('title');
@@ -64,7 +64,7 @@ describe('title controller', () => {
     expect(y).toBe(8);
   });
 
-  it('update', () => {
+  xit('update', () => {
     chart.option('title', {
       ...titleOption,
       title: '修改标题',
