@@ -1,9 +1,9 @@
 /**
  * view 中缓存 scale 的类
  */
-import { each, get, isNumber, last } from '@antv/util';
+import { deepMix, each, get, isEmpty, isNumber, last } from '@antv/util';
 import { Scale } from '../../dependents';
-import { Data, ScaleOption } from '../../interface';
+import { Data, LooseObject, ScaleOption } from '../../interface';
 import { createScaleByField, syncScale } from '../../util/scale';
 
 /** @ignore */
@@ -28,7 +28,23 @@ export class ScalePool {
    * @param key
    */
   public createScale(field: string, data: Data, scaleDef: ScaleOption, key: string): Scale {
-    const scale = createScaleByField(field, data, scaleDef);
+    let finalScaleDef = scaleDef;
+
+    const cacheScaleMeta = this.getScaleMeta(key);
+    if (isEmpty(data) && cacheScaleMeta) {
+      // 在更新过程中数据变为空，同时 key 对应的 scale 已存在则保持 scale 同类型
+      const cacheScale = cacheScaleMeta.scale;
+      const cacheScaleDef: LooseObject = {
+        type: cacheScale.type,
+      };
+      if (cacheScale.isCategory) {
+        // 如果是分类类型，保持 values
+        cacheScaleDef.values = cacheScale.values;
+      }
+      finalScaleDef = deepMix(cacheScaleDef, cacheScaleMeta.scaleDef, scaleDef);
+    }
+
+    const scale = createScaleByField(field, data, finalScaleDef);
 
     // 缓存起来
     this.cacheScale(scale, scaleDef, key);

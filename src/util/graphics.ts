@@ -73,27 +73,36 @@ export function getSectorPath(
     // 整个圆是分割成两个圆
     const middlePoint = polarToCartesian(centerX, centerY, radius, startAngleInRadian + Math.PI);
     const innerMiddlePoint = polarToCartesian(centerX, centerY, innerRadius, startAngleInRadian + Math.PI);
-    return [
+    const circlePathCommands = [
       ['M', start.x, start.y],
       ['A', radius, radius, 0, 1, 1, middlePoint.x, middlePoint.y],
       ['A', radius, radius, 0, 1, 1, end.x, end.y],
       ['M', innerStart.x, innerStart.y],
-      ['A', innerRadius, innerRadius, 0, 1, 0, innerMiddlePoint.x, innerMiddlePoint.y],
-      ['A', innerRadius, innerRadius, 0, 1, 0, innerEnd.x, innerEnd.y],
-      ['M', start.x, start.y],
-      ['Z'],
     ];
+    if (innerRadius) {
+      circlePathCommands.push(['A', innerRadius, innerRadius, 0, 1, 0, innerMiddlePoint.x, innerMiddlePoint.y]);
+      circlePathCommands.push(['A', innerRadius, innerRadius, 0, 1, 0, innerEnd.x, innerEnd.y]);
+    }
+
+    circlePathCommands.push(['M', start.x, start.y]);
+    circlePathCommands.push(['Z']);
+
+    return circlePathCommands;
   }
 
   const arcSweep = endAngleInRadian - startAngleInRadian <= Math.PI ? 0 : 1;
-  return [
+  const sectorPathCommands = [
     ['M', start.x, start.y],
     ['A', radius, radius, 0, arcSweep, 1, end.x, end.y],
     ['L', innerEnd.x, innerEnd.y],
-    ['A', innerRadius, innerRadius, 0, arcSweep, 0, innerStart.x, innerStart.y],
-    ['L', start.x, start.y],
-    ['Z'],
   ];
+  if (innerRadius) {
+    sectorPathCommands.push(['A', innerRadius, innerRadius, 0, arcSweep, 0, innerStart.x, innerStart.y]);
+  }
+  sectorPathCommands.push(['L', start.x, start.y]);
+  sectorPathCommands.push(['Z']);
+
+  return sectorPathCommands;
 }
 
 /**
