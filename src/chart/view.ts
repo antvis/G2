@@ -502,7 +502,7 @@ export class View extends Base {
    * });
    * ```
    *
-   * @returns
+   * @returns [AnnotationComponent]
    */
   public annotation(): AnnotationComponent {
     return this.getController('annotation') as AnnotationComponent;

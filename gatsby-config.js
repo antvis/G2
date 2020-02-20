@@ -31,7 +31,7 @@ module.exports = {
         order: 0,
       },
       {
-        slug: 'docs/tutorial',
+        slug: 'docs/manual',
         title: {
           zh: '教程',
           en: 'Tutorials',
@@ -48,6 +48,46 @@ module.exports = {
       },
     ],
     docs: [
+      {
+        slug: 'manual/tutorial',
+        title: {
+          zh: '基础教程',
+          en: 'Tutorials',
+        },
+        order: 3,
+      },
+      {
+        slug: 'manual/dataset',
+        title: {
+          zh: 'DataSet',
+          en: 'DataSet',
+        },
+        order: 5,
+      },
+      {
+        slug: 'manual/concepts',
+        title: {
+          zh: '核心概念',
+          en: 'Main Concepts',
+        },
+        order: 6,
+      },
+      {
+        slug: 'manual/concepts/geometry',
+        title: {
+          zh: '几何标记与图表类型',
+          en: 'Geometry and Charts',
+        },
+        order: 6,
+      },
+      {
+        slug: 'manual/developer',
+        title: {
+          zh: '开发者教程',
+          en: 'For Developers',
+        },
+        order: 7,
+      },
       {
         slug: 'api',
         title: {
@@ -89,6 +129,14 @@ module.exports = {
       },
     ],
     examples: [
+      {
+        slug: 'gallery',
+        icon: 'gallery',
+        title: {
+          zh: '官方精品库',
+          en: 'Featured',
+        },
+      },
       {
         slug: 'interaction',
         icon: 'interaction',
@@ -239,14 +287,6 @@ module.exports = {
         title: {
           zh: '组件使用',
           en: 'Chart Components',
-        },
-      },
-      {
-        slug: 'gallery',
-        icon: 'gallery',
-        title: {
-          zh: '官方精品库',
-          en: 'Featured',
         },
       },
     ],
