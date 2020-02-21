@@ -4,7 +4,7 @@ export const VERSION = '4.0.0-beta.9';
 
 // 核心基类导出
 export { Chart, View, Event } from './chart'; // Chart, View 类
-export { default as ComponentController } from './chart/controller/base'; // G2 组件基类
+export { Controller as ComponentController } from './chart/controller/base'; // G2 组件基类
 export { default as Geometry } from './geometry/base'; // Geometry 基类
 export { default as GeometryLabel } from './geometry/label/base'; // Geometry Label 基类
 export { Interaction } from './interaction'; // Interaction 基类
