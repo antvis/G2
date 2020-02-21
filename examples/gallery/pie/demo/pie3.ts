@@ -20,7 +20,8 @@ chart.coordinate('theta', {
 chart.tooltip({
   showMarkers: false
 });
-chart
+
+const interval = chart
   .interval()
   .adjust('stack')
   .position('value')
@@ -42,8 +43,11 @@ chart
       },
     };
   });
+
+chart.interaction('element-single-selected');
+
 chart.render();
-// pie.setSelected(data[0]);
-// chart.on('afterpaint', () => {
-//   pie.setSelected(data[0]);
-// });
+
+// 默认第一个选中
+const elements = interval.elements;
+elements[0].setState('selected', true);

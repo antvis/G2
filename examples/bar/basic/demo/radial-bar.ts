@@ -27,6 +27,7 @@ chart.scale('percent', {
 chart.tooltip({
   title: 'question',
   follow: true,
+  showMarkers: false
 });
 
 chart.legend(false);
@@ -61,5 +62,7 @@ data.map((obj) => {
   });
   return null;
 });
+
+chart.interaction('element-active');
 
 chart.render();

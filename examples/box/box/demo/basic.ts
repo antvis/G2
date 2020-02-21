@@ -61,4 +61,7 @@ chart
     fill: '#1890FF',
     fillOpacity: 0.3
   });
+
+chart.interaction('active-region');
+
 chart.render();

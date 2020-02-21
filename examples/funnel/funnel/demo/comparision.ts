@@ -86,4 +86,6 @@ actualView
     }
   });
 
+chart.interaction('element-active');
+
 chart.render();

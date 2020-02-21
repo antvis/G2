@@ -76,6 +76,7 @@ const chart = new Chart({
 });
 chart.data(data);
 chart.legend(false);
+
 chart.facet('rect', {
   fields: ['class'],
   columnTitle: {
@@ -135,6 +136,7 @@ chart.facet('rect', {
           }
         };
       });
+    view.interaction('element-active');
   }
 });
 chart.render();

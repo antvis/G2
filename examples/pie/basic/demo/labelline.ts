@@ -46,4 +46,7 @@ chart
     stroke: '#fff',
   })
   .adjust('stack');
+
+chart.interaction('element-active');
+
 chart.render();

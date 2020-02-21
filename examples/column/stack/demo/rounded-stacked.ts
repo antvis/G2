@@ -163,6 +163,6 @@ chart
   })
   .adjust('stack');
 
-chart.interaction('element-highlight');
+chart.interaction('element-highlight-by-color');
 
 chart.render();

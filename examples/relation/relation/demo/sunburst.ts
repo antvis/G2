@@ -64,5 +64,8 @@ fetch('../data/sunburst.json')
         lineWidth: 1,
       })
       .tooltip('label*sum');
+
+    chart.interaction('element-active');
+
     chart.render();
   });

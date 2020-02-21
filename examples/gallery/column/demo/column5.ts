@@ -39,6 +39,12 @@ chart.axis('value', {
     },
   },
 });
+
+chart.tooltip({
+  showMarkers: false,
+});
+chart.interaction('element-active');
+
 chart.legend(false);
 chart
   .interval()
@@ -59,4 +65,4 @@ chart
     offset: 10,
   });
 
-chart.render();
+  chart.render();

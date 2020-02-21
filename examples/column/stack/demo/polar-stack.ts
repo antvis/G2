@@ -35,7 +35,10 @@ const chart = new Chart({
   height: 500,
 });
 chart.data(dv.rows);
-chart.coordinate('polar', { innerRadius: 0.1 });
+chart.coordinate('polar', {
+  innerRadius: 0.1,
+  radius: 0.8
+});
 
 chart.legend('难民类型', {
   position: 'bottom',
@@ -54,5 +57,7 @@ chart
     stroke: '#fff',
   })
   .adjust('stack');
+
+chart.interaction('element-highlight');
 
 chart.render();

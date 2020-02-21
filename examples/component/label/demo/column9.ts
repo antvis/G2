@@ -41,6 +41,9 @@ chart.axis('value', {
     }
   },
 });
+chart.tooltip({
+  showMarkers: false
+});
 chart.annotation().region({
   start: ['start', 'max'],
   end: ['end', 80],
@@ -72,4 +75,5 @@ chart
       fontSize: 12,
     },
   });
+chart.interaction('element-highlight');
 chart.render();

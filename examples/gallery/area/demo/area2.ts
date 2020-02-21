@@ -26,6 +26,9 @@ chart.scale({
     max: 2000,
     min: -1000
   },
+  month: {
+    formatter: val => `${val} 月`
+  }
 });
 
 chart.axis('month', {
@@ -33,9 +36,6 @@ chart.axis('month', {
     style: {
       fill: '#aaaaaa'
     },
-    formatter: text => {
-      return text + '月';
-    }
   }
 });
 

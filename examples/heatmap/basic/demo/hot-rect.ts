@@ -28,5 +28,8 @@ fetch('../data/diamond.json')
     chart.polygon()
       .position('x*y')
       .color('count', ['#BAE7FF', '#1890FF', '#0050B3']);
+
+    chart.interaction('element-active');
+
     chart.render();
   });

@@ -10,7 +10,7 @@
         "zh": "色块图",
         "en": "Basic Heatmap"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*sXU0S4xSx-UAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*_smzS60L-j8AAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "polar-heatmap.ts",
@@ -26,7 +26,7 @@
         "zh": "六边形分箱",
         "en": "Heatmap"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*m9VIT4xIQCgAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*YoqWRY6jZeUAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "hot-rect.ts",
@@ -34,7 +34,7 @@
         "zh": "分块热力图",
         "en": "Heatmap"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*NKIpTJ-eXQwAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*d872T7NtBSgAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "rectangle.ts",
@@ -42,7 +42,7 @@
         "zh": "矩形分箱图",
         "en": "Heatmap"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Vq87Qqej_PAAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*z7lXTooU068AAAAAAAAAAABkARQnAQ"
     }
   ]
 }

@@ -56,6 +56,7 @@ fetch('../data/rain-flow.json')
     });
 
     chart.legend({
+      position: 'top',
       custom: true, // 自定义图例
       offsetY: 4,
       items: [

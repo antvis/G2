@@ -131,4 +131,7 @@ chart.annotation().region({
     stroke: '#545454',
   }
 });
+
+chart.interaction('element-active');
+
 chart.render();

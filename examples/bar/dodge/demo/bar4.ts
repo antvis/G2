@@ -100,5 +100,6 @@ chart
   ]);
 
 chart.interaction('active-region');
+chart.interaction('legend-highlight');
 
 chart.render();

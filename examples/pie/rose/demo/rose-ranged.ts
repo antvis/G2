@@ -49,6 +49,11 @@ chart.axis('type', {
   }
 });
 
+chart.tooltip({
+  showMarkers: false
+});
+chart.interaction('element-highlight');
+
 chart
   .interval()
   .position('type*value')

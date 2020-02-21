@@ -49,7 +49,8 @@ chart.axis('月均降雨量', {
 });
 
 chart.tooltip({
-  showMarkers: false
+  showMarkers: false,
+  shared: true
 });
 
 chart

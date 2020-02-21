@@ -84,5 +84,6 @@ fetch('../data/world-population.json')
       .position('x*y')
       .shape('cloud')
       .tooltip('value*category');
+    chart.interaction('element-active');
     chart.render();
   });

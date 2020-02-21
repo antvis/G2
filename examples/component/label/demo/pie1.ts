@@ -25,10 +25,14 @@ const chart = new Chart({
   height: 500,
 });
 chart.data(dv.rows);
-chart.legend(false);
 chart.coordinate('theta', {
   radius: 0.75,
 });
+chart.tooltip({
+  showMarkers: false
+});
+chart.legend(false);
+
 chart
   .interval()
   .adjust('stack')
@@ -44,4 +48,6 @@ chart
       },
     };
   });
+
+chart.interaction('element-active');
 chart.render();

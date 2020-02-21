@@ -86,5 +86,5 @@ chart.facet('mirror', {
       });
   }
 });
-
+chart.interaction('element-highlight');
 chart.render();

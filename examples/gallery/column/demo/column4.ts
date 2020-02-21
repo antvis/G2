@@ -35,6 +35,11 @@ chart.axis('value', {
   }
 });
 
+chart.tooltip({
+  showMarkers: false
+});
+chart.interaction('active-region');
+
 chart.interval().position('time*value')
   .style('time', val => {
     if (val === '13:00-14:00') {
@@ -52,4 +57,5 @@ chart.interval().position('time*value')
       lineDash: [3, 2]
     };
   });
+
 chart.render();

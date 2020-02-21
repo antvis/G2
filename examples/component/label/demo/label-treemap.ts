@@ -54,9 +54,7 @@ fetch('../data/mobile.json')
     chart.data(nodes);
     chart.axis(false);
     chart.legend(false);
-    chart.tooltip({
-      showTitle: false,
-    });
+    chart.tooltip(false);
     chart
       .polygon()
       .position('x*y')

@@ -26,7 +26,8 @@ const chart = new Chart({
 chart.data(data);
 chart.coordinate('theta');
 chart.tooltip({
-  showTitle: false
+  showTitle: false,
+  showMarkers: false
 });
 chart.facet('tree', {
   fields: [ 'grade', 'class' ],
@@ -55,6 +56,7 @@ chart.facet('tree', {
       }
     });
     view.interval().position('percent').color('gender').adjust('stack');
+    view.interaction('element-active');
   }
 });
 chart.render();

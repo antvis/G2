@@ -12,16 +12,21 @@ const data = [
 const chart = new Chart({
   container: 'container',
   autoFit: true,
+  height: 500,
 });
 
 chart.data(data);
+
+chart.coordinate('theta', {
+  radius: 0.85
+});
+
 chart.scale('percent', {
   formatter: (val) => {
     val = val * 100 + '%';
     return val;
   },
 });
-chart.coordinate('theta');
 chart.tooltip({
   showTitle: false,
   showMarkers: false,

@@ -1,0 +1,32 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "drag-move.ts",
+      "title": {
+        "zh": "拖拽",
+        "en": "drag move"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*VgRBS4Mq40wAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "zoom.ts",
+      "title": {
+        "zh": "缩放",
+        "en": "zoom"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*hZNUT6FNkfUAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "views-tooltip.ts",
+      "title": {
+        "zh": "tooltip 联动",
+        "en": "multipe view‘s tooltip"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*s-JWTrKjUP4AAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

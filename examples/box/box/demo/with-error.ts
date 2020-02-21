@@ -85,4 +85,7 @@ errorPointView
   .position('x*outliers')
   .shape('circle')
   .size(3);
+
+chart.interaction('active-region');
+
 chart.render();

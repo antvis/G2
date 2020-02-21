@@ -41,6 +41,6 @@ fetch('../data/flare.json')
       .polygon()
       .position('x*y')
       .color('name');
-
+    chart.interaction('element-active');
     chart.render();
   });

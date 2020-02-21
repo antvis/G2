@@ -94,10 +94,15 @@ fetch('../data/world.geo.json')
       .position('longitude*latitude')
       .color('trend', ['#F51D27', '#0A61D7'])
       .tooltip('name*trend')
+      .style({
+        fillOpacity: 0.85
+      })
       .animate({
         leave: {
           animation: 'fade-out'
         }
       });
+    userView.interaction('element-active');
+
     chart.render();
   });

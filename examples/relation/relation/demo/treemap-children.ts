@@ -91,5 +91,6 @@ fetch('../data/mobile.json')
           },
         }
       );
+    chart.interaction('element-active');
     chart.render();
   });

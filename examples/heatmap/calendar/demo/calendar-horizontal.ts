@@ -122,5 +122,8 @@ fetch('../data/github-commit.json')
     chart.polygon().position('week*day*date')
       .color('commits', '#BAE7FF-#1890FF-#0050B3')
       .shape('boundary-polygon');
+
+    chart.interaction('element-active');
+
     chart.render();
   });

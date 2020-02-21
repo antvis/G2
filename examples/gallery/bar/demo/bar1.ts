@@ -59,4 +59,5 @@ chart
     },
     offset: 10,
   });
+chart.interaction('element-active');
 chart.render();

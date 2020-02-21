@@ -35,5 +35,8 @@ fetch('../data/diamond.json')
     });
 
     chart.interval().position('depth*count');
+
+    chart.interaction('element-highlight');
+
     chart.render();
   });

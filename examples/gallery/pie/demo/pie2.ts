@@ -23,7 +23,8 @@ const chart = new Chart({
 });
 chart.legend(false);
 chart.tooltip({
-  showMarkers: false
+  showMarkers: false,
+  follow: true,
 });
 
 const view1 = chart.createView({
@@ -44,6 +45,7 @@ view1.coordinate('theta', {
   endAngle: Math.PI * 2 + otherOffsetAngle,
 });
 view1.data(data);
+view1.interaction('element-highlight');
 view1
   .interval()
   .adjust('stack')
@@ -72,6 +74,7 @@ const view2 = chart.createView({
 });
 view2.axis(false);
 view2.data(other);
+view2.interaction('element-highlight');
 view2
   .interval()
   .adjust('stack')

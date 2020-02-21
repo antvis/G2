@@ -12,7 +12,7 @@ const data = [
   { action: '下单', visitor: 150, site: '站点2' },
   { action: '完成', visitor: 80, site: '站点2' },
 ];
-data.sort(function(obj1, obj2) {
+data.sort(function (obj1, obj2) {
   // 从小到大
   return obj1.visitor - obj2.visitor;
 });
@@ -82,5 +82,6 @@ chart.facet('mirror', {
     });
   },
 });
-
+chart.interaction('element-active');
+chart.removeInteraction('legend-filter');
 chart.render();

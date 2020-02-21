@@ -64,6 +64,8 @@ chart.facet('rect', {
       },
       offsetY: 10,
     });
+
+    view.interaction('element-active');
   }
 });
 chart.render();

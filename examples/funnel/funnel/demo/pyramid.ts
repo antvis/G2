@@ -50,5 +50,8 @@ chart
     appear: {
       animation: 'fade-in'
     }
-  });;
+  });
+
+chart.interaction('element-active');
+
 chart.render();

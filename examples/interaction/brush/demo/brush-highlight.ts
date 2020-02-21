@@ -1,4 +1,5 @@
 import { Chart, registerInteraction } from '@antv/g2';
+
 registerInteraction('highlight-view', {
   showEnable: [
     { trigger: 'plot:mouseenter', action: 'cursor:crosshair' },

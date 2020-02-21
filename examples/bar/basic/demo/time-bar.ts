@@ -39,7 +39,7 @@ chart.tooltip({
   follow: true,
   showMarkers: false,
 });
-
+chart.interaction('element-active');
 chart
   .interval()
   .position('task*range')

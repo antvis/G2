@@ -75,7 +75,9 @@ chart.tooltip({
 });
 chart.interaction('active-region');
 
-chart.interval()
+chart
+  .interval()
+  .adjust('stack')
   .position('time*value')
   .color('type', ['#40a9ff', '#1890ff', '#096dd9', '#0050b3']);
 

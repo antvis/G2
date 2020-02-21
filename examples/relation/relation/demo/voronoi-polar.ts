@@ -53,6 +53,7 @@ fetch('../data/voronoi.json')
           type: 'limit-in-shape',
         },
       });
+    chart.interaction('element-active');
 
     chart.render();
   });

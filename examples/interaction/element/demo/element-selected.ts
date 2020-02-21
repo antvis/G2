@@ -18,6 +18,22 @@ const chart = new Chart({
 });
 
 chart.data(data);
-chart.interaction('element-active');
-chart.interval().position('year*value');
+
+chart.tooltip({
+  showMarkers: false,
+});
+
+chart
+  .interval()
+  .position('year*value')
+  .state({
+    selected: {
+      style: {
+        fill: '#E8684A',
+      }
+    }
+  });
+
+chart.interaction('element-selected');
+
 chart.render();

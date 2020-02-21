@@ -59,6 +59,7 @@ fetch('../data/world.geo.json')
     chart.legend({ position: 'right' });
     chart.tooltip({
       showTitle: false,
+      showMarker: false
     });
     const bgView = chart.createView();
     bgView.data(dv.rows);
@@ -84,5 +85,6 @@ fetch('../data/world.geo.json')
         lineWidth: 1,
         stroke: '#1890ff',
       });
+    userView.interaction('element-active');
     chart.render();
   });

@@ -107,4 +107,6 @@ view2
   .color('type')
   .shape('circle');
 
+chart.removeInteraction('legend-filter'); // 关闭图例过滤交互
+
 chart.render();

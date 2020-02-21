@@ -62,5 +62,6 @@ fetch('../data/bubble.json')
           stroke: colorMap[val],
         };
       });
+    chart.interaction('element-active');
     chart.render();
   });

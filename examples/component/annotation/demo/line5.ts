@@ -52,6 +52,10 @@ fetch('../data/siteUV.json')
       }
     });
 
+    chart.tooltip({
+      showCrosshairs: true
+    });
+
     chart.line().position('time*Count').color('date', ['#d9d9d9', '#1890ff']);
 
     chart.annotation().dataMarker({

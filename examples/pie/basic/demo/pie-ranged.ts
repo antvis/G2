@@ -35,4 +35,6 @@ chart
   .color('type')
   .label('type');
 
+chart.interaction('element-active');
+
 chart.render();

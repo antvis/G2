@@ -10,7 +10,7 @@
         "zh": "基础面积图",
         "en": "Basic Area Chart"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*9gcGSLUysf8AAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*KClwQIc8x2YAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "with-negative.ts",
@@ -18,7 +18,7 @@
         "zh": "基础面积图（有负值）",
         "en": "Area Chart with Negative Values"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*0tdhSK9qyT0AAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*5MowR5laFy8AAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "area-null.ts",
@@ -26,7 +26,7 @@
         "zh": "区域图（存在空值）",
         "en": "Area Chart with empty values"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*AViKSbpz_egAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*mYm6RqqtDd0AAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "area-large.ts",

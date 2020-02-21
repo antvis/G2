@@ -14,10 +14,15 @@ const chart = new Chart({
 });
 
 chart.data(data);
-chart.interaction('continuous-filter');
+
 chart
   .interval()
   .position('year*value')
-  .color('value');
+  .color('year');
+
+chart.interaction('element-highlight');
+chart.interaction('element-list-highlight');
+chart.interaction('legend-highlight');
+chart.interaction('axis-label-highlight');
 
 chart.render();

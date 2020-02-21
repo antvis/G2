@@ -8,7 +8,7 @@ fetch('../data/diamond.json')
       container: 'container',
       autoFit: true,
       height: 500,
-      padding: [ 30, 90, 80, 80 ]
+      padding: [30, 90, 80, 80]
     });
     chart.data(data);
 
@@ -23,22 +23,26 @@ fetch('../data/diamond.json')
 
     chart.coordinate('polar');
     chart.axis(false);
+    chart.tooltip({
+      showMarkers: false
+    });
 
     chart.facet('circle', {
-      fields: [ 'clarity' ],
+      fields: ['clarity'],
       eachView(view, facet) {
         const facetData = facet.data;
         const dv = new DataView();
         dv.source(facetData).transform({
           type: 'aggregate',
-          fields: [ 'price' ],
-          operations: [ 'mean' ],
-          as: [ 'mean' ],
-          groupBy: [ 'cut' ]
+          fields: ['price'],
+          operations: ['mean'],
+          as: ['mean'],
+          groupBy: ['cut']
         });
 
         view.data(dv.rows);
         view.interval().position('cut*mean').color('cut');
+        view.interaction('element-active');
       }
     }); // 分面设置
     chart.render();

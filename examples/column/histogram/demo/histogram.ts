@@ -97,4 +97,6 @@ chart.tooltip({
 
 chart.interval().position('value*count');
 
+chart.interaction('element-highlight');
+
 chart.render();
