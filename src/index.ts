@@ -147,8 +147,8 @@ import ElmentRangeActive from './interaction/action/element/range-active';
 import ElmentSingleActive from './interaction/action/element/single-active';
 
 import ElmentHighlight from './interaction/action/element/highlight';
-import ElmentHighlightByX from './interaction/action/element/highlight-by-x';
 import ElmentHighlightByColor from './interaction/action/element/highlight-by-color';
+import ElmentHighlightByX from './interaction/action/element/highlight-by-x';
 
 import ElmentRangeHighlight from './interaction/action/element/range-highlight';
 import ElmentSingleHighlight from './interaction/action/element/single-highlight';
