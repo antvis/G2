@@ -45,8 +45,8 @@ abstract class MaskBase extends Action {
       draggable: true,
       attrs: {
         // 暂时写死样式
-        fill: 'red',
-        fillOpacity: 0.2,
+        fill: '#C5D4EB',
+        opacity: 0.3,
         path: this.getMaskPath(),
       },
     });
