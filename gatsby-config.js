@@ -154,6 +154,14 @@ module.exports = {
         },
       },
       {
+        slug: 'area',
+        icon: 'area',
+        title: {
+          zh: '面积图',
+          en: 'Area Chart',
+        },
+      },
+      {
         slug: 'column',
         icon: 'column',
         title: {
@@ -186,11 +194,27 @@ module.exports = {
         },
       },
       {
-        slug: 'area',
-        icon: 'area',
+        slug: 'radar',
+        icon: 'radar',
         title: {
-          zh: '面积图',
-          en: 'Area Chart',
+          zh: '雷达图',
+          en: 'Radar Chart',
+        },
+      },
+      {
+        slug: 'funnel',
+        icon: 'funnel',
+        title: {
+          zh: '漏斗图',
+          en: 'Funnel Chart',
+        },
+      },
+      {
+        slug: 'heatmap',
+        icon: 'heatmap',
+        title: {
+          zh: '热力图',
+          en: 'Heatmap',
         },
       },
       {
@@ -210,14 +234,6 @@ module.exports = {
         },
       },
       {
-        slug: 'heatmap',
-        icon: 'heatmap',
-        title: {
-          zh: '热力图',
-          en: 'Heatmap',
-        },
-      },
-      {
         slug: 'gauge',
         icon: 'gauge',
         title: {
@@ -226,27 +242,11 @@ module.exports = {
         },
       },
       {
-        slug: 'funnel',
-        icon: 'funnel',
-        title: {
-          zh: '漏斗图',
-          en: 'Funnel Chart',
-        },
-      },
-      {
         slug: 'map',
         icon: 'map',
         title: {
           zh: '地图',
           en: 'Maps',
-        },
-      },
-      {
-        slug: 'radar',
-        icon: 'radar',
-        title: {
-          zh: '雷达图',
-          en: 'Radar Chart',
         },
       },
       {
@@ -266,27 +266,19 @@ module.exports = {
         },
       },
       {
-        slug: 'other',
-        icon: 'other',
-        title: {
-          zh: '其他图表',
-          en: 'Other Chart',
-        },
-      },
-      {
-        slug: 'annotation',
-        icon: 'annotation',
-        title: {
-          zh: '辅助元素',
-          en: 'Chart Annotation',
-        },
-      },
-      {
         slug: 'component',
         icon: 'component',
         title: {
           zh: '组件使用',
           en: 'Chart Components',
+        },
+      },
+      {
+        slug: 'other',
+        icon: 'other',
+        title: {
+          zh: '其他图表',
+          en: 'Other Chart',
         },
       },
     ],
