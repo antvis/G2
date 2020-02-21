@@ -20,7 +20,7 @@ fetch('../data/gaussion-distribution.json')
     chart.data(dv.rows);
     chart.tooltip({
       showTitle: false,
-      showCrosshairs: false
+      showMarkers: false
     });
     chart.legend({
       offset: 40
@@ -44,5 +44,6 @@ fetch('../data/gaussion-distribution.json')
         lineWidth: 1,
         stroke: '#fff'
       });
+    chart.interaction('element-active');
     chart.render();
   });

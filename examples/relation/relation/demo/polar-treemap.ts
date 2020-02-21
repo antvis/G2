@@ -54,7 +54,7 @@ fetch('../data/mobile.json')
     chart.legend(false);
     chart.tooltip({
       showTitle: false,
-      showMarker: false
+      showMarkers: false
     });
     chart
       .polygon()
@@ -95,5 +95,7 @@ fetch('../data/mobile.json')
           },
         }
       );
+    chart.interaction('element-active');
+
     chart.render();
   });

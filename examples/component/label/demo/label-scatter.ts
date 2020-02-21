@@ -13,6 +13,8 @@ fetch('../data/scatter.json')
       height: { nice: true },
       weight: { nice: true },
     });
+    chart.tooltip(false);
+
     chart
       .point()
       .position('height*weight')

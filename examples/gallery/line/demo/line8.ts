@@ -74,8 +74,9 @@ registerShape('point', 'breath-point', {
   draw(cfg, container) {
     const data = cfg.data;
     const point = { x: cfg.x, y: cfg.y };
+    const group = container.addGroup();
     if (data.time === '14.20' && data.date === 'today') {
-      const decorator1 = container.addShape('circle', {
+      const decorator1 = group.addShape('circle', {
         attrs: {
           x: point.x,
           y: point.y,
@@ -84,7 +85,7 @@ registerShape('point', 'breath-point', {
           opacity: 0.5
         }
       });
-      const decorator2 = container.addShape('circle', {
+      const decorator2 = group.addShape('circle', {
         attrs: {
           x: point.x,
           y: point.y,
@@ -93,7 +94,7 @@ registerShape('point', 'breath-point', {
           opacity: 0.5
         }
       });
-      const decorator3 = container.addShape('circle', {
+      const decorator3 = group.addShape('circle', {
         attrs: {
           x: point.x,
           y: point.y,
@@ -128,7 +129,7 @@ registerShape('point', 'breath-point', {
         repeat: true,
         delay: 1200,
       });
-      container.addShape('circle', {
+      group.addShape('circle', {
         attrs: {
           x: point.x,
           y: point.y,
@@ -137,7 +138,7 @@ registerShape('point', 'breath-point', {
           opacity: 0.7
         }
       });
-      container.addShape('circle', {
+      group.addShape('circle', {
         attrs: {
           x: point.x,
           y: point.y,
@@ -146,6 +147,8 @@ registerShape('point', 'breath-point', {
         }
       });
     }
+
+    return group;
   }
 });
 
@@ -185,7 +188,9 @@ fetch('../data/cpu-data.json')
 
 
     chart.line().position('time*cpu').color('date', ['#1890ff', '#ced4d9']).shape('split-line');
-    chart.point().position('time*cpu').shape('breath-point');
+    chart.point().position('time*cpu').shape('breath-point').state({
+      active: false
+    });
     chart.annotation().regionFilter({
       top: true,
       start: ['min', 105],
@@ -196,7 +201,7 @@ fetch('../data/cpu-data.json')
       start: ['min', 85],
       end: ['max', 85],
       style: {
-        stroke: '#595959',
+        stroke: '#ff4d4f',
         lineWidth: 1,
         lineDash: [3, 3]
       },
@@ -211,6 +216,9 @@ fetch('../data/cpu-data.json')
         offsetY: -5
       }
     });
+
+    chart.removeInteraction('legend-filter');
+    chart.removeInteraction('legend-active');
 
     chart.render();
   });

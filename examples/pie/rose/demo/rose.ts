@@ -23,6 +23,10 @@ const chart = new Chart({
 chart.data(data);
 chart.coordinate('polar');
 chart.axis(false);
+chart.tooltip({
+  showMarkers: false
+});
+chart.interaction('element-highlight');
 chart
   .interval()
   .position('year*population')

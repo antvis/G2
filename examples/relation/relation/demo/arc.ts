@@ -64,6 +64,7 @@ fetch('../data/relationship-with-weight.json')
         },
         rotate: Math.PI / 2,
       });
+    chart.interaction('element-active');
 
     chart.render();
   });

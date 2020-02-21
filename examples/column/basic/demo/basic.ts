@@ -21,6 +21,11 @@ chart.scale('sales', {
   nice: true,
 });
 
+chart.tooltip({
+  showMarkers: false
+});
+chart.interaction('active-region');
+
 chart.interval().position('year*sales');
 
 chart.render();

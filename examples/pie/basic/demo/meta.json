@@ -10,7 +10,7 @@
         "en": "pie chart with label",
         "zh": "基础饼图"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*kTAySKCuiw0AAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*znBuTKmgQB4AAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "innerlabel.ts",
@@ -18,7 +18,7 @@
         "en": "pie chart with label inner",
         "zh": "基础饼图-内部文本"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*FIX6SIOqQgEAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*GuNAQoE4S7UAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "pie-custome-label.ts",
@@ -34,7 +34,7 @@
         "en": "pie chart with range angle",
         "zh": "饼图-限定角度范围"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*o0GvS7hd-vYAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*L17LRIPVROAAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "pie-size.ts",
@@ -42,7 +42,7 @@
         "en": "pie chart with radius",
         "zh": "饼图-半径大小"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*DE_sRaTSxsAAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*ZX9jS6MZJJcAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "pie-texture.ts",

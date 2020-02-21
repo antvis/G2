@@ -63,5 +63,7 @@ fetch('../data/flare.json')
           type: 'fixed-overlap',
         },
       });
+    chart.interaction('element-active');
+
     chart.render();
   });

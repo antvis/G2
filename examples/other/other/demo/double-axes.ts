@@ -49,6 +49,9 @@ chart.axis('people', {
 chart.axis('waiting', {
   title: {}
 });
+chart.tooltip({
+  shared: true,
+});
 chart.interval()
   .position('time*waiting')
   .color('#3182bd');
@@ -62,4 +65,6 @@ chart.point()
   .color('#fdae6b')
   .size(3)
   .shape('circle');
+
+chart.interaction('active-region');
 chart.render();

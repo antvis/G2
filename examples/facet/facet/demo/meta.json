@@ -18,7 +18,7 @@
         "zh": "List 分面",
         "en": "list facet"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*F8MKRZvTB1AAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*2LOFR7mYjuQAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "matrix.ts",
@@ -34,7 +34,7 @@
         "zh": "2 维行列分面",
         "en": "rect facet"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*bYoPT7VqUZwAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*pLIzSJMJU50AAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "row.ts",
@@ -42,7 +42,7 @@
         "zh": "列分面",
         "en": "rect facet(row)"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*9XE6Qqc56mAAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*nOTCTrknWCoAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "mirror-transpose.ts",
@@ -66,7 +66,7 @@
         "zh": "圆形分面",
         "en": "circle facet"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Ag46TrkWa0sAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*23oESa4-fS4AAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "tree-column.ts",
@@ -82,7 +82,7 @@
         "zh": "tree 分面",
         "en": "tree facet"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*qD3PRJ10I7wAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*HhEPS7pKDbYAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

@@ -72,5 +72,7 @@ fetch('../data/relationship-with-weight.json')
         labelEmit: true
       });
 
+    chart.interaction('element-active');
+
     chart.render();
   });

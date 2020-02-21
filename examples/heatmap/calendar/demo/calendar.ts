@@ -71,7 +71,8 @@ fetch('../data/stock-calendar.json')
       offset: 0
     });
     chart.tooltip({
-      title: '日期'
+      title: '日期',
+      showMarkers: false
     });
     chart.facet('list', {
       fields: ['month'],
@@ -94,6 +95,8 @@ fetch('../data/stock-calendar.json')
           });
       }
     });
+
+    chart.interaction('element-active');
+
     chart.render();
-    console.log(chart);
   });

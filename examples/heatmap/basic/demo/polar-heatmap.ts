@@ -41,6 +41,8 @@ fetch('../data/polar-heatmap.json')
         lineWidth: 1
       });
 
+    chart.interaction('element-active');
+
     const values = ['Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.', 'Sun.'];
     values.map((val, idx) => {
       chart.annotation().text({

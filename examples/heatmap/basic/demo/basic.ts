@@ -127,4 +127,6 @@ chart
     stroke: '#fff',
   });
 
+chart.interaction('element-active');
+
 chart.render();

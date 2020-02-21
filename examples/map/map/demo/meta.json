@@ -18,7 +18,7 @@
         "zh": "世界分级统计地图",
         "en": "Choropleth Map"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*TzmtTLXIxOEAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*hYcwQrQ-OEoAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "hex-choropleth-map.ts",
@@ -34,7 +34,7 @@
         "zh": "美国地图六边形分割",
         "en": "Hexgin Choropleth"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*nWwESKCkDTgAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*7nChSYEJRvwAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "with-heatmap.ts",
@@ -50,7 +50,7 @@
         "zh": "legend-size",
         "en": "size legend"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*zo8yQp-k7hgAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*Kv0VRb2TGqMAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

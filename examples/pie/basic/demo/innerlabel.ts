@@ -58,4 +58,6 @@ chart
     lineWidth: 1,
     stroke: '#fff',
   });
+
+chart.interaction('element-active');
 chart.render();

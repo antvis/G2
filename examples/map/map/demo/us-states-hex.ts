@@ -59,6 +59,6 @@ fetch('../data/us-states.hex.json')
         }
       })
       .tooltip('capital');
-
+    mapView.interaction('element-active');
     chart.render();
   });

@@ -10,7 +10,7 @@
         "zh": "矩形树图",
         "en": "treemap"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*C8aIQIYh4C0AAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*9QBNQLP13dEAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "treemap-children.ts",
@@ -18,7 +18,7 @@
         "zh": "treemap-children",
         "en": "treemap"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*E-eMTqVsqXwAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*SIV7TKPqyssAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "polar-treemap.ts",
@@ -26,7 +26,7 @@
         "zh": "极坐标系下的矩形树图",
         "en": "polar treemap"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*cu7DQ7FCx2wAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*pRufSJD8LIEAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "adjacency.ts",
@@ -34,7 +34,7 @@
         "zh": "相邻层次图",
         "en": "adjacency"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*17lLTZn5DKIAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*KeP9Q56QpEgAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "sunburst.ts",
@@ -42,7 +42,7 @@
         "zh": "旭日图",
         "en": "sunburst chart"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ZzfeQpS8oE8AAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*UbXJTZ9weikAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "arc-polar.ts",
@@ -50,7 +50,7 @@
         "zh": "极坐标弧长链接图",
         "en": "polar arc diagram"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*osoCSYsvR6cAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*rpDZRocqrwEAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "arc.ts",
@@ -58,7 +58,7 @@
         "zh": "弧长链接图",
         "en": "arc diagram"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*1M9VQLUpXBIAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*NC7zTY088hEAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "chord.ts",
@@ -66,7 +66,7 @@
         "zh": "和弦图",
         "en": "chord diagram"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*EsSaSZXorsIAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*CfT4RZawGIUAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "radial-dendrogram.ts",
@@ -74,7 +74,7 @@
         "zh": "径向系统树图",
         "en": "radial tree"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*kOM2QZY15fsAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*umLuSZdAjxkAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "radial-tidy-tree.ts",
@@ -82,7 +82,7 @@
         "zh": "径向紧凑树图",
         "en": "radial tidy tree"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*AX-wT4J7B5oAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*10Y4TrCRUwQAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "sankey.ts",
@@ -90,7 +90,7 @@
         "zh": "桑基图",
         "en": "sankey diagram"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*A0z9R7Qn8ScAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*1n8YT5Jtnv4AAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "voronoi.ts",
@@ -98,7 +98,7 @@
         "zh": "voronoi 图",
         "en": "voronoi"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*XzOATpycL_cAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*5x2VTJI-y54AAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "voronoi-polar.ts",
@@ -106,7 +106,7 @@
         "zh": "极坐标 voronoi 图",
         "en": "polar voronoi"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*6ronSLcWb_sAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*vHHOSYX-c94AAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "circle-packing.ts",
@@ -114,7 +114,7 @@
         "zh": "Circle Packing",
         "en": "circle packing"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*sVjYTZjWuegAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*47DsSZq3DsYAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

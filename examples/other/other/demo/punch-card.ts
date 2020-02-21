@@ -60,4 +60,7 @@ chart.point()
   .size('commits', [2, 10])
   .shape('circle')
   .color('#bfbfbf');
+
+chart.interaction('element-active');
+
 chart.render();

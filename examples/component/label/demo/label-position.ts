@@ -1,4 +1,3 @@
-// TODO: tooltip hover 效果
 import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
@@ -58,10 +57,7 @@ chart.scale({
     },
   },
 });
-chart.tooltip({
-  showMarkers: false,
-  shared: true,
-});
+chart.tooltip(false);
 chart
   .interval()
   .adjust('stack')
@@ -75,4 +71,5 @@ chart
     },
   })
   .color('country', ['#FF6A84', '#30A4EB', '#45BFC0', '#FFCC55']);
+chart.interaction('element-highlight-by-color');
 chart.render();

@@ -1,0 +1,80 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "active-region.ts",
+      "title": {
+        "zh": "Tooltip 背景区域",
+        "en": "Tooltip active"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*B5WiT7hVPvsAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "legend-active.ts",
+      "title": {
+        "zh": "图例项 active",
+        "en": "legend active"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*N7dBRoQDldMAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "legend-highlight.ts",
+      "title": {
+        "zh": "图例项高亮",
+        "en": "legend highlight"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*undJR7GMznUAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "legend-filter.ts",
+      "title": {
+        "zh": "分类图例数据过滤",
+        "en": "legend data filter"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*gUo0Try7HXwAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "legend-visible-filter.ts",
+      "title": {
+        "zh": "分类图例图形过滤",
+        "en": "legend element filter"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*AOq8TaomiqEAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "continue-legend-filter.ts",
+      "title": {
+        "zh": "连续图例数据过滤",
+        "en": "continous legend data filter"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*6OFbTb_2COMAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "continue-visible-filter.ts",
+      "title": {
+        "zh": "连续图例图形过滤",
+        "en": "continous legend element filter"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*GTCWRobWBqcAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "axis-label-highlight.ts",
+      "title": {
+        "zh": "坐标轴文本高亮",
+        "en": "Axis label highlight"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*hbosTKx2200AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "element-list-highlight.ts",
+      "title": {
+        "zh": "关联图表元素高亮",
+        "en": "Element list highlight"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*vgCERoCDF6EAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

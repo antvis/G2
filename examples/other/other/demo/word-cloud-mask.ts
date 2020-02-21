@@ -91,6 +91,7 @@ fetch('../data/antv-keywords.json')
             }
           }
         });
+      chart.interaction('element-active');
       chart.render();
     };
   });

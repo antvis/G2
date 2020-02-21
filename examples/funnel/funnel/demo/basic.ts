@@ -76,6 +76,8 @@ chart
     }
   });
 
+chart.interaction('element-active');
+
 // 中间标签文本
 data.forEach((obj) => {
   chart.annotation().text({

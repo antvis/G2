@@ -20,6 +20,7 @@ chart.data(data);
 chart.scale('value', {
   alias: '销售额(万)',
 });
+
 chart.axis('type', {
   label: {
     style: {
@@ -31,6 +32,11 @@ chart.axis('type', {
   },
 });
 chart.axis('value', false);
+
+chart.tooltip({
+  showMarkers: false,
+});
+chart.interaction('element-active');
 
 chart.interval().position('type*value');
 

@@ -23,6 +23,7 @@ chart.scale('y', { nice: true });
 chart.tooltip({
   showMarkers: false,
 });
+chart.interaction('element-active');
 
 chart.interval().position('x*y').animate({
   appear: {

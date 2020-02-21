@@ -23,7 +23,6 @@ fetch('../data/china-provinces.geo.json')
     const geoDv = new DataSet.View().source(GeoJSON, {
       type: 'GeoJSON'
     });
-    // console.log(GeoJSON);
     const ranges = {
       lat: geoDv.range('latitude'),
       lon: geoDv.range('longitude')
@@ -33,7 +32,6 @@ fetch('../data/china-provinces.geo.json')
       lon: geoDv.median('longitude')
     };
 
-    // console.log(ranges, medians);
     const userData = [];
     for (let lon = ranges.lon[0]; lon <= ranges.lon[1]; lon += 0.5) {
       for (let lat = ranges.lat[0]; lat <= ranges.lat[1]; lat += 0.5) {
@@ -45,7 +43,6 @@ fetch('../data/china-provinces.geo.json')
         }
       }
     }
-    // console.log(userData);
     const userDv = new DataSet.View().source(userData).transform({
       // sizeByCount: true,
       type: 'bin.hexagon',
@@ -53,7 +50,6 @@ fetch('../data/china-provinces.geo.json')
       binWidth: [2, 3],
       as: ['longitude', 'latitude', 'count']
     });
-    // console.log(userDv);
 
     const chart = new Chart({
       container: 'container',

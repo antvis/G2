@@ -49,6 +49,7 @@ fetch('../data/voronoi.json')
           shadowColor: 'rgba(0, 0, 0, .45)',
         },
       });
+    chart.interaction('element-active');
 
     chart.render();
   });

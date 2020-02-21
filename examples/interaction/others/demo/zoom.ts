@@ -1,4 +1,5 @@
-import { Chart, registerInteraction } from '@antv/g2';
+import { Chart } from '@antv/g2';
+
 fetch('../data/scatter.json')
   .then((res) => res.json())
   .then((data) => {
@@ -6,20 +7,26 @@ fetch('../data/scatter.json')
       container: 'container',
       autoFit: true,
       height: 500,
+      limitInPlot: true
     });
     // 数据格式： [{"gender":"female","height":161.2,"weight":51.6}]
     chart.data(data);
-    chart.interaction('view-zoom');
+
+    chart.scale({
+      height: { nice: true },
+      weight: { nice: true },
+    });
+
     chart
       .point()
       .position('height*weight')
       .color('gender')
       .shape('circle')
-      .tooltip('gender*height*weight', (gender, height, weight) => {
-        return {
-          name: gender,
-          value: height + '(cm), ' + weight + '(kg)',
-        };
+      .style({
+        fillOpacity: 0.6
       });
+
+    chart.interaction('view-zoom');
+
     chart.render();
   });

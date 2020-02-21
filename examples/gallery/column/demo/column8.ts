@@ -48,6 +48,12 @@ chart.axis('value', {
     offset: 30,
   },
 });
+
+chart.tooltip({
+  showMarkers: false,
+});
+chart.interaction('active-region');
+
 chart.legend(false);
 chart
   .interval()

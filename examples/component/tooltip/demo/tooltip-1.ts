@@ -33,6 +33,7 @@ chart.coordinate('polar', {
 chart.axis(false);
 chart.legend(false);
 chart.tooltip({
+  showContent: false,
   showCrosshairs: true,
   crosshairs: {
     line: {

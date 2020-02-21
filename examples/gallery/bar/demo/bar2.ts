@@ -119,4 +119,6 @@ chart.annotation().line({
     lineDash: [2, 2],
   },
 });
+chart.interaction('element-active');
+
 chart.render();

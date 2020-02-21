@@ -51,5 +51,8 @@ fetch('../data/gaussion-distribution.json')
         lineWidth: 1,
         stroke: '#fff'
       });
+
+    chart.interaction('element-active');
+
     chart.render();
   });

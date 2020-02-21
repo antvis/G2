@@ -101,4 +101,6 @@ chart
       }
     },
   });
+chart.interaction('element-active');
+
 chart.render();

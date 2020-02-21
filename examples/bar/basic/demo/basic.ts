@@ -17,5 +17,9 @@ const chart = new Chart({
 chart.data(data);
 chart.scale('population', { nice: true });
 chart.coordinate().transpose();
+chart.tooltip({
+  showMarkers: false
+});
+chart.interaction('active-region');
 chart.interval().position('country*population');
 chart.render();

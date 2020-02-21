@@ -1,0 +1,64 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "active.ts",
+      "title": {
+        "zh": "图表元素 active",
+        "en": "Element active"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*qAjhQ5jwuOYAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "element-selected.ts",
+      "title": {
+        "zh": "图形元素 selected",
+        "en": "element selected"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*ipz9TbZgR3UAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "pie-selected.ts",
+      "title": {
+        "zh": "饼图单选",
+        "en": "pie selected"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*9ykBS6SScO8AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "highlight.ts",
+      "title": {
+        "zh": "图表元素 highlight",
+        "en": "element highlight"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*wr2XTJmoHfkAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "element-highlight-by-x.ts",
+      "title": {
+        "zh": "高亮 x 值相同的 element",
+        "en": "element highlight by x"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*7eKNRrht53EAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "element-highlight-by-color.ts",
+      "title": {
+        "zh": "高亮所有同颜色的 element",
+        "en": "element highlight by color"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*1T85TpUoCPoAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "list-active.ts",
+      "title": {
+        "zh": "组合交互",
+        "en": "Mix Interactions"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*CjP-Qrik2J4AAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

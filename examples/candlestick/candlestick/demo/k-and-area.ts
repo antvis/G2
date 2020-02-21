@@ -45,7 +45,7 @@ fetch('../data/stock-03.json')
       showCrosshairs: true,
       shared: true,
     });
-    chart.area().position('date*range').color('#64b5f6');
+    chart.area().position('date*range').color('#64b5f6').animate(false);
     chart.schema()
       .position('date*stockRange')
       .color('trend', val => {

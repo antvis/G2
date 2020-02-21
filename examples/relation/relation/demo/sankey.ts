@@ -22,7 +22,8 @@ fetch('../data/energy.json')
     });
     chart.legend(false);
     chart.tooltip({
-      showTitle: false
+      showTitle: false,
+      showMarkers: false
     });
     chart.axis(false);
     chart.scale({
@@ -83,5 +84,8 @@ fetch('../data/energy.json')
       .style({
         stroke: '#ccc'
       });
+
+    chart.interaction('element-active');
+
     chart.render();
   });

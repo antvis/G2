@@ -68,6 +68,7 @@ fetch('../data/relationship-with-weight.json')
       .style({
         fillOpacity: 0.5
       });
+    chart.interaction('element-active');
 
     chart.render();
   });

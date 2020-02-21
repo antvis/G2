@@ -88,8 +88,16 @@ fetch('../data/world.geo.json')
           .tooltip('date*location*lat*lng*deaths*magnitude')
           .style({
             fillOpacity: 0.45,
+          })
+          .state({
+            active: {
+              style: {
+                lineWidth: 1,
+                stroke: '#FF2F29'
+              }
+            }
           });
-
+        pointView.interaction('element-active');
         chart.render();
       });
   });

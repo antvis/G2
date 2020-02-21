@@ -26,6 +26,10 @@ chart.legend('year', {
   position: 'right',
 });
 chart.axis(false);
+chart.tooltip({
+  showMarkers: false
+});
+chart.interaction('element-highlight');
 chart
   .interval()
   .position('year*population')

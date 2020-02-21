@@ -101,4 +101,6 @@ outterView
     stroke: '#fff',
   });
 
+chart.interaction('element-highlight');
+
 chart.render();
