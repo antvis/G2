@@ -286,7 +286,7 @@ registerInteraction('element-highlight', {
 高亮 x 值相同的 element，适用于分组的场景
 
 ```javascript
-registerInteraction('element-highlight', {
+registerInteraction('element-highlight-by-x', {
   start: [{ trigger: 'element:mouseenter', action: 'element-highlight-by-x:highlight' }],
   end: [{ trigger: 'element:mouseleave', action: 'element-highlight-by-x:reset' }],
 });
@@ -299,7 +299,7 @@ registerInteraction('element-highlight', {
 高亮所有同颜色的 element，适用于层叠的场景
 
 ```javascript
-registerInteraction('element-highlight', {
+registerInteraction('element-highlight-by-color', {
   start: [{ trigger: 'element:mouseenter', action: 'element-highlight-by-color:highlight' }],
   end: [{ trigger: 'element:mouseleave', action: 'element-highlight-by-color:reset' }],
 });
