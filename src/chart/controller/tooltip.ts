@@ -304,6 +304,17 @@ export default class Tooltip extends Controller<TooltipOption> {
     });
 
     tooltip.init();
+
+    if (cfg.enterable === false) {
+      // 如果 tooltip 不允许进入
+      const tooltipContainer = tooltip.get('container');
+      tooltipContainer.onmousemove = event => {
+        // 避免 tooltip 频繁闪烁
+        const point = this.view.getCanvas().getPointByClient(event.clientX, event.clientY);
+        this.view.emit('plot:mousemove', point);
+      };
+    }
+
     this.tooltip = tooltip;
   }
 

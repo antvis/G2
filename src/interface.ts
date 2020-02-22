@@ -914,6 +914,8 @@ export interface TooltipCrosshairs {
 export interface TooltipCfg {
   /** 设置 tooltip 是否跟随鼠标移动，默认为 false, 定位到数据点。 */
   follow?: boolean;
+  /** tooltip 是否允许鼠标滑入，默认为 false，不允许 */
+  enterable?: boolean;
   /** 是否展示 tooltip 标题。 */
   showTitle?: boolean;
   /**

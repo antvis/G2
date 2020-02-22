@@ -697,6 +697,7 @@ export default {
       showCrosshairs: false,
       showMarkers: true,
       shared: false,
+      enterable: false,
       marker: {
         symbol: 'circle',
         stroke: '#fff',

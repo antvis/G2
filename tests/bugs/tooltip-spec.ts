@@ -88,4 +88,43 @@ describe('tooltip', () => {
     const tooltipItems = chart.getTooltipItems(position);
     expect(tooltipItems.length).toBe(1);
   });
+
+  it('tooltip avoid', () => {
+    const data = [
+      { year: '1991', value: 15468 },
+      { year: '1992', value: 16100 },
+      { year: '1993', value: 15900 },
+      { year: '1994', value: 17409 },
+      { year: '1995', value: 17000 },
+      { year: '1996', value: 31056 },
+      { year: '1997', value: 31982 },
+      { year: '1998', value: 32040 },
+      { year: '1999', value: 33233 },
+    ];
+    const chart = new Chart({
+      container: createDiv(),
+      width: 400,
+      height: 250,
+    });
+
+    chart.data(data);
+    chart.area().position('year*value');
+
+    const moveEvent = jest.fn();
+    chart.on('plot:mousemove', moveEvent);
+
+    chart.render();
+
+    const point = chart.getXY({ year: '1995', value: 17000 });
+    chart.showTooltip(point);
+
+    const tooltip = chart.ele.getElementsByClassName('g2-tooltip')[0];
+    const mousemoveEvent = new MouseEvent('mousemove', {
+      clientX: 100,
+      clientY: 100,
+    });
+    tooltip.dispatchEvent(mousemoveEvent);
+
+    expect(moveEvent).toBeCalled();
+  });
 });
