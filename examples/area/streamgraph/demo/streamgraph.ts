@@ -40,15 +40,6 @@ fetch('../data/baby-names.json')
     chart.legend({
       position: 'right',
     });
-    chart.tooltip({
-      showCrosshairs: true,
-      domStyles: {
-        'g2-tooltip': {
-          height: '300px',
-          overflow: 'scroll'
-        }
-      }
-    });
     chart.axis('count', {
       line: {
         style: {
