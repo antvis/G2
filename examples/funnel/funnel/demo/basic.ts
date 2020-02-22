@@ -73,27 +73,35 @@ chart
   .animate({
     appear: {
       animation: 'fade-in'
+    },
+    update: {
+      annotation: 'fade-in'
     }
   });
 
 chart.interaction('element-active');
 
-// 中间标签文本
-data.forEach((obj) => {
-  chart.annotation().text({
-    top: true,
-    position: {
-      action: obj.action,
-      percent: 'median',
-    },
-    content: +obj.percent * 100 + '%', // 显示的文本内容
-    style: {
-      fill: '#fff',
-      fontSize: '12',
-      textAlign: 'center',
-      shadowBlur: 2,
-      shadowColor: 'rgba(0, 0, 0, .45)',
-    },
+chart.on('beforepaint', () => {
+  chart.annotation().clear(true);
+  const chartData = chart.getData();
+  // 中间标签文本
+  chartData.forEach((obj) => {
+    chart.annotation().text({
+      top: true,
+      position: {
+        action: obj.action,
+        percent: 'median',
+      },
+      content: +obj.percent * 100 + '%', // 显示的文本内容
+      style: {
+        fill: '#fff',
+        fontSize: '12',
+        textAlign: 'center',
+        shadowBlur: 2,
+        shadowColor: 'rgba(0, 0, 0, .45)',
+      },
+    });
   });
 });
+
 chart.render();

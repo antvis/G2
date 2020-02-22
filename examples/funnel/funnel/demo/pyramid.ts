@@ -49,6 +49,9 @@ chart
   .animate({
     appear: {
       animation: 'fade-in'
+    },
+    update: {
+      annotation: 'fade-in'
     }
   });
 
