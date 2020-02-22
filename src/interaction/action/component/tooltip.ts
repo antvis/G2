@@ -1,7 +1,35 @@
-import { isEqual } from '@antv/util';
+import { get, isEqual, isNil } from '@antv/util';
 import { View } from '../../../chart';
 import { Point } from '../../../interface';
 import Action from '../base';
+
+// 判断是否有样式
+function _hasClass(dom, className) {
+  if (!dom) {
+    return false;
+  }
+  let cls = '';
+  if (!dom.className) { return false; }
+  if (!isNil(dom.className.baseVal)) {
+    cls = dom.className.baseVal;
+  } else {
+    cls = dom.className;
+  }
+  return cls.includes(className);
+}
+
+function _isParent(dom, cls) {
+  let parent = dom.parentNode;
+  let rst = false;
+  while (parent && parent !== document.body) {
+    if (_hasClass(parent, cls)) {
+      rst = true;
+      break;
+    }
+    parent = parent.parentNode;
+  }
+  return rst;
+}
 
 /**
  * Tooltip 展示隐藏的 Action
@@ -47,6 +75,13 @@ class TooltipAction extends Action {
     const isTooltipLocked = view.isTooltipLocked();
     if (isTooltipLocked) {
       // 锁定 tooltip 时不隐藏
+      return;
+    }
+
+    const event = this.context.event;
+    const toElement = get(event, [ 'gEvent', 'originalEvent', 'toElement' ]);
+    if (toElement && (_hasClass(toElement, 'g2-tooltip') || _isParent(toElement, 'g2-tooltip'))) {
+      // 当鼠标滑入 tooltip 内容框时不隐藏
       return;
     }
     this.hideTooltip(view);
