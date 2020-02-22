@@ -69,9 +69,11 @@ describe('Chart', () => {
     const renderEvent = jest.fn();
     chart.on(VIEW_LIFE_CIRCLE.BEFORE_RENDER, renderEvent);
     chart.on(VIEW_LIFE_CIRCLE.AFTER_RENDER, renderEvent);
+    chart.on(VIEW_LIFE_CIRCLE.BEFORE_PAINT, renderEvent);
+    chart.on(VIEW_LIFE_CIRCLE.AFTER_PAINT, renderEvent);
 
     chart.render();
-    expect(renderEvent).toBeCalledTimes(2);
+    expect(renderEvent).toBeCalledTimes(4);
 
     expect(chart.getLayer(LAYER.BG).get('children').length).not.toBe(0);
     expect(chart.getLayer(LAYER.MID).get('children').length).not.toBe(0);

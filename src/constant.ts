@@ -65,6 +65,9 @@ export enum VIEW_LIFE_CIRCLE {
   BEFORE_RENDER = 'beforerender',
   AFTER_RENDER = 'afterrender',
 
+  BEFORE_PAINT = 'beforepaint',
+  AFTER_PAINT = 'afterpaint',
+
   BEFORE_CHANGE_DATA = 'beforechangedata',
   AFTER_CHANGE_DATA = 'afterchangedata',
 

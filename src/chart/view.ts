@@ -1136,7 +1136,13 @@ export class View extends Base {
 
   protected paint(isUpdate: boolean) {
     this.renderDataRecursive(isUpdate);
+
+    this.emit(VIEW_LIFE_CIRCLE.BEFORE_PAINT);
+
     this.renderLayoutRecursive(isUpdate);
+
+    this.emit(VIEW_LIFE_CIRCLE.AFTER_PAINT);
+
     this.renderPaintRecursive(isUpdate);
   }
 
