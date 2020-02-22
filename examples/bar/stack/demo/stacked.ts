@@ -40,7 +40,6 @@ chart.axis('State', {
 chart.tooltip({
   shared: true,
   showMarkers: false,
-  follow: true,
 });
 
 chart
