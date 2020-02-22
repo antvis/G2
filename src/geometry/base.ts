@@ -176,6 +176,8 @@ export default class Geometry extends Base {
   public stateOption: StateOption;
   /** animate 配置项 */
   public animateOption: AnimateOption | boolean = true;
+  /** 使用 key-value 结构存储 Element，key 为每个 Element 实例对应的唯一 ID */
+  public elementsMap: Record<string, Element> = {};
   /** 图形属性映射配置 */
   protected attributeOption: Record<string, AttributeOption> = {};
   /** adjust 配置项 */
@@ -184,8 +186,6 @@ export default class Geometry extends Base {
   protected styleOption: StyleOption;
   /** 每个 Geometry 对应的 Shape 工厂实例，用于创建各个 Shape */
   protected shapeFactory: ShapeFactory;
-  /** 使用 key-value 结构存储 Element，key 为每个 Element 实例对应的唯一 ID */
-  protected elementsMap: Record<string, Element> = {};
   /** 存储上一次渲染时的 element 映射表，用于更新逻辑 */
   protected lastElementsMap: Record<string, Element> = {};
   /** 是否生成多个点来绘制图形。 */

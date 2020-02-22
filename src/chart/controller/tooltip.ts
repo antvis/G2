@@ -556,12 +556,17 @@ export default class Tooltip extends Controller<TooltipOption> {
     return result;
   }
 
-  private getTooltipItemsByFindData(geometry, point, title) {
+  private getTooltipItemsByFindData(geometry: Geometry, point, title) {
     let result = [];
     each(geometry.dataArray, (data: MappingDatum[]) => {
       const record = findDataByPoint(point, data, geometry);
       if (record) {
-        result = result.concat(getTooltipItems(record, geometry, title));
+        const elementId = geometry.getElementId(record);
+        const element = geometry.elementsMap[elementId];
+        if (element.visible) {
+          // 如果图形元素隐藏了，怎不再 tooltip 上展示相关数据
+          result = result.concat(getTooltipItems(record, geometry, title));
+        }
       }
     });
 

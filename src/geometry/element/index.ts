@@ -398,7 +398,6 @@ export default class Element extends Base {
   // 设置 shape 上需要携带的信息
   private setShapeInfo(shape: IShape | IGroup, data: ShapeInfo) {
     shape.set('origin', data);
-    // TODO: 加上 delegateObject 属性
     shape.set('element', this); // 考虑是否可以使用 G 事件的 delegateObject
     if (shape.isGroup()) {
       const children = shape.get('children');
