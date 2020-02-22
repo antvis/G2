@@ -7,10 +7,6 @@ import { polarToCartesian } from '../../util/graphics';
 import { findDataByPoint, getTooltipItems } from '../../util/tooltip';
 import { Controller } from './base';
 
-function getFirstItem(item) {
-  return isArray(item) ? item[0] : item;
-}
-
 // Filter duplicates, use `name`, `color`, `value` and `title` property values as condition
 function uniq(items) {
   const uniqItems = [];
@@ -232,22 +228,25 @@ export default class Tooltip extends Controller<TooltipOption> {
   public getTooltipItems(point: Point) {
     let items = this.findItemsFromView(this.view, point);
     if (items.length) {
-      each(flatten(items), (item) => {
-        const { x, y } = item.mappingData;
-        item.x = isArray(x) ? x[x.length - 1] : x;
-        item.y = isArray(y) ? y[y.length - 1] : y;
+      // 三层
+      items = flatten(items);
+      each(items, itemArr => {
+        each(itemArr, item => {
+          const { x, y } = item.mappingData;
+          item.x = isArray(x) ? x[x.length - 1] : x;
+          item.y = isArray(y) ? y[y.length - 1] : y;
+        });
       });
 
       const { shared } = this.getTooltipCfg();
       // shared: false 代表只显示当前拾取到的 shape 的数据，但是一个 view 会有多个 Geometry，所以有可能会拾取到多个 shape
       if (shared === false && items.length > 1) {
-        let snapItem = getFirstItem(items[0]);
-        let min = Math.abs(point.y - snapItem.y);
+        let snapItem = items[0];
+        let min = Math.abs(point.y - snapItem[0].y);
         each(items, (aItem) => {
-          const firstAItem = getFirstItem(aItem);
-          const yDistance = Math.abs(point.y - firstAItem.y);
+          const yDistance = Math.abs(point.y - aItem[0].y);
           if (yDistance <= min) {
-            snapItem = firstAItem;
+            snapItem = aItem;
             min = yDistance;
           }
         });
@@ -559,19 +558,19 @@ export default class Tooltip extends Controller<TooltipOption> {
   }
 
   private getTooltipItemsByHitShape(geometry, point, title) {
-    let result = [];
+    const result = [];
     const container = geometry.container;
     const shape = container.getShape(point.x, point.y);
     if (shape && shape.get('visible') && shape.get('origin')) {
       const mappingData = shape.get('origin').mappingData;
-      result = getTooltipItems(mappingData, geometry, title);
+      result.push(getTooltipItems(mappingData, geometry, title));
     }
 
     return result;
   }
 
   private getTooltipItemsByFindData(geometry: Geometry, point, title) {
-    let result = [];
+    const result = [];
     each(geometry.dataArray, (data: MappingDatum[]) => {
       const record = findDataByPoint(point, data, geometry);
       if (record) {
@@ -579,7 +578,7 @@ export default class Tooltip extends Controller<TooltipOption> {
         const element = geometry.elementsMap[elementId];
         if (element.visible) {
           // 如果图形元素隐藏了，怎不再 tooltip 上展示相关数据
-          result = result.concat(getTooltipItems(record, geometry, title));
+          result.push(getTooltipItems(record, geometry, title));
         }
       }
     });
