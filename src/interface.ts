@@ -908,11 +908,13 @@ export interface TooltipCrosshairs {
   text?: TooltipCrosshairsText | TooltipCrosshairsTextCallback;
   /** 辅助线文本背景配置。 */
   textBackground?: CrosshairTextBackgroundCfg;
+  /** 辅助线是否跟随鼠标移动，默认为 false，即定位到数据点 */
+  follow?: boolean;
 }
 
 /** chart.tooltip() 接口配置属性 */
 export interface TooltipCfg {
-  /** 设置 tooltip 是否跟随鼠标移动，默认为 false, 定位到数据点。 */
+  /** 设置 tooltip 内容框是否跟随鼠标移动，默认为 true，跟随鼠标移动 */
   follow?: boolean;
   /** tooltip 是否允许鼠标滑入，默认为 false，不允许 */
   enterable?: boolean;

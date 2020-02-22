@@ -693,7 +693,7 @@ export default {
     },
     tooltip: {
       showContent: true,
-      follow: false,
+      follow: true,
       showCrosshairs: false,
       showMarkers: true,
       shared: false,
@@ -724,6 +724,7 @@ export default {
             stroke: null,
           },
         },
+        follow: false,
       },
       // tooltip dom 样式
       domStyles: {

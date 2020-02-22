@@ -20,6 +20,7 @@ describe('Tooltip', () => {
   chart.axis(false);
   chart.legend(false);
   chart.tooltip({
+    follow: false,
     shared: true,
     showCrosshairs: true,
     showMarkers: true,
@@ -72,6 +73,24 @@ describe('Tooltip', () => {
     expect(tooltipDom.style.boxShadow).toBe('');
     // @ts-ignore
     expect(tooltipDom.style.backgroundColor).toBe(chart.getTheme().components.tooltip.domStyles['g2-tooltip'].backgroundColor);
+  });
+
+  it('tooltip change', () => {
+    // 内容没有发生变化，但是位置更新了
+    const changeEvent = jest.fn();
+    chart.on('tooltip:change', changeEvent);
+    const point = chart.getXY({ name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 });
+    chart.showTooltip({
+      x: point.x + 10,
+      y: point.y + 20,
+    });
+    expect(changeEvent).not.toBeCalled();
+
+    const tooltip = chart.getController('tooltip');
+    // @ts-ignore
+    expect(tooltip.tooltip.get('x')).toBe(tooltip.items[0].x);
+    // @ts-ignore
+    expect(tooltip.tooltip.get('y')).toBe(tooltip.items[0].y);
   });
 
   it('hideTooltip', () => {
@@ -459,5 +478,100 @@ describe('showContent', () => {
   afterAll(() => {
     chart.destroy();
     removeDom(container);
+  });
+});
+
+describe('tooltip change', () => {
+  const data = [
+    { year: '1991', value: 15468 },
+    { year: '1992', value: 16100 },
+    { year: '1993', value: 15900 },
+    { year: '1994', value: 17409 },
+    { year: '1995', value: 17000 },
+    { year: '1996', value: 31056 },
+    { year: '1997', value: 31982 },
+    { year: '1998', value: 32040 },
+    { year: '1999', value: 33233 },
+  ];
+  const chart = new Chart({
+    container: createDiv(),
+    width: 400,
+    height: 300,
+  });
+
+  chart.data(data);
+  chart.tooltip({
+    showCrosshairs: true,
+    shared: true,
+  });
+  chart.area().position('year*value');
+
+  chart.render();
+
+  it('tooltip follow cursor', () => {
+    const point = chart.getXY({ year: '1996', value: 31056 });
+    chart.showTooltip({
+      x: point.x,
+      y: point.y + 30,
+    });
+
+    const tooltip = chart.getController('tooltip');
+    // @ts-ignore
+    const items = tooltip.items;
+    expect(items.length).toBe(1);
+    expect(items[0].data).toEqual({ year: '1996', value: 31056 });
+    // @ts-ignore
+    expect(tooltip.tooltip.get('x')).toBe(point.x);
+    // @ts-ignore
+    expect(tooltip.tooltip.get('y')).toBe(point.y + 30);
+
+    // crosshairs not follow
+    // @ts-ignore
+    const crosshairs = tooltip.xCrosshair;
+    expect(crosshairs.get('start').x).toBe(items[0].x);
+  });
+
+  it('tooltip position change, but not content', () => {
+    const changeEvent = jest.fn();
+    chart.on('tooltip:change', changeEvent);
+    const point = chart.getXY({ year: '1996', value: 31056 });
+    chart.showTooltip(point);
+
+    expect(changeEvent).not.toBeCalled();
+    const tooltip = chart.getController('tooltip');
+    // @ts-ignore
+    expect(tooltip.tooltip.get('x')).toBe(point.x);
+    // @ts-ignore
+    expect(tooltip.tooltip.get('y')).toBe(point.y);
+
+    // @ts-ignore
+    const markerGroup = tooltip.tooltipMarkersGroup;
+    expect(markerGroup.getChildren()[0].attr('x')).toBe(point.x);
+    expect(markerGroup.getChildren()[0].attr('y')).toBe(point.y);
+  });
+
+  it('tooltip content change', () => {
+    const changeEvent = jest.fn();
+    chart.on('tooltip:change', changeEvent);
+    const point = chart.getXY({ year: '1993', value: 15900 });
+    chart.showTooltip(point);
+
+    expect(changeEvent).toBeCalled();
+    const tooltip = chart.getController('tooltip');
+    // @ts-ignore
+    expect(tooltip.tooltip.get('x')).toBe(point.x);
+    // @ts-ignore
+    expect(tooltip.tooltip.get('y')).toBe(point.y);
+
+    // @ts-ignore
+    const markerGroup = tooltip.tooltipMarkersGroup;
+    expect(markerGroup.getChildren()[0].attr('x')).toBe(point.x);
+    expect(markerGroup.getChildren()[0].attr('y')).toBe(point.y);
+
+    // crosshairs not follow
+    // @ts-ignore
+    const crosshairs = tooltip.xCrosshair;
+    // @ts-ignore
+    expect(crosshairs.get('start').x).toBe(tooltip.items[0].x);
   });
 });
