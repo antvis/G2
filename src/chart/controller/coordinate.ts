@@ -7,7 +7,7 @@ import { CoordinateOption } from '../../interface';
  * 1. 创建实例
  * 2. 暂存配置
  */
-export default class {
+export default class CoordinateController {
 
   private option: CoordinateOption;
   private coordinate: Coordinate;

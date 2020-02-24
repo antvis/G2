@@ -57,7 +57,7 @@ import { mergeTheme } from '../util/theme';
 import { findDataByPoint } from '../util/tooltip';
 import Chart from './chart';
 import { getComponentController, getComponentControllerNames } from './controller';
-import AnnotationComponent from './controller/annotation';
+import Annotation from './controller/annotation';
 import { Controller } from './controller/base';
 import CoordinateController from './controller/coordinate';
 import TooltipComponent from './controller/tooltip';
@@ -124,7 +124,7 @@ export class View extends Base {
 
   /** 布局函数 */
   protected layoutFunc: Layout = defaultLayout;
-  /** 生成的坐标系实例 */
+  /** 生成的坐标系实例，{@link https://github.com/antvis/coord/blob/master/src/coord/base.ts|Coordinate} */
   protected coordinateInstance: Coordinate;
   /** Coordinate 相关的控制器类，负责坐标系实例的创建、更新、变换等 */
   protected coordinateController: CoordinateController;
@@ -502,10 +502,10 @@ export class View extends Base {
    * });
    * ```
    *
-   * @returns [AnnotationComponent]
+   * @returns [[Annotation]]
    */
-  public annotation(): AnnotationComponent {
-    return this.getController('annotation') as AnnotationComponent;
+  public annotation(): Annotation {
+    return this.getController('annotation') as Annotation;
   }
 
   /**
@@ -572,10 +572,10 @@ export class View extends Base {
    * ```
    *
    * @param type 分面类型
-   * @param cfg 分面配置
+   * @param cfg 分面配置， [[FacetCfgMap]]
    * @returns View
    */
-  public facet<T extends keyof FacetCfgMap>(type: T, cfg: FacetCfgMap[T]) {
+  public facet<T extends keyof FacetCfgMap>(type: T, cfg: FacetCfgMap[T]): View {
     // 先销毁掉之前的分面
     if (this.facetInstance) {
       this.facetInstance.destroy();
@@ -1693,7 +1693,7 @@ export class View extends Base {
     });
 
     // 设置 annotation
-    const annotationComponent = this.getController('annotation') as AnnotationComponent;
+    const annotationComponent = this.getController('annotation') as Annotation;
     annotations.forEach((annotationOption: AnnotationBaseOption) => {
       annotationComponent.annotation(annotationOption);
     });

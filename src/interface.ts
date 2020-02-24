@@ -326,7 +326,9 @@ export interface ShapeMarkerCfg {
 export interface ShapeMarkerAttrs {
   /** marker 的形状。 */
   symbol: string | ShapeMarkerSymbol;
-  /** marker 的样式。 */
+  /**
+   * 配置属性详见 {@link https://github.com/antvis/g/blob/92e372444f204a07bb034b49dfd35e346fe0d68e/packages/g-base/src/types.ts#L30|ShapeAttrs}，marker 的样式。
+   */
   style: ShapeAttrs;
 }
 
@@ -765,11 +767,11 @@ export interface LegendCfg {
    */
   layout?: 'horizontal' | 'vertical';
   /**
-   * 图例标题配置，默认不展示。
+   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L639|LegendTitleCfg}，图例标题配置，默认不展示。
    */
   title?: LegendTitleCfg;
   /**
-   * 背景框配置项。
+   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L652|LegendBackgroundCfg}，背景框配置项。
    */
   background?: LegendBackgroundCfg;
   /** 图例的位置。 */
@@ -803,11 +805,11 @@ export interface LegendCfg {
    */
   itemHeight?: number;
   /**
-   * **分类图例适用**，图例项 name 文本的配置。
+   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L665|LegendItemNameCfg}，**分类图例适用**，图例项 name 文本的配置。
    */
   itemName?: LegendItemNameCfg;
   /**
-   * **分类图例适用**，图例项 value 附加值的配置项。
+   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L685|LegendItemValueCfg}，**分类图例适用**，图例项 value 附加值的配置项。
    */
   itemValue?: LegendItemValueCfg;
   /**
@@ -848,19 +850,19 @@ export interface LegendCfg {
    */
   value?: number[];
   /**
-   * **连续图例适用**，选择范围的色块样式配置项。
+   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L574|ContinueLegendTrackCfg}，**连续图例适用**，选择范围的色块样式配置项。
    */
   track?: ContinueLegendTrackCfg;
   /**
-   * **连续图例适用**，图例滑轨（背景）的样式配置项。
+   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L595|ContinueLegendRailCfg}，**连续图例适用**，图例滑轨（背景）的样式配置项。
    */
   rail?: ContinueLegendRailCfg;
   /**
-   * **连续图例适用**，文本的配置项。
+   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L618|ContinueLegendLabelCfg}，**连续图例适用**，文本的配置项。
    */
   label?: ContinueLegendLabelCfg;
   /**
-   * **连续图例适用**，滑块的配置项。
+   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L582|ContinueLegendTrackCfg}，**连续图例适用**，滑块的配置项。
    */
   handler?: ContinueLegendHandlerCfg;
   /**
@@ -873,7 +875,9 @@ export interface LegendCfg {
   offsetY?: number;
 }
 
-/** Tooltip Crosshairs 的文本数据结构 */
+/**
+ * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L1154|CrosshairTextCfg}，Tooltip Crosshairs 的文本数据结构
+ */
 interface TooltipCrosshairsText extends CrosshairTextCfg {
   /** crosshairs 文本内容 */
   content?: string;
@@ -900,13 +904,17 @@ export interface TooltipCrosshairs {
    * | 极坐标 | ![image](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*zbMVSoKTyFsAAAAAAAAAAABkARQnAQ) | ![image](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*k5EYRJspET0AAAAAAAAAAABkARQnAQ) | ![image](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*n_TKQpUaXWEAAAAAAAAAAABkARQnAQ) |
    */
   type?: 'x' | 'y' | 'xy';
-  /** 辅助线的样式配置。 */
+  /**
+   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L1177|CrosshairLineCfg}，辅助线的样式配置。
+   */
   line?: CrosshairLineCfg;
   /**
    * 辅助线文本配置，支持回调。
    */
   text?: TooltipCrosshairsText | TooltipCrosshairsTextCallback;
-  /** 辅助线文本背景配置。 */
+  /**
+   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L1185|CrosshairTextBackgroundCfg}，辅助线文本背景配置。
+   */
   textBackground?: CrosshairTextBackgroundCfg;
 }
 
@@ -985,7 +993,7 @@ export interface CoordinateCfg {
 /** 坐标轴网格线的配置属性 */
 export interface AxisGridCfg {
   /**
-   * 线的样式。
+   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L407|GridLineCfg}，线的样式。
    */
   line?: GridLineCfg;
   /**
@@ -1010,23 +1018,23 @@ export interface AxisCfg {
    */
   position?: 'top' | 'bottom' | 'right' | 'left';
   /**
-   * 坐标轴线的配置项，null 表示不展示。
+   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L91|AxisLineCfg}，坐标轴线的配置项，null 表示不展示。
    */
   line?: AxisLineCfg | null;
   /**
-   * 坐标轴刻度线线的配置项，null 表示不展示。
+   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L103|AxisTickLineCfg}，坐标轴刻度线线的配置项，null 表示不展示。
    */
   tickLine?: AxisTickLineCfg | null;
   /**
-   * 坐标轴子刻度线的配置项，null 表示不展示。
+   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L169|AxisSubTickLineCfg}，坐标轴子刻度线的配置项，null 表示不展示。
    */
   subTickLine?: AxisSubTickLineCfg | null;
   /**
-   * 标题的配置项，null 表示不展示。
+   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L191|AxisTitleCfg}，标题的配置项，null 表示不展示。
    */
   title?: AxisTitleCfg | null;
   /**
-   * 文本标签的配置项，null 表示不展示。
+   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L127|AxisLabelCfg}，文本标签的配置项，null 表示不展示。
    */
   label?: AxisLabelCfg | null;
   /** 坐标轴网格线的配置项，null 表示不展示。 */

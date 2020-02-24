@@ -105,7 +105,7 @@ export interface InteractionSteps {
 /**
  * 支持语法的交互类
  */
-class GrammarInteraction extends Interaction {
+export default class GrammarInteraction extends Interaction {
   // 存储的交互环节
   private steps: InteractionSteps;
   /** 当前执行到的阶段 */
@@ -341,5 +341,3 @@ class GrammarInteraction extends Interaction {
     }
   }
 }
-
-export default GrammarInteraction;

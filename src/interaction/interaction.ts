@@ -6,7 +6,7 @@ export type InteractonConstructor = new (view: View, cfg: LooseObject) => Intera
 /**
  * 交互的基类。
  */
-class Interaction {
+export default class Interaction {
   /** view 或者 chart */
   protected view: View;
   /** 配置项 */
@@ -41,5 +41,3 @@ class Interaction {
     this.clearEvents();
   }
 }
-
-export default Interaction;
