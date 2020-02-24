@@ -36,7 +36,6 @@ chart
   .scale(1, -1);
 
 chart.tooltip({
-  follow: true,
   showMarkers: false,
 });
 chart.interaction('element-active');

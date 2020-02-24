@@ -29,7 +29,6 @@ const chart = new Chart({
 chart.data(dv.rows);
 chart.coordinate().transpose();
 chart.tooltip({
-  follow: true,
   showMarkers: false,
 });
 

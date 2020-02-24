@@ -24,7 +24,6 @@ const chart = new Chart({
 chart.legend(false);
 chart.tooltip({
   showMarkers: false,
-  follow: true,
 });
 
 const view1 = chart.createView({

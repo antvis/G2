@@ -1,15 +1,11 @@
-import { deepMix, each, find, flatten, get, isArray, isEqual, isFunction } from '@antv/util';
+import { deepMix, each, find, flatten, get, isArray, isEqual, isFunction, mix } from '@antv/util';
 import { Crosshair, HtmlTooltip, IGroup } from '../../dependents';
 import Geometry from '../../geometry/base';
 import { MappingDatum, Point, TooltipOption } from '../../interface';
-import { getDistanceToCenter, getPointAngle } from '../../util/coordinate';
+import { getDistanceToCenter, getPointAngle, isPointInCoordinate } from '../../util/coordinate';
 import { polarToCartesian } from '../../util/graphics';
 import { findDataByPoint, getTooltipItems } from '../../util/tooltip';
 import { Controller } from './base';
-
-function getFirstItem(item) {
-  return isArray(item) ? item[0] : item;
-}
 
 // Filter duplicates, use `name`, `color`, `value` and `title` property values as condition
 function uniq(items) {
@@ -63,43 +59,17 @@ export default class Tooltip extends Controller<TooltipOption> {
       return;
     }
 
+    const view = this.view;
     const items = this.getTooltipItems(point);
     if (!items.length) {
+      // 无内容则不展示
       return;
     }
-
-    const view = this.view;
-    const cfg = this.getTooltipCfg();
-    const { follow, showMarkers, showCrosshairs, showContent } = cfg;
     const title = this.getTitle(items);
-
-    let location;
-    if (follow) {
-      // 跟随鼠标
-      location = point;
-    } else {
-      // 定位到数据点
-      location = {
-        x: items[0].x,
-        y: items[0].y,
-      };
-    }
-
-    if (showContent) {
-      // 延迟生成
-      // 展示 tooltip 内容框
-      if (!this.tooltip) {
-        this.renderTooltip();
-      }
-      this.tooltip.update({
-        ...cfg,
-        items,
-        title,
-        ...location,
-      });
-
-      this.tooltip.show();
-    }
+    const dataPoint = {
+      x: items[0].x,
+      y: items[0].y,
+    }; // 数据点位置
 
     view.emit('tooltip:show', {
       items,
@@ -107,27 +77,50 @@ export default class Tooltip extends Controller<TooltipOption> {
       ...point,
     });
 
+    const cfg = this.getTooltipCfg();
+    const { follow, showMarkers, showCrosshairs, showContent, marker } = cfg;
     const lastItems = this.items;
     const lastTitle = this.title;
     if (!isEqual(lastTitle, title) || !isEqual(lastItems, items)) {
-      // 内容发生变化
+      // 内容发生变化了更新 tooltip
       view.emit('tooltip:change', {
         items,
         title,
         ...point,
       });
+
+      if (showContent) {
+        // 展示 tooltip 内容框才渲染 tooltip
+        if (!this.tooltip) {
+          // 延迟生成
+          this.renderTooltip();
+        }
+        this.tooltip.update(mix({}, cfg, {
+          items,
+          title,
+        }, follow ? point : dataPoint));
+        this.tooltip.show();
+      }
+
+      if (showMarkers) {
+        // 展示 tooltipMarkers，tooltipMarkers 跟随数据
+        this.renderTooltipMarkers(items, marker);
+      }
+    } else {
+      // 内容未发生变化，则更新位置
+      if (this.tooltip) {
+        const newPoint = follow ? point : dataPoint;
+        this.tooltip.update(newPoint);
+      }
     }
+
     this.items = items;
     this.title = title;
 
-    if (showMarkers) {
-      // 展示 tooltipMarkers
-      this.renderTooltipMarkers(cfg);
-    }
-
     if (showCrosshairs) {
       // 展示 tooltip 辅助线
-      this.renderCrosshairs(location, cfg);
+      const isCrosshairsFollowCursor = get(cfg, ['crosshairs', 'follow'], false); // 辅助线是否要跟随鼠标
+      this.renderCrosshairs(isCrosshairsFollowCursor ? point : dataPoint, cfg);
     }
   }
 
@@ -235,22 +228,25 @@ export default class Tooltip extends Controller<TooltipOption> {
   public getTooltipItems(point: Point) {
     let items = this.findItemsFromView(this.view, point);
     if (items.length) {
-      each(flatten(items), (item) => {
-        const { x, y } = item.mappingData;
-        item.x = isArray(x) ? x[x.length - 1] : x;
-        item.y = isArray(y) ? y[y.length - 1] : y;
+      // 三层
+      items = flatten(items);
+      each(items, itemArr => {
+        each(itemArr, item => {
+          const { x, y } = item.mappingData;
+          item.x = isArray(x) ? x[x.length - 1] : x;
+          item.y = isArray(y) ? y[y.length - 1] : y;
+        });
       });
 
       const { shared } = this.getTooltipCfg();
       // shared: false 代表只显示当前拾取到的 shape 的数据，但是一个 view 会有多个 Geometry，所以有可能会拾取到多个 shape
       if (shared === false && items.length > 1) {
-        let snapItem = getFirstItem(items[0]);
-        let min = Math.abs(point.y - snapItem.y);
+        let snapItem = items[0];
+        let min = Math.abs(point.y - snapItem[0].y);
         each(items, (aItem) => {
-          const firstAItem = getFirstItem(aItem);
-          const yDistance = Math.abs(point.y - firstAItem.y);
+          const yDistance = Math.abs(point.y - aItem[0].y);
           if (yDistance <= min) {
-            snapItem = firstAItem;
+            snapItem = aItem;
             min = yDistance;
           }
         });
@@ -269,7 +265,6 @@ export default class Tooltip extends Controller<TooltipOption> {
     // 更新 tooltip 配置
     this.option = this.view.getOptions().tooltip;
   }
-
 
   // 获取 tooltip 配置，因为用户可能会通过 view.tooltip() 重新配置 tooltip，所以就不做缓存，每次直接读取
   private getTooltipCfg() {
@@ -304,18 +299,30 @@ export default class Tooltip extends Controller<TooltipOption> {
     });
 
     tooltip.init();
+
+    if (cfg.enterable === false) {
+      // 优化体验，在 tooltip dom 上加绑事件
+      const tooltipContainer = tooltip.get('container');
+      // 如果 tooltip 不允许进入
+      tooltipContainer.onmousemove = event => {
+        // 避免 tooltip 频繁闪烁
+        const point = this.view.getCanvas().getPointByClient(event.clientX, event.clientY);
+        this.view.emit('plot:mousemove', point);
+      };
+    }
+
     this.tooltip = tooltip;
   }
 
-  private renderTooltipMarkers(cfg) {
+  private renderTooltipMarkers(items, marker) {
     const tooltipMarkersGroup = this.getTooltipMarkersGroup();
-    each(this.items, (item) => {
+    each(items, (item) => {
       const { x, y } = item;
       const attrs = {
         fill: item.color,
         symbol: 'circle',
         shadowColor: item.color,
-        ...cfg.marker,
+        ...marker,
         x,
         y,
       };
@@ -347,6 +354,9 @@ export default class Tooltip extends Controller<TooltipOption> {
   // 渲染 x 轴上的 tooltip 辅助线
   private renderXCrosshairs(point: Point, tooltipCfg) {
     const coordinate = this.getViewWithGeometry(this.view).getCoordinate();
+    if (!isPointInCoordinate(coordinate, point)) {
+      return;
+    }
     let start;
     let end;
     if (coordinate.isRect) {
@@ -401,6 +411,9 @@ export default class Tooltip extends Controller<TooltipOption> {
   // 渲染 y 轴上的辅助线
   private renderYCrosshairs(point: Point, tooltipCfg) {
     const coordinate = this.getViewWithGeometry(this.view).getCoordinate();
+    if (!isPointInCoordinate(coordinate, point)) {
+      return;
+    }
     let cfg;
     let type;
     if (coordinate.isRect) {
@@ -468,7 +481,7 @@ export default class Tooltip extends Controller<TooltipOption> {
 
   private getCrosshairsText(type, point: Point, tooltipCfg) {
     let textCfg = get(tooltipCfg, ['crosshairs', 'text']);
-    const follow = tooltipCfg.follow;
+    const follow = get(tooltipCfg, ['crosshairs', 'follow']);
     const items = this.items;
 
     if (textCfg) {
@@ -545,23 +558,28 @@ export default class Tooltip extends Controller<TooltipOption> {
   }
 
   private getTooltipItemsByHitShape(geometry, point, title) {
-    let result = [];
+    const result = [];
     const container = geometry.container;
     const shape = container.getShape(point.x, point.y);
     if (shape && shape.get('visible') && shape.get('origin')) {
       const mappingData = shape.get('origin').mappingData;
-      result = getTooltipItems(mappingData, geometry, title);
+      result.push(getTooltipItems(mappingData, geometry, title));
     }
 
     return result;
   }
 
-  private getTooltipItemsByFindData(geometry, point, title) {
-    let result = [];
+  private getTooltipItemsByFindData(geometry: Geometry, point, title) {
+    const result = [];
     each(geometry.dataArray, (data: MappingDatum[]) => {
       const record = findDataByPoint(point, data, geometry);
       if (record) {
-        result = result.concat(getTooltipItems(record, geometry, title));
+        const elementId = geometry.getElementId(record);
+        const element = geometry.elementsMap[elementId];
+        if (element.visible) {
+          // 如果图形元素隐藏了，怎不再 tooltip 上展示相关数据
+          result.push(getTooltipItems(record, geometry, title));
+        }
       }
     });
 

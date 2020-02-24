@@ -1,7 +1,7 @@
 import { each } from '@antv/util';
 import { View } from 'src/chart';
 import Action from '../base';
-import { getDelegationObject, isList, isSlider, getScaleByField } from '../util';
+import { getDelegationObject, getScaleByField, isList, isSlider } from '../util';
 
 /**
  * 数据过滤。

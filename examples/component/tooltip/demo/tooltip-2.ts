@@ -63,7 +63,6 @@ chart.axis('score', {
 
 chart.tooltip({
   shared: true,
-  follow: true,
   showCrosshairs: true,
   crosshairs: {
     type: 'xy',

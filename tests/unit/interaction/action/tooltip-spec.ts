@@ -84,8 +84,8 @@ describe('test sibling tooltip', () => {
   chart.interaction('legend-filter');
   const view1 = chart.createView({
     region: {
-      start: {x: 0, y: 0},
-      end: {x: 1, y: 0.5},
+      start: { x: 0, y: 0 },
+      end: { x: 1, y: 0.5 },
     },
     padding: [20, 20, 40, 80]
   });
@@ -106,8 +106,8 @@ describe('test sibling tooltip', () => {
 
   const view2 = chart.createView({
     region: {
-      start: {x: 0, y: 0.5},
-      end: {x: 1, y: 1},
+      start: { x: 0, y: 0.5 },
+      end: { x: 1, y: 1 },
     },
     padding: [20, 20, 40, 80]
   });
@@ -147,12 +147,24 @@ describe('test sibling tooltip', () => {
     expect((tooltipDoms[0] as HTMLElement).style.visibility).toBe('visible');
   });
 
-  it('hide', () => {
+  it('over tooltip container, not hide', () => {
     context.event = {
+      gEvent: {
+        originalEvent: {
+          toElement: tooltipDoms[0],
+        },
+      },
     };
+    action.hide();
+    expect((tooltipDoms[0] as HTMLElement).style.visibility).toBe('visible');
+  });
+
+  it('hide', () => {
+    context.event = {};
     action.hide();
     expect((tooltipDoms[0] as HTMLElement).style.visibility).toBe('hidden');
   });
+
   afterAll(() => {
     context.destroy();
     chart.destroy();

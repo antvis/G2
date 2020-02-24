@@ -275,10 +275,10 @@ describe('TooltipCrosshairs', () => {
 
   it('follow cursor', () => {
     chart.tooltip({
-      follow: true,
       shared: true,
       showCrosshairs: true,
       crosshairs: {
+        follow: true,
         type: 'xy',
         text: (type, defaultValue, a, b) => {
           if (type === 'x') {
