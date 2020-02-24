@@ -1026,6 +1026,8 @@ export default class Element extends Base {
 
   // 更新发生层叠后的数据对应的度量范围
   private _updateStackRange(field, scale, dataArray) {
+    const view = this.get('view')
+    const scaleDefs = view.get('options').scales;
     const mergeArray = _.flatten(dataArray);
     let min = scale.min;
     let max = scale.max;
@@ -1040,12 +1042,19 @@ export default class Element extends Base {
         max = tmpMax;
       }
     }
-    if (min < scale.min || max > scale.max) {
-      scale.change({
-        min,
-        max,
-      });
+    const cfg: {min?:number, max?:number} = {};
+    if ((min < scale.min) && !_.get(scaleDefs, [field, 'min'])) {
+      // 用户如果在列定义中定义了 min，则以用户定义的为准
+      cfg.min = min;
     }
+    if ((max > scale.max) && !_.get(scaleDefs, [field, 'max'])) {
+      // 用户如果在列定义中定义了 max
+      cfg.max = max;
+    }
+    if (!_.isEmpty(cfg)) {
+      scale.change(cfg)
+    }
+
   }
 
   // 对数据进行分组
