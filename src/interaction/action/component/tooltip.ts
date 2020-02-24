@@ -4,7 +4,7 @@ import { Point } from '../../../interface';
 import Action from '../base';
 
 // 判断是否有样式
-function _hasClass(dom, className) {
+function hasClass(dom, className) {
   if (!dom) {
     return false;
   }
@@ -18,11 +18,11 @@ function _hasClass(dom, className) {
   return cls.includes(className);
 }
 
-function _isParent(dom, cls) {
+function isParent(dom, cls) {
   let parent = dom.parentNode;
   let rst = false;
   while (parent && parent !== document.body) {
-    if (_hasClass(parent, cls)) {
+    if (hasClass(parent, cls)) {
       rst = true;
       break;
     }
@@ -80,7 +80,7 @@ class TooltipAction extends Action {
 
     const event = this.context.event;
     const toElement = get(event, [ 'gEvent', 'originalEvent', 'toElement' ]);
-    if (toElement && (_hasClass(toElement, 'g2-tooltip') || _isParent(toElement, 'g2-tooltip'))) {
+    if (toElement && (hasClass(toElement, 'g2-tooltip') || isParent(toElement, 'g2-tooltip'))) {
       // 当鼠标滑入 tooltip 内容框时不隐藏
       return;
     }
