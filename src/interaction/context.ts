@@ -7,7 +7,7 @@ import { getComponents, isInBox } from './action/util';
 /**
  * 交互的上下文
  */
-class Context implements IInteractionContext {
+export default class Context implements IInteractionContext {
   /** 当前所有的 Action */
   public actions: IAction[] = [];
   /** 当前 View 实例 */
@@ -148,5 +148,3 @@ class Context implements IInteractionContext {
     this.cacheMap = null;
   }
 }
-
-export default Context;
