@@ -102,7 +102,7 @@ $ npm run ci
 $ npm start
 ```
 
-## How to Contribute
+## 🤝 How to Contribute
 
 Please let us know how can we help. Do check out [issues](https://github.com/antvis/g2/issues) for bug reports or suggestions first.
 
