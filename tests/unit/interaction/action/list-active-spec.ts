@@ -122,6 +122,13 @@ describe('active test', () => {
     };
     action.reset();
     expect(item.active).toBe(false);
+    item.unchecked = true;
+    context.event = {
+      target: legendItem,
+    };
+    action.active();
+    expect(item.active).toBe(true);
+    item.unchecked = false;
   });
 
   it('element trigger active', () => {

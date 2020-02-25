@@ -101,6 +101,18 @@ describe('list highlight test', () => {
     expect(item1.active).toBe(false);
   });
 
+  it('trigger by unchecked', () => {
+    item.unchecked = true;
+    context.event = {
+      target: label,
+    };
+    action.highlight();
+    expect(item.active).toBe(false);
+    expect(item1.inactive).toBe(false);
+
+    item.unchecked = false;
+  });
+
   it('trigger by element', () => {
     const elements = chart.geometries[0].elements;
     const first = elements[0];

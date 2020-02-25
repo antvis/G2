@@ -18,6 +18,8 @@ interface ListStateCfg {
  */
 class ListState extends Action<ListStateCfg> {
   protected stateName: string = '';
+  protected ignoreItemStates = [];
+
   /** 获取触发的列表组件 */
   protected getTriggerListInfo() {
     const delegateObject = getDelegationObject(this.context);
@@ -73,6 +75,17 @@ class ListState extends Action<ListStateCfg> {
     const scale = getScaleByField(view, field);
     return scale && scale.isCategory;
   }
+  // 检测是否允许触发对应的状态改变事件
+  private allowSetStateByItem(item: ListItem, list: IList) {
+    const ignoreStates = this.ignoreItemStates;
+    if (ignoreStates.length) {
+      const filterStates = ignoreStates.filter(state => {
+        return list.hasState(item, state);
+      });
+      return filterStates.length === 0;
+    }
+    return true; // 没有定义忽略的状态时，允许
+  }
 
   // 设置组件的 item active
   private setStateByElement(component, element: Element, enable: boolean) {
@@ -98,7 +111,7 @@ class ListState extends Action<ListStateCfg> {
       const delegateObject = getDelegationObject(this.context);
       if (isList(delegateObject)) {
         const { item, component } = delegateObject;
-        if (this.allowSetStateByElement(component)) {
+        if (this.allowSetStateByElement(component) && this.allowSetStateByItem(item, component)) {
           this.setItemState(component, item, enable);
         }
       }
