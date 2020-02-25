@@ -1356,7 +1356,14 @@ export default class Geometry extends Base {
   // 创建图形属性相关的配置项
   private createAttrOption(attrName: string, field: AttributeOption | string | number, cfg?) {
     if (isNil(field) || isObject(field)) {
-      set(this.attributeOption, attrName, field);
+      if (isObject(field) && isEqual(Object.keys(field), ['values'])) {
+        // shape({ values: [ 'funnel' ] })
+        set(this.attributeOption, attrName, {
+          fields: field.values,
+        });
+      } else {
+        set(this.attributeOption, attrName, field);
+      }
     } else {
       const attrCfg: AttributeOption = {};
       if (isNumber(field)) {
@@ -1379,7 +1386,7 @@ export default class Geometry extends Base {
   }
 
   private initAttributes() {
-    const { attributes, attributeOption, theme, shapeType, coordinate } = this;
+    const { attributes, attributeOption, theme, shapeType } = this;
 
     // 遍历每一个 attrOption，各自创建 Attribute 实例
     each(attributeOption, (option: AttributeOption, attrType: string) => {
