@@ -338,7 +338,7 @@ export default class Geometry extends Base {
   public shape(field: AttributeOption): Geometry;
   /**
    *
-   * * @example
+   * @example
    * ```typescript
    * // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
    *
@@ -388,7 +388,7 @@ export default class Geometry extends Base {
   public size(field: AttributeOption): Geometry;
   /**
    *
-   * * @example
+   * @example
    * ```typescript
    * // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
    *
