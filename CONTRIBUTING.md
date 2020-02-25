@@ -1,7 +1,7 @@
 # Contribution Guide
 
-If you have any comment or advice, please report your [issue](https://github.com/antvis/scale/issues),
-or make any change as you wish and submit an [PR](https://github.com/antvis/scale/pulls).
+If you have any comment or advice, please report your [issue](https://github.com/antvis/g2/issues),
+or make any change as you wish and submit an [PR](https://github.com/antvis/g2/pulls).
 
 ## Reporting New Issues
 
@@ -30,7 +30,7 @@ $ git commit -m "fix(role): role.use must xxx"
 $ git push origin branch-name
 ```
 
-Then you can create a Pull Request at [scale](https://github.com/antvis/scale/pulls).
+Then you can create a Pull Request at [G2](https://github.com/antvis/g2/pulls).
 
 No one can garantee how much will be remembered about certain PR after some time. To make sure we can easily recap what happened previously, please provide the following information in your PR.
 
@@ -67,7 +67,6 @@ Must be one of the following:
 - perf: A code change that improves performance
 - test: Adding missing tests
 - chore: Changes to the build process or auxiliary tools and libraries such as documentation generation
-- deps: Updates about dependencies
 
 （2）scope
 
@@ -95,7 +94,7 @@ Older IEs serialize html uppercased, but IE9 does not...
 Would be better to expect case insensitive, unfortunately jasmine does
 not allow to user regexps for throw expectations.
 
-Document change on antvis/scale#123
+Document change on antvis/g2#123
 
 Closes #392
 
@@ -108,7 +107,7 @@ Look at [these files](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJyg
 
 ## Release
 
-scale uses semantic versioning in release process based on [semver].
+G2 uses semantic versioning in release process based on [semver].
 
 ### Branch Strategy
 
