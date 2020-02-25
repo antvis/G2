@@ -5,10 +5,6 @@ redirect_from:
   - /zh/docs/manual
 ---
 
-<div><a href="https://travis-ci.org/antvis/g2" target="_self" rel="nofollow"><img style="width: auto;" src="https://img.shields.io/travis/antvis/g2.svg"></a> <img style="width: auto;" src="https://github.com/antvis/G2/workflows/CI/badge.svg" alt="CI"> <a href="https://coveralls.io/github/antvis/G2?branch=master" target="_self" rel="nofollow"><img style="width: auto;" src="https://coveralls.io/repos/github/antvis/G2/badge.svg?branch=master" alt="Coverage Status"></a> <a href="https://www.npmjs.com/package/@antv/g2" target="_self" rel="nofollow"><img style="width: auto;" src="https://img.shields.io/npm/v/@antv/g2.svg" alt="NPM Package"></a> <a href="https://npmjs.org/package/@antv/g2" target="_self" rel="nofollow"><im style="width: auto;"g src="http://img.shields.io/npm/dm/@antv/g2.svg" alt="NPM Downloads"></a> <img style="width: auto;" src="https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg" alt="Dependencies"> <a href="http://isitmaintained.com/project/antvis/g2" title="Percentage of issues still open" target="_self" rel="nofollow"><img style="width: auto;" src="http://isitmaintained.com/badge/open/antvis/g2.svg" alt="Percentage of issues still open"></a> <a href="https://github.com/antvis/g2/pulls" target="_self" rel="nofollow"><img style="width: auto;" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=shields" alt="PRs Welcome"></a></div>
-<div><img style="width: auto;" src="https://img.shields.io/badge/language-TypeScript-red.svg"> <img style="width: auto;" src="https://img.shields.io/badge/license-MIT-000000.svg"></div>
-<div><a href="https://twitter.com/AntV_Alipay" target="_self" rel="nofollow"><img style="width: auto;" src="https://img.shields.io/twitter/follow/AntV_Alipay.svg?label=AntV&amp;style=social"></a></div>
-
 G2 是一套基于图形语法理论的可视化底层引擎，以数据驱动，提供图形语法与交互语法，具有高度的易用性和扩展性。使用 G2，你可以无需关注图表各种繁琐的实现细节，一条语句即可使用 Canvas 或 SVG 构建出各种各样的可交互的统计图表。
 
 ## ✨ 特性
