@@ -1,6 +1,6 @@
 <img src="https://gw.alipayobjects.com/zos/antfincdn/R8sN%24GNdh6/language.svg" width="18"> English | [简体中文](./README.zh-CN.md)
 
-<h1 align="center" style="font-size: 2.5em;">
+<h1 align="center">
 <b>G2</b>
 </h1>
 
