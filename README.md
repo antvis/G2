@@ -45,7 +45,7 @@ G2 is a visualization grammar, a data-driven visual language with a high level o
 ## 📦 Installation
 
 ```bash
-npm install @antv/g2
+$ npm install @antv/g2
 ```
 
 ## 🔨 Getting Started
