@@ -1,7 +1,8 @@
 import { get, isBoolean } from '@antv/util';
 import { DIRECTION } from '../constant';
-import { Coordinate } from '../dependents';
-import { AxisOption, Point, Region } from '../interface';
+import { Coordinate, Scale } from '../dependents';
+import { AxisCfg, AxisOption, Point, Region } from '../interface';
+import { getName } from './scale';
 
 /**
  * @ignore
@@ -211,4 +212,13 @@ export function getAxisOption(axes: Record<string, AxisOption> | boolean, field:
  */
 export function getAxisDirection(axisOption: AxisOption, def: DIRECTION): DIRECTION {
   return get(axisOption, 'position', def);
+}
+
+/**
+ * 获取 axis 的 title 文本
+ * @param scale
+ * @param axisOption
+ */
+export function getAxisTitleText(scale: Scale, axisOption: AxisCfg): string {
+  return get(axisOption, ['title', 'text'], getName(scale));
 }

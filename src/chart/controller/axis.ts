@@ -8,12 +8,12 @@ import {
   getAxisFactorByRegion,
   getAxisRegion,
   getAxisThemeCfg,
+  getAxisTitleText,
   getCircleAxisCenterRadius
 } from '../../util/axis';
 import { getAxisOption } from '../../util/axis';
 import { getCircleGridItems, getGridThemeCfg, getLineGridItems, showGrid } from '../../util/grid';
 import { omit } from '../../util/helper';
-import { getName } from '../../util/scale';
 import View from '../view';
 import { Controller } from './base';
 
@@ -587,7 +587,7 @@ export default class Axis extends Controller<Option> {
     const coordinate = this.view.getCoordinate();
 
     const region = getAxisRegion(coordinate, direction);
-    const titleText = getName(scale);
+    const titleText = getAxisTitleText(scale, axisOption);
 
     const baseAxisCfg = {
       container,
@@ -651,14 +651,14 @@ export default class Axis extends Controller<Option> {
       ticks.pop();
     }
 
-    const titleText = getName(scale);
+    const titleText = getAxisTitleText(scale, axisOption);
 
     const baseAxisCfg = {
       container,
       ...getCircleAxisCenterRadius(this.view.getCoordinate()),
       ticks,
       title: {
-        text: getName(scale),
+        text: titleText,
       },
       verticalFactor: 1,
     };

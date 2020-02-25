@@ -4,8 +4,10 @@ import {
   getAxisDirection,
   getAxisFactor,
   getAxisFactorByRegion,
+  getAxisTitleText,
   getLineAxisRelativeRegion,
 } from '../../../src/util/axis';
+import { createScaleByField, getName } from '../../../src/util/scale';
 
 const Rect = getCoordinate('rect');
 
@@ -142,5 +144,12 @@ describe('util axis', () => {
     expect(getAxisDirection({ position: 'top' }, DIRECTION.BOTTOM)).toBe(DIRECTION.TOP);
     // @ts-ignore
     expect(getAxisDirection({ position: 'xxx' }, DIRECTION.BOTTOM)).toBe('xxx');
+  });
+
+  it('getAxisTitleText', () => {
+    const scale = createScaleByField('b', [], { alias: '字段 B' });
+    expect(getAxisTitleText(scale, { title: {} })).toBe('字段 B');
+    // @ts-ignore
+    expect(getAxisTitleText(scale, { title: { text: '字段 A' } })).toBe('字段 A');
   });
 });
