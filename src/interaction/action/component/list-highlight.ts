@@ -13,6 +13,7 @@ type MatchCallback = (item: ListItem) => boolean;
  */
 class ListHighlight extends ListState {
   protected stateName: string = STATUS_ACTIVE;
+  protected ignoreItemStates = ['unchecked']; // 当存在 unchecked 状态时不触发
   // 如果 item.name 匹配，则设置 highlight 以及取消
   protected setItemsState(list: IList, name: string, enable: boolean) {
     this.setHighlightBy(list, (item) => item.name === name, enable);

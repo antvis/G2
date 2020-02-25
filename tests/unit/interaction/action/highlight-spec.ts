@@ -186,6 +186,23 @@ describe('test highlight action', () => {
       expect(second.hasState('active')).toBe(false);
       action.clear();
     });
+
+    it('trigger by unchecked', () => {
+      const axisLabels = chart.backgroundGroup.findAll((el) => {
+        return el.get('name') === 'axis-label';
+      });
+      const label = axisLabels[0];
+      const item = label.get('delegateObject').item;
+      // 设置 unchecked
+      item.unchecked = true;
+      context.event = {
+        target: label,
+      };
+      action.highlight();
+      expect(first.hasState('active')).toBe(false);
+      expect(second.hasState('active')).toBe(false);
+    });
+
     afterAll(() => {
       context.destroy();
     });

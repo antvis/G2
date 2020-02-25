@@ -10,6 +10,16 @@ import StateBase from './state-base';
  * @ignore
  */
 class ElementState extends StateBase {
+  protected ignoreListItemStates = ['unchecked'];
+
+  // 是否忽略触发的列表项
+  private isItemIgnore(item: ListItem, list) {
+    const states = this.ignoreListItemStates;
+    const filtered = states.filter(state => {
+      return list.hasState(item, state);
+    });
+    return !!filtered.length;
+  }
 
   // 设置由组件选项导致的状态变化
   private setStateByComponent(component, item: ListItem, enable: boolean) {
@@ -51,7 +61,7 @@ class ElementState extends StateBase {
       // 如果触发源时列表，图例、坐标轴
       if (isList(delegateObject)) {
         const { item, component } = delegateObject;
-        if (item && component) {
+        if (item && component && !this.isItemIgnore(item, component)) {
           this.setStateByComponent(component, item, enable);
         }
       }
