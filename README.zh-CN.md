@@ -24,9 +24,6 @@
 
 </p>
 
-<img src="https://gw.alipayobjects.com/zos/basement_prod/4e9b4e74-1206-4946-9c8d-ecbd34db7c78.svg" align="right"
-     title="Size Limit logo by Anton Lovchikov" width="200" height="155.68">
-
 G2 是一套基于图形语法理论的可视化底层引擎，以数据驱动，提供图形语法与交互语法，具有高度的易用性和扩展性。使用 G2，你可以无需关注图表各种繁琐的实现细节，一条语句即可使用 Canvas 或 SVG 构建出各种各样的可交互的统计图表。
 
 ## 📺 线上示例
