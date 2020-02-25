@@ -24,9 +24,6 @@ A highly interactive data-driven visualization grammar for statistical charts.
 
 </p>
 
-<img src="https://gw.alipayobjects.com/zos/basement_prod/4e9b4e74-1206-4946-9c8d-ecbd34db7c78.svg" align="right"
-     title="Size Limit logo by Anton Lovchikov" width="200" height="155.68">
-
 G2 is a visualization grammar, a data-driven visual language with a high level of usability and scalability. It provides a set of grammars, takes users beyond a limited set of charts to an almost unlimited world of graphical forms. With G2, you can describe the visual appearance and interactive behavior of a visualization just by one statement, and generate web-based views using Canvas or SVG.
 
 ## 📺 Live Demos
