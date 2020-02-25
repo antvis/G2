@@ -1,3 +1,4 @@
+import HEATMAP from '../../examples/data/heatmap.json';
 import { Chart } from '../../src';
 import { createDiv } from '../util/dom';
 
@@ -126,5 +127,33 @@ describe('tooltip', () => {
     tooltip.dispatchEvent(mousemoveEvent);
 
     expect(moveEvent).toBeCalled();
+  });
+
+  it('heatmap tooltip', () => {
+    const chart = new Chart({
+      container: createDiv(),
+      width: 400,
+      height: 500,
+      padding: [0, 30, 60, 30]
+    });
+    chart.data(HEATMAP);
+    chart.tooltip({
+      showTitle: false
+    });
+    chart.animate(false);
+    chart.axis(false);
+    chart.heatmap()
+      .position('g*l')
+      .color('tmp', '#F51D27-#FA541C-#FF8C12-#FFC838-#FAFFA8-#80FF73-#12CCCC-#1890FF-#6E32C2');
+    chart.annotation().image({
+      start: ['min', 'max'],
+      end: ['max', 'min'],
+      src: 'https://gw.alipayobjects.com/zos/rmsportal/NeUTMwKtPcPxIFNTWZOZ.png',
+    });
+    chart.render();
+
+    chart.showTooltip(chart.getXY({ g: 916, l: 99, tmp: 703 }));
+    const tooltip = chart.ele.getElementsByClassName('g2-tooltip')[0];
+    expect(tooltip).toBeDefined();
   });
 });
