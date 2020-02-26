@@ -345,6 +345,58 @@ describe('Interval', () => {
       pie.update();
       expect(pie.getYScale().min).toBe(0);
       expect(pie.getYScale().max).toBe(100);
+
+      const colorAttr = pie.getAttribute('color');
+      expect(colorAttr.values).toEqual(Theme.colors10);
+    });
+
+    test('paletteQualitative20', () => {
+      const thetaCoord = new PolarCoordinate({
+        start: { x: 0, y: 180 },
+        end: { x: 180, y: 0 },
+      });
+      thetaCoord.transpose();
+      // @ts-ignore
+      thetaCoord.type = 'theta';
+      const pieData = [
+        { type: '分类一', value: 45 },
+        { type: '分类二', value: 5 },
+        { type: '分类三', value: 5 },
+        { type: '分类四', value: 5 },
+        { type: '分类五', value: 5 },
+        { type: '分类六', value: 5 },
+        { type: '分类七', value: 5 },
+        { type: '分类八', value: 5 },
+        { type: '分类九', value: 5 },
+        { type: '分类十', value: 10 },
+        { type: 'Other', value: 5 },
+      ];
+      const pieScales = {
+        type: createScale('type', pieData),
+        value: createScale('value', pieData),
+        '1': new IdentityScale({
+          field: '1',
+          values: [1],
+          range: [0.5, 1],
+        }),
+      };
+
+      const pie = new Interval({
+        data: pieData,
+        scales: pieScales,
+        coordinate: thetaCoord,
+        container: canvas.addGroup(),
+        theme: Theme,
+      });
+
+      pie
+        .position('value')
+        .color('type')
+        .adjust('stack');
+      pie.init();
+
+      const colorAttr = pie.getAttribute('color');
+      expect(colorAttr.values).toEqual(Theme.colors20);
     });
   });
 
