@@ -1,12 +1,13 @@
 import { getCoordinate } from '@antv/coord';
 import Line from '../../../src/geometry/line';
-import Theme from '../../../src/theme/antv';
+import { getTheme } from '../../../src/theme/';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
 
 import 'jest-extended';
 import { createScale } from '../../util/scale';
 
 const CartesianCoordinate = getCoordinate('rect');
+const Theme = getTheme('default');
 
 describe('Line', () => {
   const div = createDiv();

@@ -3,7 +3,7 @@ import { getScale } from '@antv/scale';
 import Schema from '../../../src/geometry/schema';
 import '../../../src/geometry/shape/schema/box';
 import '../../../src/geometry/shape/schema/candle';
-import Theme from '../../../src/theme/antv';
+import { getTheme } from '../../../src/theme/';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
 
 import 'jest-extended';
@@ -11,6 +11,7 @@ import { createScale } from '../../util/scale';
 
 const CartesianCoordinate = getCoordinate('rect');
 const LinearScale = getScale('linear');
+const Theme = getTheme('default');
 
 describe('Schema', () => {
   const div = createDiv();

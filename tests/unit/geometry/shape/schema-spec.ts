@@ -3,10 +3,10 @@ import Element from '../../../../src/geometry/element/index';
 import SchemaShapeFactory from '../../../../src/geometry/shape/schema';
 import '../../../../src/geometry/shape/schema/box';
 import '../../../../src/geometry/shape/schema/candle';
-import Theme from '../../../../src/theme/antv';
+import { getTheme } from '../../../../src/theme/';
 import { createCanvas, createDiv, removeDom } from '../../../util/dom';
 
-
+const Theme = getTheme('default');
 const Rect = getCoordinate('rect');
 
 describe('Schema shapes', () => {

@@ -1,13 +1,13 @@
 import { getCoordinate } from '@antv/coord';
 import Area from '../../../src/geometry/area';
-import Theme from '../../../src/theme/antv';
+import { getTheme } from '../../../src/theme/';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
 import { createScale } from '../../util/scale';
 
 import 'jest-extended';
-import Geometry from '../../../src/geometry/base';
 
 const CartesianCoordinate = getCoordinate('rect');
+const Theme = getTheme('default');
 
 describe('Area', () => {
   const div = createDiv();

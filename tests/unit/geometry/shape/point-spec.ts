@@ -4,12 +4,13 @@ import PointShapeFactory from '../../../../src/geometry/shape/point';
 import '../../../../src/geometry/shape/point/hollow';
 import '../../../../src/geometry/shape/point/image';
 import '../../../../src/geometry/shape/point/solid';
-import Theme from '../../../../src/theme/antv';
+import { getTheme } from '../../../../src/theme/';
 import { createCanvas, createDiv, removeDom } from '../../../util/dom';
 
 const Rect = getCoordinate('rect');
 const SHAPES = ['circle', 'square', 'bowtie', 'diamond', 'hexagon', 'triangle', 'triangle-down'];
 const HOLLOW_SHAPES = ['cross', 'tick', 'plus', 'hyphen', 'line'];
+const Theme = getTheme('default');
 
 describe('Point shapes', () => {
   const div = createDiv();
@@ -158,7 +159,7 @@ describe('Point shapes', () => {
 
     expect(shape.attr('symbol')).toBe('circle');
     expect(shape.attr('stroke')).toBe('red');
-    expect(shape.attr('fill')).toBe('#fff');
+    expect(shape.attr('fill')).toBe('#FFFFFF');
   });
 
   it('draw image point', () => {

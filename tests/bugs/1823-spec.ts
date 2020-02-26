@@ -46,7 +46,7 @@ describe('#1823', () => {
     const [grid] = getComponents(COMPONENT_TYPE.GRID);
 
     // grid 读到正确的主题颜色
-    expect(grid.component.get('line').style.stroke).toBe('#BFBFBF');
-    expect(grid.component.get('line').style.lineWidth).toBe(1);
+    expect(grid.component.get('line').style.stroke).toBe('#D9D9D9');
+    expect(grid.component.get('line').style.lineWidth).toBe(0.5);
   });
 });

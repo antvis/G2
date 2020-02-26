@@ -58,6 +58,7 @@ describe('annotation', () => {
       end: { city: '呼和浩特', sale: 40 },
       style: {
         stroke: 'green',
+        lineDash: [2, 2],
       },
       text: {
         position: 'end',
@@ -105,7 +106,7 @@ describe('annotation', () => {
     expect(chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[2].layer).toBe('bg');
 
     // theme
-    expect(region.get('style').fillOpacity).toBe(0.04);
+    expect(region.get('style').fillOpacity).toBe(0.06);
     // pos
     expect(region.get('start').x).toBe(494);
     expect(region.get('start').y).toBe(576);

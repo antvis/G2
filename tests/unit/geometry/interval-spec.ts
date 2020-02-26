@@ -2,7 +2,7 @@ import { getCoordinate } from '@antv/coord';
 import { getScale } from '@antv/scale';
 import { isNumberEqual } from '@antv/util';
 import Interval from '../../../src/geometry/interval';
-import Theme from '../../../src/theme/antv';
+import { getTheme } from '../../../src/theme/';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
 import { createScale, updateScales } from '../../util/scale';
 
@@ -12,6 +12,7 @@ import { syncScale } from '../../../src/util/scale';
 const CartesianCoordinate = getCoordinate('rect');
 const PolarCoordinate = getCoordinate('polar');
 const IdentityScale = getScale('identity');
+const Theme = getTheme('default');
 
 describe('Interval', () => {
   const div = createDiv();

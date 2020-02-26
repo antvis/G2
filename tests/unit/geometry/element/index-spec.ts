@@ -3,11 +3,11 @@ import { getCoordinate } from '../../../../src/dependents';
 import Element from '../../../../src/geometry/element';
 import * as Shape from '../../../../src/geometry/shape/base';
 import '../../../../src/geometry/shape/interval';
-import Theme from '../../../../src/theme/antv';
+import { getTheme } from '../../../../src/theme/';
 
 const Rect = getCoordinate('rect');
-
 const G = getEngine('canvas');
+const Theme = getTheme('default');
 
 describe('Element', () => {
   let container;

@@ -2,10 +2,11 @@ import { getCoordinate } from '@antv/coord';
 import { isNumberEqual } from '@antv/util';
 import PolarLabel from '../../../../src/geometry/label/polar';
 import Point from '../../../../src/geometry/point';
-import Theme from '../../../../src/theme/antv';
+import { getTheme } from '../../../../src/theme/';
 import { createCanvas, createDiv } from '../../../util/dom';
 import { createScale } from '../../../util/scale';
 
+const Theme = getTheme('default');
 const PolarCoord = getCoordinate('polar');
 
 describe('polar labels', () => {

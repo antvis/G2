@@ -1,13 +1,14 @@
 import { getCoordinate } from '@antv/coord';
+import { deepMix } from '@antv/util';
 import Interval from '../../../../src/geometry/interval';
 import GeometryLabel from '../../../../src/geometry/label/base';
 import Point from '../../../../src/geometry/point';
-import Theme from '../../../../src/theme/antv';
+import { getTheme } from '../../../../src/theme/';
 import { createCanvas, createDiv } from '../../../util/dom';
 import { createScale } from '../../../util/scale';
-import { deepMix } from '@antv/util';
 
 const CartesianCoordinate = getCoordinate('rect');
+const Theme = getTheme('default');
 
 describe('GeometryLabel', () => {
   const div = createDiv();
@@ -138,7 +139,7 @@ describe('GeometryLabel', () => {
         { x: 100, y: 20, _origin: { x: 100, y: 20, z: '2' } },
       ]);
       expect(labelItems.length).toBe(2);
-      expect(labelItems[0].style.fill).toBe('#fff');
+      expect(labelItems[0].style.fill).toBe('#FFFFFF');
     });
 
     it('two two point inner label', () => {

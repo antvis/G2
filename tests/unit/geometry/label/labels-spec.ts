@@ -3,7 +3,7 @@ import { getScale } from '@antv/scale';
 import { Chart, getEngine } from '../../../../src/';
 import Interval from '../../../../src/geometry/interval';
 import Path from '../../../../src/geometry/path';
-import Theme from '../../../../src/theme/antv';
+import { getTheme } from '../../../../src/theme/';
 import { createCanvas, createDiv, removeDom } from '../../../util/dom';
 import { createScale, updateScales } from '../../../util/scale';
 
@@ -11,6 +11,7 @@ const PolarCoordinate = getCoordinate('polar');
 const RectCoordinate = getCoordinate('rect');
 const IdentityScale = getScale('identity');
 const G = getEngine('canvas');
+const Theme = getTheme('default');
 
 describe('LabelsRenderer', () => {
   const div = createDiv();

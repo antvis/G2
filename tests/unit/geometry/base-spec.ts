@@ -5,13 +5,13 @@ import { getCoordinate } from '../../../src/dependents';
 import Geometry from '../../../src/geometry/base';
 import * as Shape from '../../../src/geometry/shape/base';
 import { LooseObject } from '../../../src/interface';
-import Theme from '../../../src/theme/antv';
+import { getTheme } from '../../../src/theme/';
 import { createScaleByField, syncScale } from '../../../src/util/scale';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
 import { createScale, updateScales } from '../../util/scale';
 
 const Rect = getCoordinate('rect');
-
+const Theme = getTheme('default');
 const G = getEngine('canvas');
 
 describe('Geometry', () => {
