@@ -54,12 +54,6 @@ chart
     return {
       position: 'middle',
       offset: 0,
-      style: {
-        fill: '#fff',
-        fontSize: 12,
-        shadowBlur: 2,
-        shadowColor: 'rgba(0, 0, 0, .45)',
-      },
       content: (originData) => {
         return originData.value + '%';
       },

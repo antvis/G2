@@ -110,7 +110,7 @@ chart
 chart
   .interval()
   .position('date*actual')
-  .color('#6DC8EC')
+  .color('#5B8FF9')
   .tooltip('actual')
   .shape('date*actual', (date, val) => {
     if (val === 0) {
@@ -123,7 +123,7 @@ chart.annotation().text({
   position: ['min', 'max'],
   content: '活动',
   style: {
-    fill: '#6DC8EC',
+    fill: '#5B8FF9',
     fontSize: 20,
     fontWeight: 'bold',
     textBaseline: 'top',

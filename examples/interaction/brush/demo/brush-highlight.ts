@@ -83,7 +83,7 @@ fetch('../data/iris.json')
           .position([ facet.columnField, facet.rowField ])
           .color('Species', COLOR)
           .shape('circle')
-          .style({ opacity: 0.3 })
+          .style({ fillOpacity: 0.65 })
           .size(3);
       }
     });

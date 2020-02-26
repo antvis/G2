@@ -59,7 +59,7 @@ fetch('../data/world.geo.json')
     chart.legend({ position: 'right' });
     chart.tooltip({
       showTitle: false,
-      showMarker: false
+      showMarkers: false
     });
     const bgView = chart.createView();
     bgView.data(dv.rows);

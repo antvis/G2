@@ -27,7 +27,7 @@ fetch('../data/scatter.json')
       .color('gender')
       .shape('circle')
       .style({
-        fillOpacity: 0.6
+        fillOpacity: 0.85
       });
 
     chart.interaction('drag-move');

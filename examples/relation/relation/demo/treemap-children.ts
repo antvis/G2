@@ -25,7 +25,7 @@ fetch('../data/mobile.json')
     // 将 DataSet 处理后的结果转换为 G2 接受的数据
     const nodes = [];
     for (const node of dv.getAllNodes()) {
-      if (!node.children || node.children.length > 1) {
+      if (!node.children) {
         const eachNode: any = {
           name: node.data.name,
           x: node.x,
@@ -42,7 +42,6 @@ fetch('../data/mobile.json')
         nodes.push(eachNode);
       }
     }
-
     const chart = new Chart({
       container: 'container',
       autoFit: true,
@@ -72,15 +71,7 @@ fetch('../data/mobile.json')
         stroke: '#fff',
       })
       .label(
-        'brand*depth*value',
-        function(brand, depth, value) {
-          if (depth === 1 && value > 0.2) {
-            // 只有第一级显示文本，数值太小时不显示文本
-            return {
-              content: brand,
-            };
-          }
-        },
+        'name',
         {
           offset: 0,
           style: {
@@ -89,6 +80,9 @@ fetch('../data/mobile.json')
             shadowBlur: 10,
             shadowColor: '#fff',
           },
+          layout: {
+            type: 'limit-in-shape'
+          }
         }
       );
     chart.interaction('element-active');

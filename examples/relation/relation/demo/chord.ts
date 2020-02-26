@@ -25,7 +25,8 @@ fetch('../data/relationship-with-weight.json')
     });
     chart.legend(false);
     chart.tooltip({
-      showTitle: false
+      showTitle: false,
+      showMarkers: false,
     });
     chart.scale({
       x: {

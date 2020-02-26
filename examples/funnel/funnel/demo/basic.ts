@@ -94,11 +94,9 @@ chart.on('beforepaint', () => {
       },
       content: +obj.percent * 100 + '%', // 显示的文本内容
       style: {
+        stroke: null,
         fill: '#fff',
-        fontSize: '12',
         textAlign: 'center',
-        shadowBlur: 2,
-        shadowColor: 'rgba(0, 0, 0, .45)',
       },
     });
   });

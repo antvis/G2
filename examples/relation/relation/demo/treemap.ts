@@ -40,6 +40,9 @@ dv.source(data, {
 // 将 DataSet 处理后的结果转换为 G2 接受的数据
 const nodes = [];
 for (const node of dv.getAllNodes()) {
+  if (node.data.name === 'root') {
+    continue;
+  }
   const eachNode: any = {
     name: node.data.name,
     x: node.x,
