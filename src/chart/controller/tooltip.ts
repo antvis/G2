@@ -150,10 +150,10 @@ export default class Tooltip extends Controller<TooltipOption> {
   }
 
   public clear() {
-    const { tooltip, xCrosshair, yCrosshair } = this;
+    const { tooltip, xCrosshair, yCrosshair, tooltipMarkersGroup } = this;
     if (tooltip) {
-      tooltip.clear();
       tooltip.hide();
+      tooltip.clear();
     }
 
     if (xCrosshair) {
@@ -162,6 +162,10 @@ export default class Tooltip extends Controller<TooltipOption> {
 
     if (yCrosshair) {
       yCrosshair.clear();
+    }
+
+    if (tooltipMarkersGroup) {
+      tooltipMarkersGroup.clear();
     }
   }
 
@@ -563,7 +567,10 @@ export default class Tooltip extends Controller<TooltipOption> {
     const shape = container.getShape(point.x, point.y);
     if (shape && shape.get('visible') && shape.get('origin')) {
       const mappingData = shape.get('origin').mappingData;
-      result.push(getTooltipItems(mappingData, geometry, title));
+      const items = getTooltipItems(mappingData, geometry, title);
+      if (items.length) {
+        result.push(items);
+      }
     }
 
     return result;
@@ -579,7 +586,10 @@ export default class Tooltip extends Controller<TooltipOption> {
         if (geometry.type === 'heatmap' || element.visible) {
           // Heatmap 没有 Element
           // 如果图形元素隐藏了，怎不再 tooltip 上展示相关数据
-          result.push(getTooltipItems(record, geometry, title));
+          const items = getTooltipItems(record, geometry, title);
+          if (items.length) {
+            result.push(items);
+          }
         }
       }
     });
