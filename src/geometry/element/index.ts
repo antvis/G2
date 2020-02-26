@@ -198,12 +198,18 @@ export default class Element extends Base {
         return;
       }
       states.push(stateName);
+      if (stateName === 'active' || stateName === 'selected') {
+        shape.toFront();
+      }
     } else {
       if (index === -1) {
         // 关闭状态，但是状态未设置过
         return;
       }
       states.splice(index, 1);
+      if (stateName === 'active' || stateName === 'selected') {
+        shape.toBack();
+      }
     }
 
     // 使用虚拟 group 重新绘制 shape，然后对这个 shape 应用状态样式后，更新当前 shape。
