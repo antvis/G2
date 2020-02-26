@@ -1415,7 +1415,12 @@ export default class Geometry extends Base {
         } else if (attrType === 'shape') {
           attrCfg.values = theme.shapes[shapeType] || [];
         } else if (attrType === 'color') {
-          attrCfg.values = theme.colors;
+          if (scales.length) {
+            // 根据数值个数使用对应的色板
+            attrCfg.values = scales[0].values.length <= 10 ? theme.colors10 : theme.colors20;
+          } else {
+            attrCfg.values = theme.colors10;
+          }
         }
       }
       const AttributeCtor = getAttributeClass(attrType);
