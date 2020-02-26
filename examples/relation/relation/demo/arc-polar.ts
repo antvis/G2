@@ -33,7 +33,8 @@ fetch('../data/relationship-with-weight.json')
     });
     chart.legend(false);
     chart.tooltip({
-      showTitle: false
+      showTitle: false,
+      showMarkers: false
     });
     chart.scale({
       x: {
@@ -54,7 +55,10 @@ fetch('../data/relationship-with-weight.json')
       .position('x*y')
       .shape('arc')
       .color('source', colors)
-      .tooltip('source*target');
+      .tooltip('source*target')
+      .style({
+        opacity: 0.3
+      });
 
     const nodeView = chart.createView();
     nodeView.coordinate('polar').reflect('y');

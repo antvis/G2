@@ -78,7 +78,7 @@ fetch('../data/diamond.json')
       chart
         .line()
         .position(`x*${method}`)
-        .color(chart.getTheme().colors[i]);
+        .color(chart.getTheme().colors20[i]);
     });
 
     chart.render();

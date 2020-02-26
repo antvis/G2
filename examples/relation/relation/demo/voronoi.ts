@@ -43,7 +43,7 @@ fetch('../data/voronoi.json')
         offset: 0,
         style: {
           fill: '#fff',
-          fontSize: '12',
+          fontSize: 12,
           textAlign: 'center',
           shadowBlur: 2,
           shadowColor: 'rgba(0, 0, 0, .45)',

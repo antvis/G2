@@ -54,7 +54,7 @@ fetch('../data/diamond.json')
       view
         .line()
         .position('carat*price')
-        .color(view.getTheme().colors[i]);
+        .color(view.getTheme().colors20[i]);
     });
 
     chart.render();

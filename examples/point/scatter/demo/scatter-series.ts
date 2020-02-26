@@ -38,12 +38,7 @@ fetch('../data/scatter.json')
         };
       })
       .style({
-        fillOpacity: 0.6
-      })
-      .state({
-        inactive: {
-          style: { fill: '#ccc', fillOpacity: 0.5 }
-        }
+        fillOpacity: 0.85
       });
     chart.interaction('legend-highlight');
     chart.render();

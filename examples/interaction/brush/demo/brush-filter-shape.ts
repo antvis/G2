@@ -73,7 +73,7 @@ fetch('../data/scatter.json')
       .color('gender')
       .shape('circle')
       .style({
-        fillOpacity: 0.6
+        fillOpacity: 0.85
       });
 
     const view2 = chart.createView({
@@ -92,7 +92,7 @@ fetch('../data/scatter.json')
       .color('gender')
       .shape('circle')
       .style({
-        fillOpacity: 0.6
+        fillOpacity: 0.85
       });;
 
     chart.render();

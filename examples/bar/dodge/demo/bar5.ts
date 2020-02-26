@@ -78,6 +78,7 @@ chart.facet('mirror', {
           offset,
           style: {
             fill,
+            stroke: null,
             shadowBlur,
             shadowColor: 'rgba(0, 0, 0, .45)',
             textAlign

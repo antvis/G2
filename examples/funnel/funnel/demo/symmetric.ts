@@ -72,7 +72,8 @@ chart.facet('mirror', {
           content: obj.visitor,
           style: {
             fill: '#fff',
-            fontSize: '12',
+            stroke: null,
+            fontSize: 12,
             textAlign: facet.columnIndex ? 'start' : 'end',
             shadowBlur: 2,
             shadowColor: 'rgba(0, 0, 0, .45)',

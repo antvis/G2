@@ -41,7 +41,7 @@ chart
   .adjust([
     {
       type: 'dodge',
-      marginRatio: 1 / 32,
+      marginRatio: 0,
     },
   ]);
 

@@ -32,7 +32,7 @@ fetch('../data/diamond.json')
           .position('carat*price')
           .color('cut')
           .shape('circle')
-          .style({ opacity: 0.3 })
+          .style({ fillOpacity: 0.3, stroke: null })
           .size(3);
       }
     });

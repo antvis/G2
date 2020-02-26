@@ -34,7 +34,7 @@ chart
   .position('type*value').color('company')
   .adjust([{
     type: 'dodge',
-    marginRatio: 1 / 32
+    marginRatio: 0
   }]);
 
 chart.interaction('legend-highlight');

@@ -35,7 +35,7 @@ fetch('../data/diamond.json')
       .color('clarity')
       .shape('circle')
       .style({
-        fillOpacity: 0.65,
+        fillOpacity: 0.85,
       })
     chart.render();
   });
