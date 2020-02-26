@@ -35,7 +35,7 @@ export { getInteraction, registerInteraction, registerAction } from './interacti
 export { getFacet, registerFacet } from './facet';
 
 // 注册主题
-export { getTheme, registerTheme } from './theme';
+export { getTheme, registerTheme, getStyleSheet, registerStyleSheet } from './theme';
 
 // G engine 管理相关
 export { registerEngine, getEngine } from './engine';
