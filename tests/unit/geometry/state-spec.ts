@@ -1,17 +1,16 @@
 import { getCoordinate } from '@antv/coord';
 import { getScale } from '@antv/scale';
-import { isNumberEqual } from '@antv/util';
 import Interval from '../../../src/geometry/interval';
-import Theme from '../../../src/theme/antv';
-import { createCanvas, createDiv, removeDom } from '../../util/dom';
-import { createScale, updateScales } from '../../util/scale';
+import { getTheme } from '../../../src/theme/';
+import { createCanvas, createDiv } from '../../util/dom';
+import { createScale } from '../../util/scale';
 
 import 'jest-extended';
-import { syncScale } from '../../../src/util/scale';
 
 const CartesianCoordinate = getCoordinate('rect');
 const PolarCoordinate = getCoordinate('polar');
 const IdentityScale = getScale('identity');
+const Theme = getTheme('default');
 
 describe('State setting', () => {
   const div = createDiv();
@@ -56,7 +55,7 @@ describe('State setting', () => {
     activeElement.setState('active', true);
 
     expect(activeElement.hasState('active')).toBeTrue();
-    expect(activeElement.shape.attr('fillOpacity')).toBe(1);
+    expect(activeElement.shape.attr('fillOpacity')).toBe(0.95);
 
     expect(interval.elements[1].hasState('active')).toBeFalse();
   });

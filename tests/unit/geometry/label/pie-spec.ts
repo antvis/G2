@@ -3,11 +3,12 @@ import { isNumberEqual } from '@antv/util';
 import 'jest-extended';
 import PieLabel from '../../../../src/geometry/label/pie';
 import Point from '../../../../src/geometry/point';
-import Theme from '../../../../src/theme/antv';
+import { getTheme } from '../../../../src/theme/';
 import { createCanvas, createDiv } from '../../../util/dom';
 import { createScale } from '../../../util/scale';
 
 const PolarCoord = getCoordinate('polar');
+const Theme = getTheme('default');
 
 describe('pie labels', () => {
   const div = createDiv();

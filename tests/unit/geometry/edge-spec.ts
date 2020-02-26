@@ -2,12 +2,12 @@ import { getCoordinate } from '@antv/coord';
 import { getScale } from '@antv/scale';
 import Edge from '../../../src/geometry/edge';
 import '../../../src/geometry/shape/edge/vhv';
-import Theme from '../../../src/theme/antv';
+import { getTheme } from '../../../src/theme/';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
 
 const linearScale = getScale('linear');
 const IdentityScale = getScale('identity');
-
+const Theme = getTheme('default');
 const RectCoordinate = getCoordinate('rect');
 
 describe('Edge Geometry', () => {

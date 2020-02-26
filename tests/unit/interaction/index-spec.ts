@@ -73,7 +73,7 @@ describe('Interaction', () => {
     simulateMouseEvent(chart.canvas.get('el'), 'mousedown', getClientPoint(chart.canvas, 371, 249));
 
     const shape = chart.geometries[0].elements[0].shape;
-    expect(shape.attr('lineWidth')).toBe(4);
+    expect(shape.attr('lineWidth')).toBe(3);
   });
 
   it('new interaction by class', () => {

@@ -2,11 +2,12 @@ import { getCoordinate } from '../../../../src/dependents';
 import Element from '../../../../src/geometry/element/index';
 import LineShapeFactory from '../../../../src/geometry/shape/line';
 import '../../../../src/geometry/shape/line/step';
-import Theme from '../../../../src/theme/antv';
+import { getTheme } from '../../../../src/theme/';
 import { createCanvas, createDiv, removeDom } from '../../../util/dom';
 
 const Rect = getCoordinate('rect');
 const Polar = getCoordinate('polar');
+const Theme = getTheme('default');
 
 describe('Line shapes', () => {
   const div = createDiv();

@@ -1,10 +1,11 @@
 import { getCoordinate } from '../../../../src/dependents';
 import Element from '../../../../src/geometry/element/index';
 import PolygonShapeFactory from '../../../../src/geometry/shape/polygon';
-import Theme from '../../../../src/theme/antv';
+import { getTheme } from '../../../../src/theme/';
 import { createCanvas, createDiv, removeDom } from '../../../util/dom';
 
 const Rect = getCoordinate('rect');
+const Theme = getTheme('default');
 
 describe('Point shapes', () => {
   const div = createDiv();
@@ -81,8 +82,8 @@ describe('Point shapes', () => {
         style: {
           r: 4,
           fill: 'red',
-          fillOpacity: 1,
-          lineWidth: 0,
+          fillOpacity: 0.95,
+          // lineWidth: 0,
         },
       });
     });

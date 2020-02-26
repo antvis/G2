@@ -3,13 +3,14 @@ import Interval from '../../../src/geometry/interval';
 import Line from '../../../src/geometry/line';
 import Point from '../../../src/geometry/point';
 import { MappingDatum } from '../../../src/interface';
-import Theme from '../../../src/theme/antv';
+import { getTheme } from '../../../src/theme/';
 import { findDataByPoint, getTooltipItems } from '../../../src/util/tooltip';
 import { CITY_SALE, DIAMOND } from '../../util/data';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
 import { createScale } from '../../util/scale';
 
 const CartesianCoordinate = getCoordinate('rect');
+const Theme = getTheme('default');
 
 describe('Tooltip functions', () => {
   const div = createDiv();

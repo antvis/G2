@@ -241,8 +241,8 @@ export interface GeometryLabelCfg {
    *
    * 目前提供了三种：'overlap'，'fixedOverlap'，'limitInShape'：
    * 1. overlap: label 防遮挡，为了防止 label 之间相互覆盖，通过尝试向**四周偏移**来剔除放不下的 label。
-   * 2. fixedOverlap: 不改变 label 位置的情况下对相互重叠的 label 进行调整。
-   * 3. limitInShape: 剔除 shape 容纳不了的 label。
+   * 2. fixed-overlap: 不改变 label 位置的情况下对相互重叠的 label 进行调整。
+   * 3. limit-in-shape: 剔除 shape 容纳不了的 label。
    *
    * @example
    * ```ts
@@ -1304,6 +1304,497 @@ export interface FacetCfgMap {
   readonly tree: TreeCfg;
 }
 
+// ============================ 主题样式表定义 ============================
+export interface StyleSheet {
+  /** 主题色 */
+  brandColor?: string;
+  /** 分类色板 1，在数据量小于等于 10 时使用 */
+  paletteQualitative10?: string[];
+  /** 分类色板 2，在数据量大于 10 时使用 */
+  paletteQualitative20?: string[];
+  /** 语义色 */
+  paletteSemanticRed?: string;
+  /** 语义色 */
+  paletteSemanticGreen?: string;
+  /** 语义色 */
+  paletteSemanticYellow?: string;
+  /** 字体 */
+  fontFamily?: string;
+
+  // -------------------- 坐标轴 --------------------
+  /** 坐标轴线颜色 */
+  axisLineBorderColor?: string;
+  /** 坐标轴线粗细 */
+  axisLineBorder?: number;
+  /** 坐标轴线 lineDash 设置 */
+  axisLineDash?: number[];
+
+  /** 坐标轴标题颜色 */
+  axisTitleTextFillColor?: string;
+  /** 坐标轴标题文本字体大小 */
+  axisTitleTextFontSize?: number;
+  /** 坐标轴标题文本行高 */
+  axisTitleTextLineHeight?: number;
+  /** 坐标轴标题文本字体粗细 */
+  axisTitleTextFontWeight?: number | string;
+
+  /** 坐标轴刻度线颜色 */
+  axisTickLineBorderColor?: string;
+  /** 坐标轴刻度线长度 */
+  axisTickLineLength?: number;
+  /** 坐标轴刻度线粗细 */
+  axisTickLineBorder?: number;
+
+  /** 坐标轴次刻度线颜色 */
+  axisSubTickLineBorderColor?: string;
+  /** 坐标轴次刻度线长度 */
+  axisSubTickLineLength?: number;
+  /** 坐标轴次刻度线粗细 */
+  axisSubTickLineBorder?: number;
+
+  /** 坐标轴刻度文本颜色 */
+  axisLabelFillColor?: string;
+  /** 坐标轴刻度文本字体大小 */
+  axisLabelFontSize?: number;
+  /** 坐标轴刻度文本行高 */
+  axisLabelLineHeight?: number;
+  /** 坐标轴刻度文本字体粗细 */
+  axisLabelFontWeight?: number | string;
+
+  /** 坐标轴网格线颜色 */
+  axisGridBorderColor?: string;
+  /** 坐标轴网格线粗细 */
+  axisGridBorder?: number;
+  /** 坐标轴网格线虚线设置 */
+  axisGridLineDash?: number[];
+
+  // -------------------- 图例 --------------------
+  /** 图例标题颜色 */
+  legendTitleTextFillColor?: string;
+  /** 图例标题文本字体大小 */
+  legendTitleTextFontSize?: number;
+  /** 图例标题文本行高 */
+  legendTitleTextLineHeight?: number;
+  /** 图例标题文本字体粗细 */
+  legendTitleTextFontWeight?: number | string;
+
+  /** 图例 marker 颜色 */
+  legendMarkerColor?: string;
+  /** 图例 marker 默认半径大小 */
+  legendMarkerSize?: number;
+  /** 图例 'circle' marker 半径 */
+  legendCircleMarkerSize?: number;
+  /** 图例 'square' marker 半径 */
+  legendSquareMarkerSize?: number;
+  /** 图例 'line' marker 半径 */
+  legendLineMarkerSize?: number;
+
+  /** 图例项文本颜色 */
+  legendItemNameFillColor?: string;
+  /** 图例项文本字体大小 */
+  legendItemNameFontSize?: number;
+  /** 图例项文本行高 */
+  legendItemNameLineHeight?: number;
+  /** 图例项粗细 */
+  legendItemNameFontWeight?: number | string;
+
+  /** 连续图例滑块填充色 */
+  sliderRailFillColor?: string;
+  /** 连续图例滑块边框粗细 */
+  sliderRailBorder?: number;
+  /** 连续图例滑块边框颜色 */
+  sliderRailBorderColor?: string;
+  /** 连续图例滑块宽度 */
+  sliderRailWidth?: number;
+  /** 连续图例滑块高度 */
+  sliderRailHeight?: number;
+
+  /** 连续图例文本颜色 */
+  sliderLabelTextFillColor?: string;
+  /** 连续图例文本字体大小 */
+  sliderLabelTextFontSize?: number;
+  /** 连续图例文本行高 */
+  sliderLabelTextLineHeight?: number;
+  /** 连续图例文本字体粗细 */
+  sliderLabelTextFontWeight?: number | string;
+
+  /** 连续图例滑块颜色 */
+  sliderHandlerFillColor?: string;
+  /** 连续图例滑块宽度 */
+  sliderHandlerWidth?: number;
+  /** 连续图例滑块高度 */
+  sliderHandlerHeight?: number;
+  /** 连续图例滑块边框粗细 */
+  sliderHandlerBorder?: number;
+  /** 连续图例滑块边框颜色 */
+  sliderHandlerBorderColor?: string;
+
+  // -------------------- Annotation，图形标注 --------------------
+  /** arc 图形标注描边颜色 */
+  annotationArcBorderColor?: string;
+  /** arc 图形标注粗细 */
+  annotationArcBorder?: number;
+
+  /** line 图形标注颜色 */
+  annotationLineBorderColor?: string;
+  /** line 图形标注粗细 */
+  annotationLineBorder?: number;
+  /** lube 图形标注的虚线间隔 */
+  annotationLineDash?: number[];
+
+  /** text 图形标注文本颜色 */
+  annotationTextFillColor?: string;
+  /** text 图形标注文本字体大小 */
+  annotationTextFontSize?: number;
+  /** text 图形标注文本行高 */
+  annotationTextLineHeight?: number;
+  /** text 图形标注文本字体粗细 */
+  annotationTextFontWeight?: number | string;
+
+  /** text 图形标注文本边框颜色 */
+  annotationTextBorderColor?: string;
+  /** text 图形标注文本边框粗细 */
+  annotationTextBorder?: number;
+
+  /** region 图形标注填充颜色 */
+  annotationRegionFillColor?: string;
+  /** region 图形标注填充颜色透明色 */
+  annotationRegionFillOpacity?: number;
+  /** region 图形标注描边粗细 */
+  annotationRegionBorder?: number;
+  /** region 图形标注描边颜色 */
+  annotationRegionBorderColor?: string;
+
+  /** dataMarker 图形标注的连接线长度 */
+  annotationDataMarkerLineLength?: number;
+
+  // -------------------- Tooltip --------------------
+  /** tooltip crosshairs 辅助线颜色 */
+  tooltipCrosshairsBorderColor?: string;
+  /** tooltip crosshairs 辅助线粗细 */
+  tooltipCrosshairsBorder?: number;
+  /** tooltip crosshairs 辅助线虚线间隔 */
+  tooltipCrosshairsLineDash?: number[];
+
+  /** tooltip 内容框背景色 */
+  tooltipContainerFillColor?: string;
+  /** tooltip 内容框阴影 */
+  tooltipContainerShadow?: string;
+  /** tooltip 内容框圆角 */
+  tooltipContainerBorderRadius?: number;
+
+  /** tooltip 文本颜色 */
+  tooltipTextFillColor?: string;
+  /** tooltip 文本字体大小 */
+  tooltipTextFontSize?: number;
+  /** tooltip 文本行高 */
+  tooltipTextLineHeight?: number;
+  /** tooltip 文本字体粗细 */
+  tooltipTextFontWeight?: number | string;
+
+
+  // -------------------- Geometry labels --------------------
+  /** Geometry label 文本颜色 */
+  labelFillColor?: string;
+  /** Geometry label 文本字体大小 */
+  labelFontSize?: number;
+  /** Geometry label 文本行高 */
+  labelLineHeight?: number;
+  /** Geometry label 文本字体粗细 */
+  labelFontWeight?: number | string;
+  /** Geometry label 文本描边颜色 */
+  labelBorderColor?: string;
+  /** Geometry label 文本描边粗细 */
+  labelBorder?: number;
+
+  /** Geometry innerLabel 文本颜色 */
+  innerLabelFillColor?: string;
+  /** Geometry innerLabel 文本字体大小 */
+  innerLabelFontSize?: number;
+  /** Geometry innerLabel 文本行高 */
+  innerLabelLineHeight?: number;
+  /** Geometry innerLabel 文本字体粗细 */
+  innerLabelFontWeight?: number | string;
+  /** Geometry innerLabel 文本描边颜色 */
+  innerLabelBorderColor?: string;
+  /** Geometry innerLabel 文本描边粗细 */
+  innerLabelBorder?: number;
+
+  /** Geometry label　文本连接线粗细 */
+  labelLineBorder?: number;
+  /** Geometry label 文本连接线颜色 */
+  labelLineBorderColor?: string;
+
+  // -------------------- Geometry 图形样式--------------------
+  /** 点图的大小范围 */
+  pointSizeRange?: [number, number];
+  /** 点图填充颜色 */
+  pointFillColor?: string;
+  /** 点图填充颜色透明度 */
+  pointFillOpacity?: number;
+  /** 点图大小 */
+  pointSize?: number;
+  /** 点图描边粗细 */
+  pointBorder?: number;
+  /** 点图描边颜色 */
+  pointBorderColor?: string;
+  /** 点图描边透明度 */
+  pointBorderOpacity?: number;
+
+  /** 点图 active 状态下填充颜色 */
+  pointActiveFillColor?: string;
+  /** 点图 active 状态下填充颜色透明度 */
+  pointActiveFillOpacity?: number;
+  /** 点图 active 状态下大小 */
+  pointActiveSize?: number;
+  /** 点图 active 状态下描边粗细 */
+  pointActiveBorder?: number;
+  /** 点图 active 状态下描边颜色 */
+  pointActiveBorderColor?: string;
+  /** 点图 active 状态下描边透明度 */
+  pointActiveBorderOpacity?: number;
+
+  /** 点图 selected 状态下填充颜色 */
+  pointSelectedFillColor?: string;
+  /** 点图 selected 状态下填充颜色透明度 */
+  pointSelectedFillOpacity?: number;
+  /** 点图 selected 状态下大小 */
+  pointSelectedSize?: number;
+  /** 点图 selected 状态下描边粗细 */
+  pointSelectedBorder?: number;
+  /** 点图 selected 状态下描边颜色 */
+  pointSelectedBorderColor?: string;
+  /** 点图 selected 状态下描边透明度 */
+  pointSelectedBorderOpacity?: number;
+
+  /** 点图 inactive 状态下填充颜色 */
+  pointInactiveFillColor?: string;
+  /** 点图 inactive 状态下填充颜色透明度 */
+  pointInactiveFillOpacity?: number;
+  /** 点图 inactive 状态下大小 */
+  pointInactiveSize?: number;
+  /** 点图 inactive 状态下描边粗细 */
+  pointInactiveBorder?: number;
+  /** 点图 inactive 状态下描边颜色 */
+  pointInactiveBorderColor?: string;
+  /** 点图 inactive 状态下描边透明度 */
+  pointInactiveBorderOpacity?: number;
+
+  /** 描边点图大小 */
+  hollowPointSize?: number;
+  /** 描边点图描边粗细 */
+  hollowPointBorder?: number;
+  /** 描边点图描边颜色 */
+  hollowPointBorderColor?: string;
+  /** 描边点图描边透明度 */
+  hollowPointBorderOpacity?: number;
+  /** 描边点图填充颜色 */
+  hollowPointFillColor?: string;
+  /** 描边点图填充透明度 */
+  hollowPointFillOpacity?: number;
+
+  /** 点 描边 active 状态下大小 */
+  hollowPointActiveSize?: number;
+  /** 点 描边 active 状态下描边粗细 */
+  hollowPointActiveBorder?: number;
+  /** 点 描边 active 状态下描边颜色 */
+  hollowPointActiveBorderColor?: string;
+  /** 点 描边 active 状态下描边透明度 */
+  hollowPointActiveBorderOpacity?: number;
+
+  /** 点 描边 selected 状态下大小 */
+  hollowPointSelectedSize?: number;
+  /** 点 描边 selected 状态下描边粗细 */
+  hollowPointSelectedBorder?: number;
+  /** 点 描边 selected 状态下描边颜色 */
+  hollowPointSelectedBorderColor?: string;
+  /** 点 描边 selected 状态下描边透明度 */
+  hollowPointSelectedBorderOpacity?: number;
+
+  /** 点 描边 inactive 状态下大小 */
+  hollowPointInactiveSize?: number;
+  /** 点 描边 inactive 状态下描边粗细 */
+  hollowPointInactiveBorder?: number;
+  /** 点 描边 inactive 状态下描边颜色 */
+  hollowPointInactiveBorderColor?: string;
+  /** 点 描边 inactive 状态下描边透明度 */
+  hollowPointInactiveBorderOpacity?: number;
+
+  /** 线图粗细 */
+  lineBorder?: number;
+  /** 线图颜色 */
+  lineBorderColor?: string;
+  /** 线图透明度 */
+  lineBorderOpacity?: number;
+
+  /** 线图 active 状态下粗细 */
+  lineActiveBorder?: number;
+  /** 线图 active 状态下颜色 */
+  lineActiveBorderColor?: string;
+  /** 线图 active 状态下透明度 */
+  lineActiveBorderOpacity?: number;
+
+  /** 线图 selected 状态下粗细 */
+  lineSelectedBorder?: number;
+  /** 线图 selected 状态下颜色 */
+  lineSelectedBorderColor?: string;
+  /** 线图 selected 状态下透明度 */
+  lineSelectedBorderOpacity?: number;
+
+  /** 线图 inactive 状态下粗细 */
+  lineInactiveBorder?: number;
+  /** 线图 inactive 状态下颜色 */
+  lineInactiveBorderColor?: string;
+  /** 线图 inactive 状态下透明度 */
+  lineInactiveBorderOpacity?: number;
+
+  areaBorder?: number;
+  /** area 边框颜色 */
+  areaBorderColor?: string;
+  /** area 边框透明度 */
+  areaBorderOpacity?: number;
+  /** area 填充颜色 */
+  areaFillColor?: string;
+  /** area 填充透明度 */
+  areaFillOpacity?: number;
+
+  /** area Active 状态下边框粗细 */
+  areaActiveBorder?: number;
+  /** area Active 状态下边框颜色 */
+  areaActiveBorderColor?: string;
+  /** area Active 状态下边框透明度 */
+  areaActiveBorderOpacity?: number;
+  /** area Active 状态下填充颜色 */
+  areaActiveFillColor?: string;
+  /** area Active 状态下填充透明度 */
+  areaActiveFillOpacity?: number;
+
+  /** area selected 状态下边框粗细 */
+  areaSelectedBorder?: number;
+  /** area selected 状态下边框颜色 */
+  areaSelectedBorderColor?: string;
+  /** area selected 状态下边框透明度 */
+  areaSelectedBorderOpacity?: number;
+  /** area selected 状态下填充颜色 */
+  areaSelectedFillColor?: string;
+  /** area selected 状态下填充透明度 */
+  areaSelectedFillOpacity?: number;
+
+  /** area inactive 状态下边框粗细 */
+  areaInactiveBorder?: number;
+  /** area inactive 状态下边框颜色 */
+  areaInactiveBorderColor?: string;
+  /** area inactive 状态下边框透明度 */
+  areaInactiveBorderOpacity?: number;
+  /** area inactive 状态下填充颜色 */
+  areaInactiveFillColor?: string;
+  /** area inactive 状态下填充透明度 */
+  areaInactiveFillOpacity?: number;
+
+  /** hollowArea 边框粗细 */
+  hollowAreaBorder?: number;
+  /** hollowArea 边框颜色 */
+  hollowAreaBorderColor?: string;
+  /** hollowArea 边框透明度 */
+  hollowAreaBorderOpacity?: number;
+
+  /** hollowArea Active 状态下边框粗细 */
+  hollowAreaActiveBorder?: number;
+  /** hollowArea Active 状态下边框颜色 */
+  hollowAreaActiveBorderColor?: string;
+  /** hollowArea Active 状态下边框透明度 */
+  hollowAreaActiveBorderOpacity?: number;
+
+  /** hollowArea selected 状态下边框粗细 */
+  hollowAreaSelectedBorder?: number;
+  /** hollowArea selected 状态下边框颜色 */
+  hollowAreaSelectedBorderColor?: string;
+  /** hollowArea selected 状态下边框透明度 */
+  hollowAreaSelectedBorderOpacity?: number;
+
+  /** hollowArea inactive 状态下边框粗细 */
+  hollowAreaInactiveBorder?: number;
+  /** hollowArea inactive 状态下边框颜色 */
+  hollowAreaInactiveBorderColor?: string;
+  /** hollowArea inactive 状态下边框透明度 */
+  hollowAreaInactiveBorderOpacity?: number;
+
+  /** interval 边框粗细 */
+  intervalBorder?: number;
+  /** interval 边框颜色 */
+  intervalBorderColor?: string;
+  /** interval 边框透明度 */
+  intervalBorderOpacity?: number;
+  /** interval 填充颜色 */
+  intervalFillColor?: string;
+  /** interval 填充透明度 */
+  intervalFillOpacity?: number;
+
+  /** interval active 状态下边框粗细 */
+  intervalActiveBorder?: number;
+  /** interval active 状态下边框颜色 */
+  intervalActiveBorderColor?: string;
+  /** interval active 状态下边框透明度 */
+  intervalActiveBorderOpacity?: number;
+  /** interval active 状态下填充颜色 */
+  intervalActiveFillColor?: string;
+  /** interval active 状态下填充透明度 */
+  intervalActiveFillOpacity?: number;
+
+  /** interval selected 状态下边框粗细 */
+  intervalSelectedBorder?: number;
+  /** interval selected 状态下边框颜色 */
+  intervalSelectedBorderColor?: string;
+  /** interval selected 状态下边框透明度 */
+  intervalSelectedBorderOpacity?: number;
+  /** interval selected 状态下填充颜色 */
+  intervalSelectedFillColor?: string;
+  /** interval selected 状态下填充透明度 */
+  intervalSelectedFillOpacity?: number;
+
+  /** interval inactive 状态下边框粗细 */
+  intervalInactiveBorder?: number;
+  /** interval inactive 状态下边框颜色 */
+  intervalInactiveBorderColor?: string;
+  /** interval inactive 状态下边框透明度 */
+  intervalInactiveBorderOpacity?: number;
+  /** interval inactive 状态下填充颜色 */
+  intervalInactiveFillColor?: string;
+  /** interval inactive 状态下填充透明度 */
+  intervalInactiveFillOpacity?: number;
+
+  /** hollowInterval 边框粗细 */
+  hollowIntervalBorder?: number;
+  /** hollowInterval 边框颜色 */
+  hollowIntervalBorderColor?: string;
+  /** hollowInterval 边框透明度 */
+  hollowIntervalBorderOpacity?: number;
+  /** hollowInterval 填充颜色 */
+  hollowIntervalFillColor?: string;
+  /** hollowInterval 填充透明度 */
+  hollowIntervalFillOpacity?: number;
+
+  /** hollowInterval active 状态下边框粗细 */
+  hollowIntervalActiveBorder?: number;
+  /** hollowInterval active 状态下边框颜色 */
+  hollowIntervalActiveBorderColor?: string;
+  /** hollowInterval active 状态下边框透明度 */
+  hollowIntervalActiveBorderOpacity?: number;
+
+  /** hollowInterval selected 状态下边框粗细 */
+  hollowIntervalSelectedBorder?: number;
+  /** hollowInterval selected 状态下边框颜色 */
+  hollowIntervalSelectedBorderColor?: string;
+  /** hollowInterval selected 状态下边框透明度 */
+  hollowIntervalSelectedBorderOpacity?: number;
+
+  /** hollowInterval inactive 状态下边框粗细 */
+  hollowIntervalInactiveBorder?: number;
+  /** hollowInterval inactive 状态下边框颜色 */
+  hollowIntervalInactiveBorderColor?: string;
+  /** hollowInterval inactive 状态下边框透明度 */
+  hollowIntervalInactiveBorderOpacity?: number;
+}
 
 // ============================ 交互相关的类型定义 ============================
 /** 交互反馈的定义 */

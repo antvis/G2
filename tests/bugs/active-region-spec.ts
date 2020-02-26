@@ -62,8 +62,8 @@ describe('active-region', () => {
       return el.get('name') === 'active-region';
     })[0];
 
-    expect(regionShape.getBBox().width).toBeCloseTo(96.24487867752643);
-    expect(regionShape.getBBox().height).toBeCloseTo(79.27885913672948);
+    expect(regionShape.getBBox().width).toBeCloseTo(96.34054953108273);
+    expect(regionShape.getBBox().height).toBeCloseTo(79.35766515972824);
   });
 
   it('Histogram', () => {
@@ -237,7 +237,7 @@ describe('active-region', () => {
       return el.get('name') === 'active-region';
     })[0];
 
-    expect(regionShape.getBBox().minY).toBeCloseTo(169.23046875);
+    expect(regionShape.getBBox().minY).toBeCloseTo(169.298828125);
   });
 
   afterEach(() => {

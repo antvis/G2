@@ -2,7 +2,7 @@ import { getCoordinate } from '@antv/coord';
 import { getScale } from '@antv/scale';
 import Interval from '../../../../src/geometry/interval';
 import { getDefaultSize } from '../../../../src/geometry/util/shape-size';
-import Theme from '../../../../src/theme/antv';
+import { getTheme } from '../../../../src/theme/';
 import { createCanvas, createDiv, removeDom } from '../../../util/dom';
 
 import 'jest-extended';
@@ -10,7 +10,7 @@ import { createScale } from '../../../util/scale';
 
 const CartesianCoordinate = getCoordinate('rect');
 const PolarCoordinate = getCoordinate('polar');
-
+const Theme = getTheme('default');
 const CatScale = getScale('cat');
 const IdentityScale = getScale('identity');
 

@@ -6,10 +6,11 @@ import '../../../../src/geometry/shape/interval/hollow-rect';
 import '../../../../src/geometry/shape/interval/line';
 import '../../../../src/geometry/shape/interval/pyramid';
 import '../../../../src/geometry/shape/interval/tick';
-import Theme from '../../../../src/theme/antv';
+import { getTheme } from '../../../../src/theme/';
 import { createCanvas, createDiv, removeDom } from '../../../util/dom';
 
 const Rect = getCoordinate('rect');
+const Theme = getTheme('default');
 
 describe('Interval shapes', () => {
   const div = createDiv();
@@ -181,7 +182,7 @@ describe('Interval shapes', () => {
 
       expect(shape.attr('stroke')).toBe('yellow');
       expect(shape.attr('path').length).toBe(6);
-      expect(shape.getBBox().width).toBe(102);
+      expect(shape.getBBox().width).toBe(101);
     });
     it('getMarker', () => {
       const markerCfg = IntervalShapeFactory.getMarker('hollow-rect', { color: 'red', isInPolar: false });

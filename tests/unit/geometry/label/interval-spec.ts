@@ -1,10 +1,11 @@
 import { getCoordinate } from '@antv/coord';
 import Interval from '../../../../src/geometry/interval';
 import IntervalLabel from '../../../../src/geometry/label/interval';
-import Theme from '../../../../src/theme/antv';
+import { getTheme } from '../../../../src/theme/';
 import { createCanvas, createDiv } from '../../../util/dom';
 import { createScale } from '../../../util/scale';
 
+const Theme = getTheme('default');
 const CartesianCoordinate = getCoordinate('rect');
 
 describe('interval labels', () => {

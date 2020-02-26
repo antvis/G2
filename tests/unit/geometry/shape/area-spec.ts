@@ -4,12 +4,13 @@ import AreaShapeFactory from '../../../../src/geometry/shape/area';
 import '../../../../src/geometry/shape/area/line';
 import '../../../../src/geometry/shape/area/smooth';
 import '../../../../src/geometry/shape/area/smooth-line';
-import Theme from '../../../../src/theme/antv';
+import { getTheme } from '../../../../src/theme/';
 import { createCanvas, createDiv, removeDom } from '../../../util/dom';
 
 import 'jest-extended';
 
 const Rect = getCoordinate('rect');
+const Theme = getTheme('default');
 
 describe('Area shapes', () => {
   const div = createDiv();

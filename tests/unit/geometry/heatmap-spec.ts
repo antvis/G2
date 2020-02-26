@@ -1,13 +1,13 @@
-import Heatmap from '../../../src/geometry/heatmap';
-import { createCanvas, createDiv, removeDom } from '../../util/dom';
-import { HEATMAP } from '../../util/data';
-import { createScaleByField } from '../../../src/util/scale';
 import { getCoordinate } from '@antv/coord';
-import Theme from '../../../src/theme/antv';
+import Heatmap from '../../../src/geometry/heatmap';
+import { getTheme } from '../../../src/theme/';
+import { createScaleByField } from '../../../src/util/scale';
+import { HEATMAP } from '../../util/data';
+import { createCanvas, createDiv, removeDom } from '../../util/dom';
 
-import { Chart } from '../../../src/';
 
 const RectCoordinate = getCoordinate('rect');
+const Theme = getTheme('default');
 
 describe('Heatmap', () => {
   const div = createDiv();
