@@ -41,10 +41,6 @@ chart
       return `${data.item}: ${data.percent * 100}%`;
     },
   })
-  .style({
-    lineWidth: 1,
-    stroke: '#fff',
-  })
   .adjust('stack');
 
 chart.interaction('element-active');

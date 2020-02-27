@@ -66,10 +66,6 @@ chart
   .point()
   .position('month*temperature')
   .color('city')
-  .shape('circle')
-  .style({
-    stroke: '#fff',
-    lineWidth: 1,
-  });
+  .shape('circle');
 
 chart.render();

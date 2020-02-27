@@ -53,10 +53,6 @@ chart
       name: item,
       value: percent,
     };
-  })
-  .style({
-    lineWidth: 1,
-    stroke: '#fff',
   });
 
 chart.interaction('element-active');
