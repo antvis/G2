@@ -124,7 +124,12 @@
   },
   "keywords": [
     "antv",
-    "g2"
+    "g2",
+    "visualization",
+    "chart",
+    "grammar",
+    "graphics",
+    "interaction"
   ],
   "author": "https://github.com/orgs/antvis/people",
   "license": "MIT"
