@@ -36,20 +36,6 @@ fetch('../data/basement.json')
         nice: true,
       }
     });
-    chart.axis('time', {
-      label: {
-        style: {
-          fill: '#aaaaaa'
-        }
-      }
-    });
-    chart.axis('UV', {
-      label: {
-        style: {
-          fill: '#aaaaaa'
-        }
-      }
-    });
     chart.line().position('time*UV');
     // annotation
     const { min, max } = findMaxMin(data);
@@ -60,8 +46,6 @@ fetch('../data/basement.json')
         content: '峰值：' + max.UV,
         style: {
           fontSize: 13,
-          stroke: 'white',
-          lineWidth: 2
         },
       },
       line: {
@@ -75,8 +59,6 @@ fetch('../data/basement.json')
         content: '谷值：' + min.UV,
         style: {
           fontSize: 13,
-          stroke: 'white',
-          lineWidth: 2
         },
       },
       line: {

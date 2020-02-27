@@ -29,6 +29,10 @@ chart.legend({
   position: 'top'
 });
 
+chart.tooltip({
+  showMarkers: false,
+});
+
 chart
   .interval()
   .position('type*value').color('company')

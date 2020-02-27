@@ -12,20 +12,6 @@ fetch('../data/income.json')
     chart.scale('rate', {
       nice: true,
     });
-    chart.axis('time', {
-      label: {
-        style: {
-          fill: '#aaaaaa',
-        },
-      },
-    });
-    chart.axis('rate', {
-      label: {
-        style: {
-          fill: '#aaaaaa',
-        },
-      },
-    });
     chart.line().position('time*rate');
 
     // 开始添加辅助标记
@@ -35,8 +21,6 @@ fetch('../data/income.json')
         content: '受稳健货币政策影响，协定存款利\n率居高不下,收益率达6.763%',
         style: {
           textAlign: 'left',
-          stroke: '#fff',
-          lineWidth: 2,
         },
       },
     });
@@ -46,8 +30,6 @@ fetch('../data/income.json')
         content: '余额宝刚成立时，并未达到目标资产\n配置，故收益率较低',
         style: {
           textAlign: 'left',
-          stroke: '#fff',
-          lineWidth: 2,
         },
       },
     });
@@ -58,8 +40,6 @@ fetch('../data/income.json')
         content: '受积极货币政策的影响，收益率降\n到历史最低2.321%',
         style: {
           textAlign: 'right',
-          stroke: '#fff',
-          lineWidth: 2,
         },
       },
       line: {

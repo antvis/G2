@@ -33,18 +33,8 @@ chart.scale({
     sync: true,
   }
 });
-chart.axis('Date', {
-  label: {
-    style: {
-      fill: '#aaaaaa',
-    },
-  },
-});
 chart.axis('value', {
   label: {
-    textStyle: {
-      fill: '#aaaaaa',
-    },
     formatter: (text) => {
       return text.replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
     },

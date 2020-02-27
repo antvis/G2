@@ -26,13 +26,6 @@ chart.scale({
   },
 });
 chart.axis('type', {
-  title: null,
-  label: {
-    style: {
-      fill: '#8d8d8d',
-      fontSize: 12,
-    },
-  },
   tickLine: null,
   line: null,
 });
@@ -41,7 +34,6 @@ chart.axis('value', {
   title: {
     offset: 30,
     style: {
-      fontSize: 12,
       fontWeight: 300,
     },
   },

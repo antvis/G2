@@ -1,4 +1,3 @@
-// TODO: 多 view 的 tooltip 交互
 import { DataView } from '@antv/data-set';
 import { Chart } from '@antv/g2';
 

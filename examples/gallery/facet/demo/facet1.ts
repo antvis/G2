@@ -31,14 +31,6 @@ fetch('../data/fertility.json')
       }
     });
 
-    chart.axis('value', {
-      label: {
-        style: {
-          fill: '#aaaaaa'
-        }
-      }
-    });
-
     chart.axis('year', {
       grid: {
         line: {
@@ -52,6 +44,10 @@ fetch('../data/fertility.json')
       label: {
         rotate: Math.PI / 4,
       }
+    });
+
+    chart.tooltip({
+      showCrosshairs: true
     });
 
     chart.facet('rect', {

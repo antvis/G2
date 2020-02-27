@@ -25,7 +25,6 @@ const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 500,
-  padding: [20, 20, 95, 20],
 });
 chart.data(dv.rows);
 chart.scale('score', {
@@ -38,14 +37,6 @@ chart.coordinate('polar', {
 chart.axis('item', {
   line: null,
   tickLine: null,
-  grid: {
-    line: {
-      style: {
-        lineDash: null,
-        strokeOpacity: 0.3
-      },
-    },
-  },
 });
 chart.axis('score', {
   line: null,
@@ -53,10 +44,6 @@ chart.axis('score', {
   grid: {
     line: {
       type: 'circle',
-      style: {
-        lineDash: null,
-        strokeOpacity: 0.3
-      },
     },
   },
 });
@@ -72,23 +59,17 @@ chart.tooltip({
         lineDash: [4],
       },
     },
+    follow: true
   }
 });
 
 chart
+  .line()
+  .position('item*score')
+  .color('user');
+chart
   .point()
   .position('item*score')
   .color('user')
-  .shape('circle')
-  .size(4)
-  .style({
-    stroke: '#fff',
-    lineWidth: 1,
-    fillOpacity: 1,
-  });
-chart
-  .line()
-  .position('item*score')
-  .color('user')
-  .size(2);
+  .shape('circle');
 chart.render();

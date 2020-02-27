@@ -18,7 +18,7 @@
         "zh": "图例项 active",
         "en": "legend active"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*N7dBRoQDldMAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*8zWHSrsb6soAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "legend-highlight.ts",
@@ -26,7 +26,7 @@
         "zh": "图例项高亮",
         "en": "legend highlight"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*undJR7GMznUAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*fxSeQIwA6GEAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "legend-filter.ts",
@@ -66,7 +66,7 @@
         "zh": "坐标轴文本高亮",
         "en": "Axis label highlight"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*hbosTKx2200AAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*QtKxQJbPuzgAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "element-list-highlight.ts",
@@ -74,7 +74,7 @@
         "zh": "关联图表元素高亮",
         "en": "Element list highlight"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*vgCERoCDF6EAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*ivAaSqcqkz8AAAAAAAAAAABkARQnAQ"
     }
   ]
 }

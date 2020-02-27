@@ -10,7 +10,7 @@
         "zh": "基础箱型图",
         "en": "Basic Box Chart"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*yVjmRKmCtcQAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*hL2WSrRh9K0AAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "grouped.ts",
@@ -18,7 +18,7 @@
         "zh": "分组箱型图",
         "en": "Grouped Box Chart"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*0yEBSoTFpq4AAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*bZZ8SLkfTZUAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "with-error.ts",
@@ -26,7 +26,7 @@
         "zh": "基础箱型图（有异常值）",
         "en": "Box Chart with error"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*cEuDTomS63IAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*XU8zRY8NSHsAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "one-dim.ts",
@@ -34,7 +34,7 @@
         "zh": "一维箱型图",
         "en": "Basic Box Chart"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*i6ZOTq2atsoAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*FhoNTIXC16EAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "radial-box.ts",
@@ -42,7 +42,7 @@
         "zh": "极坐标系下箱型图",
         "en": "Radial Box Chart"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*Tq7rT5hFVOMAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*IWupRL2xk6kAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

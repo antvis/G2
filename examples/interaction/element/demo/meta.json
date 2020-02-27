@@ -10,7 +10,7 @@
         "zh": "图表元素 active",
         "en": "Element active"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*qAjhQ5jwuOYAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*20RcRr5pc14AAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "element-selected.ts",
@@ -18,7 +18,7 @@
         "zh": "图形元素 selected",
         "en": "element selected"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*ipz9TbZgR3UAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*VPoNTJa6KowAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "pie-selected.ts",
@@ -26,7 +26,7 @@
         "zh": "饼图单选",
         "en": "pie selected"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*9ykBS6SScO8AAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*MtQ-SY7mTuAAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "highlight.ts",
@@ -34,7 +34,7 @@
         "zh": "图表元素 highlight",
         "en": "element highlight"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*wr2XTJmoHfkAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*NzouSL60SqMAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "element-highlight-by-x.ts",
@@ -42,7 +42,7 @@
         "zh": "高亮 x 值相同的 element",
         "en": "element highlight by x"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*7eKNRrht53EAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*gb5oQ43bl7oAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "element-highlight-by-color.ts",
@@ -50,7 +50,7 @@
         "zh": "高亮所有同颜色的 element",
         "en": "element highlight by color"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*1T85TpUoCPoAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*1PZ-QI-g7j0AAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "list-active.ts",
@@ -58,7 +58,7 @@
         "zh": "组合交互",
         "en": "Mix Interactions"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*CjP-Qrik2J4AAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*nj1_QZ6lDsMAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

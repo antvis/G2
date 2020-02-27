@@ -1,4 +1,3 @@
-// TODO: 默认选中交互
 import { Chart } from '@antv/g2';
 
 const data = [

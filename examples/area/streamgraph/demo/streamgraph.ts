@@ -60,6 +60,9 @@ fetch('../data/baby-names.json')
       .position('year*count')
       .adjust(['stack', 'symmetric'])
       .color('name')
-      .shape('smooth');
+      .shape('smooth')
+      .style({
+        fillOpacity: 0.85
+      });
     chart.render();
   });

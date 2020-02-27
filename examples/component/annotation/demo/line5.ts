@@ -34,18 +34,8 @@ fetch('../data/siteUV.json')
         nice: true,
       }
     });
-    chart.axis('time', {
-      label: {
-        style: {
-          fill: '#aaaaaa'
-        }
-      }
-    });
     chart.axis('Count', {
       label: {
-        style: {
-          fill: '#aaaaaa'
-        },
         formatter: text => {
           return text.replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
         }
@@ -64,9 +54,6 @@ fetch('../data/siteUV.json')
         content: '服务器宕机\n低值：0',
         style: {
           textAlign: 'left',
-          fontSize: 12,
-          stroke: 'white',
-          lineWidth: 2
         }
       },
       line: {
@@ -79,9 +66,6 @@ fetch('../data/siteUV.json')
         content: '宕机导致服务积压，恢复后达峰值\n高值：4108',
         style: {
           textAlign: 'left',
-          fontSize: 12,
-          stroke: 'white',
-          lineWidth: 2
         },
       },
       line: {

@@ -76,7 +76,9 @@ const chart = new Chart({
 });
 chart.data(data);
 chart.legend(false);
-
+chart.tooltip({
+  showMarkers: false
+});
 chart.facet('rect', {
   fields: ['class'],
   columnTitle: {

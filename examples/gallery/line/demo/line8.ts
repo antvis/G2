@@ -107,28 +107,28 @@ registerShape('point', 'breath-point', {
         r: 20,
         opacity: 0,
       }, {
-        duration: 1800,
-        easing: 'easeLinear',
-        repeat: true,
-      });
+          duration: 1800,
+          easing: 'easeLinear',
+          repeat: true,
+        });
       decorator2.animate({
         r: 20,
         opacity: 0,
       }, {
-        duration: 1800,
-        easing: 'easeLinear',
-        repeat: true,
-        delay: 600,
-      });
+          duration: 1800,
+          easing: 'easeLinear',
+          repeat: true,
+          delay: 600,
+        });
       decorator3.animate({
         r: 20,
         opacity: 0,
       }, {
-        duration: 1800,
-        easing: 'easeLinear',
-        repeat: true,
-        delay: 1200,
-      });
+          duration: 1800,
+          easing: 'easeLinear',
+          repeat: true,
+          delay: 1200,
+        });
       group.addShape('circle', {
         attrs: {
           x: point.x,
@@ -170,27 +170,8 @@ fetch('../data/cpu-data.json')
       }
     });
 
-    chart.axis('time', {
-      label: {
-        style: {
-          fill: '#aaaaaa'
-        }
-      }
-    });
-
-    chart.axis('cpu', {
-      label: {
-        style: {
-          fill: '#aaaaaa'
-        }
-      }
-    });
-
-
     chart.line().position('time*cpu').color('date', ['#1890ff', '#ced4d9']).shape('split-line');
-    chart.point().position('time*cpu').shape('breath-point').state({
-      active: false
-    });
+    chart.point().position('time*cpu').shape('breath-point');
     chart.annotation().regionFilter({
       top: true,
       start: ['min', 105],

@@ -31,21 +31,6 @@ chart.scale({
   }
 });
 
-chart.axis('month', {
-  label: {
-    style: {
-      fill: '#aaaaaa'
-    },
-  }
-});
-
-chart.axis('value', {
-  label: {
-    style: {
-      fill: '#aaaaaa'
-    }
-  }
-});
 
 chart.area().position('month*value').color('white').style({
   fillOpacity: 0.3,
@@ -72,8 +57,6 @@ chart.annotation().dataMarker({
     content: '2月份因逢春节水产销售需求旺盛，\n需求大增',
     style: {
       textAlign: 'left',
-      stroke: '#fff',
-      lineWidth: 2
     },
   },
   line: {
@@ -94,8 +77,6 @@ chart.annotation().dataMarker({
     content: '开渔后产品销售双增，利润达到\n全年新高',
     style: {
       textAlign: 'right',
-      stroke: '#fff',
-      lineWidth: 2
     },
   },
   line: {
@@ -117,7 +98,6 @@ chart.annotation().dataMarker({
     content: '因休渔期无新进货源，成本摊销\n下来有亏损',
     style: {
       textAlign: 'right',
-      stroke: '#fff',
       lineWidth: 2
     },
   },

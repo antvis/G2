@@ -40,18 +40,12 @@ fetch('../data/fertility.json')
       label: {
         style: {
           fontSize: 10,
-          fill: '#aaaaaa'
         }
       }
     });
 
     chart.axis('year', {
       tickLine: null,
-      label: {
-        style: {
-          fill: '#aaaaaa'
-        }
-      }
     });
 
     chart.facet('rect', {

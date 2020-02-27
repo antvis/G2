@@ -58,24 +58,7 @@ chart.scale({
   },
 });
 chart.axis('year', {
-  label: {
-    style: {
-      fill: '#aaaaaa'
-    }
-  },
   tickLine: null
-});
-chart.axis('value', {
-  label: {
-    style: {
-      fill: '#aaaaaa'
-    }
-  },
-  title: {
-    style: {
-      fill: '#aaaaaa'
-    }
-  }
 });
 
 const view1 = chart.createView();

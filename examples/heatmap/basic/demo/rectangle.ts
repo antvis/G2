@@ -26,6 +26,7 @@ fetch('../data/gaussion-distribution.json')
     chart.data(dv.rows);
     chart.scale({
       y: { nice: true },
+      count: { nice: true },
     });
 
     chart.tooltip({

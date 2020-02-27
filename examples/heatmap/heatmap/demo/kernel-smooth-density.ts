@@ -21,6 +21,7 @@ fetch('../data/diamond.json')
     chart.scale({
       price: { nice: true },
       carat: { nice: true },
+      density: { nice: true },
     });
 
     chart.point()

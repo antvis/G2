@@ -22,23 +22,8 @@ fetch('../data/blockchain.json')
       }
     });
 
-    chart.axis('date', {
-      label: {
-        style: {
-          fill: '#aaaaaa'
-        }
-      }
-    });
-    chart.axis('blockchain', {
-      label: {
-        style: {
-          fill: '#aaaaaa'
-        }
-      }
-    });
     chart.axis('nlp', false);
 
-    // FIXME: 自定义图例，导致整个画布绘制有问题
     chart.legend({
       custom: true,
       items: [
@@ -57,17 +42,7 @@ fetch('../data/blockchain.json')
         content: 'Blockchain 首超 NLP',
         style: {
           textAlign: 'left',
-          fontSize: 12,
-          stroke: 'white',
-          lineWidth: 2,
-          fontWeight: 10
         },
-      },
-      point: {
-        style: {
-          stroke: '#2fc25b',
-          r: 4
-        }
       },
       line: {
         length: 30,
@@ -78,24 +53,11 @@ fetch('../data/blockchain.json')
       position: ['2017-12-17', 100],
       line: {
         length: 30,
-        style: {
-          stroke: '#A3B1BF',
-          lineWidth: 2
-        }
-      },
-      point: {
-        style: {
-          r: 4,
-        }
       },
       text: {
         content: '2017-12-17, 受比特币影响，\n blockchain搜索热度达到顶峰\n峰值：100',
         style: {
           textAlign: 'right',
-          fontSize: 12,
-          stroke: 'white',
-          lineWidth: 2,
-          fontWeight: 10
         }
       },
     });

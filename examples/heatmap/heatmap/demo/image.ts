@@ -10,6 +10,9 @@ fetch('../data/heatmap.json')
       padding: [0, 30, 60, 30]
     });
     chart.data(data);
+    chart.scale({
+      tmp: { nice: true }
+    });
     chart.tooltip({
       showTitle: false
     });
