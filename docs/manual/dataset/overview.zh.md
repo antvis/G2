@@ -58,7 +58,7 @@ DataSet 主要完成了以下功能：
 
 ### 通过 npm 安装
 
-<a href="https://www.npmjs.com/package/@antv/data-set" target="_self" rel="nofollow"><img style="width: auto;" src="https://img.shields.io/npm/v/@antv/data-set.svg?style=flat-square#width=#align=left&amp;display=inline&amp;height=20&amp;originHeight=20&amp;originWidth=88&amp;status=done&amp;style=none&amp;width=88"></a>
+[![](https://img.shields.io/npm/v/@antv/data-set.svg?style=flat-square#width=#align=left&display=inline&height=20&originHeight=20&originWidth=88&status=done&style=none&width=88)](https://www.npmjs.com/package/@antv/data-set)
 
 我们提供了 DataSet 的 npm 包，可以通过下面的命令进行安装。
 

@@ -7,7 +7,7 @@ order: 1
 
 ### 通过 npm 安装
 
-<a href="https://www.npmjs.com/package/@antv/g2" target="_self" rel="nofollow"><img style="width: auto;" src="https://img.shields.io/npm/v/@antv/g2.svg?style=flat-square#align=left&amp;display=inline&amp;height=20&amp;originHeight=20&amp;originWidth=80&amp;search=&amp;status=done&amp;width=80#align=left&amp;display=inline&amp;height=20&amp;originHeight=20&amp;originWidth=88&amp;status=done&amp;style=none&amp;width=88"></a>
+[![](https://img.shields.io/npm/v/@antv/g2.svg?style=flat-square#align=left&display=inline&height=20&originHeight=20&originWidth=80&search=&status=done&width=80#align=left&display=inline&height=20&originHeight=20&originWidth=88&status=done&style=none&width=88)](https://www.npmjs.com/package/@antv/g2)
 
 ```bash
 npm install @antv/g2 --save
@@ -107,9 +107,9 @@ const chart = new Chart({
 
 这样，你的第一个柱状图就绘制完成了!
 
-![image.png](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8qbLQb7A0loAAAAAAAAAAABkARQnAQ)
+<img src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8qbLQb7A0loAAAAAAAAAAABkARQnAQ" style="width: 600px;">
 
-你也可以进入 [G2 图表示例](https://g2.antv.vision/zh/examples/gallery)页面查看更多例子。
+你也可以进入 [G2 图表示例](../../examples/gallery)页面查看更多例子。
 
 ## 在 React / Vue / Angular 中使用 G2
 

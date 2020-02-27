@@ -24,7 +24,7 @@ npm install @antv/g2
 
 ## 🔨 快速上手
 
-![image.png](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8qbLQb7A0loAAAAAAAAAAABkARQnAQ)
+<img src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8qbLQb7A0loAAAAAAAAAAABkARQnAQ" style="width:600px;">
 
 在绘图前我们需要为 G2 准备一个 DOM 容器：
 
@@ -53,7 +53,7 @@ const chart = new Chart({
 // Step 2: 载入数据源
 chart.data(data);
 
-// Step 3：创建图形语法，绘制柱状图
+// Step 3: 创建图形语法，绘制柱状图
 chart.interval().position('genre*sold');
 
 // Step 4: 渲染图表

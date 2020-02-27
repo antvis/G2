@@ -145,4 +145,4 @@ chart
 chart.render();
 ```
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/98090/1581679673538-835517cc-1ef7-46fd-9586-a963b167dd47.png#align=left&display=inline&height=307&name=image.png&originHeight=614&originWidth=844&size=34873&status=done&style=none&width=422)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*QX5fTqBLmr4AAAAAAAAAAABkARQnAQ" style="width:400px;">
