@@ -1478,6 +1478,8 @@ export interface StyleSheet {
 
   /** tooltip 内容框背景色 */
   tooltipContainerFillColor?: string;
+  /** tooltip 内容框背景透明度 */
+  tooltipContainerFillOpacity?: number;
   /** tooltip 内容框阴影 */
   tooltipContainerShadow?: string;
   /** tooltip 内容框圆角 */
