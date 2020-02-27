@@ -47,6 +47,15 @@ export function getDelegationObject(context: IInteractionContext): LooseObject {
   return delegateObject;
 }
 
+export function isElementChange(context: IInteractionContext) {
+  const event = context.event.gEvent;
+  // 在同一个 element 内部移动，label 和 shape 之间
+  if (event && event.fromShape && event.toShape && event.fromShape.get('element') === event.toShape.get('element')) {
+    return false;
+  }
+  return true;
+}
+
 /**
  * 是否是列表组件
  * @param delegateObject 委托对象

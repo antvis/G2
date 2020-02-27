@@ -1,9 +1,12 @@
 import { each, isNil } from '@antv/util';
 import { ListItem } from '../../../dependents';
 import Element from '../../../geometry/element/';
-import { getCurrentElement, getDelegationObject, getElements, getElementValue, isList, getScaleByField} from '../util';
+import { getCurrentElement, isElementChange, getDelegationObject, getElements, getElementValue, isList, getScaleByField} from '../util';
 import StateBase from './state-base';
 
+function getItem(shape) {
+  return shape.get('delegateObject').item;
+}
 /**
  * 状态量 Action 的基类，允许多个 Element 同时拥有某个状态
  * @class
@@ -54,7 +57,9 @@ class ElementState extends StateBase {
   protected setStateEnable(enable: boolean) {
     const element = getCurrentElement(this.context);
     if (element) { // 触发源由于 element 导致
-      this.setStateByElement(element, enable);
+      if (isElementChange(this.context)) {
+        this.setStateByElement(element, enable);
+      }
     } else {
       // 触发源由组件导致
       const delegateObject = getDelegationObject(this.context);
@@ -62,6 +67,11 @@ class ElementState extends StateBase {
       if (isList(delegateObject)) {
         const { item, component } = delegateObject;
         if (item && component && !this.isItemIgnore(item, component)) {
+          const event = this.context.event.gEvent;
+          // 防止闪烁
+          if (event && event.fromShape && event.toShape && getItem(event.fromShape) === getItem(event.toShape)) {
+            return;
+          }
           this.setStateByComponent(component, item, enable);
         }
       }
