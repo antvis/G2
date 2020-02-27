@@ -173,7 +173,7 @@ export const antvDark = {
   sliderLabelTextFontWeight: 'normal',
 
   /** 连续图例滑块颜色 */
-  sliderHandlerFillColor: BLACK_COLORS[6],
+  sliderHandlerFillColor: WHITE_COLORS[6],
   /** 连续图例滑块宽度 */
   sliderHandlerWidth: 10,
   /** 连续图例滑块高度 */
@@ -181,7 +181,7 @@ export const antvDark = {
   /** 连续图例滑块边框粗细 */
   sliderHandlerBorder: 1,
   /** 连续图例滑块边框颜色 */
-  sliderHandlerBorderColor: BLACK_COLORS[25],
+  sliderHandlerBorderColor: WHITE_COLORS[25],
 
   // -------------------- Annotation，图形标注 --------------------
   /** arc 图形标注描边颜色 */
