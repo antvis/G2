@@ -525,6 +525,7 @@ export default class Tooltip extends Controller<TooltipOption> {
       const foregroundGroup = this.view.foregroundGroup;
       this.guideGroup = foregroundGroup.addGroup({
         name: 'tooltipGuide',
+        capture: false,
       });
     }
 
