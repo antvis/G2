@@ -28,7 +28,7 @@ G2 是一套基于图形语法理论的可视化底层引擎，以数据驱动�
 
 ## 📺 线上示例
 
-<a href="https://g2.antv.vision/zh/examples/gallery"><img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*CjYZQ7fS5qcAAAAAAAAAAABkARQnAQ" /></a>
+<a href="https://g2.antv.vision/zh/examples/gallery"><img src="https://user-images.githubusercontent.com/6628666/75466330-fe1d0c00-59c4-11ea-91ba-506f60ef8af4.png" /></a>
 
 ## ✨ 特性
 
@@ -47,7 +47,7 @@ $ npm install @antv/g2
 
 ## 🔨 快速上手
 
-![image.png](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8qbLQb7A0loAAAAAAAAAAABkARQnAQ)
+<img src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8qbLQb7A0loAAAAAAAAAAABkARQnAQ" style="width: 600px">
 
 在绘图前我们需要为 G2 准备一个 DOM 容器：
 
@@ -101,6 +101,11 @@ $ npm run ci
 # 运行网站
 $ npm start
 ```
+
+## 🏷️ 版本
+
+- v3.5.x: https://github.com/antvis/G2/tree/v3.5.x
+- v3.6.x: https://github.com/antvis/G2/tree/v3.6.x
 
 ## 🤝 如何贡献
 

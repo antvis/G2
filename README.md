@@ -28,7 +28,7 @@ G2 is a visualization grammar, a data-driven visual language with a high level o
 
 ## 📺 Live Demos
 
-<a href="https://g2.antv.vision/en/examples/gallery"><img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*CjYZQ7fS5qcAAAAAAAAAAABkARQnAQ" /></a>
+<a href="https://g2.antv.vision/en/examples/gallery"><img src="https://user-images.githubusercontent.com/6628666/75466330-fe1d0c00-59c4-11ea-91ba-506f60ef8af4.png" /></a>
 
 ## ✨ Features
 
@@ -47,7 +47,7 @@ $ npm install @antv/g2
 
 ## 🔨 Getting Started
 
-![image.png](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8qbLQb7A0loAAAAAAAAAAABkARQnAQ)
+<img src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8qbLQb7A0loAAAAAAAAAAABkARQnAQ" style="width: 600px">
 
 Before drawing we need to prepare a DOM container for G2:
 
@@ -101,6 +101,11 @@ $ npm run ci
 # Run website
 $ npm start
 ```
+
+## 🏷️ Releases
+
+- v3.5.x: https://github.com/antvis/G2/tree/v3.5.x
+- v3.6.x: https://github.com/antvis/G2/tree/v3.6.x
 
 ## 🤝 How to Contribute
 
