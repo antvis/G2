@@ -98,6 +98,18 @@ describe('test highlight action', () => {
       expect(first.hasState('active')).toBe(false);
       expect(second.hasState('inactive')).toBe(false);
     });
+
+    it('from equal to', () => {
+      context.event = {
+        target: first.shape,
+        gEvent: {
+          fromShape: first.shape,
+          toShape: first.shape,
+        }
+      };
+      action.highlight();
+      expect(first.hasState('active')).toBe(false);
+    });
     afterAll(() => {
       context.destroy();
     });
@@ -185,6 +197,15 @@ describe('test highlight action', () => {
       expect(first.hasState('active')).toBe(false);
       expect(second.hasState('active')).toBe(false);
       action.clear();
+      context.event = {
+        target: label,
+        gEvent: {
+          fromShape: label,
+          toShape: label
+        }
+      };
+      action.highlight();
+      expect(first.hasState('active')).toBe(false);
     });
 
     it('trigger by unchecked', () => {
@@ -337,7 +358,7 @@ describe('test hilightBy', () => {
     { year: '1999', value: 32, type: '2' },
   ];
   chart.data(data);
-
+  chart.interaction('legend-highlight');
   const interval = chart.interval().position('year*value').color('type').adjust('dodge');
   chart.render();
   const context = new Context(chart);

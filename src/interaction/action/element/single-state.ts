@@ -1,4 +1,4 @@
-import { getCurrentElement } from '../util';
+import { getCurrentElement, isElementChange } from '../util';
 import StateBase from './state-base';
 
 /**
@@ -10,6 +10,10 @@ class ElementSingleState extends StateBase {
   protected setStateEnable(enable: boolean) {
     const element = getCurrentElement(this.context);
     if (element) {
+      // 在同一个 element 内部移动，忽视 label 和 shape 之间
+      if (!isElementChange(this.context)) {
+        return;
+      }
       // 仅支持单个状态量的元素，只能由 element 触发
       if (enable) {
         this.clear();
