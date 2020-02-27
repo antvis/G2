@@ -32,12 +32,12 @@ G2 is a visualization grammar, a data-driven visual language with a high level o
 
 ## ✨ Features
 
-* 💯Stable grammar of graphics: enable to draw all kinds of charts by mapping data to graphics.
-* 🤩New grammar of interactions: interaction behaviors combined with Trigger and Action mechanisms are used to exploring data.
-* 🦍Advanced View module: with the ability to develop customized multi-dimension data analysis graphics.
-* 👬Dual-engine rendering: with the ability to switch Canvas and SVG freely.
-* 💄Visual components：interaction-oriented, elegant experience.
-* 🛡Fully embrace Typescript: Complete type definition files are provided.
+- 💯Stable grammar of graphics: enable to draw all kinds of charts by mapping data to graphics.
+- 🤩New grammar of interaction: interaction behaviors combined with Trigger and Action mechanisms are used to exploring data.
+- 🦍Advanced View module: with the ability to develop customized multi-dimension data analysis graphics.
+- 👬Dual-engine rendering: with the ability to switch Canvas and SVG freely.
+- 💄Visual components: interaction-oriented, elegant experience.
+- 🛡Fully embrace Typescript: Complete type definition files are provided.
 
 ## 📦 Installation
 
@@ -76,7 +76,7 @@ const chart = new Chart({
 // Step 2: Load the data.
 chart.data(data);
 
-// Step 3：Declare the grammar of graphics, draw column chart.
+// Step 3: Declare the grammar of graphics, draw column chart.
 chart.interval().position('genre*sold');
 
 // Step 4: Render chart.
