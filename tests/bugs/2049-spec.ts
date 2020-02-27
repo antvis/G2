@@ -67,10 +67,10 @@ describe('#2049', () => {
       .shape('box');
     chart.render();
 
-    expect(chart.geometries[0].elements[0].shape.getBBox().width).toBeCloseTo(33.29552450390903);
+    expect(chart.geometries[0].elements[0].shape.getBBox().width).toBeCloseTo(34.59104900781804);
 
     chart.changeData(dv.rows.slice(4));
-    expect(chart.geometries[0].elements[0].shape.getBBox().width).toBeCloseTo(162.9163240016402);
+    expect(chart.geometries[0].elements[0].shape.getBBox().width).toBeCloseTo(165.83264800328035);
   });
 
   afterEach(() => {

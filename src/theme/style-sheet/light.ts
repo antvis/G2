@@ -159,7 +159,7 @@ export const antvLight = {
   /** 连续图例滑块边框颜色 */
   sliderRailBorderColor: null,
   /** 连续图例滑块宽度 */
-  sliderRailWidth: 64,
+  sliderRailWidth: 100,
   /** 连续图例滑块高度 */
   sliderRailHeight: 12,
 
@@ -230,7 +230,8 @@ export const antvLight = {
   tooltipCrosshairsLineDash: null,
 
   /** tooltip 内容框背景色 */
-  tooltipContainerFillColor: 'rgba(255, 255, 255, 0.95)',
+  tooltipContainerFillColor: 'rgb(255, 255, 255)',
+  tooltipContainerFillOpacity: 0.95,
   /** tooltip 内容框阴影 */
   tooltipContainerShadow: '0px 0px 10px #aeaeae',
   /** tooltip 内容框圆角 */
@@ -312,7 +313,7 @@ export const antvLight = {
   /** 空心点图描边颜色 */
   hollowPointBorderColor: QUALITATIVE_10[0],
   /** 空心点图描边透明度 */
-  hollowPointBorderOpacity: 1,
+  hollowPointBorderOpacity: 0.95,
   hollowPointFillColor: WHITE_COLORS[100],
 
   /** 空心点图 active 状态下描边粗细 */
@@ -339,15 +340,11 @@ export const antvLight = {
   /** 线图透明度 */
   lineBorderOpacity: 1,
 
-  /** 线图 active 状态下粗细 */
+  /** 线图 Active 状态下粗细 */
   lineActiveBorder: 3,
 
   /** 线图 selected 状态下粗细 */
   lineSelectedBorder: 3,
-  /** 线图 selected 状态下颜色 */
-  lineSelectedBorderColor: BLACK_COLORS[100],
-  /** 线图 selected 状态下透明度 */
-  lineSelectedBorderOpacity: 1,
 
   /** 线图 inactive 状态下透明度 */
   lineInactiveBorderOpacity: 0.3,
@@ -355,38 +352,16 @@ export const antvLight = {
   /** area 填充颜色 */
   areaFillColor: QUALITATIVE_10[0],
   /** area 填充透明度 */
-  areaFillOpacity: 0.6,
+  areaFillOpacity: 0.25,
 
-  /** area Active 状态下边框粗细 */
-  areaActiveBorder: 2,
-  /** area Active 状态下边框颜色 */
-  areaActiveBorderColor: BLACK_COLORS[100],
-  /** area Active 状态下边框透明度 */
-  areaActiveBorderOpacity: 1,
-  /** area Active 状态下填充颜色 */
+  /** area 在 active 状态下的填充透明度 */
   areaActiveFillColor: QUALITATIVE_10[0],
-  /** area Active 状态下填充透明度 */
-  areaActiveFillOpacity: 0.6,
+  areaActiveFillOpacity: 0.5,
 
-  /** area selected 状态下边框粗细 */
-  areaSelectedBorder: 2,
-  /** area selected 状态下边框颜色 */
-  areaSelectedBorderColor: BLACK_COLORS[100],
-  /** area selected 状态下边框透明度 */
-  areaSelectedBorderOpacity: 1,
-  /** area selected 状态下填充颜色 */
+  /** area 在 selected 状态下的填充透明度 */
   areaSelectedFillColor: QUALITATIVE_10[0],
-  /** area selected 状态下填充透明度 */
-  areaSelectedFillOpacity: 0.6,
+  areaSelectedFillOpacity: 0.5,
 
-  /** area inactive 状态下边框粗细 */
-  areaInactiveBorder: 1,
-  /** area inactive 状态下边框颜色 */
-  areaInactiveBorderColor: QUALITATIVE_10[0],
-  /** area inactive 状态下边框透明度 */
-  areaInactiveBorderOpacity: 0.3,
-  /** area inactive 状态下填充颜色 */
-  areaInactiveFillColor: QUALITATIVE_10[0],
   /** area inactive 状态下填充透明度 */
   areaInactiveFillOpacity: 0.3,
 
@@ -394,6 +369,19 @@ export const antvLight = {
   hollowAreaBorderColor: QUALITATIVE_10[0],
   /** hollowArea 边框粗细 */
   hollowAreaBorder: 2,
+  /** hollowArea 边框透明度 */
+  hollowAreaBorderOpacity: 1,
+
+  /** hollowArea active 状态下的边框粗细 */
+  hollowAreaActiveBorder: 3,
+  hollowAreaActiveBorderColor: BLACK_COLORS[100],
+
+  /** hollowArea selected 状态下的边框粗细 */
+  hollowAreaSelectedBorder: 3,
+  hollowAreaSelectedBorderColor: BLACK_COLORS[100],
+
+  /** hollowArea inactive 状态下的边框透明度 */
+  hollowAreaInactiveBorderOpacity: 0.3,
 
   /** interval 填充颜色 */
   intervalFillColor: QUALITATIVE_10[0],
@@ -413,15 +401,13 @@ export const antvLight = {
   /** interval selected 状态下边框透明度 */
   intervalSelectedBorderOpacity: 1,
 
-  /** interval inactive 状态下填充颜色 */
-  intervalInactiveFillColor: QUALITATIVE_10[0],
   /** interval inactive 状态下边框透明度 */
   intervalInactiveBorderOpacity: 0.3,
   /** interval inactive 状态下填充透明度 */
   intervalInactiveFillOpacity: 0.3,
 
   /** interval 边框粗细 */
-  hollowIntervalBorder: 1,
+  hollowIntervalBorder: 2,
   /** hollowInterval 边框颜色 */
   hollowIntervalBorderColor: QUALITATIVE_10[0],
   /** hollowInterval 边框透明度 */
@@ -429,22 +415,17 @@ export const antvLight = {
   hollowIntervalFillColor: WHITE_COLORS[100],
 
   /** hollowInterval active 状态下边框粗细 */
-  hollowIntervalActiveBorder: 1,
+  hollowIntervalActiveBorder: 2,
   /** hollowInterval active 状态下边框颜色 */
   hollowIntervalActiveBorderColor: BLACK_COLORS[100],
-  /** hollowInterval active 状态下边框透明度 */
-  hollowIntervalActiveBorderOpacity: 1,
 
   /** hollowInterval selected 状态下边框粗细 */
-  hollowIntervalSelectedBorder: 2,
+  hollowIntervalSelectedBorder: 3,
   /** hollowInterval selected 状态下边框颜色 */
   hollowIntervalSelectedBorderColor: BLACK_COLORS[100],
   /** hollowInterval selected 状态下边框透明度 */
   hollowIntervalSelectedBorderOpacity: 1,
 
-  hollowIntervalInactiveBorder: 1,
-  /** hollowInterval inactive 状态下边框颜色 */
-  hollowIntervalInactiveBorderColor: QUALITATIVE_10[0],
   /** hollowInterval inactive 状态下边框透明度 */
   hollowIntervalInactiveBorderOpacity: 0.3,
 }

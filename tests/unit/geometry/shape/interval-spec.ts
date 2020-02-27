@@ -182,7 +182,7 @@ describe('Interval shapes', () => {
 
       expect(shape.attr('stroke')).toBe('yellow');
       expect(shape.attr('path').length).toBe(6);
-      expect(shape.getBBox().width).toBe(101);
+      expect(shape.getBBox().width).toBe(102);
     });
     it('getMarker', () => {
       const markerCfg = IntervalShapeFactory.getMarker('hollow-rect', { color: 'red', isInPolar: false });

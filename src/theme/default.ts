@@ -5,7 +5,7 @@ import Element from '../geometry/element';
 import { StyleSheet } from '../interface';
 import { getAngle } from '../util/graphics';
 
-export function getDefaultTheme(styleSheet: StyleSheet) {
+export function getThemeByStylesheet(styleSheet: StyleSheet) {
   const shapeStyles = {
     point: {
       default: {
@@ -56,13 +56,10 @@ export function getDefaultTheme(styleSheet: StyleSheet) {
         stroke: null,
       },
       active: {
-        // fillOpacity: styleSheet.areaActiveFillOpacity,
-        // stroke: null,
+        fillOpacity: styleSheet.areaActiveFillOpacity,
       },
       selected: {
-        // fill: styleSheet.areaSelectedFillColor,
-        // fillOpacity: styleSheet.areaSelectedFillOpacity,
-        // stroke: null,
+        fillOpacity: styleSheet.areaSelectedFillOpacity,
       },
       inactive: {
         fillOpacity: styleSheet.areaInactiveFillOpacity,
@@ -77,15 +74,11 @@ export function getDefaultTheme(styleSheet: StyleSheet) {
       },
       active: {
         fill: null,
-        stroke: styleSheet.hollowAreaActiveBorderColor,
         lineWidth: styleSheet.hollowAreaActiveBorder,
-        strokeOpacity: styleSheet.hollowAreaActiveBorderOpacity,
       },
       selected: {
         fill: null,
-        stroke: styleSheet.hollowAreaSelectedBorderColor,
         lineWidth: styleSheet.hollowAreaSelectedBorder,
-        strokeOpacity: styleSheet.hollowAreaSelectedBorderOpacity,
       },
       inactive: {
         strokeOpacity: styleSheet.hollowAreaInactiveBorderOpacity,
@@ -141,18 +134,12 @@ export function getDefaultTheme(styleSheet: StyleSheet) {
         lineAppendWidth: 10,
       },
       active: {
-        stroke: styleSheet.lineActiveBorderColor,
         lineWidth: styleSheet.lineActiveBorder,
-        strokeOpacity: styleSheet.lineActiveBorderOpacity,
       },
       selected: {
-        stroke: styleSheet.lineSelectedBorderColor,
         lineWidth: styleSheet.lineSelectedBorder,
-        strokeOpacity: styleSheet.lineSelectedBorderOpacity,
       },
       inactive: {
-        stroke: styleSheet.lineInactiveBorderColor,
-        lineWidth: styleSheet.lineInactiveBorder,
         strokeOpacity: styleSheet.lineInactiveBorderOpacity,
       },
     },
@@ -1093,16 +1080,18 @@ export function getDefaultTheme(styleSheet: StyleSheet) {
               'left 0.4s cubic-bezier(0.23, 1, 0.32, 1), ' +
               'top 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
             backgroundColor: styleSheet.tooltipContainerFillColor,
+            opacity: styleSheet.tooltipContainerFillOpacity,
             boxShadow: styleSheet.tooltipContainerShadow,
             borderRadius: `${styleSheet.tooltipContainerBorderRadius}px`,
             color: styleSheet.tooltipTextFillColor,
             fontSize: `${styleSheet.tooltipTextFontSize}px`,
             fontFamily: styleSheet.fontFamily,
             lineHeight: `${styleSheet.tooltipTextLineHeight}px`,
-            padding: '10px 10px 6px 10px',
+            padding: '0 12px 0 12px',
           },
           [`${TOOLTIP_CSS_CONST.TITLE_CLASS}`]: {
-            marginBottom: '4px',
+            marginBottom: '12px',
+            marginTop: '12px',
           },
           [`${TOOLTIP_CSS_CONST.LIST_CLASS}`]: {
             margin: 0,
@@ -1112,10 +1101,10 @@ export function getDefaultTheme(styleSheet: StyleSheet) {
           [`${TOOLTIP_CSS_CONST.LIST_ITEM_CLASS}`]: {
             listStyleType: 'none',
             padding: 0,
-            marginBottom: '4px',
+            marginBottom: '12px',
+            marginTop: '12px',
             marginLeft: 0,
             marginRight: 0,
-            marginTop: 0,
           },
           [`${TOOLTIP_CSS_CONST.MARKER_CLASS}`]: {
             width: '8px',

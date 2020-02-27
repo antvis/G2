@@ -1,5 +1,5 @@
 import { Chart } from '../../../src/';
-import { removeDom, createDiv } from '../../util/dom';
+import { createDiv, removeDom } from '../../util/dom';
 
 describe('Geometry theme', () => {
   const container = createDiv();
