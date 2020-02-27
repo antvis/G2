@@ -27,7 +27,7 @@ describe('test active action', () => {
   ]);
   chart.animate(false);
   chart.tooltip(false);
-  chart.interval().position('year*value');
+  const interval = chart.interval().position('year*value');
   chart.render();
 
   describe('test common active', () => {
@@ -120,6 +120,25 @@ describe('test active action', () => {
       action.clear();
       expect(second.hasState('active')).toBe(false);
     });
+
+    it('label active', () => {
+      interval.label('value');
+      chart.render(true);
+      const labels = chart.foregroundGroup.findAll((el) => {
+        return el.get('name') === 'label';
+      });
+      const label = labels[0].get('children')[0];
+      context.event = {
+        target: label,
+      };
+      action.active();
+      expect(first.hasState('active')).toBe(true);
+      action.reset();
+      expect(first.hasState('active')).toBe(false);
+
+      interval.label(false);
+      chart.render(true);
+    })
     afterAll(() => {
       action.destroy();
       context.destroy();

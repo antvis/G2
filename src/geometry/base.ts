@@ -1809,7 +1809,16 @@ export default class Geometry extends Base {
 
     const labelsMap = this.labelsRenderer.shapesMap;
     each(this.elementsMap, (element: Element, id) => {
-      element.labelShape = filterLabelsById(id, labelsMap); // element 实例同 label 进行绑定
+      const labels = filterLabelsById(id, labelsMap); // element 实例同 label 进行绑定
+      element.labelShape = labels;
+      if (labels.length) {
+        each(labels, label => {
+          const children = label.getChildren();
+          each(children, child => {
+            child.set('element', element);
+          });
+        });
+      }
     });
   }
   /**
