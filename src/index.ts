@@ -2,6 +2,12 @@ import { GeometryCfg } from './geometry/base';
 import { PathCfg } from './geometry/path';
 import { IInteractionContext } from './interface';
 
+// 注册主题
+import { registerStyleSheet, registerTheme } from './core';
+import { antvDark } from './theme/style-sheet/dark';
+registerStyleSheet('dark', antvDark);
+registerTheme('dark', 'dark');
+
 // 注册 G 渲染引擎
 import * as CanvasEngine from '@antv/g-canvas';
 import * as SVGEngine from '@antv/g-svg';
