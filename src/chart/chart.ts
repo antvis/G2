@@ -43,6 +43,7 @@ export default class Chart extends View {
       defaultInteractions = ['tooltip', 'legend-filter', 'legend-active','continuous-filter'],
       options,
       limitInPlot,
+      theme,
     } = props;
 
     const ele: HTMLElement = isString(container) ? document.getElementById(container) : container;
@@ -74,6 +75,7 @@ export default class Chart extends View {
       visible,
       options,
       limitInPlot,
+      theme,
     });
 
     this.ele = ele;

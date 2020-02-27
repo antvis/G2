@@ -105,7 +105,7 @@ export class View extends Base {
    */
   protected region: Region;
   /** 主题配置，存储当前主题配置。 */
-  protected themeObject: object;
+  protected themeObject: LooseObject;
 
   // 配置信息存储
   protected options: Options = {
@@ -652,7 +652,7 @@ export class View extends Base {
    * @param theme 主题名或者主题配置
    * @returns View
    */
-  public theme(theme: string | object): View {
+  public theme(theme: string | LooseObject): View {
     this.themeObject = mergeTheme(this.themeObject, theme);
 
     return this;
@@ -810,7 +810,7 @@ export class View extends Base {
    * 获取当前 view 的主题配置。
    * @returns themeObject
    */
-  public getTheme(): object {
+  public getTheme(): LooseObject {
     return this.themeObject;
   }
 
