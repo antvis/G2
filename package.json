@@ -10,9 +10,7 @@
   "files": [
     "lib",
     "esm",
-    "dist",
-    "README.md",
-    "LICENSE"
+    "dist"
   ],
   "scripts": {
     "start": "npm run site:develop",
