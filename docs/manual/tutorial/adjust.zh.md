@@ -87,9 +87,7 @@ a 映射的 x 轴方向，b 映射到 y 轴方向，发生层叠处理后：
 | 几何标记 |                                                 描述                                                 |              配置               |
 | :------: | :--------------------------------------------------------------------------------------------------: | :-----------------------------: |
 |  point   | 层叠的点图![](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*6md_T59nZRsAAAAAAAAAAABkARQnAQ) | `chart.point().adjust('stack')` |
-| interval |                                         层叠的柱状图、玫瑰图                                         |
-
-![](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*cQm8QJhL8D8AAAAAAAAAAABkARQnAQ) | `chart.interval().adjust('stack')` |
+| interval |  层叠的柱状图、玫瑰图 ![](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*cQm8QJhL8D8AAAAAAAAAAABkARQnAQ) | `chart.interval().adjust('stack')` |
 
 ### jitter
 
@@ -189,9 +187,7 @@ const data = [
 | 几何标记 |                                                描述                                                |              配置               |
 | :------: | :------------------------------------------------------------------------------------------------: | :-----------------------------: |
 |  point   | 一维点图![](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*rQ_uTaCvtSgAAAAAAAAAAABkARQnAQ) | `chart.point().adjust('dodge')` |
-| interval |                                   二维的柱状图、玫瑰图(interval)                                   |
-
-![](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*EkXSQ6WpPnkAAAAAAAAAAABkARQnAQ) | `chart.interval().adjust('dodge')` |
+| interval | 二维的柱状图、玫瑰图(interval) ![](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*EkXSQ6WpPnkAAAAAAAAAAABkARQnAQ) | `chart.interval().adjust('dodge')` |
 
 ### symmetric
 
@@ -232,9 +228,7 @@ offset = (max - min - value)/2;
 | 几何标记 |                                               描述                                               |                  配置                  |
 | :------: | :----------------------------------------------------------------------------------------------: | :------------------------------------: |
 | interval | 漏斗图![](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*DXsdRLiaPhcAAAAAAAAAAABkARQnAQ) | `chart.interval().adjust('symmetric')` |
-|   area   |                                    数据流图：对称的层叠区域图                                    |
-
-![](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*igxpSIu_xngAAAAAAAAAAABkARQnAQ) | `chart.area().adjust('symmetric')` |
+|   area   | 数据流图：对称的层叠区域图 ![](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*igxpSIu_xngAAAAAAAAAAABkARQnAQ) | `chart.area().adjust('symmetric')` |
 
 ## 组合使用
 

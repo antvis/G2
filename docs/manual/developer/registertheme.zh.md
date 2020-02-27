@@ -65,8 +65,8 @@ registerTheme('dark', 'dark');
 chart.theme('dark');
 ```
 
-[todo, 来张 dark 和 light 的主题对比截图]
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*-xWWTaMWrGEAAAAAAAAAAABkARQnAQ" style="width:100%;">
 
 ### 主题样式表结构
 
-我们整理了完整的主题样式表结构，详见 [API 类型定义](todo)。
+我们整理了完整的主题样式表结构，详见 [API 类型定义](../../api/interfaces/stylesheet)。
