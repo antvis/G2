@@ -19,20 +19,7 @@ chart.scale('value', {
   nice: true,
 });
 chart.axis('time', {
-  label: {
-    style: {
-      fill: '#aaaaaa'
-    }
-  },
   tickLine: null
-});
-
-chart.axis('value', {
-  label: {
-    style: {
-      fill: '#aaaaaa'
-    }
-  }
 });
 
 chart.tooltip({

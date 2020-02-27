@@ -25,11 +25,6 @@ chart.scale('value', {
   alias: '体能分',
 });
 chart.axis('name', {
-  label: {
-    style: {
-      fill: '#aaaaaa',
-    },
-  },
   tickLine: null,
 });
 chart.axis('value', {

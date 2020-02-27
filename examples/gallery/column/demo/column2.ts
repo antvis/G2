@@ -14,7 +14,7 @@ const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 500,
-  padding: [20, 20, 50, 20],
+  padding: [50, 20, 50, 20],
 });
 chart.data(data);
 chart.scale('value', {
@@ -22,11 +22,6 @@ chart.scale('value', {
 });
 
 chart.axis('type', {
-  label: {
-    style: {
-      fill: '#aaaaaa',
-    },
-  },
   tickLine: {
     alignTick: false,
   },
@@ -36,9 +31,8 @@ chart.axis('value', false);
 chart.tooltip({
   showMarkers: false,
 });
-chart.interaction('element-active');
-
 chart.interval().position('type*value');
+chart.interaction('element-active');
 
 // 添加文本标注
 data.forEach((item) => {
@@ -48,7 +42,6 @@ data.forEach((item) => {
       position: [item.type, item.value],
       content: item.value,
       style: {
-        fill: '#595959',
         textAlign: 'center',
       },
       offsetY: -30,
@@ -57,7 +50,6 @@ data.forEach((item) => {
       position: [item.type, item.value],
       content: (item.percent * 100).toFixed(0) + '%',
       style: {
-        fill: '#8c8c8c',
         textAlign: 'center',
       },
       offsetY: -12,

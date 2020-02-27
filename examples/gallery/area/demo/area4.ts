@@ -16,21 +16,6 @@ fetch('../data/gas-import-export.json')
       }
     });
 
-    chart.axis('year', {
-      label: {
-        style: {
-          fill: '#aaaaaa'
-        }
-      }
-    });
-
-    chart.axis('value', {
-      label: {
-        style: {
-          fill: '#aaaaaa'
-        }
-      }
-    });
     chart.tooltip({
       showCrosshairs: true,
       shared: true

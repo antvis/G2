@@ -1,4 +1,3 @@
-// FIXME: chart.scale() sync 属性没有生效
 import { Chart } from '@antv/g2';
 
 // 极坐标下的柱状图
@@ -30,7 +29,6 @@ const chart = new Chart({
   autoFit: true,
   height: 500,
   padding: 0,
-  localRefresh: false, // FIXME：等待 G 的 bug 修复后删除
 });
 chart.scale({
   type: {

@@ -36,7 +36,8 @@ fetch('../data/tempChange.json')
       text: {
         content: '时间进入1977年后，全球气\n温开始呈现整体升高趋势。',
         style: {
-          textAlign: 'right', fontSize: 13,
+          textAlign: 'right',
+          fontSize: 13,
         },
       },
       line: {

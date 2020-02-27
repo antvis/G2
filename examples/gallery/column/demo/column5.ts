@@ -21,19 +21,11 @@ chart.scale('value', {
   nice: true,
 });
 chart.axis('type', {
-  label: {
-    style: {
-      fill: '#aaaaaa',
-    },
-  },
   tickLine: null,
 });
 
 chart.axis('value', {
   label: {
-    style: {
-      fill: '#aaaaaa',
-    },
     formatter: (val) => {
       return +val * 100 + '%';
     },
@@ -65,4 +57,4 @@ chart
     offset: 10,
   });
 
-  chart.render();
+chart.render();

@@ -7,7 +7,6 @@ fetch('../data/fireworks-sales.json')
       container: 'container',
       autoFit: true,
       height: 500,
-      //padding: [20, 40, 50, 50]
     });
     chart.data(data);
     chart.scale('Data', {
@@ -18,18 +17,8 @@ fetch('../data/fireworks-sales.json')
     chart.scale('sales', {
       nice: true,
     });
-    chart.axis('Data', {
-      label: {
-        style: {
-          fill: '#aaaaaa'
-        }
-      }
-    });
     chart.axis('sales', {
       label: {
-        style: {
-          fill: '#aaaaaa'
-        },
         formatter: text => {
           return text.replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
         }

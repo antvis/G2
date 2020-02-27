@@ -44,21 +44,6 @@ fetch('../data/area.json')
       tickCount: 10,
     });
 
-    chart.axis('Year', {
-      label: {
-        style: {
-          fill: '#aaaaaa'
-        }
-      }
-    });
-    chart.axis('percent', {
-      label: {
-        style: {
-          fill: '#aaaaaa'
-        }
-      }
-    });
-
     chart.legend({
       position: 'top'
     });

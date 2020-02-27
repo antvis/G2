@@ -14,6 +14,9 @@ const chart = new Chart({
 });
 
 chart.data(data);
+chart.tooltip({
+  showMarkers: false
+});
 
 chart
   .interval()

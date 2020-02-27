@@ -1,4 +1,3 @@
-// TODO: 图形与图例之间的交互联动
 import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 

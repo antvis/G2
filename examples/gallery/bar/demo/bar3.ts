@@ -38,20 +38,12 @@ chart.scale('value', {
   alias: '占比（%）',
 });
 chart.axis('city', {
-  title: null,
-  label: {
-    style: {
-      fill: '#595959',
-      fontSize: 12,
-    },
-  },
   tickLine: null,
   line: null,
 });
 chart.axis('value', {
   label: null,
   title: {
-    offset: 30,
     style: {
       fontSize: 14,
       fontWeight: 300,

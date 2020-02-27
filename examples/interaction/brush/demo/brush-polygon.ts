@@ -76,6 +76,9 @@ chart.scale('day', {
   type: 'cat',
   values: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
 });
+chart.scale('sales', {
+  nice: true,
+});
 
 chart.axis('name', {
   tickLine: null,

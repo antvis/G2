@@ -1,4 +1,3 @@
-// FIXME: label && BUG
 import { Chart } from '@antv/g2';
 
 const data = [

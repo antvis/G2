@@ -19,13 +19,6 @@ fetch('../data/salesTrend.json')
     });
     chart.legend(false);
     chart.axis('buyin', false);
-    chart.axis('date', {
-      label: {
-        style: {
-          fill: '#aaaaaa',
-        },
-      },
-    });
     chart
       .line()
       .position('date*buyin');
@@ -43,8 +36,6 @@ fetch('../data/salesTrend.json')
           return {
             content: buyin + '万',
             style: {
-              fill: '#7a7a7a',
-              fontSize: 12,
               fontWeight: 300,
             },
           };

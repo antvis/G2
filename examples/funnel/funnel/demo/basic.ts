@@ -32,8 +32,8 @@ chart.tooltip({
     '<li style="margin-bottom:4px;list-style-type:none;padding: 0;">' +
     '<span style="background-color:{color};" class="g2-tooltip-marker"></span>' +
     '{name}<br/>' +
-    '<span style="padding-left: 16px">浏览人数：{pv}</span><br/>' +
-    '<span style="padding-left: 16px">占比：{percent}</span><br/>' +
+    '<span style="padding-left: 16px;line-height: 16px;">浏览人数：{pv}</span><br/>' +
+    '<span style="padding-left: 16px;line-height: 16px;">占比：{percent}</span><br/>' +
     '</li>',
 });
 chart

@@ -1,5 +1,8 @@
 import { Chart } from '@antv/g2';
 
+// 我们用 insert-css 演示引入自定义样式
+// 推荐将样式添加到自己的样式文件中
+// 若拷贝官方代码，别忘了 npm install insert-css
 insertCss(`
   .g2-label-spec {
     font-size: 12px;
@@ -34,11 +37,6 @@ chart.scale('value', {
   nice: true,
 });
 chart.axis('year', {
-  label: {
-    style: {
-      fill: '#aaaaaa',
-    },
-  },
   tickLine: null,
 });
 
@@ -71,9 +69,6 @@ chart
           return null;
         }
         return value;
-      },
-      style: {
-        fill: '#595959',
       },
     };
   });

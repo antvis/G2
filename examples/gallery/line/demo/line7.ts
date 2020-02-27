@@ -37,34 +37,21 @@ fetch('../data/nintendo.json')
     });
     chart.axis('Date', {
       label: {
-        style: {
-          fill: '#aaaaaa'
-        },
         formatter: text => {
           const dataStrings = text.split('.');
           return dataStrings[2] + '-' + dataStrings[1] + '-' + dataStrings[0];
         }
       }
     });
-    chart.axis('Close', {
-      label: {
-        style: {
-          fill: '#aaaaaa'
-        }
-      }
-    });
 
     chart.line().position('Date*Close');
-    // guide
+    // annotation
     const { min, max } = findMaxMin(data);
     chart.annotation().dataMarker({
       top: true,
       position: [max.Date, max.Close],
       text: {
         content: '全部峰值：' + max.Close,
-        style: {
-          fontSize: 12
-        },
       },
       line: {
         length: 30,
@@ -75,9 +62,6 @@ fetch('../data/nintendo.json')
       position: [min.Date, min.Close],
       text: {
         content: '全部谷值：' + min.Close,
-        style: {
-          fontSize: 12
-        },
       },
       line: {
         length: 50,

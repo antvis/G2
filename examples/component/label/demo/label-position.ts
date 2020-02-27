@@ -70,6 +70,6 @@ chart
       stroke: null
     },
   })
-  .color('country', ['#FF6A84', '#30A4EB', '#45BFC0', '#FFCC55']);
+  .color('country');
 chart.interaction('element-highlight-by-color');
 chart.render();

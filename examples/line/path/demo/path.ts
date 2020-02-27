@@ -40,6 +40,11 @@ chart
   .label('year', (val) => {
     return {
       content: `${val} 年`,
+      animate: {
+        appear: {
+          delay: 1000
+        }
+      }
     };
   });
 chart

@@ -41,19 +41,11 @@ chart.scale('value', {
   alias: '金额(元)'
 });
 chart.axis('time', {
-  label: {
-    style: {
-      fill: '#aaaaaa'
-    }
-  },
   tickLine: null,
 });
 
 chart.axis('value', {
   label: {
-    style: {
-      fill: '#aaaaaa'
-    },
     formatter: text => {
       return text.replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
     }

@@ -10,7 +10,7 @@ fetch('../data/terrorism.json')
       container: 'container',
       autoFit: true,
       height: 500,
-      padding: [ 20, 40 ],
+      padding: [20, 40],
     });
 
     chart.scale({
@@ -44,29 +44,13 @@ fetch('../data/terrorism.json')
       subTickLine: {
         count: 3,
         length: 3,
-        style: {
-          stroke: '#bfbfbf',
-          lineWidth: 1
-        },
       },
       tickLine: {
         length: 6,
-        style: {
-          lineWidth: 1,
-          stroke: '#bfbfbf'
-        },
       },
-      label: {
-        style: {
-          fill: '#aaaaaa'
-        }
-      }
     });
     view1.axis('Deaths', {
       label: {
-        textStyle: {
-          fill: '#aaaaaa'
-        },
         formatter: text => {
           return text.replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
         }
