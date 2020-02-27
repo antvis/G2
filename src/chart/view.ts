@@ -1749,7 +1749,9 @@ export function registerGeometry(name: string, Ctor: any) {
       container: this.middleGroup.addGroup({
         name: 'element',
       }),
-      labelsContainer: this.foregroundGroup.addGroup(),
+      labelsContainer: this.foregroundGroup.addGroup({
+        name: 'element',
+      }),
       ...cfg,
     };
 
