@@ -3,9 +3,9 @@ title: 配置图表主题
 order: 10
 ---
 
-G2 在绘图时，首先确定数据是如何展示的，然后再通过主题系统对细节进行控制。在 G2 中主题控制着图表的非数据元素外观，它不能改变图表的感官性质，但是可以使图表变得更具美感，满足整体一致性的要求，包括图表的坐标轴、图例、网格线等的样式及几何标记的颜色搭配等。
+G2 在绘图时，首先确定数据是如何展示的，然后再通过主题系统对细节进行控制。在 G2 中主题控制着图表的非数据元素外观，它不能改变图表的感官性质，**但是可以使图表变得更具美感**，满足整体一致性的要求，包括图表的坐标轴、图例、网格线等的样式及几何标记的颜色搭配等。
 
-G2 提供了以下几种方法对主题进行配置：
+我们可以在 G2 中：
 
 1. 使用内置主题
 1. 修改内置主题的某些元素
@@ -13,14 +13,14 @@ G2 提供了以下几种方法对主题进行配置：
 
 ## 使用内置主题
 
-G2 4.0 默认提供了一种内置主题，命名为 `antv`，如果内置了多个主题的话，可以使用以下方法对主题进行切换或者修改内置主题。
+G2 4.0 默认提供了一种内置主题，命名为 'default'，如果内置了多个主题的话，可以使用以下方法对主题进行切换或者修改内置主题。
 
 1. 在初始化 chart 时指定
 
 ```typescript
 const chart1 = new Chart({
   container: 'container',
-  theme: 'antv', // 切换全套主题
+  theme: 'antv', // 使用命名为 'antv' 的主题
 });
 
 const chart2 = new Chart({
@@ -44,16 +44,18 @@ chart2.theme({
 3. 在 view 上配置主题
 
 ```typescript
+// 在创建 view 的时候声明主题
 const view1 = chart.createView({
   theme: 'antv',
 });
-
+// 在创建 view 的时候修改主题
 const view2 = chart.createView({
   theme: {
     defaultColor: 'red',
   },
 });
 
+// 通过 theme() 接口声明
 view1.theme('antv');
 
 view2.theme({
@@ -77,12 +79,17 @@ chart
 
 ## 注册自定义主题
 
-1. 注册主题
+G2 提供了两种注册主题方式：
+
+1. 基于已有主题的主题结构，应用不同的主题样式表
+2. 自定义主题结构
+
+🌰 一个简单的例子：
 
 ```typescript
 import { registerTheme } from '@antv/g2';
 
-registerTheme('themeName', {}); // 注册名为 'themeName' 的主题
+registerTheme('themeName', {}); // 注册名为 'themeName' 的全新的主题结构
 ```
 
 2. 使用注册主题
