@@ -628,7 +628,7 @@ export interface ViewOption {
    */
   readonly padding?: Padding;
   /** 设置主题。 */
-  readonly theme?: object | string;
+  readonly theme?: LooseObject | string;
   /** 是否可见。 */
   readonly visible?: boolean;
   /**
@@ -682,6 +682,8 @@ export interface ChartCfg {
   readonly defaultInteractions?: string[];
   /** 是否对超出坐标系范围的 Geometry 进行剪切 */
   readonly limitInPlot?: boolean;
+  /** 主题 */
+  readonly theme?: LooseObject | string;
 }
 
 /** View 构造参数 */
@@ -711,7 +713,7 @@ export interface ViewCfg {
    */
   readonly padding?: ViewPadding;
   /** 设置 view 实例主题。 */
-  readonly theme?: object | string;
+  readonly theme?: LooseObject | string;
   /**
    * 图表组件、图形映射等相关的配置。
    */
