@@ -7,8 +7,6 @@ order: 6
 
 目前全量 G2 3.x 加载之后，大概的包大小在 800kb+，按需加载仅加载一个 Line 图，大概在 450kb 左右。
 
-![image.png](https://cdn.nlark.com/yuque/0/2019/png/86342/1574761428184-88d78bfb-b9c3-4269-b582-cba9c1f5e8b7.png#align=left&display=inline&height=371&name=image.png&originHeight=1164&originWidth=1940&size=431604&status=done&style=none&width=619)
-
 这对一些对包大小敏感的用户来说非常不友好。因此 G2 4.0 将整个体系模块化，通过提供更灵活的按需机制让用户可以更加细粒度得进行按需引用。
 
 ## 可按需引用的模块
@@ -87,3 +85,5 @@ chart.data(data);
 chart.line().positon('x*y');
 chart.render();
 ```
+
+具体可以参考 G2：[src/index.ts](https://github.com/antvis/G2/blob/master/src/index.ts)。
