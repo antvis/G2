@@ -54,13 +54,13 @@ export default class CanvasLegend extends CategoryBase {
     each(items, (item: LegendItem) => {
       this._addItem(item);
     });
-    if (this.get('autoWrap')) {
-      this._adjustItems();
-    } // 默认自动换行
     const { maxItemWidth, maxItemHeight } = this._getMaxItemSize();
     this.set('maxItemWidth', maxItemWidth);
     this.set('maxItemHeight', maxItemHeight);
     const needPageFlip = this.isNeedFlip();
+    if (this.get('autoWrap')) {
+      this._adjustItems();
+    } // 默认自动换行
     if (needPageFlip) {
       this.flipPage();
     }
