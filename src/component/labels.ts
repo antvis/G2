@@ -149,12 +149,14 @@ export default class Labels {
   }
 
   private renderLabel(cfg: LabelItem, container: IGroup) {
-    const { id, data, mappingData, coordinate, animate, content } = cfg;
+    const { id, data, mappingData, coordinate, animate, content, offset } = cfg;
     const shapeAppendCfg = {
       id,
       data,
       origin: mappingData,
       coordinate,
+      /** 把 labelItem 传递下去 */
+      labelItem: cfg,
     };
     const labelGroup = container.addGroup({
       name: 'label',
