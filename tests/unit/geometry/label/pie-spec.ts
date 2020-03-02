@@ -180,20 +180,25 @@ describe('pie labels', () => {
     it('points', () => {
       const items = gLabels.getLabelItems(points);
       expect(items.length).toBe(points.length);
-      expect(items[0].x).toBe(230);
+      const center = { x: 250, y: 100 };
+      const radius = 50 + 10/** offset */;
+      const angle = Math.PI * 2 / 6;
+      const startAngle = angle / 2;
+      expect(items[0].r).toBe(radius);
+      expect(items[0].x).toBe(center.x + Math.sin(startAngle) * radius + 10/** offsetX */);
+      expect(items[0].y).toBe(center.y - Math.cos(startAngle) * radius - 10/** offsetY */);
       expect(items[0].labelLine).toBe(false);
-      expect(isNumberEqual(items[0].y, 48.03847577293368 - 10)).toBeTruthy();
 
-      expect(items[1].x).toBe(200);
+      expect(items[1].x).toBe(center.x + Math.sin(startAngle + angle) * radius + 10);
+      expect(items[1].y).toBe(center.y - Math.cos(startAngle + angle) * radius - 10/** offsetY */);
       expect(items[1].labelLine).toBe(false);
-      expect(isNumberEqual(items[1].y, 100 - 10)).toBeTruthy();
 
-      expect(items[2].x).toBe(230.00000000000006);
+      expect(items[2].x).toBeCloseTo(center.x + Math.sin(startAngle + angle * 2) * radius + 10);
+      expect(items[2].y).toBe(center.y - Math.cos(startAngle + angle * 2) * radius - 10/** offsetY */);
       expect(items[2].labelLine).toBe(false);
-      expect(isNumberEqual(items[2].y, 151.96152422706632 - 10)).toBeTruthy();
 
-      expect(items[5].x).toBe(290);
-      expect(isNumberEqual(items[5].y, 151.96152422706632 - 10)).toBeTruthy();
+      expect(items[5].x).toBeCloseTo(center.x + Math.sin(startAngle + angle * 5) * radius + 10);
+      expect(items[5].y).toBeCloseTo(center.y - Math.cos(startAngle + angle * 5) * radius - 10/** offsetY */);
     });
   });
 });
