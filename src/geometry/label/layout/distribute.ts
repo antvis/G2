@@ -163,7 +163,7 @@ export function distribute(labels: IGroup[], shapes: IShape[] | IGroup[], region
         halves[1].push(label);
       }
     });
-
+    
     halves.forEach((half, index) => {
       // step 2: reduce labels
       const maxLabelsCountForOneSide = Math.floor(totalHeight / lineHeight);

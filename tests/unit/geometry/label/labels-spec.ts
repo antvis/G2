@@ -259,8 +259,8 @@ describe('LabelsRenderer', () => {
 
     const labelsContainer = interval.labelsContainer;
     expect(labelsContainer.getCount()).toBe(2);
-    const femaleLabel = labelsContainer.getChildren()[0];
-    const maleLabel = labelsContainer.getChildren()[1];
+    const femaleLabel = labelsContainer.getChildren()[1];
+    const maleLabel = labelsContainer.getChildren()[0];
     // @ts-ignore
     expect(femaleLabel.getFirst().get('type')).toBe('text');
     // @ts-ignore
