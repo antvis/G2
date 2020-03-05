@@ -1,6 +1,7 @@
 import { each } from '@antv/util';
 import { BBox, IGroup, IShape } from '../../../dependents';
 import { translate } from '../../../util/transform';
+import { LabelItem } from '../interface';
 
 /**
  * @ignore
@@ -8,7 +9,7 @@ import { translate } from '../../../util/transform';
  * @param labels
  * @param cfg
  */
-export function limitInCanvas(labels: IGroup[], shapes: IShape[] | IGroup[], region: BBox) {
+export function limitInCanvas(labels: IGroup[], shapes: IShape[] | IGroup[], items: LabelItem[], region: BBox) {
   each(labels, (label: IGroup) => {
     const { minX: regionMinX, minY: regionMinY, maxX: regionMaxX, maxY: regionMaxY } = region;
     const { minX, minY, maxX, maxY, x, y, width, height } = label.getCanvasBBox();
