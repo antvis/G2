@@ -56,7 +56,7 @@ export default class Labels {
         this.renderLabel(item, offscreenGroup);
       }
     }
-    this.adjustLabels(shapes); // 调整 labels
+    this.adjustLabels(shapes, items); // 调整 labels
 
     // 进行添加、更新、销毁操作
     const lastShapesMap = this.lastShapesMap;
@@ -155,8 +155,6 @@ export default class Labels {
       data,
       origin: mappingData,
       coordinate,
-      /** 把 labelItem 传递下去 */
-      labelItem: cfg,
     };
     const labelGroup = container.addGroup({
       name: 'label',
@@ -204,7 +202,7 @@ export default class Labels {
   }
 
   // 根据type对label布局
-  private adjustLabels(shapes) {
+  private adjustLabels(shapes, items: LabelItem[]) {
     if (this.layout) {
       const layouts = isArray(this.layout) ? this.layout : [this.layout];
       each(layouts, (layout: GeometryLabelLayoutCfg) => {
@@ -217,7 +215,7 @@ export default class Labels {
             geometryShapes.push(shapes[id]);
           });
 
-          layoutFn(labelShapes, geometryShapes, this.region, layout.cfg);
+          layoutFn(labelShapes, geometryShapes, items, this.region, layout.cfg);
         }
       });
     }
