@@ -10,6 +10,6 @@ order: 9
 
 <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*1ClyQY3aZo0AAAAAAAAAAABkARQnAQ" width=375 />
 
-- 邮件：antv@antfin.com
-- 语雀专栏：https://www.yuque.com/antv
-- 知乎专栏：https://zhuanlan.zhihu.com/aiux-antv
+- 邮件：<a href="mailto:antv@antfin.com">antv@antfin.com</a>
+- 语雀专栏：[https://www.yuque.com/antv](https://www.yuque.com/antv)
+- 知乎专栏：[https://zhuanlan.zhihu.com/aiux-antv](https://zhuanlan.zhihu.com/aiux-antv)
