@@ -153,6 +153,7 @@ import TooltipAction from './interaction/action/component/tooltip';
 import ElmentActive from './interaction/action/element/active';
 import ElmentRangeActive from './interaction/action/element/range-active';
 import ElmentSingleActive from './interaction/action/element/single-active';
+import ElementLinkByColor from './interaction/action/element/link-by-color';
 
 import ElmentHighlight from './interaction/action/element/highlight';
 import ElmentHighlightByColor from './interaction/action/element/highlight-by-color';
@@ -209,6 +210,7 @@ registerAction('element-sibling-highlight', ElmentRangeHighlight, {
 registerAction('element-selected', ElementSelected);
 registerAction('element-single-selected', ElementSingleSelected);
 registerAction('element-range-selected', ElementRangeSelected);
+registerAction('element-link-by-color', ElementLinkByColor);
 
 registerAction('active-region', ActiveRegion);
 registerAction('list-active', ListActive);
