@@ -141,6 +141,20 @@ export function getElements(view: View): Element[] {
 }
 
 /**
+ * 获取所有的图表元素
+ * @param view View/Chart
+ * @param field 字段名
+ * @param value 字段值
+ * @ignore
+ */
+export function getElementsByField(view: View, field: string, value: any) {
+  const elements = getElements(view);
+  return elements.filter(el => {
+    return getElementValue(el, field) === value;
+  });
+}
+
+/**
  * 根据状态名获取图表元素
  * @param view View/Chart
  * @param stateName 状态名
