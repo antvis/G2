@@ -114,6 +114,11 @@ chart.axis('value', {
 ```
 
 - `chart.tooltip()` 配置项更新，同时将 G2 3.x 版本中一些针对特定图表的内置规则删除，需要用户自己通过提供的配置项进行配置，具体配置属性详见 [API](../api/classes/view#tooltip)。
+
+  - tooltip 的背景辅助框不再配置项中支持，需要使用 `chart.interaction('active-region');` 同时支持直角坐标系和极坐标系。
+
+  <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*j05pRJG3ovgAAAAAAAAAAABkARQnAQ" width=600 />
+
 - `chart.legend()`  配置项更新，详见 [API](../api/classes/view#legend)。
 - `chart.axis()`  配置项更新，详见 [API](../api/classes/view#axis)。
 - `chart.annotation()`  各个类型的 annotation 配置项更新，详见 [API](../api/classes/view#annotation)。
@@ -129,3 +134,7 @@ style('a', (aVal) => {
 详见 [API](../api/classes/geometry#style)。
 
 - `geometry.label()` 接口更新，不再支持 html 类型的 label，详见 [API](../api/classes/geometry#label)。
+
+---
+
+💌 如果您在升级过程中，发现本升级指南遗漏之处，请随时联系我们（[联系方式](./contact)），非常感谢！
