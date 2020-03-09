@@ -55,10 +55,10 @@
     {
       "filename": "element-link.ts",
       "title": {
-        "zh": "高亮所有同颜色的 element，并连接相同颜色的图形",
+        "zh": "连接相同颜色的 element",
         "en": "element highlight and linked by color"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*1T85TpUoCPoAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*KqE9SpqUKpcAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "list-active.ts",

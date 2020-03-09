@@ -606,6 +606,7 @@ registerInteraction('brush-visible', {
 - element-range-highlight
 - element-filter
 - element-sibling-filter
+- element-link-by-color
 
 Element 的 Action 可以响应的触发源：
 
@@ -674,6 +675,16 @@ Element 的 Action 可以响应的触发源：
 
 - filter() 过滤
 - reset() 取消过滤
+
+### element-link-by-color
+
+用于连接相同颜色的图表元素，一般用于层叠柱状图，有以下方法：
+
+- link() 连接
+- unlink() 取消连接
+- clear() 清除所有连接
+
+<image src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*KqE9SpqUKpcAAAAAAAAAAABkARQnAQ" width="359"/>
 
 ## 数据操作的 Action
 
