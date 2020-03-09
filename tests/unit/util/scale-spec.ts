@@ -1,7 +1,7 @@
 import { createScaleByField, getName, syncScale } from '../../../src/util/scale';
 
 describe('ScaleUtil', () => {
-  const data1 = [{ a: 1, b: '2', c: '2010-01-01', d: 1, e: null }];
+  const data1 = [{ a: 1, b: '2', c: '2010-01-01', d: 1, e: null, f: '20200229', g: '20200202' }];
 
   it('createScaleByField(), when data is empty', () => {
     const aScale = createScaleByField('a', []);
@@ -93,5 +93,10 @@ describe('ScaleUtil', () => {
     expect(getName(scale)).toBe('b');
     const aliasScale = createScaleByField('b', data1, { alias: '字段 B' });
     expect(getName(aliasScale)).toBe('字段 B');
+  });
+
+  it('dateRegex test for yyyymmdd', () => {
+    expect(createScaleByField('f', data1).type).toBe('cat');
+    expect(createScaleByField('g', data1).type).toBe('cat');
   });
 });
