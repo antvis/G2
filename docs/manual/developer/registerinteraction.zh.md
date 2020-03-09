@@ -134,32 +134,32 @@ registerInteraction('tooltip', {
 ```javascript
 // 注册 tooltip 的 interaction
 registerInteraction('locked-tooltip', {
-  start: [{ trigger: 'plot:mousemove', action: 'tooltip:show' }],
-  processing: [
+  start: [
     {
       trigger: 'plot:click',
-      isEnable(context) {
-        return !context.view.isTooltipLocked();
-      },
-      action: (context) => {
-        context.view.lockTooltip();
-      },
-    },
-    {
-      trigger: 'plot:click',
-      isEnable(context) {
-        return context.view.isTooltipLocked();
-      },
-      action: (context) => {
-        context.view.unlockTooltip();
+      action: context => {
+        const locked = context.view.isTooltipLocked();
+        if (locked) {
+          context.view.unlockTooltip();
+        } else {
+          context.view.lockTooltip();
+        }
       },
     },
+    { trigger: 'plot:mousemove', action: 'tooltip:show' },
   ],
   end: [{ trigger: 'plot:mouseleave', action: 'tooltip:hide' }],
 });
 ```
 
 - context 上的方法在[下面定义](#context-上下文)
+
+使用时需要先取消默认的 tooltip 交互
+```js
+chart.removeInteraction('tooltip');
+chart.interaction('locked-tooltip');
+```
+<image src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*ySVHQo_rA1gAAAAAAAAAAABkARQnAQ" width="359px"/>
 
 #### active 坐标轴文本
 
