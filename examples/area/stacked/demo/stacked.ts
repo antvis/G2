@@ -59,7 +59,8 @@ chart
   .line()
   .adjust('stack')
   .position('year*value')
-  .color('country')
-  .size(2);
+  .color('country');
+
+chart.interaction('element-highlight');
 
 chart.render();
