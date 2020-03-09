@@ -149,9 +149,9 @@ import SiblingTooltip from './interaction/action/component/sibling-tooltp';
 import TooltipAction from './interaction/action/component/tooltip';
 
 import ElmentActive from './interaction/action/element/active';
+import ElementLinkByColor from './interaction/action/element/link-by-color';
 import ElmentRangeActive from './interaction/action/element/range-active';
 import ElmentSingleActive from './interaction/action/element/single-active';
-import ElementLinkByColor from './interaction/action/element/link-by-color';
 
 import ElmentHighlight from './interaction/action/element/highlight';
 import ElmentHighlightByColor from './interaction/action/element/highlight-by-color';
