@@ -37,7 +37,6 @@ chart
   .position('percent')
   .color('item')
   .label('percent', {
-    layout: { type: 'distribute' },
     content: (data) => {
       return `${data.item}: ${data.percent * 100}%`;
     },
