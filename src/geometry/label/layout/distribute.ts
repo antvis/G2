@@ -1,12 +1,18 @@
-import { find, get, map } from '@antv/util';
+import { find } from '@antv/util';
 import { BBox, IGroup, IShape } from '../../../dependents';
-import { polarToCartesian } from '../../../util/graphics';
-import { LabelItem } from '../interface';
 
 /** label text和line距离 4px */
 const MARGIN = 4;
 
-function antiCollision(labelGroups: IGroup[], labels: LabelItem[], lineHeight, plotRange, center, isRight) {
+function getEndPoint(center, angle, r) {
+  return {
+    x: center.x + r * Math.cos(angle),
+    y: center.y + r * Math.sin(angle),
+  };
+}
+
+function antiCollision(labelGroups: IGroup[], lineHeight, plotRange, center, isRight) {
+  const labels = labelGroups.map((labelShape) => labelShape.get('labelItem'));
   // adjust y position of labels to avoid overlapping
   let overlapping = true;
   const start = plotRange.start;
@@ -110,16 +116,13 @@ function antiCollision(labelGroups: IGroup[], labels: LabelItem[], lineHeight, p
         const distance = label.offset;
         const angle = label.angle;
         // 贴近圆周
-        const startPoint = polarToCartesian(center.x, center.y, angle, coordRadius);
-        const inner = polarToCartesian(center.x, center.y, angle, coordRadius + distance / 2);
+        const startPoint = getEndPoint(center, angle, coordRadius);
+        const inner = getEndPoint(center, angle, coordRadius + distance / 2);
         const endPoint = {
           x: label.x - Math.cos(angle) * MARGIN,
           y: label.y - Math.sin(angle) * MARGIN,
         };
-        labelLineShape.attr(
-          'path',
-          [`M ${startPoint.x}`, `${startPoint.y} Q${inner.x}`, `${inner.y} ${endPoint.x}`, endPoint.y].join(',')
-        );
+        labelLineShape.attr('path', [`M ${startPoint.x}`, `${startPoint.y} Q${inner.x}`, `${inner.y} ${endPoint.x}`, endPoint.y].join(','));
       }
     }
   });
@@ -128,9 +131,9 @@ function antiCollision(labelGroups: IGroup[], labels: LabelItem[], lineHeight, p
 /**
  * pie outer-label: distribute algorithm
  */
-export function distribute(labels: IGroup[], shapes: IShape[] | IGroup[], items: LabelItem[], region: BBox) {
-  const offset = items[0] ? items[0].offset : 0;
-  const lineHeight = items[0] ? get(items[0], 'labelHeight') : 14;
+export function distribute(labels: IGroup[], shapes: IShape[] | IGroup[], region: BBox) {
+  const offset = labels[0] ? labels[0].get('labelItem').offset : 0;
+  const lineHeight = labels[0] ? labels[0].get('labelItem').labelHeight : 14;
   const coordinate = labels[0] ? labels[0].get('coordinate') : null;
   if (coordinate && offset > 0) {
     // @ts-ignore
@@ -148,20 +151,20 @@ export function distribute(labels: IGroup[], shapes: IShape[] | IGroup[], items:
       [], // left
       [], // right
     ];
-    items.forEach((labelItem) => {
-      if (!labelItem) {
+    labels.forEach((label) => {
+      if (!label) {
         return;
       }
-      if (labelItem.textAlign === 'right') {
+      if (label.getChildren()[0].attr('textAlign') === 'right') {
         // left
-        halves[0].push(labelItem);
+        halves[0].push(label);
       } else {
         // right or center will be put on the right side
-        halves[1].push(labelItem);
+        halves[1].push(label);
       }
     });
-
-    halves.forEach((half: LabelItem[], index) => {
+    
+    halves.forEach((half, index) => {
       // step 2: reduce labels
       const maxLabelsCountForOneSide = Math.floor(totalHeight / lineHeight);
       if (half.length > maxLabelsCountForOneSide) {
@@ -169,10 +172,8 @@ export function distribute(labels: IGroup[], shapes: IShape[] | IGroup[], items:
           // sort by percentage DESC
           return b['..percent'] - a['..percent'];
         });
-        half.forEach((labelItem, idx) => {
+        half.forEach((label, idx) => {
           if (idx >= maxLabelsCountForOneSide) {
-            const id = labelItem.id;
-            const label = find(labels, (label) => label.get('id') === id);
             label.remove(true); // 超出则不展示
           }
         });
@@ -183,13 +184,9 @@ export function distribute(labels: IGroup[], shapes: IShape[] | IGroup[], items:
       // step 3: distribute position (x and y)
       half.sort((a, b) => {
         // sort by y ASC
-        return a.y - b.y;
+        return a.get('labelItem').y - b.get('labelItem').y;
       });
-      const labelShapes = map(half, (labelItem) => {
-        const id = labelItem.id;
-        return find(labels, (label) => label.get('id') === id);
-      });
-      antiCollision(labelShapes, half, lineHeight, plotRange, center, index);
+      antiCollision(half, lineHeight, plotRange, center, index);
     });
   }
 }
