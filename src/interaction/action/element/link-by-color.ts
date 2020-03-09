@@ -2,7 +2,8 @@ import Action from '../base';
 import { getCurrentElement, getElementValue, getElementsByField } from '../util';
 import Element from '../../../geometry/element/';
 import { each } from '@antv/util';
-import { LooseObject, IGroup } from '@antv/g-base';
+import { LooseObject} from '../../../interface';
+import { IGroup} from '../../../dependents';
 
 /**
  * Link Elements by color
