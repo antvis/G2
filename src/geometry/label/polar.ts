@@ -1,7 +1,7 @@
 import { each, isArray } from '@antv/util';
 import { MappingDatum, Point } from '../../interface';
 import { getDistanceToCenter } from '../../util/coordinate';
-import { getPointAngle } from '../../util/coordinate';
+import { getAngleByPoint } from '../../util/coordinate';
 import GeometryLabel from './base';
 import { LabelCfg, LabelItem, LabelPointCfg } from './interface';
 
@@ -15,11 +15,7 @@ export default class PolarLabel extends GeometryLabel {
     const coordinate = this.coordinate;
     let align;
     if (point.labelEmit) {
-      if (point.angle <= Math.PI / 2 && point.angle > -Math.PI / 2) {
-        align = 'left';
-      } else {
-        align = 'right';
-      }
+      align = (point.angle <= Math.PI / 2 && point.angle > -Math.PI / 2) ? 'left' : 'right';
     } else if (!coordinate.isTransposed) {
       align = 'center';
     } else {
@@ -28,17 +24,9 @@ export default class PolarLabel extends GeometryLabel {
       if (Math.abs(point.x - center.x) < 1) {
         align = 'center';
       } else if (point.angle > Math.PI || point.angle <= 0) {
-        if (offset > 0) {
-          align = 'left';
-        } else {
-          align = 'right';
-        }
+        align = offset > 0 ? 'left' : 'right';
       } else {
-        if (offset > 0) {
-          align = 'right';
-        } else {
-          align = 'left';
-        }
+        align = offset > 0 ? 'right' : 'left';
       }
     }
     return align;
@@ -83,25 +71,22 @@ export default class PolarLabel extends GeometryLabel {
   }
 
   protected getArcPoint(mappingData: MappingDatum, index: number = 0): Point {
-    let arcPoint;
     if (!isArray(mappingData.x) && !isArray(mappingData.y)) {
-      arcPoint = {
+      return {
         x: mappingData.x,
         y: mappingData.y,
       };
-    } else {
-      arcPoint = {
-        x: isArray(mappingData.x) ? mappingData.x[index] : mappingData.x,
-        y: isArray(mappingData.y) ? mappingData.y[index] : mappingData.y,
-      };
     }
 
-    return arcPoint;
+    return {
+      x: isArray(mappingData.x) ? mappingData.x[index] : mappingData.x,
+      y: isArray(mappingData.y) ? mappingData.y[index] : mappingData.y,
+    };
   }
 
   // 获取点所在的角度
   protected getPointAngle(point: Point): number {
-    return getPointAngle(this.coordinate, point);
+    return getAngleByPoint(this.coordinate, point);
   }
 
   protected getCirclePoint(angle: number, offset: number, point: Point, isLabelEmit: boolean) {

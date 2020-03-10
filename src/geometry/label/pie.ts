@@ -1,5 +1,5 @@
 import { get, isArray, isObject } from '@antv/util';
-import { getPointAngle } from '../../util/coordinate';
+import { getAngleByPoint } from '../../util/coordinate';
 import Geometry from '../base';
 import { LabelItem } from './interface';
 import PolarLabel from './polar';
@@ -195,11 +195,11 @@ export default class PieLabel extends PolarLabel {
       y: point.y[1],
     };
     let angle;
-    const startAngle = getPointAngle(coordinate, startPoint);
+    const startAngle = getAngleByPoint(coordinate, startPoint);
     if (point.points && point.points[0].y === point.points[1].y) {
       angle = startAngle;
     } else {
-      let endAngle = getPointAngle(coordinate, endPoint);
+      let endAngle = getAngleByPoint(coordinate, endPoint);
       if (startAngle >= endAngle) {
         // 100% pie slice
         endAngle = endAngle + Math.PI * 2;

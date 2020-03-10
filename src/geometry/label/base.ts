@@ -260,6 +260,10 @@ export default class GeometryLabel {
     return align;
   }
 
+  /**
+   * 获取每一个 label 的唯一 id
+   * @param mappingData label 对应的图形的绘制数据
+   */
   protected getLabelId(mappingData: MappingDatum) {
     const geometry = this.geometry;
     const type = geometry.type;

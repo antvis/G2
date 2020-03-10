@@ -2,7 +2,7 @@ import { deepMix, each, find, flatten, get, isArray, isEqual, isFunction, mix } 
 import { Crosshair, HtmlTooltip, IGroup } from '../../dependents';
 import Geometry from '../../geometry/base';
 import { MappingDatum, Point, TooltipOption } from '../../interface';
-import { getDistanceToCenter, getPointAngle, isPointInCoordinate } from '../../util/coordinate';
+import { getAngleByPoint, getDistanceToCenter, isPointInCoordinate } from '../../util/coordinate';
 import { polarToCartesian } from '../../util/graphics';
 import { findDataByPoint, getTooltipItems } from '../../util/tooltip';
 import { Controller } from './base';
@@ -397,7 +397,7 @@ export default class Tooltip extends Controller<TooltipOption> {
       }
     } else {
       // 极坐标下 x 轴上的 crosshairs 表现为半径
-      const angle = getPointAngle(coordinate, point);
+      const angle = getAngleByPoint(coordinate, point);
       const center = coordinate.getCenter();
       // @ts-ignore
       const radius = coordinate.getRadius();
