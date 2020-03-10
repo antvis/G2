@@ -11,6 +11,11 @@ const HALF_PI = Math.PI / 2;
  * 极坐标下的图形 label
  */
 export default class PolarLabel extends GeometryLabel {
+  /**
+   * @override
+   * 获取文本的对齐方式
+   * @param point
+   */
   protected getLabelAlign(point: LabelItem) {
     const coordinate = this.coordinate;
     let align;
@@ -32,6 +37,13 @@ export default class PolarLabel extends GeometryLabel {
     return align;
   }
 
+  /**
+   * @override
+   * 获取 label 的位置
+   * @param labelCfg
+   * @param mappingData
+   * @param index
+   */
   protected getLabelPoint(labelCfg: LabelCfg, mappingData: MappingDatum, index: number): LabelPointCfg {
     let factor = 1;
     let arcPoint;
@@ -70,6 +82,9 @@ export default class PolarLabel extends GeometryLabel {
     return labelPositionCfg;
   }
 
+  /**
+   * 获取圆弧的位置
+   */
   protected getArcPoint(mappingData: MappingDatum, index: number = 0): Point {
     if (!isArray(mappingData.x) && !isArray(mappingData.y)) {
       return {
@@ -84,11 +99,21 @@ export default class PolarLabel extends GeometryLabel {
     };
   }
 
-  // 获取点所在的角度
+  /**
+   * 计算坐标线点在极坐标系下角度
+   * @param point
+   */
   protected getPointAngle(point: Point): number {
     return getAngleByPoint(this.coordinate, point);
   }
 
+  /**
+   * 获取坐标点与圆心形成的圆的位置信息
+   * @param angle
+   * @param offset
+   * @param point
+   * @param isLabelEmit
+   */
   protected getCirclePoint(angle: number, offset: number, point: Point, isLabelEmit: boolean) {
     const coordinate = this.coordinate;
     const center = coordinate.getCenter();
@@ -115,7 +140,12 @@ export default class PolarLabel extends GeometryLabel {
     };
   }
 
-  // angle 为弧度
+  /**
+   * 获取 label 的旋转角度
+   * @param angle
+   * @param offset
+   * @param isLabelEmit
+   */
   protected getLabelRotate(angle: number, offset: number, isLabelEmit: boolean) {
     let rotate = angle + HALF_PI;
     if (isLabelEmit) {

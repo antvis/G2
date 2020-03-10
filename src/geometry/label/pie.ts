@@ -1,18 +1,12 @@
 import { get, isArray, isObject } from '@antv/util';
 import { getAngleByPoint } from '../../util/coordinate';
+import { polarToCartesian } from '../../util/graphics';
 import Geometry from '../base';
 import { LabelItem } from './interface';
 import PolarLabel from './polar';
 
 /** label text和line距离 4px */
 const MARGIN = 4;
-
-function getEndPoint(center, angle, r) {
-  return {
-    x: center.x + r * Math.cos(angle),
-    y: center.y + r * Math.sin(angle),
-  };
-}
 
 function antiCollision(labels, lineHeight, plotRange, center, isRight) {
   // adjust y position of labels to avoid overlapping
@@ -132,8 +126,8 @@ export default class PieLabel extends PolarLabel {
     const angle = label.angle;
     const center = coordinate.getCenter();
     // 贴近圆周
-    const start = getEndPoint(center, angle, r);
-    const inner = getEndPoint(center, angle, r + distance / 2);
+    const start = polarToCartesian(center.x, center.y, r, angle);
+    const inner = polarToCartesian(center.x, center.y, r + distance / 2, angle);
     const end = {
       x: label.x - Math.cos(angle) * MARGIN,
       y: label.y - Math.sin(angle) * MARGIN,
@@ -209,13 +203,13 @@ export default class PieLabel extends PolarLabel {
     return angle;
   }
 
-  public getCirclePoint(angle, offset, p?) {
+  protected getCirclePoint(angle, offset, p?) {
     const coordinate = this.coordinate;
     const center = coordinate.getCenter();
     // @ts-ignore
     const r = coordinate.getRadius() + offset;
     return {
-      ...getEndPoint(center, angle, r),
+      ...polarToCartesian(center.x, center.y, r, angle),
       angle,
       r,
     };
