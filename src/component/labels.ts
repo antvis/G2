@@ -167,7 +167,7 @@ export default class Labels {
     if ((content.isGroup && content.isGroup()) || (content.isShape && content.isShape()))  {
       // 如果 content 是 Group 或者 Shape，根据 textAlign 调整位置后，直接将其加入 labelGroup
       const { width, height } = content.getCanvasBBox();
-      const textAlign = cfg.textAlign || 'left';
+      const textAlign = get(cfg, 'textAlign', 'left');
 
       let x = cfg.x;
       const y = cfg.y - (height / 2);
@@ -187,6 +187,7 @@ export default class Labels {
           x: cfg.x,
           y: cfg.y,
           textAlign: cfg.textAlign,
+          textBaseline: get(cfg, 'textBaseline', 'middle'),
           text: cfg.content,
           ...cfg.style,
         },

@@ -219,6 +219,7 @@ export default class GeometryLabel {
     }
 
     if (labelCfg.position) {
+      // 如果 label 支持 position 属性
       this.setLabelPosition(label, mappingData, index, labelCfg.position);
     }
     const offsetPoint = this.getLabelOffset(labelCfg, index, total);

@@ -1231,7 +1231,6 @@ export function getThemeByStylesheet(styleSheet: StyleSheet) {
       style: {
         fill: styleSheet.labelFillColor,
         fontSize: styleSheet.labelFontSize,
-        textBaseline: 'middle',
         fontFamily: styleSheet.fontFamily,
         stroke: styleSheet.labelBorderColor,
         lineWidth: styleSheet.labelBorder,
@@ -1242,7 +1241,6 @@ export function getThemeByStylesheet(styleSheet: StyleSheet) {
       style: {
         fill: styleSheet.innerLabelFillColor,
         fontSize: styleSheet.innerLabelFontSize,
-        textBaseline: 'middle',
         fontFamily: styleSheet.fontFamily,
         stroke: styleSheet.innerLabelBorderColor,
         lineWidth: styleSheet.innerLabelBorder,
