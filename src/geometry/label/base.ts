@@ -17,7 +17,7 @@ function avg(arr: number[]) {
 }
 
 /**
- * Geometry Label 基类，用于解析 Geometry 下所有 label 的配置项信息
+ * Geometry Label 基类，用于生成 Geometry 下所有 label 的配置项信息
  */
 export default class GeometryLabel {
   /** geometry 实例 */
@@ -67,7 +67,7 @@ export default class GeometryLabel {
   protected lineToLabel(item: LabelItem) {}
 
   /**
-   * 调整 labels
+   * 根据用户设置的 offsetX 和 offsetY 调整 label 的 x 和 y 坐标
    * @param items
    * @returns
    */
@@ -87,7 +87,7 @@ export default class GeometryLabel {
   }
 
   /**
-   * 绘制文本线
+   * 绘制 label 文本连接线
    * @param items
    */
   protected drawLines(items: LabelItem[]) {
@@ -100,6 +100,7 @@ export default class GeometryLabel {
         // 内部文本不绘制 labelLine
         item.labelLine = null;
       }
+
       if (item.labelLine) {
         this.lineToLabel(item);
       }
@@ -258,6 +259,25 @@ export default class GeometryLabel {
     return align;
   }
 
+  protected getLabelId(mappingData: MappingDatum) {
+    const geometry = this.geometry;
+    const type = geometry.type;
+    const xScale = geometry.getXScale();
+    const yScale = geometry.getYScale();
+    const origin = mappingData[FIELD_ORIGIN]; // 原始数据
+
+    let labelId = geometry.getElementId(mappingData);
+    if (type === 'line' || type === 'area') {
+      // 折线图以及区域图，一条线会对应一组数据，即多个 labels，为了区分这些 labels，需要在 line id 的前提下加上 x 字段值
+      labelId += ` ${origin[xScale.field]}`;
+    } else if (type === 'path') {
+      // path 路径图，无序，有可能存在相同 x 不同 y 的情况，需要通过 x y 来确定唯一 id
+      labelId += ` ${origin[xScale.field]}-${origin[yScale.field]}`;
+    }
+
+    return labelId;
+  }
+
   private getItems(mapppingArray: MappingDatum[]): LabelItem[] {
     const items = [];
     const labelCfgs = this.getLabelCfgs(mapppingArray);
@@ -300,8 +320,6 @@ export default class GeometryLabel {
     const labelScales = fields.map((field: string) => {
       return scales[field];
     });
-    const xScale = geometry.getXScale();
-    const yScale = geometry.getYScale();
 
     const labelCfgs: LabelCfg[] = [];
     each(mapppingArray, (mappingData: MappingDatum, index: number) => {
@@ -318,17 +336,8 @@ export default class GeometryLabel {
         }
       }
 
-      let labelId = geometry.getElementId(mappingData);
-      if (type === 'line' || type === 'area') {
-        // 折线图以及区域图，一条线会对应一组数据，即多个 labels，为了区分这些 labels，需要在 line id 的前提下加上 x 字段值
-        labelId += ` ${origin[xScale.field]}`;
-      } else if (type === 'path') {
-        // path 路径图，无序，有可能存在相同 x 不同 y 的情况，需要通过 x y 来确定唯一 id
-        labelId += ` ${origin[xScale.field]}-${origin[yScale.field]}`;
-      }
-
       let labelCfg = {
-        id: labelId, // 进行 ID 标记
+        id: this.getLabelId(mappingData), // 进行 ID 标记
         data: origin, // 存储原始数据
         mappingData, // 存储映射后的数据,
         coordinate, // 坐标系
