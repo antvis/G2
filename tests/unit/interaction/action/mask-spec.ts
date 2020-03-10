@@ -32,7 +32,7 @@ describe('test mask', () => {
   const context = new Context(chart);
   describe('test rect mask', () => {
     const maskAction = new RectMask(context);
-
+    let maskShape;
     it('start and show', () => {
       maskAction.show(); // 无效
       context.event = {
@@ -42,7 +42,8 @@ describe('test mask', () => {
 
       maskAction.start();
       // @ts-ignore
-      expect(maskAction.maskShape).not.toBe(null);
+      maskShape = maskAction.maskShape;
+      expect(maskShape).not.toBe(null);
       let called = false;
       chart.on('mask:show', () => {
         called = true;
@@ -57,33 +58,22 @@ describe('test mask', () => {
         y: 200,
       };
       maskAction.resize();
-
-      // @ts-ignore
-      expect(maskAction.maskShape.attr('path')).toEqual([
-        ['M', 100, 100],
-        ['L', 200, 100],
-        ['L', 200, 200],
-        ['L', 100, 200],
-        ['Z'],
-      ]);
+      expect(maskShape.attr('x')).toBe(100);
+      expect(maskShape.attr('y')).toBe(100);
+      expect(maskShape.attr('width')).toBe(100);
+      expect(maskShape.attr('height')).toBe(100);
+    
       context.event = {
         x: 300,
         y: 300,
       };
       maskAction.resize();
-      // @ts-ignore
-      expect(maskAction.maskShape.attr('path')).toEqual([
-        ['M', 100, 100],
-        ['L', 300, 100],
-        ['L', 300, 300],
-        ['L', 100, 300],
-        ['Z'],
-      ]);
+      expect(maskShape.attr('width')).toBe(200);
+      expect(maskShape.attr('height')).toBe(200);
     });
     // 停止后不能再 resize
     it('end', () => {
-      // @ts-ignore
-      const path = maskAction.maskShape.attr('path');
+      const width = maskShape.attr('width')
       maskAction.end();
       context.event = {
         x: 400,
@@ -91,7 +81,7 @@ describe('test mask', () => {
       };
       maskAction.resize();
       // @ts-ignore
-      expect(maskAction.maskShape.attr('path')).toEqual(path);
+      expect(maskShape.attr('width')).toEqual(width);
     });
 
     it('move', () => {
@@ -117,14 +107,10 @@ describe('test mask', () => {
         y: 160,
       };
       maskAction.move();
-      // @ts-ignore
-      expect(maskAction.maskShape.attr('path')).toEqual([
-        ['M', 110, 110],
-        ['L', 210, 110],
-        ['L', 210, 210],
-        ['L', 110, 210],
-        ['Z'],
-      ]);
+      expect(maskShape.attr('x')).toBe(110);
+      expect(maskShape.attr('y')).toBe(110);
+      expect(maskShape.attr('width')).toBe(100);
+      expect(maskShape.attr('height')).toBe(100);
 
       context.event = {
         x: 170,
@@ -132,14 +118,11 @@ describe('test mask', () => {
       };
       maskAction.move();
 
-      // @ts-ignore
-      expect(maskAction.maskShape.attr('path')).toEqual([
-        ['M', 120, 120],
-        ['L', 220, 120],
-        ['L', 220, 220],
-        ['L', 120, 220],
-        ['Z'],
-      ]);
+      expect(maskShape.attr('x')).toBe(120);
+      expect(maskShape.attr('y')).toBe(120);
+      expect(maskShape.attr('width')).toBe(100);
+      expect(maskShape.attr('height')).toBe(100);
+
       maskAction.moveEnd();
 
       // move again
@@ -153,42 +136,25 @@ describe('test mask', () => {
         y: 160,
       };
       maskAction.move();
-      // @ts-ignore
-      expect(maskAction.maskShape.attr('path')).toEqual([
-        ['M', 130, 130],
-        ['L', 230, 130],
-        ['L', 230, 230],
-        ['L', 130, 230],
-        ['Z'],
-      ]);
+      expect(maskShape.attr('x')).toBe(130);
+      expect(maskShape.attr('y')).toBe(130);
 
       context.event = {
         x: 170,
         y: 170,
       };
       maskAction.move();
-      // @ts-ignore
-      expect(maskAction.maskShape.attr('path')).toEqual([
-        ['M', 140, 140],
-        ['L', 240, 140],
-        ['L', 240, 240],
-        ['L', 140, 240],
-        ['Z'],
-      ]);
+      expect(maskShape.attr('x')).toBe(140);
+      expect(maskShape.attr('y')).toBe(140);
+
 
       context.event = {
         x: 150,
         y: 150,
       };
       maskAction.move();
-      // @ts-ignore
-      expect(maskAction.maskShape.attr('path')).toEqual([
-        ['M', 120, 120],
-        ['L', 220, 120],
-        ['L', 220, 220],
-        ['L', 120, 220],
-        ['Z'],
-      ]);
+      expect(maskShape.attr('x')).toBe(120);
+      expect(maskShape.attr('y')).toBe(120);
       maskAction.moveEnd();
     });
 
@@ -212,14 +178,10 @@ describe('test mask', () => {
       // not move start, but move
       maskAction.move();
 
-      // @ts-ignore
-      expect(maskAction.maskShape.attr('path')).toEqual([
-        ['M', 100, 100],
-        ['L', 200, 100],
-        ['L', 200, 200],
-        ['L', 100, 200],
-        ['Z'],
-      ]);
+      expect(maskShape.attr('x')).toBe(100);
+      expect(maskShape.attr('y')).toBe(100);
+      expect(maskShape.attr('width')).toBe(100);
+      expect(maskShape.attr('height')).toBe(100);
       maskAction.end();
 
       // move again
@@ -235,14 +197,10 @@ describe('test mask', () => {
         y: 200,
       };
       maskAction.resize();
-      // @ts-ignore
-      expect(maskAction.maskShape.attr('path')).toEqual([
-        ['M', 100, 100],
-        ['L', 200, 100],
-        ['L', 200, 200],
-        ['L', 100, 200],
-        ['Z'],
-      ]);
+      expect(maskShape.attr('x')).toBe(100);
+      expect(maskShape.attr('y')).toBe(100);
+      expect(maskShape.attr('width')).toBe(100);
+      expect(maskShape.attr('height')).toBe(100);
 
     });
 
@@ -279,14 +237,14 @@ describe('test mask', () => {
         y: 220,
       };
       maskAction.resize();
-      expect(shape.attr('path')[1][1]).toBe(10);
+      expect(shape.attr('r')).toBe(10);
 
       context.event = {
         x: 400,
         y: 200,
       };
       maskAction.resize();
-      expect(shape.attr('path')[1][1]).toBe(100);
+      expect(shape.attr('r')).toBe(100);
     });
 
     it('end', () => {
@@ -296,7 +254,7 @@ describe('test mask', () => {
         y: 200,
       };
       maskAction.resize();
-      expect(shape.attr('path')[1][1]).not.toBe(50);
+      expect(shape.attr('r')).not.toBe(50);
       maskAction.hide();
       expect(shape.get('visible')).toBe(false);
     });
@@ -436,9 +394,9 @@ describe('test mask', () => {
         y: 200,
       };
       maskAction.resize();
-      const path = maskShape.attr('path');
-      expect(path[0]).toEqual(['M', 100, start.y]);
-      expect(path[2]).toEqual(['L', 200, end.y]);
+      expect(maskShape.attr('x')).toBe(100);
+      expect(maskShape.attr('width')).toBe(100);
+
       maskAction.end();
     });
     it('move', () => {
@@ -452,9 +410,8 @@ describe('test mask', () => {
         y: 160,
       };
       maskAction.move();
-      const path = maskShape.attr('path');
-      expect(path[0]).toEqual(['M', 110, start.y]);
-      expect(path[2]).toEqual(['L', 210, end.y]);
+      expect(maskShape.attr('x')).toBe(110);
+      expect(maskShape.attr('width')).toBe(100);
       maskAction.moveEnd();
     });
 
@@ -471,10 +428,8 @@ describe('test mask', () => {
       };
 
       maskAction.resize();
-      const path = maskShape.attr('path');
-      expect(path[0]).toEqual(['M', 300, start.y]);
-      expect(path[2]).toEqual(['L', end.x, end.y]);
-
+      expect(maskShape.attr('x')).toBe(300);
+      expect(maskShape.attr('width')).toBe(end.x - 300);
     });
 
     it('horizontal', () => {
@@ -492,9 +447,8 @@ describe('test mask', () => {
         y: 200,
       };
       maskAction.resize();
-      const path = maskShape.attr('path');
-      expect(path[0]).toEqual(['M',start.x, 100]);
-      expect(path[2]).toEqual(['L',end.x, 200]);
+      expect(maskShape.attr('x')).toBe(start.x);
+      expect(maskShape.attr('width')).toBe(end.x - start.x);
       maskAction.end();
     });
   });

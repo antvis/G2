@@ -1,5 +1,7 @@
 import { each } from '@antv/util';
 import Action from '../base';
+import { IGroup, IShape } from '../../../dependents';
+import { LooseObject } from '@antv/g-svg';
 
 /**
  * @ignore
@@ -15,6 +17,8 @@ abstract class MaskBase extends Action {
   // 开始移动的标记
   protected moving = false;
   protected preMovePoint = null;
+
+  protected shapeType = 'path';
   // 获取当前的位置
   protected getCurrentPoint() {
     const event = this.context.event;
@@ -31,6 +35,7 @@ abstract class MaskBase extends Action {
     view.emit(eventName, {
       target: this.maskShape,
       shape: this.maskShape,
+      points: this.points,
       x: event.x,
       y: event.y,
     });
@@ -39,19 +44,21 @@ abstract class MaskBase extends Action {
   // 创建 mask
   private createMask() {
     const view = this.context.view;
+    const maskAttrs = this.getMaskAttrs();
     const maskShape = view.foregroundGroup.addShape({
-      type: 'path',
+      type: this.shapeType,
       name: 'mask',
       draggable: true,
       attrs: {
-        // 暂时写死样式
         fill: '#C5D4EB',
         opacity: 0.3,
-        path: this.getMaskPath(),
-      },
-    });
+        ...maskAttrs
+      }
+    })
     return maskShape;
   }
+
+  protected abstract getMaskAttrs(): LooseObject;
 
   // 生成 mask 的路径
   protected getMaskPath() {
@@ -81,8 +88,7 @@ abstract class MaskBase extends Action {
       // 开始时设置 capture: false，可以避免创建、resize 时触发事件
       this.maskShape.set('capture', false);
     }
-    const path = this.getMaskPath();
-    this.maskShape.attr('path', path);
+    this.updateMask();
     this.emitEvent('start');
   }
 
@@ -109,10 +115,14 @@ abstract class MaskBase extends Action {
       point.x += dx;
       point.y += dy;
     });
-    const path = this.getMaskPath();
-    this.maskShape.attr('path', path);
+    this.updateMask();
     this.emitEvent('change');
     this.preMovePoint = currentPoint;
+  }
+
+  protected updateMask() {
+    const attrs = this.getMaskAttrs();
+    this.maskShape.attr(attrs);
   }
 
   /**
@@ -151,8 +161,7 @@ abstract class MaskBase extends Action {
     // 只有进行中，才会允许大小变化
     if (this.starting && this.maskShape) {
       this.points.push(this.getCurrentPoint());
-      const path = this.getMaskPath();
-      this.maskShape.attr('path', path);
+      this.updateMask();
       this.emitEvent('change');
     }
   }

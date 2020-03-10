@@ -4,6 +4,8 @@ import { BBox, PathCommand, Point } from '../../dependents';
 import Geometry from '../../geometry/base';
 import Element from '../../geometry/element/';
 import { catmullRom2bezier, getLinePath } from '../../geometry/shape/util/path';
+import { toPoints } from '../../util/bbox';
+import isPolygonsIntersect  from '@antv/path-util/lib/is-polygons-intersect';
 import { ComponentOption, IInteractionContext, LooseObject } from '../../interface';
 
 function getMaskBBox(context: IInteractionContext, tolerance: number) {
@@ -15,6 +17,17 @@ function getMaskBBox(context: IInteractionContext, tolerance: number) {
     return null;
   }
   return maskBBox;
+}
+
+function getMaskPath(context: IInteractionContext, tolerance: number) {
+  const event = context.event;
+  const maskShape = event.target;
+  const maskBBox = maskShape.getCanvasBBox();
+  // 如果 bbox 过小则不返回
+  if (!(maskBBox.width >= tolerance || maskBBox.height >= tolerance)) {
+    return null;
+  }
+  return maskShape.attr('path');
 }
 
 /**
@@ -91,12 +104,21 @@ export function isMask(context: IInteractionContext): boolean {
  * @ignore
  */
 export function getMaskedElements(context: IInteractionContext, tolerance: number): Element[]{
-  const maskBBox = getMaskBBox(context, tolerance);
-  // 如果 bbox 过小则不返回
-  if (!maskBBox) {
-    return null;
+  const target = context.event.target;
+  if (target.get('type') === 'path') {
+    const maskPath =  getMaskPath(context, tolerance);
+    if (!maskPath) {
+      return;
+    }
+    return getElementsByPath(context.view, maskPath);
+  } else {
+    const maskBBox = getMaskBBox(context, tolerance);
+    // 如果 bbox 过小则不返回
+    if (!maskBBox) {
+      return null;
+    }
+    return getIntersectElements(context.view, maskBBox);
   }
-  return getIntersectElements(context.view, maskBBox);
 }
 
 /**
@@ -214,6 +236,47 @@ export function getIntersectElements(view: View, box) {
       rst.push(el);
     }
   });
+  return rst;
+}
+function pathToPoints(path: any[]) {
+  const points = [];
+  each(path, seg => {
+    const command = seg[0];
+    if (command !== 'A') {
+      for(let i = 1; i < seg.length; i = i+2) {
+        points.push([seg[i], seg[i + 1]]);
+      }
+    } else {
+      const length = seg.length;
+      points.push([seg[length - 2], seg[length - 1]]);
+    }
+  });
+  return points;
+}
+/**
+ * 获取包围盒内的图表元素
+ * @param view View/Chart
+ * @param path 路径
+ * @ignore
+ */
+export function getElementsByPath(view: View, path: any[]) {
+  const elements = getElements(view);
+  const points = pathToPoints(path);
+  const rst = [];
+  each(elements, (el) => {
+    const shape = el.shape;
+    let shapePoints;
+    if (shape.get('type') === 'path') {
+      shapePoints = pathToPoints(shape.attr('path'))
+    } else {
+      const shapeBBox = shape.getCanvasBBox();
+      shapePoints = toPoints(shapeBBox);
+    }
+    if (isPolygonsIntersect(points, shapePoints)) {
+      rst.push(el);
+    }
+  });
+  
   return rst;
 }
 

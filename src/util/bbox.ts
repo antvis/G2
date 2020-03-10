@@ -218,3 +218,16 @@ export const getRegionBBox = (bbox: BBox, region: Region): BBox => {
     bbox.height * Math.abs(end.y - start.y)
   );
 };
+
+/**
+ * 将 bbox 转换成 points
+ * @param bbox
+ */
+export function toPoints(bbox: BBox): any[] {
+  return [
+    [bbox.minX, bbox.minY],
+    [bbox.maxX, bbox.minY],
+    [bbox.maxX, bbox.maxY],
+    [bbox.minX, bbox.maxY]
+  ];
+}
