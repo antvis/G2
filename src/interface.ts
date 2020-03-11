@@ -292,7 +292,7 @@ export interface StateOption {
 };
 
 /** interval label 的位置 */
-type IntervalGeometryLabelPosition = 'top' | 'bottom' | 'middle' | 'left' | 'right';
+export type IntervalGeometryLabelPosition = 'top' | 'bottom' | 'middle' | 'left' | 'right';
 /** G2 提供的 adjust 类型 */
 export type AdjustType = 'stack' | 'jitter' | 'dodge' | 'symmetric';
 /** geometry.color() 图形属性回调函数定义 */
@@ -398,7 +398,7 @@ export type ShapeMarkerSymbol = (x: number, y: number, r: number) => PathCommand
 
 // ============================ Annotation 类型定义 ============================
 /** Annotation position 回调函数 */
-type AnnotationPositionCallback = (
+export type AnnotationPositionCallback = (
   xScales: Scale[] | Record<string, Scale>,
   yScales: Scale[] | Record<string, Scale>
 ) => [number, number];
@@ -503,7 +503,7 @@ export interface RegionFilterOption extends RegionPositionBaseOption {
 
 // ============================ Chart && View 上的类型定义 ============================
 /** Tooltip 内容框的 css 样式定义 */
-interface TooltipDomStyles {
+export interface TooltipDomStyles {
   'g2-tooltip'?: LooseObject;
   'g2-tooltip-title'?: LooseObject;
   'g2-tooltip-list'?: LooseObject;
@@ -514,7 +514,7 @@ interface TooltipDomStyles {
 }
 
 /** 目前组件动画允许的参数配置 */
-interface ComponentAnimateCfg {
+export interface ComponentAnimateCfg {
   /** 动画执行时间 */
   readonly duration?: number;
   /** 动画缓动函数 */
@@ -523,7 +523,7 @@ interface ComponentAnimateCfg {
   readonly delay?: number;
 }
 /** 组件各个动画类型配置 */
-interface ComponentAnimateOption {
+export interface ComponentAnimateOption {
   /** 初入场动画配置 */
   appear?: ComponentAnimateCfg;
   /** 更新动画配置 */
@@ -759,7 +759,7 @@ export interface ComponentOption {
 }
 
 /** Legend marker 的配置结构 */
-interface MarkerCfg extends LegendMarkerCfg {
+export interface MarkerCfg extends LegendMarkerCfg {
   /** 配置图例 marker 的 symbol 形状。 */
   symbol?: Marker | MarkerCallback;
 }
@@ -902,7 +902,7 @@ export interface LegendCfg {
 /**
  * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L1154|CrosshairTextCfg}，Tooltip Crosshairs 的文本数据结构
  */
-interface TooltipCrosshairsText extends CrosshairTextCfg {
+export interface TooltipCrosshairsText extends CrosshairTextCfg {
   /** crosshairs 文本内容 */
   content?: string;
 }
@@ -915,7 +915,7 @@ interface TooltipCrosshairsText extends CrosshairTextCfg {
  * @param currentPoint 对应当前坐标点
  * @returns 返回当前 crosshairs 对应的辅助线文本配置
  */
-type TooltipCrosshairsTextCallback = (type: string, defaultContent: any, items: any[], currentPoint: Point) => TooltipCrosshairsText;
+export type TooltipCrosshairsTextCallback = (type: string, defaultContent: any, items: any[], currentPoint: Point) => TooltipCrosshairsText;
 /** Tooltip crosshairs 配置结构 */
 export interface TooltipCrosshairs {
   /**
@@ -1116,7 +1116,7 @@ export interface Options {
 }
 
 /** 支持的 Marker 类型 */
-type Marker =
+export type Marker =
   | 'circle'
   | 'square'
   | 'diamond'
@@ -1130,7 +1130,7 @@ type Marker =
   | 'hyphen'
   | 'line';
 /** 自定义 Marker 的回调函数定义 */
-type MarkerCallback = (x: number, y: number, r: number) => PathCommand;
+export type MarkerCallback = (x: number, y: number, r: number) => PathCommand;
 /** chart.tooltip() 参数类型 */
 export type TooltipOption = TooltipCfg | boolean;
 /* 筛选器函数类型定义 */
@@ -1152,10 +1152,10 @@ export type ScaleType =
   'quantize' |
   'quantile';
 
-type CoordinateRotate = ['rotate', number];
-type CoordinateReflect = ['reflect', 'x' | 'y'];
-type CoordinateScale = ['scale', number, number];
-type CoordinateTranspose = ['transpose'];
+export type CoordinateRotate = ['rotate', number];
+export type CoordinateReflect = ['reflect', 'x' | 'y'];
+export type CoordinateScale = ['scale', number, number];
+export type CoordinateTranspose = ['transpose'];
 /** 坐标系支持的 action 配置 */
 export type CoordinateActions = CoordinateRotate | CoordinateReflect | CoordinateScale | CoordinateTranspose;
 
