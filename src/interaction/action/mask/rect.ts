@@ -1,7 +1,6 @@
 import { head, last } from '@antv/util';
 import { Region } from '../../../interface';
 import MaskBase from './base';
-import { IGroup, IShape} from '../../../dependents';
 
 /**
  * @ignore

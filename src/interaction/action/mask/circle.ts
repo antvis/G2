@@ -1,7 +1,6 @@
 import { last } from '@antv/util';
 import { distance } from '../util';
 import MaskBase from './base';
-import { IGroup, IShape } from '../../../dependents';
 
 /**
  * @ignore

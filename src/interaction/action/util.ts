@@ -111,14 +111,13 @@ export function getMaskedElements(context: IInteractionContext, tolerance: numbe
       return;
     }
     return getElementsByPath(context.view, maskPath);
-  } else {
-    const maskBBox = getMaskBBox(context, tolerance);
-    // 如果 bbox 过小则不返回
-    if (!maskBBox) {
-      return null;
-    }
-    return getIntersectElements(context.view, maskBBox);
   }
+  const maskBBox = getMaskBBox(context, tolerance);
+  // 如果 bbox 过小则不返回
+  if (!maskBBox) {
+    return null;
+  }
+  return getIntersectElements(context.view, maskBBox);
 }
 
 /**
@@ -262,8 +261,7 @@ function pathToPoints(path: any[]) {
 export function getElementsByPath(view: View, path: any[]) {
   const elements = getElements(view);
   const points = pathToPoints(path);
-  const rst = [];
-  each(elements, (el) => {
+  const rst = elements.filter((el: Element) => {
     const shape = el.shape;
     let shapePoints;
     if (shape.get('type') === 'path') {
@@ -272,11 +270,8 @@ export function getElementsByPath(view: View, path: any[]) {
       const shapeBBox = shape.getCanvasBBox();
       shapePoints = toPoints(shapeBBox);
     }
-    if (isPolygonsIntersect(points, shapePoints)) {
-      rst.push(el);
-    }
+    return isPolygonsIntersect(points, shapePoints);
   });
-  
   return rst;
 }
 
