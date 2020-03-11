@@ -1,7 +1,6 @@
 import { each } from '@antv/util';
 import Action from '../base';
-import { IGroup, IShape } from '../../../dependents';
-import { LooseObject } from '@antv/g-svg';
+import { LooseObject } from '../../../interface';
 
 /**
  * @ignore

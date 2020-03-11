@@ -606,6 +606,7 @@ registerInteraction('brush-visible', {
 - element-range-highlight
 - element-filter
 - element-sibling-filter
+- element-sibling-highlight
 - element-link-by-color
 
 Element 的 Action 可以响应的触发源：
@@ -675,6 +676,11 @@ Element 的 Action 可以响应的触发源：
 
 - filter() 过滤
 - reset() 取消过滤
+
+### element-sibling-highlight
+图表元素高亮时，对应的其他 view 的图形也同时高亮：
+- highlight() 设置当前触发事件相关元素对应的其他 View 上的元素的 highlight
+- clear() 取消相关元素的 highlight
 
 ### element-link-by-color
 

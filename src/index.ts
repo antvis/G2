@@ -433,21 +433,21 @@ registerInteraction('brush-x', {
     {
       trigger: 'mousedown',
       isEnable: isPointInView,
-      action: ['brush-x:start', 'rect-mask:start', 'rect-mask:show'],
+      action: ['brush-x:start', 'x-rect-mask:start', 'x-rect-mask:show'],
     },
   ],
   processing: [
     {
       trigger: 'mousemove',
       isEnable: isPointInView,
-      action: ['rect-mask:resize'],
+      action: ['x-rect-mask:resize'],
     },
   ],
   end: [
     {
       trigger: 'mouseup',
       isEnable: isPointInView,
-      action: ['brush-x:filter', 'brush-x:end', 'rect-mask:end', 'rect-mask:hide'],
+      action: ['brush-x:filter', 'brush-x:end', 'x-rect-mask:end', 'x-rect-mask:hide'],
     },
   ],
   rollback: [{ trigger: 'dblclick', action: ['brush-x:reset'] }],

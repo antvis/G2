@@ -165,7 +165,7 @@ describe('test mask and active', () => {
   });
 });
 
-describe.only('test path mask', () => {
+describe('test path mask', () => {
   const chart = new Chart({
     container: createDiv(),
     width: 400,

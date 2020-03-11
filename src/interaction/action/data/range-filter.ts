@@ -86,7 +86,7 @@ class RangeFilter extends Action {
       startPoint = this.startPoint;
       currentPoint = this.context.getCurrentPoint();
     }
-    if (distance(startPoint, currentPoint) < 5) {
+    if (Math.abs(startPoint.x - currentPoint.x) < 5 || Math.abs(startPoint.x - currentPoint.y) < 5) {
       // 距离过小也不生效
       return;
     }
