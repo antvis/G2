@@ -82,7 +82,7 @@ describe('LabelsRenderer', () => {
     it('render', () => {
       expect(interval.labelsContainer.getCount()).toBe(3);
       // @ts-ignore
-      const labelsRenderer = interval.labelsRenderer;
+      const labelsRenderer = interval.geometryLabel.labelsRenderer;
       expect(labelsRenderer.container.getCount()).toBe(3);
       // @ts-ignore
       expect(labelsRenderer.container.getFirst().getCount()).toBe(2);
@@ -113,7 +113,7 @@ describe('LabelsRenderer', () => {
       interval.paint();
 
       // @ts-ignore
-      const labelsRenderer = interval.labelsRenderer;
+      const labelsRenderer = interval.geometryLabel.labelsRenderer;
       expect(labelsRenderer.container.getCount()).toBe(2);
       expect(labelsRenderer.container.find(ele => ele.get('type') === 'text').get('data')).toEqual({ a: '1', percent: 0.5 });
       expect(labelsRenderer.container.find(ele => ele.get('type') === 'text').get('animateCfg').update).toBe(false);
@@ -126,7 +126,7 @@ describe('LabelsRenderer', () => {
 
     it('clear', () => {
       // @ts-ignore
-      const labelsRenderer = interval.labelsRenderer;
+      const labelsRenderer = interval.geometryLabel.labelsRenderer;
       labelsRenderer.clear();
 
       expect(interval.labelsContainer.getCount()).toBe(0);
@@ -137,7 +137,7 @@ describe('LabelsRenderer', () => {
 
     it('destroy', () => {
       // @ts-ignore
-      const labelsRenderer = interval.labelsRenderer;
+      const labelsRenderer = interval.geometryLabel.labelsRenderer;
       labelsRenderer.destroy();
 
       expect(interval.labelsContainer.destroyed).toBe(true);

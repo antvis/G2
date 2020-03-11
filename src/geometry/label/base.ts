@@ -1,10 +1,16 @@
 import { deepMix, each, get, isArray, isFunction, isNil, isNumber, isUndefined } from '@antv/util';
+
 import { FIELD_ORIGIN } from '../../constant';
 import { Coordinate, Scale } from '../../dependents';
 import { Datum, LabelOption, LooseObject, MappingDatum, Point } from '../../interface';
-import { getPolygonCentroid } from '../../util/graphics';
-import Geometry from '../base';
 import { LabelCfg, LabelItem, LabelPointCfg, TextAlign } from './interface';
+
+import { getDefaultAnimateCfg } from '../../animate';
+import { getPolygonCentroid } from '../../util/graphics';
+
+import Labels from '../../component/labels';
+import Geometry from '../base';
+import Element from '../element';
 
 export type GeometryLabelConstructor = new (cfg: any) => GeometryLabel;
 
@@ -22,16 +28,42 @@ function avg(arr: number[]) {
 export default class GeometryLabel {
   /** geometry 实例 */
   public readonly geometry: Geometry;
-  /** 坐标系实例 */
-  protected coordinate: Coordinate;
-  /** 默认的 label 配置 */
-  protected defaultLabelCfg: LooseObject;
+  public labelsRenderer: Labels;
 
   constructor(geometry: Geometry) {
     this.geometry = geometry;
+  }
 
-    this.coordinate = geometry.coordinate;
-    this.defaultLabelCfg = get(geometry.theme, 'labels', {}); // 默认样式
+  public render(mapppingArray: MappingDatum[], isUpdate: boolean) {
+    let labelItems = this.getItems(mapppingArray);
+    labelItems = this.adjustItems(labelItems);
+
+    this.drawLines(labelItems);
+
+    const labelsRenderer = this.getLabelsRenderer();
+    const shapes = this.getGeometryShapes();
+    // 渲染文本
+    labelsRenderer.render(labelItems, shapes, isUpdate);
+  }
+
+  public clear() {
+    const labelsRenderer = this.labelsRenderer;
+    if (labelsRenderer) {
+      labelsRenderer.clear();
+    }
+  }
+
+  public destroy() {
+    const labelsRenderer = this.labelsRenderer;
+    if (labelsRenderer) {
+      labelsRenderer.destroy();
+    }
+    this.labelsRenderer = null;
+  }
+
+  // geometry 更新之后，对应的 Coordinate 也会更新，为了获取到最新鲜的 Coordinate，故使用方法获取
+  public getCoordinate() {
+    return this.geometry.coordinate;
   }
 
   /**
@@ -44,6 +76,13 @@ export default class GeometryLabel {
     this.drawLines(items);
 
     return items;
+  }
+
+  /**
+   * 获取 label 的默认配置
+   */
+  protected getDefaultLabelCfg() {
+    return get(this.geometry.theme, 'labels', {});
   }
 
   /**
@@ -113,7 +152,7 @@ export default class GeometryLabel {
    * @returns
    */
   protected getDefaultOffset(offset: number) {
-    const coordinate = this.coordinate;
+    const coordinate = this.getCoordinate();
     const vector = this.getOffsetVector(offset);
     return coordinate.isTransposed ? vector[0] : vector[1];
   }
@@ -127,7 +166,7 @@ export default class GeometryLabel {
    */
   protected getLabelOffset(labelCfg: LabelCfg, index: number, total: number) {
     const offset = this.getDefaultOffset(labelCfg.offset);
-    const coordinate = this.coordinate;
+    const coordinate = this.getCoordinate();
     const transposed = coordinate.isTransposed;
     const dim = transposed ? 'x' : 'y';
     const factor = transposed ? 1 : -1; // y 方向上越大，像素的坐标越小，所以transposed时将系数变成
@@ -152,7 +191,7 @@ export default class GeometryLabel {
    * @returns label point
    */
   protected getLabelPoint(labelCfg: LabelCfg, mappingData: MappingDatum, index: number): LabelPointCfg {
-    const coordinate = this.coordinate;
+    const coordinate = this.getCoordinate();
     const total = labelCfg.content.length;
 
     function getDimValue(value, idx) {
@@ -239,7 +278,7 @@ export default class GeometryLabel {
    */
   protected getLabelAlign(item: LabelItem, index: number, total: number): TextAlign {
     let align: TextAlign = 'center';
-    const coordinate = this.coordinate;
+    const coordinate = this.getCoordinate();
     if (coordinate.isTransposed) {
       const offset = this.getDefaultOffset(item.offset);
       if (offset < 0) {
@@ -283,6 +322,26 @@ export default class GeometryLabel {
     return labelId;
   }
 
+  // 获取 labels 组件
+  private getLabelsRenderer() {
+    const { labelsContainer, labelOption, canvasRegion, animateOption } = this.geometry;
+    const coordinate = this.geometry.coordinate;
+
+    let labelsRenderer = this.labelsRenderer;
+    if (!labelsRenderer) {
+      labelsRenderer = new Labels({
+        container: labelsContainer,
+        layout: get(labelOption, ['cfg', 'layout']),
+      });
+      this.labelsRenderer = labelsRenderer;
+    }
+    labelsRenderer.region = canvasRegion;
+    // 设置动画配置，如果 geometry 的动画关闭了，那么 label 的动画也会关闭
+    labelsRenderer.animate = animateOption ? getDefaultAnimateCfg('label', coordinate) : false;
+
+    return labelsRenderer;
+  }
+
   private getItems(mapppingArray: MappingDatum[]): LabelItem[] {
     const items = [];
     const labelCfgs = this.getLabelCfgs(mapppingArray);
@@ -319,7 +378,7 @@ export default class GeometryLabel {
 
   private getLabelCfgs(mapppingArray: MappingDatum[]): LabelCfg[] {
     const geometry = this.geometry;
-    const defaultLabelCfg = this.defaultLabelCfg;
+    const defaultLabelCfg = this.getDefaultLabelCfg();
     const { type, theme, labelOption, scales, coordinate } = geometry;
     const { fields, callback, cfg } = labelOption as LabelOption;
     const labelScales = fields.map((field: string) => {
@@ -397,8 +456,23 @@ export default class GeometryLabel {
   }
 
   private getOffsetVector(offset = 0) {
-    const coordinate = this.coordinate;
+    const coordinate = this.getCoordinate();
     // 如果 x,y 翻转，则偏移 x，否则偏移 y
     return coordinate.isTransposed ? coordinate.applyMatrix(offset, 0) : coordinate.applyMatrix(0, offset);
+  }
+
+  private getGeometryShapes() {
+    const geometry = this.geometry;
+    const shapes = {};
+    each(geometry.elementsMap, (element: Element, id: string) => {
+      shapes[id] = element.shape;
+    });
+    // 因为有可能 shape 还在进行动画，导致 shape.getBBox() 获取到的值不是最终态，所以需要从 offscreenGroup 获取
+    each(geometry.getOffscreenGroup().getChildren(), (child) => {
+      const id = geometry.getElementId(child.get('origin').mappingData);
+      shapes[id] = child;
+    });
+
+    return shapes;
   }
 }

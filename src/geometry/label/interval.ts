@@ -8,8 +8,9 @@ import { LabelPointCfg } from './interface';
  * 柱状图 label
  */
 export default class IntervalLabel extends GeometryLabel {
+
   protected setLabelPosition(labelPointCfg: LabelPointCfg, mappingData: MappingDatum, index: number, position: string) {
-    const coordinate = this.coordinate;
+    const coordinate = this.getCoordinate();
     const transposed = coordinate.isTransposed;
     const shapePoints = mappingData.points as Point[];
     const point0 = coordinate.convert(shapePoints[0]);

@@ -55,6 +55,7 @@ import { getShapeFactory } from './shape/base';
 import { group } from './util/group-data';
 import { isModelChange } from './util/is-model-change';
 import { parseFields } from './util/parse-fields';
+import GeometryLabel from './label/base';
 
 /** @ignore */
 interface AttributeInstanceCfg {
@@ -192,8 +193,6 @@ export default class Geometry extends Base {
   protected lastElementsMap: Record<string, Element> = {};
   /** 是否生成多个点来绘制图形。 */
   protected generatePoints: boolean = false;
-  /** 虚拟 Group，用于图形更新 */
-  protected offscreenGroup: IGroup;
   /** 存储发生图形属性映射前的数据 */
   protected beforeMappingData: Data[] = null;
   /** 存储每个 shape 的默认 size，用于 Interval、Schema 几何标记 */
@@ -201,8 +200,10 @@ export default class Geometry extends Base {
 
   private adjusts: Record<string, Adjust> = {};
   private lastAttributeOption;
-  private labelsRenderer: Labels;
   private idFields: string[] = [];
+  private geometryLabel: GeometryLabel;
+  /** 虚拟 Group，用于图形更新 */
+  private offscreenGroup: IGroup;
 
   /**
    * 创建 Geometry 实例。
@@ -875,13 +876,13 @@ export default class Geometry extends Base {
    * @override
    */
   public clear() {
-    const { container, labelsRenderer } = this;
+    const { container, geometryLabel } = this;
     if (container) {
       container.clear();
     }
 
-    if (labelsRenderer) {
-      labelsRenderer.clear();
+    if (geometryLabel) {
+      geometryLabel.clear();
     }
 
     // 属性恢复至出厂状态
@@ -910,9 +911,9 @@ export default class Geometry extends Base {
       this.offscreenGroup = null;
     }
 
-    if (this.labelsRenderer) {
-      this.labelsRenderer.destroy();
-      this.labelsRenderer = null;
+    if (this.geometryLabel) {
+      this.geometryLabel.destroy();
+      this.geometryLabel = null;
     }
     super.destroy();
   }
@@ -1177,6 +1178,18 @@ export default class Geometry extends Base {
   }
 
   /**
+   * 获取虚拟 Group。
+   * @returns
+   */
+  public getOffscreenGroup() {
+    if (!this.offscreenGroup) {
+      const GroupCtor = this.container.getGroupBase(); // 获取分组的构造函数
+      this.offscreenGroup = new GroupCtor({});
+    }
+    return this.offscreenGroup;
+  }
+
+  /**
    * 调整度量范围。主要针对发生层叠以及一些特殊需求的 Geometry，比如 Interval 下的柱状图 Y 轴默认从 0 开始。
    */
   protected adjustScale() {
@@ -1319,33 +1332,24 @@ export default class Geometry extends Base {
   }
 
   /**
-   * 获取虚拟 Group。
-   * @returns
-   */
-  protected getOffscreenGroup() {
-    if (!this.offscreenGroup) {
-      const GroupCtor = this.container.getGroupBase(); // 获取分组的构造函数
-      this.offscreenGroup = new GroupCtor({});
-    }
-    return this.offscreenGroup;
-  }
-
-  /**
    * 获取渲染的 label 类型。
    */
   protected getLabelType(): string {
     const { labelOption, coordinate, type } = this;
     const coordinateType = coordinate.type;
-    let labelType = get(labelOption, ['cfg', 'type']) || 'base';
-    if (labelType === 'base') {
+    let labelType = get(labelOption, ['cfg', 'type']);
+    if (!labelType) {
+      // 用户未定义，则进行默认的逻辑
       if (coordinateType === 'polar') {
-        // 极坐标文本
+        // 极坐标下使用通用的极坐标文本
         labelType = 'polar';
       } else if (coordinateType === 'theta') {
-        // 饼图文本
+        // theta 坐标系下使用饼图文本
         labelType = 'pie';
       } else if (type === 'interval' || type === 'polygon') {
         labelType = 'interval';
+      } else {
+        labelType = 'base';
       }
     }
 
@@ -1803,40 +1807,19 @@ export default class Geometry extends Base {
   }
 
   private renderLabels(mappingArray: MappingDatum[], isUpdate: boolean = false) {
-    const { labelOption, animateOption, coordinate } = this;
-    const labelType = this.getLabelType();
+    let geometryLabel = this.geometryLabel;
 
-    const GeometryLabelsCtor = getGeometryLabel(labelType);
-    const geometryLabels = new GeometryLabelsCtor(this);
-    const labelItems = geometryLabels.getLabelItems(mappingArray);
-
-    let labelsRenderer = this.labelsRenderer;
-    if (!labelsRenderer) {
-      labelsRenderer = new Labels({
-        container: this.labelsContainer,
-        layout: get(labelOption, ['cfg', 'layout']),
-      });
-      this.labelsRenderer = labelsRenderer;
+    if (!geometryLabel) {
+      // 初次创建
+      const labelType = this.getLabelType();
+      const GeometryLabelsCtor = getGeometryLabel(labelType);
+      geometryLabel = new GeometryLabelsCtor(this);
+      this.geometryLabel = geometryLabel;
     }
-    labelsRenderer.region = this.canvasRegion;
+    geometryLabel.render(mappingArray, isUpdate);
 
-    const shapes = {};
-    each(this.elementsMap, (element: Element, id: string) => {
-      shapes[id] = element.shape;
-    });
-    // 因为有可能 shape 还在进行动画，导致 shape.getBBox() 获取到的值不是最终态，所以需要从 offscreenGroup 获取
-    each(this.offscreenGroup.getChildren(), (child) => {
-      const id = this.getElementId(child.get('origin').mappingData);
-      shapes[id] = child;
-    });
-
-    // 设置动画配置，如果 geometry 的动画关闭了，那么 label 的动画也会关闭
-    labelsRenderer.animate = animateOption ? getDefaultAnimateCfg('label', coordinate) : false;
-
-    // 渲染文本
-    labelsRenderer.render(labelItems, shapes, isUpdate);
-
-    const labelsMap = this.labelsRenderer.shapesMap;
+    // 将 label 同 element 进行关联
+    const labelsMap = geometryLabel.labelsRenderer.shapesMap;
     each(this.elementsMap, (element: Element, id) => {
       const labels = filterLabelsById(id, labelsMap); // element 实例同 label 进行绑定
       element.labelShape = labels;

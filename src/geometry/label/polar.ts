@@ -17,7 +17,7 @@ export default class PolarLabel extends GeometryLabel {
    * @param point
    */
   protected getLabelAlign(point: LabelItem) {
-    const coordinate = this.coordinate;
+    const coordinate = this.getCoordinate();
     let align;
     if (point.labelEmit) {
       align = (point.angle <= Math.PI / 2 && point.angle > -Math.PI / 2) ? 'left' : 'right';
@@ -104,7 +104,7 @@ export default class PolarLabel extends GeometryLabel {
    * @param point
    */
   protected getPointAngle(point: Point): number {
-    return getAngleByPoint(this.coordinate, point);
+    return getAngleByPoint(this.getCoordinate(), point);
   }
 
   /**
@@ -115,7 +115,7 @@ export default class PolarLabel extends GeometryLabel {
    * @param isLabelEmit
    */
   protected getCirclePoint(angle: number, offset: number, point: Point, isLabelEmit: boolean) {
-    const coordinate = this.coordinate;
+    const coordinate = this.getCoordinate();
     const center = coordinate.getCenter();
     let r = getDistanceToCenter(coordinate, point);
     if (r === 0) {
@@ -163,7 +163,7 @@ export default class PolarLabel extends GeometryLabel {
 
   // 获取中心的位置
   private getMiddlePoint(points: Point[]) {
-    const coordinate = this.coordinate;
+    const coordinate = this.getCoordinate();
     const count = points.length;
     let middlePoint = {
       x: 0,

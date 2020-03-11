@@ -103,8 +103,12 @@ function antiCollision(labels, lineHeight, plotRange, center, isRight) {
 export default class PieLabel extends PolarLabel {
   constructor(geometry: Geometry) {
     super(geometry);
-    this.defaultLabelCfg = get(geometry.theme, 'pieLabels', {});
   }
+
+  protected getDefaultLabelCfg() {
+    return get(this.geometry.theme, 'pieLabels', {});
+  }
+
   protected getDefaultOffset(offset) {
     return offset || 0;
   }
@@ -119,7 +123,7 @@ export default class PieLabel extends PolarLabel {
 
   // 连接线
   protected lineToLabel(label: LabelItem) {
-    const coordinate = this.coordinate;
+    const coordinate = this.getCoordinate();
     // @ts-ignore
     const r = coordinate.getRadius();
     const distance = label.offset;
@@ -154,7 +158,7 @@ export default class PieLabel extends PolarLabel {
   }
 
   protected getLabelAlign(point: LabelItem) {
-    const coordinate = this.coordinate;
+    const coordinate = this.getCoordinate();
     const center = coordinate.getCenter();
 
     let align;
@@ -179,7 +183,7 @@ export default class PieLabel extends PolarLabel {
   }
 
   protected getPointAngle(point) {
-    const coordinate = this.coordinate;
+    const coordinate = this.getCoordinate();
     const startPoint = {
       x: isArray(point.x) ? point.x[0] : point.x,
       y: point.y[0],
@@ -204,7 +208,7 @@ export default class PieLabel extends PolarLabel {
   }
 
   protected getCirclePoint(angle, offset, p?) {
-    const coordinate = this.coordinate;
+    const coordinate = this.getCoordinate();
     const center = coordinate.getCenter();
     // @ts-ignore
     const r = coordinate.getRadius() + offset;
@@ -217,7 +221,7 @@ export default class PieLabel extends PolarLabel {
 
   // distribute labels
   private distribute(labels, offset) {
-    const coordinate = this.coordinate;
+    const coordinate = this.getCoordinate();
     // @ts-ignore
     const radius = coordinate.getRadius();
     const lineHeight = get(this.geometry.theme, ['pieLabels', 'labelHeight'], 14);
