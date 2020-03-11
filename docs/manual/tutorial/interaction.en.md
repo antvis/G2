@@ -259,7 +259,7 @@ registerInteraction('element-selected', {
 ```javascript
 // 点击选中，允许取消
 registerInteraction('element-single-selected', {
-  start: [{ trigger: 'element:click', action: 'element-single-seleted:toggle' }],
+  start: [{ trigger: 'element:click', action: 'element-single-selected:toggle' }],
 });
 ```
 
