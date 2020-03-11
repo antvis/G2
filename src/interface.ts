@@ -414,6 +414,8 @@ export interface AnnotationBaseOption {
   readonly style?: object;
   /** 是否进行动画 */
   readonly animate?: boolean;
+  /** 动画参数配置，当且仅当 `animate` 属性为 true，即动画开启时生效。 */
+  animateOption?: ComponentAnimateOption;
   /** x 方向的偏移量 */
   readonly offsetX?: number;
   /** y 方向的偏移量 */

@@ -3,6 +3,8 @@ import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { CircleAxis, CircleGrid, IGroup, LineAxis, LineGrid, Scale } from '../../dependents';
 import { AxisCfg, AxisOption, ComponentOption } from '../../interface';
 
+import { DEFAULT_ANIMATE_CFG } from '../../animate/';
+
 import {
   getAxisDirection,
   getAxisFactorByRegion,
@@ -20,22 +22,6 @@ import { Controller } from './base';
 type Option = Record<string, AxisOption> | boolean;
 
 type Cache = Map<string, ComponentOption>;
-
-const DEFAULT_ANIMATE_CFG = {
-  appear: null,
-  update: {
-    duration: 400,
-    easing: 'easeQuadInOut',
-  }, // 更新时发生变更的动画配置
-  enter: {
-    duration: 400,
-    easing: 'easeQuadInOut',
-  }, // 更新时新增元素的入场动画配置
-  leave: {
-    duration: 300,
-    easing: 'easeQuadIn',
-  }, // 更新时销毁动画配置
-};
 
 // update 组件的时候，忽略的数据更新
 const OMIT_CFG = ['container'];
@@ -712,7 +698,9 @@ export default class Axis extends Controller<Option> {
   private getAnimateCfg(cfg: object) {
     return {
       animate: this.view.getOptions().animate && get(cfg, 'animate'), // 如果 view 关闭动画，则不执行动画
-      animateOption: deepMix({}, DEFAULT_ANIMATE_CFG, get(cfg, 'animateOption', {})),
+      animateOption: deepMix({}, DEFAULT_ANIMATE_CFG, {
+        appear: null, // 默认不做出场动画
+      }, get(cfg, 'animateOption', {})),
     };
   }
 }

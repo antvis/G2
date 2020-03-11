@@ -620,7 +620,7 @@ export default class Annotation extends Controller<BaseOption[]> {
         end: this.parsePosition(end),
       };
     }
-    // 合并主题，用户配置优先级高于主题
+    // 合并主题，用户配置优先级高于默认主题
     const cfg = deepMix({}, theme, {
       ...o,
       top: option.top,
@@ -630,7 +630,7 @@ export default class Annotation extends Controller<BaseOption[]> {
     });
     cfg.container = this.getComponentContainer(cfg);
     cfg.animate = this.view.getOptions().animate && cfg.animate && get(option, 'animate', cfg.animate); // 如果 view 关闭动画，则不执行
-    cfg.animateOption = deepMix({}, DEFAULT_ANIMATE_CFG, cfg.animateOption);
+    cfg.animateOption = deepMix({}, DEFAULT_ANIMATE_CFG, cfg.animateOption, option.animateOption);
 
     return cfg;
   }
