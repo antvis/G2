@@ -44,10 +44,12 @@ export { registerEngine, getEngine } from './engine';
 export { registerAnimation, getAnimation } from './animate/animation';
 
 // 一些工具方法导出
-import { rotate, translate } from './util/transform';
+import { rotate, translate, zoom, transform } from './util/transform';
 export const Util = {
   translate,
   rotate,
+  zoom,
+  transform,
 };
 
 export { LAYER, DIRECTION } from './constant';
