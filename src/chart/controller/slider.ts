@@ -72,16 +72,15 @@ export default class Slider extends Controller<Option> {
       } else {
         // not exist, create
         this.slider = this.createSlider();
-
-        // 设置初始的 text
-        const min = this.slider.component.get('start');
-        const max = this.slider.component.get('end');
-
-        this.updateMinMaxText(min, max);
-
         // 监听事件，绑定交互
         this.slider.component.on('sliderchange', this.onValueChanged);
       }
+      // changeData 的时候同样需要更新
+      // 设置初始的 text
+      const min = this.slider.component.get('start');
+      const max = this.slider.component.get('end');
+
+      this.updateMinMaxText(min, max);
     } else {
       if (this.slider) {
         // exist, destroy
