@@ -48,11 +48,12 @@ export default class Chart extends View {
 
     const ele: HTMLElement = isString(container) ? document.getElementById(container) : container;
 
-    // if autoFit, use the container size, to avoid the graph render twice.
-    const size = getChartSize(ele, autoFit, width, height);
-
+    // 生成内部正式绘制的 div 元素
     const wrapperElement = createDom('<div style="position:relative;"></div>');
     ele.appendChild(wrapperElement);
+
+    // if autoFit, use the container size, to avoid the graph render twice.
+    const size = getChartSize(wrapperElement, autoFit, width, height);
 
     const G = getEngine(renderer);
 
@@ -78,7 +79,7 @@ export default class Chart extends View {
       theme,
     });
 
-    this.ele = ele;
+    this.ele = wrapperElement;
     this.canvas = canvas;
     this.width = size.width;
     this.height = size.height;
