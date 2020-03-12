@@ -86,6 +86,14 @@ describe('Slider', () => {
     expect(slider.component.get('height')).toBe(16);
   });
 
+  it('changeData', () => {
+    chart.changeData(Data.slice(0, 3));
+    chart.render(true);
+
+    expect(slider.component.get('minText')).toBe('1991');
+    expect(slider.component.get('maxText')).toBe('1992');
+  });
+
   afterAll(() => {
     chart.destroy();
     removeDom(div);
