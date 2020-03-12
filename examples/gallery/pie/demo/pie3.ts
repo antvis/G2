@@ -1,4 +1,4 @@
-import { Chart } from '@antv/g2';
+import { Chart, Util } from '@antv/g2';
 
 const data = [
   { type: '一线城市', value: 0.19 },
@@ -12,9 +12,10 @@ const chart = new Chart({
   height: 500,
 });
 chart.data(data);
-chart.legend(false);
+//chart.legend(false);
 chart.coordinate('theta', {
   radius: 0.75,
+  innerRadius: 0.4
 });
 chart.tooltip({
   showMarkers: false
@@ -26,6 +27,16 @@ const interval = chart
   .position('value')
   .color('type', ['#063d8a', '#1770d6', '#47abfc', '#38c060'])
   .style({ opacity: 0.4 })
+  .state({
+    active: {
+      style: (element) => {
+        const shape = element.shape;
+        return {
+          matrix: Util.zoom(shape, 1.1),
+        }
+      }
+    }
+  })
   .label('type', (val) => {
     const opacity = val === '四线及以下' ? 1 : 0.5;
     return {
@@ -43,10 +54,7 @@ const interval = chart
     };
   });
 
-chart.interaction('element-single-selected');
+chart.interaction('legend-active');
 
 chart.render();
 
-// 默认第一个选中
-const elements = interval.elements;
-elements[0].setState('selected', true);
