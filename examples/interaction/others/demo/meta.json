@@ -27,6 +27,14 @@
         "en": "multipe view‘s tooltip"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*s-JWTrKjUP4AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "pie-legend.ts",
+      "title": {
+        "zh": "饼图图例联动交互式",
+        "en": "pie chart legend"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*s-JWTrKjUP4AAAAAAAAAAABkARQnAQ"
     }
   ]
 }

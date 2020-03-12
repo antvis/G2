@@ -43,13 +43,4 @@ export { registerEngine, getEngine } from './engine';
 // 注册动画函数
 export { registerAnimation, getAnimation } from './animate/animation';
 
-// 一些工具方法导出
-import { rotate, translate, zoom, transform } from './util/transform';
-export const Util = {
-  translate,
-  rotate,
-  zoom,
-  transform,
-};
-
 export { LAYER, DIRECTION } from './constant';

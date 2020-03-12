@@ -598,3 +598,14 @@ declare module './chart/view' {
 }
 
 export * from './core';
+// 一些工具方法导出
+import { getAngle, polarToCartesian } from './util/graphics';
+import { rotate, transform, translate, zoom } from './util/transform';
+export const Util = {
+  translate,
+  rotate,
+  zoom,
+  transform,
+  getAngle,
+  polarToCartesian,
+};
