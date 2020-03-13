@@ -1,5 +1,5 @@
 ---
-title: FAQ
+title: 常见问题
 order: 9
 ---
 
@@ -8,6 +8,11 @@ order: 9
 考虑到 G2 使用环境的不同（浏览器、mobile 等），G2 从 v4 版本开始，不再提供 `chart.toDataURL()` 以及 `chart.downloadImage()` 接口，鼓励用户自己包装。
 
 可以参考以下工具函数（能覆盖大部分场景，但是不保证完全不存在兼容问题，**仅供参考**）：
+
+<details>
+  <summary>
+  参考方案(点击展开)：
+  </summary>
 
 ```ts
 /**
@@ -82,4 +87,80 @@ function downloadImage(chart: Chart, name: string = 'G2Chart') {
 }
 ```
 
+</details>
+
 另外，获取到画布的 dataURI 数据之后，也可以使用 [download](https://github.com/rndme/download) 进行图片下载。
+
+## Tooltip 内出现了重复值
+
+在绘制面积图时经常会遇到如下图的问题，本来是相同的数据却在 tooltip 上出现了两个值。
+
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*fAKvSaa-wQIAAAAAAAAAAABkARQnAQ" width=400 />
+
+<details>
+  <summary>
+  图表代码(点击展开)：
+  </summary>
+
+```ts
+import { Chart } from '@antv/g2';
+
+const data = [
+  { year: '1991', value: 15468 },
+  { year: '1992', value: 16100 },
+  { year: '1993', value: 15900 },
+  { year: '1994', value: 17409 },
+  { year: '1995', value: 17000 },
+  { year: '1996', value: 31056 },
+  { year: '1997', value: 31982 },
+  { year: '1998', value: 32040 },
+  { year: '1999', value: 33233 },
+];
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+  height: 500,
+});
+
+chart.data(data);
+chart.scale({
+  value: {
+    min: 10000,
+    nice: true,
+  },
+  year: {
+    range: [0, 1],
+  },
+});
+chart.tooltip({
+  showCrosshairs: true,
+  shared: true,
+});
+
+chart.axis('value', {
+  label: {
+    formatter: (val) => {
+      return (+val / 10000).toFixed(1) + 'k';
+    },
+  },
+});
+
+// highlight-start
+chart
+  .area()
+  .position('year*value')
+  .color('l(90) 0:#1890FF 1:#f7f7f7');
+chart.line().position('year*value');
+// highlight-end
+
+chart.render();
+```
+
+</details>
+
+**原因解释**：因为在代码中给 chart.area() 和 chart.line() 配置了不同的颜色，tooltip 去重规则会考虑颜色，颜色不同的视为不同的数据。
+
+**解决方案**：
+
+1. 可以将其中一个 tooltip 关闭，比如 `chart.area().tooltip(false)`。
+2. 监听 `chart.on('tooltip:change')` 事件，动态修改 `items` 数据。
