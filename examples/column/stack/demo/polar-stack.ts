@@ -46,6 +46,25 @@ chart.legend('难民类型', {
 
 chart.tooltip({
   showMarkers: false,
+  showCrosshairs: true,
+  showContent: false,
+  crosshairs: {
+    line: {
+      style: {
+        stroke: '#000'
+      }
+    },
+    text: {
+      position: 'end',
+      offset: 10,
+      autoRotate: true,
+      style: {
+        fontSize: 14,
+        fontWeight: 'bold'
+      }
+    },
+    textBackground: null
+  }
 });
 
 chart

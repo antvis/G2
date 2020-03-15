@@ -45,6 +45,14 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*bwKcRJFFUBAAAAAAAAAAAABkARQnAQ"
     },
     {
+      "filename": "ripple.ts",
+      "title": {
+        "en": "Ripple chart",
+        "zh": "牛眼图"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*HTfAR7y-pEwAAAAAAAAAAABkARQnAQ"
+    },
+    {
       "filename": "wind-rose.ts",
       "title": {
         "en": "Wind Rose",
