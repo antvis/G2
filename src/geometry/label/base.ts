@@ -1,8 +1,8 @@
 import { deepMix, each, get, isArray, isFunction, isNil, isNumber, isUndefined } from '@antv/util';
 
 import { FIELD_ORIGIN } from '../../constant';
-import { Coordinate, Scale } from '../../dependents';
-import { Datum, LabelOption, LooseObject, MappingDatum, Point } from '../../interface';
+import { Scale } from '../../dependents';
+import { Datum, LabelOption, MappingDatum, Point } from '../../interface';
 import { LabelCfg, LabelItem, LabelPointCfg, TextAlign } from './interface';
 
 import { getDefaultAnimateCfg } from '../../animate';
@@ -29,16 +29,15 @@ export default class GeometryLabel {
   /** geometry 实例 */
   public readonly geometry: Geometry;
   public labelsRenderer: Labels;
+  /** 默认的布局 */
+  public defaultLayout: string;
 
   constructor(geometry: Geometry) {
     this.geometry = geometry;
   }
 
   public render(mapppingArray: MappingDatum[], isUpdate: boolean) {
-    let labelItems = this.getItems(mapppingArray);
-    labelItems = this.adjustItems(labelItems);
-
-    this.drawLines(labelItems);
+    const labelItems = this.getItems(mapppingArray);
 
     const labelsRenderer = this.getLabelsRenderer();
     const shapes = this.getGeometryShapes();
@@ -67,18 +66,6 @@ export default class GeometryLabel {
   }
 
   /**
-   * 根据当前 shape 对应的映射数据获取对应的 label 配置信息。
-   * @param mapppingArray 映射后的绘制数据
-   * @returns
-   */
-  public getLabelItems(mapppingArray: MappingDatum[]) {
-    const items = this.adjustItems(this.getItems(mapppingArray));
-    this.drawLines(items);
-
-    return items;
-  }
-
-  /**
    * 获取 label 的默认配置
    */
   protected getDefaultLabelCfg() {
@@ -98,53 +85,6 @@ export default class GeometryLabel {
     index: number,
     position: string
   ) {}
-
-  /**
-   * 生成文本线配置
-   * @param item
-   */
-  protected lineToLabel(item: LabelItem) {}
-
-  /**
-   * 根据用户设置的 offsetX 和 offsetY 调整 label 的 x 和 y 坐标
-   * @param items
-   * @returns
-   */
-  protected adjustItems(items: LabelItem[]) {
-    each(items, (item) => {
-      if (!item) {
-        return;
-      }
-      if (item.offsetX) {
-        item.x += item.offsetX;
-      }
-      if (item.offsetY) {
-        item.y += item.offsetY;
-      }
-    });
-    return items;
-  }
-
-  /**
-   * 绘制 label 文本连接线
-   * @param items
-   */
-  protected drawLines(items: LabelItem[]) {
-    each(items, (item) => {
-      if (!item) {
-        return;
-      }
-
-      if (item.offset <= 0) {
-        // 内部文本不绘制 labelLine
-        item.labelLine = null;
-      }
-
-      if (item.labelLine) {
-        this.lineToLabel(item);
-      }
-    });
-  }
 
   /**
    * 获取文本默认偏移量
@@ -331,7 +271,9 @@ export default class GeometryLabel {
     if (!labelsRenderer) {
       labelsRenderer = new Labels({
         container: labelsContainer,
-        layout: get(labelOption, ['cfg', 'layout']),
+        layout: get(labelOption, ['cfg', 'layout'], {
+          type: this.defaultLayout,
+        }),
       });
       this.labelsRenderer = labelsRenderer;
     }
@@ -368,6 +310,10 @@ export default class GeometryLabel {
         };
         if (!item.textAlign) {
           item.textAlign = this.getLabelAlign(item, subIndex, total);
+        }
+
+        if (item.offset <= 0) {
+          item.labelLine = null;
         }
 
         items.push(item);

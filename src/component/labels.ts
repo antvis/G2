@@ -50,20 +50,28 @@ export default class Labels {
     this.shapesMap = {};
     const container = this.container;
     const offscreenGroup = this.createOffscreenGroup(); // 创建虚拟分组
-    // 在虚拟 group 中创建 shapes
+    // step 1: 在虚拟 group 中创建 shapes
     for (const item of items) {
       if (item) {
         this.renderLabel(item, offscreenGroup);
       }
     }
-    this.adjustLabels(shapes); // 调整 labels
+
+    // step 2: 根据布局，调整 labels
+    this.doLayout(items, shapes);
+
+    // step 3: 绘制 labelLine
+    this.renderLabelLine(items);
+
+    // step 4: 根据用户设置的偏移量调整 label
+    this.adjustLabel(items);
 
     // 进行添加、更新、销毁操作
     const lastShapesMap = this.lastShapesMap;
     const shapesMap = this.shapesMap;
     each(shapesMap, (shape, id) => {
       if (shape.destroyed) {
-        // label 在布局调整环节被删除了（adjustLabels）
+        // label 在布局调整环节被删除了（doLayout）
         delete shapesMap[id];
       } else {
         if (lastShapesMap[id]) {
@@ -180,6 +188,7 @@ export default class Labels {
 
       translate(content, x, y); // 将 label 平移至 x, y 指定的位置
       labelShape = content;
+      content.set('_name', 'labelContent');
       labelGroup.add(content);
     } else {
       labelShape = labelGroup.addShape('text', {
@@ -192,18 +201,18 @@ export default class Labels {
           ...cfg.style,
         },
         ...shapeAppendCfg,
+        _name: 'labelContent',
       });
     }
 
     if (cfg.rotate) {
       rotate(labelShape, cfg.rotate);
     }
-    this.drawLabelLine(cfg, labelGroup);
     this.shapesMap[id] = labelGroup;
   }
 
   // 根据type对label布局
-  private adjustLabels(shapes) {
+  private doLayout(items: LabelItem[], shapes: Record<string, IShape | IGroup>) {
     if (this.layout) {
       const layouts = isArray(this.layout) ? this.layout : [this.layout];
       each(layouts, (layout: GeometryLabelLayoutCfg) => {
@@ -216,38 +225,47 @@ export default class Labels {
             geometryShapes.push(shapes[id]);
           });
 
-          layoutFn(labelShapes, geometryShapes, this.region, layout.cfg);
+          layoutFn(items, labelShapes, geometryShapes, this.region, layout.cfg);
         }
       });
     }
   }
 
-  private drawLabelLine(labelCfg: LabelItem, container: IGroup) {
-    if (!labelCfg.labelLine) {
-      // labelLine: null | false，关闭 label 对应的 labelLine
-      return;
-    }
-    const labelLineCfg = get(labelCfg, 'labelLine', {});
-    let path = labelLineCfg.path;
-    if (!path) {
-      const start = labelCfg.start;
-      path = [
-        ['M', start.x, start.y],
-        ['L', labelCfg.x, labelCfg.y],
-      ];
-    }
-    container.addShape('path', {
-      capture: false, // labelLine 默认不参与事件捕获
-      attrs: {
-        path,
-        stroke: labelCfg.color ? labelCfg.color : get(labelCfg, ['style', 'fill'], '#000'),
-        fill: null,
-        ...labelLineCfg.style,
-      },
-      id: labelCfg.id,
-      origin: labelCfg.mappingData,
-      data: labelCfg.data,
-      coordinate: labelCfg.coordinate,
+  private renderLabelLine(labelItems: LabelItem[]) {
+    each(labelItems, (labelItem) => {
+      if (!labelItem) {
+        return;
+      }
+      if (!labelItem.labelLine) {
+        // labelLine: null | false，关闭 label 对应的 labelLine
+        return;
+      }
+      const labelLineCfg = get(labelItem, 'labelLine', {});
+      const id = labelItem.id;
+      let path = labelLineCfg.path;
+      if (!path) {
+        const start = labelItem.start;
+        path = [
+          ['M', start.x, start.y],
+          ['L', labelItem.x, labelItem.y],
+        ];
+      }
+      const labelGroup = this.shapesMap[id];
+      if (!labelGroup.destroyed) {
+        labelGroup.addShape('path', {
+          capture: false, // labelLine 默认不参与事件捕获
+          attrs: {
+            path,
+            stroke: labelItem.color ? labelItem.color : get(labelItem, ['style', 'fill'], '#000'),
+            fill: null,
+            ...labelLineCfg.style,
+          },
+          id,
+          origin: labelItem.mappingData,
+          data: labelItem.data,
+          coordinate: labelItem.coordinate,
+        });
+      }
     });
   }
 
@@ -256,5 +274,23 @@ export default class Labels {
     const GroupClass = container.getGroupBase(); // 获取分组的构造函数
     const newGroup = new GroupClass({});
     return newGroup;
+  }
+
+  private adjustLabel(items: LabelItem[]) {
+    each(items, (item) => {
+      if (item) {
+        const id = item.id;
+        const labelGroup = this.shapesMap[id];
+        if (!labelGroup.destroyed) {
+          const labelShape = labelGroup.find(ele => ele.get('_name') === 'labelContent');
+          if (item.offsetX) {
+            labelShape.attr('x', labelShape.attr('x') + item.offsetX);
+          }
+          if (item.offsetY) {
+            labelShape.attr('y', labelShape.attr('y') + item.offsetY);
+          }
+        }
+      }
+    });
   }
 }
