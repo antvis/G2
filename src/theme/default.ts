@@ -1253,7 +1253,7 @@ export function getThemeByStylesheet(styleSheet: StyleSheet) {
       labelLine: {
         style: {
           lineWidth: styleSheet.labelLineBorder,
-          stroke: styleSheet.labelLineBorderColor,
+          // stroke: styleSheet.labelLineBorderColor,
         },
       },
       autoRotate: true,
