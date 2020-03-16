@@ -670,18 +670,27 @@ Element 的 Action 可以响应的触发源：
 - toggle() 设置/取消当前触发事件相关元素的 highlight
 - reset() 取消当前触发事件相关元素的 highlight
 
+### element-range-highlight
+用于设置和取消图表元素的 highlight ，允许框选 highlight 有以下方法：
+- start() 开始框选
+- end() 结束框选
+- highlight() 高亮框选内部的元素
+- clear() 清理框选的元素
+
+`注意`：如果事件由 mask 触发，则可以直接调用 highlight，而不需要 start 和 end
+
+### element-sibling-highlight
+
+图表元素高亮时，对应的其他 view 的图形也同时高亮，这个 Action 是从 element-range-highlight 扩展出来的，可以配合 element-range-highlight 一起使用：
+- highlight() 设置当前触发事件相关元素对应的其他 View 上的元素的 highlight
+- clear() 取消相关元素的 highlight
+
 ### element-filter
 
 图表元素的过滤，支持来自图例（分类和连续）、坐标轴文本的触发，有以下方法：
 
 - filter() 过滤
 - reset() 取消过滤
-
-### element-sibling-highlight
-图表元素高亮时，对应的其他 view 的图形也同时高亮：
-- highlight() 设置当前触发事件相关元素对应的其他 View 上的元素的 highlight
-- clear() 取消相关元素的 highlight
-
 ### element-link-by-color
 
 用于连接相同颜色的图表元素，一般用于层叠柱状图，有以下方法：
@@ -847,13 +856,15 @@ registerInteraction('element-brush', {
 
 ## 辅助交互的 Action
 
-在交互过程中辅助出现的图形，目前仅实现了两种：
+在交互过程中辅助出现的图形，目前仅实现了几种常见的：
 
 - active-region
 - mask 遮罩层，内置了几种 mask
   - rect-mask
   - circle-mask
   - path-mask
+- button 按钮
+  - reset-button 恢复按钮
 
 ### active-region
 
@@ -882,7 +893,7 @@ registerInteraction('element-brush', {
 - hide() 隐藏遮罩层
 - end() 结束框选
 
-### circle-mask
+### path-mask
 
 在画布上进行框选，在多个点上形成 path，有以下方法
 
@@ -891,6 +902,11 @@ registerInteraction('element-brush', {
 - addPoint() 添加一个点
 - hide() 隐藏遮罩层
 - end() 结束框选
+
+### reset-button
+在画布右上角出现一个恢复按钮，按钮图形上有 name: 'reset-button'，仅有两个方法：
+- show() 显示
+- hide() 隐藏
 
 ## 更多
 
