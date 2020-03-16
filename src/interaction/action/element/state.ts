@@ -1,7 +1,7 @@
 import { each, isNil } from '@antv/util';
 import { ListItem } from '../../../dependents';
 import Element from '../../../geometry/element/';
-import { getCurrentElement, isElementChange, getDelegationObject, getElements, getElementValue, isList, getScaleByField} from '../util';
+import { getCurrentElement, getDelegationObject, getElements, getElementValue, getScaleByField, isElementChange, isList} from '../util';
 import StateBase from './state-base';
 
 function getItem(shape) {
