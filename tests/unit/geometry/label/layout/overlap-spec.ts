@@ -29,7 +29,7 @@ describe('GeometryLabel layout', () => {
     expect(canvas.getChildren().length).toBe(20);
 
     // @ts-ignore
-    fixedOverlap(labels, [], {});
+    fixedOverlap([], labels, [], {});
     canvas.draw();
 
     expect(canvas.getChildren().length).toBeLessThan(20);
@@ -56,7 +56,7 @@ describe('GeometryLabel layout', () => {
     expect(canvas.getChildren().length).toBe(20);
 
     // @ts-ignore
-    overlap(labels, [], {});
+    overlap([], labels, [], {});
     canvas.draw();
 
     expect(canvas.getChildren().length).toBe(9);
