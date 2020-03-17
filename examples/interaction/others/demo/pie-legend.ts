@@ -1,46 +1,12 @@
-import { Chart, registerInteraction } from '@antv/g2';
-
-registerInteraction('legend-active', {
-  showEnable: [
-    { trigger: 'legend-item:mouseenter', action: 'cursor:pointer' },
-    { trigger: 'legend-item:mouseleave', action: 'cursor:default' },
-  ],
-  start: [
-    {
-      trigger: 'legend-item:mouseenter',
-      action: ['list-active:active', 'element-active:active'],
-    },
-  ],
-  end: [
-    {
-      trigger: 'legend-item:mouseleave',
-      action: ['list-active:reset', 'element-active:reset'],
-    },
-  ],
-});
+import { Chart } from '@antv/g2';
 
 const data = [
-  { item: '事例一', count: 40, percent: 0.4, color: '#5B8FF9' },
-  { item: '事例二', count: 21, percent: 0.21, color: '#5AD8A6' },
-  { item: '事例三', count: 17, percent: 0.17, color: '#5D7092' },
-  { item: '事例四', count: 13, percent: 0.13, color: '#F6BD16' },
-  { item: '事例五', count: 9, percent: 0.09, color: '#E86452' },
+  { item: '事例一', count: 40, percent: 0.4 },
+  { item: '事例二', count: 21, percent: 0.21 },
+  { item: '事例三', count: 17, percent: 0.17 },
+  { item: '事例四', count: 13, percent: 0.13 },
+  { item: '事例五', count: 9, percent: 0.09 },
 ];
-
-// 自定义图例项
-const legendItems = data.map(obj => {
-  return {
-    name: obj.item,
-    value: obj.percent,
-    marker: {
-      symbol: 'square',
-      style: {
-        r: 5,
-        fill: obj.color,
-      }
-    }
-  };
-});
 
 const chart = new Chart({
   container: 'container',
@@ -62,29 +28,31 @@ chart.scale('percent', {
   },
 });
 
-chart.tooltip({
-  showTitle: false,
-  showMarkers: false,
-});
+chart.tooltip(false);
 
-// 自定义图例
+// 声明需要进行自定义图例字段： 'item'
 chart.legend('item', {
-  position: 'right',
-  custom: true,
-  items: legendItems,
+  position: 'right',                                  // 配置图例显示位置
+  custom: true,                                       // 关键字段，告诉 G2，要使用自定义的图例
+  items: data.map((obj, index) => {
+    return {
+      name: obj.item,                                 // 对应 itemName
+      value: obj.percent,                             // 对应 itemValue
+      marker: {
+        symbol: 'square',                             // marker 的形状
+        style: {
+          r: 5,                                       // marker 图形半径
+          fill: chart.getTheme().colors10[index],     // marker 颜色，使用默认颜色，同图形对应
+        },
+      },                                              // marker 配置
+    };
+  }),
   itemValue: {
     style: {
       fill: '#999',
-      fontSize: 20
-    },
-    formatter: val => `${val * 100}%`
+    },                                               // 配置 itemValue 样式
+    formatter: val => `${val * 100}%`                // 格式化 itemValue 内容
   },
-  itemName: {
-    style: {
-      fontSize: 20
-    }
-  },
-  itemHeight: 40,
 });
 
 chart
@@ -108,6 +76,104 @@ chart
     },
   });
 
+// 移除图例点击过滤交互
 chart.removeInteraction('legend-filter');
-chart.interaction('element-active');
+
+// 在现有 'element-active' 交互行为的基础上加上 callback 配置，用于动态更新 Annotation
+chart.interaction('element-active', {
+  start: [{
+    trigger: 'element:mouseenter',
+    action: 'element-active:active',
+    callback(context) {
+      if (context.event.data) {
+        updateAnnotation(context.event.data.data);
+      }
+    },
+  }],
+  end: [{
+    trigger: 'element:mouseleave',
+    action: 'element-active:reset',
+    callback() {
+      clearAnnotation();
+    }
+  }],
+});
+
+// 在现有 'legend-active' 交互行为的基础上加上 callback 配置，用于动态更新 Annotation
+chart.interaction('legend-active', {
+  showEnable: [
+    { trigger: 'legend-item:mouseenter', action: 'cursor:pointer' },
+    { trigger: 'legend-item:mouseleave', action: 'cursor:default' },
+  ],
+  start: [{
+    trigger: 'legend-item:mouseenter',
+    action: ['list-active:active', 'element-active:active'],
+    callback(context) {
+      const delegateObject = context.event.gEvent.shape.get('delegateObject');
+      const targetData = data.filter(obj => obj.item === delegateObject.item.name);
+      if (targetData.length) {
+        updateAnnotation(targetData[0]);
+      }
+    }
+  }],
+  end: [{
+    trigger: 'legend-item:mouseleave',
+    action: ['list-active:reset', 'element-active:reset'],
+    callback(context) {
+      clearAnnotation();
+    }
+  }],
+});
 chart.render();
+
+
+// 绘制 annotation
+let lastItem;
+function updateAnnotation(data) {
+  if (data.item !== lastItem) {
+    chart.annotation().clear(true);
+    chart
+      .annotation()
+      .text({
+        position: ['50%', '50%'],
+        content: data.item,
+        style: {
+          fontSize: 20,
+          fill: '#8c8c8c',
+          textAlign: 'center',
+        },
+        offsetY: -20,
+      })
+      .text({
+        position: ['50%', '50%'],
+        content: data.count,
+        style: {
+          fontSize: 28,
+          fill: '#8c8c8c',
+          textAlign: 'center',
+        },
+        offsetX: -10,
+        offsetY: 20,
+      })
+      .text({
+        position: ['50%', '50%'],
+        content: '台',
+        style: {
+          fontSize: 20,
+          fill: '#8c8c8c',
+          textAlign: 'center',
+        },
+        offsetY: 20,
+        offsetX: 20,
+      });
+    chart.render(true);
+    lastItem = data.item;
+  }
+}
+
+// 清空 annotation
+function clearAnnotation() {
+  chart.annotation().clear(true);
+  chart.render(true);
+  lastItem = null;
+}
