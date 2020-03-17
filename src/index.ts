@@ -216,6 +216,14 @@ registerAction('list-selected', ListSelected);
 registerAction('list-highlight', ListHighlight);
 registerAction('list-unchecked', ListUnchecked);
 
+registerAction('legend-item-highlight', ListHighlight, {
+  componentNames: ['legend']
+});
+
+registerAction('axis-label-highlight', ListHighlight, {
+  componentNames: ['axis']
+});
+
 registerAction('rect-mask', RectMask);
 registerAction('x-rect-mask', DimMask, {dim: 'x'});
 registerAction('y-rect-mask', DimMask, {dim: 'y'});
@@ -297,14 +305,14 @@ registerInteraction('legend-active', {
 
 // legend hover，element active
 registerInteraction('legend-highlight', {
-  start: [{ trigger: 'legend-item:mouseenter', action: ['list-highlight:highlight', 'element-highlight:highlight'] }],
-  end: [{ trigger: 'legend-item:mouseleave', action: ['list-highlight:reset', 'element-highlight:reset'] }],
+  start: [{ trigger: 'legend-item:mouseenter', action: ['legend-item-highlight:highlight', 'element-highlight:highlight'] }],
+  end: [{ trigger: 'legend-item:mouseleave', action: ['legend-item-highlight:reset', 'element-highlight:reset'] }],
 });
 
 // legend hover，element active
 registerInteraction('axis-label-highlight', {
-  start: [{ trigger: 'axis-label:mouseenter', action: ['list-highlight:highlight', 'element-highlight:highlight'] }],
-  end: [{ trigger: 'axis-label:mouseleave', action: ['list-highlight:reset', 'element-highlight:reset'] }],
+  start: [{ trigger: 'axis-label:mouseenter', action: ['axis-label-highlight:highlight', 'element-highlight:highlight'] }],
+  end: [{ trigger: 'axis-label:mouseleave', action: ['axis-label-highlight:reset', 'element-highlight:reset'] }],
 });
 
 // legend hover，element active

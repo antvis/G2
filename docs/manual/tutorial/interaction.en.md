@@ -861,6 +861,11 @@ registerInteraction('element-brush', {
 - list-unchecked
 - list-selected
 
+为了用户使用方面我们还从 list-highlight 中扩展出两个 Action
+
+- legend-item-highlight
+- axis-label-highlight
+
 ### tooltip
 
 显示隐藏 tooltip 的 Action 提供了两个方法：
@@ -880,6 +885,24 @@ registerInteraction('element-brush', {
 ### list-highlight
 
 分类图例项和坐标轴文本高亮的 highlight , 有下面几个方法：
+
+- highlight() 设置 highlight
+- reset() 取消 highlight
+- toggle() 设置或者取消 highlight
+- clear() 取消所有的 highlight
+
+### legend-item-highlight
+
+是从 list-highlight 扩展出来的 Action，在 Element 上触发时仅高亮对应图例的选项，而不会影响坐标轴文本，同样有 4 个方法：
+
+- highlight() 设置 highlight
+- reset() 取消 highlight
+- toggle() 设置或者取消 highlight
+- clear() 取消所有的 highlight
+
+### axis-label-highlight
+
+是从 list-highlight 扩展出来的 Action，在 Element 上触发时仅高亮对应坐标轴文本，而不会影响图例项，同样有 4 个方法：
 
 - highlight() 设置 highlight
 - reset() 取消 highlight
