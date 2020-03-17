@@ -121,24 +121,27 @@ describe('test scale trasform', () => {
       const { min, max } = yScale;
       const range = max - min;
       zoomAction.zoomIn();
-      expect(yScale.min).toBe(min - range * 0.1);
-      expect(yScale.max).toBe(max + range * 0.1);
+      // @ts-ignore
+      const ratio = zoomAction.zoomRatio;
+
+      expect(yScale.min).toBe(min - range * ratio);
+      expect(yScale.max).toBe(max + range * ratio);
 
       zoomAction.zoomIn();
-      expect(yScale.min).toBe(min - range * 0.2);
-      expect(yScale.max).toBe(max + range * 0.2);
+      expect(yScale.min).toBeCloseTo(min - range * ratio * 2);
+      expect(yScale.max).toBeCloseTo(max + range * ratio * 2);
 
       zoomAction.zoomOut();
-      expect(yScale.min).toBe(min - range * 0.1);
-      expect(yScale.max).toBe(max + range * 0.1);
+      expect(yScale.min).toBeCloseTo(min - range * ratio);
+      expect(yScale.max).toBeCloseTo(max + range * ratio);
 
       zoomAction.zoomOut();
       zoomAction.zoomOut();
-      expect(yScale.min).toBe(min + range * 0.1);
-      expect(yScale.max).toBe(max - range * 0.1);
+      expect(yScale.min).toBeCloseTo(min + range * ratio);
+      expect(yScale.max).toBeCloseTo(max - range * ratio);
       zoomAction.reset();
-      expect(yScale.min).toBe(min);
-      expect(yScale.max).toBe(max);
+      expect(yScale.min).toBeCloseTo(min);
+      expect(yScale.max).toBeCloseTo(max);
       zoomAction.destroy();
     });
 

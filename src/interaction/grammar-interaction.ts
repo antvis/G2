@@ -1,4 +1,4 @@
-import { each, isArray, isFunction, isString } from '@antv/util';
+import { each, isArray, isFunction, isString, debounce, throttle } from '@antv/util';
 import { View } from '../chart';
 import { ActionCallback, IAction, IInteractionContext, LooseObject } from '../interface';
 import { createAction, createCallbackAction } from './action/register';
@@ -70,7 +70,44 @@ export interface InteractionStep {
    * 在一个环节内是否只允许执行一次
    */
   once?: boolean;
+  /**
+   * 是否增加节流
+   */
+  throttle?: ThrottleOption;
+  /**
+   * 是否延迟
+   */
+  debounce?: DebounceOption;
 }
+
+// action 执行时支持 debounce 和 throttle，可以参考：https://css-tricks.com/debouncing-throttling-explained-examples/
+interface DebounceOption {
+  /**
+   * 等待时间
+   */
+  wait: number;
+  /**
+   * 是否马上执行
+   */
+  immediate?: boolean;
+}
+
+interface ThrottleOption {
+  /**
+   * 等待时间
+   */
+  wait: number;
+  /**
+   * 马上就执行
+   */
+  leading?: boolean;
+  /**
+   * 执行完毕后再执行一次
+   */
+  trailing?: boolean;
+}
+
+
 
 /** 缓存 action 对象 */
 interface ActionObject {
@@ -293,7 +330,7 @@ export default class GrammarInteraction extends Interaction {
       const key = this.getKey(stepName, step);
       if (!callbackCaches[key]) {
         // 动态生成执行的方法，执行对应 action 的名称
-        callbackCaches[key] = (event) => {
+        const actionCallback = (event) => {
           context.event = event;
           if (this.isAllowExcute(stepName, step)) {
             // 如果是数组时，则依次执行
@@ -312,7 +349,18 @@ export default class GrammarInteraction extends Interaction {
             // 如果未通过验证，则事件不要绑定在上面
             context.event = null;
           }
-        };
+        }
+        // 如果设置了 debounce
+        if (step.debounce) {
+          callbackCaches[key] = debounce(actionCallback, step.debounce.wait, step.debounce.immediate);
+        } else if (step.throttle) { // 设置 throttle
+          callbackCaches[key] = throttle(actionCallback, step.throttle.wait, {
+            leading: step.throttle.leading,
+            trailing: step.throttle.trailing
+          });
+        } else { // 直接设置
+          callbackCaches[key] = actionCallback;
+        }
       }
       return callbackCaches[key];
     }

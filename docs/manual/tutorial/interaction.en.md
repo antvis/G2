@@ -83,11 +83,19 @@ chart.interaction('tooltip', {
   - 字符串由 ’actionName:method‘ 组成
   - 列表时可以使用相同的 action ，也可以使用不同的 action ，例如: ['element-active:clear', 'element-active:active', 'mask:clear']
 
-除了 trigger 和 action 之外还有其他几个属性：
+除了 trigger 和 action 之外还有其他几个可选属性：
 
 - isEnable(context): 是否可以触发
 - callback(context): 触发后执行完所有 action 的方法后会调用回调函数
 - once: boolean， 是否在一个环节内仅能执行一次
+- debounce: 延迟执行，有两个参数： 
+  - wait: 等待时间
+  - immediate: 是否马上执行
+- throttle 增加阈值，控制执行的频率
+  - wait: 等待时间
+  - leading: 是否马上执行
+  - trailing: 执行完毕后再执行一次
+debounce 和 throttle 的机制参考：https://css-tricks.com/debouncing-throttling-explained-examples/
 
 ### context 交互的上下文
 
@@ -221,6 +229,27 @@ registerInteraction('active-region', {
 - action 是 active-region
 
 <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*aSJMTYFmTvUAAAAAAAAAAABkARQnAQ" style="width: 339px;">
+
+### view-zoom
+
+鼠标滚动时，图表内部缩放，由于 mousewheel 触发的非常频繁，所以需要增加 throttle
+```js
+function isWheelDown(event) {
+  event.gEvent.preventDefault();
+  return event.gEvent.originalEvent.deltaY > 0;
+}
+registerInteraction('view-zoom', {
+  start: [
+    { trigger: 'plot:mousewheel', isEnable(context) {
+      return isWheelDown(context.event);
+    }, action: 'scale-zoom:zoomOut', throttle: {wait: 100, leading: true, trailing: false} },
+    { trigger: 'plot:mousewheel',isEnable(context) {
+      return !isWheelDown(context.event);
+    }, action: 'scale-zoom:zoomIn', throttle: {wait: 100, leading: true, trailing: false} }
+  ]
+});
+```
+<image  src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*EqXmQJENnpQAAAAAAAAAAABkARQnAQ" style="width: 339px"/>
 
 ### element-active
 
@@ -475,22 +504,19 @@ registerInteraction('brush', {
   ],
   start: [
     {
-      trigger: 'mousedown',
-      isEnable: isPointInView,
+      trigger: 'plot:mousedown',
       action: ['brush:start', 'rect-mask:start', 'rect-mask:show'],
     },
   ],
   processing: [
     {
-      trigger: 'mousemove',
-      isEnable: isPointInView,
+      trigger: 'plot:mousemove',
       action: ['rect-mask:resize'],
     },
   ],
   end: [
     {
-      trigger: 'mouseup',
-      isEnable: isPointInView,
+      trigger: 'plot:mouseup',
       action: ['brush:filter', 'brush:end', 'rect-mask:end', 'rect-mask:hide'],
     },
   ],
@@ -536,8 +562,7 @@ registerInteraction('brush-visible', {
   ],
   end: [
     {
-      trigger: 'mouseup',
-      isEnable: isPointInView,
+      trigger: 'plot:mouseup',
       action: ['rect-mask:end', 'rect-mask:hide', 'element-range-highlight:end', 'element-range-highlight:clear'],
     },
   ],
@@ -589,7 +614,31 @@ registerInteraction('brush-visible', {
 
 ## Chart/View 的 Action
 
-暂未实现
+Chart 和 View 上的 Action 用户控制视图的变化，目前支持的有：
+- view-move
+- scale-translate
+- scale-zoom
+
+### move
+
+用于移动 View 的位置，支持以下几个方法：
+- start() 开始移动
+- end() 结束移动
+- move() 移动
+- reset() 回滚，恢复初始位置
+
+### scale-translate
+
+通过改变 scale 的位移，改变整个视图的位置变化，可以实现图表内部绘制区域的变化
+- start() 开始移动
+- end() 结束移动
+- translate() 修改 scale 的值
+- reset() 回滚，恢复初始状态
+
+### scale-zoom
+- zoomIn() 缩小
+- zoomOut() 放大
+- reset() 恢复
 
 ## Element 的 Action
 
@@ -604,9 +653,9 @@ registerInteraction('brush-visible', {
 - element-highlight
 - element-single-highlight
 - element-range-highlight
-- element-sibling-highlight
 - element-filter
 - element-sibling-filter
+- element-sibling-highlight
 - element-link-by-color
 
 Element 的 Action 可以响应的触发源：
@@ -691,7 +740,6 @@ Element 的 Action 可以响应的触发源：
 
 - filter() 过滤
 - reset() 取消过滤
-
 ### element-link-by-color
 
 用于连接相同颜色的图表元素，一般用于层叠柱状图，有以下方法：
@@ -739,22 +787,19 @@ registerInteraction('element-brush', {
   ],
   start: [
     {
-      trigger: 'mousedown',
-      isEnable: isPointInView,
+      trigger: 'plot:mousedown',
       action: ['brush:start', 'rect-mask:start', 'rect-mask:show'],
     },
   ],
   processing: [
     {
-      trigger: 'mousemove',
-      isEnable: isPointInView,
+      trigger: 'plot:mousemove',
       action: ['rect-mask:resize'],
     },
   ],
   end: [
     {
-      trigger: 'mouseup',
-      isEnable: isPointInView,
+      trigger: 'plot:mouseup',
       action: ['brush:filter', 'brush:end', 'rect-mask:end', 'rect-mask:hide'],
     },
   ],
@@ -857,7 +902,7 @@ registerInteraction('element-brush', {
 
 ## 辅助交互的 Action
 
-在交互过程中辅助出现的图形，目前仅实现了两种：
+在交互过程中辅助出现的图形，目前仅实现了几种常见的：
 
 - active-region
 - mask 遮罩层，内置了几种 mask
