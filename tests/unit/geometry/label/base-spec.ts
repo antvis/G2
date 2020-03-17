@@ -50,8 +50,14 @@ describe('GeometryLabel', () => {
     point.init();
 
     const geometryLabel = new GeometryLabel(point);
+    const labelsContainer = point.labelsContainer;
+
+    it('defaultLayout', () => {
+      expect(geometryLabel.defaultLayout).toBeUndefined();
+    });
 
     it('offset', () => {
+      // @ts-ignore
       const labelItems = geometryLabel.getLabelItems([
         { x: 100, y: 10, _origin: { x: 100, y: 10, z: '1' } },
         { x: 100, y: 20, _origin: { x: 100, y: 20, z: '2' } },
@@ -68,12 +74,15 @@ describe('GeometryLabel', () => {
         offsetX: 10,
         offsetY: 10,
       });
-      const labelItems = geometryLabel.getLabelItems([
+      geometryLabel.render([
         { x: 100, y: 10, _origin: { x: 100, y: 10, z: '1' } },
         { x: 100, y: 20, _origin: { x: 100, y: 20, z: '2' } },
-      ]);
-      expect(labelItems[0].x).toBe(110);
-      expect(labelItems[0].y).toBe(0);
+      ], false);
+
+      // @ts-ignore
+      const labelShape1 = labelsContainer.getChildren()[0].find(ele => ele.get('type') === 'text');
+      expect(labelShape1.attr('x')).toBe(110);
+      expect(labelShape1.attr('y')).toBe(0);
     });
 
     it('one point two labels', () => {
@@ -92,6 +101,7 @@ describe('GeometryLabel', () => {
         }
       );
 
+      // @ts-ignore
       const labelItems = geometryLabel.getLabelItems([
         { x: 100, y: [10, 20], _origin: { x: 100, y: [10, 20], z: ['1', '2'] } },
         { x: 100, y: [30, 40], _origin: { x: 100, y: [30, 40], z: ['3', '4'] } },
@@ -152,6 +162,7 @@ describe('GeometryLabel', () => {
         { x: 100, y: [30, 40], _origin: { x: 100, y: [30, 40], z: ['3', '4'] } },
       ]);
       expect(labelItems.length).toBe(4);
+      expect(labelItems[0].style.fill).toBe('#FFFFFF');
     });
 
     it('stack points', () => {

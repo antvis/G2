@@ -79,6 +79,10 @@ describe('pie labels', () => {
 
     let items;
 
+    it('defaultLayout', () => {
+      expect(gLabels.defaultLayout).toBe('distribute');
+    });
+
     it('get items', () => {
       items = gLabels.getLabelItems(points);
       expect(items.length).toBe(points.length);
@@ -177,23 +181,42 @@ describe('pie labels', () => {
 
     const gLabels = new PieLabel(pointGeom);
 
-    it('points', () => {
+    it('render', () => {
+      gLabels.render(points, false);
+
       const items = gLabels.getLabelItems(points);
-      expect(items.length).toBe(points.length);
-      expect(items[0].x).toBe(230);
+
+      const labels = gLabels.labelsRenderer.container.getChildren();
+      expect(labels.length).toBe(points.length);
+
+      // @ts-ignore
+      const labelText0 = labels[0].find(ele => ele.get('type') === 'text');
+      expect(labelText0.attr('x')).toBe(items[0].x + 10);
+      expect(labelText0.attr('y')).toBe(items[0].y - 10);
+      // @ts-ignore
+      expect(labels[0].getCount()).toBe(1);
       expect(items[0].labelLine).toBe(false);
-      expect(isNumberEqual(items[0].y, 48.03847577293368 - 10)).toBeTruthy();
 
-      expect(items[1].x).toBe(200);
+      // @ts-ignore
+      const labelText1 = labels[1].find(ele => ele.get('type') === 'text');
+      expect(labelText1.attr('x')).toBe(items[1].x + 10);
+      expect(labelText1.attr('y')).toBe(items[1].y - 10);
+      // @ts-ignore
+      expect(labels[1].getCount()).toBe(1);
       expect(items[1].labelLine).toBe(false);
-      expect(isNumberEqual(items[1].y, 100 - 10)).toBeTruthy();
 
-      expect(items[2].x).toBe(230.00000000000006);
+      // @ts-ignore
+      const labelText2 = labels[2].find(ele => ele.get('type') === 'text');
+      expect(labelText2.attr('x')).toBe(items[2].x + 10);
+      expect(labelText2.attr('y')).toBe(items[2].y - 10);
+      // @ts-ignore
+      expect(labels[2].getCount()).toBe(1);
       expect(items[2].labelLine).toBe(false);
-      expect(isNumberEqual(items[2].y, 151.96152422706632 - 10)).toBeTruthy();
 
-      expect(items[5].x).toBe(290);
-      expect(isNumberEqual(items[5].y, 151.96152422706632 - 10)).toBeTruthy();
+      // @ts-ignore
+      const labelText5 = labels[5].find(ele => ele.get('type') === 'text');
+      expect(labelText5.attr('x')).toBe(items[5].x + 10);
+      expect(labelText5.attr('y')).toBe(items[5].y - 10);
     });
   });
 });
