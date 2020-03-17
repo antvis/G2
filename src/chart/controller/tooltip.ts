@@ -62,7 +62,10 @@ export default class Tooltip extends Controller<TooltipOption> {
     const view = this.view;
     const items = this.getTooltipItems(point);
     if (!items.length) {
-      // 无内容则不展示
+      // 无内容则不展示，同时 tooltip 需要隐藏
+      if (this.tooltip) {
+        this.tooltip.hide();
+      }
       return;
     }
     const title = this.getTitle(items);
