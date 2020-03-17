@@ -20,7 +20,7 @@ export default class PolarLabel extends GeometryLabel {
     const coordinate = this.getCoordinate();
     let align;
     if (point.labelEmit) {
-      align = (point.angle <= Math.PI / 2 && point.angle > -Math.PI / 2) ? 'left' : 'right';
+      align = (point.angle <= Math.PI / 2 && point.angle >= -Math.PI / 2) ? 'left' : 'right';
     } else if (!coordinate.isTransposed) {
       align = 'center';
     } else {
