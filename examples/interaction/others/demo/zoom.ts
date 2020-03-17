@@ -11,7 +11,7 @@ fetch('../data/scatter.json')
     });
     // 数据格式： [{"gender":"female","height":161.2,"weight":51.6}]
     chart.data(data);
-
+    chart.animate(false);
     chart.scale({
       height: { nice: true },
       weight: { nice: true },
@@ -29,4 +29,6 @@ fetch('../data/scatter.json')
     chart.interaction('view-zoom');
 
     chart.render();
+    // 阻止默认事件，否则会整个窗口滚动
+  	chart.getCanvas().on('mousewheel', ev=> {ev.preventDefault();})
   });

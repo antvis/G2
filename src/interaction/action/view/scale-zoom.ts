@@ -1,4 +1,4 @@
-import { each } from '@antv/util';
+import { each, throttle } from '@antv/util';
 import TransformAction from './scale-transform';
 
 /**
@@ -6,13 +6,18 @@ import TransformAction from './scale-transform';
  * @ignore
  */
 class ScaleTranslate extends TransformAction {
+  private zoomRatio = 0.05;
   /**
    * 缩小
    */
-  public zoomIn() {
+  public zoomIn () {
+    this.zoom(this.zoomRatio);
+  }
+
+  private zoom (scale) {
     const dims = this.dims;
     each(dims, (dim) => {
-      this.zoomDim(dim, 0.1);
+      this.zoomDim(dim, scale);
     });
     this.context.view.render(true);
   }
@@ -20,13 +25,10 @@ class ScaleTranslate extends TransformAction {
   /**
    * 放大
    */
-  public zoomOut() {
-    const dims = this.dims;
-    each(dims, (dim) => {
-      this.zoomDim(dim, -0.1);
-    });
-    this.context.view.render(true);
+  public zoomOut () {
+    this.zoom(-1 * this.zoomRatio);
   }
+
 
   // 缩放度量
   private zoomDim(dim, dRatio) {
@@ -57,12 +59,18 @@ class ScaleTranslate extends TransformAction {
     const range = scaleDef.max - scaleDef.min;
     const { min, max } = scale;
     const d = dRatio * range;
-    view.scale(scale.field, {
-      // @ts-ignore
-      nice: false,
-      min: min - d,
-      max: max + d,
-    });
+    const toMin = min - d;
+    const toMax = max  + d;
+    const curRange = toMax - toMin;
+    const scaled = curRange / range;
+    if (toMax > toMin && (scaled < 100 && scaled > 0.01)) {
+      view.scale(scale.field, {
+        // @ts-ignore
+        nice: false,
+        min: min - d,
+        max: max + d,
+      });
+    }
   }
 
   // 平移分类的度量

@@ -1334,7 +1334,7 @@ export class View extends Base {
    */
   private onDelegateEvents = (evt: GEvent): void => {
     // 阻止继续冒泡，防止重复事件触发
-    evt.preventDefault();
+    // evt.preventDefault();
     const { type, name } = evt;
     if (!name.includes(':')) {
       return;
