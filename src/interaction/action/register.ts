@@ -33,6 +33,15 @@ export function createAction(actionName: string, context: IInteractionContext): 
 }
 
 /**
+ * 根据 action 的 name 获取定义的类
+ * @param actionName action 的 name
+ */
+export function getActionClass(actionName: string) {
+  const actionOption = ActionCache[actionName];
+  return actionOption && actionOption.ActionClass;
+}
+
+/**
  * 注册 Action
  * @param actionName - action 的名称
  * @param ActionClass - 继承自 action 的类

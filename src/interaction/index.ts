@@ -46,4 +46,4 @@ export function createInteraction(name: string, view: View, cfg?: LooseObject) {
 }
 
 export { default as Interaction } from './interaction';
-export { Action, registerAction } from './action';
+export { Action, registerAction, getActionClass } from './action';
