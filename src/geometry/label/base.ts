@@ -36,8 +36,46 @@ export default class GeometryLabel {
     this.geometry = geometry;
   }
 
-  public render(mapppingArray: MappingDatum[], isUpdate: boolean) {
-    const labelItems = this.getItems(mapppingArray);
+  public getLabelItems(mapppingArray: MappingDatum[]): LabelItem[] {
+    const items = [];
+    const labelCfgs = this.getLabelCfgs(mapppingArray);
+    // 获取 label 相关的 x，y 的值，获取具体的 x, y，防止存在数组
+    each(mapppingArray, (mappingData: MappingDatum, index: number) => {
+      const labelCfg = labelCfgs[index];
+      if (!labelCfg) {
+        items.push(null);
+        return;
+      }
+
+      const labelContent = !isArray(labelCfg.content) ? [labelCfg.content] : labelCfg.content;
+      labelCfg.content = labelContent;
+      const total = labelContent.length;
+      each(labelContent, (content, subIndex) => {
+        if (isNil(content) || content === '') {
+          items.push(null);
+          return;
+        }
+
+        const item = {
+          ...labelCfg,
+          ...this.getLabelPoint(labelCfg, mappingData, subIndex),
+        };
+        if (!item.textAlign) {
+          item.textAlign = this.getLabelAlign(item, subIndex, total);
+        }
+
+        if (item.offset <= 0) {
+          item.labelLine = null;
+        }
+
+        items.push(item);
+      });
+    });
+    return items;
+  }
+
+  public render(mapppingArray: MappingDatum[], isUpdate: boolean = false) {
+    const labelItems = this.getLabelItems(mapppingArray);
 
     const labelsRenderer = this.getLabelsRenderer();
     const shapes = this.getGeometryShapes();
@@ -168,33 +206,23 @@ export default class GeometryLabel {
       label.y = getDimValue(mappingData.y, index);
     }
 
-    // get nearest point of the shape as the label line start point
-    if (
-      mappingData &&
-      mappingData.nextPoints &&
-      ['funnel', 'pyramid'].includes(isArray(mappingData.shape) ? mappingData.shape[0] : mappingData.shape)
-    ) {
-      let maxX = -Infinity;
-      mappingData.nextPoints.forEach((p) => {
-        const p1 = coordinate.convert(p);
-        if (p1.x > maxX) {
-          maxX = p1.x;
-        }
-      });
-      label.x = (label.x + maxX) / 2;
-    }
-    // sharp edge of the pyramid
-    if (mappingData.shape === 'pyramid' && !mappingData.nextPoints && mappingData.points) {
-      (mappingData.points as Point[]).forEach((p: Point) => {
-        let p1 = p;
-        p1 = coordinate.convert(p1);
-        if (
-          (isArray(p1.x) && (mappingData.x as number[]).indexOf(p1.x) === -1) ||
-          (isNumber(p1.x) && mappingData.x !== p1.x)
-        ) {
-          label.x = (label.x + p1.x) / 2;
-        }
-      });
+    // 处理漏斗图文本位置
+    const shape = isArray(mappingData.shape) ? mappingData.shape[0] : mappingData.shape;
+    if (shape === 'funnel' || shape === 'pyramid') {
+      const nextPoints = get(mappingData, 'nextPoints');
+      const points = get(mappingData, 'points');
+      if (nextPoints) {
+        // 非漏斗图底部
+        const point1 = coordinate.convert(points[1] as Point);
+        const point2 = coordinate.convert(nextPoints[1] as Point);
+        label.x = (point1.x + point2.x) / 2;
+        label.y = (point1.y + point2.y) / 2;
+      } else if (shape === 'pyramid') {
+        const point1 = coordinate.convert(points[1] as Point);
+        const point2 = coordinate.convert(points[2] as Point);
+        label.x = (point1.x + point2.x) / 2;
+        label.y = (point1.y + point2.y) / 2;
+      }
     }
 
     if (labelCfg.position) {
@@ -282,44 +310,6 @@ export default class GeometryLabel {
     labelsRenderer.animate = animateOption ? getDefaultAnimateCfg('label', coordinate) : false;
 
     return labelsRenderer;
-  }
-
-  private getItems(mapppingArray: MappingDatum[]): LabelItem[] {
-    const items = [];
-    const labelCfgs = this.getLabelCfgs(mapppingArray);
-    // 获取 label 相关的 x，y 的值，获取具体的 x, y，防止存在数组
-    each(mapppingArray, (mappingData: MappingDatum, index: number) => {
-      const labelCfg = labelCfgs[index];
-      if (!labelCfg) {
-        items.push(null);
-        return;
-      }
-
-      const labelContent = !isArray(labelCfg.content) ? [labelCfg.content] : labelCfg.content;
-      labelCfg.content = labelContent;
-      const total = labelContent.length;
-      each(labelContent, (content, subIndex) => {
-        if (isNil(content) || content === '') {
-          items.push(null);
-          return;
-        }
-
-        const item = {
-          ...labelCfg,
-          ...this.getLabelPoint(labelCfg, mappingData, subIndex),
-        };
-        if (!item.textAlign) {
-          item.textAlign = this.getLabelAlign(item, subIndex, total);
-        }
-
-        if (item.offset <= 0) {
-          item.labelLine = null;
-        }
-
-        items.push(item);
-      });
-    });
-    return items;
   }
 
   private getLabelCfgs(mapppingArray: MappingDatum[]): LabelCfg[] {
