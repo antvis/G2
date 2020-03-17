@@ -308,9 +308,9 @@ export default class Tooltip extends Controller<TooltipOption> {
 
     tooltip.init();
 
+    const tooltipContainer = tooltip.get('container');
     if (cfg.enterable === false) {
       // 优化体验，在 tooltip dom 上加绑事件
-      const tooltipContainer = tooltip.get('container');
       // 如果 tooltip 不允许进入
       tooltipContainer.onmousemove = event => {
         // 避免 tooltip 频繁闪烁
@@ -318,6 +318,14 @@ export default class Tooltip extends Controller<TooltipOption> {
         this.view.emit('plot:mousemove', point);
       };
     }
+
+    // 优化：鼠标移入 tooltipContainer 然后再移出时，需要隐藏 tooltip
+    tooltipContainer.onmouseleave = () => {
+      if (!this.view.isTooltipLocked()) {
+        this.hideTooltip();
+      }
+    };
+
 
     this.tooltip = tooltip;
   }
