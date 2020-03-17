@@ -1,6 +1,6 @@
 ---
 title: FAQ
-order: 9
+order: 10
 ---
 
 ## 如何导出图片
