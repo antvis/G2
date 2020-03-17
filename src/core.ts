@@ -29,7 +29,7 @@ export {
 } from './geometry/label';
 
 // 注册 interaction
-export { getInteraction, registerInteraction, registerAction } from './interaction';
+export { getInteraction, registerInteraction, registerAction, getActionClass } from './interaction';
 
 // 注册 facet
 export { getFacet, registerFacet } from './facet';

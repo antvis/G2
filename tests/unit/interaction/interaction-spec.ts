@@ -3,6 +3,7 @@ import Action from '../../../src/interaction/action/base';
 import {
   createAction,
   createCallbackAction,
+  getActionClass,
   registerAction,
   unregisterAction,
 } from '../../../src/interaction/action/register';
@@ -28,6 +29,10 @@ class CustomAction extends Action {
 }
 registerAction('custom', CustomAction); // 注册
 describe('create action test', () => {
+  it('getActionClass', () => {
+    expect(getActionClass('custom')).toBe(CustomAction);
+    expect(getActionClass('test11')).toBe(undefined);
+  });
   it('create action', () => {
     const context = new Context(null);
     const action = createAction('custom', context);
