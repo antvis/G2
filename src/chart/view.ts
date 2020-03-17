@@ -1291,9 +1291,6 @@ export class View extends Base {
     this.middleGroup.on('*', this.onDelegateEvents);
     this.backgroundGroup.on('*', this.onDelegateEvents);
 
-    // 自己监听事件，然后向上冒泡
-    // 不冒泡，自己监听自己的
-    // this.on('*', this.onViewEvents);
     this.canvas.on('*', this.onCanvasEvent);
   }
 
@@ -1415,23 +1412,6 @@ export class View extends Base {
       }
     }
   }
-
-  /**
-   * 监听自己的 view 事件，然后向上传递，形成事件冒泡的机制
-   * @param evt
-   */
-  private onViewEvents = (evt?: Event): void => {
-    // 存在事件的时候才冒泡，否则可能是生命周期事件，暂时不冒泡
-    // 因为 chart 上监听到很多的 view 生命周期事件，好像没有意义
-    if (evt) {
-      const { type } = evt;
-
-      if (this.parent) {
-        // 事件在 view 嵌套中冒泡（暂不提供阻止冒泡的机制）
-        this.parent.emit(type, evt);
-      }
-    }
-  };
 
   // view 生命周期 —— 渲染流程
 
