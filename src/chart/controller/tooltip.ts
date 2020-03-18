@@ -62,7 +62,10 @@ export default class Tooltip extends Controller<TooltipOption> {
     const view = this.view;
     const items = this.getTooltipItems(point);
     if (!items.length) {
-      // 无内容则不展示
+      // 无内容则不展示，同时 tooltip 需要隐藏
+      if (this.tooltip) {
+        this.tooltip.hide();
+      }
       return;
     }
     const title = this.getTitle(items);
@@ -111,6 +114,7 @@ export default class Tooltip extends Controller<TooltipOption> {
       if (this.tooltip) {
         const newPoint = follow ? point : dataPoint;
         this.tooltip.update(newPoint);
+        this.tooltip.show(); // tooltip 有可能被隐藏，需要保证显示状态
       }
     }
 
@@ -304,9 +308,9 @@ export default class Tooltip extends Controller<TooltipOption> {
 
     tooltip.init();
 
+    const tooltipContainer = tooltip.get('container');
     if (cfg.enterable === false) {
       // 优化体验，在 tooltip dom 上加绑事件
-      const tooltipContainer = tooltip.get('container');
       // 如果 tooltip 不允许进入
       tooltipContainer.onmousemove = event => {
         // 避免 tooltip 频繁闪烁
@@ -314,6 +318,14 @@ export default class Tooltip extends Controller<TooltipOption> {
         this.view.emit('plot:mousemove', point);
       };
     }
+
+    // 优化：鼠标移入 tooltipContainer 然后再移出时，需要隐藏 tooltip
+    tooltipContainer.onmouseleave = () => {
+      if (!this.view.isTooltipLocked()) {
+        this.hideTooltip();
+      }
+    };
+
 
     this.tooltip = tooltip;
   }
