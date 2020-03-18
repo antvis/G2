@@ -81,7 +81,10 @@ export interface InteractionStep {
 }
 
 // action 执行时支持 debounce 和 throttle，可以参考：https://css-tricks.com/debouncing-throttling-explained-examples/
-interface DebounceOption {
+/**
+ * debounce 的配置
+ */
+export interface DebounceOption {
   /**
    * 等待时间
    */
@@ -92,7 +95,10 @@ interface DebounceOption {
   immediate?: boolean;
 }
 
-interface ThrottleOption {
+/**
+ * throttle 的配置
+ */
+export interface ThrottleOption {
   /**
    * 等待时间
    */
@@ -107,11 +113,15 @@ interface ThrottleOption {
   trailing?: boolean;
 }
 
-
-
-/** 缓存 action 对象 */
+/** 缓存 action 对象，仅用于当前文件 */
 interface ActionObject {
+  /**
+   * 缓存的 action
+   */
   action: IAction;
+  /**
+   * action 的方法
+   */
   methodName: string;
 }
 
