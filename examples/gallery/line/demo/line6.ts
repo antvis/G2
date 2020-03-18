@@ -61,6 +61,6 @@ fetch('../data/blockchain.json')
         }
       },
     });
-
+    chart.removeInteraction('legend-filter'); // 自定义图例，移除默认的分类图例筛选交互
     chart.render();
   });

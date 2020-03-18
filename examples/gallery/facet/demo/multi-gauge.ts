@@ -65,8 +65,16 @@ chart.facet('rect', {
   eachView: function eachView(view, facet) {
     const data = facet.data[0];
     // 指针
-    view.point().position('value*1').shape('pointer')
-      .color('#d8d8d8');
+    view
+      .point()
+      .position('value*1')
+      .shape('pointer')
+      .color('#d8d8d8')
+      .animate({
+        appear: {
+          animation: 'fade-in',
+        },
+      });
     // 仪表盘背景
     view.annotation().arc({
       top: false,

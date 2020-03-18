@@ -43,6 +43,7 @@ const color = ['#0086FA', '#FFBF00', '#F5222D'];
 const chart = new Chart({
   container: 'container',
   autoFit: true,
+  height: 500,
   padding: [0, 0, 30, 0],
 });
 chart.data(creatData());
