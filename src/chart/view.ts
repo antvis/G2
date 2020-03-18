@@ -135,6 +135,8 @@ export class View extends Base {
   private isPreMouseInPlot: boolean = false;
   /** tooltip 是否被锁定 */
   private tooltipLocked: boolean;
+  /** 默认标识位，用于判定数据是否更新 */
+  private isDataChanged: boolean = false;
 
   constructor(props: ViewCfg) {
     super({ visible: props.visible });
@@ -229,6 +231,7 @@ export class View extends Base {
     this.scalePool.clear();
     this.filteredData = [];
     this.coordinateInstance = undefined;
+    this.isDataChanged = false; // 复位
 
     // 2. 清空 geometries
     each(this.geometries, (geometry: Geometry) => {
@@ -315,7 +318,7 @@ export class View extends Base {
    */
   public data(data: Data): View {
     set(this.options, 'data', data);
-
+    this.isDataChanged = true;
     return this;
   }
 
@@ -714,6 +717,7 @@ export class View extends Base {
    * @returns void
    */
   public changeData(data: Data) {
+    this.isDataChanged = true;
     this.emit(VIEW_LIFE_CIRCLE.BEFORE_CHANGE_DATA);
     // 1. 保存数据
     this.data(data);
@@ -1144,6 +1148,8 @@ export class View extends Base {
     this.emit(VIEW_LIFE_CIRCLE.AFTER_PAINT);
 
     this.renderPaintRecursive(isUpdate);
+
+    this.isDataChanged = false; // 渲染完毕复位
   }
 
   /**
@@ -1440,6 +1446,7 @@ export class View extends Base {
         scaleDefs: get(this.options, 'scales', {}),
         data: this.filteredData,
         theme: deepMix({}, this.themeObject, geometry.theme), // 支持 geometry 层级的主题设置
+        isDataChanged: this.isDataChanged,
       };
       if (isUpdate) {
         // 数据发生更新
