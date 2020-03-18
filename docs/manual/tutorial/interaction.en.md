@@ -240,12 +240,16 @@ function isWheelDown(event) {
 }
 registerInteraction('view-zoom', {
   start: [
-    { trigger: 'plot:mousewheel', isEnable(context) {
-      return isWheelDown(context.event);
-    }, action: 'scale-zoom:zoomOut', throttle: {wait: 100, leading: true, trailing: false} },
-    { trigger: 'plot:mousewheel',isEnable(context) {
-      return !isWheelDown(context.event);
-    }, action: 'scale-zoom:zoomIn', throttle: {wait: 100, leading: true, trailing: false} }
+    {
+      trigger: 'plot:mousewheel', isEnable(context) {
+        return isWheelDown(context.event);
+      }, action: 'scale-zoom:zoomOut', throttle: { wait: 100, leading: true, trailing: false }
+    },
+    {
+      trigger: 'plot:mousewheel', isEnable(context) {
+        return !isWheelDown(context.event);
+      }, action: 'scale-zoom:zoomIn', throttle: { wait: 100, leading: true, trailing: false }
+    }
   ]
 });
 ```
@@ -619,7 +623,7 @@ Chart 和 View 上的 Action 用户控制视图的变化，目前支持的有：
 - scale-translate
 - scale-zoom
 
-### move
+### view-move
 
 用于移动 View 的位置，支持以下几个方法：
 - start() 开始移动

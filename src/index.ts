@@ -517,12 +517,16 @@ function isWheelDown(event) {
 }
 registerInteraction('view-zoom', {
   start: [
-    { trigger: 'plot:mousewheel', isEnable(context) {
-      return isWheelDown(context.event);
-    }, action: 'scale-zoom:zoomOut', throttle: {wait: 100, leading: true, trailing: false} },
-    { trigger: 'plot:mousewheel',isEnable(context) {
-      return !isWheelDown(context.event);
-    }, action: 'scale-zoom:zoomIn', throttle: {wait: 100, leading: true, trailing: false} }
+    {
+      trigger: 'plot:mousewheel', isEnable(context) {
+        return isWheelDown(context.event);
+      }, action: 'scale-zoom:zoomOut', throttle: { wait: 100, leading: true, trailing: false }
+    },
+    {
+      trigger: 'plot:mousewheel', isEnable(context) {
+        return !isWheelDown(context.event);
+      }, action: 'scale-zoom:zoomIn', throttle: { wait: 100, leading: true, trailing: false }
+    }
   ]
 });
 
