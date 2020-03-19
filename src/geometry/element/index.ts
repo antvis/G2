@@ -228,8 +228,10 @@ export default class Element extends Base {
     }
 
     offscreenShape.remove(true); // 销毁，减少内存占用
+
     const eventObject = {
-      states,
+      state: stateName,
+      stateStatus,
       element: this,
       target: this.container,
     };

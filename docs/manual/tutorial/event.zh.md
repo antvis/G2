@@ -189,7 +189,11 @@ view.on('interval:click', (ev) => {
 chart.on('element:statechange', (eventObject) => {});
 ```
 
-用户可以在上述 `eventObject` 属性中获取触发该事件的 element 以及对应的 states: `eventObj.gEvent.originalEvent`。
+用户可以在上述 `eventObject` 属性中获取触发该事件的 element，当前的状态以及状态值:
+
+```ts
+const { element, state, stateStatus } = eventObj.gEvent.originalEvent;
+```
 
 ## 组件上的事件
 

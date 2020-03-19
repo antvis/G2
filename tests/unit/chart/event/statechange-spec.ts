@@ -28,19 +28,27 @@ describe('statechange', () => {
   const interval = chart.interval().position('year*value');
   chart.render();
 
-  it('emit  element:statechange', () => {
-    const fn = jest.fn();
+  it('emit element:statechange', () => {
     let eventObj;
+    const fn = jest.fn();
     chart.on('element:statechange', (e) => {
-      fn();
       eventObj = e;
+      fn();
     });
 
     const element = interval.elements[0];
     element.setState('active', true);
-    expect(fn).toBeCalled();
-    expect(eventObj.gEvent.originalEvent.states).toEqual(['active']);
+    expect(eventObj.gEvent.originalEvent.state).toBe('active');
+    expect(eventObj.gEvent.originalEvent.stateStatus).toBe(true);
     expect(eventObj.gEvent.originalEvent.element).toEqual(element);
+
+    element.setState('active', false);
+    expect(eventObj.gEvent.originalEvent.state).toBe('active');
+    expect(eventObj.gEvent.originalEvent.stateStatus).toBe(false);
+
+    // 状态未变化
+    element.setState('active', false);
+    expect(fn).toBeCalledTimes(2);
   });
 
   afterAll(() => {
