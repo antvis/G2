@@ -68,12 +68,14 @@ const data = [
   { class: '转基因作物种植占比（%）', country: '乌拉圭', type: '1', value: 73 },
   { class: '转基因作物种植占比（%）', country: '乌拉圭', type: '2', value: 27 }
 ];
+
 const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 500,
   padding: [20, 20, 20, 70]
 });
+
 chart.data(data);
 chart.legend(false);
 chart.tooltip({
@@ -85,7 +87,6 @@ chart.facet('rect', {
     offsetY: -15,
     style: {
       fontSize: 14,
-      textAlign: 'center',
       fontWeight: 300,
       fill: '#8d8d8d'
     }
@@ -95,18 +96,10 @@ chart.facet('rect', {
 
     if (facet.columnIndex === 0) {
       view.axis('country', {
-        label: {
-          style: {
-            fill: '#8d8d8d',
-            fontSize: 12
-          }
-        },
         tickLine: null,
         line: null,
       });
-
       view.axis('value', false);
-
     } else {
       view.axis(false);
     }
@@ -122,20 +115,8 @@ chart.facet('rect', {
           return null;
         }
         const offset = (value < 30) ? 10 : -4;
-        const fill = (value < 30) ? '#525253' : '#ffffff';
-        const textAlign = (value < 30) ? 'start' : 'end';
         return {
           offset,
-          style: {
-            fill,
-            stroke: null,
-            lineWidth: 0,
-            fontSize: 12,
-            textAlign,
-            fontWeight: 300,
-            shadowBlur: 2,
-            shadowColor: 'rgba(0, 0, 0, .45)'
-          }
         };
       });
     view.interaction('element-active');
