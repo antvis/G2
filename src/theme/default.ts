@@ -1041,6 +1041,7 @@ export function getThemeByStylesheet(styleSheet: StyleSheet) {
         showMarkers: true,
         shared: false,
         enterable: false,
+        position: 'auto',
         marker: {
           symbol: 'circle',
           stroke: '#fff',

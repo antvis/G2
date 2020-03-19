@@ -264,7 +264,7 @@ function isPointInView(context: IInteractionContext) {
 
 // 注册 tooltip 的 interaction
 registerInteraction('tooltip', {
-  start: [{ trigger: 'plot:mousemove', action: 'tooltip:show' }],
+  start: [{ trigger: 'plot:mousemove', action: 'tooltip:show', throttle: { wait: 50, leading: true, trailing: false } }],
   end: [{ trigger: 'plot:mouseleave', action: 'tooltip:hide' }],
 });
 

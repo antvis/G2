@@ -16,7 +16,7 @@ export interface LabelPointCfg {
   start?: Point;
   color?: string;
   content?: any;
-  textAlign?: string;
+  textAlign?: 'start' | 'center' | 'end' | 'left' | 'right';
   rotate?: number;
   angle?: number;
   r?: number;
@@ -32,7 +32,7 @@ export interface LabelItem extends GeometryLabelCfg {
   start?: Point;
   color?: string;
   content?: any;
-  textAlign?: string;
+  textAlign?: 'start' | 'center' | 'end' | 'left' | 'right';
   rotate?: number;
   angle?: number;
   r?: number;
