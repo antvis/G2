@@ -202,6 +202,7 @@ export default class Geometry extends Base {
   private adjusts: Record<string, Adjust> = {};
   private lastAttributeOption;
   private labelsRenderer: Labels;
+  private idFields: string[] = [];
 
   /**
    * 创建 Geometry 实例。
@@ -893,6 +894,7 @@ export default class Geometry extends Base {
     this.beforeMappingData = null;
     this.lastAttributeOption = undefined;
     this.defaultSize = undefined;
+    this.idFields = [];
   }
 
   /**
@@ -1042,6 +1044,17 @@ export default class Geometry extends Base {
   public getElementId(data: MappingDatum | MappingDatum[]) {
     data = isArray(data) ? data[0] : data;
     const originData = data[FIELD_ORIGIN];
+
+    // 如果用户声明了使用哪些字段作为 id 值
+    if (this.idFields.length) {
+      let elementId = originData[this.idFields[0]];
+      for (let index = 1; index < this.idFields.length; index++) {
+        elementId += '-' + originData[this.idFields[index]];
+      }
+
+      return elementId;
+    }
+
     const type = this.type;
     const xScale = this.getXScale();
     const yScale = this.getYScale();
@@ -1777,6 +1790,12 @@ export default class Geometry extends Base {
     }
     if (scaleDefs) {
       this.scaleDefs = scaleDefs;
+      this.idFields = [];
+      each(scaleDefs, (scaleDef, field) => {
+        if (get(scaleDef, 'key')) {
+          this.idFields.push(field);
+        }
+      });
     }
     if (theme) {
       this.theme = theme;
