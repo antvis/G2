@@ -1,6 +1,7 @@
 import { ActionCallback, IInteractionContext, LooseObject } from '../../interface';
 import Action from './base';
 import CallbackAction from './callback';
+import { get } from '@antv/util';
 
 /** Action 构造函数 */
 type ActionConstructor = new (context: IInteractionContext, cfg?: LooseObject) => Action;
@@ -38,7 +39,7 @@ export function createAction(actionName: string, context: IInteractionContext): 
  */
 export function getActionClass(actionName: string) {
   const actionOption = ActionCache[actionName];
-  return actionOption && actionOption.ActionClass;
+  return get(actionOption, 'ActionClass');
 }
 
 /**
