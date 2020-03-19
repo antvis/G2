@@ -1,7 +1,7 @@
 import { Chart } from '../../../../src';
 import { CITY_SALE } from '../../../util/data';
 import { createDiv } from '../../../util/dom';
-import {simulateMouseEvent, getClientPoint} from '../../../util/simulate';
+import {getClientPoint, simulateMouseEvent} from '../../../util/simulate';
 describe('multiple view test', () => {
   const div = createDiv();
 

@@ -6,6 +6,8 @@ import { AnimateOption, Datum, LooseObject, ShapeFactory, ShapeInfo, StateCfg } 
 import { getReplaceAttrs } from '../../util/graphics';
 import Geometry from '../base';
 
+import { propagationDelegate } from '@antv/component/lib/util/event';
+
 /** Element 构造函数传入参数类型 */
 interface ElementCfg {
   /** 用于创建各种 shape 的工厂对象 */
@@ -226,6 +228,13 @@ export default class Element extends Base {
     }
 
     offscreenShape.remove(true); // 销毁，减少内存占用
+    const eventObject = {
+      states,
+      element: this,
+      target: this.container,
+    };
+    this.container.emit('statechange', eventObject);
+    propagationDelegate(this.container, 'statechange', eventObject);
   }
 
   /**
