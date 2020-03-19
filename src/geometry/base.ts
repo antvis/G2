@@ -821,11 +821,12 @@ export default class Geometry extends Base {
     const dataArray = this.beforeMapping(beforeMappingData);
 
     const mappingArray = [];
-    for (const eachGroup of dataArray) {
+
+    dataArray.forEach((eachGroup, index) => {
       const mappingData = this.mapping(eachGroup);
       mappingArray.push(mappingData);
-      this.createElements(mappingData, isUpdate);
-    }
+      this.createElements(mappingData, index, isUpdate);
+    });
 
     if (this.canDoGroupAnimation(isUpdate)) {
       // 如果用户没有配置 appear.animation，就默认走整体动画
@@ -1273,11 +1274,16 @@ export default class Geometry extends Base {
    * @param [isUpdate]
    * @returns elements
    */
-  protected createElements(mappingData: MappingDatum[], isUpdate: boolean = false): Element[] {
+  protected createElements(mappingData: MappingDatum[], index: number, isUpdate: boolean = false): Element[] {
     const { lastElementsMap, elementsMap, elements } = this;
-    each(mappingData, (mappingDatum) => {
-      const id = this.getElementId(mappingDatum);
-      let result = lastElementsMap[id] || elementsMap[id];
+    each(mappingData, (mappingDatum, subIndex) => {
+      let id = this.getElementId(mappingDatum);
+      if (elementsMap[id]) {
+        // 存在重复数据，则根据再根据 index 进行区分
+        id = `${id}-${index}-${subIndex}`;
+      }
+
+      let result = lastElementsMap[id];
       if (!result) {
         // 创建新的 element
         result = this.createElement(mappingDatum, isUpdate);
@@ -1293,11 +1299,8 @@ export default class Geometry extends Base {
         delete lastElementsMap[id];
       }
 
-      if (!elementsMap[id]) {
-        // 保证唯一性
-        elements.push(result);
-        elementsMap[id] = result;
-      }
+      elements.push(result);
+      elementsMap[id] = result;
     });
     return elements;
   }

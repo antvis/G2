@@ -28,10 +28,10 @@ describe('#2016', () => {
       .shape('circle');
     chart.render();
 
-    expect(point.elements.length).toBe(2);
+    expect(point.elements.length).toBe(4);
 
     chart.render(true);
-    expect(point.elements.length).toBe(2);
+    expect(point.elements.length).toBe(4);
   });
 
   afterAll(() => {

@@ -16,7 +16,7 @@ export default class Heatmap extends Geometry {
   private shadowCanvas: HTMLCanvasElement;
   private imageShape: IShape;
 
-  protected createElements(mappingData: MappingDatum[], isUpdate: boolean = false) {
+  protected createElements(mappingData: MappingDatum[], index: number, isUpdate: boolean = false) {
     const range = this.prepareRange(mappingData);
     const radius = this.prepareSize();
 
