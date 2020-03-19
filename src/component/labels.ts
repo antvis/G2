@@ -188,7 +188,6 @@ export default class Labels {
 
       translate(content, x, y); // 将 label 平移至 x, y 指定的位置
       labelShape = content;
-      content.set('_name', 'labelContent');
       labelGroup.add(content);
     } else {
       labelShape = labelGroup.addShape('text', {
@@ -201,7 +200,6 @@ export default class Labels {
           ...cfg.style,
         },
         ...shapeAppendCfg,
-        _name: 'labelContent',
       });
     }
 
@@ -282,12 +280,14 @@ export default class Labels {
         const id = item.id;
         const labelGroup = this.shapesMap[id];
         if (!labelGroup.destroyed) {
-          const labelShape = labelGroup.find(ele => ele.get('_name') === 'labelContent');
-          if (item.offsetX) {
-            labelShape.attr('x', labelShape.attr('x') + item.offsetX);
-          }
-          if (item.offsetY) {
-            labelShape.attr('y', labelShape.attr('y') + item.offsetY);
+          const labelShape = labelGroup.find(ele => ele.get('type') === 'text');
+          if (labelShape) {
+            if (item.offsetX) {
+              labelShape.attr('x', labelShape.attr('x') + item.offsetX);
+            }
+            if (item.offsetY) {
+              labelShape.attr('y', labelShape.attr('y') + item.offsetY);
+            }
           }
         }
       }
