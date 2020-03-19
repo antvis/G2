@@ -36,13 +36,13 @@ export default class Path extends Geometry {
    * @param [isUpdate]
    * @returns elements
    */
-  protected createElements(mappingData: MappingDatum[], isUpdate: boolean = false): Element[] {
+  protected createElements(mappingData: MappingDatum[], index: number, isUpdate: boolean = false): Element[] {
     // Path 的每个 element 对应一组数据
     const { lastElementsMap, elementsMap, elements, theme, container } = this;
     const elementId = this.getElementId(mappingData);
     const shapeCfg = this.getShapeInfo(mappingData);
 
-    let result = lastElementsMap[elementId] || elementsMap[elementId];
+    let result = lastElementsMap[elementId];
     if (!result) {
       const shapeFactory = this.getShapeFactory();
 
@@ -64,10 +64,8 @@ export default class Path extends Geometry {
       delete lastElementsMap[elementId];
     }
 
-    if (!elementsMap[elementId]) {
-      elements.push(result);
-      elementsMap[elementId] = result;
-    }
+    elements.push(result);
+    elementsMap[elementId] = result;
 
     return elements;
   }
