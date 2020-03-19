@@ -7,15 +7,16 @@ G2 除了支持函数调用方式外，也支持图形语法的配置项式声�
 
 ## 创建 Chart
 
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*Ou0cQqwiVUIAAAAAAAAAAABkARQnAQ" width=400 />
+
 ```typescript
 import { Chart } from '@antv/g2';
 
-chart = new Chart({
-  container: div,
+const chart = new Chart({
+  container: 'container',
   autoFit: false,
   width: 400,
   height: 300,
-  padding: 12,
   options: {
     data: [
       { genre: 'Sports', sold: 275 },
@@ -45,8 +46,22 @@ chart.render();
 
 ## 配置项更新
 
+使用 `chart.updateOptions(options)` 接口进行配置项更新。该接口会将传入的 `options` 同 chart 当前的 options 进行合并（mix），options 中的属性将会覆盖原先 chart.options 中对应的属性。
+
+实例：基于『创建 Chart』中的代码，我们通过 `chart.updateOptions()` 接口，将柱状图更改为折线图。
+
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*x7HMSoMnYRgAAAAAAAAAAABkARQnAQ" width=400 />
+
 ```typescript
-chart.updateOptions(options);
+chart.updateOptions({
+  geometries: [
+    {
+      type: 'line',
+      position: 'genre*sold',
+    },
+  ],
+});
+
 chart.render();
 ```
 
@@ -56,7 +71,7 @@ Options 参见[类型定义](../../api/interfaces/options)。
 
 ### 绘制柱状图
 
-![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*BICkRbG2I4YAAAAAAAAAAABkARQnAQ)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*BICkRbG2I4YAAAAAAAAAAABkARQnAQ" width=400 />
 
 ```typescript
 const chart = new Chart({
@@ -91,7 +106,7 @@ chart.render();
 
 ### 绘制多 View
 
-![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*wWeWSJGhKqAAAAAAAAAAAABkARQnAQ)
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*wWeWSJGhKqAAAAAAAAAAAABkARQnAQ" width=400 />
 
 ```typescript
 const chart = new Chart({
