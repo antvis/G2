@@ -195,6 +195,8 @@ chart.on('element:statechange', (eventObject) => {});
 const { element, state, stateStatus } = eventObj.gEvent.originalEvent;
 ```
 
+该事件使用实例：[更新 Element 状态变化动态更新 Annotation](../../../examples/interaction/others#pie-legend)
+
 ## 组件上的事件
 
 组件同 Element 一样都支持 name:eventName 的委托事件，不同的组件上支持不同的事件名前缀，这些事件名前缀可以同基础画布的事件组合使用，这些事件名有：
