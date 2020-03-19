@@ -18,6 +18,7 @@ import {
   size,
   uniq,
   uniqueId,
+  mix,
 } from '@antv/util';
 import { Attribute, Coordinate, Event as GEvent, GroupComponent, ICanvas, IGroup, IShape, Scale } from '../dependents';
 import {
@@ -616,11 +617,9 @@ export class View extends Base {
    * @param options 配置项
    */
   public updateOptions(options: Options) {
-    this.options = {
-      data: [],
-      animate: true, // 默认开启动画
-      ...options,
-    };
+    this.clear(); // 清空
+    mix(this.options, options);
+
     this.initOptions();
     return this;
   }

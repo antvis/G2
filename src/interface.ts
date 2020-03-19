@@ -603,9 +603,9 @@ export interface InteractionOption {
 /** 用于配置项式的 Geometry 创建方式 */
 export interface GeometryOption {
   /** Geometry 的类型。 */
-  type: 'interval' | 'line' | 'path' | 'point' | 'area' | 'polygon' | 'schema' | 'edge' | 'heatmap' | string;
+  type?: 'interval' | 'line' | 'path' | 'point' | 'area' | 'polygon' | 'schema' | 'edge' | 'heatmap' | string;
   /** position 通道映射规则，对应 `geometry.position()`。 */
-  position: string | AttributeOption;
+  position?: string | AttributeOption;
   /** color 通道映射规则，对应 `geometry.color()`。 */
   color?: string | AttributeOption;
   /** shape 通道映射规则，对应 `geometry.shape()`。 */
@@ -1078,7 +1078,7 @@ export interface AxisCfg {
 /** 配置项声明式 */
 export interface Options {
   /** 数据源配置。 */
-  readonly data: Data;
+  readonly data?: Data;
   /** 设置数据过滤条件，以 data 中的数据属性为 key。 */
   readonly filters?: Record<string, FilterCondition>;
   /** 坐标轴配置，以 data 中的数据属性为 key。 */
