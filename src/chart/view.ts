@@ -1145,9 +1145,9 @@ export class View extends Base {
 
     this.renderLayoutRecursive(isUpdate);
 
-    this.emit(VIEW_LIFE_CIRCLE.AFTER_PAINT);
-
     this.renderPaintRecursive(isUpdate);
+
+    this.emit(VIEW_LIFE_CIRCLE.AFTER_PAINT);
 
     this.isDataChanged = false; // 渲染完毕复位
   }
