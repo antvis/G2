@@ -90,6 +90,8 @@ export interface InitCfg {
   theme?: LooseObject;
   /** 列定义 */
   scaleDefs?: Record<string, ScaleOption>;
+  /** 因为数据使用的引用，所以需要有一个标识位标识数据是否发生了更新 */
+  isDataChanged?: boolean;
 }
 
 /** Geometry 构造函数参数 */
@@ -786,16 +788,16 @@ export default class Geometry extends Base {
    * @param [cfg] 更新的配置
    */
   public update(cfg: InitCfg = {}) {
-    const { data } = cfg;
+    const { data, isDataChanged } = cfg;
     const { attributeOption, lastAttributeOption } = this;
 
     if (!isEqual(attributeOption, lastAttributeOption)) {
       // 映射发生改变，则重新创建图形属性
       this.init(cfg);
-    } else if (data && !isEqual(data, this.data)) {
-      // 数据或者 scale 发生变化
+    } else if (data && (isDataChanged || !isEqual(data, this.data))) {
+      // 数据发生变化
       this.setCfg(cfg);
-      this.processData(this.data); // 数据加工：分组 -> 数字化 -> adjust
+      this.processData(data); // 数据加工：分组 -> 数字化 -> adjust
     } else {
       // 有可能 coordinate 变化
       this.setCfg(cfg);

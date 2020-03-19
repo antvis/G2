@@ -90,7 +90,6 @@ const chart = new Chart({
   container: createDiv(),
   width: 500,
   height: 400,
-  //padding: [10, 40, 40, 40]
 });
 
 chart.data(data);
