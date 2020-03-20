@@ -1,5 +1,5 @@
 import { getCoordinate } from '@antv/coord';
-import { getDistanceToCenter, getPointAngle, getXDimensionLength, isFullCircle } from '../../../src/util/coordinate';
+import { getAngleByPoint, getDistanceToCenter, getXDimensionLength, isFullCircle } from '../../../src/util/coordinate';
 
 const Polar = getCoordinate('polar');
 const Cartesian = getCoordinate('rect');
@@ -70,7 +70,7 @@ describe('CoordinateUtil', () => {
     ).toBe(100);
   });
 
-  it('getPointAngle()', () => {
+  it('getAngleByPoint()', () => {
     const coord = new Polar({
       start: {
         x: 0,
@@ -82,13 +82,13 @@ describe('CoordinateUtil', () => {
       },
     });
     expect(
-      getPointAngle(coord, {
+      getAngleByPoint(coord, {
         x: 100,
         y: 100,
       })
     ).toBe(0);
     expect(
-      getPointAngle(coord, {
+      getAngleByPoint(coord, {
         x: 0,
         y: 100,
       })

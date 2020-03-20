@@ -89,7 +89,7 @@ describe('GeometryLabel layout', () => {
     expect(canvas.getCanvasBBox().minX).toBeLessThan(0);
 
     // @ts-ignore
-    limitInCanvas(canvas.getChildren(), [], region);
+    limitInCanvas([], canvas.getChildren(), [], region);
     canvas.draw();
     expect(canvas.getChildren().length).toBe(7);
     expect(canvas.getCanvasBBox().minX).toBe(0);

@@ -23,7 +23,7 @@ import { COMPONENT_TYPE, DIRECTION, LAYER, VIEW_LIFE_CIRCLE } from '../../consta
 
 import Geometry from '../../geometry/base';
 import Element from '../../geometry/element';
-import { getDistanceToCenter, getPointAngle } from '../../util/coordinate';
+import { getAngleByPoint, getDistanceToCenter } from '../../util/coordinate';
 import { omit } from '../../util/helper';
 import View from '../view';
 import { Controller } from './base';
@@ -528,8 +528,8 @@ export default class Annotation extends Controller<BaseOption[]> {
       const { start, end } = option as ArcOption;
       const sp = this.parsePosition(start);
       const ep = this.parsePosition(end);
-      const startAngle = getPointAngle(coordinate, sp);
-      let endAngle = getPointAngle(coordinate, ep);
+      const startAngle = getAngleByPoint(coordinate, sp);
+      let endAngle = getAngleByPoint(coordinate, ep);
       if (startAngle > endAngle) {
         endAngle = Math.PI * 2 + endAngle;
       }

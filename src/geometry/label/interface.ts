@@ -17,6 +17,7 @@ export interface LabelPointCfg {
   color?: string;
   content?: any;
   textAlign?: TextAlign;
+  textBaseline?: string;
   rotate?: number;
   angle?: number;
   r?: number;
@@ -33,6 +34,7 @@ export interface LabelItem extends GeometryLabelCfg {
   color?: string;
   content?: any;
   textAlign?: TextAlign;
+  textBaseline?: string;
   rotate?: number;
   angle?: number;
   r?: number;

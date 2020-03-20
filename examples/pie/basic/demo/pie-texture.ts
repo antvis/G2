@@ -8,6 +8,7 @@ const data = [
 const chart = new Chart({
   container: 'container',
   autoFit: true,
+  height: 500,
 });
 
 chart.data(data);

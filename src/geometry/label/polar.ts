@@ -1,7 +1,7 @@
 import { each, isArray } from '@antv/util';
 import { MappingDatum, Point } from '../../interface';
 import { getDistanceToCenter } from '../../util/coordinate';
-import { getPointAngle } from '../../util/coordinate';
+import { getAngleByPoint } from '../../util/coordinate';
 import GeometryLabel from './base';
 import { LabelCfg, LabelItem, LabelPointCfg } from './interface';
 
@@ -11,15 +11,16 @@ const HALF_PI = Math.PI / 2;
  * 极坐标下的图形 label
  */
 export default class PolarLabel extends GeometryLabel {
+  /**
+   * @override
+   * 获取文本的对齐方式
+   * @param point
+   */
   protected getLabelAlign(point: LabelItem) {
-    const coordinate = this.coordinate;
+    const coordinate = this.getCoordinate();
     let align;
     if (point.labelEmit) {
-      if (point.angle <= Math.PI / 2 && point.angle > -Math.PI / 2) {
-        align = 'left';
-      } else {
-        align = 'right';
-      }
+      align = (point.angle <= Math.PI / 2 && point.angle >= -Math.PI / 2) ? 'left' : 'right';
     } else if (!coordinate.isTransposed) {
       align = 'center';
     } else {
@@ -28,22 +29,21 @@ export default class PolarLabel extends GeometryLabel {
       if (Math.abs(point.x - center.x) < 1) {
         align = 'center';
       } else if (point.angle > Math.PI || point.angle <= 0) {
-        if (offset > 0) {
-          align = 'left';
-        } else {
-          align = 'right';
-        }
+        align = offset > 0 ? 'left' : 'right';
       } else {
-        if (offset > 0) {
-          align = 'right';
-        } else {
-          align = 'left';
-        }
+        align = offset > 0 ? 'right' : 'left';
       }
     }
     return align;
   }
 
+  /**
+   * @override
+   * 获取 label 的位置
+   * @param labelCfg
+   * @param mappingData
+   * @param index
+   */
   protected getLabelPoint(labelCfg: LabelCfg, mappingData: MappingDatum, index: number): LabelPointCfg {
     let factor = 1;
     let arcPoint;
@@ -82,30 +82,40 @@ export default class PolarLabel extends GeometryLabel {
     return labelPositionCfg;
   }
 
+  /**
+   * 获取圆弧的位置
+   */
   protected getArcPoint(mappingData: MappingDatum, index: number = 0): Point {
-    let arcPoint;
     if (!isArray(mappingData.x) && !isArray(mappingData.y)) {
-      arcPoint = {
+      return {
         x: mappingData.x,
         y: mappingData.y,
       };
-    } else {
-      arcPoint = {
-        x: isArray(mappingData.x) ? mappingData.x[index] : mappingData.x,
-        y: isArray(mappingData.y) ? mappingData.y[index] : mappingData.y,
-      };
     }
 
-    return arcPoint;
+    return {
+      x: isArray(mappingData.x) ? mappingData.x[index] : mappingData.x,
+      y: isArray(mappingData.y) ? mappingData.y[index] : mappingData.y,
+    };
   }
 
-  // 获取点所在的角度
+  /**
+   * 计算坐标线点在极坐标系下角度
+   * @param point
+   */
   protected getPointAngle(point: Point): number {
-    return getPointAngle(this.coordinate, point);
+    return getAngleByPoint(this.getCoordinate(), point);
   }
 
+  /**
+   * 获取坐标点与圆心形成的圆的位置信息
+   * @param angle
+   * @param offset
+   * @param point
+   * @param isLabelEmit
+   */
   protected getCirclePoint(angle: number, offset: number, point: Point, isLabelEmit: boolean) {
-    const coordinate = this.coordinate;
+    const coordinate = this.getCoordinate();
     const center = coordinate.getCenter();
     let r = getDistanceToCenter(coordinate, point);
     if (r === 0) {
@@ -130,7 +140,12 @@ export default class PolarLabel extends GeometryLabel {
     };
   }
 
-  // angle 为弧度
+  /**
+   * 获取 label 的旋转角度
+   * @param angle
+   * @param offset
+   * @param isLabelEmit
+   */
   protected getLabelRotate(angle: number, offset: number, isLabelEmit: boolean) {
     let rotate = angle + HALF_PI;
     if (isLabelEmit) {
@@ -148,7 +163,7 @@ export default class PolarLabel extends GeometryLabel {
 
   // 获取中心的位置
   private getMiddlePoint(points: Point[]) {
-    const coordinate = this.coordinate;
+    const coordinate = this.getCoordinate();
     const count = points.length;
     let middlePoint = {
       x: 0,
