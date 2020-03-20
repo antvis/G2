@@ -78,54 +78,26 @@ chart
 
 // 移除图例点击过滤交互
 chart.removeInteraction('legend-filter');
+chart.interaction('element-active');
 
-// 在现有 'element-active' 交互行为的基础上加上 callback 配置，用于动态更新 Annotation
-chart.interaction('element-active', {
-  start: [{
-    trigger: 'element:mouseenter',
-    action: 'element-active:active',
-    callback(context) {
-      if (context.event.data) {
-        updateAnnotation(context.event.data.data);
-      }
-    },
-  }],
-  end: [{
-    trigger: 'element:mouseleave',
-    action: 'element-active:reset',
-    callback() {
-      clearAnnotation();
-    }
-  }],
-});
-
-// 在现有 'legend-active' 交互行为的基础上加上 callback 配置，用于动态更新 Annotation
-chart.interaction('legend-active', {
-  showEnable: [
-    { trigger: 'legend-item:mouseenter', action: 'cursor:pointer' },
-    { trigger: 'legend-item:mouseleave', action: 'cursor:default' },
-  ],
-  start: [{
-    trigger: 'legend-item:mouseenter',
-    action: ['list-active:active', 'element-active:active'],
-    callback(context) {
-      const delegateObject = context.event.gEvent.shape.get('delegateObject');
-      const targetData = data.filter(obj => obj.item === delegateObject.item.name);
-      if (targetData.length) {
-        updateAnnotation(targetData[0]);
-      }
-    }
-  }],
-  end: [{
-    trigger: 'legend-item:mouseleave',
-    action: ['list-active:reset', 'element-active:reset'],
-    callback(context) {
-      clearAnnotation();
-    }
-  }],
-});
 chart.render();
 
+// 监听 element 上状态的变化来动态更新 Annotation 信息
+chart.on('element:statechange', (ev) => {
+  const { state, stateStatus, element } = ev.gEvent.originalEvent;
+
+  // 本示例只需要监听 active 的状态变化
+  if (state === 'active') {
+    const data = element.getData();
+    if (stateStatus) {
+      // 更新 Annotation
+      updateAnnotation(data);
+    } else {
+      // 隐藏 Annotation
+      clearAnnotation();
+    }
+  }
+});
 
 // 绘制 annotation
 let lastItem;

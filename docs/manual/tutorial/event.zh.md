@@ -49,6 +49,8 @@ Chart 和 View 的生命周期提供了以下事件：
 
 - beforerender： 事件发生在渲染前
 - afterrender: 事件发生在渲染后
+- beforepaint: 组件、图形元素绘制前
+- afterpaint: 组件、图形元素绘制后
 - beforechangedata：更新数据前
 - afterchangedata：更新数据后
 - beforeclear：调用 clear 方法清除 View 或者 Chart 前触发
@@ -159,7 +161,7 @@ view.on('element:click', (ev) => {
 - interval: 柱状图、直方图、饼图 等支持的事件前缀
 - point：点图、气泡图等支持的前缀
 - schema：k 线图、箱型图支持的事件前缀
-- edeg: 边支持的前缀
+- edge: 边支持的前缀
 
 几点说明：
 
@@ -178,6 +180,22 @@ view.on('interval:click', (ev) => {
   const data = lineElement.getModel().data; // 单条数据
 });
 ```
+
+### 状态事件
+
+当 Element 上的状态发生改变时，会释放 'element:statechange' 时间，用户可以在 Chart/View 上监听该事件。
+
+```ts
+chart.on('element:statechange', (eventObject) => {});
+```
+
+用户可以在上述 `eventObject` 属性中获取触发该事件的 element，当前的状态以及状态值:
+
+```ts
+const { element, state, stateStatus } = eventObj.gEvent.originalEvent;
+```
+
+该事件使用实例：[更新 Element 状态变化动态更新 Annotation](../../../examples/interaction/others#pie-legend)
 
 ## 组件上的事件
 
