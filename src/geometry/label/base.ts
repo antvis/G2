@@ -4,7 +4,7 @@ import { Coordinate, Scale } from '../../dependents';
 import { Datum, LabelOption, LooseObject, MappingDatum, Point } from '../../interface';
 import { getPolygonCentroid } from '../../util/graphics';
 import Geometry from '../base';
-import { LabelCfg, LabelItem, LabelPointCfg } from './interface';
+import { LabelCfg, LabelItem, LabelPointCfg, TextAlign } from './interface';
 
 export type GeometryLabelConstructor = new (cfg: any) => GeometryLabel;
 
@@ -235,8 +235,8 @@ export default class GeometryLabel {
    * @param total
    * @returns
    */
-  protected getLabelAlign(item: LabelItem, index: number, total: number) {
-    let align = 'center';
+  protected getLabelAlign(item: LabelItem, index: number, total: number): TextAlign {
+    let align: TextAlign = 'center';
     const coordinate = this.coordinate;
     if (coordinate.isTransposed) {
       const offset = this.getDefaultOffset(item.offset);
