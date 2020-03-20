@@ -27,7 +27,11 @@ chart.coordinate('theta', {
   endAngle: Math.PI,
 });
 
-chart.axis(false);
+chart.axis('term', {
+  tickLine: null,
+  grid: null,
+  line: null,
+});
 
 chart
   .interval()
@@ -41,17 +45,6 @@ chart
   .point()
   .position('term*count')
   .shape('circle');
-
-for (let i = 0, l = data.length; i < l; i++) {
-  const obj = data[i];
-  chart.annotation().text({
-    position: [obj.term, 0],
-    content: obj.term + ' ',
-    style: {
-      textAlign: 'right',
-    },
-  });
-}
 
 chart.annotation().text({
   position: ['50%', '50%'],

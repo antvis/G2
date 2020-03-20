@@ -13,6 +13,14 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*okjvRJcWBBwAAAAAAAAAAABkARQnAQ"
     },
     {
+      "filename": "radial-stacked.ts",
+      "title": {
+        "en": "Radial stacked bar chart",
+        "zh": "径向堆叠条形图"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*hpajTbogoeUAAAAAAAAAAABkARQnAQ"
+    },
+    {
       "filename": "bar-diverge.ts",
       "title": {
         "en": "stacked bar chart",

@@ -30,7 +30,16 @@ chart.tooltip({
 });
 
 chart.legend(false);
-chart.axis(false);
+chart.axis('question', {
+  grid: null,
+  tickLine: null,
+  line: null,
+  label: {
+    style: {
+      fill: '#595959'
+    }
+  }
+});
 
 chart.coordinate('polar', { innerRadius: 0.1 }).transpose();
 
@@ -45,22 +54,12 @@ chart
     };
   })
   .label('percent', {
-    offset: -5,
+    offset: -2,
     content: (data) => {
       return data.percent * 100 + '%';
     }
   });
 
-data.map((obj) => {
-  chart.annotation().text({
-    position: [obj.question, 0],
-    content: obj.question + ' ',
-    style: {
-      textAlign: 'right',
-    },
-  });
-  return null;
-});
 
 chart.interaction('element-active');
 
