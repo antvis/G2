@@ -26,20 +26,50 @@ const chart = new Chart({
   height: 500,
 });
 
-chart.coordinate().transpose();
+chart.coordinate('polar').transpose();
 
 chart.data(dv.rows);
-chart.scale('人口数量', { nice: true });
+chart.scale('人口数量', {
+  max: 200000,
+  tickCount: 10,
+});
 
 chart.axis('State', {
   label: {
     offset: 12,
   },
+  tickLine: {
+    alignTick: false,
+  },
+  grid: null,
+  line: {
+    style: {
+      stroke: '#595959'
+    }
+  }
+});
+chart.axis('人口数量', {
+  grid: {
+    line: {
+      style: {
+        lineDash: [ 4, 4 ]
+      }
+    }
+  }
 });
 
 chart.tooltip({
   shared: true,
   showMarkers: false,
+});
+
+chart.legend({
+  marker: {
+    symbol: 'square',
+    style: {
+      r: 5,
+    }
+  }
 });
 
 chart
@@ -48,6 +78,6 @@ chart
   .position('State*人口数量')
   .color('年龄段');
 
-chart.interaction('active-region');
+chart.interaction('element-highlight-by-x');
 
 chart.render();
