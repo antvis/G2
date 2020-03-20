@@ -1,4 +1,4 @@
-import { deepMix, each, get, map, mix } from '@antv/util';
+import { deepMix, each, get, isUndefined, map, mix } from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { CircleAxis, CircleGrid, IGroup, LineAxis, LineGrid, Scale } from '../../dependents';
 import { AxisCfg, AxisOption, ComponentOption } from '../../interface';
@@ -78,21 +78,27 @@ export default class Axis extends Controller<Option> {
       if (type === COMPONENT_TYPE.AXIS) {
         if (coordinate.isPolar) {
           if (dim === 'x') {
-            updated = getCircleAxisCenterRadius(coordinate);
+            updated = coordinate.isTransposed ? getAxisRegion(coordinate, direction) : getCircleAxisCenterRadius(coordinate);
           } else if (dim === 'y') {
-            updated = getAxisRegion(coordinate, direction);
+            updated = coordinate.isTransposed ? getCircleAxisCenterRadius(coordinate) : getAxisRegion(coordinate, direction);
           }
         } else {
           updated = getAxisRegion(coordinate, direction);
         }
       } else if (type === COMPONENT_TYPE.GRID) {
         if (coordinate.isPolar) {
-          updated = {
-            items: dim === 'x' ?
-              // 半径 grid
+          let items;
+          if (coordinate.isTransposed) {
+            items = dim === 'x' ?
+              getCircleGridItems(coordinate, this.view.getYScales()[0], scale, alignTick, dim) :
+              getLineGridItems(coordinate, scale, dim, alignTick);
+          } else {
+            items = dim === 'x' ?
               getLineGridItems(coordinate, scale, dim, alignTick) :
-              // 圆弧 grid
-              getCircleGridItems(coordinate, this.view.getXScale(), scale, alignTick),
+              getCircleGridItems(coordinate, this.view.getXScale(), scale, alignTick, dim);
+          }
+          updated = {
+            items,
             // coordinate 更新之后，center 也变化了
             center: this.view.getCoordinate().getCenter(),
           };
@@ -100,7 +106,6 @@ export default class Axis extends Controller<Option> {
           updated = { items: getLineGridItems(coordinate, scale, dim, alignTick) };
         }
       }
-
       component.update(updated);
     });
   }
@@ -220,18 +225,32 @@ export default class Axis extends Controller<Option> {
           updatedCache.set(gridId, grid);
         }
       }
-    } else if (coordinate.isPolar && !coordinate.isTransposed) {
+    } else if (coordinate.isPolar) {
       // 1. do axis update
       let axis = this.cache.get(axisId);
       // 存在则更新
       if (axis) {
-        const cfg = this.getCircleAxisCfg(scale, xAxisOption, direction);
+        const cfg = coordinate.isTransposed ?
+          // @ts-ignore
+          this.getLineAxisCfg(scale, xAxisOption, 'radius') :
+          this.getCircleAxisCfg(scale, xAxisOption, direction);
+
         omit(cfg, OMIT_CFG);
         axis.component.update(cfg);
         updatedCache.set(axisId, axis);
       } else {
         // 不存在，则创建
-        axis = this.createCircleAxis(scale, xAxisOption, layer, direction, dim);
+        if (coordinate.isTransposed) {
+          if (isUndefined(xAxisOption)) {
+            // 默认不渲染转置极坐标下的坐标轴
+            return;
+          } else {
+            // @ts-ignore
+            axis = this.createLineAxis(scale, xAxisOption, layer, 'radius', dim);
+          }
+        } else {
+          axis = this.createCircleAxis(scale, xAxisOption, layer, direction, dim);
+        }
         this.cache.set(axisId, axis);
         updatedCache.set(axisId, axis);
       }
@@ -240,15 +259,28 @@ export default class Axis extends Controller<Option> {
       let grid = this.cache.get(gridId);
       // 存在则更新
       if (grid) {
-        // @ts-ignore
-        const cfg = this.getLineGridCfg(scale, xAxisOption, 'circle', dim);
+        const cfg = coordinate.isTransposed ?
+          // @ts-ignore
+          this.getCircleGridCfg(scale, xAxisOption, 'radius', dim) :
+          // @ts-ignore
+          this.getLineGridCfg(scale, xAxisOption, 'circle', dim);
         omit(cfg, OMIT_CFG);
         grid.component.update(cfg);
         updatedCache.set(gridId, grid);
       } else {
         // 不存在则创建
-        // @ts-ignore
-        grid = this.createLineGrid(scale, xAxisOption, layer, 'circle', dim);
+        if (coordinate.isTransposed) {
+          if (isUndefined(xAxisOption)) {
+            return;
+          } else {
+            // @ts-ignore
+            grid = this.createCircleGrid(scale, xAxisOption, layer, 'radius', dim);
+          }
+        } else {
+          // @ts-ignore
+          grid = this.createLineGrid(scale, xAxisOption, layer, 'circle', dim);
+        }
+
         if (grid) {
           this.cache.set(gridId, grid);
           updatedCache.set(gridId, grid);
@@ -313,20 +345,35 @@ export default class Axis extends Controller<Option> {
               updatedCache.set(gridId, grid);
             }
           }
-        } else if (coordinate.isPolar && !coordinate.isTransposed) {
+        } else if (coordinate.isPolar) {
           // 1. do axis update
           let axis = this.cache.get(axisId);
           // 存在则更新
           if (axis) {
+            const cfg = coordinate.isTransposed ?
+              // @ts-ignore
+              this.getCircleAxisCfg(scale, yAxisOption, 'circle'):
+              // @ts-ignore
+              this.getLineAxisCfg(scale, yAxisOption, 'radius');
+
             // @ts-ignore
-            const cfg = this.getLineAxisCfg(scale, yAxisOption, 'radius');
             omit(cfg, OMIT_CFG);
             axis.component.update(cfg);
             updatedCache.set(axisId, axis);
           } else {
             // 不存在，则创建
-            // @ts-ignore
-            axis = this.createLineAxis(scale, yAxisOption, layer, 'radius', dim);
+            if (coordinate.isTransposed) {
+              if (isUndefined(yAxisOption)) {
+                return;
+              } else {
+                // @ts-ignore
+                axis = this.createCircleAxis(scale, yAxisOption, layer, 'circle', dim);
+              }
+            } else {
+              // @ts-ignore
+              axis = this.createLineAxis(scale, yAxisOption, layer, 'radius', dim);
+            }
+
             this.cache.set(axisId, axis);
             updatedCache.set(axisId, axis);
           }
@@ -335,15 +382,28 @@ export default class Axis extends Controller<Option> {
           let grid = this.cache.get(gridId);
           // 存在则更新
           if (grid) {
-            // @ts-ignore
-            const cfg = this.getCircleGridCfg(scale, yAxisOption, 'radius', dim);
+            const cfg = coordinate.isTransposed ?
+              // @ts-ignore
+              this.getLineGridCfg(scale, yAxisOption, 'circle', dim):
+              // @ts-ignore
+              this.getCircleGridCfg(scale, yAxisOption, 'radius', dim);
             omit(cfg, OMIT_CFG);
             grid.component.update(cfg);
             updatedCache.set(gridId, grid);
           } else {
             // 不存在则创建
-            // @ts-ignore
-            grid = this.createCircleGrid(scale, yAxisOption, layer, 'radius');
+            if (coordinate.isTransposed) {
+              if (isUndefined(yAxisOption)) {
+                return;
+              } else {
+                // @ts-ignore
+                grid = this.createLineGrid(scale, yAxisOption, layer, 'circle', dim);
+              }
+            } else {
+              // @ts-ignore
+              grid = this.createCircleGrid(scale, yAxisOption, layer, 'radius', dim);
+            }
+
             if (grid) {
               this.cache.set(gridId, grid);
               updatedCache.set(gridId, grid);
@@ -363,7 +423,6 @@ export default class Axis extends Controller<Option> {
     // x axis
     const scale = this.view.getXScale();
 
-    // @ts-ignore
     if (!scale || scale.isIdentity) {
       return;
     }
@@ -389,14 +448,29 @@ export default class Axis extends Controller<Option> {
         if (grid) {
           this.cache.set(gridId, grid);
         }
-      } else if (coordinate.isPolar && !coordinate.isTransposed) {
-        // axis
-        const axis = this.createCircleAxis(scale, xAxisOption, layer, direction, dim);
-        this.cache.set(axisId, axis);
+      } else if (coordinate.isPolar) {
+        let axis;
+        let grid;
+        if (coordinate.isTransposed) {
+          if (isUndefined(xAxisOption)) {
+            // 默认不渲染转置极坐标的坐标轴
+            return;
+          } else {
+            // 如果用户打开了隐藏的坐标轴 chart.axis(true)/chart.axis('x', true)
+            // 那么对于转置了的极坐标，半径轴显示的是 x 轴对应的数据
+            // @ts-ignore
+            axis = this.createLineAxis(scale, xAxisOption, layer, 'radius', dim);
+            // @ts-ignore
+            grid = this.createCircleGrid(scale, xAxisOption, layer, 'radius', dim);
+          }
+        } else {
+          axis = this.createCircleAxis(scale, xAxisOption, layer, direction, dim);
+          // grid，极坐标下的 x 轴网格线沿着半径方向绘制
+          // @ts-ignore
+          grid = this.createLineGrid(scale, xAxisOption, layer, 'circle', dim);
+        }
 
-        // grid，极坐标下的 x 轴网格线沿着半径方向绘制
-        // @ts-ignore
-        const grid = this.createLineGrid(scale, xAxisOption, layer, 'circle', dim);
+        this.cache.set(axisId, axis);
         if (grid) {
           this.cache.set(gridId, grid);
         }
@@ -440,15 +514,25 @@ export default class Axis extends Controller<Option> {
           if (grid) {
             this.cache.set(gridId, grid);
           }
-        } else if (coordinate.isPolar && !coordinate.isTransposed) {
-          // axis
-          // @ts-ignore
-          const axis = this.createLineAxis(scale, yAxisOption, layer, 'radius', dim);
+        } else if (coordinate.isPolar) {
+          let axis;
+          let grid;
+          if (coordinate.isTransposed) {
+            if (isUndefined(yAxisOption)) {
+              return;
+            } else {
+              // @ts-ignore
+              axis = this.createCircleAxis(scale, yAxisOption, layer, 'circle', dim);
+              // @ts-ignore
+              grid = this.createLineGrid(scale, yAxisOption, layer, 'circle', dim);
+            }
+          } else {
+            // @ts-ignore
+            axis = this.createLineAxis(scale, yAxisOption, layer, 'radius', dim);
+            // @ts-ignore
+            grid = this.createCircleGrid(scale, yAxisOption, layer, 'radius', dim);
+          }
           this.cache.set(this.getId('axis', scale.field), axis);
-
-          // grid
-          // @ts-ignore
-          const grid = this.createCircleGrid(scale, yAxisOption, layer, 'radius');
           if (grid) {
             this.cache.set(gridId, grid);
           }
@@ -540,9 +624,10 @@ export default class Axis extends Controller<Option> {
     scale: Scale,
     option: AxisCfg,
     layer: LAYER,
-    direction: DIRECTION
+    direction: DIRECTION,
+    dim: string
   ): ComponentOption {
-    const cfg = this.getCircleGridCfg(scale, option, direction);
+    const cfg = this.getCircleGridCfg(scale, option, direction, dim);
     if (cfg) {
       const grid = {
         component: new CircleGrid(cfg),
@@ -550,7 +635,7 @@ export default class Axis extends Controller<Option> {
         direction: DIRECTION.NONE,
         type: COMPONENT_TYPE.GRID,
         extra: {
-          dim: 'y',
+          dim,
           scale,
           alignTick: get(cfg, 'alignTick', true),
          },
@@ -571,7 +656,6 @@ export default class Axis extends Controller<Option> {
   private getLineAxisCfg(scale: Scale, axisOption: AxisCfg, direction: DIRECTION): object {
     const container = this.axisContainer;
     const coordinate = this.view.getCoordinate();
-
     const region = getAxisRegion(coordinate, direction);
     const titleText = getAxisTitleText(scale, axisOption);
 
@@ -668,7 +752,7 @@ export default class Axis extends Controller<Option> {
    * @param direction
    * @return circle grid cfg
    */
-  private getCircleGridCfg(scale: Scale, axisOption: AxisCfg, direction: DIRECTION): object {
+  private getCircleGridCfg(scale: Scale, axisOption: AxisCfg, direction: DIRECTION, dim: string): object {
     if (!showGrid(getAxisThemeCfg(this.view.getTheme(), direction), axisOption)) {
       return undefined;
     }
@@ -682,8 +766,9 @@ export default class Axis extends Controller<Option> {
       center: this.view.getCoordinate().getCenter(),
     }, gridThemeCfg, get(axisOption, 'grid', {}), this.getAnimateCfg(axisOption));
     const alignTick = get(gridCfg, 'alignTick', true);
-    gridCfg.items = getCircleGridItems(this.view.getCoordinate(), this.view.getXScale(), scale, alignTick);
 
+    const verticalScale = dim === 'x' ? this.view.getYScales()[0] : this.view.getXScale();
+    gridCfg.items = getCircleGridItems(this.view.getCoordinate(), verticalScale, scale, alignTick, dim);
     // the cfg order should be ensure
     // grid 动画以 axis 为准
     return gridCfg;
