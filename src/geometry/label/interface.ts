@@ -1,6 +1,6 @@
 import { Coordinate } from '../../dependents';
 import { Datum, GeometryLabelCfg, MappingDatum, Point } from '../../interface';
-
+export type TextAlign = 'start' | 'center' | 'end' | 'left' | 'right';
 export interface LabelCfg extends GeometryLabelCfg {
   content?: any;
   position?: 'top' | 'bottom' | 'middle' | 'left' | 'right';
@@ -16,7 +16,7 @@ export interface LabelPointCfg {
   start?: Point;
   color?: string;
   content?: any;
-  textAlign?: 'start' | 'center' | 'end' | 'left' | 'right';
+  textAlign?: TextAlign;
   rotate?: number;
   angle?: number;
   r?: number;
@@ -32,7 +32,7 @@ export interface LabelItem extends GeometryLabelCfg {
   start?: Point;
   color?: string;
   content?: any;
-  textAlign?: 'start' | 'center' | 'end' | 'left' | 'right';
+  textAlign?: TextAlign;
   rotate?: number;
   angle?: number;
   r?: number;
