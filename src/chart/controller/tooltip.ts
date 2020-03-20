@@ -63,9 +63,7 @@ export default class Tooltip extends Controller<TooltipOption> {
     const items = this.getTooltipItems(point);
     if (!items.length) {
       // 无内容则不展示，同时 tooltip 需要隐藏
-      if (this.tooltip) {
-        this.tooltip.hide();
-      }
+      this.hideTooltip();
       return;
     }
     const title = this.getTitle(items);
@@ -115,6 +113,10 @@ export default class Tooltip extends Controller<TooltipOption> {
         const newPoint = follow ? point : dataPoint;
         this.tooltip.update(newPoint);
         this.tooltip.show(); // tooltip 有可能被隐藏，需要保证显示状态
+      }
+
+      if (this.tooltipMarkersGroup) {
+        this.tooltipMarkersGroup.show();
       }
     }
 

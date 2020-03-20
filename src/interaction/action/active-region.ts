@@ -35,21 +35,42 @@ class ActiveRegion extends Action {
       let elements: Element[] = [];
       const geometries = view.geometries;
       each(geometries, (geometry) => {
-        const result = geometry.getElementsBy((ele) => {
-          const eleData = ele.getData();
-          return eleData[xField] === xValue;
-        });
+        if (geometry.type === 'interval' || geometry.type === 'schema') {
+          const result = geometry.getElementsBy((ele) => {
+            const eleData = ele.getData();
+            return eleData[xField] === xValue;
+          });
 
-        elements = elements.concat(result);
+          elements = elements.concat(result);
+        }
       });
 
       // 根据 bbox 计算背景框的面积区域
       if (elements.length) {
-        const firstBBox = elements[0].shape.getCanvasBBox();
-        const lastBBox = elements[elements.length - 1].shape.getCanvasBBox();
+        const coordinate = view.getCoordinate();
+
+        let firstBBox = elements[0].shape.getCanvasBBox();
+        let lastBBox = elements[0].shape.getCanvasBBox();
         const groupBBox: LooseObject = firstBBox;
+
         each(elements, (ele: Element) => {
           const bbox = ele.shape.getCanvasBBox();
+          if (coordinate.isTransposed) {
+            if (bbox.minY < firstBBox.minY) {
+              firstBBox = bbox;
+            }
+            if (bbox.maxY > lastBBox.maxY) {
+              lastBBox = bbox;
+            }
+          } else {
+            if (bbox.minX < firstBBox.minX) {
+              firstBBox = bbox;
+            }
+            if (bbox.maxX > lastBBox.maxX) {
+              lastBBox = bbox;
+            }
+          }
+
           groupBBox.x = Math.min(bbox.minX, groupBBox.minX);
           groupBBox.y = Math.min(bbox.minY, groupBBox.minY);
           groupBBox.width = Math.max(bbox.maxX, groupBBox.maxX) - groupBBox.x;
@@ -57,7 +78,6 @@ class ActiveRegion extends Action {
         });
 
         const { backgroundGroup, coordinateBBox } = view;
-        const coordinate = view.getCoordinate();
         let path;
         if (coordinate.isRect) {
           const xScale = view.getXScale();

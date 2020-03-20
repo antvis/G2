@@ -30,6 +30,9 @@ describe('#2174, #2175', () => {
     const point = chart.getXY({ name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 });
     // 相同的内容，先展示，再关闭，再展示，tooltip 应该展示
     chart.showTooltip(point);
+    const tooltipMarkerGroup = chart.foregroundGroup.findAllByName('tooltipMarkersGroup')[0];
+    expect(tooltipMarkerGroup.get('visible')).toBeTruthy();
+
     chart.hideTooltip();
 
     chart.showTooltip(point);
@@ -37,6 +40,7 @@ describe('#2174, #2175', () => {
     const tooltip = chart.ele.getElementsByClassName('g2-tooltip')[0];
     // @ts-ignore
     expect(tooltip.style.visibility).toBe('visible');
+    expect(tooltipMarkerGroup.get('visible')).toBeTruthy();
 
     // 如果内容为空，tooltip 应该隐藏
     chart.showTooltip({
@@ -45,5 +49,6 @@ describe('#2174, #2175', () => {
     });
     // @ts-ignore
     expect(tooltip.style.visibility).toBe('hidden');
+    expect(tooltipMarkerGroup.get('visible')).toBeFalsy();
   });
 });
