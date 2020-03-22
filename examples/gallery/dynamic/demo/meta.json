@@ -1,0 +1,24 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "dynamic-bubble.ts",
+      "title": {
+        "zh": "动态气泡图",
+        "en": "Dynamic bubble chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*4CHMS544x9EAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "dynamic-bar.ts",
+      "title": {
+        "zh": "动态条形图",
+        "en": "Dynamic bar chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*WmOcQafphvEAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}
