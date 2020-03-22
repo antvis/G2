@@ -67,8 +67,8 @@ describe('util grid', () => {
       max: 100,
     });
 
-    const items1 = getCircleGridItems(coordinate, xScale, yScale, false);
-    const items2 = getCircleGridItems(coordinate, xScale, yScale, true);
+    const items1 = getCircleGridItems(coordinate, xScale, yScale, false, 'y');
+    const items2 = getCircleGridItems(coordinate, xScale, yScale, true, 'y');
     expect(items1.length).toBe(xScale.values.length - 1);
     expect(items2.length).toBe(yScale.getTicks().length);
 
