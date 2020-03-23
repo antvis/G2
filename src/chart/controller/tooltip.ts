@@ -37,6 +37,7 @@ export default class Tooltip extends Controller<TooltipOption> {
   private yCrosshair;
   private guideGroup: IGroup;
 
+  private isLocked: boolean = false;
   private isVisible: boolean = true;
   private items;
   private title: string;
@@ -157,6 +158,27 @@ export default class Tooltip extends Controller<TooltipOption> {
     this.view.emit('tooltip:hide', {});
   }
 
+  /**
+   * lockTooltip
+   */
+  public lockTooltip() {
+    this.isLocked = true;
+  }
+
+  /**
+   * unlockTooltip
+   */
+  public unlockTooltip() {
+    this.isLocked = false;
+  }
+
+  /**
+   * isTooltipLocked
+   */
+  public isTooltipLocked() {
+    return this.isLocked;
+  }
+
   public clear() {
     const { tooltip, xCrosshair, yCrosshair, tooltipMarkersGroup } = this;
     if (tooltip) {
@@ -200,6 +222,7 @@ export default class Tooltip extends Controller<TooltipOption> {
     this.yCrosshair = null;
     this.tooltip = null;
     this.guideGroup = null;
+    this.isLocked = false;
   }
 
   public changeVisible(visible: boolean) {
@@ -282,8 +305,7 @@ export default class Tooltip extends Controller<TooltipOption> {
     const option = view.getOptions().tooltip;
     const theme = view.getTheme();
     const defaultCfg = get(theme, ['components', 'tooltip'], {});
-    const isTooltipLocked = view.isTooltipLocked();
-    const pointerEvents = (get(option, 'enterable') || isTooltipLocked) ? 'auto' : (defaultCfg.enterable ? 'auto' : 'none');
+    const pointerEvents = (get(option, 'enterable') || this.isLocked) ? 'auto' : (defaultCfg.enterable ? 'auto' : 'none');
     return deepMix({}, defaultCfg, {
       domStyles: {
         [`${CONTAINER_CLASS}`]: {
