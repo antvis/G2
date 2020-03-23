@@ -1,4 +1,6 @@
-import { deepMix, each, find, flatten, get, isArray, isEqual, isFunction, mix } from '@antv/util';
+import { CONTAINER_CLASS } from '@antv/component/lib/tooltip/css-const';
+
+import { deepMix, each, find, flatten, get, isArray, isEqual, isFunction, mix, isUndefined } from '@antv/util';
 import { Crosshair, HtmlTooltip, IGroup } from '../../dependents';
 import Geometry from '../../geometry/base';
 import { MappingDatum, Point, TooltipOption } from '../../interface';
@@ -35,6 +37,7 @@ export default class Tooltip extends Controller<TooltipOption> {
   private yCrosshair;
   private guideGroup: IGroup;
 
+  private isLocked: boolean = false;
   private isVisible: boolean = true;
   private items;
   private title: string;
@@ -46,8 +49,8 @@ export default class Tooltip extends Controller<TooltipOption> {
   public init() { }
 
   public render() {
-    this.option = this.view.getOptions().tooltip;
-    this.isVisible = this.option !== false;
+    const option = this.view.getOptions().tooltip;
+    this.isVisible = option !== false;
   }
 
   /**
@@ -155,6 +158,36 @@ export default class Tooltip extends Controller<TooltipOption> {
     this.view.emit('tooltip:hide', {});
   }
 
+  /**
+   * lockTooltip
+   */
+  public lockTooltip() {
+    this.isLocked = true;
+    if (this.tooltip) {
+      // tooltip contianer 可捕获事件
+      this.tooltip.setCapture(true);
+    }
+  }
+
+  /**
+   * unlockTooltip
+   */
+  public unlockTooltip() {
+    this.isLocked = false;
+    const cfg = this.getTooltipCfg();
+    if (this.tooltip) {
+      // 重置 capture 属性
+      this.tooltip.setCapture(cfg.capture);
+    }
+  }
+
+  /**
+   * isTooltipLocked
+   */
+  public isTooltipLocked() {
+    return this.isLocked;
+  }
+
   public clear() {
     const { tooltip, xCrosshair, yCrosshair, tooltipMarkersGroup } = this;
     if (tooltip) {
@@ -198,6 +231,7 @@ export default class Tooltip extends Controller<TooltipOption> {
     this.yCrosshair = null;
     this.tooltip = null;
     this.guideGroup = null;
+    this.isLocked = false;
   }
 
   public changeVisible(visible: boolean) {
@@ -272,17 +306,18 @@ export default class Tooltip extends Controller<TooltipOption> {
   public layout() { }
   public update() {
     this.clear();
-    // 更新 tooltip 配置
-    this.option = this.view.getOptions().tooltip;
   }
 
   // 获取 tooltip 配置，因为用户可能会通过 view.tooltip() 重新配置 tooltip，所以就不做缓存，每次直接读取
   private getTooltipCfg() {
     const view = this.view;
-    const option = this.option;
+    const option = view.getOptions().tooltip;
     const theme = view.getTheme();
     const defaultCfg = get(theme, ['components', 'tooltip'], {});
-    return deepMix({}, defaultCfg, option);
+    const enterable = isUndefined(get(option, 'enterable')) ? defaultCfg.enterable : get(option, 'enterable');
+    return deepMix({}, defaultCfg, option, {
+      capture: enterable || this.isLocked ? true : false,
+    });
   }
 
   private getTitle(items) {
@@ -309,26 +344,6 @@ export default class Tooltip extends Controller<TooltipOption> {
     });
 
     tooltip.init();
-
-    const tooltipContainer = tooltip.get('container');
-    if (cfg.enterable === false) {
-      // 优化体验，在 tooltip dom 上加绑事件
-      // 如果 tooltip 不允许进入
-      tooltipContainer.onmousemove = event => {
-        // 避免 tooltip 频繁闪烁
-        const point = this.view.getCanvas().getPointByClient(event.clientX, event.clientY);
-        this.view.emit('plot:mousemove', point);
-      };
-    }
-
-    // 优化：鼠标移入 tooltipContainer 然后再移出时，需要隐藏 tooltip
-    tooltipContainer.onmouseleave = () => {
-      if (!this.view.isTooltipLocked()) {
-        this.hideTooltip();
-      }
-    };
-
-
     this.tooltip = tooltip;
   }
 

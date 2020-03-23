@@ -134,8 +134,6 @@ export class View extends Base {
 
   /** 当前鼠标是否在 plot 内（CoordinateBBox） */
   private isPreMouseInPlot: boolean = false;
-  /** tooltip 是否被锁定 */
-  private tooltipLocked: boolean;
   /** 默认标识位，用于判定数据是否更新 */
   private isDataChanged: boolean = false;
 
@@ -1012,7 +1010,10 @@ export class View extends Base {
    * @returns View
    */
   public lockTooltip(): View {
-    this.tooltipLocked = true;
+    const tooltip = this.getController('tooltip') as TooltipComponent;
+    if (tooltip) {
+      tooltip.lockTooltip();
+    }
     return this;
   }
 
@@ -1021,7 +1022,10 @@ export class View extends Base {
    * @returns View
    */
   public unlockTooltip(): View {
-    this.tooltipLocked = false;
+    const tooltip = this.getController('tooltip') as TooltipComponent;
+    if (tooltip) {
+      tooltip.unlockTooltip();
+    }
     return this;
   }
 
@@ -1030,7 +1034,8 @@ export class View extends Base {
    * @returns 是否锁定
    */
   public isTooltipLocked() {
-    return this.tooltipLocked;
+    const tooltip = this.getController('tooltip') as TooltipComponent;
+    return tooltip && tooltip.isTooltipLocked();
   }
 
   /**

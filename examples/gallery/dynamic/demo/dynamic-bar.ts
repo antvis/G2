@@ -98,6 +98,7 @@ fetch('../data/china-gdp.json')
             fill: '#ddd',
             textAlign: 'end'
           },
+          animate: false,
         });
         chart
           .interval()
@@ -145,6 +146,7 @@ fetch('../data/china-gdp.json')
             fill: '#ddd',
             textAlign: 'end'
           },
+          animate: false,
         });
         // @ts-ignore
         chart.changeData(handleData(Object.values(data)[count]));

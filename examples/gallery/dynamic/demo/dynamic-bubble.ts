@@ -110,7 +110,7 @@ fetch('../data/life.json')
           .shape('circle')
           .animate({
             update: {
-              duration: 300,
+              duration: 200,
               easing: 'easeLinear'
             }
           })
@@ -159,5 +159,5 @@ fetch('../data/life.json')
     }
 
     countUp();
-    interval = setInterval(countUp, 300);
+    interval = setInterval(countUp, 200);
   });
