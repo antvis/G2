@@ -1,6 +1,6 @@
 import { CONTAINER_CLASS } from '@antv/component/lib/tooltip/css-const';
 
-import { deepMix, each, find, flatten, get, isArray, isEqual, isFunction, mix } from '@antv/util';
+import { deepMix, each, find, flatten, get, isArray, isEqual, isFunction, mix, isUndefined } from '@antv/util';
 import { Crosshair, HtmlTooltip, IGroup } from '../../dependents';
 import Geometry from '../../geometry/base';
 import { MappingDatum, Point, TooltipOption } from '../../interface';
@@ -163,6 +163,10 @@ export default class Tooltip extends Controller<TooltipOption> {
    */
   public lockTooltip() {
     this.isLocked = true;
+    if (this.tooltip) {
+      // tooltip contianer 可捕获事件
+      this.tooltip.setCapture(true);
+    }
   }
 
   /**
@@ -170,6 +174,11 @@ export default class Tooltip extends Controller<TooltipOption> {
    */
   public unlockTooltip() {
     this.isLocked = false;
+    const cfg = this.getTooltipCfg();
+    if (this.tooltip) {
+      // 重置 capture 属性
+      this.tooltip.setCapture(cfg.capture);
+    }
   }
 
   /**
@@ -305,14 +314,10 @@ export default class Tooltip extends Controller<TooltipOption> {
     const option = view.getOptions().tooltip;
     const theme = view.getTheme();
     const defaultCfg = get(theme, ['components', 'tooltip'], {});
-    const pointerEvents = (get(option, 'enterable') || this.isLocked) ? 'auto' : (defaultCfg.enterable ? 'auto' : 'none');
-    return deepMix({}, defaultCfg, {
-      domStyles: {
-        [`${CONTAINER_CLASS}`]: {
-          pointerEvents,
-        },
-      },
-    }, option);
+    const enterable = isUndefined(get(option, 'enterable')) ? defaultCfg.enterable : get(option, 'enterable');
+    return deepMix({}, defaultCfg, option, {
+      capture: enterable || this.isLocked ? true : false,
+    });
   }
 
   private getTitle(items) {

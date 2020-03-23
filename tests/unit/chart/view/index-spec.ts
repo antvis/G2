@@ -315,11 +315,15 @@ describe('View', () => {
   it('lockTooltip', () => {
     view.lockTooltip();
     expect(view.isTooltipLocked()).toBeTrue();
+    // @ts-ignore
+    expect(div.getElementsByClassName('g2-tooltip')[0].style['pointer-events']).toBe('auto');
   });
 
   it('unlockTooltip', () => {
     view.unlockTooltip();
     expect(view.isTooltipLocked()).toBeFalse();
+    // @ts-ignore
+    expect(div.getElementsByClassName('g2-tooltip')[0].style['pointer-events']).toBe('none');
   });
 
   it('filtered group scale values', () => {
