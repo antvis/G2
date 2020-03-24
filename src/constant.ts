@@ -103,8 +103,8 @@ export const GROUP_ATTRS = ['color', 'shape', 'size'];
 /** 存储原始数据的字段名 */
 export const FIELD_ORIGIN = '_origin';
 /** 最小的图表宽度 */
-export const MIN_CHART_WIDTH = 100;
+export const MIN_CHART_WIDTH = 1;
 /** 最小的图表高度 */
-export const MIN_CHART_HEIGHT = 100;
+export const MIN_CHART_HEIGHT = 1;
 /** 辅助组件占图表的尺寸的最大比例：如图表上方的图例最多占图表高度的25% */
 export const COMPONENT_MAX_VIEW_PERCENTAGE = 0.25;
