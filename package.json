@@ -4,7 +4,6 @@
   "description": "the Grammar of Graphics in Javascript",
   "main": "lib/index.js",
   "module": "esm/index.js",
-  "browser": "dist/g2.min.js",
   "types": "lib/index.d.ts",
   "unpkg": "dist/g2.min.js",
   "files": [
