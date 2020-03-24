@@ -53,12 +53,12 @@ export default class Chart extends View {
     ele.appendChild(wrapperElement);
 
     // if autoFit, use the container size, to avoid the graph render twice.
-    const size = getChartSize(wrapperElement, autoFit, width, height);
+    const size = getChartSize(ele, autoFit, width, height);
 
     const G = getEngine(renderer);
 
     const canvas = new G.Canvas({
-      container: wrapperElement,
+      container: ele,
       pixelRatio,
       localRefresh,
       ...size,
@@ -79,7 +79,7 @@ export default class Chart extends View {
       theme,
     });
 
-    this.ele = wrapperElement;
+    this.ele = ele;
     this.canvas = canvas;
     this.width = size.width;
     this.height = size.height;

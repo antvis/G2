@@ -21,7 +21,7 @@ describe('Chart autoFit', () => {
     .adjust('stack');
 
   test('autoFit', () => {
-    expect(chart.ele).toBe(div.querySelector('div'));
+    expect(chart.ele).toBe(div);
 
     const { width, height } = chart.ele.getBoundingClientRect();
 
