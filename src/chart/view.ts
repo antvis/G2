@@ -7,6 +7,7 @@ import {
   flatten,
   get,
   isBoolean,
+  isEmpty,
   isFunction,
   isNil,
   isObject,
@@ -1507,6 +1508,7 @@ export class View extends Base {
         theme: this.themeObject,
         isDataChanged: this.isDataChanged,
       };
+
       if (isUpdate) {
         // 数据发生更新
         geometry.update(cfg);

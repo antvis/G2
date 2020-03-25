@@ -32,7 +32,7 @@ export class ScalePool {
     let finalScaleDef = scaleDef;
 
     const cacheScaleMeta = this.getScaleMeta(key);
-    if (isEmpty(data) && cacheScaleMeta) {
+    if (data.length === 0 && cacheScaleMeta) {
       // 在更新过程中数据变为空，同时 key 对应的 scale 已存在则保持 scale 同类型
       const cacheScale = cacheScaleMeta.scale;
       const cacheScaleDef: LooseObject = {
