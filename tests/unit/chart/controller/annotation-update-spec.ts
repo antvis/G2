@@ -26,7 +26,7 @@ describe('annotation update', () => {
     content: '第一个文本',
   });
 
-  const interval = chart.interval().position('月份*月均降雨量');
+  chart.interval().position('月份*月均降雨量');
   chart.render();
 
   function getAnnotations() {
