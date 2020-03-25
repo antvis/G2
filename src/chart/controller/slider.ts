@@ -1,4 +1,4 @@
-import { deepMix, get, isObject, map, size } from '@antv/util';
+import { deepMix, get, isObject, size } from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { IGroup, Slider as SliderComponent, TrendCfg } from '../../dependents';
 import { ComponentOption, Datum } from '../../interface';
@@ -191,7 +191,7 @@ export default class Slider extends Controller<Option> {
     const data = this.view.getOptions().data;
     const [yScale] = this.view.getYScales();
 
-    return map(data, (datum) => datum[yScale.field] || 0);
+    return data.map((datum) => datum[yScale.field] || 0);
   }
 
   /**
@@ -218,7 +218,7 @@ export default class Slider extends Controller<Option> {
     const x = xScale.field;
 
     // x 轴数据
-    const xData = map(data, (datum) => datum[x] || '');
+    const xData = data.map((datum) => datum[x] || '');
 
     const minIndex = Math.floor(min * (dataSize - 1));
     const maxIndex = Math.floor(max * (dataSize - 1));

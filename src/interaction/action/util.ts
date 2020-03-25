@@ -281,7 +281,7 @@ export function getElementsByPath(view: View, path: any[]) {
  * @ignore
  */
 export function getComponents(view) {
-  return map(view.getComponents(), (co: ComponentOption) => co.component);
+  return view.getComponents().map((co: ComponentOption) => co.component);
 }
 
 /** @ignore */

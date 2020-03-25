@@ -877,7 +877,7 @@ export class View extends Base {
    */
   public getYScales(): Scale[] {
     // 拿到所有的 Geometry 的 Y scale，然后去重
-    return uniq(map(this.geometries, (g: Geometry) => g.getYScale()));
+    return uniq(this.geometries.map((g: Geometry) => g.getYScale()));
   }
 
   /**
@@ -954,7 +954,7 @@ export class View extends Base {
    * @returns 维度字段的 Attribute 数组
    */
   public getLegendAttributes(): Attribute[] {
-    return (flatten(map(this.geometries, (g: Geometry) => g.getGroupAttributes())) as unknown) as Attribute[];
+    return (flatten(this.geometries.map((g: Geometry) => g.getGroupAttributes())) as unknown) as Attribute[];
   }
 
   /**
@@ -963,7 +963,7 @@ export class View extends Base {
    */
   public getGroupScales(): Scale[] {
     // 拿到所有的 Geometry 的 分组字段 scale，然后打平去重
-    const scales = map(this.geometries, (g: Geometry) => g.getGroupScales());
+    const scales = this.geometries.map((g: Geometry) => g.getGroupScales());
     return uniq(flatten(scales));
   }
 
@@ -1174,8 +1174,7 @@ export class View extends Base {
     if (isUndefined(condition)) {
       return data;
     }
-
-    return filter(data, (datum: Datum, idx: number) => condition(datum[field], datum, idx));
+    return data.filter((datum: Datum, idx: number) => condition(datum[field], datum, idx));
   }
 
   /**

@@ -15,7 +15,6 @@ import {
   isObject,
   isPlainObject,
   isString,
-  map,
   set,
   uniq,
 } from '@antv/util';
@@ -992,7 +991,7 @@ export default class Geometry extends Base {
   public getAttributeValues(attr: Attribute, obj: Datum) {
     const scales = attr.scales;
 
-    const params = map(scales, (scale: Scale) => {
+    const params = scales.map((scale: Scale) => {
       const field = scale.field;
       if (scale.type === 'identity') {
         return scale.values[0];
@@ -1435,7 +1434,7 @@ export default class Geometry extends Base {
       const { callback, values, fields = [] } = attrCfg;
 
       // 获取每一个字段对应的 scale
-      const scales = map(fields, (field) => {
+      const scales = fields.map((field) => {
         return this.scales[field];
       });
 
@@ -1468,7 +1467,7 @@ export default class Geometry extends Base {
   private processData(data: Data) {
     let groupedArray = this.groupData(data); // 数据分组
 
-    groupedArray = map(groupedArray, (subData: Data) => {
+    groupedArray = groupedArray.map((subData: Data) => {
       const tempData = this.saveOrigin(subData); // 存储原始数据
       this.numeric(tempData); // 将分类数据转换成数字
       return tempData;
@@ -1553,7 +1552,7 @@ export default class Geometry extends Base {
 
   // 数据调整前保存原始数据
   private saveOrigin(data: Data): Data {
-    return map(data, (originData: Datum) => {
+    return data.map((originData: Datum) => {
       return {
         ...originData,
         [FIELD_ORIGIN]: originData, // 存入 origin 数据
