@@ -1216,8 +1216,6 @@ export class View extends Base {
     this.initComponents(isUpdate);
     // 4. 进行布局，计算 coordinateBBox，进行组件布局，update 位置
     this.doLayout();
-    // 5. 布局完之后，coordinate 的范围确定了，调整 coordinate 组件
-    this.adjustCoordinate();
 
     // 同样递归处理子 views
     each(this.views, (view: View) => {
