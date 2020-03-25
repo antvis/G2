@@ -188,8 +188,12 @@ export default class Annotation extends Controller<BaseOption[]> {
 
     this.cache.clear();
 
-    this.foregroundContainer.clear();
-    this.backgroundContainer.clear();
+    if (this.foregroundContainer.getCount()) {
+      this.foregroundContainer.clear();
+    }
+    if (this.backgroundContainer.getCount()) {
+      this.backgroundContainer.clear();
+    }
 
     // clear all option
     if (includeOption) {
