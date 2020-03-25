@@ -7,8 +7,12 @@ import { Size } from '../interface';
  * @returns the element width and height
  */
 function getElementSize(ele: HTMLElement): Size {
-  const { width, height } = ele.getBoundingClientRect();
-  return { width, height };
+  const style = getComputedStyle(ele);
+
+  return {
+    width: (ele.clientWidth || parseInt(style.width)) - parseInt(style.paddingLeft) - parseInt(style.paddingRight),
+    height: (ele.clientHeight || parseInt(style.height)) - parseInt(style.paddingTop) - parseInt(style.paddingBottom),
+  };
 }
 
 /**
