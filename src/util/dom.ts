@@ -12,7 +12,7 @@ function getElementSize(ele: HTMLElement): Size {
   return {
     width: (ele.clientWidth || parseInt(style.width)) - parseInt(style.paddingLeft) - parseInt(style.paddingRight),
     height: (ele.clientHeight || parseInt(style.height)) - parseInt(style.paddingTop) - parseInt(style.paddingBottom),
-  }
+  };
 }
 
 /**
