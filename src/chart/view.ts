@@ -1145,6 +1145,9 @@ export class View extends Base {
   protected paint(isUpdate: boolean) {
     this.renderDataRecursive(isUpdate);
 
+    // 处理 sync scale 的逻辑
+    this.syncScale();
+
     this.emit(VIEW_LIFE_CIRCLE.BEFORE_PAINT);
 
     this.renderLayoutRecursive(isUpdate);
@@ -1535,8 +1538,6 @@ export class View extends Base {
    */
   private adjustScales() {
     // 调整目前包括：
-    // 处理 sync scale 的逻辑
-    this.syncScale();
     // 分类 scale，调整 range 范围
     this.adjustCategoryScaleRange();
   }
