@@ -44,6 +44,10 @@ export function getLegendItems(
   const scale = attr.getScale(attr.type);
   if (scale.isCategory) {
     const field = scale.field;
+    const colorAttr = geometry.getAttribute('color');
+    const shapeAttr = geometry.getAttribute('shape');
+    const defaultColor = view.getTheme().defaultColor;
+    const isInPolar = geometry.coordinate.isPolar;
 
     return scale.getTicks().map((tick: Tick) => {
       const { text, value: scaleValue } = tick;
@@ -53,15 +57,12 @@ export function getLegendItems(
       // 通过过滤图例项的数据，来看是否 unchecked
       const unchecked = view.filterFieldData(field, [{ [field]: value }]).length === 0;
 
-      const colorAttr = geometry.getAttribute('color');
-      const shapeAttr = geometry.getAttribute('shape');
-
       // @ts-ignore
-      const color = getMappingValue(colorAttr, value, view.getTheme().defaultColor);
+      const color = getMappingValue(colorAttr, value, defaultColor);
       const shape = getMappingValue(shapeAttr, value, 'point');
       let marker = geometry.getShapeMarker(shape, {
         color,
-        isInPolar: geometry.coordinate.isPolar,
+        isInPolar,
       });
       // the marker configure order should be ensure
       marker = deepMix({}, themeMarker, marker, userMarker);
