@@ -1,4 +1,4 @@
-import { deepMix, each, find, get, head, isBoolean, last, map } from '@antv/util';
+import { deepMix, each, find, get, head, isBoolean, last } from '@antv/util';
 
 import { COMPONENT_MAX_VIEW_PERCENTAGE, COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { Attribute, CategoryLegend, ContinuousLegend, GroupComponent, IGroup, Scale, Tick } from '../../dependents';
@@ -412,7 +412,7 @@ export default class Legend extends Controller<Option> {
 
     const containMin = find(ticks, (tick: Tick) => tick.value === 0);
     const containMax = find(ticks, (tick: Tick) => tick.value === 1);
-    const items = map(ticks, (tick: Tick) => {
+    const items = ticks.map((tick: Tick) => {
       const { value, tickValue } = tick;
       const attrValue = attr.mapping(scale.invert(value)).join('');
 
@@ -472,7 +472,7 @@ export default class Legend extends Controller<Option> {
     if (attr.type === 'color') {
       attrLegendCfg = {
         ...attrLegendCfg,
-        colors: map(items, (item) => item.attrValue),
+        colors: items.map((item) => item.attrValue),
       };
     }
 
