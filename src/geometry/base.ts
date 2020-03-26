@@ -1154,10 +1154,10 @@ export default class Geometry extends Base {
    * @return fields string[]
    */
   public getGroupFields(): string[] {
-    const fields = [];
+    let fields = [];
     each(GROUP_ATTRS, (attributeName: string) => {
       const cfg = this.attributeOption[attributeName];
-      fields.push(...get(cfg, 'fields', []));
+      fields = fields.concat(get(cfg, 'fields', []));
     });
 
     return uniq(fields);

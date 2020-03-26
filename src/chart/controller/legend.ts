@@ -280,13 +280,11 @@ export default class Legend extends Controller<Option> {
   /**
    * 递归获取所有的 Geometry
    */
-  private getGeometries(view: View, geometries: Geometry[] = []): Geometry[] {
-    // 首先获得当前 view 的 Geometries
-    geometries.push(...view.geometries);
+  private getGeometries(view: View): Geometry[] {
+    let geometries = view.geometries;
 
-    // 然后递归
     each(view.views, (v: View) => {
-      return this.getGeometries(v, geometries);
+      geometries = geometries.concat(this.getGeometries(v));
     });
 
     return geometries;
