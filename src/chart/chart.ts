@@ -141,6 +141,15 @@ export default class Chart extends View {
     return this;
   }
 
+  /**
+   * 自动根据容器大小 resize 画布
+   */
+  public forceFit() {
+    // 注意第二参数用 true，意思是即时 autoFit = false，forceFit() 调用之后一样是适配容器
+    const { width, height } = getChartSize(this.ele, true, this.width, this.height);
+    this.changeSize(width, height);
+  }
+
   private bindAutoFit() {
     if (this.autoFit) {
       window.addEventListener('resize', this.onResize);
@@ -157,7 +166,6 @@ export default class Chart extends View {
    * when container size changed, change chart size props, and re-render.
    */
   private onResize = debounce(() => {
-    const { width, height } = getChartSize(this.ele, this.autoFit, this.width, this.height);
-    this.changeSize(width, height);
+    this.forceFit();
   }, 300);
 }
