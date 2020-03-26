@@ -1,4 +1,4 @@
-import { deepMix, each, get, isArray, isFunction, isNil, isNumber, isUndefined } from '@antv/util';
+import { deepMix, each, get, isArray, isFunction, isNil, isUndefined } from '@antv/util';
 
 import { FIELD_ORIGIN } from '../../constant';
 import { Scale } from '../../dependents';

@@ -273,8 +273,6 @@ export interface LabelOption {
 
 /** Geometry 下每个 state 的配置结构 */
 export interface StateCfg {
-  /** 动画参数配置，null 表示关闭动画。 */
-  animate?: GAnimateCfg | null;
   /** 状态样式配置。 */
   style?: object | StateStyleCallback;
 }

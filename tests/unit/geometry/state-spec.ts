@@ -83,15 +83,17 @@ describe('State setting', () => {
       container: canvas.addGroup(),
     });
 
-    interval.position('a*b').state({
-      selected: {
-        style: {
-          stroke: '#000',
-          lineWidth: 2,
+    interval
+      .position('a*b')
+      .state({
+        selected: {
+          style: {
+            stroke: '#000',
+            lineWidth: 2,
+          },
         },
-        animate: null,
-      },
-    });
+      })
+      .animate(false);
 
     interval.init({
       theme: Theme,
