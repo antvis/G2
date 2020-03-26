@@ -68,5 +68,14 @@ describe('#2222', () => {
     expect(chart.scalePool.scales.size).toBe(0);
     // @ts-ignore
     expect(chart.scalePool.syncScales.get('value').length).toBe(0);
-  })
+  });
+
+  it('scalePool.clear', () => {
+    // @ts-ignore
+    chart.scalePool.clear();
+    // @ts-ignore
+    expect(chart.scalePool.scales.size).toBe(0);
+    // @ts-ignore
+    expect(chart.scalePool.syncScales.size).toBe(0);
+  });
 });
