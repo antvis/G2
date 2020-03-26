@@ -51,12 +51,12 @@ describe('Element', () => {
               },
             },
             active: {
-                style: {
-                  shapes: {
-                    stroke: '#000',
-                    lineWidth: 1,
-                  },
+              style: {
+                shapes: {
+                  stroke: '#000',
+                  lineWidth: 1,
                 },
+              },
             },
             selected: {
               style: {
@@ -119,18 +119,14 @@ describe('Element', () => {
     it('getStateStyle()', () => {
       const activeStyle = element.getStateStyle('active', 'shapes');
       expect(activeStyle).toEqual({
-        style: {
-          stroke: '#000',
-          lineWidth: 1,
-        },
+        stroke: '#000',
+        lineWidth: 1,
       });
 
       const defaultStyle = element.getStateStyle('default');
       expect(defaultStyle).toEqual({
-        style: {
-          fill: '#333',
-          lineWidth: 0,
-        }
+        fill: '#333',
+        lineWidth: 0,
       });
     });
 
@@ -284,33 +280,27 @@ describe('Element', () => {
         theme: Theme,
         container,
       });
-      element.geometry = {
-        animateOption: false,
-      }
+      element.animate = false;
       // @ts-ignore
       expect(element.getAnimateCfg('update')).toBe(null);
       expect(element.getAnimateCfg('appear')).toBe(null);
     });
 
     it('model.animate is not empty', () => {
-      element.geometry = {
-        animateOption: {
-          update: {
-            delay: 1000,
-          },
-          leave: false,
-          appear: null,
+      element.animate = {
+        update: {
+          delay: 1000,
         },
+        leave: false,
+        appear: null,
       };
+
       // @ts-ignore
       expect(element.getAnimateCfg('update')).toEqual({
-        animation: null,
-        duration: 400,
-        easing: 'easeQuadInOut',
         delay: 1000,
       });
       // @ts-ignore
-      expect(element.getAnimateCfg('leave')).toBe(null);
+      expect(element.getAnimateCfg('leave')).toBe(false);
       // @ts-ignore
       expect(element.getAnimateCfg('appear')).toBe(null);
     });

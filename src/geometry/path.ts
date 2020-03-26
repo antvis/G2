@@ -53,11 +53,13 @@ export default class Path extends Geometry {
         offscreenGroup: this.getOffscreenGroup(),
       });
       result.geometry = this;
+      result.animate = this.animateOption;
       result.draw(shapeCfg, isUpdate); // 绘制 shape
     } else {
       // element 已经创建
       const preShapeCfg = result.getModel();
       if (isModelChange(preShapeCfg, shapeCfg)) {
+        result.animate = this.animateOption;
         // 通过绘制数据的变更来判断是否需要更新，因为用户有可能会修改图形属性映射
         result.update(shapeCfg); // 更新对应的 element
       }

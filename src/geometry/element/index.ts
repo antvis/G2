@@ -222,7 +222,7 @@ export default class Element extends Base {
       });
     } else {
       // 如果没有状态，则需要恢复至原始状态
-      this.syncShapeStyle(shape, offscreenShape, '', null);
+      this.syncShapeStyle(shape, offscreenShape, 'reset', null);
     }
 
     offscreenShape.remove(true); // 销毁，减少内存占用
@@ -335,34 +335,17 @@ export default class Element extends Base {
       shapeStyle = shapeStyle(this);
     }
 
-    return {
-      animate: stateCfg.animate,
-      style: shapeStyle,
-    };
+    return shapeStyle;
   }
 
   // 获取动画配置
   private getAnimateCfg(animateType: string) {
-    const animate = this.geometry.animateOption;
-    const { geometryType, coordinate } = this.shapeFactory;
-    const defaultCfg = getDefaultAnimateCfg(geometryType, coordinate, animateType);
-
-    // 1. animate === false, 用户关闭动画
-    // 2. 动画默认开启，用户没有对动画进行配置同时有没有内置的默认动画
-    // 3. 用户关闭对应的动画  animate: { enter: false }
-    if (
-      !animate ||
-      (animate === true && isEmpty(defaultCfg)) ||
-      animate[animateType] === false ||
-      animate[animateType] === null
-    ) {
-      return null;
+    const animate = this.animate;
+    if (animate) {
+      return animate[animateType];
     }
 
-    return {
-      ...defaultCfg,
-      ...animate[animateType],
-    };
+    return null;
   }
 
   // 绘制图形
@@ -431,29 +414,28 @@ export default class Element extends Base {
         this.syncShapeStyle(children[i], newChildren[i], state, animateCfg, index + i);
       }
     } else {
-      let stateAnimate;
-      if (state) {
-        const { animate, style } = this.getStateStyle(state, sourceShape.get('name') || index); // 如果用户没有设置 name，则默认根据索引值
+      if (state && state !== 'reset') {
+        const style = this.getStateStyle(state, sourceShape.get('name') || index); // 如果用户没有设置 name，则默认根据索引值
         targetShape.attr(style);
-        stateAnimate = animate;
       }
       const newAttrs = getReplaceAttrs(sourceShape as IShape, targetShape as IShape);
 
-      if (animateCfg) {
-        // 需要进行动画
-        doAnimate(sourceShape, animateCfg, {
-          coordinate: this.shapeFactory.coordinate,
-          toAttrs: newAttrs,
-          shapeModel: this.model,
-        });
-      } else if (stateAnimate === null) {
-        // 用户关闭了 state 动画
-        sourceShape.attr(newAttrs);
-      } else if (this.geometry.animateOption) {
-        sourceShape.stopAnimate();
-        sourceShape.animate(newAttrs, {
-          duration: 300,
-        });
+      if (this.animate) {
+        if (animateCfg) {
+          // 需要进行动画
+          doAnimate(sourceShape, animateCfg, {
+            coordinate: this.shapeFactory.coordinate,
+            toAttrs: newAttrs,
+            shapeModel: this.model,
+          });
+        } else if (state) {
+          sourceShape.stopAnimate();
+          sourceShape.animate(newAttrs, {
+            duration: 300,
+          });
+        } else {
+          sourceShape.attr(newAttrs);
+        }
       } else {
         sourceShape.attr(newAttrs);
       }

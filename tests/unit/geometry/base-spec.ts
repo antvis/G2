@@ -497,6 +497,7 @@ describe('Geometry', () => {
       expect(geometry.elementsMap).not.toBe(undefined);
       // @ts-ignore
       expect(geometry.container.get('children').length).toBe(4);
+      expect(geometry.animateOption).toBe(false);
     });
 
     it('getShapes()', () => {
@@ -608,6 +609,27 @@ describe('Geometry', () => {
       expect(deleteElement.destroyed).toBe(true);
 
       expect(updateElement.getData()).toEqual({ month: '二月', temperature: 20, city: '北京', year: '2018' });
+      expect(geometry.animateOption).toEqual({
+        appear: {
+          duration: 450,
+          easing: 'easeQuadOut'
+        },
+        update: {
+          duration: 400,
+          easing: 'easeQuadInOut',
+          animation: null
+        },
+        enter: {
+          duration: 400,
+          easing: 'easeQuadInOut',
+          animation: 'scale-in-y'
+        },
+        leave: {
+          duration: 350,
+          easing: 'easeQuadIn',
+          animation: 'fade-out'
+        },
+      });
     });
 
     it('clear()', () => {
