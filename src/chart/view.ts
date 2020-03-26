@@ -1529,11 +1529,11 @@ export class View extends Base {
     const fields = this.getScaleFields();
     const groupedFields = this.getGroupedFields();
 
-    const { data, scales } = this.getOptions();
+    const { data, scales = {} } = this.getOptions();
     const filteredData = this.filteredData;
 
     each(fields, (field: string) => {
-      const scaleDef = get(scales, [field]);
+      const scaleDef = scales[field];
 
       // 调用方法，递归去创建
       const key = this.getScaleKey(field);
