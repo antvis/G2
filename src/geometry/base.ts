@@ -1424,43 +1424,47 @@ export default class Geometry extends Base {
     const { attributes, attributeOption, theme, shapeType } = this;
 
     // 遍历每一个 attrOption，各自创建 Attribute 实例
-    each(attributeOption, (option: AttributeOption, attrType: string) => {
-      if (!option) {
-        return;
-      }
-      const attrCfg: AttributeInstanceCfg = {
-        ...option,
-      };
-      const { callback, values, fields = [] } = attrCfg;
+    for (const attrType in attributeOption) {
+      if (attributeOption.hasOwnProperty(attrType)) {
+        const option: AttributeOption = attributeOption[attrType];
+        if (!option) {
+          return;
+        }
+        const attrCfg: AttributeInstanceCfg = {
+          ...option,
+        };
+        const { callback, values, fields = [] } = attrCfg;
 
-      // 获取每一个字段对应的 scale
-      const scales = fields.map((field) => {
-        return this.scales[field];
-      });
+        // 获取每一个字段对应的 scale
+        const scales = fields.map((field) => {
+          return this.scales[field];
+        });
 
-      attrCfg.scales = scales;
+        attrCfg.scales = scales;
 
-      if (attrType !== 'position' && scales.length === 1 && scales[0].type === 'identity') {
-        // 用户在图形通道上声明了常量字段 color('red'), size(5)
-        attrCfg.values = scales[0].values;
-      } else if (!callback && !values) {
-        // 用户没有指定任何规则，则使用默认的映射规则
-        if (attrType === 'size') {
-          attrCfg.values = theme.sizes;
-        } else if (attrType === 'shape') {
-          attrCfg.values = theme.shapes[shapeType] || [];
-        } else if (attrType === 'color') {
-          if (scales.length) {
-            // 根据数值个数使用对应的色板
-            attrCfg.values = scales[0].values.length <= 10 ? theme.colors10 : theme.colors20;
-          } else {
-            attrCfg.values = theme.colors10;
+        if (attrType !== 'position' && scales.length === 1 && scales[0].type === 'identity') {
+          // 用户在图形通道上声明了常量字段 color('red'), size(5)
+          attrCfg.values = scales[0].values;
+        } else if (!callback && !values) {
+          // 用户没有指定任何规则，则使用默认的映射规则
+          if (attrType === 'size') {
+            attrCfg.values = theme.sizes;
+          } else if (attrType === 'shape') {
+            attrCfg.values = theme.shapes[shapeType] || [];
+          } else if (attrType === 'color') {
+            if (scales.length) {
+              // 根据数值个数使用对应的色板
+              attrCfg.values = scales[0].values.length <= 10 ? theme.colors10 : theme.colors20;
+            } else {
+              attrCfg.values = theme.colors10;
+            }
           }
         }
+        const AttributeCtor = getAttributeClass(attrType);
+        attributes[attrType] = new AttributeCtor(attrCfg);
+
       }
-      const AttributeCtor = getAttributeClass(attrType);
-      attributes[attrType] = new AttributeCtor(attrCfg);
-    });
+    }
   }
 
   // 处理数据：分组 -> 数字化 -> adjust 调整
