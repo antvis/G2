@@ -1795,7 +1795,7 @@ export default class Geometry extends Base {
       this.scaleDefs = scaleDefs;
       this.idFields = [];
       each(scaleDefs, (scaleDef, field) => {
-        if (get(scaleDef, 'key')) {
+        if (scaleDef && scaleDef.key) {
           this.idFields.push(field);
         }
       });
