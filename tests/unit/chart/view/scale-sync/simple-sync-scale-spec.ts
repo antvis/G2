@@ -34,9 +34,9 @@ describe('sync scale', () => {
     expect(profit.min).toBe(3);
     expect(profit.max).toBe(130);
     // @ts-ignore
-    expect(Object.keys(chart.scalePool.scales).length).toBe(4);
+    expect(chart.scalePool.scales.size).toBe(4);
     // @ts-ignore
-    expect(Object.keys(chart.scalePool.syncScales).length).toBe(0);
+    expect(chart.scalePool.syncScales.size).toBe(0);
   });
 
   it('sync scale, and update', () => {
@@ -60,9 +60,9 @@ describe('sync scale', () => {
     expect(profit.min).toBe(0);
     expect(profit.max).toBe(310);
     // @ts-ignore
-    expect(Object.keys(chart.scalePool.syncScales).length).toBe(1);
+    expect(chart.scalePool.syncScales.size).toBe(1);
     // @ts-ignore
-    expect(chart.scalePool.syncScales.value.length).toBe(2);
+    expect(chart.scalePool.syncScales.get('value').length).toBe(2);
   });
 
   it('sync = false', () => {
@@ -86,9 +86,9 @@ describe('sync scale', () => {
     expect(profit.min).toBe(3);
     expect(profit.max).toBe(130);
     // @ts-ignore
-    expect(Object.keys(chart.scalePool.scales).length).toBe(4);
+    expect(chart.scalePool.scales.size).toBe(4);
     // @ts-ignore
-    expect(Object.keys(chart.scalePool.syncScales).length).toBe(0);
+    expect(chart.scalePool.syncScales.size).toBe(0);
   });
 
   afterAll(() => {

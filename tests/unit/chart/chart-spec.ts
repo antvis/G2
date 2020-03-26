@@ -153,7 +153,7 @@ describe('Chart', () => {
     // @ts-ignore
     expect(chart.filteredData).toEqual([]);
     // @ts-ignore
-    expect(chart.scalePool.scales).toEqual({});
+    expect(chart.scalePool.scales.size).toBe(0);
     expect(!!chart.getCoordinate()).toBe(false);
 
     // @ts-ignore
