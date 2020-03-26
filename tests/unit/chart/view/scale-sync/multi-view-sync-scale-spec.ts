@@ -66,9 +66,9 @@ describe('sync scale with multi-view', () => {
     expect(v2Profit.min).toBe(0);
     expect(v2Profit.max).toBe(80);
     // @ts-ignore
-    expect(Object.keys(chart.scalePool.scales).length).toBe(7);
+    expect(chart.scalePool.scales.size).toBe(7);
     // @ts-ignore
-    expect(Object.keys(chart.scalePool.syncScales).length).toBe(0);
+    expect(chart.scalePool.syncScales.size).toBe(0);
   });
 
   it('sync scale, and update', () => {
@@ -114,9 +114,12 @@ describe('sync scale with multi-view', () => {
     // v1sale 和 v2sale 不同步
     expect(v1Sale.max).not.toBe(v2Sale.max);
     // @ts-ignore
-    expect(Object.keys(chart.scalePool.syncScales)).toStrictEqual(['city', 'sale', 'value']);
-    // @ts-ignore
-    expect(chart.scalePool.syncScales.value.length).toBe(2);
+    const syncScales = chart.scalePool.syncScales;
+    expect(syncScales.get('city')).toBeDefined();
+    expect(syncScales.get('sale')).toBeDefined();
+    expect(syncScales.get('value')).toBeDefined();
+    expect(syncScales.size).toBe(3);
+    expect(syncScales.get('value').length).toBe(2);
 
     // @ts-ignore
     expect(chart.scalePool.getScaleMeta('view2-sale').scaleDef.sync).toBe(true);
@@ -131,7 +134,7 @@ describe('sync scale with multi-view', () => {
 
     // 分类 scale 在同步之后，进行调整左右 range
     // @ts-ignore
-    expect(chart.scalePool.scales['view3-city'].scale.range).toEqual([0.125, 0.875]);
+    expect(chart.scalePool.scales.get('view3-city').scale.range).toEqual([0.125, 0.875]);
   });
 
   it('sync = false', () => {
@@ -165,9 +168,9 @@ describe('sync scale with multi-view', () => {
     expect(v1Sale.max).not.toBe(v2Profit.max);
     expect(v2Sale.max).not.toBe(v2Profit.max);
     // @ts-ignore
-    expect(Object.keys(chart.scalePool.scales).length).toBe(7);
+    expect(chart.scalePool.scales.size).toBe(7);
     // @ts-ignore
-    expect(Object.keys(chart.scalePool.syncScales).length).toBe(0);
+    expect(chart.scalePool.syncScales.size).toBe(0);
     // @ts-ignore
     expect(chart.scalePool.getScaleMeta('view2-sale').scaleDef.sync).toBe(false);
   });

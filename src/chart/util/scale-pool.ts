@@ -16,9 +16,9 @@ interface ScaleMeta {
 /** @ignore */
 export class ScalePool {
   /** 所有的 scales */
-  private scales: Record<string, ScaleMeta> = {};
+  private scales = new Map<string, ScaleMeta>();
   /** 需要同步的 scale 分组， key: scaleKeyArray */
-  private syncScales: Record<string, string[]> = {};
+  private syncScales= new Map<string, string[]>();
 
   /**
    * 创建 scale
@@ -57,7 +57,7 @@ export class ScalePool {
    */
   public sync() {
     // 对于 syncScales 中每一个 syncKey 下面的 scale 数组进行同步处理
-    each(this.syncScales, (scaleKeys: string[], syncKey: string) => {
+    this.syncScales.forEach((scaleKeys: string[], syncKey: string) => {
       // min, max, values
       let min = Number.MAX_SAFE_INTEGER;
       let max = Number.MIN_SAFE_INTEGER;
@@ -105,7 +105,6 @@ export class ScalePool {
    */
   private cacheScale(scale: Scale, scaleDef: ScaleOption, key: string) {
     // 1. 缓存到 scales
-
     let sm = this.getScaleMeta(key);
     // 存在则更新，同时检测类型是否一致
     if (sm && sm.scale.type === scale.type) {
@@ -119,7 +118,7 @@ export class ScalePool {
         scaleDef,
       };
 
-      this.scales[key] = sm;
+      this.scales.set(key, sm);
     }
 
     // 2. 缓存到 syncScales，构造 Record<sync, string[]> 数据结构
@@ -131,10 +130,12 @@ export class ScalePool {
     // 存在 sync 标记才进行 sync
     if (syncKey) {
       // 不存在这个 syncKey，则创建一个空数组
-      if (!this.syncScales[syncKey]) {
-        this.syncScales[syncKey] = [];
+      let scaleKeys = this.syncScales.get(syncKey);
+      if (!scaleKeys) {
+        scaleKeys = []
+        this.syncScales.set(syncKey, scaleKeys);
       }
-      this.syncScales[syncKey].push(key);
+      scaleKeys.push(key);
     }
   }
 
@@ -146,8 +147,9 @@ export class ScalePool {
     let scaleMeta = this.getScaleMeta(key);
     if (!scaleMeta) {
       const field = last(key.split('-'));
-      if (this.syncScales[field] && this.syncScales[field].length) {
-        scaleMeta = this.getScaleMeta(this.syncScales[field][0]);
+      const scaleKeys = this.syncScales.get(field);
+      if (scaleKeys && scaleKeys.length) {
+        scaleMeta = this.getScaleMeta(scaleKeys[0]);
       }
     }
     return scaleMeta && scaleMeta.scale;
@@ -157,8 +159,8 @@ export class ScalePool {
    * 清空
    */
   public clear() {
-    this.scales = {};
-    this.syncScales = {};
+    this.scales.clear();
+    this.syncScales.clear();
   }
 
   /**
@@ -166,7 +168,7 @@ export class ScalePool {
    * @param key
    */
   private removeFromSyncScales(key: string) {
-    each(this.syncScales, (scaleKeys: string[], syncKey: string) => {
+    this.syncScales.forEach((scaleKeys: string[], syncKey: string) => {
       const idx = scaleKeys.indexOf(key);
 
       if (idx !== -1) {
@@ -174,7 +176,7 @@ export class ScalePool {
 
         // 删除空数组值
         if (scaleKeys.length === 0) {
-          delete this.syncScales[syncKey];
+          this.syncScales.delete(syncKey);
         }
 
         return false; // 跳出循环
@@ -200,6 +202,6 @@ export class ScalePool {
    * @param key
    */
   private getScaleMeta(key: string): ScaleMeta {
-    return this.scales[key];
+    return this.scales.get(key);
   }
 }
