@@ -77,8 +77,8 @@ export default class Slider extends Controller<Option> {
       }
       // changeData 的时候同样需要更新
       // 设置初始的 text
-      const min = this.slider.component.get('start');
-      const max = this.slider.component.get('end');
+      const min = this.slider.component.get('start') || 0;
+      const max = this.slider.component.get('end') || 1;
 
       this.updateMinMaxText(min, max);
     } else {

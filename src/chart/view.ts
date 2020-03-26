@@ -632,7 +632,7 @@ export class View extends Base {
     // 对于内置的 option，避免覆盖。
     // name 在原型上，说明可能是内置 API，存在 option 被覆盖的风险，不处理
     if (View.prototype[name]) {
-      throw new Error(`Can't built in variable name "${name}", please change another one.`);
+      throw new Error(`Can't use built in variable name "${name}", please change another one.`);
     }
 
     // 存入到 option 中
