@@ -136,6 +136,8 @@ export class View extends Base {
   private isPreMouseInPlot: boolean = false;
   /** 默认标识位，用于判定数据是否更新 */
   private isDataChanged: boolean = false;
+  /** 从当前这个 view 创建的 scale key */
+  private createdScaleKeys = new Map<string, boolean>();
 
   constructor(props: ViewCfg) {
     super({ visible: props.visible });
@@ -227,7 +229,6 @@ export class View extends Base {
   public clear() {
     this.emit(VIEW_LIFE_CIRCLE.BEFORE_CLEAR);
     // 1. 清空缓存和计算数据
-    this.scalePool.clear();
     this.filteredData = [];
     this.coordinateInstance = undefined;
     this.isDataChanged = false; // 复位
@@ -242,6 +243,12 @@ export class View extends Base {
     each(this.controllers, (controller: Controller) => {
       controller.clear();
     });
+
+    // 4. 删除 scale 缓存
+    this.createdScaleKeys.forEach((v: boolean, k: string) => {
+      this.getRootView().scalePool.deleteScale(k);
+    });
+    this.createdScaleKeys.clear();
 
     // 递归处理子 view
     each(this.views, (view: View) => {
@@ -1215,21 +1222,18 @@ export class View extends Base {
    * @param scaleDef
    * @param key
    */
-  protected createScale(field: string, data: Data, scaleDef: ScaleOption, key?: string): Scale {
+  protected createScale(field: string, data: Data, scaleDef: ScaleOption, key: string): Scale {
     // 1. 合并 field 对应的 scaleDef，合并原则是底层覆盖顶层（就近原则）
     const currentScaleDef = get(this.options.scales, [field]);
     const mergedScaleDef = { ...currentScaleDef, ...scaleDef };
 
-    // 2. 生成默认的 key
-    const defaultKey = key ? key : this.getScaleKey(field);
-
-    // 3. 是否存在父 view，在则递归，否则创建
+    // 2. 是否存在父 view，在则递归，否则创建
     if (this.parent) {
-      return this.parent.createScale(field, data, mergedScaleDef, defaultKey);
+      return this.parent.createScale(field, data, mergedScaleDef, key);
     }
 
-    // 4. 在根节点 view 通过 scalePool 创建
-    return this.scalePool.createScale(field, data, mergedScaleDef, defaultKey);
+    // 3. 在根节点 view 通过 scalePool 创建
+    return this.scalePool.createScale(field, data, mergedScaleDef, key);
   }
 
   /**
@@ -1482,12 +1486,17 @@ export class View extends Base {
       const scaleDef = get(scales, [field]);
 
       // 调用方法，递归去创建
+      const key = this.getScaleKey(field);
       this.createScale(
         field,
         // 分组字段的 scale 使用未过滤的数据创建
         groupedFields.includes(field) ? data : filteredData,
-        scaleDef
+        scaleDef,
+        key,
       );
+
+      // 缓存从当前 view 创建的 scale key
+      this.createdScaleKeys.set(key, true);
     });
   }
 

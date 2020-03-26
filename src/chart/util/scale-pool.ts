@@ -11,6 +11,7 @@ interface ScaleMeta {
   readonly key: string;
   readonly scale: Scale;
   scaleDef: ScaleOption;
+  syncKey?: string;
 }
 
 /** @ignore */
@@ -123,6 +124,7 @@ export class ScalePool {
 
     // 2. 缓存到 syncScales，构造 Record<sync, string[]> 数据结构
     const syncKey = this.getSyncKey(sm);
+    sm.syncKey = syncKey; // 设置 sync 同步的 key
 
     // 因为存在更新 scale 机制，所以在缓存之前，先从原 syncScales 中去除 sync 的缓存引用
     this.removeFromSyncScales(key);
@@ -153,6 +155,31 @@ export class ScalePool {
       }
     }
     return scaleMeta && scaleMeta.scale;
+  }
+
+  /**
+   * 在 view 销毁的时候，删除 scale 实例，防止内存泄露
+   * @param key 
+   */
+  public deleteScale(key: string) {
+    let scaleMeta = this.getScaleMeta(key);
+    if (scaleMeta) {
+      const { syncKey } = scaleMeta;
+
+      const scaleKeys = this.syncScales.get(syncKey);
+
+      // 移除同步的关系
+      if (scaleKeys && scaleKeys.length) {
+        const idx = scaleKeys.indexOf(key);
+
+        if (idx !== -1) {
+          scaleKeys.splice(idx, 1);
+        }
+      }
+    }
+
+    // 删除 scale 实例
+    this.scales.delete(key);
   }
 
   /**
