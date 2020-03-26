@@ -1465,12 +1465,24 @@ export default class Geometry extends Base {
 
   // 处理数据：分组 -> 数字化 -> adjust 调整
   private processData(data: Data) {
-    let groupedArray = this.groupData(data); // 数据分组
+    const { scales } = this.getAttribute('position');
+    const categoryScales = scales.filter((scale: Scale) => scale.isCategory);
 
+    let groupedArray = this.groupData(data); // 数据分组
     groupedArray = groupedArray.map((subData: Data) => {
-      const tempData = this.saveOrigin(subData); // 存储原始数据
-      this.numeric(tempData); // 将分类数据转换成数字
-      return tempData;
+      return subData.map((originData: Datum) => {
+        // 数据调整前保存原始数据
+        const item = {
+          ...originData,
+          [FIELD_ORIGIN]: originData, // 存入 origin 数据
+        };
+        // 将分类数据翻译成数据, 仅对位置相关的度量进行数字化处理
+        for (const scale of categoryScales) {
+          const field = scale.field;
+          item[field] = scale.translate(item[field]);
+        }
+        return item;
+      });
     });
 
     const dataArray = this.adjustData(groupedArray); // 进行 adjust 数据调整
@@ -1548,32 +1560,6 @@ export default class Geometry extends Base {
     }
 
     return group(data, groupFields, appendConditions);
-  }
-
-  // 数据调整前保存原始数据
-  private saveOrigin(data: Data): Data {
-    return data.map((originData: Datum) => {
-      return {
-        ...originData,
-        [FIELD_ORIGIN]: originData, // 存入 origin 数据
-      };
-    });
-  }
-
-  // 将分类数据翻译成数据, 仅对位置相关的度量进行数字化处理
-  private numeric(data: Data) {
-    const positionAttr = this.getAttribute('position');
-    const scales = positionAttr.scales;
-    for (let j = 0, len = data.length; j < len; j += 1) {
-      const obj = data[j];
-      for (let i = 0; i < Math.min(2, scales.length); i += 1) {
-        const scale = scales[i];
-        if (scale.isCategory) {
-          const field = scale.field;
-          obj[field] = scale.translate(obj[field]);
-        }
-      }
-    }
   }
 
   // 更新发生层叠后的数据对应的度量范围
