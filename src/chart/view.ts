@@ -1127,10 +1127,10 @@ export class View extends Base {
    * 获取所有的 pure component 组件，用于布局。
    */
   public getComponents(): ComponentOption[] {
-    const components = [];
+    let components = [];
 
     each(this.controllers, (controller: Controller) => {
-      components.push(...controller.getComponents());
+      components = components.concat(controller.getComponents());
     });
 
     return components;
@@ -1575,7 +1575,7 @@ export class View extends Base {
 
   private getScaleFields() {
     const fields = this.geometries.reduce((r: string[], geometry: Geometry): string[] => {
-      r.push(...geometry.getScaleFields());
+      r = r.concat(geometry.getScaleFields())
       return r;
     }, []);
 
@@ -1584,7 +1584,7 @@ export class View extends Base {
 
   private getGroupedFields() {
     const fields = this.geometries.reduce((r: string[], geometry: Geometry): string[] => {
-      r.push(...geometry.getGroupFields());
+      r = r.concat(geometry.getGroupFields());
       return r;
     }, []);
 
