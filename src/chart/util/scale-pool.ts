@@ -48,7 +48,7 @@ export class ScalePool {
     const scale = createScaleByField(field, data, finalScaleDef);
 
     // 缓存起来
-    this.cacheScale(scale, scaleDef, key);
+    this.cacheScale(scale, scaleDef, key, cacheScaleMeta);
 
     return scale;
   }
@@ -104,9 +104,10 @@ export class ScalePool {
    * @param scaleDef
    * @param key
    */
-  private cacheScale(scale: Scale, scaleDef: ScaleOption, key: string) {
+  private cacheScale(scale: Scale, scaleDef: ScaleOption, key: string, cacheScaleMeta: ScaleMeta) {
     // 1. 缓存到 scales
-    let sm = this.getScaleMeta(key);
+
+    let sm = cacheScaleMeta;
     // 存在则更新，同时检测类型是否一致
     if (sm && sm.scale.type === scale.type) {
       syncScale(sm.scale, scale);
@@ -159,7 +160,7 @@ export class ScalePool {
 
   /**
    * 在 view 销毁的时候，删除 scale 实例，防止内存泄露
-   * @param key 
+   * @param key
    */
   public deleteScale(key: string) {
     let scaleMeta = this.getScaleMeta(key);
