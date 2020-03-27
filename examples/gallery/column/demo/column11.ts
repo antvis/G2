@@ -57,6 +57,9 @@ chart
       content: (originData) => {
         return originData.value + '%';
       },
+      style: {
+        stroke: '#fff'
+      }
     };
   });
 chart.render();
