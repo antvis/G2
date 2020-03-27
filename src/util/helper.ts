@@ -54,3 +54,19 @@ export function omit<T = any>(obj: T, keys: string[]): T {
 
   return obj;
 }
+
+/**
+ * @ignore
+ * @param sourceArray
+ * @param targetArray
+ * @param map
+ */
+export function uniq(sourceArray: any[], targetArray: any[] = [], map: object = {}) {
+  for (const source of sourceArray) {
+    if (!map[source]) {
+      targetArray.push(source);
+      map[source] = true;
+    }
+  }
+  return targetArray;
+}

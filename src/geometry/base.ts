@@ -16,7 +16,6 @@ import {
   isPlainObject,
   isString,
   set,
-  uniq,
 } from '@antv/util';
 import { doGroupAppearAnimate } from '../animate';
 import Base from '../base';
@@ -55,6 +54,7 @@ import { getShapeFactory } from './shape/base';
 import { group } from './util/group-data';
 import { isModelChange } from './util/is-model-change';
 import { parseFields } from './util/parse-fields';
+import { uniq } from '../util/helper';
 
 /** @ignore */
 interface AttributeInstanceCfg {
@@ -1114,17 +1114,32 @@ export default class Geometry extends Base {
    * 获取所有需要创建 scale 的字段名称。
    */
   public getScaleFields(): string[] {
-    let fields = [];
+    const fields = [];
+    const tmpMap = {};
     const { attributeOption, labelOption, tooltipOption } = this;
-    each(attributeOption, (eachOpt: AttributeOption) => {
-      // size(10)
-      fields = fields.concat(eachOpt.fields || eachOpt.values);
-    });
+    // 获取图形属性上的 fields
+    for (const attributeType in attributeOption) {
+      if (attributeOption.hasOwnProperty(attributeType)) {
+        const eachOpt = attributeOption[attributeType];
+        if (eachOpt.fields) {
+          uniq(eachOpt.fields, fields, tmpMap);
+        } else if (eachOpt.values) {
+          // 考虑 size(10), shape('circle') 等场景
+          uniq(eachOpt.values, fields, tmpMap);
+        }
+      }
+    }
+    // 获取 label 上的字段
+    if (labelOption && labelOption.fields) {
+      uniq(labelOption.fields, fields, tmpMap);
+    }
 
-    fields = fields.concat(get(labelOption, 'fields', []));
-    fields = fields.concat(get(tooltipOption, 'fields', []));
+    // 获取 tooltip 上的字段
+    if (isObject(tooltipOption) && tooltipOption.fields) {
+      uniq(tooltipOption.fields, fields, tmpMap);
+    }
 
-    return uniq(fields);
+    return fields;
   }
 
   /**
@@ -1158,13 +1173,16 @@ export default class Geometry extends Base {
    * @return fields string[]
    */
   public getGroupFields(): string[] {
-    let fields = [];
-    each(GROUP_ATTRS, (attributeName: string) => {
+    const groupFields = [];
+    const tmpMap = {}; // 用于去重过滤
+    for (const attributeName of GROUP_ATTRS) {
       const cfg = this.attributeOption[attributeName];
-      fields = fields.concat(get(cfg, 'fields', []));
-    });
+      if (cfg && cfg.fields) {
+        uniq(cfg.fields, groupFields, tmpMap);
+      }
+    }
 
-    return uniq(fields);
+    return groupFields;
   }
 
   /**
