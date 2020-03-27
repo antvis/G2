@@ -759,7 +759,6 @@ edgeView.source(dv.edges);
 ```javascript
 dv.transform({
   type: 'diagram.sankey',
-  value: (node) => node.value, // 权重
   source: (edge) => edge.source, // 边起点id
   target: (edge) => edge.target, // 边终点id
   nodeAlign: 'sankeyJustify', // sankeyLeft / sankeyRight / sankeyCenter
