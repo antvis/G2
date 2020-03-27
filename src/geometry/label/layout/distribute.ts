@@ -110,7 +110,6 @@ function antiCollision(labelShapes, labels, lineHeight, plotRange, center, isRig
 export function distribute(items: LabelItem[], labels: IGroup[], shapes: IShape[] | IGroup[], region: BBox) {
   const offset = items[0] ? items[0].offset : 0;
   const coordinate = labels[0].get('coordinate');
-  // @ts-ignore
   const radius = coordinate.getRadius();
   const center = coordinate.getCenter();
 

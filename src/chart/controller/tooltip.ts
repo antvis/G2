@@ -416,7 +416,6 @@ export default class Tooltip extends Controller<TooltipOption> {
       // 极坐标下 x 轴上的 crosshairs 表现为半径
       const angle = getAngleByPoint(coordinate, point);
       const center = coordinate.getCenter();
-      // @ts-ignore
       const radius = coordinate.getRadius();
       end = polarToCartesian(center.x, center.y, radius, angle);
       start = center;
