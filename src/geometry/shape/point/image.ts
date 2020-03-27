@@ -8,7 +8,10 @@ registerShape('point', 'image', {
   draw(cfg: ShapeInfo, container: IGroup) {
     const { r: size } = getStyle(cfg, false, false, 'r');
     const points = this.parsePoints(cfg.points);
-    if (points.length > 1) {
+    let pointPosition = points[0];
+    if (cfg.isStack) {
+      pointPosition = points[1];
+    } else if (points.length > 1) {
       const group = container.addGroup();
       for (const point of points) {
         group.addShape('image', {
@@ -27,8 +30,8 @@ registerShape('point', 'image', {
 
     return container.addShape('image', {
       attrs: {
-        x: (points[0].x as number) - size / 2,
-        y: (points[0].y as number) - size,
+        x: (pointPosition.x as number) - size / 2,
+        y: (pointPosition.y as number) - size,
         width: size,
         height: size,
         img: cfg.shape[1],
