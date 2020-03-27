@@ -18,7 +18,7 @@ import {
   set,
   uniq,
 } from '@antv/util';
-import { doGroupAppearAnimate, getDefaultAnimateCfg } from '../animate';
+import { doGroupAppearAnimate } from '../animate';
 import Base from '../base';
 import Labels from '../component/labels';
 import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';

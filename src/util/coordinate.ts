@@ -95,7 +95,6 @@ export function getCoordinateClipCfg(coordinate: Coordinate, margin: number = 0)
   if (coordinate.isPolar) {
     const { startAngle, endAngle } = coordinate;
     const center = coordinate.getCenter();
-    // @ts-ignore 需要 coordinate 基类上支持
     const radius = coordinate.getRadius();
 
     return {

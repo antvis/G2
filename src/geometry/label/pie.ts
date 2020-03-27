@@ -90,7 +90,6 @@ export default class PieLabel extends PolarLabel {
   protected getCirclePoint(angle, offset, p?) {
     const coordinate = this.getCoordinate();
     const center = coordinate.getCenter();
-    // @ts-ignore
     const r = coordinate.getRadius() + offset;
     return {
       ...polarToCartesian(center.x, center.y, r, angle),

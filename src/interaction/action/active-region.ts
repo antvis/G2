@@ -110,7 +110,6 @@ class ActiveRegion extends Action {
           const { startAngle } = getAngle(firstElement.getModel(), coordinate);
           const { endAngle } = getAngle(lastElement.getModel(), coordinate);
           const center = coordinate.getCenter();
-          // @ts-ignore
           const radius = coordinate.getRadius();
           const innterRadius = coordinate.innerRadius * radius;
           path = getSectorPath(center.x, center.y, radius, startAngle, endAngle, innterRadius);
