@@ -200,9 +200,9 @@ export class View extends Base {
     this.initOptions();
 
     // 递归初始化子 view
-    each(this.views, (view: View) => {
+    for (const view of this.views) {
       view.init();
-    });
+    }
   }
 
   /**
@@ -235,15 +235,15 @@ export class View extends Base {
     this.isDataChanged = false; // 复位
 
     // 2. 清空 geometries
-    each(this.geometries, (geometry: Geometry) => {
+    for (const geometry of this.geometries) {
       geometry.clear();
-    });
+    }
     this.geometries = [];
 
     // 3. 清空 controllers
-    each(this.controllers, (controller: Controller) => {
+    for (const controller of this.controllers) {
       controller.clear();
-    });
+    }
 
     // 4. 删除 scale 缓存
     this.createdScaleKeys.forEach((v: boolean, k: string) => {
@@ -252,9 +252,9 @@ export class View extends Base {
     this.createdScaleKeys.clear();
 
     // 递归处理子 view
-    each(this.views, (view: View) => {
+    for (const view of this.views) {
       view.clear();
-    });
+    }
 
     this.emit(VIEW_LIFE_CIRCLE.AFTER_CLEAR);
   }
@@ -277,9 +277,9 @@ export class View extends Base {
     this.clear();
 
     // 销毁 controller 中的组件
-    each(this.controllers, (controller: Controller) => {
+    for (const controller of this.controllers) {
       controller.destroy();
-    });
+    }
 
     this.backgroundGroup.remove(true);
     this.middleGroup.remove(true);
@@ -296,12 +296,12 @@ export class View extends Base {
    */
   public changeVisible(visible: boolean): View {
     super.changeVisible(visible);
-    this.geometries.forEach((geometry: Geometry) => {
+    for (const geometry of this.geometries) {
       geometry.changeVisible(visible);
-    });
-    this.controllers.forEach((controller: Controller) => {
+    }
+    for (const controller of this.controllers) {
       controller.changeVisible(visible);
-    });
+    }
 
     this.foregroundGroup.set('visible', visible);
     this.middleGroup.set('visible', visible);
@@ -759,10 +759,10 @@ export class View extends Base {
     this.paint(true);
 
     // 3. 遍历子 view 进行 change data
-    each(this.views, (view: View) => {
+    for (const view of this.views) {
       // FIXME 子 view 有自己的数据的情况，该如何处理？
-      view.changeData(data);
-    });
+      view.changeData(data)
+    }
 
     this.emit(VIEW_LIFE_CIRCLE.AFTER_CHANGE_DATA);
   }
@@ -1110,22 +1110,22 @@ export class View extends Base {
   public getSnapRecords(point: Point) {
     const geometries = this.geometries;
     let rst = [];
-    each(geometries, (geom: Geometry) => {
+    for (const geom of geometries) {
       const dataArray = geom.dataArray;
       let record;
-      each(dataArray, (data: MappingDatum[]) => {
+      for (const data of dataArray) {
         record = findDataByPoint(point, data, geom);
         if (record) {
           rst.push(record);
         }
-      });
-    });
+      }
+    }
 
     // 同样递归处理子 views
-    each(this.views, (view: View) => {
+    for (const view of this.views) {
       const snapRecords = view.getSnapRecords(point);
       rst = rst.concat(snapRecords);
-    });
+    }
 
     return rst;
   }
@@ -1135,10 +1135,9 @@ export class View extends Base {
    */
   public getComponents(): ComponentOption[] {
     let components = [];
-
-    each(this.controllers, (controller: Controller) => {
+    for (const controller of this.controllers) {
       components = components.concat(controller.getComponents());
-    });
+    }
 
     return components;
   }
@@ -1226,9 +1225,9 @@ export class View extends Base {
     this.doLayout();
 
     // 同样递归处理子 views
-    each(this.views, (view: View) => {
+    for (const view of this.views) {
       view.renderLayoutRecursive(isUpdate);
-    });
+    }
   }
 
   /**
@@ -1251,9 +1250,9 @@ export class View extends Base {
     this.renderComponents(isUpdate);
 
     // 同样递归处理子 views
-    each(this.views, (view: View) => {
+    for (const view of this.views) {
       view.renderPaintRecursive(isUpdate);
-    });
+    }
   }
 
   // end Get 方法
@@ -1294,9 +1293,9 @@ export class View extends Base {
     this.renderFacet(isUpdate);
 
     // 同样递归处理子 views
-    each(this.views, (view: View) => {
+    for (const view of this.views) {
       view.renderDataRecursive(isUpdate);
-    });
+    }
   }
 
   /**
@@ -1368,12 +1367,12 @@ export class View extends Base {
    * 初始化插件
    */
   private initComponentController() {
-    each(this.usedControllers, (controllerName: string) => {
+    for (const controllerName of this.usedControllers) {
       const Ctor = getComponentController(controllerName);
       if (Ctor) {
         this.controllers.push(new Ctor(this));
       }
-    });
+    }
   }
 
   private createViewEvent(evt: GEvent) {
@@ -1505,12 +1504,14 @@ export class View extends Base {
     // 初始化图形的之前，先创建 / 更新 scales
     this.createOrUpdateScales();
     // 实例化 Geometry，然后 view 将所有的 scale 管理起来
-    each(this.geometries, (geometry: Geometry) => {
+    const coordinate = this.getCoordinate();
+    const scaleDefs = get(this.options, 'scales', {});
+    for (const geometry of this.geometries) {
       // 保持 scales 引用不要变化
       geometry.scales = this.getGeometryScales();
       const cfg = {
-        coordinate: this.getCoordinate(), // 使用 coordinate 引用，可以保持 coordinate 的同步更新
-        scaleDefs: get(this.options, 'scales', {}),
+        coordinate, // 使用 coordinate 引用，可以保持 coordinate 的同步更新
+        scaleDefs,
         data: this.filteredData,
         theme: this.themeObject,
         isDataChanged: this.isDataChanged,
@@ -1522,7 +1523,7 @@ export class View extends Base {
       } else {
         geometry.init(cfg);
       }
-    });
+    }
 
     // Geometry 初始化之后，生成了 scale，然后进行调整 scale 配置
     this.adjustScales();
@@ -1539,7 +1540,7 @@ export class View extends Base {
     const { data, scales = {} } = this.getOptions();
     const filteredData = this.filteredData;
 
-    each(fields, (field: string) => {
+    for (const field of fields) {
       const scaleDef = scales[field];
 
       // 调用方法，递归去创建
@@ -1554,7 +1555,7 @@ export class View extends Base {
 
       // 缓存从当前 view 创建的 scale key
       this.createdScaleKeys.set(key, true);
-    });
+    }
   }
 
   /**
@@ -1572,10 +1573,9 @@ export class View extends Base {
     const fields = this.getScaleFields();
 
     const scales = {};
-
-    each(fields, (field: string) => {
+    for (const field of fields) {
       scales[field] = this.getScaleByField(field);
-    });
+    }
 
     return scales;
   }
@@ -1620,7 +1620,6 @@ export class View extends Base {
     const scaleOptions = this.options.scales;
 
     each(xyScales, (scale: Scale) => {
-      // @ts-ignore
       const { field, values, isCategory, isIdentity } = scale;
 
       // 分类或者 identity 的 scale 才进行处理
@@ -1663,7 +1662,7 @@ export class View extends Base {
    */
   private initComponents(isUpdate: boolean) {
     // 先全部清空，然后 render
-    each(this.controllers, (controller: Controller) => {
+    for (const controller of this.controllers) {
       // 更新则走更新逻辑；否则清空载重绘
       if (isUpdate) {
         controller.update();
@@ -1671,7 +1670,7 @@ export class View extends Base {
         controller.clear();
         controller.render();
       }
-    });
+    };
   }
 
   private doLayout() {
@@ -1695,24 +1694,26 @@ export class View extends Base {
   private paintGeometries(isUpdate: boolean) {
     const doAnimation = this.options.animate;
     // geometry 的 paint 阶段
-    this.geometries.map((geometry: Geometry) => {
-      geometry.coordinate = this.getCoordinate();
-      geometry.canvasRegion = {
-        x: this.viewBBox.x,
-        y: this.viewBBox.y,
-        minX: this.viewBBox.minX,
-        minY: this.viewBBox.minY,
-        maxX: this.viewBBox.maxX,
-        maxY: this.viewBBox.maxY,
-        width: this.viewBBox.width,
-        height: this.viewBBox.height,
-      };
+    const coordinate = this.getCoordinate();
+    const canvasRegion = {
+      x: this.viewBBox.x,
+      y: this.viewBBox.y,
+      minX: this.viewBBox.minX,
+      minY: this.viewBBox.minY,
+      maxX: this.viewBBox.maxX,
+      maxY: this.viewBBox.maxY,
+      width: this.viewBBox.width,
+      height: this.viewBBox.height,
+    };
+    for (const geometry of this.geometries) {
+      geometry.coordinate = coordinate;
+      geometry.canvasRegion = canvasRegion;
       if (!doAnimation) {
         // 如果 view 不执行动画，那么 view 下所有的 geometry 都不执行动画
         geometry.animate(false);
       }
       geometry.paint(isUpdate);
-    });
+    }
   }
 
   /**
@@ -1721,9 +1722,9 @@ export class View extends Base {
    */
   private renderComponents(isUpdate: boolean) {
     // 先全部清空，然后 render
-    each(this.getComponents(), (co: ComponentOption) => {
+    for (const co of this.getComponents()) {
       (co.component as GroupComponent).render();
-    });
+    }
   }
 
   /**
@@ -1748,26 +1749,26 @@ export class View extends Base {
     const { geometries = [], interactions = [], views = [], annotations = [] } = this.options;
 
     // 创建 geometry 实例
-    geometries.forEach((geometryOption: GeometryOption) => {
+    for (const geometryOption of geometries) {
       this.createGeometry(geometryOption);
-    });
+    }
 
     // 创建 interactions 实例
-    interactions.forEach((interactionOption: InteractionOption) => {
+    for (const interactionOption of interactions) {
       const { type, cfg } = interactionOption;
       this.interaction(type, cfg);
-    });
+    }
 
     // 创建 view 实例
-    views.forEach((viewOption: ViewOption) => {
+    for (const viewOption of views) {
       this.createView(viewOption);
-    });
+    }
 
     // 设置 annotation
     const annotationComponent = this.getController('annotation') as Annotation;
-    annotations.forEach((annotationOption: AnnotationBaseOption) => {
+    for (const annotationOption of annotations) {
       annotationComponent.annotation(annotationOption);
-    });
+    }
   }
 
   private createGeometry(geometryOption: GeometryOption) {

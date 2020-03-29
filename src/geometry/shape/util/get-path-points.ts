@@ -1,8 +1,11 @@
-import { filter, isArray, isNil } from '@antv/util';
+import { isArray } from '@antv/util';
 import { Point, RangePoint, ShapeVertices } from '../../../interface';
 
 function isValueEmpty(value) {
-  return isNil(value) || isNaN(value);
+  if (value) {
+    return false;
+  }
+  return value === null || value === undefined || isNaN(value);
 }
 
 function isYNil(point: Point[] | RangePoint) {
@@ -43,15 +46,18 @@ export function getPathPoints(points: ShapeVertices, connectNulls?: boolean) {
 
   if (connectNulls) {
     // 即 y 值为空的场景
-    const filtered = filter(points, (point: RangePoint | Point[]) => {
-      return !isYNil(point);
-    });
+    const filtered = [];
+    for (const point of points) {
+      if (!isYNil(point)) {
+        filtered.push(point);
+      }
+    }
     return [filtered];
   }
 
   const result = [];
   let tmp = [];
-  points.forEach((point: RangePoint | Point[]) => {
+  for (const point of points) {
     if (isYNil(point)) {
       if (tmp.length) {
         result.push(tmp);
@@ -60,7 +66,7 @@ export function getPathPoints(points: ShapeVertices, connectNulls?: boolean) {
     } else {
       tmp.push(point);
     }
-  });
+  }
 
   if (tmp.length) {
     result.push(tmp);
