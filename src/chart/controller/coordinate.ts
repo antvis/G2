@@ -43,6 +43,7 @@ export default class CoordinateController {
    */
   public create(start: Point, end: Point) {
     const { type, cfg } = this.option;
+    const isTheta = type === 'theta';
 
     // 1. 起始位置
     const props = {
@@ -52,7 +53,7 @@ export default class CoordinateController {
     };
 
     // 2. 创建实例
-    const C = getCoordinate(this.isTheta() ? 'polar' : type);
+    const C = getCoordinate(isTheta ? 'polar' : type);
 
     this.coordinate = new C(props);
 
@@ -60,7 +61,7 @@ export default class CoordinateController {
     this.coordinate.type = type;
 
     // 3. 添加默认 action
-    if (this.isTheta()) {
+    if (isTheta) {
       // 不存在 transpose，为其自动设置一个 action
       if (!this.hasAction('transpose')) {
         this.transpose();
@@ -128,13 +129,6 @@ export default class CoordinateController {
   public transpose() {
     this.option.actions.push([ 'transpose' ]);
     return this;
-  }
-
-  /**
-   * 是否是 theta
-   */
-  public isTheta() {
-    return this.option.type === 'theta';
   }
 
   /**

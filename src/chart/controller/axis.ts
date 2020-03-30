@@ -678,7 +678,7 @@ export default class Axis extends Controller<Option> {
     const axisThemeCfg = getAxisThemeCfg(this.view.getTheme(), direction);
     // the cfg order should be ensure
     const optionWithTitle = get(axisOption, ['title'])
-      ? deepMix({}, { title: { style: { text: titleText } } }, axisOption)
+      ? deepMix({ title: { style: { text: titleText } } }, axisOption)
       : axisOption;
 
     const cfg = deepMix({}, baseAxisCfg, axisThemeCfg, optionWithTitle);
