@@ -882,7 +882,7 @@ export default class Geometry extends Base {
    * @override
    */
   public clear() {
-    const { container, geometryLabel } = this;
+    const { container, geometryLabel, offscreenGroup } = this;
     if (container) {
       container.clear();
     }
@@ -891,12 +891,18 @@ export default class Geometry extends Base {
       geometryLabel.clear();
     }
 
+    if (offscreenGroup) {
+      offscreenGroup.clear();
+    }
+
     // 属性恢复至出厂状态
+    this.scaleDefs = undefined;
     this.attributes = {};
     this.scales = {};
     this.elementsMap = {};
     this.lastElementsMap = {};
     this.elements = [];
+    this.adjusts = {};
     this.dataArray = null;
     this.beforeMappingData = null;
     this.lastAttributeOption = undefined;
@@ -923,6 +929,8 @@ export default class Geometry extends Base {
       this.geometryLabel = null;
     }
     this.theme = undefined;
+    this.shapeFactory = undefined;
+
     super.destroy();
   }
 
@@ -1223,7 +1231,7 @@ export default class Geometry extends Base {
     // 因为这里缓存了 shapeFactory，但是外部可能会变更 coordinate，导致无法重新设置到 shapeFactory 中
     this.shapeFactory.coordinate = this.coordinate;
     // theme 原因同上
-    this.shapeFactory.theme = get(this.theme, ['geometries', shapeType], {});
+    this.shapeFactory.theme = this.theme.geometries[shapeType] || {};
 
     return this.shapeFactory;
   }
