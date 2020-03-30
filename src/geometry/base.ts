@@ -47,6 +47,7 @@ import {
   StyleOption,
   TooltipCallback,
 } from '../interface';
+import { uniq } from '../util/helper';
 import Element from './element';
 import { getGeometryLabel } from './label';
 import GeometryLabel from './label/base';
@@ -54,7 +55,6 @@ import { getShapeFactory } from './shape/base';
 import { group } from './util/group-data';
 import { isModelChange } from './util/is-model-change';
 import { parseFields } from './util/parse-fields';
-import { uniq } from '../util/helper';
 
 /** @ignore */
 interface AttributeInstanceCfg {
@@ -1714,18 +1714,17 @@ export default class Geometry extends Base {
   // 将归一化的坐标值转换成画布坐标
   private convertPoint(mappingRecord: MappingDatum) {
     const { x, y } = mappingRecord;
-    if (isNil(x) || isNil(y)) {
-      return;
-    }
+    const isXArray = isArray(x);
+    const isYArray = isArray(y);
 
     let rstX;
     let rstY;
     let obj;
     const coordinate = this.coordinate;
-    if (isArray(y) && isArray(x)) {
+    if (isXArray && isYArray) {
       rstX = [];
       rstY = [];
-      for (let i = 0, j = 0, xLen = x.length, yLen = y.length; i < xLen && j < yLen; i += 1, j += 1) {
+      for (let i = 0, j = 0, xLen = (x as number[]).length, yLen = (y as number[]).length; i < xLen && j < yLen; i += 1, j += 1) {
         obj = coordinate.convert({
           x: x[i],
           y: y[j],
@@ -1733,9 +1732,9 @@ export default class Geometry extends Base {
         rstX.push(obj.x);
         rstY.push(obj.y);
       }
-    } else if (isArray(y)) {
+    } else if (isYArray) {
       rstY = [];
-      for (const yVal of y) {
+      for (const yVal of (y as number[])) {
         obj = coordinate.convert({
           x: x as number,
           y: yVal,
@@ -1750,9 +1749,9 @@ export default class Geometry extends Base {
         }
         rstY.push(obj.y);
       }
-    } else if (isArray(x)) {
+    } else if (isXArray) {
       rstX = [];
-      for (const xVal of x) {
+      for (const xVal of (x as number[])) {
         obj = coordinate.convert({
           x: xVal,
           y: y as number,
@@ -1769,8 +1768,8 @@ export default class Geometry extends Base {
       }
     } else {
       const point = coordinate.convert({
-        x,
-        y,
+        x: x as number,
+        y: y as number,
       });
       rstX = point.x;
       rstY = point.y;
