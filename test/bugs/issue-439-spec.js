@@ -48,11 +48,12 @@ describe('#439', () => {
       callback = true;
     });
 
+    const point = chart.getXY({ genre: 'Other', sold: 150, type: '1' });
     const canvas = chart.get('canvas');
     canvas.emit('click', {
       type: 'click',
-      x: 542 * 2,
-      y: 201 * 2,
+      x: point.x * 2,
+      y: point.y * 2,
       event: {
         toElement: canvas.get('el')
       }
