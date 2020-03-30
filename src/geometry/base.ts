@@ -205,6 +205,7 @@ export default class Geometry extends Base {
   private geometryLabel: GeometryLabel;
   /** 虚拟 Group，用于图形更新 */
   private offscreenGroup: IGroup;
+  private groupScales: Scale[];
 
   /**
    * 创建 Geometry 实例。
@@ -901,6 +902,7 @@ export default class Geometry extends Base {
     this.lastAttributeOption = undefined;
     this.defaultSize = undefined;
     this.idFields = [];
+    this.groupScales = undefined;
   }
 
   /**
@@ -929,20 +931,7 @@ export default class Geometry extends Base {
    * @returns
    */
   public getGroupScales(): Scale[] {
-    const scales = [];
-    const attributes = this.attributes;
-    each(attributes, (attr: Attribute) => {
-      if (GROUP_ATTRS.includes(attr.type)) {
-        const attrScales = attr.scales;
-        each(attrScales, (scale: Scale) => {
-          if (scale.isCategory && !scales.includes(scale)) {
-            scales.push(scale);
-          }
-        });
-      }
-    });
-
-    return scales;
+    return this.groupScales;
   }
 
   /**
@@ -1442,6 +1431,8 @@ export default class Geometry extends Base {
 
   private initAttributes() {
     const { attributes, attributeOption, theme, shapeType } = this;
+    this.groupScales = [];
+    const tmpMap = {};
 
     // 遍历每一个 attrOption，各自创建 Attribute 实例
     for (const attrType in attributeOption) {
@@ -1457,7 +1448,12 @@ export default class Geometry extends Base {
 
         // 获取每一个字段对应的 scale
         const scales = fields.map((field) => {
-          return this.scales[field];
+          const scale = this.scales[field];
+          if (scale.isCategory && !tmpMap[field] && GROUP_ATTRS.includes(attrType)) {
+            this.groupScales.push(scale);
+            tmpMap[field] = true;
+          }
+          return scale;
         });
 
         attrCfg.scales = scales;
@@ -1482,7 +1478,6 @@ export default class Geometry extends Base {
         }
         const AttributeCtor = getAttributeClass(attrType);
         attributes[attrType] = new AttributeCtor(attrCfg);
-
       }
     }
   }
