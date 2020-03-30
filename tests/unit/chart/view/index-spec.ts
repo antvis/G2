@@ -78,6 +78,13 @@ describe('View', () => {
     expect(view.getOptions().data).toEqual(data);
   });
 
+  it('source', () => {
+    // deperated method
+    view.source(data);
+
+    expect(view.getOptions().data).toEqual(data);
+  });
+
   it('axis', () => {
     view.axis(false);
     expect(view.getOptions().axes).toBe(false);
@@ -151,6 +158,11 @@ describe('View', () => {
     view.render();
     expect(view.getCoordinate().getWidth()).toEqual(790);
     expect(view.getCoordinate().getHeight()).toEqual(590);
+  });
+
+  it('coord', () => {
+    const c = view.coord('rect');
+    expect(c.getOption().type).toEqual('rect');
   });
 
   it('animate', () => {

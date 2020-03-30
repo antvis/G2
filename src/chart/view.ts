@@ -329,6 +329,15 @@ export class View extends Base {
   }
 
   /**
+   * @deprecated
+   * This method will be removed at G2 V4.1. Replaced by {@link #data(data)}
+   */
+  public source(data: Data): View {
+    console.warn('This method will be removed at G2 V4.1. Please use chart.data() instead.');
+    return this.data(data);
+  }
+
+  /**
    * 设置数据筛选规则。
    *
    * ```ts
@@ -518,6 +527,15 @@ export class View extends Base {
   }
 
   /**
+   * @deprecated
+   * This method will be removed at G2 V4.1. Replaced by {@link #guide()}
+   */
+  public guide(): Annotation {
+    console.warn('This method will be removed at G2 V4.1. Please use chart.annotation() instead.');
+    return this.annotation();
+  }
+
+  /**
    * 坐标系配置。
    *
    * @example
@@ -565,6 +583,16 @@ export class View extends Base {
     this.coordinateController.update(this.options.coordinate);
 
     return this.coordinateController;
+  }
+
+  /**
+   * @deprecated
+   * This method will be removed at G2 V4.1. Replaced by {@link #coordinate()}
+   */
+  public coord(type: string | CoordinateOption, coordinateCfg?: CoordinateCfg): CoordinateController {
+    console.warn('This method will be removed at G2 V4.1. Please use chart.coordinate() instead.');
+    // @ts-ignore
+    return this.coordinate(type, coordinateCfg);
   }
 
   /**
@@ -786,6 +814,15 @@ export class View extends Base {
     this.views.push(v);
 
     return v;
+  }
+
+  /**
+   * @deprecated
+   * This method will be removed at G2 V4.1. Replaced by {@link #createView()}
+   */
+  public view(cfg?: Partial<ViewCfg>) {
+    console.warn('This method will be removed at G2 V4.1. Please use chart.createView() instead.')
+    return this.createView(cfg);
   }
 
   /**

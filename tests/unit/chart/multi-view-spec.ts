@@ -37,7 +37,7 @@ describe('chart multi view', () => {
     },
     padding: 20,
   });
-  const v2 = chart.createView({
+  const v2 = chart.view({
     region: {
       start: { x: 0.5, y: 0 },
       end: { x: 1, y: 1 },
