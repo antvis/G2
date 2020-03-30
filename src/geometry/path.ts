@@ -73,35 +73,36 @@ export default class Path extends Geometry {
   }
 
   /**
-   * 获取组成一条线（一组数据）的所有点数据。
-   * @param mappingData
-   * @returns points
+   * 获取组成一条线（一组数据）的所有点以及数据
+   * @param mappingData 映射后的数组
    */
-  protected getPoints(mappingData: MappingDatum[]): Point[] | RangePoint[] {
-    return mappingData.map((obj: MappingDatum) => {
-      return {
+  protected getPointsAndData(mappingData: MappingDatum[]) {
+    const points = [];
+    const data = [];
+
+    for (const obj of mappingData) {
+      points.push({
         x: obj.x,
         y: obj.y,
-      };
-    });
+      });
+      data.push(obj[FIELD_ORIGIN]);
+    }
+
+    return {
+      points,
+      data,
+    };
   }
 
   private getShapeInfo(mappingData: MappingDatum[]): ShapeInfo {
     const shapeCfg = this.getDrawCfg(mappingData[0]);
+    const { points, data } = this.getPointsAndData(mappingData);
+    shapeCfg.mappingData = mappingData;
+    shapeCfg.data = data;
+    shapeCfg.isStack = !!this.getAdjust('stack');
+    shapeCfg.points = points;
+    shapeCfg.connectNulls = this.connectNulls;
 
-    return {
-      ...shapeCfg,
-      mappingData,
-      data: this.getData(mappingData),
-      isStack: !!this.getAdjust('stack'),
-      points: this.getPoints(mappingData),
-      connectNulls: this.connectNulls,
-    };
-  }
-
-  private getData(mappingData: MappingDatum[]): Data {
-    return mappingData.map((obj: Datum) => {
-      return obj[FIELD_ORIGIN];
-    });
+    return shapeCfg;
   }
 }
