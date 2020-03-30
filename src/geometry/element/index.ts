@@ -107,8 +107,10 @@ export default class Element extends Base {
     // step 2: 使用虚拟 Group 重新绘制 shape，然后更新当前 shape
     const offscreenGroup = this.getOffscreenGroup();
     const newShape = shapeFactory.drawShape(this.shapeType, model, offscreenGroup);
-    newShape.set('data', this.data);
-    newShape.set('origin', model);
+    // @ts-ignore
+    newShape.cfg.data = this.data;
+    // @ts-ignore
+    newShape.cfg.origin = drawCfg;
 
     // step 3: 同步 shape 样式
     this.syncShapeStyle(shape, newShape, '', this.getAnimateCfg('update'));
@@ -327,9 +329,7 @@ export default class Element extends Base {
     const stateOption = get(this.geometry.stateOption, stateName, {});
     const stateCfg = deepMix({}, get(this.theme, [shapeType, stateName], {}), stateOption);
 
-    let shapeStyle = get(stateCfg.style, [shapeKey]) ?
-      get(stateCfg.style, [shapeKey]) :
-      stateCfg.style;
+    let shapeStyle = get(stateCfg.style, [shapeKey], stateCfg.style);
 
     if (isFunction(shapeStyle)) {
       shapeStyle = shapeStyle(this);
@@ -360,9 +360,11 @@ export default class Element extends Base {
       if (!this.shape.get('name')) {
         // TODO: 当用户设置了 name 后，为了保证 geometry:eventName 这样的事件能够正常触发，需要加一个 inheritName
         // 等 G 事件改造完成后加上
-        this.shape.set('name', this.shapeFactory.geometryType);
+        // @ts-ignore
+        this.shape.cfg.name = this.shapeFactory.geometryType
       }
-      this.shape.set('inheritNames', ['element']);
+      // @ts-ignore
+      this.shape.cfg.inheritName = [ 'element' ];
       // 执行入场动画
       const animateType = isUpdate ? 'enter' : 'appear';
       const animateCfg = this.getAnimateCfg(animateType);
@@ -389,8 +391,10 @@ export default class Element extends Base {
 
   // 设置 shape 上需要携带的信息
   private setShapeInfo(shape: IShape | IGroup, data: ShapeInfo) {
-    shape.set('origin', data);
-    shape.set('element', this); // 考虑是否可以使用 G 事件的 delegateObject
+    // @ts-ignore
+    shape.cfg.origin = data;
+    // @ts-ignore
+    shape.cfg.element = this;
     if (shape.isGroup()) {
       const children = shape.get('children');
       children.forEach((child) => {

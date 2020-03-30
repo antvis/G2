@@ -7,10 +7,10 @@ import { getDistanceToCenter } from '../../../util/coordinate';
 function _points2path(points: Point[], isInCircle: boolean): PathCommand[] {
   const path = [];
   if (points.length) {
-    for (let i = 0, length = points.length; i < length; i += 1) {
+    path.push(['M', points[0].x, points[0].y]);
+    for (let i = 1, length = points.length; i < length; i += 1) {
       const item = points[i];
-      const command = i === 0 ? 'M' : 'L';
-      path.push([command, item.x, item.y]);
+      path.push(['L', item.x, item.y]);
     }
 
     if (isInCircle) {
