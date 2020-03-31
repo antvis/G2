@@ -47,7 +47,8 @@ export function getPathPoints(points: ShapeVertices, connectNulls?: boolean) {
   if (connectNulls) {
     // 即 y 值为空的场景
     const filtered = [];
-    for (const point of points) {
+    for (let i = 0, len = points.length; i < len; i++) {
+      const point = points[i];
       if (!isYNil(point)) {
         filtered.push(point);
       }
@@ -57,7 +58,8 @@ export function getPathPoints(points: ShapeVertices, connectNulls?: boolean) {
 
   const result = [];
   let tmp = [];
-  for (const point of points) {
+  for (let i = 0, len = points.length; i < len; i++) {
+    const point = points[i];
     if (isYNil(point)) {
       if (tmp.length) {
         result.push(tmp);

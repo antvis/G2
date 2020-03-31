@@ -829,12 +829,12 @@ export default class Geometry extends Base {
     const dataArray = this.beforeMapping(beforeMappingData);
 
     const mappingArray = [];
-
-    dataArray.forEach((eachGroup, index) => {
+    for (let index = 0, length = dataArray.length; index < length; index++) {
+      const eachGroup = dataArray[index];
       const mappingData = this.mapping(eachGroup);
       mappingArray.push(mappingData);
       this.createElements(mappingData, index, isUpdate);
-    });
+    }
 
     if (this.canDoGroupAnimation(isUpdate)) {
       // 如果用户没有配置 appear.animation，就默认走整体动画
@@ -991,7 +991,9 @@ export default class Geometry extends Base {
    */
   public getAttributeValues(attr: Attribute, obj: Datum) {
     const params = [];
-    for (const scale of attr.scales) {
+    const scales = attr.scales;
+    for (let index = 0, length = scales.length; index < length; index++) {
+      const scale = scales[index];
       const field = scale.field;
       if (scale.isIdentity) {
         params.push(scale.values);
@@ -1079,12 +1081,11 @@ export default class Geometry extends Base {
       id = `${xVal}-${yVal}`;
     }
 
-    const groupScales = this.getGroupScales();
-    for (const groupScale of groupScales) {
+    const groupScales = this.groupScales;
+    for (let index = 0, length = groupScales.length; index < length; index++) {
+      const groupScale = groupScales[index];
       const field = groupScale.field;
-      if (groupScale.type !== 'identity') {
-        id = `${id}-${originData[field]}`;
-      }
+      id = `${id}-${originData[field]}`;
     }
 
     // 用户在进行 dodge 类型的 adjust 调整的时候设置了 dodgeBy 属性
@@ -1141,7 +1142,9 @@ export default class Geometry extends Base {
    */
   public changeVisible(visible: boolean) {
     super.changeVisible(visible);
-    for (const element of this.elements) {
+    const elements = this.elements;
+    for (let index = 0, length = elements.length; index < length; index++) {
+      const element = elements[index];
       element.changeVisible(visible);
     }
     if (visible) {
@@ -1168,7 +1171,8 @@ export default class Geometry extends Base {
   public getGroupFields(): string[] {
     const groupFields = [];
     const tmpMap = {}; // 用于去重过滤
-    for (const attributeName of GROUP_ATTRS) {
+    for (let index = 0, length = GROUP_ATTRS.length; index < length; index++) {
+      const attributeName = GROUP_ATTRS[index];
       const cfg = this.attributeOption[attributeName];
       if (cfg && cfg.fields) {
         uniq(cfg.fields, groupFields, tmpMap);
@@ -1212,7 +1216,7 @@ export default class Geometry extends Base {
   protected adjustScale() {
     const yScale = this.getYScale();
     // 如果数据发生过 stack adjust，需要调整下 yScale 的数据范围
-    if (this.getAdjust('stack') && yScale) {
+    if (yScale && this.getAdjust('stack')) {
       this.updateStackRange(yScale, this.beforeMappingData);
     }
   }
@@ -1331,7 +1335,8 @@ export default class Geometry extends Base {
    */
   protected createElements(mappingData: MappingDatum[], index: number, isUpdate: boolean = false): Element[] {
     const { lastElementsMap, elementsMap, elements } = this;
-    each(mappingData, (mappingDatum, subIndex) => {
+    for (let subIndex = 0, length = mappingData.length; subIndex < length; subIndex++) {
+      const mappingDatum = mappingData[subIndex];
       let id = this.getElementId(mappingDatum);
       if (elementsMap[id]) {
         // 存在重复数据，则根据再根据 index 进行区分
@@ -1357,7 +1362,8 @@ export default class Geometry extends Base {
 
       elements.push(result);
       elementsMap[id] = result;
-    });
+    }
+
     return elements;
   }
 
@@ -1495,24 +1501,28 @@ export default class Geometry extends Base {
     const { scales } = this.getAttribute('position');
     const categoryScales = scales.filter((scale: Scale) => scale.isCategory);
 
-    let groupedArray = this.groupData(data); // 数据分组
-    groupedArray = groupedArray.map((subData: Data) => {
-      return subData.map((originData: Datum) => {
-        // 数据调整前保存原始数据
+    const groupedArray = this.groupData(data); // 数据分组
+    const beforeAdjust = [];
+    for(let i = 0, len = groupedArray.length; i < len; i++) {
+      const subData = groupedArray[i];
+      const arr = [];
+      for(let j = 0, subLen = subData.length; j < subLen; j++) {
+        const originData = subData[j];
         const item = {
           ...originData,
-          [FIELD_ORIGIN]: originData, // 存入 origin 数据
+          [FIELD_ORIGIN]: originData
         };
         // 将分类数据翻译成数据, 仅对位置相关的度量进行数字化处理
         for (const scale of categoryScales) {
           const field = scale.field;
           item[field] = scale.translate(item[field]);
         }
-        return item;
-      });
-    });
+        arr.push(item);
+      }
+      beforeAdjust.push(arr);
+    }
 
-    const dataArray = this.adjustData(groupedArray); // 进行 adjust 数据调整
+    const dataArray = this.adjustData(beforeAdjust); // 进行 adjust 数据调整
     this.beforeMappingData = dataArray;
 
     return dataArray;
@@ -1527,7 +1537,8 @@ export default class Geometry extends Base {
       const yScale = this.getYScale();
       const xField = xScale.field;
       const yField = yScale ? yScale.field : null;
-      for (const adjust of adjustOption) {
+      for (let i = 0, len = adjustOption.length; i < len; i++) {
+        const adjust = adjustOption[i];
         const adjustCfg: AdjustInstanceCfg = {
           xField,
           yField,
@@ -1577,7 +1588,8 @@ export default class Geometry extends Base {
     const scaleDefs = this.scaleDefs;
     const appendConditions = {};
     const groupFields = [];
-    for (const scale of groupScales) {
+    for (let index = 0; index < groupScales.length; index++) {
+      const scale = groupScales[index];
       const field = scale.field;
       groupFields.push(field);
       if (get(scaleDefs, [field, 'values'])) {
@@ -1595,7 +1607,8 @@ export default class Geometry extends Base {
     const field = scale.field;
     let min = scale.min;
     let max = scale.max;
-    for (const obj of mergeArray) {
+    for (let index = 0; index < mergeArray.length; index++) {
+      const obj = mergeArray[index];
       const tmpMin = Math.min.apply(null, obj[field]);
       const tmpMax = Math.max.apply(null, obj[field]);
       if (tmpMin < min) {
@@ -1635,12 +1648,15 @@ export default class Geometry extends Base {
     }
     if (this.generatePoints) {
       // 需要生成关键点
-      source.reduce((preData: Data, currentData: Data) => {
-        this.generateShapePoints(preData);
+      for (let index = 0, length = source.length; index < length; index++) {
+        const currentData = source[index];
         this.generateShapePoints(currentData);
-        preData[0].nextPoints = currentData[0].points;
-        return currentData;
-      }, source[0]);
+        const nextData = source[index + 1];
+        if (nextData) {
+          this.generateShapePoints(nextData);
+          currentData[0].nextPoints = nextData[0].points;
+        }
+      }
     }
 
     return source;
@@ -1658,7 +1674,8 @@ export default class Geometry extends Base {
   private generateShapePoints(data: Data) {
     const shapeFactory = this.getShapeFactory();
     const shapeAttr = this.getAttribute('shape');
-    for (const obj of data) {
+    for (let index = 0; index < data.length; index++) {
+      const obj = data[index];
       const cfg = this.createShapePointsCfg(obj);
       const shape = shapeAttr ? this.getAttributeValues(shapeAttr, obj) : null;
       const points = shapeFactory.getShapePoints(shape, cfg);
@@ -1670,7 +1687,10 @@ export default class Geometry extends Base {
   private normalizeValues(values, scale) {
     let rst = [];
     if (isArray(values)) {
-      rst = values.map((v) => scale.scale(v));
+      for (let index = 0; index < values.length; index++) {
+        const value = values[index];
+        rst.push(scale.scale(value));
+      }
     } else {
       rst = scale.scale(values);
     }
@@ -1681,7 +1701,8 @@ export default class Geometry extends Base {
   private mapping(data: Data): MappingDatum[] {
     const attributes = this.attributes;
     const mappingData = [];
-    for (const record of data) {
+    for (let index = 0; index < data.length; index++) {
+      const record = data[index];
       const newRecord: MappingDatum = {
         _origin: record[FIELD_ORIGIN],
         points: record.points,
@@ -1717,17 +1738,15 @@ export default class Geometry extends Base {
   // 将归一化的坐标值转换成画布坐标
   private convertPoint(mappingRecord: MappingDatum) {
     const { x, y } = mappingRecord;
-    const isXArray = isArray(x);
-    const isYArray = isArray(y);
 
     let rstX;
     let rstY;
     let obj;
     const coordinate = this.coordinate;
-    if (isXArray && isYArray) {
+    if (isArray(x) && isArray(y)) {
       rstX = [];
       rstY = [];
-      for (let i = 0, j = 0, xLen = (x as number[]).length, yLen = (y as number[]).length; i < xLen && j < yLen; i += 1, j += 1) {
+      for (let i = 0, j = 0, xLen = x.length, yLen = y.length; i < xLen && j < yLen; i += 1, j += 1) {
         obj = coordinate.convert({
           x: x[i],
           y: y[j],
@@ -1735,9 +1754,10 @@ export default class Geometry extends Base {
         rstX.push(obj.x);
         rstY.push(obj.y);
       }
-    } else if (isYArray) {
+    } else if (isArray(y)) {
       rstY = [];
-      for (const yVal of (y as number[])) {
+      for (let index = 0; index < y.length; index++) {
+        const yVal = y[index];
         obj = coordinate.convert({
           x: x as number,
           y: yVal,
@@ -1752,12 +1772,13 @@ export default class Geometry extends Base {
         }
         rstY.push(obj.y);
       }
-    } else if (isXArray) {
+    } else if (isArray(x)) {
       rstX = [];
-      for (const xVal of (x as number[])) {
+      for (let index = 0; index < x.length; index++) {
+        const xVal = x[index];
         obj = coordinate.convert({
           x: xVal,
-          y: y as number,
+          y,
         });
         if (rstY && rstY !== obj.y) {
           if (!isArray(rstY)) {
@@ -1771,8 +1792,8 @@ export default class Geometry extends Base {
       }
     } else {
       const point = coordinate.convert({
-        x: x as number,
-        y: y as number,
+        x,
+        y,
       });
       rstX = point.x;
       rstY = point.y;
@@ -1785,7 +1806,8 @@ export default class Geometry extends Base {
   private sort(mappingArray: Data[]) {
     const xScale = this.getXScale();
     const xField = xScale.field;
-    for (const itemArr of mappingArray) {
+    for (let index = 0; index < mappingArray.length; index++) {
+      const itemArr = mappingArray[index];
       itemArr.sort((obj1: Datum, obj2: Datum) => {
         return xScale.translate(obj1[FIELD_ORIGIN][xField]) - xScale.translate(obj2[FIELD_ORIGIN][xField]);
       });
@@ -1847,8 +1869,11 @@ export default class Geometry extends Base {
       const labels = filterLabelsById(id, labelsMap); // element 实例同 label 进行绑定
       if (labels.length) {
         element.labelShape = labels;
-        for (const label of labels) {
-          for (const child of label.getChildren()) {
+        for (let i = 0; i < labels.length; i++) {
+          const label = labels[i];
+          const labelChildren = label.getChildren();
+          for (let j = 0; j < labelChildren.length; j++) {
+            const child = labelChildren[j];
             child.set('element', element);
           }
         }

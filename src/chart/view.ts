@@ -22,7 +22,6 @@ import {
 } from '@antv/util';
 import { Attribute, Coordinate, Event as GEvent, GroupComponent, ICanvas, IGroup, IShape, Scale } from '../dependents';
 import {
-  AnnotationBaseOption,
   AxisOption,
   ComponentOption,
   CoordinateCfg,
@@ -32,17 +31,14 @@ import {
   FacetCfgMap,
   FilterCondition,
   GeometryOption,
-  InteractionOption,
   LegendOption,
   LooseObject,
-  MappingDatum,
   Options,
   Point,
   Region,
   ScaleOption,
   TooltipOption,
   ViewCfg,
-  ViewOption,
   ViewPadding,
 } from '../interface';
 
@@ -200,8 +196,9 @@ export class View extends Base {
     this.initOptions();
 
     // 递归初始化子 view
-    for (const view of this.views) {
-      view.init();
+    const views = this.views;
+    for (let i = 0; i < views.length; i++) {
+      views[i].init();
     }
   }
 
@@ -235,14 +232,16 @@ export class View extends Base {
     this.isDataChanged = false; // 复位
 
     // 2. 清空 geometries
-    for (const geometry of this.geometries) {
-      geometry.clear();
+    const geometries = this.geometries;
+    for (let i = 0; i < geometries.length; i++) {
+      geometries[i].clear();
     }
     this.geometries = [];
 
     // 3. 清空 controllers
-    for (const controller of this.controllers) {
-      controller.clear();
+    const controllers = this.controllers;
+    for (let i = 0; i < controllers.length; i++) {
+      controllers[i].clear();
     }
 
     // 4. 删除 scale 缓存
@@ -252,8 +251,9 @@ export class View extends Base {
     this.createdScaleKeys.clear();
 
     // 递归处理子 view
-    for (const view of this.views) {
-      view.clear();
+    const views = this.views;
+    for (let i = 0; i < views.length; i++) {
+      views[i].clear();
     }
 
     this.emit(VIEW_LIFE_CIRCLE.AFTER_CLEAR);
@@ -274,10 +274,13 @@ export class View extends Base {
         interaction.destroy();
       }
     });
+
     this.clear();
 
     // 销毁 controller 中的组件
-    for (const controller of this.controllers) {
+    const controllers = this.controllers;
+    for (let i = 0, len = controllers.length; i < len; i++) {
+      const controller = controllers[i];
       controller.destroy();
     }
 
@@ -296,10 +299,16 @@ export class View extends Base {
    */
   public changeVisible(visible: boolean): View {
     super.changeVisible(visible);
-    for (const geometry of this.geometries) {
+
+    const geometries = this.geometries;
+    for (let i = 0, len = geometries.length; i < len; i++) {
+      const geometry = geometries[i];
       geometry.changeVisible(visible);
     }
-    for (const controller of this.controllers) {
+
+    const controllers = this.controllers;
+    for (let i = 0, len = controllers.length; i < len; i++) {
+      const controller = controllers[i];
       controller.changeVisible(visible);
     }
 
@@ -759,9 +768,11 @@ export class View extends Base {
     this.paint(true);
 
     // 3. 遍历子 view 进行 change data
-    for (const view of this.views) {
+    const views = this.views;
+    for (let i = 0, len = views.length; i < len; i++) {
+      const view = views[i];
       // FIXME 子 view 有自己的数据的情况，该如何处理？
-      view.changeData(data)
+      view.changeData(data);
     }
 
     this.emit(VIEW_LIFE_CIRCLE.AFTER_CHANGE_DATA);
@@ -897,7 +908,8 @@ export class View extends Base {
     const geometries = this.geometries;
     const scales = {};
 
-    for (const geometry of geometries) {
+    for (let i = 0, len = geometries.length; i < len; i++) {
+      const geometry = geometries[i];
       const scale = dimType === 'x' ? geometry.getXScale() : geometry.getYScale();
       if (scale && !scales[scale.field]) {
         scales[scale.field] = scale;
@@ -1110,10 +1122,12 @@ export class View extends Base {
   public getSnapRecords(point: Point) {
     const geometries = this.geometries;
     let rst = [];
-    for (const geom of geometries) {
+    for (let i = 0, len = geometries.length; i < len; i++) {
+      const geom = geometries[i];
       const dataArray = geom.dataArray;
       let record;
-      for (const data of dataArray) {
+      for (let j = 0, dataLen = dataArray.length; j < dataLen; j++) {
+        const data = dataArray[j];
         record = findDataByPoint(point, data, geom);
         if (record) {
           rst.push(record);
@@ -1122,7 +1136,9 @@ export class View extends Base {
     }
 
     // 同样递归处理子 views
-    for (const view of this.views) {
+    const views = this.views;
+    for (let i = 0, len = views.length; i < len; i++) {
+      const view = views[i];
       const snapRecords = view.getSnapRecords(point);
       rst = rst.concat(snapRecords);
     }
@@ -1135,7 +1151,9 @@ export class View extends Base {
    */
   public getComponents(): ComponentOption[] {
     let components = [];
-    for (const controller of this.controllers) {
+    const controllers = this.controllers;
+    for (let i = 0, len = controllers.length; i < len; i++) {
+      const controller = controllers[i];
       components = components.concat(controller.getComponents());
     }
 
@@ -1225,7 +1243,9 @@ export class View extends Base {
     this.doLayout();
 
     // 同样递归处理子 views
-    for (const view of this.views) {
+    const views = this.views;
+    for (let i = 0, len = views.length; i < len; i++) {
+      const view = views[i];
       view.renderLayoutRecursive(isUpdate);
     }
   }
@@ -1250,7 +1270,9 @@ export class View extends Base {
     this.renderComponents(isUpdate);
 
     // 同样递归处理子 views
-    for (const view of this.views) {
+    const views = this.views;
+    for (let i = 0, len = views.length; i < len; i++) {
+      const view = views[i];
       view.renderPaintRecursive(isUpdate);
     }
   }
@@ -1293,7 +1315,9 @@ export class View extends Base {
     this.renderFacet(isUpdate);
 
     // 同样递归处理子 views
-    for (const view of this.views) {
+    const views = this.views;
+    for (let i = 0, len = views.length; i < len; i++) {
+      const view = views[i];
       view.renderDataRecursive(isUpdate);
     }
   }
@@ -1367,7 +1391,9 @@ export class View extends Base {
    * 初始化插件
    */
   private initComponentController() {
-    for (const controllerName of this.usedControllers) {
+    const usedControllers = this.usedControllers;
+    for (let i = 0, len = usedControllers.length; i < len; i++) {
+      const controllerName = usedControllers[i];
       const Ctor = getComponentController(controllerName);
       if (Ctor) {
         this.controllers.push(new Ctor(this));
@@ -1506,8 +1532,10 @@ export class View extends Base {
     // 实例化 Geometry，然后 view 将所有的 scale 管理起来
     const coordinate = this.getCoordinate();
     const scaleDefs = get(this.options, 'scales', {});
-    for (const geometry of this.geometries) {
-      // 保持 scales 引用不要变化
+    const geometries = this.geometries;
+    for (let i = 0, len = geometries.length; i < len; i++) {
+      const geometry = geometries[i];
+    // 保持 scales 引用不要变化
       geometry.scales = this.getGeometryScales();
       const cfg = {
         coordinate, // 使用 coordinate 引用，可以保持 coordinate 的同步更新
@@ -1540,7 +1568,8 @@ export class View extends Base {
     const { data, scales = {} } = this.getOptions();
     const filteredData = this.filteredData;
 
-    for (const field of fields) {
+    for (let i = 0, len = fields.length; i < len; i++) {
+      const field = fields[i];
       const scaleDef = scales[field];
 
       // 调用方法，递归去创建
@@ -1573,7 +1602,8 @@ export class View extends Base {
     const fields = this.getScaleFields();
 
     const scales = {};
-    for (const field of fields) {
+    for (let i = 0; i < fields.length; i++) {
+      const field = fields[i];
       scales[field] = this.getScaleByField(field);
     }
 
@@ -1583,7 +1613,9 @@ export class View extends Base {
   private getScaleFields() {
     const fields = [];
     const tmpMap = {};
-    for (const geometry of this.geometries) {
+    const geometries = this.geometries;
+    for (let i = 0; i < geometries.length; i++) {
+      const geometry = geometries[i];
       const geometryScales = geometry.getScaleFields();
       uniq(geometryScales, fields, tmpMap);
     }
@@ -1593,9 +1625,11 @@ export class View extends Base {
   private getGroupedFields() {
     const fields = [];
     const tmpMap = {};
-    for (const geometry of this.geometries) {
-      const geometryScales = geometry.getGroupFields();
-      uniq(geometryScales, fields, tmpMap);
+    const geometries = this.geometries;
+    for (let i = 0; i < geometries.length; i++) {
+      const geometry = geometries[i];
+      const groupFields = geometry.getGroupFields();
+      uniq(groupFields, fields, tmpMap);
     }
     return fields;
   }
@@ -1662,7 +1696,9 @@ export class View extends Base {
    */
   private initComponents(isUpdate: boolean) {
     // 先全部清空，然后 render
-    for (const controller of this.controllers) {
+    const controllers = this.controllers;
+    for (let i = 0; i < controllers.length; i++) {
+      const controller = controllers[i];
       // 更新则走更新逻辑；否则清空载重绘
       if (isUpdate) {
         controller.update();
@@ -1705,7 +1741,9 @@ export class View extends Base {
       width: this.viewBBox.width,
       height: this.viewBBox.height,
     };
-    for (const geometry of this.geometries) {
+    const geometries = this.geometries;
+    for (let i = 0; i < geometries.length; i++) {
+      const geometry = geometries[i];
       geometry.coordinate = coordinate;
       geometry.canvasRegion = canvasRegion;
       if (!doAnimation) {
@@ -1722,7 +1760,8 @@ export class View extends Base {
    */
   private renderComponents(isUpdate: boolean) {
     // 先全部清空，然后 render
-    for (const co of this.getComponents()) {
+    for (let i = 0; i < this.getComponents().length; i++) {
+      const co = this.getComponents()[i];
       (co.component as GroupComponent).render();
     }
   }
@@ -1749,24 +1788,28 @@ export class View extends Base {
     const { geometries = [], interactions = [], views = [], annotations = [] } = this.options;
 
     // 创建 geometry 实例
-    for (const geometryOption of geometries) {
+    for (let i = 0; i < geometries.length; i++) {
+      const geometryOption = geometries[i];
       this.createGeometry(geometryOption);
     }
 
     // 创建 interactions 实例
-    for (const interactionOption of interactions) {
+    for (let j = 0; j < interactions.length; j++) {
+      const interactionOption = interactions[j];
       const { type, cfg } = interactionOption;
       this.interaction(type, cfg);
     }
 
     // 创建 view 实例
-    for (const viewOption of views) {
+    for (let k = 0; k < views.length; k++) {
+      const viewOption = views[k];
       this.createView(viewOption);
     }
 
     // 设置 annotation
     const annotationComponent = this.getController('annotation') as Annotation;
-    for (const annotationOption of annotations) {
+    for (let l = 0; l < annotations.length; l++) {
+      const annotationOption = annotations[l];
       annotationComponent.annotation(annotationOption);
     }
   }

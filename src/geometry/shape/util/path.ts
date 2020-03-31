@@ -225,13 +225,14 @@ export function getSplinePath(points: Point[], isInCircle?: boolean, constaint?:
     // 两点以内直接绘制成路径
     return getLinePath(points, isInCircle);
   }
-  each(points, (point) => {
+  for (let i = 0, len = points.length; i < len; i++) {
+    const point = points[i];
     if (!prePoint || !(prePoint.x === point.x && prePoint.y === point.y)) {
       data.push(point.x);
       data.push(point.y);
       prePoint = point;
     }
-  });
+  }
   const constraint = constaint || [
     // 范围
     [0, 0],

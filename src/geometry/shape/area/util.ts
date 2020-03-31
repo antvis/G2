@@ -15,10 +15,11 @@ function getPath(
 ): PathCommand[] {
   const topLinePoints = []; // area 区域上部分
   let bottomLinePoints = []; // area 区域下部分
-  each(points, (point) => {
+  for (let i = 0, len = points.length; i < len; i++) {
+    const point = points[i];
     topLinePoints.push(point[1]);
     bottomLinePoints.push(point[0]);
-  });
+  }
   bottomLinePoints = bottomLinePoints.reverse();
 
   let path = [];
@@ -67,9 +68,10 @@ export function getShapeAttrs(
   const pathPoints = getPathPoints(points, connectNulls); // 根据 connectNulls 配置获取图形关键点
 
   let path = [];
-  each(pathPoints, (eachPoints: Point[]) => {
+  for (let i = 0, len = pathPoints.length; i < len; i++) {
+    const eachPoints = pathPoints[i];
     path = path.concat(getPath(eachPoints, isInCircle, smooth, registeredShape, constraint));
-  });
+  }
   attrs.path = path;
 
   return attrs;

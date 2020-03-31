@@ -49,7 +49,8 @@ export default class Area extends Path {
     const points = [];
     const data = [];
 
-    for (const obj of mappingData) {
+    for (let i = 0, len = mappingData.length; i < len; i++) {
+      const obj = mappingData[i];
       points.push(obj.points);
       data.push(obj[FIELD_ORIGIN]);
     }

@@ -1,6 +1,6 @@
 import { get } from '@antv/util';
 import { FIELD_ORIGIN } from '../constant';
-import { Data, Datum, MappingDatum, Point, RangePoint, ShapeInfo } from '../interface';
+import { MappingDatum, ShapeInfo } from '../interface';
 import Geometry, { GeometryCfg } from './base';
 import Element from './element';
 /** 引入对应的 ShapeFactory */
@@ -80,7 +80,8 @@ export default class Path extends Geometry {
     const points = [];
     const data = [];
 
-    for (const obj of mappingData) {
+    for (let i = 0, len = mappingData.length; i < len; i++) {
+      const obj = mappingData[i];
       points.push({
         x: obj.x,
         y: obj.y,
