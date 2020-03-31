@@ -44,6 +44,10 @@ class ElementRangeState extends StateBase {
     } else {
       const startPoint = this.startPoint;
       const endPoint = this.isStarted ? this.getCurrentPoint() : this.endPoint;
+      // 如果没有开始，则不允许范围设置状态，保护性质
+      if (!startPoint || !endPoint) {
+        return;
+      }
       // 计算框选区域
       const box = {
         minX: Math.min(startPoint.x, endPoint.x),

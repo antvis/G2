@@ -409,21 +409,20 @@ registerInteraction('brush-visible', {
   start: [
     {
       trigger: 'plot:mousedown',
-      action: ['rect-mask:start', 'rect-mask:show', 'element-range-highlight:start'],
+      action: ['rect-mask:start', 'rect-mask:show'],
     },
   ],
   processing: [
     {
       trigger: 'plot:mousemove',
-      action: ['rect-mask:resize','element-range-highlight:highlight'],
+      action: ['rect-mask:resize'],
     },
-    {trigger: 'mask:end',action: ['element-filter:filter']}
+    {trigger: 'mask:change',action: ['element-range-highlight:highlight']}
   ],
   end: [
     {
-      trigger: 'mouseup',
-      isEnable: isPointInView,
-      action: ['rect-mask:end', 'rect-mask:hide', 'element-range-highlight:end', 'element-range-highlight:clear'],
+      trigger: 'plot:mouseup',
+      action: ['rect-mask:end', 'rect-mask:hide','element-filter:filter', 'element-range-highlight:clear'],
     },
   ],
   rollback: [
