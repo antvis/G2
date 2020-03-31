@@ -96,7 +96,6 @@ describe('Interval shapes', () => {
     const element = new Element({
       shapeFactory: IntervalShapeFactory,
       container: canvas.addGroup(),
-      theme: Theme.geometries.interval,
     });
     it('draw', () => {
       const cfg = {
@@ -154,7 +153,6 @@ describe('Interval shapes', () => {
     const element = new Element({
       shapeFactory: IntervalShapeFactory,
       container: canvas.addGroup(),
-      theme: Theme.geometries.interval,
     });
     it('draw', () => {
       const cfg = {
@@ -215,7 +213,6 @@ describe('Interval shapes', () => {
     const element = new Element({
       shapeFactory: IntervalShapeFactory,
       container: canvas.addGroup(),
-      theme: Theme.geometries.interval,
     });
 
     it('get line shape points.', () => {
@@ -294,7 +291,6 @@ describe('Interval shapes', () => {
     const element = new Element({
       shapeFactory: IntervalShapeFactory,
       container: canvas.addGroup(),
-      theme: Theme.geometries.interval,
     });
 
     it('getPoints()', () => {
@@ -384,7 +380,6 @@ describe('Interval shapes', () => {
     const element = new Element({
       shapeFactory: IntervalShapeFactory,
       container: canvas.addGroup(),
-      theme: Theme.geometries.interval,
     });
 
     it('getPoints()', () => {
@@ -485,7 +480,6 @@ describe('Interval shapes', () => {
     const element = new Element({
       shapeFactory: IntervalShapeFactory,
       container: canvas.addGroup(),
-      theme: Theme.geometries.interval,
     });
 
     it('getPoints()', () => {

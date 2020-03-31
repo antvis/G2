@@ -40,33 +40,33 @@ describe('Element', () => {
   describe('Default', () => {
     it('Instantiation', () => {
       const shapeFactory = Shape.getShapeFactory('shapes');
-      element = new Element({
-        shapeFactory,
-        theme: {
-          circle: {
+      shapeFactory.theme = {
+        circle: {
             default: {
-              style: {
-                fill: '#333',
+            style: {
+              fill: '#333',
                 lineWidth: 0,
               },
-            },
-            active: {
-              style: {
-                shapes: {
-                  stroke: '#000',
+          },
+          active: {
+            style: {
+              shapes: {
+                stroke: '#000',
                   lineWidth: 1,
                 },
-              },
             },
-            selected: {
-              style: {
-                shapes: {
-                  fill: 'red',
+          },
+          selected: {
+            style: {
+              shapes: {
+                fill: 'red',
                 }
-              },
             },
           },
         },
+      },
+      element = new Element({
+        shapeFactory,
         container,
         offscreenGroup: offscreenContainer,
         visible: false,
@@ -273,11 +273,11 @@ describe('Element', () => {
     });
     const shapeFactory = Shape.getShapeFactory('interval');
     shapeFactory.coordinate = coordinate;
+    shapeFactory.theme = Theme;
 
     it('model.animate is false', () => {
       element = new Element({
         shapeFactory,
-        theme: Theme,
         container,
       });
       element.animate = false;

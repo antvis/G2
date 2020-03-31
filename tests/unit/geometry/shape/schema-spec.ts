@@ -26,7 +26,6 @@ describe('Schema shapes', () => {
   const element = new Element({
     shapeFactory: SchemaShapeFactory,
     container: canvas.addGroup(),
-    theme: Theme.geometries.schema,
   });
 
   it('defaultShapeType', () => {
