@@ -47,7 +47,6 @@ export default class Path extends Geometry {
       const shapeFactory = this.getShapeFactory();
 
       result = new Element({
-        theme: get(theme, ['geometries', this.shapeType], {}),
         shapeFactory,
         container,
         offscreenGroup: this.getOffscreenGroup(),

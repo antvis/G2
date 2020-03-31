@@ -29,7 +29,6 @@ describe('Area shapes', () => {
   const element = new Element({
     shapeFactory: AreaShapeFactory,
     container: canvas.addGroup(),
-    theme: Theme.geometries.area,
   });
 
   it('defaultShapeType', () => {

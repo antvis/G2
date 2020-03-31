@@ -24,7 +24,6 @@ describe('Point shapes', () => {
   const element = new Element({
     shapeFactory: PolygonShapeFactory,
     container: canvas.addGroup(),
-    theme: Theme.geometries.polygon,
   });
 
   it('defaultShapeType', () => {

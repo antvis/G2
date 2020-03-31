@@ -12,8 +12,6 @@ import { propagationDelegate } from '@antv/component/lib/util/event';
 interface ElementCfg {
   /** 用于创建各种 shape 的工厂对象 */
   shapeFactory: ShapeFactory;
-  /** 主题 */
-  theme: LooseObject;
   /** shape 容器 */
   container: IGroup;
   /** 虚拟 group，用户可以不传入 */
@@ -29,8 +27,6 @@ interface ElementCfg {
 export default class Element extends Base {
   /** 用于创建各种 shape 的工厂对象 */
   public shapeFactory: ShapeFactory;
-  /** 主题 */
-  public theme: LooseObject;
   /** shape 容器 */
   public container: IGroup;
   /** 最后创建的图形对象 */
@@ -59,9 +55,8 @@ export default class Element extends Base {
   constructor(cfg: ElementCfg) {
     super(cfg);
 
-    const { shapeFactory, theme, container, offscreenGroup, visible = true } = cfg;
+    const { shapeFactory, container, offscreenGroup, visible = true } = cfg;
     this.shapeFactory = shapeFactory;
-    this.theme = theme;
     this.container = container;
     this.offscreenGroup = offscreenGroup;
     this.visible = visible;
