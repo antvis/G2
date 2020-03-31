@@ -1,4 +1,4 @@
-import { get, isNil } from '@antv/util';
+import { isNil } from '@antv/util';
 import { ShapeInfo } from '../../../interface';
 
 /**

@@ -14,7 +14,8 @@ function getShapeAttrs(cfg: ShapeInfo, smooth?: boolean, constraint?: Position[]
   const points = getPathPoints(cfg.points, connectNulls); // 根据 connectNulls 值处理 points
 
   let path = [];
-  for (const eachLinePoints of points) {
+  for (let i = 0, len = points.length; i < len; i++) {
+    const eachLinePoints = points[i];
     path = path.concat(getPath(eachLinePoints, isInCircle, isStack, smooth, constraint));
   }
   const shapeAttrs = getStyle(cfg, true, false, 'lineWidth');
