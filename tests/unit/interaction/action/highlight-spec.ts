@@ -242,6 +242,9 @@ describe('test highlight action', () => {
         x: bbox1.x - 5,
         y: bbox1.y - 5,
       };
+      expect(() => {
+        action.highlight(); // pre test
+      }).not.toThrow();
       action.start();
       context.event = {
         x: bbox1.maxX + 5,
