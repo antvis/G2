@@ -305,18 +305,12 @@ describe('view get shape and records', () => {
   chart.render();
 
   it('getSnapRecords point', () => {
-    let point = {
-      x: 173,
-      y: 253
-    };
+    let point = chart.getXY({ month: 3, tokyo: 14.5, newYork: 11.3, berlin: 8.4 });
     let records = chart.getSnapRecords(point);
     expect(records.length).equal(1);
     expect(records[0]._origin.month).equal(3);
 
-    point = {
-      x: 291,
-      y: 59
-    };
+    point = chart.getXY({ month: 6, tokyo: 25.2, newYork: 24.8, berlin: 18.6 });
 
     records = chart.getSnapRecords(point);
     expect(records[0]._origin.month).equal(6);
