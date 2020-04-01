@@ -1441,26 +1441,28 @@ export class View extends Base {
         const TYPE = `plot:${type}`; // 组合 plot 事件
         e.type = TYPE;
         this.emit(TYPE, e);
-        if (type === 'mouseleave') { // 在plot 内部却离开画布
+        if (type === 'mouseleave' || type === 'touchend') { // 在plot 内部却离开画布
           this.isPreMouseInPlot = false;
         }
       }
 
       // 对于 mouseenter, mouseleave 的计算处理
-      if (type === 'mousemove') {
+      if (type === 'mousemove' || type === 'touchmove') {
         if (this.isPreMouseInPlot && !currentInPlot) {
-          e.type = PLOT_EVENTS.MOUSE_LEAVE;
-          this.emit(PLOT_EVENTS.MOUSE_LEAVE, e);
+          const eventName = type === 'mousemove' ? PLOT_EVENTS.MOUSE_LEAVE : PLOT_EVENTS.TOUCH_END;
+          e.type = eventName;
+          this.emit(eventName, e);
         } else if (!this.isPreMouseInPlot && currentInPlot) {
           e.type = PLOT_EVENTS.MOUSE_ENTER;
           this.emit(PLOT_EVENTS.MOUSE_ENTER, e);
         }
         // 赋新的状态值
         this.isPreMouseInPlot = currentInPlot;
-      } else if (type === 'mouseleave') { // 可能不在 currentInPlot 中
+      } else if (type === 'mouseleave' || type === 'touchend') { // 可能不在 currentInPlot 中
         if (this.isPreMouseInPlot) {
-          e.type = PLOT_EVENTS.MOUSE_LEAVE;
-          this.emit(PLOT_EVENTS.MOUSE_LEAVE, e);
+          const eventName = type === 'mouseleave' ? PLOT_EVENTS.MOUSE_LEAVE : PLOT_EVENTS.TOUCH_END;
+          e.type = eventName;
+          this.emit(eventName, e);
           this.isPreMouseInPlot = false;
         }
       }
@@ -1762,15 +1764,6 @@ export class View extends Base {
   private getScaleKey(field: string): string {
     return `${this.id}-${field}`;
   }
-
-  /**
-   * 添加一个 geometry 到画布。
-   * @param geometry geometry 实例
-   * @returns void
-   */
-  private addGeometry(geometry: Geometry) {
-    this.geometries.push(geometry);
-  }
 }
 
 /**
@@ -1794,7 +1787,7 @@ export function registerGeometry(name: string, Ctor: any) {
     };
 
     const geometry = new Ctor(props);
-    this.addGeometry(geometry);
+    this.geometries.push(geometry);
 
     return geometry;
   };
