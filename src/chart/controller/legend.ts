@@ -43,6 +43,8 @@ function getDirection(legendOption: any): DIRECTION {
 export default class Legend extends Controller<Option> {
   /** the draw group of axis */
   private container: IGroup;
+  /** 用于多个 legend 布局的 bbox */
+  private layoutBBox: BBox;
 
   constructor(view: View) {
     super(view);
@@ -103,6 +105,8 @@ export default class Legend extends Controller<Option> {
    * 计算出 legend 的 direction 位置 x, y
    */
   public layout() {
+    this.layoutBBox = this.view.viewBBox;
+
     each(this.components, (co: ComponentOption) => {
       const { component, direction } = co;
       const layout = getLegendLayout(direction);
@@ -121,7 +125,7 @@ export default class Legend extends Controller<Option> {
       const bbox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height);
 
       const [x1, y1] = directionToPosition(this.view.coordinateBBox, bbox, direction);
-      const [x2, y2] = directionToPosition(this.view.viewBBox, bbox, direction);
+      const [x2, y2] = directionToPosition(this.layoutBBox, bbox, direction);
 
       let x = 0;
       let y = 0;
@@ -140,6 +144,8 @@ export default class Legend extends Controller<Option> {
         x,
         y,
       });
+
+      this.layoutBBox = this.layoutBBox.cut(bbox, direction);
     });
   }
 
