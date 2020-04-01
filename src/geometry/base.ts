@@ -17,7 +17,7 @@ import {
   isString,
   set,
 } from '@antv/util';
-import { doGroupAppearAnimate } from '../animate';
+import { doGroupAppearAnimate, getDefaultAnimateCfg } from '../animate';
 import Base from '../base';
 import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
 import { BBox, Coordinate, IGroup, IShape, Scale } from '../dependents';
