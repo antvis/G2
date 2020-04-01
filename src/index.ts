@@ -266,8 +266,14 @@ function isPointInView(context: IInteractionContext) {
 
 // 注册 tooltip 的 interaction
 registerInteraction('tooltip', {
-  start: [{ trigger: 'plot:mousemove', action: 'tooltip:show', throttle: { wait: 50, leading: true, trailing: false } }],
-  end: [{ trigger: 'plot:mouseleave', action: 'tooltip:hide' }],
+  start: [
+    { trigger: 'plot:mousemove', action: 'tooltip:show', throttle: { wait: 50, leading: true, trailing: false } },
+    { trigger: 'plot:touchmove', action: 'tooltip:show', throttle: { wait: 50, leading: true, trailing: false } },
+  ],
+  end: [
+    { trigger: 'plot:mouseleave', action: 'tooltip:hide' },
+    { trigger: 'plot:touchend', action: 'tooltip:hide' }
+  ],
 });
 
 // 移动到 elment 上 active
@@ -488,8 +494,7 @@ registerInteraction('legend-filter', {
     { trigger: 'legend-item:mouseleave', action: 'cursor:default' },
   ],
   start: [
-    { trigger: 'legend-item:click', action: 'list-unchecked:toggle' },
-    { trigger: 'legend-item:click', action: 'data-filter:filter' },
+    { trigger: 'legend-item:click', action: [ 'list-unchecked:toggle', 'data-filter:filter' ]  },
   ],
 });
 
@@ -509,8 +514,7 @@ registerInteraction('legend-visible-filter', {
     { trigger: 'legend-item:mouseleave', action: 'cursor:default' },
   ],
   start: [
-    { trigger: 'legend-item:click', action: 'list-unchecked:toggle' },
-    { trigger: 'legend-item:click', action: 'element-filter:filter' },
+    { trigger: 'legend-item:click', action: ['list-unchecked:toggle', 'element-filter:filter'] },
   ],
 });
 
