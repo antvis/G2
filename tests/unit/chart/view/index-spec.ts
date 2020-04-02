@@ -178,6 +178,7 @@ describe('View', () => {
 
     // @ts-ignore
     expect(view.getTheme().xxx).toBe(1);
+    expect(view.getTheme().defaultColor).toBe('#5B8FF9');
   });
 
   it('geometry', () => {
