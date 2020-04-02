@@ -137,12 +137,15 @@ import Legend from './chart/controller/legend';
 import Slider from './chart/controller/slider';
 import Tooltip from './chart/controller/tooltip';
 
+import Gestrue from './chart/controller/gesture';
+
 // register build-in components
 registerComponentController('axis', Axis);
 registerComponentController('legend', Legend);
 registerComponentController('tooltip', Tooltip);
 registerComponentController('annotation', Annotation);
 registerComponentController('slider', Slider);
+registerComponentController('gesture', Gestrue);
 
 // 注册 Interaction Action
 import { registerAction } from './core';
