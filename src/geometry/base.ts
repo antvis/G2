@@ -2,6 +2,7 @@ import { Adjust, getAdjust as getAdjustClass } from '@antv/adjust';
 import { Attribute, getAttribute as getAttributeClass } from '@antv/attr';
 import {
   clone,
+  deepMix,
   each,
   flatten,
   get,
@@ -197,6 +198,8 @@ export default class Geometry extends Base {
   /** 存储每个 shape 的默认 size，用于 Interval、Schema 几何标记 */
   protected defaultSize: number;
 
+  // 用户通过 geometry 构造函数设置的主题
+  private userTheme: LooseObject;
   private adjusts: Record<string, Adjust> = {};
   private lastAttributeOption;
   private idFields: string[] = [];
@@ -229,7 +232,7 @@ export default class Geometry extends Base {
     this.data = data;
     this.sortable = sortable;
     this.visible = visible;
-    this.theme = theme;
+    this.userTheme = theme;
     this.scales = scales;
     this.scaleDefs = scaleDefs;
   }
@@ -914,6 +917,7 @@ export default class Geometry extends Base {
       this.geometryLabel.destroy();
       this.geometryLabel = null;
     }
+    this.theme = undefined;
     super.destroy();
   }
 
@@ -1812,7 +1816,7 @@ export default class Geometry extends Base {
       });
     }
     if (theme) {
-      this.theme = theme;
+      this.theme = this.userTheme ? deepMix({}, theme, this.userTheme) : theme; // 支持 geometry 层级的主题设置
     }
   }
 

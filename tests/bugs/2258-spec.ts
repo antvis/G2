@@ -69,6 +69,8 @@ describe('2258', () => {
     expect(chart.getTheme().colors10).toEqual(['#F6BD16', '#E86452']);
 
     chart.theme('dark');
-    // todo 测试点图需要更新
+    chart.render(true);
+
+    expect(chart.geometries[0].elements[0].shape.attr('fill')).toBe('#000');
   });
 });
