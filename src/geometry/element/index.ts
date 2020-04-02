@@ -102,14 +102,13 @@ export default class Element extends Base {
     this.shapeType = this.getShapeType(model);
 
     // step 1: 更新 shape 携带的信息
-    const drawCfg = this.getShapeDrawCfg(model);
-    this.setShapeInfo(shape, drawCfg);
+    this.setShapeInfo(shape, model);
 
     // step 2: 使用虚拟 Group 重新绘制 shape，然后更新当前 shape
     const offscreenGroup = this.getOffscreenGroup();
-    const newShape = shapeFactory.drawShape(this.shapeType, drawCfg, offscreenGroup);
+    const newShape = shapeFactory.drawShape(this.shapeType, model, offscreenGroup);
     newShape.set('data', this.data);
-    newShape.set('origin', drawCfg);
+    newShape.set('origin', model);
 
     // step 3: 同步 shape 样式
     this.syncShapeStyle(shape, newShape, '', this.getAnimateCfg('update'));
@@ -215,8 +214,7 @@ export default class Element extends Base {
     }
 
     // 使用虚拟 group 重新绘制 shape，然后对这个 shape 应用状态样式后，更新当前 shape。
-    const drawCfg = this.getShapeDrawCfg(model);
-    const offscreenShape = shapeFactory.drawShape(shapeType, drawCfg, this.getOffscreenGroup());
+    const offscreenShape = shapeFactory.drawShape(shapeType, model, this.getOffscreenGroup());
     if (states.length) {
       // 应用当前状态
       states.forEach((state) => {
@@ -324,15 +322,10 @@ export default class Element extends Base {
 
   // 从主题中获取对应状态量的样式
   private getStateStyle(stateName: string, shapeKey?: string): StateCfg {
-    const { theme, shapeFactory } = this;
-    let shapeType = this.shapeType;
-    // 如果用户自定义 shape，则使用默认 shape 的配置
-    if (!theme[shapeType]) {
-      shapeType = shapeFactory.defaultShapeType;
-    }
+    const shapeType = this.shapeType;
     // 用户通过 geometry.state() 接口定义了状态样式
     const stateOption = get(this.geometry.stateOption, stateName, {});
-    const stateCfg = deepMix({}, get(theme, [shapeType, stateName], {}), stateOption);
+    const stateCfg = deepMix({}, get(this.theme, [shapeType, stateName], {}), stateOption);
 
     let shapeStyle = get(stateCfg.style, [shapeKey]) ?
       get(stateCfg.style, [shapeKey]) :
@@ -375,13 +368,12 @@ export default class Element extends Base {
   // 绘制图形
   private drawShape(model: ShapeInfo, isUpdate: boolean = false) {
     const { shapeFactory, container, shapeType } = this;
-    const drawCfg = this.getShapeDrawCfg(model);
 
     // 自定义 shape 有可能返回空 shape
-    this.shape = shapeFactory.drawShape(shapeType, drawCfg, container);
+    this.shape = shapeFactory.drawShape(shapeType, model, container);
 
     if (this.shape) {
-      this.setShapeInfo(this.shape, drawCfg); // 存储绘图数据
+      this.setShapeInfo(this.shape, model); // 存储绘图数据
       if (!this.shape.get('name')) {
         // TODO: 当用户设置了 name 后，为了保证 geometry:eventName 这样的事件能够正常触发，需要加一个 inheritName
         // 等 G 事件改造完成后加上
@@ -422,14 +414,6 @@ export default class Element extends Base {
         this.setShapeInfo(child, data);
       });
     }
-  }
-
-  // 获取 shape 的绘制属性
-  private getShapeDrawCfg(cfg: ShapeInfo): ShapeInfo {
-    return {
-      ...cfg,
-      defaultStyle: this.getStateStyle('default').style,
-    };
   }
 
   // 更新当前 shape 的样式

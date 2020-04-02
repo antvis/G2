@@ -20,7 +20,6 @@ import {
 } from '@antv/util';
 import { doGroupAppearAnimate } from '../animate';
 import Base from '../base';
-import Labels from '../component/labels';
 import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
 import { BBox, Coordinate, IGroup, IShape, Scale } from '../dependents';
 import {
@@ -51,11 +50,11 @@ import {
 } from '../interface';
 import Element from './element';
 import { getGeometryLabel } from './label';
+import GeometryLabel from './label/base';
 import { getShapeFactory } from './shape/base';
 import { group } from './util/group-data';
 import { isModelChange } from './util/is-model-change';
 import { parseFields } from './util/parse-fields';
-import GeometryLabel from './label/base';
 
 /** @ignore */
 interface AttributeInstanceCfg {
@@ -1205,6 +1204,9 @@ export default class Geometry extends Base {
    */
   protected getShapeFactory() {
     const shapeType = this.shapeType;
+    if (!getShapeFactory(shapeType)) {
+      return;
+    }
     if (!this.shapeFactory) {
       this.shapeFactory = clone(getShapeFactory(shapeType)); // 防止多个 view 共享一个 shapeFactory 实例，导致 coordinate 被篡改
     }
@@ -1278,9 +1280,17 @@ export default class Geometry extends Base {
       y: mappingDatum.y,
       color: mappingDatum.color,
       size: mappingDatum.size,
-      shape: mappingDatum.shape,
       isInCircle: this.coordinate.isPolar,
     };
+
+    let shapeName = mappingDatum.shape;
+    if (!shapeName && this.getShapeFactory()) {
+      shapeName = this.getShapeFactory().defaultShapeType;
+    }
+    cfg.shape = shapeName;
+    // 获取默认样式
+    const theme = this.theme.geometries[this.shapeType];
+    cfg.defaultStyle = get(theme, [ shapeName, 'default' ], {}).style;
 
     const styleOption = this.styleOption;
     if (styleOption) {

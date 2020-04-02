@@ -83,6 +83,10 @@ describe('Element', () => {
         y: 1,
         data: { a: 1, b: 10 },
         shape: ['circle', 'dadada'],
+        defaultStyle: {
+          fill: '#333',
+          lineWidth: 0,
+        },
       });
 
       expect(element.shape.get('name')).toBe('shapes');
@@ -100,6 +104,10 @@ describe('Element', () => {
         y: 1,
         data: { a: 1, b: 10 },
         shape: ['circle', 'dadada'],
+        defaultStyle: {
+          fill: '#333',
+          lineWidth: 0,
+        },
       });
     });
 
@@ -199,6 +207,10 @@ describe('Element', () => {
           _origin: { x: 12 },
         },
         data: { x: 12 },
+        defaultStyle: {
+          fill: '#333',
+          lineWidth: 0,
+        },
       });
 
       const shape = element.shape;
@@ -214,6 +226,10 @@ describe('Element', () => {
           _origin: { x: 12 },
         },
         data: { x: 12 },
+        defaultStyle: {
+          fill: '#333',
+          lineWidth: 0,
+        },
       });
       expect(element.getData()).toEqual({ x: 12 });
     });
@@ -297,16 +313,6 @@ describe('Element', () => {
       expect(element.getAnimateCfg('leave')).toBe(null);
       // @ts-ignore
       expect(element.getAnimateCfg('appear')).toBe(null);
-    });
-
-    xit('event', () => {
-      const shape = element.shape;
-
-      const fn = jest.fn();
-      element.container.on('element:click', fn);
-      shape.emit('click', { type: 'click' });
-
-      expect(fn).toBeCalled();
     });
   });
 });
