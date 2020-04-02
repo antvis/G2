@@ -38,12 +38,13 @@ describe('Polygon', () => {
       data,
       scales,
       container: canvas.addGroup(),
-      theme: Theme,
       coordinate: rectCoord,
     });
 
     polygon.position('city*category').color('sale');
-    polygon.init();
+    polygon.init({
+      theme: Theme,
+    });
     polygon.paint();
     canvas.draw();
 

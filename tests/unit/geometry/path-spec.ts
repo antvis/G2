@@ -42,11 +42,12 @@ describe('Path', () => {
       data,
       scales,
       container: canvas.addGroup(),
-      theme: Theme,
     });
 
     path.position('x*y').size(4);
-    path.init();
+    path.init({
+      theme: Theme,
+    });
     path.paint();
     canvas.draw();
 
@@ -94,12 +95,13 @@ describe('Path', () => {
       data,
       scales,
       container: canvas.addGroup(),
-      theme: Theme,
       connectNulls: true,
     });
 
     path.position('x*y').size(4);
-    path.init();
+    path.init({
+      theme: Theme,
+    });
     path.paint();
     canvas.draw();
 

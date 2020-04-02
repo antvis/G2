@@ -37,7 +37,6 @@ describe('Geometry', () => {
         coordinate,
         container: new G.Group({}),
         theme: {
-          ...Theme,
           geometries: {
             myInterval: {
               tick: {
@@ -70,7 +69,6 @@ describe('Geometry', () => {
       expect(geometry.data).not.toBe(undefined);
       expect(geometry.coordinate).not.toBe(undefined);
       expect(geometry.container).not.toBe(undefined);
-      expect(geometry.theme).not.toBe(undefined);
       expect(geometry.scaleDefs).not.toBe(undefined);
     });
 
@@ -361,7 +359,6 @@ describe('Geometry', () => {
         coordinate,
         container,
         theme: {
-          ...Theme,
           geometries: {
             myInterval: {
               tick: {
@@ -458,7 +455,9 @@ describe('Geometry', () => {
     });
 
     it('init()', () => {
-      geometry.init();
+      geometry.init({
+        theme: Theme,
+      });
 
       // attrs 的生成
       const attrs = geometry.attributes;
@@ -648,9 +647,6 @@ describe('Geometry', () => {
       data,
       coordinate,
       container: new G.Group({}),
-      theme: {
-        ...Theme,
-      },
     });
     geometry.position('value');
 
@@ -661,7 +657,9 @@ describe('Geometry', () => {
     });
     geometry.scales = scales;
 
-    geometry.init();
+    geometry.init({
+      theme: Theme,
+    });
 
     const positionScales = geometry.getAttribute('position').scales;
     expect(positionScales.length).toBe(2);
@@ -702,13 +700,14 @@ describe('Geometry', () => {
       scales,
       coordinate,
       container: new G.Group({}),
-      theme: Theme,
     });
     geometry
       .position('月份*月均降雨量')
       .color('name')
       .adjust('stack');
-    geometry.init();
+    geometry.init({
+      theme: Theme,
+    });
     expect(geometry.getYScale().min).toBe(0);
     expect(geometry.getYScale().max).toBe(200);
 
@@ -753,11 +752,12 @@ describe('Geometry', () => {
           values: ['Europe', 'Asia', 'Africa'],
         }
       },
-      theme: Theme,
     });
 
     geometry.position('year*value').color('country');
-    geometry.init();
+    geometry.init({
+      theme: Theme,
+    });
 
     // @ts-ignore
     const beforeMappingData = geometry.beforeMappingData;

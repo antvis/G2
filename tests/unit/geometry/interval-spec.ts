@@ -59,7 +59,6 @@ describe('Interval', () => {
         scales,
         coordinate: rectCoord,
         container: canvas.addGroup(),
-        theme: Theme,
       });
 
       interval
@@ -68,7 +67,9 @@ describe('Interval', () => {
         .style({
           fill: 'red',
         });
-      interval.init();
+      interval.init({
+        theme: Theme,
+      });
 
       const attributes = interval.attributes;
       expect(attributes).toContainKeys(['position', 'color']);
@@ -197,13 +198,14 @@ describe('Interval', () => {
       scales,
       coordinate: rectCoord,
       container: canvas.addGroup(),
-      theme: Theme,
     });
 
     interval.position('a*b');
 
     it('yScale min adjust when user define min', () => {
-      interval.init();
+      interval.init({
+        theme: Theme,
+      });
       // 为了观察最终的绘制结果
       interval.paint();
       canvas.draw();
@@ -325,14 +327,15 @@ describe('Interval', () => {
         scales: pieScales,
         coordinate: thetaCoord,
         container: canvas.addGroup(),
-        theme: Theme,
       });
 
       pie
         .position('value')
         .color('type')
         .adjust('stack');
-      pie.init();
+      pie.init({
+        theme: Theme,
+      });
 
       expect(pie.getYScale().min).toBe(0);
       expect(pie.getYScale().max).toBe(100);
@@ -386,14 +389,15 @@ describe('Interval', () => {
         scales: pieScales,
         coordinate: thetaCoord,
         container: canvas.addGroup(),
-        theme: Theme,
       });
 
       pie
         .position('value')
         .color('type')
         .adjust('stack');
-      pie.init();
+      pie.init({
+        theme: Theme,
+      });
 
       const colorAttr = pie.getAttribute('color');
       expect(colorAttr.values).toEqual(Theme.colors20);

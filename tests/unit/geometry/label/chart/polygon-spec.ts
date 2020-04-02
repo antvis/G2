@@ -49,14 +49,15 @@ describe('Polygon', () => {
     scales,
     container: canvas.addGroup(),
     labelsContainer: canvas.addGroup(),
-    theme: Theme,
     coordinate: rectCoord,
   });
 
   polygon.position('city*category').color('sale').label('sale', {
     offset: 0,
   });
-  polygon.init();
+  polygon.init({
+    theme: Theme,
+  });
   polygon.paint();
   // 生成映射数据
   // @ts-ignore
