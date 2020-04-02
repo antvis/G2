@@ -1507,7 +1507,7 @@ export class View extends Base {
         coordinate: this.getCoordinate(), // 使用 coordinate 引用，可以保持 coordinate 的同步更新
         scaleDefs: get(this.options, 'scales', {}),
         data: this.filteredData,
-        theme: deepMix({}, this.themeObject, geometry.theme), // 支持 geometry 层级的主题设置
+        theme: this.themeObject,
         isDataChanged: this.isDataChanged,
       };
       if (isUpdate) {
