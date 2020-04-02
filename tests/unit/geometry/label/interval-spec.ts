@@ -61,7 +61,6 @@ describe('interval labels', () => {
       scales,
       container: canvas.addGroup(),
       labelsContainer: canvas.addGroup(),
-      theme: Theme,
       coordinate: coord,
       scaleDefs,
     });
@@ -72,7 +71,9 @@ describe('interval labels', () => {
         position: 'middle',
         offset: 0,
       });
-    interval.init();
+    interval.init({
+      theme: Theme,
+    });
     interval.paint();
 
     // 生成映射数据
@@ -169,7 +170,6 @@ describe('interval labels', () => {
       scales,
       container: canvas.addGroup(),
       labelsContainer: canvas.addGroup(),
-      theme: Theme,
       coordinate: transposedCoord,
       scaleDefs,
     });
@@ -181,7 +181,9 @@ describe('interval labels', () => {
         position: 'middle',
         offset: 0,
       });
-    interval.init();
+    interval.init({
+      theme: Theme,
+    });
     interval.paint();
 
     // 生成映射数据

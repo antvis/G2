@@ -35,12 +35,13 @@ describe('Point', () => {
       data,
       scales,
       container: canvas.addGroup(),
-      theme: Theme,
       coordinate: rectCoord,
     });
 
     point.position('x*y');
-    point.init();
+    point.init({
+      theme: Theme,
+    });
     point.paint();
     canvas.draw();
 

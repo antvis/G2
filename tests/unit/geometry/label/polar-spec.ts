@@ -73,11 +73,12 @@ describe('polar labels', () => {
       scales,
       container: canvas.addGroup(),
       labelsContainer: canvas.addGroup(),
-      theme: Theme,
       coordinate: coord,
     });
     pointGeom.position('x*y').label('z', { offset: 10 });
-    pointGeom.init();
+    pointGeom.init({
+      theme: Theme,
+    });
 
     const gLabels = new PolarLabel(pointGeom);
     let items;
@@ -133,11 +134,12 @@ describe('polar labels', () => {
       scales,
       container: canvas.addGroup(),
       labelsContainer: canvas.addGroup(),
-      theme: Theme,
       coordinate: coord,
     });
     pointGeom.position('x*y').label('z', { offset: -10 });
-    pointGeom.init();
+    pointGeom.init({
+      theme: Theme,
+    });
 
     const gLabels = new PolarLabel(pointGeom);
 
@@ -194,11 +196,12 @@ describe('polar labels', () => {
       scales,
       container: canvas.addGroup(),
       labelsContainer: canvas.addGroup(),
-      theme: Theme,
       coordinate: coord,
     });
     pointGeom.position('x*y').label('z', { offset: 10 });
-    pointGeom.init();
+    pointGeom.init({
+      theme: Theme,
+    });
 
     const gLabels = new PolarLabel(pointGeom);
 
@@ -245,11 +248,12 @@ describe('polar labels', () => {
       scales,
       container: canvas.addGroup(),
       labelsContainer: canvas.addGroup(),
-      theme: Theme,
       coordinate: coord,
     });
     pointGeom.position('x*y').label('z', { offset: -10 });
-    pointGeom.init();
+    pointGeom.init({
+      theme: Theme,
+    });
 
     const gLabels = new PolarLabel(pointGeom);
 
@@ -309,11 +313,12 @@ describe('polar labels', () => {
         scales,
         container: canvas.addGroup(),
         labelsContainer: canvas.addGroup(),
-        theme: Theme,
         coordinate: polarCoord,
       });
       pointGeom.position('x*y').label('z', { offset: -10 });
-      pointGeom.init();
+      pointGeom.init({
+        theme: Theme,
+      });
 
       const gLabels = new PolarLabel(pointGeom);
 
@@ -358,11 +363,12 @@ describe('polar labels', () => {
         scales,
         container: canvas.addGroup(),
         labelsContainer: canvas.addGroup(),
-        theme: Theme,
         coordinate: polarCoord,
       });
       pointGeom.position('x*y').label('z', { offset: 10 });
-      pointGeom.init();
+      pointGeom.init({
+        theme: Theme,
+      });
 
       const gLabels = new PolarLabel(pointGeom);
       let items;

@@ -44,14 +44,15 @@ describe('Calculate shape size', () => {
       coordinate: rectCoord,
       container: canvas.addGroup(),
       theme: {
-        ...Theme,
         maxColumnWidth: 50,
         minColumnWidth: 10,
       },
     });
 
     interval.position('a*b').color('a');
-    interval.init();
+    interval.init({
+      theme: Theme,
+    });
 
     test('default', () => {
       const normalizedSize = getDefaultSize(interval);
@@ -104,10 +105,11 @@ describe('Calculate shape size', () => {
         coordinate: rectCoord,
         container: canvas.addGroup(),
         scaleDefs: scaleDefs1,
-        theme: Theme,
       });
       interval.position('a*b');
-      interval.init();
+      interval.init({
+        theme: Theme,
+      });
       // interval.paint();
       // canvas.draw();
 
@@ -137,10 +139,11 @@ describe('Calculate shape size', () => {
         coordinate: rectCoord,
         container: canvas.addGroup(),
         scaleDefs,
-        theme: Theme,
       });
       interval.position('a*b');
-      interval.init();
+      interval.init({
+        theme: Theme,
+      });
       // interval.paint();
       // canvas.draw();
       expect(getDefaultSize(interval)).toBe(0.125);
@@ -180,7 +183,6 @@ describe('Calculate shape size', () => {
       scales,
       scaleDefs,
       container: canvas.addGroup(),
-      theme: Theme,
     });
 
     interval.position('a*b').color('c');
@@ -190,7 +192,9 @@ describe('Calculate shape size', () => {
         type: 'dodge',
       });
 
-      interval.init();
+      interval.init({
+        theme: Theme,
+      });
 
       const normalizedSize = getDefaultSize(interval);
       expect(normalizedSize).toBe(1 / 12);
@@ -232,12 +236,13 @@ describe('Calculate shape size', () => {
       data,
       coordinate: polarCoord,
       container: canvas.addGroup(),
-      theme: Theme,
       scaleDefs,
       scales,
     });
     interval.position('a*b');
-    interval.init();
+    interval.init({
+      theme: Theme,
+    });
 
     test('polar interval', () => {
       const normalizedSize = getDefaultSize(interval);
@@ -280,14 +285,15 @@ describe('Calculate shape size', () => {
         scales: pieScales,
         coordinate: thetaCoord,
         container: canvas.addGroup(),
-        theme: Theme,
       });
       interval
         .position('1*percent')
         .color('a')
         .adjust('stack');
 
-      interval.init();
+      interval.init({
+        theme: Theme,
+      });
 
       const normalizedSize = getDefaultSize(interval);
       expect(normalizedSize).toBe(0.9999999);
@@ -316,7 +322,6 @@ describe('Calculate shape size', () => {
         data: data1,
         coordinate: polarCoord,
         container: canvas.addGroup(),
-        theme: Theme,
         scaleDefs: scaleDefs1,
         scales: scales1,
       });
@@ -331,7 +336,9 @@ describe('Calculate shape size', () => {
           fields: ['c'],
         });
 
-      interval.init();
+      interval.init({
+        theme: Theme,
+      });
 
       const normalizedSize = getDefaultSize(interval);
       expect(normalizedSize).toBe((1 / 6) * Theme.roseWidthRatio);
@@ -364,7 +371,6 @@ describe('Calculate shape size', () => {
         coordinate: polarCoord,
         scales: scales1,
         container: canvas.addGroup(),
-        theme: Theme,
       });
       interval
         .position({
@@ -377,7 +383,9 @@ describe('Calculate shape size', () => {
           fields: ['c'],
         });
 
-      interval.init();
+      interval.init({
+        theme: Theme,
+      });
       // interval.paint();
       // canvas.draw();
 

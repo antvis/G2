@@ -54,7 +54,6 @@ describe('Edge Geometry', () => {
     coordinate: coord,
     container: group,
     scales: { x: scaleX, y: scaleY, vhv: scaleVh, red: ScaleRed },
-    theme: Theme,
   });
 
   it('init', () => {
@@ -64,7 +63,9 @@ describe('Edge Geometry', () => {
 
   it('draw two point', () => {
     geom.position('x*y').color('red');
-    geom.init();
+    geom.init({
+      theme: Theme,
+    });
     geom.paint();
     expect(geom.container.getCount()).toBe(2);
     expect(geom.container.getFirst().attr('path').length).toBe(2);

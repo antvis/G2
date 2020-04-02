@@ -39,7 +39,6 @@ describe('Tooltip functions', () => {
 
     const interval = new Interval({
       data: CITY_SALE,
-      theme: Theme,
       coordinate: rectCoord,
       scaleDefs,
       scales,
@@ -50,7 +49,9 @@ describe('Tooltip functions', () => {
       .position('city*sale')
       .color('category')
       .adjust('stack');
-    interval.init();
+    interval.init({
+      theme: Theme,
+    });
     interval.paint();
 
     it('findDataByPoint', () => {
@@ -92,13 +93,14 @@ describe('Tooltip functions', () => {
     const point = new Point({
       data: DIAMOND,
       scales,
-      theme: Theme,
       coordinate: rectCoord,
       container: canvas.addGroup(),
     });
 
     point.position('carat*price').color('cut');
-    point.init();
+    point.init({
+      theme: Theme,
+    });
     point.paint();
 
     it('findDataByPoint', () => {
@@ -150,13 +152,14 @@ describe('Tooltip functions', () => {
     const line = new Line({
       data: DATA,
       scales,
-      theme: Theme,
       coordinate: rectCoord,
       container: canvas.addGroup(),
     });
 
     line.position('year*value');
-    line.init();
+    line.init({
+      theme: Theme,
+    });
     line.paint();
 
     it('findDataByPoint', () => {
