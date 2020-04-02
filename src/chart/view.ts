@@ -1285,7 +1285,7 @@ export class View extends Base {
     // 3. 初始化 Geometry
     this.initGeometries(isUpdate);
     // 4. 处理分面逻辑，最终都是生成子 view 和 geometry
-    this.renderFacet();
+    this.renderFacet(isUpdate);
 
     // 同样递归处理子 views
     each(this.views, (view: View) => {
@@ -1706,14 +1706,19 @@ export class View extends Base {
 
   /**
    * 渲染分面，会在其中进行数据分面，然后进行子 view 创建
+   * @param isUpdate
    */
-  private renderFacet() {
+  private renderFacet(isUpdate: boolean) {
     if (this.facetInstance) {
-      this.facetInstance.clear();
-      // 计算分面数据
-      this.facetInstance.init();
-      // 渲染组件和 views
-      this.facetInstance.render();
+      if (isUpdate) {
+        this.facetInstance.update();
+      } else {
+        this.facetInstance.clear();
+        // 计算分面数据
+        this.facetInstance.init();
+        // 渲染组件和 views
+        this.facetInstance.render();
+      }
     }
   }
 
