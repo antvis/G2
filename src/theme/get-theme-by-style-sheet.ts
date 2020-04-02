@@ -2,10 +2,14 @@ import * as TOOLTIP_CSS_CONST from '@antv/component/lib/tooltip/css-const';
 import { transform } from '@antv/matrix-util';
 import { deepMix } from '@antv/util';
 import Element from '../geometry/element';
-import { StyleSheet } from '../interface';
+import { LooseObject, StyleSheet } from '../interface';
 import { getAngle } from '../util/graphics';
 
-export function getThemeByStylesheet(styleSheet: StyleSheet) {
+/**
+ * 根据主题样式表生成主题结构
+ * @param styleSheet 主题样式表
+ */
+export function getThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
   const shapeStyles = {
     point: {
       default: {
