@@ -20,6 +20,7 @@ registerTheme('newTheme', {
 
 // Step 2: 使用
 chart.theme('newTheme');
+chart.render();
 ```
 
 ### 主题属性
@@ -31,8 +32,8 @@ chart.theme('newTheme');
 |     `defaultColor`      |  string  |                                 主题色                                  |
 |        `padding`        |  number  |                                number[]                                 | 'auto' | chart padding 配置，默认为 'auto' |
 |      `fontFamily`       |  string  |                                图表字体                                 |
-|        `colors`         | string[] |                  分类颜色色板，分类个数小于 10 时使用                   |
-|       `colors_20`       | string[] |                  分类颜色色板，分类个数大于 10 时使用                   |
+|       `colors10`        | string[] |                  分类颜色色板，分类个数小于 10 时使用                   |
+|       `colors20`        | string[] |                  分类颜色色板，分类个数大于 10 时使用                   |
 |   `columnWidthRatio`    |  number  |                   一般柱状图宽度占比，0 - 1 范围数值                    |
 |    `maxColumnWidth`     |  number  |                         柱状图最大宽度，像素值                          |
 |    `minColumnWidth`     |  number  |                         柱状图最小宽度，像素值                          |
