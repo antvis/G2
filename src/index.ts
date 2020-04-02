@@ -3,9 +3,10 @@ import { PathCfg } from './geometry/path';
 import { IInteractionContext } from './interface';
 
 // 注册黑暗主题
-import { getThemeByStylesheet, registerTheme } from './core';
+import { registerTheme } from './core';
 import { antvDark } from './theme/style-sheet/dark';
-registerTheme('dark', getThemeByStylesheet(antvDark));
+import { createThemeByStylesheet } from './util/theme';
+registerTheme('dark', createThemeByStylesheet(antvDark));
 
 // 注册 G 渲染引擎
 import * as CanvasEngine from '@antv/g-canvas';
