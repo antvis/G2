@@ -6,7 +6,7 @@ order: 4
 G2 提供了自定义主题机制以允许用户切换、定义图表主题。包括：
 
 1. 定义全新的主题结构
-2. 基于已有主题结构，切换不同的主题样式表
+2. 使用主题样式表，实现主题的快速定制
 
 ## 定义全新的主题结构
 
@@ -56,10 +56,11 @@ chart.render();
 主题样式表主要用于主题的快速编辑，比如网页端的主题编辑。
 
 ```ts
-import { registerTheme, getThemeByStylesheet } from '.@antv/g2';
+import { registerTheme } from '@antv/g2';
+import { createThemeByStylesheet } from '@antv/g2/lib/util/theme';
 
 // 通过 getThemeByStylesheet 方法将样式属性值填充到主题结构中
-const darkTheme = getThemeByStylesheet({
+const darkTheme = createThemeByStylesheet({
   axisLineBorder: 0.5,
   pointFillColor: '#000',
 });
