@@ -53,14 +53,19 @@ chart.render();
 
 对于图表主题，很多时候只是想切换样式风格，比如更改颜色、字体大小、边框粗细等，并不需要更改主题结构，这个时候就可以通过自定义主题样式表，然后应用于默认的主题结构即可。
 
-```ts
-import { getStyleSheet, getTheme, registerStyleSheet, registerTheme } from '.@antv/g2';
+主题样式表主要用于主题的快速编辑，比如网页端的主题编辑。
 
-// 定义并注册 dark 的主题样式表
-registerStyleSheet('dark', {});
+```ts
+import { registerTheme, getThemeByStylesheet } from '.@antv/g2';
+
+// 通过 getThemeByStylesheet 方法将样式属性值填充到主题结构中
+const darkTheme = getThemeByStylesheet({
+  axisLineBorder: 0.5,
+  pointFillColor: '#000',
+});
 
 // 基于默认的主题结构，应用 dark 主题样式表定义全新的暗黑色系主题
-registerTheme('dark', 'dark');
+registerTheme('dark', darkTheme);
 
 // 使用
 chart.theme('dark');
