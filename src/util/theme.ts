@@ -9,7 +9,7 @@ import { getAngle } from '../util/graphics';
  * 根据主题样式表生成主题结构
  * @param styleSheet 主题样式表
  */
-export function getThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
+export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
   const shapeStyles = {
     point: {
       default: {
@@ -269,7 +269,7 @@ export function getThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
       area: ['area', 'smooth', 'line', 'smooth-line'],
       interval: ['rect', 'hollow-rect', 'line', 'tick'],
     },
-    sizes: [ 1, 10 ],
+    sizes: [1, 10],
     geometries: {
       interval: {
         rect: {
@@ -392,25 +392,25 @@ export function getThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
           default: {
             style: {
               ...shapeStyles.line.default,
-              lineDash: [ 1, 1 ],
+              lineDash: [1, 1],
             },
           },
           active: {
             style: {
               ...shapeStyles.line.active,
-              lineDash: [ 1, 1 ],
+              lineDash: [1, 1],
             },
           },
           inactive: {
             style: {
               ...shapeStyles.line.inactive,
-              lineDash: [ 1, 1 ],
+              lineDash: [1, 1],
             },
           },
           selected: {
             style: {
               ...shapeStyles.line.selected,
-              lineDash: [ 1, 1 ],
+              lineDash: [1, 1],
             },
           },
         },
@@ -869,7 +869,7 @@ export function getThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
           },
         },
         box: {
-           default: {
+          default: {
             style: shapeStyles.hollowInterval.default,
           },
           active: {
@@ -885,7 +885,7 @@ export function getThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
       },
       edge: {
         line: {
-           default: {
+          default: {
             style: shapeStyles.line.default,
           },
           active: {
@@ -899,7 +899,7 @@ export function getThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
           },
         },
         vhv: {
-           default: {
+          default: {
             style: shapeStyles.line.default,
           },
           active: {
@@ -913,7 +913,7 @@ export function getThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
           },
         },
         smooth: {
-           default: {
+          default: {
             style: shapeStyles.line.default,
           },
           active: {
@@ -927,7 +927,7 @@ export function getThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
           },
         },
         arc: {
-           default: {
+          default: {
             style: shapeStyles.line.default,
           },
           active: {
@@ -1257,7 +1257,6 @@ export function getThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
       labelLine: {
         style: {
           lineWidth: styleSheet.labelLineBorder,
-          // stroke: styleSheet.labelLineBorderColor,
         },
       },
       autoRotate: true,

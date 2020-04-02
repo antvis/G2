@@ -1,10 +1,10 @@
 import { get, lowerCase } from '@antv/util';
 import { LooseObject, StyleSheet } from '../interface';
 
-import { getThemeByStylesheet } from './get-theme-by-style-sheet';
+import { createThemeByStylesheet } from '../util/theme';
 import { antvLight as DefaultStyleSheet } from './style-sheet/light';
 
-const defaultTheme = getThemeByStylesheet(DefaultStyleSheet as StyleSheet);
+const defaultTheme = createThemeByStylesheet(DefaultStyleSheet as StyleSheet);
 
 // 所有已经存在的主题
 const Themes: Record<string, LooseObject> = {
@@ -27,5 +27,3 @@ export function getTheme(theme?: string): LooseObject {
 export function registerTheme(theme: string, value: LooseObject) {
   Themes[lowerCase(theme)] = value;
 }
-
-export { getThemeByStylesheet };
