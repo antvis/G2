@@ -271,8 +271,8 @@ registerInteraction('tooltip', {
     { trigger: 'plot:touchmove', action: 'tooltip:show', throttle: { wait: 50, leading: true, trailing: false } },
   ],
   end: [
-    { trigger: 'plot:mouseleave', action: 'tooltip:hide' },
-    { trigger: 'plot:touchend', action: 'tooltip:hide' }
+    { trigger: 'plot:leave', action: 'tooltip:hide' },
+    { trigger: 'plot:touchend', action: 'tooltip:hide' },
   ],
 });
 

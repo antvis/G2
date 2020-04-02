@@ -41,7 +41,7 @@ describe('test tooltip action', () => {
   });
 
   it('hide', () => {
-    chart.emit('plot:mouseleave', {
+    chart.emit('plot:leave', {
       x: 138,
       y: 383,
     });

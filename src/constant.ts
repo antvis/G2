@@ -95,7 +95,10 @@ export enum PLOT_EVENTS {
   // click 事件
   CLICK = 'plot:click',
   DBLCLICK = 'plot:dblclick',
-  CONTEXTMENU = 'plot:contextmenu'
+  CONTEXTMENU = 'plot:contextmenu',
+
+  LEAVE = 'plot:leave',
+  ENTER = 'plot:enter',
 }
 
 /** 参与分组的图形属性名 */

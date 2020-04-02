@@ -1449,20 +1449,31 @@ export class View extends Base {
       // 对于 mouseenter, mouseleave 的计算处理
       if (type === 'mousemove' || type === 'touchmove') {
         if (this.isPreMouseInPlot && !currentInPlot) {
-          const eventName = type === 'mousemove' ? PLOT_EVENTS.MOUSE_LEAVE : PLOT_EVENTS.TOUCH_END;
-          e.type = eventName;
-          this.emit(eventName, e);
-        } else if (!this.isPreMouseInPlot && currentInPlot) {
-          e.type = PLOT_EVENTS.MOUSE_ENTER;
-          this.emit(PLOT_EVENTS.MOUSE_ENTER, e);
+          if (type === 'mousemove') {
+            e.type = PLOT_EVENTS.MOUSE_LEAVE;
+            this.emit(PLOT_EVENTS.MOUSE_LEAVE, e);
+          }
+          e.type = PLOT_EVENTS.LEAVE;
+          this.emit(PLOT_EVENTS.LEAVE, e);
+         } else if (!this.isPreMouseInPlot && currentInPlot) {
+          if (type === 'mousemove') {
+            e.type = PLOT_EVENTS.MOUSE_ENTER;
+            this.emit(PLOT_EVENTS.MOUSE_ENTER, e);
+          }
+          e.type = PLOT_EVENTS.ENTER;
+          this.emit(PLOT_EVENTS.ENTER, e);
         }
         // 赋新的状态值
         this.isPreMouseInPlot = currentInPlot;
       } else if (type === 'mouseleave' || type === 'touchend') { // 可能不在 currentInPlot 中
         if (this.isPreMouseInPlot) {
-          const eventName = type === 'mouseleave' ? PLOT_EVENTS.MOUSE_LEAVE : PLOT_EVENTS.TOUCH_END;
-          e.type = eventName;
-          this.emit(eventName, e);
+          if (type === 'mouseleave') {
+            e.type = PLOT_EVENTS.MOUSE_LEAVE;
+            this.emit(PLOT_EVENTS.MOUSE_LEAVE, e);
+          }
+          e.type = PLOT_EVENTS.LEAVE;
+          this.emit(PLOT_EVENTS.LEAVE, e);
+
           this.isPreMouseInPlot = false;
         }
       }
