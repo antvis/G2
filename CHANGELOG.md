@@ -1,3 +1,40 @@
+#### 4.0.4 (2020-04-03)
+
+##### New Features
+
+- **event:** 添加 plot:enter 和 plot:leave 事件 ([1f9b96be](https://github.com/antvis/g2/commit/1f9b96be4bac0155dd0063a1197341e6639499ff))
+- **interaction:**
+  - tooltip 支持移动端 ([8e6cddf7](https://github.com/antvis/g2/commit/8e6cddf71f21d450557eece79622f23f4dd1a488))
+  - avoid event error ([3ae581b9](https://github.com/antvis/g2/commit/3ae581b9726d438948ba7eaf297f24118a4c982c))
+- **view:**
+  - 支持 plot 上的移动事件触发 ([4a86b08a](https://github.com/antvis/g2/commit/4a86b08af931f05e96da1cb462c04fbae6084b64))
+  - 添加一些方法的别名，以兼容 3.x，但是这些方法将会在 4.1 版本中移除 ([6356363a](https://github.com/antvis/g2/commit/6356363a02c672f7e6074d8106be06a6558cf6ac))
+- **force-fit:** add forceFit api for chart ([719b61b3](https://github.com/antvis/g2/commit/719b61b3d6a8cfb454b08195674c48405a39a698))
+
+##### Bug Fixes
+
+- **theme:**
+  - 修复主题切换后，Geometry 样式未更新的问题 ([7e75a543](https://github.com/antvis/g2/commit/7e75a54373a2cb897a2ac01cc9e7f7a65759226f))
+  - 修复在 chart 构造函数中设置 theme 对象不生效的问题. Closed [#2258](https://github.com/antvis/g2/pull/2258) ([6863a69f](https://github.com/antvis/g2/commit/6863a69f43af0306f7871ad123b57e27539ccbca))
+  - 移除 label 的描边，会带来性能损耗 ([99b799d9](https://github.com/antvis/g2/commit/99b799d9d39a3f9ba74e28fea7771f5047ef257e))
+- 移除 coord.getRadius() 的 ts-ignore 注释 ([a02b7316](https://github.com/antvis/g2/commit/a02b7316ffe27ac219aa52ba2f6960092a0fb951))
+- **geometry:** 修复层叠点图上下区间点全部绘制的问题。Closed [#2202](https://github.com/antvis/g2/pull/2202) ([d7edf5e6](https://github.com/antvis/g2/commit/d7edf5e658ab32788a94d80eeb65555cf572c8a8))
+- **view:** 修复 syncScale() 调用时机不当导致分面渲染性能直线下降的问题 ([d492c0ea](https://github.com/antvis/g2/commit/d492c0ea4090fd784bc1e7e46c44d2e4a80e969e))
+- **#2264:** 修复 canvas 样式导致的 resize 问题, 修复容器层级 ([10200851](https://github.com/antvis/g2/commit/10200851cd80799f5aa615e6b1e85af34334b869))
+- **#2232:** fix 当 legend item 点击的时候, 图例项变少 ([19ca46ff](https://github.com/antvis/g2/commit/19ca46ff9a64bea6cdf7ce8dc72505db5742c79a))
+- **#2173:** fix legend overlap when in same direction ([59db3b59](https://github.com/antvis/g2/commit/59db3b59970a5f9ffee43a37e81afcc3113148f0))
+- **#2212:** fix when slider option has no start or end ([36a3b5db](https://github.com/antvis/g2/commit/36a3b5db49d059cea36d2226cc769e37d67af14f))
+- **#2222:** fix scale pool memory leak ([7f23a4c0](https://github.com/antvis/g2/commit/7f23a4c0c13f283cc9ff3bca266744edfad01706))
+- **#2215:** fix chart min size = 100 ([e49646d3](https://github.com/antvis/g2/commit/e49646d3153ffcc27b71aee38ba3ad0b2ab103b4))
+- **#2195:** fix autoFit 不生效 ([92d607ec](https://github.com/antvis/g2/commit/92d607ec5408d1ec949ebd95209c84b04c73b944))
+
+##### Refactors
+
+- use unpkg other than browser field in package.json ([0185949b](https://github.com/antvis/g2/commit/0185949b34b38636eab95f33446611b505bb3a94))
+- **theme:** 移除注册样式表机制，只提供根据样式表生成主题的方法 ([9b0020ad](https://github.com/antvis/g2/commit/9b0020adfe26d6853ca391395e7e4769e96b5919))
+- **geometry:** 将获取 shape 默认属性时机从 Element 绘制提到 Geometry getDrawCfg() ([cf9b2f4f](https://github.com/antvis/g2/commit/cf9b2f4ff97483cd1fa2bf43e9b2c594e18bdc64))
+- **sync-scale:** use Map for perf ([76813745](https://github.com/antvis/g2/commit/7681374565c1c6baf77919b6b090a23ff49af503))
+
 #### 4.0.3 (2020-03-23)
 
 ##### New Features
