@@ -1,6 +1,4 @@
-import { CONTAINER_CLASS } from '@antv/component/lib/tooltip/css-const';
-
-import { deepMix, each, find, flatten, get, isArray, isEqual, isFunction, mix, isUndefined } from '@antv/util';
+import { deepMix, each, find, flatten, get, isArray, isEqual, isFunction, isUndefined, mix } from '@antv/util';
 import { Crosshair, HtmlTooltip, IGroup } from '../../dependents';
 import Geometry from '../../geometry/base';
 import { MappingDatum, Point, TooltipOption } from '../../interface';
@@ -41,6 +39,7 @@ export default class Tooltip extends Controller<TooltipOption> {
   private isVisible: boolean = true;
   private items;
   private title: string;
+  private point: Point;
 
   public get name(): string {
     return 'tooltip';
@@ -58,10 +57,10 @@ export default class Tooltip extends Controller<TooltipOption> {
    * @param point
    */
   public showTooltip(point: Point) {
+    this.point = point;
     if (!this.isVisible) { // 如果设置 tooltip(false) 则始终不显示
       return;
     }
-
     const view = this.view;
     const items = this.getTooltipItems(point);
     if (!items.length) {
@@ -156,6 +155,7 @@ export default class Tooltip extends Controller<TooltipOption> {
     }
 
     this.view.emit('tooltip:hide', {});
+    this.point = null;
   }
 
   /**
@@ -232,6 +232,7 @@ export default class Tooltip extends Controller<TooltipOption> {
     this.tooltip = null;
     this.guideGroup = null;
     this.isLocked = false;
+    this.point = null;
   }
 
   public changeVisible(visible: boolean) {
@@ -305,7 +306,9 @@ export default class Tooltip extends Controller<TooltipOption> {
 
   public layout() { }
   public update() {
-    this.clear();
+    if (this.point) {
+      this.showTooltip(this.point);
+    }
   }
 
   // 获取 tooltip 配置，因为用户可能会通过 view.tooltip() 重新配置 tooltip，所以就不做缓存，每次直接读取
