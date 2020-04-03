@@ -1,4 +1,4 @@
-import { debounce, each, isString,  } from '@antv/util';
+import { debounce, each, isString } from '@antv/util';
 
 import { ChartCfg } from '../interface';
 
