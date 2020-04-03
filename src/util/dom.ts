@@ -64,4 +64,4 @@ export function removeDom(dom: HTMLElement) {
 }
 
 /** @ignore */
-export { createDom } from '@antv/dom-util';
+export { createDom, modifyCSS } from '@antv/dom-util';
