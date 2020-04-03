@@ -51,6 +51,7 @@ import { createInteraction, Interaction } from '../interaction';
 import { getTheme } from '../theme';
 import { BBox } from '../util/bbox';
 import { getCoordinateClipCfg, isFullCircle, isPointInCoordinate } from '../util/coordinate';
+import { uniq } from '../util/helper';
 import { findDataByPoint } from '../util/tooltip';
 import Chart from './chart';
 import { getComponentController, getComponentControllerNames } from './controller';

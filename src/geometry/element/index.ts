@@ -105,7 +105,7 @@ export default class Element extends Base {
     // @ts-ignore
     newShape.cfg.data = this.data;
     // @ts-ignore
-    newShape.cfg.origin = drawCfg;
+    newShape.cfg.origin = model;
 
     // step 3: 同步 shape 样式
     this.syncShapeStyle(shape, newShape, '', this.getAnimateCfg('update'));
@@ -319,10 +319,10 @@ export default class Element extends Base {
 
   // 从主题中获取对应状态量的样式
   private getStateStyle(stateName: string, shapeKey?: string): StateCfg {
-    const shapeType = this.shapeType;
+    const { shapeType, geometry, shapeFactory } = this;
     // 用户通过 geometry.state() 接口定义了状态样式
-    const stateOption = get(this.geometry.stateOption, stateName, {});
-    const stateCfg = deepMix({}, get(this.theme, [shapeType, stateName], {}), stateOption);
+    const stateOption = get(geometry.stateOption, stateName, {});
+    const stateCfg = deepMix({}, get(shapeFactory.theme, [shapeType, stateName], {}), stateOption);
 
     let shapeStyle = get(stateCfg.style, [shapeKey], stateCfg.style);
 
