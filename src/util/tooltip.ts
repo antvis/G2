@@ -193,7 +193,6 @@ export function findDataByPoint(point: Point, data: MappingDatum[], geometry: Ge
   // 其他 Geometry 类型按照 x 字段数据进行查找
   const first = data[0];
   let last = data[data.length - 1];
-
   const xValue = getXValueByPoint(point, geometry);
   const firstXValue = first[FIELD_ORIGIN][xField];
   const firstYValue = first[FIELD_ORIGIN][yField];
@@ -248,7 +247,8 @@ export function findDataByPoint(point: Point, data: MappingDatum[], geometry: Ge
       }
     } else {
       // x 轴对应的数据为线性以及时间类型，进行二分查找，性能更好
-      if (xValue > xScale.translate(lastXValue) || xValue < xScale.translate(firstXValue)) {
+      if ((xValue > xScale.translate(lastXValue) || xValue < xScale.translate(firstXValue))
+        && (xValue > xScale.max || xValue < xScale.min)) {
         // 不在数据范围内
         return null;
       }
