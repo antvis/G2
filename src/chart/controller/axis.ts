@@ -141,13 +141,8 @@ export default class Axis extends Controller<Option> {
     super.clear();
 
     this.cache.clear();
-
-    if (this.gridContainer.getCount()) {
-      this.gridContainer.clear();
-    }
-    if (this.axisContainer.getCount()) {
-      this.axisContainer.clear();
-    }
+    this.gridContainer.clear();
+    this.axisContainer.clear();
   }
 
   public destroy() {

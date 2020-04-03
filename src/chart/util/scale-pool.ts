@@ -1,7 +1,7 @@
 /**
  * view 中缓存 scale 的类
  */
-import { deepMix, each, get, isEmpty, isNumber, last } from '@antv/util';
+import { deepMix, each, get, isNumber, last } from '@antv/util';
 import { Scale } from '../../dependents';
 import { Data, LooseObject, ScaleOption } from '../../interface';
 import { createScaleByField, syncScale } from '../../util/scale';
@@ -48,7 +48,7 @@ export class ScalePool {
     const scale = createScaleByField(field, data, finalScaleDef);
 
     // 缓存起来
-    this.cacheScale(scale, scaleDef, key, cacheScaleMeta);
+    this.cacheScale(scale, scaleDef, key);
 
     return scale;
   }
@@ -104,10 +104,10 @@ export class ScalePool {
    * @param scaleDef
    * @param key
    */
-  private cacheScale(scale: Scale, scaleDef: ScaleOption, key: string, cacheScaleMeta: ScaleMeta) {
+  private cacheScale(scale: Scale, scaleDef: ScaleOption, key: string) {
     // 1. 缓存到 scales
 
-    let sm = cacheScaleMeta;
+    let sm = this.getScaleMeta(key);
     // 存在则更新，同时检测类型是否一致
     if (sm && sm.scale.type === scale.type) {
       syncScale(sm.scale, scale);

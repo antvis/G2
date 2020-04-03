@@ -265,10 +265,7 @@ export default class Legend extends Controller<Option> {
 
   public clear() {
     super.clear();
-
-    if (this.container.getCount()) {
-      this.container.clear();
-    }
+    this.container.clear();
   }
 
   public destroy() {
