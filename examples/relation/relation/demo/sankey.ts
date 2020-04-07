@@ -12,7 +12,15 @@ fetch('../data/energy.json')
       edges: d => d.links
     });
     dv.transform({
-      type: 'diagram.sankey'
+      type: 'diagram.sankey',
+      sort: (a, b) => {
+        if (a.value > b.value) {
+          return 0
+        } else if (a.value < b.value) {
+          return -1
+        }
+        return 0
+      }
     });
     const chart = new Chart({
       container: 'container',
