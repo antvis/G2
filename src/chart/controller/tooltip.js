@@ -9,7 +9,7 @@ const MatrixUtil = Util.MatrixUtil;
 const Vector2 = MatrixUtil.vec2;
 
 const TYPE_SHOW_MARKERS = [ 'line', 'area', 'path', 'areaStack' ]; // 默认展示 tooltip marker 的几何图形
-const TYPE_SHOW_CROSSHAIRS = [ 'line', 'area' ]; // 默认展示十字瞄准线的几何图形
+const TYPE_SHOW_CROSSHAIRS = [ 'line', 'area', 'point' ]; // 默认展示十字瞄准线的几何图形
 
 // TODO FIXME this is HARD CODING
 const IGNORE_TOOLTIP_ITEM_PROPERTIES = [
