@@ -66,7 +66,6 @@ describe('Gesture', () => {
     });
     expect(swipe).toBeDefined();
     expect(swipe.direction).toBe('right');
-    expect(swipe.velocity).toBe(10);
   });
 
   it('pinch', () => {
