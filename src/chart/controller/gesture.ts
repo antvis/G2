@@ -71,6 +71,23 @@ export default class GestureController extends Controller {
     this.processEvent = {};
   }
 
+  public get name(): string {
+    return 'gesture';
+  }
+
+  public init() { }
+
+  public render() { }
+
+  public layout() { }
+
+  public update() { }
+
+  public destroy() {
+    this.reset();
+    this.processEvent = null;
+  }
+
   private delegateEvent() {
     // 代理这几个事件
     this.canvas.on('touchstart', this.touchStart);
@@ -240,13 +257,13 @@ export default class GestureController extends Controller {
   }
 
   private getEventType(points) {
-    const { eventType, canvas, startTime, startPoints } = this;
+    const { eventType, view, startTime, startPoints } = this;
     if (eventType) {
       return eventType;
     }
     let type;
-    const panEventListeners = canvas.getEvents().pan;
-    // 如果没有pan事件的监听，默认都是press
+    const panEventListeners = view.getEvents().pan;
+    // 如果 view 上没有 pan 事件的监听，默认都是 press
     if (!panEventListeners || !panEventListeners.length) {
       type = 'press';
     } else {
@@ -260,22 +277,5 @@ export default class GestureController extends Controller {
     }
     this.eventType = type;
     return type;
-  }
-
-  public get name(): string {
-    return 'Gesture';
-  }
-
-  public init() {}
-
-  public render() {}
-
-  public layout() {}
-
-  public update() {}
-
-  public destroy() {
-    this.reset();
-    this.processEvent = null;
   }
 }

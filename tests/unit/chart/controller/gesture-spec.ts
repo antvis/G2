@@ -1,7 +1,8 @@
+import { registerComponentController } from '../../../../src/';
 import GestureController from '../../../../src/chart/controller/gesture';
-import { createCanvas, createDiv } from '../../../util/dom';
 import View from '../../../../src/chart/view';
 import { delay } from '../../../util/delay';
+import { createCanvas, createDiv } from '../../../util/dom';
 
 describe('Gesture', () => {
   const div = createDiv();
@@ -24,30 +25,58 @@ describe('Gesture', () => {
     visible: false,
   });
 
-  let pressEvent;
-  const pressstartCallback = jest.fn();
-  const pressendCallback = jest.fn();
-  view.on('pressstart', pressstartCallback);
-  view.on('press', e => {
-    pressEvent = e;
+  new GestureController(view);
+
+  it('swipe', () => {
+    let swipe;
+    view.on('swipe', (e) => swipe = e);
+    // @ts-ignore
+    canvas.emit('touchstart', {
+      name: 'touchstart',
+      originalEvent: {
+        touches: [
+          { clientX: 10, clientY: 10 }
+        ]
+      }
+    });
+    canvas.emit('touchmove', {
+      name: 'touchmove',
+      originalEvent: {
+        touches: [
+          { clientX: 20, clientY: 10 },
+        ]
+      }
+    });
+    canvas.emit('touchmove', {
+      name: 'touchmove',
+      originalEvent: {
+        touches: [
+          { clientX: 22, clientY: 13 },
+        ]
+      }
+    });
+
+    canvas.emit('touchend', {
+      name: 'touchend',
+      originalEvent: {
+        touches: [
+          { clientX: 150, clientY: 10 },
+        ]
+      }
+    });
+    expect(swipe).toBeDefined();
+    expect(swipe.direction).toBe('right');
+    expect(swipe.velocity).toBe(10);
   });
-  view.on('pressend', pressendCallback);
-
-  const pinchCallback = jest.fn();
-  const pinchstartCallback = jest.fn();
-  const pinchendCallback = jest.fn();
-  view.on('pinchstart', pinchstartCallback);
-  view.on('pinch', pinchCallback);
-  view.on('pinchend', pinchendCallback);
-
-  const panstartCallback = jest.fn();
-  const panCallback = jest.fn();
-  const panendCallback = jest.fn();
-  view.on('panstart', panstartCallback);
-  view.on('pan', panCallback);
-  view.on('panend', panendCallback);
 
   it('pinch', () => {
+    const pinchCallback = jest.fn();
+    const pinchstartCallback = jest.fn();
+    const pinchendCallback = jest.fn();
+    view.on('pinchstart', pinchstartCallback);
+    view.on('pinch', pinchCallback);
+    view.on('pinchend', pinchendCallback);
+
     canvas.emit('touchstart', {
       name: 'touchstart',
       originalEvent: {
@@ -79,6 +108,15 @@ describe('Gesture', () => {
   });
 
   it('press', async () => {
+    let pressEvent;
+    const pressstartCallback = jest.fn();
+    const pressendCallback = jest.fn();
+    view.on('pressstart', pressstartCallback);
+    view.on('press', e => {
+      pressEvent = e;
+    });
+    view.on('pressend', pressendCallback);
+
     canvas.emit('touchstart', {
       name: 'touchstart',
       originalEvent: {
@@ -104,5 +142,72 @@ describe('Gesture', () => {
       }
     });
     expect(pressCallback).toBeCalled();
+  });
+
+  it('pan', () => {
+    const panstartCallback = jest.fn();
+    let pan;
+    const panendCallback = jest.fn();
+    view.on('panstart', panstartCallback);
+    view.on('pan', (e) => pan = e);
+    view.on('panend', panendCallback);
+
+    canvas.emit('touchstart', {
+      name: 'touchstart',
+      originalEvent: {
+        touches: [
+          { clientX: 10, clientY: 10 }
+        ]
+      }
+    });
+    canvas.emit('touchmove', {
+      name: 'touchmove',
+      originalEvent: {
+        touches: [
+          { clientX: 20, clientY: 10 },
+        ]
+      }
+    });
+    canvas.emit('touchend', {
+      name: 'touchend',
+      originalEvent: {
+        touches: [
+          { clientX: 24, clientY: 20 },
+        ]
+      }
+    });
+
+    expect(pan).toBeDefined();
+    expect(pan.direction).toBe('right');
+    expect(pan.deltaX).toBe(10);
+    expect(panstartCallback).toBeCalled();
+    expect(panendCallback).toBeCalled();
+  });
+});
+
+describe('Register gesture', () => {
+  const div = createDiv();
+
+  const canvas = createCanvas({
+    container: div,
+  });
+
+  const backgroundGroup = canvas.addGroup();
+  const middleGroup = canvas.addGroup();
+  const foregroundGroup = canvas.addGroup();
+
+  it('registerComponentController', () => {
+    registerComponentController('gesture', GestureController);
+    const view = new View({
+      parent: null,
+      canvas,
+      foregroundGroup,
+      middleGroup,
+      backgroundGroup,
+      padding: 5,
+      visible: false,
+    });
+
+    expect(view.getController('gesture')).toBeInstanceOf(GestureController);
   });
 });
