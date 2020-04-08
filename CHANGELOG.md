@@ -1,3 +1,10 @@
+#### 3.5.15 (2020-04-08)
+
+##### Bug Fixes
+
+*  fix scatter crosshairs style ([1bf479fe](https://github.com/antvis/g2/commit/1bf479fe3b3f90376549a2cefb0800c3331d16a3))
+
+
 #### 3.5.11 (2019-11-20)
 
 ##### Chores
