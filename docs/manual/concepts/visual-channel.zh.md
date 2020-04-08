@@ -119,7 +119,7 @@ G2 中的视觉通道作为标记的属性存在，需要支持以下功能：
 
 视觉通道在 G2 的语法中这样定义：
 
-chart.<geom><attr>(dims,[callback])
+`chart.<geom><attr>(dims,[callback])`
 
 - geom，[图表类型](./geometry/overview)，在后面的章节中介绍。
 - attr，图表类型的属性，对应视觉通道。
