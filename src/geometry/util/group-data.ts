@@ -1,4 +1,4 @@
-import { each, groupToMap } from '@antv/util';
+import { groupToMap } from '@antv/util';
 import { Data } from '../../interface';
 
 /** @ignore */

@@ -1,4 +1,4 @@
-import { each, isArray, map } from '@antv/util';
+import { each, isArray } from '@antv/util';
 import { View } from '../../chart';
 import { BBox, PathCommand, Point } from '../../dependents';
 import Geometry from '../../geometry/base';
