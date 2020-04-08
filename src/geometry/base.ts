@@ -1507,10 +1507,13 @@ export default class Geometry extends Base {
       const arr = [];
       for(let j = 0, subLen = subData.length; j < subLen; j++) {
         const originData = subData[j];
-        const item = {
-          ...originData,
-          [FIELD_ORIGIN]: originData
-        };
+        const item = {};
+        // tslint:disable-next-line: forin
+        for (const k in originData) {
+          item[k] = originData[k];
+        }
+        item[FIELD_ORIGIN] = originData;
+
         // 将分类数据翻译成数据, 仅对位置相关的度量进行数字化处理
         for (const scale of categoryScales) {
           const field = scale.field;
