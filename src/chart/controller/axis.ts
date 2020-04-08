@@ -1,4 +1,4 @@
-import { deepMix, each, get, isUndefined, mix } from '@antv/util';
+import { deepMix, each, get, isUndefined } from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { CircleAxis, CircleGrid, IGroup, LineAxis, LineGrid, Scale } from '../../dependents';
 import { AxisCfg, AxisOption, ComponentOption } from '../../interface';
@@ -25,6 +25,12 @@ type Cache = Map<string, ComponentOption>;
 
 // update 组件的时候，忽略的数据更新
 const OMIT_CFG = ['container'];
+
+// 坐标轴默认动画配置
+const AXIS_DEFAULT_ANIMATE_CFG = {
+  ...DEFAULT_ANIMATE_CFG,
+  appear: null,
+};
 
 /**
  * @ignore
@@ -657,27 +663,24 @@ export default class Axis extends Controller<Option> {
     const coordinate = this.view.getCoordinate();
     const region = getAxisRegion(coordinate, direction);
     const titleText = getAxisTitleText(scale, axisOption);
-
-    const baseAxisCfg = {
-      container,
-      ...region,
-      ticks: scale.getTicks().map((tick) => ({ id: `${tick.tickValue}`, name: tick.text, value: tick.value })),
-      title: {
-        text: titleText,
-      },
-      verticalFactor: coordinate.isPolar
-        ? getAxisFactorByRegion(region, coordinate.getCenter()) * -1
-        : getAxisFactorByRegion(region, coordinate.getCenter()),
-    };
-
     const axisThemeCfg = getAxisThemeCfg(this.view.getTheme(), direction);
     // the cfg order should be ensure
     const optionWithTitle = get(axisOption, ['title'])
       ? deepMix({ title: { style: { text: titleText } } }, axisOption)
       : axisOption;
 
-    const cfg = deepMix({}, baseAxisCfg, axisThemeCfg, optionWithTitle);
-    return mix(cfg, this.getAnimateCfg(cfg));
+    const cfg = deepMix({
+      container,
+      ...region,
+      ticks: scale.getTicks().map((tick) => ({ id: `${tick.tickValue}`, name: tick.text, value: tick.value })),
+      verticalFactor: coordinate.isPolar
+        ? getAxisFactorByRegion(region, coordinate.getCenter()) * -1
+        : getAxisFactorByRegion(region, coordinate.getCenter()),
+    }, axisThemeCfg, optionWithTitle);
+    const { animate, animateOption } = this.getAnimateCfg(cfg);
+    cfg.animateOption = animateOption;
+    cfg.animate = animate;
+    return cfg;
   }
 
   /**
@@ -697,7 +700,7 @@ export default class Axis extends Controller<Option> {
     // grid 动画以 axis 为准
     const gridCfg = deepMix({
       container: this.gridContainer,
-    }, gridThemeCfg, get(axisOption, 'grid', {}), this.getAnimateCfg(axisOption));
+    }, gridThemeCfg, get(axisOption, 'grid'), this.getAnimateCfg(axisOption));
     gridCfg.items = getLineGridItems(this.view.getCoordinate(), scale, dim, get(gridCfg, 'alignTick', true));
 
     return gridCfg;
@@ -712,36 +715,31 @@ export default class Axis extends Controller<Option> {
    */
   private getCircleAxisCfg(scale: Scale, axisOption: AxisCfg, direction: DIRECTION): object {
     const container = this.axisContainer;
+    const coordinate = this.view.getCoordinate();
 
     const ticks = scale.getTicks().map((tick) => ({ id: `${tick.tickValue}`, name: tick.text, value: tick.value }));
-    const coordinate = this.view.getCoordinate();
     if (!scale.isCategory && Math.abs(coordinate.endAngle - coordinate.startAngle) === Math.PI * 2) {
       // x 轴对应的值如果是非 cat 类型，在整圆的情况下坐标轴第一个和最后一个文本会重叠，默认只展示第一个文本
       ticks.pop();
     }
 
     const titleText = getAxisTitleText(scale, axisOption);
-
-    const baseAxisCfg = {
+    const axisThemeCfg = getAxisThemeCfg(this.view.getTheme(), 'circle');
+    // the cfg order should be ensure
+    const optionWithTitle = get(axisOption, ['title'])
+      ? deepMix({ title: { style: { text: titleText } } }, axisOption)
+      : axisOption;
+    const cfg = deepMix({
       container,
       ...getCircleAxisCenterRadius(this.view.getCoordinate()),
       ticks,
-      title: {
-        text: titleText,
-      },
       verticalFactor: 1,
-    };
+    }, axisThemeCfg, optionWithTitle);
+    const { animate, animateOption } = this.getAnimateCfg(cfg);
+    cfg.animate = animate;
+    cfg.animateOption = animateOption;
 
-    const axisThemeCfg = getAxisThemeCfg(this.view.getTheme(), 'circle');
-
-    // the cfg order should be ensure
-    const optionWithTitle = get(axisOption, ['title'])
-      ? deepMix({}, { title: { style: { text: titleText } } }, axisOption)
-      : axisOption;
-
-    const cfg = deepMix({}, baseAxisCfg, axisThemeCfg, optionWithTitle);
-
-    return mix(cfg, this.getAnimateCfg(cfg));
+    return cfg;
   }
 
   /**
@@ -763,9 +761,8 @@ export default class Axis extends Controller<Option> {
     const gridCfg = deepMix({
       container: this.gridContainer,
       center: this.view.getCoordinate().getCenter(),
-    }, gridThemeCfg, get(axisOption, 'grid', {}), this.getAnimateCfg(axisOption));
+    }, gridThemeCfg, get(axisOption, 'grid'), this.getAnimateCfg(axisOption));
     const alignTick = get(gridCfg, 'alignTick', true);
-
     const verticalScale = dim === 'x' ? this.view.getYScales()[0] : this.view.getXScale();
     gridCfg.items = getCircleGridItems(this.view.getCoordinate(), verticalScale, scale, alignTick, dim);
     // the cfg order should be ensure
@@ -779,12 +776,10 @@ export default class Axis extends Controller<Option> {
     return `${name}-${key}-${coordinate.type}`;
   }
 
-  private getAnimateCfg(cfg: object) {
+  private getAnimateCfg(cfg) {
     return {
       animate: this.view.getOptions().animate && get(cfg, 'animate'), // 如果 view 关闭动画，则不执行动画
-      animateOption: deepMix({}, DEFAULT_ANIMATE_CFG, {
-        appear: null, // 默认不做出场动画
-      }, get(cfg, 'animateOption', {})),
+      animateOption: cfg && cfg.animateOption ? deepMix({}, AXIS_DEFAULT_ANIMATE_CFG, cfg.animateOption) : AXIS_DEFAULT_ANIMATE_CFG,
     };
   }
 }
