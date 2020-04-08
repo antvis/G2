@@ -1,7 +1,7 @@
-import { deepMix, each, find, flatten, get, isArray, isEqual, isFunction, isUndefined, mix } from '@antv/util';
+import { deepMix, find, flatten, get, isArray, isEqual, isFunction, isUndefined, mix } from '@antv/util';
 import { Crosshair, HtmlTooltip, IGroup } from '../../dependents';
 import Geometry from '../../geometry/base';
-import { MappingDatum, Point, TooltipOption } from '../../interface';
+import { Point, TooltipOption } from '../../interface';
 import { getAngleByPoint, getDistanceToCenter, isPointInCoordinate } from '../../util/coordinate';
 import { polarToCartesian } from '../../util/graphics';
 import { findDataByPoint, getTooltipItems } from '../../util/tooltip';
@@ -10,7 +10,8 @@ import { Controller } from './base';
 // Filter duplicates, use `name`, `color`, `value` and `title` property values as condition
 function uniq(items) {
   const uniqItems = [];
-  each(items, (item) => {
+  for (let index = 0; index < items.length; index++) {
+    const item = items[index];
     const result = find(uniqItems, (subItem) => {
       return (
         subItem.color === item.color &&
@@ -22,7 +23,7 @@ function uniq(items) {
     if (!result) {
       uniqItems.push(item);
     }
-  });
+  }
   return uniqItems;
 }
 
@@ -275,26 +276,26 @@ export default class Tooltip extends Controller<TooltipOption> {
     if (items.length) {
       // 三层
       items = flatten(items);
-      each(items, itemArr => {
-        each(itemArr, item => {
+      for (const itemArr of items) {
+        for (const item of itemArr) {
           const { x, y } = item.mappingData;
           item.x = isArray(x) ? x[x.length - 1] : x;
           item.y = isArray(y) ? y[y.length - 1] : y;
-        });
-      });
+        }
+      }
 
       const { shared } = this.getTooltipCfg();
       // shared: false 代表只显示当前拾取到的 shape 的数据，但是一个 view 会有多个 Geometry，所以有可能会拾取到多个 shape
       if (shared === false && items.length > 1) {
         let snapItem = items[0];
         let min = Math.abs(point.y - snapItem[0].y);
-        each(items, (aItem) => {
+        for (const aItem of items) {
           const yDistance = Math.abs(point.y - aItem[0].y);
           if (yDistance <= min) {
             snapItem = aItem;
             min = yDistance;
           }
-        });
+        }
         items = [snapItem];
       }
 
@@ -352,7 +353,7 @@ export default class Tooltip extends Controller<TooltipOption> {
 
   private renderTooltipMarkers(items, marker) {
     const tooltipMarkersGroup = this.getTooltipMarkersGroup();
-    each(items, (item) => {
+    for (const item of items) {
       const { x, y } = item;
       const attrs = {
         fill: item.color,
@@ -366,7 +367,7 @@ export default class Tooltip extends Controller<TooltipOption> {
       tooltipMarkersGroup.addShape('marker', {
         attrs,
       });
-    });
+    }
   }
 
   private renderCrosshairs(point: Point, cfg) {
@@ -612,7 +613,7 @@ export default class Tooltip extends Controller<TooltipOption> {
     const result = [];
     const dataArray = geometry.dataArray;
     geometry.sort(dataArray); // 先进行排序，便于 tooltip 查找
-    each(dataArray, (data: MappingDatum[]) => {
+    for (const data of dataArray) {
       const record = findDataByPoint(point, data, geometry);
       if (record) {
         const elementId = geometry.getElementId(record);
@@ -626,7 +627,7 @@ export default class Tooltip extends Controller<TooltipOption> {
           }
         }
       }
-    });
+    }
 
     return result;
   }
@@ -641,7 +642,7 @@ export default class Tooltip extends Controller<TooltipOption> {
     // 先从 view 本身查找
     const geometries = view.geometries;
     const { shared, title } = this.getTooltipCfg();
-    each(geometries, (geometry: Geometry) => {
+    for (const geometry of geometries) {
       if (geometry.visible && geometry.tooltipOption !== false) {
         // geometry 可见同时未关闭 tooltip
         const geometryType = geometry.type;
@@ -664,12 +665,12 @@ export default class Tooltip extends Controller<TooltipOption> {
           result.push(tooltipItems);
         }
       }
-    });
+    }
 
     // 递归查找，并合并结果
-    each(view.views, (childView) => {
+    for (const childView of view.views) {
       result = result.concat(this.findItemsFromView(childView, point));
-    });
+    }
 
     return result;
   }
