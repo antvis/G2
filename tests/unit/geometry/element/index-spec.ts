@@ -260,7 +260,7 @@ describe('Element', () => {
     it('destroy()', () => {
       element.destroy();
 
-      expect(element.shape.destroyed).toBe(true);
+      expect(element.shape).toBeUndefined();
       expect(container.get('children').length).toBe(0);
       expect(element.getStates().length).toBe(0);
     });

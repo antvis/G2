@@ -1,8 +1,8 @@
-import { deepMix, each, get, isArray, isEmpty, isFunction } from '@antv/util';
-import { doAnimate, getDefaultAnimateCfg } from '../../animate';
+import { deepMix, each, get, isArray, isFunction } from '@antv/util';
+import { doAnimate } from '../../animate';
 import Base from '../../base';
 import { BBox, IGroup, IShape } from '../../dependents';
-import { AnimateOption, Datum, LooseObject, ShapeFactory, ShapeInfo, StateCfg } from '../../interface';
+import { AnimateOption, Datum, ShapeFactory, ShapeInfo, StateCfg } from '../../interface';
 import { getReplaceAttrs } from '../../util/graphics';
 import Geometry from '../base';
 
@@ -49,6 +49,7 @@ export default class Element extends Base {
   private data: Datum;
   // 存储当前开启的状态
   private states: string[] = [];
+  private statesStyle;
   // 虚拟 Group
   private offscreenGroup: IGroup;
 
@@ -133,7 +134,19 @@ export default class Element extends Base {
       }
     }
 
+    // reset
     this.states = [];
+    this.shapeFactory = undefined;
+    this.container = undefined;
+    this.shape = undefined;
+    this.animate = undefined;
+    this.geometry = undefined;
+    this.labelShape = undefined;
+    this.model = undefined;
+    this.data = undefined;
+    this.offscreenGroup = undefined;
+    this.statesStyle = undefined;
+
     super.destroy();
   }
 
@@ -317,17 +330,24 @@ export default class Element extends Base {
     return bbox;
   }
 
+  private getStatesStyle() {
+    if (!this.statesStyle) {
+      const { shapeType, geometry, shapeFactory } = this;
+      const stateOption = geometry.stateOption;
+      const stateTheme = get(shapeFactory.theme, [shapeType], {});
+      this.statesStyle = deepMix({}, stateTheme, stateOption);
+    }
+
+    return this.statesStyle;
+  }
+
   // 从主题中获取对应状态量的样式
   private getStateStyle(stateName: string, shapeKey?: string): StateCfg {
-    const { shapeType, geometry, shapeFactory } = this;
-    // 用户通过 geometry.state() 接口定义了状态样式
-    const stateOption = get(geometry.stateOption, stateName, {});
-    const stateCfg = deepMix({}, get(shapeFactory.theme, [shapeType, stateName], {}), stateOption);
-
-    let shapeStyle = get(stateCfg.style, [shapeKey], stateCfg.style);
-
+    const statesStyle = this.getStatesStyle();
+    const stateCfg = statesStyle[stateName];
+    const shapeStyle = get(stateCfg.style, [shapeKey], stateCfg.style);
     if (isFunction(shapeStyle)) {
-      shapeStyle = shapeStyle(this);
+      return shapeStyle(this);
     }
 
     return shapeStyle;
