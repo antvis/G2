@@ -1271,7 +1271,7 @@ export default class Geometry extends Base {
    * @returns element 返回创建的 Element 实例
    */
   protected createElement(mappingDatum: MappingDatum, isUpdate: boolean = false): Element {
-    const { theme, container } = this;
+    const { container } = this;
 
     const shapeCfg = this.getDrawCfg(mappingDatum); // 获取绘制图形的配置信息
     const shapeFactory = this.getShapeFactory();
