@@ -88,14 +88,14 @@ chart.interaction('tooltip', {
 - isEnable(context): 是否可以触发
 - callback(context): 触发后执行完所有 action 的方法后会调用回调函数
 - once: boolean， 是否在一个环节内仅能执行一次
-- debounce: 延迟执行，有两个参数： 
+- debounce: 延迟执行，有两个参数：
   - wait: 等待时间
   - immediate: 是否马上执行
 - throttle 增加阈值，控制执行的频率
   - wait: 等待时间
   - leading: 是否马上执行
   - trailing: 执行完毕后再执行一次
-debounce 和 throttle 的机制参考：https://css-tricks.com/debouncing-throttling-explained-examples/
+    debounce 和 throttle 的机制参考：https://css-tricks.com/debouncing-throttling-explained-examples/
 
 ### context 交互的上下文
 
@@ -233,6 +233,7 @@ registerInteraction('active-region', {
 ### view-zoom
 
 鼠标滚动时，图表内部缩放，由于 mousewheel 触发的非常频繁，所以需要增加 throttle
+
 ```js
 function isWheelDown(event) {
   event.gEvent.preventDefault();
@@ -241,19 +242,26 @@ function isWheelDown(event) {
 registerInteraction('view-zoom', {
   start: [
     {
-      trigger: 'plot:mousewheel', isEnable(context) {
+      trigger: 'plot:mousewheel',
+      isEnable(context) {
         return isWheelDown(context.event);
-      }, action: 'scale-zoom:zoomOut', throttle: { wait: 100, leading: true, trailing: false }
+      },
+      action: 'scale-zoom:zoomOut',
+      throttle: { wait: 100, leading: true, trailing: false },
     },
     {
-      trigger: 'plot:mousewheel', isEnable(context) {
+      trigger: 'plot:mousewheel',
+      isEnable(context) {
         return !isWheelDown(context.event);
-      }, action: 'scale-zoom:zoomIn', throttle: { wait: 100, leading: true, trailing: false }
-    }
-  ]
+      },
+      action: 'scale-zoom:zoomIn',
+      throttle: { wait: 100, leading: true, trailing: false },
+    },
+  ],
 });
 ```
-<image  src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*EqXmQJENnpQAAAAAAAAAAABkARQnAQ" style="width: 339px"/>
+
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*EqXmQJENnpQAAAAAAAAAAABkARQnAQ" style="width: 339px"/>
 
 ### element-active
 
@@ -619,6 +627,7 @@ registerInteraction('brush-visible', {
 ## Chart/View 的 Action
 
 Chart 和 View 上的 Action 用户控制视图的变化，目前支持的有：
+
 - view-move
 - scale-translate
 - scale-zoom
@@ -626,6 +635,7 @@ Chart 和 View 上的 Action 用户控制视图的变化，目前支持的有：
 ### view-move
 
 用于移动 View 的位置，支持以下几个方法：
+
 - start() 开始移动
 - end() 结束移动
 - move() 移动
@@ -634,12 +644,14 @@ Chart 和 View 上的 Action 用户控制视图的变化，目前支持的有：
 ### scale-translate
 
 通过改变 scale 的位移，改变整个视图的位置变化，可以实现图表内部绘制区域的变化
+
 - start() 开始移动
 - end() 结束移动
 - translate() 修改 scale 的值
 - reset() 回滚，恢复初始状态
 
 ### scale-zoom
+
 - zoomIn() 缩小
 - zoomOut() 放大
 - reset() 恢复
@@ -724,7 +736,9 @@ Element 的 Action 可以响应的触发源：
 - reset() 取消当前触发事件相关元素的 highlight
 
 ### element-range-highlight
+
 用于设置和取消图表元素的 highlight ，允许框选 highlight 有以下方法：
+
 - start() 开始框选
 - end() 结束框选
 - highlight() 高亮框选内部的元素
@@ -735,6 +749,7 @@ Element 的 Action 可以响应的触发源：
 ### element-sibling-highlight
 
 图表元素高亮时，对应的其他 view 的图形也同时高亮，这个 Action 是从 element-range-highlight 扩展出来的，可以配合 element-range-highlight 一起使用：
+
 - highlight() 设置当前触发事件相关元素对应的其他 View 上的元素的 highlight
 - clear() 取消相关元素的 highlight
 
@@ -744,6 +759,7 @@ Element 的 Action 可以响应的触发源：
 
 - filter() 过滤
 - reset() 取消过滤
+
 ### element-link-by-color
 
 用于连接相同颜色的图表元素，一般用于层叠柱状图，有以下方法：
@@ -977,7 +993,9 @@ registerInteraction('element-brush', {
 - end() 结束框选
 
 ### reset-button
+
 在画布右上角出现一个恢复按钮，按钮图形上有 name: 'reset-button'，仅有两个方法：
+
 - show() 显示
 - hide() 隐藏
 

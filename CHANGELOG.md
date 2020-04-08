@@ -1,3 +1,10 @@
+#### 4.0.5 (2020-04-08)
+
+##### Bug Fixes
+
+- **#2261:** 修复 tooltip 数据查找补全的问题 ([4b29feab](https://github.com/antvis/g2/commit/4b29feabbe664d413a17355002eb1b24e0e35553))
+- **#2241:** 修改图表更新过程中，tooltip 未及时消失而出现内容为空的问题 ([0e9e65f5](https://github.com/antvis/g2/commit/0e9e65f56f61cb4da73a1d08bc601ff3f10883d5))
+
 #### 4.0.4 (2020-04-03)
 
 ##### New Features
