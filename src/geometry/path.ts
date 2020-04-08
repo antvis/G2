@@ -1,4 +1,3 @@
-import { get } from '@antv/util';
 import { FIELD_ORIGIN } from '../constant';
 import { MappingDatum, ShapeInfo } from '../interface';
 import Geometry, { GeometryCfg } from './base';
@@ -38,7 +37,7 @@ export default class Path extends Geometry {
    */
   protected createElements(mappingData: MappingDatum[], index: number, isUpdate: boolean = false): Element[] {
     // Path 的每个 element 对应一组数据
-    const { lastElementsMap, elementsMap, elements, theme, container } = this;
+    const { lastElementsMap, elementsMap, elements, container } = this;
     const elementId = this.getElementId(mappingData);
     const shapeCfg = this.getShapeInfo(mappingData);
 
