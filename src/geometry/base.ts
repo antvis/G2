@@ -206,6 +206,7 @@ export default class Geometry extends Base {
   /** 虚拟 Group，用于图形更新 */
   private offscreenGroup: IGroup;
   private groupScales: Scale[];
+  private hasSorted: boolean = false;
 
   /**
    * 创建 Geometry 实例。
@@ -855,7 +856,7 @@ export default class Geometry extends Base {
       this.renderLabels(flatten(mappingArray), isUpdate);
     }
 
-    this.afterMapping(mappingArray);
+    this.dataArray = mappingArray;
 
     // 销毁被删除的 elements
     each(this.lastElementsMap, (deletedElement: Element) => {
@@ -909,6 +910,7 @@ export default class Geometry extends Base {
     this.defaultSize = undefined;
     this.idFields = [];
     this.groupScales = undefined;
+    this.hasSorted = false;
   }
 
   /**
@@ -1210,6 +1212,23 @@ export default class Geometry extends Base {
     return this.offscreenGroup;
   }
 
+  // 对数据进行排序
+  public sort(mappingArray: Data[]) {
+    if (!this.hasSorted) {
+      // 未发生过排序
+      const xScale = this.getXScale();
+      const xField = xScale.field;
+      for (let index = 0; index < mappingArray.length; index++) {
+        const itemArr = mappingArray[index];
+        itemArr.sort((obj1: Datum, obj2: Datum) => {
+          return xScale.translate(obj1[FIELD_ORIGIN][xField]) - xScale.translate(obj2[FIELD_ORIGIN][xField]);
+        });
+      };
+    }
+
+    this.hasSorted = true;
+  }
+
   /**
    * 调整度量范围。主要针对发生层叠以及一些特殊需求的 Geometry，比如 Interval 下的柱状图 Y 轴默认从 0 开始。
    */
@@ -1497,6 +1516,7 @@ export default class Geometry extends Base {
 
   // 处理数据：分组 -> 数字化 -> adjust 调整
   private processData(data: Data) {
+    this.hasSorted = false;
     const { scales } = this.getAttribute('position');
     const categoryScales = scales.filter((scale: Scale) => scale.isCategory);
 
@@ -1640,13 +1660,7 @@ export default class Geometry extends Base {
     // const source = clone(beforeMappingData);
     const source = beforeMappingData;
     if (this.sortable) {
-      const xScale = this.getXScale();
-      const field = xScale.field;
-      for (const data of source) {
-        data.sort((v1: Datum, v2: Datum) => {
-          return xScale.translate(v1[field]) - xScale.translate(v2[field]);
-        });
-      }
+      this.sort(source);
     }
     if (this.generatePoints) {
       // 需要生成关键点
@@ -1662,14 +1676,6 @@ export default class Geometry extends Base {
     }
 
     return source;
-  }
-
-  // 映射完毕后，对最后的结果集进行排序，方便后续 tooltip 的数据查找
-  private afterMapping(mappingArray: MappingDatum[][]) {
-    if (!this.sortable) {
-      this.sort(mappingArray);
-    }
-    this.dataArray = mappingArray;
   }
 
   // 生成 shape 的关键点
@@ -1802,18 +1808,6 @@ export default class Geometry extends Base {
     }
     mappingRecord.x = rstX;
     mappingRecord.y = rstY;
-  }
-
-  // 对数据进行排序
-  private sort(mappingArray: Data[]) {
-    const xScale = this.getXScale();
-    const xField = xScale.field;
-    for (let index = 0; index < mappingArray.length; index++) {
-      const itemArr = mappingArray[index];
-      itemArr.sort((obj1: Datum, obj2: Datum) => {
-        return xScale.translate(obj1[FIELD_ORIGIN][xField]) - xScale.translate(obj2[FIELD_ORIGIN][xField]);
-      });
-    };
   }
 
   // 获取 style 配置

@@ -610,7 +610,9 @@ export default class Tooltip extends Controller<TooltipOption> {
 
   private getTooltipItemsByFindData(geometry: Geometry, point, title) {
     const result = [];
-    each(geometry.dataArray, (data: MappingDatum[]) => {
+    const dataArray = geometry.dataArray;
+    geometry.sort(dataArray); // 先进行排序，便于 tooltip 查找
+    each(dataArray, (data: MappingDatum[]) => {
       const record = findDataByPoint(point, data, geometry);
       if (record) {
         const elementId = geometry.getElementId(record);
