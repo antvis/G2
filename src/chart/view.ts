@@ -1124,6 +1124,7 @@ export class View extends Base {
     for (let i = 0, len = geometries.length; i < len; i++) {
       const geom = geometries[i];
       const dataArray = geom.dataArray;
+      geom.sort(dataArray); // 先进行排序，便于 tooltip 查找
       let record;
       for (let j = 0, dataLen = dataArray.length; j < dataLen; j++) {
         const data = dataArray[j];
