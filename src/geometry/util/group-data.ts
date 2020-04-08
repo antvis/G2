@@ -17,9 +17,12 @@ export function group(data: Data, fields: string[], appendConditions: Record<str
       }
     }
   } else {
-    each(groups, (eachGroup: any[]) => {
-      array.push(eachGroup);
-    })
+    for (const k in groups) {
+      if (groups.hasOwnProperty(k)) {
+        const eachGroup = groups[k];
+        array.push(eachGroup);
+      }
+    }
   }
 
   return array;

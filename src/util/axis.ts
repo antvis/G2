@@ -199,9 +199,8 @@ export function getCircleAxisCenterRadius(coordinate: Coordinate) {
 export function getAxisOption(axes: Record<string, AxisOption> | boolean, field: string) {
   if (isBoolean(axes)) {
     return axes === false ? false : {};
-  } else {
-    return get(axes, [field]);
   }
+  return get(axes, [field]);
 }
 
 /**

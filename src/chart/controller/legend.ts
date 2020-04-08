@@ -2,7 +2,7 @@ import { deepMix, each, find, get, head, isBoolean, last } from '@antv/util';
 
 import { COMPONENT_MAX_VIEW_PERCENTAGE, COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { Attribute, CategoryLegend, ContinuousLegend, GroupComponent, IGroup, Scale, Tick } from '../../dependents';
-import { ComponentOption, LegendCfg, LegendOption } from '../../interface';
+import { ComponentOption, LegendCfg, LegendOption, LooseObject } from '../../interface';
 
 import { DEFAULT_ANIMATE_CFG } from '../../animate';
 import Geometry from '../../geometry/base';
@@ -56,7 +56,7 @@ export default class Legend extends Controller<Option> {
     return 'legend';
   }
 
-  public init() {}
+  public init() { }
 
   /**
    * render the legend component by legend options
@@ -443,7 +443,7 @@ export default class Legend extends Controller<Option> {
 
     // 跟 attr 相关的配置
     // size color 区别的配置
-    let attrLegendCfg = {
+    const attrLegendCfg: LooseObject = {
       min: head(items).value,
       max: last(items).value,
       colors: [],
@@ -454,23 +454,17 @@ export default class Legend extends Controller<Option> {
     };
 
     if (attr.type === 'size') {
-      attrLegendCfg = {
-        ...attrLegendCfg,
-        track: {
-          style: {
-            // size 的选中前景色，对于 color，则直接使用 color 标识
-            // @ts-ignore
-            fill: attr.type === 'size' ? this.view.getTheme().defaultColor : undefined,
-          },
+      attrLegendCfg.track = {
+        style: {
+          // size 的选中前景色，对于 color，则直接使用 color 标识
+          // @ts-ignore
+          fill: attr.type === 'size' ? this.view.getTheme().defaultColor : undefined,
         },
       };
     }
 
     if (attr.type === 'color') {
-      attrLegendCfg = {
-        ...attrLegendCfg,
-        colors: items.map((item) => item.attrValue),
-      };
+      attrLegendCfg.colors = items.map((item) => item.attrValue);
     }
 
     const container = this.container;
@@ -487,15 +481,12 @@ export default class Legend extends Controller<Option> {
     }
 
     // 基础配置，从当前数据中读到的配置
-    const baseCfg = {
-      container,
-      layout,
-      ...attrLegendCfg,
-      title,
-    };
-
+    attrLegendCfg.container = container;
+    attrLegendCfg.layout = layout;
+    attrLegendCfg.title = title;
+    attrLegendCfg.animateOption = DEFAULT_ANIMATE_CFG;
     // @ts-ignore
-    return this.mergeLegendCfg(baseCfg, legendOption, 'continuous');
+    return this.mergeLegendCfg(attrLegendCfg, legendOption, 'continuous');
   }
 
   /**
@@ -527,13 +518,12 @@ export default class Legend extends Controller<Option> {
       }, title);
     }
 
-    const baseCfg = {
-      container,
-      layout,
-      items,
-      title,
-      ...this.getCategoryLegendSizeCfg(layout),
-    };
+    const baseCfg: LooseObject = this.getCategoryLegendSizeCfg(layout);
+    baseCfg.container = container;
+    baseCfg.layout = layout;
+    baseCfg.items = items;
+    baseCfg.title = title;
+    baseCfg.animateOption = DEFAULT_ANIMATE_CFG;
 
     const categoryCfg = this.mergeLegendCfg(baseCfg, legendOption, direction);
     if (categoryCfg.reversed) {
@@ -553,9 +543,7 @@ export default class Legend extends Controller<Option> {
   private mergeLegendCfg(baseCfg: object, legendOption: LegendOption, direction: DIRECTION) {
     const themeObject = get(this.view.getTheme(), ['components', 'legend', direction], {});
 
-    return deepMix({}, themeObject, baseCfg, {
-      animateOption: DEFAULT_ANIMATE_CFG,
-    }, legendOption);
+    return deepMix({}, themeObject, baseCfg, legendOption);
   }
 
   /**
@@ -579,12 +567,12 @@ export default class Legend extends Controller<Option> {
     const { width: cw, height: ch } = this.view.coordinateBBox;
     return layout === 'vertical'
       ? {
-          maxWidth: vw * COMPONENT_MAX_VIEW_PERCENTAGE,
-          maxHeight: ch,
-        }
+        maxWidth: vw * COMPONENT_MAX_VIEW_PERCENTAGE,
+        maxHeight: ch,
+      }
       : {
-          maxWidth: cw,
-          maxHeight: vh * COMPONENT_MAX_VIEW_PERCENTAGE,
-        };
+        maxWidth: cw,
+        maxHeight: vh * COMPONENT_MAX_VIEW_PERCENTAGE,
+      };
   }
 }
