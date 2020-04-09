@@ -62,8 +62,7 @@ export default class GestureController extends Controller {
   constructor(view: View) {
     super(view);
 
-    const canvas = view.getCanvas();
-    this.canvas = canvas;
+    this.canvas = view.getCanvas();
 
     this.delegateEvent();
 
