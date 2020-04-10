@@ -1,3 +1,22 @@
+#### 4.0.6 (2020-04-10)
+
+##### New Features
+
+- view 上添加手势事件支持 ([e4f74a22](https://github.com/antvis/g2/commit/e4f74a224fee34afa29cb272ceef854f2d3bce41))
+
+##### Bug Fixes
+
+- **geometry:** geometry.clear() 以及 destroy() 时要清空、销毁内部变量 ([c89ff974](https://github.com/antvis/g2/commit/c89ff97479a7a1e3dd3014e5440aad1d52f4311e))
+- **#2272:** 当映射数据中不存在 x 和 y 时，不绘制 label ([df60733e](https://github.com/antvis/g2/commit/df60733e206d8d83bfd46b485df32a6ba0e80bd4))
+
+##### Performance Improvements
+
+- 性能优化，详见 [MR](https://github.com/antvis/G2/pull/2221)
+
+##### Documentation Changes
+
+- 添加 Gestrue 手势使用文档 ([2c459853](https://github.com/antvis/g2/commit/2c459853885b4f4e23c0d33c6542d5b83b527df8))
+
 #### 4.0.5 (2020-04-08)
 
 ##### Bug Fixes
