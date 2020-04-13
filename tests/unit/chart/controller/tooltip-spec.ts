@@ -20,7 +20,7 @@ describe('Tooltip', () => {
   chart.axis(false);
   chart.legend(false);
   chart.tooltip({
-    follow: false,
+    follow: true,
     shared: true,
     showCrosshairs: true,
     showMarkers: true,
@@ -54,9 +54,9 @@ describe('Tooltip', () => {
     // @ts-ignore
     expect(tooltip.tooltip.get('visible')).toBe(true);
     // @ts-ignore
-    expect(tooltip.tooltip.get('x')).toBe(items[0].x);
+    expect(tooltip.tooltip.get('x')).toBe(point.x);
     // @ts-ignore
-    expect(tooltip.tooltip.get('y')).toBe(items[0].y);
+    expect(tooltip.tooltip.get('y')).toBe(point.y);
 
     // @ts-ignore
     const markerGroup = tooltip.tooltipMarkersGroup;
@@ -72,7 +72,9 @@ describe('Tooltip', () => {
     // @ts-ignore
     expect(tooltipDom.style.boxShadow).toBe('');
     // @ts-ignore
-    expect(tooltipDom.style.backgroundColor).toBe(chart.getTheme().components.tooltip.domStyles['g2-tooltip'].backgroundColor);
+    expect(tooltipDom.style.backgroundColor).toBe(
+      chart.getTheme().components.tooltip.domStyles['g2-tooltip'].backgroundColor
+    );
   });
 
   it('tooltip change', () => {
@@ -88,9 +90,9 @@ describe('Tooltip', () => {
 
     const tooltip = chart.getController('tooltip');
     // @ts-ignore
-    expect(tooltip.tooltip.get('x')).toBe(tooltip.items[0].x);
+    expect(tooltip.tooltip.get('x')).toBe(point.x + 10);
     // @ts-ignore
-    expect(tooltip.tooltip.get('y')).toBe(tooltip.items[0].y);
+    expect(tooltip.tooltip.get('y')).toBe(point.y + 20);
   });
 
   it('hideTooltip', () => {
@@ -448,7 +450,7 @@ describe('showContent', () => {
       line: {
         style: {
           lineDash: [2],
-        }
+        },
       },
       text: {
         position: 'end',
@@ -456,12 +458,16 @@ describe('showContent', () => {
         autoRotate: true,
         style: {
           fontSize: 14,
-        }
+        },
       },
-      textBackground: null
+      textBackground: null,
     },
   });
-  chart.interval().position('year*population').color('year').size(100);
+  chart
+    .interval()
+    .position('year*population')
+    .color('year')
+    .size(100);
   chart.render();
 
   it('showContent: false', () => {
