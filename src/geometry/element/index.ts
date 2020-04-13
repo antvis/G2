@@ -334,7 +334,8 @@ export default class Element extends Base {
     if (!this.statesStyle) {
       const { shapeType, geometry, shapeFactory } = this;
       const stateOption = geometry.stateOption;
-      const stateTheme = get(shapeFactory.theme, [shapeType], {});
+      const defaultShapeType = shapeFactory.defaultShapeType;
+      const stateTheme = shapeFactory.theme[shapeType] || shapeFactory.theme[defaultShapeType];
       this.statesStyle = deepMix({}, stateTheme, stateOption);
     }
 
@@ -344,8 +345,8 @@ export default class Element extends Base {
   // 从主题中获取对应状态量的样式
   private getStateStyle(stateName: string, shapeKey?: string): StateCfg {
     const statesStyle = this.getStatesStyle();
-    const stateCfg = statesStyle[stateName];
-    const shapeStyle = get(stateCfg.style, [shapeKey], stateCfg.style);
+    const stateCfg = get(statesStyle, [stateName, 'style'], {});
+    const shapeStyle = stateCfg[shapeKey] || stateCfg;
     if (isFunction(shapeStyle)) {
       return shapeStyle(this);
     }
