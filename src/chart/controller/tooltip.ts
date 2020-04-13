@@ -102,7 +102,7 @@ export default class Tooltip extends Controller<TooltipOption> {
         this.tooltip.update(mix({}, cfg, {
           items,
           title,
-        }, follow ? point : dataPoint));
+        }, follow ? point : {}));
         this.tooltip.show();
       }
 
@@ -112,7 +112,7 @@ export default class Tooltip extends Controller<TooltipOption> {
       }
     } else {
       // 内容未发生变化，则更新位置
-      if (this.tooltip) {
+      if (this.tooltip && follow) {
         const newPoint = follow ? point : dataPoint;
         this.tooltip.update(newPoint);
         this.tooltip.show(); // tooltip 有可能被隐藏，需要保证显示状态
@@ -134,6 +134,10 @@ export default class Tooltip extends Controller<TooltipOption> {
   }
 
   public hideTooltip() {
+    const { follow } = this.getTooltipCfg();
+    if (!follow) {
+      return;
+    }
     // hide the tooltipMarkers
     const tooltipMarkersGroup = this.tooltipMarkersGroup;
     if (tooltipMarkersGroup) {
