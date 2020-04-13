@@ -136,6 +136,7 @@ export default class Tooltip extends Controller<TooltipOption> {
   public hideTooltip() {
     const { follow } = this.getTooltipCfg();
     if (!follow) {
+      this.point = null;
       return;
     }
     // hide the tooltipMarkers
