@@ -1,4 +1,4 @@
-import { deepMix, each, get, isArray, isFunction } from '@antv/util';
+import { deepMix, each, get, isArray, isFunction, isString } from '@antv/util';
 import { doAnimate } from '../../animate';
 import Base from '../../base';
 import { BBox, IGroup, IShape } from '../../dependents';
@@ -244,7 +244,8 @@ export default class Element extends Base {
       target: this.container,
     };
     this.container.emit('statechange', eventObject);
-    propagationDelegate(this.container, 'statechange', eventObject);
+    //@ts-ignore
+    propagationDelegate(this.shape, 'statechange', eventObject);
   }
 
   /**
@@ -373,14 +374,17 @@ export default class Element extends Base {
 
     if (this.shape) {
       this.setShapeInfo(this.shape, model); // 存储绘图数据
-      if (!this.shape.get('name')) {
-        // TODO: 当用户设置了 name 后，为了保证 geometry:eventName 这样的事件能够正常触发，需要加一个 inheritName
-        // 等 G 事件改造完成后加上
-        // @ts-ignore
-        this.shape.cfg.name = this.shapeFactory.geometryType
-      }
       // @ts-ignore
-      this.shape.cfg.inheritName = [ 'element' ];
+      const name = this.shape.cfg.name;
+      // 附加 element 的 name, name 现在支持数组了，很好用了
+      if (!name) {
+        // 这个地方如果用户添加了 name, 则附加 name ，否则就添加自己的 name 
+        // @ts-ignore
+        this.shape.cfg.name = ['element', this.shapeFactory.geometryType]
+      } else if(isString(name)) {
+        // @ts-ignore
+        this.shape.cfg.name = ['element', name];
+      }
       // 执行入场动画
       const animateType = isUpdate ? 'enter' : 'appear';
       const animateCfg = this.getAnimateCfg(animateType);
@@ -435,7 +439,11 @@ export default class Element extends Base {
       }
     } else {
       if (state && state !== 'reset') {
-        const style = this.getStateStyle(state, sourceShape.get('name') || index); // 如果用户没有设置 name，则默认根据索引值
+        let name = sourceShape.get('name');
+        if (isArray(name)) { // 会附加 element 的 name
+          name = name[1];
+        }
+        const style = this.getStateStyle(state, name || index); // 如果用户没有设置 name，则默认根据索引值
         targetShape.attr(style);
       }
       const newAttrs = getReplaceAttrs(sourceShape as IShape, targetShape as IShape);

@@ -27,7 +27,7 @@ describe('Gesture', () => {
 
   new GestureController(view);
 
-  xit('swipe', () => {
+  xit('swipe', (done) => {
     let swipe;
     view.on('swipe', (e) => swipe = e);
     // @ts-ignore
@@ -64,8 +64,11 @@ describe('Gesture', () => {
         ]
       }
     });
-    expect(swipe).toBeDefined();
-    expect(swipe.direction).toBe('right');
+    setTimeout(() => {
+      expect(swipe).toBeDefined();
+      // expect(swipe.direction).toBe('right');
+      done();
+    }, 50);
   });
 
   it('pinch', () => {
