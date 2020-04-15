@@ -1870,7 +1870,8 @@ export default class Geometry extends Base {
           const labelChildren = label.getChildren();
           for (let j = 0; j < labelChildren.length; j++) {
             const child = labelChildren[j];
-            child.set('element', element);
+            child.cfg.name = [ 'element', 'label'];
+            child.cfg.element = element;
           }
         }
       }

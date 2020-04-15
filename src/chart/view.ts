@@ -1417,7 +1417,7 @@ export class View extends Base {
   private onDelegateEvents = (evt: GEvent): void => {
     // 阻止继续冒泡，防止重复事件触发
     // evt.preventDefault();
-    const { type, name } = evt;
+    const { name } = evt;
     if (!name.includes(':')) {
       return;
     }
@@ -1426,17 +1426,17 @@ export class View extends Base {
 
     // 包含有基本事件、组合事件
     this.emit(name, e);
-    if (evt.delegateObject) {
-      const events = this.getEvents();
-      const currentTarget = evt.currentTarget as IShape;
-      const inhertNames = currentTarget.get('inheritNames');
-      each(inhertNames, (subName) => {
-        const eventName = `${subName}:${type}`;
-        if (events[eventName]) {
-          this.emit(eventName, e);
-        }
-      });
-    }
+    // const currentTarget = evt.currentTarget as IShape;
+    // const inheritNames = currentTarget.get('inheritNames');
+    // if (evt.delegateObject || inheritNames) {
+    //   const events = this.getEvents();
+    //   each(inheritNames, (subName) => {
+    //     const eventName = `${subName}:${type}`;
+    //     if (events[eventName]) {
+    //       this.emit(eventName, e);
+    //     }
+    //   });
+    // }
   };
 
   /**
@@ -1846,12 +1846,8 @@ export function registerGeometry(name: string, Ctor: any) {
   View.prototype[name.toLowerCase()] = function (cfg: any = {}) {
     const props = {
       /** 图形容器 */
-      container: this.middleGroup.addGroup({
-        name: 'element',
-      }),
-      labelsContainer: this.foregroundGroup.addGroup({
-        name: 'element',
-      }),
+      container: this.middleGroup.addGroup(),
+      labelsContainer: this.foregroundGroup.addGroup(),
       ...cfg,
     };
 

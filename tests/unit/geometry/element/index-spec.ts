@@ -89,7 +89,7 @@ describe('Element', () => {
         },
       });
 
-      expect(element.shape.get('name')).toBe('shapes');
+      expect(element.shape.get('name')).toEqual(["element", "shapes"]);
       expect(container.get('children').length).toBe(1);
       expect(container.get('children')[0]).toEqual(element.shape);
       expect(element.shape.get('visible')).toBe(false);
