@@ -204,7 +204,7 @@ export default class ElementLabels extends Group {
     _.each(points, (point, i) => {
       const origin = point[ORIGIN];
       const label = labelOptions[i];
-      if (!label) {
+      if (!label || _.isNil(point.x) || _.isNil(point.y)) {
         items.push(null);
         return;
       }
