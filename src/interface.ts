@@ -325,7 +325,71 @@ export interface ShapeMarkerAttrs {
   /** marker 的形状。 */
   symbol: string | ShapeMarkerSymbol;
   /**
-   * 配置属性详见 {@link https://github.com/antvis/g/blob/92e372444f204a07bb034b49dfd35e346fe0d68e/packages/g-base/src/types.ts#L30|ShapeAttrs}，marker 的样式。
+   * marker 的样式，`ShapeAttrs` 属性结构如下：
+   *
+   * ```ts
+   * {
+   *   // x 坐标
+   *   x?: number;
+   *   // y 坐标
+   *   y?: number;
+   *   // 圆半径
+   *   r?: number;
+   *   // 描边颜色
+   *   stroke?: string | null;
+   *   // 描边透明度
+   *   strokeOpacity?: number;
+   *   // 填充颜色
+   *   fill?: string | null;
+   *   // 填充透明度
+   *   fillOpacity?: number;
+   *   // 整体透明度
+   *   opacity?: number;
+   *   // 线宽
+   *   lineWidth?: number;
+   *   // 指定如何绘制每一条线段末端
+   *   lineCap?: 'butt' | 'round' | 'square';
+   *   // 用来设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）
+   *   lineJoin?: 'bevel' | 'round' | 'miter';
+   *   // 设置线的虚线样式，可以指定一个数组。一组描述交替绘制线段和间距（坐标空间单位）长度的数字。 如果数组元素的数量是奇数，数组的元素会被复制并重复。例如， [5, 15, 25] 会变成 [5, 15, 25, 5, 15, 25]。这个属性取决于浏览器是否支持 setLineDash() 函数。
+   *   lineDash?: number[] | null;
+   *   // Path 路径
+   *   path?: string | object[];
+   *   // 图形坐标点
+   *   points?: object[];
+   *   // 宽度
+   *   width?: number;
+   *   // 高度
+   *   height?: number;
+   *   // 阴影模糊效果程度
+   *   shadowBlur?: number;
+   *   // 阴影颜色
+   *   shadowColor?: string | null;
+   *   // 阴影 x 方向偏移量
+   *   shadowOffsetX?: number;
+   *   // 阴影 y 方向偏移量
+   *   shadowOffsetY?: number;
+   *   // 设置文本内容的当前对齐方式
+   *   textAlign?: 'start' | 'center' | 'end' | 'left' | 'right';
+   *   // 设置在绘制文本时使用的当前文本基线
+   *   textBaseline?: 'top' | 'hanging' | 'middle' | 'alphabetic' | 'ideographic' | 'bottom';
+   *   // 字体样式
+   *   fontStyle?: 'normal' | 'italic' | 'oblique';
+   *   // 文本字体大小
+   *   fontSize?: number;
+   *   // 文本字体
+   *   fontFamily?: string;
+   *   // 文本粗细
+   *   fontWeight?: 'normal' | 'bold' | 'bolder' | 'lighter' | number;
+   *   // 字体变体
+   *   fontVariant?: 'normal' | 'small-caps' | string;
+   *   // 文本行高
+   *   lineHeight?: number;
+   *   [key: string]: any;
+   * }
+   * ```
+   *
+   * 详见 {@link https://github.com/antvis/g/blob/28e3178b616573e0fa6d59694f1aaca2baaa9766/packages/g-base/src/types.ts#L37|ShapeAttrs}
    */
   style: ShapeAttrs;
 }
@@ -789,11 +853,33 @@ export interface LegendCfg {
    */
   layout?: 'horizontal' | 'vertical';
   /**
-   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L639|LegendTitleCfg}，图例标题配置，默认不展示。
+   * 图例标题配置，默认不展示。
+   *
+   * 属性结构如下：
+   *
+   * ```ts
+   * {
+   *   spacing?: number;    // 标题同图例项的间距
+   *   style?: ShapeAttrs;  // 文本样式配置项
+   * }
+   * ```
+   *
+   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L639|LegendTitleCfg}，
    */
   title?: LegendTitleCfg;
   /**
-   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L652|LegendBackgroundCfg}，背景框配置项。
+   * 背景框配置项。
+   *
+   * 属性结构如下：
+   *
+   * ```ts
+   * {
+   *   padding?: number | number[]; // 背景的留白
+   *   style?: ShapeAttrs;          // 背景样式配置项
+   * }
+   * ```
+   *
+   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L652|LegendBackgroundCfg}
    */
   background?: LegendBackgroundCfg;
   /** 图例的位置。 */
@@ -827,11 +913,33 @@ export interface LegendCfg {
    */
   itemHeight?: number;
   /**
-   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L665|LegendItemNameCfg}，**分类图例适用**，图例项 name 文本的配置。
+   * **分类图例适用**，图例项 name 文本的配置。
+   * 属性结构如下：
+   *
+   * ```ts
+   * {
+   *   spacing?: number; // 图例项 name 同后面 value 的间距
+   *   formatter?: (text: string, item: ListItem, index: number) => any; // 格式化文本函数
+   *   style?: ShapeAttrs; // 文本配置项
+   * }
+   * ```
+   *
+   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L665|LegendItemNameCfg}，
    */
   itemName?: LegendItemNameCfg;
   /**
-   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L685|LegendItemValueCfg}，**分类图例适用**，图例项 value 附加值的配置项。
+   * **分类图例适用**，图例项 value 附加值的配置项。
+   * 属性结构如下：
+   *
+   * ```ts
+   * {
+   *   alignRight?: boolean; // 是否右对齐，默认为 false，仅当设置图例项宽度时生效
+   *   formatter?: (text: string, item: ListItem, index: number) => any; // 格式化文本函数
+   *   style?: ShapeAttrs; // 图例项附加值的配置
+   * }
+   * ```
+   *
+   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L685|LegendItemValueCfg}，
    */
   itemValue?: LegendItemValueCfg;
   /**
@@ -872,19 +980,65 @@ export interface LegendCfg {
    */
   value?: number[];
   /**
-   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L574|ContinueLegendTrackCfg}，**连续图例适用**，选择范围的色块样式配置项。
+   * **连续图例适用**，选择范围的色块样式配置项。
+   * 属性结构如下：
+   *
+   * ```ts
+   * {
+   *   style?: ShapeAttrs; // 选定范围的样式
+   * }
+   * ```
+   *
+   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L574|ContinueLegendTrackCfg}
    */
   track?: ContinueLegendTrackCfg;
   /**
-   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L595|ContinueLegendRailCfg}，**连续图例适用**，图例滑轨（背景）的样式配置项。
+   * **连续图例适用**，图例滑轨（背景）的样式配置项。
+   * 属性结构如下：
+   *
+   * ```ts
+   * {
+   *   type?: string; // rail 的类型，color, size
+   *   size?: number; // 滑轨的宽度
+   *   defaultLength?: number; // 滑轨的默认长度，，当限制了 maxWidth,maxHeight 时，不会使用这个属性会自动计算长度
+   *   style?: ShapeAttrs; // 滑轨的样式
+   * }
+   * ```
+   *
+   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L595|ContinueLegendRailCfg}，
    */
   rail?: ContinueLegendRailCfg;
   /**
-   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L618|ContinueLegendLabelCfg}，**连续图例适用**，文本的配置项。
+   * **连续图例适用**，文本的配置项。
+   * 属性结构如下：
+   *
+   * ```ts
+   * {
+   *   // 文本同滑轨的对齐方式，有五种类型
+   *   // rail ： 同滑轨对齐，在滑轨的两端
+   *   // top, bottom: 图例水平布局时有效
+   *   // left, right: 图例垂直布局时有效
+   *   align?: string;
+   *   spacing?: number; // 文本同滑轨的距离
+   *   style?: ShapeAttrs; // 文本样式
+   * }
+   * ```
+   *
+   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L618|ContinueLegendLabelCfg}
    */
   label?: ContinueLegendLabelCfg;
   /**
-   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L582|ContinueLegendTrackCfg}，**连续图例适用**，滑块的配置项。
+   * **连续图例适用**，滑块的配置项。
+   * 属性结构如下：
+   *
+   * ```ts
+   * {
+   *   size?: number; // 滑块的大小
+   *   style?: ShapeAttrs; // 滑块的样式设置
+   * }
+   * ```
+   *
+   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L582|ContinueLegendTrackCfg}，
    */
   handler?: ContinueLegendHandlerCfg;
   /**
@@ -898,7 +1052,7 @@ export interface LegendCfg {
 }
 
 /**
- * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L1154|CrosshairTextCfg}，Tooltip Crosshairs 的文本数据结构
+ * Tooltip Crosshairs 的文本数据结构。
  */
 export interface TooltipCrosshairsText extends CrosshairTextCfg {
   /** crosshairs 文本内容 */
@@ -927,7 +1081,16 @@ export interface TooltipCrosshairs {
    */
   type?: 'x' | 'y' | 'xy';
   /**
-   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L1177|CrosshairLineCfg}，辅助线的样式配置。
+   * 辅助线的样式配置。
+   * 属性结构如下：
+   *
+   * ```ts
+   * {
+   *   style?: ShapeAttrs; // 线的样式配置
+   * }
+   * ```
+   *
+   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L1177|CrosshairLineCfg}
    */
   line?: CrosshairLineCfg;
   /**
@@ -935,7 +1098,17 @@ export interface TooltipCrosshairs {
    */
   text?: TooltipCrosshairsText | TooltipCrosshairsTextCallback;
   /**
-   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L1185|CrosshairTextBackgroundCfg}，辅助线文本背景配置。
+   * 辅助线文本背景配置。
+   * 属性结构如下：
+   *
+   * ```ts
+   * {
+   *   padding?: number | number[]; // 文本背景周围的留白
+   *   style?: ShapeAttrs; // 文本背景的样式
+   * }
+   * ```
+   *
+   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L1185|CrosshairTextBackgroundCfg}
    */
   textBackground?: CrosshairTextBackgroundCfg;
   /** 辅助线是否跟随鼠标移动，默认为 false，即定位到数据点 */
@@ -1019,7 +1192,17 @@ export interface CoordinateCfg {
 /** 坐标轴网格线的配置属性 */
 export interface AxisGridCfg {
   /**
-   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L407|GridLineCfg}，线的样式。
+   * 线的样式。
+   * 属性结构如下：
+   *
+   * ```ts
+   * {
+   *   type?: string; // 栅格线的类型，'line' 或者 'circle'
+   *   style?: ShapeAttrs; // 栅格线的样式配置项
+   * }
+   * ```
+   *
+   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L407|GridLineCfg}
    */
   line?: GridLineCfg;
   /**
@@ -1044,23 +1227,87 @@ export interface AxisCfg {
    */
   position?: 'top' | 'bottom' | 'right' | 'left';
   /**
-   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L91|AxisLineCfg}，坐标轴线的配置项，null 表示不展示。
+   * 坐标轴线的配置项，null 表示不展示。
+   * 属性结构如下：
+   *
+   * ```ts
+   * {
+   *   style?: ShapeAttrs; // 坐标轴线的样式配置项
+   * }
+   * ```
+   *
+   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L91|AxisLineCfg}
    */
   line?: AxisLineCfg | null;
   /**
-   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L103|AxisTickLineCfg}，坐标轴刻度线线的配置项，null 表示不展示。
+   * 坐标轴刻度线线的配置项，null 表示不展示。
+   * 属性结构如下：
+   *
+   * ```ts
+   * {
+   *   style?: ShapeAttrs; // 坐标轴刻度线的样式配置项
+   *   alignTick?: boolean; // 是否同 tick 对齐
+   *   length?: number;  // 长度
+   * }
+   * ```
+   *
+   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L103|AxisTickLineCfg}
    */
   tickLine?: AxisTickLineCfg | null;
   /**
-   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L169|AxisSubTickLineCfg}，坐标轴子刻度线的配置项，null 表示不展示。
+   * 坐标轴子刻度线的配置项，null 表示不展示。
+   * 属性结构如下：
+   *
+   * ```ts
+   * {
+   *   style?: ShapeAttrs; // 坐标轴刻度线的样式配置项
+   *   count?: number; // 子刻度个数
+   *   length?: number; // 子刻度线长度
+   * }
+   * ```
+   *
+   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L169|AxisSubTickLineCfg}
    */
   subTickLine?: AxisSubTickLineCfg | null;
   /**
-   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L191|AxisTitleCfg}，标题的配置项，null 表示不展示。
+   * 标题的配置项，null 表示不展示。
+   * 属性结构如下：
+   *
+   * ```ts
+   * {
+   *   offset?: number; // 标题距离坐标轴的距离
+   *   style?: ShapeAttrs; // 标题文本配置项
+   *   autoRotate?: boolean; // 是否自动旋转
+   * }
+   * ```
+   *
+   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L191|AxisTitleCfg}
    */
   title?: AxisTitleCfg | null;
   /**
-   * 配置属性详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L127|AxisLabelCfg}，文本标签的配置项，null 表示不展示。
+   * 文本标签的配置项，null 表示不展示。
+   * 属性结构如下：
+   *
+   * ```ts
+   * {
+   *   // 坐标轴文本的样式
+   *   style?: ShapeAttrs;
+   *   // label 的偏移量
+   *   offset?: number;
+   *   // 文本旋转角度
+   *   rotate?: number;
+   *   // 格式化函数
+   *   formatter?: (text: string, item: ListItem, index: number) => any;
+   *   // 是否自动旋转，默认 true
+   *   autoRotate?: boolean | (isVertical: boolean, labelGroup: IGroup, limitLength?: number) => boolean; | string;
+   *   // 是否自动隐藏，默认 false
+   *   autoHide?: boolean | (isVertical: boolean, labelGroup: IGroup, limitLength?: number) => boolean; | string;
+   *   // 是否自动省略，默认 false
+   *   autoEllipsis?: boolean | (isVertical: boolean, labelGroup: IGroup, limitLength?: number) => boolean; | string;
+   * }
+   * ```
+   *
+   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L127|AxisLabelCfg}
    */
   label?: AxisLabelCfg | null;
   /** 坐标轴网格线的配置项，null 表示不展示。 */
