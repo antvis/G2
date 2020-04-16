@@ -113,8 +113,7 @@ export default class Tooltip extends Controller<TooltipOption> {
     } else {
       // 内容未发生变化，则更新位置
       if (this.tooltip && follow) {
-        const newPoint = follow ? point : dataPoint;
-        this.tooltip.update(newPoint);
+        this.tooltip.update(point);
         this.tooltip.show(); // tooltip 有可能被隐藏，需要保证显示状态
       }
 
