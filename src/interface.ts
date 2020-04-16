@@ -1117,7 +1117,10 @@ export interface TooltipCrosshairs {
 
 /** chart.tooltip() 接口配置属性 */
 export interface TooltipCfg {
-  /** 设置 tooltip 内容框是否跟随鼠标移动，默认为 true，跟随鼠标移动 */
+  /**
+   * 设置 tooltip 内容框是否跟随鼠标移动。
+   * 默认为 true，跟随鼠标移动，false 则固定位置不随鼠标移动。
+   */
   follow?: boolean;
   /** tooltip 是否允许鼠标滑入，默认为 false，不允许 */
   enterable?: boolean;
