@@ -29,7 +29,7 @@
     "dist": "webpack --config webpack.config.js --mode production",
     "ci": "run-s build coverage",
     "prepublishOnly": "npm-run-all --parallel lint test clean lib dist",
-    "doc": "rimraf -rf docs/api && typedoc",
+    "doc": "rimraf -rf docs/api && typedoc && sh bin/doc.sh docs/api",
     "changelog": "generate-changelog",
     "analyz": "webpack --profile --json > stats.json && webpack-bundle-analyzer ./stats.json"
   },
