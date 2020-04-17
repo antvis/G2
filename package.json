@@ -16,7 +16,7 @@
     "site:develop": "gatsby develop --open -H 0.0.0.0",
     "site:build": "npm run site:clean && gatsby build --prefix-paths",
     "site:clean": "gatsby clean",
-    "site:deploy": "npm run site:build && gh-pages -d public",
+    "site:deploy": "npm run doc && npm run site:build && gh-pages -d public",
     "clean": "rimraf lib esm dist",
     "lint": "lint-staged",
     "test": "jest",
@@ -29,8 +29,8 @@
     "dist": "webpack --config webpack.config.js --mode production",
     "ci": "run-s build coverage",
     "prepublishOnly": "npm-run-all --parallel lint test clean lib dist",
-    "doc": "rimraf -rf docs/api && typedoc",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
+    "doc": "rimraf -rf docs/api && typedoc && sh bin/doc.sh docs/api",
+    "changelog": "generate-changelog",
     "analyz": "webpack --profile --json > stats.json && webpack-bundle-analyzer ./stats.json"
   },
   "dependencies": {
@@ -57,6 +57,7 @@
     "@types/jest": "^24.0.18",
     "conventional-changelog-cli": "^2.0.28",
     "gatsby": "2.19.5",
+    "generate-changelog": "^1.8.0",
     "gh-pages": "^2.1.1",
     "husky": "^3.0.4",
     "jest": "^24.9.0",
