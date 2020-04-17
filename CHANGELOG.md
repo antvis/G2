@@ -1,3 +1,11 @@
+#### 4.0.7 (2020-04-17)
+
+##### Bug Fixes
+
+- do not set tooltip position when follow is false ([62f5e279](https://github.com/antvis/g2/commit/62f5e2795794427bbb905758f368adef56ecde8e))
+- **delegation:** mouse leave failed ([d3a30ed2](https://github.com/antvis/g2/commit/d3a30ed21cd95af0db8466cbb1a0662d5179d996))
+- **element:** 修复获取 state style 报错的问题 ([320e22f0](https://github.com/antvis/g2/commit/320e22f0627f1f2a0e1bf3c5c9211d043953fd8c))
+
 #### 4.0.6 (2020-04-10)
 
 ##### New Features
