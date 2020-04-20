@@ -31,14 +31,6 @@
     {
       "filename": "area5.ts",
       "title": {
-        "zh": "世界人口在各政体中的分步情况",
-        "en": "100% Stacked Area Chart"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*wlzjTatoxFAAAAAAAAAAAABkARQnAQ"
-    },
-    {
-      "filename": "area6.ts",
-      "title": {
         "zh": "某频道视频订阅数和月收入关系",
         "en": "Range Area Chart"
       },
