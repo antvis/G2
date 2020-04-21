@@ -1,6 +1,5 @@
 import { Chart } from '../../src';
 import { createDiv } from '../util/dom';
-import { delay } from '../util/delay';
 
 describe('#2197', () => {
   const div = createDiv();

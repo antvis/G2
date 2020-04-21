@@ -1,8 +1,8 @@
-import { Chart } from '../../src';
-import { createDiv } from '../util/dom';
 import DataSet from '@antv/data-set';
+import { Chart } from '../../src';
 import Unchecked from '../../src/interaction/action/component/list-unchecked';
 import Filter from '../../src/interaction/action/data/filter';
+import { createDiv } from '../util/dom';
 
 import Context from '../../src/interaction/context';
 
@@ -15,14 +15,14 @@ describe('multiple view legend', () => {
     { Date: '7 April', 订阅数: 250000, 月收入: 625000 },
     { Date: '13 June', 订阅数: 210000, 月收入: 525000 },
   ];
-  
+
   const chart = new Chart({
     container: createDiv(),
     width: 500,
     height: 400,
     padding: 0,
   });
-  
+
   chart.scale('Date', {
     range: [0, 1],
     tickCount: 10,
@@ -52,7 +52,7 @@ describe('multiple view legend', () => {
     showCrosshairs: true,
     shared: true,
   });
-  
+
   data.forEach(row => {
     row['range'] = [row.订阅数, row.月收入];
   });
@@ -69,7 +69,7 @@ describe('multiple view legend', () => {
     .style({
       fillOpacity: 0.1,
     });
-  
+
   const ds = new DataSet();
   // view2
   const dv2 = ds
@@ -95,7 +95,7 @@ describe('multiple view legend', () => {
     .position('Date*value')
     .color('type')
     .shape('circle');
-  
+
   chart.render();
   const context = new Context(chart);
   const action = new Unchecked(context);
