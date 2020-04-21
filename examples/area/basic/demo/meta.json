@@ -21,14 +21,6 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*rYTxSZm8qysAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "area-null.ts",
-      "title": {
-        "zh": "区域图（存在空值）",
-        "en": "Area Chart with empty values"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*Psa_R63A4pIAAAAAAAAAAABkARQnAQ"
-    },
-    {
       "filename": "area-large.ts",
       "title": {
         "zh": "大规模区域图",
