@@ -94,6 +94,20 @@ describe('Slider', () => {
     expect(slider.component.get('maxText')).toBe('1992');
   });
 
+  it('formatMask', () => {
+    const fn = jest.fn().mockReturnValue(`test`);
+    chart.option('slider', {
+      height: 16,
+      formatMask: fn,
+    });
+
+    chart.render();
+
+    expect(fn).toBeCalledTimes(2);
+    expect(slider.component.get('minText')).toBe('test');
+    expect(slider.component.get('maxText')).toBe('test');
+  });
+
   afterAll(() => {
     chart.destroy();
     removeDom(div);

@@ -8,6 +8,7 @@ import { isBetween, omit } from '../../util/helper';
 import View from '../view';
 import { Controller } from './base';
 
+export type FormatMaskType = (val: any) => string;
 /** Slider 配置 */
 export interface SliderOption {
   /** slider 高度 */
@@ -31,6 +32,8 @@ export interface SliderOption {
   readonly start?: number;
   /** 滑块初始化的结束位置 */
   readonly end?: number;
+  /** 格式化 Mask */
+  formatMask?: FormatMaskType;
 }
 
 type Option = SliderOption | boolean;
@@ -223,8 +226,14 @@ export default class Slider extends Controller<Option> {
     const minIndex = Math.floor(min * (dataSize - 1));
     const maxIndex = Math.floor(max * (dataSize - 1));
 
-    const minText = get(xData, [minIndex]);
-    const maxText = get(xData, [maxIndex]);
+    let minText = get(xData, [minIndex]);
+    let maxText = get(xData, [maxIndex]);
+
+    const formatMask = this.getSliderCfg().formatMask as FormatMaskType;
+    if (typeof formatMask === 'function') {
+      minText = formatMask(minText);
+      maxText = formatMask(maxText);
+    }
 
     // 更新文本
     this.slider.component.update({
