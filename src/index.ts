@@ -615,6 +615,7 @@ declare module './chart/view' {
 }
 
 export * from './core';
+export * from './interface';
 // 一些工具方法导出
 import { getAngle, polarToCartesian } from './util/graphics';
 import { rotate, transform, translate, zoom } from './util/transform';
