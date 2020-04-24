@@ -96,7 +96,7 @@ export interface SliderOption {
   readonly start?: number;
   readonly end?: number;
   /** 格式化 Mask */
-  mask?: (val: any) => string;
+  readonly mask?: (options: {val: string, datum: Datum, idx: number}) => string;
 }
 ```
 
