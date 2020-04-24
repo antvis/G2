@@ -8,7 +8,7 @@ import { isBetween, omit } from '../../util/helper';
 import View from '../view';
 import { Controller } from './base';
 
-export type SliderMaskType = (options: {val: string, datum: Datum, idx: number}) => string;
+export type SliderMaskType = (options: {val: any, datum: Datum, idx: number}) => string;
 /** Slider 配置 */
 export interface SliderOption {
   /** slider 高度 */
