@@ -95,8 +95,8 @@ export interface SliderOption {
   // 初始位置
   readonly start?: number;
   readonly end?: number;
-  /** 格式化 Mask */
-  readonly mask?: (options: {val: any, datum: Datum, idx: number}) => string;
+  /** 滑块文本格式化函数 */
+  readonly formatter?: (options: {val: any, datum: Datum, idx: number}) => string;
 }
 ```
 
