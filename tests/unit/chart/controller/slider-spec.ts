@@ -94,11 +94,11 @@ describe('Slider', () => {
     expect(slider.component.get('maxText')).toBe('1992');
   });
 
-  it('mask', () => {
+  it('formatter', () => {
     const fn = jest.fn().mockReturnValue(`test`);
     chart.option('slider', {
       height: 16,
-      mask: fn,
+      formatter: fn,
     });
 
     chart.render();
