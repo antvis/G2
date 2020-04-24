@@ -5,8 +5,10 @@ import { getCurrentElement, getDelegationObject, getElements, getElementValue, g
 import StateBase from './state-base';
 
 function getItem(shape) {
-  return shape.get('delegateObject').item;
+  const delegateObject = shape.get('delegateObject');
+  return delegateObject && delegateObject.item;
 }
+
 /**
  * 状态量 Action 的基类，允许多个 Element 同时拥有某个状态
  * @class
