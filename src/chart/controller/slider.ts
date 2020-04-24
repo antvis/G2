@@ -8,7 +8,7 @@ import { isBetween, omit } from '../../util/helper';
 import View from '../view';
 import { Controller } from './base';
 
-export type SliderFormatterType = (options: {val: any, datum: Datum, idx: number}) => string;
+export type SliderFormatterType = (val: any, datum: Datum, idx: number) => any;
 /** Slider 配置 */
 export interface SliderOption {
   /** slider 高度 */
@@ -231,8 +231,8 @@ export default class Slider extends Controller<Option> {
 
     const formatter = this.getSliderCfg().formatter as SliderFormatterType;
     if (formatter) {
-      minText = formatter({ val: minText, datum: data[minIndex], idx: minIndex });
-      maxText = formatter({ val: maxText, datum: data[maxIndex], idx: maxIndex });
+      minText = formatter(minText, data[minIndex], minIndex);
+      maxText = formatter(maxText, data[maxIndex], maxIndex);
     }
 
     // 更新文本

@@ -96,7 +96,7 @@ export interface SliderOption {
   readonly start?: number;
   readonly end?: number;
   /** 滑块文本格式化函数 */
-  readonly formatter?: (options: {val: any, datum: Datum, idx: number}) => string;
+  readonly formatter?: (val: any, datum: Datum, idx: number) => any;
 }
 ```
 
