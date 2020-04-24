@@ -33,7 +33,7 @@ export interface SliderOption {
   /** 滑块初始化的结束位置 */
   readonly end?: number;
   /** 格式化 Mask */
-  readonly mask?: SliderMaskType;
+  mask?: SliderMaskType;
 }
 
 type Option = SliderOption | boolean;
