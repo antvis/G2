@@ -4,6 +4,7 @@ import { Chart } from '../../../../src/index';
 import { createDiv } from '../../../util/dom';
 import { delay } from '../../../util/delay';
 import { removeDom } from '../../../../src/util/dom';
+import { SliderFormatterType } from '../../../../src/chart/controller/slider';
 
 const Data = [
   { year: '1991', value: 3 },
@@ -95,17 +96,14 @@ describe('Slider', () => {
   });
 
   it('formatter', () => {
-    const fn = jest.fn().mockReturnValue(`test`);
     chart.option('slider', {
-      height: 16,
-      formatter: fn,
+      formatter: ((v, datum, idx) => `${v}-${datum.value}-${idx}`) as SliderFormatterType,
     });
+    chart.changeData(Data.slice(0, 3));
+    chart.render(true);
 
-    chart.render();
-
-    expect(fn).toBeCalledTimes(2);
-    expect(slider.component.get('minText')).toBe('test');
-    expect(slider.component.get('maxText')).toBe('test');
+    expect(slider.component.get('minText')).toBe(`1991-3-0`);
+    expect(slider.component.get('maxText')).toBe(`1992-4-1`);
   });
 
   afterAll(() => {
