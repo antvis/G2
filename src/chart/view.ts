@@ -396,7 +396,7 @@ export class View extends Base {
    * ```
    *
    * @param field 要配置的坐标轴对应的字段名称
-   * @param axisOption 坐标轴具体配置
+   * @param axisOption 坐标轴具体配置，更详细的配置项可以参考：https://github.com/antvis/component#axis
    */
   public axis(field: string, axisOption: AxisOption): View;
   public axis(field: string | boolean, axisOption?: AxisOption): View {
@@ -437,7 +437,7 @@ export class View extends Base {
    * ```
    *
    * @param field 图例对应的数据字段名称
-   * @param legendOption 图例配置
+   * @param legendOption 图例配置，更详细的配置项可以参考：https://github.com/antvis/component#axis
    * @returns View
    */
   public legend(field: string, legendOption: LegendOption): View;
@@ -465,7 +465,7 @@ export class View extends Base {
    *   }
    * });
    * ```
-   *
+   * Scale 的详细配置项可以参考：https://github.com/antvis/scale#api
    * @returns View
    */
   public scale(field: Record<string, ScaleOption>): View;
@@ -505,7 +505,7 @@ export class View extends Base {
    * });
    * ```
    *
-   * @param cfg Tooltip 配置
+   * @param cfg Tooltip 配置，更详细的配置项参考：https://github.com/antvis/component#tooltip
    * @returns View
    */
   public tooltip(cfg: boolean | TooltipOption): View {
@@ -528,7 +528,7 @@ export class View extends Base {
    *   },
    * });
    * ```
-   *
+   * 更详细的配置项：https://github.com/antvis/component#annotation
    * @returns [[Annotation]]
    */
   public annotation(): Annotation {
@@ -710,7 +710,7 @@ export class View extends Base {
    * ```ts
    * view.interaction('my-interaction', { extra: 'hello world' });
    * ```
-   *
+   * 详细文档可以参考：https://g2.antv.vision/zh/docs/manual/tutorial/interaction
    * @param name interaction name
    * @param cfg interaction config
    * @returns
