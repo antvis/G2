@@ -1,12 +1,13 @@
-import { each, isNil } from '@antv/util';
+import { each, isNil, get } from '@antv/util';
 import { ListItem } from '../../../dependents';
 import Element from '../../../geometry/element/';
 import { getCurrentElement, getDelegationObject, getElements, getElementValue, getScaleByField, isElementChange, isList} from '../util';
 import StateBase from './state-base';
 
 function getItem(shape) {
-  return shape.get('delegateObject').item;
+  return get(shape.get('delegateObject'), 'item');
 }
+
 /**
  * 状态量 Action 的基类，允许多个 Element 同时拥有某个状态
  * @class
