@@ -30,7 +30,9 @@ const getCenter = (point1, point2) => {
 };
 
 const convertPoints = (touches, canvas: ICanvas) => {
-  if (!touches) { return; }
+  if (!touches) {
+    return;
+  }
   const points = [];
   const len = touches.length;
   for (let i = 0; i < len; i++) {
@@ -74,16 +76,17 @@ export default class GestureController extends Controller {
     return 'gesture';
   }
 
-  public init() { }
+  public init() {}
 
-  public render() { }
+  public render() {}
 
-  public layout() { }
+  public layout() {}
 
-  public update() { }
+  public update() {}
 
   public destroy() {
     this.reset();
+    this.offEvent();
     this.processEvent = null;
   }
 
@@ -92,6 +95,12 @@ export default class GestureController extends Controller {
     this.canvas.on('touchstart', this.touchStart);
     this.canvas.on('touchmove', this.touchMove);
     this.canvas.on('touchend', this.touchEnd);
+  }
+
+  private offEvent() {
+    this.canvas.off('touchstart', this.touchStart);
+    this.canvas.off('touchmove', this.touchMove);
+    this.canvas.off('touchend', this.touchEnd);
   }
 
   private touchStart = (ev): void => {
@@ -124,12 +133,16 @@ export default class GestureController extends Controller {
 
   private touchMove = (ev): void => {
     const points = convertPoints(ev.originalEvent.touches, this.canvas);
-    if (!points) { return; }
+    if (!points) {
+      return;
+    }
     this.clearPressTimeout();
     ev.points = points;
 
     const startPoints = this.startPoints;
-    if (!startPoints) { return; }
+    if (!startPoints) {
+      return;
+    }
     // 多指触控
     if (points.length > 1) {
       // touchstart的距离
@@ -221,7 +234,7 @@ export default class GestureController extends Controller {
   // 触发end事件
   private emitEnd(ev) {
     const processEvent = this.processEvent;
-    Object.keys(processEvent).forEach(type => {
+    Object.keys(processEvent).forEach((type) => {
       this.emitEvent(`${type}end`, ev);
       delete processEvent[type];
     });
