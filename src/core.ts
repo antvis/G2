@@ -1,6 +1,6 @@
 /* G2 的一个壳子，不包含 Geometry，由开发者自己定义和引入 */
 
-export const VERSION = '4.0.7';
+export const VERSION = '4.0.8';
 
 // 核心基类导出
 export { Chart, View, Event } from './chart'; // Chart, View 类
@@ -44,3 +44,7 @@ export { registerEngine, getEngine } from './engine';
 export { registerAnimation, getAnimation } from './animate/animation';
 
 export { LAYER, DIRECTION } from './constant';
+
+// 因为 typescript 部分版本不支持 export * as 语法。
+import * as Types from './interface';
+export { Types };
