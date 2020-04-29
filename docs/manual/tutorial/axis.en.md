@@ -102,7 +102,7 @@ const chart = new Chart({
 chart.data(data);
 // highlight-start
 chart.scale('sales', {
-  ticks: [0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 20],
+  ticks: [0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200],
 });
 // highlight-end
 chart.axis('sales', {
@@ -138,7 +138,7 @@ const chart = new Chart({
 
 chart.data(data);
 chart.scale('sales', {
-  ticks: [0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 20],
+  ticks: [0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200],
   // highlight-start
   formatter: (val) => `￥${val}`,
   // highlight-end
