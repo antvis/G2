@@ -41,7 +41,7 @@ chart
 import { registerGeometryLabelLayout } from '@antv/g2';
 
 // Step 1: 定义 label 布局函数
-function limitInShape(labels: IGroup[], shapes: IShape[] | IGroup[], region: BBox) {
+function limitInShape(items: LabelItem[], labels: IGroup[], shapes: IShape[] | IGroup[], region: BBox) {
   each(labels, (label, index) => {
     const labelBBox = label.getCanvasBBox(); // 文本有可能发生旋转
     const shapeBBox = shapes[index].getBBox();
