@@ -59,7 +59,7 @@
     "gatsby": "^2.20.23",
     "generate-changelog": "^1.8.0",
     "gh-pages": "^2.1.1",
-    "husky": "^3.0.4",
+    "husky": "^4.2.5",
     "jest": "^24.9.0",
     "jest-electron": "^0.1.7",
     "jest-extended": "^0.11.2",
