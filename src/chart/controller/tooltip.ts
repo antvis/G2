@@ -75,16 +75,25 @@ export default class Tooltip extends Controller<TooltipOption> {
       y: items[0].y,
     }; // 数据点位置
 
+    const cfg = this.getTooltipCfg();
+    const { follow, showMarkers, showCrosshairs, showContent, marker } = cfg;
+    const lastItems = this.items;
+    const lastTitle = this.title;
+
+    // 展示 tooltip 内容框才渲染 tooltip
+    if (showContent && !this.tooltip) {
+      // 延迟生成
+      this.renderTooltip();
+    }
+
+    // 放在渲染tooltip之后，可以确保第一次触发'tooltip:show'
+    // 的时候tooltip元素已经存在
     view.emit('tooltip:show', {
       items,
       title,
       ...point,
     });
 
-    const cfg = this.getTooltipCfg();
-    const { follow, showMarkers, showCrosshairs, showContent, marker } = cfg;
-    const lastItems = this.items;
-    const lastTitle = this.title;
     if (!isEqual(lastTitle, title) || !isEqual(lastItems, items)) {
       // 内容发生变化了更新 tooltip
       view.emit('tooltip:change', {
@@ -93,12 +102,7 @@ export default class Tooltip extends Controller<TooltipOption> {
         ...point,
       });
 
-      if (showContent) {
-        // 展示 tooltip 内容框才渲染 tooltip
-        if (!this.tooltip) {
-          // 延迟生成
-          this.renderTooltip();
-        }
+      if (showContent && this.tooltip) {
         this.tooltip.update(mix({}, cfg, {
           items,
           title,
