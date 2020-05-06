@@ -71,7 +71,7 @@
     "rimraf": "^3.0.0",
     "ts-jest": "^24.1.0",
     "ts-loader": "^6.2.1",
-    "tslint": "^5.18.0",
+    "tslint": "^6.1.2",
     "tslint-config-prettier": "^1.18.0",
     "typedoc": "^0.15.0",
     "typedoc-plugin-markdown": "^2.2.11",
