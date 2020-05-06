@@ -73,7 +73,7 @@
     "ts-loader": "^6.2.1",
     "tslint": "^6.1.2",
     "tslint-config-prettier": "^1.18.0",
-    "typedoc": "^0.15.0",
+    "typedoc": "^0.17.6",
     "typedoc-plugin-markdown": "^2.2.11",
     "typescript": "^3.5.3",
     "webpack": "^4.41.5",
