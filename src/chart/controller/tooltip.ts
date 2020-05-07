@@ -80,6 +80,11 @@ export default class Tooltip extends Controller<TooltipOption> {
     const lastItems = this.items;
     const lastTitle = this.title;
 
+    // 该变量用于确定是否应该触发tooltip:show
+    // "!this.tooltip"如果为true则表示tooltip元素还未渲染，所以应该触发
+    // "!this.tooltip.get('visible')"如果为true，则表示之前是隐藏的，所以应该触发
+    const isEmitShow = !this.tooltip || !this.tooltip.get('visible');
+
     // 展示 tooltip 内容框才渲染 tooltip
     if (showContent && !this.tooltip) {
       // 延迟生成
@@ -88,11 +93,13 @@ export default class Tooltip extends Controller<TooltipOption> {
 
     // 放在渲染tooltip之后，可以确保第一次触发'tooltip:show'
     // 的时候tooltip元素已经存在
-    view.emit('tooltip:show', {
-      items,
-      title,
-      ...point,
-    });
+    if (isEmitShow) {
+      view.emit('tooltip:show', {
+        items,
+        title,
+        ...point,
+      });
+    }
 
     if (!isEqual(lastTitle, title) || !isEqual(lastItems, items)) {
       // 内容发生变化了更新 tooltip
