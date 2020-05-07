@@ -1,4 +1,4 @@
-import { get, lowerCase } from '@antv/util';
+import { deepMix, get, lowerCase } from '@antv/util';
 import { LooseObject, StyleSheet } from '../interface';
 
 import { createThemeByStylesheet } from '../util/theme';
@@ -25,5 +25,5 @@ export function getTheme(theme?: string): LooseObject {
  * @param value 具体的主题配置。
  */
 export function registerTheme(theme: string, value: LooseObject) {
-  Themes[lowerCase(theme)] = value;
+  Themes[lowerCase(theme)] = deepMix({}, Themes.default, value);
 }
