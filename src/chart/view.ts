@@ -17,6 +17,7 @@ import {
   set,
   size,
   uniqueId,
+  isEqual,
 } from '@antv/util';
 import { Attribute, Coordinate, Event as GEvent, GroupComponent, ICanvas, IGroup, IShape, Scale } from '../dependents';
 import {
@@ -1206,8 +1207,15 @@ export class View extends Base {
    * 调整 coordinate 的坐标范围。
    */
   public adjustCoordinate() {
+    const { start: curStart, end: curEnd } = this.getCoordinate();
     const start = this.coordinateBBox.bl;
     const end = this.coordinateBBox.tr;
+
+    if (isEqual(curStart, start) && isEqual(curEnd, end)) {
+      // 如果大小没有变化则不更新
+      return;
+    }
+
     this.coordinateInstance = this.coordinateController.adjust(start, end);
   }
 
