@@ -159,7 +159,6 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
         textBaseline: 'middle',
         fontFamily: styleSheet.fontFamily,
       },
-      offset: 32,
     },
     label: {
       autoRotate: true,
