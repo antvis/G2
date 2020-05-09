@@ -26,7 +26,6 @@ export default function defaultLayout(view: View): void {
 
   // 1. 自动加 auto padding -> absolute padding
   const padding = calculatePadding(view);
-
   // 2. 计算出新的 coordinateBBox
   const newCoordinateBBox = view.viewBBox.shrink(padding);
   // 3. 如果 coordinateBBox 前后未发生变化则不需要进行组件的重布局

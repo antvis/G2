@@ -92,6 +92,7 @@ export interface InitCfg {
   scaleDefs?: Record<string, ScaleOption>;
   /** 因为数据使用的引用，所以需要有一个标识位标识数据是否发生了更新 */
   isDataChanged?: boolean;
+  isCoordinateChanged?: boolean;
 }
 
 /** Geometry 构造函数参数 */
@@ -207,6 +208,7 @@ export default class Geometry extends Base {
   private offscreenGroup: IGroup;
   private groupScales: Scale[];
   private hasSorted: boolean = false;
+  protected isCoordinateChanged: boolean = false;
 
   /**
    * 创建 Geometry 实例。
@@ -793,7 +795,7 @@ export default class Geometry extends Base {
    * @param [cfg] 更新的配置
    */
   public update(cfg: InitCfg = {}) {
-    const { data, isDataChanged } = cfg;
+    const { data, isDataChanged, isCoordinateChanged } = cfg;
     const { attributeOption, lastAttributeOption } = this;
 
     if (!isEqual(attributeOption, lastAttributeOption)) {
@@ -810,6 +812,7 @@ export default class Geometry extends Base {
 
     // 调整 scale
     this.adjustScale();
+    this.isCoordinateChanged = isCoordinateChanged;
   }
 
   /**
@@ -911,6 +914,7 @@ export default class Geometry extends Base {
     this.idFields = [];
     this.groupScales = undefined;
     this.hasSorted = false;
+    this.isCoordinateChanged = false;
   }
 
   /**
@@ -1369,7 +1373,7 @@ export default class Geometry extends Base {
         // element 已经创建
         const currentShapeCfg = this.getDrawCfg(mappingDatum);
         const preShapeCfg = result.getModel();
-        if (isModelChange(currentShapeCfg, preShapeCfg)) {
+        if (this.isCoordinateChanged || isModelChange(currentShapeCfg, preShapeCfg)) {
           result.animate = this.animateOption;
           // 通过绘制数据的变更来判断是否需要更新，因为用户有可能会修改图形属性映射
           result.update(currentShapeCfg); // 更新对应的 element

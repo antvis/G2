@@ -20,7 +20,7 @@ export function calculatePadding(view: View): Padding {
   }
 
   // 是 auto padding，根据组件的情况，来计算 padding
-  const { viewBBox } = view;
+  const { viewBBox, autoPadding } = view;
 
   const paddingCal = new PaddingCal();
 
@@ -48,6 +48,17 @@ export function calculatePadding(view: View): Padding {
     }
   });
 
-  // 返回最终的 padding
-  return paddingCal.getPadding();
+  const calculatedPadding = paddingCal.getPadding();
+
+  if (autoPadding) {
+    // 取上一次以及当前计算结果的最大区间
+    return [
+      Math.max(autoPadding[0], calculatedPadding[0]),
+      Math.max(autoPadding[1], calculatedPadding[1]),
+      Math.max(autoPadding[2], calculatedPadding[2]),
+      Math.max(autoPadding[3], calculatedPadding[3]),
+    ];
+  }
+
+  return calculatedPadding;
 }
