@@ -424,16 +424,16 @@ export default class Legend extends Controller<Option> {
     if (!containMin) {
       items.push({
         value: scale.min,
-        attrValue: attr.mapping(0).join(''),
-        color: attr.mapping(0).join(''),
+        attrValue: attr.mapping(scale.invert(0)).join(''),
+        color: attr.mapping(scale.invert(0)).join(''),
         scaleValue: 0,
       });
     }
     if (!containMax) {
       items.push({
         value: scale.max,
-        attrValue: attr.mapping(1).join(''),
-        color: attr.mapping(1).join(''),
+        attrValue: attr.mapping(scale.invert(1)).join(''),
+        color: attr.mapping(scale.invert(1)).join(''),
         scaleValue: 1,
       });
     }
