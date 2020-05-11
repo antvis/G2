@@ -69,7 +69,7 @@
     "prettier": "^2.0.5",
     "react-i18next": "^11.1.0",
     "rimraf": "^3.0.0",
-    "ts-jest": "^24.1.0",
+    "ts-jest": "^25.5.1",
     "ts-loader": "^7.0.2",
     "tslint": "^6.1.2",
     "tslint-config-prettier": "^1.18.0",
