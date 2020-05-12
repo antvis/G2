@@ -1,3 +1,9 @@
+#### 3.5.16 (2020-05-12)
+
+##### Chores
+
+* **deps:**  升级 G 版本至 ~3.4.9 ([c1559f74](https://github.com/antvis/g2/commit/c1559f74605fc89dfe32bef81175d2ac11e42b35))
+
 #### 3.5.15 (2020-04-08)
 
 ##### Bug Fixes
