@@ -1,4 +1,4 @@
-import { transform } from '@antv/matrix-util';
+import { ext } from '@antv/matrix-util';
 import { each } from '@antv/util';
 import { IGroup, IShape } from '../../dependents';
 import { GAnimateCfg } from '../../interface';
@@ -17,7 +17,7 @@ function doShapeZoom(shape: IShape | IGroup, animateCfg: GAnimateCfg, type: 'zoo
 
     if (type === 'zoomIn') {
       // 放大
-      const matrix = transform(shape.getMatrix(), [
+      const matrix = ext.transform(shape.getMatrix(), [
         ['t', -x, -y],
         ['s', 0.01, 0.01],
         ['t', x, y],
@@ -25,7 +25,7 @@ function doShapeZoom(shape: IShape | IGroup, animateCfg: GAnimateCfg, type: 'zoo
       shape.setMatrix(matrix);
       shape.animate(
         {
-          matrix: transform(shape.getMatrix(), [
+          matrix: ext.transform(shape.getMatrix(), [
             ['t', -x, -y],
             ['s', 100, 100],
             ['t', x, y],
@@ -36,7 +36,7 @@ function doShapeZoom(shape: IShape | IGroup, animateCfg: GAnimateCfg, type: 'zoo
     } else {
       shape.animate(
         {
-          matrix: transform(shape.getMatrix(), [
+          matrix: ext.transform(shape.getMatrix(), [
             ['t', -x, -y],
             ['s', 0.01, 0.01],
             ['t', x, y],

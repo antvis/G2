@@ -1,7 +1,9 @@
-import { transform } from '@antv/matrix-util';
+import { ext } from '@antv/matrix-util';
 import { IGroup, IShape } from '../dependents';
 
-export { transform } from '@antv/matrix-util';
+const transform = ext.transform;
+
+export { transform };
 
 /**
  * 对元素进行平移操作。

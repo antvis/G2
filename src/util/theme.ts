@@ -1,5 +1,5 @@
 import * as TOOLTIP_CSS_CONST from '@antv/component/lib/tooltip/css-const';
-import { transform } from '@antv/matrix-util';
+import { ext } from '@antv/matrix-util';
 import { deepMix } from '@antv/util';
 import Element from '../geometry/element';
 import { LooseObject, StyleSheet } from '../interface';
@@ -291,7 +291,7 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
                 const x = r * Math.cos(middleAngle);
                 const y = r * Math.sin(middleAngle);
                 return {
-                  matrix: transform(null, [['t', x, y]]),
+                  matrix: ext.transform(null, [['t', x, y]]),
                 };
               }
               return shapeStyles.interval.selected;
