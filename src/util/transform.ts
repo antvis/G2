@@ -1,7 +1,7 @@
 import { ext } from '@antv/matrix-util';
 import { IGroup, IShape } from '../dependents';
 
-const transform: (m: number[], actions: any[][]) => any[] = ext.transform;
+const transform: (m: number[], actions: any[][]) => number[] = ext.transform;
 
 export { transform };
 
