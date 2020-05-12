@@ -193,8 +193,8 @@ export function getCircleAxisCenterRadius(coordinate: Coordinate) {
       y: isReflectY ? 0 : 1,
     });
 
-  const startVector = [start.x - center.x, start.y - center.y];
-  const normalVector = [1, 0];
+  const startVector: [number, number] = [start.x - center.x, start.y - center.y];
+  const normalVector: [number, number] = [1, 0];
   const startAngle = (start.y > center.y) ? vec2.angle(startVector, normalVector) : vec2.angle(startVector, normalVector) * -1;
   const endAngle = startAngle + (x.end - x.start);
   const radius = Math.sqrt((start.x - center.x) ** 2 + (start.y - center.y) ** 2);
