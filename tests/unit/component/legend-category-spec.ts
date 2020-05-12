@@ -59,6 +59,12 @@ describe('Legend category', () => {
 
     // right
     expect(x).toBeGreaterThan(700);
+
+    expect(chart.autoPadding.length).toBe(4);
+    expect(chart.autoPadding[0]).toBe(6);
+    expect(chart.autoPadding[1]).toBe(40);
+    expect(chart.autoPadding[2]).toBe(28);
+    expect(chart.autoPadding[3]).toBeCloseTo(28.2659912109375);
   });
 });
 

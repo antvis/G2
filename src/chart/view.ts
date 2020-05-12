@@ -17,6 +17,7 @@ import {
   set,
   size,
   uniqueId,
+  isEqual,
 } from '@antv/util';
 import { Attribute, Coordinate, Event as GEvent, GroupComponent, ICanvas, IGroup, IShape, Scale } from '../dependents';
 import {
@@ -86,6 +87,8 @@ export class View extends Base {
   public padding: ViewPadding;
   /** G.Canvas 实例。 */
   public canvas: ICanvas;
+  /** 存储自动计算的 padding 值 */
+  public autoPadding: number[];
 
   /** 三层 Group 图形中的背景层。 */
   public backgroundGroup: IGroup;
@@ -131,6 +134,8 @@ export class View extends Base {
   private isPreMouseInPlot: boolean = false;
   /** 默认标识位，用于判定数据是否更新 */
   private isDataChanged: boolean = false;
+  /** 用于判断坐标系范围是否发生变化的标志位 */
+  private isCoordinateChanged: boolean = false;
   /** 从当前这个 view 创建的 scale key */
   private createdScaleKeys = new Map<string, boolean>();
 
@@ -229,6 +234,7 @@ export class View extends Base {
     this.filteredData = [];
     this.coordinateInstance = undefined;
     this.isDataChanged = false; // 复位
+    this.isCoordinateChanged = false; // 复位
 
     // 2. 清空 geometries
     const geometries = this.geometries;
@@ -1206,8 +1212,17 @@ export class View extends Base {
    * 调整 coordinate 的坐标范围。
    */
   public adjustCoordinate() {
+    const { start: curStart, end: curEnd } = this.getCoordinate();
     const start = this.coordinateBBox.bl;
     const end = this.coordinateBBox.tr;
+
+    // 在 defaultLayoutFn 中只会在 coordinateBBox 发生变化的时候会调用 adjustCoorinate()，所以不用担心被置位
+    if (isEqual(curStart, start) && isEqual(curEnd, end)) {
+      this.isCoordinateChanged = false;
+      // 如果大小没有变化则不更新
+      return;
+    }
+    this.isCoordinateChanged = true;
     this.coordinateInstance = this.coordinateController.adjust(start, end);
   }
 
@@ -1241,6 +1256,19 @@ export class View extends Base {
     this.initComponents(isUpdate);
     // 4. 进行布局，计算 coordinateBBox，进行组件布局，update 位置
     this.doLayout();
+    // 5. 更新并存储最终的 padding 值
+    const viewBBox = this.viewBBox;
+    const coordinateBBox = this.coordinateBBox;
+
+    if (!this.padding) {
+      // 用户未设置 padding 时，将自动计算的 padding 保存至 autoPadding 属性中
+      this.autoPadding = [
+        coordinateBBox.tl.y - viewBBox.tl.y,
+        viewBBox.tr.x - coordinateBBox.tr.x,
+        viewBBox.bl.y - coordinateBBox.bl.y,
+        coordinateBBox.tl.x - viewBBox.tl.x
+      ];
+    }
 
     // 同样递归处理子 views
     const views = this.views;
@@ -1350,15 +1378,25 @@ export class View extends Base {
     const { start, end } = this.region;
 
     // 根据 region 计算当前 view 的 bbox 大小。
-    this.viewBBox = new BBox(
+    const viewBBox = new BBox(
       x + width * start.x,
       y + height * start.y,
       width * (end.x - start.x),
       height * (end.y - start.y)
     );
 
-    // 初始的 coordinate bbox 大小
-    this.coordinateBBox = this.viewBBox;
+    if (!this.viewBBox || !this.viewBBox.isEqual(viewBBox)) {
+      // viewBBox 发生变化的时候进行更新
+      this.viewBBox = new BBox(
+        x + width * start.x,
+        y + height * start.y,
+        width * (end.x - start.x),
+        height * (end.y - start.y)
+      );
+
+      // 初始的 coordinate bbox 大小
+      this.coordinateBBox = this.viewBBox;
+    }
   }
 
   /**
@@ -1486,7 +1524,7 @@ export class View extends Base {
           }
           e.type = PLOT_EVENTS.LEAVE;
           this.emit(PLOT_EVENTS.LEAVE, e);
-         } else if (!this.isPreMouseInPlot && currentInPlot) {
+        } else if (!this.isPreMouseInPlot && currentInPlot) {
           if (type === 'mousemove') {
             e.type = PLOT_EVENTS.MOUSE_ENTER;
             this.emit(PLOT_EVENTS.MOUSE_ENTER, e);
@@ -1535,7 +1573,7 @@ export class View extends Base {
     const geometries = this.geometries;
     for (let i = 0, len = geometries.length; i < len; i++) {
       const geometry = geometries[i];
-    // 保持 scales 引用不要变化
+      // 保持 scales 引用不要变化
       geometry.scales = this.getGeometryScales();
       const cfg = {
         coordinate, // 使用 coordinate 引用，可以保持 coordinate 的同步更新
@@ -1543,6 +1581,7 @@ export class View extends Base {
         data: this.filteredData,
         theme: this.themeObject,
         isDataChanged: this.isDataChanged,
+        isCoordinateChanged: this.isCoordinateChanged,
       };
 
       if (isUpdate) {
