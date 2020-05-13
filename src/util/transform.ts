@@ -1,7 +1,7 @@
 import { ext } from '@antv/matrix-util';
 import { IGroup, IShape } from '../dependents';
 
-const transform = ext.transform;
+const transform: (m: number[], actions: any[][]) => number[] = ext.transform;
 
 export { transform };
 
@@ -50,7 +50,7 @@ export function zoom(element: IGroup | IShape, ratio: number) {
   const y = (bbox.minY + bbox.maxY) / 2;
   element.applyToMatrix([x, y, 1]);
 
-  const matrix =  transform(element.getMatrix(), [
+  const matrix = transform(element.getMatrix(), [
     ['t', -x, -y],
     ['s', ratio, ratio],
     ['t', x, y],
