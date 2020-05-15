@@ -9,7 +9,9 @@ function hasClass(dom, className) {
     return false;
   }
   let cls = '';
-  if (!dom.className) { return false; }
+  if (!dom.className) {
+    return false;
+  }
   if (!isNil(dom.className.baseVal)) {
     cls = dom.className.baseVal;
   } else {
@@ -75,13 +77,6 @@ class TooltipAction extends Action {
     const isTooltipLocked = view.isTooltipLocked();
     if (isTooltipLocked) {
       // 锁定 tooltip 时不隐藏
-      return;
-    }
-
-    const event = this.context.event;
-    const toElement = get(event, [ 'gEvent', 'originalEvent', 'toElement' ]);
-    if (toElement && (hasClass(toElement, 'g2-tooltip') || isParent(toElement, 'g2-tooltip'))) {
-      // 当鼠标滑入 tooltip 内容框时不隐藏
       return;
     }
     this.hideTooltip(view);
