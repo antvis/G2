@@ -1,3 +1,22 @@
+#### 4.0.8 (2020-05-18)
+
+##### Documentation Changes
+
+- **upgrade:** 完善升级文档 ([#2403](https://github.com/antvis/g2/pull/2403)) ([b4451df7](https://github.com/antvis/g2/commit/b4451df7ef49e751f8ed6e9d6a088fa217f9b293))
+
+##### New Features
+
+- **slider:** add `formatMask` property ([aac56a86](https://github.com/antvis/g2/commit/aac56a86751061a135c40dee6ac843028a1d7838))
+- **interaction:** use get method ([78e2c32f](https://github.com/antvis/g2/commit/78e2c32f434591ee1e30ba54e004e3a000e3054d))
+
+##### Bug Fixes
+
+- **2365:** 修复极坐标系圆弧坐标轴文本不响应坐标系 rotate 的问题 ([#2424](https://github.com/antvis/g2/pull/2424)) ([5c2bc3ff](https://github.com/antvis/g2/commit/5c2bc3ffe896339457e264679559a5ce738f439a))
+- **2371:** 修复未判断 labels 为空导致的饼图图例过滤错误 ([#2422](https://github.com/antvis/g2/pull/2422)) ([a30eb71f](https://github.com/antvis/g2/commit/a30eb71f403c369b7b2f3b01617a36ec14b8a838))
+- **2377:** registerTheme 时，需要和基础主题进行合并 ([#2416](https://github.com/antvis/g2/pull/2416)) ([0c220765](https://github.com/antvis/g2/commit/0c22076559c76f548f6d4c4a8a5bbaeebf9d5afb))
+- **2412:** 修复 axis title offset 设置不生效的问题，默认自动计算 ([#2417](https://github.com/antvis/g2/pull/2417)) ([a220df31](https://github.com/antvis/g2/commit/a220df3199e51a26fbba3245d6f65ec2135389ef))
+- fix min/max value map to color ([#2442](https://github.com/antvis/g2/pull/2442)) ([b3d41214](https://github.com/antvis/g2/commit/b3d412142736e4415d53463f52c04fcd00b23817))
+
 #### 4.0.7 (2020-04-17)
 
 ##### Bug Fixes
