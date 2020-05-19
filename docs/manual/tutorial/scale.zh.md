@@ -103,7 +103,7 @@ chart.scale('y', {
 
 ```javascript
 chart.scale('date', {
-  type: 'tiemCat',
+  type: 'timeCat',
 });
 
 chart.scale('x', {
