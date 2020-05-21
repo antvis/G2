@@ -838,7 +838,7 @@ export class View extends Base {
    * This method will be removed at G2 V4.1. Replaced by {@link #createView()}
    */
   public view(cfg?: Partial<ViewCfg>) {
-    console.warn('This method will be removed at G2 V4.1. Please use chart.createView() instead.')
+    console.warn('This method will be removed at G2 V4.1. Please use chart.createView() instead.');
     return this.createView(cfg);
   }
 
@@ -960,10 +960,10 @@ export class View extends Base {
     return layer === LAYER.BG
       ? this.backgroundGroup
       : layer === LAYER.MID
-        ? this.middleGroup
-        : layer === LAYER.FORE
-          ? this.foregroundGroup
-          : this.foregroundGroup;
+      ? this.middleGroup
+      : layer === LAYER.FORE
+      ? this.foregroundGroup
+      : this.foregroundGroup;
   }
 
   /**
@@ -1266,7 +1266,7 @@ export class View extends Base {
         coordinateBBox.tl.y - viewBBox.tl.y,
         viewBBox.tr.x - coordinateBBox.tr.x,
         viewBBox.bl.y - coordinateBBox.bl.y,
-        coordinateBBox.tl.x - viewBBox.tl.x
+        coordinateBBox.tl.x - viewBBox.tl.x,
       ];
     }
 
@@ -1417,13 +1417,14 @@ export class View extends Base {
 
   private onCanvasEvent = (evt: GEvent): void => {
     const name = evt.name;
-    if (!name.includes(':')) {// 非委托事件
+    if (!name.includes(':')) {
+      // 非委托事件
       const e = this.createViewEvent(evt);
       // 处理 plot 事件
       this.doPlotEvent(e);
       this.emit(name, e);
     }
-  }
+  };
 
   /**
    * 初始化插件
@@ -1510,7 +1511,8 @@ export class View extends Base {
         const TYPE = `plot:${type}`; // 组合 plot 事件
         e.type = TYPE;
         this.emit(TYPE, e);
-        if (type === 'mouseleave' || type === 'touchend') { // 在plot 内部却离开画布
+        if (type === 'mouseleave' || type === 'touchend') {
+          // 在plot 内部却离开画布
           this.isPreMouseInPlot = false;
         }
       }
@@ -1534,7 +1536,8 @@ export class View extends Base {
         }
         // 赋新的状态值
         this.isPreMouseInPlot = currentInPlot;
-      } else if (type === 'mouseleave' || type === 'touchend') { // 可能不在 currentInPlot 中
+      } else if (type === 'mouseleave' || type === 'touchend') {
+        // 可能不在 currentInPlot 中
         if (this.isPreMouseInPlot) {
           if (type === 'mouseleave') {
             e.type = PLOT_EVENTS.MOUSE_LEAVE;
@@ -1618,7 +1621,7 @@ export class View extends Base {
         // 分组字段的 scale 使用未过滤的数据创建
         groupedFields.includes(field) ? data : filteredData,
         scaleDef,
-        key,
+        key
       );
 
       // 缓存从当前 view 创建的 scale key
@@ -1745,7 +1748,7 @@ export class View extends Base {
         controller.clear();
         controller.render();
       }
-    };
+    }
   }
 
   private doLayout() {

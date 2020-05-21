@@ -30,7 +30,7 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
       inactive: {
         fillOpacity: styleSheet.pointInactiveFillOpacity,
         strokeOpacity: styleSheet.pointInactiveBorderOpacity,
-      }
+      },
     },
     hollowPoint: {
       default: {
@@ -51,7 +51,7 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
       },
       inactive: {
         strokeOpacity: styleSheet.hollowPointInactiveBorderOpacity,
-      }
+      },
     },
     area: {
       default: {
@@ -127,7 +127,7 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
         stroke: styleSheet.hollowIntervalInactiveBorderColor,
         lineWidth: styleSheet.hollowIntervalInactiveBorder,
         strokeOpacity: styleSheet.hollowIntervalInactiveBorderOpacity,
-      }
+      },
     },
     line: {
       default: {
@@ -295,7 +295,7 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
                 };
               }
               return shapeStyles.interval.selected;
-            }
+            },
           },
         },
         'hollow-rect': {
@@ -936,7 +936,7 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
             style: shapeStyles.line.selected,
           },
         },
-      }
+      },
     },
     components: {
       axis: {

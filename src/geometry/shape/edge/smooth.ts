@@ -7,9 +7,7 @@ import { getCPath } from './util';
 
 function getSmoothPath(from: Point, to: Point) {
   const sub = getCPath(from, to);
-  const path = [
-    ['M', from.x, from.y]
-  ];
+  const path = [['M', from.x, from.y]];
 
   path.push(sub);
   return path;
@@ -35,5 +33,5 @@ registerShape('edge', 'smooth', {
         fill: markerCfg.color,
       },
     };
-  }
+  },
 });

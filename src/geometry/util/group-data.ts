@@ -4,7 +4,7 @@ import { Data } from '../../interface';
 /** @ignore */
 export function group(data: Data, fields: string[], appendConditions: Record<string, any[]> = {}) {
   if (!fields) {
-    return [ data ];
+    return [data];
   }
   const groups = groupToMap(data, fields);
   const array = [];
@@ -12,7 +12,8 @@ export function group(data: Data, fields: string[], appendConditions: Record<str
     const values = appendConditions[fields[0]];
     for (const value of values) {
       const arr = groups[`_${value}`];
-      if (arr) { // 可能存在用户设置 values ，但是数据中没有对应的字段，则这时候 arr 就为 null
+      if (arr) {
+        // 可能存在用户设置 values ，但是数据中没有对应的字段，则这时候 arr 就为 null
         array.push(arr);
       }
     }

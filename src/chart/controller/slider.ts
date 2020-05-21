@@ -59,8 +59,7 @@ export default class Slider extends Controller<Option> {
   /**
    * 初始化
    */
-  public init() {
-  }
+  public init() {}
 
   /**
    * 渲染
@@ -95,13 +94,11 @@ export default class Slider extends Controller<Option> {
     }
   }
 
-
   /**
    * 布局
    */
   public layout() {
     if (this.slider) {
-
       const width = this.view.coordinateBBox.width;
       // 获取组件的 layout bbox
       const bboxObject = this.slider.component.getLayoutBBox();
@@ -136,7 +133,6 @@ export default class Slider extends Controller<Option> {
     const component = new SliderComponent({
       container: this.container,
       ...cfg,
-
     });
 
     component.init();
@@ -244,10 +240,7 @@ export default class Slider extends Controller<Option> {
     });
 
     // 增加 x 轴的过滤器
-    this.view.filter(
-      xScale.field,
-      (value: any, datum: Datum, idx: number) => isBetween(idx, minIndex, maxIndex),
-    );
+    this.view.filter(xScale.field, (value: any, datum: Datum, idx: number) => isBetween(idx, minIndex, maxIndex));
   }
 
   /**

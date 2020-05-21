@@ -107,7 +107,7 @@ export default class Context implements IInteractionContext {
    * @param name shape 的 name
    */
   public isInShape(name) {
-    const shape = this.getCurrentShape();// 不再考虑在 shape 的 parent 内的情况
+    const shape = this.getCurrentShape(); // 不再考虑在 shape 的 parent 内的情况
     if (shape) {
       return shape.get('name') === name;
     }

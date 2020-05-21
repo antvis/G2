@@ -232,7 +232,7 @@ export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>,
       showTitle: true,
       padding: 10,
       fields: [],
-    }
+    };
   }
 
   /**
@@ -246,7 +246,7 @@ export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>,
         fontSize: 14,
         fill: '#666',
         fontFamily,
-      }
+      },
     };
   }
 
@@ -264,7 +264,6 @@ export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>,
     const coordinateType = get(coordinateOption, 'type', 'rect');
 
     if (coordinateType === 'rect' && geometries.length) {
-
       if (isNil(options.axes)) {
         // @ts-ignore
         options.axes = {};
@@ -342,4 +341,3 @@ export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>,
    */
   protected abstract getYAxisOption(y: string, axes: any, option: AxisCfg, facet: F): object;
 }
-

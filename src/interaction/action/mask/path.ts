@@ -25,7 +25,7 @@ class PathMask extends MaskBase {
 
   protected getMaskAttrs() {
     return {
-      path: this.getMaskPath()
+      path: this.getMaskPath(),
     };
   }
 

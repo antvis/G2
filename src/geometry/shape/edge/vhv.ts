@@ -19,10 +19,8 @@ function getVHVPath(from: Point, to: Point) {
   });
   points.push(to);
 
-  const path = [
-    ['M', from.x, from.y]
-  ];
-  each(points, point => {
+  const path = [['M', from.x, from.y]];
+  each(points, (point) => {
     path.push(['L', point.x, point.y]);
   });
 
@@ -49,5 +47,5 @@ registerShape('edge', 'vhv', {
         fill: markerCfg.color,
       },
     };
-  }
+  },
 });

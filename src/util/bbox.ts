@@ -228,6 +228,6 @@ export function toPoints(bbox: Partial<BBox>): any[] {
     [bbox.minX, bbox.minY],
     [bbox.maxX, bbox.minY],
     [bbox.maxX, bbox.maxY],
-    [bbox.minX, bbox.maxY]
+    [bbox.minX, bbox.maxY],
   ];
 }

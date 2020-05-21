@@ -56,7 +56,7 @@ export default class Legend extends Controller<Option> {
     return 'legend';
   }
 
-  public init() { }
+  public init() {}
 
   /**
    * render the legend component by legend options
@@ -75,10 +75,7 @@ export default class Legend extends Controller<Option> {
 
     // 全局自定义图例
     if (get(this.option, 'custom')) {
-      const component = this.createCustomLegend(
-        undefined, undefined, undefined,
-        this.option as LegendCfg,
-      );
+      const component = this.createCustomLegend(undefined, undefined, undefined, this.option as LegendCfg);
       if (component) {
         component.init();
 
@@ -220,10 +217,7 @@ export default class Legend extends Controller<Option> {
 
         updated[id] = true;
       } else {
-        const component = this.createCustomLegend(
-          undefined, undefined, undefined,
-          this.option as LegendCfg,
-        );
+        const component = this.createCustomLegend(undefined, undefined, undefined, this.option as LegendCfg);
         if (component) {
           component.init();
 
@@ -294,7 +288,9 @@ export default class Legend extends Controller<Option> {
   private loopLegends(doEach: DoEach) {
     const isRootView = this.view.getRootView() === this.view;
     // 非根 view，不处理 legend
-    if (!isRootView) { return; }
+    if (!isRootView) {
+      return;
+    }
 
     // 递归 view 中所有的 Geometry，进行创建 legend
     const geometries = this.getGeometries(this.view);
@@ -475,9 +471,12 @@ export default class Legend extends Controller<Option> {
 
     let title = get(legendOption, 'title');
     if (title) {
-      title = deepMix({
-        text: getName(scale),
-      }, title);
+      title = deepMix(
+        {
+          text: getName(scale),
+        },
+        title
+      );
     }
 
     // 基础配置，从当前数据中读到的配置
@@ -497,7 +496,13 @@ export default class Legend extends Controller<Option> {
    * @param custom
    * @param legendOption
    */
-  private getCategoryCfg(geometry: Geometry, attr: Attribute, scale: Scale, legendOption: any, custom?: boolean): object {
+  private getCategoryCfg(
+    geometry: Geometry,
+    attr: Attribute,
+    scale: Scale,
+    legendOption: any,
+    custom?: boolean
+  ): object {
     const container = this.container;
     // if position is not set, use top as default
     const direction = get(legendOption, 'position', DIRECTION.BOTTOM);
@@ -507,15 +512,18 @@ export default class Legend extends Controller<Option> {
     const userMarker = get(legendOption, 'marker');
     const layout = getLegendLayout(direction);
 
-    const items = custom ?
-      getCustomLegendItems(themeMarker, userMarker, legendOption.items) :
-      getLegendItems(this.view, geometry, attr, themeMarker, userMarker);
+    const items = custom
+      ? getCustomLegendItems(themeMarker, userMarker, legendOption.items)
+      : getLegendItems(this.view, geometry, attr, themeMarker, userMarker);
 
     let title = get(legendOption, 'title');
     if (title) {
-      title = deepMix({
-        text: scale ? getName(scale) : '',
-      }, title);
+      title = deepMix(
+        {
+          text: scale ? getName(scale) : '',
+        },
+        title
+      );
     }
 
     const baseCfg: LooseObject = this.getCategoryLegendSizeCfg(layout);
@@ -567,12 +575,12 @@ export default class Legend extends Controller<Option> {
     const { width: cw, height: ch } = this.view.coordinateBBox;
     return layout === 'vertical'
       ? {
-        maxWidth: vw * COMPONENT_MAX_VIEW_PERCENTAGE,
-        maxHeight: ch,
-      }
+          maxWidth: vw * COMPONENT_MAX_VIEW_PERCENTAGE,
+          maxHeight: ch,
+        }
       : {
-        maxWidth: cw,
-        maxHeight: vh * COMPONENT_MAX_VIEW_PERCENTAGE,
-      };
+          maxWidth: cw,
+          maxHeight: vh * COMPONENT_MAX_VIEW_PERCENTAGE,
+        };
   }
 }

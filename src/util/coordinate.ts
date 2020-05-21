@@ -3,7 +3,6 @@ import { Point } from '../interface';
 import { getSectorPath } from './graphics';
 import { isBetween } from './helper';
 
-
 /**
  * @ignore
  * Gets x dimension length

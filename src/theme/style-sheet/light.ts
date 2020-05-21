@@ -1,4 +1,3 @@
-
 const BLACK_COLORS = {
   100: '#000',
   95: '#0D0D0D',
@@ -246,7 +245,6 @@ export const antvLight = {
   /** tooltip 文本字体粗细 */
   tooltipTextFontWeight: 'bold',
 
-
   // -------------------- Geometry labels --------------------
   /** Geometry label 文本颜色 */
   labelFillColor: BLACK_COLORS[65],
@@ -428,4 +426,4 @@ export const antvLight = {
 
   /** hollowInterval inactive 状态下边框透明度 */
   hollowIntervalInactiveBorderOpacity: 0.3,
-}
+};

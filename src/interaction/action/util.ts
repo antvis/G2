@@ -5,7 +5,7 @@ import Geometry from '../../geometry/base';
 import Element from '../../geometry/element/';
 import { catmullRom2bezier, getLinePath } from '../../geometry/shape/util/path';
 import { toPoints } from '../../util/bbox';
-import isPolygonsIntersect  from '@antv/path-util/lib/is-polygons-intersect';
+import isPolygonsIntersect from '@antv/path-util/lib/is-polygons-intersect';
 import { ComponentOption, IInteractionContext, LooseObject } from '../../interface';
 
 function getMaskBBox(context: IInteractionContext, tolerance: number) {
@@ -103,10 +103,10 @@ export function isMask(context: IInteractionContext): boolean {
  * @param context 上下文
  * @ignore
  */
-export function getMaskedElements(context: IInteractionContext, tolerance: number): Element[]{
+export function getMaskedElements(context: IInteractionContext, tolerance: number): Element[] {
   const target = context.event.target;
   if (target.get('type') === 'path') {
-    const maskPath =  getMaskPath(context, tolerance);
+    const maskPath = getMaskPath(context, tolerance);
     if (!maskPath) {
       return;
     }
@@ -130,13 +130,13 @@ export function getSiblingMaskElements(context: IInteractionContext, sibling: Vi
     return null;
   }
   const view = context.view;
-  const start = getSiblingPoint(view, sibling, {x: maskBBox.x, y: maskBBox.y});
-  const end = getSiblingPoint(view, sibling, {x: maskBBox.maxX, y: maskBBox.maxY});
+  const start = getSiblingPoint(view, sibling, { x: maskBBox.x, y: maskBBox.y });
+  const end = getSiblingPoint(view, sibling, { x: maskBBox.maxX, y: maskBBox.maxY });
   const box = {
     minX: start.x,
     minY: start.y,
     maxX: end.x,
-    maxY: end.y
+    maxY: end.y,
   };
   return getIntersectElements(sibling, box);
 }
@@ -154,7 +154,7 @@ export function getElements(view: View): Element[] {
     rst = rst.concat(elements);
   });
   if (view.views && view.views.length) {
-    each(view.views, subView => {
+    each(view.views, (subView) => {
       rst = rst.concat(getElements(subView));
     });
   }
@@ -170,7 +170,7 @@ export function getElements(view: View): Element[] {
  */
 export function getElementsByField(view: View, field: string, value: any) {
   const elements = getElements(view);
-  return elements.filter(el => {
+  return elements.filter((el) => {
     return getElementValue(el, field) === value;
   });
 }
@@ -239,10 +239,10 @@ export function getIntersectElements(view: View, box) {
 }
 function pathToPoints(path: any[]) {
   const points = [];
-  each(path, seg => {
+  each(path, (seg) => {
     const command = seg[0];
     if (command !== 'A') {
-      for(let i = 1; i < seg.length; i = i+2) {
+      for (let i = 1; i < seg.length; i = i + 2) {
         points.push([seg[i], seg[i + 1]]);
       }
     } else {
@@ -265,7 +265,7 @@ export function getElementsByPath(view: View, path: any[]) {
     const shape = el.shape;
     let shapePoints;
     if (shape.get('type') === 'path') {
-      shapePoints = pathToPoints(shape.attr('path'))
+      shapePoints = pathToPoints(shape.attr('path'));
     } else {
       const shapeBBox = shape.getCanvasBBox();
       shapePoints = toPoints(shapeBBox);
@@ -327,7 +327,7 @@ export function getSilbings(view: View): View[] {
   const parent = view.parent;
   let siblings = null;
   if (parent) {
-    siblings = parent.views.filter(sub => sub !== view);
+    siblings = parent.views.filter((sub) => sub !== view);
   }
   return siblings;
 }
@@ -348,7 +348,6 @@ export function getSiblingPoint(view: View, sibling: View, point: Point): Point 
   return sibling.getCoordinate().convert(normalPoint);
 }
 
-
 /**
  * 是否在记录中，临时因为所有的 view 中的数据不是引用，而使用的方法
  * 不同 view 上对数据的引用不相等，导致无法直接用 includes
@@ -363,7 +362,7 @@ export function getSiblingPoint(view: View, sibling: View, point: Point): Point 
  */
 export function isInRecords(records: object[], record: object, xFiled: string, yField: string) {
   let isIn = false;
-  each(records, r => {
+  each(records, (r) => {
     if (r[xFiled] === record[xFiled] && r[yField] === record[yField]) {
       isIn = true;
       return false;
@@ -376,7 +375,7 @@ export function isInRecords(records: object[], record: object, xFiled: string, y
 export function getScaleByField(view: View, field: string) {
   let scale = view.getScaleByField(field);
   if (!scale && view.views) {
-    each(view.views, subView => {
+    each(view.views, (subView) => {
       scale = getScaleByField(subView, field);
       if (scale) {
         return false; // 终止循环

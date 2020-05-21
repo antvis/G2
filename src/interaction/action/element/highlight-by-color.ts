@@ -13,10 +13,10 @@ class HighlightColor extends Highlight {
     if (!colorAttr) {
       return;
     }
-    const scale = view.getScaleByField(colorAttr.getFields()[0])
+    const scale = view.getScaleByField(colorAttr.getFields()[0]);
     const value = getElementValue(element, scale.field);
     const elements = getElements(view);
-    const highlightElements = elements.filter(el => {
+    const highlightElements = elements.filter((el) => {
       return getElementValue(el, scale.field) === value;
     });
     this.setHighlightBy(elements, (el) => highlightElements.includes(el), enable);

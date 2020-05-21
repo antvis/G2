@@ -40,7 +40,7 @@ export default class Chart extends View {
       pixelRatio,
       localRefresh = true,
       visible = true,
-      defaultInteractions = [ 'tooltip', 'legend-filter', 'legend-active', 'continuous-filter' ],
+      defaultInteractions = ['tooltip', 'legend-filter', 'legend-active', 'continuous-filter'],
       options,
       limitInPlot,
       theme,
@@ -95,8 +95,8 @@ export default class Chart extends View {
   }
 
   private initDefaultInteractions(interactions) {
-    each(interactions, interaction => {
-      this.interaction(interaction)
+    each(interactions, (interaction) => {
+      this.interaction(interaction);
     });
   }
 

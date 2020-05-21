@@ -56,7 +56,6 @@ export function getLineGridItems(coordinate: Coordinate, scale: Scale, dim: stri
     return currentTick;
   }, ticks[0]);
   return items;
-
 }
 
 /**
@@ -68,7 +67,13 @@ export function getLineGridItems(coordinate: Coordinate, scale: Scale, dim: stri
  * @param dim
  * @returns items
  */
-export function getCircleGridItems(coordinate: Coordinate, xScale: Scale, yScale: Scale, alignTick: boolean, dim: string) {
+export function getCircleGridItems(
+  coordinate: Coordinate,
+  xScale: Scale,
+  yScale: Scale,
+  alignTick: boolean,
+  dim: string
+) {
   const count = xScale.values.length;
   const items = [];
   const ticks = yScale.getTicks();
@@ -89,8 +94,8 @@ export function getCircleGridItems(coordinate: Coordinate, xScale: Scale, yScale
             x: alignTick ? currentValue : middleValue,
             y: 1,
           }),
-        ]
-      })
+        ],
+      });
     } else {
       items.push({
         points: map(Array(count + 1), (__: any, idx: number) => {

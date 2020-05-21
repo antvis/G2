@@ -9,7 +9,6 @@ const STATUS_UNACTIVE = 'inactive';
 const STATUS_ACTIVE = 'active';
 type Callback = (el) => boolean;
 
-
 /**
  * @ignore
  * highlight，指定图形高亮，其他图形变暗

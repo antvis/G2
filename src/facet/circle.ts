@@ -37,20 +37,20 @@ export default class Circle extends Facet<CircleCfg, CircleData> {
     // 画布圆心
     const center = { x: 0.5, y: 0.5 };
     // 每隔分面间隔的弧度
-    const avgAngle = Math.PI * 2 / count;
+    const avgAngle = (Math.PI * 2) / count;
 
     // 当前分面所在的弧度
-    const angle = -1 * Math.PI / 2 + avgAngle * index;
+    const angle = (-1 * Math.PI) / 2 + avgAngle * index;
     // TODO 没看懂
     const facetR = r / (1 + 1 / Math.sin(avgAngle / 2));
     // 分面的中心点
     const middle = getAnglePoint(center, r - facetR, angle);
-    const startAngle = Math.PI * 5 / 4; // 右上角
-    const endAngle = Math.PI * 1 / 4; // 左下角
+    const startAngle = (Math.PI * 5) / 4; // 右上角
+    const endAngle = (Math.PI * 1) / 4; // 左下角
 
     return {
       start: getAnglePoint(middle, facetR, startAngle),
-      end: getAnglePoint(middle, facetR, endAngle)
+      end: getAnglePoint(middle, facetR, endAngle),
     };
   }
 
@@ -58,8 +58,7 @@ export default class Circle extends Facet<CircleCfg, CircleData> {
     this.processAxis(view, facet);
   }
 
-  protected beforeEachView(view: View, facet: CircleData) {
-  }
+  protected beforeEachView(view: View, facet: CircleData) {}
 
   protected generateFacets(data: Datum[]): CircleData[] {
     const { fields, type } = this.cfg;
@@ -101,7 +100,6 @@ export default class Circle extends Facet<CircleCfg, CircleData> {
     return option;
   }
 
-
   /**
    * 设置 y 坐标轴的文本、title 是否显示
    * @param y
@@ -121,10 +119,14 @@ export default class Circle extends Facet<CircleCfg, CircleData> {
     each(this.facets, (facet: CircleData) => {
       const { columnValue, view } = facet;
 
-      const config = deepMix({
-        position: [ '50%', '0%' ] as [string, string],
-        content: columnValue,
-      }, getFactTitleConfig(DIRECTION.TOP), this.cfg.title);
+      const config = deepMix(
+        {
+          position: ['50%', '0%'] as [string, string],
+          content: columnValue,
+        },
+        getFactTitleConfig(DIRECTION.TOP),
+        this.cfg.title
+      );
 
       view.annotation().text(config);
     });

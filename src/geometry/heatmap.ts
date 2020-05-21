@@ -46,7 +46,7 @@ export default class Heatmap extends Geometry {
 
     let min = Infinity;
     let max = -Infinity;
-    data.forEach(row => {
+    data.forEach((row) => {
       const value = row[FIELD_ORIGIN][colorField];
       if (value > max) {
         max = value;
@@ -60,7 +60,7 @@ export default class Heatmap extends Geometry {
       min = max - 1;
     }
 
-    return [ min, max ];
+    return [min, max];
   }
 
   private prepareSize() {
@@ -103,7 +103,7 @@ export default class Heatmap extends Geometry {
     const ctx = this.getShadowCanvasCtx();
     // filter data
     if (range) {
-      data = data.filter(row => {
+      data = data.filter((row) => {
         return row[FIELD_ORIGIN][valueField] <= range[1] && row[FIELD_ORIGIN][valueField] >= range[0];
       });
     }
