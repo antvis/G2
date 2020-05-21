@@ -19,7 +19,7 @@ export class ScalePool {
   /** 所有的 scales */
   private scales = new Map<string, ScaleMeta>();
   /** 需要同步的 scale 分组， key: scaleKeyArray */
-  private syncScales= new Map<string, string[]>();
+  private syncScales = new Map<string, string[]>();
 
   /**
    * 创建 scale
@@ -135,7 +135,7 @@ export class ScalePool {
       // 不存在这个 syncKey，则创建一个空数组
       let scaleKeys = this.syncScales.get(syncKey);
       if (!scaleKeys) {
-        scaleKeys = []
+        scaleKeys = [];
         this.syncScales.set(syncKey, scaleKeys);
       }
       scaleKeys.push(key);
@@ -163,7 +163,7 @@ export class ScalePool {
    * @param key
    */
   public deleteScale(key: string) {
-    let scaleMeta = this.getScaleMeta(key);
+    const scaleMeta = this.getScaleMeta(key);
     if (scaleMeta) {
       const { syncKey } = scaleMeta;
 

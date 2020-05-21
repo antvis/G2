@@ -244,7 +244,7 @@ export default class Element extends Base {
       target: this.container,
     };
     this.container.emit('statechange', eventObject);
-    //@ts-ignore
+    // @ts-ignore
     propagationDelegate(this.shape, 'statechange', eventObject);
   }
 
@@ -378,10 +378,10 @@ export default class Element extends Base {
       const name = this.shape.cfg.name;
       // 附加 element 的 name, name 现在支持数组了，很好用了
       if (!name) {
-        // 这个地方如果用户添加了 name, 则附加 name ，否则就添加自己的 name 
+        // 这个地方如果用户添加了 name, 则附加 name ，否则就添加自己的 name
         // @ts-ignore
-        this.shape.cfg.name = ['element', this.shapeFactory.geometryType]
-      } else if(isString(name)) {
+        this.shape.cfg.name = ['element', this.shapeFactory.geometryType];
+      } else if (isString(name)) {
         // @ts-ignore
         this.shape.cfg.name = ['element', name];
       }
@@ -440,7 +440,8 @@ export default class Element extends Base {
     } else {
       if (state && state !== 'reset') {
         let name = sourceShape.get('name');
-        if (isArray(name)) { // 会附加 element 的 name
+        if (isArray(name)) {
+          // 会附加 element 的 name
           name = name[1];
         }
         const style = this.getStateStyle(state, name || index); // 如果用户没有设置 name，则默认根据索引值
