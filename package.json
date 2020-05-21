@@ -18,7 +18,9 @@
     "site:clean": "gatsby clean",
     "site:deploy": "npm run doc && npm run site:build && gh-pages -d public",
     "clean": "rimraf lib esm dist",
-    "lint": "lint-staged",
+    "lint": "run-p lint:*",
+    "lint:prettier": "prettier -c 'src/**/*.ts'",
+    "lint:tslint": "tslint -c tslint.json 'src/**/*.ts'",
     "test": "jest",
     "test-live": "DEBUG_MODE=1 jest --watch tests/unit",
     "coverage": "jest --coverage",
@@ -82,7 +84,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "run-s lint build test",
+      "pre-commit": "lint-staged",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
