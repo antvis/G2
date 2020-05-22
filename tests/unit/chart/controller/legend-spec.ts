@@ -3,7 +3,7 @@ import { Chart } from '../../../../src/index';
 import { createDiv } from '../../../util/dom';
 
 describe('Legend', () => {
-  let chart;
+  let chart: Chart;
   it('category', () => {
     const container = createDiv();
     chart = new Chart({
@@ -31,11 +31,7 @@ describe('Legend', () => {
       },
     });
 
-    chart
-      .interval()
-      .position('月份*月均降雨量')
-      .color('name')
-      .adjust('dodge');
+    chart.interval().position('月份*月均降雨量').color('name').adjust('dodge');
     chart.render();
 
     const legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
@@ -71,11 +67,7 @@ describe('Legend', () => {
       },
     });
 
-    chart
-      .interval()
-      .position('月份*月均降雨量')
-      .color('月均降雨量')
-      .adjust('dodge');
+    chart.interval().position('月份*月均降雨量').color('月均降雨量').adjust('dodge');
     chart.render();
 
     const legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
@@ -108,11 +100,7 @@ describe('Legend', () => {
       animate: true,
     });
 
-    chart
-      .interval()
-      .position('月份*月均降雨量')
-      .size('月均降雨量')
-      .adjust('dodge');
+    chart.interval().position('月份*月均降雨量').size('月均降雨量').adjust('dodge');
     chart.render();
 
     const legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
@@ -123,39 +111,38 @@ describe('Legend', () => {
   });
 
   it('custom', () => {
-      const container = createDiv();
-      chart = new Chart({
-        container,
-        height: 500,
-        width: 600,
-        autoFit: false,
-      });
-      chart.data([
-        { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
-        { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
-        { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
-        { name: 'Berlin', 月份: 'Jan.', 月均降雨量: 12.4 },
-        { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
-        { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
-      ]);
+    const container = createDiv();
+    chart = new Chart({
+      container,
+      height: 500,
+      width: 600,
+      autoFit: false,
+    });
+    chart.data([
+      { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
+      { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
+      { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
+      { name: 'Berlin', 月份: 'Jan.', 月均降雨量: 12.4 },
+      { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
+      { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
+    ]);
 
-      chart.legend({
-        custom: true,
-        items: [
-          { name: 'London', value: 'London', marker: { symbol: 'tick', style: { r: 10 } } },
-          { name: 'Berlin', value: 'Berlin', marker: { symbol: 'circle', style: { r: 10 } } },
-        ],
-        title: {
-          text: '城市',
-        },
-      });
+    chart.legend({
+      custom: true,
+      items: [
+        // @ts-ignore
+        { name: 'London', value: 'London', marker: { symbol: 'tick', style: { r: 10 } } },
+        // @ts-ignore
+        { name: 'Berlin', value: 'Berlin', marker: { symbol: 'circle', style: { r: 10 } } },
+      ],
+      title: {
+        // @ts-ignore
+        text: '城市',
+      },
+    });
 
-      chart
-        .interval()
-        .position('月份*月均降雨量')
-        .size('月均降雨量')
-        .adjust('dodge');
-      chart.render();
+    chart.interval().position('月份*月均降雨量').size('月均降雨量').adjust('dodge');
+    chart.render();
 
     const legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
     expect(legends[0].component.get('items')[0].marker.symbol).toBeInstanceOf(Function);
@@ -164,36 +151,32 @@ describe('Legend', () => {
   });
 
   it('category legend, use hexagon marker', () => {
-      const container = createDiv();
-      chart = new Chart({
-        container,
-        height: 500,
-        width: 600,
-        autoFit: false,
-      });
-      chart.data([
-        { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
-        { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
-        { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
-        { name: 'Berlin', 月份: 'Jan.', 月均降雨量: 12.4 },
-        { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
-        { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
-      ]);
+    const container = createDiv();
+    chart = new Chart({
+      container,
+      height: 500,
+      width: 600,
+      autoFit: false,
+    });
+    chart.data([
+      { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
+      { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
+      { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
+      { name: 'Berlin', 月份: 'Jan.', 月均降雨量: 12.4 },
+      { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
+      { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
+    ]);
 
-      chart.legend('name', {
-        position: 'right',
-        reversed: true,
-        marker: {
-          symbol: 'hexagon',
-        }
-      });
+    chart.legend('name', {
+      position: 'right',
+      reversed: true,
+      marker: {
+        symbol: 'hexagon',
+      },
+    });
 
-      chart
-        .interval()
-        .position('月份*月均降雨量')
-        .color('name')
-        .adjust('dodge');
-      chart.render();
+    chart.interval().position('月份*月均降雨量').color('name').adjust('dodge');
+    chart.render();
 
     const legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
     expect(legends[0].component.get('items')[0].marker.symbol).toBeInstanceOf(Function);
@@ -206,7 +189,7 @@ describe('Legend', () => {
       { genre: 'Strategy', sold: 115 },
       { genre: 'Action', sold: 120 },
       { genre: 'Shooter', sold: 3500 },
-      { genre: 'Other', sold: 150 }
+      { genre: 'Other', sold: 150 },
     ];
 
     chart = new Chart({
@@ -226,11 +209,44 @@ describe('Legend', () => {
 
     chart.render();
 
-    const legend = chart.getComponents().filter(co => co.type === COMPONENT_TYPE.LEGEND)[0].component;
+    const legend = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND)[0].component;
 
     expect(legend.get('flipPage')).toBe(true);
+    // @ts-ignore
     expect(legend.totalPagesCnt).toBe(2);
+    // @ts-ignore
     expect(legend.pageHeight).toBe(20);
+  });
+
+  it('legend align with axis', () => {
+    const container = createDiv();
+    chart = new Chart({
+      container,
+      height: 500,
+      width: 600,
+      autoFit: false,
+    });
+    chart.data([
+      { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
+      { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
+      { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
+      { name: 'Berlin', 月份: 'Jan.', 月均降雨量: 12.4 },
+      { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
+      { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
+    ]);
+
+    chart.legend('name', {
+      position: 'top-left',
+    });
+
+    chart.interval().position('月份*月均降雨量').color('name').adjust('dodge');
+    chart.render();
+
+    expect(chart).toBeDefined();
+
+    const legend = chart.getController('legend').getComponents()[0].component;
+    const legendBBox = legend.getBBox();
+    expect(legendBBox.x).toBe(0);
   });
 
   afterAll(() => {
