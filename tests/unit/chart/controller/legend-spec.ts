@@ -130,10 +130,13 @@ describe('Legend', () => {
     chart.legend({
       custom: true,
       items: [
+        // @ts-ignore
         { name: 'London', value: 'London', marker: { symbol: 'tick', style: { r: 10 } } },
+        // @ts-ignore
         { name: 'Berlin', value: 'Berlin', marker: { symbol: 'circle', style: { r: 10 } } },
       ],
       title: {
+        // @ts-ignore
         text: '城市',
       },
     });
