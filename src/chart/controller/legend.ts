@@ -121,7 +121,7 @@ export default class Legend extends Controller<Option> {
       const bboxObject = component.getLayoutBBox(); // 这里只需要他的 width、height 信息做位置调整
       const bbox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height);
 
-      const [x1, y1] = directionToPosition(this.view.coordinateBBox, bbox, direction);
+      const [x1, y1] = directionToPosition(this.view.viewBBox, bbox, direction);
       const [x2, y2] = directionToPosition(this.layoutBBox, bbox, direction);
 
       let x = 0;
