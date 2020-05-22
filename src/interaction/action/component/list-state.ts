@@ -79,7 +79,7 @@ class ListState extends Action<ListStateCfg> {
   private allowSetStateByItem(item: ListItem, list: IList) {
     const ignoreStates = this.ignoreItemStates;
     if (ignoreStates.length) {
-      const filterStates = ignoreStates.filter(state => {
+      const filterStates = ignoreStates.filter((state) => {
         return list.hasState(item, state);
       });
       return filterStates.length === 0;

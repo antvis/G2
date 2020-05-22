@@ -51,9 +51,9 @@ abstract class MaskBase extends Action {
       attrs: {
         fill: '#C5D4EB',
         opacity: 0.3,
-        ...maskAttrs
-      }
-    })
+        ...maskAttrs,
+      },
+    });
     return maskShape;
   }
 
@@ -110,7 +110,7 @@ abstract class MaskBase extends Action {
     const dx = currentPoint.x - preMovePoint.x;
     const dy = currentPoint.y - preMovePoint.y;
     const points = this.points;
-    each(points, point => {
+    each(points, (point) => {
       point.x += dx;
       point.y += dy;
     });

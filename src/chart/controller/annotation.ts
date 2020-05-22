@@ -2,7 +2,7 @@ import { contains, deepMix, each, get, isArray, isFunction, isNil, isString, key
 
 import { Annotation as AnnotationComponent, IElement, IGroup, Scale } from '../../dependents';
 import {
-  AnnotationBaseOption as　BaseOption,
+  AnnotationBaseOption as BaseOption,
   AnnotationPosition as Position,
   ArcOption,
   ComponentOption,

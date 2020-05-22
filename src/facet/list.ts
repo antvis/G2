@@ -32,8 +32,7 @@ export default class List extends Facet<ListCfg, ListData> {
     this.processAxis(view, facet);
   }
 
-  protected beforeEachView(view: View, facet: ListData) {
-  }
+  protected beforeEachView(view: View, facet: ListData) {}
 
   protected generateFacets(data: Datum[]): ListData[] {
     const { fields } = this.cfg;
@@ -57,9 +56,7 @@ export default class List extends Facet<ListCfg, ListData> {
       // 当前 index 在那个行列
       const { row, col } = this.getRowCol(index, cols);
 
-      const conditions = [
-        { field: columnField, value: val, values: colValues }
-      ];
+      const conditions = [{ field: columnField, value: val, values: colValues }];
 
       const facetData = filter(data, this.getFacetDataFilter(conditions));
 
@@ -97,7 +94,7 @@ export default class List extends Facet<ListCfg, ListData> {
     // 当是最后一行或者下面没有 view 时文本不显示
     if (
       facet.rowIndex !== facet.rowValuesLength - 1 &&
-      (facet.columnValuesLength * facet.rowIndex + facet.columnIndex + 1) + facet.columnValuesLength <= facet.total
+      facet.columnValuesLength * facet.rowIndex + facet.columnIndex + 1 + facet.columnValuesLength <= facet.total
     ) {
       return {
         ...option,
@@ -107,7 +104,6 @@ export default class List extends Facet<ListCfg, ListData> {
     }
     return option;
   }
-
 
   /**
    * 设置 y 坐标轴的文本、title 是否显示
@@ -134,10 +130,14 @@ export default class List extends Facet<ListCfg, ListData> {
     each(this.facets, (facet: ListData) => {
       const { columnValue, view } = facet;
 
-      const config = deepMix({
-        position: [ '50%', '0%' ] as [string, string],
-        content: columnValue,
-      }, getFactTitleConfig(DIRECTION.TOP), this.cfg.title);
+      const config = deepMix(
+        {
+          position: ['50%', '0%'] as [string, string],
+          content: columnValue,
+        },
+        getFactTitleConfig(DIRECTION.TOP),
+        this.cfg.title
+      );
 
       view.annotation().text(config);
     });

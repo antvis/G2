@@ -8,9 +8,7 @@ import { getCPath, getQPath } from './util';
 
 function getArcShapePath(from: Point, to: Point, center: Point) {
   const sub = getQPath(to, center);
-  const path = [
-    ['M', from.x, from.y]
-  ];
+  const path = [['M', from.x, from.y]];
   path.push(sub);
   return path;
 }
@@ -18,9 +16,7 @@ function getArcShapePath(from: Point, to: Point, center: Point) {
 function getArcShapeWeightPath(points: Point[], center: Point) {
   const arc1 = getQPath(points[1], center);
   const arc2 = getQPath(points[3], center);
-  const path = [
-    ['M', points[0].x, points[0].y]
-  ];
+  const path = [['M', points[0].x, points[0].y]];
   path.push(arc2);
   path.push(['L', points[3].x, points[3].y]);
   path.push(['L', points[2].x, points[2].y]);
@@ -61,9 +57,10 @@ registerShape('edge', 'arc', {
         path = getArcPath(
           (points[1].x + points[0].x) / 2,
           points[0].y,
-          Math.abs((points[1].x - points[0].x)) / 2,
+          Math.abs(points[1].x - points[0].x) / 2,
           Math.PI,
-          Math.PI * 2);
+          Math.PI * 2
+        );
         return container.addShape('path', {
           attrs: {
             ...style,
@@ -103,5 +100,5 @@ registerShape('edge', 'arc', {
         fill: markerCfg.color,
       },
     };
-  }
+  },
 });

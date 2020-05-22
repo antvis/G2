@@ -820,7 +820,7 @@ export default class Geometry extends Base {
    */
   public paint(isUpdate: boolean = false) {
     if (this.animateOption) {
-      this.animateOption = deepMix({}, getDefaultAnimateCfg(this.type, this.coordinate), this.animateOption)
+      this.animateOption = deepMix({}, getDefaultAnimateCfg(this.type, this.coordinate), this.animateOption);
     }
 
     this.defaultSize = undefined;
@@ -1200,7 +1200,7 @@ export default class Geometry extends Base {
    * 获取该 Geometry 下所有生成的 shapes。
    * @returns shapes
    */
-  public getShapes(): Array<IShape | IGroup> {
+  public getShapes(): (IShape | IGroup)[] {
     return this.elements.map((element: Element) => element.shape);
   }
 
@@ -1227,7 +1227,7 @@ export default class Geometry extends Base {
         itemArr.sort((obj1: Datum, obj2: Datum) => {
           return xScale.translate(obj1[FIELD_ORIGIN][xField]) - xScale.translate(obj2[FIELD_ORIGIN][xField]);
         });
-      };
+      }
     }
 
     this.hasSorted = true;
@@ -1335,7 +1335,7 @@ export default class Geometry extends Base {
     cfg.shape = shapeName;
     // 获取默认样式
     const theme = this.theme.geometries[this.shapeType];
-    cfg.defaultStyle = get(theme, [ shapeName, 'default' ], {}).style;
+    cfg.defaultStyle = get(theme, [shapeName, 'default'], {}).style;
 
     const styleOption = this.styleOption;
     if (styleOption) {
@@ -1526,10 +1526,10 @@ export default class Geometry extends Base {
 
     const groupedArray = this.groupData(data); // 数据分组
     const beforeAdjust = [];
-    for(let i = 0, len = groupedArray.length; i < len; i++) {
+    for (let i = 0, len = groupedArray.length; i < len; i++) {
       const subData = groupedArray[i];
       const arr = [];
-      for(let j = 0, subLen = subData.length; j < subLen; j++) {
+      for (let j = 0, subLen = subData.length; j < subLen; j++) {
         const originData = subData[j];
         const item = {};
         // tslint:disable-next-line: forin
@@ -1646,11 +1646,11 @@ export default class Geometry extends Base {
     }
     const scaleDefs = this.scaleDefs;
     const cfg: LooseObject = {};
-    if ((min < scale.min) && !get(scaleDefs, [field, 'min'])) {
+    if (min < scale.min && !get(scaleDefs, [field, 'min'])) {
       // 用户如果在列定义中定义了 min，则以用户定义的为准
       cfg.min = min;
     }
-    if ((max > scale.max) && !get(scaleDefs, [field, 'max'])) {
+    if (max > scale.max && !get(scaleDefs, [field, 'max'])) {
       // 用户如果在列定义中定义了 max
       cfg.max = max;
     }
@@ -1874,7 +1874,7 @@ export default class Geometry extends Base {
           const labelChildren = label.getChildren();
           for (let j = 0; j < labelChildren.length; j++) {
             const child = labelChildren[j];
-            child.cfg.name = [ 'element', 'label'];
+            child.cfg.name = ['element', 'label'];
             child.cfg.element = element;
           }
         }

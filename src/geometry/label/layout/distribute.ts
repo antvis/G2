@@ -1,6 +1,6 @@
 import { isObject, each, get } from '@antv/util';
 
-import { BBox, IGroup, IShape  } from '../../../dependents';
+import { BBox, IGroup, IShape } from '../../../dependents';
 import { LabelItem } from '../interface';
 
 import { polarToCartesian } from '../../../util/graphics';
@@ -158,13 +158,12 @@ export function distribute(items: LabelItem[], labels: IGroup[], shapes: IShape[
         return a.y - b.y;
       });
 
-
       antiCollision(labels, half, lineHeight, plotRange, center, index);
     });
   }
 
   // 配置 labelLine
-  each(items, item => {
+  each(items, (item) => {
     if (item && item.labelLine) {
       const distance = item.offset;
       const angle = item.angle;
@@ -181,7 +180,12 @@ export function distribute(items: LabelItem[], labels: IGroup[], shapes: IShape[
         // labelLine: true
         item.labelLine = {};
       }
-      item.labelLine.path = [`M ${startPoint.x}`, `${startPoint.y} Q${innerPoint.x}`, `${innerPoint.y} ${endPoint.x}`, endPoint.y].join(',');
+      item.labelLine.path = [
+        `M ${startPoint.x}`,
+        `${startPoint.y} Q${innerPoint.x}`,
+        `${innerPoint.y} ${endPoint.x}`,
+        endPoint.y,
+      ].join(',');
     }
   });
 }

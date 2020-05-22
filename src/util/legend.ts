@@ -39,7 +39,7 @@ export function getLegendItems(
   geometry: Geometry,
   attr: Attribute,
   themeMarker: object,
-  userMarker,
+  userMarker
 ): any[] {
   const scale = attr.getScale(attr.type);
   if (scale.isCategory) {

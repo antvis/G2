@@ -313,7 +313,7 @@ export default class GrammarInteraction extends Interaction {
 
   private enterStep(stepName: string) {
     this.currentStepName = stepName;
-    this.emitCaches = {};// 清除所有本环节触发的缓存
+    this.emitCaches = {}; // 清除所有本环节触发的缓存
   }
 
   // 执行完某个触发和反馈（子环节）
@@ -362,16 +362,18 @@ export default class GrammarInteraction extends Interaction {
             // 如果未通过验证，则事件不要绑定在上面
             context.event = null;
           }
-        }
+        };
         // 如果设置了 debounce
         if (step.debounce) {
           callbackCaches[key] = debounce(actionCallback, step.debounce.wait, step.debounce.immediate);
-        } else if (step.throttle) { // 设置 throttle
+        } else if (step.throttle) {
+          // 设置 throttle
           callbackCaches[key] = throttle(actionCallback, step.throttle.wait, {
             leading: step.throttle.leading,
-            trailing: step.throttle.trailing
+            trailing: step.throttle.trailing,
           });
-        } else { // 直接设置
+        } else {
+          // 直接设置
           callbackCaches[key] = actionCallback;
         }
       }

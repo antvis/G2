@@ -27,8 +27,8 @@ export default class Rect extends Facet<RectCfg, RectData> {
       },
       rowTitle: {
         ...super.getDefaultTitleCfg(),
-      }
-    })
+      },
+    });
   }
 
   public render() {
@@ -98,19 +98,27 @@ export default class Rect extends Facet<RectCfg, RectData> {
 
       // top
       if (rowIndex === 0) {
-        const config = deepMix({
-          position: [ '50%', '0%' ] as [string, string],
-          content: columnValue,
-        }, getFactTitleConfig(DIRECTION.TOP), this.cfg.columnTitle);
+        const config = deepMix(
+          {
+            position: ['50%', '0%'] as [string, string],
+            content: columnValue,
+          },
+          getFactTitleConfig(DIRECTION.TOP),
+          this.cfg.columnTitle
+        );
 
         view.annotation().text(config);
       }
       // right
       if (columnIndex === columnValuesLength - 1) {
-        const config = deepMix({
-          position: [ '100%', '50%' ] as [string, string],
-          content: rowValue,
-        }, getFactTitleConfig(DIRECTION.RIGHT), this.cfg.rowTitle);
+        const config = deepMix(
+          {
+            position: ['100%', '50%'] as [string, string],
+            content: rowValue,
+          },
+          getFactTitleConfig(DIRECTION.RIGHT),
+          this.cfg.rowTitle
+        );
 
         view.annotation().text(config);
       }
@@ -137,9 +145,9 @@ export default class Rect extends Facet<RectCfg, RectData> {
       return {
         ...option,
         title: null,
-      }
+      };
     }
-    return option
+    return option;
   }
 
   /**
@@ -160,7 +168,7 @@ export default class Rect extends Facet<RectCfg, RectData> {
       return {
         ...option,
         title: null,
-      }
+      };
     }
     return option;
   }

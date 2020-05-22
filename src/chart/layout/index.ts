@@ -40,7 +40,7 @@ export default function defaultLayout(view: View): void {
   view.adjustCoordinate();
 
   // 3. 根据最新的 coordinate 重新布局组件
-  [axis, slider, legend, annotation ].forEach((controller: Controller) => {
+  [axis, slider, legend, annotation].forEach((controller: Controller) => {
     if (controller) {
       controller.layout();
     }

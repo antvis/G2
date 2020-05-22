@@ -1,6 +1,6 @@
-import {each} from '@antv/util';
-import Action from "../base";
-import { getElements, getMaskedElements , getSiblingMaskElements, getSilbings, isInRecords, isMask} from "../util";
+import { each } from '@antv/util';
+import Action from '../base';
+import { getElements, getMaskedElements, getSiblingMaskElements, getSilbings, isInRecords, isMask } from '../util';
 
 /**
  * Sibling filter
@@ -14,7 +14,7 @@ class SiblingFilter extends Action {
   public filter() {
     // 仅考虑 mask 导致的过滤
     if (isMask(this.context)) {
-      if(this.byRecord) {
+      if (this.byRecord) {
         this.filterByRecord();
       } else {
         this.filterByBBox();
@@ -30,11 +30,11 @@ class SiblingFilter extends Action {
     }
     const xFiled = view.getXScale().field;
     const yField = view.getYScales()[0].field;
-    const records = maskElements.map(el => {
+    const records = maskElements.map((el) => {
       return el.getModel().data;
     });
     const siblings = getSilbings(view);
-    each(siblings, sibling => {
+    each(siblings, (sibling) => {
       const elements = getElements(sibling);
       each(elements, (el) => {
         const record = el.getModel().data;
@@ -52,10 +52,11 @@ class SiblingFilter extends Action {
   private filterByBBox() {
     const view = this.context.view;
     const siblings = getSilbings(view);
-    each(siblings, sibling => {
+    each(siblings, (sibling) => {
       const maskElements = getSiblingMaskElements(this.context, sibling, 10);
       const elements = getElements(sibling);
-      if (maskElements) { // mask 过小时返回为 null，不能是空数组，否则同未框选到混淆
+      if (maskElements) {
+        // mask 过小时返回为 null，不能是空数组，否则同未框选到混淆
         each(elements, (el) => {
           if (maskElements.includes(el)) {
             el.show();
@@ -72,9 +73,9 @@ class SiblingFilter extends Action {
    */
   public reset() {
     const siblings = getSilbings(this.context.view);
-    each(siblings, sibling => {
+    each(siblings, (sibling) => {
       const elements = getElements(sibling);
-      each(elements, el => {
+      each(elements, (el) => {
         el.show();
       });
     });

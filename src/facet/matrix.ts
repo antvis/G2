@@ -20,7 +20,7 @@ export default class Matrix extends Facet<MatrixCfg, MatrixData> {
       },
       rowTitle: {
         ...super.getDefaultTitleCfg(),
-      }
+      },
     });
   }
 
@@ -36,8 +36,7 @@ export default class Matrix extends Facet<MatrixCfg, MatrixData> {
     this.processAxis(view, facet);
   }
 
-  protected beforeEachView(view: View, facet: MatrixData) {
-  }
+  protected beforeEachView(view: View, facet: MatrixData) {}
 
   protected generateFacets(data: Datum[]): MatrixData[] {
     const { fields, type } = this.cfg;
@@ -47,9 +46,9 @@ export default class Matrix extends Facet<MatrixCfg, MatrixData> {
     const columnValuesLength = rowValuesLength;
 
     const rst = [];
-    for (let i = 0; i < columnValuesLength; i ++) {
+    for (let i = 0; i < columnValuesLength; i++) {
       const columnField = fields[i];
-      for (let j = 0; j < rowValuesLength; j ++) {
+      for (let j = 0; j < rowValuesLength; j++) {
         const rowField = fields[j];
 
         const facet: MatrixData = {
@@ -91,7 +90,6 @@ export default class Matrix extends Facet<MatrixCfg, MatrixData> {
     return option;
   }
 
-
   /**
    * 设置 y 坐标轴的文本、title 是否显示
    * @param y
@@ -120,19 +118,27 @@ export default class Matrix extends Facet<MatrixCfg, MatrixData> {
 
       // top
       if (rowIndex === 0) {
-        const config = deepMix({
-          position: [ '50%', '0%' ] as [string, string],
-          content: columnValue,
-        }, getFactTitleConfig(DIRECTION.TOP), this.cfg.columnTitle);
+        const config = deepMix(
+          {
+            position: ['50%', '0%'] as [string, string],
+            content: columnValue,
+          },
+          getFactTitleConfig(DIRECTION.TOP),
+          this.cfg.columnTitle
+        );
 
         view.annotation().text(config);
       }
       // right
       if (columnIndex === columnValuesLength - 1) {
-        const config = deepMix({
-          position: [ '100%', '50%' ] as [string, string],
-          content: rowValue,
-        }, getFactTitleConfig(DIRECTION.RIGHT), this.cfg.rowTitle);
+        const config = deepMix(
+          {
+            position: ['100%', '50%'] as [string, string],
+            content: rowValue,
+          },
+          getFactTitleConfig(DIRECTION.RIGHT),
+          this.cfg.rowTitle
+        );
 
         view.annotation().text(config);
       }

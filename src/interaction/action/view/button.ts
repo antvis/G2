@@ -84,7 +84,9 @@ class ButtonAction extends Action {
     const point = coord.convert({ x: 1, y: 1 }); // 后面直接改成左上角
     const buttonGroup = this.buttonGroup;
     const bbox = buttonGroup.getBBox();
-    const matrix = ext.transform(null, [['t', point.x - bbox.width - PADDING_RIGHT, point.y + bbox.height + PADDING_TOP]]);
+    const matrix = ext.transform(null, [
+      ['t', point.x - bbox.width - PADDING_RIGHT, point.y + bbox.height + PADDING_TOP],
+    ]);
     buttonGroup.setMatrix(matrix);
   }
 

@@ -152,4 +152,3 @@ registerShape('schema', 'box', {
     };
   },
 });
-

@@ -110,7 +110,7 @@ export function sectorPathUpdate(shape: IShape, animateCfg: GAnimateCfg, cfg: An
   const { toAttrs, coordinate } = cfg;
   // @ts-ignore
   const path = toAttrs.path;
-  const pathCommands = path.map(command => command[0]);
+  const pathCommands = path.map((command) => command[0]);
 
   const { startAngle: curStartAngle, endAngle: curEndAngle, radius, innerRadius } = getArcInfo(path);
   const { startAngle: preStartAngle, endAngle: preEndAngle } = getArcInfo(shape.attr('path'));
@@ -119,22 +119,25 @@ export function sectorPathUpdate(shape: IShape, animateCfg: GAnimateCfg, cfg: An
   const diffStartAngle = curStartAngle - preStartAngle;
   const diffEndAngle = curEndAngle - preEndAngle;
 
-  shape.animate((ratio) => {
-    const onFrameStartAngle = preStartAngle + ratio * diffStartAngle;
-    const onFrameEndAngle = preEndAngle + ratio * diffEndAngle;
-    return {
-      ...toAttrs,
-      path:
-        // hack, 兼容 /examples/bar/basic/demo/radial-line.ts 动画
-        isEqual(pathCommands, ['M', 'A', 'A', 'Z'])
-          ? getArcPath(center.x, center.y, radius, onFrameStartAngle, onFrameEndAngle)
-          : getSectorPath(center.x, center.y, radius, onFrameStartAngle, onFrameEndAngle, innerRadius),
-    };
-  }, {
-    ...animateCfg,
-    callback: () => {
-      // 将 path 保持原始态，否则会影响 setState() 的动画
-      shape.attr('path', path);
+  shape.animate(
+    (ratio) => {
+      const onFrameStartAngle = preStartAngle + ratio * diffStartAngle;
+      const onFrameEndAngle = preEndAngle + ratio * diffEndAngle;
+      return {
+        ...toAttrs,
+        path:
+          // hack, 兼容 /examples/bar/basic/demo/radial-line.ts 动画
+          isEqual(pathCommands, ['M', 'A', 'A', 'Z'])
+            ? getArcPath(center.x, center.y, radius, onFrameStartAngle, onFrameEndAngle)
+            : getSectorPath(center.x, center.y, radius, onFrameStartAngle, onFrameEndAngle, innerRadius),
+      };
+    },
+    {
+      ...animateCfg,
+      callback: () => {
+        // 将 path 保持原始态，否则会影响 setState() 的动画
+        shape.attr('path', path);
+      },
     }
-  });
+  );
 }

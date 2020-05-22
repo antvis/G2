@@ -3,27 +3,51 @@ name: CI
 on: [push]
 
 jobs:
-  build:
+  lint:
     runs-on: macOS-latest
-
-    strategy:
-      matrix:
-        node-version: [12.x]
-
     steps:
       - uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 12
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: npm install and ci
+          node-version: 12.x
+      - name: npm install
         run: |
           npm install
-          npm run ci
+      - name: lint
+        run: |
+          npm run lint
+  build:
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: npm install
+        run: |
+          npm install
+      - name: build
+        run: |
+          npm run build
+  test:
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: npm install
+        run: |
+          npm install
+      - name: test
+        run: |
+          npm run coverage
         env:
           CI: true
       - name: Coveralls
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-

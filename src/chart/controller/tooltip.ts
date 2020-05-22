@@ -326,7 +326,7 @@ export default class Tooltip extends Controller<TooltipOption> {
   }
 
   // 获取 tooltip 配置，因为用户可能会通过 view.tooltip() 重新配置 tooltip，所以就不做缓存，每次直接读取
-  private getTooltipCfg() {
+  protected getTooltipCfg() {
     const view = this.view;
     const option = view.getOptions().tooltip;
     const theme = view.getTheme();

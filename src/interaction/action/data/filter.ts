@@ -14,7 +14,7 @@ class DataFilter extends Action {
       view.filter(field, filter);
     }
     if (view.views && view.views.length) {
-      each(view.views, subView => {
+      each(view.views, (subView) => {
         this.filterView(subView, field, filter);
       });
     }
@@ -40,7 +40,7 @@ class DataFilter extends Action {
               return !names.includes(text);
             });
           } else {
-            this.filterView(view,field, null);
+            this.filterView(view, field, null);
           }
           view.render(true);
         }

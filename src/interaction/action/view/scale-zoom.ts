@@ -10,11 +10,11 @@ class ScaleTranslate extends TransformAction {
   /**
    * 缩小
    */
-  public zoomIn () {
+  public zoomIn() {
     this.zoom(this.zoomRatio);
   }
 
-  private zoom (scale) {
+  private zoom(scale) {
     const dims = this.dims;
     each(dims, (dim) => {
       this.zoomDim(dim, scale);
@@ -25,10 +25,9 @@ class ScaleTranslate extends TransformAction {
   /**
    * 放大
    */
-  public zoomOut () {
+  public zoomOut() {
     this.zoom(-1 * this.zoomRatio);
   }
-
 
   // 缩放度量
   private zoomDim(dim, dRatio) {
@@ -60,10 +59,10 @@ class ScaleTranslate extends TransformAction {
     const { min, max } = scale;
     const d = dRatio * range;
     const toMin = min - d;
-    const toMax = max  + d;
+    const toMax = max + d;
     const curRange = toMax - toMin;
     const scaled = curRange / range;
-    if (toMax > toMin && (scaled < 100 && scaled > 0.01)) {
+    if (toMax > toMin && scaled < 100 && scaled > 0.01) {
       view.scale(scale.field, {
         // @ts-ignore
         nice: false,

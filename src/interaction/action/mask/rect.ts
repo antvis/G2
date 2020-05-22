@@ -12,12 +12,12 @@ class RectMask extends MaskBase {
     const points = this.points;
     return {
       start: head(points),
-      end: last(points)
+      end: last(points),
     };
   }
   // 添加图形
   protected getMaskAttrs() {
-    const {start, end} = this.getRegion();
+    const { start, end } = this.getRegion();
     const x = Math.min(start.x, end.x);
     const y = Math.min(start.y, end.y);
     const width = Math.abs(end.x - start.x);
@@ -26,7 +26,7 @@ class RectMask extends MaskBase {
       x,
       y,
       width,
-      height
+      height,
     };
   }
 }

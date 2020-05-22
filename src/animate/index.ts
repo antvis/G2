@@ -31,11 +31,7 @@ const GEOMETRY_ANIMATE_CFG = {
   interval: (coordinate: Coordinate) => {
     return {
       enter: {
-        animation: coordinate.isRect
-          ? coordinate.isTransposed
-            ? 'scale-in-x'
-            : 'scale-in-y'
-          : 'fade-in',
+        animation: coordinate.isRect ? (coordinate.isTransposed ? 'scale-in-x' : 'scale-in-y') : 'fade-in',
       },
       update: {
         animation: coordinate.isPolar && coordinate.isTransposed ? 'sector-path-update' : null,

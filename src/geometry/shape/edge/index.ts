@@ -32,7 +32,7 @@ registerShape('edge', 'line', {
         fill: markerCfg.color,
       },
     };
-  }
+  },
 });
 
 export default EdgeShapeFactory;

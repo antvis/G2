@@ -14,7 +14,7 @@ export function getFactTitleConfig(direction: DIRECTION): FacetTitle {
       style: {
         textAlign: 'center',
         textBaseline: direction === DIRECTION.TOP ? 'bottom' : 'top',
-      }
+      },
     };
   }
 
@@ -26,7 +26,7 @@ export function getFactTitleConfig(direction: DIRECTION): FacetTitle {
         textAlign: direction === DIRECTION.LEFT ? 'right' : 'left',
         textBaseline: 'middle',
         rotate: Math.PI / 2, // 文本阅读习惯从上往下
-      }
+      },
     };
   }
 
@@ -43,6 +43,6 @@ export function getFactTitleConfig(direction: DIRECTION): FacetTitle {
 export function getAnglePoint(center: Point, r: number, angle: number): Point {
   return {
     x: center.x + r * Math.cos(angle),
-    y: center.y + r * Math.sin(angle)
+    y: center.y + r * Math.sin(angle),
   };
 }

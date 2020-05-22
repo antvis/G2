@@ -10,8 +10,14 @@ function getElementSize(ele: HTMLElement): Size {
   const style = getComputedStyle(ele);
 
   return {
-    width: (ele.clientWidth || parseInt(style.width)) - parseInt(style.paddingLeft) - parseInt(style.paddingRight),
-    height: (ele.clientHeight || parseInt(style.height)) - parseInt(style.paddingTop) - parseInt(style.paddingBottom),
+    width:
+      (ele.clientWidth || parseInt(style.width, 10)) -
+      parseInt(style.paddingLeft, 10) -
+      parseInt(style.paddingRight, 10),
+    height:
+      (ele.clientHeight || parseInt(style.height, 10)) -
+      parseInt(style.paddingTop, 10) -
+      parseInt(style.paddingBottom, 10),
   };
 }
 

@@ -1,7 +1,7 @@
 import { each } from '@antv/util';
 import { View } from '../../../chart';
 import { Point } from '../../../interface';
-import {getSiblingPoint, getSilbings} from '../util'
+import { getSiblingPoint, getSilbings } from '../util';
 import TooltipAction from './tooltip';
 
 /**
@@ -16,7 +16,7 @@ class SiblingTooltip extends TooltipAction {
    */
   protected showTooltip(view: View, point: Point) {
     const siblings = getSilbings(view);
-    each(siblings, sibling => {
+    each(siblings, (sibling) => {
       const siblingPoint = getSiblingPoint(view, sibling, point);
       sibling.showTooltip(siblingPoint);
     });
@@ -27,7 +27,7 @@ class SiblingTooltip extends TooltipAction {
    */
   protected hideTooltip(view) {
     const siblings = getSilbings(view);
-    each(siblings, sibling => {
+    each(siblings, (sibling) => {
       sibling.hideTooltip();
     });
   }

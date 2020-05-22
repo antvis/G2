@@ -39,7 +39,9 @@ class Move extends Action {
     }
     if (this.isMoving) {
       const view = this.context.view;
-      const matrix = ext.transform(this.startMatrix, [['t', currentPoint.x - startPoint.x, currentPoint.y - startPoint.y]]);
+      const matrix = ext.transform(this.startMatrix, [
+        ['t', currentPoint.x - startPoint.x, currentPoint.y - startPoint.y],
+      ]);
       view.backgroundGroup.setMatrix(matrix);
       view.foregroundGroup.setMatrix(matrix);
       view.middleGroup.setMatrix(matrix);

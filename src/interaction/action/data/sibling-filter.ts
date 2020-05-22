@@ -18,7 +18,7 @@ class SiblingFilter extends RangeFilter {
    */
   protected filterView(view: View, field: string, filter: FilterCondition) {
     const siblings = getSilbings(view);
-    each(siblings, sibling => {
+    each(siblings, (sibling) => {
       sibling.filter(field, filter);
     });
   }
@@ -29,7 +29,7 @@ class SiblingFilter extends RangeFilter {
    */
   protected reRender(view: View) {
     const siblings = getSilbings(view);
-    each(siblings, sibling => {
+    each(siblings, (sibling) => {
       sibling.render(true);
     });
   }
