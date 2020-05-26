@@ -28,14 +28,7 @@ export default function defaultLayout(view: View): void {
   const padding = calculatePadding(view);
   // 2. 计算出新的 coordinateBBox
   const newCoordinateBBox = view.viewBBox.shrink(padding);
-  // 3. 如果 coordinateBBox 前后未发生变化则不需要进行组件的重布局
-  if (view.coordinateBBox.isEqual(newCoordinateBBox)) {
-    if (annotation) {
-      // 因为 Annotation 不参与布局，但是渲染的位置依赖于坐标系，所以可以将绘制阶段延迟到 layout() 进行
-      annotation.layout();
-    }
-    return;
-  }
+
   view.coordinateBBox = newCoordinateBBox;
   view.adjustCoordinate();
 
