@@ -1033,6 +1033,8 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
           },
           slidable: true,
         },
+        // 图例与四条边之间的间距
+        margin: [0, 0, 0, 0],
       },
       tooltip: {
         showContent: true,

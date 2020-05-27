@@ -242,11 +242,46 @@ describe('Legend', () => {
     chart.interval().position('月份*月均降雨量').color('name').adjust('dodge');
     chart.render();
 
-    expect(chart).toBeDefined();
-
     const legend = chart.getController('legend').getComponents()[0].component;
     const legendBBox = legend.getBBox();
     expect(legendBBox.x).toBe(0);
+  });
+
+  it('legend margin', () => {
+    const container = createDiv();
+    chart = new Chart({
+      container,
+      height: 500,
+      width: 600,
+      autoFit: false,
+      theme: {
+        components: {
+          legend: {
+            margin: [1, 2, 3, 4],
+          },
+        },
+      },
+    });
+    chart.data([
+      { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
+      { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
+      { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
+      { name: 'Berlin', 月份: 'Jan.', 月均降雨量: 12.4 },
+      { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
+      { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
+    ]);
+
+    chart.legend('name', {
+      position: 'top-left',
+    });
+
+    chart.interval().position('月份*月均降雨量').color('name').adjust('dodge');
+    chart.render();
+
+    const legend = chart.getController('legend').getComponents()[0].component;
+    const legendBBox = legend.getBBox();
+    expect(legendBBox.x).toBe(4);
+    expect(legendBBox.y).toBe(1);
   });
 
   afterAll(() => {
