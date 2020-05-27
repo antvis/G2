@@ -174,10 +174,11 @@ export class BBox {
    * 收缩形成新的
    * @param gap
    */
-  public shrink(gap: Padding): BBox {
+  public shrink(gap: Padding, append: Padding = [0,0,0,0]): BBox {
     const [top, right, bottom, left] = parsePadding(gap);
+    const [_top, _right, _bottom, _left ] = append;
 
-    return new BBox(this.x + left, this.y + top, this.width - left - right, this.height - top - bottom);
+    return new BBox(this.x + left + _left, this.y + top + _top, this.width - left -_left - right - _right, this.height - top -_top - bottom -_bottom);
   }
 
   /**

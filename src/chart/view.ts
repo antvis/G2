@@ -44,6 +44,7 @@ import {
   ViewCfg,
   ViewOption,
   ViewPadding,
+  ViewAppendPadding,
 } from '../interface';
 
 import { GROUP_Z_INDEX, LAYER, PLOT_EVENTS, VIEW_LIFE_CIRCLE } from '../constant';
@@ -89,6 +90,8 @@ export class View extends Base {
   public coordinateBBox: BBox;
   /** view 的 padding 大小，传入的配置（不是解析之后的值）。 */
   public padding: ViewPadding;
+  /** padding的基础上增加的调整值 */
+  public appendPadding: ViewAppendPadding;
   /** G.Canvas 实例。 */
   public canvas: ICanvas;
 
@@ -150,6 +153,7 @@ export class View extends Base {
       foregroundGroup,
       region = { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
       padding,
+      appendPadding,
       theme,
       options,
       limitInPlot,
@@ -162,6 +166,7 @@ export class View extends Base {
     this.foregroundGroup = foregroundGroup;
     this.region = region;
     this.padding = padding;
+    this.appendPadding = appendPadding;
     this.themeObject = mergeTheme({}, theme);
     // 接受父 view 传入的参数
     this.options = { ...this.options, ...options };
