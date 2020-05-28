@@ -1924,7 +1924,7 @@ export type Renderer = 'svg' | 'canvas';
 export type Datum = Record<string, any>;
 export type Data = Datum[];
 export type ActionCallback = (context: IInteractionContext) => void;
-export type Padding = number[];
+export type Padding = [number, number, number, number];
 export type ViewPadding = number | number[] | 'auto';
 export type ViewAppendPadding = number | number[];
 export type Position = [number, number];

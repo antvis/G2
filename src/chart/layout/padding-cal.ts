@@ -27,7 +27,7 @@ export class PaddingCal {
    * 四周增加 padding
    * @param padding
    */
-  public shrink(padding: number[]): PaddingCal {
+  public shrink(padding: Padding): PaddingCal {
     const [top, right, bottom, left] = padding;
 
     this.top += top;
