@@ -27,6 +27,7 @@ export default function defaultLayout(view: View): void {
 
   // 1. 自动加 auto padding -> absolute padding
   const padding = calculatePadding(view);
+
   // 2. 计算出新的 coordinateBBox
   view.coordinateBBox = view.viewBBox.shrink(padding).shrink(parsePadding(view.appendPadding));
 
