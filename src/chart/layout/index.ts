@@ -28,12 +28,14 @@ export default function defaultLayout(view: View): void {
   // 1. 自动加 auto padding -> absolute padding
   const padding = calculatePadding(view);
 
-  // 2. 计算出 coordinateBBox
-  // 并增加 appendPadding 调整
-  view.coordinateBBox = view.viewBBox.shrink(padding, parsePadding(view.appendPadding));
+  // 2. 计算出 coordinateBBox, 增加 appendPadding 调整
+  view.coordinateBBox = view.viewBBox.shrink(padding).shrink(parsePadding(view.appendPadding));
+
+  view.coordinateBBox;
+
   view.adjustCoordinate();
 
-  // 4. 根据最新的 coordinate 重新布局组件
+  // 3. 根据最新的 coordinate 重新布局组件
   [axis, slider, legend, annotation ].forEach((controller: Controller) => {
     if (controller) {
       controller.layout();
