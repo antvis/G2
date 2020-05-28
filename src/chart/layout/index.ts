@@ -31,8 +31,6 @@ export default function defaultLayout(view: View): void {
   // 2. 计算出 coordinateBBox, 增加 appendPadding 调整
   view.coordinateBBox = view.viewBBox.shrink(padding).shrink(parsePadding(view.appendPadding));
 
-  view.coordinateBBox;
-
   view.adjustCoordinate();
 
   // 3. 根据最新的 coordinate 重新布局组件
