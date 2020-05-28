@@ -1,3 +1,15 @@
+#### 4.0.9 (2020-05-28)
+
+##### New Features
+
+- support legend layout margin ([#2497](https://github.com/antvis/g2/pull/2497)) ([bb18ddf1](https://github.com/antvis/g2/commit/bb18ddf16a03950a15efe44feb32a4c3385ea33d))
+
+##### Bug Fixes
+
+- **#2495:** fix layout error after render twice ([#2496](https://github.com/antvis/g2/pull/2496)) ([4abb8930](https://github.com/antvis/g2/commit/4abb89305496583f843d217f2551c3f0ed6dceda))
+- 图例应于坐标轴对齐 ([#2488](https://github.com/antvis/g2/pull/2488)) ([f8262a2e](https://github.com/antvis/g2/commit/f8262a2efa0d876dd9395cb4d1db208b42eb80c9))
+- update tooltip when mousemove on tooltip container ([#2460](https://github.com/antvis/g2/pull/2460)) ([8cbc5a64](https://github.com/antvis/g2/commit/8cbc5a6450660829e7ffe4964f544fe4263b1352))
+
 #### 4.0.8 (2020-05-18)
 
 ##### Documentation Changes
