@@ -33,7 +33,6 @@ export default class Mirror extends Facet<MirrorCfg, MirrorData> {
     if (this.cfg.transpose) {
       if (facet.columnIndex % 2 === 0) {
         view.coordinate().transpose().reflect('x');
-
       } else {
         view.coordinate().transpose();
       }
@@ -120,9 +119,8 @@ export default class Mirror extends Facet<MirrorCfg, MirrorData> {
       };
     }
 
-    return option
+    return option;
   }
-
 
   /**
    * 设置 y 坐标轴的文本、title 是否显示
@@ -141,17 +139,25 @@ export default class Mirror extends Facet<MirrorCfg, MirrorData> {
       const { columnValue, rowValue, view } = facet;
 
       if (this.cfg.transpose) {
-        const config = deepMix({
-          position: [ '50%', '0%' ] as [string, string],
-          content: columnValue,
-        }, getFactTitleConfig(DIRECTION.TOP), this.cfg.title);
+        const config = deepMix(
+          {
+            position: ['50%', '0%'] as [string, string],
+            content: columnValue,
+          },
+          getFactTitleConfig(DIRECTION.TOP),
+          this.cfg.title
+        );
 
         view.annotation().text(config);
       } else {
-        const config = deepMix({
-          position: [ '100%', '50%' ] as [string, string],
-          content: rowValue,
-        }, getFactTitleConfig(DIRECTION.RIGHT), this.cfg.title);
+        const config = deepMix(
+          {
+            position: ['100%', '50%'] as [string, string],
+            content: rowValue,
+          },
+          getFactTitleConfig(DIRECTION.RIGHT),
+          this.cfg.title
+        );
 
         view.annotation().text(config);
       }

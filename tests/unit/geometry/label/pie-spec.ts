@@ -69,11 +69,12 @@ describe('pie labels', () => {
       scales,
       container: canvas.addGroup(),
       labelsContainer: canvas.addGroup(),
-      theme: Theme,
       coordinate: coord,
     });
     pointGeom.position('x*y').label('label', { offset: -10 });
-    pointGeom.init();
+    pointGeom.init({
+      theme: Theme,
+    });
 
     const gLabels = new PieLabel(pointGeom);
 
@@ -168,7 +169,6 @@ describe('pie labels', () => {
       scales,
       container: canvas.addGroup(),
       labelsContainer: canvas.addGroup(),
-      theme: Theme,
       coordinate: coord,
     });
     pointGeom.position('x*y').label('label', {
@@ -177,7 +177,9 @@ describe('pie labels', () => {
       offsetY: -10,
       labelLine: false,
     });
-    pointGeom.init();
+    pointGeom.init({
+      theme: Theme,
+    });
 
     const gLabels = new PieLabel(pointGeom);
 

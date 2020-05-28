@@ -7,10 +7,10 @@ import { getDistanceToCenter } from '../../../util/coordinate';
 function _points2path(points: Point[], isInCircle: boolean): PathCommand[] {
   const path = [];
   if (points.length) {
-    for (let i = 0, length = points.length; i < length; i += 1) {
+    path.push(['M', points[0].x, points[0].y]);
+    for (let i = 1, length = points.length; i < length; i += 1) {
       const item = points[i];
-      const command = i === 0 ? 'M' : 'L';
-      path.push([command, item.x, item.y]);
+      path.push(['L', item.x, item.y]);
     }
 
     if (isInCircle) {
@@ -111,11 +111,11 @@ export const smoothBezier = (
 
     for (let i = 0, l = points.length; i < l; i++) {
       const point = points[i];
-      min = vec2.min([], min, point);
-      max = vec2.max([], max, point);
+      min = vec2.min([0, 0], min, point) as [number, number];
+      max = vec2.max([0, 0], max, point) as [number, number];
     }
-    min = vec2.min([], min, constraint[0]);
-    max = vec2.max([], max, constraint[1]);
+    min = vec2.min([0, 0], min, constraint[0]) as [number, number];
+    max = vec2.max([0, 0], max, constraint[1]) as [number, number];
   }
 
   for (let i = 0, len = points.length; i < len; i++) {
@@ -132,9 +132,9 @@ export const smoothBezier = (
         nextPoint = points[i + 1];
       }
     }
-    let v = [];
-    v = vec2.sub(v, nextPoint, prevPoint);
-    v = vec2.scale(v, v, smooth);
+    let v: [number, number] = [0, 0];
+    v = vec2.sub(v, nextPoint, prevPoint) as [number, number];
+    v = vec2.scale(v, v, smooth) as [number, number];
 
     let d0 = vec2.distance(point, prevPoint);
     let d1 = vec2.distance(point, nextPoint);
@@ -145,17 +145,17 @@ export const smoothBezier = (
       d1 /= sum;
     }
 
-    const v1 = vec2.scale([], v, -d0);
-    const v2 = vec2.scale([], v, d1);
+    const v1 = vec2.scale([0, 0], v, -d0);
+    const v2 = vec2.scale([0, 0], v, d1);
 
-    let cp0 = vec2.add([], point, v1);
-    let cp1 = vec2.add([], point, v2);
+    let cp0 = vec2.add([0, 0], point, v1);
+    let cp1 = vec2.add([0, 0], point, v2);
 
     if (hasConstraint) {
-      cp0 = vec2.max([], cp0, min);
-      cp0 = vec2.min([], cp0, max);
-      cp1 = vec2.max([], cp1, min);
-      cp1 = vec2.min([], cp1, max);
+      cp0 = vec2.max([0, 0], cp0, min);
+      cp0 = vec2.min([0, 0], cp0, max);
+      cp1 = vec2.max([0, 0], cp1, min);
+      cp1 = vec2.min([0, 0], cp1, max);
     }
 
     cps.push(cp0);
@@ -225,13 +225,14 @@ export function getSplinePath(points: Point[], isInCircle?: boolean, constaint?:
     // 两点以内直接绘制成路径
     return getLinePath(points, isInCircle);
   }
-  each(points, (point) => {
+  for (let i = 0, len = points.length; i < len; i++) {
+    const point = points[i];
     if (!prePoint || !(prePoint.x === point.x && prePoint.y === point.y)) {
       data.push(point.x);
       data.push(point.y);
       prePoint = point;
     }
-  });
+  }
   const constraint = constaint || [
     // 范围
     [0, 0],

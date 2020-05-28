@@ -49,7 +49,6 @@ describe('Interval label in Polar coordinate', () => {
     scales,
     container: canvas.addGroup(),
     labelsContainer: canvas.addGroup(),
-    theme: Theme,
     coordinate: coord,
     scaleDefs,
   });
@@ -58,7 +57,9 @@ describe('Interval label in Polar coordinate', () => {
     .label('sales', {
       labelEmit: true,
     });
-  interval.init();
+  interval.init({
+    theme: Theme,
+  });
   interval.paint();
 
   // 生成映射数据

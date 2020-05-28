@@ -43,12 +43,13 @@ describe('State setting', () => {
       scales,
       coordinate: rectCoord,
       container: canvas.addGroup(),
-      theme: Theme,
     });
 
     interval.position('a*b').animate(false);
 
-    interval.init();
+    interval.init({
+      theme: Theme,
+    });
     interval.paint();
 
     const activeElement = interval.elements[0];
@@ -80,20 +81,23 @@ describe('State setting', () => {
       scales,
       coordinate: rectCoord,
       container: canvas.addGroup(),
+    });
+
+    interval
+      .position('a*b')
+      .state({
+        selected: {
+          style: {
+            stroke: '#000',
+            lineWidth: 2,
+          },
+        },
+      })
+      .animate(false);
+
+    interval.init({
       theme: Theme,
     });
-
-    interval.position('a*b').state({
-      selected: {
-        style: {
-          stroke: '#000',
-          lineWidth: 2,
-        },
-        animate: null,
-      },
-    });
-
-    interval.init();
     interval.paint();
 
     const selectedElement = interval.elements[0];
@@ -137,7 +141,6 @@ describe('State setting', () => {
       scales: pieScales,
       coordinate: thetaCoord,
       container: canvas.addGroup(),
-      theme: Theme,
     });
 
     pie
@@ -145,7 +148,9 @@ describe('State setting', () => {
       .color('type')
       .adjust('stack')
       .animate(false);
-    pie.init();
+    pie.init({
+      theme: Theme,
+    });
     pie.paint();
 
     pie.elements[0].setState('selected', true);

@@ -9,7 +9,10 @@ import { ShapeInfo } from '../../interface';
  * @returns
  */
 export function isModelChange(currentModel: ShapeInfo, preModel: ShapeInfo) {
-  return some(['color', 'shape', 'size', 'x', 'y', 'isInCircle', 'data', 'style', 'points', 'mappingData'], (key: string) => {
-    return !isEqual(currentModel[key], preModel[key]);
-  });
+  return some(
+    ['color', 'shape', 'size', 'x', 'y', 'isInCircle', 'data', 'style', 'defaultStyle', 'points', 'mappingData'],
+    (key: string) => {
+      return !isEqual(currentModel[key], preModel[key]);
+    }
+  );
 }

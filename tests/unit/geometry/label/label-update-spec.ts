@@ -1,5 +1,5 @@
 import { Chart } from '../.../../../../../src';
-import { delay } from '../../../util/delay';
+// import { delay } from '../../../util/delay';
 import { createDiv } from '../../../util/dom';
 
 describe('Label update', () => {
@@ -18,7 +18,7 @@ describe('Label update', () => {
     width: 600,
     height: 250,
   });
-
+  chart.animate(false);
   chart.data(data);
   chart.scale('sales', {
     tickInterval: 20,
@@ -45,7 +45,7 @@ describe('Label update', () => {
   it('changeSize', async () => {
     chart.changeSize(300, 250);
 
-    await delay(600);
+    //await delay(600);
 
     const labelContainer = interval.labelsContainer;
     expect(labelContainer.getCount()).toBe(7);

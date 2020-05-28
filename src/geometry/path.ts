@@ -1,6 +1,5 @@
-import { get } from '@antv/util';
 import { FIELD_ORIGIN } from '../constant';
-import { Data, Datum, MappingDatum, Point, RangePoint, ShapeInfo } from '../interface';
+import { MappingDatum, ShapeInfo } from '../interface';
 import Geometry, { GeometryCfg } from './base';
 import Element from './element';
 /** 引入对应的 ShapeFactory */
@@ -38,7 +37,7 @@ export default class Path extends Geometry {
    */
   protected createElements(mappingData: MappingDatum[], index: number, isUpdate: boolean = false): Element[] {
     // Path 的每个 element 对应一组数据
-    const { lastElementsMap, elementsMap, elements, theme, container } = this;
+    const { lastElementsMap, elementsMap, elements, container } = this;
     const elementId = this.getElementId(mappingData);
     const shapeCfg = this.getShapeInfo(mappingData);
 
@@ -47,17 +46,18 @@ export default class Path extends Geometry {
       const shapeFactory = this.getShapeFactory();
 
       result = new Element({
-        theme: get(theme, ['geometries', this.shapeType], {}),
         shapeFactory,
         container,
         offscreenGroup: this.getOffscreenGroup(),
       });
       result.geometry = this;
+      result.animate = this.animateOption;
       result.draw(shapeCfg, isUpdate); // 绘制 shape
     } else {
       // element 已经创建
       const preShapeCfg = result.getModel();
-      if (isModelChange(preShapeCfg, shapeCfg)) {
+      if (this.isCoordinateChanged || isModelChange(preShapeCfg, shapeCfg)) {
+        result.animate = this.animateOption;
         // 通过绘制数据的变更来判断是否需要更新，因为用户有可能会修改图形属性映射
         result.update(shapeCfg); // 更新对应的 element
       }
@@ -71,35 +71,37 @@ export default class Path extends Geometry {
   }
 
   /**
-   * 获取组成一条线（一组数据）的所有点数据。
-   * @param mappingData
-   * @returns points
+   * 获取组成一条线（一组数据）的所有点以及数据
+   * @param mappingData 映射后的数组
    */
-  protected getPoints(mappingData: MappingDatum[]): Point[] | RangePoint[] {
-    return mappingData.map((obj: MappingDatum) => {
-      return {
+  protected getPointsAndData(mappingData: MappingDatum[]) {
+    const points = [];
+    const data = [];
+
+    for (let i = 0, len = mappingData.length; i < len; i++) {
+      const obj = mappingData[i];
+      points.push({
         x: obj.x,
         y: obj.y,
-      };
-    });
+      });
+      data.push(obj[FIELD_ORIGIN]);
+    }
+
+    return {
+      points,
+      data,
+    };
   }
 
   private getShapeInfo(mappingData: MappingDatum[]): ShapeInfo {
     const shapeCfg = this.getDrawCfg(mappingData[0]);
+    const { points, data } = this.getPointsAndData(mappingData);
+    shapeCfg.mappingData = mappingData;
+    shapeCfg.data = data;
+    shapeCfg.isStack = !!this.getAdjust('stack');
+    shapeCfg.points = points;
+    shapeCfg.connectNulls = this.connectNulls;
 
-    return {
-      ...shapeCfg,
-      mappingData,
-      data: this.getData(mappingData),
-      isStack: !!this.getAdjust('stack'),
-      points: this.getPoints(mappingData),
-      connectNulls: this.connectNulls,
-    };
-  }
-
-  private getData(mappingData: MappingDatum[]): Data {
-    return mappingData.map((obj: Datum) => {
-      return obj[FIELD_ORIGIN];
-    });
+    return shapeCfg;
   }
 }

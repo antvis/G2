@@ -10,8 +10,9 @@ describe('GeometryLabel layout', () => {
   });
 
   it('limitInCanvas', () => {
+    const group = canvas.addGroup();
     // mock
-    const text1 = canvas.addShape({
+    const text1 = group.addShape({
       type: 'text',
       attrs: {
         x: 10,
@@ -20,7 +21,7 @@ describe('GeometryLabel layout', () => {
         fill: 'red',
       }
     });
-    const text2 = canvas.addShape({
+    const text2 = group.addShape({
       type: 'text',
       attrs: {
         x: -3,
@@ -29,7 +30,7 @@ describe('GeometryLabel layout', () => {
         fill: 'red',
       }
     });
-    const text3 = canvas.addShape({
+    const text3 = group.addShape({
       type: 'text',
       attrs: {
         x: 110,
@@ -38,7 +39,7 @@ describe('GeometryLabel layout', () => {
         fill: 'red',
       }
     });
-    const text4 = canvas.addShape({
+    const text4 = group.addShape({
       type: 'text',
       attrs: {
         x: 90,
@@ -47,7 +48,7 @@ describe('GeometryLabel layout', () => {
         fill: 'red',
       }
     });
-    const text5 = canvas.addShape({
+    const text5 = group.addShape({
       type: 'text',
       attrs: {
         x: 50,
@@ -56,7 +57,7 @@ describe('GeometryLabel layout', () => {
         fill: 'red',
       }
     });
-    const text6 = canvas.addShape({
+    const text6 = group.addShape({
       type: 'text',
       attrs: {
         x: 50,
@@ -65,7 +66,7 @@ describe('GeometryLabel layout', () => {
         fill: 'red',
       }
     });
-    const text7 = canvas.addShape({
+    const text7 = group.addShape({
       type: 'text',
       attrs: {
         x: 50,
@@ -86,16 +87,16 @@ describe('GeometryLabel layout', () => {
       height: 100,
     };
 
-    expect(canvas.getCanvasBBox().minX).toBeLessThan(0);
+    expect(group.getCanvasBBox().minX).toBeLessThan(0);
 
     // @ts-ignore
-    limitInCanvas([], canvas.getChildren(), [], region);
+    limitInCanvas([], group.getChildren(), [], region);
     canvas.draw();
-    expect(canvas.getChildren().length).toBe(7);
-    expect(canvas.getCanvasBBox().minX).toBe(0);
-    expect(canvas.getCanvasBBox().minY).toBe(0);
-    expect(canvas.getCanvasBBox().maxX).toBe(100);
-    expect(canvas.getCanvasBBox().maxY).toBe(100);
+    expect(group.getChildren().length).toBe(7);
+    expect(group.getCanvasBBox().minX).toBe(0);
+    expect(group.getCanvasBBox().minY).toBe(0);
+    expect(group.getCanvasBBox().maxX).toBe(100);
+    expect(group.getCanvasBBox().maxY).toBe(100);
   });
 
   afterAll(() => {

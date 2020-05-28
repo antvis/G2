@@ -1,4 +1,4 @@
-import { transform } from '@antv/matrix-util';
+import { ext } from '@antv/matrix-util';
 import { Action } from '..';
 import { distance } from '../util';
 
@@ -39,7 +39,9 @@ class Move extends Action {
     }
     if (this.isMoving) {
       const view = this.context.view;
-      const matrix = transform(this.startMatrix, [['t', currentPoint.x - startPoint.x, currentPoint.y - startPoint.y]]);
+      const matrix = ext.transform(this.startMatrix, [
+        ['t', currentPoint.x - startPoint.x, currentPoint.y - startPoint.y],
+      ]);
       view.backgroundGroup.setMatrix(matrix);
       view.foregroundGroup.setMatrix(matrix);
       view.middleGroup.setMatrix(matrix);

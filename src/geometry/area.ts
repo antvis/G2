@@ -1,4 +1,5 @@
-import { Data, Datum } from '../interface';
+import { FIELD_ORIGIN } from '../constant';
+import { MappingDatum } from '../interface';
 import Path, { PathCfg } from './path';
 import './shape/area';
 
@@ -41,15 +42,23 @@ export default class Area extends Path {
   }
 
   /**
-   * get points for ShapeInfo
-   * @override
-   * @param mappedArray
-   * @returns
+   * 获取图形绘制的关键点以及数据
+   * @param mappingData 映射后的数据
    */
-  protected getPoints(mappedArray: Data) {
-    return mappedArray.map((obj: Datum) => {
-      return obj.points;
-    });
+  protected getPointsAndData(mappingData: MappingDatum[]) {
+    const points = [];
+    const data = [];
+
+    for (let i = 0, len = mappingData.length; i < len; i++) {
+      const obj = mappingData[i];
+      points.push(obj.points);
+      data.push(obj[FIELD_ORIGIN]);
+    }
+
+    return {
+      points,
+      data,
+    };
   }
 
   /**

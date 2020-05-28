@@ -313,7 +313,7 @@ export default class GrammarInteraction extends Interaction {
 
   private enterStep(stepName: string) {
     this.currentStepName = stepName;
-    this.emitCaches = {};// 清除所有本环节触发的缓存
+    this.emitCaches = {}; // 清除所有本环节触发的缓存
   }
 
   // 执行完某个触发和反馈（子环节）
@@ -341,34 +341,39 @@ export default class GrammarInteraction extends Interaction {
       if (!callbackCaches[key]) {
         // 动态生成执行的方法，执行对应 action 的名称
         const actionCallback = (event) => {
-          context.event = event;
+          context.event = event; // 保证检测时的 event
           if (this.isAllowExcute(stepName, step)) {
             // 如果是数组时，则依次执行
             if (isArray(actionObject)) {
               each(actionObject, (obj: ActionObject) => {
+                context.event = event; // 可能触发新的事件，保证执行前的 context.event 是正确的
                 executeAction(obj);
               });
             } else {
+              context.event = event; // 保证执行前的 context.event 是正确的
               executeAction(actionObject);
             }
             this.afterExecute(stepName, step);
             if (step.callback) {
+              context.event = event; // 保证执行前的 context.event 是正确的
               step.callback(context);
             }
           } else {
             // 如果未通过验证，则事件不要绑定在上面
             context.event = null;
           }
-        }
+        };
         // 如果设置了 debounce
         if (step.debounce) {
           callbackCaches[key] = debounce(actionCallback, step.debounce.wait, step.debounce.immediate);
-        } else if (step.throttle) { // 设置 throttle
+        } else if (step.throttle) {
+          // 设置 throttle
           callbackCaches[key] = throttle(actionCallback, step.throttle.wait, {
             leading: step.throttle.leading,
-            trailing: step.throttle.trailing
+            trailing: step.throttle.trailing,
           });
-        } else { // 直接设置
+        } else {
+          // 直接设置
           callbackCaches[key] = actionCallback;
         }
       }

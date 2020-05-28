@@ -1,0 +1,28 @@
+name: 🤖 Sync to Gitee Mirror
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🔁 Sync to Gitee
+        uses: wearerequired/git-mirror-action@master
+        env:
+          # 注意在 Settings->Secrets 配置 GITEE_RSA_PRIVATE_KEY
+          SSH_PRIVATE_KEY: ${{ secrets.GITEE_RSA_PRIVATE_KEY }}
+        with:
+          # 注意替换为你的 GitHub 源仓库地址
+          source-repo: 'git@github.com:antvis/G2.git'
+          # 注意替换为你的 Gitee 目标仓库地址
+          destination-repo: 'git@gitee.com:antv-g2/antv-g2.git'
+
+      - name: ✅ Build Gitee Pages
+        uses: yanglbme/gitee-pages-action@master
+        with:
+          # 注意替换为你的 Gitee 用户名
+          gitee-username: afc163
+          # 注意在 Settings->Secrets 配置 GITEE_PASSWORD
+          gitee-password: ${{ secrets.GITEE_PASSWORD }}
+          # 注意替换为你的 Gitee 仓库
+          gitee-repo: antv-g2/antv-g2

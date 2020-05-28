@@ -1,6 +1,6 @@
 import { LooseObject } from '@antv/component/lib/types';
 import { IGroup } from '@antv/g-base';
-import { transform } from '@antv/matrix-util';
+import { ext } from '@antv/matrix-util';
 import { deepMix } from '@antv/util';
 import { parsePadding } from '../../../util/padding';
 import Action from '../base';
@@ -84,7 +84,9 @@ class ButtonAction extends Action {
     const point = coord.convert({ x: 1, y: 1 }); // 后面直接改成左上角
     const buttonGroup = this.buttonGroup;
     const bbox = buttonGroup.getBBox();
-    const matrix = transform(null, [['t', point.x - bbox.width - PADDING_RIGHT, point.y + bbox.height + PADDING_TOP]]);
+    const matrix = ext.transform(null, [
+      ['t', point.x - bbox.width - PADDING_RIGHT, point.y + bbox.height + PADDING_TOP],
+    ]);
     buttonGroup.setMatrix(matrix);
   }
 

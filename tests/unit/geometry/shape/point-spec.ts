@@ -29,7 +29,6 @@ describe('Point shapes', () => {
   const element = new Element({
     shapeFactory: PointShapeFactory,
     container: canvas.addGroup(),
-    theme: Theme.geometries.point,
   });
 
   it('defaultShapeType', () => {

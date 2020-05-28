@@ -1,8 +1,8 @@
-import { deepMix, each, find, get, head, isBoolean, last, map } from '@antv/util';
+import { deepMix, each, find, get, head, isBoolean, last } from '@antv/util';
 
 import { COMPONENT_MAX_VIEW_PERCENTAGE, COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { Attribute, CategoryLegend, ContinuousLegend, GroupComponent, IGroup, Scale, Tick } from '../../dependents';
-import { ComponentOption, LegendCfg, LegendOption } from '../../interface';
+import { ComponentOption, LegendCfg, LegendOption, LooseObject } from '../../interface';
 
 import { DEFAULT_ANIMATE_CFG } from '../../animate';
 import Geometry from '../../geometry/base';
@@ -43,6 +43,8 @@ function getDirection(legendOption: any): DIRECTION {
 export default class Legend extends Controller<Option> {
   /** the draw group of axis */
   private container: IGroup;
+  /** 用于多个 legend 布局的 bbox */
+  private layoutBBox: BBox;
 
   constructor(view: View) {
     super(view);
@@ -73,10 +75,7 @@ export default class Legend extends Controller<Option> {
 
     // 全局自定义图例
     if (get(this.option, 'custom')) {
-      const component = this.createCustomLegend(
-        undefined, undefined, undefined,
-        this.option as LegendCfg,
-      );
+      const component = this.createCustomLegend(undefined, undefined, undefined, this.option as LegendCfg);
       if (component) {
         component.init();
 
@@ -103,6 +102,9 @@ export default class Legend extends Controller<Option> {
    * 计算出 legend 的 direction 位置 x, y
    */
   public layout() {
+    this.layoutBBox = this.view.viewBBox;
+    const margin = get(this.view.getTheme(), ['components', 'legend', 'margin'], [0, 0, 0, 0]);
+
     each(this.components, (co: ComponentOption) => {
       const { component, direction } = co;
       const layout = getLegendLayout(direction);
@@ -120,8 +122,8 @@ export default class Legend extends Controller<Option> {
       const bboxObject = component.getLayoutBBox(); // 这里只需要他的 width、height 信息做位置调整
       const bbox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height);
 
-      const [x1, y1] = directionToPosition(this.view.coordinateBBox, bbox, direction);
-      const [x2, y2] = directionToPosition(this.view.viewBBox, bbox, direction);
+      const [x1, y1] = directionToPosition(this.view.viewBBox, bbox, direction);
+      const [x2, y2] = directionToPosition(this.layoutBBox, bbox, direction);
 
       let x = 0;
       let y = 0;
@@ -135,11 +137,27 @@ export default class Legend extends Controller<Option> {
         y = y1;
       }
 
+      // 加上 margin
+      if (direction.indexOf('left') >= 0) {
+        x += margin[3];
+      }
+      if (direction.indexOf('right') >= 0) {
+        x -= margin[1];
+      }
+      if (direction.indexOf('top') >= 0) {
+        y += margin[0];
+      }
+      if (direction.indexOf('bottom') >= 0) {
+        y -= margin[2];
+      }
+
       // 更新位置
       component.update({
         x,
         y,
       });
+
+      this.layoutBBox = this.layoutBBox.cut(bbox, direction);
     });
   }
 
@@ -214,10 +232,7 @@ export default class Legend extends Controller<Option> {
 
         updated[id] = true;
       } else {
-        const component = this.createCustomLegend(
-          undefined, undefined, undefined,
-          this.option as LegendCfg,
-        );
+        const component = this.createCustomLegend(undefined, undefined, undefined, this.option as LegendCfg);
         if (component) {
           component.init();
 
@@ -259,7 +274,6 @@ export default class Legend extends Controller<Option> {
 
   public clear() {
     super.clear();
-
     this.container.clear();
   }
 
@@ -272,13 +286,11 @@ export default class Legend extends Controller<Option> {
   /**
    * 递归获取所有的 Geometry
    */
-  private getGeometries(view: View, geometries: Geometry[] = []): Geometry[] {
-    // 首先获得当前 view 的 Geometries
-    geometries.push(...view.geometries);
+  private getGeometries(view: View): Geometry[] {
+    let geometries = view.geometries;
 
-    // 然后递归
     each(view.views, (v: View) => {
-      return this.getGeometries(v, geometries);
+      geometries = geometries.concat(this.getGeometries(v));
     });
 
     return geometries;
@@ -291,7 +303,9 @@ export default class Legend extends Controller<Option> {
   private loopLegends(doEach: DoEach) {
     const isRootView = this.view.getRootView() === this.view;
     // 非根 view，不处理 legend
-    if (!isRootView) { return; }
+    if (!isRootView) {
+      return;
+    }
 
     // 递归 view 中所有的 Geometry，进行创建 legend
     const geometries = this.getGeometries(this.view);
@@ -406,7 +420,7 @@ export default class Legend extends Controller<Option> {
 
     const containMin = find(ticks, (tick: Tick) => tick.value === 0);
     const containMax = find(ticks, (tick: Tick) => tick.value === 1);
-    const items = map(ticks, (tick: Tick) => {
+    const items = ticks.map((tick: Tick) => {
       const { value, tickValue } = tick;
       const attrValue = attr.mapping(scale.invert(value)).join('');
 
@@ -421,16 +435,16 @@ export default class Legend extends Controller<Option> {
     if (!containMin) {
       items.push({
         value: scale.min,
-        attrValue: attr.mapping(0).join(''),
-        color: attr.mapping(0).join(''),
+        attrValue: attr.mapping(scale.invert(0)).join(''),
+        color: attr.mapping(scale.invert(0)).join(''),
         scaleValue: 0,
       });
     }
     if (!containMax) {
       items.push({
         value: scale.max,
-        attrValue: attr.mapping(1).join(''),
-        color: attr.mapping(1).join(''),
+        attrValue: attr.mapping(scale.invert(1)).join(''),
+        color: attr.mapping(scale.invert(1)).join(''),
         scaleValue: 1,
       });
     }
@@ -440,7 +454,7 @@ export default class Legend extends Controller<Option> {
 
     // 跟 attr 相关的配置
     // size color 区别的配置
-    let attrLegendCfg = {
+    const attrLegendCfg: LooseObject = {
       min: head(items).value,
       max: last(items).value,
       colors: [],
@@ -451,23 +465,17 @@ export default class Legend extends Controller<Option> {
     };
 
     if (attr.type === 'size') {
-      attrLegendCfg = {
-        ...attrLegendCfg,
-        track: {
-          style: {
-            // size 的选中前景色，对于 color，则直接使用 color 标识
-            // @ts-ignore
-            fill: attr.type === 'size' ? this.view.getTheme().defaultColor : undefined,
-          },
+      attrLegendCfg.track = {
+        style: {
+          // size 的选中前景色，对于 color，则直接使用 color 标识
+          // @ts-ignore
+          fill: attr.type === 'size' ? this.view.getTheme().defaultColor : undefined,
         },
       };
     }
 
     if (attr.type === 'color') {
-      attrLegendCfg = {
-        ...attrLegendCfg,
-        colors: map(items, (item) => item.attrValue),
-      };
+      attrLegendCfg.colors = items.map((item) => item.attrValue);
     }
 
     const container = this.container;
@@ -478,21 +486,21 @@ export default class Legend extends Controller<Option> {
 
     let title = get(legendOption, 'title');
     if (title) {
-      title = deepMix({
-        text: getName(scale),
-      }, title);
+      title = deepMix(
+        {
+          text: getName(scale),
+        },
+        title
+      );
     }
 
     // 基础配置，从当前数据中读到的配置
-    const baseCfg = {
-      container,
-      layout,
-      ...attrLegendCfg,
-      title,
-    };
-
+    attrLegendCfg.container = container;
+    attrLegendCfg.layout = layout;
+    attrLegendCfg.title = title;
+    attrLegendCfg.animateOption = DEFAULT_ANIMATE_CFG;
     // @ts-ignore
-    return this.mergeLegendCfg(baseCfg, legendOption, 'continuous');
+    return this.mergeLegendCfg(attrLegendCfg, legendOption, 'continuous');
   }
 
   /**
@@ -503,7 +511,13 @@ export default class Legend extends Controller<Option> {
    * @param custom
    * @param legendOption
    */
-  private getCategoryCfg(geometry: Geometry, attr: Attribute, scale: Scale, legendOption: any, custom?: boolean): object {
+  private getCategoryCfg(
+    geometry: Geometry,
+    attr: Attribute,
+    scale: Scale,
+    legendOption: any,
+    custom?: boolean
+  ): object {
     const container = this.container;
     // if position is not set, use top as default
     const direction = get(legendOption, 'position', DIRECTION.BOTTOM);
@@ -513,24 +527,26 @@ export default class Legend extends Controller<Option> {
     const userMarker = get(legendOption, 'marker');
     const layout = getLegendLayout(direction);
 
-    const items = custom ?
-      getCustomLegendItems(themeMarker, userMarker, legendOption.items) :
-      getLegendItems(this.view, geometry, attr, themeMarker, userMarker);
+    const items = custom
+      ? getCustomLegendItems(themeMarker, userMarker, legendOption.items)
+      : getLegendItems(this.view, geometry, attr, themeMarker, userMarker);
 
     let title = get(legendOption, 'title');
     if (title) {
-      title = deepMix({
-        text: scale ? getName(scale) : '',
-      }, title);
+      title = deepMix(
+        {
+          text: scale ? getName(scale) : '',
+        },
+        title
+      );
     }
 
-    const baseCfg = {
-      container,
-      layout,
-      items,
-      title,
-      ...this.getCategoryLegendSizeCfg(layout),
-    };
+    const baseCfg: LooseObject = this.getCategoryLegendSizeCfg(layout);
+    baseCfg.container = container;
+    baseCfg.layout = layout;
+    baseCfg.items = items;
+    baseCfg.title = title;
+    baseCfg.animateOption = DEFAULT_ANIMATE_CFG;
 
     const categoryCfg = this.mergeLegendCfg(baseCfg, legendOption, direction);
     if (categoryCfg.reversed) {
@@ -550,9 +566,7 @@ export default class Legend extends Controller<Option> {
   private mergeLegendCfg(baseCfg: object, legendOption: LegendOption, direction: DIRECTION) {
     const themeObject = get(this.view.getTheme(), ['components', 'legend', direction], {});
 
-    return deepMix({}, themeObject, baseCfg, {
-      animateOption: DEFAULT_ANIMATE_CFG,
-    }, legendOption);
+    return deepMix({}, themeObject, baseCfg, legendOption);
   }
 
   /**

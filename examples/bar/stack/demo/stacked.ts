@@ -29,7 +29,7 @@ const chart = new Chart({
 chart.coordinate().transpose();
 
 chart.data(dv.rows);
-chart.scale('人口人数', { nice: true });
+chart.scale('人口数量', { nice: true });
 
 chart.axis('State', {
   label: {

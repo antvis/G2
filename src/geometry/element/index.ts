@@ -1,8 +1,8 @@
-import { deepMix, each, get, isArray, isEmpty, isFunction } from '@antv/util';
-import { doAnimate, getDefaultAnimateCfg } from '../../animate';
+import { deepMix, each, get, isArray, isFunction, isString } from '@antv/util';
+import { doAnimate } from '../../animate';
 import Base from '../../base';
 import { BBox, IGroup, IShape } from '../../dependents';
-import { AnimateOption, Datum, LooseObject, ShapeFactory, ShapeInfo, StateCfg } from '../../interface';
+import { AnimateOption, Datum, ShapeFactory, ShapeInfo, StateCfg } from '../../interface';
 import { getReplaceAttrs } from '../../util/graphics';
 import Geometry from '../base';
 
@@ -12,8 +12,6 @@ import { propagationDelegate } from '@antv/component/lib/util/event';
 interface ElementCfg {
   /** 用于创建各种 shape 的工厂对象 */
   shapeFactory: ShapeFactory;
-  /** 主题 */
-  theme: LooseObject;
   /** shape 容器 */
   container: IGroup;
   /** 虚拟 group，用户可以不传入 */
@@ -29,8 +27,6 @@ interface ElementCfg {
 export default class Element extends Base {
   /** 用于创建各种 shape 的工厂对象 */
   public shapeFactory: ShapeFactory;
-  /** 主题 */
-  public theme: LooseObject;
   /** shape 容器 */
   public container: IGroup;
   /** 最后创建的图形对象 */
@@ -53,15 +49,15 @@ export default class Element extends Base {
   private data: Datum;
   // 存储当前开启的状态
   private states: string[] = [];
+  private statesStyle;
   // 虚拟 Group
   private offscreenGroup: IGroup;
 
   constructor(cfg: ElementCfg) {
     super(cfg);
 
-    const { shapeFactory, theme, container, offscreenGroup, visible = true } = cfg;
+    const { shapeFactory, container, offscreenGroup, visible = true } = cfg;
     this.shapeFactory = shapeFactory;
-    this.theme = theme;
     this.container = container;
     this.offscreenGroup = offscreenGroup;
     this.visible = visible;
@@ -102,14 +98,15 @@ export default class Element extends Base {
     this.shapeType = this.getShapeType(model);
 
     // step 1: 更新 shape 携带的信息
-    const drawCfg = this.getShapeDrawCfg(model);
-    this.setShapeInfo(shape, drawCfg);
+    this.setShapeInfo(shape, model);
 
     // step 2: 使用虚拟 Group 重新绘制 shape，然后更新当前 shape
     const offscreenGroup = this.getOffscreenGroup();
-    const newShape = shapeFactory.drawShape(this.shapeType, drawCfg, offscreenGroup);
-    newShape.set('data', this.data);
-    newShape.set('origin', drawCfg);
+    const newShape = shapeFactory.drawShape(this.shapeType, model, offscreenGroup);
+    // @ts-ignore
+    newShape.cfg.data = this.data;
+    // @ts-ignore
+    newShape.cfg.origin = model;
 
     // step 3: 同步 shape 样式
     this.syncShapeStyle(shape, newShape, '', this.getAnimateCfg('update'));
@@ -137,7 +134,19 @@ export default class Element extends Base {
       }
     }
 
+    // reset
     this.states = [];
+    this.shapeFactory = undefined;
+    this.container = undefined;
+    this.shape = undefined;
+    this.animate = undefined;
+    this.geometry = undefined;
+    this.labelShape = undefined;
+    this.model = undefined;
+    this.data = undefined;
+    this.offscreenGroup = undefined;
+    this.statesStyle = undefined;
+
     super.destroy();
   }
 
@@ -215,8 +224,7 @@ export default class Element extends Base {
     }
 
     // 使用虚拟 group 重新绘制 shape，然后对这个 shape 应用状态样式后，更新当前 shape。
-    const drawCfg = this.getShapeDrawCfg(model);
-    const offscreenShape = shapeFactory.drawShape(shapeType, drawCfg, this.getOffscreenGroup());
+    const offscreenShape = shapeFactory.drawShape(shapeType, model, this.getOffscreenGroup());
     if (states.length) {
       // 应用当前状态
       states.forEach((state) => {
@@ -224,7 +232,7 @@ export default class Element extends Base {
       });
     } else {
       // 如果没有状态，则需要恢复至原始状态
-      this.syncShapeStyle(shape, offscreenShape, '', null);
+      this.syncShapeStyle(shape, offscreenShape, 'reset', null);
     }
 
     offscreenShape.remove(true); // 销毁，减少内存占用
@@ -236,7 +244,8 @@ export default class Element extends Base {
       target: this.container,
     };
     this.container.emit('statechange', eventObject);
-    propagationDelegate(this.container, 'statechange', eventObject);
+    // @ts-ignore
+    propagationDelegate(this.shape, 'statechange', eventObject);
   }
 
   /**
@@ -322,72 +331,60 @@ export default class Element extends Base {
     return bbox;
   }
 
+  private getStatesStyle() {
+    if (!this.statesStyle) {
+      const { shapeType, geometry, shapeFactory } = this;
+      const stateOption = geometry.stateOption;
+      const defaultShapeType = shapeFactory.defaultShapeType;
+      const stateTheme = shapeFactory.theme[shapeType] || shapeFactory.theme[defaultShapeType];
+      this.statesStyle = deepMix({}, stateTheme, stateOption);
+    }
+
+    return this.statesStyle;
+  }
+
   // 从主题中获取对应状态量的样式
   private getStateStyle(stateName: string, shapeKey?: string): StateCfg {
-    const { theme, shapeFactory } = this;
-    let shapeType = this.shapeType;
-    // 如果用户自定义 shape，则使用默认 shape 的配置
-    if (!theme[shapeType]) {
-      shapeType = shapeFactory.defaultShapeType;
-    }
-    // 用户通过 geometry.state() 接口定义了状态样式
-    const stateOption = get(this.geometry.stateOption, stateName, {});
-    const stateCfg = deepMix({}, get(theme, [shapeType, stateName], {}), stateOption);
-
-    let shapeStyle = get(stateCfg.style, [shapeKey]) ?
-      get(stateCfg.style, [shapeKey]) :
-      stateCfg.style;
-
+    const statesStyle = this.getStatesStyle();
+    const stateCfg = get(statesStyle, [stateName, 'style'], {});
+    const shapeStyle = stateCfg[shapeKey] || stateCfg;
     if (isFunction(shapeStyle)) {
-      shapeStyle = shapeStyle(this);
+      return shapeStyle(this);
     }
 
-    return {
-      animate: stateCfg.animate,
-      style: shapeStyle,
-    };
+    return shapeStyle;
   }
 
   // 获取动画配置
   private getAnimateCfg(animateType: string) {
-    const animate = this.geometry.animateOption;
-    const { geometryType, coordinate } = this.shapeFactory;
-    const defaultCfg = getDefaultAnimateCfg(geometryType, coordinate, animateType);
-
-    // 1. animate === false, 用户关闭动画
-    // 2. 动画默认开启，用户没有对动画进行配置同时有没有内置的默认动画
-    // 3. 用户关闭对应的动画  animate: { enter: false }
-    if (
-      !animate ||
-      (animate === true && isEmpty(defaultCfg)) ||
-      animate[animateType] === false ||
-      animate[animateType] === null
-    ) {
-      return null;
+    const animate = this.animate;
+    if (animate) {
+      return animate[animateType];
     }
 
-    return {
-      ...defaultCfg,
-      ...animate[animateType],
-    };
+    return null;
   }
 
   // 绘制图形
   private drawShape(model: ShapeInfo, isUpdate: boolean = false) {
     const { shapeFactory, container, shapeType } = this;
-    const drawCfg = this.getShapeDrawCfg(model);
 
     // 自定义 shape 有可能返回空 shape
-    this.shape = shapeFactory.drawShape(shapeType, drawCfg, container);
+    this.shape = shapeFactory.drawShape(shapeType, model, container);
 
     if (this.shape) {
-      this.setShapeInfo(this.shape, drawCfg); // 存储绘图数据
-      if (!this.shape.get('name')) {
-        // TODO: 当用户设置了 name 后，为了保证 geometry:eventName 这样的事件能够正常触发，需要加一个 inheritName
-        // 等 G 事件改造完成后加上
-        this.shape.set('name', this.shapeFactory.geometryType);
+      this.setShapeInfo(this.shape, model); // 存储绘图数据
+      // @ts-ignore
+      const name = this.shape.cfg.name;
+      // 附加 element 的 name, name 现在支持数组了，很好用了
+      if (!name) {
+        // 这个地方如果用户添加了 name, 则附加 name ，否则就添加自己的 name
+        // @ts-ignore
+        this.shape.cfg.name = ['element', this.shapeFactory.geometryType];
+      } else if (isString(name)) {
+        // @ts-ignore
+        this.shape.cfg.name = ['element', name];
       }
-      this.shape.set('inheritNames', ['element']);
       // 执行入场动画
       const animateType = isUpdate ? 'enter' : 'appear';
       const animateCfg = this.getAnimateCfg(animateType);
@@ -414,22 +411,16 @@ export default class Element extends Base {
 
   // 设置 shape 上需要携带的信息
   private setShapeInfo(shape: IShape | IGroup, data: ShapeInfo) {
-    shape.set('origin', data);
-    shape.set('element', this); // 考虑是否可以使用 G 事件的 delegateObject
+    // @ts-ignore
+    shape.cfg.origin = data;
+    // @ts-ignore
+    shape.cfg.element = this;
     if (shape.isGroup()) {
       const children = shape.get('children');
       children.forEach((child) => {
         this.setShapeInfo(child, data);
       });
     }
-  }
-
-  // 获取 shape 的绘制属性
-  private getShapeDrawCfg(cfg: ShapeInfo): ShapeInfo {
-    return {
-      ...cfg,
-      defaultStyle: this.getStateStyle('default').style,
-    };
   }
 
   // 更新当前 shape 的样式
@@ -447,29 +438,33 @@ export default class Element extends Base {
         this.syncShapeStyle(children[i], newChildren[i], state, animateCfg, index + i);
       }
     } else {
-      let stateAnimate;
-      if (state) {
-        const { animate, style } = this.getStateStyle(state, sourceShape.get('name') || index); // 如果用户没有设置 name，则默认根据索引值
+      if (state && state !== 'reset') {
+        let name = sourceShape.get('name');
+        if (isArray(name)) {
+          // 会附加 element 的 name
+          name = name[1];
+        }
+        const style = this.getStateStyle(state, name || index); // 如果用户没有设置 name，则默认根据索引值
         targetShape.attr(style);
-        stateAnimate = animate;
       }
       const newAttrs = getReplaceAttrs(sourceShape as IShape, targetShape as IShape);
 
-      if (animateCfg) {
-        // 需要进行动画
-        doAnimate(sourceShape, animateCfg, {
-          coordinate: this.shapeFactory.coordinate,
-          toAttrs: newAttrs,
-          shapeModel: this.model,
-        });
-      } else if (stateAnimate === null) {
-        // 用户关闭了 state 动画
-        sourceShape.attr(newAttrs);
-      } else if (this.geometry.animateOption) {
-        sourceShape.stopAnimate();
-        sourceShape.animate(newAttrs, {
-          duration: 300,
-        });
+      if (this.animate) {
+        if (animateCfg) {
+          // 需要进行动画
+          doAnimate(sourceShape, animateCfg, {
+            coordinate: this.shapeFactory.coordinate,
+            toAttrs: newAttrs,
+            shapeModel: this.model,
+          });
+        } else if (state) {
+          sourceShape.stopAnimate();
+          sourceShape.animate(newAttrs, {
+            duration: 300,
+          });
+        } else {
+          sourceShape.attr(newAttrs);
+        }
       } else {
         sourceShape.attr(newAttrs);
       }

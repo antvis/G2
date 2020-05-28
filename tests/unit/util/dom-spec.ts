@@ -11,13 +11,13 @@ maxDiv.setAttribute('style', 'display: inline-block; width: 500px; height: 500px
 describe('util dom', () => {
   it('getChartSize', () => {
     expect(getChartSize(minDiv, false, 200, 200)).toEqual({ width: 200, height: 200 });
-    expect(getChartSize(minDiv, false, 50, 50)).toEqual({ width: 100, height: 100 });
-    expect(getChartSize(minDiv, false, 200, 50)).toEqual({ width: 200, height: 100 });
+    expect(getChartSize(minDiv, false, 50, 50)).toEqual({ width: 50, height: 50 });
+    expect(getChartSize(minDiv, false, 200, 50)).toEqual({ width: 200, height: 50 });
 
     expect(getChartSize(maxDiv, true, 200, 50)).toEqual({ width: 500, height: 500 });
-    expect(getChartSize(minDiv, true, 200, 50)).toEqual({ width: 100, height: 100 });
+    expect(getChartSize(minDiv, true, 200, 50)).toEqual({ width: 30, height: 30 });
 
-    expect(getChartSize(minDiv, false, NaN, undefined)).toEqual({ width: 100, height: 100 });
+    expect(getChartSize(minDiv, false, NaN, undefined)).toEqual({ width: 1, height: 1 });
   });
 
   it('removeDom', () => {

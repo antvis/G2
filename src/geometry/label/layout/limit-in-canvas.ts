@@ -18,9 +18,9 @@ export function limitInCanvas(items: LabelItem[], labels: IGroup[], shapes: ISha
     let finalY = y;
     if (minX < regionMinX || maxX < regionMinX) {
       // 超出左侧
-      finalX =regionMinX;
+      finalX = regionMinX;
     }
-    if (minY < regionMinY || maxY < regionMinY ) {
+    if (minY < regionMinY || maxY < regionMinY) {
       // 超出顶部
       finalY = regionMinY;
     }

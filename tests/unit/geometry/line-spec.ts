@@ -35,12 +35,13 @@ describe('Line', () => {
       data,
       scales,
       container: canvas.addGroup(),
-      theme: Theme,
       coordinate: rectCoord,
     });
 
     line.position('x*y');
-    line.init();
+    line.init({
+      theme: Theme,
+    });
     line.paint();
     canvas.draw();
 
@@ -74,7 +75,6 @@ describe('Line', () => {
       data,
       scales,
       container: canvas.addGroup(),
-      theme: Theme,
       coordinate: rectCoord,
       sortable: false,
     });
@@ -83,7 +83,9 @@ describe('Line', () => {
       .position('x*y')
       .color('type')
       .adjust('stack');
-    line.init();
+    line.init({
+      theme: Theme,
+    });
     line.paint();
     canvas.draw();
 

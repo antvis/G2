@@ -33,7 +33,7 @@ import {
   Legend,
   Slider,
   Tooltip,
- } from '@antv/component';
+} from '@antv/component';
 export { IComponent, IList } from '@antv/component/lib/interfaces';
 export {
   CategoryLegendCfg,
@@ -79,4 +79,3 @@ const { Html: HtmlTooltip } = Tooltip;
 export { HtmlTooltip };
 // Slider
 export { Slider };
-

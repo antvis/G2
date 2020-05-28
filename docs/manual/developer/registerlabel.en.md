@@ -23,12 +23,9 @@ registerGeometryLabel('custom', CustomLabel);
 
 // Step 3
 // 使用
-chart
-  .line()
-  .position('x*y')
-  .label('y', {
-    type: 'custom',
-  });
+chart.line().position('x*y').label('y', {
+  type: 'custom',
+});
 ```
 
 自定义 Label 需要继承  GeometryLabel 基类，通过覆写相应的方法来定义 label 的渲染配置，关于  GeometryLabel 类的详细介绍请阅读 [API 文档](../../api/g2/#registergeometrylabel)。
@@ -41,7 +38,7 @@ chart
 import { registerGeometryLabelLayout } from '@antv/g2';
 
 // Step 1: 定义 label 布局函数
-function limitInShape(labels: IGroup[], shapes: IShape[] | IGroup[], region: BBox) {
+function limitInShape(items: LabelItem[], labels: IGroup[], shapes: IShape[] | IGroup[], region: BBox) {
   each(labels, (label, index) => {
     const labelBBox = label.getCanvasBBox(); // 文本有可能发生旋转
     const shapeBBox = shapes[index].getBBox();

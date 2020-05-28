@@ -39,15 +39,17 @@ describe('GeometryLabel', () => {
       scales,
       container: canvas.addGroup(),
       labelsContainer: canvas.addGroup(),
-      theme: deepMix({}, Theme, {
+      theme: {
         labels: {
           offset: 20,
         },
-      }),
+      },
       coordinate: rectCoord,
     });
     point.position('x*y').label('z', { offset: 10 });
-    point.init();
+    point.init({
+      theme: Theme,
+    });
 
     const geometryLabel = new GeometryLabel(point);
     const labelsContainer = point.labelsContainer;
@@ -131,15 +133,17 @@ describe('GeometryLabel', () => {
       scales,
       container: canvas.addGroup(),
       labelsContainer: canvas.addGroup(),
-      theme: deepMix({}, Theme, {
+      theme: {
         labels: {
           offset: 20,
         },
-      }),
+      },
       coordinate: rectCoord,
     });
     interval.position('x*y').label('z', { offset: -10 });
-    interval.init();
+    interval.init({
+      theme: Theme,
+    });
 
     let geometryLabel = new GeometryLabel(interval);
 
@@ -180,18 +184,20 @@ describe('GeometryLabel', () => {
         scales: scales1,
         container: canvas.addGroup(),
         labelsContainer: canvas.addGroup(),
-        theme: deepMix({}, Theme, {
+        theme: {
           labels: {
             offset: 20,
           },
-        }),
+        },
         coordinate: rectCoord,
       });
       interval.position('x*y').label('text', {
         offset: 10,
         labelLine: true,
       });
-      interval.init();
+      interval.init({
+        theme: Theme,
+      });
 
       geometryLabel = new GeometryLabel(interval);
       const items = geometryLabel.getLabelItems([
@@ -242,15 +248,17 @@ describe('GeometryLabel', () => {
       scales,
       container: canvas.addGroup(),
       labelsContainer: canvas.addGroup(),
-      theme: deepMix({}, Theme, {
+      theme: {
         labels: {
           offset: 20,
         },
-      }),
+      },
       coordinate: coord,
     });
     interval.position('x*y').label('z', { offset: 10 });
-    interval.init();
+    interval.init({
+      theme: Theme,
+    });
 
     let gLabels = new GeometryLabel(interval);
 
@@ -318,15 +326,17 @@ describe('GeometryLabel', () => {
         scales: scales1,
         container: canvas.addGroup(),
         labelsContainer: canvas.addGroup(),
-        theme: deepMix({}, Theme, {
+        theme: {
           labels: {
             offset: 20,
           },
-        }),
+        },
         coordinate: coord,
       });
       interval.position('x*y').label('z', { offset: 10 });
-      interval.init();
+      interval.init({
+        theme: Theme,
+      });
 
       gLabels = new GeometryLabel(interval);
 
@@ -379,15 +389,17 @@ describe('GeometryLabel', () => {
         scales: scales1,
         container: canvas.addGroup(),
         labelsContainer: canvas.addGroup(),
-        theme: deepMix({}, Theme, {
+        theme: {
           labels: {
             offset: 20,
           },
-        }),
+        },
         coordinate: coord,
       });
       interval.position('x*y').label('z', { offset: -10 });
-      interval.init();
+      interval.init({
+        theme: Theme,
+      });
 
       gLabels = new GeometryLabel(interval);
 

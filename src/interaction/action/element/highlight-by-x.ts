@@ -12,7 +12,7 @@ class HighlightX extends Highlight {
     const scale = view.getXScale();
     const value = getElementValue(element, scale.field);
     const elements = getElements(view);
-    const highlightElements = elements.filter(el => {
+    const highlightElements = elements.filter((el) => {
       return getElementValue(el, scale.field) === value;
     });
     this.setHighlightBy(elements, (el) => highlightElements.includes(el), enable);

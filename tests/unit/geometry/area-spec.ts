@@ -39,7 +39,6 @@ describe('Area', () => {
       data,
       scales,
       container: canvas.addGroup(),
-      theme: Theme,
       coordinate: rectCoord,
     });
 
@@ -57,7 +56,9 @@ describe('Area', () => {
       .color('type')
       .adjust('stack');
 
-    area.init();
+    area.init({
+      theme: Theme,
+    });
     area.paint();
 
     const elements = area.elements;
@@ -86,7 +87,6 @@ describe('Area', () => {
       data: newData,
       scales: newScales,
       container: canvas.addGroup(),
-      theme: Theme,
       coordinate: rectCoord,
       startOnZero: false,
       sortable: false,
@@ -94,7 +94,9 @@ describe('Area', () => {
 
     area
       .position('month*value');
-    area.init();
+    area.init({
+      theme: Theme,
+    });
     area.paint();
 
     canvas.draw()

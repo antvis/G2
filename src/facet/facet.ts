@@ -75,6 +75,13 @@ export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>,
   }
 
   /**
+   * 更新 facet
+   */
+  public update() {
+    // 其实不用做任何事情，因为 facet 最终生成的 View 和 Geometry 都在父 view 的更新中处理了
+  }
+
+  /**
    * 清空，clear 之后如果还需要使用，需要重新调用 init 初始化过程
    * 一般在数据有变更的时候调用，重新进行数据的分面逻辑
    */
@@ -225,7 +232,7 @@ export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>,
       showTitle: true,
       padding: 10,
       fields: [],
-    }
+    };
   }
 
   /**
@@ -239,7 +246,7 @@ export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>,
         fontSize: 14,
         fill: '#666',
         fontFamily,
-      }
+      },
     };
   }
 
@@ -257,7 +264,6 @@ export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>,
     const coordinateType = get(coordinateOption, 'type', 'rect');
 
     if (coordinateType === 'rect' && geometries.length) {
-
       if (isNil(options.axes)) {
         // @ts-ignore
         options.axes = {};
@@ -335,4 +341,3 @@ export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>,
    */
   protected abstract getYAxisOption(y: string, axes: any, option: AxisCfg, facet: F): object;
 }
-

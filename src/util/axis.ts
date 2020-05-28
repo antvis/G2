@@ -3,6 +3,7 @@ import { DIRECTION } from '../constant';
 import { Coordinate, Scale } from '../dependents';
 import { AxisCfg, AxisOption, Point, Region } from '../interface';
 import { getName } from './scale';
+import { vec2 } from '@antv/matrix-util';
 
 /**
  * @ignore
@@ -180,7 +181,25 @@ export function getAxisThemeCfg(theme: object, direction: string): object {
  */
 export function getCircleAxisCenterRadius(coordinate: Coordinate) {
   // @ts-ignore
-  const { startAngle, endAngle, circleCenter: center, polarRadius: radius } = coordinate;
+  const { x, y, circleCenter: center } = coordinate;
+  const isReflectY = y.start > y.end;
+  const start = coordinate.isTransposed
+    ? coordinate.convert({
+        x: isReflectY ? 0 : 1,
+        y: 0,
+      })
+    : coordinate.convert({
+        x: 0,
+        y: isReflectY ? 0 : 1,
+      });
+
+  const startVector: [number, number] = [start.x - center.x, start.y - center.y];
+  const normalVector: [number, number] = [1, 0];
+  const startAngle =
+    start.y > center.y ? vec2.angle(startVector, normalVector) : vec2.angle(startVector, normalVector) * -1;
+  const endAngle = startAngle + (x.end - x.start);
+  const radius = Math.sqrt((start.x - center.x) ** 2 + (start.y - center.y) ** 2);
+
   return {
     center,
     radius,
@@ -199,9 +218,8 @@ export function getCircleAxisCenterRadius(coordinate: Coordinate) {
 export function getAxisOption(axes: Record<string, AxisOption> | boolean, field: string) {
   if (isBoolean(axes)) {
     return axes === false ? false : {};
-  } else {
-    return get(axes, [field]);
   }
+  return get(axes, [field]);
 }
 
 /**

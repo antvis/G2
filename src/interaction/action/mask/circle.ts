@@ -9,7 +9,6 @@ import MaskBase from './base';
 class CircleMask extends MaskBase {
   protected shapeType = 'circle';
   protected getMaskAttrs() {
-    
     const points = this.points;
     const currentPoint = last(this.points);
     let r = 0;
@@ -24,7 +23,7 @@ class CircleMask extends MaskBase {
     return {
       x,
       y,
-      r
+      r,
     };
   }
 }

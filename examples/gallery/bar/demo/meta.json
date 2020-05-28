@@ -27,14 +27,6 @@
         "en": "bar chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*f00kS5nEwYMAAAAAAAAAAABkARQnAQ"
-    },
-    {
-      "filename": "dynamic-bar.ts",
-      "title": {
-        "zh": "动态条形图",
-        "en": "Dynamic bar chart"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*WmOcQafphvEAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

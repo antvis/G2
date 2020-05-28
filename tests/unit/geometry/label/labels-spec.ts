@@ -66,7 +66,6 @@ describe('LabelsRenderer', () => {
         percent: createScale('percent', data),
         a: createScale('a', data),
       },
-      theme: Theme,
     });
     interval
       .position('1*percent')
@@ -76,7 +75,9 @@ describe('LabelsRenderer', () => {
       })
       .adjust('stack');
 
-    interval.init();
+    interval.init({
+      theme: Theme,
+    });
     interval.paint();
 
     it('render', () => {
@@ -174,10 +175,11 @@ describe('LabelsRenderer', () => {
       container: canvas.addGroup(),
       labelsContainer: canvas.addGroup(),
       scales,
-      theme: Theme,
     });
     path.position('price*consumption').label('year');
-    path.init();
+    path.init({
+      theme: Theme,
+    });
     path.paint();
 
     it('render', () => {

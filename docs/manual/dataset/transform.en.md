@@ -759,12 +759,12 @@ edgeView.source(dv.edges);
 ```javascript
 dv.transform({
   type: 'diagram.sankey',
-  value: (node) => node.value, // 权重
   source: (edge) => edge.source, // 边起点id
   target: (edge) => edge.target, // 边终点id
   nodeAlign: 'sankeyJustify', // sankeyLeft / sankeyRight / sankeyCenter
   nodeWidth: 0.02, // 节点宽，范围：(0, 1)
   nodePadding: 0.02, // 节点上下间距，范围：(0, 1)
+  sort: undefined | null | ((a: any, b: any) => number); // Sort nodes in the same column   undefined is the default and resorts by ascending breadth during each iteration、null specifies the input order of nodes and never sorts、function specifies the given order as a comparator function and sorts once on initialization.
 });
 ```
 

@@ -1,4 +1,4 @@
-import { transform } from '@antv/matrix-util';
+import { ext } from '@antv/matrix-util';
 import { Coordinate, IGroup, IShape } from '../../dependents';
 import { GAnimateCfg, Point } from '../../interface';
 
@@ -16,39 +16,39 @@ export function transformShape(shape: IShape | IGroup, vector: [number, number],
   shape.applyToMatrix([x, y, 1]);
   if (direct === 'x') {
     shape.setMatrix(
-      transform(shape.getMatrix(), [
+      ext.transform(shape.getMatrix(), [
         ['t', -x, -y],
         ['s', 0.01, 1],
         ['t', x, y],
       ])
     );
-    scaledMatrix = transform(shape.getMatrix(), [
+    scaledMatrix = ext.transform(shape.getMatrix(), [
       ['t', -x, -y],
       ['s', 100, 1],
       ['t', x, y],
     ]);
   } else if (direct === 'y') {
     shape.setMatrix(
-      transform(shape.getMatrix(), [
+      ext.transform(shape.getMatrix(), [
         ['t', -x, -y],
         ['s', 1, 0.01],
         ['t', x, y],
       ])
     );
-    scaledMatrix = transform(shape.getMatrix(), [
+    scaledMatrix = ext.transform(shape.getMatrix(), [
       ['t', -x, -y],
       ['s', 1, 100],
       ['t', x, y],
     ]);
   } else if (direct === 'xy') {
     shape.setMatrix(
-      transform(shape.getMatrix(), [
+      ext.transform(shape.getMatrix(), [
         ['t', -x, -y],
         ['s', 0.01, 0.01],
         ['t', x, y],
       ])
     );
-    scaledMatrix = transform(shape.getMatrix(), [
+    scaledMatrix = ext.transform(shape.getMatrix(), [
       ['t', -x, -y],
       ['s', 100, 100],
       ['t', x, y],

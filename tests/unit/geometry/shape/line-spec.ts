@@ -26,7 +26,6 @@ describe('Line shapes', () => {
   const element = new Element({
     shapeFactory: LineShapeFactory,
     container: canvas.addGroup(),
-    theme: Theme.geometries.line,
   });
 
   it('defaultShapeType', () => {

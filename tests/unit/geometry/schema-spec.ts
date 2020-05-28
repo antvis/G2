@@ -47,13 +47,14 @@ describe('Schema', () => {
       data,
       scales,
       container: canvas.addGroup(),
-      theme: Theme,
       coordinate: rectCoord,
       scaleDefs,
     });
 
     schema.position('x*y').shape('box');
-    schema.init();
+    schema.init({
+      theme: Theme,
+    });
     schema.paint();
     canvas.draw();
 
@@ -90,13 +91,14 @@ describe('Schema', () => {
     const schema = new Schema({
       data,
       container: canvas.addGroup(),
-      theme: Theme,
       coordinate: rectCoord,
       scales,
     });
 
     schema.position('x*y').shape('candle');
-    schema.init();
+    schema.init({
+      theme: Theme,
+    });
     schema.paint();
     canvas.draw();
 

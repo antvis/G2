@@ -1,7 +1,9 @@
-import { getStyleSheet, getTheme, registerStyleSheet, registerTheme } from '../../../src';
+import { getTheme, registerTheme } from '../../../src';
+import { deepMix } from '@antv/util';
 
 describe('theme', () => {
   test('theme API', () => {
+    const defaultTheme = getTheme('default');
     expect(getTheme()).toEqual(getTheme('default'));
 
     // 都是 default
@@ -10,15 +12,7 @@ describe('theme', () => {
     registerTheme('default', {});
     registerTheme('a', { a: 1 });
 
-    expect(getTheme('a')).toEqual({ a: 1 });
-    expect(getTheme('default')).toEqual({});
-
-    expect(getStyleSheet()).toEqual(getStyleSheet('default'));
-    expect(getStyleSheet('xxxxx')).toEqual(getStyleSheet('yyyyy'));
-    registerStyleSheet('default', {});
-    registerStyleSheet('a', { brandColor: 'red' });
-
-    expect(getStyleSheet('a')).toEqual({ brandColor: 'red' });
-    expect(getStyleSheet('default')).toEqual({});
+    expect(getTheme('a')).toEqual(deepMix({}, defaultTheme, { a: 1 }));
+    expect(getTheme('default')).toEqual(defaultTheme);
   });
 });

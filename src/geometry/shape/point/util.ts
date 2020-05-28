@@ -16,11 +16,19 @@ export const HOLLOW_SHAPES = ['cross', 'tick', 'plus', 'hyphen', 'line'];
  * @param isStroke
  * @returns points
  */
-export function drawPoints(shape, cfg: ShapeInfo, container: IGroup, shapeName: string, isStroke: boolean): IShape | IGroup {
+export function drawPoints(
+  shape,
+  cfg: ShapeInfo,
+  container: IGroup,
+  shapeName: string,
+  isStroke: boolean
+): IShape | IGroup {
   const style = getStyle(cfg, isStroke, !isStroke, 'r');
   const points = shape.parsePoints(cfg.points);
-
-  if (points.length > 1) {
+  let pointPosition = points[0];
+  if (cfg.isStack) {
+    pointPosition = points[1];
+  } else if (points.length > 1) {
     const group = container.addGroup();
     for (const point of points) {
       group.addShape({
@@ -40,7 +48,7 @@ export function drawPoints(shape, cfg: ShapeInfo, container: IGroup, shapeName: 
     attrs: {
       ...style,
       symbol: MarkerSymbols[shapeName] || shapeName,
-      ...points[0],
+      ...pointPosition,
     },
   });
 }

@@ -7,8 +7,18 @@ import { Size } from '../interface';
  * @returns the element width and height
  */
 function getElementSize(ele: HTMLElement): Size {
-  const { width, height } = ele.getBoundingClientRect();
-  return { width, height };
+  const style = getComputedStyle(ele);
+
+  return {
+    width:
+      (ele.clientWidth || parseInt(style.width, 10)) -
+      parseInt(style.paddingLeft, 10) -
+      parseInt(style.paddingRight, 10),
+    height:
+      (ele.clientHeight || parseInt(style.height, 10)) -
+      parseInt(style.paddingTop, 10) -
+      parseInt(style.paddingBottom, 10),
+  };
 }
 
 /**
@@ -60,4 +70,4 @@ export function removeDom(dom: HTMLElement) {
 }
 
 /** @ignore */
-export { createDom } from '@antv/dom-util';
+export { createDom, modifyCSS } from '@antv/dom-util';

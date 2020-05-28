@@ -31,8 +31,6 @@ order: 7
 
 所以在配置图形样式时，需要以 Geometry 名称 + Shape 名称为 token，进行样式定义，目前主题开放的配置可用于定义图形的默认显示样式，active 的样式，inactive 的样式以及 selected 的样式。
 
-TODO：搞个截图吧
-
 > 以上配置定义的是 interval 这个几何标记下 rect 形状在各个状态下的样式。通常我们只需要为各个 Geometry 设置一个或者两个样式（填充或者描边的样式）即可，Geometry 下的各个 shapes 复用即可，除非某个 shape 样式特殊。
 
 ## 图表组件

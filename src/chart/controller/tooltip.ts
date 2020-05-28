@@ -1,7 +1,7 @@
-import { deepMix, each, find, flatten, get, isArray, isEqual, isFunction, mix } from '@antv/util';
+import { deepMix, find, flatten, get, isArray, isEqual, isFunction, isUndefined, mix } from '@antv/util';
 import { Crosshair, HtmlTooltip, IGroup } from '../../dependents';
 import Geometry from '../../geometry/base';
-import { MappingDatum, Point, TooltipOption } from '../../interface';
+import { Point, TooltipOption } from '../../interface';
 import { getAngleByPoint, getDistanceToCenter, isPointInCoordinate } from '../../util/coordinate';
 import { polarToCartesian } from '../../util/graphics';
 import { findDataByPoint, getTooltipItems } from '../../util/tooltip';
@@ -10,7 +10,8 @@ import { Controller } from './base';
 // Filter duplicates, use `name`, `color`, `value` and `title` property values as condition
 function uniq(items) {
   const uniqItems = [];
-  each(items, (item) => {
+  for (let index = 0; index < items.length; index++) {
+    const item = items[index];
     const result = find(uniqItems, (subItem) => {
       return (
         subItem.color === item.color &&
@@ -22,7 +23,7 @@ function uniq(items) {
     if (!result) {
       uniqItems.push(item);
     }
-  });
+  }
   return uniqItems;
 }
 
@@ -35,19 +36,21 @@ export default class Tooltip extends Controller<TooltipOption> {
   private yCrosshair;
   private guideGroup: IGroup;
 
+  private isLocked: boolean = false;
   private isVisible: boolean = true;
   private items;
   private title: string;
+  private point: Point;
 
   public get name(): string {
     return 'tooltip';
   }
 
-  public init() { }
+  public init() {}
 
   public render() {
-    this.option = this.view.getOptions().tooltip;
-    this.isVisible = this.option !== false;
+    const option = this.view.getOptions().tooltip;
+    this.isVisible = option !== false;
   }
 
   /**
@@ -55,10 +58,11 @@ export default class Tooltip extends Controller<TooltipOption> {
    * @param point
    */
   public showTooltip(point: Point) {
-    if (!this.isVisible) { // 如果设置 tooltip(false) 则始终不显示
+    this.point = point;
+    if (!this.isVisible) {
+      // 如果设置 tooltip(false) 则始终不显示
       return;
     }
-
     const view = this.view;
     const items = this.getTooltipItems(point);
     if (!items.length) {
@@ -96,10 +100,17 @@ export default class Tooltip extends Controller<TooltipOption> {
           // 延迟生成
           this.renderTooltip();
         }
-        this.tooltip.update(mix({}, cfg, {
-          items,
-          title,
-        }, follow ? point : dataPoint));
+        this.tooltip.update(
+          mix(
+            {},
+            cfg,
+            {
+              items,
+              title,
+            },
+            follow ? point : {}
+          )
+        );
         this.tooltip.show();
       }
 
@@ -109,9 +120,8 @@ export default class Tooltip extends Controller<TooltipOption> {
       }
     } else {
       // 内容未发生变化，则更新位置
-      if (this.tooltip) {
-        const newPoint = follow ? point : dataPoint;
-        this.tooltip.update(newPoint);
+      if (this.tooltip && follow) {
+        this.tooltip.update(point);
         this.tooltip.show(); // tooltip 有可能被隐藏，需要保证显示状态
       }
 
@@ -131,6 +141,11 @@ export default class Tooltip extends Controller<TooltipOption> {
   }
 
   public hideTooltip() {
+    const { follow } = this.getTooltipCfg();
+    if (!follow) {
+      this.point = null;
+      return;
+    }
     // hide the tooltipMarkers
     const tooltipMarkersGroup = this.tooltipMarkersGroup;
     if (tooltipMarkersGroup) {
@@ -153,6 +168,37 @@ export default class Tooltip extends Controller<TooltipOption> {
     }
 
     this.view.emit('tooltip:hide', {});
+    this.point = null;
+  }
+
+  /**
+   * lockTooltip
+   */
+  public lockTooltip() {
+    this.isLocked = true;
+    if (this.tooltip) {
+      // tooltip contianer 可捕获事件
+      this.tooltip.setCapture(true);
+    }
+  }
+
+  /**
+   * unlockTooltip
+   */
+  public unlockTooltip() {
+    this.isLocked = false;
+    const cfg = this.getTooltipCfg();
+    if (this.tooltip) {
+      // 重置 capture 属性
+      this.tooltip.setCapture(cfg.capture);
+    }
+  }
+
+  /**
+   * isTooltipLocked
+   */
+  public isTooltipLocked() {
+    return this.isLocked;
   }
 
   public clear() {
@@ -198,6 +244,8 @@ export default class Tooltip extends Controller<TooltipOption> {
     this.yCrosshair = null;
     this.tooltip = null;
     this.guideGroup = null;
+    this.isLocked = false;
+    this.point = null;
   }
 
   public changeVisible(visible: boolean) {
@@ -240,26 +288,26 @@ export default class Tooltip extends Controller<TooltipOption> {
     if (items.length) {
       // 三层
       items = flatten(items);
-      each(items, itemArr => {
-        each(itemArr, item => {
+      for (const itemArr of items) {
+        for (const item of itemArr) {
           const { x, y } = item.mappingData;
           item.x = isArray(x) ? x[x.length - 1] : x;
           item.y = isArray(y) ? y[y.length - 1] : y;
-        });
-      });
+        }
+      }
 
       const { shared } = this.getTooltipCfg();
       // shared: false 代表只显示当前拾取到的 shape 的数据，但是一个 view 会有多个 Geometry，所以有可能会拾取到多个 shape
       if (shared === false && items.length > 1) {
         let snapItem = items[0];
         let min = Math.abs(point.y - snapItem[0].y);
-        each(items, (aItem) => {
+        for (const aItem of items) {
           const yDistance = Math.abs(point.y - aItem[0].y);
           if (yDistance <= min) {
             snapItem = aItem;
             min = yDistance;
           }
-        });
+        }
         items = [snapItem];
       }
 
@@ -269,20 +317,24 @@ export default class Tooltip extends Controller<TooltipOption> {
     return [];
   }
 
-  public layout() { }
+  public layout() {}
+
   public update() {
-    this.clear();
-    // 更新 tooltip 配置
-    this.option = this.view.getOptions().tooltip;
+    if (this.point) {
+      this.showTooltip(this.point);
+    }
   }
 
   // 获取 tooltip 配置，因为用户可能会通过 view.tooltip() 重新配置 tooltip，所以就不做缓存，每次直接读取
-  private getTooltipCfg() {
+  protected getTooltipCfg() {
     const view = this.view;
-    const option = this.option;
+    const option = view.getOptions().tooltip;
     const theme = view.getTheme();
     const defaultCfg = get(theme, ['components', 'tooltip'], {});
-    return deepMix({}, defaultCfg, option);
+    const enterable = isUndefined(get(option, 'enterable')) ? defaultCfg.enterable : get(option, 'enterable');
+    return deepMix({}, defaultCfg, option, {
+      capture: enterable || this.isLocked ? true : false,
+    });
   }
 
   private getTitle(items) {
@@ -309,32 +361,12 @@ export default class Tooltip extends Controller<TooltipOption> {
     });
 
     tooltip.init();
-
-    const tooltipContainer = tooltip.get('container');
-    if (cfg.enterable === false) {
-      // 优化体验，在 tooltip dom 上加绑事件
-      // 如果 tooltip 不允许进入
-      tooltipContainer.onmousemove = event => {
-        // 避免 tooltip 频繁闪烁
-        const point = this.view.getCanvas().getPointByClient(event.clientX, event.clientY);
-        this.view.emit('plot:mousemove', point);
-      };
-    }
-
-    // 优化：鼠标移入 tooltipContainer 然后再移出时，需要隐藏 tooltip
-    tooltipContainer.onmouseleave = () => {
-      if (!this.view.isTooltipLocked()) {
-        this.hideTooltip();
-      }
-    };
-
-
     this.tooltip = tooltip;
   }
 
   private renderTooltipMarkers(items, marker) {
     const tooltipMarkersGroup = this.getTooltipMarkersGroup();
-    each(items, (item) => {
+    for (const item of items) {
       const { x, y } = item;
       const attrs = {
         fill: item.color,
@@ -348,7 +380,7 @@ export default class Tooltip extends Controller<TooltipOption> {
       tooltipMarkersGroup.addShape('marker', {
         attrs,
       });
-    });
+    }
   }
 
   private renderCrosshairs(point: Point, cfg) {
@@ -401,17 +433,20 @@ export default class Tooltip extends Controller<TooltipOption> {
       // 极坐标下 x 轴上的 crosshairs 表现为半径
       const angle = getAngleByPoint(coordinate, point);
       const center = coordinate.getCenter();
-      // @ts-ignore
       const radius = coordinate.getRadius();
       end = polarToCartesian(center.x, center.y, radius, angle);
       start = center;
     }
 
-    const cfg = deepMix({
-      start,
-      end,
-      container: this.getTooltipCrosshairsGroup(),
-    }, get(tooltipCfg, 'crosshairs', {}), this.getCrosshairsText('x', point, tooltipCfg));
+    const cfg = deepMix(
+      {
+        start,
+        end,
+        container: this.getTooltipCrosshairsGroup(),
+      },
+      get(tooltipCfg, 'crosshairs', {}),
+      this.getCrosshairsText('x', point, tooltipCfg)
+    );
     delete cfg.type; // 与 Crosshairs 组件的 type 冲突故删除
 
     let xCrosshair = this.xCrosshair;
@@ -473,16 +508,23 @@ export default class Tooltip extends Controller<TooltipOption> {
       type = 'Circle';
     }
 
-    cfg = deepMix({
-      container: this.getTooltipCrosshairsGroup()
-    }, cfg, get(tooltipCfg, 'crosshairs', {}), this.getCrosshairsText('y', point, tooltipCfg));
+    cfg = deepMix(
+      {
+        container: this.getTooltipCrosshairsGroup(),
+      },
+      cfg,
+      get(tooltipCfg, 'crosshairs', {}),
+      this.getCrosshairsText('y', point, tooltipCfg)
+    );
     delete cfg.type; // 与 Crosshairs 组件的 type 冲突故删除
 
     let yCrosshair = this.yCrosshair;
     if (yCrosshair) {
       // 如果坐标系发生直角坐标系与极坐标的切换操作
-      if ((coordinate.isRect && yCrosshair.get('type') === 'circle')
-        || (!coordinate.isRect && yCrosshair.get('type') === 'line')) {
+      if (
+        (coordinate.isRect && yCrosshair.get('type') === 'circle') ||
+        (!coordinate.isRect && yCrosshair.get('type') === 'line')
+      ) {
         yCrosshair = new Crosshair[type](cfg);
         yCrosshair.init();
       } else {
@@ -593,7 +635,9 @@ export default class Tooltip extends Controller<TooltipOption> {
 
   private getTooltipItemsByFindData(geometry: Geometry, point, title) {
     const result = [];
-    each(geometry.dataArray, (data: MappingDatum[]) => {
+    const dataArray = geometry.dataArray;
+    geometry.sort(dataArray); // 先进行排序，便于 tooltip 查找
+    for (const data of dataArray) {
       const record = findDataByPoint(point, data, geometry);
       if (record) {
         const elementId = geometry.getElementId(record);
@@ -607,7 +651,7 @@ export default class Tooltip extends Controller<TooltipOption> {
           }
         }
       }
-    });
+    }
 
     return result;
   }
@@ -622,7 +666,7 @@ export default class Tooltip extends Controller<TooltipOption> {
     // 先从 view 本身查找
     const geometries = view.geometries;
     const { shared, title } = this.getTooltipCfg();
-    each(geometries, (geometry: Geometry) => {
+    for (const geometry of geometries) {
       if (geometry.visible && geometry.tooltipOption !== false) {
         // geometry 可见同时未关闭 tooltip
         const geometryType = geometry.type;
@@ -645,12 +689,12 @@ export default class Tooltip extends Controller<TooltipOption> {
           result.push(tooltipItems);
         }
       }
-    });
+    }
 
     // 递归查找，并合并结果
-    each(view.views, (childView) => {
+    for (const childView of view.views) {
       result = result.concat(this.findItemsFromView(childView, point));
-    });
+    }
 
     return result;
   }

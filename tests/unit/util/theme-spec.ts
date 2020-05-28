@@ -1,12 +1,11 @@
-import { deepMix } from '@antv/util';
-import { getTheme } from '../../../src';
-import { mergeTheme } from '../../../src/util/theme';
+import { antvDark } from '../../../src/theme/style-sheet/dark';
+import { createThemeByStylesheet } from '../../../src/util/theme';
 
-describe('util theme', () => {
-  it('mergeTheme', () => {
-    const origin = { a: { b: { c: 1, d: 2 } } };
-    expect(mergeTheme(origin, { a: { b: { c: 2 } } })).toEqual({ a: { b: { c: 2, d: 2 } } });
+describe('createThemeByStylesheet', () => {
+  it('get dark theme', () => {
+    const theme = createThemeByStylesheet(antvDark);
 
-    expect(mergeTheme(origin, 'default')).toEqual(deepMix(origin, getTheme('default')));
-  });
+    expect(theme.defaultColor).toBe('#5B8FF9');
+    expect(theme.geometries).toBeDefined();
+  })
 });

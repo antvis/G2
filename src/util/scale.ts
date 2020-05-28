@@ -1,4 +1,4 @@
-import { firstValue, get, isArray, isEmpty, isNil, isNumber, isString, mix, valuesOfKey } from '@antv/util';
+import { firstValue, get, isEmpty, isNil, isNumber, isString, valuesOfKey } from '@antv/util';
 import { getScale, Scale } from '../dependents';
 import { LooseObject, ScaleOption } from '../interface';
 
@@ -10,12 +10,8 @@ const dateRegex = /^(?:(?!0000)[0-9]{4}([-/.]+)(?:(?:0?[1-9]|1[0-2])\1(?:0?[1-9]
  * @param data 数据源
  * @returns default type 返回对应的数据类型
  */
-function getDefaultType(field: string, data: LooseObject[]): string {
+function getDefaultType(value: any): string {
   let type = 'linear';
-  let value = firstValue(data, field);
-  if (isArray(value)) {
-    value = value[0];
-  }
   if (dateRegex.test(value)) {
     type = 'time';
   } else if (isString(value)) {
@@ -43,17 +39,16 @@ export function createScaleByField(field: string | number, data?: LooseObject[] 
     });
   }
 
+  const values = valuesOfKey(validData, field);
+
   // 如果已经定义过这个度量
-  const type = get(scaleDef, 'type', getDefaultType(field, validData));
-  const cfg = {
-    field,
-    values: valuesOfKey(validData, field),
-  };
-
-  mix(cfg, scaleDef);
-
+  const type = get(scaleDef, 'type', getDefaultType(values[0]));
   const ScaleCtor = getScale(type);
-  return new ScaleCtor(cfg);
+  return new ScaleCtor({
+    field,
+    values,
+    ...scaleDef,
+  });
 }
 
 /**

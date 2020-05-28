@@ -2,7 +2,6 @@ import { isArray } from '@antv/util';
 import { IGroup, PathCommand } from '../../../dependents';
 import { Point, ShapeInfo, ShapeMarkerCfg, ShapePoint } from '../../../interface';
 
-
 import { padEnd } from '../../../util/helper';
 import { registerShape } from '../base';
 import { getStyle } from '../util/get-style';

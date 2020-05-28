@@ -5,7 +5,7 @@ import { ChartCfg } from '../interface';
 import { GROUP_Z_INDEX } from '../constant';
 
 import { getEngine } from '../engine';
-import { createDom, getChartSize, removeDom } from '../util/dom';
+import { createDom, getChartSize, removeDom, modifyCSS } from '../util/dom';
 import View from './view';
 
 /**
@@ -41,7 +41,7 @@ export default class Chart extends View {
       pixelRatio,
       localRefresh = true,
       visible = true,
-      defaultInteractions = ['tooltip', 'legend-filter', 'legend-active','continuous-filter'],
+      defaultInteractions = ['tooltip', 'legend-filter', 'legend-active', 'continuous-filter'],
       options,
       limitInPlot,
       theme,
@@ -54,7 +54,7 @@ export default class Chart extends View {
     ele.appendChild(wrapperElement);
 
     // if autoFit, use the container size, to avoid the graph render twice.
-    const size = getChartSize(wrapperElement, autoFit, width, height);
+    const size = getChartSize(ele, autoFit, width, height);
 
     const G = getEngine(renderer);
 
@@ -81,7 +81,7 @@ export default class Chart extends View {
       theme,
     });
 
-    this.ele = wrapperElement;
+    this.ele = ele;
     this.canvas = canvas;
     this.width = size.width;
     this.height = size.height;
@@ -91,13 +91,14 @@ export default class Chart extends View {
     this.wrapperElement = wrapperElement;
 
     // 自适应大小
+    this.updateCanvasStyle();
     this.bindAutoFit();
     this.initDefaultInteractions(defaultInteractions);
   }
 
   private initDefaultInteractions(interactions) {
-    each(interactions, interaction => {
-      this.interaction(interaction)
+    each(interactions, (interaction) => {
+      this.interaction(interaction);
     });
   }
 
@@ -143,6 +144,22 @@ export default class Chart extends View {
     return this;
   }
 
+  /**
+   * 自动根据容器大小 resize 画布
+   */
+  public forceFit() {
+    // 注意第二参数用 true，意思是即时 autoFit = false，forceFit() 调用之后一样是适配容器
+    const { width, height } = getChartSize(this.ele, true, this.width, this.height);
+    this.changeSize(width, height);
+  }
+
+  private updateCanvasStyle() {
+    modifyCSS(this.canvas.get('el'), {
+      display: 'inline-block',
+      verticalAlign: 'middle',
+    });
+  }
+
   private bindAutoFit() {
     if (this.autoFit) {
       window.addEventListener('resize', this.onResize);
@@ -159,7 +176,6 @@ export default class Chart extends View {
    * when container size changed, change chart size props, and re-render.
    */
   private onResize = debounce(() => {
-    const { width, height } = getChartSize(this.ele, this.autoFit, this.width, this.height);
-    this.changeSize(width, height);
+    this.forceFit();
   }, 300);
 }

@@ -1,4 +1,4 @@
-import { transform } from '@antv/matrix-util';
+import { ext } from '@antv/matrix-util';
 import { IGroup, IShape } from '../../dependents';
 import { GAnimateCfg, Point } from '../../interface';
 import { AnimateExtraCfg } from '../interface';
@@ -20,7 +20,7 @@ export function scaleInX(shape: IShape | IGroup, animateCfg: GAnimateCfg, cfg: A
 
   shape.applyToMatrix([x, y, 1]);
 
-  const matrix = transform(shape.getMatrix(), [
+  const matrix = ext.transform(shape.getMatrix(), [
     ['t', -x, -y],
     ['s', 0.01, 1],
     ['t', x, y],
@@ -29,7 +29,7 @@ export function scaleInX(shape: IShape | IGroup, animateCfg: GAnimateCfg, cfg: A
 
   shape.animate(
     {
-      matrix: transform(shape.getMatrix(), [
+      matrix: ext.transform(shape.getMatrix(), [
         ['t', -x, -y],
         ['s', 100, 1],
         ['t', x, y],
@@ -55,7 +55,7 @@ export function scaleInY(shape: IShape | IGroup, animateCfg: GAnimateCfg, cfg: A
   const y = points[0].y - points[1].y <= 0 ? box.maxY : box.minY;
 
   shape.applyToMatrix([x, y, 1]);
-  const matrix = transform(shape.getMatrix(), [
+  const matrix = ext.transform(shape.getMatrix(), [
     ['t', -x, -y],
     ['s', 1, 0.01],
     ['t', x, y],
@@ -64,7 +64,7 @@ export function scaleInY(shape: IShape | IGroup, animateCfg: GAnimateCfg, cfg: A
 
   shape.animate(
     {
-      matrix: transform(shape.getMatrix(), [
+      matrix: ext.transform(shape.getMatrix(), [
         ['t', -x, -y],
         ['s', 1, 100],
         ['t', x, y],

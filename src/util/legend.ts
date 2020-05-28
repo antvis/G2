@@ -1,4 +1,4 @@
-import { deepMix, isString, map, size } from '@antv/util';
+import { deepMix, isString } from '@antv/util';
 import View from '../chart/view';
 import { DIRECTION } from '../constant';
 import { Attribute, Tick } from '../dependents';
@@ -6,6 +6,13 @@ import Geometry from '../geometry/base';
 import { LegendItem } from '../interface';
 import { getMappingValue } from './attr';
 import { MarkerSymbols } from './marker';
+
+function setMarkerSymbol(marker) {
+  const symbol = marker.symbol;
+  if (isString(symbol) && MarkerSymbols[symbol]) {
+    marker.symbol = MarkerSymbols[symbol];
+  }
+}
 
 /**
  * @ignore
@@ -32,37 +39,35 @@ export function getLegendItems(
   geometry: Geometry,
   attr: Attribute,
   themeMarker: object,
-  userMarker,
+  userMarker
 ): any[] {
   const scale = attr.getScale(attr.type);
   if (scale.isCategory) {
     const field = scale.field;
+    const colorAttr = geometry.getAttribute('color');
+    const shapeAttr = geometry.getAttribute('shape');
+    const defaultColor = view.getTheme().defaultColor;
+    const isInPolar = geometry.coordinate.isPolar;
 
-    return map(scale.getTicks(), (tick: Tick): object => {
+    return scale.getTicks().map((tick: Tick) => {
       const { text, value: scaleValue } = tick;
       const name = text;
       const value = scale.invert(scaleValue);
 
-      // 通过过滤图例项的数据，来看是否乣 unchecked
-      const unchecked = !size(view.filterFieldData(field, [{ [field]: value }]));
-
-      const colorAttr = geometry.getAttribute('color');
-      const shapeAttr = geometry.getAttribute('shape');
+      // 通过过滤图例项的数据，来看是否 unchecked
+      const unchecked = view.filterFieldData(field, [{ [field]: value }]).length === 0;
 
       // @ts-ignore
-      const color = getMappingValue(colorAttr, value, view.getTheme().defaultColor);
+      const color = getMappingValue(colorAttr, value, defaultColor);
       const shape = getMappingValue(shapeAttr, value, 'point');
       let marker = geometry.getShapeMarker(shape, {
         color,
-        isInPolar: geometry.coordinate.isPolar,
+        isInPolar,
       });
       // the marker configure order should be ensure
       marker = deepMix({}, themeMarker, marker, userMarker);
 
-      const symbol = marker.symbol;
-      if (isString(symbol) && MarkerSymbols[symbol]) {
-        marker.symbol = MarkerSymbols[symbol];
-      }
+      setMarkerSymbol(marker);
 
       return { id: value, name, value, marker, unchecked };
     });
@@ -79,12 +84,9 @@ export function getLegendItems(
  */
 export function getCustomLegendItems(themeMarker: object, userMarker: object, customItems: LegendItem[]) {
   // 如果有自定义的 item，那么就直接使用，并合并主题的 marker 配置
-  return map(customItems, (item: LegendItem) => {
+  return customItems.map((item: LegendItem) => {
     const marker = deepMix({}, themeMarker, userMarker, item.marker);
-    const symbol = marker.symbol;
-    if (isString(symbol) && MarkerSymbols[symbol]) {
-      marker.symbol = MarkerSymbols[symbol];
-    }
+    setMarkerSymbol(marker);
 
     item.marker = marker;
     return item;

@@ -56,7 +56,6 @@ export function getLineGridItems(coordinate: Coordinate, scale: Scale, dim: stri
     return currentTick;
   }, ticks[0]);
   return items;
-
 }
 
 /**
@@ -68,22 +67,46 @@ export function getLineGridItems(coordinate: Coordinate, scale: Scale, dim: stri
  * @param dim
  * @returns items
  */
-export function getCircleGridItems(coordinate: Coordinate, xScale: Scale, yScale: Scale, alignTick: boolean) {
+export function getCircleGridItems(
+  coordinate: Coordinate,
+  xScale: Scale,
+  yScale: Scale,
+  alignTick: boolean,
+  dim: string
+) {
   const count = xScale.values.length;
   const items = [];
   const ticks = yScale.getTicks();
+
   ticks.reduce((preTick: Tick, currentTick: Tick) => {
     const preValue = preTick ? preTick.value : currentTick.value; // 只有一项数据时取当前值
     const currentValue = currentTick.value;
     const middleValue = (preValue + currentValue) / 2;
-    items.push({
-      points: map(Array(count + 1), (__: any, idx: number) => {
-        return coordinate.convert({
-          x: idx / count,
-          y: alignTick ? currentValue : middleValue,
-        });
-      }),
-    });
+    if (dim === 'x') {
+      // 如果是 x 轴作为半径轴，那么只需要取圆弧收尾两个即可
+      items.push({
+        points: [
+          coordinate.convert({
+            x: alignTick ? currentValue : middleValue,
+            y: 0,
+          }),
+          coordinate.convert({
+            x: alignTick ? currentValue : middleValue,
+            y: 1,
+          }),
+        ],
+      });
+    } else {
+      items.push({
+        points: map(Array(count + 1), (__: any, idx: number) => {
+          return coordinate.convert({
+            x: idx / count,
+            y: alignTick ? currentValue : middleValue,
+          });
+        }),
+      });
+    }
+
     return currentTick;
   }, ticks[0]);
   return items;

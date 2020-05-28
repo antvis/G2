@@ -78,6 +78,13 @@ describe('View', () => {
     expect(view.getOptions().data).toEqual(data);
   });
 
+  it('source', () => {
+    // deperated method
+    view.source(data);
+
+    expect(view.getOptions().data).toEqual(data);
+  });
+
   it('axis', () => {
     view.axis(false);
     expect(view.getOptions().axes).toBe(false);
@@ -153,6 +160,11 @@ describe('View', () => {
     expect(view.getCoordinate().getHeight()).toEqual(590);
   });
 
+  it('coord', () => {
+    const c = view.coord('rect');
+    expect(c.getOption().type).toEqual('rect');
+  });
+
   it('animate', () => {
     // @ts-ignore 默认执行动画
     expect(view.options.animate).toBe(true);
@@ -166,6 +178,7 @@ describe('View', () => {
 
     // @ts-ignore
     expect(view.getTheme().xxx).toBe(1);
+    expect(view.getTheme().defaultColor).toBe('#5B8FF9');
   });
 
   it('geometry', () => {
@@ -315,11 +328,15 @@ describe('View', () => {
   it('lockTooltip', () => {
     view.lockTooltip();
     expect(view.isTooltipLocked()).toBeTrue();
+    // @ts-ignore
+    expect(div.getElementsByClassName('g2-tooltip')[0].style['pointer-events']).toBe('auto');
   });
 
   it('unlockTooltip', () => {
     view.unlockTooltip();
     expect(view.isTooltipLocked()).toBeFalse();
+    // @ts-ignore
+    expect(div.getElementsByClassName('g2-tooltip')[0].style['pointer-events']).toBe('none');
   });
 
   it('filtered group scale values', () => {

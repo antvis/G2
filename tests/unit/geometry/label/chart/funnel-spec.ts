@@ -58,7 +58,6 @@ describe('Funnel chart label', () => {
       scales,
       container: canvas.addGroup(),
       labelsContainer: canvas.addGroup(),
-      theme: Theme,
       coordinate: coord,
     });
     interval
@@ -83,7 +82,9 @@ describe('Funnel chart label', () => {
           },
         }
       );
-    interval.init();
+    interval.init({
+      theme: Theme,
+    });
     interval.paint();
 
     // 生成映射数据
@@ -117,7 +118,6 @@ describe('Funnel chart label', () => {
       scales,
       container: canvas.addGroup(),
       labelsContainer: canvas.addGroup(),
-      theme: Theme,
       coordinate: coord,
     });
     interval
@@ -142,7 +142,9 @@ describe('Funnel chart label', () => {
           },
         }
       );
-    interval.init();
+    interval.init({
+      theme: Theme,
+    });
     interval.paint();
 
     // 生成映射数据

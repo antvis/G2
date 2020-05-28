@@ -18,7 +18,7 @@ describe('padding-cal', () => {
 
   it('shrink', () => {
     const pc = new PaddingCal();
-    const p = [1, 2, 3, 4];
+    const p: [number, number, number, number] = [1, 2, 3, 4];
     pc.shrink(p);
     expect(pc.getPadding()).toEqual(p);
   });

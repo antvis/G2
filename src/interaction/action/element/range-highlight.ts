@@ -21,7 +21,7 @@ class ElementRangeHighlight extends ElementRangeState {
     this.setState();
   }
 
-  protected setElementsState(elements: Element[], enable: boolean, allElements:Element[]) {
+  protected setElementsState(elements: Element[], enable: boolean, allElements: Element[]) {
     setHighlightBy(allElements, (el) => elements.indexOf(el) >= 0, enable);
   }
 }

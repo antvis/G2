@@ -14,14 +14,14 @@ function getShapeAttrs(cfg: ShapeInfo, smooth?: boolean, constraint?: Position[]
   const points = getPathPoints(cfg.points, connectNulls); // 根据 connectNulls 值处理 points
 
   let path = [];
-  each(points, (eachLinePoints: Point[] | RangePoint[]) => {
+  for (let i = 0, len = points.length; i < len; i++) {
+    const eachLinePoints = points[i];
     path = path.concat(getPath(eachLinePoints, isInCircle, isStack, smooth, constraint));
-  });
+  }
+  const shapeAttrs = getStyle(cfg, true, false, 'lineWidth');
+  shapeAttrs.path = path;
 
-  return {
-    ...getStyle(cfg, true, false, 'lineWidth'),
-    path,
-  };
+  return shapeAttrs;
 }
 
 // 单条 path

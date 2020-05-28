@@ -1,4 +1,3 @@
-
 const WHITE_COLORS = {
   100: '#000',
   95: '#0D0D0D',
@@ -246,7 +245,6 @@ export const antvDark = {
   /** tooltip 文本字体粗细 */
   tooltipTextFontWeight: 'bold',
 
-
   // -------------------- Geometry labels --------------------
   /** Geometry label 文本颜色 */
   labelFillColor: BLACK_COLORS[65],
@@ -257,9 +255,9 @@ export const antvDark = {
   /** Geometry label 文本字体粗细 */
   labelFontWeight: 'normal',
   /** Geometry label 文本描边颜色 */
-  labelBorderColor: WHITE_COLORS[100],
+  labelBorderColor: null,
   /** Geometry label 文本描边粗细 */
-  labelBorder: 2,
+  labelBorder: 0,
 
   /** Geometry innerLabel 文本颜色 */
   innerLabelFillColor: WHITE_COLORS[100],
@@ -428,4 +426,4 @@ export const antvDark = {
 
   /** hollowInterval inactive 状态下边框透明度 */
   hollowIntervalInactiveBorderOpacity: 0.3,
-}
+};

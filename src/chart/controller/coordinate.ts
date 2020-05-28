@@ -8,7 +8,6 @@ import { CoordinateOption } from '../../interface';
  * 2. 暂存配置
  */
 export default class CoordinateController {
-
   private option: CoordinateOption;
   private coordinate: Coordinate;
 
@@ -43,6 +42,7 @@ export default class CoordinateController {
    */
   public create(start: Point, end: Point) {
     const { type, cfg } = this.option;
+    const isTheta = type === 'theta';
 
     // 1. 起始位置
     const props = {
@@ -52,7 +52,7 @@ export default class CoordinateController {
     };
 
     // 2. 创建实例
-    const C = getCoordinate(this.isTheta() ? 'polar' : type);
+    const C = getCoordinate(isTheta ? 'polar' : type);
 
     this.coordinate = new C(props);
 
@@ -60,7 +60,7 @@ export default class CoordinateController {
     this.coordinate.type = type;
 
     // 3. 添加默认 action
-    if (this.isTheta()) {
+    if (isTheta) {
       // 不存在 transpose，为其自动设置一个 action
       if (!this.hasAction('transpose')) {
         this.transpose();
@@ -99,7 +99,7 @@ export default class CoordinateController {
    * @param angle
    */
   public rotate(angle: number) {
-    this.option.actions.push([ 'rotate', angle ]);
+    this.option.actions.push(['rotate', angle]);
     return this;
   }
 
@@ -108,7 +108,7 @@ export default class CoordinateController {
    * @param dim
    */
   public reflect(dim: 'x' | 'y') {
-    this.option.actions.push([ 'reflect', dim ]);
+    this.option.actions.push(['reflect', dim]);
     return this;
   }
 
@@ -118,7 +118,7 @@ export default class CoordinateController {
    * @param sy
    */
   public scale(sx: number, sy: number) {
-    this.option.actions.push([ 'scale', sx, sy ]);
+    this.option.actions.push(['scale', sx, sy]);
     return this;
   }
 
@@ -126,15 +126,8 @@ export default class CoordinateController {
    * 对角变换
    */
   public transpose() {
-    this.option.actions.push([ 'transpose' ]);
+    this.option.actions.push(['transpose']);
     return this;
-  }
-
-  /**
-   * 是否是 theta
-   */
-  public isTheta() {
-    return this.option.type === 'theta';
   }
 
   /**
@@ -161,7 +154,7 @@ export default class CoordinateController {
       actions: [],
       cfg: {},
       ...option,
-    }
+    };
   }
 
   /**
@@ -171,7 +164,7 @@ export default class CoordinateController {
   private execActions(includeActions?: string[]) {
     const { actions } = this.option;
 
-    each(actions, action => {
+    each(actions, (action) => {
       const [actionName, ...args] = action;
 
       const shouldExec = isNil(includeActions) ? true : includeActions.includes(actionName);

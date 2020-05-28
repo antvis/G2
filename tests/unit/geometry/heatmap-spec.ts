@@ -36,7 +36,6 @@ describe('Heatmap', () => {
         tmp: tmpScale,
       },
       coordinate: coord,
-      theme: Theme,
     });
 
     expect(heatmap.type).toBe('heatmap');
@@ -45,7 +44,9 @@ describe('Heatmap', () => {
   it('paint', () => {
     heatmap.position('g*l')
       .color('tmp', '#F51D27-#FA541C-#FF8C12-#FFC838-#FAFFA8-#80FF73-#12CCCC-#1890FF-#6E32C2');
-    heatmap.init();
+    heatmap.init({
+      theme: Theme,
+    });
     heatmap.paint();
 
     expect(heatmap.container.getCount()).toBe(1);

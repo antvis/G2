@@ -1,4 +1,4 @@
-import { get, isNil } from '@antv/util';
+import { isNil } from '@antv/util';
 import { ShapeInfo } from '../../../interface';
 
 /**
@@ -11,27 +11,27 @@ import { ShapeInfo } from '../../../interface';
  * @returns
  */
 export function getStyle(cfg: ShapeInfo, isStroke: boolean, isFill: boolean, sizeName: string = '') {
-  const { style, defaultStyle, color, size } = cfg;
+  const { style = {}, defaultStyle, color, size } = cfg;
   const attrs = {
     ...defaultStyle,
     ...style,
   };
   if (color) {
     if (isStroke) {
-      if (!get(style, 'stroke')) {
+      if (!style.stroke) {
         // 如果用户在 style() 中配置了 stroke，则以用户配置的为准
         attrs.stroke = color;
       }
     }
 
     if (isFill) {
-      if (!get(style, 'fill')) {
+      if (!style.fill) {
         // 如果用户在 style() 中配置了 fill
         attrs.fill = color;
       }
     }
   }
-  if (sizeName && isNil(get(style, sizeName)) && !isNil(size)) {
+  if (sizeName && isNil(style[sizeName]) && !isNil(size)) {
     // 如果用户在 style() 中配置了 lineWidth 或者 r 属性
     attrs[sizeName] = size;
   }

@@ -1,4 +1,4 @@
-import { deepMix, each, get, isArray, isFunction, isNil, isNumber, isUndefined } from '@antv/util';
+import { deepMix, each, get, isArray, isFunction, isNil, isUndefined } from '@antv/util';
 
 import { FIELD_ORIGIN } from '../../constant';
 import { Scale } from '../../dependents';
@@ -42,7 +42,7 @@ export default class GeometryLabel {
     // 获取 label 相关的 x，y 的值，获取具体的 x, y，防止存在数组
     each(mapppingArray, (mappingData: MappingDatum, index: number) => {
       const labelCfg = labelCfgs[index];
-      if (!labelCfg) {
+      if (!labelCfg || isNil(mappingData.x) || isNil(mappingData.y)) {
         items.push(null);
         return;
       }

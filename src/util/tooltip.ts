@@ -1,16 +1,4 @@
-import {
-  contains,
-  each,
-  filter,
-  find,
-  hasKey,
-  isArray,
-  isNil,
-  isNumberEqual,
-  isObject,
-  memoize,
-  values,
-} from '@antv/util';
+import { contains, filter, find, hasKey, isArray, isNil, isNumberEqual, isObject, memoize, values } from '@antv/util';
 import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
 import { Attribute, Scale } from '../dependents';
 import Geometry from '../geometry/base';
@@ -59,9 +47,12 @@ const getXDistance = memoize((scale: Scale) => {
     return 1;
   }
   const scaleValues = scale.values; // values 是无序的
+  const length = scaleValues.length;
   let min = scale.translate(scaleValues[0]);
   let max = min;
-  each(scaleValues, (value) => {
+
+  for (let index = 0; index < length; index++) {
+    const value = scaleValues[index];
     // 时间类型需要 translate
     const numericValue = scale.translate(value);
     if (numericValue < min) {
@@ -70,8 +61,7 @@ const getXDistance = memoize((scale: Scale) => {
     if (numericValue > max) {
       max = numericValue;
     }
-  });
-  const length = scaleValues.length;
+  }
   return (max - min) / (length - 1);
 });
 
@@ -99,14 +89,14 @@ function getAttributesForLegend(geometry: Geometry) {
 function getTooltipValueScale(geometry: Geometry) {
   const attributes = getAttributesForLegend(geometry);
   let scale;
-  each(attributes, (attribute: Attribute) => {
+  for (const attribute of attributes) {
     const tmpScale = attribute.getScale(attribute.type);
     if (tmpScale && tmpScale.isLinear) {
       // 如果指定字段是非 position 的，同时是连续的
       scale = tmpScale;
-      return false;
+      break;
     }
-  });
+  }
 
   const xScale = geometry.getXScale();
   const yScale = geometry.getYScale();
@@ -133,10 +123,7 @@ function getTooltipName(originData: Datum, geometry: Geometry) {
   const groupScales = geometry.getGroupScales();
   if (groupScales.length) {
     // 如果存在分组类型，取第一个分组类型
-    each(groupScales, (scale: Scale) => {
-      nameScale = scale;
-      return false;
-    });
+    nameScale = groupScales[0];
   }
   if (nameScale) {
     const field = nameScale.field;
@@ -178,14 +165,15 @@ export function findDataByPoint(point: Point, data: MappingDatum[], geometry: Ge
     const y = yScale.invert(invertPoint.y); // 转换为原始值
 
     let min = Infinity;
-    each(data, (obj: MappingDatum) => {
+    for (let index = 0; index < data.length; index++) {
+      const obj = data[index];
       const originData = obj[FIELD_ORIGIN];
       const range = (originData[xField] - x) ** 2 + (originData[yField] - y) ** 2;
       if (range < min) {
         min = range;
         rst = obj;
       }
-    });
+    }
 
     return rst;
   }
@@ -193,7 +181,6 @@ export function findDataByPoint(point: Point, data: MappingDatum[], geometry: Ge
   // 其他 Geometry 类型按照 x 字段数据进行查找
   const first = data[0];
   let last = data[data.length - 1];
-
   const xValue = getXValueByPoint(point, geometry);
   const firstXValue = first[FIELD_ORIGIN][xField];
   const firstYValue = first[FIELD_ORIGIN][yField];
@@ -202,7 +189,8 @@ export function findDataByPoint(point: Point, data: MappingDatum[], geometry: Ge
 
   // 如果 x 的值是数组
   if (isArray(firstXValue)) {
-    each(data, (record: MappingDatum) => {
+    for (let index = 0; index < data.length; index++) {
+      const record = data[index];
       const originData = record[FIELD_ORIGIN];
       // xValue 在 originData[xField] 的数值区间内
       if (xScale.translate(originData[xField][0]) <= xValue && xScale.translate(originData[xField][1]) >= xValue) {
@@ -214,10 +202,10 @@ export function findDataByPoint(point: Point, data: MappingDatum[], geometry: Ge
           rst.push(record);
         } else {
           rst = record;
-          return false;
+          break;
         }
       }
-    });
+    }
     if (isArray(rst)) {
       rst = filterYValue(rst, point, geometry);
     }
@@ -225,7 +213,8 @@ export function findDataByPoint(point: Point, data: MappingDatum[], geometry: Ge
     let next;
     if (!xScale.isLinear && xScale.type !== 'timeCat') {
       // x 轴对应的数据为非线性以及非时间类型的数据采用遍历查找
-      each(data, (record: MappingDatum, index: number) => {
+      for (let index = 0; index < data.length; index++) {
+        const record = data[index];
         const originData = record[FIELD_ORIGIN];
         if (snapEqual(originData[xField], xValue, xScale)) {
           if (isYArray) {
@@ -235,20 +224,23 @@ export function findDataByPoint(point: Point, data: MappingDatum[], geometry: Ge
             rst.push(record);
           } else {
             rst = record;
-            return false;
+            break;
           }
         } else if (xScale.translate(originData[xField]) <= xValue) {
           last = record;
           next = data[index + 1];
         }
-      });
+      }
 
       if (isArray(rst)) {
         rst = filterYValue(rst, point, geometry);
       }
     } else {
       // x 轴对应的数据为线性以及时间类型，进行二分查找，性能更好
-      if (xValue > xScale.translate(lastXValue) || xValue < xScale.translate(firstXValue)) {
+      if (
+        (xValue > xScale.translate(lastXValue) || xValue < xScale.translate(firstXValue)) &&
+        (xValue > xScale.max || xValue < xScale.min)
+      ) {
         // 不在数据范围内
         return null;
       }
@@ -349,7 +341,7 @@ export function getTooltipItems(data: MappingDatum, geometry: Geometry, title: s
       items.push(itemCfg);
     } else {
       const scales = geometry.scales;
-      each(fields, (field: string) => {
+      for (const field of fields) {
         if (!isNil(originData[field])) {
           // 字段数据为null, undefined 时不显示
           const scale = scales[field];
@@ -357,7 +349,7 @@ export function getTooltipItems(data: MappingDatum, geometry: Geometry, title: s
           value = scale.getText(originData[field]);
           addItem(name, value);
         }
-      });
+      }
     }
   } else {
     const valueScale = getTooltipValueScale(geometry);

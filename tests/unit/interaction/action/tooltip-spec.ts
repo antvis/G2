@@ -11,7 +11,7 @@ describe('test tooltip action', () => {
     width: 400,
     height: 400,
     autoFit: false,
-    defaultInteractions: []
+    defaultInteractions: [],
   });
 
   chart.data([
@@ -41,7 +41,7 @@ describe('test tooltip action', () => {
   });
 
   it('hide', () => {
-    chart.emit('plot:mouseleave', {
+    chart.emit('plot:leave', {
       x: 138,
       y: 383,
     });
@@ -61,7 +61,7 @@ describe('test sibling tooltip', () => {
     width: 400,
     height: 400,
     autoFit: false,
-    defaultInteractions: []
+    defaultInteractions: [],
   });
 
   const data = [
@@ -79,7 +79,7 @@ describe('test sibling tooltip', () => {
   chart.animate(false);
   chart.tooltip(false);
   chart.scale('year', {
-    sync: true
+    sync: true,
   });
   chart.interaction('legend-filter');
   const view1 = chart.createView({
@@ -87,7 +87,7 @@ describe('test sibling tooltip', () => {
       start: { x: 0, y: 0 },
       end: { x: 1, y: 0.5 },
     },
-    padding: [20, 20, 40, 80]
+    padding: [20, 20, 40, 80],
   });
   view1.data(data);
   view1.tooltip(true);
@@ -99,9 +99,9 @@ describe('test sibling tooltip', () => {
       active: {
         style: {
           stroke: 'red',
-          lineWidth: 1
-        }
-      }
+          lineWidth: 1,
+        },
+      },
     });
 
   const view2 = chart.createView({
@@ -109,7 +109,7 @@ describe('test sibling tooltip', () => {
       start: { x: 0, y: 0.5 },
       end: { x: 1, y: 1 },
     },
-    padding: [20, 20, 40, 80]
+    padding: [20, 20, 40, 80],
   });
   view2.data(data);
   const point = view2
@@ -120,13 +120,13 @@ describe('test sibling tooltip', () => {
       active: {
         style: {
           fill: 'red',
-        }
+        },
       },
       inactive: {
         style: {
           opacity: 0.4,
-        }
-      }
+        },
+      },
     });
 
   chart.render();
@@ -139,23 +139,11 @@ describe('test sibling tooltip', () => {
     context.event = {
       x: first.attr('x'),
       y: first.attr('y') - 1,
-      target: first
+      target: first,
     };
     action.show();
     const firstDom = tooltipDoms[0] as HTMLElement;
     expect(tooltipDoms.length).toBe(1);
-    expect((tooltipDoms[0] as HTMLElement).style.visibility).toBe('visible');
-  });
-
-  it('over tooltip container, not hide', () => {
-    context.event = {
-      gEvent: {
-        originalEvent: {
-          toElement: tooltipDoms[0],
-        },
-      },
-    };
-    action.hide();
     expect((tooltipDoms[0] as HTMLElement).style.visibility).toBe('visible');
   });
 

@@ -2,8 +2,8 @@ import Action from '../base';
 import { getCurrentElement, getElementValue, getElementsByField } from '../util';
 import Element from '../../../geometry/element/';
 import { each } from '@antv/util';
-import { LooseObject} from '../../../interface';
-import { IGroup} from '../../../dependents';
+import { LooseObject } from '../../../interface';
+import { IGroup } from '../../../dependents';
 
 /**
  * Link Elements by color
@@ -24,14 +24,14 @@ class LinkByColor extends Action {
   // 获取连接的 path
   private getLinkPath(element: Element, nextElement: Element) {
     const bbox = element.shape.getCanvasBBox();
-    const nextBBox= nextElement.shape.getCanvasBBox();
+    const nextBBox = nextElement.shape.getCanvasBBox();
     const path = [
       ['M', bbox.maxX, bbox.minY],
       ['L', nextBBox.minX, nextBBox.minY],
       ['L', nextBBox.minX, nextBBox.maxY],
       ['L', bbox.maxX, bbox.maxY],
-      ['Z']
-    ]
+      ['Z'],
+    ];
     return path;
   }
   // 添加连接的图形
@@ -41,8 +41,8 @@ class LinkByColor extends Action {
       attrs: {
         opacity: 0.4,
         fill: element.shape.attr('fill'),
-        path: this.getLinkPath(element, nextElement)
-      }
+        path: this.getLinkPath(element, nextElement),
+      },
     });
   }
   // 使用图形连接
@@ -60,7 +60,7 @@ class LinkByColor extends Action {
       this.cache[value] = group; // 缓存
       const count = elements.length;
       each(elements, (el, index) => {
-        if (index < count -1) {
+        if (index < count - 1) {
           const nextEl = elements[index + 1];
           this.addLinkShape(group, el, nextEl);
         }
@@ -88,10 +88,10 @@ class LinkByColor extends Action {
     if (!this.linkGroup) {
       // 不允许被拾取
       this.linkGroup = context.view.foregroundGroup.addGroup({
-        capture: false
+        capture: false,
       });
     }
-    const element =  getCurrentElement(context);
+    const element = getCurrentElement(context);
     if (element) {
       this.linkByElement(element);
     }
@@ -101,7 +101,7 @@ class LinkByColor extends Action {
    * 取消连接 elements
    */
   unlink() {
-    const element =  getCurrentElement(this.context);
+    const element = getCurrentElement(this.context);
     if (element) {
       this.removeLink(element);
     }
@@ -121,7 +121,7 @@ class LinkByColor extends Action {
    */
   destroy() {
     super.destroy();
-    if(this.linkGroup) {
+    if (this.linkGroup) {
       this.linkGroup.remove();
     }
   }

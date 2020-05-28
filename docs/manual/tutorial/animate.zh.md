@@ -61,7 +61,7 @@ view.animate(boolean);
 包含 Geometry Shapes 以及 Geometry labels.
 
 ```typescript
-geometry.animate(false); // Geometry 不执行东湖
+geometry.animate(false); // Geometry 不执行动画
 
 geometry.animate(cfg); // 进行具体的动画配置
 ```

@@ -1,6 +1,14 @@
 import { each } from '@antv/util';
 import Element from '../../../geometry/element/';
-import { getElements, getIntersectElements, getMaskedElements, getSiblingMaskElements, getSilbings, isInRecords, isMask } from '../util';
+import {
+  getElements,
+  getIntersectElements,
+  getMaskedElements,
+  getSiblingMaskElements,
+  getSilbings,
+  isInRecords,
+  isMask,
+} from '../util';
 import StateBase from './state-base';
 
 /**
@@ -44,6 +52,10 @@ class ElementRangeState extends StateBase {
     } else {
       const startPoint = this.startPoint;
       const endPoint = this.isStarted ? this.getCurrentPoint() : this.endPoint;
+      // 如果没有开始，则不允许范围设置状态，保护性质
+      if (!startPoint || !endPoint) {
+        return;
+      }
       // 计算框选区域
       const box = {
         minX: Math.min(startPoint.x, endPoint.x),
@@ -81,14 +93,14 @@ class ElementRangeState extends StateBase {
   private setSiblingsStateByRecord(elements, enable) {
     const view = this.context.view;
     const siblings = getSilbings(view);
-    const records = elements.map(el => {
+    const records = elements.map((el) => {
       return el.getModel().data;
     });
     const xFiled = view.getXScale().field;
     const yField = view.getYScales()[0].field;
-    each(siblings, sibling => {
+    each(siblings, (sibling) => {
       const allElements = getElements(sibling);
-      const effectElements = allElements.filter(el => {
+      const effectElements = allElements.filter((el) => {
         const record = el.getModel().data;
         return isInRecords(records, record, xFiled, yField);
       });
@@ -100,8 +112,9 @@ class ElementRangeState extends StateBase {
   private setSiblingsState(enable: boolean) {
     const view = this.context.view;
     const siblings = getSilbings(view);
-    if(isMask(this.context)) { // 受 mask 影响
-      each(siblings, sibling => {
+    if (isMask(this.context)) {
+      // 受 mask 影响
+      each(siblings, (sibling) => {
         const allElements = getElements(sibling);
         const effectElements = getSiblingMaskElements(this.context, sibling, 10);
         if (effectElements && effectElements.length) {
@@ -137,7 +150,7 @@ class ElementRangeState extends StateBase {
     // 判断是否影响 siblings
     if (this.effectSiblings) {
       const siblings = getSilbings(view);
-      each(siblings, sibling => {
+      each(siblings, (sibling) => {
         this.clearViewState(sibling);
       });
     } else {

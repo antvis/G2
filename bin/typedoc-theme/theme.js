@@ -4,7 +4,7 @@ const Handlebars = require('handlebars');
 const { default: MarkdownTheme } = require('typedoc-plugin-markdown/dist/theme');
 const { FrontMatterComponent } = require('typedoc-plugin-markdown/dist/components/front-matter.component');
 
-const FILE_EXT = '.zh.md';
+const FILE_EXT = '';
 
 class GatsbyFrontMatter extends FrontMatterComponent {
   /**

@@ -20,7 +20,7 @@ G2 4.0 默认提供了一种内置主题，命名为 'default'，如果内置了
 ```typescript
 const chart1 = new Chart({
   container: 'container',
-  theme: 'antv', // 使用命名为 'antv' 的主题
+  theme: 'dark', // 使用命名为 'dark' 的主题
 });
 
 const chart2 = new Chart({
@@ -34,19 +34,27 @@ const chart2 = new Chart({
 2. 通过 `chart.theme()`  接口配置
 
 ```typescript
-chart1.theme('antv'); // 切换全套主题
+// 在创建图表的时候，就切换主题
+chart1.theme('dark');
+chart1.render(); // 渲染图表
 
+// 图表渲染后，动态切换主题
 chart2.theme({
   defaultColor: 'red',
 }); // 修改内置主题的某些配置
+chart2.render(true);
 ```
+
+**重要**
+
+`chart.theme()` 声明之后，必须调用 `chart.render()` / `chart.render(true)` 方可生效，如果是动态切换主题场景，建议调用 `chart.render(true)`。
 
 3. 在 view 上配置主题
 
 ```typescript
 // 在创建 view 的时候声明主题
 const view1 = chart.createView({
-  theme: 'antv',
+  theme: 'dark',
 });
 // 在创建 view 的时候修改主题
 const view2 = chart.createView({
@@ -56,12 +64,16 @@ const view2 = chart.createView({
 });
 
 // 通过 theme() 接口声明
-view1.theme('antv');
+view1.theme('dark');
 
 view2.theme({
   defaultColor: 'red',
 });
 ```
+
+**重要**
+
+`view.theme()` 声明之后，必须调用 `chart.render()` / `chart.render(true)` 方可生效，如果是动态切换主题场景，建议调用 `chart.render(true)`
 
 4. 在 Geometry 上配置主题
 
@@ -78,11 +90,6 @@ chart
 **即 G2 支持分别在 chart, view 以及 geometry 上配置主题，这三者的优先顺序为：geometry > view > chart。**
 
 ## 注册自定义主题
-
-G2 提供了两种注册主题方式：
-
-1. 基于默认的主题结构，应用不同的主题样式表
-2. 自定义主题结构
 
 🌰 一个简单的例子：
 

@@ -759,12 +759,12 @@ edgeView.source(dv.edges);
 ```javascript
 dv.transform({
   type: 'diagram.sankey',
-  value: (node) => node.value, // 权重
   source: (edge) => edge.source, // 边起点id
   target: (edge) => edge.target, // 边终点id
   nodeAlign: 'sankeyJustify', // sankeyLeft / sankeyRight / sankeyCenter
   nodeWidth: 0.02, // 节点宽，范围：(0, 1)
   nodePadding: 0.02, // 节点上下间距，范围：(0, 1)
+  sort: undefined | null | ((a: any, b: any) => number); // 同列节点排序  undefined 默认值 在每次迭代过程中按宽度递增、null 按照数据排序 不重新排序、function 根据指定函数进行排序，并在初始化的时候排序一次
 });
 ```
 

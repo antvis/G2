@@ -87,7 +87,6 @@ describe('Pie update animation', () => {
     expect(elements.length).toBe(1);
 
     const { width, height } = elements[0].shape.getBBox();
-    // @ts-ignore
     const diameter = chart.getCoordinate().getRadius() * 2;
     expect(width).toBeCloseTo(diameter);
     expect(height).toBeCloseTo(diameter);
