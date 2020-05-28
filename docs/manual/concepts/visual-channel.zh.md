@@ -68,7 +68,10 @@ chart.interval().position('班级*人数');
 所以班级的映射存在两个视觉通道 1：n。
 
 ```javascript
-chart.interval().position('班级*人数').color('班级');
+chart
+  .interval()
+  .position('班级*人数')
+  .color('班级');
 ```
 
 - 人数和班级共同决定颜色
@@ -128,7 +131,10 @@ G2 中的视觉通道作为标记的属性存在，需要支持以下功能：
 示例：
 
 ```javascript
-chart.point().position('a*b').color('c');
+chart
+  .point()
+  .position('a*b')
+  .color('c');
 
 chart
   .interval()
