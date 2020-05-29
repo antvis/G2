@@ -27,6 +27,5 @@ describe('2505', () => {
     chart.render();
 
     expect(chart.getCanvas().get('container').style.background).toBe('rgb(20, 20, 20)');
-    // expect(chart.getCanvas().get('ele').style.background).toBe('#141414');
   });
 });
