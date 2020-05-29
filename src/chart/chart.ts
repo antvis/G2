@@ -1,4 +1,4 @@
-import { debounce, each, isString } from '@antv/util';
+import { debounce, each, isString, get } from '@antv/util';
 
 import { ChartCfg } from '../interface';
 
@@ -78,6 +78,14 @@ export default class Chart extends View {
       limitInPlot,
       theme,
     });
+
+    // 设置主题背景色
+    const chartTheme = this.getTheme();
+    if (get(chartTheme, 'background')) {
+      modifyCSS(wrapperElement, {
+        background: get(chartTheme, 'background'),
+      });
+    }
 
     this.ele = ele;
     this.canvas = canvas;

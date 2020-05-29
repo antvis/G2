@@ -1583,6 +1583,8 @@ export interface FacetCfgMap {
 
 // ============================ 主题样式表定义 ============================
 export interface StyleSheet {
+  /** 背景色 */
+  backgroundColor?: string;
   /** 主题色 */
   brandColor?: string;
   /** 分类色板 1，在数据量小于等于 10 时使用 */

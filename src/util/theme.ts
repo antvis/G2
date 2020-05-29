@@ -227,6 +227,7 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
   };
 
   return {
+    background: styleSheet.backgroundColor,
     defaultColor: styleSheet.brandColor,
     padding: 'auto',
     fontFamily: styleSheet.fontFamily,
