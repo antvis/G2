@@ -57,6 +57,7 @@ const QUALITATIVE_20 = [
 ];
 
 export const antvDark = {
+  backgroundColor: '#141414',
   /** 主题色 */
   brandColor: QUALITATIVE_10[0],
   /** 分类色板 1，在数据量小于等于 10 时使用 */
