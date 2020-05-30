@@ -1,5 +1,6 @@
 import { Controller } from '../controller/base';
 import View from '../view';
+import { parsePadding } from '../../util/padding';
 import { calculatePadding } from './auto';
 
 // 布局函数的定义
@@ -26,10 +27,10 @@ export default function defaultLayout(view: View): void {
 
   // 1. 自动加 auto padding -> absolute padding
   const padding = calculatePadding(view);
-  // 2. 计算出新的 coordinateBBox
-  const newCoordinateBBox = view.viewBBox.shrink(padding);
 
-  view.coordinateBBox = newCoordinateBBox;
+  // 2. 计算出新的 coordinateBBox
+  view.coordinateBBox = view.viewBBox.shrink(padding).shrink(parsePadding(view.appendPadding));
+
   view.adjustCoordinate();
 
   // 3. 根据最新的 coordinate 重新布局组件

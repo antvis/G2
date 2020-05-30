@@ -12,7 +12,8 @@ describe('Chart', () => {
     container: div,
     width: 800,
     height: 600,
-    padding: 10,
+    padding: 5,
+    appendPadding: 5,
     autoFit: false,
     visible: false,
   });

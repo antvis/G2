@@ -753,6 +753,13 @@ export interface ChartCfg {
    */
   readonly padding?: ViewPadding;
   /**
+   * 图表的内边距会在图表的padding的基础上加上appendPadding，使用方式参考 CSS 盒模型。
+   * @example
+   * 1. appendPadding: 20
+   * 2. appendPadding: [ 10, 30, 30 ]
+   */
+  readonly appendPadding?: ViewAppendPadding;
+  /**
    * 是否开启局部刷新，默认开启。
    */
   readonly localRefresh?: boolean;
@@ -800,6 +807,13 @@ export interface ViewCfg {
    * 2. padding: [ 10, 30, 30 ]
    */
   readonly padding?: ViewPadding;
+  /**
+   * 设置图表的内边距在padding的基础上增加appendPading的调整。
+   * @example
+   * 1. padding: 20
+   * 2. padding: [ 10, 30, 30 ]
+   */
+  readonly appendPadding?: ViewAppendPadding;
   /** 设置 view 实例主题。 */
   readonly theme?: LooseObject | string;
   /**
@@ -2162,8 +2176,9 @@ export type Renderer = 'svg' | 'canvas';
 export type Datum = Record<string, any>;
 export type Data = Datum[];
 export type ActionCallback = (context: IInteractionContext) => void;
-export type Padding = number[];
+export type Padding = [number, number, number, number];
 export type ViewPadding = number | number[] | 'auto';
+export type ViewAppendPadding = number | number[];
 export type Position = [number, number];
 export type AttributeType = 'position' | 'size' | 'color' | 'shape';
 export type ShapeVertices = RangePoint[] | Point[] | Point[][];
