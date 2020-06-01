@@ -38,7 +38,7 @@ fetch('../data/scatter.json')
   .then((res) => res.json())
   .then((data) => {
     const femaleData = data.filter(record => record.gender === 'female');
-    const maleData = data.filter(record => record.gender != 'female');
+    const maleData = data.filter(record => record.gender !== 'female');
     const chart = new Chart({
       container: 'container',
       autoFit: true,
