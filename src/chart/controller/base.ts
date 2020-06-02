@@ -15,8 +15,6 @@ export abstract class Controller<O = unknown> {
   /** 是否可见 */
   public visible: boolean = true;
   protected view: View;
-  /** 如果是子 view，保存其根 view */
-  protected ancestorView: View;
   /** option 配置，不同组件有自己不同的配置结构 */
   protected option: O;
   /** 所有的 component */
@@ -24,12 +22,6 @@ export abstract class Controller<O = unknown> {
 
   constructor(view: View) {
     this.view = view;
-    if (view.parent) {
-      this.ancestorView = view.parent;
-      while (this.ancestorView.parent) {
-        this.ancestorView = this.ancestorView.parent;
-      }
-    }
   }
 
   public abstract get name(): string;

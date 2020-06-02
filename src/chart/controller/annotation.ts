@@ -84,7 +84,7 @@ export default class Annotation extends Controller<BaseOption[]> {
 
         if (component.get('type') === 'regionFilter') {
           // regionFilter 依赖绘制后的 Geometry Shapes
-          (this.ancestorView || this.view).once(VIEW_LIFE_CIRCLE.AFTER_RENDER, () => {
+          this.view.getRootView().once(VIEW_LIFE_CIRCLE.AFTER_RENDER, () => {
             updateComponentFn(co);
           });
         } else {
@@ -94,7 +94,7 @@ export default class Annotation extends Controller<BaseOption[]> {
     } else {
       each(this.option, (option: BaseOption) => {
         if (option.type === 'regionFilter') {
-          (this.ancestorView || this.view).once(VIEW_LIFE_CIRCLE.AFTER_RENDER, () => {
+          this.view.getRootView().once(VIEW_LIFE_CIRCLE.AFTER_RENDER, () => {
             // regionFilter 依赖绘制后的 Geometry Shapes
             createComponentFn(option);
           });
