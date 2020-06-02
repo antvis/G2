@@ -65,9 +65,6 @@ describe('#0000', () => {
   // Step 4: 渲染图表
   chart.render();
 
-  // @ts-ignore
-  window.__chart__ = chart;
-
   it('test', () => {
     expect(chart).toBeDefined();
     const regionFilter = view.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[0].component;
