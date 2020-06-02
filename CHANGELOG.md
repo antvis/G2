@@ -1,3 +1,10 @@
+#### 3.5.17 (2020-06-02)
+
+##### Chores
+
+* **deps:**  upgrade g to version v3.4.10 ([fc5c529](https://github.com/antvis/G2/commit/fc5c5294fb80ba36426dde4bb3da5d975642a849))
+
+
 #### 3.5.16 (2020-05-12)
 
 ##### Chores
