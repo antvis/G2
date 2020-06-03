@@ -1,4 +1,4 @@
-import { get, some, flatten, map, isArray } from '@antv/util';
+import { get, some, flatten, map } from '@antv/util';
 import { Datum, Data } from '../interface';
 import { getXDimensionLength } from '../util/coordinate';
 import Geometry from './base';
@@ -89,10 +89,10 @@ export default class Interval extends Geometry {
     if (coordinate.type === 'theta') {
       const yScale = this.getYScale();
       const yField = yScale ? yScale.field : null;
-      const allZero = !some(flatten(data), d => d[yField] !== 0);
+      const allZero = !some(flatten(data), (d) => d[yField] !== 0);
       if (allZero) {
-        return map(data, d => {
-          return map(d, dItem => ({ ...dItem, [yField]: 1 }));
+        return map(data, (d) => {
+          return map(d, (dItem) => ({ ...dItem, [yField]: 1 }));
         });
       }
     }
