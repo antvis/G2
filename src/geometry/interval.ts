@@ -1,5 +1,5 @@
-import { get } from '@antv/util';
-import { Datum } from '../interface';
+import { get, some, flatten, map, isArray } from '@antv/util';
+import { Datum, Data } from '../interface';
 import { getXDimensionLength } from '../util/coordinate';
 import Geometry from './base';
 /** 引入对应的 ShapeFactory */
@@ -78,5 +78,24 @@ export default class Interval extends Geometry {
         }
       }
     }
+  }
+
+  /**
+   * 数据调整前的处理
+   */
+  protected beforeAdjustData(data: Data[]) {
+    const coordinate = this.coordinate;
+    // theta 坐标系下，如果 yScale 所有的数据为空的话，均分展示
+    if (coordinate.type === 'theta') {
+      const yScale = this.getYScale();
+      const yField = yScale ? yScale.field : null;
+      const allZero = !some(flatten(data), d => d[yField] !== 0);
+      if (allZero) {
+        return map(data, d => {
+          return map(d, dItem => ({ ...dItem, [yField]: 1 }));
+        });
+      }
+    }
+    return data;
   }
 }
