@@ -54,7 +54,6 @@ describe('#0000', () => {
     fillStyle: 'l(90) 0:rgba(0, 85, 255, 1) 1:rgba(0, 85, 255, .13)',
   });
 
-  // TODO: regionFilter 不生效
   view.annotation().regionFilter({
     top: true,
     start: [1589299200000, 'max'],
@@ -65,7 +64,7 @@ describe('#0000', () => {
   // Step 4: 渲染图表
   chart.render();
 
-  it('test', () => {
+  it('region filter', () => {
     expect(chart).toBeDefined();
     const regionFilter = view.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[0].component;
     expect(regionFilter.get('type')).toEqual('regionFilter');
