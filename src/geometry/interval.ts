@@ -85,8 +85,10 @@ export default class Interval extends Geometry {
    */
   protected beforeAdjustData(data: Data[]) {
     const coordinate = this.coordinate;
-    // theta 坐标系下，如果 yScale 所有的数据为空的话，均分展示
-    if (coordinate.type === 'theta') {
+    const xScale = this.getXScale();
+    const xField = xScale.field || 'x';
+    // theta 坐标系 且 xField 为 1 下(饼图 & 堆叠饼图等)，如果 yScale 所有的数据为空的话，均分展示
+    if (coordinate.type === 'theta' && `${xField}` === '1') {
       const yScale = this.getYScale();
       const yField = yScale ? yScale.field : null;
       const allZero = !some(flatten(data), (d) => d[yField] !== 0);
