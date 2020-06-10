@@ -150,7 +150,8 @@ export default class Slider extends Controller<Option> {
    */
   private updateSlider() {
     const cfg = this.getSliderCfg();
-    omit(cfg, ['x', 'y', 'width', 'start', 'end', 'minText', 'maxText']);
+    // 自适应屏幕 不能去掉width
+    omit(cfg, ['x', 'y', 'start', 'end', 'minText', 'maxText']);
 
     this.slider.component.update(cfg);
 
@@ -175,6 +176,7 @@ export default class Slider extends Controller<Option> {
 
       // 因为有样式，所以深层覆盖
       const cfg = deepMix({}, { x, y, width }, this.option);
+
 
       // trendCfg 因为有数据数组，所以使用浅替换
       return { ...cfg, trendCfg };
