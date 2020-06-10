@@ -44,6 +44,13 @@ chart
       marginRatio: 0,
     },
   ]);
+  chart.option("slider", {
+    start: 0,
+    end: 1,
+    trendCfg: {
+      isArea: false
+    }
+  });
 
 chart.interaction('active-region');
 

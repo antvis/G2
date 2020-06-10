@@ -207,17 +207,15 @@ export default class Slider extends Controller<Option> {
 
   private updateMinMaxText(min: number, max: number) {
     const data = this.view.getOptions().data;
-    const dataSize = size(data);
     const xScale = this.view.getXScale();
+    const x = xScale.field;
+    // x 轴数据
+    const xData = data.map((datum) => datum[x] || '');
+    const dataSize = size(Array.from(new Set(xData)));
 
     if (!xScale || !dataSize) {
       return;
     }
-
-    const x = xScale.field;
-
-    // x 轴数据
-    const xData = data.map((datum) => datum[x] || '');
 
     const minIndex = Math.floor(min * (dataSize - 1));
     const maxIndex = Math.floor(max * (dataSize - 1));
@@ -238,9 +236,21 @@ export default class Slider extends Controller<Option> {
       start: min,
       end: max,
     });
+    const minVal = Math.min(minIndex, maxIndex);
+    const maxVal = Math.max(minIndex, maxIndex);
 
+    const xField = [];
+    const filterField = [];
+    xData.forEach((item, idx) => {
+      if (!(idx >= minVal && idx <= maxVal) && !filterField.includes(item)) {
+        filterField.push(item)
+      }
+      if (idx >= minVal && idx <= maxVal && !xField.includes(item) && !filterField.includes(item)) {
+        xField.push(item);
+      }
+    })
     // 增加 x 轴的过滤器
-    this.view.filter(xScale.field, (value: any, datum: Datum, idx: number) => isBetween(idx, minIndex, maxIndex));
+    this.view.filter(xScale.field, (value: any, datum: Datum, idx: number) => xField.includes(value));
   }
 
   /**
