@@ -4,7 +4,7 @@ import { IGroup, Slider as SliderComponent, TrendCfg } from '../../dependents';
 import { ComponentOption, Datum } from '../../interface';
 import { BBox } from '../../util/bbox';
 import { directionToPosition } from '../../util/direction';
-import { isBetween, omit } from '../../util/helper';
+import { omit } from '../../util/helper';
 import View from '../view';
 import { Controller } from './base';
 
