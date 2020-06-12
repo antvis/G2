@@ -18,8 +18,7 @@
 
 <p align="center">
   <a href="https://g2.antv.vision/zh">网站</a> •
-  <a href="https://g2.antv.vision/zh/docs/manual/about-g2">教程</a> •
-  <a href="https://g2.antv.vision/zh/docs/api/g2">API 文档</a> •
+  <a href="https://g2.antv.vision/zh/docs/manual/about-g2">教程文档</a> •
   <a href="https://www.yuque.com/antv">博客</a>
 
 </p>

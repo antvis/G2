@@ -18,8 +18,7 @@ A highly interactive data-driven visualization grammar for statistical charts.
 
 <p align="center">
   <a href="https://g2.antv.vision/en">Website</a> •
-  <a href="https://g2.antv.vision/en/docs/manual/about-g2">Tutorial</a> •
-  <a href="https://g2.antv.vision/en/docs/api/g2">API Docs</a> •
+  <a href="https://g2.antv.vision/en/docs/manual/about-g2">Tutorial Docs</a> •
   <a href="https://www.yuque.com/antv">Blog</a>
 
 </p>

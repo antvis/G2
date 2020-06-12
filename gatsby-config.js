@@ -33,18 +33,10 @@ module.exports = {
       {
         slug: 'docs/manual',
         title: {
-          zh: '教程',
+          zh: '教程文档',
           en: 'Tutorials',
         },
         order: 1,
-      },
-      {
-        slug: 'docs/api/g2',
-        title: {
-          zh: 'API 文档',
-          en: 'API',
-        },
-        order: 2,
       },
     ],
     docs: [
