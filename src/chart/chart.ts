@@ -156,9 +156,12 @@ export default class Chart extends View {
    * 自动根据容器大小 resize 画布
    */
   public forceFit() {
-    // 注意第二参数用 true，意思是即时 autoFit = false，forceFit() 调用之后一样是适配容器
-    const { width, height } = getChartSize(this.ele, true, this.width, this.height);
-    this.changeSize(width, height);
+    // skip if already destroyed
+    if(!this.destroyed){
+      // 注意第二参数用 true，意思是即时 autoFit = false，forceFit() 调用之后一样是适配容器
+      const { width, height } = getChartSize(this.ele, true, this.width, this.height);
+      this.changeSize(width, height);
+    }
   }
 
   private updateCanvasStyle() {
