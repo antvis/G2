@@ -38,14 +38,6 @@ module.exports = {
         },
         order: 1,
       },
-      {
-        slug: 'docs/api/g2',
-        title: {
-          zh: 'API',
-          en: 'API',
-        },
-        order: 2,
-      },
     ],
     docs: [
       {
