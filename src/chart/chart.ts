@@ -1,9 +1,6 @@
 import { debounce, each, isString, get } from '@antv/util';
-
 import { ChartCfg } from '../interface';
-
 import { GROUP_Z_INDEX } from '../constant';
-
 import { getEngine } from '../engine';
 import { createDom, getChartSize, removeDom, modifyCSS } from '../util/dom';
 import View from './view';
@@ -157,7 +154,7 @@ export default class Chart extends View {
    */
   public forceFit() {
     // skip if already destroyed
-    if(!this.destroyed){
+    if (!this.destroyed) {
       // 注意第二参数用 true，意思是即时 autoFit = false，forceFit() 调用之后一样是适配容器
       const { width, height } = getChartSize(this.ele, true, this.width, this.height);
       this.changeSize(width, height);
