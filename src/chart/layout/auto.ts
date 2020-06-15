@@ -51,12 +51,13 @@ export function calculatePadding(view: View): Padding {
   const calculatedPadding = paddingCal.getPadding();
 
   if (autoPadding) {
+    const appendPadding = parsePadding(view.appendPadding);
     // 取上一次以及当前计算结果的最大区间
     return [
-      Math.max(autoPadding[0], calculatedPadding[0]),
-      Math.max(autoPadding[1], calculatedPadding[1]),
-      Math.max(autoPadding[2], calculatedPadding[2]),
-      Math.max(autoPadding[3], calculatedPadding[3]),
+      Math.max(autoPadding[0] - appendPadding[0], calculatedPadding[0]),
+      Math.max(autoPadding[1] - appendPadding[1], calculatedPadding[1]),
+      Math.max(autoPadding[2] - appendPadding[2], calculatedPadding[2]),
+      Math.max(autoPadding[3] - appendPadding[3], calculatedPadding[3]),
     ];
   }
 
