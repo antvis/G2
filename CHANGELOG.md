@@ -1,3 +1,16 @@
+#### 4.0.11 (2020-06-18)
+
+##### Documentation Changes
+
+- fix indentation ([#2580](https://github.com/antvis/g2/pull/2580)) ([4ffdff52](https://github.com/antvis/g2/commit/4ffdff52954bbdae7d826ac25e536d5c31a9560f))
+- **site:** update size nav ([#2572](https://github.com/antvis/g2/pull/2572)) ([3ec492ee](https://github.com/antvis/g2/commit/3ec492ee146206f1b06b93264168bd7d05c87283))
+
+##### Bug Fixes
+
+- **2570:** 修复 appendPadding 设置后，图表更新不断缩小的问题 ([#2577](https://github.com/antvis/g2/pull/2577)) ([402e7b01](https://github.com/antvis/g2/commit/402e7b018423516a3d5bdbb39bdf666491c43306))
+- **legend:** 修改 legend 布局的宽高限制 ([#2587](https://github.com/antvis/g2/pull/2587)) ([055043f1](https://github.com/antvis/g2/commit/055043f11142cbdeec82e606eb3882f8a58db5c3))
+- error if chart destroyed during resize ([#2547](https://github.com/antvis/g2/pull/2547)) ([2290ed38](https://github.com/antvis/g2/commit/2290ed38ea851936dd0066f1ee41ce9572ba30ee))
+
 #### 4.0.10 (2020-06-09)
 
 ##### New Features
