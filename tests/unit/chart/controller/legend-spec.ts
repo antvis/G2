@@ -127,7 +127,6 @@ describe('Legend', () => {
       { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
     ]);
 
-    // @ts-ignore
     chart.legend({
       custom: true,
       items: [
@@ -198,6 +197,7 @@ describe('Legend', () => {
     });
 
     chart.data(data);
+    chart.animate(false);
     chart.scale('sold', {
       max: 3600,
       nice: false,
@@ -209,14 +209,15 @@ describe('Legend', () => {
 
     const legend = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND)[0].component;
 
-    // expect(legend.get('flipPage')).toBe(true);
-    // // @ts-ignore
-    // expect(legend.totalPagesCnt).toBe(2);
-    // // @ts-ignore
-    // expect(legend.pageHeight).toBe(20);
-
     expect(legend.get('maxWidth')).toBe(chart.viewBBox.width);
     expect(legend.get('maxHeight')).toBe(chart.viewBBox.height * COMPONENT_MAX_VIEW_PERCENTAGE);
+
+    chart.changeSize(300, 300);
+    expect(legend.get('flipPage')).toBe(true);
+    // @ts-ignore
+    expect(legend.totalPagesCnt).toBe(2);
+    // @ts-ignore
+    expect(legend.pageHeight).toBe(20);
   });
 
   it('legend align with axis', () => {
