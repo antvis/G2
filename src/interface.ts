@@ -858,6 +858,11 @@ export interface LegendItem {
   marker?: MarkerCfg;
 }
 
+export interface G2LegendTitleCfg extends LegendTitleCfg {
+  /** title 文本显示内容 */
+  text?: string;
+}
+
 /**
  * 图例项配置
  */
@@ -884,7 +889,7 @@ export interface LegendCfg {
    *
    * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L639|LegendTitleCfg}，
    */
-  title?: LegendTitleCfg;
+  title?: G2LegendTitleCfg;
   /**
    * 背景框配置项。
    *
