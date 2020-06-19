@@ -9,6 +9,8 @@ order: 1
 
 [![](https://img.shields.io/npm/v/@antv/g2.svg?style=flat-square#align=left&display=inline&height=20&originHeight=20&originWidth=80&search=&status=done&width=80#align=left&display=inline&height=20&originHeight=20&originWidth=88&status=done&style=none&width=88)](https://www.npmjs.com/package/@antv/g2)
 
+注意：使用该种方式引入脚本需要使用webpack工具打包才可运行，Webpack 是目前比较流行的模块打包工具，你可以在使用 webpack 的项目中轻松的引入和打包AntV，这里假设你已经对 [webpack](https://webpack.github.io/) 具有一定的了解并且在自己的项目中使用。
+
 ```bash
 npm install @antv/g2 --save
 ```
