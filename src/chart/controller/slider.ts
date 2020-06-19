@@ -4,7 +4,7 @@ import { IGroup, Slider as SliderComponent, TrendCfg } from '../../dependents';
 import { ComponentOption, Datum } from '../../interface';
 import { BBox } from '../../util/bbox';
 import { directionToPosition } from '../../util/direction';
-import { isBetween, omit } from '../../util/helper';
+import { uniq, omit } from '../../util/helper';
 import View from '../view';
 import { Controller } from './base';
 
@@ -177,7 +177,6 @@ export default class Slider extends Controller<Option> {
       // 因为有样式，所以深层覆盖
       const cfg = deepMix({}, { x, y, width }, this.option);
 
-
       // trendCfg 因为有数据数组，所以使用浅替换
       return { ...cfg, trendCfg };
     }
@@ -213,7 +212,8 @@ export default class Slider extends Controller<Option> {
     const x = xScale.field;
     // x 轴数据
     const xData = data.map((datum) => datum[x] || '');
-    const dataSize = size(Array.from(new Set(xData)));
+    const uniqData = uniq(xData, [], {});
+    const dataSize = size(uniqData);
 
     if (!xScale || !dataSize) {
       return;
@@ -240,13 +240,17 @@ export default class Slider extends Controller<Option> {
     });
     const minVal = Math.min(minIndex, maxIndex);
     const maxVal = Math.max(minIndex, maxIndex);
-
+    // 记录当前显示横坐标
     const xField = [];
+    // 记录当前过滤的横坐标
     const filterField = [];
     xData.forEach((item, idx) => {
+      // 将不在当前slider范围横坐标放进数组
       if (!(idx >= minVal && idx <= maxVal) && !filterField.includes(item)) {
         filterField.push(item)
       }
+      // 只有当前横坐标在slider范围而且过滤数组没有 才放进显示的数据中
+      // 多曲线或者分组图多个数据横坐标相同 避免出现拖动slider相同横坐标数据消失不统一
       if (idx >= minVal && idx <= maxVal && !xField.includes(item) && !filterField.includes(item)) {
         xField.push(item);
       }
