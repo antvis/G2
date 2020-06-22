@@ -311,7 +311,7 @@ export function getTooltipItems(data: MappingDatum, geometry: Geometry, title: s
         title: tooltipTitle,
         data: originData, // 原始数据
         mappingData: data, // 映射后的数据
-        name: itemName || tooltipTitle,
+        name: itemName,
         value: itemValue,
         color: data.color || defaultColor,
         marker: true,
