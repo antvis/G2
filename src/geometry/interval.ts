@@ -83,15 +83,15 @@ export default class Interval extends Geometry {
   /**
    * 数据调整前的处理
    */
-  protected beforeAdjustData(data: Data[]) {
+  protected beforeAdjustData(data: Data[], originData: Data) {
     const coordinate = this.coordinate;
     const xScale = this.getXScale();
-    const xField = xScale.field || 'x';
+    const xField = xScale.field;
     // theta 坐标系 且 xField 为 1 下(饼图 & 堆叠饼图等)，如果 yScale 所有的数据为空的话，均分展示
     if (coordinate.type === 'theta' && `${xField}` === '1') {
       const yScale = this.getYScale();
       const yField = yScale ? yScale.field : null;
-      const allZero = !some(flatten(data), (d) => d[yField] !== 0);
+      const allZero = !some(originData, (d) => d[yField] !== 0);
       if (allZero) {
         return map(data, (d) => {
           return map(d, (dItem) => ({ ...dItem, [yField]: 1 }));

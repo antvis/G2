@@ -1548,14 +1548,14 @@ export default class Geometry extends Base {
       beforeAdjust.push(arr);
     }
 
-    const dataArray = this.adjustData(this.beforeAdjustData(beforeAdjust)); // 进行 adjust 数据调整
+    const dataArray = this.adjustData(this.beforeAdjustData(beforeAdjust, data)); // 进行 adjust 数据调整
     this.beforeMappingData = dataArray;
 
     return dataArray;
   }
 
   /** 供子类修改 */
-  protected beforeAdjustData(data: Data[]): Data[] {
+  protected beforeAdjustData(data: Data[], originData: Data): Data[] {
     return data;
   }
 
