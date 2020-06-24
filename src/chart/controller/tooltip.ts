@@ -37,7 +37,6 @@ export default class Tooltip extends Controller<TooltipOption> {
   private guideGroup: IGroup;
 
   private isLocked: boolean = false;
-  private isVisible: boolean = true;
   private items;
   private title: string;
   private point: Point;
@@ -48,10 +47,12 @@ export default class Tooltip extends Controller<TooltipOption> {
 
   public init() {}
 
-  public render() {
+  private isVisible() {
     const option = this.view.getOptions().tooltip;
-    this.isVisible = option !== false;
+    return option !== false;
   }
+
+  public render() {}
 
   /**
    * Shows tooltip
@@ -59,7 +60,7 @@ export default class Tooltip extends Controller<TooltipOption> {
    */
   public showTooltip(point: Point) {
     this.point = point;
-    if (!this.isVisible) {
+    if (!this.isVisible()) {
       // 如果设置 tooltip(false) 则始终不显示
       return;
     }
