@@ -382,6 +382,18 @@ describe('test hilightBy', () => {
     highlight.highlight();
     expect(interval.getElementsBy(el => el.hasState('active')).length).toBe(2);
 
+    context.event = {
+      target: {
+        get: () => {
+          return interval.elements[0];
+        },
+      },
+    };
+    highlight.toggle();
+    expect(interval.getElementsBy(el => el.hasState('active')).length).toBe(2);
+    highlight.toggle();
+    expect(interval.getElementsBy(el => el.hasState('active')).length).toBe(0);
+
     highlight.clear();
     expect(interval.getElementsBy(el => el.hasState('active')).length).toBe(0);
     highlight.destroy();
