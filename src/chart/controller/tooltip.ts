@@ -138,6 +138,18 @@ export default class Tooltip extends Controller<TooltipOption> {
       const isCrosshairsFollowCursor = get(cfg, ['crosshairs', 'follow'], false); // 辅助线是否要跟随鼠标
       this.renderCrosshairs(isCrosshairsFollowCursor ? point : dataPoint, cfg);
     }
+
+    // #2279 修复resize之后tooltip越界的问题
+    // 兼容没有 changeRegion 这个方法的版本
+    if( this.tooltip.changeRegion ) {
+      const canvas = this.view.getCanvas();
+      // 更新 region
+      const region = {
+        start: { x: 0, y: 0 },
+        end: { x: canvas.get('width'), y: canvas.get('height') },
+      };
+      this.tooltip.changeRegion(region);
+    }
   }
 
   public hideTooltip() {
