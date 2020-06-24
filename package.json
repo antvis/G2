@@ -30,7 +30,7 @@
     "build": "run-s clean lib",
     "dist": "webpack --config webpack.config.js --mode production",
     "ci": "run-s build coverage",
-    "prepublishOnly": "npm-run-all --parallel lint test clean lib dist",
+    "prepublishOnly": "npm-run-all --parallel lint test build dist",
     "doc": "rimraf -rf docs/api && typedoc && sh bin/doc.sh docs/api",
     "changelog": "generate-changelog",
     "analyz": "webpack --profile --json > stats.json && webpack-bundle-analyzer ./stats.json"
@@ -84,20 +84,9 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
+      "pre-commit": "run-s lint test",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
-  },
-  "lint-staged": {
-    "*.{js,css,json,md}": [
-      "prettier --write",
-      "git add"
-    ],
-    "*.{ts}": [
-      "tslint -c tslint.json --fix",
-      "prettier --write",
-      "git add"
-    ]
   },
   "jest": {
     "runner": "jest-electron/runner",

@@ -101,6 +101,16 @@ export enum PLOT_EVENTS {
   ENTER = 'plot:enter',
 }
 
+/**
+ * Element 图形交互状态
+ */
+export enum ELEMENT_STATE {
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+  SELECTED = 'selected',
+  DEFAULT = 'default',
+}
+
 /** 参与分组的图形属性名 */
 export const GROUP_ATTRS = ['color', 'shape', 'size'];
 /** 存储原始数据的字段名 */
