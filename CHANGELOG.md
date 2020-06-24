@@ -1,3 +1,21 @@
+#### 4.0.12 (2020-06-24)
+
+##### Chores
+
+- 添加 lint-staged 配置 ([#2600](https://github.com/antvis/g2/pull/2600)) ([a776ddd1](https://github.com/antvis/g2/commit/a776ddd15d8b4f7456710d38c80f6a53c37cd24e))
+
+- 优化 pre-commit hooks，github ci 服务太慢并且做不到强行约束，信息很容易忽略掉
+
+##### Bug Fixes
+
+- highlight-by-x Action toggle() 失效的问题
+
+#### 4.0.11 (2020-06-24)
+
+##### Chores
+
+- 添加 lint-staged 配置 ([#2600](https://github.com/antvis/g2/pull/2600)) ([a776ddd1](https://github.com/antvis/g2/commit/a776ddd15d8b4f7456710d38c80f6a53c37cd24e))
+
 #### 4.0.11 (2020-06-18)
 
 ##### Documentation Changes
