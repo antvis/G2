@@ -25,7 +25,6 @@ export default class Base extends EE {
   public show() {
     const visible = this.visible;
     if (!visible) {
-      this.visible = true;
       this.changeVisible(true);
     }
   }
@@ -36,7 +35,6 @@ export default class Base extends EE {
   public hide() {
     const visible = this.visible;
     if (visible) {
-      this.visible = false;
       this.changeVisible(false);
     }
   }
