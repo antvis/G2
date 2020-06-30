@@ -323,6 +323,17 @@ export default class Tooltip extends Controller<TooltipOption> {
     if (this.point) {
       this.showTooltip(this.point);
     }
+    
+    if (this.tooltip) {
+      // #2279 修复resize之后tooltip越界的问题
+      // 确保tooltip已经创建的情况下
+      const canvas = this.view.getCanvas();
+      // 更新 region
+      this.tooltip.set('region', {
+        start: { x: 0, y: 0 },
+        end: { x: canvas.get('width'), y: canvas.get('height') },
+      });
+    }
   }
 
   // 获取 tooltip 配置，因为用户可能会通过 view.tooltip() 重新配置 tooltip，所以就不做缓存，每次直接读取
