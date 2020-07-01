@@ -226,7 +226,7 @@ export default class Slider extends Controller<Option> {
 
     const x = xScale.field;
 
-    // x 轴数据
+    // x 轴刻度
     const xTicks = data.reduce((pre, datum) => {
       if (!pre.includes(datum[x])) pre.push(datum[x]);
       return pre;
