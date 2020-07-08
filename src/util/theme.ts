@@ -162,6 +162,7 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
     },
     label: {
       autoRotate: true,
+      autoEllipsis: true,
       autoHide: true,
       offset: 16,
       style: {
@@ -945,11 +946,13 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
           position: 'top',
           grid: null,
           title: null,
+          verticalLimitLength: 1 / 2,
         }),
         bottom: deepMix({}, axisStyles, {
           position: 'bottom',
           grid: null,
           title: null,
+          verticalLimitLength: 1 / 2,
         }),
         left: deepMix({}, axisStyles, {
           position: 'left',
@@ -960,6 +963,7 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
           line: null,
           tickLine: null,
           grid: axisGridStyles,
+          verticalLimitLength: 1 / 3,
         }),
         right: deepMix({}, axisStyles, {
           position: 'right',
@@ -970,6 +974,7 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
           line: null,
           tickLine: null,
           grid: axisGridStyles,
+          verticalLimitLength: 1 / 3,
         }),
         circle: deepMix({}, axisStyles, {
           title: null,
