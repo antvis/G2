@@ -1,7 +1,7 @@
 import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
-fetch('../data/mobile.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/mobile.json')
   .then((res) => res.json())
   .then((mobiles) => {
     const { DataView } = DataSet;

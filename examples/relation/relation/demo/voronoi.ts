@@ -1,7 +1,7 @@
 import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
-fetch('../data/voronoi.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/voronoi.json')
   .then((res) => res.json())
   .then((data) => {
     const ds = new DataSet();

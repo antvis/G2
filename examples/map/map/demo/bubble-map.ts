@@ -2,10 +2,10 @@ import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
 // 数据来源于 https://github.com/react-d3/react-d3-map-bubble
-fetch('../data/world.geo.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/world.geo.json')
   .then(res => res.json())
   .then(mapData => {
-    fetch('../data/earthquake.json')
+    fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/earthquake.json')
       .then(res => res.json())
       .then(data => {
 

@@ -1,7 +1,7 @@
 import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
-fetch('../data/relationship-with-weight.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/relationship-with-weight.json')
   .then(res => res.json())
   .then(data => {
     // arc diagram layout

@@ -40,10 +40,7 @@ const view = chart.createView({
 
 ```typescript
 view.data(data); // 为 View 载入数据
-view
-  .interval()
-  .position('x*y')
-  .color('x'); // 使用图形语法绘制图表
+view.interval().position('x*y').color('x'); // 使用图形语法绘制图表
 
 chart.render(); // 由 chart 负责统一的渲染
 ```
@@ -67,7 +64,7 @@ chart.render(); // 由 chart 负责统一的渲染
 import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
-fetch('../data/world.geo.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/world.geo.json')
   .then((res) => res.json())
   .then((mapData) => {
     const chart = new Chart({
@@ -107,14 +104,11 @@ fetch('../data/world.geo.json')
     const worldMapView = chart.createView();
     worldMapView.data(worldMap.rows);
     worldMapView.tooltip(false);
-    worldMapView
-      .polygon()
-      .position('longitude*latitude')
-      .style({
-        fill: '#fff',
-        stroke: '#ccc',
-        lineWidth: 1,
-      });
+    worldMapView.polygon().position('longitude*latitude').style({
+      fill: '#fff',
+      stroke: '#ccc',
+      lineWidth: 1,
+    });
     // highlight-end
 
     // 可视化用户数据

@@ -1,6 +1,6 @@
 import { Chart } from '@antv/g2';
 
-fetch('../data/fireworks-sales.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/fireworks-sales.json')
   .then(res => res.json())
   .then(data => {
     const chart = new Chart({

@@ -37,7 +37,7 @@ function getData(data) {
   return dv.rows;
 }
 
-fetch('../data/population.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/population.json')
   .then(res => res.json())
   .then(data => {
     const chart = new Chart({
