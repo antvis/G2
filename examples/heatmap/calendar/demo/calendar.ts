@@ -3,7 +3,7 @@ import { Chart } from '@antv/g2';
 
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-fetch('../data/stock-calendar.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/stock-calendar.json')
   .then(res => res.json())
   .then(data => {
     const { DataView } = DataSet;

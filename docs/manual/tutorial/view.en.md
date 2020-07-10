@@ -67,7 +67,7 @@ chart.render(); // 由 chart 负责统一的渲染
 import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
-fetch('../data/world.geo.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/world.geo.json')
   .then((res) => res.json())
   .then((mapData) => {
     const chart = new Chart({

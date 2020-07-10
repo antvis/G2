@@ -1,7 +1,7 @@
 import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
-fetch('../data/usa.geo.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/usa.geo.json')
   .then(res => res.json())
   .then(GeoJSON => {
     const userData = [];

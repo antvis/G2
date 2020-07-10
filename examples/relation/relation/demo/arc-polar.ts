@@ -11,7 +11,7 @@ const colors = [
   '#3436C7',
   '#F04864'
 ];
-fetch('../data/relationship-with-weight.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/relationship-with-weight.json')
   .then(res => res.json())
   .then(data => {
     // arc diagram layout
