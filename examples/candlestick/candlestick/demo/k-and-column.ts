@@ -1,7 +1,7 @@
 import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
-fetch('../data/candle-sticks.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/candle-sticks.json')
   .then(res => res.json())
   .then(data => {
     // 设置状态量，时间格式建议转换为时间戳，转换为时间戳时请注意区间

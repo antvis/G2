@@ -44,7 +44,7 @@ registerInteraction('highlight-view', {
     { trigger: 'dblclick', action: ['rect-mask:hide', 'element-sibling-highlight:clear', 'element-range-highlight:clear']}
   ]
 });
-fetch('../data/iris.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/iris.json')
   .then(res => res.json())
   .then(data => {
     const COLOR = [ '#880000', '#008800', '#000088' ];

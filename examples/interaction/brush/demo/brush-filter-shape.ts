@@ -34,7 +34,7 @@ registerInteraction('other-visible', {
   ]
 });
 
-fetch('../data/scatter.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json')
   .then((res) => res.json())
   .then((data) => {
     const femaleData = data.filter(record => record.gender === 'female');

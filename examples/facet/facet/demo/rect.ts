@@ -1,6 +1,6 @@
 import { Chart } from '@antv/g2';
 
-fetch('../data/diamond.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json')
   .then(res => res.json())
   .then(data => {
     const chart = new Chart({

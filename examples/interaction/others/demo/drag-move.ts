@@ -6,7 +6,7 @@ registerInteraction('drag-move', {
   end: [{ trigger: 'plot:mouseup', action: 'scale-translate:end' }],
 });
 
-fetch('../data/scatter.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json')
   .then((res) => res.json())
   .then((data) => {
     const chart = new Chart({
