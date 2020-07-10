@@ -12,10 +12,9 @@ const chart = new Chart({
   height: 500,
 });
 chart.data(data);
-//chart.legend(false);
+
 chart.coordinate('theta', {
-  radius: 0.75,
-  innerRadius: 0.4
+  radius: 0.75
 });
 chart.tooltip({
   showMarkers: false
@@ -54,7 +53,7 @@ const interval = chart
     };
   });
 
-chart.interaction('legend-active');
+chart.interaction('element-single-selected');
 
 chart.render();
 
