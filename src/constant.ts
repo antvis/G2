@@ -26,6 +26,8 @@ export enum DIRECTION {
   BOTTOM = 'bottom',
   BOTTOM_LEFT = 'bottom-left',
   BOTTOM_RIGHT = 'bottom-right',
+  RADIUS = 'radius',
+  CIRCLE = 'circle',
   // no direction information
   NONE = 'none',
 }
