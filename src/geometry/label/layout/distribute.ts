@@ -1,9 +1,10 @@
-import { isObject, each, get } from '@antv/util';
+import { isObject, each, find, get } from '@antv/util';
 
 import { BBox, IGroup, IShape } from '../../../dependents';
 import { LabelItem } from '../interface';
 
 import { polarToCartesian } from '../../../util/graphics';
+import { IElement } from '@antv/g-base';
 
 /** label text和line距离 4px */
 const MARGIN = 4;
@@ -104,6 +105,14 @@ function antiCollision(labelShapes, labels, lineHeight, plotRange, center, isRig
     const labelShape = labelsMap[label.id];
     labelShape.attr('x', label.x);
     labelShape.attr('y', label.y);
+
+    // because group could not effect text-shape, should set text-shape position manually
+    const textShape = find(labelShape.getChildren(), (ele) => ele.get('type') === 'text') as IElement;
+    // @ts-ignore
+    if (textShape) {
+      textShape.attr('y', label.y);
+      textShape.attr('x', label.x);
+    }
   });
 }
 
