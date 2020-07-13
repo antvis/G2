@@ -64,17 +64,21 @@ export function getRectPoints(pointInfo: ShapePoint, isPyramid = false): Point[]
  * @ignore
  * 根据矩形关键点绘制 path
  * @param points 关键点数组
+ * @param isClosed path 是否需要闭合
  * @returns 返回矩形的 path
  */
-export function getRectPath(points: Point[]): PathCommand[] {
+export function getRectPath(points: Point[], isClosed: boolean = true): PathCommand[] {
   const path = [];
   const firstPoint = points[0];
   path.push(['M', firstPoint.x, firstPoint.y]);
   for (let i = 1, len = points.length; i < len; i++) {
     path.push(['L', points[i].x, points[i].y]);
   }
-  path.push(['L', firstPoint.x, firstPoint.y]); // 需要闭合
-  path.push(['z']);
+  // 对于 shape="line" path 不应该闭合，否则会造成 lineCap 绘图属性失效
+  if (isClosed) {
+    path.push(['L', firstPoint.x, firstPoint.y]); // 需要闭合
+    path.push(['z']);
+  }
   return path;
 }
 
