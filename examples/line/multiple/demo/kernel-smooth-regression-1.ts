@@ -31,7 +31,7 @@ function getStaticsData(data) {
   });
 }
 
-fetch('../data/diamond.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json')
   .then((res) => res.json())
   .then((data) => {
     const statics = getStaticsData(data);

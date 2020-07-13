@@ -24,7 +24,7 @@ const COLOR_PLATE_20 = [
   '#FFD6E7',
 ];
 
-fetch('../data/diamond.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json')
   .then(res => res.json())
   .then(data => {
     const chart = new Chart({

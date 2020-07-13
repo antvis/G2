@@ -144,7 +144,7 @@ export default class Chart extends View {
    * @returns
    */
   public changeVisible(visible: boolean) {
-    super.changeVisible(visible);
+    super.changeVisible(visible); // 需要更新 visible 变量
     this.wrapperElement.style.display = visible ? '' : 'none';
 
     return this;

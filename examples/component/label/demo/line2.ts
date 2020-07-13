@@ -1,6 +1,6 @@
 import { Chart } from '@antv/g2';
 
-fetch('../data/salesTrend.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/salesTrend.json')
   .then((res) => res.json())
   .then((data) => {
     const TICKS = ['2012-09', '2013-05', '2014-01', '2014-09', '2015-05', '2016-01', '2016-09', '2017-05', '2018-02'];

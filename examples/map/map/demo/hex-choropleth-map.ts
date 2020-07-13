@@ -17,7 +17,7 @@ function getCount(x, y, medianX, medianY) {
   }
   return 1;
 }
-fetch('../data/china-provinces.geo.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/china-provinces.geo.json')
   .then(res => res.json())
   .then(GeoJSON => {
     const geoDv = new DataSet.View().source(GeoJSON, {

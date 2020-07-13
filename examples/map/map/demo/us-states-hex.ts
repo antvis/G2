@@ -1,7 +1,7 @@
 import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
-fetch('../data/us-states.hex.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/us-states.hex.json')
   .then(res => res.json())
   .then(data => {
     const dv = new DataSet.View().source(data, {

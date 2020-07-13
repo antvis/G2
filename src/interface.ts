@@ -1349,6 +1349,14 @@ export interface AxisCfg {
   animateOption?: ComponentAnimateOption;
   /** 标记坐标轴 label 的方向，左侧为 1，右侧为 -1。 */
   verticalFactor?: number;
+  /**
+   * 配置坐标轴垂直方向的最大限制长度，对文本自适应有很大影响。
+   * 1. 可以直接设置像素值，如 100；
+   * 2. 也可设置绝对值，如 0.2，如果是 x 轴，则相对于图表的高度，如果是 y 轴，则相对于图表的宽度
+   *
+   * 在 G2 中，x 轴的文本默认最大高度为图表高度的 1/2，y 轴的文本默认最大长度为图表宽度的 1/3
+   */
+  verticalLimitLength?: number;
 }
 
 /** 配置项声明式 */

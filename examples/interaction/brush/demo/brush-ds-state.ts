@@ -1,6 +1,6 @@
 import { Chart, registerInteraction } from '@antv/g2';
 
-fetch('../data/sp500.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/sp500.json')
 .then(res => res.json())
 .then(data => {
 

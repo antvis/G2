@@ -3,7 +3,7 @@ import { Chart } from '@antv/g2';
 
 const COLOR = ['#1890FF', '#2FC25B', '#FACC14'];
 
-fetch('../data/iris.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/iris.json')
   .then(res => res.json())
   .then(data => {
     const chart = new Chart({

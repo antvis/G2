@@ -33,7 +33,7 @@ registerShape('point', 'cloud', {
     return textShape;
   }
 });
-fetch('../data/world-population.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/world-population.json')
   .then(res => res.json())
   .then(data => {
     const dv = new DataSet.View().source(data);
