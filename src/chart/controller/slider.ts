@@ -189,6 +189,16 @@ export default class Slider extends Controller<Option> {
   private getData(): number[] {
     const data = this.view.getOptions().data;
     const [yScale] = this.view.getYScales();
+    const groupScales = this.view.getGroupScales();
+    if (groupScales.length) {
+      const { field, ticks } = groupScales[0];
+      return data.reduce((pre, cur) => {
+        if (cur[field] === ticks[0]) {
+          pre.push(cur[yScale.field] as number);
+        }
+        return pre;
+      }, []) as number[];
+    }
 
     return data.map((datum) => datum[yScale.field] || 0);
   }
@@ -207,8 +217,8 @@ export default class Slider extends Controller<Option> {
 
   private updateMinMaxText(min: number, max: number) {
     const data = this.view.getOptions().data;
-    const dataSize = size(data);
     const xScale = this.view.getXScale();
+    const dataSize = size(data);
 
     if (!xScale || !dataSize) {
       return;
@@ -216,14 +226,19 @@ export default class Slider extends Controller<Option> {
 
     const x = xScale.field;
 
-    // x 轴数据
-    const xData = data.map((datum) => datum[x] || '');
+    // x 轴刻度
+    const xTicks = data.reduce((pre, datum) => {
+      if (!pre.includes(datum[x])) pre.push(datum[x]);
+      return pre;
+    }, []);
 
-    const minIndex = Math.floor(min * (dataSize - 1));
-    const maxIndex = Math.floor(max * (dataSize - 1));
+    const xTickCount = size(xTicks);
 
-    let minText = get(xData, [minIndex]);
-    let maxText = get(xData, [maxIndex]);
+    const minIndex = Math.floor(min * (xTickCount - 1));
+    const maxIndex = Math.floor(max * (xTickCount - 1));
+
+    let minText = get(xTicks, [minIndex]);
+    let maxText = get(xTicks, [maxIndex]);
 
     const formatter = this.getSliderCfg().formatter as SliderFormatterType;
     if (formatter) {
@@ -240,7 +255,10 @@ export default class Slider extends Controller<Option> {
     });
 
     // 增加 x 轴的过滤器
-    this.view.filter(xScale.field, (value: any, datum: Datum, idx: number) => isBetween(idx, minIndex, maxIndex));
+    this.view.filter(xScale.field, (value: any, datum: Datum) => {
+      const idx: number = xTicks.indexOf(value);
+      return idx > -1 ? isBetween(idx, minIndex, maxIndex) : true;
+    });
   }
 
   /**
