@@ -19,7 +19,6 @@
     "site:deploy": "npm run doc && npm run site:build && gh-pages -d public",
     "clean": "rimraf lib esm dist",
     "lint": "run-p lint:*",
-    "lint:prettier": "prettier -c 'src/**/*.ts'",
     "lint:tslint": "tslint -c tslint.json 'src/**/*.ts'",
     "test": "jest",
     "test-live": "DEBUG_MODE=1 jest --watch tests/unit",
@@ -53,7 +52,7 @@
   },
   "devDependencies": {
     "@antv/data-set": "^0.11.2",
-    "@antv/gatsby-theme-antv": "^0.10.37",
+    "@antv/gatsby-theme-antv": "^0.10.69",
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-angular": "^8.2.0",
     "@types/jest": "^25.2.1",

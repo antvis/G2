@@ -1,7 +1,7 @@
 import { DataView } from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
-fetch('../data/iris.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/iris.json')
   .then(res => res.json())
   .then(data => {
     const dv = new DataView().source(data);

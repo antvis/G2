@@ -18,7 +18,7 @@ function findMaxMin(data) {
   return { max: maxObj, min: minObj };
 }
 
-fetch('../data/nintendo.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/nintendo.json')
   .then(res => res.json())
   .then(data => {
     const chart = new Chart({

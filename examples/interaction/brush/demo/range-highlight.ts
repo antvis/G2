@@ -1,7 +1,7 @@
 import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
-fetch('../data/top2000.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/top2000.json')
   .then(res => res.json())
   .then(data => {
     const ds = new DataSet();

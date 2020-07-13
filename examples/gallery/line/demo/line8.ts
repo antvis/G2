@@ -152,7 +152,7 @@ registerShape('point', 'breath-point', {
   }
 });
 
-fetch('../data/cpu-data.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/cpu-data.json')
   .then(res => res.json())
   .then(data => {
     const chart = new Chart({
