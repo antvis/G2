@@ -190,7 +190,7 @@ export default class Slider extends Controller<Option> {
     const data = this.view.getOptions().data;
     const [yScale] = this.view.getYScales();
     const groupScales = this.view.getGroupScales();
-    if (groupScales) {
+    if (groupScales.length) {
       const { field, ticks } = groupScales[0];
       return data.reduce((pre, cur) => {
         if (cur[field] === ticks[0]) {
