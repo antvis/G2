@@ -64,6 +64,7 @@ export function getRectPoints(pointInfo: ShapePoint, isPyramid = false): Point[]
  * @ignore
  * 根据矩形关键点绘制 path
  * @param points 关键点数组
+ * @param isClosed path 是否需要闭合
  * @returns 返回矩形的 path
  */
 export function getRectPath(points: Point[], isClosed: boolean = true): PathCommand[] {
