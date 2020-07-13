@@ -1,12 +1,11 @@
 import { deepMix, each, get, isArray } from '@antv/util';
-
-import { BBox, IGroup, IShape } from '../dependents';
+import { BBox, Coordinate, IGroup, IShape } from '../dependents';
 import { LabelItem } from '../geometry/label/interface';
 import { AnimateOption, GeometryLabelLayoutCfg } from '../interface';
 
 import { doAnimate } from '../animate';
 import { getGeometryLabelLayout } from '../geometry/label';
-import { getReplaceAttrs } from '../util/graphics';
+import { getReplaceAttrs, polarToCartesian } from '../util/graphics';
 import { rotate, translate } from '../util/transform';
 
 /**
@@ -230,7 +229,11 @@ export default class Labels {
   }
 
   private renderLabelLine(labelItems: LabelItem[]) {
+    const coordinate: Coordinate = get(labelItems[0], 'coordinate');
+
     each(labelItems, (labelItem) => {
+      const center = coordinate.getCenter();
+      const radius = coordinate.getRadius();
       if (!labelItem) {
         return;
       }
@@ -242,7 +245,7 @@ export default class Labels {
       const id = labelItem.id;
       let path = labelLineCfg.path;
       if (!path) {
-        const start = labelItem.start;
+        const start = polarToCartesian(center.x, center.y, radius, labelItem.angle);
         path = [
           ['M', start.x, start.y],
           ['L', labelItem.x, labelItem.y],
