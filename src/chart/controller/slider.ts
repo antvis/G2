@@ -4,7 +4,7 @@ import { IGroup, Slider as SliderComponent, TrendCfg } from '../../dependents';
 import { ComponentOption, Datum } from '../../interface';
 import { BBox } from '../../util/bbox';
 import { directionToPosition } from '../../util/direction';
-import { uniq, omit } from '../../util/helper';
+import { isBetween, omit } from '../../util/helper';
 import View from '../view';
 import { Controller } from './base';
 
@@ -150,8 +150,7 @@ export default class Slider extends Controller<Option> {
    */
   private updateSlider() {
     const cfg = this.getSliderCfg();
-    // 自适应屏幕 不能去掉width
-    omit(cfg, ['x', 'y', 'start', 'end', 'minText', 'maxText']);
+    omit(cfg, ['x', 'y', 'width', 'start', 'end', 'minText', 'maxText']);
 
     this.slider.component.update(cfg);
 
@@ -190,6 +189,16 @@ export default class Slider extends Controller<Option> {
   private getData(): number[] {
     const data = this.view.getOptions().data;
     const [yScale] = this.view.getYScales();
+    const groupScales = this.view.getGroupScales();
+    if (groupScales.length) {
+      const { field, ticks } = groupScales[0];
+      return data.reduce((pre, cur) => {
+        if (cur[field] === ticks[0]) {
+          pre.push(cur[yScale.field] as number);
+        }
+        return pre;
+      }, []) as number[];
+    }
 
     return data.map((datum) => datum[yScale.field] || 0);
   }
@@ -209,21 +218,27 @@ export default class Slider extends Controller<Option> {
   private updateMinMaxText(min: number, max: number) {
     const data = this.view.getOptions().data;
     const xScale = this.view.getXScale();
-    const x = xScale.field;
-    // x 轴数据
-    const xData = data.map((datum) => datum[x] || '');
-    const uniqData = uniq(xData, [], {});
-    const dataSize = size(uniqData);
+    const dataSize = size(data);
 
     if (!xScale || !dataSize) {
       return;
     }
 
-    const minIndex = Math.floor(min * (dataSize - 1));
-    const maxIndex = Math.floor(max * (dataSize - 1));
+    const x = xScale.field;
 
-    let minText = get(xData, [minIndex]);
-    let maxText = get(xData, [maxIndex]);
+    // x 轴刻度
+    const xTicks = data.reduce((pre, datum) => {
+      if (!pre.includes(datum[x])) pre.push(datum[x]);
+      return pre;
+    }, []);
+
+    const xTickCount = size(xTicks);
+
+    const minIndex = Math.floor(min * (xTickCount - 1));
+    const maxIndex = Math.floor(max * (xTickCount - 1));
+
+    let minText = get(xTicks, [minIndex]);
+    let maxText = get(xTicks, [maxIndex]);
 
     const formatter = this.getSliderCfg().formatter as SliderFormatterType;
     if (formatter) {
@@ -238,25 +253,12 @@ export default class Slider extends Controller<Option> {
       start: min,
       end: max,
     });
-    const minVal = Math.min(minIndex, maxIndex);
-    const maxVal = Math.max(minIndex, maxIndex);
-    // 记录当前显示横坐标
-    const xField = [];
-    // 记录当前过滤的横坐标
-    const filterField = [];
-    xData.forEach((item, idx) => {
-      // 将不在当前slider范围横坐标放进数组
-      if (!(idx >= minVal && idx <= maxVal) && !filterField.includes(item)) {
-        filterField.push(item)
-      }
-      // 只有当前横坐标在slider范围而且过滤数组没有 才放进显示的数据中
-      // 多曲线或者分组图多个数据横坐标相同 避免出现拖动slider相同横坐标数据消失不统一
-      if (idx >= minVal && idx <= maxVal && !xField.includes(item) && !filterField.includes(item)) {
-        xField.push(item);
-      }
-    })
+
     // 增加 x 轴的过滤器
-    this.view.filter(xScale.field, (value: any, datum: Datum, idx: number) => xField.includes(value));
+    this.view.filter(xScale.field, (value: any, datum: Datum) => {
+      const idx: number = xTicks.indexOf(value);
+      return idx > -1 ? isBetween(idx, minIndex, maxIndex) : true;
+    });
   }
 
   /**

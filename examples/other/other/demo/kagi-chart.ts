@@ -1,6 +1,6 @@
 import { Chart } from '@antv/g2';
 
-fetch('../data/kagi.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/kagi.json')
   .then(res => res.json())
   .then(data => {
     // 获取卡吉图数据点

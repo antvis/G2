@@ -55,7 +55,7 @@ registerShape('polygon', 'boundary-polygon', {
   }
 });
 
-fetch('../data/github-commit.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/github-commit.json')
   .then(res => res.json())
   .then(data => {
     const chart = new Chart({

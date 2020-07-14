@@ -26,6 +26,8 @@ export enum DIRECTION {
   BOTTOM = 'bottom',
   BOTTOM_LEFT = 'bottom-left',
   BOTTOM_RIGHT = 'bottom-right',
+  RADIUS = 'radius',
+  CIRCLE = 'circle',
   // no direction information
   NONE = 'none',
 }
@@ -99,6 +101,16 @@ export enum PLOT_EVENTS {
 
   LEAVE = 'plot:leave',
   ENTER = 'plot:enter',
+}
+
+/**
+ * Element 图形交互状态
+ */
+export enum ELEMENT_STATE {
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+  SELECTED = 'selected',
+  DEFAULT = 'default',
 }
 
 /** 参与分组的图形属性名 */

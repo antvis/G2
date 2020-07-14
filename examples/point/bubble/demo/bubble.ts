@@ -7,7 +7,7 @@ const colorMap = {
   Oceania: '#223273',
 };
 
-fetch('../data/bubble.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json')
   .then(res => res.json())
   .then(data => {
     const chart = new Chart({

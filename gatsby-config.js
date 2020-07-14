@@ -23,28 +23,20 @@ module.exports = {
     },
     navs: [
       {
+        slug: 'docs/manual',
+        title: {
+          zh: '使用文档',
+          en: 'Manual',
+        },
+        order: 1,
+      },
+      {
         slug: 'examples',
         title: {
           zh: '图表示例',
           en: 'Examples',
         },
         order: 0,
-      },
-      {
-        slug: 'docs/manual',
-        title: {
-          zh: '教程',
-          en: 'Tutorials',
-        },
-        order: 1,
-      },
-      {
-        slug: 'docs/api/g2',
-        title: {
-          zh: 'API 文档',
-          en: 'API',
-        },
-        order: 2,
       },
     ],
     docs: [

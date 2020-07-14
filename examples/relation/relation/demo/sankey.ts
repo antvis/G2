@@ -2,7 +2,7 @@
 import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
-fetch('../data/energy.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/energy.json')
   .then(res => res.json())
   .then(data => {
     // arc diagram layout

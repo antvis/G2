@@ -1,7 +1,7 @@
 import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
-fetch('../data/rain-flow.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/rain-flow.json')
   .then((res) => res.json())
   .then((data) => {
     const ds = new DataSet({
@@ -31,7 +31,7 @@ fetch('../data/rain-flow.json')
       time: {
         type: 'time',
         tickCount: 8,
-        mask: 'm/dd hh:MM'
+        mask: 'M/DD HH:mm'
       },
       flow: {
         alias: '流量(m^3/s)',

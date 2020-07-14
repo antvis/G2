@@ -45,10 +45,7 @@ describe('Tooltip functions', () => {
       container: canvas.addGroup(),
     });
 
-    interval
-      .position('city*sale')
-      .color('category')
-      .adjust('stack');
+    interval.position('city*sale').color('category').adjust('stack');
     interval.init({
       theme: Theme,
     });
@@ -177,6 +174,89 @@ describe('Tooltip functions', () => {
       expect(value).toBe('17000');
       expect(title).toBe('1995');
       expect(mappingData).toBeDefined();
+    });
+  });
+
+  describe('empty group field value', () => {
+    const DATA = [
+      {
+        x: 'A',
+        y: 11,
+        z: 'Z1',
+      },
+      {
+        x: 'B',
+        y: 22,
+        z: 'Z1',
+      },
+      {
+        x: 'C',
+        y: 33,
+        z: 'Z1',
+      },
+      {
+        x: 'A',
+        y: 20,
+        z: 'Z2',
+      },
+      {
+        x: 'B',
+        y: 30,
+        z: 'Z2',
+      },
+      {
+        x: 'C',
+        y: 40,
+        z: 'Z2',
+      },
+      {
+        x: 'A',
+        y: 20,
+        z: '',
+      },
+      {
+        x: 'B',
+        y: 30,
+        z: '',
+      },
+      {
+        x: 'C',
+        y: 40,
+        z: '',
+      },
+    ];
+    const scales = {
+      x: createScale('x', DATA, {
+        x: {
+          nice: true,
+        },
+      }),
+      y: createScale('y', DATA, {
+        y: { nice: true },
+      }),
+      z: createScale('z', DATA, {
+        z: { nice: true },
+      }),
+    };
+
+    const interval = new Interval({
+      data: DATA,
+      scales,
+      coordinate: rectCoord,
+      container: canvas.addGroup(),
+    });
+    interval.position('x*y').color('z').adjust('stack');
+    interval.init({
+      theme: Theme,
+    });
+    interval.paint();
+
+    it('getTooltipItems', () => {
+      const data = findDataByPoint({ x: 100, y: 90 }, interval.dataArray[2] as MappingDatum[], interval);
+      const tooltipItems = getTooltipItems(data, interval);
+      tooltipItems.forEach((item) => {
+        expect(item.name).toBe('');
+      });
     });
   });
 

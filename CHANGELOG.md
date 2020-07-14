@@ -1,3 +1,40 @@
+#### 4.0.12 (2020-06-24)
+
+##### Chores
+
+- 添加 lint-staged 配置 ([#2600](https://github.com/antvis/g2/pull/2600)) ([a776ddd1](https://github.com/antvis/g2/commit/a776ddd15d8b4f7456710d38c80f6a53c37cd24e))
+
+- 优化 pre-commit hooks，github ci 服务太慢并且做不到强行约束，信息很容易忽略掉
+
+##### Bug Fixes
+
+- highlight-by-x Action toggle() 失效的问题
+
+#### 4.0.11 (2020-06-18)
+
+##### Documentation Changes
+
+- fix indentation ([#2580](https://github.com/antvis/g2/pull/2580)) ([4ffdff52](https://github.com/antvis/g2/commit/4ffdff52954bbdae7d826ac25e536d5c31a9560f))
+- **site:** update size nav ([#2572](https://github.com/antvis/g2/pull/2572)) ([3ec492ee](https://github.com/antvis/g2/commit/3ec492ee146206f1b06b93264168bd7d05c87283))
+
+##### Bug Fixes
+
+- **2570:** 修复 appendPadding 设置后，图表更新不断缩小的问题 ([#2577](https://github.com/antvis/g2/pull/2577)) ([402e7b01](https://github.com/antvis/g2/commit/402e7b018423516a3d5bdbb39bdf666491c43306))
+- **legend:** 修改 legend 布局的宽高限制 ([#2587](https://github.com/antvis/g2/pull/2587)) ([055043f1](https://github.com/antvis/g2/commit/055043f11142cbdeec82e606eb3882f8a58db5c3))
+- error if chart destroyed during resize ([#2547](https://github.com/antvis/g2/pull/2547)) ([2290ed38](https://github.com/antvis/g2/commit/2290ed38ea851936dd0066f1ee41ce9572ba30ee))
+
+#### 4.0.10 (2020-06-09)
+
+##### New Features
+
+- 增加 appendPadding 调节 padding ([#2502](https://github.com/antvis/g2/pull/2502)) ([fe352ce3](https://github.com/antvis/g2/commit/fe352ce315ad2384b0f8fb3413e8b6612952261b))
+
+##### Bug Fixes
+
+- **2505:** 修复图表暗黑主题无背景色的问题 ([#2512](https://github.com/antvis/g2/pull/2512)) ([1a025c0a](https://github.com/antvis/g2/commit/1a025c0abc7ea42b820bdd9f2ce4160a6319e08f))
+- **annotation:** fix regionFilter not work on sub view ([#2531](https://github.com/antvis/g2/pull/2531)) ([e8c58349](https://github.com/antvis/g2/commit/e8c5834941987202cc86506e6ef1963a3f3e49e2))
+- **line 40:** replace '!=' with '!==' ([#2519](https://github.com/antvis/g2/pull/2519)) ([02a22a56](https://github.com/antvis/g2/commit/02a22a56a5351d567ed374fbcc1316e891f668a1))
+
 #### 4.0.9 (2020-05-28)
 
 ##### New Features

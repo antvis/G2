@@ -1,4 +1,4 @@
-import { COMPONENT_TYPE } from '../../../../src/constant';
+import { COMPONENT_TYPE, COMPONENT_MAX_VIEW_PERCENTAGE } from '../../../../src/constant';
 import { Chart } from '../../../../src/index';
 import { createDiv } from '../../../util/dom';
 
@@ -130,13 +130,10 @@ describe('Legend', () => {
     chart.legend({
       custom: true,
       items: [
-        // @ts-ignore
         { name: 'London', value: 'London', marker: { symbol: 'tick', style: { r: 10 } } },
-        // @ts-ignore
         { name: 'Berlin', value: 'Berlin', marker: { symbol: 'circle', style: { r: 10 } } },
       ],
       title: {
-        // @ts-ignore
         text: '城市',
       },
     });
@@ -200,6 +197,7 @@ describe('Legend', () => {
     });
 
     chart.data(data);
+    chart.animate(false);
     chart.scale('sold', {
       max: 3600,
       nice: false,
@@ -211,6 +209,10 @@ describe('Legend', () => {
 
     const legend = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND)[0].component;
 
+    expect(legend.get('maxWidth')).toBe(chart.viewBBox.width);
+    expect(legend.get('maxHeight')).toBe(chart.viewBBox.height * COMPONENT_MAX_VIEW_PERCENTAGE);
+
+    chart.changeSize(300, 300);
     expect(legend.get('flipPage')).toBe(true);
     // @ts-ignore
     expect(legend.totalPagesCnt).toBe(2);

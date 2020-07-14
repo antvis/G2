@@ -174,6 +174,8 @@ describe('Chart', () => {
     expect(chart.getLayer(LAYER.FORE).destroyed).toBe(true);
     expect(destroyEvent).toBeCalledTimes(1);
 
+    expect(() => { chart.forceFit() }).not.toThrow();
+    expect(chart.destroyed).toBe(true);
     expect(chart.canvas.destroyed).toBe(true);
     expect(div.childNodes.length).toBe(0);
 

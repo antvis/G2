@@ -1,7 +1,7 @@
 import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
-fetch('../data/gaussion-distribution.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/gaussion-distribution.json')
   .then(res => res.json())
   .then(data => {
     const ds = new DataSet({

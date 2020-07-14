@@ -587,14 +587,15 @@ export default class Legend extends Controller<Option> {
 
   private getCategoryLegendSizeCfg(layout: 'horizontal' | 'vertical') {
     const { width: vw, height: vh } = this.view.viewBBox;
-    const { width: cw, height: ch } = this.view.coordinateBBox;
+    // 目前 legend 的布局是以 viewBBox 为参照
+    // const { width: cw, height: ch } = this.view.coordinateBBox;
     return layout === 'vertical'
       ? {
           maxWidth: vw * COMPONENT_MAX_VIEW_PERCENTAGE,
-          maxHeight: ch,
+          maxHeight: vh,
         }
       : {
-          maxWidth: cw,
+          maxWidth: vw,
           maxHeight: vh * COMPONENT_MAX_VIEW_PERCENTAGE,
         };
   }
