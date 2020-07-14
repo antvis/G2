@@ -233,7 +233,7 @@ chart.scale('value', {
 
 这种度量并不适合坐标轴，而应用于连续字段的图例上，目前还未支持，在 4.0 后面的版本中逐渐支持。
 
-[image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*IhBeS57XNe4AAAAAAAAAAABkARQnAQ)
+![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*IhBeS57XNe4AAAAAAAAAAABkARQnAQ)
 
 ### quantile
 
