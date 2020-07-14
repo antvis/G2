@@ -167,7 +167,7 @@ chart.scale('x', {
 
 ### 所有连续度量都支持的配置项
 
-- nice：是否优化显示度量的刻度值，设置了这个值后会对 min, max 进行优化显示，以下图 y 轴的数据范围是 【0-1】，nice 前后的对比可以看出后者 nice: true 时将最大值优化成了 14。
+- nice：是否优化显示度量的刻度值，设置了这个值后会对 min, max 进行优化显示，以下图 y 轴的数据范围是 【0-12】，nice 前后的对比可以看出后者 nice: true 时将最大值优化成了 14。
 
 ![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*L7--TooF7ucAAAAAAAAAAABkARQnAQ)
 
