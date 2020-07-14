@@ -23,20 +23,20 @@ module.exports = {
     },
     navs: [
       {
+        slug: 'docs/manual',
+        title: {
+          zh: '使用文档',
+          en: 'Manual',
+        },
+        order: 1,
+      },
+      {
         slug: 'examples',
         title: {
           zh: '图表示例',
           en: 'Examples',
         },
         order: 0,
-      },
-      {
-        slug: 'docs/manual',
-        title: {
-          zh: '教程文档',
-          en: 'Tutorials',
-        },
-        order: 1,
       },
     ],
     docs: [
