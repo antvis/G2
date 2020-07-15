@@ -62,6 +62,7 @@ import TooltipComponent from './controller/tooltip';
 import Event from './event';
 import defaultLayout, { Layout } from './layout';
 import { ScalePool } from './util/scale-pool';
+import { isAutoPadding } from '../util/padding';
 
 /**
  * G2 视图 View 类
@@ -1265,7 +1266,7 @@ export class View extends Base {
     const viewBBox = this.viewBBox;
     const coordinateBBox = this.coordinateBBox;
 
-    if (!this.padding) {
+    if (isAutoPadding(this.padding)) {
       // 用户未设置 padding 时，将自动计算的 padding 保存至 autoPadding 属性中
       this.autoPadding = [
         coordinateBBox.tl.y - viewBBox.tl.y,
