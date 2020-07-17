@@ -13,36 +13,52 @@ function getPath(
   registeredShape: Shape,
   constraint?: Position[]
 ): PathCommand[] {
-  const topLinePoints = []; // area 区域上部分
-  let bottomLinePoints = []; // area 区域下部分
-  for (let i = 0, len = points.length; i < len; i++) {
-    const point = points[i];
-    topLinePoints.push(point[1]);
-    bottomLinePoints.push(point[0]);
-  }
-  bottomLinePoints = bottomLinePoints.reverse();
-
   let path = [];
-  each([topLinePoints, bottomLinePoints], (pointsData, index) => {
-    let subPath = [];
-    const parsedPoints = registeredShape.parsePoints(pointsData);
-    const p1 = parsedPoints[0];
-    if (isInCircle) {
-      parsedPoints.push({ x: p1.x, y: p1.y });
-    }
-    if (smooth) {
-      subPath = getSplinePath(parsedPoints, false, constraint);
-    } else {
-      subPath = getLinePath(parsedPoints, false);
-    }
 
-    if (index > 0) {
-      subPath[0][0] = 'L';
+  if (points.length) {
+    const topLinePoints = []; // area 区域上部分
+    let bottomLinePoints = []; // area 区域下部分
+    for (let i = 0, len = points.length; i < len; i++) {
+      const point = points[i];
+      topLinePoints.push(point[1]);
+      bottomLinePoints.push(point[0]);
     }
-    path = path.concat(subPath);
-  });
+    bottomLinePoints = bottomLinePoints.reverse();
 
-  path.push(['Z']);
+    each([topLinePoints, bottomLinePoints], (pointsData, index) => {
+      let subPath = [];
+      const parsedPoints = registeredShape.parsePoints(pointsData);
+      const p1 = parsedPoints[0];
+
+      if (topLinePoints.length === 1 && bottomLinePoints.length === 1) {
+        // 都只有一个点，绘制一条竖线
+        subPath = index === 0 ? [
+          ['M', p1.x - 0.5, p1.y],
+          ['L', p1.x + 0.5, p1.y],
+        ] : [
+            ['L', p1.x + 0.5, p1.y],
+            ['L', p1.x - 0.5, p1.y],
+          ];
+      } else {
+        if (isInCircle) {
+          parsedPoints.push({ x: p1.x, y: p1.y });
+        }
+        if (smooth) {
+          subPath = getSplinePath(parsedPoints, false, constraint);
+        } else {
+          subPath = getLinePath(parsedPoints, false);
+        }
+        if (index > 0) {
+          subPath[0][0] = 'L';
+        }
+      }
+
+      path = path.concat(subPath);
+    });
+
+    path.push(['Z']);
+  }
+
   return path;
 }
 
@@ -64,8 +80,8 @@ export function getShapeAttrs(
   constraint?: Position[]
 ) {
   const attrs = getStyle(cfg, isStroke, !isStroke, 'lineWidth');
-  const { connectNulls, isInCircle, points } = cfg;
-  const pathPoints = getPathPoints(points, connectNulls); // 根据 connectNulls 配置获取图形关键点
+  const { connectNulls, isInCircle, points, showSinglePoint } = cfg;
+  const pathPoints = getPathPoints(points, connectNulls, showSinglePoint); // 根据 connectNulls 配置获取图形关键点
 
   let path = [];
   for (let i = 0, len = pathPoints.length; i < len; i++) {

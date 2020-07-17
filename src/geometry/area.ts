@@ -36,9 +36,10 @@ export default class Area extends Path {
   constructor(cfg: AreaCfg) {
     super(cfg);
 
-    const { startOnZero = true, sortable = true } = cfg;
+    const { startOnZero = true, sortable = true, showSinglePoint = false } = cfg;
     this.startOnZero = startOnZero; // 默认为 true
     this.sortable = sortable; // Area 默认会对数据按照 x 轴字段进行正向排序
+    this.showSinglePoint = showSinglePoint;
   }
 
   /**

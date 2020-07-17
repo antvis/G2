@@ -64,7 +64,7 @@ function getInterpolatePath(points: Point[]) {
 
 // 插值的图形
 function getInterpolateShapeAttrs(cfg: ShapeInfo, shapeType: string) {
-  const points = getPathPoints(cfg.points, cfg.connectNulls); // 根据 connectNulls 值处理 points
+  const points = getPathPoints(cfg.points, cfg.connectNulls, cfg.showSinglePoint); // 根据 connectNulls 值处理 points
   let path = [];
   each(points, (eachLinePoints) => {
     const interpolatePoints = getInterpolatePoints(eachLinePoints, shapeType);

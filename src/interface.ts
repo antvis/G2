@@ -113,8 +113,10 @@ export interface ShapeInfo {
   text?: string;
   /** 数据是否发生层叠 */
   isStack?: boolean;
-  /** 是否连接空值，对 Path Line Area 这三种 Geometry 生效 */
+  /** 是否连接空值，只对 Path Line Area 这三种 Geometry 生效。 */
   connectNulls?: boolean;
+  /** 是否展示单个孤立的数据点，只对 Path Line Area 这三种 Geometry 生效。 */
+  showSinglePoint?: boolean;
   /** 默认的 shape 样式 */
   defaultStyle?: LooseObject;
 }

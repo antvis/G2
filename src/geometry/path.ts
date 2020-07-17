@@ -10,6 +10,8 @@ import { isModelChange } from './util/is-model-change';
 export interface PathCfg extends GeometryCfg {
   /** 是否连接空值 */
   connectNulls?: boolean;
+  /** 单个孤立数据点是否展示 */
+  showSinglePoint?: boolean;
 }
 
 /**
@@ -21,12 +23,15 @@ export default class Path extends Geometry {
   public readonly shapeType: string = 'line';
   /** 是否连接空值 */
   public connectNulls: boolean;
+  /** 单个孤立数据点是否展示 */
+  public showSinglePoint: boolean;
 
   constructor(cfg: PathCfg) {
     super(cfg);
 
-    const { connectNulls = false } = cfg;
+    const { connectNulls = false, showSinglePoint = true } = cfg;
     this.connectNulls = connectNulls;
+    this.showSinglePoint = showSinglePoint;
   }
 
   /**
@@ -101,6 +106,7 @@ export default class Path extends Geometry {
     shapeCfg.isStack = !!this.getAdjust('stack');
     shapeCfg.points = points;
     shapeCfg.connectNulls = this.connectNulls;
+    shapeCfg.showSinglePoint = this.showSinglePoint;
 
     return shapeCfg;
   }
