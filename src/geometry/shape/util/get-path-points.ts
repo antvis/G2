@@ -37,10 +37,12 @@ function isYNil(point: Point[] | RangePoint) {
  *
  * @param points 要进行处理点集合
  * @param connectNulls 是否连接空值数据
+ * @param showSinglePoint 是否展示孤立点
  * @returns 返回处理后的点集合
  */
-export function getPathPoints(points: ShapeVertices, connectNulls?: boolean) {
-  if (!points.length) {
+export function getPathPoints(points: ShapeVertices, connectNulls: boolean = false, showSinglePoint: boolean = true) {
+  if (!points.length || (points.length === 1 && !showSinglePoint)) {
+    // 空或者只有一个点并配置不展示时
     return [];
   }
 
@@ -62,7 +64,10 @@ export function getPathPoints(points: ShapeVertices, connectNulls?: boolean) {
     const point = points[i];
     if (isYNil(point)) {
       if (tmp.length) {
-        result.push(tmp);
+        if (!(tmp.length === 1 && !showSinglePoint)) {
+          // 如果前段数据只有一个字段并且不需要展示时则不加入
+          result.push(tmp);
+        }
         tmp = [];
       }
     } else {

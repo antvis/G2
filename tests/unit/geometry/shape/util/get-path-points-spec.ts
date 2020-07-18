@@ -17,6 +17,12 @@ describe('getPathPoints', () => {
     expect(result).toEqual([[{ x: 1, y: 10 }], [{ x: 8, y: 12 }, { x: 9, y: 34 }]]);
   });
 
+  test('showSinglePoint is false', () => {
+    const data = [{ x: 1, y: 10 }, { x: 2, y: undefined }, { x: 4, y: [null] }, { x: 8, y: 12 }, { x: 9, y: 34 }];
+    const result1 = getPathPoints(data, false, false);
+    expect(result1).toEqual([[{ x: 8, y: 12 }, { x: 9, y: 34 }]]);
+  });
+
   test('connectNulls is true, and each point is an array', () => {
     const data = [
       [{ x: 1, y: 10 }, { x: 2, y: 2 }],
