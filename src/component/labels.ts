@@ -229,14 +229,14 @@ export default class Labels {
   }
 
   private renderLabelLine(labelItems: LabelItem[]) {
-    const coordinate: Coordinate = get(labelItems[0], 'coordinate');
 
     each(labelItems, (labelItem) => {
-      const center = coordinate.getCenter();
-      const radius = coordinate.getRadius();
-      if (!labelItem) {
+      const coordinate: Coordinate = get(labelItem, 'coordinate');
+      if (!labelItem || !coordinate) {        
         return;
       }
+      const center = coordinate.getCenter();
+      const radius = coordinate.getRadius();
       if (!labelItem.labelLine) {
         // labelLine: null | false，关闭 label 对应的 labelLine
         return;
