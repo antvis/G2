@@ -60,7 +60,7 @@ function handleData(source) {
   return source;
 }
 
-fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/china-gdp.json')
+fetch('https://raw.githubusercontent.com/antvis/G2/master/examples/data/china-gdp.json')
   .then(res => res.json())
   .then(data => {
     let count = 0;
