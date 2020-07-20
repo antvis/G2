@@ -1,3 +1,35 @@
+#### 4.0.13 (2020-07-20)
+
+##### Chores
+
+*  v4.0.13 ([0f184303](https://github.com/antvis/g2/commit/0f184303f2a2429c5b82ecc762b8c49c4807308e))
+
+##### Documentation Changes
+
+*  modified scale.md document error ([#2655](https://github.com/antvis/g2/pull/2655)) ([232241d9](https://github.com/antvis/g2/commit/232241d9e0e5922454e7e3de35e5f2df7032ee6a))
+*  uniform AntV navbar's order and naming ([#2652](https://github.com/antvis/g2/pull/2652)) ([abcb5ae8](https://github.com/antvis/g2/commit/abcb5ae81bfbc7fec867f07a5596578616e708bd))
+* **event.en.md:**  fix typo ([#2644](https://github.com/antvis/g2/pull/2644)) ([6ae5c520](https://github.com/antvis/g2/commit/6ae5c520c8710727b7ccddb59a4396a1be471616))
+
+##### New Features
+
+*  path line area 三类 Geometry 支持 showSinglePoint 属性，用于支持单点孤立数据点的绘制 ([#2666](https://github.com/antvis/g2/pull/2666)) ([3f37f287](https://github.com/antvis/g2/commit/3f37f287a1defdde0bb6cf1f939d74dad4c5e12d))
+
+##### Bug Fixes
+
+* **version:**  update version string ([e5f73439](https://github.com/antvis/g2/commit/e5f73439b64a19da3f1a8e562e27c31344b2a8ca))
+*  fix [#2658](https://github.com/antvis/g2/pull/2658) ([#2659](https://github.com/antvis/g2/pull/2659)) ([1b3d214c](https://github.com/antvis/g2/commit/1b3d214c0502b9a3c8cb53fe026f0487f27cf850))
+*  tooltip controller  isVisible not update ([#2604](https://github.com/antvis/g2/pull/2604)) ([82c2c8c6](https://github.com/antvis/g2/commit/82c2c8c6793f457a895c6dc9f5a4ac15362a27df))
+*  修复 interval 下 shape='line' 设置 lineCap 失效的问题 ([#2645](https://github.com/antvis/g2/pull/2645)) ([a8ee3dc4](https://github.com/antvis/g2/commit/a8ee3dc43c252f838bc3da1ce60dd973db9fa1bf))
+*  issues of pie demo 2 ([#2643](https://github.com/antvis/g2/pull/2643)) ([98cfc07f](https://github.com/antvis/g2/commit/98cfc07f12baca65a388eb4e6313445121c3bc1d))
+*  partial issues of code sandbox caused by relative path ([#2641](https://github.com/antvis/g2/pull/2641)) ([4d4910f0](https://github.com/antvis/g2/commit/4d4910f07a2756b585528aa81e88fa02d2afbe0d))
+*  do not use tooltip title for tooltip item name ([#2593](https://github.com/antvis/g2/pull/2593)) ([c81733b8](https://github.com/antvis/g2/commit/c81733b8a6fcb23c3340fa3a37f4ba10d7158faf))
+*  修复[#2279](https://github.com/antvis/g2/pull/2279) canvas resize 之后tooltip越界的问题 ([#2615](https://github.com/antvis/g2/pull/2615)) ([31bd0d01](https://github.com/antvis/g2/commit/31bd0d0121ededffcff9cef1dee4d1c57ab8ec65))
+* **pie-label:**  饼图 label 若干修复 ([#2648](https://github.com/antvis/g2/pull/2648)) ([235aa272](https://github.com/antvis/g2/commit/235aa27283ca35f80c5996015886b7660dbf9559))
+
+##### Refactors
+
+*  删除不必要的代码 ([#2607](https://github.com/antvis/g2/pull/2607)) ([61153676](https://github.com/antvis/g2/commit/6115367677297415755512e2c4bec649988fab40))
+
 #### 4.0.12 (2020-06-24)
 
 ##### Chores
