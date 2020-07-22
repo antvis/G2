@@ -1,6 +1,6 @@
 import { Chart } from '@antv/g2';
 
-fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/life.json')
+fetch('https://raw.githubusercontent.com/antvis/G2/master/examples/data/life.json')
   .then(res => res.json())
   .then(data => {
     const years = Object.keys(data);
