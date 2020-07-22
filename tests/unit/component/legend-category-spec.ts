@@ -199,7 +199,7 @@ describe('Legend auto ellipsis', () => {
     chart.animate(false);
     chart.legend({
       layout: 'vertical',
-      position: 'right'
+      position: 'right-top'
     });
     chart.interval().position('genre*sold').color('genre');
     chart.render();
