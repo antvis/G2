@@ -67,8 +67,7 @@ chart.axis('y', {
     formatter: val => {
       if (+val > 0) {
         return val + ' gr';
-      }
-      else {
+      } else {
         return val;
       }
     }
