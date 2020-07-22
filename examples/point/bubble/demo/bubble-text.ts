@@ -68,6 +68,9 @@ chart.axis('y', {
       if (+val > 0) {
         return val + ' gr';
       }
+      else {
+        return val;
+      }
     }
   }
 });
