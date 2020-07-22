@@ -554,6 +554,12 @@ export default class Legend extends Controller<Option> {
       categoryCfg.items.reverse();
     }
 
+    const maxItemWidth = get(categoryCfg, 'maxItemWidth');
+    if (maxItemWidth && maxItemWidth <= 1) {
+      // 转换成像素值
+      categoryCfg.maxItemWidth = this.view.viewBBox.width * maxItemWidth;
+    }
+
     return categoryCfg;
   }
 

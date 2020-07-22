@@ -930,6 +930,12 @@ export interface LegendCfg {
    */
   itemSpacing?: number;
   /**
+   * **分类图例适用**，图例项的最大宽度，超出则自动缩略。
+   * `maxItemWidth` 可以是像素值；
+   * 也可以是相对值（取 0 到 1 范围的数值），代表占图表宽度的多少
+   */
+  maxItemWidth?: number;
+  /**
    * **分类图例适用**，图例项的宽度, 默认为 null，自动计算。
    */
   itemWidth?: number;
