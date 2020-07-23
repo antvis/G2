@@ -675,9 +675,10 @@ export default class Axis extends Controller<Option> {
     // TODO: 1 / 3 等默认值需要有一个全局的配置的地方
     const verticalLimitLength = get(cfg, 'verticalLimitLength', isAxisVertical ? 1 / 3 : 1 / 2);
     if (verticalLimitLength <= 1) {
-      // 配置的相对值
-      const { width: viewWidth, height: viewHeight } = this.view.viewBBox;
-      cfg.verticalLimitLength = verticalLimitLength * (isAxisVertical ? viewWidth : viewHeight);
+      // 配置的相对值，相对于画布
+      const canvasWidth = this.view.getCanvas().get('width');
+      const canvasHeight = this.view.getCanvas().get('height');
+      cfg.verticalLimitLength = verticalLimitLength * (isAxisVertical ? canvasWidth : canvasHeight);
     }
 
     return cfg;
