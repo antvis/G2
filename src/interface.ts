@@ -1484,6 +1484,7 @@ export interface FacetTitle {
   readonly offsetY?: number;
   /** 文本样式。 */
   readonly style?: object;
+  readonly formatter?: (val: any) => any;
 }
 
 /**

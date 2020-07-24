@@ -1,4 +1,4 @@
-import { deepMix, each, filter } from '@antv/util';
+import { deepMix, each, filter, get } from '@antv/util';
 import { AxisCfg, CircleCfg, CircleData, Datum } from '../interface';
 
 import View from '../chart/view';
@@ -118,11 +118,12 @@ export default class Circle extends Facet<CircleCfg, CircleData> {
   private renderTitle() {
     each(this.facets, (facet: CircleData) => {
       const { columnValue, view } = facet;
+      const formatter = get(this.cfg.title, 'formatter');
 
       const config = deepMix(
         {
           position: ['50%', '0%'] as [string, string],
-          content: columnValue,
+          content: formatter ? formatter(columnValue) : columnValue,
         },
         getFactTitleConfig(DIRECTION.TOP),
         this.cfg.title
