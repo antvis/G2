@@ -33,6 +33,19 @@ export function calculatePadding(view: View): Padding {
     }
 
     const bboxObject = component.getLayoutBBox();
+    // TextAnnotation 没有计算 lineHeight 属性
+    if (type === 'title') {
+      let titleHeight = 0;
+      const { cfg } = component;
+      if (origin && cfg.visible) {
+        const { style = {}, content } = cfg;
+        const { fontSize, lineHeight } = style;
+        if (content) {
+          titleHeight += fontSize * lineHeight;
+        }
+      }
+      bboxObject.height = titleHeight;
+    }
     const componentBBox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height);
 
     if (type === COMPONENT_TYPE.AXIS) {

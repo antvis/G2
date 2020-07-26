@@ -136,11 +136,13 @@ import Axis from './chart/controller/axis';
 import Legend from './chart/controller/legend';
 import Slider from './chart/controller/slider';
 import Tooltip from './chart/controller/tooltip';
+import Title from './chart/controller/title';
 
 // register build-in components
 registerComponentController('axis', Axis);
 registerComponentController('legend', Legend);
 registerComponentController('tooltip', Tooltip);
+registerComponentController('title', Title);
 registerComponentController('annotation', Annotation);
 registerComponentController('slider', Slider);
 
