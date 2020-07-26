@@ -46,7 +46,7 @@ export default class Title extends Controller<TitleOption> {
    */
   public getDefaultCfg() {
     const {
-      title: { alignTo },
+      title: { alignTo = 'left' },
     } = this.view.getOptions();
     const alignInfo = {
       left: 'left',
