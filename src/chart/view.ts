@@ -37,6 +37,7 @@ import {
   Region,
   ScaleOption,
   TooltipOption,
+  TitleOption,
   ViewCfg,
   ViewPadding,
   ViewAppendPadding,
@@ -527,6 +528,23 @@ export class View extends Base {
   }
 
   /**
+   * title 提示信息配置。
+   *
+   * view.title({
+   *   text: '标题'
+   * });
+   * ```
+   *
+   * @param cfg Title 配置，更详细的配置项参考：https://github.com/antvis/component#title
+   * @returns View
+   */
+  public title(cfg: TitleOption): View {
+    set(this.options, 'title', cfg);
+
+    return this;
+  }
+
+  /**
    * 辅助标记配置。
    *
    * ```ts
@@ -813,6 +831,7 @@ export class View extends Base {
       axes: clone(this.options.axes),
       coordinate: clone(this.coordinateController.getOption()),
       tooltip: clone(this.options.tooltip),
+      title: clone(this.options.title),
       legends: clone(this.options.legends),
       animate: this.options.animate,
       visible: this.visible,

@@ -1186,6 +1186,52 @@ export interface TooltipCfg {
   offset?: number;
 }
 
+export interface GraphicStyle {
+  fill?: string;
+  fillOpacity?: number;
+  stroke?: string;
+  lineWidth?: number;
+  lineDash?: number[];
+  lineOpacity?: number;
+  opacity?: number;
+  shadowColor?: string;
+  shadowBlur?: number;
+  shadowOffsetX?: number;
+  shadowOffsetY?: number;
+  cursor?: string;
+  [field: string]: any;
+}
+
+export interface TextStyle extends GraphicStyle {
+  /** 文本大小 */
+  readonly fontSize?: number;
+  /** 文本系列 */
+  readonly fontFamily?: string;
+  /** 文本粗细 */
+  readonly fontWeight?: number;
+  /** 文本行高 */
+  readonly lineHeight?: number;
+  /** 文本对齐方式 */
+  readonly textAlign?: 'center' | 'left' | 'right';
+  /** 文本基线 */
+  readonly textBaseline?: 'middle' | 'top' | 'bottom';
+}
+
+export interface TitleCfg {
+  /** 标题内容 */
+  readonly content?: string;
+  /** 是否可见 */
+  readonly visible?: boolean;
+  /** 标题样式 */
+  readonly style?: TextStyle;
+  /** 对齐方式 */
+  readonly alignTo?: 'left' | 'right' | 'middle';
+  /** 副标题内容 */
+  readonly subContent?: string;
+  /** 副标题样式 */
+  readonly subStyle?: TextStyle;
+}
+
 /** 坐标系配置 */
 export interface CoordinateOption {
   /** 坐标系类型 */
@@ -1375,6 +1421,8 @@ export interface Options {
   readonly scales?: Record<string, ScaleOption>;
   /** Tooltip 配置。 */
   readonly tooltip?: TooltipOption;
+  /** Title 配置。 */
+  readonly title?: TitleOption;
   /** 坐标系配置。 */
   readonly coordinate?: CoordinateOption;
   /** 静态辅助元素声明。 */
@@ -1420,6 +1468,9 @@ export type Marker =
 export type MarkerCallback = (x: number, y: number, r: number) => PathCommand;
 /** chart.tooltip() 参数类型 */
 export type TooltipOption = TooltipCfg | boolean;
+/** chart.title() 参数类型 */
+export type TitleOption = TitleCfg;
+
 /* 筛选器函数类型定义 */
 export type FilterCondition = (value: any, datum: Datum, idx?: number) => boolean;
 /** chart.axis() 参数类型 */
