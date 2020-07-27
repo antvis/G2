@@ -42,7 +42,7 @@ describe('facet circle', () => {
 
   chart.facet('circle', {
     fields: [ 'clarity' ],
-    title: { style: { fill: 'red' } },
+    title: { style: { fill: 'red' }},
     eachView,
   });
   chart.render();

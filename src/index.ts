@@ -62,6 +62,8 @@ import './geometry/shape/point/solid';
 import './geometry/shape/schema/box';
 import './geometry/shape/schema/candle';
 
+import './geometry/shape/polygon/square';
+
 // 注册 Geometry 内置的 label
 import { registerGeometryLabel } from './core';
 import GeometryLabel from './geometry/label/base';

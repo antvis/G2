@@ -1,4 +1,4 @@
-import { deepMix, each, filter } from '@antv/util';
+import { deepMix, each, filter, get } from '@antv/util';
 import { DIRECTION } from '../constant';
 import { AxisCfg, Datum, RectCfg, RectData } from '../interface';
 
@@ -94,14 +94,15 @@ export default class Rect extends Facet<RectCfg, RectData> {
 
   private renderTitle(): void {
     each(this.facets, (facet: RectData, facetIndex: number) => {
-      const { columnIndex, rowIndex, columnValuesLength, rowValuesLength, columnValue, rowValue, view } = facet;
+      const { columnIndex, rowIndex, columnValuesLength, columnValue, rowValue, view } = facet;
 
       // top
       if (rowIndex === 0) {
+        const formatter = get(this.cfg.columnTitle, 'formatter');
         const config = deepMix(
           {
             position: ['50%', '0%'] as [string, string],
-            content: columnValue,
+            content: formatter ? formatter(columnValue) : columnValue,
           },
           getFactTitleConfig(DIRECTION.TOP),
           this.cfg.columnTitle
@@ -111,10 +112,11 @@ export default class Rect extends Facet<RectCfg, RectData> {
       }
       // right
       if (columnIndex === columnValuesLength - 1) {
+        const formatter = get(this.cfg.rowTitle, 'formatter');
         const config = deepMix(
           {
             position: ['100%', '50%'] as [string, string],
-            content: rowValue,
+            content: formatter ? formatter(rowValue) : rowValue,
           },
           getFactTitleConfig(DIRECTION.RIGHT),
           this.cfg.rowTitle

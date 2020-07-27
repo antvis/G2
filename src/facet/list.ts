@@ -1,4 +1,4 @@
-import { deepMix, each, filter } from '@antv/util';
+import { deepMix, each, filter, get } from '@antv/util';
 import { DIRECTION } from '../constant';
 import { AxisCfg, Datum, ListCfg, ListData } from '../interface';
 
@@ -129,11 +129,12 @@ export default class List extends Facet<ListCfg, ListData> {
   private renderTitle() {
     each(this.facets, (facet: ListData) => {
       const { columnValue, view } = facet;
+      const formatter = get(this.cfg.title, 'formatter');
 
       const config = deepMix(
         {
           position: ['50%', '0%'] as [string, string],
-          content: columnValue,
+          content: formatter ? formatter(columnValue) : columnValue,
         },
         getFactTitleConfig(DIRECTION.TOP),
         this.cfg.title
