@@ -225,6 +225,7 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
     },
     flipPage: true,
     animate: false,
+    maxItemWidth: 0.2,
   };
 
   return {

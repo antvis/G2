@@ -14,6 +14,7 @@ import {
   CrosshairLineCfg,
   CrosshairTextBackgroundCfg,
   CrosshairTextCfg,
+  EnhancedTextCfg,
   GridLineCfg,
   GroupComponent,
   HtmlComponent,
@@ -29,6 +30,7 @@ import {
   Scale,
   ScaleConfig,
   ShapeAttrs,
+  LineAnnotationTextCfg,
 } from './dependents';
 
 import { View } from './chart';
@@ -478,12 +480,10 @@ export interface AnnotationBaseOption {
   readonly type?: string;
   /** 指定 annotation 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层 */
   readonly top?: boolean;
-  /** 图形样式属性 */
-  readonly style?: object;
   /** 是否进行动画 */
   readonly animate?: boolean;
   /** 动画参数配置，当且仅当 `animate` 属性为 true，即动画开启时生效。 */
-  animateOption?: ComponentAnimateOption;
+  readonly animateOption?: ComponentAnimateOption;
   /** x 方向的偏移量 */
   readonly offsetX?: number;
   /** y 方向的偏移量 */
@@ -496,6 +496,8 @@ export interface RegionPositionBaseOption extends AnnotationBaseOption {
   readonly start: AnnotationPosition;
   /** 结束位置 */
   readonly end: AnnotationPosition;
+  /** 图形样式属性 */
+  readonly style?: ShapeAttrs;
 }
 
 /** 使用 PointPosition 定位的组件配置 */
@@ -510,43 +512,27 @@ export interface ImageOption extends RegionPositionBaseOption {
   readonly src: string;
 }
 
+
+
 /** 使用 Line Annotation 组件的配置定义 */
 export interface LineOption extends RegionPositionBaseOption {
   /** 文本配置定义 */
-  readonly text?: {
-    /** 文本位置，除了制定 'start', 'center' 和 'end' 外，还可以使用百分比进行定位， 比如 '30%' */
-    readonly position: 'start' | 'center' | 'end' | string;
-    /** 是否自动旋转 */
-    readonly autoRotate?: boolean;
-    /** 显示的文本内容 */
-    readonly content: string;
-    /** 文本的图形样式属性 */
-    readonly style?: object;
-    /** x 方向的偏移量 */
-    readonly offsetX?: number;
-    /** y 方向偏移量 */
-    readonly offsetY?: number;
-  };
+  readonly text?: LineAnnotationTextCfg;
 }
 /** 使用 Arc Annotation 组件的配置定义 */
 export type ArcOption = RegionPositionBaseOption;
 /** 使用 Region Annotation 组件的配置定义 */
 export type RegionOption = RegionPositionBaseOption;
 /** 使用 Text Annotation 组件的配置定义 */
-export interface TextOption extends PointPositionBaseOption {
-  /** 显示的文本内容 */
-  readonly content: string | number;
-  /** 文本的旋转角度，弧度制 */
-  readonly rotate?: number;
-}
+export interface TextOption extends PointPositionBaseOption, EnhancedTextCfg {}
 /** 使用 DataMarker Annotation 组件的配置定义 */
 export interface DataMarkerOption extends PointPositionBaseOption {
   /** point 设置 */
-  readonly point?: null | { style?: object };
+  readonly point?: null | { style?: ShapeAttrs };
   /** line 设置 */
-  readonly line?: null | { style?: object; length?: number };
+  readonly line?: null | { style?: ShapeAttrs; length?: number };
   /** text 设置 */
-  readonly text: null | { style?: object; content: string };
+  readonly text: null | EnhancedTextCfg;
   /** 文本超出绘制区域时，是否自动调节文本方向，默认为 true */
   readonly autoAdjust?: boolean;
   /** 朝向，默认为 upward，可选值为 'upward' 或者 'downward' */
@@ -557,9 +543,9 @@ export interface DataRegionOption extends RegionPositionBaseOption {
   /** line长度，default为 0 */
   readonly lineLength?: number;
   /** 标注区间的配置 */
-  readonly region?: null | { style?: object };
+  readonly region?: null | { style?: ShapeAttrs };
   /** 文本的配置 */
-  readonly text?: null | { style?: object; content: string };
+  readonly text?: null | EnhancedTextCfg;
 }
 /** 使用 RegionFilter Annotation 组件的配置定义 */
 export interface RegionFilterOption extends RegionPositionBaseOption {
@@ -929,6 +915,12 @@ export interface LegendCfg {
    * **分类图例适用**，控制图例项水平方向的间距。
    */
   itemSpacing?: number;
+  /**
+   * **分类图例适用**，图例项的最大宽度，超出则自动缩略。
+   * `maxItemWidth` 可以是像素值；
+   * 也可以是相对值（取 0 到 1 范围的数值），代表占图表宽度的多少
+   */
+  maxItemWidth?: number;
   /**
    * **分类图例适用**，图例项的宽度, 默认为 null，自动计算。
    */

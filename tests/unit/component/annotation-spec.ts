@@ -55,7 +55,7 @@ describe('annotation', () => {
     chart.animate(true);
     chart.annotation().line({
       start: { city: '上海', sale: 110 },
-      end: { city: '呼和浩特', sale: 40 },
+      end: { city: '呼和浩特', sale: 110 },
       style: {
         stroke: 'green',
         lineDash: [2, 2],
@@ -63,6 +63,16 @@ describe('annotation', () => {
       text: {
         position: 'end',
         content: '呼和浩特和上海',
+        maxLength: 60,
+        autoEllipsis: true,
+        background: {
+          padding: 5,
+          style: {
+            fill: '#1890ff',
+            fillOpacity: 0.3,
+            radius: 3,
+          },
+        },
         style: {
           fill: 'red',
           fontSize: 14,
@@ -73,7 +83,6 @@ describe('annotation', () => {
     chart.render();
 
     const line = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[1].component;
-
     // theme
     expect(line.get('style').lineDash).toEqual([2, 2]);
     // pos
@@ -81,12 +90,16 @@ describe('annotation', () => {
     expect(line.get('start').y).toBe(70);
 
     expect(line.get('end').x).toBe(682);
-    expect(line.get('end').y).toBe(392);
+    expect(line.get('end').y).toBe(70);
     // style
     expect(line.get('style').stroke).toBe('green');
 
     expect(line.get('text').style.fill).toBe('red');
     expect(line.get('text').style.fontSize).toBe(14);
+    // @ts-ignore
+    expect(line.getElementById('-annotation-line-text').attr('text').indexOf('…')).toBeGreaterThan(-1);
+    // @ts-ignore
+    expect(line.getElementById('-annotation-line-text-bg')).toBeDefined();
 
     expect(line.get('animate')).toBe(true);
   });
@@ -120,6 +133,16 @@ describe('annotation', () => {
     chart.annotation().text({
       position: { city: '杭州', sale: 100 },
       content: '杭州的数据' + 100,
+      maxLength: 80,
+      autoEllipsis: true,
+      background: {
+        padding: 3,
+        style: {
+          fill: '#ccc',
+          fillOpacity: 0.5,
+          radius: 3,
+        },
+      },
       style: {
         fill: 'red',
         textBaseline: 'bottom',
@@ -146,6 +169,11 @@ describe('annotation', () => {
         .getFirst()
         .attr('matrix')
     ).not.toEqual([1, 0, 0, 0, 1, 0, 0, 0, 1]);
+
+    // @ts-ignore
+    expect(text.getElementById('-annotation-text').attr('text').indexOf('…')).toBeGreaterThan(-1);
+    // @ts-ignore
+    expect(text.getElementById('-annotation-text-bg')).toBeDefined();
   });
 
   it('use percentage position', () => {
@@ -212,14 +240,30 @@ describe('annotation', () => {
       position: { city: '上海', sale: 110 },
       text: {
         content: 'data marker test',
+        maxLength: 80,
+        autoEllipsis: true,
+        background: {
+          padding: 5,
+          style: {
+            fill: '#289990',
+            fillOpacity: 0.3,
+            stroke: '#289990',
+            lineWidth: 1,
+          },
+        }
       },
     });
     chart.render();
 
     const dataMarker = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[7].component;
+
     expect(dataMarker.get('type')).toEqual('dataMarker');
     expect(dataMarker.get('x')).toEqual(494);
     expect(dataMarker.get('y')).toEqual(70);
+    // @ts-ignore
+    expect(dataMarker.getElementById('-annotation-text').attr('text').indexOf('…')).toBeGreaterThan(-1);
+    // @ts-ignore
+    expect(dataMarker.getElementById('-annotation-text-bg')).toBeDefined();
   });
 
   it('dataRegion', () => {
@@ -228,6 +272,18 @@ describe('annotation', () => {
       end: { city: '上海', sale: 110 },
       text: {
         content: 'data region test',
+        maxLength: 80,
+        autoEllipsis: true,
+        background: {
+          padding: 5,
+          style: {
+            fill: '#289990',
+            fillOpacity: 0.3,
+            stroke: '#289990',
+            lineWidth: 1,
+            radius: 4,
+          },
+        },
       },
     });
     chart.render();
@@ -239,6 +295,11 @@ describe('annotation', () => {
       { x: 306, y: 438 },
       { x: 494, y: 70 },
     ]);
+
+    // @ts-ignore
+    expect(dataRegion.getElementById('-annotation-text').attr('text').indexOf('…')).toBeGreaterThan(-1);
+    // @ts-ignore
+    expect(dataRegion.getElementById('-annotation-text-bg')).toBeDefined();
   });
 
   it('regionFilter', () => {

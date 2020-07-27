@@ -62,6 +62,8 @@ export {
   CrosshairTextBackgroundCfg,
   SliderCfg,
   TrendCfg,
+  EnhancedTextCfg,
+  LineAnnotationTextCfg,
 } from '@antv/component/lib/types';
 export { HtmlComponent, GroupComponent, Component, Crosshair };
 export { Annotation };

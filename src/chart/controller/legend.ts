@@ -554,6 +554,12 @@ export default class Legend extends Controller<Option> {
       categoryCfg.items.reverse();
     }
 
+    const maxItemWidth = get(categoryCfg, 'maxItemWidth');
+    if (maxItemWidth && maxItemWidth <= 1) {
+      // 转换成像素值
+      categoryCfg.maxItemWidth = this.view.viewBBox.width * maxItemWidth;
+    }
+
     return categoryCfg;
   }
 
@@ -564,7 +570,8 @@ export default class Legend extends Controller<Option> {
    * @param direction
    */
   private mergeLegendCfg(baseCfg: object, legendOption: LegendOption, direction: DIRECTION) {
-    const themeObject = get(this.view.getTheme(), ['components', 'legend', direction], {});
+    const position = direction.split('-')[0];
+    const themeObject = get(this.view.getTheme(), ['components', 'legend', position], {});
 
     return deepMix({}, themeObject, baseCfg, legendOption);
   }
