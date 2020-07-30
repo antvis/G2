@@ -82,6 +82,7 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/world-population.jso
     chart.coordinate().reflect();
     chart.point()
       .position('x*y')
+      .color('text')
       .shape('cloud')
       .tooltip('value*category');
     chart.interaction('element-active');
