@@ -1,14 +1,16 @@
 #### 4.0.14 (2020-07-27)
 
-##### Chores
+##### New Features
 
-- use new-issue.antv.vision for bug report template ([#2694](https://github.com/antvis/g2/pull/2694)) ([c00b052d](https://github.com/antvis/g2/commit/c00b052d466dbf2bc96c63fc404a6c8ff03b26a4))
+- **Polygon** 为 polygon 添加 square shape，用于绘制正方形矩阵块，同时支持 size 通道映射
+- **Facet** 分面标题支持格式化
+- **Legend** 图例新增 maxItemWidth 属性，超出自动省略
+- **Annotation** annotation 中文本绘制能力增强，可设置自动缩略以及背景框
 
 ##### Bug Fixes
 
 - 坐标轴 verticalLimitLength 的参照物是画布 ([#2692](https://github.com/antvis/g2/pull/2692)) ([85d94fca](https://github.com/antvis/g2/commit/85d94fcac96fc1b2eaf35d8d014fa2c4b3f6548b))
-- **site:** error in bubbleplot demo ([#2688](https://github.com/antvis/g2/pull/2688)) ([1bbc52fe](https://github.com/antvis/g2/commit/1bbc52fe650bad474585ec5346a33808af62efd1))
-- **site:** path err in dynamic demos ([#2677](https://github.com/antvis/g2/pull/2677)) ([dc543459](https://github.com/antvis/g2/commit/dc543459b03be24d778a60bdfb89a5df25fbb97a))
+- 修复 'top-right' 类型的图例位置主题默认 maxItemWidth 不生效的问题
 
 #### 4.0.13 (2020-07-20)
 
