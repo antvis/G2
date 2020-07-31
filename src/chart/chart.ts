@@ -178,14 +178,14 @@ export default class Chart extends View {
   private bindAutoFit() {
     if (this.autoFit) {
       this.observer = new ResizeObserverPolyfill(() => {
-        this.onResize()
-      })
+        this.onResize();
+      });
     }
   }
 
   private unbindAutoFit() {
     if (this.autoFit) {
-      this.observer.disconnect()
+      this.observer.disconnect();
     }
   }
 
