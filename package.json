@@ -16,7 +16,7 @@
     "site:develop": "gatsby develop --open -H 0.0.0.0",
     "site:build": "npm run site:clean && gatsby build --prefix-paths",
     "site:clean": "gatsby clean",
-    "site:deploy": "npm run doc && npm run site:build && gh-pages -d public",
+    "site:deploy": "npm run site:build && gh-pages -d public",
     "clean": "rimraf lib esm dist",
     "lint": "run-p lint:*",
     "lint:tslint": "tslint -c tslint.json 'src/**/*.ts'",
@@ -30,7 +30,6 @@
     "dist": "webpack --config webpack.config.js --mode production",
     "ci": "run-s build coverage",
     "prepublishOnly": "npm-run-all --parallel lint test build dist",
-    "doc": "rimraf -rf docs/api && typedoc && sh bin/doc.sh docs/api",
     "changelog": "generate-changelog",
     "analyz": "webpack --profile --json > stats.json && webpack-bundle-analyzer ./stats.json"
   },
