@@ -28,6 +28,14 @@ module.exports = {
           zh: '使用文档',
           en: 'Manual',
         },
+        order: 2,
+      },
+      {
+        slug: 'docs/api',
+        title: {
+          zh: 'API 文档',
+          en: 'API',
+        },
         order: 1,
       },
       {
@@ -88,36 +96,12 @@ module.exports = {
         },
       },
       {
-        slug: 'api/classes',
+        slug: 'api/geometry',
         title: {
-          zh: 'Classes',
-          en: 'Classes',
+          zh: 'Geometry',
+          en: 'Geometry',
         },
         order: 1,
-      },
-      {
-        slug: 'api/enums',
-        title: {
-          zh: 'Enums',
-          en: 'Enums',
-        },
-        order: 2,
-      },
-      {
-        slug: 'api/interfaces',
-        title: {
-          zh: 'Interfaces',
-          en: 'Interfaces',
-        },
-        order: 3,
-      },
-      {
-        slug: 'api/modules',
-        title: {
-          zh: 'Modules',
-          en: 'Modules',
-        },
-        order: 4,
       },
     ],
     examples: [
