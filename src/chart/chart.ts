@@ -180,7 +180,6 @@ export default class Chart extends View {
       this.observer = new ResizeObserverPolyfill(() => {
         this.onResize()
       })
-      // window.addEventListener('resize', this.onResize);
     }
   }
 
