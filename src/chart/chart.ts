@@ -5,6 +5,9 @@ import { getEngine } from '../engine';
 import { createDom, getChartSize, removeDom, modifyCSS } from '../util/dom';
 import View from './view';
 
+import ResizeObserverPolyfill from 'resize-observer-polyfill';
+
+
 /**
  * Chart 类，是使用 G2 进行绘图的入口。
  */
@@ -24,6 +27,9 @@ export default class Chart extends View {
   public renderer: 'canvas' | 'svg';
 
   private wrapperElement: HTMLElement;
+
+  /** 监听对象 */
+  private observer:ResizeObserverPolyfill;
 
   // @ts-ignore
   constructor(props: ChartCfg) {
@@ -171,13 +177,16 @@ export default class Chart extends View {
 
   private bindAutoFit() {
     if (this.autoFit) {
-      window.addEventListener('resize', this.onResize);
+      this.observer = new ResizeObserverPolyfill(() => {
+        this.onResize()
+      })
+      // window.addEventListener('resize', this.onResize);
     }
   }
 
   private unbindAutoFit() {
     if (this.autoFit) {
-      window.removeEventListener('resize', this.onResize);
+      this.observer.disconnect()
     }
   }
 
