@@ -2,7 +2,6 @@ import DataSet from '@antv/data-set';
 import { Chart, registerShape, Util } from '@antv/g2';
 
 function getTextAttrs(cfg) {
-  console.log(cfg);
   return {
     ...cfg.defaultStyle,
     ...cfg.style,
@@ -29,7 +28,6 @@ registerShape('point', 'cloud', {
     if (cfg.data.rotate) {
       Util.rotate(textShape, cfg.data.rotate * Math.PI / 180);
     }
-
     return textShape;
   }
 });
@@ -82,7 +80,7 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/world-population.jso
     chart.coordinate().reflect();
     chart.point()
       .position('x*y')
-      .color('text')
+      .color('CornflowerBlue')
       .shape('cloud')
       .tooltip('value*category');
     chart.interaction('element-active');
