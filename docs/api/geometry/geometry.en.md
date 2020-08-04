@@ -545,6 +545,7 @@ label(
    * 1. overlap: label 防遮挡，为了防止 label 之间相互覆盖，通过尝试向**四周偏移**来剔除放不下的 label。
    * 2. fixed-overlap: 不改变 label 位置的情况下对相互重叠的 label 进行调整。
    * 3. limit-in-shape: 剔除 shape 容纳不了的 label。
+   * 4. pie-outer: 饼图 label 防遮挡，为了防止 label 之间相互覆盖，在一定的程度上对相互重叠的 label 进行调整。
    *
    * @example
    * ```ts

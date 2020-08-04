@@ -78,11 +78,11 @@ registerGeometryLabel('polar', PolarLabel);
 
 // 注册 Geometry label 内置的布局函数
 import { registerGeometryLabelLayout } from './core';
-import { distribute } from './geometry/label/layout/distribute';
+import { distribute } from './geometry/label/layout/pie/distribute';
+import { pieOuterLabelLayout } from './geometry/label/layout/pie/outer';
 import { limitInCanvas } from './geometry/label/layout/limit-in-canvas';
 import { limitInShape } from './geometry/label/layout/limit-in-shape';
 import { fixedOverlap, overlap } from './geometry/label/layout/overlap';
-import { pieOuterLabelLayout } from './geometry/label/layout/pie-outer';
 
 registerGeometryLabelLayout('overlap', overlap);
 registerGeometryLabelLayout('distribute', distribute);

@@ -1,9 +1,9 @@
 import { Coordinate } from '@antv/coord';
 import { BBox, IGroup, IShape, IElement } from '@antv/g-base';
 import { isObject, each, find, get } from '@antv/util';
-import { Point } from '../../../interface';
-import { polarToCartesian } from '../../../util/graphics';
-import { LabelItem } from '../interface';
+import { Point } from '../../../../interface';
+import { polarToCartesian } from '../../../../util/graphics';
+import { LabelItem } from '../../interface';
 
 /** label text和line距离 4px */
 const MARGIN = 4;
@@ -122,7 +122,7 @@ function antiCollision(
     const labelShape = labelsMap[label.id];
 
     // because group could not effect text-shape, should set text-shape position manually
-    const textShape = find(labelShape.getChildren(), (ele) => ele.get('type') === 'text') as IElement;
+    const textShape = labelShape.find(child => child.get('type') === 'text') as IElement;
 
     // textShape 发生过调整
     if (textShape && textShape.attr('y') !== label.y) {
