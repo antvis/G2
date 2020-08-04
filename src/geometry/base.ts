@@ -40,6 +40,7 @@ import {
   ShapeFactory,
   ShapeInfo,
   ShapeMarkerCfg,
+  ShapeMarkerAttrs,
   ShapePoint,
   SizeAttrCallback,
   StateOption,
@@ -1021,7 +1022,7 @@ export default class Geometry extends Base {
    * @param cfg marker 信息
    * @returns
    */
-  public getShapeMarker(shapeName: string, cfg: ShapeMarkerCfg) {
+  public getShapeMarker(shapeName: string, cfg: ShapeMarkerCfg): ShapeMarkerAttrs {
     const shapeFactory = this.getShapeFactory();
     return shapeFactory.getMarker(shapeName, cfg);
   }
