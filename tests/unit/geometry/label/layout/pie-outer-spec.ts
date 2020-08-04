@@ -57,6 +57,8 @@ describe('pie-outer-label layout', () => {
       .color('country')
       .label('country', {
         offset: 8,
+        offsetX: 0,
+        offsetY: 0,
         style: {
           fill: '#999',
         },
@@ -75,6 +77,48 @@ describe('pie-outer-label layout', () => {
       // 设置标签布局算法，可见的标签总高度(labels.length * labelHeight) <= 标签容器的总高度
       expect(maxY - minY).toBeGreaterThanOrEqual(leftLabels.length * labelHeight);
     }
+  });
+
+  it('normal', () => {
+    chart.data([
+      { item: '事例一', count: 50 },
+      { item: '事例二', count: 15 },
+      { item: '事例三', count: 10 },
+      { item: '事例四', count: 22 },
+      { item: '事例五', count: 3 },
+    ]);
+    chart.clear();
+
+    chart.coordinate({
+      type: 'theta',
+      cfg: {
+        radius: 0.5,
+      },
+    });
+
+    chart
+      .interval()
+      .adjust('stack')
+      .position('count')
+      .color('item')
+      .label('item', {
+        offset: 10,
+        style: {
+          fill: '#999',
+        },
+        layout: { type: 'pie-outer' },
+      });
+
+    chart.render();
+    const labels = chart.geometries[0].labelsContainer.getChildren();
+    expect(labels.length).toBe(5);
+
+    const label1 = (labels[0] as IGroup).getChildren()[0];
+    const coordinate = chart.getCoordinate();
+    const center = coordinate.getCenter();
+    const radius = coordinate.getRadius();
+    expect(label1.getBBox().x).toEqual(center.x + radius + 10 /** offset */);
+    expect(label1.getBBox().y + label1.getBBox().height / 2).toEqual(center.y);
   });
 
   afterAll(() => {
