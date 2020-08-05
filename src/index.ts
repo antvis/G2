@@ -153,6 +153,7 @@ import { registerAction } from './core';
 import ActiveRegion from './interaction/action/active-region';
 import SiblingTooltip from './interaction/action/component/sibling-tooltp';
 import TooltipAction from './interaction/action/component/tooltip/geometry';
+import ComponentTooltipAction from './interaction/action/component/tooltip/component';
 
 import ElmentActive from './interaction/action/element/active';
 import ElementLinkByColor from './interaction/action/element/link-by-color';
@@ -196,6 +197,7 @@ import ScaleZoom from './interaction/action/view/scale-zoom';
 
 registerAction('tooltip', TooltipAction);
 registerAction('sibling-tooltip', SiblingTooltip);
+registerAction('component-tooltip', ComponentTooltipAction);
 registerAction('element-active', ElmentActive);
 registerAction('element-single-active', ElmentSingleActive);
 registerAction('element-range-active', ElmentRangeActive);
@@ -278,6 +280,21 @@ registerInteraction('tooltip', {
     { trigger: 'plot:mouseleave', action: 'tooltip:hide' },
     { trigger: 'plot:leave', action: 'tooltip:hide' },
     { trigger: 'plot:touchend', action: 'tooltip:hide' },
+  ],
+});
+
+registerInteraction('component-tooltip', {
+  start: [
+    { trigger: 'legend-item-name:mousemove', action: 'component-tooltip:show', throttle: { wait: 50, leading: true, trailing: false } },
+    { trigger: 'legend-item-name:touchstart', action: 'component-tooltip:show', throttle: { wait: 50, leading: true, trailing: false } },
+    { trigger: 'axis-label:mousemove', action: 'component-tooltip:show', throttle: { wait: 50, leading: true, trailing: false } },
+    { trigger: 'axis-label:touchstart', action: 'component-tooltip:show', throttle: { wait: 50, leading: true, trailing: false } },
+  ],
+  end: [
+    { trigger: 'legend-item-name:mouseleave', action: 'component-tooltip:hide' },
+    { trigger: 'legend-item-name:touchend', action: 'component-tooltip:hide' },
+    { trigger: 'axis-label:mouseleave', action: 'component-tooltip:hide' },
+    { trigger: 'axis-label:touchend', action: 'component-tooltip:hide' },
   ],
 });
 
