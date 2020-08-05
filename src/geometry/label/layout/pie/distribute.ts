@@ -1,9 +1,9 @@
 import { isObject, each, find, get } from '@antv/util';
 
-import { BBox, IGroup, IShape } from '../../../dependents';
-import { LabelItem } from '../interface';
+import { BBox, IGroup, IShape } from '../../../../dependents';
+import { LabelItem } from '../../interface';
 
-import { polarToCartesian } from '../../../util/graphics';
+import { polarToCartesian } from '../../../../util/graphics';
 import { IElement } from '@antv/g-base';
 
 /** label text和line距离 4px */
