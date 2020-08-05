@@ -1,37 +1,7 @@
-import { get, isEqual, isNil } from '@antv/util';
-import { View } from '../../../chart';
-import { Point } from '../../../interface';
-import Action from '../base';
-
-// 判断是否有样式
-function hasClass(dom, className) {
-  if (!dom) {
-    return false;
-  }
-  let cls = '';
-  if (!dom.className) {
-    return false;
-  }
-  if (!isNil(dom.className.baseVal)) {
-    cls = dom.className.baseVal;
-  } else {
-    cls = dom.className;
-  }
-  return cls.includes(className);
-}
-
-function isParent(dom, cls) {
-  let parent = dom.parentNode;
-  let rst = false;
-  while (parent && parent !== document.body) {
-    if (hasClass(parent, cls)) {
-      rst = true;
-      break;
-    }
-    parent = parent.parentNode;
-  }
-  return rst;
-}
+import { isEqual } from '@antv/util';
+import { View } from '../../../../chart';
+import { Point } from '../../../../interface';
+import Action from '../../base';
 
 /**
  * Tooltip 展示隐藏的 Action

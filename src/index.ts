@@ -152,7 +152,7 @@ registerComponentController('slider', Slider);
 import { registerAction } from './core';
 import ActiveRegion from './interaction/action/active-region';
 import SiblingTooltip from './interaction/action/component/sibling-tooltp';
-import TooltipAction from './interaction/action/component/geometry-tooltip';
+import TooltipAction from './interaction/action/component/tooltip/geometry';
 
 import ElmentActive from './interaction/action/element/active';
 import ElementLinkByColor from './interaction/action/element/link-by-color';
