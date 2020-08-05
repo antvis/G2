@@ -2,7 +2,7 @@ import { each } from '@antv/util';
 import { View } from '../../../chart';
 import { Point } from '../../../interface';
 import { getSiblingPoint, getSilbings } from '../util';
-import TooltipAction from './tooltip';
+import TooltipAction from './geometry-tooltip';
 
 /**
  * 存在多个 view 时，控制其他 view 上的 tooltip 显示
