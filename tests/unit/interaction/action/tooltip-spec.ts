@@ -2,7 +2,7 @@ import { Chart } from '../../../../src/index';
 import { createInteraction } from '../../../../src/interaction/index';
 import { createDiv } from '../../../util/dom';
 import Context from '../../../../src/interaction/context';
-import SiblingTooltip from '../../../../src/interaction/action/component/sibling-tooltp';
+import SiblingTooltip from '../../../../src/interaction/action/component/tooltip/sibling';
 
 describe('test tooltip action', () => {
   const dom = createDiv();

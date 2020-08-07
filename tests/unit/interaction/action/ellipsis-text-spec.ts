@@ -1,7 +1,6 @@
 import { Chart } from '../../../../src/index';
 import { createInteraction } from '../../../../src/interaction/index';
 import { createDiv } from '../../../util/dom';
-import ComponentTooltip from '../../../../src/interaction/action/component/tooltip/component';
 import { COMPONENT_TYPE } from '../../../../src/constant';
 
 describe('test component tooltip', () => {
@@ -22,7 +21,7 @@ describe('test component tooltip', () => {
   chart.interval().position('year*value').color('year');
   chart.render();
 
-  const interaction = createInteraction('component-tooltip', chart);
+  const interaction = createInteraction('ellipsis-text', chart);
   interaction.init();
   it('show', () => {
     const axis = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.AXIS).filter(co => co.direction === 'bottom')[0];

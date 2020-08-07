@@ -7,7 +7,7 @@ import { HtmlTooltip } from '../../../../dependents';
  * 用于组件文本省略后需要展示完整信息的 Tooltip Action
  * @ignore
  */
-class TooltipAction extends Action {
+export default class EllipsisText extends Action {
   private timeStamp: number = 0;
   private location: Point;
   private tooltip;
@@ -93,5 +93,3 @@ class TooltipAction extends Action {
     this.tooltip = tooltip;
   }
 }
-
-export default TooltipAction;
