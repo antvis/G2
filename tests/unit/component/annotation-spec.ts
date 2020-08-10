@@ -163,12 +163,7 @@ describe('annotation', () => {
     // style
     expect(text.get('style').fill).toBe('red');
     expect(text.get('rotate')).toBeCloseTo(Math.PI * 0.25);
-    expect(
-      text
-        .get('group')
-        .getFirst()
-        .attr('matrix')
-    ).not.toEqual([1, 0, 0, 0, 1, 0, 0, 0, 1]);
+    expect(text.get('group').getFirst().attr('matrix')).not.toEqual([1, 0, 0, 0, 1, 0, 0, 0, 1]);
 
     // @ts-ignore
     expect(text.getElementById('-annotation-text').attr('text').indexOf('…')).toBeGreaterThan(-1);
@@ -250,7 +245,7 @@ describe('annotation', () => {
             stroke: '#289990',
             lineWidth: 1,
           },
-        }
+        },
       },
     });
     chart.render();
@@ -315,6 +310,22 @@ describe('annotation', () => {
     const regionFilter = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[9].component;
     expect(regionFilter.get('type')).toEqual('regionFilter');
     expect(regionFilter.get('shapes')).toHaveLength(1);
+  });
+
+  it('text with callback', () => {
+    // @ts-ignore
+    chart.getController('annotation').clear(true);
+    chart.annotation().text({
+      position: ['50%', '50%'],
+      content: (filteredData) => `${filteredData.reduce((a, b: any) => a + b.sale, 0)}`,
+    });
+
+    chart.render();
+
+    const text = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[0].component;
+    expect(text).toBeDefined();
+    // @ts-ignore
+    expect(text.get('content')).toBe(`${DATA.reduce((a, b) => a + b.sale, 0)}`);
   });
 
   afterAll(() => {

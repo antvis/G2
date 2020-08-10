@@ -559,10 +559,16 @@ export default class Annotation extends Controller<BaseOption[]> {
         end: this.parsePosition(end),
       };
     } else if (type === 'text') {
-      const { position, ...rest } = option as TextOption;
+      const filteredData = this.view.getData();
+      const { position, content, ...rest } = option as TextOption;
+      let textContent = content;
+      if (isFunction(content)) {
+        textContent = content(filteredData);
+      }
       o = {
         ...this.parsePosition(position),
         ...rest,
+        content: textContent,
       };
     } else if (type === 'dataMarker') {
       const { position, point, line, text, autoAdjust, direction } = option as DataMarkerOption;
