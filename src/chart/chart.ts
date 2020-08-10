@@ -114,6 +114,11 @@ export default class Chart extends View {
    * @returns
    */
   public changeSize(width: number, height: number) {
+    // 如果宽高一致，那么 changeSize 不执行任何操作
+    if (this.width === width && this.height === height) {
+      return this;
+    }
+
     this.width = width;
     this.height = height;
     this.canvas.changeSize(width, height);
