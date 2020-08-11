@@ -430,9 +430,6 @@ export default class Axis extends Controller<Option> {
     dim: string
   ): ComponentOption {
     // axis
-
-    console.log(dim, this.getLineAxisCfg(scale, option, direction));
-
     const axis = {
       component: new LineAxis(this.getLineAxisCfg(scale, option, direction)),
       layer,
