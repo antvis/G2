@@ -512,8 +512,6 @@ export interface ImageOption extends RegionPositionBaseOption {
   readonly src: string;
 }
 
-
-
 /** 使用 Line Annotation 组件的配置定义 */
 export interface LineOption extends RegionPositionBaseOption {
   /** 文本配置定义 */
@@ -1176,6 +1174,8 @@ export interface TooltipCfg {
   domStyles?: TooltipDomStyles;
   /** tooltip 偏移量。 */
   offset?: number;
+  /** 支持自定义模板 */
+  customContent?: (title: string, data: any[]) => string | void;
 }
 
 /** 坐标系配置 */
