@@ -30,4 +30,20 @@ describe('Chart autoFit', () => {
     // should be equal, but actual height = chart.height + 5px
     // expect(chart.height).toBe(height); 
   });
+
+  test('changeSize', () => {
+    const fn = jest.fn();
+
+    chart.render = () => {
+      fn();
+    };
+
+    chart.changeSize(chart.width, chart.height);
+    // 宽高相同不执行
+    expect(fn).not.toBeCalled();
+
+    chart.changeSize(chart.width + 1, chart.height);
+    // 宽高不相同执行
+    expect(fn).toBeCalled();
+  })
 });

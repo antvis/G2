@@ -64,10 +64,7 @@ export default class Axis extends Controller<Option> {
   public init() {}
 
   public render() {
-    this.option = this.view.getOptions().axes;
-
-    this.createXAxes();
-    this.createYAxes();
+    this.update();
   }
 
   /**
@@ -128,6 +125,7 @@ export default class Axis extends Controller<Option> {
    */
   public update() {
     this.option = this.view.getOptions().axes;
+
     const updatedCache = new Map<string, ComponentOption>();
 
     this.updateXAxes(updatedCache);
@@ -185,25 +183,24 @@ export default class Axis extends Controller<Option> {
   private updateXAxes(updatedCache: Cache) {
     // x axis
     const scale = this.view.getXScale();
-    // @ts-ignore
+
     if (!scale || scale.isIdentity) {
       return;
     }
 
-    const { field } = scale;
     const xAxisOption = getAxisOption(this.option, scale.field);
     if (xAxisOption === false) {
       return;
     }
 
-    const coordinate = this.view.getCoordinate();
-
-    const axisId = this.getId('axis', field);
-    const gridId = this.getId('grid', field);
-
     const direction = getAxisDirection(xAxisOption, DIRECTION.BOTTOM);
     const layer = LAYER.BG;
     const dim = 'x';
+
+    const coordinate = this.view.getCoordinate();
+
+    const axisId = this.getId('axis', scale.field);
+    const gridId = this.getId('grid', scale.field);
 
     if (coordinate.isRect) {
       // 1. do axis update
@@ -256,6 +253,8 @@ export default class Axis extends Controller<Option> {
             // 默认不渲染转置极坐标下的坐标轴
             return;
           } else {
+            // 如果用户打开了隐藏的坐标轴 chart.axis(true)/chart.axis('x', true)
+            // 那么对于转置了的极坐标，半径轴显示的是 x 轴对应的数据
             axis = this.createLineAxis(scale, xAxisOption, layer, DIRECTION.RADIUS, dim);
           }
         } else {
@@ -284,6 +283,7 @@ export default class Axis extends Controller<Option> {
             grid = this.createCircleGrid(scale, xAxisOption, layer, DIRECTION.RADIUS, dim);
           }
         } else {
+          // grid，极坐标下的 x 轴网格线沿着半径方向绘制
           grid = this.createLineGrid(scale, xAxisOption, layer, DIRECTION.CIRCLE, dim);
         }
 
@@ -406,126 +406,6 @@ export default class Axis extends Controller<Option> {
               this.cache.set(gridId, grid);
               updatedCache.set(gridId, grid);
             }
-          }
-        } else {
-          // helix and other, do not draw axis
-        }
-      }
-    });
-  }
-
-  /**
-   * 创建 x axis 组件
-   */
-  private createXAxes() {
-    // x axis
-    const scale = this.view.getXScale();
-
-    if (!scale || scale.isIdentity) {
-      return;
-    }
-
-    const xAxisOption = getAxisOption(this.option, scale.field);
-    if (xAxisOption !== false) {
-      const direction = getAxisDirection(xAxisOption, DIRECTION.BOTTOM);
-      const layer = LAYER.BG;
-      const dim = 'x';
-
-      const coordinate = this.view.getCoordinate();
-
-      const axisId = this.getId('axis', scale.field);
-      const gridId = this.getId('grid', scale.field);
-
-      if (coordinate.isRect) {
-        // axis
-        const axis = this.createLineAxis(scale, xAxisOption, layer, direction, dim);
-        this.cache.set(axisId, axis);
-
-        // grid
-        const grid = this.createLineGrid(scale, xAxisOption, layer, direction, dim);
-        if (grid) {
-          this.cache.set(gridId, grid);
-        }
-      } else if (coordinate.isPolar) {
-        let axis;
-        let grid;
-        if (coordinate.isTransposed) {
-          if (isUndefined(xAxisOption)) {
-            // 默认不渲染转置极坐标的坐标轴
-            return;
-          } else {
-            // 如果用户打开了隐藏的坐标轴 chart.axis(true)/chart.axis('x', true)
-            // 那么对于转置了的极坐标，半径轴显示的是 x 轴对应的数据
-            axis = this.createLineAxis(scale, xAxisOption, layer, DIRECTION.RADIUS, dim);
-            grid = this.createCircleGrid(scale, xAxisOption, layer, DIRECTION.RADIUS, dim);
-          }
-        } else {
-          axis = this.createCircleAxis(scale, xAxisOption, layer, direction, dim);
-          // grid，极坐标下的 x 轴网格线沿着半径方向绘制
-          grid = this.createLineGrid(scale, xAxisOption, layer, DIRECTION.CIRCLE, dim);
-        }
-
-        this.cache.set(axisId, axis);
-        if (grid) {
-          this.cache.set(gridId, grid);
-        }
-      } else {
-        // helix and other, do not draw axis
-      }
-    }
-  }
-
-  /**
-   * create y axis
-   */
-  private createYAxes() {
-    // y axes
-    const yScales = this.view.getYScales();
-
-    each(yScales, (scale: Scale, idx: number) => {
-      // @ts-ignore
-      if (!scale || scale.isIdentity) {
-        return;
-      }
-      const { field } = scale;
-      const yAxisOption = getAxisOption(this.option, field);
-
-      if (yAxisOption !== false) {
-        const layer = LAYER.BG;
-        const dim = 'y';
-        const axisId = this.getId('axis', field);
-        const gridId = this.getId('grid', field);
-
-        const coordinate = this.view.getCoordinate();
-
-        if (coordinate.isRect) {
-          const direction = getAxisDirection(yAxisOption, idx === 0 ? DIRECTION.LEFT : DIRECTION.RIGHT);
-          // axis
-          const axis = this.createLineAxis(scale, yAxisOption, layer, direction, dim);
-          this.cache.set(axisId, axis);
-
-          // grid
-          const grid = this.createLineGrid(scale, yAxisOption, layer, direction, dim);
-          if (grid) {
-            this.cache.set(gridId, grid);
-          }
-        } else if (coordinate.isPolar) {
-          let axis;
-          let grid;
-          if (coordinate.isTransposed) {
-            if (isUndefined(yAxisOption)) {
-              return;
-            } else {
-              axis = this.createCircleAxis(scale, yAxisOption, layer, DIRECTION.CIRCLE, dim);
-              grid = this.createLineGrid(scale, yAxisOption, layer, DIRECTION.CIRCLE, dim);
-            }
-          } else {
-            axis = this.createLineAxis(scale, yAxisOption, layer, DIRECTION.RADIUS, dim);
-            grid = this.createCircleGrid(scale, yAxisOption, layer, DIRECTION.RADIUS, dim);
-          }
-          this.cache.set(this.getId('axis', scale.field), axis);
-          if (grid) {
-            this.cache.set(gridId, grid);
           }
         } else {
           // helix and other, do not draw axis
