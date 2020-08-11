@@ -522,7 +522,9 @@ export type ArcOption = RegionPositionBaseOption;
 /** 使用 Region Annotation 组件的配置定义 */
 export type RegionOption = RegionPositionBaseOption;
 /** 使用 Text Annotation 组件的配置定义 */
-export interface TextOption extends PointPositionBaseOption, EnhancedTextCfg {}
+export interface TextOption extends PointPositionBaseOption, Omit<EnhancedTextCfg, 'content'> {
+  content?: string | number | ((filteredData: object[]) => string | number);
+}
 /** 使用 DataMarker Annotation 组件的配置定义 */
 export interface DataMarkerOption extends PointPositionBaseOption {
   /** point 设置 */
