@@ -24,14 +24,11 @@ describe('1744', () => {
   chart.animate(false);
   chart.data(data);
   chart.scale('question', {
-    range: [0, 1]
+    range: [0, 1],
   });
   chart.coordinate('polar').transpose();
 
-  chart
-    .interval()
-    .position('question*percent')
-    .color('percent', '#BAE7FF-#1890FF-#0050B3');
+  chart.interval().position('question*percent').color('percent', '#BAE7FF-#1890FF-#0050B3');
   chart.render();
 
   it('Not render by default', () => {
@@ -69,15 +66,14 @@ describe('1744', () => {
       },
     });
 
-    chart.coordinate('polar', {
-      innerRadius: 0.4,
-      endAngle: Math.PI / 2
-    }).transpose();
-
     chart
-      .interval()
-      .position('question*percent')
-      .color('percent', '#BAE7FF-#1890FF-#0050B3');
+      .coordinate('polar', {
+        innerRadius: 0.4,
+        endAngle: Math.PI / 2,
+      })
+      .transpose();
+
+    chart.interval().position('question*percent').color('percent', '#BAE7FF-#1890FF-#0050B3');
     chart.render();
 
     expect(chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.AXIS).length).toBe(2);

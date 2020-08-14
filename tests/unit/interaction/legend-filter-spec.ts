@@ -23,10 +23,7 @@ describe('test element interaction', () => {
   chart.tooltip(false);
   chart.interaction('continuous-filter');
   // chart.interaction('element-range-highlight');
-  chart
-    .interval()
-    .position('year*value')
-    .color('value');
+  chart.interval().position('year*value').color('value');
   chart.render();
   const elements = chart.geometries[0].elements;
   const first = elements[0];

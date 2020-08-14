@@ -8,10 +8,10 @@ function eachView(view, facet) {
   const dv = new DataSet.DataView();
   dv.source(facetData).transform({
     type: 'aggregate',
-    fields: [ 'price' ],
-    operations: [ 'mean' ],
-    as: [ 'mean' ],
-    groupBy: [ 'cut' ]
+    fields: ['price'],
+    operations: ['mean'],
+    as: ['mean'],
+    groupBy: ['cut'],
   });
 
   view.data(dv.rows);
@@ -24,25 +24,25 @@ describe('facet circle', () => {
     container: div,
     autoFit: true,
     height: 500,
-    padding: [ 30, 90, 80, 80 ]
+    padding: [30, 90, 80, 80],
   });
   chart.data(DIAMOND);
 
   chart.scale({
     mean: {
-      sync: true
+      sync: true,
     },
     cut: {
-      sync: true
-    }
+      sync: true,
+    },
   });
 
   chart.coordinate('polar');
   chart.axis(false);
 
   chart.facet('circle', {
-    fields: [ 'clarity' ],
-    title: { style: { fill: 'red' }},
+    fields: ['clarity'],
+    title: { style: { fill: 'red' } },
     eachView,
   });
   chart.render();
@@ -76,13 +76,13 @@ describe('facet circle', () => {
     });
 
     expect(() => {
-      chart.render()
+      chart.render();
     }).toThrow('No `fields` specified!');
   });
 
   it('title style', () => {
     chart.facet('circle', {
-      fields: [ 'clarity' ],
+      fields: ['clarity'],
       showTitle: false,
       eachView,
     });

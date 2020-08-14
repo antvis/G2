@@ -285,10 +285,26 @@ registerInteraction('tooltip', {
 
 registerInteraction('ellipsis-text', {
   start: [
-    { trigger: 'legend-item-name:mousemove', action: 'ellipsis-text:show', throttle: { wait: 50, leading: true, trailing: false } },
-    { trigger: 'legend-item-name:touchstart', action: 'ellipsis-text:show', throttle: { wait: 50, leading: true, trailing: false } },
-    { trigger: 'axis-label:mousemove', action: 'ellipsis-text:show', throttle: { wait: 50, leading: true, trailing: false } },
-    { trigger: 'axis-label:touchstart', action: 'ellipsis-text:show', throttle: { wait: 50, leading: true, trailing: false } },
+    {
+      trigger: 'legend-item-name:mousemove',
+      action: 'ellipsis-text:show',
+      throttle: { wait: 50, leading: true, trailing: false },
+    },
+    {
+      trigger: 'legend-item-name:touchstart',
+      action: 'ellipsis-text:show',
+      throttle: { wait: 50, leading: true, trailing: false },
+    },
+    {
+      trigger: 'axis-label:mousemove',
+      action: 'ellipsis-text:show',
+      throttle: { wait: 50, leading: true, trailing: false },
+    },
+    {
+      trigger: 'axis-label:touchstart',
+      action: 'ellipsis-text:show',
+      throttle: { wait: 50, leading: true, trailing: false },
+    },
   ],
   end: [
     { trigger: 'legend-item-name:mouseleave', action: 'ellipsis-text:hide' },

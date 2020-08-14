@@ -78,14 +78,6 @@ export default class Chart extends View {
       theme,
     });
 
-    // 设置主题背景色
-    const chartTheme = this.getTheme();
-    if (get(chartTheme, 'background')) {
-      modifyCSS(wrapperElement, {
-        background: get(chartTheme, 'background'),
-      });
-    }
-
     this.ele = ele;
     this.canvas = canvas;
     this.width = size.width;

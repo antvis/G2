@@ -41,8 +41,8 @@ describe('#2347 饼图密集区域 label 布局错乱', () => {
     .position('percent')
     .color('item')
     .label('percent', {
-      content: (data) => {
-        return `${data.item}: ${data.percent * 100}%`;
+      content: (d) => {
+        return `${d.item}: ${d.percent * 100}%`;
       },
     })
     .adjust('stack');

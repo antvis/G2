@@ -23,10 +23,7 @@ describe('test mask', () => {
   ]);
   chart.animate(false);
   chart.tooltip(false);
-  chart
-    .interval()
-    .position('year*value')
-    .color('year');
+  chart.interval().position('year*value').color('year');
   chart.render();
 
   const context = new Context(chart);
@@ -62,7 +59,7 @@ describe('test mask', () => {
       expect(maskShape.attr('y')).toBe(100);
       expect(maskShape.attr('width')).toBe(100);
       expect(maskShape.attr('height')).toBe(100);
-    
+
       context.event = {
         x: 300,
         y: 300,
@@ -73,7 +70,7 @@ describe('test mask', () => {
     });
     // 停止后不能再 resize
     it('end', () => {
-      const width = maskShape.attr('width')
+      const width = maskShape.attr('width');
       maskAction.end();
       context.event = {
         x: 400,
@@ -147,7 +144,6 @@ describe('test mask', () => {
       expect(maskShape.attr('x')).toBe(140);
       expect(maskShape.attr('y')).toBe(140);
 
-
       context.event = {
         x: 150,
         y: 150,
@@ -201,7 +197,6 @@ describe('test mask', () => {
       expect(maskShape.attr('y')).toBe(100);
       expect(maskShape.attr('width')).toBe(100);
       expect(maskShape.attr('height')).toBe(100);
-
     });
 
     it('hide', () => {
@@ -376,9 +371,9 @@ describe('test mask', () => {
   describe('test vertical rect mask', () => {
     let maskAction;
     const coord = chart.getCoordinate();
-    const {start, end} = coord;
+    const { start, end } = coord;
     let maskShape;
-    
+
     it('start and resize', () => {
       maskAction = new DimMask(context);
       maskAction.init();
@@ -433,7 +428,7 @@ describe('test mask', () => {
     });
 
     it('horizontal', () => {
-      maskAction = new DimMask(context, {dim: 'y'});
+      maskAction = new DimMask(context, { dim: 'y' });
       maskAction.init();
       context.event = {
         x: 100,

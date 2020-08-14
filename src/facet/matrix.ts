@@ -136,7 +136,7 @@ export default class Matrix extends Facet<MatrixCfg, MatrixData> {
         const config = deepMix(
           {
             position: ['100%', '50%'] as [string, string],
-            content: formatter ? formatter(rowValue) : rowValue
+            content: formatter ? formatter(rowValue) : rowValue,
           },
           getFactTitleConfig(DIRECTION.RIGHT),
           this.cfg.rowTitle

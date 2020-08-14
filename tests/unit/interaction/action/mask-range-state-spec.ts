@@ -21,16 +21,16 @@ describe('test mask and active', () => {
   chart.animate(false);
   chart.interaction('brush-visible');
   chart.tooltip(false);
- const interval = chart
+  const interval = chart
     .interval()
     .position('year*value')
     .color('year')
     .state({
       active: {
         style: {
-          fillOpacity: 0.4
-        }
-      }
+          fillOpacity: 0.4,
+        },
+      },
     });
   chart.render();
 
@@ -55,7 +55,7 @@ describe('test mask and active', () => {
     context.event = {
       x: 300,
       y: 300,
-      target: shape
+      target: shape,
     };
     action.active();
     // 不发生 active
@@ -70,7 +70,7 @@ describe('test mask and active', () => {
     context.event = {
       x: 300,
       y: 300,
-      target: shape
+      target: shape,
     };
     action.active();
     expect(elements[0].hasState('active')).toBe(false);
@@ -79,7 +79,7 @@ describe('test mask and active', () => {
     context.event = {
       x: 300,
       y: 400,
-      target: shape
+      target: shape,
     };
     mask.resize();
     action.active();
@@ -107,7 +107,7 @@ describe('test mask and active', () => {
     // @ts-ignore
     const shape = mask.maskShape;
     context.event = {
-      target: shape
+      target: shape,
     };
     action.active();
     expect(elements[0].hasState('active')).toBe(false);
@@ -125,7 +125,7 @@ describe('test mask and active', () => {
     };
     mask.move();
     context.event = {
-      target: shape
+      target: shape,
     };
     action.active();
     expect(elements[0].hasState('active')).toBe(false);
@@ -138,7 +138,7 @@ describe('test mask and active', () => {
     };
     mask.move();
     context.event = {
-      target: shape
+      target: shape,
     };
     action.active();
     expect(elements[3].hasState('active')).toBe(true);
@@ -148,7 +148,7 @@ describe('test mask and active', () => {
     };
     mask.move();
     context.event = {
-      target: shape
+      target: shape,
     };
     action.active();
     expect(elements[3].hasState('active')).toBe(false);
@@ -187,22 +187,22 @@ describe('test path mask', () => {
     .state({
       active: {
         style: {
-          fillOpacity: 0.4
-        }
-      }
+          fillOpacity: 0.4,
+        },
+      },
     });
   chart.render();
   const context = new Context(chart);
   const mask = new PathMask(context);
   const action = new ElementActive(context, {
-    maskByPath: true
+    maskByPath: true,
   });
   action.init();
   let maskShape;
   it('path very little', () => {
     context.event = {
       x: 100,
-      y: 100
+      y: 100,
     };
     mask.start();
     mask.show();
@@ -210,113 +210,110 @@ describe('test path mask', () => {
     maskShape = mask.maskShape;
     context.event = {
       x: 102,
-      y: 100
+      y: 100,
     };
     mask.resize();
 
     context.event = {
       x: 102,
-      y: 102
+      y: 102,
     };
     mask.resize();
     context.event = {
-      target: maskShape
+      target: maskShape,
     };
     action.active();
-    expect(interval.getElementsBy(el => el.hasState('active')).length).toBe(0);
+    expect(interval.getElementsBy((el) => el.hasState('active')).length).toBe(0);
     mask.end();
   });
 
   it('path mask interval', () => {
     context.event = {
       x: 65,
-      y: 177
+      y: 177,
     };
     mask.start();
     mask.show();
 
     context.event = {
       x: 108,
-      y: 178
+      y: 178,
     };
     mask.resize();
 
     context.event = {
       x: 121,
-      y: 225
+      y: 225,
     };
     mask.resize();
     context.event = {
-      target: maskShape
+      target: maskShape,
     };
 
     action.active();
-    expect(interval.getElementsBy(el => el.hasState('active')).length).toBe(0);
+    expect(interval.getElementsBy((el) => el.hasState('active')).length).toBe(0);
     context.event = {
       x: 28,
-      y: 225
+      y: 225,
     };
     mask.resize();
 
     context.event = {
-      target: maskShape
+      target: maskShape,
     };
     //debugger;
     action.active();
-    expect(interval.getElementsBy(el => el.hasState('active')).length).toBe(1);
+    expect(interval.getElementsBy((el) => el.hasState('active')).length).toBe(1);
 
     action.clear();
-    expect(interval.getElementsBy(el => el.hasState('active')).length).toBe(0);
+    expect(interval.getElementsBy((el) => el.hasState('active')).length).toBe(0);
   });
   it('path mask point', () => {
     chart.clear();
-    const point = chart
-      .point()
-      .position('year*value')
-      .color('year');
+    const point = chart.point().position('year*value').color('year');
     chart.scale('value', {
       nice: true,
-      min: 0
+      min: 0,
     });
     chart.render();
 
     context.event = {
       x: 65,
-      y: 177
+      y: 177,
     };
     mask.start();
     mask.show();
 
     context.event = {
       x: 108,
-      y: 178
+      y: 178,
     };
     mask.resize();
 
     context.event = {
       x: 121,
-      y: 225
+      y: 225,
     };
     mask.resize();
     context.event = {
-      target: maskShape
+      target: maskShape,
     };
 
     action.active();
-    expect(point.getElementsBy(el => el.hasState('active')).length).toBe(0);
+    expect(point.getElementsBy((el) => el.hasState('active')).length).toBe(0);
 
     context.event = {
       x: 57,
-      y: 260
+      y: 260,
     };
     mask.resize();
 
     context.event = {
-      target: maskShape
+      target: maskShape,
     };
 
     action.active();
 
-    expect(point.getElementsBy(el => el.hasState('active')).length).toBe(1);
+    expect(point.getElementsBy((el) => el.hasState('active')).length).toBe(1);
   });
 });

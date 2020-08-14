@@ -25,7 +25,7 @@ describe('facet rect', () => {
     },
     cut: {
       sync: true,
-    }
+    },
   });
 
   chart.legend('price', {
@@ -34,19 +34,20 @@ describe('facet rect', () => {
 
   // 使用分面
   chart.facet('rect', {
-    fields: [ 'clarity', 'cut' ],
+    fields: ['clarity', 'cut'],
     columnTitle: {
       style: {
         fontSize: 12,
-      }
+      },
     },
     eachView(view, f) {
-      view.point()
+      view
+        .point()
         .position('carat*price')
         .color('cut')
         .shape('circle')
         .style({
-          opacity: 0.8
+          opacity: 0.8,
         })
         .size('price');
     },
@@ -55,7 +56,7 @@ describe('facet rect', () => {
 
   chart.render();
   // @ts-ignore
-  window.chart = chart;;
+  window.chart = chart;
 
   // @ts-ignore
   const facet = chart.facetInstance;
@@ -109,7 +110,7 @@ describe('facet rect', () => {
       },
       price: {
         title: null,
-      }
+      },
     });
   });
 });

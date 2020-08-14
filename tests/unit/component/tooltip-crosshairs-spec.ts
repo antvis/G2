@@ -12,7 +12,7 @@ describe('TooltipCrosshairs', () => {
     { year: '1996', value: 6 },
     { year: '1997', value: 7 },
     { year: '1998', value: 9 },
-    { year: '1999', value: 13 }
+    { year: '1999', value: 13 },
   ];
   const chart = new Chart({
     container,
@@ -24,18 +24,16 @@ describe('TooltipCrosshairs', () => {
   chart.animate(false);
   chart.data(data);
   chart.scale('year', {
-    range: [0, 1]
+    range: [0, 1],
   });
   chart.scale('value', {
     nice: true,
   });
   chart.line().position('year*value');
-  chart.point().position('year*value')
-    .shape('circle')
-    .style({
-      stroke: '#fff',
-      lineWidth: 1
-    });
+  chart.point().position('year*value').shape('circle').style({
+    stroke: '#fff',
+    lineWidth: 1,
+  });
   chart.render();
 
   it('default, crosshairs is closed', () => {
@@ -81,7 +79,7 @@ describe('TooltipCrosshairs', () => {
         type: 'y',
         line: {
           style: {
-            linDash: [ 2 ],
+            linDash: [2],
           },
         },
       },
@@ -114,10 +112,10 @@ describe('TooltipCrosshairs', () => {
       crosshairs: {
         text: {
           style: {
-            textAlign: 'center'
-          }
+            textAlign: 'center',
+          },
         },
-      }
+      },
     });
     chart.render(true);
 
@@ -149,9 +147,9 @@ describe('TooltipCrosshairs', () => {
           style: {
             textAlign: 'right',
             fill: 'red',
-          }
+          },
         },
-      }
+      },
     });
     chart.render(true);
 
@@ -186,9 +184,9 @@ describe('TooltipCrosshairs', () => {
           style: {
             textAlign: 'right',
             fill: 'red',
-          }
+          },
         },
-      }
+      },
     });
     chart.render(true);
 
@@ -231,18 +229,16 @@ describe('TooltipCrosshairs', () => {
     });
     chart.data(data);
     chart.scale('year', {
-      range: [0, 1]
+      range: [0, 1],
     });
     chart.scale('value', {
       nice: true,
     });
     chart.line().position('year*value');
-    chart.point().position('year*value')
-      .shape('circle')
-      .style({
-        stroke: '#fff',
-        lineWidth: 1
-      });
+    chart.point().position('year*value').shape('circle').style({
+      stroke: '#fff',
+      lineWidth: 1,
+    });
     chart.render();
 
     const point = chart.getXY({ year: '1994', value: 5 });
@@ -288,7 +284,7 @@ describe('TooltipCrosshairs', () => {
                 fill: 'red',
               },
               content: defaultValue,
-            }
+            };
           }
           return {
             style: {
@@ -298,14 +294,14 @@ describe('TooltipCrosshairs', () => {
             content: defaultValue.toFixed(0),
           };
         },
-      }
+      },
     });
     chart.render(true);
 
     const point = chart.getXY({ year: '1994', value: 5 });
     chart.showTooltip({
       x: point.x,
-      y: (point.y - 8)
+      y: point.y - 8,
     });
 
     const tooltipController = chart.getController('tooltip');

@@ -15,13 +15,23 @@ describe('transform', () => {
       width: 60,
       height: 100,
       fill: 'red',
-    }
+    },
   });
-  canvas.draw()
+  canvas.draw();
 
   it('rotate', () => {
     rotate(shape, Math.PI * 0.25);
-    expect(shape.getMatrix()).toEqual([0.7071067811865476, 0.7071067811865475, 0, -0.7071067811865475, 0.7071067811865476, 0, 10, -4.142135623730951, 1]);
+    expect(shape.getMatrix()).toEqual([
+      0.7071067811865476,
+      0.7071067811865475,
+      0,
+      -0.7071067811865475,
+      0.7071067811865476,
+      0,
+      10,
+      -4.142135623730951,
+      1,
+    ]);
   });
 
   it('translate', () => {

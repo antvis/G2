@@ -15,19 +15,21 @@ describe('2495', () => {
     const chart = new Chart({
       container: createDiv(),
       width: 600,
-      height: 500
+      height: 500,
     });
 
     chart.data(data);
-    chart
-      .line()
-      .position('x*y')
-      .color('z');
+    chart.line().position('x*y').color('z');
 
     chart.render();
     chart.render();
 
     // legend 布局到下方
-    expect(chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND)[0].component.get('y')).toBeGreaterThan(400);
+    expect(
+      chart
+        .getComponents()
+        .filter((co) => co.type === COMPONENT_TYPE.LEGEND)[0]
+        .component.get('y')
+    ).toBeGreaterThan(400);
   });
 });

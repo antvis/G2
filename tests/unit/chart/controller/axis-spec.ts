@@ -33,11 +33,7 @@ describe('Axis', () => {
       },
     });
 
-    chart
-      .interval()
-      .position('月份*月均降雨量')
-      .color('name')
-      .adjust('dodge');
+    chart.interval().position('月份*月均降雨量').color('name').adjust('dodge');
     chart.render();
 
     const axes = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.AXIS);
@@ -64,9 +60,13 @@ describe('Axis', () => {
     expect(grids[0].component.get('animate')).toBe(true);
     expect(grids[0].component.get('animateOption')).toBeDefined();
 
-
     chart.changeSize(100, 100);
-    expect(chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.GRID)[0].component.get('animate')).toBe(true);
+    expect(
+      chart
+        .getComponents()
+        .filter((co) => co.type === COMPONENT_TYPE.GRID)[0]
+        .component.get('animate')
+    ).toBe(true);
   });
 
   it('polar', () => {
@@ -86,12 +86,7 @@ describe('Axis', () => {
       { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
     ]);
     chart.coordinate('polar');
-    chart
-      .interval()
-      .position('月份*月均降雨量')
-      .color('name')
-      .adjust('dodge')
-      .size(5);
+    chart.interval().position('月份*月均降雨量').color('name').adjust('dodge').size(5);
     chart.render();
 
     const axes = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.AXIS);
@@ -120,11 +115,7 @@ describe('Axis', () => {
       { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
     ]);
     chart.animate(false);
-    chart
-      .interval()
-      .position('月份*月均降雨量')
-      .color('name')
-      .adjust('dodge');
+    chart.interval().position('月份*月均降雨量').color('name').adjust('dodge');
     chart.render();
     chart.render(true);
 

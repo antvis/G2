@@ -22,7 +22,6 @@ describe('State setting', () => {
     end: { x: 180, y: 0 },
   });
 
-
   it('default', () => {
     const data = [
       { a: 'A', b: 10 },
@@ -143,11 +142,7 @@ describe('State setting', () => {
       container: canvas.addGroup(),
     });
 
-    pie
-      .position('value')
-      .color('type')
-      .adjust('stack')
-      .animate(false);
+    pie.position('value').color('type').adjust('stack').animate(false);
     pie.init({
       theme: Theme,
     });

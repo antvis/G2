@@ -14,21 +14,21 @@ describe('Edge Geometry', () => {
   const scaleX = new linearScale({
     field: 'x',
     min: 0,
-    max: 5
+    max: 5,
   });
   const scaleY = new linearScale({
     field: 'y',
     min: 0,
-    max: 5
+    max: 5,
   });
   const scaleVh = new IdentityScale({
     field: 'vhv',
-    values: [ 'vhv' ],
+    values: ['vhv'],
   });
 
   const ScaleRed = new IdentityScale({
     field: 'red',
-    values: [ 'red' ],
+    values: ['red'],
   });
 
   const coord = new RectCoordinate({

@@ -22,10 +22,7 @@ describe('#2016', () => {
       width: { nice: true },
       height: { nice: true },
     });
-    const point = chart
-      .point()
-      .position('height*weight')
-      .shape('circle');
+    const point = chart.point().position('height*weight').shape('circle');
     chart.render();
 
     expect(point.elements.length).toBe(4);

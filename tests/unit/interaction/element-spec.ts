@@ -40,10 +40,7 @@ describe('test element interaction', () => {
   chart.tooltip(false);
   chart.interaction('element-active');
   chart.interaction('element-range-highlight');
-  chart
-    .interval()
-    .position('year*value')
-    .color('year');
+  chart.interval().position('year*value').color('year');
   chart.render();
   const elements = chart.geometries[0].elements;
   const first = elements[0];

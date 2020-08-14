@@ -52,11 +52,9 @@ describe('Interval label in Polar coordinate', () => {
     coordinate: coord,
     scaleDefs,
   });
-  interval
-    .position('year*sales')
-    .label('sales', {
-      labelEmit: true,
-    });
+  interval.position('year*sales').label('sales', {
+    labelEmit: true,
+  });
   interval.init({
     theme: Theme,
   });

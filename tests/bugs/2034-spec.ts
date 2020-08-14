@@ -26,22 +26,18 @@ describe('#2034', () => {
 
     chart.data(data);
 
-    chart
-      .interval()
-      .position('x*y')
-      .color('z')
-      .adjust('stack');
+    chart.interval().position('x*y').color('z').adjust('stack');
 
     chart.render();
 
-    const [ yScale ] = chart.getYScales();
+    const [yScale] = chart.getYScales();
     expect(yScale.min).toBe(0);
     expect(yScale.max).toBe(1);
 
     // 手动设置 min 和 max
     chart.scale('y', {
       min: -0.5,
-      max: 1.5
+      max: 1.5,
     });
     chart.render(true);
     expect(chart.getYScales()[0].min).toBe(-0.5);

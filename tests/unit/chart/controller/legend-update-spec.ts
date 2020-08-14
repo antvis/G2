@@ -26,11 +26,7 @@ describe('legend update', () => {
     position: 'top',
   });
 
-  const interval = chart
-    .interval()
-    .position('月份*月均降雨量')
-    .color('name')
-    .adjust('dodge');
+  const interval = chart.interval().position('月份*月均降雨量').color('name').adjust('dodge');
   chart.render();
 
   function getLegends() {

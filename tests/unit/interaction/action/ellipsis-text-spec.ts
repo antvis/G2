@@ -24,7 +24,10 @@ describe('test component tooltip', () => {
   const interaction = createInteraction('ellipsis-text', chart);
   interaction.init();
   it('show', () => {
-    const axis = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.AXIS).filter(co => co.direction === 'bottom')[0];
+    const axis = chart
+      .getComponents()
+      .filter((co) => co.type === COMPONENT_TYPE.AXIS)
+      .filter((co) => co.direction === 'bottom')[0];
     const axisTarget = axis.component.get('container').findById('-axis-label-我是一段很长很长很长很长很长的文本');
     chart.emit('axis-label:mousemove', {
       x: 50,
@@ -36,7 +39,9 @@ describe('test component tooltip', () => {
     expect(tooltipDom.textContent).toBe(axisTarget.get('tip'));
 
     const legend = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND)[0];
-    const legendTarget = legend.component.get('container').findById('-legend-item-我是一段很长很长很长很长很长的文本-name');
+    const legendTarget = legend.component
+      .get('container')
+      .findById('-legend-item-我是一段很长很长很长很长很长的文本-name');
     chart.emit('legend-item-name:mousemove', {
       x: 50,
       y: 330,

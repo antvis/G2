@@ -14,11 +14,7 @@ describe('Chart autoFit', () => {
 
   chart.data(CITY_SALE);
 
-  chart
-    .interval()
-    .position('city*sale')
-    .color('category')
-    .adjust('stack');
+  chart.interval().position('city*sale').color('category').adjust('stack');
 
   test('autoFit', () => {
     expect(chart.ele).toBe(div);
@@ -28,7 +24,7 @@ describe('Chart autoFit', () => {
     expect(chart.width).toBe(width);
     // see https://github.com/antvis/G2/issues/2159
     // should be equal, but actual height = chart.height + 5px
-    // expect(chart.height).toBe(height); 
+    // expect(chart.height).toBe(height);
   });
 
   test('changeSize', () => {
@@ -45,5 +41,5 @@ describe('Chart autoFit', () => {
     chart.changeSize(chart.width + 1, chart.height);
     // 宽高不相同执行
     expect(fn).toBeCalled();
-  })
+  });
 });

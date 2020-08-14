@@ -7,5 +7,5 @@ describe('createThemeByStylesheet', () => {
 
     expect(theme.defaultColor).toBe('#5B8FF9');
     expect(theme.geometries).toBeDefined();
-  })
+  });
 });

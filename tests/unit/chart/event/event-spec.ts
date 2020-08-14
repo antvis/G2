@@ -15,11 +15,7 @@ const chart = new Chart({
 
 chart.data(CITY_SALE);
 
-chart
-  .interval()
-  .position('city*sale')
-  .color('category')
-  .adjust('stack');
+chart.interval().position('city*sale').color('category').adjust('stack');
 
 chart.animate(false);
 

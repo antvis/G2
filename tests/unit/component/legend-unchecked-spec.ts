@@ -5,7 +5,6 @@ import { CITY_SALE, DIAMOND } from '../../util/data';
 import { createDiv } from '../../util/dom';
 
 describe('legend unchecked', () => {
-
   it('category', () => {
     const div = createDiv();
 
@@ -18,21 +17,16 @@ describe('legend unchecked', () => {
 
     chart.data(CITY_SALE);
 
-    chart
-      .interval()
-      .position('city*sale')
-      .color('category')
-      .adjust({ type: 'dodge' });
-
+    chart.interval().position('city*sale').color('category').adjust({ type: 'dodge' });
 
     chart.filter('category', (v) => v === '电脑');
     chart.interaction('legend-filter');
 
     chart.render();
 
-    const legend = chart.getComponents().filter(co => co.type === COMPONENT_TYPE.LEGEND)[0].component;
+    const legend = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND)[0].component;
 
-    const items = legend.get('items').map(item => ({
+    const items = legend.get('items').map((item) => ({
       value: item.value,
       unchecked: item.unchecked,
     }));

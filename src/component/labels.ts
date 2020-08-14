@@ -229,10 +229,9 @@ export default class Labels {
   }
 
   private renderLabelLine(labelItems: LabelItem[]) {
-
     each(labelItems, (labelItem) => {
       const coordinate: Coordinate = get(labelItem, 'coordinate');
-      if (!labelItem || !coordinate) {        
+      if (!labelItem || !coordinate) {
         return;
       }
       const center = coordinate.getCenter();

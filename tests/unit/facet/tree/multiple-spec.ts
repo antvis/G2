@@ -21,23 +21,23 @@ describe('facet tree', () => {
     { gender: '男', count: 25, class: '二班', grade: '二年级' },
     { gender: '女', count: 32, class: '二班', grade: '二年级' },
     { gender: '男', count: 28, class: '三班', grade: '二年级' },
-    { gender: '女', count: 36, class: '三班', grade: '二年级' }
+    { gender: '女', count: 36, class: '三班', grade: '二年级' },
   ];
 
   const chart = new Chart({
     container: div,
     autoFit: true,
     height: 500,
-    padding: [ 60, 90, 80, 80 ]
+    padding: [60, 90, 80, 80],
   });
 
   chart.data(data);
   chart.coordinate('theta');
   chart.tooltip({
-    showTitle: false
+    showTitle: false,
   });
   chart.facet('tree', {
-    fields: [ 'grade', 'class' ],
+    fields: ['grade', 'class'],
     line: {
       style: {
         stroke: '#00a3d7',
@@ -50,7 +50,7 @@ describe('facet tree', () => {
         type: 'percent',
         field: 'count',
         dimension: 'gender',
-        as: 'percent'
+        as: 'percent',
       });
 
       view.data(dv.rows);
@@ -58,11 +58,11 @@ describe('facet tree', () => {
         percent: {
           formatter(val) {
             return (val * 100).toFixed(2) + '%';
-          }
-        }
+          },
+        },
       });
       view.interval().position('percent').color('gender').adjust('stack');
-    }
+    },
   });
   chart.render();
 
@@ -77,5 +77,5 @@ describe('facet tree', () => {
     expect(chart.facetInstance.cfg.line.smooth).toEqual(true);
 
     expect(chart.getController('annotation').getComponents()).toEqual([]);
-  })
+  });
 });

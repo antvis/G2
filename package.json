@@ -18,6 +18,7 @@
     "site:clean": "gatsby clean",
     "site:deploy": "npm run site:build && gh-pages -d public",
     "clean": "rimraf lib esm dist",
+    "fix": "tslint -c tslint.json ./src/**/*.ts ./tests/**/*.ts --fix && prettier --write ./src ./tests",
     "lint": "run-p lint:*",
     "lint:tslint": "tslint -c tslint.json 'src/**/*.ts'",
     "test": "jest",

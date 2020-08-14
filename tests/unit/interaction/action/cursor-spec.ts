@@ -19,10 +19,7 @@ describe('active test', () => {
   ]);
   chart.animate(false);
   chart.tooltip(false);
-  chart
-    .interval()
-    .position('year*value')
-    .color('year');
+  chart.interval().position('year*value').color('year');
   chart.render();
   const canvas = chart.getCanvas();
   const context = new Context(chart);

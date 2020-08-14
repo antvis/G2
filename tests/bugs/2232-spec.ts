@@ -25,26 +25,27 @@ describe('#2232', () => {
     },
     cut: {
       sync: true,
-    }
+    },
   });
 
   chart.legend('price', false);
 
   // 使用分面
   chart.facet('rect', {
-    fields: [ 'clarity', 'cut' ],
+    fields: ['clarity', 'cut'],
     columnTitle: {
       style: {
         fontSize: 12,
-      }
+      },
     },
     eachView(view, f) {
-      view.point()
+      view
+        .point()
         .position('carat*price')
         .color('cut')
         .shape('circle')
         .style({
-          opacity: 0.8
+          opacity: 0.8,
         })
         .size('price');
     },

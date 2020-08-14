@@ -20,10 +20,7 @@ describe('active test', () => {
   chart.scale('value', { nice: true });
   chart.animate(false);
   chart.tooltip(false);
-  const interval = chart
-    .interval()
-    .position('year*value')
-    .color('year');
+  const interval = chart.interval().position('year*value').color('year');
   chart.render();
   const context = new Context(chart);
   const action = new RangeFilter(context);

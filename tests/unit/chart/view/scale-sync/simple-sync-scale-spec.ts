@@ -13,15 +13,8 @@ describe('sync scale', () => {
   });
   chart.data(CITY_SALE_PROFIT);
 
-  chart
-    .interval()
-    .position('city*sale')
-    .color('category')
-    .adjust('stack');
-  chart
-    .line()
-    .position('city*profit')
-    .color('category');
+  chart.interval().position('city*sale').color('category').adjust('stack');
+  chart.line().position('city*profit').color('category');
 
   it('no sync', () => {
     chart.render();

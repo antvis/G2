@@ -19,7 +19,7 @@ describe('GeometryLabel layout', () => {
         y: -3,
         text: '12345',
         fill: 'red',
-      }
+      },
     });
     const text2 = group.addShape({
       type: 'text',
@@ -28,7 +28,7 @@ describe('GeometryLabel layout', () => {
         y: 10,
         text: '12345',
         fill: 'red',
-      }
+      },
     });
     const text3 = group.addShape({
       type: 'text',
@@ -37,7 +37,7 @@ describe('GeometryLabel layout', () => {
         y: 10,
         text: '12345',
         fill: 'red',
-      }
+      },
     });
     const text4 = group.addShape({
       type: 'text',
@@ -46,7 +46,7 @@ describe('GeometryLabel layout', () => {
         y: 10,
         text: '1111111111',
         fill: 'red',
-      }
+      },
     });
     const text5 = group.addShape({
       type: 'text',
@@ -55,7 +55,7 @@ describe('GeometryLabel layout', () => {
         y: 100,
         text: '222',
         fill: 'red',
-      }
+      },
     });
     const text6 = group.addShape({
       type: 'text',
@@ -64,7 +64,7 @@ describe('GeometryLabel layout', () => {
         y: 95,
         text: '222',
         fill: 'red',
-      }
+      },
     });
     const text7 = group.addShape({
       type: 'text',
@@ -73,7 +73,7 @@ describe('GeometryLabel layout', () => {
         y: 50,
         text: '222',
         fill: 'red',
-      }
+      },
     });
 
     const region = {

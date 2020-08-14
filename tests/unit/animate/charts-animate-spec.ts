@@ -26,10 +26,7 @@ describe('Test charts animate', () => {
       max: 200,
       nice: false,
     });
-    chart
-      .interval()
-      .position('year*sales')
-      .label('sales');
+    chart.interval().position('year*sales').label('sales');
     chart.render();
 
     setTimeout(() => {
@@ -142,11 +139,7 @@ describe('Test charts animate', () => {
 
     chart.data(data);
 
-    chart
-      .interval()
-      .position('月份*月均降雨量')
-      .color('name')
-      .adjust('stack');
+    chart.interval().position('月份*月均降雨量').color('name').adjust('stack');
 
     chart.render();
 
@@ -245,15 +238,10 @@ describe('Test charts animate', () => {
     });
 
     chart.line().position('year*value');
-    chart
-      .point()
-      .position('year*value')
-      .size(4)
-      .shape('circle')
-      .style({
-        stroke: '#fff',
-        lineWidth: 1,
-      });
+    chart.point().position('year*value').size(4).shape('circle').style({
+      stroke: '#fff',
+      lineWidth: 1,
+    });
 
     chart.render();
 
@@ -319,17 +307,8 @@ describe('Test charts animate', () => {
       },
     });
 
-    chart
-      .area()
-      .adjust('stack')
-      .position('year*value')
-      .color('country');
-    chart
-      .line()
-      .adjust('stack')
-      .position('year*value')
-      .color('country')
-      .size(2);
+    chart.area().adjust('stack').position('year*value').color('country');
+    chart.line().adjust('stack').position('year*value').color('country').size(2);
 
     chart.render();
 
@@ -418,26 +397,13 @@ describe('Test charts animate', () => {
       },
     });
 
-    chart
-      .line()
-      .position('item*score')
-      .color('user')
-      .size(2);
-    chart
-      .point()
-      .position('item*score')
-      .color('user')
-      .shape('circle')
-      .size(4)
-      .style({
-        stroke: '#fff',
-        lineWidth: 1,
-        fillOpacity: 1,
-      });
-    chart
-      .area()
-      .position('item*score')
-      .color('user');
+    chart.line().position('item*score').color('user').size(2);
+    chart.point().position('item*score').color('user').shape('circle').size(4).style({
+      stroke: '#fff',
+      lineWidth: 1,
+      fillOpacity: 1,
+    });
+    chart.area().position('item*score').color('user');
     chart.render();
 
     setTimeout(() => {
@@ -611,15 +577,11 @@ describe('Test charts animate', () => {
       max: 35,
     });
     chart.coordinate('polar');
-    chart
-      .schema()
-      .position('x*range')
-      .shape('box')
-      .style({
-        stroke: '#545454',
-        fill: '#1890FF',
-        fillOpacity: 0.3,
-      });
+    chart.schema().position('x*range').shape('box').style({
+      stroke: '#545454',
+      fill: '#1890FF',
+      fillOpacity: 0.3,
+    });
     chart.render();
 
     setTimeout(() => {
@@ -661,11 +623,7 @@ describe('Test charts animate', () => {
     });
     chart.data(data);
     chart.coordinate('polar');
-    chart
-      .point()
-      .position('height*weight')
-      .size(4)
-      .shape('circle');
+    chart.point().position('height*weight').size(4).shape('circle');
     chart.render();
 
     setTimeout(() => {
@@ -714,10 +672,7 @@ describe('Test charts animate', () => {
       .position('price*consumption')
       .label('year')
       .size(2);
-    chart
-      .point()
-      .position('price*consumption')
-      .shape('triangle');
+    chart.point().position('price*consumption').shape('triangle');
     chart.render();
 
     setTimeout(() => {

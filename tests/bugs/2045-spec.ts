@@ -46,9 +46,8 @@ describe('#2045', () => {
     const area = chart.area().position('year*value');
 
     chart.render();
-    chart.changeSize(300, 300)
+    chart.changeSize(300, 300);
 
     expect(area.elements[0].getModel().mappingData[1].x).toBeCloseTo(74.55248641967773);
   });
-
 });

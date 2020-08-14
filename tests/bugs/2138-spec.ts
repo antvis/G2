@@ -19,8 +19,8 @@ describe('#2138', () => {
     const interval = chart
       .interval({
         theme: {
-          columnWidthRatio: 0.7
-        }
+          columnWidthRatio: 0.7,
+        },
       })
       .position('name*measure')
       .color('series')

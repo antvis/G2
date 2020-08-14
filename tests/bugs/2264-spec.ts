@@ -28,5 +28,5 @@ describe('#2264', () => {
   it('g2 div 层级结构', () => {
     expect(chart.canvas.get('el').parentNode).toBe(div.querySelector('div'));
     expect(chart.canvas.get('el').parentNode.parentNode).toBe(div);
-  })
+  });
 });

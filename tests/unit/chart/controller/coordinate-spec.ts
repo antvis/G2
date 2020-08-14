@@ -16,19 +16,19 @@ describe('test coordinate controller', () => {
 
     controller.transpose();
     expect(actions.length).toBe(1);
-    expect(actions[0]).toEqual([ 'transpose' ]);
+    expect(actions[0]).toEqual(['transpose']);
 
     controller.rotate(Math.PI);
     expect(actions.length).toBe(2);
-    expect(actions[1]).toEqual([ 'rotate', Math.PI ]);
+    expect(actions[1]).toEqual(['rotate', Math.PI]);
 
     controller.scale(1, -1);
     expect(actions.length).toBe(3);
-    expect(actions[2]).toEqual([ 'scale', 1, -1 ]);
+    expect(actions[2]).toEqual(['scale', 1, -1]);
 
     controller.reflect('x');
     expect(actions.length).toBe(4);
-    expect(actions[3]).toEqual([ 'reflect', 'x' ]);
+    expect(actions[3]).toEqual(['reflect', 'x']);
   });
 
   it('create coordinate', () => {
@@ -38,7 +38,7 @@ describe('test coordinate controller', () => {
 
   it('update', () => {
     controller.update({
-      type: 'polar'
+      type: 'polar',
     });
     expect(controller.getOption()).toEqual({
       type: 'polar',
@@ -55,7 +55,7 @@ describe('test coordinate controller', () => {
   it('create theta', () => {
     controller.update({
       type: 'theta',
-      actions: [[ 'rotate', Math.PI ]]
+      actions: [['rotate', Math.PI]],
     });
     const coordinate = controller.create({ x: 0, y: 0 }, { x: 500, y: 500 });
     expect(coordinate.isTransposed).toBe(true);

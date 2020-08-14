@@ -15,7 +15,7 @@ const Data = [
   { year: '1996', value: 6 },
   { year: '1997', value: 7 },
   { year: '1998', value: 9 },
-  { year: '1999', value: 13 }
+  { year: '1999', value: 13 },
 ];
 
 describe('Slider', () => {
@@ -44,15 +44,12 @@ describe('Slider', () => {
     end: 0.7,
   });
 
-  chart
-    .interval()
-    .position('year*value');
+  chart.interval().position('year*value');
   chart.render();
 
   const [slider] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.OTHER);
 
   it('slider cfg', () => {
-
     expect(slider.component.get('height')).toBe(24);
     expect(slider.component.get('trendCfg').isArea).toBe(false);
 
@@ -65,9 +62,7 @@ describe('Slider', () => {
     expect(slider.component.get('maxText')).toBe('1996');
 
     // view 过滤规则
-    expect(chart.filterFieldData('year', Data).map(d => d.year)).toEqual([
-      '1993', '1994', '1995', '1996'
-    ]);
+    expect(chart.filterFieldData('year', Data).map((d) => d.year)).toEqual(['1993', '1994', '1995', '1996']);
   });
 
   it('slider update', () => {
