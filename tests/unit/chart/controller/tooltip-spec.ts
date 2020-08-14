@@ -31,11 +31,7 @@ describe('Tooltip', () => {
       },
     },
   });
-  chart
-    .interval()
-    .position('月份*月均降雨量')
-    .color('name')
-    .adjust('dodge');
+  chart.interval().position('月份*月均降雨量').color('name').adjust('dodge');
   chart.render();
 
   it('showTooltip', () => {
@@ -159,26 +155,13 @@ describe('Tooltip', () => {
       { item: 'UX', user: 'a', score: 50 },
       { item: 'UX', user: 'b', score: 60 },
     ]);
-    chart
-      .line()
-      .position('item*score')
-      .color('user')
-      .size(2);
-    chart
-      .point()
-      .position('item*score')
-      .color('user')
-      .shape('circle')
-      .size(4)
-      .style({
-        stroke: '#fff',
-        lineWidth: 1,
-        fillOpacity: 1,
-      });
-    chart
-      .area()
-      .position('item*score')
-      .color('user');
+    chart.line().position('item*score').color('user').size(2);
+    chart.point().position('item*score').color('user').shape('circle').size(4).style({
+      stroke: '#fff',
+      lineWidth: 1,
+      fillOpacity: 1,
+    });
+    chart.area().position('item*score').color('user');
     chart.render();
 
     const point = chart.getXY({ item: 'Technology', user: 'a', score: 50 });
@@ -218,15 +201,10 @@ describe('Tooltip', () => {
       follow: true,
     });
     chart.line().position('year*value');
-    chart
-      .point()
-      .position('year*value')
-      .size(4)
-      .shape('circle')
-      .style({
-        stroke: '#fff',
-        lineWidth: 1,
-      });
+    chart.point().position('year*value').size(4).shape('circle').style({
+      stroke: '#fff',
+      lineWidth: 1,
+    });
     chart.render();
 
     // 构造两个数据点之间的位置
@@ -270,16 +248,8 @@ describe('Tooltip', () => {
     chart.tooltip({
       showCrosshairs: true,
     });
-    chart
-      .point()
-      .position('year*value')
-      .size(4)
-      .shape('circle');
-    chart
-      .point()
-      .position('year*value1')
-      .size(5)
-      .shape('triangle');
+    chart.point().position('year*value').size(4).shape('circle');
+    chart.point().position('year*value1').size(5).shape('triangle');
     chart.render();
 
     // 构造两个数据点之间的位置
@@ -318,10 +288,7 @@ describe('Multiple views tooltip', () => {
     width: 400,
     height: 300,
   });
-  chart
-    .coordinate('rect')
-    .transpose()
-    .scale(1, -1);
+  chart.coordinate('rect').transpose().scale(1, -1);
   chart.axis(false);
   chart.legend(false);
   chart.tooltip({
@@ -390,12 +357,7 @@ describe('geometry.tooltip()', () => {
     min: 0,
     max: 10,
   });
-  chart
-    .point()
-    .position('year*value')
-    .size(4)
-    .shape('circle')
-    .tooltip('year*value');
+  chart.point().position('year*value').size(4).shape('circle').tooltip('year*value');
   chart.render();
 
   it('tooltip items', () => {
@@ -463,11 +425,7 @@ describe('showContent', () => {
       textBackground: null,
     },
   });
-  chart
-    .interval()
-    .position('year*population')
-    .color('year')
-    .size(100);
+  chart.interval().position('year*population').color('year').size(100);
   chart.render();
 
   it('showContent: false', () => {

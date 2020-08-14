@@ -21,11 +21,7 @@ describe('#1823', () => {
       { city: '广州', sale: 90, category: '鼠标' },
     ]);
 
-    const interval = chart
-      .interval()
-      .position('city*sale')
-      .color('category')
-      .adjust({ type: 'dodge' });
+    const interval = chart.interval().position('city*sale').color('category').adjust({ type: 'dodge' });
 
     chart.render();
     chart.render();

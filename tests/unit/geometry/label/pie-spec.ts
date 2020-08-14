@@ -192,7 +192,7 @@ describe('pie labels', () => {
       expect(labels.length).toBe(points.length);
 
       // @ts-ignore
-      const labelText0 = labels[0].find(ele => ele.get('type') === 'text');
+      const labelText0 = labels[0].find((ele) => ele.get('type') === 'text');
       expect(labelText0.attr('x')).toBe(items[0].x + 10);
       expect(labelText0.attr('y')).toBe(items[0].y - 10);
       // @ts-ignore
@@ -200,7 +200,7 @@ describe('pie labels', () => {
       expect(items[0].labelLine).toBe(false);
 
       // @ts-ignore
-      const labelText1 = labels[1].find(ele => ele.get('type') === 'text');
+      const labelText1 = labels[1].find((ele) => ele.get('type') === 'text');
       expect(labelText1.attr('x')).toBe(items[1].x + 10);
       expect(labelText1.attr('y')).toBe(items[1].y - 10);
       // @ts-ignore
@@ -208,7 +208,7 @@ describe('pie labels', () => {
       expect(items[1].labelLine).toBe(false);
 
       // @ts-ignore
-      const labelText2 = labels[2].find(ele => ele.get('type') === 'text');
+      const labelText2 = labels[2].find((ele) => ele.get('type') === 'text');
       expect(labelText2.attr('x')).toBe(items[2].x + 10);
       expect(labelText2.attr('y')).toBe(items[2].y - 10);
       // @ts-ignore
@@ -216,7 +216,7 @@ describe('pie labels', () => {
       expect(items[2].labelLine).toBe(false);
 
       // @ts-ignore
-      const labelText5 = labels[5].find(ele => ele.get('type') === 'text');
+      const labelText5 = labels[5].find((ele) => ele.get('type') === 'text');
       expect(labelText5.attr('x')).toBe(items[5].x + 10);
       expect(labelText5.attr('y')).toBe(items[5].y - 10);
     });

@@ -35,7 +35,7 @@ describe('interval labels', () => {
   ];
   const scaleDefs = {
     year: {
-      range: [ 0.25, 0.75 ],
+      range: [0.25, 0.75],
     },
     country: {
       range: [0.25, 0.75],
@@ -64,13 +64,10 @@ describe('interval labels', () => {
       coordinate: coord,
       scaleDefs,
     });
-    interval
-      .position('year*value')
-      .size(30)
-      .label('percent', {
-        position: 'middle',
-        offset: 0,
-      });
+    interval.position('year*value').size(30).label('percent', {
+      position: 'middle',
+      offset: 0,
+    });
     interval.init({
       theme: Theme,
     });
@@ -91,7 +88,7 @@ describe('interval labels', () => {
     mappingArray = flatten(mappingArray);
 
     const gLabels = new IntervalLabel(interval);
-    const [ data1, data2 ] = mappingArray;
+    const [data1, data2] = mappingArray;
 
     it('single label position middle', () => {
       const [item1, item2] = gLabels.getLabelItems(mappingArray);
@@ -173,14 +170,10 @@ describe('interval labels', () => {
       coordinate: transposedCoord,
       scaleDefs,
     });
-    interval
-      .position('country*value')
-      .color('year')
-      .adjust('stack')
-      .label('percent', {
-        position: 'middle',
-        offset: 0,
-      });
+    interval.position('country*value').color('year').adjust('stack').label('percent', {
+      position: 'middle',
+      offset: 0,
+    });
     interval.init({
       theme: Theme,
     });
@@ -201,7 +194,7 @@ describe('interval labels', () => {
     mappingArray = flatten(mappingArray);
 
     const gLabels = new IntervalLabel(interval);
-    const [ data1, data2 ] = mappingArray;
+    const [data1, data2] = mappingArray;
     it('single label position middle', () => {
       const [item1, item2] = gLabels.getLabelItems(mappingArray);
       expect(item1.x).toBe((data1.x[0] + data1.x[1]) / 2);

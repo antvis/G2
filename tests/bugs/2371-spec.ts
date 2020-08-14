@@ -17,18 +17,11 @@ describe('2371', () => {
     chart.data(data);
     chart.coordinate('theta', {
       radius: 0.75,
-      innerRadius: 0.4
+      innerRadius: 0.4,
     });
     chart.tooltip(false);
-    chart.filter('type', val => false);
-    chart
-      .interval()
-      .adjust('stack')
-      .position('value')
-      .color('type')
-      .style({ opacity: 0.4 })
-      .label('type');
-
+    chart.filter('type', (val) => false);
+    chart.interval().adjust('stack').position('value').color('type').style({ opacity: 0.4 }).label('type');
 
     expect(() => {
       chart.render();

@@ -26,7 +26,7 @@ describe('Dark theme', () => {
       container: createDiv(),
       width: 400,
       height: 300,
-      theme: 'dark'
+      theme: 'dark',
     });
 
     chart.data(data);

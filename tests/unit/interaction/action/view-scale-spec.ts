@@ -20,10 +20,7 @@ describe('test scale trasform', () => {
   chart.data(data);
   chart.animate(false);
   chart.tooltip(false);
-  chart
-    .interval()
-    .position('year*value')
-    .color('year');
+  chart.interval().position('year*value').color('year');
   chart.render();
 
   const context = new Context(chart);
@@ -112,10 +109,7 @@ describe('test scale trasform', () => {
       // @ts-ignore
       expect(zoomAction.dims).toEqual(['y']);
       chart.clear();
-      chart
-        .interval()
-        .position('year*value')
-        .color('year');
+      chart.interval().position('year*value').color('year');
       chart.render();
       const yScale = chart.getYScales()[0];
       const { min, max } = yScale;

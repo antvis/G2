@@ -24,10 +24,7 @@ describe('active test', () => {
   chart.interaction('element-path-highlight');
   chart.removeInteraction('continuous-filter');
   chart.tooltip(false);
-  const interval = chart
-    .interval()
-    .position('year*value')
-    .color('year');
+  const interval = chart.interval().position('year*value').color('year');
   chart.render();
   const context = new Context(chart);
   const action = new DataFilter(context);

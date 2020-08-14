@@ -42,11 +42,7 @@ describe('2202', () => {
     chart.data(data);
     chart.animate(false);
 
-    const point = chart
-      .point()
-      .adjust('stack')
-      .position('year*value')
-      .color('country');
+    const point = chart.point().adjust('stack').position('year*value').color('country');
 
     const imagePoint = chart
       .point()
@@ -56,7 +52,7 @@ describe('2202', () => {
       .size(30)
       .shape('country', (name) => {
         return ['image', 'https://zos.alipayobjects.com/rmsportal/JuBdciUyUAkewNAetxtS.png']; // 根据具体的字段指定 shape
-      })
+      });
 
     chart.render();
 

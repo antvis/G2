@@ -3,9 +3,7 @@ import { createDiv } from '../util/dom';
 
 describe('#2174, #2175', () => {
   it('tooltip', () => {
-    const data = [
-      { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
-    ];
+    const data = [{ name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 }];
 
     const chart = new Chart({
       container: createDiv(),
@@ -18,12 +16,10 @@ describe('#2174, #2175', () => {
       nice: true,
     });
     chart.tooltip({
-      shared: true
+      shared: true,
     });
 
-    chart
-      .interval()
-      .position('月份*月均降雨量');
+    chart.interval().position('月份*月均降雨量');
 
     chart.render();
 
@@ -45,7 +41,7 @@ describe('#2174, #2175', () => {
     // 如果内容为空，tooltip 应该隐藏
     chart.showTooltip({
       x: point.x - 100,
-      y: point.y
+      y: point.y,
     });
     // @ts-ignore
     expect(tooltip.style.visibility).toBe('hidden');

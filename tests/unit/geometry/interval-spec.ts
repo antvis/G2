@@ -61,12 +61,9 @@ describe('Interval', () => {
         container: canvas.addGroup(),
       });
 
-      interval
-        .position('a*b')
-        .color('a')
-        .style({
-          fill: 'red',
-        });
+      interval.position('a*b').color('a').style({
+        fill: 'red',
+      });
       interval.init({
         theme: Theme,
       });
@@ -329,10 +326,7 @@ describe('Interval', () => {
         container: canvas.addGroup(),
       });
 
-      pie
-        .position('value')
-        .color('type')
-        .adjust('stack');
+      pie.position('value').color('type').adjust('stack');
       pie.init({
         theme: Theme,
       });
@@ -391,10 +385,7 @@ describe('Interval', () => {
         container: canvas.addGroup(),
       });
 
-      pie
-        .position('value')
-        .color('type')
-        .adjust('stack');
+      pie.position('value').color('type').adjust('stack');
       pie.init({
         theme: Theme,
       });

@@ -37,15 +37,10 @@ describe('axis change coordinate', () => {
   });
 
   chart.line().position('year*value');
-  chart
-    .point()
-    .position('year*value')
-    .size(4)
-    .shape('circle')
-    .style({
-      stroke: '#fff',
-      lineWidth: 1,
-    });
+  chart.point().position('year*value').size(4).shape('circle').style({
+    stroke: '#fff',
+    lineWidth: 1,
+  });
 
   chart.render();
 

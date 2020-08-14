@@ -45,10 +45,10 @@ describe('#2049', () => {
     const dv = new DataSet.DataView().source(data);
     dv.transform({
       type: 'map',
-      callback: obj => {
+      callback: (obj) => {
         obj.range = [obj.low, obj.q1, obj.median, obj.q3, obj.high];
         return obj;
-      }
+      },
     });
 
     chart = new Chart({
@@ -61,10 +61,7 @@ describe('#2049', () => {
     chart.data(dv.rows);
     chart.animate(false);
 
-    chart
-      .schema()
-      .position('x*range')
-      .shape('box');
+    chart.schema().position('x*range').shape('box');
     chart.render();
 
     expect(chart.geometries[0].elements[0].shape.getBBox().width).toBeCloseTo(34.59104900781804);

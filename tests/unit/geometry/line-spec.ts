@@ -79,10 +79,7 @@ describe('Line', () => {
       sortable: false,
     });
 
-    line
-      .position('x*y')
-      .color('type')
-      .adjust('stack');
+    line.position('x*y').color('type').adjust('stack');
     line.init({
       theme: Theme,
     });

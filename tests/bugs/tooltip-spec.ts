@@ -60,26 +60,17 @@ describe('tooltip', () => {
       },
     });
 
-    const line = chart
-      .line()
-      .position('month*temperature')
-      .color('city')
-      .shape('smooth');
+    const line = chart.line().position('month*temperature').color('city').shape('smooth');
 
-    const point = chart
-      .point()
-      .position('month*temperature')
-      .color('city')
-      .shape('circle')
-      .style({
-        stroke: '#fff',
-        lineWidth: 1,
-      });
+    const point = chart.point().position('month*temperature').color('city').shape('circle').style({
+      stroke: '#fff',
+      lineWidth: 1,
+    });
 
     chart.render();
 
     line.elements[0].hide();
-    point.elements.forEach(pointElement => {
+    point.elements.forEach((pointElement) => {
       if (pointElement.getData().city === 'Tokyo') {
         pointElement.hide();
       }
@@ -95,15 +86,16 @@ describe('tooltip', () => {
       container: createDiv(),
       width: 400,
       height: 500,
-      padding: [0, 30, 60, 30]
+      padding: [0, 30, 60, 30],
     });
     chart.data(HEATMAP);
     chart.tooltip({
-      showTitle: false
+      showTitle: false,
     });
     chart.animate(false);
     chart.axis(false);
-    chart.heatmap()
+    chart
+      .heatmap()
       .position('g*l')
       .color('tmp', '#F51D27-#FA541C-#FF8C12-#FFC838-#FAFFA8-#80FF73-#12CCCC-#1890FF-#6E32C2');
     chart.annotation().image({

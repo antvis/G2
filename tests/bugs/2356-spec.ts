@@ -44,6 +44,5 @@ describe('2356', () => {
     expect(element.getBBox().height).toBe(500);
     expect(chart.autoPadding).toBeUndefined();
     expect(chart.padding).toEqual([50, 20, 50, 20]);
-
   });
 });

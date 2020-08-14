@@ -19,10 +19,7 @@ describe('multi-engine', () => {
       sale: {},
     });
 
-    chart
-      .interval()
-      .position('city*sale')
-      .color('category');
+    chart.interval().position('city*sale').color('category');
 
     chart.render();
 
@@ -46,10 +43,7 @@ describe('multi-engine', () => {
       sale: {},
     });
 
-    chart
-      .interval()
-      .position('city*sale')
-      .color('category');
+    chart.interval().position('city*sale').color('category');
 
     chart.render();
 

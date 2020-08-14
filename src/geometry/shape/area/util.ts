@@ -32,13 +32,16 @@ function getPath(
 
       if (topLinePoints.length === 1 && bottomLinePoints.length === 1) {
         // 都只有一个点，绘制一条竖线
-        subPath = index === 0 ? [
-          ['M', p1.x - 0.5, p1.y],
-          ['L', p1.x + 0.5, p1.y],
-        ] : [
-            ['L', p1.x + 0.5, p1.y],
-            ['L', p1.x - 0.5, p1.y],
-          ];
+        subPath =
+          index === 0
+            ? [
+                ['M', p1.x - 0.5, p1.y],
+                ['L', p1.x + 0.5, p1.y],
+              ]
+            : [
+                ['L', p1.x + 0.5, p1.y],
+                ['L', p1.x - 0.5, p1.y],
+              ];
       } else {
         if (isInCircle) {
           parsedPoints.push({ x: p1.x, y: p1.y });

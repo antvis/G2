@@ -32,18 +32,11 @@ describe('sync scale with multi-view', () => {
     padding: [8, 16, 48, 48],
   });
 
-  v1.interval()
-    .position('city*sale')
-    .color('category')
-    .adjust('stack');
+  v1.interval().position('city*sale').color('category').adjust('stack');
 
-  v2.point()
-    .position('city*sale')
-    .color('category');
+  v2.point().position('city*sale').color('category');
 
-  v2.line()
-    .position('city*profit')
-    .color('category');
+  v2.line().position('city*profit').color('category');
 
   v1.data(CITY_SALE_PROFIT);
   v2.data(CITY_SALE_PROFIT.slice(0, 3)); // x 枚举缺失的情况下，scale 同步

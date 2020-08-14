@@ -41,7 +41,7 @@ describe('axis auto overlap', () => {
   }
 
   it('axis', async () => {
-    const xAxis = getAxes().filter(axis => axis.direction === 'bottom')[0];
+    const xAxis = getAxes().filter((axis) => axis.direction === 'bottom')[0];
     const labelGroup = xAxis.component.get('group').findAllByName('axis-label-group')[0];
     const label = labelGroup.getChildren()[0];
     expect(label.attr('text')).toBe('1991还是不够长吗还是不够长吗…');

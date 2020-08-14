@@ -14,10 +14,7 @@ describe('Component', () => {
 
   chart.data(CITY_SALE);
 
-  chart
-    .interval()
-    .position('city*sale')
-    .color('category');
+  chart.interval().position('city*sale').color('category');
 
   chart.render();
 
@@ -46,10 +43,7 @@ describe('line position', () => {
 
   chart.data(CITY_SALE);
 
-  chart
-    .interval()
-    .position('city*sale')
-    .color('category');
+  chart.interval().position('city*sale').color('category');
 
   chart.axis('sale', {
     position: 'right',
@@ -58,9 +52,9 @@ describe('line position', () => {
   it('line position right', () => {
     chart.render();
 
-    const [x, y] = chart.getComponents().filter(co => co.type === COMPONENT_TYPE.AXIS);
+    const [x, y] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.AXIS);
 
     // y 轴在右侧
     expect(y.component.get('start').x).toBeGreaterThan(500);
-  })
+  });
 });

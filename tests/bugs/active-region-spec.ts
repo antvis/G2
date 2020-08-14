@@ -32,14 +32,14 @@ describe('active-region', () => {
     });
 
     chart.coordinate('polar', {
-      innerRadius: 0.4
+      innerRadius: 0.4,
     });
 
     chart.data(data);
     chart.tooltip({
       showMarkers: false,
       shared: true,
-      showContent: false
+      showContent: false,
     });
 
     chart
@@ -197,10 +197,7 @@ describe('active-region', () => {
 
     chart.data(data);
 
-    chart
-      .coordinate()
-      .transpose()
-      .scale(1, -1);
+    chart.coordinate().transpose().scale(1, -1);
 
     chart.axis('value', {
       position: 'right',

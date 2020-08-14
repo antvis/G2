@@ -35,9 +35,11 @@ describe('2365', () => {
       min: 0,
       max: 80,
     });
-    chart.coordinate('polar', {
-      radius: 0.8,
-    }).rotate(Math.PI / 3);
+    chart
+      .coordinate('polar', {
+        radius: 0.8,
+      })
+      .rotate(Math.PI / 3);
     chart.tooltip(false);
     chart.axis('item', {
       line: null,
@@ -63,15 +65,11 @@ describe('2365', () => {
       },
     });
 
-    chart
-      .line()
-      .position('item*score')
-      .color('user')
-      .size(2);
+    chart.line().position('item*score').color('user').size(2);
 
     chart.render();
 
-    const axisComponents = chart.getComponents().filter(item => item.type === 'axis');
+    const axisComponents = chart.getComponents().filter((item) => item.type === 'axis');
     const circleAxis = axisComponents[0].component;
 
     expect(circleAxis.get('startAngle')).toBeCloseTo(-0.5235987755982991);

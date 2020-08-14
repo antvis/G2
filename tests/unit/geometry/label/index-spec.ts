@@ -1,4 +1,9 @@
-import { getGeometryLabel, getGeometryLabelLayout, registerGeometryLabel, registerGeometryLabelLayout } from '../../../../src/geometry/label';
+import {
+  getGeometryLabel,
+  getGeometryLabelLayout,
+  registerGeometryLabel,
+  registerGeometryLabelLayout,
+} from '../../../../src/geometry/label';
 import GeometryLabels from '../../../../src/geometry/label/base';
 
 describe('Geometry label', () => {

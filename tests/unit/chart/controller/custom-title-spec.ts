@@ -28,10 +28,7 @@ describe('title controller', () => {
 
   chart.data(CITY_SALE);
 
-  chart
-    .interval()
-    .position('city*sale')
-    .color('category');
+  chart.interval().position('city*sale').color('category');
 
   // 指定 title option
   const titleOption = {

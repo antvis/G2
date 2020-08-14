@@ -24,11 +24,7 @@ describe('Pie update animation', () => {
     });
 
     chart.data(data);
-    const interval = chart
-      .interval()
-      .position('percent')
-      .color('item')
-      .adjust('stack');
+    const interval = chart.interval().position('percent').color('item').adjust('stack');
     chart.render();
     chart.changeData([
       { item: '事例一', count: 40, percent: 0.62 },
@@ -68,18 +64,14 @@ describe('Pie update animation', () => {
 
     chart.data(data);
     chart.legend(false);
-    chart
-      .interval()
-      .position('percent')
-      .color('item')
-      .adjust('stack');
+    chart.interval().position('percent').color('item').adjust('stack');
     chart.render();
 
     chart.filter('item', () => false);
     chart.render(true);
 
     chart.filter('item', (obj) => {
-      return obj === '事例四'
+      return obj === '事例四';
     });
     chart.render(true);
 
@@ -131,9 +123,10 @@ describe('Pie update animation', () => {
               y: 0,
               width: 40,
               height: 50,
-              img: obj.sex === '男' ?
-                'https://gw.alipayobjects.com/zos/rmsportal/oeCxrAewtedMBYOETCln.png' :
-                'https://gw.alipayobjects.com/zos/rmsportal/mweUsJpBWucJRixSfWVP.png',
+              img:
+                obj.sex === '男'
+                  ? 'https://gw.alipayobjects.com/zos/rmsportal/oeCxrAewtedMBYOETCln.png'
+                  : 'https://gw.alipayobjects.com/zos/rmsportal/mweUsJpBWucJRixSfWVP.png',
             },
           });
 
@@ -149,7 +142,7 @@ describe('Pie update animation', () => {
             },
           });
           return group;
-        }
+        },
       });
     chart.render();
 

@@ -12,7 +12,7 @@ describe('list highlight test', () => {
   });
   chart.data([
     { year: '1991', value: 13, type: '1' },
-    { year: '1992', value: 34 , type: '1'},
+    { year: '1992', value: 34, type: '1' },
     { year: '1993', value: 5, type: '1' },
     { year: '1994', value: 34, type: '1' },
 
@@ -23,24 +23,18 @@ describe('list highlight test', () => {
   ]);
   chart.animate(false);
   chart.tooltip(false);
-  const interval = chart
-    .interval()
-    .position('year*value')
-    .color('type')
-    .adjust('stack');
+  const interval = chart.interval().position('year*value').color('type').adjust('stack');
   chart.render();
   const context = new Context(chart);
   const link = new Link(context);
   const elements = interval.elements;
   let linkGroup;
   it('link', () => {
-    context.event = {
-      
-    };
+    context.event = {};
     link.unlink();
     link.clear(); // 事先调用，保证不出错
     context.event = {
-      target: elements[0].shape
+      target: elements[0].shape,
     };
     link.link();
     //@ts-ignore
@@ -50,12 +44,12 @@ describe('list highlight test', () => {
 
   it('unlink', () => {
     context.event = {
-      target: null
+      target: null,
     };
     link.unlink();
     expect(linkGroup.getCount()).toBe(1);
     context.event = {
-      target: elements[0].shape
+      target: elements[0].shape,
     };
     link.unlink();
     expect(linkGroup.getCount()).toBe(0);
@@ -63,12 +57,12 @@ describe('list highlight test', () => {
 
   it('multiple link', () => {
     context.event = {
-      target: elements[0].shape
+      target: elements[0].shape,
     };
     link.link();
 
     context.event = {
-      target: elements[4].shape
+      target: elements[4].shape,
     };
     link.link();
     expect(linkGroup.getCount()).toBe(2);
@@ -80,19 +74,17 @@ describe('list highlight test', () => {
   });
   it('link null', () => {
     context.event = {
-      target: null
+      target: null,
     };
     expect(linkGroup.getCount()).toBe(0);
   });
   it('no color', () => {
     chart.clear();
-    const interval1 = chart
-    .interval()
-    .position('year*value');
+    const interval1 = chart.interval().position('year*value');
 
     chart.render();
     context.event = {
-      target: interval1.elements[0].shape
+      target: interval1.elements[0].shape,
     };
     link.link();
     expect(linkGroup.getCount()).toBe(0);

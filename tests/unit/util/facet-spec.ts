@@ -9,7 +9,7 @@ describe('util facet', () => {
       style: {
         textAlign: 'center',
         textBaseline: 'bottom',
-      }
+      },
     });
     expect(getFactTitleConfig(DIRECTION.RIGHT)).toEqual({
       offsetX: 8,
@@ -18,7 +18,7 @@ describe('util facet', () => {
         textAlign: 'left',
         textBaseline: 'middle',
         rotate: Math.PI / 2,
-      }
+      },
     });
     expect(getFactTitleConfig(DIRECTION.BOTTOM)).toEqual({
       offsetX: 0,
@@ -26,7 +26,7 @@ describe('util facet', () => {
       style: {
         textAlign: 'center',
         textBaseline: 'top',
-      }
+      },
     });
     expect(getFactTitleConfig(DIRECTION.LEFT)).toEqual({
       offsetX: -8,
@@ -35,7 +35,7 @@ describe('util facet', () => {
         textAlign: 'right',
         textBaseline: 'middle',
         rotate: Math.PI / 2,
-      }
+      },
     });
   });
 });

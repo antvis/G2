@@ -122,7 +122,7 @@ function antiCollision(
     const labelShape = labelsMap[label.id];
 
     // because group could not effect text-shape, should set text-shape position manually
-    const textShape = labelShape.find(child => child.get('type') === 'text') as IElement;
+    const textShape = labelShape.find((child) => child.get('type') === 'text') as IElement;
 
     // textShape 发生过调整
     if (textShape && textShape.attr('y') !== label.y) {

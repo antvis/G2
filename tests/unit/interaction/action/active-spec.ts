@@ -138,7 +138,7 @@ describe('test active action', () => {
 
       interval.label(false);
       chart.render(true);
-    })
+    });
     afterAll(() => {
       action.destroy();
       context.destroy();

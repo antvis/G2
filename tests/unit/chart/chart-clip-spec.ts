@@ -33,7 +33,6 @@ describe('limitInPlot', () => {
       range: [-0.1, 1.1],
     });
 
-
     chart.line().position('year*value');
     chart.render();
 

@@ -18,7 +18,7 @@ describe('#2222', () => {
   const v1 = chart.createView();
   v1.data(data);
   v1.point().position('year*v1');
-  
+
   const v2 = chart.createView();
   v2.data(data);
   v2.line().position('year*v2');

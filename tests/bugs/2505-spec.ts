@@ -19,10 +19,7 @@ describe('2505', () => {
     });
 
     chart.data(data);
-    chart
-      .line()
-      .position('x*y')
-      .color('z');
+    chart.line().position('x*y').color('z');
 
     chart.render();
 

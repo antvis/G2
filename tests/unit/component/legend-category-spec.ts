@@ -18,11 +18,7 @@ describe('Legend category', () => {
 
   chart.data(CITY_SALE);
 
-  chart
-    .interval()
-    .position('city*sale')
-    .color('category')
-    .adjust({ type: 'dodge' });
+  chart.interval().position('city*sale').color('category').adjust({ type: 'dodge' });
 
   it('close legend', () => {
     chart.legend(false);
@@ -81,11 +77,7 @@ describe('Legend category navigation', () => {
 
   chart.data(DIAMOND);
 
-  chart
-    .interval()
-    .position('cut*price')
-    .color('clarity')
-    .adjust({ type: 'dodge' });
+  chart.interval().position('cut*price').color('clarity').adjust({ type: 'dodge' });
 
   it('navigation horizontal', () => {
     chart.legend('clarity', {
@@ -138,11 +130,7 @@ describe('Legend Category Vertical', () => {
 
   chart.data(DIAMOND);
 
-  chart
-    .interval()
-    .position('cut*price')
-    .color('clarity')
-    .adjust({ type: 'dodge' });
+  chart.interval().position('cut*price').color('clarity').adjust({ type: 'dodge' });
 
   it('navigation vertical', () => {
     chart.legend('clarity', {
@@ -199,7 +187,7 @@ describe('Legend auto ellipsis', () => {
     chart.animate(false);
     chart.legend({
       layout: 'vertical',
-      position: 'right-top'
+      position: 'right-top',
     });
     chart.interval().position('genre*sold').color('genre');
     chart.render();
@@ -207,7 +195,9 @@ describe('Legend auto ellipsis', () => {
     const legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
     const legend = legends[0].component as GroupComponent<GroupComponentCfg>;
     expect(legend.get('maxItemWidth')).toBe(80);
-    expect(legend.getElementById('-legend-item-测试测试测试测试测试测试测试测试测试测试测试测试测试测试1-name').attr('text')).toBe('测试测试…');
+    expect(
+      legend.getElementById('-legend-item-测试测试测试测试测试测试测试测试测试测试测试测试测试测试1-name').attr('text')
+    ).toBe('测试测试…');
   });
 
   it('itemWidth', () => {
@@ -222,7 +212,9 @@ describe('Legend auto ellipsis', () => {
     const legend = legends[0].component as GroupComponent<GroupComponentCfg>;
     expect(legend.get('maxItemWidth')).toBe(80);
     expect(legend.get('itemWidth')).toBe(60);
-    expect(legend.getElementById('-legend-item-测试测试测试测试测试测试测试测试测试测试测试测试测试测试1-name').attr('text')).toBe('测试…');
+    expect(
+      legend.getElementById('-legend-item-测试测试测试测试测试测试测试测试测试测试测试测试测试测试1-name').attr('text')
+    ).toBe('测试…');
 
     expect(legend.getElementById('-legend-item-测试测试4').getBBox().width).toBeLessThan(60);
   });
