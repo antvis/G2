@@ -26,6 +26,10 @@ describe('2505', () => {
 
     chart.render();
 
-    expect(chart.getCanvas().get('container').style.background).toBe('rgb(20, 20, 20)');
+    // 不使用 dom 的背景
+    expect(chart.getCanvas().get('container').style.background).toBe('');
+    // 改用 shape 去实现
+    // @ts-ignore
+    expect(chart.backgruondStyleRectShape.attr('fill')).toBe('#141414');
   });
 });

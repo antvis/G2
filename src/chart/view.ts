@@ -142,6 +142,8 @@ export class View extends Base {
   private isCoordinateChanged: boolean = false;
   /** 从当前这个 view 创建的 scale key */
   private createdScaleKeys = new Map<string, boolean>();
+  /** 背景色样式的 shape */
+  private backgruondStyleRectShape;
 
   constructor(props: ViewCfg) {
     super({ visible: props.visible });
@@ -1240,6 +1242,8 @@ export class View extends Base {
 
     this.emit(VIEW_LIFE_CIRCLE.BEFORE_PAINT);
 
+    this.renderBackgroundStyleShape();
+
     this.renderLayoutRecursive(isUpdate);
 
     this.renderPaintRecursive(isUpdate);
@@ -1247,6 +1251,28 @@ export class View extends Base {
     this.emit(VIEW_LIFE_CIRCLE.AFTER_PAINT);
 
     this.isDataChanged = false; // 渲染完毕复位
+  }
+
+  /** 渲染背景样式的 shape */
+  private renderBackgroundStyleShape() {
+    // 只有根节点才处理
+    if (!this.parent) {
+      // 1. 不存在则创建
+      if (!this.backgruondStyleRectShape) {
+        const { x, y, width, height } = this.viewBBox;
+        this.backgruondStyleRectShape = this.backgroundGroup.addShape('rect', {
+          attrs: {
+            x, y, width, height, zIndex: -1,
+          },
+        })
+      }
+
+      // 2. 有了 shape 之后设置背景
+      const background = get(this.themeObject, 'background');
+      if (background) {
+        this.backgruondStyleRectShape.attr('fill', background);
+      }
+    }
   }
 
   /**
