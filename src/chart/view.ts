@@ -51,6 +51,7 @@ import { createInteraction, Interaction } from '../interaction';
 import { getTheme } from '../theme';
 import { BBox } from '../util/bbox';
 import { getCoordinateClipCfg, isFullCircle, isPointInCoordinate } from '../util/coordinate';
+import { modifyCSS } from '../util/dom';
 import { uniq } from '../util/helper';
 import { findDataByPoint } from '../util/tooltip';
 import Chart from './chart';
@@ -1240,6 +1241,8 @@ export class View extends Base {
 
     this.emit(VIEW_LIFE_CIRCLE.BEFORE_PAINT);
 
+    this.drawCanvasStyle();
+
     this.renderLayoutRecursive(isUpdate);
 
     this.renderPaintRecursive(isUpdate);
@@ -1247,6 +1250,18 @@ export class View extends Base {
     this.emit(VIEW_LIFE_CIRCLE.AFTER_PAINT);
 
     this.isDataChanged = false; // 渲染完毕复位
+  }
+
+  /**
+   * 绘制 canvas 样式
+   * @param
+   */
+  protected drawCanvasStyle() {
+    const canvas = this.getCanvas();
+    // 修改主题背景色
+    modifyCSS(canvas.get('el'), {
+      background: get(this.themeObject, 'background'),
+    });
   }
 
   /**
