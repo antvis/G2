@@ -1257,20 +1257,33 @@ export class View extends Base {
   private renderBackgroundStyleShape() {
     // 只有根节点才处理
     if (!this.parent) {
-      // 1. 不存在则创建
-      if (!this.backgruondStyleRectShape) {
-        const { x, y, width, height } = this.viewBBox;
-        this.backgruondStyleRectShape = this.backgroundGroup.addShape('rect', {
-          attrs: {
-            x, y, width, height, zIndex: -1,
-          },
-        })
-      }
-
-      // 2. 有了 shape 之后设置背景
       const background = get(this.themeObject, 'background');
+      // 1. 配置了背景色
       if (background) {
-        this.backgruondStyleRectShape.attr('fill', background);
+        // 1. 不存在则创建
+        if (!this.backgruondStyleRectShape) {
+          this.backgruondStyleRectShape = this.backgroundGroup.addShape('rect', {
+            attrs: {
+              zIndex: -1,
+            },
+          });
+        }
+
+        // 2. 有了 shape 之后设置背景，位置（更新的时候）
+        const { x, y, width, height } = this.viewBBox;
+        this.backgruondStyleRectShape.attr({
+          fill: background,
+          x,
+          y,
+          width,
+          height,
+        });
+      } else {
+        // 没有配置背景色
+        if (this.backgruondStyleRectShape) {
+          this.backgruondStyleRectShape.remove(true);
+          this.backgruondStyleRectShape = undefined;
+        }
       }
     }
   }
