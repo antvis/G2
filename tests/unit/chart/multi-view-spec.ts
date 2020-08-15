@@ -45,13 +45,8 @@ describe('chart multi view', () => {
     padding: 30,
   });
 
-  v1.polygon()
-    .position('city*category')
-    .color('sale');
-  v2.interval()
-    .position('city*sale')
-    .color('category')
-    .adjust('stack');
+  v1.polygon().position('city*category').color('sale');
+  v2.interval().position('city*sale').color('category').adjust('stack');
 
   chart.render();
 

@@ -24,14 +24,10 @@ describe('#2141', () => {
 
   chart.data(data);
   chart.animate(false);
-  const interval = chart
-    .interval()
-    .position('percent')
-    .adjust('stack')
-    .style({
-      lineWidth: 1,
-      stroke: '#fff'
-    });
+  const interval = chart.interval().position('percent').adjust('stack').style({
+    lineWidth: 1,
+    stroke: '#fff',
+  });
   chart.render();
 
   it('render, id uniq', () => {

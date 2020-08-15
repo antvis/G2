@@ -9,8 +9,10 @@ describe('2377', () => {
       defaultColor: 'red',
     });
 
-    expect(getTheme('newTheme')).toEqual(deepMix({}, getTheme('default'), {
-      defaultColor: 'red',
-    }));
+    expect(getTheme('newTheme')).toEqual(
+      deepMix({}, getTheme('default'), {
+        defaultColor: 'red',
+      })
+    );
   });
 });

@@ -116,8 +116,11 @@ describe('LabelsRenderer', () => {
       // @ts-ignore
       const labelsRenderer = interval.geometryLabel.labelsRenderer;
       expect(labelsRenderer.container.getCount()).toBe(2);
-      expect(labelsRenderer.container.find(ele => ele.get('type') === 'text').get('data')).toEqual({ a: '1', percent: 0.5 });
-      expect(labelsRenderer.container.find(ele => ele.get('type') === 'text').get('animateCfg').update).toBe(false);
+      expect(labelsRenderer.container.find((ele) => ele.get('type') === 'text').get('data')).toEqual({
+        a: '1',
+        percent: 0.5,
+      });
+      expect(labelsRenderer.container.find((ele) => ele.get('type') === 'text').get('animateCfg').update).toBe(false);
 
       interval.animate(false).update();
       interval.paint();
@@ -233,9 +236,10 @@ describe('LabelsRenderer', () => {
                 y: 0,
                 width: 40,
                 height: 50,
-                img: obj.sex === '男' ?
-                  'https://gw.alipayobjects.com/zos/rmsportal/oeCxrAewtedMBYOETCln.png' :
-                  'https://gw.alipayobjects.com/zos/rmsportal/mweUsJpBWucJRixSfWVP.png',
+                img:
+                  obj.sex === '男'
+                    ? 'https://gw.alipayobjects.com/zos/rmsportal/oeCxrAewtedMBYOETCln.png'
+                    : 'https://gw.alipayobjects.com/zos/rmsportal/mweUsJpBWucJRixSfWVP.png',
               },
             });
 
@@ -254,7 +258,7 @@ describe('LabelsRenderer', () => {
           }
 
           return obj.sold;
-        }
+        },
       });
     chart.interaction('active');
     chart.render();

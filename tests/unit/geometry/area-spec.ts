@@ -51,10 +51,7 @@ describe('Area', () => {
   });
 
   it('draw', () => {
-    area
-      .position('year*value')
-      .color('type')
-      .adjust('stack');
+    area.position('year*value').color('type').adjust('stack');
 
     area.init({
       theme: Theme,
@@ -92,14 +89,13 @@ describe('Area', () => {
       sortable: false,
     });
 
-    area
-      .position('month*value');
+    area.position('month*value');
     area.init({
       theme: Theme,
     });
     area.paint();
 
-    canvas.draw()
+    canvas.draw();
     expect(area.sortable).toBe(false);
     expect(area.startOnZero).toBe(false);
     expect(area.elements[0].shape.attr('path')[15][2]).toBe(180);

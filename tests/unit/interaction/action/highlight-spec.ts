@@ -105,7 +105,7 @@ describe('test highlight action', () => {
         gEvent: {
           fromShape: first.shape,
           toShape: first.shape,
-        }
+        },
       };
       action.highlight();
       expect(first.hasState('active')).toBe(false);
@@ -201,8 +201,8 @@ describe('test highlight action', () => {
         target: label,
         gEvent: {
           fromShape: label,
-          toShape: label
-        }
+          toShape: label,
+        },
       };
       action.highlight();
       expect(first.hasState('active')).toBe(false);
@@ -370,17 +370,17 @@ describe('test hilightBy', () => {
     const highlight = new HighlightX(context);
     const shape = interval.elements[0].shape;
     context.event = {
-      target: shape
+      target: shape,
     };
     highlight.highlight();
-    expect(interval.getElementsBy(el => el.hasState('active')).length).toBe(2);
+    expect(interval.getElementsBy((el) => el.hasState('active')).length).toBe(2);
     highlight.reset();
-    expect(interval.getElementsBy(el => el.hasState('active')).length).toBe(0);
+    expect(interval.getElementsBy((el) => el.hasState('active')).length).toBe(0);
     context.event = {
-      target: interval.elements[1].shape
+      target: interval.elements[1].shape,
     };
     highlight.highlight();
-    expect(interval.getElementsBy(el => el.hasState('active')).length).toBe(2);
+    expect(interval.getElementsBy((el) => el.hasState('active')).length).toBe(2);
 
     context.event = {
       target: {
@@ -390,12 +390,12 @@ describe('test hilightBy', () => {
       },
     };
     highlight.toggle();
-    expect(interval.getElementsBy(el => el.hasState('active')).length).toBe(2);
+    expect(interval.getElementsBy((el) => el.hasState('active')).length).toBe(2);
     highlight.toggle();
-    expect(interval.getElementsBy(el => el.hasState('active')).length).toBe(0);
+    expect(interval.getElementsBy((el) => el.hasState('active')).length).toBe(0);
 
     highlight.clear();
-    expect(interval.getElementsBy(el => el.hasState('active')).length).toBe(0);
+    expect(interval.getElementsBy((el) => el.hasState('active')).length).toBe(0);
     highlight.destroy();
   });
 
@@ -403,12 +403,12 @@ describe('test hilightBy', () => {
     const highlight = new HighlightColor(context);
     const shape = interval.elements[0].shape;
     context.event = {
-      target: shape
+      target: shape,
     };
     highlight.highlight();
-    expect(interval.getElementsBy(el => el.hasState('active')).length).toBe(data.length / 2);
+    expect(interval.getElementsBy((el) => el.hasState('active')).length).toBe(data.length / 2);
     highlight.clear();
-    expect(interval.getElementsBy(el => el.hasState('active')).length).toBe(0);
+    expect(interval.getElementsBy((el) => el.hasState('active')).length).toBe(0);
     highlight.destroy();
   });
   afterAll(() => {

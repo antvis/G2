@@ -6,7 +6,6 @@ import DataFilter from '../../../../src/interaction/action/data/filter';
 import Context from '../../../../src/interaction/context';
 import { createDiv } from '../../../util/dom';
 
-
 describe('active test', () => {
   const chart = new Chart({
     container: createDiv(),
@@ -29,15 +28,15 @@ describe('active test', () => {
   chart.animate(false);
   chart.tooltip(true);
   chart.scale('year', {
-    sync: true
+    sync: true,
   });
   chart.interaction('legend-filter');
   const view1 = chart.createView({
     region: {
-      start: {x: 0, y: 0},
-      end: {x: 1, y: 0.5},
+      start: { x: 0, y: 0 },
+      end: { x: 1, y: 0.5 },
     },
-    padding: [20, 20, 40, 80]
+    padding: [20, 20, 40, 80],
   });
   view1.data(data);
   const interval = view1
@@ -48,17 +47,17 @@ describe('active test', () => {
       active: {
         style: {
           stroke: 'red',
-          lineWidth: 1
-        }
-      }
+          lineWidth: 1,
+        },
+      },
     });
 
   const view2 = chart.createView({
     region: {
-      start: {x: 0, y: 0.5},
-      end: {x: 1, y: 1},
+      start: { x: 0, y: 0.5 },
+      end: { x: 1, y: 1 },
     },
-    padding: [20, 20, 40, 80]
+    padding: [20, 20, 40, 80],
   });
   view2.data(data);
   const point = view2
@@ -69,17 +68,17 @@ describe('active test', () => {
       active: {
         style: {
           fill: 'red',
-        }
+        },
       },
       inactive: {
         style: {
           opacity: 0.4,
-        }
-      }
+        },
+      },
     });
 
   chart.render();
-  
+
   const context = new Context(chart);
   const listActive = new ListActive(context);
   const elementActive = new ElementActive(context);
@@ -87,7 +86,7 @@ describe('active test', () => {
   const legendItems = chart.foregroundGroup.findAll((el) => {
     return el.get('name') === 'legend-item';
   });
-  it('active legend',() => {
+  it('active legend', () => {
     const first = legendItems[0];
     const item = first.get('delegateObject').item;
 
@@ -112,11 +111,10 @@ describe('active test', () => {
     item.unchecked = true;
     filterAction.filter();
     expect(point.elements.length).toBe(data.length - 1);
-    expect(interval.elements.length).toBe(data.length -1);
+    expect(interval.elements.length).toBe(data.length - 1);
   });
   afterAll(() => {
     context.destroy();
     chart.destroy();
   });
-
 });

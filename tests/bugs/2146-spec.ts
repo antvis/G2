@@ -16,7 +16,7 @@ describe('#2146', () => {
     container: createDiv(),
     width: 400,
     height: 300,
-    padding: 40
+    padding: 40,
   });
   chart.data(data);
   chart.legend({
@@ -40,22 +40,20 @@ describe('#2146', () => {
   chart.axis('type', false);
   chart.interval().position('type*value').color('type');
   // 添加文本标注
-  chart
-    .annotation()
-    .text({
-      position: [data[0].type, data[0].value],
-      content: data[0].value,
-      style: {
-        textAlign: 'center',
+  chart.annotation().text({
+    position: [data[0].type, data[0].value],
+    content: data[0].value,
+    style: {
+      textAlign: 'center',
+    },
+    offsetY: -30,
+    animateOption: {
+      appear: {
+        delay: 1000,
+        duration: 1000,
       },
-      offsetY: -30,
-      animateOption: {
-        appear: {
-          delay: 1000,
-          duration: 1000,
-        }
-      }
-    });
+    },
+  });
   chart.render();
 
   it('component animateOption', () => {

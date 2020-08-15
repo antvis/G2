@@ -19,14 +19,18 @@ describe('Geometry theme', () => {
     { year: '1960 年', sales: 38, value: 23 },
     { year: '1962 年', sales: 38, value: 23 },
   ]);
-  const interval1 = chart.interval({
-    theme: {
-      maxColumnWidth: 10,
-    }
-  }).position('year*sales');
-  const interval2 = chart.interval({
-    theme: {},
-  }).position('year*sales');
+  const interval1 = chart
+    .interval({
+      theme: {
+        maxColumnWidth: 10,
+      },
+    })
+    .position('year*sales');
+  const interval2 = chart
+    .interval({
+      theme: {},
+    })
+    .position('year*sales');
   chart.render();
 
   it('interval theme', () => {

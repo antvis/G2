@@ -25,19 +25,20 @@ describe('facet rect', () => {
     },
     cut: {
       sync: true,
-    }
+    },
   });
 
   // 使用分面
   chart.facet('rect', {
-    fields: [ '', 'clarity' ],
+    fields: ['', 'clarity'],
     eachView(view, facet) {
-      view.point()
+      view
+        .point()
         .position('carat*price')
         .color('cut')
         .shape('circle')
         .style({
-          opacity: 0.8
+          opacity: 0.8,
         })
         .size(3);
     },

@@ -12,27 +12,27 @@ describe('facet tree', () => {
     container: div,
     autoFit: true,
     height: 500,
-    padding: [ 20, 80 ]
+    padding: [20, 80],
   });
   chart.data(DIAMOND);
-  chart.scale( {
+  chart.scale({
     cut: {
-      sync: true
+      sync: true,
     },
     mean: {
       sync: true,
-      tickCount: 5
-    }
+      tickCount: 5,
+    },
   });
   chart.legend('cut', {
-    position: 'top'
+    position: 'top',
   });
   chart.axis('cut', {
     label: null,
-    tickLine: null
+    tickLine: null,
   });
   chart.facet('tree', {
-    fields: [ 'clarity' ],
+    fields: ['clarity'],
     line: {
       style: {
         stroke: '#c0d0e0',
@@ -43,19 +43,16 @@ describe('facet tree', () => {
     eachView: (view, facet) => {
       const data = facet.data;
       const dv = new DataSet.DataView();
-      dv.source(data)
-        .transform({
-          type: 'aggregate',
-          fields: [ 'price' ],
-          operations: [ 'mean' ],
-          as: [ 'mean' ],
-          groupBy: [ 'cut' ]
-        });
+      dv.source(data).transform({
+        type: 'aggregate',
+        fields: ['price'],
+        operations: ['mean'],
+        as: ['mean'],
+        groupBy: ['cut'],
+      });
       view.data(dv.rows);
-      view.interval()
-        .position('cut*mean')
-        .color('cut');
-    }
+      view.interval().position('cut*mean').color('cut');
+    },
   });
   chart.render();
 
@@ -67,5 +64,5 @@ describe('facet tree', () => {
     expect(chart.facetInstance.cfg.line.smooth).toEqual(true);
 
     expect(chart.getController('annotation').getComponents()).toEqual([]);
-  })
+  });
 });

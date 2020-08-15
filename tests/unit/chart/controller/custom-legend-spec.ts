@@ -8,8 +8,8 @@ describe('Legend', () => {
       { genre: 'Sports', sold: 275, buy: 120 },
       { genre: 'Strategy', sold: 115, buy: 320 },
       { genre: 'Action', sold: 120, buy: 130 },
-      { genre: 'Shooter', sold: 3500, buy: 123},
-      { genre: 'Other', sold: 150, buy: 67 }
+      { genre: 'Shooter', sold: 3500, buy: 123 },
+      { genre: 'Other', sold: 150, buy: 67 },
     ];
 
     const chart = new Chart({
@@ -22,11 +22,11 @@ describe('Legend', () => {
     chart.data(data);
     chart.scale({
       sold: {
-        sync: 'value'
+        sync: 'value',
       },
       buy: {
-        sync: 'value'
-      }
+        sync: 'value',
+      },
     });
     chart.legend({
       custom: true,
@@ -43,10 +43,20 @@ describe('Legend', () => {
 
     chart.render();
 
-    const [legend] = chart.getComponents().filter(co => co.type === COMPONENT_TYPE.LEGEND);
+    const [legend] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
     expect(legend.component.get('items')).toEqual([
-      { id: 'buy', name: 'buy', value: 'buy', marker: { symbol: 'square', spacing: 100, style: { fill: 'blue', r: 3 } } },
-      { id: 'sold', name: 'sold', value: 'sold', marker: { symbol: 'circle', spacing: 100, style: { fill: 'red', r: 3 } } }
+      {
+        id: 'buy',
+        name: 'buy',
+        value: 'buy',
+        marker: { symbol: 'square', spacing: 100, style: { fill: 'blue', r: 3 } },
+      },
+      {
+        id: 'sold',
+        name: 'sold',
+        value: 'sold',
+        marker: { symbol: 'circle', spacing: 100, style: { fill: 'red', r: 3 } },
+      },
     ]);
 
     expect(legend.direction).toBe('top');
@@ -62,13 +72,23 @@ describe('Legend', () => {
     });
 
     chart.render(true);
-    const newLegend = chart.getComponents().filter(co => co.type === COMPONENT_TYPE.LEGEND)[0];
+    const newLegend = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND)[0];
     // 保持引用
     expect(newLegend.component).toBe(legend.component);
 
     expect(newLegend.component.get('items')).toEqual([
-      { id: 'buy1', name: 'buy1', value: 'buy1', marker: { symbol: 'square', spacing: 100, style: { fill: 'blue', r: 4 } } },
-      { id: 'sold', name: 'sold', value: 'sold', marker: { symbol: 'circle', spacing: 100, style: { fill: 'red', r: 4 } } }
+      {
+        id: 'buy1',
+        name: 'buy1',
+        value: 'buy1',
+        marker: { symbol: 'square', spacing: 100, style: { fill: 'blue', r: 4 } },
+      },
+      {
+        id: 'sold',
+        name: 'sold',
+        value: 'sold',
+        marker: { symbol: 'circle', spacing: 100, style: { fill: 'red', r: 4 } },
+      },
     ]);
   });
 
@@ -77,8 +97,8 @@ describe('Legend', () => {
       { genre: 'Sports', sold: 275, buy: 120 },
       { genre: 'Strategy', sold: 115, buy: 320 },
       { genre: 'Action', sold: 120, buy: 130 },
-      { genre: 'Shooter', sold: 3500, buy: 123},
-      { genre: 'Other', sold: 150, buy: 67 }
+      { genre: 'Shooter', sold: 3500, buy: 123 },
+      { genre: 'Other', sold: 150, buy: 67 },
     ];
 
     const chart = new Chart({
@@ -91,11 +111,11 @@ describe('Legend', () => {
     chart.data(data);
     chart.scale({
       sold: {
-        sync: 'value'
+        sync: 'value',
       },
       buy: {
-        sync: 'value'
-      }
+        sync: 'value',
+      },
     });
     chart.interval().position('genre*sold').color('genre');
 
@@ -111,11 +131,21 @@ describe('Legend', () => {
 
     chart.render();
 
-    const [legend] = chart.getComponents().filter(co => co.type === COMPONENT_TYPE.LEGEND);
+    const [legend] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
 
     expect(legend.component.get('items')).toEqual([
-      { id: 'Action', name: 'Action', value: 'Action', marker: { symbol: 'square', spacing: 100, style: { fill: 'blue', r: 3 } } },
-      { id: 'Sports', name: 'Sports', value: 'Sports', marker: { symbol: 'circle', spacing: 100, style: { fill: 'red', r: 3 } } }
+      {
+        id: 'Action',
+        name: 'Action',
+        value: 'Action',
+        marker: { symbol: 'square', spacing: 100, style: { fill: 'blue', r: 3 } },
+      },
+      {
+        id: 'Sports',
+        name: 'Sports',
+        value: 'Sports',
+        marker: { symbol: 'circle', spacing: 100, style: { fill: 'red', r: 3 } },
+      },
     ]);
 
     expect(legend.direction).toBe('bottom');
@@ -124,21 +154,51 @@ describe('Legend', () => {
     chart.legend('genre', {
       custom: true,
       items: [
-        { id: 'Action', name: 'Action', value: 'Action', marker: { symbol: 'square', spacing: 100, style: { fill: 'blue' } } },
-        { id: 'Sports', name: 'Sports', value: 'Sports', marker: { symbol: 'circle', spacing: 100, style: { fill: 'red' } } },
-        { id: 'Other', name: 'Other', value: 'Other', marker: { symbol: 'circle', spacing: 100, style: { fill: 'red' } } }
+        {
+          id: 'Action',
+          name: 'Action',
+          value: 'Action',
+          marker: { symbol: 'square', spacing: 100, style: { fill: 'blue' } },
+        },
+        {
+          id: 'Sports',
+          name: 'Sports',
+          value: 'Sports',
+          marker: { symbol: 'circle', spacing: 100, style: { fill: 'red' } },
+        },
+        {
+          id: 'Other',
+          name: 'Other',
+          value: 'Other',
+          marker: { symbol: 'circle', spacing: 100, style: { fill: 'red' } },
+        },
       ],
     });
 
     chart.render(true);
-    const newLegend = chart.getComponents().filter(co => co.type === COMPONENT_TYPE.LEGEND)[0];
+    const newLegend = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND)[0];
     // 保持引用
     expect(newLegend.component).toBe(legend.component);
 
     expect(newLegend.component.get('items')).toEqual([
-      { id: 'Action', name: 'Action', value: 'Action', marker: { symbol: 'square', spacing: 100, style: { fill: 'blue', r: 4 } } },
-      { id: 'Sports', name: 'Sports', value: 'Sports', marker: { symbol: 'circle', spacing: 100, style: { fill: 'red', r: 4 } } },
-      { id: 'Other', name: 'Other', value: 'Other', marker: { symbol: 'circle', spacing: 100, style: { fill: 'red', r: 4 } } }
+      {
+        id: 'Action',
+        name: 'Action',
+        value: 'Action',
+        marker: { symbol: 'square', spacing: 100, style: { fill: 'blue', r: 4 } },
+      },
+      {
+        id: 'Sports',
+        name: 'Sports',
+        value: 'Sports',
+        marker: { symbol: 'circle', spacing: 100, style: { fill: 'red', r: 4 } },
+      },
+      {
+        id: 'Other',
+        name: 'Other',
+        value: 'Other',
+        marker: { symbol: 'circle', spacing: 100, style: { fill: 'red', r: 4 } },
+      },
     ]);
   });
 });

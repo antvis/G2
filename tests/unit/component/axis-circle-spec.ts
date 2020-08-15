@@ -18,23 +18,13 @@ describe('Component', () => {
   chart.coordinate('polar');
   chart.data(CITY_SALE);
 
-  chart
-    .line()
-    .position('city*sale')
-    .color('category')
-    .size(2);
+  chart.line().position('city*sale').color('category').size(2);
 
-  chart
-    .point()
-    .position('city*sale')
-    .color('category')
-    .shape('circle')
-    .size(4)
-    .style({
-      stroke: '#fff',
-      lineWidth: 1,
-      fillOpacity: 1,
-    });
+  chart.point().position('city*sale').color('category').shape('circle').size(4).style({
+    stroke: '#fff',
+    lineWidth: 1,
+    fillOpacity: 1,
+  });
 
   chart
     // @ts-ignore
@@ -52,7 +42,7 @@ describe('Component', () => {
     grid: {
       line: {
         type: 'circle',
-      }
+      },
     },
   });
 
@@ -94,11 +84,7 @@ describe('Component', () => {
     ]);
     chart.coordinate('polar');
     chart.axis('x', { grid: null });
-    chart
-      .line()
-      .position('x*y')
-      .size(2)
-      .color('#ff8800');
+    chart.line().position('x*y').size(2).color('#ff8800');
 
     chart.render();
     const axes = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.AXIS);

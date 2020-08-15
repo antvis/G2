@@ -1,3 +1,28 @@
+#### 4.0.15 (2020-08-14)
+
+##### Documentation Changes
+
+*  add part API documents ([#2718](https://github.com/antvis/g2/pull/2718)) ([6e5769f9](https://github.com/antvis/g2/commit/6e5769f94a47aab9083305d53cc0584fe3d65f3b))
+
+##### New Features
+
+* **background:**  使用 shape 来绘制 dark 的背景色 ([#2745](https://github.com/antvis/g2/pull/2745)) ([6adbdbf4](https://github.com/antvis/g2/commit/6adbdbf4e23bab95e924475f0e4cdf706594e731))
+* **annotation:**  text annotation 提供content回调，将图表filteredData作为回调参数 ([#2735](https://github.com/antvis/g2/pull/2735)) ([0e4d1f12](https://github.com/antvis/g2/commit/0e4d1f12e955f71bb7129219312af817f09228ff))
+*  Tooltip supported customContent ([#2739](https://github.com/antvis/g2/pull/2739)) ([5dc5a36e](https://github.com/antvis/g2/commit/5dc5a36e92e5704719acb13d96b4c8194f9766e8))
+*  add api-extractor  for extract typescript declare file ([#2725](https://github.com/antvis/g2/pull/2725)) ([22620898](https://github.com/antvis/g2/commit/22620898ae650ea0da70ee2ec211bfd32c1d8303))
+* **pie-label:**  add pie-outer label layout ([#2726](https://github.com/antvis/g2/pull/2726)) ([d94157da](https://github.com/antvis/g2/commit/d94157dad468a306443634dc4b4df48f5bfea5c0))
+
+##### Bug Fixes
+
+* **change-size:**  when size is equal, not render ([#2734](https://github.com/antvis/g2/pull/2734)) ([3f9f0ac1](https://github.com/antvis/g2/commit/3f9f0ac1a8b1e4da9d84134cbd4625cd017a257a))
+*  resolve tooltip debounce ([#2733](https://github.com/antvis/g2/pull/2733)) ([f5114f47](https://github.com/antvis/g2/commit/f5114f473fb17661fe65aaa61550e341dba0e8f5))
+*  bugs in wordcloud demo ([#2723](https://github.com/antvis/g2/pull/2723)) ([61abf9de](https://github.com/antvis/g2/commit/61abf9de512bd2fc5e9877b6353b13daf9b8663e))
+*  [#2706](https://github.com/antvis/g2/pull/2706) ([#2710](https://github.com/antvis/g2/pull/2710)) ([897e2bbb](https://github.com/antvis/g2/commit/897e2bbb455e02ede853e6ff1103dab016b18e9b))
+
+##### Refactors
+
+* **axis:**  axis update 包含有 create 逻辑,删除容易的 create 逻辑,简化代码 ([#2741](https://github.com/antvis/g2/pull/2741)) ([757e21d6](https://github.com/antvis/g2/commit/757e21d641d83913cd7c8e0fcdadd88489d9f3d4))
+
 #### 4.0.14 (2020-07-27)
 
 ##### New Features

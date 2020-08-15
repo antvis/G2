@@ -12,7 +12,7 @@ describe('padding-cal', () => {
     expect(pc.getPadding()).toEqual([1, 1, 0, 0]);
     pc = new PaddingCal(1, 1, 1);
     expect(pc.getPadding()).toEqual([1, 1, 1, 0]);
-    pc = new PaddingCal(1, 1, 1,1);
+    pc = new PaddingCal(1, 1, 1, 1);
     expect(pc.getPadding()).toEqual([1, 1, 1, 1]);
   });
 

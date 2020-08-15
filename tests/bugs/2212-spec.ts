@@ -24,11 +24,10 @@ describe('#2212', () => {
   chart.interval().position('time*value');
 
   it('slider no start end', () => {
-    chart.option('slider', {
-    });
+    chart.option('slider', {});
 
     chart.render();
-    const slider = chart.getComponents().filter(co => co.type === COMPONENT_TYPE.OTHER)[0].component;
+    const slider = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.OTHER)[0].component;
 
     expect(slider.get('start')).toBe(0);
     expect(slider.get('end')).toBe(1);

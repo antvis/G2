@@ -20,10 +20,7 @@ describe('Component', () => {
       nice: true,
     });
 
-    chart
-      .point()
-      .position('city*sale')
-      .size('sale', [4, 12]);
+    chart.point().position('city*sale').size('sale', [4, 12]);
 
     chart.legend('sale', {
       position: DIRECTION.TOP,
@@ -58,10 +55,7 @@ describe('Component', () => {
 
     chart.data(CITY_SALE);
 
-    chart
-      .point()
-      .position('city*sale')
-      .color('sale');
+    chart.point().position('city*sale').color('sale');
 
     chart.legend('sale', {
       position: DIRECTION.TOP,

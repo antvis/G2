@@ -11,11 +11,7 @@ describe('#1746', () => {
 
   chart.data(CITY_SALE);
 
-  const interval = chart
-    .interval()
-    .position('city*sale')
-    .color('category')
-    .adjust('stack');
+  const interval = chart.interval().position('city*sale').color('category').adjust('stack');
 
   chart.render();
 

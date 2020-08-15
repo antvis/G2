@@ -199,15 +199,8 @@ describe('#1949', () => {
     },
   });
 
-  chart
-    .line()
-    .position('time*cpu')
-    .color('date', ['#1890ff', '#ced4d9'])
-    .shape('split-line');
-  chart
-    .point()
-    .position('time*cpu')
-    .shape('breath-point');
+  chart.line().position('time*cpu').color('date', ['#1890ff', '#ced4d9']).shape('split-line');
+  chart.point().position('time*cpu').shape('breath-point');
   chart.annotation().regionFilter({
     top: true,
     start: ['min', 85],

@@ -324,7 +324,7 @@ export default class Tooltip extends Controller<TooltipOption> {
     if (this.point) {
       this.showTooltip(this.point);
     }
-    
+
     if (this.tooltip) {
       // #2279 修复resize之后tooltip越界的问题
       // 确保tooltip已经创建的情况下

@@ -18,10 +18,10 @@ describe('#2272', () => {
     chart.data(data);
     chart.coordinate('theta', {
       radius: 0.75,
-      innerRadius: 0.4
+      innerRadius: 0.4,
     });
     chart.tooltip({
-      showMarkers: false
+      showMarkers: false,
     });
 
     const interval = chart

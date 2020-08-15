@@ -21,10 +21,7 @@ describe('test view actions', () => {
   chart.data(data);
   chart.animate(false);
   chart.tooltip(false);
-  chart
-    .interval()
-    .position('year*value')
-    .color('year');
+  chart.interval().position('year*value').color('year');
   chart.render();
   const context = new Context(chart);
 

@@ -286,10 +286,7 @@ describe('Calculate shape size', () => {
         coordinate: thetaCoord,
         container: canvas.addGroup(),
       });
-      interval
-        .position('1*percent')
-        .color('a')
-        .adjust('stack');
+      interval.position('1*percent').color('a').adjust('stack');
 
       interval.init({
         theme: Theme,

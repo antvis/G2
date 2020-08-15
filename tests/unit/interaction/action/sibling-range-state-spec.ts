@@ -29,26 +29,24 @@ describe('active test', () => {
 
   const view1 = chart.createView({
     region: {
-      start: {x: 0, y: 0},
-      end: {x: 1, y: 0.5},
+      start: { x: 0, y: 0 },
+      end: { x: 1, y: 0.5 },
     },
-    padding: [20, 20, 40, 80]
+    padding: [20, 20, 40, 80],
   });
   view1.data(data);
   view1.interaction('highlight-view');
   view1.scale('year', {
-    range: [0.2,0.8]
+    range: [0.2, 0.8],
   });
-  const interval = view1
-    .interval()
-    .position('year*value');
+  const interval = view1.interval().position('year*value');
 
   const view2 = chart.createView({
     region: {
-      start: {x: 0, y: 0.5},
-      end: {x: 1, y: 1},
+      start: { x: 0, y: 0.5 },
+      end: { x: 1, y: 1 },
     },
-    padding: [20, 20, 40, 80]
+    padding: [20, 20, 40, 80],
   });
   view2.data(data);
   view2.interaction('highlight-view');
@@ -58,21 +56,20 @@ describe('active test', () => {
     .state({
       active: {
         style: {
-          opacity: 1
-        }
+          opacity: 1,
+        },
       },
       inactive: {
         style: {
-          opacity: 0.4
-        }
-      }
-      
+          opacity: 0.4,
+        },
+      },
     });
   chart.render();
-  
+
   const context = new Context(view2);
   let action = new RangeHighlight(context, {
-    effectSiblings: true
+    effectSiblings: true,
   });
   action.init();
   const mask = new Mask(context);
@@ -80,7 +77,7 @@ describe('active test', () => {
   it('effect by mask', () => {
     context.event = {
       x: 200,
-      y: 200
+      y: 200,
     };
     mask.start();
     // @ts-ignore
@@ -88,82 +85,93 @@ describe('active test', () => {
 
     context.event = {
       x: 205,
-      y: 205
+      y: 205,
     };
     mask.resize();
     context.event = {
-      target: maskShape
+      target: maskShape,
     };
     action.highlight();
-    expect(interval.getElementsBy(el => {
-      return el.hasState('active');
-    }).length).toBe(0);
+    expect(
+      interval.getElementsBy((el) => {
+        return el.hasState('active');
+      }).length
+    ).toBe(0);
 
     context.event = {
       x: 250,
-      y: 250
+      y: 250,
     };
     mask.resize();
     context.event = {
-      target: maskShape
+      target: maskShape,
     };
     action.highlight();
-    expect(interval.getElementsBy(el => {
-      return el.hasState('active');
-    }).length).toBe(0);
+    expect(
+      interval.getElementsBy((el) => {
+        return el.hasState('active');
+      }).length
+    ).toBe(0);
 
     context.event = {
       x: 300,
-      y: 400
+      y: 400,
     };
     mask.resize();
     context.event = {
-      target: maskShape
+      target: maskShape,
     };
     action.highlight();
-    expect(interval.getElementsBy(el => {
-      return el.hasState('active');
-    }).length).toBe(5);
+    expect(
+      interval.getElementsBy((el) => {
+        return el.hasState('active');
+      }).length
+    ).toBe(5);
     mask.end();
     mask.hide();
     action.clear();
-    expect(interval.getElementsBy(el => {
-      return el.hasState('active');
-    }).length).toBe(0);
-
+    expect(
+      interval.getElementsBy((el) => {
+        return el.hasState('active');
+      }).length
+    ).toBe(0);
   });
 
   it('effect by record', () => {
     action = new RangeHighlight(context, {
       effectSiblings: true,
-      effectByRecord: true
+      effectByRecord: true,
     });
     action.init();
 
     context.event = {
       x: 200,
-      y: 200
+      y: 200,
     };
     mask.start();
     mask.show();
 
     context.event = {
       x: 300,
-      y: 400
+      y: 400,
     };
     mask.resize();
     context.event = {
-      target: maskShape
+      target: maskShape,
     };
     action.highlight();
-    expect(interval.getElementsBy(el => {
-      return el.hasState('active');
-    }).length).toBe(4);
+    expect(
+      interval.getElementsBy((el) => {
+        return el.hasState('active');
+      }).length
+    ).toBe(4);
     mask.end();
     mask.hide();
     action.clear();
-    expect(interval.getElementsBy(el => {
-      return el.hasState('active');
-    }).length).toBe(0);
+    expect(
+      interval.getElementsBy((el) => {
+        return el.hasState('active');
+      }).length
+    ).toBe(0);
   });
 });

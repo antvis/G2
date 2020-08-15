@@ -22,39 +22,40 @@ describe('facet matrix', () => {
   chart.scale({
     Species: {
       sync: true,
-    }
+    },
   });
 
   chart.facet('matrix', {
-    fields: [ 'SepalLength', 'SepalWidth', 'PetalLength', 'PetalWidth' ],
+    fields: ['SepalLength', 'SepalWidth', 'PetalLength', 'PetalWidth'],
     eachView(view, facet) {
       if (facet.rowIndex === facet.columnIndex) {
         // 对角线的图形，做数据封箱之后绘制图形
         const dv = new DataSet.DataView();
-        dv.source(facet.data)
-          .transform({
-            type: 'bin.histogram',
-            field: facet.columnField,  // 对应数轴上的一个点
-            bins: 30,               // 分箱个数
-            as: [ facet.columnField, 'count' ],
-            groupBy: [ 'Species' ]
-          });
+        dv.source(facet.data).transform({
+          type: 'bin.histogram',
+          field: facet.columnField, // 对应数轴上的一个点
+          bins: 30, // 分箱个数
+          as: [facet.columnField, 'count'],
+          groupBy: ['Species'],
+        });
         view.data(dv.rows);
 
-        view.interval()
+        view
+          .interval()
           .position(facet.columnField + '*count')
           .color('Species', COLOR)
           .adjust('stack')
           .style({ opacity: 0.85 });
       } else {
-        view.point()
-          .position([ facet.columnField, facet.rowField ])
+        view
+          .point()
+          .position([facet.columnField, facet.rowField])
           .color('Species', COLOR)
           .shape('circle')
           .style({ opacity: 0.3 })
           .size(3);
       }
-    }
+    },
   });
   chart.render();
 
@@ -85,36 +86,37 @@ describe('facet matrix', () => {
       rowTitle: {
         style: {
           fill: 'red',
-        }
+        },
       },
       eachView(view, facet) {
         if (facet.rowIndex === facet.columnIndex) {
           // 对角线的图形，做数据封箱之后绘制图形
           const dv = new DataSet.DataView();
-          dv.source(facet.data)
-            .transform({
-              type: 'bin.histogram',
-              field: facet.columnField,  // 对应数轴上的一个点
-              bins: 30,               // 分箱个数
-              as: [facet.columnField, 'count'],
-              groupBy: ['Species']
-            });
+          dv.source(facet.data).transform({
+            type: 'bin.histogram',
+            field: facet.columnField, // 对应数轴上的一个点
+            bins: 30, // 分箱个数
+            as: [facet.columnField, 'count'],
+            groupBy: ['Species'],
+          });
           view.data(dv.rows);
 
-          view.interval()
+          view
+            .interval()
             .position(facet.columnField + '*count')
             .color('Species', COLOR)
             .adjust('stack')
-            .style({opacity: 0.85});
+            .style({ opacity: 0.85 });
         } else {
-          view.point()
+          view
+            .point()
             .position([facet.columnField, facet.rowField])
             .color('Species', COLOR)
             .shape('circle')
-            .style({opacity: 0.3})
+            .style({ opacity: 0.3 })
             .size(3);
         }
-      }
+      },
     });
 
     chart.render();

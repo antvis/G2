@@ -363,13 +363,13 @@ describe('Geometry', () => {
             myInterval: {
               tick: {
                 default: {
-                  style: { lineWidth: 10},
+                  style: { lineWidth: 10 },
                 },
                 active: {
-                  style: { stroke: 'red'},
+                  style: { stroke: 'red' },
                 },
                 selected: {
-                  style: {stroke: 'blue',}
+                  style: { stroke: 'blue' },
                 },
               },
             },
@@ -612,22 +612,22 @@ describe('Geometry', () => {
       expect(geometry.animateOption).toEqual({
         appear: {
           duration: 450,
-          easing: 'easeQuadOut'
+          easing: 'easeQuadOut',
         },
         update: {
           duration: 400,
           easing: 'easeQuadInOut',
-          animation: null
+          animation: null,
         },
         enter: {
           duration: 400,
           easing: 'easeQuadInOut',
-          animation: 'scale-in-y'
+          animation: 'scale-in-y',
         },
         leave: {
           duration: 350,
           easing: 'easeQuadIn',
-          animation: 'fade-out'
+          animation: 'fade-out',
         },
       });
     });
@@ -723,21 +723,21 @@ describe('Geometry', () => {
       coordinate,
       container: new G.Group({}),
     });
-    geometry
-      .position('月份*月均降雨量')
-      .color('name')
-      .adjust('stack');
+    geometry.position('月份*月均降雨量').color('name').adjust('stack');
     geometry.init({
       theme: Theme,
     });
     expect(geometry.getYScale().min).toBe(0);
     expect(geometry.getYScale().max).toBe(200);
 
-    syncScale(geometry.getYScale(), createScale('月均降雨量', data, {
-      月均降雨量: {
-        nice: true,
-      },
-    }));
+    syncScale(
+      geometry.getYScale(),
+      createScale('月均降雨量', data, {
+        月均降雨量: {
+          nice: true,
+        },
+      })
+    );
     geometry.update();
     expect(geometry.getYScale().min).toBe(0);
     expect(geometry.getYScale().max).toBe(200);
@@ -772,7 +772,7 @@ describe('Geometry', () => {
       scaleDefs: {
         country: {
           values: ['Europe', 'Asia', 'Africa'],
-        }
+        },
       },
     });
 

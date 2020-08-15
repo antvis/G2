@@ -3,7 +3,7 @@ import { createDiv, removeDom } from '../util/dom';
 
 describe('#2021', () => {
   let chart;
-  const container = createDiv()
+  const container = createDiv();
   it('Pie chart options', () => {
     chart = new Chart({
       container,
@@ -20,26 +20,22 @@ describe('#2021', () => {
         ],
         coordinate: {
           type: 'polar',
-          actions: [
-            [ 'transpose' ],
-          ],
+          actions: [['transpose']],
           cfg: {
             radius: 0.85,
-          }
+          },
         },
         geometries: [
           {
             type: 'interval',
             position: {
-              fields: [ 'value' ],
+              fields: ['value'],
             },
             color: 'type',
-            adjust: [
-              { type: 'stack' },
-            ],
+            adjust: [{ type: 'stack' }],
           },
         ],
-      }
+      },
     });
 
     chart.render();

@@ -53,8 +53,9 @@ describe('multiple view legend', () => {
     shared: true,
   });
 
-  data.forEach(row => {
-    row['range'] = [row.订阅数, row.月收入];
+  data.forEach((row) => {
+    // @ts-ignore
+    row.range = [row.订阅数, row.月收入];
   });
   const view1 = chart.createView({
     padding: [8, 8, 48, 64],
@@ -62,13 +63,9 @@ describe('multiple view legend', () => {
   view1.data(data);
   view1.axis(false);
   view1.tooltip(false);
-  view1
-    .area()
-    .position('Date*range')
-    .color('#8d8d8d')
-    .style({
-      fillOpacity: 0.1,
-    });
+  view1.area().position('Date*range').color('#8d8d8d').style({
+    fillOpacity: 0.1,
+  });
 
   const ds = new DataSet();
   // view2
@@ -86,15 +83,8 @@ describe('multiple view legend', () => {
     padding: [8, 8, 48, 64],
   });
   view2.data(dv2.rows);
-  const lineGeom = view2
-    .line()
-    .position('Date*value')
-    .color('type');
-  view2
-    .point()
-    .position('Date*value')
-    .color('type')
-    .shape('circle');
+  const lineGeom = view2.line().position('Date*value').color('type');
+  view2.point().position('Date*value').color('type').shape('circle');
 
   chart.render();
   const context = new Context(chart);
@@ -105,8 +95,8 @@ describe('multiple view legend', () => {
       return el.get('name') === 'legend-item';
     });
     context.event = {
-      target: legendItems[0]
-    }
+      target: legendItems[0],
+    };
     action.unchecked();
     filter.filter();
     expect(lineGeom.elements.length).toBe(1);

@@ -79,7 +79,10 @@ describe('ScaleUtil', () => {
       { name: 'B', day: 'Monday', sales: 92 },
       { name: 'B', day: 'Tuesday', sales: 58 },
     ];
-    const newData = [{ name: 'C', day: 'Monday', sales: 43 }, { name: 'B', day: 'Monday', sales: 9 }];
+    const newData = [
+      { name: 'C', day: 'Monday', sales: 43 },
+      { name: 'B', day: 'Monday', sales: 9 },
+    ];
     const oldScale = createScaleByField('name', oldData);
     expect(oldScale.values).toEqual(['A', 'B']);
 

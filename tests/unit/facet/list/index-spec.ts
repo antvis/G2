@@ -16,28 +16,23 @@ describe('facet rect', () => {
 
   chart.scale({
     carat: {
-      sync: true
+      sync: true,
     },
     price: {
-      sync: true
+      sync: true,
     },
     cut: {
-      sync: true
-    }
+      sync: true,
+    },
   });
 
   chart.facet('list', {
-    fields: [ 'cut' ],
+    fields: ['cut'],
     cols: 3, // 超过3个换行
     padding: 30,
     eachView(view) {
-      view.point()
-        .position('carat*price')
-        .color('cut')
-        .shape('circle')
-        .style({ opacity: 0.3 })
-        .size(3);
-    }
+      view.point().position('carat*price').color('cut').shape('circle').style({ opacity: 0.3 }).size(3);
+    },
   });
   chart.render();
 
@@ -63,17 +58,12 @@ describe('facet rect', () => {
       cols: 3,
       padding: 30,
       eachView(view) {
-        view.point()
-          .position('carat*price')
-          .color('cut')
-          .shape('circle')
-          .style({ opacity: 0.3 })
-          .size(3);
-      }
+        view.point().position('carat*price').color('cut').shape('circle').style({ opacity: 0.3 }).size(3);
+      },
     });
 
     expect(() => {
-      chart.render()
+      chart.render();
     }).toThrow('No `fields` specified!');
   });
 
@@ -82,13 +72,8 @@ describe('facet rect', () => {
       fields: ['cut'],
       padding: 30,
       eachView(view) {
-        view.point()
-          .position('carat*price')
-          .color('cut')
-          .shape('circle')
-          .style({ opacity: 0.3 })
-          .size(3);
-      }
+        view.point().position('carat*price').color('cut').shape('circle').style({ opacity: 0.3 }).size(3);
+      },
     });
 
     chart.render();

@@ -41,7 +41,7 @@ describe('legend check error', () => {
       range: [0, 1],
     },
     temperature: {
-      nice: false
+      nice: false,
     },
   });
 
@@ -57,26 +57,17 @@ describe('legend check error', () => {
       },
     },
   });
-  chart.filter('city', v => v === 'Tokyo');
-  chart
-    .line()
-    .position('month*temperature')
-    .color('city')
-    .shape('smooth');
+  chart.filter('city', (v) => v === 'Tokyo');
+  chart.line().position('month*temperature').color('city').shape('smooth');
 
-  chart
-    .point()
-    .position('month*temperature')
-    .color('city')
-    .shape('circle')
-    .style({
-      stroke: '#fff',
-      lineWidth: 1,
-    });
+  chart.point().position('month*temperature').color('city').shape('circle').style({
+    stroke: '#fff',
+    lineWidth: 1,
+  });
 
   chart.render();
   it('check error', () => {
-    chart.filter('city', v => v === '');
+    chart.filter('city', (v) => v === '');
     chart.render(true);
     const xScale = chart.getXScale();
     expect(xScale.ticks.length).toEqual(12);

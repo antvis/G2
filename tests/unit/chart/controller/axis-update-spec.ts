@@ -27,11 +27,7 @@ describe('axis rect update', () => {
 
   chart.data(data);
 
-  chart
-    .interval()
-    .position('月份*月均降雨量')
-    .color('name')
-    .adjust('dodge');
+  chart.interval().position('月份*月均降雨量').color('name').adjust('dodge');
   chart.render();
 
   function getAxes() {

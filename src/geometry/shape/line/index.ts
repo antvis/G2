@@ -25,13 +25,19 @@ function getShapeAttrs(cfg: ShapeInfo, smooth?: boolean, constraint?: Position[]
 }
 
 // 单条 path
-function getSinglePath(points: Point[], isInCircle: boolean, smooth?: boolean, constraint?: Position[], style?: ShapeAttrs) {
+function getSinglePath(
+  points: Point[],
+  isInCircle: boolean,
+  smooth?: boolean,
+  constraint?: Position[],
+  style?: ShapeAttrs
+) {
   if (points.length === 1) {
     // 只有一个点时
     return [
-      ['M', points[0].x, points[0].y - (style.lineWidth / 2)],
+      ['M', points[0].x, points[0].y - style.lineWidth / 2],
       ['L', points[0].x, points[0].y],
-      ['L', points[0].x, points[0].y + (style.lineWidth / 2)],
+      ['L', points[0].x, points[0].y + style.lineWidth / 2],
     ];
   }
 

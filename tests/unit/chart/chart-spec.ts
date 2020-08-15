@@ -24,10 +24,7 @@ describe('Chart', () => {
     sale: { key: true },
   });
 
-  chart
-    .interval()
-    .position('city*sale')
-    .color('category');
+  chart.interval().position('city*sale').color('category');
 
   it('constructor', () => {
     expect(chart.autoFit).toBe(false);
@@ -89,8 +86,14 @@ describe('Chart', () => {
   it('element id', () => {
     const elementsMap = chart.geometries[0].elementsMap;
     expect(elementsMap).toContainAllKeys([
-      '杭州-100', '广州-30', '上海-110', '呼和浩特-40',
-      '杭州-40', '广州-90', '上海-200', '呼和浩特-10',
+      '杭州-100',
+      '广州-30',
+      '上海-110',
+      '呼和浩特-40',
+      '杭州-40',
+      '广州-90',
+      '上海-200',
+      '呼和浩特-10',
     ]);
   });
 
@@ -131,8 +134,14 @@ describe('Chart', () => {
 
     const elementsMap = chart.geometries[0].elementsMap;
     expect(elementsMap).toContainAllKeys([
-      '杭州-100', '广州-30', '上海-110', '呼和浩特-40',
-      '杭州-40', '广州-90', '上海-200', '呼和浩特-10',
+      '杭州-100',
+      '广州-30',
+      '上海-110',
+      '呼和浩特-40',
+      '杭州-40',
+      '广州-90',
+      '上海-200',
+      '呼和浩特-10',
     ]);
   });
 
@@ -159,7 +168,7 @@ describe('Chart', () => {
 
     // @ts-ignore
     // expect(chart.viewEventCaptureRect).not.toBeUndefined();
-    expect(chart.getLayer(LAYER.BG).get('children').length).toBe(3);
+    expect(chart.getLayer(LAYER.BG).get('children').length).toBe(4);
     expect(chart.getLayer(LAYER.MID).get('children').length).toBe(1);
     expect(chart.getLayer(LAYER.FORE).get('children').length).toBe(4);
   });
@@ -174,7 +183,9 @@ describe('Chart', () => {
     expect(chart.getLayer(LAYER.FORE).destroyed).toBe(true);
     expect(destroyEvent).toBeCalledTimes(1);
 
-    expect(() => { chart.forceFit() }).not.toThrow();
+    expect(() => {
+      chart.forceFit();
+    }).not.toThrow();
     expect(chart.destroyed).toBe(true);
     expect(chart.canvas.destroyed).toBe(true);
     expect(div.childNodes.length).toBe(0);

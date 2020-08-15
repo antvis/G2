@@ -30,7 +30,6 @@ describe('#2241', () => {
     chart.showTooltip(point);
     chart.changeSize(200, 300);
 
-
     const tooltip = chart.getController('tooltip');
     // @ts-ignore
     expect(tooltip.title).toBe('1995');

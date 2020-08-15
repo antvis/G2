@@ -37,6 +37,6 @@ describe('util legend', () => {
     expect(items).toEqual([
       { name: 'a', value: 'aa', marker: { symbol: 'circle', spacing: 8, style: { fill: 'green', r: 5 } } },
       { name: 'b', value: 'bb', marker: { symbol: 'square', spacing: 8, style: { fill: 'red', r: 6 } } },
-    ])
-  })
+    ]);
+  });
 });

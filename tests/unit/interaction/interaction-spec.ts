@@ -82,10 +82,7 @@ describe('Interaction test', () => {
     position: 'right-bottom',
   });
   chart.tooltip(false);
-  chart
-    .interval()
-    .position('year*value')
-    .color('year');
+  chart.interval().position('year*value').color('year');
 
   chart.render();
   describe('test simple interaction', () => {
@@ -287,7 +284,7 @@ describe('Interaction test', () => {
         start: [{ trigger: 'mouseenter', action: 'custom:start', once: true }],
       });
       interaction.init();
-     
+
       const context = interaction.context;
       const action = context.getAction('custom') as CustomAction;
       const eventObject = {};
@@ -323,11 +320,11 @@ describe('Interaction test', () => {
 
     it('start, end, rollback', () => {
       const interaction = new Interaction(chart, {
-        start: [{ trigger: 'mouseenter', action: 'custom:start'}],
+        start: [{ trigger: 'mouseenter', action: 'custom:start' }],
         end: [{ trigger: 'mouseleave', action: 'custom:end', once: true }],
-        rollback: [{trigger: 'click', action: 'custom:reset', once: true}]
+        rollback: [{ trigger: 'click', action: 'custom:reset', once: true }],
       });
-      
+
       interaction.init();
       const context = interaction.context;
       const action = context.getAction('custom') as CustomAction;
@@ -397,9 +394,7 @@ describe('Interaction test', () => {
         clientY: rect.top + 384,
       };
       expect(context.isInPlot()).toBe(false);
-      context.event = {
-        
-      };
+      context.event = {};
       expect(context.isInPlot()).toBe(false);
       context.event = null;
       expect(context.isInPlot()).toBe(false);
@@ -428,7 +423,7 @@ describe('Interaction test', () => {
       context.event = {
         x: 374,
         y: 281,
-        target: null
+        target: null,
       };
       expect(context.isInShape('mask')).toBe(false);
       const canvas = chart.getCanvas();
@@ -437,15 +432,15 @@ describe('Interaction test', () => {
         attrs: {
           x: 374,
           y: 281,
-          r: 10
-        }
+          r: 10,
+        },
       });
       context.event = {
         x: 374,
         y: 281,
         gEvent: {
-          shape: shape
-        }
+          shape: shape,
+        },
       };
       expect(context.getCurrentShape()).toBe(shape);
       expect(context.getCurrentPoint()).toEqual({
@@ -592,9 +587,14 @@ describe('Interaction test', () => {
     it('no debounce, no throttle', () => {
       let count = 0;
       const interaction = new Interaction(chart, {
-        start: [{ trigger: 'mouseenter', action: () => {
-          count ++;
-        }}],
+        start: [
+          {
+            trigger: 'mouseenter',
+            action: () => {
+              count++;
+            },
+          },
+        ],
       });
       interaction.init();
       const eventObject = {
@@ -610,9 +610,15 @@ describe('Interaction test', () => {
     it('debounce, immediate = false', (done) => {
       let count = 0;
       const interaction = new Interaction(chart, {
-        start: [{ trigger: 'mouseenter', action: () => {
-          count ++;
-        }, debounce: {wait: 20}}],
+        start: [
+          {
+            trigger: 'mouseenter',
+            action: () => {
+              count++;
+            },
+            debounce: { wait: 20 },
+          },
+        ],
       });
       interaction.init();
       const eventObject = {
@@ -632,9 +638,15 @@ describe('Interaction test', () => {
     it('debounce, immediate = true', (done) => {
       let count = 0;
       const interaction = new Interaction(chart, {
-        start: [{ trigger: 'mouseenter', action: () => {
-          count ++;
-        }, debounce: {wait: 20, immediate: true}}],
+        start: [
+          {
+            trigger: 'mouseenter',
+            action: () => {
+              count++;
+            },
+            debounce: { wait: 20, immediate: true },
+          },
+        ],
       });
       interaction.init();
       const eventObject = {
@@ -655,9 +667,15 @@ describe('Interaction test', () => {
     it('throttle', (done) => {
       let count = 0;
       const interaction = new Interaction(chart, {
-        start: [{ trigger: 'mouseenter', action: () => {
-          count ++;
-        }, throttle: {wait: 20}}],
+        start: [
+          {
+            trigger: 'mouseenter',
+            action: () => {
+              count++;
+            },
+            throttle: { wait: 20 },
+          },
+        ],
       });
       interaction.init();
       const eventObject = {
@@ -678,9 +696,15 @@ describe('Interaction test', () => {
     it('throttle trailing = false', (done) => {
       let count = 0;
       const interaction = new Interaction(chart, {
-        start: [{ trigger: 'mouseenter', action: () => {
-          count ++;
-        }, throttle: {wait: 20, trailing: false}}],
+        start: [
+          {
+            trigger: 'mouseenter',
+            action: () => {
+              count++;
+            },
+            throttle: { wait: 20, trailing: false },
+          },
+        ],
       });
       interaction.init();
       const eventObject = {
@@ -701,9 +725,15 @@ describe('Interaction test', () => {
     it('throttle leading = false', (done) => {
       let count = 0;
       const interaction = new Interaction(chart, {
-        start: [{ trigger: 'mouseenter', action: () => {
-          count ++;
-        }, throttle: {wait: 20, leading: false}}],
+        start: [
+          {
+            trigger: 'mouseenter',
+            action: () => {
+              count++;
+            },
+            throttle: { wait: 20, leading: false },
+          },
+        ],
       });
       interaction.init();
       const eventObject = {
@@ -726,5 +756,3 @@ describe('Interaction test', () => {
     chart.destroy();
   });
 });
-
-

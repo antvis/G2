@@ -22,7 +22,6 @@ describe('GeometryLabel', () => {
     end: { x: 100, y: 0 },
   });
 
-
   describe('Point Label', () => {
     const data = [
       { x: 100, y: 10, z: '1' },
@@ -76,13 +75,16 @@ describe('GeometryLabel', () => {
         offsetX: 10,
         offsetY: 10,
       });
-      geometryLabel.render([
-        { x: 100, y: 10, _origin: { x: 100, y: 10, z: '1' } },
-        { x: 100, y: 20, _origin: { x: 100, y: 20, z: '2' } },
-      ], false);
+      geometryLabel.render(
+        [
+          { x: 100, y: 10, _origin: { x: 100, y: 10, z: '1' } },
+          { x: 100, y: 20, _origin: { x: 100, y: 20, z: '2' } },
+        ],
+        false
+      );
 
       // @ts-ignore
-      const labelShape1 = labelsContainer.getChildren()[0].find(ele => ele.get('type') === 'text');
+      const labelShape1 = labelsContainer.getChildren()[0].find((ele) => ele.get('type') === 'text');
       expect(labelShape1.attr('x')).toBe(110);
       expect(labelShape1.attr('y')).toBe(0);
     });

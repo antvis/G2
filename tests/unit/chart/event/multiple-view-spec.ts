@@ -1,7 +1,7 @@
 import { Chart } from '../../../../src';
 import { CITY_SALE } from '../../../util/data';
 import { createDiv } from '../../../util/dom';
-import {getClientPoint, simulateMouseEvent} from '../../../util/simulate';
+import { getClientPoint, simulateMouseEvent } from '../../../util/simulate';
 describe('multiple view test', () => {
   const div = createDiv();
 
@@ -16,18 +16,11 @@ describe('multiple view test', () => {
   chart.data(CITY_SALE);
   chart.animate(false);
 
-  chart
-    .interval()
-    .position('city*sale')
-    .color('category')
-    .adjust('stack');
+  chart.interval().position('city*sale').color('category').adjust('stack');
 
   const view = chart.createView();
   view.data(CITY_SALE);
-  view.line()
-    .position('city*sale')
-    .color('category')
-    .adjust('stack');
+  view.line().position('city*sale').color('category').adjust('stack');
 
   chart.render();
   const canvas = chart.canvas;

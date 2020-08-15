@@ -21,7 +21,7 @@ describe('2258', () => {
       height: 400,
       theme: {
         defaultColor: 'red',
-      }
+      },
     });
 
     chart.data(data);

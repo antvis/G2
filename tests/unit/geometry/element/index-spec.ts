@@ -40,37 +40,37 @@ describe('Element', () => {
   describe('Default', () => {
     it('Instantiation', () => {
       const shapeFactory = Shape.getShapeFactory('shapes');
-      shapeFactory.theme = {
+      (shapeFactory.theme = {
         circle: {
-            default: {
+          default: {
             style: {
               fill: '#333',
-                lineWidth: 0,
-              },
+              lineWidth: 0,
+            },
           },
           active: {
             style: {
               shapes: {
                 stroke: '#000',
-                  lineWidth: 1,
-                },
+                lineWidth: 1,
+              },
             },
           },
           selected: {
             style: {
               shapes: {
                 fill: 'red',
-                }
+              },
             },
           },
         },
-      },
-      element = new Element({
-        shapeFactory,
-        container,
-        offscreenGroup: offscreenContainer,
-        visible: false,
-      });
+      }),
+        (element = new Element({
+          shapeFactory,
+          container,
+          offscreenGroup: offscreenContainer,
+          visible: false,
+        }));
       element.geometry = {
         animateOption: false,
       };
@@ -89,7 +89,7 @@ describe('Element', () => {
         },
       });
 
-      expect(element.shape.get('name')).toEqual(["element", "shapes"]);
+      expect(element.shape.get('name')).toEqual(['element', 'shapes']);
       expect(container.get('children').length).toBe(1);
       expect(container.get('children')[0]).toEqual(element.shape);
       expect(element.shape.get('visible')).toBe(false);

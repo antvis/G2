@@ -51,10 +51,10 @@ describe('#2032', () => {
   chart.tooltip(false);
   const view1 = chart.createView({
     region: {
-      start: {x: 0, y: 0},
-      end: {x: 0.5, y: 1}
+      start: { x: 0, y: 0 },
+      end: { x: 0.5, y: 1 },
     },
-    padding: [10, 20, 40, 50]
+    padding: [10, 20, 40, 50],
   });
 
   view1.data(data);
@@ -62,10 +62,10 @@ describe('#2032', () => {
 
   const view2 = chart.createView({
     region: {
-      start: {x: 0.5, y: 0},
-      end: {x: 1, y: 1}
+      start: { x: 0.5, y: 0 },
+      end: { x: 1, y: 1 },
     },
-    padding: [10, 20, 40, 50]
+    padding: [10, 20, 40, 50],
   });
 
   view2.data(data);
@@ -74,7 +74,7 @@ describe('#2032', () => {
   chart.render();
 
   it('draw error', () => {
-    point.elements.forEach(el => {
+    point.elements.forEach((el) => {
       el.setState('active', true);
     });
     expect(point.elements[0].shape.attr('x')).toBe(230);

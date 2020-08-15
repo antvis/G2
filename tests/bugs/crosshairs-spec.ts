@@ -26,7 +26,7 @@ describe('Crosshairs', () => {
       shared: true,
       crosshairs: {
         text: {},
-      }
+      },
     });
 
     const ds = new DataSet();
@@ -49,13 +49,9 @@ describe('Crosshairs', () => {
     view1.data(dv.rows);
     view1.axis(false);
     view1.tooltip(false);
-    view1
-      .area()
-      .position('Date*range')
-      .color('#8d8d8d')
-      .style({
-        fillOpacity: 0.1,
-      });
+    view1.area().position('Date*range').color('#8d8d8d').style({
+      fillOpacity: 0.1,
+    });
 
     // view2
     const dv2 = ds
@@ -73,19 +69,12 @@ describe('Crosshairs', () => {
       padding: [30, 8, 48, 64],
     });
     view2.data(dv2.rows);
-    view2
-      .line()
-      .position('Date*value')
-      .color('type');
-    view2
-      .point()
-      .position('Date*value')
-      .color('type')
-      .shape('circle');
+    view2.line().position('Date*value').color('type');
+    view2.point().position('Date*value').color('type').shape('circle');
 
     chart.render();
 
-    const point = view2.getXY({Date: "28 February", type: "月收入", value: 150000});
+    const point = view2.getXY({ Date: '28 February', type: '月收入', value: 150000 });
     chart.showTooltip(point);
 
     const tooltip = chart.getController('tooltip');

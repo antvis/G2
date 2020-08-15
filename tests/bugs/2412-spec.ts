@@ -28,7 +28,7 @@ describe('2412', () => {
       },
       grid: null,
       label: null,
-    })
+    });
     chart.axis('year', false);
     chart.line().position('year*value').label('value');
     chart.render();

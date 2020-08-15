@@ -20,21 +20,21 @@ describe('test mask filter', () => {
   chart.animate(false);
   chart.interaction('brush-visible');
   chart.tooltip(false);
- const interval = chart
+  const interval = chart
     .interval()
     .position('year*value')
     .color('year')
     .state({
       active: {
         style: {
-          opacity: 0.9
-        }
+          opacity: 0.9,
+        },
       },
       inactive: {
         style: {
-          opacity: 0.4
-        }
-      }
+          opacity: 0.4,
+        },
+      },
     });
   chart.render();
 
@@ -59,7 +59,7 @@ describe('test mask filter', () => {
     context.event = {
       x: 300,
       y: 300,
-      target: shape
+      target: shape,
     };
     filter.filter();
     // 不发生过滤
@@ -73,7 +73,7 @@ describe('test mask filter', () => {
     context.event = {
       x: 300,
       y: 300,
-      target: shape
+      target: shape,
     };
     filter.filter();
     expect(elements[0].visible).toBe(false);
@@ -82,7 +82,7 @@ describe('test mask filter', () => {
     context.event = {
       x: 300,
       y: 400,
-      target: shape
+      target: shape,
     };
     mask.resize();
     filter.filter();
