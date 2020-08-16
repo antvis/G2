@@ -1,5 +1,5 @@
 import { ext } from '@antv/matrix-util';
-import { IGroup, IShape } from '../dependents';
+import { IElement, IGroup, IShape } from '../dependents';
 
 const transform: (m: number[], actions: any[][]) => number[] = ext.transform;
 
@@ -36,7 +36,7 @@ export function rotate(element: IGroup | IShape, rotateRadian: number) {
  * @param element 进行变换的元素
  * @param rotateRadian 旋转弧度
  */
-export function getRotateMatrix(element: IGroup | IShape, rotateRadian: number) {
+export function getRotateMatrix(element: IElement, rotateRadian: number) {
   const { x, y } = element.attr();
   const matrix = transform(element.getMatrix(), [
     ['t', -x, -y],

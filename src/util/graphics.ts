@@ -1,6 +1,8 @@
 import { each, isEmpty, isNumber, isNumberEqual } from '@antv/util';
-import { Coordinate, IShape } from '../dependents';
+import { Coordinate, IElement, IShape } from '../dependents';
+import { getEngine } from '../engine';
 import { ShapeInfo } from '../interface';
+import { rotate, getRotateMatrix } from './transform';
 
 // 获取图形的包围盒
 function getPointsBox(points) {
@@ -213,4 +215,95 @@ export function getReplaceAttrs(sourceShape: IShape, targetShape: IShape) {
     }
   });
   return newAttrs;
+}
+
+/**
+ * 获取 shape 的矩形包裹框的四个关键点，注意 旋转场景
+ * @param shape
+ */
+export function getKeyPointsOfShape(shape: IShape): number[][] {
+  const cloneShape = shape.clone() as IShape;
+  const rotateRadian = cloneShape.attr('rotate');
+
+  // revert rotate
+  if (rotateRadian) {
+    rotate(cloneShape, -rotateRadian);
+  }
+
+  // get canvasBBox before rotate
+  const { minX, minY, maxX, maxY } = cloneShape.getCanvasBBox();
+  const keyPoints = [
+    [minX, minY],
+    [maxX, minY],
+    [maxX, maxY],
+    [minX, maxY],
+  ];
+
+  const G = getEngine('canvas');
+  const group = new G.Group({});
+  const points = keyPoints.map((point) => {
+    const x = point[0];
+    const y = point[1];
+    const pointShape = group.addShape('circle', { attrs: { x, y, r: 0 } });
+    if (rotateRadian) {
+      const matrix = getRotateMatrix(cloneShape, rotateRadian);
+      pointShape.setMatrix(matrix);
+    }
+    const pointBBox = pointShape.getCanvasBBox();
+    return [pointBBox.x, pointBBox.y];
+  });
+
+  group.destroy();
+  cloneShape.destroy();
+
+  return points;
+}
+
+/**
+ * detect whether two shape is intersected, useful when shape is been rotated
+ */
+export function isIntersect(element1: IElement, element2: IElement, recusive = true) {
+  const shape1 = element1.clone();
+  const shape2 = element2.clone();
+
+  const keyPoints = getKeyPointsOfShape(shape1 as IShape);
+  let isIntersecting = false;
+
+  const G = getEngine('canvas');
+  const group = new G.Group({});
+
+  keyPoints.forEach((point) => {
+    let shapeBox: IShape;
+    if (shape2.isGroup()) {
+      const rotateRadian = shape2.attr('rotate');
+      // revert rotate
+      if (rotateRadian) {
+        rotate(shape2 as IShape, -rotateRadian);
+      }
+      const bbox = shape2.getCanvasBBox();
+      shapeBox = group.addShape('rect', {
+        attrs: {
+          x: bbox.x,
+          y: bbox.y,
+          width: bbox.width,
+          height: bbox.height,
+          fill: 'transparent',
+        },
+      });
+      // rotate
+      if (rotateRadian) {
+        rotate(shapeBox, rotateRadian);
+      }
+    } else {
+      shapeBox = shape2 as IShape;
+    }
+    if (shapeBox.isHit(point[0], point[1])) {
+      isIntersecting = true;
+    }
+  });
+  shape1.destroy();
+  shape2.destroy();
+  group.destroy();
+
+  return isIntersecting || (recusive ? isIntersect(element2, element1, false) : false);
 }
