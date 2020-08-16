@@ -5,6 +5,7 @@ import { AnimateOption, GeometryLabelLayoutCfg } from '../interface';
 
 import { doAnimate } from '../animate';
 import { getGeometryLabelLayout } from '../geometry/label';
+import { getlLabelBackgroundShapeAttrs } from '../geometry/label/util';
 import { getReplaceAttrs, polarToCartesian } from '../util/graphics';
 import { rotate, translate } from '../util/transform';
 
@@ -59,8 +60,10 @@ export default class Labels {
       }
       // step 2: 根据布局，调整 labels
       this.doLayout(items, shapes);
-      // step 3: 绘制 labelLine
+      // step 3.1: 绘制 labelLine
       this.renderLabelLine(items);
+      // step 3.2: 绘制 labelBackground
+      this.renderLabelBackground(items);
       // step 4: 根据用户设置的偏移量调整 label
       this.adjustLabel(items);
     }
@@ -269,6 +272,44 @@ export default class Labels {
     });
   }
 
+  /**
+   * 绘制标签背景
+   * @param labelItems
+   */
+  private renderLabelBackground(labelItems: LabelItem[]) {
+    each(labelItems, (labelItem) => {
+      const coordinate: Coordinate = get(labelItem, 'coordinate');
+      const background: LabelItem['background'] = get(labelItem, 'background');
+      if (!background || !coordinate) {
+        return;
+      }
+
+      const id = labelItem.id;
+      const labelGroup = this.shapesMap[id];
+      if (!labelGroup.destroyed) {
+        const labelContentShape = labelGroup.getChildren()[0];
+        if (labelContentShape) {
+          const { box, matrix } = getlLabelBackgroundShapeAttrs(labelGroup, labelItem, background.padding);
+          const backgroundShape = labelGroup.addShape('rect', {
+            attrs: {
+              ...box,
+              ...background,
+            },
+            id,
+            origin: labelItem.mappingData,
+            data: labelItem.data,
+            coordinate: labelItem.coordinate,
+          });
+          backgroundShape.setZIndex(-1);
+
+          if (matrix) {
+            backgroundShape.setMatrix(matrix);
+          }
+        }
+      }
+    });
+  }
+
   private createOffscreenGroup() {
     const container = this.container;
     const GroupClass = container.getGroupBase(); // 获取分组的构造函数
@@ -282,15 +323,18 @@ export default class Labels {
         const id = item.id;
         const labelGroup = this.shapesMap[id];
         if (!labelGroup.destroyed) {
-          const labelShape = labelGroup.find((ele) => ele.get('type') === 'text');
-          if (labelShape) {
-            if (item.offsetX) {
-              labelShape.attr('x', labelShape.attr('x') + item.offsetX);
+          // fix: 如果说开发者的 label content 是一个 group，此处的偏移无法对 整个 content group 生效；场景类似 饼图 spider label 是一个含 2 个 textShape 的 gorup
+          const labelShapes = labelGroup.findAll((ele) => ele.get('type') !== 'path');
+          each(labelShapes, (labelShape) => {
+            if (labelShape) {
+              if (item.offsetX) {
+                labelShape.attr('x', labelShape.attr('x') + item.offsetX);
+              }
+              if (item.offsetY) {
+                labelShape.attr('y', labelShape.attr('y') + item.offsetY);
+              }
             }
-            if (item.offsetY) {
-              labelShape.attr('y', labelShape.attr('y') + item.offsetY);
-            }
-          }
+          });
         }
       }
     });

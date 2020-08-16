@@ -68,6 +68,12 @@ chart
     layout: {
       type: 'limit-in-shape',
     },
+    background: {
+      fill: '#000',
+      fillOpacity: '0.25',
+      radius: 2,
+      padding: 2
+    }
   });
 
 chart.interaction('element-active');
