@@ -32,6 +32,21 @@ export function rotate(element: IGroup | IShape, rotateRadian: number) {
 }
 
 /**
+ * 获取元素旋转矩阵
+ * @param element 进行变换的元素
+ * @param rotateRadian 旋转弧度
+ */
+export function getRotateMatrix(element: IGroup | IShape, rotateRadian: number) {
+  const { x, y } = element.attr();
+  const matrix = transform(element.getMatrix(), [
+    ['t', -x, -y],
+    ['r', rotateRadian],
+    ['t', x, y],
+  ]);
+  return matrix;
+}
+
+/**
  * 获取元矩阵。
  * @returns identity matrix
  */
