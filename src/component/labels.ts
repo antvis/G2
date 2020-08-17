@@ -293,7 +293,7 @@ export default class Labels {
           const backgroundShape = labelGroup.addShape('rect', {
             attrs: {
               ...box,
-              ...background,
+              ...(background.style || {}),
             },
             id,
             origin: labelItem.mappingData,

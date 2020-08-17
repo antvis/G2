@@ -19,7 +19,7 @@ export function hideOverlap(items: LabelItem[], labels: IGroup[], shapes: IShape
     if (labels[i].attr('opacity') !== 0) {
       for (let j = i + 1; j < labels.length; j++) {
         const label2 = labels[j];
-        if (label1 && label2 && label1 !== label2 && label2.attr('opacity') !== 0) {
+        if (label1 && label2 && label1 !== label2 && label2.get('visible')) {
           const shapeAttrs1 = getlLabelBackgroundShapeAttrs(label1, items[i], get(items[i], 'background.padding'));
           const shapeAttrs2 = getlLabelBackgroundShapeAttrs(label2, items[j], get(items[j], 'background.padding'));
 
@@ -35,7 +35,7 @@ export function hideOverlap(items: LabelItem[], labels: IGroup[], shapes: IShape
           const labelShape2 = label2.addShape('rect', {
             attrs: {
               ...shapeAttrs2.box,
-              fill: 'green',
+              fill: 'transparent',
             },
           });
           if (shapeAttrs2.matrix) {
@@ -43,19 +43,15 @@ export function hideOverlap(items: LabelItem[], labels: IGroup[], shapes: IShape
           }
 
           if (labelShape1 && labelShape2 && isIntersect(labelShape1, labelShape2)) {
-            labels[j].attr('opacity', 0);
+            labels[j].set('visible', false);
           }
 
+          labelShape1.remove(true);
           labelShape1.destroy();
+          labelShape2.remove(true);
           labelShape2.destroy();
         }
       }
     }
   }
-
-  labels.forEach((label) => {
-    if (label.attr('opacity') === 0) {
-      label.set('visible', false);
-    }
-  });
 }

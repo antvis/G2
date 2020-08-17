@@ -43,13 +43,16 @@ export interface LabelItem extends GeometryLabelCfg {
 
   /**
    * label 背景
-   *
-   * - fill?: string; 背景框 填充色
-   * - stroke?: string; 背景框 描边色
-   * - lineWidth?: string; 背景框 描边宽度
-   * - radius?: number | number[]; 背景框圆角，支持整数或数组形式
    */
-  background?: ShapeAttrs & {
+  background?: {
+    /**
+     * 背景框 图形属性配置
+     * - fill?: string; 背景框 填充色
+     * - stroke?: string; 背景框 描边色
+     * - lineWidth?: string; 背景框 描边宽度
+     * - radius?: number | number[]; 背景框圆角，支持整数或数组形式
+     */
+    style?: ShapeAttrs;
     /** 背景框 内边距 */
     padding?: number | number[];
   };
