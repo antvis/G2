@@ -24,28 +24,62 @@ export function calculatePadding(view: View): Padding {
 
   const paddingCal = new PaddingCal();
 
+  const axisComponents = [];
+  const legendComponents = [];
+  const otherComponments = [];
   each(view.getComponents(), (co: ComponentOption) => {
-    const { component, type } = co;
-
-    // grid, tooltip 不参入 padding 布局
-    if (type === COMPONENT_TYPE.GRID || type === COMPONENT_TYPE.TOOLTIP) {
-      return;
+    const { type } = co;
+    if (type === COMPONENT_TYPE.AXIS) {
+      axisComponents.push(co);
+    } else if (type === COMPONENT_TYPE.LEGEND) {
+      legendComponents.push(co);
+    } else if (type !== COMPONENT_TYPE.GRID && type !== COMPONENT_TYPE.TOOLTIP) {
+      otherComponments.push(co);
     }
+  });
 
+  // 进行坐标轴布局，应该是取 padding 的并集，而不是进行相加
+  each(axisComponents, (co: ComponentOption) => {
+    const { component } = co;
     const bboxObject = component.getLayoutBBox();
     const componentBBox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height);
 
-    if (type === COMPONENT_TYPE.AXIS) {
-      const exceed = componentBBox.exceed(viewBBox);
-      paddingCal.shrink(exceed);
-    } else {
-      // 按照方向计算 padding
-      const direction = co.direction;
+    const exceed = componentBBox.exceed(viewBBox);
+    paddingCal.max(exceed);
+  });
 
-      // const direction =
-      //   type === COMPONENT_TYPE.AXIS ? getTranslateDirection(co.direction, view.getCoordinate()) : co.direction;
-      paddingCal.inc(componentBBox, direction);
+  // 图例组件布局
+  each(legendComponents, (co: ComponentOption, index) => {
+    const { component, direction } = co;
+    const bboxObject = component.getLayoutBBox();
+
+    const componentBBox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height);
+
+    if (index === 0) {
+      // 只需要第一个图例加边距
+      const spacing = component.get('spacing');
+      // 图例组件沿着绘图区域四边往外进行布局，在计算 padding 时需要考虑 spacing 参数
+      if (direction.startsWith('top') || direction.startsWith('bottom')) {
+        // 位于顶部或者，高度需要加上 spacing
+        componentBBox.height += spacing;
+      }
+
+      if (direction.startsWith('right') || direction.startsWith('left')) {
+        componentBBox.width += spacing;
+      }
     }
+
+    // 按照方向计算 padding
+    paddingCal.inc(componentBBox, direction);
+  });
+
+  // 其他组件布局
+  each(otherComponments, (co: ComponentOption) => {
+    const { component, direction } = co;
+    const bboxObject = component.getLayoutBBox();
+    const componentBBox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height);
+    // 按照方向计算 padding
+    paddingCal.inc(componentBBox, direction);
   });
 
   const calculatedPadding = paddingCal.getPadding();

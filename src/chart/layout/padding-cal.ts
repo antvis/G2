@@ -24,6 +24,21 @@ export class PaddingCal {
   }
 
   /**
+   * 取最大区间
+   * @param padding
+   */
+  public max(padding: Padding): PaddingCal {
+    const [top, right, bottom, left] = padding;
+
+    this.top = Math.max(this.top, top);
+    this.right = Math.max(this.right, right);
+    this.bottom = Math.max(this.bottom, bottom);
+    this.left = Math.max(this.left, left);
+
+    return this;
+  }
+
+  /**
    * 四周增加 padding
    * @param padding
    */
