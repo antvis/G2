@@ -47,9 +47,7 @@ export function hideOverlap(items: LabelItem[], labels: IGroup[], shapes: IShape
           }
 
           labelShape1.remove(true);
-          labelShape1.destroy();
           labelShape2.remove(true);
-          labelShape2.destroy();
         }
       }
     }

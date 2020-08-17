@@ -17,21 +17,6 @@ export function translate(element: IGroup | IShape, x: number, y: number) {
 }
 
 /**
- * 对元素进行旋转操作。
- * @param element 进行变换的元素
- * @param rotateRadian 旋转弧度
- */
-export function rotate(element: IGroup | IShape, rotateRadian: number) {
-  const { x, y } = element.attr();
-  const matrix = transform(element.getMatrix(), [
-    ['t', -x, -y],
-    ['r', rotateRadian],
-    ['t', x, y],
-  ]);
-  element.setMatrix(matrix);
-}
-
-/**
  * 获取元素旋转矩阵
  * @param element 进行变换的元素
  * @param rotateRadian 旋转弧度
@@ -44,6 +29,16 @@ export function getRotateMatrix(element: IElement, rotateRadian: number) {
     ['t', x, y],
   ]);
   return matrix;
+}
+
+/**
+ * 对元素进行旋转操作。
+ * @param element 进行变换的元素
+ * @param rotateRadian 旋转弧度
+ */
+export function rotate(element: IGroup | IShape, rotateRadian: number) {
+  const matrix = getRotateMatrix(element, rotateRadian);
+  element.setMatrix(matrix);
 }
 
 /**
