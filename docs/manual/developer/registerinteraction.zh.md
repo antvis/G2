@@ -58,7 +58,7 @@ import { Interaction } from '@antv/g2';
 class MyInteraction extends Interaction {
   protected initEvents() {
     const view = this.view;
-    view.on('mousedown', ev => this.onMouseDown)
+    view.on('mousedown', ev => this.onMouseDown(ev))
   }
 
   onMouseDown = ev => {
