@@ -916,6 +916,10 @@ export interface LegendCfg {
    */
   itemSpacing?: number;
   /**
+   * **分类图例适用**，控制图例项垂直方向的间距。
+   */
+  itemMarginBottom?: number;
+  /**
    * **分类图例适用**，图例项的最大宽度，超出则自动缩略。
    * `maxItemWidth` 可以是像素值；
    * 也可以是相对值（取 0 到 1 范围的数值），代表占图表宽度的多少
@@ -1640,6 +1644,8 @@ export interface StyleSheet {
   axisTitleTextLineHeight?: number;
   /** 坐标轴标题文本字体粗细 */
   axisTitleTextFontWeight?: number | string;
+  /** 坐标轴标题距离坐标轴文本的间距 */
+  axisTitleSpacing?: number;
 
   /** 坐标轴刻度线颜色 */
   axisTickLineBorderColor?: string;
@@ -1663,6 +1669,8 @@ export interface StyleSheet {
   axisLabelLineHeight?: number;
   /** 坐标轴刻度文本字体粗细 */
   axisLabelFontWeight?: number | string;
+  /** 坐标轴刻度文本距离坐标轴线的间距 */
+  axisLabelOffset: number;
 
   /** 坐标轴网格线颜色 */
   axisGridBorderColor?: string;
@@ -1683,6 +1691,8 @@ export interface StyleSheet {
 
   /** 图例 marker 颜色 */
   legendMarkerColor?: string;
+  /** 图例 marker 距离图例文本的间距 */
+  legendMarkerSpacing?: number;
   /** 图例 marker 默认半径大小 */
   legendMarkerSize?: number;
   /** 图例 'circle' marker 半径 */
@@ -1700,6 +1710,12 @@ export interface StyleSheet {
   legendItemNameLineHeight?: number;
   /** 图例项粗细 */
   legendItemNameFontWeight?: number | string;
+  /** 图例项之间的水平间距 */
+  legendItemSpacing?: number;
+  /** 图例项垂直方向的间隔 */
+  legendItemMarginBottom?: number;
+  /** 图例与图表绘图区域的便宜距离  */
+  legendSpacing?: number;
 
   /** 连续图例滑块填充色 */
   sliderRailFillColor?: string;

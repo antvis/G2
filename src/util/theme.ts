@@ -5,6 +5,7 @@ import Element from '../geometry/element';
 import { LooseObject, StyleSheet } from '../interface';
 import { getAngle } from '../util/graphics';
 
+
 /**
  * 根据主题样式表生成主题结构
  * @param styleSheet 主题样式表
@@ -152,6 +153,7 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
     title: {
       autoRotate: true,
       position: 'center', // start, center, end
+      spacing: styleSheet.axisTitleSpacing,
       style: {
         fill: styleSheet.axisTitleTextFillColor,
         fontSize: styleSheet.axisTitleTextFontSize,
@@ -164,12 +166,11 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
       autoRotate: true,
       autoEllipsis: true,
       autoHide: true,
-      offset: 16,
+      offset: styleSheet.axisLabelOffset,
       style: {
         fill: styleSheet.axisLabelFillColor,
         fontSize: styleSheet.axisLabelFontSize,
         lineHeight: styleSheet.axisLabelLineHeight,
-        textBaseline: 'middle',
         fontFamily: styleSheet.fontFamily,
       },
     },
@@ -206,6 +207,7 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
     title: null,
     marker: {
       symbol: 'circle',
+      spacing: styleSheet.legendMarkerSpacing,
       style: {
         r: styleSheet.legendCircleMarkerSize,
         fill: styleSheet.legendMarkerColor,
@@ -226,6 +228,9 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
     flipPage: true,
     animate: false,
     maxItemWidth: 0.2,
+    itemSpacing: styleSheet.legendItemSpacing,
+    itemMarginBottom: styleSheet.legendItemMarginBottom,
+    spacing: styleSheet.legendSpacing, // 图例与图表绘图区域的距离
   };
 
   return {
@@ -943,6 +948,7 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
     },
     components: {
       axis: {
+        common: axisStyles,
         top: deepMix({}, axisStyles, {
           position: 'top',
           grid: null,
@@ -957,9 +963,6 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
         }),
         left: deepMix({}, axisStyles, {
           position: 'left',
-          label: {
-            offset: 8,
-          },
           title: null,
           line: null,
           tickLine: null,
@@ -968,9 +971,6 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
         }),
         right: deepMix({}, axisStyles, {
           position: 'right',
-          label: {
-            offset: 8,
-          },
           title: null,
           line: null,
           tickLine: null,
@@ -979,20 +979,15 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
         }),
         circle: deepMix({}, axisStyles, {
           title: null,
-          label: {
-            offset: 8,
-          },
           grid: deepMix({}, axisGridStyles, { line: { type: 'line' } }),
         }),
         radius: deepMix({}, axisStyles, {
           title: null,
-          label: {
-            offset: 8,
-          },
           grid: deepMix({}, axisGridStyles, { line: { type: 'circle' } }),
         }),
       },
       legend: {
+        common: legendStyles,
         right: deepMix({}, legendStyles, {
           layout: 'vertical',
         }),
@@ -1040,8 +1035,6 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
           },
           slidable: true,
         },
-        // 图例与四条边之间的间距
-        margin: [0, 0, 0, 0],
       },
       tooltip: {
         showContent: true,
