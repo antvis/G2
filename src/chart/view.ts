@@ -143,7 +143,7 @@ export class View extends Base {
   /** 从当前这个 view 创建的 scale key */
   private createdScaleKeys = new Map<string, boolean>();
   /** 背景色样式的 shape */
-  private backgruondStyleRectShape;
+  private backgroundStyleRectShape;
 
   constructor(props: ViewCfg) {
     super({ visible: props.visible });
@@ -1264,8 +1264,8 @@ export class View extends Base {
       // 1. 配置了背景色
       if (background) {
         // 1. 不存在则创建
-        if (!this.backgruondStyleRectShape) {
-          this.backgruondStyleRectShape = this.backgroundGroup.addShape('rect', {
+        if (!this.backgroundStyleRectShape) {
+          this.backgroundStyleRectShape = this.backgroundGroup.addShape('rect', {
             attrs: {
               zIndex: -1,
             },
@@ -1276,7 +1276,7 @@ export class View extends Base {
 
         // 2. 有了 shape 之后设置背景，位置（更新的时候）
         const { x, y, width, height } = this.viewBBox;
-        this.backgruondStyleRectShape.attr({
+        this.backgroundStyleRectShape.attr({
           fill: background,
           x,
           y,
@@ -1285,9 +1285,9 @@ export class View extends Base {
         });
       } else {
         // 没有配置背景色
-        if (this.backgruondStyleRectShape) {
-          this.backgruondStyleRectShape.remove(true);
-          this.backgruondStyleRectShape = undefined;
+        if (this.backgroundStyleRectShape) {
+          this.backgroundStyleRectShape.remove(true);
+          this.backgroundStyleRectShape = undefined;
         }
       }
     }

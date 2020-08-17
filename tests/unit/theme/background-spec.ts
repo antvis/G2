@@ -37,7 +37,7 @@ describe('theme', () => {
     expect(theme).toEqual(getTheme('dark'));
 
     // @ts-ignore
-    const shape = chart.backgruondStyleRectShape;
+    const shape = chart.backgroundStyleRectShape;
 
     expect(shape.attr('fill')).toBe('#141414');
     expect(shape.attr('x')).toBe(0);
@@ -56,7 +56,7 @@ describe('theme', () => {
 
     // 保持引用
     // @ts-ignore
-    expect(shape).toBe(chart.backgruondStyleRectShape);
+    expect(shape).toBe(chart.backgroundStyleRectShape);
 
     expect(shape.attr('fill')).toBe('red');
     expect(shape.attr('x')).toBe(0);
@@ -72,7 +72,7 @@ describe('theme', () => {
     chart.render();
 
     // @ts-ignore
-    expect(chart.backgruondStyleRectShape).toBe(undefined);
+    expect(chart.backgroundStyleRectShape).toBe(undefined);
     expect(chart.backgroundGroup.getChildren().filter((s) => s.get('type') === 'rect').length).toBe(0); // 没有 rect
   });
 });
