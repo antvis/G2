@@ -5,7 +5,7 @@ import { AnimateOption, GeometryLabelLayoutCfg } from '../interface';
 
 import { doAnimate } from '../animate';
 import { getGeometryLabelLayout } from '../geometry/label';
-import { getlLabelBackgroundShapeAttrs } from '../geometry/label/util';
+import { getlLabelBackgroundInfo } from '../geometry/label/util';
 import { getReplaceAttrs, polarToCartesian } from '../util/graphics';
 import { rotate, translate } from '../util/transform';
 
@@ -289,7 +289,7 @@ export default class Labels {
       if (!labelGroup.destroyed) {
         const labelContentShape = labelGroup.getChildren()[0];
         if (labelContentShape) {
-          const { box, matrix } = getlLabelBackgroundShapeAttrs(labelGroup, labelItem, background.padding);
+          const { rotation, ...box } = getlLabelBackgroundInfo(labelGroup, labelItem, background.padding);
           const backgroundShape = labelGroup.addShape('rect', {
             attrs: {
               ...box,
@@ -302,7 +302,8 @@ export default class Labels {
           });
           backgroundShape.setZIndex(-1);
 
-          if (matrix) {
+          if (rotation) {
+            const matrix = labelContentShape.getMatrix();
             backgroundShape.setMatrix(matrix);
           }
         }

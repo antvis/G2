@@ -3,26 +3,23 @@
  */
 import { IGroup } from '@antv/g-base';
 import { isNil, isNumber } from '@antv/util';
-import { rotate, getRotateMatrix } from '../../../util/transform';
+import { rotate } from '../../../util/transform';
 import { LabelItem } from '../interface';
 
 /**
- * 获取标签背景 shape attrs
+ * 获取标签背景信息: box (无旋转) + rotation (旋转角度)
  */
-export function getlLabelBackgroundShapeAttrs(
+export function getlLabelBackgroundInfo(
   labelGroup: IGroup,
   labelItem: LabelItem,
   padding: number | number[] = [0, 0, 0, 0]
-): { box: { x: number; y: number; width: number; height: number }; matrix?: number[] } {
+): { x: number; y: number; width: number; height: number; rotation: number } {
   const content = labelGroup.getChildren()[0];
   if (content) {
     const labelShape = content.clone();
 
-    let matrix;
     // revert rotate
     if (labelItem.rotate) {
-      // 获取 旋转矩阵
-      matrix = labelShape.getMatrix();
       rotate(labelShape as IGroup, -labelItem.rotate);
     }
 
@@ -39,13 +36,11 @@ export function getlLabelBackgroundShapeAttrs(
     }
 
     return {
-      box: {
-        x: x - boxPadding[3],
-        y: y - boxPadding[0],
-        width: width + boxPadding[1] + boxPadding[3],
-        height: height + boxPadding[0] + boxPadding[2],
-      },
-      matrix,
+      x: x - boxPadding[3],
+      y: y - boxPadding[0],
+      width: width + boxPadding[1] + boxPadding[3],
+      height: height + boxPadding[0] + boxPadding[2],
+      rotation: labelItem.rotate || 0,
     };
   }
 }

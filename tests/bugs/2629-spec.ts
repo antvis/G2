@@ -1,7 +1,7 @@
 import { Chart } from '../../src';
 import { createDiv } from '../util/dom';
-import { BBox } from '@antv/g-svg';
 import { IGroup } from '@antv/g-base';
+import { isIntersectRect } from '../../src/util/graphics';
 
 describe('#2629 饼图-环图，所占比例较小时，label 文字重叠', () => {
   const data = [
@@ -51,16 +51,6 @@ describe('#2629 饼图-环图，所占比例较小时，label 文字重叠', () 
   chart.render();
   const pieGeom = chart.geometries.find((geom) => geom.type === 'interval');
   const labels = pieGeom.labelsContainer.getChildren() as IGroup[];
-
-  /** 判断两个 box 是否遮挡 */
-  function isIntersectRect(box1: BBox, box2: BBox): boolean {
-    return !(
-      box2.x > box1.x + box1.width ||
-      box2.x + box2.width < box1.x ||
-      box2.y > box1.y + box1.height ||
-      box2.y + box2.height < box1.y
-    );
-  }
 
   test('标签 & 迁移线 互不重叠', () => {
     for (let i = 0; i < labels.length - 1; i += 1) {

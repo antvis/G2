@@ -1,8 +1,7 @@
+import { BBox } from '@antv/g-svg';
 import { each, isEmpty, isNumber, isNumberEqual } from '@antv/util';
-import { Coordinate, IElement, IShape } from '../dependents';
-import { getEngine } from '../engine';
+import { Coordinate, IShape, Point } from '../dependents';
 import { ShapeInfo } from '../interface';
-import { rotate, getRotateMatrix } from './transform';
 
 // 获取图形的包围盒
 function getPointsBox(points) {
@@ -217,93 +216,147 @@ export function getReplaceAttrs(sourceShape: IShape, targetShape: IShape) {
   return newAttrs;
 }
 
+type Box = Pick<BBox, 'x' | 'y' | 'width' | 'height'> & { rotation?: number };
+
 /**
- * 获取 shape 的矩形包裹框的四个关键点，注意 旋转场景
- * @param shape
+ * 定义投影对象
  */
-export function getKeyPointsOfShape(shape: IShape): number[][] {
-  const cloneShape = shape.clone() as IShape;
-  const rotateRadian = cloneShape.attr('rotate');
+type Projection = { min: number; max: number };
 
-  // revert rotate
-  if (rotateRadian) {
-    rotate(cloneShape, -rotateRadian);
+/**
+ * @private
+ * 1. 获取投影轴
+ */
+function getAxes(points: Point[] /** 多边形的关键点 */) {
+  // 目前先处理 平行矩形 的场景, 其他多边形不处理
+  if (points.length > 4) {
+    return [];
   }
+  // 获取向量
+  const vector = (start: Point, end: Point) => {
+    return [end.x - start.x, end.y - start.y];
+  };
 
-  // get canvasBBox before rotate
-  const { minX, minY, maxX, maxY } = cloneShape.getCanvasBBox();
-  const keyPoints = [
-    [minX, minY],
-    [maxX, minY],
-    [maxX, maxY],
-    [minX, maxY],
+  // 由于 矩形的平行原理，所以只有 2 条投影轴: A -> B, B -> C
+  const AB = vector(points[0], points[1]);
+  const BC = vector(points[1], points[2]);
+
+  return [AB, BC];
+}
+
+/**
+ * @private
+ * 绕指定点顺时针旋转后的点坐标
+ * 默认绕原点旋转
+ */
+function rotateAtPoint(point: Point, deg = 0, origin = { x: 0, y: 0 }): Point {
+  const { x, y } = point;
+  return {
+    x: (x - origin.x) * Math.cos(-deg) + (y - origin.y) * Math.sin(-deg) + origin.x,
+    y: (origin.x - x) * Math.sin(-deg) + (y - origin.y) * Math.cos(-deg) + origin.y,
+  };
+}
+
+/**
+ * @private
+ * 转化为顶点坐标数组
+ *
+ * @param {Object} box
+ */
+function getRectPoints(box: Box): Point[] {
+  const points = [
+    { x: box.x, y: box.y },
+    { x: box.x + box.width, y: box.y },
+    { x: box.x + box.width, y: box.y + box.height },
+    { x: box.x, y: box.y + box.height },
   ];
 
-  const G = getEngine('canvas');
-  const group = new G.Group({});
-  const points = keyPoints.map((point) => {
-    const x = point[0];
-    const y = point[1];
-    const pointShape = group.addShape('circle', { attrs: { x, y, r: 0 } });
-    if (rotateRadian) {
-      const matrix = getRotateMatrix(cloneShape, rotateRadian);
-      pointShape.setMatrix(matrix);
-    }
-    const pointBBox = pointShape.getCanvasBBox();
-    return [pointBBox.x, pointBBox.y];
-  });
-
-  group.destroy();
-  cloneShape.destroy();
+  const rotation = box.rotation;
+  if (rotation) {
+    return [
+      rotateAtPoint(points[0], rotation, points[0]),
+      rotateAtPoint(points[1], rotation, points[0]),
+      rotateAtPoint(points[2], rotation, points[0]),
+      rotateAtPoint(points[3], rotation, points[0]),
+    ];
+  }
 
   return points;
 }
 
 /**
- * detect whether two shape is intersected, useful when shape is been rotated
+ * @private
+ * 辅助函数: 向量点积
  */
-export function isIntersect(element1: IElement, element2: IElement, recusive = true) {
-  const shape1 = element1.clone();
-  const shape2 = element2.clone();
+function dot(vector: number[], vector1: number[]) {
+  return Math.abs(vector[0] * vector1[0] + vector[1] * vector1[1]);
+}
 
-  const keyPoints = getKeyPointsOfShape(shape1 as IShape);
-  let isIntersecting = false;
+/**
+ * @private
+ * 2. 获取多边形在投影轴上的投影
+ *
+ * 向量的点积的其中一个几何含义是：一个向量在平行于另一个向量方向上的投影的数值乘积。
+ * 由于投影轴是单位向量（长度为1），投影的长度为 x1 * x2 + y1 * y2
+ */
+function getProjection(points: Point[] /** 多边形的关键点 */, axis: number[]): Projection {
+  // 目前先处理矩形的场景
+  if (points.length > 4) {
+    return { min: 0, max: 0 };
+  }
 
-  const G = getEngine('canvas');
-  const group = new G.Group({});
-
-  keyPoints.forEach((point) => {
-    let shapeBox: IShape;
-    if (shape2.isGroup()) {
-      const rotateRadian = shape2.attr('rotate');
-      // revert rotate
-      if (rotateRadian) {
-        rotate(shape2 as IShape, -rotateRadian);
-      }
-      const bbox = shape2.getCanvasBBox();
-      shapeBox = group.addShape('rect', {
-        attrs: {
-          x: bbox.x,
-          y: bbox.y,
-          width: bbox.width,
-          height: bbox.height,
-          fill: 'transparent',
-        },
-      });
-      // rotate
-      if (rotateRadian) {
-        rotate(shapeBox, rotateRadian);
-      }
-    } else {
-      shapeBox = shape2 as IShape;
-    }
-    if (shapeBox.isHit(point[0], point[1])) {
-      isIntersecting = true;
-    }
+  const scalars = [];
+  points.forEach((point) => {
+    scalars.push(dot([point.x, point.y], axis));
   });
-  shape1.destroy();
-  shape2.destroy();
-  group.destroy();
 
-  return isIntersecting || (recusive ? isIntersect(element2, element1, false) : false);
+  return { min: Math.min(...scalars), max: Math.max(...scalars) };
+}
+
+function isProjectionOverlap(projection1: Projection, projection2: Projection): boolean {
+  return projection1.max > projection2.min && projection1.min < projection2.max;
+}
+
+/**
+ * 快速判断两个无旋转矩形是否遮挡
+ */
+export function isIntersectRect(box1: Box, box2: Box, margin: number = 0): boolean {
+  return !(
+    box2.x > box1.x + box1.width + margin ||
+    box2.x + box2.width < box1.x - margin ||
+    box2.y > box1.y + box1.height + margin ||
+    box2.y + box2.height < box1.y - margin
+  );
+}
+
+/**
+ * detect whether two shape is intersected, useful when shape is been rotated
+ * 判断两个矩形是否重叠（相交和包含, 是否旋转）
+ *
+ * - 原理: 分离轴定律
+ */
+export function isIntersect(box1: Box, box2: Box) {
+
+  // 如果两个矩形没有旋转，使用快速判断
+  if (!box1.rotation && !box2.rotation) {
+    return isIntersectRect(box1, box2);
+  }
+
+  // 分别获取 4 个关键点
+  const rect1Points = getRectPoints(box1);
+  const rect2Points = getRectPoints(box2);
+
+  // 获取所有投影轴
+  const axes = [...getAxes(rect1Points), ...getAxes(rect2Points)];
+
+  for (let i = 0; i < axes.length; i++) {
+    const axis = axes[i];
+    const projection1 = getProjection(rect1Points, axis);
+    const projection2 = getProjection(rect2Points, axis);
+
+    // 判断投影轴上的投影是否存在重叠，若检测到存在间隙则立刻退出判断，消除不必要的运算。
+    if (!isProjectionOverlap(projection1, projection2)) return false;
+  }
+
+  return true;
 }

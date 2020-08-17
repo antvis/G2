@@ -2,7 +2,7 @@ import { get } from '@antv/util';
 import { BBox, IGroup, IShape } from '../../../dependents';
 import { isIntersect } from '../../../util/graphics';
 import { LabelItem } from '../interface';
-import { getlLabelBackgroundShapeAttrs } from '../util';
+import { getlLabelBackgroundInfo } from '../util';
 
 /**
  * label 防遮挡布局：在不改变 label 位置的情况下对相互重叠的 label 进行隐藏（非移除）
@@ -16,38 +16,16 @@ export function hideOverlap(items: LabelItem[], labels: IGroup[], shapes: IShape
   // Detect overlapping labels
   for (let i = 0; i < labels.length; i++) {
     const label1 = labels[i];
-    if (labels[i].attr('opacity') !== 0) {
+    if (labels[i].get('visible')) {
       for (let j = i + 1; j < labels.length; j++) {
         const label2 = labels[j];
         if (label1 && label2 && label1 !== label2 && label2.get('visible')) {
-          const shapeAttrs1 = getlLabelBackgroundShapeAttrs(label1, items[i], get(items[i], 'background.padding'));
-          const shapeAttrs2 = getlLabelBackgroundShapeAttrs(label2, items[j], get(items[j], 'background.padding'));
+          const box1 = getlLabelBackgroundInfo(label1, items[i], get(items[i], 'background.padding'));
+          const box2 = getlLabelBackgroundInfo(label2, items[j], get(items[j], 'background.padding'));
 
-          const labelShape1 = label1.addShape('rect', {
-            attrs: {
-              ...shapeAttrs1.box,
-              fill: 'transparent',
-            },
-          });
-          if (shapeAttrs1.matrix) {
-            labelShape1.setMatrix(shapeAttrs1.matrix);
-          }
-          const labelShape2 = label2.addShape('rect', {
-            attrs: {
-              ...shapeAttrs2.box,
-              fill: 'transparent',
-            },
-          });
-          if (shapeAttrs2.matrix) {
-            labelShape2.setMatrix(shapeAttrs2.matrix);
-          }
-
-          if (labelShape1 && labelShape2 && isIntersect(labelShape1, labelShape2)) {
+          if (isIntersect(box1, box2)) {
             labels[j].set('visible', false);
           }
-
-          labelShape1.remove(true);
-          labelShape2.remove(true);
         }
       }
     }

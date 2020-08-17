@@ -17,7 +17,7 @@ export function translate(element: IGroup | IShape, x: number, y: number) {
 }
 
 /**
- * 获取元素旋转矩阵
+ * 获取元素旋转矩阵 (以元素的左上角为旋转点)
  * @param element 进行变换的元素
  * @param rotateRadian 旋转弧度
  */
