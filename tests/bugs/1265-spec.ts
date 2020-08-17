@@ -43,7 +43,7 @@ describe('1265', () => {
     const background = chart.backgroundGroup;
     const region = background.findAllByName('active-region')[0];
     const { minX, width } = region.getBBox();
-    expect(minX).toBeCloseTo(25.7484250664711);
-    expect(width).toBeCloseTo(69.21814620494843);
+    expect(minX).toBeCloseTo(25.5133176445961);
+    expect(width).toBeCloseTo(69.31336104869843);
   });
 });

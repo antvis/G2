@@ -62,7 +62,7 @@ describe('#2307', () => {
     // 移入 第二个
     simulateMouseEvent(el, 'mousemove', {
       clientX: point.clientX,
-      clientY: point.clientY + 40,
+      clientY: point.clientY + 35,
     });
 
     expect(elements[0].hasState('inactive')).toBe(true);

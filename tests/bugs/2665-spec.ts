@@ -43,7 +43,7 @@ describe('#2665', () => {
     const lineShapeBBox = line.elements[0].getBBox();
 
     expect(areaShapeBBox.width).toBe(1);
-    expect(areaShapeBBox.height).toBe(466);
+    expect(areaShapeBBox.height).toBe(474);
 
     expect(lineShapeBBox.width).toBe(12);
     expect(lineShapeBBox.height).toBe(14);

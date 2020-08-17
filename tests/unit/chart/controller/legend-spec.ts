@@ -217,7 +217,7 @@ describe('Legend', () => {
     // @ts-ignore
     expect(legend.totalPagesCnt).toBe(2);
     // @ts-ignore
-    expect(legend.pageHeight).toBe(20);
+    expect(legend.pageHeight).toBe(12);
   });
 
   it('legend align with axis', () => {
@@ -249,7 +249,7 @@ describe('Legend', () => {
     expect(legendBBox.x).toBe(0);
   });
 
-  it('legend margin', () => {
+  it('legend spacing', () => {
     const container = createDiv();
     chart = new Chart({
       container,
@@ -259,7 +259,9 @@ describe('Legend', () => {
       theme: {
         components: {
           legend: {
-            margin: [1, 2, 3, 4],
+            top: {
+              spacing: 20,
+            }
           },
         },
       },
@@ -282,8 +284,8 @@ describe('Legend', () => {
 
     const legend = chart.getController('legend').getComponents()[0].component;
     const legendBBox = legend.getBBox();
-    expect(legendBBox.x).toBe(4);
-    expect(legendBBox.y).toBe(1);
+    expect(legendBBox.height).toBe(12);
+    expect(chart.autoPadding[0]).toBe(32);
   });
 
   afterAll(() => {

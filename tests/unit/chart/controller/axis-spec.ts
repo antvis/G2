@@ -39,11 +39,10 @@ describe('Axis', () => {
     const axes = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.AXIS);
     const [x, y] = axes;
 
-    expect(x.component.getBBox().maxY).toBeCloseTo(494);
-    expect(x.component.getBBox().maxY).toBe(494);
+    expect(x.component.getBBox().maxY).toBe(500);
 
     // y axis 绘制的锚点有 8px 的偏移
-    expect(y.component.getBBox().minX).toBe(0.25);
+    expect(y.component.getBBox().minX).toBe(0);
 
     expect(axes.length).toBe(2);
 
