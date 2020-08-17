@@ -17,19 +17,17 @@ export function getlLabelBackgroundShapeAttrs(
   const content = labelGroup.getChildren()[0];
   if (content) {
     const labelShape = content.clone();
+
+    let matrix;
     // revert rotate
     if (labelItem.rotate) {
+      // 获取 旋转矩阵
+      matrix = labelShape.getMatrix();
       rotate(labelShape as IGroup, -labelItem.rotate);
     }
 
     // use `getCanvasBBox`, because if Shape is been translated, `getBBox` is not the actual box position
     const { x, y, width, height } = labelShape.getCanvasBBox();
-
-    let matrix;
-    if (labelItem.rotate) {
-      // 获取 旋转矩阵
-      matrix = getRotateMatrix(labelShape, labelItem.rotate);
-    }
 
     labelShape.destroy();
 
