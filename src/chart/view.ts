@@ -1253,7 +1253,10 @@ export class View extends Base {
     this.isDataChanged = false; // 渲染完毕复位
   }
 
-  /** 渲染背景样式的 shape */
+  /**
+   * 渲染背景样式的 shape。
+   * 放到 view 中创建的原因是让使用 view 绘制图形的时候，也能够处理背景色
+   */
   private renderBackgroundStyleShape() {
     // 只有根节点才处理
     if (!this.parent) {
@@ -1266,6 +1269,8 @@ export class View extends Base {
             attrs: {
               zIndex: -1,
             },
+            // 背景色 shape 不设置事件捕获
+            capture: false,
           });
         }
 

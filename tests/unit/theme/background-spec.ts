@@ -63,6 +63,7 @@ describe('theme', () => {
     expect(shape.attr('y')).toBe(0);
     expect(shape.attr('width')).toBe(300);
     expect(shape.attr('height')).toBe(200);
+    expect(shape.get('capture')).toBe(false);
 
     chart.theme({
       background: '',
