@@ -1,7 +1,7 @@
 import { Chart } from '../../src';
 import { createDiv } from '../util/dom';
 import { IGroup } from '@antv/g-base';
-import { isIntersectRect } from '../../src/util/graphics';
+import { isIntersectRect } from '../../src/util/collision-detect';
 
 describe('#2629 饼图-环图，所占比例较小时，label 文字重叠', () => {
   const data = [

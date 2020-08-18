@@ -1,7 +1,7 @@
 import { Chart } from '../../src';
 import { createDiv } from '../util/dom';
 import { IGroup } from '@antv/g-base';
-import { isIntersectRect } from '../../src/util/graphics';
+import { isIntersectRect } from '../../src/util/collision-detect';
 
 describe('#2347 饼图密集区域 label 布局错乱', () => {
   const data = [

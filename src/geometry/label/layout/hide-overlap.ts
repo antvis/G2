@@ -1,6 +1,6 @@
 import { get } from '@antv/util';
 import { BBox, IGroup, IShape } from '../../../dependents';
-import { isIntersect } from '../../../util/graphics';
+import { isIntersect } from '../../../util/collision-detect';
 import { LabelItem } from '../interface';
 import { getlLabelBackgroundInfo } from '../util';
 

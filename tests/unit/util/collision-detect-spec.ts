@@ -1,8 +1,8 @@
 import { createCanvas, createDiv } from '../../util/dom';
-import { isIntersect } from '../../../src/util/graphics';
 import { rotate } from '../../../src/util/transform';
+import { isIntersect } from '../../../src/util/collision-detect';
 
-describe('graphics', () => {
+describe('collision-detect', () => {
   const canvas = createCanvas({
     container: createDiv(),
     width: 400,
