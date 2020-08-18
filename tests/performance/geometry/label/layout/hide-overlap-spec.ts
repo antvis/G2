@@ -17,6 +17,10 @@ describe.skip('Benchmarks of hide-overlap', () => {
     padding: 100,
   });
 
+  it('data counts', () => {
+    expect(data.length).toBe(60);
+  });
+
   function benchmark(geometry: Geometry) {
     const labels = geometry.labelsContainer.getChildren() as IGroup[];
     const dataArray = geometry.dataArray;
@@ -26,27 +30,35 @@ describe.skip('Benchmarks of hide-overlap', () => {
     expect(labelItems.length).toBe(data.length);
 
     // start benchmark
-    expect(data.length).toBe(60);
     const startTime = new Date().getTime();
 
-    const ROUNDS = 100;
+    const ROUNDS = 10;
+    const REPEAT_COUNTS = 10;
     let endTime = startTime;
     let totalTime = 0;
     for (let i = 0, ie = ROUNDS; i < ie; ++i) {
-      const testLabels = labels.map((label) => label.clone()) as IGroup[];
-      hideOverlap(labelItems, testLabels, [], {} as any);
+      const testLabels = [];
+      const items = [];
+      labels.forEach((label, idx) => {
+        const cloneLabel = label.clone();
+        for (let j = 0; j < REPEAT_COUNTS; j++) {
+          testLabels.push(cloneLabel);
+          items.push(labelItems[idx]);
+        }
+      });
+      hideOverlap(items, testLabels, [], {} as any);
 
-      expect(testLabels.filter((l) => l.get('visible')).length).toBeLessThan(data.length);
+      expect(testLabels.filter((l) => l.get('visible')).length).toBeLessThan(data.length * REPEAT_COUNTS);
       // 30 ~ 120ms 左右
       const duration = new Date().getTime() - endTime;
       totalTime += duration;
       endTime = new Date().getTime();
     }
-    // 2550 ~ 5000ms 左右
+    // 13635ms 左右
     console.info(`performance/label/hide-overlap: ${ROUNDS} tests, ${totalTime}ms`);
-    // 期待平均时长小于 80 ms (柱状图大概在 10-30ms, 饼图大概在 20-40ms)
-    expect(totalTime / ROUNDS).toBeLessThan(80);
-    console.info(`performance/label/hide-overlap, average: ${totalTime / ROUNDS}ms`);
+    // 期待 600 个 labels 平均时长小于 5s (60 个 labels，柱状图大概在 10-30ms, 饼图大概在 20-40ms)
+    expect(totalTime / ROUNDS).toBeLessThan(5 * 1000);
+    console.info(`performance/label/hide-overlap, ${data.length * REPEAT_COUNTS} labels, average: ${totalTime / ROUNDS}ms`);
   }
 
   it('column labels', () => {
