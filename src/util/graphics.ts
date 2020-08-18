@@ -1,7 +1,11 @@
 import { BBox } from '@antv/g-svg';
+import { vec2 } from '@antv/matrix-util'; 
 import { each, isEmpty, isNumber, isNumberEqual } from '@antv/util';
 import { Coordinate, IShape, Point } from '../dependents';
 import { ShapeInfo } from '../interface';
+
+const { dot } = vec2;
+type Vec2 = [number, number];
 
 // 获取图形的包围盒
 function getPointsBox(points) {
@@ -227,13 +231,13 @@ type Projection = { min: number; max: number };
  * @private
  * 1. 获取投影轴
  */
-function getAxes(points: Point[] /** 多边形的关键点 */) {
+function getAxes(points: Point[] /** 多边形的关键点 */): Vec2[] {
   // 目前先处理 平行矩形 的场景, 其他多边形不处理
   if (points.length > 4) {
     return [];
   }
   // 获取向量
-  const vector = (start: Point, end: Point) => {
+  const vector = (start: Point, end: Point): Vec2 => {
     return [end.x - start.x, end.y - start.y];
   };
 
@@ -286,20 +290,12 @@ function getRectPoints(box: Box): Point[] {
 
 /**
  * @private
- * 辅助函数: 向量点积
- */
-function dot(vector: number[], vector1: number[]) {
-  return Math.abs(vector[0] * vector1[0] + vector[1] * vector1[1]);
-}
-
-/**
- * @private
  * 2. 获取多边形在投影轴上的投影
  *
  * 向量的点积的其中一个几何含义是：一个向量在平行于另一个向量方向上的投影的数值乘积。
  * 由于投影轴是单位向量（长度为1），投影的长度为 x1 * x2 + y1 * y2
  */
-function getProjection(points: Point[] /** 多边形的关键点 */, axis: number[]): Projection {
+function getProjection(points: Point[] /** 多边形的关键点 */, axis: Vec2): Projection {
   // 目前先处理矩形的场景
   if (points.length > 4) {
     return { min: 0, max: 0 };
