@@ -57,6 +57,7 @@ const QUALITATIVE_20 = [
 ];
 
 export const antvDark = {
+  /** 图表背景色 */
   backgroundColor: '#141414',
   /** 主题色 */
   brandColor: QUALITATIVE_10[0],
@@ -91,6 +92,8 @@ export const antvDark = {
   axisTitleTextLineHeight: 12,
   /** 坐标轴标题文本字体粗细 */
   axisTitleTextFontWeight: 'normal',
+  /** 坐标轴标题距离坐标轴文本的间距 */
+  axisTitleSpacing: 12,
 
   /** 坐标轴刻度线颜色 */
   axisTickLineBorderColor: BLACK_COLORS[25],
@@ -114,6 +117,8 @@ export const antvDark = {
   axisLabelLineHeight: 12,
   /** 坐标轴刻度文本字体粗细 */
   axisLabelFontWeight: 'normal',
+  /** 坐标轴刻度文本距离坐标轴线的间距 */
+  axisLabelOffset: 8,
 
   /** 坐标轴网格线颜色 */
   axisGridBorderColor: BLACK_COLORS[15],
@@ -134,6 +139,8 @@ export const antvDark = {
 
   /** 图例 marker 颜色 */
   legendMarkerColor: QUALITATIVE_10[0],
+  /** 图例 marker 距离图例文本的间距 */
+  legendMarkerSpacing: 8,
   /** 图例 marker 默认半径大小 */
   legendMarkerSize: 4,
   /** 图例 'circle' marker 半径 */
@@ -151,6 +158,12 @@ export const antvDark = {
   legendItemNameLineHeight: 12,
   /** 图例项粗细 */
   legendItemNameFontWeight: 'normal',
+  /** 图例项之间的水平间距 */
+  legendItemSpacing: 24,
+  /** 图例项垂直方向的间隔 */
+  legendItemMarginBottom: 12,
+  /** 图例与图表绘图区域的便宜距离  */
+  legendSpacing: 16,
 
   /** 连续图例滑块填充色 */
   sliderRailFillColor: BLACK_COLORS[15],
