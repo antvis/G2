@@ -27,6 +27,6 @@ describe('2505', () => {
     expect(chart.getCanvas().get('container').style.background).toBe('');
     // 改用 shape 去实现
     // @ts-ignore
-    expect(chart.backgruondStyleRectShape.attr('fill')).toBe('#141414');
+    expect(chart.backgroundStyleRectShape.attr('fill')).toBe('#141414');
   });
 });

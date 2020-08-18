@@ -103,7 +103,6 @@ export default class Legend extends Controller<Option> {
    */
   public layout() {
     this.layoutBBox = this.view.viewBBox;
-    const margin = get(this.view.getTheme(), ['components', 'legend', 'margin'], [0, 0, 0, 0]);
 
     each(this.components, (co: ComponentOption) => {
       const { component, direction } = co;
@@ -137,25 +136,8 @@ export default class Legend extends Controller<Option> {
         y = y1;
       }
 
-      // 加上 margin
-      if (direction.indexOf('left') >= 0) {
-        x += margin[3];
-      }
-      if (direction.indexOf('right') >= 0) {
-        x -= margin[1];
-      }
-      if (direction.indexOf('top') >= 0) {
-        y += margin[0];
-      }
-      if (direction.indexOf('bottom') >= 0) {
-        y -= margin[2];
-      }
-
       // 更新位置
-      component.update({
-        x,
-        y,
-      });
+      component.setLocation({ x, y });
 
       this.layoutBBox = this.layoutBBox.cut(bbox, direction);
     });

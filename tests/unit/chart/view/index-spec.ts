@@ -210,7 +210,7 @@ describe('View', () => {
     expect(view.controllers[2].visible).toBe(false);
 
     const bbox = view.getComponents()[0].component.getBBox();
-    expect(bbox.height).toEqual(22.25);
+    expect(bbox.height).toEqual(20.25);
   });
 
   it('layout result', () => {

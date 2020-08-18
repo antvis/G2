@@ -382,7 +382,7 @@ describe('#2261', () => {
     chart.render();
 
     const tooltipItems = chart.getTooltipItems({
-      x: 264,
+      x: 255,
       y: 252,
     });
     expect(tooltipItems.length).toBe(2);
