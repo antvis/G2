@@ -1,5 +1,6 @@
+import { BBox } from '@antv/g-svg';
 import { each, isEmpty, isNumber, isNumberEqual } from '@antv/util';
-import { Coordinate, IShape } from '../dependents';
+import { Coordinate, IShape, Point } from '../dependents';
 import { ShapeInfo } from '../interface';
 
 // 获取图形的包围盒

@@ -33,6 +33,8 @@ describe('GeometryLabel layout', () => {
     canvas.draw();
 
     expect(canvas.getChildren().length).toBeLessThan(20);
+    // labels have been adjusted
+    expect(canvas.getChildren().length).not.toBe(1);
   });
 
   it('overlap', () => {

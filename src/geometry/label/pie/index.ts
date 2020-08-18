@@ -1,19 +1,14 @@
 import { get, isArray } from '@antv/util';
-import { getAngleByPoint } from '../../util/coordinate';
-import { polarToCartesian } from '../../util/graphics';
-import Geometry from '../base';
-import { LabelItem } from './interface';
-import PolarLabel from './polar';
+import { getAngleByPoint } from '../../../util/coordinate';
+import { polarToCartesian } from '../../../util/graphics';
+import { LabelItem } from '../interface';
+import PolarLabel from '../polar';
 
 /**
  * 饼图 label
  */
 export default class PieLabel extends PolarLabel {
   public defaultLayout = 'distribute';
-
-  constructor(geometry: Geometry) {
-    super(geometry);
-  }
 
   protected getDefaultLabelCfg() {
     return get(this.geometry.theme, 'pieLabels', {});

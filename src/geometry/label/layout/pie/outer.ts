@@ -1,30 +1,27 @@
 import { Coordinate } from '@antv/coord';
 import { BBox, IGroup, IShape, IElement } from '@antv/g-base';
-import { isObject, each, find, get } from '@antv/util';
-import { Point } from '../../../../interface';
+import { isObject, each, get } from '@antv/util';
 import { polarToCartesian } from '../../../../util/graphics';
 import { LabelItem } from '../../interface';
 
 /** label text和line距离 4px */
 const MARGIN = 4;
 
-function antiCollision(
-  labelShapes: IGroup[],
+/**
+ * 碰撞检测算法
+ */
+export function antiCollision(
   labels: LabelItem[],
   labelHeight: number,
-  plotRange,
-  center: Point,
-  radius: number,
+  plotRange: { minY: number; maxY: number; minX: number; maxX: number },
   isRight
 ) {
   // sorted by y, mutable
   labels.sort((a, b) => a.y - b.y);
 
   // adjust y position of labels to avoid overlapping
-  const start = plotRange.start;
-  const end = plotRange.end;
-  const startY = Math.min(start.y, end.y);
-  const endY = Math.max(start.y, end.y);
+  const startY = plotRange.minY;
+  const endY = plotRange.maxY;
   let i;
 
   const boxes = labels.map((label) => {
@@ -109,65 +106,29 @@ function antiCollision(
       i++;
     });
   });
-
-  const labelsMap = {};
-  for (const labelShape of labelShapes) {
-    labelsMap[labelShape.get('id')] = labelShape;
-  }
-
-  // (x - cx)^2 + (y - cy)^2 = totalR^2
-  let totalR = (Math.max(...labels.map((l) => l.y)) - Math.min(...labels.map((l) => l.y))) / 2;
-  totalR = Math.max(totalR, radius);
-  labels.forEach((label) => {
-    const labelShape = labelsMap[label.id];
-
-    // because group could not effect text-shape, should set text-shape position manually
-    const textShape = labelShape.find((child) => child.get('type') === 'text') as IElement;
-
-    // textShape 发生过调整
-    if (textShape && textShape.attr('y') !== label.y) {
-      const rPow2 = totalR * totalR;
-      const dyPow2 = Math.pow(Math.abs(label.y - center.y), 2);
-      if (rPow2 < dyPow2) {
-        label.x = center.x;
-      } else {
-        const dx = Math.sqrt(rPow2 - dyPow2);
-        if (!isRight) {
-          // left
-          label.x = center.x - dx;
-        } else {
-          // right
-          label.x = center.x + dx;
-        }
-      }
-    }
-
-    // adjust labelShape
-    labelShape.attr('x', label.x);
-    labelShape.attr('y', label.y);
-
-    // @ts-ignore
-    if (textShape) {
-      textShape.attr('y', label.y);
-      textShape.attr('x', label.x);
-    }
-  });
 }
 
+/**
+ * 饼图 outer-label 布局, 适用于 type = pie 且 label offset > 0 的标签
+ */
 export function pieOuterLabelLayout(items: LabelItem[], labels: IGroup[], shapes: IShape[] | IGroup[], region: BBox) {
-  const offset = items[0] ? items[0].offset : 0;
+  const labelOffset = items[0] ? items[0].offset : 0;
   const coordinate: Coordinate = labels[0].get('coordinate');
   const radius = coordinate.getRadius();
   const center = coordinate.getCenter();
 
-  if (offset > 0) {
+  if (labelOffset > 0) {
     // note labelHeight 可以控制 label 的行高
     const lineHeight: number = get(items[0], 'labelHeight', 14);
-    const totalR = radius + offset;
+    const totalR = radius + labelOffset;
     const totalHeight = totalR * 2 + lineHeight * 2;
-    const plotRange = {
-      start: coordinate.start,
-      end: coordinate.end,
+
+    /** labels 容器的范围(后续根据组件的布局设计进行调整) */
+    const labelsContainerRange = {
+      minX: coordinate.start.x,
+      minY: Math.max(coordinate.end.y, center.y - radius - (labelOffset + lineHeight)),
+      maxX: coordinate.end.x,
+      maxY: Math.min(coordinate.start.y, center.y + radius + (labelOffset + lineHeight)),
     };
 
     // step 1: separate labels
@@ -205,12 +166,58 @@ export function pieOuterLabelLayout(items: LabelItem[], labels: IGroup[], shapes
             labels[idx].remove(true);
             // 同时移除
             labels.splice(idx, 1);
+            items.splice(idx, 1);
           }
         });
       }
-      antiCollision(labels, half, lineHeight, plotRange, center, totalR, index === 1);
+      antiCollision(half, lineHeight, labelsContainerRange, index === 1);
     });
   }
+
+  // 布局后 调整 items
+  const labelsMap = {};
+  for (const labelShape of labels) {
+    labelsMap[labelShape.get('id')] = labelShape;
+  }
+
+  // (x - cx)^2 + (y - cy)^2 = totalR^2
+  let labelRailRadius = (Math.max(...items.map((l) => l.y)) - Math.min(...items.map((l) => l.y))) / 2;
+  labelRailRadius = Math.max(labelRailRadius, radius);
+  items.forEach((item) => {
+    const isRight = item.x > center.x || (item.x === center.x && item.y > center.y);
+    const labelShape = labelsMap[item.id];
+
+    // because group could not effect text-shape, should set text-shape position manually
+    const textShape = labelShape.find((child) => child.get('type') === 'text') as IElement;
+
+    // textShape 发生过调整
+    if (textShape && textShape.attr('y') !== item.y) {
+      const rPow2 = labelRailRadius * labelRailRadius;
+      const dyPow2 = Math.pow(Math.abs(item.y - center.y), 2);
+      if (rPow2 < dyPow2) {
+        item.x = center.x;
+      } else {
+        const dx = Math.sqrt(rPow2 - dyPow2);
+        if (!isRight) {
+          // left
+          item.x = center.x - dx;
+        } else {
+          // right
+          item.x = center.x + dx;
+        }
+      }
+    }
+
+    // adjust labelShape
+    labelShape.attr('x', item.x);
+    labelShape.attr('y', item.y);
+
+    // @ts-ignore
+    if (textShape) {
+      textShape.attr('y', item.y);
+      textShape.attr('x', item.x);
+    }
+  });
 
   // 配置 labelLine
   each(items, (item) => {
@@ -274,10 +281,10 @@ export function pieOuterLabelLayout(items: LabelItem[], labels: IGroup[], shapes
           }
         }
 
-        const distance = offset / 2 > 4 ? 4 : Math.max(offset / 2 - 1, 0);
+        const distance = labelOffset / 2 > 4 ? 4 : Math.max(labelOffset / 2 - 1, 0);
         const breakPoint = polarToCartesian(center.x, center.y, radius + distance, angle);
         // 圆弧的结束点
-        const breakPoint3 = polarToCartesian(center.x, center.y, radius + offset / 2, endAngle);
+        const breakPoint3 = polarToCartesian(center.x, center.y, radius + labelOffset / 2, endAngle);
 
         /**
          * @example
@@ -300,7 +307,7 @@ export function pieOuterLabelLayout(items: LabelItem[], labels: IGroup[], shapes
         const breakPoint = polarToCartesian(
           center.x,
           center.y,
-          radius + (offset / 2 > 4 ? 4 : Math.max(offset / 2 - 1, 0)),
+          radius + (labelOffset / 2 > 4 ? 4 : Math.max(labelOffset / 2 - 1, 0)),
           angle
         );
         // G2 旧的拉线

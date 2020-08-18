@@ -83,10 +83,12 @@ import { pieOuterLabelLayout } from './geometry/label/layout/pie/outer';
 import { limitInCanvas } from './geometry/label/layout/limit-in-canvas';
 import { limitInShape } from './geometry/label/layout/limit-in-shape';
 import { fixedOverlap, overlap } from './geometry/label/layout/overlap';
+import { hideOverlap } from './geometry/label/layout/hide-overlap';
 
 registerGeometryLabelLayout('overlap', overlap);
 registerGeometryLabelLayout('distribute', distribute);
 registerGeometryLabelLayout('fixed-overlap', fixedOverlap);
+registerGeometryLabelLayout('hide-overlap', hideOverlap);
 registerGeometryLabelLayout('limit-in-shape', limitInShape);
 registerGeometryLabelLayout('limit-in-canvas', limitInCanvas);
 registerGeometryLabelLayout('pie-outer', pieOuterLabelLayout);
