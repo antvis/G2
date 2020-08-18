@@ -1853,6 +1853,10 @@ export interface StyleSheet {
   // -------------------- Geometry labels --------------------
   /** Geometry label 文本颜色 */
   labelFillColor?: string;
+  /** Geometry label 暗色文本颜色 */
+  labelFillColorDark?: string;
+  /** Geometry label 亮色文本颜色 */
+  labelFillColorLight?: string;
   /** Geometry label 文本字体大小 */
   labelFontSize?: number;
   /** Geometry label 文本行高 */
