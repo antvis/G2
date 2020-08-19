@@ -80,8 +80,8 @@ describe('1744', () => {
     const grids = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.GRID);
     expect(grids.length).toBe(2);
     expect(grids[0].component.get('items').length).toBe(8);
-    expect(grids[0].component.getBBox().width).toBeCloseTo(180.50000084089854);
-    expect(grids[0].component.getBBox().height).toBeCloseTo(360.5);
+    expect(grids[0].component.getBBox().width).toBeCloseTo(181.00000084089854);
+    expect(grids[0].component.getBBox().height).toBeCloseTo(361);
   });
 
   it('update', () => {
@@ -91,7 +91,7 @@ describe('1744', () => {
     const grids = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.GRID);
     expect(grids.length).toBe(2);
     expect(grids[0].component.get('items').length).toBe(8);
-    expect(grids[0].component.getBBox().width).toBeCloseTo(380.5000003791315);
-    expect(grids[0].component.getBBox().height).toBeCloseTo(760.5);
+    expect(grids[0].component.getBBox().width).toBeCloseTo(381.0000003791315);
+    expect(grids[0].component.getBBox().height).toBeCloseTo(761);
   });
 });

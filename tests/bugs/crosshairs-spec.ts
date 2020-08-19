@@ -81,7 +81,7 @@ describe('Crosshairs', () => {
     // @ts-ignore
     const xCrosshairs = tooltip.xCrosshair;
     expect(xCrosshairs.get('group').getCount()).toBe(3);
-    expect(xCrosshairs.get('group').getChildren()[1].getBBox().height).toBe(view2.getCoordinate().getHeight() + 0.5);
+    expect(xCrosshairs.get('group').getChildren()[1].getBBox().height).toBe(view2.getCoordinate().getHeight() + 1);
     expect(xCrosshairs.get('group').getChildren()[2].attr('text')).toBe('28 February');
   });
 });

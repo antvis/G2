@@ -80,7 +80,7 @@ export const antvLight = {
   /** 坐标轴线颜色 */
   axisLineBorderColor: BLACK_COLORS[25],
   /** 坐标轴线粗细 */
-  axisLineBorder: 0.5,
+  axisLineBorder: 1,
   /** 坐标轴线 lineDash 设置 */
   axisLineDash: null,
 
@@ -100,14 +100,14 @@ export const antvLight = {
   /** 坐标轴刻度线长度 */
   axisTickLineLength: 4,
   /** 坐标轴刻度线粗细 */
-  axisTickLineBorder: 0.5,
+  axisTickLineBorder: 1,
 
   /** 坐标轴次刻度线颜色 */
   axisSubTickLineBorderColor: BLACK_COLORS[15],
   /** 坐标轴次刻度线长度 */
   axisSubTickLineLength: 2,
   /** 坐标轴次刻度线粗细 */
-  axisSubTickLineBorder: 0.5,
+  axisSubTickLineBorder: 1,
 
   /** 坐标轴刻度文本颜色 */
   axisLabelFillColor: BLACK_COLORS[45],
@@ -123,7 +123,7 @@ export const antvLight = {
   /** 坐标轴网格线颜色 */
   axisGridBorderColor: BLACK_COLORS[15],
   /** 坐标轴网格线粗细 */
-  axisGridBorder: 0.5,
+  axisGridBorder: 1,
   /** 坐标轴网格线虚线设置 */
   axisGridLineDash: null,
 
@@ -200,12 +200,12 @@ export const antvLight = {
   /** arc 图形标注描边颜色 */
   annotationArcBorderColor: BLACK_COLORS[15],
   /** arc 图形标注粗细 */
-  annotationArcBorder: 0.5,
+  annotationArcBorder: 1,
 
   /** line 图形标注颜色 */
   annotationLineBorderColor: BLACK_COLORS[25],
   /** line 图形标注粗细 */
-  annotationLineBorder: 0.5,
+  annotationLineBorder: 1,
   /** lube 图形标注的虚线间隔 */
   annotationLineDash: null,
 
@@ -218,9 +218,9 @@ export const antvLight = {
   /** text 图形标注文本字体粗细 */
   annotationTextFontWeight: 'normal',
   /** text 图形标注文本边框颜色 */
-  annotationTextBorderColor: WHITE_COLORS[95],
+  annotationTextBorderColor: null,
   /** text 图形标注文本边框粗细 */
-  annotationTextBorder: 1.5,
+  annotationTextBorder: 0,
 
   /** region 图形标注填充颜色 */
   annotationRegionFillColor: BLACK_COLORS[100],
@@ -238,7 +238,7 @@ export const antvLight = {
   /** tooltip crosshairs 辅助线颜色 */
   tooltipCrosshairsBorderColor: BLACK_COLORS[25],
   /** tooltip crosshairs 辅助线粗细 */
-  tooltipCrosshairsBorder: 0.5,
+  tooltipCrosshairsBorder: 1,
   /** tooltip crosshairs 辅助线虚线间隔 */
   tooltipCrosshairsLineDash: null,
 
@@ -287,7 +287,7 @@ export const antvLight = {
   innerLabelBorder: 0,
 
   /** Geometry label　文本连接线粗细 */
-  labelLineBorder: 0.5,
+  labelLineBorder: 1,
   /** Geometry label 文本连接线颜色 */
   labelLineBorderColor: BLACK_COLORS[25],
 
