@@ -47,6 +47,6 @@ describe('#1823', () => {
 
     // grid 读到正确的主题颜色
     expect(grid.component.get('line').style.stroke).toBe('#D9D9D9');
-    expect(grid.component.get('line').style.lineWidth).toBe(0.5);
+    expect(grid.component.get('line').style.lineWidth).toBe(1);
   });
 });
