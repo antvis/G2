@@ -21,7 +21,6 @@ describe('Component', () => {
   chart.interval().position('city*sale').color('category').adjust('stack');
 
   chart.render();
-  console.log(chart)
 
   it('line axis component', () => {
     const axes = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.AXIS);

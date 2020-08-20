@@ -344,11 +344,15 @@ export default class Tooltip extends Controller<TooltipOption> {
    * @param point
    */
   public isCursorEntered(point: Point) {
-    const el: HTMLElement = this.tooltip.getContainer();
     // 是可捕获的，并且点在 tooltip dom 上
-    if (this.tooltip.get('capture') && el) {
-      const { x, y, width, height } = el.getBoundingClientRect();
+    if (this.tooltip) {
+      const el: HTMLElement = this.tooltip.getContainer();
+      const capture = this.tooltip.get('capture');
+
+      if (el && capture) {
+        const { x, y, width, height } = el.getBoundingClientRect();
       return new BBox(x, y, width, height).isPointIn(point);
+      }
     }
 
     return false;

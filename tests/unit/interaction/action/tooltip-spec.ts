@@ -33,17 +33,18 @@ describe('test tooltip action', () => {
   it('show', () => {
     // expect(tooltipDom.style.visibility).toBe('hidden');
     chart.emit('plot:mousemove', {
-      x: 50,
-      y: 330,
+      x: 32,
+      y: 382,
     });
+
     const tooltipDom = dom.getElementsByClassName('g2-tooltip')[0] as HTMLElement;
     expect(tooltipDom.style.visibility).toBe('visible');
   });
 
   it('hide', () => {
     chart.emit('plot:leave', {
-      x: 138,
-      y: 383,
+      x: 390,
+      y: 180,
     });
     const tooltipDom = dom.getElementsByClassName('g2-tooltip')[0] as HTMLElement;
     expect(tooltipDom.style.visibility).toBe('hidden');
