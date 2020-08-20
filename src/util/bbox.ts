@@ -1,7 +1,6 @@
 import { each } from '@antv/util';
 import { DIRECTION } from '../constant';
 import { Padding, Point, Region } from '../interface';
-import { parsePadding } from './padding';
 
 /**
  * 用于包围盒计算。
@@ -200,6 +199,14 @@ export class BBox {
    */
   public size(): number {
     return this.width * this.height;
+  }
+
+  /**
+   * 点是否在 bbox 中
+   * @param p
+   */
+  public isPointIn(p: Point) {
+    return p.x >= this.minX && p.x <= this.maxX && p.y >= this.minY && p.y <= this.maxY;
   }
 }
 

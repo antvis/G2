@@ -64,4 +64,12 @@ describe('util/ bbox', () => {
     expect(newBBox.width).toBe(80);
     expect(newBBox.height).toBe(80);
   });
+
+  it('isPointIn', () => {
+    const bbox = new BBox(10, 10, 100, 100);
+
+    expect(bbox.isPointIn({ x: 10, y: 10 })).toBe(true);
+    expect(bbox.isPointIn({ x: 50, y: 50 })).toBe(true);
+    expect(bbox.isPointIn({ x: 120, y: 120 })).toBe(false);
+  });
 });
