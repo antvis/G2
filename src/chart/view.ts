@@ -1274,7 +1274,7 @@ export class View extends Base {
           // 背景色 shape 不设置事件捕获
           capture: false,
         });
-        this.backgroundGroup.sort();
+        this.backgroundStyleRectShape.toBack();
       }
 
       // 2. 有了 shape 之后设置背景，位置（更新的时候）
