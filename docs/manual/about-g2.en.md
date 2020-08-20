@@ -1,32 +1,32 @@
 ---
-title: G2 简介
+title: Introduction to G2
 order: 0
 redirect_from:
   - /en/docs/manual
 ---
 
-G2 是一套基于图形语法理论的可视化底层引擎，以数据驱动，提供图形语法与交互语法，具有高度的易用性和扩展性。使用 G2，你可以无需关注图表各种繁琐的实现细节，一条语句即可使用 Canvas 或 SVG 构建出各种各样的可交互的统计图表。
+G2 is a set of underlying visualization engine based on the theory of graphic grammar. It is data-driven, providing graphic grammar and interactive grammar, with high ease of use and scalability. With G2, you can use Canvas or SVG to construct a variety of interactive statistical charts without paying attention to the various tedious implementation details of the chart.
 
-## ✨ 特性
+## ✨ Characteristics
 
-- 💯 完善的图形语法：数据到图形的映射，能够绘制出所有的图表。
-- 🤩 全新的交互语法：通过触发和反馈机制可以组合出各种交互行为，对数据进行探索。
-- 🦍 强大的 View 模块：可支持开发个性化的数据多维分析图形。
-- 👬 双引擎渲染：Canvas 或 SVG 任意切换。
-- 💄 可视化组件体系：面向交互、体验优雅。
-- 🛡 全面拥抱 TypeScript：提供完整的类型定义文件。
+- 💯 Perfect graph grammar: data to graph mapping, able to draw all charts.
+- 🤩 Brand-new interaction syntax: Various interaction behaviors can be combined through trigger and feedback mechanisms to explore data.
+- 🦍 Powerful View module: can support the development of personalized data multi-dimensional analysis graphics.
+- 👬 Dual-engine rendering: Canvas or SVG can be switched at will.
+- 💄 Visual component system: for interaction and elegant experience.
+- 🛡 Fully embrace TypeScript: Provide a complete type definition file.
 
-## 📦 安装
+## 📦 Installation
 
 ```bash
 npm install @antv/g2
 ```
 
-## 🔨 快速上手
+## 🔨 Quick Start
 
 <img src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8qbLQb7A0loAAAAAAAAAAABkARQnAQ" style="width:600px;">
 
-在绘图前我们需要为 G2 准备一个 DOM 容器：
+Before drawing, we need to prepare a DOM container for G2:
 
 ```html
 <div id="c1"></div>
@@ -43,44 +43,44 @@ const data = [
   { genre: 'Other', sold: 150 },
 ];
 
-// Step 1: 创建 Chart 对象
+// Step 1: Create a Chart object 
 const chart = new Chart({
-  container: 'c1', // 指定图表容器 ID
-  width: 600, // 指定图表宽度
-  height: 300, // 指定图表高度
+  container: 'c1', // specify the chart container ID 
+  width: 600, // specify the chart width
+  height: 300, // specify the chart height 
 });
 
-// Step 2: 载入数据源
+// Step 2: Load the data source 
 chart.data(data);
 
-// Step 3: 创建图形语法，绘制柱状图
+// Step 3: Create a graphic grammar and draw a column chart 
 chart.interval().position('genre*sold');
 
-// Step 4: 渲染图表
+// Step 4: Render chart 
 chart.render();
 ```
 
-## ⌨️ 本地开发
+## ⌨️ Local development
 
 ```bash
-# 安装依赖
+# Install dependencies
 $ npm install
 
-# 运行测试用例
+# Run the test case
 $ npm run test
 
-# 打开 electron 运行测试用例，监听文件变化构建
+# Open electron run the test case, monitor file changes in build
 $ npm run test-live
 
-# 运行 CI
+# Run CI
 $ npm run ci
 
-# 运行网站
+# Run website 
 $ npm start
 ```
 
-## 🤝 如何贡献
+## 🤝 How to contribute
 
-如果您在使用的过程中碰到问题，可以先通过 [issues](https://github.com/antvis/g2/issues) 看看有没有类似的 bug 或者建议。
+If you encounter a problem during use, you can check the [issues](https://github.com/antvis/g2/issues) to see if there are similar bugs or suggestions.
 
-如需提交代码，请遵从我们的[贡献指南](https://github.com/antvis/g2/blob/master/CONTRIBUTING.md)。
+To submit code, please follow our [contribution guidelines](https://github.com/antvis/g2/blob/master/CONTRIBUTING.md)。

@@ -3,22 +3,22 @@ title: FAQ
 order: 10
 ---
 
-## 如何导出图片
+## How to export pictures
 
-考虑到 G2 使用环境的不同（浏览器、mobile 等），G2 从 v4 版本开始，不再提供 `chart.toDataURL()` 以及 `chart.downloadImage()` 接口，鼓励用户自己包装。
+Taking into account the different environment of G2 (browser, mobile, etc.), G2 from the v4 version, is no longer available `chart.toDataURL()` as well as `chart.downloadImage()` an interface to encourage the user's own packaging.
 
-可以参考以下工具函数（能覆盖大部分场景，但是不保证完全不存在兼容问题，**仅供参考**）：
+You can refer to the following tool functions (which can cover most scenarios, but there is no guarantee that there will be no compatibility problems at all, **just for reference**）：
 
 <details>
   <summary>
-  参考方案(点击展开)：
+  Reference plan (click to expand):
   </summary>
 
 ```ts
 /**
- * 返回图表的 dataURL 用于生成图片。
- * @param chart 需要获取 DataURL 的 chart 实例
- * @returns 返回图表的 dataURL
+ * The dataURL of the returned chart is used to generate pictures. 
+ * @param chart needs to get the chart instance of 
+ * @returns DataURL returns the dataURL of the chart
  */
 function toDataURL(chart: Chart) {
   const canvas = chart.getCanvas();
@@ -43,9 +43,9 @@ function toDataURL(chart: Chart) {
 }
 
 /**
- * 图表图片导出
- * @param chart chart 实例
- * @param name 图片名称，可选，默认名为 'G2Chart'
+ * Chart picture export 
+ * @param chart chart instance 
+ * @param name Picture name, optional, default name is 'G2Chart'
  */
 function downloadImage(chart: Chart, name: string = 'G2Chart') {
   const link = document.createElement('a');
@@ -89,17 +89,17 @@ function downloadImage(chart: Chart, name: string = 'G2Chart') {
 
 </details>
 
-另外，获取到画布的 dataURI 数据之后，也可以使用 [download](https://github.com/rndme/download) 进行图片下载。
+In addition, after obtaining the dataURI of the canvas, you can also use [download](https://github.com/rndme/download) to download the image.
 
-## Tooltip 内出现了重复值
+## Duplicate values appear in Tooltip 
 
-在绘制面积图时经常会遇到如下图的问题，本来是相同的数据却在 tooltip 上出现了两个值。
+When drawing an area chart, you often encounter the problem as shown in the figure below, but there are two values on the tooltip for the same data.
 
 <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*fAKvSaa-wQIAAAAAAAAAAABkARQnAQ" width=400 />
 
 <details>
   <summary>
-  图表代码(点击展开)：
+  Chart code (click to expand):
   </summary>
 
 ```ts
@@ -158,9 +158,9 @@ chart.render();
 
 </details>
 
-**原因解释**：因为在代码中给 chart.area() 和 chart.line() 配置了不同的颜色，tooltip 去重规则会考虑颜色，颜色不同的视为不同的数据。
+**Reason explanation**: Because chart.area() and chart.line() are configured with different colors in the code, the color is considered in the tooltip deduplication rule, and different colors are regarded as different data.
 
-**解决方案**：
+**Solution**:
 
-1. 可以将其中一个 tooltip 关闭，比如 `chart.area().tooltip(false)`。
-2. 监听 `chart.on('tooltip:change')` 事件，动态修改 `items` 数据。
+1. You can close one of the tooltips, for example `chart.area().tooltip(false)`.
+2. Monitor `chart.on('tooltip:change')` events, dynamically modify `items` data.
