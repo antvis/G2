@@ -39,6 +39,7 @@ describe('theme', () => {
     // @ts-ignore
     const shape = chart.backgroundStyleRectShape;
 
+    expect(chart.backgroundGroup.getChildren().indexOf(shape)).toBe(0);
     expect(shape.attr('fill')).toBe('#141414');
     expect(shape.attr('x')).toBe(0);
     expect(shape.attr('y')).toBe(0);
@@ -47,22 +48,20 @@ describe('theme', () => {
 
     // 删除 theme
     chart.theme({
-      background: 'red',
+      background: 'yellow',
     });
 
-    chart.changeSize(300, 200);
-
-    chart.render();
+    chart.changeSize(600, 400);
 
     // 保持引用
     // @ts-ignore
     expect(shape).toBe(chart.backgroundStyleRectShape);
 
-    expect(shape.attr('fill')).toBe('red');
+    expect(shape.attr('fill')).toBe('yellow');
     expect(shape.attr('x')).toBe(0);
     expect(shape.attr('y')).toBe(0);
-    expect(shape.attr('width')).toBe(300);
-    expect(shape.attr('height')).toBe(200);
+    expect(shape.attr('width')).toBe(600);
+    expect(shape.attr('height')).toBe(400);
     expect(shape.get('capture')).toBe(false);
 
     chart.theme({
