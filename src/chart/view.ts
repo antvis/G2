@@ -1242,9 +1242,9 @@ export class View extends Base {
 
     this.emit(VIEW_LIFE_CIRCLE.BEFORE_PAINT);
 
-    this.renderBackgroundStyleShape();
-
     this.renderLayoutRecursive(isUpdate);
+
+    this.renderBackgroundStyleShape();
 
     this.renderPaintRecursive(isUpdate);
 
@@ -1259,36 +1259,38 @@ export class View extends Base {
    */
   private renderBackgroundStyleShape() {
     // 只有根节点才处理
-    if (!this.parent) {
-      const background = get(this.themeObject, 'background');
-      // 1. 配置了背景色
-      if (background) {
-        // 1. 不存在则创建
-        if (!this.backgroundStyleRectShape) {
-          this.backgroundStyleRectShape = this.backgroundGroup.addShape('rect', {
-            attrs: {
-              zIndex: -1,
-            },
-            // 背景色 shape 不设置事件捕获
-            capture: false,
-          });
-        }
-
-        // 2. 有了 shape 之后设置背景，位置（更新的时候）
-        const { x, y, width, height } = this.viewBBox;
-        this.backgroundStyleRectShape.attr({
-          fill: background,
-          x,
-          y,
-          width,
-          height,
+    if (this.parent) {
+      return;
+    }
+    const background = get(this.themeObject, 'background');
+    // 配置了背景色
+    if (background) {
+      // 1. 不存在则创建
+      if (!this.backgroundStyleRectShape) {
+        this.backgroundStyleRectShape = this.backgroundGroup.addShape('rect', {
+          attrs: {
+          },
+          zIndex: -1,
+          // 背景色 shape 不设置事件捕获
+          capture: false,
         });
-      } else {
-        // 没有配置背景色
-        if (this.backgroundStyleRectShape) {
-          this.backgroundStyleRectShape.remove(true);
-          this.backgroundStyleRectShape = undefined;
-        }
+        this.backgroundStyleRectShape.toBack();
+      }
+
+      // 2. 有了 shape 之后设置背景，位置（更新的时候）
+      const { x, y, width, height } = this.viewBBox;
+      this.backgroundStyleRectShape.attr({
+        fill: background,
+        x,
+        y,
+        width,
+        height,
+      });
+    } else {
+      // 没有配置背景色
+      if (this.backgroundStyleRectShape) {
+        this.backgroundStyleRectShape.remove(true);
+        this.backgroundStyleRectShape = undefined;
       }
     }
   }
