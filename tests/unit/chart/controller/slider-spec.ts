@@ -4,7 +4,7 @@ import { Chart } from '../../../../src/index';
 import { createDiv } from '../../../util/dom';
 import { delay } from '../../../util/delay';
 import { removeDom } from '../../../../src/util/dom';
-import { SliderFormatterType } from '../../../../src/chart/controller/slider';
+import { SliderCfg } from '../../../../src/interface';
 
 const Data = [
   { year: '1991', value: 3 },
@@ -92,7 +92,7 @@ describe('Slider', () => {
 
   it('formatter', () => {
     chart.option('slider', {
-      formatter: ((v, datum, idx) => `${v}-${datum.value}-${idx}`) as SliderFormatterType,
+      formatter: ((v, datum, idx) => `${v}-${datum.value}-${idx}`) as SliderCfg['formatter'],
     });
     chart.changeData(Data.slice(0, 3));
     chart.render(true);
