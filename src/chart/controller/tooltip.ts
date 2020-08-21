@@ -5,6 +5,7 @@ import { Point, TooltipOption } from '../../interface';
 import { getAngleByPoint, getDistanceToCenter, isPointInCoordinate } from '../../util/coordinate';
 import { polarToCartesian } from '../../util/graphics';
 import { findDataByPoint, getTooltipItems } from '../../util/tooltip';
+import { BBox } from '../../util/bbox';
 import { Controller } from './base';
 
 // Filter duplicates, use `name`, `color`, `value` and `title` property values as condition
@@ -329,6 +330,7 @@ export default class Tooltip extends Controller<TooltipOption> {
       // #2279 修复resize之后tooltip越界的问题
       // 确保tooltip已经创建的情况下
       const canvas = this.view.getCanvas();
+      // TODO 逍为 tooltip 的区域不应该是 canvas，而应该是整个 特别是在图比较小的时候
       // 更新 region
       this.tooltip.set('region', {
         start: { x: 0, y: 0 },
@@ -337,13 +339,32 @@ export default class Tooltip extends Controller<TooltipOption> {
     }
   }
 
+  /**
+   * 当前鼠标点是在 enter tooltip 中
+   * @param point
+   */
+  public isCursorEntered(point: Point) {
+    // 是可捕获的，并且点在 tooltip dom 上
+    if (this.tooltip) {
+      const el: HTMLElement = this.tooltip.getContainer();
+      const capture = this.tooltip.get('capture');
+
+      if (el && capture) {
+        const { x, y, width, height } = el.getBoundingClientRect();
+        return new BBox(x, y, width, height).isPointIn(point);
+      }
+    }
+
+    return false;
+  }
+
   // 获取 tooltip 配置，因为用户可能会通过 view.tooltip() 重新配置 tooltip，所以就不做缓存，每次直接读取
   protected getTooltipCfg() {
     const view = this.view;
     const option = view.getOptions().tooltip;
     const theme = view.getTheme();
     const defaultCfg = get(theme, ['components', 'tooltip'], {});
-    const enterable = isUndefined(get(option, 'enterable')) ? defaultCfg.enterable : get(option, 'enterable');
+    const enterable = get(option, 'enterable', defaultCfg.enterable);
     return deepMix({}, defaultCfg, option, {
       capture: enterable || this.isLocked ? true : false,
     });

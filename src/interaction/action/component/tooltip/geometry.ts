@@ -1,7 +1,8 @@
-import { isEqual } from '@antv/util';
+import { isEqual, get } from '@antv/util';
 import { View } from '../../../../chart';
 import { Point } from '../../../../interface';
 import Action from '../../base';
+import Tooltip from '../../../../chart/controller/tooltip';
 
 /**
  * Tooltip 展示隐藏的 Action
@@ -27,7 +28,9 @@ class TooltipAction extends Action {
     const lastTimeStamp = this.timeStamp;
     const timeStamp = +new Date();
 
-    if (timeStamp - lastTimeStamp > 16) {
+    // 在 showDelay 毫秒（默认 16ms）内到 tooltip 上可以实现 enterable（调参工程师）
+    const showDelay = get(context.view.getOptions(), 'tooltip.showDelay', 16);
+    if (timeStamp - lastTimeStamp > showDelay) {
       const preLoc = this.location;
       const curLoc = { x: ev.x, y: ev.y };
       if (!preLoc || !isEqual(preLoc, curLoc)) {
@@ -44,9 +47,17 @@ class TooltipAction extends Action {
    */
   public hide() {
     const view = this.context.view;
-    const isTooltipLocked = view.isTooltipLocked();
-    if (isTooltipLocked) {
-      // 锁定 tooltip 时不隐藏
+
+    const tooltip = view.getController('tooltip') as Tooltip;
+    const { clientX, clientY } = this.context.event;
+
+    // 如果已经 enterable + 已经在 tooltip 上，那么不隐藏
+    if (tooltip.isCursorEntered({ x: clientX, y: clientY })) {
+      return;
+    }
+
+    // 锁定 tooltip 时不隐藏
+    if (view.isTooltipLocked()) {
       return;
     }
     this.hideTooltip(view);

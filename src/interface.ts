@@ -1150,6 +1150,8 @@ export interface TooltipCfg {
   follow?: boolean;
   /** tooltip 是否允许鼠标滑入，默认为 false，不允许 */
   enterable?: boolean;
+  /** tooltip 显示延迟（ms），默认为 16ms，建议在 enterable = true 的时候才设置  */
+  showDelay?: number;
   /** 是否展示 tooltip 标题。 */
   showTitle?: boolean;
   /**
