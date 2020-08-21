@@ -1428,13 +1428,13 @@ export interface Options {
   readonly interactions?: InteractionOption[];
 
   /** 缩略轴的配置 */
-  readonly slider: SliderOption;
-
-  /** 其他自定义的 option */
-  readonly [name: string]: any;
+  readonly slider?: SliderOption;
 
   /** 子 View */
   readonly views?: ViewOption[];
+
+  /** 其他自定义的 option */
+  readonly [name: string]: any;
 }
 
 /** 支持的 Marker 类型 */
