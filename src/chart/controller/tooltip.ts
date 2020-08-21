@@ -351,7 +351,7 @@ export default class Tooltip extends Controller<TooltipOption> {
 
       if (el && capture) {
         const { x, y, width, height } = el.getBoundingClientRect();
-      return new BBox(x, y, width, height).isPointIn(point);
+        return new BBox(x, y, width, height).isPointIn(point);
       }
     }
 

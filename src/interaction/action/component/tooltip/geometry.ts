@@ -1,4 +1,4 @@
-import { isEqual } from '@antv/util';
+import { isEqual, get } from '@antv/util';
 import { View } from '../../../../chart';
 import { Point } from '../../../../interface';
 import Action from '../../base';
@@ -28,8 +28,9 @@ class TooltipAction extends Action {
     const lastTimeStamp = this.timeStamp;
     const timeStamp = +new Date();
 
-    // 在 60 毫秒内到 tooltip 上可以实现 enterable（调参工程师）
-    if (timeStamp - lastTimeStamp > 60) {
+    // 在 showDelay 毫秒（默认 16ms）内到 tooltip 上可以实现 enterable（调参工程师）
+    const showDelay = get(context.view.getOptions(), 'tooltip.showDelay', 16);
+    if (timeStamp - lastTimeStamp > showDelay) {
       const preLoc = this.location;
       const curLoc = { x: ev.x, y: ev.y };
       if (!preLoc || !isEqual(preLoc, curLoc)) {
