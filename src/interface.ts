@@ -31,6 +31,7 @@ import {
   ScaleConfig,
   ShapeAttrs,
   LineAnnotationTextCfg,
+  TrendCfg,
 } from './dependents';
 
 import { View } from './chart';
@@ -1361,6 +1362,37 @@ export interface AxisCfg {
   verticalLimitLength?: number;
 }
 
+export interface SliderCfg {
+  /** slider 高度 */
+  readonly height?: number;
+
+  /** 滑块背景区域配置 */
+  readonly trendCfg?: TrendCfg;
+  /** 滑块背景样式 */
+  readonly backgroundStyle?: any;
+  /** 滑块前景样式 */
+  readonly foregroundStyle?: any;
+  /** 滑块两个操作块样式 */
+  readonly handlerStyle?: any;
+  /** 文本样式 */
+  readonly textStyle?: any;
+  /** 允许滑动位置的最小值 */
+  readonly minLimit?: number;
+  /** 允许滑动位置的最大值 */
+  readonly maxLimit?: number;
+  /** 滑块初始化的起始位置 */
+  readonly start?: number;
+  /** 滑块初始化的结束位置 */
+  readonly end?: number;
+  /** 滑块文本格式化函数 */
+  formatter?: (val: any, datum: Datum, idx: number) => any;
+}
+
+/**
+ * 缩略轴的配置项
+ */
+export type SliderOption = SliderCfg | boolean;
+
 /** 配置项声明式 */
 export interface Options {
   /** 数据源配置。 */
@@ -1395,11 +1427,14 @@ export interface Options {
   /** 配置需要使用的交互行为 */
   readonly interactions?: InteractionOption[];
 
-  /** 其他自定义的 option */
-  readonly [name: string]: any;
+  /** 缩略轴的配置 */
+  readonly slider?: SliderOption;
 
   /** 子 View */
   readonly views?: ViewOption[];
+
+  /** 其他自定义的 option */
+  readonly [name: string]: any;
 }
 
 /** 支持的 Marker 类型 */
