@@ -9,9 +9,9 @@ redirect_from:
 
 A highly interactive data-driven visualization grammar for statistical charts.
 
-![](https://img.shields.io/badge/language-TypeScript-red.svg) ![](https://img.shields.io/badge/license-MIT-000000.svg)
+![language: typescript](https://img.shields.io/badge/language-TypeScript-red.svg) ![license: MIT](https://img.shields.io/badge/license-MIT-000000.svg)
 
-[![](https://img.shields.io/twitter/follow/AntV_Alipay.svg?label=AntV&style=social)](https://twitter.com/AntV_Alipay)
+[![twitter: AntV_Alipay](https://img.shields.io/twitter/follow/AntV_Alipay.svg?label=AntV&style=social)](https://twitter.com/AntV_Alipay)
 
 </div>
 
@@ -25,7 +25,7 @@ G2 is a visualization grammar, a data-driven visual language with a high level o
 
 ## 📺 Live Demos
 
-<a href="https://g2.antv.vision/en/examples/gallery"><img src="https://user-images.githubusercontent.com/6628666/75466330-fe1d0c00-59c4-11ea-91ba-506f60ef8af4.png" /></a>
+<a href="https://g2.antv.vision/en/examples/gallery"><img alt="gallery" src="https://user-images.githubusercontent.com/6628666/75466330-fe1d0c00-59c4-11ea-91ba-506f60ef8af4.png" /></a>
 
 
 ## ✨ Features
@@ -43,9 +43,9 @@ G2 is a visualization grammar, a data-driven visual language with a high level o
 npm install @antv/g2
 ```
 
-## 🔨 Quick Start
+## 🔨 Getting Started
 
-<img src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8qbLQb7A0loAAAAAAAAAAABkARQnAQ" style="width:600px;">
+<img alt="column chart" src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8qbLQb7A0loAAAAAAAAAAABkARQnAQ" style="width:600px;">
 
 Before drawing, we need to prepare a DOM container for G2:
 
