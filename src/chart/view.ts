@@ -808,6 +808,13 @@ export class View extends Base {
    * @returns View
    */
   public createView(cfg?: Partial<ViewCfg>): View {
+    // 将会在 4.1 版本中移除递归嵌套 view，仅仅只允许 chart - view 两层。
+    // 这个 API 理论上用户量不多，所以暂时不发大版本，所以先暂时打一个 warning。
+    if (this.parent && this.parent.parent) {
+      // 存在 3 层 结构了
+      console.warn('The view nesting recursive feature will be removed at G2 V4.1. Please avoid to use it.');
+    }
+
     // 子 view 共享 options 配置数据
     const sharedOptions = {
       data: this.options.data,
