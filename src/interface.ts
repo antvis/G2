@@ -703,7 +703,7 @@ export interface ViewOption {
    * 1. padding: 20
    * 2. padding: [ 10, 30, 30 ]
    */
-  readonly padding?: Padding;
+  readonly padding?: ViewPadding;
   /** 设置主题。 */
   readonly theme?: LooseObject | string;
   /** 是否可见。 */
