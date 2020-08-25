@@ -5,7 +5,7 @@ order: 2
 
 In order to better use G2 for data visualization, we need to understand the composition of G2 charts and related concepts.
 
-## Graphic grammar
+## The Grammar of Graphics
 
 The power of G2 is supported by a set of graphics grammar behind it. Based on the book ["The Grammar of Graphics" (by Leland Wilkinson)](https://book.douban.com/subject/10123863/), it is a set of grammatical rules used to describe the in-depth characteristics of all statistical charts. This grammar answers The question "What is a statistical chart" organizes the most basic elements in a bottom-up manner to form more advanced elements.
 

@@ -1,20 +1,41 @@
 ---
-title: Introduction to G2
+title: G2
 order: 0
 redirect_from:
   - /en/docs/manual
 ---
 
-G2 is a set of underlying visualization engine based on the theory of graphic grammar. It is data-driven, providing graphic grammar and interactive grammar, with high ease of use and scalability. With G2, you can use Canvas or SVG to construct a variety of interactive statistical charts without paying attention to the various tedious implementation details of the chart.
+<div align="center">
 
-## ✨ Characteristics
+A highly interactive data-driven visualization grammar for statistical charts.
 
-- 💯 Perfect graph grammar: data to graph mapping, able to draw all charts.
-- 🤩 Brand-new interaction syntax: Various interaction behaviors can be combined through trigger and feedback mechanisms to explore data.
-- 🦍 Powerful View module: can support the development of personalized data multi-dimensional analysis graphics.
-- 👬 Dual-engine rendering: Canvas or SVG can be switched at will.
-- 💄 Visual component system: for interaction and elegant experience.
-- 🛡 Fully embrace TypeScript: Provide a complete type definition file.
+![](https://img.shields.io/badge/language-TypeScript-red.svg) ![](https://img.shields.io/badge/license-MIT-000000.svg)
+
+[![](https://img.shields.io/twitter/follow/AntV_Alipay.svg?label=AntV&style=social)](https://twitter.com/AntV_Alipay)
+
+</div>
+
+<p align="center">
+  <a href="https://g2.antv.vision/en">Website</a> •
+  <a href="https://g2.antv.vision/en/docs/manual/about-g2">Tutorial Docs</a> •
+  <a href="https://www.yuque.com/antv">Blog</a>
+</p>
+
+G2 is a visualization grammar, a data-driven visual language with a high level of usability and scalability. It provides a set of grammars, takes users beyond a limited set of charts to an almost unlimited world of graphical forms. With G2, you can describe the visual appearance and interactive behavior of a visualization just by one statement, and generate web-based views using Canvas or SVG.
+
+## 📺 Live Demos
+
+<a href="https://g2.antv.vision/en/examples/gallery"><img src="https://user-images.githubusercontent.com/6628666/75466330-fe1d0c00-59c4-11ea-91ba-506f60ef8af4.png" /></a>
+
+
+## ✨ Features
+
+- 💯Stable grammar of graphics: enable to draw all kinds of charts by mapping data to graphics.
+- 🤩New grammar of interaction: interaction behaviors combined with Trigger and Action mechanisms are used to exploring data.
+- 🦍Advanced View module: with the ability to develop customized multi-dimension data analysis graphics.
+- 👬Dual-engine rendering: with the ability to switch Canvas and SVG freely.
+- 💄Visual components: interaction-oriented, elegant experience.
+- 🛡Fully embrace Typescript: Complete type definition files are provided.
 
 ## 📦 Installation
 
@@ -50,37 +71,43 @@ const chart = new Chart({
   height: 300, // specify the chart height 
 });
 
-// Step 2: Load the data source 
+// Step 2: Load the data.
 chart.data(data);
 
-// Step 3: Create a graphic grammar and draw a column chart 
+// Step 3: Declare the grammar of graphics and draw a column chart.
 chart.interval().position('genre*sold');
 
-// Step 4: Render chart 
+// Step 4: Render chart. 
 chart.render();
 ```
 
-## ⌨️ Local development
+## ⌨️ Development
 
 ```bash
 # Install dependencies
 $ npm install
 
-# Run the test case
+# Run test cases
 $ npm run test
 
-# Open electron run the test case, monitor file changes in build
+# Open electron to run the test cases and listen to file changes
 $ npm run test-live
 
 # Run CI
 $ npm run ci
 
-# Run website 
+# Run website
 $ npm start
 ```
 
-## 🤝 How to contribute
+## 🏷️ Releases
 
-If you encounter a problem during use, you can check the [issues](https://github.com/antvis/g2/issues) to see if there are similar bugs or suggestions.
+- v3.5.x: https://github.com/antvis/G2/tree/v3.5.x
+- v3.6.x: https://github.com/antvis/G2/tree/v3.6.x
+- v4.0.x: https://github.com/antvis/G2/tree/v4.0.x
 
-To submit code, please follow our [contribution guidelines](https://github.com/antvis/g2/blob/master/CONTRIBUTING.md)。
+## 🤝 How to Contribute
+
+Please let us know how can we help. Do check out [issues](https://github.com/antvis/g2/issues) for bug reports or suggestions first.
+
+To become a contributor, please follow our [contributing guide](https://github.com/antvis/g2/blob/master/CONTRIBUTING.md).
