@@ -7,6 +7,26 @@ export const salesByArea = [
   { area: '西南', sales: 1303124.508000002 },
 ];
 
+export const salesBySubCategory = [
+  { subCategory: '书架', sales: 2307203.2200000025 },
+  { subCategory: '信封', sales: 287486.0799999999 },
+  { subCategory: '器具', sales: 2160183.0039999983 },
+  { subCategory: '复印机', sales: 1991498.8800000001 },
+  { subCategory: '收纳具', sales: 1152527.7399999981 },
+  { subCategory: '标签', sales: 97077.9600000001 },
+  { subCategory: '桌子', sales: 862010.4289999998 },
+  { subCategory: '椅子', sales: 2085435.967999999 },
+  { subCategory: '用具', sales: 479691.2120000002 },
+  { subCategory: '用品', sales: 287970.48 },
+  { subCategory: '电话', sales: 1799653.4640000009 },
+  { subCategory: '系固件', sales: 129010.728 },
+  { subCategory: '纸张', sales: 263334.1200000003 },
+  { subCategory: '美术', sales: 196222.7680000002 },
+  { subCategory: '装订机', sales: 291776.912 },
+  { subCategory: '设备', sales: 874465.1440000004 },
+  { subCategory: '配件', sales: 803406.0159999998 },
+];
+
 export const subSalesByArea = [
   {
     area: '东北',

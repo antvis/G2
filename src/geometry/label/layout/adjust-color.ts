@@ -1,8 +1,8 @@
 import { IGroup, IShape } from '../../../dependents';
 import { BBox } from '../../../util/bbox';
-import { LabelItem } from '../interface';
 import { isContrastColorWhite } from '../../../util/color';
 import Element from '../../element';
+import { LabelItem } from '../interface';
 
 export function adjustColor(items: LabelItem[], labels: IGroup[], shapes: IShape[] | IGroup[]) {
   if (shapes.length === 0) {

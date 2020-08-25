@@ -7,7 +7,7 @@ import { subSalesByArea } from '../../../../data/sales';
 import { delay } from '../../../../util/delay';
 import { createDiv } from '../../../../util/dom';
 
-describe('auto-color layout', async () => {
+describe('adjust-color layout', () => {
   const container = createDiv();
   const chart = new Chart({
     container,
@@ -15,7 +15,7 @@ describe('auto-color layout', async () => {
     height: 800,
   });
 
-  it('auto color on interval', async () => {
+  it('adjust color on interval', async () => {
     chart.data(subSalesByArea);
     chart.scale('sales', {
       formatter: (v) => `${Math.floor(v / 10000)}万`,
@@ -38,7 +38,7 @@ describe('auto-color layout', async () => {
     chart.render();
 
     // 等 label 动画执行完
-    await delay(300);
+    await delay(500);
 
     const labelContainer = interval.labelsContainer;
     expect(labelContainer.getCount()).toBe(subSalesByArea.length);

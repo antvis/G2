@@ -85,6 +85,8 @@ import { limitInShape } from './geometry/label/layout/limit-in-shape';
 import { fixedOverlap, overlap } from './geometry/label/layout/overlap';
 import { hideOverlap } from './geometry/label/layout/hide-overlap';
 import { adjustColor } from './geometry/label/layout/adjust-color';
+import { intervalAdjustPosition } from './geometry/label/layout/interval/adjust-position';
+import { pointAdjustPosition } from './geometry/label/layout/point/adjust-position';
 
 registerGeometryLabelLayout('overlap', overlap);
 registerGeometryLabelLayout('distribute', distribute);
@@ -94,6 +96,8 @@ registerGeometryLabelLayout('limit-in-shape', limitInShape);
 registerGeometryLabelLayout('limit-in-canvas', limitInCanvas);
 registerGeometryLabelLayout('pie-outer', pieOuterLabelLayout);
 registerGeometryLabelLayout('adjust-color', adjustColor);
+registerGeometryLabelLayout('interval-adjust-position', intervalAdjustPosition);
+registerGeometryLabelLayout('point-adjust-position', pointAdjustPosition);
 
 // 注册需要的动画执行函数
 import { fadeIn, fadeOut } from './animate/animation/fade';
