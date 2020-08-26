@@ -1395,13 +1395,13 @@ export default class Geometry extends Base {
    */
   protected getLabelType(): string {
     const { labelOption, coordinate, type } = this;
-    const coordinateType = coordinate.type;
+    const { type: coordinateType, isTransposed } = coordinate;
     let labelType = get(labelOption, ['cfg', 'type']);
     if (!labelType) {
       // 用户未定义，则进行默认的逻辑
       if (coordinateType === 'polar') {
-        // 极坐标下使用通用的极坐标文本
-        labelType = 'polar';
+        // 极坐标下使用通用的极坐标文本，转置则使用饼图
+        labelType = isTransposed ? 'pie' : 'polar';
       } else if (coordinateType === 'theta') {
         // theta 坐标系下使用饼图文本
         labelType = 'pie';
