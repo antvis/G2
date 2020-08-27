@@ -26,6 +26,7 @@ export function calculatePadding(view: View): Padding {
 
   const axisComponents = [];
   const legendComponents = [];
+  const sliderComponents = [];
   const otherComponments = [];
   each(view.getComponents(), (co: ComponentOption) => {
     const { type } = co;
@@ -33,6 +34,8 @@ export function calculatePadding(view: View): Padding {
       axisComponents.push(co);
     } else if (type === COMPONENT_TYPE.LEGEND) {
       legendComponents.push(co);
+    } else if (type === COMPONENT_TYPE.SLIDER) {
+      sliderComponents.push(co);
     } else if (type !== COMPONENT_TYPE.GRID && type !== COMPONENT_TYPE.TOOLTIP) {
       otherComponments.push(co);
     }
@@ -69,6 +72,15 @@ export function calculatePadding(view: View): Padding {
       }
     }
 
+    // 按照方向计算 padding
+    paddingCal.inc(componentBBox, direction);
+  });
+
+  each(sliderComponents, (co: ComponentOption) => {
+    const { component, direction } = co;
+    const bboxObject = component.getLayoutBBox();
+    const padding: Padding = component.get('padding') || [8, 8, 8, 8];
+    const componentBBox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height).expand(padding);
     // 按照方向计算 padding
     paddingCal.inc(componentBBox, direction);
   });

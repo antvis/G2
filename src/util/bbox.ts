@@ -180,6 +180,16 @@ export class BBox {
   }
 
   /**
+   * 扩张形成新的
+   * @param gap
+   */
+  public expand(gap: Padding): BBox {
+    const [top, right, bottom, left] = gap;
+
+    return new BBox(this.x - left, this.y - top, this.width + left + right, this.height + top + bottom);
+  }
+
+  /**
    * get the gap of two bbox, if not exceed, then 0
    * @param bbox
    * @returns [top, right, bottom, left]

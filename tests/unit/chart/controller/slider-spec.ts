@@ -37,6 +37,7 @@ describe('Slider', () => {
 
   chart.option('slider', {
     height: 24,
+    padding: [20, 20, 20, 0],
     trendCfg: {
       isArea: false,
     },
@@ -46,8 +47,11 @@ describe('Slider', () => {
 
   chart.interval().position('year*value');
   chart.render();
+  const [slider] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SLIDER);
 
-  const [slider] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.OTHER);
+  it('padding', () => {
+    expect(slider.component.getBBox().maxY <= chart.height - 19 ).toBe(true); // padding buttom = 20px
+  });
 
   it('slider cfg', () => {
     expect(slider.component.get('height')).toBe(24);
@@ -72,7 +76,7 @@ describe('Slider', () => {
 
     chart.render();
 
-    const others = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.OTHER);
+    const others = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SLIDER);
 
     expect(others.length).toBe(1);
 
@@ -100,7 +104,6 @@ describe('Slider', () => {
     expect(slider.component.get('minText')).toBe(`1991-3-0`);
     expect(slider.component.get('maxText')).toBe(`1992-4-1`);
   });
-
   afterAll(() => {
     chart.destroy();
     removeDom(div);
