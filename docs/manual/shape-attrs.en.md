@@ -1,73 +1,73 @@
 ---
-title: 绘图属性速查
+title: Quick check of drawing properties
 order: 8
 ---
 
-G2 底层使用了 [G](https://g.antv.vision/zh/docs/api/shape/attrs)  绘图引擎。本篇列出了常见的绘图属性，更过关于绘图以及绘图属性的使用请至 [G](https://g.antv.vision/zh/) 中查看。
+The bottom layer of G2 uses the [G](https://g.antv.vision/en/docs/api/shape/attrs) drawing engine. This article lists the common drawing attributes. For more information about drawing and the use of drawing attributes, please check in [G](https://g.antv.vision/en/).
 
-## 通用属性
+## General attributes
 
-| 属性名          | 描述                                                                                                                                                                               |
+| Attribute Name  | Description                                                                                                                                                                              |
 | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `fill`          | 描述颜色和样式的属性。                                                                                                                                                             |
-| `fillStyle`     | 同 `fill`                                                                                                                                                                          |
-| `fillOpacity`   | 用于设置图形填充颜色的透明度。                                                                                                                                                     |
-| `stroke`        | 描述画笔（绘制图形）颜色或者样式的属性。默认值是 #000 (black)。                                                                                                                    |
-| `strokeStyle`   | 同 `stroke`                                                                                                                                                                        |
-| `strokeOpacity` | 用于设置边颜色的透明度。                                                                                                                                                           |
-| `shadowColor`   | 描述阴影颜色的属性，参见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/shadowColor)。                                                            |
-| `shadowBlur`    | 描述模糊效果程度的属性； 它既不对应像素值也不受当前转换矩阵的影响。 默认值是 0，参见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/shadowBlur)。 |
-| `shadowOffsetX` | 描述阴影水平偏移距离的属性，参见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/shadowOffsetX)。                                                  |
-| `shadowOffsetY` | 描述阴影垂直偏移距离的属性，参见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/shadowOffsetY)。                                                  |
-| `opacity`       | 设置图形和图片透明度的属性。 数值的范围从 0.0 （完全透明）到 1.0 （完全不透明）。                                                                                                  |
+| `fill`          | Describe the attributes of color and style.                                                                                                                                                            |
+| `fillStyle`     | with `fill`                                                                                                                                                                          |
+| `fillOpacity`   | Used to set the transparency of the fill color of the graphic.                                                                                                                                                    |
+| `stroke`        | The attribute describing the color or style of the pen (drawing graphics). The default value is #000 (black).                                                                                                                  |
+| `strokeStyle`   | with `stroke`                                                                                                                                                                        |
+| `strokeOpacity` | Used to set the transparency of the edge color.                                                                                                                                                        |
+| `shadowColor`   | To describe the properties of the shadow color, see [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/shadowColor).                                                            |
+| `shadowBlur`    | A property describing the degree of blur effect; it neither corresponds to pixel values ​​nor is affected by the current conversion matrix. The default value is 0, see [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/shadowBlur). |
+| `shadowOffsetX` | The attribute describing the horizontal offset distance of the shadow, see [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/shadowOffsetX).                                                  |
+| `shadowOffsetY` | For the attribute describing the vertical offset distance of the shadow, see [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/shadowOffsetY).                                                  |
+| `opacity`       | Set the properties of graphics and picture transparency. The value ranges from 0.0 (fully transparent) to 1.0 (fully opaque).                                                                                                  |
 
-## 渐变色
+## Gradient
 
-为了方便用户使用，G2 中默认提供对线性渐变、放射状/环形渐变两种渐变色的支持，定义方式如下：
+For the convenience of users, G2 provides support for linear gradients and radial/circular gradients by default. The definition methods are as follows:
 
-### 线性渐变
+### Linear gradient
 
 ![](https://gw.alipayobjects.com/zos/rmsportal/ElBYXdsTZKFflacOBNtp.png#align=left&display=inline&height=142&originHeight=328&originWidth=1384&status=done&style=none&width=600)
 
-> 说明：`l` 表示使用线性渐变，绿色的字体为可变量，由用户自己填写，由一个空格进行间隔。
+> Note: `l` indicates the use of linear gradient, the green font is variable, filled by the user, separated by a blank.
 
 ```javascript
 // example
-// 使用渐变色描边，渐变角度为 0，渐变的起始点颜色 #ffffff，中点的渐变色为 #7ec2f3，结束的渐变色为 #1890ff
+// Use gradient color stroke, gradient angle is 0, gradient starting point color #ffffff, midpoint gradient color #7ec2f3, ending gradient color #1890ff
 stroke: 'l(0) 0:#ffffff 0.5:#7ec2f3 1:#1890ff';
 ```
 
-### 放射状/环形渐变
+### Radial/circular gradient
 
 ![](https://gw.alipayobjects.com/zos/rmsportal/fBFocveoeRaeaCCPTaFo.png#align=left&display=inline&height=144&originHeight=408&originWidth=1702&status=done&style=none&width=600)
 
-> 说明：`r` 表示使用放射状渐变，绿色的字体为可变量，由用户自己填写，开始圆的 x y r 值均为相对值，0 至 1 范围，'r(x,y,r)' 内不可留有空格，颜色之间由一个空格进行间隔。
+> Note: `r` indicates the use of a radial gradient, the green font is variable, which is filled in by the user. The xyr values ​​of the starting circle are all relative values, ranging from 0 to 1, and no spaces are allowed in'r(x,y,r)'. The colors are separated by a space.
 
 ```javascript
 // example
-// 使用渐变色填充，渐变起始圆的圆心坐标为被填充物体的包围盒中心点，半径为(包围盒对角线长度 / 2) 的 0.1 倍，渐变的起始点颜色 #ffffff，中点的渐变色为 #7ec2f3，结束的渐变色为 #1890ff
+// Use gradient color to fill, the center coordinate of the starting circle of the gradient is the center point of the bounding box of the filled object, the radius is 0.1 times (the diagonal length of the bounding box / 2), the color of the starting point of the gradient #ffffff , The gradient color at the midpoint is #7ec2f3, and the gradient color at the end is #1890ff 
 fill: 'r(0.5,0.5,0.1) 0:#ffffff 1:#1890ff';
 ```
 
-## 线条样式
+## Line style
 
-| 属性名       | 描述                                                                                                                                                                                                                                                                                                                                                                 |
-| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `lineCap`    | Canvas 2D API 指定如何绘制每一条线段末端的属性。有 3 个可能的值，分别是：`butt`, `round` and `square`。默认值是 butt，参见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap).                                                                                                                                                 |
-| `lineJoin`   | Canvas 2D API 用来设置 2 个长度不为 0 的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为 0 的变形部分，其指定的末端和控制点在同一位置，会被忽略），参见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin).                                                                                                           |
-| `lineWidth`  | Canvas 2D API 设置线段厚度的属性（即线段的宽度）。当获取属性值时，它可以返回当前的值（默认值是 1.0 ）。 当给属性赋值时， 0、 负数、 Infinity 和 NaN 都会被忽略；除此之外，都会被赋予一个新值，参见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineWidth).                                                                       |
-| `miterLimit` | Canvas 2D API 设置斜接面限制比例的属性。 当获取属性值时， 会返回当前的值（默认值是 10.0 ）。当给属性赋值时， 0、负数、 Infinity 和 NaN 都会被忽略；除此之外都会被赋予一个新值。，参见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit).                                                                                   |
-| `lineDash`   | 设置线的虚线样式，可以指定一个数组。一组描述交替绘制线段和间距（坐标空间单位）长度的数字。 如果数组元素的数量是奇数， 数组的元素会被复制并重复。例如， [5, 15, 25] 会变成 [5, 15, 25, 5, 15, 25]。这个属性取决于浏览器是否支持 `setLineDash()` 函数，详情参考 [setLineDash](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/setLineDash)。 |
+| Attribute Name | Description                                                                                                                                                                                                                                                                                                                                                                 |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `lineCap`      | Canvas 2D API specifies how to draw the attributes of the end of each line segment. There are three possible values are: `butt`, `round` and `square`. The default value is butt, see [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap).                                                                                                                                                 |
+| `lineJoin`     | Canvas 2D API is used to set the properties of how 2 connected parts (line segments, arcs, curves) with a length of 0 are connected together (the deformed part with a length of 0, whose designated end and control point are at the same position, will be Ignore), see [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin).                                                                                                           |
+| `lineWidth`    | Canvas 2D API sets the attribute of the line segment thickness (ie the width of the line segment). When getting the attribute value, it can return the current value (the default value is 1.0). When assigning values ​​to attributes, 0, negative numbers, Infinity and NaN will be ignored; otherwise, they will all be assigned a new value, see [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineWidth).                                                                       |
+| `miterLimit`   | Canvas 2D API sets the property of the miter surface to limit the ratio. When the property value is obtained, the current value is returned (the default value is 10.0). When assigning a value to a property, 0, negative numbers, Infinity, and NaN are all ignored; all others are assigned a new value. , See [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit).                                                                                   |
+| `lineDash`     | Set the dashed style of the line, you can specify an array. A set of numbers describing the length of alternately drawn line segments and spacing (coordinate space units). If the number of array elements is odd, the array elements will be copied and repeated. For example, [5, 15, 25] will become [5, 15, 25, 5, 15, 25]. This property depends on whether the browser supports the  `setLineDash()` function, for details reference [setLineDash](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/setLineDash). |
 
-## 文本属性
+## Text attributes
 
-| 属性名         | 描述                                                                                                                         |
+| Attribute Name | Description                                                                                                                         |
 | -------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `textAlign`    | 设置文本内容的当前对齐方式, 支持的属性：center                                                                               |
-| `textBaseline` | 设置在绘制文本时使用的当前文本基线, 支持的属性:top                                                                           |
-| `fontStyle`    | 规定字体样式。可能的值：'normal', 'italic', 'oblique'                                                                        |
-| `fontSize`     | 规定字号，以像素计                                                                                                           |
-| `fontFamily`   | 规定字体系列                                                                                                                 |
-| `fontWeight`   | 规定字体的粗细。可能的值：'normal', 'bold', 'bolder', 'lighter', '100', '200, '300', '400','500', '600', '700', '800', '900' |
-| `fontVariant`  | 规定字体变体。可能的值：'normal', 'small-caps'                                                                               |
-| `lineHeight`   | 规定行高，以像素计                                                                                                           |
+| `textAlign`    | Set the current alignment of the text content, supported attributes: center                                                                               |
+| `textBaseline` | Set the current text baseline used when drawing text, supported attributes: top                                                                         |
+| `fontStyle`    | Specifies the font style. Possible values: 'normal', 'italic', 'oblique'                                                                        |
+| `fontSize`     | Specify font size, in pixels                                                                                                          |
+| `fontFamily`   | Specifies the font family                                                                                                               |
+| `fontWeight`   | Specifies the thickness of the font. Possible values: 'normal', 'bold', 'bolder', 'lighter', '100', '200, '300', '400','500', '600', '700', '800', '900' |
+| `fontVariant`  | Specifies font variants. Possible values: 'normal', 'small-caps'                                                                               |
+| `lineHeight`   | Specify line height, in pixels                                                                                                          |

@@ -105,6 +105,7 @@ $ npm start
 
 - v3.5.x: https://github.com/antvis/G2/tree/v3.5.x
 - v3.6.x: https://github.com/antvis/G2/tree/v3.6.x
+- v4.0.x: https://github.com/antvis/G2/tree/v4.0.x
 
 ## 🤝 How to Contribute
 

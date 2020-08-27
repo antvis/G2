@@ -1,32 +1,53 @@
 ---
-title: G2 简介
+title: G2
 order: 0
 redirect_from:
   - /en/docs/manual
 ---
 
-G2 是一套基于图形语法理论的可视化底层引擎，以数据驱动，提供图形语法与交互语法，具有高度的易用性和扩展性。使用 G2，你可以无需关注图表各种繁琐的实现细节，一条语句即可使用 Canvas 或 SVG 构建出各种各样的可交互的统计图表。
+<div align="center">
 
-## ✨ 特性
+A highly interactive data-driven visualization grammar for statistical charts.
 
-- 💯 完善的图形语法：数据到图形的映射，能够绘制出所有的图表。
-- 🤩 全新的交互语法：通过触发和反馈机制可以组合出各种交互行为，对数据进行探索。
-- 🦍 强大的 View 模块：可支持开发个性化的数据多维分析图形。
-- 👬 双引擎渲染：Canvas 或 SVG 任意切换。
-- 💄 可视化组件体系：面向交互、体验优雅。
-- 🛡 全面拥抱 TypeScript：提供完整的类型定义文件。
+![language: typescript](https://img.shields.io/badge/language-TypeScript-red.svg) ![license: MIT](https://img.shields.io/badge/license-MIT-000000.svg)
 
-## 📦 安装
+[![twitter: AntV_Alipay](https://img.shields.io/twitter/follow/AntV_Alipay.svg?label=AntV&style=social)](https://twitter.com/AntV_Alipay)
+
+</div>
+
+<p align="center">
+  <a href="https://g2.antv.vision/en">Website</a> •
+  <a href="https://g2.antv.vision/en/docs/manual/about-g2">Tutorial Docs</a> •
+  <a href="https://www.yuque.com/antv">Blog</a>
+</p>
+
+G2 is a visualization grammar, a data-driven visual language with a high level of usability and scalability. It provides a set of grammars, takes users beyond a limited set of charts to an almost unlimited world of graphical forms. With G2, you can describe the visual appearance and interactive behavior of a visualization just by one statement, and generate web-based views using Canvas or SVG.
+
+## 📺 Live Demos
+
+<a href="https://g2.antv.vision/en/examples/gallery"><img alt="gallery" src="https://user-images.githubusercontent.com/6628666/75466330-fe1d0c00-59c4-11ea-91ba-506f60ef8af4.png" /></a>
+
+
+## ✨ Features
+
+- 💯Stable grammar of graphics: enable to draw all kinds of charts by mapping data to graphics.
+- 🤩New grammar of interaction: interaction behaviors combined with Trigger and Action mechanisms are used to exploring data.
+- 🦍Advanced View module: with the ability to develop customized multi-dimension data analysis graphics.
+- 👬Dual-engine rendering: with the ability to switch Canvas and SVG freely.
+- 💄Visual components: interaction-oriented, elegant experience.
+- 🛡Fully embrace Typescript: Complete type definition files are provided.
+
+## 📦 Installation
 
 ```bash
 npm install @antv/g2
 ```
 
-## 🔨 快速上手
+## 🔨 Getting Started
 
-<img src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8qbLQb7A0loAAAAAAAAAAABkARQnAQ" style="width:600px;">
+<img alt="column chart" src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8qbLQb7A0loAAAAAAAAAAABkARQnAQ" style="width:600px;">
 
-在绘图前我们需要为 G2 准备一个 DOM 容器：
+Before drawing, we need to prepare a DOM container for G2:
 
 ```html
 <div id="c1"></div>
@@ -43,44 +64,50 @@ const data = [
   { genre: 'Other', sold: 150 },
 ];
 
-// Step 1: 创建 Chart 对象
+// Step 1: Create a Chart object 
 const chart = new Chart({
-  container: 'c1', // 指定图表容器 ID
-  width: 600, // 指定图表宽度
-  height: 300, // 指定图表高度
+  container: 'c1', // specify the chart container ID 
+  width: 600, // specify the chart width
+  height: 300, // specify the chart height 
 });
 
-// Step 2: 载入数据源
+// Step 2: Load the data.
 chart.data(data);
 
-// Step 3: 创建图形语法，绘制柱状图
+// Step 3: Declare the grammar of graphics and draw a column chart.
 chart.interval().position('genre*sold');
 
-// Step 4: 渲染图表
+// Step 4: Render chart. 
 chart.render();
 ```
 
-## ⌨️ 本地开发
+## ⌨️ Development
 
 ```bash
-# 安装依赖
+# Install dependencies
 $ npm install
 
-# 运行测试用例
+# Run test cases
 $ npm run test
 
-# 打开 electron 运行测试用例，监听文件变化构建
+# Open electron to run the test cases and listen to file changes
 $ npm run test-live
 
-# 运行 CI
+# Run CI
 $ npm run ci
 
-# 运行网站
+# Run website
 $ npm start
 ```
 
-## 🤝 如何贡献
+## 🏷️ Releases
 
-如果您在使用的过程中碰到问题，可以先通过 [issues](https://github.com/antvis/g2/issues) 看看有没有类似的 bug 或者建议。
+- v3.5.x: https://github.com/antvis/G2/tree/v3.5.x
+- v3.6.x: https://github.com/antvis/G2/tree/v3.6.x
+- v4.0.x: https://github.com/antvis/G2/tree/v4.0.x
 
-如需提交代码，请遵从我们的[贡献指南](https://github.com/antvis/g2/blob/master/CONTRIBUTING.md)。
+## 🤝 How to Contribute
+
+Please let us know how can we help. Do check out [issues](https://github.com/antvis/g2/issues) for bug reports or suggestions first.
+
+To become a contributor, please follow our [contributing guide](https://github.com/antvis/g2/blob/master/CONTRIBUTING.md).

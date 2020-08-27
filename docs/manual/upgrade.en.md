@@ -1,77 +1,76 @@
 ---
-title: G2 4.0 升级指南
+title: G2 4.0 Upgrade Guide
 order: 9
 ---
 
-## 概述
+## Overview
 
-作为图形语法（the Grammar of Graphics）的前端实现，G2 已经经历多个版本的迭代。本次 G2 4.0 是一个新的起点，我们对底层架构做了大量的重构工作，G2 会更加关注于：**图形语法，交互语法**以及**可视化组件体系**的建设。我们希望 G2 4.0 会成为一个专业的、给用户带来更多可能性的可视化底层引擎，在满足传统型统计图表需求的基础上，能够更好地赋能于（但不限于）：
+As the front-end implementation of the Grammar of Graphics, G2 has undergone multiple iterations. This time G2 4.0 is a new starting point. We have done a lot of reconstruction work on the underlying architecture. G2 will pay more attention to the construction of **graphics grammar**, **interactive grammar** and **visual component system**. We hope that G2 4.0 will become a professional visualization engine that brings more possibilities to users. On the basis of meeting the needs of traditional statistical charts, it can better empower (but not limited to):
 
-- 让开发者基于 G2 4.0 可以更快更好地封装上层图表库
-- 让交互式可视化更简单
-- 成为可视化领域的专业工具
+- Allow developers to encapsulate the upper chart library faster and better based on G2 4.0
+- Make interactive visualization easier
+- Become a professional tool in the field of visualization
 
-虽然我们对 G2 内部进行了大规模的重构工作，包括数据处理流程（引入数据更新机制），图表组件，view 渲染更新逻辑以及事件、交互机制改造等，但是为了保障用户项目能够更平滑得升级，对于 API 层的代码，我们基本没有做大的改动，对于改动之处，我们希望通过升级指南、API 文档等方式来帮助大家更好更快得进行升级。
+Although we have carried out a large-scale refactoring of the G2 internals, including data processing procedures (introduction of data update mechanism), chart components, view rendering update logic, event and interaction mechanism transformation, etc., in order to ensure that user projects can be upgraded more smoothly For the code of the API layer, we have basically not made major changes. Regarding the changes, we hope to help everyone upgrade better and faster through the upgrade guide, API documentation, etc.
 
-## 变更说明
+## Change Description
 
-### 整体变化
+### Overall change
 
-1. 全面拥抱 TypeScript。
-1. 全新的可视化组件：面向交互，体验优雅。
-1. 强大的 View 模块：可单独使用，具备完备的可视化组件、事件，支持 View 嵌套以及自动布局。
-1. 全新的交互语法。
-1. 绘图引擎升级至 G 0.4 版本，支持双引擎切换。
-1. 引入数据更新机制。
-1. 动画机制改造，更细粒度，体验更好。
-1. 模块化管理，提供更加灵活的扩展机制。
+1. Fully embrace TypeScript.
+2. Brand-new visual components: interaction-oriented, elegant experience.
+3. Powerful View module: It can be used alone, with complete visual components and events, and supports View nesting and automatic layout.
+4. Brand new interactive syntax.
+5. The graphics engine has been upgraded to version G 0.4, which supports dual engine switching.
+6. Introduce a data update mechanism.
+7. Animation mechanism transformation, more granular, better experience.
+8. Modular management provides a more flexible expansion mechanism.
 
-### API 变更
+### API changes
 
-G2 4.0 在功能上全面兼容 3.x 的功能，在 API 接口上，我们进行了一些优化，在最大程度兼容 3.x 语法的基础上，提供了对用户更加友好，更易理解的函数命名以及更合理的配置项结构，具体的变化记录如下：
+G2 4.0 is fully functionally compatible with 3.x functions. On the API interface, we have made some optimizations. Based on the maximum compatibility with 3.x syntax, it provides more user-friendly, more understandable function naming and more Reasonable configuration item structure, the specific change records are as follows:
 
-#### 不兼容改动
+#### Incompatible changes
 
-- 🗑️ `chart.source()` 接口废弃，请使用 `chart.data()` 接口，同时列定义请通过 `chart.scale()`  接口进行定义。
-- 🗑️ `chart.coord()` 接口废弃，请使用 `chart.coordinate()`。
-- 🗑️ `chart.guide()` 接口废弃，请使用 `chart.annotation()`，同时不再支持 `chart.guide().html()`。
-- 🗑️ `chart.view()`  接口废弃，请使用 `chart.createView()`。
-- 🗑️ `chart.interact()`  接口废弃，请使用 `chart.interaction()`。
-- 🗑️ `chart.repaint()`  接口废弃，请使用 `chart.render(update: boolean)` 接口。
-- 🗑️ 考虑到 G2 使用环境的不同（浏览器、mobile 等），v3 版本中关于图片下载的接口：`chart.toDataURL` 以及 `chart.downloadImage()` 接口废弃，具体方案可参考 [FAQ](./faq)。
-- 🗑️ `G2.Global` 移除，默认的主题配置可以通过以下方式获取：
+- 🗑️ `chart.source()` interface is obsolete, please use `chart.data()` interface, and for the column definitions please use `chart.scale()` interface.
+- 🗑️ `chart.coord()` interface is obsolete, please use `chart.coordinate()`.
+- 🗑️ `chart.guide()` interface is obsolete, please use `chart.annotation()`，and `chart.guide().html()` is no longer supported.
+- 🗑️ `chart.view()` interface is obsolete, please use `chart.createView()`.
+- 🗑️ `chart.interact()` interface is obsolete, please use `chart.interaction()`.
+- 🗑️ `chart.repaint()` interface is obsolete, please use `chart.render(update: boolean)` interface.
+- 🗑️ Taking into account the difference in the environment of G2 (browser, mobile, etc.) and v3 release, interfaces to download images `chart.toDataURL` and `chart.downloadImage()` have been abandoned; for specific programs refer to [FAQ](./faq.en.md)。
+- 🗑️ `G2.Global` is removed; the default theme configuration can be obtained in the following ways:
 
 ```typescript
-// 方式 1
+// Method 1
 import { getTheme } from '@antv/g2';
 const defaultTheme = getTheme();
 
-// 方式 2，通过 chart 示例获取当前主题
+// Method 2, get the current theme through the chart example 
 const theme = chart.getTheme();
 ```
 
-- 🗑️ `geometry.active()`  废弃，请使用 `geometry.state()` 接口。
-- 🗑️ `geometry.select()`  废弃，请使用 `geometry.state()` 接口。
-- 🗑️ `geometry.opacity()` 废弃，请使用 `geometry.color()`  中使用带透明度的颜色或者 `geometry.style()`  接口。
-- 以下语法糖不再支持：
-  - 🗑️ `pointJitter()`  废弃，请使用 `point().adjust('jitter')`。
-  - 🗑️ `pointDodge()`  废弃，请使用 `point().adjust('dodge')`。
-  - 🗑️ `intervalStack()` 废弃，请使用 `interval().adjust('stack')`。
-  - 🗑️ `intervalDodge()` 废弃，请使用 `interval().adjust('dodge')`。
-  - 🗑️ `intervalSymmetric()` 废弃，请使用 `interval().adjust('symmetric')`。
-  - 🗑️ `areaStack()` 废弃，请使用 `area().adjust('stack')`。
-  - 🗑️ `schemaDodge()` 废弃，请使用  `schema().adjust('stack')`。
-- 🗑️ `Venn`  以及 `Violin`  几何标记暂时移除，后续考虑以更好的方式支持。
-- 🗑️ 移除 Interval 几何标记以下两个 shape: 'top-line' 及  'liquid-fill-gauge'，用户可以通过自定义 Shape 机制自己实现。
-- 🗑️ 移除 tail 类型的图例。
-- 内置常量重命名，一致使用小写 + '-' 命名规则，比如 `shape('hollowCircle')` 变更为 `shape('hollow-circle')`。
+- 🗑️ `geometry.active()` interface is obsolete, please use `geometry.state()` interface.
+- 🗑️ `geometry.select()` interface is obsolete, please use `geometry.state()` interface.
+- 🗑️ `geometry.opacity()` interface is obsolete, please use `geometry.color()`  for color or `geometry.style()` interface.
+- The following syntax is no longer supported:
+  - 🗑️ `pointJitter()` interface is obsolete, please use `point().adjust('jitter')`。
+  - 🗑️ `pointDodge()` interface is obsolete, please use `point().adjust('dodge')`。
+  - 🗑️ `intervalStack()` interface is obsolete, please use `interval().adjust('stack')`。
+  - 🗑️ `intervalDodge()` interface is obsolete, please use `interval().adjust('dodge')`。
+  - 🗑️ `intervalSymmetric()` interface is obsolete, please use `interval().adjust('symmetric')`。
+  - 🗑️ `areaStack()` interface is obsolete, please use `area().adjust('stack')`。
+  - 🗑️ `schemaDodge()` interface is obsolete, please use `schema().adjust('stack')`。
+- 🗑️ `Venn` and `Violin` geometric markers are temporarily removed, and we will consider supporting them in a better way later.
+- 🗑️ Remove the following two shaped from the Interval geometry shape: 'top-line' and 'liquid-fill-gauge'，Users can implement them by customizing the Shape mechanism.
+- 🗑️ Remove the tail type legend.
+- Rename the built-in constants, consistent use of lowercase + '-' naming conventions, like change `shape('hollowCircle')` to `shape('hollow-circle')`.
 
-#### 配置项以及接口变更
+#### Configuration and Interface changes
 
-我们在 4.0 中对以下接口以及一些接口中的属性进行了部分变更，在兼容 3.x 原有功能的基础上，让配置项更具语义，同时结构更加合理，具体请参考 API 文档。
-
-- `new Chart(cfg)`  接口属性更新：
-  - 4.0 代码使用示例：
+In 4.0, we have made some changes to the following interfaces and some of the attributes in the interfaces. Based on the compatibility with the original functions of 3.x, the configuration items are more semantic and the structure is more reasonable. Please refer to the API documentation for details.
+- `new Chart(cfg)` Interface attribute update:
+  - 4.0 code usage example:
 
 ```typescript
 const chart = new Chart({
@@ -81,57 +80,57 @@ const chart = new Chart({
 });
 ```
 
-> 新老接口对比：[https://github.com/simaQ/g2-v4-upgrade/pull/1/files#diff-6477dff11424caa76a176cf710e71023R16](https://github.com/simaQ/g2-v4-upgrade/pull/1/files#diff-6477dff11424caa76a176cf710e71023R16)
+> Comparison of new and old interfaces: [https://github.com/simaQ/g2-v4-upgrade/pull/1/files#diff-6477dff11424caa76a176cf710e71023R16](https://github.com/simaQ/g2-v4-upgrade/pull/1/files#diff-6477dff11424caa76a176cf710e71023R16)
 
-- `chart.data()`  接口不再支持 DataView 格式数据，只支持标准 JSON 数组，所以在使用 DataSet 时，要取最后的 JSON 数组结果传入 G2：[https://github.com/simaQ/g2-v4-upgrade/pull/1/files#diff-660f42f89c29e15f5f86a3e8c1023302R23](https://github.com/simaQ/g2-v4-upgrade/pull/1/files#diff-660f42f89c29e15f5f86a3e8c1023302R23)
+- `chart.data()` The interface no longer supports DataView format data, and only supports standard JSON arrays, so when using DataSet, take the final JSON array result and pass it to G2: [https://github.com/simaQ/g2-v4-upgrade/pull/1/files#diff-660f42f89c29e15f5f86a3e8c1023302R23](https://github.com/simaQ/g2-v4-upgrade/pull/1/files#diff-660f42f89c29e15f5f86a3e8c1023302R23)
 
 ```typescript
 chart.data(dv.rows);
 ```
 
-- 所有同绘图相关的配置全部定义在 style 属性中:
+- All configurations related to drawing are defined in the style attribute:
 
 ```ts
 chart.axis('value', {
   label: {
     style: {
       textAlign: 'center',
-    }, // 设置坐标轴文本样式
+    }, // Set the axis text style
   },
   line: {
     style: {
       stroke: '#E9E9E9',
       lineDash: [3, 3],
-    }, // 设置坐标轴线样式
+    }, // Set the coordinate axis style 
   },
   grid: {
     line: {
       style: {
         lineDash: [3, 3],
       },
-    }, // 设置坐标系栅格样式
+    }, // Set the coordinate system grid style 
   },
 });
 ```
 
-- `chart.tooltip()` 配置项更新，同时将 G2 3.x 版本中一些针对特定图表的内置规则删除，需要用户自己通过提供的配置项进行配置，具体配置属性详见 [API](../api/classes/view#tooltip)。
+- `chart.tooltip()` configuration items are updated. At the same time, some built-in rules for specific charts in the G2 3.x version are deleted. Users need to configure themselves through the provided configuration items. For specific configuration properties, please refer to the [API](../api/classes/view#tooltip)。
 
-  - tooltip 的背景辅助框不再配置项中支持，需要使用 `chart.interaction('active-region');` 同时支持直角坐标系和极坐标系。
+  - Background tooltip support auxiliary frame configuration item is no longer necessary to use `chart.interaction('active-region');` support Cartesian coordinates and polar coordinates.
 
   <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*j05pRJG3ovgAAAAAAAAAAABkARQnAQ" width=600 />
 
-- `chart.legend()`  配置项更新，具体的配置见 [API](../api/classes/view#legend)。以下列举了一些 3.x 常用的属性以及 4.0 的替代方案：
+- `chart.legend()` configuration items are updated, see [API](../api/classes/view#legend) for specific configuration. Here are some commonly used 3.x attributes and 4.0 alternatives:
 
-  - 🗑️ `clickable` 属性移除，如想要取消 legend 勾选交互，可以通过 `chart.removeInteraction('legend-filter')` 移除分类图例的勾选交互。
-  - 🗑️ `selectedMode` 属性移除，4.0 可通过自定义交互行为实现。
-  - 🗑️ `onClick` 属性移除，4.0 可通过监听 legend 事件实现：`chart.on('legend:click', (ev) => {})`。
-  - 🗑️ `slidable` 属性移除，4.0 可以通过 `chart.removeInteraction('continuous-filter')` 移除连续图例的滑块交互。
-  - 🗑️ `hoverable` 属性移除，4.0 可以通过 `chart.interaction('legend-active')` 等交互行为实现，参考交互语法 demo: https://g2.antv.vision/en/examples/interaction/component#legend-active。
-  - 🗑️ `onHover` 属性移除，4.0 可以通过监听 legend 事件实现：`chart.on('legend:mousemove', (ev) => {})`。
+  - 🗑️ `clickable` Property removed, If you want to cancel legend check the interaction, you can pass `chart.removeInteraction('legend-filter')` Remove the check interaction of the classification legend.
+  - 🗑️ `selectedMode` Property removed,4.0 can be achieved through custom interaction behavior.
+  - 🗑️ `onClick` Property removed, 4.0 4.0 can be achieved by listening to the legend event: `chart.on('legend:click', (ev) => {})`.
+  - 🗑️ `slidable` Property removed, 4.0 can be achieved by removing continuous interaction from legend slider: `chart.removeInteraction('continuous-filter')` 移除连续图例的滑块交互。
+  - 🗑️ `hoverable` Property removed, in 4.0 use `chart.interaction('legend-active')` and to achieve other interactive behavior , refer interaction grammar. demo: https://g2.antv.vision/en/examples/interaction/component#legend-active。
+  - 🗑️ `onHover` Property removed, 4.0 can be achieved by listening to the legend event: `chart.on('legend:mousemove', (ev) => {})`。
 
-- `chart.axis()`  配置项更新，详见 [API](../api/classes/view#axis)。
-- `chart.annotation()`  各个类型的 annotation 配置项更新，详见 [API](../api/classes/view#annotation)。
-- `geometry().style()` 方法的回调函数写法变更，不再支持一个配置属性一个回调的方式，而是使用一个回调：
+- `chart.axis()` Configuration items are updated, see [API](../api/classes/view#axis) for details.
+- `chart.annotation()` Various types of annotation configuration items are updated, see [API](../api/classes/view#annotation) for details.
+- `geometry().style()` The writing method of the callback function has been changed. It no longer supports a callback method for a configuration property, but a callback:
 
 ```typescript
 style('a', (aVal) => {
@@ -140,10 +139,10 @@ style('a', (aVal) => {
 });
 ```
 
-详见 [API](../api/classes/geometry#style)。
+See [API](../api/classes/geometry#style) for details.
 
-- `geometry.label()` 接口更新，不再支持 html 类型的 label，详见 [API](../api/classes/geometry#label)。
+- `geometry.label()` The interface is updated, and the html type label is no longer supported, see [API](../api/classes/geometry#label) for details.
 
 ---
 
-💌 如果您在升级过程中，发现本升级指南遗漏之处，请随时联系我们（[联系方式](./contact)），非常感谢！
+💌 If you find something missing in this upgrade guide during the upgrade process, please feel free to contact us ([contact information](./contact)), thank you very much!
