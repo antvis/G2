@@ -2,7 +2,6 @@ import { Chart } from '../../../../../../src';
 import { BBox } from '../../../../../../src/util/bbox';
 import { removeDom } from '../../../../../../src/util/dom';
 import { salesByArea, subSalesByArea } from '../../../../../data/sales';
-import { delay } from '../../../../../util/delay';
 import { createDiv } from '../../../../../util/dom';
 import { near } from '../../../../../util/math';
 
@@ -22,6 +21,7 @@ describe('adjust-position layout', () => {
     });
     const interval = chart
       .interval()
+      .animate(false)
       .position('area*sales')
       .label('sales', {
         layout: [
@@ -32,9 +32,6 @@ describe('adjust-position layout', () => {
       });
 
     chart.render();
-
-    // 等 label 动画执行完
-    await delay(500);
 
     const elements = interval.elements;
     expect(elements).toHaveLength(salesByArea.length);
@@ -60,6 +57,7 @@ describe('adjust-position layout', () => {
     });
     const interval = chart
       .interval()
+      .animate(false)
       .position('area*sales')
       .label('sales', {
         layout: [
@@ -70,9 +68,6 @@ describe('adjust-position layout', () => {
       });
 
     chart.render();
-
-    // 等 label 动画执行完
-    await delay(500);
 
     const elements = interval.elements;
     expect(elements).toHaveLength(salesByArea.length);
@@ -99,6 +94,7 @@ describe('adjust-position layout', () => {
     chart.coordinate().transpose();
     const interval = chart
       .interval()
+      .animate(false)
       .position('area*sales')
       .label('sales', {
         layout: [
@@ -109,9 +105,6 @@ describe('adjust-position layout', () => {
       });
 
     chart.render();
-
-    // 等 label 动画执行完
-    await delay(500);
 
     const elements = interval.elements;
     expect(elements).toHaveLength(salesByArea.length);
@@ -138,6 +131,7 @@ describe('adjust-position layout', () => {
     chart.coordinate().transpose();
     const interval = chart
       .interval()
+      .animate(false)
       .position('area*sales')
       .label('sales', {
         layout: [
@@ -148,9 +142,6 @@ describe('adjust-position layout', () => {
       });
 
     chart.render();
-
-    // 等 label 动画执行完
-    await delay(500);
 
     const elements = interval.elements;
     expect(elements).toHaveLength(salesByArea.length);
@@ -178,6 +169,7 @@ describe('adjust-position layout', () => {
     chart.coordinate().transpose();
     const interval = chart
       .interval()
+      .animate(false)
       .position('area*sales')
       .label('sales', {
         layout: [
@@ -188,9 +180,6 @@ describe('adjust-position layout', () => {
       });
 
     chart.render();
-
-    // 等 label 动画执行完
-    await delay(500);
 
     let elements = interval.elements;
     expect(elements).toHaveLength(salesByArea.length);
@@ -203,8 +192,6 @@ describe('adjust-position layout', () => {
     });
 
     chart.changeSize(600, 500);
-
-    await delay(500);
 
     elements = interval.elements;
     expect(elements).toHaveLength(salesByArea.length);
@@ -230,6 +217,7 @@ describe('adjust-position layout', () => {
     });
     const interval = chart
       .interval()
+      .animate(false)
       .position('area*sales')
       .adjust('dodge')
       .color('series')
@@ -242,9 +230,6 @@ describe('adjust-position layout', () => {
       });
 
     chart.render();
-
-    // 等 label 动画执行完
-    await delay(500);
 
     const elements = interval.elements;
     expect(elements).toHaveLength(subSalesByArea.length);
@@ -270,10 +255,12 @@ describe('adjust-position layout', () => {
     });
     const interval = chart
       .interval()
+      .animate(false)
       .position('area*sales')
       .adjust('dodge')
       .color('series')
       .label('sales', {
+        animate: false,
         layout: [
           {
             type: 'interval-adjust-position',
@@ -282,9 +269,6 @@ describe('adjust-position layout', () => {
       });
 
     chart.render();
-
-    // 等 label 动画执行完
-    await delay(500);
 
     const elements = interval.elements;
     expect(elements).toHaveLength(subSalesByArea.length);
@@ -310,6 +294,7 @@ describe('adjust-position layout', () => {
     });
     const interval = chart
       .interval()
+      .animate(false)
       .position('area*sales')
       .adjust('stack')
       .color('series')
@@ -322,9 +307,6 @@ describe('adjust-position layout', () => {
       });
 
     chart.render();
-
-    // 等 label 动画执行完
-    await delay(500);
 
     const elements = interval.elements;
     expect(elements).toHaveLength(subSalesByArea.length);
@@ -350,6 +332,7 @@ describe('adjust-position layout', () => {
     });
     const interval = chart
       .interval()
+      .animate(false)
       .position('area*sales')
       .adjust('stack')
       .color('series')
@@ -362,9 +345,6 @@ describe('adjust-position layout', () => {
       });
 
     chart.render();
-
-    // 等 label 动画执行完
-    await delay(500);
 
     const elements = interval.elements;
     expect(elements).toHaveLength(subSalesByArea.length);

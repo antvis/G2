@@ -3,7 +3,6 @@ import { Chart } from '../../../../../../src';
 import { IGroup } from '../../../../../../src/dependents';
 import { removeDom } from '../../../../../../src/util/dom';
 import { cityTemperature } from '../../../../../data/city-temperature';
-import { delay } from '../../../../../util/delay';
 import { createDiv } from '../../../../../util/dom';
 
 const hiddens = [
@@ -41,6 +40,7 @@ describe('adjust-position layout', () => {
     const line = chart.line().position('month*temperature').color('city');
     const point = chart
       .point()
+      .animate(false)
       .position('month*temperature')
       .color('city')
       .label('temperature', {
@@ -59,8 +59,6 @@ describe('adjust-position layout', () => {
     });
 
     chart.render();
-
-    await delay(500);
 
     const labels = point.labelsContainer.getChildren();
 

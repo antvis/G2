@@ -22,6 +22,7 @@ describe('adjust-color layout', () => {
     });
     const interval = chart
       .interval()
+      .animate(false)
       .position('area*sales')
       .color('series')
       .adjust({
@@ -29,6 +30,7 @@ describe('adjust-color layout', () => {
         marginRatio: 1 / 32,
       })
       .label('sales', {
+        animate: false,
         position: 'middle',
         layout: {
           type: 'adjust-color',
@@ -36,9 +38,6 @@ describe('adjust-color layout', () => {
       });
 
     chart.render();
-
-    // 等 label 动画执行完
-    await delay(500);
 
     const labelContainer = interval.labelsContainer;
     expect(labelContainer.getCount()).toBe(subSalesByArea.length);
