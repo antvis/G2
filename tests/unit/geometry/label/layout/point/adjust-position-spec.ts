@@ -59,8 +59,6 @@ describe('adjust-position layout', () => {
     });
 
     chart.render();
-    // @ts-ignore
-    window.__chart__ = chart;
 
     await delay(500);
 
