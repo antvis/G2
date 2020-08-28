@@ -5,7 +5,6 @@ import Element from '../geometry/element';
 import { LooseObject, StyleSheet } from '../interface';
 import { getAngle } from '../util/graphics';
 
-
 /**
  * 根据主题样式表生成主题结构
  * @param styleSheet 主题样式表
@@ -1234,6 +1233,8 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
         stroke: styleSheet.labelBorderColor,
         lineWidth: styleSheet.labelBorder,
       },
+      fillColorDark: styleSheet.labelFillColorDark,
+      fillColorLight: styleSheet.labelFillColorLight,
       autoRotate: true,
     },
     innerLabels: {

@@ -1,10 +1,18 @@
 /**
  * @file utils of label
  */
-import { IGroup } from '@antv/g-base';
+import { IElement, IGroup } from '@antv/g-base';
 import { isNil, isNumber } from '@antv/util';
 import { rotate } from '../../../util/transform';
 import { LabelItem } from '../interface';
+
+/**
+ * 查找 Label Group 中的文本 shape 对象
+ * @param label
+ */
+export function findLabelTextShape(label: IGroup): IElement {
+  return label.find((el) => el.get('type') === 'text');
+}
 
 /**
  * 获取标签背景信息: box (无旋转) + rotation (旋转角度)

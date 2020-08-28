@@ -262,6 +262,8 @@ export const antvLight = {
   // -------------------- Geometry labels --------------------
   /** Geometry label 文本颜色 */
   labelFillColor: BLACK_COLORS[65],
+  labelFillColorDark: '#2c3542',
+  labelFillColorLight: '#ffffff',
   /** Geometry label 文本字体大小 */
   labelFontSize: 12,
   /** Geometry label 文本行高 */
