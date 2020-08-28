@@ -150,6 +150,7 @@ import Axis from './chart/controller/axis';
 import Legend from './chart/controller/legend';
 import Slider from './chart/controller/slider';
 import Tooltip from './chart/controller/tooltip';
+import Scrollbar from './chart/controller/scrollbar';
 
 // register build-in components
 registerComponentController('axis', Axis);
@@ -157,6 +158,7 @@ registerComponentController('legend', Legend);
 registerComponentController('tooltip', Tooltip);
 registerComponentController('annotation', Annotation);
 registerComponentController('slider', Slider);
+registerComponentController('scrollbar', Scrollbar);
 
 // 注册 Interaction Action
 import { registerAction } from './core';
