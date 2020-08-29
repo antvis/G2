@@ -1,6 +1,6 @@
-import { Chart } from '../../src';
-import { COMPONENT_TYPE } from '../../src/constant';
-import { createDiv, removeDom } from '../util/dom';
+import { Chart } from '../../../src';
+import { COMPONENT_TYPE } from '../../../src/constant';
+import { createDiv, removeDom } from '../../util/dom';
 
 describe('Schema', () => {
   const div = createDiv();
@@ -175,6 +175,46 @@ describe('Schema', () => {
 
     const coordinate = chart.getCoordinate();
     expect(coordinate.type).toBe('polar');
+  });
+
+  it('padding update', () => {
+    chart.destroy();
+    chart = new Chart({
+      container: div,
+      width: 400,
+      height: 400,
+      options: {
+        animate: false,
+        data: [],
+        scales: {
+          scales: { nice: false },
+        },
+        geometries: [
+          {
+            type: 'area',
+            position: { fields: [ 'Date', 'scales' ] }
+          },
+        ],
+      }
+    });
+    chart.render();
+    chart.updateOptions({
+      data: [
+        { Date: '2010-01', scales: 1998 },
+        { Date: '2010-02', scales: 1850 },
+      ],
+      geometries: [
+        {
+          type: 'area',
+          position: { fields: [ 'Date', 'scales'] }
+        },
+      ],
+    });
+    chart.render();
+    expect(chart.autoPadding[0]).toBe(0);
+    expect(chart.autoPadding[1]).toBe(0.5);
+    expect(chart.autoPadding[2]).toBe(20);
+    expect(chart.autoPadding[3]).toBe(34.68798828125);
   });
 
   afterAll(() => {

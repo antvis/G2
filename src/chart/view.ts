@@ -673,6 +673,8 @@ export class View extends Base {
     this.clear(); // 清空
     mix(this.options, options);
     this.initOptions();
+    // 初始化坐标系大小，保证 padding 计算正确
+    this.coordinateBBox = this.viewBBox;
     return this;
   }
 
@@ -1887,7 +1889,7 @@ export class View extends Base {
     // 坐标系
     if (this.coordinateController) {
       // 更新 coordinate controller
-      this.coordinateController.update(coordinate);
+      coordinate && this.coordinateController.update(coordinate);
     } else {
       // 创建 coordinate controller
       this.coordinateController = new CoordinateController(coordinate);
