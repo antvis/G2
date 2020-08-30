@@ -1,10 +1,11 @@
 import { Chart } from '../../../src';
 import { createDiv, removeDom } from '../../util/dom';
 
-describe('Label option', () => {
+describe('Events options', () => {
   const div = createDiv();
   let chart;
-  it('pie', () => {
+  it('events', () => {
+    const clickFn = jest.fn();
     chart = new Chart({
       container: div,
       autoFit: false,
@@ -18,32 +19,22 @@ describe('Label option', () => {
           { genre: 'Shooter', sold: 350 },
           { genre: 'Other', sold: 150 },
         ],
-        coordinate: {
-          type: 'polar',
-          actions: [['transpose']]
-        },
-        scales: {
-          genre: { alias: '游戏种类' },
-          sold: { alias: '销售量' },
-        },
         geometries: [
           {
             type: 'interval',
-            position: '1*sold',
+            position: 'genre*sold',
             color: 'genre',
-            adjust: 'stack',
-            label: {
-              fields: ['sold'],
-            }
           },
         ],
-        interactions: [{ type: 'active-region' }],
+        events: {
+          'interval:click': () => clickFn(),
+        }
       },
     });
     chart.render();
 
-    // @ts-ignore
-    expect(chart.geometries[0].getLabelType()).toBe('pie');
+    chart.emit('interval:click');
+    expect(clickFn).toBeCalled();
   });
 
   afterAll(() => {

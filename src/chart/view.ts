@@ -1884,9 +1884,9 @@ export class View extends Base {
   }
 
   private initOptions() {
-    const { geometries = [], interactions = [], views = [], annotations = [], coordinate } = this.options;
+    const { geometries = [], interactions = [], views = [], annotations = [], coordinate, events } = this.options;
 
-    // 坐标系
+    // 设置坐标系
     if (this.coordinateController) {
       // 更新 coordinate controller
       coordinate && this.coordinateController.update(coordinate);
@@ -1919,6 +1919,13 @@ export class View extends Base {
     for (let l = 0; l < annotations.length; l++) {
       const annotationOption = annotations[l];
       annotationComponent.annotation(annotationOption);
+    }
+
+    // 设置 events
+    if (events) {
+      each(events, (eventCallback, eventName) => {
+        this.on(eventName, eventCallback);
+      });
     }
   }
 

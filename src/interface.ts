@@ -1388,6 +1388,16 @@ export interface SliderCfg {
   formatter?: (val: any, datum: Datum, idx: number) => any;
 }
 
+
+export type EventCallback = (event: LooseObject) => void;
+/**
+ * todo: 事件名可穷举，后续需要补充
+ * 事件配置项
+ */
+export interface EventCfg {
+  [key: string]: EventCallback;
+}
+
 /**
  * 缩略轴的配置项
  */
@@ -1426,6 +1436,8 @@ export interface Options {
   readonly animate?: boolean;
   /** 配置需要使用的交互行为 */
   readonly interactions?: InteractionOption[];
+  /** 事件配置 */
+  readonly events?: EventCfg;
 
   /** 缩略轴的配置 */
   readonly slider?: SliderOption;
