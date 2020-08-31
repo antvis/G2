@@ -37,7 +37,7 @@ describe('Tooltip', () => {
   it('showTooltip', () => {
     let items;
     chart.on('tooltip:show', (e) => {
-      items = e.items;
+      items = e.data.items;
     });
 
     const point = chart.getXY({ name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 });

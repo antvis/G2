@@ -312,7 +312,7 @@ chart.on('tooltip:show', (ev) => {
   // tooltip: 当前的 tooltip 对象
   // items: 数组对象，当前 tooltip 显示的每条内容
   // title: tooltip 标题
-  const { tooltip, items, title, x, y } = ev;
+  const { tooltip, items, title, x, y } = ev.data;
 });
 
 // tooltip 内容变更时触发
@@ -322,12 +322,12 @@ chart.on('tooltip:change', (ev) => {
   // tooltip: 当前的 tooltip 对象
   // items: 数组对象，当前 tooltip 显示的每条内容
   // title: tooltip 标题
-  const { tooltip, items, title, x, y } = ev;
+  const { tooltip, items, title, x, y } = ev.data;
 });
 
 // tooltip 消失时触发
 chart.on('tooltip:hide', (ev) => {
   // tooltip: 当前的 tooltip 对象
-  const { tooltip } = ev;
+  const { tooltip } = ev.data;
 });
 ```
