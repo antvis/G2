@@ -72,7 +72,7 @@ export default class Slider extends Controller<SliderOption> {
     if (this.slider) {
       const width = this.view.coordinateBBox.width;
       // 获取组件的 layout bbox
-      const padding: Padding = get(this.option, 'padding', [8, 8, 8, 8]);
+      const padding: Padding = this.slider.component.get('padding') as Padding;
       const bboxObject = this.slider.component.getLayoutBBox();
       const bbox = new BBox(bboxObject.x, bboxObject.y, Math.min(bboxObject.width, width), bboxObject.height).expand(padding);
 
@@ -148,7 +148,7 @@ export default class Slider extends Controller<SliderOption> {
       const width = this.view.coordinateBBox.width;
 
       // 因为有样式，所以深层覆盖
-      const cfg = deepMix({}, { x, y, width }, this.option);
+      const cfg = deepMix({}, this.getThemeOptions(), { x, y, width }, this.option);
 
       // trendCfg 因为有数据数组，所以使用浅替换
       return { ...cfg, trendCfg };
@@ -175,6 +175,14 @@ export default class Slider extends Controller<SliderOption> {
     }
 
     return data.map((datum) => datum[yScale.field] || 0);
+  }
+
+  /**
+   * 获取 slider 的主题配置
+   */
+  private getThemeOptions() {
+    const theme = this.view.getTheme();
+    return get(theme, ['components', 'slider', 'common'], {});
   }
 
   /**
