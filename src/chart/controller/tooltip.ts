@@ -7,6 +7,7 @@ import { polarToCartesian } from '../../util/graphics';
 import { findDataByPoint, getTooltipItems } from '../../util/tooltip';
 import { BBox } from '../../util/bbox';
 import { Controller } from './base';
+import Event from '../event';
 
 // Filter duplicates, use `name`, `color`, `value` and `title` property values as condition
 function uniq(items) {
@@ -78,11 +79,11 @@ export default class Tooltip extends Controller<TooltipOption> {
       y: items[0].y,
     }; // 数据点位置
 
-    view.emit('tooltip:show', {
+    view.emit('tooltip:show', Event.fromData(view, 'tooltip:show', {
       items,
       title,
       ...point,
-    });
+    }));
 
     const cfg = this.getTooltipCfg();
     const { follow, showMarkers, showCrosshairs, showContent, marker } = cfg;
@@ -90,11 +91,11 @@ export default class Tooltip extends Controller<TooltipOption> {
     const lastTitle = this.title;
     if (!isEqual(lastTitle, title) || !isEqual(lastItems, items)) {
       // 内容发生变化了更新 tooltip
-      view.emit('tooltip:change', {
+      view.emit('tooltip:change', Event.fromData(view, 'tooltip:change', {
         items,
         title,
         ...point,
-      });
+      }));
 
       if (showContent) {
         // 展示 tooltip 内容框才渲染 tooltip
@@ -169,7 +170,8 @@ export default class Tooltip extends Controller<TooltipOption> {
       tooltip.hide();
     }
 
-    this.view.emit('tooltip:hide', {});
+    this.view.emit('tooltip:hide', Event.fromData(this.view, 'tooltip:hide', {}));
+
     this.point = null;
   }
 

@@ -309,25 +309,21 @@ chart
 chart.on('tooltip:show', (ev) => {
   // x: 当前鼠标的 x 坐标,
   // y: 当前鼠标的 y 坐标,
-  // tooltip: 当前的 tooltip 对象
   // items: 数组对象，当前 tooltip 显示的每条内容
   // title: tooltip 标题
-  const { tooltip, items, title, x, y } = ev;
+  const { items, title, x, y } = ev.data;
 });
 
 // tooltip 内容变更时触发
 chart.on('tooltip:change', (ev) => {
   // x: 当前鼠标的 x 坐标,
   // y: 当前鼠标的 y 坐标,
-  // tooltip: 当前的 tooltip 对象
   // items: 数组对象，当前 tooltip 显示的每条内容
   // title: tooltip 标题
-  const { tooltip, items, title, x, y } = ev;
+  const { items, title, x, y } = ev.data;
 });
 
 // tooltip 消失时触发
 chart.on('tooltip:hide', (ev) => {
-  // tooltip: 当前的 tooltip 对象
-  const { tooltip } = ev;
 });
 ```

@@ -23,6 +23,16 @@ export default class Event {
     this.type = gEvent.type;
   }
 
+  /**
+   * 非交互产生的事件
+   * @param view
+   * @param type
+   * @param data
+   */
+  public static fromData(view: View, type: string, data: Datum) {
+    return new Event(view, new GEvent(type, {}), data);
+  }
+
   // below props are proxy props of G.event convenient
 
   /** the real trigger shape of the event */
