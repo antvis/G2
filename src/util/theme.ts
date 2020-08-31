@@ -1223,6 +1223,11 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
           animate: true,
         },
       },
+      slider: {
+        common: {
+          padding: [8, 8, 8, 8],
+        }
+      }
     },
     labels: {
       offset: 12,

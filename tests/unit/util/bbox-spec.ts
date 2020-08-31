@@ -72,4 +72,14 @@ describe('util/ bbox', () => {
     expect(bbox.isPointIn({ x: 50, y: 50 })).toBe(true);
     expect(bbox.isPointIn({ x: 120, y: 120 })).toBe(false);
   });
+
+  it('expand', () => {
+    let bbox = new BBox(10, 10, 100, 100);
+    bbox = bbox.expand([10, 10, 10, 10]);
+
+    expect(bbox.x).toBe(0);
+    expect(bbox.y).toBe(0);
+    expect(bbox.width).toBe(120);
+    expect(bbox.height).toBe(120);
+  });
 });

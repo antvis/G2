@@ -1401,7 +1401,10 @@ export interface EventCfg {
 /**
  * 缩略轴的配置项
  */
-export type SliderOption = SliderCfg | boolean;
+export type SliderOption = SliderCfg & {
+  /** 布局的 padding */
+  readonly padding: Padding;
+} | boolean;
 
 /** 配置项声明式 */
 export interface Options {

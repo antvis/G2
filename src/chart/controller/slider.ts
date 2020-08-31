@@ -1,7 +1,7 @@
 import { deepMix, get, isObject, size } from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { IGroup, Slider as SliderComponent } from '../../dependents';
-import { ComponentOption, Datum } from '../../interface';
+import { ComponentOption, Datum, Padding } from '../../interface';
 import { BBox } from '../../util/bbox';
 import { directionToPosition } from '../../util/direction';
 import { isBetween, omit } from '../../util/helper';
@@ -72,18 +72,21 @@ export default class Slider extends Controller<SliderOption> {
     if (this.slider) {
       const width = this.view.coordinateBBox.width;
       // 获取组件的 layout bbox
+      const padding: Padding = this.slider.component.get('padding') as Padding;
       const bboxObject = this.slider.component.getLayoutBBox();
-      const bbox = new BBox(bboxObject.x, bboxObject.y, Math.min(bboxObject.width, width), bboxObject.height);
+      const bbox = new BBox(bboxObject.x, bboxObject.y, Math.min(bboxObject.width, width), bboxObject.height).expand(padding);
 
       const [x1, y1] = directionToPosition(this.view.viewBBox, bbox, DIRECTION.BOTTOM);
       const [x2, y2] = directionToPosition(this.view.coordinateBBox, bbox, DIRECTION.BOTTOM);
 
       // 默认放在 bottom
       this.slider.component.update({
-        x: x2,
-        y: y1,
-        width,
+        x: x2 + padding[3],
+        y: y1 + padding[0],
+        width: width - padding[1] - padding[3],
       });
+
+      this.view.viewBBox = this.view.viewBBox.cut(bbox, DIRECTION.BOTTOM);
     }
   }
 
@@ -112,7 +115,7 @@ export default class Slider extends Controller<SliderOption> {
       component,
       layer: LAYER.FORE,
       direction: DIRECTION.BOTTOM,
-      type: COMPONENT_TYPE.OTHER,
+      type: COMPONENT_TYPE.SLIDER,
     };
   }
 
@@ -145,7 +148,7 @@ export default class Slider extends Controller<SliderOption> {
       const width = this.view.coordinateBBox.width;
 
       // 因为有样式，所以深层覆盖
-      const cfg = deepMix({}, { x, y, width }, this.option);
+      const cfg = deepMix({}, this.getThemeOptions(), { x, y, width }, this.option);
 
       // trendCfg 因为有数据数组，所以使用浅替换
       return { ...cfg, trendCfg };
@@ -172,6 +175,14 @@ export default class Slider extends Controller<SliderOption> {
     }
 
     return data.map((datum) => datum[yScale.field] || 0);
+  }
+
+  /**
+   * 获取 slider 的主题配置
+   */
+  private getThemeOptions() {
+    const theme = this.view.getTheme();
+    return get(theme, ['components', 'slider', 'common'], {});
   }
 
   /**

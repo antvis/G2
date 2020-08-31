@@ -46,6 +46,8 @@ export enum COMPONENT_TYPE {
   TOOLTIP = 'tooltip',
   /** annotation 组件 */
   ANNOTATION = 'annotation',
+  /** 缩略轴组件 */
+  SLIDER = 'slider',
   /** 其他组件，自定义组件 */
   OTHER = 'other',
 }
