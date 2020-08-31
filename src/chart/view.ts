@@ -202,9 +202,6 @@ export class View extends Base {
     // 初始化组件 controller
     this.initComponentController();
 
-    // 创建 coordinate controller
-    this.coordinateController = new CoordinateController(this.options.coordinate);
-
     this.initOptions();
 
     // 递归初始化子 view
@@ -675,8 +672,9 @@ export class View extends Base {
   public updateOptions(options: Options) {
     this.clear(); // 清空
     mix(this.options, options);
-
     this.initOptions();
+    // 初始化坐标系大小，保证 padding 计算正确
+    this.coordinateBBox = this.viewBBox;
     return this;
   }
 
@@ -1886,7 +1884,16 @@ export class View extends Base {
   }
 
   private initOptions() {
-    const { geometries = [], interactions = [], views = [], annotations = [] } = this.options;
+    const { geometries = [], interactions = [], views = [], annotations = [], coordinate, events } = this.options;
+
+    // 设置坐标系
+    if (this.coordinateController) {
+      // 更新 coordinate controller
+      coordinate && this.coordinateController.update(coordinate);
+    } else {
+      // 创建 coordinate controller
+      this.coordinateController = new CoordinateController(coordinate);
+    }
 
     // 创建 geometry 实例
     for (let i = 0; i < geometries.length; i++) {
@@ -1912,6 +1919,13 @@ export class View extends Base {
     for (let l = 0; l < annotations.length; l++) {
       const annotationOption = annotations[l];
       annotationComponent.annotation(annotationOption);
+    }
+
+    // 设置 events
+    if (events) {
+      each(events, (eventCallback, eventName) => {
+        this.on(eventName, eventCallback);
+      });
     }
   }
 
