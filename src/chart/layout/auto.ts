@@ -79,8 +79,8 @@ export function calculatePadding(view: View): Padding {
   each(sliderComponents, (co: ComponentOption) => {
     const { component, direction } = co;
     const bboxObject = component.getLayoutBBox();
-    const padding: Padding = component.get('padding');
-    const componentBBox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height).expand(padding);
+    const componentPadding: Padding = component.get('padding');
+    const componentBBox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height).expand(componentPadding);
     // 按照方向计算 padding
     paddingCal.inc(componentBBox, direction);
   });
