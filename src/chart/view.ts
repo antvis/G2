@@ -251,7 +251,12 @@ export class View extends Base {
     // 3. 清空 controllers
     const controllers = this.controllers;
     for (let i = 0; i < controllers.length; i++) {
-      controllers[i].clear();
+      if (controllers[i].name === 'annotation') {
+        // 需要清空配置项
+        (controllers[i] as Annotation).clear(true);
+      } else {
+        controllers[i].clear();
+      }
     }
 
     // 4. 删除 scale 缓存
