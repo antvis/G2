@@ -178,6 +178,9 @@ export function pieSpiderLabelLayout(items: LabelItem[], labels: IGroup[], shape
 
     each(half, (item) => {
       const label: IGroup = get(labelsMap, item && item.id);
+      if (!label) {
+        return;
+      }
       // out of range, hidden
       if (item.y < startY || item.y > endY) {
         label.set('visible', false);
