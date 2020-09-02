@@ -1,5 +1,4 @@
 import { COMPONENT_TYPE, DIRECTION, LAYER } from './constant';
-
 import {
   AxisLabelCfg,
   AxisLineCfg,
@@ -1071,6 +1070,8 @@ export interface LegendCfg {
   offsetX?: number;
   /** 图例 y 方向的偏移。 */
   offsetY?: number;
+  /** 图例在四个方向的偏移量 */
+  padding?: number[];
 }
 
 /**
@@ -1384,6 +1385,8 @@ export interface SliderCfg {
   readonly start?: number;
   /** 滑块初始化的结束位置 */
   readonly end?: number;
+  /** 布局的 padding */
+  readonly padding: number[];
   /** 滑块文本格式化函数 */
   formatter?: (val: any, datum: Datum, idx: number) => any;
 }
@@ -1401,10 +1404,14 @@ export interface EventCfg {
 /**
  * 缩略轴的配置项
  */
+<<<<<<< HEAD
 export type SliderOption = SliderCfg & {
   /** 布局的 padding */
   readonly padding?: Padding;
 } | boolean;
+=======
+export type SliderOption = SliderCfg | boolean;
+>>>>>>> feat(legend-padding): add component padding for legend
 
 /** 配置项声明式 */
 export interface Options {

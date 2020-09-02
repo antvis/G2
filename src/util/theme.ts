@@ -1033,6 +1033,7 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
             },
           },
           slidable: true,
+          padding: legendStyles.padding,
         },
       },
       tooltip: {

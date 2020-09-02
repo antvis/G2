@@ -35,6 +35,13 @@ describe('#2173', () => {
   chart.line().position('time*view_value').color('views');
   chart.line().position('time*sale_value').color('products');
 
+  chart.legend('views', {
+    padding: [0, 8, 8, 8],
+  });
+  chart.legend('products', {
+    padding: [8, 8, 0, 8],
+  });
+
   chart.render();
 
   it('legend should not be overlap', () => {

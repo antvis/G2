@@ -55,22 +55,8 @@ export function calculatePadding(view: View): Padding {
   each(legendComponents, (co: ComponentOption, index) => {
     const { component, direction } = co;
     const bboxObject = component.getLayoutBBox();
-
-    const componentBBox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height);
-
-    if (index === 0) {
-      // 只需要第一个图例加边距
-      const spacing = component.get('spacing');
-      // 图例组件沿着绘图区域四边往外进行布局，在计算 padding 时需要考虑 spacing 参数
-      if (direction.startsWith('top') || direction.startsWith('bottom')) {
-        // 位于顶部或者，高度需要加上 spacing
-        componentBBox.height += spacing;
-      }
-
-      if (direction.startsWith('right') || direction.startsWith('left')) {
-        componentBBox.width += spacing;
-      }
-    }
+    const componentPadding: Padding = component.get('padding');
+    const componentBBox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height).expand(componentPadding);;
 
     // 按照方向计算 padding
     paddingCal.inc(componentBBox, direction);
