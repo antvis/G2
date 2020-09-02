@@ -4,7 +4,7 @@ import { removeDom } from '../../../../../src/util/dom';
 import { createDiv } from '../../../../util/dom';
 import { CountryEconomy } from '../../../../data/country-economy';
 
-describe('pie-outer-label layout', () => {
+describe('pie-spider-label layout', () => {
   const div = createDiv();
   const chart = new Chart({
     container: div,
@@ -20,35 +20,6 @@ describe('pie-outer-label layout', () => {
         radius: 0.6,
       },
     });
-    chart
-      .interval()
-      .adjust('stack')
-      .position('value')
-      .color('country')
-      .label('country', {
-        offset: 8,
-        style: {
-          fill: '#999',
-        },
-        layout: { type: '' },
-      });
-
-    chart.render();
-
-    const coordinate = chart.getCoordinate();
-    const center = coordinate.getCenter();
-
-    let labels = chart.geometries[0].labelsContainer.getChildren().filter(label => label.get('visible'));;
-    let leftLabels = labels.filter((label) => label.attr('x') < center.x);
-    if (leftLabels.length) {
-      const minY = Math.min(...leftLabels.map((label) => label.getBBox().minY));
-      const maxY = Math.max(...leftLabels.map((label) => label.getBBox().maxY));
-      const labelHeight = (leftLabels[0] as IGroup).getChildren()[0].getBBox().height;
-      // 未设置标签布局算法，标签总高度(labels.length * labelHeight) > 标签容器的总高度，发生遮挡
-      expect(maxY - minY).not.toBeGreaterThanOrEqual(leftLabels.length * labelHeight);
-    }
-
-    chart.clear();
 
     chart
       .interval()
@@ -62,14 +33,17 @@ describe('pie-outer-label layout', () => {
         style: {
           fill: '#999',
         },
-        layout: { type: 'pie-outer' },
+        layout: { type: 'pie-spider' },
       });
 
     chart.render();
 
-    labels = chart.geometries[0].labelsContainer.getChildren().filter(label => label.get('visible'));
+    const coordinate = chart.getCoordinate();
+    const center = coordinate.getCenter();
+
+    const labels = chart.geometries[0].labelsContainer.getChildren().filter((label) => label.get('visible'));
     expect(labels.length).toBeLessThan(CountryEconomy.length);
-    leftLabels = labels.filter((label) => label.attr('x') < center.x);
+    const leftLabels = labels.filter((label) => label.attr('x') < center.x);
     if (leftLabels.length) {
       const minY = Math.min(...leftLabels.map((label) => label.getBBox().minY));
       const maxY = Math.max(...leftLabels.map((label) => label.getBBox().maxY));
@@ -106,11 +80,11 @@ describe('pie-outer-label layout', () => {
         style: {
           fill: '#999',
         },
-        layout: { type: 'pie-outer' },
+        layout: { type: 'pie-spider' },
       });
 
     chart.render();
-    const labels = chart.geometries[0].labelsContainer.getChildren().filter(label => label.get('visible'));;
+    const labels = chart.geometries[0].labelsContainer.getChildren().filter((label) => label.get('visible'));
     expect(labels.length).toBe(5);
 
     const label1 = (labels[0] as IGroup).getChildren()[0];

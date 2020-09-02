@@ -57,3 +57,13 @@ export interface LabelItem extends GeometryLabelCfg {
     padding?: number | number[];
   };
 }
+
+/**
+ * polar labelItem
+ */
+export interface PolarLabelItem extends LabelItem {
+  /** 占比 */
+  percent?: number;
+  /** 是否不可见 */
+  invisible?: boolean;
+}

@@ -80,6 +80,7 @@ registerGeometryLabel('polar', PolarLabel);
 import { registerGeometryLabelLayout } from './core';
 import { distribute } from './geometry/label/layout/pie/distribute';
 import { pieOuterLabelLayout } from './geometry/label/layout/pie/outer';
+import { pieSpiderLabelLayout } from './geometry/label/layout/pie/spider';
 import { limitInCanvas } from './geometry/label/layout/limit-in-canvas';
 import { limitInShape } from './geometry/label/layout/limit-in-shape';
 import { fixedOverlap, overlap } from './geometry/label/layout/overlap';
@@ -98,6 +99,7 @@ registerGeometryLabelLayout('pie-outer', pieOuterLabelLayout);
 registerGeometryLabelLayout('adjust-color', adjustColor);
 registerGeometryLabelLayout('interval-adjust-position', intervalAdjustPosition);
 registerGeometryLabelLayout('point-adjust-position', pointAdjustPosition);
+registerGeometryLabelLayout('pie-spider', pieSpiderLabelLayout);
 
 // 注册需要的动画执行函数
 import { fadeIn, fadeOut } from './animate/animation/fade';

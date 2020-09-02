@@ -1,9 +1,9 @@
-import { each, isArray } from '@antv/util';
+import { each, get, isArray } from '@antv/util';
 import { MappingDatum, Point } from '../../interface';
 import { getDistanceToCenter } from '../../util/coordinate';
 import { getAngleByPoint } from '../../util/coordinate';
 import GeometryLabel from './base';
-import { LabelCfg, LabelItem, LabelPointCfg } from './interface';
+import { LabelCfg, LabelItem, PolarLabelItem, LabelPointCfg } from './interface';
 
 const HALF_PI = Math.PI / 2;
 
@@ -11,6 +11,23 @@ const HALF_PI = Math.PI / 2;
  * 极坐标下的图形 label
  */
 export default class PolarLabel extends GeometryLabel {
+  /**
+   * @override
+   * 获取 labelItems, 增加切片 percent
+   * @param mapppingArray
+   */
+  public getLabelItems(mapppingArray: MappingDatum[]): PolarLabelItem[] {
+    const items = super.getLabelItems(mapppingArray);
+    const yScale = this.geometry.getYScale();
+
+    return items.map((item) => {
+      let percent = null;
+      if (yScale) {
+        percent = yScale.scale(get(item.data, yScale.field));
+      }
+      return { ...item, percent };
+    });
+  }
   /**
    * @override
    * 获取文本的对齐方式
