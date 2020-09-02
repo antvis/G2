@@ -1386,7 +1386,7 @@ export interface SliderCfg {
   /** 滑块初始化的结束位置 */
   readonly end?: number;
   /** 布局的 padding */
-  readonly padding: number[];
+  readonly padding?: number[];
   /** 滑块文本格式化函数 */
   formatter?: (val: any, datum: Datum, idx: number) => any;
 }
