@@ -1768,8 +1768,8 @@ export interface StyleSheet {
   legendItemSpacing?: number;
   /** 图例项垂直方向的间隔 */
   legendItemMarginBottom?: number;
-  /** 图例与图表绘图区域的便宜距离  */
-  legendSpacing?: number;
+  /** 图例与图表绘图区域的偏移距离  */
+  legendPadding?: number[];
 
   /** 连续图例滑块填充色 */
   sliderRailFillColor?: string;

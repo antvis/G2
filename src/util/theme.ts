@@ -229,7 +229,7 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
     maxItemWidth: 0.2,
     itemSpacing: styleSheet.legendItemSpacing,
     itemMarginBottom: styleSheet.legendItemMarginBottom,
-    spacing: styleSheet.legendSpacing, // 图例与图表绘图区域的距离
+    padding: styleSheet.legendPadding, // 图例组件自己的外边距
   };
 
   return {
