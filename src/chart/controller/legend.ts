@@ -2,7 +2,7 @@ import { deepMix, each, find, get, head, isBoolean, last } from '@antv/util';
 
 import { COMPONENT_MAX_VIEW_PERCENTAGE, COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { Attribute, CategoryLegend, ContinuousLegend, GroupComponent, IGroup, Scale, Tick } from '../../dependents';
-import { ComponentOption, LegendCfg, LegendOption, LooseObject } from '../../interface';
+import { ComponentOption, LegendCfg, LegendOption, LooseObject, AllLegendsOptions } from '../../interface';
 
 import { DEFAULT_ANIMATE_CFG } from '../../animate';
 import Geometry from '../../geometry/base';
@@ -14,8 +14,6 @@ import { getName } from '../../util/scale';
 import View from '../view';
 import { Controller } from './base';
 
-type Option = Record<string, LegendOption> | boolean;
-
 type DoEach = (geometry: Geometry, attr: Attribute, scale: Scale) => void;
 
 /**
@@ -24,7 +22,7 @@ type DoEach = (geometry: Geometry, attr: Attribute, scale: Scale) => void;
  * @param field
  * @returns the option of one legend field
  */
-function getLegendOption(legends: Record<string, LegendOption> | boolean, field: string) {
+function getLegendOption(legends: AllLegendsOptions, field: string) {
   if (isBoolean(legends)) {
     return legends === false ? false : {};
   }
@@ -40,7 +38,7 @@ function getDirection(legendOption: any): DIRECTION {
  * @ignore
  * legend Controller
  */
-export default class Legend extends Controller<Option> {
+export default class Legend extends Controller<AllLegendsOptions> {
   /** the draw group of axis */
   private container: IGroup;
   /** 用于多个 legend 布局的 bbox */
