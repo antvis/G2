@@ -48,6 +48,8 @@ export function calculatePadding(view: View): Padding {
     const componentBBox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height);
 
     const exceed = componentBBox.exceed(viewBBox);
+
+    // 在对组件分组之后，先对 axis 进行处理，然后取最大的超出即可。
     paddingCal.max(exceed);
   });
 
@@ -80,18 +82,5 @@ export function calculatePadding(view: View): Padding {
     paddingCal.inc(componentBBox, direction);
   });
 
-  const calculatedPadding = paddingCal.getPadding();
-
-  if (autoPadding) {
-    const appendPadding = parsePadding(view.appendPadding);
-    // 取上一次以及当前计算结果的最大区间
-    return [
-      Math.max(autoPadding[0] - appendPadding[0], calculatedPadding[0]),
-      Math.max(autoPadding[1] - appendPadding[1], calculatedPadding[1]),
-      Math.max(autoPadding[2] - appendPadding[2], calculatedPadding[2]),
-      Math.max(autoPadding[3] - appendPadding[3], calculatedPadding[3]),
-    ];
-  }
-
-  return calculatedPadding;
+  return paddingCal.getPadding();
 }

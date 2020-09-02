@@ -1404,14 +1404,7 @@ export interface EventCfg {
 /**
  * 缩略轴的配置项
  */
-<<<<<<< HEAD
-export type SliderOption = SliderCfg & {
-  /** 布局的 padding */
-  readonly padding?: Padding;
-} | boolean;
-=======
 export type SliderOption = SliderCfg | boolean;
->>>>>>> feat(legend-padding): add component padding for legend
 
 /** 配置项声明式 */
 export interface Options {

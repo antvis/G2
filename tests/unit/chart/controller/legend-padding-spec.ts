@@ -44,8 +44,20 @@ describe('Legend', () => {
 
     const legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
 
-    expect(legends[0].component.get('padding')).toEqual([16, 16, 16, 16]); // 主题默认 8
-    expect(legends[0].component.getBBox().maxX).toBeLessThan(600 - 15);
+    expect(legends[0].component.get('padding')).toEqual([16, 16, 16, 16]);
+    expect(legends[0].component.getBBox().maxX).toBeLessThan(600 - 15); // 右侧大于 15px padding
+    expect(legends[0].component.getBBox().minX).toBeGreaterThan(500);
+
+    chart.legend('name', {
+      position: 'bottom',
+      padding: [16, 16, 16, 16],
+    });
+
+    chart.render(true);
+
+    expect(legends[0].component.get('padding')).toEqual([16, 16, 16, 16]);
+    expect(legends[0].component.getBBox().minX).toBeLessThan(300);
+    expect(legends[0].component.getBBox().maxY).toBeLessThan(500 - 15); // 最底部大于 15px padding
   });
 
   afterAll(() => {
