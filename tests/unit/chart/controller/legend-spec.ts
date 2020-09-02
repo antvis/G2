@@ -246,10 +246,10 @@ describe('Legend', () => {
 
     const legend = chart.getController('legend').getComponents()[0].component;
     const legendBBox = legend.getBBox();
-    expect(legendBBox.x).toBe(0);
+    expect(legendBBox.x).toBe(8);
   });
 
-  it('legend spacing', () => {
+  it('legend padding', () => {
     const container = createDiv();
     chart = new Chart({
       container,
@@ -260,7 +260,7 @@ describe('Legend', () => {
         components: {
           legend: {
             top: {
-              spacing: 20,
+              padding: [20, 0, 0, 20],
             }
           },
         },

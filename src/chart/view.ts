@@ -1455,10 +1455,10 @@ export class View extends Base {
         width * (end.x - start.x),
         height * (end.y - start.y)
       );
-
-      // 初始的 coordinate bbox 大小
-      this.coordinateBBox = this.viewBBox;
     }
+
+    // 初始的 coordinate bbox 大小
+    this.coordinateBBox = this.viewBBox;
   }
 
   /**

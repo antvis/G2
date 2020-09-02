@@ -1,9 +1,7 @@
 import { deepMix, each, find, get, head, isBoolean, last } from '@antv/util';
-
 import { COMPONENT_MAX_VIEW_PERCENTAGE, COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
 import { Attribute, CategoryLegend, ContinuousLegend, GroupComponent, IGroup, Scale, Tick } from '../../dependents';
-import { ComponentOption, LegendCfg, LegendOption, LooseObject, AllLegendsOptions } from '../../interface';
-
+import { ComponentOption, LegendCfg, LegendOption, LooseObject, AllLegendsOptions, Padding } from '../../interface';
 import { DEFAULT_ANIMATE_CFG } from '../../animate';
 import Geometry from '../../geometry/base';
 import { BBox } from '../../util/bbox';
@@ -116,8 +114,10 @@ export default class Legend extends Controller<AllLegendsOptions> {
         maxHeight: Math.min(maxSize.maxHeight, maxHeight || 0),
       });
 
+      const padding = component.get('padding') as Padding;
+
       const bboxObject = component.getLayoutBBox(); // 这里只需要他的 width、height 信息做位置调整
-      const bbox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height);
+      const bbox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height).expand(padding);
 
       const [x1, y1] = directionToPosition(this.view.viewBBox, bbox, direction);
       const [x2, y2] = directionToPosition(this.layoutBBox, bbox, direction);
@@ -135,7 +135,7 @@ export default class Legend extends Controller<AllLegendsOptions> {
       }
 
       // 更新位置
-      component.setLocation({ x, y });
+      component.setLocation({ x: x + padding[3], y: y + padding[0] });
 
       this.layoutBBox = this.layoutBBox.cut(bbox, direction);
     });
