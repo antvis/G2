@@ -1403,7 +1403,7 @@ export interface EventCfg {
  */
 export type SliderOption = SliderCfg & {
   /** 布局的 padding */
-  readonly padding: Padding;
+  readonly padding?: Padding;
 } | boolean;
 
 /** 配置项声明式 */
@@ -1415,7 +1415,7 @@ export interface Options {
   /** 坐标轴配置，以 data 中的数据属性为 key。 */
   readonly axes?: Record<string, AxisOption> | boolean;
   /** 图例配置，以 data 中的数据属性为 key。 */
-  readonly legends?: Record<string, LegendOption> | boolean;
+  readonly legends?: AllLegendsOptions;
   /** 列定义配置，用于配置数值的类型等，以 data 中的数据属性为 key。 */
   readonly scales?: Record<string, ScaleOption>;
   /** Tooltip 配置。 */
@@ -1476,6 +1476,8 @@ export type FilterCondition = (value: any, datum: Datum, idx?: number) => boolea
 export type AxisOption = AxisCfg | boolean;
 /** chart.legend() 参数类型 */
 export type LegendOption = LegendCfg | boolean;
+/** Options 中 legends 的配置定义 */
+export type AllLegendsOptions = LegendCfg | Record<string, LegendOption> | boolean;
 /** G2 支持的度量类型 */
 export type ScaleType =
   | 'linear'
