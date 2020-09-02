@@ -1,3 +1,32 @@
+#### 4.1.0-beta.1 (2020-09-02)
+
+##### Chores
+
+* **view-recursive:**  add warning message before refactor ([#2768](https://github.com/antvis/g2/pull/2768)) ([c7f1e6a8](https://github.com/antvis/g2/commit/c7f1e6a82277a674272ab602036423ccbdbe97df))
+* **slider:**  export typedefine ([#2766](https://github.com/antvis/g2/pull/2766)) ([b35d925b](https://github.com/antvis/g2/commit/b35d925b0e46d4d84be057587fc51883696edddb))
+
+##### Documentation Changes
+
+* **manual:**  update english documentation ([#2761](https://github.com/antvis/g2/pull/2761)) ([ff7d4cec](https://github.com/antvis/g2/commit/ff7d4cec4f25d6df917ba1b39c965fb2c505c495))
+
+##### New Features
+
+* **spider-label:**  增加蜘蛛标签 & spider label layout ([#2755](https://github.com/antvis/g2/pull/2755)) ([dd765cc9](https://github.com/antvis/g2/commit/dd765cc91f9fa02477c76d5cf804bf002c3df3cb))
+* **label:**  add adjust-color label layout ([#2753](https://github.com/antvis/g2/pull/2753)) ([b242cb44](https://github.com/antvis/g2/commit/b242cb44fd7ea123c1920c6ca1f3efd286af43f9))
+* **label 增强:** ([#2747](https://github.com/antvis/g2/pull/2747)) ([e52544d0](https://github.com/antvis/g2/commit/e52544d0f7b4c84770bb3babc3a96be0c7a33746))
+
+##### Bug Fixes
+
+* **slider:**  slider + layout, add slider padding ([#2776](https://github.com/antvis/g2/pull/2776)) ([9a9d0679](https://github.com/antvis/g2/commit/9a9d0679f461c7d354f7e60ff283b62c2c2f8dad))
+* **legend:**  add legend padding ([#2785](https://github.com/antvis/G2/pull/2785)) ([de295ba5](https://github.com/antvis/G2/commit/de295ba596adf7b01e1ceb81a162013d04e5520c))
+* **tooltip:**  make tooltip enterable ([#2762](https://github.com/antvis/g2/pull/2762)) ([b98a42b0](https://github.com/antvis/g2/commit/b98a42b04f3335b7db2c98c1c440a54ace71ace8))
+* **background:**
+  *  背景色 shape z-index 顺序不对 ([#2760](https://github.com/antvis/g2/pull/2760)) ([0b74478d](https://github.com/antvis/g2/commit/0b74478d907082bf882674d353629452126f60be))
+  *  backgroup shape should set capture = false ([#2748](https://github.com/antvis/g2/pull/2748)) ([425846dd](https://github.com/antvis/g2/commit/425846dd34d9a2da04412d0d9d6eb9f33f2c76ba))
+*  gitee mirror action don't work when push gh-pages only ([#2742](https://github.com/antvis/g2/pull/2742)) ([36ddf10f](https://github.com/antvis/g2/commit/36ddf10f396b1432e6477c76de8c260bb4f0b372))
+*  移除 0.5px 的边框以及文本的描边 ([#2759](https://github.com/antvis/g2/pull/2759)) ([0d8a9d6f](https://github.com/antvis/g2/commit/0d8a9d6f788a775d0325524ce0bb2fabbdabd78c))
+*  the doc example error ([#2750](https://github.com/antvis/g2/pull/2750)) ([7bfc513c](https://github.com/antvis/g2/commit/7bfc513c3df2f25b8edf27fa24ba9db8428e9e72))
+
 #### 4.0.15 (2020-08-14)
 
 ##### Documentation Changes
