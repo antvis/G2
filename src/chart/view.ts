@@ -1889,7 +1889,7 @@ export class View extends Base {
   }
 
   private initOptions() {
-    const { geometries = [], interactions = [], views = [], annotations = [], coordinate, events } = this.options;
+    const { geometries = [], interactions = [], views = [], annotations = [], coordinate, events, facets } = this.options;
 
     // 设置坐标系
     if (this.coordinateController) {
@@ -1930,6 +1930,14 @@ export class View extends Base {
     if (events) {
       each(events, (eventCallback, eventName) => {
         this.on(eventName, eventCallback);
+      });
+    }
+
+    if (facets) {
+      each(facets, (facet) => {
+        const { type, ...rest } = facet;
+
+        this.facet(type, rest);
       });
     }
   }
