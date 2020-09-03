@@ -217,6 +217,15 @@ export class BBox {
   }
 
   /**
+   * 是否碰撞
+   * @param bbox
+   */
+  public collide(bbox: BBox): boolean {
+    return this.minX < bbox.maxX && this.maxX > bbox.minX &&
+      this.minY < bbox.maxY && this.maxY > bbox.minY;
+  }
+
+  /**
    * 获取包围盒大小
    * @returns 包围盒大小
    */

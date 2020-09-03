@@ -82,4 +82,12 @@ describe('util/ bbox', () => {
     expect(bbox.width).toBe(120);
     expect(bbox.height).toBe(120);
   });
+
+  it('collide', () => {
+    expect(BBox.fromRange(100, 100, 200 ,200).collide(BBox.fromRange(0, 0, 100, 100))).toBe(false);
+
+    expect(BBox.fromRange(100, 100, 200 ,200).collide(BBox.fromRange(150, 150, 170, 170))).toBe(true);
+    expect(BBox.fromRange(100, 100, 200 ,200).collide(BBox.fromRange(0, 0, 110, 110))).toBe(true);
+    expect(BBox.fromRange(100, 100, 200 ,200).collide(BBox.fromRange(190, 190, 300, 300))).toBe(true);
+  });
 });
