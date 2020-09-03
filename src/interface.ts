@@ -1448,6 +1448,9 @@ export interface Options {
   /** 子 View */
   readonly views?: ViewOption[];
 
+  /** 分面 */
+  readonly facets?: (RectCfg | MirrorCfg | CircleCfg | ListCfg | TreeCfg)[];
+
   /** 其他自定义的 option */
   readonly [name: string]: any;
 }
