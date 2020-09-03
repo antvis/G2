@@ -2,12 +2,12 @@ import { deepMix, each, get, isArray } from '@antv/util';
 import { BBox, Coordinate, IGroup, IShape } from '../dependents';
 import { LabelItem } from '../geometry/label/interface';
 import { AnimateOption, GeometryLabelLayoutCfg } from '../interface';
-
 import { doAnimate } from '../animate';
 import { getGeometryLabelLayout } from '../geometry/label';
 import { getlLabelBackgroundInfo } from '../geometry/label/util';
 import { getReplaceAttrs, polarToCartesian } from '../util/graphics';
 import { rotate, translate } from '../util/transform';
+import { FIELD_ORIGIN } from '../constant';
 
 /**
  * Labels 实例创建时，传入构造函数的参数定义
@@ -163,7 +163,10 @@ export default class Labels {
     const shapeAppendCfg = {
       id,
       data,
-      origin: mappingData,
+      origin: {
+        ...mappingData,
+        data: mappingData[FIELD_ORIGIN],
+      },
       coordinate,
     };
     const labelGroup = container.addGroup({
