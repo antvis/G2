@@ -431,6 +431,14 @@ export default class Element extends Base {
     animateCfg,
     index: number = 0
   ) {
+    // 所有的 shape 都需要同步 clip
+    const clip = sourceShape.get('clipShape');
+    const newClip = targetShape.get('clipShape');
+
+    if (clip && newClip) {
+      this.syncShapeStyle(clip, newClip, state, animateCfg);
+    }
+
     if (sourceShape.isGroup()) {
       const children = sourceShape.get('children');
       const newChildren = targetShape.get('children');
