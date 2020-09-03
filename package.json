@@ -38,8 +38,10 @@
   "dependencies": {
     "@antv/adjust": "^0.2.1",
     "@antv/attr": "^0.3.1",
+    "@antv/color-util": "^2.0.2",
     "@antv/component": "^0.7.0",
     "@antv/coord": "^0.3.0",
+    "@antv/dom-util": "^2.0.2",
     "@antv/event-emitter": "~0.1.0",
     "@antv/g-base": "^0.5.0",
     "@antv/g-canvas": "^0.5.0",
@@ -48,8 +50,7 @@
     "@antv/path-util": "^2.0.3",
     "@antv/scale": "^0.3.1",
     "@antv/util": "~2.0.5",
-    "tslib": "^2.0.0",
-    "@antv/color-util": "^2.0.2"
+    "tslib": "^2.0.0"
   },
   "devDependencies": {
     "@antv/data-set": "^0.11.2",
