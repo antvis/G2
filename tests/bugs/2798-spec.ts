@@ -45,7 +45,14 @@ describe('2798', () => {
       .position('type*value')
       .shape('2798-shape')
 
+    chart.legend(false);
+    chart.axis(false);
+    chart.tooltip(false);
+    chart.animate(false);
+
     chart.render();
+
+    expect(chart.middleGroup.getChildren()[0].get('clipShape').attr('x')).toBe(200);
 
     chart.changeSize(600, 300);
 
