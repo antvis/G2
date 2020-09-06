@@ -1,4 +1,4 @@
-import { deepMix, isString } from '@antv/util';
+import { deepMix, isString, each } from '@antv/util';
 import View from '../chart/view';
 import { DIRECTION } from '../constant';
 import { Attribute, Tick } from '../dependents';
@@ -55,7 +55,12 @@ export function getLegendItems(
       const value = scale.invert(scaleValue);
 
       // 通过过滤图例项的数据，来看是否 unchecked
-      const unchecked = view.filterFieldData(field, [{ [field]: value }]).length === 0;
+      let unchecked = view.filterFieldData(field, [{ [field]: value }]).length === 0;
+      each(view.views, (subView) => {
+        if (!subView.filterFieldData(field, [{ [field]: value }]).length) {
+          unchecked = true;
+        }
+      });
 
       // @ts-ignore
       const color = getMappingValue(colorAttr, value, defaultColor);
