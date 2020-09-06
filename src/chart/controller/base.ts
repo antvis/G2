@@ -58,8 +58,9 @@ export abstract class Controller<O = unknown> {
 
   /**
    * clear
+   * @param includeOption 是否清空 option 配置项（used in annotation）
    */
-  public clear() {
+  public clear(includeOption?: boolean) {
     // destroy all components
     each(this.components, (co: ComponentOption) => {
       co.component.destroy();
