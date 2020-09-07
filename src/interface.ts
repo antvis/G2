@@ -468,7 +468,7 @@ export type ShapeMarkerSymbol = (x: number, y: number, r: number) => PathCommand
 export type AnnotationPositionCallback = (
   xScales: Scale[] | Record<string, Scale>,
   yScales: Scale[] | Record<string, Scale>
-) => [number, number];
+) => [number | string, number | string];
 /** Annotation 位置相关属性的类型定义 */
 export type AnnotationPosition =
   | [number | string, number | string]
@@ -1390,7 +1390,6 @@ export interface SliderCfg {
   /** 滑块文本格式化函数 */
   formatter?: (val: any, datum: Datum, idx: number) => any;
 }
-
 
 export type EventCallback = (event: LooseObject) => void;
 /**
