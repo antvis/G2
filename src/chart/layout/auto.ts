@@ -20,7 +20,7 @@ export function calculatePadding(view: View): Padding {
   }
 
   // 是 auto padding，根据组件的情况，来计算 padding
-  const { viewBBox, autoPadding } = view;
+  const { viewBBox } = view;
 
   const paddingCal = new PaddingCal();
 
