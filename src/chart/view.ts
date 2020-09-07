@@ -245,6 +245,8 @@ export class View extends Base {
     const geometries = this.geometries;
     for (let i = 0; i < geometries.length; i++) {
       geometries[i].clear();
+      // view 中使用 geometry 的时候，还需要清空它的容器，不然下一次 chart.geometry() 的时候，又创建了一个，导致泄露， #2799。
+      geometries[i].container.remove(true);
     }
     this.geometries = [];
 

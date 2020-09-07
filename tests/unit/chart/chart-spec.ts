@@ -169,7 +169,7 @@ describe('Chart', () => {
     // @ts-ignore
     // expect(chart.viewEventCaptureRect).not.toBeUndefined();
     expect(chart.getLayer(LAYER.BG).get('children').length).toBe(4);
-    expect(chart.getLayer(LAYER.MID).get('children').length).toBe(1);
+    expect(chart.getLayer(LAYER.MID).get('children').length).toBe(0);
     expect(chart.getLayer(LAYER.FORE).get('children').length).toBe(4);
   });
 
