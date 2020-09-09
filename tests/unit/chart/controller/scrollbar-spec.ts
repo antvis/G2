@@ -3,7 +3,7 @@ import { createDiv, removeDom } from '../../../util/dom';
 import { salesBySubCategory, subSalesBySubCategory, subSalesByArea } from '../../../data/sales';
 import { COMPONENT_TYPE } from '../../../../src/constant';
 import { delay } from '../../../util/delay';
-import { near } from '@antv/component/src/util/util';
+import { near } from '../../../util/math';
 
 describe('Scrollbar', () => {
   const container = createDiv();
