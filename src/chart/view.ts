@@ -1280,8 +1280,7 @@ export class View extends Base {
       // 1. 不存在则创建
       if (!this.backgroundStyleRectShape) {
         this.backgroundStyleRectShape = this.backgroundGroup.addShape('rect', {
-          attrs: {
-          },
+          attrs: {},
           zIndex: -1,
           // 背景色 shape 不设置事件捕获
           capture: false,
@@ -1891,7 +1890,15 @@ export class View extends Base {
   }
 
   private initOptions() {
-    const { geometries = [], interactions = [], views = [], annotations = [], coordinate, events, facets } = this.options;
+    const {
+      geometries = [],
+      interactions = [],
+      views = [],
+      annotations = [],
+      coordinate,
+      events,
+      facets,
+    } = this.options;
 
     // 设置坐标系
     if (this.coordinateController) {

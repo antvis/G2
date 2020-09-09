@@ -24,6 +24,7 @@ export default function defaultLayout(view: View): void {
   const legend = view.getController('legend');
   const annotation = view.getController('annotation');
   const slider = view.getController('slider');
+  const scrollbar = view.getController('scrollbar');
 
   // 1. 自动加 auto padding -> absolute padding
   const padding = calculatePadding(view);
@@ -34,7 +35,7 @@ export default function defaultLayout(view: View): void {
   view.adjustCoordinate();
 
   // 3. 根据最新的 coordinate 重新布局组件
-  [axis, slider, legend, annotation].forEach((controller: Controller) => {
+  [axis, slider, scrollbar, legend, annotation].forEach((controller: Controller) => {
     if (controller) {
       controller.layout();
     }

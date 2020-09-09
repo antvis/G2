@@ -1405,6 +1405,25 @@ export interface EventCfg {
  */
 export type SliderOption = SliderCfg | boolean;
 
+/** 滚动条组件配置项 */
+export interface ScrollbarCfg {
+  /** 滚动条类型，默认 horizontal  */
+  type?: 'horizontal' | 'vertical';
+  /** 宽度，在 vertical 下生效 */
+  width?: number;
+  /** 高度，在 horizontal 下生效 */
+  height?: number;
+  /** 可选 padding */
+  padding?: Padding;
+  /** 对应水平滚动条，为 X 轴每个分类字段的宽度；对于垂直滚动条，为 X 轴每个分类字段的高度 */
+  categorySize?: number;
+  /** 滚动的时候是否开启动画，默认跟随 view 中 animate 配置 */
+  animate?: boolean;
+}
+
+/** 滚动条配置 */
+export type ScrollbarOption = ScrollbarCfg | boolean;
+
 /** 配置项声明式 */
 export interface Options {
   /** 数据源配置。 */
@@ -1443,6 +1462,9 @@ export interface Options {
 
   /** 缩略轴的配置 */
   readonly slider?: SliderOption;
+
+  /** 滚动条配置 */
+  readonly scrollbar?: ScrollbarOption;
 
   /** 子 View */
   readonly views?: ViewOption[];
