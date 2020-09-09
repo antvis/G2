@@ -295,7 +295,7 @@ export default class GrammarInteraction extends Interaction {
   }
 
   // 具体的指定阶段是否允许执行
-  private isAllowExcute(stepName: string, step: InteractionStep): boolean {
+  private isAllowExecute(stepName: string, step: InteractionStep): boolean {
     if (this.isAllowStep(stepName)) {
       const key = this.getKey(stepName, step);
       // 如果是在本环节内仅允许触发一次，同时已经触发过，则不允许再触发
@@ -342,7 +342,7 @@ export default class GrammarInteraction extends Interaction {
         // 动态生成执行的方法，执行对应 action 的名称
         const actionCallback = (event) => {
           context.event = event; // 保证检测时的 event
-          if (this.isAllowExcute(stepName, step)) {
+          if (this.isAllowExecute(stepName, step)) {
             // 如果是数组时，则依次执行
             if (isArray(actionObject)) {
               each(actionObject, (obj: ActionObject) => {
