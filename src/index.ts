@@ -324,7 +324,7 @@ registerInteraction('ellipsis-text', {
   ],
 });
 
-// 移动到 elment 上 active
+// 移动到 element 上 active
 registerInteraction('element-active', {
   start: [{ trigger: 'element:mouseenter', action: 'element-active:active' }],
   end: [{ trigger: 'element:mouseleave', action: 'element-active:reset' }],
