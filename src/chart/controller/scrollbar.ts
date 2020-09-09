@@ -1,11 +1,11 @@
 import { Controller } from './base';
 import { IGroup, Scrollbar as ScrollbarComponent, Scale } from '../../dependents';
-import { ScrollbarOption, ComponentOption, ScrollbarCfg, Data, ScaleOption } from '../../interface';
+import { ScrollbarOption, ComponentOption, ScrollbarCfg, Data, ScaleOption, Padding } from '../../interface';
 import View from '../view';
 import { BBox } from '../../util/bbox';
 import { directionToPosition } from '../../util/direction';
 import { COMPONENT_TYPE, DIRECTION, LAYER, VIEW_LIFE_CIRCLE } from '../../constant';
-import { isObject, clamp, size, groupBy, throttle, noop, keys } from '@antv/util';
+import { isObject, clamp, size, groupBy, throttle, noop, keys, get } from '@antv/util';
 import { isBetween } from '../../util/helper';
 
 const DEFAULT_PADDING: number = 0;
@@ -52,7 +52,7 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
   public destroy() {
     super.destroy();
     this.view.off(VIEW_LIFE_CIRCLE.BEFORE_CHANGE_DATA, this.resetMeasure);
-    this.view.off(VIEW_LIFE_CIRCLE.AFTER_CHANGE_SIZE, this.resetMeasure);
+    this.view.off(VIEW_LIFE_CIRCLE.BEFORE_CHANGE_SIZE, this.resetMeasure);
   }
 
   public init() {}
@@ -85,16 +85,19 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
    * 布局
    */
   public layout() {
+    if (this.option && !this.trackLen) {
+      this.measureScrollbar();
+      setTimeout(() => {
+        this.changeViewData(this.getScrollRange(), true);
+      });
+    }
     if (this.scrollbar) {
-      if (!this.trackLen) {
-        this.measureScrollbar();
-        setTimeout(() => {
-          this.changeViewData(this.getScrollRange(), true);
-        });
-      }
       const width = this.view.coordinateBBox.width;
+      const padding: Padding = this.scrollbar.component.get('padding') as Padding;
       const bboxObject = this.scrollbar.component.getLayoutBBox();
-      const bbox = new BBox(bboxObject.x, bboxObject.y, Math.min(bboxObject.width, width), bboxObject.height);
+      const bbox = new BBox(bboxObject.x, bboxObject.y, Math.min(bboxObject.width, width), bboxObject.height).expand(
+        padding
+      );
       const cfg = this.getScrollbarComponentCfg();
 
       let x: number;
@@ -111,6 +114,9 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
         x = x2;
         y = y1;
       }
+
+      x += padding[3];
+      y += padding[0];
 
       // 默认放在 bottom
       if (this.trackLen) {
@@ -154,6 +160,17 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
     this.ratio = 0;
     this.cnt = 0;
     this.step = 0;
+    this.data = undefined;
+    this.xScaleCfg = undefined;
+    this.yScalesCfg = [];
+  }
+
+  /**
+   * 获取 scrollbar 的主题配置
+   */
+  private getThemeOptions() {
+    const theme = this.view.getTheme();
+    return get(theme, ['components', 'slider', 'common'], {});
   }
 
   private resetMeasure = () => {
@@ -174,12 +191,12 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
   private measureScrollbar(): void {
     const xScale = this.view.getXScale();
     const yScales = this.view.getYScales().slice();
-    const { trackLen, thumbLen } = this.getScrollbarComponentCfg();
-    this.trackLen = trackLen;
-    this.thumbLen = thumbLen;
     this.data = this.view.getOptions().data;
     this.step = this.getStep();
     this.cnt = this.getCnt();
+    const { trackLen, thumbLen } = this.getScrollbarComponentCfg();
+    this.trackLen = trackLen;
+    this.thumbLen = thumbLen;
     this.xScaleCfg = {
       field: xScale.field,
       values: xScale.values || [],
@@ -229,7 +246,7 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
       component,
       layer: LAYER.FORE,
       direction: isHorizontal ? DIRECTION.BOTTOM : DIRECTION.RIGHT,
-      type: COMPONENT_TYPE.OTHER,
+      type: COMPONENT_TYPE.SCROLLBAR,
     };
   }
 
@@ -249,7 +266,7 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
   }
 
   private getStep() {
-    if (this.trackLen) {
+    if (this.step) {
       return this.step;
     }
     const { coordinateBBox } = this.view;
@@ -260,7 +277,7 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
   }
 
   private getCnt() {
-    if (this.trackLen) {
+    if (this.cnt) {
       return this.cnt;
     }
     const xScale = this.view.getXScale();
@@ -285,12 +302,14 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
           y: coordinateBBox.minY + paddingTop,
         };
     const step = this.getStep();
+    const cnt = this.getCnt();
     const trackLen = isHorizontal
       ? coordinateBBox.width - paddingLeft - paddingRight
       : coordinateBBox.height - paddingTop - paddingBottom;
-    const thumbLen = Math.max(trackLen * clamp(step / xScale.values.length, 0, 1), MIN_THUMB_LENGTH);
+    const thumbLen = Math.max(trackLen * clamp(step / cnt, 0, 1), MIN_THUMB_LENGTH);
 
     return {
+      ...this.getThemeOptions(),
       x: position.x,
       y: position.y,
       size: isHorizontal ? height : width,

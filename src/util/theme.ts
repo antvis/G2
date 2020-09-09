@@ -1227,8 +1227,13 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
       slider: {
         common: {
           padding: [8, 8, 8, 8],
-        }
-      }
+        },
+      },
+      scrollbar: {
+        common: {
+          padding: [8, 8, 8, 8],
+        },
+      },
     },
     labels: {
       offset: 12,

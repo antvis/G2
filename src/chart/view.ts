@@ -1890,7 +1890,15 @@ export class View extends Base {
   }
 
   private initOptions() {
-    const { geometries = [], interactions = [], views = [], annotations = [], coordinate, events, facets } = this.options;
+    const {
+      geometries = [],
+      interactions = [],
+      views = [],
+      annotations = [],
+      coordinate,
+      events,
+      facets,
+    } = this.options;
 
     // 设置坐标系
     if (this.coordinateController) {

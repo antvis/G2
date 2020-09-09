@@ -3,11 +3,12 @@ import { createDiv, removeDom } from '../../../util/dom';
 import { salesBySubCategory, subSalesBySubCategory, subSalesByArea } from '../../../data/sales';
 import { COMPONENT_TYPE } from '../../../../src/constant';
 import { delay } from '../../../util/delay';
+import { near } from '@antv/component/src/util/util';
 
 describe('Scrollbar', () => {
   const container = createDiv();
 
-  it.only('scrollbar /w interval horizontal', async () => {
+  it('scrollbar /w interval horizontal', async () => {
     const chart = new Chart({
       container,
       height: 400,
@@ -25,13 +26,11 @@ describe('Scrollbar', () => {
     chart.interval().position('subCategory*sales').label('sales');
 
     chart.render();
-    // @ts-ignore
-    window.__chart__ = chart;
+    const coordinateBBox = chart.coordinateBBox;
 
     await delay(1);
 
-    const coordinateBBox = chart.coordinateBBox;
-    const [scrollbar] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.OTHER);
+    const [scrollbar] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SCROLLBAR);
     const scrollbarBBox = scrollbar.component.getLayoutBBox();
     const [xAxis] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.AXIS);
     const xAxisBBox = xAxis.component.getLayoutBBox();
@@ -39,16 +38,13 @@ describe('Scrollbar', () => {
     // initial state
     expect(scrollbarBBox.height).toBe(8);
     expect(scrollbarBBox.width).toBe(coordinateBBox.width);
-    expect(xAxisBBox.maxY).toBe(392);
+    expect(near(xAxisBBox.maxY, 392 - 16)).toBe(true);
     expect(scrollbar.component.get('trackLen')).toBe(coordinateBBox.width);
     // @ts-ignore
     expect(chart.filteredData.length).toBe(14);
-
-    // change data
-    chart.changeData(salesBySubCategory.slice(1));
   });
 
-  it('scrollbar /w interval vertical', () => {
+  it('scrollbar /w interval vertical', async () => {
     const chart = new Chart({
       container,
       height: 500,
@@ -57,7 +53,6 @@ describe('Scrollbar', () => {
     chart.data(salesBySubCategory);
     chart.option('scrollbar', {
       type: 'vertical',
-      // animate: false,
     });
     chart.scale('sales', {
       nice: true,
@@ -67,11 +62,21 @@ describe('Scrollbar', () => {
     chart.interval().position('subCategory*sales').label('sales');
 
     chart.render();
+    const coordinateBBox = chart.coordinateBBox;
+
+    await delay(1);
+
+    const [scrollbar] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SCROLLBAR);
+    const scrollbarBBox = scrollbar.component.getBBox();
+
+    expect(scrollbarBBox.width).toBe(8);
+    expect(scrollbarBBox.height).toBe(coordinateBBox.height);
+    expect(scrollbar.component.get('trackLen')).toBe(coordinateBBox.height);
     // @ts-ignore
-    window.__chart__ = chart;
+    expect(chart.filteredData.length).toBe(14);
   });
 
-  it('scrollbar /w grouped interval horizontal', () => {
+  it('scrollbar /w grouped interval horizontal', async () => {
     const chart = new Chart({
       container,
       height: 400,
@@ -99,11 +104,25 @@ describe('Scrollbar', () => {
       .label('sales');
 
     chart.render();
+    const coordinateBBox = chart.coordinateBBox;
+
+    await delay(1);
+
+    const [scrollbar] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SCROLLBAR);
+    const scrollbarBBox = scrollbar.component.getLayoutBBox();
+    const [xAxis] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.AXIS);
+    const xAxisBBox = xAxis.component.getLayoutBBox();
+
+    expect(scrollbarBBox.height).toBe(8);
+    expect(scrollbarBBox.width).toBe(coordinateBBox.width);
+    // padding 8 * 2
+    expect(near(xAxisBBox.maxY, 392 - 16)).toBe(true);
+    expect(scrollbar.component.get('trackLen')).toBe(coordinateBBox.width);
     // @ts-ignore
-    window.__chart__ = chart;
+    expect(chart.filteredData.length).toBe(12);
   });
 
-  it('scrollbar /w grouped vertical horizontal', () => {
+  it('scrollbar /w grouped vertical horizontal', async () => {
     const chart = new Chart({
       container,
       height: 400,
@@ -132,8 +151,101 @@ describe('Scrollbar', () => {
       .label('sales');
 
     chart.render();
+    const coordinateBBox = chart.coordinateBBox;
+
+    await delay(1);
+
+    const [scrollbar] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SCROLLBAR);
+    const scrollbarBBox = scrollbar.component.getBBox();
+
+    expect(scrollbarBBox.width).toBe(8);
+    expect(scrollbarBBox.height).toBe(coordinateBBox.height);
+    expect(scrollbar.component.get('trackLen')).toBe(coordinateBBox.height);
     // @ts-ignore
-    window.__chart__ = chart;
+    expect(chart.filteredData.length).toBe(9);
+  });
+
+  it('scrollbar update after changeData', async () => {
+    const chart = new Chart({
+      container,
+      height: 400,
+      width: 360,
+    });
+    chart.animate(false);
+    chart.data(salesBySubCategory);
+    chart.axis('subCategory', {
+      label: {
+        autoHide: true,
+        autoRotate: false,
+      },
+    });
+    chart.option('scrollbar', {
+      type: 'horizontal',
+    });
+    chart.scale('sales', {
+      nice: true,
+      formatter: (v) => `${Math.floor(v / 10000)}万`,
+    });
+    chart.interval().position('subCategory*sales').label('sales');
+
+    chart.render();
+    await delay(500);
+    chart.changeData(salesBySubCategory.slice(1));
+    const coordinateBBox = chart.coordinateBBox;
+    await delay(1);
+
+    const [scrollbar] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SCROLLBAR);
+    const scrollbarBBox = scrollbar.component.getLayoutBBox();
+    const [xAxis] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.AXIS);
+    const xAxisBBox = xAxis.component.getLayoutBBox();
+
+    // initial state
+    expect(scrollbarBBox.height).toBe(8);
+    expect(scrollbarBBox.width).toBe(coordinateBBox.width);
+    expect(near(xAxisBBox.maxY, 392 - 16)).toBe(true);
+    expect(scrollbar.component.get('trackLen')).toBe(coordinateBBox.width);
+    // @ts-ignore
+    expect(chart.filteredData.length).toBe(9);
+  });
+
+  it('scrollbar update after changeSize', async () => {
+    const chart = new Chart({
+      container,
+      height: 400,
+      width: 480,
+      // autoFit: true,
+    });
+    chart.animate(false);
+    chart.data(salesBySubCategory);
+    chart.axis('subCategory', {
+      label: {
+        autoHide: true,
+        autoRotate: false,
+      },
+    });
+    chart.option('scrollbar', {
+      type: 'horizontal',
+    });
+    chart.scale('sales', {
+      nice: true,
+      formatter: (v) => `${Math.floor(v / 10000)}万`,
+    });
+    chart.interval().position('subCategory*sales').label('sales');
+
+    chart.render();
+    await delay(500);
+    chart.changeSize(360, 400);
+    const coordinateBBox = chart.coordinateBBox;
+    await delay(1);
+
+    const [scrollbar] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SCROLLBAR);
+    const scrollbarBBox = scrollbar.component.getLayoutBBox();
+
+    // initial state
+    expect(scrollbarBBox.height).toBe(8);
+    expect(scrollbar.component.get('trackLen')).toBe(coordinateBBox.width);
+    // @ts-ignore
+    expect(chart.filteredData.length).toBe(9);
   });
 
   afterAll(() => {
