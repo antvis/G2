@@ -30,16 +30,17 @@ const chart = new Chart({
 You can either download the script locally or directly import online resources:
 
 ```html
-<!-- Introduce online resources, select the g2 version you need and replace the version variable --> 
+<!-- Introduce online resources, select the g2 version you need and replace the version variable -->
 <script src="https://gw.alipayobjects.com/os/lib/antv/g2/{{version}}/dist/g2.min.js"></script>
 ```
 
 ```html
-<!-- Introduce local script--> 
+<!-- Introduce local script-->
 <script src="./g2.js"></script>
 ```
 
-You can also directly download through [unpkg](https://unpkg.com/@antv/g2).
+<!-- 请求链接 404 先注释掉 -->
+<!-- You can also directly download through [unpkg](https://unpkg.com/@antv/g2). -->
 
 ## Getting Started
 
@@ -87,9 +88,9 @@ Create `div` the container, we can draw a simple graph:
 
       // Step 1: Create a Chart instance.
       const chart = new G2.Chart({
-        container: 'c1', // Specify the chart container ID 
-        width: 600, // Specify the chart width 
-        height: 300, // Specify the chart height 
+        container: 'c1', // Specify the chart container ID
+        width: 600, // Specify the chart width
+        height: 300, // Specify the chart height
       });
 
       // Step 2: Load the data.

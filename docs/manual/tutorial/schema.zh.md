@@ -42,7 +42,7 @@ const chart = new Chart({
 chart.render();
 ```
 
-关于各个属性的使用，详见 [API](../../api/interfaces/chartcfg);
+<!-- 关于各个属性的使用，详见 [API](../../api/interfaces/chartcfg); -->
 
 ## 配置项更新
 
@@ -65,7 +65,7 @@ chart.updateOptions({
 chart.render();
 ```
 
-Options 参见[类型定义](../../api/interfaces/options)。
+<!-- Options 参见[类型定义](../../api/interfaces/options)。 -->
 
 ## 实例
 

@@ -25,7 +25,7 @@ module.exports = {
       {
         slug: 'docs/manual',
         title: {
-          zh: '使用文档',
+          zh: '教程',
           en: 'Manual',
         },
         order: 2,
@@ -33,7 +33,7 @@ module.exports = {
       {
         slug: 'docs/api',
         title: {
-          zh: 'API 文档',
+          zh: 'API',
           en: 'API',
         },
         order: 1,
@@ -94,14 +94,6 @@ module.exports = {
           zh: 'API 文档',
           en: 'API Doc',
         },
-      },
-      {
-        slug: 'api/geometry',
-        title: {
-          zh: 'Geometry',
-          en: 'Geometry',
-        },
-        order: 1,
       },
     ],
     examples: [
