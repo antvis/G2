@@ -8,8 +8,8 @@
 
 ```js
 // highlight-start
-chart.data(_data_);
-chart.source(_data_);
+chart.data(data);
+chart.source(data);
 // highlight-end
 
 chart.data([

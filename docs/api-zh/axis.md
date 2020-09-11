@@ -104,12 +104,12 @@ _AxisOption_ 配置如下：
 
 坐标轴网格线的配置项，null 表示不展示。_AxisGridCfg_ 配置如下：
 
-| 参数名         | 类型        | 是否必选 | 默认值 | 描述                                                       |
-| -------------- | ----------- | -------- | ------ | ---------------------------------------------------------- |
-| line           | GridLineCfg |          | -      | 线的样式                                                   |
-| alternateColor | string      | string[] |        | -                                                          | 两个栅格线间的填充色 |
-| closed         | boolean     |          | -      | 对于 circle 是否关闭 grid                                  |
-| alignTick      | boolean     |          | -      | 是否同刻度线对齐，如果值为 false，则会显示在两个刻度中间。 |
+| 参数名         | 类型               | 是否必选 | 默认值 | 描述                                                       |
+| -------------- | ------------------ | -------- | ------ | ---------------------------------------------------------- |
+| line           | GridLineCfg        |          | -      | 线的样式                                                   |
+| alternateColor | string \| string[] |          | -      | 两个栅格线间的填充色                                       |
+| closed         | boolean            |          | -      | 对于 circle 是否关闭 grid                                  |
+| alignTick      | boolean            |          | -      | 是否同刻度线对齐，如果值为 false，则会显示在两个刻度中间。 |
 
 _GridLineCfg_ 配置如下：
 

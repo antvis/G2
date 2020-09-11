@@ -28,10 +28,10 @@ options:
 
 | 参数名       | 类型    | 是否必选 | 默认值 | 描述               |
 | ------------ | ------- | -------- | ------ | ------------------ |
-| sortable     | boolean | optional | -      | 是否对数据进行排序 |
-| theme        | object  | optional | -      | 主题配置           |
-| visible      | boolean | optional | -      | 是否可见           |
-| connectNulls | boolean | optional | -      | 是否连接空值       |
+| sortable     | boolean |          | -      | 是否对数据进行排序 |
+| theme        | object  |          | -      | 主题配置           |
+| visible      | boolean |          | -      | 是否可见           |
+| connectNulls | boolean |          | -      | 是否连接空值       |
 
 ### chart.area(options)
 
@@ -41,11 +41,11 @@ options:
 
 | 参数名       | 类型    | 是否必选 | 默认值 | 描述                          |
 | ------------ | ------- | -------- | ------ | ----------------------------- |
-| sortable     | boolean | optional | -      | 是否对数据进行排序            |
-| theme        | object  | optional | -      | 主题配置                      |
-| visible      | boolean | optional | -      | 是否可见                      |
-| connectNulls | boolean | optional | -      | 是否连接空值                  |
-| startOnZero  | boolean | optional | -      | 面积图是否从 0 基准线开始填充 |
+| sortable     | boolean |          | -      | 是否对数据进行排序            |
+| theme        | object  |          | -      | 主题配置                      |
+| visible      | boolean |          | -      | 是否可见                      |
+| connectNulls | boolean |          | -      | 是否连接空值                  |
+| startOnZero  | boolean |          | -      | 面积图是否从 0 基准线开始填充 |
 
 <img alt='startOnZero-true' width='300' src='https://gw.alipayobjects.com/zos/rmsportal/ZQqwUCczalrKqGgagOVp.png'/>
 <img alt='startOnZero-false' width='300' src='https://gw.alipayobjects.com/zos/rmsportal/yPswkaXvUpCYOdhocGwB.png'/>
@@ -58,10 +58,10 @@ options:
 
 | 参数名       | 类型    | 是否必选 | 默认值 | 描述               |
 | ------------ | ------- | -------- | ------ | ------------------ |
-| sortable     | boolean | optional | -      | 是否对数据进行排序 |
-| theme        | object  | optional | -      | 主题配置           |
-| visible      | boolean | optional | -      | 是否可见           |
-| connectNulls | boolean | optional | -      | 是否连接空值       |
+| sortable     | boolean |          | -      | 是否对数据进行排序 |
+| theme        | object  |          | -      | 主题配置           |
+| visible      | boolean |          | -      | 是否可见           |
+| connectNulls | boolean |          | -      | 是否连接空值       |
 
 ### chart.polygon(options)
 

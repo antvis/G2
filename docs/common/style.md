@@ -7,6 +7,10 @@
 
   .custom-api-docs p {
     margin: 0.6em 0;
+  }
+
+  .custom-api-docs p, 
+  .custom-api-docs li {
     color: rgba(0, 0, 0, 0.68);
   }
 
