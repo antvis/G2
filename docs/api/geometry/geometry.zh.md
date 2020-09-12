@@ -5,19 +5,25 @@ redirect_from:
   - /zh/docs/api/geometry
 ---
 
-Geometry 几何标记基类，主要负责数据到图形属性的映射以及绘制逻辑。<br />
+Geometry 几何标记基类，主要负责数据到图形属性的映射以及绘制逻辑。
 
 <a name="815e210d"></a>
 
 ## 子类
 
-<br />↳ [Point](./point)<br />
-<br />↳ [Path](./path)<br />
-<br />↳ [Edge](./edge)<br />
-<br />↳ [Heatmap](./heatmap)<br />
-<br />↳ [Interval](./interval)<br />
-<br />↳ [Polygon](./polygon)<br />
-<br />↳ [Schema](./schema)<br />
+↳ [Point](./point)
+
+↳ [Path](./path)
+
+↳ [Edge](./edge)
+
+↳ [Heatmap](./heatmap)
+
+↳ [Interval](./interval)
+
+↳ [Polygon](./polygon)
+
+↳ [Schema](./schema)
 
 <a name="d3474432"></a>
 
@@ -34,14 +40,21 @@ const interval2 = view.interval({
 });
 ```
 
-<br />**参数:**<br />
-<br />**说明**：以下为通用属性，各个几何标记拥有不同的配置属性，将在各自章节列出。<br />
-<br />• **sortable**? : _boolean_<br />
-<br />是否对数据进行排序。<br />
-<br />• **theme**? : _object_<br />
-<br />主题配置。<br />
-<br />• **visible**? : _boolean_<br />
-<br />是否可见。<br />
+**参数:**
+
+**说明**：以下为通用属性，各个几何标记拥有不同的配置属性，将在各自章节列出。
+
+• **sortable**? : _boolean_
+
+是否对数据进行排序。
+
+• **theme**? : _object_
+
+主题配置。
+
+• **visible**? : _boolean_
+
+是否可见。
 
 <a name="ea340b9d"></a>
 
@@ -51,21 +64,22 @@ const interval2 = view.interval({
 
 ### adjust
 
-<br />▸ **adjust**(`adjustCfg`): _Geometry_<br />
-<br />**Parameters:**
+▸ **adjust**(`adjustCfg`): _Geometry_
 
-| 参数名      | 类型                                                 | 描述                                                                                                                                                                                                           |
-| ----------- | ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `adjustCfg` | string &#124; string[] &#124; object &#124; object[] | 数据调整配置。<br />1. 可以是字符串：'dodge'<br />2. 也可以进行组合，如 ['dodge', 'stack']<br />3. 也可以设置为对象： { type: 'dodge' }<br />4. 组合形态也可以使用对象数组：[{type: 'dodge'}, {type: 'stack'}] |
+**Parameters:**
 
-<br />设置数据调整方式。G2 目前内置了四种类型：<br />
+| 参数名      | 类型                                                 | 描述                                                                                                                                                                                   |
+| ----------- | ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `adjustCfg` | string &#124; string[] &#124; object &#124; object[] | 数据调整配置。1. 可以是字符串：'dodge'2. 也可以进行组合，如 ['dodge', 'stack']3. 也可以设置为对象： { type: 'dodge' }4. 组合形态也可以使用对象数组：[{type: 'dodge'}, {type: 'stack'}] |
+
+设置数据调整方式。G2 目前内置了四种类型：
 
 1. dodge
 1. stack
 1. symmetric
 1. jitter
 
-<br />**Tip**<br />
+**Tip**
 
 - 对于 'dodge' 类型，可以额外进行如下属性的配置:
 
@@ -84,7 +98,7 @@ geometry.adjust('stack', {
 });
 ```
 
-<br />**`example`**<br />
+**`example`**
 
 ```typescript
 geometry.adjust('stack');
@@ -104,20 +118,21 @@ geometry.adjust([{ type: 'stack' }, { type: 'dodge', dodgeBy: 'x' }]);
 
 ### animate
 
-<br />▸ **animate**(`cfg`): _Geometry_<br />
-<br />Geometry 动画配置。<br />
+▸ **animate**(`cfg`): _Geometry_
+
+Geometry 动画配置。
 
 - `animate(false)` 关闭动画。
 - `animate(true)` 开启动画，默认开启。
 
-<br />我们将动画分为四个场景：<br />
+我们将动画分为四个场景：
 
 1. appear: 图表第一次加载时的入场动画；
 1. enter: 图表绘制完成，发生更新后，产生的新图形的进场动画；
 1. update: 图表绘制完成，数据发生变更后，有状态变更的图形的更新动画；
 1. leave: 图表绘制完成，数据发生变更后，被销毁图形的销毁动画。
 
-<br />**`example`**<br />
+**`example`**
 
 ```typescript
 animate({
@@ -128,13 +143,13 @@ animate({
 });
 ```
 
-<br />**Parameters:**
+**Parameters:**
 
 | 参数名 | 类型                  | 描述     |
 | ------ | --------------------- | -------- |
 | `cfg`  | object &#124; boolean | 动画配置 |
 
-<br />`cfg` 为对象类型时，其属性结构如下：<br />
+`cfg` 为对象类型时，其属性结构如下：
 
 ```typescript
 {
@@ -193,7 +208,7 @@ animate({
 }
 ```
 
-<br />**Returns:** _Geometry_
+**Returns:** _Geometry_
 
 ---
 
@@ -201,30 +216,35 @@ animate({
 
 ### changeVisible
 
-<br />▸ **changeVisible**(`visible`): _void_<br />
-<br />显示或者隐藏 geometry。<br />
-<br />**Parameters:**
+▸ **changeVisible**(`visible`): _void_
+
+显示或者隐藏 geometry。
+
+**Parameters:**
 
 | 参数名    | 类型    | 描述                 |
 | --------- | ------- | -------------------- |
 | `visible` | boolean | 显示或者隐藏几何标记 |
 
-<br />**Returns:** _void_<br />
+**Returns:** _void_
 
 <a name="clear"></a>
 
 ### clear
 
-<br />▸ **clear**(): _void_<br />
-<br />清空当前 Geometry，配置项仍保留，但是内部创建的对象全部清空。<br />
+▸ **clear**(): _void_
+
+清空当前 Geometry，配置项仍保留，但是内部创建的对象全部清空。
 
 <a name="color"></a>
 
 ### color
 
-<br />▸ **color**(`cfg`): _Geometry_<br />
-<br />配置 color 通道映射规则。<br />
-<br />**`example`**<br />
+▸ **color**(`cfg`): _Geometry_
+
+配置 color 通道映射规则。
+
+**`example`**
 
 ```typescript
 // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
@@ -234,7 +254,7 @@ geometry.color({
 });
 ```
 
-<br />**Parameters:**
+**Parameters:**
 
 | 参数名 | 类型   | 描述                     |
 | ------ | ------ | ------------------------ |
@@ -251,8 +271,9 @@ geometry.color({
 }
 ```
 
-<br />▸ **color**(`field`, `cfg`): _Geometry_<br />
-<br />**`example`**<br />
+▸ **color**(`field`, `cfg`): _Geometry_
+
+**`example`**
 
 ```typescript
 // data
@@ -282,86 +303,97 @@ geometry.color('x', (xVal) => {
 geometry.color('x', '#BAE7FF-#1890FF-#0050B3');
 ```
 
-<br />**Parameters:**
+**Parameters:**
 
 | 参数名  | 类型                                                | 描述                                                       |
 | ------- | --------------------------------------------------- | ---------------------------------------------------------- |
 | `field` | string                                              | 参与颜色映射的数据字段，多个字段使用 '\*' 连接符进行连接。 |
 | `cfg?`  | string &#124; string[] &#124; `(...args) => string` | 可选, color 映射规则。                                     |
 
-<br />**Returns:** _Geometry_<br />
+**Returns:** _Geometry_
 
 <a name="destroy"></a>
 
 ### destroy
 
-<br />▸ **destroy**(): _void_<br />
-<br />销毁 Geometry 实例。<br />
-<br />**Returns:** _void_<br />
+▸ **destroy**(): _void_
+
+销毁 Geometry 实例。
+
+**Returns:** _void_
 
 <a name="getAdjust"></a>
 
 ### getAdjust
 
-<br />▸ **getAdjust**(`adjustType`): _Adjust‹›_<br />
-<br />根据 `adjustType` 调整类型获取 Adjust 实例。<br />
-<br />**Parameters:**
+▸ **getAdjust**(`adjustType`): _Adjust‹›_
+
+根据 `adjustType` 调整类型获取 Adjust 实例。
+
+**Parameters:**
 
 | 参数名       | 类型   |
 | ------------ | ------ |
 | `adjustType` | string |
 
-<br />**Returns:** _Adjust‹›_<br />
+**Returns:** _Adjust‹›_
 
 <a name="getAttribute"></a>
 
 ### getAttribute
 
-<br />▸ **getAttribute**(`name`): _Attribute_<br />
-<br />根据名字获取图形属性实例。<br />
-<br />**Parameters:**
+▸ **getAttribute**(`name`): _Attribute_
+
+根据名字获取图形属性实例。
+
+**Parameters:**
 
 | 参数名 | 类型   |
 | ------ | ------ |
 | `name` | string |
 
-<br />**Returns:** _Attribute_<br />
+**Returns:** _Attribute_
 
 <a name="getAttributeValues"></a>
 
 ### getAttributeValues
 
-<br />▸ **getAttributeValues**(`attr`, `obj`): _any[]_<br />
-<br />获取该数据发生图形映射后对应的 Attribute 图形空间数据。<br />
-<br />**Parameters:**
+▸ **getAttributeValues**(`attr`, `obj`): _any[]_
+
+获取该数据发生图形映射后对应的 Attribute 图形空间数据。
+
+**Parameters:**
 
 | 参数名 | 类型      | 描述                     |
 | ------ | --------- | ------------------------ |
 | `attr` | Attribute | Attribute 图形属性实例。 |
 | `obj`  | object    | 需要进行映射的原始数据。 |
 
-<br />**Returns:** _any[]_<br />
+**Returns:** _any[]_
 
 <a name="getDefaultValue"></a>
 
 ### getDefaultValue
 
-<br />▸ **getDefaultValue**(`attrName`): _any_<br />
-<br />获取图形属性默认的映射值。<br />
-<br />**Parameters:**
+▸ **getDefaultValue**(`attrName`): _any_
+
+获取图形属性默认的映射值。
+
+**Parameters:**
 
 | 参数名     | 类型   |
 | ---------- | ------ |
 | `attrName` | string |
 
-<br />**Returns:** _any_<br />
+**Returns:** _any_
 
 <a name="getElementsBy"></a>
 
 ### getElementsBy
 
-<br />▸ **getElementsBy**(`condition`): _[Element](./element)[]_<br />
-<br />根据一定的规则查找 Geometry 的 Elements。<br />
+▸ **getElementsBy**(`condition`): _[Element](./element)[]_
+
+根据一定的规则查找 Geometry 的 Elements。
 
 ```typescript
 getElementsBy((element) => {
@@ -371,89 +403,111 @@ getElementsBy((element) => {
 });
 ```
 
-<br />**Parameters:**<br />
-<br />▪ **condition**: _function_<br />
-<br />定义查找规则的回调函数。<br />
-<br />▸ (`element`: [Element](./element)): _boolean_<br />
-<br />**Parameters:**
+**Parameters:**
+
+▪ **condition**: _function_
+
+定义查找规则的回调函数。
+
+▸ (`element`: [Element](./element)): _boolean_
+
+**Parameters:**
 
 | 参数名    | 类型                 |
 | --------- | -------------------- |
 | `element` | [Element](./element) |
 
-<br />**Returns:** _[Element](./element)[]_<br />
+**Returns:** _[Element](./element)[]_
 
 <a name="getGroupAttributes"></a>
 
 ### getGroupAttributes
 
-<br />▸ **getGroupAttributes**(): _Attribute[]_<br />
-<br />获取决定分组的图形属性实例。<br />
-<br />**Returns:** _Attribute[]_<br />
+▸ **getGroupAttributes**(): _Attribute[]_
+
+获取决定分组的图形属性实例。
+
+**Returns:** _Attribute[]_
 
 <a name="getGroupFields"></a>
 
 ### getGroupFields
 
-<br />▸ **getGroupFields**(): _string[]_<br />
-<br />获取当前配置中的所有分组 & 分类的字段。<br />
-<br />**Returns:** _string[]_<br />
+▸ **getGroupFields**(): _string[]_
+
+获取当前配置中的所有分组 & 分类的字段。
+
+**Returns:** _string[]_
 
 <a name="getGroupScales"></a>
 
 ### getGroupScales
 
-<br />▸ **getGroupScales**(): _Scale[]_<br />
-<br />获取决定分组的图形属性对应的 scale 实例。<br />
-<br />**Returns:** _Scale[]_<br />
+▸ **getGroupScales**(): _Scale[]_
+
+获取决定分组的图形属性对应的 scale 实例。
+
+**Returns:** _Scale[]_
 
 <a name="getShapes"></a>
 
 ### getShapes
 
-<br />▸ **getShapes**(): _IGroup | IShape[]_<br />
-<br />获取该 Geometry 下所有生成的 shapes。<br />
-<br />**Returns:** _IGroup | IShape[]_<br />
+▸ **getShapes**(): _IGroup | IShape[]_
+
+获取该 Geometry 下所有生成的 shapes。
+
+**Returns:** _IGroup | IShape[]_
 
 <a name="getXScale"></a>
 
 ### getXScale
 
-<br />▸ **getXScale**(): _Scale_<br />
-<br />获取 x 轴对应的 scale 实例。<br />
-<br />**Returns:** _Scale_<br />
+▸ **getXScale**(): _Scale_
+
+获取 x 轴对应的 scale 实例。
+
+**Returns:** _Scale_
 
 <a name="getXYFields"></a>
 
 ### getXYFields
 
-<br />▸ **getXYFields**(): _string[]_<br />
-<br />获得图形的 x y 字段。<br />
-<br />**Returns:** _string[]_<br />
+▸ **getXYFields**(): _string[]_
+
+获得图形的 x y 字段。
+
+**Returns:** _string[]_
 
 <a name="getYScale"></a>
 
 ### getYScale
 
-<br />▸ **getYScale**(): _Scale_<br />
-<br />获取 y 轴对应的 scale 实例。<br />
-<br />**Returns:** _Scale_<br />
+▸ **getYScale**(): _Scale_
+
+获取 y 轴对应的 scale 实例。
+
+**Returns:** _Scale_
 
 <a name="hide"></a>
 
 ### hide
 
-<br />▸ **hide**(): _void_<br />
-<br />隐藏。<br />
-<br />**Returns:** _void_<br />
+▸ **hide**(): _void_
+
+隐藏。
+
+**Returns:** _void_
 
 <a name="label"></a>
 
 ### label
 
-<br />▸ **label**(`cfg`): _Geometry_<br />
-<br />Geometry label 配置。<br />
-<br />**`example`**<br />
+▸ **label**(`cfg`): _Geometry_
+
+Geometry label 配置。
+
+**`example`**
 
 ```typescript
 // data: [ {x: 1, y: 2, z: 'a'}, {x: 2, y: 2, z: 'b'} ]
@@ -485,13 +539,13 @@ label(
 );
 ```
 
-<br />**Parameters:**
+**Parameters:**
 
 | 参数名 | 类型                              |
 | ------ | --------------------------------- |
 | `cfg`  | object &#124; false &#124; string |
 
-<br />当 `cfg` 为对象时，其属性结构如下：<br />
+当 `cfg` 为对象时，其属性结构如下：
 
 ```typescript
 {
@@ -503,7 +557,7 @@ label(
 }
 ```
 
-<br />`GeometryLabelCfg` 类型定义如下：<br />
+`GeometryLabelCfg` 类型定义如下：
 
 ````typescript
 {
@@ -585,7 +639,7 @@ label(
 }
 ````
 
-<br />`AnimateCfg` 配置结构如下：<br />
+`AnimateCfg` 配置结构如下：
 
 ```typescript
 {
@@ -602,35 +656,42 @@ label(
 }
 ```
 
-<br />**Returns:** _Geometry_<br />
-<br />label<br />
-<br />▸ **label**(`field`, `secondParam`): _Geometry_<br />
-<br />**Parameters:**
+**Returns:** _Geometry_
 
-| 参数名        | 类型                                                                        |
-| ------------- | --------------------------------------------------------------------------- |
-| `field`       | string                                                                      |
+label
+
+▸ **label**(`field`, `secondParam`): _Geometry_
+
+**Parameters:**
+
+| 参数名        | 类型                                                    |
+| ------------- | ------------------------------------------------------- |
+| `field`       | string                                                  |
 | `secondParam` | GeometryLabelCfg] &#124; `(...args) => GeometryLabelCfg | null | undefined` |
 
-<br />**Returns:** _Geometry_<br />
-<br />▸ **label**(`field`, `secondParam`, `thirdParam`): _Geometry_<br />
-<br />**Parameters:**
+**Returns:** _Geometry_
 
-| 参数名        | 类型                                               |
-| ------------- | -------------------------------------------------- |
-| `field`       | string                                             |
+▸ **label**(`field`, `secondParam`, `thirdParam`): _Geometry_
+
+**Parameters:**
+
+| 参数名        | 类型                           |
+| ------------- | ------------------------------ |
+| `field`       | string                         |
 | `secondParam` | `(...args) => GeometryLabelCfg | null | undefined` |
-| `thirdParam`  | GeometryLabelCfg                                   |
+| `thirdParam`  | GeometryLabelCfg               |
 
-<br />**Returns:** _Geometry_<br />
+**Returns:** _Geometry_
 
 <a name="position"></a>
 
 ### position
 
-<br />▸ **position**(`cfg`): _Geometry_<br />
-<br />配置 position 通道映射规则。<br />
-<br />**`example`**<br />
+▸ **position**(`cfg`): _Geometry_
+
+配置 position 通道映射规则。
+
+**`example`**
 
 ```typescript
 // 数据结构: [{ x: 'A', y: 10, color: 'red' }]
@@ -641,13 +702,13 @@ geometry.position({
 });
 ```
 
-<br />**Parameters:**
+**Parameters:**
 
 | 参数名 | 类型                                 | 描述     |
 | ------ | ------------------------------------ | -------- |
 | `cfg`  | string &#124; string[] &#124; object | 映射规则 |
 
-<br />`cfg` 为对象时，对象结构如下：<br />
+`cfg` 为对象时，对象结构如下：
 
 ```typescript
 {
@@ -656,15 +717,17 @@ geometry.position({
 }
 ```
 
-<br />**Returns:** _Geometry_<br />
+**Returns:** _Geometry_
 
 <a name="shape"></a>
 
 ### shape
 
-<br />▸ **shape**(`cfg`): _Geometry_<br />
-<br />配置 shape 通道映射规则。<br />
-<br />**`example`**<br />
+▸ **shape**(`cfg`): _Geometry_
+
+配置 shape 通道映射规则。
+
+**`example`**
 
 ```typescript
 // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
@@ -673,13 +736,13 @@ geometry.shape({
 });
 ```
 
-<br />**Parameters:**
+**Parameters:**
 
 | 参数名 | 类型   | 描述           |
 | ------ | ------ | -------------- |
 | `cfg`  | object | 映射规则配置。 |
 
-<br />`cfg` 为对象的属性结构如下：<br />
+`cfg` 为对象的属性结构如下：
 
 ```typescript
 {
@@ -692,9 +755,11 @@ geometry.shape({
 }
 ```
 
-<br />**Returns:** _Geometry_<br />
-<br />▸ **shape**(`field`, `cfg`): _Geometry_<br />
-<br />**`example`**<br />
+**Returns:** _Geometry_
+
+▸ **shape**(`field`, `cfg`): _Geometry_
+
+**`example`**
 
 ```typescript
 // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
@@ -717,30 +782,34 @@ geometry.shape('x', (xVal) => {
 });
 ```
 
-<br />**Parameters:**
+**Parameters:**
 
-| 参数名  | 类型                                          | 描述                                                          |
-| ------- | --------------------------------------------- | ------------------------------------------------------------- |
-| `field` | string                                        | 参与 shape 映射的数据字段，多个字段使用 '\*' 连接符进行连接。 |
-| `cfg?`  | string[] &#124; `(...args) => string | any[]` | Optional, shape 映射规则。                                    |
+| 参数名  | 类型                                 | 描述                                                          |
+| ------- | ------------------------------------ | ------------------------------------------------------------- |
+| `field` | string                               | 参与 shape 映射的数据字段，多个字段使用 '\*' 连接符进行连接。 |
+| `cfg?`  | string[] &#124; `(...args) => string | any[]`                                                        | Optional, shape 映射规则。 |
 
-<br />**Returns:** _Geometry_<br />
+**Returns:** _Geometry_
 
 <a name="show"></a>
 
 ### show
 
-<br />▸ **show**(): _void_<br />
-<br />显示。<br />
-<br />**Returns:** _void_<br />
+▸ **show**(): _void_
+
+显示。
+
+**Returns:** _void_
 
 <a name="size"></a>
 
 ### size
 
-<br />▸ **size**(`cfg`): _Geometry_<br />
-<br />配置 size 通道映射规则。<br />
-<br />**`example`**<br />
+▸ **size**(`cfg`): _Geometry_
+
+配置 size 通道映射规则。
+
+**`example`**
 
 ```typescript
 // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
@@ -749,13 +818,13 @@ geometry.size({
 });
 ```
 
-<br />**Parameters:**
+**Parameters:**
 
 | 参数名  | 类型   | 描述       |
 | ------- | ------ | ---------- |
 | `field` | object | 映射规则。 |
 
-<br />`cfg` 为对象的属性结构如下：<br />
+`cfg` 为对象的属性结构如下：
 
 ```typescript
 {
@@ -768,9 +837,11 @@ geometry.size({
 }
 ```
 
-<br />**Returns:** _Geometry_<br />
-<br />▸ **size**(`field`, `cfg`): _Geometry_<br />
-<br />**`example`**<br />
+**Returns:** _Geometry_
+
+▸ **size**(`field`, `cfg`): _Geometry_
+
+**`example`**
 
 ```typescript
 // data: [{ x: 'A', y: 10, color: 'red' }, { x: 'B', y: 30, color: 'yellow' }]
@@ -793,22 +864,24 @@ geometry.size('x', (xVal) => {
 });
 ```
 
-<br />**Parameters:**
+**Parameters:**
 
 | 参数名  | 类型                                          | 描述                                                         |
 | ------- | --------------------------------------------- | ------------------------------------------------------------ |
 | `field` | number &#124; string                          | 参与 size 映射的数据字段，多个字段使用 '\*' 连接符进行连接。 |
 | `cfg?`  | [number, number] &#124; `(...args) => number` | Optional, size 映射规则                                      |
 
-<br />**Returns:** _Geometry_<br />
+**Returns:** _Geometry_
 
 <a name="state"></a>
 
 ### state
 
-<br />▸ **state**(`cfg`): _Geometry_<br />
-<br />设置状态对应的样式。<br />
-<br />**`example`**<br />
+▸ **state**(`cfg`): _Geometry_
+
+设置状态对应的样式。
+
+**`example`**
 
 ```typescript
 chart.interval().state({
@@ -822,7 +895,7 @@ chart.interval().state({
 });
 ```
 
-<br />如果图形 shape 是由多个 shape 组成，即为一个 G.Group 对象，那么针对 group 中的每个 shape，我们需要使用下列方式进行状态样式设置：<br />如果我们为 group 中的每个 shape 设置了 'name' 属性(shape.set('name', 'xx'))，则以 'name' 作为 key，否则默认以索引值（即 shape 的 添加顺序）为 key。<br />
+如果图形 shape 是由多个 shape 组成，即为一个 G.Group 对象，那么针对 group 中的每个 shape，我们需要使用下列方式进行状态样式设置：如果我们为 group 中的每个 shape 设置了 'name' 属性(shape.set('name', 'xx'))，则以 'name' 作为 key，否则默认以索引值（即 shape 的 添加顺序）为 key。
 
 ```typescript
 chart
@@ -838,13 +911,13 @@ chart
   });
 ```
 
-<br />**Parameters:**
+**Parameters:**
 
 | 参数名 | 类型   | 描述     |
 | ------ | ------ | -------- |
 | `cfg`  | object | 状态样式 |
 
-<br />`cfg` 对象的属性结构如下：<br />
+`cfg` 对象的属性结构如下：
 
 ```typescript
 {
@@ -871,15 +944,17 @@ chart
 }
 ```
 
-<br />**Returns:** _this_<br />
+**Returns:** _this_
 
 <a name="style"></a>
 
 ### style
 
-<br />▸ **style**(`cfg`): _Geometry_<br />
-<br />图形样式配置。<br />
-<br />**`example`**<br />
+▸ **style**(`cfg`): _Geometry_
+
+图形样式配置。
+
+**`example`**
 
 ```typescript
 // 配置图形样式
@@ -901,13 +976,13 @@ style({
 });
 ```
 
-<br />**Parameters:**
+**Parameters:**
 
 | 参数名 | 类型                      | 描述                       |
 | ------ | ------------------------- | -------------------------- |
 | `cfg`  | StyleOption &#124; object | 配置样式属性或者样式规则。 |
 
-<br />`cfg` 为 StyleOption 类型时，其属性结构如下：<br />
+`cfg` 为 StyleOption 类型时，其属性结构如下：
 
 ```typescript
 {
@@ -920,9 +995,11 @@ style({
 }
 ```
 
-<br />**Returns:** _Geometry_<br />
-<br />▸ **style**(`field`, `styleFunc`): _Geometry_<br />
-<br />**`example`**<br />
+**Returns:** _Geometry_
+
+▸ **style**(`field`, `styleFunc`): _Geometry_
+
+**`example`**
 
 ```typescript
 style('x*y', (xVal, yVal) => {
@@ -934,24 +1011,28 @@ style('x*y', (xVal, yVal) => {
 });
 ```
 
-<br />**Parameters:**
+**Parameters:**
 
 | 参数名      | 类型                       | 描述                         |
 | ----------- | -------------------------- | ---------------------------- |
 | `field`     | string                     | 数据字段或者样式配置规则。   |
 | `styleFunc` | `(...args) => LooseObject` | Optional, 样式配置回调函数。 |
 
-<br />**Returns:** _Geometry_<br />
+**Returns:** _Geometry_
 
 <a name="tooltip"></a>
 
 ### tooltip
 
-<br />▸ **tooltip**(`cfg`): _Geometry_<br />
-<br />配置 Geometry 显示的 tooltip 内容。<br />
-<br />`tooltip(false)` 代表关闭 tooltip。<br />`tooltip(true)` 代表开启 tooltip。<br />
-<br />Geometry 默认允许 tooltip 展示，我们可以使用以下方法对 tooltip 的展示内容进行配置：<br />
-<br />**`example`**<br />
+▸ **tooltip**(`cfg`): _Geometry_
+
+配置 Geometry 显示的 tooltip 内容。
+
+`tooltip(false)` 代表关闭 tooltip。`tooltip(true)` 代表开启 tooltip。
+
+Geometry 默认允许 tooltip 展示，我们可以使用以下方法对 tooltip 的展示内容进行配置：
+
+**`example`**
 
 ```typescript
 // data: [{x: 'a', y: 10}]
@@ -966,8 +1047,9 @@ tooltip({
 });
 ```
 
-tooltip() 方法同样支持数据映射及回调用法：<br />
-<br />**`example`**<br />
+tooltip() 方法同样支持数据映射及回调用法：
+
+**`example`**
 
 ```typescript
 chart.tooltip({
@@ -988,14 +1070,15 @@ chart
   });
 ```
 
-<br />其返回的值必须为对象，该值中的属性同 chart.tooltip() 的 itemTpl 模板相对应，返回的变量可用于 itemTpl 的字符串模板。<br />
-<br />**Parameters:**
+其返回的值必须为对象，该值中的属性同 chart.tooltip() 的 itemTpl 模板相对应，返回的变量可用于 itemTpl 的字符串模板。
+
+**Parameters:**
 
 | 参数名  | 类型                                 | 描述               |
 | ------- | ------------------------------------ | ------------------ |
 | `field` | GeometryTooltipOption &#124; boolean | tooltip 配置信息。 |
 
-<br />`field` 为 GeometryTooltipOption 类型时，其结构如下：<br />
+`field` 为 GeometryTooltipOption 类型时，其结构如下：
 
 ```typescript
 {
@@ -1006,9 +1089,11 @@ chart
 }
 ```
 
-<br />**Returns:** _Geometry_<br />
-<br />▸ **tooltip**(`field`, `cfg`): _Geometry_<br />
-<br />**`example`**<br />
+**Returns:** _Geometry_
+
+▸ **tooltip**(`field`, `cfg`): _Geometry_
+
+**`example`**
 
 ```typescript
 // data: [{x: 'a', y: 10}]
@@ -1028,11 +1113,11 @@ tooltip('x*y', (x, y) => {
 });
 ```
 
-<br />**Parameters:**
+**Parameters:**
 
 | 参数名  | 类型                       | 描述               |
 | ------- | -------------------------- | ------------------ |
 | `field` | string                     | 参与映射的字段。   |
 | `cfg?`  | `(...args) => LooseObject` | Optional, 回调函数 |
 
-<br />**Returns:** _Geometry_
+**Returns:** _Geometry_

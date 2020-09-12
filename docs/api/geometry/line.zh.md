@@ -3,14 +3,15 @@ title: Line
 order: 3
 ---
 
-Line 几何标记。<br />常用于折线图的绘制。<br />
+Line 几何标记。常用于折线图的绘制。
 
 <a name="b821e2f0"></a>
 
 ## 继承关系
 
-<br />↳ [Path](path)<br />
-<br />↳ **Line**<br />
+↳ [Path](path)
+
+↳ **Line**
 
 <a name="d3474432"></a>
 
@@ -25,11 +26,18 @@ view.line();
 
 ### 参数
 
-<br />• **connectNulls**? : _boolean_<br />
-<br />是否连接空值<br />
-<br />• **sortable**? : _boolean_<br />
-<br />是否对数据进行排序<br />
-<br />• **theme**? : _object_<br />
-<br />主题配置<br />
-<br />• **visible**? : _boolean_<br />
-<br />是否可见
+• **connectNulls**? : _boolean_
+
+是否连接空值
+
+• **sortable**? : _boolean_
+
+是否对数据进行排序
+
+• **theme**? : _object_
+
+主题配置
+
+• **visible**? : _boolean_
+
+是否可见

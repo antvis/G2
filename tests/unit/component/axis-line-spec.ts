@@ -31,7 +31,7 @@ describe('Component', () => {
     // @ts-ignore
     expect(x.component.get('label').offset).toBe(get(chart.getTheme(), ['components', 'axis', 'bottom', 'label', 'offset']));
     // @ts-ignore
-    expect(y.component.get('title').offset).toBeCloseTo(46.0159912109375);
+    expect(y.component.get('title').offset).toBeCloseTo(46.0159912109375, 0);
     expect(y.component.get('title').spacing).toBe(get(chart.getTheme(), ['components', 'axis', 'common', 'title', 'spacing']));
     // @ts-ignore
     expect(y.component.get('label').offset).toBe(get(chart.getTheme(), ['components', 'axis', 'bottom', 'label', 'offset']));

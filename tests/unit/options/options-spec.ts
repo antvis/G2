@@ -214,7 +214,7 @@ describe('Schema', () => {
     expect(chart.autoPadding[0]).toBe(0);
     expect(chart.autoPadding[1]).toBe(0.5);
     expect(chart.autoPadding[2]).toBe(20);
-    expect(chart.autoPadding[3]).toBe(34.68798828125);
+    expect(chart.autoPadding[3]).toBeCloseTo(34.68798828125, 0);
   });
 
   afterAll(() => {

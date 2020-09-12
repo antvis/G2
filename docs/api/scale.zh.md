@@ -7,7 +7,7 @@ order: 3
 
 ## API
 
-<br />Scale 度量模块提供了下面 3 大类的度量<br />
+Scale 度量模块提供了下面 3 大类的度量
 
 - 分类度量：
   - cat： 分类度量
@@ -20,9 +20,9 @@ order: 3
   - quantize：分段度量，用户可以指定不均匀的分段
   - quantile: 等分度量，根据数据的分布自动计算分段
 - 常量度量
-  - identity: 常量度量<br />这些度量的使用通过 getScale 方法来获取
+  - identity: 常量度量这些度量的使用通过 getScale 方法来获取
 
-<br />度量的属性大部分一致，可以将属性分为：<br />
+度量的属性大部分一致，可以将属性分为：
 
 - 通用属性： 所有度量都适用的属性
 - 度量的专有属性：个别度量专有的属性，对其他度量无意义
@@ -46,7 +46,7 @@ order: 3
 
 #### tickMethod
 
-<br />这个属性用户设置计算 ticks 的方法，可以传入字符串或者回调函数，支持的字符串类型有：<br />
+这个属性用户设置计算 ticks 的方法，可以传入字符串或者回调函数，支持的字符串类型有：
 
 - `wilkinson-extended` ：计算数字 ticks 的方法，linear 类型度量内置的计算方法
 - `r-pretty`: 计算数字 ticks 的方法， ticks 的 nice 效果很好，但是 tickCount 的精度太差
@@ -76,7 +76,7 @@ order: 3
 
 ### 专有属性
 
-<br />这里除了列举各个度量专有的属性，和一些属性适合的取值，例如 tickMethod 方法不同的度量适合的计算方式不一样，任意设置可能达不到想要的效果<br />
+这里除了列举各个度量专有的属性，和一些属性适合的取值，例如 tickMethod 方法不同的度量适合的计算方式不一样，任意设置可能达不到想要的效果
 
 <a name="pow"></a>
 
@@ -98,13 +98,13 @@ order: 3
 
 #### quantize
 
-<br />这是一种分段度量，scale 按照用户设置的 ticks 进行计算 scale，如果未设置 ticks ，则使用 `r-pretty` 计算默认的 ticks<br />
+这是一种分段度量，scale 按照用户设置的 ticks 进行计算 scale，如果未设置 ticks ，则使用 `r-pretty` 计算默认的 ticks
 
 <a name="quantile"></a>
 
 #### quantile
 
-<br />这是一种按照数据密度自动分段的度量，按照设置的 values 计算 ticks，进行 scale 时按照 ticks 计算，而非均匀计算，使用 `tickMethod: quantile` 计算 ticks<br />
+这是一种按照数据密度自动分段的度量，按照设置的 values 计算 ticks，进行 scale 时按照 ticks 计算，而非均匀计算，使用 `tickMethod: quantile` 计算 ticks
 
 <a name="zAS30"></a>
 

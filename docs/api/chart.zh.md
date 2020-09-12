@@ -5,15 +5,17 @@ redirect_from:
   - /zh/docs/api
 ---
 
-Chart 类，是使用 G2 进行绘图的入口。<br />
+Chart 类，是使用 G2 进行绘图的入口。
 
 <a name="81b1781e"></a>
 
 ## 构造函数
 
-<br />+ **new Chart**(`chartCfg`): _Chart_<br />
-<br />**参数:**<br />
-<br />构造函数入参 `chartCfg` 是一个对象，可配置的属性如下：
+- **new Chart**(`chartCfg`): _Chart_
+
+**参数:**
+
+构造函数入参 `chartCfg` 是一个对象，可配置的属性如下：
 
 | 属性名                | 说明                                                                                                                                                                           | 类型                                 | 默认值                                                               |
 | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------ | -------------------------------------------------------------------- |
@@ -31,55 +33,61 @@ Chart 类，是使用 G2 进行绘图的入口。<br />
 | `theme`               | 主题。                                                                                                                                                                         | object &#124; string                 | -                                                                    |
 | `visible`             | chart 是否可见，默认为 true，设置为 false 则会隐藏。                                                                                                                           | boolean                              | true                                                                 |
 
-<br />**返回值:** _Chart_<br />
+**返回值:** _Chart_
 
 <a name="24d67862"></a>
 
 ## 属性
 
-<br />获取方式：`chart.destroyed`。<br />
+获取方式：`chart.destroyed`。
 
 <a name="destroyed"></a>
 
 ### destroyed
 
-<br />• **destroyed**: _boolean_ = false<br />
-<br />标识 chart 对象是否已销毁。<br />
+• **destroyed**: _boolean_ = false
+
+标识 chart 对象是否已销毁。
 
 <a name="ele"></a>
 
 ### ele
 
-<br />• **ele**: _HTMLElement_<br />
-<br />Chart 的 DOM 容器。<br />
+• **ele**: _HTMLElement_
+
+Chart 的 DOM 容器。
 
 <a name="geometries"></a>
 
 ### geometries
 
-<br />• **geometries**: _[Geometry](./geometry)[]_ = []<br />
-<br />所有的 geometry 实例。<br />
+• **geometries**: _[Geometry](./geometry)[]_ = []
+
+所有的 geometry 实例。
 
 <a name="height"></a>
 
 ### height
 
-<br />• **height**: _number_<br />
-<br />图表高度。<br />
+• **height**: _number_
+
+图表高度。
 
 <a name="interactions"></a>
 
 ### interactions
 
-<br />• **interactions**: _Record‹string, [Interaction](interaction)›_<br />
-<br />所有的 Interaction 实例。<br />
+• **interactions**: _Record‹string, [Interaction](interaction)›_
+
+所有的 Interaction 实例。
 
 <a name="views"></a>
 
 ### views
 
-<br />• **views**: _[View](./view)[]_ = []<br />
-<br />所有的子 view。<br />
+• **views**: _[View](./view)[]_ = []
+
+所有的子 view。
 
 <a name="ea340b9d"></a>
 
@@ -89,8 +97,9 @@ Chart 类，是使用 G2 进行绘图的入口。<br />
 
 ### data
 
-<br />▸ **data**(`data`): _View_<br />
-<br />装载数据源。<br />
+▸ **data**(`data`): _View_
+
+装载数据源。
 
 ```typescript
 view.data([
@@ -99,27 +108,29 @@ view.data([
 ]);
 ```
 
-<br />**参数:**
+**参数:**
 
 | 属性名 | 说明                | 类型     |
 | ------ | ------------------- | -------- |
 | `data` | 数据源，json 数组。 | object[] |
 
-<br />**返回值:** _View_<br />
+**返回值:** _View_
 
 <a name="source"></a>
 
 ### source
 
-<br />`chart.data()` 方法的别名。<br />
+`chart.data()` 方法的别名。
 
 <a name="coordinate"></a>
 
 ### coordinate
 
-<br />▸ **coordinate**(`option`): _CoordinateController_<br />
-<br />坐标系配置。<br />
-<br />**`example`**<br />
+▸ **coordinate**(`option`): _CoordinateController_
+
+坐标系配置。
+
+**`example`**
 
 ```typescript
 chart.coordinate({
@@ -131,8 +142,9 @@ chart.coordinate({
 });
 ```
 
-<br />**参数:**<br />
-<br />`option` 是一个对象，可配置的属性如下：
+**参数:**
+
+`option` 是一个对象，可配置的属性如下：
 
 | 属性名    | 说明                                                                                                                                                                                                                                                                                                                         | 类型                                                                                                                                |
 | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
@@ -140,9 +152,11 @@ chart.coordinate({
 | `cfg`     | 坐标系配置项，目前常用于极坐标，是一个对象，支持的属性如下：<br />_ `startAngle`: number，用于极坐标，配置起始弧度。<br />_ `endAngle`: number，用于极坐标，配置结束弧度。<br />_ `radius`: number，用于极坐标，配置极坐标半径，0 - 1 范围的数值。<br />_ `innerRadius`: number，用于极坐标，极坐标内半径，0 -1 范围的数值。 | object                                                                                                                              |
 | `actions` | 坐标系变换操作:<br />1. rotate 表示旋转，使用弧度制。<br />2. scale 表示沿着 x 和 y 方向的缩放比率。<br />3. reflect 表示沿 x 方向镜像或者沿 y 轴方向映射。<br />4. transpose 表示 x，y 轴置换。                                                                                                                             | [<br />    ["reflect", "x" &#124; "y"]<br />    ["rotate", number]<br />    ["scale", number, number]<br />    ["transpose"]<br />] |
 
-<br />**返回值:** _CoordinateController_<br />
-<br />▸ **coordinate**(`type`, `coordinateCfg`): _CoordinateController_<br />
-<br />声明坐标系类型，并进行配置。<br />
+**返回值:** _CoordinateController_
+
+▸ **coordinate**(`type`, `coordinateCfg`): _CoordinateController_
+
+声明坐标系类型，并进行配置。
 
 ```typescript
 // 直角坐标系，并进行转置变换
@@ -152,15 +166,16 @@ view.coordinate('rect').transpose();
 view.coordinate();
 ```
 
-<br />**参数:**
+**参数:**
 
 | 属性名          | 说明                                                                                                                                                                                                                                                                                                                         | 类型      |
 | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
 | `type`          | 坐标系类型                                                                                                                                                                                                                                                                                                                   | \_"polar" | "theta" | "rect" | "cartesian" | "helix"\_ |
 | `coordinateCfg` | 坐标系配置项，目前常用于极坐标，是一个对象，支持的属性如下：<br />_ `startAngle`: number，用于极坐标，配置起始弧度。<br />_ `endAngle`: number，用于极坐标，配置结束弧度。<br />_ `radius`: number，用于极坐标，配置极坐标半径，0 - 1 范围的数值。<br />_ `innerRadius`: number，用于极坐标，极坐标内半径，0 -1 范围的数值。 | object    |
 
-<br />**返回值:** _CoordinateController_<br />
-<br />**坐标系变换操作：**<br />
+**返回值:** _CoordinateController_
+
+**坐标系变换操作：**
 
 ```typescript
 view
@@ -175,42 +190,47 @@ view
 
 ### coord
 
-<br />`chart.coordinate()` 方法别名。<br />
+`chart.coordinate()` 方法别名。
 
 <a name="animate"></a>
 
 ### animate
 
-<br />▸ **animate**(`status`): _View_<br />
-<br />**参数:**
+▸ **animate**(`status`): _View_
+
+**参数:**
 
 | 属性名   | 说明           | 类型    |
 | -------- | -------------- | ------- |
 | `status` | 是否开启动画。 | boolean |
 
-<br />**返回值:** _View_<br />
+**返回值:** _View_
 
 <a name="axis"></a>
 
 ### axis
 
-<br />▸ **axis**(`status`): _View_<br />
-<br />开启或者关闭坐标轴。<br />
+▸ **axis**(`status`): _View_
+
+开启或者关闭坐标轴。
 
 ```typescript
 view.axis(false); // 不展示坐标轴
 ```
 
-<br />**参数:**
+**参数:**
 
 | 属性名   | 说明         | 类型    |
 | -------- | ------------ | ------- |
 | `status` | 坐标轴开关。 | boolean |
 
-<br />**返回值:** _View_<br />
-<br />▸ **axis**(`field`, `axisOption`): _View_<br />
-<br />对特定的某条坐标轴进行配置。<br />
-<br />**`example`**<br />
+**返回值:** _View_
+
+▸ **axis**(`field`, `axisOption`): _View_
+
+对特定的某条坐标轴进行配置。
+
+**`example`**
 
 ```typescript
 view.axis('city', false); // 不展示 'city' 字段对应的坐标轴
@@ -221,7 +241,7 @@ view.axis('city', {
 });
 ```
 
-<br />**参数:**
+**参数:**
 
 | 属性名       | 说明                         | 类型       |
 | ------------ | ---------------------------- | ---------- |
@@ -354,13 +374,13 @@ view.axis('city', {
 }
 ```
 
-<br />**返回值:** _View_<br />
+**返回值:** _View_
 
 <a name="annotation"></a>
 
 ### annotation
 
-<br />**annotation**().(`cfg`)<br />辅助标记配置。<br />
+**annotation**().(`cfg`)辅助标记配置。
 
 ```typescript
 view.annotation().line({
@@ -374,16 +394,19 @@ view.annotation().line({
 });
 ```
 
-<br />`cfg` 是一个对象，根据不同的 Annotation 类型对应不同的配置属性。<br />
+`cfg` 是一个对象，根据不同的 Annotation 类型对应不同的配置属性。
 
 <a name="7f4c0cdc"></a>
 
 #### 通用配置
 
-<br />• **animate**? : _boolean_<br />
-<br />是否进行动画。<br />
-<br />• **animateOption**? : _object_<br />
-<br />动画参数配置，当且仅当 `animate` 属性为 true，即动画开启时生效。是一个对象，支持的属性如下：<br />
+• **animate**? : _boolean_
+
+是否进行动画。
+
+• **animateOption**? : _object_
+
+动画参数配置，当且仅当 `animate` 属性为 true，即动画开启时生效。是一个对象，支持的属性如下：
 
 ```typescript
 {
@@ -426,23 +449,30 @@ view.annotation().line({
 }
 ```
 
-<br />• **offsetX**? : _number_<br />
-<br />x 方向的偏移量。<br />
-<br />• **offsetY**? : _number_<br />
-<br />y 方向的偏移量。<br />
-<br />• **style**? : _object_<br />
-<br />图形样式属性。<br />
-<br />• **top**? : _boolean_<br />
-<br />指定 annotation 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层。<br />
+• **offsetX**? : _number_
+
+x 方向的偏移量。
+
+• **offsetY**? : _number_
+
+y 方向的偏移量。
+
+• **style**? : _object_
+
+图形样式属性。
+
+• **top**? : _boolean_
+
+指定 annotation 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层。
 
 <a name="wW6Rn"></a>
 
 #### 位置属性配置
 
-<br />Annotation 为位置定位支持三种类型配置：<br />
+Annotation 为位置定位支持三种类型配置：
 
 1. object: 使用图表 x, y 对应的原始数据例如： { time: '2010-01-01', value: 200 }
-2. array: 数组来配置位置 [ x, y ]，根据数组中的值的存在以下几种形式：<br />a. 对应数据源中的原始数据；<br />b. 关键字：'min'、'max'、'median'、'start'、'end' 分别代表数据的最大值、最小值、中间值以及坐标系区间的起始和结束；<br />c. x, y 都是百分比的形式，如 30%，在绘图区域定位(即坐标系内)
+2. array: 数组来配置位置 [ x, y ]，根据数组中的值的存在以下几种形式：a. 对应数据源中的原始数据；b. 关键字：'min'、'max'、'median'、'start'、'end' 分别代表数据的最大值、最小值、中间值以及坐标系区间的起始和结束；c. x, y 都是百分比的形式，如 30%，在绘图区域定位(即坐标系内)
 
 > 说明 a 和 b 两种类型的数据可以混用，但是使用百分比形式时 x 和 y 必须都是百分比形式。
 
@@ -456,9 +486,11 @@ chart.annotation().line({
 });
 ```
 
-<br />▸ **annotation**().**line**()<br />
-<br />绘制辅助线。<br />
-<br />**说明：** 以下只列出 Line 类型特有的配置项，其余通用配置项见上述。<br />
+▸ **annotation**().**line**()
+
+绘制辅助线。
+
+**说明：** 以下只列出 Line 类型特有的配置项，其余通用配置项见上述。
 
 ```typescript
 chart.annotation().line({
@@ -486,9 +518,11 @@ chart.annotation().line({
 });
 ```
 
-<br />▸ **annotation**().**text**()<br />
-<br />绘制辅助文本。<br />
-<br />**说明：** 以下只列出 Text 类型特有的配置项，其余通用配置项见上述。<br />
+▸ **annotation**().**text**()
+
+绘制辅助文本。
+
+**说明：** 以下只列出 Text 类型特有的配置项，其余通用配置项见上述。
 
 ```typescript
 chart.annotation().text({
@@ -501,9 +535,11 @@ chart.annotation().text({
 });
 ```
 
-<br />▸ **annotation**().**arc**()<br />
-<br />绘制辅助弧线，**只适用于极坐标**。<br />
-<br />**说明：** 以下只列出 Arc 类型特有的配置项，其余通用配置项见上述。<br />
+▸ **annotation**().**arc**()
+
+绘制辅助弧线，**只适用于极坐标**。
+
+**说明：** 以下只列出 Arc 类型特有的配置项，其余通用配置项见上述。
 
 ```typescript
 chart.annotation().arc({
@@ -514,9 +550,11 @@ chart.annotation().arc({
 });
 ```
 
-<br />▸ **annotation**().**image**()<br />
-<br />绘制辅助图片。<br />
-<br />**说明：** 以下只列出 Image 类型特有的配置项，其余通用配置项见上述。<br />
+▸ **annotation**().**image**()
+
+绘制辅助图片。
+
+**说明：** 以下只列出 Image 类型特有的配置项，其余通用配置项见上述。
 
 ```typescript
 chart.annotation().image({
@@ -525,9 +563,11 @@ chart.annotation().image({
 });
 ```
 
-<br />▸ **annotation**().**region**()<br />
-<br />绘制辅助区域。<br />
-<br />**说明：** 以下只列出 Region 类型特有的配置项，其余通用配置项见上述。<br />
+▸ **annotation**().**region**()
+
+绘制辅助区域。
+
+**说明：** 以下只列出 Region 类型特有的配置项，其余通用配置项见上述。
 
 ```typescript
 chart.annotation().region({
@@ -538,9 +578,11 @@ chart.annotation().region({
 });
 ```
 
-<br />▸ **annotation**().**dataMarker**()<br />
-<br />绘制辅助数据标注。<br />
-<br />**说明：** 以下只列出 DataMarker 类型特有的配置项，其余通用配置项见上述。<br />
+▸ **annotation**().**dataMarker**()
+
+绘制辅助数据标注。
+
+**说明：** 以下只列出 DataMarker 类型特有的配置项，其余通用配置项见上述。
 
 ```typescript
 chart.annotation().dataMarker({
@@ -573,9 +615,11 @@ chart.annotation().dataMarker({
 });
 ```
 
-<br />▸ **annotation**().**dataRegion**()<br />
-<br />绘制辅助数据标注区间。<br />
-<br />**说明：** 以下只列出 DataRegion 类型特有的配置项，其余通用配置项见上述。<br />
+▸ **annotation**().**dataRegion**()
+
+绘制辅助数据标注区间。
+
+**说明：** 以下只列出 DataRegion 类型特有的配置项，其余通用配置项见上述。
 
 ```typescript
 chart.annotation().dataRegion({
@@ -601,9 +645,11 @@ chart.annotation().dataRegion({
 });
 ```
 
-<br />▸ **annotation**().**regionFilter**()<br />
-<br />绘制过滤区间。<br />
-<br />**说明：** 以下只列出 RegionFilter 类型特有的配置项，其余通用配置项见上述。<br />
+▸ **annotation**().**regionFilter**()
+
+绘制过滤区间。
+
+**说明：** 以下只列出 RegionFilter 类型特有的配置项，其余通用配置项见上述。
 
 ```typescript
 chart.annotation().regionFilter({
@@ -622,14 +668,15 @@ chart.annotation().regionFilter({
 
 ### guide
 
-<br />`chart.annotation()` 方法的别名。<br />
+`chart.annotation()` 方法的别名。
 
 <a name="legend"></a>
 
 ### legend
 
-<br />▸ **legend**(`cfg`): _View_<br />
-<br />对图例进行整体配置。<br />
+▸ **legend**(`cfg`): _View_
+
+对图例进行整体配置。
 
 ```typescript
 view.legend(false); // 关闭图例
@@ -639,17 +686,21 @@ view.legend({
 }); // 图例进行整体配置
 ```
 
-<br />**参数:**
+**参数:**
 
 | 属性名 | 说明                   | 类型                  |
 | ------ | ---------------------- | --------------------- |
 | `cfg`  | 图例的开关或者详细配置 | boolean &#124; object |
 
-<br />`cfg` 是对象类型时，用于对图例进行统一配置（因为 G2 中图表可包含多个图例），`cfg` 作为对象包含的配置属性如下：<br />
-<br />• **animate**? : _boolean_<br />
-<br />动画开关，默认关闭。<br />
-<br />• **animateOption**? : _object_<br />
-<br />动画参数配置，当且仅当 `animate` 属性为 true，即动画开启时生效。是一个对象，支持的属性如下：<br />
+`cfg` 是对象类型时，用于对图例进行统一配置（因为 G2 中图表可包含多个图例），`cfg` 作为对象包含的配置属性如下：
+
+• **animate**? : _boolean_
+
+动画开关，默认关闭。
+
+• **animateOption**? : _object_
+
+动画参数配置，当且仅当 `animate` 属性为 true，即动画开启时生效。是一个对象，支持的属性如下：
 
 ```typescript
 {
@@ -692,9 +743,11 @@ view.legend({
 }
 ```
 
-<br />• **background**? : _object_<br />
-<br />背景框配置项。<br />
-<br />属性结构如下：<br />
+• **background**? : _object_
+
+背景框配置项。
+
+属性结构如下：
 
 ```typescript
 {
@@ -703,12 +756,17 @@ view.legend({
 }
 ```
 
-<br />• **custom**? : _boolean_<br />
-<br />是否为自定义图例，当该属性为 true 时，需要声明 items 属性。<br />
-<br />• **flipPage**? : _boolean_<br />
-<br />**适用于分类图例**，当图例项过多时是否进行分页。<br />
-<br />• **handler**? : _object_<br />
-<br />**连续图例适用**，滑块的配置项。<br />属性结构如下：<br />
+• **custom**? : _boolean_
+
+是否为自定义图例，当该属性为 true 时，需要声明 items 属性。
+
+• **flipPage**? : _boolean_
+
+**适用于分类图例**，当图例项过多时是否进行分页。
+
+• **handler**? : _object_
+
+**连续图例适用**，滑块的配置项。属性结构如下：
 
 ```typescript
 {
@@ -717,10 +775,13 @@ view.legend({
 }
 ```
 
-<br />• **itemHeight**? : _number_<br />
-<br />**分类图例适用**，图例的高度，默认为 null。<br />
-<br />• **itemName**? : _object_<br />
-<br />**分类图例适用**，图例项 name 文本的配置。属性结构如下：<br />
+• **itemHeight**? : _number_
+
+**分类图例适用**，图例的高度，默认为 null。
+
+• **itemName**? : _object_
+
+**分类图例适用**，图例项 name 文本的配置。属性结构如下：
 
 ```typescript
 {
@@ -730,10 +791,13 @@ view.legend({
 }
 ```
 
-<br />• **itemSpacing**? : _number_<br />
-<br />**分类图例适用**，控制图例项水平方向的间距。<br />
-<br />• **itemValue**? : _object_<br />
-<br />**分类图例适用**，图例项 value 附加值的配置项。属性结构如下：<br />
+• **itemSpacing**? : _number_
+
+**分类图例适用**，控制图例项水平方向的间距。
+
+• **itemValue**? : _object_
+
+**分类图例适用**，图例项 value 附加值的配置项。属性结构如下：
 
 ```typescript
 {
@@ -743,10 +807,13 @@ view.legend({
 }
 ```
 
-<br />• **itemWidth**? : _number_<br />
-<br />**分类图例适用**，图例项的宽度, 默认为 null，自动计算。<br />
-<br />• **items**? : _object[]_<br />
-<br />**分类图例适用**，用户自己配置图例项的内容。每一项 item 是一个对象，需要包含如下属性：<br />
+• **itemWidth**? : _number_
+
+**分类图例适用**，图例项的宽度, 默认为 null，自动计算。
+
+• **items**? : _object[]_
+
+**分类图例适用**，用户自己配置图例项的内容。每一项 item 是一个对象，需要包含如下属性：
 
 ```typescript
 {
@@ -789,8 +856,9 @@ view.legend({
 }
 ```
 
-<br />• **label**? : _object_<br />
-<br />**连续图例适用**，文本的配置项。属性结构如下：<br />
+• **label**? : _object_
+
+**连续图例适用**，文本的配置项。属性结构如下：
 
 ```typescript
 {
@@ -804,10 +872,13 @@ view.legend({
 }
 ```
 
-<br />• **layout**? : _"horizontal" | "vertical"_<br />
-<br />布局方式： horizontal，vertical<br />
-<br />• **marker**? : _object_<br />
-<br />**分类图例适用**，图例项的 marker 图标的配置。属性结构如下：<br />
+• **layout**? : _"horizontal" | "vertical"_
+
+布局方式： horizontal，vertical
+
+• **marker**? : _object_
+
+**分类图例适用**，图例项的 marker 图标的配置。属性结构如下：
 
 ```typescript
 {
@@ -839,22 +910,37 @@ view.legend({
 }
 ```
 
-<br />• **max**? : _number_<br />
-<br />**连续图例适用**，选择范围的最大值。<br />
-<br />• **maxHeight**? : _number_<br />
-<br />**分类图例适用**，图例项最大高度设置。<br />
-<br />• **maxWidth**? : _number_<br />
-<br />**分类图例适用**，图例项最大宽度设置。<br />
-<br />• **min**? : _number_<br />
-<br />**连续图例适用**，选择范围的最小值。<br />
-<br />• **offsetX**? : _number_<br />
-<br />图例 x 方向的偏移。<br />
-<br />• **offsetY**? : _number_<br />
-<br />图例 y 方向的偏移。<br />
-<br />• **position**? : _"top" | "top-left" | "top-right" | "right" | "right-top" | "right-bottom" | "left" | "left-top" | "left-bottom" | "bottom" | "bottom-left" | "bottom-right"_<br />
-<br />图例的位置。<br />
-<br />• **rail**? : _object_<br />
-<br />**连续图例适用**，图例滑轨（背景）的样式配置项。属性结构如下：<br />
+• **max**? : _number_
+
+**连续图例适用**，选择范围的最大值。
+
+• **maxHeight**? : _number_
+
+**分类图例适用**，图例项最大高度设置。
+
+• **maxWidth**? : _number_
+
+**分类图例适用**，图例项最大宽度设置。
+
+• **min**? : _number_
+
+**连续图例适用**，选择范围的最小值。
+
+• **offsetX**? : _number_
+
+图例 x 方向的偏移。
+
+• **offsetY**? : _number_
+
+图例 y 方向的偏移。
+
+• **position**? : _"top" | "top-left" | "top-right" | "right" | "right-top" | "right-bottom" | "left" | "left-top" | "left-bottom" | "bottom" | "bottom-left" | "bottom-right"_
+
+图例的位置。
+
+• **rail**? : _object_
+
+**连续图例适用**，图例滑轨（背景）的样式配置项。属性结构如下：
 
 ```typescript
 {
@@ -865,12 +951,17 @@ view.legend({
 }
 ```
 
-<br />• **reversed**? : _boolean_<br />
-<br />**分类图例适用**，是否将图例项逆序展示。<br />
-<br />• **slidable**? : _boolean_<br />
-<br />**连续图例适用**，滑块是否可以滑动。<br />
-<br />• **title**? : _object_<br />
-<br />图例标题配置，默认不展示。属性结构如下：<br />
+• **reversed**? : _boolean_
+
+**分类图例适用**，是否将图例项逆序展示。
+
+• **slidable**? : _boolean_
+
+**连续图例适用**，滑块是否可以滑动。
+
+• **title**? : _object_
+
+图例标题配置，默认不展示。属性结构如下：
 
 ```typescript
 {
@@ -879,8 +970,9 @@ view.legend({
 }
 ```
 
-<br />• **track**? : _object_<br />
-<br />**连续图例适用**，选择范围的色块样式配置项。属性结构如下：<br />
+• **track**? : _object_
+
+**连续图例适用**，选择范围的色块样式配置项。属性结构如下：
 
 ```typescript
 {
@@ -888,14 +980,17 @@ view.legend({
 }
 ```
 
-<br />• **value**? : _number[]_<br />
-<br />**连续图例适用**，选择的值。
+• **value**? : _number[]_
+
+**连续图例适用**，选择的值。
 
 ---
 
-▸ **legend**(`field`: string, `legendOption`): _View_<br />
-<br />对 `field` 字段对应的图例进行配置。<br />
-<br />**`example`**<br />
+▸ **legend**(`field`: string, `legendOption`): _View_
+
+对 `field` 字段对应的图例进行配置。
+
+**`example`**
 
 ```typescript
 view.legend('city', false); // 关闭某个图例，通过数据字段名进行关联
@@ -906,7 +1001,7 @@ view.legend('city', {
 });
 ```
 
-<br />**参数:**
+**参数:**
 
 | 属性名         | 说明                                                      | 类型   |
 | -------------- | --------------------------------------------------------- | ------ |
@@ -919,8 +1014,9 @@ view.legend('city', {
 
 ### scale
 
-<br />▸ **scale**(`cfg`): _View_<br />
-<br />批量设置 scale 配置。<br />
+▸ **scale**(`cfg`): _View_
+
+批量设置 scale 配置。
 
 ```typescript
 view.scale({
@@ -931,19 +1027,25 @@ view.scale({
 });
 ```
 
-<br />**参数:**
+**参数:**
 
 | 属性名 | 说明                           | 类型   |
 | ------ | ------------------------------ | ------ |
 | `cfg`  | 是一个对象，以数据字段名为 key | object |
 
-<br />`cfg` 是一个对象，可支持的属性如下：<br />
-<br />• **type**? : _string_<br />
-<br />声明度量类型：'linear' | 'cat' | 'category' | 'identity' | 'log' | 'pow' | 'time' | 'timeCat' | 'quantize' | 'quantile'。<br />
-<br />• **key**? : _boolean_<br />
-<br />用于声明使用数据记录中的哪些字段来组成一条数据的唯一 id（如有多个字段，则使用 '-' 连接）。<br />数据 id 用于标识 Element 图形元素，应用于 Geometry 中的图形元素 Element 更新。<br />默认 G2 内部会有一套 ID 生成规则，如果不能满足用户需求，用户既可以使用该属性配置 id。<br />
-<br />**`example`**<br />
-<br />下面的例子中，声明了将 'x' 和 'y' 字段的数值来作为每条数据记录的 id，即下面数据两条数据的 id 分别为：'1-23' 和 '2-2'。<br />
+`cfg` 是一个对象，可支持的属性如下：
+
+• **type**? : _string_
+
+声明度量类型：'linear' | 'cat' | 'category' | 'identity' | 'log' | 'pow' | 'time' | 'timeCat' | 'quantize' | 'quantile'。
+
+• **key**? : _boolean_
+
+用于声明使用数据记录中的哪些字段来组成一条数据的唯一 id（如有多个字段，则使用 '-' 连接）。数据 id 用于标识 Element 图形元素，应用于 Geometry 中的图形元素 Element 更新。默认 G2 内部会有一套 ID 生成规则，如果不能满足用户需求，用户既可以使用该属性配置 id。
+
+**`example`**
+
+下面的例子中，声明了将 'x' 和 'y' 字段的数值来作为每条数据记录的 id，即下面数据两条数据的 id 分别为：'1-23' 和 '2-2'。
 
 ```typescript
 const data = [
@@ -957,11 +1059,15 @@ chart.scale({
 });
 ```
 
-<br />• **showLast**? : _boolean_<br />
-<br />只对 type: 'time' 的 scale 生效，强制显示最后的日期 tick。<br />
-<br />• **sync**? : _boolean | string_<br />
-<br />同步 scale。<br />
-<br />**`example`**<br />
+• **showLast**? : _boolean_
+
+只对 type: 'time' 的 scale 生效，强制显示最后的日期 tick。
+
+• **sync**? : _boolean | string_
+
+同步 scale。
+
+**`example`**
 
 ```typescript
 chart.scale({
@@ -972,52 +1078,93 @@ chart.scale({
 });
 ```
 
-<br />通过以上配置，我们会分别对 x 和 y 两个字段，x1 和 x2 两个字段进行同步度量操作。<br />
-<br />• **field**? : _string_<br />
-<br />对应的字段属性名。<br />
-<br />• **values**? : _any[]_<br />
-<br />输入域、定义域。<br />
-<br />• **min**? : _any_<br />
-<br />定义域的最小值，d3 为 domain，ggplot2 为 limits，分类型下无效。<br />
-<br />• **max**? : _any_<br />
-<br />定义域的最大值，分类型下无效。<br />
-<br />• **minLimit**? : _any_<br />
-<br />严格模式下的定义域最小值，设置后会强制 ticks 从最小值开始。<br />
-<br />• **maxLimit**? : _any_<br />
-<br />严格模式下的定义域最大值，设置后会强制 ticks 已最大值结束。<br />
-<br />• **alias**? : _string_<br />
-<br />数据字段的显示别名，scale 内部不感知，外部注入。<br />
-<br />• **range**? : _[number, number]_<br />
-<br />输出域、值域，默认值为[0, 1]。<br />
-<br />• **base**? : _number_<br />
-<br />Log 有效，底数。<br />
-<br />• **exponent**? : _number_<br />
-<br />Pow 有效，指数。<br />
-<br />• **nice**? : _boolean_<br />
-<br />自动调整 min、max 。<br />
-<br />• **ticks**? : _any[]_<br />
-<br />用于指定 tick，优先级最高。<br />
-<br />• **tickInterval**? : _number_<br />
-<br />tick 间隔，只对分类型和时间型适用，优先级高于 tickCount。<br />
-<br />• **minTickInterval**? : _number_<br />
-<br />tick 最小间隔，只对线型适用。<br />
-<br />• **tickCount**? : _number_<br />
-<br />tick 个数，默认值为 5。<br />
-<br />• **maxTickCount**? : _number_<br />
-<br />ticks 最大值，默认值为 10。<br />
-<br />• **formatter**? : _(v: any, k?: number) => any;_<br />
-<br />tick 格式化函数，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示。<br />
-<br />• **tickMethod**? : _string | TickMethod_<br />
-<br />计算 ticks 的算法。<br />
-<br />• **mask**? : _string_<br />
-<br />时间度量 time, timeCat 时有效。<br />
-<br />**说明**：不同类型的 Scale 支持的配置不同，详见 [Scale](./scale)。<br />
-<br />**返回值:** _View_
+通过以上配置，我们会分别对 x 和 y 两个字段，x1 和 x2 两个字段进行同步度量操作。
+
+• **field**? : _string_
+
+对应的字段属性名。
+
+• **values**? : _any[]_
+
+输入域、定义域。
+
+• **min**? : _any_
+
+定义域的最小值，d3 为 domain，ggplot2 为 limits，分类型下无效。
+
+• **max**? : _any_
+
+定义域的最大值，分类型下无效。
+
+• **minLimit**? : _any_
+
+严格模式下的定义域最小值，设置后会强制 ticks 从最小值开始。
+
+• **maxLimit**? : _any_
+
+严格模式下的定义域最大值，设置后会强制 ticks 已最大值结束。
+
+• **alias**? : _string_
+
+数据字段的显示别名，scale 内部不感知，外部注入。
+
+• **range**? : _[number, number]_
+
+输出域、值域，默认值为[0, 1]。
+
+• **base**? : _number_
+
+Log 有效，底数。
+
+• **exponent**? : _number_
+
+Pow 有效，指数。
+
+• **nice**? : _boolean_
+
+自动调整 min、max 。
+
+• **ticks**? : _any[]_
+
+用于指定 tick，优先级最高。
+
+• **tickInterval**? : _number_
+
+tick 间隔，只对分类型和时间型适用，优先级高于 tickCount。
+
+• **minTickInterval**? : _number_
+
+tick 最小间隔，只对线型适用。
+
+• **tickCount**? : _number_
+
+tick 个数，默认值为 5。
+
+• **maxTickCount**? : _number_
+
+ticks 最大值，默认值为 10。
+
+• **formatter**? : _(v: any, k?: number) => any;_
+
+tick 格式化函数，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示。
+
+• **tickMethod**? : _string | TickMethod_
+
+计算 ticks 的算法。
+
+• **mask**? : _string_
+
+时间度量 time, timeCat 时有效。
+
+**说明**：不同类型的 Scale 支持的配置不同，详见 [Scale](./scale)。
+
+**返回值:** _View_
 
 ---
 
-▸ **scale**(`field`: string, `scaleOption`): _View_<br />
-<br />为 `field` 对应的数据字段进行 scale 配置。<br />
+▸ **scale**(`field`: string, `scaleOption`): _View_
+
+为 `field` 对应的数据字段进行 scale 配置。
 
 ```typescript
 view.scale('sale', {
@@ -1026,7 +1173,7 @@ view.scale('sale', {
 });
 ```
 
-<br />**参数:**
+**参数:**
 
 | 属性名        | 说明                                                   | 类型   |
 | ------------- | ------------------------------------------------------ | ------ |
@@ -1037,8 +1184,9 @@ view.scale('sale', {
 
 ### tooltip
 
-<br />▸ **tooltip**(`cfg`): _View_<br />
-<br />tooltip 提示信息配置。<br />
+▸ **tooltip**(`cfg`): _View_
+
+tooltip 提示信息配置。
 
 ```typescript
 view.tooltip(false); // 关闭 tooltip
@@ -1048,19 +1196,25 @@ view.tooltip({
 });
 ```
 
-<br />**参数:**
+**参数:**
 
 | 属性名 | 说明         | 类型                  |
 | ------ | ------------ | --------------------- |
 | `cfg`  | Tooltip 配置 | boolean &#124; object |
 
-<br />`cfg` 是一个对象，可配置的属性如下：<br />
-<br />• **container**? : _string | HTMLElement_<br />
-<br />自定义 tooltip 的容器。<br />
-<br />• **containerTpl**? : _string_<br />
-<br />用于指定图例容器的模板，自定义模板时必须包含各个 dom 节点的 class。<br />
-<br />• **crosshairs**? : _object_<br />
-<br />配置 tooltip 的 crosshairs，当且仅当 `showCrosshairs` 为 true 时生效。是一个对象，可配置属性如下：
+`cfg` 是一个对象，可配置的属性如下：
+
+• **container**? : _string | HTMLElement_
+
+自定义 tooltip 的容器。
+
+• **containerTpl**? : _string_
+
+用于指定图例容器的模板，自定义模板时必须包含各个 dom 节点的 class。
+
+• **crosshairs**? : _object_
+
+配置 tooltip 的 crosshairs，当且仅当 `showCrosshairs` 为 true 时生效。是一个对象，可配置属性如下：
 
 | 属性名           | 说明                                                                                                                                                                                                                                                                                                                                                                                                                                                                | 类型                       |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
@@ -1072,8 +1226,9 @@ view.tooltip({
 
 ---
 
-• **domStyles**? : _object_<br />
-<br />传入各个 dom 的样式。<br />
+• **domStyles**? : _object_
+
+传入各个 dom 的样式。
 
 ```typescript
 {
@@ -1087,30 +1242,53 @@ view.tooltip({
 }
 ```
 
-<br />• **enterable**? : _boolean_<br />
-<br />tooltip 是否允许鼠标滑入，默认为 false，不允许<br />
-<br />• **follow**? : _boolean_<br />
-<br />设置 tooltip 内容框是否跟随鼠标移动。<br />默认为 true，跟随鼠标移动，false 则固定位置不随鼠标移动。<br />
-<br />• **itemTpl**? : _string_<br />
-<br />每项记录的默认模板，自定义模板时必须包含各个 dom 节点的 class。<br />
-<br />• **marker**? : _object_<br />
-<br />tooltipMarker 的样式配置。<br />
-<br />• **offset**? : _number_<br />
-<br />tooltip 偏移量。<br />
-<br />• **position**? : _"top" | "bottom" | "left" | "right"_<br />
-<br />设置 tooltip 的固定展示位置，相对于数据点。<br />
-<br />• **shared**? : _boolean_<br />
-<br />true 表示合并当前点对应的所有数据并展示，false 表示只展示离当前点最逼近的数据内容。<br />
-<br />• **showContent**? : _boolean_<br />
-<br />是否展示 tooltip 内容框。<br />
-<br />• **showCrosshairs**? : _boolean_<br />
-<br />是否展示 crosshairs。<br />
-<br />• **showMarkers**? : _boolean_<br />
-<br />是否渲染 tooltipMarkers。<br />
-<br />• **showTitle**? : _boolean_<br />
-<br />是否展示 tooltip 标题。<br />
-<br />• **title**? : _string_<br />
-<br />设置 tooltip 的标题内容：如果值为数据字段名，则会展示数据中对应该字段的数值，如果数据中不存在该字段，则直接展示 title 值。
+• **enterable**? : _boolean_
+
+tooltip 是否允许鼠标滑入，默认为 false，不允许
+
+• **follow**? : _boolean_
+
+设置 tooltip 内容框是否跟随鼠标移动。默认为 true，跟随鼠标移动，false 则固定位置不随鼠标移动。
+
+• **itemTpl**? : _string_
+
+每项记录的默认模板，自定义模板时必须包含各个 dom 节点的 class。
+
+• **marker**? : _object_
+
+tooltipMarker 的样式配置。
+
+• **offset**? : _number_
+
+tooltip 偏移量。
+
+• **position**? : _"top" | "bottom" | "left" | "right"_
+
+设置 tooltip 的固定展示位置，相对于数据点。
+
+• **shared**? : _boolean_
+
+true 表示合并当前点对应的所有数据并展示，false 表示只展示离当前点最逼近的数据内容。
+
+• **showContent**? : _boolean_
+
+是否展示 tooltip 内容框。
+
+• **showCrosshairs**? : _boolean_
+
+是否展示 crosshairs。
+
+• **showMarkers**? : _boolean_
+
+是否渲染 tooltipMarkers。
+
+• **showTitle**? : _boolean_
+
+是否展示 tooltip 标题。
+
+• **title**? : _string_
+
+设置 tooltip 的标题内容：如果值为数据字段名，则会展示数据中对应该字段的数值，如果数据中不存在该字段，则直接展示 title 值。
 
 ---
 
@@ -1118,8 +1296,9 @@ view.tooltip({
 
 ### createView
 
-<br />▸ **createView**(`cfg`): _View_<br />
-<br />创建子 view。<br />
+▸ **createView**(`cfg`): _View_
+
+创建子 view。
 
 ```typescript
 const innerView = view.createView({
@@ -1131,15 +1310,17 @@ const innerView = view.createView({
 });
 ```
 
-<br />**参数:**
+**参数:**
 
 | 属性名 | 说明                       | 类型   |
 | ------ | -------------------------- | ------ |
 | `cfg`  | 创建 View 需要的传入的配置 | object |
 
-<br />`cfg` 是一个对象，需要配置的属性如下：<br />
-<br />• **region**? : _object_<br />
-<br />view 的绘制范围。<br />
+`cfg` 是一个对象，需要配置的属性如下：
+
+• **region**? : _object_
+
+view 的绘制范围。
 
 ```typescript
 {
@@ -1152,14 +1333,15 @@ const innerView = view.createView({
 
 ### view
 
-<br />`chart.createView()` 方法别名。<br />
+`chart.createView()` 方法别名。
 
 <a name="facet"></a>
 
 ### facet
 
-<br />▸ **facet**‹**T**›(`type`, `cfg`): _View_<br />
-<br />view 分面绘制。<br />
+▸ **facet**‹**T**›(`type`, `cfg`): _View_
+
+view 分面绘制。
 
 ```typescript
 view.facet('rect', {
@@ -1171,7 +1353,7 @@ view.facet('rect', {
 });
 ```
 
-<br />**参数:**
+**参数:**
 
 | 属性名 | 说明                             | 类型                                                 |
 | ------ | -------------------------------- | ---------------------------------------------------- |
@@ -1361,34 +1543,36 @@ chart.facet('tree', {
 });
 ```
 
-<br />**返回值:** _View_<br />
+**返回值:** _View_
 
 <a name="interaction"></a>
 
 ### interaction
 
-<br />▸ **interaction**(`name`, `cfg`): _View_<br />
+▸ **interaction**(`name`, `cfg`): _View_
 
 ```typescript
 view.interaction('my-interaction', { extra: 'hello world' });
 ```
 
-<br />详细文档可以参考：[https://g2.antv.vision/zh/docs/manual/tutorial/interaction](https://g2.antv.vision/zh/docs/manual/tutorial/interaction)<br />
-<br />**参数:**
+详细文档可以参考：[https://g2.antv.vision/zh/docs/manual/tutorial/interaction](https://g2.antv.vision/zh/docs/manual/tutorial/interaction)
+
+**参数:**
 
 | 属性名 | 说明     | 类型   |
 | ------ | -------- | ------ |
 | `name` | 交互名称 | string |
 | `cfg?` | 交互配置 | object |
 
-<br />**返回值:** _View_<br />
+**返回值:** _View_
 
 <a name="filter"></a>
 
 ### filter
 
-<br />▸ **filter**(`field`, `condition`): _View_<br />
-<br />设置数据筛选规则。<br />
+▸ **filter**(`field`, `condition`): _View_
+
+设置数据筛选规则。
 
 ```typescript
 view.filter('city', (value: any, datum: Datum) => value !== '杭州');
@@ -1397,298 +1581,346 @@ view.filter('city', (value: any, datum: Datum) => value !== '杭州');
 view.filter('city', null);
 ```
 
-<br />**参数:**
+**参数:**
 
 | 属性名      | 说明     | 类型                                                                                                           |
 | ----------- | -------- | -------------------------------------------------------------------------------------------------------------- |
 | `field`     | 数据字段 | string                                                                                                         |
 | `condition` | 筛选规则 | (value, record) => boolean; <br /> _ `value`: 代表当前 field 字段对应的值；<br /> _ `record`: 代表当前数据记录 |
 
-<br />**返回值:** _View_<br />
+**返回值:** _View_
 
 <a name="changeData"></a>
 
 ### changeData
 
-<br />▸ **changeData**(`data`): _Chart_<br />
-<br />修改数据，数据更新逻辑，数据更新仅仅影响当前这一层的  Chart。<br />
+▸ **changeData**(`data`): _Chart_
+
+修改数据，数据更新逻辑，数据更新仅仅影响当前这一层的  Chart。
 
 ```typescript
 chart.changeData([{ city: '北京', sale: '200' }]);
 ```
 
-<br />**参数:**
+**参数:**
 
 | 属性名 | 说明                                              | 类型     |
 | ------ | ------------------------------------------------- | -------- |
 | `data` | JSON 数组，同时结构需要同初始化加载的数据结构一致 | object[] |
 
-<br />**返回值:** _Chart_<br />
+**返回值:** _Chart_
 
 <a name="changeSize"></a>
 
 ### changeSize
 
-<br />▸ **changeSize**(`width`, `height`): _Chart_<br />
-<br />改变图表大小，同时重新渲染。<br />
-<br />**参数:**
+▸ **changeSize**(`width`, `height`): _Chart_
+
+改变图表大小，同时重新渲染。
+
+**参数:**
 
 | 属性名   | 说明     | 类型   |
 | -------- | -------- | ------ |
 | `width`  | 图表宽度 | number |
 | `height` | 图表高度 | number |
 
-<br />**返回值:** _Chart_<br />
+**返回值:** _Chart_
 
 <a name="changeVisible"></a>
 
 ### changeVisible
 
-<br />▸ **changeVisible**(`visible`): _Chart_<br />
-<br />显示或隐藏图表。<br />
-<br />**参数:**
+▸ **changeVisible**(`visible`): _Chart_
+
+显示或隐藏图表。
+
+**参数:**
 
 | 属性名    | 说明                                    | 类型    |
 | --------- | --------------------------------------- | ------- |
 | `visible` | 是否可见，true 表示显示，false 表示隐藏 | boolean |
 
-<br />**返回值:** _Chart_<br />
+**返回值:** _Chart_
 
 <a name="forceFit"></a>
 
 ### forceFit
 
-<br />▸ **forceFit**(): _void_<br />
-<br />自动根据容器大小 resize 画布。<br />
-<br />**返回值:** _void_<br />
+▸ **forceFit**(): _void_
+
+自动根据容器大小 resize 画布。
+
+**返回值:** _void_
 
 <a name="getCanvas"></a>
 
 ### getCanvas
 
-<br />▸ **getCanvas**(): _ICanvas_<br />
-<br />获取 G.Canvas 实例。<br />
-<br />**返回值:** _ICanvas_ G.Canvas 画布实例。<br />
+▸ **getCanvas**(): _ICanvas_
+
+获取 G.Canvas 实例。
+
+**返回值:** _ICanvas_ G.Canvas 画布实例。
 
 <a name="getCoordinate"></a>
 
 ### getCoordinate
 
-<br />▸ **getCoordinate**(): _Coordinate‹›_<br />
-<br />获取当前坐标系实例。<br />
-<br />**返回值:** _Coordinate‹›_<br />
+▸ **getCoordinate**(): _Coordinate‹›_
+
+获取当前坐标系实例。
+
+**返回值:** _Coordinate‹›_
 
 <a name="getLayer"></a>
 
 ### getLayer
 
-<br />▸ **getLayer**(`layer`): _IGroup_<br />
-<br />获得绘制的层级 group。<br />
-<br />**参数:**
+▸ **getLayer**(`layer`): _IGroup_
+
+获得绘制的层级 group。
+
+**参数:**
 
 | 属性名  | 说明     | 类型                            |
 | ------- | -------- | ------------------------------- |
 | `layer` | 层级名称 | "bg" &#124; "fore" &#124; "mid" |
 
-<br />**返回值:** _IGroup_ 对应层级的 Group。<br />
+**返回值:** _IGroup_ 对应层级的 Group。
 
 <a name="getOptions"></a>
 
 ### getOptions
 
-<br />▸ **getOptions**(): _[Options](./options)_<br />
-<br />返回所有配置信息。<br />
-<br />**返回值:** _[Options](./options)_ 所有的 view API 配置。<br />
+▸ **getOptions**(): _[Options](./options)_
+
+返回所有配置信息。
+
+**返回值:** _[Options](./options)_ 所有的 view API 配置。
 
 <a name="getSnapRecords"></a>
 
 ### getSnapRecords
 
-<br />▸ **getSnapRecords**(`point`): _object[]_<br />
-<br />获取逼近的点的数据集合。<br />
-<br />**参数:**
+▸ **getSnapRecords**(`point`): _object[]_
+
+获取逼近的点的数据集合。
+
+**参数:**
 
 | 属性名  | 说明       | 类型                   |
 | ------- | ---------- | ---------------------- |
 | `point` | 当前坐标点 | {x: number, y: number} |
 
-<br />**返回值:** _object[]_<br />
+**返回值:** _object[]_
 
 <a name="getTheme"></a>
 
 ### getTheme
 
-<br />▸ **getTheme**(): _object_<br />
-<br />获取当前 view 的主题配置。<br />
-<br />**返回值:** _object_<br />
+▸ **getTheme**(): _object_
+
+获取当前 view 的主题配置。
+
+**返回值:** _object_
 
 <a name="getTooltipItems"></a>
 
 ### getTooltipItems
 
-<br />▸ **getTooltipItems**(`point`): _object[]_<br />
-<br />获取当前 point 对应的 tooltip 数据项。<br />
-<br />**参数:**
+▸ **getTooltipItems**(`point`): _object[]_
+
+获取当前 point 对应的 tooltip 数据项。
+
+**参数:**
 
 | 属性名  | 说明   | 类型                   |
 | ------- | ------ | ---------------------- |
 | `point` | 坐标点 | {x: number, y: number} |
 
-<br />**返回值:** _object[]_<br />
+**返回值:** _object[]_
 
 <a name="getXScale"></a>
 
 ### getXScale
 
-<br />▸ **getXScale**(): _Scale_<br />
-<br />获得 x 轴字段的 scale 实例。<br />
-<br />**返回值:** _Scale_<br />
+▸ **getXScale**(): _Scale_
+
+获得 x 轴字段的 scale 实例。
+
+**返回值:** _Scale_
 
 <a name="getXY"></a>
 
 ### getXY
 
-<br />▸ **getXY**(`data`): _object_<br />
-<br />获取该数据在可视化后，对应的画布坐标点。<br />
-<br />**参数:**
+▸ **getXY**(`data`): _object_
+
+获取该数据在可视化后，对应的画布坐标点。
+
+**参数:**
 
 | 属性名 | 说明         | 类型   |
 | ------ | ------------ | ------ |
 | `data` | 原始数据记录 | object |
 
-<br />**返回值:** _object_ 对应的画布坐标点。<br />
+**返回值:** _object_ 对应的画布坐标点。
 
 <a name="getYScales"></a>
 
 ### getYScales
 
-<br />▸ **getYScales**(): _Scale[]_<br />
-<br />获取 y 轴字段的 scales 实例。<br />
-<br />**返回值:** _Scale[]_<br />
-<br />view 中 Geometry 对于的 y scale 数组。<br />
+▸ **getYScales**(): _Scale[]_
+
+获取 y 轴字段的 scales 实例。
+
+**返回值:** _Scale[]_
+
+view 中 Geometry 对于的 y scale 数组。
 
 <a name="show"></a>
 
 ### show
 
-<br />▸ **show**(): _void_<br />
-<br />显示图表。<br />
+▸ **show**(): _void_
+
+显示图表。
 
 <a name="hide"></a>
 
 ### hide
 
-<br />▸ **hide**(): _void_<br />
-<br />隐藏。<br />
-<br />**返回值:** _void_<br />
+▸ **hide**(): _void_
+
+隐藏。
+
+**返回值:** _void_
 
 <a name="option"></a>
 
 ### option
 
-<br />▸ **option**(`name`, `opt`): _View_<br />
-<br />往 `view.options` 属性中存储配置项。<br />
-<br />**参数:**
+▸ **option**(`name`, `opt`): _View_
+
+往 `view.options` 属性中存储配置项。
+
+**参数:**
 
 | 属性名 | 说明                       | 类型   |
 | ------ | -------------------------- | ------ |
 | `name` | 属性名称                   | string |
 | `opt`  | 属性值，不同的配置结构不同 | any    |
 
-<br />**返回值:** _View_<br />
+**返回值:** _View_
 
 <a name="render"></a>
 
 ### render
 
-<br />▸ **render**(`isUpdate`: boolean): _void_<br />
-<br />生命周期：渲染流程，渲染过程需要处理数据更新的情况。<br />render 函数仅仅会处理 view 和子 view。<br />
-<br />**参数:**
+▸ **render**(`isUpdate`: boolean): _void_
+
+生命周期：渲染流程，渲染过程需要处理数据更新的情况。render 函数仅仅会处理 view 和子 view。
+
+**参数:**
 
 | 属性名     | 说明                             | 类型    |
 | ---------- | -------------------------------- | ------- |
 | `isUpdate` | 是否触发更新流程。默认为 false。 | boolean |
 
-<br />**返回值:** _void_<br />
+**返回值:** _void_
 
 <a name="clear"></a>
 
 ### clear
 
-<br />▸ **clear**(): _void_<br />
-<br />生命周期：清空图表上所有的绘制内容，但是不销毁图表，chart 仍可使用。<br />
-<br />**返回值:** _void_<br />
+▸ **clear**(): _void_
+
+生命周期：清空图表上所有的绘制内容，但是不销毁图表，chart 仍可使用。
+
+**返回值:** _void_
 
 <a name="destroy"></a>
 
 ### destroy
 
-<br />▸ **destroy**(): _void_<br />
-<br />销毁图表，同时解绑事件，销毁创建的 G.Canvas 实例。<br />
-<br />**返回值:** _void_<br />
+▸ **destroy**(): _void_
+
+销毁图表，同时解绑事件，销毁创建的 G.Canvas 实例。
+
+**返回值:** _void_
 
 <a name="removeInteraction"></a>
 
 ### removeInteraction
 
-<br />▸ **removeInteraction**(`name`): _void_<br />
-<br />移除当前 View 的 interaction。<br />
+▸ **removeInteraction**(`name`): _void_
+
+移除当前 View 的 interaction。
 
 ```typescript
 view.removeInteraction('my-interaction');
 ```
 
-<br />**参数:**
+**参数:**
 
 | 属性名 | 说明     | 类型   |
 | ------ | -------- | ------ |
 | `name` | 交互名称 | string |
 
-<br />**返回值:** _void_<br />
+**返回值:** _void_
 
 <a name="removeView"></a>
 
 ### removeView
 
-<br />▸ **removeView**(`view`): _View_<br />
-<br />删除一个子 view<br />
-<br />**参数:**
+▸ **removeView**(`view`): _View_
+
+删除一个子 view
+
+**参数:**
 
 | 属性名 | 说明               | 类型 |
 | ------ | ------------------ | ---- |
 | `view` | 要删除的 View 实例 | View |
 
-<br />**返回值:** _View_<br />
-<br />**返回值:** _void_<br />
+**返回值:** _View_
+
+**返回值:** _void_
 
 <a name="showTooltip"></a>
 
 ### showTooltip
 
-<br />▸ **showTooltip**(`point`): _View_<br />
-<br />显示 point 坐标点对应的 tooltip。<br />
-<br />**参数:**
+▸ **showTooltip**(`point`): _View_
+
+显示 point 坐标点对应的 tooltip。
+
+**参数:**
 
 | 属性名  | 说明       | 类型                   |
 | ------- | ---------- | ---------------------- |
 | `point` | 画布坐标点 | {x: number, y: number} |
 
-<br />**返回值:** _View_<br />
+**返回值:** _View_
 
 <a name="hideTooltip"></a>
 
 ### hideTooltip
 
-<br />▸ **hideTooltip**(): _View_<br />
-<br />隐藏 tooltip。<br />
-<br />**返回值:** _View_<br />
+▸ **hideTooltip**(): _View_
+
+隐藏 tooltip。
+
+**返回值:** _View_
 
 <a name="theme"></a>
 
 ### theme
 
-<br />▸ **theme**(`theme`): _View_<br />
-<br />设置主题。<br />
+▸ **theme**(`theme`): _View_
+
+设置主题。
 
 ```typescript
 view.theme('dark'); // 'dark' 需要事先通过 `registerTheme()` 接口注册完成
@@ -1696,111 +1928,128 @@ view.theme('dark'); // 'dark' 需要事先通过 `registerTheme()` 接口注册�
 view.theme({ defaultColor: 'red' });
 ```
 
-<br />**参数:**
+**参数:**
 
 | 属性名  | 说明               | 类型                 |
 | ------- | ------------------ | -------------------- |
 | `theme` | 主题名或者主题配置 | string &#124; object |
 
-<br />**返回值:** _View_<br />
+**返回值:** _View_
 
 <a name="isTooltipLocked"></a>
 
 ### isTooltipLocked
 
-<br />▸ **isTooltipLocked**(): _boolean_<br />
-<br />是否锁定 tooltip。<br />
-<br />**返回值:** _boolean_<br />
+▸ **isTooltipLocked**(): _boolean_
+
+是否锁定 tooltip。
+
+**返回值:** _boolean_
 
 <a name="lockTooltip"></a>
 
 ### lockTooltip
 
-<br />▸ **lockTooltip**(): _View_<br />
-<br />将 tooltip 锁定到当前位置不能移动。<br />
-<br />**返回值:** _View_<br />
+▸ **lockTooltip**(): _View_
+
+将 tooltip 锁定到当前位置不能移动。
+
+**返回值:** _View_
 
 <a name="unlockTooltip"></a>
 
 ### unlockTooltip
 
-<br />▸ **unlockTooltip**(): _View_<br />
-<br />将 tooltip 锁定解除。<br />
-<br />**返回值:** _View_<br />
+▸ **unlockTooltip**(): _View_
+
+将 tooltip 锁定解除。
+
+**返回值:** _View_
 
 <a name="updateOptions"></a>
 
 ### updateOptions
 
-<br />▸ **updateOptions**(`options`): _View_<br />
-<br />更新配置项，用于配置项式声明。<br />
-<br />**参数:**
+▸ **updateOptions**(`options`): _View_
+
+更新配置项，用于配置项式声明。
+
+**参数:**
 
 | 属性名    | 说明   | 类型                 |
 | --------- | ------ | -------------------- |
 | `options` | 配置项 | [Options](./options) |
 
-<br />**返回值:** _View_<br />
+**返回值:** _View_
 
 <a name="143c2390"></a>
 
 ### interval
 
-<br />▸ **interval**( `cfg`): _[Interval](interval)_<br />
-<br />创建 Interval 几何标记。<br />\*\*<br />
+▸ **interval**( `cfg`): _[Interval](interval)_
+
+创建 Interval 几何标记。\*\*
 
 <a name="510fc649"></a>
 
 ### line
 
-<br />▸ **line**(`cfg`): [_Line_](line)<br />
-<br />创建 Line 几何标记。<br />
+▸ **line**(`cfg`): [_Line_](line)
+
+创建 Line 几何标记。
 
 <a name="c86681a4"></a>
 
 ### path
 
-<br />▸ **path**(`cfg`): _[Path](path)_<br />
-<br />创建 Path 几何标记。<br />
+▸ **path**(`cfg`): _[Path](path)_
+
+创建 Path 几何标记。
 
 <a name="309854da"></a>
 
 ### point
 
-<br />▸ **point**(`cfg`: [_Point_](point)<br />
-<br />创建 Point 几何标记。<br />
+▸ **point**(`cfg`: [_Point_](point)
+
+创建 Point 几何标记。
 
 <a name="b95d73bb"></a>
 
 ### polygon
 
-<br />▸ **polygon**(`cfg`): _[Polygon](polygon)_<br />
-<br />创建 Polygon 几何标记。<br />
+▸ **polygon**(`cfg`): _[Polygon](polygon)_
+
+创建 Polygon 几何标记。
 
 <a name="b0a5ba4e"></a>
 
 ### schema
 
-<br />▸ **schema**(`cfg`): _[Schema](schema)_<br />
-<br />创建 Schema 几何标记。<br />
+▸ **schema**(`cfg`): _[Schema](schema)_
+
+创建 Schema 几何标记。
 
 <a name="6ed504ae"></a>
 
 ### area
 
-<br />▸ **area**(`cfg`): _[Area](area)_<br />
-<br />创建 Area 几何标记。<br />
+▸ **area**(`cfg`): _[Area](area)_
+
+创建 Area 几何标记。
 
 <a name="54cc4217"></a>
 
 ### edge
 
-<br />▸ **edge**(`cfg`): _[Edge](edge)_<br />
-<br />创建 Edge 几何标记。<br />
+▸ **edge**(`cfg`): _[Edge](edge)_
+
+创建 Edge 几何标记。
 
 <a name="ab0ee886"></a>
 
 ### heatmap
 
-<br />▸ **heatmap**(`cfg`): _[Heatmap](heatmap)_<br />
-<br />创建 Heatmap 几何标记。<br />
+▸ **heatmap**(`cfg`): _[Heatmap](heatmap)_
+
+创建 Heatmap 几何标记。

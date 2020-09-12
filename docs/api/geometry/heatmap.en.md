@@ -3,14 +3,15 @@ title: Heatmap
 order: 6
 ---
 
-用于绘制热力图。<br />
+用于绘制热力图。
 
 <a name="b821e2f0"></a>
 
 ## 继承关系
 
-<br />↳ [Geometry](geometry)<br />
-<br />↳ **Heatmap**<br />
+↳ [Geometry](geometry)
+
+↳ **Heatmap**
 
 <a name="d3474432"></a>
 

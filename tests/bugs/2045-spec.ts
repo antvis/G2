@@ -48,6 +48,6 @@ describe('#2045', () => {
     chart.render();
     chart.changeSize(300, 300);
 
-    expect(area.elements[0].getModel().mappingData[1].x).toBeCloseTo(62.87649154663086);
+    expect(area.elements[0].getModel().mappingData[1].x).toBeCloseTo(62.87649154663086, 0);
   });
 });

@@ -43,7 +43,7 @@ describe('Geometry theme', () => {
     const interval1Shape = interval1.elements[0].shape;
     const interval2Shape = interval2.elements[0].shape;
     expect(interval1Shape.getBBox().width).toBe(10);
-    expect(interval2Shape.getBBox().width).toBeCloseTo(23.217750549316406);
+    expect(interval2Shape.getBBox().width).toBeCloseTo(23.217750549316406, 0);
   });
 
   afterAll(() => {

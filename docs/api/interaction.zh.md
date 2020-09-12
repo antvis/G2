@@ -3,7 +3,7 @@ title: Interaction
 order: 4
 ---
 
-G2 4.0 后所有的交互都是基于交互语法进行拼装，详细的说明参考 [Interaction 的概念](https://g2.antv.vision/zh/docs/manual/tutorial/interaction) ，这里介绍 Interaction 的使用。<br />你可以通过 Chart 上的两个接口来添加和移除交互：
+G2 4.0 后所有的交互都是基于交互语法进行拼装，详细的说明参考 [Interaction 的概念](https://g2.antv.vision/zh/docs/manual/tutorial/interaction) ，这里介绍 Interaction 的使用。你可以通过 Chart 上的两个接口来添加和移除交互：
 
 - chart.interaction(name, [cfg]) 添加或者修改交互
 - chart.removeInteraction(name) 移除交互
@@ -54,7 +54,7 @@ chart.removeInteraction('tooltip');
 - legend-filter：分类图例的勾选
 - continuous-filter: 连续图例的过滤
 
-<br />但是一些场景下需要移除掉默认的交互，例如你想要的 legend 勾选不是过滤数据而是过滤图形时，则需要移除掉 legend-filter
+但是一些场景下需要移除掉默认的交互，例如你想要的 legend 勾选不是过滤数据而是过滤图形时，则需要移除掉 legend-filter
 
 ```javascript
 chart.removeInteraction('legend-filter');
@@ -137,13 +137,13 @@ chart.interaction('legend-visible-filter');
 
 ### 注册 Interaction
 
-在 G2 的命名空间上提供了注册的方法：<br />
+在 G2 的命名空间上提供了注册的方法：
 
 ```javascript
 G2.registerInteraction(name, defs);
 ```
 
-<br />以 tooltip 的交互为例：
+以 tooltip 的交互为例：
 
 ```javascript
 registerInteraction('tooltip', {

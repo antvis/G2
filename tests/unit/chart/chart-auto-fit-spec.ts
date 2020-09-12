@@ -21,7 +21,7 @@ describe('Chart autoFit', () => {
 
     const { width, height } = chart.ele.getBoundingClientRect();
 
-    expect(chart.width).toBe(width);
+    expect(chart.width).toBeCloseTo(width, 0);
     // see https://github.com/antvis/G2/issues/2159
     // should be equal, but actual height = chart.height + 5px
     // expect(chart.height).toBe(height);
