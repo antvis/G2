@@ -2,7 +2,7 @@
 title: Geometry
 order: 0
 redirect_from:
-  - /en/docs/api/geometry
+  - /zh/docs/api/geometry
 ---
 
 Geometry 几何标记基类，主要负责数据到图形属性的映射以及绘制逻辑。
@@ -595,7 +595,7 @@ label(
   /**
    * 文本布局类型，支持多种布局函数组合使用。
    *
-   * 目前提供了三种：'overlap'，'fixedOverlap'，'limitInShape'：
+   * 目前提供了四种：'overlap'，'fixedOverlap'，'limitInShape'，'pie-outer'：
    * 1. overlap: label 防遮挡，为了防止 label 之间相互覆盖，通过尝试向**四周偏移**来剔除放不下的 label。
    * 2. fixed-overlap: 不改变 label 位置的情况下对相互重叠的 label 进行调整。
    * 3. limit-in-shape: 剔除 shape 容纳不了的 label。
