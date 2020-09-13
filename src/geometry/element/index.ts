@@ -107,6 +107,7 @@ export default class Element extends Base {
     newShape.cfg.data = this.data;
     // @ts-ignore
     newShape.cfg.origin = model;
+    newShape.cfg.element = this;
 
     // step 3: 同步 shape 样式
     this.syncShapeStyle(shape, newShape, '', this.getAnimateCfg('update'));
