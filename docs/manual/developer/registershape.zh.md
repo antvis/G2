@@ -61,7 +61,7 @@ registerShape('interval', 'line', {
 });
 ```
 
-更详细的使用说明详见： [Shape API](../../api/interfaces/registershape)。
+<!-- 更详细的使用说明详见： [Shape API](../../api/register#g2registershape)。 -->
 
 ## 快速上手
 
