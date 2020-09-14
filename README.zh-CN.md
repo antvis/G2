@@ -27,7 +27,7 @@ G2 是一套基于图形语法理论的可视化底层引擎，以数据驱动�
 
 ## 📺 线上示例
 
-<a href="https://g2.antv.vision/zh/examples/gallery"><img src="https://user-images.githubusercontent.com/6628666/75466330-fe1d0c00-59c4-11ea-91ba-506f60ef8af4.png" /></a>
+<a href="https://g2.antv.vision/zh/examples/gallery"><img src="https://user-images.githubusercontent.com/6628666/75466330-fe1d0c00-59c4-11ea-91ba-506f60ef8af4.png" style='width: 100%'/></a>
 
 ## ✨ 特性
 

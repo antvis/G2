@@ -17,7 +17,7 @@ order: 8
 geometry.label();
 ```
 
-关于该接口的详细使用以及属性配置，可以翻阅 [API 文档](../../api/classes/geometry#label)。
+关于该接口的详细使用以及属性配置，可以翻阅 [API 文档](../../api/label)。
 
 下面以折线图文本标签为例，我们想要在折线上显示 'value' 字段的值，我们只需要添加如下声明：
 
@@ -46,14 +46,11 @@ chart
 在 G2 内部，已经根据用户声明的图形语法自动使用对应的文本标签类型，用户不需要再额外声明。但是当有特殊需求时（比如自定义了文本标签），用户可以通过 label() 接口中的 type 属性指定具体的文本标签类型:
 
 ```typescript
-chart
-  .interval()
-  .position('x*y')
-  .label('z', {
-    // highlight-start
-    type: 'polar',
-    // highlight-end
-  });
+chart.interval().position('x*y').label('z', {
+  // highlight-start
+  type: 'polar',
+  // highlight-end
+});
 ```
 
 > 关于自定义文本标签，请阅读[自定义 label](../developer/registerlabel)。

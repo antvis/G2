@@ -27,7 +27,7 @@ G2 is a visualization grammar, a data-driven visual language with a high level o
 
 ## 📺 Live Demos
 
-<a href="https://g2.antv.vision/en/examples/gallery"><img src="https://user-images.githubusercontent.com/6628666/75466330-fe1d0c00-59c4-11ea-91ba-506f60ef8af4.png" /></a>
+<a href="https://g2.antv.vision/en/examples/gallery"><img src="https://user-images.githubusercontent.com/6628666/75466330-fe1d0c00-59c4-11ea-91ba-506f60ef8af4.png" style='width: 100%'/></a>
 
 ## ✨ Features
 

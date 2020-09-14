@@ -45,7 +45,7 @@ view.interval().position('x*y').color('x'); // 使用图形语法绘制图表
 chart.render(); // 由 chart 负责统一的渲染
 ```
 
-关于 view 的更多方法请查看 [view api](../../api/classes/view)。
+<!-- 关于 view 的更多方法请查看 [view api](../../api/classes/view)。 -->
 
 ## 示例
 
