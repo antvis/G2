@@ -50,6 +50,7 @@
     "@antv/path-util": "^2.0.3",
     "@antv/scale": "^0.3.1",
     "@antv/util": "~2.0.5",
+    "d3-regression": "^1.3.5",
     "tslib": "^2.0.0"
   },
   "devDependencies": {

@@ -20,7 +20,8 @@ import {
 
 import { DEFAULT_ANIMATE_CFG } from '../../animate/';
 import { COMPONENT_TYPE, DIRECTION, LAYER, VIEW_LIFE_CIRCLE } from '../../constant';
-
+import TrendLine from '../../geometry/trend-line';
+import { TrendLineCfg } from '../../interface';
 import Geometry from '../../geometry/base';
 import Element from '../../geometry/element';
 import { getAngleByPoint, getDistanceToCenter } from '../../util/coordinate';
@@ -217,13 +218,16 @@ export default class Annotation extends Controller<BaseOption[]> {
 
   private createAnnotation(option: BaseOption) {
     const { type } = option;
-
-    const Ctor = AnnotationComponent[upperFirst(type)];
+    let Ctor;
+    if (type === 'trendLine') {
+      Ctor = TrendLine;
+    } else {
+      Ctor = AnnotationComponent[upperFirst(type)];
+    }
     if (Ctor) {
       const theme = this.getAnnotationTheme(type);
       const cfg = this.getAnnotationCfg(type, option, theme);
-      const annotation = new Ctor(cfg);
-
+      const annotation = type === 'trendLine' ? new Ctor(this.view, cfg) : new Ctor(cfg);
       return {
         component: annotation,
         layer: this.isTop(cfg) ? LAYER.FORE : LAYER.BG,
@@ -303,6 +307,20 @@ export default class Annotation extends Controller<BaseOption[]> {
   public text(option: TextOption) {
     this.annotation({
       type: 'text',
+      ...option,
+    });
+
+    return this;
+  }
+
+  /**
+   * 创建 TrendLine
+   * @param option
+   * @returns AnnotationController
+   */
+  public trendLine(option: TrendLineCfg) {
+    this.annotation({
+      type: 'trendLine',
       ...option,
     });
 
@@ -622,6 +640,10 @@ export default class Annotation extends Controller<BaseOption[]> {
         start: this.parsePosition(start),
         end: this.parsePosition(end),
       };
+    } else if (type === 'trendLine') {
+      const viewOptions = this.view.getOptions();
+      // 不需要 deepMix
+      o = Object.assign(viewOptions, option);
     }
     // 合并主题，用户配置优先级高于默认主题
     const cfg = deepMix({}, theme, {

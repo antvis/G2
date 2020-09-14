@@ -1187,7 +1187,17 @@ export interface TooltipCfg {
   /** 支持自定义模板 */
   customContent?: (title: string, data: any[]) => string | void;
 }
-
+/** chart.trendline() 接口配置属性 */
+export interface TrendLineCfg {
+  /** 回归类型 */
+  lineType?: 'exp' | 'linear' | 'loess' | 'log' | 'poly' | 'pow' | 'quad';
+  /** 回归线样式 */
+  style?: ShapeAttrs;
+  /** 置信区间系数 */
+  confidence?: number;
+  /** 置信区间样式 */
+  confidenceStyle?: boolean | ShapeAttrs;
+}
 /** 坐标系配置 */
 export interface CoordinateOption {
   /** 坐标系类型 */
