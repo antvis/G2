@@ -1,8 +1,6 @@
 ---
-title: geometry get apis
+title: geometry get 相关方法
 order: 16
 ---
-
-<!-- ## geometry get apis -->
 
 `markdown:api-zh/geometry-get-func.md`

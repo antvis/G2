@@ -5,6 +5,4 @@ redirect_from:
   - /zh/docs/api
 ---
 
-<!-- ## new Chart() 创建图表对象 -->
-
 `markdown:api-zh/chart.md`
