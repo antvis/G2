@@ -1,8 +1,8 @@
 ---
-title: chart[geom]( )
+title: chart[geometry]( )
 order: 5
 ---
 
-<!-- ## chart\[geom\](_options_) -->
+<!-- ## chart\[geometry\](_options_) -->
 
-`markdown:api-zh/geom.md`
+`markdown:api-zh/geometry.md`

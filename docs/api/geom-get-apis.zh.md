@@ -5,4 +5,4 @@ order: 16
 
 <!-- ## geometry get 相关方法 -->
 
-`markdown:api-zh/geom-get-apis.md`
+`markdown:api-zh/geometry-get-func.md`

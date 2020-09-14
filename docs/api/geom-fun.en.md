@@ -5,4 +5,4 @@ order: 6
 
 <!-- ## geometry apis -->
 
-`markdown:api-zh/geom-fun.md`
+`markdown:api-zh/geometry-func.md`

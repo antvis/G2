@@ -12,9 +12,9 @@
 
 辅助弧线，只在**极坐标系**下生效。常用于绘制仪表盘。_**option**_ 配置如下：
 
-`markdown:common/AnnotationBaseOption.md`
+`markdown:common/annotation-base-option.md`
 
-`markdown:common/RegionPositionBaseOption.md`
+`markdown:common/region-position-base-option.md`
 
 ### chart.annotation().image(option)
 
@@ -28,9 +28,9 @@
 
 图片路径。
 
-`markdown:common/AnnotationBaseOption.md`
+`markdown:common/annotation-base-option.md`
 
-`markdown:common/RegionPositionBaseOption.md`
+`markdown:common/region-position-base-option.md`
 
 ### chart.annotation().line(option)
 
@@ -44,9 +44,9 @@
 
 文本配置定义。
 
-`markdown:common/AnnotationBaseOption.md`
+`markdown:common/annotation-base-option.md`
 
-`markdown:common/RegionPositionBaseOption.md`
+`markdown:common/region-position-base-option.md`
 
 ### chart.annotation().text(option)
 
@@ -68,7 +68,7 @@ _**option**_ 配置如下：
 
 文本的旋转角度，弧度制。
 
-`markdown:common/AnnotationPosition.md`
+`markdown:common/annotation-position.md`
 
 #### option.background
 
@@ -105,7 +105,7 @@ _**option**_ 配置如下：
 
 文本截断的位置。
 
-`markdown:common/AnnotationBaseOption.md`
+`markdown:common/annotation-base-option.md`
 
 ### chart.annotation().region(option)
 
@@ -113,9 +113,9 @@ _**option**_ 配置如下：
 
 辅助框，框选一段图区，设置背景、边框等。_**option**_ 配置如下：
 
-`markdown:common/AnnotationBaseOption.md`
+`markdown:common/annotation-base-option.md`
 
-`markdown:common/RegionPositionBaseOption.md`
+`markdown:common/region-position-base-option.md`
 
 ### chart.annotation().regionFilter(option)
 
@@ -133,11 +133,11 @@ _**option**_ 配置如下：
 
 <description> _string[]_ **optional** </description>
 
-设定 regionFilter 只对特定 geom 类型起作用，如 `apply: ['area']`。
+设定 regionFilter 只对特定 geometry 类型起作用，如 `apply: ['area']`。
 
-`markdown:common/AnnotationBaseOption.md`
+`markdown:common/annotation-base-option.md`
 
-`markdown:common/RegionPositionBaseOption.md`
+`markdown:common/region-position-base-option.md`
 
 ### chart.annotation().dataMarker(option)
 
@@ -163,7 +163,7 @@ line 设置。点击 [ShapeAttrs](shape) 查看详细样式配置。
 
 text 设置。
 
-`markdown:common/EnhancedTextCfg.md`
+`markdown:common/enhanced-text-cfg.md`
 
 #### option.autoAdjust
 
@@ -177,9 +177,9 @@ text 设置。
 
 朝向。
 
-`markdown:common/AnnotationPosition.md`
+`markdown:common/annotation-position.md`
 
-`markdown:common/AnnotationBaseOption.md`
+`markdown:common/annotation-base-option.md`
 
 ### chart.annotation().dataRegion(option)
 
@@ -205,10 +205,10 @@ line 长度。
 
 文本的配置。
 
-`markdown:common/EnhancedTextCfg.md`
+`markdown:common/enhanced-text-cfg.md`
 
-`markdown:common/AnnotationPosition.md`
+`markdown:common/annotation-position.md`
 
-`markdown:common/AnnotationBaseOption.md`
+`markdown:common/annotation-base-option.md`
 
 </div>

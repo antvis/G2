@@ -22,9 +22,9 @@
 
 全局注册组件，原理参考 [G2 组件扩展机制](https://www.yuque.com/antv/g2-docs/qw7hzb#QNPae)。
 
-### G2.registerEngine
+<!-- ### G2.registerEngine
 
-注册渲染引擎，目前 G2 支持 svg canvas。
+注册渲染引擎，目前 G2 支持 svg canvas。 -->
 
 ### G2.registerFacet
 

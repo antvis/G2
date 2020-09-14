@@ -30,7 +30,7 @@ const view = chart.createView({
 
 view 的绘制范围。
 
-`markdown:common/Region.md`
+`markdown:common/region.md`
 
 ### ViewCfg.limitInPlot
 

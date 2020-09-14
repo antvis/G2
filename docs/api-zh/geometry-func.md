@@ -16,7 +16,7 @@
 // highlight-end
 ```
 
-`markdown:common/AttributeOption.md`
+`markdown:common/attribute-option.md`
 
 有以下三种配置方式：
 
@@ -56,7 +56,7 @@ or
 type ColorAttrCallback = (...args: any[]) => string;
 ```
 
-`markdown:common/AttributeOption.md`
+`markdown:common/attribute-option.md`
 
 有以下五种配置方式：
 
@@ -111,7 +111,7 @@ or
 type SizeAttrCallback = (...args: any[]) => number;
 ```
 
-`markdown:common/AttributeOption.md`
+`markdown:common/attribute-option.md`
 
 有以下五种配置方式：
 
@@ -169,7 +169,7 @@ or
 type ShapeAttrCallback = (...args: any[]) => string | any[];
 ```
 
-`markdown:common/AttributeOption.md`
+`markdown:common/attribute-option.md`
 
 有五种配置方式：
 

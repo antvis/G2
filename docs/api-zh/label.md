@@ -1,15 +1,13 @@
-<!--## geom.label() 配置图形文本-->
-
 `markdown:common/style.md`
 
 <div class='custom-api-docs'>
 
-geom.label() 是将数据值映射到图形的文本上的方法，共有六种传入方法：
+geometry.label() 是将数据值映射到图形的文本上的方法，共有六种传入方法：
 
 第一种 传入 false，不展示 label
 
 ```ts
-geom.label(false);
+geometry.label(false);
 ```
 
 第二种 传入字段名，在每个图形上显示对应的字段对应的数值。
@@ -19,7 +17,7 @@ geom.label(false);
 (field: string) => Geometry;
 // highlight-end
 
-geom.label('x');
+geometry.label('x');
 ```
 
 第三种 传入字段名和配置项，配置显示细节
@@ -30,7 +28,7 @@ geom.label('x');
 // highlight-end
 
 // 在每个图形上显示 x 字段对应的数值，同时配置文本颜色为红色
-geom.label('x', {
+geometry.label('x', {
   style: {
     fill: 'red',
   },

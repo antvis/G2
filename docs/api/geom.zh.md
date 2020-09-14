@@ -1,8 +1,8 @@
 ---
-title: chart[geom]( ) 创建几何标记
+title: chart[geometry]( ) 创建几何标记
 order: 5
 ---
 
-<!-- ## chart\[geom\](options) 创建几何标记 -->
+<!-- ## chart\[geometry\](options) 创建几何标记 -->
 
-`markdown:api-zh/geom.md`
+`markdown:api-zh/geometry.md`

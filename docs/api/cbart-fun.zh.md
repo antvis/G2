@@ -5,4 +5,4 @@ order: 15
 
 <!-- ## chart 其他属性方法 -->
 
-`markdown:api-zh/chart-fun.md`
+`markdown:api-zh/chart-func.md`
