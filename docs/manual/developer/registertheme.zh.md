@@ -74,6 +74,6 @@ chart.theme('dark');
 
 <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*-xWWTaMWrGEAAAAAAAAAAABkARQnAQ" style="width:100%;">
 
-### 主题样式表结构
+<!-- ### 主题样式表结构
 
-我们整理了完整的主题样式表结构，详见 [API 类型定义](../../api/interfaces/stylesheet)。
+我们整理了完整的主题样式表结构，详见 [API 类型定义](../../api/register#g2registertheme)。 -->
