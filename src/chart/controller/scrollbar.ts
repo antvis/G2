@@ -88,7 +88,9 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
     if (this.option && !this.trackLen) {
       this.measureScrollbar();
       setTimeout(() => {
-        this.changeViewData(this.getScrollRange(), true);
+        if (!this.view.destroyed) {
+          this.changeViewData(this.getScrollRange(), true);
+        }
       });
     }
     if (this.scrollbar) {
