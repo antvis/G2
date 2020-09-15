@@ -1,10 +1,10 @@
 import { Chart } from '../../src';
 import { createDiv } from '../util/dom';
 import { BBox } from '../../src/util/bbox';
+import { delay } from '../util/delay';
 
 describe('2433', () => {
-  it('2433', () => {
-
+  it('2433', async () => {
     const data = [
       { month: 'Jan', city: 'Tokyo', temperature: 7 },
       { month: 'Jan', city: 'London', temperature: 3.9 },
@@ -36,27 +36,25 @@ describe('2433', () => {
       container: createDiv(),
       autoFit: true,
       height: 400,
+      appendPadding: [8, 8, 8, 8],
     });
 
     chart.data(data);
 
-    chart
-      .line()
-      .position('month*temperature')
-      .color('city')
-      .shape('smooth');
+    chart.line().position('month*temperature').color('city').shape('smooth');
 
     chart.legend('city', {
       padding: [0, 0, 0, 0],
     });
 
-    chart.option('slider', {
-    })
+    chart.option('slider', {});
 
     chart.render();
 
+    await delay(1);
+
     const legend = chart.getComponents().filter((co) => co.type === 'legend')[0];
-    const legendBBox = BBox.fromObject(legend.component.getBBox())
+    const legendBBox = BBox.fromObject(legend.component.getBBox());
 
     const slider = chart.getComponents().filter((co) => co.type === 'slider')[0];
     const sliderBBox = BBox.fromObject(slider.component.getBBox());

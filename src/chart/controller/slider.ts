@@ -1,10 +1,11 @@
-import { deepMix, get, isObject, size } from '@antv/util';
-import { COMPONENT_TYPE, DIRECTION, LAYER } from '../../constant';
+import { deepMix, get, isObject, size, clamp, isNil, noop, throttle, groupBy, keys } from '@antv/util';
+import { COMPONENT_TYPE, DIRECTION, LAYER, VIEW_LIFE_CIRCLE } from '../../constant';
 import { IGroup, Slider as SliderComponent } from '../../dependents';
 import { ComponentOption, Datum, Padding } from '../../interface';
 import { BBox } from '../../util/bbox';
 import { directionToPosition } from '../../util/direction';
-import { isBetween, omit } from '../../util/helper';
+import { isBetween } from '../../util/helper';
+import { Writeable } from '../../util/types';
 import View from '../view';
 import { Controller } from './base';
 import { SliderOption, SliderCfg } from '../../interface';
@@ -17,14 +18,33 @@ export default class Slider extends Controller<SliderOption> {
   private slider: ComponentOption;
   private container: IGroup;
 
+  private width: number;
+  private start: number;
+  private end: number;
+
+  private onChangeFn: (evt: {}) => void = noop;
+
   constructor(view: View) {
     super(view);
 
     this.container = this.view.getLayer(LAYER.FORE).addGroup();
+    this.onChangeFn = throttle(this.onValueChange, 20, {
+      leading: true,
+    }) as (evt: {}) => void;
+
+    this.width = 0;
+    this.view.on(VIEW_LIFE_CIRCLE.BEFORE_CHANGE_DATA, this.resetMeasure);
+    this.view.on(VIEW_LIFE_CIRCLE.AFTER_CHANGE_SIZE, this.resetMeasure);
   }
 
   get name(): string {
     return 'slider';
+  }
+
+  public destroy() {
+    super.destroy();
+    this.view.off(VIEW_LIFE_CIRCLE.BEFORE_CHANGE_DATA, this.resetMeasure);
+    this.view.off(VIEW_LIFE_CIRCLE.AFTER_CHANGE_SIZE, this.resetMeasure);
   }
 
   /**
@@ -37,6 +57,11 @@ export default class Slider extends Controller<SliderOption> {
    */
   public render() {
     this.option = this.view.getOptions().slider;
+    const { start, end } = this.getSliderCfg();
+    if (isNil(this.start)) {
+      this.start = start;
+      this.end = end;
+    }
 
     if (this.option) {
       if (this.slider) {
@@ -46,14 +71,8 @@ export default class Slider extends Controller<SliderOption> {
         // not exist, create
         this.slider = this.createSlider();
         // 监听事件，绑定交互
-        this.slider.component.on('sliderchange', this.onValueChanged);
+        this.slider.component.on('sliderchange', this.onChangeFn);
       }
-      // changeData 的时候同样需要更新
-      // 设置初始的 text
-      const min = this.slider.component.get('start') || 0;
-      const max = this.slider.component.get('end') || 1;
-
-      this.updateMinMaxText(min, max);
     } else {
       if (this.slider) {
         // exist, destroy
@@ -69,21 +88,39 @@ export default class Slider extends Controller<SliderOption> {
    * 布局
    */
   public layout() {
+    if (this.option && !this.width) {
+      this.measureSlider();
+      setTimeout(() => {
+        // 初始状态下的 view 数据过滤
+        if (!this.view.destroyed) {
+          this.changeViewData(this.start, this.end);
+        }
+      }, 0);
+    }
     if (this.slider) {
       const width = this.view.coordinateBBox.width;
       // 获取组件的 layout bbox
       const padding: Padding = this.slider.component.get('padding') as Padding;
+      const [paddingTop, paddingRight, paddingBottom, paddingLeft] = padding;
       const bboxObject = this.slider.component.getLayoutBBox();
-      const bbox = new BBox(bboxObject.x, bboxObject.y, Math.min(bboxObject.width, width), bboxObject.height).expand(padding);
+      const bbox = new BBox(bboxObject.x, bboxObject.y, Math.min(bboxObject.width, width), bboxObject.height).expand(
+        padding
+      );
+      const { minText, maxText } = this.getMinMaxText(this.start, this.end);
 
       const [x1, y1] = directionToPosition(this.view.viewBBox, bbox, DIRECTION.BOTTOM);
       const [x2, y2] = directionToPosition(this.view.coordinateBBox, bbox, DIRECTION.BOTTOM);
 
       // 默认放在 bottom
       this.slider.component.update({
-        x: x2 + padding[3],
-        y: y1 + padding[0],
-        width: width - padding[1] - padding[3],
+        ...this.getSliderCfg(),
+        x: x2 + paddingLeft,
+        y: y1 + paddingTop,
+        width: this.width,
+        start: this.start,
+        end: this.end,
+        minText,
+        maxText,
       });
 
       this.view.viewBBox = this.view.viewBBox.cut(bbox, DIRECTION.BOTTOM);
@@ -123,8 +160,11 @@ export default class Slider extends Controller<SliderOption> {
    * 更新配置
    */
   private updateSlider() {
-    const cfg = this.getSliderCfg();
-    omit(cfg, ['x', 'y', 'width', 'start', 'end', 'minText', 'maxText']);
+    let cfg = this.getSliderCfg();
+    if (this.width) {
+      const { minText, maxText } = this.getMinMaxText(this.start, this.end);
+      cfg = { ...cfg, width: this.width, start: this.start, end: this.end, minText, maxText };
+    }
 
     this.slider.component.update(cfg);
 
@@ -132,9 +172,35 @@ export default class Slider extends Controller<SliderOption> {
   }
 
   /**
+   * 进行测量操作
+   */
+  private measureSlider() {
+    const { width } = this.getSliderCfg();
+
+    this.width = width;
+  }
+
+  /**
+   * 清除测量
+   */
+  private resetMeasure = () => {
+    this.clear();
+  };
+
+  /**
    * 生成 slider 配置
    */
   private getSliderCfg() {
+    let cfg: Writeable<SliderCfg> & { x: number; y: number; width: number; minText: string; maxText: string } = {
+      height: 16,
+      start: 0,
+      end: 1,
+      minText: '',
+      maxText: '',
+      x: 0,
+      y: 0,
+      width: this.view.coordinateBBox.width,
+    };
     if (isObject(this.option)) {
       // 用户配置的数据，优先级更高
       const trendCfg = {
@@ -142,19 +208,17 @@ export default class Slider extends Controller<SliderOption> {
         ...get(this.option, 'trendCfg', {}),
       };
 
-      // 初始的位置大小信息
-      const x = 0;
-      const y = 0;
-      const width = this.view.coordinateBBox.width;
-
       // 因为有样式，所以深层覆盖
-      const cfg = deepMix({}, this.getThemeOptions(), { x, y, width }, this.option);
+      cfg = deepMix({}, cfg, this.getThemeOptions(), this.option);
 
       // trendCfg 因为有数据数组，所以使用浅替换
-      return { ...cfg, trendCfg };
+      cfg = { ...cfg, trendCfg };
     }
 
-    return {};
+    cfg.start = clamp(Math.min(isNil(cfg.start) ? 0 : cfg.start, isNil(cfg.end) ? 1 : cfg.end), 0, 1);
+    cfg.end = clamp(Math.max(isNil(cfg.start) ? 0 : cfg.start, isNil(cfg.end) ? 1 : cfg.end), 0, 1);
+
+    return cfg;
   }
 
   /**
@@ -189,38 +253,39 @@ export default class Slider extends Controller<SliderOption> {
    * 滑块滑动的时候出发
    * @param v
    */
-  private onValueChanged = (v: any) => {
+  private onValueChange = (v: any) => {
     const [min, max] = v;
 
-    this.updateMinMaxText(min, max);
+    this.start = min;
+    this.end = max;
 
-    this.view.render(true);
+    this.changeViewData(min, max);
   };
 
-  private updateMinMaxText(min: number, max: number) {
+  /**
+   * 根据 start/end 和当前数据计算出当前的 minText/maxText
+   * @param min
+   * @param max
+   */
+  private getMinMaxText(min: number, max: number) {
     const data = this.view.getOptions().data;
     const xScale = this.view.getXScale();
+    const groupedData = groupBy(data, xScale.field);
+    const isHorizontal = true;
+    const xValues = isHorizontal ? keys(groupedData) : keys(groupedData).reverse();
     const dataSize = size(data);
 
     if (!xScale || !dataSize) {
       return;
     }
 
-    const x = xScale.field;
-
-    // x 轴刻度
-    const xTicks = data.reduce((pre, datum) => {
-      if (!pre.includes(datum[x])) pre.push(datum[x]);
-      return pre;
-    }, []);
-
-    const xTickCount = size(xTicks);
+    const xTickCount = size(xValues);
 
     const minIndex = Math.floor(min * (xTickCount - 1));
     const maxIndex = Math.floor(max * (xTickCount - 1));
 
-    let minText = get(xTicks, [minIndex]);
-    let maxText = get(xTicks, [maxIndex]);
+    let minText = get(xValues, [minIndex]);
+    let maxText = get(xValues, [maxIndex]);
 
     const formatter = this.getSliderCfg().formatter as SliderCfg['formatter'];
     if (formatter) {
@@ -228,19 +293,40 @@ export default class Slider extends Controller<SliderOption> {
       maxText = formatter(maxText, data[maxIndex], maxIndex);
     }
 
-    // 更新文本
-    this.slider.component.update({
+    return {
       minText,
       maxText,
-      start: min,
-      end: max,
-    });
+    };
+  }
+
+  /**
+   * 更新 view 过滤数据
+   * @param min
+   * @param max
+   */
+  private changeViewData(min: number, max: number) {
+    const data = this.view.getOptions().data;
+    const xScale = this.view.getXScale();
+    const groupedData = groupBy(data, xScale.field);
+    const isHorizontal = true;
+    const xValues = isHorizontal ? keys(groupedData) : keys(groupedData).reverse();
+    const dataSize = size(data);
+
+    if (!xScale || !dataSize) {
+      return;
+    }
+
+    const xTickCount = size(xValues);
+
+    const minIndex = Math.floor(min * (xTickCount - 1));
+    const maxIndex = Math.floor(max * (xTickCount - 1));
 
     // 增加 x 轴的过滤器
     this.view.filter(xScale.field, (value: any, datum: Datum) => {
-      const idx: number = xTicks.indexOf(value);
+      const idx: number = xValues.indexOf(value);
       return idx > -1 ? isBetween(idx, minIndex, maxIndex) : true;
     });
+    this.view.render(true);
   }
 
   /**
@@ -248,5 +334,18 @@ export default class Slider extends Controller<SliderOption> {
    */
   public getComponents() {
     return this.slider ? [this.slider] : [];
+  }
+
+  /**
+   * 覆盖父类
+   */
+  public clear() {
+    if (this.slider) {
+      this.slider.component.destroy();
+      this.slider = undefined;
+    }
+    this.width = 0;
+    this.start = undefined;
+    this.end = undefined;
   }
 }

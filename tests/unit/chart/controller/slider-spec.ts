@@ -27,9 +27,14 @@ describe('Slider', () => {
     width: 600,
     autoFit: false,
     padding: 'auto',
+    appendPadding: [8, 8, 8, 8],
   });
 
   chart.data(Data);
+
+  chart.scale('value', {
+    nice: true,
+  });
 
   chart.legend('name', {
     position: 'top',
@@ -37,7 +42,6 @@ describe('Slider', () => {
 
   chart.option('slider', {
     height: 24,
-    padding: [20, 20, 20, 0],
     trendCfg: {
       isArea: false,
     },
@@ -47,13 +51,42 @@ describe('Slider', () => {
 
   chart.interval().position('year*value');
   chart.render();
-  const [slider] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SLIDER);
+  const { coordinateBBox } = chart;
+  // @ts-ignore
+  window.__chart__ = chart;
 
-  it('padding', () => {
-    expect(slider.component.getBBox().maxY <= chart.height - 19 ).toBe(true); // padding buttom = 20px
+  it('initial state', async () => {
+    await delay(1);
+    const [slider] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SLIDER);
+    const { component: sliderComponent } = slider;
+    expect(sliderComponent.get('height')).toBe(24);
+    expect(sliderComponent.get('width')).toBe(coordinateBBox.width);
+    // @ts-ignore
+    expect(sliderComponent.minHandler.get('x')).toBe(0.3 * coordinateBBox.width - 5);
+    // @ts-ignore
+    expect(sliderComponent.maxHandler.get('x')).toBe(0.7 * coordinateBBox.width - 5);
+    // @ts-ignore
+    expect(chart.filteredData.length).toBe(4);
+  });
+
+  it('padding', async () => {
+    chart.option('slider', {
+      padding: [20, 20, 20, 0],
+      height: 24,
+      trendCfg: {
+        isArea: false,
+      },
+      start: 0.3,
+      end: 0.7,
+    });
+    chart.render();
+    await delay(1);
+    const [slider] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SLIDER);
+    expect(slider.component.getBBox().maxY <= chart.height - 19).toBe(true); // padding bottom = 20px
   });
 
   it('slider cfg', () => {
+    const [slider] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SLIDER);
     expect(slider.component.get('height')).toBe(24);
     expect(slider.component.get('trendCfg').isArea).toBe(false);
 
@@ -62,6 +95,7 @@ describe('Slider', () => {
   });
 
   it('slider filter', async () => {
+    const [slider] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SLIDER);
     expect(slider.component.get('minText')).toBe('1993');
     expect(slider.component.get('maxText')).toBe('1996');
 
@@ -69,14 +103,25 @@ describe('Slider', () => {
     expect(chart.filterFieldData('year', Data).map((d) => d.year)).toEqual(['1993', '1994', '1995', '1996']);
   });
 
-  it('slider update', () => {
+  it('slider update', async () => {
     chart.option('slider', {
+      padding: [8, 0, 8, 0],
       height: 16,
+      start: 0.4,
+      end: 0.8,
     });
 
     chart.render();
 
+    await delay(1);
+
+    const [slider] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SLIDER);
     const others = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SLIDER);
+
+    expect(slider.component.get('start')).toBe(0.4);
+    expect(slider.component.get('end')).toBe(0.8);
+    expect(slider.component.get('minText')).toBe('1994');
+    expect(slider.component.get('maxText')).toBe('1997');
 
     expect(others.length).toBe(1);
 
@@ -90,6 +135,7 @@ describe('Slider', () => {
     chart.changeData(Data.slice(0, 3));
     chart.render(true);
 
+    const [slider] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SLIDER);
     expect(slider.component.get('minText')).toBe('1991');
     expect(slider.component.get('maxText')).toBe('1992');
   });
@@ -101,9 +147,11 @@ describe('Slider', () => {
     chart.changeData(Data.slice(0, 3));
     chart.render(true);
 
+    const [slider] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SLIDER);
     expect(slider.component.get('minText')).toBe(`1991-3-0`);
-    expect(slider.component.get('maxText')).toBe(`1992-4-1`);
+    expect(slider.component.get('maxText')).toBe(`1993-3.5-2`);
   });
+
   afterAll(() => {
     chart.destroy();
     removeDom(div);
