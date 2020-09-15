@@ -767,6 +767,8 @@ export interface ChartCfg {
   readonly limitInPlot?: boolean;
   /** 主题 */
   readonly theme?: LooseObject | string;
+  /** 支持 CSS transform，开启后图表的交互以及事件将在页面设置了 css transform 属性时生效，默认关闭。 */
+  readonly supportCSSTransform?: boolean;
 }
 
 /** View 构造参数 */
