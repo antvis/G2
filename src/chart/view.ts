@@ -69,7 +69,7 @@ import { isAutoPadding } from '../util/padding';
  */
 export class View extends Base {
   /** view id，全局唯一。 */
-  public id: string = uniqueId('view');
+  public id: string;
   /** 父级 view，如果没有父级，则为空。 */
   public parent: View;
   /** 所有的子 view。 */
@@ -149,6 +149,7 @@ export class View extends Base {
     super({ visible: props.visible });
 
     const {
+      id = uniqueId('view'),
       parent,
       canvas,
       backgroundGroup,
@@ -173,6 +174,7 @@ export class View extends Base {
     // 接受父 view 传入的参数
     this.options = { ...this.options, ...options };
     this.limitInPlot = limitInPlot;
+    this.id = id;
 
     // 初始化 theme
     this.themeObject = isObject(theme) ? deepMix({}, getTheme('default'), theme) : getTheme(theme);
@@ -679,6 +681,7 @@ export class View extends Base {
   public updateOptions(options: Options) {
     this.clear(); // 清空
     mix(this.options, options);
+
     this.initOptions();
     // 初始化坐标系大小，保证 padding 计算正确
     this.coordinateBBox = this.viewBBox;

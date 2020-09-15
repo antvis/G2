@@ -691,6 +691,8 @@ export interface GeometryOption {
 
 /** 用于配置型式的 View 声明方式 */
 export interface ViewOption {
+  /** view 的唯一表示 ID */
+  readonly id?: string;
   /** view 的绘制范围，起始点为左上角。 */
   readonly region?: Region;
   /**
@@ -771,6 +773,8 @@ export interface ChartCfg {
 
 /** View 构造参数 */
 export interface ViewCfg {
+  /** View id，可以由外部传入 */
+  readonly id?: string;
   /** 当前 view 的父级 view。 */
   readonly parent: View;
   /** canvas 实例。 */
