@@ -682,6 +682,11 @@ export class View extends Base {
     this.clear(); // 清空
     mix(this.options, options);
 
+    // 需要把已存在的 view 销毁，否则会重复创建
+    // 目前针对配置项还没有特别好的 view 更新机制，为了不影响主流流程，所以在这里直接销毁
+    this.views.forEach(view => view.destroy());
+    this.views = [];
+
     this.initOptions();
     // 初始化坐标系大小，保证 padding 计算正确
     this.coordinateBBox = this.viewBBox;

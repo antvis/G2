@@ -107,6 +107,7 @@ export default class Element extends Base {
     newShape.cfg.data = this.data;
     // @ts-ignore
     newShape.cfg.origin = model;
+    // label 需要使用
     newShape.cfg.element = this;
 
     // step 3: 同步 shape 样式
