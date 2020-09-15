@@ -25,6 +25,7 @@ describe('View', () => {
   const foregroundGroup = canvas.addGroup();
 
   const view = new View({
+    id: 'onlyView',
     parent: null,
     canvas,
     foregroundGroup,
@@ -43,6 +44,7 @@ describe('View', () => {
     // @ts-ignore
     expect(view.foregroundGroup).toBeInstanceOf(getEngine(renderer).Group);
     expect(view.visible).toBeFalse();
+    expect(view.id).toBe('onlyView');
   });
 
   it('region', () => {
