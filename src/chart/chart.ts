@@ -38,6 +38,7 @@ export default class Chart extends View {
       pixelRatio,
       localRefresh = true,
       visible = true,
+      supportCSSTransform = false,
       defaultInteractions = ['tooltip', 'legend-filter', 'legend-active', 'continuous-filter', 'ellipsis-text'],
       options,
       limitInPlot,
@@ -59,6 +60,7 @@ export default class Chart extends View {
       container: wrapperElement,
       pixelRatio,
       localRefresh,
+      supportCSSTransform,
       ...size,
     });
 
