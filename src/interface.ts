@@ -121,6 +121,8 @@ export interface ShapeInfo {
   showSinglePoint?: boolean;
   /** 默认的 shape 样式 */
   defaultStyle?: LooseObject;
+  /** 自定义的数据，传入到 shapeInfo 中 */
+  custom?: CustomOption;
 }
 
 /** 用户配置的动画，属性均可选 */
@@ -191,6 +193,9 @@ export interface StyleOption {
   /** 图形样式配置。 */
   readonly cfg?: LooseObject;
 }
+
+/** geometry.custom() custom 自定义的配置，可以传入任何数据 */
+export type CustomOption = any;
 
 /** `geometry.tooltip({})` Tooltip 配置定义 */
 export interface GeometryTooltipOption {
