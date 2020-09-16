@@ -784,7 +784,7 @@ export default class Geometry extends Base {
    *
    * @example
    * ```ts
-   * chart.interval().custom({ yourData: 'hello, g2!' });
+   * chart.interval().customInfo({ yourData: 'hello, g2!' });
    * ```
    *
    * 然后在自定义 shape 的时候，可以拿到这个信息。
@@ -792,15 +792,15 @@ export default class Geometry extends Base {
    * ```ts
    * registerShape('interval', 'your-shape', {
    *   draw(shapeInfo, container) {
-   *     const { custom } = shapeInfo;
-   *     console.log(custom); // will log { yourData: 'hello, g2!' }.
+   *     const { customInfo } = shapeInfo;
+   *     console.log(customInfo); // will log { yourData: 'hello, g2!' }.
    *   }
    * });
    * ```
    *
    * @param cfg
    */
-  public custom(cfg: any) {
+  public customInfo(cfg: any) {
     this.customOption = cfg;
     return this;
   }
@@ -1356,7 +1356,7 @@ export default class Geometry extends Base {
       color: mappingDatum.color,
       size: mappingDatum.size,
       isInCircle: this.coordinate.isPolar,
-      custom: this.customOption,
+      customInfo: this.customOption,
     };
 
     let shapeName = mappingDatum.shape;

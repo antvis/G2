@@ -797,12 +797,12 @@ describe('Geometry', () => {
       { year: '1998', value: 32040 },
     ];
 
-    let custom;
+    let customInfo;
 
     Shape.registerShape('interval', 'my-custom-interval', {
       draw(shapeInfo: ShapeInfo, container) {
         // 存起来用于单测
-        custom = shapeInfo.custom;
+        customInfo = shapeInfo.customInfo;
         return container.addShape('circle', {
           attrs: {
             x: 100,
@@ -820,9 +820,9 @@ describe('Geometry', () => {
     });
 
     chart.data(data);
-    chart.interval().position('year*valye').shape('my-custom-interval').custom({ hello: 'g2' });
+    chart.interval().position('year*valye').shape('my-custom-interval').customInfo({ hello: 'g2' });
     chart.render();
 
-    expect(custom).toEqual({ hello: 'g2' });
+    expect(customInfo).toEqual({ hello: 'g2' });
   });
 });

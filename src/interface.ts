@@ -122,7 +122,7 @@ export interface ShapeInfo {
   /** 默认的 shape 样式 */
   defaultStyle?: LooseObject;
   /** 自定义的数据，传入到 shapeInfo 中 */
-  custom?: CustomOption;
+  customInfo?: CustomOption;
 }
 
 /** 用户配置的动画，属性均可选 */
