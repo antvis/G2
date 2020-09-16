@@ -378,13 +378,15 @@ export default class Tooltip extends Controller<TooltipOption> {
     if(isBoolean(option) || !get(option, 'customContent')){
       return option;
     }
-    const processOption = clone(option);
-    const customContent = processOption.customContent;
-    processOption.customContent = (title: string, items: any[]) => {
-      const content = customContent(title, items) || '';
+    const currentCustomContent = option.customContent;
+    const customContent = (title: string, items: any[]) => {
+      const content = currentCustomContent(title, items) || '';
       return isString(content) ? '<div class="g2-tooltip">' + content + '</div>' : content ; 
     }
-    return processOption;
+    return {
+      ...option,
+      customContent,
+    };
   }
 
   private getTitle(items) {

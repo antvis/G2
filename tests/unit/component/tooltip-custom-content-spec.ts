@@ -32,7 +32,7 @@ describe('TooltipCustomContent', () => {
       shared: true,
       showCrosshairs: true,
       customContent: (title, items) => {
-        return `<h5 class="custom">${title}</h5><div>${items[0]?.value}</div></div>`;
+        return `<h5 class="custom">${title}</h5><div>${items[0]?.value}</div>`;
       },
     });
     chart.render();
@@ -43,36 +43,6 @@ describe('TooltipCustomContent', () => {
     // @ts-ignore
     expect(tooltipController.title).toBe('1994');
     expect(document.getElementsByClassName('custom')[0].innerHTML).toBe('1994');
-  });
-
-  it('process tooltip, custom content is string', () => {
-    const chart = new Chart({
-      container,
-      autoFit: false,
-      width: 400,
-      height: 300,
-      padding: 50,
-    });
-    chart.data(data);
-    chart.scale('value', {
-      nice: true,
-    });
-    chart.line().position('year*value');
-    chart.tooltip({
-      shared: true,
-      showCrosshairs: true,
-      customContent: (title, items) => {
-        return `${title}-${items[0]?.value}`;
-      },
-    });
-    chart.render();
-
-    const point = chart.getXY({ year: '1994', value: 5 });
-    chart.showTooltip(point);
-    const tooltipController = chart.getController('tooltip');
-    // @ts-ignore
-    expect(tooltipController.title).toBe('1994');
-    expect(document.getElementsByClassName('g2-tooltip')[1].innerHTML).toBe('1994-5');
   });
 
   it('process tooltip, custom content is HTMLElement', () => {
