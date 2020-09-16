@@ -80,10 +80,10 @@ export default class Tooltip extends Controller<TooltipOption> {
     }; // 数据点位置
 
     view.emit('tooltip:show', Event.fromData(view, 'tooltip:show', {
-        items,
-        title,
-        ...point,
-      }));
+      items,
+      title,
+      ...point,
+    }));
 
     const cfg = this.getTooltipCfg();
     const { follow, showMarkers, showCrosshairs, showContent, marker } = cfg;
@@ -92,10 +92,10 @@ export default class Tooltip extends Controller<TooltipOption> {
     if (!isEqual(lastTitle, title) || !isEqual(lastItems, items)) {
       // 内容发生变化了更新 tooltip
       view.emit('tooltip:change', Event.fromData(view, 'tooltip:change', {
-          items,
-          title,
-          ...point,
-        }));
+        items,
+        title,
+        ...point,
+      }));
 
       if (showContent) {
         // 展示 tooltip 内容框才渲染 tooltip
