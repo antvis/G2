@@ -1,10 +1,10 @@
 import { flatten } from '@antv/util';
 import 'jest-extended';
-import { getEngine } from '../../../src';
+import { Chart, getEngine } from '../../../src';
 import { getCoordinate } from '../../../src/dependents';
 import Geometry from '../../../src/geometry/base';
 import * as Shape from '../../../src/geometry/shape/base';
-import { LooseObject } from '../../../src/interface';
+import { LooseObject, ShapeInfo } from '../../../src/interface';
 import { getTheme } from '../../../src/theme/';
 import { createScaleByField, syncScale } from '../../../src/util/scale';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
@@ -787,5 +787,42 @@ describe('Geometry', () => {
     expect(beforeMappingData[0][0].country).toBe('Europe');
     expect(beforeMappingData[1][0].country).toBe('Asia');
     expect(beforeMappingData[2][0].country).toBe('Africa');
+  });
+
+  it('geometry.custom', () => {
+    const data = [
+      { year: '1991', value: 15468 },
+      { year: '1992', value: 16100 },
+      { year: '1993', value: 15900 },
+      { year: '1998', value: 32040 },
+    ];
+
+    let customInfo;
+
+    Shape.registerShape('interval', 'my-custom-interval', {
+      draw(shapeInfo: ShapeInfo, container) {
+        // 存起来用于单测
+        customInfo = shapeInfo.customInfo;
+        return container.addShape('circle', {
+          attrs: {
+            x: 100,
+            y: 100,
+            r: 4,
+          },
+        });
+      }
+    });
+
+    const chart = new Chart({
+      container: createDiv(),
+      width: 500,
+      height: 400,
+    });
+
+    chart.data(data);
+    chart.interval().position('year*valye').shape('my-custom-interval').customInfo({ hello: 'g2' });
+    chart.render();
+
+    expect(customInfo).toEqual({ hello: 'g2' });
   });
 });
