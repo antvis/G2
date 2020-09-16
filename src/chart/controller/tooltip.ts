@@ -1,4 +1,4 @@
-import { deepMix, find, flatten, get, isArray, isEqual, isFunction, isUndefined, mix } from '@antv/util';
+import { deepMix, find, flatten, get, isArray, isEqual, isFunction, mix, isString, clone, isBoolean} from '@antv/util';
 import { Crosshair, HtmlTooltip, IGroup } from '../../dependents';
 import Geometry from '../../geometry/base';
 import { Point, TooltipOption } from '../../interface';
@@ -364,12 +364,29 @@ export default class Tooltip extends Controller<TooltipOption> {
   protected getTooltipCfg() {
     const view = this.view;
     const option = view.getOptions().tooltip;
+    const processOption = this.processCustomContent(option);
     const theme = view.getTheme();
     const defaultCfg = get(theme, ['components', 'tooltip'], {});
-    const enterable = get(option, 'enterable', defaultCfg.enterable);
-    return deepMix({}, defaultCfg, option, {
+    const enterable = get(processOption, 'enterable', defaultCfg.enterable);
+    return deepMix({}, defaultCfg, processOption, {
       capture: enterable || this.isLocked ? true : false,
     });
+  }
+
+  // process customContent
+  protected processCustomContent(option: TooltipOption) {
+    if(isBoolean(option) || !get(option, 'customContent')){
+      return option;
+    }
+    const currentCustomContent = option.customContent;
+    const customContent = (title: string, items: any[]) => {
+      const content = currentCustomContent(title, items) || '';
+      return isString(content) ? '<div class="g2-tooltip">' + content + '</div>' : content ; 
+    }
+    return {
+      ...option,
+      customContent,
+    };
   }
 
   private getTitle(items) {

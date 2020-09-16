@@ -14,33 +14,68 @@ describe('TooltipCustomContent', () => {
     { year: '1998', value: 9 },
     { year: '1999', value: 13 },
   ];
-  const chart = new Chart({
-    container,
-    autoFit: false,
-    width: 400,
-    height: 300,
-    padding: 50,
-  });
-  chart.data(data);
-  chart.scale('value', {
-    nice: true,
-  });
-  chart.line().position('year*value');
-  chart.tooltip({
-    shared: true,
-    showCrosshairs: true,
-    customContent: (title, items) => {
-      return `<div class="g2-tooltip"><h5 class="custom">${title}</h5><div>${items[0]?.value}</div></div>`;
-    },
-  });
-  chart.render();
 
   it('default, tooltip is render', () => {
+    const chart = new Chart({
+      container,
+      autoFit: false,
+      width: 400,
+      height: 300,
+      padding: 50,
+    });
+    chart.data(data);
+    chart.scale('value', {
+      nice: true,
+    });
+    chart.line().position('year*value');
+    chart.tooltip({
+      shared: true,
+      showCrosshairs: true,
+      customContent: (title, items) => {
+        return `<h5 class="custom">${title}</h5><div>${items[0]?.value}</div>`;
+      },
+    });
+    chart.render();
+
     const point = chart.getXY({ year: '1994', value: 5 });
     chart.showTooltip(point);
     const tooltipController = chart.getController('tooltip');
     // @ts-ignore
     expect(tooltipController.title).toBe('1994');
     expect(document.getElementsByClassName('custom')[0].innerHTML).toBe('1994');
+  });
+
+  it('process tooltip, custom content is HTMLElement', () => {
+    const chart = new Chart({
+      container,
+      autoFit: false,
+      width: 400,
+      height: 300,
+      padding: 50,
+    });
+    chart.data(data);
+    chart.scale('value', {
+      nice: true,
+    });
+    chart.line().position('year*value');
+    chart.tooltip({
+      shared: true,
+      showCrosshairs: true,
+      customContent: (title, items) => {
+        const div = document.createElement('div');
+        div.className = 'g2-tooltip';
+        div.id = 'g2-tooltip';
+        div.innerHTML = `${title}`;
+        return div
+      },
+    });
+    chart.render();
+
+    const point = chart.getXY({ year: '1994', value: 5 });
+    chart.showTooltip(point);
+    const tooltipController = chart.getController('tooltip');
+    // @ts-ignore
+    expect(tooltipController.title).toBe('1994');
+    expect(document.getElementById('g2-tooltip').innerHTML).toBe('1994');
   });
 });
