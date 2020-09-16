@@ -9,7 +9,7 @@ import {
 } from 'd3-regression';
 import { each, minBy, maxBy } from '@antv/util';
 import { getScale } from '@antv/scale';
-import { IGroup, IShape, Scale, Coordinate } from '../dependents';
+import { IGroup, IShape, Scale } from '../dependents';
 import { View } from '../chart/view';
 import { Data } from '../interface';
 import { getSplinePath } from '../geometry/shape/util/path';
@@ -152,7 +152,7 @@ export default class TrendLine {
     return { trendlineData, confidenceData };
   }
 
-  private getTrendlinePoints(xScale: Scale, yScale: Scale, coord: Coordinate) {
+  private getTrendlinePoints(xScale: Scale, yScale: Scale, coord: any) {
     const points = [];
     each(this.data.trendlineData, (d) => {
       const xRatio = xScale.scale(d.x);
@@ -164,7 +164,7 @@ export default class TrendLine {
     return points;
   }
 
-  private getConfidencePath(xScale: Scale, yScale: Scale, coord: Coordinate) {
+  private getConfidencePath(xScale: Scale, yScale: Scale, coord: any) {
     const upperPoints = [];
     const lowerPoints = [];
     const path = [];
