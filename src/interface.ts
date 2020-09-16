@@ -1196,7 +1196,7 @@ export interface TooltipCfg {
   /** tooltip 偏移量。 */
   offset?: number;
   /** 支持自定义模板 */
-  customContent?: (title: string, data: any[]) => string | void;
+  customContent?: (title: string, data: any[]) =>  string | HTMLElement;
 }
 
 /** 坐标系配置 */
