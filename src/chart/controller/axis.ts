@@ -11,6 +11,7 @@ import {
   getAxisRegion,
   getAxisThemeCfg,
   getAxisTitleText,
+  getAxisVerticalLimitLength,
   getCircleAxisCenterRadius,
   isVertical,
 } from '../../util/axis';
@@ -91,7 +92,10 @@ export default class Axis extends Controller<Option> {
               : getAxisRegion(coordinate, direction);
           }
         } else {
-          updated = getAxisRegion(coordinate, direction);
+          updated = {
+            ...getAxisRegion(coordinate, direction),
+            ...getAxisVerticalLimitLength(coordinate, co, direction),
+          }
         }
       } else if (type === COMPONENT_TYPE.GRID) {
         if (coordinate.isPolar) {

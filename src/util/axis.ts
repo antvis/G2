@@ -1,9 +1,9 @@
 import { get, isBoolean } from '@antv/util';
+import { vec2 } from '@antv/matrix-util';
 import { DIRECTION } from '../constant';
 import { Coordinate, Scale } from '../dependents';
-import { AxisCfg, AxisOption, Point, Region } from '../interface';
+import { AxisCfg, AxisOption, ComponentOption, Point, Region } from '../interface';
 import { getName } from './scale';
-import { vec2 } from '@antv/matrix-util';
 
 /**
  * @ignore
@@ -91,6 +91,22 @@ export function getAxisRegion(coordinate: Coordinate, direction: DIRECTION): Reg
     start: coordinate.convert(start),
     end: coordinate.convert(end),
   };
+}
+
+/**
+ * 获得 axis 的 VerticalLimitLength 目前仅对 rect 进行处理
+ * @param coordinate
+ * @param co
+ * @param direction
+ */
+export function getAxisVerticalLimitLength(coordinate: Coordinate, co: ComponentOption, direction: DIRECTION): object {
+  if (coordinate.isRect) {
+    const bbox = co.component.getLayoutBBox();
+    return {
+      verticalLimitLength: isVertical(getLineAxisRelativeRegion(direction)) ? bbox.width : bbox.height,
+    }
+  }
+  return {};
 }
 
 /**
