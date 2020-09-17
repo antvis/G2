@@ -34,7 +34,7 @@ export default class Slider extends Controller<SliderOption> {
 
     this.width = 0;
     this.view.on(VIEW_LIFE_CIRCLE.BEFORE_CHANGE_DATA, this.resetMeasure);
-    this.view.on(VIEW_LIFE_CIRCLE.AFTER_CHANGE_SIZE, this.resetMeasure);
+    this.view.on(VIEW_LIFE_CIRCLE.BEFORE_CHANGE_SIZE, this.resetMeasure);
   }
 
   get name(): string {
@@ -44,7 +44,7 @@ export default class Slider extends Controller<SliderOption> {
   public destroy() {
     super.destroy();
     this.view.off(VIEW_LIFE_CIRCLE.BEFORE_CHANGE_DATA, this.resetMeasure);
-    this.view.off(VIEW_LIFE_CIRCLE.AFTER_CHANGE_SIZE, this.resetMeasure);
+    this.view.off(VIEW_LIFE_CIRCLE.BEFORE_CHANGE_SIZE, this.resetMeasure);
   }
 
   /**

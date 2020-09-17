@@ -2,6 +2,7 @@ import { Chart } from '../../../../src';
 import { createDiv, removeDom } from '../../../util/dom';
 import { salesBySubCategory, subSalesBySubCategory, subSalesByArea } from '../../../data/sales';
 import { COMPONENT_TYPE } from '../../../../src/constant';
+import { BBox } from '../../../../src/util/bbox';
 import { delay } from '../../../util/delay';
 import { near } from '../../../util/math';
 
@@ -122,6 +123,47 @@ describe('Scrollbar', () => {
     expect(chart.filteredData.length).toBe(12);
   });
 
+  it('scrollbar horizontal not overlap with legend', async () => {
+    const chart = new Chart({
+      container,
+      height: 400,
+      width: 500,
+    });
+    chart.data(subSalesBySubCategory);
+    chart.option('scrollbar', {
+      type: 'horizontal',
+      categorySize: 32 * 3,
+    });
+    chart.legend({
+      position: 'bottom',
+    });
+    chart.scale('sales', {
+      nice: true,
+      formatter: (v) => `${Math.floor(v / 10000)}万`,
+    });
+    chart
+      .interval()
+      .position('subCategory*sales')
+      .color('series')
+      .adjust({
+        type: 'dodge',
+      })
+      .label('sales');
+
+    chart.render();
+
+    await delay(1);
+
+    const legend = chart.getComponents().filter((co) => co.type === 'legend')[0];
+    const legendBBox = BBox.fromObject(legend.component.getBBox());
+
+    const scrollbar = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SCROLLBAR)[0];
+    const scrollbarBBox = BBox.fromObject(scrollbar.component.getBBox());
+
+    // 没有重叠
+    expect(legendBBox.collide(scrollbarBBox)).toBe(false);
+  });
+
   it('scrollbar /w grouped vertical horizontal', async () => {
     const chart = new Chart({
       container,
@@ -163,6 +205,48 @@ describe('Scrollbar', () => {
     expect(scrollbar.component.get('trackLen')).toBe(coordinateBBox.height);
     // @ts-ignore
     expect(chart.filteredData.length).toBe(9);
+  });
+
+  it('scrollbar vertical not overlay with legend', async () => {
+    const chart = new Chart({
+      container,
+      height: 400,
+      width: 500,
+    });
+    chart.data(subSalesBySubCategory);
+    chart.option('scrollbar', {
+      type: 'vertical',
+      categorySize: 32 * 3,
+    });
+    chart.legend({
+      position: 'right',
+    });
+    chart.scale('sales', {
+      nice: true,
+      formatter: (v) => `${Math.floor(v / 10000)}万`,
+    });
+    chart.coordinate().transpose();
+    chart
+      .interval()
+      .position('subCategory*sales')
+      .color('series')
+      .adjust({
+        type: 'dodge',
+      })
+      .label('sales');
+
+    chart.render();
+
+    await delay(1);
+
+    const legend = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND)[0];
+    const legendBBox = BBox.fromObject(legend.component.getBBox());
+
+    const scrollbar = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SCROLLBAR)[0];
+    const scrollbarBBox = BBox.fromObject(scrollbar.component.getBBox());
+
+    // 没有重叠
+    expect(legendBBox.collide(scrollbarBBox)).toBe(false);
   });
 
   it('scrollbar update after changeData', async () => {

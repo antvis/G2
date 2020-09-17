@@ -137,6 +137,8 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
           y,
         });
       }
+
+      this.view.viewBBox = this.view.viewBBox.cut(bbox, cfg.isHorizontal ? DIRECTION.BOTTOM : DIRECTION.RIGHT);
     }
   }
 
