@@ -1,4 +1,4 @@
-import { each, get, isArray } from '@antv/util';
+import { each, get, isArray, map } from '@antv/util';
 import { MappingDatum, Point } from '../../interface';
 import { getDistanceToCenter } from '../../util/coordinate';
 import { getAngleByPoint } from '../../util/coordinate';
@@ -20,12 +20,15 @@ export default class PolarLabel extends GeometryLabel {
     const items = super.getLabelItems(mapppingArray);
     const yScale = this.geometry.getYScale();
 
-    return items.map((item) => {
-      let percent = null;
-      if (yScale) {
-        percent = yScale.scale(get(item.data, yScale.field));
+    return map(items, (item) => {
+      if (item) {
+        let percent = null;
+        if (yScale) {
+          percent = yScale.scale(get(item.data, yScale.field));
+        }
+        return { ...item, percent };
       }
-      return { ...item, percent };
+      return item;
     });
   }
   /**
