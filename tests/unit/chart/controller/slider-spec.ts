@@ -52,8 +52,6 @@ describe('Slider', () => {
   chart.interval().position('year*value');
   chart.render();
   const { coordinateBBox } = chart;
-  // @ts-ignore
-  window.__chart__ = chart;
 
   it('initial state', async () => {
     await delay(1);
@@ -138,6 +136,14 @@ describe('Slider', () => {
     const [slider] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SLIDER);
     expect(slider.component.get('minText')).toBe('1991');
     expect(slider.component.get('maxText')).toBe('1992');
+  });
+
+  it('changeSize', async () => {
+    await delay(1);
+    chart.changeSize(500, 500);
+    await delay(1);
+    const [slider] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SLIDER);
+    expect(slider).toBeDefined();
   });
 
   it('formatter', () => {
