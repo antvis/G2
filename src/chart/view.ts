@@ -1355,18 +1355,19 @@ export class View extends Base {
   protected renderLayoutRecursive(isUpdate: boolean) {
     // 1. 同步子 view padding
     if (this.syncViewPadding) {
-      console.log(this.syncViewPadding);
       const syncPadding = new PaddingCal();
 
       // 所有的 view 的 autoPadding 指向同一个引用
       this.views.forEach((v: View) => {
         v.autoPadding = syncPadding.max(v.autoPadding.getPadding());
       });
-    }
 
-    // 2. 计算出新的 coordinateBBox，更新 Coordinate
-    this.coordinateBBox = this.viewBBox.shrink(this.autoPadding.getPadding());
-    this.adjustCoordinate();
+      // 更新 coordinate
+      this.views.forEach((v: View) => {
+        v.coordinateBBox = v.viewBBox.shrink(v.autoPadding.getPadding());
+        v.adjustCoordinate();
+      });
+    }
 
     // 3. 将 view 中的组件按照 view padding 移动到对应的位置
     this.doLayout();
