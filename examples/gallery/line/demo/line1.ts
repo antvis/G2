@@ -10,7 +10,7 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/terrorism.json')
       container: 'container',
       autoFit: true,
       height: 500,
-      padding: [20, 40],
+      syncViewPadding: true,
     });
 
     chart.scale({
