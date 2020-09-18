@@ -43,6 +43,7 @@ export default class Chart extends View {
       options,
       limitInPlot,
       theme,
+      syncViewPadding,
     } = props;
 
     const ele: HTMLElement = isString(container) ? document.getElementById(container) : container;
@@ -78,6 +79,7 @@ export default class Chart extends View {
       options,
       limitInPlot,
       theme,
+      syncViewPadding,
     });
 
     this.ele = ele;

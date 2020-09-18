@@ -721,7 +721,7 @@ export interface ViewOption {
 }
 
 /** Chart 构造方法的入参 */
-export interface ChartCfg {
+export interface ChartCfg extends Omit<ViewCfg, 'parent' | 'canvas' | 'foregroundGroup' | 'middleGroup' | 'backgroundGroup' | 'region'> {
   /** 指定 chart 绘制的 DOM，可以传入 DOM id，也可以直接传入 dom 实例。 */
   readonly container: string | HTMLElement;
   /** 图表宽度。 */
@@ -738,44 +738,15 @@ export interface ChartCfg {
   /** 设置设备像素比，默认取浏览器的值 `window.devicePixelRatio`。 */
   readonly pixelRatio?: number;
   /**
-   * 设置图表的内边距，使用方式参考 CSS 盒模型。
-   * 下图黄色区域即为 padding 的范围。
-   * ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*pYwiQrdXGJ8AAAAAAAAAAABkARQnAQ)
-   *
-   * @example
-   * 1. padding: 20
-   * 2. padding: [ 10, 30, 30 ]
-   */
-  readonly padding?: ViewPadding;
-  /**
-   * 图表的内边距会在图表的padding的基础上加上appendPadding，使用方式参考 CSS 盒模型。
-   * @example
-   * 1. appendPadding: 20
-   * 2. appendPadding: [ 10, 30, 30 ]
-   */
-  readonly appendPadding?: ViewAppendPadding;
-  /**
    * 是否开启局部刷新，默认开启。
    */
   readonly localRefresh?: boolean;
-  /**
-   * chart 是否可见，默认为 true，设置为 false 则会隐藏。
-   */
-  readonly visible?: boolean;
-  /**
-   * 当使用配置项式创建 chart 时使用，详见 [配置项式创建图表教程](docs/tutorial/schema)。
-   */
-  readonly options?: Options;
+  /** 支持 CSS transform，开启后图表的交互以及事件将在页面设置了 css transform 属性时生效，默认关闭。 */
+  readonly supportCSSTransform?: boolean;
   /**
    * 配置图表默认交互，仅支持字符串形式。
    */
   readonly defaultInteractions?: string[];
-  /** 是否对超出坐标系范围的 Geometry 进行剪切 */
-  readonly limitInPlot?: boolean;
-  /** 主题 */
-  readonly theme?: LooseObject | string;
-  /** 支持 CSS transform，开启后图表的交互以及事件将在页面设置了 css transform 属性时生效，默认关闭。 */
-  readonly supportCSSTransform?: boolean;
 }
 
 /** View 构造参数 */
@@ -813,6 +784,14 @@ export interface ViewCfg {
    * 2. padding: [ 10, 30, 30 ]
    */
   readonly appendPadding?: ViewAppendPadding;
+  /**
+   * 是否同步子 view 的 padding
+   * 比如:
+   *  view1 的 padding 10
+   *  view2 的 padding 20
+   * 那么两个子 view 的 padding 统一变成最大的 20（后面可以传入 function 自己写策略）
+   */
+  readonly syncViewPadding?: boolean;
   /** 设置 view 实例主题。 */
   readonly theme?: LooseObject | string;
   /**
