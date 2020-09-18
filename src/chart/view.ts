@@ -62,7 +62,7 @@ import TooltipComponent from './controller/tooltip';
 import Event from './event';
 import defaultLayout, { Layout } from './layout';
 import { ScalePool } from './util/scale-pool';
-import { isAutoPadding } from '../util/padding';
+import { PaddingCal } from './layout/padding-cal';
 
 /**
  * G2 视图 View 类
@@ -91,8 +91,8 @@ export class View extends Base {
   public appendPadding: ViewAppendPadding;
   /** G.Canvas 实例。 */
   public canvas: ICanvas;
-  /** 存储自动计算的 padding 值 */
-  public autoPadding: number[];
+  /** 存储最终计算的 padding 结果 */
+  public autoPadding: PaddingCal;
 
   /** 三层 Group 图形中的背景层。 */
   public backgroundGroup: IGroup;
@@ -1327,19 +1327,6 @@ export class View extends Base {
     this.initComponents(isUpdate);
     // 4. 进行布局，计算 coordinateBBox，进行组件布局，update 位置
     this.doLayout();
-    // 5. 更新并存储最终的 padding 值
-    const viewBBox = this.viewBBox;
-    const coordinateBBox = this.coordinateBBox;
-
-    if (isAutoPadding(this.padding)) {
-      // 用户未设置 padding 时，将自动计算的 padding 保存至 autoPadding 属性中
-      this.autoPadding = [
-        coordinateBBox.tl.y - viewBBox.tl.y,
-        viewBBox.tr.x - coordinateBBox.tr.x,
-        viewBBox.bl.y - coordinateBBox.bl.y,
-        coordinateBBox.tl.x - viewBBox.tl.x,
-      ];
-    }
 
     // 同样递归处理子 views
     const views = this.views;

@@ -285,7 +285,7 @@ describe('Legend', () => {
     const legend = chart.getController('legend').getComponents()[0].component;
     const legendBBox = legend.getBBox();
     expect(legendBBox.height).toBe(12);
-    expect(chart.autoPadding[0]).toBe(32);
+    expect(chart.autoPadding.getPadding()[0]).toBe(32);
   });
 
   afterAll(() => {

@@ -42,7 +42,7 @@ describe('2356', () => {
 
     const element = chart.geometries[0].elements[4];
     expect(element.getBBox().height).toBe(500);
-    expect(chart.autoPadding).toBeUndefined();
+    expect(chart.autoPadding.getPadding()).toEqual(chart.padding);
     expect(chart.padding).toEqual([50, 20, 50, 20]);
   });
 });

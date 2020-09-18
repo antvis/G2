@@ -11,12 +11,12 @@ import { PaddingCal } from './padding-cal';
  * 根据 view 中的组件，计算实际的 padding 数值
  * @param view
  */
-export function calculatePadding(view: View): Padding {
+export function calculatePadding(view: View): PaddingCal {
   const padding = view.padding;
 
   // 如果不是 auto padding，那么直接解析之后返回
   if (!isAutoPadding(padding)) {
-    return parsePadding(padding);
+    return new PaddingCal(...parsePadding(padding));
   }
 
   // 是 auto padding，根据组件的情况，来计算 padding
@@ -72,5 +72,5 @@ export function calculatePadding(view: View): Padding {
     paddingCal.inc(componentBBox, direction);
   });
 
-  return paddingCal.getPadding();
+  return paddingCal;
 }

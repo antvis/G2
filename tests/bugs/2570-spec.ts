@@ -27,6 +27,6 @@ describe('2570', () => {
     chart.render();
 
     chart.changeSize(400, 300);
-    expect(chart.autoPadding).toEqual([20, 20, 20, 20]);
+    expect(chart.autoPadding.getPadding()).toEqual([20, 20, 20, 20]);
   });
 });

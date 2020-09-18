@@ -20,21 +20,25 @@ export type Layout = (view: View) => void;
  * @param view
  */
 export default function defaultLayout(view: View): void {
+  // 1. 自动加 auto padding -> absolute padding
+  // 并且增加 appendPadding
+  const paddingCal = calculatePadding(view).shrink(parsePadding(view.appendPadding));
+
+  // 存储起来
+  view.autoPadding = paddingCal;
+
+  // 2. 计算出新的 coordinateBBox
+  view.coordinateBBox = view.viewBBox.shrink(paddingCal.getPadding());
+
+  view.adjustCoordinate();
+
+  // 3. 根据最新的 coordinate 重新布局组件
   const axis = view.getController('axis');
   const legend = view.getController('legend');
   const annotation = view.getController('annotation');
   const slider = view.getController('slider');
   const scrollbar = view.getController('scrollbar');
 
-  // 1. 自动加 auto padding -> absolute padding
-  const padding = calculatePadding(view);
-
-  // 2. 计算出新的 coordinateBBox
-  view.coordinateBBox = view.viewBBox.shrink(padding).shrink(parsePadding(view.appendPadding));
-
-  view.adjustCoordinate();
-
-  // 3. 根据最新的 coordinate 重新布局组件
   [axis, slider, scrollbar, legend, annotation].forEach((controller: Controller) => {
     if (controller) {
       controller.layout();
