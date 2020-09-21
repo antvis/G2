@@ -544,6 +544,7 @@ export default class Axis extends Controller<Option> {
         verticalFactor: coordinate.isPolar
           ? getAxisFactorByRegion(region, coordinate.getCenter()) * -1
           : getAxisFactorByRegion(region, coordinate.getCenter()),
+        theme: axisThemeCfg,
       },
       axisThemeCfg,
       optionWithTitle
@@ -625,6 +626,7 @@ export default class Axis extends Controller<Option> {
         ...getCircleAxisCenterRadius(this.view.getCoordinate()),
         ticks,
         verticalFactor: 1,
+        theme: axisThemeCfg,
       },
       axisThemeCfg,
       optionWithTitle
