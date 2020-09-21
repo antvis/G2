@@ -209,12 +209,6 @@ export class View extends Base {
     this.initComponentController();
 
     this.initOptions();
-
-    // 递归初始化子 view
-    const views = this.views;
-    for (let i = 0; i < views.length; i++) {
-      views[i].init();
-    }
   }
 
   /**
