@@ -30,7 +30,7 @@ describe('#2658', () => {
     // re-render
     chart.changeData(data.slice(0, 5));
 
-    const [top, right, bottom, left] = chart.autoPadding;
+    const [top, right, bottom, left] = chart.autoPadding.getPadding();
 
     expect(chart.padding).toBe('auto');
     expect(left > 10).toBe(true);
