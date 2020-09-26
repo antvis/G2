@@ -39,7 +39,8 @@ const chart = new Chart({
 <script src="./g2.js"></script>
 ```
 
-你也可以直接通过  [unpkg](https://unpkg.com/@antv/g2)  下载。
+<!-- 请求链接 404 先注释掉 -->
+<!-- 你也可以直接通过  [unpkg](https://unpkg.com/@antv/g2)  下载。 -->
 
 ## 开始使用
 

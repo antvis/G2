@@ -1,8 +1,9 @@
 import { Chart } from '../../src';
+import { delay } from '../util/delay';
 import { createDiv } from '../util/dom';
 
 describe('2295', () => {
-  it('2295', () => {
+  it('2295', async () => {
     const data = [
       {
         city: 'Tokyo',
@@ -141,6 +142,8 @@ describe('2295', () => {
     });
     chart.render();
     chart.render();
+
+    await delay(1);
 
     expect(chart.getData().length).toBe(Math.floor(data.length * (0.8 - 0.2)));
   });

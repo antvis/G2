@@ -100,4 +100,4 @@ chart
   });
 ```
 
-关于 Element 更多的信息，请翻阅 [API 文档](../../api/classes/element)。
+关于 Element 更多的信息，请翻阅 [API 文档](../../api/geometry-func)。

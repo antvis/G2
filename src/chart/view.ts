@@ -41,9 +41,7 @@ import {
   ViewPadding,
   ViewAppendPadding,
 } from '../interface';
-
 import { GROUP_Z_INDEX, LAYER, PLOT_EVENTS, VIEW_LIFE_CIRCLE } from '../constant';
-
 import Base from '../base';
 import { Facet, getFacet } from '../facet';
 import Geometry from '../geometry/base';
@@ -53,6 +51,7 @@ import { BBox } from '../util/bbox';
 import { getCoordinateClipCfg, isFullCircle, isPointInCoordinate } from '../util/coordinate';
 import { uniq } from '../util/helper';
 import { findDataByPoint } from '../util/tooltip';
+import { parsePadding } from '../util/padding';
 import Chart from './chart';
 import { getComponentController, getComponentControllerNames } from './controller';
 import Annotation from './controller/annotation';
@@ -62,14 +61,15 @@ import TooltipComponent from './controller/tooltip';
 import Event from './event';
 import defaultLayout, { Layout } from './layout';
 import { ScalePool } from './util/scale-pool';
-import { isAutoPadding } from '../util/padding';
+import { PaddingCal } from './layout/padding-cal';
+import { calculatePadding } from './layout/auto';
 
 /**
  * G2 视图 View 类
  */
 export class View extends Base {
   /** view id，全局唯一。 */
-  public id: string = uniqueId('view');
+  public id: string;
   /** 父级 view，如果没有父级，则为空。 */
   public parent: View;
   /** 所有的子 view。 */
@@ -91,8 +91,8 @@ export class View extends Base {
   public appendPadding: ViewAppendPadding;
   /** G.Canvas 实例。 */
   public canvas: ICanvas;
-  /** 存储自动计算的 padding 值 */
-  public autoPadding: number[];
+  /** 存储最终计算的 padding 结果 */
+  public autoPadding: PaddingCal;
 
   /** 三层 Group 图形中的背景层。 */
   public backgroundGroup: IGroup;
@@ -144,11 +144,14 @@ export class View extends Base {
   private createdScaleKeys = new Map<string, boolean>();
   /** 背景色样式的 shape */
   private backgroundStyleRectShape;
+  /** 是否同步子 view 的 padding */
+  private syncViewPadding;
 
   constructor(props: ViewCfg) {
     super({ visible: props.visible });
 
     const {
+      id = uniqueId('view'),
       parent,
       canvas,
       backgroundGroup,
@@ -160,6 +163,7 @@ export class View extends Base {
       theme,
       options,
       limitInPlot,
+      syncViewPadding,
     } = props;
 
     this.parent = parent;
@@ -173,6 +177,8 @@ export class View extends Base {
     // 接受父 view 传入的参数
     this.options = { ...this.options, ...options };
     this.limitInPlot = limitInPlot;
+    this.id = id;
+    this.syncViewPadding = syncViewPadding;
 
     // 初始化 theme
     this.themeObject = isObject(theme) ? deepMix({}, getTheme('default'), theme) : getTheme(theme);
@@ -203,12 +209,6 @@ export class View extends Base {
     this.initComponentController();
 
     this.initOptions();
-
-    // 递归初始化子 view
-    const views = this.views;
-    for (let i = 0; i < views.length; i++) {
-      views[i].init();
-    }
   }
 
   /**
@@ -679,6 +679,12 @@ export class View extends Base {
   public updateOptions(options: Options) {
     this.clear(); // 清空
     mix(this.options, options);
+
+    // 需要把已存在的 view 销毁，否则会重复创建
+    // 目前针对配置项还没有特别好的 view 更新机制，为了不影响主流流程，所以在这里直接销毁
+    this.views.forEach(view => view.destroy());
+    this.views = [];
+
     this.initOptions();
     // 初始化坐标系大小，保证 padding 计算正确
     this.coordinateBBox = this.viewBBox;
@@ -1254,10 +1260,13 @@ export class View extends Base {
 
     this.emit(VIEW_LIFE_CIRCLE.BEFORE_PAINT);
 
+    // 初始化图形、组件位置，计算 padding
+    this.renderPaddingRecursive(isUpdate);
+    // 布局图形、组件
     this.renderLayoutRecursive(isUpdate);
-
+    // 背景色 shape
     this.renderBackgroundStyleShape();
-
+    // 最终的绘制 render
     this.renderPaintRecursive(isUpdate);
 
     this.emit(VIEW_LIFE_CIRCLE.AFTER_PAINT);
@@ -1280,8 +1289,7 @@ export class View extends Base {
       // 1. 不存在则创建
       if (!this.backgroundStyleRectShape) {
         this.backgroundStyleRectShape = this.backgroundGroup.addShape('rect', {
-          attrs: {
-          },
+          attrs: {},
           zIndex: -1,
           // 背景色 shape 不设置事件捕获
           capture: false,
@@ -1308,31 +1316,55 @@ export class View extends Base {
   }
 
   /**
-   * 替换处理 view 的布局，最终是计算各个 view 的 coordinateBBox 和 coordinateInstance
+   * 递归计算每个 view 的 padding 值，coordinateBBox 和 coordinateInstance
    * @param isUpdate
    */
-  protected renderLayoutRecursive(isUpdate: boolean) {
+  protected renderPaddingRecursive(isUpdate: boolean) {
     // 1. 子 view 大小相对 coordinateBBox，changeSize 的时候需要重新计算
     this.calculateViewBBox();
     // 2. 更新 coordinate
     this.adjustCoordinate();
     // 3. 初始化组件 component
     this.initComponents(isUpdate);
-    // 4. 进行布局，计算 coordinateBBox，进行组件布局，update 位置
-    this.doLayout();
-    // 5. 更新并存储最终的 padding 值
-    const viewBBox = this.viewBBox;
-    const coordinateBBox = this.coordinateBBox;
+    // 4. 布局计算每隔 view 的 padding 值
+    // 4.1. 自动加 auto padding -> absolute padding，并且增加 appendPadding
+    this.autoPadding  = calculatePadding(this).shrink(parsePadding(this.appendPadding));
+    // 4.2. 计算出新的 coordinateBBox，更新 Coordinate
+    // 这里必须保留，原因是后面子 view 的 viewBBox 或根据 parent 的 coordinateBBox
+    this.coordinateBBox = this.viewBBox.shrink(this.autoPadding.getPadding());
+    this.adjustCoordinate();
 
-    if (isAutoPadding(this.padding)) {
-      // 用户未设置 padding 时，将自动计算的 padding 保存至 autoPadding 属性中
-      this.autoPadding = [
-        coordinateBBox.tl.y - viewBBox.tl.y,
-        viewBBox.tr.x - coordinateBBox.tr.x,
-        viewBBox.bl.y - coordinateBBox.bl.y,
-        coordinateBBox.tl.x - viewBBox.tl.x,
-      ];
+    // 同样递归处理子 views
+    const views = this.views;
+    for (let i = 0, len = views.length; i < len; i++) {
+      const view = views[i];
+      view.renderPaddingRecursive(isUpdate);
     }
+  }
+
+  /**
+   * 递归处理 view 的布局，最终是计算各个 view 的 coordinateBBox 和 coordinateInstance
+   * @param isUpdate
+   */
+  protected renderLayoutRecursive(isUpdate: boolean) {
+    // 1. 同步子 view padding
+    if (this.syncViewPadding) {
+      const syncPadding = new PaddingCal();
+
+      // 所有的 view 的 autoPadding 指向同一个引用
+      this.views.forEach((v: View) => {
+        v.autoPadding = syncPadding.max(v.autoPadding.getPadding());
+      });
+
+      // 更新 coordinate
+      this.views.forEach((v: View) => {
+        v.coordinateBBox = v.viewBBox.shrink(v.autoPadding.getPadding());
+        v.adjustCoordinate();
+      });
+    }
+
+    // 3. 将 view 中的组件按照 view padding 移动到对应的位置
+    this.doLayout();
 
     // 同样递归处理子 views
     const views = this.views;
@@ -1891,7 +1923,15 @@ export class View extends Base {
   }
 
   private initOptions() {
-    const { geometries = [], interactions = [], views = [], annotations = [], coordinate, events, facets } = this.options;
+    const {
+      geometries = [],
+      interactions = [],
+      views = [],
+      annotations = [],
+      coordinate,
+      events,
+      facets,
+    } = this.options;
 
     // 设置坐标系
     if (this.coordinateController) {

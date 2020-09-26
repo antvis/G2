@@ -37,7 +37,7 @@ chart.facet(type, {
 - `fileds` 属性用于指定数据集划分依据的字段；
 - `eachView` 回调函数中创建各个视图的图表类型；
 
-更多配置信息，请查阅 [Facet API](../../api/classes/view#facet)。
+更多配置信息，请查阅 [Facet API](../../api/facet)。
 
 ## 分面的类型
 
@@ -64,13 +64,7 @@ rect 矩形分面是 G2 的默认分面类型。支持按照一个或者两个�
 chart.facet('rect', {
   fields: ['cut', 'clarity'],
   eachView(view) {
-    view
-      .point()
-      .position('carat*price')
-      .color('cut')
-      .shape('circle')
-      .style({ opacity: 0.3 })
-      .size(3);
+    view.point().position('carat*price').color('cut').shape('circle').style({ opacity: 0.3 }).size(3);
   },
 });
 ```
@@ -93,13 +87,7 @@ chart.facet('list', {
   cols: 3, // 超过3个换行
   padding: 30,
   eachView(view) {
-    view
-      .point()
-      .position('carat*price')
-      .color('cut')
-      .shape('circle')
-      .style({ opacity: 0.3 })
-      .size(3);
+    view.point().position('carat*price').color('cut').shape('circle').style({ opacity: 0.3 }).size(3);
   },
 });
 ```
@@ -114,10 +102,7 @@ chart.facet('list', {
 chart.facet('circle', {
   fields: ['clarity'],
   eachView(view, facet) {
-    view
-      .interval()
-      .position('cut*mean')
-      .color('cut');
+    view.interval().position('cut*mean').color('cut');
   },
 });
 ```
@@ -147,11 +132,7 @@ chart.facet('tree', {
     smooth: true,
   },
   eachView(view, facet) {
-    view
-      .interval()
-      .position('percent')
-      .color('gender')
-      .adjust('stack');
+    view.interval().position('percent').color('gender').adjust('stack');
   },
 });
 ```
@@ -172,10 +153,7 @@ chart.facet('mirror', {
   transpose: true,
   padding: [0, 48, 0, 0],
   eachView(view) {
-    view
-      .interval()
-      .position('age*total_percentage')
-      .color('gender', ['#1890ff', '#f04864']);
+    view.interval().position('age*total_percentage').color('gender', ['#1890ff', '#f04864']);
   },
 });
 ```

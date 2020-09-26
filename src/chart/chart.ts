@@ -1,6 +1,6 @@
 import { debounce, each, isString, get } from '@antv/util';
 import { ChartCfg } from '../interface';
-import { GROUP_Z_INDEX } from '../constant';
+import { GROUP_Z_INDEX, VIEW_LIFE_CIRCLE } from '../constant';
 import { getEngine } from '../engine';
 import { createDom, getChartSize, removeDom, modifyCSS } from '../util/dom';
 import View from './view';
@@ -38,10 +38,12 @@ export default class Chart extends View {
       pixelRatio,
       localRefresh = true,
       visible = true,
+      supportCSSTransform = false,
       defaultInteractions = ['tooltip', 'legend-filter', 'legend-active', 'continuous-filter', 'ellipsis-text'],
       options,
       limitInPlot,
       theme,
+      syncViewPadding,
     } = props;
 
     const ele: HTMLElement = isString(container) ? document.getElementById(container) : container;
@@ -59,6 +61,7 @@ export default class Chart extends View {
       container: wrapperElement,
       pixelRatio,
       localRefresh,
+      supportCSSTransform,
       ...size,
     });
 
@@ -76,6 +79,7 @@ export default class Chart extends View {
       options,
       limitInPlot,
       theme,
+      syncViewPadding,
     });
 
     this.ele = ele;
@@ -111,12 +115,16 @@ export default class Chart extends View {
       return this;
     }
 
+    this.emit(VIEW_LIFE_CIRCLE.BEFORE_CHANGE_SIZE);
+
     this.width = width;
     this.height = height;
     this.canvas.changeSize(width, height);
 
     // 重新渲染
     this.render(true);
+
+    this.emit(VIEW_LIFE_CIRCLE.AFTER_CHANGE_SIZE);
 
     return this;
   }

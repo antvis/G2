@@ -66,7 +66,7 @@ geometry.animate(false); // Geometry 不执行动画
 geometry.animate(cfg); // 进行具体的动画配置
 ```
 
-通过 `geometry.animate()`  接口，可以进行具体的动画配置，支持的配置属性详见 [API](../../../api/interfaces/animateoption)。
+通过 `geometry.animate()`  接口，可以进行具体的动画配置，支持的配置属性详见 [API](../../api/geometry-func#geometryanimate)。
 
 #### Geometry label 上的动画配置
 
@@ -77,7 +77,7 @@ geometry.label('labelField', {
 });
 ```
 
-label 上的动画配置类型同 `geometry.animate()` 接口的参数类型一致，支持的配置属性详见 [API](../../../api/interfaces/animateoption)。
+label 上的动画配置类型同 `geometry.animate()` 接口的参数类型一致，支持的配置属性详见 [API](../../api/geometry-func#geometryanimate)。
 
 > **说明: **当 geometry 关闭动画时，即 `geometry.animate(false)`，label 的动画也会关闭。
 

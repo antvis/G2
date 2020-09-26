@@ -26,14 +26,14 @@ G2 提供了丰富的图形标注类型：
 
 各个标注类型的详细配置详见 API：
 
-- `chart.annotation().arc(cfg)`: cfg 配置详见 [API](../../api/classes/annotation#arc)。
-- `chart.annotation().line(cfg)`: cfg 配置详见 [API](../../api/classes/annotation#line)。
-- `chart.annotation().text(cfg)`: cfg 配置详见 [API](../../api/classes/annotation#text)。
-- `chart.annotation().image(cfg)`: cfg 配置详见 [API](../../api/classes/annotation#image)。
-- `chart.annotation().region(cfg)`: cfg 配置详见 [API](../../api/classes/annotation#region)。
-- `chart.annotation().dataMarker(cfg)`: cfg 配置详见 [API](../../api/classes/annotation#datamarker)。
-- `chart.annotation().dataRegion(cfg)`: cfg 配置详见 [API](../../api/classes/annotation#dataregion)。
-- `chart.annotation().regionFilter(cfg)`: cfg 配置详见 [API](../../api/classes/annotation#regionfilter)。
+- `chart.annotation().arc(cfg)`: cfg 配置详见 [API](../../api/annotation#chartannotationarcoption)。
+- `chart.annotation().line(cfg)`: cfg 配置详见 [API](../../api/annotation#chartannotationlineoption)。
+- `chart.annotation().text(cfg)`: cfg 配置详见 [API](../../api/annotation#chartannotationtextoption)。
+- `chart.annotation().image(cfg)`: cfg 配置详见 [API](../../api/annotation#chartannotationimageoption)。
+- `chart.annotation().region(cfg)`: cfg 配置详见 [API](../../api/annotation#chartannotationregionoption)。
+- `chart.annotation().dataMarker(cfg)`: cfg 配置详见 [API](../../api/annotation#chartannotationdatamarkeroption)。
+- `chart.annotation().dataRegion(cfg)`: cfg 配置详见 [API](../../api/annotation#chartannotationdataregionoption)。
+- `chart.annotation().regionFilter(cfg)`: cfg 配置详见 [API](../../api/annotation#chartannotationregionfilteroption)。
 
 ## 清空图形标注
 
@@ -107,7 +107,7 @@ chart.annotation().text({
 
 chart.render();
 
-setInterval(function() {
+setInterval(function () {
   data.shift();
   data.push({
     time: new Date().getTime(),

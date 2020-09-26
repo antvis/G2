@@ -121,6 +121,8 @@ export interface ShapeInfo {
   showSinglePoint?: boolean;
   /** 默认的 shape 样式 */
   defaultStyle?: LooseObject;
+  /** 自定义的数据，传入到 shapeInfo 中 */
+  customInfo?: CustomOption;
 }
 
 /** 用户配置的动画，属性均可选 */
@@ -191,6 +193,9 @@ export interface StyleOption {
   /** 图形样式配置。 */
   readonly cfg?: LooseObject;
 }
+
+/** geometry.custom() custom 自定义的配置，可以传入任何数据 */
+export type CustomOption = any;
 
 /** `geometry.tooltip({})` Tooltip 配置定义 */
 export interface GeometryTooltipOption {
@@ -691,6 +696,8 @@ export interface GeometryOption {
 
 /** 用于配置型式的 View 声明方式 */
 export interface ViewOption {
+  /** view 的唯一表示 ID */
+  readonly id?: string;
   /** view 的绘制范围，起始点为左上角。 */
   readonly region?: Region;
   /**
@@ -714,7 +721,7 @@ export interface ViewOption {
 }
 
 /** Chart 构造方法的入参 */
-export interface ChartCfg {
+export interface ChartCfg extends Omit<ViewCfg, 'parent' | 'canvas' | 'foregroundGroup' | 'middleGroup' | 'backgroundGroup' | 'region'> {
   /** 指定 chart 绘制的 DOM，可以传入 DOM id，也可以直接传入 dom 实例。 */
   readonly container: string | HTMLElement;
   /** 图表宽度。 */
@@ -731,46 +738,21 @@ export interface ChartCfg {
   /** 设置设备像素比，默认取浏览器的值 `window.devicePixelRatio`。 */
   readonly pixelRatio?: number;
   /**
-   * 设置图表的内边距，使用方式参考 CSS 盒模型。
-   * 下图黄色区域即为 padding 的范围。
-   * ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*pYwiQrdXGJ8AAAAAAAAAAABkARQnAQ)
-   *
-   * @example
-   * 1. padding: 20
-   * 2. padding: [ 10, 30, 30 ]
-   */
-  readonly padding?: ViewPadding;
-  /**
-   * 图表的内边距会在图表的padding的基础上加上appendPadding，使用方式参考 CSS 盒模型。
-   * @example
-   * 1. appendPadding: 20
-   * 2. appendPadding: [ 10, 30, 30 ]
-   */
-  readonly appendPadding?: ViewAppendPadding;
-  /**
    * 是否开启局部刷新，默认开启。
    */
   readonly localRefresh?: boolean;
-  /**
-   * chart 是否可见，默认为 true，设置为 false 则会隐藏。
-   */
-  readonly visible?: boolean;
-  /**
-   * 当使用配置项式创建 chart 时使用，详见 [配置项式创建图表教程](docs/tutorial/schema)。
-   */
-  readonly options?: Options;
+  /** 支持 CSS transform，开启后图表的交互以及事件将在页面设置了 css transform 属性时生效，默认关闭。 */
+  readonly supportCSSTransform?: boolean;
   /**
    * 配置图表默认交互，仅支持字符串形式。
    */
   readonly defaultInteractions?: string[];
-  /** 是否对超出坐标系范围的 Geometry 进行剪切 */
-  readonly limitInPlot?: boolean;
-  /** 主题 */
-  readonly theme?: LooseObject | string;
 }
 
 /** View 构造参数 */
 export interface ViewCfg {
+  /** View id，可以由外部传入 */
+  readonly id?: string;
   /** 当前 view 的父级 view。 */
   readonly parent: View;
   /** canvas 实例。 */
@@ -802,6 +784,14 @@ export interface ViewCfg {
    * 2. padding: [ 10, 30, 30 ]
    */
   readonly appendPadding?: ViewAppendPadding;
+  /**
+   * 是否同步子 view 的 padding
+   * 比如:
+   *  view1 的 padding 10
+   *  view2 的 padding 20
+   * 那么两个子 view 的 padding 统一变成最大的 20（后面可以传入 function 自己写策略）
+   */
+  readonly syncViewPadding?: boolean;
   /** 设置 view 实例主题。 */
   readonly theme?: LooseObject | string;
   /**
@@ -1185,7 +1175,7 @@ export interface TooltipCfg {
   /** tooltip 偏移量。 */
   offset?: number;
   /** 支持自定义模板 */
-  customContent?: (title: string, data: any[]) => string | void;
+  customContent?: (title: string, data: any[]) =>  string | HTMLElement;
 }
 
 /** 坐标系配置 */
@@ -1405,6 +1395,25 @@ export interface EventCfg {
  */
 export type SliderOption = SliderCfg | boolean;
 
+/** 滚动条组件配置项 */
+export interface ScrollbarCfg {
+  /** 滚动条类型，默认 horizontal  */
+  type?: 'horizontal' | 'vertical';
+  /** 宽度，在 vertical 下生效 */
+  width?: number;
+  /** 高度，在 horizontal 下生效 */
+  height?: number;
+  /** 可选 padding */
+  padding?: Padding;
+  /** 对应水平滚动条，为 X 轴每个分类字段的宽度；对于垂直滚动条，为 X 轴每个分类字段的高度 */
+  categorySize?: number;
+  /** 滚动的时候是否开启动画，默认跟随 view 中 animate 配置 */
+  animate?: boolean;
+}
+
+/** 滚动条配置 */
+export type ScrollbarOption = ScrollbarCfg | boolean;
+
 /** 配置项声明式 */
 export interface Options {
   /** 数据源配置。 */
@@ -1443,6 +1452,9 @@ export interface Options {
 
   /** 缩略轴的配置 */
   readonly slider?: SliderOption;
+
+  /** 滚动条配置 */
+  readonly scrollbar?: ScrollbarOption;
 
   /** 子 View */
   readonly views?: ViewOption[];

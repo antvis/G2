@@ -25,8 +25,7 @@ G2 is a visualization grammar, a data-driven visual language with a high level o
 
 ## 📺 Live Demos
 
-<a href="https://g2.antv.vision/en/examples/gallery"><img alt="gallery" src="https://user-images.githubusercontent.com/6628666/75466330-fe1d0c00-59c4-11ea-91ba-506f60ef8af4.png" /></a>
-
+<a href="https://g2.antv.vision/en/examples/gallery"><img alt="gallery" src="https://user-images.githubusercontent.com/6628666/75466330-fe1d0c00-59c4-11ea-91ba-506f60ef8af4.png" style='width: 100%'/></a>
 
 ## ✨ Features
 
@@ -64,11 +63,11 @@ const data = [
   { genre: 'Other', sold: 150 },
 ];
 
-// Step 1: Create a Chart object 
+// Step 1: Create a Chart object
 const chart = new Chart({
-  container: 'c1', // specify the chart container ID 
+  container: 'c1', // specify the chart container ID
   width: 600, // specify the chart width
-  height: 300, // specify the chart height 
+  height: 300, // specify the chart height
 });
 
 // Step 2: Load the data.
@@ -77,7 +76,7 @@ chart.data(data);
 // Step 3: Declare the grammar of graphics and draw a column chart.
 chart.interval().position('genre*sold');
 
-// Step 4: Render chart. 
+// Step 4: Render chart.
 chart.render();
 ```
 

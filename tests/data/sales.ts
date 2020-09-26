@@ -119,3 +119,261 @@ export const subSalesByArea = [
     sales: 469341.684,
   },
 ];
+
+export const subSalesBySubCategory = [
+  {
+    subCategory: '书架',
+    series: '小型企业',
+    sales: 458818.948,
+  },
+  {
+    subCategory: '书架',
+    series: '消费者',
+    sales: 1123631.9359999995,
+  },
+  {
+    subCategory: '书架',
+    series: '公司',
+    sales: 724752.3360000001,
+  },
+  {
+    subCategory: '美术',
+    series: '小型企业',
+    sales: 36095.10799999999,
+  },
+  {
+    subCategory: '美术',
+    series: '消费者',
+    sales: 90831.32800000001,
+  },
+  {
+    subCategory: '美术',
+    series: '公司',
+    sales: 69296.332,
+  },
+  {
+    subCategory: '器具',
+    series: '小型企业',
+    sales: 349088.29199999996,
+  },
+  {
+    subCategory: '器具',
+    series: '消费者',
+    sales: 1141109.6760000004,
+  },
+  {
+    subCategory: '器具',
+    series: '公司',
+    sales: 669985.036,
+  },
+  {
+    subCategory: '配件',
+    series: '小型企业',
+    sales: 165745.24399999998,
+  },
+  {
+    subCategory: '配件',
+    series: '消费者',
+    sales: 387795.68799999997,
+  },
+  {
+    subCategory: '配件',
+    series: '公司',
+    sales: 249865.08400000003,
+  },
+  {
+    subCategory: '系固件',
+    series: '小型企业',
+    sales: 25765.992000000006,
+  },
+  {
+    subCategory: '系固件',
+    series: '消费者',
+    sales: 64957.28400000001,
+  },
+  {
+    subCategory: '系固件',
+    series: '公司',
+    sales: 38287.45200000001,
+  },
+  {
+    subCategory: '复印机',
+    series: '小型企业',
+    sales: 343365.736,
+  },
+  {
+    subCategory: '复印机',
+    series: '消费者',
+    sales: 982120.9999999998,
+  },
+  {
+    subCategory: '复印机',
+    series: '公司',
+    sales: 666012.1440000001,
+  },
+  {
+    subCategory: '椅子',
+    series: '小型企业',
+    sales: 374583.524,
+  },
+  {
+    subCategory: '椅子',
+    series: '消费者',
+    sales: 993189.3300000002,
+  },
+  {
+    subCategory: '椅子',
+    series: '公司',
+    sales: 717663.1140000002,
+  },
+  {
+    subCategory: '标签',
+    series: '小型企业',
+    sales: 20648.74,
+  },
+  {
+    subCategory: '标签',
+    series: '消费者',
+    sales: 48030.5,
+  },
+  {
+    subCategory: '标签',
+    series: '公司',
+    sales: 28398.719999999987,
+  },
+  {
+    subCategory: '装订机',
+    series: '小型企业',
+    sales: 42047.628000000004,
+  },
+  {
+    subCategory: '装订机',
+    series: '消费者',
+    sales: 163390.08000000005,
+  },
+  {
+    subCategory: '装订机',
+    series: '公司',
+    sales: 86339.20399999998,
+  },
+  {
+    subCategory: '收纳具',
+    series: '小型企业',
+    sales: 223245.40000000005,
+  },
+  {
+    subCategory: '收纳具',
+    series: '消费者',
+    sales: 589285.8999999999,
+  },
+  {
+    subCategory: '收纳具',
+    series: '公司',
+    sales: 339996.44000000006,
+  },
+  {
+    subCategory: '设备',
+    series: '小型企业',
+    sales: 199466.84800000006,
+  },
+  {
+    subCategory: '设备',
+    series: '消费者',
+    sales: 451556.64400000015,
+  },
+  {
+    subCategory: '设备',
+    series: '公司',
+    sales: 223441.6519999999,
+  },
+  {
+    subCategory: '用具',
+    series: '小型企业',
+    sales: 90135.44400000005,
+  },
+  {
+    subCategory: '用具',
+    series: '消费者',
+    sales: 250382.66400000002,
+  },
+  {
+    subCategory: '用具',
+    series: '公司',
+    sales: 139173.104,
+  },
+  {
+    subCategory: '桌子',
+    series: '小型企业',
+    sales: 118465.725,
+  },
+  {
+    subCategory: '桌子',
+    series: '消费者',
+    sales: 421510.50199999986,
+  },
+  {
+    subCategory: '桌子',
+    series: '公司',
+    sales: 322034.20199999993,
+  },
+  {
+    subCategory: '纸张',
+    series: '小型企业',
+    sales: 43362.060000000005,
+  },
+  {
+    subCategory: '纸张',
+    series: '消费者',
+    sales: 144938.36,
+  },
+  {
+    subCategory: '纸张',
+    series: '公司',
+    sales: 75033.70000000004,
+  },
+  {
+    subCategory: '用品',
+    series: '小型企业',
+    sales: 49244.80400000001,
+  },
+  {
+    subCategory: '用品',
+    series: '消费者',
+    sales: 145245.01599999997,
+  },
+  {
+    subCategory: '用品',
+    series: '公司',
+    sales: 93480.66000000003,
+  },
+  {
+    subCategory: '电话',
+    series: '小型企业',
+    sales: 303042.628,
+  },
+  {
+    subCategory: '电话',
+    series: '消费者',
+    sales: 871355.1000000002,
+  },
+  {
+    subCategory: '电话',
+    series: '公司',
+    sales: 625255.7359999998,
+  },
+  {
+    subCategory: '信封',
+    series: '小型企业',
+    sales: 47966.52000000001,
+  },
+  {
+    subCategory: '信封',
+    series: '消费者',
+    sales: 155741.18000000014,
+  },
+  {
+    subCategory: '信封',
+    series: '公司',
+    sales: 83778.38000000003,
+  },
+];

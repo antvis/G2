@@ -39,4 +39,4 @@ G2 提供的坐标系支持一系列的变换操作:
 
 ## API
 
-更详细的配置使用，详见 [API](../../api/classes/chart/#coordinate)。
+更详细的配置使用，详见 [API](../../api/coordinate)。

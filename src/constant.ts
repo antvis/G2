@@ -48,6 +48,8 @@ export enum COMPONENT_TYPE {
   ANNOTATION = 'annotation',
   /** 缩略轴组件 */
   SLIDER = 'slider',
+  /** 滚动条组件 */
+  SCROLLBAR = 'scrollbar',
   /** 其他组件，自定义组件 */
   OTHER = 'other',
 }
@@ -79,6 +81,9 @@ export enum VIEW_LIFE_CIRCLE {
   AFTER_CLEAR = 'afterclear',
 
   BEFORE_DESTROY = 'beforedestroy',
+
+  BEFORE_CHANGE_SIZE = 'beforechangesize',
+  AFTER_CHANGE_SIZE = 'afterchangesize',
 }
 
 /**
