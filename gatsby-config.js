@@ -49,51 +49,36 @@ module.exports = {
     ],
     docs: [
       {
-        slug: 'manual/tutorial',
-        title: {
-          zh: '基础教程',
-          en: 'Tutorials',
-        },
-        order: 3,
-      },
-      {
         slug: 'manual/concepts',
         title: {
-          zh: '核心概念',
-          en: 'Main Concepts',
+          zh: '可视化基础概念',
+          en: 'Chart Concepts',
         },
-        order: 5,
+        order: 2,
       },
       {
-        slug: 'manual/concepts/geometry',
+        slug: 'api/general',
         title: {
-          zh: '几何标记与图表类型',
-          en: 'Geometry and Charts',
+          zh: 'G2 详细手册',
+          en: 'G2 General Documentation',
         },
-        order: 5,
+        order: 0,
       },
       {
-        slug: 'manual/developer',
+        slug: 'api/advanced',
         title: {
-          zh: '开发者教程',
-          en: 'For Developers',
+          zh: '高级进阶功能',
+          en: 'Advanced Chart Features',
         },
-        order: 6,
+        order: 1,
       },
       {
-        slug: 'manual/dataset',
+        slug: 'api/shape',
         title: {
-          zh: 'DataSet',
-          en: 'DataSet',
+          zh: '绘图属性速查',
+          en: 'Quick Reference for Plotting Properties',
         },
-        order: 7,
-      },
-      {
-        slug: 'api',
-        title: {
-          zh: 'API 文档',
-          en: 'API Doc',
-        },
+        order: 2,
       },
     ],
     examples: [

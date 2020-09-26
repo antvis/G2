@@ -9,7 +9,7 @@ G2 是一套基于图形语法理论的可视化底层引擎，以数据驱动�
 
 ## 📺 线上示例
 
-<a href="https://g2.antv.vision/zh/examples/gallery"><img src="https://user-images.githubusercontent.com/6628666/75466330-fe1d0c00-59c4-11ea-91ba-506f60ef8af4.png" style="width:100%;">
+<a href="https://g2.antv.vision/zh/examples/gallery"><img src="https://user-images.githubusercontent.com/6628666/75466330-fe1d0c00-59c4-11ea-91ba-506f60ef8af4.png" style="width:100%;"></a>
 
 ## ✨ 特性
 
@@ -28,7 +28,7 @@ npm install @antv/g2
 
 ## 🔨 快速上手
 
-<img src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8qbLQb7A0loAAAAAAAAAAABkARQnAQ" style="width:600px;">
+<img src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8qbLQb7A0loAAAAAAAAAAABkARQnAQ" style="width:600px;" />
 
 在绘图前我们需要为 G2 准备一个 DOM 容器：
 
@@ -98,15 +98,16 @@ G2 的强大是由其背后的一套图形语法所支撑的，它基于《The G
 
 G2 的图形语法本质上是将数据映射到图形的过程拆解成为一个个最基本的元素，然后通过组合搭配产生千变万化的图表。交互语法也是一样，我们将一个交互进行拆解，然后再组合以形成一个完整的交互行为。
 在 G2 中，我们认为一个**交互行为**是由一系列**交互环节**组成，而每一个交互环节又由以下两部分组成：
+
 1. **触发**，交互环节的触发，包括触发对象和触发事件
 2. **反馈**，交互环节的结果
 
 查看 [交互语法](./concepts-overview#交互语法) 获取更多信息。
 
-## 🔍 G2文档
+## 🔍 G2 文档
 
-我们建议初次使用G2的用户跟随教程中的“快速上手”创建出自己的第一个G2图表。教程部分包含可视化基础教程及高级教程，供用户按需阅读。
-有经验的用户可以查看API文档探索更多功能，做出更加复杂的图表。
+我们建议初次使用 G2 的用户跟随教程中的“快速上手”创建出自己的第一个 G2 图表。教程部分包含可视化基础教程及高级教程，供用户按需阅读。
+有经验的用户可以查看 API 文档探索更多功能，做出更加复杂的图表。
 
 ## 🤝 如何贡献
 
