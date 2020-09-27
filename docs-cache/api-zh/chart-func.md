@@ -1,6 +1,6 @@
 <!-- ## chart 其他属性方法-->
 
-`markdown:common/style.md`
+`markdown:docs/common/style.md`
 
 <div class='custom-api-docs'>
 

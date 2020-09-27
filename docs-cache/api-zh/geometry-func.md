@@ -2,7 +2,7 @@
 
 <!--包括几何图形关于视觉通道映射的方法：position、color、size、shape-->
 
-`markdown:common/style.md`
+`markdown:docs/common/style.md`
 
 <div class='custom-api-docs'>
 
@@ -16,7 +16,7 @@
 // highlight-end
 ```
 
-`markdown:common/attribute-option.md`
+`markdown:docs/common/attribute-option.md`
 
 有以下三种配置方式：
 
@@ -56,7 +56,7 @@ or
 type ColorAttrCallback = (...args: any[]) => string;
 ```
 
-`markdown:common/attribute-option.md`
+`markdown:docs/common/attribute-option.md`
 
 有以下五种配置方式：
 
@@ -111,7 +111,7 @@ or
 type SizeAttrCallback = (...args: any[]) => number;
 ```
 
-`markdown:common/attribute-option.md`
+`markdown:docs/common/attribute-option.md`
 
 有以下五种配置方式：
 
@@ -169,7 +169,7 @@ or
 type ShapeAttrCallback = (...args: any[]) => string | any[];
 ```
 
-`markdown:common/attribute-option.md`
+`markdown:docs/common/attribute-option.md`
 
 有五种配置方式：
 
@@ -298,7 +298,7 @@ geometry.style({
 });
 ```
 
-`markdown:common/StyleOption.md`
+`markdown:docs/common/StyleOption.md`
 
 第三种，传入字段和回调函数进行详细的配置，第一个参数传入的字段对应值将以参数的形式传入第二个回调函数中。
 
