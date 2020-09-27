@@ -66,4 +66,4 @@ chart.facet('circle', {
 | children           | TreeData[] | 只有 tree 类型分面有，树 children 数据      |
 | originColIndex     | number     | 只有 tree 类型分面有，原始数据列 index      |
 
-`markdown:common/region.md`
+`markdown:docs/common/region.md`

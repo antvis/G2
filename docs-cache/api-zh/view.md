@@ -1,6 +1,6 @@
 <!--## chart.createView() 创建子 view-->
 
-`markdown:common/style.md`
+`markdown:docs/common/style.md`
 
 <div class='custom-api-docs'>
 
@@ -30,7 +30,7 @@ const view = chart.createView({
 
 view 的绘制范围。
 
-`markdown:common/region.md`
+`markdown:docs/common/region.md`
 
 ### ViewCfg.limitInPlot
 

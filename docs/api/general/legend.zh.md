@@ -157,7 +157,7 @@ _LegendCfg_ 配置如下：
 
 适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项的 marker 图标的配置。
 
-`markdown:common/marker-cfg.md`
+`markdown:docs/common/marker-cfg.md`
 
 ### LegendCfg.min
 
@@ -266,4 +266,4 @@ _LegendCfg_ 配置如下：
 | value  | any         | required | -      | 值                       |
 | marker | _MarkerCfg_ |          | -      | 图形标记                 |
 
-`markdown:common/marker-cfg.md`
+`markdown:docs/common/marker-cfg.md`
