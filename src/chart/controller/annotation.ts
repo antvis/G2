@@ -219,7 +219,7 @@ export default class Annotation extends Controller<BaseOption[]> {
    * region filter 比较特殊的渲染时机
    * @param doWhat
    */
-  private whenRegionFilter(doWhat: Function) {
+  private whenRegionFilter(doWhat: () => void) {
     if (this.view.getOptions().animate) {
       this.view.geometries.forEach((g: Geometry) => {
         // 如果 geometry 开启，则监听
