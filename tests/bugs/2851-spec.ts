@@ -22,7 +22,7 @@ describe('2851', () => {
       autoFit: true,
     });
 
-    chart.animate(true);
+    chart.animate(false);
     chart.data(data);
 
     chart
@@ -47,13 +47,11 @@ describe('2851', () => {
     });
 
     chart.render();
-    await delay(500);
     // 防止事件内存泄露
     // @ts-ignore
     expect(chart.geometries[0]._events).toEqual({});
 
     chart.changeSize(500, 400);
-    await delay(500);
 
     // @ts-ignore
     expect(chart.geometries[0]._events).toEqual({});
