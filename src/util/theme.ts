@@ -237,16 +237,6 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
     defaultColor: styleSheet.brandColor,
     padding: 'auto',
     fontFamily: styleSheet.fontFamily,
-    /** 一般柱状图宽度占比 */
-    columnWidthRatio: 1 / 2,
-    /** 柱状图最大宽度 */
-    maxColumnWidth: null,
-    /** 柱状图最小宽度 */
-    minColumnWidth: null,
-    /** 玫瑰图占比 */
-    roseWidthRatio: 0.9999999,
-    /** 多层饼图/环图占比 */
-    multiplePieWidthRatio: 1 / 1.3,
     colors10: styleSheet.paletteQualitative10,
     colors20: styleSheet.paletteQualitative20,
     shapes: {

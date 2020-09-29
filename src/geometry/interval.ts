@@ -1,7 +1,7 @@
 import { get } from '@antv/util';
 import { Datum } from '../interface';
 import { getXDimensionLength } from '../util/coordinate';
-import Geometry from './base';
+import Geometry, { GeometryCfg }  from './base';
 /** 引入对应的 ShapeFactory */
 import './shape/interval';
 import { getDefaultSize } from './util/shape-size';
@@ -14,6 +14,26 @@ export default class Interval extends Geometry {
   public readonly type: string = 'interval';
   public readonly shapeType: string = 'interval';
   protected generatePoints: boolean = true;
+  public intervalPadding: number;
+  public dodgePadding: number;
+  public maxColumnWidth: number;
+  public minColumnWidth: number;
+
+  constructor(cfg: GeometryCfg) {
+    super(cfg);
+    const {
+      // 柱状图间隔与宽度相关配置
+      intervalPadding = null,
+      dodgePadding = null,
+      maxColumnWidth = null,
+      minColumnWidth = null,
+    } = cfg;
+    // 柱状图间隔与宽度相关配置
+    this.intervalPadding = intervalPadding;
+    this.dodgePadding = dodgePadding;
+    this.maxColumnWidth = maxColumnWidth;
+    this.minColumnWidth = minColumnWidth;
+  }
 
   /**
    * 获取每条数据的 Shape 绘制信息

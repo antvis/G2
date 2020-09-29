@@ -135,7 +135,7 @@ describe('Interval', () => {
 
     test('limit the width with minColumnWidth', () => {
       interval.clear();
-      interval.theme.minColumnWidth = 40;
+      interval.minColumnWidth = 40;
 
       interval.size(null);
       interval.scales = scales;
@@ -153,8 +153,8 @@ describe('Interval', () => {
 
     test('limit the width with maxColumnWidth', () => {
       interval.clear();
-      interval.theme.maxColumnWidth = 10;
-      interval.theme.minColumnWidth = null;
+      interval.maxColumnWidth = 10;
+      interval.minColumnWidth = null;
       interval.scales = scales;
 
       interval.init();

@@ -43,10 +43,8 @@ describe('Calculate shape size', () => {
       scales,
       coordinate: rectCoord,
       container: canvas.addGroup(),
-      theme: {
-        maxColumnWidth: 50,
-        minColumnWidth: 10,
-      },
+      maxColumnWidth: 50,
+      minColumnWidth: 10,
     });
 
     interval.position('a*b').color('a');
@@ -338,14 +336,14 @@ describe('Calculate shape size', () => {
       });
 
       const normalizedSize = getDefaultSize(interval);
-      expect(normalizedSize).toBe((1 / 6) * Theme.roseWidthRatio);
+      expect(normalizedSize).toBe((1 / 6) * interval.roseWidthRatio);
     });
 
     test('dodge interval, polar coordinate with transposed', () => {
       const aScale = new CatScale({
         field: 'a',
         values: ['1', '2', '3'],
-        range: [(1 / 6) * Theme.multiplePieWidthRatio, 1 - (1 / 6) * Theme.multiplePieWidthRatio],
+        range: [(1 / 6) * interval.multiplePieWidthRatio, 1 - (1 / 6) * interval.multiplePieWidthRatio],
       });
       polarCoord.isTransposed = true;
 
@@ -387,7 +385,7 @@ describe('Calculate shape size', () => {
       // canvas.draw();
 
       const normalizedSize = getDefaultSize(interval);
-      expect(normalizedSize).toBe((1 / 6) * Theme.multiplePieWidthRatio);
+      expect(normalizedSize).toBe((1 / 6) * interval.multiplePieWidthRatio);
     });
 
     afterAll(() => {
