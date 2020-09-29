@@ -369,10 +369,11 @@ export default class Element extends Base {
           ...cfg,
           callback: () => {
             isFunction(cfg.callback) && cfg.callback();
-            this.geometry.emit(GEOMETRY_LIFE_CIRCLE.AFTER_DRAW_ANIMATE);
+            this.geometry?.emit(GEOMETRY_LIFE_CIRCLE.AFTER_DRAW_ANIMATE);
           },
         }
       }
+      return cfg;
     }
 
     return null;
@@ -403,7 +404,7 @@ export default class Element extends Base {
       const animateCfg = this.getAnimateCfg(animateType);
       if (animateCfg) {
         // 开始执行动画的生命周期
-        this.geometry.emit(GEOMETRY_LIFE_CIRCLE.BEFORE_DRAW_ANIMATE);
+        this.geometry?.emit(GEOMETRY_LIFE_CIRCLE.BEFORE_DRAW_ANIMATE);
 
         doAnimate(this.shape, animateCfg, {
           coordinate: shapeFactory.coordinate,
@@ -475,6 +476,7 @@ export default class Element extends Base {
 
       if (this.animate) {
         if (animateCfg) {
+          this.geometry?.emit(GEOMETRY_LIFE_CIRCLE.BEFORE_DRAW_ANIMATE);
           // 需要进行动画
           doAnimate(sourceShape, animateCfg, {
             coordinate: this.shapeFactory.coordinate,

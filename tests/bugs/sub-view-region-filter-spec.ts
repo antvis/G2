@@ -32,6 +32,8 @@ describe('#0000', () => {
     padding: [20, 40, 0, 30],
   });
 
+  view.animate(false);
+
   // Step 2: 载入数据源
   view.data(data);
   view.scale({

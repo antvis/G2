@@ -230,7 +230,7 @@ export default class Annotation extends Controller<BaseOption[]> {
         }
       })
     } else {
-      this.view.once(VIEW_LIFE_CIRCLE.AFTER_RENDER, () => {
+      this.view.getRootView().once(VIEW_LIFE_CIRCLE.AFTER_RENDER, () => {
         doWhat();
       });
     }

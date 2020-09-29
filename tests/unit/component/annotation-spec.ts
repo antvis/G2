@@ -2,6 +2,7 @@ import 'jest-extended';
 import { Chart } from '../../../src/';
 import { COMPONENT_TYPE } from '../../../src/constant';
 import { createDiv, removeDom } from '../../util/dom';
+import { delay } from '../../util/delay';
 
 const IMAGE = 'https://img.alicdn.com/tfs/TB1M.wKkND1gK0jSZFyXXciOVXa-120-120.png';
 
@@ -297,7 +298,7 @@ describe('annotation', () => {
     expect(dataRegion.getElementById('-annotation-text-bg')).toBeDefined();
   });
 
-  it('regionFilter', () => {
+  it('regionFilter', async () => {
     chart.line().position('city*sale');
     chart.annotation().regionFilter({
       start: { city: '广州', sale: 30 },
@@ -306,6 +307,8 @@ describe('annotation', () => {
       apply: ['line'],
     });
     chart.render();
+
+    await delay(700);
 
     const regionFilter = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[9].component;
     expect(regionFilter.get('type')).toEqual('regionFilter');
