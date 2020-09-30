@@ -19,7 +19,7 @@ import {
 } from '../../interface';
 
 import { DEFAULT_ANIMATE_CFG } from '../../animate/';
-import { COMPONENT_TYPE, DIRECTION, LAYER, VIEW_LIFE_CIRCLE } from '../../constant';
+import { COMPONENT_TYPE, DIRECTION, GEOMETRY_LIFE_CIRCLE, LAYER, VIEW_LIFE_CIRCLE } from '../../constant';
 
 import Geometry from '../../geometry/base';
 import Element from '../../geometry/element';
@@ -63,6 +63,7 @@ export default class Annotation extends Controller<BaseOption[]> {
       const theme = this.getAnnotationTheme(type);
 
       component.update(this.getAnnotationCfg(type, extra, theme));
+      component.render();
     };
     const createComponentFn = (option: BaseOption) => {
       const co = this.createAnnotation(option);
@@ -84,7 +85,7 @@ export default class Annotation extends Controller<BaseOption[]> {
 
         if (component.get('type') === 'regionFilter') {
           // regionFilter 依赖绘制后的 Geometry Shapes
-          this.view.getRootView().once(VIEW_LIFE_CIRCLE.AFTER_RENDER, () => {
+          this.whenRegionFilter(() => {
             updateComponentFn(co);
           });
         } else {
@@ -94,8 +95,7 @@ export default class Annotation extends Controller<BaseOption[]> {
     } else {
       each(this.option, (option: BaseOption) => {
         if (option.type === 'regionFilter') {
-          this.view.getRootView().once(VIEW_LIFE_CIRCLE.AFTER_RENDER, () => {
-            // regionFilter 依赖绘制后的 Geometry Shapes
+          this.whenRegionFilter(() => {
             createComponentFn(option);
           });
         } else {
@@ -147,7 +147,7 @@ export default class Annotation extends Controller<BaseOption[]> {
       }
     };
 
-    this.view.once(VIEW_LIFE_CIRCLE.AFTER_RENDER, () => {
+    this.whenRegionFilter(() => {
       // 先看是否有 regionFilter 要更新
       each(this.option, (option: BaseOption) => {
         if (option.type === 'regionFilter') {
@@ -213,6 +213,27 @@ export default class Annotation extends Controller<BaseOption[]> {
     });
 
     return co;
+  }
+
+  /**
+   * region filter 比较特殊的渲染时机
+   * @param doWhat
+   */
+  private whenRegionFilter(doWhat: () => void) {
+    if (this.view.getOptions().animate) {
+      this.view.geometries.forEach((g: Geometry) => {
+        // 如果 geometry 开启，则监听
+        if (g.animateOption) {
+          g.once(GEOMETRY_LIFE_CIRCLE.AFTER_DRAW_ANIMATE, () => {
+            doWhat();
+          });
+        }
+      })
+    } else {
+      this.view.getRootView().once(VIEW_LIFE_CIRCLE.AFTER_RENDER, () => {
+        doWhat();
+      });
+    }
   }
 
   private createAnnotation(option: BaseOption) {

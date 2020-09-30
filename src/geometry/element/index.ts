@@ -1,12 +1,12 @@
 import { deepMix, each, get, isArray, isFunction, isString } from '@antv/util';
+import { propagationDelegate } from '@antv/component/lib/util/event';
 import { doAnimate } from '../../animate';
 import Base from '../../base';
 import { BBox, IGroup, IShape } from '../../dependents';
 import { AnimateOption, Datum, ShapeFactory, ShapeInfo, StateCfg } from '../../interface';
 import { getReplaceAttrs } from '../../util/graphics';
 import Geometry from '../base';
-
-import { propagationDelegate } from '@antv/component/lib/util/event';
+import { GEOMETRY_LIFE_CIRCLE } from '../../constant';
 
 /** Element 构造函数传入参数类型 */
 interface ElementCfg {
@@ -361,7 +361,19 @@ export default class Element extends Base {
   private getAnimateCfg(animateType: string) {
     const animate = this.animate;
     if (animate) {
-      return animate[animateType];
+      const cfg = animate[animateType];
+
+      if (cfg) {
+        // 增加动画的回调函数，如果外部传入了，则先执行外部，然后发射 geometry 的 animate 事件
+        return {
+          ...cfg,
+          callback: () => {
+            isFunction(cfg.callback) && cfg.callback();
+            this.geometry?.emit(GEOMETRY_LIFE_CIRCLE.AFTER_DRAW_ANIMATE);
+          },
+        }
+      }
+      return cfg;
     }
 
     return null;
@@ -391,6 +403,9 @@ export default class Element extends Base {
       const animateType = isUpdate ? 'enter' : 'appear';
       const animateCfg = this.getAnimateCfg(animateType);
       if (animateCfg) {
+        // 开始执行动画的生命周期
+        this.geometry?.emit(GEOMETRY_LIFE_CIRCLE.BEFORE_DRAW_ANIMATE);
+
         doAnimate(this.shape, animateCfg, {
           coordinate: shapeFactory.coordinate,
           toAttrs: {
@@ -461,6 +476,7 @@ export default class Element extends Base {
 
       if (this.animate) {
         if (animateCfg) {
+          this.geometry?.emit(GEOMETRY_LIFE_CIRCLE.BEFORE_DRAW_ANIMATE);
           // 需要进行动画
           doAnimate(sourceShape, animateCfg, {
             coordinate: this.shapeFactory.coordinate,

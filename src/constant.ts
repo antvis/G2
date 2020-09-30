@@ -87,6 +87,14 @@ export enum VIEW_LIFE_CIRCLE {
 }
 
 /**
+ * geometry 的生命周期
+ */
+export enum GEOMETRY_LIFE_CIRCLE {
+  BEFORE_DRAW_ANIMATE = 'beforeanimate',
+  AFTER_DRAW_ANIMATE = 'afteranimate',
+}
+
+/**
  * 绘图区的事件列表
  */
 export enum PLOT_EVENTS {
