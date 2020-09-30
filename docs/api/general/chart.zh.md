@@ -5,82 +5,10 @@ redirect_from:
   - /zh/docs/api
 ---
 
-创建 Chart 图表对象分四步。
+创建 Chart 图表对象。
 
-第一步：创建 Chart 对象。语法如下：
-
-```ts
-// highlight-start
-new Chart(params: ChartCfg) => chart
-// highlight-end
-
-new G2.Chart({
-  container: {string} | {HTMLDivElement},
-  width?: {number},
-  height?: {number},
-  padding?: {object} | {number} | {array},
-  background?: {object},
-  plotBackground?: {object},
-  forceFit?: {boolean},
-  animate?: {boolean},
-  pixelRatio?: {number},
-  data?: {array} | {DataSet.View},
-  theme?: {string} | {object},
-  renderer?: {string},
-});
-```
-
-创建一个 chart 实例，返回一个 Chart 对象，建议在单个容器上只初始化一个 Chart 实例。
-
-以柱状图为例：
-
-```ts
-// Step 1: 创建 Chart 对象
-const chart = new G2.Chart({
-  container: 'container', // 指定图表容器 ID
-  width: 600, // 指定图表宽度
-  height: 300, // 指定图表高度
-});
-```
-
-如果已经加载`Chart`,可以直接使用`Chart`声明：
-
-```ts
-import { Chart } from '@antv/g2';
-// Step 1: 创建 Chart 对象
-const chart = new Chart({
-  container: 'container', // 指定图表容器 ID
-  width: 600, // 指定图表宽度
-  height: 300, // 指定图表高度
-});
-```
-
-第二步 载入数据源
-
-```ts
-const data = [
-  { genre: 'Sports', sold: 275 },
-  { genre: 'Strategy', sold: 115 },
-  { genre: 'Action', sold: 120 },
-  { genre: 'Shooter', sold: 350 },
-  { genre: 'Other', sold: 150 },
-];
-// Step 2: 载入数据源
-chart.data(data);
-```
-
-第三步 创建图形语法，绘制柱状图
-
-```ts
-// Step 3：创建图形语法，绘制柱状图
-chart.interval().position('genre*sold').color('genre');
-```
-
-第四步 渲染图表
-
-```ts
-// Step 4: 渲染图表
-chart.render();
+```sign
+new Chart(params: ChartCfg) => View;
 ```
 
 ### ChartCfg.container
@@ -175,7 +103,7 @@ _default:_ `['tooltip', 'legend-filter', 'legend-active', 'continuous-filter', '
 
 <description> _ThemObject | string_ **optional**</description>
 
-<!-- TODO 写更详细的 theme 配置项 -->
+<!-- FIXME 写更详细的 theme 配置项 -->
 
 配置主题，目前 g2 默认有 `dark` 主题模式，如需要自定义配置，可以先通过 `registerTheme` 注册主题，再设置主题 key。
 

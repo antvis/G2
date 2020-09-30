@@ -3,66 +3,31 @@ title: 数据 - Data
 order: 1
 ---
 
-## 绑定数据
+### 绑定数据
 
-绑定数据调用方法为`chart.data`,之前的调用方法为 `source`，将在 V4.1 移除。_data_ 为 json 数组。
+绑定数据调用方法为`chart.data`，之前的调用方法为 `source`，将在 V4.1 移除。绑定参数支持 json 数组 和 DataView 对象。
+
+<!-- FIXME @hustcc 这里需要 data set 相关表述，可以加入链接/demo -->
+
+```sign
+chart.data(field: Record<string, any>[]) => View;
+```
 
 ```ts
-// highlight-start
-(field: Record<string, any>[]) => View;
-// highlight-end
-
 chart.data([
   { city: '杭州', sale: 100 },
   { city: '上海', sale: 110 },
 ]);
 ```
 
-chart 对象支持两种绑定数据的方式：
-
-第一种 data 属性传入
-
-```ts
-const chart = new G2.Chart({
-  container: 'container',
-  width: 600,
-  height: 300,
-  data: [
-    { city: '杭州', sale: 100 },
-    { city: '上海', sale: 110 },
-  ],
-});
-```
-
-第二种 调用 chart.data(data) 方法
-
-```ts
-const data = [
-  { city: '杭州', sale: 100 },
-  { city: '上海', sale: 110 },
-];
-const chart = new G2.Chart({
-  container: 'container',
-  width: 600,
-  height: 300,
-});
-chart.data(data);
-```
-
-更多用法参考 [Demo](../../../examples/gallery/line#line1) 。
-
-## 如何更新数据
+### 更新数据
 
 G2 更新数据的方式有两种：
 
 1. 图表数据更新（**前后数据结构不发生变化**），更新后马上刷新图表。
 
-```typescript
-// highlight-start
-(field: Record<string, any>[]) => View;
-// highlight-end
-
-chart.changeData(data);
+```sign
+chart.changeData(data) => View
 ```
 
 2. 仅需要更新数据，但不需要马上更新图表，可以调用 `chart.data(data)`，然后在需要更新图表时调用 `chart.render()`
@@ -83,5 +48,3 @@ chart.data(newData); // 加载新数据
 chart.interval().position('x*y').color('z'); // 重新定义图形语法
 chart.render();
 ```
-
-更多信息查看 [数据](../../manual/tutorial/data) 。
