@@ -5,9 +5,7 @@ order: 1
 
 ### 绑定数据
 
-绑定数据调用方法为`chart.data`，之前的调用方法为 `source`，将在 V4.1 移除。绑定参数支持 json 数组 和 DataView 对象。
-
-<!-- FIXME @hustcc 这里需要 data set 相关表述，可以加入链接/demo -->
+绑定数据调用方法为`chart.data`，之前的调用方法为 `source`，将在 V4.1 移除。**参数格式只支持 json 数组**。
 
 ```sign
 chart.data(field: Record<string, any>[]) => View;

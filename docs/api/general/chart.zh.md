@@ -5,6 +5,8 @@ redirect_from:
   - /zh/docs/api
 ---
 
+`markdown:docs/common/style.md`
+
 创建 Chart 图表对象。
 
 ```sign
