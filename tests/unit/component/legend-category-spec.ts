@@ -135,10 +135,10 @@ describe('Legend auto ellipsis', () => {
 
     const legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
     const legend = legends[0].component as GroupComponent<GroupComponentCfg>;
-    expect(legend.get('maxItemWidth')).toBe(80);
+    expect(legend.get('maxItemWidth')).toBe(200);
     expect(
       legend.getElementById('-legend-item-测试测试测试测试测试测试测试测试测试测试测试测试测试测试1-name').attr('text')
-    ).toBe('测试测试…');
+    ).toBe('测试测试测试测试测试测试测试…');
   });
 
   it('itemWidth', () => {
@@ -151,7 +151,7 @@ describe('Legend auto ellipsis', () => {
 
     const legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
     const legend = legends[0].component as GroupComponent<GroupComponentCfg>;
-    expect(legend.get('maxItemWidth')).toBe(80);
+    expect(legend.get('maxItemWidth')).toBe(200);
     expect(legend.get('itemWidth')).toBe(60);
     expect(
       legend.getElementById('-legend-item-测试测试测试测试测试测试测试测试测试测试测试测试测试测试1-name').attr('text')
