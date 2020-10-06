@@ -58,39 +58,8 @@ export default class Legend extends Controller<AllLegendsOptions> {
    * render the legend component by legend options
    */
   public render() {
-    this.option = this.view.getOptions().legends;
-
-    const doEachLegend = (geometry: Geometry, attr: Attribute, scale: Scale) => {
-      const legend = this.createFieldLegend(geometry, attr, scale);
-
-      if (legend) {
-        (legend.component as GroupComponent).init();
-        this.components.push(legend);
-      }
-    };
-
-    // 全局自定义图例
-    if (get(this.option, 'custom')) {
-      const component = this.createCustomLegend(undefined, undefined, undefined, this.option as LegendCfg);
-      if (component) {
-        component.init();
-
-        const layer = LAYER.FORE;
-        const direction = getDirection(this.option);
-
-        this.components.push({
-          id: 'global-custom',
-          component,
-          layer,
-          direction,
-          type: COMPONENT_TYPE.LEGEND,
-          extra: undefined,
-        });
-      }
-    } else {
-      // 遍历处理每一个创建逻辑
-      this.loopLegends(doEachLegend);
-    }
+    // 和 update 逻辑保持一致
+    this.update();
   }
 
   /**
