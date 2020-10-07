@@ -834,6 +834,8 @@ export interface LegendItem {
   value: any;
   /** 图形标记 */
   marker?: MarkerCfg;
+  /** 初始是否处于未激活状态 */
+  unchecked?: boolean;
 }
 
 export interface G2LegendTitleCfg extends LegendTitleCfg {
