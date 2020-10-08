@@ -8,7 +8,7 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/world.geo.json')
       container: 'container',
       autoFit: true,
       height: 500,
-      padding: [55, 20]
+      syncViewPadding: true,
     });
     chart.tooltip({
       showTitle: false,
