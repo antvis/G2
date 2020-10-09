@@ -226,7 +226,7 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
     },
     flipPage: true,
     animate: false,
-    maxItemWidth: 0.2,
+    maxItemWidth: 200,
     itemSpacing: styleSheet.legendItemSpacing,
     itemMarginBottom: styleSheet.legendItemMarginBottom,
     padding: styleSheet.legendPadding, // 图例组件自己的外边距
