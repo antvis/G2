@@ -64,7 +64,7 @@ chart.render(); // 由 chart 负责统一的渲染
 
 这种情况，就使用两个 View 并排显示，去显示不同的图形，具体如下 demo：
 
-<playground path='candlestick/candlestick/demo/k-and-column.ts'></playground>
+<playground path='candlestick/candlestick/demo/k-and-column.ts' rid="multi-view-1"></playground>
 
 这里主要用到 View 配置 **region** 去按照父 View 的位置、宽高百分比的形式拆分画布。
 
@@ -77,6 +77,6 @@ chart.render(); // 由 chart 负责统一的渲染
 1. 首先绘制世界地图背景，使用包含世界地图经纬度的数据；
 1. 然后再可视化包含各个国家男女比例的用户数据。
 
-<playground path='map/map/demo/choropleth-map.ts'></playground>
+<playground path='map/map/demo/choropleth-map.ts' rid="multi-view-2"></playground>
 
 这里有一个很重要的 View 配置 **syncViewPadding**，传入 boolean 值，含义是：是否需要将子 View 的 padding 同步，如果设置同步，那么可以保证子 View 在 auto padding 的情况下，所有子 View 的图形能够完全重合，避免显示上的错位。
