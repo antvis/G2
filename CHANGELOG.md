@@ -1,3 +1,19 @@
+#### 4.1.0-beta.11 (2020-10-09)
+
+##### New Features
+
+* **legend:**  set default maxItemWidth = 200 ([#2889](https://github.com/antvis/g2/pull/2889)) ([9e1b2585](https://github.com/antvis/g2/commit/9e1b25852d6fd97ed557d174818ff3c852df39bc))
+* **region-filter:**  add geometry life circle, after draw animate ([#2879](https://github.com/antvis/g2/pull/2879)) ([2738acb5](https://github.com/antvis/g2/commit/2738acb57c524d2649e356465dd624bf0f145616))
+
+##### Bug Fixes
+
+* **pie-demo:**  typo, fixed [#2884](https://github.com/antvis/g2/pull/2884) ([#2897](https://github.com/antvis/g2/pull/2897)) ([6aa10078](https://github.com/antvis/g2/commit/6aa100780ea98a5636cb578dc19dd0ed75d40eb8))
+* **types:**  add legend option ([#2892](https://github.com/antvis/g2/pull/2892)) ([bf3531ff](https://github.com/antvis/g2/commit/bf3531ff2cef51ab0d1fbc05b8b402a16f8ea92b))
+
+##### Refactors
+
+* **legend:**  legend update and render with same logic ([#2890](https://github.com/antvis/g2/pull/2890)) ([10666c0c](https://github.com/antvis/g2/commit/10666c0c622afef9f5ec17f87d8156bf5e451f78))
+
 #### 4.1.0-beta.10 (2020-09-28)
 
 ##### Chores
