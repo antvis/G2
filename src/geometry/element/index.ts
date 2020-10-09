@@ -111,7 +111,10 @@ export default class Element extends Base {
     newShape.cfg.element = this;
 
     // step 3: 同步 shape 样式
-    this.syncShapeStyle(shape, newShape, '', this.getAnimateCfg('update'));
+    const states = this.getStates();
+    each(states, (state) => {
+      this.syncShapeStyle(shape, newShape, state, this.getAnimateCfg('update'));
+    });
   }
 
   /**
