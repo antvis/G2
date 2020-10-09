@@ -27,23 +27,20 @@ facet 数据划分维度。
 type ViewCallback = (innerView: View, facet?: D) => any;
 // highlight-end
 
-chart.facet('circle', {
-  fields: ['clarity'],
-  eachView(view, facet) {
-    const facetData = facet.data;
-    const dv = new DataView();
-    dv.source(facetData).transform({
-      type: 'aggregate',
-      fields: ['price'],
-      operations: ['mean'],
-      as: ['mean'],
-      groupBy: ['cut'],
-    });
-    view.data(dv.rows);
-    view.interval().position('cut*mean').color('cut');
-    view.interaction('element-active');
-  },
-});
+eachView(view, facet) {
+  const facetData = facet.data;
+  const dv = new DataView();
+  dv.source(facetData).transform({
+    type: 'aggregate',
+    fields: ['price'],
+    operations: ['mean'],
+    as: ['mean'],
+    groupBy: ['cut'],
+  });
+  view.data(dv.rows);
+  view.interval().position('cut*mean').color('cut');
+  view.interaction('element-active');
+}
 ```
 
 其中 _FacetData_ 结构如下：
