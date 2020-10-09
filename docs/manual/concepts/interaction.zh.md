@@ -163,7 +163,7 @@ _
 
 <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*IZf6R5mKF24AAAAAAAAAAABkARQnAQ" style="width: 199px;">
 
-### Definition
+### 定义
 
 #### 触发 —— Trigger
 
@@ -299,7 +299,7 @@ export interface IInteractionContext {
 - 可以通过 context.isInComponent('legend') 判定是否发生在 legend 的包围盒内
 - 可以通过 context.event.target 或者 context.getCurrentShape() 获取触发的图形
 
-### Implementation
+### 实现
 
 交互语法的实现由三部分组成：
 
@@ -325,7 +325,7 @@ registerAction('actionTargetName', {
 });
 ```
 
-##### Example
+##### 实例
 
 我们以**框选**为例，定义多个 Action 反馈：
 
