@@ -29,8 +29,7 @@ order: 15
 // highlight-end
 // 第一个参数用于指定分面的类型，第二个参数为 FacetCfg
 chart.facet('rect', {
-  // 指定数据集划分依据的字段
-  fields: ['cut'],
+  fields: ['cut'],// 指定数据集划分依据的字段
 });
 ```
 
