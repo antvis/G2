@@ -22,11 +22,11 @@ facet 数据划分维度。
 
 使用回调函数配置每个 view 中具体的绘图表现。
 
-```ts
-// highlight-start
+```sign
 type ViewCallback = (innerView: View, facet?: D) => any;
-// highlight-end
+```
 
+```ts
 eachView(view, facet) {
   const facetData = facet.data;
   const dv = new DataView();
