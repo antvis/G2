@@ -33,6 +33,7 @@ function getDodgeCount(dataArray, dodgeBy) {
 
 /** @ignore */
 export function getDefaultSize(geometry): number {
+  const theme = geometry.theme;
   const coordinate = geometry.coordinate;
   const xScale = geometry.getXScale();
   const xValues = xScale.values;
@@ -43,12 +44,13 @@ export function getDefaultSize(geometry): number {
   const {
     intervalPadding,
     dodgePadding,
-    columnWidthRatio,
-    maxColumnWidth,
-    minColumnWidth,
-    multiplePieWidthRatio,
-    roseWidthRatio,
   } = geometry;
+  // 兼容theme配置
+  const maxColumnWidth = theme.maxColumnWidth || geometry.maxColumnWidth;
+  const minColumnWidth = theme.minColumnWidth || geometry.minColumnWidth;
+  const columnWidthRatio = theme.columnWidthRatio || geometry.columnWidthRatio;
+  const multiplePieWidthRatio = theme.multiplePieWidthRatio || geometry.multiplePieWidthRatio;
+  const roseWidthRatio = theme.roseWidthRatio || geometry.roseWidthRatio;
 
   // 线性情况下count值
   if (xScale.isLinear && xValues.length > 1) {

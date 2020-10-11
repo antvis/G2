@@ -43,8 +43,10 @@ describe('Calculate shape size', () => {
       scales,
       coordinate: rectCoord,
       container: canvas.addGroup(),
-      maxColumnWidth: 50,
-      minColumnWidth: 10,
+      theme: {
+        maxColumnWidth: 50,
+        minColumnWidth: 10,
+      },
     });
 
     interval.position('a*b').color('a');
@@ -215,6 +217,153 @@ describe('Calculate shape size', () => {
     });
   });
 
+  describe('pixel interval padding and dodge padding in column chart', () => {
+    // 像素级组间距和组内间距配置
+    const data = [
+      { a: 'A', b: 10 },
+      { a: 'B', b: 12 },
+      { a: 'C', b: 8 },
+    ];
+    const scales = {
+      a: createScale('a', data),
+      b: createScale('b', data),
+    };
+    let interval = new Interval({
+      data,
+      scales,
+      coordinate: rectCoord,
+      container: canvas.addGroup(),
+      intervalPadding: 0,
+    });
+
+    interval.position('a*b').color('a');
+    interval.init({
+      theme: Theme,
+    });
+
+    test('interval padding is 0px', () => {
+      const normalizedSize = getDefaultSize(interval);
+      expect(normalizedSize).toBe(1 / 3);
+    });
+
+    test('interval padding is 36px', () => {
+      interval = new Interval({
+        data,
+        scales,
+        coordinate: rectCoord,
+        container: canvas.addGroup(),
+        intervalPadding: 36,
+        dodgePadding: 0, // 常规柱状图中组内间隔不生效
+      });
+      interval.position('a*b');
+      interval.init({
+        theme: Theme,
+      });
+
+      const normalizedSize = getDefaultSize(interval);
+      expect(normalizedSize).toBeCloseTo(0.2);
+    });
+
+    test('priority of interval padding is higher than columnWidthRatio', () => {
+      // 组间距配置优先级高于columnWidthRatio
+      interval = new Interval({
+        data,
+        scales,
+        coordinate: rectCoord,
+        container: canvas.addGroup(),
+        intervalPadding: 36,
+        theme: {
+          columnWidthRatio: 0.5
+        }
+      });
+      interval.position('a*b');
+      interval.init({
+        theme: Theme,
+      });
+
+      const normalizedSize = getDefaultSize(interval);
+      expect(normalizedSize).toBeCloseTo(0.2);
+    });
+
+    test('priority of min/maxColumnWidth is higher than interval padding', () => {
+      // 柱最大最小宽度优先级高于组间距
+      interval = new Interval({
+        data,
+        scales,
+        coordinate: rectCoord,
+        container: canvas.addGroup(),
+        intervalPadding: 36,
+        theme: {
+          maxColumnWidth: 18,
+        }
+      });
+      interval.position('a*b');
+      interval.init({
+        theme: Theme,
+      });
+
+      const normalizedSize = getDefaultSize(interval);
+      expect(normalizedSize).toBe(0.1);
+    });
+
+    afterAll(() => {
+      interval.destroy();
+    });
+  });
+
+  describe('pixel interval padding and dodge padding in group chart', () => {
+    // 像素级组间距与组内间距在分组柱状图中配置
+    const data = [
+      { a: '1', b: 2, c: '1' },
+      { a: '2', b: 5, c: '1' },
+      { a: '3', b: 4, c: '1' },
+      { a: '1', b: 3, c: '2' },
+      { a: '2', b: 1, c: '2' },
+      { a: '3', b: 2, c: '2' },
+    ];
+    const scaleDefs = {
+      a: {
+        range: [0.2, 0.8],
+      },
+    };
+    const scales = {
+      a: createScale('a', data, scaleDefs),
+      b: createScale('b', data, scaleDefs),
+      c: createScale('c', data, scaleDefs),
+    };
+    const interval = new Interval({
+      coordinate: rectCoord,
+      data,
+      scales,
+      scaleDefs,
+      container: canvas.addGroup(),
+      intervalPadding: 0,
+      dodgePadding: 0,
+      theme: {
+        columnWidthRatio: 0.5,
+      }
+    });
+
+    interval.position('a*b').color('c');
+
+    interval.adjust({
+      type: 'dodge',
+    });
+
+    test('interval padding is 0px and dodge padding is 0px', () => {
+      interval.init({
+        theme: Theme,
+      });
+
+      const normalizedSize = getDefaultSize(interval);
+      expect(normalizedSize).toBe(1 / 6);
+    });
+
+    afterAll(() => {
+      interval.destroy();
+    });
+  });
+
   describe('Interval in polar coordinate', () => {
     const data = [
       { a: '1', b: 2, c: '1' },
@@ -336,14 +485,14 @@ describe('Calculate shape size', () => {
       });
 
       const normalizedSize = getDefaultSize(interval);
-      expect(normalizedSize).toBe((1 / 6) * interval.roseWidthRatio);
+      expect(normalizedSize).toBe((1 / 6) * Theme.roseWidthRatio);
     });
 
     test('dodge interval, polar coordinate with transposed', () => {
       const aScale = new CatScale({
         field: 'a',
         values: ['1', '2', '3'],
-        range: [(1 / 6) * interval.multiplePieWidthRatio, 1 - (1 / 6) * interval.multiplePieWidthRatio],
+        range: [(1 / 6) * Theme.multiplePieWidthRatio, 1 - (1 / 6) * Theme.multiplePieWidthRatio],
       });
       polarCoord.isTransposed = true;
 
@@ -385,7 +534,7 @@ describe('Calculate shape size', () => {
       // canvas.draw();
 
       const normalizedSize = getDefaultSize(interval);
-      expect(normalizedSize).toBe((1 / 6) * interval.multiplePieWidthRatio);
+      expect(normalizedSize).toBe((1 / 6) * Theme.multiplePieWidthRatio);
     });
 
     afterAll(() => {

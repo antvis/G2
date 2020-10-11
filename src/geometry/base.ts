@@ -242,19 +242,19 @@ export default class Geometry extends Base {
 
   // 柱状图间距相关配置
   /** 组间距 */
-  public intervalPadding: number;
+  protected intervalPadding: number;
   /** 组内间距 */
-  public dodgePadding: number;
+  protected dodgePadding: number;
   /** 柱状图最大宽度 */
-  public maxColumnWidth: number;
+  protected maxColumnWidth: number;
   /** 柱状图最小宽度 */
-  public minColumnWidth: number;
+  protected minColumnWidth: number;
   /** 一般柱状图宽度占比 */
-  public columnWidthRatio: number;
+  protected columnWidthRatio: number;
   /** 玫瑰图占比 */
-  public roseWidthRatio: number;
+  protected roseWidthRatio: number;
   /** 多层饼图/环图占比 */
-  public multiplePieWidthRatio: number;
+  protected multiplePieWidthRatio: number;
 
   /** 虚拟 Group，用于图形更新 */
   private offscreenGroup: IGroup;
@@ -279,6 +279,11 @@ export default class Geometry extends Base {
       theme,
       scales = {},
       scaleDefs = {},
+      // 柱状图间隔与宽度相关配置
+      intervalPadding,
+      dodgePadding,
+      maxColumnWidth,
+      minColumnWidth,
       columnWidthRatio = 1 / 2,
       roseWidthRatio = 0.9999999,
       multiplePieWidthRatio = 1 / 1.3
@@ -293,6 +298,11 @@ export default class Geometry extends Base {
     this.userTheme = theme;
     this.scales = scales;
     this.scaleDefs = scaleDefs;
+    // 柱状图间隔与宽度相关配置
+    this.intervalPadding = intervalPadding;
+    this.dodgePadding = dodgePadding;
+    this.maxColumnWidth = maxColumnWidth;
+    this.minColumnWidth = minColumnWidth;
     this.columnWidthRatio = columnWidthRatio;
     this.roseWidthRatio = roseWidthRatio;
     this.multiplePieWidthRatio = multiplePieWidthRatio;
@@ -1642,7 +1652,11 @@ export default class Geometry extends Base {
   // 调整数据
   private adjustData(dataArray: Data[]): Data[] {
     const adjustOption = this.adjustOption;
-    const { intervalPadding, dodgePadding, maxColumnWidth, minColumnWidth, columnWidthRatio } = this;
+    const { intervalPadding, dodgePadding, theme } = this;
+    // 兼容theme配置
+    const maxColumnWidth = theme.maxColumnWidth || this.maxColumnWidth;
+    const minColumnWidth = theme.minColumnWidth || this.minColumnWidth;
+    const columnWidthRatio = theme.columnWidthRatio || this.columnWidthRatio;
     let result = dataArray;
 
     if (adjustOption) {
@@ -1685,7 +1699,8 @@ export default class Geometry extends Base {
           }
           adjustCfg.adjustNames = adjustNames;
           // 每个分组内每条柱子的宽度占比，用户不可指定，用户需要通过 columnWidthRatio 指定
-          adjustCfg.dodgeRatio = this.columnWidthRatio;
+          // 兼容theme配置
+          adjustCfg.dodgeRatio = columnWidthRatio;
         } else if (type === 'stack') {
           const coordinate = this.coordinate;
           if (!yScale) {

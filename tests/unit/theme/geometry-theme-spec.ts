@@ -21,7 +21,9 @@ describe('Geometry theme', () => {
   ]);
   const interval1 = chart
     .interval({
-      maxColumnWidth: 10,
+      theme: {
+        maxColumnWidth: 10,
+      },
     })
     .position('year*sales');
   const interval2 = chart
@@ -32,8 +34,8 @@ describe('Geometry theme', () => {
   chart.render();
 
   it('interval theme', () => {
-    expect(interval1.maxColumnWidth).toBe(10);
-    expect(interval2.maxColumnWidth).toBeNull();
+    expect(interval1.theme.maxColumnWidth).toBe(10);
+    expect(interval2.theme.maxColumnWidth).toBeUndefined();
     expect(interval2.theme).toEqual(chart.getTheme());
   });
 
