@@ -108,6 +108,7 @@ export function getDefaultSize(geometry): number {
       // 组间距和组内间距均未配置
       normalizedSize = normalizedSize / dodgeCount;
     }
+    normalizedSize = (normalizedSize >= 0) ? normalizedSize : 0;
   }
 
   // 最大和最小限制
