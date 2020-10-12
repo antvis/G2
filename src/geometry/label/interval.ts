@@ -1,4 +1,4 @@
-import { get, deepMix } from '@antv/util';
+import { get, deepMix, isArray } from '@antv/util';
 
 import { MappingDatum, Point } from '../../interface';
 import GeometryLabel from './base';
@@ -55,53 +55,83 @@ export default class IntervalLabel extends GeometryLabel {
     const transposed = coordinate.isTransposed;
     const shapePoints = mappingData.points as Point[];
     const point0 = coordinate.convert(shapePoints[0]);
-    const point1 = coordinate.convert(shapePoints[2]);
-    const flag = transposed ? -1 : 1;
-    const width = ((point0.x - point1.x) / 2) * flag;
-    const height = ((point0.y - point1.y) / 2) * flag;
+    const point2 = coordinate.convert(shapePoints[2]);
     const dir = this.getLabelValueDir(mappingData);
+
+    let top;
+    let right;
+    let bottom;
+    let left;
+
+    const shape = isArray(mappingData.shape) ? mappingData.shape[0] : mappingData.shape;
+    if (shape === 'funnel' || shape === 'pyramid') {
+      // 处理漏斗图
+      const nextPoints = get(mappingData, 'nextPoints');
+      const points = get(mappingData, 'points');
+      if (nextPoints) {
+        // 非漏斗图底部
+        const p0 = coordinate.convert(points[0] as Point);
+        const p1 = coordinate.convert(points[1] as Point);
+        const nextP0 = coordinate.convert(nextPoints[0] as Point);
+        const nextP1 = coordinate.convert(nextPoints[1] as Point);
+
+        // TODO: 使用包围盒的计算方法
+        if (transposed) {
+          top = Math.min(nextP0.y, p0.y);
+          bottom = Math.max(nextP0.y, p0.y);
+          right = (p1.x + nextP1.x) / 2;
+          left = (p0.x + nextP0.x) / 2;
+        } else {
+          top = Math.min((p1.y + nextP1.y) / 2, (p0.y + nextP0.y) / 2);
+          bottom = Math.max((p1.y + nextP1.y) / 2, (p0.y + nextP0.y) / 2);
+          right = nextP1.x;
+          left = p0.x;
+        }
+      } else {
+        top = Math.min(point2.y, point0.y);
+        bottom = Math.max(point2.y, point0.y);
+        right = point2.x;
+        left = point0.x;
+      }
+    } else {
+      top = Math.min(point2.y, point0.y);
+      bottom = Math.max(point2.y, point0.y);
+      right = point2.x;
+      left = point0.x;
+    }
 
     switch (position) {
       case 'right':
-        if (!transposed) {
-          labelPointCfg.x -= width;
-          labelPointCfg.y += height;
-        }
+        labelPointCfg.x = right;
+        labelPointCfg.y = (top + bottom) / 2;
         labelPointCfg.textAlign = get(labelPointCfg, 'textAlign', dir > 0 ? 'left' : 'right');
         break;
       case 'left':
-        if (transposed) {
-          labelPointCfg.x -= width * 2;
-        } else {
-          labelPointCfg.x += width;
-          labelPointCfg.y += height;
-        }
+        labelPointCfg.x = left;
+        labelPointCfg.y = (top + bottom) / 2;
         labelPointCfg.textAlign = get(labelPointCfg, 'textAlign', dir > 0 ? 'left' : 'right');
         break;
       case 'bottom':
         if (transposed) {
-          labelPointCfg.x -= width;
-          labelPointCfg.y -= height;
-        } else {
-          labelPointCfg.y += height * 2;
+          labelPointCfg.x = (right + left) / 2;
         }
+        labelPointCfg.y = bottom;
         labelPointCfg.textAlign = get(labelPointCfg, 'textAlign', 'center');
         labelPointCfg.textBaseline = get(labelPointCfg, 'textBaseline', dir > 0 ? 'bottom' : 'top');
         break;
       case 'middle':
         if (transposed) {
-          labelPointCfg.x -= width;
-        } else {
-          labelPointCfg.y += height;
+          labelPointCfg.x = (right + left) / 2;
         }
+        labelPointCfg.y = (top + bottom) / 2;
         labelPointCfg.textAlign = get(labelPointCfg, 'textAlign', 'center');
         labelPointCfg.textBaseline = get(labelPointCfg, 'textBaseline', 'middle');
         break;
       case 'top':
         if (transposed) {
-          labelPointCfg.x -= width;
-          labelPointCfg.y += height;
+          labelPointCfg.x = (right + left) / 2;
         }
+        labelPointCfg.y = top;
         labelPointCfg.textAlign = get(labelPointCfg, 'textAlign', 'center');
         labelPointCfg.textBaseline = get(labelPointCfg, 'textBaseline', dir > 0 ? 'bottom' : 'top');
         break;
