@@ -214,7 +214,7 @@ const { element, state, stateStatus } = eventObj.gEvent.originalEvent;
 - legend-title：图例标题的事件前缀
 - legend-item：图例选项的事件前缀
 - legend-item-name：图例选项 name 文本 的事件前缀
-- legend-item-maker:  图例选项 marke 图标 的事件前缀
+- legend-item-marker:  图例选项 marker 图标 的事件前缀
 - legend-item-value：图例选项 value 的事件前缀
 
 #### annotation
