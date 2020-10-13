@@ -152,7 +152,7 @@ _LegendCfg_ 配置如下：
 | style   | [ShapeAttrs](shape) |          | -      | 文本样式配置项                                                                                                                                |
 | spacing | number              |          | -      | 文本同滑轨的距离                                                                                                                              |
 
-### LegendCfg.maker
+### LegendCfg.marker
 
 <description> _MarkerCfg_ **optional** </description>
 
