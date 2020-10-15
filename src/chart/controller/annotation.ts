@@ -89,17 +89,17 @@ export default class Annotation extends Controller<BaseOption[]> {
     });
 
     // 2. 处理非 regionFilter
-    const updated = new Map<BaseOption, ComponentOption>();
+    const updateCache = new Map<BaseOption, ComponentOption>();
     each(this.option, (option: BaseOption) => {
       if (option.type !== 'regionFilter') {
         const co = this.updateOrCreate(option);
         // 存储已经处理过的
         if (co) {
-          updated.set(this.getCacheKey(option), co);
+          updateCache.set(this.getCacheKey(option), co);
         }
       }
     });
-    this.cache = this.syncCache(updated);
+    this.cache = this.syncCache(updateCache);
   }
 
   /**
