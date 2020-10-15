@@ -1,6 +1,5 @@
 import { Chart } from '../../src';
 import { createDiv } from '../util/dom';
-import { delay } from '../util/delay';
 
 describe('2851', () => {
   it('2851', async () => {
@@ -46,7 +45,29 @@ describe('2851', () => {
       color: '#f5222d'
     });
 
+    chart.annotation().text({
+      position: ['50%', '50%'],
+      content: 'test',
+    });
+
     chart.render();
+
+    chart.on('plot:mouseenter', () => {
+      chart.getController('annotation').clear(true);
+
+      chart.annotation().text({
+        position: ['50%', '70%'],
+        content: 'test1',
+      });
+
+      chart.render(true);
+    });
+
+    chart.on('plot:mouseleave', () => {
+      chart.getController('annotation').clear(true);
+      chart.render(true);
+    });
+
     // 防止事件内存泄露
     // @ts-ignore
     expect(chart.geometries[0]._events).toEqual({});
@@ -57,5 +78,16 @@ describe('2851', () => {
     expect(chart.geometries[0]._events).toEqual({});
 
     // regionFilter 不知道怎么去断言！
+
+    chart.emit('plot:mouseenter', {});
+
+    expect(chart.getController('annotation').getComponents().length).toEqual(1);
+    // @ts-ignore
+    expect(chart.getController('annotation').option.length).toEqual(1);
+
+    chart.emit('plot:mouseleave', {});
+    expect(chart.getController('annotation').getComponents().length).toEqual(0);
+    // @ts-ignore
+    expect(chart.getController('annotation').option.length).toEqual(0);
   })
 });

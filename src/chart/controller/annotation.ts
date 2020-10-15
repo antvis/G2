@@ -63,7 +63,6 @@ export default class Annotation extends Controller<BaseOption[]> {
       const theme = this.getAnnotationTheme(type);
 
       component.update(this.getAnnotationCfg(type, extra, theme));
-      component.render();
     };
     const createComponentFn = (option: BaseOption) => {
       const co = this.createAnnotation(option);
@@ -87,6 +86,7 @@ export default class Annotation extends Controller<BaseOption[]> {
           // regionFilter 依赖绘制后的 Geometry Shapes
           this.whenRegionFilter(() => {
             updateComponentFn(co);
+            component.render();
           });
         } else {
           updateComponentFn(co);
