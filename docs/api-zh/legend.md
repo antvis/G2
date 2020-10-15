@@ -12,7 +12,7 @@
 chart.legend(false); // 关闭图例
 ```
 
-第二种，传入 _LegendCfg_ 对图例进行整体配置。
+第二种，传入 _legendOption_ 对图例进行整体配置。
 
 ```ts
 // highlight-start
@@ -40,25 +40,25 @@ view.legend('city', {
 });
 ```
 
-_LegendCfg_ 配置如下：
+_legendOption_ 配置如下：
 
 有的配置项作用范围区分分类图例和连续图例：
 <tag color="green" text="分类图例">分类图例</tag>
 <tag color="cyan" text="连续图例">连续图例</tag>
 
-### LegendCfg.layout
+### legendOption.layout
 
 <description> _'horizontal' | 'vertical'_ **optional** </description>
 
 布局方式： horizontal，vertical
 
-### LegendCfg.position
+### legendOption.position
 
 <description> _"top" | "top-left" | "top-right" | "right" | "right-top" | "right-bottom" | "left" | "left-top" | "left-bottom" | "bottom" | "bottom-left" | "bottom-right"_ **optional** </description>
 
 图例的位置。
 
-### LegendCfg.background
+### legendOption.background
 
 <description> _LegendBackgroundCfg_ **optional** </description>
 
@@ -69,13 +69,13 @@ _LegendCfg_ 配置如下：
 | padding | number \| number[]  |          | -      | 背景的留白     |
 | style   | [ShapeAttrs](shape) |          | -      | 背景样式配置项 |
 
-### LegendCfg.flipPage
+### legendOption.flipPage
 
 <description> _boolean_ **optional** </description>
 
 适用于 <tag color="green" text="分类图例">分类图例</tag>，当图例项过多时是否进行分页。
 
-### LegendCfg.handler
+### legendOption.handler
 
 <description> _ContinueLegendHandlerCfg_ **optional** </description>
 
@@ -86,19 +86,19 @@ _LegendCfg_ 配置如下：
 | size   | number              |          | -      | 滑块的大小     |
 | style  | [ShapeAttrs](shape) |          | -      | 滑块的样式设置 |
 
-### LegendCfg.itemHeight
+### legendOption.itemHeight
 
 <description> _number_ **optional** </description>
 
 适用于 <tag color="green" text="分类图例">分类图例</tag>，图例的高度，默认为 null。
 
-### LegendCfg.itemWidth
+### legendOption.itemWidth
 
 <description> _number_ **optional** </description>
 
 适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项的宽度, 默认为 null，自动计算。
 
-### LegendCfg.itemName
+### legendOption.itemName
 
 <description> _LegendItemNameCfg_ **optional** </description>
 
@@ -110,13 +110,13 @@ _LegendCfg_ 配置如下：
 | spacing   | number                                                  |          | -      | 图例项 marker 同后面 name 的间距 |
 | formatter | `(text: string, item: ListItem, index: number) => any;` |          |        | 格式化函数                       |
 
-### LegendCfg.itemSpacing
+### legendOption.itemSpacing
 
 <description> _number_ **optional** </description>
 
 适用于 <tag color="green" text="分类图例">分类图例</tag>，控制图例项水平方向的间距。
 
-### LegendCfg.itemValue
+### legendOption.itemValue
 
 <description> _LegendItemValueCfg_ **optional** </description>
 
@@ -128,19 +128,19 @@ _LegendCfg_ 配置如下：
 | alignRight | boolean                                                 |          | `false` | 是否右对齐，默认为 false，仅当设置图例项宽度时生效 |
 | formatter  | `(text: string, item: ListItem, index: number) => any;` |          |         | 格式化函数                                         |
 
-### LegendCfg.animate
+### legendOption.animate
 
 <description> _boolean_ **optional** _default:_ `true` </description>
 
 是否开启动画开关。
 
-### LegendCfg.animateOption
+### legendOption.animateOption
 
 <description> _ComponentAnimateOption_ **optional** </description>
 
 动画参数配置，当且仅当 animate 属性为 true，即动画开启时生效。动画配置详情点击 [ComponentAnimateOption](animate-option) 查看。
 
-### LegendCfg.label
+### legendOption.label
 
 <description> _ContinueLegendLabelCfg_ **optional** </description>
 
@@ -152,7 +152,7 @@ _LegendCfg_ 配置如下：
 | style   | [ShapeAttrs](shape) |          | -      | 文本样式配置项                                                                                                                                |
 | spacing | number              |          | -      | 文本同滑轨的距离                                                                                                                              |
 
-### LegendCfg.marker
+### legendOption.marker
 
 <description> _MarkerCfg_ **optional** </description>
 
@@ -160,43 +160,43 @@ _LegendCfg_ 配置如下：
 
 `markdown:common/marker-cfg.md`
 
-### LegendCfg.min
+### legendOption.min
 
 <description> _number_ **optional** </description>
 
 适用于 <tag color="cyan" text="连续图例">连续图例</tag>，选择范围的最小值。
 
-### LegendCfg.max
+### legendOption.max
 
 <description> _number_ **optional** </description>
 
 适用于 <tag color="cyan" text="连续图例">连续图例</tag>，选择范围的最大值。
 
-### LegendCfg.maxWidth
+### legendOption.maxWidth
 
 <description> _number_ **optional** </description>
 
 适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项最大宽度设置。
 
-### LegendCfg.maxHeight
+### legendOption.maxHeight
 
 <description> _number_ **optional** </description>
 
 适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项最大高度设置。
 
-### LegendCfg.offsetX
+### legendOption.offsetX
 
 <description> _number_ **optional** </description>
 
 图例 x 方向的偏移。
 
-### LegendCfg.offsetY
+### legendOption.offsetY
 
 <description> _number_ **optional** </description>
 
 图例 y 方向的偏移。
 
-### LegendCfg.rail
+### legendOption.rail
 
 <description> _ContinueLegendRailCfg_ **optional** </description>
 
@@ -209,19 +209,19 @@ _LegendCfg_ 配置如下：
 | defaultLength | number              |          | -      | 滑轨的默认长度，，当限制了 maxWidth,maxHeight 时，不会使用这个属性会自动计算长度 |
 | style         | [ShapeAttrs](shape) |          | -      | 滑轨的样式                                                                       |
 
-### LegendCfg.reversed
+### legendOption.reversed
 
 <description> _boolean_ **optional** </description>
 
 适用于 <tag color="green" text="分类图例">分类图例</tag>，是否将图例项逆序展示。
 
-### LegendCfg.slidable
+### legendOption.slidable
 
 <description> _boolean_ **optional** </description>
 
 适用于 <tag color="cyan" text="连续图例">连续图例</tag>，滑块是否可以滑动。
 
-### LegendCfg.title
+### legendOption.title
 
 <description> _G2LegendTitleCfg_ **optional** </description>
 
@@ -232,7 +232,7 @@ _LegendCfg_ 配置如下：
 | spacing | number              |          | -      | 标题同图例项的间距 |
 | style   | [ShapeAttrs](shape) |          | -      | 文本样式配置项     |
 
-### LegendCfg.track
+### legendOption.track
 
 <description> _ContinueLegendTrackCfg_ **optional** </description>
 
@@ -242,19 +242,19 @@ _LegendCfg_ 配置如下：
 | ------ | ------------------- | -------- | ------ | -------------- |
 | style  | [ShapeAttrs](shape) |          | -      | 选定范围的样式 |
 
-### LegendCfg.values
+### legendOption.values
 
 <description> _number[]_ **optional** </description>
 
 适用于 <tag color="cyan" text="连续图例">连续图例</tag>，选择的值。
 
-### LegendCfg.custom
+### legendOption.custom
 
 <description> _boolean_ **optional** </description>
 
 是否为自定义图例，当该属性为 true 时，需要声明 items 属性。
 
-### LegendCfg.items
+### legendOption.items
 
 <description> _LegendItem[]_ **optional** </description>
 
