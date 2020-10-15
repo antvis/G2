@@ -3,4 +3,4 @@ title: chart.label( )
 order: 9
 ---
 
-`markdown:api-zh/label.md`
+`markdown:docs/api-zh/label.md`

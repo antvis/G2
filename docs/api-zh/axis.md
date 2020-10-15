@@ -1,6 +1,6 @@
 <!--## chart.axis() 配置坐标轴-->
 
-`markdown:common/style.md`
+`markdown:docs/common/style.md`
 
 <div class='custom-api-docs'>
 

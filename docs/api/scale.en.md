@@ -3,4 +3,4 @@ title: chart.scale( )
 order: 2
 ---
 
-`markdown:api-zh/scale.md`
+`markdown:docs/api-zh/scale.md`

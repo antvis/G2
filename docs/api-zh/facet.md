@@ -1,6 +1,6 @@
 <!-- ## chart.facet() 设置分面 -->
 
-`markdown:common/style.md`
+`markdown:docs/common/style.md`
 
 <div class='custom-api-docs'>
 
@@ -23,7 +23,7 @@ chart.facet('rect', {
 
 设置列分面。_**FacetCfg**_ 配置如下：
 
-`markdown:common/facet-cfg.md`
+`markdown:docs/common/facet-cfg.md`
 
 #### FacetCfg.columnTitle
 
@@ -31,7 +31,7 @@ chart.facet('rect', {
 
 行标题的样式。
 
-`markdown:common/facet-title.md`
+`markdown:docs/common/facet-title.md`
 
 #### FacetCfg.rowTitle
 
@@ -39,7 +39,7 @@ chart.facet('rect', {
 
 列标题的样式。
 
-`markdown:common/facet-title.md`
+`markdown:docs/common/facet-title.md`
 
 ### chart.facet('mirror', cfg: FacetCfg)
 
@@ -47,7 +47,7 @@ chart.facet('rect', {
 
 设置镜像分面。_**FacetCfg**_ 配置如下：
 
-`markdown:common/facet-cfg.md`
+`markdown:docs/common/facet-cfg.md`
 
 #### FacetCfg.title
 
@@ -55,7 +55,7 @@ chart.facet('rect', {
 
 标题样式。
 
-`markdown:common/facet-title.md`
+`markdown:docs/common/facet-title.md`
 
 #### FacetCfg.transpose
 
@@ -71,7 +71,7 @@ chart.facet('rect', {
 
 设置列分面。_**FacetCfg**_ 配置如下：
 
-`markdown:common/facet-cfg.md`
+`markdown:docs/common/facet-cfg.md`
 
 #### FacetCfg.title
 
@@ -79,7 +79,7 @@ chart.facet('rect', {
 
 标题样式。
 
-`markdown:common/facet-title.md`
+`markdown:docs/common/facet-title.md`
 
 #### FacetCfg.cols
 
@@ -93,7 +93,7 @@ chart.facet('rect', {
 
 设置矩阵分面。_**FacetCfg**_ 配置如下：
 
-`markdown:common/facet-cfg.md`
+`markdown:docs/common/facet-cfg.md`
 
 #### FacetCfg.columnTitle
 
@@ -101,7 +101,7 @@ chart.facet('rect', {
 
 行标题的样式。
 
-`markdown:common/facet-title.md`
+`markdown:docs/common/facet-title.md`
 
 #### FacetCfg.rowTitle
 
@@ -109,7 +109,7 @@ chart.facet('rect', {
 
 列标题的样式。
 
-`markdown:common/facet-title.md`
+`markdown:docs/common/facet-title.md`
 
 ### chart.facet('circle', cfg: FacetCfg)
 
@@ -117,7 +117,7 @@ chart.facet('rect', {
 
 设置圆分面。_**FacetCfg**_ 配置如下：
 
-`markdown:common/facet-cfg.md`
+`markdown:docs/common/facet-cfg.md`
 
 #### FacetCfg.title
 
@@ -125,7 +125,7 @@ chart.facet('rect', {
 
 标题样式。
 
-`markdown:common/facet-title.md`
+`markdown:docs/common/facet-title.md`
 
 ### chart.facet('tree', cfg: FacetCfg)
 
@@ -133,7 +133,7 @@ chart.facet('rect', {
 
 设置圆分面。_**FacetCfg**_ 配置如下：
 
-`markdown:common/facet-cfg.md`
+`markdown:docs/common/facet-cfg.md`
 
 #### FacetCfg.title
 
@@ -141,7 +141,7 @@ chart.facet('rect', {
 
 标题样式。
 
-`markdown:common/facet-title.md`
+`markdown:docs/common/facet-title.md`
 
 #### FacetCfg.line
 

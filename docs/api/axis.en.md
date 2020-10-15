@@ -3,4 +3,4 @@ title: chart.axis( )
 order: 4
 ---
 
-`markdown:api-zh/axis.md`
+`markdown:docs/api-zh/axis.md`

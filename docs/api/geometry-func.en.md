@@ -3,4 +3,4 @@ title: geometry apis
 order: 6
 ---
 
-`markdown:api-zh/geometry-func.md`
+`markdown:docs/api-zh/geometry-func.md`

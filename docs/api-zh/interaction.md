@@ -1,6 +1,6 @@
 <!-- interaction -->
 
-`markdown:common/style.md`
+`markdown:docs/common/style.md`
 
 <div class='custom-api-docs'>
 

@@ -1,4 +1,4 @@
-`markdown:common/style.md`
+`markdown:docs/common/style.md`
 
 <div class='custom-api-docs'>
 
@@ -127,7 +127,7 @@ interface TooltipDomStyles {
 }
 ```
 
-`markdown:common/tooltip-dom.md`
+`markdown:docs/common/tooltip-dom.md`
 
 ### TooltipCfg.enterable
 
@@ -147,7 +147,7 @@ tooltip 是否允许鼠标滑入，默认为 false，不允许。
 
 用于指定图例容器的模板，自定义模板时必须包含各个 dom 节点的 class。
 
-`markdown:common/tooltip-dom.md`
+`markdown:docs/common/tooltip-dom.md`
 
 ### TooltipCfg.marker
 

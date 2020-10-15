@@ -1,6 +1,6 @@
 <!-- ## new Chart() 创建图表对象 -->
 
-`markdown:common/style.md`
+`markdown:docs/common/style.md`
 
 <div class='custom-api-docs'>
 

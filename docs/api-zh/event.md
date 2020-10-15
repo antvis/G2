@@ -1,6 +1,6 @@
 <!-- TODO 描述清楚现在支持的事件类型 -->
 
-`markdown:common/style.md`
+`markdown:docs/common/style.md`
 
 <div class='custom-api-docs'>
 

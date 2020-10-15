@@ -5,4 +5,4 @@ redirect_from:
   - /zh/docs/api
 ---
 
-`markdown:api-zh/chart.md`
+`markdown:docs/api-zh/chart.md`

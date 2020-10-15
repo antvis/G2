@@ -3,4 +3,4 @@ title: chart.createView( )
 order: 12
 ---
 
-`markdown:api-zh/view.md`
+`markdown:docs/api-zh/view.md`

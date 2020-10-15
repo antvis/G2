@@ -1,4 +1,4 @@
-`markdown:common/style.md`
+`markdown:docs/common/style.md`
 
 <div class='custom-api-docs'>
 
@@ -10,13 +10,13 @@ Geometry 几何标记基类，主要负责数据到图形属性的映射以及�
 
 用于绘制柱状图、直方图、南丁格尔玫瑰图、饼图、条形环图（玉缺图）、漏斗图等。
 
-`markdown:common/geom-base-cfg.md`
+`markdown:docs/common/geom-base-cfg.md`
 
 ### chart.point(options)
 
 用于绘制点图、折线图中的点等。
 
-`markdown:common/geom-base-cfg.md`
+`markdown:docs/common/geom-base-cfg.md`
 
 ### chart.line(options)
 
@@ -65,24 +65,24 @@ options:
 
 用于绘制色块图（像素图）、热力图、地图等。
 
-`markdown:common/geom-base-cfg.md`
+`markdown:docs/common/geom-base-cfg.md`
 
 ### chart.edge(options)
 
 用于绘制流程图、树、弧长连接图、和弦图、桑基图等。
 
-`markdown:common/geom-base-cfg.md`
+`markdown:docs/common/geom-base-cfg.md`
 
 ### chart.heatmap(options)
 
 用于绘制热力图。
 
-`markdown:common/geom-base-cfg.md`
+`markdown:docs/common/geom-base-cfg.md`
 
 ### chart.schema(options)
 
 用于绘制 k 线图，箱型图。
 
-`markdown:common/geom-base-cfg.md`
+`markdown:docs/common/geom-base-cfg.md`
 
 </div>

@@ -3,4 +3,4 @@ title: common - AnimateOption
 order: 20
 ---
 
-`markdown:common/component-animate-option.md`
+`markdown:docs/common/component-animate-option.md`

@@ -1,6 +1,6 @@
 <!-- ## chart.data(_data_) 绑定数据 -->
 
-`markdown:common/style.md`
+`markdown:docs/common/style.md`
 
 <div class='custom-api-docs'>
 
