@@ -1,4 +1,4 @@
-import { deepMix, each, get, isArray, isFunction, isString } from '@antv/util';
+import { deepMix, each, get, isArray, isEmpty, isEqual, isFunction, isString } from '@antv/util';
 import { propagationDelegate } from '@antv/component/lib/util/event';
 import { doAnimate } from '../../animate';
 import Base from '../../base';
@@ -111,7 +111,7 @@ export default class Element extends Base {
     newShape.cfg.element = this;
 
     // step 3: 同步 shape 样式
-    this.syncShapeStyle(shape, newShape, '', this.getAnimateCfg('update'));
+    this.syncShapeStyle(shape, newShape, this.getStates(), this.getAnimateCfg('update'));
   }
 
   /**
@@ -229,12 +229,10 @@ export default class Element extends Base {
     const offscreenShape = shapeFactory.drawShape(shapeType, model, this.getOffscreenGroup());
     if (states.length) {
       // 应用当前状态
-      states.forEach((state) => {
-        this.syncShapeStyle(shape, offscreenShape, state, null);
-      });
+      this.syncShapeStyle(shape, offscreenShape, states, null);
     } else {
       // 如果没有状态，则需要恢复至原始状态
-      this.syncShapeStyle(shape, offscreenShape, 'reset', null);
+      this.syncShapeStyle(shape, offscreenShape, ['reset'], null);
     }
 
     offscreenShape.remove(true); // 销毁，减少内存占用
@@ -444,7 +442,7 @@ export default class Element extends Base {
   private syncShapeStyle(
     sourceShape: IGroup | IShape,
     targetShape: IGroup | IShape,
-    state: string = '',
+    states: string[] = [],
     animateCfg,
     index: number = 0
   ) {
@@ -453,24 +451,27 @@ export default class Element extends Base {
     const newClip = targetShape.get('clipShape');
 
     if (clip && newClip) {
-      this.syncShapeStyle(clip, newClip, state, animateCfg);
+      this.syncShapeStyle(clip, newClip, states, animateCfg);
     }
 
     if (sourceShape.isGroup()) {
       const children = sourceShape.get('children');
       const newChildren = targetShape.get('children');
       for (let i = 0; i < children.length; i++) {
-        this.syncShapeStyle(children[i], newChildren[i], state, animateCfg, index + i);
+        this.syncShapeStyle(children[i], newChildren[i], states, animateCfg, index + i);
       }
     } else {
-      if (state && state !== 'reset') {
+      if (!isEmpty(states) && !isEqual(states, ['reset'])) {
         let name = sourceShape.get('name');
         if (isArray(name)) {
           // 会附加 element 的 name
           name = name[1];
         }
-        const style = this.getStateStyle(state, name || index); // 如果用户没有设置 name，则默认根据索引值
-        targetShape.attr(style);
+
+        each(states, (state) => {
+          const style = this.getStateStyle(state, name || index); // 如果用户没有设置 name，则默认根据索引值
+          targetShape.attr(style);
+        })
       }
       const newAttrs = getReplaceAttrs(sourceShape as IShape, targetShape as IShape);
 
@@ -483,7 +484,7 @@ export default class Element extends Base {
             toAttrs: newAttrs,
             shapeModel: this.model,
           });
-        } else if (state) {
+        } else if (isEmpty(states)) {
           sourceShape.stopAnimate();
           sourceShape.animate(newAttrs, {
             duration: 300,
