@@ -612,13 +612,7 @@ export default class Annotation extends Controller<BaseOption[]> {
 
     // 将 update 更新到 cache
     updated.forEach((co: ComponentOption, key: BaseOption) => {
-      if ( this.cache.has(key)) {
-        // 更新的组件
-        newCache.set(key, co);
-      } else {
-        // 不存在，是新增
-        newCache.set(key, co);
-      }
+      newCache.set(key, co);
     });
 
     // 另外和 options 进行对比，删除
