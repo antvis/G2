@@ -15,7 +15,7 @@ export function getNormalizedValue(val: number | string, scale: Scale) {
     case 'end':
       return 1;
     case 'median': {
-      scaled = scale.isCategory ? getMedian(scale.values.map((_, idx: number) => idx)) : (scale.min + scale.max) / 2;
+      scaled = scale.isCategory ? getMedian(scale.values.map((_, idx: number) => idx)) : getMedian(scale.values);
       break;
     }
     case 'mean': {

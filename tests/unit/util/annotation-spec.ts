@@ -30,7 +30,7 @@ describe('util annotation', () => {
     expect(getNormalizedValue('start', scale)).toEqual(0);
     expect(getNormalizedValue('end', scale)).toEqual(1);
     expect(near(getNormalizedValue('mean', scale), 0.055999999999999994)).toBe(true);
-    expect(getNormalizedValue('median', scale)).toEqual(0.5);
+    expect(getNormalizedValue('median', scale)).toEqual(0.065);
     expect(getNormalizedValue('min', scale)).toEqual(0);
     expect(getNormalizedValue('max', scale)).toEqual(1);
     expect(getNormalizedValue(2, scale)).toEqual(0.02);
