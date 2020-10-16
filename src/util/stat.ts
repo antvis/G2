@@ -33,8 +33,8 @@ export function getMedian(array: number[]) {
  * @param array
  */
 export function getMean(array: number[]) {
-  const sum = reduce(array, (sum: number, num: number) => {
-    return sum += (isNaN(num) || !isNumber(num) ? 0 : num);
+  const sum = reduce(array, (r: number, num: number) => {
+    return r += (isNaN(num) || !isNumber(num) ? 0 : num);
   }, 0);
 
   return array.length === 0 ? 0 : sum / array.length;
