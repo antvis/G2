@@ -1,6 +1,5 @@
 import { contains, deepMix, each, get, isArray, isFunction, isNil, isString, keys, upperFirst } from '@antv/util';
-
-import { Annotation as AnnotationComponent, IElement, IGroup, Scale } from '../../dependents';
+import { Annotation as AnnotationComponent, IElement, IGroup } from '../../dependents';
 import {
   AnnotationBaseOption as BaseOption,
   AnnotationPosition as Position,
@@ -25,6 +24,7 @@ import Geometry from '../../geometry/base';
 import Element from '../../geometry/element';
 import { getAngleByPoint, getDistanceToCenter } from '../../util/coordinate';
 import { omit } from '../../util/helper';
+import { getNormalizedValue } from '../../util/annotation';
 import View from '../view';
 import { Controller } from './base';
 
@@ -394,17 +394,17 @@ export default class Annotation extends Controller<BaseOption[]> {
         return this.parsePercentPosition(position as [string, string]);
       }
 
-      x = this.getNormalizedValue(xPos, xScale);
-      y = this.getNormalizedValue(yPos, Object.values(yScales)[0]);
+      x = getNormalizedValue(xPos, xScale);
+      y = getNormalizedValue(yPos, Object.values(yScales)[0]);
     } else if (!isNil(position)) {
       // 入参是 object 结构，数据点
       for (const key of keys(position)) {
         const value = position[key];
         if (key === xScale.field) {
-          x = this.getNormalizedValue(value, xScale);
+          x = getNormalizedValue(value, xScale);
         }
         if (yScales[key]) {
-          y = this.getNormalizedValue(value, yScales[key]);
+          y = getNormalizedValue(value, yScales[key]);
         }
       }
     }
@@ -445,43 +445,6 @@ export default class Annotation extends Controller<BaseOption[]> {
     });
 
     return arr;
-  }
-
-  /**
-   * parse the value position
-   * @param val
-   * @param scale
-   */
-  private getNormalizedValue(val: number | string, scale: Scale) {
-    let result: number;
-    let scaled: number;
-
-    switch (val) {
-      case 'start':
-        result = 0;
-        break;
-      case 'end':
-        result = 1;
-        break;
-      case 'median': {
-        scaled = scale.isCategory ? (scale.values.length - 1) / 2 : (scale.min + scale.max) / 2;
-        result = scale.scale(scaled);
-        break;
-      }
-      case 'min':
-      case 'max':
-        if (scale.isCategory) {
-          scaled = val === 'min' ? 0 : scale.values.length - 1;
-        } else {
-          scaled = scale[val];
-        }
-        result = scale.scale(scaled);
-        break;
-      default:
-        result = scale.scale(val);
-    }
-
-    return result;
   }
 
   /**
