@@ -562,6 +562,34 @@ export interface RegionFilterOption extends RegionPositionBaseOption {
   readonly apply?: string[];
 }
 
+/** 自定义 Annotation 的配置 */
+export interface CustomAnnotationOption extends AnnotationBaseOption {
+  /** 自定义 Annotation 绘制函数 */
+  render: (
+    container: IGroup,
+    view: View,
+    helpers: { parsePosition: (position: [string | number, string | number] | Datum) => Point }
+  ) => void;
+}
+
+/**
+ * Html Annotation 配置
+ */
+export interface HtmlAnnotationOption extends PointPositionBaseOption {
+  /** 容器元素 */
+  container?: string | HTMLElement;
+  /** 自定义 HTML DOM 元素 */
+  html: string | HTMLElement | ((container: HTMLElement, view: View) => void | string | HTMLElement);
+  /** X 方向对齐 */
+  alignX?: 'left' | 'middle' | 'right';
+  /** Y 方向对齐 */
+  alignY?: 'top' | 'middle' | 'bottom';
+  /** X 方向偏移 */
+  offsetX?: number;
+  /** Y 方向偏移 */
+  offsetY?: number;
+}
+
 // ============================ Chart && View 上的类型定义 ============================
 /** Tooltip 内容框的 css 样式定义 */
 export interface TooltipDomStyles {
