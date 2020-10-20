@@ -339,7 +339,7 @@ describe('annotation', () => {
   });
 });
 
-describe('custom annotation', () => {
+describe('shape annotation', () => {
   const containerDiv = createDiv();
 
   it('/w single shape', () => {
@@ -357,7 +357,7 @@ describe('custom annotation', () => {
     chart.interval().position('city*sale');
     chart.animate(false);
 
-    chart.annotation().custom({
+    chart.annotation().shape({
       render: (group, view) => {
         const bbox = view.viewBBox;
         group.addShape('text', {
@@ -397,12 +397,15 @@ describe('custom annotation', () => {
     chart.interval().position('city*sale');
     chart.animate(false);
 
-    chart.annotation().custom({
+    chart.annotation().shape({
       render: (group, view) => {
         const bbox = view.viewBBox;
-        const parent = group.addGroup();
+        const parent = group.addGroup({
+          id: 'my-group',
+        });
 
         parent.addShape('line', {
+          id: 'my-line1',
           attrs: {
             x1: bbox.x,
             y1: bbox.y + bbox.height / 2,
@@ -412,6 +415,7 @@ describe('custom annotation', () => {
           },
         });
         parent.addShape('line', {
+          id: 'my-line2',
           attrs: {
             x1: bbox.x + bbox.width / 2,
             y1: bbox.y,
@@ -421,6 +425,7 @@ describe('custom annotation', () => {
           },
         });
         parent.addShape('text', {
+          id: 'my-text',
           attrs: {
             text: 'center',
             fill: 'red',
@@ -462,10 +467,11 @@ describe('custom annotation', () => {
     chart.interval().position('city*sale');
     chart.animate(false);
 
-    chart.annotation().custom({
+    chart.annotation().shape({
       render: (group, view) => {
         const bbox = view.viewBBox;
         group.addShape('text', {
+          id: 'my-test',
           attrs: {
             text: 'Hello World!',
             fill: 'red',
@@ -506,13 +512,14 @@ describe('custom annotation', () => {
     chart.interval().position('city*sale');
     chart.animate(false);
 
-    chart.annotation().custom({
+    chart.annotation().shape({
       render: (group, view, helpers) => {
         const parent = group.addGroup();
         const points = DATA.map((datum) => helpers.parsePosition(datum));
         points.forEach((point, idx) => {
           if (idx < points.length - 1) {
             parent.addShape('line', {
+              id: `my-line${idx}`,
               attrs: {
                 x1: point.x,
                 y1: point.y,

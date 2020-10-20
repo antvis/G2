@@ -1,11 +1,24 @@
-import { contains, deepMix, each, get, isArray, isFunction, isNil, isString, keys, upperFirst, find } from '@antv/util';
+import {
+  contains,
+  deepMix,
+  each,
+  get,
+  isArray,
+  isFunction,
+  isNil,
+  isString,
+  keys,
+  upperFirst,
+  find,
+  includes,
+} from '@antv/util';
 import { Annotation as AnnotationComponent, IElement, IGroup } from '../../dependents';
 import {
   AnnotationBaseOption as BaseOption,
   AnnotationPosition as Position,
   ArcOption,
   ComponentOption,
-  CustomAnnotationOption,
+  ShapeAnnotationOption,
   Data,
   DataMarkerOption,
   DataRegionOption,
@@ -31,6 +44,9 @@ import { getNormalizedValue } from '../../util/annotation';
 import View from '../view';
 import { Controller } from './base';
 import { Scale } from '@antv/attr';
+
+/** 需要在图形绘制完成后才渲染的辅助组件类型列表 */
+const ANNOTATIONS_AFTER_RENDER = ['regionFilter', 'shape'];
 
 /**
  * Annotation controller, 主要作用:
@@ -73,12 +89,12 @@ export default class Annotation extends Controller<BaseOption[]> {
    * 更新
    */
   public update() {
-    // 1. 先处理 regionFilter，regionFilter 需要在 Geometry 完成之后，拿到图形信息
+    // 1. 先处理需要在图形渲染之后的辅助组件 需要在 Geometry 完成之后，拿到图形信息
     this.onAfterRender(() => {
       const updated = new Map<BaseOption, ComponentOption>();
-      // 先看是否有 regionFilter 要更新
+      // 先看是否有 regionFilter/shape 要更新
       each(this.option, (option: BaseOption) => {
-        if (option.type === 'regionFilter' || option.type === 'custom') {
+        if (includes(ANNOTATIONS_AFTER_RENDER, option.type)) {
           const co = this.updateOrCreate(option);
           // 存储已经处理过的
           if (co) {
@@ -95,7 +111,7 @@ export default class Annotation extends Controller<BaseOption[]> {
     // 2. 处理非 regionFilter
     const updateCache = new Map<BaseOption, ComponentOption>();
     each(this.option, (option: BaseOption) => {
-      if (option.type !== 'regionFilter' && option.type !== 'custom') {
+      if (!includes(ANNOTATIONS_AFTER_RENDER, option.type)) {
         const co = this.updateOrCreate(option);
         // 存储已经处理过的
         if (co) {
@@ -296,12 +312,12 @@ export default class Annotation extends Controller<BaseOption[]> {
   }
 
   /**
-   * 创建 CustomAnnotation
+   * 创建 ShapeAnnotation
    * @param option
    */
-  public custom(option: CustomAnnotationOption) {
+  public shape(option: ShapeAnnotationOption) {
     this.annotation({
-      type: 'custom',
+      type: 'shape',
       ...option,
     });
   }
@@ -561,8 +577,8 @@ export default class Annotation extends Controller<BaseOption[]> {
         start: this.parsePosition(start),
         end: this.parsePosition(end),
       };
-    } else if (type === 'custom') {
-      const { render, ...restOptions } = option as CustomAnnotationOption;
+    } else if (type === 'shape') {
+      const { render, ...restOptions } = option as ShapeAnnotationOption;
       const wrappedRender = (container: IGroup) => {
         if (isFunction(option.render)) {
           return render(container, this.view, { parsePosition: this.parsePosition.bind(this) });
@@ -646,8 +662,8 @@ export default class Annotation extends Controller<BaseOption[]> {
       // 忽略掉一些配置
       omit(cfg, ['container']);
       co.component.update(cfg);
-      // 对于 regionFilter，因为生命周期的原因，需要额外 render
-      if (option.type === 'regionFilter') {
+      // 对于 regionFilter/shape，因为生命周期的原因，需要额外 render
+      if (includes(ANNOTATIONS_AFTER_RENDER, option.type)) {
         co.component.render();
       }
     } else {
@@ -655,9 +671,9 @@ export default class Annotation extends Controller<BaseOption[]> {
       co = this.createAnnotation(option);
       if (co) {
         co.component.init();
-        // Note：regionFilter 特殊处理，regionFilter需要取到 Geometry 中的 Shape，需要在 view render 之后处理
+        // Note：regionFilter/shape 特殊处理，regionFilter/shape 需要取到 Geometry 中的 Shape，需要在 view render 之后处理
         // 其他组件使用外层的统一 render 逻辑
-        if (option.type === 'regionFilter') {
+        if (includes(ANNOTATIONS_AFTER_RENDER, option.type)) {
           co.component.render();
         }
       }

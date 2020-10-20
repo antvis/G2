@@ -562,8 +562,8 @@ export interface RegionFilterOption extends RegionPositionBaseOption {
   readonly apply?: string[];
 }
 
-/** 自定义 Annotation 的配置 */
-export interface CustomAnnotationOption extends AnnotationBaseOption {
+/** Shape Annotation 的配置 */
+export interface ShapeAnnotationOption extends AnnotationBaseOption {
   /** 自定义 Annotation 绘制函数 */
   render: (
     container: IGroup,
