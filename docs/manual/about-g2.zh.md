@@ -85,14 +85,14 @@ $ npm start
 
 ## ⭐ 图形语法
 
-G2 的强大是由其背后的一套图形语法所支撑的，它基于《The Grammar of Graphics》(Leland Wilkinson 著)一书，是一套用来描述所有统计图表深层特性的语法规则，该语法回答了『什么是统计图表』这一问题，以自底向上的方式组织最基本的元素形成更高级的元素。
+G2 的强大是由其背后的一套图形语法所支撑的，它基于[《The Grammar of Graphics》](https://book.douban.com/subject/10123863/)(Leland Wilkinson 著)一书，是一套用来描述所有统计图表深层特性的语法规则，该语法回答了『什么是统计图表』这一问题，以自底向上的方式组织最基本的元素形成更高级的元素。
 
 ![image.png](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*PDXtQYx4gAYAAAAAAAAAAABkARQnAQ)
 
 由此，G2 所构建出的图表是由一系列独立的图形语法元素组合而成的，包括数据、图形属性、几何标记、度量、坐标系、可视化组件、分面等。
 所以，在 G2 中，我们通常这么描述一张图表：一张图表就是从数据到几何标记对象的图形属性的一个映射，此外图形中还可能包含数据的统计变换，最后绘制在某个特定的坐标系中。
 
-查看 [图形语法](./concepts-overview#图形语法) 获取更多信息。
+查看 [图形语法](./concepts/grammar-of-graphic) 获取更多信息。
 
 ## 👋 交互语法
 
