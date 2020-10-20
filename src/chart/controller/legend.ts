@@ -364,7 +364,7 @@ export default class Legend extends Controller<AllLegendsOptions> {
    * @param scale
    * @param legendOption
    */
-  private getContinuousCfg(geometry: Geometry, attr: Attribute, scale: Scale, legendOption: any): object {
+  private getContinuousCfg(geometry: Geometry, attr: Attribute, scale: Scale, legendOption: any) {
     const ticks = scale.getTicks();
 
     const containMin = find(ticks, (tick: Tick) => tick.value === 0);
@@ -460,13 +460,7 @@ export default class Legend extends Controller<AllLegendsOptions> {
    * @param custom
    * @param legendOption
    */
-  private getCategoryCfg(
-    geometry: Geometry,
-    attr: Attribute,
-    scale: Scale,
-    legendOption: any,
-    custom?: boolean
-  ): object {
+  private getCategoryCfg(geometry: Geometry, attr: Attribute, scale: Scale, legendOption: any, custom?: boolean) {
     const container = this.container;
     // if position is not set, use top as default
     const direction = get(legendOption, 'position', DIRECTION.BOTTOM);
