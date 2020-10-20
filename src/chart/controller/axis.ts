@@ -523,7 +523,7 @@ export default class Axis extends Controller<Option> {
    * @param direction
    * @return line axis cfg
    */
-  private getLineAxisCfg(scale: Scale, axisOption: AxisCfg, direction: DIRECTION): object {
+  private getLineAxisCfg(scale: Scale, axisOption: AxisCfg, direction: DIRECTION) {
     const container = this.axisContainer;
     const coordinate = this.view.getCoordinate();
     const region = getAxisRegion(coordinate, direction);
@@ -531,9 +531,13 @@ export default class Axis extends Controller<Option> {
     const axisThemeCfg = getAxisThemeCfg(this.view.getTheme(), direction);
     // the cfg order should be ensure
     const optionWithTitle = get(axisOption, ['title'])
-      ? deepMix({ title: { style: { text: titleText } } }, {
-        title: get(getAxisThemeCfg(this.view.getTheme(), 'common'), 'title'),
-      }, axisOption)
+      ? deepMix(
+          { title: { style: { text: titleText } } },
+          {
+            title: get(getAxisThemeCfg(this.view.getTheme(), 'common'), 'title'),
+          },
+          axisOption
+        )
       : axisOption;
 
     const cfg = deepMix(
@@ -575,7 +579,7 @@ export default class Axis extends Controller<Option> {
    * @param dim
    * @return line grid cfg
    */
-  private getLineGridCfg(scale: Scale, axisOption: AxisCfg, direction: DIRECTION, dim: string): object {
+  private getLineGridCfg(scale: Scale, axisOption: AxisCfg, direction: DIRECTION, dim: string) {
     if (!showGrid(getAxisThemeCfg(this.view.getTheme(), direction), axisOption)) {
       return undefined;
     }
@@ -602,7 +606,7 @@ export default class Axis extends Controller<Option> {
    * @param direction
    * @return circle axis cfg
    */
-  private getCircleAxisCfg(scale: Scale, axisOption: AxisCfg, direction: DIRECTION): object {
+  private getCircleAxisCfg(scale: Scale, axisOption: AxisCfg, direction: DIRECTION) {
     const container = this.axisContainer;
     const coordinate = this.view.getCoordinate();
 
@@ -616,9 +620,13 @@ export default class Axis extends Controller<Option> {
     const axisThemeCfg = getAxisThemeCfg(this.view.getTheme(), DIRECTION.CIRCLE);
     // the cfg order should be ensure
     const optionWithTitle = get(axisOption, ['title'])
-      ? deepMix({ title: { style: { text: titleText } } }, {
-        title: get(getAxisThemeCfg(this.view.getTheme(), 'common'), 'title'),
-      }, axisOption)
+      ? deepMix(
+          { title: { style: { text: titleText } } },
+          {
+            title: get(getAxisThemeCfg(this.view.getTheme(), 'common'), 'title'),
+          },
+          axisOption
+        )
       : axisOption;
     const cfg = deepMix(
       {
@@ -645,7 +653,7 @@ export default class Axis extends Controller<Option> {
    * @param direction
    * @return circle grid cfg
    */
-  private getCircleGridCfg(scale: Scale, axisOption: AxisCfg, direction: DIRECTION, dim: string): object {
+  private getCircleGridCfg(scale: Scale, axisOption: AxisCfg, direction: DIRECTION, dim: string) {
     if (!showGrid(getAxisThemeCfg(this.view.getTheme(), direction), axisOption)) {
       return undefined;
     }

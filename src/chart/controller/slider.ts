@@ -63,7 +63,7 @@ export default class Slider extends Controller<SliderOption> {
       this.end = end;
     }
 
-    const { data: viewData} = this.view.getOptions();
+    const { data: viewData } = this.view.getOptions();
     if (this.option && !isEmpty(viewData)) {
       if (this.slider) {
         // exist, update
@@ -140,7 +140,7 @@ export default class Slider extends Controller<SliderOption> {
    * 创建 slider 组件
    */
   private createSlider(): ComponentOption {
-    const cfg = this.getSliderCfg();
+    const cfg: any = this.getSliderCfg();
     // 添加 slider 组件
     const component = new SliderComponent({
       container: this.container,

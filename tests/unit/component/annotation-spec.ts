@@ -1,8 +1,10 @@
 import 'jest-extended';
+import { isElement } from '@antv/util';
 import { Chart } from '../../../src/';
 import { COMPONENT_TYPE } from '../../../src/constant';
 import { createDiv, removeDom } from '../../util/dom';
 import { delay } from '../../util/delay';
+import { IGroup } from '@antv/g-base';
 
 const IMAGE = 'https://img.alicdn.com/tfs/TB1M.wKkND1gK0jSZFyXXciOVXa-120-120.png';
 
@@ -334,5 +336,356 @@ describe('annotation', () => {
   afterAll(() => {
     chart.destroy();
     removeDom(div);
+  });
+});
+
+describe('shape annotation', () => {
+  const containerDiv = createDiv();
+
+  it('/w single shape', () => {
+    const chart = new Chart({
+      container: containerDiv,
+      width: 800,
+      height: 600,
+      padding: 24,
+      autoFit: false,
+    });
+
+    chart.data(DATA);
+    chart.scale('sale', { nice: true });
+    chart.animate(false);
+    chart.interval().position('city*sale');
+    chart.animate(false);
+
+    chart.annotation().shape({
+      render: (group, view) => {
+        const bbox = view.viewBBox;
+        group.addShape('text', {
+          attrs: {
+            text: 'Hello World!',
+            fill: 'red',
+            x: bbox.x + bbox.width / 2,
+            y: bbox.y + bbox.height / 2,
+          },
+        });
+      },
+    });
+
+    chart.render();
+
+    const component = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[0].component;
+    expect(component).toBeDefined();
+    const container = component.get('group') as IGroup;
+    expect(container.getChildren()).toHaveLength(1);
+    expect(container.getChildren()[0].get('type')).toBe('text');
+    expect(container.getChildren()[0].attr('x')).toBe(400);
+    expect(container.getChildren()[0].attr('y')).toBe(300);
+  });
+
+  it('/w group', () => {
+    const chart = new Chart({
+      container: containerDiv,
+      width: 800,
+      height: 600,
+      padding: 24,
+      autoFit: false,
+    });
+
+    chart.data(DATA);
+    chart.scale('sale', { nice: true });
+    chart.animate(false);
+    chart.interval().position('city*sale');
+    chart.animate(false);
+
+    chart.annotation().shape({
+      render: (group, view) => {
+        const bbox = view.viewBBox;
+        const parent = group.addGroup({
+          id: 'my-group',
+        });
+
+        parent.addShape('line', {
+          id: 'my-line1',
+          attrs: {
+            x1: bbox.x,
+            y1: bbox.y + bbox.height / 2,
+            x2: bbox.maxX,
+            y2: bbox.y + bbox.height / 2,
+            stroke: 'blue',
+          },
+        });
+        parent.addShape('line', {
+          id: 'my-line2',
+          attrs: {
+            x1: bbox.x + bbox.width / 2,
+            y1: bbox.y,
+            x2: bbox.x + bbox.width / 2,
+            y2: bbox.maxY,
+            stroke: 'blue',
+          },
+        });
+        parent.addShape('text', {
+          id: 'my-text',
+          attrs: {
+            text: 'center',
+            fill: 'red',
+            textAlign: 'center',
+            x: bbox.x + bbox.width / 2,
+            y: bbox.y + bbox.height / 2,
+          },
+        });
+      },
+    });
+
+    chart.render();
+
+    const component = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[0].component;
+    expect(component).toBeDefined();
+    const container = component.get('group') as IGroup;
+    expect(container.getChildren()).toHaveLength(1);
+    expect(container.getChildren()[0].isGroup()).toBeTrue();
+    const parent = container.getChildren()[0] as IGroup;
+    expect(parent.getChildren()).toHaveLength(3);
+    expect(parent.getChildByIndex(0).get('type')).toBe('line');
+    expect(parent.getChildByIndex(1).get('type')).toBe('line');
+    expect(parent.getChildByIndex(2).get('type')).toBe('text');
+    expect(parent.getChildByIndex(2).attr('text')).toBe('center');
+  });
+
+  it('update', async () => {
+    const chart = new Chart({
+      container: containerDiv,
+      width: 800,
+      height: 600,
+      padding: 24,
+      autoFit: false,
+    });
+
+    chart.data(DATA);
+    chart.scale('sale', { nice: true });
+    chart.animate(false);
+    chart.interval().position('city*sale');
+    chart.animate(false);
+
+    chart.annotation().shape({
+      render: (group, view) => {
+        const bbox = view.viewBBox;
+        group.addShape('text', {
+          id: 'my-test',
+          attrs: {
+            text: 'Hello World!',
+            fill: 'red',
+            x: bbox.x + bbox.width / 2,
+            y: bbox.y + bbox.height / 2,
+          },
+        });
+      },
+    });
+
+    chart.render();
+
+    await delay(500);
+
+    chart.changeSize(600, 400);
+
+    const component = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[0].component;
+    expect(component).toBeDefined();
+    const container = component.get('group') as IGroup;
+    expect(container.getChildren()).toHaveLength(1);
+    expect(container.getChildren()[0].get('type')).toBe('text');
+    expect(container.getChildren()[0].attr('x')).toBe(300);
+    expect(container.getChildren()[0].attr('y')).toBe(200);
+  });
+
+  it('helpers', () => {
+    const chart = new Chart({
+      container: containerDiv,
+      width: 800,
+      height: 600,
+      padding: 24,
+      autoFit: false,
+    });
+
+    chart.data(DATA);
+    chart.scale('sale', { nice: true });
+    chart.animate(false);
+    chart.interval().position('city*sale');
+    chart.animate(false);
+
+    chart.annotation().shape({
+      render: (group, view, helpers) => {
+        const parent = group.addGroup();
+        const points = DATA.map((datum) => helpers.parsePosition(datum));
+        points.forEach((point, idx) => {
+          if (idx < points.length - 1) {
+            parent.addShape('line', {
+              id: `my-line${idx}`,
+              attrs: {
+                x1: point.x,
+                y1: point.y,
+                x2: points[idx + 1].x,
+                y2: points[idx + 1].y,
+                stroke: point.y < points[idx + 1].y ? 'red' : 'green',
+              },
+            });
+          }
+        });
+      },
+    });
+
+    chart.render();
+
+    const component = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[0].component;
+    expect(component).toBeDefined();
+    const container = component.get('group') as IGroup;
+    expect(container.getChildren()).toHaveLength(1);
+    const parent = container.getChildren()[0] as IGroup;
+    expect(parent.getChildren()).toHaveLength(DATA.length - 1);
+  });
+
+  afterAll(() => {
+    removeDom(containerDiv);
+  });
+});
+
+describe('html annotation', () => {
+  const containerDiv = createDiv();
+
+  it('html string', () => {
+    const chart = new Chart({
+      container: containerDiv,
+      width: 800,
+      height: 600,
+      padding: 24,
+      autoFit: false,
+    });
+
+    chart.data(DATA);
+    chart.scale('sale', { nice: true });
+    chart.animate(false);
+    chart.interval().position('city*sale');
+    chart.animate(false);
+
+    const htmlStr = '<span style="color:red">html string</span>';
+    chart.annotation().html({
+      html: htmlStr,
+      position: ['50%', '50%'],
+    });
+
+    chart.render();
+
+    const component = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[0].component;
+    expect(component).toBeDefined();
+    const container = component.getContainer() as HTMLElement;
+    expect(isElement(container)).toBeTrue();
+    expect(container.innerHTML).toEqual(htmlStr);
+    expect(container.style.position).toBe('absolute');
+    expect(container.style.left).toBe('400px');
+    expect(container.style.top).toEqual('300px');
+  });
+
+  it('html element', () => {
+    const chart = new Chart({
+      container: containerDiv,
+      width: 800,
+      height: 600,
+      padding: 24,
+      autoFit: false,
+    });
+
+    chart.data(DATA);
+    chart.scale('sale', { nice: true });
+    chart.animate(false);
+    chart.interval().position('city*sale');
+    chart.animate(false);
+
+    const htmlElem = document.createElement('SPAN');
+    htmlElem.appendChild(document.createTextNode('html string'));
+    chart.annotation().html({
+      html: htmlElem,
+      position: ['50%', '50%'],
+    });
+
+    chart.render();
+
+    const component = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[0].component;
+    expect(component).toBeDefined();
+    const container = component.getContainer() as HTMLElement;
+    expect(isElement(container)).toBeTrue();
+    expect(container.innerHTML).toEqual(`<span>html string</span>`);
+  });
+
+  it('html callback', () => {
+    const chart = new Chart({
+      container: containerDiv,
+      width: 800,
+      height: 600,
+      padding: 24,
+      autoFit: false,
+    });
+
+    chart.data(DATA);
+    chart.scale('sale', { nice: true });
+    chart.animate(false);
+    chart.interval().position('city*sale');
+    chart.animate(false);
+
+    chart.annotation().html({
+      html: (container) => {
+        const span = document.createElement('SPAN');
+        span.appendChild(document.createTextNode('html string'));
+        container.appendChild(span);
+      },
+      position: ['50%', '50%'],
+    });
+
+    chart.render();
+
+    const component = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[0].component;
+    expect(component).toBeDefined();
+    const container = component.getContainer() as HTMLElement;
+    expect(isElement(container)).toBeTrue();
+    expect(container.innerHTML).toEqual(`<span>html string</span>`);
+  });
+
+  it('update', async () => {
+    const chart = new Chart({
+      container: containerDiv,
+      width: 800,
+      height: 600,
+      padding: 24,
+      autoFit: false,
+    });
+
+    chart.data(DATA);
+    chart.scale('sale', { nice: true });
+    chart.animate(false);
+    chart.interval().position('city*sale');
+    chart.animate(false);
+
+    const htmlStr = '<span style="color:red">html string</span>';
+    chart.annotation().html({
+      html: htmlStr,
+      position: ['50%', '50%'],
+    });
+
+    chart.render();
+
+    await delay(500);
+
+    chart.changeSize(600, 400);
+
+    const component = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[0].component;
+    expect(component).toBeDefined();
+    const container = component.getContainer() as HTMLElement;
+    expect(isElement(container)).toBeTrue();
+    expect(container.innerHTML).toEqual(htmlStr);
+    expect(container.style.position).toBe('absolute');
+    expect(container.style.left).toBe('300px');
+    expect(container.style.top).toEqual('200px');
+  });
+
+  afterAll(() => {
+    removeDom(containerDiv);
   });
 });
