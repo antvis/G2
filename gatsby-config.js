@@ -57,6 +57,14 @@ module.exports = {
         order: 2,
       },
       {
+        slug: 'manual/concepts/geometry',
+        title: {
+          zh: '几何图形',
+          en: 'Geometry',
+        },
+        order: 2,
+      },
+      {
         slug: 'api/general',
         title: {
           zh: 'G2 详细手册',
