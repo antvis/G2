@@ -1,6 +1,6 @@
 ---
 title: 图形 - Geometry
-order: 5
+order: 6
 ---
 
 Geometry 几何标记基类，主要负责数据到图形属性的映射以及绘制逻辑。

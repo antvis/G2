@@ -1,4 +1,4 @@
 ---
 title: 缩略轴 - Slider
-order: 10
+order: 11
 ---
