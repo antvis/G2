@@ -3,192 +3,90 @@ title: 绘图属性 - ShapeAttrs
 order: 14
 ---
 
-### ShapeAttrs.x
+G2 底层使用了 [G](https://g.antv.vision/zh/docs/api/shape/attrs) 绘图引擎。本篇列出了常见的绘图属性，更多关于绘图以及绘图属性的使用请至 [G](https://g.antv.vision/zh/) 中查看。
 
-<description> _number_ **optional** </description>
+在 G2 中组件样式的定义全部直接使用 ShapeAttrs 统一的结构，例如 axis 的 label 样式、legend marker 样式、registerShape 自定义 shape 样式等等。
 
-x 坐标。
+## 属性列表
 
-### ShapeAttrs.y
+### 通用属性
 
-<description> _number_ **optional** </description>
+| 属性名          | 描述                                                                                                                                                                               |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `fill`          | 填充色、[渐变](/zh/docs/api/shape/shape-attrs/#渐变色)或[纹理](/zh/docs/api/shape/shape-attrs/#纹理)，默认值为空。                                                                 |
+| `fillOpacity`   | 用于设置图形填充颜色的透明度，默认值是 1。                                                                                                                                         |
+| `stroke`        | 描边色、[渐变](/zh/docs/api/shape/shape-attrs/#渐变色)或[纹理](/zh/docs/api/shape/shape-attrs/#纹理)，默认值为空；                                                                 |
+| `strokeOpacity` | 用于设置边颜色的透明度，默认值是 1。                                                                                                                                               |
+| `shadowColor`   | 描述阴影颜色的属性，参见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/shadowColor)。                                                            |
+| `shadowBlur`    | 描述模糊效果程度的属性； 它既不对应像素值也不受当前转换矩阵的影响。 默认值是 0，参见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/shadowBlur)。 |
+| `shadowOffsetX` | 描述阴影水平偏移距离的属性，参见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/shadowOffsetX)。                                                  |
+| `shadowOffsetY` | 描述阴影垂直偏移距离的属性，参见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/shadowOffsetY)。                                                  |
+| `opacity`       | 设置图形和图片透明度的属性，默认值是 1。 数值的范围从 0.0 （完全透明）到 1.0 （完全不透明）。                                                                                      |
 
-y 坐标。
+### 线条属性
 
-### ShapeAttrs.r
+| 属性名       | 描述                                                                                                                                                                                                                                                                                                                                                                 |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `lineCap`    | Canvas 2D API 指定如何绘制每一条线段末端的属性。有 3 个可能的值，分别是：`butt`, `round` and `square`。默认值是 butt，参见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap).                                                                                                                                                 |
+| `lineJoin`   | Canvas 2D API 用来设置 2 个长度不为 0 的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为 0 的变形部分，其指定的末端和控制点在同一位置，会被忽略），参见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin).                                                                                                           |
+| `lineWidth`  | Canvas 2D API 设置线段厚度的属性（即线段的宽度）。当获取属性值时，它可以返回当前的值（默认值是 1.0 ）。 当给属性赋值时， 0、 负数、 Infinity 和 NaN 都会被忽略；除此之外，都会被赋予一个新值，参见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineWidth).                                                                       |
+| `miterLimit` | Canvas 2D API 设置斜接面限制比例的属性。 当获取属性值时， 会返回当前的值（默认值是 10.0 ）。当给属性赋值时， 0、负数、 Infinity 和 NaN 都会被忽略；除此之外都会被赋予一个新值。，参见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit).                                                                                   |
+| `lineDash`   | 设置线的虚线样式，可以指定一个数组。一组描述交替绘制线段和间距（坐标空间单位）长度的数字。 如果数组元素的数量是奇数， 数组的元素会被复制并重复。例如， [5, 15, 25] 会变成 [5, 15, 25, 5, 15, 25]。这个属性取决于浏览器是否支持 `setLineDash()` 函数，详情参考 [setLineDash](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/setLineDash)。 |
 
-<description> _number_ **optional** </description>
+### 文本属性
 
-圆半径。
+| 属性名         | 描述                                                                                                                         |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `textAlign`    | 设置文本内容的当前对齐方式, 支持的属性：'start', 'center', 'end', 'left', 'right'                                            |
+| `textBaseline` | 设置在绘制文本时使用的当前文本基线, 支持的属性：'top', 'hanging', 'middle', 'alphabetic', 'ideographic', 'bottom'            |
+| `fontStyle`    | 规定字体样式。可能的值：'normal', 'italic', 'oblique'                                                                        |
+| `fontSize`     | 规定字号，以像素计                                                                                                           |
+| `fontFamily`   | 规定字体系列                                                                                                                 |
+| `fontWeight`   | 规定字体的粗细。可能的值：'normal', 'bold', 'bolder', 'lighter', '100', '200, '300', '400','500', '600', '700', '800', '900' |
+| `fontVariant`  | 规定字体变体。可能的值：'normal', 'small-caps'                                                                               |
+| `lineHeight`   | 规定行高，以像素计                                                                                                           |
 
-### ShapeAttrs.stroke
+## 渐变色
 
-<description> _string_ **optional** </description>
+为了方便用户使用，G2 中默认提供对线性渐变、放射状/环形渐变两种渐变色的支持，定义方式如下：
 
-描边颜色。
+### 线性渐变
 
-### ShapeAttrs.strokeOpacity
+![](https://gw.alipayobjects.com/zos/rmsportal/ElBYXdsTZKFflacOBNtp.png#align=left&display=inline&height=142&originHeight=328&originWidth=1384&status=done&style=none&width=600)
 
-<description> _number_ **optional** </description>
+> 说明：`l` 表示使用线性渐变，绿色的字体为可变量，由用户自己填写，由一个空格进行间隔。
 
-描边透明度。
-
-### ShapeAttrs.fill
-
-<description> _string_ **optional** </description>
-
-填充颜色。
-
-### ShapeAttrs.fillOpacity
-
-<description> _number_ **optional** </description>
-
-填充透明度。
-
-### ShapeAttrs.opacity
-
-<description> _number_ **optional** </description>
-
-整体透明度。
-
-### ShapeAttrs.lineWidth
-
-<description> _number_ **optional** </description>
-
-线宽。
-
-### ShapeAttrs.lineCap
-
-<description> _'butt' | 'round' | 'square'_ **optional** _default:_ `butt`</description>
-
-指定如何绘制每一条线段末端。
-
-- butt：线段末端以方形结束。
-- round：线段末端以圆形结束。
-- square：线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。
-
-### ShapeAttrs.lineJoin
-
-<description> _'bevel' | 'round' | 'miter'_ **optional** _default:_ `round`</description>
-
-用来设置 2 个长度不为 0 的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为 0 的变形部分，其指定的末端和控制点在同一位置，会被忽略）。
-
-- round：通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。
-- bevel：在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。
-- miter：通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 miterLimit 属性看到效果。
-
-<img src='https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*fuV5TaQVPs0AAAAAAAAAAAAAARQnAQ' width='300' alt='line-join'/>
-
-### ShapeAttrs.lineDash
-
-<description> _number[] | null_ **optional**</description>
-
-设置线的虚线样式，可以指定一个数组。一组描述交替绘制线段和间距（坐标空间单位）长度的数字。 如果数组元素的数量是奇数， 数组的元素会被复制并重复。例如， [5, 15, 25] 会变成 [5, 15, 25, 5, 15, 25]。这个属性取决于浏览器是否支持 `setLineDash()` 函数。
-
-### ShapeAttrs.path
-
-<description> _string | object[]_ **optional**</description>
-
-Path 路径。
-
-```js
-path: [
-	['M', 100, 100],
-	['L', 200, 200],
-],
+```javascript
+// example
+// 使用渐变色描边，渐变角度为 0，渐变的起始点颜色 #ffffff，中点的渐变色为 #7ec2f3，结束的渐变色为 #1890ff
+stroke: 'l(0) 0:#ffffff 0.5:#7ec2f3 1:#1890ff';
 ```
 
-### ShapeAttrs.points
+### 放射状/环形渐变
 
-<description> _object[]_ **optional**</description>
+![](https://gw.alipayobjects.com/zos/rmsportal/fBFocveoeRaeaCCPTaFo.png#align=left&display=inline&height=144&originHeight=408&originWidth=1702&status=done&style=none&width=600)
 
-```js
-points: [
-  [x1, y1],
-  [x2, y2],
-];
+> 说明：`r` 表示使用放射状渐变，绿色的字体为可变量，由用户自己填写，开始圆的 x y r 值均为相对值，0 至 1 范围，'r(x,y,r)' 内不可留有空格，颜色之间由一个空格进行间隔。
+
+```javascript
+// example
+// 使用渐变色填充，渐变起始圆的圆心坐标为被填充物体的包围盒中心点，半径为(包围盒对角线长度 / 2) 的 0.1 倍，渐变的起始点颜色 #ffffff，中点的渐变色为 #7ec2f3，结束的渐变色为 #1890ff
+fill: 'r(0.5,0.5,0.1) 0:#ffffff 1:#1890ff';
 ```
 
-### ShapeAttrs.width
+## 纹理
 
-<description> _number_ **optional** </description>
+![](https://gw.alipayobjects.com/mdn/rms_6ae20b/afts/img/A*8FjsSoqE1mYAAAAAAAAAAABkARQnAQ)
 
-宽度。
+- `p`: 表示使用纹理，绿色的字体为可变量，由用户自己填写。
+- `a`: 该模式在水平和垂直方向重复；
+- `x`: 该模式只在水平方向重复；
+- `y`: 该模式只在垂直方向重复；
+- `n`: 该模式只显示一次（不重复）。
+- 纹理的内容可以直接是图片或者 [Data URLs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs)。
 
-### ShapeAttrs.height
-
-<description>_number_ **optional** </description>
-
-高度。
-
-### ShapeAttrs.shadowBlur
-
-<description>_number_ **optional** </description>
-
-阴影模糊效果程度。
-
-### ShapeAttrs.shadowColor
-
-<description>_string_ **optional** </description>
-
-阴影颜色。
-
-### ShapeAttrs.shadowOffsetX
-
-<description>_number_ **optional** </description>
-
-阴影 x 方向偏移量。
-
-### ShapeAttrs.shadowOffsetY
-
-<description>_number_ **optional** </description>
-
-阴影 Y 方向偏移量。
-
-### ShapeAttrs.textAlign
-
-<description>_'start' | 'center' | 'end' | 'left' | 'right'_ **optional** </description>
-
-设置文本内容的当前对齐方式。
-
-### ShapeAttrs.textBaseline
-
-<description>_'top' | 'hanging' | 'middle' | 'alphabetic' | 'ideographic' | 'bottom'_ **optional** </description>
-
-设置在绘制文本时使用的当前文本基线。
-
-### ShapeAttrs.fontStyle
-
-<description>_'normal' | 'italic' | 'oblique'_ **optional** </description>
-
-字体样式。
-
-### ShapeAttrs.fontSize
-
-<description>_number_ **optional** </description>
-
-文本字体大小。
-
-### ShapeAttrs.fontFamily
-
-<description> _string_ **optional**</description>
-
-文本字体。
-
-### ShapeAttrs.fontWeight
-
-<description> _'normal' | 'bold' | 'bolder' | 'lighter' | number_ **optional**</description>
-
-文本粗细。
-
-### ShapeAttrs.fontVariant
-
-<description> _'normal' | 'small-caps' | string_ **optional**</description>
-
-字体变体。
-
-### ShapeAttrs.lineHeight
-
-<description>_number_ **optional** </description>
-
-文本行高。
+```js
+// example
+// 使用纹理填充，在水平和垂直方向重复图片
+fill: 'p(a)https://gw.alipayobjects.com/zos/rmsportal/ibtwzHXSxomqbZCPMLqS.png';
+```
