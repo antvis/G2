@@ -3,7 +3,8 @@ title: 绘图属性 - ShapeAttrs
 order: 14
 ---
 
-G2 底层使用了 [G](https://g.antv.vision/zh/docs/api/shape/attrs)  绘图引擎。本篇列出了常见的绘图属性，更多关于绘图以及绘图属性的使用请至 [G](https://g.antv.vision/zh/) 中查看。
+G2 底层使用了 [G](https://g.antv.vision/zh/docs/api/shape/attrs) 绘图引擎。本篇列出了常见的绘图属性，更多关于绘图以及绘图属性的使用请至 [G](https://g.antv.vision/zh/) 中查看。</br>
+在 G2 中组件样式的定义全部直接使用 ShapeAttrs 统一的结构，例如 axis 的 label 样式、legend marker 样式、registerShape 自定义 shape 样式等等。
 
 ## 属性列表
 
@@ -71,5 +72,3 @@ stroke: 'l(0) 0:#ffffff 0.5:#7ec2f3 1:#1890ff';
 // 使用渐变色填充，渐变起始圆的圆心坐标为被填充物体的包围盒中心点，半径为(包围盒对角线长度 / 2) 的 0.1 倍，渐变的起始点颜色 #ffffff，中点的渐变色为 #7ec2f3，结束的渐变色为 #1890ff
 fill: 'r(0.5,0.5,0.1) 0:#ffffff 1:#1890ff';
 ```
-<!-- <playground path='../docs/api/shape/demo/basic.ts' rid='list'></playground> -->
-<!-- <playground path='facet/facet/demo/list.ts' rid='list'></playground> -->
