@@ -30,6 +30,7 @@ module.exports = {
         },
         order: 2,
       },
+
       {
         slug: 'docs/api',
         title: {
@@ -55,6 +56,14 @@ module.exports = {
           en: 'Chart Concepts',
         },
         order: 2,
+      },
+      {
+        slug: 'manual/tutorial',
+        title: {
+          zh: '使用教程',
+          en: 'Tutorial',
+        },
+        order: 1,
       },
       {
         slug: 'api/general',
