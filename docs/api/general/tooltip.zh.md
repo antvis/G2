@@ -1,6 +1,6 @@
 ---
 title: 提示 - Tooltip
-order: 7
+order: 8
 ---
 
 配置提示信息有两种方式：

@@ -1,6 +1,6 @@
 ---
 title: 坐标轴 - Axis
-order: 4
+order: 5
 ---
 
 第一种 传入 `boolean` 配置是否显示坐标轴。

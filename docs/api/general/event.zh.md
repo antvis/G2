@@ -1,6 +1,6 @@
 ---
 title: 事件 - Event
-order: 12
+order: 13
 ---
 
 Chart 对象中提供了非常丰富的生命周期事件和交互事件，开发者可以利用这些事件，去做业务自定义的扩展和交互。在 G2 中使用事件的方式如下所示：
@@ -9,7 +9,6 @@ Chart 对象中提供了非常丰富的生命周期事件和交互事件，开�
 chart.on('eventName', callback); // 绑定事件
 chart.off('eventName', callback); // 移除事件
 ```
-
 
 ## 事件类别
 
@@ -40,7 +39,6 @@ chart.off('eventName', callback); // 移除事件
 - contextmenu 右键事件
 - dblclick 双击事件
 
-
 ### 2. 组合事件
 
 `基础事件`中，只要画布中触发这些事件，都会执行，但是大部分场景下，我们需要精确定位到某一个元素的点击，比如：
@@ -66,6 +64,7 @@ ${componentName}:${eventName}
 > G2 内置的组件中，componentName 的分类很细，可以以下面的一个图进行大概说明。
 
 <!-- 截图来自于 https://riddle.alibaba-inc.com/riddles/e899cd72 -->
+
 ![](https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ZFbySLuhjPsAAAAAAAAAAAAAARQnAQ)
 
 也就是大致可以分成为：
@@ -90,7 +89,6 @@ ${componentName}:${eventName}
 
 然后将这些组件名称和基础事件名进行一个排列组合，即为 G2 内置的事件。
 
-
 ### 3. Chart / View 生命周期事件
 
 > 生命周期事件，只是画布在会绘制过程中的一些切面时间点，会抛出一些事件名称，这些名称主要包括：
@@ -108,7 +106,6 @@ ${componentName}:${eventName}
 - afterchangesize
 
 事件的含义和字面含义一致，这里不做过多冗余解释。这些生命周期名称作为事件名称可以直接被调用。
-
 
 ## 事件实例
 

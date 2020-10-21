@@ -1,6 +1,6 @@
 ---
 title: 图例 - Legend
-order: 6
+order: 7
 ---
 
 配置图例有两种方式
