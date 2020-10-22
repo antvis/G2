@@ -1369,9 +1369,6 @@ export default class Geometry extends Base {
     cfg.defaultStyle = get(theme, [shapeName, 'default'], {}).style;
     if (!cfg.defaultStyle && this.getShapeFactory()) {
       cfg.defaultStyle = this.getShapeFactory().getDefaultStyle(theme);
-      if (!cfg.color) {
-        cfg.color = get(cfg.defaultStyle, ['fill']);
-      }
     }
 
     const styleOption = this.styleOption;
