@@ -1,8 +1,9 @@
 import { Chart, registerShape } from '../../src';
 import { createDiv, simulateMouseEvent } from '../util/dom';
 import { getClientPoint } from '../util/simulate';
+import { delay } from '../util/delay';
 
-describe('#2905: 没有自定义主题或者设置 color 映射的时候，自定义 shape 中 draw 方法获取不到 defaultStyle 或 color', () => {
+describe('#2905: 没有自定义主题，自定义 shape 中 draw 方法获取不到 defaultStyle', () => {
   const data = [
     { name: 'MODIFY', value: 138, washaway: 0.21014492753623193 },
     { name: 'PRERELEASE', value: 109, washaway: 0.5596330275229358 },
@@ -16,7 +17,7 @@ describe('#2905: 没有自定义主题或者设置 color 映射的时候，自�
       group.addShape('polygon', {
         attrs: {
           points: points.map((point) => [point.x, point.y]),
-          fill: cfg.color,
+          fill: cfg.color || cfg.defaultStyle.fill,
         },
       });
 
@@ -47,13 +48,13 @@ describe('#2905: 没有自定义主题或者设置 color 映射的时候，自�
   chart.render();
 
   it('default: 默认取 defaultShapeType 的主题设置', () => {
-    expect(chart.geometries[0].elements[0].getModel().color).not.toBeUndefined();
+    expect(chart.geometries[0].elements[0].getModel().color).toBeUndefined();
     expect(chart.geometries[0].elements[0].getModel().defaultStyle).toEqual(
       chart.getTheme().geometries.interval.rect.default.style
     );
   });
 
-  it('manual: 手动设置自定义 shape 的主题', () => {
+  it('manual: 手动设置自定义 shape 的主题', async () => {
     chart.theme({
       geometries: {
         interval: {
@@ -75,7 +76,7 @@ describe('#2905: 没有自定义主题或者设置 color 映射的时候，自�
     chart.interaction('element-active');
     chart.render();
     const element0 = chart.geometries[0].elements[0];
-    // expect(element0.getModel().color).toBe('red');
+    expect(element0.getModel().color).toBe(undefined);
 
     const canvas = chart.getCanvas();
     const el = canvas.get('el');
@@ -83,8 +84,8 @@ describe('#2905: 没有自定义主题或者设置 color 映射的时候，自�
 
     simulateMouseEvent(el, 'mouseenter', getClientPoint(canvas, (box.minX + box.maxX) / 2, (box.minY + box.maxY) / 2));
     expect(element0.hasState('active')).toBe(true);
-    setTimeout(() => {
-      expect(element0.shape.get('children')[0].attr('stroke')).toBe('green');
-    }, 0);
+
+    await delay(10);
+    expect(element0.shape.get('children')[0].attr('stroke')).toBe('green');
   });
 });
