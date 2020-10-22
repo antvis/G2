@@ -7,28 +7,34 @@ order: 2
 
 ## 通用属性
 
-| 参数名        | 类型      | 描述                |
-| ------------ | -------  | ------------------ |
-| type         | string   | 是否对数据进行排序    |
-| formatter    | function | 主题配置            |
-| range        | array    | 是否可见            |
-| alias        | string   | 是否连接空值         |
-| tickCount    | Number   | 是否连接空值         |
-| ticks        | array    | 是否连接空值         |
-| sync         | boolean  | 是否连接空值         |
+| 参数名        | 类型               | 描述                |
+| ------------ | -------           | ------------------ |
+| type         | string            | 度量类型，支持的类型：[identity](/zh/docs/api/general/scale/#identity)，[linear](/zh/docs/api/general/scale/#linear)，[cat](/zh/docs/api/general/scale/#cat)，[log](/zh/docs/api/general/scale/#log)，[pow](/zh/docs/api/general/scale/#pow)，[time](/zh/docs/api/general/scale/#time)，[timeCat](/zh/docs/api/general/scale/#timecat)    |
+| formatter    | function(value, index) | 格式化函数，用于格式化坐标轴刻度点的文本显示，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示            |
+| range        | array             | 输出数据的范围，数值类型的默认值为 [0, 1]，格式为 [min, max]，min 和 max 均为 0 至 1 范围的数据            |
+| alias        | string            | 数据字段显示别名         |
+| tickCount    | Number            | 坐标轴上刻度点的个数，不同的度量类型对应不同的默认值         |
+| ticks        | array             | 用于指定坐标轴上刻度点的文本信息，当用户设置了 ticks 就会按照 ticks 的个数和文本来显示          |
+| sync         | boolean \| string | 当 chart 存在不同数据源的 view 时，用于统一相同数据属性的值域范围。效果参考 [demo](/zh/examples/area/range)       |
 
 ## 通用方法
-|方法名  | 描述|
-|--------|------|
-|scale(value)   | 将数据转换到 [0, 1] 之间         |
-|invert(value)  |将 [0, 1] 之间的数据转换至原始数据  |
-|getTicks()     |获取坐标轴需要的 ticks            |
-|getText(value)  |格式化具体的一个值                |
+|方法名  | 类型       | 描述|
+|----------|--------|------|
+|scale     |(value: any): number    | 将数据转换到 [0, 1] 之间          |
+|invert    |(scaled: number): any   |将 [0, 1] 之间的数据转换至原始数据   |
+|getTicks  |(): Tick[]              |获取坐标轴需要的 ticks             |
+|getText   |(value: any): string    |格式化具体的一个值                 |
 
 
 ## type 类型
 
-### linear
+### 常量分度
+
+#### identity
+
+### 连续分度
+
+#### linear
 
 | 属性名 | 说明 |
 | --- | --- |
@@ -43,7 +49,7 @@ order: 2
 | tickInterval | 用于指定坐标轴各个标度点的间距，是原始数据之间的间距差值，**tickCount 和 tickInterval 不可以同时声明。** |
 | minTickInterval | 不明确指定 tickInterval 时，生成刻度的最小间距。例如不想出现 0.2, 0.4 这种情况下设置 minTickInterval: 2<br /> |
 
-### cat
+#### cat
 
 | 属性名 | 说明 |
 | --- | --- |
@@ -98,7 +104,7 @@ chart.render();
 
 ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*P1wlQroZTm4AAAAAAAAAAABkARQnAQ)
 
-### log
+#### log
 
 | 属性名 | 说明 |
 | --- | --- |
@@ -115,7 +121,7 @@ chart.render();
 
 注：最小值和最大值悬殊非常大时可以用 log 平滑一下数据。
 
-### pow
+#### pow
 
 | 属性名 | 说明 |
 | --- | --- |
@@ -132,7 +138,9 @@ chart.render();
 
 注：最小值和最大值悬殊非常大时可以用 pow 平滑一下数据。
 
-### time
+### 分类/非连续分度
+
+#### time
 
 是 linear 度量的一种，连续的时间度量类型，**默认会对数据做排序**。
 
@@ -157,7 +165,7 @@ chart.render();
 
 2. 时间字符串： '2015-03-01'，'2015-03-01 12:01:40'，'2015/01/05'，'2015-03-01T16:00:00.000Z'。
 
-### timeCat
+#### timeCat
 
 时间分类类型，是一种分类类型的时间度量类型，**默认会对数据做排序**。timeCat 不同于 time，是一种有序的分类数据。
 
