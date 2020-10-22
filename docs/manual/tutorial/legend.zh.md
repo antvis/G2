@@ -53,7 +53,7 @@ chart.legend(false); //所有的图例都不显示
 | onHover | 自定义图例项鼠标 hover 事件，hoverable 为 false 不生效 | -- |
 | onClick | 自定义图例项点击事件， clickable 为 false 不生效 | -- |
 
-![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*P-YLRIz37LYAAAAAAAAAAABkARQnAQ)
+![image](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*P-YLRIz37LYAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const data = [
@@ -127,7 +127,7 @@ chart.legend({
 });
 ```
 
-![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*eOg6QoQBF48AAAAAAAAAAABkARQnAQ)
+![image](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*eOg6QoQBF48AAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const data = [
@@ -289,7 +289,7 @@ chart.render();
 
 G2 支持使用 html 渲染图例，方式非常简单，只要声明 `useHtml: true` 即可。
 
-![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*yM9ST7j9BfsAAAAAAAAAAABkARQnAQ)
+![image](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*yM9ST7j9BfsAAAAAAAAAAABkARQnAQ)
 
 ```js
 chart.legend({

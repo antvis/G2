@@ -44,7 +44,7 @@ const chart = new G2.Chart({
 
 ## SVG demo
 
-![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*eiaYS5pNy2kAAAAAAAAAAABkARQnAQ)
+![image](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*eiaYS5pNy2kAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const data = [{

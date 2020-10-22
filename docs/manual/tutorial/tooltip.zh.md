@@ -3,7 +3,7 @@ title: Tooltip 提示信息
 order: 11
 ---
 
-提示信息 (tooltip)，是指当鼠标悬停在图表上的某点时，以提示框的形式展示该点的数据，比如该点的值，数据单位等。tooltip 内显示的信息完全可以通过格式化函数动态指定；通过调用 `chart.tooltip(false)` 即可不启用提示信息功能。![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*te0lTYZW4vsAAAAAAAAAAABkARQnAQ)
+提示信息 (tooltip)，是指当鼠标悬停在图表上的某点时，以提示框的形式展示该点的数据，比如该点的值，数据单位等。tooltip 内显示的信息完全可以通过格式化函数动态指定；通过调用 `chart.tooltip(false)` 即可不启用提示信息功能。![image](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*te0lTYZW4vsAAAAAAAAAAABkARQnAQ)
 
 ## tooltip 配置语法
 
@@ -45,7 +45,7 @@ chart.tooltip({
 });
 ```
 
-![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*EmOjSqE1J3cAAAAAAAAAAABkARQnAQ)
+![image](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*EmOjSqE1J3cAAAAAAAAAAABkARQnAQ)
 
 更详细的配置请查看 [tooltip api](/zh/docs/api/general/tooltip)。
 
@@ -59,7 +59,7 @@ chart.<geom>.tooltip('field1*field2...*fieldN');
 
 这个时候 tooltip 的显示内容如下：
 
-![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*S-2UR7Y9T_AAAAAAAAAAAABkARQnAQ)
+![image](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*S-2UR7Y9T_AAAAAAAAAAAABkARQnAQ)
 
 * 使用回调函数自定义 tooltip 信息，默认情况下 tooltip 的每一项包含以下信息：
 
@@ -94,7 +94,7 @@ tooltip 的目的是为了展示数据点相关的数据，具体展示的内容
 
 如果 G2 默认生成的 tooltip 展示内容不满足需求，用户可以通过调用几何标记的 tooltip 方法手动指定要显示的 tooltip 内容。
 
-![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*HJCMRagKWsUAAAAAAAAAAABkARQnAQ)
+![image](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*HJCMRagKWsUAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const data = [
@@ -186,7 +186,7 @@ chart.line().position('x*y').tooltip('x*y', (x, y) => {
 );
 ```
 
-![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*TOvNSbXMCHoAAAAAAAAAAABkARQnAQ)
+![image](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*TOvNSbXMCHoAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const data = [
@@ -222,7 +222,7 @@ chart.render();
 
 #### 监听 tooltip:change 事件
 
-![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*1c8nS5unE1kAAAAAAAAAAABkARQnAQ)
+![image](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*1c8nS5unE1kAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const data = [ // 数据
@@ -420,7 +420,7 @@ const point = {
 
 另外还提供了 `chart.getXY({xField: value, yField: value})` 方法，用于获取数据对应在画布空间的坐标。
 
-![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ABTzTqRgUbkAAAAAAAAAAABkARQnAQ)
+![image](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ABTzTqRgUbkAAAAAAAAAAABkARQnAQ)
 
 ```javascript
 const data = [
