@@ -1,5 +1,5 @@
 ---
-title: 多边形 Polygon
+title: 多边形 polygon
 order: 5
 ---
 
