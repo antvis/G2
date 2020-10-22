@@ -57,6 +57,14 @@ module.exports = {
         order: 2,
       },
       {
+        slug: 'manual/tutorial',
+        title: {
+          zh: '教程和文章',
+          en: 'Tutorials',
+        },
+        order: 3,
+      },
+      {
         slug: 'api/general',
         title: {
           zh: 'G2 详细手册',
