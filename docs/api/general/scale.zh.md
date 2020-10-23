@@ -5,6 +5,52 @@ order: 2
 
 度量（Scale）用于定义数据的类型和展示方式。
 
+## 度量的使用
+
+G2 对外提供的度量接口有多个，这其中包含度量定义的接口、度量获取的接口。
+
+### 度量定义
+
+可以在 Chart 和 View 上对度量进行定义，支持的接口有：
+
+- `chart.scale(defs: object)` 同时设置多个度量。
+
+```javascript
+chart.scale({
+  x: {
+    min: 0,
+    max: 100,
+  },
+  y: {
+    min: 100,
+    max: 1000,
+  },
+});
+```
+
+- `chart.scale(field: string, cfg: object)` 定义单个度量。
+
+```javascript
+chart.scale('x', {
+  min: 0,
+  max: 100,
+});
+
+chart.scale('y', {
+  min: 100,
+  max: 1000,
+});
+```
+
+### 获取度量的方法
+
+可以在 Chart 和 View 上获取度量
+
+- chart.getScalesByDim('x'|'y') 获取 x, y 轴对应的度量，注意：多轴图时 y 轴可能有多个度量对应。
+- chart.getScaleByField(filed) 根据字段名获取度量
+
+获取到度量后可以使用 [度量的属性](#通用属性) 和 [度量的方法](#通用方法)。
+
 ## 通用属性
 
 | 参数名    | 类型                   | 描述                                                                                                                                                                                                                                                                                                                                                                                                                                      |
@@ -50,8 +96,6 @@ order: 2
 | formatter       | 回调函数，用于格式化坐标轴刻度点的文本显示，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示。                                            |
 | ticks           | 用于指定坐标轴上刻度点的文本信息，当用户设置了 ticks 就会按照 ticks 的个数和文本来显示。                                                        |
 | tickCount       | 定义坐标轴刻度线的条数，默认为 5                                                                                                                |
-| tickInterval    | 用于指定坐标轴各个标度点的间距，是原始数据之间的间距差值，**tickCount 和 tickInterval 不可以同时声明。**                                        |
-| minTickInterval | 不明确指定 tickInterval 时，生成刻度的最小间距。例如不想出现 0.2, 0.4 这种情况下设置 minTickInterval: 2<br />                                   |
 
 #### time
 
@@ -64,7 +108,6 @@ order: 2
 | max          | 最大值                                                                                                                                  |
 | mask         | 数据的格式化格式 默认：'yyyy-mm-dd',                                                                                                    |
 | tickCount    | 坐标点的个数，默认是 5，但不一定是准确值。                                                                                              |
-| tickInterval | 用于指定坐标轴各个标度点的间距，是原始数据之间的间距差值，**time 类型需要转换成时间戳**，**tickCount 和 tickInterval 不可以同时声明。** |
 | alias        | 别名                                                                                                                                    |
 | range        | 输出数据的范围，默认 [0, 1]，格式为 [min, max]，min 和 max 均为 0 至 1 范围的数据。                                                     |
 | formatter    | 回调函数，用于格式化坐标轴刻度点的文本显示，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示。                                    |
@@ -91,7 +134,6 @@ order: 2
 | formatter    | 回调函数，用于格式化坐标轴刻度点的文本显示，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示。     |
 | ticks        | 用于指定坐标轴上刻度点的文本信息，当用户设置了 ticks 就会按照 ticks 的个数和文本来显示。                 |
 | tickCount    | 定义坐标轴刻度线的条数，默认为 5                                                                         |
-| tickInterval | 用于指定坐标轴各个标度点的间距，是原始数据之间的间距差值，**tickCount 和 tickInterval 不可以同时声明。** |
 
 注：最小值和最大值悬殊非常大时可以用 log 平滑一下数据。
 
@@ -108,7 +150,6 @@ order: 2
 | formatter    | 回调函数，用于格式化坐标轴刻度点的文本显示，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示。     |
 | ticks        | 用于指定坐标轴上刻度点的文本信息，当用户设置了 ticks 就会按照 ticks 的个数和文本来显示。                 |
 | tickCount    | 定义坐标轴刻度线的条数，默认为 5                                                                         |
-| tickInterval | 用于指定坐标轴各个标度点的间距，是原始数据之间的间距差值，**tickCount 和 tickInterval 不可以同时声明。** |
 
 注：最小值和最大值悬殊非常大时可以用 pow 平滑一下数据。
 
