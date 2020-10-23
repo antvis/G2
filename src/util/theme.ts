@@ -136,6 +136,8 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
         strokeOpacity: styleSheet.lineBorderOpacity,
         fill: null,
         lineAppendWidth: 10,
+        lineCap: 'round',
+        lineJoin: 'round',
       },
       active: {
         lineWidth: styleSheet.lineActiveBorder,
