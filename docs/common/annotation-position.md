@@ -4,7 +4,7 @@
 
 定位位置。
 
-```ts
+```sign
 type AnnotationPosition =
   | [number | string, number | string]
   | Record<string, number | string>

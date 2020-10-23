@@ -7,11 +7,11 @@ order: 2
 
 第一种 传入以字段名为 key，_ScaleOption_ 为 value 的配置，同时设置多个字段的度量。
 
-```ts
-// highlight-start
+```sign
 (field: Record<string, ScaleOption>) => View;
-// highlight-end
+```
 
+```ts
 chart.scale({
   sale: {
     min: 0,
@@ -22,11 +22,11 @@ chart.scale({
 
 第二种 定义单个字段的度量，第一个参数为字段名，第二个参数为 _ScaleOption_。
 
-```ts
-// highlight-start
+```sign
 (field: string, scaleOption: ScaleOption) => View;
-// highlight-end
+```
 
+```ts
 chart.scale('sale', {
   min: 0,
   max: 100,
@@ -35,11 +35,11 @@ chart.scale('sale', {
 
 第三种 作为第一种和第二种的结合，第一个参数以字段名为 key，_ScaleOption_ 为 value，第二个参数传入 _ScaleOption_ 配置
 
-```ts
-// highlight-start
+```sign
 (field: Record<string, ScaleOption>, scaleOption?: ScaleOption) => View;
-// highlight-end
+```
 
+```ts
 chart.scale(
   {
     sale: {
