@@ -13,11 +13,11 @@ chart.legend(false); // 关闭图例
 
 第二种，传入 _LegendCfg_ 对图例进行整体配置。
 
-```ts
-// highlight-start
+```sign
 (field: legendOption) => View;
-// highlight-end
+```
 
+```ts
 chart.legend({
   position: 'right',
 });
@@ -25,11 +25,11 @@ chart.legend({
 
 第三种，对 field 字段对应的图例进行配置。
 
-```ts
-// highlight-start
+```sign
 (field: string, legendOption) => View;
-// highlight-end
+```
 
+```ts
 // 关闭某个图例，通过数据字段名进行关联
 view.legend('city', false);
 

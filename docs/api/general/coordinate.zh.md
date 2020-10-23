@@ -7,11 +7,11 @@ order: 3
 
 第一种 直接传入 _CoordinateOption_ 配置。
 
-```ts
-// highlight-start
+```sign
 (option?: CoordinateOption) => CoordinateController;
-// highlight-end
+```
 
+```ts
 chart.coordinate({
   type: 'polar',
   cfg: {
@@ -68,11 +68,11 @@ chart
 
 第二种 第一个参数指明坐标系类型，第二个参数传入 _CoordinateOption_ 配置。
 
-```ts
-// highlight-start
+```sign
 (type: string, coordinateCfg?: CoordinateCfg): CoordinateController;
-// highlight-end
+```
 
+```ts
 // 创建极坐标，并设定半径为 0.85
 chart.coordinate('polar', { radius: 0.85 });
 
@@ -82,8 +82,6 @@ chart.coordinate();
 
 第三种 是第一种和第二种的结合
 
-```ts
-// highlight-start
+```sign
 (type: string | CoordinateOption, coordinateCfg?: CoordinateCfg): CoordinateController
-// highlight-end
 ```

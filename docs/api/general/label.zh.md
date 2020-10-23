@@ -13,21 +13,21 @@ geometry.label(false);
 
 第二种 传入字段名，在每个图形上显示对应的字段对应的数值。
 
-```ts
-// highlight-start
+```sign
 (field: string) => Geometry;
-// highlight-end
+```
 
+```ts
 geometry.label('x');
 ```
 
 第三种 传入字段名和配置项，配置显示细节
 
-```ts
-// highlight-start
+```sign
 (field: string, secondParam: GeometryLabelCfg) => Geometry;
-// highlight-end
+```
 
+```ts
 // 在每个图形上显示 x 字段对应的数值，同时配置文本颜色为红色
 geometry.label('x', {
   style: {
@@ -38,13 +38,12 @@ geometry.label('x', {
 
 第四种 通过回调函数返回值做配置
 
-```ts
-// highlight-start
+```sign
 (field: string, secondParam: LabelCallback) => Geometry;
-
 type LabelCallback = (...args: any[]) => GeometryLabelCfg | null | undefined;
-// highlight-end
+```
 
+```ts
 label('x', (xValue) => {
   return {
     content: xValue + '%',
@@ -54,20 +53,15 @@ label('x', (xValue) => {
 
 第五种 传入回调函数配置和配置项。 即调用方法三，和调用方法四的结合。
 
-```ts
-// highlight-start
+```sign
 (field: string, secondParam: LabelCallback, thirdParam: GeometryLabelCfg) => Geometry;
-
 type LabelCallback = (...args: any[]) => GeometryLabelCfg | null | undefined;
-// highlight-end
 ```
 
 第六种 通过 LabelOption 配置
 
-```ts
-// highlight-start
+```sign
 (option: LabelOption) => Geometry;
-// highlight-end
 
 interface LabelOption {
   field: string[];
@@ -119,9 +113,7 @@ g2 默认指定 label 类型，其中极坐标默认为 `polar`，theta 坐标�
 // 示例 https://g2.antv.vision/zh/examples/pie/basic#pie-custome-label
 
 // 3. GeometryLabelContentCallback 回调函数为
-// highlight-start
 type GeometryLabelContentCallback = (data: any, mappingData: MappingDatum, index: number) => string | IGroup | IShape;
-// highlight-end
 
 {
   content: (data, mappingData, index) => `x: ${data.x}, y: ${data.y}, z: ${data.z}`;
@@ -188,15 +180,15 @@ interface GeometryLabelLayoutCfg {
 
 _**IntervalGeometryLabelPositionCallback**_ 回调函数类型：
 
-```ts
-// highlight-start
+```sign
 type IntervalGeometryLabelPositionCallback = (
   data: Datum,
   mappingData: MappingDatum,
   index: number
 ) => 'top' | 'left' | 'right' | 'bottom' | 'middle';
-// highlight-end
+```
 
+```ts
 {
   position: (data, mappingData, index) => {
     if (data.x > 0) {
