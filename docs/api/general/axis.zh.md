@@ -6,18 +6,16 @@ order: 5
 第一种 传入 `boolean` 配置是否显示坐标轴。
 
 ```ts
-// highlight-start
 view.axis(false); // 不展示坐标轴
-// highlight-end
 ```
 
 第二种 对特定的某条坐标轴进行配置。
 
-```ts
-// highlight-start
+```sign
 axis(field: string, axisOption: AxisOption) => View
-// highlight-end
+```
 
+```ts
 // 不展示 'city' 字段对应的坐标轴
 chart.axis('city', false);
 

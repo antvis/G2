@@ -20,11 +20,11 @@ geometry.adjust(['stack', 'dodge']);
 
 第三种，通过 _AdjustOption_ 进行配置。
 
-```ts
-// highlight-start
+```sign
 (adjustCfg: AdjustOption | AdjustOption[]): Geometry
-// highlight-end
+```
 
+```ts
 geometry.adjust([{ type: 'stack' }, { type: 'dodge', dodgeBy: 'x' }]);
 ```
 

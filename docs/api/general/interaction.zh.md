@@ -3,11 +3,11 @@ title: 交互 - Interaction
 order: 17
 ---
 
-```ts
-// highlight-start
+```sign
 (name: string, cfg?: object) => View;
-// highlight-end
+```
 
+```ts
 chart.interaction('my-interaction', { extra: 'hello world' });
 ```
 
