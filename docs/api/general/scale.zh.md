@@ -3,236 +3,223 @@ title: 度量 - Scale
 order: 2
 ---
 
-度量（Scale）用于定义数据的类型和展示方式。
+度量（Scale）用于定义数据的类型和展示方式，scale 有三种传入方式：
 
-## 度量的使用
+第一种 传入以字段名为 key，_ScaleOption_ 为 value 的配置，同时设置多个字段的度量。
 
-G2 对外提供的度量接口有多个，这其中包含度量定义的接口、度量获取的接口。
+```ts
+// highlight-start
+(field: Record<string, ScaleOption>) => View;
+// highlight-end
 
-### 度量定义
-
-可以在 Chart 和 View 上对度量进行定义，支持的接口有：
-
-- `chart.scale(defs: object)` 同时设置多个度量。
-
-```javascript
 chart.scale({
-  x: {
+  sale: {
     min: 0,
     max: 100,
   },
-  y: {
-    min: 100,
-    max: 1000,
-  },
 });
 ```
 
-- `chart.scale(field: string, cfg: object)` 定义单个度量。
+第二种 定义单个字段的度量，第一个参数为字段名，第二个参数为 _ScaleOption_。
 
-```javascript
-chart.scale('x', {
+```ts
+// highlight-start
+(field: string, scaleOption: ScaleOption) => View;
+// highlight-end
+
+chart.scale('sale', {
   min: 0,
   max: 100,
 });
-
-chart.scale('y', {
-  min: 100,
-  max: 1000,
-});
 ```
 
-### 获取度量的方法
+第三种 作为第一种和第二种的结合，第一个参数以字段名为 key，_ScaleOption_ 为 value，第二个参数传入 _ScaleOption_ 配置
 
-可以在 Chart 和 View 上获取度量
+```ts
+// highlight-start
+(field: Record<string, ScaleOption>, scaleOption?: ScaleOption) => View;
+// highlight-end
 
-- chart.getScalesByDim('x'|'y') 获取 x, y 轴对应的度量，注意：多轴图时 y 轴可能有多个度量对应。
-- chart.getScaleByField(filed) 根据字段名获取度量
-
-获取到度量后可以使用 [度量的属性](#通用属性) 和 [度量的方法](#通用方法)。
-
-## 通用属性
-
-| 参数名    | 类型                   | 描述                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| --------- | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| type      | string                 | 度量类型，支持的类型：[identity](/zh/docs/api/general/scale/#identity), [linear](/zh/docs/api/general/scale/#linear), [time](/zh/docs/api/general/scale/#time), [log](/zh/docs/api/general/scale/#log), [pow](/zh/docs/api/general/scale/#pow), [quantize](/zh/docs/api/general/scale/#quantize), [quantile](/zh/docs/api/general/scale/#quantile),[cat](/zh/docs/api/general/scale/#cat), [timeCat](/zh/docs/api/general/scale/#timecat) |
-| formatter | function(value, index) | 格式化函数，用于格式化坐标轴刻度点的文本显示，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示                                                                                                                                                                                                                                                                                                                                      |
-| range     | array                  | 输出数据的范围，数值类型的默认值为 [0, 1]，格式为 [min, max]，min 和 max 均为 0 至 1 范围的数据                                                                                                                                                                                                                                                                                                                                           |
-| alias     | string                 | 数据字段显示别名                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| tickCount | Number                 | 坐标轴上刻度点的个数，不同的度量类型对应不同的默认值                                                                                                                                                                                                                                                                                                                                                                                      |
-| ticks     | array                  | 用于指定坐标轴上刻度点的文本信息，当用户设置了 ticks 就会按照 ticks 的个数和文本来显示                                                                                                                                                                                                                                                                                                                                                    |
-| sync      | boolean \| string      | 当 chart 存在不同数据源的 view 时，用于统一相同数据属性的值域范围。效果参考 [demo](/zh/examples/area/range)                                                                                                                                                                                                                                                                                                                               |
-
-## 通用方法
-
-| 方法名   | 类型                  | 描述                               |
-| -------- | --------------------- | ---------------------------------- |
-| scale    | (value: any): number  | 将数据转换到 [0, 1] 之间           |
-| invert   | (scaled: number): any | 将 [0, 1] 之间的数据转换至原始数据 |
-| getTicks | (): Tick[]            | 获取坐标轴需要的 ticks             |
-| getText  | (value: any): string  | 格式化具体的一个值                 |
-
-## type 类型
-
-### 常量分度
-
-#### identity
-
-常量类型的数值，也就是说数据的某个字段是不变的常量。
-
-### 连续分度
-
-#### linear
-
-线性度量，连续的数字 [1, 2, 3, 4, 5]。
-
-| 属性名          | 说明                                                                                                                                            |
-| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| alias           | 别名                                                                                                                                            |
-| nice            | 默认为 true，用于优化数值范围，使绘制的坐标轴刻度线均匀分布。例如原始数据的范围为 [3, 97]，如果 nice 为 true，那么就会将数值范围调整为 [0, 100] |
-| min             | 定义数值范围的最小值                                                                                                                            |
-| max             | 定义数值范围的最大值                                                                                                                            |
-| range           | 输出数据的范围，默认 [0, 1]，格式为 [min, max]，min 和 max 均为 0 至 1 范围的数据。                                                             |
-| formatter       | 回调函数，用于格式化坐标轴刻度点的文本显示，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示。                                            |
-| ticks           | 用于指定坐标轴上刻度点的文本信息，当用户设置了 ticks 就会按照 ticks 的个数和文本来显示。                                                        |
-| tickCount       | 定义坐标轴刻度线的条数，默认为 5                                                                                                                |
-
-#### time
-
-是 linear 度量的一种，连续的时间度量类型，**默认会对数据做排序**。
-
-| 属性名       | 说明                                                                                                                                    |
-| ------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
-| nice         | 是否将 ticks 进行优化，变更数据的最小值、最大值，使得每个 tick 都是用户易于理解的数据                                                   |
-| min          | 最小值                                                                                                                                  |
-| max          | 最大值                                                                                                                                  |
-| mask         | 数据的格式化格式 默认：'yyyy-mm-dd',                                                                                                    |
-| tickCount    | 坐标点的个数，默认是 5，但不一定是准确值。                                                                                              |
-| alias        | 别名                                                                                                                                    |
-| range        | 输出数据的范围，默认 [0, 1]，格式为 [min, max]，min 和 max 均为 0 至 1 范围的数据。                                                     |
-| formatter    | 回调函数，用于格式化坐标轴刻度点的文本显示，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示。                                    |
-| ticks        | 用于指定坐标轴上刻度点的文本信息，当用户设置了 ticks 就会按照 ticks 的个数和文本来显示。                                                |
-
-> 说明：mask 的占位符标准同 [moment](https://momentjs.com/docs/#/displaying/format/);
-
-目前 G2 会自动识别如下形式的时间格式，当用户需要生成 time 类型的度量时，建议将原始时间数据转换为如下形式：
-
-1. 时间戳，如 1436237115500；
-
-2. 时间字符串： '2015-03-01'，'2015-03-01 12:01:40'，'2015/01/05'，'2015-03-01T16:00:00.000Z'。
-
-#### log
-
-| 属性名       | 说明                                                                                                     |
-| ------------ | -------------------------------------------------------------------------------------------------------- |
-| nice         | 是否将 ticks 进行优化，变更数据的最小值、最大值，使得每个 tick 都是用户易于理解的数据                    |
-| min          | 最小值                                                                                                   |
-| max          | 最大值                                                                                                   |
-| base         | Log 的基数，默认是 2                                                                                     |
-| alias        | 别名                                                                                                     |
-| range        | 输出数据的范围，默认 [0, 1]，格式为 [min, max]，min 和 max 均为 0 至 1 范围的数据。                      |
-| formatter    | 回调函数，用于格式化坐标轴刻度点的文本显示，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示。     |
-| ticks        | 用于指定坐标轴上刻度点的文本信息，当用户设置了 ticks 就会按照 ticks 的个数和文本来显示。                 |
-| tickCount    | 定义坐标轴刻度线的条数，默认为 5                                                                         |
-
-注：最小值和最大值悬殊非常大时可以用 log 平滑一下数据。
-
-#### pow
-
-| 属性名       | 说明                                                                                                     |
-| ------------ | -------------------------------------------------------------------------------------------------------- |
-| nice         | 是否将 ticks 进行优化，变更数据的最小值、最大值，使得每个 tick 都是用户易于理解的数据                    |
-| min          | 最小值                                                                                                   |
-| max          | 最大值                                                                                                   |
-| exponent     | 指数，默认 2                                                                                             |
-| alias        | 别名                                                                                                     |
-| range        | 输出数据的范围，默认 [0, 1]，格式为 [min, max]，min 和 max 均为 0 至 1 范围的数据。                      |
-| formatter    | 回调函数，用于格式化坐标轴刻度点的文本显示，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示。     |
-| ticks        | 用于指定坐标轴上刻度点的文本信息，当用户设置了 ticks 就会按照 ticks 的个数和文本来显示。                 |
-| tickCount    | 定义坐标轴刻度线的条数，默认为 5                                                                         |
-
-注：最小值和最大值悬殊非常大时可以用 pow 平滑一下数据。
-
-#### quantize
-
-分段度量，用户可以指定不均匀的分段。
-
-#### quantile
-
-分度量，根据数据的分布自动计算分段。
-
-### 分类/非连续分度
-
-#### cat
-
-| 属性名    | 说明                                                                                                 |
-| --------- | ---------------------------------------------------------------------------------------------------- |
-| alias     | 别名                                                                                                 |
-| range     | 输出数据的范围，默认 [0, 1]，格式为 [min, max]，min 和 max 均为 0 至 1 范围的数据。                  |
-| formatter | 回调函数，用于格式化坐标轴刻度点的文本显示，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示。 |
-| ticks     | 用于指定坐标轴上刻度点的文本信息，当用户设置了 ticks 就会按照 ticks 的个数和文本来显示。             |
-| tickCount | 定义坐标轴刻度线的条数，默认为 5                                                                     |
-| values    | 具体的分类的值，一般用于指定具体的顺序和枚举的对应关系                                               |
-
-`values` 属性常用于 2 个场景：
-
-1. 需要制定分类的顺序时，例如：c 字段有'最大','最小'和'适中'3 种类型，我们想指定这些数值在坐标轴或者图例上的显示顺序时：
-
-```javascript
-const defs = {
-  c: {
-    type: 'cat',
-    values: ['最小', '适中', '最大'],
+chart.scale(
+  {
+    sale: {
+      min: 0,
+      max: 100,
+    },
   },
-};
+  {
+    nice: true,
+  }
+);
 ```
 
-1. 数据字段中的数据是数值类型，但是需要转换成分类类型，**这个时候需要注意原始数据必须是索引值**。
+_ScaleOption_ 配置如下：
 
-```javascript
+### ScaleOption.type
+
+<description> _string_ **optional**</description>
+
+声明度量类型：
+
+| 度量类型 | 描述                                                                                                                                                                                                                |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 分类度量 | - cat: 分类度量 <br /> - timeCat: 时间分类度量                                                                                                                                                                      |
+| 连续度量 | - linear: 线性度量 <br /> - time：连续的时间度量 <br /> - log: log 度量 <br /> - pow: pow 度量 <br /> - quantize：分段度量，用户可以指定不均匀的分段 <br /> - quantile: 等分度量，根据数据的分布自动计算分段 <br /> |
+| 常量度量 | - identity: 常量度量                                                                                                                                                                                                |
+
+### ScaleOption.key
+
+<description> _boolean_ **optional**</description>
+
+用于声明使用数据记录中的哪些字段来组成一条数据的唯一 id（如有多个字段，则使用 '-' 连接）。G2 内部会有一套默认的 id 生成规则，如果不能满足用户需求，用户可以使用该属性配置 id。数据 id 用于标识 Element 图形元素，应用于 Geometry 中的图形元素 Element 更新。
+
+下面的例子中，声明了将 'x' 和 'y' 字段的数值来作为每条数据记录的 id，即下面数据两条数据的 id 分别为：'1-23' 和 '2-2'。
+
+```js
 const data = [
-  { month: 0, tem: 7, city: 'tokyo' },
-  { month: 1, tem: 6.9, city: 'tokyo' },
-  { month: 2, tem: 9.5, city: 'tokyo' },
-  { month: 3, tem: 14.5, city: 'tokyo' },
-  { month: 4, tem: 18.2, city: 'tokyo' },
-  { month: 5, tem: 21.5, city: 'tokyo' },
-  { month: 6, tem: 25.2, city: 'tokyo' },
+  { x: 1, y: 23, z: 'a' },
+  { x: 2, y: 2, z: 'b' },
 ];
-const defs = {
-  month: {
-    type: 'cat',
-    values: ['一月', '二月', '三月', '四月', '五月', '六月', '七月'], // 这时候 month 的原始值是索引值
-  },
-};
 
-const chart = new G2.Chart({
-  id: 'c1',
-  width: 400,
-  height: 250,
+chart.scale({
+  x: { key: true },
+  y: { key: true },
 });
-chart.source(data, defs);
-chart.interval().position('month*tem').color('month');
-chart.render();
 ```
 
-![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*P1wlQroZTm4AAAAAAAAAAABkARQnAQ)
+### ScaleOption.showLast
 
-#### timeCat
+<description> _boolean_ **optional**</description>
 
-时间分类类型，是一种分类类型的时间度量类型，**默认会对数据做排序**。timeCat 不同于 time，是一种有序的分类数据。
+只对 type: 'time' 的 scale 生效，强制显示最后的日期 tick。
 
-例如股票交易的日期，此时如果使用 time 类型，那么由于节假日没有数据，折线图、k 线图就会发生断裂，所以此时需要使用 timeCat 类型度量将日期转换为有序的分类数据，该度量默认会对数据做排序，如下图所示：
+### ScaleOption.sync
 
-![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*DOS8Q6MmfpMAAAAAAAAAAABkARQnAQ)
+<description> _boolean | string_ **optional**</description>
 
-| 属性名    | 说明                                                                                                 |
-| --------- | ---------------------------------------------------------------------------------------------------- |
-| nice      | 是否将 ticks 进行优化，变更数据的最小值、最大值，使得每个 tick 都是用户易于理解的数据                |
-| mask      | 数据的格式化格式 默认：'yyyy-mm-dd',                                                                 |
-| tickCount | 坐标点的个数，默认是 5。但不一定是准确值                                                             |
-| values    | 具体的分类的值，一般用于指定具体的顺序和枚举的对应关系                                               |
-| alias     | 别名                                                                                                 |
-| range     | 输出数据的范围，默认 [0, 1]，格式为 [min, max]，min 和 max 均为 0 至 1 范围的数据。                  |
-| formatter | 回调函数，用于格式化坐标轴刻度点的文本显示，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示。 |
-| ticks     | 用于指定坐标轴上刻度点的文本信息，当用户设置了 ticks 就会按照 ticks 的个数和文本来显示。             |
+```ts
+chart.scale({
+  x: { sync: true },
+  y: { sync: true },
+  x1: { sync: 'x1' },
+  x2: { sync: 'x1' },
+});
+```
+
+同步 scale。sync: `boolean` 即为 sync: \[key\]，如上例中 `x: { sync: true }` 等同于 `x: { sync: 'x' }`，`y: { sync: true }` 等同于 `y: { sync: 'y' }`，所以，通过以上配置，会分别对 x 和 y 两个字段，x1 和 x2 两个字段进行同步度量操作。
+
+### ScaleOption.field
+
+<description> _string_ **optional**</description>
+
+对应的字段属性名。
+
+### ScaleOption.values
+
+<description> _any[]_ **optional**</description>
+
+输入域、定义域。
+
+### ScaleOption.range
+
+<description> _[number, number]_ **optional** _default:_ `[0, 1]`</description>
+
+输出域、值域，表示在绘图范围内可用于绘制的范围。
+
+### ScaleOption.min
+
+<description> _any_ **optional**</description>
+
+定义域的最小值，d3 为 domain，ggplot2 为 limits，分类型下可以指定。
+
+### ScaleOption.max
+
+<description> _any_ **optional**</description>
+
+定义域的最大值，分类型下可以指定。
+
+### ScaleOption.minLimit
+
+<description> _any_ **optional**</description>
+
+严格模式下的定义域最小值，设置后会强制 ticks 从最小值开始。
+
+### ScaleOption.maxLimit
+
+<description> _any_ **optional**</description>
+
+严格模式下的定义域最大值，设置后会强制 ticks 以最大值结束。
+
+### ScaleOption.alias
+
+<description> _string_ **optional**</description>
+
+数据字段的显示别名，scale 内部不感知，外部注入。
+
+### ScaleOption.base
+
+<description> _number_ **optional**</description>
+
+log 有效，底数。
+
+### ScaleOption.exponent
+
+<description> _number_ **optional**</description>
+
+pow 有效，指数。
+
+### ScaleOption.nice
+
+<description> _boolean_ **optional**</description>
+
+自动调整 min、max 。
+
+### ScaleOption.ticks
+
+<description> _any[]_ **optional**</description>
+
+用于指定 tick，优先级最高。
+
+### ScaleOption.tickInterval
+
+<description> _number_ **optional**</description>
+
+tick 间隔，只对分类型和时间型适用，优先级高于 tickCount。
+
+### ScaleOption.minTickInterval
+
+<description> _number_ **optional**</description>
+
+tick 最小间隔，只对分类型和时间型适用。
+
+### ScaleOption.tickCount
+
+<description> _number_ **optional** _default:_ `5`</description>
+
+tick 个数。
+
+### ScaleOption.maxTickCount
+
+<description> _number_ **optional** _default:_ `10`</description>
+
+ticks 最大值。
+
+### ScaleOption.formatter
+
+<description> _(v: any, k?: number) => any_ **optional**</description>
+
+tick 格式化函数，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示。
+
+### ScaleOption.tickMethod
+
+<description> _string | TickMethod_ **optional**</description>
+
+计算 ticks 的算法。
+
+### ScaleOption.mask
+
+<description> _string_ **optional**</description>
+
+时间度量 time, timeCat 时有效。
+
+</div>
