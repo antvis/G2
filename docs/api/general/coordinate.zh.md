@@ -1,5 +1,5 @@
 ---
-title: 坐标系及其调整 - Coordinate
+title: 坐标系 - Coordinate
 order: 3
 ---
 
