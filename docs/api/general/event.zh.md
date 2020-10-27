@@ -118,7 +118,7 @@ chart.on('element:click', (ev) => {
 
 - 除了 element 是通用的事件前缀外，所有的 geometry 的 type 就是他们的事件前缀
 - heatmap 由于未创建任何 element 所以不支持任何事件前缀
-- element 上的获取返回的数据有些是单条数据，有些是多条数据的集合
+- element 上的获取返回的数据有些是单条数据，有些是一组数据的集合
 
 ```ts
 chart.on('line:click', (ev) => {
