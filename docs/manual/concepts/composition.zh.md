@@ -11,7 +11,7 @@ order: 4
 
 几何标记（Geometry），即我们所说的点、线、面这些几何图形，在 G2 中几何标记的类型决定了生成图表的类型，也就是数据被可视化后的实际表现，不同的几何标记都包含对应的图形属性 Attribute。
 
-查看 [Geometry 教程](manual/concepts/geometry)获取更多信息。
+查看 [Geometry 教程](geometry/overview)获取更多信息。
 
 ## 坐标轴 Axis
 
@@ -19,34 +19,34 @@ order: 4
 
 每个坐标轴由坐标轴线（line）、刻度线（tickLine）、刻度文本（label）、标题（title）以及网格线（grid）组成。
 
-查看 [Axis 教程](api/general/axis)获取更多信息
+查看 [Axis API](../../api/general/axis)获取更多信息
 
 ## 图例 Legend
 
 图例作为图表的辅助元素，用于标定不同的数据类型以及数据的范围，辅助阅读图表，帮助用户在图表中进行数据的筛选过滤。
 
-查看 [Legend 教程](api/general/legend)获取更多信息。
+查看 [Legend API](../../api/general/legend)获取更多信息。
 
 ## 提示信息 Tooltip
 
 当鼠标悬停在某个点上时，会以提示框的形式显示当前点对应的数据的信息，比如该点的值，数据单位等。数据提示框内提示的信息还可以通过格式化函数动态指定。
 
-查看 [Tooltip 教程](api/general/tooltip)获取更多信息。
+查看 [Tooltip API](../../api/general/tooltip)获取更多信息。
 
 ## 辅助标记 Annotation
 
 当需要在图表上绘制一些辅助线、辅助框或者图片时，比如增加平均值线、最高值线或者标示明显的范围区域时，可以使用辅助标记 annotation。
 
-查看 [Annotation 教程](api/general/annotation)获取更多信息。
+查看 [Annotation API](../../api/general/annotation)获取更多信息。
 
 ## 缩略轴 Slider
 
 当图表中数据量比较多，用户希望关注数据集中在某个特殊区域的时候，可以使用缩略轴组件。缩略轴较适用于折线图。
 
-查看 [Slider 教程](api/general/slider)获取更多信息。
+查看 [Slider API](../../api/general/slider)获取更多信息。
 
 ## 滚动条 Scrollbar
 
 当图表中数据量比较多多，也可以适用滚动条组件来一次只浏览一部分数据。滚动条组件提供水平滚动条、和垂直滚动条。滚动条组件较适用于柱形图和条形图。
 
-查看 [Scrollbar 教程](api/general/scrollbar)获取更多信息。
+查看 [Scrollbar API](../../api/general/scrollbar)获取更多信息。
