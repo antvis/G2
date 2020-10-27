@@ -107,8 +107,10 @@ chart.on('element:click', (ev) => {
 
 - element：所有的 geometry 的 element 都支持的事件前缀
 - line: 折线图支持的前缀
+- area: 面积图支持的前缀
 - interval: 柱状图、直方图、饼图 等支持的事件前缀
 - point：点图、气泡图等支持的前缀
+- polygon：方块图等支持的前缀
 - schema：k 线图、箱型图支持的事件前缀
 - edge: 边支持的前缀
 
