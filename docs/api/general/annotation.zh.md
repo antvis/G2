@@ -209,3 +209,59 @@ line 长度。
 `markdown:docs/common/annotation-position.md`
 
 `markdown:docs/common/annotation-base-option.md`
+
+### chart.annotation().shape(option)
+
+自定义任意类型的图形标记，通过 option 中的 render 回调函数来在图表区域绘制自定义标记。option 配置如下：
+
+#### option.render
+
+<description> _(
+container: IGroup,
+view: View,
+helpers: { parsePosition: (position: [string | number, string | number] | Datum) => Point }
+) => void_ </description>
+
+自定义标记的绘制 render 函数，其他 _container_ 为标记绘制的父容器, _view_ 为图形实例, _helpers_ 为辅助函数，其他 _parserPosition_ 可以用来计算数据点对应的坐标位置
+
+`markdown:docs/common/annotation-base-option.md`
+
+### chart.annotation().html(option)
+
+自定义任意 HTML 类型的图形标记，通过 option 中的 html 配置来在图表中使用 HTML DOM 元素来添加图形标记。option 配置如下：
+
+#### option.container
+
+<description> _string_ | _HTMLElement_ **optional** </description>
+
+可选，自定义 HTML 图形标记的容器元素
+
+#### options.html
+
+<description> _string_ | _HTMLElement_ | _((container: HTMLElement, view: View) => void | string | HTMLElement)_ </description>
+
+自定义的图形标记的 HTML 元素，可为 HTML DOM 字符串，或 HTML 元素，或 html 回调函数
+
+#### option.alignX
+
+<description> _'left'_ | _'middle'_ | _'right'_ **optional** _default:_ 'left' </description>
+
+DOM 元素在 X 方向的对齐方式
+
+#### option.alignY
+
+<description> _'top'_ | _'middle'_ | _'bottom'_ **optional** _default:_ 'top'</description>
+
+DOM 元素在 Y 方向的对齐方式
+
+#### option.offsetX
+
+<description> _number_ **optional** </description>
+
+X 方向的偏移
+
+#### option.offsetY
+
+<description> _number_ **optional** </description>
+
+Y 方向的偏移
