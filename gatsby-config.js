@@ -21,6 +21,8 @@ module.exports = {
       '3.x': 'https://g2-v3.antv.vision/',
       '2.x': 'https://antv.vision/old-site/g2/doc/index.html',
     },
+    showChartResize: true, // 是否在demo页展示图表视图切换
+    showAPIDoc: true, // 是否在demo页展示API文档
     navs: [
       {
         slug: 'docs/manual',
