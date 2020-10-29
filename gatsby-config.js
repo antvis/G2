@@ -57,18 +57,19 @@ module.exports = {
         order: 2,
       },
       {
-        slug: 'manual/concepts/geometry',
-        title: {
-          zh: '几何图形',
-          en: 'Geometry',
-        },
-        order: 2,
         slug: 'manual/tutorial',
         title: {
           zh: '教程和文章',
           en: 'Tutorials',
         },
         order: 3,
+      },
+      {
+        slug: 'manual/concepts/geometry',
+        title: {
+          zh: '几何图形',
+          en: 'Geometry',
+        },
       },
       {
         slug: 'api/general',
