@@ -1,12 +1,12 @@
-import { deepMix, each, get, isArray, isFunction, isString } from '@antv/util';
+import { deepMix, each, get, isArray, isEmpty, isEqual, isFunction, isString } from '@antv/util';
+import { propagationDelegate } from '@antv/component/lib/util/event';
 import { doAnimate } from '../../animate';
 import Base from '../../base';
 import { BBox, IGroup, IShape } from '../../dependents';
 import { AnimateOption, Datum, ShapeFactory, ShapeInfo, StateCfg } from '../../interface';
 import { getReplaceAttrs } from '../../util/graphics';
 import Geometry from '../base';
-
-import { propagationDelegate } from '@antv/component/lib/util/event';
+import { GEOMETRY_LIFE_CIRCLE } from '../../constant';
 
 /** Element 构造函数传入参数类型 */
 interface ElementCfg {
@@ -111,7 +111,7 @@ export default class Element extends Base {
     newShape.cfg.element = this;
 
     // step 3: 同步 shape 样式
-    this.syncShapeStyle(shape, newShape, '', this.getAnimateCfg('update'));
+    this.syncShapeStyle(shape, newShape, this.getStates(), this.getAnimateCfg('update'));
   }
 
   /**
@@ -229,12 +229,10 @@ export default class Element extends Base {
     const offscreenShape = shapeFactory.drawShape(shapeType, model, this.getOffscreenGroup());
     if (states.length) {
       // 应用当前状态
-      states.forEach((state) => {
-        this.syncShapeStyle(shape, offscreenShape, state, null);
-      });
+      this.syncShapeStyle(shape, offscreenShape, states, null);
     } else {
       // 如果没有状态，则需要恢复至原始状态
-      this.syncShapeStyle(shape, offscreenShape, 'reset', null);
+      this.syncShapeStyle(shape, offscreenShape, ['reset'], null);
     }
 
     offscreenShape.remove(true); // 销毁，减少内存占用
@@ -361,7 +359,19 @@ export default class Element extends Base {
   private getAnimateCfg(animateType: string) {
     const animate = this.animate;
     if (animate) {
-      return animate[animateType];
+      const cfg = animate[animateType];
+
+      if (cfg) {
+        // 增加动画的回调函数，如果外部传入了，则先执行外部，然后发射 geometry 的 animate 事件
+        return {
+          ...cfg,
+          callback: () => {
+            isFunction(cfg.callback) && cfg.callback();
+            this.geometry?.emit(GEOMETRY_LIFE_CIRCLE.AFTER_DRAW_ANIMATE);
+          },
+        }
+      }
+      return cfg;
     }
 
     return null;
@@ -391,6 +401,9 @@ export default class Element extends Base {
       const animateType = isUpdate ? 'enter' : 'appear';
       const animateCfg = this.getAnimateCfg(animateType);
       if (animateCfg) {
+        // 开始执行动画的生命周期
+        this.geometry?.emit(GEOMETRY_LIFE_CIRCLE.BEFORE_DRAW_ANIMATE);
+
         doAnimate(this.shape, animateCfg, {
           coordinate: shapeFactory.coordinate,
           toAttrs: {
@@ -429,7 +442,7 @@ export default class Element extends Base {
   private syncShapeStyle(
     sourceShape: IGroup | IShape,
     targetShape: IGroup | IShape,
-    state: string = '',
+    states: string[] = [],
     animateCfg,
     index: number = 0
   ) {
@@ -438,36 +451,40 @@ export default class Element extends Base {
     const newClip = targetShape.get('clipShape');
 
     if (clip && newClip) {
-      this.syncShapeStyle(clip, newClip, state, animateCfg);
+      this.syncShapeStyle(clip, newClip, states, animateCfg);
     }
 
     if (sourceShape.isGroup()) {
       const children = sourceShape.get('children');
       const newChildren = targetShape.get('children');
       for (let i = 0; i < children.length; i++) {
-        this.syncShapeStyle(children[i], newChildren[i], state, animateCfg, index + i);
+        this.syncShapeStyle(children[i], newChildren[i], states, animateCfg, index + i);
       }
     } else {
-      if (state && state !== 'reset') {
+      if (!isEmpty(states) && !isEqual(states, ['reset'])) {
         let name = sourceShape.get('name');
         if (isArray(name)) {
           // 会附加 element 的 name
           name = name[1];
         }
-        const style = this.getStateStyle(state, name || index); // 如果用户没有设置 name，则默认根据索引值
-        targetShape.attr(style);
+
+        each(states, (state) => {
+          const style = this.getStateStyle(state, name || index); // 如果用户没有设置 name，则默认根据索引值
+          targetShape.attr(style);
+        })
       }
       const newAttrs = getReplaceAttrs(sourceShape as IShape, targetShape as IShape);
 
       if (this.animate) {
         if (animateCfg) {
+          this.geometry?.emit(GEOMETRY_LIFE_CIRCLE.BEFORE_DRAW_ANIMATE);
           // 需要进行动画
           doAnimate(sourceShape, animateCfg, {
             coordinate: this.shapeFactory.coordinate,
             toAttrs: newAttrs,
             shapeModel: this.model,
           });
-        } else if (state) {
+        } else if (isEmpty(states)) {
           sourceShape.stopAnimate();
           sourceShape.animate(newAttrs, {
             duration: 300,

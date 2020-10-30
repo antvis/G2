@@ -1,4 +1,4 @@
-import { deepMix, get, isObject, size, clamp, isNil, noop, throttle, groupBy, keys } from '@antv/util';
+import { deepMix, get, isObject, size, clamp, isNil, noop, throttle, groupBy, keys, isEmpty } from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER, VIEW_LIFE_CIRCLE } from '../../constant';
 import { IGroup, Slider as SliderComponent } from '../../dependents';
 import { ComponentOption, Datum, Padding } from '../../interface';
@@ -63,7 +63,8 @@ export default class Slider extends Controller<SliderOption> {
       this.end = end;
     }
 
-    if (this.option) {
+    const { data: viewData } = this.view.getOptions();
+    if (this.option && !isEmpty(viewData)) {
       if (this.slider) {
         // exist, update
         this.slider = this.updateSlider();
@@ -139,7 +140,7 @@ export default class Slider extends Controller<SliderOption> {
    * 创建 slider 组件
    */
   private createSlider(): ComponentOption {
-    const cfg = this.getSliderCfg();
+    const cfg: any = this.getSliderCfg();
     // 添加 slider 组件
     const component = new SliderComponent({
       container: this.container,
@@ -276,7 +277,7 @@ export default class Slider extends Controller<SliderOption> {
     const dataSize = size(data);
 
     if (!xScale || !dataSize) {
-      return;
+      return {}; // fix: 需要兼容，否则调用方直接取值会报错
     }
 
     const xTickCount = size(xValues);

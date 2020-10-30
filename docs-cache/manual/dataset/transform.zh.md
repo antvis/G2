@@ -585,7 +585,7 @@ dv.transform({
   type: 'bin.rectangle',
   fields: ['a', 'b'], // 对应坐标轴上的一个点
   bins: [30, 30], // 两个方向上的分箱个数
-  binsWidth: [10, 10], // 两个方向上的分箱步长（会覆盖bins配置）
+  binWidth: [10, 10], // 两个方向上的分箱步长（会覆盖bins配置）
   offset: [0, 0], // 两个方向上的分箱偏移量
   sizeByCount: false, // 是否根据分箱个数调整分箱大小
   as: ['x', 'y', 'count'], // 这个点落在的六边形的顶点坐标集
