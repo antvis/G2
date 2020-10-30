@@ -74,6 +74,13 @@ module.exports = {
         },
       },
       {
+        slug: 'manual/concepts/component',
+        title: {
+          zh: '图形组件',
+          en: 'Components',
+        },
+      },
+      {
         slug: 'api/general',
         title: {
           zh: 'G2 详细手册',
