@@ -423,6 +423,8 @@ export interface RegisterShapeFactory {
   readonly defaultShapeType: string;
   /** 返回绘制 shape 所有的关键点集合。 */
   readonly getDefaultPoints?: (pointInfo: ShapePoint) => Point[];
+  /** 获取 shape 的默认绘制样式 */
+  readonly getDefaultStyle?: (geometryTheme: LooseObject) => LooseObject;
   /** 获取 shape 对应的缩略图配置。 */
   readonly getMarker?: (shapeType: string, markerCfg: ShapeMarkerCfg) => ShapeMarkerAttrs;
   /** 创建具体的 G.Shape 实例。 */
@@ -558,6 +560,34 @@ export interface RegionFilterOption extends RegionPositionBaseOption {
   readonly color: string;
   /* 可选,设定regionFilter只对特定geom类型起作用，如apply:['area'] */
   readonly apply?: string[];
+}
+
+/** Shape Annotation 的配置 */
+export interface ShapeAnnotationOption extends AnnotationBaseOption {
+  /** 自定义 Annotation 绘制函数 */
+  render: (
+    container: IGroup,
+    view: View,
+    helpers: { parsePosition: (position: [string | number, string | number] | Datum) => Point }
+  ) => void;
+}
+
+/**
+ * Html Annotation 配置
+ */
+export interface HtmlAnnotationOption extends PointPositionBaseOption {
+  /** 容器元素 */
+  container?: string | HTMLElement;
+  /** 自定义 HTML DOM 元素 */
+  html: string | HTMLElement | ((container: HTMLElement, view: View) => void | string | HTMLElement);
+  /** X 方向对齐 */
+  alignX?: 'left' | 'middle' | 'right';
+  /** Y 方向对齐 */
+  alignY?: 'top' | 'middle' | 'bottom';
+  /** X 方向偏移 */
+  offsetX?: number;
+  /** Y 方向偏移 */
+  offsetY?: number;
 }
 
 // ============================ Chart && View 上的类型定义 ============================
@@ -721,7 +751,8 @@ export interface ViewOption {
 }
 
 /** Chart 构造方法的入参 */
-export interface ChartCfg extends Omit<ViewCfg, 'parent' | 'canvas' | 'foregroundGroup' | 'middleGroup' | 'backgroundGroup' | 'region'> {
+export interface ChartCfg
+  extends Omit<ViewCfg, 'parent' | 'canvas' | 'foregroundGroup' | 'middleGroup' | 'backgroundGroup' | 'region'> {
   /** 指定 chart 绘制的 DOM，可以传入 DOM id，也可以直接传入 dom 实例。 */
   readonly container: string | HTMLElement;
   /** 图表宽度。 */
@@ -834,6 +865,8 @@ export interface LegendItem {
   value: any;
   /** 图形标记 */
   marker?: MarkerCfg;
+  /** 初始是否处于未激活状态 */
+  unchecked?: boolean;
 }
 
 export interface G2LegendTitleCfg extends LegendTitleCfg {
@@ -1175,7 +1208,7 @@ export interface TooltipCfg {
   /** tooltip 偏移量。 */
   offset?: number;
   /** 支持自定义模板 */
-  customContent?: (title: string, data: any[]) =>  string | HTMLElement;
+  customContent?: (title: string, data: any[]) => string | HTMLElement;
 }
 
 /** 坐标系配置 */

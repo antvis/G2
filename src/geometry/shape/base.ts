@@ -1,3 +1,4 @@
+import { LooseObject } from '@antv/g-svg';
 import { parsePathString } from '@antv/path-util';
 import { deepMix, get, upperFirst } from '@antv/util';
 import { IGroup, IShape, PathCommand } from '../../dependents';
@@ -54,6 +55,12 @@ const ShapeFactoryBase = {
    */
   getDefaultPoints() {
     return [];
+  },
+  /**
+   * 获取 shape 的默认绘制样式 (内置的 shapeFactory 均有注册默认样式)
+   */
+  getDefaultStyle(geometryTheme: LooseObject): LooseObject {
+    return get(geometryTheme, [this.defaultShapeType, 'default', 'style'], {});
   },
   /**
    * 获取 shape 对应的缩略图配置信息。

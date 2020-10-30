@@ -2,7 +2,7 @@ import { clone, isPlainObject, lowerCase, mix } from '@antv/util';
 import { View } from '../chart';
 import { LooseObject } from '../interface';
 import GrammarInteraction, { InteractionSteps } from './grammar-interaction';
-import { InteractonConstructor } from './interaction';
+import { InteractionConstructor } from './interaction';
 
 const Interactions: LooseObject = {};
 
@@ -11,7 +11,7 @@ const Interactions: LooseObject = {};
  * @param name 交互名字
  * @returns 交互类
  */
-export function getInteraction(name: string): InteractionSteps | InteractonConstructor {
+export function getInteraction(name: string): InteractionSteps | InteractionConstructor {
   return Interactions[lowerCase(name)];
 }
 
@@ -20,7 +20,7 @@ export function getInteraction(name: string): InteractionSteps | InteractonConst
  * @param name 交互行为名字
  * @param interaction 交互类
  */
-export function registerInteraction(name: string, interaction: InteractionSteps | InteractonConstructor) {
+export function registerInteraction(name: string, interaction: InteractionSteps | InteractionConstructor) {
   Interactions[lowerCase(name)] = interaction;
 }
 
@@ -40,7 +40,7 @@ export function createInteraction(name: string, view: View, cfg?: LooseObject) {
     const steps = mix(clone(interaciton), cfg) as InteractionSteps;
     return new GrammarInteraction(view, steps);
   } else {
-    const cls = interaciton as InteractonConstructor;
+    const cls = interaciton as InteractionConstructor;
     return new cls(view, cfg);
   }
 }

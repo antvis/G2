@@ -1,14 +1,29 @@
-import { contains, deepMix, each, get, isArray, isFunction, isNil, isString, keys, upperFirst } from '@antv/util';
-
-import { Annotation as AnnotationComponent, IElement, IGroup, Scale } from '../../dependents';
+import {
+  contains,
+  deepMix,
+  each,
+  get,
+  isArray,
+  isFunction,
+  isNil,
+  isString,
+  keys,
+  upperFirst,
+  find,
+  includes,
+} from '@antv/util';
+import { Annotation as AnnotationComponent, IElement, IGroup } from '../../dependents';
 import {
   AnnotationBaseOption as BaseOption,
   AnnotationPosition as Position,
   ArcOption,
   ComponentOption,
+  ShapeAnnotationOption,
   Data,
   DataMarkerOption,
   DataRegionOption,
+  Datum,
+  HtmlAnnotationOption,
   ImageOption,
   LineOption,
   Point,
@@ -19,14 +34,19 @@ import {
 } from '../../interface';
 
 import { DEFAULT_ANIMATE_CFG } from '../../animate/';
-import { COMPONENT_TYPE, DIRECTION, LAYER, VIEW_LIFE_CIRCLE } from '../../constant';
+import { COMPONENT_TYPE, DIRECTION, GEOMETRY_LIFE_CIRCLE, LAYER, VIEW_LIFE_CIRCLE } from '../../constant';
 
 import Geometry from '../../geometry/base';
 import Element from '../../geometry/element';
 import { getAngleByPoint, getDistanceToCenter } from '../../util/coordinate';
 import { omit } from '../../util/helper';
+import { getNormalizedValue } from '../../util/annotation';
 import View from '../view';
 import { Controller } from './base';
+import { Scale } from '@antv/attr';
+
+/** 需要在图形绘制完成后才渲染的辅助组件类型列表 */
+const ANNOTATIONS_AFTER_RENDER = ['regionFilter', 'shape'];
 
 /**
  * Annotation controller, 主要作用:
@@ -55,128 +75,51 @@ export default class Annotation extends Controller<BaseOption[]> {
 
   public init() {}
 
+  /**
+   * 因为 annotation 需要依赖坐标系信息，所以 render 阶段为空方法，实际的创建逻辑都在 layout 中
+   */
   public layout() {
-    const components = this.getComponents();
-    const updateComponentFn = (co: ComponentOption) => {
-      const { component, extra } = co;
-      const { type } = extra;
-      const theme = this.getAnnotationTheme(type);
-
-      component.update(this.getAnnotationCfg(type, extra, theme));
-    };
-    const createComponentFn = (option: BaseOption) => {
-      const co = this.createAnnotation(option);
-      if (co) {
-        co.component.init();
-        // Note：regionFilter 特殊处理，regionFilter需要取到 Geometry 中的 Shape，需要在 view render 之后处理
-        // 其他组件使用外层的统一 render 逻辑
-        if (option.type === 'regionFilter') {
-          co.component.render();
-        }
-        // 缓存起来
-        this.cache.set(option, co);
-      }
-    };
-
-    if (components.length) {
-      each(components, (co: ComponentOption) => {
-        const { component } = co;
-
-        if (component.get('type') === 'regionFilter') {
-          // regionFilter 依赖绘制后的 Geometry Shapes
-          this.view.getRootView().once(VIEW_LIFE_CIRCLE.AFTER_RENDER, () => {
-            updateComponentFn(co);
-          });
-        } else {
-          updateComponentFn(co);
-        }
-      });
-    } else {
-      each(this.option, (option: BaseOption) => {
-        if (option.type === 'regionFilter') {
-          this.view.getRootView().once(VIEW_LIFE_CIRCLE.AFTER_RENDER, () => {
-            // regionFilter 依赖绘制后的 Geometry Shapes
-            createComponentFn(option);
-          });
-        } else {
-          createComponentFn(option);
-        }
-      });
-    }
+    this.update();
   }
 
-  public render() {
-    // 因为 Annotation 不参与布局，但是渲染的位置依赖于坐标系，所以可以将绘制阶段延迟到 layout() 进行
-  }
+  // 因为 Annotation 不参与布局，但是渲染的位置依赖于坐标系，所以可以将绘制阶段延迟到 layout() 进行
+  public render() {}
 
   /**
    * 更新
    */
   public update() {
-    // 已经处理过的 legend
-    const updated = new WeakMap<BaseOption, true>();
-
-    const updateComponentFn = (option: BaseOption) => {
-      const { type } = option;
-      const theme = this.getAnnotationTheme(type);
-      const cfg = this.getAnnotationCfg(type, option, theme);
-
-      const existCo = this.cache.get(option);
-
-      // 存在，则更新
-      if (existCo) {
-        // 忽略掉一些配置
-        omit(cfg, ['container']);
-
-        existCo.component.update(cfg);
-        updated.set(option, true);
-      } else {
-        // 不存在，则创建
-        const co = this.createAnnotation(option);
-        if (co) {
-          co.component.init();
-          // Note：regionFilter 特殊处理，regionFilter需要取到 Geometry 中的 Shape，需要在 view render 之后处理
-          // 其他组件使用外层的统一 render 逻辑
-          if (option.type === 'regionFilter') {
-            co.component.render();
-          }
-          // 缓存起来
-          this.cache.set(option, co);
-          updated.set(option, true);
-        }
-      }
-    };
-
-    this.view.once(VIEW_LIFE_CIRCLE.AFTER_RENDER, () => {
-      // 先看是否有 regionFilter 要更新
+    // 1. 先处理需要在图形渲染之后的辅助组件 需要在 Geometry 完成之后，拿到图形信息
+    this.onAfterRender(() => {
+      const updated = new Map<BaseOption, ComponentOption>();
+      // 先看是否有 regionFilter/shape 要更新
       each(this.option, (option: BaseOption) => {
-        if (option.type === 'regionFilter') {
-          updateComponentFn(option);
+        if (includes(ANNOTATIONS_AFTER_RENDER, option.type)) {
+          const co = this.updateOrCreate(option);
+          // 存储已经处理过的
+          if (co) {
+            updated.set(this.getCacheKey(option), co);
+          }
         }
       });
 
+      // 处理完成之后，更新 cache
       // 处理完成之后，销毁删除的
-      // 不在处理中的
-      const newCache = new Map<BaseOption, ComponentOption>();
-
-      this.cache.forEach((value: ComponentOption, key: BaseOption) => {
-        if (updated.has(key)) {
-          newCache.set(key, value);
-        } else {
-          // 不存在，则是所有需要被销毁的组件
-          value.component.destroy();
-        }
-      });
-
-      // 更新缓存
-      this.cache = newCache;
+      this.cache = this.syncCache(updated);
     });
 
+    // 2. 处理非 regionFilter
+    const updateCache = new Map<BaseOption, ComponentOption>();
     each(this.option, (option: BaseOption) => {
-      if (option.type !== 'regionFilter') {
-        updateComponentFn(option);
+      if (!includes(ANNOTATIONS_AFTER_RENDER, option.type)) {
+        const co = this.updateOrCreate(option);
+        // 存储已经处理过的
+        if (co) {
+          updateCache.set(this.getCacheKey(option), co);
+        }
       }
     });
+    this.cache = this.syncCache(updateCache);
   }
 
   /**
@@ -213,6 +156,27 @@ export default class Annotation extends Controller<BaseOption[]> {
     });
 
     return co;
+  }
+
+  /**
+   * region filter 比较特殊的渲染时机
+   * @param doWhat
+   */
+  private onAfterRender(doWhat: () => void) {
+    if (this.view.getOptions().animate) {
+      this.view.geometries.forEach((g: Geometry) => {
+        // 如果 geometry 开启，则监听
+        if (g.animateOption) {
+          g.once(GEOMETRY_LIFE_CIRCLE.AFTER_DRAW_ANIMATE, () => {
+            doWhat();
+          });
+        }
+      });
+    } else {
+      this.view.getRootView().once(VIEW_LIFE_CIRCLE.AFTER_RENDER, () => {
+        doWhat();
+      });
+    }
   }
 
   private createAnnotation(option: BaseOption) {
@@ -346,6 +310,28 @@ export default class Annotation extends Controller<BaseOption[]> {
       ...option,
     });
   }
+
+  /**
+   * 创建 ShapeAnnotation
+   * @param option
+   */
+  public shape(option: ShapeAnnotationOption) {
+    this.annotation({
+      type: 'shape',
+      ...option,
+    });
+  }
+
+  /**
+   * 创建 HtmlAnnotation
+   * @param option
+   */
+  public html(option: HtmlAnnotationOption) {
+    this.annotation({
+      type: 'html',
+      ...option,
+    });
+  }
   // end API
 
   /**
@@ -353,7 +339,12 @@ export default class Annotation extends Controller<BaseOption[]> {
    * @param p Position
    * @returns { x, y }
    */
-  private parsePosition(p: Position): Point {
+  private parsePosition(
+    p:
+      | [string | number, string | number]
+      | Datum
+      | ((xScale: Scale, yScale: Scale) => [string | number, string | number] | number | Datum)
+  ): Point {
     const xScale = this.view.getXScale();
     // 转成 object
     const yScales = this.view.getScalesByDim('y');
@@ -373,17 +364,17 @@ export default class Annotation extends Controller<BaseOption[]> {
         return this.parsePercentPosition(position as [string, string]);
       }
 
-      x = this.getNormalizedValue(xPos, xScale);
-      y = this.getNormalizedValue(yPos, Object.values(yScales)[0]);
+      x = getNormalizedValue(xPos, xScale);
+      y = getNormalizedValue(yPos, Object.values(yScales)[0]);
     } else if (!isNil(position)) {
       // 入参是 object 结构，数据点
       for (const key of keys(position)) {
         const value = position[key];
         if (key === xScale.field) {
-          x = this.getNormalizedValue(value, xScale);
+          x = getNormalizedValue(value, xScale);
         }
         if (yScales[key]) {
-          y = this.getNormalizedValue(value, yScales[key]);
+          y = getNormalizedValue(value, yScales[key]);
         }
       }
     }
@@ -424,43 +415,6 @@ export default class Annotation extends Controller<BaseOption[]> {
     });
 
     return arr;
-  }
-
-  /**
-   * parse the value position
-   * @param val
-   * @param scale
-   */
-  private getNormalizedValue(val: number | string, scale: Scale) {
-    let result: number;
-    let scaled: number;
-
-    switch (val) {
-      case 'start':
-        result = 0;
-        break;
-      case 'end':
-        result = 1;
-        break;
-      case 'median': {
-        scaled = scale.isCategory ? (scale.values.length - 1) / 2 : (scale.min + scale.max) / 2;
-        result = scale.scale(scaled);
-        break;
-      }
-      case 'min':
-      case 'max':
-        if (scale.isCategory) {
-          scaled = val === 'min' ? 0 : scale.values.length - 1;
-        } else {
-          scaled = scale[val];
-        }
-        result = scale.scale(scaled);
-        break;
-      default:
-        result = scale.scale(val);
-    }
-
-    return result;
   }
 
   /**
@@ -516,6 +470,7 @@ export default class Annotation extends Controller<BaseOption[]> {
    */
   private getAnnotationCfg(type: string, option: any, theme: object): object {
     const coordinate = this.view.getCoordinate();
+    const canvas = this.view.getCanvas();
     let o = {};
 
     if (isNil(option)) {
@@ -622,6 +577,32 @@ export default class Annotation extends Controller<BaseOption[]> {
         start: this.parsePosition(start),
         end: this.parsePosition(end),
       };
+    } else if (type === 'shape') {
+      const { render, ...restOptions } = option as ShapeAnnotationOption;
+      const wrappedRender = (container: IGroup) => {
+        if (isFunction(option.render)) {
+          return render(container, this.view, { parsePosition: this.parsePosition.bind(this) });
+        }
+      };
+      o = {
+        ...restOptions,
+        render: wrappedRender,
+      };
+    } else if (type === 'html') {
+      const { html, position, ...restOptions } = option as HtmlAnnotationOption;
+      const wrappedHtml = (container: HTMLElement) => {
+        if (isFunction(html)) {
+          return html(container, this.view);
+        }
+        return html;
+      };
+      o = {
+        ...restOptions,
+        ...this.parsePosition(position),
+        // html 组件需要指定 parent
+        parent: canvas.get('el').parentNode,
+        html: wrappedHtml,
+      };
     }
     // 合并主题，用户配置优先级高于默认主题
     const cfg = deepMix({}, theme, {
@@ -631,7 +612,10 @@ export default class Annotation extends Controller<BaseOption[]> {
       offsetX: option.offsetX,
       offsetY: option.offsetY,
     });
-    cfg.container = this.getComponentContainer(cfg);
+    if (type !== 'html') {
+      // html 类型不使用 G container
+      cfg.container = this.getComponentContainer(cfg);
+    }
     cfg.animate = this.view.getOptions().animate && cfg.animate && get(option, 'animate', cfg.animate); // 如果 view 关闭动画，则不执行
     cfg.animateOption = deepMix({}, DEFAULT_ANIMATE_CFG, cfg.animateOption, option.animateOption);
 
@@ -659,5 +643,81 @@ export default class Annotation extends Controller<BaseOption[]> {
 
   private getAnnotationTheme(type: string) {
     return get(this.view.getTheme(), ['components', 'annotation', type], {});
+  }
+
+  /**
+   * 创建或者更新 annotation
+   * @param option
+   */
+  private updateOrCreate(option: BaseOption) {
+    // 拿到缓存的内容
+    let co = this.cache.get(this.getCacheKey(option));
+
+    // 存在则更新，不存在在创建
+    if (co) {
+      const { type } = option;
+      const theme = this.getAnnotationTheme(type);
+      const cfg = this.getAnnotationCfg(type, option, theme);
+
+      // 忽略掉一些配置
+      omit(cfg, ['container']);
+      co.component.update(cfg);
+      // 对于 regionFilter/shape，因为生命周期的原因，需要额外 render
+      if (includes(ANNOTATIONS_AFTER_RENDER, option.type)) {
+        co.component.render();
+      }
+    } else {
+      // 不存在，创建
+      co = this.createAnnotation(option);
+      if (co) {
+        co.component.init();
+        // Note：regionFilter/shape 特殊处理，regionFilter/shape 需要取到 Geometry 中的 Shape，需要在 view render 之后处理
+        // 其他组件使用外层的统一 render 逻辑
+        if (includes(ANNOTATIONS_AFTER_RENDER, option.type)) {
+          co.component.render();
+        }
+      }
+    }
+    return co;
+  }
+
+  /**
+   * 更新缓存，以及销毁组件
+   * @param updated 更新或者创建的组件
+   */
+  private syncCache(updated: Map<BaseOption, ComponentOption>) {
+    const newCache = new Map(this.cache); // clone 一份
+
+    // 将 update 更新到 cache
+    updated.forEach((co: ComponentOption, key: BaseOption) => {
+      newCache.set(key, co);
+    });
+
+    // 另外和 options 进行对比，删除
+    newCache.forEach((co: ComponentOption, key: BaseOption) => {
+      // option 中已经找不到，那么就是删除的
+      if (
+        !find(this.option, (option: BaseOption) => {
+          return key === this.getCacheKey(option);
+        })
+      ) {
+        co.component.destroy();
+        newCache.delete(key);
+      }
+    });
+
+    return newCache;
+  }
+
+  /**
+   * 获得缓存组件的 key
+   * @param option
+   */
+  private getCacheKey(option: BaseOption) {
+    // 如果存在 id，则使用 id string，否则直接使用 option 引用作为 key
+    return option;
+    // 后续扩展 id 用
+    // const id = get(option, 'id');
+    // return id ? id : option;
   }
 }

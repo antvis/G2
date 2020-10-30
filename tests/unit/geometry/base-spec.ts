@@ -1,12 +1,14 @@
 import { flatten } from '@antv/util';
 import 'jest-extended';
 import { Chart, getEngine } from '../../../src';
+import { GEOMETRY_LIFE_CIRCLE } from '../../../src/constant';
 import { getCoordinate } from '../../../src/dependents';
 import Geometry from '../../../src/geometry/base';
 import * as Shape from '../../../src/geometry/shape/base';
 import { LooseObject, ShapeInfo } from '../../../src/interface';
 import { getTheme } from '../../../src/theme/';
 import { createScaleByField, syncScale } from '../../../src/util/scale';
+import { delay } from '../../util/delay';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
 import { createScale, updateScales } from '../../util/scale';
 
@@ -824,5 +826,67 @@ describe('Geometry', () => {
     chart.render();
 
     expect(customInfo).toEqual({ hello: 'g2' });
+  });
+
+  it('geometry life circle', async () => {
+    const data = [
+      { year: '1991', value: 15468 },
+      { year: '1992', value: 16100 },
+      { year: '1993', value: 15900 },
+      { year: '1998', value: 32040 },
+    ];
+
+    const chart = new Chart({
+      container: createDiv(),
+      width: 500,
+      height: 400,
+    });
+
+    chart.data(data);
+    const geometry = chart.interval().position('year*valye');
+
+    const beforFn = jest.fn();
+    const afterFn = jest.fn();
+
+    // 无动画
+    geometry.animate(false);
+    geometry.once(GEOMETRY_LIFE_CIRCLE.BEFORE_DRAW_ANIMATE, () => beforFn(1));
+    geometry.once(GEOMETRY_LIFE_CIRCLE.AFTER_DRAW_ANIMATE, () => afterFn(1));
+    chart.render();
+
+    await delay(500);
+
+    expect(beforFn).not.toBeCalled();
+    expect(afterFn).not.toBeCalled();
+
+    // 有动画
+    geometry.animate(true);
+    geometry.once(GEOMETRY_LIFE_CIRCLE.BEFORE_DRAW_ANIMATE, () => beforFn(2));
+    geometry.once(GEOMETRY_LIFE_CIRCLE.AFTER_DRAW_ANIMATE, () => afterFn(2));
+    chart.changeSize(300, 300);
+
+    await delay(500);
+
+    expect(beforFn).toBeCalledWith(2);
+    expect(afterFn).toBeCalledWith(2);
+
+    const fn = jest.fn();
+    // 设置自定义动画
+    geometry.animate({
+      update: {
+        callback: fn,
+      }
+    });
+    geometry.once(GEOMETRY_LIFE_CIRCLE.BEFORE_DRAW_ANIMATE, () => beforFn(3));
+    geometry.once(GEOMETRY_LIFE_CIRCLE.AFTER_DRAW_ANIMATE, () => afterFn(3));
+    chart.changeSize(400, 400);
+
+    await delay(500);
+
+    // 自定义的 animate callback 也需要调用
+    expect(fn).toBeCalled();
+    expect(beforFn).toBeCalledWith(3);
+    expect(afterFn).toBeCalledWith(3);
+    expect(fn).toBeCalled();
   });
 });
