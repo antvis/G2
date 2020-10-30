@@ -7,7 +7,7 @@ order: 6
 
 使用例子：
 
-<playground path="column/basic/demo/scrollbar.ts"></playground>
+<playgroud path="column/basic/demo/scrollbar.ts"></playground>
 
 Scrollbar 在 G2 4.0 中作为内置组件，方便使用。
 

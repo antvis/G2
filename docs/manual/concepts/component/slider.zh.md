@@ -5,9 +5,9 @@ order: 5
 
 在 G2 绘制大数据量图表的时候，Slider 可以作为数据范围的选择插件，尤其适用于大数据量的图表绘制，帮助用户更好地关注某一范围的数据可视化结果。
 
-如下图所示：
+使用例子：
 
-![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*dJbXTrNo2qcAAAAAAAAAAABkARQnAQ)
+<playground path="area/basic/demo/area-large.ts"></playground>
 
 Slider 在 G2 4.0 中作为内置组件，方便使用。
 
@@ -66,7 +66,3 @@ chart.render();
 ## 配置项
 
 Slider 全量配置项见 [Slider API](../../../api/general/slider)
-
-## 实例
-
-[线上地址](../../../examples/area/basic#area-large)。

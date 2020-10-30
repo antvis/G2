@@ -43,6 +43,14 @@
         "en": "Spiral Column Chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ZwIQQYi3H3wAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "scrollbar.ts",
+      "title": {
+        "zh": "滚动条组件",
+        "en": "Scrollbar"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IkdWTaXf4vAAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

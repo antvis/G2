@@ -5,9 +5,9 @@ order: 5
 
 在 G2 绘制大数据量图表的时候，Slider 可以作为数据范围的选择插件，尤其适用于大数据量的图表绘制，帮助用户更好地关注某一范围的数据可视化结果。
 
-如下图所示：
+使用例子：
 
-![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*dJbXTrNo2qcAAAAAAAAAAABkARQnAQ)
+<playground path="area/basic/demo/area-large.ts"></playground>
 
 Slider 在 G2 4.0 中作为内置组件，方便使用。
 
@@ -65,41 +65,4 @@ chart.render();
 
 ## 配置项
 
-Slider 全量配置项如下：
-
-```typescript
-export interface TrendCfg {
-  // 数据
-  readonly data: number[];
-  // 样式
-  readonly smooth?: boolean;
-  readonly isArea?: boolean;
-  readonly backgroundStyle?: object;
-  readonly lineStyle?: object;
-  readonly areaStyle?: object;
-}
-
-export interface SliderOption {
-  // 缩略轴高度
-  readonly height?: number;
-
-  // 背景趋势的配置
-  readonly trendCfg?: TrendCfg;
-  readonly backgroundStyle?: any;
-  readonly foregroundStyle?: any;
-  readonly handlerStyle?: any;
-  readonly textStyle?: any;
-  // 允许滑动位置
-  readonly minLimit?: number;
-  readonly maxLimit?: number;
-  // 初始位置
-  readonly start?: number;
-  readonly end?: number;
-  /** 滑块文本格式化函数 */
-  readonly formatter?: (val: any, datum: Datum, idx: number) => any;
-}
-```
-
-## 实例
-
-[线上地址](../../../examples/area/basic#area-large)。
+Slider 全量配置项见 [Slider API](../../../api/general/slider)
