@@ -173,4 +173,4 @@ chart.facet('my-facet', MyFacetCfg);
 
 ## 源码参考
 
-具体的实现逻辑，可以参考 G2 源码中[ rect 分面](https://github.com/antvis/G2/blob/master/src/facet/rect.ts)的实现逻辑。
+具体的实现逻辑，可以参考 G2 源码中[rect 分面](https://github.com/antvis/G2/blob/master/src/facet/rect.ts)的实现逻辑。
