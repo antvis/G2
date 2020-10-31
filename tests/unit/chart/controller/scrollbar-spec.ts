@@ -24,6 +24,11 @@ describe('Scrollbar', () => {
       nice: true,
       formatter: (v) => `${Math.floor(v / 10000)}万`,
     });
+    chart.axis('subCategory', {
+      label: {
+        autoRotate: false,
+      },
+    });
     chart.interval().position('subCategory*sales').label('sales');
 
     chart.render();

@@ -48,7 +48,7 @@ chart
   .label('type', {
     offset: -10,
   })
-  .tooltip('name*percent', (item, percent) => {
+  .tooltip('type*percent', (item, percent) => {
     percent = (percent * 100).toFixed(2) + '%';
     return {
       name: item,

@@ -1,7 +1,7 @@
 import { View } from '../chart';
 import { LooseObject } from '../interface';
 
-export type InteractonConstructor = new (view: View, cfg: LooseObject) => Interaction;
+export type InteractionConstructor = new (view: View, cfg: LooseObject) => Interaction;
 
 /**
  * 交互的基类。

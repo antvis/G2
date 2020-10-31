@@ -1242,7 +1242,7 @@ export class View extends Base {
     const start = this.coordinateBBox.bl;
     const end = this.coordinateBBox.tr;
 
-    // 在 defaultLayoutFn 中只会在 coordinateBBox 发生变化的时候会调用 adjustCoorinate()，所以不用担心被置位
+    // 在 defaultLayoutFn 中只会在 coordinateBBox 发生变化的时候会调用 adjustCoordinate()，所以不用担心被置位
     if (isEqual(curStart, start) && isEqual(curEnd, end)) {
       this.isCoordinateChanged = false;
       // 如果大小没有变化则不更新

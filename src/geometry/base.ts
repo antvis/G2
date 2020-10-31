@@ -1367,6 +1367,9 @@ export default class Geometry extends Base {
     // 获取默认样式
     const theme = this.theme.geometries[this.shapeType];
     cfg.defaultStyle = get(theme, [shapeName, 'default'], {}).style;
+    if (!cfg.defaultStyle && this.getShapeFactory()) {
+      cfg.defaultStyle = this.getShapeFactory().getDefaultStyle(theme);
+    }
 
     const styleOption = this.styleOption;
     if (styleOption) {

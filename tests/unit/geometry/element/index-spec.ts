@@ -4,6 +4,7 @@ import Element from '../../../../src/geometry/element';
 import * as Shape from '../../../../src/geometry/shape/base';
 import '../../../../src/geometry/shape/interval';
 import { getTheme } from '../../../../src/theme/';
+import { omit } from '../../../util/omit';
 
 const Rect = getCoordinate('rect');
 const G = getEngine('canvas');
@@ -296,7 +297,7 @@ describe('Element', () => {
       };
 
       // @ts-ignore
-      expect(element.getAnimateCfg('update')).toEqual({
+      expect(omit(element.getAnimateCfg('update'), 'callback')).toEqual({
         delay: 1000,
       });
       // @ts-ignore
