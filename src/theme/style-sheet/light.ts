@@ -56,390 +56,394 @@ const QUALITATIVE_20 = [
   '#FFE0ED',
 ];
 
-export const antvLight = {
-  /** 图表背景色 */
-  backgroundColor: 'transparent',
-  /** 主题色 */
-  brandColor: QUALITATIVE_10[0],
-  /** 分类色板 1，在数据量小于等于 10 时使用 */
-  paletteQualitative10: QUALITATIVE_10,
-  /** 分类色板 2，在数据量大于 10 时使用 */
-  paletteQualitative20: QUALITATIVE_20,
-  /** 语义色 */
-  paletteSemanticRed: '#F4664A',
-  /** 语义色 */
-  paletteSemanticGreen: '#30BF78',
-  /** 语义色 */
-  paletteSemanticYellow: '#FAAD14',
-  /** 字体 */
-  fontFamily: `"-apple-system", "Segoe UI", Roboto, "Helvetica Neue", Arial,
-  "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-  "Noto Color Emoji"`,
+export function generateTheme(colors_10: string[] = QUALITATIVE_10, colors_20: string[] = QUALITATIVE_20) {
+  return {
+    /** 图表背景色 */
+    backgroundColor: 'transparent',
+    /** 主题色 */
+    brandColor: colors_10[0],
+    /** 分类色板 1，在数据量小于等于 10 时使用 */
+    paletteQualitative10: colors_10,
+    /** 分类色板 2，在数据量大于 10 时使用 */
+    paletteQualitative20: colors_20,
+    /** 语义色 */
+    paletteSemanticRed: '#F4664A',
+    /** 语义色 */
+    paletteSemanticGreen: '#30BF78',
+    /** 语义色 */
+    paletteSemanticYellow: '#FAAD14',
+    /** 字体 */
+    fontFamily: `"-apple-system", "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji"`,
 
-  // -------------------- 坐标轴 --------------------
-  /** 坐标轴线颜色 */
-  axisLineBorderColor: BLACK_COLORS[25],
-  /** 坐标轴线粗细 */
-  axisLineBorder: 1,
-  /** 坐标轴线 lineDash 设置 */
-  axisLineDash: null,
+    // -------------------- 坐标轴 --------------------
+    /** 坐标轴线颜色 */
+    axisLineBorderColor: BLACK_COLORS[25],
+    /** 坐标轴线粗细 */
+    axisLineBorder: 1,
+    /** 坐标轴线 lineDash 设置 */
+    axisLineDash: null,
 
-  /** 坐标轴标题颜色 */
-  axisTitleTextFillColor: BLACK_COLORS[65],
-  /** 坐标轴标题文本字体大小 */
-  axisTitleTextFontSize: 12,
-  /** 坐标轴标题文本行高 */
-  axisTitleTextLineHeight: 12,
-  /** 坐标轴标题文本字体粗细 */
-  axisTitleTextFontWeight: 'normal',
-  /** 坐标轴标题距离坐标轴文本的间距 */
-  axisTitleSpacing: 12,
+    /** 坐标轴标题颜色 */
+    axisTitleTextFillColor: BLACK_COLORS[65],
+    /** 坐标轴标题文本字体大小 */
+    axisTitleTextFontSize: 12,
+    /** 坐标轴标题文本行高 */
+    axisTitleTextLineHeight: 12,
+    /** 坐标轴标题文本字体粗细 */
+    axisTitleTextFontWeight: 'normal',
+    /** 坐标轴标题距离坐标轴文本的间距 */
+    axisTitleSpacing: 12,
 
-  /** 坐标轴刻度线颜色 */
-  axisTickLineBorderColor: BLACK_COLORS[25],
-  /** 坐标轴刻度线长度 */
-  axisTickLineLength: 4,
-  /** 坐标轴刻度线粗细 */
-  axisTickLineBorder: 1,
+    /** 坐标轴刻度线颜色 */
+    axisTickLineBorderColor: BLACK_COLORS[25],
+    /** 坐标轴刻度线长度 */
+    axisTickLineLength: 4,
+    /** 坐标轴刻度线粗细 */
+    axisTickLineBorder: 1,
 
-  /** 坐标轴次刻度线颜色 */
-  axisSubTickLineBorderColor: BLACK_COLORS[15],
-  /** 坐标轴次刻度线长度 */
-  axisSubTickLineLength: 2,
-  /** 坐标轴次刻度线粗细 */
-  axisSubTickLineBorder: 1,
+    /** 坐标轴次刻度线颜色 */
+    axisSubTickLineBorderColor: BLACK_COLORS[15],
+    /** 坐标轴次刻度线长度 */
+    axisSubTickLineLength: 2,
+    /** 坐标轴次刻度线粗细 */
+    axisSubTickLineBorder: 1,
 
-  /** 坐标轴刻度文本颜色 */
-  axisLabelFillColor: BLACK_COLORS[45],
-  /** 坐标轴刻度文本字体大小 */
-  axisLabelFontSize: 12,
-  /** 坐标轴刻度文本行高 */
-  axisLabelLineHeight: 12,
-  /** 坐标轴刻度文本字体粗细 */
-  axisLabelFontWeight: 'normal',
-  /** 坐标轴刻度文本距离坐标轴线的间距 */
-  axisLabelOffset: 8,
+    /** 坐标轴刻度文本颜色 */
+    axisLabelFillColor: BLACK_COLORS[45],
+    /** 坐标轴刻度文本字体大小 */
+    axisLabelFontSize: 12,
+    /** 坐标轴刻度文本行高 */
+    axisLabelLineHeight: 12,
+    /** 坐标轴刻度文本字体粗细 */
+    axisLabelFontWeight: 'normal',
+    /** 坐标轴刻度文本距离坐标轴线的间距 */
+    axisLabelOffset: 8,
 
-  /** 坐标轴网格线颜色 */
-  axisGridBorderColor: BLACK_COLORS[15],
-  /** 坐标轴网格线粗细 */
-  axisGridBorder: 1,
-  /** 坐标轴网格线虚线设置 */
-  axisGridLineDash: null,
+    /** 坐标轴网格线颜色 */
+    axisGridBorderColor: BLACK_COLORS[15],
+    /** 坐标轴网格线粗细 */
+    axisGridBorder: 1,
+    /** 坐标轴网格线虚线设置 */
+    axisGridLineDash: null,
 
-  // -------------------- 图例 --------------------
-  /** 图例标题颜色 */
-  legendTitleTextFillColor: BLACK_COLORS[45],
-  /** 图例标题文本字体大小 */
-  legendTitleTextFontSize: 12,
-  /** 图例标题文本行高 */
-  legendTitleTextLineHeight: 21,
-  /** 图例标题文本字体粗细 */
-  legendTitleTextFontWeight: 'normal',
+    // -------------------- 图例 --------------------
+    /** 图例标题颜色 */
+    legendTitleTextFillColor: BLACK_COLORS[45],
+    /** 图例标题文本字体大小 */
+    legendTitleTextFontSize: 12,
+    /** 图例标题文本行高 */
+    legendTitleTextLineHeight: 21,
+    /** 图例标题文本字体粗细 */
+    legendTitleTextFontWeight: 'normal',
 
-  /** 图例 marker 颜色 */
-  legendMarkerColor: QUALITATIVE_10[0],
-  /** 图例 marker 距离图例文本的间距 */
-  legendMarkerSpacing: 8,
-  /** 图例 marker 默认半径大小 */
-  legendMarkerSize: 4,
-  /** 图例 'circle' marker 半径 */
-  legendCircleMarkerSize: 4,
-  /** 图例 'square' marker 半径 */
-  legendSquareMarkerSize: 4,
-  /** 图例 'line' marker 半径 */
-  legendLineMarkerSize: 5,
+    /** 图例 marker 颜色 */
+    legendMarkerColor: colors_10[0],
+    /** 图例 marker 距离图例文本的间距 */
+    legendMarkerSpacing: 8,
+    /** 图例 marker 默认半径大小 */
+    legendMarkerSize: 4,
+    /** 图例 'circle' marker 半径 */
+    legendCircleMarkerSize: 4,
+    /** 图例 'square' marker 半径 */
+    legendSquareMarkerSize: 4,
+    /** 图例 'line' marker 半径 */
+    legendLineMarkerSize: 5,
 
-  /** 图例项文本颜色 */
-  legendItemNameFillColor: BLACK_COLORS[65],
-  /** 图例项文本字体大小 */
-  legendItemNameFontSize: 12,
-  /** 图例项文本行高 */
-  legendItemNameLineHeight: 12,
-  /** 图例项粗细 */
-  legendItemNameFontWeight: 'normal',
-  /** 图例项之间的水平间距 */
-  legendItemSpacing: 24,
-  /** 图例项垂直方向的间隔 */
-  legendItemMarginBottom: 12,
-  /** 图例与图表绘图区域的偏移距离  */
-  legendPadding: [8, 8, 8, 8],
+    /** 图例项文本颜色 */
+    legendItemNameFillColor: BLACK_COLORS[65],
+    /** 图例项文本字体大小 */
+    legendItemNameFontSize: 12,
+    /** 图例项文本行高 */
+    legendItemNameLineHeight: 12,
+    /** 图例项粗细 */
+    legendItemNameFontWeight: 'normal',
+    /** 图例项之间的水平间距 */
+    legendItemSpacing: 24,
+    /** 图例项垂直方向的间隔 */
+    legendItemMarginBottom: 12,
+    /** 图例与图表绘图区域的偏移距离  */
+    legendPadding: [8, 8, 8, 8],
 
-  /** 连续图例滑块填充色 */
-  sliderRailFillColor: BLACK_COLORS[15],
-  /** 连续图例滑块边框粗细 */
-  sliderRailBorder: 0,
-  /** 连续图例滑块边框颜色 */
-  sliderRailBorderColor: null,
-  /** 连续图例滑块宽度 */
-  sliderRailWidth: 100,
-  /** 连续图例滑块高度 */
-  sliderRailHeight: 12,
+    /** 连续图例滑块填充色 */
+    sliderRailFillColor: BLACK_COLORS[15],
+    /** 连续图例滑块边框粗细 */
+    sliderRailBorder: 0,
+    /** 连续图例滑块边框颜色 */
+    sliderRailBorderColor: null,
+    /** 连续图例滑块宽度 */
+    sliderRailWidth: 100,
+    /** 连续图例滑块高度 */
+    sliderRailHeight: 12,
 
-  /** 连续图例文本颜色 */
-  sliderLabelTextFillColor: BLACK_COLORS[45],
-  /** 连续图例文本字体大小 */
-  sliderLabelTextFontSize: 12,
-  /** 连续图例文本行高 */
-  sliderLabelTextLineHeight: 12,
-  /** 连续图例文本字体粗细 */
-  sliderLabelTextFontWeight: 'normal',
+    /** 连续图例文本颜色 */
+    sliderLabelTextFillColor: BLACK_COLORS[45],
+    /** 连续图例文本字体大小 */
+    sliderLabelTextFontSize: 12,
+    /** 连续图例文本行高 */
+    sliderLabelTextLineHeight: 12,
+    /** 连续图例文本字体粗细 */
+    sliderLabelTextFontWeight: 'normal',
 
-  /** 连续图例滑块颜色 */
-  sliderHandlerFillColor: BLACK_COLORS[6],
-  /** 连续图例滑块宽度 */
-  sliderHandlerWidth: 10,
-  /** 连续图例滑块高度 */
-  sliderHandlerHeight: 14,
-  /** 连续图例滑块边框粗细 */
-  sliderHandlerBorder: 1,
-  /** 连续图例滑块边框颜色 */
-  sliderHandlerBorderColor: BLACK_COLORS[25],
+    /** 连续图例滑块颜色 */
+    sliderHandlerFillColor: BLACK_COLORS[6],
+    /** 连续图例滑块宽度 */
+    sliderHandlerWidth: 10,
+    /** 连续图例滑块高度 */
+    sliderHandlerHeight: 14,
+    /** 连续图例滑块边框粗细 */
+    sliderHandlerBorder: 1,
+    /** 连续图例滑块边框颜色 */
+    sliderHandlerBorderColor: BLACK_COLORS[25],
 
-  // -------------------- Annotation，图形标注 --------------------
-  /** arc 图形标注描边颜色 */
-  annotationArcBorderColor: BLACK_COLORS[15],
-  /** arc 图形标注粗细 */
-  annotationArcBorder: 1,
+    // -------------------- Annotation，图形标注 --------------------
+    /** arc 图形标注描边颜色 */
+    annotationArcBorderColor: BLACK_COLORS[15],
+    /** arc 图形标注粗细 */
+    annotationArcBorder: 1,
 
-  /** line 图形标注颜色 */
-  annotationLineBorderColor: BLACK_COLORS[25],
-  /** line 图形标注粗细 */
-  annotationLineBorder: 1,
-  /** lube 图形标注的虚线间隔 */
-  annotationLineDash: null,
+    /** line 图形标注颜色 */
+    annotationLineBorderColor: BLACK_COLORS[25],
+    /** line 图形标注粗细 */
+    annotationLineBorder: 1,
+    /** lube 图形标注的虚线间隔 */
+    annotationLineDash: null,
 
-  /** text 图形标注文本颜色 */
-  annotationTextFillColor: BLACK_COLORS[65],
-  /** text 图形标注文本字体大小 */
-  annotationTextFontSize: 12,
-  /** text 图形标注文本行高 */
-  annotationTextLineHeight: 12,
-  /** text 图形标注文本字体粗细 */
-  annotationTextFontWeight: 'normal',
-  /** text 图形标注文本边框颜色 */
-  annotationTextBorderColor: null,
-  /** text 图形标注文本边框粗细 */
-  annotationTextBorder: 0,
+    /** text 图形标注文本颜色 */
+    annotationTextFillColor: BLACK_COLORS[65],
+    /** text 图形标注文本字体大小 */
+    annotationTextFontSize: 12,
+    /** text 图形标注文本行高 */
+    annotationTextLineHeight: 12,
+    /** text 图形标注文本字体粗细 */
+    annotationTextFontWeight: 'normal',
+    /** text 图形标注文本边框颜色 */
+    annotationTextBorderColor: null,
+    /** text 图形标注文本边框粗细 */
+    annotationTextBorder: 0,
 
-  /** region 图形标注填充颜色 */
-  annotationRegionFillColor: BLACK_COLORS[100],
-  /** region 图形标注填充颜色透明色 */
-  annotationRegionFillOpacity: 0.06,
-  /** region 图形标注描边粗细 */
-  annotationRegionBorder: 0,
-  /** region 图形标注描边颜色 */
-  annotationRegionBorderColor: null,
+    /** region 图形标注填充颜色 */
+    annotationRegionFillColor: BLACK_COLORS[100],
+    /** region 图形标注填充颜色透明色 */
+    annotationRegionFillOpacity: 0.06,
+    /** region 图形标注描边粗细 */
+    annotationRegionBorder: 0,
+    /** region 图形标注描边颜色 */
+    annotationRegionBorderColor: null,
 
-  /** dataMarker 图形标注线的长度 */
-  annotationDataMarkerLineLength: 16,
+    /** dataMarker 图形标注线的长度 */
+    annotationDataMarkerLineLength: 16,
 
-  // -------------------- Tooltip --------------------
-  /** tooltip crosshairs 辅助线颜色 */
-  tooltipCrosshairsBorderColor: BLACK_COLORS[25],
-  /** tooltip crosshairs 辅助线粗细 */
-  tooltipCrosshairsBorder: 1,
-  /** tooltip crosshairs 辅助线虚线间隔 */
-  tooltipCrosshairsLineDash: null,
+    // -------------------- Tooltip --------------------
+    /** tooltip crosshairs 辅助线颜色 */
+    tooltipCrosshairsBorderColor: BLACK_COLORS[25],
+    /** tooltip crosshairs 辅助线粗细 */
+    tooltipCrosshairsBorder: 1,
+    /** tooltip crosshairs 辅助线虚线间隔 */
+    tooltipCrosshairsLineDash: null,
 
-  /** tooltip 内容框背景色 */
-  tooltipContainerFillColor: 'rgb(255, 255, 255)',
-  tooltipContainerFillOpacity: 0.95,
-  /** tooltip 内容框阴影 */
-  tooltipContainerShadow: '0px 0px 10px #aeaeae',
-  /** tooltip 内容框圆角 */
-  tooltipContainerBorderRadius: 3,
+    /** tooltip 内容框背景色 */
+    tooltipContainerFillColor: 'rgb(255, 255, 255)',
+    tooltipContainerFillOpacity: 0.95,
+    /** tooltip 内容框阴影 */
+    tooltipContainerShadow: '0px 0px 10px #aeaeae',
+    /** tooltip 内容框圆角 */
+    tooltipContainerBorderRadius: 3,
 
-  /** tooltip 文本颜色 */
-  tooltipTextFillColor: BLACK_COLORS[65],
-  /** tooltip 文本字体大小 */
-  tooltipTextFontSize: 12,
-  /** tooltip 文本行高 */
-  tooltipTextLineHeight: 12,
-  /** tooltip 文本字体粗细 */
-  tooltipTextFontWeight: 'bold',
+    /** tooltip 文本颜色 */
+    tooltipTextFillColor: BLACK_COLORS[65],
+    /** tooltip 文本字体大小 */
+    tooltipTextFontSize: 12,
+    /** tooltip 文本行高 */
+    tooltipTextLineHeight: 12,
+    /** tooltip 文本字体粗细 */
+    tooltipTextFontWeight: 'bold',
 
-  // -------------------- Geometry labels --------------------
-  /** Geometry label 文本颜色 */
-  labelFillColor: BLACK_COLORS[65],
-  labelFillColorDark: '#2c3542',
-  labelFillColorLight: '#ffffff',
-  /** Geometry label 文本字体大小 */
-  labelFontSize: 12,
-  /** Geometry label 文本行高 */
-  labelLineHeight: 12,
-  /** Geometry label 文本字体粗细 */
-  labelFontWeight: 'normal',
-  /** Geometry label 文本描边颜色 */
-  labelBorderColor: null,
-  /** Geometry label 文本描边粗细 */
-  labelBorder: 0,
+    // -------------------- Geometry labels --------------------
+    /** Geometry label 文本颜色 */
+    labelFillColor: BLACK_COLORS[65],
+    labelFillColorDark: '#2c3542',
+    labelFillColorLight: '#ffffff',
+    /** Geometry label 文本字体大小 */
+    labelFontSize: 12,
+    /** Geometry label 文本行高 */
+    labelLineHeight: 12,
+    /** Geometry label 文本字体粗细 */
+    labelFontWeight: 'normal',
+    /** Geometry label 文本描边颜色 */
+    labelBorderColor: null,
+    /** Geometry label 文本描边粗细 */
+    labelBorder: 0,
 
-  /** Geometry innerLabel 文本颜色 */
-  innerLabelFillColor: WHITE_COLORS[100],
-  /** Geometry innerLabel 文本字体大小 */
-  innerLabelFontSize: 12,
-  /** Geometry innerLabel 文本行高 */
-  innerLabelLineHeight: 12,
-  /** Geometry innerLabel 文本字体粗细 */
-  innerLabelFontWeight: 'normal',
-  /** Geometry innerLabel 文本描边颜色 */
-  innerLabelBorderColor: null,
-  /** Geometry innerLabel 文本描边粗细 */
-  innerLabelBorder: 0,
+    /** Geometry innerLabel 文本颜色 */
+    innerLabelFillColor: WHITE_COLORS[100],
+    /** Geometry innerLabel 文本字体大小 */
+    innerLabelFontSize: 12,
+    /** Geometry innerLabel 文本行高 */
+    innerLabelLineHeight: 12,
+    /** Geometry innerLabel 文本字体粗细 */
+    innerLabelFontWeight: 'normal',
+    /** Geometry innerLabel 文本描边颜色 */
+    innerLabelBorderColor: null,
+    /** Geometry innerLabel 文本描边粗细 */
+    innerLabelBorder: 0,
 
-  /** Geometry label　文本连接线粗细 */
-  labelLineBorder: 1,
-  /** Geometry label 文本连接线颜色 */
-  labelLineBorderColor: BLACK_COLORS[25],
+    /** Geometry label　文本连接线粗细 */
+    labelLineBorder: 1,
+    /** Geometry label 文本连接线颜色 */
+    labelLineBorderColor: BLACK_COLORS[25],
 
-  // -------------------- Geometry 图形样式--------------------
-  /** 点图填充颜色 */
-  pointFillColor: QUALITATIVE_10[0],
-  /** 点图填充颜色透明度 */
-  pointFillOpacity: 0.95,
-  /** 点图大小 */
-  pointSize: 4,
-  /** 点图描边粗细 */
-  pointBorder: 1,
-  /** 点图描边颜色 */
-  pointBorderColor: WHITE_COLORS[100],
-  /** 点图描边透明度 */
-  pointBorderOpacity: 1,
+    // -------------------- Geometry 图形样式--------------------
+    /** 点图填充颜色 */
+    pointFillColor: colors_10[0],
+    /** 点图填充颜色透明度 */
+    pointFillOpacity: 0.95,
+    /** 点图大小 */
+    pointSize: 4,
+    /** 点图描边粗细 */
+    pointBorder: 1,
+    /** 点图描边颜色 */
+    pointBorderColor: WHITE_COLORS[100],
+    /** 点图描边透明度 */
+    pointBorderOpacity: 1,
 
-  /** 点图 active 状态下描边颜色 */
-  pointActiveBorderColor: BLACK_COLORS[100],
+    /** 点图 active 状态下描边颜色 */
+    pointActiveBorderColor: BLACK_COLORS[100],
 
-  /** 点图 selected 状态下描边粗细 */
-  pointSelectedBorder: 2,
-  /** 点图 selected 状态下描边颜色 */
-  pointSelectedBorderColor: BLACK_COLORS[100],
+    /** 点图 selected 状态下描边粗细 */
+    pointSelectedBorder: 2,
+    /** 点图 selected 状态下描边颜色 */
+    pointSelectedBorderColor: BLACK_COLORS[100],
 
-  /** 点图 inactive 状态下填充颜色透明度 */
-  pointInactiveFillOpacity: 0.3,
-  /** 点图 inactive 状态下描边透明度 */
-  pointInactiveBorderOpacity: 0.3,
+    /** 点图 inactive 状态下填充颜色透明度 */
+    pointInactiveFillOpacity: 0.3,
+    /** 点图 inactive 状态下描边透明度 */
+    pointInactiveBorderOpacity: 0.3,
 
-  /** 空心点图大小 */
-  hollowPointSize: 4,
-  /** 空心点图描边粗细 */
-  hollowPointBorder: 1,
-  /** 空心点图描边颜色 */
-  hollowPointBorderColor: QUALITATIVE_10[0],
-  /** 空心点图描边透明度 */
-  hollowPointBorderOpacity: 0.95,
-  hollowPointFillColor: WHITE_COLORS[100],
+    /** 空心点图大小 */
+    hollowPointSize: 4,
+    /** 空心点图描边粗细 */
+    hollowPointBorder: 1,
+    /** 空心点图描边颜色 */
+    hollowPointBorderColor: colors_10[0],
+    /** 空心点图描边透明度 */
+    hollowPointBorderOpacity: 0.95,
+    hollowPointFillColor: WHITE_COLORS[100],
 
-  /** 空心点图 active 状态下描边粗细 */
-  hollowPointActiveBorder: 1,
-  /** 空心点图 active 状态下描边颜色 */
-  hollowPointActiveBorderColor: BLACK_COLORS[100],
-  /** 空心点图 active 状态下描边透明度 */
-  hollowPointActiveBorderOpacity: 1,
+    /** 空心点图 active 状态下描边粗细 */
+    hollowPointActiveBorder: 1,
+    /** 空心点图 active 状态下描边颜色 */
+    hollowPointActiveBorderColor: BLACK_COLORS[100],
+    /** 空心点图 active 状态下描边透明度 */
+    hollowPointActiveBorderOpacity: 1,
 
-  /** 空心点图 selected 状态下描边粗细 */
-  hollowPointSelectedBorder: 2,
-  /** 空心点图 selected 状态下描边颜色 */
-  hollowPointSelectedBorderColor: BLACK_COLORS[100],
-  /** 空心点图 selected 状态下描边透明度 */
-  hollowPointSelectedBorderOpacity: 1,
+    /** 空心点图 selected 状态下描边粗细 */
+    hollowPointSelectedBorder: 2,
+    /** 空心点图 selected 状态下描边颜色 */
+    hollowPointSelectedBorderColor: BLACK_COLORS[100],
+    /** 空心点图 selected 状态下描边透明度 */
+    hollowPointSelectedBorderOpacity: 1,
 
-  /** 空心点图 inactive 状态下描边透明度 */
-  hollowPointInactiveBorderOpacity: 0.3,
+    /** 空心点图 inactive 状态下描边透明度 */
+    hollowPointInactiveBorderOpacity: 0.3,
 
-  /** 线图粗细 */
-  lineBorder: 2,
-  /** 线图颜色 */
-  lineBorderColor: QUALITATIVE_10[0],
-  /** 线图透明度 */
-  lineBorderOpacity: 1,
+    /** 线图粗细 */
+    lineBorder: 2,
+    /** 线图颜色 */
+    lineBorderColor: colors_10[0],
+    /** 线图透明度 */
+    lineBorderOpacity: 1,
 
-  /** 线图 Active 状态下粗细 */
-  lineActiveBorder: 3,
+    /** 线图 Active 状态下粗细 */
+    lineActiveBorder: 3,
 
-  /** 线图 selected 状态下粗细 */
-  lineSelectedBorder: 3,
+    /** 线图 selected 状态下粗细 */
+    lineSelectedBorder: 3,
 
-  /** 线图 inactive 状态下透明度 */
-  lineInactiveBorderOpacity: 0.3,
+    /** 线图 inactive 状态下透明度 */
+    lineInactiveBorderOpacity: 0.3,
 
-  /** area 填充颜色 */
-  areaFillColor: QUALITATIVE_10[0],
-  /** area 填充透明度 */
-  areaFillOpacity: 0.25,
+    /** area 填充颜色 */
+    areaFillColor: colors_10[0],
+    /** area 填充透明度 */
+    areaFillOpacity: 0.25,
 
-  /** area 在 active 状态下的填充透明度 */
-  areaActiveFillColor: QUALITATIVE_10[0],
-  areaActiveFillOpacity: 0.5,
+    /** area 在 active 状态下的填充透明度 */
+    areaActiveFillColor: colors_10[0],
+    areaActiveFillOpacity: 0.5,
 
-  /** area 在 selected 状态下的填充透明度 */
-  areaSelectedFillColor: QUALITATIVE_10[0],
-  areaSelectedFillOpacity: 0.5,
+    /** area 在 selected 状态下的填充透明度 */
+    areaSelectedFillColor: colors_10[0],
+    areaSelectedFillOpacity: 0.5,
 
-  /** area inactive 状态下填充透明度 */
-  areaInactiveFillOpacity: 0.3,
+    /** area inactive 状态下填充透明度 */
+    areaInactiveFillOpacity: 0.3,
 
-  /** hollowArea 颜色 */
-  hollowAreaBorderColor: QUALITATIVE_10[0],
-  /** hollowArea 边框粗细 */
-  hollowAreaBorder: 2,
-  /** hollowArea 边框透明度 */
-  hollowAreaBorderOpacity: 1,
+    /** hollowArea 颜色 */
+    hollowAreaBorderColor: colors_10[0],
+    /** hollowArea 边框粗细 */
+    hollowAreaBorder: 2,
+    /** hollowArea 边框透明度 */
+    hollowAreaBorderOpacity: 1,
 
-  /** hollowArea active 状态下的边框粗细 */
-  hollowAreaActiveBorder: 3,
-  hollowAreaActiveBorderColor: BLACK_COLORS[100],
+    /** hollowArea active 状态下的边框粗细 */
+    hollowAreaActiveBorder: 3,
+    hollowAreaActiveBorderColor: BLACK_COLORS[100],
 
-  /** hollowArea selected 状态下的边框粗细 */
-  hollowAreaSelectedBorder: 3,
-  hollowAreaSelectedBorderColor: BLACK_COLORS[100],
+    /** hollowArea selected 状态下的边框粗细 */
+    hollowAreaSelectedBorder: 3,
+    hollowAreaSelectedBorderColor: BLACK_COLORS[100],
 
-  /** hollowArea inactive 状态下的边框透明度 */
-  hollowAreaInactiveBorderOpacity: 0.3,
+    /** hollowArea inactive 状态下的边框透明度 */
+    hollowAreaInactiveBorderOpacity: 0.3,
 
-  /** interval 填充颜色 */
-  intervalFillColor: QUALITATIVE_10[0],
-  /** interval 填充透明度 */
-  intervalFillOpacity: 0.95,
+    /** interval 填充颜色 */
+    intervalFillColor: colors_10[0],
+    /** interval 填充透明度 */
+    intervalFillOpacity: 0.95,
 
-  /** interval active 状态下边框粗细 */
-  intervalActiveBorder: 1,
-  /** interval active 状态下边框颜色 */
-  intervalActiveBorderColor: BLACK_COLORS[100],
-  intervalActiveBorderOpacity: 1,
+    /** interval active 状态下边框粗细 */
+    intervalActiveBorder: 1,
+    /** interval active 状态下边框颜色 */
+    intervalActiveBorderColor: BLACK_COLORS[100],
+    intervalActiveBorderOpacity: 1,
 
-  /** interval selected 状态下边框粗细 */
-  intervalSelectedBorder: 2,
-  /** interval selected 状态下边框颜色 */
-  intervalSelectedBorderColor: BLACK_COLORS[100],
-  /** interval selected 状态下边框透明度 */
-  intervalSelectedBorderOpacity: 1,
+    /** interval selected 状态下边框粗细 */
+    intervalSelectedBorder: 2,
+    /** interval selected 状态下边框颜色 */
+    intervalSelectedBorderColor: BLACK_COLORS[100],
+    /** interval selected 状态下边框透明度 */
+    intervalSelectedBorderOpacity: 1,
 
-  /** interval inactive 状态下边框透明度 */
-  intervalInactiveBorderOpacity: 0.3,
-  /** interval inactive 状态下填充透明度 */
-  intervalInactiveFillOpacity: 0.3,
+    /** interval inactive 状态下边框透明度 */
+    intervalInactiveBorderOpacity: 0.3,
+    /** interval inactive 状态下填充透明度 */
+    intervalInactiveFillOpacity: 0.3,
 
-  /** interval 边框粗细 */
-  hollowIntervalBorder: 2,
-  /** hollowInterval 边框颜色 */
-  hollowIntervalBorderColor: QUALITATIVE_10[0],
-  /** hollowInterval 边框透明度 */
-  hollowIntervalBorderOpacity: 1,
-  hollowIntervalFillColor: WHITE_COLORS[100],
+    /** interval 边框粗细 */
+    hollowIntervalBorder: 2,
+    /** hollowInterval 边框颜色 */
+    hollowIntervalBorderColor: colors_10[0],
+    /** hollowInterval 边框透明度 */
+    hollowIntervalBorderOpacity: 1,
+    hollowIntervalFillColor: WHITE_COLORS[100],
 
-  /** hollowInterval active 状态下边框粗细 */
-  hollowIntervalActiveBorder: 2,
-  /** hollowInterval active 状态下边框颜色 */
-  hollowIntervalActiveBorderColor: BLACK_COLORS[100],
+    /** hollowInterval active 状态下边框粗细 */
+    hollowIntervalActiveBorder: 2,
+    /** hollowInterval active 状态下边框颜色 */
+    hollowIntervalActiveBorderColor: BLACK_COLORS[100],
 
-  /** hollowInterval selected 状态下边框粗细 */
-  hollowIntervalSelectedBorder: 3,
-  /** hollowInterval selected 状态下边框颜色 */
-  hollowIntervalSelectedBorderColor: BLACK_COLORS[100],
-  /** hollowInterval selected 状态下边框透明度 */
-  hollowIntervalSelectedBorderOpacity: 1,
+    /** hollowInterval selected 状态下边框粗细 */
+    hollowIntervalSelectedBorder: 3,
+    /** hollowInterval selected 状态下边框颜色 */
+    hollowIntervalSelectedBorderColor: BLACK_COLORS[100],
+    /** hollowInterval selected 状态下边框透明度 */
+    hollowIntervalSelectedBorderOpacity: 1,
 
-  /** hollowInterval inactive 状态下边框透明度 */
-  hollowIntervalInactiveBorderOpacity: 0.3,
-};
+    /** hollowInterval inactive 状态下边框透明度 */
+    hollowIntervalInactiveBorderOpacity: 0.3,
+  };
+}
+
+export const antvLight = generateTheme();

@@ -5,8 +5,12 @@ import { IInteractionContext } from './interface';
 // 注册黑暗主题
 import { registerTheme } from './core';
 import { antvDark } from './theme/style-sheet/dark';
+import { autumnTheme } from './theme/style-sheet/autumn';
+import { macaronTheme } from './theme/style-sheet/Macaron';
 import { createThemeByStylesheet } from './util/theme';
 registerTheme('dark', createThemeByStylesheet(antvDark));
+registerTheme('autumn', createThemeByStylesheet(autumnTheme));
+registerTheme('macaron', createThemeByStylesheet(macaronTheme));
 
 // 注册 G 渲染引擎
 import * as CanvasEngine from '@antv/g-canvas';
