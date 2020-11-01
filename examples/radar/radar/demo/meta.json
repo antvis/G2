@@ -8,7 +8,7 @@
       "filename": "basic.ts",
       "title": {
         "zh": "基础雷达图",
-        "en": "Radar Chart"
+        "en": "Basic radar chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*GWp_QJu77TsAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "with-line.ts",
       "title": {
         "zh": "基础雷达图（线）",
-        "en": "Radar Chart"
+        "en": "Radar chart with line"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*EmdYSJwaw94AAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "flower-line.ts",
       "title": {
         "zh": "雷达图复杂曲线",
-        "en": "Radar Chart"
+        "en": "Complex radar chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*jCN7SYKxuRcAAAAAAAAAAABkARQnAQ"
     }

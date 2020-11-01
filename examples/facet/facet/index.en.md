@@ -1,4 +1,4 @@
 ---
-title: Facet
+title: Facet Category
 order: 0
 ---

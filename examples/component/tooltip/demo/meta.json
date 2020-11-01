@@ -8,7 +8,7 @@
       "filename": "tooltip-1.ts",
       "title": {
         "zh": "极坐标下的半径轴 crosshairs",
-        "en": ""
+        "en": "crosshairs in polar coordinate"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*1244QZGDz6QAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "tooltip-2.ts",
       "title": {
         "zh": "极坐标下的 xy crosshairs",
-        "en": ""
+        "en": "xy crosshairs in polar coordinate"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*HtM7RaV20MEAAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "tooltip-3.ts",
       "title": {
         "zh": "xy crosshairs，带文本",
-        "en": ""
+        "en": "xy crosshairs with label"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*lYIVRZrWrCYAAAAAAAAAAABkARQnAQ"
     }

@@ -8,7 +8,7 @@
       "filename": "histogram.ts",
       "title": {
         "zh": "直方图",
-        "en": "histogram"
+        "en": "Histogram"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*EHpuTqn-M2cAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "histogram-binwidth.ts",
       "title": {
         "zh": "直方图范围刻度",
-        "en": "histogram"
+        "en": "Histogram with range tick"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*gF1PSq6H2GQAAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "histogram-stacked.ts",
       "title": {
         "zh": "层叠直方图",
-        "en": "stacked histogram"
+        "en": "Stacked histogram"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*0S7fQI2CHHoAAAAAAAAAAABkARQnAQ"
     }

@@ -1,4 +1,4 @@
 ---
-title: kernel smooth regression line chart
+title: Kernel Smooth Regression Line Chart
 order: 3
 ---

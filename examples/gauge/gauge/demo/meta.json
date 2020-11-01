@@ -8,7 +8,7 @@
       "filename": "basic.ts",
       "title": {
         "zh": "仪表盘",
-        "en": "Basic Gauge"
+        "en": "Basic gauge"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*aeUnRaj87bYAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "color.ts",
       "title": {
         "zh": "仪表盘（多色）",
-        "en": "Gauge"
+        "en": "Gauge(multiple color)"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*lfi0SZnlSXUAAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "text.ts",
       "title": {
         "zh": "仪表盘（文字）",
-        "en": "Gauge"
+        "en": "Gauge(test)"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*wrMlRbXlpG4AAAAAAAAAAABkARQnAQ"
     },
@@ -32,7 +32,7 @@
       "filename": "tick.ts",
       "title": {
         "zh": "刻度仪表盘",
-        "en": "Gauge"
+        "en": "Gauge with ticks"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*7Db-Qa4OBbUAAAAAAAAAAABkARQnAQ"
     }

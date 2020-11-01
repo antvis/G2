@@ -8,7 +8,7 @@
       "filename": "basic.ts",
       "title": {
         "zh": "基础漏斗图",
-        "en": "Basic Funnel Chart"
+        "en": "Basic funnel chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*w3DsTYOLp4cAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "comparision.ts",
       "title": {
         "zh": "对比漏斗图",
-        "en": "Contrastive Funnel Chart"
+        "en": "Contrastive funnel chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*Z-Q3TZQfmhgAAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "pyramid.ts",
       "title": {
         "zh": "尖底漏斗图",
-        "en": "Funnel Chart"
+        "en": "Funnel chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*uXbuQKbhBAMAAAAAAAAAAABkARQnAQ"
     },
@@ -32,7 +32,7 @@
       "filename": "symmetric.ts",
       "title": {
         "zh": "对称漏斗图",
-        "en": "Symmetric Funnel Chart"
+        "en": "Symmetric funnel chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*EdnTSrE5DR0AAAAAAAAAAABkARQnAQ"
     }
