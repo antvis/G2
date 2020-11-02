@@ -1,4 +1,4 @@
-import { deepMix, find, flatten, get, isArray, isEqual, isFunction, mix, isString, clone, isBoolean} from '@antv/util';
+import { deepMix, find, flatten, get, isArray, isEqual, isFunction, mix, isString, isEmpty, isBoolean} from '@antv/util';
 import { Crosshair, HtmlTooltip, IGroup } from '../../dependents';
 import Geometry from '../../geometry/base';
 import { Point, TooltipOption } from '../../interface';
@@ -381,7 +381,7 @@ export default class Tooltip extends Controller<TooltipOption> {
     const currentCustomContent = option.customContent;
     const customContent = (title: string, items: any[]) => {
       const content = currentCustomContent(title, items) || '';
-      return isString(content) ? '<div class="g2-tooltip">' + content + '</div>' : content ; 
+      return isString(content) ? '<div class="g2-tooltip">' + content + '</div>' : content ;
     }
     return {
       ...option,
@@ -688,18 +688,20 @@ export default class Tooltip extends Controller<TooltipOption> {
   private getTooltipItemsByFindData(geometry: Geometry, point, title) {
     const result = [];
     const dataArray = geometry.dataArray;
-    geometry.sort(dataArray); // 先进行排序，便于 tooltip 查找
-    for (const data of dataArray) {
-      const record = findDataByPoint(point, data, geometry);
-      if (record) {
-        const elementId = geometry.getElementId(record);
-        const element = geometry.elementsMap[elementId];
-        if (geometry.type === 'heatmap' || element.visible) {
-          // Heatmap 没有 Element
-          // 如果图形元素隐藏了，怎不再 tooltip 上展示相关数据
-          const items = getTooltipItems(record, geometry, title);
-          if (items.length) {
-            result.push(items);
+    if (!isEmpty(dataArray)) {
+      geometry.sort(dataArray); // 先进行排序，便于 tooltip 查找
+      for (const data of dataArray) {
+        const record = findDataByPoint(point, data, geometry);
+        if (record) {
+          const elementId = geometry.getElementId(record);
+          const element = geometry.elementsMap[elementId];
+          if (geometry.type === 'heatmap' || element.visible) {
+            // Heatmap 没有 Element
+            // 如果图形元素隐藏了，怎不再 tooltip 上展示相关数据
+            const items = getTooltipItems(record, geometry, title);
+            if (items.length) {
+              result.push(items);
+            }
           }
         }
       }
