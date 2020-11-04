@@ -32,6 +32,9 @@ registerShape('interval', 'line', {
   },
   draw(cfg: ShapeInfo, container: IGroup) {
     const style = getStyle(cfg, true, false, 'lineWidth');
+    if(style.fill){
+      delete style.fill;
+    }
     const path = this.parsePath(getRectPath(cfg.points as Point[], false));
     const shape = container.addShape('path', {
       attrs: {
