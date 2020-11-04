@@ -17,7 +17,7 @@ export default class IntervalLabel extends GeometryLabel {
     const dim = 'y';
     const { points } = mappingData;
 
-    return points[0][dim] < points[2][dim] ? 1 : -1;
+    return points[0][dim] <= points[2][dim] ? 1 : -1;
   }
 
   /**

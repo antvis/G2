@@ -24,6 +24,10 @@ export const positiveNegativeData = [
     value: 420,
   },
   {
+    type: 'oo',
+    value: 0,
+  },
+  {
     type: 'na',
     value: -80,
   },
