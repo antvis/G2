@@ -5,6 +5,7 @@ import { Point, ShapeInfo, ShapeMarkerCfg, ShapePoint } from '../../../interface
 import { registerShape } from '../base';
 import { getStyle } from '../util/get-style';
 import { getRectPath } from './util';
+import { omit } from '../../../util/helper';
 
 // 根据数据点生成 Line 的两个关键点
 function getLinePoints(pointInfo: ShapePoint): Point[] {
@@ -32,10 +33,11 @@ registerShape('interval', 'line', {
   },
   draw(cfg: ShapeInfo, container: IGroup) {
     const style = getStyle(cfg, true, false, 'lineWidth');
+    const newStyle = omit({ ...style }, ['fill']);
     const path = this.parsePath(getRectPath(cfg.points as Point[], false));
     const shape = container.addShape('path', {
       attrs: {
-        ...style,
+        ...newStyle,
         path,
       },
       name: 'interval',
