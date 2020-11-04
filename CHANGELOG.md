@@ -1,3 +1,45 @@
+#### 4.1.0-beta.16 (2020-11-04)
+
+##### Chores
+
+*  4.1.0-beta.14 ([#2947](https://github.com/antvis/g2/pull/2947)) ([68964cfd](https://github.com/antvis/g2/commit/68964cfdd56029b084d9e3b8117db62acdcc678e))
+*  v4.1.0-beta.13 ([#2926](https://github.com/antvis/g2/pull/2926)) ([102c906f](https://github.com/antvis/g2/commit/102c906f4ae02ce4a524ac96ee47eeb2250cd869))
+*  v4.1.0-beta.11 ([#2898](https://github.com/antvis/g2/pull/2898)) ([091f73d5](https://github.com/antvis/g2/commit/091f73d57d2b7fe76109e581b2cde975f741599d))
+
+##### Documentation Changes
+
+*  modify some descriptions ([#2917](https://github.com/antvis/g2/pull/2917)) ([0512365b](https://github.com/antvis/g2/commit/0512365b9bd92a2865f70c3eda4c54db78f545e4))
+*  marker单词拼写错误修正 ([#2911](https://github.com/antvis/g2/pull/2911)) ([645bb2d9](https://github.com/antvis/g2/commit/645bb2d9fa0b6e9906a2436338473a22248c281c))
+
+##### New Features
+
+* **theme:**  更新主题色,更新三个色值 ([#2963](https://github.com/antvis/g2/pull/2963)) ([b5a00425](https://github.com/antvis/g2/commit/b5a004259cc35e44ff03bd9ef6dc4a942f2ece0b))
+* **line-style:**  default use round style ([#2953](https://github.com/antvis/g2/pull/2953)) ([30b7655a](https://github.com/antvis/g2/commit/30b7655ae3467e2366cd927c5d3dad9c4da15f9d))
+*  G2 层支持 custom annotation html annotation ([#2934](https://github.com/antvis/g2/pull/2934)) ([6209203a](https://github.com/antvis/g2/commit/6209203a55f8183acfcd1bcda23328016211310e))
+* **annotation:**  add support for mean / median  ([#2922](https://github.com/antvis/g2/pull/2922)) ([f8054857](https://github.com/antvis/g2/commit/f80548579a13e936706ee7172e040cd02f20b6d6))
+* **legend:**  set default maxItemWidth = 200 ([#2889](https://github.com/antvis/g2/pull/2889)) ([9e1b2585](https://github.com/antvis/g2/commit/9e1b25852d6fd97ed557d174818ff3c852df39bc))
+* **region-filter:**  add geometry life circle, after draw animate ([#2879](https://github.com/antvis/g2/pull/2879)) ([2738acb5](https://github.com/antvis/g2/commit/2738acb57c524d2649e356465dd624bf0f145616))
+
+##### Bug Fixes
+
+*  delete fill attr in interval-line ([#2974](https://github.com/antvis/g2/pull/2974)) ([8848b788](https://github.com/antvis/g2/commit/8848b78893fb933c12a550544bb37b28e71ee4e3))
+*  median typo ([#2925](https://github.com/antvis/g2/pull/2925)) ([57648275](https://github.com/antvis/g2/commit/57648275072082a6226500d9e2ee6ec1748a9cd3))
+*  修复 adjust-color label layout 对一些颜色不生效的问题 ([#2919](https://github.com/antvis/g2/pull/2919)) ([b1f2c2a1](https://github.com/antvis/g2/commit/b1f2c2a103388f67b8edbba572d557e4545abe7a))
+*  漏斗图 label position 可生效 ([#2909](https://github.com/antvis/g2/pull/2909)) ([c2727a82](https://github.com/antvis/g2/commit/c2727a82e0311ecd7c06ed71d3d9fe5fe8a93905))
+* **tooltip:**  先对 Geometry 数据判空再进行查找 ([#2970](https://github.com/antvis/g2/pull/2970)) ([1822bf41](https://github.com/antvis/g2/commit/1822bf41612f7f40d0b7d492e3fe2df9114a30f1))
+* **interaction:**  fix link-by-color path for transposed coord ([#2972](https://github.com/antvis/g2/pull/2972)) ([7793c419](https://github.com/antvis/g2/commit/7793c4195ad285850b65d31375244b3d87c021ab))
+* **label:**  fix label position for zero data ([#2973](https://github.com/antvis/g2/pull/2973)) ([60e34b17](https://github.com/antvis/g2/commit/60e34b17fffb766235edc35f8d0694c9b27d5100))
+* **#2905:**  无需传入 color,color 必须来源于字段映射 ([#2945](https://github.com/antvis/g2/pull/2945)) ([acf7ad40](https://github.com/antvis/g2/commit/acf7ad4073410107082d2ac100258e79688a7a05))
+* **annotation:**  text annotation re-render will be hidden ([#2916](https://github.com/antvis/g2/pull/2916)) ([9891f40b](https://github.com/antvis/g2/commit/9891f40b6c6fd02af2312542c01ec430d004d974))
+* **issue-2905:**  自定义 shape 的默认样式设置 ([#2906](https://github.com/antvis/g2/pull/2906)) ([dac96901](https://github.com/antvis/g2/commit/dac96901ea55db6ba7442cc32b07b4d5b8173725))
+* **issue-2541:**  state 状态依然存在时，但由于changeSize, changeData 等重绘后丢失 ([#2871](https://github.com/antvis/g2/pull/2871)) ([dcb39aa3](https://github.com/antvis/g2/commit/dcb39aa3df8d42b8574a9aee9f76d5d0c133daeb))
+* **pie-demo:**  typo, fixed [#2884](https://github.com/antvis/g2/pull/2884) ([#2897](https://github.com/antvis/g2/pull/2897)) ([6aa10078](https://github.com/antvis/g2/commit/6aa100780ea98a5636cb578dc19dd0ed75d40eb8))
+* **types:**  add legend option ([#2892](https://github.com/antvis/g2/pull/2892)) ([bf3531ff](https://github.com/antvis/g2/commit/bf3531ff2cef51ab0d1fbc05b8b402a16f8ea92b))
+
+##### Refactors
+
+* **legend:**  legend update and render with same logic ([#2890](https://github.com/antvis/g2/pull/2890)) ([10666c0c](https://github.com/antvis/g2/commit/10666c0c622afef9f5ec17f87d8156bf5e451f78))
+
 #### 4.1.0-beta.14 (2020-10-22)
 
 ##### Documentation Changes
