@@ -219,8 +219,8 @@ export interface GeometryLabelCfg {
    * 当用户使用了自定义的 label 类型，需要声明具体的 type 类型，否则会使用默认的 label 类型渲染。
    */
   type?: string;
-  /** 相对数据点的偏移距离。 */
-  offset?: number;
+  /** 相对数据点的偏移距离, polar 和 theta 坐标系下可使用百分比字符串。 */
+  offset?: number | string;
   /** label 相对于数据点在 X 方向的偏移距离。 */
   offsetX?: number;
   /** label 相对于数据点在 Y 方向的偏移距离。 */
@@ -239,6 +239,8 @@ export interface GeometryLabelCfg {
    * 当且仅当 `autoRotate` 为 false 时生效，用于设置文本的旋转角度，**弧度制**。
    */
   rotate?: number;
+  /** 标签高度设置，仅当标签类型 type 为 pie 时生效；也可在主题中设置 pieLabels.labelHeight */
+  labelHeight?: number;
   /**
    * 用于设置文本连接线的样式属性，null 表示不展示。
    */
@@ -261,6 +263,21 @@ export interface GeometryLabelCfg {
    * ```
    */
   layout?: GeometryLabelLayoutCfg | GeometryLabelLayoutCfg[];
+  /**
+   * 用于绘制 label 背景
+   */
+  background?: {
+    /**
+     * 背景框 图形属性配置
+     * - fill?: string; 背景框 填充色
+     * - stroke?: string; 背景框 描边色
+     * - lineWidth?: string; 背景框 描边宽度
+     * - radius?: number | number[]; 背景框圆角，支持整数或数组形式
+     */
+    style?: ShapeAttrs;
+    /** 背景框 内边距 */
+    padding?: number | number[];
+  };
   /**
    * 仅当 geometry 为 interval 时生效，指定当前 label 与当前图形的相对位置。
    */
