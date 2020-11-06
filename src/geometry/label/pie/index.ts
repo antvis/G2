@@ -1,4 +1,4 @@
-import { get, isArray } from '@antv/util';
+import { deepMix, get, isArray } from '@antv/util';
 import { getAngleByPoint } from '../../../util/coordinate';
 import { polarToCartesian } from '../../../util/graphics';
 import { LabelItem } from '../interface';
@@ -10,12 +10,14 @@ import PolarLabel from '../polar';
 export default class PieLabel extends PolarLabel {
   public defaultLayout = 'distribute';
 
-  protected getDefaultLabelCfg() {
-    return get(this.geometry.theme, 'pieLabels', {});
+  protected getDefaultLabelCfg(offset?: number, position?: string) {
+    const cfg = super.getDefaultLabelCfg(offset, position);
+    return deepMix({}, cfg, get(this.geometry.theme, 'pieLabels', {}));
   }
 
-  protected getDefaultOffset(offset) {
-    return offset || 0;
+  /** @override */
+  protected getLabelOffset(offset: string | number): number {
+    return super.getLabelOffset(offset) || 0;
   }
 
   protected getLabelRotate(angle: number, offset: number, isLabelLimit: boolean) {
@@ -42,8 +44,7 @@ export default class PieLabel extends PolarLabel {
     } else {
       align = 'right';
     }
-    const offset = this.getDefaultOffset(point.offset);
-    if (offset <= 0) {
+    if (point.offset <= 0) {
       if (align === 'right') {
         align = 'left';
       } else {
@@ -82,7 +83,8 @@ export default class PieLabel extends PolarLabel {
     return angle;
   }
 
-  protected getCirclePoint(angle, offset, p?) {
+  /** @override */
+  protected getCirclePoint(angle: number, offset: number) {
     const coordinate = this.getCoordinate();
     const center = coordinate.getCenter();
     const r = coordinate.getRadius() + offset;
