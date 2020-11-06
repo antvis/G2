@@ -1,22 +1,8 @@
 name: CI
 
-on: [push]
+on: ["push", "pull_request"]
 
 jobs:
-  lint:
-    runs-on: macOS-latest
-    steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js 12
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
-      - name: npm install
-        run: |
-          npm install
-      - name: lint
-        run: |
-          npm run lint
   build:
     runs-on: macOS-latest
     steps:
@@ -24,26 +10,14 @@ jobs:
       - name: Use Node.js 12
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 12.10.0
       - name: npm install
         run: |
           npm install
       - name: build
         run: |
+          npm run lint
           npm run build
-  test:
-    runs-on: macOS-latest
-    steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js 12
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
-      - name: npm install
-        run: |
-          npm install
-      - name: test
-        run: |
           npm run coverage
         env:
           CI: true
