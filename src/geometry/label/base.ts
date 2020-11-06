@@ -75,8 +75,6 @@ export default class GeometryLabel {
   }
 
   public render(mapppingArray: MappingDatum[], isUpdate: boolean = false) {
-    this.clear();
-
     const labelItems = this.getLabelItems(mapppingArray);
     const labelsRenderer = this.getLabelsRenderer();
     const shapes = this.getGeometryShapes();

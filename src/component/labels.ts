@@ -5,9 +5,10 @@ import { AnimateOption, GeometryLabelLayoutCfg } from '../interface';
 import { doAnimate } from '../animate';
 import { getGeometryLabelLayout } from '../geometry/label';
 import { getlLabelBackgroundInfo } from '../geometry/label/util';
-import { getReplaceAttrs, polarToCartesian } from '../util/graphics';
+import { polarToCartesian } from '../util/graphics';
 import { rotate, translate } from '../util/transform';
 import { FIELD_ORIGIN } from '../constant';
+import { updateLabel } from './updateLabel';
 
 /**
  * Labels 实例创建时，传入构造函数的参数定义
@@ -81,31 +82,14 @@ export default class Labels {
           const data = shape.get('data');
           const origin = shape.get('origin');
           const coordinate = shape.get('coordinate');
-          const currentShape = lastShapesMap[id]; // 已经在渲染树上的 shape
           const currentAnimateCfg = shape.get('animateCfg');
-          currentShape.set('data', data);
-          currentShape.set('origin', origin);
-          currentShape.set('animateCfg', currentAnimateCfg);
-          currentShape.set('coordinate', coordinate);
 
-          const updateAnimateCfg = get(currentAnimateCfg, 'update');
-          const currentChildren = currentShape.getChildren();
-          shape.getChildren().map((child, index) => {
-            const currentChild = currentChildren[index] as IShape;
-            currentChild.set('data', data);
-            currentChild.set('origin', origin);
-            currentChild.set('animateCfg', currentAnimateCfg);
-            currentChild.set('coordinate', coordinate);
-
-            const newAttrs = getReplaceAttrs(currentChild, child);
-            if (updateAnimateCfg) {
-              doAnimate(currentChild, updateAnimateCfg, {
-                toAttrs: newAttrs,
-                coordinate,
-              });
-            } else {
-              currentChild.attr(newAttrs);
-            }
+          const currentShape = lastShapesMap[id]; // 已经在渲染树上的 shape
+          updateLabel(currentShape, shapesMap[id], {
+            data,
+            origin,
+            animateCfg: currentAnimateCfg,
+            coordinate,
           });
 
           this.shapesMap[id] = currentShape; // 保存引用
