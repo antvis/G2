@@ -72,6 +72,18 @@ describe('Pie GeometryLabel offset', () => {
     expect(geometryLabel.labelsRenderer.shapesMap[labelItems[0].id].getChildren().length).toBe(2);
   });
 
+  it('declare "offset" percentage, with innerRadius', () => {
+    chart.coordinate('polar', { radius: 0.8, innerRadius: 0.6 });
+    geometry.label('type', { offset: '-30%' });
+    chart.render();
+    const coordinate = chart.getCoordinate();
+
+    let labelItems = geometryLabel.getLabelItems(flatten(geometry.dataArray));
+    labelItems = geometryLabel.getLabelItems(flatten(geometry.dataArray));
+    expect(labelItems[0].offset).not.toEqual(coordinate.getRadius() * -0.5);
+    expect(labelItems[0].offset).toBeCloseTo((coordinate.getRadius() / 0.8) * 0.2 * -0.3);
+  });
+
   afterAll(() => {
     chart.destroy();
   });

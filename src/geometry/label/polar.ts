@@ -1,4 +1,4 @@
-import { each, get, isArray, map } from '@antv/util';
+import { each, get, isArray, map, isNumber, isString } from '@antv/util';
 import { MappingDatum, Point } from '../../interface';
 import { getDistanceToCenter } from '../../util/coordinate';
 import { getAngleByPoint } from '../../util/coordinate';
@@ -11,6 +11,26 @@ const HALF_PI = Math.PI / 2;
  * 极坐标下的图形 label
  */
 export default class PolarLabel extends GeometryLabel {
+  /**
+   * @override
+   * @desc 获取 label offset
+   * polar & theta coordinate support「string」type, should transform to 「number」
+   */
+  protected getLabelOffset(offset: number | string): number {
+    const coordinate = this.getCoordinate();
+    let actualOffset = 0;
+    if (isNumber(offset)) {
+      actualOffset = offset;
+    } else if (isString(offset) && offset.indexOf('%') !== -1) {
+      let r = coordinate.getRadius();
+      if (coordinate.innerRadius > 0) {
+        r = (r / coordinate.radius) * (coordinate.radius - coordinate.innerRadius);
+      }
+      actualOffset = parseFloat(offset) * 0.01 * r;
+    }
+    return actualOffset;
+  }
+
   /**
    * @override
    * 获取 labelItems, 增加切片 percent

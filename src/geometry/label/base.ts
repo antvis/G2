@@ -400,16 +400,11 @@ export default class GeometryLabel {
     return labelTexts;
   }
 
-  /**
-   * polar & theta coordinate support「string」type, should transform to 「number」
-   */
   private getOffsetVector(offset: number | string = 0) {
     const coordinate = this.getCoordinate();
     let actualOffset = 0;
     if (isNumber(offset)) {
       actualOffset = offset;
-    } else if (isString(offset) && offset.indexOf('%') !== -1 && ['polar', 'theta'].indexOf(coordinate.type) !== -1) {
-      actualOffset = parseFloat(offset) * 0.01 * coordinate.getRadius();
     }
     // 如果 x,y 翻转，则偏移 x，否则偏移 y
     return coordinate.isTransposed ? coordinate.applyMatrix(actualOffset, 0) : coordinate.applyMatrix(0, actualOffset);
