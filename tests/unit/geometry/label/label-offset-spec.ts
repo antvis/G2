@@ -79,9 +79,21 @@ describe('Pie GeometryLabel offset', () => {
     const coordinate = chart.getCoordinate();
 
     let labelItems = geometryLabel.getLabelItems(flatten(geometry.dataArray));
-    labelItems = geometryLabel.getLabelItems(flatten(geometry.dataArray));
     expect(labelItems[0].offset).not.toEqual(coordinate.getRadius() * -0.5);
     expect(labelItems[0].offset).toBeCloseTo((coordinate.getRadius() / 0.8) * 0.2 * -0.3);
+
+    geometry.label('type', { offset: -10 });
+    labelItems = geometryLabel.getLabelItems(flatten(geometry.dataArray));
+    expect(labelItems[0].offset).toEqual(-10);
+
+    geometry.label('type', { offset: 10 });
+    labelItems = geometryLabel.getLabelItems(flatten(geometry.dataArray));
+    expect(labelItems[0].offset).toEqual(10);
+
+    geometry.label('type', { offset: '10%' });
+    labelItems = geometryLabel.getLabelItems(flatten(geometry.dataArray));
+    expect(labelItems[0].offset).not.toEqual(coordinate.getRadius() * 0.1);
+    expect(labelItems[0].offset).toBeCloseTo((coordinate.getRadius() / 0.8) * 0.2 * 0.1);
   });
 
   afterAll(() => {
@@ -123,5 +135,4 @@ describe('Interval GeometryLabel offset', () => {
     const labelItems = geometryLabel.getLabelItems(flatten(geometry.dataArray));
     expect(labelItems[0].offset).toBe(0);
   });
-
 });
