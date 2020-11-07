@@ -56,6 +56,7 @@ const ANNOTATIONS_AFTER_RENDER = ['regionFilter', 'shape'];
 export default class Annotation extends Controller<BaseOption[]> {
   private foregroundContainer: IGroup;
   private backgroundContainer: IGroup;
+  private htmlContainer: HTMLDivElement;
 
   /* 组件更新的 cache，组件配置 object : 组件 */
   private cache = new Map<BaseOption, ComponentOption>();
@@ -65,6 +66,9 @@ export default class Annotation extends Controller<BaseOption[]> {
 
     this.foregroundContainer = this.view.getLayer(LAYER.FORE).addGroup();
     this.backgroundContainer = this.view.getLayer(LAYER.BG).addGroup();
+    this.htmlContainer = (this.view.getCanvas().get('el').parentNode as HTMLDivElement).appendChild(
+      document.createElement('div')
+    );
 
     this.option = [];
   }
@@ -132,6 +136,7 @@ export default class Annotation extends Controller<BaseOption[]> {
     this.cache.clear();
     this.foregroundContainer.clear();
     this.backgroundContainer.clear();
+    this.htmlContainer.childNodes.forEach((node) => node.remove());
     // clear all option
     if (includeOption) {
       this.option = [];
@@ -600,7 +605,7 @@ export default class Annotation extends Controller<BaseOption[]> {
         ...restOptions,
         ...this.parsePosition(position),
         // html 组件需要指定 parent
-        parent: canvas.get('el').parentNode,
+        parent: this.htmlContainer,
         html: wrappedHtml,
       };
     }
