@@ -36,6 +36,7 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/gas-import-export.js
       position: [2040, 6.3],
       content: '出口至墨西哥',
       style: {
+        fill: '#eee',
         fontWeight: 300,
         textAlign: 'end',
         textBaseline: 'center'
@@ -47,6 +48,7 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/gas-import-export.js
       position: [2040, 5],
       content: '出口至加拿大',
       style: {
+        fill: '#eee',
         fontWeight: 300,
         textAlign: 'end',
         textBaseline: 'center'
@@ -59,6 +61,7 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/gas-import-export.js
       position: [2040, 2],
       content: '来自40个州的液化天然气出口',
       style: {
+        fill: '#eee',
         fontWeight: 300,
         textAlign: 'end',
         textBaseline: 'center'
@@ -70,6 +73,7 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/gas-import-export.js
       position: [2015, -1.5],
       content: '从加拿大进口',
       style: {
+        fill: '#eee',
         fontWeight: 300,
         textAlign: 'start',
         textBaseline: 'center'
