@@ -7,7 +7,7 @@
     {
       "filename": "column2.ts",
       "title": {
-        "en": "column chart",
+        "en": "Age distribution of active users",
         "zh": "某 APP 活跃用户年龄分布"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*377_TZgcotkAAAAAAAAAAABkARQnAQ"
@@ -15,7 +15,7 @@
     {
       "filename": "column3.ts",
       "title": {
-        "en": "column chart",
+        "en": "Netflix has grown in value",
         "zh": "Netflix 公司市值增长"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*o3i0R5ODPzMAAAAAAAAAAABkARQnAQ"
@@ -23,7 +23,7 @@
     {
       "filename": "column4.ts",
       "title": {
-        "en": "column chart",
+        "en": "Fresh sales trends",
         "zh": "生鲜销售趋势"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*xxgcR5hGijYAAAAAAAAAAABkARQnAQ"
@@ -31,7 +31,7 @@
     {
       "filename": "column5.ts",
       "title": {
-        "en": "column chart",
+        "en": "Distribution of call duration per call for pre-sale consultation",
         "zh": "2018-08 A组售前咨询单次通话时长分布"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*FM-OTqUIal4AAAAAAAAAAABkARQnAQ"
@@ -39,7 +39,7 @@
     {
       "filename": "column8.ts",
       "title": {
-        "en": "column chart",
+        "en": "Cash flow from business operations",
         "zh": "某企业经营现金流（5年报趋势）"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*Ke-gQ4YtdkwAAAAAAAAAAABkARQnAQ"
@@ -47,7 +47,7 @@
     {
       "filename": "column10.ts",
       "title": {
-        "en": "stacked column chart",
+        "en": "Trend analysis of income and expenditure proportion",
         "zh": "零钱管家 APP 收支占比趋势分析"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*3mrZR6khwfkAAAAAAAAAAABkARQnAQ"
@@ -55,7 +55,7 @@
     {
       "filename": "column11.ts",
       "title": {
-        "en": "100% stacked column chart",
+        "en": "The proportion of China's mobile Internet segmentation structure",
         "zh": "中国移动互联网细分结构占比"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*6ygmR4ZeWI4AAAAAAAAAAABkARQnAQ"

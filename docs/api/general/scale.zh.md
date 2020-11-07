@@ -3,6 +3,8 @@ title: 度量 - Scale
 order: 2
 ---
 
+`markdown:docs/common/style.md`
+
 度量（Scale）用于定义数据的类型和展示方式，scale 有三种传入方式：
 
 第一种 传入以字段名为 key，_ScaleOption_ 为 value 的配置，同时设置多个字段的度量。

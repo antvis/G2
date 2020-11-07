@@ -3,6 +3,8 @@ title: 调整 - Adjust
 order: 4
 ---
 
+`markdown:docs/common/style.md`
+
 设置数据调整方式。
 
 数据调整有以下三种配置方式：

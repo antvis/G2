@@ -8,4 +8,13 @@
   p {
     margin: 0.6em 0;
   }
+
+  h4 {
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  h4::before {
+    content: '> ';
+    opacity: 0.5;
+  }
 </style>

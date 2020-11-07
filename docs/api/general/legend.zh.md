@@ -3,6 +3,8 @@ title: 图例 - Legend
 order: 7
 ---
 
+`markdown:docs/common/style.md`
+
 配置图例有两种方式
 
 第一种，传入 `boolean` 设置是否显示图例。

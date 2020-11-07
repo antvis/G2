@@ -3,6 +3,8 @@ title: 标注 - Annotation
 order: 10
 ---
 
+`markdown:docs/common/style.md`
+
 图形标注，Annotation，作为 G2 图表的辅助元素，主要用于在图表上标识额外的标记注解。之前的调用方法为 `guide`，将在 V4.1 移除。
 
 ### chart.annotation().arc(option)
