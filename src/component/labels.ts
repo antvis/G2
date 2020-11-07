@@ -8,7 +8,7 @@ import { getlLabelBackgroundInfo } from '../geometry/label/util';
 import { polarToCartesian } from '../util/graphics';
 import { rotate, translate } from '../util/transform';
 import { FIELD_ORIGIN } from '../constant';
-import { updateLabel } from './updateLabel';
+import { updateLabel } from './update-label';
 
 /**
  * Labels 实例创建时，传入构造函数的参数定义
