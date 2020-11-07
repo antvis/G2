@@ -24,10 +24,11 @@ export default class PolarLabel extends GeometryLabel {
     } else if (isString(offset) && offset.indexOf('%') !== -1) {
       let r = coordinate.getRadius();
       if (coordinate.innerRadius > 0) {
-        r = (r / coordinate.radius) * (coordinate.radius - coordinate.innerRadius);
+        r = r * (1 - coordinate.innerRadius);
       }
       actualOffset = parseFloat(offset) * 0.01 * r;
     }
+
     return actualOffset;
   }
 

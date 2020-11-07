@@ -73,14 +73,14 @@ describe('Pie GeometryLabel offset', () => {
   });
 
   it('declare "offset" percentage, with innerRadius', () => {
-    chart.coordinate('polar', { radius: 0.8, innerRadius: 0.6 });
-    geometry.label('type', { offset: '-30%' });
+    chart.coordinate('polar', { radius: 0.9, innerRadius: 0.6 });
+    geometry.label('type', { offset: '-50%' });
     chart.render();
     const coordinate = chart.getCoordinate();
 
     let labelItems = geometryLabel.getLabelItems(flatten(geometry.dataArray));
     expect(labelItems[0].offset).not.toEqual(coordinate.getRadius() * -0.5);
-    expect(labelItems[0].offset).toBeCloseTo((coordinate.getRadius() / 0.8) * 0.2 * -0.3);
+    expect(labelItems[0].offset).toBeCloseTo(coordinate.getRadius() * (1 - 0.6) * -0.5);
 
     geometry.label('type', { offset: -10 });
     labelItems = geometryLabel.getLabelItems(flatten(geometry.dataArray));
@@ -93,7 +93,7 @@ describe('Pie GeometryLabel offset', () => {
     geometry.label('type', { offset: '10%' });
     labelItems = geometryLabel.getLabelItems(flatten(geometry.dataArray));
     expect(labelItems[0].offset).not.toEqual(coordinate.getRadius() * 0.1);
-    expect(labelItems[0].offset).toBeCloseTo((coordinate.getRadius() / 0.8) * 0.2 * 0.1);
+    expect(labelItems[0].offset).toBeCloseTo((coordinate.getRadius() * (1 - 0.6) * 0.1));
   });
 
   afterAll(() => {
