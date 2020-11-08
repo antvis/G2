@@ -66,9 +66,7 @@ export default class Annotation extends Controller<BaseOption[]> {
 
     this.foregroundContainer = this.view.getLayer(LAYER.FORE).addGroup();
     this.backgroundContainer = this.view.getLayer(LAYER.BG).addGroup();
-    this.htmlContainer = (this.view.getCanvas().get('el').parentNode as HTMLDivElement).appendChild(
-      document.createElement('div')
-    );
+    this.initHTMLContainer();
 
     this.option = [];
   }
@@ -136,7 +134,8 @@ export default class Annotation extends Controller<BaseOption[]> {
     this.cache.clear();
     this.foregroundContainer.clear();
     this.backgroundContainer.clear();
-    this.htmlContainer.childNodes.forEach((node) => node.remove());
+    this.clearHTMLContainer();
+
     // clear all option
     if (includeOption) {
       this.option = [];
@@ -148,6 +147,7 @@ export default class Annotation extends Controller<BaseOption[]> {
 
     this.foregroundContainer.remove(true);
     this.backgroundContainer.remove(true);
+    this.clearHTMLContainer(true);
   }
 
   /**
@@ -200,6 +200,19 @@ export default class Annotation extends Controller<BaseOption[]> {
         type: COMPONENT_TYPE.ANNOTATION,
         extra: option,
       };
+    }
+  }
+
+  private initHTMLContainer() {
+    this.htmlContainer = (this.view.getCanvas().get('el').parentNode as HTMLDivElement).appendChild(
+      document.createElement('div')
+    );
+  }
+
+  private clearHTMLContainer(destroyed = false) {
+    this.htmlContainer.remove();
+    if (!destroyed) {
+      this.initHTMLContainer();
     }
   }
 
