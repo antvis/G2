@@ -54,7 +54,7 @@ module.exports = {
         slug: 'manual/concepts',
         title: {
           zh: '可视化基础概念',
-          en: 'Chart Concepts',
+          en: 'Visualization Concepts',
         },
         order: 2,
       },
