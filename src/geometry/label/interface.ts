@@ -1,61 +1,40 @@
 import { Coordinate, ShapeAttrs } from '../../dependents';
 import { Datum, GeometryLabelCfg, MappingDatum, Point } from '../../interface';
+
 export type TextAlign = 'start' | 'center' | 'end' | 'left' | 'right';
-export interface LabelCfg extends GeometryLabelCfg {
+/** 去除 readonly 修饰 */
+export type Writeable<T> = { -readonly [P in keyof T]: T[P] };
+export interface LabelCfg extends Omit<GeometryLabelCfg, 'offset'> {
   content?: any;
-  position?: 'top' | 'bottom' | 'middle' | 'left' | 'right';
-  id: string;
-  data: Datum;
-  mappingData: MappingDatum;
-  coordinate: Coordinate;
+  readonly position?: 'top' | 'bottom' | 'middle' | 'left' | 'right';
+  readonly offset?: number;
+  readonly id: string;
+  readonly data: Datum;
+  readonly mappingData: MappingDatum;
+  readonly coordinate: Coordinate;
 }
 
 export interface LabelPointCfg {
+  /** labelPoint.x */
   x?: number;
+  /** labelPoint.y */
   y?: number;
-  start?: Point;
-  color?: string;
+  readonly start?: Point;
+  readonly color?: string;
+  readonly textAlign?: TextAlign;
+  readonly textBaseline?: string;
+  readonly angle?: number;
+  readonly r?: number;
   content?: any;
-  textAlign?: TextAlign;
-  textBaseline?: string;
   rotate?: number;
-  angle?: number;
-  r?: number;
 }
 
-export interface LabelItem extends GeometryLabelCfg {
-  id: string;
-  data: Datum;
-  mappingData: MappingDatum;
-  coordinate: Coordinate;
-  x?: number;
-  y?: number;
-  start?: Point;
-  color?: string;
-  content?: any;
-  textAlign?: TextAlign;
-  textBaseline?: string;
-  rotate?: number;
-  angle?: number;
-  r?: number;
+/**
+ * 绘制 label 的 item
+ */
+export interface LabelItem extends LabelCfg, LabelPointCfg {
   /** 牵引线 */
   labelLine?: null | boolean | { style?: object; path?: string };
-
-  /**
-   * label 背景
-   */
-  background?: {
-    /**
-     * 背景框 图形属性配置
-     * - fill?: string; 背景框 填充色
-     * - stroke?: string; 背景框 描边色
-     * - lineWidth?: string; 背景框 描边宽度
-     * - radius?: number | number[]; 背景框圆角，支持整数或数组形式
-     */
-    style?: ShapeAttrs;
-    /** 背景框 内边距 */
-    padding?: number | number[];
-  };
 }
 
 /**
@@ -63,7 +42,7 @@ export interface LabelItem extends GeometryLabelCfg {
  */
 export interface PolarLabelItem extends LabelItem {
   /** 占比 */
-  percent?: number;
+  readonly percent?: number;
   /** 是否不可见 */
   invisible?: boolean;
 }

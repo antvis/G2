@@ -1,5 +1,5 @@
 import { get, deepMix, isArray } from '@antv/util';
-
+import { Writeable } from 'src/util/types';
 import { MappingDatum, Point } from '../../interface';
 import GeometryLabel from './base';
 import { LabelCfg, LabelPointCfg } from './interface';
@@ -17,7 +17,7 @@ export default class IntervalLabel extends GeometryLabel {
     const dim = 'y';
     const { points } = mappingData;
 
-    return points[0][dim] < points[2][dim] ? 1 : -1;
+    return points[0][dim] <= points[2][dim] ? 1 : -1;
   }
 
   /**
@@ -26,15 +26,16 @@ export default class IntervalLabel extends GeometryLabel {
    * @param index
    * @param total
    */
-  protected getLabelOffset(labelCfg: LabelCfg, index: number, total: number) {
-    const point = super.getLabelOffset(labelCfg, index, total);
+  protected getLabelOffsetPoint(labelCfg: LabelCfg, index: number, total: number) {
+    const point = super.getLabelOffsetPoint(labelCfg, index, total);
     const transposed = this.getCoordinate().isTransposed;
     const dim = transposed ? 'x' : 'y';
     const dir = this.getLabelValueDir(labelCfg.mappingData);
 
-    point[dim] *= dir;
-
-    return point;
+    return {
+      ...point,
+      [dim]: point[dim] * dir,
+    };
   }
 
   /**
@@ -50,7 +51,12 @@ export default class IntervalLabel extends GeometryLabel {
     return deepMix({}, defaultLabelCfg, theme.labels, labelCfg.position === 'middle' ? { offset: 0 } : {}, labelCfg);
   }
 
-  protected setLabelPosition(labelPointCfg: LabelPointCfg, mappingData: MappingDatum, index: number, position: string) {
+  protected setLabelPosition(
+    labelPointCfg: Writeable<LabelPointCfg>,
+    mappingData: MappingDatum,
+    index: number,
+    position: string
+  ) {
     const coordinate = this.getCoordinate();
     const transposed = coordinate.isTransposed;
     const shapePoints = mappingData.points as Point[];

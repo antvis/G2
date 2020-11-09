@@ -269,6 +269,7 @@ describe('Interval shapes', () => {
       canvas.draw();
       const path = shape.attr('path');
       expect(shape.attr('stroke')).toBe('green');
+      expect(shape.attr('fill')).toBeUndefined();
       expect(path.length).toBe(2);
       expect(shape.getBBox().width).toBe(10);
       expect(path[0][2] - path[1][2]).toBe(125);

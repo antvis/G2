@@ -283,8 +283,11 @@ describe('interval position', () => {
     const left = point0.x;
 
     return {
-      top, bottom, right, left,
-    }
+      top,
+      bottom,
+      right,
+      left,
+    };
   };
 
   it('position bottom', () => {
@@ -516,8 +519,11 @@ describe('funnel position', () => {
     }
 
     return {
-      top, bottom, right, left,
-    }
+      top,
+      bottom,
+      right,
+      left,
+    };
   };
 
   it('position bottom', () => {
@@ -528,9 +534,7 @@ describe('funnel position', () => {
     });
     chart.data(funnelData);
     chart.axis(false);
-    chart
-      .coordinate('rect')
-      .scale(1, -1);
+    chart.coordinate('rect').scale(1, -1);
     chart.tooltip({
       showMarkers: false,
     });
@@ -540,11 +544,9 @@ describe('funnel position', () => {
       .position('action*pv')
       .shape('funnel')
       .color('action')
-      .label('pv',
-        {
-          position: 'bottom',
-        }
-      );
+      .label('pv', {
+        position: 'bottom',
+      });
 
     chart.render();
 
@@ -555,7 +557,7 @@ describe('funnel position', () => {
     elements.forEach((element) => {
       const dir = element.getData().value < 0 ? -1 : 1;
       const { bottom } = getIntervalSize(chart.getCoordinate(), element.getModel());
-      const labelTextShape = element.labelShape[0] ?.find((el) => el.get('type') === 'text');
+      const labelTextShape = element.labelShape[0]?.find((el) => el.get('type') === 'text');
       expect(labelTextShape.attr('textAlign')).toBe('center');
       expect(labelTextShape.attr('textBaseline')).toBe(dir > 0 ? 'bottom' : 'top');
       expect(near(labelTextShape.attr('y'), bottom + 12)).toBe(true);
@@ -570,9 +572,7 @@ describe('funnel position', () => {
     });
     chart.data(funnelData);
     chart.axis(false);
-    chart
-      .coordinate('rect')
-      .scale(1, -1);
+    chart.coordinate('rect').scale(1, -1);
     chart.tooltip({
       showMarkers: false,
     });
@@ -582,11 +582,9 @@ describe('funnel position', () => {
       .position('action*pv')
       .shape('funnel')
       .color('action')
-      .label('pv',
-        {
-          position: 'middle',
-        }
-      );
+      .label('pv', {
+        position: 'middle',
+      });
 
     chart.render();
 
@@ -597,7 +595,7 @@ describe('funnel position', () => {
     elements.forEach((element) => {
       const dir = element.getData().value < 0 ? -1 : 1;
       const { top, bottom } = getIntervalSize(chart.getCoordinate(), element.getModel());
-      const labelTextShape = element.labelShape[0] ?.find((el) => el.get('type') === 'text');
+      const labelTextShape = element.labelShape[0]?.find((el) => el.get('type') === 'text');
       expect(labelTextShape.attr('textAlign')).toBe('center');
       expect(labelTextShape.attr('textBaseline')).toBe('middle');
       expect(near(labelTextShape.attr('y'), (top + bottom) / 2)).toBe(true);
@@ -612,9 +610,7 @@ describe('funnel position', () => {
     });
     chart.data(funnelData);
     chart.axis(false);
-    chart
-      .coordinate('rect')
-      .scale(1, -1);
+    chart.coordinate('rect').scale(1, -1);
     chart.tooltip({
       showMarkers: false,
     });
@@ -624,11 +620,9 @@ describe('funnel position', () => {
       .position('action*pv')
       .shape('funnel')
       .color('action')
-      .label('pv',
-        {
-          position: 'top',
-        }
-      );
+      .label('pv', {
+        position: 'top',
+      });
 
     chart.render();
 
@@ -639,7 +633,7 @@ describe('funnel position', () => {
     elements.forEach((element) => {
       const dir = element.getData().value < 0 ? -1 : 1;
       const { top } = getIntervalSize(chart.getCoordinate(), element.getModel());
-      const labelTextShape = element.labelShape[0] ?.find((el) => el.get('type') === 'text');
+      const labelTextShape = element.labelShape[0]?.find((el) => el.get('type') === 'text');
       expect(labelTextShape.attr('textAlign')).toBe('center');
       expect(labelTextShape.attr('textBaseline')).toBe(dir > 0 ? 'bottom' : 'top');
       expect(near(labelTextShape.attr('y'), top + 12)).toBe(true);
@@ -654,10 +648,7 @@ describe('funnel position', () => {
     });
     chart.data(funnelData);
     chart.axis(false);
-    chart
-      .coordinate('rect')
-      .transpose()
-      .scale(1, -1);
+    chart.coordinate('rect').transpose().scale(1, -1);
     chart.tooltip({
       showMarkers: false,
     });
@@ -667,11 +658,9 @@ describe('funnel position', () => {
       .position('action*pv')
       .shape('funnel')
       .color('action')
-      .label('pv',
-        {
-          position: 'left',
-        }
-      );
+      .label('pv', {
+        position: 'left',
+      });
 
     chart.render();
 
@@ -682,7 +671,7 @@ describe('funnel position', () => {
     elements.forEach((element) => {
       const dir = element.getData().value < 0 ? -1 : 1;
       const { left } = getIntervalSize(chart.getCoordinate(), element.getModel());
-      const labelTextShape = element.labelShape[0] ?.find((el) => el.get('type') === 'text');
+      const labelTextShape = element.labelShape[0]?.find((el) => el.get('type') === 'text');
       expect(labelTextShape.attr('textAlign')).toBe(dir > 0 ? 'left' : 'right');
       expect(labelTextShape.attr('textBaseline')).toBe('middle');
       expect(near(labelTextShape.attr('x'), dir > 0 ? left + 12 : left - 12)).toBe(true);
@@ -697,10 +686,7 @@ describe('funnel position', () => {
     });
     chart.data(funnelData);
     chart.axis(false);
-    chart
-      .coordinate('rect')
-      .transpose()
-      .scale(1, -1);
+    chart.coordinate('rect').transpose().scale(1, -1);
     chart.tooltip({
       showMarkers: false,
     });
@@ -710,11 +696,9 @@ describe('funnel position', () => {
       .position('action*pv')
       .shape('funnel')
       .color('action')
-      .label('pv',
-        {
-          position: 'middle',
-        }
-      );
+      .label('pv', {
+        position: 'middle',
+      });
 
     chart.render();
 
@@ -725,7 +709,7 @@ describe('funnel position', () => {
     elements.forEach((element) => {
       const dir = element.getData().value < 0 ? -1 : 1;
       const { left, right } = getIntervalSize(chart.getCoordinate(), element.getModel());
-      const labelTextShape = element.labelShape[0] ?.find((el) => el.get('type') === 'text');
+      const labelTextShape = element.labelShape[0]?.find((el) => el.get('type') === 'text');
       expect(labelTextShape.attr('textAlign')).toBe('center');
       expect(labelTextShape.attr('textBaseline')).toBe('middle');
       expect(near(labelTextShape.attr('x'), (left + right) / 2)).toBe(true);
@@ -740,10 +724,7 @@ describe('funnel position', () => {
     });
     chart.data(funnelData);
     chart.axis(false);
-    chart
-      .coordinate('rect')
-      .transpose()
-      .scale(1, -1);
+    chart.coordinate('rect').transpose().scale(1, -1);
     chart.tooltip({
       showMarkers: false,
     });
@@ -753,11 +734,9 @@ describe('funnel position', () => {
       .position('action*pv')
       .shape('funnel')
       .color('action')
-      .label('pv',
-        {
-          position: 'right',
-        }
-      );
+      .label('pv', {
+        position: 'right',
+      });
 
     chart.render();
 
@@ -768,7 +747,7 @@ describe('funnel position', () => {
     elements.forEach((element) => {
       const dir = element.getData().value < 0 ? -1 : 1;
       const { right } = getIntervalSize(chart.getCoordinate(), element.getModel());
-      const labelTextShape = element.labelShape[0] ?.find((el) => el.get('type') === 'text');
+      const labelTextShape = element.labelShape[0]?.find((el) => el.get('type') === 'text');
       expect(labelTextShape.attr('textAlign')).toBe(dir > 0 ? 'left' : 'right');
       expect(labelTextShape.attr('textBaseline')).toBe('middle');
       expect(near(labelTextShape.attr('x'), right + dir * 12)).toBe(true);

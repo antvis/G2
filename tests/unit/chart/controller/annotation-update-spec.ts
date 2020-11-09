@@ -107,4 +107,46 @@ describe('annotation update', () => {
 
     expect(annotations[0].component.get('content')).toBe('第二个文本');
   });
+
+  it('html annotation, clear', () => {
+    const htmlContainer = chart.getCanvas().get('el').parentNode;
+    chart.annotation().clear(true);
+
+    chart.annotation().html({
+      position: ['50%', '50%'],
+      html: 'HTML内容',
+    });
+
+    chart.render(true);
+    expect(htmlContainer.querySelectorAll('.g2-html-annotation').length).toBe(1);
+
+    const [html] = getAnnotations();
+    chart.annotation().html({
+      position: ['50%', '50%'],
+      html: 'HTML内容2',
+    });
+    chart.render(true);
+    expect(htmlContainer.querySelectorAll('.g2-html-annotation').length).toBe(2);
+
+    const annotations = getAnnotations();
+    // 保持引用
+    expect(annotations[0]).toBe(html);
+
+    chart.annotation().clear(true);
+    expect(htmlContainer.querySelectorAll('.g2-html-annotation').length).toBe(0);
+  });
+
+  it('html annotation, destroy', () => {
+    const htmlContainer = chart.getCanvas().get('el').parentNode;
+    chart.annotation().clear(true);
+
+    chart.annotation().html({
+      position: ['50%', '50%'],
+      html: 'HTML内容',
+    });
+
+    chart.render(true);
+    chart.annotation().destroy();
+    expect(htmlContainer.querySelectorAll('.g2-html-annotation').length).toBe(0);
+  });
 });

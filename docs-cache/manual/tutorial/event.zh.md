@@ -23,7 +23,7 @@ G2 4.0 提供了丰富的事件机制，包括几大类：
 
 ```javascript
 chart.on('click', (ev) => {
-  const shape = eve.shape;
+  const shape = ev.shape;
   if (shape) {
     // do something
   }

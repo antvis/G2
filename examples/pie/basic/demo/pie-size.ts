@@ -64,7 +64,7 @@ chart
   .color('type')
   .shape('slice-shape')
   .label('type', {
-    offset: -130,
+    offset: '-70%',
     layout: {
       type: 'limit-in-shape',
     },

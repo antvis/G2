@@ -1,9 +1,9 @@
-import { each, get, isArray, map } from '@antv/util';
+import { each, get, isArray, map, isNumber, isString } from '@antv/util';
 import { MappingDatum, Point } from '../../interface';
 import { getDistanceToCenter } from '../../util/coordinate';
 import { getAngleByPoint } from '../../util/coordinate';
 import GeometryLabel from './base';
-import { LabelCfg, LabelItem, PolarLabelItem, LabelPointCfg } from './interface';
+import { LabelCfg, LabelItem, PolarLabelItem, LabelPointCfg, Writeable } from './interface';
 
 const HALF_PI = Math.PI / 2;
 
@@ -11,6 +11,27 @@ const HALF_PI = Math.PI / 2;
  * 极坐标下的图形 label
  */
 export default class PolarLabel extends GeometryLabel {
+  /**
+   * @override
+   * @desc 获取 label offset
+   * polar & theta coordinate support「string」type, should transform to 「number」
+   */
+  protected getLabelOffset(offset: number | string): number {
+    const coordinate = this.getCoordinate();
+    let actualOffset = 0;
+    if (isNumber(offset)) {
+      actualOffset = offset;
+    } else if (isString(offset) && offset.indexOf('%') !== -1) {
+      let r = coordinate.getRadius();
+      if (coordinate.innerRadius > 0) {
+        r = r * (1 - coordinate.innerRadius);
+      }
+      actualOffset = parseFloat(offset) * 0.01 * r;
+    }
+
+    return actualOffset;
+  }
+
   /**
    * @override
    * 获取 labelItems, 增加切片 percent
@@ -45,7 +66,7 @@ export default class PolarLabel extends GeometryLabel {
       align = 'center';
     } else {
       const center = coordinate.getCenter();
-      const offset = this.getDefaultOffset(point.offset);
+      const offset = point.offset;
       if (Math.abs(point.x - center.x) < 1) {
         align = 'center';
       } else if (point.angle > Math.PI || point.angle <= 0) {
@@ -79,10 +100,10 @@ export default class PolarLabel extends GeometryLabel {
       arcPoint = this.getArcPoint(mappingData, index);
     }
 
-    const offset = this.getDefaultOffset(labelCfg.offset) * factor;
+    const offset = labelCfg.offset * factor;
     const middleAngle = this.getPointAngle(arcPoint);
     const isLabelEmit = labelCfg.labelEmit;
-    const labelPositionCfg: LabelPointCfg = this.getCirclePoint(middleAngle, offset, arcPoint, isLabelEmit);
+    const labelPositionCfg: Writeable<LabelPointCfg> = this.getCirclePoint(middleAngle, offset, arcPoint, isLabelEmit);
     if (labelPositionCfg.r === 0) {
       // 如果文本位置位于圆心，则不展示
       labelPositionCfg.content = '';

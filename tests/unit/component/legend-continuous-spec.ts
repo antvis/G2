@@ -72,7 +72,7 @@ describe('Component', () => {
     // @ts-ignore
     expect(color.get('rail').type).toBe('color');
     // @ts-ignore
-    expect(color.get('colors')).toEqual(['#5b8ff9', '#838373', '#ab969f', '#e48a62', '#ff99c3']);
+    expect(color.get('colors')).toEqual(['#5b8ff9', '#838373', '#6e93f3', '#e48a62', '#ff99c3']);
     // @ts-ignore
     expect(color.get('layout')).toBe('horizontal');
   });

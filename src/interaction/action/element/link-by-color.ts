@@ -23,15 +23,25 @@ class LinkByColor extends Action {
   }
   // 获取连接的 path
   private getLinkPath(element: Element, nextElement: Element) {
+    const view = this.context.view;
+    const { isTransposed } = view.getCoordinate();
     const bbox = element.shape.getCanvasBBox();
     const nextBBox = nextElement.shape.getCanvasBBox();
-    const path = [
-      ['M', bbox.maxX, bbox.minY],
-      ['L', nextBBox.minX, nextBBox.minY],
-      ['L', nextBBox.minX, nextBBox.maxY],
-      ['L', bbox.maxX, bbox.maxY],
-      ['Z'],
-    ];
+    const path = isTransposed
+      ? [
+          ['M', bbox.minX, bbox.minY],
+          ['L', nextBBox.minX, nextBBox.maxY],
+          ['L', nextBBox.maxX, nextBBox.maxY],
+          ['L', bbox.maxX, bbox.minY],
+          ['Z'],
+        ]
+      : [
+          ['M', bbox.maxX, bbox.minY],
+          ['L', nextBBox.minX, nextBBox.minY],
+          ['L', nextBBox.minX, nextBBox.maxY],
+          ['L', bbox.maxX, bbox.maxY],
+          ['Z'],
+        ];
     return path;
   }
   // 添加连接的图形
@@ -114,6 +124,7 @@ class LinkByColor extends Action {
     if (this.linkGroup) {
       this.linkGroup.clear();
     }
+    this.cache = {};
   }
 
   /**
