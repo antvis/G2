@@ -108,7 +108,7 @@ describe('annotation update', () => {
     expect(annotations[0].component.get('content')).toBe('第二个文本');
   });
 
-  it.skip('html annotation, clear', () => {
+  it('html annotation, clear', () => {
     const htmlContainer = chart.getCanvas().get('el').parentNode;
     chart.annotation().clear(true);
 
