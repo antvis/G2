@@ -8,7 +8,7 @@
       "filename": "column-clustered-stacked.ts",
       "title": {
         "zh": "分组层叠柱状图",
-        "en": "clustered stacked column"
+        "en": "Clustered stacked column"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*1uL3RrksVZAAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "circular-stacked.ts",
       "title": {
         "zh": "极坐标系下分组层叠柱状图",
-        "en": "clustered stacked column in Polar Coordinate"
+        "en": "Clustered stacked column in polar coordinate"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*PwjLQr4h5t0AAAAAAAAAAABkARQnAQ"
     }

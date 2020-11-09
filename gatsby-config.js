@@ -110,8 +110,16 @@ module.exports = {
         slug: 'gallery',
         icon: 'gallery',
         title: {
-          zh: '官方精品库',
-          en: 'Featured',
+          zh: '',
+          en: '',
+        },
+      },
+      {
+        slug: 'case',
+        icon: 'gallery',
+        title: {
+          zh: '场景案例',
+          en: 'Show Case',
         },
       },
       {

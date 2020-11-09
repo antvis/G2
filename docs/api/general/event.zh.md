@@ -11,11 +11,11 @@ chart.once('eventName', callback);    // 绑定事件，只触发一次
 chart.off('eventName', callback);     // 移除事件
 ```
 
-## 事件类别
+### 事件类别
 
 在 G2 中，我们将事件分成为几种事件类型：
 
-### 1. 基础事件
+#### 1. 基础事件
 
 > 主要包含有 DOM 的基础事件。
 
@@ -40,7 +40,7 @@ chart.off('eventName', callback);     // 移除事件
 - contextmenu 右键事件
 - dblclick 双击事件
 
-### 2. 组合事件
+#### 2. 组合事件
 
 `基础事件`中，只要画布中触发这些事件，都会执行，但是大部分场景下，我们需要精确定位到某一个元素的点击，比如：
 
@@ -90,7 +90,7 @@ ${componentName}:${eventName}
 
 然后将这些组件名称和基础事件名进行一个排列组合，即为 G2 内置的事件。
 
-#### 图形 Element 上的事件
+##### 图形 Element 上的事件
 
 为了便于用户访问图形对应 Element 对象，可以通过 shape.get('element') 对象来获取，后面也会在 shape 上增加 delegateObject 对象来访问。
 
@@ -132,7 +132,7 @@ chart.on('interval:click', (ev) => {
 });
 ```
 
-#### Axis 事件
+##### Axis 事件
 
 - axis-label：坐标轴文本的事件前缀
 - axis-line：坐标轴轴线的事件前缀
@@ -140,20 +140,19 @@ chart.on('interval:click', (ev) => {
 - axis-title：坐标轴标题事件前缀
 
 ```ts
-chart.on('axis-label:click', (ev) => {
-});
+chart.on('axis-label:click', (ev) => {});
 ```
 
-#### Legend 事件
+##### Legend 事件
 
 - legend：图例的事件前缀，无论点击了图例的任意图形上
 - legend-title：图例标题的事件前缀
 - legend-item：图例选项的事件前缀
 - legend-item-name：图例选项 name 文本 的事件前缀
-- legend-item-marker:  图例选项 marker 图标 的事件前缀
+- legend-item-marker: 图例选项 marker 图标 的事件前缀
 - legend-item-value：图例选项 value 的事件前缀
 
-#### Annotation 事件
+##### Annotation 事件
 
 - annotation: 所有辅助图形共同的事件前缀
 - annotation-line：辅助线的事件前缀
@@ -164,7 +163,7 @@ chart.on('axis-label:click', (ev) => {
 - annotation-html: html 辅助元素的事件前缀
 - annotation-shape: G.shape 自定义辅助元素的事件前缀
 
-#### Tooltip 事件
+##### Tooltip 事件
 
 Tooltip 事件比较特殊，只有内置的几个事件，而不具备组合事件能力。
 
@@ -172,7 +171,7 @@ Tooltip 事件比较特殊，只有内置的几个事件，而不具备组合事
 - tooltip:hide
 - tooltip:change
 
-### 3. Chart / View 生命周期事件
+#### 3. Chart / View 生命周期事件
 
 > 生命周期事件，只是画布在会绘制过程中的一些切面时间点，会抛出一些事件名称，这些名称主要包括：
 
@@ -190,7 +189,7 @@ Tooltip 事件比较特殊，只有内置的几个事件，而不具备组合事
 
 事件的含义和字面含义一致，这里不做过多冗余解释。这些生命周期名称作为事件名称可以直接被调用。
 
-### 4. 状态事件
+#### 4. 状态事件
 
 当 Element 上的状态发生改变时，会释放 'element:statechange' 时间，用户可以在 Chart/View 上监听该事件。
 
@@ -202,7 +201,7 @@ Tooltip 事件比较特殊，只有内置的几个事件，而不具备组合事
 
 然后基于这些做一些自定义交互和扩展。
 
-## 事件实例
+### 事件实例
 
 ```ts
 chart.on('eventName', (evt) => {

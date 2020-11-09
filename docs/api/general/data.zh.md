@@ -3,6 +3,8 @@ title: 数据 - Data
 order: 1
 ---
 
+`markdown:docs/common/style.md`
+
 ### 绑定数据
 
 绑定数据调用方法为`chart.data`，之前的调用方法为 `source`，将在 V4.1 移除。**参数格式只支持 json 数组**。

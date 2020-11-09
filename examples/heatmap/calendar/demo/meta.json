@@ -8,7 +8,7 @@
       "filename": "calendar-horizontal.ts",
       "title": {
         "zh": "水平日历色块图",
-        "en": "Calendar Heatmap"
+        "en": "Calendar heatmap"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*_GtkQo1vCHcAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "calendar.ts",
       "title": {
         "zh": "日历色块图",
-        "en": "Calendar Heatmap"
+        "en": "Calendar heatmap"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*-2ggQ6U5_dIAAAAAAAAAAABkARQnAQ"
     }

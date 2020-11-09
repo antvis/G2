@@ -16,7 +16,7 @@
       "filename": "legend-active.ts",
       "title": {
         "zh": "图例项 active",
-        "en": "legend active"
+        "en": "Legend active"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*8zWHSrsb6soAAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "legend-highlight.ts",
       "title": {
         "zh": "图例项高亮",
-        "en": "legend highlight"
+        "en": "Legend highlight"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*fxSeQIwA6GEAAAAAAAAAAABkARQnAQ"
     },
@@ -32,7 +32,7 @@
       "filename": "legend-filter.ts",
       "title": {
         "zh": "分类图例数据过滤",
-        "en": "legend data filter"
+        "en": "Legend data filter"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*gUo0Try7HXwAAAAAAAAAAABkARQnAQ"
     },
@@ -40,7 +40,7 @@
       "filename": "legend-visible-filter.ts",
       "title": {
         "zh": "分类图例图形过滤",
-        "en": "legend element filter"
+        "en": "Legend element filter"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*AOq8TaomiqEAAAAAAAAAAABkARQnAQ"
     },
@@ -48,7 +48,7 @@
       "filename": "continue-legend-filter.ts",
       "title": {
         "zh": "连续图例数据过滤",
-        "en": "continous legend data filter"
+        "en": "Continuous legend data filter"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*6OFbTb_2COMAAAAAAAAAAABkARQnAQ"
     },
@@ -56,7 +56,7 @@
       "filename": "continue-visible-filter.ts",
       "title": {
         "zh": "连续图例图形过滤",
-        "en": "continous legend element filter"
+        "en": "Continuous legend element filter"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*GTCWRobWBqcAAAAAAAAAAABkARQnAQ"
     },

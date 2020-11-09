@@ -3,6 +3,8 @@ title: 分面 - Facet
 order: 16
 ---
 
+`markdown:docs/common/style.md`
+
 分面（Facet）是指利用 G2 提供的 View 递归嵌套能力，将一份数据按照某个维度分隔成若干子集，然后创建一个图表的矩阵，将每一个数据子集绘制到图表矩阵的窗格中。
 
 分面主要提供了两个功能：

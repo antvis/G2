@@ -8,7 +8,7 @@
       "filename": "basic.ts",
       "title": {
         "zh": "基础条形图",
-        "en": "basic bar chart"
+        "en": "Basic bar chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*xor3R6X2puIAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "ranged.ts",
       "title": {
         "zh": "区间条形图",
-        "en": "range bar chart"
+        "en": "Range bar chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*W7UaRYzGa2IAAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "time-bar.ts",
       "title": {
         "zh": "时间条形图",
-        "en": "time bar chart"
+        "en": "Time bar chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Vc8TTZHaxTkAAAAAAAAAAABkARQnAQ"
     },
@@ -32,13 +32,13 @@
       "filename": "radial-bar.ts",
       "title": {
         "zh": "玉珏图",
-        "en": "radial bar chart"
+        "en": "Radial bar chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*GTDCRYkg6V4AAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "radial-line.ts",
-      "title": "Radial Bar Chart",
+      "title": "Radial bar chart",
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*GC6wT4GQ-oMAAAAAAAAAAABkARQnAQ"
     }
   ]

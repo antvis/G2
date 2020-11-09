@@ -16,7 +16,7 @@
       "filename": "element-selected.ts",
       "title": {
         "zh": "图形元素 selected",
-        "en": "element selected"
+        "en": "Element selected"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*VPoNTJa6KowAAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "pie-selected.ts",
       "title": {
         "zh": "饼图单选",
-        "en": "pie selected"
+        "en": "Pie selected"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*MtQ-SY7mTuAAAAAAAAAAAABkARQnAQ"
     },
@@ -32,7 +32,7 @@
       "filename": "highlight.ts",
       "title": {
         "zh": "图表元素 highlight",
-        "en": "element highlight"
+        "en": "Element highlight"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*NzouSL60SqMAAAAAAAAAAABkARQnAQ"
     },
@@ -40,7 +40,7 @@
       "filename": "element-highlight-by-x.ts",
       "title": {
         "zh": "高亮 x 值相同的 element",
-        "en": "element highlight by x"
+        "en": "Element highlight by x"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*gb5oQ43bl7oAAAAAAAAAAABkARQnAQ"
     },
@@ -48,7 +48,7 @@
       "filename": "element-highlight-by-color.ts",
       "title": {
         "zh": "高亮所有同颜色的 element",
-        "en": "element highlight by color"
+        "en": "Element highlight by color"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*1PZ-QI-g7j0AAAAAAAAAAABkARQnAQ"
     },
@@ -56,7 +56,7 @@
       "filename": "element-link.ts",
       "title": {
         "zh": "连接相同颜色的 element",
-        "en": "element highlight and linked by color"
+        "en": "Element highlight and linked by color"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*KqE9SpqUKpcAAAAAAAAAAABkARQnAQ"
     },

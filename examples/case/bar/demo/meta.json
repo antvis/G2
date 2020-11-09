@@ -1,0 +1,32 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "bar1.ts",
+      "title": {
+        "zh": "某产品行业销量分布 Top10",
+        "en": "Top 10 sales distribution"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*62ClRKVbiIYAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "bar2.ts",
+      "title": {
+        "zh": "产品类别销售额对比",
+        "en": "Product category sales comparison"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*uM-VQIO9obEAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "bar3.ts",
+      "title": {
+        "zh": "谁住在首都？",
+        "en": "Who lives in the capital?"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*f00kS5nEwYMAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

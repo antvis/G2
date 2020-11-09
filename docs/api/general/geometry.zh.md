@@ -3,6 +3,8 @@ title: 图形 - Geometry
 order: 6
 ---
 
+`markdown:docs/common/style.md`
+
 Geometry 几何标记基类，主要负责数据到图形属性的映射以及绘制逻辑。
 
 <img alt='geometry' width='100%' style='max-width: 800px' src='https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*urWQQJm0Wy8AAAAAAAAAAAAAARQnAQ'/>

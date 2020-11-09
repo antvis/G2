@@ -3,6 +3,8 @@ title: 提示 - Tooltip
 order: 8
 ---
 
+`markdown:docs/common/style.md`
+
 配置提示信息有两种方式：
 
 第一种，传入 `boolean` 设置是否显示提示信息

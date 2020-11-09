@@ -8,7 +8,7 @@
       "filename": "basic.ts",
       "title": {
         "zh": "色块图",
-        "en": "Basic Heatmap"
+        "en": "Basic heatmap"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*_smzS60L-j8AAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "polar-heatmap.ts",
       "title": {
         "zh": "极坐标下的色块图",
-        "en": "Polar Heatmap"
+        "en": "Polar heatmap"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*6rHFRpquLT4AAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "hexagon.ts",
       "title": {
         "zh": "六边形分箱",
-        "en": "Heatmap"
+        "en": "Hexagon heatmap"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*YoqWRY6jZeUAAAAAAAAAAABkARQnAQ"
     },
@@ -32,7 +32,7 @@
       "filename": "hot-rect.ts",
       "title": {
         "zh": "分块热力图",
-        "en": "Heatmap"
+        "en": "Block heatmap"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*d872T7NtBSgAAAAAAAAAAABkARQnAQ"
     },
@@ -40,7 +40,7 @@
       "filename": "rectangle.ts",
       "title": {
         "zh": "矩形分箱图",
-        "en": "Heatmap"
+        "en": "Rectangle heatmap"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*z7lXTooU068AAAAAAAAAAABkARQnAQ"
     }

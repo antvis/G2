@@ -3,6 +3,8 @@ title: 数据标签 - Label
 order: 9
 ---
 
+`markdown:docs/common/style.md`
+
 geometry.label() 是将数据值映射到图形的文本上的方法，共有六种传入方法：
 
 第一种 传入 false，不展示 label

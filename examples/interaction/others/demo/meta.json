@@ -8,7 +8,7 @@
       "filename": "drag-move.ts",
       "title": {
         "zh": "拖拽",
-        "en": "drag move"
+        "en": "Drag move"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*VgRBS4Mq40wAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "zoom.ts",
       "title": {
         "zh": "缩放",
-        "en": "zoom"
+        "en": "Zoom"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*hZNUT6FNkfUAAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "views-tooltip.ts",
       "title": {
         "zh": "tooltip 联动",
-        "en": "multipe view‘s tooltip"
+        "en": "Multiple view‘s tooltip"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*s-JWTrKjUP4AAAAAAAAAAABkARQnAQ"
     },
