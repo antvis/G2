@@ -1110,7 +1110,7 @@ export default class Geometry extends Base {
 
     let id: string;
     if (type === 'interval' || type === 'schema') {
-      id = xVal;
+      id = `${xVal}`;
     } else if (type === 'line' || type === 'area' || type === 'path') {
       id = type;
     } else {

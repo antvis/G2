@@ -58,7 +58,7 @@ export function intervalAdjustPosition(items: LabelItem[], labels: IGroup[], sha
   }
   const element: Element = shapes[0]?.get('element');
   const geometry: Geometry = element?.geometry;
-  if (!geometry) {
+  if (!geometry || geometry.type !== 'interval') {
     return;
   }
 

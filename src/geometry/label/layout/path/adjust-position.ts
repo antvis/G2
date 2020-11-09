@@ -1,5 +1,6 @@
 import { groupBy, keys, map } from '@antv/util';
 import { IElement, IGroup, IShape, BBox } from '../../../../dependents';
+import { isIntersect } from '../../../../util/collision-detect';
 import Geometry from '../../../base';
 import Element from '../../../element';
 import { LabelItem } from '../../interface';
@@ -74,7 +75,7 @@ function checkShapeOverlap(dones: IGroup[], current: IGroup): boolean {
  * @param region
  * @param cfg
  */
-export function pointAdjustPosition(
+export function pathAdjustPosition(
   items: LabelItem[],
   labels: IGroup[],
   shapes: IShape[] | IGroup[],
@@ -87,7 +88,7 @@ export function pointAdjustPosition(
 
   const element: Element = shapes[0]?.get('element');
   const geometry: Geometry = element?.geometry;
-  if (!geometry || geometry.type !== 'point') {
+  if (!geometry || ['path', 'line', 'area'].indexOf(geometry.type) < 0) {
     return;
   }
   const [xField, yField] = geometry.getXYFields();

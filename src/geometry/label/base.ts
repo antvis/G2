@@ -346,6 +346,7 @@ export default class GeometryLabel {
 
       let labelCfg = {
         id: this.getLabelId(mappingData), // 进行 ID 标记
+        elementId: this.geometry.getElementId(mappingData), // label 对应 Element 的 ID
         data: origin, // 存储原始数据
         mappingData, // 存储映射后的数据,
         coordinate, // 坐标系

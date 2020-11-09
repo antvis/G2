@@ -30,6 +30,7 @@ export function updateLabel(fromShape: IGroup, toShape: IGroup, cfg: Cfg): void 
   fromShape.set('origin', origin);
   fromShape.set('animateCfg', animateCfg);
   fromShape.set('coordinate', coordinate);
+  fromShape.set('visible', toShape.get('visible'));
 
   fromShape.getChildren().forEach((fromChild, idx) => {
     const toChild = toShape.getChildByIndex(idx) as IShape;

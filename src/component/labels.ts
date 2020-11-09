@@ -143,9 +143,10 @@ export default class Labels {
   }
 
   private renderLabel(cfg: LabelItem, container: IGroup) {
-    const { id, data, mappingData, coordinate, animate, content } = cfg;
+    const { id, elementId, data, mappingData, coordinate, animate, content } = cfg;
     const shapeAppendCfg = {
       id,
+      elementId,
       data,
       origin: {
         ...mappingData,
@@ -209,7 +210,7 @@ export default class Labels {
           const geometryShapes = [];
           each(this.shapesMap, (labelShape, id) => {
             labelShapes.push(labelShape);
-            geometryShapes.push(shapes[id]);
+            geometryShapes.push(shapes[labelShape.get('elementId')]);
           });
 
           layoutFn(items, labelShapes, geometryShapes, this.region, layout.cfg);
