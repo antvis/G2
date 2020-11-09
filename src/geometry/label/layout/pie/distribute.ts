@@ -117,6 +117,9 @@ function antiCollision(labelShapes, labels, lineHeight, plotRange, center, isRig
 }
 
 export function distribute(items: LabelItem[], labels: IGroup[], shapes: IShape[] | IGroup[], region: BBox) {
+  if (!items.length || !labels.length) {
+    return;
+  }
   const offset = items[0] ? items[0].offset : 0;
   const coordinate = labels[0].get('coordinate');
   const radius = coordinate.getRadius();

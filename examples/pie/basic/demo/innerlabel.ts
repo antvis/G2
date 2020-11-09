@@ -38,13 +38,12 @@ chart
   .position('percent')
   .color('item')
   .label('percent', {
-    offset: -40,
+    offset: '-30%',
     style: {
       textAlign: 'center',
       fontSize: 16,
       shadowBlur: 2,
       shadowColor: 'rgba(0, 0, 0, .45)',
-      fill: '#fff',
     },
   })
   .tooltip('item*percent', (item, percent) => {

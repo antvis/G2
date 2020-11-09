@@ -1262,7 +1262,7 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
     },
     pieLabels: {
       labelHeight: 14,
-      offset: 30,
+      offset: 10,
       labelLine: {
         style: {
           lineWidth: styleSheet.labelLineBorder,

@@ -64,10 +64,10 @@ _legendOption_ 配置如下：
 
 背景框配置项。_LegendBackgroundCfg_ 配置如下：
 
-| 参数名  | 类型                | 是否必选 | 默认值 | 描述           |
-| ------- | ------------------- | -------- | ------ | -------------- |
-| padding | number \| number[]  |          | -      | 背景的留白     |
-| style   | [ShapeAttrs](shape) |          | -      | 背景样式配置项 |
+| 参数名  | 类型                | 默认值 | 描述           |
+| ------- | ------------------- | ------ | -------------- |
+| padding | number \| number[]  | -      | 背景的留白     |
+| style   | [ShapeAttrs](shape) | -      | 背景样式配置项 |
 
 ### legendOption.flipPage
 
@@ -81,10 +81,10 @@ _legendOption_ 配置如下：
 
 适用于 <tag color="cyan" text="连续图例">连续图例</tag>，滑块的配置项。_ContinueLegendHandlerCfg_ 配置如下：
 
-| 参数名 | 类型                | 是否必选 | 默认值 | 描述           |
-| ------ | ------------------- | -------- | ------ | -------------- |
-| size   | number              |          | -      | 滑块的大小     |
-| style  | [ShapeAttrs](shape) |          | -      | 滑块的样式设置 |
+| 参数名 | 类型                | 默认值 | 描述           |
+| ------ | ------------------- | ------ | -------------- |
+| size   | number              | -      | 滑块的大小     |
+| style  | [ShapeAttrs](shape) | -      | 滑块的样式设置 |
 
 ### legendOption.itemHeight
 
