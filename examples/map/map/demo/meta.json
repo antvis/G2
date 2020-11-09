@@ -8,7 +8,7 @@
       "filename": "bubble-map.ts",
       "title": {
         "zh": "带气泡的地图",
-        "en": "Bubble Map"
+        "en": "Bubble map"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*BvfoQouf81sAAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "hex-choropleth-map.ts",
       "title": {
         "zh": "六边形分箱示意地图",
-        "en": "Hexgin Choropleth"
+        "en": "Hexagon choropleth"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*kr_LQqhKO70AAAAAAAAAAABkARQnAQ"
     },
@@ -32,7 +32,7 @@
       "filename": "us-states-hex.ts",
       "title": {
         "zh": "美国地图六边形分割",
-        "en": "Hexgin Choropleth"
+        "en": "Hexagon Choropleth"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*7nChSYEJRvwAAAAAAAAAAABkARQnAQ"
     },
@@ -40,7 +40,7 @@
       "filename": "with-heatmap.ts",
       "title": {
         "zh": "带热力图的地图",
-        "en": "Map"
+        "en": "Map with heatmap"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*g4FWR42ZMpAAAAAAAAAAAABkARQnAQ"
     },
@@ -48,7 +48,7 @@
       "filename": "legend-size.ts",
       "title": {
         "zh": "legend-size",
-        "en": "size legend"
+        "en": "Size legend"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*Kv0VRb2TGqMAAAAAAAAAAABkARQnAQ"
     }

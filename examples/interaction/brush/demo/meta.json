@@ -8,7 +8,7 @@
       "filename": "element-brush.ts",
       "title": {
         "zh": "框选过滤数据",
-        "en": "brush"
+        "en": "Brush filter data"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*PF0IS7OaCSwAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "brush-polygon.ts",
       "title": {
         "zh": "框选过滤图形",
-        "en": "brush visible"
+        "en": "Brush visible"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*etmeTZd4Z70AAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "range-highlight.ts",
       "title": {
         "zh": "框选高亮",
-        "en": "brush highlight"
+        "en": "Brush highlight"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*JZUGSok0y9gAAAAAAAAAAABkARQnAQ"
     },
@@ -40,7 +40,7 @@
       "filename": "brush-filter-record.ts",
       "title": {
         "zh": "多 View 数据联动",
-        "en": "data filter"
+        "en": "Multiple view data filter"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*19AdR6-BjRgAAAAAAAAAAABkARQnAQ"
     },
@@ -48,7 +48,7 @@
       "filename": "brush-filter-shape.ts",
       "title": {
         "zh": "多 View 图形联动",
-        "en": "shape filter"
+        "en": "Multiple view shape filter"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*Cdb4SrWhXH4AAAAAAAAAAABkARQnAQ"
     },
@@ -56,7 +56,7 @@
       "filename": "brush-highlight.ts",
       "title": {
         "zh": "多 View 框选高亮",
-        "en": "Views brush highlight"
+        "en": "Multiple view brush highlight"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*dXxcQJo8c7sAAAAAAAAAAABkARQnAQ"
     }

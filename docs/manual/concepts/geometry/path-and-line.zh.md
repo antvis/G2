@@ -44,10 +44,7 @@ const data = [
   { month: '一月', temperature: 10, city: '北京' },
   { month: '一月', temperature: 15, city: '南京' },
 ];
-chart
-  .line()
-  .position('month*temperature')
-  .color('city');
+chart.line().position('month*temperature').color('city');
 ```
 
 ![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791814186284070d17cd/attach/4080/900/image.png#align=left&display=inline&height=494&originHeight=494&originWidth=961&status=done&style=none&width=961)

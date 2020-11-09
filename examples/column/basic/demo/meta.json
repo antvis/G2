@@ -8,7 +8,7 @@
       "filename": "basic.ts",
       "title": {
         "zh": "基础柱状图",
-        "en": "Column Chart"
+        "en": "Column chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*4JDKS4I7MvcAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "ranged.ts",
       "title": {
         "zh": "区间柱状图",
-        "en": "Column Range"
+        "en": "Column range"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*l9Y6R43DMpUAAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "waterfall.ts",
       "title": {
         "zh": "瀑布图",
-        "en": "Waterfall Chart"
+        "en": "Waterfall chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*4Q9PRIHjH2wAAAAAAAAAAABkARQnAQ"
     },
@@ -32,7 +32,7 @@
       "filename": "marked.ts",
       "title": {
         "zh": "带标识的柱状图",
-        "en": "Column Chart"
+        "en": "Column chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*BN4xTZuodaQAAAAAAAAAAABkARQnAQ"
     },
@@ -40,7 +40,7 @@
       "filename": "helix-coordinate.ts",
       "title": {
         "zh": "螺旋坐标系",
-        "en": "Spiral Column Chart"
+        "en": "Spiral column chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ZwIQQYi3H3wAAAAAAAAAAABkARQnAQ"
     }

@@ -22,28 +22,25 @@ facet 数据划分维度。
 
 使用回调函数配置每个 view 中具体的绘图表现。
 
-```ts
-// highlight-start
+```sign
 type ViewCallback = (innerView: View, facet?: D) => any;
-// highlight-end
+```
 
-chart.facet('circle', {
-  fields: ['clarity'],
-  eachView(view, facet) {
-    const facetData = facet.data;
-    const dv = new DataView();
-    dv.source(facetData).transform({
-      type: 'aggregate',
-      fields: ['price'],
-      operations: ['mean'],
-      as: ['mean'],
-      groupBy: ['cut'],
-    });
-    view.data(dv.rows);
-    view.interval().position('cut*mean').color('cut');
-    view.interaction('element-active');
-  },
-});
+```ts
+eachView(view, facet) {
+  const facetData = facet.data;
+  const dv = new DataView();
+  dv.source(facetData).transform({
+    type: 'aggregate',
+    fields: ['price'],
+    operations: ['mean'],
+    as: ['mean'],
+    groupBy: ['cut'],
+  });
+  view.data(dv.rows);
+  view.interval().position('cut*mean').color('cut');
+  view.interaction('element-active');
+}
 ```
 
 其中 _FacetData_ 结构如下：
@@ -66,4 +63,4 @@ chart.facet('circle', {
 | children           | TreeData[] | 只有 tree 类型分面有，树 children 数据      |
 | originColIndex     | number     | 只有 tree 类型分面有，原始数据列 index      |
 
-`markdown:common/region.md`
+`markdown:docs/common/region.md`

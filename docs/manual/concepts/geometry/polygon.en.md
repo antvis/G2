@@ -1,5 +1,5 @@
 ---
-title: 多边形 Polygon
+title: 多边形 polygon
 order: 5
 ---
 
@@ -35,13 +35,9 @@ const data3 = [{ name: [-0.5, 0.5] }, { name: [0.5, 1.5] }];
 - x 字段是分类数值，y 字段是分类数值
 
 ```javascript
-chart
-  .polygon()
-  .position('from*to')
-  .color('price')
-  .label('price', {
-    offset: -2,
-  });
+chart.polygon().position('from*to').color('price').label('price', {
+  offset: -2,
+});
 ```
 
 from 和 to 字段都是分类类型，多边形会自动转换成一个区间数组。
@@ -56,10 +52,7 @@ from 和 to 字段都是分类类型，多边形会自动转换成一个区间�
 
 ```javascript
 // 直接将价格映射到颜色
-chart
-  .polygon()
-  .position('from*to')
-  .color('price');
+chart.polygon().position('from*to').color('price');
 ```
 
 ### 大小（size)

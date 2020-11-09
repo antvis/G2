@@ -1,5 +1,5 @@
 ---
-title: 度量配置
+title: Scale 度量
 order: 2
 ---
 
@@ -10,8 +10,6 @@ G2 中的度量 (Scale) 是一个非常重要的概念，用于定义数据的�
 - 生成坐标轴刻度值
 - 显示图例项
 - 格式化数据展示的文本
-
-更详细的关于度量的说明参考 [数据和度量](../concepts/data-and-scales)。
 
 ## 度量的使用
 
@@ -78,17 +76,17 @@ chart.scale('y', {
 | 常量           | identity                                   |
 
 - 分类度量：
-  - cat： 分类度量
-  - timeCat: 时间分类度量
+  - cat： 分类度量，['男', '女']。
+  - timeCat: 时间分类度量，比如股票的时间不包括周末或者未开盘的日期。
 - 连续度量：
-  - linear: 线性度量
-  - time：连续的时间度量
-  - log: log 度量
-  - pow: pow 度量
-  - quantize：分段度量，用户可以指定不均匀的分段
-  - quantile: 等分度量，根据数据的分布自动计算分段
+  - linear: 线性度量，连续的数字 [1, 2, 3, 4, 5]。
+  - time：连续的时间度量。
+  - log: log 度量连，续非线性的 Log 数据 将 [1, 10, 100, 1000] 转换成 [0, 1, 2, 3]。
+  - pow: pow 度量，连续非线性的 pow 数据 将 [2, 4, 8, 16, 32] 转换成 [1, 2, 3, 4, 5]。
+  - quantize：分段度量，用户可以指定不均匀的分段，例如 [0-100, 100-200, 200-300] 在一个区间内映射到一个值上。
+  - quantile: 等分度量，根据数据的分布自动计算分段。
 - 常量度量
-  - identity: 常量度量
+  - identity: 常量度量，也就是说数据的某个字段是不变的常量。
 
 在使用 G2 开发过程中默认情况下不需要进行度量的配置，因为 G2 代码内部已经根据数据的形式对度量进行了假设，其计算过程如下：
 
@@ -103,7 +101,7 @@ chart.scale('y', {
 
 ```javascript
 chart.scale('date', {
-  type: 'tiemCat',
+  type: 'timeCat',
 });
 
 chart.scale('x', {
@@ -165,32 +163,36 @@ chart.scale('x', {
 });
 ```
 
-### 所有连续度量都支持的配置项
+### 连续度量
 
-- nice：是否优化显示度量的刻度值，设置了这个值后会对 min, max 进行优化显示，以下图 y 轴的数据范围是 【0-12】，nice 前后的对比可以看出后者 nice: true 时将最大值优化成了 14。
+#### 共有配置项
+
+| 属性名       | 说明                                                                                                            |
+| :----------- | :-------------------------------------------------------------------------------------------------------------- |
+| nice | 是否优化显示度量的刻度值，设置了这个值后会对 min, max 进行优化显示，以下图 y 轴的数据范围是 【0-12】，nice 前后的对比可以看出后者 nice: true 时将最大值优化成了 14。 |
 
 ![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*L7--TooF7ucAAAAAAAAAAABkARQnAQ)
 
-### pow
+#### linear
 
-pow 度量是非均匀度量
+连续的数据类型的基类，包含以下特殊的属性
 
-- exponent：指数，默认值 2
+| 属性名       | 说明                                                                                                            |
+| :----------- | :-------------------------------------------------------------------------------------------------------------- |
+| tickInterval | 用于指定坐标轴各个标度点的间距，是原始数据之间的间距差值，tickCount 和 tickInterval 同时声明时以 tickCount 为准 |
 
-```javascript
-chart.scale('value', {
-  type: 'pow',
-  nice: true,
-});
-```
+#### log
 
-![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*drv6SIh8h_QAAAAAAAAAAABkARQnAQ)
+log 类型的数据可以将非常大范围的数据映射到一个均匀的范围内，这种度量是 linear 的子类，支持所有通用的属性和 linear 度量的属性，特有的属性：
 
-### log
+| 属性名 | 说明                  |
+| :----- | :-------------------- |
+| base   | Log 的基数，默认是 10 |
 
-log 度量也是非均匀度量，自己的配置项有：
+以下情形下建议使用 log 度量
 
-- base  对数的底数，默认 10
+- 散点图时数据的分布非常广，同时数据分散在几个区间内。例如 分布在 0-100， 10000 - 100000， 1 千万 - 1 亿内，这时候适合使用 log 度量
+- 使用热力图时，数据分布不均匀时也会出现只有非常高的数据点附近才有颜色，此时需要使用 log 度量，对数据进行 log 处理。
 
 ```javascript
 chart.scale('value', {
@@ -203,7 +205,68 @@ chart.scale('value', {
 
 ![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*z7D0TYW1X_sAAAAAAAAAAABkARQnAQ)
 
-### quantize
+#### pow
+
+pow 类型的数据也是 linear 类型的一个子类，除了支持所有通用的属性和 linear 度量的属性外也有自己的属性：
+
+| 属性名   | 说明           |
+| :------- | :------------- |
+| exponent | 指数，默认是 2 |
+
+```javascript
+chart.scale('value', {
+  type: 'pow',
+  nice: true,
+});
+```
+
+![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*drv6SIh8h_QAAAAAAAAAAABkARQnAQ)
+
+#### time
+
+time 类型是一种特殊的连续型数值，所以我们将 time 类型的度量定义为 linear 的子类，除了支持所有通用的属性和 linear 度量的属性外，还有自己特殊的属性：
+
+| 属性名 | 说明                                |
+| :----- | :---------------------------------- |
+| mask   | 数据的格式化格式 默认：'YYYY-MM-DD' |
+
+目前支持 2 种类型的时间（time) 类型：
+
+- 时间戳的数字形式，1436237115500 // new Date().getTime()
+- 时间字符串： '2015-03-01', '2015-03-01 12:01:40', '2015/01/05','2015-03-01T16:00:00.000Z'
+
+格式化日期时 mask 的占位符，参考 [fecha](https://github.com/taylorhakes/fecha#formatting-tokens)
+
+|                       | Token | Output                                 |
+| :-------------------- | :---- | :------------------------------------- |
+| **Month**             | M     | 1 2 ... 11 12                          |
+|                       | MM    | 01 02 ... 11 12                        |
+|                       | MMM   | Jan Feb ... Nov Dec                    |
+|                       | MMMM  | January February ... November December |
+| **Day of Month**      | D     | 1 2 ... 30 31                          |
+|                       | Do    | 1st 2nd ... 30th 31st                  |
+|                       | DD    | 01 02 ... 30 31                        |
+| **Day of Week**       | d     | 0 1 ... 5 6                            |
+|                       | ddd   | Sun Mon ... Fri Sat                    |
+|                       | dddd  | Sunday Monday ... Friday Saturday      |
+| **Year**              | YY    | 70 71 ... 29 30                        |
+|                       | YYYY  | 1970 1971 ... 2029 2030                |
+| **AM/PM**             | A     | AM PM                                  |
+|                       | a     | am pm                                  |
+| **Hour**              | H     | 0 1 ... 22 23                          |
+|                       | HH    | 00 01 ... 22 23                        |
+|                       | h     | 1 2 ... 11 12                          |
+|                       | hh    | 01 02 ... 11 12                        |
+| **Minute**            | m     | 0 1 ... 58 59                          |
+|                       | mm    | 00 01 ... 58 59                        |
+| **Second**            | s     | 0 1 ... 58 59                          |
+|                       | ss    | 00 01 ... 58 59                        |
+| **Fractional Second** | S     | 0 1 ... 8 9                            |
+|                       | SS    | 0 1 ... 98 99                          |
+|                       | SSS   | 0 1 ... 998 999                        |
+| **Timezone**          | ZZ    | -0700 -0600 ... +0600 +0700            |
+
+#### quantize
 
 这是一种分段度量，并没有特殊的配置项，但是这种度量会按照用户设置的 ticks 进行数据映射，所有在一个区间的数值都映射到开始的数值，如果未设置 ticks ，则使用 `r-pretty` 计算默认的 ticks:
 
@@ -235,7 +298,7 @@ chart.scale('value', {
 
 ![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*IhBeS57XNe4AAAAAAAAAAABkARQnAQ)
 
-### quantile
+#### quantile
 
 这是一种按照数据密度自动分段的度量，按照设置的 values 计算 ticks，进行 scale 时按照 ticks 计算，而非均匀计算，使用 `tickMethod: quantile` 计算 ticks。
 
@@ -265,14 +328,76 @@ chart.scale('value', {
 
 ![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*9YB9QqJtoJoAAAAAAAAAAABkARQnAQ)
 
+### 分类度量
+
+#### cat
+
+分类类型度量的特殊属性的说明：
+
+| 属性名 | 说明             |
+| :----- | :--------------- |
+| values | 当前字段的分类值 |
+
+G2 创建图表的时候，values 字段一般会自动从数据中取得，但是以下 2 中情形下需要用户手动指定
+
+- 需要指定分类的顺序时，例如：type 字段有'最大','最小'和'适中'3 种类型，我们想指定这些分类在坐标轴或者图例上的顺序时：
+
+```javascript
+/*
+[
+  { a: 'a1', b:'b1', type: '最小' },
+  { a: 'a2', b:'b2', type: '最大' },
+  { a: 'a3', b:'b3', type: '适中' }
+]
+*/
+
+const defs = {
+  type: { type: 'cat', values: ['最小', '适中', '最大'] },
+};
+```
+
+如果不声明度量的 values 字段，那么默认的顺序是：‘最小’，‘最大’，‘适中’
+
+- 如果数据中的分类类型使用枚举的方式表示，那也也需要指定 values
+
+```javascript
+/*
+[
+  { a: 'a1', b:'b1', type: 0 },
+  { a: 'a2', b:'b2', type: 2 },
+  { a: 'a3', b:'b3', type: 1 }
+]
+*/
+
+const defs = {
+  type: { type: 'cat', values: ['最小', '适中', '最大'] },
+};
+```
+
+必须指定'cat'类型，values 的值按照索引跟枚举类型一一对应。
+
+#### timeCat
+
+timeCat 类型的数据，是一种日期数据，但是不是连续的日期。例如代表存在股票交易的日期，此时如果使用 time 类型，那么节假日没有数据，折线图、k 线图会断裂，所以此时使用 timeCat 的度量表示分类的日期，默认会对数据做排序。
+
+| 属性名    | 说明                     |
+| :-------- | :----------------------- |
+| tickCount | 此时需要设置坐标点的个数 |
+| mask      | 数据的格式化格式         |
+
+<img src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*dVEvRoLH-t4AAAAAAAAAAABkARQnAQ" style="width:149px;">
+
 ## 度量的方法
 
 度量的接口设计非常简单，全部的度量仅支持几个接口：
 
-- scale(value) 将数据转换成 0 -1 的值
-- invert(value) 将 0-1 的值转换成原始数据
-- getTicks() 获取生成的 ticks
-- getText(value) 格式化文本
+| 方法名    | 说明                     |
+| :-------- | :----------------------- |
+| scale(value)   | 将数据转换成 0 -1 的值 |
+| invert(value)  | 将 0-1 的值转换成原始数据         |
+| getTicks()     | 获取生成的 ticks        |
+| getText(value) | 格式化文本         |
+
 
 ```javascript
 // 假设 year 字段有以下值： ['1991', '1992', '1993', '1994','1995','1996']
@@ -288,7 +413,3 @@ scale.scale('1992'); // 假设是 0.2
 scale.invert(0.2); // ’1992‘
 scale.getText('1992'); // '1992年'
 ```
-
-## 更多
-
-度量在 G2 的可视化映射过程中处于核心位置，了解度量和使用度量在使用 G2 的开发过程中不可避免，更多关于数据和度量的信息可以参考  [数据和度量](../concepts/data-and-scales)

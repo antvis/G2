@@ -7,7 +7,7 @@
     {
       "filename": "stacked.ts",
       "title": {
-        "en": "stacked column chart",
+        "en": "Stacked column chart",
         "zh": "堆叠柱状图"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Rh1-QaJIcx0AAAAAAAAAAABkARQnAQ"
@@ -23,7 +23,7 @@
     {
       "filename": "rounded.ts",
       "title": {
-        "en": "rounded column chart",
+        "en": "Rounded column chart",
         "zh": "圆角柱状图"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*YdkpQqn9YioAAAAAAAAAAABkARQnAQ"
@@ -31,7 +31,7 @@
     {
       "filename": "rounded-stacked.ts",
       "title": {
-        "en": "rounded stacked column chart",
+        "en": "Rounded stacked column chart",
         "zh": "圆角堆叠柱状图"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*jljrS7yQMA8AAAAAAAAAAABkARQnAQ"
@@ -39,7 +39,7 @@
     {
       "filename": "polar-stack.ts",
       "title": {
-        "en": "stacked column chart in polar coordinate",
+        "en": "Stacked column chart in polar coordinate",
         "zh": "极坐标下的层叠柱状图"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*bwKcRJFFUBAAAAAAAAAAAABkARQnAQ"
@@ -55,8 +55,8 @@
     {
       "filename": "wind-rose.ts",
       "title": {
-        "en": "Wind Rose",
-        "zh": "Wind Rose"
+        "en": "Wind rose",
+        "zh": "风向图"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*m1fZSKToB4IAAAAAAAAAAABkARQnAQ"
     }

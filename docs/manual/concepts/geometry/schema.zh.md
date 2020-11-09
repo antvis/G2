@@ -45,12 +45,7 @@ order: 6
 颜色可以映射到箱型图的边框上，如果映射的字段不等于映射到 x 的字段类型，则会生成分组的箱型图：
 
 ```javascript
-chart
-  .schema()
-  .adjust('dodge')
-  .position('cut*price')
-  .color('clarity')
-  .shape('box');
+chart.schema().adjust('dodge').position('cut*price').color('clarity').shape('box');
 ```
 
 ![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791873655806931d17d3/attach/4080/900/image.png#align=left&display=inline&height=461&originHeight=461&originWidth=946&status=done&style=none&width=946)
@@ -60,12 +55,7 @@ chart
 大小可以改变箱型图的宽度，一般使用常量更改箱型图的宽度
 
 ```javascript
-chart
-  .schema()
-  .adjust('dodge')
-  .position('price')
-  .size(10)
-  .shape('box');
+chart.schema().adjust('dodge').position('price').size(10).shape('box');
 ```
 
 ![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791873851254704d17c0/attach/4080/900/image.png#align=left&display=inline&height=351&originHeight=351&originWidth=892&status=done&style=none&width=892)

@@ -8,7 +8,7 @@
       "filename": "scatter-series.ts",
       "title": {
         "zh": "散点图",
-        "en": "scatter chart with different colors"
+        "en": "Scatter chart with different colors"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*CP_PT497E9MAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "scatter-shapes.ts",
       "title": {
         "zh": "多形状散点图",
-        "en": "scatter chart with different shapes"
+        "en": "Scatter chart with different shapes"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*H965QalW9GoAAAAAAAAAAABkARQnAQ"
     }

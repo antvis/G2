@@ -8,7 +8,7 @@
       "filename": "bubble.ts",
       "title": {
         "zh": "气泡图",
-        "en": "bubble chart"
+        "en": "Bubble chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*RX9RRLw_ET8AAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "time-bubble.ts",
       "title": {
         "zh": "时间序列气泡图",
-        "en": "time bubble chart"
+        "en": "Time bubble chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*7htzS4l-SeUAAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "bubble-text.ts",
       "title": {
         "zh": "带文本的气泡图",
-        "en": "bubble chart with label"
+        "en": "Bubble chart with label"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*jo3aQbPMoX4AAAAAAAAAAABkARQnAQ"
     },
@@ -32,7 +32,7 @@
       "filename": "bubble-image.ts",
       "title": {
         "zh": "气泡图-自定义 shape",
-        "en": "bubble chart"
+        "en": "Bubble chart with custom shape"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*jB6VTY-M2gIAAAAAAAAAAABkARQnAQ"
     }

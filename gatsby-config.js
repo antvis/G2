@@ -21,6 +21,8 @@ module.exports = {
       '3.x': 'https://g2-v3.antv.vision/',
       '2.x': 'https://antv.vision/old-site/g2/doc/index.html',
     },
+    showChartResize: true, // 是否在demo页展示图表视图切换
+    showAPIDoc: true, // 是否在demo页展示API文档
     navs: [
       {
         slug: 'docs/manual',
@@ -49,51 +51,58 @@ module.exports = {
     ],
     docs: [
       {
+        slug: 'manual/concepts',
+        title: {
+          zh: '可视化基础概念',
+          en: 'Visualization Concepts',
+        },
+        order: 2,
+      },
+      {
         slug: 'manual/tutorial',
         title: {
-          zh: '基础教程',
+          zh: '教程和文章',
           en: 'Tutorials',
         },
         order: 3,
       },
       {
-        slug: 'manual/concepts',
-        title: {
-          zh: '核心概念',
-          en: 'Main Concepts',
-        },
-        order: 5,
-      },
-      {
         slug: 'manual/concepts/geometry',
         title: {
-          zh: '几何标记与图表类型',
-          en: 'Geometry and Charts',
+          zh: '几何图形',
+          en: 'Geometry',
         },
-        order: 5,
       },
       {
-        slug: 'manual/developer',
+        slug: 'manual/concepts/component',
         title: {
-          zh: '开发者教程',
-          en: 'For Developers',
+          zh: '图形组件',
+          en: 'Components',
         },
-        order: 6,
       },
       {
-        slug: 'manual/dataset',
+        slug: 'api/general',
         title: {
-          zh: 'DataSet',
-          en: 'DataSet',
+          zh: 'G2 详细手册',
+          en: 'G2 General Documentation',
         },
-        order: 7,
+        order: 0,
       },
       {
-        slug: 'api',
+        slug: 'api/advanced',
         title: {
-          zh: 'API 文档',
-          en: 'API Doc',
+          zh: '高级进阶功能',
+          en: 'Advanced Chart Features',
         },
+        order: 1,
+      },
+      {
+        slug: 'api/shape',
+        title: {
+          zh: '绘图属性速查',
+          en: 'Quick Reference for Plotting Properties',
+        },
+        order: 2,
       },
     ],
     examples: [
@@ -101,8 +110,16 @@ module.exports = {
         slug: 'gallery',
         icon: 'gallery',
         title: {
-          zh: '官方精品库',
-          en: 'Featured',
+          zh: '',
+          en: '',
+        },
+      },
+      {
+        slug: 'case',
+        icon: 'gallery',
+        title: {
+          zh: '场景案例',
+          en: 'Show Case',
         },
       },
       {

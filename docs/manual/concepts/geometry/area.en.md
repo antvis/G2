@@ -45,10 +45,7 @@ const data = [
   { month: '一月', temperature: 10, city: '北京' },
   { month: '一月', temperature: 15, city: '南京' },
 ];
-chart
-  .area()
-  .position('month*temperature')
-  .color('city');
+chart.area().position('month*temperature').color('city');
 ```
 
 ![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791829837183820d17c0/attach/4080/900/image.png#align=left&display=inline&height=490&originHeight=490&originWidth=954&status=done&style=none&width=954)
@@ -56,11 +53,7 @@ chart
 对数据进行层叠，则形成层叠区域图：
 
 ```javascript
-chart
-  .area()
-  .adjust('stack')
-  .position('month*temperature')
-  .color('city');
+chart.area().adjust('stack').position('month*temperature').color('city');
 ```
 
 ### size

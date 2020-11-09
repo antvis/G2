@@ -122,6 +122,26 @@ export default class GeometryLabel {
   }
 
   /**
+   * 获取当前 label 的最终配置
+   * @param labelCfg
+   */
+  protected getThemedLabelCfg(labelCfg: LabelCfg) {
+    const geometry = this.geometry;
+    const defaultLabelCfg = this.getDefaultLabelCfg();
+    const { type, theme } = geometry;
+    let themedLabelCfg;
+
+    if (type === 'polygon' || (labelCfg.offset < 0 && !['line', 'point', 'path'].includes(type))) {
+      // polygon 或者 offset 小于 0 时，文本展示在图形内部，将其颜色设置为 白色
+      themedLabelCfg = deepMix({}, defaultLabelCfg, theme.innerLabels, labelCfg);
+    } else {
+      themedLabelCfg = deepMix({}, defaultLabelCfg, theme.labels, labelCfg);
+    }
+
+    return themedLabelCfg;
+  }
+
+  /**
    * 设置 label 位置
    * @param labelPointCfg
    * @param mappingData

@@ -8,15 +8,15 @@
       "filename": "basic.ts",
       "title": {
         "zh": "股票图",
-        "en": "K Chart"
+        "en": "K chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*M9Q4Rrq3V0gAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "k-and-column.ts",
       "title": {
-        "zh": "股票图于柱状图",
-        "en": "K Chart"
+        "zh": "股票图与柱状图",
+        "en": "K chart and column chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*31GmSrAgJtYAAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "k-and-area.ts",
       "title": {
         "zh": "股票图与范围区域图",
-        "en": "K Chart"
+        "en": "K chart and area range"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*Mwu8QID77_cAAAAAAAAAAABkARQnAQ"
     }

@@ -1,4 +1,4 @@
 ---
-title: Line Chart
+title: Basic Line Chart
 order: 0
 ---

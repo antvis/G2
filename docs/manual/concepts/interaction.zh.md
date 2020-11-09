@@ -1,13 +1,13 @@
 ---
 title: 交互语法
-order: 8
+order: 1
 ---
 
-## Background
+## 背景
 
 在数据可视化中，交互可以辅助用户更好地观察与了解数据。目前，大多可视化设计者、开发者在定义交互时，一般会为每种交互定义一套确定的流程。例如，在折线图中，当用户移动鼠标到一条折线上时，该折线将会通过某种样式的变化表示反馈，当鼠标离开则恢复原有样式。首先，当前的可视化交互设计中，没有一套统一的流程规范，不规范的交互设计容易出现终端用户不理解、不会用的情况；其次，在一个可视化作品中，每一个交互环节往往是统一的、确定的，这意味着开发者需要针对每一种图表、每一种交互设计都实现一整套交互流程，难以复用；最后，针对多数入门可视化设计者、开发者而言，经验的缺乏将会导致低质量、低效率的交互设计和开发。
 
-## Related Work： Vega-Lite
+## Vega-Lite
 
 ### 简介
 
@@ -28,7 +28,7 @@ _
 
 另外，Vega-Lite  基于数据映射，通过改变数据映射，通过改变状态量，达到效果。专业的、懂可视化的人去做的。一般人难以理解。Vega-Lite 只能做基于数据交互（只能做现有数据的探索），但有些交互不是数据驱动的。比如 hover 的时候，可以重新走一遍数据映射，但是无法满足交互的中间态的处理。
 
-## Contribution
+## G2 交互语法
 
 针对上述现状与问题，我们提出了交互语法，帮助用户增加交互的可能性（自由拼装）、提供交互的质量、加快用户开放交互的速度等。我们希望以用户/人的出发为触发，自然语言可以理解的、符合人的直觉的。希望能够做到任何一句自然语言描述的交互都可以通过我们的交互语法被实现。因此，我们的工作有以下几点贡献：
 
@@ -36,16 +36,16 @@ _
 - 以人的理解为出发，定义一套简洁的交互语法，开发者能够快速搭建交互流程，并且可复用，提升可视化交互搭建效率；
 - 针对多数入门可视化设计者、开发者而言，能够通过该语法快速理解、学习可视化的交互。
 
-## What
+交互语法将交互过程拆分成多个简单的、原子的环节，这些环节可以通过重新组装，快速地设计和搭建交互流程，从而达到可复用、易用的目的。先看一个基本的使用例子：
 
-交互语法将交互过程拆分成多个简单的、原子的环节，这些环节可以通过重新组装，快速地设计和搭建交互流程，从而达到可复用、易用的目的。
+<playground path='interaction/element/demo/element-link.ts' rid="interaction-container-1"></playground>
 
 ### 交互过程的拆分
 
 我们可以把所有交互拆分成以下几个**环节**，一个交互过程可能包含重复的环节：
 
 - 示能（前置环节）：表示交互可以被触发
-- 开始 strt：交互开始
+- 开始 start：交互开始
 - 持续 processing：交互持续
 - 结束 end：交互结束
 - 暂停 pause：交互暂停
@@ -60,14 +60,14 @@ _
   - 对象：鼠标以及被操作或被涉及的图表、图形、元素等对象；
   - 结果：反馈对象发生的变化，例如鼠标形状变化、被操作对象样式的变化、数据变化等。
 
-#### Example
+#### 示例
 
 框选散点图上的点
 
 - 示能：
   - 触发：
     - 对象：画布；
-    - 事件：鼠标移动进画布绘图区域
+  - 事件：鼠标移动进画布绘图区域
   - 反馈：
     - 对象：鼠标
     - 结果：形状变成十字
@@ -113,8 +113,6 @@ _
 
 - 当前进行的交互有哪些交互环节，正在执行到哪一步，哪一步已经完成；
 - 当前对象、容器的状态。
-
-例如：。。。。
 
 ### 约束
 
@@ -165,7 +163,7 @@ _
 
 <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*IZf6R5mKF24AAAAAAAAAAABkARQnAQ" style="width: 199px;">
 
-### Definition
+### 定义
 
 #### 触发 —— Trigger
 
@@ -232,12 +230,12 @@ _
 
 **context 的接口定义：**
 
-```javascript
+```ts
 /** 交互上下文的接口定义 */
-export interface IInteractionContext extends LooseObject {
+export interface IInteractionContext {
   /**
-  * 当前触发的事件对象
-  */
+   * 当前触发的事件对象
+   */
   event: LooseObject;
   /**
    * 当前的 view
@@ -301,7 +299,7 @@ export interface IInteractionContext extends LooseObject {
 - 可以通过 context.isInComponent('legend') 判定是否发生在 legend 的包围盒内
 - 可以通过 context.event.target 或者 context.getCurrentShape() 获取触发的图形
 
-### Implementation
+### 实现
 
 交互语法的实现由三部分组成：
 
@@ -318,8 +316,8 @@ export interface IInteractionContext extends LooseObject {
 
 首先，我们规定如下格式定义一个作用在名为 'actionTargetName' 的反馈对象的反馈结果函数集合：
 
-```javascript
-RegisterAction('actionTargetName', {
+```ts
+registerAction('actionTargetName', {
   // 根据需要实现反馈逻辑函数
   functionNameA() {},
   functionNameB() {},
@@ -327,9 +325,13 @@ RegisterAction('actionTargetName', {
 });
 ```
 
-##### Example
+##### 实例
 
-我们以**框选**为例，定义多个 Action 反馈：
+我们以**框选**为例，下面是实际的使用效果。
+
+<playground path='interaction/brush/demo/brush-ds-state.ts' rid="interaction-container-2"></playground>
+
+定义多个 Action 反馈：
 
 - 鼠标（反馈对象），其反馈结果有：
   - 移动进入 view 时改变鼠标为表示可拖动的十字形状；
@@ -344,8 +346,8 @@ RegisterAction('actionTargetName', {
 
 **鼠标**
 
-```javascript
-RegisterAction('cursor', {
+```ts
+registerAction('cursor', {
   default() {...}, // 鼠标变为默认形状
   crosshair() {...}, // 鼠标变为代表可拖动十字形状
   //... 变为其他形状的函数
@@ -354,8 +356,8 @@ RegisterAction('cursor', {
 
 **rect-mask**
 
-```javascript
-RegisterAction('rect-mask', {
+```ts
+registerAction('rect-mask', {
   start() {...}, // 开始 mask
   show() {...}, // 显示 mask
   resize() {...}, // 改变 mask 大小
@@ -366,8 +368,8 @@ RegisterAction('rect-mask', {
 
 **brush**
 
-```javascript
-RegisterAction('brush', {
+```ts
+registerAction('brush', {
   start() {...}, // 开始过滤
   filter() {...}, // 过滤
   reset() {...}, // 重置、取消过滤
@@ -378,8 +380,8 @@ RegisterAction('brush', {
 
 首先，我们定义如下格式定义一个名为 'interactionName' 的交互流程：
 
-```javascript
-RegisterInteraction('interactionName', {
+```ts
+registerInteraction('interactionName', {
   showEnable: [{ trigger: 'eventTargetName1:eventName1', action: 'actionTarget1:actionName1' }],
   closeEnable: [{ trigger: 'eventTargetName2:eventName2', action: 'actionTarget2:actionName2' }],
   start: [{ trigger: 'eventTargetName3:eventName3', action: 'actionTarget3:actionName3' }],
@@ -392,11 +394,11 @@ RegisterInteraction('interactionName', {
 });
 ```
 
-##### Example
+##### 实例
 
 使用上述格式，我们使用上一节定义的 Action 来组装名为 名为 '**brush-filter**' 的交互：
 
-```javascript
+```ts
 registerInteraction('brush-filter', {
   showEnable: [
     { trigger: 'plot:mouseenter', action: 'cursor:crosshair' },
@@ -429,7 +431,7 @@ registerInteraction('brush-filter', {
 
 #### 使用交互
 
-```javascript
+```ts
 // 将 brush-filter 增加到 chart 对象上
 chart.interaction('brush-filter');
 

@@ -5,7 +5,7 @@ order: 5
 
 ## 简介
 
-前面的章节中我们介绍过了视觉通道，视觉通道中识别度最高，同时支持定性（分类）数据和定量数据的视觉通道是位置(position)，数据映射到空间上位置，我们将这个空间定义成坐标系。常见的坐标系：
+前面的章节中我们介绍过了视觉通道，视觉通道中识别度最高，同时支持定性（分类）数据和定量数据的视觉通道是位置(position)，数据映射到空间上位置，我们将这个空间定义成坐标系(Coordinate)。常见的坐标系：
 
 - 直角坐标系（笛卡尔坐标系），有几个互相垂直的向量构成的空间，G2 中当前实现的是 x、y 两个基底向量构成的二维直角坐标系，三维坐标系后面的版本中提供。
 - 极坐标系，是使用一个角度值和长度值构成的坐标系，使用 x 轴表示角度，y 轴表示半径的长度。
@@ -18,10 +18,14 @@ G2 中主要实现了直角坐标系和极坐标系，坐标系主要完成了�
 
 ## G2 的坐标系类型
 
-- rect 直角坐标系，目前仅支持二维。
-- polar 极坐标系，角度和半径构建成的二维坐标系。
-- theta 一种特殊的极坐标系，半径长度固定，仅仅将数据映射到角度，常用于实现饼图。
-- helix 螺旋坐标系，螺旋坐标系，基于阿基米德螺旋线。
+G2 中可用的坐标系类型如下：
+
+|     **名字**     |                                  **描述**                                  |                                **配置语法**                                |
+| :--------------: | :------------------------------------------------------------------------: | :------------------------------------------------------------------------: |
+| cartesian / rect |                      笛卡尔坐标系，G2 默认的坐标系。                       |       `chart.coordinate('rect')`  或 `chart.coordinate('cartesian')`       |
+|      polar       |                  极坐标系，角度和半径构建成的二维坐标系。                  |                        `chart.coordinate('polar')`                         |
+|      helix       |                      螺旋坐标系，基于阿基米德螺旋线。                      |                        `chart.coordinate('helix')`                         |
+|      theta       | 一种特殊的极坐标系，半径长度固定，仅仅将数据映射到角度，常用于饼图的绘制。 | `chart.coordinate('theta')`  或者 `chart.coordinate('polar').transpose()`  |
 
 <img src="https://zos.alipayobjects.com/basement/skylark/0ad680ae14790905900681748d17d9/attach/4080/900/image.png" style="width: 800px;">
 
@@ -94,21 +98,12 @@ G2 中主要实现了直角坐标系和极坐标系，坐标系主要完成了�
 
 坐标系可以进行以下操作：
 
-- translate: 平移，沿 x、y 轴方向移动。
-- rotate: 旋转，默认按照坐标系中心旋转。
-- scale: 放大、缩小，默认按照坐标系中心放大、缩小。
-- transpose: x、y 轴交换，例如柱状图转换成水平柱状图（条形图） 。
-
-<img src="https://zos.alipayobjects.com/basement/skylark/0ad6383d14790910260966753d7559/attach/4080/900/image.png" style="width: 500px;">
-
-- reflect: 镜像, 沿 x 方向镜像或者沿 y 轴方向映射。
-  - x 轴方向镜像
-
-<img src="https://zos.alipayobjects.com/basement/skylark/0ad680ae14790910476297984d17cd/attach/4080/900/image.png" style="width: 500px;">
-
-- y 轴方向镜像
-
-<img src="https://zos.alipayobjects.com/basement/skylark/0ad680ae14790910692892085d17d3/attach/4080/900/image.png" style="width: 500px;">
+| **变换方法** |                                                                                                                      **描述**                                                                                                                      |                             **配置语法**                              |
+| :----------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------: |
+|    rotate    |                                                         旋转，默认按照坐标系中心旋转。![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*kP-KR7FyW4cAAAAAAAAAAABkARQnAQ)                                                          |            `chart.coordinate().rotate(-Math.PI * 0.25);`              |
+|    scale     |         缩放，默认按照坐标系中心进行缩放![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*De4NR7ULUL4AAAAAAAAAAABkARQnAQ#align=left&display=inline&height=252&originHeight=252&originWidth=679&status=done&style=none&width=679)          |             `chart.coordinate('rect').scale(0.7, 1.2);`               |
+|  transpose   | x，y 轴置换，例如柱状图转换成水平柱状图（条形图）![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*zeCISaB3L_QAAAAAAAAAAABkARQnAQ#align=left&display=inline&height=157&originHeight=157&originWidth=534&status=done&style=none&width=534) |               `chart.coordinate('rect').transpose();`                 |
+|   reflect    |      镜像，沿 x 方向镜像或者沿 y 轴方向映射:![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*xoudRJG7T2kAAAAAAAAAAABkARQnAQ#align=left&display=inline&height=159&originHeight=159&originWidth=825&status=done&style=none&width=825)      | `chart.coordinate().reflect('x');` `chart.coordinate().reflect('y');` |
 
 ## 坐标系的接口设计
 
@@ -140,8 +135,6 @@ G2 中主要实现了直角坐标系和极坐标系，坐标系主要完成了�
 | transpose()           | x、y 交换。                       |
 | reflect('x'&#124;'y') | 沿着 x 或者 y 进行镜像变换。      |
 
-###
-
 ### 极坐标的特殊属性
 
 由于极坐标是由角度和半径长度两个维度共同构成的，所以有自己特有的属性：
@@ -156,3 +149,7 @@ G2 中主要实现了直角坐标系和极坐标系，坐标系主要完成了�
 下图为指定了起始角度、结束角度的玫瑰图：
 
 <img src="https://zos.alipayobjects.com/basement/skylark/0ad680ae14790910901892109d17d3/attach/4080/900/image.png" style="width: 500px;">
+
+## API
+
+更详细的配置使用，详见 [API](../../api/general/coordinate)。

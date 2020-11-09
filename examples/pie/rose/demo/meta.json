@@ -8,7 +8,7 @@
       "filename": "rose.ts",
       "title": {
         "zh": "南丁格尔玫瑰图",
-        "en": ""
+        "en": "Nightingale rose chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*jiIFQo6AS_kAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "color-rose.ts",
       "title": {
         "zh": "多色南丁格尔玫瑰图",
-        "en": ""
+        "en": "Nightingale rose chart with multiple color"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*hRsjRooYy2QAAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "donut-rose.ts",
       "title": {
         "zh": "南丁格尔玫瑰环图",
-        "en": ""
+        "en": "Nightingale rose ring chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*zzxWR4deKaYAAAAAAAAAAABkARQnAQ"
     },
@@ -32,7 +32,7 @@
       "filename": "rose-ranged.ts",
       "title": {
         "zh": "玫瑰图-限定角度范围",
-        "en": ""
+        "en": "Nightingale rose chart limited range"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*cjk5R5evk1MAAAAAAAAAAABkARQnAQ"
     }
