@@ -44,8 +44,8 @@ describe('2849', () => {
     // 均分画布
     const fn = jest.fn((c, views, PC: PaddingCalCtor) => {
       const [v1, v2] = views;
-      v1.autoPadding = PC.new(40, 200, 40, 40);
-      v2.autoPadding = PC.new(40, 40, 40, 200);
+      v1.autoPadding = PC.instance(40, 200, 40, 40);
+      v2.autoPadding = PC.instance(40, 40, 40, 200);
     });
 
     const chart = new Chart({

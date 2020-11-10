@@ -3,7 +3,7 @@ import { BBox } from '../../dependents';
 import { Padding } from '../../interface';
 
 export type PaddingCalCtor = {
-  readonly new: (top?: number, right?: number, bottom?: number, left?: number) => PaddingCal;
+  readonly instance: (top?: number, right?: number, bottom?: number, left?: number) => PaddingCal;
 };
 
 /** @ignore */
@@ -20,7 +20,7 @@ export class PaddingCal {
    * @param bottom
    * @param left
    */
-  public static new(top: number = 0, right: number = 0, bottom: number = 0, left: number = 0) {
+  public static instance(top: number = 0, right: number = 0, bottom: number = 0, left: number = 0) {
     return new PaddingCal(top, right, bottom, left);
   }
 

@@ -35,13 +35,13 @@ describe('padding-cal', () => {
     expect(pc.getPadding()).toEqual([16, 8, 16, 8]);
   });
 
-  it('new', () => {
-    expect(PaddingCal.new().getPadding()).toEqual([0, 0, 0, 0]);
-    expect(PaddingCal.new(1, 2, 3, 4).getPadding()).toEqual([1, 2, 3, 4]);
+  it('get', () => {
+    expect(PaddingCal.instance().getPadding()).toEqual([0, 0, 0, 0]);
+    expect(PaddingCal.instance(1, 2, 3, 4).getPadding()).toEqual([1, 2, 3, 4]);
   });
 
   it('clone', () => {
-    const pc = PaddingCal.new(1, 2, 3, 4);
+    const pc = PaddingCal.instance(1, 2, 3, 4);
     expect(pc.clone().getPadding()).toEqual([1, 2, 3, 4]);
     expect(pc.clone()).not.toBe(pc);
   });
