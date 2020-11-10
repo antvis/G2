@@ -36,6 +36,7 @@ import {
 import { View } from './chart';
 import { Facet } from './facet';
 import Element from './geometry/element';
+import { PaddingCalCtor } from './chart/layout/padding-cal';
 
 // ============================ 基础类型 ============================
 /** 通用对象 */
@@ -797,6 +798,8 @@ export interface ChartCfg
   readonly defaultInteractions?: string[];
 }
 
+export type SyncViewPaddingFn = (chart: View, views: View[], PC: PaddingCalCtor) => void;
+
 /** View 构造参数 */
 export interface ViewCfg {
   /** View id，可以由外部传入 */
@@ -833,13 +836,15 @@ export interface ViewCfg {
    */
   readonly appendPadding?: ViewAppendPadding;
   /**
-   * 是否同步子 view 的 padding
+   * 是否同步子 view 的 padding，可以是 boolean / SyncViewPaddingFn
    * 比如:
    *  view1 的 padding 10
    *  view2 的 padding 20
-   * 那么两个子 view 的 padding 统一变成最大的 20（后面可以传入 function 自己写策略）
+   * 那么两个子 view 的 padding 统一变成最大的 20.
+   *
+   * 如果是 Funcion，则使用自定义的方式去计算子 view 的 padding，这个函数中去修改所有的 views autoPadding 值
    */
-  readonly syncViewPadding?: boolean;
+  readonly syncViewPadding?: boolean | SyncViewPaddingFn;
   /** 设置 view 实例主题。 */
   readonly theme?: LooseObject | string;
   /**
