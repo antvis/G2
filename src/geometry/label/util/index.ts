@@ -1,8 +1,9 @@
 /**
  * @file utils of label
  */
-import { IElement, IGroup } from '@antv/g-base';
-import { isNil, isNumber } from '@antv/util';
+
+import { isNil, isNumber, some } from '@antv/util';
+import { IElement, IGroup, BBox } from '../../../dependents';
 import { rotate } from '../../../util/transform';
 import { LabelItem } from '../interface';
 
@@ -51,4 +52,29 @@ export function getlLabelBackgroundInfo(
       rotation: labelItem.rotate || 0,
     };
   }
+}
+
+/**
+ * 计算两个矩形之间的堆叠区域面积
+ */
+export function getOverlapArea(a: BBox, b: BBox, margin = 0) {
+  const xOverlap = Math.max(
+    0,
+    Math.min(a.x + a.width + margin, b.x + b.width + margin) - Math.max(a.x - margin, b.x - margin)
+  );
+  const yOverlap = Math.max(
+    0,
+    Math.min(a.y + a.height + margin, b.y + b.height + margin) - Math.max(a.y - margin, b.y - margin)
+  );
+
+  return xOverlap * yOverlap;
+}
+
+/** 检测是否和已布局的堆叠 */
+export function checkShapeOverlap(cur: IElement, dones: IElement[]) {
+  const box = cur.getBBox();
+  return some(dones, (done) => {
+    const target = done.getBBox();
+    return getOverlapArea(box, target, 2) > 0;
+  });
 }

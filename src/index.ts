@@ -87,7 +87,9 @@ import { fixedOverlap, overlap } from './geometry/label/layout/overlap';
 import { hideOverlap } from './geometry/label/layout/hide-overlap';
 import { adjustColor } from './geometry/label/layout/adjust-color';
 import { intervalAdjustPosition } from './geometry/label/layout/interval/adjust-position';
+import { intervalHideOverlap } from './geometry/label/layout/interval/hide-overlap';
 import { pointAdjustPosition } from './geometry/label/layout/point/adjust-position';
+import { pathAdjustPosition } from './geometry/label/layout/path/adjust-position';
 
 registerGeometryLabelLayout('overlap', overlap);
 registerGeometryLabelLayout('distribute', distribute);
@@ -98,8 +100,10 @@ registerGeometryLabelLayout('limit-in-canvas', limitInCanvas);
 registerGeometryLabelLayout('pie-outer', pieOuterLabelLayout);
 registerGeometryLabelLayout('adjust-color', adjustColor);
 registerGeometryLabelLayout('interval-adjust-position', intervalAdjustPosition);
+registerGeometryLabelLayout('interval-hide-overlap', intervalHideOverlap);
 registerGeometryLabelLayout('point-adjust-position', pointAdjustPosition);
 registerGeometryLabelLayout('pie-spider', pieSpiderLabelLayout);
+registerGeometryLabelLayout('path-adjust-position', pathAdjustPosition);
 
 // 注册需要的动画执行函数
 import { fadeIn, fadeOut } from './animate/animation/fade';

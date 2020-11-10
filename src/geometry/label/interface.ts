@@ -9,6 +9,7 @@ export interface LabelCfg extends Omit<GeometryLabelCfg, 'offset'> {
   readonly position?: 'top' | 'bottom' | 'middle' | 'left' | 'right';
   readonly offset?: number;
   readonly id: string;
+  readonly elementId: string;
   readonly data: Datum;
   readonly mappingData: MappingDatum;
   readonly coordinate: Coordinate;

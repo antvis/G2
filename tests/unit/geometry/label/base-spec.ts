@@ -1,5 +1,4 @@
 import { getCoordinate } from '@antv/coord';
-import { deepMix } from '@antv/util';
 import Interval from '../../../../src/geometry/interval';
 import GeometryLabel from '../../../../src/geometry/label/base';
 import Point from '../../../../src/geometry/point';
@@ -55,6 +54,18 @@ describe('GeometryLabel', () => {
 
     it('defaultLayout', () => {
       expect(geometryLabel.defaultLayout).toBeUndefined();
+    });
+
+    it('id & elementId', () => {
+      // @ts-ignore
+      const labelItems = geometryLabel.getLabelItems([
+        { x: 100, y: 10, _origin: { x: 100, y: 10, z: '1' } },
+        { x: 100, y: 20, _origin: { x: 100, y: 20, z: '2' } },
+      ]);
+      expect(labelItems[0].id).toBe('100-10'); // x-y
+      expect(labelItems[0].elementId).toBe('100-10'); // x-y
+      expect(labelItems[1].id).toBe('100-20'); // x-y
+      expect(labelItems[1].elementId).toBe('100-20'); // x-y
     });
 
     it('offset', () => {
@@ -148,6 +159,13 @@ describe('GeometryLabel', () => {
     });
 
     let geometryLabel = new GeometryLabel(interval);
+
+    it('id & elementId', () => {
+      // @ts-ignore
+      const labelItems = geometryLabel.getLabelItems([{ x: 100, y: 10, _origin: { x: 100, y: 10, z: '1' } }]);
+      expect(labelItems[0].id).toBe('100'); // x
+      expect(labelItems[0].elementId).toBe('100'); // x
+    });
 
     it('inner label', () => {
       const labelItems = geometryLabel.getLabelItems([
