@@ -2,12 +2,27 @@ import { DIRECTION } from '../../constant';
 import { BBox } from '../../dependents';
 import { Padding } from '../../interface';
 
+export type PaddingCalCtor = {
+  readonly instance: (top?: number, right?: number, bottom?: number, left?: number) => PaddingCal;
+};
+
 /** @ignore */
 export class PaddingCal {
   private top: number;
   private right: number;
   private bottom: number;
   private left: number;
+
+  /**
+   * 使用静态方法创建一个
+   * @param top
+   * @param right
+   * @param bottom
+   * @param left
+   */
+  public static instance(top: number = 0, right: number = 0, bottom: number = 0, left: number = 0) {
+    return new PaddingCal(top, right, bottom, left);
+  }
 
   /**
    * 初始的 padding 数据
@@ -97,5 +112,12 @@ export class PaddingCal {
    */
   public getPadding(): Padding {
     return [this.top, this.right, this.bottom, this.left];
+  }
+
+  /**
+   * clone 一个 padding cal
+   */
+  public clone(): PaddingCal {
+    return new PaddingCal(...this.getPadding());
   }
 }

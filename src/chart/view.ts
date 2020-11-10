@@ -63,6 +63,7 @@ import defaultLayout, { Layout } from './layout';
 import { ScalePool } from './util/scale-pool';
 import { PaddingCal } from './layout/padding-cal';
 import { calculatePadding } from './layout/auto';
+import { defaultSyncViewPadding } from './util/sync-view-padding';
 
 /**
  * G2 视图 View 类
@@ -1348,15 +1349,13 @@ export class View extends Base {
    */
   protected renderLayoutRecursive(isUpdate: boolean) {
     // 1. 同步子 view padding
-    if (this.syncViewPadding) {
-      const syncPadding = new PaddingCal();
+    // 根据配置获取 padding
+    const syncViewPaddingFn = this.syncViewPadding === true ? defaultSyncViewPadding :
+      isFunction(this.syncViewPadding) ? this.syncViewPadding : undefined;
 
-      // 所有的 view 的 autoPadding 指向同一个引用
-      this.views.forEach((v: View) => {
-        v.autoPadding = syncPadding.max(v.autoPadding.getPadding());
-      });
-
-      // 更新 coordinate
+    if (syncViewPaddingFn) {
+      syncViewPaddingFn(this, this.views, PaddingCal);
+      // 同步 padding 之后，更新 coordinate
       this.views.forEach((v: View) => {
         v.coordinateBBox = v.viewBBox.shrink(v.autoPadding.getPadding());
         v.adjustCoordinate();
