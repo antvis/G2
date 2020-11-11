@@ -20,7 +20,7 @@ const data2 = [
   { site: '006', uv: 35 },
 ];
 
-describe('0000', () => {
+describe('2996', () => {
   it('rect coordinate', () => {
     const chart = new Chart({
       container: createDiv(),
