@@ -24,7 +24,7 @@
     "lint:tslint": "tslint -c tslint.json 'src/**/*.ts'",
     "lint:md": "lint-md ./docs",
     "test": "jest",
-    "test-live": "DEBUG_MODE=1 jest --watch tests/unit",
+    "test-live": "DEBUG_MODE=1 jest --watch tests/bugs/2996-spec.ts",
     "coverage": "jest --coverage",
     "lib:cjs": "tsc -p tsconfig.json --target ES5 --module commonjs --outDir lib",
     "lib:esm": "tsc -p tsconfig.json --target ES5 --module ESNext --outDir esm",

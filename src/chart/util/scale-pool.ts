@@ -2,9 +2,9 @@
  * view 中缓存 scale 的类
  */
 import { deepMix, each, get, isNumber, last } from '@antv/util';
-import { Scale } from '../../dependents';
+import { Scale, Coordinate } from '../../dependents';
 import { Data, LooseObject, ScaleOption } from '../../interface';
-import { createScaleByField, syncScale } from '../../util/scale';
+import { createScaleByField, syncScale, getDefaultCategoryScaleRange } from '../../util/scale';
 
 /** @ignore */
 interface ScaleMeta {
@@ -56,10 +56,10 @@ export class ScalePool {
   /**
    * 同步 scale
    */
-  public sync() {
+  public sync(coordinate: Coordinate) {
     // 对于 syncScales 中每一个 syncKey 下面的 scale 数组进行同步处理
     this.syncScales.forEach((scaleKeys: string[], syncKey: string) => {
-      // min, max, values
+      // min, max, values, ranges
       let min = Number.MAX_SAFE_INTEGER;
       let max = Number.MIN_SAFE_INTEGER;
       const values = [];
@@ -90,8 +90,19 @@ export class ScalePool {
             values,
           });
         } else if (scale.isCategory) {
+          let range = scale.range;
+          const cacheScaleMeta = this.getScaleMeta(key);
+
+          // 存在 value 值，且用户没有配置 range 配置 to fix https://github.com/antvis/G2/issues/2996
+          if (values && !get(cacheScaleMeta, ['scaleDef', 'range'])) {
+            // 更新 range
+            range = getDefaultCategoryScaleRange(deepMix({}, scale, {
+              values
+            }), coordinate);
+          } 
           scale.change({
             values,
+            range,
           });
         }
       });
