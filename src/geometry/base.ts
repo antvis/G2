@@ -284,9 +284,9 @@ export default class Geometry extends Base {
       dodgePadding,
       maxColumnWidth,
       minColumnWidth,
-      columnWidthRatio = 1 / 2,
-      roseWidthRatio = 0.9999999,
-      multiplePieWidthRatio = 1 / 1.3
+      columnWidthRatio,
+      roseWidthRatio,
+      multiplePieWidthRatio,
     } = cfg;
 
     this.container = container;
@@ -1654,9 +1654,9 @@ export default class Geometry extends Base {
     const adjustOption = this.adjustOption;
     const { intervalPadding, dodgePadding, theme } = this;
     // 兼容theme配置
-    const maxColumnWidth = theme.maxColumnWidth || this.maxColumnWidth;
-    const minColumnWidth = theme.minColumnWidth || this.minColumnWidth;
-    const columnWidthRatio = theme.columnWidthRatio || this.columnWidthRatio;
+    const maxColumnWidth = this.maxColumnWidth || theme.maxColumnWidth;
+    const minColumnWidth = this.minColumnWidth || theme.minColumnWidth;
+    const columnWidthRatio = this.columnWidthRatio || theme.columnWidthRatio;
     let result = dataArray;
 
     if (adjustOption) {

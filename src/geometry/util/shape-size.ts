@@ -46,11 +46,11 @@ export function getDefaultSize(geometry): number {
     dodgePadding,
   } = geometry;
   // 兼容theme配置
-  const maxColumnWidth = theme.maxColumnWidth || geometry.maxColumnWidth;
-  const minColumnWidth = theme.minColumnWidth || geometry.minColumnWidth;
-  const columnWidthRatio = theme.columnWidthRatio || geometry.columnWidthRatio;
-  const multiplePieWidthRatio = theme.multiplePieWidthRatio || geometry.multiplePieWidthRatio;
-  const roseWidthRatio = theme.roseWidthRatio || geometry.roseWidthRatio;
+  const maxColumnWidth = geometry.maxColumnWidth || theme.maxColumnWidth;
+  const minColumnWidth = geometry.minColumnWidth || theme.minColumnWidth;
+  const columnWidthRatio = geometry.columnWidthRatio || theme.columnWidthRatio;
+  const multiplePieWidthRatio = geometry.multiplePieWidthRatio || theme.multiplePieWidthRatio;
+  const roseWidthRatio = geometry.roseWidthRatio || theme.roseWidthRatio;
 
   // 线性情况下count值
   if (xScale.isLinear && xValues.length > 1) {

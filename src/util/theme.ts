@@ -239,11 +239,11 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
     fontFamily: styleSheet.fontFamily,
     // 兼容Theme配置
     /** 一般柱状图宽度占比，geometry中已添加默认值，为了geometry配置生效默认值为null */
-    columnWidthRatio: undefined,
+    columnWidthRatio: 1 / 2,
     /** 柱状图最大宽度 */
-    maxColumnWidth: undefined,
+    maxColumnWidth: null,
     /** 柱状图最小宽度 */
-    minColumnWidth: undefined,
+    minColumnWidth: null,
     /** 玫瑰图占比 */
     roseWidthRatio: 0.9999999,
     /** 多层饼图/环图占比 */

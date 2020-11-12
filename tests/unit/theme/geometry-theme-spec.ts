@@ -35,7 +35,7 @@ describe('Geometry theme', () => {
 
   it('interval theme', () => {
     expect(interval1.theme.maxColumnWidth).toBe(10);
-    expect(interval2.theme.maxColumnWidth).toBeUndefined();
+    expect(interval2.theme.maxColumnWidth).toBeNull();
     expect(interval2.theme).toEqual(chart.getTheme());
   });
 
