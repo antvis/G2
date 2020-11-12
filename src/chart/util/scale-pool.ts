@@ -3,7 +3,7 @@
  */
 import { deepMix, each, get, isNumber, last } from '@antv/util';
 import { Scale, Coordinate } from '../../dependents';
-import { Data, LooseObject, ScaleOption } from '../../interface';
+import { Data, LooseObject, ScaleOption, ViewCfg } from '../../interface';
 import { createScaleByField, syncScale, getDefaultCategoryScaleRange } from '../../util/scale';
 
 /** @ignore */
@@ -56,7 +56,7 @@ export class ScalePool {
   /**
    * 同步 scale
    */
-  public sync(coordinate: Coordinate) {
+  public sync(coordinate: Coordinate, theme: ViewCfg['theme']) {
     // 对于 syncScales 中每一个 syncKey 下面的 scale 数组进行同步处理
     this.syncScales.forEach((scaleKeys: string[], syncKey: string) => {
       // min, max, values, ranges
@@ -98,7 +98,7 @@ export class ScalePool {
             // 更新 range
             range = getDefaultCategoryScaleRange(deepMix({}, scale, {
               values
-            }), coordinate);
+            }), coordinate, theme);
           } 
           scale.change({
             values,

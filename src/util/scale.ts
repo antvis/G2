@@ -1,6 +1,6 @@
 import { firstValue, get, isEmpty, isNil, isNumber, isString, valuesOfKey } from '@antv/util';
 import { getScale, Scale, Coordinate } from '../dependents';
-import { LooseObject, ScaleOption } from '../interface';
+import { LooseObject, ScaleOption, ViewCfg } from '../interface';
 import { isFullCircle } from './coordinate';
 
 const dateRegex = /^(?:(?!0000)[0-9]{4}([-/.]+)(?:(?:0?[1-9]|1[0-2])\1(?:0?[1-9]|1[0-9]|2[0-8])|(?:0?[13-9]|1[0-2])\1(?:29|30)|(?:0?[13578]|1[02])\1(?:31))|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)([-/.]+)0?2\2(?:29))(\s+([01]|([01][0-9]|2[0-3])):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))?$/;
@@ -86,8 +86,9 @@ export function getName(scale: Scale): string {
  * 根据 scale values 和 coordinate 获取分类默认 range
  * @param scale 需要获取的 scale 实例
  * @param coordinate coordinate 实例
+ * @param theme theme 
  */
-export function getDefaultCategoryScaleRange(scale: Scale, coordinate: Coordinate): Scale['range']{
+export function getDefaultCategoryScaleRange(scale: Scale, coordinate: Coordinate, theme: ViewCfg['theme']): Scale['range'] {
   const { values } = scale;
   const count = values.length;
   let range;
@@ -102,7 +103,7 @@ export function getDefaultCategoryScaleRange(scale: Scale, coordinate: Coordinat
       if (!coordinate.isTransposed) {
         range = [0, 1 - 1 / count];
       } else {
-        widthRatio = get(this.theme, 'widthRatio.multiplePie', 1 / 1.3);
+        widthRatio = get(theme, 'widthRatio.multiplePie', 1 / 1.3);
         offset = (1 / count) * widthRatio;
         range = [offset / 2, 1 - offset / 2];
       }

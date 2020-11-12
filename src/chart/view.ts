@@ -1799,7 +1799,7 @@ export class View extends Base {
         // 存在 value 值，且用户没有配置 range 配置
         if (values && !get(scaleOptions, [field, 'range'])) {
           // 更新 range
-          scale.range = getDefaultCategoryScaleRange(scale, coordinate);
+          scale.range = getDefaultCategoryScaleRange(scale, coordinate, this.theme);
         }
       }
     });
