@@ -239,7 +239,8 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
     defaultColor: styleSheet.brandColor,
     padding: 'auto',
     fontFamily: styleSheet.fontFamily,
-    /** 一般柱状图宽度占比 */
+    // 兼容Theme配置
+    /** 一般柱状图宽度占比，geometry中已添加默认值，为了geometry配置生效默认值为null */
     columnWidthRatio: 1 / 2,
     /** 柱状图最大宽度 */
     maxColumnWidth: null,

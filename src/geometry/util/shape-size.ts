@@ -1,4 +1,4 @@
-import { flatten, isString, valuesOfKey } from '@antv/util';
+import { flatten, isString, valuesOfKey, isNil } from '@antv/util';
 import { getXDimensionLength } from '../../util/coordinate';
 
 // 已经排序后的数据查找距离最小的
@@ -39,6 +39,20 @@ export function getDefaultSize(geometry): number {
   const xValues = xScale.values;
   const dataArray = geometry.beforeMappingData;
   let count: number = xValues.length;
+  const xDimensionLength = getXDimensionLength(geometry.coordinate);
+  // 获取柱宽相关配置项
+  const {
+    intervalPadding,
+    dodgePadding,
+  } = geometry;
+  // 兼容theme配置
+  const maxColumnWidth = geometry.maxColumnWidth || theme.maxColumnWidth;
+  const minColumnWidth = geometry.minColumnWidth || theme.minColumnWidth;
+  const columnWidthRatio = geometry.columnWidthRatio || theme.columnWidthRatio;
+  const multiplePieWidthRatio = geometry.multiplePieWidthRatio || theme.multiplePieWidthRatio;
+  const roseWidthRatio = geometry.roseWidthRatio || theme.roseWidthRatio;
+
+  // 线性情况下count值
   if (xScale.isLinear && xValues.length > 1) {
     // Linear 类型用户有可能设置了 min, max 范围所以需要根据数据最小区间计算 count
     xValues.sort();
@@ -53,38 +67,60 @@ export function getDefaultSize(geometry): number {
   let normalizedSize = 1 / count;
   let wr = 1;
   if (coordinate.isPolar) {
+    // 极坐标场景
     if (coordinate.isTransposed && count > 1) {
       // 极坐标下多层环图
-      wr = theme.multiplePieWidthRatio;
+      wr = multiplePieWidthRatio;
     } else {
-      wr = theme.roseWidthRatio;
+      wr = roseWidthRatio;
     }
   } else {
+    // 非极坐标场景
     if (xScale.isLinear) {
       normalizedSize *= range[1] - range[0];
     }
-    wr = theme.columnWidthRatio;
+    wr = columnWidthRatio;
   }
-  normalizedSize *= wr;
+
+  // 基础柱状图
+  if (!isNil(intervalPadding) && intervalPadding >= 0) {
+    // 配置组间距情况
+    const normalizedIntervalPadding = intervalPadding / xDimensionLength;
+    normalizedSize = (1 - (count - 1) * normalizedIntervalPadding) / count;
+  } else {
+    // 默认情况
+    normalizedSize *= wr;
+  }
+  // 分组柱状图
   if (geometry.getAdjust('dodge')) {
     const dodgeAdjust = geometry.getAdjust('dodge');
     const dodgeBy = dodgeAdjust.dodgeBy;
     const dodgeCount = getDodgeCount(dataArray, dodgeBy);
-
-    normalizedSize = normalizedSize / dodgeCount;
+    if (!isNil(dodgePadding) && dodgePadding >= 0) {
+      // 仅配置组内间距情况
+      const normalizedDodgePadding = dodgePadding / xDimensionLength;
+      normalizedSize = (normalizedSize - normalizedDodgePadding * (dodgeCount - 1)) / dodgeCount;
+    } else if (!isNil(intervalPadding) && intervalPadding >= 0) {
+      // 设置组间距但未设置组内间距情况，避免组间距过小导致图形重叠，需乘以wr
+      normalizedSize *= wr;
+      normalizedSize = normalizedSize / dodgeCount;
+    } else {
+      // 组间距和组内间距均未配置
+      normalizedSize = normalizedSize / dodgeCount;
+    }
+    normalizedSize = (normalizedSize >= 0) ? normalizedSize : 0;
   }
 
   // 最大和最小限制
-  const { maxColumnWidth, minColumnWidth } = theme;
-  const xDimensionLength = getXDimensionLength(geometry.coordinate);
-  if (maxColumnWidth) {
+  if (!isNil(maxColumnWidth) && maxColumnWidth >= 0) {
     const normalizedMaxColumnWidth = maxColumnWidth / xDimensionLength;
     if (normalizedSize > normalizedMaxColumnWidth) {
       normalizedSize = normalizedMaxColumnWidth;
     }
   }
 
-  if (minColumnWidth) {
+  // minColumnWidth可能设置为0
+  if (!isNil(minColumnWidth) && minColumnWidth >= 0) {
     const normalizedMinColumnWidth = minColumnWidth / xDimensionLength;
     if (normalizedSize < normalizedMinColumnWidth) {
       normalizedSize = normalizedMinColumnWidth;

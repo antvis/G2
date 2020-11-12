@@ -57,6 +57,7 @@ import { getShapeFactory } from './shape/base';
 import { group } from './util/group-data';
 import { isModelChange } from './util/is-model-change';
 import { parseFields } from './util/parse-fields';
+import { getXDimensionLength } from '../util/coordinate';
 
 /** @ignore */
 interface AttributeInstanceCfg {
@@ -80,6 +81,21 @@ interface AdjustInstanceCfg {
   size?: number;
   height?: number;
   reverseOrder?: boolean;
+
+  /** 像素级柱间宽度，调整offset */
+  intervalPadding?: number;
+  dodgePadding?: number;
+  /** x维度长度，计算归一化padding使用 */
+  xDimensionLength?: number;
+  /** 分组数，计算offset */
+  groupNum?: number;
+  /** 用户配置宽度 size */
+  defaultSize?: number;
+  /** 最大最小宽度约束 */
+  maxColumnWidth?: number;
+  minColumnWidth?: number;
+  /** 柱宽比例 */
+  columnWidthRatio?: number;
 }
 
 /** geometry.init() 传入参数 */
@@ -117,6 +133,21 @@ export interface GeometryCfg {
   visible?: boolean;
   /** 主题配置 */
   theme?: LooseObject;
+
+  /** 组间距 */
+  intervalPadding?: number;
+  /** 组内间距 */
+  dodgePadding?: number;
+  /** 柱状图最大宽度 */
+  maxColumnWidth?: number;
+  /** 柱状图最小宽度 */
+  minColumnWidth?: number;
+  /** 默认宽度占比，interval类型和schema类型通用 */
+  columnWidthRatio?: number;
+  /** 玫瑰图占比 */
+  roseWidthRatio?: number;
+  /** 多层饼图/环图占比 */
+  multiplePieWidthRatio?: number;
 }
 
 // 根据 elementId 查找对应的 label，因为有可能一个 element 对应多个 labels，所以在给 labels 打标识时做了处理
@@ -208,6 +239,23 @@ export default class Geometry extends Base {
   private lastAttributeOption;
   private idFields: string[] = [];
   private geometryLabel: GeometryLabel;
+
+  // 柱状图间距相关配置
+  /** 组间距 */
+  protected intervalPadding: number;
+  /** 组内间距 */
+  protected dodgePadding: number;
+  /** 柱状图最大宽度 */
+  protected maxColumnWidth: number;
+  /** 柱状图最小宽度 */
+  protected minColumnWidth: number;
+  /** 一般柱状图宽度占比 */
+  protected columnWidthRatio: number;
+  /** 玫瑰图占比 */
+  protected roseWidthRatio: number;
+  /** 多层饼图/环图占比 */
+  protected multiplePieWidthRatio: number;
+
   /** 虚拟 Group，用于图形更新 */
   private offscreenGroup: IGroup;
   private groupScales: Scale[];
@@ -231,6 +279,14 @@ export default class Geometry extends Base {
       theme,
       scales = {},
       scaleDefs = {},
+      // 柱状图间隔与宽度相关配置
+      intervalPadding,
+      dodgePadding,
+      maxColumnWidth,
+      minColumnWidth,
+      columnWidthRatio,
+      roseWidthRatio,
+      multiplePieWidthRatio,
     } = cfg;
 
     this.container = container;
@@ -242,6 +298,14 @@ export default class Geometry extends Base {
     this.userTheme = theme;
     this.scales = scales;
     this.scaleDefs = scaleDefs;
+    // 柱状图间隔与宽度相关配置
+    this.intervalPadding = intervalPadding;
+    this.dodgePadding = dodgePadding;
+    this.maxColumnWidth = maxColumnWidth;
+    this.minColumnWidth = minColumnWidth;
+    this.columnWidthRatio = columnWidthRatio;
+    this.roseWidthRatio = roseWidthRatio;
+    this.multiplePieWidthRatio = multiplePieWidthRatio;
   }
 
   /**
@@ -1591,17 +1655,39 @@ export default class Geometry extends Base {
   // 调整数据
   private adjustData(dataArray: Data[]): Data[] {
     const adjustOption = this.adjustOption;
+    const { intervalPadding, dodgePadding, theme } = this;
+    // 兼容theme配置
+    const maxColumnWidth = this.maxColumnWidth || theme.maxColumnWidth;
+    const minColumnWidth = this.minColumnWidth || theme.minColumnWidth;
+    const columnWidthRatio = this.columnWidthRatio || theme.columnWidthRatio;
     let result = dataArray;
+
     if (adjustOption) {
       const xScale = this.getXScale();
       const yScale = this.getYScale();
       const xField = xScale.field;
       const yField = yScale ? yScale.field : null;
+      const xDimensionLength = getXDimensionLength(this.coordinate);
+      const groupNum = xScale.values.length;
+      // 传入size计算相关参数，默认宽度、最大最小宽度约束
+      const sizeAttr = this.getAttribute('size');
+      let defaultSize;
+      if (sizeAttr) {
+        defaultSize = sizeAttr.values[0];
+      }
       for (let i = 0, len = adjustOption.length; i < len; i++) {
         const adjust = adjustOption[i];
         const adjustCfg: AdjustInstanceCfg = {
           xField,
           yField,
+          intervalPadding,
+          dodgePadding,
+          xDimensionLength,
+          groupNum,
+          defaultSize,
+          maxColumnWidth,
+          minColumnWidth,
+          columnWidthRatio,
           ...adjust,
         };
         const type = adjust.type;
@@ -1616,7 +1702,8 @@ export default class Geometry extends Base {
           }
           adjustCfg.adjustNames = adjustNames;
           // 每个分组内每条柱子的宽度占比，用户不可指定，用户需要通过 columnWidthRatio 指定
-          adjustCfg.dodgeRatio = this.theme.columnWidthRatio;
+          // 兼容theme配置
+          adjustCfg.dodgeRatio = columnWidthRatio;
         } else if (type === 'stack') {
           const coordinate = this.coordinate;
           if (!yScale) {

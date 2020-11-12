@@ -133,8 +133,27 @@ describe('Interval', () => {
       expect(isNumberEqual(intervalShapeBBox.width, 20)).toBe(true);
     });
 
+    test('pixel interval padding', () => {
+      interval.clear();
+      interval.intervalPadding = 0;
+
+      interval.size(null);
+      interval.scales = scales;
+
+      interval.init();
+      interval.paint();
+
+      canvas.draw();
+
+      const elements = interval.elements;
+      expect(elements[0].shape.getBBox().width).toBeCloseTo(60);
+      expect(elements[1].shape.getBBox().width).toBeCloseTo(60);
+      expect(elements[2].shape.getBBox().width).toBeCloseTo(60);
+    })
+
     test('limit the width with minColumnWidth', () => {
       interval.clear();
+      interval.intervalPadding = null;
       interval.theme.minColumnWidth = 40;
 
       interval.size(null);
