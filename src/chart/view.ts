@@ -1730,7 +1730,7 @@ export class View extends Base {
    */
   private syncScale() {
     // 最终调用 root view 的
-    this.getRootView().scalePool.sync(this.getCoordinate());
+    this.getRootView().scalePool.sync(this.getCoordinate(), this.theme);
   }
 
   /**
