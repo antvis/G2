@@ -19,8 +19,8 @@ A highly interactive data-driven visualization grammar for statistical charts.
 <p align="center">
   <a href="https://g2.antv.vision/en">Website</a> •
   <a href="https://g2.antv.vision/en/docs/manual/about-g2">Tutorial Docs</a> •
-  <a href="https://www.yuque.com/antv">Blog</a>
-
+  <a href="https://www.yuque.com/antv">Blog</a> •
+  <a href="https://github.com/antvis/G2Plot">G2Plot</a>
 </p>
 
 G2 is a visualization grammar, a data-driven visual language with a high level of usability and scalability. It provides a set of grammars, takes users beyond a limited set of charts to an almost unlimited world of graphical forms. With G2, you can describe the visual appearance and interactive behavior of a visualization just by one statement, and generate web-based views using Canvas or SVG.
@@ -104,8 +104,10 @@ $ npm start
 ## 🏷️ Releases
 
 - v3.5.x: https://github.com/antvis/G2/tree/v3.5.x
-- v3.6.x: https://github.com/antvis/G2/tree/v3.6.x
 - v4.0.x: https://github.com/antvis/G2/tree/v4.0.x
+
+> You can also use **[G2Plot](https://github.com/antvis/G2Plot)** which is a general statistical plots encapsulation based G2. you can easily make superior statistical charts through a few lines of code.
+
 
 ## 🤝 How to Contribute
 
