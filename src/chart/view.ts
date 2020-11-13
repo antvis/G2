@@ -52,6 +52,7 @@ import { getCoordinateClipCfg, isFullCircle, isPointInCoordinate } from '../util
 import { uniq } from '../util/helper';
 import { findDataByPoint } from '../util/tooltip';
 import { parsePadding } from '../util/padding';
+import { getDefaultCategoryScaleRange } from '../util/scale';
 import Chart from './chart';
 import { getComponentController, getComponentControllerNames } from './controller';
 import Annotation from './controller/annotation';
@@ -1729,7 +1730,7 @@ export class View extends Base {
    */
   private syncScale() {
     // 最终调用 root view 的
-    this.getRootView().scalePool.sync();
+    this.getRootView().scalePool.sync(this.getCoordinate(), this.theme);
   }
 
   /**
@@ -1797,30 +1798,8 @@ export class View extends Base {
       if (isCategory || isIdentity) {
         // 存在 value 值，且用户没有配置 range 配置
         if (values && !get(scaleOptions, [field, 'range'])) {
-          const count = values.length;
-          let range;
-
-          if (count === 1) {
-            range = [0.5, 1]; // 只有一个分类时,防止计算出现 [0.5,0.5] 的状态
-          } else {
-            let widthRatio = 1;
-            let offset = 0;
-
-            if (isFullCircle(coordinate)) {
-              if (!coordinate.isTransposed) {
-                range = [0, 1 - 1 / count];
-              } else {
-                widthRatio = get(this.theme, 'widthRatio.multiplePie', 1 / 1.3);
-                offset = (1 / count) * widthRatio;
-                range = [offset / 2, 1 - offset / 2];
-              }
-            } else {
-              offset = 1 / count / 2; // 两边留下分类空间的一半
-              range = [offset, 1 - offset]; // 坐标轴最前面和最后面留下空白防止绘制柱状图时
-            }
-          }
           // 更新 range
-          scale.range = range;
+          scale.range = getDefaultCategoryScaleRange(scale, coordinate, this.theme);
         }
       }
     });
