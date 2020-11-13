@@ -106,7 +106,7 @@ $ npm start
 - v3.5.x: https://github.com/antvis/G2/tree/v3.5.x
 - v4.0.x: https://github.com/antvis/G2/tree/v4.0.x
 
-> You can also use **[G2Plot](https://github.com/antvis/G2Plot)** which is a general statistical plots encapsulation based G2. you can easily make superior statistical charts through a few lines of code.
+> You can also use **[G2Plot](https://github.com/antvis/G2Plot)** which is an interactive and responsive charting library based on G2. You can easily make superior statistical plots through a few lines of code.
 
 
 ## 🤝 How to Contribute
