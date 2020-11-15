@@ -1129,7 +1129,7 @@ export interface TooltipCrosshairsText extends CrosshairTextCfg {
 
 /**
  * 辅助线文本回调函数
- * @param type 对应当前 crosshairs 的类型，值为 'x' 或者 'x'
+ * @param type 对应当前 crosshairs 的类型，值为 'x' 或者 'y'
  * @param defaultContent 对应当前 crosshairs 默认的文本内容
  * @param items 对应当前 tooltip 内容框中的数据
  * @param currentPoint 对应当前坐标点
