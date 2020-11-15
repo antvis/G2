@@ -95,7 +95,7 @@ interface TooltipCrosshairs {
 
 ```ts
 type TooltipCrosshairsTextCallback = (
-  type: string, // 对应当前 crosshairs 的类型，值为 'x' 或者 'x'
+  type: string, // 对应当前 crosshairs 的类型，值为 'x' 或者 'y'
   defaultContent: any, // 对应当前 crosshairs 默认的文本内容
   items: any[], // 对应当前 tooltip 内容框中的数据
   currentPoint: Point // 对应当前坐标点
