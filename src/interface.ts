@@ -1967,6 +1967,23 @@ export interface StyleSheet {
   /** Geometry innerLabel 文本描边粗细 */
   innerLabelBorder?: number;
 
+  /** Geometry overflowLabel 文本颜色 */
+  overflowLabelFillColor?: string;
+  /** Geometry overflowLabel 暗色文本颜色 */
+  overflowLabelFillColorDark?: string;
+  /** Geometry overflowLabel 亮色文本颜色 */
+  overflowLabelFillColorLight?: string;
+  /** Geometry overflowLabel 文本字体大小 */
+  overflowLabelFontSize?: number;
+  /** Geometry overflowLabel 文本行高 */
+  overflowLabelLineHeight?: number;
+  /** Geometry overflowLabel 文本字体粗细 */
+  overflowLabelFontWeight?: number | string;
+  /** Geometry overflowLabel 文本描边颜色 */
+  overflowLabelBorderColor?: string;
+  /** Geometry overflowLabel 文本描边粗细 */
+  overflowLabelBorder?: number;
+
   /** Geometry label　文本连接线粗细 */
   labelLineBorder?: number;
   /** Geometry label 文本连接线颜色 */

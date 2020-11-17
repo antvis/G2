@@ -288,6 +288,21 @@ export const antvDark = {
   /** Geometry innerLabel 文本描边粗细 */
   innerLabelBorder: 0,
 
+  /** Geometry label 文本颜色 */
+  overflowLabelFillColor: BLACK_COLORS[65],
+  overflowLabelFillColorDark: '#2c3542',
+  overflowLabelFillColorLight: '#ffffff',
+  /** Geometry label 文本字体大小 */
+  overflowLabelFontSize: 12,
+  /** Geometry label 文本行高 */
+  overflowLabelLineHeight: 12,
+  /** Geometry label 文本字体粗细 */
+  overflowLabelFontWeight: 'normal',
+  /** Geometry label 文本描边颜色 */
+  overflowLabelBorderColor: WHITE_COLORS[100],
+  /** Geometry label 文本描边粗细 */
+  overflowLabelBorder: 1,
+
   /** Geometry label　文本连接线粗细 */
   labelLineBorder: 1,
   /** Geometry label 文本连接线颜色 */

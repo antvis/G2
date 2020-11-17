@@ -17,11 +17,12 @@ export function adjustColor(items: LabelItem[], labels: IGroup[], shapes: IShape
     const textShape = label.find((el) => el.get('type') === 'text');
     const shapeBBox = BBox.fromObject(shape.getBBox());
     const textBBox = BBox.fromObject(textShape.getCanvasBBox());
+    const overflow = !shapeBBox.contains(textBBox);
 
-    // 如果文本包围图在图形内部
-    if (shapeBBox.contains(textBBox)) {
-      const bgColor = shape.attr('fill');
-      const fillWhite = isContrastColorWhite(bgColor);
+    const bgColor = shape.attr('fill');
+    const fillWhite = isContrastColorWhite(bgColor);
+
+    if (!overflow) {
       if (fillWhite) {
         if (fillColorLight) {
           textShape.attr('fill', fillColorLight);
@@ -31,6 +32,9 @@ export function adjustColor(items: LabelItem[], labels: IGroup[], shapes: IShape
           textShape.attr('fill', fillColorDark);
         }
       }
+    } else {
+      // 出现溢出直接应用 overflowLabel 样式
+      textShape.attr(theme.overflowLabels.style);
     }
   });
 }
