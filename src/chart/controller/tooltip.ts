@@ -223,6 +223,7 @@ export default class Tooltip extends Controller<TooltipOption> {
     if (tooltipMarkersGroup) {
       tooltipMarkersGroup.clear();
     }
+    this.reset();
   }
 
   public destroy() {
@@ -240,6 +241,10 @@ export default class Tooltip extends Controller<TooltipOption> {
       this.guideGroup.remove(true);
     }
 
+    this.reset();
+  }
+
+  public reset() { 
     this.items = null;
     this.title = null;
     this.tooltipMarkersGroup = null;
