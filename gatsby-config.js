@@ -23,6 +23,7 @@ module.exports = {
     },
     showChartResize: true, // 是否在demo页展示图表视图切换
     showAPIDoc: true, // 是否在demo页展示API文档
+    themeSwitcher: 'g2',
     navs: [
       {
         slug: 'docs/manual',
