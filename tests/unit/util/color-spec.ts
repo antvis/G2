@@ -2,6 +2,11 @@ import { isContrastColorWhite } from '../../../src/util/color';
 
 describe('color', () => {
   it('isContrastColorWhite', () => {
+    // preset
+    expect(isContrastColorWhite('#5B8FF9')).toBe(true);
+    expect(isContrastColorWhite('#5b8ff9')).toBe(true);
+    expect(isContrastColorWhite('rgb(91,143,249')).toBe(true);
+
     // hex
     expect(isContrastColorWhite('#000000')).toBe(true);
     expect(isContrastColorWhite('#000')).toBe(true);

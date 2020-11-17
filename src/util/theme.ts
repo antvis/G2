@@ -1261,6 +1261,15 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
       },
       autoRotate: true,
     },
+    overflowLabels: {
+      style: {
+        fill: styleSheet.overflowLabelFillColor,
+        fontSize: styleSheet.overflowLabelFontSize,
+        fontFamily: styleSheet.fontFamily,
+        stroke: styleSheet.overflowLabelBorderColor,
+        lineWidth: styleSheet.overflowLabelBorder,
+      },
+    },
     pieLabels: {
       labelHeight: 14,
       offset: 10,
