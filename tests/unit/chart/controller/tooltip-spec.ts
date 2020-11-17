@@ -434,7 +434,7 @@ describe('showContent', () => {
 
     const tooltip = chart.getController('tooltip');
     // @ts-ignore
-    expect(tooltip.tooltip).toBeUndefined();
+    expect(tooltip.tooltip).toBe(null);
     const tooltipDom = container.getElementsByClassName('g2-tooltip');
     expect(tooltipDom.length).toBe(0);
   });

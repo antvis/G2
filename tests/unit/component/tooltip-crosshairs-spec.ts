@@ -43,9 +43,9 @@ describe('TooltipCrosshairs', () => {
     // @ts-ignore
     expect(tooltipController.guideGroup.getCount()).toBe(1);
     // @ts-ignore
-    expect(tooltipController.yCrosshair).toBeUndefined();
+    expect(tooltipController.yCrosshair).toBe(null);
     // @ts-ignore
-    expect(tooltipController.xCrosshair).toBeUndefined();
+    expect(tooltipController.xCrosshair).toBe(null);
   });
 
   it('show x crosshairs, but without text', () => {
@@ -61,7 +61,7 @@ describe('TooltipCrosshairs', () => {
     // @ts-ignore
     expect(tooltipController.guideGroup.getCount()).toBe(2);
     // @ts-ignore
-    expect(tooltipController.yCrosshair).toBeUndefined();
+    expect(tooltipController.yCrosshair).toBe(null);
     // @ts-ignore
     const xCrosshair = tooltipController.xCrosshair;
     expect(xCrosshair).toBeDefined();
