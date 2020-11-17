@@ -5,7 +5,7 @@ import View from '../view';
 import { BBox } from '../../util/bbox';
 import { directionToPosition } from '../../util/direction';
 import { COMPONENT_TYPE, DIRECTION, LAYER, VIEW_LIFE_CIRCLE } from '../../constant';
-import { isObject, clamp, size, groupBy, throttle, noop, keys, get } from '@antv/util';
+import { isObject, clamp, size, throttle, noop, get, valuesOfKey } from '@antv/util';
 import { isBetween } from '../../util/helper';
 
 const DEFAULT_PADDING: number = 0;
@@ -217,8 +217,8 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
   private changeViewData([startIdx, endIdx]: [number, number], render?: boolean): void {
     const { type } = this.getValidScrollbarCfg();
     const isHorizontal = type !== 'vertical';
-    const groupedData = groupBy(this.data, this.xScaleCfg.field);
-    const xValues = isHorizontal ? keys(groupedData) : keys(groupedData).reverse();
+    const values = valuesOfKey(this.data, this.xScaleCfg.field);
+    const xValues = isHorizontal ? values : values.reverse();
     this.yScalesCfg.forEach((cfg) => {
       this.view.scale(cfg.field, {
         formatter: cfg.formatter,
@@ -286,8 +286,8 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
     }
     const xScale = this.view.getXScale();
     const data = this.view.getOptions().data;
-    const groupedData = groupBy(data, xScale.field);
-    return size(keys(groupedData));
+    const values = valuesOfKey(data, xScale.field);
+    return size(values);
   }
 
   private getScrollbarComponentCfg() {
