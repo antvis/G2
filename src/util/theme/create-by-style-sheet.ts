@@ -1,9 +1,112 @@
 import * as TOOLTIP_CSS_CONST from '@antv/component/lib/tooltip/css-const';
 import { ext } from '@antv/matrix-util';
 import { deepMix } from '@antv/util';
-import Element from '../geometry/element';
-import { LooseObject, StyleSheet } from '../interface';
-import { getAngle } from '../util/graphics';
+import Element from '../../geometry/element';
+import { LooseObject, StyleSheet } from '../../interface';
+import { getAngle } from '../graphics';
+
+/**
+ * 根据样式表创建 axis 组件主题样式
+ * @param styleSheet
+ */
+function createAxisStyles(styleSheet: StyleSheet): LooseObject {
+  return {
+    title: {
+      autoRotate: true,
+      position: 'center', // start, center, end
+      spacing: styleSheet.axisTitleSpacing,
+      style: {
+        fill: styleSheet.axisTitleTextFillColor,
+        fontSize: styleSheet.axisTitleTextFontSize,
+        lineHeight: styleSheet.axisTitleTextLineHeight,
+        textBaseline: 'middle',
+        fontFamily: styleSheet.fontFamily,
+      },
+    },
+    label: {
+      autoRotate: true,
+      autoEllipsis: true,
+      autoHide: true,
+      offset: styleSheet.axisLabelOffset,
+      style: {
+        fill: styleSheet.axisLabelFillColor,
+        fontSize: styleSheet.axisLabelFontSize,
+        lineHeight: styleSheet.axisLabelLineHeight,
+        fontFamily: styleSheet.fontFamily,
+      },
+    },
+    line: {
+      style: {
+        lineWidth: styleSheet.axisLineBorder,
+        stroke: styleSheet.axisLineBorderColor,
+      },
+    },
+    grid: {
+      line: {
+        type: 'line',
+        style: {
+          stroke: styleSheet.axisGridBorderColor,
+          lineWidth: styleSheet.axisGridBorder,
+          lineDash: styleSheet.axisGridLineDash,
+        },
+      },
+      alignTick: true,
+      animate: true,
+    },
+    tickLine: {
+      style: {
+        lineWidth: styleSheet.axisTickLineBorder,
+        stroke: styleSheet.axisTickLineBorderColor,
+      },
+      alignTick: true, // 默认刻度线和文本对齐
+      length: styleSheet.axisTickLineLength,
+    },
+    subTickLine: null,
+    animate: true,
+  };
+}
+
+/**
+ * 
+ * @param styleSheet
+ */
+// export function
+
+/**
+ * 根据样式表创建 legend 组件主题样式
+ * @param styleSheet
+ */
+function createLegendStyles(styleSheet: StyleSheet): LooseObject {
+  return {
+    title: null,
+    marker: {
+      symbol: 'circle',
+      spacing: styleSheet.legendMarkerSpacing,
+      style: {
+        r: styleSheet.legendCircleMarkerSize,
+        fill: styleSheet.legendMarkerColor,
+      },
+    },
+    itemName: {
+      spacing: 5, // 如果右边有 value 使用这个间距
+      style: {
+        fill: styleSheet.legendItemNameFillColor,
+        fontFamily: styleSheet.fontFamily,
+        fontSize: styleSheet.legendItemNameFontSize,
+        lineHeight: styleSheet.legendItemNameLineHeight,
+        fontWeight: styleSheet.legendItemNameFontWeight,
+        textAlign: 'start',
+        textBaseline: 'middle',
+      },
+    },
+    flipPage: true,
+    animate: false,
+    maxItemWidth: 200,
+    itemSpacing: styleSheet.legendItemSpacing,
+    itemMarginBottom: styleSheet.legendItemMarginBottom,
+    padding: styleSheet.legendPadding, // 图例组件自己的外边距
+  };
+}
 
 /**
  * 根据主题样式表生成主题结构
@@ -150,90 +253,9 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
       },
     },
   };
-  const axisStyles = {
-    title: {
-      autoRotate: true,
-      position: 'center', // start, center, end
-      spacing: styleSheet.axisTitleSpacing,
-      style: {
-        fill: styleSheet.axisTitleTextFillColor,
-        fontSize: styleSheet.axisTitleTextFontSize,
-        lineHeight: styleSheet.axisTitleTextLineHeight,
-        textBaseline: 'middle',
-        fontFamily: styleSheet.fontFamily,
-      },
-    },
-    label: {
-      autoRotate: true,
-      autoEllipsis: true,
-      autoHide: true,
-      offset: styleSheet.axisLabelOffset,
-      style: {
-        fill: styleSheet.axisLabelFillColor,
-        fontSize: styleSheet.axisLabelFontSize,
-        lineHeight: styleSheet.axisLabelLineHeight,
-        fontFamily: styleSheet.fontFamily,
-      },
-    },
-    line: {
-      style: {
-        lineWidth: styleSheet.axisLineBorder,
-        stroke: styleSheet.axisLineBorderColor,
-      },
-    },
-    tickLine: {
-      style: {
-        lineWidth: styleSheet.axisTickLineBorder,
-        stroke: styleSheet.axisTickLineBorderColor,
-      },
-      alignTick: true, // 默认刻度线和文本对齐
-      length: styleSheet.axisTickLineLength,
-    },
-    subTickLine: null,
-    animate: true,
-  };
-  const axisGridStyles = {
-    line: {
-      type: 'line',
-      style: {
-        stroke: styleSheet.axisGridBorderColor,
-        lineWidth: styleSheet.axisGridBorder,
-        lineDash: styleSheet.axisGridLineDash,
-      },
-    },
-    alignTick: true,
-    animate: true,
-  };
-  const legendStyles = {
-    title: null,
-    marker: {
-      symbol: 'circle',
-      spacing: styleSheet.legendMarkerSpacing,
-      style: {
-        r: styleSheet.legendCircleMarkerSize,
-        fill: styleSheet.legendMarkerColor,
-      },
-    },
-    itemName: {
-      spacing: 5, // 如果右边有 value 使用这个间距
-      style: {
-        fill: styleSheet.legendItemNameFillColor,
-        fontFamily: styleSheet.fontFamily,
-        fontSize: styleSheet.legendItemNameFontSize,
-        lineHeight: styleSheet.legendItemNameLineHeight,
-        fontWeight: styleSheet.legendItemNameFontWeight,
-        textAlign: 'start',
-        textBaseline: 'middle',
-      },
-    },
-    flipPage: true,
-    animate: false,
-    maxItemWidth: 200,
-    itemSpacing: styleSheet.legendItemSpacing,
-    itemMarginBottom: styleSheet.legendItemMarginBottom,
-    padding: styleSheet.legendPadding, // 图例组件自己的外边距
-  };
-
+  const axisStyles = createAxisStyles(styleSheet);
+  const axisGridStyles = axisStyles.grid;
+  const legendStyles = createLegendStyles(styleSheet);
   return {
     background: styleSheet.backgroundColor,
     defaultColor: styleSheet.brandColor,

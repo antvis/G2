@@ -679,6 +679,7 @@ export * from './core';
 // 一些工具方法导出
 import { getAngle, polarToCartesian } from './util/graphics';
 import { rotate, transform, translate, zoom } from './util/transform';
+import { createTheme } from './util/theme';
 import EllipsisText from './interaction/action/component/tooltip/ellipsis-text';
 export const Util = {
   translate,
@@ -687,4 +688,5 @@ export const Util = {
   transform,
   getAngle,
   polarToCartesian,
+  createTheme,
 };

@@ -1,4 +1,4 @@
-import { Coordinate, ShapeAttrs } from '../../dependents';
+import { Coordinate } from '../../dependents';
 import { Datum, GeometryLabelCfg, MappingDatum, Point } from '../../interface';
 
 export type TextAlign = 'start' | 'center' | 'end' | 'left' | 'right';
