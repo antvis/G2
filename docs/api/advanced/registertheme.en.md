@@ -49,31 +49,51 @@ chart.render();
 
 关于以上每个属性的结构及内容，详见[G2 主题配置项详解](./dive-into-theme)。
 
-## 自定义主题样式表
+## 自定义主题（传入样式表配置）
 
-对于图表主题，很多时候只是想切换样式风格，比如更改颜色、字体大小、边框粗细等，并不需要更改主题结构，这个时候就可以通过自定义主题样式表，然后应用于默认的主题结构即可。
+对于图表主题，很多时候只是想切换样式风格，比如更改颜色、字体大小、边框粗细等，并不需要更改主题结构，这个时候就可以通过传入样式表配置来自定义主题，然后应用于默认的主题结构即可。
 
-主题样式表主要用于主题的快速编辑，比如网页端的主题编辑。
+主要用于主题色的快速切换，比如
 
 ```ts
-import { registerTheme } from '@antv/g2';
-import { createThemeByStylesheet } from '@antv/g2/lib/util/theme';
-
-// 通过 getThemeByStylesheet 方法将样式属性值填充到主题结构中
-const darkTheme = createThemeByStylesheet({
-  axisLineBorder: 0.5,
-  pointFillColor: '#000',
-});
-
-// 基于默认的主题结构，应用 dark 主题样式表定义全新的暗黑色系主题
-registerTheme('dark', darkTheme);
-
 // 使用
+chart.theme({
+  styleSheet: {
+    paletteQualitative10: [
+      '#025DF4',
+      '#DB6BCF',
+      '#2498D1',
+      '#BBBDE6',
+      '#4045B2',
+      '#21A97A',
+      '#FF745A',
+      '#007E99',
+      '#FFA8A8',
+      '#2391FF',
+    ],
+  },
+});
+```
+
+支持的样式表属性：
+
+| **属性**                | **类型** | **描述**      |
+| ----------------------- | -------- | ------------- |
+| `backgroundColor`       | _string_ | 背景色        |
+| `brandColor`            | _string_ | 主题色，默认取 10 色分类颜色色板的第一个颜色 |
+| `paletteQualitative10`  | _string_ | 分类颜色色板，分类个数小于 10 时使用 |
+| `paletteQualitative20`  | _string_ | 分类颜色色板，分类个数大于 10 时使用 |
+| `paletteSemanticRed`    | _string_ | 语义红色      |
+| `paletteSemanticGreen`  | _string_ | 语义绿色      |
+| `paletteSemanticYellow` | _string_ | 语义黄色      |
+| `fontFamily`            | _string_ | 字体          |
+
+## 内置暗黑主题
+
+**使用方式:**
+
+```ts
 chart.theme('dark');
 ```
 
 <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*-xWWTaMWrGEAAAAAAAAAAABkARQnAQ" style="width:100%;">
-
-<!-- ### 主题样式表结构
-
-我们整理了完整的主题样式表结构，详见 [API 类型定义](../../api/register#g2registertheme)。 -->

@@ -1,9 +1,9 @@
 import { antvDark } from '../../../../src/theme/style-sheet/dark';
-import { createThemeByStylesheet } from '../../../../src/util/theme';
+import { createThemeByStyleSheet } from '../../../../src/theme/util/create-by-style-sheet';
 
-describe('createThemeByStylesheet', () => {
+describe('createThemeByStyleSheet', () => {
   it('get dark theme', () => {
-    const theme = createThemeByStylesheet(antvDark);
+    const theme = createThemeByStyleSheet(antvDark);
 
     expect(theme.defaultColor).toBe('#5B8FF9');
     expect(theme.geometries).toBeDefined();

@@ -1,4 +1,4 @@
-import { createTheme } from '../../../../src/util/theme';
+import { createTheme } from '../../../src/theme/util';
 
 describe('createTheme', () => {
   it('set defaultColor: interval 默认 fill 不生效', () => {

@@ -5,8 +5,8 @@ import { IInteractionContext } from './interface';
 // 注册黑暗主题
 import { registerTheme } from './core';
 import { antvDark } from './theme/style-sheet/dark';
-import { createThemeByStylesheet } from './util/theme';
-registerTheme('dark', createThemeByStylesheet(antvDark));
+import { createThemeByStyleSheet } from './theme/util/create-by-style-sheet';
+registerTheme('dark', createThemeByStyleSheet(antvDark));
 
 // 注册 G 渲染引擎
 import * as CanvasEngine from '@antv/g-canvas';
@@ -679,8 +679,6 @@ export * from './core';
 // 一些工具方法导出
 import { getAngle, polarToCartesian } from './util/graphics';
 import { rotate, transform, translate, zoom } from './util/transform';
-import { createTheme } from './util/theme';
-import EllipsisText from './interaction/action/component/tooltip/ellipsis-text';
 export const Util = {
   translate,
   rotate,
@@ -688,5 +686,4 @@ export const Util = {
   transform,
   getAngle,
   polarToCartesian,
-  createTheme,
 };

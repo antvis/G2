@@ -3,7 +3,7 @@ import { ext } from '@antv/matrix-util';
 import { deepMix } from '@antv/util';
 import Element from '../../geometry/element';
 import { LooseObject, StyleSheet } from '../../interface';
-import { getAngle } from '../graphics';
+import { getAngle } from '../../util/graphics';
 
 /**
  * 根据样式表创建 axis 组件主题样式
@@ -112,7 +112,7 @@ function createLegendStyles(styleSheet: StyleSheet): LooseObject {
  * 根据主题样式表生成主题结构
  * @param styleSheet 主题样式表
  */
-export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
+export function createThemeByStyleSheet(styleSheet: StyleSheet): LooseObject {
   const shapeStyles = {
     point: {
       default: {

@@ -48,11 +48,12 @@ import Geometry from '../geometry/base';
 import { createInteraction, Interaction } from '../interaction';
 import { getTheme } from '../theme';
 import { BBox } from '../util/bbox';
-import { getCoordinateClipCfg, isFullCircle, isPointInCoordinate } from '../util/coordinate';
+import { getCoordinateClipCfg, isPointInCoordinate } from '../util/coordinate';
 import { uniq } from '../util/helper';
 import { findDataByPoint } from '../util/tooltip';
 import { parsePadding } from '../util/padding';
 import { getDefaultCategoryScaleRange } from '../util/scale';
+import { createTheme } from '../theme/util';
 import Chart from './chart';
 import { getComponentController, getComponentControllerNames } from './controller';
 import Annotation from './controller/annotation';
@@ -183,7 +184,7 @@ export class View extends Base {
     this.syncViewPadding = syncViewPadding;
 
     // 初始化 theme
-    this.themeObject = isObject(theme) ? deepMix({}, getTheme('default'), theme) : getTheme(theme);
+    this.themeObject = isObject(theme) ? deepMix({}, getTheme('default'), createTheme(theme)) : getTheme(theme);
     this.init();
   }
 
@@ -724,7 +725,7 @@ export class View extends Base {
    * @returns View
    */
   public theme(theme: string | LooseObject): View {
-    this.themeObject = isObject(theme) ? deepMix({}, this.themeObject, theme) : getTheme(theme);
+    this.themeObject = isObject(theme) ? deepMix({}, this.themeObject, createTheme(theme)) : getTheme(theme);
 
     return this;
   }

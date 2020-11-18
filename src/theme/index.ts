@@ -1,10 +1,10 @@
-import { deepMix, get, lowerCase } from '@antv/util';
+import { get, lowerCase } from '@antv/util';
 import { LooseObject, StyleSheet } from '../interface';
 
-import { createThemeByStylesheet } from '../util/theme';
+import { createTheme } from './util';
 import { antvLight as DefaultStyleSheet } from './style-sheet/light';
 
-const defaultTheme = createThemeByStylesheet(DefaultStyleSheet as StyleSheet);
+const defaultTheme = createTheme({});
 
 // 所有已经存在的主题
 const Themes: Record<string, LooseObject> = {
@@ -25,5 +25,5 @@ export function getTheme(theme?: string): LooseObject {
  * @param value 具体的主题配置。
  */
 export function registerTheme(theme: string, value: LooseObject) {
-  Themes[lowerCase(theme)] = deepMix({}, Themes.default, value);
+  Themes[lowerCase(theme)] = createTheme(value);
 }

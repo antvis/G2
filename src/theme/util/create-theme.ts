@@ -1,6 +1,6 @@
 import { deepMix } from '@antv/util';
-import { createThemeByStylesheet } from './create-by-style-sheet';
-import { createLightStyleSheet } from '../../theme/style-sheet/light';
+import { createThemeByStyleSheet } from './create-by-style-sheet';
+import { createLightStyleSheet } from '../style-sheet/light';
 import { LooseObject, StyleSheetCfg } from '../../interface';
 
 interface ThemeCfg extends LooseObject {
@@ -10,8 +10,8 @@ interface ThemeCfg extends LooseObject {
 export function createTheme(themeCfg: ThemeCfg): LooseObject {
   const { styleSheet: styleSheetCfg = {}, ...themeObject } = themeCfg;
 
-  // ① 创建样式表
+  // ① 创建样式表 (默认创建 light 的样式表)
   const styleSheet = createLightStyleSheet(styleSheetCfg);
   // ② 创建主题
-  return deepMix({}, createThemeByStylesheet(styleSheet), themeObject);
+  return deepMix({}, createThemeByStyleSheet(styleSheet), themeObject);
 }
