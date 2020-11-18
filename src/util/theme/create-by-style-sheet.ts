@@ -1,8 +1,8 @@
 import * as TOOLTIP_CSS_CONST from '@antv/component/lib/tooltip/css-const';
 import { ext } from '@antv/matrix-util';
-import { deepMix, get } from '@antv/util';
+import { deepMix } from '@antv/util';
 import Element from '../../geometry/element';
-import { LooseObject, StyleSheet, StyleSheetCfg } from '../../interface';
+import { LooseObject, StyleSheet } from '../../interface';
 import { getAngle } from '../graphics';
 
 /**
