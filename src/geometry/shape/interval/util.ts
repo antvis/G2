@@ -84,6 +84,30 @@ export function getRectPath(points: Point[], isClosed: boolean = true): PathComm
 
 /**
  * @ignore
+ * 根据矩形关键点绘制 path
+ * @param points 关键点数组
+ * @param cap 圆角样式
+ * @returns 返回矩形的 path
+ */
+export function getIntervalRectPath(points: Point[], cap: boolean): PathCommand[] {
+  const path = [];
+  const firstPoint = points[0];
+  const r = (points[2].x - points[1].x) / 2;
+  path.push(['M', firstPoint.x, firstPoint.y]);
+  path.push(['L', points[1].x, points[1].y]);
+  path.push(['A', r, r, 0, 0, 1, points[2].x, points[2].y]);
+  path.push(['L', points[3].x, points[3].y]);
+  if (cap) {
+    path.push(['A', r, r, 0, 0, 1, firstPoint.x, firstPoint.y]);
+  } else {
+    path.push(['L', firstPoint.x, firstPoint.y]); // 需要闭合
+  }
+  path.push(['z']);
+  return path;
+}
+
+/**
+ * @ignore
  * 根据 funnel 关键点绘制漏斗图的 path
  * @param points 图形关键点信息
  * @param nextPoints 下一个数据的图形关键点信息

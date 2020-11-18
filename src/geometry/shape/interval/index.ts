@@ -3,7 +3,7 @@ import { Point, ShapeInfo, ShapeMarkerCfg, ShapePoint } from '../../../interface
 
 import { registerShape, registerShapeFactory } from '../base';
 import { getStyle } from '../util/get-style';
-import { getRectPath, getRectPoints } from './util';
+import { getIntervalRectPath, getRectPoints } from './util';
 
 /** Interval 的 shape 工厂 */
 const IntervalShapeFactory = registerShapeFactory('interval', {
@@ -17,7 +17,7 @@ const IntervalShapeFactory = registerShapeFactory('interval', {
 registerShape('interval', 'rect', {
   draw(cfg: ShapeInfo, container: IGroup) {
     const style = getStyle(cfg, false, true);
-    const path = this.parsePath(getRectPath(cfg.points as Point[]));
+    const path = this.parsePath(getIntervalRectPath(cfg.points as Point[], style.cap));
     const shape = container.addShape('path', {
       attrs: {
         ...style,
