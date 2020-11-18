@@ -1,8 +1,7 @@
 import { get, lowerCase } from '@antv/util';
-import { LooseObject, StyleSheet } from '../interface';
+import { LooseObject } from '../interface';
 
 import { createTheme } from './util';
-import { antvLight as DefaultStyleSheet } from './style-sheet/light';
 
 const defaultTheme = createTheme({});
 
