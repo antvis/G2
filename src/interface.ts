@@ -2271,17 +2271,7 @@ export type StyleSheetCfg = Pick<
   | 'paletteSemanticGreen'
   | 'paletteSemanticYellow'
   | 'fontFamily'
-> & {
-  /** ---------- components start ---------- */
-  // legend: {};
-  // axis: AxisStyle;
-  // label: {};
-  // tooltip: {};
-  // slider: {};
-  // scrollbar: {};
-  // annotation: {};
-  /** ---------- components end ---------- */
-};
+>;
 
 // ============================ 交互相关的类型定义 ============================
 /** 交互反馈的定义 */

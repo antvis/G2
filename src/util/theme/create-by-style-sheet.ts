@@ -1,8 +1,8 @@
 import * as TOOLTIP_CSS_CONST from '@antv/component/lib/tooltip/css-const';
 import { ext } from '@antv/matrix-util';
-import { deepMix } from '@antv/util';
+import { deepMix, get } from '@antv/util';
 import Element from '../../geometry/element';
-import { LooseObject, StyleSheet } from '../../interface';
+import { LooseObject, StyleSheet, StyleSheetCfg } from '../../interface';
 import { getAngle } from '../graphics';
 
 /**
@@ -67,7 +67,7 @@ function createAxisStyles(styleSheet: StyleSheet): LooseObject {
 }
 
 /**
- * 
+ *
  * @param styleSheet
  */
 // export function
@@ -254,8 +254,8 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
     },
   };
   const axisStyles = createAxisStyles(styleSheet);
-  const axisGridStyles = axisStyles.grid;
   const legendStyles = createLegendStyles(styleSheet);
+
   return {
     background: styleSheet.backgroundColor,
     defaultColor: styleSheet.brandColor,
@@ -990,7 +990,6 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
           title: null,
           line: null,
           tickLine: null,
-          grid: axisGridStyles,
           verticalLimitLength: 1 / 3,
         }),
         right: deepMix({}, axisStyles, {
@@ -998,16 +997,15 @@ export function createThemeByStylesheet(styleSheet: StyleSheet): LooseObject {
           title: null,
           line: null,
           tickLine: null,
-          grid: axisGridStyles,
           verticalLimitLength: 1 / 3,
         }),
         circle: deepMix({}, axisStyles, {
           title: null,
-          grid: deepMix({}, axisGridStyles, { line: { type: 'line' } }),
+          grid: deepMix({}, axisStyles.grid, { line: { type: 'line' } }),
         }),
         radius: deepMix({}, axisStyles, {
           title: null,
-          grid: deepMix({}, axisGridStyles, { line: { type: 'circle' } }),
+          grid: deepMix({}, axisStyles.grid, { line: { type: 'circle' } }),
         }),
       },
       legend: {
