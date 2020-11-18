@@ -1,5 +1,4 @@
 import { registerTheme, getTheme } from '../../src';
-import { createDiv } from '../util/dom';
 import { deepMix } from '@antv/util';
 
 describe('2377', () => {
@@ -9,10 +8,12 @@ describe('2377', () => {
       defaultColor: 'red',
     });
 
-    expect(getTheme('newTheme')).toEqual(
-      deepMix({}, getTheme('default'), {
-        defaultColor: 'red',
-      })
+    expect(JSON.stringify(getTheme('newTheme'))).toBe(
+      JSON.stringify(
+        deepMix({}, getTheme('default'), {
+          defaultColor: 'red',
+        })
+      )
     );
   });
 });

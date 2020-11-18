@@ -2260,6 +2260,19 @@ export interface StyleSheet {
   hollowIntervalInactiveBorderOpacity?: number;
 }
 
+/** createTheme 主题样式表配置 */
+export type StyleSheetCfg = Pick<
+  StyleSheet,
+  | 'backgroundColor'
+  | 'brandColor'
+  | 'paletteQualitative10'
+  | 'paletteQualitative20'
+  | 'paletteSemanticRed'
+  | 'paletteSemanticGreen'
+  | 'paletteSemanticYellow'
+  | 'fontFamily'
+>;
+
 // ============================ 交互相关的类型定义 ============================
 /** 交互反馈的定义 */
 export interface IAction {
