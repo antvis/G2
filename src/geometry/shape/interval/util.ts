@@ -1,3 +1,4 @@
+import { Coordinate } from '@antv/coord';
 import { isArray, isNil } from '@antv/util';
 import { PathCommand } from '../../../dependents';
 import { Point, ShapePoint } from '../../../interface';
@@ -89,16 +90,32 @@ export function getRectPath(points: Point[], isClosed: boolean = true): PathComm
  * @param cap 圆角样式
  * @returns 返回矩形的 path
  */
-export function getIntervalRectPath(points: Point[], cap: boolean): PathCommand[] {
+export function getIntervalRectPath(points: Point[], cap: boolean, coor: Coordinate): PathCommand[] {
+  const width = coor.getWidth();
+  const height = coor.getHeight();
+  const isRect = coor.type === 'rect';
   const path = [];
   const firstPoint = points[0];
   const r = (points[2].x - points[1].x) / 2;
-  path.push(['M', firstPoint.x, firstPoint.y]);
+  const ry = coor.isTransposed ? (r * height) / width : (r * width) / height;
+  if (cap && isRect) {
+    path.push(['M', firstPoint.x, firstPoint.y + ry]);
+  } else {
+    path.push(['M', firstPoint.x, firstPoint.y]);
+  }
   path.push(['L', points[1].x, points[1].y]);
   path.push(['A', r, r, 0, 0, 1, points[2].x, points[2].y]);
-  path.push(['L', points[3].x, points[3].y]);
+  if (cap && isRect) {
+    path.push(['L', points[3].x, points[3].y + ry]);
+  } else {
+    path.push(['L', points[3].x, points[3].y]);
+  }
   if (cap) {
-    path.push(['A', r, r, 0, 0, 1, firstPoint.x, firstPoint.y]);
+    if (isRect) {
+      path.push(['A', r, r, 0, 0, 1, firstPoint.x, firstPoint.y + ry]);
+    } else {
+      path.push(['A', r, r, 0, 0, 1, firstPoint.x, firstPoint.y]);
+    }
   } else {
     path.push(['L', firstPoint.x, firstPoint.y]); // 需要闭合
   }

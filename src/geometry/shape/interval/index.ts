@@ -17,7 +17,7 @@ const IntervalShapeFactory = registerShapeFactory('interval', {
 registerShape('interval', 'rect', {
   draw(cfg: ShapeInfo, container: IGroup) {
     const style = getStyle(cfg, false, true);
-    const path = this.parsePath(getIntervalRectPath(cfg.points as Point[], style.cap));
+    const path = this.parsePath(getIntervalRectPath(cfg.points as Point[], style.cap,this.coordinate));
     const shape = container.addShape('path', {
       attrs: {
         ...style,
