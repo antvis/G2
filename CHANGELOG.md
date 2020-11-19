@@ -1,3 +1,29 @@
+#### 4.1.0-beta.19 (2020-11-19)
+
+##### Chores
+
+- only sync gh-pages to Gitee Mirror ([#3014](https://github.com/antvis/g2/pull/3014)) ([ba9bc23c](https://github.com/antvis/g2/commit/ba9bc23cd322a55b2ae4f97dde38c1d37ecc3a12))
+
+##### Documentation Changes
+
+- fix the parameter description of TooltipCrosshairsTextCallback function ([#3005](https://github.com/antvis/g2/pull/3005)) ([3b996b1b](https://github.com/antvis/g2/commit/3b996b1bcf8fcd1ffa4c744c963c651c0b19b8ec))
+- add G2Plot in readme ([#3002](https://github.com/antvis/g2/pull/3002)) ([48ccebfd](https://github.com/antvis/g2/commit/48ccebfd44d5aa88c1a442d605e162b6b9b1f228))
+- upgrade site theme ([#3015](https://github.com/antvis/g2/pull/3015)) ([00b919b4](https://github.com/antvis/g2/commit/00b919b4661878d03df7a573bfae8242c723d36e))
+- update preview.yml ([#3011](https://github.com/antvis/g2/pull/3011)) ([f1c7b6b8](https://github.com/antvis/g2/commit/f1c7b6b8f7031e414487c01f9c0d47a721be1ac5))
+
+##### New Features
+
+- pixel interval padding and dodge padding ([#2881](https://github.com/antvis/g2/pull/2881)) ([d27fff29](https://github.com/antvis/g2/commit/d27fff29d725020e0c8e3c91977c7aff41b0f5e1))
+- **view:** add syncViewPadding support callback ([#2995](https://github.com/antvis/g2/pull/2995)) ([c8355f21](https://github.com/antvis/g2/commit/c8355f215a1dc426f92766754cc427b5b7613ff6))
+- **theme:** 主题重构，暴露 createTheme 方法 ([#3018](https://github.com/antvis/g2/pull/3018)) ([e7471d70](https://github.com/antvis/g2/commit/e7471d70b8293ef91a50e33a98c893f2dfb1c619))
+
+##### Bug Fixes
+
+- support adjust-color for overflow labels ([#3016](https://github.com/antvis/g2/pull/3016)) ([ac6d9428](https://github.com/antvis/g2/commit/ac6d9428664c67377391268f644795a51e172aee))
+- tooltip clear ([#3010](https://github.com/antvis/g2/pull/3010)) ([1cc9354f](https://github.com/antvis/g2/commit/1cc9354f5d9b7fc54000cbf4aff4746972d0c7c0))
+- [#2996](https://github.com/antvis/g2/pull/2996) ([#2998](https://github.com/antvis/g2/pull/2998)) ([c6256760](https://github.com/antvis/g2/commit/c625676045afd293776c520bb0249bb0ed926335))
+- **slider:** slider, scrollbar filter data ([#3013](https://github.com/antvis/g2/pull/3013)) ([71d9e448](https://github.com/antvis/g2/commit/71d9e448e292374f6bf17a19593bc6864132af34))
+
 #### 4.1.0-beta.17 (2020-11-10)
 
 ##### Chores
