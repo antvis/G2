@@ -184,7 +184,7 @@ export class View extends Base {
     this.syncViewPadding = syncViewPadding;
 
     // 初始化 theme
-    this.themeObject = isObject(theme) ? deepMix({}, getTheme('default'), createTheme(theme)) : getTheme(theme);
+    this.themeObject = isObject(theme) ? createTheme(theme) : getTheme(theme);
     this.init();
   }
 
@@ -685,7 +685,7 @@ export class View extends Base {
 
     // 需要把已存在的 view 销毁，否则会重复创建
     // 目前针对配置项还没有特别好的 view 更新机制，为了不影响主流流程，所以在这里直接销毁
-    this.views.forEach(view => view.destroy());
+    this.views.forEach((view) => view.destroy());
     this.views = [];
 
     this.initOptions();
@@ -1331,7 +1331,7 @@ export class View extends Base {
     this.initComponents(isUpdate);
     // 4. 布局计算每隔 view 的 padding 值
     // 4.1. 自动加 auto padding -> absolute padding，并且增加 appendPadding
-    this.autoPadding  = calculatePadding(this).shrink(parsePadding(this.appendPadding));
+    this.autoPadding = calculatePadding(this).shrink(parsePadding(this.appendPadding));
     // 4.2. 计算出新的 coordinateBBox，更新 Coordinate
     // 这里必须保留，原因是后面子 view 的 viewBBox 或根据 parent 的 coordinateBBox
     this.coordinateBBox = this.viewBBox.shrink(this.autoPadding.getPadding());
@@ -1352,8 +1352,12 @@ export class View extends Base {
   protected renderLayoutRecursive(isUpdate: boolean) {
     // 1. 同步子 view padding
     // 根据配置获取 padding
-    const syncViewPaddingFn = this.syncViewPadding === true ? defaultSyncViewPadding :
-      isFunction(this.syncViewPadding) ? this.syncViewPadding : undefined;
+    const syncViewPaddingFn =
+      this.syncViewPadding === true
+        ? defaultSyncViewPadding
+        : isFunction(this.syncViewPadding)
+        ? this.syncViewPadding
+        : undefined;
 
     if (syncViewPaddingFn) {
       syncViewPaddingFn(this, this.views, PaddingCal);
