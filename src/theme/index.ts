@@ -1,9 +1,10 @@
 import { get, lowerCase } from '@antv/util';
 import { LooseObject } from '../interface';
+import { antvLight } from './style-sheet/light';
 
 import { createTheme } from './util';
 
-const defaultTheme = createTheme({});
+const defaultTheme = createTheme({ styleSheet: antvLight });
 
 // 所有已经存在的主题
 const Themes: Record<string, LooseObject> = {

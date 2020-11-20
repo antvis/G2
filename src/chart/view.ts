@@ -184,7 +184,7 @@ export class View extends Base {
     this.syncViewPadding = syncViewPadding;
 
     // 初始化 theme
-    this.themeObject = isObject(theme) ? createTheme(theme) : getTheme(theme);
+    this.themeObject = isObject(theme) ? deepMix({}, getTheme('default'), createTheme(theme)) : getTheme(theme);
     this.init();
   }
 
