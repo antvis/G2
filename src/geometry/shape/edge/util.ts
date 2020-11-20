@@ -9,24 +9,12 @@ import { Point } from '../../../interface';
  * @returns
  */
 export function getCPath(from: Point, to: Point) {
-  const points = [];
-  points.push({
-    x: from.x,
-    y: (from.y * 1) / 2 + (to.y * 1) / 2,
-  });
-
-  points.push({
-    x: to.x,
-    y: (from.y * 1) / 2 + (to.y * 1) / 2,
-  });
-  points.push(to);
-
-  const sub = ['C'];
-  each(points, (point) => {
-    sub.push(point.x, point.y);
-  });
-
-  return sub;
+  return [
+    'C',
+    (from.x * 1) / 2 + (to.x * 1) / 2, from.y,
+    (from.x * 1) / 2 + (to.x * 1) / 2, to.y,
+    to.x, to.y,
+  ];
 }
 
 /**
