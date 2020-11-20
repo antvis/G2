@@ -1,9 +1,7 @@
 name: 🤖 Sync to Gitee Mirror
 
 on:
-  push:
-    branches:
-      - gh-pages
+  page_build
 
 jobs:
   build:
@@ -29,3 +27,4 @@ jobs:
           gitee-password: ${{ secrets.GITEE_PASSWORD }}
           # 注意替换为你的 Gitee 仓库
           gitee-repo: antv-g2/antv-g2
+          branch: gh-pages
