@@ -1,4 +1,4 @@
-import { deepMix } from '@antv/util';
+import { deepMix, isEmpty } from '@antv/util';
 import { createThemeByStyleSheet } from './create-by-style-sheet';
 import { createLightStyleSheet } from '../style-sheet/light';
 import { LooseObject, StyleSheetCfg } from '../../interface';
@@ -12,6 +12,7 @@ export function createTheme(themeCfg: ThemeCfg): LooseObject {
 
   // ① 创建样式表 (默认创建 light 的样式表)
   const styleSheet = createLightStyleSheet(styleSheetCfg);
+  const themeFromStyleSheet = !isEmpty(styleSheetCfg) ? createThemeByStyleSheet(styleSheet) : {};
   // ② 创建主题
-  return deepMix({}, createThemeByStyleSheet(styleSheet), themeObject);
+  return deepMix({}, themeFromStyleSheet, themeObject);
 }
