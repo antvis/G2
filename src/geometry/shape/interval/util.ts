@@ -104,7 +104,11 @@ export function getIntervalRectPath(points: Point[], cap: boolean, coor: Coordin
     path.push(['M', firstPoint.x, firstPoint.y]);
   }
   path.push(['L', points[1].x, points[1].y]);
-  path.push(['A', r, r, 0, 0, 1, points[2].x, points[2].y]);
+  if(cap){
+    path.push(['A', r, r, 0, 0, 1, points[2].x, points[2].y]);
+  }else{
+    path.push(['L', points[2].x, points[2].y]);
+  }
   if (cap && isRect) {
     path.push(['L', points[3].x, points[3].y + ry]);
   } else {
