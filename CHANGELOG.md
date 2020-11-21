@@ -1,3 +1,38 @@
+#### 4.1.0-beta.20 (2020-11-21)
+
+##### Chores
+
+*  release 4.1.0-beta.19 ([#3021](https://github.com/antvis/g2/pull/3021)) ([fcf024e4](https://github.com/antvis/g2/commit/fcf024e493ddbf1b82afcd85497a532acdd692c9))
+*  upgrade site theme ([#3015](https://github.com/antvis/g2/pull/3015)) ([00b919b4](https://github.com/antvis/g2/commit/00b919b4661878d03df7a573bfae8242c723d36e))
+*  only sync gh-pages to Gitee Mirror ([#3014](https://github.com/antvis/g2/pull/3014)) ([ba9bc23c](https://github.com/antvis/g2/commit/ba9bc23cd322a55b2ae4f97dde38c1d37ecc3a12))
+*  update preview.yml ([#3011](https://github.com/antvis/g2/pull/3011)) ([f1c7b6b8](https://github.com/antvis/g2/commit/f1c7b6b8f7031e414487c01f9c0d47a721be1ac5))
+
+##### Documentation Changes
+
+* **magi:**  add monitor line chart demo ([#3029](https://github.com/antvis/g2/pull/3029)) ([2a36e161](https://github.com/antvis/g2/commit/2a36e16165bdd6b6dbf813f2f1528f291e028527))
+*  add guide for sankey ([#3030](https://github.com/antvis/g2/pull/3030)) ([e9ba7649](https://github.com/antvis/g2/commit/e9ba7649bfaafd8a8593fc3491268b151f82bb09))
+*  fix the parameter description of TooltipCrosshairsTextCallback function ([#3005](https://github.com/antvis/g2/pull/3005)) ([3b996b1b](https://github.com/antvis/g2/commit/3b996b1bcf8fcd1ffa4c744c963c651c0b19b8ec))
+*  add G2Plot in readme ([#3002](https://github.com/antvis/g2/pull/3002)) ([48ccebfd](https://github.com/antvis/g2/commit/48ccebfd44d5aa88c1a442d605e162b6b9b1f228))
+* **sankey:**  add indicator sankey demo ([#3027](https://github.com/antvis/g2/pull/3027)) ([0db5f81f](https://github.com/antvis/g2/commit/0db5f81fda485479b590fb44fe8b056f3c6780f7))
+
+##### New Features
+
+*  pixel interval padding and dodge padding ([#2881](https://github.com/antvis/g2/pull/2881)) ([d27fff29](https://github.com/antvis/g2/commit/d27fff29d725020e0c8e3c91977c7aff41b0f5e1))
+* **view:**  add syncViewPadding support callback ([#2995](https://github.com/antvis/g2/pull/2995)) ([c8355f21](https://github.com/antvis/g2/commit/c8355f215a1dc426f92766754cc427b5b7613ff6))
+
+##### Bug Fixes
+
+*  change the triggering condition ([#3028](https://github.com/antvis/g2/pull/3028)) ([449188ff](https://github.com/antvis/g2/commit/449188ffc13602553179aefc1567f1f8b40805c8))
+*  support adjust-color for overflow labels ([#3016](https://github.com/antvis/g2/pull/3016)) ([ac6d9428](https://github.com/antvis/g2/commit/ac6d9428664c67377391268f644795a51e172aee))
+*  tooltip clear ([#3010](https://github.com/antvis/g2/pull/3010)) ([1cc9354f](https://github.com/antvis/g2/commit/1cc9354f5d9b7fc54000cbf4aff4746972d0c7c0))
+*  [#2996](https://github.com/antvis/g2/pull/2996) ([#2998](https://github.com/antvis/g2/pull/2998)) ([c6256760](https://github.com/antvis/g2/commit/c625676045afd293776c520bb0249bb0ed926335))
+* **san-key:**  贝塞尔曲线的方向不对 ([#3023](https://github.com/antvis/g2/pull/3023)) ([0210319f](https://github.com/antvis/g2/commit/0210319f9b50d129d308fbcb0a18fb08735f76bf))
+* **slider:**  slider, scrollbar filter data ([#3013](https://github.com/antvis/g2/pull/3013)) ([71d9e448](https://github.com/antvis/g2/commit/71d9e448e292374f6bf17a19593bc6864132af34))
+
+##### Refactors
+
+* **theme:**  主题重构，暴露 createTheme 方法 ([#3018](https://github.com/antvis/g2/pull/3018)) ([e7471d70](https://github.com/antvis/g2/commit/e7471d70b8293ef91a50e33a98c893f2dfb1c619))
+
 #### 4.1.0-beta.19 (2020-11-19)
 
 ##### Chores
