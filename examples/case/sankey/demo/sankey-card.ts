@@ -8,7 +8,7 @@ const $container = document.getElementById('container');
 
 $container.innerHTML = `
 <div id="app-container">
-	<div class="indicators">
+  <div class="indicators">
     <div class="indicator">
       <div class="title">访问 UV</div>
       <div class="measure">
@@ -17,7 +17,7 @@ $container.innerHTML = `
       </div>
       <div class="compare">
         <div class="name">日环比</div>
-        <div class="icon up" />
+        <div class="icon up"></div>
         <div class="value up">8.9%</div>
       </div>
     </div>
@@ -29,7 +29,7 @@ $container.innerHTML = `
       </div>
       <div class="compare">
         <div class="name">日环比</div>
-        <div class="icon up" />
+        <div class="icon up"></div>
         <div class="value up">2.3%</div>
       </div>
     </div>
@@ -41,35 +41,34 @@ $container.innerHTML = `
       </div>
       <div class="compare">
         <div class="name">日环比</div>
-        <div class="icon down" />
+        <div class="icon down"></div>
         <div class="value down">1.83%</div>
       </div>
     </div>
-    </div>
-  </div>
-  <div id="g2-container"></div>
+	</div>
+	<div id="g2-container"></div>
 </div>
 `;
 
 inserCss(`
-.indicators {
+#app-container .indicators {
   font-family: PingFangSC-Regular;
   display: flex;
 }
-.indicators .indicator {
+#app-container .indicators .indicator {
   padding: 16px;
 }
-.indicators .indicator .title {
+#app-container .indicators .indicator .title {
   font-size: 12px;
   color: #000000;
   opacity: 0.65;
 }
-.indicators .indicator .measure {
+#app-container .indicators .indicator .measure {
   margin-top: 4px;
   display: flex;
   align-items: baseline;
 }
-.indicators .indicator .measure .value {
+#app-container .indicators .indicator .measure .value {
   margin-right: 12px;
   opacity: 0.85;
   font-family: Helvetica;
@@ -81,15 +80,15 @@ inserCss(`
   color: #333;
   opacity: 0.65;
 }
-.indicators .indicator .compare {
+#app-container .indicators .indicator .compare {
   display: flex;
   align-items: baseline;
 }
-.indicators .indicator .compare .name {
+#app-container .indicators .indicator .compare .name {
   color: #666;
   margin-right: 4px;
 }
-.indicators .indicator .compare .icon {
+#app-container .indicators .indicator .compare .icon {
   width: 0;
   height: 0;
   border-left: 3.5px solid transparent;
@@ -97,20 +96,20 @@ inserCss(`
   border-bottom: 9px solid #000;
   margin-right: 4px;
 }
-.indicators .indicator .compare .icon.up {
+#app-container .indicators .indicator .compare .icon.up {
   transform: rotate(0deg);
   color: #f5684a;
   border-bottom-color: #f5684a;
 }
-.indicators .indicator .compare .icon.down {
+#app-container .indicators .indicator .compare .icon.down {
   transform: rotate(180deg);
   color: #28a995;
   border-bottom-color: #28a995;
 }
-.indicators .indicator .compare .value.up {
+#app-container .indicators .indicator .compare .value.up {
   color: #f5684a;
 }
-.indicators .indicator .compare .value.down {
+#app-container .indicators .indicator .compare .value.down {
   color: #28a995;
 }
 `);
@@ -367,8 +366,8 @@ edgeView
       return {
         lineWidth: 0,
         opacity: 0.4,
-        fill: 'l(0) 0:#FF6010 1:#e2a8a4',
-        stroke: 'l(0) 0:#FF6010 1:#e2a8a4',
+        fill: 'l(0) 0:#FFBB9E 0.2:#FFC8B4 1:#FFFCF2',
+        stroke: 'l(0) 0:#FFBB9E 0.2:#FFC8B4 1:#FFFCF2',
       };
     }
 
