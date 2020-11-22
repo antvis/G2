@@ -87,43 +87,35 @@ export function getRectPath(points: Point[], isClosed: boolean = true): PathComm
  * @ignore
  * 根据矩形关键点绘制 path
  * @param points 关键点数组
- * @param cap 圆角样式
+ * @param lineCap 'round'圆角样式
+ * @param coor 坐标
  * @returns 返回矩形的 path
  */
-export function getIntervalRectPath(points: Point[], cap: boolean, coor: Coordinate): PathCommand[] {
+export function getIntervalRectPath(points: Point[], lineCap: CanvasLineCap, coor: Coordinate): PathCommand[] {
   const width = coor.getWidth();
   const height = coor.getHeight();
   const isRect = coor.type === 'rect';
-  const path = [];
-  const firstPoint = points[0];
+  let path = [];
   const r = (points[2].x - points[1].x) / 2;
   const ry = coor.isTransposed ? (r * height) / width : (r * width) / height;
-  if (cap && isRect) {
-    path.push(['M', firstPoint.x, firstPoint.y + ry]);
-  } else {
-    path.push(['M', firstPoint.x, firstPoint.y]);
-  }
-  path.push(['L', points[1].x, points[1].y]);
-  if(cap){
-    path.push(['A', r, r, 0, 0, 1, points[2].x, points[2].y]);
-  }else{
-    path.push(['L', points[2].x, points[2].y]);
-  }
-  if (cap && isRect) {
-    path.push(['L', points[3].x, points[3].y + ry]);
-  } else {
-    path.push(['L', points[3].x, points[3].y]);
-  }
-  if (cap) {
+  if (lineCap === 'round') {
     if (isRect) {
-      path.push(['A', r, r, 0, 0, 1, firstPoint.x, firstPoint.y + ry]);
+      path.push(['M', points[0].x, points[0].y + ry]);
+      path.push(['L', points[1].x, points[1].y - ry]);
+      path.push(['A', r, r, 0, 0, 1, points[2].x, points[2].y - ry]);
+      path.push(['L', points[3].x, points[3].y + ry]);
+      path.push(['A', r, r, 0, 0, 1, points[0].x, points[0].y + ry]);
     } else {
-      path.push(['A', r, r, 0, 0, 1, firstPoint.x, firstPoint.y]);
+      path.push(['M', points[0].x, points[0].y]);
+      path.push(['L', points[1].x, points[1].y]);
+      path.push(['A', r, r, 0, 0, 1, points[2].x, points[2].y]);
+      path.push(['L', points[3].x, points[3].y]);
+      path.push(['A', r, r, 0, 0, 1, points[0].x, points[0].y]);
     }
+    path.push(['z']);
   } else {
-    path.push(['L', firstPoint.x, firstPoint.y]); // 需要闭合
+    path = getRectPath(points);
   }
-  path.push(['z']);
   return path;
 }
 
