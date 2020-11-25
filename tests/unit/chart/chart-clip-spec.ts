@@ -41,6 +41,14 @@ describe('limitInPlot', () => {
     expect(middleGroup.get('clipShape')).toBeDefined();
     expect(middleGroup.get('clipShape').attr('width')).toBe(coordinate.getWidth());
     expect(middleGroup.get('clipShape').attr('height')).toBe(coordinate.getHeight());
+
+    // update limitInPlot
+    chart.limitInPlot = false;
+    chart.scale('value', {
+      min: 5,
+    });
+    chart.render();
+    expect(middleGroup.get('clipShape')).toBe(null);
   });
 
   it('view, limitInPlot', () => {
@@ -83,9 +91,9 @@ describe('limitInPlot', () => {
     const lineMiddleGroup = lineView.middleGroup;
     const pointMiddleGroup = pointView.middleGroup;
 
-    expect(chartMiddleGroup.get('clipShape')).toBeUndefined();
+    expect(chartMiddleGroup.get('clipShape')).toBe(null);
     expect(lineMiddleGroup.get('clipShape')).toBeDefined();
-    expect(pointMiddleGroup.get('clipShape')).toBeUndefined();
+    expect(pointMiddleGroup.get('clipShape')).toBe(null);
   });
 
   afterEach(() => {
