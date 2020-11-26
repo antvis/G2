@@ -108,9 +108,10 @@ function getArcInfo(path: PathCommand[]) {
  */
 export function sectorPathUpdate(shape: IShape, animateCfg: GAnimateCfg, cfg: AnimateExtraCfg) {
   const { toAttrs, coordinate } = cfg;
-  // @ts-ignore
-  const path = toAttrs.path;
+  const path = (toAttrs as { path: PathCommand[] }).path || [];
   const pathCommands = path.map((command) => command[0]);
+
+  if (path.length < 1) return;
 
   const { startAngle: curStartAngle, endAngle: curEndAngle, radius, innerRadius } = getArcInfo(path);
   const { startAngle: preStartAngle, endAngle: preEndAngle } = getArcInfo(shape.attr('path'));
