@@ -90,13 +90,15 @@ describe('PathUtil', () => {
     const path: PathCommand[] = [
       ['M', 0, 0],
       ['L', 0, 1],
-      ['L', 0.25, 1],
+      ['A', 0.25, 0.25, 0, 0, 1, 0.5, 1],
+      ['L', 0.5, 0],
     ];
     const toPath = convertPolarPath(coord, path);
     expect(toPath).toEqual([
       ['M', 100, 100],
       ['L', 100, 0],
-      ['A', 100, 100, 0, 0, 1, 200, 100],
+      ['A', 0.25, 0.25, 0, 0, 1, 100, 200],
+      ['L', 100, 100],
     ]);
   });
 });
