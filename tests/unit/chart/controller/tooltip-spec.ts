@@ -118,6 +118,31 @@ describe('Tooltip', () => {
     expect(items[1].data).toEqual({ name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 });
   });
 
+  it('reversed', () => {
+    chart.tooltip({
+      follow: true,
+      shared: true,
+      showCrosshairs: true,
+      showMarkers: true,
+      domStyles: {
+        'g2-tooltip': {
+          border: '1px solid #000',
+          boxShadow: null,
+        },
+      },
+      reversed: true,
+    });
+
+    const point = chart.getXY({ name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 });
+
+    const items = chart.getTooltipItems(point);
+    expect(items.length).toBe(2);
+
+    expect(items[0].title).toBe('Mar.');
+    expect(items[0].data).toEqual({ name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 });
+    expect(items[1].data).toEqual({ name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 });
+  });
+
   it('clear', () => {
     chart.clear();
 
