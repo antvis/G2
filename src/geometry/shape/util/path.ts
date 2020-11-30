@@ -32,14 +32,28 @@ function _convertArr(arr: number[], coord: Coordinate): any[] {
   }
   return tmp;
 }
+function _convertArcPath(path: PathCommand, coord: Coordinate): any[] {
+  const { isTransposed } = coord;
+  const r = path[1];
+  const x = path[6];
+  const y = path[7];
+  const point = coord.convert({ x, y });
+  const direction = isTransposed ? 0 : 1;
+  return ['A', r, r, 0, 0, direction, point.x, point.y];
+}
 
 function _convertPolarPath(pre: PathCommand, cur: PathCommand, coord: Coordinate): PathCommand[] {
   const { isTransposed, startAngle, endAngle } = coord;
-
-  const prePoint = {
-    x: pre[1],
-    y: pre[2],
-  };
+  const prePoint =
+    pre[0].toLowerCase() === 'a'
+      ? {
+          x: pre[6],
+          y: pre[7],
+        }
+      : {
+          x: pre[1],
+          y: pre[2],
+        };
   const curPoint = {
     x: cur[1],
     y: cur[2],
@@ -257,6 +271,9 @@ export function convertNormalPath(coord, path: PathCommand[]): PathCommand[] {
       case 'c':
         tmp.push(_convertArr(subPath, coord));
         break;
+      case 'a':
+        tmp.push(_convertArcPath(subPath, coord));
+        break;
       case 'z':
       default:
         tmp.push(subPath);
@@ -297,6 +314,9 @@ export function convertPolarPath(coord, path: PathCommand[]): PathCommand[] {
           // y 不相等，所以直接转换
           tmp.push(_convertArr(subPath, coord));
         }
+        break;
+      case 'a':
+        tmp.push(_convertArcPath(subPath, coord));
         break;
       case 'z':
       default:

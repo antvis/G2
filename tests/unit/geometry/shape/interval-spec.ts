@@ -105,23 +105,47 @@ describe('Interval shapes', () => {
         size: 0.2,
       };
       const points = IntervalShapeFactory.getShapePoints('rect', cfg);
-      const shape = IntervalShapeFactory.drawShape(
+      const shapeCfg = {
+        x: 100,
+        y: 100,
+        points,
+        color: 'red',
+        defaultStyle: {
+          ...Theme.geometries.interval.rect.default.style,
+        },
+      };
+      const shape = IntervalShapeFactory.drawShape('rect', shapeCfg, element.container);
+      const lineCapRoundShape = IntervalShapeFactory.drawShape(
         'rect',
         {
-          x: 100,
-          y: 100,
-          points,
-          color: 'red',
-          defaultStyle: {
-            ...Theme.geometries.interval.rect.default.style,
+          ...shapeCfg,
+          style: {
+            lineCap: 'round',
           },
         },
         element.container
       );
       canvas.draw();
+
       expect(shape.attr('fill')).toBe('red');
-      expect(shape.attr('path').length).toBe(6);
       expect(shape.getBBox().width).toBe(100);
+
+      const shapePath = shape.attr('path');
+      let hapePathTypes = [];
+      shapePath.forEach((path) => {
+        hapePathTypes.push(path[0]);
+      });
+      expect(shapePath.length).toBe(6);
+      expect(hapePathTypes).toEqual(['M', 'L', 'L', 'L', 'L', 'Z']);
+      
+      // lineCap:'round'
+      const lineCapRoundShapePath = lineCapRoundShape.attr('path');
+      let lineCapRoundShapePathTypes = [];
+      lineCapRoundShapePath.forEach((path) => {
+        lineCapRoundShapePathTypes.push(path[0]);
+      });
+      expect(lineCapRoundShapePath.length).toBe(6);
+      expect(lineCapRoundShapePathTypes).toEqual(['M', 'L', 'A', 'L', 'A', 'Z']);
     });
 
     it('getMarker', () => {
