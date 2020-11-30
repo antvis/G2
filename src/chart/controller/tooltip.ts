@@ -1,4 +1,16 @@
-import { deepMix, find, flatten, get, isArray, isEqual, isFunction, mix, isString, isEmpty, isBoolean} from '@antv/util';
+import {
+  deepMix,
+  find,
+  flatten,
+  get,
+  isArray,
+  isEqual,
+  isFunction,
+  mix,
+  isString,
+  isEmpty,
+  isBoolean,
+} from '@antv/util';
 import { Crosshair, HtmlTooltip, IGroup } from '../../dependents';
 import Geometry from '../../geometry/base';
 import { Point, TooltipOption } from '../../interface';
@@ -79,11 +91,14 @@ export default class Tooltip extends Controller<TooltipOption> {
       y: items[0].y,
     }; // 数据点位置
 
-    view.emit('tooltip:show', Event.fromData(view, 'tooltip:show', {
-      items,
-      title,
-      ...point,
-    }));
+    view.emit(
+      'tooltip:show',
+      Event.fromData(view, 'tooltip:show', {
+        items,
+        title,
+        ...point,
+      })
+    );
 
     const cfg = this.getTooltipCfg();
     const { follow, showMarkers, showCrosshairs, showContent, marker } = cfg;
@@ -91,11 +106,14 @@ export default class Tooltip extends Controller<TooltipOption> {
     const lastTitle = this.title;
     if (!isEqual(lastTitle, title) || !isEqual(lastItems, items)) {
       // 内容发生变化了更新 tooltip
-      view.emit('tooltip:change', Event.fromData(view, 'tooltip:change', {
-        items,
-        title,
-        ...point,
-      }));
+      view.emit(
+        'tooltip:change',
+        Event.fromData(view, 'tooltip:change', {
+          items,
+          title,
+          ...point,
+        })
+      );
 
       if (showContent) {
         // 展示 tooltip 内容框才渲染 tooltip
@@ -244,7 +262,7 @@ export default class Tooltip extends Controller<TooltipOption> {
     this.reset();
   }
 
-  public reset() { 
+  public reset() {
     this.items = null;
     this.title = null;
     this.tooltipMarkersGroup = null;
@@ -380,14 +398,14 @@ export default class Tooltip extends Controller<TooltipOption> {
 
   // process customContent
   protected processCustomContent(option: TooltipOption) {
-    if(isBoolean(option) || !get(option, 'customContent')){
+    if (isBoolean(option) || !get(option, 'customContent')) {
       return option;
     }
     const currentCustomContent = option.customContent;
     const customContent = (title: string, items: any[]) => {
       const content = currentCustomContent(title, items) || '';
-      return isString(content) ? '<div class="g2-tooltip">' + content + '</div>' : content ;
-    }
+      return isString(content) ? '<div class="g2-tooltip">' + content + '</div>' : content;
+    };
     return {
       ...option,
       customContent,
@@ -724,7 +742,7 @@ export default class Tooltip extends Controller<TooltipOption> {
     let result = [];
     // 先从 view 本身查找
     const geometries = view.geometries;
-    const { shared, title } = this.getTooltipCfg();
+    const { shared, title, reversed } = this.getTooltipCfg();
     for (const geometry of geometries) {
       if (geometry.visible && geometry.tooltipOption !== false) {
         // geometry 可见同时未关闭 tooltip
@@ -744,6 +762,9 @@ export default class Tooltip extends Controller<TooltipOption> {
           }
         }
         if (tooltipItems.length) {
+          if (reversed) {
+            tooltipItems.reverse();
+          }
           // geometry 有可能会有多个 item，因为用户可以设置 geometry.tooltip('x*y*z')
           result.push(tooltipItems);
         }

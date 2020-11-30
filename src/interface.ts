@@ -1229,6 +1229,8 @@ export interface TooltipCfg {
   domStyles?: TooltipDomStyles;
   /** tooltip 偏移量。 */
   offset?: number;
+  /** 是否将 tooltip items 逆序 */
+  reversed?: boolean;
   /** 支持自定义模板 */
   customContent?: (title: string, data: any[]) => string | HTMLElement;
 }
