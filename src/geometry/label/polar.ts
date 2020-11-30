@@ -42,11 +42,8 @@ export default class PolarLabel extends GeometryLabel {
     const yScale = this.geometry.getYScale();
 
     return map(items, (item) => {
-      if (item) {
-        let percent = null;
-        if (yScale) {
-          percent = yScale.scale(get(item.data, yScale.field));
-        }
+      if (item && yScale) {
+        const percent = yScale.scale(get(item.data, yScale.field));
         return { ...item, percent };
       }
       return item;
