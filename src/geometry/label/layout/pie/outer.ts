@@ -175,7 +175,7 @@ export function pieOuterLabelLayout(
 
   const { start, end } = coordinate;
   // step2: calculate totalHeight
-  const totalHeight = (radius + labelOffset + labelHeight) * 2;
+  const totalHeight = Math.min((radius + labelOffset + labelHeight) * 2, coordinate.getHeight());
   const totalR = totalHeight / 2;
 
   /** labels 容器的范围(后续根据组件的布局设计进行调整) */
@@ -188,7 +188,7 @@ export function pieOuterLabelLayout(
 
   // step 3: antiCollision
   each(separateLabels, (half, key) => {
-    const maxLabelsCountForOneSide = totalHeight / labelHeight;
+    const maxLabelsCountForOneSide = Math.floor(totalHeight / labelHeight);
     if (half.length > maxLabelsCountForOneSide) {
       half.sort((a, b) => {
         // sort by percentage DESC
@@ -196,8 +196,8 @@ export function pieOuterLabelLayout(
       });
 
       each(half, (labelItem: PolarLabelItem, idx) => {
-        if (idx > maxLabelsCountForOneSide) {
-          labelsMap[labelItem.id].set('visible', false);
+        if (idx + 1 > maxLabelsCountForOneSide) {
+          labelsMap[labelItem.id].set('visible', false);          
           labelItem.invisible = true;
         }
       });
