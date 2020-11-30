@@ -1,5 +1,6 @@
 import { getCoordinate } from '@antv/coord';
-import { getScale } from '@antv/scale';
+import { getScale, Scale } from '@antv/scale';
+import { ScaleType } from  '../../../src/interface';
 import { isNumberEqual } from '@antv/util';
 import Interval from '../../../src/geometry/interval';
 import { getTheme } from '../../../src/theme/';
@@ -294,7 +295,7 @@ describe('Interval', () => {
       ];
       const newScaleDefs = {
         a: { range: [0.25, 0.75] },
-        b: null,
+        b: { type: 'time' as ScaleType },
       };
       const newScales = {
         a: createScale('a', newData, newScaleDefs),
