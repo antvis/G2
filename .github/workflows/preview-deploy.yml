@@ -1,0 +1,24 @@
+name: Surge PR Preview - Deploy Stage
+
+on:
+  workflow_run:
+    workflows: ['Surge PR Preview - Build Stage']
+    types:
+      - completed
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: download dist artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: pr-build-dist
+          path: public
+      - name: deploy
+        uses: afc163/surge-preview@v1
+        with:
+          surge_token: ${{ secrets.SURGE_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          build: echo done
+          dist: public
