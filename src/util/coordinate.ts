@@ -2,6 +2,7 @@ import { Coordinate } from '../dependents';
 import { Point } from '../interface';
 import { getSectorPath } from './graphics';
 import { isBetween } from './helper';
+import { BBox } from './bbox';
 
 /**
  * @ignore
@@ -141,4 +142,19 @@ export function getCoordinateClipCfg(coordinate: Coordinate, margin: number = 0)
       height: height + margin * 2,
     },
   };
+}
+
+/**
+ * 获取坐标系范围的 BBox
+ * @param coordinate
+ * @param margin
+ */
+export function getCoordinateBBox(coordinate: Coordinate, margin = 0) {
+  const { start, end } = coordinate;
+  const width = coordinate.getWidth();
+  const height = coordinate.getHeight();
+  const minX = Math.min(start.x, end.x);
+  const minY = Math.min(start.y, end.y);
+
+  return BBox.fromRange(minX - margin, minY - margin, minX + width + margin, minY + height + margin);
 }

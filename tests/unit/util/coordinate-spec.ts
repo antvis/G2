@@ -1,5 +1,11 @@
 import { getCoordinate } from '@antv/coord';
-import { getAngleByPoint, getDistanceToCenter, getXDimensionLength, isFullCircle } from '../../../src/util/coordinate';
+import {
+  getAngleByPoint,
+  getDistanceToCenter,
+  getXDimensionLength,
+  isFullCircle,
+  getCoordinateBBox,
+} from '../../../src/util/coordinate';
 
 const Polar = getCoordinate('polar');
 const Cartesian = getCoordinate('rect');
@@ -93,5 +99,43 @@ describe('CoordinateUtil', () => {
         y: 100,
       })
     ).toBe(Math.PI);
+  });
+
+  it('getCoordinateBBox()', () => {
+    expect(getCoordinateBBox(cartesian).minX).toBe(0);
+    expect(getCoordinateBBox(cartesian).maxX).toBe(30);
+    expect(getCoordinateBBox(cartesian).minY).toBe(0);
+    expect(getCoordinateBBox(cartesian).maxY).toBe(40);
+
+    const coord = new Cartesian({
+      start: { x: 10, y: 20 },
+      end: { x: 200, y: 300 },
+    });
+    expect(getCoordinateBBox(coord).minX).toBe(10);
+    expect(getCoordinateBBox(coord).maxX).toBe(200);
+    expect(getCoordinateBBox(coord).minY).toBe(20);
+    expect(getCoordinateBBox(coord).maxY).toBe(300);
+    expect(getCoordinateBBox(coord, 5).minX).toBe(5);
+    expect(getCoordinateBBox(coord, 5).maxX).toBe(205);
+    expect(getCoordinateBBox(coord, 5).minY).toBe(15);
+    expect(getCoordinateBBox(coord, 5).maxY).toBe(305);
+
+    expect(getCoordinateBBox(polar).minX).toBe(0);
+    expect(getCoordinateBBox(polar).maxX).toBe(200);
+    expect(getCoordinateBBox(polar).minY).toBe(0);
+    expect(getCoordinateBBox(polar).maxY).toBe(200);
+    expect(getCoordinateBBox(polar, 5).minX).toBe(-5);
+    expect(getCoordinateBBox(polar, 5).maxX).toBe(205);
+    expect(getCoordinateBBox(polar, 5).minY).toBe(-5);
+    expect(getCoordinateBBox(polar, 5).maxY).toBe(205);
+
+    expect(getCoordinateBBox(theta).minX).toBe(0);
+    expect(getCoordinateBBox(theta).maxX).toBe(30);
+    expect(getCoordinateBBox(theta).minY).toBe(0);
+    expect(getCoordinateBBox(theta).maxY).toBe(40);
+    expect(getCoordinateBBox(theta, 5).minX).toBe(-5);
+    expect(getCoordinateBBox(theta, 5).maxX).toBe(35);
+    expect(getCoordinateBBox(theta, 5).minY).toBe(-5);
+    expect(getCoordinateBBox(theta, 5).maxY).toBe(45);
   });
 });

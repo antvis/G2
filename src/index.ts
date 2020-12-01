@@ -90,6 +90,7 @@ import { intervalAdjustPosition } from './geometry/label/layout/interval/adjust-
 import { intervalHideOverlap } from './geometry/label/layout/interval/hide-overlap';
 import { pointAdjustPosition } from './geometry/label/layout/point/adjust-position';
 import { pathAdjustPosition } from './geometry/label/layout/path/adjust-position';
+import { limitInPlot } from './geometry/label/layout/limit-in-plot';
 
 registerGeometryLabelLayout('overlap', overlap);
 registerGeometryLabelLayout('distribute', distribute);
@@ -97,6 +98,7 @@ registerGeometryLabelLayout('fixed-overlap', fixedOverlap);
 registerGeometryLabelLayout('hide-overlap', hideOverlap);
 registerGeometryLabelLayout('limit-in-shape', limitInShape);
 registerGeometryLabelLayout('limit-in-canvas', limitInCanvas);
+registerGeometryLabelLayout('limit-in-plot', limitInPlot);
 registerGeometryLabelLayout('pie-outer', pieOuterLabelLayout);
 registerGeometryLabelLayout('adjust-color', adjustColor);
 registerGeometryLabelLayout('interval-adjust-position', intervalAdjustPosition);
