@@ -1,4 +1,4 @@
-#### 4.1.0 (2020-11-30)
+#### 4.1.0 (2020-12-01)
 
 ##### Chores
 
@@ -20,18 +20,23 @@
 
 ##### New Features
 
+* **label-layout:**  标签布局 limit-in-plot 支持 ellipsis 展示 ([#3066](https://github.com/antvis/g2/pull/3066)) ([4eec0d2c](https://github.com/antvis/g2/commit/4eec0d2cd37ecc73686a788a4289f83d8799790a))
+* **label:**  add limitInPlot label layout ([#3062](https://github.com/antvis/g2/pull/3062)) ([8cdf428e](https://github.com/antvis/g2/commit/8cdf428e322ddefca882e4c6efe0e4173f3fc37e))
+*  support tooltip reversed cfg ([#3055](https://github.com/antvis/g2/pull/3055)) ([8cff406e](https://github.com/antvis/g2/commit/8cff406e16f980533aa090b91049fc6062c9ea0c))
 *  interval support lineCap round ([#3036](https://github.com/antvis/g2/pull/3036)) ([2907ac77](https://github.com/antvis/g2/commit/2907ac77ac78374a3d17b71af0fdadc0cf3624b9))
 *  pixel interval padding and dodge padding ([#2881](https://github.com/antvis/g2/pull/2881)) ([d27fff29](https://github.com/antvis/g2/commit/d27fff29d725020e0c8e3c91977c7aff41b0f5e1))
 * **view:**  add syncViewPadding support callback ([#2995](https://github.com/antvis/g2/pull/2995)) ([c8355f21](https://github.com/antvis/g2/commit/c8355f215a1dc426f92766754cc427b5b7613ff6))
 
 ##### Bug Fixes
 
+*  更改默认 scale type 设置：time -> timeCat ([#3059](https://github.com/antvis/g2/pull/3059)) ([82470868](https://github.com/antvis/g2/commit/82470868d98d7d63cd52fdecb0e851c6ce6fd51d))
 *  return early from sectorPathUpdate if path is invalid ([#3047](https://github.com/antvis/g2/pull/3047)) ([694f2096](https://github.com/antvis/g2/commit/694f209659c37f63f03e62b61fa13559204292d6))
 *  limitInPlot 更新后需要清除 clip ([#3043](https://github.com/antvis/g2/pull/3043)) ([b641da2f](https://github.com/antvis/g2/commit/b641da2fa7bc2ab8a3a6c173da3c7d9f692490e2))
 *  change the triggering condition ([#3028](https://github.com/antvis/g2/pull/3028)) ([449188ff](https://github.com/antvis/g2/commit/449188ffc13602553179aefc1567f1f8b40805c8))
 *  support adjust-color for overflow labels ([#3016](https://github.com/antvis/g2/pull/3016)) ([ac6d9428](https://github.com/antvis/g2/commit/ac6d9428664c67377391268f644795a51e172aee))
 *  tooltip clear ([#3010](https://github.com/antvis/g2/pull/3010)) ([1cc9354f](https://github.com/antvis/g2/commit/1cc9354f5d9b7fc54000cbf4aff4746972d0c7c0))
 *  [#2996](https://github.com/antvis/g2/pull/2996) ([#2998](https://github.com/antvis/g2/pull/2998)) ([c6256760](https://github.com/antvis/g2/commit/c625676045afd293776c520bb0249bb0ed926335))
+* **pie-label:**  修复饼图 label 溢出 ([#3057](https://github.com/antvis/g2/pull/3057)) ([44e88a4f](https://github.com/antvis/g2/commit/44e88a4faf03fe474adf3b89261d40dab3a43719))
 * **san-key:**  贝塞尔曲线的方向不对 ([#3023](https://github.com/antvis/g2/pull/3023)) ([0210319f](https://github.com/antvis/g2/commit/0210319f9b50d129d308fbcb0a18fb08735f76bf))
 * **slider:**  slider, scrollbar filter data ([#3013](https://github.com/antvis/g2/pull/3013)) ([71d9e448](https://github.com/antvis/g2/commit/71d9e448e292374f6bf17a19593bc6864132af34))
 
