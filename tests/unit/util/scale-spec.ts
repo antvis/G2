@@ -48,10 +48,17 @@ describe('ScaleUtil', () => {
   });
 
   it('create time scale', () => {
-    const scale = createScaleByField('c', data1);
+    const scale = createScaleByField('c', data1, { type: 'time' });
     expect(scale.type).toBe('time');
     // @ts-ignore
     expect(scale.nice).toBe(false);
+  });
+
+  it('create timeCat scale', () => {
+    const scale = createScaleByField('c', data1);
+    expect(scale.type).toBe('timeCat');
+    // @ts-ignore
+    expect(scale.nice).toBeUndefined();
   });
 
   it('create defined scale', () => {

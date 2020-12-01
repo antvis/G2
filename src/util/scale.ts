@@ -14,7 +14,7 @@ const dateRegex = /^(?:(?!0000)[0-9]{4}([-/.]+)(?:(?:0?[1-9]|1[0-2])\1(?:0?[1-9]
 function getDefaultType(value: any): string {
   let type = 'linear';
   if (dateRegex.test(value)) {
-    type = 'time';
+    type = 'timeCat';
   } else if (isString(value)) {
     type = 'cat';
   }
