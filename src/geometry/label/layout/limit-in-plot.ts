@@ -27,12 +27,12 @@ export function limitInPlot(
   region: BBox,
   cfg?: LimitInPlotLayoutCfg
 ) {
-  const direction = cfg?.direction || ['top', 'right', 'bottom', 'left'];
-  const action = cfg?.action || 'translate';
-  const margin = cfg?.margin || 0;
   if (labels.length <= 0) {
     return;
   }
+  const direction = cfg?.direction || ['top', 'right', 'bottom', 'left'];
+  const action = cfg?.action || 'translate';
+  const margin = cfg?.margin || 0;
   const coordinate = labels[0].get('coordinate');
   if (!coordinate) {
     return;
