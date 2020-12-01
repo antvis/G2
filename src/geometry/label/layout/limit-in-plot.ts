@@ -1,7 +1,8 @@
-import { each } from '@antv/util';
+import { each, pick } from '@antv/util';
 import { BBox, IGroup, IShape } from '../../../dependents';
-import { translate } from '../../../util/transform';
 import { getCoordinateBBox } from '../../../util/coordinate';
+import { getEllipsisText } from '../../..//util/text';
+import { translate } from '../../../util/transform';
 import { LabelItem } from '../interface';
 
 /** limitInPlot layout 的可选配置 */
@@ -10,8 +11,8 @@ export interface LimitInPlotLayoutCfg {
   direction?: ('top' | 'right' | 'bottom' | 'left')[];
   /** 可以允许的 margin */
   margin?: number;
-  /** 超过限制后的动作，默认 translate 移动位置 */
-  action?: 'hide' | 'translate';
+  /** 超过限制后的动作，默认 translate 移动位置; ellipsis 对 text 进行省略展示 */
+  action?: 'hide' | 'translate' | 'ellipsis';
 }
 
 /**
@@ -77,8 +78,17 @@ export function limitInPlot(
     }
 
     if (finalX !== x || finalY !== y) {
+      const translateX = finalX - x;
       if (action === 'translate') {
-        translate(label, finalX - x, finalY - y);
+        translate(label, translateX, finalY - y);
+      } else if (action === 'ellipsis') {
+        const textShapes = label.findAll((shape) => shape.get('type') === 'text');
+        textShapes.forEach((textShape) => {
+          const style = pick(textShape.attr(), ['fontSize', 'fontFamily', 'fontWeight', 'fontStyle', 'fontVariant']);
+          const textBox = textShape.getCanvasBBox();
+          const text = getEllipsisText(textShape.attr('text'), textBox.width - Math.abs(translateX), style);
+          textShape.attr('text', text);
+        });
       } else {
         label.hide();
       }
