@@ -95,7 +95,7 @@ const IndexPage = () => {
       />
       <Cases cases={cases} />
       <Companies
-        title={t('感谢信赖')}
+        title={t('感谢信赖，感谢使用')}
         companies={companies}
       />
     </>
