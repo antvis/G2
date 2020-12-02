@@ -1,6 +1,6 @@
 import { Coordinate } from '@antv/coord';
 import { BBox, IGroup, IShape, IElement } from '@antv/g-base';
-import { isObject, each, get, groupBy } from '@antv/util';
+import { isObject, each, get, groupBy, isNil, filter } from '@antv/util';
 import { polarToCartesian } from '../../../../util/graphics';
 import { PolarLabelItem } from '../../interface';
 import { antiCollision } from './util';
@@ -139,11 +139,12 @@ function drawLabelline(item: any /** PolarLabelItem */, coordinate: Coordinate) 
  * 饼图 outer-label 布局, 适用于 type = pie 且 label offset > 0 的标签
  */
 export function pieOuterLabelLayout(
-  items: PolarLabelItem[],
+  originalItems: PolarLabelItem[],
   labels: IGroup[],
   shapes: IShape[] | IGroup[],
   region: BBox
 ) {
+  const items = filter(originalItems, (item) => !isNil(item));
   /** 坐标系 */
   const coordinate = labels[0] && labels[0].get('coordinate');
   if (!coordinate) {
@@ -197,7 +198,7 @@ export function pieOuterLabelLayout(
 
       each(half, (labelItem: PolarLabelItem, idx) => {
         if (idx + 1 > maxLabelsCountForOneSide) {
-          labelsMap[labelItem.id].set('visible', false);          
+          labelsMap[labelItem.id].set('visible', false);
           labelItem.invisible = true;
         }
       });
