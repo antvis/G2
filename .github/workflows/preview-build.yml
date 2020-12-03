@@ -1,6 +1,6 @@
 name: Surge PR Preview - Build Stage
 
-on: pull_request
+on: pull_request:
   types: [ opened, synchronize, reopened ]
 
 jobs:
