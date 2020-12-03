@@ -1,15 +1,16 @@
-name: Surge PR Preview - Deploy Stage
+name: Surge PR Preview - Upload Stage
 
 on:
   workflow_run:
-    workflows: ['Surge PR Preview - Build Stage']
+    workflows: ["Surge PR Preview - Build Stage"]
     types:
       - completed
 
 jobs:
-  deploy-preview:
+  upload-preview:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success' }}
+
     steps:
       - name: download dist artifact
         uses: dawidd6/action-download-artifact@v2
@@ -17,7 +18,8 @@ jobs:
           workflow: ${{ github.event.workflow_run.workflow_id }}
           name: pr-build-dist
           path: public/
-      - name: deploy
+
+      - name: deploy to Surge
         uses: afc163/surge-preview@v1
         with:
           surge_token: ${{ secrets.SURGE_TOKEN }}
