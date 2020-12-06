@@ -61,7 +61,8 @@ function _convertPolarPath(pre: PathCommand, cur: PathCommand, coord: Coordinate
   const rst = [];
   const xDim = isTransposed ? 'y' : 'x';
   const angleRange = Math.abs(curPoint[xDim] - prePoint[xDim]) * (endAngle - startAngle);
-  const direction = curPoint[xDim] >= prePoint[xDim] ? 1 : 0; // 圆弧的方向
+  const clockwise = (curPoint[xDim] >= prePoint[xDim]) !== coord.isReflect('x'); // !== as xor
+  const direction = clockwise ? 1 : 0; // 圆弧的方向
   const flag = angleRange > Math.PI ? 1 : 0; // 大弧还是小弧标志位
   const convertPoint = coord.convert(curPoint);
   const r = getDistanceToCenter(coord, convertPoint);
