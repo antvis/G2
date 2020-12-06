@@ -7,6 +7,7 @@ import { DEFAULT_ANIMATE_CFG } from '../../animate/';
 
 import {
   getAxisDirection,
+  getAxisFactor,
   getAxisFactorByRegion,
   getAxisRegion,
   getAxisThemeCfg,
@@ -546,7 +547,7 @@ export default class Axis extends Controller<Option> {
         ...region,
         ticks: scale.getTicks().map((tick) => ({ id: `${tick.tickValue}`, name: tick.text, value: tick.value })),
         verticalFactor: coordinate.isPolar
-          ? getAxisFactorByRegion(region, coordinate.getCenter()) * -1
+          ? getAxisFactor(coordinate, direction)
           : getAxisFactorByRegion(region, coordinate.getCenter()),
         theme: axisThemeCfg,
       },

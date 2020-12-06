@@ -114,8 +114,9 @@ export function getAxisFactor(coordinate: Coordinate, direction: DIRECTION): num
 
   // polar y axis, by angle
   if (coordinate.isPolar) {
-    const startAngle = coordinate.x.start;
-    return startAngle < 0 ? -1 : 1;
+    return coordinate.isReflect('x') !== coordinate.isReflect('y')
+      ? -1
+      : 1;
   }
 
   return 1;
