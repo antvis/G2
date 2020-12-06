@@ -182,8 +182,9 @@ export function getAxisThemeCfg(theme: object, direction: string): object {
  */
 export function getCircleAxisCenterRadius(coordinate: Coordinate) {
   // @ts-ignore
-  const { x, y, circleCenter: center } = coordinate;
-  const isReflectY = y.start > y.end;
+  const { x, circleCenter: center } = coordinate;
+  const isReflectX = coordinate.isReflect('x');
+  const isReflectY = coordinate.isReflect('y');
   const start = coordinate.isTransposed
     ? coordinate.convert({
         x: isReflectY ? 0 : 1,
@@ -198,7 +199,7 @@ export function getCircleAxisCenterRadius(coordinate: Coordinate) {
   const normalVector: [number, number] = [1, 0];
   const startAngle =
     start.y > center.y ? vec2.angle(startVector, normalVector) : vec2.angle(startVector, normalVector) * -1;
-  const endAngle = startAngle + (x.end - x.start);
+  const endAngle = isReflectX ? startAngle - (x.end - x.start) : startAngle + (x.end - x.start);
   const radius = Math.sqrt((start.x - center.x) ** 2 + (start.y - center.y) ** 2);
 
   return {
