@@ -1,5 +1,8 @@
-import { Chart } from '@antv/g2';
+// 欢迎使用全新的 G2 4.0
+import { Chart } from '../../src';
+import { createDiv } from '../util/dom';
 
+const values = ['运行成功', '运行失败'];
 const data = [
   { task: 'task0', startTime: '2018-04-18 01:17:12', endTime: '2018-04-18 01:19:10', status: 0 },
   { task: 'task1', startTime: '2018-04-18 01:18:15', endTime: '2018-04-18 01:19:20', status: 0 },
@@ -13,42 +16,34 @@ const data = [
   { task: 'task9', startTime: '2018-04-18 04:26:05', endTime: '2018-04-18 06:06:36', status: 0 },
   { task: 'task10', startTime: '2018-04-18 06:06:36', endTime: '2018-04-18 06:15:15', status: 0 },
   { task: 'task11', startTime: '2018-04-18 03:27:49', endTime: '2018-04-18 03:34:50', status: 0 },
-];
+].map((datum) => ({ ...datum, range: [datum.startTime, datum.endTime], status: values[datum.status] }));
 
-const values = ['运行成功', '运行失败'];
-
-data.forEach((obj: any) => {
-  obj.range = [obj.startTime, obj.endTime];
-  obj.status = values[obj.status];
-});
-
-const chart = new Chart({
-  container: 'container',
-  autoFit: true,
-  height: 500,
-});
-
-chart.data(data);
-
-chart.coordinate().transpose().scale(1, -1);
-
-chart.scale('range', {
-  type: 'time',
-  nice: true,
-});
-
-chart.tooltip({
-  showMarkers: false,
-});
-chart.interaction('element-active');
-chart
-  .interval()
-  .position('task*range')
-  .color('status', ['#2FC25B', '#F04864'])
-  .animate({
-    appear: {
-      animation: 'scale-in-x',
-    },
+describe('#3085: interval range', () => {
+  const chart = new Chart({
+    container: createDiv(),
+    autoFit: false,
+    width: 600,
+    height: 400,
+  });
+  chart.data(data);
+  chart.coordinate().transpose().scale(1, -1);
+  chart.scale('range', {
+    type: 'time',
   });
 
-chart.render();
+  chart.interval().position('task*range').color('status', ['#2FC25B', '#F04864']);
+
+  chart.render();
+
+  const interval = chart.geometries[0];
+
+  it('No NaN', () => {
+    interval.elements.forEach((elem) => {
+      const model = elem.getModel();
+      model.points?.forEach((point) => {
+        expect(point.x).not.toBeNaN();
+        expect(point.y).not.toBeNaN();
+      });
+    });
+  });
+});
