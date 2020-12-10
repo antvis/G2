@@ -178,6 +178,12 @@ export const createDarkStyleSheet = (cfg: StyleSheetCfg = {}) => {
     legendItemMarginBottom: 12,
     /** 图例与图表绘图区域的便宜距离  */
     legendSpacing: 16,
+    /** 图例与图表绘图区域的偏移距离  */
+    legendPadding: [8, 8, 8, 8],
+    /** 水平布局的图例与绘图区域偏移距离 */
+    legendHorizontalPadding: [8, 0, 8, 0],
+    /** 垂直布局的图例与绘图区域偏移距离 */
+    legendVerticalPadding: [0, 8, 0, 8],
 
     /** 连续图例滑块填充色 */
     sliderRailFillColor: BLACK_COLORS[15],

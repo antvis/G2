@@ -246,7 +246,7 @@ describe('Legend', () => {
 
     const legend = chart.getController('legend').getComponents()[0].component;
     const legendBBox = legend.getBBox();
-    expect(legendBBox.x).toBe(8);
+    expect(legendBBox.x).toBe(0);
   });
 
   it('legend padding', () => {
@@ -261,7 +261,7 @@ describe('Legend', () => {
           legend: {
             top: {
               padding: [20, 0, 0, 20],
-            }
+            },
           },
         },
       },

@@ -125,6 +125,66 @@ describe('Axis', () => {
     expect(y.component.get('animate')).toBe(false);
   });
 
+  it('axis theme default', () => {
+    chart = new Chart({
+      container: div,
+      height: 500,
+      width: 600,
+      autoFit: false,
+      padding: 'auto',
+    });
+    const data = new Array(100).fill(0).map((v, idx) => ({
+      x: `2020-12-${idx}`,
+      y: Math.random() * 100,
+    }));
+    chart.data(data);
+    chart.animate(false);
+    chart.line().position('x*y');
+    chart.render();
+    chart.render(true);
+
+    const axes = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.AXIS);
+    const [x, y] = axes;
+    let xAxis;
+
+    axes.forEach((axis) => {
+      expect(axis.component.cfg.label.autoHide).toEqual({
+        type: 'equidistance',
+        cfg: {
+          minGap: 6,
+        },
+      });
+    });
+
+    chart.axis('x', {
+      label: {
+        autoHide: {
+          type: 'equidistance',
+          cfg: {
+            minGap: 12,
+          },
+        },
+      },
+    });
+    chart.render();
+    xAxis = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.AXIS)[0];
+    expect(xAxis.component.cfg.label.autoHide).toEqual({
+      type: 'equidistance',
+      cfg: {
+        minGap: 12,
+      },
+    });
+
+    chart.axis('x', {
+      label: {
+        autoHide: false,
+      },
+    });
+    chart.render();
+    xAxis = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.AXIS)[0];
+    expect(xAxis.component.cfg.label.autoHide).toBe(false);
+  });
+
   afterEach(() => {
     chart.destroy();
   });

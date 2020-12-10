@@ -49,4 +49,13 @@ describe('createTheme', () => {
     expect(theme.labels.style.fontFamily).toBe('roboto-regular');
     expect(theme.innerLabels.style.fontFamily).toBe('roboto-regular');
   });
+
+  it('styleSheet legendPadding', () => {
+    let theme = createTheme({});
+    expect(theme.components.legend.top.padding).toEqual([8, 0, 8, 0]);
+    expect(theme.components.legend.bottom.padding).toEqual([8, 0, 8, 0]);
+    expect(theme.components.legend.left.padding).toEqual([0, 8, 0, 8]);
+    expect(theme.components.legend.right.padding).toEqual([0, 8, 0, 8]);
+    expect(theme.components.legend.continuous.padding).toEqual([8, 8, 8, 8]);
+  });
 });
