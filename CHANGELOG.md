@@ -1,3 +1,21 @@
+#### 4.1.2 (2020-12-11)
+
+##### Chores
+
+*  add src to files for sourceMap ([#3099](https://github.com/antvis/g2/pull/3099)) ([ab3d9e5c](https://github.com/antvis/g2/commit/ab3d9e5c66db3fdc23bdcfffbddbb360463486a2))
+*  update ci worfklow ([#3080](https://github.com/antvis/g2/pull/3080)) ([eab91e3b](https://github.com/antvis/g2/commit/eab91e3bf7fb0d8331dccd4cea8ee1c70c88dd9b))
+*  fix preview build workflow ([#3078](https://github.com/antvis/g2/pull/3078)) ([f9eacbee](https://github.com/antvis/g2/commit/f9eacbee6d8167206bd504228d24763114c39a15))
+*  try to fix preview action vulnerability ([#3067](https://github.com/antvis/g2/pull/3067)) ([77a18410](https://github.com/antvis/g2/commit/77a18410695a5db224fe93893a88a17f5f95f800))
+
+##### Documentation Changes
+
+*  update time bar demo ([#3095](https://github.com/antvis/g2/pull/3095)) ([d3da3443](https://github.com/antvis/g2/commit/d3da344379d7e78adb50451c04fa03295e6ae49e))
+
+##### Bug Fixes
+
+*  fix early create canvas context cause build error in server side ([#3081](https://github.com/antvis/g2/pull/3081)) ([773abdd9](https://github.com/antvis/g2/commit/773abdd9ba07a3779f3a1fe7887e4f94df0ec379))
+* **issue-3073:**  修复数据存在null值，在pie-outer 标签布局下报错 ([#3074](https://github.com/antvis/g2/pull/3074)) ([73708e93](https://github.com/antvis/g2/commit/73708e93daeb66588b7e97069525ba5faf954085))
+
 #### 4.1.1 (2020-12-02)
 
 ##### Bug Fixes
