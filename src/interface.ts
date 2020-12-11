@@ -1380,9 +1380,9 @@ export interface AxisCfg {
    *   rotate?: number;
    *   // 格式化函数
    *   formatter?: (text: string, item: ListItem, index: number) => any;
-   *   // 是否自动旋转，默认 true
+   *   // 是否自动旋转，默认 false
    *   autoRotate?: boolean | (isVertical: boolean, labelGroup: IGroup, limitLength?: number) => boolean; | string;
-   *   // 是否自动隐藏，默认 false
+   *   // 是否自动隐藏，默认 true
    *   autoHide?: boolean | (isVertical: boolean, labelGroup: IGroup, limitLength?: number) => boolean; | string;
    *   // 是否自动省略，默认 false
    *   autoEllipsis?: boolean | (isVertical: boolean, labelGroup: IGroup, limitLength?: number) => boolean; | string;
@@ -1841,6 +1841,10 @@ export interface StyleSheet {
   legendItemMarginBottom?: number;
   /** 图例与图表绘图区域的偏移距离  */
   legendPadding?: number[];
+  /** 水平布局的图例与绘图区域偏移距离 */
+  legendHorizontalPadding?: number[];
+  /** 垂直布局的图例与绘图区域偏移距离 */
+  legendVerticalPadding?: number[];
 
   /** 连续图例滑块填充色 */
   sliderRailFillColor?: string;

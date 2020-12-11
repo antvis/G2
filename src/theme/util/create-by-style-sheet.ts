@@ -24,9 +24,9 @@ function createAxisStyles(styleSheet: StyleSheet): LooseObject {
       },
     },
     label: {
-      autoRotate: true,
-      autoEllipsis: true,
-      autoHide: true,
+      autoRotate: false,
+      autoEllipsis: false,
+      autoHide: { type: 'equidistance', cfg: { minGap: 6 } },
       offset: styleSheet.axisLabelOffset,
       style: {
         fill: styleSheet.axisLabelFillColor,
@@ -1012,15 +1012,19 @@ export function createThemeByStyleSheet(styleSheet: StyleSheet): LooseObject {
         common: legendStyles,
         right: deepMix({}, legendStyles, {
           layout: 'vertical',
+          padding: styleSheet.legendVerticalPadding,
         }),
         left: deepMix({}, legendStyles, {
           layout: 'vertical',
+          padding: styleSheet.legendVerticalPadding,
         }),
         top: deepMix({}, legendStyles, {
           layout: 'horizontal',
+          padding: styleSheet.legendHorizontalPadding,
         }),
         bottom: deepMix({}, legendStyles, {
           layout: 'horizontal',
+          padding: styleSheet.legendHorizontalPadding,
         }),
         continuous: {
           title: null,

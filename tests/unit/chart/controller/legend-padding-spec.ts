@@ -28,10 +28,34 @@ describe('Legend', () => {
     chart.interval().position('月份*月均降雨量').color('name').adjust('dodge');
     chart.render();
 
-    const legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
+    let legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
 
-    expect(legends[0].component.get('padding')).toEqual([8, 8, 8, 8]); // 主题默认 8
+    expect(legends[0].component.get('padding')).toEqual([0, 8, 0, 8]); // 主题垂直默认 8
     expect(legends[0].component.getBBox().maxX).toBeLessThan(600 - 7);
+
+    chart.legend('name', {
+      position: 'left',
+    });
+    chart.render();
+
+    legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
+    expect(legends[0].component.get('padding')).toEqual([0, 8, 0, 8]); // 主题垂直默认 8
+
+    chart.legend('name', {
+      position: 'top',
+    });
+    chart.render();
+
+    legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
+    expect(legends[0].component.get('padding')).toEqual([8, 0, 8, 0]); // 主题水平默认 8
+
+    chart.legend('name', {
+      position: 'bottom',
+    });
+    chart.render();
+
+    legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
+    expect(legends[0].component.get('padding')).toEqual([8, 0, 8, 0]); // 主题水平默认 8
   });
 
   it('update padding', () => {
