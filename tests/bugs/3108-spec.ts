@@ -31,9 +31,6 @@ describe('#3108', () => {
   // Step 4: 渲染图表
   chart.render();
 
-  // @ts-ignore
-  window.__chart__ = chart;
-
   it('no extra div', () => {
     const canvas = chart.getCanvas();
     expect(canvas.get('el').parentNode.querySelectorAll('div').length).toBe(0);
