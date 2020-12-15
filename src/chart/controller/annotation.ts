@@ -144,7 +144,6 @@ export default class Annotation extends Controller<BaseOption[]> {
 
     this.foregroundContainer.remove(true);
     this.backgroundContainer.remove(true);
-    // this.clearHTMLContainer(true);
   }
 
   /**
