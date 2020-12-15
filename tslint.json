@@ -11,7 +11,7 @@
     "no-empty": false,
     "member-ordering": false,
     "no-empty-interface": false,
-    "no-console": [true, "debug", "info", "log", "time", "timeEnd", "trace"],
+    "no-console": false,
     "no-unused-expression": [true, "allow-fast-null-checks"],
     "no-debugger": true,
     "prefer-for-of": false
