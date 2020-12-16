@@ -114,13 +114,13 @@ chart.axis('value', {
 });
 ```
 
-- `chart.tooltip()` 配置项更新，同时将 G2 3.x 版本中一些针对特定图表的内置规则删除，需要用户自己通过提供的配置项进行配置，具体配置属性详见 [API](../api/classes/view#tooltip)。
+- `chart.tooltip()` 配置项更新，同时将 G2 3.x 版本中一些针对特定图表的内置规则删除，需要用户自己通过提供的配置项进行配置，具体配置属性详见 [API](../api/general/tooltip)。
 
   - tooltip 的背景辅助框不再配置项中支持，需要使用 `chart.interaction('active-region');` 同时支持直角坐标系和极坐标系。
 
   <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*j05pRJG3ovgAAAAAAAAAAABkARQnAQ" width=600 />
 
-- `chart.legend()`  配置项更新，具体的配置见 [API](../api/classes/view#legend)。以下列举了一些 3.x 常用的属性以及 4.0 的替代方案：
+- `chart.legend()`  配置项更新，具体的配置见 [API](../api/general/legend)。以下列举了一些 3.x 常用的属性以及 4.0 的替代方案：
 
   - 🗑️ `clickable` 属性移除，如想要取消 legend 勾选交互，可以通过 `chart.removeInteraction('legend-filter')` 移除分类图例的勾选交互。
   - 🗑️ `selectedMode` 属性移除，4.0 可通过自定义交互行为实现。
@@ -129,8 +129,8 @@ chart.axis('value', {
   - 🗑️ `hoverable` 属性移除，4.0 可以通过 `chart.interaction('legend-active')` 等交互行为实现，参考交互语法 demo: https://g2.antv.vision/en/examples/interaction/component#legend-active。
   - 🗑️ `onHover` 属性移除，4.0 可以通过监听 legend 事件实现：`chart.on('legend:mousemove', (ev) => {})`。
 
-- `chart.axis()`  配置项更新，详见 [API](../api/classes/view#axis)。
-- `chart.annotation()`  各个类型的 annotation 配置项更新，详见 [API](../api/classes/view#annotation)。
+- `chart.axis()`  配置项更新，详见 [API](../api/general/axis)。
+- `chart.annotation()`  各个类型的 annotation 配置项更新，详见 [API](../api/general/annotation)。
 - `geometry().style()` 方法的回调函数写法变更，不再支持一个配置属性一个回调的方式，而是使用一个回调：
 
 ```typescript
@@ -140,9 +140,9 @@ style('a', (aVal) => {
 });
 ```
 
-详见 [API](../api/classes/geometry#style)。
+详见 [API](../api/general/style)。
 
-- `geometry.label()` 接口更新，不再支持 html 类型的 label，详见 [API](../api/classes/geometry#label)。
+- `geometry.label()` 接口更新，不再支持 html 类型的 label，详见 [API](../api/general/label)。
 
 ---
 

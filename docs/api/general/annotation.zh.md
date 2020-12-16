@@ -1,6 +1,6 @@
 ---
 title: 标注 - Annotation
-order: 10
+order: 11
 ---
 
 `markdown:docs/common/style.md`
