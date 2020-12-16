@@ -1,6 +1,6 @@
 ---
 title: Contact US
-order: 4
+order: 6
 ---
 
 If you have any questions, suggestions, feedback or willingness to communicate, you can contact us in the following ways:
