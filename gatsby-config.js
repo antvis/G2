@@ -60,12 +60,20 @@ module.exports = {
         order: 2,
       },
       {
+        slug: 'manual/dataset',
+        title: {
+          zh: 'DataSet',
+          en: 'DataSet',
+        },
+        order: 3,
+      },
+      {
         slug: 'manual/tutorial',
         title: {
           zh: '教程和文章',
           en: 'Tutorials',
         },
-        order: 3,
+        order: 4,
       },
       {
         slug: 'manual/concepts/geometry',
