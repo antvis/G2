@@ -1,6 +1,6 @@
 ---
 title: Coordinate
-order: 5
+order: 6
 ---
 
 `markdown:docs/manual/concepts/coordinate.zh.md`
