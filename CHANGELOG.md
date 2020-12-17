@@ -5,13 +5,9 @@
 - 增加 faq,升级指南等文档 ([#3119](https://github.com/antvis/g2/pull/3119)) ([2033d030](https://github.com/antvis/g2/commit/2033d030bd989df6e9e6a3e7fc49a10fce741305))
 - 增加 element, view.en, dataset 等若干文档 ([#3118](https://github.com/antvis/g2/pull/3118)) ([8d112f15](https://github.com/antvis/g2/commit/8d112f15c74ea2f489366b8579c830f752043d3b))
 
-##### New Features
-
-- change log ([336df1a7](https://github.com/antvis/g2/commit/336df1a731953d17c334e7e7f71154bf518706fa))
-- **testcases:** 增加单测，g 层修复 animate shape 在 changesize 的时候报错 ([#3113](https://github.com/antvis/g2/pull/3113)) ([28d235b0](https://github.com/antvis/g2/commit/28d235b027f4f81442422893232a58f1df4694ac))
-
 ##### Bug Fixes
 
+- **testcases:** 增加单测，g 层修复 animate shape 在 changesize 的时候报错 ([#3113](https://github.com/antvis/g2/pull/3113)) ([28d235b0](https://github.com/antvis/g2/commit/28d235b027f4f81442422893232a58f1df4694ac))
 - fix empty div container for annotation ([#3112](https://github.com/antvis/g2/pull/3112)) ([f3739657](https://github.com/antvis/g2/commit/f3739657333f8f6b84611bae6cafcbbec86f96af))
 
 #### 4.1.2 (2020-12-11)
