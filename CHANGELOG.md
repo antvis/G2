@@ -7,6 +7,7 @@
 
 ##### New Features
 
+- change log ([336df1a7](https://github.com/antvis/g2/commit/336df1a731953d17c334e7e7f71154bf518706fa))
 - **testcases:** 增加单测，g 层修复 animate shape 在 changesize 的时候报错 ([#3113](https://github.com/antvis/g2/pull/3113)) ([28d235b0](https://github.com/antvis/g2/commit/28d235b027f4f81442422893232a58f1df4694ac))
 
 ##### Bug Fixes
