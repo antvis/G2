@@ -922,15 +922,17 @@ export class View extends Base {
    */
   public getYScales(): Scale[] {
     // 拿到所有的 Geometry 的 Y scale，然后去重
-    const tmpMap = {};
-    return this.geometries.map((g: Geometry) => {
-      const yScale = g.getYScale();
-      const field = yScale.field;
-      if (!tmpMap[field]) {
-        tmpMap[field] = true;
-        return yScale;
+    const scaleArray: Scale[] = []
+    // map 执行速度比 object 快
+    const fieldMap = new Map();
+    this.geometries.forEach((gItem: Geometry) => {
+      const yScale = gItem.getYScale();
+      if(!fieldMap.has(yScale.field)) {
+        fieldMap.set(yScale.field, true)
+        scaleArray.push(yScale)
       }
-    });
+    })
+    return scaleArray
   }
 
   /**
