@@ -60,27 +60,20 @@ module.exports = {
         order: 2,
       },
       {
-        slug: 'manual/dataset',
-        title: {
-          zh: 'DataSet',
-          en: 'DataSet',
-        },
-        order: 3,
-      },
-      {
         slug: 'manual/tutorial',
         title: {
           zh: '教程和文章',
           en: 'Tutorials',
         },
-        order: 4,
+        order: 3,
       },
       {
-        slug: 'manual/concepts/geometry',
+        slug: 'manual/dataset',
         title: {
-          zh: '几何图形',
-          en: 'Geometry',
+          zh: 'DataSet',
+          en: 'DataSet',
         },
+        order: 4,
       },
       {
         slug: 'manual/concepts/component',
@@ -88,6 +81,15 @@ module.exports = {
           zh: '图形组件',
           en: 'Components',
         },
+        order: 1,
+      },
+      {
+        slug: 'manual/concepts/geometry',
+        title: {
+          zh: '几何图形',
+          en: 'Geometry',
+        },
+        order: 2,
       },
       {
         slug: 'api/general',
