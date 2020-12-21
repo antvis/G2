@@ -1,4 +1,6 @@
-import getArcParams from '@antv/g-canvas/lib/util/arc-params';
+// TODO: 暂未发包
+// @ts-ignore
+import { getArcParams } from '@antv/g-canvas';
 import { isNumberEqual, isEqual } from '@antv/util';
 
 import { IShape, PathCommand } from '../../dependents';

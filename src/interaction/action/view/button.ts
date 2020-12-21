@@ -1,4 +1,4 @@
-import { LooseObject } from '@antv/component/lib/types';
+import { LooseObject } from '../../../interface';
 import { IGroup } from '@antv/g-base';
 import { ext } from '@antv/matrix-util';
 import { deepMix } from '@antv/util';

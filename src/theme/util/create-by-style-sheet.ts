@@ -1,4 +1,6 @@
-import * as TOOLTIP_CSS_CONST from '@antv/component/lib/tooltip/css-const';
+// TODO: 暂未发包
+// @ts-ignore
+import { TOOLTIP_CSS_CONST } from '@antv/component';
 import { ext } from '@antv/matrix-util';
 import { deepMix } from '@antv/util';
 import Element from '../../geometry/element';

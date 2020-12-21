@@ -1,4 +1,6 @@
-import { IList } from '@antv/component/lib/interfaces';
+// TODO: 暂未发包
+// @ts-ignore
+import { IList } from '@antv/component';
 import { each } from '@antv/util';
 
 const STATUS_UNACTIVE = 'inactive';
