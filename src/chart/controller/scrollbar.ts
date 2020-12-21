@@ -221,7 +221,9 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
     const xValues = isHorizontal ? values : values.reverse();
     this.yScalesCfg.forEach((cfg) => {
       // cfg 非空检测
-      if(!cfg || !cfg.field){return}
+      if (!cfg || !cfg.field) {
+        return;
+      }
       this.view.scale(cfg.field, {
         formatter: cfg.formatter,
         type: cfg.type as ScaleOption['type'],
