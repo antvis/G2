@@ -188,6 +188,7 @@ export default class Labels {
           textBaseline: get(cfg, 'textBaseline', 'middle'),
           text: cfg.content,
           ...cfg.style,
+          fill: (!get(cfg, ['style', 'fill']) && cfg.color) || get(cfg, ['style', 'fill'], '#595959'),
         },
         ...shapeAppendCfg,
       });
