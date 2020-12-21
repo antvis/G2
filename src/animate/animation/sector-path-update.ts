@@ -1,5 +1,3 @@
-// TODO: 暂未发包
-// @ts-ignore
 import { getArcParams } from '@antv/g-canvas';
 import { isNumberEqual, isEqual } from '@antv/util';
 

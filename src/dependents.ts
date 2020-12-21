@@ -20,10 +20,7 @@ export { Color } from '@antv/attr';
 export { getCoordinate, registerCoordinate, Coordinate, CoordinateCfg } from '@antv/coord';
 
 // scale
-export { getScale, registerScale, Scale, ScaleConfig } from '@antv/scale';
-// TODO: scale 暂时还没有发包
-// @ts-ignore
-export { Tick } from '@antv/scale';
+export { getScale, registerScale, Scale, ScaleConfig, Tick } from '@antv/scale';
 
 // component
 import {
@@ -39,11 +36,7 @@ import {
   Tooltip,
   Scrollbar,
 } from '@antv/component';
-// TODO: 暂未发包
-// @ts-ignore
-export { IComponent, IList } from '@antv/component';
-// TODO: 暂未发包
-// @ts-ignore
+
 export {
   CategoryLegendCfg,
   CircleAxisCfg,
@@ -73,7 +66,10 @@ export {
   TrendCfg,
   EnhancedTextCfg,
   LineAnnotationTextCfg,
+  IComponent,
+  IList,
 } from '@antv/component';
+
 export { HtmlComponent, GroupComponent, Component, Crosshair };
 export { Annotation };
 // axis

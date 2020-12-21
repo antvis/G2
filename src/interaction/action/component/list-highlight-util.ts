@@ -1,5 +1,3 @@
-// TODO: 暂未发包
-// @ts-ignore
 import { IList } from '@antv/component';
 import { each } from '@antv/util';
 
