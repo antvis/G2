@@ -1,25 +1,26 @@
 /* 依赖的模块，在这里统一引入，方便打包优化 */
 
 // G
-export { ICanvas, IElement, IGroup, IShape } from '@antv/g-base/lib/interfaces';
-export { PathCommand, BBox, Point, ShapeAttrs } from '@antv/g-base/lib/types';
-export { Event, AbstractGroup, AbstractShape } from '@antv/g-base';
+export {
+  ICanvas, IElement, IGroup, IShape,
+  PathCommand, BBox, Point, ShapeAttrs,
+  Event, AbstractGroup, AbstractShape
+} from '@antv/g-base';
 // 需要有 G-base 提供 g engine 类型定义
 export type IG = any;
 
 // adjust
-export { registerAdjust, getAdjust, Adjust } from '@antv/adjust/lib/factory';
+export { registerAdjust, getAdjust, Adjust } from '@antv/adjust';
 
 // attr
-export { getAttribute, Attribute } from '@antv/attr/lib/factory';
+export { getAttribute, Attribute } from '@antv/attr';
 export { Color } from '@antv/attr';
 
 // coordinate
 export { getCoordinate, registerCoordinate, Coordinate, CoordinateCfg } from '@antv/coord';
 
 // scale
-export { getScale, registerScale, Scale, ScaleConfig } from '@antv/scale';
-export { Tick } from '@antv/scale/lib/types';
+export { getScale, registerScale, Scale, ScaleConfig, Tick } from '@antv/scale';
 
 // component
 import {
@@ -35,7 +36,7 @@ import {
   Tooltip,
   Scrollbar,
 } from '@antv/component';
-export { IComponent, IList } from '@antv/component/lib/interfaces';
+
 export {
   CategoryLegendCfg,
   CircleAxisCfg,
@@ -65,7 +66,10 @@ export {
   TrendCfg,
   EnhancedTextCfg,
   LineAnnotationTextCfg,
-} from '@antv/component/lib/types';
+  IComponent,
+  IList,
+} from '@antv/component';
+
 export { HtmlComponent, GroupComponent, Component, Crosshair };
 export { Annotation };
 // axis

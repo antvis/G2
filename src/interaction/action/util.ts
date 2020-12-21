@@ -5,7 +5,7 @@ import Geometry from '../../geometry/base';
 import Element from '../../geometry/element/';
 import { catmullRom2bezier, getLinePath } from '../../geometry/shape/util/path';
 import { toPoints } from '../../util/bbox';
-import isPolygonsIntersect from '@antv/path-util/lib/is-polygons-intersect';
+import { isPolygonsIntersect } from '@antv/path-util';
 import { ComponentOption, IInteractionContext, LooseObject } from '../../interface';
 
 function getMaskBBox(context: IInteractionContext, tolerance: number) {

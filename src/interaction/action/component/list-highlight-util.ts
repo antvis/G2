@@ -1,4 +1,4 @@
-import { IList } from '@antv/component/lib/interfaces';
+import { IList } from '@antv/component';
 import { each } from '@antv/util';
 
 const STATUS_UNACTIVE = 'inactive';

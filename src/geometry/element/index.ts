@@ -1,5 +1,7 @@
 import { deepMix, each, get, isArray, isEmpty, isEqual, isFunction, isString } from '@antv/util';
-import { propagationDelegate } from '@antv/component/lib/util/event';
+// 暂未发包
+// @ts-ignore
+import { propagationDelegate } from '@antv/component';
 import { doAnimate } from '../../animate';
 import Base from '../../base';
 import { BBox, IGroup, IShape } from '../../dependents';
