@@ -1,6 +1,6 @@
 ---
 title: FAQ
-order: 4
+order: 5
 ---
 
 `markdown:docs/manual/faq.zh.md`
