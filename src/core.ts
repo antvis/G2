@@ -5,9 +5,11 @@ export const VERSION = '4.1.4';
 // 核心基类导出
 export { Chart, View, Event } from './chart'; // Chart, View 类
 export { Controller as ComponentController } from './chart/controller/base'; // G2 组件基类
+export { default as TooltipController } from './chart/controller/tooltip'; // G2 tooltip 组件基类
 export { default as Geometry } from './geometry/base'; // Geometry 基类
+export { default as Element } from './geometry/element'; // Element 类
 export { default as GeometryLabel } from './geometry/label/base'; // Geometry Label 基类
-export { Interaction } from './interaction'; // Interaction 基类
+export { Interaction, Action } from './interaction'; // Interaction, Action 基类
 export { Facet } from './facet'; // Facet 基类
 export { default as InteractionAction } from './interaction/action/base'; // Interaction Action 基类
 
@@ -48,3 +50,29 @@ export { LAYER, DIRECTION } from './constant';
 // 因为 typescript 部分版本不支持 export * as 语法。
 import * as Types from './interface';
 export { Types };
+
+export {
+  IGroup,
+  ShapeAttrs,
+  Coordinate,
+  Scale,
+  ScaleConfig,
+} from './dependents';
+
+// 一些工具方法导出
+import { getLegendItems } from './util/legend';
+import { getAngle, polarToCartesian } from './util/graphics';
+import { rotate, transform, translate, zoom } from './util/transform';
+import { getTooltipItems } from './util/tooltip';
+import { getDelegationObject } from './interaction/action/util';
+export const Util = {
+  getLegendItems,
+  translate,
+  rotate,
+  zoom,
+  transform,
+  getAngle,
+  polarToCartesian,
+  getDelegationObject,
+  getTooltipItems,
+};
