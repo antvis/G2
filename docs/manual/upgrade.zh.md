@@ -13,9 +13,7 @@ order: 6
 
 虽然我们对 G2 内部进行了大规模的重构工作，包括数据处理流程（引入数据更新机制），图表组件，view 渲染更新逻辑以及事件、交互机制改造等，但是为了保障用户项目能够更平滑得升级，对于 API 层的代码，我们基本没有做大的改动，对于改动之处，我们希望通过升级指南、API 文档等方式来帮助大家更好更快得进行升级。
 
-## 变更说明
-
-### 整体变化
+## 整体变化
 
 1. 全面拥抱 TypeScript。
 1. 全新的可视化组件：面向交互，体验优雅。
@@ -26,11 +24,11 @@ order: 6
 1. 动画机制改造，更细粒度，体验更好。
 1. 模块化管理，提供更加灵活的扩展机制。
 
-### API 变更
+## API 变更
 
 G2 4.0 在功能上全面兼容 3.x 的功能，在 API 接口上，我们进行了一些优化，在最大程度兼容 3.x 语法的基础上，提供了对用户更加友好，更易理解的函数命名以及更合理的配置项结构，具体的变化记录如下：
 
-#### 不兼容改动
+### 不兼容改动
 
 - 🗑️ `chart.source()` 接口废弃，请使用 `chart.data()` 接口，同时列定义请通过 `chart.scale()`  接口进行定义。
 - 🗑️ `chart.coord()` 接口废弃，请使用 `chart.coordinate()`。
@@ -66,7 +64,7 @@ const theme = chart.getTheme();
 - 🗑️ 移除 tail 类型的图例。
 - 内置常量重命名，一致使用小写 + '-' 命名规则，比如 `shape('hollowCircle')` 变更为 `shape('hollow-circle')`。
 
-#### 配置项以及接口变更
+### 配置项以及接口变更
 
 我们在 4.0 中对以下接口以及一些接口中的属性进行了部分变更，在兼容 3.x 原有功能的基础上，让配置项更具语义，同时结构更加合理，具体请参考 API 文档。
 
@@ -114,24 +112,45 @@ chart.axis('value', {
 });
 ```
 
-- `chart.tooltip()` 配置项更新，同时将 G2 3.x 版本中一些针对特定图表的内置规则删除，需要用户自己通过提供的配置项进行配置，具体配置属性详见 [API](../api/general/tooltip)。
+#### Tooltip
 
-  - tooltip 的背景辅助框不再配置项中支持，需要使用 `chart.interaction('active-region');` 同时支持直角坐标系和极坐标系。
+`chart.tooltip()` 配置项更新，同时将 G2 3.x 版本中一些针对特定图表的内置规则删除，需要用户自己通过提供的配置项进行配置，具体配置属性详见 [API](../api/general/tooltip)。
+
+- tooltip 的背景辅助框不再配置项中支持，需要使用 `chart.interaction('active-region');` 同时支持直角坐标系和极坐标系。
 
   <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*j05pRJG3ovgAAAAAAAAAAABkARQnAQ" width=600 />
 
-- `chart.legend()`  配置项更新，具体的配置见 [API](../api/general/legend)。以下列举了一些 3.x 常用的属性以及 4.0 的替代方案：
+#### Legend（图例）
 
-  - 🗑️ `clickable` 属性移除，如想要取消 legend 勾选交互，可以通过 `chart.removeInteraction('legend-filter')` 移除分类图例的勾选交互。
-  - 🗑️ `selectedMode` 属性移除，4.0 可通过自定义交互行为实现。
-  - 🗑️ `onClick` 属性移除，4.0 可通过监听 legend 事件实现：`chart.on('legend:click', (ev) => {})`。
-  - 🗑️ `slidable` 属性移除，4.0 可以通过 `chart.removeInteraction('continuous-filter')` 移除连续图例的滑块交互。
-  - 🗑️ `hoverable` 属性移除，4.0 可以通过 `chart.interaction('legend-active')` 等交互行为实现，参考交互语法 demo: https://g2.antv.vision/en/examples/interaction/component#legend-active。
-  - 🗑️ `onHover` 属性移除，4.0 可以通过监听 legend 事件实现：`chart.on('legend:mousemove', (ev) => {})`。
+<details>
+  <summary>
+  `chart.legend()`  配置项更新，具体的配置见 [API](../api/general/legend)。以下列举了一些 3.x 常用的属性以及 4.0 的替代方案(点击展开)：
+  </summary>
 
-- `chart.axis()`  配置项更新，详见 [API](../api/general/axis)。
-- `chart.annotation()`  各个类型的 annotation 配置项更新，详见 [API](../api/general/annotation)。
-- `geometry().style()` 方法的回调函数写法变更，不再支持一个配置属性一个回调的方式，而是使用一个回调：
+- 🗑️ `clickable` 属性移除，如想要取消 legend 勾选交互，可以通过 `chart.removeInteraction('legend-filter')` 移除分类图例的勾选交互。
+- 🗑️ `selectedMode` 属性移除，4.0 可通过自定义交互行为实现。
+- 🗑️ `onClick` 属性移除，4.0 可通过监听 legend 事件实现：`chart.on('legend:click', (ev) => {})`。
+- 🗑️ `slidable` 属性移除，4.0 可以通过 `chart.removeInteraction('continuous-filter')` 移除连续图例的滑块交互。
+- 🗑️ `hoverable` 属性移除，4.0 可以通过 `chart.interaction('legend-active')` 等交互行为实现，参考交互语法 demo: https://g2.antv.vision/en/examples/interaction/component#legend-active。
+- 🗑️ `onHover` 属性移除，4.0 可以通过监听 legend 事件实现：`chart.on('legend:mousemove', (ev) => {})`。
+
+</details>
+
+#### Label（数据标签）
+
+`geometry.label()` 接口更新，不再支持 html 类型的 label，详见 [API](../api/general/label)。
+
+#### Axis（坐标轴）
+
+`chart.axis()`  配置项更新，详见 [API](../api/general/axis)。
+
+#### Annotation（图形标注）
+
+`chart.annotation()`  各个类型的 annotation 配置项更新，详见 [API](../api/general/annotation)。
+
+#### Style（几何标记样式）
+
+`geometry().style()` 方法的回调函数写法变更，不再支持一个配置属性一个回调的方式，而是使用一个回调：
 
 ```typescript
 style('a', (aVal) => {
@@ -141,8 +160,6 @@ style('a', (aVal) => {
 ```
 
 详见 [API](../api/general/style)。
-
-- `geometry.label()` 接口更新，不再支持 html 类型的 label，详见 [API](../api/general/label)。
 
 ---
 
