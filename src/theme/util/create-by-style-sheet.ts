@@ -420,24 +420,28 @@ export function createThemeByStyleSheet(styleSheet: StyleSheet): LooseObject {
           default: {
             style: {
               ...shapeStyles.line.default,
+              lineCap: null,
               lineDash: [1, 1],
             },
           },
           active: {
             style: {
               ...shapeStyles.line.active,
+              lineCap: null,
               lineDash: [1, 1],
             },
           },
           inactive: {
             style: {
               ...shapeStyles.line.inactive,
+              lineCap: null,
               lineDash: [1, 1],
             },
           },
           selected: {
             style: {
               ...shapeStyles.line.selected,
+              lineCap: null,
               lineDash: [1, 1],
             },
           },
@@ -446,24 +450,28 @@ export function createThemeByStyleSheet(styleSheet: StyleSheet): LooseObject {
           default: {
             style: {
               ...shapeStyles.line.default,
+              lineCap: null,
               lineDash: [5.5, 1],
             },
           },
           active: {
             style: {
               ...shapeStyles.line.active,
+              lineCap: null,
               lineDash: [5.5, 1],
             },
           },
           inactive: {
             style: {
               ...shapeStyles.line.inactive,
+              lineCap: null,
               lineDash: [5.5, 1],
             },
           },
           selected: {
             style: {
               ...shapeStyles.line.selected,
+              lineCap: null,
               lineDash: [5.5, 1],
             },
           },
