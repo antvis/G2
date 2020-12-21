@@ -70,7 +70,7 @@ describe('scrollbar cannot be used', () => {
 
     chart.render()
 
-    // 不能有getYScales中undefined
+    // getYScales中不能有undefined
     expect(chart.getYScales()).not.toEqual(expect.arrayContaining([undefined]))
   })
 });
