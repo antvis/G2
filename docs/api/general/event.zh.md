@@ -220,13 +220,13 @@ chart.on('eventName', (evt) => {
 所有组件上的事件都可以在 target 上拿到 delegateObject，这上面有组件或者组件选项的信息，所有的组件事件都有 component 属性，其他的属性不同的事件不一样：
 
 ```ts
-chart.on('lengend-item:click', (ev) => {
+chart.on('legend-item:click', (ev) => {
   const target = ev.target;
   const delegateObject = target.get('delegateObject');
   const item = delegateObject.item; // 图例选项
 });
 
-chart.on('lengend:valuechange', (ev) => {
+chart.on('legend:valuechange', (ev) => {
   const target = ev.target;
   const delegateObject = target.get('delegateObject');
   const component = delegateObject.component;
