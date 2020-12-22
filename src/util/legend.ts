@@ -1,3 +1,4 @@
+import { LegendMarkerCfg } from '@antv/component';
 import { deepMix, isString, each } from '@antv/util';
 import View from '../chart/view';
 import { DIRECTION } from '../constant';
@@ -6,6 +7,16 @@ import Geometry from '../geometry/base';
 import { LegendItem } from '../interface';
 import { getMappingValue } from './attr';
 import { MarkerSymbols } from './marker';
+
+/** 线条形 marker symbol */
+const STROKES_SYMBOLS = ['line', 'cross', 'tick', 'plus', 'hyphen'];
+
+function adpatorMarkerStyle(marker: LegendMarkerCfg, color: string) {
+  const symbol = marker.symbol;
+  if (isString(symbol) && STROKES_SYMBOLS.indexOf(symbol) !== -1) {
+    marker.style = deepMix({}, marker.style, { lineWidth: 1, stroke: color, fill: null });
+  }
+}
 
 function setMarkerSymbol(marker) {
   const symbol = marker.symbol;
@@ -72,6 +83,7 @@ export function getLegendItems(
       // the marker configure order should be ensure
       marker = deepMix({}, themeMarker, marker, userMarker);
 
+      adpatorMarkerStyle(marker, color);
       setMarkerSymbol(marker);
 
       return { id: value, name, value, marker, unchecked };

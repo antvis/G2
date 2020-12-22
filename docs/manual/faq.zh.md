@@ -161,3 +161,10 @@ chart.render();
 
 1. 可以将其中一个 tooltip 关闭，比如 `chart.area().tooltip(false)`。
 2. 监听 `chart.on('tooltip:change')` 事件，动态修改 `items` 数据。
+
+## Legend 设置 marker.symbol 出错或不展示
+
+G2 4.0 支持的 legend marker 标记类型(symbol)有：`"circle" | "square" | "line" | "diamond" | "triangle" | "triangle-down" | "hexagon" | "bowtie" | "cross" | "tick" | "plus" | "hyphen"`，具体可以见 [API](../api/general/legend#marker)
+
+- 🗑️ `triangleDown` 标记类型移除，变更为 `triangle-down`
+- 🗑️ `hollow-*` 等标记类型移除，可以通过设置 `style` 来达到空心的效果
