@@ -64,16 +64,6 @@ const IndexPage = () => {
     },
   ];
 
-  const notifications = [
-    {
-      type: 'News',
-      title: 'G2 4.0 正式发布！',
-      date: '2020.03.02',
-      link: 'https://www.yuque.com/antv/blog/g2-4.0-released',
-    },
-  ];
-
-
   return (
     <>
       <SEO title={t('G2 可视化引擎')} titleSuffix="AntV" lang={i18n.language} />
@@ -86,7 +76,6 @@ const IndexPage = () => {
           'G2 一套面向常规统计图表，以数据驱动的高交互可视化图形语法，具有高度的易用性和扩展性。使用 G2，你可以无需关注图表各种繁琐的实现细节，一条语句即可使用 Canvas 或 SVG 构建出各种各样的可交互的统计图表。',
         )}
         buttons={bannerButtons}
-        notifications={notifications}
         className='banner'
       />
       <Features
