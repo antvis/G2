@@ -1,5 +1,5 @@
 import { get, deepMix, isArray } from '@antv/util';
-import { Writeable } from 'src/util/types';
+import { Writeable } from '../../util/types';
 import { MappingDatum, Point } from '../../interface';
 import GeometryLabel from './base';
 import { LabelCfg, LabelPointCfg } from './interface';
