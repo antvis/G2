@@ -11,7 +11,7 @@ order: 0
 
 几何图形（Geometry），即我们所说的点、线、面这些几何图形，在 G2 中几何标记的类型决定了生成图表的类型，也就是数据被可视化后的实际表现，不同的几何标记都包含对应的图形属性 Attribute。
 
-查看 [Geometry 教程](geometry/overview)获取更多信息。
+查看 [Geometry 教程](../geometry/overview)获取更多信息。
 
 ## 坐标轴 Axis
 
@@ -49,4 +49,4 @@ order: 0
 
 当图表中数据量比较多多，也可以适用滚动条组件来一次只浏览一部分数据。滚动条组件提供水平滚动条、和垂直滚动条。滚动条组件较适用于柱形图和条形图。
 
-查看 [Scrollbar API](../../api/general/scrollbar)获取更多信息。
+查看 [Scrollbar 教程](../../../api/general/scrollbar)获取更多信息。
