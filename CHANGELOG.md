@@ -1,3 +1,26 @@
+#### 4.1.5 (2020-12-22)
+
+##### Documentation Changes
+
+- 调整文档导航顺序 ([#3135](https://github.com/antvis/g2/pull/3135)) ([d2f1118a](https://github.com/antvis/g2/commit/d2f1118a404fdc714172d9fd79250c752f55dec1))
+- fix legend filter bug on case line demo ([#3116](https://github.com/antvis/g2/pull/3116)) ([b3165704](https://github.com/antvis/g2/commit/b3165704b73f8b99303ffb69529cb81c63ebe1d9))
+- 增加 faq,升级指南等文档 ([#3119](https://github.com/antvis/g2/pull/3119)) ([2033d030](https://github.com/antvis/g2/commit/2033d030bd989df6e9e6a3e7fc49a10fce741305))
+- 增加 element, view.en, dataset 等若干文档 ([#3118](https://github.com/antvis/g2/pull/3118)) ([8d112f15](https://github.com/antvis/g2/commit/8d112f15c74ea2f489366b8579c830f752043d3b))
+
+##### New Features
+
+- 增强饼图标签跟随切片颜色 ([#3147](https://github.com/antvis/g2/pull/3147)) ([4f0f5665](https://github.com/antvis/g2/commit/4f0f5665a8b80f2bd6977c9c5e682bcc98cfae61))
+- **esm:** remove all lib import ([#3141](https://github.com/antvis/g2/pull/3141)) ([72b0275a](https://github.com/antvis/g2/commit/72b0275a3f25655f3d14b57ddc601662a24cd172))
+- **export:** add some export method ([#3142](https://github.com/antvis/g2/pull/3142)) ([6247e3db](https://github.com/antvis/g2/commit/6247e3db927e8ea5885fc88d64403349983688d9))
+
+##### Bug Fixes
+
+- 修复路径错误 ([#3148](https://github.com/antvis/g2/pull/3148)) ([bd49fbe1](https://github.com/antvis/g2/commit/bd49fbe1801df6bab5ff916c808e6a064d0bd1dc))
+- fix line geometry fail to set dot or dash shape([#3144](https://github.com/antvis/g2/pull/3144)) ([239e8a67](https://github.com/antvis/g2/commit/239e8a675b0b6d50beeaef840e7fcc75a8e1d420))
+- 修复 element shape 进行 syncShapeStyle 时，可能存在空对象的情况 ([#3110](https://github.com/antvis/g2/pull/3110)) ([904202d1](https://github.com/antvis/g2/commit/904202d19d3c769aeb6a1d18c1283fa45823da5b))
+- fix empty div container for annotation ([#3112](https://github.com/antvis/g2/pull/3112)) ([f3739657](https://github.com/antvis/g2/commit/f3739657333f8f6b84611bae6cafcbbec86f96af))
+- **testcases:** 增加单测，g 层修复 animate shape 在 changesize 的时候报错 ([#3113](https://github.com/antvis/g2/pull/3113)) ([28d235b0](https://github.com/antvis/g2/commit/28d235b027f4f81442422893232a58f1df4694ac))
+
 #### 4.1.3 (2020-12-17)
 
 ##### Documentation Changes
