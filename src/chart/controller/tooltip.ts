@@ -18,6 +18,7 @@ import { getAngleByPoint, getDistanceToCenter, isPointInCoordinate } from '../..
 import { polarToCartesian } from '../../util/graphics';
 import { findDataByPoint, getTooltipItems } from '../../util/tooltip';
 import { BBox } from '../../util/bbox';
+import { sanitizeDom } from '../../util/dom';
 import { Controller } from './base';
 import Event from '../event';
 
@@ -121,6 +122,12 @@ export default class Tooltip extends Controller<TooltipOption> {
           // 延迟生成
           this.renderTooltip();
         }
+
+        items.forEach(item => {
+          if (typeof item.name === 'string')
+            item.name = sanitizeDom(item.name);
+        });
+
         this.tooltip.update(
           mix(
             {},
