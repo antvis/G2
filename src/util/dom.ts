@@ -69,5 +69,18 @@ export function removeDom(dom: HTMLElement) {
   }
 }
 
+  /**
+   * sanitize dangerous characters in a string to prevent Cross-Site Scripting
+   * @param string string to sanitize
+   * @returns sanitized string
+   */
+export function sanitizeDom(string: string) {
+  return string
+    .replace(/\&/g, '&amp;')
+    .replace(/\</g, '&lt;')
+    .replace(/\>/g, '&gt;')
+    .replace(/\"/g, '&quot;')
+}
+
 /** @ignore */
 export { createDom, modifyCSS } from '@antv/dom-util';
