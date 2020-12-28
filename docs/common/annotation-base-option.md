@@ -16,7 +16,7 @@
 
 动画参数配置，当且仅当 `animate` 属性为 true，即动画开启时生效。动画配置：
 
-`markdown:docs/common/component-animate-option.zh.md`
+`markdown:docs/common/component-animate-option.md`
 
 #### option.offsetX
 
