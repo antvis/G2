@@ -42,7 +42,7 @@ marker 的形状对应使用的几何标记类型，举例来说，如果你使�
 
 ## 图例配置
 
-通过 `chart.legend()`  接口对图例进行配置，具体的配置详见 [API](../../api/legend)。
+通过 `chart.legend()`  接口对图例进行配置，具体的配置详见 [API](../../../api/general/legend)。
 
 ### 隐藏图例
 

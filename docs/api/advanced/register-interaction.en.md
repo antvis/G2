@@ -4,7 +4,7 @@ title: 自定义交互
 order: 5
 ---## 简介
 
-G2 4.0 最大的一个变化是所有的交互不再内置，全部通过交互语法搭配而成，前面章节介绍了[交互的使用](../tutorial/interaction)  本章介绍如何自定义交互。
+G2 4.0 最大的一个变化是所有的交互不再内置，全部通过交互语法搭配而成，前面章节介绍了[交互的使用](../../manual/concepts/interaction)  本章介绍如何自定义交互。
 
 ## 自定义交互
 
@@ -58,7 +58,7 @@ import { Interaction } from '@antv/g2';
 class MyInteraction extends Interaction {
   protected initEvents() {
     const view = this.view;
-    view.on('mousedown', this.onMouseDown)
+    view.on('mousedown', ev => this.onMouseDown)
   }
 
   onMouseDown = ev => {
@@ -67,7 +67,7 @@ class MyInteraction extends Interaction {
 
   protected clearEvents() {
     const view = this.view;
-    view.off('mousedown', this.onMouseDown)
+    view.off('mousedown', ev => this.onMouseDown)
   }
 }
 
@@ -99,7 +99,7 @@ G2.registerInteraction('my-interaction', MyInteraction);
 其中：
 
 - trigger 触发一个交互环节的事件名，是所有 Chart 支持的事件
-- action 触发的反馈，可以是字符串也可以是数组，是所有内置和用户自定义的 Action，参考 [交互反馈 Action 列表](../tutorial/interaction/#交互反馈-action-列表) 。
+- action 触发的反馈，可以是字符串也可以是数组，是所有内置和用户自定义的 Action，参考 [交互反馈 Action 列表](../../manual/concepts/interaction#交互反馈-action-列表) 。
   - 字符串由 ’actionName:method‘ 组成
   - 列表时可以使用相同的 action ，也可以使用不同的 action ，例如: ['element-active:clear', 'element-active:active', 'mask:clear']
 
@@ -260,7 +260,7 @@ export interface IInteractionContext extends LooseObject {
 
 ## 自定义 Action
 
-使用交互语法搭配交互时，需要使用到 Action，你可以从 G2 已经内置的 [Action 列表](../tutorial/interaction/#交互反馈-action-列表)  中选取，也可以选择自定义 Action。<br />自定义 Action 有两个步骤：
+使用交互语法搭配交互时，需要使用到 Action，你可以从 G2 已经内置的 [Action 列表](../../manual/concepts/interaction#交互反馈-action-列表)  中选取，也可以选择自定义 Action。<br />自定义 Action 有两个步骤：
 
 - 实现 Action 的继承类
 - 注册 Action

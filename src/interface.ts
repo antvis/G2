@@ -1529,7 +1529,7 @@ export type Marker =
   | 'square'
   | 'diamond'
   | 'triangle'
-  | 'triangleDown'
+  | 'triangle-down'
   | 'hexagon'
   | 'bowtie'
   | 'cross'

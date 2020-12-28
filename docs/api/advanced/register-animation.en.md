@@ -59,4 +59,4 @@ chart.interval().animate({
 });
 ```
 
-<!-- [API 链接](../../api/register#g2registeranimation)。 -->
+<!-- [API 链接](../../api/register#g2register-animation)。 -->
