@@ -124,7 +124,7 @@ chart.axis('value', {
 
 <details>
   <summary>
-  `chart.legend()`  配置项更新，具体的配置见 [API](../api/general/legend)。以下列举了一些 3.x 常用的属性以及 4.0 的替代方案(点击展开)：
+  `chart.legend()`  配置项更新，具体的配置见 [API](../../../api/general/legend)。以下列举了一些 3.x 常用的属性以及 4.0 的替代方案(点击展开)：
   </summary>
 
 - 🗑️ `clickable` 属性移除，如想要取消 legend 勾选交互，可以通过 `chart.removeInteraction('legend-filter')` 移除分类图例的勾选交互。
@@ -138,15 +138,15 @@ chart.axis('value', {
 
 #### Label（数据标签）
 
-`geometry.label()` 接口更新，不再支持 html 类型的 label，详见 [API](../api/general/label)。
+`geometry.label()` 接口更新，不再支持 html 类型的 label，详见 [API](../../../api/general/label)。
 
 #### Axis（坐标轴）
 
-`chart.axis()`  配置项更新，详见 [API](../api/general/axis)。
+`chart.axis()`  配置项更新，详见 [API](../../../api/general/axis)。
 
 #### Annotation（图形标注）
 
-`chart.annotation()`  各个类型的 annotation 配置项更新，详见 [API](../api/general/annotation)。
+`chart.annotation()`  各个类型的 annotation 配置项更新，详见 [API](../../../api/general/annotation)。
 
 #### Style（几何标记样式）
 
