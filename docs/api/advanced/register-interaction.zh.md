@@ -4,7 +4,7 @@ title: 自定义交互
 order: 5
 ---## 简介
 
-G2 4.0 最大的一个变化是所有的交互不再内置，全部通过交互语法搭配而成，前面章节介绍了[交互的使用](../tutorial/interaction)  本章介绍如何自定义交互。
+G2 4.0 最大的一个变化是所有的交互不再内置，全部通过交互语法搭配而成，前面章节介绍了[交互的使用](../concepts/interaction)  本章介绍如何自定义交互。 本章介绍如何自定义交互。
 
 ## 自定义交互
 
@@ -99,7 +99,7 @@ G2.registerInteraction('my-interaction', MyInteraction);
 其中：
 
 - trigger 触发一个交互环节的事件名，是所有 Chart 支持的事件
-- action 触发的反馈，可以是字符串也可以是数组，是所有内置和用户自定义的 Action，参考 [交互反馈 Action 列表](../tutorial/interaction/#交互反馈-action-列表) 。
+- action 触发的反馈，可以是字符串也可以是数组，是所有内置和用户自定义的 Action，参考 [交互反馈 Action 列表](../concepts/interaction/#交互反馈-action-列表) 。
   - 字符串由 ’actionName:method‘ 组成
   - 列表时可以使用相同的 action ，也可以使用不同的 action ，例如: ['element-active:clear', 'element-active:active', 'mask:clear']
 
