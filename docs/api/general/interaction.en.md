@@ -1001,4 +1001,4 @@ registerInteraction('element-brush', {
 
 ## 更多
 
-本文中仅介绍了如何使用交互，而所有交互都是通过交互语法搭配而成的，需要自定义交互的用户可以参考 [交互语法](../concepts/interaction)  和 [自定义交互](../developer/registerinteraction)。
+本文中仅介绍了如何使用交互，而所有交互都是通过交互语法搭配而成的，需要自定义交互的用户可以参考 [交互语法](../concepts/interaction)  和 [自定义交互](../developer/register-interaction)。
