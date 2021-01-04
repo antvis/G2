@@ -73,7 +73,7 @@ interface TooltipCrosshairs {
 | 参数名  | 类型                | 是否必选 | 默认值 | 描述               |
 | ------- | ------------------- | -------- | ------ | ------------------ |
 | padding | number \| number[]; |          | -      | 文本背景周围的留白 |
-| style   | [ShapeAttrs](shape) |          | -      | 文本背景的样式     |
+| style   | [ShapeAttrs](/zh/docs/api/shape/shape-attrs) |          | -      | 文本背景的样式     |
 
 #### TooltipCfg.crosshairs.line
 
@@ -83,7 +83,7 @@ interface TooltipCrosshairs {
 
 | 参数名 | 类型                | 是否必选 | 默认值 | 描述         |
 | ------ | ------------------- | -------- | ------ | ------------ |
-| style  | [ShapeAttrs](shape) |          | -      | 辅助线的样式 |
+| style  | [ShapeAttrs](/zh/docs/api/shape/shape-attrs) |          | -      | 辅助线的样式 |
 
 #### TooltipCfg.crosshairs.text
 
@@ -108,7 +108,7 @@ _TooltipCrosshairsText_ 配置如下：
 | ---------- | ------------------- | -------- | ------ | ------------------- |
 | content    | string              |          | -      | crosshairs 文本内容 |
 | autoRotate | boolean             |          | -      | 是否自动旋转        |
-| style      | [ShapeAttrs](shape) |          | -      | 文本的配置项        |
+| style      | [ShapeAttrs](/zh/docs/api/shape/shape-attrs) |          | -      | 文本的配置项        |
 | position   | 'start' \| 'end'    |          | -      | 文本位置            |
 | offset     | number              |          | -      | 距离线的距离        |
 
@@ -116,7 +116,7 @@ _TooltipCrosshairsText_ 配置如下：
 
 <description> _TooltipDomStyles_ **optional** </description>
 
-_TooltipDomStyles_ 是以 dom 节点的 class 为 key 的对象，_ShapeAttrs_ 为 value 的对象。点击 [ShapeAttrs](shape) 查看详细样式配置。
+_TooltipDomStyles_ 是以 dom 节点的 class 为 key 的对象，_ShapeAttrs_ 为 value 的对象。点击 [ShapeAttrs](/zh/docs/api/shape/shape-attrs) 查看详细样式配置。
 
 ```ts
 interface TooltipDomStyles {
@@ -156,7 +156,7 @@ tooltip 是否允许鼠标滑入，默认为 false，不允许。
 
 <description> _ShapeAttrs_ **optional** </description>
 
-tooltipMarker 的样式配置。点击 [ShapeAttrs](shape) 查看详细样式配置。
+tooltipMarker 的样式配置。点击 [ShapeAttrs](/zh/docs/api/shape/shape-attrs) 查看详细样式配置。
 
 ### TooltipCfg.offset
 

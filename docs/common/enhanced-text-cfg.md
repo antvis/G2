@@ -16,4 +16,4 @@ _EnhancedTextBackgroundCfg_ 配置如下：
 | 参数名  | 类型                | 是否必选 | 默认值 | 描述               |
 | ------- | ------------------- | -------- | ------ | ------------------ |
 | padding | number \| number[]; |          | -      | 文本背景周围的留白 |
-| style   | [ShapeAttrs](shape) |          | -      | 文本背景的样式     |
+| style   | [ShapeAttrs](/zh/docs/api/shape/shape-attrs) |          | -      | 文本背景的样式     |
