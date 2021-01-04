@@ -11,7 +11,7 @@ G2 的 View 是图层容器的概念，每一个 View 拥有自己独立的数�
 
 而 Chart 是继承自 View，用于提供创建 canvas、已经自适应图表大小等能力，便于开发者使用的类。
 
-下面会介绍如何创建 Chart 对象，以及 Chart 对象体提供一些 API，包括通用 API、生命周期 API 以及 View 管理 API等。
+下面会介绍如何创建 Chart 对象，以及 Chart 对象体提供一些 API，包括通用 API、生命周期 API 以及 View 管理 API 等。
 
 ## 创建图表对象
 
@@ -34,6 +34,7 @@ forceFit(): void;
 ```sign
 changeSize(width: number, height: number): Chart;
 ```
+
 ### chart.changeVisible()
 
 显示或隐藏图表。`visible` 是否可见，`true` 表示显示，`false` 表示隐藏
@@ -72,8 +73,7 @@ Example:
 view.changeData([{ city: '北京', sale: '200' }]);
 ```
 
-
-### chart.getData()
+### view.getData()
 
 获取 view 的数据（过滤后的数据）。
 
@@ -81,7 +81,6 @@ view.changeData([{ city: '北京', sale: '200' }]);
 getData(): Data;
 
 ```
-
 
 ### view.filter()
 
@@ -222,8 +221,7 @@ unlockTooltip(): View;
 
 ### view.option()
 
-配置除 `axis`, `legend`, `tooltip` 外的图表组件，目前支持 `slider` 和 `scrollbar`。详细 API 见 [缩略轴 - Slider](./slider) 和 [滚动条 - Scrollbar](./scrollbar) 
-
+配置除 `axis`, `legend`, `tooltip` 外的图表组件，目前支持 `slider` 和 `scrollbar`。详细 API 见 [缩略轴 - Slider](./slider) 和 [滚动条 - Scrollbar](./scrollbar)
 
 ### view.facet()
 
@@ -321,13 +319,13 @@ removeView(view: View): View;
 
 创建 view 的参数说明。
 
-| 参数名	| 类型 | 是否必选 | 描述 |
-| --- | --- | --- | --- |
-| id | _string_ | N | View id，可以由外部传入 |
-| visible | _boolean_ | N | 是否可见。 |
-| region | _Region_ | N | view 的绘制范围 |
-| padding | _number\|number[]_ | N | 设置图表的内边距，使用方式参考 CSS 盒模型 |
-| appendPadding |  _number\|number[]_ | N | 设置图表的内边距在padding的基础上增加appendPading的调整 |
-| syncViewPadding | _boolean \| SyncViewPaddingFn_ | 是否同步子 view 的 padding，可以是 boolean / SyncViewPaddingFn  \n - 比如: view1 的 padding 10, view2 的 padding 20, 那么两个子 view 的 padding 统一变成最大的 20. \n - 如果是 Funcion，则使用自定义的方式去计算子 view 的 padding，这个函数中去修改所有的 views autoPadding 值 |
-| limitInPlot | _boolean_ | N | 是否对超出坐标系范围的 Geometry 进行剪切 |
-| theme | _string\|object_ | N | 设置 view 实例主题 |
+| 参数名          | 类型                           | 是否必选                                                                                                                                                                                                                           | 描述                                                        |
+| --------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| id              | _string_                       | N                                                                                                                                                                                                                                  | View id，可以由外部传入                                     |
+| visible         | _boolean_                      | N                                                                                                                                                                                                                                  | 是否可见。                                                  |
+| region          | _Region_                       | N                                                                                                                                                                                                                                  | view 的绘制范围                                             |
+| padding         | _number\|number[]_             | N                                                                                                                                                                                                                                  | 设置图表的内边距，使用方式参考 CSS 盒模型                   |
+| appendPadding   | _number\|number[]_             | N                                                                                                                                                                                                                                  | 设置图表的内边距在 padding 的基础上增加 appendPading 的调整 |
+| syncViewPadding | _boolean \| SyncViewPaddingFn_ | 是否同步子 view 的 padding。 比如: view1 的 padding 10, view2 的 padding 20, 那么两个子 view 的 padding 统一变成最大的 20。如果是 Funcion，则使用自定义的方式去计算子 view 的 padding，这个函数中去修改所有的 views autoPadding 值 |
+| limitInPlot     | _boolean_                      | N                                                                                                                                                                                                                                  | 是否对超出坐标系范围的 Geometry 进行剪切                    |
+| theme           | _string\|object_               | N                                                                                                                                                                                                                                  | 设置 view 实例主题                                          |
