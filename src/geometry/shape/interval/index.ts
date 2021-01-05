@@ -20,9 +20,9 @@ registerShape('interval', 'rect', {
     const style = getStyle(cfg, false, true);
     const group = container.addGroup();
 
-    const backgroundCfg = cfg.style?.background;
+    const backgroundCfg = cfg?.background;
     if (backgroundCfg) {
-      const backgroundStyle = getBackgroundRectStyle(cfg.style?.background);
+      const backgroundStyle = getBackgroundRectStyle(cfg);
       const backgroundPath = getBackgroundRectPath(
         cfg,
         this.parsePoints(cfg.points) as Point[],

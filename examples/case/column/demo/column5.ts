@@ -39,7 +39,13 @@ chart.interaction('element-active');
 
 chart.legend(false);
 chart
-  .interval()
+  .interval({
+    background: {
+      style: {
+        radius: 8,
+      },
+    },
+  })
   .position('type*value')
   .color('type', (val) => {
     if (val === '10-30分' || val === '30+分') {
@@ -55,11 +61,6 @@ chart
       }
     },
     offset: 10,
-  })
-  .style({
-    background: {
-      radius: 4,
-    },
   });
 
 chart.render();

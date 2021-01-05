@@ -1,4 +1,4 @@
-import { deepMix, isNil } from '@antv/util';
+import { deepMix, isNil, get } from '@antv/util';
 import { ShapeInfo } from '../../../interface';
 
 /**
@@ -51,6 +51,6 @@ export function getBackgroundRectStyle(cfg?: ShapeInfo) {
       fill: '#CCD6EC',
       fillOpacity: 0.3,
     },
-    cfg
+    get(cfg, ['background', 'style'])
   );
 }

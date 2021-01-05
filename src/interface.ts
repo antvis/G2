@@ -118,6 +118,10 @@ export interface ShapeInfo {
   isStack?: boolean;
   /** 是否连接空值，只对 Path Line Area 这三种 Geometry 生效。 */
   connectNulls?: boolean;
+  /** shape 背景，只对 Interval Geometry 生效，目前只对 interval-rect shape 生效。 */
+  background?: false | {
+    style?: LooseObject;
+  };
   /** 是否展示单个孤立的数据点，只对 Path Line Area 这三种 Geometry 生效。 */
   showSinglePoint?: boolean;
   /** 默认的 shape 样式 */
