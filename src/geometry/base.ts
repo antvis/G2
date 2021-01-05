@@ -129,8 +129,8 @@ export interface GeometryCfg {
   labelsContainer?: IGroup;
   /** 是否对数据进行排序 */
   sortable?: boolean;
-  /** 对 elements 的 zIndex 进行排序，可选项：`asc` | `desc`。默认：asc */
-  sortZIndex?: string;
+  /** elements 的 zIndex 默认按顺序提升，通过 zIndexReversed 可以反序，从而数据越前，层级越高 */
+  zIndexReversed?: boolean;
   /** 是否可见 */
   visible?: boolean;
   /** 主题配置 */
@@ -257,8 +257,8 @@ export default class Geometry extends Base {
   protected roseWidthRatio: number;
   /** 多层饼图/环图占比 */
   protected multiplePieWidthRatio: number;
-  /** 对 elements 的 zIndex 进行排序，可选项：asc | desc。默认：asc */
-  protected sortZIndex: string;
+  /** elements 的 zIndex 默认按顺序提升，通过 zIndexReversed 可以反序，从而数据越前，层级越高 */
+  protected zIndexReversed?: boolean;
 
   /** 虚拟 Group，用于图形更新 */
   private offscreenGroup: IGroup;
@@ -291,7 +291,7 @@ export default class Geometry extends Base {
       columnWidthRatio,
       roseWidthRatio,
       multiplePieWidthRatio,
-      sortZIndex,
+      zIndexReversed,
     } = cfg;
 
     this.container = container;
@@ -311,7 +311,7 @@ export default class Geometry extends Base {
     this.columnWidthRatio = columnWidthRatio;
     this.roseWidthRatio = roseWidthRatio;
     this.multiplePieWidthRatio = multiplePieWidthRatio;
-    this.sortZIndex = sortZIndex;
+    this.zIndexReversed = zIndexReversed;
   }
 
   /**
@@ -1490,7 +1490,8 @@ export default class Geometry extends Base {
       elementsMap[id] = result;
     }
 
-    if (this.sortZIndex === 'desc'/** 对 elements 的 zIndex 进行降序 */) {
+    // 对 elements 的 zIndex 进行反序
+    if (this.zIndexReversed) {
       const length = elements.length;
       elements.forEach((ele, idx) => {
         ele.shape.setZIndex(length - idx);
