@@ -80,7 +80,7 @@ _**option**_ 配置如下：
 | 参数名  | 类型                | 是否必选 | 默认值 | 描述               |
 | ------- | ------------------- | -------- | ------ | ------------------ |
 | padding | number \| number[]; |          | -      | 文本背景周围的留白 |
-| style   | [ShapeAttrs](shape) |          | -      | 文本背景的样式     |
+| style   | [ShapeAttrs](/zh/docs/api/shape/shape-attrs) |          | -      | 文本背景的样式     |
 
 #### option.maxLength
 
@@ -150,13 +150,13 @@ _**option**_ 配置如下：
 
 <description> _null | { style?: ShapeAttrs }_ **optional** </description>
 
-point 设置。点击 [ShapeAttrs](shape) 查看详细样式配置。
+point 设置。点击 [ShapeAttrs](/zh/docs/api/shape/shape-attrs) 查看详细样式配置。
 
 #### option.line
 
 <description> _null | { style?: ShapeAttrs, length?: number }_ **optional** </description>
 
-line 设置。点击 [ShapeAttrs](shape) 查看详细样式配置。
+line 设置。点击 [ShapeAttrs](/zh/docs/api/shape/shape-attrs) 查看详细样式配置。
 
 #### option.text
 
@@ -198,7 +198,7 @@ line 长度。
 
 <description> _null | { style?: ShapeAttrs }_ **optional** _default:_ `0`</description>
 
-标注区间的配置。点击 [ShapeAttrs](shape) 查看详细样式配置。
+标注区间的配置。点击 [ShapeAttrs](/zh/docs/api/shape/shape-attrs) 查看详细样式配置。
 
 #### option.text
 

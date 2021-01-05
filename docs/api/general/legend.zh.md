@@ -68,7 +68,7 @@ _legendOption_ 配置如下：
 | 参数名  | 类型                | 默认值 | 描述           |
 | ------- | ------------------- | ------ | -------------- |
 | padding | number \| number[]  | -      | 背景的留白     |
-| style   | [ShapeAttrs](shape) | -      | 背景样式配置项 |
+| style   | [ShapeAttrs](/zh/docs/api/shape/shape-attrs)| -      | 背景样式配置项 |
 
 ### legendOption.flipPage
 
@@ -85,7 +85,7 @@ _legendOption_ 配置如下：
 | 参数名 | 类型                | 默认值 | 描述           |
 | ------ | ------------------- | ------ | -------------- |
 | size   | number              | -      | 滑块的大小     |
-| style  | [ShapeAttrs](shape) | -      | 滑块的样式设置 |
+| style  | [ShapeAttrs](/zh/docs/api/shape/shape-attrs)| -      | 滑块的样式设置 |
 
 ### legendOption.itemHeight
 
@@ -107,7 +107,7 @@ _legendOption_ 配置如下：
 
 | 参数名    | 类型                                                    | 是否必选 | 默认值 | 描述                             |
 | --------- | ------------------------------------------------------- | -------- | ------ | -------------------------------- |
-| style     | [ShapeAttrs](shape)                                     |          | -      | 文本样式配置项                   |
+| style     | [ShapeAttrs](/zh/docs/api/shape/shape-attrs)                                     |          | -      | 文本样式配置项                   |
 | spacing   | number                                                  |          | -      | 图例项 marker 同后面 name 的间距 |
 | formatter | `(text: string, item: ListItem, index: number) => any;` |          |        | 格式化函数                       |
 
@@ -125,7 +125,7 @@ _legendOption_ 配置如下：
 
 | 参数名     | 类型                                                    | 是否必选 | 默认值  | 描述                                               |
 | ---------- | ------------------------------------------------------- | -------- | ------- | -------------------------------------------------- |
-| style      | [ShapeAttrs](shape)                                     |          | -       | 文本样式配置项                                     |
+| style      | [ShapeAttrs](/zh/docs/api/shape/shape-attrs)                                    |          | -       | 文本样式配置项                                     |
 | alignRight | boolean                                                 |          | `false` | 是否右对齐，默认为 false，仅当设置图例项宽度时生效 |
 | formatter  | `(text: string, item: ListItem, index: number) => any;` |          |         | 格式化函数                                         |
 
@@ -152,7 +152,7 @@ _legendOption_ 配置如下：
 | 参数名  | 类型                | 是否必选 | 默认值 | 描述                                                                                                                                          |
 | ------- | ------------------- | -------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
 | align   | string              |          | -      | 文本同滑轨的对齐方式 <br/> - rail ： 同滑轨对齐，在滑轨的两端 <br/> - top, bottom: 图例水平布局时有效 <br/> - left, right: 图例垂直布局时有效 |
-| style   | [ShapeAttrs](shape) |          | -      | 文本样式配置项                                                                                                                                |
+| style   | [ShapeAttrs](/zh/docs/api/shape/shape-attrs)|          | -      | 文本样式配置项                                                                                                                                |
 | spacing | number              |          | -      | 文本同滑轨的距离                                                                                                                              |
 
 ### legendOption.marker
@@ -210,7 +210,7 @@ _legendOption_ 配置如下：
 | type          | string              |          | -      | rail 的类型，color, size                                                         |
 | size          | number              |          | -      | 滑轨的宽度                                                                       |
 | defaultLength | number              |          | -      | 滑轨的默认长度，，当限制了 maxWidth,maxHeight 时，不会使用这个属性会自动计算长度 |
-| style         | [ShapeAttrs](shape) |          | -      | 滑轨的样式                                                                       |
+| style         | [ShapeAttrs](/zh/docs/api/shape/shape-attrs)|          | -      | 滑轨的样式                                                                       |
 
 ### legendOption.reversed
 
@@ -233,7 +233,7 @@ _legendOption_ 配置如下：
 | 参数名  | 类型                | 是否必选 | 默认值 | 描述               |
 | ------- | ------------------- | -------- | ------ | ------------------ |
 | spacing | number              |          | -      | 标题同图例项的间距 |
-| style   | [ShapeAttrs](shape) |          | -      | 文本样式配置项     |
+| style   | [ShapeAttrs](/zh/docs/api/shape/shape-attrs)|          | -      | 文本样式配置项     |
 
 ### legendOption.track
 
@@ -243,7 +243,7 @@ _legendOption_ 配置如下：
 
 | 参数名 | 类型                | 是否必选 | 默认值 | 描述           |
 | ------ | ------------------- | -------- | ------ | -------------- |
-| style  | [ShapeAttrs](shape) |          | -      | 选定范围的样式 |
+| style  | [ShapeAttrs](/zh/docs/api/shape/shape-attrs)|          | -      | 选定范围的样式 |
 
 ### legendOption.values
 

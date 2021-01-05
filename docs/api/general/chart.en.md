@@ -1,5 +1,5 @@
 ---
-title: 绘制图表 - Chart
+title: 图表 - Chart
 order: 0
 redirect_from:
   - /en/docs/api

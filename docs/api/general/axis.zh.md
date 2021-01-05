@@ -43,7 +43,7 @@ _AxisOption_ 配置如下：
 
 | 参数名 | 类型                | 是否必选 | 默认值 | 描述                 |
 | ------ | ------------------- | -------- | ------ | -------------------- |
-| style  | [ShapeAttrs](shape) |          | -      | 坐标轴线的样式配置项 |
+| style  | [ShapeAttrs](/zh/docs/api/shape/shape-attrs) |          | -      | 坐标轴线的样式配置项 |
 
 ### AxisOption.tickLine
 
@@ -53,7 +53,7 @@ _AxisOption_ 配置如下：
 
 | 参数名    | 类型                | 是否必选 | 默认值 | 描述                                                       |
 | --------- | ------------------- | -------- | ------ | ---------------------------------------------------------- |
-| style     | [ShapeAttrs](shape) |          | -      | 坐标轴刻度线的样式配置项                                   |
+| style     | [ShapeAttrs](/zh/docs/api/shape/shape-attrs) |          | -      | 坐标轴刻度线的样式配置项                                   |
 | alignTick | boolean             |          | -      | 是否同刻度线对齐，如果值为 false，则会显示在两个刻度中间。 |
 | length    | number              |          | -      | 长度                                                       |
 
@@ -65,7 +65,7 @@ _AxisOption_ 配置如下：
 
 | 参数名 | 类型                | 是否必选 | 默认值 | 描述                     |
 | ------ | ------------------- | -------- | ------ | ------------------------ |
-| style  | [ShapeAttrs](shape) |          | -      | 坐标轴刻度线的样式配置项 |
+| style  | [ShapeAttrs](/zh/docs/api/shape/shape-attrs) |          | -      | 坐标轴刻度线的样式配置项 |
 | count  | number              |          | -      | 子刻度个数               |
 | length | number              |          | -      | 子刻度线长度             |
 
@@ -77,7 +77,7 @@ _AxisOption_ 配置如下：
 
 | 参数名     | 类型                | 是否必选 | 默认值 | 描述                     |
 | ---------- | ------------------- | -------- | ------ | ------------------------ |
-| style      | [ShapeAttrs](shape) |          | -      | 坐标轴刻度线的样式配置项 |
+| style      | [ShapeAttrs](/zh/docs/api/shape/shape-attrs) |          | -      | 坐标轴刻度线的样式配置项 |
 | offset     | number              |          | -      | 标题距离坐标轴的距离     |
 | autoRotate | boolean             |          | -      | 是否自动旋转             |
 
@@ -89,7 +89,7 @@ _AxisOption_ 配置如下：
 
 | 参数名       | 类型                                                   | 是否必选 | 默认值  | 描述                     |
 | ------------ | ------------------------------------------------------ | -------- | ------- | ------------------------ |
-| style        | [ShapeAttrs](shape)                                    |          | -       | 坐标轴刻度线的样式配置项 |
+| style        | [ShapeAttrs](/zh/docs/api/shape/shape-attrs)                                    |          | -       | 坐标轴刻度线的样式配置项 |
 | offset       | number                                                 |          | -       | label 的偏移量           |
 | rotate       | number                                                 |          | -       | 文本旋转角度             |
 | autoRotate   | boolean                                                |          | `true`  | 是否自动旋转             |
@@ -115,7 +115,7 @@ _GridLineCfg_ 配置如下：
 | 参数名 | 类型                | 是否必选 | 默认值 | 描述                               |
 | ------ | ------------------- | -------- | ------ | ---------------------------------- |
 | type   | 'line' \| 'circle'  |          | -      | 栅格线的类型，'line' 或者 'circle' |
-| style  | [ShapeAttrs](shape) |          | -      | 坐标轴刻度线的样式配置项           |
+| style  | [ShapeAttrs](/zh/docs/api/shape/shape-attrs) |          | -      | 坐标轴刻度线的样式配置项           |
 
 ### AxisOption.animate
 
