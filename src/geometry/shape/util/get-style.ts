@@ -1,4 +1,4 @@
-import { isNil } from '@antv/util';
+import { deepMix, isNil } from '@antv/util';
 import { ShapeInfo } from '../../../interface';
 
 /**
@@ -37,4 +37,20 @@ export function getStyle(cfg: ShapeInfo, isStroke: boolean, isFill: boolean, siz
   }
 
   return attrs;
+}
+
+/**
+ * 获取 矩形背景 的样式
+ * @param cfg
+ */
+export function getBackgroundRectStyle(cfg?: ShapeInfo) {
+  return deepMix(
+    {},
+    {
+      // 默认背景色，copy from active-region
+      fill: '#CCD6EC',
+      fillOpacity: 0.3,
+    },
+    cfg
+  );
 }

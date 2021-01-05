@@ -55,6 +55,11 @@ chart
       }
     },
     offset: 10,
+  })
+  .style({
+    background: {
+      radius: 4,
+    },
   });
 
 chart.render();

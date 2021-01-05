@@ -9,6 +9,7 @@ import { AnimateOption, Datum, ShapeFactory, ShapeInfo, StateCfg } from '../../i
 import { getReplaceAttrs } from '../../util/graphics';
 import Geometry from '../base';
 import { GEOMETRY_LIFE_CIRCLE } from '../../constant';
+import { BACKGROUND_SHAPE } from '../shape/constant';
 
 /** Element 构造函数传入参数类型 */
 interface ElementCfg {
@@ -371,7 +372,7 @@ export default class Element extends Base {
             isFunction(cfg.callback) && cfg.callback();
             this.geometry?.emit(GEOMETRY_LIFE_CIRCLE.AFTER_DRAW_ANIMATE);
           },
-        }
+        };
       }
       return cfg;
     }
@@ -472,8 +473,11 @@ export default class Element extends Base {
         }
 
         each(states, (state) => {
-          const style = this.getStateStyle(state, name || index); // 如果用户没有设置 name，则默认根据索引值
-          targetShape.attr(style);
+          // background shape 不进行状态样式设置
+          if (targetShape.get('name') !== BACKGROUND_SHAPE) {
+            const style = this.getStateStyle(state, name || index); // 如果用户没有设置 name，则默认根据索引值
+            targetShape.attr(style);
+          }
         });
       }
       const newAttrs = getReplaceAttrs(sourceShape as IShape, targetShape as IShape);

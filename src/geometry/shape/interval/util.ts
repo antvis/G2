@@ -1,7 +1,8 @@
 import { Coordinate } from '@antv/coord';
-import { isArray, isNil } from '@antv/util';
+import { isArray, isNil, get } from '@antv/util';
+import { getAngle, getSectorPath } from '../../../util/graphics';
 import { PathCommand } from '../../../dependents';
-import { Point, ShapePoint } from '../../../interface';
+import { Point, ShapeInfo, ShapePoint } from '../../../interface';
 
 /**
  * @ignore
@@ -79,6 +80,105 @@ export function getRectPath(points: Point[], isClosed: boolean = true): PathComm
   if (isClosed) {
     path.push(['L', firstPoint.x, firstPoint.y]); // 需要闭合
     path.push(['z']);
+  }
+  return path;
+}
+
+/**
+ * 处理 rect path 的 radius
+ * @returns 返回矩形 path 的四个角的 arc 半径
+ */
+export function parseRadius(radius: number | number[], minLength: number): number[] {
+  let r1 = 0;
+  let r2 = 0;
+  let r3 = 0;
+  let r4 = 0;
+  if (isArray(radius)) {
+    if (radius.length === 1) {
+      r1 = r2 = r3 = r4 = radius[0];
+    } else if (radius.length === 2) {
+      r1 = r3 = radius[0];
+      r2 = r4 = radius[1];
+    } else if (radius.length === 3) {
+      r1 = radius[0];
+      r2 = r4 = radius[1];
+      r3 = radius[2];
+    } else {
+      r1 = radius[0];
+      r2 = radius[1];
+      r3 = radius[2];
+      r4 = radius[3];
+    }
+  } else {
+    r1 = r2 = r3 = r4 = radius;
+  }
+
+  // 处理 边界值
+  r1 = Math.min(r1, minLength);
+  r2 = Math.min(r2, minLength);
+  if (r1 + r2 > minLength) {
+    r1 = minLength / (1 + r2 / r1);
+    r2 = minLength - r1;
+  }
+  r3 = Math.min(r3, minLength);
+  r4 = Math.min(r4, minLength);
+  if (r3 + r4 > minLength) {
+    r3 = minLength / (1 + r4 / r3);
+    r4 = minLength - r3;
+  }
+
+  return [r1, r2, r3, r4];
+}
+
+/**
+ * 获取 interval 矩形背景的 path
+ * @param cfg 关键点的信息
+ * @param points 已转化为画布坐标的 4 个关键点
+ * @param coordinate 坐标系
+ * @returns 返回矩形背景的 path
+ */
+export function getBackgroundRectPath(cfg: ShapeInfo, points: Point[], coordinate: Coordinate): PathCommand[] {
+  let path = [];
+  if (coordinate.isRect) {
+    // corner radius of background shape works only in 笛卡尔坐标系
+    const radius = get(cfg, ['background', 'style', 'radius']);
+    if (radius) {
+      const width = points[2].x - points[1].x;
+      const height = coordinate.getHeight();
+
+      const [r1, r2, r3, r4] = parseRadius(radius, Math.min(width, height));
+      path.push(['M', points[1].x, coordinate.end.y + r1]);
+      r1 !== 0 && path.push(['A', r1, r1, 0, 0, 1, points[1].x + r1, coordinate.end.y]);
+      path.push(['L', points[2].x - r2, coordinate.end.y]);
+      r2 !== 0 && path.push(['A', r2, r2, 0, 0, 1, points[2].x, coordinate.end.y + r2]);
+      path.push(['L', points[3].x, coordinate.start.y - r3]);
+      r3 !== 0 && path.push(['A', r3, r3, 0, 0, 1, points[3].x - r3, coordinate.start.y]);
+      path.push(['L', points[0].x + r4, coordinate.start.y]);
+      r4 !== 0 && path.push(['A', r4, r4, 0, 0, 1, points[0].x, coordinate.start.y - r4]);
+    } else {
+      path.push(['M', points[0].x, coordinate.start.y]);
+      path.push(['L', points[0].x, coordinate.end.y]);
+      path.push(['L', points[3].x, coordinate.end.y]);
+      path.push(['L', points[3].x, coordinate.start.y]);
+      path.push(['L', points[0].x, coordinate.start.y]);
+    }
+
+    path.push(['z']);
+  }
+
+  if (coordinate.isPolar) {
+    const center = coordinate.getCenter();
+    const { startAngle, endAngle } = getAngle(cfg, coordinate);
+    if (coordinate.type !== 'theta') {
+      // 获取扇形 path
+      path = getSectorPath(center.x, center.y, coordinate.getRadius(), startAngle, endAngle);
+    } else {
+      const pow = (v) => Math.pow(v, 2);
+      const r1 = Math.sqrt(pow(center.x - points[0].x) + pow(center.y - points[0].y));
+      const r2 = Math.sqrt(pow(center.x - points[2].x) + pow(center.y - points[2].y));
+      // 获取扇形 path（其实是一个圆环，从 coordinate 的起始角度到结束角度）
+      path = getSectorPath(center.x, center.y, r1, coordinate.startAngle, coordinate.endAngle, r2);
+    }
   }
   return path;
 }

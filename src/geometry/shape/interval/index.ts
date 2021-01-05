@@ -2,8 +2,9 @@ import { IGroup } from '../../../dependents';
 import { Point, ShapeInfo, ShapeMarkerCfg, ShapePoint } from '../../../interface';
 
 import { registerShape, registerShapeFactory } from '../base';
-import { getStyle } from '../util/get-style';
-import { getIntervalRectPath, getRectPoints } from './util';
+import { BACKGROUND_SHAPE } from '../constant';
+import { getBackgroundRectStyle, getStyle } from '../util/get-style';
+import { getBackgroundRectPath, getIntervalRectPath, getRectPoints } from './util';
 
 /** Interval 的 shape 工厂 */
 const IntervalShapeFactory = registerShapeFactory('interval', {
@@ -17,8 +18,28 @@ const IntervalShapeFactory = registerShapeFactory('interval', {
 registerShape('interval', 'rect', {
   draw(cfg: ShapeInfo, container: IGroup) {
     const style = getStyle(cfg, false, true);
+    const group = container.addGroup();
+
+    const backgroundCfg = cfg.style?.background;
+    if (backgroundCfg) {
+      const backgroundStyle = getBackgroundRectStyle(cfg.style?.background);
+      const backgroundPath = getBackgroundRectPath(
+        cfg,
+        this.parsePoints(cfg.points) as Point[],
+        this.coordinate,
+      );
+      group.addShape('path', {
+        attrs: {
+          ...backgroundStyle,
+          path: backgroundPath,
+        },
+        zIndex: -1,
+        name: BACKGROUND_SHAPE,
+      });
+    }
+
     const path = this.parsePath(getIntervalRectPath(cfg.points as Point[], style.lineCap, this.coordinate));
-    const shape = container.addShape('path', {
+    group.addShape('path', {
       attrs: {
         ...style,
         path,
@@ -26,7 +47,7 @@ registerShape('interval', 'rect', {
       name: 'interval',
     });
 
-    return shape;
+    return group;
   },
   getMarker(markerCfg: ShapeMarkerCfg) {
     const { color, isInPolar } = markerCfg;
