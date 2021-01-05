@@ -153,5 +153,7 @@ describe('G2Plot #2165', () => {
 
     expect(chart.geometries[0].elements.length).toBe(3);
     expect(chart.geometries[0].elements[0].getModel().data.length).toBe(8);
+
+    chart.destroy();
   });
 });
