@@ -60,7 +60,7 @@ describe('State setting', () => {
     expect(interval.elements[1].hasState('active')).toBeFalse();
   });
 
-  function initInterval() {
+  function initInterval({ background }) {
     const data = [
       { a: 'A', b: 10 },
       { a: 'B', b: 12 },
@@ -80,7 +80,7 @@ describe('State setting', () => {
       scales,
       coordinate: rectCoord,
       container: canvas.addGroup(),
-      background: {},
+      background,
     });
 
     interval
@@ -104,7 +104,7 @@ describe('State setting', () => {
   }
 
   it('state()', () => {
-    const interval = initInterval();
+    const interval = initInterval({ background: false });
     const selectedElement = interval.elements[0];
     selectedElement.setState('selected', true);
 
@@ -116,7 +116,7 @@ describe('State setting', () => {
   });
 
   it('state with geometry shape background: 背景不会应用 state 状态样式', () => {
-    const interval = initInterval();
+    const interval = initInterval({ background: {} });
     const selectedElement = interval.elements[0];
     selectedElement.setState('selected', true);
 
