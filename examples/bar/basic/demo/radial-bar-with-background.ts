@@ -48,7 +48,7 @@ chart.annotation().html({
   position: ['50%', '50%'],
   html: () => {
     return `<div style="transform:translate(-50%,-50%)">
-      <img width="100" height="80" src="https://gw.alipayobjects.com/mdn/rms_ef85c6/afts/img/A*0DYiQKP08cQAAAAAAAAAAAAAARQnAQ">
+      <img alt="" width="100" height="80" src="https://gw.alipayobjects.com/mdn/rms_ef85c6/afts/img/A*0DYiQKP08cQAAAAAAAAAAAAAARQnAQ">
     </div>`
   }
 })
