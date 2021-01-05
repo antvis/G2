@@ -60,7 +60,7 @@ describe('State setting', () => {
     expect(interval.elements[1].hasState('active')).toBeFalse();
   });
 
-  it('state()', () => {
+  function initInterval() {
     const data = [
       { a: 'A', b: 10 },
       { a: 'B', b: 12 },
@@ -80,6 +80,7 @@ describe('State setting', () => {
       scales,
       coordinate: rectCoord,
       container: canvas.addGroup(),
+      background: {},
     });
 
     interval
@@ -99,12 +100,35 @@ describe('State setting', () => {
     });
     interval.paint();
 
+    return interval;
+  }
+
+  it('state()', () => {
+    const interval = initInterval();
     const selectedElement = interval.elements[0];
     selectedElement.setState('selected', true);
 
     expect(selectedElement.hasState('selected')).toBeTrue();
     expect(selectedElement.shape.attr('stroke')).toBe('#000');
     expect(selectedElement.shape.attr('lineWidth')).toBe(2);
+
+    expect(interval.elements[1].hasState('selected')).toBeFalse();
+  });
+
+  it('state with geometry shape background: 背景不会应用 state 状态样式', () => {
+    const interval = initInterval();
+    const selectedElement = interval.elements[0];
+    selectedElement.setState('selected', true);
+
+    expect(selectedElement.hasState('selected')).toBeTrue();
+    // @ts-ignore
+    const shape = selectedElement.shape.getChildren()[1];
+    // @ts-ignore
+    const backgroundShape = selectedElement.shape.getChildren()[0];
+    expect(shape.attr('stroke')).toBe('#000');
+    expect(shape.attr('lineWidth')).toBe(2);
+    expect(backgroundShape.attr('stroke')).not.toBe('#000');
+    expect(backgroundShape.attr('lineWidth')).not.toBe(2);
 
     expect(interval.elements[1].hasState('selected')).toBeFalse();
   });
