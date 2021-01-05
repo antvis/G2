@@ -898,6 +898,7 @@ export default class Geometry extends Base {
     } else if (data && (isDataChanged || !isEqual(data, this.data))) {
       // 数据发生变化
       this.setCfg(cfg);
+      this.initAttributes(); // 创建图形属性
       this.processData(data); // 数据加工：分组 -> 数字化 -> adjust
     } else {
       // 有可能 coordinate 变化
