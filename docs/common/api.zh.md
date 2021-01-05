@@ -1,6 +1,6 @@
 ## new Chart()
 
-`markdown:docs/common/new-chart.zh.md`
+`markdown:docs/common/new-chart.md`
 
 ## chart.data()
 
