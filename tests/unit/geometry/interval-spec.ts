@@ -1,6 +1,6 @@
 import { getCoordinate } from '@antv/coord';
-import { getScale, Scale } from '@antv/scale';
-import { ScaleType } from  '../../../src/interface';
+import { getScale } from '@antv/scale';
+import { ScaleType } from '../../../src/interface';
 import { isNumberEqual } from '@antv/util';
 import Interval from '../../../src/geometry/interval';
 import { getTheme } from '../../../src/theme/';
@@ -150,7 +150,7 @@ describe('Interval', () => {
       expect(elements[0].shape.getBBox().width).toBeCloseTo(60);
       expect(elements[1].shape.getBBox().width).toBeCloseTo(60);
       expect(elements[2].shape.getBBox().width).toBeCloseTo(60);
-    })
+    });
 
     test('limit the width with minColumnWidth', () => {
       interval.clear();
@@ -412,6 +412,113 @@ describe('Interval', () => {
 
       const colorAttr = pie.getAttribute('color');
       expect(colorAttr.values).toEqual(Theme.colors20);
+    });
+  });
+
+  describe('element shape 支持 background', () => {
+    const data = [
+      { a: 'A', b: 10 },
+      { a: 'B', b: 12 },
+      { a: 'C', b: 8 },
+    ];
+    const scaleDefs = {
+      a: { range: [0.25, 0.75] },
+    };
+    const scales = {
+      a: createScale('a', data, scaleDefs),
+      b: createScale('b', data, scaleDefs),
+      20: createScale(20, data, scaleDefs),
+    };
+
+    let interval;
+
+    test('paint with background', () => {
+      interval = new Interval({
+        data,
+        scaleDefs,
+        scales,
+        coordinate: rectCoord,
+        container: canvas.addGroup(),
+        background: { style: { fill: 'red' } },
+      });
+      interval.position('a*b').color('a').style({
+        fill: 'red',
+      });
+      interval.init({ theme: Theme });
+      interval.paint();
+
+      const intervalShape = interval.elements[0].shape;
+      // @ts-ignore
+      expect(intervalShape.getChildren().length).toBe(2);
+    });
+
+    test('getDrawCfg of interval', () => {
+      // @ts-ignore
+      const dataArray = interval.mapping(interval.beforeMapping(interval.beforeMappingData)[0]);
+      // @ts-ignore
+      const result = interval.getDrawCfg(dataArray[0]);
+      expect((result.background as any).style.fill).toBe('red');
+    });
+
+    test('paint without background', () => {
+      interval = new Interval({
+        data,
+        scaleDefs,
+        scales,
+        coordinate: rectCoord,
+        container: canvas.addGroup(),
+        background: false,
+      });
+      interval.position('a*b').color('a').style({
+        fill: 'red',
+      });
+      interval.init({ theme: Theme });
+      interval.paint();
+
+      const intervalShape = interval.elements[0].shape;
+      // @ts-ignore
+      expect(intervalShape.isGroup()).toBe(false);
+    });
+
+    test('paint interval in rect-shape', () => {
+      interval = new Interval({
+        data,
+        scaleDefs,
+        scales,
+        coordinate: rectCoord,
+        container: canvas.addGroup(),
+        background: {},
+      });
+
+      interval.position('a*b');
+      interval.shape('a', ['rect']);
+      interval.init({ theme: Theme });
+      interval.paint();
+      const intervalShape = interval.elements[0].shape;
+      // @ts-ignore
+      expect(intervalShape.isGroup()).not.toBe(false);
+    });
+
+    test('paint interval in line-shape', () => {
+      interval = new Interval({
+        data,
+        scaleDefs,
+        scales,
+        coordinate: rectCoord,
+        container: canvas.addGroup(),
+        background: {},
+      });
+      interval.position('a*b');
+      interval.shape('a', ['line']);
+      interval.init({ theme: Theme });
+      interval.paint();
+      const intervalShape = interval.elements[0].shape;
+      // @ts-ignore
+      expect(intervalShape.isGroup()).toBe(false);
+    });
+
+    afterAll(() => {
+      interval.destroy();
     });
   });
 
