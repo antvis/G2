@@ -2,15 +2,32 @@ import { IGroup } from '../../../dependents';
 import { Point, ShapeInfo, ShapeMarkerCfg } from '../../../interface';
 
 import { registerShape } from '../base';
-import { getStyle } from '../util/get-style';
-import { getRectPath } from './util';
+import { BACKGROUND_SHAPE } from '../constant';
+import { getBackgroundRectStyle, getStyle } from '../util/get-style';
+import { getBackgroundRectPath, getRectPath } from './util';
 
 /** 描边柱状图 */
 registerShape('interval', 'hollow-rect', {
   draw(cfg: ShapeInfo, container: IGroup) {
     const style = getStyle(cfg, true, false);
+    let group = container;
+    const backgroundCfg = cfg?.background;
+    if (backgroundCfg) {
+      group = container.addGroup();
+      const backgroundStyle = getBackgroundRectStyle(cfg);
+      const backgroundPath = getBackgroundRectPath(cfg, this.parsePoints(cfg.points) as Point[], this.coordinate);
+      group.addShape('path', {
+        attrs: {
+          ...backgroundStyle,
+          path: backgroundPath,
+        },
+        zIndex: -1,
+        name: BACKGROUND_SHAPE,
+      });
+    }
+
     const path = this.parsePath(getRectPath(cfg.points as Point[]));
-    const shape = container.addShape('path', {
+    const shape = group.addShape('path', {
       attrs: {
         ...style,
         path,
@@ -18,7 +35,7 @@ registerShape('interval', 'hollow-rect', {
       name: 'interval',
     });
 
-    return shape;
+    return backgroundCfg ? group : shape;
   },
   getMarker(markerCfg: ShapeMarkerCfg) {
     const { color, isInPolar } = markerCfg;

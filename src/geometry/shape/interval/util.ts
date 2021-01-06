@@ -114,14 +114,14 @@ export function parseRadius(radius: number | number[], minLength: number): numbe
   }
 
   // 处理 边界值
-  r1 = Math.min(r1||0, minLength);
-  r2 = Math.min(r2||0, minLength);
+  r1 = Math.min(r1 || 0, minLength);
+  r2 = Math.min(r2 || 0, minLength);
   if (r1 + r2 > minLength) {
     r1 = minLength / (1 + r2 / r1);
     r2 = minLength - r1;
   }
-  r3 = Math.min(r3||0, minLength);
-  r4 = Math.min(r4||0, minLength);
+  r3 = Math.min(r3 || 0, minLength);
+  r4 = Math.min(r4 || 0, minLength);
   if (r3 + r4 > minLength) {
     r3 = minLength / (1 + r4 / r3);
     r4 = minLength - r3;
@@ -140,27 +140,34 @@ export function parseRadius(radius: number | number[], minLength: number): numbe
 export function getBackgroundRectPath(cfg: ShapeInfo, points: Point[], coordinate: Coordinate): PathCommand[] {
   let path = [];
   if (coordinate.isRect) {
+    const p0 = coordinate.isTransposed
+      ? { x: coordinate.start.x, y: points[0].y }
+      : { x: points[0].x, y: coordinate.start.y };
+    const p1 = coordinate.isTransposed
+      ? { x: coordinate.end.x, y: points[2].y }
+      : { x: points[3].x, y: coordinate.end.y };
+
     // corner radius of background shape works only in 笛卡尔坐标系
     const radius = get(cfg, ['background', 'style', 'radius']);
     if (radius) {
-      const width = points[2].x - points[1].x;
-      const height = coordinate.getHeight();
-
+      const width = coordinate.isTransposed ? Math.abs(points[0].y - points[2].y) : points[2].x - points[1].x;
+      const height = coordinate.isTransposed ? coordinate.getWidth() : coordinate.getHeight();
       const [r1, r2, r3, r4] = parseRadius(radius, Math.min(width, height));
-      path.push(['M', points[1].x, coordinate.end.y + r1]);
-      r1 !== 0 && path.push(['A', r1, r1, 0, 0, 1, points[1].x + r1, coordinate.end.y]);
-      path.push(['L', points[2].x - r2, coordinate.end.y]);
-      r2 !== 0 && path.push(['A', r2, r2, 0, 0, 1, points[2].x, coordinate.end.y + r2]);
-      path.push(['L', points[3].x, coordinate.start.y - r3]);
-      r3 !== 0 && path.push(['A', r3, r3, 0, 0, 1, points[3].x - r3, coordinate.start.y]);
-      path.push(['L', points[0].x + r4, coordinate.start.y]);
-      r4 !== 0 && path.push(['A', r4, r4, 0, 0, 1, points[0].x, coordinate.start.y - r4]);
+
+      path.push(['M', p0.x, p1.y + r1]);
+      r1 !== 0 && path.push(['A', r1, r1, 0, 0, 1, p0.x + r1, p1.y]);
+      path.push(['L', p1.x - r2, p1.y]);
+      r2 !== 0 && path.push(['A', r2, r2, 0, 0, 1, p1.x, p1.y + r2]);
+      path.push(['L', p1.x, p0.y - r3]);
+      r3 !== 0 && path.push(['A', r3, r3, 0, 0, 1, p1.x - r3, p0.y]);
+      path.push(['L', p0.x + r4, p0.y]);
+      r4 !== 0 && path.push(['A', r4, r4, 0, 0, 1, p0.x, p0.y - r4]);
     } else {
-      path.push(['M', points[0].x, coordinate.start.y]);
-      path.push(['L', points[0].x, coordinate.end.y]);
-      path.push(['L', points[3].x, coordinate.end.y]);
-      path.push(['L', points[3].x, coordinate.start.y]);
-      path.push(['L', points[0].x, coordinate.start.y]);
+      path.push(['M', p0.x, p0.y]);
+      path.push(['L', p1.x, p0.y]);
+      path.push(['L', p1.x, p1.y]);
+      path.push(['L', p0.x, p1.y]);
+      path.push(['L', p0.x, p0.y]);
     }
 
     path.push(['z']);
@@ -169,7 +176,7 @@ export function getBackgroundRectPath(cfg: ShapeInfo, points: Point[], coordinat
   if (coordinate.isPolar) {
     const center = coordinate.getCenter();
     const { startAngle, endAngle } = getAngle(cfg, coordinate);
-    if (coordinate.type !== 'theta') {
+    if (coordinate.type !== 'theta' && !coordinate.isTransposed) {
       // 获取扇形 path
       path = getSectorPath(center.x, center.y, coordinate.getRadius(), startAngle, endAngle);
     } else {
