@@ -812,7 +812,7 @@ describe('Geometry', () => {
             r: 4,
           },
         });
-      }
+      },
     });
 
     const chart = new Chart({
@@ -875,7 +875,7 @@ describe('Geometry', () => {
     geometry.animate({
       update: {
         callback: fn,
-      }
+      },
     });
     geometry.once(GEOMETRY_LIFE_CIRCLE.BEFORE_DRAW_ANIMATE, () => beforFn(3));
     geometry.once(GEOMETRY_LIFE_CIRCLE.AFTER_DRAW_ANIMATE, () => afterFn(3));
@@ -888,5 +888,36 @@ describe('Geometry', () => {
     expect(beforFn).toBeCalledWith(3);
     expect(afterFn).toBeCalledWith(3);
     expect(fn).toBeCalled();
+  });
+
+  it('geometry elements set zIndexReversed', () => {
+    const data = [
+      { year: '1991', value: 15468 },
+      { year: '1992', value: 16100 },
+      { year: '1993', value: 15900 },
+      { year: '1998', value: 32040 },
+    ];
+
+    const chart = new Chart({
+      container: createDiv(),
+      width: 500,
+      height: 400,
+    });
+
+    chart.data(data);
+    const geometry = chart.interval({ zIndexReversed: true }).position('year*valye');
+    chart.render();
+    // @ts-ignore
+    expect(geometry.zIndexReversed).toBe(true);
+    geometry.elements.reduce((a, b) => {
+      expect(b.shape.get('zIndex')).toBeLessThan(a);
+      return b.shape.get('zIndex');
+    }, 100);
+
+    const geometry1 = chart.interval({ zIndexReversed: false }).position('year*valye');
+    chart.render();
+    // @ts-ignore
+    expect(geometry1.zIndexReversed).toBe(false);
+    expect(geometry1.elements[0].shape.get('zIndex')).not.toBeGreaterThan(geometry1.elements[1].shape.get('zIndex'));
   });
 });
