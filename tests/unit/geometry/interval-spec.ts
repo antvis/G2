@@ -494,7 +494,7 @@ describe('Interval', () => {
       interval.init({ theme: Theme });
       interval.paint();
 
-      return interval
+      return interval;
     }
 
     test('paint interval in rect shape', () => {
@@ -509,6 +509,7 @@ describe('Interval', () => {
 
       const intervalShape = interval.elements[0].shape;
       // @ts-ignore
+      expect(intervalShape.getChildren().length).toBe(2);
       expect(intervalShape.isGroup()).not.toBe(false);
     });
 

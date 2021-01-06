@@ -19,6 +19,8 @@ describe('绘制 interval shape 的一些 utils', () => {
 
     expect(parseRadius([3, 1], 4)).toEqual([3, 1, 3, 1]);
     expect(parseRadius([3, 2], 4)).toEqual([(4 / 5) * 3, 4 - (4 / 5) * 3, (4 / 5) * 3, 4 - (4 / 5) * 3]);
+    expect(parseRadius([6, 2], 4)).toEqual([3, 1, 3, 1]);
+    expect(parseRadius([6, null], 4)).toEqual([4, 0, 4, 0]);
   });
 
   const region = { start: { x: 0, y: 300 }, end: { x: 300, y: 0 } };
