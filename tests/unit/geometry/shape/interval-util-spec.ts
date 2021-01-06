@@ -76,6 +76,39 @@ describe('绘制 interval shape 的一些 utils', () => {
     ]);
   });
 
+  it('直角坐标系，转置：获取 path of background rect', () => {
+    const rectCoord = new CartesianCoordinate(region);
+    rectCoord.transpose();
+
+    const path = getBackgroundRectPath(
+      {
+        ...shapeInfo,
+        points: [
+          { x: 0.7007575757575757, y: 0 },
+          { x: 0.7007575757575757, y: 1 },
+          { x: 0.7992424242424243, y: 1 },
+          { x: 0.7992424242424243, y: 0 },
+        ],
+      },
+      [
+        { x: 56, y: 79 },
+        { x: 300, y: 79 },
+        { x: 300, y: 52.99999999999997 },
+        { x: 56, y: 52.99999999999997 },
+      ],
+      rectCoord
+    );
+    // p0 (0, 79), p1 (300, 52.99999999999997)
+    expect(path).toEqual([
+      ['M', 0, 79],
+      ['L', 300, 79],
+      ['L', 300, 52.99999999999997],
+      ['L', 0, 52.99999999999997],
+      ['L', 0, 79],
+      ['z'],
+    ]);
+  });
+
   it('polar 坐标系，非转置：获取 path of background rect', () => {
     const polarCoord = new PolarCoordinate(region);
 
