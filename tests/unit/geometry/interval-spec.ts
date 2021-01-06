@@ -480,8 +480,8 @@ describe('Interval', () => {
       expect(intervalShape.isGroup()).toBe(false);
     });
 
-    test('paint interval in rect-shape', () => {
-      interval = new Interval({
+    function createIntervalWithBackground(shape: string = 'rect') {
+      const interval = new Interval({
         data,
         scaleDefs,
         scales,
@@ -489,29 +489,40 @@ describe('Interval', () => {
         container: canvas.addGroup(),
         background: {},
       });
-
       interval.position('a*b');
-      interval.shape('a', ['rect']);
+      interval.shape('a', [shape]);
       interval.init({ theme: Theme });
       interval.paint();
+
+      return interval
+    }
+
+    test('paint interval in rect shape', () => {
+      interval = createIntervalWithBackground();
       const intervalShape = interval.elements[0].shape;
       // @ts-ignore
       expect(intervalShape.isGroup()).not.toBe(false);
     });
 
-    test('paint interval in line-shape', () => {
-      interval = new Interval({
-        data,
-        scaleDefs,
-        scales,
-        coordinate: rectCoord,
-        container: canvas.addGroup(),
-        background: {},
-      });
-      interval.position('a*b');
-      interval.shape('a', ['line']);
-      interval.init({ theme: Theme });
-      interval.paint();
+    test('paint interval in hollow-rect shape', () => {
+      interval = createIntervalWithBackground('hollow-rect');
+
+      const intervalShape = interval.elements[0].shape;
+      // @ts-ignore
+      expect(intervalShape.isGroup()).not.toBe(false);
+    });
+
+    test('paint interval in line shape', () => {
+      interval = createIntervalWithBackground('line');
+
+      const intervalShape = interval.elements[0].shape;
+      // @ts-ignore
+      expect(intervalShape.isGroup()).toBe(false);
+    });
+
+    test('paint interval in funnel shape', () => {
+      interval = createIntervalWithBackground('funnel');
+
       const intervalShape = interval.elements[0].shape;
       // @ts-ignore
       expect(intervalShape.isGroup()).toBe(false);

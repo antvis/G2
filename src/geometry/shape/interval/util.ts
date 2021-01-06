@@ -114,20 +114,17 @@ export function parseRadius(radius: number | number[], minLength: number): numbe
   }
 
   // 处理 边界值
-  r1 = Math.min(r1 || 0, minLength);
-  r2 = Math.min(r2 || 0, minLength);
   if (r1 + r2 > minLength) {
-    r1 = minLength / (1 + r2 / r1);
+    r1 = r1 ? minLength / (1 + r2 / r1) : 0;
     r2 = minLength - r1;
   }
-  r3 = Math.min(r3 || 0, minLength);
-  r4 = Math.min(r4 || 0, minLength);
+
   if (r3 + r4 > minLength) {
-    r3 = minLength / (1 + r4 / r3);
+    r3 = r3 ? minLength / (1 + r4 / r3) : 0;
     r4 = minLength - r3;
   }
 
-  return [r1, r2, r3, r4];
+  return [r1 || 0, r2 || 0, r3 || 0, r4 || 0];
 }
 
 /**
