@@ -467,7 +467,7 @@ describe('Interval', () => {
         scales,
         coordinate: rectCoord,
         container: canvas.addGroup(),
-        background: false,
+        background: null,
       });
       interval.position('a*b').color('a').style({
         fill: 'red',
@@ -480,14 +480,14 @@ describe('Interval', () => {
       expect(intervalShape.isGroup()).toBe(false);
     });
 
-    function createIntervalWithBackground(shape: string = 'rect') {
+    function createInterval(shape: string = 'rect', background, coordinate = rectCoord) {
       const interval = new Interval({
         data,
         scaleDefs,
         scales,
-        coordinate: rectCoord,
+        coordinate,
         container: canvas.addGroup(),
-        background: {},
+        background,
       });
       interval.position('a*b');
       interval.shape('a', [shape]);
@@ -498,23 +498,45 @@ describe('Interval', () => {
     }
 
     test('paint interval in rect shape', () => {
-      interval = createIntervalWithBackground();
+      interval = createInterval('rect', {});
       const intervalShape = interval.elements[0].shape;
       // @ts-ignore
       expect(intervalShape.isGroup()).not.toBe(false);
     });
 
     test('paint interval in hollow-rect shape', () => {
-      interval = createIntervalWithBackground('hollow-rect');
+      interval = createInterval('hollow-rect', {});
 
       const intervalShape = interval.elements[0].shape;
       // @ts-ignore
-      expect(intervalShape.getChildren().length).toBe(2);
-      expect(intervalShape.isGroup()).not.toBe(false);
+      const children = intervalShape.getChildren();
+      expect(children.length).toBe(2);
+      expect(children[0].get('zIndex')).toBeLessThan(0);
+    });
+
+    test('paint interval in hollow-rect shape without background', () => {
+      interval = createInterval('hollow-rect', null);
+
+      const intervalShape = interval.elements[0].shape;
+      expect(intervalShape.isGroup()).toBe(false);
+    });
+
+    test('hollow-rect with background in polar', () => {
+      const thetaCoord = new PolarCoordinate({
+        start: { x: 0, y: 180 },
+        end: { x: 180, y: 0 },
+      });
+
+      interval = createInterval('hollow-rect', {}, thetaCoord);
+
+      const intervalShape = interval.elements[0].shape;
+      // @ts-ignore
+      const children = intervalShape.getChildren();
+      expect(children[0].attr('path')[1][0]).toBe('A');
     });
 
     test('paint interval in line shape', () => {
-      interval = createIntervalWithBackground('line');
+      interval = createInterval('line', {});
 
       const intervalShape = interval.elements[0].shape;
       // @ts-ignore
@@ -522,7 +544,7 @@ describe('Interval', () => {
     });
 
     test('paint interval in funnel shape', () => {
-      interval = createIntervalWithBackground('funnel');
+      interval = createInterval('funnel', {});
 
       const intervalShape = interval.elements[0].shape;
       // @ts-ignore
