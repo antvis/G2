@@ -1,10 +1,17 @@
 import { get } from '@antv/util';
-import { Datum } from '../interface';
+import { Datum, MappingDatum, ShapeInfo, LooseObject } from '../interface';
+import { ShapeAttrs } from '../dependents';
 import { getXDimensionLength } from '../util/coordinate';
-import Geometry from './base';
+import Geometry, { GeometryCfg } from './base';
 /** 引入对应的 ShapeFactory */
 import './shape/interval';
 import { getDefaultSize } from './util/shape-size';
+
+/** Path 构造函数参数类型 */
+export interface IntervalCfg extends GeometryCfg {
+  /** shape 背景，只对 Interval Geometry 生效，目前只对 interval-rect shape 生效。 */
+  background?: { style?: ShapeAttrs };
+}
 
 /**
  * Interval 几何标记。
@@ -13,7 +20,16 @@ import { getDefaultSize } from './util/shape-size';
 export default class Interval extends Geometry {
   public readonly type: string = 'interval';
   public readonly shapeType: string = 'interval';
+  /** shape 背景。目前只对 interval-rect shape 生效。 */
+  protected background?: { style?: ShapeAttrs };
   protected generatePoints: boolean = true;
+
+  constructor(cfg: IntervalCfg) {
+    super(cfg);
+
+    const { background } = cfg;
+    this.background = background;
+  }
 
   /**
    * 获取每条数据的 Shape 绘制信息
@@ -78,5 +94,15 @@ export default class Interval extends Geometry {
         }
       }
     }
+  }
+
+  /**
+   * @override
+   */
+  protected getDrawCfg(mappingData: MappingDatum): ShapeInfo {
+    const shapeCfg = super.getDrawCfg(mappingData);
+    shapeCfg.background = this.background;
+
+    return shapeCfg;
   }
 }

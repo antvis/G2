@@ -1,4 +1,4 @@
-import { getStyle } from '../../../../../src/geometry/shape/util/get-style';
+import { getStyle, getBackgroundRectStyle } from '../../../../../src/geometry/shape/util/get-style';
 
 describe('getStyle()', () => {
   it('getStyle()', () => {
@@ -115,5 +115,17 @@ describe('getStyle()', () => {
       fill: '#000',
       r: 0,
     });
+  });
+
+  it('获取 shape 的矩形背景样式: getBackgroundRectStyle', () => {
+    // 默认填充色不为空
+    expect(getBackgroundRectStyle().fill).toBeDefined();
+    expect(
+      getBackgroundRectStyle({
+        x: 0,
+        y: 0,
+        background: { style: { fill: 'red', stroke: 'green' } },
+      })
+    ).toMatchObject({ fill: 'red', stroke: 'green' });
   });
 });
