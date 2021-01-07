@@ -17,7 +17,7 @@ describe('tooltip ellipsis tip', () => {
       container: createDiv(),
       width: 600,
       height: 300,
-      autoFit: true,
+      autoFit: false,
     });
 
     chart.data(data);
