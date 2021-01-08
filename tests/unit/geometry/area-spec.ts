@@ -44,7 +44,7 @@ describe('Area', () => {
 
     // @ts-ignore
     expect(area.generatePoints).toBe(true);
-    expect(area.sortable).toBe(true);
+    expect(area.sortable).toBe(false);
     expect(area.startOnZero).toBe(true);
     // @ts-ignore
     expect(area.connectNulls).toBe(false);

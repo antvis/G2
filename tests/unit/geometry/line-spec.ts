@@ -46,7 +46,7 @@ describe('Line', () => {
     canvas.draw();
 
     expect(line.shapeType).toBe('line');
-    expect(line.sortable).toBe(true);
+    expect(line.sortable).toBe(false);
 
     const element = line.elements[0];
     expect(element.getData()).toEqual([
