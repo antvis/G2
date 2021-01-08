@@ -1,21 +1,27 @@
+#### 4.1.6 (2021-01-08)
+
+##### Performance
+
+- 优化 G2 图形渲染性能 ([#3188](https://github.com/antvis/G2/pull/3188)) ([#63e137b](https://github.com/antvis/G2/pull/3188/commits/63e137b932ff5602664878711dbfd02dc0f3047c))
+
 #### 4.1.5 (2021-01-07)
 
 ##### Documentation Changes
 
-*  add mask documents ([#3176](https://github.com/antvis/g2/pull/3176)) ([e53f8d40](https://github.com/antvis/g2/commit/e53f8d406b5ab94fe5c0f7dc78a06ddf45283862))
-*  添加 chart 和 view 对象的 api 文档 & 修复 shapeAttrs 链接文档 404 ([#3172](https://github.com/antvis/g2/pull/3172)) ([5658ae73](https://github.com/antvis/g2/commit/5658ae73dc450f1293f974df1a437e875c98b86f))
-*  404 ([#3165](https://github.com/antvis/g2/pull/3165)) ([baebc300](https://github.com/antvis/g2/commit/baebc300faa981f0b2acad7b95b7dd632d59ab7a))
+- add mask documents ([#3176](https://github.com/antvis/g2/pull/3176)) ([e53f8d40](https://github.com/antvis/g2/commit/e53f8d406b5ab94fe5c0f7dc78a06ddf45283862))
+- 添加 chart 和 view 对象的 api 文档 & 修复 shapeAttrs 链接文档 404 ([#3172](https://github.com/antvis/g2/pull/3172)) ([5658ae73](https://github.com/antvis/g2/commit/5658ae73dc450f1293f974df1a437e875c98b86f))
+- 404 ([#3165](https://github.com/antvis/g2/pull/3165)) ([baebc300](https://github.com/antvis/g2/commit/baebc300faa981f0b2acad7b95b7dd632d59ab7a))
 
 ##### New Features
 
-*  interval shape 支持 background ([#3175](https://github.com/antvis/g2/pull/3175)) ([0a9ee039](https://github.com/antvis/g2/commit/0a9ee039e7e5d06c799fc311118280197df5fb7f))
-*  支持对 geometry 下的 elements zIndex 进行降序 ([#3173](https://github.com/antvis/g2/pull/3173)) ([612cf971](https://github.com/antvis/g2/commit/612cf971fc35656650b460bae6e51c4465983891))
+- interval shape 支持 background ([#3175](https://github.com/antvis/g2/pull/3175)) ([0a9ee039](https://github.com/antvis/g2/commit/0a9ee039e7e5d06c799fc311118280197df5fb7f))
+- 支持对 geometry 下的 elements zIndex 进行降序 ([#3173](https://github.com/antvis/g2/pull/3173)) ([612cf971](https://github.com/antvis/g2/commit/612cf971fc35656650b460bae6e51c4465983891))
 
 ##### Bug Fixes
 
-* **tooltip-tip:**  label tip max width 50%, and break word ([#3177](https://github.com/antvis/g2/pull/3177)) ([b7a86fec](https://github.com/antvis/g2/commit/b7a86fec2be9abf5609269f704f7af886f9401a5))
-* **geometry:**  geometry.update should update scale when data is changed ([#3174](https://github.com/antvis/g2/pull/3174)) ([86f2c570](https://github.com/antvis/g2/commit/86f2c570c5531b4d421c032ed25d8190cef85277))
-*  correct label position for histogram ([#3156](https://github.com/antvis/g2/pull/3156)) ([0f6e7167](https://github.com/antvis/g2/commit/0f6e716709990d0ea32a81996de052e10ab0859c))
+- **tooltip-tip:** label tip max width 50%, and break word ([#3177](https://github.com/antvis/g2/pull/3177)) ([b7a86fec](https://github.com/antvis/g2/commit/b7a86fec2be9abf5609269f704f7af886f9401a5))
+- **geometry:** geometry.update should update scale when data is changed ([#3174](https://github.com/antvis/g2/pull/3174)) ([86f2c570](https://github.com/antvis/g2/commit/86f2c570c5531b4d421c032ed25d8190cef85277))
+- correct label position for histogram ([#3156](https://github.com/antvis/g2/pull/3156)) ([0f6e7167](https://github.com/antvis/g2/commit/0f6e716709990d0ea32a81996de052e10ab0859c))
 
 #### 4.1.4 (2020-12-22)
 
