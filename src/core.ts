@@ -1,6 +1,6 @@
 /* G2 的一个壳子，不包含 Geometry，由开发者自己定义和引入 */
 
-export const VERSION = '4.1.5';
+export const VERSION = '4.1.6';
 
 // 核心基类导出
 export { Chart, View, Event } from './chart'; // Chart, View 类
@@ -51,13 +51,7 @@ export { LAYER, DIRECTION } from './constant';
 import * as Types from './interface';
 export { Types };
 
-export {
-  IGroup,
-  ShapeAttrs,
-  Coordinate,
-  Scale,
-  ScaleConfig,
-} from './dependents';
+export { IGroup, ShapeAttrs, Coordinate, Scale, ScaleConfig } from './dependents';
 
 // 一些工具方法导出
 import { getLegendItems } from './util/legend';

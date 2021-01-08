@@ -12,7 +12,7 @@ export default class Line extends Path {
   constructor(cfg: PathCfg) {
     super(cfg);
 
-    const { sortable = true } = cfg; // Line 默认会对数据按照 x 轴字段进行排序
+    const { sortable = false } = cfg; // 关闭默认的 X 轴数据排序
     this.sortable = sortable;
   }
 }

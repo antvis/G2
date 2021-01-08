@@ -36,6 +36,7 @@ describe('Line', () => {
       scales,
       container: canvas.addGroup(),
       coordinate: rectCoord,
+      sortable: true,
     });
 
     line.position('x*y');
