@@ -36,6 +36,7 @@ describe('Line', () => {
       scales,
       container: canvas.addGroup(),
       coordinate: rectCoord,
+      sortable: true,
     });
 
     line.position('x*y');
@@ -46,7 +47,7 @@ describe('Line', () => {
     canvas.draw();
 
     expect(line.shapeType).toBe('line');
-    expect(line.sortable).toBe(false);
+    expect(line.sortable).toBe(true);
 
     const element = line.elements[0];
     expect(element.getData()).toEqual([
