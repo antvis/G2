@@ -263,3 +263,72 @@ export function getFunnelPath(points: Point[], nextPoints: Point[], isPyramid: b
 
   return path;
 }
+
+/**
+ * 获取 倒角 矩形
+ * - 目前只适用于笛卡尔坐标系下
+ */
+export function getRectWithCornerRadius(points: Point[], coordinate: Coordinate, radius?: number | number[]) {
+  // 获取 四个关键点
+  let [p0, p1, p2, p3] = points;
+  let [r1, r2, r3, r4] = [0, 0, 0, 0];
+
+  /**
+   *  p1 → p2
+   *  ↑    ↓
+   *  p0 ← p3
+   *
+   *  负数的情况，关键点会变成下面的形式
+   *
+   *  p0 ← p3
+   *  ↓    ↑
+   *  p1 → p2
+   */
+  if (p0.y < p1.y /** 负数情况 */) {
+    [p1, p0, p3, p2] = points;
+    [r4, r3, r2, r1] = parseRadius(radius, Math.min(p3.x - p0.x, p0.y - p1.y));
+  } else {
+    [r1, r2, r3, r4] = parseRadius(radius, Math.min(p3.x - p0.x, p0.y - p1.y));
+  }
+
+  /**
+   * 转置前
+   *  p1 → p2
+   *  ↑    ↓
+   *  p0 ← p3
+   *
+   * 转置后(↓ 是 x 轴递增，→ 是 y 轴递增)，从 p0 开始绘制，对应的 radius: [r3, r2, r1, r4]
+   * p3 ← p2
+   * ↓    ↑
+   * P0 → p1（points[3]）
+   *
+   *  负数的情况，y 轴翻转
+   *
+   *  p0 → p1
+   *  ↑    ↓
+   *  p3 ← p2
+   */
+  if (coordinate.isTransposed) {
+    [p0, p3, p2, p1] = points;
+    if (points[0].x > points[1].x /** 负数情况 */) {
+      [p3, p0, p1, p2] = points;
+      [r1, r4, r3, r2] = parseRadius(radius, Math.min(p3.x - p0.x, p0.y - p1.y));
+    } else {
+      [r2, r3, r4, r1] = parseRadius(radius, Math.min(p3.x - p0.x, p0.y - p1.y));
+    }
+  }
+
+  const path = [];
+  path.push(['M', p1.x, p1.y + r1]);
+  r1 !== 0 && path.push(['A', r1, r1, 0, 0, 1, p1.x + r1, p1.y]);
+  path.push(['L', p2.x - r2, p2.y]);
+  r2 !== 0 && path.push(['A', r2, r2, 0, 0, 1, p2.x, p2.y + r2]);
+  path.push(['L', p3.x, p3.y - r3]);
+  r3 !== 0 && path.push(['A', r3, r3, 0, 0, 1, p3.x - r3, p3.y]);
+  path.push(['L', p0.x + r4, p0.y]);
+  r4 !== 0 && path.push(['A', r4, r4, 0, 0, 1, p0.x, p0.y - r4]);
+  path.push(['L', p1.x, p1.y + r1]);
+  path.push(['z']);
+
+  return path;
+}
