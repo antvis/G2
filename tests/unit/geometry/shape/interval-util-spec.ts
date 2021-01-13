@@ -235,12 +235,9 @@ describe('绘制 interval shape 的一些 utils', () => {
     /**
      * 转置后，
      * 从 p3 开始绘制，对应的 radius: [r1, r2, r3, r0]
-     * p3 ----> p2
-     * ↑        |
-     * |        |
-     * |        |
-     * |        ↓
-     * P0 <---- P1
+     * p3 → p2
+     * ↑    ↓
+     * P0 ← P1
      */
     expect(path).toEqual([
       ['M', 60, 95],

@@ -272,13 +272,53 @@ export function getRectWithCornerRadius(points: Point[], coordinate: Coordinate,
   // 获取 四个关键点
   let [p0, p1, p2, p3] = points;
 
-  let min = points[3].x - points[0].x;
-  if (coordinate.isTransposed) {
-    [p0, p3, p2, p1] = points;
-    min = points[0].y - points[3].y;
+  let [r1, r2, r3, r4] = [0, 0, 0, 0];
+
+  /**
+   *  p1 → p2
+   *  ↑    ↓
+   *  p0 ← p3
+   *
+   *  负数的情况，关键点会变成下面的形式
+   *
+   *  p0 ← p3
+   *  ↓    ↑
+   *  p1 → p2
+   */
+  if (p0.y < p1.y /** 负数情况 */) {
+    [p1, p0, p3, p2] = points;
+    [r4, r3, r2, r1] = parseRadius(radius, Math.min(p3.x - p0.x, p0.y - p1.y));
+  } else {
+    [r1, r2, r3, r4] = parseRadius(radius, Math.min(p3.x - p0.x, p0.y - p1.y));
   }
 
-  const [r1, r2, r3, r4] = parseRadius(radius, min);
+  /**
+   * 转置前
+   *  p1 → p2
+   *  ↑    ↓
+   *  p0 ← p3
+   *
+   * 转置后(↓ 是 x 轴递增，→ 是 y 轴递增)，从 p0 开始绘制，对应的 radius: [r3, r2, r1, r4]
+   * p3 ← p2
+   * ↓    ↑
+   * P0 → p1（points[3]）
+   *
+   *  负数的情况，y 轴翻转
+   *
+   *  p0 → p1
+   *  ↑    ↓
+   *  p3 ← p2
+   */
+  if (coordinate.isTransposed) {
+    [p0, p3, p2, p1] = points;
+    if (points[0].x > points[1].x /** 负数情况 */) {
+      [p3, p0, p1, p2] = points;
+      [r1, r4, r3, r2] = parseRadius(radius, Math.min(p3.x - p0.x, p0.y - p1.y));
+    } else {
+      [r2, r3, r4, r1] = parseRadius(radius, Math.min(p3.x - p0.x, p0.y - p1.y));
+    }
+  }
+
   const path = [];
   path.push(['M', p1.x, p1.y + r1]);
   r1 !== 0 && path.push(['A', r1, r1, 0, 0, 1, p1.x + r1, p1.y]);
