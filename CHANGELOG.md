@@ -1,3 +1,17 @@
+#### 4.1.7 (2021-01-13)
+
+##### Documentation Changes
+
+- 添加钉钉联系方式 ([#3199](https://github.com/antvis/g2/pull/3199)) ([302b26eb](https://github.com/antvis/g2/commit/302b26eb8e29d2b8bacf244e488ee5e87b34bac7))
+
+##### New Features
+
+- interval rect shape support cornerRadius ([#3170](https://github.com/antvis/g2/pull/3170)) ([31f41bf4](https://github.com/antvis/g2/commit/31f41bf44511097aa6cb4ee7513fed0a22ef02c7))
+
+##### Tests
+
+- make ci pass ([#3196](https://github.com/antvis/g2/pull/3196)) ([ae651fe7](https://github.com/antvis/g2/commit/ae651fe7e9997ed8bce4154e5ae490fbbaf4ee8c))
+
 #### 4.1.6 (2021-01-08)
 
 ##### Performance
