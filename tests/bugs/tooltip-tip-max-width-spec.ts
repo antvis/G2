@@ -13,8 +13,9 @@ describe('tooltip ellipsis tip', () => {
       { month: 'Feb', city: London, temperature: 4.2 },
     ];
 
+    const div = createDiv();
     const chart = new Chart({
-      container: createDiv(),
+      container: div,
       width: 600,
       height: 300,
       autoFit: false,
@@ -33,7 +34,7 @@ describe('tooltip ellipsis tip', () => {
     });
 
     // 超长 tooltip 自动换行
-    expect(document.querySelector('.g2-tooltip').getBoundingClientRect().height).toBeGreaterThan(36);
+    expect(div.querySelector('.g2-tooltip').getBoundingClientRect().height).toBeGreaterThan(36);
 
     chart.destroy();
   });
