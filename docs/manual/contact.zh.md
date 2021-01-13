@@ -12,3 +12,7 @@ order: 7
 语雀专栏：https://www.yuque.com/antv/blog
 
 知乎专栏：https://zhuanlan.zhihu.com/aiux-antv
+
+钉钉群组号码: 30233731
+
+<img src="https://gw.alipayobjects.com/zos/antfincdn/9sHnl5k%26u4/dingdingqun.png" width="200" height="266" />

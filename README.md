@@ -108,9 +108,14 @@ $ npm start
 
 > You can also use **[G2Plot](https://github.com/antvis/G2Plot)** which is an interactive and responsive charting library based on G2. You can easily make superior statistical plots through a few lines of code.
 
-
 ## 🤝 How to Contribute
 
 Please let us know how can we help. Do check out [issues](https://github.com/antvis/g2/issues) for bug reports or suggestions first.
 
 To become a contributor, please follow our [contributing guide](https://github.com/antvis/g2/blob/master/CONTRIBUTING.md).
+
+## Contact us
+
+DingTalk Group: 30233731
+
+<img src="https://gw.alipayobjects.com/zos/antfincdn/9sHnl5k%26u4/dingdingqun.png" width="200" height="266" />

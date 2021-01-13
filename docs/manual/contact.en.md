@@ -12,3 +12,7 @@ mail: antv@antfin.com
 Yuque column: https://www.yuque.com/antv/blog
 
 Zhihu column: https://zhuanlan.zhihu.com/aiux-antv
+
+DingTalk Group Number: 30233731
+
+<img src="https://gw.alipayobjects.com/zos/antfincdn/9sHnl5k%26u4/dingdingqun.png" width="200" height="266" />
