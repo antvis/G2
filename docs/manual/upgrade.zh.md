@@ -124,7 +124,7 @@ chart.axis('value', {
 
 <details>
   <summary>
-  `chart.legend()`  配置项更新，具体的配置见 [API](../../../api/general/legend)。以下列举了一些 3.x 常用的属性以及 4.0 的替代方案(点击展开)：
+  `chart.legend()`  配置项更新，具体的配置见 [API](/zh/docs/api/general/legend)。以下列举了一些 3.x 常用的属性以及 4.0 的替代方案(点击展开)：
   </summary>
 
 - 🗑️ `clickable` 属性移除，如想要取消 legend 勾选交互，可以通过 `chart.removeInteraction('legend-filter')` 移除分类图例的勾选交互。
@@ -133,6 +133,7 @@ chart.axis('value', {
 - 🗑️ `slidable` 属性移除，4.0 可以通过 `chart.removeInteraction('continuous-filter')` 移除连续图例的滑块交互。
 - 🗑️ `hoverable` 属性移除，4.0 可以通过 `chart.interaction('legend-active')` 等交互行为实现，参考交互语法 demo: https://g2.antv.vision/en/examples/interaction/component#legend-active。
 - 🗑️ `onHover` 属性移除，4.0 可以通过监听 legend 事件实现：`chart.on('legend:mousemove', (ev) => {})`。
+- 🗑️ `useHtml` 属性移除，4.0 暂时不支持使用 html 渲染图例，可以在外部自定义图例，然后调用 `chart.changeData` 来改变数据
 
 </details>
 
