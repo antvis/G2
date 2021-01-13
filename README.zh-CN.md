@@ -113,3 +113,9 @@ $ npm start
 如果您在使用的过程中碰到问题，可以先通过 [issues](https://github.com/antvis/g2/issues) 看看有没有类似的 bug 或者建议。
 
 如需提交代码，请遵从我们的[贡献指南](https://github.com/antvis/g2/blob/master/CONTRIBUTING.md)。
+
+## 联系我们
+
+钉钉群组: 32183967
+
+<img src="https://gw.alipayobjects.com/zos/antfincdn/yGLJTPEGAp/c5f99980-7cc9-441f-bc68-8934d3396a06.png" width="200" height="266" />
