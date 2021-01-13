@@ -251,5 +251,84 @@ describe('绘制 interval shape 的一些 utils', () => {
       ['L', 60, 95],
       ['z'],
     ]);
+
+
+    const path1 = getRectWithCornerRadius(
+      [
+        { x: 60, y: 150 },
+        { x: 210, y: 150 },
+        { x: 210, y: 90 },
+        { x: 60, y: 90 },
+      ],
+      rectCoord,
+      [5, 0, 0, 5]
+    );
+    expect(path1).toEqual([
+      ['M', 60, 95],
+      ['A', 5, 5, 0, 0, 1, 65, 90],
+      ['L', 205, 90],
+      ['A', 5, 5, 0, 0, 1, 210, 95],
+      ['L', 210, 150],
+      ['L', 60, 150],
+      ['L', 60, 95],
+      ['z'],
+    ]);
+  });
+
+  it('直角坐标系, 转置: 带负数值的，带 corner-radius 的 rect', () => {
+    const rectCoord = new CartesianCoordinate(region);
+    rectCoord.transpose();
+
+    const path = getRectWithCornerRadius(
+      [
+        { x: 210, y: 150 },
+        { x: 60, y: 150 },
+        { x: 60, y: 90 },
+        { x: 210, y: 90 },
+      ],
+      rectCoord,
+      5
+    );
+    /**
+     * 转置后，
+     * 从 p3 开始绘制，对应的 radius: [r1, r2, r3, r0]
+     * p3 → p2
+     * ↑    ↓
+     * P0 ← P1
+     */
+    expect(path).toEqual([
+      ['M', 60, 95],
+      ['A', 5, 5, 0, 0, 1, 65, 90],
+      ['L', 205, 90],
+      ['A', 5, 5, 0, 0, 1, 210, 95],
+      ['L', 210, 145],
+      ['A', 5, 5, 0, 0, 1, 205, 150],
+      ['L', 65, 150],
+      ['A', 5, 5, 0, 0, 1, 60, 145],
+      ['L', 60, 95],
+      ['z'],
+    ]);
+
+
+    const path1 = getRectWithCornerRadius(
+      [
+        { x: 210, y: 150 },
+        { x: 60, y: 150 },
+        { x: 60, y: 90 },
+        { x: 210, y: 90 },
+      ],
+      rectCoord,
+      [5, 0, 0, 5]
+    );
+    expect(path1).toEqual([
+      ['M', 60, 95],
+      ['A', 5, 5, 0, 0, 1, 65, 90],
+      ['L', 205, 90],
+      ['A', 5, 5, 0, 0, 1, 210, 95],
+      ['L', 210, 150],
+      ['L', 60, 150],
+      ['L', 60, 95],
+      ['z'],
+    ]);
   });
 });

@@ -271,7 +271,6 @@ export function getFunnelPath(points: Point[], nextPoints: Point[], isPyramid: b
 export function getRectWithCornerRadius(points: Point[], coordinate: Coordinate, radius?: number | number[]) {
   // 获取 四个关键点
   let [p0, p1, p2, p3] = points;
-
   let [r1, r2, r3, r4] = [0, 0, 0, 0];
 
   /**
