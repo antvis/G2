@@ -146,6 +146,43 @@ describe('Interval shapes', () => {
       });
       expect(lineCapRoundShapePath.length).toBe(6);
       expect(lineCapRoundShapePathTypes).toEqual(['M', 'L', 'A', 'L', 'A', 'Z']);
+
+      // with corner-radius, priority is higher than lineCap
+      const rectWithCornerRadiusShape = IntervalShapeFactory.drawShape(
+        'rect',
+        {
+          ...shapeCfg,
+          style: {
+            lineCap: 'round',
+            radius: 4
+          },
+        },
+        element.container
+      );
+      canvas.draw();
+      const path2 = rectWithCornerRadiusShape.attr('path');
+      let path2Types = [];
+      path2.forEach((path) =>  path2Types.push(path[0]));
+      expect(path2.length).toBe(10);
+      expect(path2Types).toEqual(['M', 'A', 'L', 'A', 'L', 'A', 'L', 'A', 'L', 'Z']);
+
+      // partial corner-radius
+      const rectWithCornerRadiusShape1 = IntervalShapeFactory.drawShape(
+        'rect',
+        {
+          ...shapeCfg,
+          style: {
+            radius: [4, 4, 0, 0]
+          },
+        },
+        element.container
+      );
+      canvas.draw();
+      const path3 = rectWithCornerRadiusShape1.attr('path');
+      let path3Types = [];
+      path3.forEach((path) =>  path3Types.push(path[0]));
+      expect(path3.length).toBe(8);
+      expect(path3Types).toEqual(['M', 'A', 'L', 'A', 'L', 'L', 'L', 'Z']);
     });
 
     it('getMarker', () => {

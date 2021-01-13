@@ -4,7 +4,7 @@ import { Point, ShapeInfo, ShapeMarkerCfg, ShapePoint } from '../../../interface
 import { registerShape, registerShapeFactory } from '../base';
 import { BACKGROUND_SHAPE } from '../constant';
 import { getBackgroundRectStyle, getStyle } from '../util/get-style';
-import { getBackgroundRectPath, getIntervalRectPath, getRectPoints } from './util';
+import { getBackgroundRectPath, getIntervalRectPath, getRectPoints, getRectWithCornerRadius } from './util';
 
 /** Interval 的 shape 工厂 */
 const IntervalShapeFactory = registerShapeFactory('interval', {
@@ -35,7 +35,13 @@ registerShape('interval', 'rect', {
       });
     }
 
-    const path = this.parsePath(getIntervalRectPath(cfg.points as Point[], style.lineCap, this.coordinate));
+    let path;
+    if (style.radius && this.coordinate.isRect) {
+      path = getRectWithCornerRadius(this.parsePoints(cfg.points), this.coordinate, style.radius);
+    } else {
+      path = this.parsePath(getIntervalRectPath(cfg.points as Point[], style.lineCap, this.coordinate));
+    }
+
     const shape = group.addShape('path', {
       attrs: {
         ...style,
