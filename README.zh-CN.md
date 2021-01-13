@@ -116,6 +116,6 @@ $ npm start
 
 ## 联系我们
 
-钉钉群组: 32183967
+钉钉群组号码: 30233731
 
-<img src="https://gw.alipayobjects.com/zos/antfincdn/yGLJTPEGAp/c5f99980-7cc9-441f-bc68-8934d3396a06.png" width="200" height="266" />
+<img src="https://gw.alipayobjects.com/zos/antfincdn/9sHnl5k%26u4/dingdingqun.png" width="200" height="266" />
