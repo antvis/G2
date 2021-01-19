@@ -196,14 +196,29 @@ true 表示合并当前点对应的所有数据并展示，false 表示只展示
 
 是否渲染 tooltipMarkers。
 
+### TooltipCfg.showNil
+
+<description> _boolean_ **optional** </description>
+
+是否显示 tooltip 列表项目中的空值，默认为 `false`，如果设置为 `true`，则会将 null、undefine 显示为空。
+
 ### TooltipCfg.showTitle
 
 <description> _boolean_ **optional** </description>
 
 是否展示 tooltip 标题。
 
-### TooltipCfg.title? : string
+### TooltipCfg.title? : string | (title: string, datum: Datum) => string
 
-<description> _string_ **optional** </description>
+<description> _string | Function_ **optional** </description>
 
-设置 tooltip 的标题内容：如果值为数据字段名，则会展示数据中对应该字段的数值，如果数据中不存在该字段，则直接展示 title 值。
+设置 tooltip 的标题内容：
+
+1. 字符串的时候，如果值为数据字段名，则会展示数据中对应该字段的数值，如果数据中不存在该字段，则直接展示 title 值。
+2. 回调方法的时候，第一个参数为默认的 title 字符串，第二个参数为当前的数据记录
+
+```ts
+chart.tooltip({
+  title: (title, datum) => datum['value'],
+});
+```

@@ -1192,6 +1192,8 @@ export interface TooltipCrosshairs {
   follow?: boolean;
 }
 
+export type TooltipTitle = string | ((title: string, datum: Datum) => string);
+
 /** chart.tooltip() 接口配置属性 */
 export interface TooltipCfg {
   /**
@@ -1207,8 +1209,9 @@ export interface TooltipCfg {
   showTitle?: boolean;
   /**
    * 设置 tooltip 的标题内容：如果值为数据字段名，则会展示数据中对应该字段的数值，如果数据中不存在该字段，则直接展示 title 值。
+   * 同时支持传入方法，回调的方式返回字符串
    */
-  title?: string;
+  title?: TooltipTitle;
   /** 设置 tooltip 的固定展示位置，相对于数据点。 */
   position?: 'top' | 'bottom' | 'left' | 'right';
   /** true 表示合并当前点对应的所有数据并展示，false 表示只展示离当前点最逼近的数据内容。 */
