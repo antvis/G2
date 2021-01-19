@@ -295,7 +295,7 @@ export function findDataByPoint(point: Point, data: MappingDatum[], geometry: Ge
  * @param [title]
  * @returns
  */
-export function getTooltipItems(data: MappingDatum, geometry: Geometry, title: string = '') {
+export function getTooltipItems(data: MappingDatum, geometry: Geometry, title: string = '', showNil: boolean = false) {
   const originData = data[FIELD_ORIGIN];
   const tooltipTitle = getTooltipTitle(originData, geometry, title);
   const tooltipOption = geometry.tooltipOption;
@@ -305,7 +305,7 @@ export function getTooltipItems(data: MappingDatum, geometry: Geometry, title: s
   let value;
 
   function addItem(itemName, itemValue) {
-    if (!isNil(itemValue) && itemValue !== '') {
+    if (showNil || (!isNil(itemValue) && itemValue !== '')) {
       // 值为 null的时候，忽视
       const item = {
         title: tooltipTitle,
@@ -353,12 +353,10 @@ export function getTooltipItems(data: MappingDatum, geometry: Geometry, title: s
     }
   } else {
     const valueScale = getTooltipValueScale(geometry);
-    if (!isNil(originData[valueScale.field])) {
-      // 字段数据为null ,undefined时不显示
-      value = getTooltipValue(originData, valueScale);
-      name = getTooltipName(originData, geometry);
-      addItem(name, value);
-    }
+    // 字段数据为null ,undefined时不显示
+    value = getTooltipValue(originData, valueScale);
+    name = getTooltipName(originData, geometry);
+    addItem(name, value);
   }
   return items;
 }

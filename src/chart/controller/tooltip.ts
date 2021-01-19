@@ -694,12 +694,13 @@ export default class Tooltip extends Controller<TooltipOption> {
   }
 
   private getTooltipItemsByHitShape(geometry, point, title) {
+    const { showNil } = this.getTooltipCfg();
     const result = [];
     const container = geometry.container;
     const shape = container.getShape(point.x, point.y);
     if (shape && shape.get('visible') && shape.get('origin')) {
       const mappingData = shape.get('origin').mappingData;
-      const items = getTooltipItems(mappingData, geometry, title);
+      const items = getTooltipItems(mappingData, geometry, title, showNil);
       if (items.length) {
         result.push(items);
       }
@@ -709,6 +710,7 @@ export default class Tooltip extends Controller<TooltipOption> {
   }
 
   private getTooltipItemsByFindData(geometry: Geometry, point, title) {
+    const { showNil } = this.getTooltipCfg();
     const result = [];
     const dataArray = geometry.dataArray;
     if (!isEmpty(dataArray)) {
@@ -721,7 +723,7 @@ export default class Tooltip extends Controller<TooltipOption> {
           if (geometry.type === 'heatmap' || element.visible) {
             // Heatmap 没有 Element
             // 如果图形元素隐藏了，怎不再 tooltip 上展示相关数据
-            const items = getTooltipItems(record, geometry, title);
+            const items = getTooltipItems(record, geometry, title, showNil);
             if (items.length) {
               result.push(items);
             }

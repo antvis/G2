@@ -1235,6 +1235,8 @@ export interface TooltipCfg {
   offset?: number;
   /** 是否将 tooltip items 逆序 */
   reversed?: boolean;
+  /** 是否显示空值的 tooltip 项目 */
+  showNil?: boolean;
   /** 支持自定义模板 */
   customContent?: (title: string, data: any[]) => string | HTMLElement;
 }
