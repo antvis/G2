@@ -295,7 +295,7 @@ export function findDataByPoint(point: Point, data: MappingDatum[], geometry: Ge
  * @param [title]
  * @returns
  */
-export function getTooltipItems(data: MappingDatum, geometry: Geometry, title: string = '', showNil: boolean) {
+export function getTooltipItems(data: MappingDatum, geometry: Geometry, title: string = '', showNil: boolean = false) {
   const originData = data[FIELD_ORIGIN];
   const tooltipTitle = getTooltipTitle(originData, geometry, title);
   const tooltipOption = geometry.tooltipOption;
