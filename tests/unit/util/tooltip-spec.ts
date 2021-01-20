@@ -2,7 +2,7 @@ import { getCoordinate } from '@antv/coord';
 import Interval from '../../../src/geometry/interval';
 import Line from '../../../src/geometry/line';
 import Point from '../../../src/geometry/point';
-import { MappingDatum } from '../../../src/interface';
+import { Datum, MappingDatum } from '../../../src/interface';
 import { getTheme } from '../../../src/theme/';
 import { findDataByPoint, getTooltipItems } from '../../../src/util/tooltip';
 import { CITY_SALE, DIAMOND } from '../../util/data';
@@ -62,7 +62,7 @@ describe('Tooltip functions', () => {
 
     it('getTooltipItems', () => {
       const data = findDataByPoint({ x: 100, y: 30 }, interval.dataArray[0] as MappingDatum[], interval);
-      const tooltipItems = getTooltipItems(data, interval);
+      let tooltipItems = getTooltipItems(data, interval);
       expect(tooltipItems.length).toBe(1);
 
       const { color, name, value, mappingData, title } = tooltipItems[0];
@@ -71,6 +71,9 @@ describe('Tooltip functions', () => {
       expect(value).toBe('110');
       expect(title).toBe('上海');
       expect(mappingData).toBeDefined();
+
+      tooltipItems = getTooltipItems(data, interval, (t: string, datum: Datum) => 'test');
+      expect(tooltipItems[0].title).toBe('test');
 
       interval.destroy();
     });
