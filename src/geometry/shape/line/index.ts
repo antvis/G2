@@ -124,6 +124,7 @@ each(['line', 'dot', 'dash', 'smooth'], (shapeType) => {
         type: 'path',
         attrs,
         name: 'line',
+        capture: !smooth,
       });
 
       return shape;
