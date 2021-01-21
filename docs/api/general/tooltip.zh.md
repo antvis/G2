@@ -70,9 +70,9 @@ interface TooltipCrosshairs {
 
 辅助线文本背景配置。_CrosshairTextBackgroundCfg_ 配置如下：
 
-| 参数名  | 类型                | 是否必选 | 默认值 | 描述               |
-| ------- | ------------------- | -------- | ------ | ------------------ |
-| padding | number \| number[]; |          | -      | 文本背景周围的留白 |
+| 参数名  | 类型                                         | 是否必选 | 默认值 | 描述               |
+| ------- | -------------------------------------------- | -------- | ------ | ------------------ |
+| padding | number \| number[];                          |          | -      | 文本背景周围的留白 |
 | style   | [ShapeAttrs](/zh/docs/api/shape/shape-attrs) |          | -      | 文本背景的样式     |
 
 #### TooltipCfg.crosshairs.line
@@ -81,8 +81,8 @@ interface TooltipCrosshairs {
 
 辅助线的样式配置。_CrosshairLineCfg_ 配置如下：
 
-| 参数名 | 类型                | 是否必选 | 默认值 | 描述         |
-| ------ | ------------------- | -------- | ------ | ------------ |
+| 参数名 | 类型                                         | 是否必选 | 默认值 | 描述         |
+| ------ | -------------------------------------------- | -------- | ------ | ------------ |
 | style  | [ShapeAttrs](/zh/docs/api/shape/shape-attrs) |          | -      | 辅助线的样式 |
 
 #### TooltipCfg.crosshairs.text
@@ -104,29 +104,29 @@ type TooltipCrosshairsTextCallback = (
 
 _TooltipCrosshairsText_ 配置如下：
 
-| 参数名     | 类型                | 是否必选 | 默认值 | 描述                |
-| ---------- | ------------------- | -------- | ------ | ------------------- |
-| content    | string              |          | -      | crosshairs 文本内容 |
-| autoRotate | boolean             |          | -      | 是否自动旋转        |
+| 参数名     | 类型                                         | 是否必选 | 默认值 | 描述                |
+| ---------- | -------------------------------------------- | -------- | ------ | ------------------- |
+| content    | string                                       |          | -      | crosshairs 文本内容 |
+| autoRotate | boolean                                      |          | -      | 是否自动旋转        |
 | style      | [ShapeAttrs](/zh/docs/api/shape/shape-attrs) |          | -      | 文本的配置项        |
-| position   | 'start' \| 'end'    |          | -      | 文本位置            |
-| offset     | number              |          | -      | 距离线的距离        |
+| position   | 'start' \| 'end'                             |          | -      | 文本位置            |
+| offset     | number                                       |          | -      | 距离线的距离        |
 
 ### TooltipCfg.domStyles
 
 <description> _TooltipDomStyles_ **optional** </description>
 
-_TooltipDomStyles_ 是以 dom 节点的 class 为 key 的对象，_ShapeAttrs_ 为 value 的对象。点击 [ShapeAttrs](/zh/docs/api/shape/shape-attrs) 查看详细样式配置。
+_TooltipDomStyles_ 是以 dom 节点的 class 为 key 的对象，_CSSProperties_ 为 value 的对象。
 
 ```ts
 interface TooltipDomStyles {
-  'g2-tooltip'?: ShapeAttrs;
-  'g2-tooltip-title'?: ShapeAttrs;
-  'g2-tooltip-list'?: ShapeAttrs;
-  'g2-tooltip-list-item'?: ShapeAttrs;
-  'g2-tooltip-marker'?: ShapeAttrs;
-  'g2-tooltip-value'?: ShapeAttrs;
-  'g2-tooltip-name'?: ShapeAttrs;
+  'g2-tooltip'?: CSSProperties;
+  'g2-tooltip-title'?: CSSProperties;
+  'g2-tooltip-list'?: CSSProperties;
+  'g2-tooltip-list-item'?: CSSProperties;
+  'g2-tooltip-marker'?: CSSProperties;
+  'g2-tooltip-value'?: CSSProperties;
+  'g2-tooltip-name'?: CSSProperties;
 }
 ```
 
