@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const resolve = require('path').resolve;
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
+// test preview action
 module.exports = {
   entry: {
     g2: './src/index.ts',
