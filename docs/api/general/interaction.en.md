@@ -1,13 +1,21 @@
 ---
-title: 为图表配置交互
+title: 交互 - Interaction
 order: 17
 ---
 
-## 简介
+交互（Interaction）是 G2 中的重要 API，通过这个方法可以加载 G2 内置的交互，或者基于交互语法形式自定义的 Interaction 交互。G2 4.0 在交互方面做了非常大的调整，所有的交互代码都是插入式的，通过交互语法进行组织。使用交互的方式也非常简单，仅需要设置交互的名称即可。关于交互语法可以阅读[交互语法](../../manual/concepts/interaction)。
 
-G2 4.0 在交互方面做了非常大的调整，所有的交互代码都是插入式的，通过交互语法进行组织。使用交互的方式也非常简单，仅需要设置交互的名称即可。
+```sign
+(name: string, cfg?: object) => View;
+```
 
-## 内置的交互
+```ts
+chart.interaction('my-interaction', { extra: 'hello world' });
+```
+
+配置交互类型，可以传入 G2 默认支持的交互类型，也可以通过 `registerInteraction` 自己注册交互方式。第二个参数是用来给自定义交互传入参数的，目前 G2 默认支持的交互类型无需传入第二个参数。
+
+### 内置交互
 
 为了便于用户的使用，G2 在 Chart 中内置了几种交互：
 
@@ -32,7 +40,7 @@ new Chart({
 });
 ```
 
-## 配置交互
+### 配置交互
 
 除了通过 defaultInteractions 来配置交互外，你可以通过 Chart 上的两个接口来添加和移除交互：
 
@@ -57,11 +65,11 @@ chart.removeInteraction('element-active'); // 移除某个交互
 - end: 交互结束
 - rollback: 回滚
 
-## 修改交互的默认交互
+### 修改交互的默认交互
 
 我们以修改 tooltip 的交互为例来说明如何修改默认交互的行为，tooltip 交互的原始的配置项是：
 
-```plain
+```javascript
 {
   start: [{ trigger: 'plot:mousemove', action: 'tooltip:show' }],
   end: [{ trigger: 'plot:mouseleave', action: 'tooltip:hide' }],
@@ -97,7 +105,7 @@ chart.interaction('tooltip', {
   - trailing: 执行完毕后再执行一次
     debounce 和 throttle 的机制参考：https://css-tricks.com/debouncing-throttling-explained-examples/
 
-### context 交互的上下文
+#### context 交互的上下文
 
 交互的上下文提供了一系列进行判定条件的函数，帮助用户在 isEnable 中方便的判断，以上面 tooltip 的为示例，如果我们不使用 'plot:click' 事件而仅使用 'click' 事件时需要判定是否在绘图区域内判定：
 
@@ -117,13 +125,13 @@ chart.interaction('tooltip', {
 
 context 的接口定义如下：
 
-```javascript
+```ts
 /** 交互上下文的接口定义 */
-export interface IInteractionContext extends LooseObject {
+export interface IInteractionContext {
   /**
-  * 当前触发的事件对象
-  */
-  event: LooseObject;
+   * 当前触发的事件对象
+   */
+  event: Record<string, any>;
   /**
    * 当前的 view
    */
@@ -186,7 +194,7 @@ export interface IInteractionContext extends LooseObject {
 - 可以通过 context.isInComponent('legend') 判定是否发生在 legend 的包围盒内
 - 可以通过 context.event.target 或者  context.getCurrentShape() 获取触发的图形
 
-## 所有的交互列表
+### 所有的交互列表
 
 G2 种的所有的交互都是通过  registerInteraction 方法注册的:
 
@@ -196,7 +204,7 @@ G2.registerInteraction(name, cfg);
 
 我们用这个方法来说明各个交互，同时指出触发的对象和反馈的 Action
 
-### tooltip
+#### tooltip
 
 控制 Tooltip 的显示隐藏，其定义：
 
@@ -213,7 +221,7 @@ registerInteraction('tooltip', {
 
 <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*kdSLTaAiTB0AAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
-### active-region
+#### active-region
 
 鼠标在画布上移动时对应位置的分类出现背景框
 
@@ -228,9 +236,9 @@ registerInteraction('active-region', {
 - 触发对象 plot，图表的绘图区域
 - action 是 active-region
 
-<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*aSJMTYFmTvUAAAAAAAAAAABkARQnAQ" style="width: 339px;">
+<playground path='interaction/component/demo/active-region.ts' rid='interaction-active-region'></playground>
 
-### view-zoom
+#### view-zoom
 
 鼠标滚动时，图表内部缩放，由于 mousewheel 触发的非常频繁，所以需要增加 throttle
 
@@ -263,7 +271,7 @@ registerInteraction('view-zoom', {
 
 <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*EqXmQJENnpQAAAAAAAAAAABkARQnAQ" style="width: 339px"/>
 
-### element-active
+#### element-active
 
 鼠标移入图表元素（柱状图的柱子、点图的点等）时触发 active
 
@@ -280,7 +288,7 @@ registerInteraction('element-active', {
 
 <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*qAjhQ5jwuOYAAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
-### element-selected
+#### element-selected
 
 点击选中图表元素、再次点击取消，允许多选
 
@@ -293,7 +301,7 @@ registerInteraction('element-selected', {
 
 <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*yRjfQaYtF-0AAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
-### element-single-selected
+#### element-single-selected
 
 单选图表元素，下次点击允许取消
 
@@ -306,7 +314,7 @@ registerInteraction('element-single-selected', {
 
 <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*DDoLT5_cCTQAAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
-### element-highlight
+#### element-highlight
 
 图表元素的高亮，是一部分图表元素高亮，另一部分变暗
 
@@ -322,7 +330,7 @@ registerInteraction('element-highlight', {
 
 <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*wr2XTJmoHfkAAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
-### element-highlight-by-x
+#### element-highlight-by-x
 
 高亮 x 值相同的 element，适用于分组的场景
 
@@ -335,7 +343,7 @@ registerInteraction('element-highlight-by-x', {
 
 <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*7eKNRrht53EAAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
-### element-highlight-by-color
+#### element-highlight-by-color
 
 高亮所有同颜色的 element，适用于层叠的场景
 
@@ -349,7 +357,7 @@ registerInteraction('element-highlight-by-color', {
 <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*SbLVQpbiiKsAAAAAAAAAAABkARQnAQ" style="width: 339px;">
 <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*Hv3yTJ7QD5kAAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
-### legend-filter
+#### legend-filter
 
 分类图例的数据过滤
 
@@ -375,7 +383,7 @@ registerInteraction('legend-filter', {
 
 <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*6RfZTr4ytVYAAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
-### legend-visible-filter
+#### legend-visible-filter
 
 分类图例的图形过滤，点击图例对应的图形隐藏/显示，这个交互不会引起坐标轴的变化
 
@@ -408,7 +416,7 @@ chart.removeInteraction('legend-filter');
 chart.interaction('legend-visible-filter');
 ```
 
-### continuous-filter
+#### continuous-filter
 
 连续图例的数据过滤，数据过滤会导致坐标轴的变化
 
@@ -426,7 +434,7 @@ registerInteraction('continuous-filter', {
 
 - action 是数据过滤的 data-filter
 
-### continuous-visible-filter
+#### continuous-visible-filter
 
 仅仅过滤图形，而不引起坐标轴的变化
 
@@ -448,7 +456,7 @@ chart.removeInteraction('continuous-filter');
 chart.interaction('continuous-visible-filter');
 ```
 
-### legend-active
+#### legend-active
 
 图例项 active，对应的图表元素也 active
 
@@ -462,7 +470,7 @@ registerInteraction('legend-active', {
 
 <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*D1VMTYFFPTcAAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
-### legend-highlight
+#### legend-highlight
 
 图例项高亮，对应的图表元素也高亮
 
@@ -476,7 +484,7 @@ registerInteraction('legend-highlight', {
 
 <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*k_HTQa-iszoAAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
-### axis-label-highlight
+#### axis-label-highlight
 
 坐标轴文本高亮，对应的图表元素也高亮
 
@@ -490,7 +498,7 @@ registerInteraction('axis-label-highlight', {
 
 <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*_JebQZWT-40AAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
-### element-list-highlight
+#### element-list-highlight
 
 鼠标触发图表元素高亮，同时对应的列表组件（图例、坐标轴文本）都高亮
 
@@ -504,7 +512,7 @@ registerInteraction('element-list-highlight', {
 
 <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*7MrDT5qjPAgAAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
-### brush
+#### brush
 
 框选过滤图形
 
@@ -541,15 +549,15 @@ registerInteraction('brush', {
 
 <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*tKSkR6peM2MAAAAAAAAAAABkARQnAQ" style="width: 339px;">
 
-### brush-x
+#### brush-x
 
 把上面 brush Action 换成 brush-x 即成为新的交互，仅框选 x 轴相关的数据
 
-### brush-y
+#### brush-y
 
 把上面 brush Action 换成 brush-y 即成为新的交互，仅框选 y 轴相关的数据
 
-### brush-visible
+#### brush-visible
 
 框选过滤时仅仅是过滤图形，而不是过滤数据
 
@@ -587,7 +595,7 @@ registerInteraction('brush-visible', {
 });
 ```
 
-## 交互反馈 Action 列表
+### 交互反馈 Action 列表
 
 上面的交互语法中，我们使用大量的 Action，每个 Action 都是对某个触发的响应，G2 提供几个大类别的 Action
 
@@ -598,11 +606,11 @@ registerInteraction('brush-visible', {
 - 数据操作的 Action
 - 辅助交互图形的 Action
 
-## 鼠标的 Action
+### 鼠标的 Action
 
 鼠标的 Action 只有一个： cursor
 
-### cursor
+#### cursor
 
 鼠标的 Action `cursor` 用于显示各种鼠标的形状，每种形状有一个方法：
 
@@ -624,7 +632,7 @@ registerInteraction('brush-visible', {
 - nsResize() 光标指示可以在上下方向移动
 - ewResize() 光标指示可以在左右方向移动
 
-## Chart/View 的 Action
+### Chart/View 的 Action
 
 Chart 和 View 上的 Action 用户控制视图的变化，目前支持的有：
 
@@ -632,7 +640,7 @@ Chart 和 View 上的 Action 用户控制视图的变化，目前支持的有：
 - scale-translate
 - scale-zoom
 
-### view-move
+#### view-move
 
 用于移动 View 的位置，支持以下几个方法：
 
@@ -641,7 +649,7 @@ Chart 和 View 上的 Action 用户控制视图的变化，目前支持的有：
 - move() 移动
 - reset() 回滚，恢复初始位置
 
-### scale-translate
+#### scale-translate
 
 通过改变 scale 的位移，改变整个视图的位置变化，可以实现图表内部绘制区域的变化
 
@@ -650,13 +658,13 @@ Chart 和 View 上的 Action 用户控制视图的变化，目前支持的有：
 - translate() 修改 scale 的值
 - reset() 回滚，恢复初始状态
 
-### scale-zoom
+#### scale-zoom
 
 - zoomIn() 缩小
 - zoomOut() 放大
 - reset() 恢复
 
-## Element 的 Action
+### Element 的 Action
 
 图表元素 Element 的 Action 大都与状态相关，支持的 Action 有：
 
@@ -679,7 +687,7 @@ Element 的 Action 可以响应的触发源：
 - 直接在图表元素 Element 上的事件，例如：element:mousedown, element:mouseenter 等
 - 来自组件的事件， 例如： 'legend-item:mouseenter'
 
-### element-active
+#### element-active
 
 用于设置和取消图表元素的 active，支持多个元素一起 active 有以下方法：
 
@@ -688,7 +696,7 @@ Element 的 Action 可以响应的触发源：
 - reset() 取消当前触发事件相关元素的 active
 - clear() 取消所有元素的 active
 
-### element-single-active
+#### element-single-active
 
 用于设置和取消图表元素的 active，只允许单个元素 active 有以下方法：
 
@@ -696,7 +704,7 @@ Element 的 Action 可以响应的触发源：
 - toggle() 设置/取消当前触发事件相关元素的 active
 - reset() 取消当前触发事件相关元素的 active
 
-### element-selected
+#### element-selected
 
 用于设置和取消图表元素的 selected，支持多个元素一起 selected 有以下方法：
 
@@ -705,7 +713,7 @@ Element 的 Action 可以响应的触发源：
 - reset() 取消当前触发事件相关元素的 selected
 - clear() 取消所有元素的 selected
 
-### element-single-selected
+#### element-single-selected
 
 用于设置和取消图表元素的 selected ，只允许单个元素 selected 有以下方法：
 
@@ -713,7 +721,7 @@ Element 的 Action 可以响应的触发源：
 - toggle() 设置/取消当前触发事件相关元素的 selected
 - reset() 取消当前触发事件相关元素的 selected
 
-### element-highlight
+#### element-highlight
 
 用于设置和取消图表元素的 highlight，支持多个元素一起 highlight 有以下方法：
 
@@ -727,7 +735,7 @@ Element 的 Action 可以响应的触发源：
 - element-highlight-by-x，在 一个 element 上高亮时，同时高亮 x 值相同的 elements
 - element-highlight-by-color,  在 一个 element 上高亮时，同时高亮 color 相同的 elements
 
-### element-single-highlight
+#### element-single-highlight
 
 用于设置和取消图表元素的 highlight ，只允许单个元素 highlight 有以下方法：
 
@@ -735,7 +743,7 @@ Element 的 Action 可以响应的触发源：
 - toggle() 设置/取消当前触发事件相关元素的 highlight
 - reset() 取消当前触发事件相关元素的 highlight
 
-### element-range-highlight
+#### element-range-highlight
 
 用于设置和取消图表元素的 highlight ，允许框选 highlight 有以下方法：
 
@@ -746,21 +754,21 @@ Element 的 Action 可以响应的触发源：
 
 `注意`：如果事件由 mask 触发，则可以直接调用 highlight，而不需要 start 和 end
 
-### element-sibling-highlight
+#### element-sibling-highlight
 
 图表元素高亮时，对应的其他 view 的图形也同时高亮，这个 Action 是从 element-range-highlight 扩展出来的，可以配合 element-range-highlight 一起使用：
 
 - highlight() 设置当前触发事件相关元素对应的其他 View 上的元素的 highlight
 - clear() 取消相关元素的 highlight
 
-### element-filter
+#### element-filter
 
 图表元素的过滤，支持来自图例（分类和连续）、坐标轴文本的触发，有以下方法：
 
 - filter() 过滤
 - reset() 取消过滤
 
-### element-link-by-color
+#### element-link-by-color
 
 用于连接相同颜色的图表元素，一般用于层叠柱状图，有以下方法：
 
@@ -770,7 +778,7 @@ Element 的 Action 可以响应的触发源：
 
 <image src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*KqE9SpqUKpcAAAAAAAAAAABkARQnAQ" width="359"/>
 
-## 数据操作的 Action
+### 数据操作的 Action
 
 当前仅提供了数据过滤的 Action：
 
@@ -782,13 +790,13 @@ Element 的 Action 可以响应的触发源：
 - sibling-x-filter
 - sibling-y-filter
 
-### data-filter
+#### data-filter
 
 数据过滤的触发同 element-filter 一样支持图例和坐标文本的事件，但仅支持一个 filter 方法
 
 - filter() 过滤
 
-### brush
+#### brush
 
 数据的范围过滤，同时支持 x，y 的过滤，需要理解范围过滤的周期:
 
@@ -832,7 +840,7 @@ registerInteraction('element-brush', {
 
 如果不设置结束 end ，则用户在外部 mousedown，移动到画布上时 mouseup 会直接触发 filter
 
-### brush-x
+#### brush-x
 
 数据的范围过滤，仅支持 x 坐标轴范围的过滤，同样有四个方法：
 
@@ -841,7 +849,7 @@ registerInteraction('element-brush', {
 - end() 结束过滤
 - reset() 取消当前 brush 导致的过滤
 
-### brush-y
+#### brush-y
 
 数据的范围过滤，仅支持 y 坐标轴范围的过滤，同样有四个方法：
 
@@ -850,7 +858,7 @@ registerInteraction('element-brush', {
 - end() 结束过滤
 - reset() 取消当前 brush 导致的过滤
 
-### sibling-filter
+#### sibling-filter
 
 数据范围过滤，但不在当前的 view 上生效，而在当前的 view 同一层级的其他 views 上生效，用于实现联动过滤
 
@@ -859,15 +867,15 @@ registerInteraction('element-brush', {
 - end() 结束过滤
 - reset() 取消当前 brush 导致的过滤
 
-### sibling-x-filter
+#### sibling-x-filter
 
 仅作用于 x 轴的过滤
 
-### sibling-y-filter
+#### sibling-y-filter
 
 仅作用于 y 轴的过滤
 
-## 组件 Action
+### 组件 Action
 
 组件允许的交互都需要通过 Action 来体现，目前支持的 Action 有：
 
@@ -882,14 +890,14 @@ registerInteraction('element-brush', {
 - legend-item-highlight
 - axis-label-highlight
 
-### tooltip
+#### tooltip
 
 显示隐藏 tooltip 的 Action 提供了两个方法：
 
 - show()
 - hide()
 
-### list-active
+#### list-active
 
 分类图例项和坐标轴文本高亮的 Action，有下面几个方法：
 
@@ -898,7 +906,7 @@ registerInteraction('element-brush', {
 - toggle() 设置或者取消 active
 - clear() 取消所有的 active
 
-### list-highlight
+#### list-highlight
 
 分类图例项和坐标轴文本高亮的 highlight , 有下面几个方法：
 
@@ -907,7 +915,7 @@ registerInteraction('element-brush', {
 - toggle() 设置或者取消 highlight
 - clear() 取消所有的 highlight
 
-### legend-item-highlight
+#### legend-item-highlight
 
 是从 list-highlight 扩展出来的 Action，在 Element 上触发时仅高亮对应图例的选项，而不会影响坐标轴文本，同样有 4 个方法：
 
@@ -916,7 +924,7 @@ registerInteraction('element-brush', {
 - toggle() 设置或者取消 highlight
 - clear() 取消所有的 highlight
 
-### axis-label-highlight
+#### axis-label-highlight
 
 是从 list-highlight 扩展出来的 Action，在 Element 上触发时仅高亮对应坐标轴文本，而不会影响图例项，同样有 4 个方法：
 
@@ -925,7 +933,7 @@ registerInteraction('element-brush', {
 - toggle() 设置或者取消 highlight
 - clear() 取消所有的 highlight
 
-### list-unchecked
+#### list-unchecked
 
 由于图例项和坐标轴文本默认状态都是 checked ，所以我们实现了 list-unchecked 的 Action，支持的方法：
 
@@ -934,7 +942,7 @@ registerInteraction('element-brush', {
 - toggle() 设置或者取消 unchecked
 - clear() 取消所有的 unchecked
 
-### list-selected
+#### list-selected
 
 分类图例项和坐标轴文本高亮的 selected , 有下面几个方法：
 
@@ -943,7 +951,7 @@ registerInteraction('element-brush', {
 - toggle() 设置或者取消 selected
 - clear() 取消所有的 selected
 
-## 辅助交互的 Action
+### 辅助交互的 Action
 
 在交互过程中辅助出现的图形，目前仅实现了几种常见的：
 
@@ -955,14 +963,14 @@ registerInteraction('element-brush', {
 - button 按钮
   - reset-button 恢复按钮
 
-### active-region
+#### active-region
 
 鼠标在画布上移动是，对应的区域出现背景框，有两个方法：
 
 - show() 显示背景框
 - hide() 隐藏背景框
 
-### rect-mask
+#### rect-mask
 
 在画布上进行框选，出现矩形的遮罩层：
 
@@ -972,7 +980,7 @@ registerInteraction('element-brush', {
 - hide() 隐藏遮罩层
 - end() 结束框选
 
-### circle-mask
+#### circle-mask
 
 在画布上进行框选，出现圆形的遮罩层,有以下方法：
 
@@ -982,7 +990,7 @@ registerInteraction('element-brush', {
 - hide() 隐藏遮罩层
 - end() 结束框选
 
-### path-mask
+#### path-mask
 
 在画布上进行框选，在多个点上形成 path，有以下方法
 
@@ -992,13 +1000,13 @@ registerInteraction('element-brush', {
 - hide() 隐藏遮罩层
 - end() 结束框选
 
-### reset-button
+#### reset-button
 
 在画布右上角出现一个恢复按钮，按钮图形上有 name: 'reset-button'，仅有两个方法：
 
 - show() 显示
 - hide() 隐藏
 
-## 更多
+### 更多
 
-本文中仅介绍了如何使用交互，而所有交互都是通过交互语法搭配而成的，需要自定义交互的用户可以参考 [交互语法](../concepts/interaction)  和 [自定义交互](../developer/register-interaction)。
+本文中仅介绍了如何使用交互，而所有交互都是通过交互语法搭配而成的，需要自定义交互的用户可以参考 [交互语法](../../manual/concepts/interaction)。
