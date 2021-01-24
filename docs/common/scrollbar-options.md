@@ -14,7 +14,7 @@
 
 <description> _number_ **optional**</description>
 
-滚动条高度，仅在 vertical 下生效
+滚动条高度，仅在 horizontal 下生效
 
 ### options.padding
 
