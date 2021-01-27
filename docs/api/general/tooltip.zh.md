@@ -222,3 +222,17 @@ chart.tooltip({
   title: (title, datum) => datum['value'],
 });
 ```
+
+### TooltipCfg.customItems? : (items: TooltipItem[]) => TooltipItem[]
+
+<description> _Function_ **optional** </description>
+
+在渲染 tooltip 之前，对 G2 的 tooltip items 列表项目进行用户自定义处理，默认不做任何处理。可以用来对 tooltip 列表进行过滤、排序、格式化等操作
+
+```ts
+chart.tooltip({
+  customItems: (items) => {
+    return processTooltipItems(items);
+  },
+});
+```

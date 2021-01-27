@@ -1194,6 +1194,21 @@ export interface TooltipCrosshairs {
 
 export type TooltipTitle = string | ((title: string, datum: Datum) => string);
 
+export type TooltipItem = {
+  /** 原始数据 */
+  readonly data: Data; // 原始数据
+  /** 映射之后的数据 */
+  readonly mappingData: Data; // 映射后的数据
+  /** tooltip item 中名称 */
+  readonly name: string;
+  /** tooltip item 中值 */
+  readonly value: string | number;
+  /** tooltip item 中颜色 */
+  readonly color: string;
+  /** tooltip item 中图标类型 */
+  readonly marker: string;
+}
+
 /** chart.tooltip() 接口配置属性 */
 export interface TooltipCfg {
   /**
@@ -1240,6 +1255,8 @@ export interface TooltipCfg {
   reversed?: boolean;
   /** 是否显示空值的 tooltip 项目 */
   showNil?: boolean;
+  /** 在 tooltip 渲染之前，对最终的 items 进行自定义处理（比如排序、过滤、格式化等） */
+  customItems?: (originalItems: TooltipItem[]) => TooltipItem[];
   /** 支持自定义模板 */
   customContent?: (title: string, data: any[]) => string | HTMLElement;
 }
