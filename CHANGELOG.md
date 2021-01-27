@@ -1,3 +1,24 @@
+#### 4.1.8 (2021-01-27)
+
+##### Feature
+
+- 暴露获取扇形 path 的方法 ([#3240](https://github.com/antvis/G2/pull/3240)) ([ee974ad](https://github.com/antvis/G2/commit/ee974ad936135d899578ec48d6cfb89983c012f2))
+- add tooltip.customItems config ([#3239](https://github.com/antvis/G2/pull/3239)) ([7e389e4](https://github.com/antvis/G2/pull/3239))
+- tooltip.title support callback function ([#3218](https://github.com/antvis/G2/pull/3218)) ([1746f6a](https://github.com/antvis/G2/commit/1746f6a7e6abcd71cdfea44bd58fb06d8fcea070))
+- tooltip: add tooltip.showNil ([#3216](https://github.com/antvis/G2/pull/3216)) ([edc1cee](https://github.com/antvis/G2/commit/edc1cee53820cf6c39a317480b738ed07364d2a8))
+
+##### Performance Improvements
+
+- 优化鼠标事件在 path 上的拾取性能 ([#3230](https://github.com/antvis/G2/pull/3230)) ([71b0a2e](https://github.com/antvis/G2/commit/71b0a2e65042a17906fddcb7a7d564219de94da8))
+
+##### Docs
+
+- 修复 scrollbar 文档错误 ([#3236](https://github.com/antvis/G2/pull/3236)) ([e38cf5d](https://github.com/antvis/G2/commit/e38cf5d723b97ad8642d1f5c39e7db649c8c1ae2))
+- 完善 interaction 英文文档 ([#3234](https://github.com/antvis/G2/pull/3234)) ([b6b334e](https://github.com/antvis/G2/commit/b6b334ef99a904250aa698d68e8b9b77c304ce7e))
+- 移除图例废弃的 api & tooltipStyles 类型定义修整 ([#3227](https://github.com/antvis/G2/pull/3227)) ([69540f6](https://github.com/antvis/G2/commit/69540f677dd1a60112cbffa30eeef780301d1c9c))
+- 文档走查优化 ([#3221](https://github.com/antvis/G2/pull/3221)) ([f25e30e](https://github.com/antvis/G2/commit/f25e30edbc5d53c2e95d1f975a0842a37360a720))
+- 移除 legend useHtml api ([#3202](https://github.com/antvis/G2/pull/3202)) ([56bc7f1](https://github.com/antvis/G2/commit/56bc7f1c40be1bd5be07e0409c2062a1c05d295b))
+
 #### 4.1.7 (2021-01-13)
 
 ##### Documentation Changes
