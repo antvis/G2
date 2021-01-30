@@ -1,6 +1,6 @@
 ---
 title: 坐标系 - Coordinate
-order: 3
+order: 4
 ---
 
 配置坐标系，之前的调用方法为 `coord`，将在 V4.1 移除。有三种调用方法：

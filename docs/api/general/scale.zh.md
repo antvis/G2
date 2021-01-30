@@ -1,6 +1,6 @@
 ---
 title: 度量 - Scale
-order: 2
+order: 4
 ---
 
 `markdown:docs/common/style.md`
