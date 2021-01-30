@@ -6,6 +6,7 @@ import Geometry, { GeometryCfg } from './base';
 /** 引入对应的 ShapeFactory */
 import './shape/interval';
 import { getDefaultSize } from './util/shape-size';
+import { getMaxScale } from '../util/scale';
 
 /** Path 构造函数参数类型 */
 export interface IntervalCfg extends GeometryCfg {
@@ -72,7 +73,7 @@ export default class Interval extends Geometry {
         nice: false,
         min: 0,
         // 发生过 stack 调整，yScale 的 max 被调整过，this.updateStackRange()
-        max: this.getMaxScale(yScale),
+        max: getMaxScale(yScale),
       });
     } else {
       // 柱状图数值轴默认从 0 开始
@@ -94,17 +95,6 @@ export default class Interval extends Geometry {
         }
       }
     }
-  }
-
-  /**
-   * @function y轴scale的max
-   * @param {yScale}
-   */
-  private getMaxScale(obj: Datum) {
-    // values[]中存在 NaN 等置0处理
-    const values = obj.values.map(item => item || 0)
-
-    return Math.max(Math.max.apply(null, values), (obj.max || 0))
   }
 
   /**

@@ -1,4 +1,4 @@
-import { createScaleByField, getName, syncScale } from '../../../src/util/scale';
+import { createScaleByField, getName, syncScale, getMaxScale } from '../../../src/util/scale';
 
 describe('ScaleUtil', () => {
   const data1 = [{ a: 1, b: '2', c: '2010-01-01', d: 1, e: null, f: '20200229', g: '20200202' }];
@@ -108,5 +108,18 @@ describe('ScaleUtil', () => {
   it('dateRegex test for yyyymmdd', () => {
     expect(createScaleByField('f', data1).type).toBe('cat');
     expect(createScaleByField('g', data1).type).toBe('cat');
+  });
+
+  it('getMaxScale', () => {
+    const data = [
+      { type: "分类一", value: NaN },
+      { type: "分类二", value: undefined },
+      { type: "分类三", value: null },
+      { type: "分类四", value: -1.2 },
+      { type: "分类五", value: -1 },
+      { type: "其他", value: 1 }
+    ];
+    const scale = createScaleByField('value', data, { max: 0.5 });
+    expect(getMaxScale(scale)).toBe(1);
   });
 });

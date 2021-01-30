@@ -114,3 +114,14 @@ export function getDefaultCategoryScaleRange(scale: Scale, coordinate: Coordinat
   }
   return range;
 }
+
+/**
+ * @function y轴scale的max
+ * @param {yScale}
+ */
+export function getMaxScale(scale: Scale) {
+  // values[]中存在 NaN/undefined/null 等，置 0 处理
+  const values = scale.values.map(item => item || 0)
+
+  return Math.max(Math.max.apply(null, values), (scale.max || 0))
+}
