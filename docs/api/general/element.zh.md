@@ -11,9 +11,8 @@ Element 即一条/一组数据对应的图形元素，它代表一条数据或�
 
 职责：绘制、更新、销毁 Shape & 状态管理
 
-|                                                                                                                  |                                                                                                                  |
-| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| <img src="https://gw.alipayobjects.com/zos/antfincdn/hT2K%24T1lnH/element-intro-1.png" style="max-width:400px;"> | <img src="https://gw.alipayobjects.com/zos/antfincdn/Dtxo%26Fd6fm/element-intro-2.png" style="max-width:400px;"> |
+<img src="https://gw.alipayobjects.com/zos/antfincdn/hT2K%24T1lnH/element-intro-1.png" style="height:260px;border:1px solid #efefef;">
+<img src="https://gw.alipayobjects.com/zos/antfincdn/Dtxo%26Fd6fm/element-intro-2.png" style="height:260px;border:1px solid #efefef;">
 
 ## Element API
 
@@ -27,22 +26,24 @@ elementchangeVisible(visible: boolean): void;
 
 ### element.setState()
 
-设置 Element 的状态。目前 Element 开放三种状态：1. `active`, 2. `selected`, 3. `inactive`。这三种状态相互独立，可以进行叠加。
+设置 Element 的状态。目前 Element 开放三种状态：
 
-另外，这三种状态的样式可在 [[Theme]] 主题中或者通过 `geometry.state()` 接口进行配置。
+1. `active`
+2. `selected`
+3. `inactive`
+
+这三种状态相互独立，可以进行叠加。另外，这三种状态的样式可在 [Theme](/zh/docs/api/general/theme) 主题中或者通过 `geometry.state()` 接口进行配置。
 
 ```sign
 element.setState(stateName: string, stateStatus: boolean): void;
 ```
 
-示例：
+示例：查看 [DEMO](/zh/examples/interaction/element#pie-selected)
 
 ```ts
 // 激活 active 状态
 setState('active', true);
 ```
-
-<playground path="interaction/element/demo/pie-selected.ts" rid="pie-selected"></playground>
 
 ### element.clearStates()
 

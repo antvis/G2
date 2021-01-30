@@ -467,7 +467,7 @@ getAttribute(name: string): Attribute
 
 ### geom.getXScale()
 
-获取 x 轴对应的 scale 实例。
+获取 x 轴对应的 scale 实例。scale 相关的 api 操作，可以见: [antvis/scale](https://github.com/antvis/scale)
 
 ```sign
 getXScale(): Scale
@@ -475,7 +475,7 @@ getXScale(): Scale
 
 ### geom.getYScale()
 
-获取 y 轴对应的 scale 实例。
+获取 y 轴对应的 scale 实例。scale 相关的 api 操作，可以见: [antvis/scale](https://github.com/antvis/scale)
 
 ```sign
 getYScale(): Scale
