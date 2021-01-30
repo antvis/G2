@@ -229,7 +229,7 @@ tooltip({
 });
 ```
 
-![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*268uQ50if60AAAAAAAAAAABkARQnAQ)
+![xxx](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*268uQ50if60AAAAAAAAAAABkARQnAQ)
 
 ```ts
 tooltip({
@@ -237,7 +237,7 @@ tooltip({
 });
 ```
 
-![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*A_ujSa8QhtcAAAAAAAAAAABkARQnAQ)
+![xxx](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*A_ujSa8QhtcAAAAAAAAAAABkARQnAQ)
 
 tooltip() 方法同样支持数据映射及回调用法：
 

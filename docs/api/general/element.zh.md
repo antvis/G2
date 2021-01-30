@@ -11,8 +11,8 @@ Element 即一条/一组数据对应的图形元素，它代表一条数据或�
 
 职责：绘制、更新、销毁 Shape & 状态管理
 
-<img src="https://gw.alipayobjects.com/zos/antfincdn/hT2K%24T1lnH/element-intro-1.png" style="height:260px;border:1px solid #efefef;">
-<img src="https://gw.alipayobjects.com/zos/antfincdn/Dtxo%26Fd6fm/element-intro-2.png" style="height:260px;border:1px solid #efefef;">
+<img src="https://gw.alipayobjects.com/zos/antfincdn/hT2K%24T1lnH/element-intro-1.png" style="height:260px;border:1px solid #efefef;" alt="element" >
+<img src="https://gw.alipayobjects.com/zos/antfincdn/Dtxo%26Fd6fm/element-intro-2.png" style="height:260px;border:1px solid #efefef;" alt="element" >
 
 ## Element API
 
