@@ -1,6 +1,6 @@
 ---
 title: 数据 - Data
-order: 1
+order: 3
 ---
 
 `markdown:docs/common/style.md`
