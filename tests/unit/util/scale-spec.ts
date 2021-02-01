@@ -117,7 +117,8 @@ describe('ScaleUtil', () => {
       { type: "分类三", value: null },
       { type: "分类四", value: -1.2 },
       { type: "分类五", value: -1 },
-      { type: "其他", value: 1 }
+      { type: "分类六", value: 0 },
+      { type: "其他", value: 1 },
     ];
     const scale = createScaleByField('value', data, { max: 0.5 });
     expect(getMaxScale(scale)).toBe(1);

@@ -120,8 +120,8 @@ export function getDefaultCategoryScaleRange(scale: Scale, coordinate: Coordinat
  * @param {yScale}
  */
 export function getMaxScale(scale: Scale) {
-  // values[]中存在 NaN/undefined/null 等，置 0 处理
-  const values = scale.values.map(item => item || 0)
+  // 过滤values[]中 NaN/undefined/null/0 等
+  const values = scale.values.filter(item => item)
 
-  return Math.max(Math.max.apply(null, values), (scale.max || 0))
+  return Math.max(...values, isNil(scale.max) ? -Infinity : scale.max);
 }
