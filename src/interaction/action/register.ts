@@ -37,7 +37,7 @@ export function createAction(actionName: string, context: IInteractionContext): 
  * 根据 action 的 name 获取定义的类
  * @param actionName action 的 name
  */
-export function getActionClass(actionName: string) {
+export function getActionClass(actionName: string): ActionConstructor {
   const actionOption = ActionCache[actionName];
   return get(actionOption, 'ActionClass');
 }
