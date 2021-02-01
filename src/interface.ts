@@ -877,6 +877,7 @@ export interface ComponentOption {
 export interface MarkerCfg extends LegendMarkerCfg {
   /** 配置图例 marker 的 symbol 形状。 */
   symbol?: Marker | MarkerCallback;
+  style?: ShapeAttrs | ((style: ShapeAttrs) => ShapeAttrs);
 }
 
 /** Legend item 各个图例项的数据结构 */
@@ -1207,7 +1208,7 @@ export type TooltipItem = {
   readonly color: string;
   /** tooltip item 中图标类型 */
   readonly marker: string;
-}
+};
 
 /** chart.tooltip() 接口配置属性 */
 export interface TooltipCfg {
