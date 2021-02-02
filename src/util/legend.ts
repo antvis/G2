@@ -1,9 +1,8 @@
 import { LegendMarkerCfg } from '@antv/component';
-import { ShapeAttrs } from '@antv/g-svg';
 import { deepMix, isString, each, get, isFunction } from '@antv/util';
 import View from '../chart/view';
 import { DIRECTION } from '../constant';
-import { Attribute, Tick } from '../dependents';
+import { Attribute, ShapeAttrs, Tick } from '../dependents';
 import Geometry from '../geometry/base';
 import { LegendItem, MarkerCfg } from '../interface';
 import { getMappingValue } from './attr';
