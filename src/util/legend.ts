@@ -32,12 +32,13 @@ function handleUserMarkerStyle(markerStyle: ShapeAttrs, style: MarkerCfg['style'
  * @param style
  * @param color
  */
-function adpatorMarkerStyle(marker: LegendMarkerCfg, color: string) {
+function adpatorMarkerStyle(marker: LegendMarkerCfg, color: string): void {
   const symbol = marker.symbol;
   if (isString(symbol) && STROKES_SYMBOLS.indexOf(symbol) !== -1) {
-    const lineWidth = get(marker.style, 'lineWidth', 1);
-    const stroke = get(marker.style, 'stroke', color);
-    return deepMix({}, marker.style, { lineWidth, stroke, fill: null });
+    const markerStyle = get(marker, 'style', {});
+    const lineWidth = get(markerStyle, 'lineWidth', 1);
+    const stroke = markerStyle.stroke || markerStyle.fill || color;
+    marker.style = deepMix({}, marker.style, { lineWidth, stroke, fill: null });
   }
 }
 
