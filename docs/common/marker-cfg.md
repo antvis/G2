@@ -2,8 +2,8 @@
 
 | 参数名  | 类型                  | 默认值 | 描述                                                                     |
 | ------- | --------------------- | ------ | ------------------------------------------------------------------------ |
-| symbol  | *string \| function*  | -      | 配置图例 marker 的 symbol 形状，详见 [marker.symbol 配置](#markersymbol) |
-| style   | [ShapeAttrs](/zh/docs/api/shape/shape-attrs)   | -      | 图例项 marker 的配置项                                                   |
+| symbol  | _string \| function_  | -      | 配置图例 marker 的 symbol 形状，详见 [marker.symbol 配置](#markersymbol) |
+| style   | _ShapeAttrs \| ((style: ShapeAttrs) => ShapeAttrs)_  | -      | 图例项 marker 的配置项, 详见 [ShapeAttrs](/zh/docs/api/shape/shape-attrs)                                             |
 | spacing | number                | -      | 图例项 marker 同后面 name 的间距                                         |
 
 #### marker.symbol

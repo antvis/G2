@@ -1,6 +1,8 @@
-import { DIRECTION } from '../../../src';
+import { deepMix } from '@antv/util';
+import { Chart, DIRECTION } from '../../../src';
 import { LegendItem } from '../../../src/interface';
-import { getCustomLegendItems, getLegendLayout } from '../../../src/util/legend';
+import { getCustomLegendItems, getLegendItems, getLegendLayout } from '../../../src/util/legend';
+import { createDiv } from '../../util/dom';
 
 describe('util legend', () => {
   it('getLegendLayout', () => {
@@ -38,5 +40,79 @@ describe('util legend', () => {
       { name: 'a', value: 'aa', marker: { symbol: 'circle', spacing: 8, style: { fill: 'green', r: 5 } } },
       { name: 'b', value: 'bb', marker: { symbol: 'square', spacing: 8, style: { fill: 'red', r: 6 } } },
     ]);
+  });
+
+  it('getLegendItems, userMarker style works', () => {
+    const chart = new Chart({
+      container: createDiv(),
+    });
+    chart.data([
+      { city: '杭州', value: 10 },
+      { city: '广州', value: 10 },
+    ]);
+    chart.interval().position('city*value').color('city');
+    chart.render();
+
+    const geometry = chart.geometries[0];
+    const attr = geometry.getGroupAttributes()[0];
+    let items = getLegendItems(chart, geometry, attr, {}, {});
+    expect(items.length).toBe(2);
+    expect(items[0].marker.style.fill).toBe(chart.getTheme().colors10[0]);
+
+    chart.render();
+    items = getLegendItems(
+      chart,
+      geometry,
+      attr,
+      {},
+      {
+        symbol: 'hyphen',
+        style: {
+          lineWidth: 2,
+          stroke: 'red',
+        },
+      }
+    );
+    expect(items[0].marker.style.stroke).toBe('red');
+    expect(items[0].marker.style.lineWidth).toBe(2);
+  });
+
+  it('getLegendItems, callback to set color', () => {
+    const chart = new Chart({
+      container: createDiv(),
+    });
+    chart.data([
+      { city: '杭州', value: 10 },
+      { city: '广州', value: 10 },
+    ]);
+    chart.interval().position('city*value').color('city');
+    chart.render();
+
+    const geometry = chart.geometries[0];
+    const attr = geometry.getGroupAttributes()[0];
+    let items = getLegendItems(chart, geometry, attr, {}, {});
+    expect(items.length).toBe(2);
+    expect(items[0].marker.style.fill).toBe(chart.getTheme().colors10[0]);
+
+    chart.render();
+    items = getLegendItems(
+      chart,
+      geometry,
+      attr,
+      {
+        style: {
+          lineWidth: 4,
+        },
+      },
+      {
+        symbol: 'hyphen',
+        style: (s) =>
+          deepMix({}, s, {
+            stroke: 'red',
+          }),
+      }
+    );
+    expect(items[0].marker.style.stroke).toBe('red');
+    expect(items[0].marker.style.lineWidth).toBe(4);
   });
 });
