@@ -115,7 +115,7 @@ export default class Tooltip extends Controller<TooltipOption> {
         })
       );
 
-      if (showContent) {
+      if (isFunction(showContent) ? showContent(items) : showContent) {
         // 展示 tooltip 内容框才渲染 tooltip
         if (!this.tooltip) {
           // 延迟生成

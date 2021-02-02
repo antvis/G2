@@ -93,7 +93,6 @@ describe('#2223', () => {
     chart.tooltip({
       shared: true,
       customItems: (items) => {
-        console.log(items);
         return [{
           ...items[0],
           name: 'hello g2',
