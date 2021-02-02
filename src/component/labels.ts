@@ -128,7 +128,7 @@ export default class Labels {
     offscreenGroup.destroy();
   }
 
-  /** 清楚当前 labels */
+  /** 清除当前 labels */
   public clear() {
     this.container.clear();
     this.shapesMap = {};
