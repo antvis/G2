@@ -1,3 +1,21 @@
+#### 4.1.10 (2021-02-03)
+
+##### Documentation Changes
+
+* **labels.ts:**  修改注释错别字 ([#3262](https://github.com/antvis/g2/pull/3262)) ([9e1af1c1](https://github.com/antvis/g2/commit/9e1af1c16a7dbcf3f038945d1e81386cf36f9dfd))
+*  补充 geometry 和 element 的 api 文档 ([#3249](https://github.com/antvis/g2/pull/3249)) ([c2d061e0](https://github.com/antvis/g2/commit/c2d061e02b9de242cffbe466068bf7e5a1c83037))
+
+##### New Features
+
+* **tooltip:**  tooltip.shwoContent support function ([#3261](https://github.com/antvis/g2/pull/3261)) ([a26c0732](https://github.com/antvis/g2/commit/a26c0732c31de57501b88210db6731344ed4cdf1))
+*  增加 getAction 的返回参数类型定义 ([#3256](https://github.com/antvis/g2/pull/3256)) ([024f9f9e](https://github.com/antvis/g2/commit/024f9f9e7ddaf6962760c819b964726575f1ad49))
+
+##### Bug Fixes
+
+*  判断提前,预防 time 类型出现的错误 ([#3258](https://github.com/antvis/g2/pull/3258)) ([a143ef54](https://github.com/antvis/g2/commit/a143ef54b14f23afc8f443867473a07449400321))
+*  修复实心的 shape 设置空心的 marker，会导致 marker.style 设置不生效 ([#3250](https://github.com/antvis/g2/pull/3250)) ([88c45f88](https://github.com/antvis/g2/commit/88c45f88bad81581f727a644cbbcfcddc5bb460c))
+*  提示增强 ([#3259](https://github.com/antvis/g2/pull/3259)) ([4ffac0b0](https://github.com/antvis/g2/commit/4ffac0b001df319ed7149d495451c98b681ffca7))
+
 #### 4.1.8 (2021-01-27)
 
 ##### Feature

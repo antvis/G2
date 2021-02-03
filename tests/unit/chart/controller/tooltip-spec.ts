@@ -1,4 +1,5 @@
 import { Chart } from '../../../../src/index';
+import { Datum } from '../../../../src/interface';
 import { createDiv, removeDom } from '../../../util/dom';
 
 describe('Tooltip', () => {
@@ -562,5 +563,20 @@ describe('tooltip change', () => {
     const crosshairs = tooltip.xCrosshair;
     // @ts-ignore
     expect(crosshairs.get('start').x).toBe(tooltip.items[0].x);
+    chart.hideTooltip();
+  });
+
+  it('tooltip.showContent function', () => {
+    chart.tooltip({
+      showContent: (datum: Datum) => {
+        return datum[0]['title'] !== '1994';
+      },
+    });
+
+    const point = chart.getXY({ year: '1994', value: 17409 });
+    chart.showTooltip(point);
+
+    // @ts-ignore
+    expect(chart.ele.querySelector('.g2-tooltip').style.visibility).toBe('hidden');
   });
 });
