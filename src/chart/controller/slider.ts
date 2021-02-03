@@ -308,15 +308,13 @@ export default class Slider extends Controller<SliderOption> {
   private changeViewData(min: number, max: number) {
     const data = this.view.getOptions().data;
     const xScale = this.view.getXScale();
-    const isHorizontal = true;
-    const values = valuesOfKey(data, xScale.field);
-    const xValues = isHorizontal ? values : values.reverse();
     const dataSize = size(data);
-
     if (!xScale || !dataSize) {
       return;
     }
-
+    const isHorizontal = true;
+    const values = valuesOfKey(data, xScale.field);
+    const xValues = isHorizontal ? values : values.reverse();
     const xTickCount = size(xValues);
 
     const minIndex = Math.floor(min * (xTickCount - 1));
