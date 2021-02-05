@@ -1199,7 +1199,7 @@ export type TooltipItem = {
   /** 原始数据 */
   readonly data: Datum; // 原始数据
   /** 映射之后的数据 */
-  readonly mappingData: Data; // 映射后的数据
+  readonly mappingData: Datum; // 映射后的数据
   /** tooltip item 中名称 */
   readonly name: string;
   /** tooltip item 中值 */
