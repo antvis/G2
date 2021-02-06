@@ -20,6 +20,8 @@ describe('#2930', () => {
   });
 
   chart.coordinate('theta');
+
+  // @todo animate为true path问题
   chart.animate(false)
   chart.data(data);
   chart.interval().position('value').color('type').adjust('stack');
