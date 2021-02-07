@@ -181,9 +181,10 @@ describe('Pie update animation', () => {
     const interval = chart.interval().position('percent').color('item').adjust('stack');
     chart.render();
     
-
     expect(() => {
       chart.changeSize(0, 300);
     }).not.toThrow();
+    
+    chart.destroy();
   });
 });
