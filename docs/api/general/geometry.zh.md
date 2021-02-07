@@ -9,21 +9,21 @@ Geometry 几何标记基类，主要负责数据到图形属性的映射以及�
 
 <img alt='geometry' width='100%' style='max-width: 800px' src='https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*urWQQJm0Wy8AAAAAAAAAAAAAARQnAQ'/>
 
-## 创建几何图形
+### 创建几何图形
 
-### chart.interval(options)
+#### chart.interval(options)
 
 用于绘制柱状图、直方图、南丁格尔玫瑰图、饼图、条形环图（玉缺图）、漏斗图等。
 
 `markdown:docs/common/geom-base-cfg.md`
 
-### chart.point(options)
+#### chart.point(options)
 
 用于绘制点图、折线图中的点等。
 
 `markdown:docs/common/geom-base-cfg.md`
 
-### chart.line(options)
+#### chart.line(options)
 
 用于绘制折线图、曲线图、阶梯线图等。
 
@@ -36,7 +36,7 @@ options:
 | visible      | boolean |          | -      | 是否可见           |
 | connectNulls | boolean |          | -      | 是否连接空值       |
 
-### chart.area(options)
+#### chart.area(options)
 
 用于绘制区域图（面积图）、层叠区域图、区间区域图等。
 
@@ -53,7 +53,7 @@ options:
 <img alt='startOnZero-true' width='300' src='https://gw.alipayobjects.com/zos/rmsportal/ZQqwUCczalrKqGgagOVp.png'/>
 <img alt='startOnZero-false' width='300' src='https://gw.alipayobjects.com/zos/rmsportal/yPswkaXvUpCYOdhocGwB.png'/>
 
-### chart.path(options)
+#### chart.path(options)
 
 用于绘制路径图，地图上的路径等。
 
@@ -66,33 +66,33 @@ options:
 | visible      | boolean |          | -      | 是否可见           |
 | connectNulls | boolean |          | -      | 是否连接空值       |
 
-### chart.polygon(options)
+#### chart.polygon(options)
 
 用于绘制色块图（像素图）、热力图、地图等。
 
 `markdown:docs/common/geom-base-cfg.md`
 
-### chart.edge(options)
+#### chart.edge(options)
 
 用于绘制流程图、树、弧长连接图、和弦图、桑基图等。
 
 `markdown:docs/common/geom-base-cfg.md`
 
-### chart.heatmap(options)
+#### chart.heatmap(options)
 
 用于绘制热力图。
 
 `markdown:docs/common/geom-base-cfg.md`
 
-### chart.schema(options)
+#### chart.schema(options)
 
 用于绘制 k 线图，箱型图。
 
 `markdown:docs/common/geom-base-cfg.md`
 
-## Geometry API
+### Geometry API
 
-### geom.position()
+#### geom.position()
 
 配置 position 通道映射规则。
 
@@ -107,7 +107,7 @@ geometry.position({
 });
 ```
 
-### geom.color()
+#### geom.color()
 
 配置 color 通道映射规则。`field` 参与颜色映射的数据字段，多个字段使用 '\*' 连接符进行连接。
 
@@ -137,7 +137,7 @@ geometry.color('x', (xVal) => {
 geometry.color('x', '#BAE7FF-#1890FF-#0050B3');
 ```
 
-### geom.size()
+#### geom.size()
 
 配置 size 通道映射规则。`field` 参与 size 映射的数据字段，多个字段使用 '\*' 连接符进行连接。
 
@@ -173,7 +173,7 @@ geometry.size('x', (xVal) => {
 });
 ```
 
-### geom.shape()
+#### geom.shape()
 
 配置 shape 通道映射规则。field 参与 shape 映射的数据字段，多个字段使用 '\*' 连接符进行连接。
 
@@ -209,7 +209,7 @@ geometry.shape('x', (xVal) => {
 });
 ```
 
-### geom.tooltip()
+#### geom.tooltip()
 
 配置 Geometry 显示的 tooltip 内容。
 
@@ -284,7 +284,7 @@ tooltip('x*y', (x, y) => {
 });
 ```
 
-### geom.style()
+#### geom.style()
 
 图形样式配置。
 
@@ -322,7 +322,7 @@ style('x*y', (xVal, yVal) => {
 });
 ```
 
-### geom.label()
+#### geom.label()
 
 Geometry label 配置
 
@@ -358,7 +358,7 @@ label(
 );
 ```
 
-### geom.customInfo()
+#### geom.customInfo()
 
 用于向 shape 中传入自定义的数据。目前可能仅仅可能用于在自定义 shape 的时候，像自定义 shape 中传入自定义的数据，方便实现自定义 shape 的配置能力。
 
@@ -379,7 +379,7 @@ registerShape('interval', 'your-shape', {
 });
 ```
 
-### geom.state()
+#### geom.state()
 
 设置状态对应的样式。
 
@@ -414,7 +414,7 @@ chart
   });
 ```
 
-### geom.animate()
+#### geom.animate()
 
 Geometry 动画配置。
 
@@ -441,7 +441,7 @@ animate({
 });
 ```
 
-### geom.paint()
+#### geom.paint()
 
 ```sign
 geometry.paint(isUpdate: boolean = false)
@@ -449,15 +449,15 @@ geometry.paint(isUpdate: boolean = false)
 
 将原始数据映射至图形空间，同时创建图形对象。参数代表着是否重新绘制或更新
 
-### geom.clear()
+#### geom.clear()
 
 清空当前 Geometry，配置项仍保留，但是内部创建的对象全部清空。
 
-### geom.destroy()
+#### geom.destroy()
 
 销毁 Geometry 实例。
 
-### geom.getAttribute()
+#### geom.getAttribute()
 
 根据名字获取图形属性实例。可选的图形属性有：`color`, `size`, `position`, `shape` 等
 
@@ -465,7 +465,7 @@ geometry.paint(isUpdate: boolean = false)
 getAttribute(name: string): Attribute
 ```
 
-### geom.getXScale()
+#### geom.getXScale()
 
 获取 x 轴对应的 scale 实例。scale 相关的 api 操作，可以见: [antvis/scale](https://github.com/antvis/scale)
 
@@ -473,7 +473,7 @@ getAttribute(name: string): Attribute
 getXScale(): Scale
 ```
 
-### geom.getYScale()
+#### geom.getYScale()
 
 获取 y 轴对应的 scale 实例。scale 相关的 api 操作，可以见: [antvis/scale](https://github.com/antvis/scale)
 
@@ -481,7 +481,7 @@ getXScale(): Scale
 getYScale(): Scale
 ```
 
-### geom.getXYFields()
+#### geom.getXYFields()
 
 获得图形的 x y 字段。
 
@@ -489,7 +489,7 @@ getYScale(): Scale
 getXYFields(): [string, string]
 ```
 
-### geom.getElementsBy()
+#### geom.getElementsBy()
 
 根据一定的规则查找 Geometry 的 Elements。
 

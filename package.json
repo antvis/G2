@@ -142,5 +142,9 @@
     "interaction"
   ],
   "author": "https://github.com/orgs/antvis/people",
-  "license": "MIT"
+  "license": "MIT",
+  "resolutions": {
+    "monaco-editor": "0.21.3",
+    "@babel/plugin-transform-spread": "7.12.1"
+  }
 }
