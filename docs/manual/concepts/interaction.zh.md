@@ -140,7 +140,7 @@ _
 
 #### 触发与反馈搭配约束
 
-每个交互环节中都存在一组 Trigger 和 Action。那么，是否所有的 trigger 和 action 都能组合？如果不能，怎么进行约束？错误搭配的后果是什么？我们需要从下面两个方面考虑如何实际触发与反馈的搭配约束：<br />**<br />**搭配的合理性\*\*<br />我们用几个示例来说明这个问题：
+每个交互环节中都存在一组 Trigger 和 Action。那么，是否所有的 trigger 和 action 都能组合？如果不能，怎么进行约束？错误搭配的后果是什么？我们需要从下面两个方面考虑如何实际触发与反馈的搭配约束：<br />**<br />**搭配的合理性**<br />我们用几个示例来说明这个问题：
 
 - 鼠标进入 view ，鼠标变成十字形状（合理搭配）
 - 鼠标进入 view, legend 的项高亮（不合理搭配）
@@ -154,7 +154,7 @@ _
 
 - view, chart 上的位置同 Element 的图形有关联，一般通过鼠标触发（在上面或者临近）
 - Element 的图形同 axis, legend, tooltip 等组件互相关联，一般通过视觉映射通道关联
-  - postion 同 axis 关联
+  - position 同 axis 关联
   - color 同 legend 关联
   - Element 上的整条记录同 tooltip 关联
 - 一些 Trigger 同 view、chart 上的状态量关联
