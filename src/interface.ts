@@ -1438,6 +1438,8 @@ export interface AxisCfg {
 }
 
 export interface SliderCfg {
+  /** slider 过滤字段, 默认过滤 xField */
+  readonly sliderField?: string;
   /** slider 高度 */
   readonly height?: number;
 

@@ -9,6 +9,7 @@ import { Writeable } from '../../util/types';
 import View from '../view';
 import { Controller } from './base';
 import { SliderOption, SliderCfg } from '../../interface';
+import { Scale } from '@antv/attr';
 
 /**
  * @ignore
@@ -270,24 +271,18 @@ export default class Slider extends Controller<SliderOption> {
    */
   private getMinMaxText(min: number, max: number) {
     const data = this.view.getOptions().data;
-    const xScale = this.view.getXScale();
-    const isHorizontal = true;
-    const values = valuesOfKey(data, xScale.field);
-    const xValues = isHorizontal ? values : values.reverse();
+    const { scale, sliderField } = this.getScaleBySliderField();
+    const values = valuesOfKey(data, scale.field);
+    const xValues = sliderField ? values.sort((a, b) => a - b) : values;
     const dataSize = size(data);
-
-    if (!xScale || !dataSize) {
+    if (!scale || !dataSize) {
       return {}; // fix: 需要兼容，否则调用方直接取值会报错
     }
-
     const xTickCount = size(xValues);
-
     const minIndex = Math.floor(min * (xTickCount - 1));
     const maxIndex = Math.floor(max * (xTickCount - 1));
-
     let minText = get(xValues, [minIndex]);
     let maxText = get(xValues, [maxIndex]);
-
     const formatter = this.getSliderCfg().formatter as SliderCfg['formatter'];
     if (formatter) {
       minText = formatter(minText, data[minIndex], minIndex);
@@ -301,27 +296,36 @@ export default class Slider extends Controller<SliderOption> {
   }
 
   /**
+   * 根据 sliderField 获取 scale ， 默认返回 getXScale
+   */
+  private getScaleBySliderField(): { scale: Scale; sliderField: string } {
+    const { sliderField } = this.getSliderCfg();
+    const scale = sliderField ? this.view.getScaleByField(sliderField) : this.view.getXScale();
+    return { scale, sliderField };
+  }
+
+  /**
    * 更新 view 过滤数据
    * @param min
    * @param max
    */
   private changeViewData(min: number, max: number) {
     const data = this.view.getOptions().data;
-    const xScale = this.view.getXScale();
+    const { scale, sliderField } = this.getScaleBySliderField();
     const dataSize = size(data);
-    if (!xScale || !dataSize) {
+    if (!scale || !dataSize) {
       return;
     }
-    const isHorizontal = true;
-    const values = valuesOfKey(data, xScale.field);
-    const xValues = isHorizontal ? values : values.reverse();
+    const values = valuesOfKey(data, scale.field);
+    // filter 通过索引过滤，存在 sliderField 时需要升序排序
+    const xValues = sliderField ? values.sort((a, b) => a - b) : values;
     const xTickCount = size(xValues);
 
     const minIndex = Math.floor(min * (xTickCount - 1));
     const maxIndex = Math.floor(max * (xTickCount - 1));
 
     // 增加 x 轴的过滤器
-    this.view.filter(xScale.field, (value: any, datum: Datum) => {
+    this.view.filter(scale.field, (value: any, datum: Datum) => {
       const idx: number = xValues.indexOf(value);
       return idx > -1 ? isBetween(idx, minIndex, maxIndex) : true;
     });

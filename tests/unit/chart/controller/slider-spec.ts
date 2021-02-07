@@ -157,6 +157,29 @@ describe('Slider', () => {
     expect(slider.component.get('minText')).toBe(`1991-3-0`);
     expect(slider.component.get('maxText')).toBe(`1993-3.5-2`);
   });
+  it('slider field', () => {
+    chart.option('slider', {
+      sliderField: 'value',
+    });
+    chart.changeData(Data);
+    chart.render(true);
+    const [slider] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SLIDER);
+    expect(slider.component.get('minText')).toBe(3);
+    expect(slider.component.get('maxText')).toBe(13);
+  });
+
+  it('slider field', () => {
+    chart.option('slider', {
+      sliderField: 'value',
+      start: 0.6,
+      end: 0.8,
+    });
+    chart.changeData(Data);
+    chart.render(true);
+    const [slider] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SLIDER);
+    expect(slider.component.get('minText')).toBe(5);
+    expect(slider.component.get('maxText')).toBe(7);
+  });
 
   afterAll(() => {
     chart.destroy();
