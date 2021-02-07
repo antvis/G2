@@ -271,9 +271,9 @@ export default class Slider extends Controller<SliderOption> {
    */
   private getMinMaxText(min: number, max: number) {
     const data = this.view.getOptions().data;
-    const { scale, sliderField } = this.getScaleBySliderField();
+    const { scale, field } = this.getScaleBySliderField();
     const values = valuesOfKey(data, scale.field);
-    const xValues = sliderField ? values.sort((a, b) => a - b) : values;
+    const xValues = field ? values.sort((a, b) => a - b) : values;
     const dataSize = size(data);
     if (!scale || !dataSize) {
       return {}; // fix: 需要兼容，否则调用方直接取值会报错
@@ -296,12 +296,12 @@ export default class Slider extends Controller<SliderOption> {
   }
 
   /**
-   * 根据 sliderField 获取 scale ， 默认返回 getXScale
+   * 根据 field 获取 scale ， 默认返回 getXScale
    */
-  private getScaleBySliderField(): { scale: Scale; sliderField: string } {
-    const { sliderField } = this.getSliderCfg();
-    const scale = sliderField ? this.view.getScaleByField(sliderField) : this.view.getXScale();
-    return { scale, sliderField };
+  private getScaleBySliderField(): { scale: Scale; field: string } {
+    const { field } = this.getSliderCfg();
+    const scale = field ? this.view.getScaleByField(field) : this.view.getXScale();
+    return { scale, field };
   }
 
   /**
@@ -311,14 +311,14 @@ export default class Slider extends Controller<SliderOption> {
    */
   private changeViewData(min: number, max: number) {
     const data = this.view.getOptions().data;
-    const { scale, sliderField } = this.getScaleBySliderField();
+    const { scale, field } = this.getScaleBySliderField();
     const dataSize = size(data);
     if (!scale || !dataSize) {
       return;
     }
     const values = valuesOfKey(data, scale.field);
     // filter 通过索引过滤，存在 sliderField 时需要升序排序
-    const xValues = sliderField ? values.sort((a, b) => a - b) : values;
+    const xValues = field ? values.sort((a, b) => a - b) : values;
     const xTickCount = size(xValues);
 
     const minIndex = Math.floor(min * (xTickCount - 1));
