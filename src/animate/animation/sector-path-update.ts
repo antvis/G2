@@ -65,6 +65,15 @@ function getArcInfo(path: PathCommand[]) {
     return command[0] === 'A' || command[0] === 'a';
   });
 
+  if (arcPaths.length === 0) {
+    return {
+      startAngle: 0,
+      endAngle: 0,
+      radius: 0,
+      innerRadius: 0,
+    };
+  }
+
   const firstArcPathCommand = arcPaths[0];
   const lastArcPathCommand = arcPaths.length > 1 ? arcPaths[1] : arcPaths[0];
   const firstIndex = path.indexOf(firstArcPathCommand);
