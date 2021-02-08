@@ -157,7 +157,7 @@ describe('Slider', () => {
     expect(slider.component.get('minText')).toBe(`1991-3-0`);
     expect(slider.component.get('maxText')).toBe(`1993-3.5-2`);
   });
-  it.only('slider field', () => {
+  it('slider field', () => {
     chart.option('slider', {
       field: 'value',
     });
