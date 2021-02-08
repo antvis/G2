@@ -216,6 +216,8 @@ export default class Geometry extends Base {
   public elementsMap: Record<string, Element> = {};
   /** animate 配置项 */
   public animateOption: AnimateOption | boolean = true;
+  /** 全局动画 */
+  public globalAnimate: boolean = true;
   /** 图形属性映射配置 */
   protected attributeOption: Record<string, AttributeOption> = {};
   /** adjust 配置项 */
@@ -746,6 +748,7 @@ export default class Geometry extends Base {
    * @returns
    */
   public animate(cfg: AnimateOption | boolean): Geometry {
+    this.globalAnimate = false;
     this.animateOption = cfg;
     return this;
   }
@@ -920,6 +923,7 @@ export default class Geometry extends Base {
    * 将原始数据映射至图形空间，同时创建图形对象。
    */
   public paint(isUpdate: boolean = false) {
+    // this.animateOption = this.globalAnimate ? this.animateOption : false;
     if (this.animateOption) {
       this.animateOption = deepMix({}, getDefaultAnimateCfg(this.type, this.coordinate), this.animateOption);
     }

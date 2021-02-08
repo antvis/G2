@@ -989,10 +989,10 @@ export class View extends Base {
     return layer === LAYER.BG
       ? this.backgroundGroup
       : layer === LAYER.MID
-      ? this.middleGroup
-      : layer === LAYER.FORE
-      ? this.foregroundGroup
-      : this.foregroundGroup;
+        ? this.middleGroup
+        : layer === LAYER.FORE
+          ? this.foregroundGroup
+          : this.foregroundGroup;
   }
 
   /**
@@ -1356,8 +1356,8 @@ export class View extends Base {
       this.syncViewPadding === true
         ? defaultSyncViewPadding
         : isFunction(this.syncViewPadding)
-        ? this.syncViewPadding
-        : undefined;
+          ? this.syncViewPadding
+          : undefined;
 
     if (syncViewPaddingFn) {
       syncViewPaddingFn(this, this.views, PaddingCal);
@@ -1872,7 +1872,12 @@ export class View extends Base {
       geometry.canvasRegion = canvasRegion;
       if (!doAnimation) {
         // 如果 view 不执行动画，那么 view 下所有的 geometry 都不执行动画
-        geometry.animate(false);
+        geometry.animateOption = false;
+      } else {
+        // 如果 view 执行动画，那么 view 下面 geometry 依据自己的动画状态执行
+        if (geometry.globalAnimate === true) {
+          geometry.animateOption = true;
+        }
       }
       geometry.paint(isUpdate);
     }
