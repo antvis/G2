@@ -1,7 +1,6 @@
 import { Chart } from '../../../../src';
 import { CITY_SALE } from '../../../util/data';
 import { createDiv } from '../../../util/dom';
-import { delay } from '../../../util/delay';
 import { getClientPoint, simulateMouseEvent } from '../../../util/simulate';
 
 const div = createDiv();
@@ -130,18 +129,30 @@ describe('Event', () => {
     expect(mousedownEvent).toBeCalled();
   });
 
-  it('rigger same event twice', async () => {
-    let plotmousedown = 0;
+  it('fix: not trigger same event twice', () => {
+    let plotClick = 0;
+    let plotClick2 = 0;
+    let dblClick = 0;
 
     chart.on('*', (e) => {
       if (e.type === 'plot:dblclick') {
-        plotmousedown += 1;
+        plotClick += 1;
+      }
+    });
+
+    chart.on('dblclick', (e) => {
+      if (e.type === 'plot:dblclick') {
+        plotClick2 += 1;
+      }
+      if (e.type === 'dblclick') {
+        dblClick += 1;
       }
     });
 
     simulateMouseEvent(chart.canvas.get('el'), 'dblclick', getClientPoint(chart.canvas, 134, 410));
-    await delay(500);
-    expect(plotmousedown).toBe(1);
+    expect(plotClick).toBe(1);
+    expect(plotClick2).toBe(0);
+    expect(dblClick).toBe(1);
   });
 
   afterAll(() => {
