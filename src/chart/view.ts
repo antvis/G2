@@ -1610,11 +1610,12 @@ export class View extends Base {
 
     if (ALL_EVENTS.includes(type)) {
       const currentInPlot = this.isPointInPlot(point);
+      const newEvent = e.clone();
 
       if (currentInPlot) {
         const TYPE = `plot:${type}`; // 组合 plot 事件
-        e.type = TYPE;
-        this.emit(TYPE, e);
+        newEvent.type = TYPE;
+        this.emit(TYPE, newEvent);
         if (type === 'mouseleave' || type === 'touchend') {
           // 在plot 内部却离开画布
           this.isPreMouseInPlot = false;
@@ -1625,18 +1626,18 @@ export class View extends Base {
       if (type === 'mousemove' || type === 'touchmove') {
         if (this.isPreMouseInPlot && !currentInPlot) {
           if (type === 'mousemove') {
-            e.type = PLOT_EVENTS.MOUSE_LEAVE;
-            this.emit(PLOT_EVENTS.MOUSE_LEAVE, e);
+            newEvent.type = PLOT_EVENTS.MOUSE_LEAVE;
+            this.emit(PLOT_EVENTS.MOUSE_LEAVE, newEvent);
           }
-          e.type = PLOT_EVENTS.LEAVE;
-          this.emit(PLOT_EVENTS.LEAVE, e);
+          newEvent.type = PLOT_EVENTS.LEAVE;
+          this.emit(PLOT_EVENTS.LEAVE, newEvent);
         } else if (!this.isPreMouseInPlot && currentInPlot) {
           if (type === 'mousemove') {
-            e.type = PLOT_EVENTS.MOUSE_ENTER;
-            this.emit(PLOT_EVENTS.MOUSE_ENTER, e);
+            newEvent.type = PLOT_EVENTS.MOUSE_ENTER;
+            this.emit(PLOT_EVENTS.MOUSE_ENTER, newEvent);
           }
-          e.type = PLOT_EVENTS.ENTER;
-          this.emit(PLOT_EVENTS.ENTER, e);
+          newEvent.type = PLOT_EVENTS.ENTER;
+          this.emit(PLOT_EVENTS.ENTER, newEvent);
         }
         // 赋新的状态值
         this.isPreMouseInPlot = currentInPlot;
@@ -1644,11 +1645,11 @@ export class View extends Base {
         // 可能不在 currentInPlot 中
         if (this.isPreMouseInPlot) {
           if (type === 'mouseleave') {
-            e.type = PLOT_EVENTS.MOUSE_LEAVE;
-            this.emit(PLOT_EVENTS.MOUSE_LEAVE, e);
+            newEvent.type = PLOT_EVENTS.MOUSE_LEAVE;
+            this.emit(PLOT_EVENTS.MOUSE_LEAVE, newEvent);
           }
-          e.type = PLOT_EVENTS.LEAVE;
-          this.emit(PLOT_EVENTS.LEAVE, e);
+          newEvent.type = PLOT_EVENTS.LEAVE;
+          this.emit(PLOT_EVENTS.LEAVE, newEvent);
 
           this.isPreMouseInPlot = false;
         }
