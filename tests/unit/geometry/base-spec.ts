@@ -822,7 +822,7 @@ describe('Geometry', () => {
     });
 
     chart.data(data);
-    chart.interval().position('year*valye').shape('my-custom-interval').customInfo({ hello: 'g2' });
+    chart.interval().position('year*value').shape('my-custom-interval').customInfo({ hello: 'g2' });
     chart.render();
 
     expect(customInfo).toEqual({ hello: 'g2' });
@@ -843,7 +843,7 @@ describe('Geometry', () => {
     });
 
     chart.data(data);
-    const geometry = chart.interval().position('year*valye');
+    const geometry = chart.interval().position('year*value');
 
     const beforFn = jest.fn();
     const afterFn = jest.fn();
@@ -905,7 +905,7 @@ describe('Geometry', () => {
     });
 
     chart.data(data);
-    const geometry = chart.interval({ zIndexReversed: true }).position('year*valye');
+    const geometry = chart.interval({ zIndexReversed: true }).position('year*value');
     chart.render();
     // @ts-ignore
     expect(geometry.zIndexReversed).toBe(true);
@@ -914,7 +914,7 @@ describe('Geometry', () => {
       return b.shape.get('zIndex');
     }, 100);
 
-    const geometry1 = chart.interval({ zIndexReversed: false }).position('year*valye');
+    const geometry1 = chart.interval({ zIndexReversed: false }).position('year*value');
     chart.render();
     // @ts-ignore
     expect(geometry1.zIndexReversed).toBe(false);
