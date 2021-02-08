@@ -1,4 +1,4 @@
-import { deepMix, get, isObject, size, clamp, isNil, noop, throttle, isEmpty, valuesOfKey } from '@antv/util';
+import { deepMix, get, isObject, size, clamp, isNil, noop, throttle, isEmpty, valuesOfKey, isNumber } from '@antv/util';
 import { COMPONENT_TYPE, DIRECTION, LAYER, VIEW_LIFE_CIRCLE } from '../../constant';
 import { IGroup, Slider as SliderComponent } from '../../dependents';
 import { ComponentOption, Datum, Padding } from '../../interface';
@@ -273,7 +273,7 @@ export default class Slider extends Controller<SliderOption> {
     const data = this.view.getOptions().data;
     const { scale, field } = this.getScaleBySliderField();
     const values = valuesOfKey(data, scale.field);
-    const xValues = field ? values.sort((a, b) => a - b) : values;
+    const xValues = field && isNumber(values?.[0]) ? values.sort((a: number, b: number) => a - b) : values;
     const dataSize = size(data);
     if (!scale || !dataSize) {
       return {}; // fix: 需要兼容，否则调用方直接取值会报错
@@ -318,7 +318,7 @@ export default class Slider extends Controller<SliderOption> {
     }
     const values = valuesOfKey(data, scale.field);
     // filter 通过索引过滤，存在 sliderField 时需要升序排序
-    const xValues = field ? values.sort((a, b) => a - b) : values;
+    const xValues = field && isNumber(values?.[0]) ? values.sort((a: number, b: number) => a - b) : values;
     const xTickCount = size(xValues);
 
     const minIndex = Math.floor(min * (xTickCount - 1));
