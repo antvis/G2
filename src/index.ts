@@ -676,4 +676,7 @@ declare module './chart/view' {
   }
 }
 
+// 暴露一些常量
+export { VIEW_LIFE_CIRCLE } from './constant';
+
 export * from './core';
