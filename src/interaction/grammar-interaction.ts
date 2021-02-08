@@ -1,4 +1,4 @@
-import { each, isArray, isFunction, isString, debounce, throttle, get } from '@antv/util';
+import { each, isArray, isFunction, isString, debounce, throttle } from '@antv/util';
 import { View } from '../chart';
 import { ActionCallback, IAction, IInteractionContext, LooseObject } from '../interface';
 import { createAction, createCallbackAction } from './action/register';
@@ -6,7 +6,7 @@ import InteractionContext from './context';
 import Interaction from './interaction';
 
 // 将字符串转换成 action
-function parseAction(actionStr: string, context: IInteractionContext, arg?: LooseObject): ActionObject {
+export function parseAction(actionStr: string, context: IInteractionContext, arg?: any): ActionObject {
   const arr = actionStr.split(':');
   const actionName = arr[0];
   // 如果已经初始化过 action ，则直接引用之前的 action
