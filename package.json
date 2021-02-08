@@ -89,7 +89,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && run-s lint test",
+      "pre-commit": "lint-staged",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
@@ -104,7 +104,8 @@
       "git add"
     ],
     "*.md": [
-      "lint-md ./docs --fix"
+      "lint-md ./docs --fix",
+      "git add"
     ]
   },
   "jest": {
