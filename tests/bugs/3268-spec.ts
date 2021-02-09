@@ -1,7 +1,7 @@
-import { Chart, } from "../../src";
-import { createDiv } from "../util/dom";
+import { Chart, } from '../../src';
+import { createDiv } from '../util/dom';
 
-describe("#3268", () => {
+describe('#3268', () => {
   const data = [
     { time: '03-19', type: '101-1000', value: 32000 },
     { time: '03-19', type: '31-100', value: 30000 },
@@ -39,7 +39,7 @@ describe("#3268", () => {
     height: 500,
   });
 
-  it("should have animation when chart.animate(true) to be called", () => {
+  it('should have animation when chart.animate(true) to be called', () => {
     chart.data(data);
     chart.scale('value', {
       alias: '金额(元)'
