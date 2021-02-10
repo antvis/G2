@@ -1,9 +1,14 @@
-import { each, head, isEqual, last } from '@antv/util';
-import { IShape } from '../../dependents';
+import { each, head, isEqual, last, get } from '@antv/util';
+import { IShape, ShapeAttrs } from '../../dependents';
 import Element from '../../geometry/element/';
 import { LooseObject } from '../../interface';
 import { getAngle, getSectorPath } from '../../util/graphics';
 import Action from './base';
+
+const DEFAULT_REGION_PATH_STYLE = {
+  fill: '#CCD6EC',
+  opacity: 0.3,
+};
 
 /**
  * 背景框的 Action
@@ -14,8 +19,9 @@ class ActiveRegion extends Action {
   private regionPath: IShape;
   /**
    * 显示
+   * @param {ShapeAttrs} style region-path 的样式
    */
-  public show() {
+  public show(args?: { style: ShapeAttrs }) {
     const view = this.context.view;
     const ev = this.context.event;
     const tooltipItems = view.getTooltipItems({
@@ -119,14 +125,14 @@ class ActiveRegion extends Action {
           this.regionPath.attr('path', path);
           this.regionPath.show();
         } else {
+          const style = get(args, 'style', DEFAULT_REGION_PATH_STYLE);
           this.regionPath = backgroundGroup.addShape({
             type: 'path',
             name: 'active-region',
             capture: false,
             attrs: {
+              ...style,
               path,
-              fill: '#CCD6EC',
-              opacity: 0.3,
             },
           });
         }

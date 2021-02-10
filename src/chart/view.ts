@@ -738,7 +738,7 @@ export class View extends Base {
    * ```ts
    * view.interaction('my-interaction', { extra: 'hello world' });
    * ```
-   * 详细文档可以参考：https://g2.antv.vision/zh/docs/manual/tutorial/interaction
+   * 详细文档可以参考：https://g2.antv.vision/zh/docs/api/general/interaction
    * @param name interaction name
    * @param cfg interaction config
    * @returns
