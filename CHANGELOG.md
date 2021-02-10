@@ -1,3 +1,26 @@
+#### 4.1.11 (2021-02-10)
+
+##### Documentation Changes
+
+*  日常文档走查, 层级处理 ([#3277](https://github.com/antvis/g2/pull/3277)) ([d4fec82e](https://github.com/antvis/g2/commit/d4fec82e02c17a76fc5204607591bac3853dae45))
+
+##### New Features
+
+* **active-region:**  支持配置底色样式，全局统一注册一个 配置样式 ([#3284](https://github.com/antvis/g2/pull/3284)) ([48c5bd12](https://github.com/antvis/g2/commit/48c5bd1211b0cd681b5363aba57de4c86782c149))
+* **scrollbar:**  滚动条增加主题样式设置，允许设置滑道、滑块颜色 ([#3286](https://github.com/antvis/g2/pull/3286)) ([2c3e9d37](https://github.com/antvis/g2/commit/2c3e9d37c34eb2fa61d81ec02f0ca67ad1190f1b))
+* **interaction:**  注册交互的时候，允许注册带上触发action的参数 ([#3280](https://github.com/antvis/g2/pull/3280)) ([89aa37fe](https://github.com/antvis/g2/commit/89aa37fe4c3c9080b3906487b49baa351638d87c))
+
+##### Bug Fixes
+
+* **event:**  修复相同 type 事件触发两次 ([#3282](https://github.com/antvis/g2/pull/3282)) ([9d61410b](https://github.com/antvis/g2/commit/9d61410b8248282eab15d45737c393708dfba274))
+* **pie:**  饼图数据 NaN 导致页面崩溃数据边界处理([#2930](https://github.com/antvis/g2/pull/2930)) ([#3248](https://github.com/antvis/g2/pull/3248)) ([cabe1f0b](https://github.com/antvis/g2/commit/cabe1f0b225d3ed94260c895bda9b893d452f1f9))
+* **pie** 修复饼图在动画更新过程中如果宽度变为 0 导致的问题 ([#3271](https://github.com/antvis/g2/pull/3271)) ([9f561499](https://github.com/antvis/g2/commit/9f5614990fc4c3acc192fa089471a03f09a93720))
+* **rose:**  修复 TooltipItem data 类型 ([#3273](https://github.com/antvis/g2/pull/3273)) ([8ed68854](https://github.com/antvis/g2/commit/8ed68854e25b7587dfccd857986193458723dc0a))
+
+##### Other Changes
+
+* **constants** export constant varaibles of view-life-circle ([#3281](https://github.com/antvis/g2/pull/3281)) ([d0f96c48](https://github.com/antvis/g2/commit/d0f96c48ef764c24bd699b8fd736406aae1d37c2))
+
 #### 4.1.10 (2021-02-03)
 
 ##### Documentation Changes
