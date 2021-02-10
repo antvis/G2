@@ -1268,6 +1268,17 @@ export function createThemeByStyleSheet(styleSheet: StyleSheet): LooseObject {
         common: {
           padding: [8, 8, 8, 8],
         },
+        default: {
+          style: {
+            trackColor: 'rgba(0,0,0,0)',
+            thumbColor: 'rgba(0,0,0,0.15)',
+          },
+        },
+        hover: {
+          style: {
+            thumbColor: 'rgba(0,0,0,0.2)',
+          },
+        },
       },
     },
     labels: {
