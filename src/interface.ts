@@ -1493,6 +1493,15 @@ export interface ScrollbarCfg {
   categorySize?: number;
   /** 滚动的时候是否开启动画，默认跟随 view 中 animate 配置 */
   animate?: boolean;
+  /** 主题样式设置, 暂不提供 hover 高亮滑块样式配置 */
+  style?: {
+    /** 滑道颜色 */
+    trackColor?: string;
+    /** 滑块颜色 */
+    thumbColor?: string;
+    // 是否圆角，'round'
+    lineCap?: string;
+  };
 }
 
 /** 滚动条配置 */
