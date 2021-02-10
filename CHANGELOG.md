@@ -1,9 +1,5 @@
 #### 4.1.11 (2021-02-10)
 
-##### Chores
-
-* release 4.1.11 ([7e3b82e7](https://github.com/antvis/g2/commit/7e3b82e72ce09ef1eb9bacc66f1f203dba6c9af1))
-
 ##### Documentation Changes
 
 *  日常文档走查, 层级处理 ([#3277](https://github.com/antvis/g2/pull/3277)) ([d4fec82e](https://github.com/antvis/g2/commit/d4fec82e02c17a76fc5204607591bac3853dae45))
