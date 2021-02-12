@@ -787,7 +787,7 @@ export class View extends Base {
    */
   public changeData(data: Data) {
     this.isDataChanged = true;
-    this.emit(VIEW_LIFE_CIRCLE.BEFORE_CHANGE_DATA);
+    this.emit(VIEW_LIFE_CIRCLE.BEFORE_CHANGE_DATA, Event.fromData(this, VIEW_LIFE_CIRCLE.BEFORE_CHANGE_DATA, null));
     // 1. 保存数据
     this.data(data);
 
@@ -802,7 +802,7 @@ export class View extends Base {
       view.changeData(data);
     }
 
-    this.emit(VIEW_LIFE_CIRCLE.AFTER_CHANGE_DATA);
+    this.emit(VIEW_LIFE_CIRCLE.AFTER_CHANGE_DATA, Event.fromData(this, VIEW_LIFE_CIRCLE.AFTER_CHANGE_DATA, null));
   }
 
   /* View 管理相关的 API */
