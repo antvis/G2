@@ -192,6 +192,7 @@ import ListActive from './interaction/action/component/list-active';
 import ListHighlight from './interaction/action/component/list-highlight';
 import ListSelected from './interaction/action/component/list-selected';
 import ListUnchecked from './interaction/action/component/list-unchecked';
+import ListChecked from './interaction/action/component/list-checked';
 
 import CircleMask from './interaction/action/mask/circle';
 import DimMask from './interaction/action/mask/dim-rect';
@@ -240,6 +241,7 @@ registerAction('list-active', ListActive);
 registerAction('list-selected', ListSelected);
 registerAction('list-highlight', ListHighlight);
 registerAction('list-unchecked', ListUnchecked);
+registerAction('list-checked', ListChecked);
 
 registerAction('legend-item-highlight', ListHighlight, {
   componentNames: ['legend'],
