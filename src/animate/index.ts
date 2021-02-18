@@ -181,6 +181,7 @@ function parseAnimateConfig(animateCfg: AnimateCfg, data: Data | Datum): GAnimat
     easing: isFunction(animateCfg.easing) ? animateCfg.easing(data) : animateCfg.easing,
     duration: isFunction(animateCfg.duration) ? animateCfg.duration(data) : animateCfg.duration,
     callback: animateCfg.callback,
+    repeat: animateCfg.repeat,
   };
 }
 
