@@ -142,6 +142,8 @@ export interface AnimateCfg {
   readonly delay?: number | AnimateDelayCallback;
   /** 动画执行结束后的回调函数 */
   readonly callback?: () => any;
+  /** 动画是否重复 */
+  readonly repeat?: boolean;
 }
 
 /** 传递给 G 的动画配置，duration 必须提供 */
@@ -156,6 +158,8 @@ export interface GAnimateCfg {
   readonly delay?: number;
   /** 动画执行结束后的回调函数 */
   readonly callback?: () => any;
+  /** 动画是否重复 */
+  readonly repeat?: boolean;
 }
 
 // ============================ Geometry 接口相关的类型定义 ============================

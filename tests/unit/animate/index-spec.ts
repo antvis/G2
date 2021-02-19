@@ -1,5 +1,5 @@
 import { getCoordinate } from '@antv/coord';
-import { isNumberEqual } from '@antv/util';
+import { every, isNumberEqual, some } from '@antv/util';
 import { doAnimate, doGroupAppearAnimate, getDefaultAnimateCfg } from '../../../src/animate/index';
 import { delay } from '../../util/delay';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
@@ -180,10 +180,58 @@ describe('Animate', () => {
       { x: 0, y: 400 }
     );
 
-    setTimeout(() => {
-      expect(group.attr('matrix')).toEqual([1, 0, 0, 0, 1, 0, 0, 0, 1]);
-      done();
+    /** 不重复执行动画，每一次都等 */
+    const matries = [];
+    const interval = setInterval(() => {
+      if (matries.length < 5) {
+        matries.push(group.attr('matrix'));
+      } else {
+        clearInterval(interval);
+        done();
+      }
     }, 550);
+    every(matries, (m) => expect(m.toEqual([1, 0, 0, 0, 1, 0, 0, 0, 1])));
+
+    group.destroy();
+  });
+
+  it('doGroupAppearAnimate: repeat', async (done) => {
+    const group = canvas.addGroup();
+    group.addShape({
+      type: 'circle',
+      attrs: {
+        x: 150,
+        y: 150,
+        r: 50,
+        fill: 'red',
+      },
+    });
+
+    doGroupAppearAnimate(
+      group,
+      {
+        duration: 500,
+        easing: 'easeQuadOut',
+        repeat: true,
+      },
+      'interval',
+      polarCoord,
+      { x: 0, y: 400 }
+    );
+
+    /** 重复执行动画，必有一次不等 */
+    const matries = [];
+    const interval = setInterval(() => {
+      if (matries.length < 5) {
+        matries.push(group.attr('matrix'));
+      } else {
+        clearInterval(interval);
+        done();
+      }
+    }, 550);
+    some(matries, (m) => expect(m.not.toEqual([1, 0, 0, 0, 1, 0, 0, 0, 1])));
+
+    group.destroy();
   });
 
   afterEach(() => {
