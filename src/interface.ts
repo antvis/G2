@@ -1336,6 +1336,10 @@ export interface AxisGridCfg {
 /** 坐标轴配置属性，chart.axis() */
 export interface AxisCfg {
   /**
+   * 是否渲染在画布顶层，防止部分图形中，需要将 axis 显示在图形上面，避免被图形遮挡
+   */
+  top?: boolean;
+  /**
    * 适用于直角坐标系，设置坐标轴的位置。
    */
   position?: 'top' | 'bottom' | 'right' | 'left';
