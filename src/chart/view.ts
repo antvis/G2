@@ -60,6 +60,11 @@ import Annotation from './controller/annotation';
 import { Controller } from './controller/base';
 import CoordinateController from './controller/coordinate';
 import TooltipComponent from './controller/tooltip';
+import Slider from './controller/slider';
+import Scrollbar from './controller/scrollbar';
+import Axis from './controller/axis';
+import GestureController from './controller/gesture';
+import Legend from './controller/legend';
 import Event from './event';
 import defaultLayout, { Layout } from './layout';
 import { ScalePool } from './util/scale-pool';
@@ -553,7 +558,7 @@ export class View extends Base {
    * @returns [[Annotation]]
    */
   public annotation(): Annotation {
-    return this.getController('annotation') as Annotation;
+    return this.getController('annotation');
   }
 
   /**
@@ -1071,6 +1076,14 @@ export class View extends Base {
     }
   }
 
+  public getController(name: 'tooltip'): TooltipComponent;
+  public getController(name: 'axis'): Axis;
+  public getController(name: 'legend'): Legend;
+  public getController(name: 'scrollbar'): Scrollbar;
+  public getController(name: 'slider'): Slider;
+  public getController(name: 'annotation'): Annotation;
+  public getController(name: 'gestucre'): GestureController;
+  public getController(name: string): Controller;
   /**
    * 获取 name 对应的 controller 实例
    * @param name
@@ -1085,7 +1098,7 @@ export class View extends Base {
    * @returns View
    */
   public showTooltip(point: Point): View {
-    const tooltip = this.getController('tooltip') as TooltipComponent;
+    const tooltip = this.getController('tooltip');
     if (tooltip) {
       tooltip.showTooltip(point);
     }
@@ -1097,7 +1110,7 @@ export class View extends Base {
    * @returns View
    */
   public hideTooltip(): View {
-    const tooltip = this.getController('tooltip') as TooltipComponent;
+    const tooltip = this.getController('tooltip');
     if (tooltip) {
       tooltip.hideTooltip();
     }
@@ -1109,7 +1122,7 @@ export class View extends Base {
    * @returns View
    */
   public lockTooltip(): View {
-    const tooltip = this.getController('tooltip') as TooltipComponent;
+    const tooltip = this.getController('tooltip');
     if (tooltip) {
       tooltip.lockTooltip();
     }
@@ -1121,7 +1134,7 @@ export class View extends Base {
    * @returns View
    */
   public unlockTooltip(): View {
-    const tooltip = this.getController('tooltip') as TooltipComponent;
+    const tooltip = this.getController('tooltip');
     if (tooltip) {
       tooltip.unlockTooltip();
     }
@@ -1133,7 +1146,7 @@ export class View extends Base {
    * @returns 是否锁定
    */
   public isTooltipLocked() {
-    const tooltip = this.getController('tooltip') as TooltipComponent;
+    const tooltip = this.getController('tooltip');
     return tooltip && tooltip.isTooltipLocked();
   }
 
@@ -1143,7 +1156,7 @@ export class View extends Base {
    * @returns tooltip 数据项
    */
   public getTooltipItems(point: Point) {
-    const tooltip = this.getController('tooltip') as TooltipComponent;
+    const tooltip = this.getController('tooltip');
 
     return tooltip ? tooltip.getTooltipItems(point) : [];
   }
@@ -1949,7 +1962,7 @@ export class View extends Base {
     }
 
     // 设置 annotation
-    const annotationComponent = this.getController('annotation') as Annotation;
+    const annotationComponent = this.getController('annotation');
     for (let l = 0; l < annotations.length; l++) {
       const annotationOption = annotations[l];
       annotationComponent.annotation(annotationOption);
