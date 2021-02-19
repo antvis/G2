@@ -59,11 +59,11 @@ import { getComponentController, getComponentControllerNames } from './controlle
 import Annotation from './controller/annotation';
 import { Controller } from './controller/base';
 import CoordinateController from './controller/coordinate';
-import TooltipComponent from './controller/tooltip';
+import Tooltip from './controller/tooltip';
 import Slider from './controller/slider';
 import Scrollbar from './controller/scrollbar';
 import Axis from './controller/axis';
-import GestureController from './controller/gesture';
+import Gesture from './controller/gesture';
 import Legend from './controller/legend';
 import Event from './event';
 import defaultLayout, { Layout } from './layout';
@@ -1076,13 +1076,13 @@ export class View extends Base {
     }
   }
 
-  public getController(name: 'tooltip'): TooltipComponent;
+  public getController(name: 'tooltip'): Tooltip;
   public getController(name: 'axis'): Axis;
   public getController(name: 'legend'): Legend;
   public getController(name: 'scrollbar'): Scrollbar;
   public getController(name: 'slider'): Slider;
   public getController(name: 'annotation'): Annotation;
-  public getController(name: 'gestucre'): GestureController;
+  public getController(name: 'gestucre'): Gesture;
   public getController(name: string): Controller;
   /**
    * 获取 name 对应的 controller 实例
