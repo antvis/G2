@@ -48,7 +48,7 @@ class TooltipAction extends Action {
   public hide() {
     const view = this.context.view;
 
-    const tooltip = view.getController('tooltip') as Tooltip;
+    const tooltip = view.getController('tooltip');
     const { clientX, clientY } = this.context.event;
 
     // 如果已经 enterable + 已经在 tooltip 上，那么不隐藏

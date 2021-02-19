@@ -1,3 +1,17 @@
+#### 4.1.12 (2021-02-19)
+
+##### New Features
+
+* **typings:**  增强类型声明 ([fd18579e](https://github.com/antvis/g2/commit/fd18579eb4695cd03c1e574f98fd7c605892b23b))
+* **scrollbar:**  滚动条增加一个滚道激活样式配置 ([#3291](https://github.com/antvis/g2/pull/3291)) ([aed93a19](https://github.com/antvis/g2/commit/aed93a1969055a857befa70614f55e025c5b1b27))
+* **legend:** legend 增加 checked 单选交互 ([#3289](https://github.com/antvis/g2/pull/3289)) ([3a16db62](https://github.com/antvis/g2/commit/3a16db620672f5550f878e1d1db01a065b1d27f2))
+* **animation:**  动画添加重复执行参数 ([#3290](https://github.com/antvis/g2/pull/3290)) ([38585ac4](https://github.com/antvis/g2/commit/38585ac4dc16316876e2c10fa232b9dc16ecc28b))
+* **life-circle:**  view 生命周期事件触发，携带事件内容 ([#3288](https://github.com/antvis/g2/pull/3288)) ([657eb978](https://github.com/antvis/g2/commit/657eb978d3b08b7842320b557b4a91c74231b4ee))
+
+##### Bug Fixes
+
+*  cr 建议修改，统一变量命名 ([6b3f5b7b](https://github.com/antvis/g2/commit/6b3f5b7badd036efd2b5d60ead0cd5c50673277a))
+
 #### 4.1.11 (2021-02-10)
 
 ##### Documentation Changes
