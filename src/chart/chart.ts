@@ -116,9 +116,13 @@ export default class Chart extends View {
     }
 
     this.emit(VIEW_LIFE_CIRCLE.BEFORE_CHANGE_SIZE);
-
-    this.width = width;
-    this.height = height;
+    
+    if (width) {
+      this.width = width;
+    }
+    if (height) {
+      this.height = height;
+    }
     this.canvas.changeSize(width, height);
 
     // 重新渲染

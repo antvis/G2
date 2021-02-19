@@ -58,19 +58,32 @@ const QUALITATIVE_20 = [
   '#FFE0ED',
 ];
 
-export const createLightStyleSheet = (cfg: StyleSheetCfg = {}) => {
-  const {
-    backgroundColor = 'transparent',
-    paletteQualitative10 = QUALITATIVE_10,
-    paletteQualitative20 = QUALITATIVE_20,
-    paletteSemanticRed = '#F4664A',
-    paletteSemanticGreen = '#30BF78',
-    paletteSemanticYellow = '#FAAD14',
-    fontFamily = `"-apple-system", "Segoe UI", Roboto, "Helvetica Neue", Arial,
+const DEFAULT_STYLE_SHEET = {
+  backgroundColor: 'transparent',
+  paletteQualitative10: QUALITATIVE_10,
+  paletteQualitative20: QUALITATIVE_20,
+  paletteSemanticRed: '#F4664A',
+  paletteSemanticGreen: '#30BF78',
+  paletteSemanticYellow: '#FAAD14',
+  fontFamily: `"-apple-system", "Segoe UI", Roboto, "Helvetica Neue", Arial,
     "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
     "Noto Color Emoji"`,
+};
+
+export const createLightStyleSheet = (cfg: StyleSheetCfg) => {
+  const {
+    backgroundColor,
+    paletteQualitative10,
+    paletteQualitative20,
+    paletteSemanticRed,
+    paletteSemanticGreen,
+    paletteSemanticYellow,
+    fontFamily,
   } = cfg;
-  const { brandColor = paletteQualitative10[0] } = cfg;
+  let { brandColor } = cfg;
+  if (!brandColor && paletteQualitative10) {
+    brandColor = paletteQualitative10[0];
+  }
 
   return {
     /** 图表背景色 */
@@ -476,4 +489,4 @@ export const createLightStyleSheet = (cfg: StyleSheetCfg = {}) => {
   };
 };
 
-export const antvLight = createLightStyleSheet();
+export const antvLight = createLightStyleSheet(DEFAULT_STYLE_SHEET);
