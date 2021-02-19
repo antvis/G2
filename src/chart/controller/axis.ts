@@ -44,7 +44,9 @@ const AXIS_DEFAULT_ANIMATE_CFG = {
 export default class Axis extends Controller<Option> {
   /** the draw group of axis */
   private axisContainer: IGroup;
+  private axisForeContainer: IGroup;
   private gridContainer: IGroup;
+  private gridForeContainer: IGroup;
 
   /** 使用 object 存储组件 */
   private cache: Cache = new Map<string, ComponentOption>();
@@ -54,7 +56,9 @@ export default class Axis extends Controller<Option> {
 
     // 先创建 gridContainer，将 grid 放到 axis 底层
     this.gridContainer = this.view.getLayer(LAYER.BG).addGroup();
+    this.gridForeContainer = this.view.getLayer(LAYER.FORE).addGroup();
     this.axisContainer = this.view.getLayer(LAYER.BG).addGroup();
+    this.axisForeContainer = this.view.getLayer(LAYER.FORE).addGroup();
   }
 
   public get name(): string {
@@ -153,14 +157,18 @@ export default class Axis extends Controller<Option> {
 
     this.cache.clear();
     this.gridContainer.clear();
+    this.gridForeContainer.clear();
     this.axisContainer.clear();
+    this.axisForeContainer.clear();
   }
 
   public destroy() {
     super.destroy();
 
     this.gridContainer.remove(true);
+    this.gridForeContainer.remove(true);
     this.axisContainer.remove(true);
+    this.axisForeContainer.remove(true);
   }
 
   /**
@@ -524,7 +532,7 @@ export default class Axis extends Controller<Option> {
    * @return line axis cfg
    */
   private getLineAxisCfg(scale: Scale, axisOption: AxisCfg, direction: DIRECTION) {
-    const container = this.axisContainer;
+    const container = get(axisOption, ['top']) ? this.axisForeContainer : this.axisContainer;
     const coordinate = this.view.getCoordinate();
     const region = getAxisRegion(coordinate, direction);
     const titleText = getAxisTitleText(scale, axisOption);
@@ -588,7 +596,7 @@ export default class Axis extends Controller<Option> {
     // grid 动画以 axis 为准
     const gridCfg = deepMix(
       {
-        container: this.gridContainer,
+        container: get(axisOption, ['top']) ? this.gridForeContainer : this.gridContainer,
       },
       gridThemeCfg,
       get(axisOption, 'grid'),
@@ -607,7 +615,7 @@ export default class Axis extends Controller<Option> {
    * @return circle axis cfg
    */
   private getCircleAxisCfg(scale: Scale, axisOption: AxisCfg, direction: DIRECTION) {
-    const container = this.axisContainer;
+    const container = get(axisOption, ['top']) ? this.axisForeContainer : this.axisContainer;
     const coordinate = this.view.getCoordinate();
 
     const ticks = scale.getTicks().map((tick) => ({ id: `${tick.tickValue}`, name: tick.text, value: tick.value }));
@@ -663,7 +671,7 @@ export default class Axis extends Controller<Option> {
     const gridThemeCfg = getGridThemeCfg(this.view.getTheme(), DIRECTION.RADIUS);
     const gridCfg = deepMix(
       {
-        container: this.gridContainer,
+        container: get(axisOption, ['top']) ? this.gridForeContainer : this.gridContainer,
         center: this.view.getCoordinate().getCenter(),
       },
       gridThemeCfg,
