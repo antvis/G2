@@ -1499,6 +1499,8 @@ export interface ScrollbarCfg {
     trackColor?: string;
     /** 滑块颜色 */
     thumbColor?: string;
+    /** 滑块高亮样式，对应主题的 hover.style.thumbColor */
+    thumbHighlightColor?: string;
     // 是否圆角，'round'
     lineCap?: string;
   };
