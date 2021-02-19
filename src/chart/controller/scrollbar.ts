@@ -182,9 +182,10 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
    */
   private getScrollbarTheme(style?: ScrollbarCfg['style']) {
     const theme = get(this.view.getTheme(), ['components', 'scrollbar']);
+    const { thumbHighlightColor, ...restStyles } = style || {};
     return {
-      default: deepMix({}, get(theme, ['default', 'style'], {}), style),
-      hover: get(theme, ['hover', 'style'], {}),
+      default: deepMix({}, get(theme, ['default', 'style'], {}), restStyles),
+      hover: deepMix({}, get(theme, ['hover', 'style'], {}), { thumbColor: thumbHighlightColor }),
     };
   }
 
@@ -346,7 +347,7 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
       height: DEFAULT_SIZE,
       padding: [0, 0, 0, 0],
       animate: true,
-      style: {}
+      style: {},
     };
     if (isObject(this.option)) {
       cfg = { ...cfg, ...this.option };

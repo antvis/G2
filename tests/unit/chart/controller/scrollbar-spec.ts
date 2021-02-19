@@ -401,6 +401,7 @@ describe('scrollbar theme', () => {
       style: {
         trackColor: 'lightblue',
         thumbColor: 'lightgreen',
+        thumbHighlightColor: 'red',
       },
     });
     chart.render();
@@ -414,7 +415,7 @@ describe('scrollbar theme', () => {
     expect(thumb.attr('stroke')).toBe('lightgreen');
 
     thumb.emit('mouseover');
-    expect(thumb.attr('stroke')).toBe('yellow');
+    expect(thumb.attr('stroke')).toBe('red');
 
     chart.destroy();
   });
