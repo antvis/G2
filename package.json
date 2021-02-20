@@ -50,7 +50,7 @@
     "@antv/g-svg": "^0.5.0",
     "@antv/matrix-util": "^3.1.0-beta.1",
     "@antv/path-util": "^2.0.3",
-    "@antv/scale": "^0.3.7",
+    "@antv/scale": "^0.3.9",
     "@antv/util": "~2.0.5",
     "tslib": "^2.0.0"
   },

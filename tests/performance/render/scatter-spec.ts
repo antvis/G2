@@ -39,7 +39,7 @@ describe('benchmark of bigdata', () => {
     // @ts-ignore
     window.chart = chart;
     // 不知道怎么写断言
-    // 大概在我的电脑上，2w 数据点，350ms 内
+    // 大概在我的电脑上，4w 数据点，首次运行 ~500ms，多次运行 300ms 内
     // chart.destroy();
   });
 });
