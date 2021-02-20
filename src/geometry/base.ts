@@ -1802,7 +1802,7 @@ export default class Geometry extends Base {
 
       let nextShapePoints;
       // 反向遍历，用于生成每个点的 nextPoints，提升性能
-      for (let idx = source.length - 1; idx >= 0; idx --) {
+      for (let idx = source.length - 1; idx >= 0; idx--) {
         const currentData = source[idx];
         this.generateShapePoints(currentData);
 
@@ -1833,7 +1833,7 @@ export default class Geometry extends Base {
   // 将数据归一化
   private normalizeValues(values, scale) {
     if (isArray(values)) {
-      let rst = [];
+      const rst = [];
       for (let index = 0; index < values.length; index++) {
         const value = values[index];
         rst.push(scale.scale(value));
@@ -1855,20 +1855,22 @@ export default class Geometry extends Base {
         nextPoints: record.nextPoints,
       };
       for (const k in attributes) {
-        const attr = attributes[k];
-        const names = attr.names;
-        const values = this.getAttributeValues(attr, record);
-        if (names.length > 1) {
-          // position 之类的生成多个字段的属性
-          for (let j = 0; j < values.length; j += 1) {
-            const val = values[j];
-            const name = names[j];
-            newRecord[name] = isArray(val) && val.length === 1 ? val[0] : val; // 只有一个值时返回第一个属性值
+        if (attributes.hasOwnProperty(k)) {
+          const attr = attributes[k];
+          const names = attr.names;
+          const values = this.getAttributeValues(attr, record);
+          if (names.length > 1) {
+            // position 之类的生成多个字段的属性
+            for (let j = 0; j < values.length; j += 1) {
+              const val = values[j];
+              const name = names[j];
+              newRecord[name] = isArray(val) && val.length === 1 ? val[0] : val; // 只有一个值时返回第一个属性值
+            }
+          } else {
+            // values.length === 1 的判断是以下情况，获取用户设置的图形属性值
+            // shape('a', ['dot', 'dash']), color('a', ['red', 'yellow'])
+            newRecord[names[0]] = values.length === 1 ? values[0] : values;
           }
-        } else {
-          // values.length === 1 的判断是以下情况，获取用户设置的图形属性值
-          // shape('a', ['dot', 'dash']), color('a', ['red', 'yellow'])
-          newRecord[names[0]] = values.length === 1 ? values[0] : values;
         }
       }
 
