@@ -1,17 +1,16 @@
 /**
  * tooltip hover 的时候拾取性能性能很差，在 2000 条数据的时候，就已经卡的不行了。
  */
-import MV from 'mock-variable';
+import { M } from 'miz';
 import { Chart } from '../../../../src';
 import { createDiv } from '../../../util/dom';
 
-const DATA = MV.arrayOf(MV.shape({
-  value: MV.number(100, 110),
-  name: MV.string(8),
+const DATA = M.arrayOf(M.shape({
+  value: M.number(100, 110),
+  name: M.string(8),
 }), 20000).mock();
 
 describe('benchmark of tooltip', () => {
-
   it('pick', () => {
     const chart = new Chart({
       container: createDiv(),

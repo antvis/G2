@@ -1639,17 +1639,17 @@ export default class Geometry extends Base {
 
     const groupedArray = this.groupData(data); // 数据分组
     const beforeAdjust = [];
+    // for 循环性能高
     for (let i = 0, len = groupedArray.length; i < len; i++) {
       const subData = groupedArray[i];
       const arr = [];
       for (let j = 0, subLen = subData.length; j < subLen; j++) {
         const originData = subData[j];
-        const item = {};
-        // tslint:disable-next-line: forin
-        for (const k in originData) {
-          item[k] = originData[k];
-        }
-        item[FIELD_ORIGIN] = originData;
+        // 追加 FIELD_ORIGIN 键值
+        const item = {
+          ...originData,
+          [FIELD_ORIGIN]: originData,
+        };
 
         // 将分类数据翻译成数据, 仅对位置相关的度量进行数字化处理
         for (const scale of categoryScales) {
