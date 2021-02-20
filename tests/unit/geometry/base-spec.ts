@@ -604,7 +604,9 @@ describe('Geometry', () => {
       expect(elements.length).toBe(3);
 
       const elementsMap = geometry.elementsMap;
-      expect(elementsMap).toContainKeys(['二月-北京', '二月-南京', '三月-南京']);
+      ['二月-北京', '二月-南京', '三月-南京'].forEach(k => {
+        expect(elementsMap.has(k)).toBe(true);
+      });
 
       const xScale = geometry.getXScale();
       expect(xScale.values).toEqual(['二月', '三月']);
@@ -640,8 +642,8 @@ describe('Geometry', () => {
       expect(geometry.container.get('children').length).toBe(0);
       expect(geometry.attributes).toEqual({});
       expect(geometry.scales).toEqual({});
-      expect(geometry.elementsMap).toEqual({});
-      expect(geometry.lastElementsMap).toEqual({});
+      expect(geometry.elementsMap.size).toBe(0);
+      expect(geometry.lastElementsMap.size).toBe(0);
       expect(geometry.elements).toEqual([]);
     });
 

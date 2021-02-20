@@ -6,35 +6,31 @@ import { Chart } from '../../../src';
 import { createDiv } from '../../util/dom';
 
 const DATA = M.arrayOf(M.shape({
-  value: M.number(100, 110),
-  name: M.string(8),
-  type: M.constant('A')
-}), 50000).mock();
+  x: M.number(0, 1000),
+  y: M.number(0, 1000),
+}), 40000).mock();
 
 describe('benchmark of bigdata', () => {
-  it('pick', () => {
+  it('scatter', () => {
     const chart = new Chart({
       container: createDiv(),
       height: 400,
       autoFit: true,
     });
 
-    chart.scale('value', {
-      min: 0,
-      max: 150,
-    });
+    chart.animate(false);
 
     chart.data(DATA);
     chart
-      .line()
-      .position('name*value');
+      .point()
+      .position('x*y');
 
     const div = createDiv();
 
     function onclick() {
-      console.time('render');
+      console.time('render scatter');
       chart.render();
-      console.timeEnd('render');
+      console.timeEnd('render scatter');
     }
 
     div.innerHTML = `<button>click to render</button>`;
@@ -43,7 +39,7 @@ describe('benchmark of bigdata', () => {
     // @ts-ignore
     window.chart = chart;
     // 不知道怎么写断言
-    // 大概在我的电脑上，5w 数据点，350ms 内
+    // 大概在我的电脑上，2w 数据点，350ms 内
     // chart.destroy();
   });
 });

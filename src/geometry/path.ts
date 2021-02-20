@@ -46,7 +46,7 @@ export default class Path extends Geometry {
     const elementId = this.getElementId(mappingData);
     const shapeCfg = this.getShapeInfo(mappingData);
 
-    let result = lastElementsMap[elementId];
+    let result = lastElementsMap.get(elementId);
     if (!result) {
       const shapeFactory = this.getShapeFactory();
 
@@ -66,11 +66,12 @@ export default class Path extends Geometry {
         // 通过绘制数据的变更来判断是否需要更新，因为用户有可能会修改图形属性映射
         result.update(shapeCfg); // 更新对应的 element
       }
-      delete lastElementsMap[elementId];
+
+      this.lastElementsMap.delete(elementId);
     }
 
     elements.push(result);
-    elementsMap[elementId] = result;
+    elementsMap.set(elementId, result);
 
     return elements;
   }

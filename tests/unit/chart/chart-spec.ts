@@ -85,7 +85,7 @@ describe('Chart', () => {
 
   it('element id', () => {
     const elementsMap = chart.geometries[0].elementsMap;
-    expect(elementsMap).toContainAllKeys([
+    [
       '杭州-100',
       '广州-30',
       '上海-110',
@@ -94,7 +94,9 @@ describe('Chart', () => {
       '广州-90',
       '上海-200',
       '呼和浩特-10',
-    ]);
+    ].forEach(k => {
+      expect(elementsMap.has(k)).toBe(true);
+    })
   });
 
   it('show()', () => {
@@ -133,7 +135,8 @@ describe('Chart', () => {
     });
 
     const elementsMap = chart.geometries[0].elementsMap;
-    expect(elementsMap).toContainAllKeys([
+
+    [
       '杭州-100',
       '广州-30',
       '上海-110',
@@ -142,7 +145,9 @@ describe('Chart', () => {
       '广州-90',
       '上海-200',
       '呼和浩特-10',
-    ]);
+    ].forEach(k => {
+      expect(elementsMap.has(k)).toBe(true);
+    })
   });
 
   it('changeVisible', () => {
