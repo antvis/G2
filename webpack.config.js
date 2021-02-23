@@ -4,7 +4,8 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 module.exports = {
   entry: {
-    g2: './src/index.ts',
+    g2: ['@babel/polyfill', './src/index.ts'],
+    // g2: './src/index.ts'
   },
   output: {
     filename: '[name].min.js',
@@ -15,18 +16,23 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.ts$/,
-        use: {
-          loader: 'ts-loader',
-          options: {
-            transpileOnly: true,
+        test: /\.(js|ts)$/,
+        use: [
+          {
+            loader: 'babel-loader',
           },
-        },
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+            },
+          },
+        ],
       },
     ],
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.ts', '.js'],
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
