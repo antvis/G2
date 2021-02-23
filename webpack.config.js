@@ -4,8 +4,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 module.exports = {
   entry: {
-    g2: ['@babel/polyfill', './src/index.ts'],
-    // g2: './src/index.ts'
+    g2: './src/index.ts',
   },
   output: {
     filename: '[name].min.js',
