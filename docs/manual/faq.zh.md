@@ -195,4 +195,4 @@ var chart = new G2.Chart({
 ```
 ### NPM
 
-使用 npm 模式，如果出现兼容性问题请结合 babel 和 @babel/polyfill 使用，参考 G2 [.babelrc](https://github.com/antvis/G2/blob/master/.babelrc) 和 [webpack.config](https://github.com/antvis/G2/blob/master/webpack.config.js)，更多问题欢迎进群质询。
+使用 npm 模式，如果出现兼容性问题请结合 babel 和 @babel/polyfill 使用，参考 G2 [.babelrc](https://github.com/antvis/G2/blob/master/.babelrc) 和 [webpack.config](https://github.com/antvis/G2/blob/master/webpack.config.js)，更多问题欢迎进群交流。
