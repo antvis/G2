@@ -444,7 +444,7 @@ export default class GeometryLabel {
   private getGeometryShapes() {
     const geometry = this.geometry;
     const shapes = {};
-    each(geometry.elementsMap, (element: Element, id: string) => {
+    geometry.elementsMap.forEach((element: Element, id: string) => {
       shapes[id] = element.shape;
     });
     // 因为有可能 shape 还在进行动画，导致 shape.getBBox() 获取到的值不是最终态，所以需要从 offscreenGroup 获取

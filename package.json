@@ -50,7 +50,7 @@
     "@antv/g-svg": "^0.5.0",
     "@antv/matrix-util": "^3.1.0-beta.1",
     "@antv/path-util": "^2.0.3",
-    "@antv/scale": "^0.3.7",
+    "@antv/scale": "^0.3.9",
     "@antv/util": "~2.0.5",
     "tslib": "^2.0.0"
   },
@@ -71,7 +71,7 @@
     "lint-md-cli": "^0.1.2",
     "lint-staged": "^10.2.2",
     "lodash": "^4.17.15",
-    "mock-variable": "^0.0.2",
+    "miz": "^1.0.1",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.5",
     "react-i18next": "^11.1.0",

@@ -213,7 +213,7 @@ export default class Geometry extends Base {
   /** 状态量相关的配置项 */
   public stateOption: StateOption;
   /** 使用 key-value 结构存储 Element，key 为每个 Element 实例对应的唯一 ID */
-  public elementsMap: Record<string, Element> = {};
+  public elementsMap = new Map<string, Element>();
   /** animate 配置项 */
   public animateOption: AnimateOption | boolean = true;
   /** 图形属性映射配置 */
@@ -227,7 +227,7 @@ export default class Geometry extends Base {
   /** 每个 Geometry 对应的 Shape 工厂实例，用于创建各个 Shape */
   protected shapeFactory: ShapeFactory;
   /** 存储上一次渲染时的 element 映射表，用于更新逻辑 */
-  protected lastElementsMap: Record<string, Element> = {};
+  protected lastElementsMap = new Map<string, Element>();
   /** 是否生成多个点来绘制图形。 */
   protected generatePoints: boolean = false;
   /** 存储发生图形属性映射前的数据 */
@@ -926,7 +926,7 @@ export default class Geometry extends Base {
 
     this.defaultSize = undefined;
     this.elements = [];
-    this.elementsMap = {};
+    this.elementsMap = new Map();
     const offscreenGroup = this.getOffscreenGroup();
     offscreenGroup.clear();
 
@@ -963,7 +963,7 @@ export default class Geometry extends Base {
     this.dataArray = mappingArray;
 
     // 销毁被删除的 elements
-    each(this.lastElementsMap, (deletedElement: Element) => {
+    this.lastElementsMap.forEach((deletedElement: Element) => {
       // 更新动画配置，用户有可能在更新之前有对动画进行配置操作
       deletedElement.animate = this.animateOption;
       deletedElement.destroy();
@@ -1004,8 +1004,8 @@ export default class Geometry extends Base {
     this.scaleDefs = undefined;
     this.attributes = {};
     this.scales = {};
-    this.elementsMap = {};
-    this.lastElementsMap = {};
+    this.elementsMap = new Map();
+    this.lastElementsMap = new Map();
     this.elements = [];
     this.adjusts = {};
     this.dataArray = null;
@@ -1172,12 +1172,7 @@ export default class Geometry extends Base {
     const xField = xScale.field || 'x';
     const yField = yScale.field || 'y';
     const yVal = originData[yField];
-    let xVal;
-    if (xScale.type === 'identity') {
-      xVal = xScale.values[0];
-    } else {
-      xVal = originData[xField];
-    }
+    const xVal = xScale.isIdentity ? xScale.values[0] : originData[xField];
 
     let id: string;
     if (type === 'interval' || type === 'schema') {
@@ -1465,12 +1460,12 @@ export default class Geometry extends Base {
     for (let subIndex = 0, length = mappingData.length; subIndex < length; subIndex++) {
       const mappingDatum = mappingData[subIndex];
       let id = this.getElementId(mappingDatum);
-      if (elementsMap[id]) {
+      if (elementsMap.has(id)) {
         // 存在重复数据，则根据再根据 index 进行区分
         id = `${id}-${index}-${subIndex}`;
       }
 
-      let result = lastElementsMap[id];
+      let result = lastElementsMap.get(id);
       if (!result) {
         // 创建新的 element
         result = this.createElement(mappingDatum, isUpdate);
@@ -1484,11 +1479,11 @@ export default class Geometry extends Base {
           result.update(currentShapeCfg); // 更新对应的 element
         }
 
-        delete lastElementsMap[id];
+        this.lastElementsMap.delete(id);
       }
 
       elements.push(result);
-      elementsMap[id] = result;
+      elementsMap.set(id, result);
     }
 
     // 对 elements 的 zIndex 进行反序
@@ -1639,17 +1634,17 @@ export default class Geometry extends Base {
 
     const groupedArray = this.groupData(data); // 数据分组
     const beforeAdjust = [];
+    // for 循环性能高
     for (let i = 0, len = groupedArray.length; i < len; i++) {
       const subData = groupedArray[i];
       const arr = [];
       for (let j = 0, subLen = subData.length; j < subLen; j++) {
         const originData = subData[j];
-        const item = {};
-        // tslint:disable-next-line: forin
-        for (const k in originData) {
-          item[k] = originData[k];
-        }
-        item[FIELD_ORIGIN] = originData;
+        // 追加 FIELD_ORIGIN 键值
+        const item = {
+          ...originData,
+          [FIELD_ORIGIN]: originData,
+        };
 
         // 将分类数据翻译成数据, 仅对位置相关的度量进行数字化处理
         for (const scale of categoryScales) {
@@ -1804,14 +1799,18 @@ export default class Geometry extends Base {
     }
     if (this.generatePoints) {
       // 需要生成关键点
-      for (let index = 0, length = source.length; index < length; index++) {
-        const currentData = source[index];
+
+      let nextShapePoints;
+      // 反向遍历，用于生成每个点的 nextPoints，提升性能
+      for (let idx = source.length - 1; idx >= 0; idx--) {
+        const currentData = source[idx];
         this.generateShapePoints(currentData);
-        const nextData = source[index + 1];
-        if (nextData) {
-          this.generateShapePoints(nextData);
-          currentData[0].nextPoints = nextData[0].points;
+
+        if (nextShapePoints) {
+          currentData[0].nextPoints = nextShapePoints;
         }
+        // 保存当前的，作为下一个点的 nextPoints
+        nextShapePoints = currentData[0].points;
       }
     }
 
@@ -1833,26 +1832,25 @@ export default class Geometry extends Base {
 
   // 将数据归一化
   private normalizeValues(values, scale) {
-    let rst = [];
     if (isArray(values)) {
+      const rst = [];
       for (let index = 0; index < values.length; index++) {
         const value = values[index];
         rst.push(scale.scale(value));
       }
-    } else {
-      rst = scale.scale(values);
+      return rst;
     }
-    return rst;
+    return scale.scale(values);
   }
 
-  // 将数据映射至图形空间
+  // 将每个分组的数据映射至图形空间
   private mapping(data: Data): MappingDatum[] {
     const attributes = this.attributes;
     const mappingData = [];
     for (let index = 0; index < data.length; index++) {
       const record = data[index];
       const newRecord: MappingDatum = {
-        _origin: record[FIELD_ORIGIN],
+        [FIELD_ORIGIN]: record[FIELD_ORIGIN],
         points: record.points,
         nextPoints: record.nextPoints,
       };
@@ -2001,7 +1999,8 @@ export default class Geometry extends Base {
 
     // 将 label 同 element 进行关联
     const labelsMap = geometryLabel.labelsRenderer.shapesMap;
-    each(this.elementsMap, (element: Element, id) => {
+
+    this.elementsMap.forEach((element: Element, id: string) => {
       const labels = filterLabelsById(id, labelsMap); // element 实例同 label 进行绑定
       if (labels.length) {
         element.labelShape = labels;

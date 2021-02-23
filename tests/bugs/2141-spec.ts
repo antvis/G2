@@ -33,7 +33,9 @@ describe('#2141', () => {
   it('render, id uniq', () => {
     // 保证数据同 element 的条数对应
     expect(interval.elements.length).toBe(data.length);
-    expect(interval.elementsMap).toContainAllKeys(['1', '1-0-1', '1-0-2', '1-0-3', '1-0-4']);
+    ['1', '1-0-1', '1-0-2', '1-0-3', '1-0-4'].forEach(k => {
+      expect(interval.elementsMap.has(k)).toBe(true);
+    });
   });
 
   it('update', () => {
@@ -49,6 +51,8 @@ describe('#2141', () => {
 
     expect(interval.elements.length).toBe(newData.length);
     expect(interval.elements[1].getData()).toEqual({ item: '事例二', count: 21, percent: 0.11 });
-    expect(interval.elementsMap).toContainAllKeys(['1', '1-0-1', '1-0-2', '1-0-3', '1-0-4', '1-0-5']);
+    ['1', '1-0-1', '1-0-2', '1-0-3', '1-0-4', '1-0-5'].forEach(k => {
+      expect(interval.elementsMap.has(k)).toBe(true);
+    });
   });
 });

@@ -719,7 +719,7 @@ export default class Tooltip extends Controller<TooltipOption> {
         const record = findDataByPoint(point, data, geometry);
         if (record) {
           const elementId = geometry.getElementId(record);
-          const element = geometry.elementsMap[elementId];
+          const element = geometry.elementsMap.get(elementId);
           if (geometry.type === 'heatmap' || element.visible) {
             // Heatmap 没有 Element
             // 如果图形元素隐藏了，怎不再 tooltip 上展示相关数据
