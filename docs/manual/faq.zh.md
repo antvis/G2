@@ -171,8 +171,28 @@ G2 4.0 支持的 legend marker 标记类型(symbol)有：`"circle" | "square" | 
 
 ## 浏览器兼容性
 
-> 由于条件限制，版本下限仅供参考，并不意味着不能支持更低版本，该测试在 CDN 模式下测试完成。业务层使用时大多使用 npm 的模式，如果出现兼容性问题请结合 babel 和 @babel/polyfill 使用，参考 G2 [.babelrc](https://github.com/antvis/G2/blob/master/.babelrc) 和 [webpack.config](https://github.com/antvis/G2/blob/master/webpack.config.js)，更多问题欢迎进群质询。
+> 由于条件限制，版本下限仅供参考，并不意味着不能支持更低版本，该测试在 CDN 模式下测试完成。
 
 |  | Chrome | Edge | Firefox | IE | Opera | Safari | UC | 360 极速浏览器 | 360 安全浏览器 |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **G2** | 40 | 12 | 85 | 10 | 40 | 14 | 6.2 | 12 | 7.3 |
+| **G2** | 40 | 12 | 85 | 9 | 40 | 14 | 6.2 | 12 | 7.3 |
+
+### CDN 下使用
+
+head 里面引入如下 js , 各图表挂载全局 G2 上，npm i @babel/polyfill -D 之后可以在 node_modules/@babel/polyfill/dist 下获取 polyfill.min.js，也可以通过其它渠道。
+
+```ts
+<script src="./polyfill.min.js"></script> // 非必需
+<script src="https://unpkg.com/@antv/g2@latest/dist/g2.min.js"></script>
+
+// chart.js
+var chart = new G2.Chart({
+   container: 'container',
+   autoFit: true,
+   height: 500,
+   padding: [50, 20, 50, 20]
+});
+```
+### NPM
+
+使用 npm 模式，如果出现兼容性问题请结合 babel 和 @babel/polyfill 使用，参考 G2 [.babelrc](https://github.com/antvis/G2/blob/master/.babelrc) 和 [webpack.config](https://github.com/antvis/G2/blob/master/webpack.config.js)，更多问题欢迎进群质询。
