@@ -46,7 +46,7 @@ chart.off('eventName', callback);     // 移除事件
 
 - 柱形图的柱子被 click 的时候
 - 图例的某一项被 hover 的时候
-- 坐标轴的标签被 dbclick 的时候
+- 坐标轴的标签被 dblclick 的时候
 - ...
 
 这种情况我们就可以使用 G2 的组合事件，G2 的组合事件规则为：`组件名:基础事件名`。
@@ -59,7 +59,7 @@ ${componentName}:${eventName}
 
 - element:click
 - legend-item:mouseover
-- axis-label:dbclick
+- axis-label:dblclick
 - ...
 
 > G2 内置的组件中，componentName 的分类很细，可以以下面的一个图进行大概说明。
