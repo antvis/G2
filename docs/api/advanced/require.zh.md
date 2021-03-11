@@ -25,7 +25,7 @@ order: 6
 
 - **ComponentPlugin**
 
-通过 [registerComponentPlugin](https://www.yuque.com/antv/g2-docs/qw7hzb) 的方式 load 组件及其 Controller。可以分成为 axis、legend、tooltip、annotation 等多个。
+通过 [registerComponentController](https://www.yuque.com/antv/g2-docs/qw7hzb) 的方式 load 组件及其 Controller。可以分成为 axis、legend、tooltip、annotation 等多个。
 
 - **Theme**
 
@@ -61,17 +61,17 @@ order: 6
 
 ```typescript
 // 使用 G2/core 壳子
-import { Chart, registerGeometry, registerComponentPlugin, registerCanvas } from '@antv/g2/lib/core';
+import { Chart, registerGeometry, registerComponentController, registerEngine } from '@antv/g2/lib/core';
 import Line from '@antv/g2/lib/geometry/line';
-import Axis from '@antv/g2/lib/component/axis';
-import Tooltip from '@antv/g2/lib/component/tooltip';
-import G from '@antv/g-canvas';
+import Axis from '@antv/g2/lib/chart/controller/axis';
+import Tooltip from '@antv/g2/lib/chart/controller/tooltip';
+import * as CanvasEngine from '@antv/g-canvas';
 
 // 按需注入
-registerEngine('canvas', G);
+registerEngine('canvas', CanvasEngine);
 registerGeometry('line', Line);
-registerComponentPlugin('axis', Axis);
-registerComponentPlugin('tooltip', Tooltip);
+registerComponentController('axis', Axis);
+registerComponentController('tooltip', Tooltip);
 
 // 创建折线图，后面的代码没有任何区别
 const chart = new Chart({
