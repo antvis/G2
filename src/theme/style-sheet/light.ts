@@ -183,6 +183,22 @@ export const createLightStyleSheet = (cfg: StyleSheetCfg = {}) => {
     /** 垂直布局的图例与绘图区域偏移距离 */
     legendVerticalPadding: [0, 8, 0, 8],
 
+    // 图例分页器
+    /** 图例分页器 marker 大小 */
+    legendPageNavigatorMarkerSize: 12,
+    /** 图例分页器 marker 非激活状态填充色 */
+    legendPageNavigatorMarkerInactiveFillColor: BLACK_COLORS[100],
+    /** 图例分页器 marker 非激活状态填充色透明度 */
+    legendPageNavigatorMarkerInactiveFillOpacity: 0.45,
+    /** 图例分页器 marker 填充色 */
+    legendPageNavigatorMarkerFillColor: BLACK_COLORS[100],
+    /** 图例分页器 marker 填充色透明度 */
+    legendPageNavigatorMarkerFillOpacity: 1,
+    /** 图例分页器文本颜色 */
+    legendPageNavigatorTextFillColor: BLACK_COLORS[45],
+    /** 图例分页器文本字体大小 */
+    legendPageNavigatorTextFontSize: 12,
+
     /** 连续图例滑块填充色 */
     sliderRailFillColor: BLACK_COLORS[15],
     /** 连续图例滑块边框粗细 */

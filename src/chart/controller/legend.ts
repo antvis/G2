@@ -469,6 +469,8 @@ export default class Legend extends Controller<AllLegendsOptions> {
     const themeMarker = get(this.view.getTheme(), ['components', 'legend', direction, 'marker']);
     const userMarker = get(legendOption, 'marker');
     const layout = getLegendLayout(direction);
+    const themePageNavigator = get(this.view.getTheme(), ['components', 'legend', direction, 'pageNavigator']);
+    const userPageNavigator = get(legendOption, 'pageNavigator');
 
     const items = custom
       ? getCustomLegendItems(themeMarker, userMarker, legendOption.items)
@@ -490,6 +492,7 @@ export default class Legend extends Controller<AllLegendsOptions> {
     baseCfg.items = items;
     baseCfg.title = title;
     baseCfg.animateOption = DEFAULT_ANIMATE_CFG;
+    baseCfg.pageNavigator = deepMix({}, themePageNavigator, userPageNavigator);
 
     const categoryCfg = this.mergeLegendCfg(baseCfg, legendOption, direction);
     if (categoryCfg.reversed) {
