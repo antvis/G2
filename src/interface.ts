@@ -1910,7 +1910,7 @@ export interface StyleSheet {
   /** 图例分页器文本颜色 */
   legendPageNavigatorTextFillColor: string;
   /** 图例分页器文本字体大小 */
-  legendPageNavigatorTextFontSize: string;
+  legendPageNavigatorTextFontSize: number;
 
   /** 连续图例滑块填充色 */
   sliderRailFillColor?: string;
