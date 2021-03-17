@@ -40,7 +40,7 @@ function getArcStartPoint(path: PathCommand) {
   let startPoint;
   if (path[0] === 'M' || path[0] === 'L') {
     startPoint = [path[1], path[2]];
-  } else if (path[0] === 'a' || path[0] === 'A') {
+  } else if (path[0] === 'a' || path[0] === 'A' || path[0] === 'C') {
     startPoint = [path[path.length - 2], path[path.length - 1]];
   }
 
