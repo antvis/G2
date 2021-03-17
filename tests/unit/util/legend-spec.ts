@@ -117,12 +117,12 @@ describe('util legend', () => {
   });
   it('legend selected', () => {
     const data = [
-      { city: '杭州', value: 654, type: 't1' },
-      { city: '上海', value: 4400, type: 't1' },
-      { city: '深圳', value: 5300, type: 't1' },
-      { city: '杭州', value: 1654, type: 't2' },
-      { city: '上海', value: 400, type: 't2' },
-      { city: '深圳', value: 2300, type: 't2' },
+      { city: '杭州', value: 1654, type: 'year' },
+      { city: '杭州', value: 654, type: 'month' },
+      { city: '上海', value: 4400, type: 'year' },
+      { city: '上海', value: 400, type: 'month' },
+      { city: '深圳', value: 5300, type: 'year' },
+      { city: '深圳', value: 2300, type: 'month' },
     ];
     const chart = new Chart({
       container: createDiv(),
@@ -131,8 +131,8 @@ describe('util legend', () => {
     chart.interval().position('city*value').color('type', ['green', 'yellow']).adjust('stack');
     chart.legend('type', {
       selected: {
-        t1: true,
-        t2: false,
+        year: true,
+        month: false,
       },
     });
     chart.render();
