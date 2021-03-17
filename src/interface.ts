@@ -1126,6 +1126,12 @@ export interface LegendCfg {
   offsetY?: number;
   /** 图例在四个方向的偏移量 */
   padding?: number[];
+  /**
+   * 图例高亮状态，false 表示默认置灰，无或 true 表示高亮
+   */
+  selected?: {
+    [key: string]: boolean;
+  };
 }
 
 /**

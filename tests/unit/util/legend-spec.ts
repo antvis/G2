@@ -115,4 +115,37 @@ describe('util legend', () => {
     expect(items[0].marker.style.stroke).toBe('red');
     expect(items[0].marker.style.lineWidth).toBe(4);
   });
+  it('legend selected', () => {
+    const data = [
+      { city: '杭州', value: 654, type: 't1' },
+      { city: '上海', value: 4400, type: 't1' },
+      { city: '深圳', value: 5300, type: 't1' },
+      { city: '杭州', value: 1654, type: 't2' },
+      { city: '上海', value: 400, type: 't2' },
+      { city: '深圳', value: 2300, type: 't2' },
+    ];
+    const chart = new Chart({
+      container: createDiv(),
+    });
+    chart.data(data);
+    chart.interval().position('city*value').color('type', ['green', 'yellow']).adjust('stack');
+    chart.legend('type', {
+      selected: {
+        t1: true,
+        t2: false,
+      },
+    });
+    chart.render();
+    const geometry = chart.geometries[0];
+    const { filters } = chart.getOptions();
+    const attr = geometry.getGroupAttributes()[0];
+    let items = getLegendItems(chart, geometry, attr, {}, {});
+    expect(filters.type).toBeDefined();
+    expect(items.length).toBe(2);
+    expect(items[0].unchecked).toBeFalsy();
+    expect(items[0].marker.style.fill).toBe('green');
+    expect(items[1].unchecked).toBeTruthy();
+    expect(items[1].marker.style.fill).toBe('yellow');
+    expect(chart.getData().length).toBe(3);
+  });
 });

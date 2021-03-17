@@ -18,6 +18,7 @@ import {
   size,
   uniqueId,
   isEqual,
+  isPlainObject,
 } from '@antv/util';
 import { Attribute, Coordinate, Event as GEvent, GroupComponent, ICanvas, IGroup, IShape, Scale } from '../dependents';
 import {
@@ -472,6 +473,11 @@ export class View extends Base {
       set(this.options, ['legends'], field);
     } else if (isString(field)) {
       set(this.options, ['legends', field], legendOption);
+      if (isPlainObject(legendOption) && legendOption?.selected) {
+        set(this.options, ['filters', field], (name: string) => {
+          return legendOption?.selected[name] ?? true;
+        });
+      }
     } else {
       // 设置全局的 legend 配置
       set(this.options, ['legends'], field);
