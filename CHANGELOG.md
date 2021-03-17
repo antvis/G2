@@ -1,3 +1,19 @@
+#### 4.1.13 (2021-03-17)
+
+##### Documentation Changes
+
+*  update old code in docs ([#3320](https://github.com/antvis/g2/pull/3320)) ([7a30d48b](https://github.com/antvis/g2/commit/7a30d48b1c7f5a135d855d4b47ef8e3d292738d2))
+* **typo:**  dblclick, not dbclick ([#3308](https://github.com/antvis/g2/pull/3308)) ([8f557d6b](https://github.com/antvis/g2/commit/8f557d6ba242d81a971f61172a093b1f0a4ea42f))
+
+##### New Features
+
+*  单 view 支持默认图例选中 ([#3327](https://github.com/antvis/g2/pull/3327)) ([6aa4000b](https://github.com/antvis/g2/commit/6aa4000ba095330e279e6202ab167acd21e9114a))
+* **legend:**  图例支持配置分页器的主题样式 ([#3324](https://github.com/antvis/g2/pull/3324)) ([74afc606](https://github.com/antvis/g2/commit/74afc6062b14d1731bf5ae766968fca1f7b705f1))
+
+##### Bug Fixes
+
+*  getArcStartPoint function support path C ([#3213](https://github.com/antvis/g2/pull/3213)) ([#3300](https://github.com/antvis/g2/pull/3300)) ([0d68ee0d](https://github.com/antvis/g2/commit/0d68ee0dbcdd5c10c8d6f155ca60d6f49802295d))
+
 #### 4.1.12 (2021-02-19)
 
 ##### New Features
